@@ -2833,16 +2833,16 @@ void __54__HPSUISpatialProfileEnrollmentController_moveToStep___block_invoke_3_5
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __70__HPSUISpatialProfileEnrollmentController_bluetoothDidBecomeAvailable__block_invoke(uint64_t result)
+void *__70__HPSUISpatialProfileEnrollmentController_bluetoothDidBecomeAvailable__block_invoke(void *result)
 {
   v9 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 1232) == 1)
+  if (*(result[4] + 1232) == 1)
   {
     v1 = result;
     v2 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(v1 + 32);
+      v3 = v1[4];
       v4 = *(v3 + 1318);
       v5 = [*(v3 + 1416) available];
       v6[0] = 67109376;
@@ -2852,7 +2852,7 @@ uint64_t __70__HPSUISpatialProfileEnrollmentController_bluetoothDidBecomeAvailab
       _os_log_impl(&dword_1AC1C3000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: bluetoothDidBecomeAvailable -> stopWelcomeSpinner, _enrollmentReady %d [_btManager available] %d", v6, 0xEu);
     }
 
-    return [*(v1 + 32) stopWelcomeSpinner];
+    return [v1[4] stopWelcomeSpinner];
   }
 
   return result;
@@ -3934,7 +3934,7 @@ uint64_t __67__HPSUISpatialProfileEnrollmentController_continueOcclusionWarning_
 
 - (void)didReceiveStateUpdateForSession:(id)session stateInfo:(id)info
 {
-  v228 = *MEMORY[0x1E69E9840];
+  v229 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   infoCopy = info;
   v8 = MEMORY[0x1E69A2AC0];
@@ -3962,7 +3962,7 @@ uint64_t __67__HPSUISpatialProfileEnrollmentController_continueOcclusionWarning_
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v202 = v17;
+        v203 = v17;
         _os_log_impl(&dword_1AC1C3000, v18, OS_LOG_TYPE_DEFAULT, "Spatial Profile: didReceiveStateUpdateForSession  ERROR: %@ ", buf, 0xCu);
       }
 
@@ -3985,7 +3985,7 @@ uint64_t __67__HPSUISpatialProfileEnrollmentController_continueOcclusionWarning_
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v202 = *&v13;
+      v203 = *&v13;
       _os_log_impl(&dword_1AC1C3000, v20, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Frame Rate : Update Session %lu", buf, 0xCu);
     }
 
@@ -4026,21 +4026,21 @@ uint64_t __67__HPSUISpatialProfileEnrollmentController_continueOcclusionWarning_
     {
       if (v13 == 4)
       {
-        v67 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+        v68 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1AC1C3000, v67, OS_LOG_TYPE_DEFAULT, "Spatial Profile: State Update: Retrieve Profile", buf, 2u);
+          _os_log_impl(&dword_1AC1C3000, v68, OS_LOG_TYPE_DEFAULT, "Spatial Profile: State Update: Retrieve Profile", buf, 2u);
         }
 
         currentStep = self->_currentStep;
         if (currentStep == 9 || currentStep == 5)
         {
-          v69 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+          v70 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+          if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1AC1C3000, v69, OS_LOG_TYPE_DEFAULT, "Spatial Profile: detected Post Process when in  Tutorial View, Pivot to next step. ", buf, 2u);
+            _os_log_impl(&dword_1AC1C3000, v70, OS_LOG_TYPE_DEFAULT, "Spatial Profile: detected Post Process when in  Tutorial View, Pivot to next step. ", buf, 2u);
           }
 
           [(HPSUISpatialProfileEnrollmentController *)self continueButtonTapped];
@@ -4063,8 +4063,8 @@ uint64_t __67__HPSUISpatialProfileEnrollmentController_continueOcclusionWarning_
 
       else if (v13 == 5)
       {
-        v43 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        v44 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           [HPSUISpatialProfileEnrollmentController didReceiveStateUpdateForSession:stateInfo:];
         }
@@ -4082,20 +4082,20 @@ uint64_t __67__HPSUISpatialProfileEnrollmentController_continueOcclusionWarning_
     }
 
     [(HPSUISpatialProfileAnalytics *)self->_enrollmentAnalytics updateSoundProfileCreationDurationStart];
-    v48 = self->_currentStep;
-    if (v48 <= 11 && (v48 == 9 || v48 == 5))
+    v49 = self->_currentStep;
+    if (v49 <= 11 && (v49 == 9 || v49 == 5))
     {
-      v49 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+      v50 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1AC1C3000, v49, OS_LOG_TYPE_DEFAULT, "Spatial Profile: detected Post Process when in  Tutorial View, Pivot to next step. ", buf, 2u);
+        _os_log_impl(&dword_1AC1C3000, v50, OS_LOG_TYPE_DEFAULT, "Spatial Profile: detected Post Process when in  Tutorial View, Pivot to next step. ", buf, 2u);
       }
 
-      v50 = self->_currentStep;
-      if (v50 != 12)
+      v51 = self->_currentStep;
+      if (v51 != 12)
       {
-        if (v50 <= 10)
+        if (v51 <= 10)
         {
           [(HPSUISpatialProfileEnrollmentController *)self moveToStep:11];
         }
@@ -4104,15 +4104,15 @@ uint64_t __67__HPSUISpatialProfileEnrollmentController_continueOcclusionWarning_
       }
     }
 
-    v44 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    v45 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
-      v51 = self->_currentStep;
+      v52 = self->_currentStep;
       *buf = 67109120;
-      LODWORD(v202) = v51;
-      v45 = "Spatial Profile: State Update: Post Process : %d";
-      v46 = v44;
-      v47 = 8;
+      LODWORD(v203) = v52;
+      v46 = "Spatial Profile: State Update: Post Process : %d";
+      v47 = v45;
+      v48 = 8;
       goto LABEL_51;
     }
 
@@ -4123,15 +4123,15 @@ LABEL_52:
 
   if (*&v13 == 0.0)
   {
-    v44 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    v45 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v45 = "Spatial Profile: State Update: Idle";
-      v46 = v44;
-      v47 = 2;
+      v46 = "Spatial Profile: State Update: Idle";
+      v47 = v45;
+      v48 = 2;
 LABEL_51:
-      _os_log_impl(&dword_1AC1C3000, v46, OS_LOG_TYPE_DEFAULT, v45, buf, v47);
+      _os_log_impl(&dword_1AC1C3000, v47, OS_LOG_TYPE_DEFAULT, v46, buf, v48);
       goto LABEL_52;
     }
 
@@ -4154,17 +4154,17 @@ LABEL_51:
     v35 = v34;
     v37 = v36;
     v39 = v38;
-    [(HPSUISpatialProfileEnrollmentController *)self updateCurrentTrackingEar:v29 rightEarPoseStatus:v30 earBoundingBox:earCaptureStatus earStatus:?];
-    v40 = self->_currentStep;
-    if (v40 == 9)
+    v40 = [(HPSUISpatialProfileEnrollmentController *)self updateCurrentTrackingEar:v29 rightEarPoseStatus:v30 earBoundingBox:earCaptureStatus earStatus:?];
+    v41 = self->_currentStep;
+    if (v41 == 9)
     {
       if (self->_currentTrackingEar == 1)
       {
-        v41 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v42 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v42 = "Spatial Profile: Deteceted Left Ear when in Tutorial View, Pivot to enrollment ";
+          v43 = "Spatial Profile: Deteceted Left Ear when in Tutorial View, Pivot to enrollment ";
           goto LABEL_164;
         }
 
@@ -4178,17 +4178,17 @@ LABEL_273:
       goto LABEL_274;
     }
 
-    if (v40 == 5)
+    if (v41 == 5)
     {
       if (self->_currentTrackingEar == 2)
       {
-        v41 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v42 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v42 = "Spatial Profile: Deteceted Right Ear when in Tutorial View, Pivot to right ear enrollment ";
+          v43 = "Spatial Profile: Deteceted Right Ear when in Tutorial View, Pivot to right ear enrollment ";
 LABEL_164:
-          _os_log_impl(&dword_1AC1C3000, v41, OS_LOG_TYPE_DEFAULT, v42, buf, 2u);
+          _os_log_impl(&dword_1AC1C3000, v42, OS_LOG_TYPE_DEFAULT, v43, buf, 2u);
           goto LABEL_165;
         }
 
@@ -4198,48 +4198,37 @@ LABEL_164:
       goto LABEL_273;
     }
 
-    v100 = sharedBluetoothSettingsLogComponent();
-    v174 = v30;
-    if (os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
+    v101 = sharedBluetoothSettingsLogComponent(v40);
+    v175 = v30;
+    if (os_log_type_enabled(v101, OS_LOG_TYPE_DEBUG))
     {
-      v167 = v28;
-      *&v154 = COERCE_DOUBLE(@"NO");
+      v168 = v28;
+      *&v155 = COERCE_DOUBLE(@"NO");
       if (v29 && [v29 hasYawAngle])
       {
-        *&v154 = COERCE_DOUBLE(@"YES");
+        *&v155 = COERCE_DOUBLE(@"YES");
       }
 
-      v170 = v29;
-      v155 = @"NO";
-      if (v174)
+      v171 = v29;
+      v156 = @"NO";
+      if (v175)
       {
-        if ([v174 hasYawAngle])
+        if ([v175 hasYawAngle])
         {
-          v155 = @"YES";
+          v156 = @"YES";
         }
 
         else
         {
-          v155 = @"NO";
+          v156 = @"NO";
         }
       }
 
-      if (v170)
+      if (v171)
       {
-        if ([v170 hasYawAngle])
+        if ([v171 hasYawAngle])
         {
-          [v170 currentYawAngle];
-          v156 = v161;
-        }
-
-        else
-        {
-          v156 = 0xC059000000000000;
-        }
-
-        if ([v170 hasPitchAngle])
-        {
-          [v170 currentPitchAngle];
+          [v171 currentYawAngle];
           v157 = v162;
         }
 
@@ -4247,79 +4236,90 @@ LABEL_164:
         {
           v157 = 0xC059000000000000;
         }
-      }
 
-      else
-      {
-        v156 = 0xC059000000000000;
-        v157 = 0xC059000000000000;
-      }
-
-      if (v174)
-      {
-        if ([v174 hasYawAngle])
+        if ([v171 hasPitchAngle])
         {
-          [v174 currentYawAngle];
-          v163 = v165;
+          [v171 currentPitchAngle];
+          v158 = v163;
         }
 
         else
         {
-          v163 = 0xC059000000000000;
+          v158 = 0xC059000000000000;
         }
+      }
 
-        if ([v174 hasPitchAngle])
+      else
+      {
+        v157 = 0xC059000000000000;
+        v158 = 0xC059000000000000;
+      }
+
+      if (v175)
+      {
+        if ([v175 hasYawAngle])
         {
-          [v174 currentPitchAngle];
+          [v175 currentYawAngle];
+          v164 = v166;
         }
 
         else
         {
           v164 = 0xC059000000000000;
         }
+
+        if ([v175 hasPitchAngle])
+        {
+          [v175 currentPitchAngle];
+        }
+
+        else
+        {
+          v165 = 0xC059000000000000;
+        }
       }
 
       else
       {
-        v163 = 0xC059000000000000;
         v164 = 0xC059000000000000;
+        v165 = 0xC059000000000000;
       }
 
-      v166 = @"YES";
+      v167 = @"YES";
       if (!self->_earBoundingBoxDetected)
       {
-        v166 = @"NO";
+        v167 = @"NO";
       }
 
       *buf = 138415106;
-      v202 = *&v154;
-      v203 = 2112;
-      v204 = v155;
-      v205 = 2048;
-      v206 = v156;
-      v207 = 2048;
-      v208 = v157;
-      v209 = 2048;
-      v210 = v163;
-      v211 = 2048;
-      v212 = v164;
-      v213 = 2112;
-      v214 = v166;
-      v215 = 2048;
-      v216 = v33;
-      v217 = 2048;
-      v218 = v35;
-      v219 = 2048;
-      v220 = v37;
-      v221 = 2048;
-      v222 = v39;
-      v223 = 1024;
-      v224 = earCaptureStatus;
-      _os_log_debug_impl(&dword_1AC1C3000, v100, OS_LOG_TYPE_DEBUG, "Spatial Profile: Left :%@ Right:%@ Yaw-Pitch left (%f ,%f) Right (%f ,%f)Ear Bounding Box: : %@ origin(%f, %f), size(%f, %f) Status %d", buf, 0x76u);
+      v203 = *&v155;
+      v204 = 2112;
+      v205 = v156;
+      v206 = 2048;
+      v207 = v157;
+      v208 = 2048;
+      v209 = v158;
+      v210 = 2048;
+      v211 = v164;
+      v212 = 2048;
+      v213 = v165;
+      v214 = 2112;
+      v215 = v167;
+      v216 = 2048;
+      v217 = v33;
+      v218 = 2048;
+      v219 = v35;
+      v220 = 2048;
+      v221 = v37;
+      v222 = 2048;
+      v223 = v39;
+      v224 = 1024;
+      v225 = earCaptureStatus;
+      _os_log_debug_impl(&dword_1AC1C3000, v101, OS_LOG_TYPE_DEBUG, "Spatial Profile: Left :%@ Right:%@ Yaw-Pitch left (%f ,%f) Right (%f ,%f)Ear Bounding Box: : %@ origin(%f, %f), size(%f, %f) Status %d", buf, 0x76u);
       v27 = 0x1EB54B000;
-      v28 = v167;
-      v29 = v170;
-      v30 = v174;
+      v28 = v168;
+      v29 = v171;
+      v30 = v175;
     }
 
     if (self->_enrollmentPaused)
@@ -4329,77 +4329,77 @@ LABEL_188:
       {
         if ([(HPSUISpatialProfileEnrollmentController *)self isPresentingWrongEar])
         {
-          v109 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-          if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
+          v110 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+          if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1AC1C3000, v109, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Seeing Left ear When Right is not completed", buf, 2u);
+            _os_log_impl(&dword_1AC1C3000, v110, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Seeing Left ear When Right is not completed", buf, 2u);
           }
 
           if (!self->_enrollmentPaused)
           {
-            v185[0] = MEMORY[0x1E69E9820];
-            v185[1] = 3221225472;
-            v185[2] = __85__HPSUISpatialProfileEnrollmentController_didReceiveStateUpdateForSession_stateInfo___block_invoke_619;
-            v185[3] = &unk_1E7970208;
-            v185[4] = self;
-            dispatch_async(MEMORY[0x1E69E96A0], v185);
+            v186[0] = MEMORY[0x1E69E9820];
+            v186[1] = 3221225472;
+            v186[2] = __85__HPSUISpatialProfileEnrollmentController_didReceiveStateUpdateForSession_stateInfo___block_invoke_619;
+            v186[3] = &unk_1E7970208;
+            v186[4] = self;
+            dispatch_async(MEMORY[0x1E69E96A0], v186);
           }
         }
 
         else
         {
-          v167 = v28;
-          v168 = v29;
-          v183 = 0u;
+          v168 = v28;
+          v169 = v29;
           v184 = 0u;
-          v181 = 0u;
+          v185 = 0u;
           v182 = 0u;
+          v183 = 0u;
           yawAngles = [v30 yawAngles];
-          v111 = [yawAngles countByEnumeratingWithState:&v181 objects:v200 count:16];
-          if (v111)
+          v112 = [yawAngles countByEnumeratingWithState:&v182 objects:v201 count:16];
+          if (v112)
           {
-            v112 = v111;
-            v113 = 0;
-            v114 = *v182;
+            v113 = v112;
+            v114 = 0;
+            v115 = *v183;
             do
             {
-              for (i = 0; i != v112; ++i)
+              for (i = 0; i != v113; ++i)
               {
-                if (*v182 != v114)
+                if (*v183 != v115)
                 {
                   objc_enumerationMutation(yawAngles);
                 }
 
-                v116 = *(*(&v181 + 1) + 8 * i);
-                [v116 angle];
-                v118 = -v117;
-                if (v117 <= -11.0)
+                v117 = *(*(&v182 + 1) + 8 * i);
+                [v117 angle];
+                v119 = -v118;
+                if (v118 <= -11.0)
                 {
-                  v122 = v117;
-                  captured = [v116 captured];
-                  if (v122 >= -13.0)
+                  v123 = v118;
+                  captured = [v117 captured];
+                  if (v123 >= -13.0)
                   {
                     if (captured && !self->_rightEarMidCaptured)
                     {
-                      v127 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-                      if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+                      v128 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+                      if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
                       {
-                        [v116 angle];
+                        [v117 angle];
                         *buf = 134218240;
-                        v202 = v118;
-                        v203 = 2048;
-                        v204 = v128;
-                        _os_log_impl(&dword_1AC1C3000, v127, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Right Ear: Mid Captured: %f (%f)", buf, 0x16u);
+                        v203 = v119;
+                        v204 = 2048;
+                        v205 = v129;
+                        _os_log_impl(&dword_1AC1C3000, v128, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Right Ear: Mid Captured: %f (%f)", buf, 0x16u);
                       }
 
-                      v113 = 1;
+                      v114 = 1;
                       self->_rightEarMidCaptured = 1;
-                      v129 = CACurrentMediaTime();
-                      self->_lastEarCaptureTime = v129;
+                      v130 = CACurrentMediaTime();
+                      self->_lastEarCaptureTime = v130;
                       self->_enrollGuidancePitch = 0.5;
-                      LODWORD(v129) = 0.5;
-                      [(HPSUISpatialProfileSoundHapticManager *)self->_soundHapticManager setEnrollGuidancePitch:v129];
+                      LODWORD(v130) = 0.5;
+                      [(HPSUISpatialProfileSoundHapticManager *)self->_soundHapticManager setEnrollGuidancePitch:v130];
                       [(HPSUISpatialProfileEnrollmentController *)self earCentralPartCaptured];
                       [(HPSUISpatialProfileAnalytics *)self->_enrollmentAnalytics updateRightEarMidAnglelDuration];
                     }
@@ -4407,79 +4407,79 @@ LABEL_188:
 
                   else if (captured && !self->_rightEarFrontCaptured)
                   {
-                    v124 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-                    if (os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
+                    v125 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+                    if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
                     {
-                      [v116 angle];
+                      [v117 angle];
                       *buf = 134218240;
-                      v202 = v118;
-                      v203 = 2048;
-                      v204 = v125;
-                      _os_log_impl(&dword_1AC1C3000, v124, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Right Ear: Front Captured: %f (%f)", buf, 0x16u);
+                      v203 = v119;
+                      v204 = 2048;
+                      v205 = v126;
+                      _os_log_impl(&dword_1AC1C3000, v125, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Right Ear: Front Captured: %f (%f)", buf, 0x16u);
                     }
 
-                    v113 = 1;
+                    v114 = 1;
                     self->_rightEarFrontCaptured = 1;
-                    v126 = CACurrentMediaTime();
-                    self->_lastEarCaptureTime = v126;
+                    v127 = CACurrentMediaTime();
+                    self->_lastEarCaptureTime = v127;
                     self->_enrollGuidancePitch = 0.5;
-                    LODWORD(v126) = 0.5;
-                    [(HPSUISpatialProfileSoundHapticManager *)self->_soundHapticManager setEnrollGuidancePitch:v126];
+                    LODWORD(v127) = 0.5;
+                    [(HPSUISpatialProfileSoundHapticManager *)self->_soundHapticManager setEnrollGuidancePitch:v127];
                     [(HPSUISpatialProfileAnalytics *)self->_enrollmentAnalytics updateRightEarFrontAnglelDuration];
                     [(HPSUISpatialProfileEnrollmentController *)self earLeftPartCaptured];
                   }
                 }
 
-                else if ([v116 captured] && !self->_rightEarRearCaptured)
+                else if ([v117 captured] && !self->_rightEarRearCaptured)
                 {
-                  v119 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-                  if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
+                  v120 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+                  if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
                   {
-                    [v116 angle];
+                    [v117 angle];
                     *buf = 134218240;
-                    v202 = v118;
-                    v203 = 2048;
-                    v204 = v120;
-                    _os_log_impl(&dword_1AC1C3000, v119, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Right Ear: Rear Captured: %f (%f)", buf, 0x16u);
+                    v203 = v119;
+                    v204 = 2048;
+                    v205 = v121;
+                    _os_log_impl(&dword_1AC1C3000, v120, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Right Ear: Rear Captured: %f (%f)", buf, 0x16u);
                   }
 
-                  v113 = 1;
+                  v114 = 1;
                   self->_rightEarRearCaptured = 1;
                   self->_lastEarCaptureTime = CACurrentMediaTime();
                   [(HPSUISpatialProfileEnrollmentController *)self earRightPartCaptured];
                   self->_enrollGuidancePitch = 0.5;
-                  LODWORD(v121) = 0.5;
-                  [(HPSUISpatialProfileSoundHapticManager *)self->_soundHapticManager setEnrollGuidancePitch:v121];
+                  LODWORD(v122) = 0.5;
+                  [(HPSUISpatialProfileSoundHapticManager *)self->_soundHapticManager setEnrollGuidancePitch:v122];
                   [(HPSUISpatialProfileAnalytics *)self->_enrollmentAnalytics updateRightEarBackAnglelDuration];
                 }
               }
 
-              v112 = [yawAngles countByEnumeratingWithState:&v181 objects:v200 count:16];
+              v113 = [yawAngles countByEnumeratingWithState:&v182 objects:v201 count:16];
             }
 
-            while (v112);
+            while (v113);
           }
 
           else
           {
-            v113 = 0;
+            v114 = 0;
           }
 
-          remainingYawAngles = [v174 remainingYawAngles];
+          remainingYawAngles = [v175 remainingYawAngles];
           if ([remainingYawAngles count])
           {
 
             v27 = 0x1EB54B000;
-            v28 = v167;
-            v29 = v168;
+            v28 = v168;
+            v29 = v169;
             goto LABEL_227;
           }
 
           rightEarCaptured = self->_rightEarCaptured;
 
           v27 = 0x1EB54B000;
-          v28 = v167;
-          v29 = v168;
+          v28 = v168;
+          v29 = v169;
           if (rightEarCaptured)
           {
 LABEL_227:
@@ -4487,23 +4487,23 @@ LABEL_227:
             {
               if ([(HPSUISpatialProfileEnrollmentController *)self isPresentingWrongEar])
               {
-                v133 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-                v30 = v174;
-                if (os_log_type_enabled(v133, OS_LOG_TYPE_DEFAULT))
+                v134 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+                v30 = v175;
+                if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_1AC1C3000, v133, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Seeing Left ear When Right is not completed", buf, 2u);
+                  _os_log_impl(&dword_1AC1C3000, v134, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Seeing Left ear When Right is not completed", buf, 2u);
                 }
 
                 if (!self->_enrollmentPaused)
                 {
-                  v180[0] = MEMORY[0x1E69E9820];
-                  v180[1] = 3221225472;
-                  v180[2] = __85__HPSUISpatialProfileEnrollmentController_didReceiveStateUpdateForSession_stateInfo___block_invoke_620;
-                  v180[3] = &unk_1E7970208;
-                  v180[4] = self;
-                  dispatch_async(MEMORY[0x1E69E96A0], v180);
-                  if ((v113 & 1) == 0)
+                  v181[0] = MEMORY[0x1E69E9820];
+                  v181[1] = 3221225472;
+                  v181[2] = __85__HPSUISpatialProfileEnrollmentController_didReceiveStateUpdateForSession_stateInfo___block_invoke_620;
+                  v181[3] = &unk_1E7970208;
+                  v181[4] = self;
+                  dispatch_async(MEMORY[0x1E69E96A0], v181);
+                  if ((v114 & 1) == 0)
                   {
                     goto LABEL_273;
                   }
@@ -4514,56 +4514,56 @@ LABEL_227:
 
               else if (self->_rightEarStatus == 3)
               {
-                v167 = v28;
-                v169 = v29;
-                v178 = 0u;
+                v168 = v28;
+                v170 = v29;
                 v179 = 0u;
-                v176 = 0u;
+                v180 = 0u;
                 v177 = 0u;
+                v178 = 0u;
                 yawAngles2 = [v29 yawAngles];
-                v135 = [yawAngles2 countByEnumeratingWithState:&v176 objects:v199 count:16];
-                if (v135)
+                v136 = [yawAngles2 countByEnumeratingWithState:&v177 objects:v200 count:16];
+                if (v136)
                 {
-                  v136 = v135;
-                  v137 = *v177;
+                  v137 = v136;
+                  v138 = *v178;
                   do
                   {
-                    for (j = 0; j != v136; ++j)
+                    for (j = 0; j != v137; ++j)
                     {
-                      if (*v177 != v137)
+                      if (*v178 != v138)
                       {
                         objc_enumerationMutation(yawAngles2);
                       }
 
-                      v139 = *(*(&v176 + 1) + 8 * j);
-                      [v139 angle];
-                      v141 = -v140;
-                      if (v140 >= -13.0)
+                      v140 = *(*(&v177 + 1) + 8 * j);
+                      [v140 angle];
+                      v142 = -v141;
+                      if (v141 >= -13.0)
                       {
-                        v145 = v140;
-                        captured2 = [v139 captured];
-                        if (v145 <= -11.0)
+                        v146 = v141;
+                        captured2 = [v140 captured];
+                        if (v146 <= -11.0)
                         {
                           if (captured2 && !self->_leftEarMidCaptured)
                           {
-                            v150 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-                            if (os_log_type_enabled(v150, OS_LOG_TYPE_DEFAULT))
+                            v151 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+                            if (os_log_type_enabled(v151, OS_LOG_TYPE_DEFAULT))
                             {
-                              [v139 angle];
+                              [v140 angle];
                               *buf = 134218240;
-                              v202 = v141;
-                              v203 = 2048;
-                              v204 = v151;
-                              _os_log_impl(&dword_1AC1C3000, v150, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Left Ear: Mid Captured: %f (%f)", buf, 0x16u);
+                              v203 = v142;
+                              v204 = 2048;
+                              v205 = v152;
+                              _os_log_impl(&dword_1AC1C3000, v151, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Left Ear: Mid Captured: %f (%f)", buf, 0x16u);
                             }
 
-                            v113 = 1;
+                            v114 = 1;
                             self->_leftEarMidCaptured = 1;
-                            v152 = CACurrentMediaTime();
-                            self->_lastEarCaptureTime = v152;
+                            v153 = CACurrentMediaTime();
+                            self->_lastEarCaptureTime = v153;
                             self->_enrollGuidancePitch = 0.5;
-                            LODWORD(v152) = 0.5;
-                            [(HPSUISpatialProfileSoundHapticManager *)self->_soundHapticManager setEnrollGuidancePitch:v152];
+                            LODWORD(v153) = 0.5;
+                            [(HPSUISpatialProfileSoundHapticManager *)self->_soundHapticManager setEnrollGuidancePitch:v153];
                             [(HPSUISpatialProfileEnrollmentController *)self earCentralPartCaptured];
                             [(HPSUISpatialProfileAnalytics *)self->_enrollmentAnalytics updateLeftEarMidAnglelDuration];
                           }
@@ -4571,67 +4571,67 @@ LABEL_227:
 
                         else if (captured2 && !self->_leftEarFrontCaptured)
                         {
-                          v147 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-                          if (os_log_type_enabled(v147, OS_LOG_TYPE_DEFAULT))
+                          v148 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+                          if (os_log_type_enabled(v148, OS_LOG_TYPE_DEFAULT))
                           {
-                            [v139 angle];
+                            [v140 angle];
                             *buf = 134218240;
-                            v202 = v141;
-                            v203 = 2048;
-                            v204 = v148;
-                            _os_log_impl(&dword_1AC1C3000, v147, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Left Ear: Rear Captured: %f (%f)", buf, 0x16u);
+                            v203 = v142;
+                            v204 = 2048;
+                            v205 = v149;
+                            _os_log_impl(&dword_1AC1C3000, v148, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Left Ear: Rear Captured: %f (%f)", buf, 0x16u);
                           }
 
-                          v113 = 1;
+                          v114 = 1;
                           self->_leftEarFrontCaptured = 1;
-                          v149 = CACurrentMediaTime();
-                          self->_lastEarCaptureTime = v149;
+                          v150 = CACurrentMediaTime();
+                          self->_lastEarCaptureTime = v150;
                           self->_enrollGuidancePitch = 0.5;
-                          LODWORD(v149) = 0.5;
-                          [(HPSUISpatialProfileSoundHapticManager *)self->_soundHapticManager setEnrollGuidancePitch:v149];
+                          LODWORD(v150) = 0.5;
+                          [(HPSUISpatialProfileSoundHapticManager *)self->_soundHapticManager setEnrollGuidancePitch:v150];
                           [(HPSUISpatialProfileEnrollmentController *)self earLeftPartCaptured];
                           [(HPSUISpatialProfileAnalytics *)self->_enrollmentAnalytics updateLeftEarBackAnglelDuration];
                         }
                       }
 
-                      else if ([v139 captured] && !self->_leftEarRearCaptured)
+                      else if ([v140 captured] && !self->_leftEarRearCaptured)
                       {
-                        v142 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-                        if (os_log_type_enabled(v142, OS_LOG_TYPE_DEFAULT))
+                        v143 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+                        if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
                         {
-                          [v139 angle];
+                          [v140 angle];
                           *buf = 134218240;
-                          v202 = v141;
-                          v203 = 2048;
-                          v204 = v143;
-                          _os_log_impl(&dword_1AC1C3000, v142, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Left Ear: Front Captured: %f (%f)", buf, 0x16u);
+                          v203 = v142;
+                          v204 = 2048;
+                          v205 = v144;
+                          _os_log_impl(&dword_1AC1C3000, v143, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Left Ear: Front Captured: %f (%f)", buf, 0x16u);
                         }
 
-                        v113 = 1;
+                        v114 = 1;
                         self->_leftEarRearCaptured = 1;
-                        v144 = CACurrentMediaTime();
-                        self->_lastEarCaptureTime = v144;
+                        v145 = CACurrentMediaTime();
+                        self->_lastEarCaptureTime = v145;
                         self->_enrollGuidancePitch = 0.5;
-                        LODWORD(v144) = 0.5;
-                        [(HPSUISpatialProfileSoundHapticManager *)self->_soundHapticManager setEnrollGuidancePitch:v144];
+                        LODWORD(v145) = 0.5;
+                        [(HPSUISpatialProfileSoundHapticManager *)self->_soundHapticManager setEnrollGuidancePitch:v145];
                         [(HPSUISpatialProfileEnrollmentController *)self earRightPartCaptured];
                         [(HPSUISpatialProfileAnalytics *)self->_enrollmentAnalytics updateLeftEarFrontAnglelDuration];
                       }
                     }
 
-                    v136 = [yawAngles2 countByEnumeratingWithState:&v176 objects:v199 count:16];
+                    v137 = [yawAngles2 countByEnumeratingWithState:&v177 objects:v200 count:16];
                   }
 
-                  while (v136);
+                  while (v137);
                 }
 
-                v29 = v169;
-                remainingYawAngles2 = [v169 remainingYawAngles];
+                v29 = v170;
+                remainingYawAngles2 = [v170 remainingYawAngles];
                 if ([remainingYawAngles2 count])
                 {
 
                   v27 = 0x1EB54B000;
-                  v28 = v167;
+                  v28 = v168;
                 }
 
                 else
@@ -4639,27 +4639,27 @@ LABEL_227:
                   leftEarCaptured = self->_leftEarCaptured;
 
                   v27 = 0x1EB54B000uLL;
-                  v28 = v167;
+                  v28 = v168;
                   if (!leftEarCaptured)
                   {
-                    v160 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-                    if (os_log_type_enabled(v160, OS_LOG_TYPE_DEFAULT))
+                    v161 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+                    if (os_log_type_enabled(v161, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 0;
-                      _os_log_impl(&dword_1AC1C3000, v160, OS_LOG_TYPE_DEFAULT, "Spatial Profile: State Update: Left Ear Captured", buf, 2u);
+                      _os_log_impl(&dword_1AC1C3000, v161, OS_LOG_TYPE_DEFAULT, "Spatial Profile: State Update: Left Ear Captured", buf, 2u);
                     }
 
                     self->_leftEarCaptured = 1;
                     [(HPSUISpatialProfileEnrollmentController *)self moveToStep:12];
-                    v30 = v174;
+                    v30 = v175;
                     goto LABEL_273;
                   }
                 }
               }
             }
 
-            v30 = v174;
-            if ((v113 & 1) == 0)
+            v30 = v175;
+            if ((v114 & 1) == 0)
             {
               goto LABEL_273;
             }
@@ -4670,11 +4670,11 @@ LABEL_272:
             goto LABEL_273;
           }
 
-          v132 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-          if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
+          v133 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+          if (os_log_type_enabled(v133, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1AC1C3000, v132, OS_LOG_TYPE_DEFAULT, "Spatial Profile: State Update: Right Ear Captured", buf, 2u);
+            _os_log_impl(&dword_1AC1C3000, v133, OS_LOG_TYPE_DEFAULT, "Spatial Profile: State Update: Right Ear Captured", buf, 2u);
           }
 
           self->_rightEarCaptured = 1;
@@ -4682,27 +4682,27 @@ LABEL_272:
         }
       }
 
-      v113 = 0;
+      v114 = 0;
       goto LABEL_227;
     }
 
-    v230.origin.x = v33;
-    v230.origin.y = v35;
-    v230.size.width = v37;
-    v230.size.height = v39;
-    if (!CGRectEqualToRect(v230, *MEMORY[0x1E695F058]))
+    v231.origin.x = v33;
+    v231.origin.y = v35;
+    v231.size.width = v37;
+    v231.size.height = v39;
+    if (!CGRectEqualToRect(v231, *MEMORY[0x1E695F058]))
     {
       previewLayer = [(HPSUISpatialProfileVideoCaptureSession *)self->videoCaptureSession previewLayer];
       [previewLayer frame];
-      [(HPSUISpatialProfileEnrollmentController *)self translateEarBoundingBox:v33 previewLayerBoundingBox:v35, v37, v39, v102, v103, v104, v105];
+      [(HPSUISpatialProfileEnrollmentController *)self translateEarBoundingBox:v33 previewLayerBoundingBox:v35, v37, v39, v103, v104, v105, v106];
 
       if (!self->_rightEarDetected && self->_currentStep == 6)
       {
-        v106 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-        if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
+        v107 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+        if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1AC1C3000, v106, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Right Ear Detected", buf, 2u);
+          _os_log_impl(&dword_1AC1C3000, v107, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Right Ear Detected", buf, 2u);
         }
 
         self->_rightEarDetected = 1;
@@ -4711,11 +4711,11 @@ LABEL_272:
 
       if (!self->_leftEarDetected && self->_currentStep == 10)
       {
-        v107 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-        if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+        v108 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+        if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1AC1C3000, v107, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Left Ear Detected", buf, 2u);
+          _os_log_impl(&dword_1AC1C3000, v108, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Left Ear Detected", buf, 2u);
         }
 
         [(HPSUISpatialProfileEnrollmentController *)self pauseEnrollment];
@@ -4727,12 +4727,12 @@ LABEL_272:
     [(HPSUISpatialProfileEnrollmentController *)self updateBoundingBoxHiddenStatus];
     if ([(HPSUISpatialProfileEnrollmentController *)self isEarTooClose])
     {
-      v108 = 3;
+      v109 = 3;
     }
 
     else if ([(HPSUISpatialProfileEnrollmentController *)self isEarTooFar])
     {
-      v108 = 4;
+      v109 = 4;
     }
 
     else
@@ -4742,10 +4742,10 @@ LABEL_272:
         goto LABEL_186;
       }
 
-      v108 = 5;
+      v109 = 5;
     }
 
-    [(HPSUISpatialProfileEnrollmentController *)self alertEarDistanceWarning:v108];
+    [(HPSUISpatialProfileEnrollmentController *)self alertEarDistanceWarning:v109];
 LABEL_186:
     if ([(HPSUISpatialProfileEnrollmentController *)self isEarOccluded])
     {
@@ -4755,86 +4755,86 @@ LABEL_186:
     goto LABEL_188;
   }
 
-  v52 = [infoCopy objectForKeyedSubscript:*MEMORY[0x1E69A2AA0]];
-  v53 = v52;
-  if (v52)
+  v53 = [infoCopy objectForKeyedSubscript:*MEMORY[0x1E69A2AA0]];
+  v54 = v53;
+  if (v53)
   {
-    [v52 faceBoundingBox];
-    if (!CGRectEqualToRect(v229, *MEMORY[0x1E695F058]) && !self->_faceCaptured)
+    [v53 faceBoundingBox];
+    if (!CGRectEqualToRect(v230, *MEMORY[0x1E695F058]) && !self->_faceCaptured)
     {
-      [v53 faceBoundingBox];
+      [v54 faceBoundingBox];
       [(HPSUISpatialProfileEnrollmentController *)self updateFaceTrackingStatus:?];
     }
 
-    v172 = sessionCopy;
-    v173 = v53;
-    v171 = infoCopy;
+    v173 = sessionCopy;
+    v174 = v54;
+    v172 = infoCopy;
     if (!self->_faceStraightZeroAngleCaptured)
     {
-      v197 = 0u;
       v198 = 0u;
-      v195 = 0u;
+      v199 = 0u;
       v196 = 0u;
-      yawAngles3 = [v53 yawAngles];
-      v55 = [yawAngles3 countByEnumeratingWithState:&v195 objects:v227 count:16];
-      if (v55)
+      v197 = 0u;
+      yawAngles3 = [v54 yawAngles];
+      v56 = [yawAngles3 countByEnumeratingWithState:&v196 objects:v228 count:16];
+      if (v56)
       {
-        v56 = v55;
-        v57 = *v196;
+        v57 = v56;
+        v58 = *v197;
         do
         {
-          for (k = 0; k != v56; ++k)
+          for (k = 0; k != v57; ++k)
           {
-            if (*v196 != v57)
+            if (*v197 != v58)
             {
               objc_enumerationMutation(yawAngles3);
             }
 
-            v59 = *(*(&v195 + 1) + 8 * k);
-            [v59 angle];
-            if (v60 == 0.0 && [v59 captured])
+            v60 = *(*(&v196 + 1) + 8 * k);
+            [v60 angle];
+            if (v61 == 0.0 && [v60 captured])
             {
               self->_faceStraightZeroAngleCaptured = 1;
-              v61 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-              if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+              v62 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+              if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
               {
-                [v59 angle];
-                v63 = v62;
-                captured3 = [v59 captured];
+                [v60 angle];
+                v64 = v63;
+                captured3 = [v60 captured];
                 *buf = 134218240;
-                v202 = v63;
-                v203 = 1024;
-                LODWORD(v204) = captured3;
-                _os_log_impl(&dword_1AC1C3000, v61, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Captured straight face angle %f ->  %d", buf, 0x12u);
+                v203 = v64;
+                v204 = 1024;
+                LODWORD(v205) = captured3;
+                _os_log_impl(&dword_1AC1C3000, v62, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Captured straight face angle %f ->  %d", buf, 0x12u);
               }
             }
           }
 
-          v56 = [yawAngles3 countByEnumeratingWithState:&v195 objects:v227 count:16];
+          v57 = [yawAngles3 countByEnumeratingWithState:&v196 objects:v228 count:16];
         }
 
-        while (v56);
+        while (v57);
       }
 
-      v53 = v173;
+      v54 = v174;
     }
 
-    if ([v53 hasYawAngle] && objc_msgSend(v53, "hasPitchAngle"))
+    if ([v54 hasYawAngle] && objc_msgSend(v54, "hasPitchAngle"))
     {
       if (self->_faceDetected || !self->_faceStraightZeroAngleCaptured || self->_currentStep != 2)
       {
         goto LABEL_97;
       }
 
-      v65 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-      if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+      v66 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1AC1C3000, v65, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Fill up Straight angle: Transition to View CaptureMoveHead", buf, 2u);
+        _os_log_impl(&dword_1AC1C3000, v66, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Fill up Straight angle: Transition to View CaptureMoveHead", buf, 2u);
       }
 
       self->_faceDetected = 1;
-      v66 = 3;
+      v67 = 3;
     }
 
     else
@@ -4844,54 +4844,54 @@ LABEL_186:
         goto LABEL_97;
       }
 
-      v70 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+      v71 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1AC1C3000, v70, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Face NOT Detected, Return to previous step", buf, 2u);
+        _os_log_impl(&dword_1AC1C3000, v71, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Face NOT Detected, Return to previous step", buf, 2u);
       }
 
       self->_faceDetected = 0;
-      v66 = 2;
+      v67 = 2;
     }
 
-    [(HPSUISpatialProfileEnrollmentController *)self moveToStep:v66];
+    [(HPSUISpatialProfileEnrollmentController *)self moveToStep:v67];
 LABEL_97:
-    v193 = 0u;
     v194 = 0u;
-    v191 = 0u;
+    v195 = 0u;
     v192 = 0u;
-    yawAngles4 = [v53 yawAngles];
-    v72 = [yawAngles4 countByEnumeratingWithState:&v191 objects:v226 count:16];
-    if (!v72)
+    v193 = 0u;
+    yawAngles4 = [v54 yawAngles];
+    v73 = [yawAngles4 countByEnumeratingWithState:&v192 objects:v227 count:16];
+    if (!v73)
     {
       goto LABEL_126;
     }
 
-    v73 = v72;
-    v74 = *v192;
+    v74 = v73;
+    v75 = *v193;
     while (1)
     {
-      for (m = 0; m != v73; ++m)
+      for (m = 0; m != v74; ++m)
       {
-        if (*v192 != v74)
+        if (*v193 != v75)
         {
           objc_enumerationMutation(yawAngles4);
         }
 
-        v76 = *(*(&v191 + 1) + 8 * m);
+        v77 = *(*(&v192 + 1) + 8 * m);
         if (self->_faceDetected)
         {
-          [*(*(&v191 + 1) + 8 * m) angle];
-          if (v77 > 0.0 && [v76 captured] && !self->_faceRightFilled)
+          [*(*(&v192 + 1) + 8 * m) angle];
+          if (v78 > 0.0 && [v77 captured] && !self->_faceRightFilled)
           {
-            v82 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-            if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+            v83 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+            if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
             {
-              [v76 angle];
+              [v77 angle];
               *buf = 134217984;
-              v202 = v83;
-              _os_log_impl(&dword_1AC1C3000, v82, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Fill up Right with Yaw: %f", buf, 0xCu);
+              v203 = v84;
+              _os_log_impl(&dword_1AC1C3000, v83, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Fill up Right with Yaw: %f", buf, 0xCu);
             }
 
             self->_faceRightFilled = 1;
@@ -4902,9 +4902,9 @@ LABEL_97:
 
             if (self->_faceDownFilled)
             {
-              v81 = 0;
+              v82 = 0;
 LABEL_122:
-              [(HPSUISpatialProfileEnrollmentController *)self fillFacePillsByDirection:v81];
+              [(HPSUISpatialProfileEnrollmentController *)self fillFacePillsByDirection:v82];
             }
 
 LABEL_123:
@@ -4915,16 +4915,16 @@ LABEL_123:
 
         if (self->_faceDetected)
         {
-          [v76 angle];
-          if (v78 < 0.0 && [v76 captured] && !self->_faceLeftFilled)
+          [v77 angle];
+          if (v79 < 0.0 && [v77 captured] && !self->_faceLeftFilled)
           {
-            v79 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-            if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+            v80 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+            if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
             {
-              [v76 angle];
+              [v77 angle];
               *buf = 134217984;
-              v202 = v80;
-              _os_log_impl(&dword_1AC1C3000, v79, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Fill up Left with Yaw: %f", buf, 0xCu);
+              v203 = v81;
+              _os_log_impl(&dword_1AC1C3000, v80, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Fill up Left with Yaw: %f", buf, 0xCu);
             }
 
             self->_faceLeftFilled = 1;
@@ -4935,7 +4935,7 @@ LABEL_123:
 
             if (self->_faceDownFilled)
             {
-              v81 = 5;
+              v82 = 5;
               goto LABEL_122;
             }
 
@@ -4944,46 +4944,46 @@ LABEL_123:
         }
       }
 
-      v73 = [yawAngles4 countByEnumeratingWithState:&v191 objects:v226 count:16];
-      if (!v73)
+      v74 = [yawAngles4 countByEnumeratingWithState:&v192 objects:v227 count:16];
+      if (!v74)
       {
 LABEL_126:
 
-        v189 = 0u;
         v190 = 0u;
-        v187 = 0u;
+        v191 = 0u;
         v188 = 0u;
-        pitchAngles = [v173 pitchAngles];
-        v85 = [pitchAngles countByEnumeratingWithState:&v187 objects:v225 count:16];
-        if (!v85)
+        v189 = 0u;
+        pitchAngles = [v174 pitchAngles];
+        v86 = [pitchAngles countByEnumeratingWithState:&v188 objects:v226 count:16];
+        if (!v86)
         {
           goto LABEL_154;
         }
 
-        v86 = v85;
-        v87 = *v188;
+        v87 = v86;
+        v88 = *v189;
         while (1)
         {
-          for (n = 0; n != v86; ++n)
+          for (n = 0; n != v87; ++n)
           {
-            if (*v188 != v87)
+            if (*v189 != v88)
             {
               objc_enumerationMutation(pitchAngles);
             }
 
-            v89 = *(*(&v187 + 1) + 8 * n);
+            v90 = *(*(&v188 + 1) + 8 * n);
             if (self->_faceDetected)
             {
-              [*(*(&v187 + 1) + 8 * n) angle];
-              if (v90 > 0.0 && [v89 captured] && !self->_faceUpFilled)
+              [*(*(&v188 + 1) + 8 * n) angle];
+              if (v91 > 0.0 && [v90 captured] && !self->_faceUpFilled)
               {
-                v95 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-                if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+                v96 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+                if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
                 {
-                  [v89 angle];
+                  [v90 angle];
                   *buf = 134217984;
-                  v202 = v96;
-                  _os_log_impl(&dword_1AC1C3000, v95, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Fill up Up with Pitch: %f", buf, 0xCu);
+                  v203 = v97;
+                  _os_log_impl(&dword_1AC1C3000, v96, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Fill up Up with Pitch: %f", buf, 0xCu);
                 }
 
                 self->_faceUpFilled = 1;
@@ -4992,7 +4992,7 @@ LABEL_126:
                   [(HPSUISpatialProfileEnrollmentController *)self fillFacePillsByDirection:0];
                 }
 
-                v94 = 2;
+                v95 = 2;
                 if (!self->_faceRightFilled)
                 {
                   goto LABEL_151;
@@ -5001,23 +5001,23 @@ LABEL_126:
 LABEL_150:
                 [(HPSUISpatialProfileEnrollmentController *)self fillFacePillsByDirection:0];
 LABEL_151:
-                [(HPSUISpatialProfileEnrollmentController *)self fillFacePillsByDirection:v94];
+                [(HPSUISpatialProfileEnrollmentController *)self fillFacePillsByDirection:v95];
                 continue;
               }
             }
 
             if (self->_faceDetected)
             {
-              [v89 angle];
-              if (v91 < 0.0 && [v89 captured] && !self->_faceDownFilled)
+              [v90 angle];
+              if (v92 < 0.0 && [v90 captured] && !self->_faceDownFilled)
               {
-                v92 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-                if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
+                v93 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+                if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
                 {
-                  [v89 angle];
+                  [v90 angle];
                   *buf = 134217984;
-                  v202 = v93;
-                  _os_log_impl(&dword_1AC1C3000, v92, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Fill up Down with Pitch: %f", buf, 0xCu);
+                  v203 = v94;
+                  _os_log_impl(&dword_1AC1C3000, v93, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Fill up Down with Pitch: %f", buf, 0xCu);
                 }
 
                 self->_faceDownFilled = 1;
@@ -5026,7 +5026,7 @@ LABEL_151:
                   [(HPSUISpatialProfileEnrollmentController *)self fillFacePillsByDirection:5];
                 }
 
-                v94 = 6;
+                v95 = 6;
                 if (!self->_faceRightFilled)
                 {
                   goto LABEL_151;
@@ -5037,15 +5037,15 @@ LABEL_151:
             }
           }
 
-          v86 = [pitchAngles countByEnumeratingWithState:&v187 objects:v225 count:16];
-          if (!v86)
+          v87 = [pitchAngles countByEnumeratingWithState:&v188 objects:v226 count:16];
+          if (!v87)
           {
 LABEL_154:
 
-            infoCopy = v171;
-            sessionCopy = v172;
+            infoCopy = v172;
+            sessionCopy = v173;
             v27 = 0x1EB54B000uLL;
-            v53 = v173;
+            v54 = v174;
             goto LABEL_155;
           }
         }
@@ -5056,31 +5056,31 @@ LABEL_154:
 LABEL_155:
   if (v26 == 1.0 && !self->_faceCaptured)
   {
-    v97 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
-    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+    v98 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
+    if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
     {
       [(BKUIPearlEnrollView *)self->_enrollView percentOfPillsCompleted];
       *buf = 134217984;
-      v202 = v98;
-      _os_log_impl(&dword_1AC1C3000, v97, OS_LOG_TYPE_DEFAULT, "Spatial Profile: State Update: Face Captured %f", buf, 0xCu);
+      v203 = v99;
+      _os_log_impl(&dword_1AC1C3000, v98, OS_LOG_TYPE_DEFAULT, "Spatial Profile: State Update: Face Captured %f", buf, 0xCu);
     }
 
     self->_faceCaptured = 1;
     *(&self->super.super.super.isa + *(v27 + 1228)) = 0;
-    v99 = dispatch_get_global_queue(21, 0);
-    v186[0] = MEMORY[0x1E69E9820];
-    v186[1] = 3221225472;
-    v186[2] = __85__HPSUISpatialProfileEnrollmentController_didReceiveStateUpdateForSession_stateInfo___block_invoke;
-    v186[3] = &unk_1E7970208;
-    v186[4] = self;
-    dispatch_async(v99, v186);
+    v100 = dispatch_get_global_queue(21, 0);
+    v187[0] = MEMORY[0x1E69E9820];
+    v187[1] = 3221225472;
+    v187[2] = __85__HPSUISpatialProfileEnrollmentController_didReceiveStateUpdateForSession_stateInfo___block_invoke;
+    v187[3] = &unk_1E7970208;
+    v187[4] = self;
+    dispatch_async(v100, v187);
   }
 
 LABEL_274:
-  v159 = *(v27 + 1228);
-  if (*(&self->super.super.super.isa + v159) != v26)
+  v160 = *(v27 + 1228);
+  if (*(&self->super.super.super.isa + v160) != v26)
   {
-    *(&self->super.super.super.isa + v159) = v26;
+    *(&self->super.super.super.isa + v160) = v26;
   }
 }
 

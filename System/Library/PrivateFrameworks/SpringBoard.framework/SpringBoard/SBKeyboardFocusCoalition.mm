@@ -32,7 +32,7 @@
   nameCopy = name;
   if (!nameCopy)
   {
-    [SBKeyboardFocusCoalition _initWithDebugName:a2];
+    [(SBKeyboardFocusCoalition *)a2 _initWithDebugName:?];
   }
 
   v6 = nameCopy;
@@ -172,19 +172,17 @@ void __69__SBKeyboardFocusCoalition_suppressKeyboardFocusEvaluationForReason___b
 
 - (void)dealloc
 {
-  v3 = MEMORY[0x277CCACA8];
-  v13 = objc_opt_class();
-  v4 = [v3 stringWithFormat:@"%@ dealloced without invalidation"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ dealloced without invalidation", objc_opt_class()];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a2);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v4 = NSStringFromSelector(a2);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v4 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -245,7 +243,7 @@ BOOL __44__SBKeyboardFocusCoalition__registerMember___block_invoke(uint64_t a1, 
   reasonCopy = reason;
   if (!reasonCopy)
   {
-    [SBKeyboardFocusCoalition setNeedsArbitrationForReason:a2];
+    [(SBKeyboardFocusCoalition *)a2 setNeedsArbitrationForReason:?];
   }
 
   v6 = reasonCopy;
@@ -391,20 +389,20 @@ void __54__SBKeyboardFocusCoalition_appendDescriptionToStream___block_invoke_2(u
   v6 = [v5 appendObject:v7 withName:@"enforcedPolicy"];
 }
 
-- (void)_initWithDebugName:(const char *)a1 .cold.1(const char *a1)
+- (void)_initWithDebugName:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"debugName"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"debugName", v12, v13);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v11 = v2;
-  [v2 UTF8String];
+  v12 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -460,23 +458,23 @@ void __54__SBKeyboardFocusCoalition_appendDescriptionToStream___block_invoke_2(u
   _os_log_debug_impl(&dword_21ED4E000, log, OS_LOG_TYPE_DEBUG, "[%{public}@] needs arbitration for reason: %{public}@", &v4, 0x16u);
 }
 
-- (void)setNeedsArbitrationForReason:(const char *)a1 .cold.3(const char *a1)
+- (void)setNeedsArbitrationForReason:(const char *)a1 .cold.3(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277CCACA8];
+  v3 = MEMORY[0x277CCACA8];
   objc_opt_class();
-  v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"reason", v5];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a1);
-    v6 = objc_opt_class();
-    v13 = NSStringFromClass(v6);
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"reason", v12, 2u);
+    v7 = NSStringFromSelector(a1);
+    v8 = objc_opt_class();
+    v16 = NSStringFromClass(v8);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v4 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -485,14 +483,14 @@ void __54__SBKeyboardFocusCoalition_appendDescriptionToStream___block_invoke_2(u
 {
   v2 = [a2 uniqueIdentifier];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "[%{public}@] added member: %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "[%{public}@] added member: %{public}@", v5, v6, v7, v8);
 }
 
 - (void)removedMember:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
   v2 = [a2 uniqueIdentifier];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "[%{public}@] removed member: %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "[%{public}@] removed member: %{public}@", v5, v6, v7, v8);
 }
 
 @end

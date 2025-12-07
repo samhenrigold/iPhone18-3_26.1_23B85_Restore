@@ -2,6 +2,7 @@
 + (id)derivedIdentifierForComponentName:(int)name fromSourceIdentifier:(id)identifier;
 + (id)sharedAnalytics;
 + (id)sharedStream;
++ (void)derivedIdentifierForComponent:(int)component fromSourceIdentifier:(id)identifier completion:(id)completion;
 - (AssistantSiriAnalytics)init;
 - (void)createTag:(id)tag completion:(id)completion;
 @end
@@ -64,7 +65,7 @@
 
 + (id)derivedIdentifierForComponentName:(int)name fromSourceIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (name)
   {
@@ -98,11 +99,11 @@
       v13 = SiriAnalyticsLogContextAssistant;
       if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_ERROR))
       {
-        v16 = 136315394;
-        v17 = "+[AssistantSiriAnalytics derivedIdentifierForComponentName:fromSourceIdentifier:]";
-        v18 = 1024;
+        v15 = 136315394;
+        v16 = "+[AssistantSiriAnalytics derivedIdentifierForComponentName:fromSourceIdentifier:]";
+        v17 = 1024;
         nameCopy = name;
-        _os_log_error_impl(&dword_1D9863000, v13, OS_LOG_TYPE_ERROR, "%s ComponentName: %d did not map to a component identifier", &v16, 0x12u);
+        _os_log_error_impl(&dword_1D9863000, v13, OS_LOG_TYPE_ERROR, "%s ComponentName: %d did not map to a component identifier", &v15, 0x12u);
       }
 
       v8 = 0;
@@ -119,17 +120,42 @@
     v7 = SiriAnalyticsLogContextAssistant;
     if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_ERROR))
     {
-      v16 = 136315138;
-      v17 = "+[AssistantSiriAnalytics derivedIdentifierForComponentName:fromSourceIdentifier:]";
-      _os_log_error_impl(&dword_1D9863000, v7, OS_LOG_TYPE_ERROR, "%s Unknown component name provided", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "+[AssistantSiriAnalytics derivedIdentifierForComponentName:fromSourceIdentifier:]";
+      _os_log_error_impl(&dword_1D9863000, v7, OS_LOG_TYPE_ERROR, "%s Unknown component name provided", &v15, 0xCu);
     }
 
     v8 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v8;
+}
+
++ (void)derivedIdentifierForComponent:(int)component fromSourceIdentifier:(id)identifier completion:(id)completion
+{
+  v6 = *&component;
+  completionCopy = completion;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __88__AssistantSiriAnalytics_derivedIdentifierForComponent_fromSourceIdentifier_completion___block_invoke;
+  aBlock[3] = &unk_1E85879E0;
+  v15 = completionCopy;
+  v9 = completionCopy;
+  identifierCopy = identifier;
+  v11 = _Block_copy(aBlock);
+  v12 = [self derivedIdentifierForComponent:v6 fromSourceIdentifier:identifierCopy];
+
+  if (v12)
+  {
+    v13 = v12;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  (v11)[2](v11, v13);
 }
 
 uint64_t __88__AssistantSiriAnalytics_derivedIdentifierForComponent_fromSourceIdentifier_completion___block_invoke(uint64_t a1)

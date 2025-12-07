@@ -540,7 +540,7 @@ void __44__GAXTimeRestrictionManager__scheduleTimers__block_invoke_2(uint64_t a1
 {
   v1 = [a1 label];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_8(&dword_18B15E000, v2, v3, "This code must execute in a writing block on AXAccessQueue: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_8(&dword_18B15E000, v2, v3, "This code must execute in a writing block on AXAccessQueue: %@", v4, v5, v6, v7);
 }
 
 - (void)remainingTimeInSeconds
@@ -548,7 +548,7 @@ void __44__GAXTimeRestrictionManager__scheduleTimers__block_invoke_2(uint64_t a1
   assertedAccessQueue = [self assertedAccessQueue];
   label = [assertedAccessQueue label];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_8(&dword_18B15E000, v3, v4, "This code must execute in a reading (or writing) block on AXAccessQueue: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_8(&dword_18B15E000, v3, v4, "This code must execute in a reading (or writing) block on AXAccessQueue: %@", v5, v6, v7, v8);
 }
 
 - (void)beginWithDuration:(void *)a1 .cold.1(void *a1)
@@ -556,7 +556,7 @@ void __44__GAXTimeRestrictionManager__scheduleTimers__block_invoke_2(uint64_t a1
   v1 = [a1 assertedAccessQueue];
   v2 = [v1 label];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_8(&dword_18B15E000, v3, v4, "This code must execute in a writing block on AXAccessQueue: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_8(&dword_18B15E000, v3, v4, "This code must execute in a writing block on AXAccessQueue: %@", v5, v6, v7, v8);
 }
 
 @end

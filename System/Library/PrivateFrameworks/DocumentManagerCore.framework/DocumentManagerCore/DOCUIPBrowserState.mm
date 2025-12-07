@@ -22,7 +22,7 @@
   v5 = *&self->_impl[OBJC_IVAR___DOCUIPBrowserState__impl];
   coderCopy = coder;
   selfCopy = self;
-  sub_24936FE74();
+  sub_24936FE74(v4, v5, 1819307369, 0xE400000000000000);
 }
 
 - (NSString)debugDescription

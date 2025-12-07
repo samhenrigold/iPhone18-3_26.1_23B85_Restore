@@ -9,11 +9,11 @@
 
 - (AMSoundReductionIndex)initWithValues:(id)values error:(id *)error
 {
-  v50[1] = *MEMORY[0x277D85DE8];
+  v49[1] = *MEMORY[0x277D85DE8];
   valuesCopy = values;
-  v48.receiver = self;
-  v48.super_class = AMSoundReductionIndex;
-  v7 = [(AMSoundReductionIndex *)&v48 init];
+  v47.receiver = self;
+  v47.super_class = AMSoundReductionIndex;
+  v7 = [(AMSoundReductionIndex *)&v47 init];
   v8 = MEMORY[0x277CBEB98];
   allKeys = [valuesCopy allKeys];
   v10 = [v8 setWithArray:allKeys];
@@ -30,9 +30,9 @@
     }
 
     v44 = MEMORY[0x277CCA9B8];
-    v49 = *MEMORY[0x277CCA450];
-    v50[0] = @"At least one mandatory key was not found in input dictionary.";
-    v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:&v49 count:1];
+    v48 = *MEMORY[0x277CCA450];
+    v49[0] = @"At least one mandatory key was not found in input dictionary.";
+    v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
     *error = [v44 errorWithDomain:@"com.apple.acousticmaterials.ErrorDomain" code:5 userInfo:v45];
 
 LABEL_6:
@@ -99,7 +99,6 @@ LABEL_6:
   error = v7;
 LABEL_7:
 
-  v46 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -160,88 +159,7 @@ LABEL_7:
     materialName = [(AMSoundReductionIndex *)v6 materialName];
     LODWORD(materialName) = [(NSString *)materialName isEqualToString:materialName];
 
-    if (!materialName)
-    {
-      goto LABEL_17;
-    }
-
-    materialDescription = self->_materialDescription;
-    materialDescription = [(AMSoundReductionIndex *)v6 materialDescription];
-    LODWORD(materialDescription) = [(NSString *)materialDescription isEqualToString:materialDescription];
-
-    if (!materialDescription)
-    {
-      goto LABEL_17;
-    }
-
-    materialDepth = self->_materialDepth;
-    materialDepth = [(AMSoundReductionIndex *)v6 materialDepth];
-    LODWORD(materialDepth) = [(NSNumber *)materialDepth isEqualToNumber:materialDepth];
-
-    if (!materialDepth)
-    {
-      goto LABEL_17;
-    }
-
-    uncertaintyMaterialDepth = self->_uncertaintyMaterialDepth;
-    uncertaintyMaterialDepth = [(AMSoundReductionIndex *)v6 uncertaintyMaterialDepth];
-    LODWORD(uncertaintyMaterialDepth) = [(NSNumber *)uncertaintyMaterialDepth isEqualToNumber:uncertaintyMaterialDepth];
-
-    if (!uncertaintyMaterialDepth)
-    {
-      goto LABEL_17;
-    }
-
-    frequencyBands = self->_frequencyBands;
-    frequencyBands = [(AMSoundReductionIndex *)v6 frequencyBands];
-    LODWORD(frequencyBands) = [(NSArray *)frequencyBands isEqualToArray:frequencyBands];
-
-    if (!frequencyBands)
-    {
-      goto LABEL_17;
-    }
-
-    soundReductionIndexUserData = self->_soundReductionIndexUserData;
-    soundReductionIndexUserData = [(AMSoundReductionIndex *)v6 soundReductionIndexUserData];
-    LODWORD(soundReductionIndexUserData) = [(NSArray *)soundReductionIndexUserData isEqualToArray:soundReductionIndexUserData];
-
-    if (!soundReductionIndexUserData)
-    {
-      goto LABEL_17;
-    }
-
-    soundReductionIndexReferenceData = self->_soundReductionIndexReferenceData;
-    soundReductionIndexReferenceData = [(AMSoundReductionIndex *)v6 soundReductionIndexReferenceData];
-    LODWORD(soundReductionIndexReferenceData) = [(NSArray *)soundReductionIndexReferenceData isEqualToArray:soundReductionIndexReferenceData];
-
-    if (!soundReductionIndexReferenceData)
-    {
-      goto LABEL_17;
-    }
-
-    uncertaintyReferenceData = self->_uncertaintyReferenceData;
-    uncertaintyReferenceData = [(AMSoundReductionIndex *)v6 uncertaintyReferenceData];
-    LODWORD(uncertaintyReferenceData) = [(NSArray *)uncertaintyReferenceData isEqualToArray:uncertaintyReferenceData];
-
-    if (!uncertaintyReferenceData)
-    {
-      goto LABEL_17;
-    }
-
-    averageSoundReductionIndex = self->_averageSoundReductionIndex;
-    averageSoundReductionIndex = [(AMSoundReductionIndex *)v6 averageSoundReductionIndex];
-    LODWORD(averageSoundReductionIndex) = [(NSNumber *)averageSoundReductionIndex isEqualToNumber:averageSoundReductionIndex];
-
-    if (!averageSoundReductionIndex)
-    {
-      goto LABEL_17;
-    }
-
-    numDataPointsReferenceData = self->_numDataPointsReferenceData;
-    numDataPointsReferenceData = [(AMSoundReductionIndex *)v6 numDataPointsReferenceData];
-    LODWORD(numDataPointsReferenceData) = [(NSArray *)numDataPointsReferenceData isEqualToArray:numDataPointsReferenceData];
-
-    if (numDataPointsReferenceData)
+    if (materialName && (materialDescription = self->_materialDescription, [(AMSoundReductionIndex *)v6 materialDescription], v10 = objc_claimAutoreleasedReturnValue(), LODWORD(materialDescription) = [(NSString *)materialDescription isEqualToString:v10], v10, materialDescription) && (materialDepth = self->_materialDepth, [(AMSoundReductionIndex *)v6 materialDepth], v12 = objc_claimAutoreleasedReturnValue(), LODWORD(materialDepth) = [(NSNumber *)materialDepth isEqualToNumber:v12], v12, materialDepth) && (uncertaintyMaterialDepth = self->_uncertaintyMaterialDepth, [(AMSoundReductionIndex *)v6 uncertaintyMaterialDepth], v14 = objc_claimAutoreleasedReturnValue(), LODWORD(uncertaintyMaterialDepth) = [(NSNumber *)uncertaintyMaterialDepth isEqualToNumber:v14], v14, uncertaintyMaterialDepth) && (frequencyBands = self->_frequencyBands, [(AMSoundReductionIndex *)v6 frequencyBands], v16 = objc_claimAutoreleasedReturnValue(), LODWORD(frequencyBands) = [(NSArray *)frequencyBands isEqualToArray:v16], v16, frequencyBands) && (soundReductionIndexUserData = self->_soundReductionIndexUserData, [(AMSoundReductionIndex *)v6 soundReductionIndexUserData], v18 = objc_claimAutoreleasedReturnValue(), LODWORD(soundReductionIndexUserData) = [(NSArray *)soundReductionIndexUserData isEqualToArray:v18], v18, soundReductionIndexUserData) && (soundReductionIndexReferenceData = self->_soundReductionIndexReferenceData, [(AMSoundReductionIndex *)v6 soundReductionIndexReferenceData], v20 = objc_claimAutoreleasedReturnValue(), LODWORD(soundReductionIndexReferenceData) = [(NSArray *)soundReductionIndexReferenceData isEqualToArray:v20], v20, soundReductionIndexReferenceData) && (uncertaintyReferenceData = self->_uncertaintyReferenceData, [(AMSoundReductionIndex *)v6 uncertaintyReferenceData], v22 = objc_claimAutoreleasedReturnValue(), LODWORD(uncertaintyReferenceData) = [(NSArray *)uncertaintyReferenceData isEqualToArray:v22], v22, uncertaintyReferenceData) && (averageSoundReductionIndex = self->_averageSoundReductionIndex, [(AMSoundReductionIndex *)v6 averageSoundReductionIndex], v24 = objc_claimAutoreleasedReturnValue(), LODWORD(averageSoundReductionIndex) = [(NSNumber *)averageSoundReductionIndex isEqualToNumber:v24], v24, averageSoundReductionIndex) && (numDataPointsReferenceData = self->_numDataPointsReferenceData, [(AMSoundReductionIndex *)v6 numDataPointsReferenceData], v26 = objc_claimAutoreleasedReturnValue(), LODWORD(numDataPointsReferenceData) = [(NSArray *)numDataPointsReferenceData isEqualToArray:v26], v26, numDataPointsReferenceData))
     {
       totalNumDataSetsReferenceData = self->_totalNumDataSetsReferenceData;
       v28 = totalNumDataSetsReferenceData == [(AMSoundReductionIndex *)v6 totalNumDataSetsReferenceData];
@@ -249,7 +167,6 @@ LABEL_7:
 
     else
     {
-LABEL_17:
       v28 = 0;
     }
   }
@@ -264,7 +181,7 @@ LABEL_17:
 
 - (BOOL)validatedWithoutError:(id *)error
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   v5 = [(NSArray *)self->_frequencyBands count];
   if ([(NSArray *)self->_soundReductionIndexUserData count]== v5 && [(NSArray *)self->_soundReductionIndexReferenceData count]== v5 && [(NSArray *)self->_uncertaintyReferenceData count]== v5 && [(NSArray *)self->_numDataPointsReferenceData count]== v5)
   {
@@ -273,31 +190,31 @@ LABEL_17:
       if (error)
       {
         v6 = MEMORY[0x277CCA9B8];
-        v37 = *MEMORY[0x277CCA450];
-        v38 = @"Name and or description is empty or corrupted.";
-        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+        v36 = *MEMORY[0x277CCA450];
+        v37 = @"Name and or description is empty or corrupted.";
+        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
         v8 = v6;
         v9 = 2;
 LABEL_11:
-        *error = [v8 errorWithDomain:@"com.apple.acousticmaterials.ErrorDomain" code:v9 userInfo:{v7, v30}];
+        *error = [v8 errorWithDomain:@"com.apple.acousticmaterials.ErrorDomain" code:v9 userInfo:{v7, v29}];
       }
     }
 
     else
     {
       [(NSNumber *)self->_materialDepth floatValue];
-      if (v13 < 0.0 || ([(NSNumber *)self->_uncertaintyMaterialDepth floatValue], v14 < 0.0) || ([(NSNumber *)self->_averageSoundReductionIndex floatValue], v15 < 0.0))
+      if (v12 < 0.0 || ([(NSNumber *)self->_uncertaintyMaterialDepth floatValue], v13 < 0.0) || ([(NSNumber *)self->_averageSoundReductionIndex floatValue], v14 < 0.0))
       {
         if (!error)
         {
-          goto LABEL_12;
+          return 0;
         }
 
-        v16 = MEMORY[0x277CCA9B8];
-        v35 = *MEMORY[0x277CCA450];
-        v36 = @"The value of materialDepth, uncertainityMaterialDepth or averageSoundReductionIndex is negative.";
-        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-        v8 = v16;
+        v15 = MEMORY[0x277CCA9B8];
+        v34 = *MEMORY[0x277CCA450];
+        v35 = @"The value of materialDepth, uncertainityMaterialDepth or averageSoundReductionIndex is negative.";
+        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+        v8 = v15;
         v9 = 3;
         goto LABEL_11;
       }
@@ -306,79 +223,78 @@ LABEL_11:
       {
         if (!error)
         {
-          goto LABEL_12;
+          return 0;
         }
 
-        v28 = MEMORY[0x277CCA9B8];
-        v33 = *MEMORY[0x277CCA450];
-        v34 = @"The value of totalNumDataSetsReferenceData is negative.";
-        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-        v8 = v28;
+        v27 = MEMORY[0x277CCA9B8];
+        v32 = *MEMORY[0x277CCA450];
+        v33 = @"The value of totalNumDataSetsReferenceData is negative.";
+        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+        v8 = v27;
         v9 = 4;
         goto LABEL_11;
       }
 
       if (!v5)
       {
-        result = 1;
-        goto LABEL_13;
+        return 1;
       }
 
-      v17 = 0;
-      v18 = 1;
-      v19 = &unk_285016A10;
+      v16 = 0;
+      v17 = 1;
+      v18 = &unk_285016A10;
       while (1)
       {
-        v20 = [(NSArray *)self->_soundReductionIndexUserData objectAtIndexedSubscript:v17, v30];
-        if (!valueIsBetween(v20, v19, &unk_285016A28))
+        v19 = [(NSArray *)self->_soundReductionIndexUserData objectAtIndexedSubscript:v16, v29];
+        if (!valueIsBetween(v19, v18, &unk_285016A28))
         {
           break;
         }
 
-        v21 = [(NSArray *)self->_soundReductionIndexReferenceData objectAtIndexedSubscript:v17];
-        if (!valueIsBetween(v21, v19, &unk_285016A28))
+        v20 = [(NSArray *)self->_soundReductionIndexReferenceData objectAtIndexedSubscript:v16];
+        if (!valueIsBetween(v20, v18, &unk_285016A28))
         {
           goto LABEL_33;
         }
 
-        v22 = [(NSArray *)self->_uncertaintyReferenceData objectAtIndexedSubscript:v17];
-        if (!valueIsBetween(v22, v19, &unk_285016A28) || !valueIsBetween(self->_averageSoundReductionIndex, v19, &unk_285016A28))
+        v21 = [(NSArray *)self->_uncertaintyReferenceData objectAtIndexedSubscript:v16];
+        if (!valueIsBetween(v21, v18, &unk_285016A28) || !valueIsBetween(self->_averageSoundReductionIndex, v18, &unk_285016A28))
         {
 
 LABEL_33:
           break;
         }
 
-        v23 = v18;
-        v24 = [(NSArray *)self->_numDataPointsReferenceData objectAtIndexedSubscript:v17];
-        v25 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalNumDataSetsReferenceData];
-        v30 = v20;
-        v26 = v19;
-        IsBetween = valueIsBetween(v24, v19, v25);
+        v22 = v17;
+        v23 = [(NSArray *)self->_numDataPointsReferenceData objectAtIndexedSubscript:v16];
+        v24 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalNumDataSetsReferenceData];
+        v29 = v19;
+        v25 = v18;
+        IsBetween = valueIsBetween(v23, v18, v24);
 
         if (!IsBetween)
         {
           goto LABEL_35;
         }
 
-        v17 = v23;
-        v18 = v23 + 1;
+        v16 = v22;
+        v17 = v22 + 1;
         result = 1;
-        v19 = v26;
-        if (v5 <= v23)
+        v18 = v25;
+        if (v5 <= v22)
         {
-          goto LABEL_13;
+          return result;
         }
       }
 
 LABEL_35:
       if (error)
       {
-        v29 = MEMORY[0x277CCA9B8];
-        v31 = *MEMORY[0x277CCA450];
-        v32 = @"At least one value in one of the data sets lies outside the permitted value ranges.";
-        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-        v8 = v29;
+        v28 = MEMORY[0x277CCA9B8];
+        v30 = *MEMORY[0x277CCA450];
+        v31 = @"At least one value in one of the data sets lies outside the permitted value ranges.";
+        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+        v8 = v28;
         v9 = 5;
         goto LABEL_11;
       }
@@ -388,19 +304,15 @@ LABEL_35:
   else if (error)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v39 = *MEMORY[0x277CCA450];
-    v40[0] = @"Data arrays have different lengths.";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v38 = *MEMORY[0x277CCA450];
+    v39[0] = @"Data arrays have different lengths.";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     v8 = v10;
     v9 = 1;
     goto LABEL_11;
   }
 
-LABEL_12:
-  result = 0;
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 @end

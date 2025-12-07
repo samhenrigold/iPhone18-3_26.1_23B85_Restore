@@ -142,9 +142,9 @@
 
 - (void)addSharedBaseFormulaIndex:(unint64_t)index withIndex:(int64_t)withIndex
 {
-  v4[0] = withIndex;
-  v4[2] = v4;
-  std::__tree<std::__value_type<long,unsigned long>,std::__map_value_compare<long,std::__value_type<long,unsigned long>,std::less<long>,true>,std::allocator<std::__value_type<long,unsigned long>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(&self->mSharedFormulasMap, v4)[5] = index;
+  withIndexCopy = withIndex;
+  v5 = &withIndexCopy;
+  std::__tree<std::__value_type<long,unsigned long>,std::__map_value_compare<long,std::__value_type<long,unsigned long>,std::less<long>,true>,std::allocator<std::__value_type<long,unsigned long>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(&self->mSharedFormulasMap, &withIndexCopy, &std::piecewise_construct, &v5)[5] = index;
 }
 
 - (void)setSheetDimension:(id)dimension

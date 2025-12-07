@@ -34,41 +34,38 @@ void __50__FPDCacheDeleteServiceForTesting_testingInstance__block_invoke(uint64_
 
 - (void)registerCacheDeleteCallbacks
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   objc_initWeak(&location, self);
   aBlock = MEMORY[0x1E69E9820];
-  v10 = 3221225472;
-  v11 = __63__FPDCacheDeleteServiceForTesting_registerCacheDeleteCallbacks__block_invoke;
-  v12 = &unk_1E83BF590;
-  objc_copyWeak(&v13, &location);
-  v3 = _Block_copy(&aBlock);
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"CACHE_DELETE_CACHE_ENABLED", 0, aBlock, v10, v11, v12}];
-  cacheDeleteServiceName = self->super._cacheDeleteServiceName;
-  p_cacheDeleteServiceName = &self->super._cacheDeleteServiceName;
-  v15 = @"CACHE_DELETE_NOTIFICATIONS";
-  v16[0] = v4;
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v6 = 3221225472;
+  v7 = __63__FPDCacheDeleteServiceForTesting_registerCacheDeleteCallbacks__block_invoke;
+  v8 = &unk_1E83BF590;
+  objc_copyWeak(&v9, &location);
+  v2 = _Block_copy(&aBlock);
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"CACHE_DELETE_CACHE_ENABLED", 0, aBlock, v6, v7, v8}];
+  v11 = @"CACHE_DELETE_NOTIFICATIONS";
+  v12[0] = v3;
+  [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   if (CacheDeleteRegisterForProcess())
   {
-    v7 = fp_current_or_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v4 = fp_current_or_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      [(FPDCacheDeleteService *)p_cacheDeleteServiceName registerCacheDeleteCallbacks];
+      [FPDCacheDeleteService registerCacheDeleteCallbacks];
     }
   }
 
   else
   {
-    v7 = fp_current_or_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v4 = fp_current_or_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [(FPDCacheDeleteService *)p_cacheDeleteServiceName registerCacheDeleteCallbacks];
+      [FPDCacheDeleteService registerCacheDeleteCallbacks];
     }
   }
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __63__FPDCacheDeleteServiceForTesting_registerCacheDeleteCallbacks__block_invoke(uint64_t a1, void *a2)
@@ -99,39 +96,36 @@ void __63__FPDCacheDeleteServiceForTesting_registerCacheDeleteCallbacks__block_i
 
 void __63__FPDCacheDeleteServiceForTesting_registerCacheDeleteCallbacks__block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v11 = 0u;
-  v12 = 0u;
+  v11 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v2 = [*(*(a1 + 32) + 16) allValues];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v3)
+  v6 = 0u;
+  v7 = 0u;
+  v1 = [*(*(a1 + 32) + 16) allValues];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v4 = v3;
-    v5 = *v10;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v1);
         }
 
-        v7 = *(*(a1 + 32) + 32);
-        (*(*(*(&v9 + 1) + 8 * v6++) + 16))();
+        (*(*(*(&v6 + 1) + 8 * v5++) + 16))();
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v4);
+    while (v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -115,13 +115,12 @@
 
 - (void)_readPausedProgressFromDisk
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v5 = 138412546;
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
   selfCopy = self;
-  v7 = 2048;
-  v8 = a4;
-  OUTLINED_FUNCTION_2_6(&dword_1AAAE1000, a2, a3, "[DEBUG] %@: reading paused progress from disk: %g", &v5);
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = 2048;
+  v7 = a4;
+  OUTLINED_FUNCTION_2_6(&dword_1AAAE1000, a2, a3, "[DEBUG] %@: reading paused progress from disk: %g", &v4);
 }
 
 - (void)startTrackingFileURL:(id)l kind:(id)kind allowReadPausedProgressFromDisk:(BOOL)disk
@@ -135,14 +134,14 @@
   aBlock[1] = 3221225472;
   aBlock[2] = __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFromDisk___block_invoke;
   aBlock[3] = &unk_1E793B9D0;
-  objc_copyWeak(&v28, location);
-  v22 = kindCopy;
-  v25 = v22;
+  objc_copyWeak(&v27, location);
+  v21 = kindCopy;
+  v24 = v21;
   v12 = lCopy;
-  v29 = diskCopy;
-  v26 = v12;
+  v28 = diskCopy;
+  v25 = v12;
   selfCopy = self;
-  v23 = _Block_copy(aBlock);
+  v22 = _Block_copy(aBlock);
   selfCopy2 = self;
   objc_sync_enter(selfCopy2);
   selfCopy2->_isInSetup = 1;
@@ -150,7 +149,7 @@
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     shortDescription = [(FPProgressProxy *)selfCopy2 shortDescription];
-    [currentHandler handleFailureInMethod:a2 object:selfCopy2 file:@"FPProgressProxy.m" lineNumber:192 description:{@"%@: startTracking/stopTracking not properly balanced", shortDescription, v22}];
+    [currentHandler handleFailureInMethod:a2 object:selfCopy2 file:@"FPProgressProxy.m" lineNumber:192 description:{@"%@: startTracking/stopTracking not properly balanced", shortDescription, v21}];
 
     if (selfCopy2->_subscriber)
     {
@@ -184,22 +183,20 @@
     [FPProgressProxy startTrackingFileURL:kind:allowReadPausedProgressFromDisk:];
   }
 
-  v19 = [MEMORY[0x1E696AE38] _addSubscriberForFileURL:v12 withPublishingHandler:v23];
+  v19 = [MEMORY[0x1E696AE38] _addSubscriberForFileURL:v12 withPublishingHandler:v22];
   subscriber = selfCopy2->_subscriber;
   selfCopy2->_subscriber = v19;
 
   selfCopy2->_isInSetup = 0;
   objc_sync_exit(selfCopy2);
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(location);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 id __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFromDisk___block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
@@ -218,14 +215,14 @@ id __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFromDi
           v8 = fp_current_or_default_log();
           if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
           {
-            v21 = [v7 shortDescription];
-            v22 = [*(a1 + 40) fp_shortDescription];
+            v20 = [v7 shortDescription];
+            v21 = [*(a1 + 40) fp_shortDescription];
             *buf = 138412802;
-            v33 = v21;
-            v34 = 2112;
-            v35 = v22;
-            v36 = 2112;
-            v37 = v3;
+            v32 = v20;
+            v33 = 2112;
+            v34 = v21;
+            v35 = 2112;
+            v36 = v3;
             _os_log_debug_impl(&dword_1AAAE1000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: replace observer for %@, newProgress %@", buf, 0x20u);
           }
 
@@ -239,44 +236,44 @@ id __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFromDi
           v9 = fp_current_or_default_log();
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
-            v23 = [v7 shortDescription];
-            v24 = [*(a1 + 40) fp_shortDescription];
+            v22 = [v7 shortDescription];
+            v23 = [*(a1 + 40) fp_shortDescription];
             *buf = 138412802;
-            v33 = v23;
-            v34 = 2112;
-            v35 = v24;
-            v36 = 2112;
-            v37 = v3;
+            v32 = v22;
+            v33 = 2112;
+            v34 = v23;
+            v35 = 2112;
+            v36 = v3;
             _os_log_debug_impl(&dword_1AAAE1000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: add observer to %@, newProgress %@", buf, 0x20u);
           }
         }
 
         [v7 updateWithProgress:v3];
         v13 = [MEMORY[0x1E696ADA8] keyPathWithRootObject:v3 path:"fractionCompleted"];
-        v29[0] = MEMORY[0x1E69E9820];
-        v29[1] = 3221225472;
-        v29[2] = __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFromDisk___block_invoke_18;
-        v29[3] = &unk_1E793B980;
-        objc_copyWeak(&v31, (a1 + 56));
-        v30 = v3;
-        v14 = [v13 addObserverBlock:v29];
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFromDisk___block_invoke_18;
+        v28[3] = &unk_1E793B980;
+        objc_copyWeak(&v30, (a1 + 56));
+        v29 = v3;
+        v14 = [v13 addObserverBlock:v28];
         v15 = v7[19];
         v7[19] = v14;
 
-        objc_destroyWeak(&v31);
+        objc_destroyWeak(&v30);
         objc_sync_exit(v7);
 
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFromDisk___block_invoke_2_20;
-        v25[3] = &unk_1E793B9A8;
-        v25[4] = v7;
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFromDisk___block_invoke_2_20;
+        v24[3] = &unk_1E793B9A8;
+        v24[4] = v7;
         v16 = *(a1 + 40);
-        v28 = *(a1 + 64);
+        v27 = *(a1 + 64);
         v17 = *(a1 + 48);
-        v26 = v16;
-        v27 = v17;
-        v18 = _Block_copy(v25);
+        v25 = v16;
+        v26 = v17;
+        v18 = _Block_copy(v24);
         v10 = _Block_copy(v18);
       }
 
@@ -309,8 +306,6 @@ id __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFromDi
     v10 = &__block_literal_global_18;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
@@ -322,7 +317,6 @@ void __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFrom
 
 void __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFromDisk___block_invoke_2_20(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
   if (*(*(a1 + 32) + 152))
@@ -349,8 +343,6 @@ void __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFrom
   }
 
   objc_sync_exit(v2);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopTrackingIfStarted
@@ -444,10 +436,9 @@ void __46__FPProgressProxy_setProgressDidSetupHandler___block_invoke(uint64_t a1
       }
 
       *(v6 + 160) = 1;
-      v8 = *(v6 + 161);
       (*(*(a1 + 32) + 16))();
       [v6[18] finishObserving];
-      v9 = v6[18];
+      v8 = v6[18];
       v6[18] = 0;
     }
 
@@ -464,32 +455,28 @@ void __46__FPProgressProxy_setProgressDidSetupHandler___block_invoke(uint64_t a1
 
 void __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFromDisk___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [a1 shortDescription];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = a2;
-  OUTLINED_FUNCTION_2_6(&dword_1AAAE1000, a3, v6, "[DEBUG] %@: ignoring published progress of a different kind %@", &v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = a2;
+  OUTLINED_FUNCTION_2_6(&dword_1AAAE1000, a3, v6, "[DEBUG] %@: ignoring published progress of a different kind %@", &v7);
 }
 
 void __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFromDisk___block_invoke_cold_2(void *a1, void *a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = [a1 shortDescription];
   v6 = [a2 fileURL];
   v7 = [v6 fp_shortDescription];
-  v9 = 138412802;
-  v10 = v5;
-  v11 = 2112;
-  v12 = v7;
-  v13 = 2112;
-  v14 = a2;
-  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: ignoring published progress of a different URL (%@) %@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138412802;
+  v9 = v5;
+  v10 = 2112;
+  v11 = v7;
+  v12 = 2112;
+  v13 = a2;
+  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: ignoring published progress of a different URL (%@) %@", &v8, 0x20u);
 }
 
 void __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFromDisk___block_invoke_2_20_cold_1()
@@ -501,11 +488,10 @@ void __77__FPProgressProxy_startTrackingFileURL_kind_allowReadPausedProgressFrom
 
 void __46__FPProgressProxy_setProgressDidSetupHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] FPProgressProxy: calling parent setup handler for: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] FPProgressProxy: calling parent setup handler for: %@", &v2, 0xCu);
 }
 
 @end

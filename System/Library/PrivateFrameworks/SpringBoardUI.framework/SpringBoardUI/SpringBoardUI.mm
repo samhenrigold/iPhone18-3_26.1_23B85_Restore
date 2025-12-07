@@ -194,9 +194,11 @@ LABEL_19:
 
 uint64_t __SBUIGetBackdropSettingsForBackgroundStyle_block_invoke()
 {
-  SBUIGetBackdropSettingsForBackgroundStyle__mapFromBackgroundStyleToBackdropSettings = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v0 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v1 = SBUIGetBackdropSettingsForBackgroundStyle__mapFromBackgroundStyleToBackdropSettings;
+  SBUIGetBackdropSettingsForBackgroundStyle__mapFromBackgroundStyleToBackdropSettings = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 __CFString *NSStringFromSBSceneViewDisplayMode(uint64_t a1)
@@ -219,19 +221,19 @@ void sub_21E755258(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id SpringBoardUIBundle()
+id SpringBoardUIBundle(uint64_t a1, uint64_t a2)
 {
-  v0 = SpringBoardUIBundle___SpringBoardUIBundle;
+  v2 = SpringBoardUIBundle___SpringBoardUIBundle;
   if (!SpringBoardUIBundle___SpringBoardUIBundle)
   {
-    v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v2 = SpringBoardUIBundle___SpringBoardUIBundle;
-    SpringBoardUIBundle___SpringBoardUIBundle = v1;
+    v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v4 = SpringBoardUIBundle___SpringBoardUIBundle;
+    SpringBoardUIBundle___SpringBoardUIBundle = v3;
 
-    v0 = SpringBoardUIBundle___SpringBoardUIBundle;
+    v2 = SpringBoardUIBundle___SpringBoardUIBundle;
   }
 
-  return v0;
+  return v2;
 }
 
 __CFString *NSStringFromSBAlertItemPresentationState(uint64_t a1)
@@ -471,10 +473,11 @@ void sub_21E75B814(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_21E75E19C(_Unwind_Exception *a1)
@@ -514,7 +517,7 @@ id _NewChevronPiece()
   return v1;
 }
 
-void SBUIPrewarmKeyboard()
+void SBUIPrewarmKeyboard(uint64_t result, uint64_t a2)
 {
   if (SBUIPrewarmKeyboard_onceToken != -1)
   {
@@ -550,16 +553,16 @@ void sub_21E764548(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id SBLogUIRemoteVC()
+id SBLogUIRemoteVC(uint64_t a1)
 {
   if (SBLogUIRemoteVC_onceToken != -1)
   {
     SBLogUIRemoteVC_cold_1();
   }
 
-  v1 = SBLogUIRemoteVC___logObj;
+  v2 = SBLogUIRemoteVC___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SBLogUIRemoteVC_block_invoke()
@@ -571,16 +574,16 @@ uint64_t __SBLogUIRemoteVC_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id SBLogLegibility()
+id SBLogLegibility(uint64_t a1)
 {
   if (SBLogLegibility_onceToken != -1)
   {
     SBLogLegibility_cold_1();
   }
 
-  v1 = SBLogLegibility___logObj;
+  v2 = SBLogLegibility___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SBLogLegibility_block_invoke()
@@ -592,16 +595,16 @@ uint64_t __SBLogLegibility_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id SBLogContinuitySessionService()
+id SBLogContinuitySessionService(uint64_t a1)
 {
   if (SBLogContinuitySessionService_onceToken != -1)
   {
     SBLogContinuitySessionService_cold_1();
   }
 
-  v1 = SBLogContinuitySessionService___logObj;
+  v2 = SBLogContinuitySessionService___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SBLogContinuitySessionService_block_invoke()

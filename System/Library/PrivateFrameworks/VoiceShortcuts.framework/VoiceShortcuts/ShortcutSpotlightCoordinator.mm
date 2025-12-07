@@ -29,7 +29,7 @@
 {
   notificationCopy = notification;
   selfCopy = self;
-  sub_2310AD36C(notificationCopy);
+  sub_2310AD36C();
 }
 
 @end

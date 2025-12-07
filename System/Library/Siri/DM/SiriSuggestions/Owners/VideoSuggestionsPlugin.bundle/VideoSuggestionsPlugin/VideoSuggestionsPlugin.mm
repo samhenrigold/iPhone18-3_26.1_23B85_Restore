@@ -8,36 +8,34 @@ uint64_t sub_12D0()
 
 uint64_t sub_1378()
 {
-  v0 = (*(*(sub_154C(&qword_80A0, &unk_3250) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_154C(&qword_80A0, &unk_3250);
   __chkstk_darwin();
-  v2 = v11 - v1;
+  v1 = v8 - v0;
   if (qword_8090 != -1)
   {
     swift_once();
   }
 
-  v3 = sub_2DC4();
-  sub_15E4(v3, qword_8A00);
-  strcpy(v2, "com.apple.tv");
-  v2[13] = 0;
-  *(v2 + 7) = -5120;
-  v4 = enum case for Image.appIcon(_:);
-  v5 = sub_2F54();
-  (*(*(v5 - 8) + 104))(v2, v4, v5);
-  sub_161C(v2, 0, 1, v5);
-  v6 = sub_2EF4();
-  v7 = *(v6 + 48);
-  v8 = *(v6 + 52);
+  v2 = sub_2DC4();
+  sub_15E4(v2, qword_8A00);
+  strcpy(v1, "com.apple.tv");
+  v1[13] = 0;
+  *(v1 + 7) = -5120;
+  v3 = enum case for Image.appIcon(_:);
+  v4 = sub_2F54();
+  (*(*(v4 - 8) + 104))(v1, v3, v4);
+  sub_161C(v1, 0, 1, v4);
+  v5 = sub_2EF4();
   swift_allocObject();
-  v9 = sub_2EE4();
-  v12[3] = v6;
-  v12[4] = &protocol witness table for StaticIconUrlProvider;
-  v12[0] = v9;
-  v11[3] = &type metadata for FindVideoActionProvider;
-  v11[4] = sub_1644();
+  v6 = sub_2EE4();
+  v9[3] = v5;
+  v9[4] = &protocol witness table for StaticIconUrlProvider;
+  v9[0] = v6;
+  v8[3] = &type metadata for FindVideoActionProvider;
+  v8[4] = sub_1644();
   sub_2E24();
-  sub_1698(v11);
-  return sub_1698(v12);
+  sub_1698(v8);
+  return sub_1698(v9);
 }
 
 uint64_t sub_154C(uint64_t *a1, uint64_t *a2)
@@ -45,7 +43,6 @@ uint64_t sub_154C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -123,14 +120,11 @@ uint64_t sub_174C()
 
 uint64_t *sub_17B4(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -154,7 +148,7 @@ uint64_t sub_1828()
   *(inited + 40) = v1;
   v3 = sub_2E34();
   v7[3] = v3;
-  v7[4] = sub_1EA8(&qword_80E0, &type metadata accessor for CoreSignalTypes);
+  v7[4] = sub_1EA8(&qword_80E0, &type metadata accessor for CoreSignalTypes, &protocol conformance descriptor for CoreSignalTypes);
   v4 = sub_1E48(v7);
   (*(*(v3 - 8) + 104))(v4, enum case for CoreSignalTypes.app(_:), v3);
   *(inited + 48) = sub_2F74();
@@ -166,28 +160,26 @@ uint64_t sub_1828()
   *(v5 + 40) = 0x8000000000003080;
   *(inited + 56) = v5;
   sub_154C(&qword_80E8, &qword_3400);
-  sub_1EA8(&qword_80F0, &type metadata accessor for Signal);
+  sub_1EA8(&qword_80F0, &type metadata accessor for Signal, &protocol conformance descriptor for Signal);
   return sub_2FA4();
 }
 
 uint64_t sub_1A74(uint64_t a1, uint64_t a2)
 {
-  v5 = async function pointer to SignalSubscriber.getAsyncSubscriptions()[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_2458;
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_2458;
 
   return SignalSubscriber.getAsyncSubscriptions()(a1, a2);
 }
 
 uint64_t sub_1B1C(uint64_t a1, uint64_t a2)
 {
-  v5 = async function pointer to SignalSubscriber.getAsyncLookupSubscriptions()[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_2458;
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_2458;
 
   return SignalSubscriber.getAsyncLookupSubscriptions()(a1, a2);
 }
@@ -205,14 +197,13 @@ uint64_t sub_1BC4()
 uint64_t sub_1C50(uint64_t a1)
 {
   sub_246C();
-  v4 = *(v3 + 16);
-  v5 = *v1;
+  v3 = *v1;
   sub_245C();
-  *v6 = v5;
+  *v4 = v3;
 
-  v7 = *(v5 + 8);
+  v5 = *(v3 + 8);
 
-  return v7(a1);
+  return v5(a1);
 }
 
 unint64_t sub_1D48()
@@ -263,7 +254,7 @@ uint64_t *sub_1E48(uint64_t *a1)
   return v1;
 }
 
-uint64_t sub_1EA8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1EA8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -349,7 +340,6 @@ LABEL_8:
 uint64_t sub_1F9C()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -367,34 +357,31 @@ uint64_t sub_1FD0()
 uint64_t sub_205C()
 {
   sub_246C();
-  v2 = *(v1 + 16);
-  v3 = *v0;
+  v1 = *v0;
   sub_245C();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = *(v3 + 8);
+  v3 = *(v1 + 8);
 
-  return v5();
+  return v3();
 }
 
 uint64_t sub_2144(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = async function pointer to CandidateSuggestionConfigurator.isValid(signal:)[1];
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = sub_1C50;
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = sub_1C50;
 
   return CandidateSuggestionConfigurator.isValid(signal:)(a1, a2, a3);
 }
 
 uint64_t sub_21F4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = async function pointer to CandidateSuggestionConfigurator.isValidWithDebug(signal:)[1];
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = sub_22A4;
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = sub_22A4;
 
   return CandidateSuggestionConfigurator.isValidWithDebug(signal:)(a1, a2, a3);
 }
@@ -402,14 +389,13 @@ uint64_t sub_21F4(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t sub_22A4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_246C();
-  v8 = *(v7 + 16);
-  v9 = *v3;
+  v7 = *v3;
   sub_245C();
-  *v10 = v9;
+  *v8 = v7;
 
-  v11 = *(v9 + 8);
+  v9 = *(v7 + 8);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t sub_23AC(uint64_t a1, uint64_t a2)
@@ -441,12 +427,12 @@ uint64_t sub_2478()
   return v0;
 }
 
-uint64_t sub_2528()
+uint64_t sub_2528(uint64_t a1, uint64_t a2)
 {
-  v1 = sub_2F04();
-  v2 = *(v0 + 8);
+  v3 = sub_2F04();
+  v4 = *(v2 + 8);
 
-  return v2(v1);
+  return v4(v3);
 }
 
 unint64_t sub_2588()
@@ -463,9 +449,7 @@ unint64_t sub_2588()
 
 uint64_t sub_25EC()
 {
-  v0 = sub_2E04();
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
+  sub_2E04();
   swift_allocObject();
   result = sub_2E14();
   qword_8A18 = result;
@@ -609,34 +593,30 @@ unint64_t sub_29EC()
 uint64_t sub_2A58()
 {
   sub_154C(&unk_81F0, &qword_3778);
-  v0 = *(sub_2EA4() - 8);
-  v1 = *(v0 + 72);
-  v2 = (*(v0 + 80) + 32) & ~*(v0 + 80);
-  v3 = swift_allocObject();
-  *(v3 + 16) = xmmword_32E0;
+  sub_2EA4();
+  v0 = swift_allocObject();
+  *(v0 + 16) = xmmword_32E0;
   sub_12D0();
-  return v3;
+  return v0;
 }
 
 uint64_t sub_2B10(uint64_t a1, uint64_t a2)
 {
-  v5 = async function pointer to InternalSuggestionsRepository.getAsyncPooledSuggestions()[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_2BB8;
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_2BB8;
 
   return InternalSuggestionsRepository.getAsyncPooledSuggestions()(a1, a2);
 }
 
 uint64_t sub_2BB8(uint64_t a1)
 {
-  v3 = *(*v1 + 16);
-  v6 = *v1;
+  v5 = *v1;
 
-  v4 = *(v6 + 8);
+  v3 = *(v5 + 8);
 
-  return v4(a1);
+  return v3(a1);
 }
 
 uint64_t sub_2CB8(uint64_t a1)

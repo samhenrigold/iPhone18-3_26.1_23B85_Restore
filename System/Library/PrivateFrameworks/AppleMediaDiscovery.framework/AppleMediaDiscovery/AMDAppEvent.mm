@@ -56,7 +56,6 @@
 
   v7 = [getEventType__eventTypeMap objectForKey:{location[0], location}];
   objc_storeStrong(v6, 0);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -102,7 +101,6 @@
 
   v7 = [getEventSubType__eventSubTypeMap objectForKey:{location[0], location}];
   objc_storeStrong(v6, 0);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -144,7 +142,6 @@
 
   v6 = [getEventPlatform__platformMap objectForKey:location[0]];
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -405,7 +402,6 @@ LABEL_47:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v45 & 1;
 }
 
@@ -479,7 +475,6 @@ LABEL_47:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -501,7 +496,6 @@ LABEL_47:
   objc_storeStrong(&v9, 0);
   objc_storeStrong(v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -856,7 +850,6 @@ void __43__AMDAppEvent_deleteUsingPredicates_error___block_invoke(void *a1)
   objc_storeStrong(&v82, 0);
   objc_storeStrong(&v82 + 1, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v12 = v84;
 
   return v12;
@@ -940,7 +933,6 @@ void __119__AMDAppEvent_getSegmentsWithLookBack_andRecencyThreshold_andFrequency
   objc_storeStrong(&v31, 0);
   objc_storeStrong(&v32, 0);
   objc_storeStrong(v33, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)populateRecord:(id)record

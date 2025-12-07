@@ -97,7 +97,7 @@ LABEL_18:
         {
           if (self)
           {
-            [self CATransform3DValue];
+            objc_msgSend_CATransform3DValue(self);
             v25 = v38;
             v24 = v39;
             v27 = v40;
@@ -137,7 +137,7 @@ LABEL_18:
         {
           if (self)
           {
-            [self CA_CGAffineTransformValue];
+            objc_msgSend_CA_CGAffineTransformValue(self);
             v33 = v38;
             v32 = v39;
             v34 = v40;
@@ -177,7 +177,7 @@ LABEL_18:
           v39 = 0u;
           if (self)
           {
-            [self CACornerRadiiValue];
+            objc_msgSend_CACornerRadiiValue(self);
           }
 
           v48 = v38;
@@ -254,10 +254,10 @@ LABEL_9:
   if (!strcmp(objCType, "{CGRect={CGPoint=dd}{CGSize=dd}}"))
   {
     [self rectValue];
-    *a3 = v8;
-    a3[1] = v9;
-    a3[2] = v8 + v10;
-    a3[3] = v9 + v11;
+    a3->f64[0] = v8;
+    a3->f64[1] = v9;
+    a3[1].f64[0] = v8 + v10;
+    a3[1].f64[1] = v9 + v11;
     return 4;
   }
 
@@ -296,8 +296,8 @@ LABEL_8:
       {
         v13 = v14[i];
         *a3 = vcvtq_f64_f32(*v13.f32);
-        *(a3 + 1) = vcvt_hight_f64_f32(v13);
-        a3 += 4;
+        a3[1] = vcvt_hight_f64_f32(v13);
+        a3 += 2;
       }
 
       return 20;

@@ -205,15 +205,15 @@ LABEL_9:
 
   [(TSDCalloutPathSource *)self cornerRadius];
   v5 = v4;
-  [(TSDCalloutPathSource *)self maxCornerRadius];
-  if (v5 < v6)
+  maxCornerRadius = [(TSDCalloutPathSource *)self maxCornerRadius];
+  if (v5 < v8)
   {
-    return [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSDBundle(), "localizedStringForKey:value:table:", @"Radius: %d pt", &stru_287D36338, @"TSDrawables", self->mCornerRadius];
+    return [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSDBundle(maxCornerRadius, v7), "localizedStringForKey:value:table:", @"Radius: %d pt", &stru_287D36338, @"TSDrawables", self->mCornerRadius];
   }
 
-  v8 = TSDBundle();
+  v10 = TSDBundle(maxCornerRadius, v7);
 
-  return [v8 localizedStringForKey:@"Oval" value:&stru_287D36338 table:@"TSDrawables"];
+  return [v10 localizedStringForKey:@"Oval" value:&stru_287D36338 table:@"TSDrawables"];
 }
 
 - (void)setCornerRadius:(double)radius

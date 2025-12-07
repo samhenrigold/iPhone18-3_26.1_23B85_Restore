@@ -35,13 +35,12 @@
 
 - (void)notificationRepositoryDidPerformUpdates:(id)updates forBundleIdentifier:(id)identifier
 {
-  v6 = *(&self->super.isa + OBJC_IVAR____TtC21UserNotificationsCore33NotificationCoreServiceConnection_notificationRepository);
   objc_opt_self();
-  v7 = swift_dynamicCastObjCClass();
-  if (v7)
+  v6 = swift_dynamicCastObjCClass();
+  if (v6)
   {
 
-    [v7 notifyDidPerformUpdates:updates forBundleIdentifier:identifier];
+    [v6 notifyDidPerformUpdates:updates forBundleIdentifier:identifier];
   }
 }
 
@@ -74,27 +73,26 @@
   repostCopy = repost;
   selfCopy = self;
   sub_1DA91A814(recordCopy, number, repostCopy, v12, v14, v11, v15);
-  sub_1DA7B5220(v11);
+  sub_1DA7B5220(v11, v15);
 }
 
 - (void)saveNotificationRequest:(id)request shouldRepost:(id)repost apsMessageTimestamp:(id)timestamp forBundleIdentifier:(id)identifier
 {
   v10 = sub_1DA93FAF4();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](v10);
-  v14 = &v22 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1DA93FAB4();
-  v15 = *(&self->super.isa + OBJC_IVAR____TtC21UserNotificationsCore33NotificationCoreServiceConnection_notificationRepository);
+  v14 = *(&self->super.isa + OBJC_IVAR____TtC21UserNotificationsCore33NotificationCoreServiceConnection_notificationRepository);
   requestCopy = request;
   repostCopy = repost;
   identifierCopy = identifier;
   selfCopy = self;
   bOOLValue = [repostCopy BOOLValue];
-  v21 = sub_1DA93FA44();
-  [v15 saveNotificationRequest:requestCopy shouldRepost:bOOLValue apsMessageTimestamp:v21 forBundleIdentifier:identifierCopy];
+  v20 = sub_1DA93FA44();
+  [v14 saveNotificationRequest:requestCopy shouldRepost:bOOLValue apsMessageTimestamp:v20 forBundleIdentifier:identifierCopy];
 
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)removeNotificationRecordsForIdentifiers:(id)identifiers bundleIdentifier:(id)identifier
@@ -137,7 +135,7 @@
   numberCopy = number;
   selfCopy = self;
   sub_1DA91AE94(number, v8, v10, v7, v11);
-  sub_1DA7B5220(v7);
+  sub_1DA7B5220(v7, v11);
 }
 
 - (void)setBadgeCount:(id)count forBundleIdentifier:(id)identifier completionHandler:(id)handler
@@ -160,7 +158,7 @@
   countCopy = count;
   selfCopy = self;
   sub_1DA91B070(countCopy, v8, v10, v7, v11);
-  sub_1DA7B5220(v7);
+  sub_1DA7B5220(v7, v11);
 }
 
 - (void)setBadgeString:(id)string forBundleIdentifier:(id)identifier completionHandler:(id)handler
@@ -193,18 +191,17 @@
 
   selfCopy = self;
   sub_1DA91B25C(v8, string, v10, v12, v7, v13);
-  sub_1DA7B5220(v7);
+  sub_1DA7B5220(v7, v13);
 }
 
 - (void)categoryRepositoryDidChangeCategoriesForBundleIdentifier:(id)identifier
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC21UserNotificationsCore33NotificationCoreServiceConnection_categoryRepository);
   objc_opt_self();
-  v5 = swift_dynamicCastObjCClass();
-  if (v5)
+  v4 = swift_dynamicCastObjCClass();
+  if (v4)
   {
 
-    [v5 notifyDidChangeCategoriesForBundleIdentifier_];
+    [v4 notifyDidChangeCategoriesForBundleIdentifier_];
   }
 }
 

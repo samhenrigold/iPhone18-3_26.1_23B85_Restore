@@ -145,10 +145,10 @@ LABEL_14:
   {
     [BWDerectificationInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
 LABEL_45:
-    v56 = 0;
+    v57 = 0;
     v22 = 0;
-    v64 = 0;
-    v55 = 0;
+    v65 = 0;
+    v56 = 0;
     commandBuffer = 4294935582;
     if (!handler)
     {
@@ -163,10 +163,10 @@ LABEL_45:
   if (!v16)
   {
     [BWDerectificationInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
-    v56 = 0;
+    v57 = 0;
     v22 = 0;
-    v64 = 0;
-    v55 = 0;
+    v65 = 0;
+    v56 = 0;
     commandBuffer = 4294935584;
     if (!handler)
     {
@@ -182,10 +182,10 @@ LABEL_45:
   if (!newPixelBuffer)
   {
     [BWDerectificationInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
-    v56 = 0;
+    v57 = 0;
     v22 = 0;
-    v64 = 0;
-    v55 = 0;
+    v65 = 0;
+    v56 = 0;
     commandBuffer = 4294935578;
     if (!handler)
     {
@@ -198,9 +198,9 @@ LABEL_45:
   v20 = newPixelBuffer;
   storageCopy = storage;
   commandQueue = [(BWMetalInferenceContext *)self->_metalInferenceContext commandQueue];
-  v64 = [-[MTLCommandQueue device](commandQueue "device")];
+  v65 = [-[MTLCommandQueue device](commandQueue "device")];
   v22 = [-[MTLCommandQueue device](commandQueue "device")];
-  v61 = v20;
+  v62 = v20;
   handlerCopy = handler;
   if (opticalFlowInputRequirement)
   {
@@ -208,34 +208,34 @@ LABEL_45:
     if (!v23)
     {
       [BWDerectificationInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
-      v56 = 0;
+      v57 = 0;
       commandBuffer = 4294935584;
       goto LABEL_65;
     }
 
-    v60 = [-[MTLCommandQueue device](commandQueue "device")];
+    v61 = [-[MTLCommandQueue device](commandQueue "device")];
   }
 
   else
   {
-    v60 = 0;
+    v61 = 0;
   }
 
-  v80 = 0;
-  v78 = 0u;
+  v81 = 0;
   v79 = 0u;
-  v76 = 0u;
+  v80 = 0u;
   v77 = 0u;
-  v75 = 0u;
-  memset(v74, 0, sizeof(v74));
-  memset(v73, 0, 184);
-  v72 = 0;
+  v78 = 0u;
+  v76 = 0u;
+  memset(v75, 0, sizeof(v75));
+  memset(v74, 0, 184);
+  v73 = 0.0;
   v24 = CMGetAttachment(buffer, @"unrectifyData", 0);
   v25 = [objc_msgSend(v24 objectForKeyedSubscript:{@"refRollingShutterRowCount", "intValue"}];
   [objc_msgSend(v24 objectForKeyedSubscript:{@"refRollingShutterHomographyStep", "floatValue"}];
   v27 = v26;
-  [objc_msgSend(v24 objectForKeyedSubscript:{@"gdcParametersReference", "getValue:", v74}];
-  [objc_msgSend(v24 objectForKeyedSubscript:{@"calModel", "getValue:", v73}];
+  [objc_msgSend(v24 objectForKeyedSubscript:{@"gdcParametersReference", "getValue:", v75}];
+  [objc_msgSend(v24 objectForKeyedSubscript:{@"calModel", "getValue:", v74}];
   v28 = [v24 objectForKeyedSubscript:@"orientationVector"];
   if ([v28 length] != 8)
   {
@@ -245,54 +245,54 @@ LABEL_55:
     goto LABEL_58;
   }
 
-  [v28 getBytes:&v72 length:8];
-  HIDWORD(v29) = v72.i32[1];
-  if (v72.f32[0] < 0.0)
+  v29 = [v28 getBytes:&v73 length:8];
+  HIDWORD(v30) = HIDWORD(v73);
+  if (*&v73 < 0.0)
   {
-    [BWDerectificationInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
+    [BWDerectificationInferenceProvider submitForSampleBuffer:v29 usingStorage:v73 withSubmissionTime:? workQueue:? completionHandler:?];
 LABEL_57:
     commandBuffer = 4294935556;
     goto LABEL_58;
   }
 
-  LODWORD(v29) = v72.i32[1];
-  if (v72.f32[1] < 0.0)
+  LODWORD(v30) = HIDWORD(v73);
+  if (*(&v73 + 1) < 0.0)
   {
-    [BWDerectificationInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
+    [BWDerectificationInferenceProvider submitForSampleBuffer:v29 usingStorage:*(&v73 + 1) withSubmissionTime:? workQueue:? completionHandler:?];
     goto LABEL_57;
   }
 
-  v30 = [v24 objectForKeyedSubscript:{@"refRollingShutterCorrectionHomographiesInv", v29}];
-  if ([v30 length] != 48 * v25)
+  v31 = [v24 objectForKeyedSubscript:{@"refRollingShutterCorrectionHomographiesInv", v30}];
+  if ([v31 length] != 48 * v25)
   {
     [BWDerectificationInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
     goto LABEL_55;
   }
 
-  bytes = [v30 bytes];
+  bytes = [v31 bytes];
   width = [v22 width];
   height = [v22 height];
-  *(&v75 + 1) = width;
-  *&v76 = height;
-  BYTE8(v76) = 1;
-  HIDWORD(v76) = 1;
+  *(&v76 + 1) = width;
+  *&v77 = height;
+  BYTE8(v77) = 1;
+  HIDWORD(v77) = 1;
   if (self->_applyRollingShutterCorrection)
   {
-    *&v77 = bytes;
-    *(&v77 + 1) = __PAIR64__(v27, v25);
-    LOBYTE(v78) = 1;
+    *&v78 = bytes;
+    *(&v78 + 1) = __PAIR64__(v27, v25);
+    LOBYTE(v79) = 1;
   }
 
-  width2 = [v64 width];
-  v35 = v73[19];
-  *&v59 = width2 / v35;
-  height2 = [v64 height];
-  v37 = v73[20];
-  v38 = vmul_f32(v72, __PAIR64__(height2 / v37, v59));
-  v39 = v73[18] / sqrtf(vaddv_f32(vmul_f32(v38, v38)));
+  width2 = [v65 width];
+  v36 = v74[19];
+  *&v60 = width2 / v36;
+  height2 = [v65 height];
+  v38 = v74[20];
+  v39 = vmul_f32(*&v73, __PAIR64__(height2 / v38, v60));
+  v40 = v74[18] / sqrtf(vaddv_f32(vmul_f32(v39, v39)));
   if (self->_canonicalDisparityScaleFactorOverride == 0.0)
   {
-    canonicalDisparityScaleFactorOverride = v39;
+    canonicalDisparityScaleFactorOverride = v40;
   }
 
   else
@@ -300,74 +300,74 @@ LABEL_57:
     canonicalDisparityScaleFactorOverride = self->_canonicalDisparityScaleFactorOverride;
   }
 
-  v41 = [objc_msgSend(v15 objectForKeyedSubscript:{*off_1E798B588), "intValue"}] == 1;
-  if (self->_lastIsQsubFrame == v41 || !opticalFlowInputRequirement)
+  v42 = [objc_msgSend(v15 objectForKeyedSubscript:{*off_1E798B588), "intValue"}] == 1;
+  if (self->_lastIsQsubFrame == v42 || !opticalFlowInputRequirement)
   {
-    self->_lastIsQsubFrame = v41;
+    self->_lastIsQsubFrame = v42;
     commandBuffer = [(MTLCommandQueue *)commandQueue commandBuffer];
     gdcTransform = self->_gdcTransform;
     if (opticalFlowInputRequirement)
     {
       disparityIntermediate = self->_disparityIntermediate;
-      v44 = 1;
+      v45 = 1;
       goto LABEL_25;
     }
 
-    v44 = 0;
+    v45 = 0;
   }
 
   else
   {
     [(PTDisparityPostProcessing *)self->_disparityPostProcessor reset];
-    self->_lastIsQsubFrame = v41;
+    self->_lastIsQsubFrame = v42;
     commandBuffer = [(MTLCommandQueue *)commandQueue commandBuffer];
-    v44 = 0;
+    v45 = 0;
     gdcTransform = self->_gdcTransform;
   }
 
   disparityIntermediate = v22;
 LABEL_25:
-  *&v43 = canonicalDisparityScaleFactorOverride;
-  if ([(GDCTransform *)gdcTransform transformFrom:v64 to:disparityIntermediate withParameters:v74 withScale:2 withMode:commandBuffer andCommandBuffer:v43])
+  *&v44 = canonicalDisparityScaleFactorOverride;
+  if ([(GDCTransform *)gdcTransform transformFrom:v65 to:disparityIntermediate withParameters:v75 withScale:2 withMode:commandBuffer andCommandBuffer:v44])
   {
     [BWDerectificationInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
     goto LABEL_57;
   }
 
+  v72 = 0u;
   v71 = 0u;
-  v70 = 0u;
   if (FigCFDictionaryGetCGRectIfPresent())
   {
     newPixelBuffer2 = [v18 newPixelBuffer];
     if (newPixelBuffer2)
     {
-      v48 = newPixelBuffer2;
-      v49 = [-[MTLCommandQueue device](commandQueue "device")];
+      v49 = newPixelBuffer2;
+      v50 = [-[MTLCommandQueue device](commandQueue "device")];
       computeCommandEncoder = [commandBuffer computeCommandEncoder];
-      v51 = computeCommandEncoder;
-      v52 = v22;
-      if (v44)
+      v52 = computeCommandEncoder;
+      v53 = v22;
+      if (v45)
       {
-        v52 = self->_disparityIntermediate;
+        v53 = self->_disparityIntermediate;
       }
 
-      [computeCommandEncoder setTexture:v52 atIndex:0];
-      [v51 setTexture:v49 atIndex:1];
-      v69 = vcvt_hight_f32_f64(vcvt_f32_f64(vdivq_f64(v70, *&v73[19])), vdivq_f64(v71, *&v73[19]));
-      [v51 setBytes:&v69 length:16 atIndex:0];
-      [v51 setComputePipelineState:self->_depthPaddingPipelineState];
+      [computeCommandEncoder setTexture:v53 atIndex:0];
+      [v52 setTexture:v50 atIndex:1];
+      v70 = vcvt_hight_f32_f64(vcvt_f32_f64(vdivq_f64(v71, *&v74[19])), vdivq_f64(v72, *&v74[19]));
+      [v52 setBytes:&v70 length:16 atIndex:0];
+      [v52 setComputePipelineState:self->_depthPaddingPipelineState];
       threadExecutionWidth = [(MTLComputePipelineState *)self->_depthPaddingPipelineState threadExecutionWidth];
-      v54 = [(MTLComputePipelineState *)self->_depthPaddingPipelineState maxTotalThreadsPerThreadgroup]/ threadExecutionWidth;
-      v68[0] = [v22 width];
-      v68[1] = [v22 height];
+      v55 = [(MTLComputePipelineState *)self->_depthPaddingPipelineState maxTotalThreadsPerThreadgroup]/ threadExecutionWidth;
+      v69[0] = [v22 width];
+      v69[1] = [v22 height];
+      v69[2] = 1;
+      v68[0] = threadExecutionWidth;
+      v68[1] = v55;
       v68[2] = 1;
-      v67[0] = threadExecutionWidth;
-      v67[1] = v54;
-      v67[2] = 1;
-      [v51 dispatchThreads:v68 threadsPerThreadgroup:v67];
-      [v51 endEncoding];
-      v55 = v48;
-      v20 = v61;
+      [v52 dispatchThreads:v69 threadsPerThreadgroup:v68];
+      [v52 endEncoding];
+      v56 = v49;
+      v20 = v62;
       handler = handlerCopy;
       goto LABEL_35;
     }
@@ -375,9 +375,9 @@ LABEL_25:
     [BWDerectificationInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
     commandBuffer = 4294935578;
 LABEL_58:
-    v55 = v20;
+    v56 = v20;
     handler = handlerCopy;
-    v56 = v60;
+    v57 = v61;
     if (!handlerCopy)
     {
       goto LABEL_60;
@@ -386,27 +386,27 @@ LABEL_58:
     goto LABEL_59;
   }
 
-  if (v44)
+  if (v45)
   {
-    v56 = v60;
+    v57 = v61;
     handler = handlerCopy;
-    if (![(PTDisparityPostProcessing *)self->_disparityPostProcessor temporalDisparityFilter:commandBuffer inDisparity:self->_disparityIntermediate inDisplacement:v60 inDisparityFilteredPrev:self->_disparityIntermediate outDisparityFiltered:v22 disparityBias:0.0])
+    if (![(PTDisparityPostProcessing *)self->_disparityPostProcessor temporalDisparityFilter:commandBuffer inDisparity:self->_disparityIntermediate inDisplacement:v61 inDisparityFilteredPrev:self->_disparityIntermediate outDisparityFiltered:v22 disparityBias:0.0])
     {
-      v55 = 0;
-      v49 = 0;
-      v48 = v20;
+      v56 = 0;
+      v50 = 0;
+      v49 = v20;
       goto LABEL_36;
     }
 
     [BWDerectificationInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
     commandBuffer = 4294935578;
 LABEL_65:
-    v55 = v20;
+    v56 = v20;
     if (!handler)
     {
 LABEL_60:
-      v49 = 0;
-      if (!v55)
+      v50 = 0;
+      if (!v56)
       {
         goto LABEL_42;
       }
@@ -419,42 +419,42 @@ LABEL_59:
     goto LABEL_60;
   }
 
-  v55 = 0;
-  v49 = 0;
+  v56 = 0;
+  v50 = 0;
   handler = handlerCopy;
-  v48 = v20;
+  v49 = v20;
 LABEL_35:
-  v56 = v60;
+  v57 = v61;
 LABEL_36:
-  [storageCopy setPixelBuffer:v48 forRequirement:self->_outputRequirement];
+  [storageCopy setPixelBuffer:v49 forRequirement:self->_outputRequirement];
   if (*MEMORY[0x1E695FF58])
   {
-    v57 = [objc_msgSend(commandBuffer "commandQueue")];
-    [v57 setLabel:@"KTRACE_MTLCMDBUF"];
-    [v57 addCompletedHandler:&__block_literal_global_26];
-    [v57 commit];
+    v58 = [objc_msgSend(commandBuffer "commandQueue")];
+    [v58 setLabel:@"KTRACE_MTLCMDBUF"];
+    [v58 addCompletedHandler:&__block_literal_global_26];
+    [v58 commit];
     [commandBuffer addCompletedHandler:&__block_literal_global_70];
   }
 
   if (handler)
   {
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = __120__BWDerectificationInferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler___block_invoke_3;
-    v65[3] = &unk_1E798FB70;
-    v66 = 0;
-    v65[4] = self;
-    v65[5] = handler;
-    [commandBuffer addScheduledHandler:v65];
+    v66[0] = MEMORY[0x1E69E9820];
+    v66[1] = 3221225472;
+    v66[2] = __120__BWDerectificationInferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler___block_invoke_3;
+    v66[3] = &unk_1E798FB70;
+    v67 = 0;
+    v66[4] = self;
+    v66[5] = handler;
+    [commandBuffer addScheduledHandler:v66];
   }
 
   [commandBuffer commit];
   CFRelease(v20);
   LODWORD(commandBuffer) = 0;
-  if (v55)
+  if (v56)
   {
 LABEL_41:
-    CFRelease(v55);
+    CFRelease(v56);
   }
 
 LABEL_42:
@@ -541,132 +541,6 @@ uint64_t __120__BWDerectificationInferenceProvider_submitForSampleBuffer_usingSt
   {
     CFRelease(cf);
   }
-}
-
-- (uint64_t)prepareForSubmissionWithWorkQueue:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)prepareForSubmissionWithWorkQueue:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)prepareForSubmissionWithWorkQueue:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)prepareForSubmissionWithWorkQueue:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.8()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.9()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.10()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.11()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.12()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)propagateInferenceResultsToInferenceDictionary:usingStorage:inputSampleBuffer:propagationSampleBuffer:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)propagateInferenceResultsToInferenceDictionary:usingStorage:inputSampleBuffer:propagationSampleBuffer:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

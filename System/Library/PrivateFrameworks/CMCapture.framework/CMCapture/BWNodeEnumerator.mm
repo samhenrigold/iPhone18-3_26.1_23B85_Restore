@@ -1,6 +1,6 @@
 @interface BWNodeEnumerator
 - (BWNodeEnumerator)initWithGraph:(id)graph;
-- (uint64_t)_updateVisitedCount:(uint64_t)result;
+- (id)_updateVisitedCount:(id *)result;
 - (void)dealloc;
 @end
 
@@ -28,13 +28,13 @@
   return v4;
 }
 
-- (uint64_t)_updateVisitedCount:(uint64_t)result
+- (id)_updateVisitedCount:(id *)result
 {
   if (result)
   {
     v2 = result;
     v3 = [MEMORY[0x1E696B098] valueWithNonretainedObject:a2];
-    v4 = [*(v2 + 24) objectForKeyedSubscript:v3];
+    v4 = [v2[3] objectForKeyedSubscript:v3];
     if (v4)
     {
       v5 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v4, "intValue") + 1}];
@@ -45,7 +45,7 @@
       v5 = &unk_1F2244E60;
     }
 
-    [*(v2 + 24) setObject:v5 forKeyedSubscript:v3];
+    [v2[3] setObject:v5 forKeyedSubscript:v3];
 
     return [v5 unsignedIntegerValue];
   }

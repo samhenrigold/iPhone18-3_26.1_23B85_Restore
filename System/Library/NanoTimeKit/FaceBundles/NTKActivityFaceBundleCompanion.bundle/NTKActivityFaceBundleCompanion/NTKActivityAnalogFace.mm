@@ -16,7 +16,7 @@
 
 - (id)_faceDescription
 {
-  if (NTKIsWheelchairUser())
+  if (NTKIsWheelchairUser(self))
   {
     v2 = @"FACE_STYLE_ACTIVITY_ANALOG_ROLL_DESCRIPTION";
   }
@@ -125,25 +125,17 @@ LABEL_7:
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  if (mode == 11)
+  if (mode == 11 || mode == 10)
   {
-    v4 = &off_20480;
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-
-    return v6;
+    v4 = objc_opt_class();
   }
 
-  if (mode == 10)
+  else
   {
-    v4 = NTKFaceColorEditOption_ptr;
-    goto LABEL_5;
+    v4 = 0;
   }
 
-  v6 = 0;
-
-  return v6;
+  return v4;
 }
 
 - (void)applyPreviewConfigurationWithFamily:(int64_t)family faceColor:(int64_t)color

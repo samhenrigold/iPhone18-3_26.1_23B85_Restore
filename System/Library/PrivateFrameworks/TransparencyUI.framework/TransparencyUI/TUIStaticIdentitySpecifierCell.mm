@@ -8,7 +8,7 @@
 
 - (TUIStaticIdentitySpecifierCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v36[4] = *MEMORY[0x277D85DE8];
+  v35[4] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_21 != -1)
   {
@@ -20,9 +20,9 @@
     [TUIStaticIdentitySpecifierCell initWithStyle:reuseIdentifier:];
   }
 
-  v35.receiver = self;
-  v35.super_class = TUIStaticIdentitySpecifierCell;
-  v7 = [(PSTableCell *)&v35 initWithStyle:style reuseIdentifier:identifierCopy];
+  v34.receiver = self;
+  v34.super_class = TUIStaticIdentitySpecifierCell;
+  v7 = [(PSTableCell *)&v34 initWithStyle:style reuseIdentifier:identifierCopy];
   if (v7)
   {
     v8 = objc_alloc(MEMORY[0x277D75C40]);
@@ -48,34 +48,33 @@
     [(UITextView *)v7->_textView _setInteractiveTextSelectionDisabled:1];
     [(UITextView *)v7->_textView setDelegate:v7];
     [(TUIStaticIdentitySpecifierCell *)v7 addSubview:v7->_textView];
-    v27 = MEMORY[0x277CCAAD0];
+    v26 = MEMORY[0x277CCAAD0];
     topAnchor = [(UITextView *)v7->_textView topAnchor];
     detailTextLabel = [(TUIStaticIdentitySpecifierCell *)v7 detailTextLabel];
     topAnchor2 = [detailTextLabel topAnchor];
-    v30 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v36[0] = v30;
+    v29 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v35[0] = v29;
     leadingAnchor = [(UITextView *)v7->_textView leadingAnchor];
     detailTextLabel2 = [(TUIStaticIdentitySpecifierCell *)v7 detailTextLabel];
     leadingAnchor2 = [detailTextLabel2 leadingAnchor];
     v15 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v36[1] = v15;
+    v35[1] = v15;
     trailingAnchor = [(UITextView *)v7->_textView trailingAnchor];
     detailTextLabel3 = [(TUIStaticIdentitySpecifierCell *)v7 detailTextLabel];
     [detailTextLabel3 trailingAnchor];
-    v18 = v34 = identifierCopy;
+    v18 = v33 = identifierCopy;
     v19 = [trailingAnchor constraintEqualToAnchor:v18];
-    v36[2] = v19;
+    v35[2] = v19;
     bottomAnchor = [(UITextView *)v7->_textView bottomAnchor];
     bottomAnchor2 = [(TUIStaticIdentitySpecifierCell *)v7 bottomAnchor];
     v22 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v36[3] = v22;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:4];
-    [v27 activateConstraints:v23];
+    v35[3] = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:4];
+    [v26 activateConstraints:v23];
 
-    identifierCopy = v34;
+    identifierCopy = v33;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -88,11 +87,11 @@ uint64_t __64__TUIStaticIdentitySpecifierCell_initWithStyle_reuseIdentifier___bl
 
 - (void)refreshCellContentsWithSpecifier:(id)specifier
 {
-  v95[1] = *MEMORY[0x277D85DE8];
+  v94[1] = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
-  v91.receiver = self;
-  v91.super_class = TUIStaticIdentitySpecifierCell;
-  [(PSTableCell *)&v91 refreshCellContentsWithSpecifier:specifierCopy];
+  v90.receiver = self;
+  v90.super_class = TUIStaticIdentitySpecifierCell;
+  [(PSTableCell *)&v90 refreshCellContentsWithSpecifier:specifierCopy];
   textLabel = [(TUIStaticIdentitySpecifierCell *)self textLabel];
   layer = [textLabel layer];
   disableUpdateMask = [layer disableUpdateMask];
@@ -139,11 +138,11 @@ uint64_t __64__TUIStaticIdentitySpecifierCell_initWithStyle_reuseIdentifier___bl
   {
     [textLabel7 setText:@" "];
 
-    v94 = *v21;
+    v93 = *v21;
     textLabel9 = [(TUIStaticIdentitySpecifierCell *)self textLabel];
     font = [textLabel9 font];
-    v95[0] = font;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v95 forKeys:&v94 count:1];
+    v94[0] = font;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:&v93 count:1];
     [@"8888" sizeWithAttributes:v25];
     v27 = v26;
 
@@ -166,14 +165,14 @@ uint64_t __64__TUIStaticIdentitySpecifierCell_initWithStyle_reuseIdentifier___bl
     layer5 = [v31 layer];
     [layer5 setCornerRadius:8.0];
 
-    v90 = v31;
+    v89 = v31;
     layer6 = [v31 layer];
     [layer6 setMasksToBounds:0];
 
     v35 = objc_alloc(MEMORY[0x277D75A68]);
-    v93[0] = textLabel8;
-    v93[1] = v31;
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:2];
+    v92[0] = textLabel8;
+    v92[1] = v31;
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:2];
     v37 = [v35 initWithArrangedSubviews:v36];
     v38 = self->_stackView;
     self->_stackView = v37;
@@ -184,35 +183,35 @@ uint64_t __64__TUIStaticIdentitySpecifierCell_initWithStyle_reuseIdentifier___bl
     [(UIStackView *)self->_stackView setDistribution:3];
     [(UIStackView *)self->_stackView setAccessibilityIdentifier:@"Verification Code"];
     [(TUIStaticIdentitySpecifierCell *)self addSubview:self->_stackView];
-    v81 = MEMORY[0x277CCAAD0];
+    v80 = MEMORY[0x277CCAAD0];
     topAnchor = [(UIStackView *)self->_stackView topAnchor];
     textLabel10 = [(TUIStaticIdentitySpecifierCell *)self textLabel];
     topAnchor2 = [textLabel10 topAnchor];
-    v86 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v92[0] = v86;
+    v85 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v91[0] = v85;
     leadingAnchor = [(UIStackView *)self->_stackView leadingAnchor];
     textLabel11 = [(TUIStaticIdentitySpecifierCell *)self textLabel];
     leadingAnchor2 = [textLabel11 leadingAnchor];
-    v82 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v92[1] = v82;
+    v81 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v91[1] = v81;
     bottomAnchor = [(UIStackView *)self->_stackView bottomAnchor];
     textLabel12 = [(TUIStaticIdentitySpecifierCell *)self textLabel];
     bottomAnchor2 = [textLabel12 bottomAnchor];
-    v77 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v92[2] = v77;
+    v76 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v91[2] = v76;
     trailingAnchor = [(UIStackView *)self->_stackView trailingAnchor];
     trailingAnchor2 = [(TUIStaticIdentitySpecifierCell *)self trailingAnchor];
     v40 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
-    v92[3] = v40;
+    v91[3] = v40;
     widthAnchor = [textLabel8 widthAnchor];
     [widthAnchor constraintEqualToConstant:v27];
     v43 = v42 = specifierCopy;
-    v92[4] = v43;
-    widthAnchor2 = [v90 widthAnchor];
+    v91[4] = v43;
+    widthAnchor2 = [v89 widthAnchor];
     v45 = [widthAnchor2 constraintEqualToConstant:v27];
-    v92[5] = v45;
-    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:6];
-    [v81 activateConstraints:v46];
+    v91[5] = v45;
+    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:6];
+    [v80 activateConstraints:v46];
 
     v18 = 0;
     specifierCopy = v42;
@@ -271,8 +270,6 @@ uint64_t __64__TUIStaticIdentitySpecifierCell_initWithStyle_reuseIdentifier___bl
   [(UITextView *)self->_textView setAttributedText:v59];
   [(TUIStaticIdentitySpecifierCell *)self bringSubviewToFront:self->_textView];
   [(TUIStaticIdentitySpecifierCell *)self setNeedsLayout];
-
-  v75 = *MEMORY[0x277D85DE8];
 }
 
 - (id)textView:(id)view primaryActionForTextItem:(id)item defaultAction:(id)action
@@ -305,20 +302,18 @@ uint64_t __82__TUIStaticIdentitySpecifierCell_textView_primaryActionForTextItem_
 
 - (void)initWithStyle:reuseIdentifier:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v1, 0x16u);
 }
 
 - (void)textView:primaryActionForTextItem:defaultAction:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v1, 0x16u);
 }
 
 @end

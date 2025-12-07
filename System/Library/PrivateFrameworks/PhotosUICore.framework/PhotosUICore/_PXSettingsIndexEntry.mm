@@ -25,35 +25,35 @@
   handlerCopy = handler;
   topViewController = [controllerCopy topViewController];
   tableView = [topViewController tableView];
-  indexPath = [(_PXSettingsIndexEntry *)self indexPath];
-  section = [indexPath section];
+  v12 = objc_msgSend_indexPath(self);
+  section = [v12 section];
   if (section > [topViewController numberOfSectionsInTableView:tableView])
   {
     goto LABEL_7;
   }
 
-  v14 = [indexPath row];
-  if (v14 > [topViewController tableView:tableView numberOfRowsInSection:{objc_msgSend(indexPath, "section")}])
+  v14 = [v12 row];
+  if (v14 > [topViewController tableView:tableView numberOfRowsInSection:{objc_msgSend(v12, "section")}])
   {
     goto LABEL_7;
   }
 
-  [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:2 animated:0];
-  v15 = [objc_opt_class() _titleForRowAtIndexPath:indexPath inTableView:tableView];
+  [tableView scrollToRowAtIndexPath:v12 atScrollPosition:2 animated:0];
+  v15 = [objc_opt_class() _titleForRowAtIndexPath:v12 inTableView:tableView];
   rowTitle = [(_PXSettingsIndexEntry *)self rowTitle];
   v17 = [v15 isEqualToString:rowTitle];
 
   if (!v17)
   {
     rowTitle2 = [(_PXSettingsIndexEntry *)self rowTitle];
-    NSLog(&cfstr_SettingsSearch.isa, indexPath, v15, rowTitle2);
+    NSLog(&cfstr_SettingsSearch.isa, v12, v15, rowTitle2);
 
 LABEL_7:
     handlerCopy[2](handlerCopy, 0);
     goto LABEL_8;
   }
 
-  v18 = [objc_opt_class() _cellForRowAtIndexPath:indexPath inTableView:tableView];
+  v18 = [objc_opt_class() _cellForRowAtIndexPath:v12 inTableView:tableView];
   if (inCopy)
   {
     v26[0] = MEMORY[0x1E69E9820];
@@ -62,7 +62,7 @@ LABEL_7:
     v26[3] = &unk_1E774A1B8;
     v19 = &v27;
     v27 = tableView;
-    v28 = indexPath;
+    v28 = v12;
     v29 = topViewController;
     v24[0] = MEMORY[0x1E69E9820];
     v24[1] = 3221225472;

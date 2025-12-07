@@ -6,7 +6,7 @@
 
 - (id)predicateWithProfile:()HealthDaemon
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277D10B80]);
   [v2 setEntityClass:objc_opt_class()];
   if (self)
@@ -15,8 +15,8 @@
     {
       value = [self value];
       keyPath = [self keyPath];
-      v13[0] = keyPath;
-      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+      v12[0] = keyPath;
+      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
       self = HDConceptIndexEntityPredicateForConceptIdentifier(value, v5);
 
 LABEL_6:
@@ -41,11 +41,9 @@ LABEL_8:
   [v2 setPredicate:self];
 
   v7 = MEMORY[0x277D10B18];
-  v12 = @"object_id";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v11 = @"object_id";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
   v9 = [v7 predicateWithProperty:@"data_id" comparisonType:7 subqueryDescriptor:v2 subqueryProperties:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

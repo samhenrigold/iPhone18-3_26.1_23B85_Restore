@@ -179,7 +179,7 @@ id __124__AMSMetricsIdentifierStoreConsumerID__setConsumerIdentifier_forKey_inNa
   return v12;
 }
 
-id __78__AMSMetricsIdentifierStoreConsumerID__removeStoreForNamespace_accountID_bag___block_invoke(uint64_t a1, void *a2, void *a3)
+id __78__AMSMetricsIdentifierStoreConsumerID__removeStoreForNamespace_accountID_bag___block_invoke(void *a1, void *a2, void *a3)
 {
   v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -197,7 +197,7 @@ id __78__AMSMetricsIdentifierStoreConsumerID__removeStoreForNamespace_accountID_
     {
       v9 = objc_opt_class();
       v10 = AMSLogKey();
-      v11 = *(a1 + 32);
+      v11 = a1[4];
       v12 = AMSLogableError(v6);
       v19 = 138544130;
       v20 = v9;
@@ -215,7 +215,7 @@ id __78__AMSMetricsIdentifierStoreConsumerID__removeStoreForNamespace_accountID_
 
   else
   {
-    v14 = *(a1 + 40);
+    v14 = a1[5];
     v15 = [v5 domain];
     v16 = [v5 clientInfo];
     v17 = [AMSMetricsIdentifierStore _generateStoreKeyForAccount:v14 domain:v15 clientInfo:v16];

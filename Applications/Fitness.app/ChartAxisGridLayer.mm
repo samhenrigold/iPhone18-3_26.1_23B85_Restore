@@ -17,7 +17,7 @@
 - (void)layoutSublayers
 {
   selfCopy = self;
-  sub_100216480();
+  sub_100216480(selfCopy);
 }
 
 - (_TtC10FitnessApp18ChartAxisGridLayer)init

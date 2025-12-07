@@ -4,6 +4,7 @@
 - (MLModelConfiguration)modelConfiguration;
 - (NSString)description;
 - (NSString)soundIdentifier;
+- (SNDetectSoundRequest)initWithVGGishBasedMLModel:(id)model soundIdentifier:(id)identifier;
 - (id)copyWithZone:(void *)zone;
 - (int64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -80,7 +81,7 @@
 
   v6 = SNDetectSoundRequest.isEqual(_:)(v8);
 
-  sub_1C97F9D3C(v8, &unk_1EC3C5E60);
+  sub_1C97F9D3C(v8, &unk_1EC3C5E60, qword_1C9A9AE10);
   return v6 & 1;
 }
 
@@ -89,6 +90,13 @@
   coderCopy = coder;
   selfCopy = self;
   SNDetectSoundRequest.encode(with:)(coderCopy);
+}
+
+- (SNDetectSoundRequest)initWithVGGishBasedMLModel:(id)model soundIdentifier:(id)identifier
+{
+  modelCopy = model;
+  identifierCopy = identifier;
+  return sub_1C97F6710(modelCopy, identifierCopy, v7);
 }
 
 - (NSString)description
@@ -106,7 +114,7 @@
   requestCopy = request;
   sub_1C97F6C7C(v7);
 
-  sub_1C97A5A8C(v7, v7[3]);
+  sub_1C97A5A8C(v7, v8);
   v5 = sub_1C9A93B08();
   sub_1C97A592C(v7);
 

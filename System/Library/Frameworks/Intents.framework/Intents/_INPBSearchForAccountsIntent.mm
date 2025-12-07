@@ -1,8 +1,10 @@
 @interface _INPBSearchForAccountsIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBSearchForAccountsIntent)initWithCoder:(id)coder;
+- (id)accountTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)requestedBalanceTypeAsString:(int)string;
 - (int)StringAsAccountType:(id)type;
 - (int)StringAsRequestedBalanceType:(id)type;
 - (unint64_t)hash;
@@ -275,7 +277,6 @@ LABEL_22:
 
   if ([(_INPBSearchForAccountsIntent *)self hasAccountType])
   {
-    accountType = self->_accountType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -297,7 +298,6 @@ LABEL_22:
 
   if ([(_INPBSearchForAccountsIntent *)self hasRequestedBalanceType])
   {
-    requestedBalanceType = self->_requestedBalanceType;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -323,6 +323,21 @@ LABEL_22:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)requestedBalanceTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7280348[string - 1];
   }
 
   return v4;
@@ -399,6 +414,21 @@ LABEL_22:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)accountTypeAsString:(int)string
+{
+  if ((string - 1) >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7280310[string - 1];
   }
 
   return v4;

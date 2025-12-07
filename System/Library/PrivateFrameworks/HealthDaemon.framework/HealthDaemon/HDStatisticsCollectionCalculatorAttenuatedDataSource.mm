@@ -131,15 +131,15 @@ uint64_t __127__HDStatisticsCollectionCalculatorAttenuatedDataSource_collectionC
   {
     v29 = v15;
     v17 = *(a1 + 32);
-    *v38 = v8;
-    *&v38[1] = a6;
-    *&v38[2] = a4;
+    v36 = v8;
+    v37 = a6;
+    v38 = a4;
     v39 = 1;
     memset(v40, 0, sizeof(v40));
     v41 = a2;
     if (v17)
     {
-      [v17 _extractAttenuatedSamplesFrom:v38];
+      objc_msgSend__extractAttenuatedSamplesFrom_(v17);
     }
 
     else
@@ -197,34 +197,34 @@ uint64_t __127__HDStatisticsCollectionCalculatorAttenuatedDataSource_collectionC
   v43 = 0u;
   v42 = 0u;
   v25 = v22[13];
-  *&v35 = v8;
-  *(&v35 + 1) = a6;
-  *&v36 = a4;
+  *&v33 = v8;
+  *(&v33 + 1) = a6;
+  *&v34 = a4;
   v16 = 1;
-  BYTE8(v36) = 1;
-  *(&v36 + 9) = 0;
-  HIDWORD(v36) = 0;
-  v37 = v23;
+  BYTE8(v34) = 1;
+  *(&v34 + 9) = 0;
+  HIDWORD(v34) = 0;
+  v35 = v23;
   if (v25)
   {
-    [v25 attenuateSample:&v35];
+    objc_msgSend_attenuateSample_(v25);
     if (*(&v42 + 1) - *&v42 > 0.000001)
     {
-      v30 = xmmword_22916A740;
+      v30 = 1;
       do
       {
         v26 = *(a1 + 32);
-        *&v35 = v8;
-        *(&v35 + 1) = a6;
-        *&v36 = a4;
-        BYTE8(v36) = 1;
-        *(&v36 + 9) = v45[0];
-        HIDWORD(v36) = *(v45 + 3);
-        v37 = v23;
-        v33[0] = v42;
-        v33[1] = v43;
-        v34 = v44;
-        [v26 _appendToAttenuationSamplesWindowUsingSourceSample:&v35 attenuatedSample:{v33, v30}];
+        *&v33 = v8;
+        *(&v33 + 1) = a6;
+        *&v34 = a4;
+        BYTE8(v34) = 1;
+        *(&v34 + 9) = v45[0];
+        HIDWORD(v34) = *(v45 + 3);
+        v35 = v23;
+        v31[0] = v42;
+        v31[1] = v43;
+        v32 = v44;
+        [v26 _appendToAttenuationSamplesWindowUsingSourceSample:&v33 attenuatedSample:{v31, v30}];
         v16 = (*(*(a1 + 40) + 16))(*&v43, *&v42, *(&v42 + 1));
         if (!v16 || a6 - *(&v42 + 1) <= 0.000001)
         {
@@ -232,28 +232,24 @@ uint64_t __127__HDStatisticsCollectionCalculatorAttenuatedDataSource_collectionC
         }
 
         v27 = *(*(a1 + 32) + 104);
-        v31[0] = *(&v42 + 1);
-        *&v31[1] = a6;
-        *&v31[2] = a4;
-        v32 = v30;
         if (v27)
         {
-          [v27 attenuateSample:v31];
+          objc_msgSend_attenuateSample_(v27);
         }
 
         else
         {
-          v37 = 0;
-          v35 = 0u;
-          v36 = 0u;
+          v35 = 0;
+          v33 = 0u;
+          v34 = 0u;
         }
 
-        v42 = v35;
-        v43 = v36;
-        *&v44 = v37;
+        v42 = v33;
+        v43 = v34;
+        *&v44 = v35;
       }
 
-      while (*(&v35 + 1) - *&v35 > 0.000001);
+      while (*(&v33 + 1) - *&v33 > 0.000001);
     }
   }
 
@@ -265,7 +261,7 @@ uint64_t __127__HDStatisticsCollectionCalculatorAttenuatedDataSource_collectionC
   v4 = *&attenuatedSample->var0;
   v5 = sample->var2 - attenuatedSample->var2;
   v6 = xmmword_22916A740;
-  std::deque<HDQuantitySampleAttenuationEngineSample>::push_back(&self->_attenuationSamplesWindow.__map_.__first_, &v4);
+  std::deque<HDQuantitySampleAttenuationEngineSample>::push_back(&self->_attenuationSamplesWindow, &v4);
 }
 
 - (BOOL)_attenuationSamplesWindowContainsSample:(id *)sample
@@ -512,10 +508,10 @@ LABEL_9:
     std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample*,HDQuantitySampleAttenuationEngineSample&,HDQuantitySampleAttenuationEngineSample**,long,102l>::operator+=[abi:ne200100](&v44, size);
     v16 = v44;
     v17 = v45;
-    v18 = p_attenuationSamplesWindow->__start_;
-    v19 = p_attenuationSamplesWindow->__map_.__begin_;
-    v20 = &v19[v18 / 0x66];
-    if (p_attenuationSamplesWindow->__map_.__end_ == v19)
+    v18 = p_attenuationSamplesWindow[4];
+    v19 = p_attenuationSamplesWindow[1];
+    v20 = (v19 + 8 * (v18 / 0x66));
+    if (p_attenuationSamplesWindow[2] == v19)
     {
       v21 = 0;
     }
@@ -528,7 +524,7 @@ LABEL_9:
     v44 = v20;
     v45 = v21;
     std::__for_each_segment[abi:ne200100]<std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const&,HDQuantitySampleAttenuationEngineSample const* const*,long,102l>,std::__copy_impl::_CopySegment<std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const&,HDQuantitySampleAttenuationEngineSample const* const*,long,102l>,std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample*,HDQuantitySampleAttenuationEngineSample&,HDQuantitySampleAttenuationEngineSample**,long,102l>>>(v7, v9, v16, v17, &v44);
-    std::deque<HDQuantitySampleAttenuationEngineSample>::__append_with_size[abi:ne200100]<std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const&,HDQuantitySampleAttenuationEngineSample const* const*,long,102l>>(p_attenuationSamplesWindow, v16, v17, v13 - p_attenuationSamplesWindow->__size_);
+    std::deque<HDQuantitySampleAttenuationEngineSample>::__append_with_size[abi:ne200100]<std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const&,HDQuantitySampleAttenuationEngineSample const* const*,long,102l>>(p_attenuationSamplesWindow, v16, v17, v13 - p_attenuationSamplesWindow[5]);
     return;
   }
 
@@ -555,12 +551,12 @@ LABEL_11:
   v44 = v25;
   v45 = v26;
   std::__for_each_segment[abi:ne200100]<std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const&,HDQuantitySampleAttenuationEngineSample const* const*,long,102l>,std::__copy_impl::_CopySegment<std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const&,HDQuantitySampleAttenuationEngineSample const* const*,long,102l>,std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample*,HDQuantitySampleAttenuationEngineSample&,HDQuantitySampleAttenuationEngineSample**,long,102l>>>(v7, v9, v27, v28, &v44);
-  v29 = p_attenuationSamplesWindow->__start_;
-  v30 = p_attenuationSamplesWindow->__size_;
-  v31 = p_attenuationSamplesWindow->__map_.__begin_;
-  end = p_attenuationSamplesWindow->__map_.__end_;
-  v33 = &v31[(v29 + v30) / 0x66];
-  if (end == v31)
+  v29 = p_attenuationSamplesWindow[4];
+  v30 = p_attenuationSamplesWindow[5];
+  v31 = p_attenuationSamplesWindow[1];
+  v32 = p_attenuationSamplesWindow[2];
+  v33 = (v31 + 8 * ((v29 + v30) / 0x66));
+  if (v32 == v31)
   {
     v34 = 0;
   }
@@ -577,30 +573,30 @@ LABEL_11:
     v37 = v35 + 0x3333333333333333 * v36;
     if (v37 >= 1)
     {
-      v38 = &v31[v29 / 0x66];
-      v39 = end == v31 ? 0 : *v38 + 40 * (v29 % 0x66);
+      v38 = (v31 + 8 * (v29 / 0x66));
+      v39 = v32 == v31 ? 0 : *v38 + 40 * (v29 % 0x66);
       v40 = v45 == v39 ? 0 : 102 * (v44 - v38) - 0x3333333333333333 * v36 + 0x3333333333333333 * ((v39 - *v38) >> 3);
-      v44 = &v31[v29 / 0x66];
+      v44 = (v31 + 8 * (v29 / 0x66));
       v45 = v39;
-      v41 = end == v31 ? 0 : 102 * ((end - v31) >> 3) - 1;
+      v41 = v32 == v31 ? 0 : 102 * ((v32 - v31) >> 3) - 1;
       std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample*,HDQuantitySampleAttenuationEngineSample&,HDQuantitySampleAttenuationEngineSample**,long,102l>::operator+=[abi:ne200100](&v44, v40);
       *p_size = v30 - v37;
       if (v41 - (v29 + v30 - v37) >= 0xCC)
       {
         do
         {
-          operator delete(*(end - 8));
-          v42 = p_attenuationSamplesWindow->__map_.__begin_;
-          end = (p_attenuationSamplesWindow->__map_.__end_ - 1);
-          v43 = 102 * ((end - v42) >> 3) - 1;
-          p_attenuationSamplesWindow->__map_.__end_ = end;
-          if (end == v42)
+          operator delete(*(v32 - 8));
+          v42 = p_attenuationSamplesWindow[1];
+          v32 = p_attenuationSamplesWindow[2] - 8;
+          v43 = 102 * ((v32 - v42) >> 3) - 1;
+          p_attenuationSamplesWindow[2] = v32;
+          if (v32 == v42)
           {
             v43 = 0;
           }
         }
 
-        while (v43 - (p_attenuationSamplesWindow->__size_ + p_attenuationSamplesWindow->__start_) > 0xCB);
+        while (v43 - (p_attenuationSamplesWindow[5] + p_attenuationSamplesWindow[4]) > 0xCB);
       }
     }
   }

@@ -14,10 +14,10 @@ void __57___LTClientConnection_initWithConnection_server_trusted___block_invoke(
   }
 }
 
-uint64_t __57___LTClientConnection_initWithConnection_server_trusted___block_invoke_2(uint64_t a1)
+uint64_t __57___LTClientConnection_initWithConnection_server_trusted___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = _LTOSLogXPC();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = _LTOSLogXPC(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __57___LTClientConnection_initWithConnection_server_trusted___block_invoke_2_cold_1();
   }
@@ -41,81 +41,76 @@ void __56___LTClientConnection_translate_withContext_completion___block_invoke(u
 
 void __56___LTClientConnection_translate_withContext_completion___block_invoke_2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v5 = v3;
   if (!v3 && !*(*(a1[5] + 8) + 40))
   {
-    v8 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = _LTOSLogTranslationEngine(0, v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v9 = *(*(a1[6] + 8) + 40);
-      v11 = 138739971;
-      v12 = v9;
-      _os_log_impl(&dword_232E53000, v8, OS_LOG_TYPE_INFO, "_LTTranslationService completed successfully for paragraphResult %{sensitive}@", &v11, 0xCu);
+      v11 = *(*(a1[6] + 8) + 40);
+      v12 = 138739971;
+      v13 = v11;
+      _os_log_impl(&dword_232E53000, v10, OS_LOG_TYPE_INFO, "_LTTranslationService completed successfully for paragraphResult %{sensitive}@", &v12, 0xCu);
     }
 
-    v5 = a1[4];
-    v6 = *(*(a1[6] + 8) + 40);
+    v7 = a1[4];
+    v8 = *(*(a1[6] + 8) + 40);
     goto LABEL_10;
   }
 
-  v4 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v6 = _LTOSLogTranslationEngine(v3, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __56___LTClientConnection_translate_withContext_completion___block_invoke_2_cold_1(a1, v3, v4);
+    __56___LTClientConnection_translate_withContext_completion___block_invoke_2_cold_1(a1, v5, v6);
   }
 
-  v5 = a1[4];
-  v6 = *(*(a1[6] + 8) + 40);
-  v7 = v3;
-  if (!v3)
+  v7 = a1[4];
+  v8 = *(*(a1[6] + 8) + 40);
+  v9 = v5;
+  if (!v5)
   {
 LABEL_10:
-    v7 = *(*(a1[5] + 8) + 40);
+    v9 = *(*(a1[5] + 8) + 40);
   }
 
-  (*(v5 + 16))(v5, v6, v7);
-
-  v10 = *MEMORY[0x277D85DE8];
+  (*(v7 + 16))(v7, v8, v9);
 }
 
 void __80___LTClientConnection_startLanguageStatusChangeObservation_taskHint_completion___block_invoke_2(void *a1)
 {
   v15 = *MEMORY[0x277D85DE8];
-  (*(a1[6] + 16))();
-  v2 = _LTOSLogAssetObservation();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = (*(a1[6] + 16))();
+  v4 = _LTOSLogAssetObservation(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = a1[7];
-    v5 = v2;
-    v6 = _LTTranslationTaskHintString();
-    v7 = a1[5];
+    v5 = a1[4];
+    v6 = v4;
+    v7 = _LTTranslationTaskHintString();
+    v8 = a1[5];
     v9 = 138543874;
-    v10 = v3;
+    v10 = v5;
     v11 = 2114;
-    v12 = v6;
+    v12 = v7;
     v13 = 2114;
-    v14 = v7;
-    _os_log_impl(&dword_232E53000, v5, OS_LOG_TYPE_DEFAULT, "Stopping language observations for client %{public}@; taskHint: %{public}@; identifier: %{public}@", &v9, 0x20u);
+    v14 = v8;
+    _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_DEFAULT, "Stopping language observations for client %{public}@; taskHint: %{public}@; identifier: %{public}@", &v9, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56___LTClientConnection_translate_withContext_completion___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *(*(*(a1 + 48) + 8) + 40);
   v4 = *(*(*(a1 + 40) + 8) + 40);
-  v6 = 138740483;
-  v7 = v3;
-  v8 = 2112;
-  v9 = a2;
-  v10 = 2112;
-  v11 = v4;
-  _os_log_error_impl(&dword_232E53000, log, OS_LOG_TYPE_ERROR, "_LTTranslationService for paragraphResult %{sensitive}@; got error: %@; paragraphError: %@", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138740483;
+  v6 = v3;
+  v7 = 2112;
+  v8 = a2;
+  v9 = 2112;
+  v10 = v4;
+  _os_log_error_impl(&dword_232E53000, log, OS_LOG_TYPE_ERROR, "_LTTranslationService for paragraphResult %{sensitive}@; got error: %@; paragraphError: %@", &v5, 0x20u);
 }
 
 @end

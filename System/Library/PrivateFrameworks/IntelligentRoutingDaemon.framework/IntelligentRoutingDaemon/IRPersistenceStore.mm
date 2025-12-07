@@ -68,12 +68,11 @@
 
 - (void)loadWithCoordinator:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#persistence-store, [ErrorId - Store Load error] Could not add store with error = %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#persistence-store, [ErrorId - Store Load error] Could not add store with error = %@", &v3, 0xCu);
 }
 
 @end

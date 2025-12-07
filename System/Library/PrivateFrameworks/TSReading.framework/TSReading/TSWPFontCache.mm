@@ -188,7 +188,7 @@
   if (([TSWPFontCache p_excludedFamilyNames]::sInitialized & 1) == 0)
   {
     [TSWPFontCache p_excludedFamilyNames]::sInitialized = 1;
-    v2 = [TSWPBundle() pathForResource:@"FontExclusionList" ofType:@"plist"];
+    v2 = [TSWPBundle(self a2)];
     if (v2)
     {
       -[TSWPFontCache p_excludedFamilyNames]::sExcludedFontFamilies = [objc_alloc(MEMORY[0x277CBEA60]) initWithContentsOfFile:v2];
@@ -365,34 +365,31 @@
   return v18;
 }
 
-uint64_t __54__TSWPFontCache_sortedFontFamilyEntriesForStylesheet___block_invoke(uint64_t a1, void *a2)
+void __54__TSWPFontCache_sortedFontFamilyEntriesForStylesheet___block_invoke(uint64_t a1, void *a2)
 {
-  if (([a2 overridesProperty:46] & 1) != 0 || (result = objc_msgSend(a2, "overridesProperty:", 16), result))
+  if (([a2 overridesProperty:46] & 1) != 0 || objc_msgSend(a2, "overridesProperty:", 16))
   {
     objc_opt_class();
     [a2 valueForProperty:46];
-    v5 = TSUDynamicCast();
+    v4 = TSUDynamicCast();
     objc_opt_class();
     [a2 valueForProperty:16];
-    result = TSUDynamicCast();
-    if (result)
+    v5 = TSUDynamicCast();
+    if (v5)
     {
-      v6 = [TSWPFont fontWithName:result compatibilityName:v5];
+      v6 = [TSWPFont fontWithName:v5 compatibilityName:v4];
       v7 = *(a1 + 32);
       v8[0] = MEMORY[0x277D85DD0];
       v8[1] = 3221225472;
       v8[2] = __54__TSWPFontCache_sortedFontFamilyEntriesForStylesheet___block_invoke_2;
       v8[3] = &unk_279D485B8;
       v8[4] = v6;
-      result = [v7 indexOfObjectPassingTest:v8];
-      if (result == 0x7FFFFFFFFFFFFFFFLL)
+      if ([v7 indexOfObjectPassingTest:v8] == 0x7FFFFFFFFFFFFFFFLL)
       {
-        return [*(a1 + 32) addObject:v6];
+        [*(a1 + 32) addObject:v6];
       }
     }
   }
-
-  return result;
 }
 
 uint64_t __54__TSWPFontCache_sortedFontFamilyEntriesForStylesheet___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
@@ -427,16 +424,16 @@ uint64_t __54__TSWPFontCache_sortedFontFamilyEntriesForStylesheet___block_invoke
   return result;
 }
 
-uint64_t __54__TSWPFontCache_sortedFontFamilyEntriesForStylesheet___block_invoke_3()
+uint64_t __54__TSWPFontCache_sortedFontFamilyEntriesForStylesheet___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   objc_opt_class();
-  v0 = TSUDynamicCast();
+  v3 = TSUDynamicCast();
   objc_opt_class();
-  v1 = TSUDynamicCast();
-  v2 = [v0 displayName];
-  v3 = [v1 displayName];
+  v4 = TSUDynamicCast();
+  v5 = [v3 displayName];
+  v6 = [v4 displayName];
 
-  return [v2 compare:v3];
+  return [v5 compare:v6];
 }
 
 - (id)displayNameForFontFamily:(id)family

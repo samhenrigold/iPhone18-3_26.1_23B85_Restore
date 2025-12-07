@@ -115,7 +115,7 @@
 
 - (id)buildInlineCardSections
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:@"INLINE_EQUATION_FORMAT" value:&stru_1F556FE60 table:@"SpotlightServices"];
@@ -147,8 +147,8 @@
     [v8 setSeparatorStyle:1];
     v16 = objc_opt_new();
     v17 = [objc_opt_class() currencyConversionAttributionImageWithSize:{78.0, 12.0}];
-    v27[0] = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+    v26[0] = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
     [v16 setIcons:v18];
 
     buildCommand2 = [(SSCalculatorResultBuilder *)self buildCommand];
@@ -159,25 +159,23 @@
     command = [v8 command];
     [v20 setCommand:command];
 
-    v26[0] = v8;
-    v26[1] = v20;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+    v25[0] = v8;
+    v25[1] = v20;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
   }
 
   else
   {
-    v25 = v8;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+    v24 = v8;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
 
 - (id)buildCompactCardSection
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"COMPACT_EQUATION_FORMAT" value:&stru_1F556FE60 table:@"SpotlightServices"];
 
@@ -186,9 +184,9 @@
   output = [(SSCalculatorResultBuilder *)self output];
   v8 = [v5 stringWithFormat:v4, formattedInput, output];
 
-  v17.receiver = self;
-  v17.super_class = SSCalculatorResultBuilder;
-  buildCompactCardSection = [(SSResultBuilder *)&v17 buildCompactCardSection];
+  v16.receiver = self;
+  v16.super_class = SSCalculatorResultBuilder;
+  buildCompactCardSection = [(SSResultBuilder *)&v16 buildCompactCardSection];
   v10 = [MEMORY[0x1E69CA3A0] textWithString:v8];
   [buildCompactCardSection setTitle:v10];
 
@@ -196,16 +194,14 @@
   {
     v11 = [MEMORY[0x1E69CA3A0] textWithString:@" "];
     v12 = [objc_opt_class() currencyConversionAttributionImageWithSize:{91.0, 15.0}];
-    v19[0] = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    v18[0] = v12;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
     [v11 setIcons:v13];
 
-    v18 = v11;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+    v17 = v11;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
     [buildCompactCardSection setDescriptions:v14];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return buildCompactCardSection;
 }
@@ -241,7 +237,7 @@
 
 - (id)buildButtonItems
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   output = [(SSCalculatorResultBuilder *)self output];
   [v3 setCopyableString:output];
@@ -250,10 +246,8 @@
   [v5 setCopyableItem:v3];
   v6 = objc_opt_new();
   [v6 setCommand:v5];
-  v10[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
 
   return v7;
 }

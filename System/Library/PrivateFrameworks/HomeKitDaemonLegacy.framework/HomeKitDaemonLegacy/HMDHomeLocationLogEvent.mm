@@ -8,18 +8,16 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"homeLocationDistance_DOUBLE";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"homeLocationDistance_DOUBLE";
   v3 = MEMORY[0x277CCABB0];
   [(HMDHomeLocationLogEvent *)self homeLocationDistance];
   v4 = [v3 numberWithDouble:?];
-  v9[1] = @"isGreatDistance_INT";
-  v10[0] = v4;
+  v8[1] = @"isGreatDistance_INT";
+  v9[0] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithInt:{-[HMDHomeLocationLogEvent isGreatDistance](self, "isGreatDistance")}];
-  v10[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }

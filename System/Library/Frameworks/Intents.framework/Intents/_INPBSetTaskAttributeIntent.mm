@@ -3,6 +3,8 @@
 - (_INPBSetTaskAttributeIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)priorityAsString:(int)string;
+- (id)statusAsString:(int)string;
 - (int)StringAsPriority:(id)priority;
 - (int)StringAsStatus:(id)status;
 - (unint64_t)hash;
@@ -405,7 +407,6 @@ LABEL_41:
 
   if ([(_INPBSetTaskAttributeIntent *)self hasPriority])
   {
-    priority = self->_priority;
     PBDataWriterWriteInt32Field();
   }
 
@@ -419,7 +420,6 @@ LABEL_41:
 
   if ([(_INPBSetTaskAttributeIntent *)self hasStatus])
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
   }
 
@@ -441,13 +441,13 @@ LABEL_41:
 
   temporalEventTrigger = [(_INPBSetTaskAttributeIntent *)self temporalEventTrigger];
 
-  v17 = toCopy;
+  v15 = toCopy;
   if (temporalEventTrigger)
   {
     temporalEventTrigger2 = [(_INPBSetTaskAttributeIntent *)self temporalEventTrigger];
     PBDataWriterWriteSubmessage();
 
-    v17 = toCopy;
+    v15 = toCopy;
   }
 }
 
@@ -472,6 +472,34 @@ LABEL_41:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)statusAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 20)
+    {
+      v4 = @"COMPLETED";
+    }
+
+    else if (string == 10)
+    {
+      v4 = @"NOT_COMPLETED";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_STATUS";
   }
 
   return v4;
@@ -528,6 +556,21 @@ LABEL_41:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)priorityAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727D7D8[string];
   }
 
   return v4;

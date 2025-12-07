@@ -15,20 +15,18 @@
 
 - (BOOL)hasUnresolvedFailureDependenciesForNode:(id)node
 {
-  v4 = *(self + OBJC_IVAR____TtC8GesturesP33_A53607C86F339F8E27637A5709BD2DC526GestureNodeCoordinatorShim_coordinator);
-  v5 = (*((*MEMORY[0x1E69E7D40] & *node) + 0x78))();
-  v6 = *(v4 + 112);
+  v4 = (*((*MEMORY[0x1E69E7D40] & *node) + 0x78))();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v8 = sub_18E68B020(v5);
+  v6 = sub_18E68B020(v4);
 
   swift_unknownObjectRelease();
 
-  if (v8)
+  if (v6)
   {
   }
 
-  return v8 != 0;
+  return v6 != 0;
 }
 
 - (_TtC8GesturesP33_A53607C86F339F8E27637A5709BD2DC526GestureNodeCoordinatorShim)init
@@ -74,14 +72,14 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_18E68CB70(v4);
-  sub_18E6826D0(v7);
+  sub_18E68CB70(v4, v5);
+  sub_18E6826D0(v7, v8);
   v9 = *(selfCopy + OBJC_IVAR____TtC8GesturesP33_A53607C86F339F8E27637A5709BD2DC526GestureNodeCoordinatorShim_coordinator);
   v10 = *(v9 + 32);
   v11 = *(v9 + 40);
   *(v9 + 32) = v4;
   *(v9 + 40) = v5;
-  sub_18E6826D0(v10);
+  sub_18E6826D0(v10, v11);
 }
 
 - (void)updateWithNodes:(id)nodes reason:(id)reason updateHandler:(id)handler
@@ -96,7 +94,6 @@
   sub_18E694C5C(v7, selfCopy, v6);
   _Block_release(v6);
 
-  v12 = *(selfCopy + OBJC_IVAR____TtC8GesturesP33_A53607C86F339F8E27637A5709BD2DC526GestureNodeCoordinatorShim_coordinator);
   sub_18E688698(v8, v10, 1);
   _Block_release(v6);
 }
@@ -115,15 +112,14 @@
 
 - (NSArray)nodes
 {
-  v2 = *(*(self + OBJC_IVAR____TtC8GesturesP33_A53607C86F339F8E27637A5709BD2DC526GestureNodeCoordinatorShim_coordinator) + 64);
   selfCopy = self;
 
-  sub_18E718364(v4);
+  sub_18E718364(v3);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAC8FA78, &qword_18E731688);
-  v5 = sub_18E72B168();
+  v4 = sub_18E72B168();
 
-  return v5;
+  return v4;
 }
 
 - (void)setWillUpdateHandler:(id)handler
@@ -147,14 +143,14 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_18E68CB70(v4);
-  sub_18E6826D0(v7);
+  sub_18E68CB70(v4, v5);
+  sub_18E6826D0(v7, v8);
   v9 = *(selfCopy + OBJC_IVAR____TtC8GesturesP33_A53607C86F339F8E27637A5709BD2DC526GestureNodeCoordinatorShim_coordinator);
   v10 = *(v9 + 16);
   v11 = *(v9 + 24);
   *(v9 + 16) = v4;
   *(v9 + 24) = v5;
-  sub_18E6826D0(v10);
+  sub_18E6826D0(v10, v11);
 }
 
 - (void)setDidUpdateHandler:(id)handler
@@ -178,21 +174,20 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_18E68CB70(v4);
-  sub_18E6826D0(v7);
+  sub_18E68CB70(v4, v5);
+  sub_18E6826D0(v7, v8);
   v9 = *(selfCopy + OBJC_IVAR____TtC8GesturesP33_A53607C86F339F8E27637A5709BD2DC526GestureNodeCoordinatorShim_coordinator);
   v10 = *(v9 + 48);
   v11 = *(v9 + 56);
   *(v9 + 48) = v4;
   *(v9 + 56) = v5;
-  sub_18E6826D0(v10);
+  sub_18E6826D0(v10, v11);
 }
 
 - (void)processUpdatesWithReason:(id)reason
 {
   v4 = sub_18E72AFD8();
   v6 = v5;
-  v7 = *(self + OBJC_IVAR____TtC8GesturesP33_A53607C86F339F8E27637A5709BD2DC526GestureNodeCoordinatorShim_coordinator);
   selfCopy = self;
   sub_18E688698(v4, v6, 1);
 }

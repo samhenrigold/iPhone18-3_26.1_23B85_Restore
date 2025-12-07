@@ -36,27 +36,28 @@
 - (id)_initEmbeddedAppWithBundleID:(id)d
 {
   dCopy = d;
-  if (_os_feature_enabled_impl())
+  v5 = _os_feature_enabled_impl();
+  if (v5)
   {
-    v5 = rbs_general_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = rbs_general_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       [RBSEmbeddedAppProcessIdentity _initEmbeddedAppWithBundleID:];
     }
   }
 
-  v6 = [(RBSEmbeddedAppProcessIdentity *)self _initEmbeddedApp:dCopy personaString:0];
+  v7 = [(RBSEmbeddedAppProcessIdentity *)self _initEmbeddedApp:dCopy personaString:0];
 
-  return v6;
+  return v7;
 }
 
 - (id)_initEmbeddedApp:(id)app personaString:(id)string
 {
   appCopy = app;
   stringCopy = string;
-  v19.receiver = self;
-  v19.super_class = RBSEmbeddedAppProcessIdentity;
-  _init = [(RBSProcessIdentity *)&v19 _init];
+  v18.receiver = self;
+  v18.super_class = RBSEmbeddedAppProcessIdentity;
+  _init = [(RBSProcessIdentity *)&v18 _init];
   v9 = _init;
   if (_init)
   {
@@ -69,13 +70,12 @@
     v13 = *(v9 + 7);
     *(v9 + 7) = v12;
 
-    v14 = *(v9 + 7);
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"app<%@(%@)>", v14, *(v9 + 8)];
-    v16 = *(v9 + 2);
-    *(v9 + 2) = v15;
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"app<%@(%@)>", *(v9 + 7), *(v9 + 8)];
+    v15 = *(v9 + 2);
+    *(v9 + 2) = v14;
 
     *(v9 + 3) = [*(v9 + 7) hash];
-    v17 = v9;
+    v16 = v9;
   }
 
   return v9;
@@ -89,12 +89,16 @@
   if (bundleID)
   {
     personaString = [infoCopy personaString];
-    if (!personaString && _os_feature_enabled_impl())
+    if (!personaString)
     {
-      v7 = rbs_general_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v7 = _os_feature_enabled_impl();
+      if (v7)
       {
-        [RBSEmbeddedAppProcessIdentity _initEmbeddedAppWithAppInfo:];
+        v8 = rbs_general_log(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+        {
+          [RBSEmbeddedAppProcessIdentity _initEmbeddedAppWithAppInfo:];
+        }
       }
     }
 
@@ -104,38 +108,41 @@
 
   else
   {
-    personaString = rbs_general_log();
+    personaString = rbs_general_log(0);
     if (os_log_type_enabled(personaString, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [infoCopy description];
+      v10 = [infoCopy description];
       v12 = 138543362;
-      v13 = v9;
+      v13 = v10;
       _os_log_impl(&dword_18E8AD000, personaString, OS_LOG_TYPE_DEFAULT, "_initEmbeddedAppWithAppInfoProvider failed - unable to find bundleID for %{public}@", &v12, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)copyWithPersonaString:(id)string
 {
   stringCopy = string;
-  if (!stringCopy && _os_feature_enabled_impl())
+  if (!stringCopy)
   {
-    v5 = rbs_general_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v5 = _os_feature_enabled_impl();
+    if (v5)
     {
-      [RBSEmbeddedAppProcessIdentity copyWithPersonaString:];
+      v6 = rbs_general_log(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+      {
+        [RBSEmbeddedAppProcessIdentity copyWithPersonaString:];
+      }
     }
   }
 
-  v6 = [[RBSEmbeddedAppProcessIdentity alloc] _initEmbeddedApp:self->_embeddedApplicationIdentifier personaString:stringCopy];
-  v6[2] = self->super._pid;
+  v7 = [[RBSEmbeddedAppProcessIdentity alloc] _initEmbeddedApp:self->_embeddedApplicationIdentifier personaString:stringCopy];
+  v7[2] = self->super._pid;
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -372,52 +379,58 @@ LABEL_49:
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_embeddedApplicationIdentifier"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_personaString"];
 
-  if (!v6 && _os_feature_enabled_impl())
+  if (!v6)
   {
-    v7 = rbs_general_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v7 = _os_feature_enabled_impl();
+    if (v7)
     {
-      [RBSEmbeddedAppProcessIdentity initWithRBSXPCCoder:];
+      v8 = rbs_general_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      {
+        [RBSEmbeddedAppProcessIdentity initWithRBSXPCCoder:];
+      }
     }
   }
 
-  v8 = [(RBSEmbeddedAppProcessIdentity *)self _initEmbeddedApp:v5 personaString:v6];
+  v9 = [(RBSEmbeddedAppProcessIdentity *)self _initEmbeddedApp:v5 personaString:v6];
 
-  return v8;
+  return v9;
 }
 
 - (RBSEmbeddedAppProcessIdentity)initWithDecodeFromJob:(id)job uuid:(id)uuid
 {
   jobCopy = job;
   uuidCopy = uuid;
+  v8 = uuidCopy;
   if (uuidCopy)
   {
-    v8 = rbs_general_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = rbs_general_log(uuidCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [RBSEmbeddedAppProcessIdentity initWithDecodeFromJob:uuidCopy uuid:v8];
+      [RBSEmbeddedAppProcessIdentity initWithDecodeFromJob:v8 uuid:v9];
     }
   }
 
   string = xpc_dictionary_get_string(jobCopy, "EAI");
   if (string)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = xpc_dictionary_get_string(jobCopy, "PERS");
-  if (v11)
+  v12 = xpc_dictionary_get_string(jobCopy, "PERS");
+  if (v12)
   {
-    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v11];
-    if (v10)
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v12];
+    v13 = v12;
+    if (v11)
     {
 LABEL_10:
-      self = [(RBSEmbeddedAppProcessIdentity *)self _initEmbeddedApp:v10 personaString:v12];
+      self = [(RBSEmbeddedAppProcessIdentity *)self _initEmbeddedApp:v11 personaString:v13];
       selfCopy = self;
       goto LABEL_15;
     }
@@ -425,15 +438,15 @@ LABEL_10:
 
   else
   {
-    v12 = 0;
-    if (v10)
+    v13 = 0;
+    if (v11)
     {
       goto LABEL_10;
     }
   }
 
-  v14 = rbs_general_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = rbs_general_log(v12);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     [RBSEmbeddedAppProcessIdentity initWithDecodeFromJob:uuid:];
   }
@@ -446,11 +459,10 @@ LABEL_15:
 
 - (void)initWithDecodeFromJob:(uint64_t)a1 uuid:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_FAULT, "There is no reason an app identity should have a UUID: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_FAULT, "There is no reason an app identity should have a UUID: %@", &v2, 0xCu);
 }
 
 @end

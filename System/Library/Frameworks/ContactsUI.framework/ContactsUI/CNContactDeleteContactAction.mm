@@ -74,7 +74,7 @@
   v15 = v10;
   if (v10)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactDeleteContactAction.m", 105, 3, @"Could not delete contact: %@", v11, v12, v13, v14, v10);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactDeleteContactAction.m", 105, 3u, @"Could not delete contact: %@", v11, v12, v13, v14, v10);
   }
 
   else

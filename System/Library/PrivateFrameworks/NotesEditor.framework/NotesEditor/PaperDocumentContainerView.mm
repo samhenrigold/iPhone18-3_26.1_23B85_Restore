@@ -38,7 +38,7 @@
     goto LABEL_5;
   }
 
-  sub_2151A6C9C(0, &qword_27CA59E48);
+  sub_2151A6C9C(0, &qword_27CA59E48, 0x277D75548);
   recognizerCopy2 = recognizer;
   touchCopy2 = touch;
   selfCopy2 = self;
@@ -88,13 +88,13 @@ LABEL_6:
 {
   windowCopy = window;
   selfCopy = self;
-  sub_215310C90(window);
+  sub_215310C90(window, selfCopy);
 }
 
 - (void)didMoveToWindow
 {
   selfCopy = self;
-  sub_215310F28();
+  sub_215310F28(selfCopy, v2);
 }
 
 - (void)toolPickerVisibilityDidChange:(id)change
@@ -108,13 +108,13 @@ LABEL_6:
 - (void)updateConstraints
 {
   selfCopy = self;
-  sub_2153113D8();
+  sub_2153113D8(selfCopy, v2);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_215311694();
+  sub_215311694(selfCopy, v2);
 }
 
 - (void)pdfViewMightHaveZoomed:(id)zoomed
@@ -125,7 +125,7 @@ LABEL_6:
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21549E16C();
   selfCopy = self;
-  sub_2153122DC();
+  sub_2153122DC(selfCopy);
 
   (*(v5 + 8))(v7, v4);
 }
@@ -258,7 +258,7 @@ LABEL_9:
   y = offset.y;
   x = offset.x;
   selfCopy = self;
-  sub_2153148B8(x, y);
+  sub_2153148B8(selfCopy, x, y);
 }
 
 - (CGSize)contentSize
@@ -288,7 +288,7 @@ LABEL_9:
 - (UIEdgeInsets)adjustedContentInset
 {
   selfCopy = self;
-  sub_215314BFC();
+  sub_215314BFC(selfCopy);
   v4 = v3;
   v6 = v5;
   v8 = v7;

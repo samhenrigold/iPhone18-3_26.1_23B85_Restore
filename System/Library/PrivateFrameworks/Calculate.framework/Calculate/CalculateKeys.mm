@@ -1,10 +1,10 @@
 @interface CalculateKeys
 + (id)keysWithOptions:(uint64_t)options;
+- (id)allowPartialExpressions;
 - (id)initWithOptions:(id *)options;
 - (id)locales;
 - (id)numberFormatter;
 - (id)variables;
-- (uint64_t)allowPartialExpressions;
 - (uint64_t)assumeDegrees;
 - (uint64_t)autoScientificNotation;
 - (uint64_t)engine;
@@ -37,11 +37,11 @@
   return bOOLValue;
 }
 
-- (uint64_t)allowPartialExpressions
+- (id)allowPartialExpressions
 {
   if (result)
   {
-    v1 = [*(result + 8) objectForKeyedSubscript:@"CalculateKeyAllowPartialExpressions"];
+    v1 = [result[1] objectForKeyedSubscript:@"CalculateKeyAllowPartialExpressions"];
     bOOLValue = [v1 BOOLValue];
 
     return bOOLValue;
@@ -168,7 +168,7 @@
 
 - (id)locales
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     v1 = [*(self + 8) objectForKeyedSubscript:@"CalculateKeyLocales"];
@@ -176,8 +176,8 @@
     if (objc_opt_isKindOfClass())
     {
       v2 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v1];
-      v8[0] = v2;
-      v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+      v7[0] = v2;
+      v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
     }
 
     else
@@ -185,8 +185,8 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v7 = v1;
-        v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
+        v6 = v1;
+        v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
         goto LABEL_10;
       }
 
@@ -209,7 +209,6 @@ LABEL_10:
 
   v4 = 0;
 LABEL_11:
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

@@ -142,7 +142,7 @@ LABEL_7:
 {
   v10 = 0uLL;
   v11 = 0;
-  [(PXStoryScrubberScrollLayout *)self presentedScrubberPosition];
+  objc_msgSend_presentedScrubberPosition(self, a2);
   viewModel = [(PXStoryScrubberScrollLayout *)self viewModel];
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
@@ -353,7 +353,7 @@ double __66__PXStoryScrubberScrollLayout_createAnchorForScrollingToPosition___bl
   v4 = model;
   if (model)
   {
-    [model currentScrollPosition];
+    objc_msgSend_currentScrollPosition(model);
   }
 
   else
@@ -368,7 +368,7 @@ double __66__PXStoryScrubberScrollLayout_createAnchorForScrollingToPosition___bl
     goto LABEL_11;
   }
 
-  [(PXStoryScrubberScrollLayout *)self presentedScrubberPosition];
+  objc_msgSend_presentedScrubberPosition(self);
   if (v9 != v7 || *(&v9 + 1) != *(&v7 + 1))
   {
 

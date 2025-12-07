@@ -47,30 +47,31 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v16 = __atxlog_handle_default();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v17 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      [(ATXLocationOfInterest(ProtoBufWrapper) *)self initWithProto:v16];
+      [(ATXLocationOfInterest(ProtoBufWrapper) *)self initWithProto:v17];
     }
 
     goto LABEL_7;
   }
 
-  v5 = MEMORY[0x277CCAD78];
-  v6 = v4;
-  v7 = [v5 alloc];
-  uuid = [v6 uuid];
-  v9 = [v7 initWithUUIDString:uuid];
+  v6 = MEMORY[0x277CCAD78];
+  v7 = v4;
+  v8 = [v6 alloc];
+  uuid = [v7 uuid];
+  v10 = [v8 initWithUUIDString:uuid];
 
-  [v6 latitude];
-  v11 = v10;
-  [v6 longitude];
-  v13 = CLLocationCoordinate2DMake(v11, v12);
-  type = [v6 type];
+  [v7 latitude];
+  v12 = v11;
+  [v7 longitude];
+  v14 = CLLocationCoordinate2DMake(v12, v13);
+  type = [v7 type];
 
-  self = [self initWithUUID:v9 visits:0 coordinate:objc_msgSend(self type:{"_routineLOITypeFromProtoLOIType:", type), v13.latitude, v13.longitude}];
+  self = [self initWithUUID:v10 visits:0 coordinate:objc_msgSend(self type:{"_routineLOITypeFromProtoLOIType:", type), v14.latitude, v14.longitude}];
   selfCopy = self;
 LABEL_8:
 
@@ -79,18 +80,18 @@ LABEL_8:
 
 - (id)proto
 {
-  v2 = objc_opt_new();
+  v3 = objc_opt_new();
   uuid = [self uuid];
   uUIDString = [uuid UUIDString];
-  [v2 setUuid:uUIDString];
+  [v3 setUuid:uUIDString];
 
   [self coordinate];
-  [v2 setLatitude:?];
+  [v3 setLatitude:?];
   [self coordinate];
-  [v2 setLongitude:v5];
-  [v2 setType:{objc_msgSend(self, "_protoLOITypeFromRoutineLOIType:", objc_msgSend(self, "type"))}];
+  [v3 setLongitude:v6];
+  [v3 setType:{objc_msgSend(self, "_protoLOITypeFromRoutineLOIType:", objc_msgSend(self, "type"))}];
 
-  return v2;
+  return v3;
 }
 
 - (uint64_t)_routineLOITypeFromProtoLOIType:()ProtoBufWrapper
@@ -100,7 +101,7 @@ LABEL_8:
     return a3 - 1;
   }
 
-  v6 = __atxlog_handle_default();
+  v6 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [(ATXLocationOfInterest(ProtoBufWrapper) *)self _routineLOITypeFromProtoLOIType:a3, v6];
@@ -131,29 +132,25 @@ LABEL_8:
 
 - (void)initWithProto:()ProtoBufWrapper .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBPredictionLocationOfInterest proto", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBPredictionLocationOfInterest proto", &v5, 0xCu);
 }
 
 - (void)_routineLOITypeFromProtoLOIType:()ProtoBufWrapper .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", a2];
   *buf = 138412546;
-  v10 = v6;
-  v11 = 2112;
-  v12 = v7;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
   _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%@ - _routineLOITypeFromProtoLOIType got unhandled LOI type of %@", buf, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

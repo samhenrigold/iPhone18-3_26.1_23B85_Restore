@@ -73,9 +73,9 @@
   }
 
   drawingContext = [(_HKGraphTileRenderToImage *)self drawingContext];
-  [(_HKGraphTileRenderToImage *)self scale];
+  objc_msgSend_scale(self);
   v7 = v6;
-  [(_HKGraphTileRenderToImage *)self scale];
+  objc_msgSend_scale(self);
   CGContextScaleCTM(drawingContext, v7, v8);
   drawingContext2 = [(_HKGraphTileRenderToImage *)self drawingContext];
   [(_HKGraphTileRenderToImage *)self sizeInPoints];

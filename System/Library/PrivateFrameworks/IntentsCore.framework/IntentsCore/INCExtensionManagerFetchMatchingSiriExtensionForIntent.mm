@@ -22,48 +22,44 @@ void ___INCExtensionManagerFetchMatchingSiriExtensionForIntent_block_invoke(uint
 
 void ___INCExtensionManagerFetchMatchingSiriExtensionForIntent_block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
-    goto LABEL_2;
+LABEL_2:
+    v3 = *MEMORY[0x277CD38C8];
+    if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 136315394;
+      v8 = "_INCExtensionManagerFetchMatchingSiriExtensionForIntent_block_invoke_2";
+      v9 = 2114;
+      v10 = v2;
+      _os_log_error_impl(&dword_255503000, v3, OS_LOG_TYPE_ERROR, "%s Failed to find extension %{public}@", &v7, 0x16u);
+    }
+
+    (*(*(a1 + 48) + 16))();
+    return;
   }
 
   if (![*(a1 + 40) count])
   {
     v2 = *(a1 + 32);
-LABEL_2:
-    v3 = *MEMORY[0x277CD38C8];
-    if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
-    {
-      v9 = 136315394;
-      v10 = "_INCExtensionManagerFetchMatchingSiriExtensionForIntent_block_invoke_2";
-      v11 = 2114;
-      v12 = v2;
-      _os_log_error_impl(&dword_255503000, v3, OS_LOG_TYPE_ERROR, "%s Failed to find extension %{public}@", &v9, 0x16u);
-      v8 = *(a1 + 32);
-    }
-
-    (*(*(a1 + 48) + 16))();
-    goto LABEL_9;
+    goto LABEL_2;
   }
 
   v4 = *MEMORY[0x277CD38C8];
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 40);
-    v9 = 136315394;
-    v10 = "_INCExtensionManagerFetchMatchingSiriExtensionForIntent_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_255503000, v4, OS_LOG_TYPE_INFO, "%s Found Siri extensions %@", &v9, 0x16u);
+    v7 = 136315394;
+    v8 = "_INCExtensionManagerFetchMatchingSiriExtensionForIntent_block_invoke";
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_255503000, v4, OS_LOG_TYPE_INFO, "%s Found Siri extensions %@", &v7, 0x16u);
   }
 
   v6 = [*(a1 + 40) firstObject];
   (*(*(a1 + 48) + 16))();
-
-LABEL_9:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

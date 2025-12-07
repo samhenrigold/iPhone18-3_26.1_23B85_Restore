@@ -77,10 +77,10 @@ void __51__SFDefaultBrowserViewController__connectToService__block_invoke(uint64
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __52__SFAddToHomeScreenViewController__connectToService__block_invoke_cold_1(v6, v9);
+      __52__SFAddToHomeScreenViewController__connectToService__block_invoke_cold_1(v6, v11);
     }
 
     (*(*(*(a1 + 32) + 1016) + 16))();

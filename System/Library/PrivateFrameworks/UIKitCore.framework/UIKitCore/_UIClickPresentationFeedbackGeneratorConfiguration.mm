@@ -36,9 +36,9 @@
 {
   feedbackCopy = feedback;
   previewedPattern = [(_UIClickPresentationFeedbackGeneratorConfiguration *)self previewedPattern];
-  v10 = [feedbackCopy isEqual:previewedPattern];
+  isEqual = objc_msgSend_isEqual_(feedbackCopy);
 
-  if (v10)
+  if (isEqual)
   {
     [(_UIClickPresentationFeedbackGeneratorConfiguration *)self hidPreviewedPatternName];
   }

@@ -9,7 +9,7 @@
 {
   interactionCopy = interaction;
   selfCopy = self;
-  v7 = sub_1B389FBE4();
+  v7 = sub_1B389FBE4(selfCopy);
 
   return v7;
 }

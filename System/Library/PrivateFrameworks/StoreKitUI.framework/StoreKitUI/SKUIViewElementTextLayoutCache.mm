@@ -492,22 +492,22 @@ LABEL_19:
       v23 = SKUIViewElementAlignmentForStyle(v14);
       if (v23)
       {
-        v24 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v23);
+        v25 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v23, v24);
       }
 
       else
       {
-        v24 = 0;
+        v25 = 0;
       }
 
       buttonText2 = [buttonCopy buttonText];
-      v26 = [buttonText2 attributedStringWithDefaultFont:v15 foregroundColor:0 textAlignment:v24 style:v14];
+      v27 = [buttonText2 attributedStringWithDefaultFont:v15 foregroundColor:0 textAlignment:v25 style:v14];
 
-      v27 = [(SKUIViewElementTextLayoutCache *)self _createLayoutRequestForButton:buttonCopy attributedString:v26 width:width];
-      v28 = [[SKUIAttributedStringLayout alloc] initWithLayoutRequest:v27];
-      [(SKUIAttributedStringLayout *)v28 boundingSize];
-      v12 = v29;
-      v13 = v30;
+      v28 = [(SKUIViewElementTextLayoutCache *)self _createLayoutRequestForButton:buttonCopy attributedString:v27 width:width];
+      v29 = [[SKUIAttributedStringLayout alloc] initWithLayoutRequest:v28];
+      [(SKUIAttributedStringLayout *)v29 boundingSize];
+      v12 = v30;
+      v13 = v31;
       v20 = [MEMORY[0x277CCAE60] valueWithCGSize:?];
       _bestGuessCache2 = [(SKUIViewElementTextLayoutCache *)self _bestGuessCache];
       [_bestGuessCache2 setObject:v20 forKey:v16];
@@ -520,10 +520,10 @@ LABEL_19:
     v13 = *(MEMORY[0x277CBF3A8] + 8);
   }
 
-  v32 = v12;
-  v33 = v13;
-  result.height = v33;
-  result.width = v32;
+  v33 = v12;
+  v34 = v13;
+  result.height = v34;
+  result.width = v33;
   return result;
 }
 
@@ -581,48 +581,48 @@ LABEL_19:
 
   if (!v8)
   {
-    v9 = SKUIFontForTextStyle(25);
-    v10 = MEMORY[0x277D74300];
-    [v9 pointSize];
-    v8 = [v10 _lightSystemFontOfSize:?];
+    v10 = SKUIFontForTextStyle(25, v9);
+    v11 = MEMORY[0x277D74300];
+    [v10 pointSize];
+    v8 = [v11 _lightSystemFontOfSize:?];
   }
 
-  v11 = objc_alloc_init(_SKUIViewElementTextLayoutCacheBestGuessCacheKey);
+  v12 = objc_alloc_init(_SKUIViewElementTextLayoutCacheBestGuessCacheKey);
   text = [ordinalCopy text];
   string = [text string];
-  [(_SKUIViewElementTextLayoutCacheBestGuessCacheKey *)v11 setText:string];
+  [(_SKUIViewElementTextLayoutCacheBestGuessCacheKey *)v12 setText:string];
 
-  [(_SKUIViewElementTextLayoutCacheBestGuessCacheKey *)v11 setFont:v8];
-  [(_SKUIViewElementTextLayoutCacheBestGuessCacheKey *)v11 setWidth:width];
+  [(_SKUIViewElementTextLayoutCacheBestGuessCacheKey *)v12 setFont:v8];
+  [(_SKUIViewElementTextLayoutCacheBestGuessCacheKey *)v12 setWidth:width];
   _bestGuessCache = [(SKUIViewElementTextLayoutCache *)self _bestGuessCache];
-  v15 = [_bestGuessCache objectForKey:v11];
+  v16 = [_bestGuessCache objectForKey:v12];
 
-  if (v15)
+  if (v16)
   {
-    [v15 CGSizeValue];
-    v17 = v16;
-    v19 = v18;
+    [v16 CGSizeValue];
+    v18 = v17;
+    v20 = v19;
   }
 
   else
   {
     text2 = [ordinalCopy text];
-    v21 = [text2 attributedStringWithDefaultFont:v8 foregroundColor:0];
+    v22 = [text2 attributedStringWithDefaultFont:v8 foregroundColor:0];
 
-    v22 = [(SKUIViewElementTextLayoutCache *)self _createLayoutRequestForOrdinal:ordinalCopy attributedString:v21 width:width];
-    v23 = [[SKUIAttributedStringLayout alloc] initWithLayoutRequest:v22];
-    [(SKUIAttributedStringLayout *)v23 boundingSize];
-    v17 = v24;
-    v19 = v25;
-    v15 = [MEMORY[0x277CCAE60] valueWithCGSize:?];
+    v23 = [(SKUIViewElementTextLayoutCache *)self _createLayoutRequestForOrdinal:ordinalCopy attributedString:v22 width:width];
+    v24 = [[SKUIAttributedStringLayout alloc] initWithLayoutRequest:v23];
+    [(SKUIAttributedStringLayout *)v24 boundingSize];
+    v18 = v25;
+    v20 = v26;
+    v16 = [MEMORY[0x277CCAE60] valueWithCGSize:?];
     _bestGuessCache2 = [(SKUIViewElementTextLayoutCache *)self _bestGuessCache];
-    [_bestGuessCache2 setObject:v15 forKey:v11];
+    [_bestGuessCache2 setObject:v16 forKey:v12];
   }
 
-  v27 = v17;
-  v28 = v19;
-  result.height = v28;
-  result.width = v27;
+  v28 = v18;
+  v29 = v20;
+  result.height = v29;
+  result.width = v28;
   return result;
 }
 

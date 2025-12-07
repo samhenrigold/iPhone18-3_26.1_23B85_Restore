@@ -32,9 +32,12 @@
 
 uint64_t __39__NURenderPipelineRegistry_description__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@:%p> %@", objc_opt_class(), *(a1 + 32), *(*(a1 + 32) + 16)];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@:%p> %@", objc_opt_class(), *(a1 + 32), *(*(a1 + 32) + 16)];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)renderPipelineForIdentifier:(id)identifier
@@ -109,9 +112,12 @@ uint64_t __39__NURenderPipelineRegistry_description__block_invoke(uint64_t a1)
 
 uint64_t __56__NURenderPipelineRegistry_renderPipelineForIdentifier___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _renderPipelineForIdentifier:*(a1 + 40)];
+  v2 = [*(a1 + 32) _renderPipelineForIdentifier:*(a1 + 40)];
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)registerRenderPipeline:(id)pipeline forIdentifier:(id)identifier

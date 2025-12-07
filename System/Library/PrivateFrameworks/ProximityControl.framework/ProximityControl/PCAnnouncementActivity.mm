@@ -9,10 +9,10 @@
 
 - (PCAnnouncementActivity)init
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = PCAnnouncementActivity;
-  v2 = [(PCAnnouncementActivity *)&v8 initWithActivityType:@"com.apple.ProximityControl.activity.annoucement"];
+  v9[1] = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = PCAnnouncementActivity;
+  v2 = [(PCAnnouncementActivity *)&v7 initWithActivityType:@"com.apple.ProximityControl.activity.annoucement"];
   v3 = v2;
   if (v2)
   {
@@ -20,13 +20,12 @@
     v4 = [PCLocalizedString localizedStringForKey:1];
     [(PCAnnouncementActivity *)v3 setTitle:v4];
 
-    v9 = @"IS_ANNOUNCING";
-    v10[0] = MEMORY[0x277CBEC38];
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"IS_ANNOUNCING";
+    v9[0] = MEMORY[0x277CBEC38];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     [(PCAnnouncementActivity *)v3 setUserInfo:v5];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

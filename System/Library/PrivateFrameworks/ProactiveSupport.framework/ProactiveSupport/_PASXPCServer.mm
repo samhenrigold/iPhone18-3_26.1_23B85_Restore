@@ -9,39 +9,37 @@
 
 - (void)registerXPCListeners
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_XPCListeners;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         serviceName = [v7 serviceName];
         delegate = [v7 delegate];
         [_PASXPCServer registerForService:serviceName delegate:delegate];
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (_PASXPCServer)initWithXPCListeners:(id)listeners logHandle:(id)handle
@@ -61,54 +59,53 @@
 
 + (id)description
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = NSStringFromClass(self);
   [v3 appendFormat:@"%@ registrations:\n", v4];
 
   obj = self;
   objc_sync_enter(obj);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allKeys = [listeners allKeys];
   v6 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [listeners objectForKeyedSubscript:v10];
         second = [v11 second];
         [v3 appendFormat:@"  %@ => %@\n", v10, second];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(obj);
-  v13 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 + (void)registerForService:(id)service delegate:(id)delegate
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   delegateCopy = delegate;
   v9 = delegateCopy;
@@ -154,7 +151,7 @@ LABEL_3:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v22 = serviceCopy;
+      v21 = serviceCopy;
       _os_log_fault_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "SPI misuse: re-registering for XPC service '%@'", buf, 0xCu);
     }
 
@@ -177,18 +174,16 @@ LABEL_3:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v22 = serviceCopy;
-      v23 = 2112;
-      v24 = objc_opt_class();
-      v17 = v24;
+      v21 = serviceCopy;
+      v22 = 2112;
+      v23 = objc_opt_class();
+      v17 = v23;
       _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Registered for XPC service '%@' with delegate of class %@", buf, 0x16u);
     }
 
     [v15 resume];
     selfCopy = v15;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

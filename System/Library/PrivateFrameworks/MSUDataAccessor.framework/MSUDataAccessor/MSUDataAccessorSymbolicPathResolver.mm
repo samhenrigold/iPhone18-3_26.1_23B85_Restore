@@ -123,9 +123,9 @@ LABEL_17:
 
   if ([symbolCopy isEqualToString:@"nsih"])
   {
-    v24 = +[MSUDataAccessor sharedDataAccessor];
+    v23 = +[MSUDataAccessor sharedDataAccessor];
     v47 = 0;
-    v10 = [v24 copyBootManifestHashWithError:&v47];
+    v10 = [v23 copyBootManifestHashWithError:&v47];
     v11 = v47;
 
     goto LABEL_24;
@@ -168,15 +168,15 @@ LABEL_46:
   if ([symbolCopy isEqualToString:@"bootobjectspath"])
   {
     v45 = 0;
-    v25 = [MSUDataAccessor ioreg:@"IODeviceTree:/chosen" property:@"boot-objects-path" error:&v45];
+    v24 = [MSUDataAccessor ioreg:@"IODeviceTree:/chosen" property:@"boot-objects-path" error:&v45];
     v11 = v45;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v26 = MEMORY[0x277CCACA8];
-      v27 = v25;
-      v28 = [v26 stringWithUTF8String:{objc_msgSend(v25, "bytes")}];
-      v10 = [@"/" stringByAppendingPathComponent:v28];
+      v25 = MEMORY[0x277CCACA8];
+      v26 = v24;
+      v27 = [v25 stringWithUTF8String:{objc_msgSend(v24, "bytes")}];
+      v10 = [@"/" stringByAppendingPathComponent:v27];
     }
 
     else
@@ -187,9 +187,10 @@ LABEL_46:
     goto LABEL_24;
   }
 
-  if (![symbolCopy isEqualToString:@"cryptex1ticketpath"])
+  v28 = [symbolCopy isEqualToString:@"cryptex1ticketpath"];
+  if (!v28)
   {
-    v34 = MSUDASharedLogger();
+    v34 = MSUDASharedLogger(v28);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       [(MSUDataAccessorSymbolicPathResolver *)symbolCopy resolvedSymbol:v34 error:v35, v36, v37, v38, v39, v40];
@@ -279,7 +280,6 @@ LABEL_33:
 LABEL_34:
 
   objc_sync_exit(v7);
-  v22 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -328,61 +328,62 @@ void __60__MSUDataAccessorSymbolicPathResolver_resolvedSymbol_error___block_invo
 
 - (id)resolve:(id)resolve error:(id *)error
 {
-  v69[3] = *MEMORY[0x277D85DE8];
+  v70[3] = *MEMORY[0x277D85DE8];
   resolveCopy = resolve;
+  v64 = 0;
+  v65[0] = &v64;
+  v65[1] = 0x3032000000;
+  v65[2] = __Block_byref_object_copy_;
+  v65[3] = __Block_byref_object_dispose_;
+  v66 = 0;
   v63 = 0;
-  v64[0] = &v63;
-  v64[1] = 0x3032000000;
-  v64[2] = __Block_byref_object_copy_;
-  v64[3] = __Block_byref_object_dispose_;
-  v65 = 0;
-  v62 = 0;
-  v7 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(\\\\\\\\)|(\\\\\\[)|(\\\\\\])|(\\[\\w+\\])" options:0 error:&v62];
-  v8 = v62;
+  v7 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(\\\\\\\\)|(\\\\\\[)|(\\\\\\])|(\\[\\w+\\])" options:0 error:&v63];
+  v8 = v63;
+  v9 = v8;
   if (v8)
   {
-    v9 = MSUDASharedLogger();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = MSUDASharedLogger(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(MSUDataAccessorSymbolicPathResolver *)v9 resolve:v10 error:v11, v12, v13, v14, v15, v16];
+      [(MSUDataAccessorSymbolicPathResolver *)v10 resolve:v11 error:v12, v13, v14, v15, v16, v17];
     }
 
-    v17 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA7E8];
-    v68[0] = *MEMORY[0x277CCA068];
-    v68[1] = v18;
-    v69[0] = @"bad regex";
-    v69[1] = v8;
-    v68[2] = @"regex";
-    v69[2] = @"(\\\\\\\\)|(\\\\\\[)|(\\\\\\])|(\\[\\w+\\])";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:3];
-    v20 = [v17 errorWithDomain:@"MSUDASymbolicPathResolverError" code:102 userInfo:v19];
-    v21 = *(v64[0] + 40);
-    *(v64[0] + 40) = v20;
+    v18 = MEMORY[0x277CCA9B8];
+    v19 = *MEMORY[0x277CCA7E8];
+    v69[0] = *MEMORY[0x277CCA068];
+    v69[1] = v19;
+    v70[0] = @"bad regex";
+    v70[1] = v9;
+    v69[2] = @"regex";
+    v70[2] = @"(\\\\\\\\)|(\\\\\\[)|(\\\\\\])|(\\[\\w+\\])";
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:3];
+    v21 = [v18 errorWithDomain:@"MSUDASymbolicPathResolverError" code:102 userInfo:v20];
+    v22 = *(v65[0] + 40);
+    *(v65[0] + 40) = v21;
 
     goto LABEL_5;
   }
 
   if (!v7)
   {
-    v33 = MSUDASharedLogger();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v35 = MSUDASharedLogger(0);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      [(MSUDataAccessorSymbolicPathResolver *)v33 resolve:v34 error:v35, v36, v37, v38, v39, v40];
+      [(MSUDataAccessorSymbolicPathResolver *)v35 resolve:v36 error:v37, v38, v39, v40, v41, v42];
     }
 
-    v41 = MEMORY[0x277CCA9B8];
-    v66[0] = *MEMORY[0x277CCA068];
-    v66[1] = @"regex";
-    v67[0] = @"could not alloc/init regex";
-    v67[1] = @"(\\\\\\\\)|(\\\\\\[)|(\\\\\\])|(\\[\\w+\\])";
-    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:2];
-    v43 = [v41 errorWithDomain:@"MSUDASymbolicPathResolverError" code:101 userInfo:v42];
-    v44 = *(v64[0] + 40);
-    *(v64[0] + 40) = v43;
+    v43 = MEMORY[0x277CCA9B8];
+    v67[0] = *MEMORY[0x277CCA068];
+    v67[1] = @"regex";
+    v68[0] = @"could not alloc/init regex";
+    v68[1] = @"(\\\\\\\\)|(\\\\\\[)|(\\\\\\])|(\\[\\w+\\])";
+    v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:2];
+    v45 = [v43 errorWithDomain:@"MSUDASymbolicPathResolverError" code:101 userInfo:v44];
+    v46 = *(v65[0] + 40);
+    *(v65[0] + 40) = v45;
 
 LABEL_5:
-    v22 = 0;
+    v24 = 0;
     if (!error)
     {
       goto LABEL_6;
@@ -391,55 +392,55 @@ LABEL_5:
     goto LABEL_20;
   }
 
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2020000000;
-  v61 = 0;
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x2020000000;
+  v62 = 0;
   string = [MEMORY[0x277CCAB68] string];
-  v24 = v59[3];
-  v25 = [resolveCopy length];
-  v49 = MEMORY[0x277D85DD0];
-  v50 = 3254779904;
-  v51 = __53__MSUDataAccessorSymbolicPathResolver_resolve_error___block_invoke;
-  v52 = &__block_descriptor_72_e8_32s40s48s56r64r_e37_v32__0__NSTextCheckingResult_8Q16_B24l;
-  v56 = &v58;
-  v26 = resolveCopy;
-  v53 = v26;
-  v27 = string;
-  v54 = v27;
+  v26 = v60[3];
+  v27 = [resolveCopy length];
+  v50 = MEMORY[0x277D85DD0];
+  v51 = 3254779904;
+  v52 = __53__MSUDataAccessorSymbolicPathResolver_resolve_error___block_invoke;
+  v53 = &__block_descriptor_72_e8_32s40s48s56r64r_e37_v32__0__NSTextCheckingResult_8Q16_B24l;
+  v57 = &v59;
+  v28 = resolveCopy;
+  v54 = v28;
+  v29 = string;
+  v55 = v29;
   selfCopy = self;
-  v57 = &v63;
-  [v7 enumerateMatchesInString:v26 options:0 range:v24 usingBlock:{v25, &v49}];
-  v28 = [v26 length];
-  v29 = v59[3];
-  if (v28 != v29)
+  v58 = &v64;
+  [v7 enumerateMatchesInString:v28 options:0 range:v26 usingBlock:{v27, &v50}];
+  v30 = [v28 length];
+  v31 = v60[3];
+  if (v30 != v31)
   {
-    v30 = [v26 length];
-    v31 = [v26 substringWithRange:{v29, v30 - v59[3]}];
-    [v27 appendString:v31];
+    v32 = [v28 length];
+    v33 = [v28 substringWithRange:{v31, v32 - v60[3]}];
+    [v29 appendString:v33];
   }
 
-  if (*(v64[0] + 40))
+  if (*(v65[0] + 40))
   {
-    v32 = MSUDASharedLogger();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v34 = MSUDASharedLogger(v30);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      [(MSUDataAccessorSymbolicPathResolver *)v64 resolve:v27 error:v32];
+      [(MSUDataAccessorSymbolicPathResolver *)v65 resolve:v29 error:v34];
     }
 
-    v22 = 0;
+    v24 = 0;
   }
 
   else
   {
-    v22 = v27;
+    v24 = v29;
   }
 
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v59, 8);
   if (!error)
   {
 LABEL_6:
-    if (!v22)
+    if (!v24)
     {
       goto LABEL_24;
     }
@@ -448,26 +449,26 @@ LABEL_6:
   }
 
 LABEL_20:
-  *error = *(v64[0] + 40);
-  if (!v22)
+  v23 = *(v65[0] + 40);
+  *error = v23;
+  if (!v24)
   {
     goto LABEL_24;
   }
 
 LABEL_21:
-  v45 = MSUDASharedLogger();
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+  v47 = MSUDASharedLogger(v23);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
   {
-    [(MSUDataAccessorSymbolicPathResolver *)resolveCopy resolve:v22 error:v45];
+    [(MSUDataAccessorSymbolicPathResolver *)resolveCopy resolve:v24 error:v47];
   }
 
 LABEL_24:
-  v46 = v22;
+  v48 = v24;
 
-  _Block_object_dispose(&v63, 8);
-  v47 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v64, 8);
 
-  return v46;
+  return v48;
 }
 
 void __53__MSUDataAccessorSymbolicPathResolver_resolve_error___block_invoke(uint64_t a1, id a2, uint64_t a3, _BYTE *a4)
@@ -532,7 +533,7 @@ void __53__MSUDataAccessorSymbolicPathResolver_resolve_error___block_invoke(uint
     else
     {
       v18 = *(a1 + 40);
-      v19 = @"\\"";
+      v19 = @"\";
     }
 
     [v18 appendString:v19];
@@ -545,46 +546,44 @@ LABEL_15:
 
 + (void)resolvedSymbol:(uint64_t)a3 error:(uint64_t)a4 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_22E73A000, a2, a3, "Unknown symbol:%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_22E73A000, a2, a3, "Unknown symbol:%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)resolve:(uint64_t)a3 error:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_22E73A000, a1, a3, "bad regex:%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"(\\\\\\\\)|(\\\\\\[)|(\\\\\\])|(\\[\\w+\\])";
+  OUTLINED_FUNCTION_0_0(&dword_22E73A000, a1, a3, "bad regex:%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)resolve:(os_log_t)log error:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(*a1 + 40);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_22E73A000, log, OS_LOG_TYPE_ERROR, "error %@ ; discarding incomplete unresolved path: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_22E73A000, log, OS_LOG_TYPE_ERROR, "error %@ ; discarding incomplete unresolved path: %@", &v4, 0x16u);
 }
 
 - (void)resolve:(uint64_t)a3 error:(uint64_t)a4 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_22E73A000, a1, a3, "could not alloc/init regex:%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"(\\\\\\\\)|(\\\\\\[)|(\\\\\\])|(\\[\\w+\\])";
+  OUTLINED_FUNCTION_0_0(&dword_22E73A000, a1, a3, "could not alloc/init regex:%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)resolve:(os_log_t)log error:.cold.4(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_22E73A000, log, OS_LOG_TYPE_DEBUG, "returning resolved path for symbolic path %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_22E73A000, log, OS_LOG_TYPE_DEBUG, "returning resolved path for symbolic path %@: %@", &v3, 0x16u);
 }
 
 @end

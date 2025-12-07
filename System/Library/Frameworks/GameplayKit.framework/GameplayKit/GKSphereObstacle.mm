@@ -34,8 +34,6 @@
 
 - (vector_float3)position
 {
-  v2 = *&self->_obstacle.center.x;
-  z = self->_obstacle.center.z;
   result.i64[1] = a2;
   result.i64[0] = self;
   return result;

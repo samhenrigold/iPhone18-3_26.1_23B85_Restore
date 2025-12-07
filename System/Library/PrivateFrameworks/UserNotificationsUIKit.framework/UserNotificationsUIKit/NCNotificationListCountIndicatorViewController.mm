@@ -27,8 +27,8 @@
   if (v4 != count)
   {
     selfCopy = self;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CED8190);
-    sub_21E8D919C(&unk_280D03F18, &qword_27CED8190);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CED8190, &qword_21E949A40);
+    sub_21E8D919C(&unk_280D03F18, &qword_27CED8190, &qword_21E949A40, MEMORY[0x277CBCE18]);
     sub_21E929DB8();
   }
 }
@@ -198,8 +198,8 @@
   v14.size.height = height;
   if (!CGRectEqualToRect(v13, v14))
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CED8190);
-    sub_21E8D919C(&unk_280D03F18, &qword_27CED8190);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CED8190, &qword_21E949A40);
+    sub_21E8D919C(&unk_280D03F18, &qword_27CED8190, &qword_21E949A40, MEMORY[0x277CBCE18]);
     sub_21E929DB8();
   }
 }

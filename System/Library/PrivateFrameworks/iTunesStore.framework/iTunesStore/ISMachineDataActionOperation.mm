@@ -124,7 +124,7 @@
 
 - (void)run
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedFairPlayAnisetteConfig];
   if (!mEMORY[0x277D69B38])
   {
@@ -134,16 +134,21 @@
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -152,53 +157,51 @@
   {
     v7 = objc_opt_class();
     v8 = *&self->_blocksPurchaseRequests;
-    v32 = 138543618;
-    v33 = v7;
-    v34 = 2114;
-    v35 = v8;
+    v30 = 138543618;
+    v31 = v7;
+    v32 = 2114;
+    v33 = v8;
     v9 = v7;
-    LODWORD(v29) = 22;
-    v28 = &v32;
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%{public}@: Running for request %{public}@.", &v30, 22);
 
     if (!v10)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:{4, &v32, v29}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:4];
     free(v10);
-    v28 = oSLogObject;
+    v26 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   actionName = [*&self->_blocksPurchaseRequests actionName];
   if ([actionName isEqualToString:@"SP"])
   {
     v12 = *&self->_blocksPurchaseRequests;
-    v31 = 0;
-    _eraseProvisioning = [(ISMachineDataActionOperation *)self _provisionWithRequest:v12 error:&v31];
-    v14 = v31;
-LABEL_16:
+    v29 = 0;
+    _eraseProvisioning = [(ISMachineDataActionOperation *)self _provisionWithRequest:v12 error:&v29];
+    v14 = v29;
+LABEL_17:
     v16 = v14;
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
   if ([actionName isEqualToString:@"SM"])
   {
     v15 = *&self->_blocksPurchaseRequests;
-    v30 = 0;
-    _eraseProvisioning = [(ISMachineDataActionOperation *)self _syncMachineWithRequest:v15 error:&v30];
-    v14 = v30;
-    goto LABEL_16;
+    v28 = 0;
+    _eraseProvisioning = [(ISMachineDataActionOperation *)self _syncMachineWithRequest:v15 error:&v28];
+    v14 = v28;
+    goto LABEL_17;
   }
 
   if ([actionName isEqualToString:@"RP"])
   {
     _eraseProvisioning = [(ISMachineDataActionOperation *)self _eraseProvisioning];
     v16 = 0;
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
   mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharedFairPlayAnisetteConfig];
@@ -210,49 +213,52 @@ LABEL_16:
   shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
   if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
   {
-    v22 = shouldLog2 | 2;
+    LODWORD(v21) = shouldLog2 | 2;
   }
 
   else
   {
-    v22 = shouldLog2;
+    LODWORD(v21) = shouldLog2;
   }
 
   oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
   {
-    v22 &= 2u;
+    v21 = v21;
   }
 
-  if (!v22)
+  else
   {
-    goto LABEL_32;
+    v21 &= 2u;
   }
 
-  v24 = objc_opt_class();
-  v32 = 138543618;
-  v33 = v24;
-  v34 = 2114;
-  v35 = actionName;
-  v25 = v24;
-  LODWORD(v29) = 22;
-  v28 = &v32;
-  v26 = _os_log_send_and_compose_impl();
-
-  if (v26)
+  if (!v21)
   {
-    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v26 encoding:{4, &v32, v29}];
-    free(v26);
-    v28 = oSLogObject2;
+    goto LABEL_34;
+  }
+
+  v23 = objc_opt_class();
+  v30 = 138543618;
+  v31 = v23;
+  v32 = 2114;
+  v33 = actionName;
+  v24 = v23;
+  LODWORD(v27) = 22;
+  v25 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_275BC3000, oSLogObject2, 16, "%{public}@: Unrecognized machine-data action %{public}@.", &v30, v27);
+
+  if (v25)
+  {
+    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v25 encoding:4];
+    free(v25);
+    v26 = oSLogObject2;
     SSFileLog();
-LABEL_32:
+LABEL_34:
   }
 
-  v27 = *MEMORY[0x277D6A110];
   v16 = SSError();
   _eraseProvisioning = 0;
-LABEL_17:
-  [(ISOperation *)self setError:v16, v28];
+LABEL_18:
+  [(ISOperation *)self setError:v16, v26];
   [(ISOperation *)self setSuccess:_eraseProvisioning];
   resultBlock = [(ISMachineDataActionOperation *)self resultBlock];
   if (resultBlock)
@@ -262,8 +268,6 @@ LABEL_17:
 
     [(ISMachineDataActionOperation *)self setResultBlock:0];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)uniqueKey
@@ -281,7 +285,7 @@ LABEL_17:
 
 - (BOOL)_eraseProvisioning
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ([*&self->_blocksPurchaseRequests protocolVersion] == 1)
   {
     mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedFairPlayAnisetteConfig];
@@ -293,41 +297,45 @@ LABEL_17:
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v5 = shouldLog | 2;
+      LODWORD(v5) = shouldLog | 2;
     }
 
     else
     {
-      v5 = shouldLog;
+      LODWORD(v5) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v5 = v5;
+    }
+
+    else
     {
       v5 &= 2u;
     }
 
     if (v5)
     {
-      *v23 = 138543362;
-      *&v23[4] = objc_opt_class();
-      v7 = *&v23[4];
-      LODWORD(v22) = 12;
-      v8 = _os_log_send_and_compose_impl();
+      v22 = 138543362;
+      v23 = objc_opt_class();
+      v7 = v23;
+      v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_275BC3000, oSLogObject, 1, "%{public}@: Erase anonymous provisioning.", &v22, 12);
 
       if (!v8)
       {
-LABEL_13:
+LABEL_14:
         unsignedLongLongValue = -1;
-        goto LABEL_25;
+        goto LABEL_27;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:{4, v23, v22, *v23}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:4];
       free(v8);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   accountIdentifier = [*&self->_blocksPurchaseRequests accountIdentifier];
@@ -342,16 +350,21 @@ LABEL_13:
   shouldLog2 = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v12 = shouldLog2 | 2;
+    LODWORD(v12) = shouldLog2 | 2;
   }
 
   else
   {
-    v12 = shouldLog2;
+    LODWORD(v12) = shouldLog2;
   }
 
   oSLogObject2 = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  {
+    v12 = v12;
+  }
+
+  else
   {
     v12 &= 2u;
   }
@@ -362,17 +375,17 @@ LABEL_13:
     v15 = MEMORY[0x277CCACA8];
     v16 = v14;
     v17 = [v15 stringWithFormat:@"%llu", unsignedLongLongValue];
-    SSHashIfNeeded();
-    *v23 = 138543618;
-    *&v23[4] = v14;
-    *&v23[14] = *&v23[12] = 2114;
-    LODWORD(v22) = 22;
-    v18 = _os_log_send_and_compose_impl();
+    v18 = SSHashIfNeeded();
+    v22 = 138543618;
+    v23 = v14;
+    v24 = 2114;
+    v25 = v18;
+    v19 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_275BC3000, oSLogObject2, 1, "%{public}@: Erase provisioning for account %{public}@.", &v22, 22);
 
-    if (v18)
+    if (v19)
     {
-      v19 = [MEMORY[0x277CCACA8] stringWithCString:v18 encoding:{4, v23, v22}];
-      free(v18);
+      v20 = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:4];
+      free(v19);
       SSFileLog();
     }
   }
@@ -381,11 +394,9 @@ LABEL_13:
   {
   }
 
-LABEL_25:
+LABEL_27:
 
-  result = MEMORY[0x277C8BA50](unsignedLongLongValue) == 0;
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277C8BA50](unsignedLongLongValue) == 0;
 }
 
 - (BOOL)_provisionWithRequest:(id)request error:(id *)error

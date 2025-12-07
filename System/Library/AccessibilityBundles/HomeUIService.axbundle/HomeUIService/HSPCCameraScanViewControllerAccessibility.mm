@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_handleSetupCode:(id)code;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCCameraScanViewControllerAccessibility
@@ -15,6 +16,14 @@
   [validationsCopy validateClass:@"CRCameraReader" isKindOfClass:@"UIViewController"];
   [validationsCopy validateClass:@"HSPCCameraScanViewController" hasInstanceVariable:@"_contentView" withType:"PRXCardContentView"];
   [validationsCopy validateClass:@"PRXCardContentView" hasInstanceMethod:@"subtitleLabel" withFullSignature:{"@", 0}];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HSPCCameraScanViewControllerAccessibility;
+  [(HSPCCameraScanViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(HSPCCameraScanViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 - (void)_accessibilityLoadAccessibilityInformation

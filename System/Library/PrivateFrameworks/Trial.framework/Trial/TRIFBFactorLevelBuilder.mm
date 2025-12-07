@@ -32,7 +32,6 @@
 
 - (void)setName:(id)name
 {
-  v10 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (!nameCopy)
   {
@@ -47,13 +46,10 @@
     v7 = nameCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 4, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLevelWithBoolVal:(id)val
 {
-  v10 = *MEMORY[0x277D85DE8];
   valCopy = val;
   if (!valCopy)
   {
@@ -69,13 +65,10 @@
     v7 = valCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 8, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLevelWithStringVal:(id)val
 {
-  v10 = *MEMORY[0x277D85DE8];
   valCopy = val;
   if (!valCopy)
   {
@@ -91,13 +84,10 @@
     v7 = valCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 8, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLevelWithInt64Val:(id)val
 {
-  v10 = *MEMORY[0x277D85DE8];
   valCopy = val;
   if (!valCopy)
   {
@@ -113,13 +103,10 @@
     v7 = valCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 8, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLevelWithDoubleVal:(id)val
 {
-  v10 = *MEMORY[0x277D85DE8];
   valCopy = val;
   if (!valCopy)
   {
@@ -135,13 +122,10 @@
     v7 = valCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 8, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLevelWithTrialAssetVal:(id)val
 {
-  v10 = *MEMORY[0x277D85DE8];
   valCopy = val;
   if (!valCopy)
   {
@@ -157,13 +141,10 @@
     v7 = valCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 8, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLevelWithMaRefVal:(id)val
 {
-  v10 = *MEMORY[0x277D85DE8];
   valCopy = val;
   if (!valCopy)
   {
@@ -179,13 +160,10 @@
     v7 = valCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 8, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMetadata:(id)metadata
 {
-  v13 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   if (!metadataCopy)
   {
@@ -206,26 +184,21 @@
       apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(var0, 10, v10);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCacheKey:(unsigned int)key
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v3 = *&key;
   firstError = [(AFBBufferBuilder *)self->_owner firstError];
 
   if (!firstError)
   {
-    apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(self->_bldr->var0, 12, key);
+    apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(self->_bldr->var0, 12, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAlias:(id)alias
 {
-  v10 = *MEMORY[0x277D85DE8];
   aliasCopy = alias;
   if (!aliasCopy)
   {
@@ -240,13 +213,10 @@
     v7 = aliasCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 14, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFactorNamespaceName:(id)name
 {
-  v10 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (!nameCopy)
   {
@@ -261,13 +231,10 @@
     v7 = nameCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 16, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFactorId:(id)id
 {
-  v10 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (!idCopy)
   {
@@ -282,21 +249,17 @@
     v7 = idCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 18, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNamespaceId:(unsigned int)id
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v3 = *&id;
   firstError = [(AFBBufferBuilder *)self->_owner firstError];
 
   if (!firstError)
   {
-    apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(self->_bldr->var0, 20, id);
+    apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(self->_bldr->var0, 20, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

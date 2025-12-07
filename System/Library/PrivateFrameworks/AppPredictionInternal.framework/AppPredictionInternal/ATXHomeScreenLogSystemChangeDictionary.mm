@@ -44,147 +44,141 @@
 
 void __79__ATXHomeScreenLogSystemChangeDictionary_systemChangeDictionaryAccumulatorKeys__block_invoke()
 {
-  v3[15] = *MEMORY[0x277D85DE8];
-  v3[0] = @"DefaultStacksCreated";
-  v3[1] = @"ManualStacksCreated";
-  v3[2] = @"StacksRemoved";
-  v3[3] = @"WidgetsAddedViaAppList";
-  v3[4] = @"WidgetsAddedViaGallery";
-  v3[5] = @"WidgetsRemoved";
-  v3[6] = @"WidgetsAddedToStackInGallerySuggestions";
-  v3[7] = @"WidgetsAddedToStackNotInGallerySuggestions";
-  v3[8] = @"WidgetsRemovedFromStack";
-  v3[9] = @"WidgetsRemovedFromHomeScreen";
-  v3[10] = @"WidgetsOnHomeScreen";
-  v3[11] = @"SuggestedWidgetsRemovedFromStack";
-  v3[12] = @"SuggestedWidgetsFrom3PAppsRemovedFromStack";
-  v3[13] = @"SuggestedWidgetsDismissed";
-  v3[14] = @"SuggestedWidgetsFrom3PAppsDismissed";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:15];
+  v2[15] = *MEMORY[0x277D85DE8];
+  v2[0] = @"DefaultStacksCreated";
+  v2[1] = @"ManualStacksCreated";
+  v2[2] = @"StacksRemoved";
+  v2[3] = @"WidgetsAddedViaAppList";
+  v2[4] = @"WidgetsAddedViaGallery";
+  v2[5] = @"WidgetsRemoved";
+  v2[6] = @"WidgetsAddedToStackInGallerySuggestions";
+  v2[7] = @"WidgetsAddedToStackNotInGallerySuggestions";
+  v2[8] = @"WidgetsRemovedFromStack";
+  v2[9] = @"WidgetsRemovedFromHomeScreen";
+  v2[10] = @"WidgetsOnHomeScreen";
+  v2[11] = @"SuggestedWidgetsRemovedFromStack";
+  v2[12] = @"SuggestedWidgetsFrom3PAppsRemovedFromStack";
+  v2[13] = @"SuggestedWidgetsDismissed";
+  v2[14] = @"SuggestedWidgetsFrom3PAppsDismissed";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:15];
   v1 = systemChangeDictionaryAccumulatorKeys_array;
   systemChangeDictionaryAccumulatorKeys_array = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createNewSystemChangeDictionary
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXHomeScreenLogSystemChangeDictionary _fetchHasHadWidgetsOnHomeScreenUserDefault](self, "_fetchHasHadWidgetsOnHomeScreenUserDefault")}];
   [v3 setObject:v4 forKeyedSubscript:@"HasHadWidgetsOnHomeScreen"];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   systemChangeDictionaryAccumulatorKeys = [objc_opt_class() systemChangeDictionaryAccumulatorKeys];
-  v6 = [systemChangeDictionaryAccumulatorKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [systemChangeDictionaryAccumulatorKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(systemChangeDictionaryAccumulatorKeys);
         }
 
-        [v3 setObject:&unk_283A55FD0 forKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
+        [v3 setObject:&unk_283A55FD0 forKeyedSubscript:*(*(&v11 + 1) + 8 * i)];
       }
 
-      v7 = [systemChangeDictionaryAccumulatorKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [systemChangeDictionaryAccumulatorKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)updateSystemChangeSummaryForHomeScreenPages:(id)pages
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = pages;
-  v4 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v4 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v28;
+    v6 = *v27;
     v7 = *MEMORY[0x277CEBAE8];
-    v19 = *MEMORY[0x277CEBAE8];
-    v20 = *v28;
+    v18 = *MEMORY[0x277CEBAE8];
+    v19 = *v27;
     do
     {
       v8 = 0;
-      v21 = v5;
+      v20 = v5;
       do
       {
-        if (*v28 != v6)
+        if (*v27 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * v8);
+        v9 = *(*(&v26 + 1) + 8 * v8);
         if ([v9 pageIndex] != v7)
         {
-          v25 = 0u;
-          v26 = 0u;
-          v23 = 0u;
           v24 = 0u;
+          v25 = 0u;
+          v22 = 0u;
+          v23 = 0u;
           stacks = [v9 stacks];
           panels = [v9 panels];
           v12 = [stacks arrayByAddingObjectsFromArray:panels];
 
-          v13 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v24;
+            v15 = *v23;
             do
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v24 != v15)
+                if (*v23 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                widgets = [*(*(&v23 + 1) + 8 * i) widgets];
+                widgets = [*(*(&v22 + 1) + 8 * i) widgets];
                 +[ATXHomeScreenLogUploaderUtilities add:toDictionary:forKey:](ATXHomeScreenLogUploaderUtilities, "add:toDictionary:forKey:", [widgets count], self->_systemChangeDictionary, @"WidgetsOnHomeScreen");
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
             }
 
             while (v14);
           }
 
-          v7 = v19;
-          v6 = v20;
-          v5 = v21;
+          v7 = v18;
+          v6 = v19;
+          v5 = v20;
         }
 
         ++v8;
       }
 
       while (v8 != v5);
-      v5 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v5 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v5);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_fetchHasHadWidgetsOnHomeScreenUserDefault
@@ -406,29 +400,26 @@ LABEL_8:
 
 - (void)sendToCoreAnalytics
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_home_screen();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     systemChangeDictionary = self->_systemChangeDictionary;
-    v7 = 138412290;
-    v8 = systemChangeDictionary;
-    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_INFO, "ATXHomeScreenLogUploader: System change dictionary: %@", &v7, 0xCu);
+    v5 = 138412290;
+    v6 = systemChangeDictionary;
+    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_INFO, "ATXHomeScreenLogUploader: System change dictionary: %@", &v5, 0xCu);
   }
 
-  v5 = self->_systemChangeDictionary;
   AnalyticsSendEvent();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dryRunResult
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   systemChangeDictionary = self->_systemChangeDictionary;
-  v6 = @"System Change Dictionary";
-  v7[0] = systemChangeDictionary;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = @"System Change Dictionary";
+  v6[0] = systemChangeDictionary;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

@@ -106,7 +106,7 @@
   v15 = pureGeometry3;
   if (pureGeometry3)
   {
-    [pureGeometry3 transform];
+    objc_msgSend_transform(pureGeometry3);
   }
 
   else
@@ -124,7 +124,7 @@
     v20 = geometryInParent;
     if (geometryInParent)
     {
-      [geometryInParent transform];
+      objc_msgSend_transform(geometryInParent);
     }
 
     else
@@ -210,7 +210,7 @@ LABEL_28:
   v15 = pureGeometry3;
   if (pureGeometry3)
   {
-    [pureGeometry3 transform];
+    objc_msgSend_transform(pureGeometry3);
   }
 
   else
@@ -228,7 +228,7 @@ LABEL_28:
     v20 = geometryInParent;
     if (geometryInParent)
     {
-      [geometryInParent transform];
+      objc_msgSend_transform(geometryInParent);
     }
 
     else
@@ -666,13 +666,13 @@ LABEL_36:
       goto LABEL_23;
     }
 
-    [connectedFrom transform];
+    objc_msgSend_transform(connectedFrom);
     if (sub_1001399C0(v17) != 0.0)
     {
       goto LABEL_23;
     }
 
-    [connectedTo transform];
+    objc_msgSend_transform(connectedTo);
     if (sub_1001399C0(v17) != 0.0)
     {
       goto LABEL_23;
@@ -743,6 +743,7 @@ LABEL_23:
     v30 = 0u;
     v31 = 0u;
     v29 = 0u;
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -753,14 +754,12 @@ LABEL_23:
     v30 = 0u;
     v31 = 0u;
     v29 = 0u;
-    if (!geometry)
+    if (geometry)
     {
-      goto LABEL_9;
+      objc_msgSend_transform(geometry);
     }
   }
 
-  [geometry transform];
-LABEL_9:
   *(&self->mOverriddenControlPoint.x + 3) = v10;
   *(&self->mOverriddenControlPoint.y + 3) = v9;
   *(&self->mLastPtA.x + 3) = x;
@@ -1618,7 +1617,7 @@ LABEL_164:
               v25 = v16;
               if (v11)
               {
-                [(CRLCanvasAbstractLayout *)v11 transform];
+                objc_msgSend_transform(v11);
                 v18 = v27;
                 v19 = v28;
                 v20 = v29;
@@ -2007,7 +2006,7 @@ LABEL_15:
     v26 = pureGeometry;
     if (pureGeometry)
     {
-      [pureGeometry transform];
+      objc_msgSend_transform(pureGeometry);
       v27 = v41;
       v28 = v42;
       v29 = v43;
@@ -2035,7 +2034,7 @@ LABEL_15:
   v33 = pureGeometry2;
   if (pureGeometry2)
   {
-    [pureGeometry2 transform];
+    objc_msgSend_transform(pureGeometry2);
     v34 = v41;
     v35 = v42;
     v36 = v43;
@@ -2077,7 +2076,7 @@ LABEL_24:
     v10 = pureGeometry;
     if (pureGeometry)
     {
-      [pureGeometry transform];
+      objc_msgSend_transform(pureGeometry);
     }
 
     else
@@ -2158,7 +2157,7 @@ LABEL_24:
     v8 = originalGeometry;
     if (originalGeometry)
     {
-      [originalGeometry transform];
+      objc_msgSend_transform(originalGeometry);
       a = v73.a;
       b = v73.b;
       c = v73.c;
@@ -2218,7 +2217,7 @@ LABEL_24:
               v27 = pureGeometry;
               if (pureGeometry)
               {
-                [pureGeometry transform];
+                objc_msgSend_transform(pureGeometry);
               }
 
               else
@@ -2306,7 +2305,7 @@ LABEL_25:
     v41 = originalGeometry2;
     if (originalGeometry2)
     {
-      [originalGeometry2 transform];
+      objc_msgSend_transform(originalGeometry2);
     }
 
     else

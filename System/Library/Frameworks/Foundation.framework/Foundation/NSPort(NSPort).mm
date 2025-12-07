@@ -14,7 +14,7 @@
 {
   if (MEMORY[0x1E695DFC8] == self)
   {
-    return [MEMORY[0x1E695DF60] allocWithZone:?];
+    return [MEMORY[0x1E695DF60] allocWithZone:a3];
   }
 
   else
@@ -53,9 +53,9 @@
 
 - (void)classForCoder
 {
-  v0 = objc_opt_class();
-  v1 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:+[NSString stringWithFormat:](NSString userInfo:{"stringWithFormat:", @"%@ asked to archive; %@ only codes for port coding (Distributed Objects).", v0, objc_opt_class()), 0}];
-  objc_exception_throw(v1);
+  v1 = objc_opt_class();
+  v2 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:+[NSString stringWithFormat:](NSString userInfo:{"stringWithFormat:", @"%@ asked to archive; %@ only codes for port coding (Distributed Objects).", v1, objc_opt_class()), 0}];
+  objc_exception_throw(v2);
 }
 
 - (uint64_t)initWithCoder:()NSPort

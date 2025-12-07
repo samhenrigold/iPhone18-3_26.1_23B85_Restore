@@ -90,7 +90,7 @@ void __35__ACUISActivitySceneComponent_load__block_invoke(uint64_t a1)
 - (void)_windowDidBecomeVisible:(id)visible
 {
   visibleCopy = visible;
-  v5 = _sceneComponentLogger();
+  v5 = _sceneComponentLogger(visibleCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -135,7 +135,7 @@ void __35__ACUISActivitySceneComponent_load__block_invoke(uint64_t a1)
 - (void)_windowBecameHidden:(id)hidden
 {
   hiddenCopy = hidden;
-  v5 = _sceneComponentLogger();
+  v5 = _sceneComponentLogger(hiddenCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -159,7 +159,7 @@ void __35__ACUISActivitySceneComponent_load__block_invoke(uint64_t a1)
 {
   if ([change state] == 3)
   {
-    v4 = _sceneComponentLogger();
+    v4 = _sceneComponentLogger(3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -178,7 +178,7 @@ void __35__ACUISActivitySceneComponent_load__block_invoke(uint64_t a1)
 {
   if (state == 3)
   {
-    v4 = _sceneComponentLogger();
+    v4 = _sceneComponentLogger(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v11 = 0;
@@ -191,7 +191,7 @@ void __35__ACUISActivitySceneComponent_load__block_invoke(uint64_t a1)
 
   if (state == 2)
   {
-    v4 = _sceneComponentLogger();
+    v4 = _sceneComponentLogger(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -211,7 +211,7 @@ LABEL_9:
     return;
   }
 
-  v4 = _sceneComponentLogger();
+  v4 = _sceneComponentLogger(self);
   if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     goto LABEL_9;

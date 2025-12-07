@@ -1,10 +1,56 @@
 @interface FMFMapImageRequest
 - (FMFMapImageRequest)initWithCoder:(id)coder;
+- (FMFMapImageRequest)initWithLocation:(id)location isShifted:(BOOL)shifted altitude:(double)altitude pitch:(double)pitch width:(double)width height:(double)height andCachingEnabled:(BOOL)enabled;
+- (FMFMapImageRequest)initWithLocation:(id)location isShifted:(BOOL)shifted radius:(double)radius width:(double)width height:(double)height andCachingEnabled:(BOOL)enabled;
 - (NSString)key;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation FMFMapImageRequest
+
+- (FMFMapImageRequest)initWithLocation:(id)location isShifted:(BOOL)shifted altitude:(double)altitude pitch:(double)pitch width:(double)width height:(double)height andCachingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  shiftedCopy = shifted;
+  locationCopy = location;
+  v17 = [(FMFMapImageRequest *)self init];
+  v18 = v17;
+  if (v17)
+  {
+    [(FMFMapImageRequest *)v17 setLocation:locationCopy];
+    [(FMFMapImageRequest *)v18 setIsShifted:shiftedCopy];
+    [(FMFMapImageRequest *)v18 setAltitude:altitude];
+    [(FMFMapImageRequest *)v18 setPitch:pitch];
+    [(FMFMapImageRequest *)v18 setWidth:width];
+    [(FMFMapImageRequest *)v18 setHeight:height];
+    [(FMFMapImageRequest *)v18 setCachingEnabled:enabledCopy];
+    [(FMFMapImageRequest *)v18 setRadius:0.0];
+  }
+
+  return v18;
+}
+
+- (FMFMapImageRequest)initWithLocation:(id)location isShifted:(BOOL)shifted radius:(double)radius width:(double)width height:(double)height andCachingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  shiftedCopy = shifted;
+  locationCopy = location;
+  v15 = [(FMFMapImageRequest *)self init];
+  v16 = v15;
+  if (v15)
+  {
+    [(FMFMapImageRequest *)v15 setLocation:locationCopy];
+    [(FMFMapImageRequest *)v16 setIsShifted:shiftedCopy];
+    [(FMFMapImageRequest *)v16 setAltitude:0.0];
+    [(FMFMapImageRequest *)v16 setPitch:0.0];
+    [(FMFMapImageRequest *)v16 setWidth:width];
+    [(FMFMapImageRequest *)v16 setHeight:height];
+    [(FMFMapImageRequest *)v16 setCachingEnabled:enabledCopy];
+    [(FMFMapImageRequest *)v16 setRadius:radius];
+  }
+
+  return v16;
+}
 
 - (FMFMapImageRequest)initWithCoder:(id)coder
 {

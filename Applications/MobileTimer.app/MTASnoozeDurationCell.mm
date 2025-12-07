@@ -41,10 +41,10 @@
 
 - (void)configure
 {
-  v4[3] = sub_10005F248(&qword_1000D2310);
+  v4[3] = sub_10005F248(&qword_1000D2310, &qword_10008BE60);
   v4[4] = sub_10005F290();
   sub_10005F33C(v4);
-  type metadata accessor for SnoozeDurationView();
+  type metadata accessor for SnoozeDurationView(0);
   sub_10005F3A0();
   selfCopy = self;
   UIHostingConfiguration<>.init(content:)();

@@ -34,12 +34,12 @@
   sub_20BF657DC();
   v14[1] = *(&selfCopy->super.super.super.isa + v11);
   sub_20BF659E4(v8);
-  type metadata accessor for CatalogEditorialCollectionPageDataProvider();
-  sub_20BD191D4(&qword_27C76E1F0, 255, type metadata accessor for CatalogEditorialCollectionPageDataProvider);
+  type metadata accessor for CatalogEditorialCollectionPageDataProvider(0);
+  sub_20BD191D4(&qword_27C76E1F0, 255, type metadata accessor for CatalogEditorialCollectionPageDataProvider, &unk_20C185C40);
   sub_20C138C54();
   (*(v6 + 8))(v8, v5);
-  sub_20BD191D4(&qword_27C76E1D8, v12, type metadata accessor for CatalogEditorialCollectionDetailViewController);
-  sub_20BD191D4(&qword_27C76E1E8, v13, type metadata accessor for CatalogEditorialCollectionDetailViewController);
+  sub_20BD191D4(&qword_27C76E1D8, v12, type metadata accessor for CatalogEditorialCollectionDetailViewController, &unk_20C17A1C0);
+  sub_20BD191D4(&qword_27C76E1E8, v13, type metadata accessor for CatalogEditorialCollectionDetailViewController, &unk_20C17A138);
   sub_20C139364();
 }
 
@@ -50,8 +50,8 @@
   v7.super_class = type metadata accessor for CatalogEditorialCollectionDetailViewController();
   v4 = v7.receiver;
   [(CatalogEditorialCollectionDetailViewController *)&v7 viewDidDisappear:disappearCopy];
-  sub_20BD191D4(&qword_27C76E1D8, v5, type metadata accessor for CatalogEditorialCollectionDetailViewController);
-  sub_20BD191D4(&qword_27C76E1E8, v6, type metadata accessor for CatalogEditorialCollectionDetailViewController);
+  sub_20BD191D4(&qword_27C76E1D8, v5, type metadata accessor for CatalogEditorialCollectionDetailViewController, &unk_20C17A1C0);
+  sub_20BD191D4(&qword_27C76E1E8, v6, type metadata accessor for CatalogEditorialCollectionDetailViewController, &unk_20C17A138);
   sub_20C139374();
 }
 
@@ -100,7 +100,7 @@
   swift_unknownObjectRelease();
   sub_20BD18630();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC9SeymourUI46CatalogEditorialCollectionDetailViewController)initWithNibName:(id)name bundle:(id)bundle

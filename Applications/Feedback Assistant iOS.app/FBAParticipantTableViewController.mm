@@ -21,7 +21,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10005813C();
+  sub_10005813C(selfCopy, v2);
 }
 
 - (void)configureWithContentItem:(id)item
@@ -34,34 +34,31 @@
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section
 {
   v4 = *(self + OBJC_IVAR____TtC18Feedback_Assistant33FBAParticipantTableViewController_displayedParticipants);
-  if (!(v4 >> 62))
+  if (v4 >> 62)
+  {
+    return _CocoaArrayWrapper.endIndex.getter();
+  }
+
+  else
   {
     return *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
-
-  if (v4 < 0)
-  {
-    v6 = *(self + OBJC_IVAR____TtC18Feedback_Assistant33FBAParticipantTableViewController_displayedParticipants);
-  }
-
-  return _CocoaArrayWrapper.endIndex.getter();
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_100058940(viewCopy);
+  v12 = sub_100058940(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

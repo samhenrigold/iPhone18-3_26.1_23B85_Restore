@@ -69,7 +69,7 @@ void __52__HMDHAP2Storage_saveKeysForIdentifiers_completion___block_invoke(uint6
   v5 = *(a1 + 48);
   if ([v4 count])
   {
-    v6 = [v4 copy];
+    v6 = objc_msgSend_copy(v4);
     (*(v5 + 16))(v5, v6);
   }
 
@@ -224,7 +224,7 @@ void __38__HMDHAP2Storage_keyBagForIdentifier___block_invoke(void *a1)
 
 void __54__HMDHAP2Storage_removeCacheForIdentifier_completion___block_invoke(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (v2 && (WeakRetained = objc_loadWeakRetained((v2 + 40))) != 0)
   {
@@ -239,10 +239,10 @@ void __54__HMDHAP2Storage_removeCacheForIdentifier_completion___block_invoke(voi
     v6 = *MEMORY[0x277CFECF0];
     if (os_log_type_enabled(*MEMORY[0x277CFECF0], OS_LOG_TYPE_ERROR))
     {
-      v9 = a1[5];
-      v10 = 138412290;
-      v11 = v9;
-      _os_log_error_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "Storage: Unable to remove cache for %@", &v10, 0xCu);
+      v8 = a1[5];
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_error_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "Storage: Unable to remove cache for %@", &v9, 0xCu);
     }
 
     v7 = a1[6];
@@ -251,8 +251,6 @@ void __54__HMDHAP2Storage_removeCacheForIdentifier_completion___block_invoke(voi
   }
 
   v5();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveCacheForIdentifier:(id)identifier data:(id)data completion:(id)completion
@@ -287,7 +285,7 @@ void __54__HMDHAP2Storage_removeCacheForIdentifier_completion___block_invoke(voi
 
 void __57__HMDHAP2Storage_saveCacheForIdentifier_data_completion___block_invoke(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (v2 && (WeakRetained = objc_loadWeakRetained((v2 + 40))) != 0)
   {
@@ -302,10 +300,10 @@ void __57__HMDHAP2Storage_saveCacheForIdentifier_data_completion___block_invoke(
     v6 = *MEMORY[0x277CFECF0];
     if (os_log_type_enabled(*MEMORY[0x277CFECF0], OS_LOG_TYPE_ERROR))
     {
-      v9 = a1[5];
-      v10 = 138412290;
-      v11 = v9;
-      _os_log_error_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "Storage: Unable to save cache for %@", &v10, 0xCu);
+      v8 = a1[5];
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_error_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "Storage: Unable to save cache for %@", &v9, 0xCu);
     }
 
     v7 = a1[7];
@@ -314,8 +312,6 @@ void __57__HMDHAP2Storage_saveCacheForIdentifier_data_completion___block_invoke(
   }
 
   v5();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchCacheForIdentifier:(id)identifier completion:(id)completion
@@ -346,18 +342,18 @@ void __57__HMDHAP2Storage_saveCacheForIdentifier_data_completion___block_invoke(
 
 void __53__HMDHAP2Storage_fetchCacheForIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2 && (WeakRetained = objc_loadWeakRetained((v2 + 40))) != 0)
   {
     v4 = WeakRetained;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __53__HMDHAP2Storage_fetchCacheForIdentifier_completion___block_invoke_16;
-    v10[3] = &unk_279720930;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __53__HMDHAP2Storage_fetchCacheForIdentifier_completion___block_invoke_16;
+    v9[3] = &unk_279720930;
     v5 = *(a1 + 40);
-    v11 = *(a1 + 48);
-    [v4 fetchAccessoryCacheForIdentifier:v5 completion:v10];
+    v10 = *(a1 + 48);
+    [v4 fetchAccessoryCacheForIdentifier:v5 completion:v9];
   }
 
   else
@@ -366,9 +362,9 @@ void __53__HMDHAP2Storage_fetchCacheForIdentifier_completion___block_invoke(uint
     v6 = *MEMORY[0x277CFECF0];
     if (os_log_type_enabled(*MEMORY[0x277CFECF0], OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 40);
+      v8 = *(a1 + 40);
       *buf = 138412290;
-      v13 = v9;
+      v12 = v8;
       _os_log_error_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "Storage: Unable to retrieve cache for %@", buf, 0xCu);
     }
 
@@ -376,8 +372,6 @@ void __53__HMDHAP2Storage_fetchCacheForIdentifier_completion___block_invoke(uint
     v4 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     (*(v7 + 16))(v7, 0, v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HMDHAP2Storage_fetchCacheForIdentifier_completion___block_invoke_16(uint64_t a1, void *a2)
@@ -441,7 +435,7 @@ void __53__HMDHAP2Storage_fetchCacheForIdentifier_completion___block_invoke_16(u
     v10 = 0;
   }
 
-  v11 = [v10 copy];
+  v11 = objc_msgSend_copy(v10);
   completionCopy[2](completionCopy, v11);
 
   v12[0] = MEMORY[0x277D85DD0];
@@ -585,8 +579,8 @@ void __53__HMDHAP2Storage_fetchKeysForIdentifiers_completion___block_invoke(uint
   }
 
   v7 = *(a1 + 48);
-  v8 = [v6 copy];
-  v9 = [v5 copy];
+  v8 = objc_msgSend_copy(v6);
+  v9 = objc_msgSend_copy(v5);
   (*(v7 + 16))(v7, v8, v9);
 }
 
@@ -714,7 +708,7 @@ void __51__HMDHAP2Storage_hasKeysForIdentifiers_completion___block_invoke(uint64
   v5 = v2;
   [v4 hmf_enumerateWithAutoreleasePoolUsingBlock:&v8];
   v6 = *(a1 + 48);
-  v7 = [v5 copy];
+  v7 = objc_msgSend_copy(v5, v8, v9, v10, v11);
   (*(v6 + 16))(v6, v7, 0);
 }
 
@@ -781,7 +775,7 @@ void __51__HMDHAP2Storage_hasKeysForIdentifiers_completion___block_invoke_2(uint
 
 void __58__HMDHAP2Storage_deregisterPairedAccessoryWithIdentifier___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CFEB48]) initWithDeviceIDString:*(a1 + 32)];
   if (v2)
   {
@@ -808,33 +802,29 @@ void __58__HMDHAP2Storage_deregisterPairedAccessoryWithIdentifier___block_invoke
     v7 = *MEMORY[0x277CFECF8];
     if (os_log_type_enabled(*MEMORY[0x277CFECF8], OS_LOG_TYPE_DEBUG))
     {
-      v9 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v9;
-      _os_log_debug_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "Ignoring invalid deregistered device ID: %@", &v10, 0xCu);
+      v8 = *(a1 + 32);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_debug_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "Ignoring invalid deregistered device ID: %@", &v9, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HMDHAP2Storage_deregisterPairedAccessoryWithIdentifier___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   hap2LogInitialize();
   v6 = *MEMORY[0x277CFECF8];
   if (os_log_type_enabled(*MEMORY[0x277CFECF8], OS_LOG_TYPE_DEBUG))
   {
-    v8 = 138412546;
-    v9 = v4;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_debug_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "remove key id=%@ error=%@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_debug_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "remove key id=%@ error=%@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerPairedAccessoryWithIdentifier:(id)identifier
@@ -862,7 +852,7 @@ void __58__HMDHAP2Storage_deregisterPairedAccessoryWithIdentifier___block_invoke
 
 void __56__HMDHAP2Storage_registerPairedAccessoryWithIdentifier___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CFEB48]) initWithDeviceIDString:*(a1 + 32)];
   if (v2)
   {
@@ -888,14 +878,12 @@ void __56__HMDHAP2Storage_registerPairedAccessoryWithIdentifier___block_invoke(u
     v6 = *MEMORY[0x277CFECF8];
     if (os_log_type_enabled(*MEMORY[0x277CFECF8], OS_LOG_TYPE_DEBUG))
     {
-      v8 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v8;
-      _os_log_debug_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "Ignoring invalid registered device ID: %@", &v9, 0xCu);
+      v7 = *(a1 + 32);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_debug_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "Ignoring invalid registered device ID: %@", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetPairedAccessoryIdentifiers

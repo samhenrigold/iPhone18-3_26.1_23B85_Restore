@@ -29,7 +29,7 @@
 
 - (void)_inflateFromProto:(id)proto
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   protoCopy = proto;
   if (self->_proto)
   {
@@ -80,27 +80,27 @@
   headers = [(BMPBMailContentEvent *)protoCopy headers];
   v28 = [v26 initWithCapacity:{objc_msgSend(headers, "count")}];
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
-  v66 = protoCopy;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  v65 = protoCopy;
   obj = [(BMPBMailContentEvent *)protoCopy headers];
-  v29 = [obj countByEnumeratingWithState:&v69 objects:v74 count:16];
+  v29 = [obj countByEnumeratingWithState:&v68 objects:v73 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v70;
+    v31 = *v69;
     do
     {
       for (i = 0; i != v30; ++i)
       {
-        if (*v70 != v31)
+        if (*v69 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = *(*(&v69 + 1) + 8 * i);
+        v33 = *(*(&v68 + 1) + 8 * i);
         v34 = objc_autoreleasePoolPush();
         v35 = [v33 key];
         value = [v33 value];
@@ -114,15 +114,15 @@
 
         else
         {
-          v73 = value;
-          v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v73 count:1];
+          v72 = value;
+          v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v72 count:1];
           [v28 setObject:v38 forKeyedSubscript:v35];
         }
 
         objc_autoreleasePoolPop(v34);
       }
 
-      v30 = [obj countByEnumeratingWithState:&v69 objects:v74 count:16];
+      v30 = [obj countByEnumeratingWithState:&v68 objects:v73 count:16];
     }
 
     while (v30);
@@ -132,80 +132,78 @@
   headers = selfCopy->_headers;
   selfCopy->_headers = v40;
 
-  attachments = [(BMPBMailContentEvent *)v66 attachments];
+  attachments = [(BMPBMailContentEvent *)v65 attachments];
   v43 = [attachments _pas_mappedArrayWithTransform:&__block_literal_global_26];
   attachments = selfCopy->_attachments;
   selfCopy->_attachments = v43;
 
-  if ([(BMPBMailContentEvent *)v66 hasDateReceived])
+  if ([(BMPBMailContentEvent *)v65 hasDateReceived])
   {
     v45 = objc_alloc(MEMORY[0x1E695DF00]);
-    [(BMPBMailContentEvent *)v66 dateReceived];
+    [(BMPBMailContentEvent *)v65 dateReceived];
     v46 = [v45 initWithTimeIntervalSinceReferenceDate:?];
     dateReceived = selfCopy->_dateReceived;
     selfCopy->_dateReceived = v46;
   }
 
-  if ([(BMPBMailContentEvent *)v66 hasMailCategories])
+  if ([(BMPBMailContentEvent *)v65 hasMailCategories])
   {
-    v48 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMPBMailContentEvent mailCategories](v66, "mailCategories")}];
+    v48 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMPBMailContentEvent mailCategories](v65, "mailCategories")}];
     mailCategories = selfCopy->_mailCategories;
     selfCopy->_mailCategories = v48;
   }
 
-  if ([(BMPBMailContentEvent *)v66 hasIsNew])
+  if ([(BMPBMailContentEvent *)v65 hasIsNew])
   {
-    v50 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isNew](v66, "isNew")}];
+    v50 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isNew](v65, "isNew")}];
     isNew = selfCopy->_isNew;
     selfCopy->_isNew = v50;
   }
 
-  if ([(BMPBMailContentEvent *)v66 hasIsTwoFactorCode])
+  if ([(BMPBMailContentEvent *)v65 hasIsTwoFactorCode])
   {
-    v52 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isTwoFactorCode](v66, "isTwoFactorCode")}];
+    v52 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isTwoFactorCode](v65, "isTwoFactorCode")}];
     isTwoFactorCode = selfCopy->_isTwoFactorCode;
     selfCopy->_isTwoFactorCode = v52;
   }
 
-  if ([(BMPBMailContentEvent *)v66 hasIsFromMe])
+  if ([(BMPBMailContentEvent *)v65 hasIsFromMe])
   {
-    v54 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isFromMe](v66, "isFromMe")}];
+    v54 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isFromMe](v65, "isFromMe")}];
     isFromMe = selfCopy->_isFromMe;
     selfCopy->_isFromMe = v54;
   }
 
-  if ([(BMPBMailContentEvent *)v66 hasIsJunk])
+  if ([(BMPBMailContentEvent *)v65 hasIsJunk])
   {
-    v56 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isJunk](v66, "isJunk")}];
+    v56 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isJunk](v65, "isJunk")}];
     isJunk = selfCopy->_isJunk;
     selfCopy->_isJunk = v56;
   }
 
-  if ([(BMPBMailContentEvent *)v66 hasIsRead])
+  if ([(BMPBMailContentEvent *)v65 hasIsRead])
   {
-    v58 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isRead](v66, "isRead")}];
+    v58 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isRead](v65, "isRead")}];
     isRead = selfCopy->_isRead;
     selfCopy->_isRead = v58;
   }
 
-  if ([(BMPBMailContentEvent *)v66 hasIsVIP])
+  if ([(BMPBMailContentEvent *)v65 hasIsVIP])
   {
-    v60 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isVIP](v66, "isVIP")}];
+    v60 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isVIP](v65, "isVIP")}];
     isVIP = selfCopy->_isVIP;
     selfCopy->_isVIP = v60;
   }
 
-  if ([(BMPBMailContentEvent *)v66 hasIsFlagged])
+  if ([(BMPBMailContentEvent *)v65 hasIsFlagged])
   {
-    v62 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isFlagged](v66, "isFlagged")}];
+    v62 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPBMailContentEvent isFlagged](v65, "isFlagged")}];
     isFlagged = selfCopy->_isFlagged;
     selfCopy->_isFlagged = v62;
   }
 
   proto = selfCopy->_proto;
-  selfCopy->_proto = v66;
-
-  v65 = *MEMORY[0x1E69E9840];
+  selfCopy->_proto = v65;
 }
 
 BMNamedHandle *__40__BMMailContentEvent__inflateFromProto___block_invoke(uint64_t a1, void *a2)
@@ -507,32 +505,32 @@ LABEL_8:
 
 void __422__BMMailContentEvent_initWithUniqueId_domainId_personaId_absoluteTimestamp_accountIdentifier_messageIdentifier_fromHandle_toHandles_ccHandles_bccHandles_headers_subject_htmlContent_textContent_isFullyDownloaded_securityMethod_accountHandles_replyTo_mailboxIdentifiers_listId_accountType_attachments_contentProtection_conversationId_dateReceived_mailCategories_isNew_isTwoFactorCode_isFromMe_isJunk_isRead_isVIP_isFlagged___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = a3;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
+        v11 = *(*(&v14 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         v13 = objc_opt_new();
-        [v13 setKey:{v5, v15}];
+        [v13 setKey:{v5, v14}];
         [v13 setValue:v11];
         [*(a1 + 32) addObject:v13];
 
@@ -541,13 +539,11 @@ void __422__BMMailContentEvent_initWithUniqueId_domainId_personaId_absoluteTimes
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

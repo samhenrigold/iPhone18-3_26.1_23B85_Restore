@@ -61,30 +61,30 @@
 
 - (void)recordPasteboardDataForAttachments:(id)attachments
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (attachments)
   {
     [(NSMutableDictionary *)self->_attachmentsPasteboardData removeAllObjects];
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
-    v5 = [attachments countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v5 = [attachments countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         v8 = 0;
         do
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(attachments);
           }
 
-          lastPathComponent = [*(*(&v12 + 1) + 8 * v8) lastPathComponent];
+          lastPathComponent = [*(*(&v11 + 1) + 8 * v8) lastPathComponent];
           if ([lastPathComponent length])
           {
             v10 = [(NSMutableDictionary *)self->_attachmentsData objectForKey:lastPathComponent];
@@ -101,42 +101,40 @@
         }
 
         while (v6 != v8);
-        v6 = [attachments countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [attachments countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordUndoDataForAttachments:(id)attachments
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (attachments)
   {
     [(NSMutableDictionary *)self->_attachmentsUndoData removeAllObjects];
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
-    v5 = [attachments countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v5 = [attachments countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         v8 = 0;
         do
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(attachments);
           }
 
-          lastPathComponent = [*(*(&v12 + 1) + 8 * v8) lastPathComponent];
+          lastPathComponent = [*(*(&v11 + 1) + 8 * v8) lastPathComponent];
           if ([lastPathComponent length])
           {
             v10 = [(NSMutableDictionary *)self->_attachmentsData objectForKey:lastPathComponent];
@@ -153,14 +151,12 @@
         }
 
         while (v6 != v8);
-        v6 = [attachments countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [attachments countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dataForAttachment:(id)attachment
@@ -280,20 +276,18 @@
 
 - (void)rawDataForContentID:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_258BDA000, a2, OS_LOG_TYPE_DEBUG, "Zero length attachment for [%@]", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_258BDA000, a2, OS_LOG_TYPE_DEBUG, "Zero length attachment for [%@]", &v2, 0xCu);
 }
 
 - (void)rawDataForContentID:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_258BDA000, a2, OS_LOG_TYPE_DEBUG, "No attachment for [%@]", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_258BDA000, a2, OS_LOG_TYPE_DEBUG, "No attachment for [%@]", &v2, 0xCu);
 }
 
 @end

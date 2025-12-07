@@ -164,7 +164,7 @@
 
 + (id)defaultWebURL
 {
-  v3 = [TSWPBundle() localizedStringForKey:@"http://www.apple.com" value:&stru_287D36338 table:@"TSText"];
+  v3 = [TSWPBundle(self a2)];
 
   return [self defaultURLFromDefaultsKey:@"DefaultWebURL" defaultValue:v3];
 }

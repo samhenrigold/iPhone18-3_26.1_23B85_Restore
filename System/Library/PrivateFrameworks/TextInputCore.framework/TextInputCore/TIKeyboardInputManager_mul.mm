@@ -1,6 +1,7 @@
 @interface TIKeyboardInputManager_mul
 + (id)textContentTypesPreferringSecondaryInputMode;
 + (int)primaryScriptForLanguageWithRegion:(id)region;
+- (BOOL)acceptsCharacter:(unsigned int)character;
 - (BOOL)adjustLexiconInfoIfNeeded:(id *)needed givenInputMode:(id)mode;
 - (BOOL)containsActiveLanguage:(id)language language:(id)a4;
 - (BOOL)isHighMemoryManager;
@@ -24,9 +25,11 @@
 - (id)chosenInputMode;
 - (id)clauseDelimitingCharacters;
 - (id)currentExternalString;
+- (id)externalStringToInternal:(id)internal ignoreCompositionDisabled:(BOOL)disabled;
 - (id)externalStringToInternal:(id)internal ignoreCompositionDisabled:(BOOL)disabled useReverseMap:(BOOL)map;
 - (id)generateTypingAutocorrectionsWithCandidateRange:(_NSRange)range;
 - (id)getBetterLexiconLocale:(BOOL *)locale;
+- (id)getCurrentExternalStringGiven:(BOOL)given;
 - (id)getPlainCandidate;
 - (id)handleKeyboardInput:(id)input;
 - (id)internalStringToExternal:(id)external ignoreCompositionDisabled:(BOOL)disabled;
@@ -59,6 +62,7 @@
 - (void)loadDictionaries;
 - (void)resume;
 - (void)setInput:(id)input;
+- (void)setInput:(id)input withIndex:(unsigned int)index;
 - (void)suspend;
 - (void)updateAutocorrectionListGivenOutdatedInput:(id)input andUpdatedInput:(id)updatedInput;
 - (void)updateInputContext;
@@ -216,7 +220,7 @@ LABEL_11:
 
 - (BOOL)updateLanguageModelForKeyboardState
 {
-  v143[1] = *MEMORY[0x277D85DE8];
+  v145[1] = *MEMORY[0x277D85DE8];
   config = [(TIKeyboardInputManager *)self config];
   [config usesWordNgramModel];
 
@@ -236,8 +240,8 @@ LABEL_11:
   {
     config4 = [(TIKeyboardInputManager *)self config];
     ngramModelPath = [config4 ngramModelPath];
-    v143[0] = ngramModelPath;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v143 count:1];
+    v145[0] = ngramModelPath;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v145 count:1];
   }
 
   else
@@ -246,7 +250,7 @@ LABEL_11:
   }
 
   languageSelectionController = [(TIKeyboardInputManager *)self languageSelectionController];
-  v86 = languageSelectionController;
+  v85 = languageSelectionController;
   if (languageSelectionController)
   {
     activeInputModes = [languageSelectionController activeInputModes];
@@ -256,9 +260,9 @@ LABEL_11:
   [(TIKeyboardInputManager_mul *)self validEnglishTransformerMultilingualConfig];
   listOfModelLocalesFromActiveInputModes = [(TIKeyboardInputManager_mul *)self listOfModelLocalesFromActiveInputModes];
   modelLocaleToInputModeMapping = [(TIKeyboardInputManager_mul *)self modelLocaleToInputModeMapping];
-  v87 = v9;
-  v88 = dynamicResourcePath;
-  v93 = [TIKeyboardInputManager_mul modelLoaderForModelLocaleMapping:"modelLoaderForModelLocaleMapping:customResourcePaths:dynamicResourcePath:usesLinguisticContext:isMultiLingualModeEnabled:validEnglishTransformerMultilingualConfig:" customResourcePaths:? dynamicResourcePath:? usesLinguisticContext:? isMultiLingualModeEnabled:? validEnglishTransformerMultilingualConfig:?];
+  v86 = v9;
+  v87 = dynamicResourcePath;
+  v92 = [TIKeyboardInputManager_mul modelLoaderForModelLocaleMapping:"modelLoaderForModelLocaleMapping:customResourcePaths:dynamicResourcePath:usesLinguisticContext:isMultiLingualModeEnabled:validEnglishTransformerMultilingualConfig:" customResourcePaths:? dynamicResourcePath:? usesLinguisticContext:? isMultiLingualModeEnabled:? validEnglishTransformerMultilingualConfig:?];
   keyboardState = [(TIKeyboardInputManager *)self keyboardState];
   clientIdentifier = [keyboardState clientIdentifier];
 
@@ -266,107 +270,107 @@ LABEL_11:
   keyboardState2 = [(TIKeyboardInputManager *)self keyboardState];
   recipientIdentifier = [keyboardState2 recipientIdentifier];
 
-  v133 = 0;
-  v132 = 0;
+  v135 = 0;
   v134 = 0;
-  v124 = 0;
-  v125 = &v124;
-  v126 = 0x5812000000;
-  v127 = __Block_byref_object_copy__94;
-  v128 = __Block_byref_object_dispose__95;
-  v129 = "";
-  memset(v130, 0, sizeof(v130));
-  v131 = 1065353216;
-  v120 = 0u;
-  v121 = 0u;
+  v136 = 0;
+  v126 = 0;
+  v127 = &v126;
+  v128 = 0x5812000000;
+  v129 = __Block_byref_object_copy__94;
+  v130 = __Block_byref_object_dispose__95;
+  v131 = "";
+  memset(v132, 0, sizeof(v132));
+  v133 = 1065353216;
   v122 = 0u;
   v123 = 0u;
+  v124 = 0u;
+  v125 = 0u;
   obj = listOfModelLocalesFromActiveInputModes;
-  v96 = [obj countByEnumeratingWithState:&v120 objects:v142 count:16];
-  if (v96)
+  v95 = [obj countByEnumeratingWithState:&v122 objects:v144 count:16];
+  if (v95)
   {
-    v90 = *v121;
+    v89 = *v123;
     do
     {
-      for (i = 0; i != v96; ++i)
+      for (i = 0; i != v95; ++i)
       {
-        if (*v121 != v90)
+        if (*v123 != v89)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v120 + 1) + 8 * i);
-        v17 = [v93 objectForKeyedSubscript:v16];
+        v16 = *(*(&v122 + 1) + 8 * i);
+        v17 = [v92 objectForKeyedSubscript:v16];
         v18 = [modelLocaleToInputModeMapping objectForKeyedSubscript:v16];
         v19 = objc_opt_new();
-        v116 = 0u;
-        v117 = 0u;
         v118 = 0u;
         v119 = 0u;
+        v120 = 0u;
+        v121 = 0u;
         v20 = v18;
-        v21 = [v20 countByEnumeratingWithState:&v116 objects:v141 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v118 objects:v143 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v117;
+          v23 = *v119;
           do
           {
             for (j = 0; j != v22; ++j)
             {
-              if (*v117 != v23)
+              if (*v119 != v23)
               {
                 objc_enumerationMutation(v20);
               }
 
-              locale = [*(*(&v116 + 1) + 8 * j) locale];
+              locale = [*(*(&v118 + 1) + 8 * j) locale];
               [v19 addObject:locale];
             }
 
-            v22 = [v20 countByEnumeratingWithState:&v116 objects:v141 count:16];
+            v22 = [v20 countByEnumeratingWithState:&v118 objects:v143 count:16];
           }
 
           while (v22);
         }
 
-        v111[0] = 0;
-        v111[1] = v111;
-        v112 = 0x3032000000;
-        v113 = __Block_byref_object_copy__2616;
-        v114 = __Block_byref_object_dispose__2617;
+        v113[0] = 0;
+        v113[1] = v113;
+        v114 = 0x3032000000;
+        v115 = __Block_byref_object_copy__2616;
+        v116 = __Block_byref_object_dispose__2617;
         v26 = selfCopy;
-        v115 = v26;
-        v110 = 0u;
+        v117 = v26;
+        v112 = 0u;
         keyboardState3 = [(TIKeyboardInputManager *)v26 keyboardState];
         clientIdentifier2 = [keyboardState3 clientIdentifier];
         keyboardState4 = [(TIKeyboardInputManager *)v26 keyboardState];
         recipientIdentifier2 = [keyboardState4 recipientIdentifier];
-        v106[0] = MEMORY[0x277D85DD0];
-        v106[1] = 3221225472;
-        v106[2] = __65__TIKeyboardInputManager_mul_updateLanguageModelForKeyboardState__block_invoke;
-        v106[3] = &unk_2787314C8;
-        v107 = clientIdentifier;
-        v109 = v111;
+        v105 = MEMORY[0x277D85DD0];
+        v106 = 3221225472;
+        v107 = __65__TIKeyboardInputManager_mul_updateLanguageModelForKeyboardState__block_invoke;
+        v108 = &unk_2787314C8;
+        v109 = clientIdentifier;
+        v111 = v113;
         v31 = recipientIdentifier;
         v32 = 0uLL;
-        v108 = v31;
+        v110 = v31;
         if (v17)
         {
-          [v17 sharedLanguageModelForClient:clientIdentifier2 withRecipient:recipientIdentifier2 forLanguageLocales:v19 completion:{v106, 0.0}];
+          objc_msgSend_sharedLanguageModelForClient_withRecipient_forLanguageLocales_completion_(v17, 0.0);
           v32 = *buf;
         }
 
         memset(buf, 0, sizeof(buf));
-        v110 = v32;
+        v112 = v32;
         v33 = v32;
 
         std::string::basic_string[abi:nn200100]<0>(__p, [v16 UTF8String]);
         if (*(&v33 + 1))
         {
           atomic_fetch_add_explicit((*(&v33 + 1) + 8), 1uLL, memory_order_relaxed);
-          v138 = 0u;
-          v139 = 0u;
+          v140 = 0u;
+          v141 = 0u;
           *buf = 0u;
-          v140 = 1065353216;
+          v142 = 1065353216;
           atomic_fetch_add_explicit((*(&v33 + 1) + 8), 1uLL, memory_order_relaxed);
           v34 = *&buf[8];
           *buf = v33;
@@ -378,15 +382,15 @@ LABEL_11:
 
         else
         {
-          v138 = 0u;
-          v139 = 0u;
+          v140 = 0u;
+          v141 = 0u;
           *&buf[8] = 0;
-          v140 = 1065353216;
+          v142 = 1065353216;
           *buf = v33;
         }
 
-        v135 = __p;
-        v35 = std::__hash_table<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v125 + 6, __p);
+        v137 = __p;
+        v35 = std::__hash_table<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v127 + 12, __p, &v137);
         v36 = *buf;
         memset(buf, 0, sizeof(buf));
         v37 = v35[6];
@@ -424,8 +428,8 @@ LABEL_11:
           v35[10] = 0;
         }
 
-        v42 = v138;
-        *&v138 = 0;
+        v42 = v140;
+        *&v140 = 0;
         v43 = v35[7];
         v35[7] = v42;
         if (v43)
@@ -433,14 +437,14 @@ LABEL_11:
           operator delete(v43);
         }
 
-        v44 = *(&v138 + 1);
-        v45 = v139;
-        v35[9] = v139;
+        v44 = *(&v140 + 1);
+        v45 = v141;
+        v35[9] = v141;
         v35[8] = v44;
-        *(&v138 + 1) = 0;
-        v46 = *(&v139 + 1);
-        v35[10] = *(&v139 + 1);
-        *(v35 + 22) = v140;
+        *(&v140 + 1) = 0;
+        v46 = *(&v141 + 1);
+        v35[10] = *(&v141 + 1);
+        *(v35 + 22) = v142;
         if (v46)
         {
           v47 = *(v45 + 8);
@@ -458,10 +462,10 @@ LABEL_11:
           }
 
           *(v35[7] + 8 * v47) = v35 + 9;
-          v139 = 0uLL;
+          v141 = 0uLL;
         }
 
-        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v138);
+        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v140);
         if (*&buf[8])
         {
           std::__shared_weak_count::__release_shared[abi:nn200100](*&buf[8]);
@@ -472,8 +476,8 @@ LABEL_11:
           std::__shared_weak_count::__release_shared[abi:nn200100](*(&v33 + 1));
         }
 
-        std::vector<std::shared_ptr<KB::LanguageModel>>::push_back[abi:nn200100](&v132, &v110);
-        if (v105 < 0)
+        std::vector<std::shared_ptr<KB::LanguageModel>>::push_back[abi:nn200100](&v134, &v112);
+        if (v104 < 0)
         {
           operator delete(__p[0]);
         }
@@ -483,13 +487,13 @@ LABEL_11:
           std::__shared_weak_count::__release_shared[abi:nn200100](*(&v33 + 1));
         }
 
-        _Block_object_dispose(v111, 8);
+        _Block_object_dispose(v113, 8);
       }
 
-      v96 = [obj countByEnumeratingWithState:&v120 objects:v142 count:16];
+      v95 = [obj countByEnumeratingWithState:&v122 objects:v144 count:16];
     }
 
-    while (v96);
+    while (v95);
   }
 
   languageModelContainer = [(TIKeyboardInputManager_mul *)selfCopy languageModelContainer];
@@ -506,49 +510,49 @@ LABEL_63:
       v55 = TIOSLogFacility();
       if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
       {
-        v85 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Loading/reloading multilingual language models.", "-[TIKeyboardInputManager_mul updateLanguageModelForKeyboardState]"];
+        v84 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Loading/reloading multilingual language models.", "-[TIKeyboardInputManager_mul updateLanguageModelForKeyboardState]"];
         *buf = 138412290;
-        *&buf[4] = v85;
+        *&buf[4] = v84;
         _os_log_debug_impl(&dword_22CA55000, v55, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
 
     memset(buf, 0, sizeof(buf));
-    *&v138 = 0;
-    v103[0] = MEMORY[0x277D85DD0];
-    v103[1] = 3221225472;
-    v103[2] = __65__TIKeyboardInputManager_mul_updateLanguageModelForKeyboardState__block_invoke_101;
-    v103[3] = &unk_27872F978;
-    v103[4] = selfCopy;
-    v103[5] = &v124;
-    [(TIKeyboardInputManager_mul *)selfCopy enumerateInputModesWithBlock:v103];
-    v101 = 0u;
-    v102 = 0u;
-    v99 = 0u;
+    *&v140 = 0;
+    v102[0] = MEMORY[0x277D85DD0];
+    v102[1] = 3221225472;
+    v102[2] = __65__TIKeyboardInputManager_mul_updateLanguageModelForKeyboardState__block_invoke_101;
+    v102[3] = &unk_27872F978;
+    v102[4] = selfCopy;
+    v102[5] = &v126;
+    [(TIKeyboardInputManager_mul *)selfCopy enumerateInputModesWithBlock:v102];
     v100 = 0u;
-    v98 = obj;
-    v56 = [v98 countByEnumeratingWithState:&v99 objects:v136 count:16];
+    v101 = 0u;
+    v98 = 0u;
+    v99 = 0u;
+    v97 = obj;
+    v56 = [v97 countByEnumeratingWithState:&v98 objects:v138 count:16];
     if (v56)
     {
       v57 = v56;
       v58 = 0;
-      v59 = *v100;
+      v59 = *v99;
       do
       {
         v60 = 0;
-        v97 = v57;
+        v96 = v57;
         do
         {
-          if (*v100 != v59)
+          if (*v99 != v59)
           {
-            objc_enumerationMutation(v98);
+            objc_enumerationMutation(v97);
           }
 
-          std::string::basic_string[abi:nn200100]<0>(v111, [*(*(&v99 + 1) + 8 * v60) UTF8String]);
-          __p[0] = v111;
-          v61 = std::__hash_table<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v125 + 6, v111);
+          std::string::basic_string[abi:nn200100]<0>(v113, [*(*(&v98 + 1) + 8 * v60) UTF8String]);
+          __p[0] = v113;
+          v61 = std::__hash_table<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v127 + 12, v113, __p);
           v62 = v61;
-          if (v58 >= v138)
+          if (v58 >= v140)
           {
             v64 = 0x6DB6DB6DB6DB6DB7 * ((v58 - *buf) >> 3);
             v65 = v64 + 1;
@@ -557,12 +561,12 @@ LABEL_63:
               std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
             }
 
-            if (0xDB6DB6DB6DB6DB6ELL * ((v138 - *buf) >> 3) > v65)
+            if (0xDB6DB6DB6DB6DB6ELL * ((v140 - *buf) >> 3) > v65)
             {
-              v65 = 0xDB6DB6DB6DB6DB6ELL * ((v138 - *buf) >> 3);
+              v65 = 0xDB6DB6DB6DB6DB6ELL * ((v140 - *buf) >> 3);
             }
 
-            if ((0x6DB6DB6DB6DB6DB7 * ((v138 - *buf) >> 3)) >= 0x249249249249249)
+            if ((0x6DB6DB6DB6DB6DB7 * ((v140 - *buf) >> 3)) >= 0x249249249249249)
             {
               v66 = 0x492492492492492;
             }
@@ -651,14 +655,14 @@ LABEL_63:
             v58 = v68 + 7;
             *buf = v68 - v72;
             *&buf[8] = v68 + 7;
-            *&v138 = 0;
+            *&v140 = 0;
             if (v82)
             {
               operator delete(v82);
             }
 
             v59 = v67;
-            v57 = v97;
+            v57 = v96;
           }
 
           else
@@ -676,16 +680,16 @@ LABEL_63:
           }
 
           *&buf[8] = v58;
-          if (SHIBYTE(v112) < 0)
+          if (SHIBYTE(v114) < 0)
           {
-            operator delete(v111[0]);
+            operator delete(v113[0]);
           }
 
           ++v60;
         }
 
         while (v60 != v57);
-        v57 = [v98 countByEnumeratingWithState:&v99 objects:v136 count:16];
+        v57 = [v97 countByEnumeratingWithState:&v98 objects:v138 count:16];
       }
 
       while (v57);
@@ -695,14 +699,14 @@ LABEL_63:
   }
 
   memset(buf, 0, sizeof(buf));
-  *&v138 = 0;
+  *&v140 = 0;
   v49 = *(languageModelContainer + 24);
   v50 = *(languageModelContainer + 32);
   if (v49 == v50)
   {
-    v54 = v87;
-    v53 = v88;
-    if (v133 == v132)
+    v54 = v86;
+    v53 = v87;
+    if (v135 == v134)
     {
       goto LABEL_106;
     }
@@ -718,14 +722,14 @@ LABEL_63:
 
   while (v49 != v50);
   v51 = *buf;
-  v52 = v132;
-  v54 = v87;
-  v53 = v88;
-  if (v133 - v132 != *&buf[8] - *buf)
+  v52 = v134;
+  v54 = v86;
+  v53 = v87;
+  if (v135 - v134 != *&buf[8] - *buf)
   {
 LABEL_62:
-    v111[0] = buf;
-    std::vector<std::shared_ptr<KB::LanguageModel>>::__destroy_vector::operator()[abi:nn200100](v111);
+    v113[0] = buf;
+    std::vector<std::shared_ptr<KB::LanguageModel>>::__destroy_vector::operator()[abi:nn200100](v113);
     goto LABEL_63;
   }
 
@@ -741,97 +745,92 @@ LABEL_62:
   }
 
 LABEL_106:
-  v111[0] = buf;
-  std::vector<std::shared_ptr<KB::LanguageModel>>::__destroy_vector::operator()[abi:nn200100](v111);
-  _Block_object_dispose(&v124, 8);
-  std::__hash_table<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>>>::~__hash_table(v130);
-  v124 = &v132;
-  std::vector<std::shared_ptr<KB::LanguageModel>>::__destroy_vector::operator()[abi:nn200100](&v124);
+  v113[0] = buf;
+  std::vector<std::shared_ptr<KB::LanguageModel>>::__destroy_vector::operator()[abi:nn200100](v113);
+  _Block_object_dispose(&v126, 8);
+  std::__hash_table<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,KB::LanguageModelLexiconGroup>>>::~__hash_table(v132);
+  v126 = &v134;
+  std::vector<std::shared_ptr<KB::LanguageModel>>::__destroy_vector::operator()[abi:nn200100](&v126);
 
-  v83 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)validEnglishTransformerMultilingualConfig
 {
-  v23 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl())
+  v22 = *MEMORY[0x277D85DE8];
+  if (!_os_feature_enabled_impl())
   {
-    if (isH13ANEPresentOnIOS())
-    {
-      v3 = _os_feature_enabled_impl() ^ 1;
-    }
+    return 0;
+  }
 
-    else
-    {
-      LOBYTE(v3) = 1;
-    }
-
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    languageSelectionController = [(TIKeyboardInputManager *)self languageSelectionController];
-    activeInputModes = [languageSelectionController activeInputModes];
-
-    v7 = [activeInputModes countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v7)
-    {
-      v8 = v7;
-      v9 = *v19;
-      while (2)
-      {
-        for (i = 0; i != v8; ++i)
-        {
-          if (*v19 != v9)
-          {
-            objc_enumerationMutation(activeInputModes);
-          }
-
-          v11 = *(*(&v18 + 1) + 8 * i);
-          languageWithRegion = [v11 languageWithRegion];
-          v13 = [languageWithRegion isEqualToString:@"hi_Latn"] & v3;
-
-          if ((v13 & 1) == 0)
-          {
-            languageWithRegion2 = [v11 languageWithRegion];
-            v15 = [languageWithRegion2 isEqualToString:@"vi_VN"];
-
-            if ((v15 & 1) == 0)
-            {
-              continue;
-            }
-          }
-
-          v4 = 0;
-          goto LABEL_18;
-        }
-
-        v8 = [activeInputModes countByEnumeratingWithState:&v18 objects:v22 count:16];
-        v4 = 1;
-        if (v8)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-    else
-    {
-      v4 = 1;
-    }
-
-LABEL_18:
+  if (isH13ANEPresentOnIOS())
+  {
+    v3 = _os_feature_enabled_impl() ^ 1;
   }
 
   else
   {
-    v4 = 0;
+    LOBYTE(v3) = 1;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  languageSelectionController = [(TIKeyboardInputManager *)self languageSelectionController];
+  activeInputModes = [languageSelectionController activeInputModes];
+
+  v7 = [activeInputModes countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v18;
+    while (2)
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v18 != v9)
+        {
+          objc_enumerationMutation(activeInputModes);
+        }
+
+        v11 = *(*(&v17 + 1) + 8 * i);
+        languageWithRegion = [v11 languageWithRegion];
+        v13 = objc_msgSend_isEqualToString_(languageWithRegion) & v3;
+
+        if ((v13 & 1) == 0)
+        {
+          languageWithRegion2 = [v11 languageWithRegion];
+          isEqualToString = objc_msgSend_isEqualToString_(languageWithRegion2);
+
+          if ((isEqualToString & 1) == 0)
+          {
+            continue;
+          }
+        }
+
+        v4 = 0;
+        goto LABEL_18;
+      }
+
+      v8 = [activeInputModes countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v4 = 1;
+      if (v8)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+LABEL_18:
+
   return v4;
 }
 
@@ -865,7 +864,7 @@ LABEL_18:
 
 - (void)updateLanguagePriors
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(TIKeyboardInputManager *)self usesFavonius]&& ![(TIKeyboardInputManager *)self isLinguisticResourceUpdateScheduled])
   {
     if (TICanLogMessageAtLevel_onceToken != -1)
@@ -878,9 +877,9 @@ LABEL_18:
       v3 = TIOSLogFacility();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
-        v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Updating input mode probabilities.", "-[TIKeyboardInputManager_mul updateLanguagePriors]"];
+        v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Updating input mode probabilities.", "-[TIKeyboardInputManager_mul updateLanguagePriors]"];
         *buf = 138412290;
-        v10 = v7;
+        v9 = v6;
         _os_log_debug_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -889,18 +888,16 @@ LABEL_18:
     if (languageModelContainer)
     {
       v5 = *(*(self->super.m_impl + 33) + 8);
-      v8[0] = MEMORY[0x277D85DD0];
-      v8[1] = 3221225472;
-      v8[2] = __50__TIKeyboardInputManager_mul_updateLanguagePriors__block_invoke;
-      v8[3] = &unk_27872F9C8;
-      v8[4] = self;
-      v8[5] = v5;
-      v8[6] = languageModelContainer;
-      [(TIKeyboardInputManager_mul *)self enumerateInputModesWithBlock:v8];
+      v7[0] = MEMORY[0x277D85DD0];
+      v7[1] = 3221225472;
+      v7[2] = __50__TIKeyboardInputManager_mul_updateLanguagePriors__block_invoke;
+      v7[3] = &unk_27872F9C8;
+      v7[4] = self;
+      v7[5] = v5;
+      v7[6] = languageModelContainer;
+      [(TIKeyboardInputManager_mul *)self enumerateInputModesWithBlock:v7];
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateInputModeProbabilities:(id)probabilities
@@ -913,10 +910,10 @@ LABEL_18:
 
 - (void)didUpdateInputModes:(id)modes
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = TIKeyboardInputManager_mul;
-  [(TIKeyboardInputManager *)&v7 didUpdateInputModes:modes];
+  v9 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = TIKeyboardInputManager_mul;
+  [(TIKeyboardInputManager *)&v6 didUpdateInputModes:modes];
   if (TICanLogMessageAtLevel_onceToken != -1)
   {
     dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
@@ -927,20 +924,19 @@ LABEL_18:
     v4 = TIOSLogFacility();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Scheduling active input mode update.", "-[TIKeyboardInputManager_mul didUpdateInputModes:]"];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Scheduling active input mode update.", "-[TIKeyboardInputManager_mul didUpdateInputModes:]"];
       *buf = 138412290;
-      v9 = v6;
+      v8 = v5;
       _os_log_debug_impl(&dword_22CA55000, v4, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
   [(TIKeyboardInputManager *)self scheduleLinguisticResourceUpdateWithReason:@"Multilingual input modes changed"];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadDictionaries
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (self->super.m_impl)
   {
     if ([(TIKeyboardInputManager *)self usesFavonius])
@@ -955,85 +951,88 @@ LABEL_18:
         v3 = TIOSLogFacility();
         if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
         {
-          v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Loading/reloading multilingual dictionaries.", "-[TIKeyboardInputManager_mul loadDictionaries]"];
-          LODWORD(v20[0]) = 138412290;
-          *(v20 + 4) = v17;
-          _os_log_debug_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEBUG, "%@", v20, 0xCu);
+          v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Loading/reloading multilingual dictionaries.", "-[TIKeyboardInputManager_mul loadDictionaries]"];
+          LODWORD(v21[0]) = 138412290;
+          *(v21 + 4) = v18;
+          _os_log_debug_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEBUG, "%@", v21, 0xCu);
         }
       }
 
       m_impl = self->super.m_impl;
       primaryInputMode = [(TIKeyboardInputManager *)self primaryInputMode];
       languageWithRegion = [primaryInputMode languageWithRegion];
-      KB::utf8_string(languageWithRegion, v20);
-      TIInputManager::set_locale_identifier(m_impl, v20);
-      if (*(&v20[0] + 1) && BYTE6(v20[0]) == 1)
+      KB::utf8_string(languageWithRegion, v21);
+      TIInputManager::set_locale_identifier(m_impl, v21);
+      if (*(&v21[0] + 1) && BYTE6(v21[0]) == 1)
       {
-        free(*(&v20[0] + 1));
+        free(*(&v21[0] + 1));
       }
 
-      [(TIKeyboardInputManager_mul *)self lexiconInformationVector];
+      objc_msgSend_lexiconInformationVector(self);
       config = [(TIKeyboardInputManager *)self config];
-      [config isTesting];
+      isTesting = [config isTesting];
 
       languageSelectionController = [(TIKeyboardInputManager *)self languageSelectionController];
       activeInputModes = [languageSelectionController activeInputModes];
-      v10 = [activeInputModes count];
+      v11 = [activeInputModes count];
 
-      if (v10 >= 2)
+      if (v11 < 2)
+      {
+        usesContinuousPath = 0;
+      }
+
+      else
       {
         languageSelectionController2 = [(TIKeyboardInputManager *)self languageSelectionController];
         activeInputModes2 = [languageSelectionController2 activeInputModes];
-        v13 = [activeInputModes2 objectAtIndexedSubscript:1];
+        v14 = [activeInputModes2 objectAtIndexedSubscript:1];
 
-        v14 = [TIKeyboardInputManagerConfig configurationForInputMode:v13];
-        [v14 usesContinuousPath];
+        v15 = [TIKeyboardInputManagerConfig configurationForInputMode:v14];
+        usesContinuousPath = [v15 usesContinuousPath];
       }
 
-      v15 = self->super.m_impl;
-      memset(&v19, 0, 24);
-      std::vector<KB::LexiconInfo>::__init_with_size[abi:nn200100]<KB::LexiconInfo*,KB::LexiconInfo*>(&v19, *&v20[0], *(&v20[0] + 1), 0x2E8BA2E8BA2E8BA3 * ((*(&v20[0] + 1) - *&v20[0]) >> 4));
-      TIInputManager::load_dictionaries(v15, &v19);
+      v17 = self->super.m_impl;
+      memset(&v20, 0, 24);
+      std::vector<KB::LexiconInfo>::__init_with_size[abi:nn200100]<KB::LexiconInfo*,KB::LexiconInfo*>(&v20, *&v21[0], *(&v21[0] + 1), 0x2E8BA2E8BA2E8BA3 * ((*(&v21[0] + 1) - *&v21[0]) >> 4));
+      TIInputManager::load_dictionaries(v17, &v20, 1, isTesting, usesContinuousPath);
     }
 
-    v18.receiver = self;
-    v18.super_class = TIKeyboardInputManager_mul;
-    [(TIKeyboardInputManager *)&v18 loadDictionaries];
+    v19.receiver = self;
+    v19.super_class = TIKeyboardInputManager_mul;
+    [(TIKeyboardInputManager *)&v19 loadDictionaries];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)containsActiveLanguage:(id)language language:(id)a4
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   v6 = a4;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = [languageCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [languageCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(languageCopy);
         }
 
-        locale = [*(*(&v16 + 1) + 8 * i) locale];
+        locale = [*(*(&v15 + 1) + 8 * i) locale];
         languageCode = [locale languageCode];
         v9 |= [languageCode hasPrefix:v6];
       }
 
-      v8 = [languageCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [languageCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -1044,7 +1043,6 @@ LABEL_18:
     LOBYTE(v9) = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
@@ -1080,7 +1078,7 @@ LABEL_18:
 - (BOOL)adjustLexiconInfoIfNeeded:(id *)needed givenInputMode:(id)mode
 {
   v4 = 0;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (needed && mode)
   {
     normalizedIdentifier = [mode normalizedIdentifier];
@@ -1105,58 +1103,57 @@ LABEL_18:
     v4 = v15 != 0;
     if (v15)
     {
-      KB::utf8_string(v15, v18);
-      KB::String::operator=(&needed->var2, v18);
-      if (v19)
+      KB::utf8_string(v15, v17);
+      KB::String::operator=(&needed->var2, v17);
+      if (v18)
       {
-        if (v18[6] == 1)
+        if (v17[6] == 1)
         {
-          free(v19);
+          free(v18);
         }
       }
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (vector<KB::LexiconInfo,)lexiconInformationVector
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x5812000000;
-  v38 = __Block_byref_object_copy__82;
-  v39 = __Block_byref_object_dispose__83;
-  v40 = "";
-  memset(v41, 0, sizeof(v41));
-  v42 = 1065353216;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x4812000000;
-  v31 = __Block_byref_object_copy__84;
-  v32 = __Block_byref_object_dispose__85;
-  v33 = "";
-  memset(v34, 0, sizeof(v34));
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
+  v53 = *MEMORY[0x277D85DE8];
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x5812000000;
+  v37 = __Block_byref_object_copy__82;
+  v38 = __Block_byref_object_dispose__83;
+  v39 = "";
+  memset(v40, 0, sizeof(v40));
+  v41 = 1065353216;
   v27 = 0;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __54__TIKeyboardInputManager_mul_lexiconInformationVector__block_invoke;
-  v23[3] = &unk_27872F928;
-  v23[4] = self;
-  v23[5] = &v28;
-  v23[6] = &v24;
-  v23[7] = &v35;
-  [(TIKeyboardInputManager_mul *)self enumerateInputModesWithBlock:v23];
-  if (*(v25 + 24) == 1)
+  v28 = &v27;
+  v29 = 0x4812000000;
+  v30 = __Block_byref_object_copy__84;
+  v31 = __Block_byref_object_dispose__85;
+  v32 = "";
+  memset(v33, 0, sizeof(v33));
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __54__TIKeyboardInputManager_mul_lexiconInformationVector__block_invoke;
+  v22[3] = &unk_27872F928;
+  v22[4] = self;
+  v22[5] = &v27;
+  v22[6] = &v23;
+  v22[7] = &v34;
+  [(TIKeyboardInputManager_mul *)self enumerateInputModesWithBlock:v22];
+  if (*(v24 + 24) == 1)
   {
-    [(TIKeyboardInputManager *)self addMultilingualLexiconsFromDiskToVector:v29 + 6 excluding:v36 + 6];
-    v5 = v29;
-    [(TIKeyboardInputManager *)self lexiconInfoForMultilingualDynamic:0];
+    [(TIKeyboardInputManager *)self addMultilingualLexiconsFromDiskToVector:v28 + 6 excluding:v35 + 6];
+    v5 = v28;
+    objc_msgSend_lexiconInfoForMultilingualDynamic_(self);
     v7 = v5[7];
     v6 = v5[8];
     if (v7 >= v6)
@@ -1185,14 +1182,14 @@ LABEL_18:
         v13 = v12;
       }
 
-      v43[4] = v5 + 6;
+      v42[4] = v5 + 6;
       if (v13)
       {
         std::__allocate_at_least[abi:nn200100]<std::allocator<KB::LexiconInfo>>(v13);
       }
 
       v14 = 176 * v10;
-      std::allocator_traits<std::allocator<KB::LexiconInfo>>::construct[abi:nn200100]<KB::LexiconInfo,KB::LexiconInfo,void,0>(v14, &v44);
+      std::allocator_traits<std::allocator<KB::LexiconInfo>>::construct[abi:nn200100]<KB::LexiconInfo,KB::LexiconInfo,void,0>(v14, &v43);
       v8 = v14 + 176;
       v15 = v5[6];
       v16 = v5[7];
@@ -1203,93 +1200,91 @@ LABEL_18:
       v5[7] = v8;
       v19 = v5[8];
       v5[8] = 0;
-      v43[2] = v18;
-      v43[3] = v19;
-      v43[0] = v18;
-      v43[1] = v18;
-      std::__split_buffer<KB::LexiconInfo>::~__split_buffer(v43);
+      v42[2] = v18;
+      v42[3] = v19;
+      v42[0] = v18;
+      v42[1] = v18;
+      std::__split_buffer<KB::LexiconInfo>::~__split_buffer(v42);
     }
 
     else
     {
-      std::allocator_traits<std::allocator<KB::LexiconInfo>>::construct[abi:nn200100]<KB::LexiconInfo,KB::LexiconInfo,void,0>(v5[7], &v44);
+      std::allocator_traits<std::allocator<KB::LexiconInfo>>::construct[abi:nn200100]<KB::LexiconInfo,KB::LexiconInfo,void,0>(v5[7], &v43);
       v8 = v7 + 176;
     }
 
     v5[7] = v8;
-    if (v53 && v52 == 1)
+    if (v52 && v51 == 1)
     {
-      free(v53);
+      free(v52);
     }
 
-    if (v51 && v50 == 1)
+    if (v50 && v49 == 1)
     {
-      free(v51);
+      free(v50);
     }
 
-    if (v49 && v48 == 1)
+    if (v48 && v47 == 1)
     {
-      free(v49);
+      free(v48);
     }
 
-    if (v47 && v46 == 1)
+    if (v46 && v45 == 1)
     {
-      free(v47);
+      free(v46);
     }
 
-    if (v45 && BYTE6(v44) == 1)
+    if (v44 && BYTE6(v43) == 1)
     {
-      free(v45);
+      free(v44);
     }
   }
 
-  v20 = v29;
+  v20 = v28;
   retstr->var1 = 0;
   retstr->var2 = 0;
   retstr->var0 = 0;
   std::vector<KB::LexiconInfo>::__init_with_size[abi:nn200100]<KB::LexiconInfo*,KB::LexiconInfo*>(retstr, v20[6], v20[7], 0x2E8BA2E8BA2E8BA3 * ((v20[7] - v20[6]) >> 4));
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(&v28, 8);
-  v44 = v34;
-  std::vector<KB::LexiconInfo>::__destroy_vector::operator()[abi:nn200100](&v44);
-  _Block_object_dispose(&v35, 8);
-  result = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v41);
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v27, 8);
+  v43 = v33;
+  std::vector<KB::LexiconInfo>::__destroy_vector::operator()[abi:nn200100](&v43);
+  _Block_object_dispose(&v34, 8);
+  return std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v40);
 }
 
 - (BOOL)usesRetrocorrection
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = TIKeyboardInputManager_mul;
-  usesRetrocorrection = [(TIKeyboardInputManager *)&v20 usesRetrocorrection];
+  v21 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = TIKeyboardInputManager_mul;
+  usesRetrocorrection = [(TIKeyboardInputManager *)&v19 usesRetrocorrection];
   if ([(TIKeyboardInputManager_mul *)self isUsingMultilingual])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     languageSelectionController = [(TIKeyboardInputManager *)self languageSelectionController];
     activeInputModes = [languageSelectionController activeInputModes];
 
-    v6 = [activeInputModes countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v6 = [activeInputModes countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(activeInputModes);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           languageWithRegion = [v10 languageWithRegion];
-          if ([languageWithRegion isEqualToString:@"vi_VN"])
+          if (objc_msgSend_isEqualToString_(languageWithRegion))
           {
 
 LABEL_13:
@@ -1298,15 +1293,15 @@ LABEL_13:
           }
 
           languageWithRegion2 = [v10 languageWithRegion];
-          v13 = [languageWithRegion2 isEqualToString:@"ar"];
+          isEqualToString = objc_msgSend_isEqualToString_(languageWithRegion2);
 
-          if (v13)
+          if (isEqualToString)
           {
             goto LABEL_13;
           }
         }
 
-        v7 = [activeInputModes countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v7 = [activeInputModes countByEnumeratingWithState:&v15 objects:v20 count:16];
         if (v7)
         {
           continue;
@@ -1319,7 +1314,6 @@ LABEL_13:
 LABEL_14:
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return usesRetrocorrection;
 }
 
@@ -1353,35 +1347,35 @@ LABEL_14:
 
 - (void)enumerateInputModesWithBlock:(id)block
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   languageSelectionController = [(TIKeyboardInputManager *)self languageSelectionController];
   v6 = languageSelectionController;
   if (languageSelectionController)
   {
     activeInputModes = [languageSelectionController activeInputModes];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v8 = [activeInputModes countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [activeInputModes countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(activeInputModes);
           }
 
-          blockCopy[2](blockCopy, *(*(&v13 + 1) + 8 * i));
+          blockCopy[2](blockCopy, *(*(&v12 + 1) + 8 * i));
         }
 
-        v9 = [activeInputModes countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [activeInputModes countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -1393,8 +1387,6 @@ LABEL_14:
     activeInputModes = [(TIKeyboardInputManager *)self primaryInputMode];
     (blockCopy)[2](blockCopy, activeInputModes);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)alternativeInputMode
@@ -1535,26 +1527,126 @@ LABEL_11:
   }
 }
 
+- (void)setInput:(id)input withIndex:(unsigned int)index
+{
+  v4 = *&index;
+  inputCopy = input;
+  v33.receiver = self;
+  v33.super_class = TIKeyboardInputManager_mul;
+  [(TIKeyboardInputManager *)&v33 setInput:inputCopy withIndex:v4];
+  if (![(TIKeyboardInputManager_mul *)self isUsingMultiscript])
+  {
+    goto LABEL_20;
+  }
+
+  v7 = [(TIKeyboardInputManager_mul *)self generateTypingAutocorrectionsWithCandidateRange:0, 3];
+  if ([inputCopy length] >= v4)
+  {
+    v8 = [inputCopy substringToIndex:v4];
+  }
+
+  else
+  {
+    v8 = inputCopy;
+  }
+
+  v9 = v8;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
+  validUSetForAutocorrectionSecondary = [(TIKeyboardInputManager_mul *)self validUSetForAutocorrectionSecondary];
+  if (validUSetForAutocorrectionSecondary)
+  {
+    v11 = validUSetForAutocorrectionSecondary;
+    v12 = [v9 length];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __49__TIKeyboardInputManager_mul_setInput_withIndex___block_invoke;
+    v28[3] = &unk_2787318F8;
+    v28[4] = &v29;
+    v28[5] = v11;
+    [v9 _enumerateLongCharactersInRange:0 usingBlock:{v12, v28}];
+  }
+
+  [(TIKeyboardInputManager_mul *)self setChoseSecondary:*(v30 + 24)];
+  corrections = [v7 corrections];
+  autocorrection = [corrections autocorrection];
+
+  predictions = [v7 predictions];
+  if (autocorrection)
+  {
+    candidate = [autocorrection candidate];
+    isEqualToString = objc_msgSend_isEqualToString_(candidate);
+
+    if ((isEqualToString & 1) == 0)
+    {
+      lexiconLocale = [autocorrection lexiconLocale];
+
+      if (lexiconLocale)
+      {
+        v19 = [(TIKeyboardInputManager_mul *)self candidateArray:predictions withCandidateUniquelyInsertedToFront:autocorrection];
+
+        predictions = v19;
+      }
+
+      v20 = [autocorrection candidateByReplacingWithCandidate:v9];
+
+      autocorrection = v20;
+    }
+  }
+
+  corrections2 = [v7 corrections];
+  autocorrection2 = [corrections2 autocorrection];
+  v23 = autocorrection2;
+  if (autocorrection == autocorrection2)
+  {
+    predictions2 = [v7 predictions];
+
+    if (predictions == predictions2)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  v25 = [v7 listBySettingNewAutocorrection:autocorrection];
+  v26 = [v25 listBySettingNewPredictions:predictions];
+
+  v7 = v26;
+LABEL_16:
+  [(TIKeyboardInputManager *)self setPregeneratedTypingAutocorrections:v7];
+  input = [autocorrection input];
+  if (input && ([v9 isEqual:input] & 1) == 0)
+  {
+    [(TIKeyboardInputManager_mul *)self updateAutocorrectionListGivenOutdatedInput:input andUpdatedInput:v9];
+  }
+
+  _Block_object_dispose(&v29, 8);
+LABEL_20:
+}
+
 - (void)setInput:(id)input
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   inputCopy = input;
-  v8.receiver = self;
-  v8.super_class = TIKeyboardInputManager_mul;
-  [(TIKeyboardInputManager *)&v8 setInput:inputCopy];
+  v7.receiver = self;
+  v7.super_class = TIKeyboardInputManager_mul;
+  [(TIKeyboardInputManager *)&v7 setInput:inputCopy];
   if ([(TIKeyboardInputManager_mul *)self isUsingMultiscript])
   {
     v5 = [(TIKeyboardInputManager_mul *)self externalStringToInternal:inputCopy ignoreCompositionDisabled:0 useReverseMap:0];
     m_impl = self->super.m_impl;
-    KB::utf8_string(v5, v9);
-    TIInputManager::or_input_flags_from_input(m_impl, v9);
-    if (v10 && v9[6] == 1)
+    KB::utf8_string(v5, v8);
+    TIInputManager::or_input_flags_from_input(m_impl, v8);
+    if (v9 && v8[6] == 1)
     {
-      free(v10);
+      free(v9);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (USet)validUSetForAutocorrectionSecondary
@@ -1568,6 +1660,62 @@ LABEL_11:
   }
 
   return self->_validUSetForAutocorrectionSecondary;
+}
+
+- (BOOL)acceptsCharacter:(unsigned int)character
+{
+  v3 = *&character;
+  isUsingMultiscript = [(TIKeyboardInputManager_mul *)self isUsingMultiscript];
+  validUSetForAutocorrection = [(TIKeyboardInputManager_mul *)self validUSetForAutocorrection];
+  v11.receiver = self;
+  v11.super_class = TIKeyboardInputManager_mul;
+  if ([(TIKeyboardInputManager *)&v11 acceptsCharacter:v3])
+  {
+    v7 = 1;
+    if (!isUsingMultiscript)
+    {
+      return v7;
+    }
+  }
+
+  else
+  {
+    if (validUSetForAutocorrection)
+    {
+      v8 = isUsingMultiscript;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    if (v8)
+    {
+      v7 = MEMORY[0x2318BF290](validUSetForAutocorrection, v3) != 0;
+      if (!isUsingMultiscript)
+      {
+        return v7;
+      }
+    }
+
+    else
+    {
+      v7 = 0;
+      if (!isUsingMultiscript)
+      {
+        return v7;
+      }
+    }
+  }
+
+  if ([(TIKeyboardInputManager_mul *)self choseSecondary])
+  {
+    validUSetForAutocorrectionSecondary = [(TIKeyboardInputManager_mul *)self validUSetForAutocorrectionSecondary];
+    return validUSetForAutocorrectionSecondary && MEMORY[0x2318BF290](validUSetForAutocorrectionSecondary, v3) != 0;
+  }
+
+  return v7;
 }
 
 - (_NSRange)acceptableRangeFromRange:(_NSRange)range inText:(id)text withSelectionLocation:(unint64_t)location
@@ -1610,14 +1758,43 @@ LABEL_11:
   return result;
 }
 
+- (id)getCurrentExternalStringGiven:(BOOL)given
+{
+  givenCopy = given;
+  v13 = *MEMORY[0x277D85DE8];
+  TIInputManager::input_substring((self->super.m_impl + 8), 0, -858993459 * ((*(self->super.m_impl + 2) - *(self->super.m_impl + 1)) >> 3), v11);
+  v6 = KB::ns_string(v11, v5);
+  if (v12)
+  {
+    v7 = v11[6] == 1;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (v7)
+  {
+    free(v12);
+  }
+
+  choseSecondary = [(TIKeyboardInputManager_mul *)self choseSecondary];
+  [(TIKeyboardInputManager_mul *)self setChoseSecondary:givenCopy];
+  v9 = [(TIKeyboardInputManager_mul *)self internalStringToExternal:v6];
+  [(TIKeyboardInputManager_mul *)self setChoseSecondary:choseSecondary];
+
+  return v9;
+}
+
 - (id)currentExternalString
 {
-  v11 = *MEMORY[0x277D85DE8];
-  TIInputManager::input_substring(self->super.m_impl + 4, 0, -858993459 * ((*(self->super.m_impl + 2) - *(self->super.m_impl + 1)) >> 3), v9);
-  v4 = KB::ns_string(v9, v3);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  TIInputManager::input_substring((self->super.m_impl + 8), 0, -858993459 * ((*(self->super.m_impl + 2) - *(self->super.m_impl + 1)) >> 3), v8);
+  v4 = KB::ns_string(v8, v3);
+  if (v9)
   {
-    v5 = v9[6] == 1;
+    v5 = v8[6] == 1;
   }
 
   else
@@ -1627,27 +1804,25 @@ LABEL_11:
 
   if (v5)
   {
-    free(v10);
+    free(v9);
   }
 
   v6 = [(TIKeyboardInputManager_mul *)self internalStringToExternal:v4];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)internalStringToSecondaryExternal:(id)external
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   externalCopy = external;
   if ([(TIKeyboardInputManager_mul *)self isUsingMultiscript])
   {
-    TIInputManager::input_substring(self->super.m_impl + 4, 0, -858993459 * ((*(self->super.m_impl + 2) - *(self->super.m_impl + 1)) >> 3), v22);
-    v6 = KB::ns_string(v22, v5);
-    if (v23 && v22[6] == 1)
+    TIInputManager::input_substring((self->super.m_impl + 8), 0, -858993459 * ((*(self->super.m_impl + 2) - *(self->super.m_impl + 1)) >> 3), v21);
+    v6 = KB::ns_string(v21, v5);
+    if (v22 && v21[6] == 1)
     {
-      free(v23);
+      free(v22);
     }
 
     v7 = [v6 hasPrefix:{externalCopy, v6}];
@@ -1707,8 +1882,6 @@ LABEL_11:
   {
     v18 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -1782,6 +1955,15 @@ LABEL_11:
   return v18;
 }
 
+- (id)externalStringToInternal:(id)internal ignoreCompositionDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  internalCopy = internal;
+  v7 = [(TIKeyboardInputManager_mul *)self externalStringToInternal:internalCopy ignoreCompositionDisabled:disabledCopy useReverseMap:[(TIKeyboardInputManager_mul *)self isUsingMultiscript]];
+
+  return v7;
+}
+
 - (BOOL)stringIsRecognizedByAlternativeIM:(id)m
 {
   mCopy = m;
@@ -1812,19 +1994,19 @@ LABEL_11:
 
 - (BOOL)shouldPassAlternativeInputAsPrediction:(id)prediction isRecognized:(BOOL)recognized
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   predictionCopy = prediction;
   pregeneratedTypingAutocorrections = [(TIKeyboardInputManager *)self pregeneratedTypingAutocorrections];
   currentExternalString = [(TIKeyboardInputManager_mul *)self currentExternalString];
-  v9 = [predictionCopy isEqualToString:currentExternalString];
+  isEqualToString = objc_msgSend_isEqualToString_(predictionCopy);
 
-  if (v9 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  if (isEqualToString && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v25 = 136315394;
-    v26 = "[TIKeyboardInputManager_mul shouldPassAlternativeInputAsPrediction:isRecognized:]";
-    v27 = 2080;
-    v28 = "[TIKeyboardInputManager_mul shouldPassAlternativeInputAsPrediction:isRecognized:]";
-    _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  %s should not be entered if alternative input == composed text", &v25, 0x16u);
+    v24 = 136315394;
+    v25 = "[TIKeyboardInputManager_mul shouldPassAlternativeInputAsPrediction:isRecognized:]";
+    v26 = 2080;
+    v27 = "[TIKeyboardInputManager_mul shouldPassAlternativeInputAsPrediction:isRecognized:]";
+    _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  %s should not be entered if alternative input == composed text", &v24, 0x16u);
     if (recognized)
     {
       goto LABEL_4;
@@ -1904,7 +2086,6 @@ LABEL_4:
   v10 = 1;
 LABEL_22:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1913,23 +2094,12 @@ LABEL_22:
   inputCopy = input;
   candidateCopy = candidate;
   currentExternalString = [(TIKeyboardInputManager_mul *)self currentExternalString];
-  v8 = [inputCopy isEqualToString:currentExternalString];
+  isEqualToString = objc_msgSend_isEqualToString_(inputCopy);
 
-  if ((v8 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
-    if (!_os_feature_enabled_impl())
+    if (!_os_feature_enabled_impl() || (v9 = objc_opt_class(), -[TIKeyboardInputManager_mul alternativeInputMode](self, "alternativeInputMode"), v10 = objc_claimAutoreleasedReturnValue(), [v10 languageWithRegion], v11 = objc_claimAutoreleasedReturnValue(), LODWORD(v9) = objc_msgSend(inputCopy, "_contentsExclusivelyInScript:", objc_msgSend(v9, "primaryScriptForLanguageWithRegion:", v11)), v11, v10, v9))
     {
-      goto LABEL_4;
-    }
-
-    v9 = objc_opt_class();
-    alternativeInputMode = [(TIKeyboardInputManager_mul *)self alternativeInputMode];
-    languageWithRegion = [alternativeInputMode languageWithRegion];
-    LODWORD(v9) = [inputCopy _contentsExclusivelyInScript:{objc_msgSend(v9, "primaryScriptForLanguageWithRegion:", languageWithRegion)}];
-
-    if (v9)
-    {
-LABEL_4:
       if (([(TIKeyboardInputManager_mul *)self reasonForFreezing]& 1) == 0)
       {
         v12 = [(TIKeyboardInputManager_mul *)self stringIsRecognizedByAlternativeIM:inputCopy];
@@ -2220,7 +2390,7 @@ LABEL_4:
   keyboardFeatureSpecializationSecondary = [(TIKeyboardInputManager_mul *)self keyboardFeatureSpecializationSecondary];
   wordSeparator2 = [keyboardFeatureSpecializationSecondary wordSeparator];
 
-  if ([wordSeparator isEqualToString:wordSeparator2] & 1) == 0 && ((v13 = objc_msgSend(lexiconLocale, "isEqualToString:", normalizedIdentifier2), v14 = wordSeparator2, (v13) || (v15 = objc_msgSend(lexiconLocale, "isEqualToString:", normalizedIdentifier), v14 = wordSeparator, v15)))
+  if (objc_msgSend_isEqualToString_(wordSeparator) & 1) == 0 && ((isEqualToString = objc_msgSend_isEqualToString_(lexiconLocale), v14 = wordSeparator2, (isEqualToString) || (v15 = objc_msgSend_isEqualToString_(lexiconLocale), v14 = wordSeparator, v15)))
   {
     v12 = v14;
   }
@@ -2235,34 +2405,32 @@ LABEL_4:
 
 - (id)typedStringForEmptyAutocorrection
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(TIKeyboardInputManager_mul *)self isUsingMultiscript])
   {
-    TIInputManager::legacy_input_stem(self->super.m_impl, v9);
-    v4 = KB::ns_string(v9, v3);
+    TIInputManager::legacy_input_stem(&v8, self->super.m_impl);
+    v4 = KB::ns_string(&v8, v3);
     typedStringForEmptyAutocorrection = [(TIKeyboardInputManager_mul *)self internalStringToExternal:v4];
 
-    if (v10 && v9[6] == 1)
+    if (v9 && BYTE6(v8) == 1)
     {
-      free(v10);
+      free(v9);
     }
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = TIKeyboardInputManager_mul;
-    typedStringForEmptyAutocorrection = [(TIKeyboardInputManager *)&v8 typedStringForEmptyAutocorrection];
+    v7.receiver = self;
+    v7.super_class = TIKeyboardInputManager_mul;
+    typedStringForEmptyAutocorrection = [(TIKeyboardInputManager *)&v7 typedStringForEmptyAutocorrection];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return typedStringForEmptyAutocorrection;
 }
 
 - (id)candidateArray:(id)array withCandidateUniquelyInsertedToFront:(id)front
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   frontCopy = front;
   v7 = frontCopy;
@@ -2279,17 +2447,17 @@ LABEL_4:
     }
 
     v9 = MEMORY[0x277CCAC30];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __82__TIKeyboardInputManager_mul_candidateArray_withCandidateUniquelyInsertedToFront___block_invoke;
-    v17[3] = &unk_27872F868;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __82__TIKeyboardInputManager_mul_candidateArray_withCandidateUniquelyInsertedToFront___block_invoke;
+    v16[3] = &unk_27872F868;
     v10 = frontCopy;
-    v18 = v10;
-    v11 = [v9 predicateWithBlock:v17];
+    v17 = v10;
+    v11 = [v9 predicateWithBlock:v16];
     v12 = [v8 filteredArrayUsingPredicate:v11];
 
-    v19[0] = v10;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v10;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     v14 = [v13 arrayByAddingObjectsFromArray:v12];
   }
 
@@ -2299,19 +2467,17 @@ LABEL_4:
     v14 = v12;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)getPlainCandidate
 {
-  v13 = *MEMORY[0x277D85DE8];
-  TIInputManager::input_substring(self->super.m_impl + 4, 0, -858993459 * ((*(self->super.m_impl + 2) - *(self->super.m_impl + 1)) >> 3), v11);
-  v4 = KB::ns_string(v11, v3);
-  if (v12)
+  v12 = *MEMORY[0x277D85DE8];
+  TIInputManager::input_substring((self->super.m_impl + 8), 0, -858993459 * ((*(self->super.m_impl + 2) - *(self->super.m_impl + 1)) >> 3), v10);
+  v4 = KB::ns_string(v10, v3);
+  if (v11)
   {
-    v5 = v11[6] == 1;
+    v5 = v10[6] == 1;
   }
 
   else
@@ -2321,7 +2487,7 @@ LABEL_4:
 
   if (v5)
   {
-    free(v12);
+    free(v11);
   }
 
   v6 = [(TIKeyboardInputManager_mul *)self internalStringToExternal:v4];
@@ -2337,8 +2503,6 @@ LABEL_4:
 
   v8 = v7;
   [v7 setLexiconLocale:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -2611,12 +2775,12 @@ LABEL_11:
       v8 |= 1uLL;
       if ((-[TIKeyboardInputManager_mul reasonForFreezing](self, "reasonForFreezing") & 1) == 0 && [inputCopy isPopupVariant])
       {
-        string = [inputCopy string];
+        v9 = objc_msgSend_string(inputCopy);
         primaryInputMode = [(TIKeyboardInputManager *)self primaryInputMode];
         languageWithRegion = [primaryInputMode languageWithRegion];
-        v12 = [string _beginsWithPrimaryScriptForLanguage:languageWithRegion];
+        v12 = [v9 _beginsWithPrimaryScriptForLanguage:languageWithRegion];
 
-        if ((v12 & 1) != 0 || (-[TIKeyboardInputManager_mul secondaryInputMode](self, "secondaryInputMode"), v13 = objc_claimAutoreleasedReturnValue(), [v13 languageWithRegion], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(string, "_beginsWithPrimaryScriptForLanguage:", v14), v14, v13, v15))
+        if ((v12 & 1) != 0 || (-[TIKeyboardInputManager_mul secondaryInputMode](self, "secondaryInputMode"), v13 = objc_claimAutoreleasedReturnValue(), [v13 languageWithRegion], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v9, "_beginsWithPrimaryScriptForLanguage:", v14), v14, v13, v15))
         {
           [(TIKeyboardInputManager_mul *)self setChoseSecondary:v12 ^ 1u];
           [(TIKeyboardInputManager_mul *)self setReasonForFreezing:[(TIKeyboardInputManager_mul *)self reasonForFreezing]| 1];
@@ -2651,14 +2815,16 @@ LABEL_18:
 - (void)handleClearSessionGivenInput:(id)input
 {
   inputCopy = input;
-  if ([(TIKeyboardInputManager_mul *)self isUsingMultiscript])
+  isUsingMultiscript = [(TIKeyboardInputManager_mul *)self isUsingMultiscript];
+  v5 = inputCopy;
+  if (isUsingMultiscript)
   {
-    string = [inputCopy string];
+    v6 = objc_msgSend_string(inputCopy);
     if ([inputCopy isPopupVariant])
     {
       primaryInputMode = [(TIKeyboardInputManager *)self primaryInputMode];
       languageWithRegion = [primaryInputMode languageWithRegion];
-      if ([string _beginsWithPrimaryScriptForLanguage:languageWithRegion] && -[TIKeyboardInputManager_mul choseSecondary](self, "choseSecondary"))
+      if ([v6 _beginsWithPrimaryScriptForLanguage:languageWithRegion] && -[TIKeyboardInputManager_mul choseSecondary](self, "choseSecondary"))
       {
 
 LABEL_8:
@@ -2669,7 +2835,7 @@ LABEL_8:
 
       secondaryInputMode = [(TIKeyboardInputManager_mul *)self secondaryInputMode];
       languageWithRegion2 = [secondaryInputMode languageWithRegion];
-      if (![string _beginsWithPrimaryScriptForLanguage:languageWithRegion2])
+      if (![v6 _beginsWithPrimaryScriptForLanguage:languageWithRegion2])
       {
 
         goto LABEL_10;
@@ -2684,9 +2850,11 @@ LABEL_8:
     }
 
 LABEL_10:
+
+    v5 = inputCopy;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](isUsingMultiscript, v5);
 }
 
 - (id)generateTypingAutocorrectionsWithCandidateRange:(_NSRange)range
@@ -2715,15 +2883,15 @@ LABEL_10:
 
 - (id)handleKeyboardInput:(id)input
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   [(TIKeyboardInputManager *)self setPregeneratedTypingAutocorrections:0];
   [(TIKeyboardInputManager_mul *)self handleClearSessionGivenInput:inputCopy];
   currentExternalString = [(TIKeyboardInputManager_mul *)self currentExternalString];
   v6 = [currentExternalString length];
-  v72.receiver = self;
-  v72.super_class = TIKeyboardInputManager_mul;
-  v7 = [(TIKeyboardInputManager *)&v72 handleKeyboardInput:inputCopy];
+  v71.receiver = self;
+  v71.super_class = TIKeyboardInputManager_mul;
+  v7 = [(TIKeyboardInputManager *)&v71 handleKeyboardInput:inputCopy];
   [(TIKeyboardInputManager_mul *)self handleInputMethodChoiceFreezeGivenInput:inputCopy];
   currentExternalString2 = [(TIKeyboardInputManager_mul *)self currentExternalString];
   if (-[TIKeyboardInputManager_mul shouldDynamicallySwitchBetweenPrimaryAndSecondaryWrapper](self, "shouldDynamicallySwitchBetweenPrimaryAndSecondaryWrapper") && [currentExternalString2 length])
@@ -2737,8 +2905,8 @@ LABEL_57:
       goto LABEL_58;
     }
 
-    string = [inputCopy string];
-    v12 = [(TIKeyboardInputManager *)self stringEndsWord:string];
+    v11 = objc_msgSend_string(inputCopy);
+    v12 = [(TIKeyboardInputManager *)self stringEndsWord:v11];
 
     if (v12)
     {
@@ -2747,33 +2915,33 @@ LABEL_57:
 
     v10 = [(TIKeyboardInputManager_mul *)self generateTypingAutocorrectionsWithCandidateRange:0, 3];
     m_impl = self->super.m_impl;
-    v70 = *(m_impl + 24);
-    TIInputManager::input_substring(m_impl + 4, 0, -858993459 * ((*(m_impl + 2) - *(m_impl + 1)) >> 3), v73);
-    v15 = KB::ns_string(v73, v14);
-    v67 = [v15 length];
+    v69 = *(m_impl + 24);
+    TIInputManager::input_substring((m_impl + 1), 0, -858993459 * ((m_impl[2] - m_impl[1]) >> 3), v72);
+    v15 = KB::ns_string(v72, v14);
+    v66 = [v15 length];
 
-    if (v75 && v74 == 1)
+    if (v74 && v73 == 1)
     {
-      free(v75);
+      free(v74);
     }
 
     corrections = [v10 corrections];
     autocorrection = [corrections autocorrection];
 
-    if (v67 <= v70)
+    if (v66 <= v69)
     {
       currentExternalString3 = [(TIKeyboardInputManager_mul *)self currentExternalString];
     }
 
     else
     {
-      TIInputManager::input_substring(self->super.m_impl + 4, 0, *(self->super.m_impl + 24), v73);
-      v19 = KB::ns_string(v73, v18);
+      TIInputManager::input_substring((self->super.m_impl + 8), 0, *(self->super.m_impl + 24), v72);
+      v19 = KB::ns_string(v72, v18);
       currentExternalString3 = [(TIKeyboardInputManager_mul *)self internalStringToExternal:v19];
 
-      if (v75 && v74 == 1)
+      if (v74 && v73 == 1)
       {
-        free(v75);
+        free(v74);
       }
     }
 
@@ -2783,9 +2951,9 @@ LABEL_57:
       if (autocorrection)
       {
         candidate = [autocorrection candidate];
-        v21 = [candidate isEqualToString:currentExternalString3];
+        isEqualToString = objc_msgSend_isEqualToString_(candidate);
 
-        if ((v21 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           lexiconLocale = [autocorrection lexiconLocale];
 
@@ -2806,14 +2974,14 @@ LABEL_57:
     corrections2 = [v10 corrections];
     autocorrection2 = [corrections2 autocorrection];
     v27 = autocorrection2;
-    v64 = autocorrection;
+    v63 = autocorrection;
     if (autocorrection == autocorrection2)
     {
       predictions2 = [v10 predictions];
 
       v28 = predictions;
       v30 = predictions == predictions2;
-      autocorrection = v64;
+      autocorrection = v63;
       if (v30)
       {
         goto LABEL_24;
@@ -2832,9 +3000,9 @@ LABEL_57:
     v10 = v32;
 LABEL_24:
     [(TIKeyboardInputManager *)self setPregeneratedTypingAutocorrections:v10];
-    if (v67 > v70)
+    if (v66 > v69)
     {
-      v33 = v64;
+      v33 = v63;
 LABEL_56:
 
       goto LABEL_57;
@@ -2843,13 +3011,13 @@ LABEL_56:
     if ([inputCopy isBackspace])
     {
       [(TIKeyboardInputManager_mul *)self updateChoseSecondaryOnBackspaceIntoWord];
-      v71 = currentExternalString2;
+      v70 = currentExternalString2;
 LABEL_40:
       pregeneratedTypingAutocorrections = [(TIKeyboardInputManager *)self pregeneratedTypingAutocorrections];
       corrections3 = [pregeneratedTypingAutocorrections corrections];
       autocorrection3 = [corrections3 autocorrection];
       v45 = autocorrection3;
-      v69 = v7;
+      v68 = v7;
       if (autocorrection3)
       {
         v46 = autocorrection3;
@@ -2888,12 +3056,12 @@ LABEL_40:
         v58 = input2;
         if (v53 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v59 = v71;
+          v59 = v70;
         }
 
         else
         {
-          v59 = [input2 stringByReplacingCharactersInRange:v53 withString:{v55, v71}];
+          v59 = [input2 stringByReplacingCharactersInRange:v53 withString:{v55, v70}];
         }
 
         v60 = v59;
@@ -2905,9 +3073,9 @@ LABEL_40:
         [(TIKeyboardInputManager_mul *)self handleCandidateAutocapitalization];
       }
 
-      v7 = v69;
-      currentExternalString2 = v71;
-      v33 = v64;
+      v7 = v68;
+      currentExternalString2 = v70;
+      v33 = v63;
       v28 = predictions;
       goto LABEL_56;
     }
@@ -2922,8 +3090,8 @@ LABEL_40:
 
     currentExternalString4 = [(TIKeyboardInputManager_mul *)self currentExternalString];
 
-    v68 = newKeyboardContext;
-    v71 = currentExternalString4;
+    v67 = newKeyboardContext;
+    v70 = currentExternalString4;
     [newKeyboardContext insertText:currentExternalString4];
     shortcutConversion = [v7 shortcutConversion];
     delimitingPrefix = [v7 delimitingPrefix];
@@ -2938,7 +3106,7 @@ LABEL_40:
     }
 
     [v38 deleteBackward:v6];
-    [v38 insertText:v71];
+    [v38 insertText:v70];
     v39 = *(self->super.m_impl + 24);
     if (v39 >= 5)
     {
@@ -2965,23 +3133,21 @@ LABEL_39:
 
 LABEL_58:
 
-  v61 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)lexiconLocaleOfString:(id)string inputMode:(id)mode
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   lowercaseString = [string lowercaseString];
   v8 = [lowercaseString componentsSeparatedByString:@" "];
   firstObject = [v8 firstObject];
 
   LODWORD(lowercaseString) = [(TIKeyboardInputManager_mul *)self lexiconIDForInputMode:modeCopy];
-  KB::utf8_string(firstObject, v17);
-  KB::StaticDictionary::word_with_string(*(*(self->super.m_impl + 33) + 8), v17, lowercaseString, v14);
-  if ((v15 || (KB::String::compute_length(v14), v15)) && (v10 = TILocaleIdentifierForLexiconID(v16)) != 0)
+  KB::utf8_string(firstObject, v16);
+  KB::StaticDictionary::word_with_string(v13, *(*(self->super.m_impl + 33) + 8), v16, lowercaseString);
+  if ((v14 || (KB::String::compute_length(v13), v14)) && (v10 = TILocaleIdentifierForLexiconID(v15)) != 0)
   {
     v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v10];
   }
@@ -2991,13 +3157,11 @@ LABEL_58:
     v11 = 0;
   }
 
-  KB::Word::~Word(v14);
-  if (v18 && v17[6] == 1)
+  KB::Word::~Word(v13);
+  if (v17 && v16[6] == 1)
   {
-    free(v18);
+    free(v17);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -3079,20 +3243,16 @@ LABEL_58:
 
 + (int)primaryScriptForLanguageWithRegion:(id)region
 {
-  v6 = *MEMORY[0x277D85DE8];
   [region cStringUsingEncoding:4];
   if (uscript_getCode())
   {
-    result = v5;
+    return v4;
   }
 
   else
   {
-    result = -1;
+    return -1;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 + (id)textContentTypesPreferringSecondaryInputMode

@@ -27,7 +27,7 @@
     [array addObject:v12];
   }
 
-  v13 = [array copy];
+  v13 = objc_msgSend_copy(array);
 
   return v13;
 }
@@ -42,7 +42,7 @@
   if (v7)
   {
     v7->_enable = enable;
-    v9 = [dCopy copy];
+    v9 = objc_msgSend_copy(dCopy);
     userID = v8->_userID;
     v8->_userID = v9;
   }

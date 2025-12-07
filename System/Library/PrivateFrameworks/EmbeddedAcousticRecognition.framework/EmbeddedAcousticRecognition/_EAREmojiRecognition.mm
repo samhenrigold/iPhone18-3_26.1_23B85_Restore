@@ -124,7 +124,7 @@ LABEL_14:
 
   if (stringsCopy)
   {
-    [stringsCopy ear_toString];
+    objc_msgSend_ear_toString(stringsCopy);
   }
 
   else

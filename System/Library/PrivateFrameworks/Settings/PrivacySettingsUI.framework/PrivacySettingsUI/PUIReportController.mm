@@ -26,9 +26,12 @@
 - (void)reloadAppAndTrackingData;
 - (void)reloadAppNetworkActivitySpecifiersWithCompletion:(id)completion;
 - (void)reloadMostContactedDomainsSpecifiersWithCompletion:(id)completion;
+- (void)reloadSensorAndNetworkSpecifiersAnimated:(BOOL)animated;
 - (void)reloadWebsiteNetworkActivitySpecifiersWithCompletion:(id)completion;
 - (void)setRecordActivityEnabled:(id)enabled specifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PUIReportController
@@ -73,9 +76,17 @@
   [(PUIReportController *)&v4 dealloc];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PUIReportController;
+  [(PUIReportController *)&v4 viewDidAppear:appear];
+  [(PUIReportController *)self provideNavigationDonations];
+}
+
 - (void)provideNavigationDonations
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   bundleURL = [v3 bundleURL];
 
@@ -87,12 +98,10 @@
   currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
   v10 = [v8 initWithKey:@"PRIVACY" table:@"Privacy" locale:currentLocale2 bundleURL:bundleURL];
 
-  v14[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v12 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.PrivacyAndSecurity/PRIVACY_REPORT"];
   [(PUIReportController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.app-privacy-report" title:v7 localizedNavigationComponents:v11 deepLink:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)specifiers
@@ -176,44 +185,61 @@ void __36__PUIReportController_dataDidChange__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) reportEnabled];
-  if (v2 != [*(a1 + 32) isRecordActivityEnabled] || (v3 = objc_msgSend(*(a1 + 32), "hasData"), v3 != objc_msgSend(*(a1 + 32), "eitherSourceHasData")))
+  v3 = [*(a1 + 32) isRecordActivityEnabled];
+  if (v2 == v3 && (v4 = [*(a1 + 32) hasData], v3 = objc_msgSend(*(a1 + 32), "eitherSourceHasData"), v4 == v3))
   {
-    v4 = _PUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = _os_feature_enabled_impl();
+    if (v6)
+    {
+      v7 = *(a1 + 32);
+
+      [v7 reloadSensorAndNetworkSpecifiersAnimated:0];
+    }
+
+    else
+    {
+      v8 = _PUILoggingFacility(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = 136315138;
+        v12 = "[PUIReportController dataDidChange]_block_invoke";
+        _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "%s: only reloading time interval footer: state hasn't changed", &v11, 0xCu);
+      }
+
+      v9 = [*(a1 + 32) specifierForID:@"SAVE_APP_ACTIVITY_GROUP"];
+      v10 = [*(a1 + 32) saveAppActivityFooterText];
+      [v9 setObject:v10 forKeyedSubscript:*MEMORY[0x277D3FF88]];
+
+      [*(a1 + 32) reloadSpecifier:v9];
+    }
+  }
+
+  else
+  {
+    v5 = _PUILoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 136315138;
       v12 = "[PUIReportController dataDidChange]_block_invoke";
-      _os_log_impl(&dword_2657FE000, v4, OS_LOG_TYPE_DEFAULT, "%s: reloading: state changed", &v11, 0xCu);
+      _os_log_impl(&dword_2657FE000, v5, OS_LOG_TYPE_DEFAULT, "%s: reloading: state changed", &v11, 0xCu);
     }
 
     [*(a1 + 32) reloadSpecifiers];
-LABEL_6:
-    v5 = *MEMORY[0x277D85DE8];
-    return;
   }
+}
 
-  if ((_os_feature_enabled_impl() & 1) == 0)
+- (void)reloadSensorAndNetworkSpecifiersAnimated:(BOOL)animated
+{
+  if ([(PUIReportController *)self controllerMode]== 2)
   {
-    v8 = _PUILoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      v11 = 136315138;
-      v12 = "[PUIReportController dataDidChange]_block_invoke";
-      _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "%s: only reloading time interval footer: state hasn't changed", &v11, 0xCu);
-    }
-
-    v9 = [*(a1 + 32) specifierForID:@"SAVE_APP_ACTIVITY_GROUP"];
-    v10 = [*(a1 + 32) saveAppActivityFooterText];
-    [v9 setObject:v10 forKeyedSubscript:*MEMORY[0x277D3FF88]];
-
-    [*(a1 + 32) reloadSpecifier:v9];
-    goto LABEL_6;
+    v4 = dispatch_get_global_queue(25, 0);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __64__PUIReportController_reloadSensorAndNetworkSpecifiersAnimated___block_invoke;
+    block[3] = &unk_279BA0B28;
+    block[4] = self;
+    dispatch_async(v4, block);
   }
-
-  v6 = *(a1 + 32);
-  v7 = *MEMORY[0x277D85DE8];
-
-  [v6 reloadSensorAndNetworkSpecifiersAnimated:0];
 }
 
 void __64__PUIReportController_reloadSensorAndNetworkSpecifiersAnimated___block_invoke(uint64_t a1)
@@ -240,7 +266,7 @@ void __64__PUIReportController_reloadSensorAndNetworkSpecifiersAnimated___block_
 
 void __64__PUIReportController_reloadSensorAndNetworkSpecifiersAnimated___block_invoke_2(uint64_t a1)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) learnMoreHeader];
   v3 = [v2 lastObject];
 
@@ -265,26 +291,26 @@ void __64__PUIReportController_reloadSensorAndNetworkSpecifiersAnimated___block_
   v18 = [v14 pui_replaceRows:v15 withRows:v16 header:v17 insertPoint:v13];
 
   [*(a1 + 32) setWebsiteNetworkActivityRows:*(a1 + 56)];
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v19 = [*(a1 + 32) websiteNetworkActivityRows];
-  v20 = [v19 countByEnumeratingWithState:&v53 objects:v57 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v52 objects:v56 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v54;
+    v22 = *v53;
     while (2)
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v54 != v22)
+        if (*v53 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = [*(*(&v53 + 1) + 8 * i) objectForKeyedSubscript:@"PUITrackerBarShowAppAttributedBadgeKey"];
+        v24 = [*(*(&v52 + 1) + 8 * i) objectForKeyedSubscript:@"PUITrackerBarShowAppAttributedBadgeKey"];
         v25 = [v24 BOOLValue];
 
         if (v25)
@@ -294,7 +320,7 @@ void __64__PUIReportController_reloadSensorAndNetworkSpecifiersAnimated___block_
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v53 objects:v57 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v52 objects:v56 count:16];
       if (v21)
       {
         continue;
@@ -318,7 +344,7 @@ LABEL_11:
 
     v31 = MEMORY[0x277CCACA8];
     v32 = PUI_LocalizedStringForAppReport(@"WEBSITE_UNVERIFIED_CONTEXT_FOOTER");
-    v52 = v18;
+    v51 = v18;
     v33 = [v31 stringWithFormat:v32, @"SF_SYMBOL_APPSTORE"];
 
     v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@\n\n%@", v29, v33];
@@ -342,7 +368,7 @@ LABEL_11:
     [v28 setObject:v35 forKeyedSubscript:@"PUIAttributedStringFooterStringKey"];
     [*(a1 + 32) reloadSpecifier:v28];
 
-    v18 = v52;
+    v18 = v51;
   }
 
   else
@@ -360,7 +386,6 @@ LABEL_11:
   v50 = [v46 pui_replaceRows:v47 withRows:v48 header:v49 insertPoint:v18];
 
   [*(a1 + 32) setDomainNetworkActivityRows:*(a1 + 64)];
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentAboutController
@@ -799,12 +824,12 @@ void __74__PUIReportController_reloadMostContactedDomainsSpecifiersWithCompletio
 
 - (void)reloadAppAndTrackingData
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v3 = _PUILoggingFacility();
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = _PUILoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[PUIReportController reloadAppAndTrackingData]";
+    v15 = "[PUIReportController reloadAppAndTrackingData]";
     _os_log_impl(&dword_2657FE000, v3, OS_LOG_TYPE_DEFAULT, "%s: Starting page load", buf, 0xCu);
   }
 
@@ -821,17 +846,15 @@ void __74__PUIReportController_reloadMostContactedDomainsSpecifiersWithCompletio
 
   v8 = dispatch_group_create();
   reportManager = [(PUIReportController *)self reportManager];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __47__PUIReportController_reloadAppAndTrackingData__block_invoke;
-  v12[3] = &unk_279BA2088;
-  v12[4] = self;
-  v13 = v8;
-  v14 = v5;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __47__PUIReportController_reloadAppAndTrackingData__block_invoke;
+  v11[3] = &unk_279BA2088;
+  v11[4] = self;
+  v12 = v8;
+  v13 = v5;
   v10 = v8;
-  [reportManager reloadEnabledWithCompletion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [reportManager reloadEnabledWithCompletion:v11];
 }
 
 void __47__PUIReportController_reloadAppAndTrackingData__block_invoke(uint64_t a1)
@@ -905,15 +928,13 @@ void __47__PUIReportController_reloadAppAndTrackingData__block_invoke_7(uint64_t
     _os_signpost_emit_with_name_impl(&dword_2657FE000, v3, OS_SIGNPOST_INTERVAL_END, v4, "PUIReportController.load", "", &v7, 2u);
   }
 
-  v5 = _PUILoggingFacility();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _PUILoggingFacility(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;
     v8 = "[PUIReportController reloadAppAndTrackingData]_block_invoke";
-    _os_log_impl(&dword_2657FE000, v5, OS_LOG_TYPE_DEFAULT, "%s: Finished page load", &v7, 0xCu);
+    _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "%s: Finished page load", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)saveAppActivityFooterText
@@ -964,6 +985,24 @@ LABEL_9:
   [(PUIReportController *)&v4 viewDidLoad];
   v3 = PUI_LocalizedStringForPrivacy(@"APP_PRIVACY_REPORT");
   [(PUIReportController *)self setTitle:v3];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = PUIReportController;
+  [(PUIReportController *)&v7 viewWillAppear:appear];
+  [MEMORY[0x277D4D8F0] trackingRecordAppActivityVisited];
+  currentDevice = [MEMORY[0x277D75418] currentDevice];
+  sf_isInternalInstall = [currentDevice sf_isInternalInstall];
+
+  if (sf_isInternalInstall)
+  {
+    v6 = [objc_alloc(MEMORY[0x277CCAE58]) initWithActivityType:@"AppTrackingTTRActivity"];
+    [v6 setEligibleForHandoff:0];
+    [v6 setUserInfo:&unk_28772B6D0];
+    [(PUIReportController *)self setUserActivity:v6];
+  }
 }
 
 - (BOOL)eitherSourceHasData
@@ -1028,9 +1067,9 @@ void __60__PUIReportController_reloadAppAccessHasDataWithCompletion___block_invo
 
 uint64_t __60__PUIReportController_reloadAppAccessHasDataWithCompletion___block_invoke_4(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(*(*(a1 + 40) + 8) + 24);
-  v3 = _PUILoggingFacility();
+  v3 = _PUILoggingFacility(a1);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2 == 1)
   {
@@ -1039,8 +1078,8 @@ uint64_t __60__PUIReportController_reloadAppAccessHasDataWithCompletion___block_
       goto LABEL_7;
     }
 
-    v10 = 136315138;
-    v11 = "[PUIReportController reloadAppAccessHasDataWithCompletion:]_block_invoke_4";
+    v9 = 136315138;
+    v10 = "[PUIReportController reloadAppAccessHasDataWithCompletion:]_block_invoke_4";
     v5 = "%s: PAAccessReader has data";
   }
 
@@ -1051,12 +1090,12 @@ uint64_t __60__PUIReportController_reloadAppAccessHasDataWithCompletion___block_
       goto LABEL_7;
     }
 
-    v10 = 136315138;
-    v11 = "[PUIReportController reloadAppAccessHasDataWithCompletion:]_block_invoke";
+    v9 = 136315138;
+    v10 = "[PUIReportController reloadAppAccessHasDataWithCompletion:]_block_invoke";
     v5 = "%s: PAAccessReader has no data";
   }
 
-  _os_log_impl(&dword_2657FE000, v3, OS_LOG_TYPE_DEFAULT, v5, &v10, 0xCu);
+  _os_log_impl(&dword_2657FE000, v3, OS_LOG_TYPE_DEFAULT, v5, &v9, 0xCu);
 LABEL_7:
 
   v6 = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -1065,10 +1104,9 @@ LABEL_7:
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))(result, v7);
+    return (*(result + 16))(result, v7);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1214,12 +1252,12 @@ uint64_t __58__PUIReportController_setRecordActivityEnabled_specifier___block_in
 
 void __33__PUIReportController_didTapSave__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = _PUILoggingFacility();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = _PUILoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[PUIReportController didTapSave]_block_invoke";
+    v6 = "[PUIReportController didTapSave]_block_invoke";
     _os_log_impl(&dword_2657FE000, v2, OS_LOG_TYPE_DEFAULT, "%s: trackingReportManager export started", buf, 0xCu);
   }
 
@@ -1230,13 +1268,11 @@ void __33__PUIReportController_didTapSave__block_invoke(uint64_t a1)
   block[3] = &unk_279BA0B28;
   block[4] = *(a1 + 32);
   dispatch_async(v3, block);
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __33__PUIReportController_didTapSave__block_invoke_294(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [getPAAccessReaderClass() fileNameForExport];
   v3 = MEMORY[0x277CBEBC0];
   v4 = MEMORY[0x277CCACA8];
@@ -1252,38 +1288,39 @@ void __33__PUIReportController_didTapSave__block_invoke_294(uint64_t a1)
   v11 = [MEMORY[0x277D41268] accessPublisherWithoutHiddenOrMissingApps:v10];
   v12 = [MEMORY[0x277D41268] accessPublisherWithoutUnknownCategoryAccesses:v11];
 
-  v26 = 0;
-  [getPAAccessReaderClass() exportFromPublisher:v12 toStream:v8 error:&v26];
-  v13 = v26;
+  v27 = 0;
+  [getPAAccessReaderClass() exportFromPublisher:v12 toStream:v8 error:&v27];
+  v13 = v27;
+  v14 = v13;
   if (v13)
   {
-    v14 = _PUILoggingFacility();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _PUILoggingFacility(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       __33__PUIReportController_didTapSave__block_invoke_294_cold_1();
     }
   }
 
-  v15 = [*(a1 + 32) reportManager];
-  v25 = 0;
-  [v15 exportToStream:v8 error:&v25];
-  v16 = v25;
+  v16 = [*(a1 + 32) reportManager];
+  v26 = 0;
+  [v16 exportToStream:v8 error:&v26];
+  v17 = v26;
 
-  v17 = _PUILoggingFacility();
-  v18 = v17;
-  if (v16)
+  v19 = _PUILoggingFacility(v18);
+  v20 = v19;
+  if (v17)
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       __33__PUIReportController_didTapSave__block_invoke_294_cold_2();
     }
   }
 
-  else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v28 = "[PUIReportController didTapSave]_block_invoke";
-    _os_log_impl(&dword_2657FE000, v18, OS_LOG_TYPE_DEFAULT, "%s: trackingReportManager export completed", buf, 0xCu);
+    v29 = "[PUIReportController didTapSave]_block_invoke";
+    _os_log_impl(&dword_2657FE000, v20, OS_LOG_TYPE_DEFAULT, "%s: trackingReportManager export completed", buf, 0xCu);
   }
 
   [v8 close];
@@ -1291,21 +1328,19 @@ void __33__PUIReportController_didTapSave__block_invoke_294(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __33__PUIReportController_didTapSave__block_invoke_299;
   block[3] = &unk_279BA10B0;
-  v19 = *(a1 + 32);
-  v23 = v7;
-  v24 = v19;
-  v20 = v7;
+  v21 = *(a1 + 32);
+  v24 = v7;
+  v25 = v21;
+  v22 = v7;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __33__PUIReportController_didTapSave__block_invoke_299(uint64_t a1)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D546D8]);
-  v22[0] = *(a1 + 32);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = *(a1 + 32);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v4 = [v2 initWithActivityItems:v3 applicationActivities:0];
 
   v5 = [*(a1 + 40) navigationItem];
@@ -1342,25 +1377,23 @@ void __33__PUIReportController_didTapSave__block_invoke_299(uint64_t a1)
   }
 
   v15 = *MEMORY[0x277D54740];
-  v21[0] = *MEMORY[0x277D54718];
-  v21[1] = v15;
+  v20[0] = *MEMORY[0x277D54718];
+  v20[1] = v15;
   v16 = *MEMORY[0x277D54780];
-  v21[2] = *MEMORY[0x277D54708];
-  v21[3] = v16;
-  v21[4] = *MEMORY[0x277D54778];
-  v21[5] = @"com.apple.reminders.RemindersEditorExtension";
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:6];
+  v20[2] = *MEMORY[0x277D54708];
+  v20[3] = v16;
+  v20[4] = *MEMORY[0x277D54778];
+  v20[5] = @"com.apple.reminders.RemindersEditorExtension";
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:6];
   [v4 setExcludedActivityTypes:v17];
 
   v18 = *(a1 + 40);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __33__PUIReportController_didTapSave__block_invoke_2;
-  v20[3] = &unk_279BA0B28;
-  v20[4] = v18;
-  [v18 presentViewController:v4 animated:1 completion:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __33__PUIReportController_didTapSave__block_invoke_2;
+  v19[3] = &unk_279BA0B28;
+  v19[4] = v18;
+  [v18 presentViewController:v4 animated:1 completion:v19];
 }
 
 void __33__PUIReportController_didTapSave__block_invoke_2(uint64_t a1)
@@ -1423,20 +1456,18 @@ LABEL_9:
 
 void __33__PUIReportController_didTapSave__block_invoke_294_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(&dword_2657FE000, v0, OS_LOG_TYPE_ERROR, "%s: PAAccessReader error: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2657FE000, v0, OS_LOG_TYPE_ERROR, "%s: PAAccessReader error: %@", v1, 0x16u);
 }
 
 void __33__PUIReportController_didTapSave__block_invoke_294_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(&dword_2657FE000, v0, OS_LOG_TYPE_ERROR, "%s: trackingReportManager export error: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2657FE000, v0, OS_LOG_TYPE_ERROR, "%s: trackingReportManager export error: %@", v1, 0x16u);
 }
 
 @end

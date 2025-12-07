@@ -19,32 +19,33 @@
 
 - (VFXAvoidOccluderConstraint)init
 {
-  v8.receiver = self;
-  v8.super_class = VFXAvoidOccluderConstraint;
-  v2 = [(VFXConstraint *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = VFXAvoidOccluderConstraint;
+  v2 = [(VFXConstraint *)&v9 init];
+  v4 = v2;
   if (v2)
   {
-    v3 = sub_1AF157E28();
-    v2->_categoryBitMask = 1;
-    v2->super._constraintRef = v3;
-    v2->_offset = 0.00001;
-    objc_msgSend_didInitConstraintRef(v2, v4, v5, v6);
+    v5 = sub_1AF157E28(v2, v3);
+    v4->_categoryBitMask = 1;
+    v4->super._constraintRef = v5;
+    v4->_offset = 0.00001;
+    objc_msgSend_didInitConstraintRef(v4, v6, v7);
   }
 
-  return v2;
+  return v4;
 }
 
 - (void)dealloc
 {
   if (self->_delegate)
   {
-    v5 = objc_msgSend_worldRef(self->_target, a2, v2, v3);
-    if (v5)
+    v4 = objc_msgSend_worldRef(self->_target, a2, v2);
+    if (v4)
     {
-      v6 = v5;
-      sub_1AF1CEA20(v5);
+      v6 = v4;
+      sub_1AF1CEA20(v4, v5);
       sub_1AF157274(self->super._constraintRef, 0);
-      sub_1AF1CEA9C(v6);
+      sub_1AF1CEA9C(v6, v7);
     }
 
     else
@@ -53,9 +54,9 @@
     }
   }
 
-  v7.receiver = self;
-  v7.super_class = VFXAvoidOccluderConstraint;
-  [(VFXConstraint *)&v7 dealloc];
+  v8.receiver = self;
+  v8.super_class = VFXAvoidOccluderConstraint;
+  [(VFXConstraint *)&v8 dealloc];
 }
 
 + (id)avoidOccluderConstraint
@@ -68,7 +69,7 @@
 + (id)avoidOccluderConstraintWithTarget:(id)target
 {
   v4 = objc_alloc_init(VFXAvoidOccluderConstraint);
-  objc_msgSend_setTarget_(v4, v5, target, v6);
+  objc_msgSend_setTarget_(v4, v5, target);
   return v4;
 }
 
@@ -88,19 +89,19 @@
     }
   }
 
-  objc_msgSend_enumerateAnimationReferencesUsingBlock_(self, target, block, block);
+  objc_msgSend_enumerateAnimationReferencesUsingBlock_(self, target, block);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(objc_opt_class());
-  v8 = objc_msgSend_target(self, v5, v6, v7);
-  objc_msgSend_setTarget_(v4, v9, v8, v10);
-  v14 = objc_msgSend_occluderCategoryBitMask(self, v11, v12, v13);
-  objc_msgSend_setOccluderCategoryBitMask_(v4, v15, v14, v16);
-  objc_msgSend_bias(self, v17, v18, v19);
-  objc_msgSend_setBias_(v4, v20, v21, v22);
-  objc_msgSend_copyTo_(self, v23, v4, v24);
+  v7 = objc_msgSend_target(self, v5, v6);
+  objc_msgSend_setTarget_(v4, v8, v7);
+  v11 = objc_msgSend_occluderCategoryBitMask(self, v9, v10);
+  objc_msgSend_setOccluderCategoryBitMask_(v4, v12, v11);
+  objc_msgSend_bias(self, v13, v14);
+  objc_msgSend_setBias_(v4, v15, v16);
+  objc_msgSend_copyTo_(self, v17, v4);
   return v4;
 }
 
@@ -113,41 +114,41 @@
     {
       if (objc_opt_respondsToSelector())
       {
-        v5 = sub_1AF2BC418;
+        v4 = sub_1AF2BC418;
       }
 
       else
       {
-        v5 = 0;
+        v4 = 0;
       }
 
-      v6 = (objc_opt_respondsToSelector() & 1) == 0;
-      v8 = nullsub_187;
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = sub_1AF2BC4A4;
-      v12[3] = &unk_1E7A7E5F0;
-      if (v6)
+      v5 = (objc_opt_respondsToSelector() & 1) == 0;
+      v7 = nullsub_187;
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = sub_1AF2BC4A4;
+      v13[3] = &unk_1E7A7E5F0;
+      if (v5)
       {
-        v8 = 0;
+        v7 = 0;
       }
 
-      v12[4] = self;
-      v12[5] = v5;
-      v12[6] = v8;
-      objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v12);
+      v13[4] = self;
+      v13[5] = v4;
+      v13[6] = v7;
+      objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v6, self, v13);
     }
 
     else
     {
-      v9 = objc_msgSend_worldRef(self->_target, a2, 0, v3);
-      if (v9)
+      v8 = objc_msgSend_worldRef(self->_target, a2, 0);
+      if (v8)
       {
-        v10 = v9;
-        sub_1AF1CEA20(v9);
+        v10 = v8;
+        sub_1AF1CEA20(v8, v9);
         sub_1AF157274(self->super._constraintRef, 0);
 
-        sub_1AF1CEA9C(v10);
+        sub_1AF1CEA9C(v10, v11);
       }
 
       else
@@ -170,16 +171,16 @@
     self->_target = targetCopy;
     if (targetCopy)
     {
-      targetCopy = objc_msgSend_nodeRef(targetCopy, v7, v8, v9);
+      targetCopy = objc_msgSend_nodeRef(targetCopy, v7, v8);
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF2BC5C4;
-    v10[3] = &unk_1E7A7E248;
-    v10[4] = self;
-    v10[5] = targetCopy;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v10);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1AF2BC5C4;
+    v9[3] = &unk_1E7A7E248;
+    v9[4] = self;
+    v9[5] = targetCopy;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v9);
   }
 }
 
@@ -203,7 +204,7 @@
   v3[2] = sub_1AF2BC70C;
   v3[3] = &unk_1E7A7E270;
   v3[4] = self;
-  biasCopy = bias;
+  *&v4 = bias;
   objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, a2, self, v3);
 }
 
@@ -219,44 +220,45 @@
 - (void)_customDecodingOfVFXAvoidOccluderConstraint:(id)constraint
 {
   v5 = objc_opt_class();
-  self->_target = objc_msgSend_decodeObjectOfClass_forKey_(constraint, v6, v5, @"target");
-  v7 = sub_1AF157E28();
-  self->super._constraintRef = v7;
-  v11 = objc_msgSend_nodeRef(self->_target, v8, v9, v10);
-  sub_1AF15001C(v7, v11);
+  v7 = objc_msgSend_decodeObjectOfClass_forKey_(constraint, v6, v5, @"target");
+  self->_target = v7;
+  v9 = sub_1AF157E28(v7, v8);
+  self->super._constraintRef = v9;
+  v12 = objc_msgSend_nodeRef(self->_target, v10, v11);
+  sub_1AF15001C(v9, v12);
 
-  objc_msgSend_finalizeDecodeConstraint_(self, v12, constraint, v13);
+  objc_msgSend_finalizeDecodeConstraint_(self, v13, constraint);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v11.receiver = self;
-  v11.super_class = VFXAvoidOccluderConstraint;
-  [(VFXConstraint *)&v11 encodeWithCoder:?];
-  objc_msgSend__customEncodingOfVFXAvoidOccluderConstraint_(self, v5, coder, v6);
-  objc_msgSend_encodeInteger_forKey_(coder, v7, self->_categoryBitMask, @"categoryBitMask");
-  *&v8 = self->_offset;
-  objc_msgSend_encodeFloat_forKey_(coder, v9, @"bias", v10, v8);
+  v9.receiver = self;
+  v9.super_class = VFXAvoidOccluderConstraint;
+  [(VFXConstraint *)&v9 encodeWithCoder:?];
+  objc_msgSend__customEncodingOfVFXAvoidOccluderConstraint_(self, v5, coder);
+  objc_msgSend_encodeInteger_forKey_(coder, v6, self->_categoryBitMask, @"categoryBitMask");
+  *&v7 = self->_offset;
+  objc_msgSend_encodeFloat_forKey_(coder, v8, @"bias", v7);
 }
 
 - (VFXAvoidOccluderConstraint)initWithCoder:(id)coder
 {
-  v26.receiver = self;
-  v26.super_class = VFXAvoidOccluderConstraint;
-  v7 = [(VFXConstraint *)&v26 initWithCoder:?];
-  if (v7)
+  v18.receiver = self;
+  v18.super_class = VFXAvoidOccluderConstraint;
+  v6 = [(VFXConstraint *)&v18 initWithCoder:?];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    objc_msgSend__customDecodingOfVFXAvoidOccluderConstraint_(v7, v11, coder, v12);
-    v15 = objc_msgSend_decodeIntegerForKey_(coder, v13, @"categoryBitMask", v14);
-    objc_msgSend_setOccluderCategoryBitMask_(v7, v16, v15, v17);
-    objc_msgSend_decodeFloatForKey_(coder, v18, @"bias", v19);
-    objc_msgSend_setBias_(v7, v20, v21, v22);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v23, v8, v24);
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    objc_msgSend__customDecodingOfVFXAvoidOccluderConstraint_(v6, v9, coder);
+    v11 = objc_msgSend_decodeIntegerForKey_(coder, v10, @"categoryBitMask");
+    objc_msgSend_setOccluderCategoryBitMask_(v6, v12, v11);
+    objc_msgSend_decodeFloatForKey_(coder, v13, @"bias");
+    objc_msgSend_setBias_(v6, v14, v15);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v16, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 @end

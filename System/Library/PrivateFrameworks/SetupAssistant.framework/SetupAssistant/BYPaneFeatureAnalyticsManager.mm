@@ -34,49 +34,47 @@
 
 - (void)recordActionWithValue:(id)value previousValue:(id)previousValue forFeature:(int64_t)feature
 {
-  v27[6] = *MEMORY[0x1E69E9840];
+  v26[6] = *MEMORY[0x1E69E9840];
   previousValueCopy = previousValue;
   v9 = MEMORY[0x1E695DF90];
-  v25 = previousValueCopy;
-  v26[0] = @"feature";
+  v24 = previousValueCopy;
+  v25[0] = @"feature";
   valueCopy = value;
-  v24 = [objc_opt_class() _nameForFeature:feature];
-  v27[0] = v24;
-  v27[1] = valueCopy;
-  v26[1] = @"value";
-  v26[2] = @"differsFromExpress";
+  v23 = [objc_opt_class() _nameForFeature:feature];
+  v26[0] = v23;
+  v26[1] = valueCopy;
+  v25[1] = @"value";
+  v25[2] = @"differsFromExpress";
   v11 = [(BYPaneFeatureAnalyticsManager *)self _isValueDifferentFromExpressForFeature:feature value:valueCopy];
-  v27[2] = v11;
-  v26[3] = @"hasCompletedInitialSetup";
+  v26[2] = v11;
+  v25[3] = @"hasCompletedInitialSetup";
   v12 = MEMORY[0x1E696AD98];
   runState = [(BYPaneFeatureAnalyticsManager *)self runState];
   v14 = [v12 numberWithBool:{objc_msgSend(runState, "hasCompletedInitialRun")}];
-  v27[3] = v14;
-  v26[4] = @"host";
+  v26[3] = v14;
+  v25[4] = @"host";
   host = [(BYPaneFeatureAnalyticsManager *)self host];
-  v27[4] = host;
-  v26[5] = @"disposition";
+  v26[4] = host;
+  v25[5] = @"disposition";
   flowItemDispositionProvider = [(BYPaneFeatureAnalyticsManager *)self flowItemDispositionProvider];
   v17 = BYStringForFlowItemDispositions([flowItemDispositionProvider dispositions]);
-  v27[5] = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:6];
+  v26[5] = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:6];
   v19 = [v9 dictionaryWithDictionary:v18];
 
-  if (v25)
+  if (v24)
   {
     runState2 = [(BYPaneFeatureAnalyticsManager *)self runState];
     hasCompletedInitialRun = [runState2 hasCompletedInitialRun];
 
     if (hasCompletedInitialRun)
     {
-      [v19 setObject:v25 forKeyedSubscript:@"previousValue"];
+      [v19 setObject:v24 forKeyedSubscript:@"previousValue"];
     }
   }
 
   analyticsManager = [(BYPaneFeatureAnalyticsManager *)self analyticsManager];
   [analyticsManager addEvent:@"com.apple.setupassistant.ios.paneFeatureAction" withPayload:v19 persist:0];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearActionForFeature:(int64_t)feature
@@ -97,17 +95,16 @@ uint64_t __55__BYPaneFeatureAnalyticsManager_clearActionForFeature___block_invok
   if ([a2 isEqualToString:@"com.apple.setupassistant.ios.paneFeatureAction"])
   {
     v6 = [v5 objectForKeyedSubscript:@"feature"];
-    v7 = *(a1 + 32);
-    v8 = [objc_opt_class() _nameForFeature:*(a1 + 40)];
-    v9 = [v6 isEqualToString:v8];
+    v7 = [objc_opt_class() _nameForFeature:*(a1 + 40)];
+    v8 = [v6 isEqualToString:v7];
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (void)setExpressDataSource:(id)source features:(id)features

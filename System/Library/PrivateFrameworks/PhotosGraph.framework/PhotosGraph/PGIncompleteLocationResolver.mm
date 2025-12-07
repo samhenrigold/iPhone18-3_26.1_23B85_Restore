@@ -10,43 +10,43 @@
 
 - (id)_resolvedAddressForIncompleteAddress:(id)address withTargetDimension:(unint64_t)dimension resolvedDimension:(unint64_t *)resolvedDimension resolvedLocation:(id *)location addresses:(id)addresses
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   addressesCopy = addresses;
   selfCopy = self;
   [objc_opt_class() _maxDistanceForDimension:dimension];
   v15 = v14;
   [addressCopy coordinate];
-  v40 = v16;
-  v41 = v17;
+  v39 = v16;
+  v40 = v17;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v18 = addressesCopy;
-  v19 = [v18 countByEnumeratingWithState:&v36 objects:v42 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (v19)
   {
     v20 = v19;
     locationCopy = location;
     resolvedDimensionCopy = resolvedDimension;
-    v21 = *v37;
+    v21 = *v36;
     while (2)
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v37 != v21)
+        if (*v36 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v36 + 1) + 8 * i);
+        v23 = *(*(&v35 + 1) + 8 * i);
         if (([v23 isSameNodeAsNode:{addressCopy, locationCopy, resolvedDimensionCopy}] & 1) == 0)
         {
           [v23 coordinate];
-          if (CLLocationCoordinate2DIsValid(v45))
+          if (CLLocationCoordinate2DIsValid(v44))
           {
             CLLocationCoordinate2DGetDistanceFrom();
             if (v24 <= v15)
@@ -77,7 +77,7 @@
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v35 objects:v41 count:16];
       if (v20)
       {
         continue;
@@ -90,8 +90,6 @@
 LABEL_15:
   v28 = 0;
 LABEL_19:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -122,7 +120,7 @@ LABEL_19:
 
 - (id)_resolvedLocationNodeForIncompleteAddressNode:(id)node withTargetDimension:(unint64_t)dimension resolvedDimension:(unint64_t *)resolvedDimension continueResolvingHigherDimensions:(BOOL)dimensions
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   v11 = [(PGIncompleteLocationResolver *)self _resolveIdentifierForIncompleteAddressNode:nodeCopy withTargetDimension:dimension];
   v12 = [(NSMutableDictionary *)self->_resolvedLocationNodesCache objectForKeyedSubscript:v11];
@@ -150,30 +148,30 @@ LABEL_31:
   }
 
   [nodeCopy coordinate];
-  latitude = v42.latitude;
-  longitude = v42.longitude;
-  if (CLLocationCoordinate2DIsValid(v42))
+  latitude = v41.latitude;
+  longitude = v41.longitude;
+  if (CLLocationCoordinate2DIsValid(v41))
   {
     resolvedDimensionCopy = resolvedDimension;
     allObjects = [(NSSet *)self->_addressNodes allObjects];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __150__PGIncompleteLocationResolver__resolvedLocationNodeForIncompleteAddressNode_withTargetDimension_resolvedDimension_continueResolvingHigherDimensions___block_invoke;
-    v35[3] = &__block_descriptor_48_e51_q24__0__PGGraphAddressNode_8__PGGraphAddressNode_16l;
-    *&v35[4] = latitude;
-    *&v35[5] = longitude;
-    v20 = [allObjects sortedArrayUsingComparator:v35];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __150__PGIncompleteLocationResolver__resolvedLocationNodeForIncompleteAddressNode_withTargetDimension_resolvedDimension_continueResolvingHigherDimensions___block_invoke;
+    v34[3] = &__block_descriptor_48_e51_q24__0__PGGraphAddressNode_8__PGGraphAddressNode_16l;
+    *&v34[4] = latitude;
+    *&v34[5] = longitude;
+    v20 = [allObjects sortedArrayUsingComparator:v34];
 
     v21 = 0;
-    v34 = 0;
+    v33 = 0;
     dimensionCopy = dimension;
     do
     {
       v23 = dimensionCopy;
       v24 = v21;
-      v33 = v21;
-      v25 = [(PGIncompleteLocationResolver *)self _resolvedAddressForIncompleteAddress:nodeCopy withTargetDimension:dimensionCopy resolvedDimension:&v34 resolvedLocation:&v33 sortedAddresses:v20];
-      v21 = v33;
+      v32 = v21;
+      v25 = [(PGIncompleteLocationResolver *)self _resolvedAddressForIncompleteAddress:nodeCopy withTargetDimension:dimensionCopy resolvedDimension:&v33 resolvedLocation:&v32 sortedAddresses:v20];
+      v21 = v32;
 
       dimensionCopy = v23 + 1;
     }
@@ -194,14 +192,14 @@ LABEL_19:
           v28 = v11;
           v11 = [(PGIncompleteLocationResolver *)self _resolveIdentifierForIncompleteAddressNode:nodeCopy withTargetDimension:v23];
 
-          if (v21 && v23 == v34)
+          if (v21 && v23 == v33)
           {
             if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
             {
               *buf = 138478083;
-              v37 = nodeCopy;
-              v38 = 2113;
-              v39 = v21;
+              v36 = nodeCopy;
+              v37 = 2113;
+              v38 = v21;
               _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_INFO, "Resolved incomplete address %{private}@ to location %{private}@", buf, 0x16u);
             }
 
@@ -222,7 +220,7 @@ LABEL_19:
 
       if (resolvedDimensionCopy)
       {
-        *resolvedDimensionCopy = v34;
+        *resolvedDimensionCopy = v33;
       }
 
       v16 = v21;
@@ -231,7 +229,7 @@ LABEL_19:
     }
 
     v21 = 0;
-    v34 = 0;
+    v33 = 0;
     goto LABEL_19;
   }
 
@@ -245,8 +243,6 @@ LABEL_19:
   }
 
 LABEL_32:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

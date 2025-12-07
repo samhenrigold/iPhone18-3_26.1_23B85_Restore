@@ -336,25 +336,26 @@
   v6 = unreadCountToken;
   if (unreadCountToken)
   {
-    isCanceled = [unreadCountToken isCanceled];
+    unreadCountToken = [unreadCountToken isCanceled];
+    v7 = unreadCountToken;
   }
 
   else
   {
-    isCanceled = 1;
+    v7 = 1;
   }
 
-  v8 = sub_1000203A0();
+  v8 = sub_1000203A0(unreadCountToken);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9[0] = 67109378;
-    v9[1] = isCanceled;
+    v9[1] = v7;
     v10 = 2114;
     v11 = v6;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Starting count query %{BOOL}d token: %{public}@", v9, 0x12u);
   }
 
-  if (isCanceled)
+  if (v7)
   {
     [(SharedMailboxController *)self _updateMailboxes];
     [(SharedMailboxController *)self _startCountQueryWithToken:tokenCopy];
@@ -378,44 +379,44 @@
 
   if (v10)
   {
-    v29[0] = v7;
-    v29[1] = v10;
-    v11 = [NSArray arrayWithObjects:v29 count:2];
-    v12 = [NSCompoundPredicate andPredicateWithSubpredicates:v11];
+    v30[0] = v7;
+    v30[1] = v10;
+    v12 = [NSArray arrayWithObjects:v30 count:2];
+    v13 = [NSCompoundPredicate andPredicateWithSubpredicates:v12];
 
-    v7 = v12;
+    v7 = v13;
   }
 
-  if (v7 && [(NSArray *)self->_mailboxes count])
+  if (v7 && (v11 = [(NSArray *)self->_mailboxes count]) != 0)
   {
-    v13 = +[UIApplication sharedApplication];
-    focusController = [v13 focusController];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_10024B4C0;
-    v18[3] = &unk_100656888;
-    v18[4] = self;
-    v19 = v7;
-    v20 = tokenCopy;
-    [focusController getCurrentFocus:v18];
+    v14 = +[UIApplication sharedApplication];
+    focusController = [v14 focusController];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_10024B4C0;
+    v19[3] = &unk_100656888;
+    v19[4] = self;
+    v20 = v7;
+    v21 = tokenCopy;
+    [focusController getCurrentFocus:v19];
   }
 
   else
   {
-    v15 = sub_1000203A0();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_1000203A0(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = objc_opt_class();
-      v17 = [(NSArray *)self->_mailboxes count];
+      v17 = objc_opt_class();
+      v18 = [(NSArray *)self->_mailboxes count];
       *buf = 138544130;
-      v22 = v16;
-      v23 = 2048;
-      v24 = v10;
-      v25 = 2048;
-      v26 = v7;
-      v27 = 2048;
-      v28 = v17;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ not starting query: scopePredicate: %p, countPredicate: %p, _mailboxes.count %ld", buf, 0x2Au);
+      v23 = v17;
+      v24 = 2048;
+      v25 = v10;
+      v26 = 2048;
+      v27 = v7;
+      v28 = 2048;
+      v29 = v18;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ not starting query: scopePredicate: %p, countPredicate: %p, _mailboxes.count %ld", buf, 0x2Au);
     }
   }
 }

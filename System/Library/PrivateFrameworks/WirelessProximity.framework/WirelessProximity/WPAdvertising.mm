@@ -3,6 +3,9 @@
 + (unsigned)puckStringToType:(id)type;
 - (WPAdvertising)initWithDelegate:(id)delegate queue:(id)queue;
 - (id)parseCompanyData:(id)data;
+- (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)advertisingPendingOfType:(unsigned __int8)type;
+- (void)advertisingStartedOfType:(unsigned __int8)type;
 - (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error;
 - (void)deregisterService:(id)service;
 - (void)invalidate;
@@ -140,6 +143,18 @@
   }
 }
 
+- (void)advertisingStartedOfType:(unsigned __int8)type
+{
+  delegate = [(WPAdvertising *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPAdvertising *)self delegate];
+    [delegate2 advertiserDidRegisterService];
+  }
+}
+
 - (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error
 {
   errorCopy = error;
@@ -155,25 +170,49 @@
   }
 }
 
+- (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type
+{
+  v5 = [(WPAdvertising *)self delegate:start];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    delegate = [(WPAdvertising *)self delegate];
+    [delegate advertiserFailedToRegisterService];
+  }
+}
+
+- (void)advertisingPendingOfType:(unsigned __int8)type
+{
+  delegate = [(WPAdvertising *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPAdvertising *)self delegate];
+    [delegate2 advertiserPendingServiceOfType:0];
+  }
+}
+
 - (id)parseCompanyData:(id)data
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = [dataCopy objectForKeyedSubscript:@"WPBeaconTypeCompanyMajor"];
   v5 = [dataCopy objectForKeyedSubscript:@"WPBeaconTypeCompanyMinor"];
   v6 = [dataCopy objectForKeyedSubscript:@"WPBeaconTX"];
   v7 = [dataCopy objectForKeyedSubscript:@"WPBeaconTypeCompanyUUID"];
   v8 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v7];
-  memset(v22, 0, 22);
-  [v8 getUUIDBytes:v22];
+  memset(v21, 0, 22);
+  [v8 getUUIDBytes:v21];
   if (v4)
   {
-    LOBYTE(v22[2]) = [v4 integerValue] >> 8;
-    BYTE1(v22[2]) = [v4 integerValue];
+    LOBYTE(v21[2]) = [v4 integerValue] >> 8;
+    BYTE1(v21[2]) = [v4 integerValue];
     if (v5)
     {
-      BYTE2(v22[2]) = [v5 integerValue] >> 8;
-      BYTE3(v22[2]) = [v5 integerValue];
+      BYTE2(v21[2]) = [v5 integerValue] >> 8;
+      BYTE3(v21[2]) = [v5 integerValue];
     }
   }
 
@@ -191,14 +230,14 @@
     }
   }
 
-  BYTE4(v22[2]) = [v6 integerValue];
+  BYTE4(v21[2]) = [v6 integerValue];
   if (+[WPClient isHomePodOrIOS])
   {
     v16 = [dataCopy objectForKeyedSubscript:@"WPBeaconTypeCompanyConfig"];
     v17 = v16;
     if (v16)
     {
-      BYTE5(v22[2]) = [v16 integerValue];
+      BYTE5(v21[2]) = [v16 integerValue];
       v18 = 22;
     }
 
@@ -213,32 +252,30 @@
     v18 = 21;
   }
 
-  v19 = [MEMORY[0x277CBEA90] dataWithBytes:v22 length:v18];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [MEMORY[0x277CBEA90] dataWithBytes:v21 length:v18];
 
   return v19;
 }
 
 - (void)registerService:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_274327000, a2, a3, "Attempting to register WPAdvertising client with data: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_274327000, a2, a3, "Attempting to register WPAdvertising client with data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)deregisterService:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_274327000, a2, a3, "Attempting to deregister WPAdvertiisng client with data %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_274327000, a2, a3, "Attempting to deregister WPAdvertiisng client with data %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)parseCompanyData:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_274327000, a2, a3, "No major value set for WPAdvertising request %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_274327000, a2, a3, "No major value set for WPAdvertising request %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

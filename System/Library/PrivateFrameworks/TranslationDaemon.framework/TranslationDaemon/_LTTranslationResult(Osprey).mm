@@ -68,7 +68,7 @@
 
 - (void)initWithOspreyBatchResponse:()Osprey sourceText:
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = [self init];
@@ -87,8 +87,8 @@
     translated_text = [v6 translated_text];
     v13 = [v11 initWithFormattedString:translated_text sanitizedFormattedString:0 confidence:0 lowConfidence:translated_text_romanized romanization:0 tokens:0 preToPostITN:1.0];
 
-    v19[0] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     [v9 setTranslations:v14];
 
     v15 = [MEMORY[0x277CE1AE0] resultFromOspreyBatchResponse:v6 sourceText:v7];
@@ -97,13 +97,12 @@
     v16 = v9;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)updateAlignmentWithSourceSpan:()Osprey targetSpan:
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   array = [MEMORY[0x277CBEB18] array];
@@ -115,8 +114,8 @@
   if ([v7 count])
   {
     v12 = 0;
-    v30 = v7;
-    v31 = v6;
+    v29 = v7;
+    v30 = v6;
     do
     {
       if (v12 >= [v6 count])
@@ -125,30 +124,30 @@
       }
 
       v13 = [v6 objectAtIndexedSubscript:v12];
-      v33 = v12;
+      v32 = v12;
       v14 = [v7 objectAtIndexedSubscript:v12];
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
-      v32 = v14;
+      v31 = v14;
       obj = [v14 span];
-      v15 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v15 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v36;
+        v17 = *v35;
         do
         {
           v18 = 0;
           do
           {
-            if (*v36 != v17)
+            if (*v35 != v17)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v35 + 1) + 8 * v18);
+            v19 = *(*(&v34 + 1) + 8 * v18);
             v20 = objc_alloc_init(MEMORY[0x277CE1AB8]);
             identifier = [v13 identifier];
             [v20 setIdentifier:identifier];
@@ -168,24 +167,22 @@
           }
 
           while (v16 != v18);
-          v16 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+          v16 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
         }
 
         while (v16);
       }
 
-      v12 = v33 + 1;
-      v7 = v30;
-      v6 = v31;
+      v12 = v32 + 1;
+      v7 = v29;
+      v6 = v30;
     }
 
-    while (v33 + 1 < [v30 count]);
+    while (v32 + 1 < [v29 count]);
   }
 
   [array sortUsingComparator:&__block_literal_global_19_0];
   [selfCopy setAlignments:array];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

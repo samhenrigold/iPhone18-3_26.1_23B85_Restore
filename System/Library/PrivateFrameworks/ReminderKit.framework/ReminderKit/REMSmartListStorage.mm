@@ -256,7 +256,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v134 = *MEMORY[0x1E69E9840];
+  v133 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   v5 = equalCopy;
   if (equalCopy != self)
@@ -602,17 +602,17 @@
               v113 = +[REMLogStore read];
               if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
               {
-                v124 = objc_opt_class();
-                v125 = NSStringFromClass(v124);
+                v123 = objc_opt_class();
+                v124 = NSStringFromClass(v123);
                 resolutionTokenMap = self->_resolutionTokenMap;
-                v127 = v6->_resolutionTokenMap;
-                v128 = 138543874;
-                v129 = v125;
-                v130 = 2112;
-                v131 = resolutionTokenMap;
-                v132 = 2112;
-                v133 = v127;
-                _os_log_error_impl(&dword_19A0DB000, v113, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the resolution token map from JSON data. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-map: %@, other-map: %@}", &v128, 0x20u);
+                v126 = v6->_resolutionTokenMap;
+                v127 = 138543874;
+                v128 = v124;
+                v129 = 2112;
+                v130 = resolutionTokenMap;
+                v131 = 2112;
+                v132 = v126;
+                _os_log_error_impl(&dword_19A0DB000, v113, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the resolution token map from JSON data. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-map: %@, other-map: %@}", &v127, 0x20u);
               }
             }
 
@@ -657,7 +657,6 @@ LABEL_86:
   v13 = 1;
 LABEL_88:
 
-  v122 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -826,11 +825,10 @@ LABEL_88:
 
 - (void)resolutionTokenMap
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Nil resolutionTokenMapData when reading resolutionTokenMap from smartlist storage. Initialize an empty map {smartlist: %@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Nil resolutionTokenMapData when reading resolutionTokenMap from smartlist storage. Initialize an empty map {smartlist: %@}", &v2, 0xCu);
 }
 
 @end

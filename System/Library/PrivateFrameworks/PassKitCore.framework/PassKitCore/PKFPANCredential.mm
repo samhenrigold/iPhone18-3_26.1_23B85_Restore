@@ -17,7 +17,7 @@
 - (PKFPANCredential)initWithSafariDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v5 = _MergedGlobals_32[0]();
+  v5 = _MergedGlobals_32();
   v6 = [dictionaryCopy objectForKeyedSubscript:v5];
   pk_stringIfNotEmpty = [v6 pk_stringIfNotEmpty];
   pk_zString = [pk_stringIfNotEmpty pk_zString];
@@ -31,21 +31,21 @@
     if (v9)
     {
       objc_storeStrong(&v9->_cardNumber, pk_zString);
-      v11 = off_1EE7B03C0[0]();
+      v11 = off_1EE7B03C0();
       v12 = [dictionaryCopy objectForKeyedSubscript:v11];
       pk_stringIfNotEmpty2 = [v12 pk_stringIfNotEmpty];
       pk_zString2 = [pk_stringIfNotEmpty2 pk_zString];
       securityCode = v10->_securityCode;
       v10->_securityCode = pk_zString2;
 
-      v16 = off_1EE7B03C8[0]();
+      v16 = off_1EE7B03C8();
       v17 = [dictionaryCopy objectForKeyedSubscript:v16];
       pk_stringIfNotEmpty3 = [v17 pk_stringIfNotEmpty];
       pk_zString3 = [pk_stringIfNotEmpty3 pk_zString];
       cardholderName = v10->_cardholderName;
       v10->_cardholderName = pk_zString3;
 
-      v21 = off_1EE7B03D0[0]();
+      v21 = off_1EE7B03D0();
       v22 = [dictionaryCopy objectForKeyedSubscript:v21];
       pk_stringIfNotEmpty4 = [v22 pk_stringIfNotEmpty];
       pk_zString4 = [pk_stringIfNotEmpty4 pk_zString];
@@ -54,7 +54,7 @@
       [(PKPaymentCredential *)v10 setCardType:1];
       [(PKPaymentCredential *)v10 setDeletable:1];
       v25 = PKExpirationDateFormatter();
-      v26 = off_1EE7B03D8[0]();
+      v26 = off_1EE7B03D8();
       v27 = [dictionaryCopy objectForKeyedSubscript:v26];
 
       if (v27)
@@ -269,7 +269,7 @@
     v9 = v8;
     if (v7 == v8)
     {
-      v11 = 1;
+      isEqualToString = 1;
     }
 
     else
@@ -286,22 +286,22 @@
 
       if (v10)
       {
-        v11 = 0;
+        isEqualToString = 0;
       }
 
       else
       {
-        v11 = [(NSString *)v7 isEqualToString:v8];
+        isEqualToString = objc_msgSend_isEqualToString_(v7);
       }
     }
   }
 
   else
   {
-    v11 = 0;
+    isEqualToString = 0;
   }
 
-  return v11;
+  return isEqualToString;
 }
 
 @end

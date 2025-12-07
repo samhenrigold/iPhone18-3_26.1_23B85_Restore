@@ -32,10 +32,8 @@
 
 - (id)getView
 {
-  v3 = *(*(sub_243C6EF78() - 8) + 64);
-  MEMORY[0x28223BE20]();
-  v8 = *(&self->super.isa + OBJC_IVAR____TtC21CommunicationsSetupUI28CKSettingsCheckInDevicesList_view);
-  v9 = self->view[OBJC_IVAR____TtC21CommunicationsSetupUI28CKSettingsCheckInDevicesList_view];
+  v3 = sub_243C6EF78();
+  MEMORY[0x28223BE20](v3 - 8);
   v4 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BB0, &qword_243C83AF0));
   selfCopy = self;
   v6 = sub_243C6EF38();

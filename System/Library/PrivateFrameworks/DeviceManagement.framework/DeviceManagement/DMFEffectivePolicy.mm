@@ -341,17 +341,15 @@ LABEL_14:
 
 void __52__DMFEffectivePolicy_unblockableCategoryIdentifiers__block_invoke()
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v5[2] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
   v1 = *MEMORY[0x1E6993B50];
-  v6[0] = *MEMORY[0x1E6993B38];
-  v6[1] = v1;
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
+  v5[0] = *MEMORY[0x1E6993B38];
+  v5[1] = v1;
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
   v3 = [v0 setWithArray:v2];
   v4 = unblockableCategoryIdentifiers_unblockableCategoryIdentifiers;
   unblockableCategoryIdentifiers_unblockableCategoryIdentifiers = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (NSSet)systemCategoryIdentifiers
@@ -368,18 +366,16 @@ void __52__DMFEffectivePolicy_unblockableCategoryIdentifiers__block_invoke()
 
 void __47__DMFEffectivePolicy_systemCategoryIdentifiers__block_invoke()
 {
-  v6[3] = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
   v1 = *MEMORY[0x1E6993B28];
-  v6[0] = *MEMORY[0x1E6993B38];
-  v6[1] = v1;
-  v6[2] = *MEMORY[0x1E6993B50];
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
+  v5[0] = *MEMORY[0x1E6993B38];
+  v5[1] = v1;
+  v5[2] = *MEMORY[0x1E6993B50];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:3];
   v3 = [v0 setWithArray:v2];
   v4 = systemCategoryIdentifiers_systemCategoryIdentifiers;
   systemCategoryIdentifiers_systemCategoryIdentifiers = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (NSSet)downtimeCategoryIdentifiers
@@ -401,22 +397,21 @@ void __47__DMFEffectivePolicy_systemCategoryIdentifiers__block_invoke()
 
 void __49__DMFEffectivePolicy_downtimeCategoryIdentifiers__block_invoke(uint64_t a1)
 {
-  v2 = MEMORY[0x1E695DFA8];
-  v3 = [MEMORY[0x1E6993B90] sharedCategories];
-  v4 = [v3 availableCategoryIDs];
-  v5 = [v2 setWithArray:v4];
-  v6 = downtimeCategoryIdentifiers_downtimeCategoryIdentifiers;
-  downtimeCategoryIdentifiers_downtimeCategoryIdentifiers = v5;
+  v1 = MEMORY[0x1E695DFA8];
+  v2 = [MEMORY[0x1E6993B90] sharedCategories];
+  v3 = [v2 availableCategoryIDs];
+  v4 = [v1 setWithArray:v3];
+  v5 = downtimeCategoryIdentifiers_downtimeCategoryIdentifiers;
+  downtimeCategoryIdentifiers_downtimeCategoryIdentifiers = v4;
 
-  v7 = downtimeCategoryIdentifiers_downtimeCategoryIdentifiers;
-  v8 = *(a1 + 32);
-  v9 = [objc_opt_class() systemCategoryIdentifiers];
-  [v7 minusSet:v9];
+  v6 = downtimeCategoryIdentifiers_downtimeCategoryIdentifiers;
+  v7 = [objc_opt_class() systemCategoryIdentifiers];
+  [v6 minusSet:v7];
 }
 
 - (int64_t)policyForIdentifier:(id)identifier excludableIdentifiers:(id)identifiers
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   identifiersCopy = identifiers;
   defaultPolicy = [(DMFEffectivePolicy *)self defaultPolicy];
@@ -429,35 +424,35 @@ void __49__DMFEffectivePolicy_downtimeCategoryIdentifiers__block_invoke(uint64_t
     if (v11)
     {
       v12 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(excludedIdentifiers, "count")}];
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __64__DMFEffectivePolicy_policyForIdentifier_excludableIdentifiers___block_invoke;
-      v29[3] = &unk_1E8616810;
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __64__DMFEffectivePolicy_policyForIdentifier_excludableIdentifiers___block_invoke;
+      v28[3] = &unk_1E8616810;
       v13 = v12;
-      v30 = v13;
-      v31 = defaultPolicy;
-      v24 = excludedIdentifiers;
-      [excludedIdentifiers enumerateObjectsUsingBlock:v29];
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
+      v29 = v13;
+      v30 = defaultPolicy;
+      v23 = excludedIdentifiers;
+      [excludedIdentifiers enumerateObjectsUsingBlock:v28];
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       currentPoliciesByIdentifier = identifiersCopy;
-      v15 = [currentPoliciesByIdentifier countByEnumeratingWithState:&v25 objects:v32 count:16];
+      v15 = [currentPoliciesByIdentifier countByEnumeratingWithState:&v24 objects:v31 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v26;
+        v17 = *v25;
 LABEL_5:
         v18 = 0;
         while (1)
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(currentPoliciesByIdentifier);
           }
 
-          v19 = [(DMFEffectivePolicy *)self _valueForMatchingHostName:*(*(&v25 + 1) + 8 * v18) inRegisteredHostNames:v13];
+          v19 = [(DMFEffectivePolicy *)self _valueForMatchingHostName:*(*(&v24 + 1) + 8 * v18) inRegisteredHostNames:v13];
           if (v19)
           {
             break;
@@ -465,7 +460,7 @@ LABEL_5:
 
           if (v16 == ++v18)
           {
-            v16 = [currentPoliciesByIdentifier countByEnumeratingWithState:&v25 objects:v32 count:16];
+            v16 = [currentPoliciesByIdentifier countByEnumeratingWithState:&v24 objects:v31 count:16];
             if (v16)
             {
               goto LABEL_5;
@@ -486,7 +481,7 @@ LABEL_11:
 
       v20 = v19;
 
-      excludedIdentifiers = v24;
+      excludedIdentifiers = v23;
       if (!v20)
       {
         goto LABEL_17;
@@ -514,7 +509,6 @@ LABEL_11:
 LABEL_17:
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return defaultPolicy;
 }
 
@@ -611,7 +605,7 @@ LABEL_10:
 
 - (BOOL)hasRestrictivePolicies
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(DMFEffectivePolicy *)self downtimeEnforced]|| [(DMFEffectivePolicy *)self defaultPolicy])
   {
     LOBYTE(v3) = 1;
@@ -619,34 +613,34 @@ LABEL_10:
 
   else
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     currentPoliciesByIdentifier = [(DMFEffectivePolicy *)self currentPoliciesByIdentifier];
     allValues = [currentPoliciesByIdentifier allValues];
 
-    v3 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v3 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v3)
     {
-      v8 = *v11;
+      v7 = *v10;
       while (2)
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v11 != v8)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(allValues);
           }
 
-          if ([*(*(&v10 + 1) + 8 * i) integerValue])
+          if ([*(*(&v9 + 1) + 8 * i) integerValue])
           {
             LOBYTE(v3) = 1;
             goto LABEL_15;
           }
         }
 
-        v3 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v3 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v3)
         {
           continue;
@@ -659,7 +653,6 @@ LABEL_10:
 LABEL_15:
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

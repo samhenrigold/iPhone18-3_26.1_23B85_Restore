@@ -103,7 +103,7 @@ LABEL_12:
 
 - (id)_descriptionDict
 {
-  v11[4] = *MEMORY[0x1E69E9840];
+  v10[4] = *MEMORY[0x1E69E9840];
   offset = self->_offset;
   if (offset == 0xFFFFFFFF)
   {
@@ -120,19 +120,17 @@ LABEL_12:
     v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%zu", self->_offset];
   }
 
-  v10[0] = @"streamId";
-  v10[1] = @"segmentName";
+  v9[0] = @"streamId";
+  v9[1] = @"segmentName";
   segmentName = self->_segmentName;
-  v11[0] = self->_streamId;
-  v11[1] = segmentName;
-  v10[2] = @"iterationStartTime";
+  v10[0] = self->_streamId;
+  v10[1] = segmentName;
+  v9[2] = @"iterationStartTime";
   v6 = [MEMORY[0x1E696AD98] numberWithDouble:self->_iterationStartTime];
-  v10[3] = @"offset";
-  v11[2] = v6;
-  v11[3] = v4;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[3] = @"offset";
+  v10[2] = v6;
+  v10[3] = v4;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }
@@ -254,7 +252,7 @@ LABEL_12:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -272,9 +270,9 @@ LABEL_12:
     {
       v16 = MEMORY[0x1E696ABC0];
       v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode key %@", keyCopy, *MEMORY[0x1E696A578]];
-      v23[0] = v17;
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 errorWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -285,13 +283,12 @@ LABEL_12:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededFordouble:(double)fordouble key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -309,9 +306,9 @@ LABEL_7:
     {
       v16 = MEMORY[0x1E696ABC0];
       v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode key %@", keyCopy, *MEMORY[0x1E696A578]];
-      v23[0] = v17;
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 errorWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -322,7 +319,6 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

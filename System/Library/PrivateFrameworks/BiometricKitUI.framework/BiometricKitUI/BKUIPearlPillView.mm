@@ -7,6 +7,7 @@
 - (void)displayTick;
 - (void)layoutSubviews;
 - (void)setRadius:(double)radius animationDuration:(double)duration completion:(id)completion;
+- (void)setState:(unint64_t)state animated:(BOOL)animated animationDelay:(double)delay completion:(id)completion failure:(id)failure;
 - (void)setState:(unint64_t)state animated:(BOOL)animated completion:(id)completion failure:(id)failure;
 - (void)startAnimationWithDuration:(double)duration completion:(id)completion;
 - (void)tearDownPillView;
@@ -16,29 +17,29 @@
 
 - (BKUIPearlPillView)init
 {
-  v11.receiver = self;
-  v11.super_class = BKUIPearlPillView;
-  v2 = [(BKUIPearlPillView *)&v11 init];
+  v12.receiver = self;
+  v12.super_class = BKUIPearlPillView;
+  v2 = [(BKUIPearlPillView *)&v12 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CD9F90]);
-    v4 = *(v2 + 59);
-    *(v2 + 59) = v3;
+    shapeLayer = v2->_shapeLayer;
+    v2->_shapeLayer = v3;
 
-    layer = [v2 layer];
-    [layer addSublayer:*(v2 + 59)];
+    layer = [(BKUIPearlPillView *)v2 layer];
+    [layer addSublayer:v2->_shapeLayer];
 
     v6 = [MEMORY[0x277CD9E48] displayLinkWithTarget:v2 selector:sel_displayTick];
-    v7 = *(v2 + 58);
-    *(v2 + 58) = v6;
+    displayLink = v2->_displayLink;
+    v2->_displayLink = v6;
 
-    v8 = *(v2 + 58);
+    v8 = v2->_displayLink;
     mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
-    [v8 addToRunLoop:mainRunLoop forMode:*MEMORY[0x277CBE738]];
+    [(CADisplayLink *)v8 addToRunLoop:mainRunLoop forMode:*MEMORY[0x277CBE738]];
 
-    [(CADisplayLink *)*(v2 + 58) bkui_enableHighFrameRate];
-    *(v2 + 51) = 0;
-    *(v2 + 76) = 0;
+    [(CADisplayLink *)v2->_displayLink bkui_enableHighFrameRate];
+    v2->_radius = 0.0;
+    v2->_startRadius = 0.0;
   }
 
   return v2;
@@ -417,7 +418,65 @@ void __58__BKUIPearlPillView_setState_animated_completion_failure___block_invoke
   }
 }
 
-uint64_t __73__BKUIPearlPillView_setState_animated_animationDelay_completion_failure___block_invoke(uint64_t a1)
+- (void)setState:(unint64_t)state animated:(BOOL)animated animationDelay:(double)delay completion:(id)completion failure:(id)failure
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  failureCopy = failure;
+  if ([(BKUIPearlPillView *)self state]== state)
+  {
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy);
+    }
+  }
+
+  else
+  {
+    state = [(BKUIPearlPillView *)self state];
+    if (delay <= 0.0)
+    {
+      [(BKUIPearlPillView *)self setState:state animated:animatedCopy completion:completionCopy failure:failureCopy];
+    }
+
+    else
+    {
+      v15 = state;
+      stateDelayTimer = [(BKUIPearlPillView *)self stateDelayTimer];
+
+      if (stateDelayTimer)
+      {
+        if (failureCopy)
+        {
+          failureCopy[2](failureCopy);
+        }
+      }
+
+      else
+      {
+        v17 = MEMORY[0x277CBEBB8];
+        v21 = MEMORY[0x277D85DD0];
+        v22 = 3221225472;
+        v23 = __73__BKUIPearlPillView_setState_animated_animationDelay_completion_failure___block_invoke;
+        v24 = &unk_278D09D80;
+        selfCopy = self;
+        v28 = v15;
+        stateCopy = state;
+        v30 = animatedCopy;
+        v26 = completionCopy;
+        v27 = failureCopy;
+        v18 = [v17 timerWithTimeInterval:0 repeats:&v21 block:delay];
+        [(BKUIPearlPillView *)self setStateDelayTimer:v18, v21, v22, v23, v24, selfCopy];
+
+        currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
+        stateDelayTimer2 = [(BKUIPearlPillView *)self stateDelayTimer];
+        [currentRunLoop addTimer:stateDelayTimer2 forMode:*MEMORY[0x277CBE738]];
+      }
+    }
+  }
+}
+
+void *__73__BKUIPearlPillView_setState_animated_animationDelay_completion_failure___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setStateDelayTimer:0];
   if ([*(a1 + 32) state] == *(a1 + 56))
@@ -436,7 +495,7 @@ uint64_t __73__BKUIPearlPillView_setState_animated_animationDelay_completion_fai
     result = *(a1 + 40);
     if (result)
     {
-      v8 = *(result + 16);
+      v8 = result[2];
 
       return v8();
     }

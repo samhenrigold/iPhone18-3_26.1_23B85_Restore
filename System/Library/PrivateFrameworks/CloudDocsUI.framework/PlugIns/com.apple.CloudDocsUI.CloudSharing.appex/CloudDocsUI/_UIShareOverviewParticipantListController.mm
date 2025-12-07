@@ -16,6 +16,7 @@
 - (void)participantInfoViewControllerDidChangeParticipant:(id)participant;
 - (void)participantInfoViewControllerLeaveShare:(id)share;
 - (void)participantInfoViewControllerRemoveParticipant:(id)participant;
+- (void)presentReachabilityViewController:(id)controller animated:(BOOL)animated;
 - (void)removeParticipant:(id)participant;
 - (void)settingsControllerDidChange:(id)change changedAllowInviters:(BOOL)inviters;
 - (void)shareDidChange;
@@ -1310,6 +1311,40 @@ LABEL_156:
   v9 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v9;
+}
+
+- (void)presentReachabilityViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  staticTableView = [(_UIShareOverviewParticipantListController *)self staticTableView];
+  staticTableView2 = [(_UIShareOverviewParticipantListController *)self staticTableView];
+  indexPathForSelectedRow = [staticTableView2 indexPathForSelectedRow];
+  [staticTableView deselectRowAtIndexPath:indexPathForSelectedRow animated:animatedCopy];
+
+  navigationController = [(_UIShareOverviewParticipantListController *)self navigationController];
+  v11 = [navigationController popToViewController:self animated:animatedCopy];
+
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_10000774C;
+  v15[3] = &unk_10004CAF8;
+  v16 = controllerCopy;
+  selfCopy = self;
+  v18 = animatedCopy;
+  v12 = controllerCopy;
+  v13 = objc_retainBlock(v15);
+  presentedViewController = [(_UIShareOverviewParticipantListController *)self presentedViewController];
+
+  if (presentedViewController)
+  {
+    [(_UIShareOverviewParticipantListController *)self dismissViewControllerAnimated:animatedCopy completion:v13];
+  }
+
+  else
+  {
+    (v13[2])(v13);
+  }
 }
 
 - (void)willNavigateFromViewController:(id)controller

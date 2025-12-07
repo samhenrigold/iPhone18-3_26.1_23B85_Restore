@@ -23,40 +23,38 @@
 
 - (id)description
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   sortedDistinctRanges = [(CalDisjointDateRange *)self sortedDistinctRanges];
-  v5 = [sortedDistinctRanges countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [sortedDistinctRanges countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(sortedDistinctRanges);
         }
 
-        v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n", *(*(&v13 + 1) + 8 * i)];
+        v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n", *(*(&v12 + 1) + 8 * i)];
         [v3 appendString:v9];
       }
 
-      v6 = [sortedDistinctRanges countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [sortedDistinctRanges countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [MEMORY[0x1E696AEC0] stringWithString:v3];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -126,32 +124,32 @@ uint64_t __44__CalDisjointDateRange_sortedDistinctRanges__block_invoke(uint64_t 
 
 - (double)totalDuration
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   distinctRanges = [(CalDisjointDateRange *)self distinctRanges];
-  v3 = [distinctRanges countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [distinctRanges countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     v6 = 0.0;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(distinctRanges);
         }
 
-        [*(*(&v11 + 1) + 8 * i) duration];
+        [*(*(&v10 + 1) + 8 * i) duration];
         v6 = v6 + v8;
       }
 
-      v4 = [distinctRanges countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [distinctRanges countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -162,40 +160,39 @@ uint64_t __44__CalDisjointDateRange_sortedDistinctRanges__block_invoke(uint64_t 
     v6 = 0.0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)containsDate:(id)date
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dateCopy = date;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   distinctRanges = [(CalDisjointDateRange *)self distinctRanges];
-  v6 = [distinctRanges countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [distinctRanges countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(distinctRanges);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) containsDate:dateCopy])
+        if ([*(*(&v10 + 1) + 8 * i) containsDate:dateCopy])
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [distinctRanges countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [distinctRanges countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -207,40 +204,39 @@ uint64_t __44__CalDisjointDateRange_sortedDistinctRanges__block_invoke(uint64_t 
 
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)containsRange:(id)range
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   distinctRanges = [(CalDisjointDateRange *)self distinctRanges];
-  v6 = [distinctRanges countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [distinctRanges countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(distinctRanges);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) containsRange:rangeCopy])
+        if ([*(*(&v10 + 1) + 8 * i) containsRange:rangeCopy])
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [distinctRanges countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [distinctRanges countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -252,40 +248,39 @@ LABEL_11:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)intersectsRange:(id)range
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   distinctRanges = [(CalDisjointDateRange *)self distinctRanges];
-  v6 = [distinctRanges countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [distinctRanges countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(distinctRanges);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) intersectsRange:rangeCopy])
+        if ([*(*(&v10 + 1) + 8 * i) intersectsRange:rangeCopy])
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [distinctRanges countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [distinctRanges countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -297,41 +292,40 @@ LABEL_11:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)addRange:(id)range
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
   v5 = MEMORY[0x1E695DFA8];
   distinctRanges = [(CalDisjointDateRange *)self distinctRanges];
   v7 = [v5 setWithSet:distinctRanges];
 
   v8 = [MEMORY[0x1E695DFA8] set];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   distinctRanges2 = [(CalDisjointDateRange *)self distinctRanges];
   v10 = [distinctRanges2 copy];
 
-  v11 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v33;
+    v13 = *v32;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v33 != v13)
+        if (*v32 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v32 + 1) + 8 * i);
+        v15 = *(*(&v31 + 1) + 8 * i);
         if ([v15 intersectsRange:rangeCopy allowSinglePointIntersection:1])
         {
           [v8 addObject:v15];
@@ -339,42 +333,42 @@ LABEL_11:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v12);
   }
 
   v16 = [CalDateRange rangeWithRange:rangeCopy];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v17 = v8;
-  v18 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v29;
+    v20 = *v28;
     do
     {
       v21 = 0;
       v22 = v16;
       do
       {
-        if (*v29 != v20)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v16 = [v22 unionRange:{*(*(&v28 + 1) + 8 * v21), v28}];
+        v16 = [v22 unionRange:{*(*(&v27 + 1) + 8 * v21), v27}];
 
         ++v21;
         v22 = v16;
       }
 
       while (v19 != v21);
-      v19 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v19);
@@ -389,79 +383,75 @@ LABEL_11:
 
   v25 = [objc_opt_class() disjointRangeWithDistinctRanges:v23];
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 - (id)addDisjointRange:(id)range
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   selfCopy = self;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   distinctRanges = [range distinctRanges];
-  v6 = [distinctRanges countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [distinctRanges countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       v10 = selfCopy;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(distinctRanges);
         }
 
-        selfCopy = [(CalDisjointDateRange *)v10 addRange:*(*(&v13 + 1) + 8 * v9)];
+        selfCopy = [(CalDisjointDateRange *)v10 addRange:*(*(&v12 + 1) + 8 * v9)];
 
         ++v9;
         v10 = selfCopy;
       }
 
       while (v7 != v9);
-      v7 = [distinctRanges countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [distinctRanges countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
 
 - (id)subtractRange:(id)range
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
   v5 = [MEMORY[0x1E695DFA8] set];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   distinctRanges = [(CalDisjointDateRange *)self distinctRanges];
-  v7 = [distinctRanges countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [distinctRanges countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(distinctRanges);
         }
 
-        v11 = [*(*(&v18 + 1) + 8 * i) subtractRange:rangeCopy];
+        v11 = [*(*(&v17 + 1) + 8 * i) subtractRange:rangeCopy];
         distinctRanges2 = [v11 distinctRanges];
 
         if (distinctRanges2)
@@ -472,7 +462,7 @@ LABEL_11:
         }
       }
 
-      v8 = [distinctRanges countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [distinctRanges countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -480,86 +470,82 @@ LABEL_11:
 
   v15 = [CalDisjointDateRange disjointRangeWithDistinctRanges:v5];
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 - (id)subtractDisjointRange:(id)range
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   selfCopy = self;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   distinctRanges = [range distinctRanges];
-  v6 = [distinctRanges countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [distinctRanges countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       v10 = selfCopy;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(distinctRanges);
         }
 
-        selfCopy = [(CalDisjointDateRange *)v10 subtractRange:*(*(&v13 + 1) + 8 * v9)];
+        selfCopy = [(CalDisjointDateRange *)v10 subtractRange:*(*(&v12 + 1) + 8 * v9)];
 
         ++v9;
         v10 = selfCopy;
       }
 
       while (v7 != v9);
-      v7 = [distinctRanges countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [distinctRanges countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
 
 - (id)intersectionWithRange:(id)range
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
   v5 = [MEMORY[0x1E695DFA8] set];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   distinctRanges = [(CalDisjointDateRange *)self distinctRanges];
-  v7 = [distinctRanges countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [distinctRanges countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(distinctRanges);
         }
 
-        v11 = [*(*(&v15 + 1) + 8 * i) intersectionWithRange:rangeCopy];
+        v11 = [*(*(&v14 + 1) + 8 * i) intersectionWithRange:rangeCopy];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [distinctRanges countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [distinctRanges countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -567,36 +553,34 @@ LABEL_11:
 
   v12 = [CalDisjointDateRange disjointRangeWithDistinctRanges:v5];
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)intersectionWithDisjointRange:(id)range
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
   v5 = [MEMORY[0x1E695DFA8] set];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   distinctRanges = [rangeCopy distinctRanges];
-  v7 = [distinctRanges countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [distinctRanges countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(distinctRanges);
         }
 
-        v11 = [(CalDisjointDateRange *)self intersectionWithRange:*(*(&v18 + 1) + 8 * i)];
+        v11 = [(CalDisjointDateRange *)self intersectionWithRange:*(*(&v17 + 1) + 8 * i)];
         distinctRanges2 = [v11 distinctRanges];
 
         if (distinctRanges2)
@@ -607,15 +591,13 @@ LABEL_11:
         }
       }
 
-      v8 = [distinctRanges countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [distinctRanges countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   v15 = [CalDisjointDateRange disjointRangeWithDistinctRanges:v5];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

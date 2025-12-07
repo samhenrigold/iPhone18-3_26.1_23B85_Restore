@@ -117,7 +117,7 @@ LABEL_50:
 
         if (equal)
         {
-          minExposureDuration = [equal minExposureDuration];
+          v14 = objc_msgSend_minExposureDuration(equal, v22);
         }
 
         else
@@ -125,8 +125,8 @@ LABEL_50:
           v55 = 0;
         }
 
-        maxExposureDuration = OUTLINED_FUNCTION_5_11(minExposureDuration, v15, v16, v17, v18, v19, v20, v21, v49, v51, v53, v55);
-        if (maxExposureDuration)
+        v23 = OUTLINED_FUNCTION_5_11(v14, v15, v16, v17, v18, v19, v20, v21, v49, v51, v53, v55);
+        if (v23)
         {
           goto LABEL_50;
         }
@@ -134,7 +134,7 @@ LABEL_50:
         v31 = self + 88;
         if (equal)
         {
-          maxExposureDuration = [equal maxExposureDuration];
+          v23 = objc_msgSend_maxExposureDuration(equal);
         }
 
         else
@@ -142,7 +142,7 @@ LABEL_50:
           v56 = 0;
         }
 
-        if (OUTLINED_FUNCTION_5_11(maxExposureDuration, v24, v25, v26, v27, v28, v29, v30, v50, v52, v54, v56))
+        if (OUTLINED_FUNCTION_5_11(v23, v24, v25, v26, v27, v28, v29, v30, v50, v52, v54, v56))
         {
           goto LABEL_50;
         }

@@ -17,87 +17,86 @@
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
   retstr->__begin_ = 0;
-  v22 = v5;
+  v21 = v5;
   v6 = [v5 count];
   if (0xAAAAAAAAAAAAAAABLL * ((retstr->__cap_ - retstr->__begin_) >> 3) < v6)
   {
     if (v6 < 0xAAAAAAAAAAAAAABLL)
     {
-      end = retstr->__end_;
       operator new();
     }
 
     sub_10000FC84();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
-  v8 = v22;
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v9)
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v7 = v21;
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v8)
   {
-    v10 = *v26;
+    v9 = *v25;
     do
     {
-      v11 = 0;
-      v23 = v9;
+      v10 = 0;
+      v22 = v8;
       do
       {
-        if (*v26 != v10)
+        if (*v25 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * v11);
-        v13 = objc_autoreleasePoolPush();
-        v14 = v12;
-        uTF8String = [v12 UTF8String];
-        v16 = uTF8String;
-        v24 = uTF8String;
-        v17 = retstr->__end_;
-        if (v17 >= retstr->__cap_)
+        v11 = *(*(&v24 + 1) + 8 * v10);
+        v12 = objc_autoreleasePoolPush();
+        v13 = v11;
+        uTF8String = [v11 UTF8String];
+        v15 = uTF8String;
+        v23 = uTF8String;
+        end = retstr->__end_;
+        if (end >= retstr->__cap_)
         {
-          v20 = sub_10016D27C(retstr, &v24);
+          v19 = sub_10016D27C(retstr, &v23);
         }
 
         else
         {
-          v18 = strlen(uTF8String);
-          if (v18 >= 0x7FFFFFFFFFFFFFF8)
+          v17 = strlen(uTF8String);
+          if (v17 >= 0x7FFFFFFFFFFFFFF8)
           {
             sub_10000D39C();
           }
 
-          v19 = v18;
-          if (v18 >= 0x17)
+          v18 = v17;
+          if (v17 >= 0x17)
           {
             operator new();
           }
 
-          v17[23] = v18;
-          if (v18)
+          end[23] = v17;
+          if (v17)
           {
-            memmove(v17, v16, v18);
+            memmove(end, v15, v17);
           }
 
-          v17[v19] = 0;
-          v20 = v17 + 24;
-          v9 = v23;
+          end[v18] = 0;
+          v19 = end + 24;
+          v8 = v22;
         }
 
-        retstr->__end_ = v20;
-        objc_autoreleasePoolPop(v13);
+        retstr->__end_ = v19;
+        objc_autoreleasePoolPop(v12);
 
-        v11 = v11 + 1;
+        v10 = v10 + 1;
       }
 
-      while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      while (v8 != v10);
+      v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   return result;
@@ -202,7 +201,7 @@
   if (v18)
   {
     objc_storeStrong(&v18->_groupId, id);
-    [CLLocationGroup stringVectorFromNSArray:idsCopy];
+    objc_msgSend_stringVectorFromNSArray_(CLLocationGroup);
     p_begin = &v20->_locationIds.__begin_;
     begin = v20->_locationIds.__begin_;
     if (begin)
@@ -251,7 +250,7 @@
     v20->_tolerance = tolerance;
     if (&v19->_wifiOnlyDownloadLocIdxs != idxs)
     {
-      sub_10016CF48(&v19->_wifiOnlyDownloadLocIdxs.__tree_.__begin_node_, *idxs, idxs + 1);
+      sub_10016CF48(&v19->_wifiOnlyDownloadLocIdxs, *idxs, idxs + 1);
     }
 
     v20->_locationContext = context;
@@ -308,7 +307,7 @@ LABEL_6:
     }
   }
 
-  v10 = sub_10016BBBC(v14, ptr);
+  v10 = sub_10016BBBC(v14, ptr, &v15);
 
   return v10;
 }

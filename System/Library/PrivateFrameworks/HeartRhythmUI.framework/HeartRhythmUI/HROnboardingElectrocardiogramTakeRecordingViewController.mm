@@ -359,20 +359,20 @@
 
   v8 = MEMORY[0x277D750F8];
   v9 = HRUIECGLocalizedString(@"ECG_ONBOARDING_SKIP_RECORDING");
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __77__HROnboardingElectrocardiogramTakeRecordingViewController_skipButtonTapped___block_invoke;
-  v16[3] = &unk_2796FBB48;
-  v16[4] = self;
-  v10 = [v8 actionWithTitle:v9 style:0 handler:v16];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __77__HROnboardingElectrocardiogramTakeRecordingViewController_skipButtonTapped___block_invoke;
+  v17[3] = &unk_2796FBB48;
+  v17[4] = self;
+  v10 = [v8 actionWithTitle:v9 style:0 handler:v17];
 
   v11 = MEMORY[0x277D750F8];
-  v12 = HRHeartRhythmUIFrameworkBundle();
-  v13 = [v12 localizedStringForKey:@"ONBOARDING_CANCEL" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
-  v14 = [v11 actionWithTitle:v13 style:1 handler:0];
+  v13 = HRHeartRhythmUIFrameworkBundle(v12);
+  v14 = [v13 localizedStringForKey:@"ONBOARDING_CANCEL" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
+  v15 = [v11 actionWithTitle:v14 style:1 handler:0];
 
   [v7 addAction:v10];
-  [v7 addAction:v14];
+  [v7 addAction:v15];
   popoverPresentationController = [v7 popoverPresentationController];
   [popoverPresentationController setSourceItem:tappedCopy];
 
@@ -693,8 +693,8 @@ void __88__HROnboardingElectrocardiogramTakeRecordingViewController__setUpElectr
       _os_log_impl(&dword_2521E7000, v5, OS_LOG_TYPE_DEFAULT, "[%@]: Stopping query for new electrocardiograms", v10, 0xCu);
     }
 
-    delegate = [(HROnboardingElectrocardiogramTakeRecordingViewController *)self delegate];
-    healthStore = [delegate healthStore];
+    v7 = [(HROnboardingElectrocardiogramTakeRecordingViewController *)self delegate:*v10];
+    healthStore = [v7 healthStore];
     electrocardiogramQuery2 = [(HROnboardingElectrocardiogramTakeRecordingViewController *)self electrocardiogramQuery];
     [healthStore stopQuery:electrocardiogramQuery2];
 

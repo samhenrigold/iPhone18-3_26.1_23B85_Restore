@@ -324,7 +324,7 @@
   width = [textureCopy width];
   height = [textureCopy height];
 
-  [(OFNormalization *)self threadsPerGroupForStats];
+  objc_msgSend_threadsPerGroupForStats(self);
   if (self->_useFloatAtomic)
   {
     v7 = 8;
@@ -415,7 +415,7 @@
   height = [textureCopy height];
   v21 = 0uLL;
   v22 = 0;
-  [(OFNormalization *)self threadsPerGroupForStats];
+  objc_msgSend_threadsPerGroupForStats(self);
   v13 = v21;
   computeCommandEncoder = [bufferCopy computeCommandEncoder];
 
@@ -1313,7 +1313,7 @@ LABEL_7:
   [computeCommandEncoder setComputePipelineState:*(v5 + 120)];
   [computeCommandEncoder setTexture:v7 atIndex:0];
   v15 = OUTLINED_FUNCTION_3_3();
-  OUTLINED_FUNCTION_0_6(v15, v16, v17, v18, v19, v20, v21, v22, v23, v25, v26, v27, v28);
+  OUTLINED_FUNCTION_0_6(v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v26, v27, v28, v29);
   [computeCommandEncoder endEncoding];
   [commandBuffer commit];
   [commandBuffer waitUntilCompleted];
@@ -1358,7 +1358,7 @@ LABEL_7:
   [computeCommandEncoder setComputePipelineState:*(v5 + 128)];
   [computeCommandEncoder setTexture:v7 atIndex:0];
   v15 = OUTLINED_FUNCTION_3_3();
-  OUTLINED_FUNCTION_0_6(v15, v16, v17, v18, v19, v20, v21, v22, v23, v25, v26, v27, v28);
+  OUTLINED_FUNCTION_0_6(v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v26, v27, v28, v29);
   [computeCommandEncoder endEncoding];
   [commandBuffer commit];
   [commandBuffer waitUntilCompleted];

@@ -89,6 +89,7 @@
 - (void)legacyKeyServiceAvailable:(id)available reason:(id)reason reply:(id)reply;
 - (void)listEndPointAuthorizations:(id)authorizations;
 - (void)listEndPointContainers:(id)containers reply:(id)reply;
+- (void)listEndPointsWithProxy:(id)proxy mandatoryReconciliation:(BOOL)reconciliation reply:(id)reply;
 - (void)notifyEndpointTracked:(id)tracked reply:(id)reply;
 - (void)notifyPassAdded:(id)added reply:(id)reply;
 - (void)onFirstUnlock;
@@ -1220,112 +1221,111 @@ LABEL_16:
   if (v13)
   {
     *buf = 0;
-    v45 = buf;
-    v46 = 0x3032000000;
-    v47 = sub_100007324;
-    v48 = sub_100007334;
-    v49 = 0;
+    v44 = buf;
+    v45 = 0x3032000000;
+    v46 = sub_100007324;
+    v47 = sub_100007334;
+    v48 = 0;
     obj = 0;
     v14 = [(SESEndpointAndKeyXPCServer *)self _createKey:keyCopy acl:lsCopy error:&obj];
-    objc_storeStrong(&v49, obj);
-    if (v14 && !*(v45 + 5))
+    objc_storeStrong(&v48, obj);
+    if (v14 && !*(v44 + 5))
     {
-      v42 = 0;
-      if (!ACMContextCreate(&v42))
+      v41 = 0;
+      if (!ACMContextCreate(&v41))
       {
-        v18 = v42;
-        if (v42)
+        v17 = v41;
+        if (v41)
         {
-          v36 = 0;
-          v37 = &v36;
-          v38 = 0x3032000000;
-          v39 = sub_100007324;
-          v40 = sub_100007334;
+          v35 = 0;
+          v36 = &v35;
+          v37 = 0x3032000000;
+          v38 = sub_100007324;
+          v39 = sub_100007334;
+          v40 = 0;
+          v29[0] = _NSConcreteStackBlock;
+          v29[1] = 3221225472;
+          v29[2] = sub_10000733C;
+          v29[3] = &unk_1004C0BF0;
+          v33 = &v35;
+          v28 = keyCopy;
+          v30 = v28;
+          v18 = v14;
+          v31 = v18;
+          v32 = v13;
+          v34 = buf;
+          ACMContextGetExternalForm(v17, v29);
+          ACMContextDelete(v41, 1);
           v41 = 0;
-          v30[0] = _NSConcreteStackBlock;
-          v30[1] = 3221225472;
-          v30[2] = sub_10000733C;
-          v30[3] = &unk_1004C0BF0;
-          v34 = &v36;
-          v29 = keyCopy;
-          v31 = v29;
-          v19 = v14;
-          v32 = v19;
-          v33 = v13;
-          v35 = buf;
-          ACMContextGetExternalForm(v18, v30);
-          ACMContextDelete(v42, 1);
-          v42 = 0;
-          v20 = v37[5];
-          if (v20 && !*(v45 + 5))
+          v19 = v36[5];
+          if (v19 && !*(v44 + 5))
           {
-            v16 = v20;
+            v15 = v19;
           }
 
           else
           {
-            v21 = SESDefaultLogObject();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v20 = SESDefaultLogObject();
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              slot = [v19 slot];
+              slot = [v18 slot];
               number = [slot number];
-              v24 = *(v45 + 5);
-              *v50 = 67109378;
-              v51 = number;
-              v52 = 2112;
-              v53 = v24;
-              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to export key, deleting it from slot %d (%@)", v50, 0x12u);
+              v23 = *(v44 + 5);
+              *v49 = 67109378;
+              v50 = number;
+              v51 = 2112;
+              v52 = v23;
+              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to export key, deleting it from slot %d (%@)", v49, 0x12u);
             }
 
             hexStringAsData = [@"A000000704C0000000000002" hexStringAsData];
-            [(SESEndpointAndKeyXPCServer *)self _deleteLoadedKey:v29 instanceAID:hexStringAsData loadedKey:v19 error:0];
+            [(SESEndpointAndKeyXPCServer *)self _deleteLoadedKey:v28 instanceAID:hexStringAsData loadedKey:v18 error:0];
 
             if (error)
             {
-              v26 = SESDefaultLogObject();
+              v25 = SESDefaultLogObject();
               *error = SESCreateAndLogError();
             }
 
-            v16 = 0;
+            v15 = 0;
           }
 
-          _Block_object_dispose(&v36, 8);
+          _Block_object_dispose(&v35, 8);
           goto LABEL_25;
         }
       }
 
       if (error)
       {
-        v27 = SESDefaultLogObject();
+        v26 = SESDefaultLogObject();
         *error = SESCreateAndLogError();
       }
     }
 
     else if (error)
     {
-      v15 = *(v45 + 5);
       SESEnsureError();
-      *error = v16 = 0;
+      *error = v15 = 0;
 LABEL_25:
 
       _Block_object_dispose(buf, 8);
       goto LABEL_26;
     }
 
-    v16 = 0;
+    v15 = 0;
     goto LABEL_25;
   }
 
   if (error)
   {
-    v17 = SESDefaultLogObject();
+    v16 = SESDefaultLogObject();
     *error = SESCreateAndLogError();
   }
 
-  v16 = 0;
+  v15 = 0;
 LABEL_26:
 
-  return v16;
+  return v15;
 }
 
 - (void)deleteSEKey:(id)key keyData:(id)data reply:(id)reply
@@ -3151,6 +3151,34 @@ LABEL_13:
   return v22;
 }
 
+- (void)listEndPointsWithProxy:(id)proxy mandatoryReconciliation:(BOOL)reconciliation reply:(id)reply
+{
+  reconciliationCopy = reconciliation;
+  proxyCopy = proxy;
+  replyCopy = reply;
+  v10 = +[NSXPCConnection currentConnection];
+  v11 = sub_100035A18(SESClientInfo, v10);
+
+  if (sub_1003AD208(v11) & 1) != 0 || (sub_1003AD230(v11))
+  {
+    v12 = [NSString stringWithUTF8String:"[SESEndpointAndKeyXPCServer(SEEndPointXPC) listEndPointsWithProxy:mandatoryReconciliation:reply:]"];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_10001A408;
+    v15[3] = &unk_1004C16B0;
+    v17 = replyCopy;
+    v16 = v11;
+    [(SESEndpointAndKeyXPCServer *)self databaseServiceWithProxy:proxyCopy isReconcileRequired:reconciliationCopy reason:v12 reply:v15];
+  }
+
+  else
+  {
+    v13 = SESDefaultLogObject();
+    v14 = SESCreateAndLogError();
+    (*(replyCopy + 2))(replyCopy, 0, v14);
+  }
+}
+
 - (void)cleanupAppletsWithNoEndpoints:(id)endpoints reply:(id)reply
 {
   endpointsCopy = endpoints;
@@ -3240,7 +3268,7 @@ LABEL_13:
       database = [(SESEndpointAndKeyXPCServer *)self database];
       v19 = sub_1003AC964(database, endpointsCopy, 1);
 
-      v10 = sub_10005FC78();
+      v10 = sub_10005FC78(SESDebugServer);
       sub_100060C88(v10, endpointsCopy);
     }
   }
@@ -4125,9 +4153,9 @@ LABEL_24:
   identifier = [instance identifier];
   hexStringAsData = [identifier hexStringAsData];
   publicKeyIdentifier = [dataCopy publicKeyIdentifier];
-  v47 = 0;
+  v47.super.super.isa = 0;
   v18 = sub_100046338(elementCopy, hexStringAsData, publicKeyIdentifier, 0, 1, &v47);
-  v19 = v47;
+  v19 = v47.super.super.isa;
 
   if (v19 || [v18 length] != 1)
   {
@@ -4204,10 +4232,10 @@ LABEL_32:
       identifier2 = [instance2 identifier];
       hexStringAsData2 = [identifier2 hexStringAsData];
       publicKeyIdentifier2 = [dataCopy publicKeyIdentifier];
-      v46 = 0;
+      v46.super.super.isa = 0;
       v41 = v34;
       v28 = sub_100046338(elementCopy, hexStringAsData2, publicKeyIdentifier2, vehicleProprietaryDataOffset, v34, &v46);
-      v19 = v46;
+      v19 = v46.super.super.isa;
 
       if (v19)
       {
@@ -6107,7 +6135,7 @@ LABEL_13:
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Skipping applet personalization", buf, 2u);
     }
 
-    sub_100036F74();
+    sub_100036F74(SESEndpointAndKeyXPCServer);
   }
 }
 

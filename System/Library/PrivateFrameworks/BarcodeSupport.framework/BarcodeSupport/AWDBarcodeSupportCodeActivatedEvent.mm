@@ -1,5 +1,10 @@
 @interface AWDBarcodeSupportCodeActivatedEvent
 - (BOOL)isEqual:(id)equal;
+- (id)appLinkActivationOpenStrategyAsString:(int)string;
+- (id)barcodeDataTypeAsString:(int)string;
+- (id)barcodeSourceTypeAsString:(int)string;
+- (id)barcodeURLTypeAsString:(int)string;
+- (id)clientTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -54,6 +59,21 @@
   *&self->_has = *&self->_has & 0xDF | v3;
 }
 
+- (id)clientTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278CFE558[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsClientType:(id)type
 {
   typeCopy = type;
@@ -106,6 +126,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)barcodeDataTypeAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278CFE570[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsBarcodeDataType:(id)type
@@ -207,6 +242,21 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)barcodeURLTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278CFE5D0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsBarcodeURLType:(id)type
 {
   typeCopy = type;
@@ -261,6 +311,29 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)appLinkActivationOpenStrategyAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"BARCODEAPPLINKOPENSTRATEGY_OPEN_IN_APP";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"BARCODEAPPLINKOPENSTRATEGY_OPEN_IN_SAFARI";
+  }
+
+  return v4;
+}
+
 - (int)StringAsAppLinkActivationOpenStrategy:(id)strategy
 {
   strategyCopy = strategy;
@@ -303,6 +376,26 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)barcodeSourceTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"BARCODESOURCETYPE_QR";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"BARCODESOURCETYPE_OTHER";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsBarcodeSourceType:(id)type
@@ -496,7 +589,6 @@ LABEL_33:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -516,7 +608,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  clientType = self->_clientType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -531,7 +622,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  barcodeDataType = self->_barcodeDataType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -546,7 +636,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  barcodeURLType = self->_barcodeURLType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -561,12 +650,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  appLinkActivationOpenStrategy = self->_appLinkActivationOpenStrategy;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_7:
-    barcodeSourceType = self->_barcodeSourceType;
     PBDataWriterWriteInt32Field();
   }
 

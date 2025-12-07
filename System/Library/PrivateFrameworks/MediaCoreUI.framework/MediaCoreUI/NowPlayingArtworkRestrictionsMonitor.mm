@@ -50,13 +50,13 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_1C5929CEC(&qword_1EC190DB0, type metadata accessor for NSKeyValueChangeKey);
+  sub_1C5929CEC(&qword_1EC190DB0, type metadata accessor for NSKeyValueChangeKey, &unk_1C5BD0A64);
   v15 = sub_1C5BCACB4();
 
 LABEL_8:
   sub_1C5B69124(v10, v12, v18, v15, context);
 
-  sub_1C5924EF4(v18, &qword_1EC191700);
+  sub_1C5924EF4(v18, &qword_1EC191700, &unk_1C5BD5040);
 }
 
 - (void)dealloc
@@ -69,7 +69,7 @@ LABEL_8:
   [standardUserDefaults removeObserver:v6 forKeyPath:v7];
 
   v8.receiver = v6;
-  v8.super_class = type metadata accessor for NowPlayingArtworkRestrictionsMonitor();
+  v8.super_class = type metadata accessor for NowPlayingArtworkRestrictionsMonitor(0);
   [(NowPlayingArtworkRestrictionsMonitor *)&v8 dealloc];
 }
 

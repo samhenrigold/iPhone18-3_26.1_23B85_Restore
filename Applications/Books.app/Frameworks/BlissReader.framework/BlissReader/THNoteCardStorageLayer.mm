@@ -207,7 +207,7 @@ LABEL_11:
         v10 = *(*(&v30 + 1) + 8 * i);
         if (v10)
         {
-          [*(*(&v30 + 1) + 8 * i) lineMetrics];
+          objc_msgSend_lineMetrics(*(*(&v30 + 1) + 8 * i));
           v12 = *(&v25 + 1);
           v11 = *&v25;
           v14 = *(&v27 + 1);
@@ -232,7 +232,7 @@ LABEL_11:
         v22 = v21;
         if (v10)
         {
-          [v10 lineMetrics];
+          objc_msgSend_lineMetrics(v10);
           v23 = v29;
         }
 
@@ -291,8 +291,8 @@ LABEL_11:
   v4 = firstObject;
   if (firstObject)
   {
-    [firstObject lineMetrics];
-    [v4 lineMetrics];
+    objc_msgSend_lineMetrics(firstObject);
+    objc_msgSend_lineMetrics(v4);
     v5 = v16 - v15;
   }
 
@@ -305,7 +305,7 @@ LABEL_11:
   v7 = lastObject;
   if (lastObject)
   {
-    [lastObject lineMetrics];
+    objc_msgSend_lineMetrics(lastObject);
     v8 = v16;
   }
 
@@ -318,8 +318,8 @@ LABEL_11:
   v10 = v9;
   if (v4)
   {
-    [v4 lineMetrics];
-    [v4 lineMetrics];
+    objc_msgSend_lineMetrics(v4);
+    objc_msgSend_lineMetrics(v4);
     if (v16 > v15 + v15)
     {
       return self->_imageSize.height * 0.5;
@@ -329,8 +329,8 @@ LABEL_11:
   v11 = (v5 + (v8 - v5) * 0.5) * v10;
   if (v7)
   {
-    [v7 lineMetrics];
-    [v7 lineMetrics];
+    objc_msgSend_lineMetrics(v7);
+    objc_msgSend_lineMetrics(v7);
     if (v14 > v13 + v13)
     {
       return self->_imageSize.height * 0.5;

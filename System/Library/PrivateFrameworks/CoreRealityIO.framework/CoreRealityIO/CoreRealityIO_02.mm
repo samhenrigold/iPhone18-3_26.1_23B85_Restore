@@ -1,16 +1,16 @@
-void sub_2474A6414(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_2474A6414(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<std::shared_ptr<realityio::MeshModelDescriptorBuilder::MeshModelDataT>>::~__split_buffer(va);
-  if (a3)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   _Unwind_Resume(a1);
 }
 
-void RIO_MTLX::Element::removeChild(void *a1, const void **a2)
+void RIO_MTLX::Element::removeChild(void *a1, uint64_t *a2)
 {
   v3 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(a1 + 12, a2);
   if (v3)
@@ -43,7 +43,7 @@ void sub_2474A64C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::string *RIO_MTLX::Element::setAttribute(RIO_MTLX::Element *a1, __int128 *a2, const std::string *a3)
 {
-  RIO_MTLX::Element::getDocument(a1, v9);
+  RIO_MTLX::Element::getDocument(v9, a1);
   v6 = v9[1];
   *(*(v9[0] + 272) + 80) = 0;
   if (v6)
@@ -57,7 +57,7 @@ std::string *RIO_MTLX::Element::setAttribute(RIO_MTLX::Element *a1, __int128 *a2
   }
 
   v9[0] = a2;
-  v7 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 20, a2);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 20, a2, &std::piecewise_construct, v9, &v10);
   return std::string::operator=((v7 + 5), a3);
 }
 
@@ -79,14 +79,14 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::push_back[ab
   return result;
 }
 
-void RIO_MTLX::Element::removeAttribute(RIO_MTLX::Element *a1, const void **a2)
+void RIO_MTLX::Element::removeAttribute(RIO_MTLX::Element *a1, uint64_t *a2)
 {
   v2 = a2;
   v4 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(a1 + 20, a2);
   if (v4)
   {
     v5 = v4;
-    RIO_MTLX::Element::getDocument(a1, v18);
+    RIO_MTLX::Element::getDocument(v18, a1);
     v6 = v18[1];
     *(*(v18[0] + 272) + 80) = 0;
     if (v6)
@@ -165,7 +165,7 @@ void RIO_MTLX::Element::removeAttribute(RIO_MTLX::Element *a1, const void **a2)
   }
 }
 
-void RIO_MTLX::Element::addChildOfCategory(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void RIO_MTLX::Element::addChildOfCategory(uint64_t a1@<X0>, const void **a2@<X1>, uint64_t a3@<X2>, std::string **a4@<X8>)
 {
   if ((*(a3 + 23) & 0x8000000000000000) != 0)
   {
@@ -187,7 +187,7 @@ void RIO_MTLX::Element::addChildOfCategory(uint64_t a1@<X0>, uint64_t a2@<X1>, u
 
   else
   {
-    v8 = *(a2 + 8);
+    v8 = a2[1];
   }
 
   std::string::basic_string[abi:ne200100](__p, v8 + 1);
@@ -313,8 +313,8 @@ LABEL_35:
 
   RIO_MTLX::Element::_creatorMap(v12);
   v30 = v19[5];
-  std::shared_ptr<RIO_MTLX::Element>::shared_ptr[abi:ne200100]<RIO_MTLX::Element,0>(&v36, (a1 + 8));
-  v30(&v40, &v36, a3);
+  std::shared_ptr<RIO_MTLX::Element>::shared_ptr[abi:ne200100]<RIO_MTLX::Element,0>(v36, (a1 + 8));
+  v30(&v40, v36, a3);
   v31 = v40;
   v40 = 0uLL;
   *v32 = v31;
@@ -358,14 +358,14 @@ LABEL_37:
         if (!memcmp(v28, v29, v25))
         {
 LABEL_54:
-          std::shared_ptr<RIO_MTLX::Element>::shared_ptr[abi:ne200100]<RIO_MTLX::Element,0>(&v35, (a1 + 8));
-          std::allocate_shared[abi:ne200100]<RIO_MTLX::Node,std::allocator<RIO_MTLX::Node>,std::shared_ptr<RIO_MTLX::Element> &,std::string const&,0>();
+          std::shared_ptr<RIO_MTLX::Element>::shared_ptr[abi:ne200100]<RIO_MTLX::Element,0>(v35, (a1 + 8));
+          std::allocate_shared[abi:ne200100]<RIO_MTLX::Node,std::allocator<RIO_MTLX::Node>,std::shared_ptr<RIO_MTLX::Element> &,std::string const&,0>(&v40, v35, a3);
         }
       }
     }
 
-    std::shared_ptr<RIO_MTLX::Element>::shared_ptr[abi:ne200100]<RIO_MTLX::Element,0>(&v34, (a1 + 8));
-    std::allocate_shared[abi:ne200100]<RIO_MTLX::GenericElement,std::allocator<RIO_MTLX::GenericElement>,std::shared_ptr<RIO_MTLX::Element> &,std::string const&,0>();
+    std::shared_ptr<RIO_MTLX::Element>::shared_ptr[abi:ne200100]<RIO_MTLX::Element,0>(v34, (a1 + 8));
+    std::allocate_shared[abi:ne200100]<RIO_MTLX::GenericElement,std::allocator<RIO_MTLX::GenericElement>,std::shared_ptr<RIO_MTLX::Element> &,std::string const&,0>(&v40, v34, a3);
   }
 
   v33 = v31;
@@ -399,7 +399,7 @@ void sub_2474A6AA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 __n128 RIO_MTLX::Element::createValidChildName@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
@@ -449,16 +449,16 @@ __n128 RIO_MTLX::Element::createValidChildName@<Q0>(uint64_t a1@<X0>, uint64_t a
     v6 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   }
 
-  *v15 = *(&__p.__r_.__value_.__l.__data_ + 1);
-  *&v15[14] = *(&__p.__r_.__value_.__r.__words[1] + 7);
+  *v14 = *(&__p.__r_.__value_.__l.__data_ + 1);
+  *&v14[14] = *(&__p.__r_.__value_.__r.__words[1] + 7);
   memset(&__p, 0, sizeof(__p));
   if (*(a2 + 23) < 0)
   {
     operator delete(*a2);
     v10 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
     *a2 = v7;
-    *(a2 + 1) = *v15;
-    *(a2 + 15) = *&v15[14];
+    *(a2 + 1) = *v14;
+    *(a2 + 15) = *&v14[14];
     *(a2 + 23) = v6;
     if (v10 < 0)
     {
@@ -469,21 +469,21 @@ __n128 RIO_MTLX::Element::createValidChildName@<Q0>(uint64_t a1@<X0>, uint64_t a
   else
   {
     *a2 = v7;
-    *(a2 + 1) = *v15;
-    *(a2 + 15) = *&v15[14];
+    *(a2 + 1) = *v14;
+    *(a2 + 15) = *&v14[14];
     *(a2 + 23) = v6;
   }
 
   for (i = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>((a1 + 96), a2); i; i = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>((a1 + 96), a2))
   {
-    RIO_MTLX::incrementName(a2, v15);
+    RIO_MTLX::incrementName(v14, a2);
     if (*(a2 + 23) < 0)
     {
       operator delete(*a2);
     }
 
-    *a2 = *v15;
-    *(a2 + 16) = *&v15[16];
+    *a2 = *v14;
+    *(a2 + 16) = *&v14[16];
   }
 
   result = *a2;
@@ -492,7 +492,6 @@ __n128 RIO_MTLX::Element::createValidChildName@<Q0>(uint64_t a1@<X0>, uint64_t a
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -506,19 +505,19 @@ void sub_2474A6CE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void RIO_MTLX::Element::changeChildCategory(void *a1@<X0>, std::string **a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+void RIO_MTLX::Element::changeChildCategory(void *a1@<X0>, const std::string **a2@<X1>, const void **a3@<X2>, uint64_t a4@<X8>)
 {
-  ChildIndex = RIO_MTLX::Element::getChildIndex(a1, &(*a2)[2].__r_.__value_.__l.__data_);
+  ChildIndex = RIO_MTLX::Element::getChildIndex(a1, &(*a2)[2]);
   if (ChildIndex == -1)
   {
     *a4 = 0;
-    a4[1] = 0;
+    *(a4 + 8) = 0;
   }
 
   else
   {
     v9 = ChildIndex;
-    RIO_MTLX::Element::removeChild(a1, &(*a2)[2].__r_.__value_.__l.__data_);
+    RIO_MTLX::Element::removeChild(a1, &(*a2)[2]);
     v10 = *a2;
     if (SHIBYTE((*a2)[2].__r_.__value_.__r.__words[2]) < 0)
     {
@@ -536,7 +535,7 @@ void RIO_MTLX::Element::changeChildCategory(void *a1@<X0>, std::string **a2@<X1>
       operator delete(v14.__r_.__value_.__l.__data_);
     }
 
-    RIO_MTLX::Element::setChildIndex(a1, &(*a2)[2].__r_.__value_.__l.__data_, v9);
+    RIO_MTLX::Element::setChildIndex(a1, &(*a2)[2], v9);
     v11 = *a4;
     v12 = a2[1];
     v13[0] = *a2;
@@ -572,9 +571,9 @@ void sub_2474A6E8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void RIO_MTLX::Element::copyContentFrom(uint64_t a1, const std::string **a2)
 {
-  RIO_MTLX::Element::getDocument(a1, &v22);
+  RIO_MTLX::Element::getDocument(&v22, a1);
   v4 = v23;
-  *(*(v22 + 272) + 80) = 0;
+  *(v22[11].__r_.__value_.__l.__size_ + 80) = 0;
   if (v4)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
@@ -616,8 +615,8 @@ void RIO_MTLX::Element::copyContentFrom(uint64_t a1, const std::string **a2)
       {
         do
         {
-          std::string::operator=((v9 + 16), (size + 16));
-          std::string::operator=((v9 + 40), (size + 40));
+          std::string::operator=((v9 + 2), (size + 16));
+          std::string::operator=((v9 + 5), (size + 40));
           v11 = *v9;
           std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__node_insert_multi(a1 + 160, v9);
           size = *size;
@@ -657,7 +656,7 @@ void RIO_MTLX::Element::copyContentFrom(uint64_t a1, const std::string **a2)
     v14 = v12[1];
     if (v14)
     {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v14->__r_.__value_.__l.__size_, 1uLL, memory_order_relaxed);
     }
 
     v16 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>((a1 + 96), (v15 + 48));
@@ -691,7 +690,7 @@ void RIO_MTLX::Element::copyContentFrom(uint64_t a1, const std::string **a2)
       v21 = *(v15 + 48);
     }
 
-    RIO_MTLX::Element::addChildOfCategory(a1, v15 + 24, &v21, &v22);
+    RIO_MTLX::Element::addChildOfCategory(a1, (v15 + 24), &v21, &v22);
     if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v21.__r_.__value_.__l.__data_);
@@ -702,7 +701,7 @@ void RIO_MTLX::Element::copyContentFrom(uint64_t a1, const std::string **a2)
     v20[1] = v14;
     if (v14)
     {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v14->__r_.__value_.__l.__size_, 1uLL, memory_order_relaxed);
     }
 
     RIO_MTLX::Element::copyContentFrom(v19, v20);
@@ -847,9 +846,9 @@ __int128 *RIO_MTLX::Element::getUpstreamEdge@<X0>(RIO_MTLX::Element *this@<X0>, 
   return result;
 }
 
-void RIO_MTLX::Element::clearContent(RIO_MTLX::Element *this)
+void RIO_MTLX::Element::clearContent(void ***this)
 {
-  RIO_MTLX::Element::getDocument(this, v3);
+  RIO_MTLX::Element::getDocument(v3, this);
   v2 = v3[1];
   *(*(v3[0] + 272) + 80) = 0;
   if (v2)
@@ -859,8 +858,8 @@ void RIO_MTLX::Element::clearContent(RIO_MTLX::Element *this)
 
   if (*(this + 95) < 0)
   {
-    **(this + 9) = 0;
-    *(this + 10) = 0;
+    *this[9] = 0;
+    this[10] = 0;
   }
 
   else
@@ -869,9 +868,9 @@ void RIO_MTLX::Element::clearContent(RIO_MTLX::Element *this)
     *(this + 95) = 0;
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::clear(this + 160);
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::clear((this + 20));
   std::vector<std::string>::clear[abi:ne200100](this + 25);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>>>::clear(this + 96);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>>>::clear((this + 12));
   std::vector<std::shared_ptr<realityio::DirtyStageDescriptor const>>::clear[abi:ne200100](this + 17);
 }
 
@@ -1478,7 +1477,7 @@ void sub_2474A86A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void RIO_MTLX::ValueElement::getResolvedValueString(RIO_MTLX::ValueElement *a1@<X0>, uint64_t *a2@<X1>, std::string *a3@<X8>)
+void RIO_MTLX::ValueElement::getResolvedValueString(RIO_MTLX::Element *a1@<X0>, uint64_t *a2@<X1>, std::string *a3@<X8>)
 {
   v6 = (*(*a1 + 56))(a1);
   isResolvedType = RIO_MTLX::StringResolver::isResolvedType(v6);
@@ -1488,7 +1487,7 @@ void RIO_MTLX::ValueElement::getResolvedValueString(RIO_MTLX::ValueElement *a1@<
     if (!*a2)
     {
       v9 = RIO_MTLX::EMPTY_STRING(isResolvedType);
-      RIO_MTLX::Element::createStringResolver(&v19, a1, v9);
+      RIO_MTLX::Element::createStringResolver(a1, v9, &v19);
       v10 = a2[1];
       v11 = v19;
       *a2 = v19;
@@ -1545,7 +1544,7 @@ BOOL RIO_MTLX::StringResolver::isResolvedType(uint64_t a1)
     v4 = *(a1 + 8);
   }
 
-  v5 = v2[23];
+  v5 = *(v2 + 23);
   v6 = v5;
   if ((v5 & 0x80u) != 0)
   {
@@ -1575,11 +1574,11 @@ BOOL RIO_MTLX::StringResolver::isResolvedType(uint64_t a1)
     v11 = *(a1 + 8);
   }
 
-  v12 = v9[23];
+  v12 = *(v9 + 23);
   v13 = v12;
-  if ((v12 & 0x80u) != 0)
+  if (v12 < 0)
   {
-    v12 = *(v9 + 1);
+    v12 = v9[1];
   }
 
   if (v11 != v12)
@@ -1643,36 +1642,36 @@ const void **RIO_MTLX::ValueElement::getValue@<X0>(RIO_MTLX::ValueElement *this@
   return result;
 }
 
-uint64_t RIO_MTLX::ValueElement::validate(uint64_t a1, std::string *a2)
+uint64_t RIO_MTLX::ValueElement::validate(void *a1, std::string *a2)
 {
-  v84[0] = 1;
+  v82[0] = 1;
   RIO_MTLX::TypedElement::TYPE_ATTRIBUTE(a1);
-  v4 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>((a1 + 160), RIO_MTLX::TypedElement::TYPE_ATTRIBUTE(void)::v);
+  v4 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(a1 + 20, RIO_MTLX::TypedElement::TYPE_ATTRIBUTE(void)::v);
   if (v4)
   {
     RIO_MTLX::ValueElement::VALUE_ATTRIBUTE(v4);
-    v4 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>((a1 + 160), RIO_MTLX::ValueElement::VALUE_ATTRIBUTE(void)::v);
+    v4 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(a1 + 20, RIO_MTLX::ValueElement::VALUE_ATTRIBUTE(void)::v);
     if (v4)
     {
       RIO_MTLX::ValueElement::getValue(a1, &lpsrc);
       v5 = lpsrc;
-      std::string::basic_string[abi:ne200100]<0>(v82, "Invalid value");
-      RIO_MTLX::Element::validateRequire(a1, v5 != 0, v84, a2, v82);
-      if (v83 < 0)
+      std::string::basic_string[abi:ne200100]<0>(v80, "Invalid value");
+      RIO_MTLX::Element::validateRequire(a1, v5 != 0, v82, a2, v80);
+      if (v81 < 0)
       {
-        operator delete(v82[0]);
+        operator delete(v80[0]);
       }
 
-      v4 = v65;
-      if (v65)
+      v4 = v63;
+      if (v63)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v65);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v63);
       }
     }
   }
 
   RIO_MTLX::ValueElement::INTERFACE_NAME_ATTRIBUTE(v4);
-  v6 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>((a1 + 160), RIO_MTLX::ValueElement::INTERFACE_NAME_ATTRIBUTE(void)::v);
+  v6 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(a1 + 20, RIO_MTLX::ValueElement::INTERFACE_NAME_ATTRIBUTE(void)::v);
   if (v6)
   {
     v7 = RIO_MTLX::EMPTY_STRING(v6);
@@ -1683,52 +1682,52 @@ uint64_t RIO_MTLX::ValueElement::validate(uint64_t a1, std::string *a2)
     }
 
     v10 = RIO_MTLX::EMPTY_STRING(v8);
-    std::shared_ptr<RIO_MTLX::Element>::shared_ptr[abi:ne200100]<RIO_MTLX::Element,0>(&lpsrc, (a1 + 8));
+    std::shared_ptr<RIO_MTLX::Element>::shared_ptr[abi:ne200100]<RIO_MTLX::Element,0>(&lpsrc, a1 + 1);
     {
-      v12 = v65;
-      v13 = 0;
-      if (v65)
+      v11 = v63;
+      v12 = 0;
+      if (v63)
       {
-        atomic_fetch_add_explicit(&v65->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v63->__shared_owners_, 1uLL, memory_order_relaxed);
       }
     }
 
     else
     {
-      v12 = 0;
-      v13 = 1;
+      v11 = 0;
+      v12 = 1;
     }
 
-    if (v65)
+    if (v63)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v65);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v63);
+    }
+
+    if (v11)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
 
     if (v12)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-    }
-
-    if (v13)
-    {
       goto LABEL_34;
     }
 
-    v14 = *(v10 + 23);
-    v15 = v14 >= 0 ? *(v10 + 23) : v10[1];
-    if (!v15)
+    v13 = *(v10 + 23);
+    v14 = v13 >= 0 ? *(v10 + 23) : v10[1];
+    if (!v14)
     {
       goto LABEL_9;
     }
 
-    v16 = *(a1 + 47);
-    v17 = v16;
-    if ((v16 & 0x80u) != 0)
+    v15 = *(a1 + 47);
+    v16 = v15;
+    if ((v15 & 0x80u) != 0)
     {
-      v16 = *(a1 + 32);
+      v15 = a1[4];
     }
 
-    if (v16 == v15 && (v17 >= 0 ? (v18 = (a1 + 24)) : (v18 = *(a1 + 24)), v14 >= 0 ? (v19 = v10) : (v19 = *v10), !memcmp(v18, v19, v15)))
+    if (v15 == v14 && (v16 >= 0 ? (v17 = a1 + 3) : (v17 = a1[3]), v13 >= 0 ? (v18 = v10) : (v18 = *v10), !memcmp(v17, v18, v14)))
     {
 LABEL_9:
       v9 = 1;
@@ -1740,143 +1739,142 @@ LABEL_34:
       v9 = 0;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v80, "Only input and token elements support interface names");
-    RIO_MTLX::Element::validateRequire(a1, v9, v84, a2, v80);
-    if (v81 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v78, "Only input and token elements support interface names");
+    RIO_MTLX::Element::validateRequire(a1, v9, v82, a2, v78);
+    if (v79 < 0)
     {
-      operator delete(v80[0]);
+      operator delete(v78[0]);
     }
 
     RIO_MTLX::Element::getAncestorOfType<RIO_MTLX::NodeGraph>(a1, &p_lpsrc);
     if (p_lpsrc)
     {
-      RIO_MTLX::NodeGraph::getNodeDef(p_lpsrc, &v76);
-      v20 = v76;
-      if (v76)
+      RIO_MTLX::NodeGraph::getNodeDef(&v74, p_lpsrc);
+      v19 = v74;
+      if (v74)
       {
         InterfaceName = RIO_MTLX::ValueElement::getInterfaceName(a1);
-        RIO_MTLX::InterfaceElement::getActiveValueElement(v20, InterfaceName, &v74);
-        v22 = v74;
+        RIO_MTLX::InterfaceElement::getActiveValueElement(v19, InterfaceName, &v72);
+        v21 = v72;
         std::string::basic_string[abi:ne200100]<0>(__p, "Interface name not found in referenced NodeDef");
-        RIO_MTLX::Element::validateRequire(a1, v22 != 0, v84, a2, __p);
-        if (v73 < 0)
+        RIO_MTLX::Element::validateRequire(a1, v21 != 0, v82, a2, __p);
+        if (v71 < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (!v74)
+        if (!v72)
         {
           goto LABEL_74;
         }
 
-        std::shared_ptr<RIO_MTLX::Element>::shared_ptr[abi:ne200100]<RIO_MTLX::Element,0>(&lpsrc, (a1 + 8));
+        std::shared_ptr<RIO_MTLX::Element>::shared_ptr[abi:ne200100]<RIO_MTLX::Element,0>(&lpsrc, a1 + 1);
         if (lpsrc)
         {
-          v23 = **lpsrc;
-          if (v24)
+          if (v22)
           {
-            v25 = v65;
-            if (v65)
+            v23 = v63;
+            if (v63)
             {
-              atomic_fetch_add_explicit(&v65->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v63->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
 LABEL_49:
-            v26 = v65;
-            if (v65)
+            v24 = v63;
+            if (v63)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v65);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v63);
             }
 
-            if (v24 && (v27 = RIO_MTLX::PortElement::CHANNELS_ATTRIBUTE(v26), std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(v24 + 20, v27)))
+            if (v22 && (v25 = RIO_MTLX::PortElement::CHANNELS_ATTRIBUTE(v24), std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(v22 + 20, v25)))
             {
-              Channels = RIO_MTLX::PortElement::getChannels(v24);
-              v29 = (*(*v74 + 56))(v74);
-              v30 = (*(*a1 + 56))(a1);
-              LOBYTE(Channels) = RIO_MTLX::PortElement::validChannelsString(Channels, v29, v30);
-              std::string::basic_string[abi:ne200100]<0>(v70, "Invalid channels string for interface name");
-              RIO_MTLX::Element::validateRequire(a1, Channels, v84, a2, v70);
-              if ((v71 & 0x80000000) == 0)
-              {
-                goto LABEL_72;
-              }
-
-              v31 = v70;
-            }
-
-            else
-            {
-              v32 = (*(*a1 + 56))(a1);
-              v33 = (*(*v74 + 56))(v74);
-              v34 = *(v32 + 23);
-              if (v34 >= 0)
-              {
-                v35 = *(v32 + 23);
-              }
-
-              else
-              {
-                v35 = *(v32 + 8);
-              }
-
-              v36 = *(v33 + 23);
-              v37 = v36;
-              if ((v36 & 0x80u) != 0)
-              {
-                v36 = *(v33 + 8);
-              }
-
-              if (v35 == v36)
-              {
-                if (v34 >= 0)
-                {
-                  v38 = v32;
-                }
-
-                else
-                {
-                  v38 = *v32;
-                }
-
-                if (v37 >= 0)
-                {
-                  v39 = v33;
-                }
-
-                else
-                {
-                  v39 = *v33;
-                }
-
-                v40 = memcmp(v38, v39, v35) == 0;
-              }
-
-              else
-              {
-                v40 = 0;
-              }
-
-              std::string::basic_string[abi:ne200100]<0>(v68, "Interface name refers to value element of a different type");
-              RIO_MTLX::Element::validateRequire(a1, v40, v84, a2, v68);
+              Channels = RIO_MTLX::PortElement::getChannels(v22);
+              v27 = (*(*v72 + 56))(v72);
+              v28 = (*(*a1 + 56))(a1);
+              LOBYTE(Channels) = RIO_MTLX::PortElement::validChannelsString(Channels, v27, v28);
+              std::string::basic_string[abi:ne200100]<0>(v68, "Invalid channels string for interface name");
+              RIO_MTLX::Element::validateRequire(a1, Channels, v82, a2, v68);
               if ((v69 & 0x80000000) == 0)
               {
                 goto LABEL_72;
               }
 
-              v31 = v68;
+              v29 = v68;
             }
 
-            operator delete(*v31);
-LABEL_72:
-            if (v25)
+            else
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+              v30 = (*(*a1 + 56))(a1);
+              v31 = (*(*v72 + 56))(v72);
+              v32 = *(v30 + 23);
+              if (v32 >= 0)
+              {
+                v33 = *(v30 + 23);
+              }
+
+              else
+              {
+                v33 = *(v30 + 8);
+              }
+
+              v34 = *(v31 + 23);
+              v35 = v34;
+              if ((v34 & 0x80u) != 0)
+              {
+                v34 = *(v31 + 8);
+              }
+
+              if (v33 == v34)
+              {
+                if (v32 >= 0)
+                {
+                  v36 = v30;
+                }
+
+                else
+                {
+                  v36 = *v30;
+                }
+
+                if (v35 >= 0)
+                {
+                  v37 = v31;
+                }
+
+                else
+                {
+                  v37 = *v31;
+                }
+
+                v38 = memcmp(v36, v37, v33) == 0;
+              }
+
+              else
+              {
+                v38 = 0;
+              }
+
+              std::string::basic_string[abi:ne200100]<0>(v66, "Interface name refers to value element of a different type");
+              RIO_MTLX::Element::validateRequire(a1, v38, v82, a2, v66);
+              if ((v67 & 0x80000000) == 0)
+              {
+                goto LABEL_72;
+              }
+
+              v29 = v66;
+            }
+
+            operator delete(*v29);
+LABEL_72:
+            if (v23)
+            {
+              std::__shared_weak_count::__release_shared[abi:ne200100](v23);
             }
 
 LABEL_74:
-            if (v75)
+            if (v73)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v75);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v73);
             }
 
             goto LABEL_76;
@@ -1885,150 +1883,150 @@ LABEL_74:
 
         else
         {
-          v24 = 0;
+          v22 = 0;
         }
 
-        v25 = 0;
+        v23 = 0;
         goto LABEL_49;
       }
     }
 
     else
     {
-      v76 = 0;
-      v77 = 0;
+      v74 = 0;
+      v75 = 0;
     }
 
 LABEL_76:
+    if (v75)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v75);
+    }
+
+    v6 = v77;
+    if (v77)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v77);
+    }
+  }
+
+  RIO_MTLX::ValueElement::UNITTYPE_ATTRIBUTE(v6);
+  v39 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(a1 + 20, qword_27EE52AC8);
+  if (!v39)
+  {
+    goto LABEL_91;
+  }
+
+  RIO_MTLX::ValueElement::UNITTYPE_ATTRIBUTE(v39);
+  v39 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(a1 + 20, qword_27EE52AC8);
+  if (v39)
+  {
+    v40 = (v39 + 40);
+  }
+
+  else
+  {
+    v39 = RIO_MTLX::EMPTY_STRING(0);
+    v40 = v39;
+  }
+
+  v41 = *(v40 + 23);
+  if ((v41 & 0x80u) != 0)
+  {
+    v41 = *(v40 + 1);
+  }
+
+  if (v41)
+  {
+    RIO_MTLX::Element::getDocument(&p_lpsrc, a1);
+    RIO_MTLX::Element::getChildOfType<RIO_MTLX::UnitTypeDef>(p_lpsrc, v40, &lpsrc);
+    v43 = lpsrc;
+    v42 = v63;
+    lpsrc = 0;
+    v63 = 0;
     if (v77)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v77);
     }
 
-    v6 = v79;
-    if (v79)
+    std::string::basic_string[abi:ne200100]<0>(v64, "Unit type definition does not exist in document");
+    RIO_MTLX::Element::validateRequire(a1, v43 != 0, v82, a2, v64);
+    if (v65 < 0)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v79);
-    }
-  }
-
-  RIO_MTLX::ValueElement::UNITTYPE_ATTRIBUTE(v6);
-  v41 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>((a1 + 160), byte_27EE52AC8);
-  if (!v41)
-  {
-    goto LABEL_91;
-  }
-
-  RIO_MTLX::ValueElement::UNITTYPE_ATTRIBUTE(v41);
-  v41 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>((a1 + 160), byte_27EE52AC8);
-  if (v41)
-  {
-    v42 = (v41 + 40);
-  }
-
-  else
-  {
-    v41 = RIO_MTLX::EMPTY_STRING(0);
-    v42 = v41;
-  }
-
-  v43 = *(v42 + 23);
-  if ((v43 & 0x80u) != 0)
-  {
-    v43 = *(v42 + 1);
-  }
-
-  if (v43)
-  {
-    RIO_MTLX::Element::getDocument(a1, &p_lpsrc);
-    RIO_MTLX::Element::getChildOfType<RIO_MTLX::UnitTypeDef>(p_lpsrc, v42, &lpsrc);
-    v45 = lpsrc;
-    v44 = v65;
-    lpsrc = 0;
-    v65 = 0;
-    if (v79)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v79);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(v66, "Unit type definition does not exist in document");
-    RIO_MTLX::Element::validateRequire(a1, v45 != 0, v84, a2, v66);
-    if (v67 < 0)
-    {
-      operator delete(v66[0]);
+      operator delete(v64[0]);
     }
   }
 
   else
   {
 LABEL_91:
-    v44 = 0;
-    v45 = 0;
+    v42 = 0;
+    v43 = 0;
   }
 
-  RIO_MTLX::ValueElement::UNIT_ATTRIBUTE(v41);
-  v46 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>((a1 + 160), byte_27EE52AB0);
-  if (v46)
+  RIO_MTLX::ValueElement::UNIT_ATTRIBUTE(v39);
+  v44 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(a1 + 20, qword_27EE52AB0);
+  if (v44)
   {
-    if (v45)
+    if (v43)
     {
-      RIO_MTLX::ValueElement::UNIT_ATTRIBUTE(v46);
-      v47 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>((a1 + 160), byte_27EE52AB0);
-      if (v47)
+      RIO_MTLX::ValueElement::UNIT_ATTRIBUTE(v44);
+      v45 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(a1 + 20, qword_27EE52AB0);
+      if (v45)
       {
-        v48 = (v47 + 5);
+        v46 = (v45 + 5);
       }
 
       else
       {
-        v48 = RIO_MTLX::EMPTY_STRING(0);
+        v46 = RIO_MTLX::EMPTY_STRING(0);
       }
 
-      RIO_MTLX::UnitTypeDef::getUnitDefs(v45, &lpsrc);
-      v50 = lpsrc;
-      v51 = v65;
-      if (lpsrc != v65)
+      RIO_MTLX::UnitTypeDef::getUnitDefs(&lpsrc, v43);
+      v48 = lpsrc;
+      v49 = v63;
+      if (lpsrc != v63)
       {
         while (1)
         {
-          v52 = v50->__vftable;
-          shared_owners = v50->__shared_owners_;
+          v50 = v48->__vftable;
+          shared_owners = v48->__shared_owners_;
           if (shared_owners)
           {
             atomic_fetch_add_explicit(&shared_owners->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v54 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(&v52[2].__on_zero_shared, v48);
-          v55 = v54;
-          if (!v54)
+          v52 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(&v50[2].__on_zero_shared, v46);
+          v53 = v52;
+          if (!v52)
           {
             break;
           }
 
-          v56 = v54[5];
-          v57 = v55[6];
-          if (v57)
+          v54 = v52[5];
+          v55 = v53[6];
+          if (v55)
           {
-            atomic_fetch_add_explicit(&v57->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v55->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          if (!v56)
+          if (!v54)
           {
             goto LABEL_115;
           }
 
-          RIO_MTLX::Element::asA<RIO_MTLX::Unit>(v56, &p_lpsrc);
-          if (v57)
+          RIO_MTLX::Element::asA<RIO_MTLX::Unit>(v54, &p_lpsrc);
+          if (v55)
           {
             goto LABEL_106;
           }
 
 LABEL_107:
-          v58 = p_lpsrc;
-          v49 = p_lpsrc != 0;
-          if (v79)
+          v56 = p_lpsrc;
+          v47 = p_lpsrc != 0;
+          if (v77)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v79);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v77);
           }
 
           if (shared_owners)
@@ -2036,10 +2034,10 @@ LABEL_107:
             std::__shared_weak_count::__release_shared[abi:ne200100](shared_owners);
           }
 
-          if (!v58)
+          if (!v56)
           {
-            v50 = (v50 + 16);
-            if (v50 != v51)
+            v48 = (v48 + 16);
+            if (v48 != v49)
             {
               continue;
             }
@@ -2048,21 +2046,21 @@ LABEL_107:
           goto LABEL_118;
         }
 
-        v57 = 0;
+        v55 = 0;
 LABEL_115:
         p_lpsrc = 0;
-        v79 = 0;
-        if (!v57)
+        v77 = 0;
+        if (!v55)
         {
           goto LABEL_107;
         }
 
 LABEL_106:
-        std::__shared_weak_count::__release_shared[abi:ne200100](v57);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v55);
         goto LABEL_107;
       }
 
-      v49 = 0;
+      v47 = 0;
 LABEL_118:
       p_lpsrc = &lpsrc;
       std::vector<std::shared_ptr<realityio::DirtyStageDescriptor const>>::__destroy_vector::operator()[abi:ne200100](&p_lpsrc);
@@ -2070,25 +2068,25 @@ LABEL_118:
 
     else
     {
-      v49 = 0;
+      v47 = 0;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v62, "Unit definition does not exist in document");
-    RIO_MTLX::Element::validateRequire(a1, v49, v84, a2, v62);
-    if (v63 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v60, "Unit definition does not exist in document");
+    RIO_MTLX::Element::validateRequire(a1, v47, v82, a2, v60);
+    if (v61 < 0)
     {
-      operator delete(v62[0]);
+      operator delete(v60[0]);
     }
   }
 
-  v59 = RIO_MTLX::Element::validate(a1, a2);
-  v60 = v84[0];
-  if (v44)
+  v57 = RIO_MTLX::Element::validate(a1, a2);
+  v58 = v82[0];
+  if (v42)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v42);
   }
 
-  return v59 & v60;
+  return v57 & v58;
 }
 
 void sub_2474A919C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, std::__shared_weak_count *a43, uint64_t a44, std::__shared_weak_count *a45)
@@ -2145,7 +2143,7 @@ uint64_t RIO_MTLX::Element::isA<RIO_MTLX::Input>(uint64_t a1, const void **a2)
 
   v7 = *(a1 + 47);
   v8 = v7;
-  if ((v7 & 0x80u) != 0)
+  if (v7 < 0)
   {
     v7 = *(a1 + 32);
   }
@@ -2263,7 +2261,7 @@ uint64_t *RIO_MTLX::PortElement::getChannels(RIO_MTLX::PortElement *this)
   return RIO_MTLX::EMPTY_STRING(0);
 }
 
-void RIO_MTLX::StringResolver::resolve(RIO_MTLX *a1@<X0>, uint64_t a2@<X1>, const void **a3@<X2>, std::string *a4@<X8>)
+void RIO_MTLX::StringResolver::resolve(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const void **a3@<X2>, std::string *a4@<X8>)
 {
   v8 = RIO_MTLX::FILENAME_TYPE_STRING(a1);
   v9 = *(a3 + 23);
@@ -2277,7 +2275,7 @@ void RIO_MTLX::StringResolver::resolve(RIO_MTLX *a1@<X0>, uint64_t a2@<X1>, cons
     v10 = a3[1];
   }
 
-  v11 = v8[23];
+  v11 = *(v8 + 23);
   v12 = v11;
   if ((v11 & 0x80u) != 0)
   {
@@ -2296,9 +2294,9 @@ void RIO_MTLX::StringResolver::resolve(RIO_MTLX *a1@<X0>, uint64_t a2@<X1>, cons
       v42 = *a2;
     }
 
-    RIO_MTLX::replaceSubstrings(&v42, a1 + 56, &v43);
-    v26 = *(a1 + 1);
-    v25 = a1 + 8;
+    RIO_MTLX::replaceSubstrings(&v43, &v42, (a1 + 7));
+    v26 = a1[1];
+    v25 = (a1 + 1);
     v24 = v26;
     v27 = v25[23];
     if (v27 >= 0)
@@ -2313,7 +2311,7 @@ void RIO_MTLX::StringResolver::resolve(RIO_MTLX *a1@<X0>, uint64_t a2@<X1>, cons
 
     if (v27 >= 0)
     {
-      v29 = *(v25 + 23);
+      v29 = v25[23];
     }
 
     else
@@ -2355,11 +2353,11 @@ LABEL_58:
       v17 = a3[1];
     }
 
-    v18 = v15[23];
+    v18 = *(v15 + 23);
     v19 = v18;
-    if ((v18 & 0x80u) != 0)
+    if (v18 < 0)
     {
-      v18 = *(v15 + 1);
+      v18 = v15[1];
     }
 
     if (v17 != v18 || (v16 >= 0 ? (v20 = a3) : (v20 = *a3), v19 >= 0 ? (v21 = v15) : (v21 = *v15), memcmp(v20, v21, v17)))
@@ -2391,9 +2389,9 @@ LABEL_58:
       __p = *a2;
     }
 
-    RIO_MTLX::replaceSubstrings(&__p, a1 + 96, &v43);
-    v35 = *(a1 + 4);
-    v34 = a1 + 32;
+    RIO_MTLX::replaceSubstrings(&v43, &__p, (a1 + 12));
+    v35 = a1[4];
+    v34 = (a1 + 4);
     v33 = v35;
     v36 = v34[23];
     if (v36 >= 0)
@@ -2408,7 +2406,7 @@ LABEL_58:
 
     if (v36 >= 0)
     {
-      v38 = *(v34 + 23);
+      v38 = v34[23];
     }
 
     else
@@ -2451,7 +2449,7 @@ void sub_2474A97A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t RIO_MTLX::targetStringsMatch(uint64_t a1, uint64_t a2)
+BOOL RIO_MTLX::targetStringsMatch(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 23);
   if ((v2 & 0x80u) != 0)
@@ -2476,9 +2474,9 @@ uint64_t RIO_MTLX::targetStringsMatch(uint64_t a1, uint64_t a2)
   }
 
   v6 = RIO_MTLX::ARRAY_VALID_SEPARATORS(a1);
-  RIO_MTLX::splitString(a1, v6, v23);
+  RIO_MTLX::splitString(v23, a1, v6);
   v8 = RIO_MTLX::ARRAY_VALID_SEPARATORS(v7);
-  RIO_MTLX::splitString(a2, v8, v22);
+  RIO_MTLX::splitString(v22, a2, v8);
   std::set<std::string>::set[abi:ne200100]<std::__wrap_iter<std::string*>>(&v20, v23[0], v23[1]);
   std::set<std::string>::set[abi:ne200100]<std::__wrap_iter<std::string*>>(&v18, v22[0], v22[1]);
   v16 = 0;
@@ -2502,7 +2500,7 @@ uint64_t RIO_MTLX::targetStringsMatch(uint64_t a1, uint64_t a2)
     {
       v10 = v27;
       v27 = std::__lower_bound_onesided[abi:ne200100]<std::_ClassicAlgPolicy,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::string,std::__identity const,std::__less<void,void>>(v27, v21, v9 + 4);
-      std::__set_intersection_add_output_if_equal[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::insert_iterator<std::set<std::string>>>(v27 == v10, &v27, &v26, v25, &v24);
+      std::__set_intersection_add_output_if_equal[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::insert_iterator<std::set<std::string>>>((v27 == v10), &v27, &v26, v25, &v24);
       if (v27 == v21)
       {
         break;
@@ -2510,7 +2508,7 @@ uint64_t RIO_MTLX::targetStringsMatch(uint64_t a1, uint64_t a2)
 
       v11 = v26;
       v26 = std::__lower_bound_onesided[abi:ne200100]<std::_ClassicAlgPolicy,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::string,std::__identity const,std::__less<void,void>>(v26, v19, v27 + 4);
-      std::__set_intersection_add_output_if_equal[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::insert_iterator<std::set<std::string>>>(v26 == v11, &v27, &v26, v25, &v24);
+      std::__set_intersection_add_output_if_equal[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::insert_iterator<std::set<std::string>>>((v26 == v11), &v27, &v26, v25, &v24);
       v9 = v26;
     }
 
@@ -2543,7 +2541,7 @@ void RIO_MTLX::AttributeDef::CATEGORY(RIO_MTLX::AttributeDef *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A20, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A20))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52AE0, "attributedef");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52AE0, "attributedef");
 
     __cxa_guard_release(&qword_27EE52A20);
   }
@@ -2558,7 +2556,7 @@ void *RIO_MTLX::registryAttributeDef(RIO_MTLX *this)
   return &RIO_MTLX::registryAttributeDef(void)::v;
 }
 
-_BYTE *RIO_MTLX::Backdrop::CATEGORY(RIO_MTLX::Backdrop *this)
+void *RIO_MTLX::Backdrop::CATEGORY(RIO_MTLX::Backdrop *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::Backdrop::CATEGORY(void)::v, "backdrop");
@@ -2580,7 +2578,7 @@ void RIO_MTLX::Collection::CATEGORY(RIO_MTLX::Collection *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A28, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A28))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52AF8, "collection");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52AF8, "collection");
 
     __cxa_guard_release(&qword_27EE52A28);
   }
@@ -2595,7 +2593,7 @@ void *RIO_MTLX::registryCollection(RIO_MTLX *this)
   return &RIO_MTLX::registryCollection(void)::v;
 }
 
-_BYTE *RIO_MTLX::CommentElement::CATEGORY(RIO_MTLX::CommentElement *this)
+void *RIO_MTLX::CommentElement::CATEGORY(RIO_MTLX::CommentElement *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::CommentElement::CATEGORY(void)::v, "comment");
@@ -2613,7 +2611,7 @@ void *RIO_MTLX::registryCommentElement(RIO_MTLX *this)
   return &RIO_MTLX::registryCommentElement(void)::v;
 }
 
-_BYTE *RIO_MTLX::Document::CATEGORY(RIO_MTLX::Document *this)
+void *RIO_MTLX::Document::CATEGORY(RIO_MTLX::Document *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::Document::CATEGORY(void)::v, "materialx");
@@ -2635,7 +2633,7 @@ void RIO_MTLX::GenericElement::CATEGORY(RIO_MTLX::GenericElement *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A30, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A30))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52B10, "generic");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52B10, "generic");
 
     __cxa_guard_release(&qword_27EE52A30);
   }
@@ -2650,7 +2648,7 @@ void *RIO_MTLX::registryGenericElement(RIO_MTLX *this)
   return &RIO_MTLX::registryGenericElement(void)::v;
 }
 
-_BYTE *RIO_MTLX::GeomInfo::CATEGORY(RIO_MTLX::GeomInfo *this)
+void *RIO_MTLX::GeomInfo::CATEGORY(RIO_MTLX::GeomInfo *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::GeomInfo::CATEGORY(void)::v, "geominfo");
@@ -2668,7 +2666,7 @@ void *RIO_MTLX::registryGeomInfo(RIO_MTLX *this)
   return &RIO_MTLX::registryGeomInfo(void)::v;
 }
 
-_BYTE *RIO_MTLX::GeomProp::CATEGORY(RIO_MTLX::GeomProp *this)
+void *RIO_MTLX::GeomProp::CATEGORY(RIO_MTLX::GeomProp *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::GeomProp::CATEGORY(void)::v, "geomprop");
@@ -2690,7 +2688,7 @@ void RIO_MTLX::GeomPropDef::CATEGORY(RIO_MTLX::GeomPropDef *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A38, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A38))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52B28, "geompropdef");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52B28, "geompropdef");
 
     __cxa_guard_release(&qword_27EE52A38);
   }
@@ -2709,7 +2707,7 @@ void RIO_MTLX::Implementation::CATEGORY(RIO_MTLX::Implementation *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A40, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A40))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52B40, "implementation");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52B40, "implementation");
 
     __cxa_guard_release(&qword_27EE52A40);
   }
@@ -2724,7 +2722,7 @@ void *RIO_MTLX::registryImplementation(RIO_MTLX *this)
   return &RIO_MTLX::registryImplementation(void)::v;
 }
 
-_BYTE *RIO_MTLX::Input::CATEGORY(RIO_MTLX::Input *this)
+void *RIO_MTLX::Input::CATEGORY(RIO_MTLX::Input *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::Input::CATEGORY(void)::v, "input");
@@ -2746,7 +2744,7 @@ void RIO_MTLX::Look::CATEGORY(RIO_MTLX::Look *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A48, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A48))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52B58, "look");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52B58, "look");
 
     __cxa_guard_release(&qword_27EE52A48);
   }
@@ -2765,7 +2763,7 @@ void RIO_MTLX::LookGroup::CATEGORY(RIO_MTLX::LookGroup *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A50, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A50))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52B70, "lookgroup");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52B70, "lookgroup");
 
     __cxa_guard_release(&qword_27EE52A50);
   }
@@ -2780,7 +2778,7 @@ void *RIO_MTLX::registryLookGroup(RIO_MTLX *this)
   return &RIO_MTLX::registryLookGroup(void)::v;
 }
 
-_BYTE *RIO_MTLX::MaterialAssign::CATEGORY(RIO_MTLX::MaterialAssign *this)
+void *RIO_MTLX::MaterialAssign::CATEGORY(RIO_MTLX::MaterialAssign *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::MaterialAssign::CATEGORY(void)::v, "materialassign");
@@ -2802,7 +2800,7 @@ void RIO_MTLX::Member::CATEGORY(RIO_MTLX::Member *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A58, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A58))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52B88, "member");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52B88, "member");
 
     __cxa_guard_release(&qword_27EE52A58);
   }
@@ -2817,7 +2815,7 @@ void *RIO_MTLX::registryMember(RIO_MTLX *this)
   return &RIO_MTLX::registryMember(void)::v;
 }
 
-_BYTE *RIO_MTLX::Node::CATEGORY(RIO_MTLX::Node *this)
+void *RIO_MTLX::Node::CATEGORY(RIO_MTLX::Node *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::Node::CATEGORY(void)::v, "node");
@@ -2835,7 +2833,7 @@ void *RIO_MTLX::registryNode(RIO_MTLX *this)
   return &RIO_MTLX::registryNode(void)::v;
 }
 
-_BYTE *RIO_MTLX::NodeDef::CATEGORY(RIO_MTLX::NodeDef *this)
+void *RIO_MTLX::NodeDef::CATEGORY(RIO_MTLX::NodeDef *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::NodeDef::CATEGORY(void)::v, "nodedef");
@@ -2853,7 +2851,7 @@ void *RIO_MTLX::registryNodeDef(RIO_MTLX *this)
   return &RIO_MTLX::registryNodeDef(void)::v;
 }
 
-_BYTE *RIO_MTLX::NodeGraph::CATEGORY(RIO_MTLX::NodeGraph *this)
+void *RIO_MTLX::NodeGraph::CATEGORY(RIO_MTLX::NodeGraph *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::NodeGraph::CATEGORY(void)::v, "nodegraph");
@@ -2871,7 +2869,7 @@ void *RIO_MTLX::registryNodeGraph(RIO_MTLX *this)
   return &RIO_MTLX::registryNodeGraph(void)::v;
 }
 
-_BYTE *RIO_MTLX::Output::CATEGORY(RIO_MTLX::Output *this)
+void *RIO_MTLX::Output::CATEGORY(RIO_MTLX::Output *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::Output::CATEGORY(void)::v, "output");
@@ -2893,7 +2891,7 @@ void RIO_MTLX::Property::CATEGORY(RIO_MTLX::Property *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A60))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52BA0, "property");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52BA0, "property");
 
     __cxa_guard_release(&qword_27EE52A60);
   }
@@ -2912,7 +2910,7 @@ void RIO_MTLX::PropertyAssign::CATEGORY(RIO_MTLX::PropertyAssign *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A68, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A68))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52BB8, "propertyassign");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52BB8, "propertyassign");
 
     __cxa_guard_release(&qword_27EE52A68);
   }
@@ -2931,7 +2929,7 @@ void RIO_MTLX::PropertySet::CATEGORY(RIO_MTLX::PropertySet *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A70, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A70))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52BD0, "propertyset");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52BD0, "propertyset");
 
     __cxa_guard_release(&qword_27EE52A70);
   }
@@ -2950,7 +2948,7 @@ void RIO_MTLX::PropertySetAssign::CATEGORY(RIO_MTLX::PropertySetAssign *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A78, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A78))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52BE8, "propertysetassign");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52BE8, "propertysetassign");
 
     __cxa_guard_release(&qword_27EE52A78);
   }
@@ -2969,7 +2967,7 @@ void RIO_MTLX::TargetDef::CATEGORY(RIO_MTLX::TargetDef *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A80, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A80))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52C00, "targetdef");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52C00, "targetdef");
 
     __cxa_guard_release(&qword_27EE52A80);
   }
@@ -2984,7 +2982,7 @@ void *RIO_MTLX::registryTargetDef(RIO_MTLX *this)
   return &RIO_MTLX::registryTargetDef(void)::v;
 }
 
-_BYTE *RIO_MTLX::Token::CATEGORY(RIO_MTLX::Token *this)
+void *RIO_MTLX::Token::CATEGORY(RIO_MTLX::Token *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::Token::CATEGORY(void)::v, "token");
@@ -3006,7 +3004,7 @@ void RIO_MTLX::TypeDef::CATEGORY(RIO_MTLX::TypeDef *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A88, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A88))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52C18, "typedef");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52C18, "typedef");
 
     __cxa_guard_release(&qword_27EE52A88);
   }
@@ -3021,7 +3019,7 @@ void *RIO_MTLX::registryTypeDef(RIO_MTLX *this)
   return &RIO_MTLX::registryTypeDef(void)::v;
 }
 
-_BYTE *RIO_MTLX::Unit::CATEGORY(RIO_MTLX::Unit *this)
+void *RIO_MTLX::Unit::CATEGORY(RIO_MTLX::Unit *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::Unit::CATEGORY(void)::v, "unit");
@@ -3039,7 +3037,7 @@ void *RIO_MTLX::registryUnit(RIO_MTLX *this)
   return &RIO_MTLX::registryUnit(void)::v;
 }
 
-_BYTE *RIO_MTLX::UnitDef::CATEGORY(RIO_MTLX::UnitDef *this)
+void *RIO_MTLX::UnitDef::CATEGORY(RIO_MTLX::UnitDef *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::UnitDef::CATEGORY(void)::v, "unitdef");
@@ -3057,7 +3055,7 @@ void *RIO_MTLX::registryUnitDef(RIO_MTLX *this)
   return &RIO_MTLX::registryUnitDef(void)::v;
 }
 
-_BYTE *RIO_MTLX::UnitTypeDef::CATEGORY(RIO_MTLX::UnitTypeDef *this)
+void *RIO_MTLX::UnitTypeDef::CATEGORY(RIO_MTLX::UnitTypeDef *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(RIO_MTLX::UnitTypeDef::CATEGORY(void)::v, "unittypedef");
@@ -3079,7 +3077,7 @@ void RIO_MTLX::Variant::CATEGORY(RIO_MTLX::Variant *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A90, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A90))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52C30, "variant");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52C30, "variant");
 
     __cxa_guard_release(&qword_27EE52A90);
   }
@@ -3098,7 +3096,7 @@ void RIO_MTLX::VariantAssign::CATEGORY(RIO_MTLX::VariantAssign *this)
 {
   if ((atomic_load_explicit(&qword_27EE52A98, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52A98))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52C48, "variantassign");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52C48, "variantassign");
 
     __cxa_guard_release(&qword_27EE52A98);
   }
@@ -3117,7 +3115,7 @@ void RIO_MTLX::VariantSet::CATEGORY(RIO_MTLX::VariantSet *this)
 {
   if ((atomic_load_explicit(&qword_27EE52AA0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52AA0))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52C60, "variantset");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52C60, "variantset");
 
     __cxa_guard_release(&qword_27EE52AA0);
   }
@@ -3136,7 +3134,7 @@ void RIO_MTLX::Visibility::CATEGORY(RIO_MTLX::Visibility *this)
 {
   if ((atomic_load_explicit(&qword_27EE52AA8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52AA8))
   {
-    std::string::basic_string[abi:ne200100]<0>(byte_27EE52C78, "visibility");
+    std::string::basic_string[abi:ne200100]<0>(qword_27EE52C78, "visibility");
 
     __cxa_guard_release(&qword_27EE52AA8);
   }
@@ -3308,7 +3306,7 @@ void std::__throw_bad_weak_ptr[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x277D82708], MEMORY[0x277D82630]);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -3386,7 +3384,7 @@ void *std::set<std::shared_ptr<RIO_MTLX::Element const>>::set[abi:ne200100](void
   return a1;
 }
 
-uint64_t std::set<std::shared_ptr<RIO_MTLX::Element const>>::insert[abi:ne200100]<std::__tree_const_iterator<std::shared_ptr<RIO_MTLX::Element const>,std::__tree_node<std::shared_ptr<RIO_MTLX::Element const>,void *> *,long>>(uint64_t result, void *a2, void *a3)
+void *std::set<std::shared_ptr<RIO_MTLX::Element const>>::insert[abi:ne200100]<std::__tree_const_iterator<std::shared_ptr<RIO_MTLX::Element const>,std::__tree_node<std::shared_ptr<RIO_MTLX::Element const>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -3394,7 +3392,7 @@ uint64_t std::set<std::shared_ptr<RIO_MTLX::Element const>>::insert[abi:ne200100
     v5 = result;
     do
     {
-      result = std::__tree<std::shared_ptr<RIO_MTLX::Element const>>::__emplace_hint_unique_key_args<std::shared_ptr<RIO_MTLX::Element const>,std::shared_ptr<RIO_MTLX::Element const> const&>(v5, v5 + 1, v4 + 4);
+      result = std::__tree<std::shared_ptr<RIO_MTLX::Element const>>::__emplace_hint_unique_key_args<std::shared_ptr<RIO_MTLX::Element const>,std::shared_ptr<RIO_MTLX::Element const> const&>(v5, (v5 + 8), v4 + 4, v4 + 4);
       v6 = v4[1];
       if (v6)
       {
@@ -3428,15 +3426,15 @@ uint64_t std::set<std::shared_ptr<RIO_MTLX::Element const>>::insert[abi:ne200100
   return result;
 }
 
-uint64_t std::__tree<std::shared_ptr<RIO_MTLX::Element const>>::__emplace_hint_unique_key_args<std::shared_ptr<RIO_MTLX::Element const>,std::shared_ptr<RIO_MTLX::Element const> const&>(void *a1, void *a2, unint64_t *a3)
+void *std::__tree<std::shared_ptr<RIO_MTLX::Element const>>::__emplace_hint_unique_key_args<std::shared_ptr<RIO_MTLX::Element const>,std::shared_ptr<RIO_MTLX::Element const> const&>(uint64_t **a1, void *a2, unint64_t *a3, void *a4)
 {
-  v3 = *std::__tree<std::shared_ptr<RIO_MTLX::Element const>>::__find_equal<std::shared_ptr<RIO_MTLX::Element const>>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::shared_ptr<RIO_MTLX::Element const>>::__find_equal<std::shared_ptr<RIO_MTLX::Element const>>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void *std::__tree<std::shared_ptr<RIO_MTLX::Element const>>::__find_equal<std::shared_ptr<RIO_MTLX::Element const>>(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)
@@ -3676,11 +3674,11 @@ uint64_t RIO_MTLX::GraphIterator::GraphIterator(uint64_t a1, unint64_t *a2)
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
-  std::__tree<std::shared_ptr<RIO_MTLX::Element>>::__emplace_unique_key_args<std::shared_ptr<RIO_MTLX::Element>,std::shared_ptr<RIO_MTLX::Element> const&>(a1 + 32, a2);
+  std::__tree<std::shared_ptr<RIO_MTLX::Element>>::__emplace_unique_key_args<std::shared_ptr<RIO_MTLX::Element>,std::shared_ptr<RIO_MTLX::Element> const&>(a1 + 32, a2, a2);
   return a1;
 }
 
-void sub_2474AC29C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_2474AC29C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v13 = v12;
   v14 = v11;
@@ -3702,41 +3700,41 @@ void sub_2474AC29C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::shared_ptr<RIO_MTLX::Element>>::__emplace_unique_key_args<std::shared_ptr<RIO_MTLX::Element>,std::shared_ptr<RIO_MTLX::Element> const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::shared_ptr<RIO_MTLX::Element>>::__emplace_unique_key_args<std::shared_ptr<RIO_MTLX::Element>,std::shared_ptr<RIO_MTLX::Element> const&>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -3805,7 +3803,7 @@ unint64_t *RIO_MTLX::InheritanceIterator::InheritanceIterator(unint64_t *a1, uni
   a1[2] = (a1 + 3);
   a1[4] = 0;
   a1[5] = 0;
-  std::__tree<std::shared_ptr<RIO_MTLX::Element const>>::__emplace_unique_key_args<std::shared_ptr<RIO_MTLX::Element const>,std::shared_ptr<RIO_MTLX::Element const> const&>((a1 + 2), a2);
+  std::__tree<std::shared_ptr<RIO_MTLX::Element const>>::__emplace_unique_key_args<std::shared_ptr<RIO_MTLX::Element const>,std::shared_ptr<RIO_MTLX::Element const> const&>((a1 + 2), a2, a2);
   return a1;
 }
 
@@ -3821,41 +3819,41 @@ void sub_2474AC508(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::shared_ptr<RIO_MTLX::Element const>>::__emplace_unique_key_args<std::shared_ptr<RIO_MTLX::Element const>,std::shared_ptr<RIO_MTLX::Element const> const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::shared_ptr<RIO_MTLX::Element const>>::__emplace_unique_key_args<std::shared_ptr<RIO_MTLX::Element const>,std::shared_ptr<RIO_MTLX::Element const> const&>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -3886,7 +3884,7 @@ void RIO_MTLX::Element::resolveRootNameReference<RIO_MTLX::Element>(uint64_t a1@
   }
 
   RIO_MTLX::Element::getQualifiedName(a1, a2, &__p);
-  RIO_MTLX::Element::getChildOfType<RIO_MTLX::Element>(v8, &__p.__r_.__value_.__l.__data_, &v11);
+  RIO_MTLX::Element::getChildOfType<RIO_MTLX::Element>(v8, &__p, &v11);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3905,7 +3903,7 @@ void RIO_MTLX::Element::resolveRootNameReference<RIO_MTLX::Element>(uint64_t a1@
 
   else
   {
-    RIO_MTLX::Element::getChildOfType<RIO_MTLX::Element>(v8, &a2->__r_.__value_.__l.__data_, a3);
+    RIO_MTLX::Element::getChildOfType<RIO_MTLX::Element>(v8, a2, a3);
   }
 
   if (v12)
@@ -3934,19 +3932,19 @@ void sub_2474AC6F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *RIO_MTLX::Element::getInheritString(RIO_MTLX::Element *this)
+const void **RIO_MTLX::Element::getInheritString(RIO_MTLX::Element *this)
 {
   RIO_MTLX::Element::INHERIT_ATTRIBUTE(this);
   v2 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(this + 20, RIO_MTLX::Element::INHERIT_ATTRIBUTE(void)::v);
   if (v2)
   {
-    return (v2 + 5);
+    return v2 + 5;
   }
 
   return RIO_MTLX::EMPTY_STRING(0);
 }
 
-void RIO_MTLX::Element::getChildOfType<RIO_MTLX::Element>(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+void RIO_MTLX::Element::getChildOfType<RIO_MTLX::Element>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   v4 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>((a1 + 96), a2);
   if (!v4)
@@ -4013,7 +4011,7 @@ LABEL_2:
     Namespace = RIO_MTLX::Element::getNamespace(v5);
     v7 = Namespace;
     v8 = *(Namespace + 23);
-    if ((v8 & 0x80u) != 0)
+    if (v8 < 0)
     {
       v8 = Namespace[1];
     }
@@ -4097,17 +4095,18 @@ LABEL_2:
 
   if (!v20)
   {
-    v27 = &v17[size];
+    v27 = v17 + size;
     v28 = v17;
 LABEL_45:
     v29 = v18;
     v30 = v19;
-    while (*v28 != v30->__r_.__value_.__s.__data_[0])
+    while (v28->__r_.__value_.__s.__data_[0] != v30->__r_.__value_.__s.__data_[0])
     {
       v30 = (v30 + 1);
       if (!--v29)
       {
-        if (++v28 != v27)
+        v28 = (v28 + 1);
+        if (v28 != v27)
         {
           goto LABEL_45;
         }
@@ -4135,7 +4134,7 @@ LABEL_45:
 
     v33 = *(v7 + 23);
     v34 = v33;
-    if ((v33 & 0x80u) != 0)
+    if (v33 < 0)
     {
       v33 = v7[1];
     }
@@ -4267,13 +4266,13 @@ void sub_2474ACAC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *RIO_MTLX::Element::getNamespace(RIO_MTLX::Element *this)
+const void **RIO_MTLX::Element::getNamespace(RIO_MTLX::Element *this)
 {
   RIO_MTLX::Element::NAMESPACE_ATTRIBUTE(this);
   v2 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(this + 20, RIO_MTLX::Element::NAMESPACE_ATTRIBUTE(void)::v);
   if (v2)
   {
-    return (v2 + 5);
+    return v2 + 5;
   }
 
   return RIO_MTLX::EMPTY_STRING(0);
@@ -4323,25 +4322,25 @@ uint64_t std::__shared_ptr_pointer<RIO_MTLX::StringResolver *,std::shared_ptr<RI
   }
 }
 
-uint64_t *RIO_MTLX::Element::getFilePrefix(RIO_MTLX::Element *this)
+const void **RIO_MTLX::Element::getFilePrefix(RIO_MTLX::Element *this)
 {
   RIO_MTLX::Element::FILE_PREFIX_ATTRIBUTE(this);
   v2 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(this + 20, RIO_MTLX::Element::FILE_PREFIX_ATTRIBUTE(void)::v);
   if (v2)
   {
-    return (v2 + 5);
+    return v2 + 5;
   }
 
   return RIO_MTLX::EMPTY_STRING(0);
 }
 
-uint64_t *RIO_MTLX::Element::getGeomPrefix(RIO_MTLX::Element *this)
+const void **RIO_MTLX::Element::getGeomPrefix(RIO_MTLX::Element *this)
 {
   RIO_MTLX::Element::GEOM_PREFIX_ATTRIBUTE(this);
   v2 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(this + 20, RIO_MTLX::Element::GEOM_PREFIX_ATTRIBUTE(void)::v);
   if (v2)
   {
-    return (v2 + 5);
+    return v2 + 5;
   }
 
   return RIO_MTLX::EMPTY_STRING(0);
@@ -4422,13 +4421,13 @@ void sub_2474ACE5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t *RIO_MTLX::GeomElement::getGeom(RIO_MTLX::GeomElement *this)
+const void **RIO_MTLX::GeomElement::getGeom(RIO_MTLX::GeomElement *this)
 {
   v2 = RIO_MTLX::GeomElement::GEOM_ATTRIBUTE(this);
   v3 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(this + 20, v2);
   if (v3)
   {
-    return (v3 + 5);
+    return v3 + 5;
   }
 
   return RIO_MTLX::EMPTY_STRING(0);
@@ -4509,7 +4508,7 @@ void sub_2474ACFEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void RIO_MTLX::Element::getChildOfType<RIO_MTLX::UnitTypeDef>(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+void RIO_MTLX::Element::getChildOfType<RIO_MTLX::UnitTypeDef>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   v4 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>((a1 + 96), a2);
   if (!v4)
@@ -4560,7 +4559,7 @@ void sub_2474AD0A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<std::shared_ptr<RIO_MTLX::Element>,unsigned long>>::__init_with_size[abi:ne200100]<std::pair<std::shared_ptr<RIO_MTLX::Element>,unsigned long>*,std::pair<std::shared_ptr<RIO_MTLX::Element>,unsigned long>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<std::shared_ptr<RIO_MTLX::Element>,unsigned long>>::__init_with_size[abi:ne200100]<std::pair<std::shared_ptr<RIO_MTLX::Element>,unsigned long>*,std::pair<std::shared_ptr<RIO_MTLX::Element>,unsigned long>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4577,7 +4576,7 @@ void sub_2474AD128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::pair<std::shared_ptr<RIO_MTLX::Element>,unsigned long>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<std::shared_ptr<RIO_MTLX::Element>,unsigned long>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -4743,35 +4742,35 @@ void std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MT
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -4779,49 +4778,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_2474AD830(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2474AD830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4843,7 +4842,7 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>>>::__erase_unique<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>>>::__erase_unique<std::string>(void *a1, uint64_t *a2)
 {
   result = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(a1, a2);
   if (result)
@@ -4873,35 +4872,35 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -4909,49 +4908,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_2474ADE54(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2474ADE54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5121,19 +5120,19 @@ void std::__shared_ptr_emplace<RIO_MTLX::Node>::~__shared_ptr_emplace(std::__sha
 
 RIO_MTLX::Node *RIO_MTLX::Node::Node(RIO_MTLX::Node *a1, uint64_t *a2, uint64_t a3)
 {
-  v5 = a2[1];
-  v7 = *a2;
-  v8 = v5;
-  if (v5)
+  v4 = a2[1];
+  v6 = *a2;
+  v7 = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   RIO_MTLX::Node::CATEGORY(a1);
-  RIO_MTLX::InterfaceElement::InterfaceElement(a1, &v7, RIO_MTLX::Node::CATEGORY(void)::v, a3);
-  if (v8)
+  RIO_MTLX::InterfaceElement::InterfaceElement(a1, &v6);
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
   *a1 = &unk_2859563C8;
@@ -5382,10 +5381,10 @@ void RIO_MTLX::GenericElement::~GenericElement(RIO_MTLX::GenericElement *this)
   JUMPOUT(0x24C1A91B0);
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__node_insert_multi(uint64_t a1, void *a2)
+void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__node_insert_multi(uint64_t a1, const void **a2)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2 + 16);
-  *(a2 + 1) = v4;
+  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2 + 2);
+  a2[1] = v4;
   v5 = *(a1 + 8);
   v6 = (*(a1 + 24) + 1);
   v7 = *(a1 + 32);
@@ -5539,7 +5538,7 @@ LABEL_13:
     }
   }
 
-  v26 = *(a2 + 1);
+  v26 = a2[1];
   if (v17 > 1)
   {
     if (v26 >= v5)
@@ -5563,7 +5562,7 @@ LABEL_13:
       goto LABEL_66;
     }
 
-    v27 = *(*a2 + 8);
+    v27 = *(*a2 + 1);
     if (v17 > 1)
     {
       if (v27 >= v5)
@@ -5586,7 +5585,7 @@ LABEL_65:
   *v19 = a2;
   if (*a2)
   {
-    v27 = *(*a2 + 8);
+    v27 = *(*a2 + 1);
     if (v17 > 1)
     {
       if (v27 >= v5)
@@ -5740,7 +5739,7 @@ void std::vector<std::string>::__vdeallocate(std::vector<std::string> *this)
   }
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -5852,7 +5851,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MT
   }
 }
 
-void RIO_MTLX::Element::getChildOfType<RIO_MTLX::TypeDef>(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+void RIO_MTLX::Element::getChildOfType<RIO_MTLX::TypeDef>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   v4 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>((a1 + 96), a2);
   if (!v4)
@@ -5903,18 +5902,18 @@ void sub_2474AF3A0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::set<std::string>::set[abi:ne200100]<std::__wrap_iter<std::string*>>(void *a1, const void **a2, const void **a3)
+uint64_t **std::set<std::string>::set[abi:ne200100]<std::__wrap_iter<std::string*>>(uint64_t **a1, const void **a2, const void **a3)
 {
   a1[1] = 0;
-  v4 = (a1 + 1);
+  v4 = a1 + 1;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(a1, v4, v6);
+      std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(a1, v4, v6, v6);
       v6 += 3;
     }
 
@@ -5924,9 +5923,9 @@ void *std::set<std::string>::set[abi:ne200100]<std::__wrap_iter<std::string*>>(v
   return a1;
 }
 
-uint64_t std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(uint64_t **a1, uint64_t a2, const void **a3, uint64_t a4)
 {
-  result = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::string>::__construct_node<std::string const&>();
@@ -5935,9 +5934,9 @@ uint64_t std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,st
   return result;
 }
 
-uint64_t std::__tree<std::string>::__find_equal<std::string>(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, const void **a5)
+uint64_t *std::__tree<std::string>::__find_equal<std::string>(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, const void **a5)
 {
-  v9 = (a1 + 1);
+  v9 = a1 + 1;
   if (a1 + 1 != a2 && !std::less<std::string>::operator()[abi:ne200100](a1, a5, (a2 + 32)))
   {
     if (!std::less<std::string>::operator()[abi:ne200100](a1, (a2 + 32), a5))
@@ -5966,7 +5965,7 @@ uint64_t std::__tree<std::string>::__find_equal<std::string>(void *a1, uint64_t 
       v18 = a2;
       do
       {
-        v15 = v18[2];
+        v15 = *(v18 + 16);
         v17 = *v15 == v18;
         v18 = v15;
       }
@@ -5976,7 +5975,7 @@ uint64_t std::__tree<std::string>::__find_equal<std::string>(void *a1, uint64_t 
 
     if (v15 != v9)
     {
-      if (!std::less<std::string>::operator()[abi:ne200100](a1, a5, v15 + 4))
+      if (!std::less<std::string>::operator()[abi:ne200100](a1, a5, (v15 + 32)))
       {
         goto LABEL_28;
       }
@@ -6005,7 +6004,7 @@ LABEL_16:
     if (*a2)
     {
       *a3 = v12;
-      return v12 + 8;
+      return (v12 + 8);
     }
 
     else
@@ -6441,15 +6440,15 @@ LABEL_43:
   return v3;
 }
 
-uint64_t std::__set_intersection_add_output_if_equal[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::insert_iterator<std::set<std::string>>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, char *a5)
+void *std::__set_intersection_add_output_if_equal[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::insert_iterator<std::set<std::string>>>(void *result, uint64_t a2, uint64_t a3, uint64_t a4, char *a5)
 {
   if (result)
   {
     if (*a5 == 1)
     {
-      result = std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(*a4, *(a4 + 8), (*a2 + 32));
+      result = std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(*a4, *(a4 + 8), (*a2 + 32), *a2 + 32);
       *(a4 + 8) = result;
-      v9 = *(result + 8);
+      v9 = result[1];
       if (v9)
       {
         do
@@ -6465,7 +6464,7 @@ uint64_t std::__set_intersection_add_output_if_equal[abi:ne200100]<std::__tree_c
       {
         do
         {
-          v10 = *(result + 16);
+          v10 = result[2];
           v11 = *v10 == result;
           result = v10;
         }
@@ -6548,7 +6547,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::AttributeDef>::ElementReg
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::AttributeDef::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52AE0)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::AttributeDef>;
+  v4 = qword_27EE52AE0;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52AE0, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::AttributeDef>;
   return a1;
 }
 
@@ -6584,35 +6584,35 @@ void RIO_MTLX::AttributeDef::~AttributeDef(RIO_MTLX::AttributeDef *this)
   JUMPOUT(0x24C1A91B0);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(const void **a1)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t *a1, __int128 **a2)
 {
-  v2 = std::__string_hash<char>::operator()[abi:ne200100](&xmmword_27EE52C90, a1);
-  v3 = v2;
-  v4 = *(&xmmword_27EE52C90 + 1);
+  v3 = std::__string_hash<char>::operator()[abi:ne200100](&xmmword_27EE52C90, a1);
+  v4 = v3;
+  v5 = *(&xmmword_27EE52C90 + 1);
   if (!*(&xmmword_27EE52C90 + 1))
   {
     goto LABEL_18;
   }
 
-  v5 = vcnt_s8(*(&xmmword_27EE52C90 + 8));
-  v5.i16[0] = vaddlv_u8(v5);
-  v6 = v5.u32[0];
-  if (v5.u32[0] > 1uLL)
+  v6 = vcnt_s8(*(&xmmword_27EE52C90 + 8));
+  v6.i16[0] = vaddlv_u8(v6);
+  v7 = v6.u32[0];
+  if (v6.u32[0] > 1uLL)
   {
-    v7 = v2;
-    if (v2 >= *(&xmmword_27EE52C90 + 1))
+    v8 = v3;
+    if (v3 >= *(&xmmword_27EE52C90 + 1))
     {
-      v7 = v2 % *(&xmmword_27EE52C90 + 1);
+      v8 = v3 % *(&xmmword_27EE52C90 + 1);
     }
   }
 
   else
   {
-    v7 = (*(&xmmword_27EE52C90 + 1) - 1) & v2;
+    v8 = (*(&xmmword_27EE52C90 + 1) - 1) & v3;
   }
 
-  v8 = *(xmmword_27EE52C90 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(xmmword_27EE52C90 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -6620,44 +6620,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v3)
+    v11 = v10[1];
+    if (v11 == v4)
     {
       break;
     }
 
-    if (v6 > 1)
+    if (v7 > 1)
     {
-      if (v10 >= v4)
+      if (v11 >= v5)
       {
-        v10 %= v4;
+        v11 %= v5;
       }
     }
 
     else
     {
-      v10 &= v4 - 1;
+      v11 &= v5 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](&xmmword_27EE52C90, v9 + 2, a1))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](&xmmword_27EE52C90, v10 + 2, a1))
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,void *>>>::operator()[abi:ne200100](char a1, void **__p)
@@ -6682,7 +6682,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Backdrop>::ElementRegistr
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Backdrop::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Backdrop::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Backdrop>;
+  v4 = RIO_MTLX::Backdrop::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Backdrop::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Backdrop>;
   return a1;
 }
 
@@ -6706,7 +6707,7 @@ void std::__shared_ptr_emplace<RIO_MTLX::Backdrop>::~__shared_ptr_emplace(std::_
   JUMPOUT(0x24C1A91B0);
 }
 
-RIO_MTLX::Backdrop *RIO_MTLX::Backdrop::Backdrop(RIO_MTLX::Backdrop *a1, uint64_t *a2, uint64_t a3)
+RIO_MTLX::Backdrop *RIO_MTLX::Backdrop::Backdrop(RIO_MTLX::Backdrop *a1, uint64_t *a2, __int128 *a3)
 {
   v5 = a2[1];
   v7 = *a2;
@@ -6741,7 +6742,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Collection>::ElementRegis
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Collection::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52AF8)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Collection>;
+  v4 = qword_27EE52AF8;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52AF8, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Collection>;
   return a1;
 }
 
@@ -6774,7 +6776,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::CommentElement>::ElementR
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::CommentElement::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::CommentElement::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::CommentElement>;
+  v4 = RIO_MTLX::CommentElement::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::CommentElement::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::CommentElement>;
   return a1;
 }
 
@@ -6814,7 +6817,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Document>::ElementRegistr
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Document::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Document::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Document>;
+  v4 = RIO_MTLX::Document::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Document::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Document>;
   return a1;
 }
 
@@ -6842,7 +6846,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::GenericElement>::ElementR
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::GenericElement::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52B10)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::GenericElement>;
+  v4 = qword_27EE52B10;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52B10, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::GenericElement>;
   return a1;
 }
 
@@ -6850,7 +6855,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::GeomInfo>::ElementRegistr
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::GeomInfo::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::GeomInfo::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::GeomInfo>;
+  v4 = RIO_MTLX::GeomInfo::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::GeomInfo::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::GeomInfo>;
   return a1;
 }
 
@@ -6874,7 +6880,7 @@ void std::__shared_ptr_emplace<RIO_MTLX::GeomInfo>::~__shared_ptr_emplace(std::_
   JUMPOUT(0x24C1A91B0);
 }
 
-RIO_MTLX::GeomInfo *RIO_MTLX::GeomInfo::GeomInfo(RIO_MTLX::GeomInfo *a1, uint64_t *a2, uint64_t a3)
+RIO_MTLX::GeomInfo *RIO_MTLX::GeomInfo::GeomInfo(RIO_MTLX::GeomInfo *a1, uint64_t *a2, __int128 *a3)
 {
   v5 = a2[1];
   v7 = *a2;
@@ -6905,7 +6911,7 @@ void sub_2474B0FC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *RIO_MTLX::GeomElement::GeomElement(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+void *RIO_MTLX::GeomElement::GeomElement(void *a1, uint64_t *a2, __int128 *a3, __int128 *a4)
 {
   v5 = a2[1];
   v7 = *a2;
@@ -6946,7 +6952,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::GeomProp>::ElementRegistr
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::GeomProp::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::GeomProp::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::GeomProp>;
+  v4 = RIO_MTLX::GeomProp::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::GeomProp::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::GeomProp>;
   return a1;
 }
 
@@ -6972,19 +6979,19 @@ void std::__shared_ptr_emplace<RIO_MTLX::GeomProp>::~__shared_ptr_emplace(std::_
 
 RIO_MTLX::GeomProp *RIO_MTLX::GeomProp::GeomProp(RIO_MTLX::GeomProp *a1, uint64_t *a2, uint64_t a3)
 {
-  v5 = a2[1];
-  v7 = *a2;
-  v8 = v5;
-  if (v5)
+  v4 = a2[1];
+  v6 = *a2;
+  v7 = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   RIO_MTLX::GeomProp::CATEGORY(a1);
-  RIO_MTLX::ValueElement::ValueElement(a1, &v7, RIO_MTLX::GeomProp::CATEGORY(void)::v, a3);
-  if (v8)
+  RIO_MTLX::ValueElement::ValueElement(a1, &v6);
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
   *a1 = &unk_285945500;
@@ -7001,20 +7008,20 @@ void sub_2474B1310(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *RIO_MTLX::ValueElement::ValueElement(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+void *RIO_MTLX::ValueElement::ValueElement(void *a1, uint64_t *a2)
 {
-  v5 = a2[1];
-  v7 = *a2;
-  v8 = v5;
-  if (v5)
+  v3 = a2[1];
+  v5 = *a2;
+  v6 = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  RIO_MTLX::TypedElement::TypedElement(a1, &v7, a3, a4);
-  if (v8)
+  RIO_MTLX::TypedElement::TypedElement(a1, &v5);
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
   *a1 = &unk_285945610;
@@ -7042,7 +7049,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::GeomPropDef>::ElementRegi
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::GeomPropDef::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52B28)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::GeomPropDef>;
+  v4 = qword_27EE52B28;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52B28, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::GeomPropDef>;
   return a1;
 }
 
@@ -7082,7 +7090,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Implementation>::ElementR
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Implementation::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52B40)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Implementation>;
+  v4 = qword_27EE52B40;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52B40, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Implementation>;
   return a1;
 }
 
@@ -7115,7 +7124,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Input>::ElementRegistry(R
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Input::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Input::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Input>;
+  v4 = RIO_MTLX::Input::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Input::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Input>;
   return a1;
 }
 
@@ -7141,19 +7151,19 @@ void std::__shared_ptr_emplace<RIO_MTLX::Input>::~__shared_ptr_emplace(std::__sh
 
 RIO_MTLX::Input *RIO_MTLX::Input::Input(RIO_MTLX::Input *a1, uint64_t *a2, uint64_t a3)
 {
-  v5 = a2[1];
-  v7 = *a2;
-  v8 = v5;
-  if (v5)
+  v4 = a2[1];
+  v6 = *a2;
+  v7 = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   RIO_MTLX::Input::CATEGORY(a1);
-  RIO_MTLX::PortElement::PortElement(a1, &v7, RIO_MTLX::Input::CATEGORY(void)::v, a3);
-  if (v8)
+  RIO_MTLX::PortElement::PortElement(a1, &v6);
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
   *a1 = &unk_28595E1C8;
@@ -7170,20 +7180,20 @@ void sub_2474B1B84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *RIO_MTLX::PortElement::PortElement(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+void *RIO_MTLX::PortElement::PortElement(void *a1, uint64_t *a2)
 {
-  v5 = a2[1];
-  v7 = *a2;
-  v8 = v5;
-  if (v5)
+  v3 = a2[1];
+  v5 = *a2;
+  v6 = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  RIO_MTLX::ValueElement::ValueElement(a1, &v7, a3, a4);
-  if (v8)
+  RIO_MTLX::ValueElement::ValueElement(a1, &v5);
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
   *a1 = &unk_28595E228;
@@ -7204,7 +7214,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Look>::ElementRegistry(RI
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Look::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52B58)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Look>;
+  v4 = qword_27EE52B58;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52B58, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Look>;
   return a1;
 }
 
@@ -7244,7 +7255,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::LookGroup>::ElementRegist
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::LookGroup::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52B70)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::LookGroup>;
+  v4 = qword_27EE52B70;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52B70, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::LookGroup>;
   return a1;
 }
 
@@ -7284,7 +7296,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::MaterialAssign>::ElementR
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::MaterialAssign::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::MaterialAssign::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::MaterialAssign>;
+  v4 = RIO_MTLX::MaterialAssign::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::MaterialAssign::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::MaterialAssign>;
   return a1;
 }
 
@@ -7308,7 +7321,7 @@ void std::__shared_ptr_emplace<RIO_MTLX::MaterialAssign>::~__shared_ptr_emplace(
   JUMPOUT(0x24C1A91B0);
 }
 
-RIO_MTLX::MaterialAssign *RIO_MTLX::MaterialAssign::MaterialAssign(RIO_MTLX::MaterialAssign *a1, uint64_t *a2, uint64_t a3)
+RIO_MTLX::MaterialAssign *RIO_MTLX::MaterialAssign::MaterialAssign(RIO_MTLX::MaterialAssign *a1, uint64_t *a2, __int128 *a3)
 {
   v5 = a2[1];
   v7 = *a2;
@@ -7350,7 +7363,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Member>::ElementRegistry(
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Member::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52B88)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Member>;
+  v4 = qword_27EE52B88;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52B88, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Member>;
   return a1;
 }
 
@@ -7390,7 +7404,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Node>::ElementRegistry(RI
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Node::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Node::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Node>;
+  v4 = RIO_MTLX::Node::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Node::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Node>;
   return a1;
 }
 
@@ -7398,7 +7413,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::NodeDef>::ElementRegistry
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::NodeDef::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::NodeDef::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::NodeDef>;
+  v4 = RIO_MTLX::NodeDef::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::NodeDef::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::NodeDef>;
   return a1;
 }
 
@@ -7422,21 +7438,21 @@ void std::__shared_ptr_emplace<RIO_MTLX::NodeDef>::~__shared_ptr_emplace(std::__
   JUMPOUT(0x24C1A91B0);
 }
 
-RIO_MTLX::NodeDef *RIO_MTLX::NodeDef::NodeDef(RIO_MTLX::NodeDef *a1, uint64_t *a2, uint64_t a3)
+RIO_MTLX::NodeDef *RIO_MTLX::NodeDef::NodeDef(RIO_MTLX::NodeDef *a1, uint64_t *a2)
 {
-  v5 = a2[1];
-  v7 = *a2;
-  v8 = v5;
-  if (v5)
+  v3 = a2[1];
+  v5 = *a2;
+  v6 = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   RIO_MTLX::NodeDef::CATEGORY(a1);
-  RIO_MTLX::InterfaceElement::InterfaceElement(a1, &v7, RIO_MTLX::NodeDef::CATEGORY(void)::v, a3);
-  if (v8)
+  RIO_MTLX::InterfaceElement::InterfaceElement(a1, &v5);
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
   *a1 = &unk_28594D238;
@@ -7457,7 +7473,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::NodeGraph>::ElementRegist
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::NodeGraph::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::NodeGraph::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::NodeGraph>;
+  v4 = RIO_MTLX::NodeGraph::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::NodeGraph::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::NodeGraph>;
   return a1;
 }
 
@@ -7483,19 +7500,19 @@ void std::__shared_ptr_emplace<RIO_MTLX::NodeGraph>::~__shared_ptr_emplace(std::
 
 RIO_MTLX::NodeGraph *RIO_MTLX::NodeGraph::NodeGraph(RIO_MTLX::NodeGraph *a1, uint64_t *a2, uint64_t a3)
 {
-  v5 = a2[1];
-  v7 = *a2;
-  v8 = v5;
-  if (v5)
+  v4 = a2[1];
+  v6 = *a2;
+  v7 = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   RIO_MTLX::NodeGraph::CATEGORY(a1);
-  RIO_MTLX::GraphElement::GraphElement(a1, &v7, RIO_MTLX::NodeGraph::CATEGORY(void)::v, a3);
-  if (v8)
+  RIO_MTLX::GraphElement::GraphElement(a1, &v6);
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
   *a1 = &unk_2859564A0;
@@ -7553,7 +7570,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Output>::ElementRegistry(
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Output::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Output::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Output>;
+  v4 = RIO_MTLX::Output::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Output::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Output>;
   return a1;
 }
 
@@ -7577,21 +7595,21 @@ void std::__shared_ptr_emplace<RIO_MTLX::Output>::~__shared_ptr_emplace(std::__s
   JUMPOUT(0x24C1A91B0);
 }
 
-RIO_MTLX::Output *RIO_MTLX::Output::Output(RIO_MTLX::Output *a1, uint64_t *a2, uint64_t a3)
+RIO_MTLX::Output *RIO_MTLX::Output::Output(RIO_MTLX::Output *a1, uint64_t *a2)
 {
-  v5 = a2[1];
-  v7 = *a2;
-  v8 = v5;
-  if (v5)
+  v3 = a2[1];
+  v5 = *a2;
+  v6 = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   RIO_MTLX::Output::CATEGORY(a1);
-  RIO_MTLX::PortElement::PortElement(a1, &v7, RIO_MTLX::Output::CATEGORY(void)::v, a3);
-  if (v8)
+  RIO_MTLX::PortElement::PortElement(a1, &v5);
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
   *a1 = &unk_28595E298;
@@ -7612,7 +7630,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Property>::ElementRegistr
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Property::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52BA0)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Property>;
+  v4 = qword_27EE52BA0;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52BA0, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Property>;
   return a1;
 }
 
@@ -7652,7 +7671,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::PropertyAssign>::ElementR
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::PropertyAssign::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52BB8)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::PropertyAssign>;
+  v4 = qword_27EE52BB8;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52BB8, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::PropertyAssign>;
   return a1;
 }
 
@@ -7692,7 +7712,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::PropertySet>::ElementRegi
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::PropertySet::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52BD0)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::PropertySet>;
+  v4 = qword_27EE52BD0;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52BD0, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::PropertySet>;
   return a1;
 }
 
@@ -7732,7 +7753,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::PropertySetAssign>::Eleme
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::PropertySetAssign::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52BE8)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::PropertySetAssign>;
+  v4 = qword_27EE52BE8;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52BE8, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::PropertySetAssign>;
   return a1;
 }
 
@@ -7772,7 +7794,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::TargetDef>::ElementRegist
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::TargetDef::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52C00)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::TargetDef>;
+  v4 = qword_27EE52C00;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52C00, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::TargetDef>;
   return a1;
 }
 
@@ -7812,7 +7835,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Token>::ElementRegistry(R
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Token::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Token::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Token>;
+  v4 = RIO_MTLX::Token::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Token::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Token>;
   return a1;
 }
 
@@ -7836,21 +7860,21 @@ void std::__shared_ptr_emplace<RIO_MTLX::Token>::~__shared_ptr_emplace(std::__sh
   JUMPOUT(0x24C1A91B0);
 }
 
-RIO_MTLX::Token *RIO_MTLX::Token::Token(RIO_MTLX::Token *a1, uint64_t *a2, uint64_t a3)
+RIO_MTLX::Token *RIO_MTLX::Token::Token(RIO_MTLX::Token *a1, uint64_t *a2)
 {
-  v5 = a2[1];
-  v7 = *a2;
-  v8 = v5;
-  if (v5)
+  v3 = a2[1];
+  v5 = *a2;
+  v6 = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   RIO_MTLX::Token::CATEGORY(a1);
-  RIO_MTLX::ValueElement::ValueElement(a1, &v7, RIO_MTLX::Token::CATEGORY(void)::v, a3);
-  if (v8)
+  RIO_MTLX::ValueElement::ValueElement(a1, &v5);
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
   *a1 = &unk_2859453A8;
@@ -7878,7 +7902,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::TypeDef>::ElementRegistry
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::TypeDef::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52C18)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::TypeDef>;
+  v4 = qword_27EE52C18;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52C18, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::TypeDef>;
   return a1;
 }
 
@@ -7918,7 +7943,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Unit>::ElementRegistry(RI
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Unit::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Unit::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Unit>;
+  v4 = RIO_MTLX::Unit::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::Unit::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Unit>;
   return a1;
 }
 
@@ -7942,7 +7968,7 @@ void std::__shared_ptr_emplace<RIO_MTLX::Unit>::~__shared_ptr_emplace(std::__sha
   JUMPOUT(0x24C1A91B0);
 }
 
-RIO_MTLX::Unit *RIO_MTLX::Unit::Unit(RIO_MTLX::Unit *a1, uint64_t *a2, uint64_t a3)
+RIO_MTLX::Unit *RIO_MTLX::Unit::Unit(RIO_MTLX::Unit *a1, uint64_t *a2, __int128 *a3)
 {
   v5 = a2[1];
   v7 = *a2;
@@ -7984,7 +8010,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::UnitDef>::ElementRegistry
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::UnitDef::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::UnitDef::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::UnitDef>;
+  v4 = RIO_MTLX::UnitDef::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::UnitDef::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::UnitDef>;
   return a1;
 }
 
@@ -8008,7 +8035,7 @@ void std::__shared_ptr_emplace<RIO_MTLX::UnitDef>::~__shared_ptr_emplace(std::__
   JUMPOUT(0x24C1A91B0);
 }
 
-RIO_MTLX::UnitDef *RIO_MTLX::UnitDef::UnitDef(RIO_MTLX::UnitDef *a1, uint64_t *a2, uint64_t a3)
+RIO_MTLX::UnitDef *RIO_MTLX::UnitDef::UnitDef(RIO_MTLX::UnitDef *a1, uint64_t *a2, __int128 *a3)
 {
   v5 = a2[1];
   v7 = *a2;
@@ -8050,7 +8077,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::UnitTypeDef>::ElementRegi
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::UnitTypeDef::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::UnitTypeDef::CATEGORY(void)::v)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::UnitTypeDef>;
+  v4 = RIO_MTLX::UnitTypeDef::CATEGORY(void)::v;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(RIO_MTLX::UnitTypeDef::CATEGORY(void)::v, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::UnitTypeDef>;
   return a1;
 }
 
@@ -8074,7 +8102,7 @@ void std::__shared_ptr_emplace<RIO_MTLX::UnitTypeDef>::~__shared_ptr_emplace(std
   JUMPOUT(0x24C1A91B0);
 }
 
-RIO_MTLX::UnitTypeDef *RIO_MTLX::UnitTypeDef::UnitTypeDef(RIO_MTLX::UnitTypeDef *a1, uint64_t *a2, uint64_t a3)
+RIO_MTLX::UnitTypeDef *RIO_MTLX::UnitTypeDef::UnitTypeDef(RIO_MTLX::UnitTypeDef *a1, uint64_t *a2, __int128 *a3)
 {
   v5 = a2[1];
   v7 = *a2;
@@ -8116,7 +8144,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Variant>::ElementRegistry
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Variant::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52C30)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Variant>;
+  v4 = qword_27EE52C30;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52C30, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Variant>;
   return a1;
 }
 
@@ -8156,7 +8185,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::VariantAssign>::ElementRe
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::VariantAssign::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52C48)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::VariantAssign>;
+  v4 = qword_27EE52C48;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52C48, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::VariantAssign>;
   return a1;
 }
 
@@ -8196,7 +8226,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::VariantSet>::ElementRegis
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::VariantSet::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52C60)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::VariantSet>;
+  v4 = qword_27EE52C60;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52C60, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::VariantSet>;
   return a1;
 }
 
@@ -8236,7 +8267,8 @@ RIO_MTLX::Element *RIO_MTLX::ElementRegistry<RIO_MTLX::Visibility>::ElementRegis
 {
   RIO_MTLX::Element::_creatorMap(a1);
   RIO_MTLX::Visibility::CATEGORY(v2);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(byte_27EE52C78)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Visibility>;
+  v4 = qword_27EE52C78;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<RIO_MTLX::Element> (*)(std::shared_ptr<RIO_MTLX::Element>,std::string const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(qword_27EE52C78, &v4)[5] = RIO_MTLX::Element::createElement<RIO_MTLX::Visibility>;
   return a1;
 }
 
@@ -8272,42 +8304,42 @@ void RIO_MTLX::Visibility::~Visibility(RIO_MTLX::Visibility *this)
   JUMPOUT(0x24C1A91B0);
 }
 
-uint64_t RIOPxrUsdGeomXformableXformQueryGetLocalTransformation(uint64_t a1, _OWORD *a2)
+uint64_t RIOPxrUsdGeomXformableXformQueryGetLocalTransformation(uint64_t a1, _OWORD *a2, double a3)
 {
   pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase();
-  v14 = MEMORY[0x277D86748] + 16;
-  pxrInternal__aapl__pxrReserved__::GfMatrix4d::SetDiagonal(v13, 1.0);
-  if (v15 && (*(v15 + 57) & 8) == 0 && (*(v14 + 32))(&v14))
+  v15 = MEMORY[0x277D86748] + 16;
+  pxrInternal__aapl__pxrReserved__::GfMatrix4d::SetDiagonal(v14, 1.0);
+  if (v16 && (*(v16 + 57) & 8) == 0 && (*(v15 + 32))(&v15))
   {
-    MEMORY[0x24C1A54B0](v12, &v14);
+    MEMORY[0x24C1A54B0](v13, &v15);
     pxrInternal__aapl__pxrReserved__::UsdGeomXformable::XformQuery::GetLocalTransformation();
-    v16 = v12;
-    std::vector<pxrInternal__aapl__pxrReserved__::UsdGeomXformOp>::__destroy_vector::operator()[abi:ne200100](&v16);
-    v3 = v13[1];
-    v4 = v13[2];
-    v5 = v13[3];
-    v6 = v13[4];
-    v7 = v13[5];
-    v8 = v13[6];
-    v9 = v13[7];
-    *a2 = v13[0];
-    a2[1] = v3;
-    a2[2] = v4;
-    a2[3] = v5;
-    a2[4] = v6;
-    a2[5] = v7;
-    v10 = 1;
-    a2[6] = v8;
-    a2[7] = v9;
+    v17 = v13;
+    std::vector<pxrInternal__aapl__pxrReserved__::UsdGeomXformOp>::__destroy_vector::operator()[abi:ne200100](&v17);
+    v4 = v14[1];
+    v5 = v14[2];
+    v6 = v14[3];
+    v7 = v14[4];
+    v8 = v14[5];
+    v9 = v14[6];
+    v10 = v14[7];
+    *a2 = v14[0];
+    a2[1] = v4;
+    a2[2] = v5;
+    a2[3] = v6;
+    a2[4] = v7;
+    a2[5] = v8;
+    v11 = 1;
+    a2[6] = v9;
+    a2[7] = v10;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  MEMORY[0x24C1A54D0](&v14);
-  return v10;
+  MEMORY[0x24C1A54D0](&v15);
+  return v11;
 }
 
 void sub_2474B56E0(_Unwind_Exception *a1)
@@ -8318,59 +8350,60 @@ void sub_2474B56E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-__CFArray *RIOPxrUsdGeomXformableXformQueryCopyTimeSamples()
+__CFArray *RIOPxrUsdGeomXformableXformQueryCopyTimeSamples(uint64_t a1)
 {
   pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase();
-  v8 = 0;
-  v9 = MEMORY[0x277D86748] + 16;
-  v6 = 0;
+  v9 = 0;
+  v10 = MEMORY[0x277D86748] + 16;
   v7 = 0;
-  if (v10 && (*(v10 + 57) & 8) == 0 && (*(MEMORY[0x277D86748] + 48))(&v9))
+  v8 = 0;
+  if (v11 && (*(v11 + 57) & 8) == 0 && (*(MEMORY[0x277D86748] + 48))(&v10))
   {
-    MEMORY[0x24C1A54B0](v5, &v9);
+    MEMORY[0x24C1A54B0](v6, &v10);
     pxrInternal__aapl__pxrReserved__::UsdGeomXformable::XformQuery::GetTimeSamples();
-    v11 = v5;
-    std::vector<pxrInternal__aapl__pxrReserved__::UsdGeomXformOp>::__destroy_vector::operator()[abi:ne200100](&v11);
+    v12 = v6;
+    std::vector<pxrInternal__aapl__pxrReserved__::UsdGeomXformOp>::__destroy_vector::operator()[abi:ne200100](&v12);
   }
 
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-  v1 = v6;
   v2 = v7;
-  if (v6 != v7)
+  v3 = v8;
+  if (v7 != v8)
   {
-    v3 = *MEMORY[0x277CBECE8];
+    v4 = *MEMORY[0x277CBECE8];
     do
     {
-      v5[0] = CFNumberCreate(v3, kCFNumberDoubleType, v1);
-      CFArrayAppendValue(Mutable, v5[0]);
-      realityio::WrappedCFRef<__CFNumber const*>::~WrappedCFRef(v5);
-      v1 += 8;
+      v6[0] = CFNumberCreate(v4, kCFNumberDoubleType, v2);
+      CFArrayAppendValue(Mutable, v6[0]);
+      realityio::WrappedCFRef<__CFNumber const*>::~WrappedCFRef(v6);
+      v2 += 8;
     }
 
-    while (v1 != v2);
-    v1 = v6;
+    while (v2 != v3);
+    v2 = v7;
   }
 
-  if (v1)
+  if (v2)
   {
-    v7 = v1;
-    operator delete(v1);
+    v8 = v2;
+    operator delete(v2);
   }
 
-  MEMORY[0x24C1A54D0](&v9);
+  MEMORY[0x24C1A54D0](&v10);
   return Mutable;
 }
 
-void sub_2474B5850(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, char a17)
+void sub_2474B5850(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, ...)
 {
-  *(v18 - 40) = v17;
-  std::vector<pxrInternal__aapl__pxrReserved__::UsdGeomXformOp>::__destroy_vector::operator()[abi:ne200100]((v18 - 40));
+  va_start(va, a16);
+  *(v17 - 40) = v16;
+  std::vector<pxrInternal__aapl__pxrReserved__::UsdGeomXformOp>::__destroy_vector::operator()[abi:ne200100]((v17 - 40));
   if (__p)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x24C1A54D0](&a17);
+  MEMORY[0x24C1A54D0](va);
   _Unwind_Resume(a1);
 }
 
@@ -8501,58 +8534,57 @@ const void **realityio::WrappedCFRef<__CFNumber const*>::~WrappedCFRef(const voi
 
 void RIOPxrUsdUtilsModifyAssetPaths(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v12 = &unk_285945708;
-  v13 = MEMORY[0x24C1A9770]();
-  v14 = &v12;
-  v4 = realityio::UsdLayerMutexTracker::instance(v13);
+  v11 = &unk_285945708;
+  v12 = MEMORY[0x24C1A9770]();
+  v13 = &v11;
+  v4 = realityio::UsdLayerMutexTracker::instance(v12);
   if (*(a1 + 16))
   {
     v5 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::operator->((a1 + 16));
-    pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>(&v10, v5);
+    pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>(&v9, v5);
   }
 
   else
   {
+    v9 = 0;
     v10 = 0;
-    v11 = 0;
   }
 
-  v6 = realityio::UsdLayerMutexTracker::writeMutexForLayer(v4, &v10);
-  v7 = v11;
-  if (v11 && atomic_fetch_add_explicit((v11 + 8), 0xFFFFFFFF, memory_order_release) == 1)
+  v6 = realityio::UsdLayerMutexTracker::writeMutexForLayer(v4, &v9);
+  v7 = v10;
+  if (v10 && atomic_fetch_add_explicit((v10 + 8), 0xFFFFFFFF, memory_order_release) == 1)
   {
     (*(*v7 + 8))(v7);
   }
 
   std::recursive_mutex::lock(v6);
-  pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>(&v10, (a1 + 16));
+  pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>(&v9, (a1 + 16));
   pxrInternal__aapl__pxrReserved__::UsdUtilsModifyAssetPaths();
-  v8 = v11;
-  if (v11 && atomic_fetch_add_explicit((v11 + 8), 0xFFFFFFFF, memory_order_release) == 1)
+  v8 = v10;
+  if (v10 && atomic_fetch_add_explicit((v10 + 8), 0xFFFFFFFF, memory_order_release) == 1)
   {
     (*(*v8 + 8))(v8);
   }
 
   std::recursive_mutex::unlock(v6);
-  std::__function::__value_func<std::string ()(std::string const&)>::~__value_func[abi:ne200100](&v12);
-
-  v9 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<std::string ()(std::string const&)>::~__value_func[abi:ne200100](&v11);
 }
 
-void sub_2474B5D10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, atomic_uint *a11, char a12)
+void sub_2474B5D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, atomic_uint *a11, ...)
 {
+  va_start(va, a11);
   if (a11)
   {
     if (atomic_fetch_add_explicit(a11 + 2, 0xFFFFFFFF, memory_order_release) == 1)
     {
-      (*(*a11 + 8))(a11);
+      (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
-  std::recursive_mutex::unlock(v13);
-  std::__function::__value_func<std::string ()(std::string const&)>::~__value_func[abi:ne200100](&a12);
+  std::recursive_mutex::unlock(v12);
+  std::__function::__value_func<std::string ()(std::string const&)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
@@ -8588,12 +8620,12 @@ void std::__function::__func<RIOPxrUsdUtilsModifyAssetPaths::$_0,std::allocator<
 
     v12 = CFStringCreateWithCString(0, a2, 0x8000100u);
     v11 = (*(*(a1 + 8) + 16))();
-    realityio::CFStringCopyUTF8String(v11, v8);
+    realityio::CFStringCopyUTF8String(&v8, v11);
     if (SHIBYTE(v10) < 0)
     {
       v5 = v9;
       std::string::__init_copy_ctor_external(a3, v9, *(&v9 + 1));
-      if (v8[0] == 1)
+      if (v8 == 1)
       {
         operator delete(v5);
       }
@@ -8619,8 +8651,7 @@ void std::__function::__func<RIOPxrUsdUtilsModifyAssetPaths::$_0,std::allocator<
 
   else
   {
-    *&a3->__r_.__value_.__l.__data_ = *a2;
-    a3->__r_.__value_.__r.__words[2] = *(a2 + 2);
+    *a3 = *a2;
   }
 }
 
@@ -8939,45 +8970,44 @@ uint64_t std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl
 
 uint64_t tbb::interface5::concurrent_unordered_map<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper,realityio::UsdLayerMutexTracker::SdfLayerHandleHashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>>,tbb::tbb_allocator<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>>::operator[](uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  tbb::interface5::internal::concurrent_unordered_base<tbb::interface5::concurrent_unordered_map_traits<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper,tbb::interface5::internal::hash_compare<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::SdfLayerHandleHashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>>>,tbb::tbb_allocator<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>,false>>::internal_find(a1, a2, &v11);
-  v4 = v11;
-  if (v11)
+  v17 = *MEMORY[0x277D85DE8];
+  tbb::interface5::internal::concurrent_unordered_base<tbb::interface5::concurrent_unordered_map_traits<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper,tbb::interface5::internal::hash_compare<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::SdfLayerHandleHashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>>>,tbb::tbb_allocator<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>,false>>::internal_find(a1, a2, &v10);
+  v4 = v10;
+  if (v10)
   {
     v5 = 0;
   }
 
   else
   {
-    v5 = *(&v11 + 1) == a1 + 16;
+    v5 = *(&v10 + 1) == a1 + 16;
   }
 
   if (v5)
   {
-    MEMORY[0x24C1A8FC0](&v12);
-    std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>::pair[abi:ne200100]<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const&,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper,0>(&v13, a2);
-    std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>::pair[abi:ne200100]<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper,0>(&v16, &v13);
-    tbb::interface5::internal::concurrent_unordered_base<tbb::interface5::concurrent_unordered_map_traits<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper,tbb::interface5::internal::hash_compare<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::SdfLayerHandleHashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>>>,tbb::tbb_allocator<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>,false>>::internal_insert<tbb::internal::BOOL_constant<true>,tbb::internal::BOOL_constant<true>,std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>(a1, &v16, 0, &v10);
-    v11 = v10;
-    std::recursive_mutex::~recursive_mutex(&v17);
-    v6 = *(&v16 + 1);
-    if (*(&v16 + 1) && atomic_fetch_add_explicit((*(&v16 + 1) + 8), 0xFFFFFFFF, memory_order_release) == 1)
+    MEMORY[0x24C1A8FC0](&v11);
+    std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>::pair[abi:ne200100]<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const&,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper,0>(&v12, a2);
+    std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>::pair[abi:ne200100]<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper,0>(&v15, &v12);
+    tbb::interface5::internal::concurrent_unordered_base<tbb::interface5::concurrent_unordered_map_traits<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper,tbb::interface5::internal::hash_compare<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::SdfLayerHandleHashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>>>,tbb::tbb_allocator<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>,false>>::internal_insert<tbb::internal::BOOL_constant<true>,tbb::internal::BOOL_constant<true>,std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>(a1, &v15, 0, &v9);
+    v10 = v9;
+    std::recursive_mutex::~recursive_mutex(&v16);
+    v6 = *(&v15 + 1);
+    if (*(&v15 + 1) && atomic_fetch_add_explicit((*(&v15 + 1) + 8), 0xFFFFFFFF, memory_order_release) == 1)
     {
       (*(*v6 + 8))(v6);
     }
 
-    std::recursive_mutex::~recursive_mutex(&v15);
-    v7 = v14;
-    if (v14 && atomic_fetch_add_explicit((v14 + 8), 0xFFFFFFFF, memory_order_release) == 1)
+    std::recursive_mutex::~recursive_mutex(&v14);
+    v7 = v13;
+    if (v13 && atomic_fetch_add_explicit((v13 + 8), 0xFFFFFFFF, memory_order_release) == 1)
     {
       (*(*v7 + 8))(v7);
     }
 
-    std::recursive_mutex::~recursive_mutex(&v12);
-    v4 = v11;
+    std::recursive_mutex::~recursive_mutex(&v11);
+    v4 = v10;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4 + 24;
 }
 
@@ -9219,7 +9249,7 @@ BOOL tbb::interface5::internal::concurrent_unordered_base<tbb::interface5::concu
   return *(v6 + 8 * (a2 - ((1 << v4) & 0x1FFFFFFFFFFFFFFELL))) != 0;
 }
 
-tbb::internal *tbb::interface5::internal::split_ordered_list<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>,tbb::tbb_allocator<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>>::insert_dummy@<X0>(uint64_t a1@<X0>, atomic_ullong **a2@<X1>, unint64_t a3@<X2>, atomic_ullong **a4@<X8>)
+tbb::internal *tbb::interface5::internal::split_ordered_list<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>,tbb::tbb_allocator<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>>::insert_dummy@<X0>(uint64_t a1@<X0>, atomic_ullong ***a2@<X1>, unint64_t a3@<X2>, atomic_ullong **a4@<X8>)
 {
   i = **a2;
   result = tbb::internal::allocate_via_handler_v3(0x60);
@@ -9287,7 +9317,7 @@ LABEL_17:
   return result;
 }
 
-void tbb::interface5::internal::concurrent_unordered_base<tbb::interface5::concurrent_unordered_map_traits<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper,tbb::interface5::internal::hash_compare<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::SdfLayerHandleHashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>>>,tbb::tbb_allocator<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>,false>>::internal_insert<tbb::internal::BOOL_constant<true>,tbb::internal::BOOL_constant<true>,std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>(uint64_t a1@<X0>, void *a2@<X1>, tbb::internal *a3@<X2>, uint64_t a4@<X8>)
+void tbb::interface5::internal::concurrent_unordered_base<tbb::interface5::concurrent_unordered_map_traits<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper,tbb::interface5::internal::hash_compare<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>,realityio::UsdLayerMutexTracker::SdfLayerHandleHashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>>>,tbb::tbb_allocator<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>,false>>::internal_insert<tbb::internal::BOOL_constant<true>,tbb::internal::BOOL_constant<true>,std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>(uint64_t a1@<X0>, char *a2@<X1>, tbb::internal *a3@<X2>, uint64_t a4@<X8>)
 {
   v8 = bswap64(0x9E3779B97F4A7C55 * pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::_GetUniqueIdentifier(a2));
   v25 = 0;
@@ -9316,7 +9346,7 @@ void tbb::interface5::internal::concurrent_unordered_base<tbb::interface5::concu
     v16 = *v26;
     if (*v26)
     {
-      v17 = v16[11];
+      v17 = *(v16 + 11);
       while (1)
       {
         v18 = v16;
@@ -9327,7 +9357,7 @@ void tbb::interface5::internal::concurrent_unordered_base<tbb::interface5::concu
 
         if (v17 == v12)
         {
-          UniqueIdentifier = pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::_GetUniqueIdentifier((v16 + 1));
+          UniqueIdentifier = pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::_GetUniqueIdentifier(v16 + 8);
           if (UniqueIdentifier == pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::_GetUniqueIdentifier(v14))
           {
             if (a3)
@@ -9350,7 +9380,7 @@ void tbb::interface5::internal::concurrent_unordered_base<tbb::interface5::concu
           break;
         }
 
-        v17 = v16[11];
+        v17 = *(v16 + 11);
         v15 = v18;
       }
     }
@@ -9409,7 +9439,7 @@ LABEL_21:
   }
 }
 
-void *tbb::interface5::internal::split_ordered_list<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>,tbb::tbb_allocator<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>>::create_node<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>(uint64_t a1, uint64_t a2, void *a3)
+void *tbb::interface5::internal::split_ordered_list<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>,tbb::tbb_allocator<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>>::create_node<std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>>(uint64_t a1, unint64_t a2, void *a3)
 {
   v5 = tbb::internal::allocate_via_handler_v3(0x60);
   std::pair<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer> const,realityio::UsdLayerMutexTracker::StdMutexFakeCopyWrapper>::pair[abi:ne200100](v5 + 1, a3);
@@ -9547,7 +9577,7 @@ void sub_2474B724C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::operator->(uint64_t *a1)
+uint64_t *pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::operator->(uint64_t **a1)
 {
   result = *a1;
   if (!result)
@@ -9555,7 +9585,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserv
     v2 = strrchr[abi:ne200100]("/AppleInternal/Library/BuildRoots/4~B_v-ugDHQgwP_Kp6ogB1EI_AGOonsA17WtbqFjI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/usd/pxr/base/tf/refPtr.h", 47);
     FunctionLite::substringFromPreviousDelim("/AppleInternal/Library/BuildRoots/4~B_v-ugDHQgwP_Kp6ogB1EI_AGOonsA17WtbqFjI/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/usd/pxr/base/tf/refPtr.h", v2, 0x2F);
     v3 = pxrInternal__aapl__pxrReserved__::Tf_PostNullSmartPtrDereferenceFatalError();
-    return pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>(v3);
+    return pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::TfWeakPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>(v3, v4);
   }
 
   return result;
@@ -9604,7 +9634,7 @@ void sub_2474B73E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-id anonymous namespace::getValue(_anonymous_namespace_ *this, const char *a2)
+realityio *anonymous namespace::getValue(_anonymous_namespace_ *this, const char *a2)
 {
   v3 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s.%s", "com.apple.re", this];
@@ -9669,7 +9699,7 @@ void realityio::Defaults::intValue(realityio::Defaults *this@<X0>, const char *a
   }
 }
 
-void *realityio::MeshDeformationComponentAction::operator()@<X0>(void *a1@<X2>, pxrInternal__aapl__pxrReserved__::VtValue *a2@<X8>)
+uint64_t *realityio::MeshDeformationComponentAction::operator()@<X0>(void *a1@<X2>, pxrInternal__aapl__pxrReserved__::VtValue *a2@<X8>)
 {
   v14 = *MEMORY[0x277D85DE8];
   *(a2 + 1) = 0;
@@ -9695,7 +9725,7 @@ void *realityio::MeshDeformationComponentAction::operator()@<X0>(void *a1@<X2>, 
     }
   }
 
-  v11[0] = 0;
+  v10 = 0;
   if (!pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<realityio::WrappedRERef<REComponent *>>(a2))
   {
     REMeshDeformationComponentGetComponentType();
@@ -9706,23 +9736,21 @@ void *realityio::MeshDeformationComponentAction::operator()@<X0>(void *a1@<X2>, 
       RERetain();
     }
 
-    v8 = v11[0];
-    if (v11[0] != v7)
+    v8 = v10;
+    if (v10 != v7)
     {
-      v11[0] = v7;
+      v10 = v7;
       v12 = v8;
     }
 
     realityio::WrappedRERef<REComponent *>::~WrappedRERef(&v12);
-    v11[2] = &pxrInternal__aapl__pxrReserved__::VtValue::GetTypeInfo<realityio::WrappedRERef<REComponent *>>(void)::ti;
-    pxrInternal__aapl__pxrReserved__::VtValue::_RemoteTypeInfo<realityio::WrappedRERef<REComponent *>>::_PlaceCopy();
+    v11[1] = &pxrInternal__aapl__pxrReserved__::VtValue::GetTypeInfo<realityio::WrappedRERef<REComponent *>>(void)::ti;
+    pxrInternal__aapl__pxrReserved__::VtValue::_RemoteTypeInfo<realityio::WrappedRERef<REComponent *>>::_PlaceCopy(v11, &v10);
   }
 
   v6 = pxrInternal__aapl__pxrReserved__::VtValue::Get<realityio::WrappedRERef<REComponent *>>(a2);
-  realityio::WrappedRERef<REAsset *>::operator=(v11, v6);
-  result = realityio::WrappedRERef<REComponent *>::~WrappedRERef(v11);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  realityio::WrappedRERef<REAsset *>::operator=(&v10, v6);
+  return realityio::WrappedRERef<REComponent *>::~WrappedRERef(&v10);
 }
 
 void sub_2474B78B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13)
@@ -9777,27 +9805,4 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::Get<realityio::WrappedRERef<
 
     return pxrInternal__aapl__pxrReserved__::VtValue::_FailGet();
   }
-}
-
-void *realityio::WrappedRERef<REComponent *>::~WrappedRERef(void *a1)
-{
-  if (*a1)
-  {
-    RERelease();
-    *a1 = 0;
-  }
-
-  return a1;
-}
-
-void *pxrInternal__aapl__pxrReserved__::TfAnyUniquePtr::_Delete<realityio::WrappedRERef<REComponent *>>(void *result)
-{
-  if (result)
-  {
-    realityio::WrappedRERef<REComponent *>::~WrappedRERef(result);
-
-    JUMPOUT(0x24C1A91B0);
-  }
-
-  return result;
 }

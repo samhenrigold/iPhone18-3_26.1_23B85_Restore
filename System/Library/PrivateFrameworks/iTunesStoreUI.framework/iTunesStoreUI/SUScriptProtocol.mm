@@ -203,7 +203,7 @@ uint64_t __43__SUScriptProtocol_setShouldShowInOverlay___block_invoke(uint64_t a
   return v6;
 }
 
-uint64_t __50__SUScriptProtocol__webThreadValueForProtocolKey___block_invoke(uint64_t a1)
+void *__50__SUScriptProtocol__webThreadValueForProtocolKey___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _copyProtocol];
   *(*(*(a1 + 40) + 8) + 40) = result;

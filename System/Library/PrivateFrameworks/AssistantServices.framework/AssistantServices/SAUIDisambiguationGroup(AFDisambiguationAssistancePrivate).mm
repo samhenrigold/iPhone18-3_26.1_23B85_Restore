@@ -64,7 +64,7 @@
     else
     {
       v15 = 0x7FFFFFFFFFFFFFFFLL;
-      if (![v4 isEqualToString:@"0"] || v14 <= 0)
+      if (!objc_msgSend_isEqualToString_(v4) || v14 <= 0)
       {
 LABEL_11:
         v16 = [v4 substringFromIndex:v8 + v9];
@@ -104,19 +104,19 @@ LABEL_15:
 
 - (id)af_indexIdentifierForItem:()AFDisambiguationAssistancePrivate
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   disambiguationLists = [self disambiguationLists];
-  v6 = [disambiguationLists countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [disambiguationLists countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       v10 = 0;
@@ -124,12 +124,12 @@ LABEL_15:
       v8 += v7;
       do
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(disambiguationLists);
         }
 
-        v12 = [*(*(&v17 + 1) + 8 * v10) af_indexIdentifierForItem:v4];
+        v12 = [*(*(&v16 + 1) + 8 * v10) af_indexIdentifierForItem:v4];
         if (v12)
         {
           v14 = v12;
@@ -152,7 +152,7 @@ LABEL_15:
       }
 
       while (v7 != v10);
-      v7 = [disambiguationLists countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [disambiguationLists countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -166,39 +166,37 @@ LABEL_15:
   v14 = 0;
 LABEL_13:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (id)af_disambiguationIdentifier
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   memset(&c, 0, sizeof(c));
   CC_SHA1_Init(&c);
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   disambiguationLists = [self disambiguationLists];
-  v3 = [disambiguationLists countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v3 = [disambiguationLists countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(disambiguationLists);
         }
 
-        _UpdateSha1WithDisambiguationList(&c, *(*(&v10 + 1) + 8 * i));
+        _UpdateSha1WithDisambiguationList(&c, *(*(&v9 + 1) + 8 * i));
       }
 
-      v4 = [disambiguationLists countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v4 = [disambiguationLists countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v4);
@@ -206,7 +204,6 @@ LABEL_13:
 
   v7 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:20];
   CC_SHA1_Final([v7 mutableBytes], &c);
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

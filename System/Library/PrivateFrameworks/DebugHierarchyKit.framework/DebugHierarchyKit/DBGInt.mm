@@ -1,5 +1,6 @@
 @interface DBGInt
 + (id)valueWithEncodedValue:(id)value format:(id)format error:(id *)error;
++ (id)withValue:(int)value;
 - (DBGInt)initWithInt:(int)int;
 - (NSString)debugDescription;
 - (NSString)description;
@@ -8,6 +9,13 @@
 @end
 
 @implementation DBGInt
+
++ (id)withValue:(int)value
+{
+  v3 = [[self alloc] initWithInt:*&value];
+
+  return v3;
+}
 
 - (DBGInt)initWithInt:(int)int
 {

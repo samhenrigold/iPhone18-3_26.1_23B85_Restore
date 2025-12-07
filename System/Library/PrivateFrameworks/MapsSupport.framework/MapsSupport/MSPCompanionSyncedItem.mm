@@ -1,5 +1,6 @@
 @interface MSPCompanionSyncedItem
 - (BOOL)isEqual:(id)equal;
+- (id)changeTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -24,6 +25,21 @@
   {
     return 1;
   }
+}
+
+- (id)changeTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1000851C0 + (string - 1));
+  }
+
+  return v4;
 }
 
 - (int)StringAsChangeType:(id)type
@@ -123,36 +139,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_syncId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_bookmark)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_pin)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_searchRequest)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    changeType = self->_changeType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   [(PBUnknownFields *)self->_unknownFields writeTo:toCopy];

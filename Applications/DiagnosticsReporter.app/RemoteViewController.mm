@@ -22,14 +22,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_100009E50;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_100009A98(v6);
-  sub_100009D7C(v6);
+  sub_100009D7C(v6, v7);
 }
 
 - (void)configureWithContext:(id)context completion:(id)completion
@@ -37,14 +43,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_100009E50;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_1000088E4(context, v6);
-  sub_100009D7C(v6);
+  sub_100009D7C(v6, v7);
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
@@ -52,18 +64,21 @@
   v5 = _Block_copy(completion);
   if (v5)
   {
-    *(swift_allocObject() + 16) = v5;
-    v6 = sub_100009DC4;
+    v6 = v5;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
+    v8 = sub_100009DC4;
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
+    v7 = 0;
   }
 
   selfCopy = self;
   sub_100009BF0();
-  sub_100009D7C(v6);
+  sub_100009D7C(v8, v7);
 }
 
 - (_TtC19DiagnosticsReporter20RemoteViewController)initWithNibName:(id)name bundle:(id)bundle

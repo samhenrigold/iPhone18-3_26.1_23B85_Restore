@@ -34,18 +34,18 @@ BOOL ___LastSeenDateValueAccessor_block_invoke_13(uint64_t a1, void *a2, void *a
   return v6;
 }
 
-id ___LastSeenDateValueAccessor_block_invoke_2()
+id ___LastSeenDateValueAccessor_block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = PLUIGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = PLUIGetLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_1A3C1C000, v0, OS_LOG_TYPE_DEFAULT, "[SharedAlbumsActivityLastSeen] Using default 'last seen' date (now)", v3, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "[SharedAlbumsActivityLastSeen] Using default 'last seen' date (now)", v5, 2u);
   }
 
-  v1 = [MEMORY[0x1E695DF00] date];
+  v3 = [MEMORY[0x1E695DF00] date];
 
-  return v1;
+  return v3;
 }
 
 @end

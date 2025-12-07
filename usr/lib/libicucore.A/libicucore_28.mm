@@ -1,3 +1,444 @@
+uint64_t icu::FormattedStringBuilder::toUnicodeString@<X0>(icu::FormattedStringBuilder *this@<X0>, uint64_t a2@<X8>)
+{
+  v4 = (this + 8);
+  if (*this == 1)
+  {
+    v4 = *v4;
+  }
+
+  return icu::UnicodeString::UnicodeString(a2, v4 + 2 * *(this + 32), *(this + 33));
+}
+
+icu::UnicodeString *icu::FormattedStringBuilder::toTempUnicodeString@<X0>(icu::FormattedStringBuilder *this@<X0>, icu::UnicodeString *a2@<X8>)
+{
+  v6 = (this + 8);
+  if (*this == 1)
+  {
+    v6 = *v6;
+  }
+
+  v9[1] = v2;
+  v9[2] = v3;
+  v7 = *(this + 33);
+  v9[0] = v6 + *(this + 32);
+  return icu::UnicodeString::UnicodeString(a2, 0, v9, v7);
+}
+
+uint64_t icu::FormattedStringBuilder::toDebugString@<X0>(icu::FormattedStringBuilder *this@<X0>, uint64_t a2@<X8>)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  *(a2 + 8) = 0u;
+  *(a2 + 56) = 0;
+  *(a2 + 40) = 0u;
+  *(a2 + 24) = 0u;
+  *a2 = &unk_1F0935D00;
+  *(a2 + 8) = 2;
+  icu::UnicodeString::doAppend(a2, "<", 0, 0xFFFFFFFFLL);
+  v4 = (this + 8);
+  if (*this == 1)
+  {
+    v4 = *v4;
+  }
+
+  icu::UnicodeString::UnicodeString(&v16, v4 + 2 * *(this + 32), *(this + 33));
+  if ((v17 & 0x8000u) == 0)
+  {
+    v5 = v17 >> 5;
+  }
+
+  else
+  {
+    v5 = v18;
+  }
+
+  icu::UnicodeString::doAppend(a2, &v16, 0, v5);
+  icu::UnicodeString::~UnicodeString(v6, &v16);
+  icu::UnicodeString::doAppend(a2, "]", 0, 0xFFFFFFFFLL);
+  if (*(this + 33) >= 1)
+  {
+    for (i = 0; i < *(this + 33); ++i)
+    {
+      if (*this == 1)
+      {
+        v8 = *(this + 32);
+        v9 = *(*(this + 11) + v8 + i);
+        if (!*(*(this + 11) + v8 + i))
+        {
+          goto LABEL_17;
+        }
+
+        if ((v9 & 0xF0) == 0x20)
+        {
+          v10 = i + v8;
+          goto LABEL_15;
+        }
+      }
+
+      else
+      {
+        v11 = *(this + 32);
+        v9 = *(this + i + v11 + 88);
+        if (!*(this + i + v11 + 88))
+        {
+LABEL_17:
+          v16 = 110;
+          goto LABEL_23;
+        }
+
+        if ((v9 & 0xF0) == 0x20)
+        {
+          v10 = v11 + i;
+LABEL_15:
+          v12 = v9 & 0xF;
+          if (v12 >= 0xB)
+          {
+            v14 = this + 88;
+            if (*this)
+            {
+              v14 = *(this + 11);
+            }
+
+            v13 = v14[v10] & 0xF | 0x30;
+          }
+
+          else
+          {
+            v13 = aIfEE[v12];
+          }
+
+          v16 = v13;
+LABEL_23:
+          icu::UnicodeString::doAppend(a2, &v16, 0, 1);
+          continue;
+        }
+      }
+
+      icu::UnicodeString::append(a2, (v9 >> 4) | 0x30);
+    }
+  }
+
+  return icu::UnicodeString::doAppend(a2, "]", 0, 0xFFFFFFFFLL);
+}
+
+uint64_t icu::FormattedStringBuilder::chars(icu::FormattedStringBuilder *this)
+{
+  v1 = (this + 8);
+  if (*this == 1)
+  {
+    v1 = *v1;
+  }
+
+  return v1 + 2 * *(this + 32);
+}
+
+uint64_t icu::FormattedStringBuilder::contentEquals(icu::FormattedStringBuilder *this, const icu::FormattedStringBuilder *a2)
+{
+  v2 = *(this + 33);
+  if (v2 == *(a2 + 33))
+  {
+    if (v2 < 1)
+    {
+      return 1;
+    }
+
+    v3 = 0;
+    v4 = *this;
+    v5 = (this + 8);
+    v6 = *(this + 32);
+    v7 = *a2 == 0;
+    if (*a2)
+    {
+      v8 = *(a2 + 1);
+    }
+
+    else
+    {
+      v8 = a2 + 8;
+    }
+
+    v9 = *(a2 + 32);
+    v10 = (this + 88);
+    v13 = *(a2 + 11);
+    v11 = a2 + 88;
+    v12 = v13;
+    if (v7)
+    {
+      v12 = v11;
+    }
+
+    v14 = *(this + 32);
+    for (i = v9; ; ++i)
+    {
+      if (v4)
+      {
+        if (*(*v5 + 2 * v14) != *&v8[2 * i])
+        {
+          return 0;
+        }
+
+        v16 = v3 + v6;
+        v17 = v3 + v9;
+        v18 = *v10;
+      }
+
+      else
+      {
+        v16 = v14;
+        v17 = i;
+        v18 = v10;
+        if (*(v5 + v14) != *&v8[2 * i])
+        {
+          return 0;
+        }
+      }
+
+      if (*(v18 + v16) != v12[v17])
+      {
+        break;
+      }
+
+      ++v3;
+      ++v14;
+      if (!--v2)
+      {
+        return 1;
+      }
+    }
+  }
+
+  return 0;
+}
+
+BOOL icu::FormattedStringBuilder::containsField(uint64_t a1, unsigned __int8 a2)
+{
+  v2 = *(a1 + 132);
+  if (v2 < 1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    v3 = *(a1 + 128);
+    v4 = 1;
+    v5 = 1;
+    do
+    {
+      v6 = a1 + 88;
+      if (*a1)
+      {
+        v6 = *(a1 + 88);
+      }
+
+      if (*(v6 + v3) == a2)
+      {
+        break;
+      }
+
+      v5 = v4 < v2;
+      ++v3;
+      ++v4;
+    }
+
+    while (v4 - v2 != 1);
+  }
+
+  return v5;
+}
+
+uint64_t sub_195323404(uint64_t a1, int a2, UErrorCode *a3)
+{
+  *a1 = &unk_1F093ADE8;
+  *(a1 + 8) = &unk_1F0935D00;
+  *(a1 + 16) = 2;
+  icu::UVector32::UVector32((a1 + 72), 4 * a2, a3);
+  return a1;
+}
+
+void sub_195323478(void **a1)
+{
+  *a1 = &unk_1F093ADE8;
+  v2 = (a1 + 1);
+  icu::UVector32::~UVector32(a1 + 9);
+  icu::UnicodeString::~UnicodeString(v3, v2);
+
+  icu::FormattedValue::~FormattedValue(a1);
+}
+
+void sub_1953234E0(void **a1)
+{
+  sub_195323478(a1);
+
+  JUMPOUT(0x19A8B2600);
+}
+
+icu::UnicodeString *sub_195323524@<X0>(uint64_t a1@<X0>, icu::UnicodeString *a2@<X8>)
+{
+  v6 = *(a1 + 16);
+  if ((v6 & 0x11) != 0)
+  {
+    v7 = 0;
+  }
+
+  else if ((v6 & 2) != 0)
+  {
+    v7 = (a1 + 18);
+  }
+
+  else
+  {
+    v7 = *(a1 + 32);
+  }
+
+  v10[1] = v2;
+  v10[2] = v3;
+  v10[0] = v7;
+  if ((v6 & 0x8000) != 0)
+  {
+    v8 = *(a1 + 20);
+  }
+
+  else
+  {
+    v8 = v6 >> 5;
+  }
+
+  return icu::UnicodeString::UnicodeString(a2, 1, v10, v8);
+}
+
+uint64_t sub_19532359C(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 16);
+  if ((v3 & 0x11) == 0)
+  {
+    if ((v3 & 2) != 0)
+    {
+      v4 = a1 + 18;
+      if ((v3 & 0x8000) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    else
+    {
+      v4 = *(a1 + 32);
+      if ((v3 & 0x8000) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+
+LABEL_8:
+    v5 = *(a1 + 20);
+    goto LABEL_9;
+  }
+
+  v4 = 0;
+  if ((v3 & 0x8000) != 0)
+  {
+    goto LABEL_8;
+  }
+
+LABEL_6:
+  v5 = v3 >> 5;
+LABEL_9:
+  (*(*a2 + 40))(a2, v4, v5);
+  return a2;
+}
+
+BOOL sub_195323624(uint64_t a1, icu::ConstrainedFieldPosition *this)
+{
+  v3 = *(a1 + 80) / 4;
+  v4 = *this;
+  if (v3 <= *this)
+  {
+    v7 = 0;
+    goto LABEL_23;
+  }
+
+  v6 = (4 * v4) | 3;
+  v7 = 1;
+  while (v4 < 0)
+  {
+    if (icu::ConstrainedFieldPosition::matchesField(this, 0, 0))
+    {
+      v9 = 0;
+      v10 = 0;
+      v8 = 0;
+      goto LABEL_21;
+    }
+
+LABEL_13:
+    v7 = ++v4 < v3;
+    v6 += 4;
+    if (v3 == v4)
+    {
+      v4 = v3;
+      goto LABEL_23;
+    }
+  }
+
+  if (*(a1 + 80) <= v6 - 3)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = *(*(a1 + 96) + 4 * (v6 - 3));
+  }
+
+  if (*(a1 + 80) <= v6 - 2)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = *(*(a1 + 96) + 4 * (v6 - 2));
+  }
+
+  if (!icu::ConstrainedFieldPosition::matchesField(this, v8, v10))
+  {
+    goto LABEL_13;
+  }
+
+  if (*(a1 + 80) <= v6 - 1)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v9 = *(*(a1 + 96) + 4 * (v6 - 1));
+  }
+
+  if (*(a1 + 80) > v6)
+  {
+    v11 = *(*(a1 + 96) + 4 * v6);
+    goto LABEL_22;
+  }
+
+LABEL_21:
+  v11 = 0;
+LABEL_22:
+  icu::ConstrainedFieldPosition::setState(this, v8, v10, v9, v11);
+LABEL_23:
+  if (v4 == v3)
+  {
+    v12 = v4;
+  }
+
+  else
+  {
+    v12 = v4 + 1;
+  }
+
+  icu::ConstrainedFieldPosition::setInt64IterationContext(this, v12);
+  return v7;
+}
+
 uint64_t sub_1953237A8(uint64_t result, uint64_t a2, int *a3)
 {
   if (*a3 <= 0)
@@ -395,7 +836,7 @@ void icu::FormattedValueStringBuilderImpl::~FormattedValueStringBuilderImpl(void
     free(this[19]);
   }
 
-  icu::FormattedStringBuilder::~FormattedStringBuilder((this + 1));
+  icu::FormattedStringBuilder::~FormattedStringBuilder(this + 1);
 
   icu::FormattedValue::~FormattedValue(this);
 }
@@ -894,7 +1335,7 @@ uint64_t icu::FormattedValueStringBuilderImpl::resetString(icu::FormattedValueSt
   return result;
 }
 
-unint64_t icu::FormattedValueStringBuilderImpl::trimBack(icu::FormattedValueStringBuilderImpl *this, unint64_t a2)
+unint64_t icu::FormattedValueStringBuilderImpl::trimBack(icu::FormattedValueStringBuilderImpl *this, uint64_t a2)
 {
   v4 = icu::unisets::get(1);
   v5 = (this + 16);
@@ -1398,13 +1839,12 @@ _DWORD *ucfpos_close(_DWORD *result)
   return result;
 }
 
-unint64_t ufmtval_getString(uint64_t a1, int *a2, int *a3)
+unint64_t ufmtval_getString(uint64_t a1, int *a2, unsigned int *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (*a3 > 0)
   {
-    v3 = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   if (!a1)
@@ -1413,7 +1853,7 @@ unint64_t ufmtval_getString(uint64_t a1, int *a2, int *a3)
 LABEL_16:
     v3 = 0;
     *a3 = v8;
-    goto LABEL_17;
+    return v3;
   }
 
   if (*a1 != 1430672896)
@@ -1422,27 +1862,28 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
-  (*(**(a1 + 8) + 24))(&v11);
-  if (*a3 > 0)
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  (*(**(a1 + 8) + 24))(&v10);
+  v6 = *a3;
+  if (v6 > 0)
   {
     goto LABEL_12;
   }
 
-  v6 = BYTE8(v11);
+  v6 = WORD4(v10);
   if (a2)
   {
-    if ((SWORD4(v11) & 0x8000u) == 0)
+    if ((SWORD4(v10) & 0x8000u) == 0)
     {
-      v7 = WORD4(v11) >> 5;
+      v7 = WORD4(v10) >> 5;
     }
 
     else
     {
-      v7 = HIDWORD(v11);
+      v7 = HIDWORD(v10);
     }
 
     *a2 = v7;
@@ -1456,17 +1897,16 @@ LABEL_12:
 
   else if ((v6 & 2) != 0)
   {
-    v3 = &v11 | 0xA;
+    v6 = 10;
+    v3 = &v10 | 0xA;
   }
 
   else
   {
-    v3 = *(&v12 + 1);
+    v3 = *(&v11 + 1);
   }
 
-  icu::UnicodeString::~UnicodeString(&v11);
-LABEL_17:
-  v9 = *MEMORY[0x1E69E9840];
+  icu::UnicodeString::~UnicodeString(v6, &v10);
   return v3;
 }
 
@@ -1546,15 +1986,15 @@ uint64_t sub_195325288(uint64_t result, int a2)
   return result;
 }
 
-uint64_t icu::FieldPositionIteratorHandler::FieldPositionIteratorHandler(uint64_t this, icu::FieldPositionIterator *a2, UErrorCode *a3)
+icu::FieldPositionIteratorHandler *icu::FieldPositionIteratorHandler::FieldPositionIteratorHandler(icu::FieldPositionIteratorHandler *this, icu::FieldPositionIterator *a2, UErrorCode *a3)
 {
-  *(this + 8) = 0;
+  *(this + 2) = 0;
   *this = &unk_1F093AF60;
-  *(this + 16) = a2;
-  *(this + 24) = 0;
+  *(this + 2) = a2;
+  *(this + 3) = 0;
   v3 = *a3;
-  *(this + 32) = *a3;
-  *(this + 36) = 0;
+  *(this + 8) = *a3;
+  *(this + 9) = 0;
   if (a2)
   {
     if (v3 <= U_ZERO_ERROR)
@@ -1764,11 +2204,11 @@ uint64_t icu::FieldPositionIterator::FieldPositionIterator(uint64_t this)
   return this;
 }
 
-uint64_t icu::FieldPositionIterator::FieldPositionIterator(uint64_t this, const icu::FieldPositionIterator *a2)
+icu::FieldPositionIterator *icu::FieldPositionIterator::FieldPositionIterator(icu::FieldPositionIterator *this, const icu::FieldPositionIterator *a2)
 {
   *this = &unk_1F093B018;
-  *(this + 8) = 0;
-  *(this + 16) = *(a2 + 4);
+  *(this + 1) = 0;
+  *(this + 4) = *(a2 + 4);
   if (*(a2 + 1))
   {
     operator new();
@@ -1777,7 +2217,7 @@ uint64_t icu::FieldPositionIterator::FieldPositionIterator(uint64_t this, const 
   return this;
 }
 
-uint64_t icu::FieldPositionIterator::operator==(uint64_t a1, uint64_t a2)
+BOOL icu::FieldPositionIterator::operator==(uint64_t a1, uint64_t a2)
 {
   if (a2 == a1)
   {
@@ -1825,7 +2265,6 @@ uint64_t icu::FieldPositionIterator::setData(uint64_t this, icu::UVector32 *a2, 
         *a3 = U_ILLEGAL_ARGUMENT_ERROR;
 LABEL_17:
         v11 = *(*a2 + 8);
-        v12 = *v3 + 8;
 
         return v11(v3);
       }
@@ -1891,15 +2330,15 @@ LABEL_15:
   *(v4 + 8) = v3;
   if (v3)
   {
-    v13 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v13 = -1;
+    v12 = -1;
   }
 
-  *(v4 + 16) = v13;
+  *(v4 + 16) = v12;
   return this;
 }
 
@@ -2005,18 +2444,18 @@ void *sub_195325BE0(void *a1, uint64_t a2)
   return a1;
 }
 
-void sub_195325C9C(void *a1)
+void sub_195325C9C(icu::UnicodeFunctor *a1)
 {
   *a1 = &unk_1F093B058;
-  v2 = (a1 + 1);
-  a1[1] = &unk_1F093B0B8;
-  v3 = a1[2];
+  v2 = (a1 + 8);
+  *(a1 + 1) = &unk_1F093B0B8;
+  v3 = *(a1 + 2);
   if (v3)
   {
     (*(*v3 + 8))(v3);
   }
 
-  v4 = a1[3];
+  v4 = *(a1 + 3);
   if (v4)
   {
     (*(*v4 + 8))(v4);
@@ -2027,7 +2466,7 @@ void sub_195325C9C(void *a1)
   icu::UnicodeFunctor::~UnicodeFunctor(a1);
 }
 
-void sub_195325D78(void *a1)
+void sub_195325D78(icu::UnicodeFunctor *a1)
 {
   sub_195325C9C(a1);
 
@@ -2063,13 +2502,13 @@ uint64_t sub_195325E48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 icu::UnicodeString *sub_195325F28(uint64_t a1, icu::UnicodeString *this, uint64_t a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v23 = 0u;
   v24 = 0u;
+  v26 = 0;
   v25 = 0u;
-  v27 = 0;
-  v26 = 0u;
-  v23 = &unk_1F0935D00;
-  LOWORD(v24) = 2;
+  v22 = &unk_1F0935D00;
+  LOWORD(v23) = 2;
   v6 = *(this + 4);
   if (v6)
   {
@@ -2094,8 +2533,8 @@ icu::UnicodeString *sub_195325F28(uint64_t a1, icu::UnicodeString *this, uint64_
     }
   }
 
-  v22 = 38;
-  icu::UnicodeString::doAppend(this, &v22, 0, 1);
+  v21 = 38;
+  icu::UnicodeString::doAppend(this, &v21, 0, 1);
   v8 = (*(**(a1 + 16) + 104))(*(a1 + 16));
   v9 = *(v8 + 8);
   v10 = v9;
@@ -2112,9 +2551,9 @@ icu::UnicodeString *sub_195325F28(uint64_t a1, icu::UnicodeString *this, uint64_
 
   icu::UnicodeString::doAppend(this, v8, 0, v12);
   icu::UnicodeString::doAppend(this, L"( ", 0, 2);
-  v21[1] = L"( ";
+  v20[1] = L"( ";
   v13 = (*(**(a1 + 24) + 40))(*(a1 + 24));
-  v14 = (*(*v13 + 24))(v13, &v23, a3);
+  v14 = (*(*v13 + 24))(v13, &v22, a3);
   v15 = *(v14 + 8);
   v16 = v15;
   v17 = v15 >> 5;
@@ -2130,9 +2569,8 @@ icu::UnicodeString *sub_195325F28(uint64_t a1, icu::UnicodeString *this, uint64_
 
   icu::UnicodeString::doAppend(this, v14, 0, v18);
   icu::UnicodeString::doAppend(this, " ", 0, 2);
-  v21[0] = " ";
-  icu::UnicodeString::~UnicodeString(v21, &v23);
-  v19 = *MEMORY[0x1E69E9840];
+  v20[0] = " ";
+  icu::UnicodeString::~UnicodeString(v20, &v22);
   return this;
 }
 
@@ -2259,7 +2697,7 @@ uint64_t icu::GenderInfo::getInstance(icu::GenderInfo *this, const icu::Locale *
 
 uint64_t icu::GenderInfo::loadInstance(icu::GenderInfo *this, UErrorCode *a2, UErrorCode *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = ures_openDirect(0, "genderList", a2);
   v6 = v5;
   v7 = 0;
@@ -2282,33 +2720,33 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  *v19 = 0;
+  *v18 = 0;
   v10 = *(this + 5);
-  StringByKey = ures_getStringByKey(v8, v10, &v19[1], v19);
+  StringByKey = ures_getStringByKey(v8, v10, &v18[1], v18);
   if (!StringByKey)
   {
-    v19[0] = U_ZERO_ERROR;
-    memset(&v20[1], 0, 56);
-    icu::StringPiece::StringPiece(v33, v10);
-    v20[0] = &v20[1] + 5;
-    LODWORD(v20[1]) = 40;
-    WORD2(v20[1]) = 0;
-    LODWORD(v20[7]) = 0;
-    icu::CharString::append(v20, v33[0], v33[1], v19);
+    v18[0] = U_ZERO_ERROR;
+    memset(&v19[1], 0, 56);
+    icu::StringPiece::StringPiece(v32, v10);
+    v19[0] = &v19[1] + 5;
+    LODWORD(v19[1]) = 40;
+    WORD2(v19[1]) = 0;
+    LODWORD(v19[7]) = 0;
+    icu::CharString::append(v19, v32[0], v32[1], v18);
     while (1)
     {
-      v34 = 0u;
-      memset(v33, 0, sizeof(v33));
-      ulocimp_getParent(v20[0], a2, v33);
-      v12 = DWORD2(v34);
-      if (DWORD2(v34))
+      v33 = 0u;
+      memset(v32, 0, sizeof(v32));
+      ulocimp_getParent(v32, v19[0], a2);
+      v12 = DWORD2(v33);
+      if (DWORD2(v33))
       {
-        icu::CharString::operator=(v20, v33);
+        icu::CharString::operator=(v19, v32);
       }
 
-      if (BYTE4(v33[1]))
+      if (BYTE4(v32[1]))
       {
-        free(v33[0]);
+        free(v32[0]);
       }
 
       if (!v12)
@@ -2316,9 +2754,9 @@ LABEL_30:
         break;
       }
 
-      *v19 = 0;
-      v13 = ures_getStringByKey(v9, v20[0], &v19[1], v19);
-      v19[0] = U_ZERO_ERROR;
+      *v18 = 0;
+      v13 = ures_getStringByKey(v9, v19[0], &v18[1], v18);
+      v18[0] = U_ZERO_ERROR;
       if (v13)
       {
         StringByKey = v13;
@@ -2328,9 +2766,9 @@ LABEL_30:
 
     StringByKey = 0;
 LABEL_13:
-    if (BYTE4(v20[1]))
+    if (BYTE4(v19[1]))
     {
-      free(v20[0]);
+      free(v19[0]);
     }
 
     if (!StringByKey)
@@ -2339,30 +2777,30 @@ LABEL_13:
     }
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  memset(v20, 0, sizeof(v20));
-  u_UCharsToChars(StringByKey, v20, v19[1] + 1);
-  if (v20[0] == 0x6C61727475656ELL)
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  memset(v19, 0, sizeof(v19));
+  u_UCharsToChars(StringByKey, v19, v18[1] + 1);
+  if (v19[0] == 0x6C61727475656ELL)
   {
 LABEL_29:
     v7 = qword_1EAEC9D60;
     goto LABEL_30;
   }
 
-  if (v20[0] != 0x75654E646578696DLL || *(v20 + 5) != 0x6C61727475654ELL)
+  if (v19[0] != 0x75654E646578696DLL || *(v19 + 5) != 0x6C61727475654ELL)
   {
-    v16 = v20[0] == 0x6E696154656C616DLL && *(v20 + 3) == 0x73746E69615465;
+    v16 = v19[0] == 0x6E696154656C616DLL && *(v19 + 3) == 0x73746E69615465;
     v7 = qword_1EAEC9D60 + 32 * v16;
     if (!v9)
     {
@@ -2385,11 +2823,10 @@ LABEL_32:
     ures_close(v6);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
-uint64_t icu::GenderInfo::getListGender(uint64_t a1, unsigned int *a2, int a3, int *a4)
+uint64_t icu::GenderInfo::getListGender(uint64_t a1, unsigned int *a2, unsigned int a3, int *a4)
 {
   if (*a4 > 0 || !a3)
   {
@@ -2487,8 +2924,7 @@ uint64_t ugender_getInstance(char *a1, const icu::Locale *a2)
   v8 = *MEMORY[0x1E69E9840];
   icu::Locale::Locale(v7, a1, 0, 0, 0);
   Instance = icu::GenderInfo::getInstance(v7, a2, v3);
-  icu::Locale::~Locale(v7);
-  v5 = *MEMORY[0x1E69E9840];
+  icu::Locale::~Locale(v5, v7);
   return Instance;
 }
 
@@ -2501,8 +2937,8 @@ icu::GregorianCalendar *icu::GregorianCalendar::GregorianCalendar(icu::Gregorian
   *(v4 + 82) = 0xC2A63A0D36A80000;
   *(v4 + 166) = 1582;
   *(v4 + 334) = 1;
-  icu::Calendar::getNow(v4);
-  icu::Calendar::setTimeInMillis(this, v5, a2);
+  Now = icu::Calendar::getNow(v4);
+  icu::Calendar::setTimeInMillis(this, Now, a2);
   return this;
 }
 
@@ -2516,8 +2952,8 @@ icu::GregorianCalendar *icu::GregorianCalendar::GregorianCalendar(icu::Gregorian
   *(this + 82) = 0xC2A63A0D36A80000;
   *(this + 166) = 1582;
   *(this + 334) = 1;
-  icu::Calendar::getNow(v7);
-  icu::Calendar::setTimeInMillis(this, v8, a3);
+  Now = icu::Calendar::getNow(v7);
+  icu::Calendar::setTimeInMillis(this, Now, a3);
   return this;
 }
 
@@ -2531,8 +2967,8 @@ icu::GregorianCalendar *icu::GregorianCalendar::GregorianCalendar(icu::Gregorian
   *(this + 82) = 0xC2A63A0D36A80000;
   *(this + 166) = 1582;
   *(this + 334) = 1;
-  icu::Calendar::getNow(v7);
-  icu::Calendar::setTimeInMillis(this, v8, a3);
+  Now = icu::Calendar::getNow(v7);
+  icu::Calendar::setTimeInMillis(this, Now, a3);
   return this;
 }
 
@@ -2546,8 +2982,8 @@ icu::GregorianCalendar *icu::GregorianCalendar::GregorianCalendar(icu::Gregorian
   *(this + 82) = 0xC2A63A0D36A80000;
   *(this + 166) = 1582;
   *(this + 334) = 1;
-  icu::Calendar::getNow(v7);
-  icu::Calendar::setTimeInMillis(this, v8, a3);
+  Now = icu::Calendar::getNow(v7);
+  icu::Calendar::setTimeInMillis(this, Now, a3);
   return this;
 }
 
@@ -2560,8 +2996,8 @@ icu::GregorianCalendar *icu::GregorianCalendar::GregorianCalendar(icu::Gregorian
   *(v6 + 82) = 0xC2A63A0D36A80000;
   *(v6 + 166) = 1582;
   *(v6 + 334) = 1;
-  icu::Calendar::getNow(v6);
-  icu::Calendar::setTimeInMillis(this, v7, a4);
+  Now = icu::Calendar::getNow(v6);
+  icu::Calendar::setTimeInMillis(this, Now, a4);
   return this;
 }
 
@@ -2574,8 +3010,8 @@ icu::GregorianCalendar *icu::GregorianCalendar::GregorianCalendar(icu::Gregorian
   *(v6 + 82) = 0xC2A63A0D36A80000;
   *(v6 + 166) = 1582;
   *(v6 + 334) = 1;
-  icu::Calendar::getNow(v6);
-  icu::Calendar::setTimeInMillis(this, v7, a4);
+  Now = icu::Calendar::getNow(v6);
+  icu::Calendar::setTimeInMillis(this, Now, a4);
   return this;
 }
 
@@ -2683,30 +3119,30 @@ uint64_t icu::GregorianCalendar::isEquivalentTo(icu::GregorianCalendar *this, co
   return result;
 }
 
-uint64_t icu::GregorianCalendar::setGregorianChange(uint64_t this, double a2, UErrorCode *a3)
+icu::GregorianCalendar *icu::GregorianCalendar::setGregorianChange(icu::GregorianCalendar *this, double a2, UErrorCode *a3)
 {
   if (*a3 <= 0)
   {
     v4 = this;
-    if (*(this + 640) != a2)
+    if (*(this + 80) != a2)
     {
       v5 = uprv_floor(a2 / 86400000.0);
       if (v5 <= -2147483650.0)
       {
-        *(v4 + 656) = 0xC384997000000000;
-        *(v4 + 640) = 0xC384997000000000;
+        *(v4 + 82) = 0xC384997000000000;
+        *(v4 + 80) = 0xC384997000000000;
       }
 
       else if (v5 >= 2147483650.0)
       {
-        *(v4 + 656) = 0x4384996FFFD6CD20;
-        *(v4 + 640) = 0x4384996FFFD6CD20;
+        *(v4 + 82) = 0x4384996FFFD6CD20;
+        *(v4 + 80) = 0x4384996FFFD6CD20;
       }
 
       else
       {
-        *(v4 + 656) = v5 * 86400000.0;
-        *(v4 + 640) = a2;
+        *(v4 + 82) = v5 * 86400000.0;
+        *(v4 + 80) = a2;
       }
 
       operator new();
@@ -2780,25 +3216,25 @@ _DWORD *icu::GregorianCalendar::handleComputeFields(_DWORD *this, int a2, UError
       v17 = v9 + 1;
     }
 
-    if (v8 == *(v6 + 664) && *(v6 + 648) <= a2)
+    if (v8 == v6[166] && v6[162] <= a2)
     {
       v18 = sub_195328C3C(v8 - 1, 400);
       this = sub_195328C3C(v8 - 1, 100);
       v17 += v18 - this + 2;
     }
 
-    *(v6 + 20) = v15;
-    *(v6 + 148) = 1;
+    v6[5] = v15;
+    v6[37] = 1;
     *(v6 + 114) = 1;
-    *(v6 + 104) = v15;
-    *(v6 + 232) = 1;
+    v6[26] = v15;
+    v6[58] = 1;
     *(v6 + 135) = 1;
-    *(v6 + 160) = 0x100000001;
+    *(v6 + 20) = 0x100000001;
     *(v6 + 117) = 257;
-    *(v6 + 32) = v16;
-    *(v6 + 36) = v17;
-    *(v6 + 88) = v8;
-    *(v6 + 216) = 1;
+    v6[8] = v16;
+    v6[9] = v17;
+    v6[22] = v8;
+    v6[54] = 1;
     *(v6 + 131) = 1;
     v19 = 1 - v8;
     if (v8 > 0)
@@ -2806,10 +3242,10 @@ _DWORD *icu::GregorianCalendar::handleComputeFields(_DWORD *this, int a2, UError
       v19 = v8;
     }
 
-    *(v6 + 140) = 0x100000001;
-    *(v6 + 112) = 257;
-    *(v6 + 12) = v8 > 0;
-    *(v6 + 16) = v19;
+    *(v6 + 35) = 0x100000001;
+    *(v6 + 56) = 257;
+    v6[3] = v8 > 0;
+    v6[4] = v19;
   }
 
   return this;
@@ -2902,7 +3338,7 @@ uint64_t icu::GregorianCalendar::handleComputeJulianDay(uint64_t a1, unsigned in
   return icu::Calendar::handleComputeJulianDay(a1, 3u, a3);
 }
 
-uint64_t icu::GregorianCalendar::handleComputeMonthStart(icu::GregorianCalendar *this, int a2, unsigned int a3, signed __int8 a4, UErrorCode *a5)
+uint64_t icu::GregorianCalendar::handleComputeMonthStart(icu::GregorianCalendar *this, int a2, uint64_t a3, signed __int8 a4, UErrorCode *a5)
 {
   v25 = a3;
   v26 = a2;
@@ -2977,7 +3413,7 @@ uint64_t icu::GregorianCalendar::handleComputeMonthStart(icu::GregorianCalendar 
   return v5;
 }
 
-uint64_t icu::GregorianCalendar::handleGetMonthLength(icu::GregorianCalendar *this, int a2, unsigned int a3, UErrorCode *a4)
+uint64_t icu::GregorianCalendar::handleGetMonthLength(icu::GregorianCalendar *this, int a2, uint64_t a3, UErrorCode *a4)
 {
   v4 = a2;
   v15 = a3;
@@ -3475,7 +3911,7 @@ uint64_t icu::GregorianCalendar::getActualMinimum(uint64_t a1)
   return (*(*a1 + 112))();
 }
 
-uint64_t icu::GregorianCalendar::getActualMaximum(uint64_t a1, uint64_t a2, UErrorCode *a3)
+uint64_t icu::GregorianCalendar::getActualMaximum(uint64_t *a1, uint64_t a2, UErrorCode *a3)
 {
   if (a2 == 1)
   {
@@ -3664,18 +4100,17 @@ void sub_195328AC4()
   bzero(v5, 0x2A0uLL);
   icu::Locale::Locale(v4, "@calendar=gregory", 0, 0, 0);
   icu::GregorianCalendar::GregorianCalendar(v5, v4, &v3);
-  icu::Locale::~Locale(v4);
+  v1 = icu::Locale::~Locale(v0, v4);
   if (v3 <= U_ZERO_ERROR)
   {
-    icu::Calendar::getNow(v0);
-    icu::Calendar::setTimeInMillis(v5, v1, &v3);
+    Now = icu::Calendar::getNow(v1);
+    icu::Calendar::setTimeInMillis(v5, Now, &v3);
     icu::Calendar::add(v5, 1u, -80, &v3);
     qword_1ED441AE8 = icu::Calendar::getTimeInMillis(v5, &v3);
     dword_1ED441AF0 = icu::Calendar::get(v5, 1u, &v3);
   }
 
   icu::Calendar::~Calendar(v5);
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t icu::GregorianCalendar::defaultCenturyStartYear(icu::GregorianCalendar *this)
@@ -3771,7 +4206,7 @@ void sub_195328CE8(double *a1, double a2, double a3)
   }
 }
 
-uint64_t sub_195328D5C(int a1, int a2, int a3)
+unint64_t sub_195328D5C(int a1, int a2, int a3)
 {
   v3 = a1 - 1;
   v4 = 365 * (a1 - 1);
@@ -3973,7 +4408,7 @@ LABEL_30:
   return result;
 }
 
-BOOL sub_195329158(_BOOL8 result, _DWORD *a2, _DWORD *a3, int *a4, int *a5, _DWORD *a6, int *a7, double a8)
+unsigned int *sub_195329158(unsigned int *result, _DWORD *a2, _DWORD *a3, int *a4, int *a5, _DWORD *a6, int *a7, double a8)
 {
   if (*a7 <= 0)
   {
@@ -4069,8 +4504,8 @@ icu::HebrewCalendar *icu::HebrewCalendar::HebrewCalendar(icu::HebrewCalendar *th
   v6 = icu::TimeZone::forLocaleOrDefault(a2, a2);
   v7 = icu::Calendar::Calendar(this, v6, a2, a3);
   *this = &unk_1F093B378;
-  icu::Calendar::getNow(v7);
-  icu::Calendar::setTimeInMillis(this, v8, a3);
+  Now = icu::Calendar::getNow(v7);
+  icu::Calendar::setTimeInMillis(this, Now, a3);
   return this;
 }
 
@@ -4239,7 +4674,7 @@ BOOL icu::HebrewCalendar::isLeapYear(icu::HebrewCalendar *this)
   return v2 >= v1;
 }
 
-_BYTE *icu::HebrewCalendar::roll(_BYTE *result, uint64_t a2, int a3, UErrorCode *a4)
+icu::Calendar *icu::HebrewCalendar::roll(icu::Calendar *result, uint64_t a2, int a3, UErrorCode *a4)
 {
   if (*a4 <= 0)
   {
@@ -4295,7 +4730,7 @@ _BYTE *icu::HebrewCalendar::roll(_BYTE *result, uint64_t a2, int a3, UErrorCode 
   return result;
 }
 
-uint64_t icu::HebrewCalendar::handleGetMonthLength(icu::HebrewCalendar *this, signed int a2, unsigned int a3, UErrorCode *a4)
+uint64_t icu::HebrewCalendar::handleGetMonthLength(icu::HebrewCalendar *this, uint64_t a2, unsigned int a3, UErrorCode *a4)
 {
   if (*a4 > 0)
   {
@@ -4329,7 +4764,7 @@ uint64_t icu::HebrewCalendar::handleGetMonthLength(icu::HebrewCalendar *this, si
       }
 
       v6 += v12;
-      --a2;
+      a2 = (a2 - 1);
       v10 -= 12;
     }
 
@@ -4363,7 +4798,7 @@ uint64_t icu::HebrewCalendar::handleGetMonthLength(icu::HebrewCalendar *this, si
 
       v6 += v9;
       v7 += 12;
-      ++a2;
+      a2 = (a2 + 1);
     }
 
     while (v6 > 0xC);
@@ -4388,7 +4823,7 @@ uint64_t icu::HebrewCalendar::handleGetMonthLength(icu::HebrewCalendar *this, si
   return *v14;
 }
 
-uint64_t sub_195329B10(signed int a1, int *a2)
+uint64_t sub_195329B10(uint64_t a1, int *a2)
 {
   if (*a2 > 0)
   {
@@ -4419,7 +4854,7 @@ uint64_t sub_195329B10(signed int a1, int *a2)
   }
 }
 
-uint64_t icu::HebrewCalendar::handleGetYearLength(icu::HebrewCalendar *this, signed int a2)
+uint64_t icu::HebrewCalendar::handleGetYearLength(icu::HebrewCalendar *this, uint64_t a2)
 {
   v3 = 0;
   LODWORD(result) = sub_195329BAC(a2, &v3);
@@ -4434,15 +4869,16 @@ uint64_t icu::HebrewCalendar::handleGetYearLength(icu::HebrewCalendar *this, sig
   }
 }
 
-uint64_t sub_195329BAC(signed int a1, int *a2)
+uint64_t sub_195329BAC(uint64_t a1, int *a2)
 {
   if (*a2 > 0)
   {
     return 0;
   }
 
+  v4 = a1;
   v5 = sub_19532A010(a1 + 1, a2);
-  return v5 - sub_19532A010(a1, a2);
+  return v5 - sub_19532A010(v4, a2);
 }
 
 _DWORD *icu::HebrewCalendar::validateField(_DWORD *a1, uint64_t a2, int *a3)
@@ -4485,121 +4921,100 @@ uint64_t icu::HebrewCalendar::handleComputeFields(uint64_t this, int a2, UErrorC
     v4 = this;
     v5 = a2 - 347997;
     v6 = uprv_floor((a2 - 347997) * 25920.0 / 765433.0);
-    v7 = (uprv_floor((v6 * 19.0 + 234.0) / 235.0) + 1.0);
+    v7 = uprv_floor((v6 * 19.0 + 234.0) / 235.0) + 1.0;
+    v8 = v7;
     this = sub_19532A010(v7, a3);
     if (*a3 <= 0)
     {
-      for (i = 12 * v7 + 17; ; i -= 12)
+      for (i = 12 * v8 + 17; ; i -= 12)
       {
-        v9 = v5 - this;
+        v10 = v5 - this;
         if (v5 > this)
         {
           break;
         }
 
-        this = sub_19532A010(--v7, a3);
+        v8 = (v8 - 1);
+        this = sub_19532A010(v8, a3);
         if (*a3 >= 1)
         {
           return this;
         }
       }
 
-      this = sub_195329B10(v7, a3);
+      this = sub_195329B10(v8, a3);
       if (*a3 <= 0)
       {
-        v10 = 0;
-        v11 = i % 19;
-        if (v11 >= 0)
+        v11 = 0;
+        v12 = i % 19;
+        if (v12 >= 0)
         {
-          v12 = 12;
+          v13 = 12;
         }
 
         else
         {
-          v12 = -7;
+          v13 = -7;
         }
 
-        v13 = &unk_19548DDB8 + 2 * this;
-        v14 = &unk_19548DE0C + 2 * this;
+        v14 = &unk_19548DDB8 + 2 * this;
+        v15 = &unk_19548DE0C + 2 * this;
         while (1)
         {
-          v15 = v11 >= v12 ? v13 : v14;
-          if (v9 <= *v15)
+          v16 = v12 >= v13 ? v14 : v15;
+          if (v10 <= *v16)
           {
             break;
           }
 
-          ++v10;
-          v13 += 6;
+          ++v11;
           v14 += 6;
-          if (v10 == 14)
+          v15 += 6;
+          if (v11 == 14)
           {
             goto LABEL_31;
           }
         }
 
-        if (!v10)
+        if (!v11)
         {
           goto LABEL_31;
         }
 
-        v16 = &unk_19548DE0C + 6 * (v10 - 1) + 2 * this;
-        if (v11 >= v12)
+        v17 = &unk_19548DE0C + 6 * (v11 - 1) + 2 * this;
+        if (v12 >= v13)
         {
-          v16 = &unk_19548DDB8 + 6 * (v10 - 1) + 2 * this;
+          v17 = &unk_19548DDB8 + 6 * (v11 - 1) + 2 * this;
         }
 
-        v17 = *v16;
-        *(v4 + 12) = 0;
-        *(v4 + 140) = 1;
-        *(v4 + 112) = 1;
-        v18 = (*(*v4 + 296))(v4, 19, 0);
-        if (v7 < v18)
+        if ((v18 = *v17, *(v4 + 12) = 0, *(v4 + 140) = 1, *(v4 + 112) = 1, v19 = (*(*v4 + 296))(v4, 19, 0), v8 < v19) && (v20 = v19, this = icu::Calendar::isLenient(v4), LODWORD(v8) = v20, !this) || (this = (*(*v4 + 296))(v4, 19, 3), this < v8) && (v21 = this, this = icu::Calendar::isLenient(v4), LODWORD(v8) = v21, !this))
         {
-          v19 = v18;
-          this = icu::Calendar::isLenient(v4);
-          v7 = v19;
-          if (!this)
-          {
-            goto LABEL_31;
-          }
-        }
-
-        this = (*(*v4 + 296))(v4, 19, 3);
-        if (this < v7)
-        {
-          v20 = this;
-          this = icu::Calendar::isLenient(v4);
-          v7 = v20;
-          if (!this)
-          {
 LABEL_31:
-            *a3 = U_ILLEGAL_ARGUMENT_ERROR;
-            return this;
-          }
+          *a3 = U_ILLEGAL_ARGUMENT_ERROR;
+          return this;
         }
 
         *(v4 + 144) = 0x100000001;
-        v21 = v10 > 6 && v11 < v12;
+        v22 = v11 > 6 && v12 < v13;
         *(v4 + 113) = 257;
-        *(v4 + 88) = v7;
-        v22 = v10 - 2;
+        *(v4 + 88) = v8;
+        v23 = v11 - 2;
         *(v4 + 216) = 1;
         *(v4 + 131) = 1;
-        if (!v21)
+        if (!v22)
         {
-          v22 = v10 - 1;
+          v23 = v11 - 1;
         }
 
-        *(v4 + 104) = v22;
+        *(v4 + 104) = v23;
         *(v4 + 232) = 1;
         *(v4 + 135) = 1;
-        *(v4 + 16) = v7;
-        *(v4 + 20) = v10 - 1;
+        *(v4 + 16) = v8;
+        *(v4 + 20) = v11 - 1;
         *(v4 + 160) = 0x100000001;
         *(v4 + 117) = 257;
-        *(v4 + 32) = v9 - v17;
-        *(v4 + 36) = v9;
+        *(v4 + 32) = v10 - v18;
+        *(v4 + 36) = v10;
       }
     }
   }
@@ -4607,7 +5022,7 @@ LABEL_31:
   return this;
 }
 
-uint64_t sub_19532A010(signed int a1, int *a2)
+uint64_t sub_19532A010(unsigned int a1, int *a2)
 {
   sub_195400588(0xAu, sub_19532A980);
   v4 = sub_1952B7F0C(&qword_1ED442C10, a1, a2);
@@ -4714,7 +5129,7 @@ uint64_t icu::HebrewCalendar::handleGetExtendedYear(icu::HebrewCalendar *this, U
   return 1;
 }
 
-uint64_t icu::HebrewCalendar::handleComputeMonthStart(icu::HebrewCalendar *this, int a2, signed int a3, signed __int8 a4, UErrorCode *a5)
+uint64_t icu::HebrewCalendar::handleComputeMonthStart(icu::HebrewCalendar *this, unsigned int a2, signed int a3, signed __int8 a4, UErrorCode *a5)
 {
   v22 = a3;
   v23 = a2;
@@ -4853,11 +5268,11 @@ void sub_19532A55C()
   bzero(v5, 0x280uLL);
   icu::Locale::Locale(v4, "@calendar=hebrew", 0, 0, 0);
   icu::HebrewCalendar::HebrewCalendar(v5, v4, &v3);
-  icu::Locale::~Locale(v4);
+  v1 = icu::Locale::~Locale(v0, v4);
   if (v3 <= U_ZERO_ERROR)
   {
-    icu::Calendar::getNow(v0);
-    icu::Calendar::setTimeInMillis(v5, v1, &v3);
+    Now = icu::Calendar::getNow(v1);
+    icu::Calendar::setTimeInMillis(v5, Now, &v3);
     if (v3 <= U_ZERO_ERROR)
     {
       icu::Calendar::add(v5, 1u, -80, &v3);
@@ -4868,7 +5283,6 @@ void sub_19532A55C()
   }
 
   icu::Calendar::~Calendar(v5);
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t icu::HebrewCalendar::defaultCenturyStartYear(icu::HebrewCalendar *this)
@@ -5047,8 +5461,8 @@ icu::HinduLunarCalendar *icu::HinduLunarCalendar::HinduLunarCalendar(icu::HinduL
   *(this + 170) = -1132959;
   HinduCalZoneAstroCalc = icu::HinduLunarCalendar::getHinduCalZoneAstroCalc(v7);
   *(this + 86) = HinduCalZoneAstroCalc;
-  icu::Calendar::getNow(HinduCalZoneAstroCalc);
-  icu::Calendar::setTimeInMillis(this, v9, a3);
+  Now = icu::Calendar::getNow(HinduCalZoneAstroCalc);
+  icu::Calendar::setTimeInMillis(this, Now, a3);
   return this;
 }
 
@@ -5073,8 +5487,8 @@ icu::HinduLunarCalendar *icu::HinduLunarCalendar::HinduLunarCalendar(icu::HinduL
   *(this + 84) = 0x3FCAF09A2186C9EBLL;
   *(this + 170) = a3;
   *(this + 86) = a4;
-  icu::Calendar::getNow(v11);
-  icu::Calendar::setTimeInMillis(this, v12, a5);
+  Now = icu::Calendar::getNow(v11);
+  icu::Calendar::setTimeInMillis(this, Now, a5);
   return this;
 }
 
@@ -5511,13 +5925,12 @@ uint64_t icu::HinduLunarCalendar::hinduLunarNewYear(icu::HinduLunarCalendar *thi
 
 uint64_t icu::HinduLunarCalendar::gregorianNewYear(icu::HinduLunarCalendar *this, int a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6 = U_ZERO_ERROR;
-  bzero(v7, 0x2A0uLL);
-  icu::GregorianCalendar::GregorianCalendar(v7, a2, 0, 1, 0, 0, &v6);
-  v3 = icu::Calendar::get(v7, 0x14u, &v6);
-  icu::GregorianCalendar::~GregorianCalendar(v7);
-  v4 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v5 = U_ZERO_ERROR;
+  bzero(v6, 0x2A0uLL);
+  icu::GregorianCalendar::GregorianCalendar(v6, a2, 0, 1, 0, 0, &v5);
+  v3 = icu::Calendar::get(v6, 0x14u, &v5);
+  icu::GregorianCalendar::~GregorianCalendar(v6);
   return (v3 - 1721424);
 }
 
@@ -5529,7 +5942,7 @@ void icu::HinduLunarCalendar::modLisp(icu::HinduLunarCalendar *this, long double
   }
 }
 
-void icu::HinduLunarCalendar::listRange(uint64_t a1@<X0>, char **a2@<X1>, _DWORD *a3@<X2>, char **a4@<X8>)
+void icu::HinduLunarCalendar::listRange(uint64_t a1@<X0>, int **a2@<X1>, _DWORD *a3@<X2>, char **a4@<X8>)
 {
   v6 = *a2;
   v7 = a2[1];
@@ -5538,8 +5951,8 @@ void icu::HinduLunarCalendar::listRange(uint64_t a1@<X0>, char **a2@<X1>, _DWORD
   a4[1] = 0;
   if (v6 != v7)
   {
-    sub_19532E5A4(__p, v6 + 4, v7);
-    icu::HinduLunarCalendar::listRange(a1, __p, a3);
+    sub_19532E5A4(__p, (v6 + 4), v7);
+    icu::HinduLunarCalendar::listRange(a1, __p, a3, a4);
     if (__p[0])
     {
       __p[1] = __p[0];
@@ -5568,7 +5981,7 @@ char *sub_19532B868(void *a1, char *__src, char *a3)
       sub_195223E74();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 1 > v11)
     {
@@ -5638,7 +6051,7 @@ char *sub_19532B868(void *a1, char *__src, char *a3)
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 4;
+      v9 = (v6 + 4);
     }
 
     a1[1] = v9;
@@ -5693,42 +6106,41 @@ uint64_t icu::HinduLunarCalendar::handleGetMonthLength(icu::HinduLunarCalendar *
 {
   v5 = a3;
   v8 = (*(*this + 312))(this, a2, a3, 1, a4);
-  v9 = *this + 312;
   if (v5 == 11)
   {
-    v10 = (a2 + 1);
-    v11 = this;
-    v12 = 0;
+    v9 = (a2 + 1);
+    v10 = this;
+    v11 = 0;
   }
 
   else
   {
-    v12 = (v5 + 1);
-    v11 = this;
-    v10 = a2;
+    v11 = (v5 + 1);
+    v10 = this;
+    v9 = a2;
   }
 
-  v13 = (*(*this + 312))(v11, v10, v12, 1, a4);
-  v14 = v13 - v8;
-  if (v13 == v8)
+  v12 = (*(*this + 312))(v10, v9, v11, 1, a4);
+  v13 = v12 - v8;
+  if (v12 == v8)
   {
-    v14 = (*(*this + 312))(this, a2, (v5 + 2), 1, a4) - v8;
+    v13 = (*(*this + 312))(this, a2, (v5 + 2), 1, a4) - v8;
   }
 
-  v15 = v14 - 30;
-  if (v14 == 58)
+  v14 = v13 - 30;
+  if (v13 == 58)
   {
-    v15 = 29;
+    v14 = 29;
   }
 
-  if (v14 - 58 >= 3)
+  if (v13 - 58 >= 3)
+  {
+    return v13;
+  }
+
+  else
   {
     return v14;
-  }
-
-  else
-  {
-    return v15;
   }
 }
 
@@ -6076,7 +6488,7 @@ uint64_t icu::HinduLunarCalendar::handleComputeOrdinalDay(icu::HinduLunarCalenda
   return v7;
 }
 
-_BYTE *icu::HinduLunarCalendar::add(_BYTE *this, unsigned int a2, int a3, UErrorCode *a4)
+icu::Calendar *icu::HinduLunarCalendar::add(icu::Calendar *this, unsigned int a2, int a3, UErrorCode *a4)
 {
   v6 = this;
   if (a2 == 23 || a2 == 2)
@@ -6130,7 +6542,7 @@ _BYTE *icu::HinduLunarCalendar::add(_BYTE *this, unsigned int a2, int a3, UError
   }
 }
 
-void icu::HinduLunarCalendar::roll(_BYTE *a1, uint64_t a2, int a3, UErrorCode *a4)
+void icu::HinduLunarCalendar::roll(icu::Calendar *result, uint64_t a2, int a3, UErrorCode *a4)
 {
   if (a2 == 23 || a2 == 2)
   {
@@ -6139,34 +6551,34 @@ void icu::HinduLunarCalendar::roll(_BYTE *a1, uint64_t a2, int a3, UErrorCode *a
       return;
     }
 
-    v7 = icu::Calendar::get(a1, 5u, a4);
+    v7 = icu::Calendar::get(result, 5u, a4);
     if (*a4 > 0)
     {
       return;
     }
 
     v8 = v7;
-    v9 = icu::Calendar::get(a1, 0x14u, a4);
+    v9 = icu::Calendar::get(result, 0x14u, a4);
     if (*a4 > 0)
     {
       return;
     }
 
     v10 = v9;
-    v11 = icu::Calendar::get(a1, 2u, a4);
+    v11 = icu::Calendar::get(result, 2u, a4);
     if (*a4 > 0)
     {
       return;
     }
 
     v12 = v11;
-    if (!a1[634])
+    if (!*(result + 634))
     {
       v18 = 12;
       goto LABEL_19;
     }
 
-    v13 = icu::Calendar::get(a1, 0x16u, a4);
+    v13 = icu::Calendar::get(result, 0x16u, a4);
     if (v13 == 1)
     {
       ++v12;
@@ -6187,7 +6599,7 @@ void icu::HinduLunarCalendar::roll(_BYTE *a1, uint64_t a2, int a3, UErrorCode *a
 
     if (*a4 <= 0)
     {
-      if (a1[634])
+      if (*(result + 634))
       {
         v18 = 13;
       }
@@ -6198,16 +6610,16 @@ void icu::HinduLunarCalendar::roll(_BYTE *a1, uint64_t a2, int a3, UErrorCode *a
       }
 
 LABEL_19:
-      v19 = *(*a1 + 384);
+      v19 = *(*result + 384);
 
-      v19(a1, (v10 + ((v12 + a3) % v18 - v12 + (v18 & (((v12 + a3) % v18) >> 31))) * 29.5305879), a4);
+      v19(result, (v10 + ((v12 + a3) % v18 - v12 + (v18 & (((v12 + a3) % v18) >> 31))) * 29.5305879), a4);
     }
   }
 
   else
   {
 
-    icu::Calendar::roll(a1, a2, a3, a4);
+    icu::Calendar::roll(result, a2, a3, a4);
   }
 }
 
@@ -6268,18 +6680,17 @@ void sub_19532CA48()
   bzero(v5, 0x2B8uLL);
   icu::Locale::Locale(v4, "@calendar=hindu", 0, 0, 0);
   icu::HinduLunarCalendar::HinduLunarCalendar(v5, v4, &v3);
-  icu::Locale::~Locale(v4);
+  v1 = icu::Locale::~Locale(v0, v4);
   if (v3 <= U_ZERO_ERROR)
   {
-    icu::Calendar::getNow(v0);
-    icu::Calendar::setTimeInMillis(v5, v1, &v3);
+    Now = icu::Calendar::getNow(v1);
+    icu::Calendar::setTimeInMillis(v5, Now, &v3);
     icu::Calendar::add(v5, 1u, -80, &v3);
     qword_1ED441B08 = icu::Calendar::getTimeInMillis(v5, &v3);
     dword_1ED441B10 = icu::Calendar::get(v5, 1u, &v3);
   }
 
   icu::Calendar::~Calendar(v5);
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 icu::HinduLunarCalendar *icu::HinduSolarCalendar::HinduSolarCalendar(icu::HinduSolarCalendar *this, char **a2, UErrorCode *a3)
@@ -6801,24 +7212,24 @@ uint64_t sub_19532E544()
     qword_1EAEC9DD8 = 0;
   }
 
-  atomic_store(0, &unk_1EAEC9DEC);
+  atomic_store(0, dword_1EAEC9DEC);
   return 1;
 }
 
-void *sub_19532E5A4(void *result, uint64_t a2, uint64_t a3)
+uint64_t *sub_19532E5A4(uint64_t *a1, int *a2, int *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3 != a2)
   {
-    sub_19532E60C(result, (a3 - a2) >> 2);
+    sub_19532E60C(a1, a3 - a2);
   }
 
-  return result;
+  return a1;
 }
 
-void sub_19532E60C(uint64_t a1, unint64_t a2)
+void sub_19532E60C(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -6838,27 +7249,26 @@ void sub_19532E648(uint64_t a1, unint64_t a2)
   sub_195223E74();
 }
 
-void *sub_19532E690(void *result, _DWORD *a2)
+void sub_19532E690(unint64_t *a1, _DWORD *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 1;
+        v11 = &v4[-*a1] >> 1;
       }
 
-      sub_19532E648(result[4], v11);
+      sub_19532E648(a1[4], v11);
     }
 
     v7 = ((v6 >> 2) + 1) / -2;
@@ -6867,17 +7277,16 @@ void *sub_19532E690(void *result, _DWORD *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-4 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-4 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[4 * v7];
+    a1[1] = &v5[4 * v7];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 4;
-  return result;
+  a1[2] = (v4 + 4);
 }
 
 void *icu::IndianCalendar::IndianCalendar(icu::IndianCalendar *this, const icu::IndianCalendar *a2)
@@ -6898,8 +7307,8 @@ icu::IndianCalendar *icu::IndianCalendar::IndianCalendar(icu::IndianCalendar *th
   v6 = icu::TimeZone::forLocaleOrDefault(a2, a2);
   v7 = icu::Calendar::Calendar(this, v6, a2, a3);
   *this = &unk_1F093CDA0;
-  icu::Calendar::getNow(v7);
-  icu::Calendar::setTimeInMillis(this, v8, a3);
+  Now = icu::Calendar::getNow(v7);
+  icu::Calendar::setTimeInMillis(this, Now, a3);
   return this;
 }
 
@@ -7084,16 +7493,16 @@ uint64_t icu::IndianCalendar::handleGetExtendedYear(icu::IndianCalendar *this, U
 
 void icu::IndianCalendar::handleComputeFields(icu::IndianCalendar *this, int a2, UErrorCode *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v27 = 0;
-  v25 = 0;
+  v27 = *MEMORY[0x1E69E9840];
   v26 = 0;
+  v24 = 0;
+  v25 = 0;
   v5 = a2;
-  sub_195328E3C((a2 + -2440588.0), &v26, &v26 + 1, &v27, &v25, &v25 + 1, a3);
+  sub_195328E3C((a2 + -2440588.0), &v25, &v25 + 1, &v26, &v24, &v24 + 1, a3);
   if (*a3 <= 0)
   {
-    v6 = v26;
-    v7 = (v5 - ((sub_195328D5C(v26, 0, 1) + 2440588) + -0.5));
+    v6 = v25;
+    v7 = (v5 - ((sub_195328D5C(v25, 0, 1) + 2440588) + -0.5));
     HIDWORD(v9) = -1030792151 * v6 + 85899344;
     LODWORD(v9) = HIDWORD(v9);
     v8 = v9 >> 2;
@@ -7216,8 +7625,6 @@ void icu::IndianCalendar::handleComputeFields(icu::IndianCalendar *this, int a2,
     *(this + 8) = v22 + 1;
     *(this + 9) = v19 + 1;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t icu::IndianCalendar::getRelatedYear(icu::IndianCalendar *this, UErrorCode *a2)
@@ -7257,18 +7664,17 @@ void sub_19532EF64()
   bzero(v5, 0x280uLL);
   icu::Locale::Locale(v4, "@calendar=indian", 0, 0, 0);
   icu::IndianCalendar::IndianCalendar(v5, v4, &v3);
-  icu::Locale::~Locale(v4);
+  v1 = icu::Locale::~Locale(v0, v4);
   if (v3 <= U_ZERO_ERROR)
   {
-    icu::Calendar::getNow(v0);
-    icu::Calendar::setTimeInMillis(v5, v1, &v3);
+    Now = icu::Calendar::getNow(v1);
+    icu::Calendar::setTimeInMillis(v5, Now, &v3);
     icu::Calendar::add(v5, 1u, -80, &v3);
     qword_1ED441B18 = icu::Calendar::getTimeInMillis(v5, &v3);
     dword_1ED441B20 = icu::Calendar::get(v5, 1u, &v3);
   }
 
   icu::Calendar::~Calendar(v5);
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t icu::IndianCalendar::defaultCenturyStartYear(icu::IndianCalendar *this)
@@ -7333,9 +7739,9 @@ char *sub_19532F1D4(char *result, char *__s, int a3)
     }
 
     v5 = a3 + 1;
-    free(*(v4 + 32));
+    free(*(v4 + 4));
     v6 = malloc_type_malloc(v5, 0x100004077774924uLL);
-    *(v4 + 32) = v6;
+    *(v4 + 4) = v6;
 
     return strncpy(v6, __s, v5);
   }
@@ -7540,8 +7946,8 @@ icu::IslamicCalendar *icu::IslamicCalendar::IslamicCalendar(icu::IslamicCalendar
   *this = &unk_1F093CF90;
   *(this + 40) = 0u;
   v8 = icu::IslamicCalendar::setLocation(v7, a2 + 26);
-  icu::Calendar::getNow(v8);
-  icu::Calendar::setTimeInMillis(this, v9, a3);
+  Now = icu::Calendar::getNow(v8);
+  icu::Calendar::setTimeInMillis(this, Now, a3);
   return this;
 }
 
@@ -7607,7 +8013,7 @@ void icu::IslamicCalendar::~IslamicCalendar(icu::IslamicCalendar *this)
   JUMPOUT(0x19A8B2600);
 }
 
-uint64_t sub_19532F6E4(signed int a1, int *a2, double a3, double a4)
+uint64_t sub_19532F6E4(unsigned int a1, int *a2, double a3, double a4)
 {
   if (*a2 > 0)
   {
@@ -7726,7 +8132,7 @@ uint64_t icu::IslamicCalendar::handleGetYearLength(icu::IslamicCalendar *this, i
   }
 }
 
-uint64_t icu::IslamicCalendar::handleComputeMonthStart(icu::IslamicCalendar *this, int a2, uint64_t a3, signed __int8 a4, UErrorCode *a5)
+uint64_t icu::IslamicCalendar::handleComputeMonthStart(icu::IslamicCalendar *this, unsigned int a2, uint64_t a3, signed __int8 a4, UErrorCode *a5)
 {
   v13 = a2;
   if (*a5 > 0)
@@ -7924,18 +8330,17 @@ void sub_195330038()
   bzero(v5, 0x290uLL);
   icu::Locale::Locale(v4, "@calendar=islamic-civil", 0, 0, 0);
   icu::IslamicCalendar::IslamicCalendar(v5, v4, &v3);
-  icu::Locale::~Locale(v4);
+  v1 = icu::Locale::~Locale(v0, v4);
   if (v3 <= U_ZERO_ERROR)
   {
-    icu::Calendar::getNow(v0);
-    icu::Calendar::setTimeInMillis(v5, v1, &v3);
+    Now = icu::Calendar::getNow(v1);
+    icu::Calendar::setTimeInMillis(v5, Now, &v3);
     icu::Calendar::add(v5, 1u, -80, &v3);
     qword_1ED441B28 = icu::Calendar::getTimeInMillis(v5, &v3);
     dword_1ED441B30 = icu::Calendar::get(v5, 1u, &v3);
   }
 
   icu::Calendar::~Calendar(v5);
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t icu::IslamicCalendar::defaultCenturyStartYear(icu::IslamicCalendar *this)
@@ -8246,7 +8651,7 @@ void icu::IslamicUmalquraCalendar::handleComputeFields(uint64_t this, int a2, UE
   }
 
   v6 = (*(*this + 472))(this);
-  if ((atomic_load_explicit(&qword_1ED442C38, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED442C38, memory_order_acquire) & 1) == 0)
   {
     sub_19542FE64(this, this & 0xFFFFFFFFFFFFLL | 0x9ACA000000000000, a3);
   }
@@ -8435,8 +8840,8 @@ icu::GregorianCalendar *sub_1953313E4(icu::GregorianCalendar *a1, char **a2, UEr
   }
 
   sub_195400588(7u, sub_195331D88);
-  icu::Calendar::getNow(v5);
-  icu::Calendar::setTimeInMillis(a1, v6, a3);
+  Now = icu::Calendar::getNow(v5);
+  icu::Calendar::setTimeInMillis(a1, Now, a3);
   return a1;
 }
 
@@ -8473,58 +8878,52 @@ icu::GregorianCalendar *sub_195331500(icu::GregorianCalendar *a1, const icu::Gre
 
 uint64_t sub_195331618(uint64_t a1, int a2, UErrorCode *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  if (*a3 <= 0)
+  v10 = *MEMORY[0x1E69E9840];
+  if (*a3 > 0)
   {
-    v6 = (*(*a1 + 456))(a1);
-    memset(v10, 0, sizeof(v10));
-    icu::EraRules::getStartDate(qword_1EAEC9E20, v6, v10, a3);
-    v7 = *a3;
-    if (*a3 == U_ILLEGAL_ARGUMENT_ERROR)
-    {
-      if (v6 == *(qword_1EAEC9E20 + 8))
-      {
-        v7 = U_ZERO_ERROR;
-        *a3 = U_ZERO_ERROR;
-      }
+    return 0;
+  }
 
-      else
-      {
-        v7 = U_ILLEGAL_ARGUMENT_ERROR;
-      }
-    }
-
-    if (v10[0] == a2 && v7 < U_ILLEGAL_ARGUMENT_ERROR)
+  v6 = (*(*a1 + 456))(a1);
+  memset(v9, 0, sizeof(v9));
+  icu::EraRules::getStartDate(qword_1EAEC9E20, v6, v9, a3);
+  v7 = *a3;
+  if (*a3 == U_ILLEGAL_ARGUMENT_ERROR)
+  {
+    if (v6 == *(qword_1EAEC9E20 + 8))
     {
-      result = (v10[1] - 1);
+      v7 = U_ZERO_ERROR;
+      *a3 = U_ZERO_ERROR;
     }
 
     else
     {
-      result = 0;
+      v7 = U_ILLEGAL_ARGUMENT_ERROR;
     }
+  }
+
+  if (v9[0] == a2 && v7 < U_ILLEGAL_ARGUMENT_ERROR)
+  {
+    return (v9[1] - 1);
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t sub_19533171C(uint64_t a1, int a2, int a3, UErrorCode *a4)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (*a4 > 0)
   {
-    goto LABEL_2;
+    return 0;
   }
 
-  v9 = (*(*a1 + 456))(a1);
-  memset(v10, 0, sizeof(v10));
-  icu::EraRules::getStartDate(qword_1EAEC9E20, v9, v10, a4);
+  v8 = (*(*a1 + 456))(a1);
+  memset(v9, 0, sizeof(v9));
+  icu::EraRules::getStartDate(qword_1EAEC9E20, v8, v9, a4);
   if (*a4 != U_ILLEGAL_ARGUMENT_ERROR)
   {
     if (*a4 <= 0)
@@ -8532,31 +8931,25 @@ uint64_t sub_19533171C(uint64_t a1, int a2, int a3, UErrorCode *a4)
       goto LABEL_8;
     }
 
-LABEL_2:
-    result = 0;
-    goto LABEL_3;
+    return 0;
   }
 
-  if (v9 != *(qword_1EAEC9E20 + 8))
+  if (v8 != *(qword_1EAEC9E20 + 8))
   {
-    goto LABEL_2;
+    return 0;
   }
 
   *a4 = U_ZERO_ERROR;
 LABEL_8:
-  if (v10[0] == a2 && v10[1] - 1 == a3)
+  if (v9[0] == a2 && v9[1] - 1 == a3)
   {
-    result = v10[2];
+    return v9[2];
   }
 
   else
   {
-    result = 1;
+    return 1;
   }
-
-LABEL_3:
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t sub_195331840(uint64_t a1)
@@ -8718,9 +9111,9 @@ uint64_t sub_195331ABC(uint64_t a1, int a2, unsigned int a3)
   }
 }
 
-uint64_t sub_195331B80(_BYTE *a1, uint64_t a2, UErrorCode *a3)
+uint64_t sub_195331B80(icu::Calendar *a1, uint64_t a2, UErrorCode *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (a2 == 1)
   {
     v5 = icu::Calendar::get(a1, 0, a3);
@@ -8730,45 +9123,48 @@ uint64_t sub_195331B80(_BYTE *a1, uint64_t a2, UErrorCode *a3)
       if (v5 == *(qword_1EAEC9E20 + 8) - 1)
       {
         v7 = *(*a1 + 296);
-        v8 = *MEMORY[0x1E69E9840];
 
         return v7(a1, 1, 3);
       }
 
-      memset(v16, 0, sizeof(v16));
-      icu::EraRules::getStartDate(qword_1EAEC9E20, v5 + 1, v16, a3);
-      v10 = v16[0];
-      v11 = v16[1];
-      v12 = v16[2];
-      v13 = v10 - icu::EraRules::getStartYear(qword_1EAEC9E20, v5, a3);
-      if (v11 == 1 && v12 == 1)
-      {
-        result = v13;
-      }
-
       else
       {
-        result = v13 + 1;
+        memset(v13, 0, sizeof(v13));
+        icu::EraRules::getStartDate(qword_1EAEC9E20, v5 + 1, v13, a3);
+        v8 = v13[0];
+        v9 = v13[1];
+        v10 = v13[2];
+        v11 = v8 - icu::EraRules::getStartYear(qword_1EAEC9E20, v5, a3);
+        if (v9 == 1 && v10 == 1)
+        {
+          return v11;
+        }
+
+        else
+        {
+          return v11 + 1;
+        }
       }
     }
-
-    v15 = *MEMORY[0x1E69E9840];
-    return result;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
+  else
+  {
 
-  return icu::GregorianCalendar::getActualMaximum(a1, a2, a3);
+    return icu::GregorianCalendar::getActualMaximum(a1, a2, a3);
+  }
+
+  return result;
 }
 
-uint64_t sub_195331D30(icu::JapaneseCalendar *a1)
+icu::EraRules *sub_195331D30(icu::JapaneseCalendar *a1)
 {
   v2 = icu::JapaneseCalendar::enableTentativeEra(a1);
   result = icu::EraRules::createInstance("japanese", v2, a1, v3);
   qword_1EAEC9E20 = result;
   if (*a1 <= 0)
   {
-    dword_1EAEC9E1C = *(result + 12);
+    dword_1EAEC9E1C = *(result + 3);
   }
 
   return result;
@@ -8943,7 +9339,7 @@ uint64_t icu::FormattedList::nextPosition(icu::FormattedList *this, icu::Constra
   return (*(*v4 + 40))(*(this + 1), a2);
 }
 
-uint64_t icu::ListFormatter::ListFormatter(uint64_t this, const icu::ListFormatter *a2)
+icu::ListFormatter *icu::ListFormatter::ListFormatter(icu::ListFormatter *this, const icu::ListFormatter *a2)
 {
   *this = &unk_1F093DE20;
   v2 = *(a2 + 8);
@@ -8956,22 +9352,22 @@ uint64_t icu::ListFormatter::ListFormatter(uint64_t this, const icu::ListFormatt
   return this;
 }
 
-uint64_t icu::ListFormatter::operator=(uint64_t a1, uint64_t a2)
+uint64_t icu::ListFormatter::operator=@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   if (a1 != a2)
   {
-    v4 = *(a1 + 8);
-    if (v4)
+    v5 = *(a1 + 8);
+    if (v5)
     {
-      v5 = v4[19];
-      if (v5)
+      v6 = v5[19];
+      if (v6)
       {
-        (*(*v5 + 8))(v5);
+        (*(*v6 + 8))(v6);
       }
 
-      icu::SimpleFormatter::~SimpleFormatter((v4 + 10));
-      icu::SimpleFormatter::~SimpleFormatter((v4 + 1));
-      MEMORY[0x19A8B2600](v4, 0x10B2C407CA61DA8);
+      icu::SimpleFormatter::~SimpleFormatter((v5 + 10), a3);
+      icu::SimpleFormatter::~SimpleFormatter((v5 + 1), v7);
+      MEMORY[0x19A8B2600](v5, 0x10B2C407CA61DA8);
     }
 
     if (*(a2 + 8))
@@ -8986,16 +9382,16 @@ uint64_t icu::ListFormatter::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void *sub_1953322D8(void *a1)
+void *sub_1953322D8@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v2 = a1[19];
-  if (v2)
+  v3 = a1[19];
+  if (v3)
   {
-    (*(*v2 + 8))(v2);
+    (*(*v3 + 8))(v3);
   }
 
-  icu::SimpleFormatter::~SimpleFormatter((a1 + 10));
-  icu::SimpleFormatter::~SimpleFormatter((a1 + 1));
+  icu::SimpleFormatter::~SimpleFormatter((a1 + 10), a2);
+  icu::SimpleFormatter::~SimpleFormatter((a1 + 1), v4);
   return a1;
 }
 
@@ -9013,19 +9409,19 @@ int *icu::ListFormatter::initializeHash(int *this, UErrorCode *a2)
   return this;
 }
 
-uint64_t sub_195332428(uint64_t result)
+uint64_t sub_195332428@<X0>(uint64_t result@<X0>, void *a2@<X8>)
 {
   if (result)
   {
-    v1 = result;
-    v2 = *(result + 152);
-    if (v2)
+    v2 = result;
+    v3 = *(result + 152);
+    if (v3)
     {
-      (*(*v2 + 8))(v2);
+      (*(*v3 + 8))(v3);
     }
 
-    icu::SimpleFormatter::~SimpleFormatter((v1 + 80));
-    icu::SimpleFormatter::~SimpleFormatter((v1 + 8));
+    icu::SimpleFormatter::~SimpleFormatter((v2 + 80), a2);
+    icu::SimpleFormatter::~SimpleFormatter((v2 + 8), v4);
 
     JUMPOUT(0x19A8B2600);
   }
@@ -9050,13 +9446,12 @@ uint64_t sub_1953324B0()
   return 1;
 }
 
-uint64_t icu::ListFormatter::getListFormatInternal(const char **this, const icu::Locale *a2, UErrorCode *a3, UErrorCode *a4)
+void *icu::ListFormatter::getListFormatInternal(char **this, const icu::Locale *a2, UErrorCode *a3, UErrorCode *a4)
 {
   v26 = *MEMORY[0x1E69E9840];
   if (*a3 > 0)
   {
-    v4 = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   v25 = 0;
@@ -9074,7 +9469,7 @@ uint64_t icu::ListFormatter::getListFormatInternal(const char **this, const icu:
   v23 = 0u;
   *v20 = 0u;
   v21 = 0u;
-  icu::UnicodeString::UnicodeString(v20, v24[0], 0xFFFFFFFFLL, 0);
+  icu::UnicodeString::UnicodeString(v20, v24[0], -1);
   umtx_lock(&unk_1ED442C48);
   v10 = qword_1ED442C40;
   if (!qword_1ED442C40)
@@ -9109,17 +9504,17 @@ uint64_t icu::ListFormatter::getListFormatInternal(const char **this, const icu:
   v15 = uhash_get(*qword_1ED442C40, v20);
   if (!v15)
   {
-    sub_1951D065C(qword_1ED442C40);
+    sub_1951D065C(qword_1ED442C40, v20, v14, a3);
   }
 
-  v16 = v15;
+  v17 = v15;
   if (v14)
   {
-    v17 = sub_1953322D8(v14);
-    MEMORY[0x19A8B2600](v17, 0x10B2C407CA61DA8);
+    v18 = sub_1953322D8(v14, v16);
+    MEMORY[0x19A8B2600](v18, 0x10B2C407CA61DA8);
   }
 
-  v4 = v16;
+  v4 = v17;
 LABEL_14:
   umtx_unlock(&unk_1ED442C48);
 LABEL_15:
@@ -9129,12 +9524,10 @@ LABEL_15:
     free(v24[0]);
   }
 
-LABEL_17:
-  v18 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
-uint64_t icu::ListFormatter::loadListFormatInternal(char **this, const icu::Locale *a2, UErrorCode *a3, UErrorCode *a4)
+void *icu::ListFormatter::loadListFormatInternal(char **this, const icu::Locale *a2, UErrorCode *a3, UErrorCode *a4)
 {
   v34 = *MEMORY[0x1E69E9840];
   v6 = ures_open(0, this[5], a3);
@@ -9188,17 +9581,19 @@ uint64_t icu::ListFormatter::loadListFormatInternal(char **this, const icu::Loca
     }
 
     ures_close(v8);
-    if (*a3 <= 0)
+    v10 = *a3;
+    if (v10 <= 0)
     {
       if (v14 >= 0x20u && v19 >= 0x20u && v24 >= 0x20u && v29 > 0x1Fu)
       {
         operator new();
       }
 
+      v10 = 2;
       *a3 = U_MISSING_RESOURCE_ERROR;
     }
 
-    sub_195332A24(v13);
+    sub_195332A24(v13, v10);
   }
 
   else
@@ -9206,41 +9601,39 @@ uint64_t icu::ListFormatter::loadListFormatInternal(char **this, const icu::Loca
     ures_close(v7);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
-void sub_195332A24(uint64_t a1)
+void sub_195332A24(uint64_t a1@<X0>, void *a2@<X8>)
 {
   *a1 = &unk_1F093DE48;
-  v2 = (a1 + 8);
-  icu::UnicodeString::~UnicodeString((a1 + 200));
-  icu::UnicodeString::~UnicodeString((a1 + 136));
-  icu::UnicodeString::~UnicodeString((a1 + 72));
-  icu::UnicodeString::~UnicodeString(v2);
+  v3 = (a1 + 8);
+  icu::UnicodeString::~UnicodeString(a2, (a1 + 200));
+  icu::UnicodeString::~UnicodeString(v4, (a1 + 136));
+  icu::UnicodeString::~UnicodeString(v5, (a1 + 72));
+  icu::UnicodeString::~UnicodeString(v6, v3);
 
   icu::ResourceSink::~ResourceSink(a1);
 }
 
-void sub_195332A9C(uint64_t a1)
+void sub_195332A9C(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  sub_195332A24(a1);
+  sub_195332A24(a1, a2);
 
   JUMPOUT(0x19A8B2600);
 }
 
-uint64_t icu::ListFormatter::createInstance(UErrorCode *this, UErrorCode *a2)
+void *icu::ListFormatter::createInstance(UErrorCode *this, UErrorCode *a2)
 {
   v8 = *MEMORY[0x1E69E9840];
   memset(v7, 0, sizeof(v7));
   icu::Locale::Locale(v7);
   Instance = icu::ListFormatter::createInstance(v7, "standard", this, v3);
-  icu::Locale::~Locale(v7);
-  v5 = *MEMORY[0x1E69E9840];
+  icu::Locale::~Locale(v5, v7);
   return Instance;
 }
 
-uint64_t icu::ListFormatter::createInstance(const char **a1, int a2, unsigned int a3, UErrorCode *a4)
+void *icu::ListFormatter::createInstance(char **a1, int a2, int a3, UErrorCode *a4)
 {
   if (a2 == 2)
   {
@@ -9270,7 +9663,7 @@ uint64_t icu::ListFormatter::createInstance(const char **a1, int a2, unsigned in
   return 0;
 }
 
-uint64_t icu::ListFormatter::createInstance(const char **this, const icu::Locale *a2, UErrorCode *a3, UErrorCode *a4)
+void *icu::ListFormatter::createInstance(char **this, const icu::Locale *a2, UErrorCode *a3, UErrorCode *a4)
 {
   icu::ListFormatter::getListFormatInternal(this, a2, a3, a4);
   if (*a3 <= 0)
@@ -9296,7 +9689,7 @@ void *icu::ListFormatter::ListFormatter(void *result, uint64_t a2)
   return result;
 }
 
-void icu::ListFormatter::ListFormatter(void *a1)
+void icu::ListFormatter::ListFormatter(void *a1, int a2, UErrorCode *a3)
 {
   *a1 = &unk_1F093DE20;
   operator new();
@@ -9307,66 +9700,64 @@ void icu::ListFormatter::ListFormatter(void *a1)
   operator new();
 }
 
-void icu::ListFormatter::~ListFormatter(icu::ListFormatter *this)
+void icu::ListFormatter::~ListFormatter(icu::ListFormatter *this@<X0>, void *a2@<X8>)
 {
   *this = &unk_1F093DE20;
-  v2 = *(this + 1);
-  if (v2)
+  v3 = *(this + 1);
+  if (v3)
   {
-    v3 = v2[19];
-    if (v3)
+    v4 = v3[19];
+    if (v4)
     {
-      (*(*v3 + 8))(v3);
+      (*(*v4 + 8))(v4);
     }
 
-    icu::SimpleFormatter::~SimpleFormatter((v2 + 10));
-    icu::SimpleFormatter::~SimpleFormatter((v2 + 1));
-    MEMORY[0x19A8B2600](v2, 0x10B2C407CA61DA8);
+    icu::SimpleFormatter::~SimpleFormatter((v3 + 10), a2);
+    icu::SimpleFormatter::~SimpleFormatter((v3 + 1), v5);
+    MEMORY[0x19A8B2600](v3, 0x10B2C407CA61DA8);
   }
 
   icu::UObject::~UObject(this);
 }
 
 {
-  icu::ListFormatter::~ListFormatter(this);
+  icu::ListFormatter::~ListFormatter(this, a2);
 
   JUMPOUT(0x19A8B2600);
 }
 
 void icu::ListFormatter::format(icu::ListFormatter *this, const icu::UnicodeString *a2, int a3, icu::UnicodeString *a4, int a5, int *a6, UErrorCode *a7)
 {
-  v7 = *(a4 + 4);
-  v8 = *(a4 + 3);
+  v7 = 0;
+  v8 = 0;
   v9 = 0;
-  v10 = 0;
-  v11 = 0;
   icu::ListFormatter::formatStringsToValue(this, a2, a3, a7);
 }
 
-void icu::ListFormatter::formatStringsToValue(icu::ListFormatter *this, const icu::UnicodeString *a2, int a3, UErrorCode *a4)
+void icu::ListFormatter::formatStringsToValue(icu::ListFormatter *this, const icu::UnicodeString *a3, int a5, UErrorCode *a4)
 {
-  if (a3 != 2)
+  if (a5 != 2)
   {
-    if (a3 != 1)
+    if (a5 != 1)
     {
-      if (!a3)
+      if (!a5)
       {
         operator new();
       }
 
-      v4 = 0;
-      icu::ListFormatter::needsBidiIsolates(this, a2);
-      sub_1953334F4();
+      v10 = 0;
+      v9 = icu::ListFormatter::needsBidiIsolates(this, a3);
+      sub_1953334F4(&v10, a3, v9, a4);
     }
 
-    v4 = 0;
-    icu::ListFormatter::needsBidiIsolates(this, a2);
-    sub_1953334F4();
+    v10 = 0;
+    v7 = icu::ListFormatter::needsBidiIsolates(this, a3);
+    sub_1953334F4(&v10, a3, v7, a4);
   }
 
-  v4 = 0;
-  icu::ListFormatter::needsBidiIsolates(this, a2);
-  sub_1953334F4();
+  v10 = 0;
+  v8 = icu::ListFormatter::needsBidiIsolates(this, a3);
+  sub_1953334F4(&v10, a3, v8, a4);
 }
 
 uint64_t icu::ListFormatter::needsBidiIsolates(icu::ListFormatter *this, const icu::UnicodeString *a2)
@@ -9385,12 +9776,11 @@ uint64_t icu::ListFormatter::needsBidiIsolates(icu::ListFormatter *this, const i
   }
 
   v6 = 0;
-  v7 = *(this + 2);
-  v8 = *(v7 + 160);
+  v7 = *(*(this + 2) + 160);
   while (1)
   {
-    v9 = icu::UnicodeString::char32At(v7, a2, v6);
-    Class = ubidi_getClass(v9);
+    v8 = icu::UnicodeString::char32At(a2, v6);
+    Class = ubidi_getClass(v8);
     if (Class > 0xF)
     {
       goto LABEL_11;
@@ -9401,627 +9791,31 @@ uint64_t icu::ListFormatter::needsBidiIsolates(icu::ListFormatter *this, const i
       break;
     }
 
-    if (!v8)
+    if (!v7)
     {
       return 1;
     }
 
 LABEL_11:
     ++v6;
-    v11 = *(a2 + 4);
-    v12 = v11;
-    LODWORD(v7) = v11 >> 5;
-    if (v12 >= 0)
+    v10 = *(a2 + 4);
+    v11 = v10;
+    v12 = v10 >> 5;
+    if (v11 < 0)
     {
-      v7 = v7;
+      v12 = *(a2 + 3);
     }
 
-    else
-    {
-      v7 = *(a2 + 3);
-    }
-
-    if (v6 >= v7)
+    if (v6 >= v12)
     {
       return 0;
     }
   }
 
-  if (((1 << Class) & 0x1801) == 0 || (v8 & 1) == 0)
+  if (((1 << Class) & 0x1801) == 0 || (v7 & 1) == 0)
   {
     goto LABEL_11;
   }
 
   return 1;
-}
-
-uint64_t *sub_1953335D4(uint64_t *result, uint64_t a2, uint64_t a3, int a4, int a5, UErrorCode *a6)
-{
-  __b[1] = *MEMORY[0x1E69E9840];
-  if (*a6 <= 0)
-  {
-    v10 = result;
-    v11 = *(a2 + 16);
-    if ((v11 & 0x11) != 0)
-    {
-      v12 = 0;
-    }
-
-    else if ((v11 & 2) != 0)
-    {
-      v12 = (a2 + 18);
-    }
-
-    else
-    {
-      v12 = *(a2 + 32);
-    }
-
-    v13 = v11;
-    v14 = v11 >> 5;
-    if (v13 < 0)
-    {
-      v14 = *(a2 + 20);
-    }
-
-    if (v14 && *v12 == 2)
-    {
-      __b[0] = 0;
-      memset(v36, 0, sizeof(v36));
-      sub_195311838(__b, a2, 2, v36);
-      v15 = *v10;
-      if (SLODWORD(__b[0]) <= SHIDWORD(__b[0]))
-      {
-        icu::UnicodeString::tempSubString(v36, 0, __b[0], v35);
-        icu::FormattedStringBuilder::insert((v15 + 8), 0, v35, 48, 0, a6);
-        icu::UnicodeString::~UnicodeString(v25, v35);
-        v26 = *v10;
-        icu::UnicodeString::tempSubString(v36, __b[0], HIDWORD(__b[0]) - LODWORD(__b[0]), v35);
-        icu::FormattedStringBuilder::insert((v26 + 8), *(v26 + 140), v35, 48, 0, a6);
-        icu::UnicodeString::~UnicodeString(v27, v35);
-        icu::FormattedStringBuilder::insert((*v10 + 8), *(*v10 + 140), a3, 49, a5, a6);
-        v28 = *(a3 + 8);
-        v29 = v28;
-        v30 = v28 >> 5;
-        if (v29 < 0)
-        {
-          v30 = *(a3 + 12);
-        }
-
-        if (a5)
-        {
-          v31 = 2;
-        }
-
-        else
-        {
-          v31 = 0;
-        }
-
-        icu::FormattedValueStringBuilderImpl::appendSpanInfo(*v10, 4099, a4, -1, v30 + v31, a6);
-        v23 = *v10;
-        v24 = HIDWORD(__b[0]);
-      }
-
-      else
-      {
-        icu::UnicodeString::tempSubString(v36, SHIDWORD(__b[0]), LODWORD(__b[0]) - HIDWORD(__b[0]), v35);
-        icu::FormattedStringBuilder::insert((v15 + 8), 0, v35, 48, 0, a6);
-        icu::UnicodeString::~UnicodeString(v16, v35);
-        icu::FormattedStringBuilder::insert((*v10 + 8), 0, a3, 49, a5, a6);
-        v17 = *(a3 + 8);
-        v18 = v17;
-        v19 = v17 >> 5;
-        if (v18 < 0)
-        {
-          v19 = *(a3 + 12);
-        }
-
-        if (a5)
-        {
-          v20 = 2;
-        }
-
-        else
-        {
-          v20 = 0;
-        }
-
-        icu::FormattedValueStringBuilderImpl::prependSpanInfo(*v10, 4099, a4, -1, v19 + v20, a6);
-        v21 = *v10;
-        icu::UnicodeString::tempSubString(v36, 0, SHIDWORD(__b[0]), v35);
-        icu::FormattedStringBuilder::insert((v21 + 8), 0, v35, 48, 0, a6);
-        icu::UnicodeString::~UnicodeString(v22, v35);
-        v23 = *v10;
-        v24 = __b[0];
-      }
-
-      icu::UnicodeString::tempSubString(v36, v24, 0x7FFFFFFF, v35);
-      icu::FormattedStringBuilder::insert((v23 + 8), *(v23 + 140), v35, 48, 0, a6);
-      icu::UnicodeString::~UnicodeString(v32, v35);
-      result = icu::UnicodeString::~UnicodeString(v33, v36);
-    }
-
-    else
-    {
-      *a6 = U_INTERNAL_PROGRAM_ERROR;
-    }
-  }
-
-  v34 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t sub_1953338D0(unsigned __int16 *a1, char *a2, icu::ResourceValue *a3, uint64_t a4, int *a5)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  __s1 = a2;
-  *(a1 + 264) = 0;
-  if ((*(*a3 + 24))(a3) == 3)
-  {
-    v19 = 0;
-    *&v16[0] = (*(*a3 + 40))(a3, &v19, a5);
-    icu::UnicodeString::UnicodeString(v20, 1, v16);
-    sub_195335520(a1, v20);
-    result = icu::UnicodeString::~UnicodeString(v8, v20);
-  }
-
-  else
-  {
-    v17 = 0;
-    memset(v16, 0, sizeof(v16));
-    result = (*(*a3 + 88))(v16, a3, a5);
-    if (*a5 <= 0)
-    {
-      v10 = 0;
-      do
-      {
-        result = icu::ResourceTable::getKeyAndValue(v16, v10, &__s1, a3);
-        if (!result)
-        {
-          break;
-        }
-
-        v11 = __s1;
-        if (*__s1 != 50 || (v12 = a1 + 4, __s1[1]))
-        {
-          v13 = strcmp(__s1, "end");
-          v12 = a1 + 100;
-          if (v13)
-          {
-            v14 = strcmp(v11, "middle");
-            v12 = a1 + 68;
-            if (v14)
-            {
-              result = strcmp(v11, "start");
-              v12 = a1 + 36;
-              if (result)
-              {
-                continue;
-              }
-            }
-          }
-        }
-
-        result = sub_195335604(a1, a3, v12, a5);
-        ++v10;
-      }
-
-      while (*a5 <= 0);
-    }
-  }
-
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t sub_195333AF0(uint64_t a1, uint64_t a2)
-{
-  icu::UnicodeString::UnicodeString((a1 + 16), (a2 + 16));
-  icu::UnicodeString::UnicodeString((a1 + 88), (a2 + 88));
-  *(a1 + 152) = (*(**(a2 + 152) + 24))(*(a2 + 152));
-  *(a1 + 160) = *(a2 + 160);
-  return a1;
-}
-
-uint64_t sub_195333B64(uint64_t a1, uint64_t a2, icu::UnicodeString *a3, const icu::UnicodeString *a4, uint64_t a5, uint64_t a6, UErrorCode *a7)
-{
-  *(a1 + 16) = &unk_1F0935D00;
-  *(a1 + 24) = 2;
-  icu::SimpleFormatter::applyPatternMinMaxArguments((a1 + 8), a3, 2, 2, 0, a7);
-  *(a1 + 88) = &unk_1F0935D00;
-  *(a1 + 96) = 2;
-  icu::SimpleFormatter::applyPatternMinMaxArguments((a1 + 80), a4, 2, 2, 0, a7);
-  sub_195333C80((a6 + 8), a2, a5);
-  *(a1 + 152) = v13;
-  if (!v13 && *a7 <= 0)
-  {
-    *a7 = U_MEMORY_ALLOCATION_ERROR;
-  }
-
-  *(a1 + 160) = uloc_getCharacterOrientation(*(a6 + 40), a7) == 1;
-  return a1;
-}
-
-void sub_195333C80(unsigned __int8 *a1, uint64_t a2, uint64_t a3)
-{
-  v65 = *MEMORY[0x1E69E9840];
-  v5 = *a1;
-  if (v5 > 0x68)
-  {
-    if (v5 == 105)
-    {
-      if (a1[1] != 119)
-      {
-        goto LABEL_59;
-      }
-
-LABEL_27:
-      if (!a1[2])
-      {
-        v63 = 0u;
-        v64 = 0u;
-        v61 = 0u;
-        v62 = 0u;
-        v51 = "{";
-        icu::UnicodeString::UnicodeString(&v61, 1, &v51);
-        v13 = *(a2 + 8);
-        if (v13)
-        {
-          v14 = BYTE8(v61) & 1;
-        }
-
-        else
-        {
-          v14 = 0;
-          v15 = v13;
-          v16 = v13 >> 5;
-          if (v15 >= 0)
-          {
-            v17 = v16;
-          }
-
-          else
-          {
-            v17 = *(a2 + 12);
-          }
-
-          if ((SWORD4(v61) & 0x8000u) == 0)
-          {
-            v18 = WORD4(v61) >> 5;
-          }
-
-          else
-          {
-            v18 = HIDWORD(v61);
-          }
-
-          if ((BYTE8(v61) & 1) == 0 && v17 == v18)
-          {
-            if ((BYTE8(v61) & 2) != 0)
-            {
-              v19 = (&v61 | 0xA);
-            }
-
-            else
-            {
-              v19 = *(&v62 + 1);
-            }
-
-            v14 = icu::UnicodeString::doEquals(a2, v19, v17);
-          }
-        }
-
-        v20 = *(a3 + 8);
-        if (v20)
-        {
-          v21 = BYTE8(v61) & 1;
-        }
-
-        else
-        {
-          v21 = 0;
-          v22 = v20;
-          v23 = v20 >> 5;
-          if (v22 >= 0)
-          {
-            v24 = v23;
-          }
-
-          else
-          {
-            v24 = *(a3 + 12);
-          }
-
-          if ((SWORD4(v61) & 0x8000u) == 0)
-          {
-            v25 = WORD4(v61) >> 5;
-          }
-
-          else
-          {
-            v25 = HIDWORD(v61);
-          }
-
-          if ((BYTE8(v61) & 1) == 0 && v24 == v25)
-          {
-            if ((BYTE8(v61) & 2) != 0)
-            {
-              v26 = (&v61 | 0xA);
-            }
-
-            else
-            {
-              v26 = *(&v62 + 1);
-            }
-
-            v21 = icu::UnicodeString::doEquals(a3, v26, v24);
-          }
-        }
-
-        if ((v14 | v21))
-        {
-          v59 = 0u;
-          v60 = 0u;
-          v57 = 0u;
-          v58 = 0u;
-          v50 = a0_2;
-          icu::UnicodeString::UnicodeString(&v57, 1, &v50);
-          operator new();
-        }
-
-        icu::UnicodeString::~UnicodeString((v14 | v21), &v61);
-      }
-
-      goto LABEL_59;
-    }
-
-    if (v5 == 116 && a1[1] == 104 && !a1[2])
-    {
-      operator new();
-    }
-  }
-
-  else
-  {
-    if (v5 != 101)
-    {
-      if (v5 != 104 || a1[1] != 101)
-      {
-        goto LABEL_59;
-      }
-
-      goto LABEL_27;
-    }
-
-    if (a1[1] == 115 && !a1[2])
-    {
-      v63 = 0u;
-      v64 = 0u;
-      v61 = 0u;
-      v62 = 0u;
-      v55 = "{";
-      icu::UnicodeString::UnicodeString(&v61, 1, &v55);
-      v6 = *(a2 + 8);
-      if (v6)
-      {
-        v7 = BYTE8(v61) & 1;
-      }
-
-      else
-      {
-        v7 = 0;
-        v8 = v6;
-        v9 = v6 >> 5;
-        if (v8 >= 0)
-        {
-          v10 = v9;
-        }
-
-        else
-        {
-          v10 = *(a2 + 12);
-        }
-
-        if ((SWORD4(v61) & 0x8000u) == 0)
-        {
-          v11 = WORD4(v61) >> 5;
-        }
-
-        else
-        {
-          v11 = HIDWORD(v61);
-        }
-
-        if ((BYTE8(v61) & 1) == 0 && v10 == v11)
-        {
-          if ((BYTE8(v61) & 2) != 0)
-          {
-            v12 = (&v61 | 0xA);
-          }
-
-          else
-          {
-            v12 = *(&v62 + 1);
-          }
-
-          v7 = icu::UnicodeString::doEquals(a2, v12, v10);
-        }
-      }
-
-      v27 = *(a3 + 8);
-      if (v27)
-      {
-        v28 = BYTE8(v61) & 1;
-      }
-
-      else
-      {
-        v28 = 0;
-        v29 = v27;
-        v30 = v27 >> 5;
-        if (v29 >= 0)
-        {
-          v31 = v30;
-        }
-
-        else
-        {
-          v31 = *(a3 + 12);
-        }
-
-        if ((SWORD4(v61) & 0x8000u) == 0)
-        {
-          v32 = WORD4(v61) >> 5;
-        }
-
-        else
-        {
-          v32 = HIDWORD(v61);
-        }
-
-        if ((BYTE8(v61) & 1) == 0 && v31 == v32)
-        {
-          if ((BYTE8(v61) & 2) != 0)
-          {
-            v33 = (&v61 | 0xA);
-          }
-
-          else
-          {
-            v33 = *(&v62 + 1);
-          }
-
-          v28 = icu::UnicodeString::doEquals(a3, v33, v31);
-        }
-      }
-
-      if ((v7 | v28))
-      {
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
-        v58 = 0u;
-        v54 = "{";
-        icu::UnicodeString::UnicodeString(&v57, 1, &v54);
-        operator new();
-      }
-
-      v59 = 0u;
-      v60 = 0u;
-      v57 = 0u;
-      v58 = 0u;
-      v53 = "{";
-      icu::UnicodeString::UnicodeString(&v57, 1, &v53);
-      v34 = *(a2 + 8);
-      if (v34)
-      {
-        v35 = BYTE8(v57) & 1;
-      }
-
-      else
-      {
-        v35 = 0;
-        v36 = v34;
-        v37 = v34 >> 5;
-        if (v36 >= 0)
-        {
-          v38 = v37;
-        }
-
-        else
-        {
-          v38 = *(a2 + 12);
-        }
-
-        if ((SWORD4(v57) & 0x8000u) == 0)
-        {
-          v39 = WORD4(v57) >> 5;
-        }
-
-        else
-        {
-          v39 = HIDWORD(v57);
-        }
-
-        if ((BYTE8(v57) & 1) == 0 && v38 == v39)
-        {
-          if ((BYTE8(v57) & 2) != 0)
-          {
-            v40 = (&v57 | 0xA);
-          }
-
-          else
-          {
-            v40 = *(&v58 + 1);
-          }
-
-          v35 = icu::UnicodeString::doEquals(a2, v40, v38);
-        }
-      }
-
-      v41 = *(a3 + 8);
-      if (v41)
-      {
-        v46 = WORD4(v57);
-        v42 = BYTE8(v57) & 1;
-      }
-
-      else
-      {
-        v42 = 0;
-        v43 = v41;
-        v44 = v41 >> 5;
-        if (v43 >= 0)
-        {
-          v45 = v44;
-        }
-
-        else
-        {
-          v45 = *(a3 + 12);
-        }
-
-        v46 = WORD4(v57);
-        if ((SWORD4(v57) & 0x8000u) == 0)
-        {
-          v47 = WORD4(v57) >> 5;
-        }
-
-        else
-        {
-          v47 = HIDWORD(v57);
-        }
-
-        if ((BYTE8(v57) & 1) == 0 && v45 == v47)
-        {
-          if ((BYTE8(v57) & 2) != 0)
-          {
-            v48 = (&v57 | 0xA);
-          }
-
-          else
-          {
-            v48 = *(&v58 + 1);
-          }
-
-          v42 = icu::UnicodeString::doEquals(a3, v48, v45);
-        }
-      }
-
-      if ((v35 | v42))
-      {
-        memset(v56, 0, sizeof(v56));
-        v52 = "{";
-        icu::UnicodeString::UnicodeString(v56, 1, &v52);
-        operator new();
-      }
-
-      icu::UnicodeString::~UnicodeString(v46, &v57);
-      icu::UnicodeString::~UnicodeString(v49, &v61);
-    }
-  }
-
-LABEL_59:
-  operator new();
 }

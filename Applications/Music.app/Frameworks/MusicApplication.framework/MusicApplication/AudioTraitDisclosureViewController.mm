@@ -19,16 +19,17 @@
 - (void)viewWillDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v7.receiver = self;
-  v7.super_class = swift_getObjectType();
-  v4 = v7.receiver;
-  [(AudioTraitDisclosureViewController *)&v7 viewWillDisappear:disappearCopy];
+  v8.receiver = self;
+  v8.super_class = swift_getObjectType();
+  v4 = v8.receiver;
+  [(AudioTraitDisclosureViewController *)&v8 viewWillDisappear:disappearCopy];
   v5 = *&v4[OBJC_IVAR____TtC16MusicApplication34AudioTraitDisclosureViewController_dismissHandler];
   if (v5)
   {
+    v6 = *&v4[OBJC_IVAR____TtC16MusicApplication34AudioTraitDisclosureViewController_dismissHandler + 8];
 
-    v5(v6);
-    sub_17654(v5);
+    v5(v7);
+    sub_17654(v5, v6);
   }
 }
 

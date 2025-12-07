@@ -119,7 +119,7 @@
 
 - (void)setActivities:(id)activities
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   activitiesCopy = activities;
   registry = [(_EMActivityRegistryObserverWrapper *)self registry];
   observer = [(_EMActivityRegistryObserverWrapper *)self observer];
@@ -131,25 +131,25 @@
     trackedActivities = self->_trackedActivities;
     self->_trackedActivities = v5;
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v7 = activitiesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v44 objects:v50 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v43 objects:v49 count:16];
     if (v8)
     {
-      v9 = *v45;
+      v9 = *v44;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v45 != v9)
+          if (*v44 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v44 + 1) + 8 * i);
+          v11 = *(*(&v43 + 1) + 8 * i);
           v12 = self->_trackedActivities;
           objectID = [v11 objectID];
           v14 = [(NSMutableDictionary *)v12 objectForKeyedSubscript:objectID];
@@ -163,32 +163,32 @@
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v44 objects:v50 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v43 objects:v49 count:16];
       }
 
       while (v8);
     }
 
     os_unfair_lock_unlock(&self->_lock);
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v17 = v7;
-    v18 = [v17 countByEnumeratingWithState:&v40 objects:v49 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v39 objects:v48 count:16];
     if (v18)
     {
-      v19 = *v41;
+      v19 = *v40;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v41 != v19)
+          if (*v40 != v19)
           {
             objc_enumerationMutation(v17);
           }
 
-          v21 = *(*(&v40 + 1) + 8 * j);
+          v21 = *(*(&v39 + 1) + 8 * j);
           objectID3 = [v21 objectID];
           v23 = [(NSMutableDictionary *)v4 objectForKeyedSubscript:objectID3];
 
@@ -218,41 +218,39 @@
           }
         }
 
-        v18 = [v17 countByEnumeratingWithState:&v40 objects:v49 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v39 objects:v48 count:16];
       }
 
       while (v18);
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     allValues = [(NSMutableDictionary *)v4 allValues];
-    v29 = [allValues countByEnumeratingWithState:&v36 objects:v48 count:16];
+    v29 = [allValues countByEnumeratingWithState:&v35 objects:v47 count:16];
     if (v29)
     {
-      v30 = *v37;
+      v30 = *v36;
       do
       {
         for (k = 0; k != v29; ++k)
         {
-          if (*v37 != v30)
+          if (*v36 != v30)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [*(*(&v36 + 1) + 8 * k) finishWithError:0];
+          [*(*(&v35 + 1) + 8 * k) finishWithError:0];
         }
 
-        v29 = [allValues countByEnumeratingWithState:&v36 objects:v48 count:16];
+        v29 = [allValues countByEnumeratingWithState:&v35 objects:v47 count:16];
       }
 
       while (v29);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)activities

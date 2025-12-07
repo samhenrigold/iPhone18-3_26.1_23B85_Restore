@@ -317,7 +317,7 @@ void __34__MKTileOverlay__loadTile_result___block_invoke(uint64_t a1, uint64_t a
     v8 = *(path + 4);
   }
 
-  *(&v12 + 1) = v8 & 0x3F | (LODWORD(v7) << 6);
+  *(&v12 + 1) = v8 & 0x3F | (v7 << 6);
   *(&v12 + 5) = v9 & 0x3FFFFFF | (v5 << 26);
   return v12;
 }

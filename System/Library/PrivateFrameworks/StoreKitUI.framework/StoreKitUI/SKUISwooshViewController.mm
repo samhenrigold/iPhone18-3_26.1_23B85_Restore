@@ -4,6 +4,7 @@
 - (id)indexPathsForVisibleItems;
 - (id)popImageViewForItemAtIndex:(int64_t)index;
 - (void)deselectAllItems;
+- (void)indexPathsForVisibleItems;
 - (void)setImage:(id)image forItemAtIndex:(int64_t)index;
 - (void)unhideImages;
 @end
@@ -12,14 +13,8 @@
 
 - (void)deselectAllItems
 {
-  if (os_variant_has_internal_content() && _os_feature_enabled_impl())
-  {
-    v2 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-    if (v2)
-    {
-      [(SKUISwooshViewController *)v2 deselectAllItems:v3];
-    }
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISwooshViewController deselectAllItems]";
 }
 
 - (CGRect)frameForItemAtIndex:(int64_t)index
@@ -95,14 +90,8 @@
 
 - (void)unhideImages
 {
-  if (os_variant_has_internal_content() && _os_feature_enabled_impl())
-  {
-    v2 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-    if (v2)
-    {
-      [(SKUISwooshViewController *)v2 unhideImages:v3];
-    }
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISwooshViewController unhideImages]";
 }
 
 - (SKUISwooshViewControllerDelegate)delegate
@@ -110,6 +99,30 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+- (void)frameForItemAtIndex:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISwooshViewController frameForItemAtIndex:]";
+}
+
+- (void)indexPathsForVisibleItems
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISwooshViewController indexPathsForVisibleItems]";
+}
+
+- (void)popImageViewForItemAtIndex:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISwooshViewController popImageViewForItemAtIndex:]";
+}
+
+- (void)setImage:(uint64_t)a3 forItemAtIndex:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISwooshViewController setImage:forItemAtIndex:]";
 }
 
 @end

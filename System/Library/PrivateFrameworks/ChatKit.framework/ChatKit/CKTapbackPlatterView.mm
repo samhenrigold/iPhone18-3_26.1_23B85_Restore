@@ -27,7 +27,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_190C18544();
+  sub_190C18544(selfCopy);
 }
 
 - (CGRect)tapbackContentContainerRect

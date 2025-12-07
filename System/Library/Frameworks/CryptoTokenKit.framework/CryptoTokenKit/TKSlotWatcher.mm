@@ -70,8 +70,7 @@
     v19 = sub_10000C850;
     v20 = &unk_1000389A0;
     objc_copyWeak(&v21, &location);
-    [serverCopy setInterruptionHandler:&v17];
-    v15 = sub_10000B0B8();
+    v15 = sub_10000B0B8([serverCopy setInterruptionHandler:&v17]);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       sub_10001EB50(v23, [(NSMutableArray *)self->_slots count:v17], v15);
@@ -114,8 +113,7 @@
     if (v15)
     {
       [(NSMutableArray *)selfCopy->_slots addObject:v15];
-      [(TKSlotWatch *)v15 startObserving];
-      v16 = sub_10000B0B8();
+      v16 = sub_10000B0B8([(TKSlotWatch *)v15 startObserving]);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         v17 = [(NSMutableArray *)selfCopy->_slots count];
@@ -142,8 +140,7 @@
   objc_sync_enter(selfCopy);
   if ([(NSMutableArray *)selfCopy->_slots indexOfObject:watchCopy]!= 0x7FFFFFFFFFFFFFFFLL)
   {
-    [(NSMutableArray *)selfCopy->_slots removeObject:watchCopy];
-    v6 = sub_10000B0B8();
+    v6 = sub_10000B0B8([(NSMutableArray *)selfCopy->_slots removeObject:watchCopy]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       name = [watchCopy name];

@@ -25,11 +25,11 @@ void __139__WBSPrivateBrowsingUserDefinedContentBlockerManager_ScribbleUtilities
   dispatch_group_leave(*(a1 + 40));
 }
 
-uint64_t __104__WBSPrivateBrowsingUserDefinedContentBlockerManager_ScribbleUtilities__clearAllEditsForContentBlocker___block_invoke(uint64_t result, uint64_t a2)
+id *__104__WBSPrivateBrowsingUserDefinedContentBlockerManager_ScribbleUtilities__clearAllEditsForContentBlocker___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) clearAllEditsForContentBlocker:a2];
+    return [result[4] clearAllEditsForContentBlocker:a2];
   }
 
   return result;

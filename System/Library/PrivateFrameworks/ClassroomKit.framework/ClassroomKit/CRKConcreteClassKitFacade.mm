@@ -336,15 +336,16 @@
   identifiersCopy = identifiers;
   v4 = [objc_alloc(MEMORY[0x277CBB638]) initWithOptions:1 behaviors:1];
   v5 = [v4 predicateForPersonsWithObjectIDs:identifiersCopy];
-  v10 = 0;
-  v6 = [MEMORY[0x277CBB628] queryWithObjectType:objc_opt_class() predicate:v5 error:&v10];
-  v7 = v10;
+  v11 = 0;
+  v6 = [MEMORY[0x277CBB628] queryWithObjectType:objc_opt_class() predicate:v5 error:&v11];
+  v7 = v11;
+  v8 = v7;
   if (!v6)
   {
-    v8 = _CRKLogASM_2();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _CRKLogASM_2(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(CRKConcreteClassKitFacade *)identifiersCopy makeQueryForPersonsWithIdentifiers:v7, v8];
+      [(CRKConcreteClassKitFacade *)identifiersCopy makeQueryForPersonsWithIdentifiers:v8, v9];
     }
   }
 
@@ -364,7 +365,7 @@
   v7 = [MEMORY[0x277CBB628] queryWithSearchSpecification:v4];
   if (!v7)
   {
-    v8 = _CRKLogASM_2();
+    v8 = _CRKLogASM_2(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(CRKConcreteClassKitFacade *)dCopy makeQueryForLocationsAllowingEasyStudentSignInForPersonID:v8];
@@ -394,13 +395,14 @@
   v9 = [v7 querySpecificationWithObjectType:type predicate:predicate];
   [v9 setSortDescriptors:descriptorsCopy];
 
-  v14 = 0;
-  v10 = [objc_alloc(MEMORY[0x277CBB5F8]) initWithQuerySpecification:v9 error:&v14];
-  v11 = v14;
+  v15 = 0;
+  v10 = [objc_alloc(MEMORY[0x277CBB5F8]) initWithQuerySpecification:v9 error:&v15];
+  v11 = v15;
+  v12 = v11;
   if (!v10)
   {
-    v12 = _CRKLogASM_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _CRKLogASM_2(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CRKConcreteClassKitFacade makeDataObserverWithObjectType:predicate:sortDescriptors:];
     }
@@ -631,14 +633,13 @@
 
 - (void)executeQuery:.cold.1()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKConcreteClassKitFacade executeQuery:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 - (void)makeDataObserverWithObjectType:predicate:sortDescriptors:.cold.1()
@@ -651,62 +652,57 @@
 
 - (void)addPerson:withRole:toClass:.cold.1()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKConcreteClassKitFacade addPerson:withRole:toClass:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 - (void)addPerson:withRole:toClass:.cold.2()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKConcreteClassKitFacade addPerson:withRole:toClass:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 - (void)removePerson:withRole:fromClass:.cold.1()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKConcreteClassKitFacade removePerson:withRole:fromClass:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 - (void)removePerson:withRole:fromClass:.cold.2()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKConcreteClassKitFacade removePerson:withRole:fromClass:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 - (void)objectIDsOfMembersInClass:withRole:.cold.1()
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
+  v15 = [MEMORY[0x277CCA890] currentHandler];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKConcreteClassKitFacade objectIDsOfMembersInClass:withRole:]"];
   v2 = objc_opt_class();
-  NSStringFromClass(v2);
-  objc_claimAutoreleasedReturnValue();
-  v3 = OUTLINED_FUNCTION_1_1();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v3 = NSStringFromClass(v2);
+  v5 = OUTLINED_FUNCTION_1_1(v3, v4);
+  v6 = NSStringFromClass(v5);
+  [OUTLINED_FUNCTION_0_2(v6 v7];
 }
 
 @end

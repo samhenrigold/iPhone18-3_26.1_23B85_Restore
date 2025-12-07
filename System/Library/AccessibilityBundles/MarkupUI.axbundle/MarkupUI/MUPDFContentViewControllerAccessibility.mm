@@ -79,7 +79,7 @@
 - (void)_axHighlightPopoverPresentedForAnnotation:(id)annotation withHighlightController:(id)controller pullFocus:(BOOL)focus
 {
   focusCopy = focus;
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   annotationCopy = annotation;
   controllerCopy = controller;
   _axAKOverlayView = [(MUPDFContentViewControllerAccessibility *)self _axAKOverlayView];
@@ -93,33 +93,33 @@
       v12 = v11;
       if (v11)
       {
-        v25 = controllerCopy;
+        v24 = controllerCopy;
         argument = v11;
         selfCopy = self;
-        v24 = focusCopy;
+        v23 = focusCopy;
         accessibilityElements = [_axAKOverlayView accessibilityElements];
         v14 = [accessibilityElements mutableCopy];
 
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
         v28 = 0u;
+        v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
         v15 = v14;
-        v16 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v28;
+          v18 = *v27;
           while (2)
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v28 != v18)
+              if (*v27 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v20 = *(*(&v27 + 1) + 8 * i);
+              v20 = *(*(&v26 + 1) + 8 * i);
               MEMORY[0x29C2DD430](@"AKAnnotationLayer");
               if (objc_opt_isKindOfClass())
               {
@@ -133,7 +133,7 @@
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
             if (v17)
             {
               continue;
@@ -146,18 +146,16 @@
 LABEL_16:
 
         [_axAKOverlayView setAccessibilityElements:v15];
-        controllerCopy = v25;
-        [v25 _accessibilitySetAssignedValue:selfCopy forKey:@"AXCalloutBarDelegate"];
+        controllerCopy = v24;
+        [v24 _accessibilitySetAssignedValue:selfCopy forKey:@"AXCalloutBarDelegate"];
         v12 = argument;
-        if (v24)
+        if (v23)
         {
           UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], argument);
         }
       }
     }
   }
-
-  v22 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_axHighlightPopoverDismissed

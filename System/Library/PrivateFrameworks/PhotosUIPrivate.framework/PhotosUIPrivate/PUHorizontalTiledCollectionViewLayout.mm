@@ -235,43 +235,43 @@ uint64_t __72__PUHorizontalTiledCollectionViewLayout_layoutAttributesForItemsInR
 
   itemLayoutAttributes2 = [dataCopy itemLayoutAttributes];
   firstObject = [itemLayoutAttributes2 firstObject];
-  indexPath = [firstObject indexPath];
+  v11 = objc_msgSend_indexPath(firstObject);
 
-  while ([pathCopy compare:indexPath] == -1)
+  while ([pathCopy compare:v11] == -1)
   {
     v12 = [(PUHorizontalTiledCollectionViewLayout *)self _updateLayoutData:dataCopy inDirection:-1 outDeltaOriginX:0];
     itemLayoutAttributes3 = [dataCopy itemLayoutAttributes];
     firstObject2 = [itemLayoutAttributes3 firstObject];
-    indexPath2 = [firstObject2 indexPath];
+    v15 = objc_msgSend_indexPath(firstObject2);
 
-    indexPath = indexPath2;
+    v11 = v15;
     if (!v12)
     {
       goto LABEL_8;
     }
   }
 
-  indexPath2 = indexPath;
+  v15 = v11;
 LABEL_8:
   itemLayoutAttributes4 = [dataCopy itemLayoutAttributes];
   lastObject = [itemLayoutAttributes4 lastObject];
-  indexPath3 = [lastObject indexPath];
+  v18 = objc_msgSend_indexPath(lastObject);
 
-  while ([pathCopy compare:indexPath3] == 1)
+  while ([pathCopy compare:v18] == 1)
   {
     v19 = [(PUHorizontalTiledCollectionViewLayout *)self _updateLayoutData:dataCopy inDirection:1 outDeltaOriginX:0];
     itemLayoutAttributes5 = [dataCopy itemLayoutAttributes];
     lastObject2 = [itemLayoutAttributes5 lastObject];
-    indexPath4 = [lastObject2 indexPath];
+    v22 = objc_msgSend_indexPath(lastObject2);
 
-    indexPath3 = indexPath4;
+    v18 = v22;
     if (!v19)
     {
       goto LABEL_13;
     }
   }
 
-  indexPath4 = indexPath3;
+  v22 = v18;
 LABEL_13:
 }
 
@@ -401,7 +401,7 @@ LABEL_13:
     [itemLayoutAttributes firstObject];
   }
   v26 = ;
-  indexPath = [v26 indexPath];
+  v27 = objc_msgSend_indexPath(v26);
   [v26 frame];
   v101 = v29;
   v102 = v28;
@@ -447,7 +447,7 @@ LABEL_12:
     goto LABEL_52;
   }
 
-  v35 = [collectionView next:direction indexPathFromIndexPath:indexPath];
+  v35 = [collectionView next:direction indexPathFromIndexPath:v27];
 
   if (!v35)
   {
@@ -467,9 +467,9 @@ LABEL_6:
   v90 = dataCopy;
   v42 = v41 = cachedPageCount;
   firstObject = [itemLayoutAttributes firstObject];
-  indexPath2 = [firstObject indexPath];
+  v44 = objc_msgSend_indexPath(firstObject);
   v89 = v42;
-  v86 = [indexPath2 isEqual:v42];
+  v86 = [v44 isEqual:v42];
 
   v45 = v93 * v41;
   v46 = MidX;
@@ -609,9 +609,9 @@ LABEL_6:
   }
 
   firstObject2 = [itemLayoutAttributes firstObject];
-  indexPath3 = [firstObject2 indexPath];
+  v71 = objc_msgSend_indexPath(firstObject2);
   v72 = v89;
-  v73 = [indexPath3 isEqual:v89];
+  v73 = [v71 isEqual:v89];
 
   dataCopy = v90;
   if (MidX <= 0.0 || (v52 = 0.0, v73))

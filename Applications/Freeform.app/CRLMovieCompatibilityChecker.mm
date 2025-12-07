@@ -984,7 +984,7 @@ LABEL_43:
     v30 = 0u;
     if (devicesCopy)
     {
-      [devicesCopy preferredTransform];
+      objc_msgSend_preferredTransform(devicesCopy);
     }
 
     v27 = v30;
@@ -1323,7 +1323,7 @@ LABEL_27:
   asset = self->_asset;
   if (asset)
   {
-    [(AVAsset *)asset duration];
+    objc_msgSend_duration(asset);
     if ((v12[1].flags & 0x1D) == 1)
     {
       v9 = 8 * crl_fileSize;
@@ -1370,7 +1370,7 @@ LABEL_27:
 
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else

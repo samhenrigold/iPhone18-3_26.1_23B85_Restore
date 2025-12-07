@@ -14,17 +14,17 @@
   selfCopy = self;
   if (objc_opt_isKindOfClass())
   {
-    v3 = selfCopy;
+    v4 = selfCopy;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = v3;
+  v5 = v4;
 
-  return v3;
+  return v4;
 }
 
 - (void)hu_asTriggerRecommendation
@@ -33,17 +33,17 @@
   selfCopy = self;
   if (objc_opt_isKindOfClass())
   {
-    v3 = selfCopy;
+    v4 = selfCopy;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = v3;
+  v5 = v4;
 
-  return v3;
+  return v4;
 }
 
 - (void)hu_asActionRecommendation

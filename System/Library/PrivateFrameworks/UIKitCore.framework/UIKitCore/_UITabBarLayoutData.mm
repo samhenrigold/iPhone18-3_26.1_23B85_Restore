@@ -326,9 +326,9 @@ LABEL_21:
       goto LABEL_19;
     }
 
-    v11 = [(UIImage *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
 
-    if (v11)
+    if (isEqual)
     {
 LABEL_14:
       selectionIndicatorTintColor = self->_selectionIndicatorTintColor;
@@ -346,7 +346,7 @@ LABEL_14:
         v10 = 0;
         if (v6 && v14)
         {
-          v10 = [(UIImage *)v6 isEqual:v14];
+          v10 = objc_msgSend_isEqual_(v6);
         }
       }
 
@@ -379,7 +379,7 @@ LABEL_19:
   colorCopy = color;
   [(_UIBarAppearanceData *)self assertMutable:a2];
   v10 = colorCopy;
-  if (v10 && (+[UIColor clearColor](UIColor, "clearColor"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v10 isEqual:v6], v6, (v7 & 1) == 0))
+  if (v10 && (+[UIColor clearColor], v6 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v10), v6, (isEqual & 1) == 0))
   {
     v8 = v10;
   }

@@ -208,20 +208,18 @@
 
 - (void)isEqualToContent:(void *)a3 .cold.1(void *a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 summary];
   v7 = [a3 summary];
   v8 = BSEqualObjects();
   v9 = [a2 summary];
   v10 = [v9 string];
-  v12[0] = 67109378;
-  v12[1] = v8;
-  v13 = 2112;
-  v14 = v10;
-  _os_log_debug_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEBUG, "KTH_DEBUG-isEqualToContent %d %@", v12, 0x12u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = 67109378;
+  v11[1] = v8;
+  v12 = 2112;
+  v13 = v10;
+  _os_log_debug_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEBUG, "KTH_DEBUG-isEqualToContent %d %@", v11, 0x12u);
 }
 
 @end

@@ -125,12 +125,12 @@ uint64_t __58__NCToggleControlPair_setLeadingControlExpanded_animated___block_in
     _MaxToggleControlSize(1, [(NCToggleControlPair *)self adjustsFontForContentSizeCategory]);
   }
 
-  [(NCToggleControlPair *)self _effectiveInterControlPadding];
-  _NCMainScreenScale();
+  _effectiveInterControlPadding = [(NCToggleControlPair *)self _effectiveInterControlPadding];
+  _NCMainScreenScale(_effectiveInterControlPadding, v9);
 
   UISizeRoundToScale();
-  result.height = v9;
-  result.width = v8;
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 

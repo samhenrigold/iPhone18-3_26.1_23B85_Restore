@@ -27,11 +27,11 @@
 
 - (bnnsIrMappedWeight)initWithWeightFile:(id)file errOut:(id *)out
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   fileCopy = file;
-  v24.receiver = self;
-  v24.super_class = bnnsIrMappedWeight;
-  v7 = [(bnnsIrMappedWeight *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = bnnsIrMappedWeight;
+  v7 = [(bnnsIrMappedWeight *)&v23 init];
   if (!v7)
   {
     goto LABEL_4;
@@ -39,20 +39,20 @@
 
   v8 = fileCopy;
   v9 = open([fileCopy UTF8String], 0);
-  fstat(v9, &v23);
-  st_size = v23.st_size;
-  v7->_weightSize = v23.st_size;
+  fstat(v9, &v22);
+  st_size = v22.st_size;
+  v7->_weightSize = v22.st_size;
   if (v9 == -1)
   {
     if (out)
     {
       v12 = MEMORY[0x1E696ABC0];
-      v27 = *MEMORY[0x1E696A578];
+      v26 = *MEMORY[0x1E696A578];
       v13 = MEMORY[0x1E696AEC0];
       v14 = __error();
       v15 = [v13 stringWithFormat:@"Could not OPEN() weights: %s", strerror(*v14)];
-      v28[0] = v15;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+      v27[0] = v15;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
       v17 = [v12 errorWithDomain:@"com.apple.corespeech" code:2454 userInfo:v16];
 LABEL_9:
       *out = v17;
@@ -70,12 +70,12 @@ LABEL_10:
     if (out)
     {
       v18 = MEMORY[0x1E696ABC0];
-      v25 = *MEMORY[0x1E696A578];
+      v24 = *MEMORY[0x1E696A578];
       v19 = MEMORY[0x1E696AEC0];
       v20 = __error();
       v15 = [v19 stringWithFormat:@"Could not MMAP() weights: %s", strerror(*v20)];
-      v26 = v15;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v25 = v15;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
       v17 = [v18 errorWithDomain:@"com.apple.corespeech" code:2454 userInfo:v16];
       goto LABEL_9;
     }
@@ -87,7 +87,6 @@ LABEL_4:
   v11 = v7;
 LABEL_11:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

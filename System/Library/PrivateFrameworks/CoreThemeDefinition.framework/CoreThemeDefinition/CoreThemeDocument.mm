@@ -27,6 +27,10 @@
 - (BOOL)createPSDReferenceArtworkForRenditionGroup:(id)group atDestination:(id)destination error:(id *)error;
 - (BOOL)customizationExistsForSchemaDefinition:(id)definition;
 - (BOOL)customizeSchemaEffectDefinition:(id)definition shouldReplaceExisting:(BOOL)existing error:(id *)error;
+- (BOOL)customizeSchemaElementDefinition:(id)definition usingArtworkFormat:(id)format shouldReplaceExisting:(BOOL)existing error:(id *)error;
+- (BOOL)customizeSchemaMaterialDefinition:(id)definition shouldReplaceExisting:(BOOL)existing error:(id *)error;
+- (BOOL)customizeSchemaPartDefinition:(id)definition usingArtworkFormat:(id)format nameElement:(id)element shouldReplaceExisting:(BOOL)existing error:(id *)error;
+- (BOOL)featureEnabled:(int)enabled;
 - (BOOL)needToCreateForwardstopFor2018DeploymentVariant:(id)variant withCompressionTypes:(id)types;
 - (BOOL)needToCreateForwardstopFor2019DeploymentVariant:(id)variant withCompressionTypes:(id)types;
 - (BOOL)readFromURL:(id)l ofType:(id)type error:(id *)error;
@@ -72,9 +76,12 @@
 - (id)assetAtPath:(id)path;
 - (id)compressionTypes;
 - (id)constantWithName:(id)name forIdentifier:(int64_t)identifier;
+- (id)createAssetWithName:(id)name fileType:(id)type scaleFactor:(unsigned int)factor inCategory:(id)category forThemeBitSource:(id)source;
 - (id)createAssetWithName:(id)name inCategory:(id)category forThemeBitSource:(id)source;
+- (id)createAssetWithName:(id)name scaleFactor:(unsigned int)factor inCategory:(id)category forThemeBitSource:(id)source;
 - (id)createEffectStyleProductionForPartDefinition:(id)definition withNameIdentifier:(id)identifier;
 - (id)createElementProductionWithAsset:(id)asset;
+- (id)createNamedArtworkProductionsForAssets:(id)assets customInfos:(id)infos skipLastStep:(BOOL)step error:(id *)error;
 - (id)createNamedColorProductionsForImportInfos:(id)infos error:(id *)error;
 - (id)createNamedEffectProductionWithName:(id)name isText:(BOOL)text;
 - (id)createNamedGradientProductionsForImportInfos:(id)infos error:(id *)error;
@@ -87,6 +94,8 @@
 - (id)deploymentTargets;
 - (id)directions;
 - (id)displayGamuts;
+- (id)effectComponentWithType:(unsigned int)type inRendition:(id)rendition createIfNeeded:(BOOL)needed;
+- (id)effectParameterValueWithType:(unsigned int)type inComponent:(id)component createIfNeeded:(BOOL)needed;
 - (id)elementProductionsWithName:(id)name;
 - (id)featureSetClasses;
 - (id)folderNameFromRenditionKey:(id)key forPartDefinition:(id)definition;
@@ -168,12 +177,18 @@
 - (void)changedObjectsNotification:(id)notification;
 - (void)convertColorsFromColorSpaceWithIdentifier:(unint64_t)identifier toIdentifier:(unint64_t)toIdentifier;
 - (void)createForwardstops:(id)forwardstops withCompressionTypes:(id)types withDeploymentTargets:(id)targets;
+- (void)createNamedGlyphVectorForCustomInfos:(id)infos referenceFiles:(BOOL)files bitSource:(id)source error:(id *)error;
+- (void)createNamedIconLayerStacksForCustomInfos:(id)infos referenceFiles:(BOOL)files bitSource:(id)source error:(id *)error;
+- (void)createNamedModelsForCustomInfos:(id)infos referenceFiles:(BOOL)files bitSource:(id)source error:(id *)error;
 - (void)createNamedRecognitionObjectsForAssets:(id)assets customInfos:(id)infos error:(id *)error;
 - (void)createNamedRenditionGroupProductionsForImportInfos:(id)infos error:(id *)error;
+- (void)createNamedTexturesForCustomInfos:(id)infos referenceFiles:(BOOL)files bitSource:(id)source error:(id *)error;
 - (void)dealloc;
 - (void)deleteNamedAssets:(id)assets shouldDeleteAssetFiles:(BOOL)files completionHandler:(id)handler;
 - (void)deleteObject:(id)object;
 - (void)deleteObjects:(id)objects;
+- (void)deleteProduction:(id)production shouldDeleteAssetFiles:(BOOL)files;
+- (void)deleteProductions:(id)productions shouldDeleteAssetFiles:(BOOL)files;
 - (void)exportCursorsToURL:(id)l;
 - (void)importCursorsFromURL:(id)l getUnusedImportedCursors:(id *)cursors getUnupdatedCursors:(id *)unupdatedCursors;
 - (void)importCustomAssetsWithImportInfos:(id)infos completionHandler:(id)handler;
@@ -182,7 +197,9 @@
 - (void)incrementallyPackRenditionsSinceDate:(id)date error:(id *)error;
 - (void)packRenditionsError:(id *)error;
 - (void)primeArrayControllers;
+- (void)removeCustomizationForSchemaDefinition:(id)definition shouldDeleteAssetFiles:(BOOL)files;
 - (void)resetThemeConstants;
+- (void)setAllowsExtendedRangePixelFormats:(BOOL)formats;
 - (void)setMetadatum:(id)metadatum forKey:(id)key;
 - (void)setMinimumDeploymentVersion:(id)version;
 - (void)setOptimizeForDeviceTraits:(id)traits;
@@ -380,35 +397,35 @@ LABEL_27:
 
 - (BOOL)shouldGenerateScale:(unsigned int)scale
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deviceTraits = self->_deviceTraits;
   if (!deviceTraits)
   {
 LABEL_11:
     LOBYTE(v5) = 1;
-    goto LABEL_12;
+    return v5;
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
-  v5 = [(NSMutableArray *)deviceTraits countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v5 = [(NSMutableArray *)deviceTraits countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     scaleCopy = scale;
 LABEL_4:
     v9 = 0;
     while (1)
     {
-      if (*v14 != v7)
+      if (*v13 != v7)
       {
         objc_enumerationMutation(deviceTraits);
       }
 
-      [*(*(&v13 + 1) + 8 * v9) scale];
+      [*(*(&v12 + 1) + 8 * v9) scale];
       if (v10 == scaleCopy)
       {
         goto LABEL_11;
@@ -416,20 +433,18 @@ LABEL_4:
 
       if (v6 == ++v9)
       {
-        v6 = [(NSMutableArray *)deviceTraits countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [(NSMutableArray *)deviceTraits countByEnumeratingWithState:&v12 objects:v16 count:16];
         LOBYTE(v5) = 0;
         if (v6)
         {
           goto LABEL_4;
         }
 
-        break;
+        return v5;
       }
     }
   }
 
-LABEL_12:
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -536,55 +551,55 @@ LABEL_20:
 
 - (id)_predicateForRenditionKeySpec:(id)spec
 {
-  v21[29] = *MEMORY[0x277D85DE8];
+  v20[29] = *MEMORY[0x277D85DE8];
   v4 = sel_part;
-  v18 = @"part";
-  v19 = sel_part;
-  v20 = @"direction";
-  v21[0] = sel_direction;
-  v21[1] = @"state";
-  v21[2] = sel_state;
-  v21[3] = @"presentationState";
-  v21[4] = sel_presentationState;
-  v21[5] = @"size";
-  v21[6] = sel_size;
-  v21[7] = @"element";
-  v21[8] = sel_element;
-  v21[9] = @"value";
-  v21[10] = sel_value;
-  v21[11] = @"layer";
-  v21[12] = sel_layer;
-  v21[13] = @"idiom";
-  v21[14] = sel_idiom;
-  v21[15] = @"graphicsFeatureSetClass";
-  v21[16] = sel_graphicsFeatureSetClass;
-  v21[17] = @"sizeClassHorizontal";
-  v21[18] = sel_sizeClassHorizontal;
-  v21[19] = @"sizeClassVertical";
-  v21[20] = sel_sizeClassVertical;
-  v21[21] = @"appearance";
-  v21[22] = sel_appearance;
-  v21[23] = @"localization";
-  v21[24] = sel_localization;
-  v21[25] = @"target";
-  v21[26] = sel_target;
-  v21[27] = 0;
-  v21[28] = 0;
+  v17 = @"part";
+  v18 = sel_part;
+  v19 = @"direction";
+  v20[0] = sel_direction;
+  v20[1] = @"state";
+  v20[2] = sel_state;
+  v20[3] = @"presentationState";
+  v20[4] = sel_presentationState;
+  v20[5] = @"size";
+  v20[6] = sel_size;
+  v20[7] = @"element";
+  v20[8] = sel_element;
+  v20[9] = @"value";
+  v20[10] = sel_value;
+  v20[11] = @"layer";
+  v20[12] = sel_layer;
+  v20[13] = @"idiom";
+  v20[14] = sel_idiom;
+  v20[15] = @"graphicsFeatureSetClass";
+  v20[16] = sel_graphicsFeatureSetClass;
+  v20[17] = @"sizeClassHorizontal";
+  v20[18] = sel_sizeClassHorizontal;
+  v20[19] = @"sizeClassVertical";
+  v20[20] = sel_sizeClassVertical;
+  v20[21] = @"appearance";
+  v20[22] = sel_appearance;
+  v20[23] = @"localization";
+  v20[24] = sel_localization;
+  v20[25] = @"target";
+  v20[26] = sel_target;
+  v20[27] = 0;
+  v20[28] = 0;
   v5 = @"nameIdentifier";
   v6 = sel_nameIdentifier;
-  v7 = v17;
-  v16 = @"dimension1";
-  v17[0] = sel_dimension1;
-  v17[1] = @"dimension2";
-  v17[2] = sel_dimension2;
-  v17[3] = @"scaleFactor";
-  v17[4] = sel_scaleFactor;
-  v17[5] = @"subtype";
-  v17[6] = sel_subtype;
-  v17[7] = @"memoryClass";
-  v17[8] = sel_memoryClass;
-  v17[9] = 0;
-  v17[10] = 0;
+  v7 = v16;
+  v15 = @"dimension1";
+  v16[0] = sel_dimension1;
+  v16[1] = @"dimension2";
+  v16[2] = sel_dimension2;
+  v16[3] = @"scaleFactor";
+  v16[4] = sel_scaleFactor;
+  v16[5] = @"subtype";
+  v16[6] = sel_subtype;
+  v16[7] = @"memoryClass";
+  v16[8] = sel_memoryClass;
+  v16[9] = 0;
+  v16[10] = 0;
   v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:21];
   do
   {
@@ -595,10 +610,10 @@ LABEL_20:
   }
 
   while (v5);
-  v9 = v18;
-  if (v18)
+  v9 = v17;
+  if (v17)
   {
-    v10 = v21;
+    v10 = v20;
     do
     {
       v11 = [spec performSelector:v4];
@@ -623,7 +638,6 @@ LABEL_20:
 
   v13 = [MEMORY[0x277CCA920] andPredicateWithSubpredicates:v8];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -728,7 +742,7 @@ LABEL_26:
   return sDocList;
 }
 
-uint64_t __40__CoreThemeDocument__sharedDocumentList__block_invoke()
+void *__40__CoreThemeDocument__sharedDocumentList__block_invoke()
 {
   result = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:2];
   sDocList = result;
@@ -954,76 +968,75 @@ uint64_t __28__CoreThemeDocument_dealloc__block_invoke(uint64_t a1, uint64_t a2)
 
 - (id)updateToEmbeddedSchemaVersion2AndReturnAlertString:(id *)string
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   _namedTextEffectPartDefinition = [(CoreThemeDocument *)self _namedTextEffectPartDefinition];
   _namedImageEffectPartDefinition = [(CoreThemeDocument *)self _namedImageEffectPartDefinition];
   v5 = [(CoreThemeDocument *)self partWithIdentifier:178];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
-  v24 = _namedTextEffectPartDefinition;
+  v23 = _namedTextEffectPartDefinition;
   selfCopy = self;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"EffectStyleProduction", [MEMORY[0x277CCAC30] predicateWithFormat:@"partDefinition = %@", _namedTextEffectPartDefinition], 0);
-  v7 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v7 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         [objc_msgSend(v11 "baseKeySpec")];
         [v11 setPartDefinition:_namedImageEffectPartDefinition];
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
         v26 = 0u;
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
         renditions = [v11 renditions];
-        v13 = [renditions countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v13 = [renditions countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v26;
+          v15 = *v25;
           do
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v26 != v15)
+              if (*v25 != v15)
               {
                 objc_enumerationMutation(renditions);
               }
 
-              [objc_msgSend(*(*(&v25 + 1) + 8 * j) "keySpec")];
+              [objc_msgSend(*(*(&v24 + 1) + 8 * j) "keySpec")];
             }
 
-            v14 = [renditions countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v14 = [renditions countByEnumeratingWithState:&v24 objects:v32 count:16];
           }
 
           while (v14);
         }
 
-        v17 = -[CoreThemeDocument createEffectStyleProductionForPartDefinition:withNameIdentifier:](selfCopy, "createEffectStyleProductionForPartDefinition:withNameIdentifier:", v24, [objc_msgSend(v11 "name")]);
+        v17 = -[CoreThemeDocument createEffectStyleProductionForPartDefinition:withNameIdentifier:](selfCopy, "createEffectStyleProductionForPartDefinition:withNameIdentifier:", v23, [objc_msgSend(v11 "name")]);
         [array addObject:{objc_msgSend(objc_msgSend(v11, "name"), "name")}];
         [array2 addObject:v17];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v8 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v8);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return @"Named Effects now support both high quality and simplified text variants. Your original effect definitions have been classified as 'High Quality Image Effects' and new 'Simplified Text Effect' effect definitions have been created with the same name, using default values. Adjust your effect definitions accordingly.";
 }
 
@@ -1077,10 +1090,10 @@ uint64_t __28__CoreThemeDocument_dealloc__block_invoke(uint64_t a1, uint64_t a2)
 
 - (id)themeConstant:(id)constant withIdentifier:(int64_t)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (identifier > 0xFFFFFFFE)
   {
-    goto LABEL_13;
+    return 0;
   }
 
   identifierCopy = identifier;
@@ -1091,52 +1104,225 @@ uint64_t __28__CoreThemeDocument_dealloc__block_invoke(uint64_t a1, uint64_t a2)
     v7 = -[CoreThemeDocument allObjectsForEntity:withSortDescriptors:](self, "allObjectsForEntity:withSortDescriptors:", constant, [MEMORY[0x277CBEA60] arrayWithObject:v8]);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v9)
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (!v9)
   {
-    v10 = v9;
-    v11 = *v17;
+    return 0;
+  }
+
+  v10 = v9;
+  v11 = *v16;
 LABEL_6:
-    v12 = 0;
+  v12 = 0;
+  while (1)
+  {
+    if (*v16 != v11)
+    {
+      objc_enumerationMutation(v7);
+    }
+
+    v13 = *(*(&v15 + 1) + 8 * v12);
+    if ([v13 identifier] == identifierCopy)
+    {
+      return v13;
+    }
+
+    if (v10 == ++v12)
+    {
+      v10 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v13 = 0;
+      if (v10)
+      {
+        goto LABEL_6;
+      }
+
+      return v13;
+    }
+  }
+}
+
+- (id)effectParameterValueWithType:(unsigned int)type inComponent:(id)component createIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  v7 = *&type;
+  v28 = *MEMORY[0x277D85DE8];
+  parameters = [component parameters];
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v10 = [parameters countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v24;
+LABEL_3:
+    v13 = 0;
     while (1)
     {
-      if (*v17 != v11)
+      if (*v24 != v12)
       {
-        objc_enumerationMutation(v7);
+        objc_enumerationMutation(parameters);
       }
 
-      v13 = *(*(&v16 + 1) + 8 * v12);
-      if ([v13 identifier] == identifierCopy)
+      v14 = *(*(&v23 + 1) + 8 * v13);
+      if ([objc_msgSend(v14 "parameterType")] == v7)
       {
         break;
       }
 
-      if (v10 == ++v12)
+      if (v11 == ++v13)
       {
-        v10 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
-        v13 = 0;
-        if (v10)
+        v11 = [parameters countByEnumeratingWithState:&v23 objects:v27 count:16];
+        if (v11)
         {
-          goto LABEL_6;
+          goto LABEL_3;
         }
 
-        break;
+        goto LABEL_9;
       }
     }
   }
 
   else
   {
-LABEL_13:
-    v13 = 0;
+LABEL_9:
+    v14 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v13;
+  if (!v14 && neededCopy)
+  {
+    v14 = [(CoreThemeDocument *)self newObjectForEntity:@"EffectParameterValue"];
+    [v14 setComponent:component];
+    v15 = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"EffectParameterType", [MEMORY[0x277CCAC30] predicateWithFormat:@"identifier == %d", v7], 0);
+    if ([v15 count])
+    {
+      [v14 setParameterType:{objc_msgSend(v15, "objectAtIndex:", 0)}];
+      v16 = v7 - 2;
+      if ((v7 - 2) > 6)
+      {
+        v18 = &unk_2859AC500;
+        v17 = &unk_2859AC488;
+        v19 = &unk_2859AC488;
+      }
+
+      else
+      {
+        v17 = *(&off_278EBB470 + v16);
+        v18 = qword_278EBB4A8[v16];
+        v19 = *(&off_278EBB4E0 + v16);
+      }
+
+      [v14 setIntValue:v17];
+      [v14 setColorValue:&unk_2859AC488];
+      [v14 setFloatValue:v18];
+      [v14 setAngleValue:v19];
+      v20 = [objc_msgSend(component "effectType")];
+      if (v7 == 2 && v20 == 1397715043)
+      {
+        [v14 setFloatValue:&unk_2859AC520];
+      }
+
+      v21 = [objc_msgSend(component "effectType")];
+      if (v7 == 2 && v21 == 1180787813)
+      {
+        [v14 setFloatValue:&unk_2859AC520];
+      }
+    }
+  }
+
+  return v14;
+}
+
+- (id)effectComponentWithType:(unsigned int)type inRendition:(id)rendition createIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  v7 = *&type;
+  v31 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  components = [rendition components];
+  v10 = [components countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v26;
+LABEL_3:
+    v13 = 0;
+    while (1)
+    {
+      if (*v26 != v12)
+      {
+        objc_enumerationMutation(components);
+      }
+
+      v14 = *(*(&v25 + 1) + 8 * v13);
+      if ([objc_msgSend(v14 "effectType")] == v7)
+      {
+        break;
+      }
+
+      if (v11 == ++v13)
+      {
+        v11 = [components countByEnumeratingWithState:&v25 objects:v30 count:16];
+        if (v11)
+        {
+          goto LABEL_3;
+        }
+
+        goto LABEL_9;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_9:
+    v14 = 0;
+  }
+
+  if (!v14 && neededCopy)
+  {
+    v14 = [(CoreThemeDocument *)self newObjectForEntity:@"EffectComponent"];
+    [v14 setEffectType:{-[CoreThemeDocument effectTypeWithIdentifier:](self, "effectTypeWithIdentifier:", v7)}];
+    v15 = [MEMORY[0x277D026D8] requiredEffectParametersForEffectType:v7];
+    v21 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v16 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
+    if (v16)
+    {
+      v17 = v16;
+      v18 = *v22;
+      do
+      {
+        for (i = 0; i != v17; ++i)
+        {
+          if (*v22 != v18)
+          {
+            objc_enumerationMutation(v15);
+          }
+
+          -[CoreThemeDocument effectParameterValueWithType:inComponent:createIfNeeded:](self, "effectParameterValueWithType:inComponent:createIfNeeded:", [*(*(&v21 + 1) + 8 * i) unsignedIntValue], v14, 1);
+        }
+
+        v17 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      }
+
+      while (v17);
+    }
+
+    [v14 setRendition:rendition];
+  }
+
+  return v14;
 }
 
 - (id)constantWithName:(id)name forIdentifier:(int64_t)identifier
@@ -1171,73 +1357,68 @@ LABEL_13:
 
 - (id)appearanceWithIdentifier:(int64_t)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (-[NSMutableSet containsObject:](self->_cachedUnknownAppearanceIds, "containsObject:", [MEMORY[0x277CCABB0] numberWithInteger:?]))
   {
-    firstObject = 0;
+    return 0;
   }
 
-  else
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  cachedAppearances = self->_cachedAppearances;
+  v7 = [(NSMutableArray *)cachedAppearances countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v7)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    cachedAppearances = self->_cachedAppearances;
-    v7 = [(NSMutableArray *)cachedAppearances countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v7)
-    {
-      v8 = v7;
-      v9 = *v15;
+    v8 = v7;
+    v9 = *v14;
 LABEL_5:
-      v10 = 0;
-      while (1)
-      {
-        if (*v15 != v9)
-        {
-          objc_enumerationMutation(cachedAppearances);
-        }
-
-        firstObject = *(*(&v14 + 1) + 8 * v10);
-        if ([firstObject identifier] == identifier)
-        {
-          break;
-        }
-
-        if (v8 == ++v10)
-        {
-          v8 = [(NSMutableArray *)cachedAppearances countByEnumeratingWithState:&v14 objects:v18 count:16];
-          if (v8)
-          {
-            goto LABEL_5;
-          }
-
-          goto LABEL_13;
-        }
-      }
-
-      if (firstObject)
-      {
-        goto LABEL_17;
-      }
-    }
-
-LABEL_13:
-    v11 = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"Appearance", [MEMORY[0x277CCAC30] predicateWithFormat:@"identifier = %d", identifier], 0);
-    if ([v11 count] >= 2)
+    v10 = 0;
+    while (1)
     {
-      [CoreThemeDocument appearanceWithIdentifier:];
+      if (*v14 != v9)
+      {
+        objc_enumerationMutation(cachedAppearances);
+      }
+
+      firstObject = *(*(&v13 + 1) + 8 * v10);
+      if ([firstObject identifier] == identifier)
+      {
+        break;
+      }
+
+      if (v8 == ++v10)
+      {
+        v8 = [(NSMutableArray *)cachedAppearances countByEnumeratingWithState:&v13 objects:v17 count:16];
+        if (v8)
+        {
+          goto LABEL_5;
+        }
+
+        goto LABEL_13;
+      }
     }
 
-    firstObject = [v11 firstObject];
     if (firstObject)
     {
-      [(NSMutableArray *)self->_cachedAppearances addObject:firstObject];
+      return firstObject;
     }
   }
 
-LABEL_17:
-  v12 = *MEMORY[0x277D85DE8];
+LABEL_13:
+  v11 = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"Appearance", [MEMORY[0x277CCAC30] predicateWithFormat:@"identifier = %d", identifier], 0);
+  if ([v11 count] >= 2)
+  {
+    [CoreThemeDocument appearanceWithIdentifier:];
+  }
+
+  firstObject = [v11 firstObject];
+  if (firstObject)
+  {
+    [(NSMutableArray *)self->_cachedAppearances addObject:firstObject];
+  }
+
   return firstObject;
 }
 
@@ -1270,73 +1451,68 @@ LABEL_17:
 
 - (id)localizationWithIdentifier:(int64_t)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (-[NSMutableSet containsObject:](self->_cachedUnknownLocalizationIds, "containsObject:", [MEMORY[0x277CCABB0] numberWithInteger:?]))
   {
-    firstObject = 0;
+    return 0;
   }
 
-  else
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  cachedLocalizations = self->_cachedLocalizations;
+  v7 = [(NSMutableArray *)cachedLocalizations countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v7)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    cachedLocalizations = self->_cachedLocalizations;
-    v7 = [(NSMutableArray *)cachedLocalizations countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v7)
-    {
-      v8 = v7;
-      v9 = *v15;
+    v8 = v7;
+    v9 = *v14;
 LABEL_5:
-      v10 = 0;
-      while (1)
-      {
-        if (*v15 != v9)
-        {
-          objc_enumerationMutation(cachedLocalizations);
-        }
-
-        firstObject = *(*(&v14 + 1) + 8 * v10);
-        if ([firstObject identifier] == identifier)
-        {
-          break;
-        }
-
-        if (v8 == ++v10)
-        {
-          v8 = [(NSMutableArray *)cachedLocalizations countByEnumeratingWithState:&v14 objects:v18 count:16];
-          if (v8)
-          {
-            goto LABEL_5;
-          }
-
-          goto LABEL_13;
-        }
-      }
-
-      if (firstObject)
-      {
-        goto LABEL_17;
-      }
-    }
-
-LABEL_13:
-    v11 = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"Localization", [MEMORY[0x277CCAC30] predicateWithFormat:@"identifier = %d", identifier], 0);
-    if ([v11 count] >= 2)
+    v10 = 0;
+    while (1)
     {
-      [CoreThemeDocument localizationWithIdentifier:];
+      if (*v14 != v9)
+      {
+        objc_enumerationMutation(cachedLocalizations);
+      }
+
+      firstObject = *(*(&v13 + 1) + 8 * v10);
+      if ([firstObject identifier] == identifier)
+      {
+        break;
+      }
+
+      if (v8 == ++v10)
+      {
+        v8 = [(NSMutableArray *)cachedLocalizations countByEnumeratingWithState:&v13 objects:v17 count:16];
+        if (v8)
+        {
+          goto LABEL_5;
+        }
+
+        goto LABEL_13;
+      }
     }
 
-    firstObject = [v11 firstObject];
     if (firstObject)
     {
-      [(NSMutableArray *)self->_cachedLocalizations addObject:firstObject];
+      return firstObject;
     }
   }
 
-LABEL_17:
-  v12 = *MEMORY[0x277D85DE8];
+LABEL_13:
+  v11 = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"Localization", [MEMORY[0x277CCAC30] predicateWithFormat:@"identifier = %d", identifier], 0);
+  if ([v11 count] >= 2)
+  {
+    [CoreThemeDocument localizationWithIdentifier:];
+  }
+
+  firstObject = [v11 firstObject];
+  if (firstObject)
+  {
+    [(NSMutableArray *)self->_cachedLocalizations addObject:firstObject];
+  }
+
   return firstObject;
 }
 
@@ -1505,6 +1681,47 @@ LABEL_17:
   managedObjectContext = [(TDPersistentDocument *)self managedObjectContext];
 
   [managedObjectContext deleteObject:object];
+}
+
+- (void)deleteProduction:(id)production shouldDeleteAssetFiles:(BOOL)files
+{
+  [production deleteRenditionsInDocument:self shouldDeleteAssetFiles:files];
+
+  [(CoreThemeDocument *)self deleteObject:production];
+}
+
+- (void)deleteProductions:(id)productions shouldDeleteAssetFiles:(BOOL)files
+{
+  filesCopy = files;
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = [productions countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(productions);
+        }
+
+        [(CoreThemeDocument *)self deleteProduction:*(*(&v11 + 1) + 8 * v10++) shouldDeleteAssetFiles:filesCopy];
+      }
+
+      while (v8 != v10);
+      v8 = [productions countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
 }
 
 - (id)minimalDisplayNameForThemeConstant:(id)constant
@@ -1829,20 +2046,20 @@ LABEL_21:
   return v17;
 }
 
-uint64_t __79__CoreThemeDocument__themeBitSourceForReferencedFilesAtURLs_createIfNecessary___block_invoke(uint64_t result, void *a2, uint64_t a3)
+_BYTE *__79__CoreThemeDocument__themeBitSourceForReferencedFilesAtURLs_createIfNecessary___block_invoke(_BYTE *result, void *a2, uint64_t a3)
 {
   if (*MEMORY[0x277CBEEE8] != a2)
   {
     v4 = result;
     v5 = [a2 pathComponents];
-    v6 = *(v4 + 32);
+    v6 = *(v4 + 4);
     if (a3)
     {
       result = indexOfFirstUncommonItemInArrays(v6, v5);
       if (result != 0x7FFFFFFFFFFFFFFFLL)
       {
         v8 = result;
-        v9 = *(v4 + 32);
+        v9 = *(v4 + 4);
         v10 = [v9 count] - result;
 
         return [v9 removeObjectsInRange:{v8, v10}];
@@ -1852,7 +2069,7 @@ uint64_t __79__CoreThemeDocument__themeBitSourceForReferencedFilesAtURLs_createI
     else
     {
       [v6 addObjectsFromArray:v5];
-      v7 = *(v4 + 32);
+      v7 = *(v4 + 4);
 
       return [v7 removeLastObject];
     }
@@ -1891,32 +2108,32 @@ uint64_t __79__CoreThemeDocument__themeBitSourceForReferencedFilesAtURLs_createI
 - (id)createProductionWithRenditionGroup:(id)group forPartDefinition:(id)definition artworkFormat:(id)format nameElement:(id)element shouldReplaceExisting:(BOOL)existing error:(id *)error
 {
   existingCopy = existing;
-  v232 = *MEMORY[0x277D85DE8];
+  v225 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   selfCopy = self;
   v11 = [(CoreThemeDocument *)self allObjectsForEntity:@"ElementProduction" withSortDescriptors:0];
   groupCopy = group;
   [objc_msgSend(group "baseKey")];
-  v221 = 0u;
-  v222 = 0u;
-  v223 = 0u;
-  v224 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v221 objects:v231 count:16];
+  v214 = 0u;
+  v215 = 0u;
+  v216 = 0u;
+  v217 = 0u;
+  v12 = [v11 countByEnumeratingWithState:&v214 objects:v224 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
-    v15 = *v222;
+    v15 = *v215;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v222 != v15)
+        if (*v215 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v221 + 1) + 8 * i);
+        v17 = *(*(&v214 + 1) + 8 * i);
         [objc_msgSend(v17 "baseKeySpec")];
         CUISystemThemeRenditionKeyFormat();
         if (CUIEqualRenditionKeys())
@@ -1964,7 +2181,7 @@ uint64_t __79__CoreThemeDocument__themeBitSourceForReferencedFilesAtURLs_createI
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v221 objects:v231 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v214 objects:v224 count:16];
     }
 
     while (v13);
@@ -1981,7 +2198,7 @@ LABEL_22:
   v24 = -[CoreThemeDocument allowMultipleInstancesOfElementID:](selfCopy, "allowMultipleInstancesOfElementID:", [definition elementID]);
   if (v14 && !v24)
   {
-    goto LABEL_159;
+    return v14;
   }
 
   if ([format isEqualToString:CoreThemeArtworkFormatPNG])
@@ -1996,25 +2213,25 @@ LABEL_22:
     if ([slices count])
     {
       v28 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices, "count")}];
-      v217 = 0u;
-      v218 = 0u;
-      v219 = 0u;
-      v220 = 0u;
-      v29 = [slices countByEnumeratingWithState:&v217 objects:v230 count:16];
+      v210 = 0u;
+      v211 = 0u;
+      v212 = 0u;
+      v213 = 0u;
+      v29 = [slices countByEnumeratingWithState:&v210 objects:v223 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v218;
+        v31 = *v211;
         do
         {
           for (j = 0; j != v30; ++j)
           {
-            if (*v218 != v31)
+            if (*v211 != v31)
             {
               objc_enumerationMutation(slices);
             }
 
-            [*(*(&v217 + 1) + 8 * j) rectValue];
+            [*(*(&v210 + 1) + 8 * j) rectValue];
             v34 = v33;
             v36 = v35;
             v38 = v37;
@@ -2024,7 +2241,7 @@ LABEL_22:
             [v28 addObject:v41];
           }
 
-          v30 = [slices countByEnumeratingWithState:&v217 objects:v230 count:16];
+          v30 = [slices countByEnumeratingWithState:&v210 objects:v223 count:16];
         }
 
         while (v30);
@@ -2052,51 +2269,51 @@ LABEL_22:
     {
       v48 = v47;
       v49 = [objc_msgSend(v44 URLByAppendingPathComponent:{objc_msgSend(v47, "name")), "URLByAppendingPathComponent:", v46}];
-      if ([defaultManager fileExistsAtPath:{objc_msgSend(v49, "path")}] & 1) != 0 || (v216 = 0, (objc_msgSend(defaultManager, "createDirectoryAtURL:withIntermediateDirectories:attributes:error:", v49, 1, 0, &v216)))
+      if ([defaultManager fileExistsAtPath:{objc_msgSend(v49, "path")}] & 1) != 0 || (v209 = 0, (objc_msgSend(defaultManager, "createDirectoryAtURL:withIntermediateDirectories:attributes:error:", v49, 1, 0, &v209)))
       {
-        v178 = [objc_msgSend(v25 "baseKey")];
-        v212 = 0u;
-        v213 = 0u;
-        v214 = 0u;
-        v215 = 0u;
-        v50 = [obja countByEnumeratingWithState:&v212 objects:v229 count:16];
+        v171 = [objc_msgSend(v25 "baseKey")];
+        v205 = 0u;
+        v206 = 0u;
+        v207 = 0u;
+        v208 = 0u;
+        v50 = [obja countByEnumeratingWithState:&v205 objects:v222 count:16];
         if (v50)
         {
           v51 = v50;
-          v172 = v48;
-          v175 = v46;
-          v194 = v14;
-          v52 = *v213;
+          v165 = v48;
+          v168 = v46;
+          v187 = v14;
+          v52 = *v206;
           do
           {
             for (k = 0; k != v51; ++k)
             {
-              if (*v213 != v52)
+              if (*v206 != v52)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v54 = *(*(&v212 + 1) + 8 * k);
-              v216 = 0;
-              v55 = [(CoreThemeDocument *)v23 createReferencePNGForSchemaRendition:v54 withPartDefinition:definitionCopy3 atLocation:v49 error:&v216];
-              if (v216)
+              v54 = *(*(&v205 + 1) + 8 * k);
+              v209 = 0;
+              v55 = [(CoreThemeDocument *)v23 createReferencePNGForSchemaRendition:v54 withPartDefinition:definitionCopy3 atLocation:v49 error:&v209];
+              if (v209)
               {
                 v56 = [objc_msgSend(v49 URLByAppendingPathComponent:{v55), "path"}];
-                NSLog(&cfstr_UnableToCreate.isa, v56, [v216 localizedDescription]);
+                NSLog(&cfstr_UnableToCreate.isa, v56, [v209 localizedDescription]);
               }
 
               else
               {
                 v57 = [(CoreThemeDocument *)v23 newObjectForEntity:@"PNGAsset"];
-                [v57 setCategory:v175];
+                [v57 setCategory:v168];
                 [v57 setName:v55];
-                [v57 setSource:v172];
-                [v57 setScaleFactor:v178];
+                [v57 setSource:v165];
+                [v57 setScaleFactor:v171];
                 v58 = [(CoreThemeDocument *)v23 newObjectForEntity:@"SchemaRenditionSpec"];
                 [objc_msgSend(v58 "keySpec")];
                 -[CoreThemeDocument _normalizeRenditionKeySpec:forSchemaRendition:](v23, "_normalizeRenditionKeySpec:forSchemaRendition:", [v58 keySpec], v54);
                 [v58 setAsset:v57];
-                [v58 setProduction:v194];
+                [v58 setProduction:v187];
                 [v58 setRenditionType:{-[CoreThemeDocument renditionTypeWithIdentifier:](v23, "renditionTypeWithIdentifier:", objc_msgSend(v54, "type"))}];
                 [(CoreThemeDocument *)v23 assetManagementDelegate];
                 if (objc_opt_respondsToSelector())
@@ -2109,43 +2326,41 @@ LABEL_22:
               }
             }
 
-            v51 = [obja countByEnumeratingWithState:&v212 objects:v229 count:16];
+            v51 = [obja countByEnumeratingWithState:&v205 objects:v222 count:16];
           }
 
           while (v51);
-LABEL_158:
-          v14 = v194;
-          goto LABEL_159;
+          return v187;
         }
 
-        goto LABEL_159;
+        return v14;
       }
 
       if (error)
       {
-        localizedDescription = [v216 localizedDescription];
+        localizedDescription = [v209 localizedDescription];
         if (localizedDescription)
         {
-          v118 = localizedDescription;
+          v115 = localizedDescription;
         }
 
         else
         {
-          v118 = @"Unable to write new folder to file system.";
+          v115 = @"Unable to write new folder to file system.";
         }
 
-        v119 = MEMORY[0x277CCA9B8];
-        v120 = *MEMORY[0x277CCA050];
-        v121 = v14;
-        code = [v216 code];
-        v123 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{@"Couldn't create folder for reference assets.", *MEMORY[0x277CCA450], v118, *MEMORY[0x277CCA470], 0}];
-        v124 = code;
-        v14 = v121;
-        *error = [v119 errorWithDomain:v120 code:v124 userInfo:v123];
+        v116 = MEMORY[0x277CCA9B8];
+        v117 = *MEMORY[0x277CCA050];
+        v118 = v14;
+        code = [v209 code];
+        v120 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{@"Couldn't create folder for reference assets.", *MEMORY[0x277CCA450], v115, *MEMORY[0x277CCA470], 0}];
+        v121 = code;
+        v14 = v118;
+        *error = [v116 errorWithDomain:v117 code:v121 userInfo:v120];
       }
     }
 
-    v125 = selfCopy;
+    v122 = selfCopy;
     goto LABEL_113;
   }
 
@@ -2153,13 +2368,13 @@ LABEL_158:
   {
     if (![format isEqualToString:CoreThemeArtworkFormatCAAR])
     {
-      goto LABEL_114;
+      return 0;
     }
 
     v81 = [(CoreThemeDocument *)selfCopy _themeBitSource:error];
     if (!v81)
     {
-      goto LABEL_114;
+      return 0;
     }
 
     v82 = v81;
@@ -2170,8 +2385,8 @@ LABEL_158:
     v87 = v85;
     if (([defaultManager fileExistsAtPath:{objc_msgSend(v85, "path")}] & 1) == 0)
     {
-      v216 = 0;
-      if (([defaultManager createDirectoryAtURL:v87 withIntermediateDirectories:1 attributes:0 error:&v216] & 1) == 0)
+      v209 = 0;
+      if (([defaultManager createDirectoryAtURL:v87 withIntermediateDirectories:1 attributes:0 error:&v209] & 1) == 0)
       {
         goto LABEL_117;
       }
@@ -2211,7 +2426,7 @@ LABEL_158:
       [(TDAssetManagementDelegate *)[(CoreThemeDocument *)selfCopy assetManagementDelegate] didCreateAsset:v91 atURL:v90];
     }
 
-    v182 = v90;
+    v175 = v90;
     v92 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"MicaElementProduction"];
     [v92 setAsset:v91];
     [v92 setPartDefinition:definition];
@@ -2222,7 +2437,7 @@ LABEL_158:
     [v92 setRenditionSubtype:{-[CoreThemeDocument renditionSubtypeWithIdentifier:](selfCopy, "renditionSubtypeWithIdentifier:", objc_msgSend(v93, "subtype"))}];
     v94 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"RenditionKeySpec"];
     [v94 setAttributesFromRenditionKey:objc_msgSend(objc_msgSend(groupCopy withDocument:{"baseKey"), "keyList"), selfCopy}];
-    v194 = v92;
+    v187 = v92;
     [v92 setBaseKeySpec:v94];
 
     layer = [MEMORY[0x277CD9ED0] layer];
@@ -2231,36 +2446,34 @@ LABEL_158:
     [layer setFrame:{0.0, 0.0, 128.0, 128.0}];
     schemaLayersAndLayerGroups = [groupCopy schemaLayersAndLayerGroups];
     array = [MEMORY[0x277CBEB18] array];
-    v196 = 0u;
-    v197 = 0u;
-    v198 = 0u;
-    v199 = 0u;
-    v97 = [schemaLayersAndLayerGroups countByEnumeratingWithState:&v196 objects:v225 count:16];
+    v189 = 0u;
+    v190 = 0u;
+    v191 = 0u;
+    v192 = 0u;
+    v97 = [schemaLayersAndLayerGroups countByEnumeratingWithState:&v189 objects:v218 count:16];
     if (v97)
     {
       v98 = v97;
       v99 = 0x277D02000uLL;
-      v100 = *v197;
-      v101 = 0x277D02000uLL;
+      v100 = *v190;
       lastObject = layer;
       do
       {
         for (m = 0; m != v98; ++m)
         {
-          if (*v197 != v100)
+          if (*v190 != v100)
           {
             objc_enumerationMutation(schemaLayersAndLayerGroups);
           }
 
-          v104 = *(*(&v196 + 1) + 8 * m);
-          v105 = *(v99 + 1768);
+          v103 = *(*(&v189 + 1) + 8 * m);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            if ([v104 isStart])
+            if ([v103 isStart])
             {
               layer2 = [MEMORY[0x277CD9ED0] layer];
-              [layer2 setName:{objc_msgSend(v104, "name")}];
+              [layer2 setName:{objc_msgSend(v103, "name")}];
               [lastObject addSublayer:layer2];
               [array addObject:layer2];
               lastObject = layer2;
@@ -2279,53 +2492,51 @@ LABEL_158:
 
           else
           {
-            v107 = *(v101 + 1776);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              rendition = [v104 rendition];
-              v109 = v100;
-              v110 = v99;
-              v111 = schemaLayersAndLayerGroups;
-              v112 = [(CoreThemeDocument *)v23 newObjectForEntity:@"MicaRenditionSpec"];
-              keySpec = [v112 keySpec];
-              v114 = [rendition key];
-              v115 = keySpec;
+              rendition = [v103 rendition];
+              v106 = v100;
+              v107 = v99;
+              v108 = schemaLayersAndLayerGroups;
+              v109 = [(CoreThemeDocument *)v23 newObjectForEntity:@"MicaRenditionSpec"];
+              keySpec = [v109 keySpec];
+              v111 = [rendition key];
+              v112 = keySpec;
               v23 = selfCopy;
-              [v115 setAttributesFromRenditionKey:v114 withDocument:selfCopy];
-              -[CoreThemeDocument _normalizeRenditionKeySpec:forSchemaRendition:](selfCopy, "_normalizeRenditionKeySpec:forSchemaRendition:", [v112 keySpec], rendition);
-              [v112 setProduction:v194];
-              [v112 setRenditionType:{-[CoreThemeDocument renditionTypeWithIdentifier:](selfCopy, "renditionTypeWithIdentifier:", objc_msgSend(rendition, "type"))}];
-              [v112 setLayerPath:{objc_msgSend(objc_msgSend(objc_msgSend(array, "valueForKey:", @"name", "arrayByAddingObject:", objc_msgSend(v104, "name")), "componentsJoinedByString:", @"/"}];
+              [v112 setAttributesFromRenditionKey:v111 withDocument:selfCopy];
+              -[CoreThemeDocument _normalizeRenditionKeySpec:forSchemaRendition:](selfCopy, "_normalizeRenditionKeySpec:forSchemaRendition:", [v109 keySpec], rendition);
+              [v109 setProduction:v187];
+              [v109 setRenditionType:{-[CoreThemeDocument renditionTypeWithIdentifier:](selfCopy, "renditionTypeWithIdentifier:", objc_msgSend(rendition, "type"))}];
+              [v109 setLayerPath:{objc_msgSend(objc_msgSend(objc_msgSend(array, "valueForKey:", @"name", "arrayByAddingObject:", objc_msgSend(v103, "name")), "componentsJoinedByString:", @"/"}];
               layer3 = [MEMORY[0x277CD9ED0] layer];
-              [layer3 setName:{objc_msgSend(v104, "name")}];
+              [layer3 setName:{objc_msgSend(v103, "name")}];
               [lastObject bounds];
               [layer3 setFrame:?];
               [lastObject addSublayer:layer3];
 
-              schemaLayersAndLayerGroups = v111;
-              v99 = v110;
-              v100 = v109;
-              v101 = 0x277D02000;
+              schemaLayersAndLayerGroups = v108;
+              v99 = v107;
+              v100 = v106;
             }
           }
         }
 
-        v98 = [schemaLayersAndLayerGroups countByEnumeratingWithState:&v196 objects:v225 count:16];
+        v98 = [schemaLayersAndLayerGroups countByEnumeratingWithState:&v189 objects:v218 count:16];
       }
 
       while (v98);
     }
 
-    [v182 fileSystemRepresentation];
+    [v175 fileSystemRepresentation];
     CAEncodeLayerTreeToFile();
-    goto LABEL_158;
+    return v187;
   }
 
   v59 = [(CoreThemeDocument *)selfCopy _themeBitSource:error];
   if (!v59)
   {
-    goto LABEL_114;
+    return 0;
   }
 
   v60 = v59;
@@ -2334,30 +2545,30 @@ LABEL_158:
   v63 = [objc_msgSend(v61 URLByAppendingPathComponent:{objc_msgSend(v60, "name")), "URLByAppendingPathComponent:", v62}];
   if (([defaultManager fileExistsAtPath:{objc_msgSend(v63, "path")}] & 1) == 0)
   {
-    v216 = 0;
-    if (([defaultManager createDirectoryAtURL:v63 withIntermediateDirectories:1 attributes:0 error:&v216] & 1) == 0)
+    v209 = 0;
+    if (([defaultManager createDirectoryAtURL:v63 withIntermediateDirectories:1 attributes:0 error:&v209] & 1) == 0)
     {
 LABEL_117:
       if (error)
       {
-        localizedDescription2 = [v216 localizedDescription];
+        localizedDescription2 = [v209 localizedDescription];
         if (localizedDescription2)
         {
-          v132 = localizedDescription2;
+          v129 = localizedDescription2;
         }
 
         else
         {
-          v132 = @"Unable to write new folder to file system.";
+          v129 = @"Unable to write new folder to file system.";
         }
 
-        v133 = MEMORY[0x277CCA9B8];
-        v134 = *MEMORY[0x277CCA050];
-        code2 = [v216 code];
-        *error = [v133 errorWithDomain:v134 code:code2 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjectsAndKeys:", @"Couldn't create folder for reference assets.", *MEMORY[0x277CCA450], v132, *MEMORY[0x277CCA470], 0)}];
+        v130 = MEMORY[0x277CCA9B8];
+        v131 = *MEMORY[0x277CCA050];
+        code2 = [v209 code];
+        *error = [v130 errorWithDomain:v131 code:code2 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjectsAndKeys:", @"Couldn't create folder for reference assets.", *MEMORY[0x277CCA450], v129, *MEMORY[0x277CCA470], 0)}];
       }
 
-      goto LABEL_114;
+      return 0;
     }
   }
 
@@ -2367,17 +2578,17 @@ LABEL_117:
   {
     if (error)
     {
-      v126 = MEMORY[0x277CCA9B8];
-      v127 = *MEMORY[0x277CCA050];
-      v128 = MEMORY[0x277CBEAC0];
-      v129 = [MEMORY[0x277CCACA8] stringWithFormat:@"Can't make reference PSD image. Filename: %@", v64];
-      v130 = [v126 errorWithDomain:v127 code:0 userInfo:{objc_msgSend(v128, "dictionaryWithObject:forKey:", v129, *MEMORY[0x277CCA450])}];
+      v123 = MEMORY[0x277CCA9B8];
+      v124 = *MEMORY[0x277CCA050];
+      v125 = MEMORY[0x277CBEAC0];
+      v126 = [MEMORY[0x277CCACA8] stringWithFormat:@"Can't make reference PSD image. Filename: %@", v64];
+      v127 = [v123 errorWithDomain:v124 code:0 userInfo:{objc_msgSend(v125, "dictionaryWithObject:forKey:", v126, *MEMORY[0x277CCA450])}];
       v14 = 0;
-      *error = v130;
-      goto LABEL_159;
+      *error = v127;
+      return v14;
     }
 
-    goto LABEL_114;
+    return 0;
   }
 
   v66 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"PhotoshopAsset"];
@@ -2448,7 +2659,7 @@ LABEL_117:
   [v14 setColumnIterationType:{-[CoreThemeDocument iterationTypeWithIdentifier:](selfCopy, "iterationTypeWithIdentifier:", v73)}];
   v74 = [MEMORY[0x277CBEB58] set];
   v75 = [objc_msgSend(definition validStatesWithDocument:{selfCopy), "count"}];
-  v190 = partFeatures;
+  v183 = partFeatures;
   if ((partFeatures & 0x80) != 0)
   {
     [v74 addObject:{-[CoreThemeDocument mappingForPhotoshopLayerIndex:themeDrawingLayerIdentifier:](selfCopy, "mappingForPhotoshopLayerIndex:themeDrawingLayerIdentifier:", v75++, 3)}];
@@ -2470,39 +2681,38 @@ LABEL_117:
     [v14 setColumnCount:&unk_2859AC4D0];
     objc = [groupCopy schemaLayersAndLayerGroups];
     array2 = [MEMORY[0x277CBEB18] array];
-    v208 = 0u;
-    v209 = 0u;
-    v210 = 0u;
-    v211 = 0u;
-    v136 = [objc countByEnumeratingWithState:&v208 objects:v228 count:16];
-    if (v136)
+    v201 = 0u;
+    v202 = 0u;
+    v203 = 0u;
+    v204 = 0u;
+    v133 = [objc countByEnumeratingWithState:&v201 objects:v221 count:16];
+    if (v133)
     {
-      v137 = v136;
-      v194 = v14;
+      v134 = v133;
+      v187 = v14;
       lastObject2 = 0;
-      v139 = *v209;
-      v140 = 0x277D02000uLL;
-      v179 = *v209;
+      v136 = *v202;
+      v172 = *v202;
       do
       {
-        for (n = 0; n != v137; ++n)
+        for (n = 0; n != v134; ++n)
         {
-          if (*v209 != v139)
+          if (*v202 != v136)
           {
             objc_enumerationMutation(objc);
           }
 
-          v142 = *(*(&v208 + 1) + 8 * n);
+          v138 = *(*(&v201 + 1) + 8 * n);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            if ([v142 isStart])
+            if ([v138 isStart])
             {
-              v143 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"PhotoshopLayer"];
-              [v143 setName:{objc_msgSend(v142, "name")}];
-              [v143 setParentLayer:lastObject2];
-              [array2 addObject:v143];
-              lastObject2 = v143;
+              v139 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"PhotoshopLayer"];
+              [v139 setName:{objc_msgSend(v138, "name")}];
+              [v139 setParentLayer:lastObject2];
+              [array2 addObject:v139];
+              lastObject2 = v139;
             }
 
             else
@@ -2522,44 +2732,39 @@ LABEL_117:
 
           else
           {
-            v144 = *(v140 + 1776);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v145 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"PhotoshopLayer"];
-              [v145 setParentLayer:lastObject2];
-              [v145 setName:{objc_msgSend(v142, "name")}];
-              rendition2 = [v142 rendition];
-              v147 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"PhotoshopRenditionSpec"];
-              [v147 setProduction:v194];
-              [objc_msgSend(v147 "keySpec")];
-              [objc_msgSend(v147 "keySpec")];
-              -[CoreThemeDocument _normalizeRenditionKeySpec:forSchemaRendition:](selfCopy, "_normalizeRenditionKeySpec:forSchemaRendition:", [v147 keySpec], rendition2);
-              v148 = rendition2;
-              v140 = 0x277D02000;
-              v139 = v179;
-              [v147 setRenditionType:{-[CoreThemeDocument renditionTypeWithIdentifier:](selfCopy, "renditionTypeWithIdentifier:", objc_msgSend(v148, "type"))}];
-              [v147 setPhotoshopLayer:v145];
+              v140 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"PhotoshopLayer"];
+              [v140 setParentLayer:lastObject2];
+              [v140 setName:{objc_msgSend(v138, "name")}];
+              rendition2 = [v138 rendition];
+              v142 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"PhotoshopRenditionSpec"];
+              [v142 setProduction:v187];
+              [objc_msgSend(v142 "keySpec")];
+              [objc_msgSend(v142 "keySpec")];
+              -[CoreThemeDocument _normalizeRenditionKeySpec:forSchemaRendition:](selfCopy, "_normalizeRenditionKeySpec:forSchemaRendition:", [v142 keySpec], rendition2);
+              v136 = v172;
+              [v142 setRenditionType:{-[CoreThemeDocument renditionTypeWithIdentifier:](selfCopy, "renditionTypeWithIdentifier:", objc_msgSend(rendition2, "type"))}];
+              [v142 setPhotoshopLayer:v140];
             }
           }
         }
 
-        v137 = [objc countByEnumeratingWithState:&v208 objects:v228 count:16];
+        v134 = [objc countByEnumeratingWithState:&v201 objects:v221 count:16];
       }
 
-      while (v137);
-      goto LABEL_158;
+      while (v134);
+      return v187;
     }
 
-    goto LABEL_159;
+    return v14;
   }
 
   v76 = -[CTDPSDPreviewRef initWithPath:]([CTDPSDPreviewRef alloc], "initWithPath:", [v65 path]);
   if (!v76)
   {
-LABEL_114:
-    v14 = 0;
-    goto LABEL_159;
+    return 0;
   }
 
   v77 = v76;
@@ -2587,112 +2792,110 @@ LABEL_114:
 
   if ([v67 type] == 6)
   {
-    v150 = 1;
-    v151 = 1;
+    v144 = 1;
+    v145 = 1;
   }
 
   else
   {
-    if (sliceRowCount < 1 || sliceColumnCount < 1 || (v165 = sliceRowCount / rowSlices, sliceRowCount % rowSlices) || sliceColumnCount % columnSlices)
+    if (sliceRowCount < 1 || sliceColumnCount < 1 || (v158 = sliceRowCount / rowSlices, sliceRowCount % rowSlices) || sliceColumnCount % columnSlices)
     {
       if (error)
       {
-        v166 = MEMORY[0x277CCA9B8];
-        v167 = *MEMORY[0x277CCA050];
-        v168 = v14;
-        v169 = MEMORY[0x277CBEAC0];
-        v170 = [MEMORY[0x277CCACA8] stringWithFormat:@"Reference PSD has wrong number of slices. Couldn't create production. Filename: %@", v64];
-        v171 = v169;
-        v14 = v168;
-        *error = [v166 errorWithDomain:v167 code:0 userInfo:{objc_msgSend(v171, "dictionaryWithObject:forKey:", v170, *MEMORY[0x277CCA450])}];
+        v159 = MEMORY[0x277CCA9B8];
+        v160 = *MEMORY[0x277CCA050];
+        v161 = v14;
+        v162 = MEMORY[0x277CBEAC0];
+        v163 = [MEMORY[0x277CCACA8] stringWithFormat:@"Reference PSD has wrong number of slices. Couldn't create production. Filename: %@", v64];
+        v164 = v162;
+        v14 = v161;
+        *error = [v159 errorWithDomain:v160 code:0 userInfo:{objc_msgSend(v164, "dictionaryWithObject:forKey:", v163, *MEMORY[0x277CCA450])}];
       }
 
       -[CoreThemeDocument deleteObject:](selfCopy, "deleteObject:", [v14 asset]);
-      v125 = selfCopy;
+      v122 = selfCopy;
 LABEL_113:
-      [(CoreThemeDocument *)v125 deleteObject:v14];
-      goto LABEL_114;
+      [(CoreThemeDocument *)v122 deleteObject:v14];
+      return 0;
     }
 
-    v151 = (sliceColumnCount / columnSlices);
-    v150 = v165;
+    v145 = (sliceColumnCount / columnSlices);
+    v144 = v158;
   }
 
-  [v14 setRowCount:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", v150)}];
-  [v14 setColumnCount:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", v151)}];
-  v204 = 0u;
-  v205 = 0u;
-  v206 = 0u;
-  v207 = 0u;
+  [v14 setRowCount:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", v144)}];
+  [v14 setColumnCount:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", v145)}];
+  v197 = 0u;
+  v198 = 0u;
+  v199 = 0u;
+  v200 = 0u;
   themeSchemaLayers = [groupCopy themeSchemaLayers];
-  v180 = [themeSchemaLayers countByEnumeratingWithState:&v204 objects:v227 count:16];
-  if (v180)
+  v173 = [themeSchemaLayers countByEnumeratingWithState:&v197 objects:v220 count:16];
+  if (v173)
   {
-    v194 = v14;
-    v176 = *v205;
+    v187 = v14;
+    v169 = *v198;
     do
     {
-      v152 = 0;
+      v146 = 0;
       do
       {
-        if (*v205 != v176)
+        if (*v198 != v169)
         {
           objc_enumerationMutation(themeSchemaLayers);
         }
 
-        v183 = v152;
-        v153 = *(*(&v204 + 1) + 8 * v152);
-        v200 = 0u;
-        v201 = 0u;
-        v202 = 0u;
-        v203 = 0u;
-        objd = [v153 renditions];
-        v154 = [objd countByEnumeratingWithState:&v200 objects:v226 count:16];
-        if (v154)
+        v176 = v146;
+        v147 = *(*(&v197 + 1) + 8 * v146);
+        v193 = 0u;
+        v194 = 0u;
+        v195 = 0u;
+        v196 = 0u;
+        objd = [v147 renditions];
+        v148 = [objd countByEnumeratingWithState:&v193 objects:v219 count:16];
+        if (v148)
         {
-          v155 = v154;
-          v156 = *v201;
+          v149 = v148;
+          v150 = *v194;
           do
           {
-            for (ii = 0; ii != v155; ++ii)
+            for (ii = 0; ii != v149; ++ii)
             {
-              if (*v201 != v156)
+              if (*v194 != v150)
               {
                 objc_enumerationMutation(objd);
               }
 
-              v158 = *(*(&v200 + 1) + 8 * ii);
-              v159 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"PhotoshopRenditionSpec"];
-              [v159 setProduction:v194];
-              [objc_msgSend(v159 "keySpec")];
-              -[CoreThemeDocument _normalizeRenditionKeySpec:forSchemaRendition:](selfCopy, "_normalizeRenditionKeySpec:forSchemaRendition:", [v159 keySpec], v158);
-              [v159 setRenditionType:{-[CoreThemeDocument renditionTypeWithIdentifier:](selfCopy, "renditionTypeWithIdentifier:", objc_msgSend(v158, "type"))}];
-              [v159 setValue:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithUnsignedInteger:", objc_msgSend(v153, "index")), @"layer"}];
-              [v158 renditionCoordinatesForPartFeatures:v190];
-              v161 = v160;
-              [v159 setValue:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInteger:", (v150 + ~v162) & ~((v150 + ~v162) >> 63)), @"row"}];
-              [v159 setValue:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInteger:", v161), @"column"}];
+              v152 = *(*(&v193 + 1) + 8 * ii);
+              v153 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"PhotoshopRenditionSpec"];
+              [v153 setProduction:v187];
+              [objc_msgSend(v153 "keySpec")];
+              -[CoreThemeDocument _normalizeRenditionKeySpec:forSchemaRendition:](selfCopy, "_normalizeRenditionKeySpec:forSchemaRendition:", [v153 keySpec], v152);
+              [v153 setRenditionType:{-[CoreThemeDocument renditionTypeWithIdentifier:](selfCopy, "renditionTypeWithIdentifier:", objc_msgSend(v152, "type"))}];
+              [v153 setValue:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithUnsignedInteger:", objc_msgSend(v147, "index")), @"layer"}];
+              [v152 renditionCoordinatesForPartFeatures:v183];
+              v155 = v154;
+              [v153 setValue:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInteger:", (v144 + ~v156) & ~((v144 + ~v156) >> 63)), @"row"}];
+              [v153 setValue:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInteger:", v155), @"column"}];
             }
 
-            v155 = [objd countByEnumeratingWithState:&v200 objects:v226 count:16];
+            v149 = [objd countByEnumeratingWithState:&v193 objects:v219 count:16];
           }
 
-          while (v155);
+          while (v149);
         }
 
-        v152 = v183 + 1;
+        v146 = v176 + 1;
       }
 
-      while (v183 + 1 != v180);
-      v180 = [themeSchemaLayers countByEnumeratingWithState:&v204 objects:v227 count:16];
+      while (v176 + 1 != v173);
+      v173 = [themeSchemaLayers countByEnumeratingWithState:&v197 objects:v220 count:16];
     }
 
-    while (v180);
-    goto LABEL_158;
+    while (v173);
+    return v187;
   }
 
-LABEL_159:
-  v163 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -3016,10 +3219,10 @@ LABEL_2:
 - (id)slicesComputedForImageSize:(CGSize)size usingSliceInsets:(id)insets resizableSliceSize:(CGSize)sliceSize withRenditionType:(int64_t)type
 {
   v6 = 0;
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   if (size.width <= 0.0 || size.height <= 0.0)
   {
-    goto LABEL_60;
+    return v6;
   }
 
   var3 = insets.var3;
@@ -3028,9 +3231,7 @@ LABEL_2:
   var0 = insets.var0;
   if (insets.var0 < 0.0 && insets.var2 < 0.0 && insets.var3 < 0.0 && insets.var1 < 0.0)
   {
-LABEL_59:
-    v6 = 0;
-    goto LABEL_60;
+    return 0;
   }
 
   width = size.width;
@@ -3183,37 +3384,37 @@ LABEL_49:
 
   if (type > 0xC || ((1 << type) & 0x1801) == 0)
   {
-    v50 = +[TDLogger defaultLogger];
-    [v50 logError:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"Edge insets were specified but didn't match the rendition type"}];
+    v49 = +[TDLogger defaultLogger];
+    [v49 logError:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"Edge insets were specified but didn't match the rendition type"}];
   }
 
   v24 = [MEMORY[0x277CBEB18] arrayWithObject:{objc_msgSend(MEMORY[0x277CCAE60], "valueWithRect:", 0.0, 0.0, width, height)}];
 LABEL_50:
   if (![v24 count])
   {
-    goto LABEL_59;
+    return 0;
   }
 
   v6 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(v24, "count")}];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
-  v35 = [v24 countByEnumeratingWithState:&v51 objects:v55 count:16];
+  v35 = [v24 countByEnumeratingWithState:&v50 objects:v54 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v52;
+    v37 = *v51;
     do
     {
       for (i = 0; i != v36; ++i)
       {
-        if (*v52 != v37)
+        if (*v51 != v37)
         {
           objc_enumerationMutation(v24);
         }
 
-        [*(*(&v51 + 1) + 8 * i) rectValue];
+        [*(*(&v50 + 1) + 8 * i) rectValue];
         v40 = v39;
         v42 = v41;
         v44 = v43;
@@ -3223,14 +3424,12 @@ LABEL_50:
         [v6 addObject:v47];
       }
 
-      v36 = [v24 countByEnumeratingWithState:&v51 objects:v55 count:16];
+      v36 = [v24 countByEnumeratingWithState:&v50 objects:v54 count:16];
     }
 
     while (v36);
   }
 
-LABEL_60:
-  v48 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3268,25 +3467,8 @@ LABEL_60:
         v12 = 0;
       }
 
-      if (v12)
+      if ((v12 & 1) != 0 || (lastObject = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", @"TextStyleProduction"), v13 = -[CoreThemeDocument _createNamedElementWithIdentifier:](self, "_createNamedElementWithIdentifier:", [v9 nameIdentifier]), objc_msgSend(v13, "setName:", objc_msgSend(v9, "name")), objc_msgSend(v13, "setProduction:", lastObject), objc_msgSend(lastObject, "setRenditionType:", v27), v14 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", @"RenditionKeySpec"), objc_msgSend(v14, "setElement:", v29), objc_msgSend(v14, "setPart:", v28), objc_msgSend(v14, "setNameIdentifier:", objc_msgSend(objc_msgSend(v13, "identifier"), "unsignedIntValue")), objc_msgSend(lastObject, "setBaseKeySpec:", v14), v14, lastObject))
       {
-        goto LABEL_9;
-      }
-
-      lastObject = [(CoreThemeDocument *)self newObjectForEntity:@"TextStyleProduction"];
-      v13 = -[CoreThemeDocument _createNamedElementWithIdentifier:](self, "_createNamedElementWithIdentifier:", [v9 nameIdentifier]);
-      [v13 setName:{objc_msgSend(v9, "name")}];
-      [v13 setProduction:lastObject];
-      [lastObject setRenditionType:v27];
-      v14 = [(CoreThemeDocument *)self newObjectForEntity:@"RenditionKeySpec"];
-      [v14 setElement:v29];
-      [v14 setPart:v28];
-      [v14 setNameIdentifier:{objc_msgSend(objc_msgSend(v13, "identifier"), "unsignedIntValue")}];
-      [lastObject setBaseKeySpec:v14];
-
-      if (lastObject)
-      {
-LABEL_9:
         v15 = [(CoreThemeDocument *)self newObjectForEntity:@"TextStyleRenditionSpec"];
         [v15 setAlignment:{objc_msgSend(v9, "textAlignment")}];
         [v15 setFontName:{objc_msgSend(v9, "fontName")}];
@@ -3520,25 +3702,8 @@ uint64_t __69__CoreThemeDocument_createNamedColorProductionsForImportInfos_error
         v12 = 0;
       }
 
-      if (v12)
+      if ((v12 & 1) != 0 || (lastObject = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", @"NamedGradientProduction"), v13 = -[CoreThemeDocument _createNamedElementWithIdentifier:](self, "_createNamedElementWithIdentifier:", [v8 nameIdentifier]), objc_msgSend(v13, "setName:", objc_msgSend(v8, "name")), objc_msgSend(v13, "setProduction:", lastObject), objc_msgSend(lastObject, "setRenditionType:", v26), v14 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", @"RenditionKeySpec"), objc_msgSend(v14, "setElement:", v28), objc_msgSend(v14, "setPart:", v27), objc_msgSend(v14, "setNameIdentifier:", objc_msgSend(objc_msgSend(v13, "identifier"), "unsignedIntValue")), objc_msgSend(lastObject, "setBaseKeySpec:", v14), v14, lastObject))
       {
-        goto LABEL_12;
-      }
-
-      lastObject = [(CoreThemeDocument *)self newObjectForEntity:@"NamedGradientProduction"];
-      v13 = -[CoreThemeDocument _createNamedElementWithIdentifier:](self, "_createNamedElementWithIdentifier:", [v8 nameIdentifier]);
-      [v13 setName:{objc_msgSend(v8, "name")}];
-      [v13 setProduction:lastObject];
-      [lastObject setRenditionType:v26];
-      v14 = [(CoreThemeDocument *)self newObjectForEntity:@"RenditionKeySpec"];
-      [v14 setElement:v28];
-      [v14 setPart:v27];
-      [v14 setNameIdentifier:{objc_msgSend(objc_msgSend(v13, "identifier"), "unsignedIntValue")}];
-      [lastObject setBaseKeySpec:v14];
-
-      if (lastObject)
-      {
-LABEL_12:
         v30 = v12;
         v15 = [(CoreThemeDocument *)self newObjectForEntity:@"NamedGradientRenditionSpec"];
         [v15 setGradientType:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInt:", objc_msgSend(v8, "gradientType"))}];
@@ -3600,10 +3765,10 @@ uint64_t __72__CoreThemeDocument_createNamedGradientProductionsForImportInfos_er
 
 - (id)_sizeIndexesByNameFromNamedAssetImportInfos:(id)infos
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v6 = [infos sortedArrayUsingComparator:&__block_literal_global_642];
-  v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
   [v6 count];
   name = 0;
   v8 = 0;
@@ -3622,9 +3787,9 @@ uint64_t __72__CoreThemeDocument_createNamedGradientProductionsForImportInfos_er
 
     if (![name isEqualToString:{objc_msgSend(v9, "name")}] || v8 == objc_msgSend(v6, "count"))
     {
-      if ([v28 count])
+      if ([v27 count])
       {
-        v10 = [v28 sortedArrayUsingComparator:&__block_literal_global_644];
+        v10 = [v27 sortedArrayUsingComparator:&__block_literal_global_644];
         if (v10 && name)
         {
           [dictionary setObject:v10 forKey:name];
@@ -3655,9 +3820,9 @@ uint64_t __72__CoreThemeDocument_createNamedGradientProductionsForImportInfos_er
       if (iconSize)
       {
         v13 = iconSize;
-        if ([v28 indexOfObject:iconSize] == 0x7FFFFFFFFFFFFFFFLL)
+        if ([v27 indexOfObject:iconSize] == 0x7FFFFFFFFFFFFFFFLL)
         {
-          [v28 addObject:v13];
+          [v27 addObject:v13];
         }
       }
     }
@@ -3667,26 +3832,26 @@ uint64_t __72__CoreThemeDocument_createNamedGradientProductionsForImportInfos_er
 
   while (v8 <= [v6 count]);
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = [dictionary allKeys];
-  v14 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v14 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v33;
+    v16 = *v32;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v33 != v16)
+        if (*v32 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v32 + 1) + 8 * i);
+        v18 = *(*(&v31 + 1) + 8 * i);
         v19 = [dictionary valueForKey:v18];
         v20 = [MEMORY[0x277CBEB58] set];
         if ([v19 count])
@@ -3710,13 +3875,12 @@ uint64_t __72__CoreThemeDocument_createNamedGradientProductionsForImportInfos_er
         [dictionary2 setObject:v20 forKey:v18];
       }
 
-      v15 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v15 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v15);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return dictionary2;
 }
 
@@ -4133,6 +4297,1447 @@ LABEL_9:
   }
 }
 
+- (id)createNamedArtworkProductionsForAssets:(id)assets customInfos:(id)infos skipLastStep:(BOOL)step error:(id *)error
+{
+  stepCopy = step;
+  v306 = *MEMORY[0x277D85DE8];
+  array = [MEMORY[0x277CBEB18] array];
+  _namedImagePartDefinition = [(CoreThemeDocument *)self _namedImagePartDefinition];
+  v236 = [(CoreThemeDocument *)self elementWithIdentifier:85];
+  v230 = [(CoreThemeDocument *)self partWithIdentifier:181];
+  v211 = [(CoreThemeDocument *)self partWithIdentifier:42];
+  v217 = [(CoreThemeDocument *)self partWithIdentifier:208];
+  v207 = [(CoreThemeDocument *)self partWithIdentifier:218];
+  v228 = [(CoreThemeDocument *)self partWithIdentifier:220];
+  v234 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:0];
+  v199 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1];
+  v198 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:2];
+  v197 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:3];
+  v223 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1002];
+  v222 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1018];
+  v201 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1006];
+  v206 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1010];
+  idioms = [(CoreThemeDocument *)self idioms];
+  displayGamuts = [(CoreThemeDocument *)self displayGamuts];
+  deploymentTargets = [(CoreThemeDocument *)self deploymentTargets];
+  featureSetClasses = [(CoreThemeDocument *)self featureSetClasses];
+  sizeClasses = [(CoreThemeDocument *)self sizeClasses];
+  directions = [(CoreThemeDocument *)self directions];
+  obj = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"NamedArtworkProduction", 0, 0)}];
+  array2 = [MEMORY[0x277CBEB18] array];
+  v237 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:10];
+  v204 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:11];
+  v213 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:12];
+  v210 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:20];
+  v209 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:23];
+  v212 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:30];
+  v203 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:21];
+  v202 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:24];
+  v208 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:31];
+  v200 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:34];
+  v231 = [(CoreThemeDocument *)self templateRenderingModeWithIdentifier:0];
+  v227 = [(CoreThemeDocument *)self templateRenderingModeWithIdentifier:1];
+  v225 = [(CoreThemeDocument *)self templateRenderingModeWithIdentifier:2];
+  compressionTypes = [(CoreThemeDocument *)self compressionTypes];
+  v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v293 = 0u;
+  v294 = 0u;
+  v295 = 0u;
+  v296 = 0u;
+  v9 = [(CoreThemeDocument *)self objectsForEntity:@"Tag" withPredicate:0 sortDescriptors:0];
+  v10 = [v9 countByEnumeratingWithState:&v293 objects:v305 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v294;
+    do
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        if (*v294 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        [v8 setObject:objc_msgSend(MEMORY[0x277CBEA60] forKey:{"arrayWithObject:", *(*(&v293 + 1) + 8 * i)), objc_msgSend(*(*(&v293 + 1) + 8 * i), "identifier")}];
+      }
+
+      v11 = [v9 countByEnumeratingWithState:&v293 objects:v305 count:16];
+    }
+
+    while (v11);
+  }
+
+  infosCopy6 = infos;
+  v214 = [(CoreThemeDocument *)self _sizeIndexesByNameFromNamedAssetImportInfos:infos];
+  assetsCopy = assets;
+  selfCopy = self;
+  if ([assets count])
+  {
+    v16 = 0;
+    v17 = *MEMORY[0x277CBF3A0];
+    v18 = *(MEMORY[0x277CBF3A0] + 8);
+    v19 = *(MEMORY[0x277CBF3A0] + 16);
+    v20 = *(MEMORY[0x277CBF3A0] + 24);
+    v241 = *MEMORY[0x277CBEEE8];
+    v215 = *(MEMORY[0x277CBF3A8] + 8);
+    v216 = *MEMORY[0x277CBF3A8];
+    v232 = *MEMORY[0x277CBED10];
+    assetsCopy2 = assets;
+    while (1)
+    {
+      v21 = [assetsCopy objectAtIndex:v16];
+      v22 = [infosCopy6 count];
+      v244 = v16;
+      if (v22 != [assetsCopy count])
+      {
+        break;
+      }
+
+      v23 = [infosCopy6 objectAtIndex:v16];
+      v24 = v23;
+      if (v21 == v241)
+      {
+        name = [v23 name];
+        v25 = v24;
+        if (!v24)
+        {
+          goto LABEL_28;
+        }
+      }
+
+      else
+      {
+        if (!v23)
+        {
+          goto LABEL_15;
+        }
+
+        v25 = v23;
+        name = [v23 name];
+      }
+
+      if ([v25 renditionType] != 1002 && objc_msgSend(v25, "renditionType") != 1018 && objc_msgSend(v25, "renditionType") != 1004 && objc_msgSend(v25, "renditionType") != 1006)
+      {
+        v220 = v20;
+        v251 = v19;
+        v254 = v18;
+        v61 = v25;
+        v62 = v215;
+        v63 = v216;
+        if ([v25 renditionType] != 1000)
+        {
+          [v21 sourceImageSizeWithDocument:self];
+          v63 = v64;
+          v62 = v65;
+        }
+
+        [v25 sliceInsets];
+        v67 = v66;
+        v69 = v68;
+        v71 = v70;
+        v73 = v72;
+        [v25 resizableSliceSize];
+        v196 = v74;
+        v76 = v75;
+        v77 = [v21 fileURLWithDocument:self];
+        v194 = v63;
+        v195 = v62;
+        v246 = v76;
+        v248 = v67;
+        if ([v25 renditionType] == 1000 || objc_msgSend(v25, "renditionType") == 1017 || objc_msgSend(objc_msgSend(v77, "pathExtension"), "caseInsensitiveCompare:", @"PDF") && objc_msgSend(objc_msgSend(v77, "pathExtension"), "caseInsensitiveCompare:", @"SVG"))
+        {
+          v31 = v220;
+          v32 = v251;
+          v33 = v254;
+          v34 = v17;
+        }
+
+        else
+        {
+          v166 = assetsCopy;
+          v193 = v17;
+          fileScaleFactor = [v21 fileScaleFactor];
+          scaleFactor = [v21 scaleFactor];
+          [v61 alignmentRect];
+          v34 = v169;
+          v33 = v170;
+          v32 = v171;
+          v31 = v172;
+          if (fileScaleFactor)
+          {
+            v173 = fileScaleFactor;
+          }
+
+          else
+          {
+            v175 = +[TDAsset scaleFactorFromImageFilename:](TDAsset, "scaleFactorFromImageFilename:", [v77 lastPathComponent]);
+            if (v175)
+            {
+              v173 = v175;
+            }
+
+            else
+            {
+              v173 = 1.0;
+            }
+          }
+
+          [v21 setFileScaleFactor:v173];
+          v176 = scaleFactor / v173;
+          assetsCopy = v166;
+          if (v176 != 1.0)
+          {
+            v69 = v69 * v176;
+            v71 = v71 * v176;
+            v73 = v73 * v176;
+            v196 = v196 * v176;
+            v246 = v246 * v176;
+            v248 = v248 * v176;
+            v34 = v34 * v176;
+            v33 = v33 * v176;
+            v31 = v31 * v176;
+            v32 = v32 * v176;
+          }
+
+          v17 = v193;
+        }
+
+        v25 = v61;
+        v29 = -[CoreThemeDocument slicesComputedForImageSize:usingSliceInsets:resizableSliceSize:withRenditionType:](self, "slicesComputedForImageSize:usingSliceInsets:resizableSliceSize:withRenditionType:", [v61 renditionType], v194, v195, v248, v69, v71, v73, v196, v246);
+        v78 = [v29 count];
+        if (v78 < 1)
+        {
+          v245 = 0;
+          v247 = v234;
+          v19 = v251;
+          v18 = v254;
+          v20 = v220;
+          goto LABEL_30;
+        }
+
+        v79 = v78;
+        v19 = v251;
+        v18 = v254;
+        v20 = v220;
+        if ([v61 renditionType] < 1)
+        {
+          goto LABEL_306;
+        }
+
+        if (v79 == 9)
+        {
+          v25 = v61;
+          renditionType = [v61 renditionType];
+          v245 = 0;
+          v35 = v234;
+          if (renditionType == 3)
+          {
+            v35 = v197;
+          }
+        }
+
+        else
+        {
+          if (v79 != 4)
+          {
+LABEL_306:
+            v245 = 0;
+            v247 = v234;
+            v25 = v61;
+            goto LABEL_30;
+          }
+
+          v25 = v61;
+          if ([v61 renditionType] == 1)
+          {
+            v80 = v199;
+          }
+
+          else
+          {
+            v80 = v234;
+          }
+
+          renditionType2 = [v61 renditionType];
+          v245 = 0;
+          v35 = v198;
+          if (renditionType2 != 2)
+          {
+            v35 = v80;
+          }
+        }
+
+        goto LABEL_29;
+      }
+
+      if ([v25 renditionType] == 1002 || objc_msgSend(v25, "renditionType") == 1018)
+      {
+        renditionType3 = [v25 renditionType];
+        v245 = 0;
+        v29 = 0;
+        v30 = v223;
+        if (renditionType3 != 1002)
+        {
+          v30 = v222;
+        }
+      }
+
+      else
+      {
+        if ([v25 renditionType] == 1004)
+        {
+          v52 = v25;
+          if (!self->_explicitlyPackedIdentifiers)
+          {
+            self->_explicitlyPackedIdentifiers = objc_alloc_init(MEMORY[0x277CBEB38]);
+          }
+
+          v292 = 0u;
+          v291 = 0u;
+          v290 = 0u;
+          v289 = 0u;
+          containedImageNames = [v25 containedImageNames];
+          v53 = [containedImageNames countByEnumeratingWithState:&v289 objects:v304 count:16];
+          if (v53)
+          {
+            v54 = v53;
+            v55 = *v290;
+            do
+            {
+              for (j = 0; j != v54; ++j)
+              {
+                if (*v290 != v55)
+                {
+                  objc_enumerationMutation(containedImageNames);
+                }
+
+                -[NSMutableDictionary setObject:forKey:](self->_explicitlyPackedIdentifiers, "setObject:forKey:", [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v52, "nameIdentifier")}], *(*(&v289 + 1) + 8 * j));
+              }
+
+              v54 = [containedImageNames countByEnumeratingWithState:&v289 objects:v304 count:16];
+            }
+
+            while (v54);
+          }
+
+          explicitlyPackedPackings = self->_explicitlyPackedPackings;
+          if (!explicitlyPackedPackings)
+          {
+            explicitlyPackedPackings = objc_alloc_init(MEMORY[0x277CBEB38]);
+            self->_explicitlyPackedPackings = explicitlyPackedPackings;
+          }
+
+          -[NSMutableDictionary setObject:forKey:](explicitlyPackedPackings, "setObject:forKey:", [v52 name], objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v52, "nameIdentifier")));
+          explicitlyPackedContents = self->_explicitlyPackedContents;
+          assetsCopy = assetsCopy2;
+          if (!explicitlyPackedContents)
+          {
+            explicitlyPackedContents = objc_alloc_init(MEMORY[0x277CBEB38]);
+            self->_explicitlyPackedContents = explicitlyPackedContents;
+          }
+
+          -[NSMutableDictionary setObject:forKey:](explicitlyPackedContents, "setObject:forKey:", [v52 containedImageNames], objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v52, "nameIdentifier")));
+          infosCopy6 = infos;
+          goto LABEL_303;
+        }
+
+        renditionType4 = [v25 renditionType];
+        v245 = 0;
+        v29 = 0;
+        v30 = v234;
+        if (renditionType4 == 1006)
+        {
+          v30 = v201;
+        }
+      }
+
+      v247 = v30;
+      v31 = v20;
+      v32 = v19;
+      v33 = v18;
+      v34 = v17;
+LABEL_30:
+      v250 = v21;
+      v252 = v25;
+      if ([v25 renditionType] == 1002 || objc_msgSend(v25, "renditionType") == 1018)
+      {
+        v287 = 0u;
+        v288 = 0u;
+        v285 = 0u;
+        v286 = 0u;
+        v36 = [obj countByEnumeratingWithState:&v285 objects:v303 count:16];
+        if (!v36)
+        {
+          goto LABEL_114;
+        }
+
+        v37 = v36;
+        v38 = *v286;
+LABEL_34:
+        v39 = 0;
+        while (1)
+        {
+          if (*v286 != v38)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v40 = *(*(&v285 + 1) + 8 * v39);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass() & 1) != 0 && ([objc_msgSend(objc_msgSend(v40 "name")])
+          {
+            break;
+          }
+
+          if (v37 == ++v39)
+          {
+            v37 = [obj countByEnumeratingWithState:&v285 objects:v303 count:16];
+            if (v37)
+            {
+              goto LABEL_34;
+            }
+
+            goto LABEL_114;
+          }
+        }
+      }
+
+      else if ([v25 iconSize])
+      {
+        v283 = 0uLL;
+        v284 = 0uLL;
+        v281 = 0uLL;
+        v282 = 0uLL;
+        v41 = [obj countByEnumeratingWithState:&v281 objects:v302 count:16];
+        if (!v41)
+        {
+          goto LABEL_114;
+        }
+
+        v42 = v41;
+        v43 = *v282;
+LABEL_45:
+        v44 = 0;
+        while (1)
+        {
+          if (*v282 != v43)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v40 = *(*(&v281 + 1) + 8 * v44);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass() & 1) != 0 && ([objc_msgSend(objc_msgSend(v40 "name")])
+          {
+            break;
+          }
+
+          if (v42 == ++v44)
+          {
+            v42 = [obj countByEnumeratingWithState:&v281 objects:v302 count:16];
+            v45 = 0;
+            if (v42)
+            {
+              goto LABEL_45;
+            }
+
+            goto LABEL_115;
+          }
+        }
+      }
+
+      else
+      {
+        v279 = 0uLL;
+        v280 = 0uLL;
+        v277 = 0uLL;
+        v278 = 0uLL;
+        v46 = [obj countByEnumeratingWithState:&v277 objects:v301 count:16];
+        if (!v46)
+        {
+          goto LABEL_114;
+        }
+
+        v47 = v46;
+        v48 = *v278;
+LABEL_55:
+        v49 = 0;
+        while (1)
+        {
+          if (*v278 != v48)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v40 = *(*(&v277 + 1) + 8 * v49);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            objc_opt_class();
+            if ((objc_opt_isKindOfClass() & 1) == 0)
+            {
+              objc_opt_class();
+              if (objc_opt_isKindOfClass() & 1) == 0 && ([objc_msgSend(objc_msgSend(v40 "name")])
+              {
+                break;
+              }
+            }
+          }
+
+          if (v47 == ++v49)
+          {
+            v47 = [obj countByEnumeratingWithState:&v277 objects:v301 count:16];
+            v45 = 0;
+            if (v47)
+            {
+              goto LABEL_55;
+            }
+
+            goto LABEL_115;
+          }
+        }
+      }
+
+      if (!v40)
+      {
+        goto LABEL_114;
+      }
+
+      objc_opt_class();
+      if ((objc_opt_isKindOfClass() & 1) != 0 && [v252 renditionType] != 1002 && objc_msgSend(v252, "renditionType") != 1018)
+      {
+        flattenedImageProduction = [v40 flattenedImageProduction];
+        v50 = v245;
+        if (flattenedImageProduction)
+        {
+          v40 = flattenedImageProduction;
+          goto LABEL_112;
+        }
+
+        v82 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"NamedArtworkProduction"];
+        [v40 setFlattenedImageProduction:v82];
+        v83 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"RenditionKeySpec"];
+        [v83 setElement:{objc_msgSend(objc_msgSend(v40, "baseKeySpec"), "element")}];
+        [v83 setPart:v217];
+        [v82 setBaseKeySpec:v83];
+        [v82 setRenditionType:v234];
+
+        if (v82)
+        {
+          v40 = v82;
+LABEL_112:
+          v84 = v252;
+          if ((v50 & 1) == 0)
+          {
+            goto LABEL_177;
+          }
+
+          goto LABEL_178;
+        }
+
+LABEL_114:
+        v45 = 0;
+        goto LABEL_115;
+      }
+
+      v50 = v245;
+      if ([v252 renditionType] != 1002 && objc_msgSend(v252, "renditionType") != 1018 || !objc_msgSend(v40, "isMemberOfClass:", objc_opt_class()))
+      {
+        goto LABEL_112;
+      }
+
+      v45 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"NamedArtworkProduction"];
+      [v45 setBaseKeySpec:{objc_msgSend(v40, "baseKeySpec")}];
+      [v45 setRenditions:{objc_msgSend(v40, "renditions")}];
+      [objc_msgSend(v45 "baseKeySpec")];
+      [v45 setRenditionType:{objc_msgSend(v40, "renditionType")}];
+LABEL_115:
+      if ([v252 renditionType] == 1002 || objc_msgSend(v252, "renditionType") == 1018)
+      {
+        v85 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"LayerStackProduction"];
+        v40 = v85;
+        v50 = v245;
+        if (v45)
+        {
+          [v85 setFlattenedImageProduction:v45];
+        }
+      }
+
+      else
+      {
+        v50 = v245;
+        if ([v252 iconSize])
+        {
+          v40 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"MultisizeImageSetProduction"];
+          [v40 setSizeIndexes:{objc_msgSend(v214, "objectForKey:", objc_msgSend(v252, "name"))}];
+          v86 = v40;
+        }
+
+        else
+        {
+          v86 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"NamedArtworkProduction"];
+          v40 = v86;
+        }
+
+        [v86 setMakeOpaqueIfPossible:1];
+      }
+
+      v87 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"RenditionKeySpec"];
+      if (v50)
+      {
+        _createNamedElementWithNextAvailableIdentifier = [(CoreThemeDocument *)selfCopy _createNamedElementWithNextAvailableIdentifier];
+      }
+
+      else
+      {
+        _createNamedElementWithNextAvailableIdentifier = -[CoreThemeDocument _createNamedElementWithIdentifier:](selfCopy, "_createNamedElementWithIdentifier:", [v252 nameIdentifier]);
+      }
+
+      v89 = _createNamedElementWithNextAvailableIdentifier;
+      [_createNamedElementWithNextAvailableIdentifier setName:name];
+      [v89 setProduction:v40];
+      [v87 setElement:v236];
+      v84 = v252;
+      if ((v50 & 1) != 0 || (v90 = [v252 iconSize], v91 = v228, !v90))
+      {
+        v91 = v230;
+      }
+
+      [v87 setPart:v91];
+      [v87 setNameIdentifier:{objc_msgSend(objc_msgSend(v89, "identifier"), "unsignedIntValue")}];
+      [v40 setBaseKeySpec:v87];
+
+      [v40 setPartDefinition:_namedImagePartDefinition];
+      [v40 setIsExcludedFromFilter:v232];
+      [v40 setRenditionType:v247];
+      [v40 setRenditionSubtype:v237];
+      [v40 setComment:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"Named Image from: %@", objc_msgSend(v21, "name"))}];
+      if (v50)
+      {
+        if (+[TDAsset isTemplateFromImageFilename:](TDAsset, "isTemplateFromImageFilename:", [v21 name]))
+        {
+          v92 = v40;
+          v93 = v227;
+        }
+
+        else
+        {
+          v92 = v40;
+          v93 = v231;
+        }
+
+        [v92 setTemplateRenderingMode:v93];
+        goto LABEL_176;
+      }
+
+      renditionSubtype = [v252 renditionSubtype];
+      if (renditionSubtype > 22)
+      {
+        if (renditionSubtype <= 29)
+        {
+          v95 = v209;
+          if (renditionSubtype != 23)
+          {
+            v95 = v202;
+            if (renditionSubtype != 24)
+            {
+              goto LABEL_151;
+            }
+          }
+        }
+
+        else
+        {
+          v95 = v212;
+          if (renditionSubtype != 30)
+          {
+            v95 = v208;
+            if (renditionSubtype != 31)
+            {
+              if (renditionSubtype != 34)
+              {
+                goto LABEL_151;
+              }
+
+              v95 = v200;
+            }
+          }
+        }
+      }
+
+      else if (renditionSubtype <= 11)
+      {
+        v95 = v237;
+        if (renditionSubtype != 10)
+        {
+          v95 = v204;
+          if (renditionSubtype != 11)
+          {
+            goto LABEL_151;
+          }
+        }
+      }
+
+      else
+      {
+        v95 = v213;
+        if (renditionSubtype != 12)
+        {
+          v95 = v210;
+          if (renditionSubtype != 20)
+          {
+            v95 = v203;
+            if (renditionSubtype != 21)
+            {
+              goto LABEL_151;
+            }
+          }
+        }
+      }
+
+      [v40 setRenditionSubtype:v95];
+LABEL_151:
+      templateRenderingMode = [v252 templateRenderingMode];
+      v97 = v231;
+      if (!templateRenderingMode || (v97 = v225, templateRenderingMode == 2) || (v97 = v227, templateRenderingMode == 1))
+      {
+        [v40 setTemplateRenderingMode:v97];
+      }
+
+      [v40 setOptOutOfThinning:{objc_msgSend(v252, "optOutOfThinning", v97)}];
+      [v40 setIsFlippable:{objc_msgSend(v252, "isFlippable")}];
+      [v40 setDateOfLastChange:{objc_msgSend(v252, "modificationDate")}];
+      [v40 setHasCustomDateOfLastChange:1];
+      if ([(CoreThemeDocument *)selfCopy featureEnabled:17])
+      {
+        [v40 setPreservesVectorRepresentation:{objc_msgSend(v252, "preservesVectorRepresentation")}];
+      }
+
+      [v40 setAutoscalingType:{objc_msgSend(v252, "autoscalingType")}];
+      tags = [v252 tags];
+      if ([tags count] && -[CoreThemeDocument featureEnabled:](selfCopy, "featureEnabled:", 1))
+      {
+        v221 = v29;
+        v99 = objc_alloc_init(MEMORY[0x277CBEB58]);
+        v273 = 0u;
+        v274 = 0u;
+        v275 = 0u;
+        v276 = 0u;
+        v100 = [tags countByEnumeratingWithState:&v273 objects:v300 count:16];
+        if (v100)
+        {
+          v101 = v100;
+          v102 = *v274;
+          do
+          {
+            for (k = 0; k != v101; ++k)
+            {
+              if (*v274 != v102)
+              {
+                objc_enumerationMutation(tags);
+              }
+
+              v104 = *(*(&v273 + 1) + 8 * k);
+              v105 = [v8 objectForKey:v104];
+              if ([v105 count])
+              {
+                if ([v105 count] != 1)
+                {
+                  [CoreThemeDocument createNamedArtworkProductionsForAssets:customInfos:skipLastStep:error:];
+                }
+
+                v106 = [v105 objectAtIndex:0];
+              }
+
+              else
+              {
+                v106 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"Tag"];
+                [v106 setIdentifier:v104];
+                [v8 setObject:objc_msgSend(MEMORY[0x277CBEA60] forKey:{"arrayWithObject:", v106), v104}];
+              }
+
+              [v99 addObject:v106];
+            }
+
+            v101 = [tags countByEnumeratingWithState:&v273 objects:v300 count:16];
+          }
+
+          while (v101);
+        }
+
+        [v40 addTags:v99];
+        v107 = [tags count];
+        if (v107 != [v99 count])
+        {
+          [CoreThemeDocument createNamedArtworkProductionsForAssets:customInfos:skipLastStep:error:];
+        }
+
+        assetsCopy = assetsCopy2;
+        v84 = v252;
+        v50 = v245;
+        v29 = v221;
+      }
+
+      if ([objc_msgSend(v84 "universalTypeIdentifier")])
+      {
+        [v40 setUniversalTypeIdentifier:{objc_msgSend(v84, "universalTypeIdentifier")}];
+      }
+
+LABEL_176:
+      [obj addObject:v40];
+      [array addObject:v40];
+      if ((v50 & 1) == 0)
+      {
+LABEL_177:
+        iconSize = [v84 iconSize];
+        v51 = @"MultisizeImageRenditionSpec";
+        if (iconSize)
+        {
+          goto LABEL_182;
+        }
+      }
+
+LABEL_178:
+      identifier = [v247 identifier];
+      v51 = @"LayerStackRenditionSpec";
+      if (identifier != 1002)
+      {
+        if ([v247 identifier] == 1018)
+        {
+          v51 = @"LayerStackRenditionSpec";
+        }
+
+        else
+        {
+          v51 = @"SimpleArtworkRenditionSpec";
+        }
+      }
+
+LABEL_182:
+      v110 = [(CoreThemeDocument *)selfCopy newObjectForEntity:v51];
+      v111 = v110;
+      [v110 setProduction:v40];
+      [v110 setPreserveForArchiveOnly:{objc_msgSend(v84, "preserveForArchiveOnly")}];
+      objc_opt_class();
+      infosCopy6 = infos;
+      if ((objc_opt_isKindOfClass() & 1) == 0)
+      {
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          [v110 setAsset:v250];
+          if (v50)
+          {
+            v50 = 1;
+          }
+
+          else
+          {
+            [v84 canvasSize];
+            [v110 setCanvasSize:?];
+            v249 = v110;
+            [v110 setCompressionType:{objc_msgSend(compressionTypes, "objectAtIndexedSubscript:", objc_msgSend(v84, "compressionType"))}];
+            v120 = objc_alloc_init(MEMORY[0x277CBEB40]);
+            v269 = 0u;
+            v270 = 0u;
+            v271 = 0u;
+            v272 = 0u;
+            layerReferences = [v84 layerReferences];
+            v122 = [layerReferences countByEnumeratingWithState:&v269 objects:v299 count:16];
+            if (v122)
+            {
+              v123 = v122;
+              v124 = *v270;
+              do
+              {
+                for (m = 0; m != v123; ++m)
+                {
+                  if (*v270 != v124)
+                  {
+                    objc_enumerationMutation(layerReferences);
+                  }
+
+                  v126 = *(*(&v269 + 1) + 8 * m);
+                  v127 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"LayerReference"];
+                  [v126 frame];
+                  [v127 setFrameRect:{floor(v128), floor(v129)}];
+                  [v127 setName:{objc_msgSend(v126, "layerName")}];
+                  v130 = MEMORY[0x277CCABB0];
+                  [v126 opacity];
+                  [v127 setOpacity:{objc_msgSend(v130, "numberWithDouble:")}];
+                  [v127 setBlendMode:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInt:", objc_msgSend(v126, "blendMode"))}];
+                  [v127 setMakeOpaqueIfPossible:{objc_msgSend(v126, "makeOpaqueIfPossible")}];
+                  [v127 setGradientOrColorName:{objc_msgSend(v126, "gradientOrColorName")}];
+                  [v126 blurStrength];
+                  [v127 setBlurStrength:?];
+                  [v127 setHasLightingEffects:{objc_msgSend(v126, "hasLightingEffects")}];
+                  [v127 setGathersSpecularByElement:{objc_msgSend(v126, "gathersSpecularByElement")}];
+                  [v127 setShadowStyle:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v126, "shadowStyle"))}];
+                  v131 = MEMORY[0x277CCABB0];
+                  [v126 shadowOpacity];
+                  [v127 setShadowOpacity:{objc_msgSend(v131, "numberWithDouble:")}];
+                  [v127 setHasSpecular:{objc_msgSend(v126, "hasSpecular")}];
+                  v132 = MEMORY[0x277CCABB0];
+                  [v126 translucency];
+                  [v127 setTranslucency:{objc_msgSend(v132, "numberWithDouble:")}];
+                  v133 = [obj filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v126, "layerName"))}];
+                  if ([v133 count] && (objc_msgSend(v133, "objectAtIndex:", 0), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v134 = objc_msgSend(v133, "objectAtIndex:", 0)) != 0)
+                  {
+                    v135 = v134;
+                    [v127 setReference:v134];
+                    [v135 setMakeOpaqueIfPossible:{objc_msgSend(v127, "makeOpaqueIfPossible")}];
+                  }
+
+                  else
+                  {
+                    [array2 addObject:v127];
+                  }
+
+                  [v120 addObject:v127];
+                }
+
+                v123 = [layerReferences countByEnumeratingWithState:&v269 objects:v299 count:16];
+              }
+
+              while (v123);
+            }
+
+            v110 = v249;
+            [v249 setLayerReferences:v120];
+
+            v50 = 0;
+            assetsCopy = assetsCopy2;
+            infosCopy6 = infos;
+            v84 = v252;
+          }
+        }
+
+        goto LABEL_238;
+      }
+
+      if (![objc_msgSend(objc_msgSend(v250 fileURLWithDocument:{selfCopy), "pathExtension"), "caseInsensitiveCompare:", @"SVG"}])
+      {
+        [v110 setColorSpaceID:{objc_msgSend(v84, "colorSpaceID")}];
+      }
+
+      [v110 setAsset:v250];
+      [v84 physicalSizeInMeters];
+      if (v112 <= 0.0 || v113 <= 0.0)
+      {
+        v50 = v245;
+        if (v112 == 0.0 && v113 == 0.0)
+        {
+          [v110 setPhysicalSizeInMeters:{v216, v215}];
+        }
+
+        else
+        {
+          [objc_msgSend(MEMORY[0x277CCA890] "currentHandler")];
+        }
+      }
+
+      else
+      {
+        [v110 setPhysicalSizeInMeters:?];
+        v50 = v245;
+      }
+
+      v307.origin.x = v34;
+      v307.origin.y = v33;
+      v307.size.width = v32;
+      v307.size.height = v31;
+      if (CGRectIsEmpty(v307))
+      {
+        if (v50)
+        {
+          goto LABEL_199;
+        }
+
+        [v84 alignmentRect];
+        v34 = v114;
+        v33 = v115;
+        v32 = v116;
+        v31 = v117;
+      }
+
+      [v110 setAlignmentRect:{v34, v33, v32, v31}];
+LABEL_199:
+      if ([v29 count])
+      {
+        [v110 setSlices:v29];
+      }
+
+      if ([v84 renditionType] == 1000)
+      {
+        if (![(CoreThemeDocument *)selfCopy featureEnabled:5])
+        {
+          goto LABEL_236;
+        }
+
+        if ([v84 compressionType] == 2 || !objc_msgSend(v84, "compressionType") || objc_msgSend(v84, "compressionType") == 1)
+        {
+          goto LABEL_235;
+        }
+
+        [v110 setCompressionType:{objc_msgSend(compressionTypes, "objectAtIndexedSubscript:", 0)}];
+        if ([v84 compressionType] && objc_msgSend(v84, "compressionType") != 1)
+        {
+          NSLog(&cfstr_CoreuiOnlyLoss.isa, [v84 name], objc_msgSend(v84, "fileURL"));
+        }
+      }
+
+      else
+      {
+        compressionType = [v84 compressionType];
+        if ((compressionType - 4) >= 2)
+        {
+          if (compressionType == 3)
+          {
+            if (![(CoreThemeDocument *)selfCopy featureEnabled:3])
+            {
+              goto LABEL_236;
+            }
+          }
+
+          else if (compressionType == 7)
+          {
+            v119 = selfCopy;
+            if (![(CoreThemeDocument *)selfCopy featureEnabled:10])
+            {
+LABEL_232:
+              if ([(CoreThemeDocument *)v119 featureEnabled:3])
+              {
+                v136 = compressionTypes;
+                compressionType2 = 3;
+LABEL_237:
+                [v110 setCompressionType:{objc_msgSend(v136, "objectAtIndexedSubscript:", compressionType2)}];
+                goto LABEL_238;
+              }
+
+LABEL_236:
+              v136 = compressionTypes;
+              compressionType2 = 0;
+              goto LABEL_237;
+            }
+          }
+
+LABEL_235:
+          compressionType2 = [v84 compressionType];
+          v136 = compressionTypes;
+          goto LABEL_237;
+        }
+
+        v119 = selfCopy;
+        if (![(CoreThemeDocument *)selfCopy featureEnabled:4])
+        {
+          goto LABEL_232;
+        }
+
+        [v110 setCompressionType:{objc_msgSend(compressionTypes, "objectAtIndexedSubscript:", objc_msgSend(v84, "compressionType"))}];
+        if ([(CoreThemeDocument *)selfCopy targetPlatform]== 1 || [(CoreThemeDocument *)selfCopy targetPlatform]== 4 || [(CoreThemeDocument *)selfCopy targetPlatform]== 3)
+        {
+          [objc_msgSend(v110 "keySpec")];
+        }
+      }
+
+LABEL_238:
+      [v110 resetToBaseKeySpec];
+      keySpec = [v110 keySpec];
+      [keySpec setScaleFactor:{objc_msgSend(v250, "scaleFactor")}];
+      if ([v40 preservesVectorRepresentation] && !objc_msgSend(keySpec, "scaleFactor") && (!objc_msgSend(objc_msgSend(objc_msgSend(v250, "fileURLWithDocument:", selfCopy), "pathExtension"), "caseInsensitiveCompare:", @"PDF") || !objc_msgSend(objc_msgSend(objc_msgSend(v250, "fileURLWithDocument:", selfCopy), "pathExtension"), "caseInsensitiveCompare:", @"SVG") && !objc_msgSend(objc_msgSend(keySpec, "glyphWeight"), "identifier")))
+      {
+        [keySpec setScaleFactor:{objc_msgSend(v250, "fileScaleFactor")}];
+        [keySpec setPart:v211];
+      }
+
+      v139 = v50;
+      if (v50)
+      {
+        [keySpec setSubtype:{+[TDAsset subtypeFromImageFilename:](TDAsset, "subtypeFromImageFilename:", objc_msgSend(v250, "name"))}];
+        v84 = v252;
+        idiom = +[TDAsset idiomFromImageFilename:](TDAsset, "idiomFromImageFilename:", [v250 name]);
+      }
+
+      else
+      {
+        [keySpec setSubtype:{objc_msgSend(v84, "subtype")}];
+        idiom = [v84 idiom];
+      }
+
+      v141 = [idioms objectAtIndex:idiom];
+      [keySpec setIdiom:v141];
+      if ([v141 identifier] == 6)
+      {
+        [v40 setMakeOpaqueIfPossible:1];
+      }
+
+      if (!v139)
+      {
+        [keySpec setGamut:{objc_msgSend(displayGamuts, "objectAtIndexedSubscript:", objc_msgSend(v84, "displayGamut"))}];
+        v142 = [sizeClasses objectAtIndexedSubscript:{objc_msgSend(v84, "sizeClassHorizontal")}];
+        v143 = [sizeClasses objectAtIndexedSubscript:{objc_msgSend(v252, "sizeClassVertical")}];
+        [keySpec setSizeClassHorizontal:v142];
+        v144 = v143;
+        v84 = v252;
+        [keySpec setSizeClassVertical:v144];
+        [keySpec setMemoryClass:{objc_msgSend(v252, "memoryClass")}];
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          goto LABEL_257;
+        }
+
+        compressionType3 = [v110 compressionType];
+        if (compressionType3 == [compressionTypes objectAtIndexedSubscript:4] || (v146 = objc_msgSend(v110, "compressionType"), v146 == objc_msgSend(compressionTypes, "objectAtIndexedSubscript:", 5)))
+        {
+          v84 = v252;
+          if (![(CoreThemeDocument *)selfCopy targetPlatform])
+          {
+            goto LABEL_267;
+          }
+
+          if ([(CoreThemeDocument *)selfCopy targetPlatform]== 2)
+          {
+            goto LABEL_267;
+          }
+
+          [keySpec setGraphicsFeatureSetClass:{objc_msgSend(featureSetClasses, "objectAtIndexedSubscript:", 2)}];
+          if ([(CoreThemeDocument *)selfCopy targetPlatform]!= 1)
+          {
+            goto LABEL_267;
+          }
+
+          v148 = deploymentTargets;
+          v149 = 1;
+        }
+
+        else
+        {
+          v147 = [objc_msgSend(objc_msgSend(v110 "asset")];
+          if ([v147 caseInsensitiveCompare:@"HEIF"] && objc_msgSend(v147, "caseInsensitiveCompare:", @"HEIC"))
+          {
+            v84 = v252;
+LABEL_257:
+            [keySpec setGraphicsFeatureSetClass:{objc_msgSend(featureSetClasses, "objectAtIndexedSubscript:", objc_msgSend(v84, "graphicsFeatureSetClass"))}];
+LABEL_267:
+            if ([v84 appearanceName])
+            {
+              [keySpec setAppearance:{-[CoreThemeDocument appearanceWithIdentifier:name:createIfNeeded:](selfCopy, "appearanceWithIdentifier:name:createIfNeeded:", objc_msgSend(v84, "appearanceIdentifier"), objc_msgSend(v84, "appearanceName"), 1)}];
+            }
+
+            if ([v84 localizationName])
+            {
+              [keySpec setLocalization:{-[CoreThemeDocument localizationWithIdentifier:name:createIfNeeded:](selfCopy, "localizationWithIdentifier:name:createIfNeeded:", objc_msgSend(v84, "localizationIdentifier"), objc_msgSend(v84, "localizationName"), 1)}];
+            }
+
+            [keySpec setDirection:{objc_msgSend(directions, "objectAtIndexedSubscript:", objc_msgSend(v84, "layoutDirection"))}];
+            goto LABEL_272;
+          }
+
+          v84 = v252;
+          if ([(CoreThemeDocument *)selfCopy targetPlatform]!= 1 && [(CoreThemeDocument *)selfCopy targetPlatform]!= 4 && [(CoreThemeDocument *)selfCopy targetPlatform]!= 3)
+          {
+            goto LABEL_267;
+          }
+
+          v148 = deploymentTargets;
+          v149 = 2;
+        }
+
+        [keySpec setTarget:{objc_msgSend(v148, "objectAtIndexedSubscript:", v149)}];
+        goto LABEL_267;
+      }
+
+      [keySpec setGamut:{objc_msgSend(displayGamuts, "objectAtIndexedSubscript:", 0)}];
+      [keySpec setSizeClassHorizontal:{objc_msgSend(sizeClasses, "objectAtIndexedSubscript:", 0)}];
+      [keySpec setSizeClassVertical:{objc_msgSend(sizeClasses, "objectAtIndexedSubscript:", 0)}];
+LABEL_272:
+      if ([v84 iconSize])
+      {
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            sizeIndexes = [v40 sizeIndexes];
+            v268[0] = MEMORY[0x277D85DD0];
+            v268[1] = 3221225472;
+            v268[2] = __91__CoreThemeDocument_createNamedArtworkProductionsForAssets_customInfos_skipLastStep_error___block_invoke;
+            v268[3] = &unk_278EBB0C0;
+            v268[4] = v84;
+            v151 = [objc_msgSend(sizeIndexes objectsPassingTest:{v268), "anyObject"}];
+            if (v151)
+            {
+              v152 = v151;
+              [keySpec setDimension2:{objc_msgSend(v151, "index")}];
+              [v110 setSizeIndex:v152];
+            }
+
+            multisizeImageSetRenditions = [v40 multisizeImageSetRenditions];
+            v267[0] = MEMORY[0x277D85DD0];
+            v267[1] = 3221225472;
+            v267[2] = __91__CoreThemeDocument_createNamedArtworkProductionsForAssets_customInfos_skipLastStep_error___block_invoke_2;
+            v267[3] = &unk_278EBB0C0;
+            v267[4] = keySpec;
+            v154 = [objc_msgSend(multisizeImageSetRenditions objectsPassingTest:{v267), "anyObject"}];
+            if (v154)
+            {
+              [v110 setMultisizeImageSetRendition:v154];
+              v84 = v252;
+            }
+
+            else
+            {
+              v155 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"MultisizeImageSetRenditionSpec"];
+              [v155 setRenditionType:v206];
+              infosCopy6 = infos;
+              v156 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"RenditionKeySpec"];
+              [v156 setElement:v236];
+              [v156 setPart:v207];
+              [v156 setNameIdentifier:{objc_msgSend(v252, "nameIdentifier")}];
+              [v156 setIdiom:{objc_msgSend(keySpec, "idiom")}];
+              [v156 setSubtype:{objc_msgSend(keySpec, "subtype")}];
+              [v155 setKeySpec:v156];
+
+              [v155 setProduction:v40];
+              [v110 setMultisizeImageSetRendition:v155];
+              v157 = v155;
+              v84 = v252;
+              [v157 setMultisizeImageSetProduction:v40];
+            }
+          }
+        }
+      }
+
+      [v110 setPreserveForArchiveOnly:{objc_msgSend(v84, "preserveForArchiveOnly")}];
+      if ([(CoreThemeDocument *)selfCopy targetPlatform])
+      {
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          compressionType4 = [v110 compressionType];
+          if ((compressionType4 == [compressionTypes objectAtIndexedSubscript:4] || (v159 = objc_msgSend(v110, "compressionType"), v159 == objc_msgSend(compressionTypes, "objectAtIndexedSubscript:", 5))) && objc_msgSend(objc_msgSend(objc_msgSend(v110, "keySpec"), "target"), "identifier") == 1)
+          {
+            v160 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"SimpleArtworkRenditionSpec"];
+            [v160 setProduction:v40];
+            [v160 setAsset:{objc_msgSend(v110, "asset")}];
+            [v110 alignmentRect];
+            [v160 setAlignmentRect:?];
+            [v160 setSlices:{objc_msgSend(v110, "slices")}];
+            [v160 setIsBackstop:1];
+            [v110 copyAttributesInto:v160];
+            if ([(CoreThemeDocument *)selfCopy featureEnabled:3])
+            {
+              v161 = 3;
+            }
+
+            else
+            {
+              v161 = 0;
+            }
+
+            [v160 setCompressionType:{objc_msgSend(compressionTypes, "objectAtIndexedSubscript:", v161)}];
+            if ([objc_msgSend(v160 "compressionType")] == 3)
+            {
+              [v160 setAllowsHevcCompression:{-[CoreThemeDocument shouldAllowHevcCompression](selfCopy, "shouldAllowHevcCompression")}];
+            }
+
+            else if (![objc_msgSend(v160 "compressionType")])
+            {
+              [v160 setAllowsPaletteImageCompression:{-[CoreThemeDocument shouldAllowPaletteImageCompression](selfCopy, "shouldAllowPaletteImageCompression")}];
+              [v160 setAllowsDeepmapCompression:{-[CoreThemeDocument shouldAllowDeepmapCompression](selfCopy, "shouldAllowDeepmapCompression")}];
+              [v160 setAllowsDeepmap2Compression:{-[CoreThemeDocument shouldAllowDeepmap2Compression](selfCopy, "shouldAllowDeepmap2Compression")}];
+            }
+
+            [v160 resetToBaseKeySpec];
+            keySpec2 = [v160 keySpec];
+            [keySpec2 setIdiom:{objc_msgSend(objc_msgSend(v110, "keySpec"), "idiom")}];
+            [keySpec2 setScaleFactor:{objc_msgSend(objc_msgSend(v110, "keySpec"), "scaleFactor")}];
+            [keySpec2 setSubtype:{objc_msgSend(objc_msgSend(v110, "keySpec"), "subtype")}];
+            [keySpec2 setGamut:{objc_msgSend(objc_msgSend(v110, "keySpec"), "gamut")}];
+            [keySpec2 setSizeClassHorizontal:{objc_msgSend(objc_msgSend(v110, "keySpec"), "sizeClassHorizontal")}];
+            [keySpec2 setSizeClassVertical:{objc_msgSend(objc_msgSend(v110, "keySpec"), "sizeClassVertical")}];
+            [keySpec2 setMemoryClass:{objc_msgSend(objc_msgSend(v110, "keySpec"), "memoryClass")}];
+            [keySpec2 setDirection:{objc_msgSend(objc_msgSend(v110, "keySpec"), "direction")}];
+            [keySpec2 setGraphicsFeatureSetClass:0];
+            if (([v160 allowsPaletteImageCompression] & 1) != 0 || (objc_msgSend(v160, "allowsHevcCompression") & 1) != 0 || objc_msgSend(v160, "allowsDeepmapCompression"))
+            {
+              [objc_msgSend(v160 "keySpec")];
+            }
+
+            if ([v160 allowsDeepmap2Compression])
+            {
+              [objc_msgSend(v160 "keySpec")];
+            }
+
+            infosCopy6 = infos;
+          }
+
+          else
+          {
+            v162 = [objc_msgSend(objc_msgSend(v110 "asset")];
+            if ((![v162 caseInsensitiveCompare:@"HEIF"] || !objc_msgSend(v162, "caseInsensitiveCompare:", @"HEIC")) && objc_msgSend(objc_msgSend(objc_msgSend(v110, "keySpec"), "target"), "identifier") == 2)
+            {
+              v163 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"SimpleArtworkRenditionSpec"];
+              [v163 setProduction:v40];
+              [v163 resetToBaseKeySpec];
+              keySpec3 = [v163 keySpec];
+              [v163 setAsset:{objc_msgSend(v110, "asset")}];
+              [v110 alignmentRect];
+              [v163 setAlignmentRect:?];
+              [v163 setSlices:{objc_msgSend(v110, "slices")}];
+              [v163 setCompressionType:{objc_msgSend(compressionTypes, "objectAtIndexedSubscript:", 3)}];
+              [v163 setIsBackstop:1];
+              [keySpec3 setIdiom:{objc_msgSend(objc_msgSend(v110, "keySpec"), "idiom")}];
+              [keySpec3 setScaleFactor:{objc_msgSend(objc_msgSend(v110, "keySpec"), "scaleFactor")}];
+              [keySpec3 setSubtype:{objc_msgSend(objc_msgSend(v110, "keySpec"), "subtype")}];
+              [keySpec3 setGamut:{objc_msgSend(objc_msgSend(v110, "keySpec"), "gamut")}];
+              [keySpec3 setSizeClassHorizontal:{objc_msgSend(objc_msgSend(v110, "keySpec"), "sizeClassHorizontal")}];
+              [keySpec3 setSizeClassVertical:{objc_msgSend(objc_msgSend(v110, "keySpec"), "sizeClassVertical")}];
+              [keySpec3 setMemoryClass:{objc_msgSend(objc_msgSend(v110, "keySpec"), "memoryClass")}];
+              [keySpec3 setDirection:{objc_msgSend(objc_msgSend(v110, "keySpec"), "direction")}];
+              [keySpec3 setGraphicsFeatureSetClass:0];
+              [keySpec3 setAppearance:{objc_msgSend(objc_msgSend(v110, "keySpec"), "appearance")}];
+              [keySpec3 setTarget:{objc_msgSend(deploymentTargets, "objectAtIndexedSubscript:", 0)}];
+            }
+          }
+        }
+      }
+
+LABEL_303:
+      v16 = v244 + 1;
+      self = selfCopy;
+      if (v244 + 1 >= [assetsCopy count])
+      {
+        goto LABEL_318;
+      }
+    }
+
+    if (v21 == v241)
+    {
+      name2 = [0 name];
+    }
+
+    else
+    {
+LABEL_15:
+      name2 = [v21 baseName];
+    }
+
+    name = name2;
+    v25 = 0;
+LABEL_28:
+    v29 = 0;
+    v245 = 1;
+    v31 = v20;
+    v32 = v19;
+    v33 = v18;
+    v34 = v17;
+    v35 = v234;
+LABEL_29:
+    v247 = v35;
+    goto LABEL_30;
+  }
+
+LABEL_318:
+  if (stepCopy)
+  {
+  }
+
+  else
+  {
+    [(CoreThemeDocument *)self _removeRedundantPDFBasedRenditionsForAssets:assetsCopy];
+    v265 = 0u;
+    v266 = 0u;
+    v263 = 0u;
+    v264 = 0u;
+    v177 = [array2 countByEnumeratingWithState:&v263 objects:v298 count:16];
+    if (v177)
+    {
+      v178 = v177;
+      v179 = *v264;
+      do
+      {
+        for (n = 0; n != v178; ++n)
+        {
+          if (*v264 != v179)
+          {
+            objc_enumerationMutation(array2);
+          }
+
+          v181 = *(*(&v263 + 1) + 8 * n);
+          v182 = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](selfCopy, "objectsForEntity:withPredicate:sortDescriptors:", @"NamedArtworkProduction", [MEMORY[0x277CCAC30] predicateWithFormat:@"name.name == %@", objc_msgSend(v181, "name")], 0);
+          if ([v182 count] && (objc_msgSend(v182, "objectAtIndex:", 0), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          {
+            v183 = [v182 objectAtIndex:0];
+          }
+
+          else
+          {
+            NSLog(&cfstr_CouldnTResolve.isa, [v181 name], objc_msgSend(objc_msgSend(objc_msgSend(v181, "stack"), "production"), "name"));
+            v183 = 0;
+          }
+
+          [v181 setReference:v183];
+          [v183 setMakeOpaqueIfPossible:{objc_msgSend(v181, "makeOpaqueIfPossible")}];
+        }
+
+        v178 = [array2 countByEnumeratingWithState:&v263 objects:v298 count:16];
+      }
+
+      while (v178);
+    }
+
+    if (selfCopy->_explicitlyPackedIdentifiers)
+    {
+      v184 = [(CoreThemeDocument *)selfCopy allObjectsForEntity:@"NamedElement" withSortDescriptors:0];
+      v259 = 0u;
+      v260 = 0u;
+      v261 = 0u;
+      v262 = 0u;
+      obja = [(NSMutableDictionary *)selfCopy->_explicitlyPackedIdentifiers allKeys];
+      v185 = [obja countByEnumeratingWithState:&v259 objects:v297 count:16];
+      if (v185)
+      {
+        v186 = v185;
+        v187 = *v260;
+        do
+        {
+          for (ii = 0; ii != v186; ++ii)
+          {
+            if (*v260 != v187)
+            {
+              objc_enumerationMutation(obja);
+            }
+
+            v189 = *(*(&v259 + 1) + 8 * ii);
+            v190 = [(NSMutableDictionary *)selfCopy->_explicitlyPackedIdentifiers objectForKey:v189];
+            [(NSMutableDictionary *)selfCopy->_explicitlyPackedIdentifiers removeObjectForKey:v189];
+            v191 = [objc_msgSend(v184 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name == %@", v189)), "firstObject"}];
+            if (v191)
+            {
+              -[NSMutableDictionary setObject:forKey:](selfCopy->_explicitlyPackedIdentifiers, "setObject:forKey:", v190, [v191 identifier]);
+            }
+
+            else
+            {
+              NSLog(&cfstr_Corethemedefin_2.isa, v189);
+            }
+          }
+
+          v186 = [obja countByEnumeratingWithState:&v259 objects:v297 count:16];
+        }
+
+        while (v186);
+      }
+    }
+  }
+
+  return array;
+}
+
 BOOL __91__CoreThemeDocument_createNamedArtworkProductionsForAssets_customInfos_skipLastStep_error___block_invoke(uint64_t a1, void *a2)
 {
   [objc_msgSend(*(a1 + 32) "iconSize")];
@@ -4156,54 +5761,602 @@ BOOL __91__CoreThemeDocument_createNamedArtworkProductionsForAssets_customInfos_
   return result;
 }
 
+- (void)createNamedTexturesForCustomInfos:(id)infos referenceFiles:(BOOL)files bitSource:(id)source error:(id *)error
+{
+  v100[1] = *MEMORY[0x277D85DE8];
+  error = [(CoreThemeDocument *)self elementWithIdentifier:41, files, source, error];
+  v65 = [(CoreThemeDocument *)self partWithIdentifier:181];
+  v100[0] = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"mipLevel" ascending:0];
+  v62 = [MEMORY[0x277CBEA60] arrayWithObjects:v100 count:1];
+  compressionTypes = [(CoreThemeDocument *)self compressionTypes];
+  idioms = [(CoreThemeDocument *)self idioms];
+  sizeClasses = [(CoreThemeDocument *)self sizeClasses];
+  displayGamuts = [(CoreThemeDocument *)self displayGamuts];
+  directions = [(CoreThemeDocument *)self directions];
+  featureSetClasses = [(CoreThemeDocument *)self featureSetClasses];
+  textureFaces = [(CoreThemeDocument *)self textureFaces];
+  if ([(CoreThemeDocument *)self featureEnabled:8])
+  {
+    v55 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1007];
+    v54 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:10];
+    v60 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v92 = 0u;
+    v93 = 0u;
+    v94 = 0u;
+    v95 = 0u;
+    v7 = [(CoreThemeDocument *)self objectsForEntity:@"Tag" withPredicate:0 sortDescriptors:0];
+    v8 = [v7 countByEnumeratingWithState:&v92 objects:v99 count:16];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v93;
+      do
+      {
+        for (i = 0; i != v9; ++i)
+        {
+          if (*v93 != v10)
+          {
+            objc_enumerationMutation(v7);
+          }
+
+          [v60 setObject:objc_msgSend(MEMORY[0x277CBEA60] forKey:{"arrayWithObject:", *(*(&v92 + 1) + 8 * i)), objc_msgSend(*(*(&v92 + 1) + 8 * i), "identifier")}];
+        }
+
+        v9 = [v7 countByEnumeratingWithState:&v92 objects:v99 count:16];
+      }
+
+      while (v9);
+    }
+
+    v58 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"NamedTextureProduction", 0, 0)}];
+    v88 = 0u;
+    v89 = 0u;
+    v90 = 0u;
+    v91 = 0u;
+    v57 = [infos countByEnumeratingWithState:&v88 objects:v98 count:16];
+    if (v57)
+    {
+      v56 = *v89;
+      v64 = *MEMORY[0x277CBEEE8];
+      do
+      {
+        v12 = 0;
+        do
+        {
+          if (*v89 != v56)
+          {
+            objc_enumerationMutation(infos);
+          }
+
+          v59 = v12;
+          v13 = *(*(&v88 + 1) + 8 * v12);
+          v14 = [v58 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v13, "name"))}];
+          if ([v14 firstObject] && (objc_msgSend(v14, "firstObject"), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          {
+            firstObject = [v14 firstObject];
+          }
+
+          else
+          {
+            firstObject = [(CoreThemeDocument *)self newObjectForEntity:@"NamedTextureProduction"];
+            v16 = -[CoreThemeDocument _createNamedElementWithIdentifier:](self, "_createNamedElementWithIdentifier:", [v13 nameIdentifier]);
+            [v16 setName:{objc_msgSend(v13, "name")}];
+            [v16 setProduction:firstObject];
+            v17 = [(CoreThemeDocument *)self newObjectForEntity:@"RenditionKeySpec"];
+            [firstObject setBaseKeySpec:v17];
+            [v17 setElement:error];
+            [v17 setNameIdentifier:{objc_msgSend(objc_msgSend(v16, "identifier"), "unsignedIntValue")}];
+            [firstObject setDateOfLastChange:{objc_msgSend(v13, "modificationDate")}];
+            [firstObject setOptOutOfThinning:{objc_msgSend(v13, "optOutOfThinning")}];
+            [firstObject setTextureInterpretation:{-[CoreThemeDocument textureInterpretaitionWithIdentifier:](self, "textureInterpretaitionWithIdentifier:", objc_msgSend(v13, "textureInterpretation"))}];
+            [firstObject setRenditionType:v55];
+            [firstObject setRenditionSubtype:v54];
+
+            [v58 addObject:firstObject];
+            if (v13)
+            {
+              tags = [v13 tags];
+              if ([tags count])
+              {
+                v19 = objc_alloc_init(MEMORY[0x277CBEB58]);
+                v84 = 0u;
+                v85 = 0u;
+                v86 = 0u;
+                v87 = 0u;
+                v20 = [tags countByEnumeratingWithState:&v84 objects:v97 count:16];
+                if (v20)
+                {
+                  v21 = v20;
+                  v22 = *v85;
+                  v67 = tags;
+                  do
+                  {
+                    for (j = 0; j != v21; ++j)
+                    {
+                      if (*v85 != v22)
+                      {
+                        objc_enumerationMutation(v67);
+                      }
+
+                      v24 = *(*(&v84 + 1) + 8 * j);
+                      v25 = [v60 objectForKey:v24];
+                      if ([v25 count])
+                      {
+                        if ([v25 count] != 1)
+                        {
+                          [CoreThemeDocument createNamedTexturesForCustomInfos:referenceFiles:bitSource:error:];
+                        }
+
+                        v26 = [v25 objectAtIndex:0];
+                      }
+
+                      else
+                      {
+                        v26 = [(CoreThemeDocument *)self newObjectForEntity:@"Tag"];
+                        [v26 setIdentifier:v24];
+                        [v60 setObject:objc_msgSend(MEMORY[0x277CBEA60] forKey:{"arrayWithObject:", v26), v24}];
+                      }
+
+                      [v19 addObject:v26];
+                    }
+
+                    tags = v67;
+                    v21 = [v67 countByEnumeratingWithState:&v84 objects:v97 count:16];
+                  }
+
+                  while (v21);
+                }
+
+                [firstObject addTags:v19];
+                v27 = [tags count];
+                if (v27 != [v19 count])
+                {
+                  [CoreThemeDocument createNamedTexturesForCustomInfos:referenceFiles:bitSource:error:];
+                }
+              }
+
+              if ([objc_msgSend(v13 "universalTypeIdentifier")])
+              {
+                [firstObject setUniversalTypeIdentifier:{objc_msgSend(v13, "universalTypeIdentifier")}];
+              }
+            }
+          }
+
+          v28 = [(CoreThemeDocument *)self newObjectForEntity:@"TextureRenditionSpec"];
+          [v28 setProduction:firstObject];
+          [v28 setPixelFormat:-[CoreThemeDocument pixelFormatWithIdentifier:](self, "pixelFormatWithIdentifier:", objc_msgSend(v13, "texturePixelFormat"))];
+          [v28 setCompressionType:{objc_msgSend(compressionTypes, "objectAtIndexedSubscript:", 0)}];
+          -[CoreThemeDocument compressionTypeWithIdentifier:](self, "compressionTypeWithIdentifier:", [v13 compressionType]);
+          [v28 setCubeMap:{objc_msgSend(v13, "cubeMap")}];
+          [v28 setWidth:{objc_msgSend(v13, "textureWidth")}];
+          [v28 setHeight:{objc_msgSend(v13, "textureHeight")}];
+          [v28 resetToBaseKeySpec];
+          [v28 setPreserveForArchiveOnly:{objc_msgSend(v13, "preserveForArchiveOnly")}];
+          keySpec = [v28 keySpec];
+          [keySpec setIdiom:{objc_msgSend(idioms, "objectAtIndexedSubscript:", objc_msgSend(v13, "idiom"))}];
+          [keySpec setScaleFactor:{objc_msgSend(v13, "scaleFactor")}];
+          [keySpec setSubtype:{objc_msgSend(v13, "subtype")}];
+          [keySpec setGamut:{objc_msgSend(displayGamuts, "objectAtIndexedSubscript:", objc_msgSend(v13, "displayGamut"))}];
+          [keySpec setSizeClassHorizontal:{objc_msgSend(sizeClasses, "objectAtIndexedSubscript:", objc_msgSend(v13, "sizeClassHorizontal"))}];
+          [keySpec setSizeClassVertical:{objc_msgSend(sizeClasses, "objectAtIndexedSubscript:", objc_msgSend(v13, "sizeClassVertical"))}];
+          [keySpec setMemoryClass:{objc_msgSend(v13, "memoryClass")}];
+          [keySpec setDirection:{objc_msgSend(directions, "objectAtIndexedSubscript:", objc_msgSend(v13, "layoutDirection"))}];
+          [keySpec setGraphicsFeatureSetClass:{objc_msgSend(featureSetClasses, "objectAtIndexedSubscript:", objc_msgSend(v13, "graphicsFeatureSetClass"))}];
+          [keySpec setAppearance:{-[CoreThemeDocument appearanceWithIdentifier:name:createIfNeeded:](self, "appearanceWithIdentifier:name:createIfNeeded:", objc_msgSend(v13, "appearanceIdentifier"), objc_msgSend(v13, "appearanceName"), 1)}];
+          [keySpec setLocalization:{-[CoreThemeDocument localizationWithIdentifier:name:createIfNeeded:](self, "localizationWithIdentifier:name:createIfNeeded:", objc_msgSend(v13, "localizationIdentifier"), objc_msgSend(v13, "localizationName"), 1)}];
+          v82 = 0u;
+          v83 = 0u;
+          v80 = 0u;
+          v81 = 0u;
+          textureInfos = [v13 textureInfos];
+          v30 = [textureInfos countByEnumeratingWithState:&v80 objects:v96 count:16];
+          if (v30)
+          {
+            v31 = v30;
+            v68 = *v81;
+            do
+            {
+              for (k = 0; k != v31; ++k)
+              {
+                if (*v81 != v68)
+                {
+                  objc_enumerationMutation(textureInfos);
+                }
+
+                v33 = *(*(&v80 + 1) + 8 * k);
+                v77 = 0;
+                sourceCopy = source;
+                v78 = 0;
+                v79 = 0;
+                fileURL = [v33 fileURL];
+                flipped = [v33 flipped];
+                if (fileURL)
+                {
+                  v36 = fileURL == v64;
+                }
+
+                else
+                {
+                  v36 = 1;
+                }
+
+                if (!v36)
+                {
+                  v39 = flipped;
+                  [(CoreThemeDocument *)self _getFilename:&v79 scaleFactor:&v77 category:&v78 bitSource:&sourceCopy forFileURL:fileURL];
+LABEL_47:
+                  pathComponents = [fileURL pathComponents];
+                  UncommonItemInArrays = indexOfFirstUncommonItemInArrays([objc_msgSend(sourceCopy fileURLWithDocument:{self), "pathComponents"}], pathComponents);
+                  v42 = [pathComponents subarrayWithRange:{UncommonItemInArrays, objc_msgSend(pathComponents, "count") + ~UncommonItemInArrays}];
+                  v78 = [MEMORY[0x277CCACA8] pathWithComponents:v42];
+                  goto LABEL_48;
+                }
+
+                textureInfos2 = [v13 textureInfos];
+                v38 = [objc_msgSend(textureInfos2 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"(mipLevel < %d) AND (fileURL != nil) AND (textureFace = %d)", objc_msgSend(v33, "mipLevel"), objc_msgSend(v33, "textureFace"))), "sortedArrayUsingDescriptors:", v62}];
+                fileURL = [objc_msgSend(v38 "firstObject")];
+                v39 = [objc_msgSend(v38 "firstObject")];
+                [(CoreThemeDocument *)self _getFilename:&v79 scaleFactor:&v77 category:&v78 bitSource:&sourceCopy forFileURL:fileURL];
+                if (fileURL)
+                {
+                  goto LABEL_47;
+                }
+
+LABEL_48:
+                v43 = v79;
+                scaleFactor = [v13 scaleFactor];
+                v45 = [(CoreThemeDocument *)self createAssetWithName:v43 fileType:@"texture" scaleFactor:scaleFactor inCategory:v78 forThemeBitSource:sourceCopy];
+                v46 = [(CoreThemeDocument *)self newObjectForEntity:@"TextureImageRenditionSpec"];
+                [v46 setPreserveForArchiveOnly:{objc_msgSend(v13, "preserveForArchiveOnly")}];
+                if (([v13 compressionType] & 0xFFFFFFFFFFFFFFFELL) == 4 && !-[CoreThemeDocument featureEnabled:](self, "featureEnabled:", 4))
+                {
+                  if ([(CoreThemeDocument *)self featureEnabled:3])
+                  {
+                    compressionType = 3;
+                  }
+
+                  else
+                  {
+                    compressionType = 0;
+                  }
+                }
+
+                else
+                {
+                  compressionType = [v13 compressionType];
+                }
+
+                [v46 setCompressionType:{objc_msgSend(compressionTypes, "objectAtIndexedSubscript:", compressionType)}];
+                [v46 setProduction:firstObject];
+                [v46 setAsset:v45];
+                [v46 setFlipped:v39];
+                mipLevel = [v33 mipLevel];
+                if ([v28 width] >> mipLevel < 2)
+                {
+                  v49 = 1;
+                }
+
+                else
+                {
+                  v49 = ([v28 width] >> mipLevel);
+                }
+
+                [v46 setWidth:v49];
+                if ([v28 height] >> mipLevel < 2)
+                {
+                  v50 = 1;
+                }
+
+                else
+                {
+                  v50 = ([v28 height] >> mipLevel);
+                }
+
+                [v46 setHeight:v50];
+                v51 = [(CoreThemeDocument *)self newObjectForEntity:@"TextureMipLevel"];
+                if ([v13 cubeMap])
+                {
+                  [v51 setFace:{objc_msgSend(textureFaces, "objectAtIndexedSubscript:", objc_msgSend(v33, "textureFace"))}];
+                }
+
+                [v51 setLevel:mipLevel];
+                [v51 setTextureImage:v46];
+                [v28 addMipLevelsObject:v51];
+
+                keySpec2 = [v46 keySpec];
+                [keySpec2 setElement:error];
+                [keySpec2 setPart:v65];
+                [keySpec2 setNameIdentifier:{objc_msgSend(objc_msgSend(firstObject, "baseKeySpec"), "nameIdentifier")}];
+                [keySpec2 setIdiom:{objc_msgSend(idioms, "objectAtIndexedSubscript:", objc_msgSend(v13, "idiom"))}];
+                [keySpec2 setScaleFactor:{objc_msgSend(v13, "scaleFactor")}];
+                [keySpec2 setSubtype:{objc_msgSend(v13, "subtype")}];
+                [keySpec2 setGamut:{objc_msgSend(displayGamuts, "objectAtIndexedSubscript:", objc_msgSend(v13, "displayGamut"))}];
+                [keySpec2 setSizeClassHorizontal:{objc_msgSend(sizeClasses, "objectAtIndexedSubscript:", objc_msgSend(v13, "sizeClassHorizontal"))}];
+                [keySpec2 setSizeClassVertical:{objc_msgSend(sizeClasses, "objectAtIndexedSubscript:", objc_msgSend(v13, "sizeClassVertical"))}];
+                [keySpec2 setMemoryClass:{objc_msgSend(v13, "memoryClass")}];
+                [keySpec2 setDirection:{objc_msgSend(directions, "objectAtIndexedSubscript:", objc_msgSend(v13, "layoutDirection"))}];
+                [keySpec2 setGraphicsFeatureSetClass:{objc_msgSend(featureSetClasses, "objectAtIndexedSubscript:", objc_msgSend(v13, "graphicsFeatureSetClass"))}];
+                [keySpec2 setDimension2:{objc_msgSend(v33, "mipLevel")}];
+                [keySpec2 setAppearance:{objc_msgSend(objc_msgSend(v28, "keySpec"), "appearance")}];
+              }
+
+              v31 = [textureInfos countByEnumeratingWithState:&v80 objects:v96 count:16];
+            }
+
+            while (v31);
+          }
+
+          v12 = v59 + 1;
+        }
+
+        while (v59 + 1 != v57);
+        v57 = [infos countByEnumeratingWithState:&v88 objects:v98 count:16];
+      }
+
+      while (v57);
+    }
+  }
+}
+
+- (void)createNamedModelsForCustomInfos:(id)infos referenceFiles:(BOOL)files bitSource:(id)source error:(id *)error
+{
+  sourceCopy = source;
+  v71 = *MEMORY[0x277D85DE8];
+  error = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1011, files, source, error];
+  v42 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:10];
+  v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v64 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v9 = [(CoreThemeDocument *)self objectsForEntity:@"Tag" withPredicate:0 sortDescriptors:0];
+  v10 = [v9 countByEnumeratingWithState:&v64 objects:v70 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v65;
+    do
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        if (*v65 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        [v8 setObject:objc_msgSend(MEMORY[0x277CBEA60] forKey:{"arrayWithObject:", *(*(&v64 + 1) + 8 * i)), objc_msgSend(*(*(&v64 + 1) + 8 * i), "identifier")}];
+      }
+
+      v11 = [v9 countByEnumeratingWithState:&v64 objects:v70 count:16];
+    }
+
+    while (v11);
+  }
+
+  v49 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"ModelIOProduction", 0, 0)}];
+  v60 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v15 = v42;
+  v14 = error;
+  v48 = [infos countByEnumeratingWithState:&v60 objects:v69 count:16];
+  if (v48)
+  {
+    v47 = *v61;
+    v41 = sourceCopy;
+    do
+    {
+      v16 = 0;
+      do
+      {
+        if (*v61 != v47)
+        {
+          objc_enumerationMutation(infos);
+        }
+
+        v51 = v16;
+        v17 = *(*(&v60 + 1) + 8 * v16);
+        v57 = 0;
+        v56 = sourceCopy;
+        v58 = 0;
+        v59 = 0;
+        fileURL = [v17 fileURL];
+        v18 = [v49 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v17, "name"))}];
+        if ([v18 firstObject])
+        {
+          [v18 firstObject];
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            firstObject = [v18 firstObject];
+LABEL_35:
+            v32 = fileURL;
+            goto LABEL_36;
+          }
+        }
+
+        firstObject = [(CoreThemeDocument *)self newObjectForEntity:@"ModelIOProduction"];
+        v20 = -[CoreThemeDocument _createNamedElementWithIdentifier:](self, "_createNamedElementWithIdentifier:", [v17 nameIdentifier]);
+        [v20 setName:{objc_msgSend(v17, "name")}];
+        [v20 setProduction:firstObject];
+        v21 = [(CoreThemeDocument *)self newObjectForEntity:@"RenditionKeySpec"];
+        [v21 setElement:{-[CoreThemeDocument elementWithIdentifier:](self, "elementWithIdentifier:", 164)}];
+        [v21 setPart:{-[CoreThemeDocument partWithIdentifier:](self, "partWithIdentifier:", 60)}];
+        [v21 setNameIdentifier:{objc_msgSend(objc_msgSend(v20, "identifier"), "unsignedIntValue")}];
+        [firstObject setBaseKeySpec:v21];
+        [firstObject setDateOfLastChange:{objc_msgSend(v17, "modificationDate")}];
+        [firstObject setRenditionType:v14];
+        [firstObject setRenditionSubtype:v15];
+
+        [v49 addObject:firstObject];
+        if (!v17)
+        {
+          goto LABEL_35;
+        }
+
+        tags = [v17 tags];
+        if ([tags count])
+        {
+          v45 = firstObject;
+          v46 = v17;
+          v23 = objc_alloc_init(MEMORY[0x277CBEB58]);
+          v52 = 0u;
+          v53 = 0u;
+          v54 = 0u;
+          v55 = 0u;
+          v24 = [tags countByEnumeratingWithState:&v52 objects:v68 count:16];
+          if (v24)
+          {
+            v25 = v24;
+            v26 = *v53;
+            do
+            {
+              for (j = 0; j != v25; ++j)
+              {
+                if (*v53 != v26)
+                {
+                  objc_enumerationMutation(tags);
+                }
+
+                v28 = *(*(&v52 + 1) + 8 * j);
+                v29 = [v8 objectForKey:v28];
+                if ([v29 count])
+                {
+                  if ([v29 count] != 1)
+                  {
+                    [CoreThemeDocument createNamedModelsForCustomInfos:referenceFiles:bitSource:error:];
+                  }
+
+                  v30 = [v29 objectAtIndex:0];
+                }
+
+                else
+                {
+                  v30 = [(CoreThemeDocument *)self newObjectForEntity:@"Tag"];
+                  [v30 setIdentifier:v28];
+                  [v8 setObject:objc_msgSend(MEMORY[0x277CBEA60] forKey:{"arrayWithObject:", v30), v28}];
+                }
+
+                [v23 addObject:v30];
+              }
+
+              v25 = [tags countByEnumeratingWithState:&v52 objects:v68 count:16];
+            }
+
+            while (v25);
+          }
+
+          firstObject = v45;
+          [v45 addTags:v23];
+          v31 = [tags count];
+          if (v31 != [v23 count])
+          {
+            [CoreThemeDocument createNamedModelsForCustomInfos:referenceFiles:bitSource:error:];
+          }
+
+          sourceCopy = v41;
+          v15 = v42;
+          v14 = error;
+          v17 = v46;
+        }
+
+        v32 = fileURL;
+        if ([objc_msgSend(v17 "universalTypeIdentifier")])
+        {
+          [firstObject setUniversalTypeIdentifier:{objc_msgSend(v17, "universalTypeIdentifier")}];
+        }
+
+LABEL_36:
+        [(CoreThemeDocument *)self _getFilename:&v59 scaleFactor:&v57 category:&v58 bitSource:&v56 forFileURL:v32];
+        if (v32)
+        {
+          pathComponents = [v32 pathComponents];
+          UncommonItemInArrays = indexOfFirstUncommonItemInArrays([objc_msgSend(v56 fileURLWithDocument:{self), "pathComponents"}], pathComponents);
+          v35 = [pathComponents subarrayWithRange:{UncommonItemInArrays, objc_msgSend(pathComponents, "count") + ~UncommonItemInArrays}];
+          v58 = [MEMORY[0x277CCACA8] pathWithComponents:v35];
+        }
+
+        v36 = v59;
+        scaleFactor = [v17 scaleFactor];
+        v38 = [(CoreThemeDocument *)self createAssetWithName:v36 fileType:@"model" scaleFactor:scaleFactor inCategory:v58 forThemeBitSource:v56];
+        v39 = [(CoreThemeDocument *)self newObjectForEntity:@"ModelIORenditionSpec"];
+        [v39 setAsset:v38];
+        [v39 setProduction:firstObject];
+        [v39 setPreserveForArchiveOnly:{objc_msgSend(v17, "preserveForArchiveOnly")}];
+        [v39 resetToBaseKeySpec];
+        keySpec = [v39 keySpec];
+        [keySpec setIdiom:{-[CoreThemeDocument idiomWithIdentifier:](self, "idiomWithIdentifier:", objc_msgSend(v17, "idiom"))}];
+        [keySpec setScaleFactor:{objc_msgSend(v17, "scaleFactor")}];
+        [keySpec setSubtype:{objc_msgSend(v17, "subtype")}];
+        [keySpec setGamut:{-[CoreThemeDocument displayGamutWithIdentifier:](self, "displayGamutWithIdentifier:", objc_msgSend(v17, "displayGamut"))}];
+        [keySpec setSizeClassHorizontal:{-[CoreThemeDocument sizeClassWithIdentifier:](self, "sizeClassWithIdentifier:", objc_msgSend(v17, "sizeClassHorizontal"))}];
+        [keySpec setSizeClassVertical:{-[CoreThemeDocument sizeClassWithIdentifier:](self, "sizeClassWithIdentifier:", objc_msgSend(v17, "sizeClassVertical"))}];
+        [keySpec setMemoryClass:{objc_msgSend(v17, "memoryClass")}];
+        [keySpec setDirection:{-[CoreThemeDocument directionWithIdentifier:](self, "directionWithIdentifier:", objc_msgSend(v17, "layoutDirection"))}];
+        [keySpec setGraphicsFeatureSetClass:{-[CoreThemeDocument graphicsFeatureSetClassWithIdentifier:](self, "graphicsFeatureSetClassWithIdentifier:", objc_msgSend(v17, "graphicsFeatureSetClass"))}];
+        [keySpec setAppearance:{-[CoreThemeDocument appearanceWithIdentifier:name:createIfNeeded:](self, "appearanceWithIdentifier:name:createIfNeeded:", objc_msgSend(v17, "appearanceIdentifier"), objc_msgSend(v17, "appearanceName"), 1)}];
+        [keySpec setLocalization:{-[CoreThemeDocument localizationWithIdentifier:name:createIfNeeded:](self, "localizationWithIdentifier:name:createIfNeeded:", objc_msgSend(v17, "localizationIdentifier"), objc_msgSend(v17, "localizationName"), 1)}];
+
+        v16 = v51 + 1;
+      }
+
+      while (v51 + 1 != v48);
+      v48 = [infos countByEnumeratingWithState:&v60 objects:v69 count:16];
+    }
+
+    while (v48);
+  }
+}
+
 - (void)createNamedRecognitionObjectsForAssets:(id)assets customInfos:(id)infos error:(id *)error
 {
   infosCopy = infos;
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   error = [(CoreThemeDocument *)self elementWithIdentifier:85, infos, error];
-  v43 = [(CoreThemeDocument *)self partWithIdentifier:207];
-  v42 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1014];
+  v42 = [(CoreThemeDocument *)self partWithIdentifier:207];
+  v41 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1014];
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v8 = [(CoreThemeDocument *)self objectsForEntity:@"Tag" withPredicate:0 sortDescriptors:0];
-  v9 = [v8 countByEnumeratingWithState:&v51 objects:v56 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v50 objects:v55 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v52;
+    v11 = *v51;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v52 != v11)
+        if (*v51 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [v7 setObject:objc_msgSend(MEMORY[0x277CBEA60] forKey:{"arrayWithObject:", *(*(&v51 + 1) + 8 * i)), objc_msgSend(*(*(&v51 + 1) + 8 * i), "identifier")}];
+        [v7 setObject:objc_msgSend(MEMORY[0x277CBEA60] forKey:{"arrayWithObject:", *(*(&v50 + 1) + 8 * i)), objc_msgSend(*(*(&v50 + 1) + 8 * i), "identifier")}];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v50 objects:v55 count:16];
     }
 
     while (v10);
   }
 
-  v44 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"RecognitionObjectProduction", 0, 0)}];
+  v43 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"RecognitionObjectProduction", 0, 0)}];
   v14 = error;
   assetsCopy2 = assets;
   if ([infosCopy count])
   {
     v15 = 0;
-    v38 = infosCopy;
+    v37 = infosCopy;
     do
     {
-      v45 = v15;
+      v44 = v15;
       v16 = [infosCopy objectAtIndex:v15];
-      v17 = [v44 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v16, "name"))}];
+      v17 = [v43 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v16, "name"))}];
       if ([v17 firstObject] && (objc_msgSend(v17, "firstObject"), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
         v18 = v16;
@@ -4226,44 +6379,44 @@ BOOL __91__CoreThemeDocument_createNamedArtworkProductionsForAssets_customInfos_
         v22 = _createNamedElementWithNextAvailableIdentifier;
         [_createNamedElementWithNextAvailableIdentifier setName:{objc_msgSend(v16, "name")}];
         [v22 setProduction:v20];
-        v46 = v20;
+        v45 = v20;
         v23 = [(CoreThemeDocument *)self newObjectForEntity:@"RenditionKeySpec"];
-        [v46 setBaseKeySpec:v23];
+        [v45 setBaseKeySpec:v23];
         [v23 setElement:v14];
-        [v23 setPart:v43];
+        [v23 setPart:v42];
         [v23 setNameIdentifier:{objc_msgSend(objc_msgSend(v22, "identifier"), "unsignedIntValue")}];
-        [v46 setDateOfLastChange:{objc_msgSend(v16, "modificationDate")}];
-        [v46 setRenditionType:v42];
+        [v45 setDateOfLastChange:{objc_msgSend(v16, "modificationDate")}];
+        [v45 setRenditionType:v41];
 
-        firstObject = v46;
-        [v44 addObject:v46];
+        firstObject = v45;
+        [v43 addObject:v45];
         if (v16)
         {
           tags = [v16 tags];
-          v25 = v45;
+          v25 = v44;
           if ([tags count])
           {
-            v41 = v16;
+            v40 = v16;
             v26 = objc_alloc_init(MEMORY[0x277CBEB58]);
+            v46 = 0u;
             v47 = 0u;
             v48 = 0u;
             v49 = 0u;
-            v50 = 0u;
-            v27 = [tags countByEnumeratingWithState:&v47 objects:v55 count:16];
+            v27 = [tags countByEnumeratingWithState:&v46 objects:v54 count:16];
             if (v27)
             {
               v28 = v27;
-              v29 = *v48;
+              v29 = *v47;
               do
               {
                 for (j = 0; j != v28; ++j)
                 {
-                  if (*v48 != v29)
+                  if (*v47 != v29)
                   {
                     objc_enumerationMutation(tags);
                   }
 
-                  v31 = *(*(&v47 + 1) + 8 * j);
+                  v31 = *(*(&v46 + 1) + 8 * j);
                   v32 = [v7 objectForKey:v31];
                   if ([v32 count])
                   {
@@ -4285,31 +6438,31 @@ BOOL __91__CoreThemeDocument_createNamedArtworkProductionsForAssets_customInfos_
                   [v26 addObject:v33];
                 }
 
-                v28 = [tags countByEnumeratingWithState:&v47 objects:v55 count:16];
+                v28 = [tags countByEnumeratingWithState:&v46 objects:v54 count:16];
               }
 
               while (v28);
             }
 
-            [v46 addTags:v26];
+            [v45 addTags:v26];
             v34 = [tags count];
             if (v34 != [v26 count])
             {
               [CoreThemeDocument createNamedRecognitionObjectsForAssets:customInfos:error:];
             }
 
-            infosCopy = v38;
+            infosCopy = v37;
             v14 = error;
             assetsCopy2 = assets;
-            v16 = v41;
-            v25 = v45;
+            v16 = v40;
+            v25 = v44;
           }
 
           v18 = v16;
-          firstObject = v46;
+          firstObject = v45;
           if ([objc_msgSend(v16 "universalTypeIdentifier")])
           {
-            [v46 setUniversalTypeIdentifier:{objc_msgSend(v16, "universalTypeIdentifier")}];
+            [v45 setUniversalTypeIdentifier:{objc_msgSend(v16, "universalTypeIdentifier")}];
           }
 
           goto LABEL_37;
@@ -4318,7 +6471,7 @@ BOOL __91__CoreThemeDocument_createNamedArtworkProductionsForAssets_customInfos_
         v18 = 0;
       }
 
-      v25 = v45;
+      v25 = v44;
 LABEL_37:
       v35 = [(CoreThemeDocument *)self newObjectForEntity:@"RecognitionObjectRenditionSpec"];
       [v35 setAsset:{objc_msgSend(assetsCopy2, "objectAtIndex:", v25)}];
@@ -4344,8 +6497,972 @@ LABEL_37:
 
     while (v15 < [infosCopy count]);
   }
+}
 
-  v37 = *MEMORY[0x277D85DE8];
+- (void)createNamedGlyphVectorForCustomInfos:(id)infos referenceFiles:(BOOL)files bitSource:(id)source error:(id *)error
+{
+  v123 = *MEMORY[0x277D85DE8];
+  sourceCopy = source;
+  v7 = [(CoreThemeDocument *)self displayGamuts:infos];
+  idioms = [(CoreThemeDocument *)self idioms];
+  sizeClasses = [(CoreThemeDocument *)self sizeClasses];
+  directions = [(CoreThemeDocument *)self directions];
+  featureSetClasses = [(CoreThemeDocument *)self featureSetClasses];
+  glyphsSizes = [(CoreThemeDocument *)self glyphsSizes];
+  glyphWeights = [(CoreThemeDocument *)self glyphWeights];
+  glyphRenderingModes = [(CoreThemeDocument *)self glyphRenderingModes];
+  v101 = [(CoreThemeDocument *)self elementWithIdentifier:85];
+  v86 = [(CoreThemeDocument *)self partWithIdentifier:59];
+  v95 = [(CoreThemeDocument *)self partWithIdentifier:181];
+  v94 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:0];
+  v80 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1017];
+  v96 = [(CoreThemeDocument *)self deploymentTargetWithIdentifier:5];
+  targetPlatform = [(CoreThemeDocument *)self targetPlatform];
+  v84 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v116 = 0u;
+  v117 = 0u;
+  v118 = 0u;
+  v119 = 0u;
+  v10 = [(CoreThemeDocument *)self objectsForEntity:@"Tag" withPredicate:0 sortDescriptors:0];
+  v11 = [v10 countByEnumeratingWithState:&v116 objects:v122 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v117;
+    do
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v117 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        [v84 setObject:objc_msgSend(MEMORY[0x277CBEA60] forKey:{"arrayWithObject:", *(*(&v116 + 1) + 8 * i)), objc_msgSend(*(*(&v116 + 1) + 8 * i), "identifier")}];
+      }
+
+      v12 = [v10 countByEnumeratingWithState:&v116 objects:v122 count:16];
+    }
+
+    while (v12);
+  }
+
+  [(CoreThemeDocument *)self targetPlatform];
+  v90 = CUIMaxScaleForTargetPlatform();
+  [(CoreThemeDocument *)self targetPlatform];
+  v85 = CUIMinScaleForTargetPlatform();
+  v82 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"NamedVectorGlyphProduction", 0, 0)}];
+  infosCopy2 = infos;
+  if ([infos count])
+  {
+    v16 = 0;
+    v17 = *MEMORY[0x277CBF3A0];
+    v18 = *(MEMORY[0x277CBF3A0] + 8);
+    v19 = *(MEMORY[0x277CBF3A0] + 16);
+    v20 = *(MEMORY[0x277CBF3A0] + 24);
+    v97 = glyphsSizes;
+    v98 = v7;
+    v104 = featureSetClasses;
+    while (1)
+    {
+      v83 = v16;
+      v21 = [infosCopy2 objectAtIndex:v16];
+      v113 = 0;
+      v114 = 0;
+      v115 = 0;
+      fileURL = [v21 fileURL];
+      [(CoreThemeDocument *)self _getFilename:&v115 scaleFactor:&v113 category:&v114 bitSource:&sourceCopy forFileURL:fileURL];
+      if (fileURL)
+      {
+        pathComponents = [fileURL pathComponents];
+        UncommonItemInArrays = indexOfFirstUncommonItemInArrays([objc_msgSend(sourceCopy fileURLWithDocument:{self), "pathComponents"}], pathComponents);
+        v25 = [pathComponents subarrayWithRange:{UncommonItemInArrays, objc_msgSend(pathComponents, "count") + ~UncommonItemInArrays}];
+        v114 = [MEMORY[0x277CCACA8] pathWithComponents:v25];
+      }
+
+      v26 = [v82 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v21, "name"))}];
+      if ([v26 firstObject] && (objc_msgSend(v26, "firstObject"), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+      {
+        firstObject = [v26 firstObject];
+        v28 = targetPlatform;
+        v29 = v84;
+      }
+
+      else
+      {
+        firstObject = [(CoreThemeDocument *)self newObjectForEntity:@"NamedVectorGlyphProduction"];
+        if ([v21 nameIdentifier])
+        {
+          _createNamedElementWithNextAvailableIdentifier = -[CoreThemeDocument _createNamedElementWithIdentifier:](self, "_createNamedElementWithIdentifier:", [v21 nameIdentifier]);
+        }
+
+        else
+        {
+          _createNamedElementWithNextAvailableIdentifier = [(CoreThemeDocument *)self _createNamedElementWithNextAvailableIdentifier];
+        }
+
+        v31 = _createNamedElementWithNextAvailableIdentifier;
+        v29 = v84;
+        [_createNamedElementWithNextAvailableIdentifier setName:{objc_msgSend(v21, "name")}];
+        [v31 setProduction:firstObject];
+        v32 = [(CoreThemeDocument *)self newObjectForEntity:@"RenditionKeySpec"];
+        [firstObject setBaseKeySpec:v32];
+        [v32 setElement:v101];
+        [v32 setPart:v86];
+        [v32 setNameIdentifier:{objc_msgSend(objc_msgSend(v31, "identifier"), "unsignedIntValue")}];
+        [v32 setTarget:v96];
+        [firstObject setDateOfLastChange:{objc_msgSend(v21, "modificationDate")}];
+        [firstObject setRenditionType:v80];
+        [firstObject setIsFlippable:{objc_msgSend(v21, "isFlippable")}];
+
+        [v82 addObject:firstObject];
+        if (v21)
+        {
+          tags = [v21 tags];
+          if ([tags count])
+          {
+            v107 = fileURL;
+            v102 = firstObject;
+            v34 = objc_alloc_init(MEMORY[0x277CBEB58]);
+            v109 = 0u;
+            v110 = 0u;
+            v111 = 0u;
+            v112 = 0u;
+            v35 = [tags countByEnumeratingWithState:&v109 objects:v121 count:16];
+            if (v35)
+            {
+              v36 = v35;
+              v37 = *v110;
+              do
+              {
+                for (j = 0; j != v36; ++j)
+                {
+                  if (*v110 != v37)
+                  {
+                    objc_enumerationMutation(tags);
+                  }
+
+                  v39 = *(*(&v109 + 1) + 8 * j);
+                  v40 = [v84 objectForKey:v39];
+                  if ([v40 count])
+                  {
+                    if ([v40 count] != 1)
+                    {
+                      [CoreThemeDocument createNamedGlyphVectorForCustomInfos:referenceFiles:bitSource:error:];
+                    }
+
+                    v41 = [v40 objectAtIndex:0];
+                  }
+
+                  else
+                  {
+                    v41 = [(CoreThemeDocument *)self newObjectForEntity:@"Tag"];
+                    [v41 setIdentifier:v39];
+                    [v84 setObject:objc_msgSend(MEMORY[0x277CBEA60] forKey:{"arrayWithObject:", v41), v39}];
+                  }
+
+                  [v34 addObject:v41];
+                }
+
+                v36 = [tags countByEnumeratingWithState:&v109 objects:v121 count:16];
+              }
+
+              while (v36);
+            }
+
+            firstObject = v102;
+            [v102 addTags:v34];
+            v42 = [tags count];
+            if (v42 != [v34 count])
+            {
+              [CoreThemeDocument createNamedGlyphVectorForCustomInfos:referenceFiles:bitSource:error:];
+            }
+
+            fileURL = v107;
+          }
+
+          if ([objc_msgSend(v21 "universalTypeIdentifier")])
+          {
+            [firstObject setUniversalTypeIdentifier:{objc_msgSend(v21, "universalTypeIdentifier")}];
+          }
+
+          [firstObject setVectorGlyphRenderingMode:{objc_msgSend(glyphRenderingModes, "objectAtIndex:", objc_msgSend(v21, "vectorGlyphRenderingMode"))}];
+        }
+
+        v28 = targetPlatform;
+      }
+
+      if (!fileURL)
+      {
+        [CoreThemeDocument createNamedGlyphVectorForCustomInfos:referenceFiles:bitSource:error:];
+      }
+
+      v43 = [TDVectorGlyphReader vectorGlyphReaderWithURL:fileURL platform:v28 error:error];
+      if (!v43)
+      {
+        break;
+      }
+
+      v103 = firstObject;
+      v44 = 1;
+      v106 = v43;
+      do
+      {
+        v45 = v44 & 2;
+        if (targetPlatform)
+        {
+          v45 = v44;
+        }
+
+        v87 = v45;
+        v46 = 1;
+        v108 = v44;
+        do
+        {
+          v93 = v46;
+          if ([TDVectorGlyphReader vectorGlyphExistsWithWeight:v43 size:"vectorGlyphExistsWithWeight:size:error:" error:?])
+          {
+LABEL_46:
+            v47 = [(CoreThemeDocument *)self newObjectForEntity:@"VectorGlyphRenditionSpec"];
+            v48 = v115;
+            scaleFactor = [v21 scaleFactor];
+            v50 = [(CoreThemeDocument *)self createAssetWithName:v48 fileType:@"png" scaleFactor:scaleFactor inCategory:v114 forThemeBitSource:sourceCopy];
+            [v50 setScaleFactor:0];
+            [v50 setFileScaleFactor:{objc_msgSend(v21, "scaleFactor")}];
+            if (![v50 fileScaleFactor])
+            {
+              [v50 setFileScaleFactor:1];
+            }
+
+            v89 = v50;
+            [v47 setAsset:v50];
+            [v47 setProduction:v103];
+            [v47 setAlignmentRect:{v17, v18, v19, v20}];
+            v51 = 1;
+            v52 = v93;
+            if (v87 == 2)
+            {
+              v53 = idioms;
+              v54 = sizeClasses;
+              v55 = v104;
+              v56 = directions;
+              if (v93 == 4)
+              {
+                v57 = CUIMinDimensionForVectorGlyph();
+                v51 = v85 > v90;
+                if (v57 < CUIMaxDimensionForVectorGlyph())
+                {
+                  do
+                  {
+                    v58 = [(CoreThemeDocument *)self newObjectForEntity:@"AvaliableVectorSize"];
+                    v59 = v47;
+                    v60 = MEMORY[0x277CCABB0];
+                    CUIPointSizeForDimensionForVectorGlyph();
+                    v62 = v60;
+                    v47 = v59;
+                    [v58 setPointSize:{objc_msgSend(v62, "numberWithInt:", v61)}];
+                    [v59 addAvaliablePointSizesObject:v58];
+
+                    ++v57;
+                  }
+
+                  while (CUIMaxDimensionForVectorGlyph() > v57);
+                  v51 = v85 > v90;
+                  v52 = 4;
+                  v55 = v104;
+                  v56 = directions;
+                  v54 = sizeClasses;
+                }
+              }
+            }
+
+            else
+            {
+              v53 = idioms;
+              v54 = sizeClasses;
+              v55 = v104;
+              v56 = directions;
+            }
+
+            [v47 resetToBaseKeySpec];
+            keySpec = [v47 keySpec];
+            [keySpec setElement:v101];
+            [keySpec setPart:v86];
+            [keySpec setIdiom:{objc_msgSend(v53, "objectAtIndexedSubscript:", objc_msgSend(v21, "idiom"))}];
+            [keySpec setScaleFactor:{objc_msgSend(v89, "fileScaleFactor")}];
+            [keySpec setSubtype:{objc_msgSend(v21, "subtype")}];
+            [keySpec setGamut:{objc_msgSend(v98, "objectAtIndexedSubscript:", objc_msgSend(v21, "displayGamut"))}];
+            [keySpec setSizeClassHorizontal:{objc_msgSend(v54, "objectAtIndexedSubscript:", objc_msgSend(v21, "sizeClassHorizontal"))}];
+            [keySpec setSizeClassVertical:{objc_msgSend(v54, "objectAtIndexedSubscript:", objc_msgSend(v21, "sizeClassVertical"))}];
+            [keySpec setMemoryClass:{objc_msgSend(v21, "memoryClass")}];
+            [keySpec setDirection:{objc_msgSend(v56, "objectAtIndexedSubscript:", objc_msgSend(v21, "layoutDirection"))}];
+            [keySpec setGraphicsFeatureSetClass:{objc_msgSend(v55, "objectAtIndexedSubscript:", objc_msgSend(v21, "graphicsFeatureSetClass"))}];
+            [keySpec setGlyphSize:{objc_msgSend(v97, "objectAtIndexedSubscript:", v108)}];
+            [keySpec setGlyphWeight:{objc_msgSend(glyphWeights, "objectAtIndexedSubscript:", v52)}];
+            [keySpec setAppearance:{-[CoreThemeDocument appearanceWithIdentifier:name:createIfNeeded:](self, "appearanceWithIdentifier:name:createIfNeeded:", objc_msgSend(v21, "appearanceIdentifier"), objc_msgSend(v21, "appearanceName"), 1)}];
+            [keySpec setLocalization:{-[CoreThemeDocument localizationWithIdentifier:name:createIfNeeded:](self, "localizationWithIdentifier:name:createIfNeeded:", objc_msgSend(v21, "localizationIdentifier"), objc_msgSend(v21, "localizationName"), 1)}];
+            if (!v51)
+            {
+              v69 = v85;
+              do
+              {
+                if ([(CoreThemeDocument *)self shouldGenerateScale:v69])
+                {
+                  for (k = CUIMinDimensionForVectorGlyph(); k < CUIMaxDimensionForVectorGlyph(); k = (k + 1))
+                  {
+                    v71 = [(CoreThemeDocument *)self newObjectForEntity:@"VectorGlyphImageRenditionSpec"];
+                    v72 = v115;
+                    scaleFactor2 = [v21 scaleFactor];
+                    v74 = [(CoreThemeDocument *)self createAssetWithName:v72 fileType:@"png" scaleFactor:scaleFactor2 inCategory:v114 forThemeBitSource:sourceCopy];
+                    [v74 setFileScaleFactor:{objc_msgSend(v21, "scaleFactor")}];
+                    [v74 setScaleFactor:v69];
+                    [v71 setAsset:v74];
+                    CUIPointSizeForDimensionForVectorGlyph();
+                    v76 = v75;
+                    [(TDVectorGlyphReader *)v106 defaultPointSize];
+                    [v71 setPostScaleFactor:v76 / v77];
+                    [v71 setRenditionType:v94];
+                    [v71 setAllowsDeepmap2Compression:{-[CoreThemeDocument shouldAllowDeepmap2CompressionForDeploymentTarget:](self, "shouldAllowDeepmap2CompressionForDeploymentTarget:", objc_msgSend(v96, "identifier"))}];
+                    [v71 setProduction:v103];
+                    [v71 resetToBaseKeySpec];
+                    keySpec2 = [v71 keySpec];
+                    [keySpec2 setElement:v101];
+                    [keySpec2 setPart:v95];
+                    [keySpec2 setIdiom:{objc_msgSend(idioms, "objectAtIndexedSubscript:", objc_msgSend(v21, "idiom"))}];
+                    [keySpec2 setScaleFactor:v69];
+                    [keySpec2 setSubtype:{objc_msgSend(v21, "subtype")}];
+                    [keySpec2 setGamut:{objc_msgSend(v98, "objectAtIndexedSubscript:", objc_msgSend(v21, "displayGamut"))}];
+                    [keySpec2 setSizeClassHorizontal:{objc_msgSend(sizeClasses, "objectAtIndexedSubscript:", objc_msgSend(v21, "sizeClassHorizontal"))}];
+                    [keySpec2 setSizeClassVertical:{objc_msgSend(sizeClasses, "objectAtIndexedSubscript:", objc_msgSend(v21, "sizeClassVertical"))}];
+                    [keySpec2 setMemoryClass:{objc_msgSend(v21, "memoryClass")}];
+                    [keySpec2 setDirection:{objc_msgSend(directions, "objectAtIndexedSubscript:", objc_msgSend(v21, "layoutDirection"))}];
+                    [keySpec2 setGraphicsFeatureSetClass:{objc_msgSend(v104, "objectAtIndexedSubscript:", objc_msgSend(v21, "graphicsFeatureSetClass"))}];
+                    [keySpec2 setGlyphSize:{objc_msgSend(v97, "objectAtIndexedSubscript:", v108)}];
+                    [keySpec2 setGlyphWeight:{objc_msgSend(glyphWeights, "objectAtIndexedSubscript:", v93)}];
+                    [keySpec2 setDimension2:k];
+                    [keySpec2 setAppearance:{-[CoreThemeDocument appearanceWithIdentifier:name:createIfNeeded:](self, "appearanceWithIdentifier:name:createIfNeeded:", objc_msgSend(v21, "appearanceIdentifier"), objc_msgSend(v21, "appearanceName"), 1)}];
+                    [keySpec2 setLocalization:{-[CoreThemeDocument localizationWithIdentifier:name:createIfNeeded:](self, "localizationWithIdentifier:name:createIfNeeded:", objc_msgSend(v21, "localizationIdentifier"), objc_msgSend(v21, "localizationName"), 1)}];
+                  }
+                }
+
+                v69 = (v69 + 1);
+              }
+
+              while (v69 <= v90);
+            }
+          }
+
+          else
+          {
+            v63 = CUIPreferredVectorGlyphConfigurationsForPlatform();
+            v64 = *v63;
+            if (*v63)
+            {
+              v65 = v63 + 3;
+              do
+              {
+                v66 = *(v65 - 2);
+                if (!v66)
+                {
+                  break;
+                }
+
+                if (v64 == v93 && v66 == v108)
+                {
+                  if ([TDVectorGlyphReader isInterpolatableForWeight:v106 size:"isInterpolatableForWeight:size:"])
+                  {
+                    goto LABEL_46;
+                  }
+
+                  break;
+                }
+
+                v67 = *v65;
+                v65 += 3;
+                v64 = v67;
+              }
+
+              while (v67);
+            }
+          }
+
+          v46 = v93 + 1;
+          v43 = v106;
+        }
+
+        while (v93 != 9);
+        v44 = v108 + 1;
+      }
+
+      while (v108 != 3);
+
+      v16 = v83 + 1;
+      infosCopy2 = infos;
+      if (v83 + 1 >= [infos count])
+      {
+        goto LABEL_74;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_74:
+  }
+}
+
+- (void)createNamedIconLayerStacksForCustomInfos:(id)infos referenceFiles:(BOOL)files bitSource:(id)source error:(id *)error
+{
+  v167 = *MEMORY[0x277D85DE8];
+  files = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1019, files];
+  v95 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1020];
+  v94 = [(CoreThemeDocument *)self elementWithIdentifier:85];
+  v93 = [(CoreThemeDocument *)self partWithIdentifier:245];
+  v92 = [(CoreThemeDocument *)self partWithIdentifier:246];
+  v113 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"NamedArtworkProduction", 0, 0)}];
+  v106 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"NamedColorProduction", 0, 0)}];
+  v104 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"NamedGradientProduction", 0, 0)}];
+  array = [MEMORY[0x277CBEB18] array];
+  array2 = [MEMORY[0x277CBEB18] array];
+  idioms = [(CoreThemeDocument *)self idioms];
+  featureSetClasses = [(CoreThemeDocument *)self featureSetClasses];
+  displayGamuts = [(CoreThemeDocument *)self displayGamuts];
+  array3 = [MEMORY[0x277CBEB18] array];
+  v86 = [MEMORY[0x277CBEB58] set];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v154 = 0u;
+  v155 = 0u;
+  v156 = 0u;
+  v157 = 0u;
+  obj = infos;
+  v101 = [infos countByEnumeratingWithState:&v154 objects:v166 count:16];
+  if (v101)
+  {
+    v97 = *v155;
+    v90 = *MEMORY[0x277CBED10];
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v155 != v97)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v103 = v8;
+        v9 = *(*(&v154 + 1) + 8 * v8);
+        name = [v9 name];
+        v150 = 0u;
+        v151 = 0u;
+        v152 = 0u;
+        v153 = 0u;
+        v11 = [v113 countByEnumeratingWithState:&v150 objects:v165 count:16];
+        if (v11)
+        {
+          v12 = v11;
+          v13 = *v151;
+LABEL_8:
+          v14 = 0;
+          while (1)
+          {
+            if (*v151 != v13)
+            {
+              objc_enumerationMutation(v113);
+            }
+
+            v15 = *(*(&v150 + 1) + 8 * v14);
+            objc_opt_class();
+            if (objc_opt_isKindOfClass() & 1) != 0 && ([objc_msgSend(objc_msgSend(v15 "name")])
+            {
+              break;
+            }
+
+            if (v12 == ++v14)
+            {
+              v12 = [v113 countByEnumeratingWithState:&v150 objects:v165 count:16];
+              if (v12)
+              {
+                goto LABEL_8;
+              }
+
+              goto LABEL_17;
+            }
+          }
+
+          if (v15)
+          {
+            goto LABEL_24;
+          }
+        }
+
+LABEL_17:
+        v15 = [(CoreThemeDocument *)self newObjectForEntity:@"LayerStackProduction"];
+        v16 = -[CoreThemeDocument _createNamedElementWithIdentifier:](self, "_createNamedElementWithIdentifier:", [v9 nameIdentifier]);
+        [v16 setName:name];
+        [v16 setProduction:v15];
+        v17 = [(CoreThemeDocument *)self newObjectForEntity:@"RenditionKeySpec"];
+        [v17 setElement:v94];
+        renditionType = [v9 renditionType];
+        if (renditionType == 1019)
+        {
+          v19 = v93;
+        }
+
+        else
+        {
+          v19 = v92;
+        }
+
+        if (renditionType == 1019)
+        {
+          v20 = files;
+        }
+
+        else
+        {
+          v20 = v95;
+        }
+
+        [v17 setPart:v19];
+        [v15 setRenditionType:v20];
+        [v17 setNameIdentifier:{objc_msgSend(objc_msgSend(v16, "identifier"), "unsignedIntValue")}];
+        [v15 setBaseKeySpec:v17];
+
+        [v15 setIsExcludedFromFilter:v90];
+        [array addObject:v15];
+        [v113 addObject:v15];
+LABEL_24:
+        if ([v9 renditionType] == 1019)
+        {
+          selfCopy3 = self;
+          v22 = [(CoreThemeDocument *)self newObjectForEntity:@"LayerStackRenditionSpec"];
+          if ([v9 generateFallbackIcon])
+          {
+            [v86 addObject:name];
+          }
+
+          [dictionary setObject:v15 forKey:name];
+        }
+
+        else
+        {
+          selfCopy3 = self;
+          v22 = [(CoreThemeDocument *)self newObjectForEntity:@"LayerGroupRenditionSpec"];
+        }
+
+        v23 = v22;
+        [v22 setProduction:v15];
+        [v22 setPreserveForArchiveOnly:{objc_msgSend(v9, "preserveForArchiveOnly")}];
+        if ([v9 renditionType] == 1019)
+        {
+          [v9 canvasSize];
+          [v22 setCanvasSize:?];
+          v149 = 0;
+          v148 = 0;
+          sourceCopy = source;
+          v146 = 0;
+          -[CoreThemeDocument _getFilename:scaleFactor:category:bitSource:forFileURL:](selfCopy3, "_getFilename:scaleFactor:category:bitSource:forFileURL:", &v149, &v146, &v148, &sourceCopy, [v9 fileURL]);
+          [v22 setAsset:{-[CoreThemeDocument createAssetWithName:fileType:scaleFactor:inCategory:forThemeBitSource:](selfCopy3, "createAssetWithName:fileType:scaleFactor:inCategory:forThemeBitSource:", v149, @"imagestack", v146, v148, source)}];
+        }
+
+        [v22 resetToBaseKeySpec];
+        keySpec = [v22 keySpec];
+        [keySpec setIdiom:{objc_msgSend(idioms, "objectAtIndex:", objc_msgSend(v9, "idiom"))}];
+        v25 = [displayGamuts objectAtIndexedSubscript:{objc_msgSend(v9, "displayGamut")}];
+        [keySpec setMemoryClass:{objc_msgSend(v9, "memoryClass")}];
+        [keySpec setGamut:v25];
+        [keySpec setGraphicsFeatureSetClass:{objc_msgSend(featureSetClasses, "objectAtIndexedSubscript:", objc_msgSend(v9, "graphicsFeatureSetClass"))}];
+        [keySpec setAppearance:{-[CoreThemeDocument appearanceWithIdentifier:name:createIfNeeded:](selfCopy3, "appearanceWithIdentifier:name:createIfNeeded:", objc_msgSend(v9, "appearanceIdentifier"), objc_msgSend(v9, "appearanceName"), 1)}];
+        [keySpec setLocalization:{-[CoreThemeDocument localizationWithIdentifier:name:createIfNeeded:](selfCopy3, "localizationWithIdentifier:name:createIfNeeded:", objc_msgSend(v9, "localizationIdentifier"), objc_msgSend(v9, "localizationName"), 1)}];
+        [v22 setPreserveForArchiveOnly:{objc_msgSend(v9, "preserveForArchiveOnly")}];
+        v26 = objc_alloc_init(MEMORY[0x277CBEB40]);
+        if (![objc_msgSend(v9 "layerReferences")])
+        {
+          renditionType2 = [v9 renditionType];
+          name2 = [v9 name];
+          v29 = @"CoreThemeDefinition: TDNamedAssetImportInfo group with name '%@' has NO layerReferences it should have at least 1";
+          if (renditionType2 == 1019)
+          {
+            v29 = @"CoreThemeDefinition: TDNamedAssetImportInfo for icon with name '%@' has NO layerReferences it should have at least 1";
+          }
+
+          NSLog(&v29->isa, name2);
+        }
+
+        v144 = 0u;
+        v145 = 0u;
+        v142 = 0u;
+        v143 = 0u;
+        v108 = v9;
+        layerReferences = [v9 layerReferences];
+        v30 = [layerReferences countByEnumeratingWithState:&v142 objects:v164 count:16];
+        if (v30)
+        {
+          v31 = v30;
+          v32 = *v143;
+          do
+          {
+            for (i = 0; i != v31; ++i)
+            {
+              if (*v143 != v32)
+              {
+                objc_enumerationMutation(layerReferences);
+              }
+
+              v34 = *(*(&v142 + 1) + 8 * i);
+              v35 = [(CoreThemeDocument *)selfCopy3 newObjectForEntity:@"LayerReference"];
+              [v34 frame];
+              [v35 setFrameRect:{floor(v36), floor(v37)}];
+              [v35 setName:{objc_msgSend(v34, "layerName")}];
+              v38 = MEMORY[0x277CCABB0];
+              [v34 opacity];
+              [v35 setOpacity:{objc_msgSend(v38, "numberWithDouble:")}];
+              [v35 setBlendMode:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInt:", objc_msgSend(v34, "blendMode"))}];
+              [v35 setMakeOpaqueIfPossible:{objc_msgSend(v34, "makeOpaqueIfPossible")}];
+              [v35 setGradientOrColorName:{objc_msgSend(v34, "gradientOrColorName")}];
+              [v34 blurStrength];
+              [v35 setBlurStrength:?];
+              [v35 setHasLightingEffects:{objc_msgSend(v34, "hasLightingEffects")}];
+              [v35 setGathersSpecularByElement:{objc_msgSend(v34, "gathersSpecularByElement")}];
+              [v35 setShadowStyle:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v34, "shadowStyle"))}];
+              v39 = MEMORY[0x277CCABB0];
+              [v34 shadowOpacity];
+              [v35 setShadowOpacity:{objc_msgSend(v39, "numberWithDouble:")}];
+              [v35 setHasSpecular:{objc_msgSend(v34, "hasSpecular")}];
+              v40 = MEMORY[0x277CCABB0];
+              [v34 translucency];
+              [v35 setTranslucency:{objc_msgSend(v40, "numberWithDouble:")}];
+              if ([objc_msgSend(v34 "layerName")])
+              {
+                v41 = [v113 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v34, "layerName"))}];
+                if ([v41 count])
+                {
+                  [array2 addObject:{objc_msgSend(v41, "firstObject")}];
+                }
+
+                else
+                {
+                  v41 = [v104 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v34, "layerName"))}];
+                }
+
+                if (![v41 count])
+                {
+                  v41 = [v106 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v34, "layerName"))}];
+                }
+
+                if ([v41 count])
+                {
+                  v43 = [v41 objectAtIndex:0];
+                  if (v43)
+                  {
+                    v44 = v43;
+                    [v35 setReference:v43];
+                    [v44 setMakeOpaqueIfPossible:{objc_msgSend(v35, "makeOpaqueIfPossible")}];
+                    goto LABEL_51;
+                  }
+                }
+              }
+
+              else
+              {
+                v42 = -[CoreThemeDocument renditionTypeWithIdentifier:](selfCopy3, "renditionTypeWithIdentifier:", [v108 renditionType]);
+                selfCopy3 = self;
+                NSLog(&cfstr_Layerreference_0.isa, v34, [v108 name], objc_msgSend(v42, "constantName"));
+              }
+
+              [array3 addObject:v35];
+LABEL_51:
+              [v26 addObject:v35];
+            }
+
+            v31 = [layerReferences countByEnumeratingWithState:&v142 objects:v164 count:16];
+          }
+
+          while (v31);
+        }
+
+        [v22 setLayerReferences:v26];
+
+        v8 = v103 + 1;
+      }
+
+      while (v103 + 1 != v101);
+      v101 = [obj countByEnumeratingWithState:&v154 objects:v166 count:16];
+    }
+
+    while (v101);
+  }
+
+  v140 = 0u;
+  v141 = 0u;
+  v138 = 0u;
+  v139 = 0u;
+  v45 = [array3 countByEnumeratingWithState:&v138 objects:v163 count:16];
+  if (v45)
+  {
+    v46 = v45;
+    v47 = *v139;
+    do
+    {
+      for (j = 0; j != v46; ++j)
+      {
+        if (*v139 != v47)
+        {
+          objc_enumerationMutation(array3);
+        }
+
+        v49 = *(*(&v138 + 1) + 8 * j);
+        if (![v49 reference])
+        {
+          v50 = [v113 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v49, "name"))}];
+          if ([v50 count])
+          {
+            [array2 addObject:{objc_msgSend(v50, "firstObject")}];
+          }
+
+          else
+          {
+            v50 = [v104 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v49, "name"))}];
+          }
+
+          if (![v50 count])
+          {
+            v50 = [v106 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v49, "name"))}];
+          }
+
+          if ([v50 count])
+          {
+            firstObject = [v50 firstObject];
+            [v49 setReference:firstObject];
+            [firstObject setMakeOpaqueIfPossible:{objc_msgSend(v49, "makeOpaqueIfPossible")}];
+          }
+
+          else
+          {
+            NSLog(&cfstr_CouldnTResolve_0.isa, [v49 name], objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(v49, "stack"), "production"), "name"), "name"));
+          }
+        }
+      }
+
+      v46 = [array3 countByEnumeratingWithState:&v138 objects:v163 count:16];
+    }
+
+    while (v46);
+  }
+
+  if ([v86 count])
+  {
+    [(CoreThemeDocument *)self targetPlatform];
+    v52 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"MultisizeImageSetProduction", objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name IN %@", v86), 0)}];
+    v134 = 0u;
+    v135 = 0u;
+    v136 = 0u;
+    v137 = 0u;
+    v53 = [v52 countByEnumeratingWithState:&v134 objects:v162 count:16];
+    if (v53)
+    {
+      v54 = v53;
+      v55 = *v135;
+      do
+      {
+        for (k = 0; k != v54; ++k)
+        {
+          if (*v135 != v55)
+          {
+            objc_enumerationMutation(v52);
+          }
+
+          v57 = *(*(&v134 + 1) + 8 * k);
+          v130 = 0u;
+          v131 = 0u;
+          v132 = 0u;
+          v133 = 0u;
+          renditions = [v57 renditions];
+          v59 = [renditions countByEnumeratingWithState:&v130 objects:v161 count:16];
+          if (v59)
+          {
+            v60 = v59;
+            v61 = *v131;
+            do
+            {
+              for (m = 0; m != v60; ++m)
+              {
+                if (*v131 != v61)
+                {
+                  objc_enumerationMutation(renditions);
+                }
+
+                v63 = *(*(&v130 + 1) + 8 * m);
+                objc_opt_class();
+                if (objc_opt_isKindOfClass())
+                {
+                  -[CoreThemeDocument deleteObject:](self, "deleteObject:", [v63 asset]);
+                  [objc_msgSend(v63 "asset")];
+                }
+              }
+
+              v60 = [renditions countByEnumeratingWithState:&v130 objects:v161 count:16];
+            }
+
+            while (v60);
+          }
+        }
+
+        v54 = [v52 countByEnumeratingWithState:&v134 objects:v162 count:16];
+      }
+
+      while (v54);
+    }
+
+    [(CoreThemeDocument *)self deleteObjects:v52];
+    allKeys = [dictionary allKeys];
+    v126 = 0u;
+    v127 = 0u;
+    v128 = 0u;
+    v129 = 0u;
+    v65 = [allKeys countByEnumeratingWithState:&v126 objects:v160 count:16];
+    if (v65)
+    {
+      v66 = v65;
+      v67 = *v127;
+      do
+      {
+        for (n = 0; n != v66; ++n)
+        {
+          if (*v127 != v67)
+          {
+            objc_enumerationMutation(allKeys);
+          }
+
+          -[CoreThemeDocument _addLegacyIconAssetsForLayerStackProduction:withName:error:](self, "_addLegacyIconAssetsForLayerStackProduction:withName:error:", [dictionary objectForKey:*(*(&v126 + 1) + 8 * n)], *(*(&v126 + 1) + 8 * n), error);
+        }
+
+        v66 = [allKeys countByEnumeratingWithState:&v126 objects:v160 count:16];
+      }
+
+      while (v66);
+    }
+  }
+
+  if ([array2 count])
+  {
+    v124 = 0u;
+    v125 = 0u;
+    v122 = 0u;
+    v123 = 0u;
+    v107 = [array2 countByEnumeratingWithState:&v122 objects:v159 count:16];
+    if (v107)
+    {
+      v105 = *v123;
+      do
+      {
+        for (ii = 0; ii != v107; ++ii)
+        {
+          if (*v123 != v105)
+          {
+            objc_enumerationMutation(array2);
+          }
+
+          v70 = *(*(&v122 + 1) + 8 * ii);
+          v71 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v118 = 0u;
+          v119 = 0u;
+          v120 = 0u;
+          v121 = 0u;
+          v112 = v70;
+          renditions2 = [v70 renditions];
+          v73 = [renditions2 countByEnumeratingWithState:&v118 objects:v158 count:16];
+          if (v73)
+          {
+            v74 = v73;
+            v114 = 0;
+            v116 = v71;
+            v109 = ii;
+            v75 = *v119;
+            while (1)
+            {
+              for (jj = 0; jj != v74; ++jj)
+              {
+                if (*v119 != v75)
+                {
+                  objc_enumerationMutation(renditions2);
+                }
+
+                v77 = *(*(&v118 + 1) + 8 * jj);
+                objc_opt_class();
+                if (objc_opt_isKindOfClass())
+                {
+                  v78 = [objc_msgSend(objc_msgSend(v77 "asset")];
+                  if ([v78 caseInsensitiveCompare:@"SVG"])
+                  {
+                    if (![v78 caseInsensitiveCompare:@"PNG"] || !objc_msgSend(v78, "caseInsensitiveCompare:", @"JPEG") || !objc_msgSend(v78, "caseInsensitiveCompare:", @"JPG") || !objc_msgSend(v78, "caseInsensitiveCompare:", @"HEIC"))
+                    {
+                      asset = [v77 asset];
+                      [asset sourceImageSizeWithDocument:self];
+                      v81 = v80;
+                      v83 = v82;
+                      if (v80 <= 1024.0 || [objc_msgSend(asset "scaledWidth")])
+                      {
+                        if (v83 <= 1024.0 || [objc_msgSend(asset "scaledHeight")])
+                        {
+                          continue;
+                        }
+
+                        v84 = v83;
+                      }
+
+                      else
+                      {
+                        v84 = v81;
+                      }
+
+                      v85 = 1024.0 / v84;
+                      if (1024.0 / v84 != 1.0)
+                      {
+                        [asset setScaledWidth:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", vcvtmd_s64_f64(v81 * v85))}];
+                        [asset setScaledHeight:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", vcvtmd_s64_f64(v83 * v85))}];
+                      }
+                    }
+                  }
+
+                  else if ([objc_msgSend(v77 "asset")])
+                  {
+                    [v116 addObject:v77];
+                    -[CoreThemeDocument deleteObject:](self, "deleteObject:", [v77 asset]);
+                  }
+
+                  else
+                  {
+                    v114 = v77;
+                  }
+                }
+              }
+
+              v74 = [renditions2 countByEnumeratingWithState:&v118 objects:v158 count:16];
+              if (!v74)
+              {
+                ii = v109;
+                v71 = v116;
+                if (v114)
+                {
+                  [objc_msgSend(v114 "keySpec")];
+                  [v112 setPreservesVectorRepresentation:1];
+                  [(CoreThemeDocument *)self deleteObjects:v116];
+                }
+
+                break;
+              }
+            }
+          }
+        }
+
+        v107 = [array2 countByEnumeratingWithState:&v122 objects:v159 count:16];
+      }
+
+      while (v107);
+    }
+  }
 }
 
 - (void)_addLegacyIconAssetsForLayerStackProduction:(id)production withName:(id)name error:(id *)error
@@ -4412,7 +7529,7 @@ LABEL_37:
 
 - (id)_iconLayerStackFromLayerStackRendition:(id)rendition withName:(id)name matchingAppearance:(id)appearance fallbackAppearance:(id)fallbackAppearance error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (rendition)
   {
     [(CoreThemeDocument *)self targetPlatform];
@@ -4420,31 +7537,31 @@ LABEL_37:
     v13 = objc_alloc(MEMORY[0x277D026A0]);
     [rendition canvasSize];
     v14 = [v13 initWithName:name withSize:? atScale:?];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     layerReferences = [rendition layerReferences];
-    v16 = [layerReferences countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v16 = [layerReferences countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v23;
+      v18 = *v22;
       do
       {
         v19 = 0;
         do
         {
-          if (*v23 != v18)
+          if (*v22 != v18)
           {
             objc_enumerationMutation(layerReferences);
           }
 
-          [(CoreThemeDocument *)self _addLayerReference:*(*(&v22 + 1) + 8 * v19++) toMutableIconLayerStack:v14 matchingAppearance:appearance fallbackAppearance:fallbackAppearance error:error];
+          [(CoreThemeDocument *)self _addLayerReference:*(*(&v21 + 1) + 8 * v19++) toMutableIconLayerStack:v14 matchingAppearance:appearance fallbackAppearance:fallbackAppearance error:error];
         }
 
         while (v17 != v19);
-        v17 = [layerReferences countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v17 = [layerReferences countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v17);
@@ -4458,9 +7575,7 @@ LABEL_37:
     v14 = 0;
   }
 
-  result = v14;
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return v14;
 }
 
 - (id)_namedColorFromColorRendition:(id)rendition
@@ -4481,37 +7596,35 @@ LABEL_37:
   [v5 setAppearance:{objc_msgSend(objc_msgSend(objc_msgSend(rendition, "keySpec"), "appearance"), "name")}];
   CGColorRelease(v11);
   CGColorSpaceRelease(v6);
-  result = v5;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5;
 }
 
 - (id)_namedGradientFromGradientRendition:(id)rendition matchingAppearance:(id)appearance fallbackAppearance:(id)fallbackAppearance
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v29 = objc_alloc_init(MEMORY[0x277D02690]);
+  v38 = *MEMORY[0x277D85DE8];
+  v28 = objc_alloc_init(MEMORY[0x277D02690]);
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = [rendition colorStops];
-  v9 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v9 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v34;
+    v11 = *v33;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v34 != v11)
+        if (*v33 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v33 + 1) + 8 * i);
+        v13 = *(*(&v32 + 1) + 8 * i);
         colorName = [v13 colorName];
         v15 = [-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self objectsForEntity:@"NamedColorProduction" withPredicate:objc_msgSend(MEMORY[0x277CCAC30] sortDescriptors:{"predicateWithFormat:", @"name.name == %@", colorName), 0), "firstObject"}];
         v16 = [objc_msgSend(v15 "renditions")];
@@ -4552,22 +7665,20 @@ LABEL_37:
         CGColorSpaceRelease(v21);
       }
 
-      v10 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v10 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v10);
   }
 
-  [v29 setColors:array andStops:array2];
-  [v29 setGradientType:{objc_msgSend(objc_msgSend(rendition, "gradientType"), "integerValue")}];
-  [v29 setAppearance:{objc_msgSend(objc_msgSend(objc_msgSend(rendition, "keySpec"), "appearance"), "name")}];
+  [v28 setColors:array andStops:array2];
+  [v28 setGradientType:{objc_msgSend(objc_msgSend(rendition, "gradientType"), "integerValue")}];
+  [v28 setAppearance:{objc_msgSend(objc_msgSend(objc_msgSend(rendition, "keySpec"), "appearance"), "name")}];
   [rendition gradientStartPoint];
-  [v29 setGradientStartPoint:?];
+  [v28 setGradientStartPoint:?];
   [rendition gradientEndPoint];
-  [v29 setGradientEndPoint:?];
-  result = v29;
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  [v28 setGradientEndPoint:?];
+  return v28;
 }
 
 - (id)_renditionInSet:(id)set matchingAppearance:(id)appearance
@@ -4590,7 +7701,7 @@ LABEL_37:
   return v4;
 }
 
-uint64_t __56__CoreThemeDocument__renditionInSet_matchingAppearance___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__56__CoreThemeDocument__renditionInSet_matchingAppearance___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v6 = [objc_msgSend(objc_msgSend(a2 "keySpec")];
   result = [*(a1 + 32) identifier];
@@ -4605,7 +7716,7 @@ uint64_t __56__CoreThemeDocument__renditionInSet_matchingAppearance___block_invo
 
 - (void)_addLayerReference:(id)reference toMutableIconLayerStack:(id)stack matchingAppearance:(id)appearance fallbackAppearance:(id)fallbackAppearance error:(id *)error
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   name = [reference name];
   [reference frameRect];
   v12 = v11;
@@ -4616,21 +7727,21 @@ uint64_t __56__CoreThemeDocument__renditionInSet_matchingAppearance___block_invo
   v20 = v19;
   [objc_msgSend(reference "translucency")];
   v22 = v21;
-  v95 = [objc_msgSend(reference "blendMode")];
+  v91 = [objc_msgSend(reference "blendMode")];
   gradientOrColorName = [reference gradientOrColorName];
   [reference blurStrength];
   v25 = v24;
   hasSpecular = [reference hasSpecular];
   hasLightingEffects = [reference hasLightingEffects];
   gathersSpecularByElement = [reference gathersSpecularByElement];
-  v94 = [objc_msgSend(reference "shadowStyle")];
+  v90 = [objc_msgSend(reference "shadowStyle")];
   [objc_msgSend(reference "shadowOpacity")];
   v27 = v26;
   [(CoreThemeDocument *)self targetPlatform];
-  v92 = CUIMaxScaleForTargetPlatform();
-  v99 = [-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self objectsForEntity:@"NamedArtworkProduction" withPredicate:objc_msgSend(MEMORY[0x277CCAC30] sortDescriptors:{"predicateWithFormat:", @"name.name == %@", name), 0), "firstObject"}];
+  v88 = CUIMaxScaleForTargetPlatform();
+  v95 = [-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self objectsForEntity:@"NamedArtworkProduction" withPredicate:objc_msgSend(MEMORY[0x277CCAC30] sortDescriptors:{"predicateWithFormat:", @"name.name == %@", name), 0), "firstObject"}];
   v28 = [-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self objectsForEntity:@"NamedColorProduction" withPredicate:objc_msgSend(MEMORY[0x277CCAC30] sortDescriptors:{"predicateWithFormat:", @"name.name == %@", name), 0), "firstObject"}];
-  v97 = [-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self objectsForEntity:@"NamedGradientProduction" withPredicate:objc_msgSend(MEMORY[0x277CCAC30] sortDescriptors:{"predicateWithFormat:", @"name.name == %@", name), 0), "firstObject"}];
+  v93 = [-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self objectsForEntity:@"NamedGradientProduction" withPredicate:objc_msgSend(MEMORY[0x277CCAC30] sortDescriptors:{"predicateWithFormat:", @"name.name == %@", name), 0), "firstObject"}];
   v29 = [-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self objectsForEntity:@"LayerStackProduction" withPredicate:objc_msgSend(MEMORY[0x277CCAC30] sortDescriptors:{"predicateWithFormat:", @"name.name == %@", name), 0), "firstObject"}];
   v30 = [-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self objectsForEntity:@"NamedColorProduction" withPredicate:objc_msgSend(MEMORY[0x277CCAC30] sortDescriptors:{"predicateWithFormat:", @"name.name == %@", gradientOrColorName), 0), "firstObject"}];
   v31 = [-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self objectsForEntity:@"NamedGradientProduction" withPredicate:objc_msgSend(MEMORY[0x277CCAC30] sortDescriptors:{"predicateWithFormat:", @"name.name == %@", gradientOrColorName), 0), "firstObject"}];
@@ -4661,321 +7772,314 @@ uint64_t __56__CoreThemeDocument__renditionInSet_matchingAppearance___block_invo
     {
       v38 = [(CoreThemeDocument *)self _namedColorFromColorRendition:?];
 LABEL_28:
-      v53 = *MEMORY[0x277D85DE8];
 
       [stack addLayer:v38];
-      return;
     }
-
-    goto LABEL_59;
   }
 
-  v33 = v30;
-  v34 = gradientOrColorName;
-  if (v97)
+  else
   {
-    if ([objc_msgSend(appearance "name")])
+    v33 = v30;
+    v34 = gradientOrColorName;
+    if (v93)
     {
-      v35 = 0;
-    }
-
-    else
-    {
-      v35 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v97 renditions], fallbackAppearance);
-    }
-
-    v51 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v97 renditions], appearance);
-    if (v51)
-    {
-      v52 = v51;
-    }
-
-    else
-    {
-      v52 = v35;
-    }
-
-    if (v52)
-    {
-      v38 = [(CoreThemeDocument *)self _namedGradientFromGradientRendition:v52 matchingAppearance:appearance fallbackAppearance:appearance];
-      goto LABEL_28;
-    }
-
-LABEL_59:
-    v82 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v98 = v31;
-  v39 = v25;
-  appearanceCopy2 = appearance;
-  if (!v99 || ![v99 isMemberOfClass:objc_opt_class()])
-  {
-    if (v29)
-    {
-      v54 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v29 renditions], fallbackAppearance);
-      v55 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v29 renditions], appearance);
-      if (v55)
+      if ([objc_msgSend(appearance "name")])
       {
-        v56 = v55;
+        v35 = 0;
       }
 
       else
       {
-        v56 = v54;
+        v35 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v93 renditions], fallbackAppearance);
       }
 
-      v57 = objc_alloc_init(MEMORY[0x277D02698]);
-      [v57 setOpacity:v20];
-      [v57 setBlendMode:v95];
-      [v57 setBlurStrength:v39];
-      [v57 setHasLightingEffects:hasLightingEffects];
-      [v57 setGathersSpecularByElement:gathersSpecularByElement];
-      if (v33)
+      v51 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v93 renditions], appearance);
+      if (v51)
       {
-        v58 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v33 renditions], fallbackAppearance);
-        v59 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v33 renditions], appearance);
-        if (v59)
+        v52 = v51;
+      }
+
+      else
+      {
+        v52 = v35;
+      }
+
+      if (v52)
+      {
+        v38 = [(CoreThemeDocument *)self _namedGradientFromGradientRendition:v52 matchingAppearance:appearance fallbackAppearance:appearance];
+        goto LABEL_28;
+      }
+    }
+
+    else
+    {
+      v94 = v31;
+      v39 = v25;
+      appearanceCopy2 = appearance;
+      if (v95 && [v95 isMemberOfClass:objc_opt_class()])
+      {
+        v41 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v95 renditions], fallbackAppearance);
+        v42 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v95 renditions], appearance);
+        if (v42)
         {
-          v60 = v59;
+          v41 = v42;
+        }
+
+        v43 = [objc_msgSend(v41 "asset")];
+        if (v33)
+        {
+          v44 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v33 renditions], fallbackAppearance);
+          v45 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v33 renditions], appearance);
+          if (v45)
+          {
+            v46 = v45;
+          }
+
+          else
+          {
+            v46 = v44;
+          }
+
+          v47 = [(CoreThemeDocument *)self _namedColorFromColorRendition:v46];
+          v48 = 0;
+          v49 = hasLightingEffects;
+          v50 = v34;
         }
 
         else
         {
-          v60 = v58;
-        }
-
-        v61 = [(CoreThemeDocument *)self _namedColorFromColorRendition:v60];
-        v62 = hasSpecular;
-        v63 = v94;
-        if (v61)
-        {
-          [v57 setColor:{objc_msgSend(v61, "cgColor")}];
-        }
-      }
-
-      else
-      {
-        v62 = hasSpecular;
-        v63 = v94;
-        if (v98)
-        {
-          v64 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v98 renditions], fallbackAppearance);
-          v65 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v98 renditions], appearance);
-          v66 = v65 ? v65 : v64;
-          v67 = [(CoreThemeDocument *)self _namedGradientFromGradientRendition:v66 matchingAppearance:appearance fallbackAppearance:appearance];
-          if (v67)
+          v49 = hasLightingEffects;
+          v50 = gradientOrColorName;
+          if (v94)
           {
-            [v57 setGradient:v67];
-          }
-        }
-      }
-
-      [v57 setShadowStyle:v63];
-      [v57 setShadowOpacity:v27];
-      [v57 setHasSpecular:v62];
-      [v57 setTranslucency:v22];
-      [v57 setAppearance:{objc_msgSend(objc_msgSend(objc_msgSend(v56, "keySpec"), "appearance"), "name")}];
-      v108 = 0u;
-      v109 = 0u;
-      v106 = 0u;
-      v107 = 0u;
-      layerReferences = [v56 layerReferences];
-      v69 = [layerReferences countByEnumeratingWithState:&v106 objects:v110 count:16];
-      fallbackAppearanceCopy2 = fallbackAppearance;
-      if (v69)
-      {
-        v71 = v69;
-        v72 = *v107;
-        v101 = *MEMORY[0x277CCA450];
-        do
-        {
-          for (i = 0; i != v71; ++i)
-          {
-            if (*v107 != v72)
+            v81 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v94 renditions], fallbackAppearance);
+            v82 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v94 renditions], appearance);
+            if (v82)
             {
-              objc_enumerationMutation(layerReferences);
-            }
-
-            v74 = *(*(&v106 + 1) + 8 * i);
-            if (v74 == reference)
-            {
-              name2 = [reference name];
-              _CUILog();
-              if (error)
-              {
-                selfCopy = self;
-                v76 = [MEMORY[0x277CCACA8] stringWithFormat:@"infinite recursion for layer group %@ in icon %@", objc_msgSend(reference, "name", name2), objc_msgSend(stack, "name")];
-                v77 = MEMORY[0x277CCA9B8];
-                v78 = CoreThemeDefinitionErrorDomain[0];
-                v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v76, v101, 0}];
-                v80 = v77;
-                v81 = v78;
-                self = selfCopy;
-                fallbackAppearanceCopy2 = fallbackAppearance;
-                appearanceCopy2 = appearance;
-                *error = [v80 errorWithDomain:v81 code:201 userInfo:v79];
-              }
+              v83 = v82;
             }
 
             else
             {
-              [(CoreThemeDocument *)self _addLayerReference:v74 toMutableIconLayerStack:v57 matchingAppearance:appearanceCopy2 fallbackAppearance:fallbackAppearanceCopy2 error:error];
+              v83 = v81;
             }
+
+            v48 = [(CoreThemeDocument *)self _namedGradientFromGradientRendition:v83 matchingAppearance:appearance fallbackAppearance:appearance];
           }
 
-          v71 = [layerReferences countByEnumeratingWithState:&v106 objects:v110 count:16];
+          else
+          {
+            v48 = 0;
+          }
+
+          v47 = 0;
         }
 
-        while (v71);
-      }
-
-      [stack addLayer:{v57, name2}];
-    }
-
-    goto LABEL_59;
-  }
-
-  v41 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v99 renditions], fallbackAppearance);
-  v42 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v99 renditions], appearance);
-  if (v42)
-  {
-    v41 = v42;
-  }
-
-  v43 = [objc_msgSend(v41 "asset")];
-  if (v33)
-  {
-    v44 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v33 renditions], fallbackAppearance);
-    v45 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v33 renditions], appearance);
-    if (v45)
-    {
-      v46 = v45;
-    }
-
-    else
-    {
-      v46 = v44;
-    }
-
-    v47 = [(CoreThemeDocument *)self _namedColorFromColorRendition:v46];
-    v48 = 0;
-    v49 = hasLightingEffects;
-    v50 = v34;
-  }
-
-  else
-  {
-    v49 = hasLightingEffects;
-    v50 = gradientOrColorName;
-    if (v98)
-    {
-      v83 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v98 renditions], fallbackAppearance);
-      v84 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v98 renditions], appearance);
-      if (v84)
-      {
-        v85 = v84;
-      }
-
-      else
-      {
-        v85 = v83;
-      }
-
-      v48 = [(CoreThemeDocument *)self _namedGradientFromGradientRendition:v85 matchingAppearance:appearance fallbackAppearance:appearance];
-    }
-
-    else
-    {
-      v48 = 0;
-    }
-
-    v47 = 0;
-  }
-
-  if ([-[__CFURL pathExtension](v43 "pathExtension")])
-  {
-    v105 = objc_alloc_init(MEMORY[0x277D026A8]);
-    v86 = CGImageSourceCreateWithURL(v43, 0);
-    if (v86)
-    {
-      v87 = v86;
-      ImageAtIndex = CGImageSourceCreateImageAtIndex(v86, 0, 0);
-      CFRelease(v87);
-      if (ImageAtIndex)
-      {
-        [v105 setScale:v92];
-        [v105 setFrame:{v12, v14, v16, v18}];
-        [v105 setOpacity:v20];
-        [v105 setImage:ImageAtIndex];
-        [v105 setBlurStrength:v39];
-        [v105 setHasLightingEffects:v49];
-        [v105 setGradientOrColorName:v50];
-        if (v47)
+        if ([-[__CFURL pathExtension](v43 "pathExtension")])
         {
-          [v105 setColor:{objc_msgSend(v47, "cgColor")}];
-          v89 = v95;
+          v101 = objc_alloc_init(MEMORY[0x277D026A8]);
+          v84 = CGImageSourceCreateWithURL(v43, 0);
+          if (v84)
+          {
+            v85 = v84;
+            ImageAtIndex = CGImageSourceCreateImageAtIndex(v84, 0, 0);
+            CFRelease(v85);
+            if (ImageAtIndex)
+            {
+              [v101 setScale:v88];
+              [v101 setFrame:{v12, v14, v16, v18}];
+              [v101 setOpacity:v20];
+              [v101 setImage:ImageAtIndex];
+              [v101 setBlurStrength:v39];
+              [v101 setHasLightingEffects:v49];
+              [v101 setGradientOrColorName:v50];
+              if (v47)
+              {
+                [v101 setColor:{objc_msgSend(v47, "cgColor")}];
+                v87 = v91;
+              }
+
+              else
+              {
+                v87 = v91;
+                if (v48)
+                {
+                  [v101 setGradient:v48];
+                }
+              }
+
+              [v101 setBlendMode:v87];
+              [v101 setAppearance:{objc_msgSend(objc_msgSend(objc_msgSend(v41, "keySpec"), "appearance"), "name")}];
+              [stack addLayer:v101];
+              CGImageRelease(ImageAtIndex);
+            }
+          }
         }
 
         else
         {
-          v89 = v95;
-          if (v48)
+          v101 = objc_alloc_init(MEMORY[0x277D026B0]);
+          [v101 setSvgDocumentURL:v43];
+          [v101 setSvgDocument:CGSVGDocumentCreateFromURL()];
+          CGSVGDocumentRelease();
+          [v101 setScale:v88];
+          [v101 setFrame:{v12, v14, v16, v18}];
+          [v101 setOpacity:v20];
+          [v101 setBlurStrength:v39];
+          [v101 setHasLightingEffects:v49];
+          [v101 setGradientOrColorName:v50];
+          [v101 setBlendMode:v91];
+          if (v47)
           {
-            [v105 setGradient:v48];
+            [v101 setColor:{objc_msgSend(v47, "cgColor")}];
+          }
+
+          else if (v48)
+          {
+            [v101 setGradient:v48];
+          }
+
+          [v101 setAppearance:{objc_msgSend(objc_msgSend(objc_msgSend(v41, "keySpec"), "appearance"), "name")}];
+          [stack addLayer:v101];
+        }
+      }
+
+      else if (v29)
+      {
+        v53 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v29 renditions], fallbackAppearance);
+        v54 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v29 renditions], appearance);
+        if (v54)
+        {
+          v55 = v54;
+        }
+
+        else
+        {
+          v55 = v53;
+        }
+
+        v56 = objc_alloc_init(MEMORY[0x277D02698]);
+        [v56 setOpacity:v20];
+        [v56 setBlendMode:v91];
+        [v56 setBlurStrength:v39];
+        [v56 setHasLightingEffects:hasLightingEffects];
+        [v56 setGathersSpecularByElement:gathersSpecularByElement];
+        if (v33)
+        {
+          v57 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v33 renditions], fallbackAppearance);
+          v58 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v33 renditions], appearance);
+          if (v58)
+          {
+            v59 = v58;
+          }
+
+          else
+          {
+            v59 = v57;
+          }
+
+          v60 = [(CoreThemeDocument *)self _namedColorFromColorRendition:v59];
+          v61 = hasSpecular;
+          v62 = v90;
+          if (v60)
+          {
+            [v56 setColor:{objc_msgSend(v60, "cgColor")}];
           }
         }
 
-        [v105 setBlendMode:v89];
-        [v105 setAppearance:{objc_msgSend(objc_msgSend(objc_msgSend(v41, "keySpec"), "appearance"), "name")}];
-        [stack addLayer:v105];
-        CGImageRelease(ImageAtIndex);
+        else
+        {
+          v61 = hasSpecular;
+          v62 = v90;
+          if (v94)
+          {
+            v63 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v94 renditions], fallbackAppearance);
+            v64 = -[CoreThemeDocument _renditionInSet:matchingAppearance:](self, "_renditionInSet:matchingAppearance:", [v94 renditions], appearance);
+            v65 = v64 ? v64 : v63;
+            v66 = [(CoreThemeDocument *)self _namedGradientFromGradientRendition:v65 matchingAppearance:appearance fallbackAppearance:appearance];
+            if (v66)
+            {
+              [v56 setGradient:v66];
+            }
+          }
+        }
+
+        [v56 setShadowStyle:v62];
+        [v56 setShadowOpacity:v27];
+        [v56 setHasSpecular:v61];
+        [v56 setTranslucency:v22];
+        [v56 setAppearance:{objc_msgSend(objc_msgSend(objc_msgSend(v55, "keySpec"), "appearance"), "name")}];
+        v104 = 0u;
+        v105 = 0u;
+        v102 = 0u;
+        v103 = 0u;
+        layerReferences = [v55 layerReferences];
+        v68 = [layerReferences countByEnumeratingWithState:&v102 objects:v106 count:16];
+        fallbackAppearanceCopy2 = fallbackAppearance;
+        if (v68)
+        {
+          v70 = v68;
+          v71 = *v103;
+          v97 = *MEMORY[0x277CCA450];
+          do
+          {
+            for (i = 0; i != v70; ++i)
+            {
+              if (*v103 != v71)
+              {
+                objc_enumerationMutation(layerReferences);
+              }
+
+              v73 = *(*(&v102 + 1) + 8 * i);
+              if (v73 == reference)
+              {
+                _CUILog(4, "infinite recursion for layer group %@", [reference name]);
+                if (error)
+                {
+                  selfCopy = self;
+                  v75 = [MEMORY[0x277CCACA8] stringWithFormat:@"infinite recursion for layer group %@ in icon %@", objc_msgSend(reference, "name"), objc_msgSend(stack, "name")];
+                  v76 = MEMORY[0x277CCA9B8];
+                  v77 = CoreThemeDefinitionErrorDomain[0];
+                  v78 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v75, v97, 0}];
+                  v79 = v76;
+                  v80 = v77;
+                  self = selfCopy;
+                  fallbackAppearanceCopy2 = fallbackAppearance;
+                  appearanceCopy2 = appearance;
+                  *error = [v79 errorWithDomain:v80 code:201 userInfo:v78];
+                }
+              }
+
+              else
+              {
+                [(CoreThemeDocument *)self _addLayerReference:v73 toMutableIconLayerStack:v56 matchingAppearance:appearanceCopy2 fallbackAppearance:fallbackAppearanceCopy2 error:error];
+              }
+            }
+
+            v70 = [layerReferences countByEnumeratingWithState:&v102 objects:v106 count:16];
+          }
+
+          while (v70);
+        }
+
+        [stack addLayer:v56];
       }
     }
   }
-
-  else
-  {
-    v105 = objc_alloc_init(MEMORY[0x277D026B0]);
-    [v105 setSvgDocumentURL:v43];
-    [v105 setSvgDocument:CGSVGDocumentCreateFromURL()];
-    CGSVGDocumentRelease();
-    [v105 setScale:v92];
-    [v105 setFrame:{v12, v14, v16, v18}];
-    [v105 setOpacity:v20];
-    [v105 setBlurStrength:v39];
-    [v105 setHasLightingEffects:v49];
-    [v105 setGradientOrColorName:v50];
-    [v105 setBlendMode:v95];
-    if (v47)
-    {
-      [v105 setColor:{objc_msgSend(v47, "cgColor")}];
-    }
-
-    else if (v48)
-    {
-      [v105 setGradient:v48];
-    }
-
-    [v105 setAppearance:{objc_msgSend(objc_msgSend(objc_msgSend(v41, "keySpec"), "appearance"), "name")}];
-    [stack addLayer:v105];
-  }
-
-  v90 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addLegacyIconAssetsForLayerStack:(id)stack forAppearance:(id)appearance renderedAppearance:(unint64_t)renderedAppearance renderingMode:(id)mode error:(id *)error
 {
-  v87[7] = *MEMORY[0x277D85DE8];
+  v85[7] = *MEMORY[0x277D85DE8];
   if (!stack)
   {
-    goto LABEL_50;
+    return;
   }
 
   targetPlatform = [(CoreThemeDocument *)self targetPlatform];
   v11 = 0;
   selfCopy = self;
-  v57 = targetPlatform;
+  v55 = targetPlatform;
   errorCopy = error;
   if (targetPlatform > 1)
   {
@@ -5005,8 +8109,7 @@ LABEL_59:
 
   if (targetPlatform == -1)
   {
-    v54 = -1;
-    _CUILog();
+    _CUILog(4, "Unknown target platform %d", -1);
     v11 = 0;
     goto LABEL_16;
   }
@@ -5016,13 +8119,13 @@ LABEL_59:
     if (targetPlatform != 1)
     {
 LABEL_16:
-      v70[0] = @"size";
-      v70[1] = @"scale";
-      v71[0] = [MEMORY[0x277CCAE60] valueWithSize:{1024.0, 1024.0, v54}];
-      v71[1] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-      v72 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:2];
+      v68[0] = @"size";
+      v68[1] = @"scale";
+      v69[0] = [MEMORY[0x277CCAE60] valueWithSize:{1024.0, 1024.0}];
+      v69[1] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
+      v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:2];
       v12 = MEMORY[0x277CBEA60];
-      v13 = &v72;
+      v13 = &v70;
       v14 = 1;
       goto LABEL_17;
     }
@@ -5032,69 +8135,69 @@ LABEL_9:
     goto LABEL_16;
   }
 
-  v85[0] = @"size";
-  v85[1] = @"scale";
-  v86[0] = [MEMORY[0x277CCAE60] valueWithSize:{16.0, 16.0}];
-  v86[1] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
-  v87[0] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v86 forKeys:v85 count:2];
   v83[0] = @"size";
   v83[1] = @"scale";
-  v84[0] = [MEMORY[0x277CCAE60] valueWithSize:{32.0, 32.0}];
+  v84[0] = [MEMORY[0x277CCAE60] valueWithSize:{16.0, 16.0}];
   v84[1] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
-  v87[1] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:2];
+  v85[0] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:2];
   v81[0] = @"size";
-  v82[0] = [MEMORY[0x277CCAE60] valueWithSize:{64.0, 64.0}];
   v81[1] = @"scale";
+  v82[0] = [MEMORY[0x277CCAE60] valueWithSize:{32.0, 32.0}];
   v82[1] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
-  v87[2] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:2];
+  v85[1] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:2];
   v79[0] = @"size";
+  v80[0] = [MEMORY[0x277CCAE60] valueWithSize:{64.0, 64.0}];
   v79[1] = @"scale";
-  v80[0] = [MEMORY[0x277CCAE60] valueWithSize:{128.0, 128.0}];
   v80[1] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
-  v87[3] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:2];
+  v85[2] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:2];
   v77[0] = @"size";
   v77[1] = @"scale";
-  v78[0] = [MEMORY[0x277CCAE60] valueWithSize:{256.0, 256.0}];
+  v78[0] = [MEMORY[0x277CCAE60] valueWithSize:{128.0, 128.0}];
   v78[1] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
-  v87[4] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:2];
+  v85[3] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:2];
   v75[0] = @"size";
   v75[1] = @"scale";
-  v76[0] = [MEMORY[0x277CCAE60] valueWithSize:{512.0, 512.0}];
+  v76[0] = [MEMORY[0x277CCAE60] valueWithSize:{256.0, 256.0}];
   v76[1] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
-  v87[5] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:2];
+  v85[4] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:2];
   v73[0] = @"size";
   v73[1] = @"scale";
-  v74[0] = [MEMORY[0x277CCAE60] valueWithSize:{1024.0, 1024.0}];
-  v74[1] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-  v87[6] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:2];
+  v74[0] = [MEMORY[0x277CCAE60] valueWithSize:{512.0, 512.0}];
+  v74[1] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
+  v85[5] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:2];
+  v71[0] = @"size";
+  v71[1] = @"scale";
+  v72[0] = [MEMORY[0x277CCAE60] valueWithSize:{1024.0, 1024.0}];
+  v72[1] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
+  v85[6] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
   v12 = MEMORY[0x277CBEA60];
   v11 = 7;
-  v13 = v87;
+  v13 = v85;
   v14 = 7;
 LABEL_17:
   v15 = [v12 arrayWithObjects:v13 count:v14];
   array = [MEMORY[0x277CBEB18] array];
+  v63 = 0u;
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
-  v68 = 0u;
   obj = v15;
-  v17 = [v15 countByEnumeratingWithState:&v65 objects:v69 count:16];
-  v61 = array;
+  v17 = [v15 countByEnumeratingWithState:&v63 objects:v67 count:16];
+  v59 = array;
   if (v17)
   {
     v18 = v17;
-    v19 = *v66;
+    v19 = *v64;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v66 != v19)
+        if (*v64 != v19)
         {
           objc_enumerationMutation(v15);
         }
 
-        v21 = *(*(&v65 + 1) + 8 * i);
+        v21 = *(*(&v63 + 1) + 8 * i);
         [objc_msgSend(v21 objectForKey:{@"size", "sizeValue"}];
         v24 = [stack finalizedIconWithSize:objc_msgSend(objc_msgSend(v21 scale:"objectForKey:" deviceClass:@"scale" appearance:"unsignedIntegerValue") renderingMode:{v11, renderedAppearance, mode, v22, v23}];
         if (v24)
@@ -5103,12 +8206,12 @@ LABEL_17:
           v26 = objc_alloc_init(MEMORY[0x277D1B178]);
           v27 = [v25 renderedLegacyCompatibleIconWithConfiguration:v26 forDeviceClass:v11];
 
-          array = v61;
-          [v61 addObject:v27];
+          array = v59;
+          [v59 addObject:v27];
         }
       }
 
-      v18 = [v15 countByEnumeratingWithState:&v65 objects:v69 count:16];
+      v18 = [v15 countByEnumeratingWithState:&v63 objects:v67 count:16];
     }
 
     while (v18);
@@ -5119,7 +8222,7 @@ LABEL_17:
   if ([array count])
   {
     v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v58 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v56 = objc_alloc_init(MEMORY[0x277CBEB18]);
     if ([array count])
     {
       v31 = 0;
@@ -5158,7 +8261,7 @@ LABEL_17:
         }
 
         [(NSMutableArray *)tempFilesToCleanup addObject:v44];
-        array = v61;
+        array = v59;
         appearanceCopy2 = appearance;
         if (!renderedAppearance && (v36 >= 1024.0 || v38 >= 1024.0))
         {
@@ -5175,12 +8278,12 @@ LABEL_17:
         v48 = objc_alloc_init(TDNamedAssetImportInfo);
         -[TDNamedAssetImportInfo setName:](v48, "setName:", [stack name]);
         -[TDNamedAssetImportInfo setNameIdentifier:](v48, "setNameIdentifier:", [objc_msgSend(v33 "identifier")]);
-        if (v57 == 4)
+        if (v55 == 4)
         {
           break;
         }
 
-        if (v57 != 1)
+        if (v55 != 1)
         {
           v50 = 0;
           goto LABEL_45;
@@ -5189,7 +8292,7 @@ LABEL_17:
         [(TDNamedAssetImportInfo *)v48 setIdiom:1];
         [(TDNamedAssetImportInfo *)v48 setRenditionType:0];
         [(TDNamedAssetImportInfo *)v48 setFileURL:v44];
-        [v58 addObject:v44];
+        [v56 addObject:v44];
         -[TDNamedAssetImportInfo setIconSize:](v48, "setIconSize:", [MEMORY[0x277CCAE60] valueWithSize:{v36, v38}]);
         [(TDNamedAssetImportInfo *)v48 setDisplayGamut:0];
         [(TDNamedAssetImportInfo *)v48 setScaleFactor:v39];
@@ -5205,7 +8308,7 @@ LABEL_17:
         [(TDNamedAssetImportInfo *)v48 setRenditionType:0];
         [(TDNamedAssetImportInfo *)v48 setFileURL:v44];
         v28 = selfCopy;
-        [v58 addObject:v44];
+        [v56 addObject:v44];
         v49 = MEMORY[0x277CCAE60];
 LABEL_46:
         -[TDNamedAssetImportInfo setIconSize:](v48, "setIconSize:", [v49 valueWithSize:{v36, v38}]);
@@ -5216,7 +8319,7 @@ LABEL_46:
         -[TDNamedAssetImportInfo setAppearanceIdentifier:](v48, "setAppearanceIdentifier:", [appearance identifier]);
         [v30 addObject:v48];
 
-        if (++v31 >= [v61 count])
+        if (++v31 >= [v59 count])
         {
           goto LABEL_47;
         }
@@ -5227,14 +8330,14 @@ LABEL_45:
       [(TDNamedAssetImportInfo *)v48 setIdiom:v50];
       [(TDNamedAssetImportInfo *)v48 setRenditionType:0];
       [(TDNamedAssetImportInfo *)v48 setFileURL:v44];
-      [v58 addObject:v44];
+      [v56 addObject:v44];
       v49 = MEMORY[0x277CCAE60];
       goto LABEL_46;
     }
 
 LABEL_47:
     array2 = [MEMORY[0x277CBEA60] array];
-    v51 = [(CoreThemeDocument *)v28 _addAssetsAtFileURLs:v58 createProductions:0 referenceFiles:1 bitSource:[(CoreThemeDocument *)v28 _themeBitSourceForReferencedFilesAtURLs:v58 createIfNecessary:1] customInfos:v30 sortedCustomInfos:&array2];
+    v51 = [(CoreThemeDocument *)v28 _addAssetsAtFileURLs:v56 createProductions:0 referenceFiles:1 bitSource:[(CoreThemeDocument *)v28 _themeBitSourceForReferencedFilesAtURLs:v56 createIfNecessary:1] customInfos:v30 sortedCustomInfos:&array2];
     v52 = [v51 count];
     if (v52 != [array2 count])
     {
@@ -5243,26 +8346,23 @@ LABEL_47:
 
     [(CoreThemeDocument *)v28 createNamedArtworkProductionsForAssets:v51 customInfos:array2 skipLastStep:1 error:errorCopy];
   }
-
-LABEL_50:
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (id)updateAutomaticTexturesForCustomInfos:(id)infos allTextureInfos:(id)textureInfos
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   if ([infos count])
   {
-    v48 = 0;
-    v39 = [textureInfos mutableCopy];
+    v47 = 0;
+    v38 = [textureInfos mutableCopy];
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v38 = [infos countByEnumeratingWithState:&v44 objects:v50 count:16];
-    if (v38)
+    v37 = [infos countByEnumeratingWithState:&v43 objects:v49 count:16];
+    if (v37)
     {
-      v37 = *v45;
+      v36 = *v44;
       v7 = *MEMORY[0x277CBEEE8];
       obj = infos;
       do
@@ -5270,32 +8370,32 @@ LABEL_50:
         v8 = 0;
         do
         {
-          if (*v45 != v37)
+          if (*v44 != v36)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v44 + 1) + 8 * v8);
+          v9 = *(*(&v43 + 1) + 8 * v8);
+          v39 = 0u;
           v40 = 0u;
           v41 = 0u;
           v42 = 0u;
-          v43 = 0u;
           textureInfos = [v9 textureInfos];
-          v11 = [textureInfos countByEnumeratingWithState:&v40 objects:v49 count:16];
+          v11 = [textureInfos countByEnumeratingWithState:&v39 objects:v48 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v41;
+            v13 = *v40;
             while (2)
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v41 != v13)
+                if (*v40 != v13)
                 {
                   objc_enumerationMutation(textureInfos);
                 }
 
-                v15 = *(*(&v40 + 1) + 8 * i);
+                v15 = *(*(&v39 + 1) + 8 * i);
                 if ([v15 fileURL] != v7)
                 {
                   v16 = CGImageSourceCreateWithURL([v15 fileURL], 0);
@@ -5306,19 +8406,19 @@ LABEL_50:
                     CFRelease(v17);
                     if (ImageAtIndex)
                     {
-                      v48 = 2;
-                      memset(v52, 0, sizeof(v52));
+                      v47 = 2;
+                      memset(v51, 0, sizeof(v51));
                       v19 = -1;
-                      v20 = &v51;
+                      v20 = &v50;
                       do
                       {
                         [(CoreThemeDocument *)self targetPlatform];
                         [v9 displayGamut];
                         [v9 textureInterpretation];
                         v21 = CUIGetFormatForFeatureSetAndPixelFormat();
-                        v22 = v48;
-                        *(v52 + v48) = v21;
-                        v48 = v22 - 1;
+                        v22 = v47;
+                        *(v51 + v47) = v21;
+                        v47 = v22 - 1;
                         ++v20;
                         ++v19;
                       }
@@ -5327,7 +8427,7 @@ LABEL_50:
                       if (v19)
                       {
                         v23 = v19 + 1;
-                        while (*(v52 + (v23 - 2)) == *v20)
+                        while (*(v51 + (v23 - 2)) == *v20)
                         {
                           if (--v23 <= 1)
                           {
@@ -5351,13 +8451,13 @@ LABEL_24:
                           v26 = v23;
                           do
                           {
-                            v27 = *(v52 + v25);
+                            v27 = *(v51 + v25);
                             if (v27)
                             {
                               v28 = [v9 copyWithZone:0];
                               [v28 setTexturePixelFormat:v27];
                               [v28 setGraphicsFeatureSetClass:v25];
-                              [v39 addObject:v28];
+                              [v38 addObject:v28];
                             }
 
                             ++v25;
@@ -5383,7 +8483,7 @@ LABEL_24:
                         {
                           while (1)
                           {
-                            v30 = *(v52 + v29);
+                            v30 = *(v51 + v29);
                             v31 = v29;
                             if (v30)
                             {
@@ -5400,7 +8500,7 @@ LABEL_24:
                           v32 = [v9 copyWithZone:0];
                           [v32 setTexturePixelFormat:v30];
                           [v32 setGraphicsFeatureSetClass:v31];
-                          [v39 addObject:v32];
+                          [v38 addObject:v32];
                         }
                       }
 
@@ -5413,7 +8513,7 @@ LABEL_32:
                 }
               }
 
-              v12 = [textureInfos countByEnumeratingWithState:&v40 objects:v49 count:16];
+              v12 = [textureInfos countByEnumeratingWithState:&v39 objects:v48 count:16];
               if (v12)
               {
                 continue;
@@ -5427,51 +8527,50 @@ LABEL_33:
           ++v8;
         }
 
-        while (v8 != v38);
-        v33 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
-        v38 = v33;
+        while (v8 != v37);
+        v33 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+        v37 = v33;
       }
 
       while (v33);
     }
 
-    textureInfos = v39;
+    return v38;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return textureInfos;
 }
 
 + (id)_imageAssetURLsByCopyingFileURLs:(id)ls toManagedLocationAtURL:(id)l error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(ls, "count")}];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v10 = [l URLByAppendingPathComponent:@"NamedImages"];
   if (([v10 checkResourceIsReachableAndReturnError:0] & 1) != 0 || (v11 = objc_msgSend(defaultManager, "createDirectoryAtURL:withIntermediateDirectories:attributes:error:", v10, 1, 0, error), result = 0, v11))
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    v13 = [ls countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v13 = [ls countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
       errorCopy = error;
-      v15 = *v26;
+      v15 = *v25;
       v16 = *MEMORY[0x277CBEEE8];
       while (2)
       {
         v17 = 0;
         do
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(ls);
           }
 
-          v18 = *(*(&v25 + 1) + 8 * v17);
+          v18 = *(*(&v24 + 1) + 8 * v17);
           if (v18 == v16)
           {
             v20 = v8;
@@ -5480,17 +8579,16 @@ LABEL_33:
 
           else
           {
-            v24 = 0;
+            v23 = 0;
             v19 = [v10 URLByAppendingPathComponent:{objc_msgSend(v18, "lastPathComponent")}];
-            if ([v19 checkResourceIsReachableAndReturnError:&v24] && (NSLog(&cfstr_FileAlreadyExi.isa, v18), (objc_msgSend(defaultManager, "removeItemAtURL:error:", v19, &v24) & 1) == 0) || (objc_msgSend(defaultManager, "copyItemAtURL:toURL:error:", v18, v19, &v24) & 1) == 0)
+            if ([v19 checkResourceIsReachableAndReturnError:&v23] && (NSLog(&cfstr_FileAlreadyExi.isa, v18), (objc_msgSend(defaultManager, "removeItemAtURL:error:", v19, &v23) & 1) == 0) || (objc_msgSend(defaultManager, "copyItemAtURL:toURL:error:", v18, v19, &v23) & 1) == 0)
             {
               if (errorCopy)
               {
-                *errorCopy = v24;
+                *errorCopy = v23;
               }
 
-              result = 0;
-              goto LABEL_20;
+              return 0;
             }
 
             v20 = v8;
@@ -5502,7 +8600,7 @@ LABEL_33:
         }
 
         while (v14 != v17);
-        v14 = [ls countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v14 = [ls countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v14)
         {
           continue;
@@ -5512,11 +8610,9 @@ LABEL_33:
       }
     }
 
-    result = v8;
+    return v8;
   }
 
-LABEL_20:
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5569,30 +8665,30 @@ LABEL_20:
 
 - (void)_makeRadiosityImages
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = [(CoreThemeDocument *)self partWithIdentifier:209];
-  v21 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:0];
+  v20 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:0];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"LayerStackProduction", [MEMORY[0x277CCAC30] predicateWithFormat:@"renditionType.identifier == %d", 1002], 0);
-  v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v23)
+  v22 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  if (v22)
   {
-    v22 = *v30;
+    v21 = *v29;
     do
     {
       v4 = 0;
       do
       {
-        if (*v30 != v22)
+        if (*v29 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = v4;
-        v5 = *(*(&v29 + 1) + 8 * v4);
+        v23 = v4;
+        v5 = *(*(&v28 + 1) + 8 * v4);
         flattenedImageProduction = [v5 flattenedImageProduction];
         if (flattenedImageProduction)
         {
@@ -5603,29 +8699,29 @@ LABEL_20:
           [v9 setElement:{objc_msgSend(objc_msgSend(v5, "baseKeySpec"), "element")}];
           [v9 setPart:v3];
           [v8 setBaseKeySpec:v9];
-          [v8 setRenditionType:v21];
+          [v8 setRenditionType:v20];
           [v8 setTags:{objc_msgSend(v5, "tags")}];
           [v5 setRadiosityImageProduction:v8];
-          v27 = 0u;
-          v28 = 0u;
-          v25 = 0u;
           v26 = 0u;
+          v27 = 0u;
+          v24 = 0u;
+          v25 = 0u;
           renditions = [v7 renditions];
-          v11 = [renditions countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v11 = [renditions countByEnumeratingWithState:&v24 objects:v32 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v26;
+            v13 = *v25;
             do
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v26 != v13)
+                if (*v25 != v13)
                 {
                   objc_enumerationMutation(renditions);
                 }
 
-                v15 = *(*(&v25 + 1) + 8 * i);
+                v15 = *(*(&v24 + 1) + 8 * i);
                 v16 = [(CoreThemeDocument *)self newObjectForEntity:@"RadiosityImageRenditionSpec"];
                 [v16 setFlattenedImage:v15];
                 [v16 setProduction:v8];
@@ -5647,128 +8743,126 @@ LABEL_20:
                 [v16 setHeight:{(objc_msgSend(v15, "height") + v18 * 2.0)}];
               }
 
-              v12 = [renditions countByEnumeratingWithState:&v25 objects:v33 count:16];
+              v12 = [renditions countByEnumeratingWithState:&v24 objects:v32 count:16];
             }
 
             while (v12);
           }
         }
 
-        v4 = v24 + 1;
+        v4 = v23 + 1;
       }
 
-      while (v24 + 1 != v23);
-      v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      while (v23 + 1 != v22);
+      v22 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
-    while (v23);
+    while (v22);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tidyUpLayerStacks
 {
-  v173 = *MEMORY[0x277D85DE8];
+  v172 = *MEMORY[0x277D85DE8];
   idioms = [(CoreThemeDocument *)self idioms];
   sizeClasses = [(CoreThemeDocument *)self sizeClasses];
   compressionTypes = [(CoreThemeDocument *)self compressionTypes];
   deploymentTargets = [(CoreThemeDocument *)self deploymentTargets];
   v3 = [(CoreThemeDocument *)self objectsForEntity:@"LayerStackProduction" withPredicate:0 sortDescriptors:0];
-  v94 = [(CoreThemeDocument *)self partWithIdentifier:208];
-  v75 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:0];
-  v91 = [(CoreThemeDocument *)self graphicsFeatureSetClassWithIdentifier:2];
+  v93 = [(CoreThemeDocument *)self partWithIdentifier:208];
+  v74 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:0];
+  v90 = [(CoreThemeDocument *)self graphicsFeatureSetClassWithIdentifier:2];
+  v155 = 0u;
   v156 = 0u;
   v157 = 0u;
   v158 = 0u;
-  v159 = 0u;
   obj = v3;
-  v78 = [v3 countByEnumeratingWithState:&v156 objects:v172 count:16];
-  if (v78)
+  v77 = [v3 countByEnumeratingWithState:&v155 objects:v171 count:16];
+  if (v77)
   {
-    v77 = *v157;
+    v76 = *v156;
 LABEL_3:
     v4 = 0;
     while (1)
     {
-      if (*v157 != v77)
+      if (*v156 != v76)
       {
         objc_enumerationMutation(obj);
       }
 
-      v5 = *(*(&v156 + 1) + 8 * v4);
+      v5 = *(*(&v155 + 1) + 8 * v4);
       if ([objc_msgSend(v5 "renditionType")] == 1019)
       {
         break;
       }
 
-      v79 = v4;
+      v78 = v4;
       renditions = [v5 renditions];
-      v86 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(renditions, "count")}];
+      v85 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(renditions, "count")}];
+      v151 = 0u;
       v152 = 0u;
       v153 = 0u;
       v154 = 0u;
-      v155 = 0u;
       renditions2 = [v5 renditions];
-      v8 = [renditions2 countByEnumeratingWithState:&v152 objects:v171 count:16];
+      v8 = [renditions2 countByEnumeratingWithState:&v151 objects:v170 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v153;
+        v10 = *v152;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v153 != v10)
+            if (*v152 != v10)
             {
               objc_enumerationMutation(renditions2);
             }
 
-            v12 = *(*(&v152 + 1) + 8 * i);
+            v12 = *(*(&v151 + 1) + 8 * i);
             v13 = objc_alloc_init(_TDLayerStackFilterHelper);
             [(_TDLayerStackFilterHelper *)v13 setLayerStackRendition:v12];
-            [v86 addObject:v13];
+            [v85 addObject:v13];
           }
 
-          v9 = [renditions2 countByEnumeratingWithState:&v152 objects:v171 count:16];
+          v9 = [renditions2 countByEnumeratingWithState:&v151 objects:v170 count:16];
         }
 
         while (v9);
       }
 
-      if ([v86 count])
+      if ([v85 count])
       {
         v14 = 0;
         do
         {
-          v15 = [v86 objectAtIndex:v14];
-          if ([v86 count])
+          v15 = [v85 objectAtIndex:v14];
+          if ([v85 count])
           {
             v16 = 0;
             do
             {
               if (v14 != v16)
               {
-                [v15 establishExclusionsWithHelper:objc_msgSend(v86 idioms:"objectAtIndex:" sizeClasses:{v16), idioms, sizeClasses}];
+                [v15 establishExclusionsWithHelper:objc_msgSend(v85 idioms:"objectAtIndex:" sizeClasses:{v16), idioms, sizeClasses}];
               }
 
               ++v16;
             }
 
-            while (v16 < [v86 count]);
+            while (v16 < [v85 count]);
           }
 
           ++v14;
         }
 
-        while (v14 < [v86 count]);
+        while (v14 < [v85 count]);
       }
 
       name = [v5 name];
       flattenedImageProduction = [v5 flattenedImageProduction];
       if (flattenedImageProduction)
       {
-        v87 = [objc_msgSend(v5 "flattenedImageProduction")];
+        v86 = [objc_msgSend(v5 "flattenedImageProduction")];
       }
 
       else
@@ -5778,103 +8872,103 @@ LABEL_3:
         [v17 setTags:{objc_msgSend(v5, "tags")}];
         v18 = [(CoreThemeDocument *)self newObjectForEntity:@"RenditionKeySpec"];
         [v18 setElement:{objc_msgSend(objc_msgSend(v5, "baseKeySpec"), "element")}];
-        [v18 setPart:v94];
+        [v18 setPart:v93];
         [v17 setBaseKeySpec:v18];
         flattenedImageProduction = v17;
-        [v17 setRenditionType:v75];
-        v87 = 0;
+        [v17 setRenditionType:v74];
+        v86 = 0;
       }
 
-      v150 = 0u;
-      v151 = 0u;
-      v148 = 0u;
       v149 = 0u;
+      v150 = 0u;
+      v147 = 0u;
+      v148 = 0u;
       renditions3 = [v5 renditions];
-      v84 = [renditions3 countByEnumeratingWithState:&v148 objects:v170 count:16];
-      if (v84)
+      v83 = [renditions3 countByEnumeratingWithState:&v147 objects:v169 count:16];
+      if (v83)
       {
-        v83 = *v149;
+        v82 = *v148;
         do
         {
           v19 = 0;
           do
           {
-            if (*v149 != v83)
+            if (*v148 != v82)
             {
               objc_enumerationMutation(renditions3);
             }
 
-            v85 = v19;
-            v20 = *(*(&v148 + 1) + 8 * v19);
+            v84 = v19;
+            v20 = *(*(&v147 + 1) + 8 * v19);
             array = [MEMORY[0x277CBEB18] array];
+            v143 = 0u;
             v144 = 0u;
             v145 = 0u;
             v146 = 0u;
-            v147 = 0u;
-            v97 = v20;
+            v96 = v20;
             layerReferences = [v20 layerReferences];
-            v104 = [layerReferences countByEnumeratingWithState:&v144 objects:v169 count:16];
-            if (v104)
+            v103 = [layerReferences countByEnumeratingWithState:&v143 objects:v168 count:16];
+            if (v103)
             {
-              v102 = *v145;
+              v101 = *v144;
               do
               {
                 v21 = 0;
                 do
                 {
-                  if (*v145 != v102)
+                  if (*v144 != v101)
                   {
                     objc_enumerationMutation(layerReferences);
                   }
 
-                  v106 = v21;
-                  v22 = *(*(&v144 + 1) + 8 * v21);
+                  v105 = v21;
+                  v22 = *(*(&v143 + 1) + 8 * v21);
+                  v139 = 0u;
                   v140 = 0u;
                   v141 = 0u;
                   v142 = 0u;
-                  v143 = 0u;
                   v23 = [objc_msgSend(v22 "reference")];
-                  v24 = [v23 countByEnumeratingWithState:&v140 objects:v168 count:16];
+                  v24 = [v23 countByEnumeratingWithState:&v139 objects:v167 count:16];
                   if (v24)
                   {
                     v25 = v24;
-                    v26 = *v141;
+                    v26 = *v140;
                     do
                     {
                       for (j = 0; j != v25; ++j)
                       {
-                        if (*v141 != v26)
+                        if (*v140 != v26)
                         {
                           objc_enumerationMutation(v23);
                         }
 
-                        v28 = *(*(&v140 + 1) + 8 * j);
+                        v28 = *(*(&v139 + 1) + 8 * j);
+                        v135 = 0u;
                         v136 = 0u;
                         v137 = 0u;
                         v138 = 0u;
-                        v139 = 0u;
-                        v29 = [array countByEnumeratingWithState:&v136 objects:v167 count:16];
+                        v29 = [array countByEnumeratingWithState:&v135 objects:v166 count:16];
                         if (v29)
                         {
                           v30 = v29;
-                          v31 = *v137;
+                          v31 = *v136;
 LABEL_42:
                           v32 = 0;
                           while (1)
                           {
-                            if (*v137 != v31)
+                            if (*v136 != v31)
                             {
                               objc_enumerationMutation(array);
                             }
 
-                            if (!-[CoreThemeDocument _compareFlattenedKeySpec1:toKeySpec2:](self, "_compareFlattenedKeySpec1:toKeySpec2:", *(*(&v136 + 1) + 8 * v32), [v28 keySpec]))
+                            if (!-[CoreThemeDocument _compareFlattenedKeySpec1:toKeySpec2:](self, "_compareFlattenedKeySpec1:toKeySpec2:", *(*(&v135 + 1) + 8 * v32), [v28 keySpec]))
                             {
                               break;
                             }
 
                             if (v30 == ++v32)
                             {
-                              v30 = [array countByEnumeratingWithState:&v136 objects:v167 count:16];
+                              v30 = [array countByEnumeratingWithState:&v135 objects:v166 count:16];
                               if (v30)
                               {
                                 goto LABEL_42;
@@ -5892,72 +8986,72 @@ LABEL_48:
                         }
                       }
 
-                      v25 = [v23 countByEnumeratingWithState:&v140 objects:v168 count:16];
+                      v25 = [v23 countByEnumeratingWithState:&v139 objects:v167 count:16];
                     }
 
                     while (v25);
                   }
 
-                  v21 = v106 + 1;
+                  v21 = v105 + 1;
                 }
 
-                while (v106 + 1 != v104);
-                v104 = [layerReferences countByEnumeratingWithState:&v144 objects:v169 count:16];
+                while (v105 + 1 != v103);
+                v103 = [layerReferences countByEnumeratingWithState:&v143 objects:v168 count:16];
               }
 
-              while (v104);
+              while (v103);
             }
 
-            v134 = 0u;
-            v135 = 0u;
-            v132 = 0u;
             v133 = 0u;
-            v33 = [v86 countByEnumeratingWithState:&v132 objects:v166 count:16];
+            v134 = 0u;
+            v131 = 0u;
+            v132 = 0u;
+            v33 = [v85 countByEnumeratingWithState:&v131 objects:v165 count:16];
             if (v33)
             {
               v34 = v33;
-              v35 = *v133;
+              v35 = *v132;
               while (2)
               {
                 for (k = 0; k != v34; ++k)
                 {
-                  if (*v133 != v35)
+                  if (*v132 != v35)
                   {
-                    objc_enumerationMutation(v86);
+                    objc_enumerationMutation(v85);
                   }
 
-                  v37 = *(*(&v132 + 1) + 8 * k);
-                  if ([v37 layerStackRendition] == v97)
+                  v37 = *(*(&v131 + 1) + 8 * k);
+                  if ([v37 layerStackRendition] == v96)
                   {
                     if (v37)
                     {
                       array2 = [MEMORY[0x277CBEB18] array];
+                      v127 = 0u;
                       v128 = 0u;
                       v129 = 0u;
                       v130 = 0u;
-                      v131 = 0u;
-                      v39 = [array countByEnumeratingWithState:&v128 objects:v165 count:16];
+                      v39 = [array countByEnumeratingWithState:&v127 objects:v164 count:16];
                       if (v39)
                       {
                         v40 = v39;
-                        v41 = *v129;
+                        v41 = *v128;
                         do
                         {
                           for (m = 0; m != v40; ++m)
                           {
-                            if (*v129 != v41)
+                            if (*v128 != v41)
                             {
                               objc_enumerationMutation(array);
                             }
 
-                            v43 = *(*(&v128 + 1) + 8 * m);
+                            v43 = *(*(&v127 + 1) + 8 * m);
                             if ([v37 allowKey:v43])
                             {
                               [array2 addObject:v43];
                             }
                           }
 
-                          v40 = [array countByEnumeratingWithState:&v128 objects:v165 count:16];
+                          v40 = [array countByEnumeratingWithState:&v127 objects:v164 count:16];
                         }
 
                         while (v40);
@@ -5970,7 +9064,7 @@ LABEL_48:
                   }
                 }
 
-                v34 = [v86 countByEnumeratingWithState:&v132 objects:v166 count:16];
+                v34 = [v85 countByEnumeratingWithState:&v131 objects:v165 count:16];
                 if (v34)
                 {
                   continue;
@@ -5981,49 +9075,49 @@ LABEL_48:
             }
 
 LABEL_73:
-            v126 = 0u;
-            v127 = 0u;
-            v124 = 0u;
             v125 = 0u;
-            v44 = [v87 countByEnumeratingWithState:&v124 objects:v164 count:16];
+            v126 = 0u;
+            v123 = 0u;
+            v124 = 0u;
+            v44 = [v86 countByEnumeratingWithState:&v123 objects:v163 count:16];
             if (v44)
             {
               v45 = v44;
-              v46 = *v125;
+              v46 = *v124;
               do
               {
                 for (n = 0; n != v45; ++n)
                 {
-                  if (*v125 != v46)
+                  if (*v124 != v46)
                   {
-                    objc_enumerationMutation(v87);
+                    objc_enumerationMutation(v86);
                   }
 
-                  v48 = *(*(&v124 + 1) + 8 * n);
+                  v48 = *(*(&v123 + 1) + 8 * n);
+                  v119 = 0u;
                   v120 = 0u;
                   v121 = 0u;
                   v122 = 0u;
-                  v123 = 0u;
-                  v49 = [array countByEnumeratingWithState:&v120 objects:v163 count:16];
+                  v49 = [array countByEnumeratingWithState:&v119 objects:v162 count:16];
                   if (v49)
                   {
                     v50 = v49;
-                    v51 = *v121;
+                    v51 = *v120;
                     while (2)
                     {
                       for (ii = 0; ii != v50; ++ii)
                       {
-                        if (*v121 != v51)
+                        if (*v120 != v51)
                         {
                           objc_enumerationMutation(array);
                         }
 
-                        v53 = *(*(&v120 + 1) + 8 * ii);
+                        v53 = *(*(&v119 + 1) + 8 * ii);
                         if (!-[CoreThemeDocument _compareFlattenedKeySpec1:toKeySpec2:](self, "_compareFlattenedKeySpec1:toKeySpec2:", v53, [v48 keySpec]))
                         {
-                          [v97 canvasSize];
+                          [v96 canvasSize];
                           [v48 setWidth:v54];
-                          [v97 canvasSize];
+                          [v96 canvasSize];
                           [v48 setHeight:v55];
                           [objc_msgSend(v48 "keySpec")];
                           [array removeObject:v53];
@@ -6031,7 +9125,7 @@ LABEL_73:
                         }
                       }
 
-                      v50 = [array countByEnumeratingWithState:&v120 objects:v163 count:16];
+                      v50 = [array countByEnumeratingWithState:&v119 objects:v162 count:16];
                       if (v50)
                       {
                         continue;
@@ -6045,33 +9139,33 @@ LABEL_88:
                   ;
                 }
 
-                v45 = [v87 countByEnumeratingWithState:&v124 objects:v164 count:16];
+                v45 = [v86 countByEnumeratingWithState:&v123 objects:v163 count:16];
               }
 
               while (v45);
             }
 
-            v118 = 0u;
-            v119 = 0u;
-            v116 = 0u;
             v117 = 0u;
-            v56 = v97;
-            v89 = [array countByEnumeratingWithState:&v116 objects:v162 count:16];
-            if (v89)
+            v118 = 0u;
+            v115 = 0u;
+            v116 = 0u;
+            v56 = v96;
+            v88 = [array countByEnumeratingWithState:&v115 objects:v161 count:16];
+            if (v88)
             {
-              v88 = *v117;
+              v87 = *v116;
               do
               {
                 v57 = 0;
                 do
                 {
-                  if (*v117 != v88)
+                  if (*v116 != v87)
                   {
                     objc_enumerationMutation(array);
                   }
 
-                  v90 = v57;
-                  v58 = *(*(&v116 + 1) + 8 * v57);
+                  v89 = v57;
+                  v58 = *(*(&v115 + 1) + 8 * v57);
                   for (jj = [v56 compressionType]; ; jj = objc_msgSend(compressionTypes, "objectAtIndexedSubscript:", 0))
                   {
                     v60 = jj;
@@ -6080,49 +9174,49 @@ LABEL_88:
                       break;
                     }
 
-                    v98 = v60;
+                    v97 = v60;
                     v61 = [(CoreThemeDocument *)self newObjectForEntity:@"FlattenedImageRenditionSpec"];
                     layerReferences2 = [v56 layerReferences];
+                    v111 = 0u;
                     v112 = 0u;
                     v113 = 0u;
                     v114 = 0u;
-                    v115 = 0u;
-                    v100 = layerReferences2;
-                    v107 = [layerReferences2 countByEnumeratingWithState:&v112 objects:v161 count:16];
-                    if (v107)
+                    v99 = layerReferences2;
+                    v106 = [layerReferences2 countByEnumeratingWithState:&v111 objects:v160 count:16];
+                    if (v106)
                     {
-                      v105 = *v113;
-                      v99 = v61;
+                      v104 = *v112;
+                      v98 = v61;
                       do
                       {
-                        for (kk = 0; kk != v107; ++kk)
+                        for (kk = 0; kk != v106; ++kk)
                         {
-                          if (*v113 != v105)
+                          if (*v112 != v104)
                           {
-                            objc_enumerationMutation(v100);
+                            objc_enumerationMutation(v99);
                           }
 
-                          v64 = *(*(&v112 + 1) + 8 * kk);
+                          v64 = *(*(&v111 + 1) + 8 * kk);
+                          v107 = 0u;
                           v108 = 0u;
                           v109 = 0u;
                           v110 = 0u;
-                          v111 = 0u;
                           v65 = [objc_msgSend(v64 "reference")];
-                          v66 = [v65 countByEnumeratingWithState:&v108 objects:v160 count:16];
+                          v66 = [v65 countByEnumeratingWithState:&v107 objects:v159 count:16];
                           if (v66)
                           {
                             v67 = v66;
-                            v68 = *v109;
+                            v68 = *v108;
 LABEL_104:
                             v69 = 0;
                             while (1)
                             {
-                              if (*v109 != v68)
+                              if (*v108 != v68)
                               {
                                 objc_enumerationMutation(v65);
                               }
 
-                              v70 = *(*(&v108 + 1) + 8 * v69);
+                              v70 = *(*(&v107 + 1) + 8 * v69);
                               if (!-[CoreThemeDocument _compareFlattenedKeySpec1:toKeySpec2:](self, "_compareFlattenedKeySpec1:toKeySpec2:", v58, [v70 keySpec]))
                               {
                                 break;
@@ -6130,7 +9224,7 @@ LABEL_104:
 
                               if (v67 == ++v69)
                               {
-                                v67 = [v65 countByEnumeratingWithState:&v108 objects:v160 count:16];
+                                v67 = [v65 countByEnumeratingWithState:&v107 objects:v159 count:16];
                                 if (v67)
                                 {
                                   goto LABEL_104;
@@ -6150,31 +9244,31 @@ LABEL_110:
                               [CoreThemeDocument _tidyUpLayerStacks];
                             }
 
-                            v61 = v99;
+                            v61 = v98;
                           }
 
                           [(CoreThemeDocument *)self _addResolvedLayerReferenceToFlattenedImageRendition:v61 usingArtworkRendition:v70 andLayerReference:v64];
                         }
 
-                        v107 = [v100 countByEnumeratingWithState:&v112 objects:v161 count:16];
+                        v106 = [v99 countByEnumeratingWithState:&v111 objects:v160 count:16];
                       }
 
-                      while (v107);
+                      while (v106);
                     }
 
                     [v61 setOpaque:1];
-                    v56 = v97;
-                    [v97 canvasSize];
+                    v56 = v96;
+                    [v96 canvasSize];
                     [v61 setWidth:{objc_msgSend(v58, "scaleFactor") * v71}];
-                    [v97 canvasSize];
+                    [v96 canvasSize];
                     [v61 setHeight:{objc_msgSend(v58, "scaleFactor") * v72}];
                     v73 = [(CoreThemeDocument *)self newObjectForEntity:@"RenditionKeySpec"];
-                    [v73 setPart:v94];
+                    [v73 setPart:v93];
                     [v73 setScaleFactor:{objc_msgSend(v58, "scaleFactor")}];
                     [v73 setIdiom:{objc_msgSend(v58, "idiom")}];
                     [v73 setSubtype:{objc_msgSend(v58, "subtype")}];
                     [v73 setGamut:{objc_msgSend(v58, "gamut")}];
-                    [v61 setCompressionType:v98];
+                    [v61 setCompressionType:v97];
                     [v73 setElement:{objc_msgSend(objc_msgSend(flattenedImageProduction, "baseKeySpec"), "element")}];
                     [v73 setNameIdentifier:{objc_msgSend(objc_msgSend(name, "identifier"), "unsignedIntValue")}];
                     [v61 setKeySpec:v73];
@@ -6184,35 +9278,35 @@ LABEL_110:
                       break;
                     }
 
-                    [v73 setGraphicsFeatureSetClass:v91];
+                    [v73 setGraphicsFeatureSetClass:v90];
                     [v73 setTarget:{objc_msgSend(deploymentTargets, "objectAtIndexedSubscript:", 1)}];
                   }
 
-                  v57 = v90 + 1;
+                  v57 = v89 + 1;
                 }
 
-                while (v90 + 1 != v89);
-                v89 = [array countByEnumeratingWithState:&v116 objects:v162 count:16];
+                while (v89 + 1 != v88);
+                v88 = [array countByEnumeratingWithState:&v115 objects:v161 count:16];
               }
 
-              while (v89);
+              while (v88);
             }
 
-            v19 = v85 + 1;
+            v19 = v84 + 1;
           }
 
-          while (v85 + 1 != v84);
-          v84 = [renditions3 countByEnumeratingWithState:&v148 objects:v170 count:16];
+          while (v84 + 1 != v83);
+          v83 = [renditions3 countByEnumeratingWithState:&v147 objects:v169 count:16];
         }
 
-        while (v84);
+        while (v83);
       }
 
-      v4 = v79 + 1;
-      if (v79 + 1 == v78)
+      v4 = v78 + 1;
+      if (v78 + 1 == v77)
       {
-        v78 = [obj countByEnumeratingWithState:&v156 objects:v172 count:16];
-        if (v78)
+        v77 = [obj countByEnumeratingWithState:&v155 objects:v171 count:16];
+        if (v77)
         {
           goto LABEL_3;
         }
@@ -6224,232 +9318,229 @@ LABEL_110:
 
   [(CoreThemeDocument *)self _makeRadiosityImages];
   [(CoreThemeDocument *)self _makeSolidLayerStackTextures];
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tidyUpRecognitionImages
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = [(CoreThemeDocument *)self allObjectsForEntity:@"ContentsRenditionSpec" withSortDescriptors:0];
-  v21 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
-  if (v21)
+  v20 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+  if (v20)
   {
-    v20 = *v39;
+    v19 = *v38;
     do
     {
       v2 = 0;
       do
       {
-        if (*v39 != v20)
+        if (*v38 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = v2;
-        v3 = *(*(&v38 + 1) + 8 * v2);
+        v21 = v2;
+        v3 = *(*(&v37 + 1) + 8 * v2);
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v37 = 0u;
         contains = [v3 contains];
-        v4 = [contains countByEnumeratingWithState:&v34 objects:v44 count:16];
+        v4 = [contains countByEnumeratingWithState:&v33 objects:v43 count:16];
         if (v4)
         {
           v5 = v4;
-          v25 = *v35;
+          v24 = *v34;
           do
           {
             for (i = 0; i != v5; ++i)
             {
-              if (*v35 != v25)
+              if (*v34 != v24)
               {
                 objc_enumerationMutation(contains);
               }
 
-              v7 = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"NamedArtworkProduction", [MEMORY[0x277CCAC30] predicateWithFormat:@"name.name == %@", objc_msgSend(*(*(&v34 + 1) + 8 * i), "name")], 0);
+              v7 = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"NamedArtworkProduction", [MEMORY[0x277CCAC30] predicateWithFormat:@"name.name == %@", objc_msgSend(*(*(&v33 + 1) + 8 * i), "name")], 0);
+              v29 = 0u;
               v30 = 0u;
               v31 = 0u;
               v32 = 0u;
-              v33 = 0u;
-              v8 = [v7 countByEnumeratingWithState:&v30 objects:v43 count:16];
+              v8 = [v7 countByEnumeratingWithState:&v29 objects:v42 count:16];
               if (v8)
               {
                 v9 = v8;
-                v10 = *v31;
+                v10 = *v30;
                 do
                 {
                   for (j = 0; j != v9; ++j)
                   {
-                    if (*v31 != v10)
+                    if (*v30 != v10)
                     {
                       objc_enumerationMutation(v7);
                     }
 
-                    v12 = *(*(&v30 + 1) + 8 * j);
+                    v12 = *(*(&v29 + 1) + 8 * j);
                     [v12 setRecognitionImage:1];
-                    v28 = 0u;
-                    v29 = 0u;
-                    v26 = 0u;
                     v27 = 0u;
+                    v28 = 0u;
+                    v25 = 0u;
+                    v26 = 0u;
                     renditions = [v12 renditions];
-                    v14 = [renditions countByEnumeratingWithState:&v26 objects:v42 count:16];
+                    v14 = [renditions countByEnumeratingWithState:&v25 objects:v41 count:16];
                     if (v14)
                     {
                       v15 = v14;
-                      v16 = *v27;
+                      v16 = *v26;
                       do
                       {
                         for (k = 0; k != v15; ++k)
                         {
-                          if (*v27 != v16)
+                          if (*v26 != v16)
                           {
                             objc_enumerationMutation(renditions);
                           }
 
-                          [*(*(&v26 + 1) + 8 * k) setMonochrome:1];
+                          [*(*(&v25 + 1) + 8 * k) setMonochrome:1];
                         }
 
-                        v15 = [renditions countByEnumeratingWithState:&v26 objects:v42 count:16];
+                        v15 = [renditions countByEnumeratingWithState:&v25 objects:v41 count:16];
                       }
 
                       while (v15);
                     }
                   }
 
-                  v9 = [v7 countByEnumeratingWithState:&v30 objects:v43 count:16];
+                  v9 = [v7 countByEnumeratingWithState:&v29 objects:v42 count:16];
                 }
 
                 while (v9);
               }
             }
 
-            v5 = [contains countByEnumeratingWithState:&v34 objects:v44 count:16];
+            v5 = [contains countByEnumeratingWithState:&v33 objects:v43 count:16];
           }
 
           while (v5);
         }
 
-        v2 = v22 + 1;
+        v2 = v21 + 1;
       }
 
-      while (v22 + 1 != v21);
-      v21 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+      while (v21 + 1 != v20);
+      v20 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_makeSolidLayerStackTextures
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   [(CoreThemeDocument *)self targetPlatform];
   if (CUISDFTexturesSupported())
   {
     v3 = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"LayerStackProduction", [MEMORY[0x277CCAC30] predicateWithFormat:@"renditionType.identifier == %d", 1018], 0);
-    v49 = [(CoreThemeDocument *)self elementWithIdentifier:41];
-    v48 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1007];
-    v47 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:10];
-    v52 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"NamedTextureProduction", 0, 0)}];
+    v48 = [(CoreThemeDocument *)self elementWithIdentifier:41];
+    v47 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1007];
+    v46 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:10];
+    v51 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"NamedTextureProduction", 0, 0)}];
+    v66 = 0u;
     v67 = 0u;
     v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
     obj = v3;
-    v36 = [v3 countByEnumeratingWithState:&v67 objects:v74 count:16];
-    if (v36)
+    v35 = [v3 countByEnumeratingWithState:&v66 objects:v73 count:16];
+    if (v35)
     {
       v4 = @"RenditionKeySpec";
-      v35 = *v68;
+      v34 = *v67;
       do
       {
         v5 = 0;
         do
         {
-          if (*v68 != v35)
+          if (*v67 != v34)
           {
             objc_enumerationMutation(obj);
           }
 
-          v37 = v5;
-          v6 = *(*(&v67 + 1) + 8 * v5);
+          v36 = v5;
+          v6 = *(*(&v66 + 1) + 8 * v5);
+          v62 = 0u;
           v63 = 0u;
           v64 = 0u;
           v65 = 0u;
-          v66 = 0u;
           renditions = [v6 renditions];
-          v40 = [renditions countByEnumeratingWithState:&v63 objects:v73 count:16];
-          if (v40)
+          v39 = [renditions countByEnumeratingWithState:&v62 objects:v72 count:16];
+          if (v39)
           {
-            v39 = *v64;
+            v38 = *v63;
             do
             {
               v7 = 0;
               do
               {
-                if (*v64 != v39)
+                if (*v63 != v38)
                 {
                   objc_enumerationMutation(renditions);
                 }
 
-                v41 = v7;
-                v8 = *(*(&v63 + 1) + 8 * v7);
+                v40 = v7;
+                v8 = *(*(&v62 + 1) + 8 * v7);
+                v58 = 0u;
                 v59 = 0u;
                 v60 = 0u;
                 v61 = 0u;
-                v62 = 0u;
                 layerReferences = [v8 layerReferences];
-                v44 = [layerReferences countByEnumeratingWithState:&v59 objects:v72 count:16];
-                if (v44)
+                v43 = [layerReferences countByEnumeratingWithState:&v58 objects:v71 count:16];
+                if (v43)
                 {
-                  v43 = *v60;
+                  v42 = *v59;
                   do
                   {
                     v9 = 0;
                     do
                     {
-                      if (*v60 != v43)
+                      if (*v59 != v42)
                       {
                         objc_enumerationMutation(layerReferences);
                       }
 
-                      v45 = v9;
-                      v10 = *(*(&v59 + 1) + 8 * v9);
+                      v44 = v9;
+                      v10 = *(*(&v58 + 1) + 8 * v9);
+                      v54 = 0u;
                       v55 = 0u;
                       v56 = 0u;
                       v57 = 0u;
-                      v58 = 0u;
-                      v46 = [objc_msgSend(v10 "reference")];
-                      v51 = [v46 countByEnumeratingWithState:&v55 objects:v71 count:16];
-                      if (v51)
+                      v45 = [objc_msgSend(v10 "reference")];
+                      v50 = [v45 countByEnumeratingWithState:&v54 objects:v70 count:16];
+                      if (v50)
                       {
-                        v50 = *v56;
+                        v49 = *v55;
                         do
                         {
                           v11 = 0;
                           do
                           {
-                            if (*v56 != v50)
+                            if (*v55 != v49)
                             {
-                              objc_enumerationMutation(v46);
+                              objc_enumerationMutation(v45);
                             }
 
-                            v54 = v11;
-                            v12 = *(*(&v55 + 1) + 8 * v11);
+                            v53 = v11;
+                            v12 = *(*(&v54 + 1) + 8 * v11);
                             v13 = [v12 _createImageRefWithURL:objc_msgSend(objc_msgSend(v12 andDocument:"asset") format:"fileURLWithDocument:" vectorBased:{self), self, 0, 0}];
                             [(CoreThemeDocument *)self targetPlatform];
                             CUICreateSDFEdgeTexturePixelFormat();
                             v14 = [(CoreThemeDocument *)self pixelFormatWithIdentifier:CUIConvertFromTXRPixelFormat()];
                             [(CoreThemeDocument *)self targetPlatform];
                             CUICreateSDFGradientTexturePixelFormat();
-                            v53 = [(CoreThemeDocument *)self pixelFormatWithIdentifier:CUIConvertFromTXRPixelFormat()];
-                            v15 = [v52 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.identifier == %d", objc_msgSend(objc_msgSend(objc_msgSend(v12, "production"), "name"), "identifier"))}];
+                            v52 = [(CoreThemeDocument *)self pixelFormatWithIdentifier:CUIConvertFromTXRPixelFormat()];
+                            v15 = [v51 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.identifier == %d", objc_msgSend(objc_msgSend(objc_msgSend(v12, "production"), "name"), "identifier"))}];
                             if ([v15 firstObject] && (objc_msgSend(v15, "firstObject"), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                             {
                               firstObject = [v15 firstObject];
@@ -6464,11 +9555,11 @@ LABEL_110:
                               [objc_msgSend(firstObject "baseKeySpec")];
                               [firstObject setName:{objc_msgSend(objc_msgSend(v12, "production"), "name")}];
                               [firstObject setTextureInterpretation:{-[CoreThemeDocument textureInterpretaitionWithIdentifier:](self, "textureInterpretaitionWithIdentifier:", 0)}];
-                              [firstObject setRenditionType:v48];
-                              [firstObject setRenditionSubtype:v47];
+                              [firstObject setRenditionType:v47];
+                              [firstObject setRenditionSubtype:v46];
                               [firstObject setTags:{objc_msgSend(objc_msgSend(v12, "production"), "tags")}];
 
-                              [v52 addObject:firstObject];
+                              [v51 addObject:firstObject];
                             }
 
                             v18 = -[CoreThemeDocument createAssetWithName:fileType:scaleFactor:inCategory:forThemeBitSource:](self, "createAssetWithName:fileType:scaleFactor:inCategory:forThemeBitSource:", [objc_msgSend(v12 "asset")], @"texture", objc_msgSend(objc_msgSend(v12, "asset"), "scaleFactor"), objc_msgSend(objc_msgSend(v12, "asset"), "category"), objc_msgSend(objc_msgSend(v12, "asset"), "source"));
@@ -6517,7 +9608,7 @@ LABEL_110:
                             [objc_msgSend(v12 "keySpec")];
                             v29 = [(CoreThemeDocument *)self newObjectForEntity:@"TextureRenditionSpec"];
                             [v29 setProduction:firstObject];
-                            [v29 setPixelFormat:v53];
+                            [v29 setPixelFormat:v52];
                             [v29 setCompressionType:{-[CoreThemeDocument compressionTypeWithIdentifier:](self, "compressionTypeWithIdentifier:", 0)}];
                             [v29 setCubeMap:0];
                             [v29 setWidth:CGImageGetWidth(v13)];
@@ -6550,111 +9641,109 @@ LABEL_110:
                             [v29 addMipLevelsObject:v32];
 
                             CGImageRelease(v13);
-                            v11 = v54 + 1;
+                            v11 = v53 + 1;
                           }
 
-                          while (v51 != v54 + 1);
-                          v51 = [v46 countByEnumeratingWithState:&v55 objects:v71 count:16];
+                          while (v50 != v53 + 1);
+                          v50 = [v45 countByEnumeratingWithState:&v54 objects:v70 count:16];
                         }
 
-                        while (v51);
+                        while (v50);
                       }
 
-                      v9 = v45 + 1;
+                      v9 = v44 + 1;
                     }
 
-                    while (v45 + 1 != v44);
-                    v44 = [layerReferences countByEnumeratingWithState:&v59 objects:v72 count:16];
+                    while (v44 + 1 != v43);
+                    v43 = [layerReferences countByEnumeratingWithState:&v58 objects:v71 count:16];
                   }
 
-                  while (v44);
+                  while (v43);
                 }
 
-                v7 = v41 + 1;
+                v7 = v40 + 1;
               }
 
-              while (v41 + 1 != v40);
-              v40 = [renditions countByEnumeratingWithState:&v63 objects:v73 count:16];
+              while (v40 + 1 != v39);
+              v39 = [renditions countByEnumeratingWithState:&v62 objects:v72 count:16];
             }
 
-            while (v40);
+            while (v39);
           }
 
-          v5 = v37 + 1;
+          v5 = v36 + 1;
         }
 
-        while (v37 + 1 != v36);
-        v36 = [obj countByEnumeratingWithState:&v67 objects:v74 count:16];
+        while (v36 + 1 != v35);
+        v35 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
       }
 
-      while (v36);
+      while (v35);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createNamedRenditionGroupProductionsForImportInfos:(id)infos error:(id *)error
 {
-  v75 = *MEMORY[0x277D85DE8];
-  v48 = [(CoreThemeDocument *)self idioms:infos];
+  v74 = *MEMORY[0x277D85DE8];
+  v47 = [(CoreThemeDocument *)self idioms:infos];
   sizeClasses = [(CoreThemeDocument *)self sizeClasses];
   displayGamuts = [(CoreThemeDocument *)self displayGamuts];
   directions = [(CoreThemeDocument *)self directions];
   featureSetClasses = [(CoreThemeDocument *)self featureSetClasses];
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   v6 = [(CoreThemeDocument *)self objectsForEntity:@"Tag" withPredicate:0 sortDescriptors:0];
-  v7 = [v6 countByEnumeratingWithState:&v67 objects:v74 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v66 objects:v73 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v68;
+    v9 = *v67;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v68 != v9)
+        if (*v67 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v5 setObject:objc_msgSend(MEMORY[0x277CBEA60] forKey:{"arrayWithObject:", *(*(&v67 + 1) + 8 * i)), objc_msgSend(*(*(&v67 + 1) + 8 * i), "identifier")}];
+        [v5 setObject:objc_msgSend(MEMORY[0x277CBEA60] forKey:{"arrayWithObject:", *(*(&v66 + 1) + 8 * i)), objc_msgSend(*(*(&v66 + 1) + 8 * i), "identifier")}];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v67 objects:v74 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v66 objects:v73 count:16];
     }
 
     while (v8);
   }
 
-  v43 = [(CoreThemeDocument *)self elementWithIdentifier:85];
-  v42 = [(CoreThemeDocument *)self partWithIdentifier:206];
-  v41 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1013];
-  v50 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"GroupedRecognitionProduction", 0, 0)}];
-  v40 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:10];
+  v42 = [(CoreThemeDocument *)self elementWithIdentifier:85];
+  v41 = [(CoreThemeDocument *)self partWithIdentifier:206];
+  v40 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1013];
+  v49 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"GroupedRecognitionProduction", 0, 0)}];
+  v39 = [(CoreThemeDocument *)self renditionSubtypeWithIdentifier:10];
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
-  v51 = [infos countByEnumeratingWithState:&v63 objects:v73 count:16];
-  if (v51)
+  v50 = [infos countByEnumeratingWithState:&v62 objects:v72 count:16];
+  if (v50)
   {
-    v49 = *v64;
+    v48 = *v63;
     do
     {
-      for (j = 0; j != v51; ++j)
+      for (j = 0; j != v50; ++j)
       {
-        if (*v64 != v49)
+        if (*v63 != v48)
         {
           objc_enumerationMutation(infos);
         }
 
-        v12 = *(*(&v63 + 1) + 8 * j);
-        v13 = [v50 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v12, "name"))}];
+        v12 = *(*(&v62 + 1) + 8 * j);
+        v13 = [v49 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name.name == %@", objc_msgSend(v12, "name"))}];
         if ([v13 firstObject] && (objc_msgSend(v13, "firstObject"), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
           [v13 firstObject];
@@ -6668,42 +9757,42 @@ LABEL_110:
           [v15 setProduction:v14];
           v16 = [(CoreThemeDocument *)self newObjectForEntity:@"RenditionKeySpec"];
           [v14 setBaseKeySpec:v16];
-          [v16 setElement:v43];
-          [v16 setPart:v42];
+          [v16 setElement:v42];
+          [v16 setPart:v41];
           [v16 setNameIdentifier:{objc_msgSend(objc_msgSend(v15, "identifier"), "unsignedIntValue")}];
           [v14 setDateOfLastChange:{objc_msgSend(v12, "modificationDate")}];
           [v14 setOptOutOfThinning:{objc_msgSend(v12, "optOutOfThinning")}];
-          [v14 setRenditionType:v41];
-          [v14 setRenditionSubtype:v40];
+          [v14 setRenditionType:v40];
+          [v14 setRenditionSubtype:v39];
 
-          v54 = j;
+          v53 = j;
           if (v12)
           {
             tags = [v12 tags];
             if ([tags count])
             {
-              v39 = v14;
-              v52 = v12;
+              v38 = v14;
+              v51 = v12;
               v18 = objc_alloc_init(MEMORY[0x277CBEB58]);
+              v58 = 0u;
               v59 = 0u;
               v60 = 0u;
               v61 = 0u;
-              v62 = 0u;
-              v19 = [tags countByEnumeratingWithState:&v59 objects:v72 count:16];
+              v19 = [tags countByEnumeratingWithState:&v58 objects:v71 count:16];
               if (v19)
               {
                 v20 = v19;
-                v21 = *v60;
+                v21 = *v59;
                 do
                 {
                   for (k = 0; k != v20; ++k)
                   {
-                    if (*v60 != v21)
+                    if (*v59 != v21)
                     {
                       objc_enumerationMutation(tags);
                     }
 
-                    v23 = *(*(&v59 + 1) + 8 * k);
+                    v23 = *(*(&v58 + 1) + 8 * k);
                     v24 = [v5 objectForKey:v23];
                     if ([v24 count])
                     {
@@ -6725,21 +9814,21 @@ LABEL_110:
                     [v18 addObject:v25];
                   }
 
-                  v20 = [tags countByEnumeratingWithState:&v59 objects:v72 count:16];
+                  v20 = [tags countByEnumeratingWithState:&v58 objects:v71 count:16];
                 }
 
                 while (v20);
               }
 
-              v14 = v39;
-              [v39 addTags:v18];
+              v14 = v38;
+              [v38 addTags:v18];
               v26 = [tags count];
               if (v26 != [v18 count])
               {
                 [CoreThemeDocument createNamedRenditionGroupProductionsForImportInfos:error:];
               }
 
-              v12 = v52;
+              v12 = v51;
             }
 
             if ([objc_msgSend(v12 "universalTypeIdentifier")])
@@ -6751,9 +9840,9 @@ LABEL_110:
           v27 = [(CoreThemeDocument *)self newObjectForEntity:@"ContentsRenditionSpec"];
           [v27 setProduction:v14];
           [v27 resetToBaseKeySpec];
-          v53 = v27;
+          v52 = v27;
           keySpec = [v27 keySpec];
-          [keySpec setIdiom:{objc_msgSend(v48, "objectAtIndexedSubscript:", objc_msgSend(v12, "idiom"))}];
+          [keySpec setIdiom:{objc_msgSend(v47, "objectAtIndexedSubscript:", objc_msgSend(v12, "idiom"))}];
           [keySpec setScaleFactor:{objc_msgSend(v12, "scaleFactor")}];
           [keySpec setSubtype:{objc_msgSend(v12, "subtype")}];
           [keySpec setGamut:{objc_msgSend(displayGamuts, "objectAtIndexedSubscript:", objc_msgSend(v12, "displayGamut"))}];
@@ -6765,87 +9854,85 @@ LABEL_110:
           [keySpec setAppearance:{-[CoreThemeDocument appearanceWithIdentifier:name:createIfNeeded:](self, "appearanceWithIdentifier:name:createIfNeeded:", objc_msgSend(v12, "appearanceIdentifier"), objc_msgSend(v12, "appearanceName"), 1)}];
           [keySpec setLocalization:{-[CoreThemeDocument localizationWithIdentifier:name:createIfNeeded:](self, "localizationWithIdentifier:name:createIfNeeded:", objc_msgSend(v12, "localizationIdentifier"), objc_msgSend(v12, "localizationName"), 1)}];
           v29 = objc_alloc_init(MEMORY[0x277CBEB58]);
+          v54 = 0u;
           v55 = 0u;
           v56 = 0u;
           v57 = 0u;
-          v58 = 0u;
           containedImageNames = [v12 containedImageNames];
-          v31 = [containedImageNames countByEnumeratingWithState:&v55 objects:v71 count:16];
+          v31 = [containedImageNames countByEnumeratingWithState:&v54 objects:v70 count:16];
           if (v31)
           {
             v32 = v31;
-            v33 = *v56;
+            v33 = *v55;
             do
             {
               for (m = 0; m != v32; ++m)
               {
-                if (*v56 != v33)
+                if (*v55 != v33)
                 {
                   objc_enumerationMutation(containedImageNames);
                 }
 
-                v35 = *(*(&v55 + 1) + 8 * m);
+                v35 = *(*(&v54 + 1) + 8 * m);
                 v36 = [(CoreThemeDocument *)self newObjectForEntity:@"ContentsName"];
                 [v36 setName:v35];
                 [v29 addObject:v36];
               }
 
-              v32 = [containedImageNames countByEnumeratingWithState:&v55 objects:v71 count:16];
+              v32 = [containedImageNames countByEnumeratingWithState:&v54 objects:v70 count:16];
             }
 
             while (v32);
           }
 
-          [v53 setContains:v29];
+          [v52 setContains:v29];
 
-          j = v54;
+          j = v53;
         }
       }
 
-      v51 = [infos countByEnumeratingWithState:&v63 objects:v73 count:16];
+      v50 = [infos countByEnumeratingWithState:&v62 objects:v72 count:16];
     }
 
-    while (v51);
+    while (v50);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_production:(id)_production containsScale:(unsigned int)scale andIdiom:(unsigned int)idiom andSubtype:(unsigned int)subtype
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   renditions = [_production renditions];
-  v10 = [renditions countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [renditions countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     while (2)
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(renditions);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * v13);
+        v14 = *(*(&v16 + 1) + 8 * v13);
         if ([objc_msgSend(v14 "keySpec")] == scale && objc_msgSend(objc_msgSend(objc_msgSend(v14, "keySpec"), "idiom"), "identifier") == idiom && objc_msgSend(objc_msgSend(v14, "keySpec"), "subtype") == subtype)
         {
           LOBYTE(v10) = 1;
-          goto LABEL_13;
+          return v10;
         }
 
         ++v13;
       }
 
       while (v11 != v13);
-      v10 = [renditions countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [renditions countByEnumeratingWithState:&v16 objects:v20 count:16];
       v11 = v10;
       if (v10)
       {
@@ -6856,593 +9943,586 @@ LABEL_110:
     }
   }
 
-LABEL_13:
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)_generateWatchImages
 {
-  v191 = *MEMORY[0x277D85DE8];
+  v188 = *MEMORY[0x277D85DE8];
   if ([(CoreThemeDocument *)self targetPlatform]== 4)
   {
+    v174 = 0u;
+    v175 = 0u;
+    v176 = 0u;
     v177 = 0u;
-    v178 = 0u;
-    v179 = 0u;
-    v180 = 0u;
     obj = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"SimpleArtworkElementProduction", [MEMORY[0x277CCAC30] predicateWithFormat:@"autoscalingType > 0"], 0);
-    v133 = [obj countByEnumeratingWithState:&v177 objects:v190 count:16];
-    if (v133)
+    v130 = [obj countByEnumeratingWithState:&v174 objects:v187 count:16];
+    if (v130)
     {
-      v132 = *v178;
-      v3 = 0x278EBA000uLL;
+      v129 = *v175;
       do
       {
-        v4 = 0;
+        v3 = 0;
         do
         {
-          if (*v178 != v132)
+          if (*v175 != v129)
           {
-            v5 = v4;
+            v4 = v3;
             objc_enumerationMutation(obj);
-            v4 = v5;
+            v3 = v4;
           }
 
-          v134 = v4;
-          v6 = *(*(&v177 + 1) + 8 * v4);
-          v135 = objc_alloc_init(MEMORY[0x277CBEB58]);
+          v131 = v3;
+          v5 = *(*(&v174 + 1) + 8 * v3);
+          v132 = objc_alloc_init(MEMORY[0x277CBEB58]);
+          v170 = 0u;
+          v171 = 0u;
+          v172 = 0u;
           v173 = 0u;
-          v174 = 0u;
-          v175 = 0u;
-          v176 = 0u;
-          v139 = v6;
-          renditions = [v6 renditions];
-          v8 = [renditions countByEnumeratingWithState:&v173 objects:v189 count:16];
-          if (v8)
+          v136 = v5;
+          renditions = [v5 renditions];
+          v7 = [renditions countByEnumeratingWithState:&v170 objects:v186 count:16];
+          if (v7)
           {
-            v9 = v8;
-            v10 = *v174;
+            v8 = v7;
+            v9 = *v171;
             do
             {
-              for (i = 0; i != v9; ++i)
+              for (i = 0; i != v8; ++i)
               {
-                if (*v174 != v10)
+                if (*v171 != v9)
                 {
                   objc_enumerationMutation(renditions);
                 }
 
-                v12 = *(*(&v173 + 1) + 8 * i);
-                v13 = *(v3 + 1456);
+                v11 = *(*(&v170 + 1) + 8 * i);
                 objc_opt_class();
-                if ((objc_opt_isKindOfClass() & 1) != 0 && [objc_msgSend(v12 "asset")] && (!objc_msgSend(objc_msgSend(objc_msgSend(v12, "keySpec"), "idiom"), "identifier") || objc_msgSend(objc_msgSend(objc_msgSend(v12, "keySpec"), "idiom"), "identifier") == 5) && !objc_msgSend(objc_msgSend(objc_msgSend(v12, "keySpec"), "glyphSize"), "identifier") && !objc_msgSend(objc_msgSend(objc_msgSend(v12, "keySpec"), "glyphWeight"), "identifier") && (!objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(v12, "asset"), "name"), "pathExtension"), "caseInsensitiveCompare:", @"PDF") || !objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(v12, "asset"), "name"), "pathExtension"), "caseInsensitiveCompare:", @"SVG")))
+                if ((objc_opt_isKindOfClass() & 1) != 0 && [objc_msgSend(v11 "asset")] && (!objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "idiom"), "identifier") || objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "idiom"), "identifier") == 5) && !objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "glyphSize"), "identifier") && !objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "glyphWeight"), "identifier") && (!objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(v11, "asset"), "name"), "pathExtension"), "caseInsensitiveCompare:", @"PDF") || !objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(v11, "asset"), "name"), "pathExtension"), "caseInsensitiveCompare:", @"SVG")))
                 {
-                  [v135 addObject:v12];
+                  [v132 addObject:v11];
                 }
               }
 
-              v9 = [renditions countByEnumeratingWithState:&v173 objects:v189 count:16];
+              v8 = [renditions countByEnumeratingWithState:&v170 objects:v186 count:16];
             }
 
-            while (v9);
+            while (v8);
           }
 
-          v171 = 0u;
-          v172 = 0u;
+          v168 = 0u;
           v169 = 0u;
-          v170 = 0u;
-          v14 = v139;
-          v137 = [v135 countByEnumeratingWithState:&v169 objects:v188 count:16];
-          if (v137)
+          v166 = 0u;
+          v167 = 0u;
+          v12 = v136;
+          v134 = [v132 countByEnumeratingWithState:&v166 objects:v185 count:16];
+          if (v134)
           {
-            v136 = *v170;
+            v133 = *v167;
             do
             {
-              v15 = 0;
+              v13 = 0;
               do
               {
-                if (*v170 != v136)
+                if (*v167 != v133)
                 {
-                  objc_enumerationMutation(v135);
+                  objc_enumerationMutation(v132);
                 }
 
-                v138 = v15;
-                v16 = *(*(&v169 + 1) + 8 * v15);
-                entity = [v16 entity];
-                v140 = entity;
-                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v14, [objc_msgSend(v16 "keySpec")], 5, 320))
+                v135 = v13;
+                v14 = *(*(&v166 + 1) + 8 * v13);
+                entity = [v14 entity];
+                v137 = entity;
+                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v12, [objc_msgSend(v14 "keySpec")], 5, 320))
                 {
-                  v18 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
-                  slices = [v16 slices];
+                  v16 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
+                  slices = [v14 slices];
                   if ([slices count])
                   {
-                    v20 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices, "count")}];
+                    v18 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices, "count")}];
+                    v162 = 0u;
+                    v163 = 0u;
+                    v164 = 0u;
                     v165 = 0u;
-                    v166 = 0u;
-                    v167 = 0u;
-                    v168 = 0u;
-                    v21 = [slices countByEnumeratingWithState:&v165 objects:v187 count:16];
-                    if (v21)
+                    v19 = [slices countByEnumeratingWithState:&v162 objects:v184 count:16];
+                    if (v19)
                     {
-                      v22 = v21;
-                      v23 = *v166;
+                      v20 = v19;
+                      v21 = *v163;
                       do
                       {
-                        for (j = 0; j != v22; ++j)
+                        for (j = 0; j != v20; ++j)
                         {
-                          if (*v166 != v23)
+                          if (*v163 != v21)
                           {
                             objc_enumerationMutation(slices);
                           }
 
-                          [*(*(&v165 + 1) + 8 * j) sliceRect];
+                          [*(*(&v162 + 1) + 8 * j) sliceRect];
+                          v24 = v23;
                           v26 = v25;
                           v28 = v27;
                           v30 = v29;
-                          v32 = v31;
-                          v33 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
-                          [v33 setSliceRect:{v26, v28, v30, v32}];
-                          [v20 addObject:v33];
+                          v31 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
+                          [v31 setSliceRect:{v24, v26, v28, v30}];
+                          [v18 addObject:v31];
                         }
 
-                        v22 = [slices countByEnumeratingWithState:&v165 objects:v187 count:16];
+                        v20 = [slices countByEnumeratingWithState:&v162 objects:v184 count:16];
                       }
 
-                      while (v22);
+                      while (v20);
                     }
 
-                    [v18 setSlices:v20];
-                    v14 = v139;
-                    entity = v140;
+                    [v16 setSlices:v18];
+                    v12 = v136;
+                    entity = v137;
                   }
 
-                  [v18 setAsset:{objc_msgSend(v16, "asset")}];
-                  [v18 setProduction:v14];
-                  [objc_msgSend(v16 "production")];
+                  [v16 setAsset:{objc_msgSend(v14, "asset")}];
+                  [v16 setProduction:v12];
+                  [objc_msgSend(v14 "production")];
+                  [objc_msgSend(v14 "keySpec")];
                   [objc_msgSend(v16 "keySpec")];
-                  [objc_msgSend(v18 "keySpec")];
-                  [v18 setPostScaleFactor:0.91];
-                  [v18 setCompressionType:{objc_msgSend(v16, "compressionType")}];
+                  [v16 setPostScaleFactor:0.91];
+                  [v16 setCompressionType:{objc_msgSend(v14, "compressionType")}];
                 }
 
-                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v14, [objc_msgSend(v16 "keySpec")], 5, 384))
+                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v12, [objc_msgSend(v14 "keySpec")], 5, 384))
                 {
-                  v34 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
-                  slices2 = [v16 slices];
+                  v32 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
+                  slices2 = [v14 slices];
                   if ([slices2 count])
                   {
-                    v36 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices2, "count")}];
+                    v34 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices2, "count")}];
+                    v158 = 0u;
+                    v159 = 0u;
+                    v160 = 0u;
                     v161 = 0u;
-                    v162 = 0u;
-                    v163 = 0u;
-                    v164 = 0u;
-                    v37 = [slices2 countByEnumeratingWithState:&v161 objects:v186 count:16];
-                    if (v37)
+                    v35 = [slices2 countByEnumeratingWithState:&v158 objects:v183 count:16];
+                    if (v35)
                     {
-                      v38 = v37;
-                      v39 = *v162;
+                      v36 = v35;
+                      v37 = *v159;
                       do
                       {
-                        for (k = 0; k != v38; ++k)
+                        for (k = 0; k != v36; ++k)
                         {
-                          if (*v162 != v39)
+                          if (*v159 != v37)
                           {
                             objc_enumerationMutation(slices2);
                           }
 
-                          [*(*(&v161 + 1) + 8 * k) sliceRect];
+                          [*(*(&v158 + 1) + 8 * k) sliceRect];
+                          v40 = v39;
                           v42 = v41;
                           v44 = v43;
                           v46 = v45;
-                          v48 = v47;
-                          v49 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
-                          [v49 setSliceRect:{v42, v44, v46, v48}];
-                          [v36 addObject:v49];
+                          v47 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
+                          [v47 setSliceRect:{v40, v42, v44, v46}];
+                          [v34 addObject:v47];
                         }
 
-                        v38 = [slices2 countByEnumeratingWithState:&v161 objects:v186 count:16];
+                        v36 = [slices2 countByEnumeratingWithState:&v158 objects:v183 count:16];
                       }
 
-                      while (v38);
+                      while (v36);
                     }
 
-                    [v34 setSlices:v36];
-                    v14 = v139;
-                    entity = v140;
+                    [v32 setSlices:v34];
+                    v12 = v136;
+                    entity = v137;
                   }
 
-                  [v34 setAsset:{objc_msgSend(v16, "asset")}];
-                  [v34 setProduction:v14];
-                  [objc_msgSend(v16 "production")];
-                  [objc_msgSend(v16 "keySpec")];
-                  [objc_msgSend(v34 "keySpec")];
-                  [v34 setPostScaleFactor:1.0];
-                  [v34 setCompressionType:{objc_msgSend(v16, "compressionType")}];
+                  [v32 setAsset:{objc_msgSend(v14, "asset")}];
+                  [v32 setProduction:v12];
+                  [objc_msgSend(v14 "production")];
+                  [objc_msgSend(v14 "keySpec")];
+                  [objc_msgSend(v32 "keySpec")];
+                  [v32 setPostScaleFactor:1.0];
+                  [v32 setCompressionType:{objc_msgSend(v14, "compressionType")}];
                 }
 
-                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v14, [objc_msgSend(v16 "keySpec")], 5, 340))
+                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v12, [objc_msgSend(v14 "keySpec")], 5, 340))
                 {
-                  v50 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
-                  slices3 = [v16 slices];
+                  v48 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
+                  slices3 = [v14 slices];
                   if ([slices3 count])
                   {
-                    v52 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices3, "count")}];
+                    v50 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices3, "count")}];
+                    v154 = 0u;
+                    v155 = 0u;
+                    v156 = 0u;
                     v157 = 0u;
-                    v158 = 0u;
-                    v159 = 0u;
-                    v160 = 0u;
-                    v53 = [slices3 countByEnumeratingWithState:&v157 objects:v185 count:16];
-                    if (v53)
+                    v51 = [slices3 countByEnumeratingWithState:&v154 objects:v182 count:16];
+                    if (v51)
                     {
-                      v54 = v53;
-                      v55 = *v158;
+                      v52 = v51;
+                      v53 = *v155;
                       do
                       {
-                        for (m = 0; m != v54; ++m)
+                        for (m = 0; m != v52; ++m)
                         {
-                          if (*v158 != v55)
+                          if (*v155 != v53)
                           {
                             objc_enumerationMutation(slices3);
                           }
 
-                          [*(*(&v157 + 1) + 8 * m) sliceRect];
+                          [*(*(&v154 + 1) + 8 * m) sliceRect];
+                          v56 = v55;
                           v58 = v57;
                           v60 = v59;
                           v62 = v61;
-                          v64 = v63;
-                          v65 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
-                          [v65 setSliceRect:{v58, v60, v62, v64}];
-                          [v52 addObject:v65];
+                          v63 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
+                          [v63 setSliceRect:{v56, v58, v60, v62}];
+                          [v50 addObject:v63];
                         }
 
-                        v54 = [slices3 countByEnumeratingWithState:&v157 objects:v185 count:16];
+                        v52 = [slices3 countByEnumeratingWithState:&v154 objects:v182 count:16];
                       }
 
-                      while (v54);
+                      while (v52);
                     }
 
-                    [v50 setSlices:v52];
-                    v14 = v139;
-                    entity = v140;
+                    [v48 setSlices:v50];
+                    v12 = v136;
+                    entity = v137;
                   }
 
-                  [v50 setAsset:{objc_msgSend(v16, "asset")}];
-                  [v50 setProduction:v14];
-                  [objc_msgSend(v16 "production")];
-                  [objc_msgSend(v16 "keySpec")];
-                  [objc_msgSend(v50 "keySpec")];
-                  [v50 setPostScaleFactor:1.0];
-                  [v50 setCompressionType:{objc_msgSend(v16, "compressionType")}];
+                  [v48 setAsset:{objc_msgSend(v14, "asset")}];
+                  [v48 setProduction:v12];
+                  [objc_msgSend(v14 "production")];
+                  [objc_msgSend(v14 "keySpec")];
+                  [objc_msgSend(v48 "keySpec")];
+                  [v48 setPostScaleFactor:1.0];
+                  [v48 setCompressionType:{objc_msgSend(v14, "compressionType")}];
                 }
 
-                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v14, [objc_msgSend(v16 "keySpec")], 5, 390))
+                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v12, [objc_msgSend(v14 "keySpec")], 5, 390))
                 {
-                  v66 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
-                  slices4 = [v16 slices];
+                  v64 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
+                  slices4 = [v14 slices];
                   if ([slices4 count])
                   {
-                    v68 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices4, "count")}];
+                    v66 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices4, "count")}];
+                    v150 = 0u;
+                    v151 = 0u;
+                    v152 = 0u;
                     v153 = 0u;
-                    v154 = 0u;
-                    v155 = 0u;
-                    v156 = 0u;
-                    v69 = [slices4 countByEnumeratingWithState:&v153 objects:v184 count:16];
-                    if (v69)
+                    v67 = [slices4 countByEnumeratingWithState:&v150 objects:v181 count:16];
+                    if (v67)
                     {
-                      v70 = v69;
-                      v71 = *v154;
+                      v68 = v67;
+                      v69 = *v151;
                       do
                       {
-                        for (n = 0; n != v70; ++n)
+                        for (n = 0; n != v68; ++n)
                         {
-                          if (*v154 != v71)
+                          if (*v151 != v69)
                           {
                             objc_enumerationMutation(slices4);
                           }
 
-                          [*(*(&v153 + 1) + 8 * n) sliceRect];
+                          [*(*(&v150 + 1) + 8 * n) sliceRect];
+                          v72 = v71;
                           v74 = v73;
                           v76 = v75;
                           v78 = v77;
-                          v80 = v79;
-                          v81 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
-                          [v81 setSliceRect:{v74, v76, v78, v80}];
-                          [v68 addObject:v81];
+                          v79 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
+                          [v79 setSliceRect:{v72, v74, v76, v78}];
+                          [v66 addObject:v79];
                         }
 
-                        v70 = [slices4 countByEnumeratingWithState:&v153 objects:v184 count:16];
+                        v68 = [slices4 countByEnumeratingWithState:&v150 objects:v181 count:16];
                       }
 
-                      while (v70);
+                      while (v68);
                     }
 
-                    [v66 setSlices:v68];
-                    v14 = v139;
-                    entity = v140;
+                    [v64 setSlices:v66];
+                    v12 = v136;
+                    entity = v137;
                   }
 
-                  [v66 setAsset:{objc_msgSend(v16, "asset")}];
-                  [v66 setProduction:v14];
-                  [objc_msgSend(v16 "production")];
-                  [objc_msgSend(v16 "keySpec")];
-                  [objc_msgSend(v66 "keySpec")];
-                  [v66 setPostScaleFactor:1.1];
-                  [v66 setCompressionType:{objc_msgSend(v16, "compressionType")}];
+                  [v64 setAsset:{objc_msgSend(v14, "asset")}];
+                  [v64 setProduction:v12];
+                  [objc_msgSend(v14 "production")];
+                  [objc_msgSend(v14 "keySpec")];
+                  [objc_msgSend(v64 "keySpec")];
+                  [v64 setPostScaleFactor:1.1];
+                  [v64 setCompressionType:{objc_msgSend(v14, "compressionType")}];
                 }
 
-                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v14, [objc_msgSend(v16 "keySpec")], 5, 430))
+                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v12, [objc_msgSend(v14 "keySpec")], 5, 430))
                 {
-                  v82 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
-                  slices5 = [v16 slices];
+                  v80 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
+                  slices5 = [v14 slices];
                   if ([slices5 count])
                   {
-                    v84 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices5, "count")}];
+                    v82 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices5, "count")}];
+                    v146 = 0u;
+                    v147 = 0u;
+                    v148 = 0u;
                     v149 = 0u;
-                    v150 = 0u;
-                    v151 = 0u;
-                    v152 = 0u;
-                    v85 = [slices5 countByEnumeratingWithState:&v149 objects:v183 count:16];
-                    if (v85)
+                    v83 = [slices5 countByEnumeratingWithState:&v146 objects:v180 count:16];
+                    if (v83)
                     {
-                      v86 = v85;
-                      v87 = *v150;
+                      v84 = v83;
+                      v85 = *v147;
                       do
                       {
-                        for (ii = 0; ii != v86; ++ii)
+                        for (ii = 0; ii != v84; ++ii)
                         {
-                          if (*v150 != v87)
+                          if (*v147 != v85)
                           {
                             objc_enumerationMutation(slices5);
                           }
 
-                          [*(*(&v149 + 1) + 8 * ii) sliceRect];
+                          [*(*(&v146 + 1) + 8 * ii) sliceRect];
+                          v88 = v87;
                           v90 = v89;
                           v92 = v91;
                           v94 = v93;
-                          v96 = v95;
-                          v97 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
-                          [v97 setSliceRect:{v90, v92, v94, v96}];
-                          [v84 addObject:v97];
+                          v95 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
+                          [v95 setSliceRect:{v88, v90, v92, v94}];
+                          [v82 addObject:v95];
                         }
 
-                        v86 = [slices5 countByEnumeratingWithState:&v149 objects:v183 count:16];
+                        v84 = [slices5 countByEnumeratingWithState:&v146 objects:v180 count:16];
                       }
 
-                      while (v86);
+                      while (v84);
                     }
 
-                    [v82 setSlices:v84];
-                    v14 = v139;
-                    entity = v140;
+                    [v80 setSlices:v82];
+                    v12 = v136;
+                    entity = v137;
                   }
 
-                  [v82 setAsset:{objc_msgSend(v16, "asset")}];
-                  [v82 setProduction:v14];
-                  [objc_msgSend(v16 "production")];
-                  [objc_msgSend(v16 "keySpec")];
-                  [objc_msgSend(v82 "keySpec")];
-                  [v82 setPostScaleFactor:1.06];
-                  [v82 setCompressionType:{objc_msgSend(v16, "compressionType")}];
+                  [v80 setAsset:{objc_msgSend(v14, "asset")}];
+                  [v80 setProduction:v12];
+                  [objc_msgSend(v14 "production")];
+                  [objc_msgSend(v14 "keySpec")];
+                  [objc_msgSend(v80 "keySpec")];
+                  [v80 setPostScaleFactor:1.06];
+                  [v80 setCompressionType:{objc_msgSend(v14, "compressionType")}];
                 }
 
-                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v14, [objc_msgSend(v16 "keySpec")], 5, 484))
+                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v12, [objc_msgSend(v14 "keySpec")], 5, 484))
                 {
-                  v98 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
-                  slices6 = [v16 slices];
+                  v96 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
+                  slices6 = [v14 slices];
                   if ([slices6 count])
                   {
-                    v100 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices6, "count")}];
+                    v98 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices6, "count")}];
+                    v142 = 0u;
+                    v143 = 0u;
+                    v144 = 0u;
                     v145 = 0u;
-                    v146 = 0u;
-                    v147 = 0u;
-                    v148 = 0u;
-                    v101 = [slices6 countByEnumeratingWithState:&v145 objects:v182 count:16];
-                    if (v101)
+                    v99 = [slices6 countByEnumeratingWithState:&v142 objects:v179 count:16];
+                    if (v99)
                     {
-                      v102 = v101;
-                      v103 = *v146;
+                      v100 = v99;
+                      v101 = *v143;
                       do
                       {
-                        for (jj = 0; jj != v102; ++jj)
+                        for (jj = 0; jj != v100; ++jj)
                         {
-                          if (*v146 != v103)
+                          if (*v143 != v101)
                           {
                             objc_enumerationMutation(slices6);
                           }
 
-                          [*(*(&v145 + 1) + 8 * jj) sliceRect];
+                          [*(*(&v142 + 1) + 8 * jj) sliceRect];
+                          v104 = v103;
                           v106 = v105;
                           v108 = v107;
                           v110 = v109;
-                          v112 = v111;
-                          v113 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
-                          [v113 setSliceRect:{v106, v108, v110, v112}];
-                          [v100 addObject:v113];
+                          v111 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
+                          [v111 setSliceRect:{v104, v106, v108, v110}];
+                          [v98 addObject:v111];
                         }
 
-                        v102 = [slices6 countByEnumeratingWithState:&v145 objects:v182 count:16];
+                        v100 = [slices6 countByEnumeratingWithState:&v142 objects:v179 count:16];
                       }
 
-                      while (v102);
+                      while (v100);
                     }
 
-                    [v98 setSlices:v100];
-                    v14 = v139;
-                    entity = v140;
+                    [v96 setSlices:v98];
+                    v12 = v136;
+                    entity = v137;
                   }
 
-                  [v98 setAsset:{objc_msgSend(v16, "asset")}];
-                  [v98 setProduction:v14];
-                  [objc_msgSend(v16 "production")];
-                  [objc_msgSend(v16 "keySpec")];
-                  [objc_msgSend(v98 "keySpec")];
-                  [v98 setPostScaleFactor:1.19];
-                  [v98 setCompressionType:{objc_msgSend(v16, "compressionType")}];
+                  [v96 setAsset:{objc_msgSend(v14, "asset")}];
+                  [v96 setProduction:v12];
+                  [objc_msgSend(v14 "production")];
+                  [objc_msgSend(v14 "keySpec")];
+                  [objc_msgSend(v96 "keySpec")];
+                  [v96 setPostScaleFactor:1.19];
+                  [v96 setCompressionType:{objc_msgSend(v14, "compressionType")}];
                 }
 
-                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v14, [objc_msgSend(v16 "keySpec")], 5, 502))
+                if (!-[CoreThemeDocument _production:containsScale:andIdiom:andSubtype:](self, "_production:containsScale:andIdiom:andSubtype:", v12, [objc_msgSend(v14 "keySpec")], 5, 502))
                 {
-                  v114 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
-                  slices7 = [v16 slices];
+                  v112 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [entity name]);
+                  slices7 = [v14 slices];
                   if ([slices7 count])
                   {
-                    v116 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices7, "count")}];
+                    v114 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices7, "count")}];
+                    v138 = 0u;
+                    v139 = 0u;
+                    v140 = 0u;
                     v141 = 0u;
-                    v142 = 0u;
-                    v143 = 0u;
-                    v144 = 0u;
-                    v117 = [slices7 countByEnumeratingWithState:&v141 objects:v181 count:16];
-                    if (v117)
+                    v115 = [slices7 countByEnumeratingWithState:&v138 objects:v178 count:16];
+                    if (v115)
                     {
-                      v118 = v117;
-                      v119 = *v142;
+                      v116 = v115;
+                      v117 = *v139;
                       do
                       {
-                        for (kk = 0; kk != v118; ++kk)
+                        for (kk = 0; kk != v116; ++kk)
                         {
-                          if (*v142 != v119)
+                          if (*v139 != v117)
                           {
                             objc_enumerationMutation(slices7);
                           }
 
-                          [*(*(&v141 + 1) + 8 * kk) sliceRect];
+                          [*(*(&v138 + 1) + 8 * kk) sliceRect];
+                          v120 = v119;
                           v122 = v121;
                           v124 = v123;
                           v126 = v125;
-                          v128 = v127;
-                          v129 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
-                          [v129 setSliceRect:{v122, v124, v126, v128}];
-                          [v116 addObject:v129];
+                          v127 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
+                          [v127 setSliceRect:{v120, v122, v124, v126}];
+                          [v114 addObject:v127];
                         }
 
-                        v118 = [slices7 countByEnumeratingWithState:&v141 objects:v181 count:16];
+                        v116 = [slices7 countByEnumeratingWithState:&v138 objects:v178 count:16];
                       }
 
-                      while (v118);
+                      while (v116);
                     }
 
-                    [v114 setSlices:v116];
-                    v14 = v139;
+                    [v112 setSlices:v114];
+                    v12 = v136;
                   }
 
-                  [v114 setAsset:{objc_msgSend(v16, "asset")}];
-                  [v114 setProduction:v14];
-                  [objc_msgSend(v16 "production")];
-                  [objc_msgSend(v16 "keySpec")];
-                  [objc_msgSend(v114 "keySpec")];
-                  [v114 setPostScaleFactor:1.19];
-                  [v114 setCompressionType:{objc_msgSend(v16, "compressionType")}];
+                  [v112 setAsset:{objc_msgSend(v14, "asset")}];
+                  [v112 setProduction:v12];
+                  [objc_msgSend(v14 "production")];
+                  [objc_msgSend(v14 "keySpec")];
+                  [objc_msgSend(v112 "keySpec")];
+                  [v112 setPostScaleFactor:1.19];
+                  [v112 setCompressionType:{objc_msgSend(v14, "compressionType")}];
                 }
 
-                v15 = v138 + 1;
+                v13 = v135 + 1;
               }
 
-              while (v138 + 1 != v137);
-              v137 = [v135 countByEnumeratingWithState:&v169 objects:v188 count:16];
+              while (v135 + 1 != v134);
+              v134 = [v132 countByEnumeratingWithState:&v166 objects:v185 count:16];
             }
 
-            while (v137);
+            while (v134);
           }
 
-          v4 = v134 + 1;
-          v3 = 0x278EBA000;
+          v3 = v131 + 1;
         }
 
-        while (v134 + 1 != v133);
-        v133 = [obj countByEnumeratingWithState:&v177 objects:v190 count:16];
+        while (v131 + 1 != v130);
+        v130 = [obj countByEnumeratingWithState:&v174 objects:v187 count:16];
       }
 
-      while (v133);
+      while (v130);
     }
   }
-
-  v130 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_backwardsCompatibilityPatchForLayoutDirection
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   if (![(CoreThemeDocument *)self featureEnabled:9])
   {
     v3 = [(CoreThemeDocument *)self directionWithIdentifier:5];
     v4 = [(CoreThemeDocument *)self directionWithIdentifier:4];
-    v40 = [(CoreThemeDocument *)self directionWithIdentifier:0];
+    v39 = [(CoreThemeDocument *)self directionWithIdentifier:0];
     v5 = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"SimpleArtworkRenditionSpec", [MEMORY[0x277CCAC30] predicateWithFormat:@"keySpec.direction == %@ OR keySpec.direction == %@", v3, v4], 0);
     array = [MEMORY[0x277CBEB18] array];
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
-    v7 = [v5 countByEnumeratingWithState:&v61 objects:v69 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v60 objects:v68 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v62;
+      v9 = *v61;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v62 != v9)
+          if (*v61 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          production = [*(*(&v61 + 1) + 8 * i) production];
+          production = [*(*(&v60 + 1) + 8 * i) production];
           if (([array containsObject:production] & 1) == 0)
           {
             [array addObject:production];
           }
         }
 
-        v8 = [v5 countByEnumeratingWithState:&v61 objects:v69 count:16];
+        v8 = [v5 countByEnumeratingWithState:&v60 objects:v68 count:16];
       }
 
       while (v8);
     }
 
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
-    v12 = v40;
-    v42 = [array countByEnumeratingWithState:&v57 objects:v68 count:16];
-    if (v42)
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    v12 = v39;
+    v41 = [array countByEnumeratingWithState:&v56 objects:v67 count:16];
+    if (v41)
     {
-      v41 = *v58;
-      v38 = array;
-      v39 = v3;
+      v40 = *v57;
+      v37 = array;
+      v38 = v3;
       do
       {
         v13 = 0;
         do
         {
-          if (*v58 != v41)
+          if (*v57 != v40)
           {
             objc_enumerationMutation(array);
           }
 
-          v14 = *(*(&v57 + 1) + 8 * v13);
+          v14 = *(*(&v56 + 1) + 8 * v13);
+          v52 = 0u;
           v53 = 0u;
           v54 = 0u;
           v55 = 0u;
-          v56 = 0u;
-          v43 = v13;
-          v44 = v14;
+          v42 = v13;
+          v43 = v14;
           renditions = [v14 renditions];
-          v16 = [renditions countByEnumeratingWithState:&v53 objects:v67 count:16];
+          v16 = [renditions countByEnumeratingWithState:&v52 objects:v66 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v54;
+            v18 = *v53;
 LABEL_18:
             v19 = 0;
             while (1)
             {
-              if (*v54 != v18)
+              if (*v53 != v18)
               {
                 objc_enumerationMutation(renditions);
               }
 
-              v20 = *(*(&v53 + 1) + 8 * v19);
+              v20 = *(*(&v52 + 1) + 8 * v19);
               if ([objc_msgSend(v20 "keySpec")] == v12 || !objc_msgSend(objc_msgSend(v20, "keySpec"), "direction"))
               {
                 break;
@@ -7450,7 +10530,7 @@ LABEL_18:
 
               if (v17 == ++v19)
               {
-                v17 = [renditions countByEnumeratingWithState:&v53 objects:v67 count:16];
+                v17 = [renditions countByEnumeratingWithState:&v52 objects:v66 count:16];
                 if (v17)
                 {
                   goto LABEL_18;
@@ -7465,26 +10545,26 @@ LABEL_18:
           {
 LABEL_25:
             v21 = [(CoreThemeDocument *)self newObjectForEntity:@"SimpleArtworkRenditionSpec"];
+            v48 = 0u;
             v49 = 0u;
             v50 = 0u;
             v51 = 0u;
-            v52 = 0u;
-            renditions2 = [v44 renditions];
-            v23 = [renditions2 countByEnumeratingWithState:&v49 objects:v66 count:16];
+            renditions2 = [v43 renditions];
+            v23 = [renditions2 countByEnumeratingWithState:&v48 objects:v65 count:16];
             if (v23)
             {
               v24 = v23;
-              v25 = *v50;
+              v25 = *v49;
 LABEL_27:
               v26 = 0;
               while (1)
               {
-                if (*v50 != v25)
+                if (*v49 != v25)
                 {
                   objc_enumerationMutation(renditions2);
                 }
 
-                v27 = *(*(&v49 + 1) + 8 * v26);
+                v27 = *(*(&v48 + 1) + 8 * v26);
                 if ([objc_msgSend(v27 "keySpec")] == v3)
                 {
                   break;
@@ -7492,7 +10572,7 @@ LABEL_27:
 
                 if (v24 == ++v26)
                 {
-                  v24 = [renditions2 countByEnumeratingWithState:&v49 objects:v66 count:16];
+                  v24 = [renditions2 countByEnumeratingWithState:&v48 objects:v65 count:16];
                   if (v24)
                   {
                     goto LABEL_27;
@@ -7509,7 +10589,7 @@ LABEL_27:
             }
 
 LABEL_35:
-            v27 = [objc_msgSend(v44 "renditions")];
+            v27 = [objc_msgSend(v43 "renditions")];
 LABEL_36:
             [v27 alignmentRect];
             [v21 setAlignmentRect:?];
@@ -7520,25 +10600,25 @@ LABEL_36:
             [v21 setAsset:{objc_msgSend(v27, "asset")}];
             [v21 setCompressionType:{objc_msgSend(v27, "compressionType")}];
             slices = [v27 slices];
+            v44 = 0u;
             v45 = 0u;
             v46 = 0u;
             v47 = 0u;
-            v48 = 0u;
-            v29 = [slices countByEnumeratingWithState:&v45 objects:v65 count:16];
+            v29 = [slices countByEnumeratingWithState:&v44 objects:v64 count:16];
             if (v29)
             {
               v30 = v29;
-              v31 = *v46;
+              v31 = *v45;
               do
               {
                 for (j = 0; j != v30; ++j)
                 {
-                  if (*v46 != v31)
+                  if (*v45 != v31)
                   {
                     objc_enumerationMutation(slices);
                   }
 
-                  v33 = *(*(&v45 + 1) + 8 * j);
+                  v33 = *(*(&v44 + 1) + 8 * j);
                   v34 = [(CoreThemeDocument *)self newObjectForEntity:@"Slice"];
                   [v33 sliceRect];
                   [v34 setSliceRect:?];
@@ -7547,7 +10627,7 @@ LABEL_36:
                   [v34 setRendition:v21];
                 }
 
-                v30 = [slices countByEnumeratingWithState:&v45 objects:v65 count:16];
+                v30 = [slices countByEnumeratingWithState:&v44 objects:v64 count:16];
               }
 
               while (v30);
@@ -7562,11 +10642,11 @@ LABEL_36:
             [v21 setWidth:{objc_msgSend(v27, "width")}];
             [v27 postScaleFactor];
             [v21 setPostScaleFactor:?];
-            [v44 addRenditionsObject:v21];
+            [v43 addRenditionsObject:v21];
             [v21 setRenditionType:{objc_msgSend(v27, "renditionType")}];
             v35 = [(CoreThemeDocument *)self newObjectForEntity:@"RenditionKeySpec"];
-            v12 = v40;
-            [v35 setDirection:v40];
+            v12 = v39;
+            [v35 setDirection:v39];
             keySpec = [v27 keySpec];
             [v35 setDimension1:{objc_msgSend(keySpec, "dimension1")}];
             [v35 setDimension2:{objc_msgSend(keySpec, "dimension2")}];
@@ -7593,22 +10673,20 @@ LABEL_36:
             [v35 setAppearance:{objc_msgSend(keySpec, "appearance")}];
             [v35 setLocalization:{objc_msgSend(keySpec, "localization")}];
             [v21 setKeySpec:v35];
-            array = v38;
-            v3 = v39;
+            array = v37;
+            v3 = v38;
           }
 
-          v13 = v43 + 1;
+          v13 = v42 + 1;
         }
 
-        while (v43 + 1 != v42);
-        v42 = [array countByEnumeratingWithState:&v57 objects:v68 count:16];
+        while (v42 + 1 != v41);
+        v41 = [array countByEnumeratingWithState:&v56 objects:v67 count:16];
       }
 
-      while (v42);
+      while (v41);
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)importNamedAssetsFromFileURLs:(id)ls referenceFiles:(BOOL)files completionHandler:(id)handler
@@ -7652,34 +10730,34 @@ LABEL_36:
 
 void __84__CoreThemeDocument_importNamedAssetsFromFileURLs_referenceFiles_completionHandler___block_invoke(uint64_t a1)
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
   v3 = objc_alloc_init(MEMORY[0x277CCAA00]);
   v4 = [MEMORY[0x277CBEA60] array];
   v5 = *MEMORY[0x277CBE868];
-  v31[0] = *MEMORY[0x277CBE868];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+  v29[0] = *MEMORY[0x277CBE868];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v24 = 0u;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v21 = a1;
+  v19 = a1;
   v7 = *(a1 + 32);
-  v8 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v27;
+    v10 = *v25;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         if ([objc_msgSend(objc_msgSend(v12 resourceValuesForKeys:v6 error:{0), "objectForKey:", v5), "BOOLValue"}])
         {
           v13 = [v3 enumeratorAtURL:v12 includingPropertiesForKeys:v4 options:6 errorHandler:0];
@@ -7703,47 +10781,43 @@ void __84__CoreThemeDocument_importNamedAssetsFromFileURLs_referenceFiles_comple
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v9);
   }
 
-  v16 = *(v21 + 72);
+  v16 = *(v19 + 72);
   if (v16)
   {
     goto LABEL_17;
   }
 
-  v25 = 0;
-  v17 = *(v21 + 40);
-  v18 = [objc_opt_class() _imageAssetURLsByCopyingFileURLs:v2 toManagedLocationAtURL:*(v21 + 48) error:&v25];
-  if (v18)
+  v23 = 0;
+  v17 = [objc_opt_class() _imageAssetURLsByCopyingFileURLs:v2 toManagedLocationAtURL:*(v19 + 48) error:&v23];
+  if (v17)
   {
-    v2 = v18;
-    v16 = *(v21 + 72);
+    v2 = v17;
+    v16 = *(v19 + 72);
 LABEL_17:
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __84__CoreThemeDocument_importNamedAssetsFromFileURLs_referenceFiles_completionHandler___block_invoke_2;
     block[3] = &unk_278EBB130;
-    block[4] = *(v21 + 40);
+    block[4] = *(v19 + 40);
     block[5] = v2;
-    v24 = v16;
-    v23 = *(v21 + 56);
+    v22 = v16;
+    v21 = *(v19 + 56);
     dispatch_async(MEMORY[0x277D85CD0], block);
-    goto LABEL_18;
+    return;
   }
 
-  NSLog(&cfstr_UnableToImport_0.isa, [v25 localizedDescription]);
-  v20 = *(v21 + 64);
-  if (v20)
+  NSLog(&cfstr_UnableToImport_0.isa, [v23 localizedDescription]);
+  v18 = *(v19 + 64);
+  if (v18)
   {
-    (*(v20 + 16))(v20, 0, v25);
+    (*(v18 + 16))(v18, 0, v23);
   }
-
-LABEL_18:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __84__CoreThemeDocument_importNamedAssetsFromFileURLs_referenceFiles_completionHandler___block_invoke_2(uint64_t a1)
@@ -8066,7 +11140,7 @@ uint64_t __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles
 
 uint64_t __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (([a2 renditionType] != 1009 || objc_msgSend(a2, "renditionType") != 1021) && objc_msgSend(a2, "renditionType") != 1015 && (objc_msgSend(a2, "compressionType") == 4 || objc_msgSend(a2, "compressionType") == 5) && objc_msgSend(a2, "compressionType") == 5 && objc_msgSend(*(a1 + 32), "featureEnabled:", 16))
   {
     [a2 setCompressionType:4];
@@ -8096,7 +11170,6 @@ uint64_t __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles
   {
     v4 = *(a1 + 56);
 LABEL_27:
-    v5 = *MEMORY[0x277D85DE8];
 
     return [v4 addObject:a2];
   }
@@ -8138,7 +11211,7 @@ LABEL_27:
       [a2 setScaleFactor:1];
     }
 
-    v7 = *(a1 + 104);
+    v6 = *(a1 + 104);
   }
 
   else
@@ -8171,33 +11244,33 @@ LABEL_27:
 
           if ([a2 compressionType])
           {
-            v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:{objc_msgSend(a2, "compressionType")}];
+            v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:{objc_msgSend(a2, "compressionType")}];
+            v13 = 0u;
+            v14 = 0u;
             v15 = 0u;
             v16 = 0u;
-            v17 = 0u;
-            v18 = 0u;
-            v10 = [a2 layerReferences];
-            v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
-            if (v11)
+            v8 = [a2 layerReferences];
+            v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+            if (v9)
             {
-              v12 = v11;
-              v13 = *v16;
+              v10 = v9;
+              v11 = *v14;
               do
               {
-                for (i = 0; i != v12; ++i)
+                for (i = 0; i != v10; ++i)
                 {
-                  if (*v16 != v13)
+                  if (*v14 != v11)
                   {
-                    objc_enumerationMutation(v10);
+                    objc_enumerationMutation(v8);
                   }
 
-                  [*(a1 + 136) setObject:v9 forKey:{objc_msgSend(*(*(&v15 + 1) + 8 * i), "layerName")}];
+                  [*(a1 + 136) setObject:v7 forKey:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "layerName")}];
                 }
 
-                v12 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+                v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
               }
 
-              while (v12);
+              while (v10);
             }
           }
         }
@@ -8206,10 +11279,10 @@ LABEL_27:
       goto LABEL_38;
     }
 
-    v7 = *(a1 + 112);
+    v6 = *(a1 + 112);
   }
 
-  [v7 addObject:a2];
+  [v6 addObject:a2];
 LABEL_38:
   if ([a2 renditionType] == 1000 && !objc_msgSend(a2, "scaleFactor"))
   {
@@ -8233,13 +11306,12 @@ LABEL_38:
         result = [objc_msgSend(objc_msgSend(a2 "fileURL")];
         if (result)
         {
-          result = [a2 setScaleFactor:1];
+          return [a2 setScaleFactor:1];
         }
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8273,31 +11345,31 @@ uint64_t __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles
   return [v5 addObject:v6];
 }
 
-uint64_t __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles_completionHandler___block_invoke_6(uint64_t a1, void *a2)
+void *__87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles_completionHandler___block_invoke_6(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = [a2 textureInfos];
-  result = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  result = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (result)
   {
     v5 = result;
-    v6 = *v15;
+    v6 = *v14;
     v7 = *MEMORY[0x277CBEEE8];
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v13 + 1) + 8 * v8);
         v10 = [v9 fileURL];
         v11 = *(a1 + 32);
         v12 = v7;
@@ -8307,46 +11379,45 @@ uint64_t __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles
         }
 
         [v11 addObject:v12];
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v5 != v8);
-      result = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      result = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       v5 = result;
     }
 
     while (result);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles_completionHandler___block_invoke_7(uint64_t a1, void *a2)
+void *__87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles_completionHandler___block_invoke_7(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = [a2 textureInfos];
-  result = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  result = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (result)
   {
     v5 = result;
-    v6 = *v15;
+    v6 = *v14;
     v7 = *MEMORY[0x277CBEEE8];
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v13 + 1) + 8 * v8);
         v10 = [v9 fileURL];
         v11 = *(a1 + 32);
         v12 = v7;
@@ -8356,18 +11427,17 @@ uint64_t __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles
         }
 
         [v11 addObject:v12];
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v5 != v8);
-      result = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      result = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       v5 = result;
     }
 
     while (result);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8435,83 +11505,80 @@ LABEL_3:
     block[3] = &unk_278EBB220;
     block[4] = *(a1 + 56);
     block[5] = v2;
-    v29 = *(a1 + 168);
-    v21 = *(a1 + 64);
-    v22 = v3;
+    v26 = *(a1 + 168);
+    v18 = *(a1 + 64);
+    v19 = v3;
     v4 = *(a1 + 104);
-    v23 = *(a1 + 88);
-    v24 = v4;
+    v20 = *(a1 + 88);
+    v21 = v4;
     v5 = *(a1 + 136);
-    v25 = *(a1 + 120);
-    v26 = v5;
-    v27 = *(a1 + 80);
-    v28 = *(a1 + 152);
+    v22 = *(a1 + 120);
+    v23 = v5;
+    v24 = *(a1 + 80);
+    v25 = *(a1 + 152);
     dispatch_async(MEMORY[0x277D85CD0], block);
     return;
   }
 
   v6 = [objc_msgSend(*(a1 + 56) "rootPathForProductionData")];
   v7 = [MEMORY[0x277CBEBC0] fileURLWithPath:v6 isDirectory:1];
-  v33 = 0;
-  v8 = *(a1 + 56);
-  v2 = [objc_opt_class() _imageAssetURLsByCopyingFileURLs:*(a1 + 32) toManagedLocationAtURL:v7 error:&v33];
-  v9 = [v2 count];
-  if (v9 != [*(a1 + 72) count])
+  v30 = 0;
+  v2 = [objc_opt_class() _imageAssetURLsByCopyingFileURLs:*(a1 + 32) toManagedLocationAtURL:v7 error:&v30];
+  v8 = [v2 count];
+  if (v8 != [*(a1 + 72) count])
   {
-    NSLog(&cfstr_UnableToImport_2.isa, [v33 localizedDescription]);
+    NSLog(&cfstr_UnableToImport_2.isa, [v30 localizedDescription]);
     goto LABEL_10;
   }
 
-  v10 = *(a1 + 72);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles_completionHandler___block_invoke_12;
-  v32[3] = &unk_278EBB1F8;
-  v32[4] = v2;
-  [v10 enumerateObjectsUsingBlock:v32];
-  v11 = *(a1 + 56);
-  v12 = [objc_opt_class() _imageAssetURLsByCopyingFileURLs:*(a1 + 40) toManagedLocationAtURL:v7 error:&v33];
-  v13 = [v12 count];
-  if (v13 != [*(a1 + 40) count])
+  v9 = *(a1 + 72);
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles_completionHandler___block_invoke_12;
+  v29[3] = &unk_278EBB1F8;
+  v29[4] = v2;
+  [v9 enumerateObjectsUsingBlock:v29];
+  v10 = [objc_opt_class() _imageAssetURLsByCopyingFileURLs:*(a1 + 40) toManagedLocationAtURL:v7 error:&v30];
+  v11 = [v10 count];
+  if (v11 != [*(a1 + 40) count])
   {
-    NSLog(&cfstr_UnableToImport_2.isa, [v33 localizedDescription]);
+    NSLog(&cfstr_UnableToImport_2.isa, [v30 localizedDescription]);
 LABEL_10:
-    v18 = *(a1 + 160);
-    if (v18)
+    v15 = *(a1 + 160);
+    if (v15)
     {
-      (*(v18 + 16))(v18, 0, v33);
+      (*(v15 + 16))(v15, 0, v30);
     }
 
     return;
   }
 
-  v14 = *(a1 + 80);
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles_completionHandler___block_invoke_13;
-  v31[3] = &unk_278EBB1F8;
-  v31[4] = v12;
-  [v14 enumerateObjectsUsingBlock:v31];
-  v15 = *(a1 + 56);
-  v3 = [objc_opt_class() _imageAssetURLsByCopyingFileURLs:*(a1 + 48) toManagedLocationAtURL:v7 error:&v33];
-  v16 = [v3 count];
-  if (v16 == [*(a1 + 88) count])
+  v12 = *(a1 + 80);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles_completionHandler___block_invoke_13;
+  v28[3] = &unk_278EBB1F8;
+  v28[4] = v10;
+  [v12 enumerateObjectsUsingBlock:v28];
+  v3 = [objc_opt_class() _imageAssetURLsByCopyingFileURLs:*(a1 + 48) toManagedLocationAtURL:v7 error:&v30];
+  v13 = [v3 count];
+  if (v13 == [*(a1 + 88) count])
   {
-    v17 = *(a1 + 88);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles_completionHandler___block_invoke_14;
-    v30[3] = &unk_278EBB1F8;
-    v30[4] = v3;
-    [v17 enumerateObjectsUsingBlock:v30];
+    v14 = *(a1 + 88);
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles_completionHandler___block_invoke_14;
+    v27[3] = &unk_278EBB1F8;
+    v27[4] = v3;
+    [v14 enumerateObjectsUsingBlock:v27];
     goto LABEL_3;
   }
 
-  NSLog(&cfstr_UnableToImport_3.isa, [v33 localizedDescription]);
-  v19 = *(a1 + 160);
-  if (v19)
+  NSLog(&cfstr_UnableToImport_3.isa, [v30 localizedDescription]);
+  v16 = *(a1 + 160);
+  if (v16)
   {
-    (*(v19 + 16))(v19, 0, v33);
+    (*(v16 + 16))(v16, 0, v30);
   }
 }
 
@@ -8522,41 +11589,41 @@ uint64_t __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles
   return [a2 setFileURL:v3];
 }
 
-uint64_t __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles_completionHandler___block_invoke_13(uint64_t a1, void *a2, uint64_t a3)
+void *__87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles_completionHandler___block_invoke_13(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = [a2 textureInfos];
-  result = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  result = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (result)
   {
     v7 = result;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setFileURL:{objc_msgSend(*(a1 + 32), "objectAtIndex:", a3)}];
+        [*(*(&v10 + 1) + 8 * v9) setFileURL:{objc_msgSend(*(a1 + 32), "objectAtIndex:", a3)}];
+        v9 = v9 + 1;
       }
 
       while (v7 != v9);
-      result = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      result = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       v7 = result;
     }
 
     while (result);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8583,57 +11650,8 @@ uint64_t __87__CoreThemeDocument_importNamedAssetsWithImportInfos_referenceFiles
     {
       v9 = 0;
       [*(a1 + 32) createNamedRenditionGroupProductionsForImportInfos:*(a1 + 80) error:&v9];
-      if (v9)
+      if (v9 || ([*(a1 + 32) createNamedArtworkProductionsForAssets:v3 customInfos:v11 skipLastStep:0 error:&v9], v9) || (objc_msgSend(*(a1 + 32), "createNamedRecognitionObjectsForAssets:customInfos:error:", v5, v10, &v9), v9) || (objc_msgSend(*(a1 + 32), "createNamedGlyphVectorForCustomInfos:referenceFiles:bitSource:error:", *(a1 + 88), *(a1 + 160), *(a1 + 48), &v9), v9) || (objc_msgSend(*(a1 + 32), "createNamedColorProductionsForImportInfos:error:", *(a1 + 96), &v9), v9) || (objc_msgSend(*(a1 + 32), "createNamedGradientProductionsForImportInfos:error:", *(a1 + 104), &v9), v9) || (objc_msgSend(*(a1 + 32), "createNamedModelsForCustomInfos:referenceFiles:bitSource:error:", *(a1 + 112), *(a1 + 160), *(a1 + 48), &v9), v9) || (objc_msgSend(*(a1 + 32), "createTextStyleProductionsForImportInfos:error:", *(a1 + 120), &v9), v9) || (objc_msgSend(*(a1 + 32), "createNamedTexturesForCustomInfos:referenceFiles:bitSource:error:", objc_msgSend(*(a1 + 32), "updateAutomaticTexturesForCustomInfos:allTextureInfos:", *(a1 + 128), *(a1 + 136)), *(a1 + 160), *(a1 + 48), &v9), v9) || (objc_msgSend(*(a1 + 32), "_tidyUpRecognitionImages"), objc_msgSend(*(a1 + 32), "_generateWatchImages"), objc_msgSend(*(a1 + 32), "_automaticSRGBGenerationFromP3"), objc_msgSend(*(a1 + 32), "_automaticP3GenerationFromSRGB"), objc_msgSend(*(a1 + 32), "_tidyUpLayerStacks"), objc_msgSend(*(a1 + 32), "_createForwardstopRenditions"), objc_msgSend(*(a1 + 32), "createNamedIconLayerStacksForCustomInfos:referenceFiles:bitSource:error:", *(a1 + 144), *(a1 + 160), *(a1 + 48), &v9), v9))
       {
-        goto LABEL_13;
-      }
-
-      [*(a1 + 32) createNamedArtworkProductionsForAssets:v3 customInfos:v11 skipLastStep:0 error:&v9];
-      if (v9)
-      {
-        goto LABEL_13;
-      }
-
-      [*(a1 + 32) createNamedRecognitionObjectsForAssets:v5 customInfos:v10 error:&v9];
-      if (v9)
-      {
-        goto LABEL_13;
-      }
-
-      [*(a1 + 32) createNamedGlyphVectorForCustomInfos:*(a1 + 88) referenceFiles:*(a1 + 160) bitSource:*(a1 + 48) error:&v9];
-      if (v9)
-      {
-        goto LABEL_13;
-      }
-
-      [*(a1 + 32) createNamedColorProductionsForImportInfos:*(a1 + 96) error:&v9];
-      if (v9)
-      {
-        goto LABEL_13;
-      }
-
-      [*(a1 + 32) createNamedGradientProductionsForImportInfos:*(a1 + 104) error:&v9];
-      if (v9)
-      {
-        goto LABEL_13;
-      }
-
-      [*(a1 + 32) createNamedModelsForCustomInfos:*(a1 + 112) referenceFiles:*(a1 + 160) bitSource:*(a1 + 48) error:&v9];
-      if (v9)
-      {
-        goto LABEL_13;
-      }
-
-      [*(a1 + 32) createTextStyleProductionsForImportInfos:*(a1 + 120) error:&v9];
-      if (v9)
-      {
-        goto LABEL_13;
-      }
-
-      [*(a1 + 32) createNamedTexturesForCustomInfos:objc_msgSend(*(a1 + 32) referenceFiles:"updateAutomaticTexturesForCustomInfos:allTextureInfos:" bitSource:*(a1 + 128) error:{*(a1 + 136)), *(a1 + 160), *(a1 + 48), &v9}];
-      if (v9 || ([*(a1 + 32) _tidyUpRecognitionImages], objc_msgSend(*(a1 + 32), "_generateWatchImages"), objc_msgSend(*(a1 + 32), "_automaticSRGBGenerationFromP3"), objc_msgSend(*(a1 + 32), "_automaticP3GenerationFromSRGB"), objc_msgSend(*(a1 + 32), "_tidyUpLayerStacks"), objc_msgSend(*(a1 + 32), "_createForwardstopRenditions"), objc_msgSend(*(a1 + 32), "createNamedIconLayerStacksForCustomInfos:referenceFiles:bitSource:error:", *(a1 + 144), *(a1 + 160), *(a1 + 48), &v9), v9))
-      {
-LABEL_13:
         v7 = 0;
       }
 
@@ -8684,49 +11702,49 @@ LABEL_13:
 {
   handlerCopy = handler;
   filesCopy = files;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = assets;
-  v29 = [assets countByEnumeratingWithState:&v35 objects:v40 count:16];
-  if (v29)
+  v28 = [assets countByEnumeratingWithState:&v34 objects:v39 count:16];
+  if (v28)
   {
-    v28 = *v36;
+    v27 = *v35;
     do
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v36 != v28)
+        if (*v35 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v35 + 1) + 8 * i);
+        v11 = *(*(&v34 + 1) + 8 * i);
         [v8 addObject:{v11, handlerCopy}];
         renditions = [v11 renditions];
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
-        v13 = [renditions countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v13 = [renditions countByEnumeratingWithState:&v30 objects:v38 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v32;
+          v15 = *v31;
           do
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v32 != v15)
+              if (*v31 != v15)
               {
                 objc_enumerationMutation(renditions);
               }
 
-              v17 = *(*(&v31 + 1) + 8 * j);
+              v17 = *(*(&v30 + 1) + 8 * j);
               [v8 addObject:v17];
               asset = [v17 asset];
               if (asset)
@@ -8744,17 +11762,17 @@ LABEL_13:
               }
             }
 
-            v14 = [renditions countByEnumeratingWithState:&v31 objects:v39 count:16];
+            v14 = [renditions countByEnumeratingWithState:&v30 objects:v38 count:16];
           }
 
           while (v14);
         }
       }
 
-      v29 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v28 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
 
   undoManager = [(TDPersistentDocument *)self undoManager];
@@ -8780,45 +11798,43 @@ LABEL_13:
     block[2] = __80__CoreThemeDocument_deleteNamedAssets_shouldDeleteAssetFiles_completionHandler___block_invoke;
     block[3] = &unk_278EBB270;
     block[4] = v9;
-    block[5] = v26;
+    block[5] = v25;
     dispatch_async(global_queue, block);
   }
 
-  else if (v26)
+  else if (v25)
   {
-    (*(v26 + 16))();
+    (*(v25 + 16))();
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__CoreThemeDocument_deleteNamedAssets_shouldDeleteAssetFiles_completionHandler___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CCAA00]);
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [v2 removeItemAtURL:*(*(&v10 + 1) + 8 * i) error:0];
+        [v2 removeItemAtURL:*(*(&v9 + 1) + 8 * i) error:0];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -8827,10 +11843,9 @@ uint64_t __80__CoreThemeDocument_deleteNamedAssets_shouldDeleteAssetFiles_comple
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9051,6 +12066,58 @@ uint64_t __73__CoreThemeDocument_importCustomAssetsWithImportInfos_completionHan
   return [(CoreThemeDocument *)self createAssetWithName:name scaleFactor:v9 inCategory:category forThemeBitSource:source];
 }
 
+- (id)createAssetWithName:(id)name scaleFactor:(unsigned int)factor inCategory:(id)category forThemeBitSource:(id)source
+{
+  v8 = *&factor;
+  pathExtension = [name pathExtension];
+
+  return [(CoreThemeDocument *)self createAssetWithName:name fileType:pathExtension scaleFactor:v8 inCategory:category forThemeBitSource:source];
+}
+
+- (id)createAssetWithName:(id)name fileType:(id)type scaleFactor:(unsigned int)factor inCategory:(id)category forThemeBitSource:(id)source
+{
+  v9 = *&factor;
+  if ([type isEqualToString:@"psd"])
+  {
+    v13 = @"PhotoshopAsset";
+  }
+
+  else if ([type isEqualToString:@"png"])
+  {
+    v13 = @"PNGAsset";
+  }
+
+  else if ([type isEqualToString:@"imagestack"])
+  {
+    v13 = @"ImageStackAsset";
+  }
+
+  else if ([type isEqualToString:@"texture"])
+  {
+    v13 = @"TextureAsset";
+  }
+
+  else
+  {
+    if (![type isEqualToString:@"model"])
+    {
+      NSLog(&cfstr_UnsupportedFil.isa, name);
+      v14 = 0;
+      goto LABEL_12;
+    }
+
+    v13 = @"ModelIOAsset";
+  }
+
+  v14 = [(CoreThemeDocument *)self newObjectForEntity:v13];
+LABEL_12:
+  [v14 setName:name];
+  [v14 setScaleFactor:v9];
+  [v14 setCategory:category];
+  [v14 setSource:source];
+  return v14;
+}
+
 - (id)assetAtPath:(id)path
 {
   v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:path];
@@ -9099,9 +12166,9 @@ uint64_t __73__CoreThemeDocument_importCustomAssetsWithImportInfos_completionHan
 {
   filesCopy = files;
   productionsCopy = productions;
-  v82 = *MEMORY[0x277D85DE8];
-  v67 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"Asset", 0, 0)}];
-  v64 = [v67 count];
+  v81 = *MEMORY[0x277D85DE8];
+  v66 = [MEMORY[0x277CBEB18] arrayWithArray:{-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"Asset", 0, 0)}];
+  v63 = [v66 count];
   v15 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(ls, "count")}];
   array = [MEMORY[0x277CBEB18] array];
   v16 = 0;
@@ -9111,64 +12178,64 @@ uint64_t __73__CoreThemeDocument_importCustomAssetsWithImportInfos_completionHan
   }
 
   pathComponents = [v16 pathComponents];
-  v78[0] = MEMORY[0x277D85DD0];
-  v78[1] = 3221225472;
-  v78[2] = __115__CoreThemeDocument__addAssetsAtFileURLs_createProductions_referenceFiles_bitSource_customInfos_sortedCustomInfos___block_invoke;
-  v78[3] = &unk_278EBB310;
-  v78[4] = source;
-  v78[5] = infos;
-  selfCopy = self;
-  v78[6] = self;
-  v78[7] = ls;
-  v79 = filesCopy;
-  v78[8] = v16;
-  v78[9] = pathComponents;
-  v78[10] = @"FilePDF";
-  v78[11] = @"AssetName";
-  v78[12] = @"Scale";
-  v78[13] = @"FileScale";
-  v78[14] = @"Category";
-  v78[15] = @"FileBitSource";
-  v78[17] = v15;
-  v78[18] = customInfos;
-  v78[16] = @"CustomInfo";
-  [ls enumerateObjectsUsingBlock:v78];
   v77[0] = MEMORY[0x277D85DD0];
   v77[1] = 3221225472;
-  v77[2] = __115__CoreThemeDocument__addAssetsAtFileURLs_createProductions_referenceFiles_bitSource_customInfos_sortedCustomInfos___block_invoke_2;
-  v77[3] = &unk_278EBB338;
-  v77[4] = @"AssetName";
-  v18 = [v15 sortedArrayUsingComparator:v77];
+  v77[2] = __115__CoreThemeDocument__addAssetsAtFileURLs_createProductions_referenceFiles_bitSource_customInfos_sortedCustomInfos___block_invoke;
+  v77[3] = &unk_278EBB310;
+  v77[4] = source;
+  v77[5] = infos;
+  selfCopy = self;
+  v77[6] = self;
+  v77[7] = ls;
+  v78 = filesCopy;
+  v77[8] = v16;
+  v77[9] = pathComponents;
+  v77[10] = @"FilePDF";
+  v77[11] = @"AssetName";
+  v77[12] = @"Scale";
+  v77[13] = @"FileScale";
+  v77[14] = @"Category";
+  v77[15] = @"FileBitSource";
+  v77[17] = v15;
+  v77[18] = customInfos;
+  v77[16] = @"CustomInfo";
+  [ls enumerateObjectsUsingBlock:v77];
+  v76[0] = MEMORY[0x277D85DD0];
+  v76[1] = 3221225472;
+  v76[2] = __115__CoreThemeDocument__addAssetsAtFileURLs_createProductions_referenceFiles_bitSource_customInfos_sortedCustomInfos___block_invoke_2;
+  v76[3] = &unk_278EBB338;
+  v76[4] = @"AssetName";
+  v18 = [v15 sortedArrayUsingComparator:v76];
   v19 = v18;
   if (customInfos)
   {
     v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v18, "count")}];
+    v72 = 0u;
     v73 = 0u;
     v74 = 0u;
     v75 = 0u;
-    v76 = 0u;
-    v21 = [v19 countByEnumeratingWithState:&v73 objects:v81 count:16];
+    v21 = [v19 countByEnumeratingWithState:&v72 objects:v80 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v74;
+      v23 = *v73;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v74 != v23)
+          if (*v73 != v23)
           {
             objc_enumerationMutation(v19);
           }
 
-          v25 = [*(*(&v73 + 1) + 8 * i) objectForKey:@"CustomInfo"];
+          v25 = [*(*(&v72 + 1) + 8 * i) objectForKey:@"CustomInfo"];
           if (v25)
           {
             [v20 addObject:v25];
           }
         }
 
-        v22 = [v19 countByEnumeratingWithState:&v73 objects:v81 count:16];
+        v22 = [v19 countByEnumeratingWithState:&v72 objects:v80 count:16];
       }
 
       while (v22);
@@ -9177,38 +12244,38 @@ uint64_t __73__CoreThemeDocument_importCustomAssetsWithImportInfos_completionHan
     *customInfos = [MEMORY[0x277CBEA60] arrayWithArray:v20];
   }
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
-  v63 = [v19 countByEnumeratingWithState:&v69 objects:v80 count:16];
-  if (v63)
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  v62 = [v19 countByEnumeratingWithState:&v68 objects:v79 count:16];
+  if (v62)
   {
+    v58 = 0;
     v59 = 0;
-    v60 = 0;
-    v61 = *MEMORY[0x277CBEEE8];
-    v62 = *v70;
-    v57 = !productionsCopy;
+    v60 = *MEMORY[0x277CBEEE8];
+    v61 = *v69;
+    v56 = !productionsCopy;
     selfCopy2 = self;
     do
     {
       v27 = 0;
       do
       {
-        if (*v70 != v62)
+        if (*v69 != v61)
         {
           objc_enumerationMutation(v19);
         }
 
-        v28 = *(*(&v69 + 1) + 8 * v27);
+        v28 = *(*(&v68 + 1) + 8 * v27);
         v29 = [v28 objectForKey:@"AssetName"];
         v30 = [objc_msgSend(v28 objectForKey:{@"Scale", "unsignedIntegerValue"}];
         v31 = [objc_msgSend(v28 objectForKey:{@"FileScale", "unsignedIntegerValue"}];
         v32 = [v28 objectForKey:@"Category"];
         v33 = [v28 objectForKey:@"FileBitSource"];
         v34 = [v28 objectForKey:@"FilePDF"];
-        v68 = [v28 objectForKey:@"CustomInfo"];
-        if (v64)
+        v67 = [v28 objectForKey:@"CustomInfo"];
+        if (v63)
         {
           if (v31)
           {
@@ -9223,16 +12290,16 @@ uint64_t __73__CoreThemeDocument_importCustomAssetsWithImportInfos_completionHan
           if (v35)
           {
             v36 = v30;
-            v45 = [v67 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name == %@ AND scaleFactor == %u AND category == %@", v29, v30, v32)}];
+            v45 = [v66 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name == %@ AND scaleFactor == %u AND category == %@", v29, v30, v32)}];
             if (![v45 count] || (objc_msgSend(v45, "objectAtIndex:", 0), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
             {
-              if (v68)
+              if (v67)
               {
-                renditionType = [v68 renditionType];
+                renditionType = [v67 renditionType];
                 v38 = @"imagestack";
                 if (renditionType != 1002)
                 {
-                  if ([v68 renditionType] == 1018)
+                  if ([v67 renditionType] == 1018)
                   {
                     v38 = @"imagestack";
                   }
@@ -9244,7 +12311,7 @@ uint64_t __73__CoreThemeDocument_importCustomAssetsWithImportInfos_completionHan
                 }
 
                 v39 = [(CoreThemeDocument *)selfCopy2 createAssetWithName:v29 fileType:v38 scaleFactor:v36 inCategory:v32 forThemeBitSource:v33];
-                if ([v68 renditionType] == 1000 || objc_msgSend(v68, "renditionType") == 1014)
+                if ([v67 renditionType] == 1000 || objc_msgSend(v67, "renditionType") == 1014)
                 {
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
@@ -9269,7 +12336,7 @@ LABEL_41:
           else
           {
             v44 = v30;
-            v45 = [v67 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name == %@ AND scaleFactor == %u AND category == %@ AND fileScaleFactor == %@", v29, v30, v32, v31)}];
+            v45 = [v66 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"name == %@ AND scaleFactor == %u AND category == %@ AND fileScaleFactor == %@", v29, v30, v32, v31)}];
             if ([v45 count])
             {
               [v45 objectAtIndex:0];
@@ -9283,31 +12350,31 @@ LABEL_41:
             v39 = [(CoreThemeDocument *)selfCopy2 createAssetWithName:v29 fileType:@"png" scaleFactor:v44 inCategory:v32 forThemeBitSource:v33];
             [v39 setFileScaleFactor:v31];
 LABEL_62:
-            [v67 addObject:v39];
+            [v66 addObject:v39];
           }
 
 LABEL_63:
           if (!v39)
           {
-            goto LABEL_80;
+            return 0;
           }
 
           goto LABEL_64;
         }
 
-        v58 = v33;
-        v65 = v29;
+        v57 = v33;
+        v64 = v29;
         v40 = v30;
         v41 = 0;
         v42 = 0;
-        if (v60)
+        if (v59)
         {
           v43 = 0;
-          if (v59)
+          if (v58)
           {
-            v42 = [v60 objectForKey:@"AssetName"];
-            v41 = [objc_msgSend(v60 objectForKey:{@"Scale", "unsignedIntegerValue"}];
-            v43 = [v60 objectForKey:v32];
+            v42 = [v59 objectForKey:@"AssetName"];
+            v41 = [objc_msgSend(v59 objectForKey:{@"Scale", "unsignedIntegerValue"}];
+            v43 = [v59 objectForKey:v32];
           }
         }
 
@@ -9316,7 +12383,7 @@ LABEL_63:
           v43 = 0;
         }
 
-        v46 = [v42 isEqualToString:v65];
+        v46 = [v42 isEqualToString:v64];
         if (v41 == v40)
         {
           v47 = v46;
@@ -9345,26 +12412,26 @@ LABEL_63:
             [v43 isEqualToString:v32];
           }
 
-          v39 = [(CoreThemeDocument *)selfCopy createAssetWithName:v65 fileType:@"png" scaleFactor:v40 inCategory:v32 forThemeBitSource:v58];
+          v39 = [(CoreThemeDocument *)selfCopy createAssetWithName:v64 fileType:@"png" scaleFactor:v40 inCategory:v32 forThemeBitSource:v57];
           [v39 setFileScaleFactor:v31];
-          v59 = v39;
-          v60 = v28;
+          v58 = v39;
+          v59 = v28;
           goto LABEL_63;
         }
 
         selfCopy2 = selfCopy;
         if (!v47 || ([v43 isEqualToString:v32] & 1) == 0)
         {
-          if (v68)
+          if (v67)
           {
-            if ([v68 renditionType] != 1002 && objc_msgSend(v68, "renditionType") != 1018)
+            if ([v67 renditionType] != 1002 && objc_msgSend(v67, "renditionType") != 1018)
             {
-              v59 = v61;
-              if ([v68 renditionType] != 1004)
+              v58 = v60;
+              if ([v67 renditionType] != 1004)
               {
-                v52 = [(CoreThemeDocument *)selfCopy createAssetWithName:v65 fileType:@"png" scaleFactor:v40 inCategory:v32 forThemeBitSource:v58];
-                v59 = v52;
-                if ([v68 renditionType] == 1000 || objc_msgSend(v68, "renditionType") == 1014)
+                v52 = [(CoreThemeDocument *)selfCopy createAssetWithName:v64 fileType:@"png" scaleFactor:v40 inCategory:v32 forThemeBitSource:v57];
+                v58 = v52;
+                if ([v67 renditionType] == 1000 || objc_msgSend(v67, "renditionType") == 1014)
                 {
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
@@ -9378,33 +12445,31 @@ LABEL_63:
             }
 
             v49 = selfCopy;
-            v50 = v65;
+            v50 = v64;
             v51 = @"imagestack";
           }
 
           else
           {
             v49 = selfCopy;
-            v50 = v65;
+            v50 = v64;
             v51 = @"png";
           }
 
-          v59 = [(CoreThemeDocument *)v49 createAssetWithName:v50 fileType:v51 scaleFactor:v40 inCategory:v32 forThemeBitSource:v58];
+          v58 = [(CoreThemeDocument *)v49 createAssetWithName:v50 fileType:v51 scaleFactor:v40 inCategory:v32 forThemeBitSource:v57];
         }
 
 LABEL_71:
-        v39 = v59;
-        if (!v59)
+        v39 = v58;
+        if (!v58)
         {
-LABEL_80:
-          array = 0;
-          goto LABEL_81;
+          return 0;
         }
 
-        [v67 addObject:v59];
-        v60 = v28;
+        [v66 addObject:v58];
+        v59 = v28;
 LABEL_64:
-        if (v39 != v61 && (([v39 hasProduction] | v57) & 1) == 0)
+        if (v39 != v60 && (([v39 hasProduction] | v56) & 1) == 0)
         {
           [(CoreThemeDocument *)selfCopy2 createElementProductionWithAsset:v39];
         }
@@ -9413,32 +12478,30 @@ LABEL_64:
         ++v27;
       }
 
-      while (v63 != v27);
-      v53 = [v19 countByEnumeratingWithState:&v69 objects:v80 count:16];
-      v63 = v53;
+      while (v62 != v27);
+      v53 = [v19 countByEnumeratingWithState:&v68 objects:v79 count:16];
+      v62 = v53;
     }
 
     while (v53);
   }
 
-LABEL_81:
-  v54 = *MEMORY[0x277D85DE8];
   return array;
 }
 
-uint64_t __115__CoreThemeDocument__addAssetsAtFileURLs_createProductions_referenceFiles_bitSource_customInfos_sortedCustomInfos___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+__CFString *__115__CoreThemeDocument__addAssetsAtFileURLs_createProductions_referenceFiles_bitSource_customInfos_sortedCustomInfos___block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
   v5 = *(a1 + 32);
-  v44 = 0;
-  v45 = v5;
   v43 = 0;
-  v42 = 1;
+  v44 = v5;
+  v42 = 0;
+  v41 = 1;
   if (*MEMORY[0x277CBEEE8] == a2)
   {
     v9 = [objc_msgSend(*(a1 + 40) objectAtIndex:{a3), "name"}];
     v6 = 0;
-    v43 = @"PackedAsset";
-    v44 = v9;
+    v42 = @"PackedAsset";
+    v43 = v9;
   }
 
   else
@@ -9451,7 +12514,7 @@ uint64_t __115__CoreThemeDocument__addAssetsAtFileURLs_createProductions_referen
 
     else
     {
-      v7 = &v43;
+      v7 = &v42;
     }
 
     if (v5)
@@ -9461,16 +12524,16 @@ uint64_t __115__CoreThemeDocument__addAssetsAtFileURLs_createProductions_referen
 
     else
     {
-      v8 = &v45;
+      v8 = &v44;
     }
 
-    [*(a1 + 48) _getFilename:&v44 scaleFactor:&v42 category:v7 bitSource:v8 forFileURL:a2];
+    [*(a1 + 48) _getFilename:&v43 scaleFactor:&v41 category:v7 bitSource:v8 forFileURL:a2];
   }
 
   v10 = [*(a1 + 40) count];
   if (v10 == [*(a1 + 56) count])
   {
-    v42 = [objc_msgSend(*(a1 + 40) objectAtIndex:{a3), "scaleFactor"}];
+    v41 = [objc_msgSend(*(a1 + 40) objectAtIndex:{a3), "scaleFactor"}];
   }
 
   if (*(a1 + 152) == 1 && v6 && *(a1 + 64))
@@ -9479,7 +12542,7 @@ uint64_t __115__CoreThemeDocument__addAssetsAtFileURLs_createProductions_referen
     UncommonItemInArrays = indexOfFirstUncommonItemInArrays(*(a1 + 72), v11);
     v13 = [v11 subarrayWithRange:{UncommonItemInArrays, objc_msgSend(v11, "count") + ~UncommonItemInArrays}];
     result = [MEMORY[0x277CCACA8] pathWithComponents:v13];
-    v43 = result;
+    v42 = result;
     if (!result)
     {
       goto LABEL_18;
@@ -9488,15 +12551,15 @@ uint64_t __115__CoreThemeDocument__addAssetsAtFileURLs_createProductions_referen
 
   else
   {
-    result = v43;
-    if (!v43)
+    result = v42;
+    if (!v42)
     {
 LABEL_18:
-      v43 = @"NamedImages";
+      v42 = @"NamedImages";
     }
   }
 
-  if (!v44 || !v45)
+  if (!v43 || !v44)
   {
     return result;
   }
@@ -9538,10 +12601,10 @@ LABEL_18:
   if ([v19 renditionType] != 1000 && objc_msgSend(v19, "renditionType") != 1017 && (!objc_msgSend(objc_msgSend(v6, "pathExtension"), "caseInsensitiveCompare:", @"PDF") || !objc_msgSend(objc_msgSend(v6, "pathExtension"), "caseInsensitiveCompare:", @"SVG")))
   {
     v21 = MEMORY[0x277CBEB18];
-    v22 = v44;
+    v22 = v43;
     v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
-    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v42];
-    v25 = [v21 arrayWithObjects:{v22, v23, v24, v43, v45, *(a1 + 80), 0}];
+    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v41];
+    v25 = [v21 arrayWithObjects:{v22, v23, v24, v42, v44, *(a1 + 80), 0}];
     v26 = [MEMORY[0x277CBEB18] arrayWithObjects:{*(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112), *(a1 + 120), *(a1 + 80), 0}];
     if (*(a1 + 144))
     {
@@ -9568,10 +12631,10 @@ LABEL_18:
       if (result)
       {
         v28 = MEMORY[0x277CBEB18];
-        v29 = v44;
+        v29 = v43;
         v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v16];
-        v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v42];
-        v32 = [v28 arrayWithObjects:{v29, v30, v31, v43, v45, *(a1 + 80), 0}];
+        v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v41];
+        v32 = [v28 arrayWithObjects:{v29, v30, v31, v42, v44, *(a1 + 80), 0}];
         v33 = [MEMORY[0x277CBEB18] arrayWithObjects:{*(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112), *(a1 + 120), *(a1 + 80), 0}];
         if (*(a1 + 144))
         {
@@ -9601,25 +12664,24 @@ LABEL_18:
 
 LABEL_51:
   v35 = MEMORY[0x277CBEB18];
-  v36 = v44;
-  v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v42];
-  v38 = [v35 arrayWithObjects:{v36, v37, v43, v45, 0}];
-  v39 = *(a1 + 96);
-  v40 = [MEMORY[0x277CBEB18] arrayWithObjects:{*(a1 + 88), v39, *(a1 + 112), *(a1 + 120), 0}];
+  v36 = v43;
+  v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v41];
+  v38 = [v35 arrayWithObjects:{v36, v37, v42, v44, 0}];
+  v39 = [MEMORY[0x277CBEB18] arrayWithObjects:{*(a1 + 88), *(a1 + 96), *(a1 + 112), *(a1 + 120), 0}];
   if (*(a1 + 144))
   {
-    v41 = *(a1 + 40);
-    if (v41)
+    v40 = *(a1 + 40);
+    if (v40)
     {
-      if ([v41 count] > a3)
+      if ([v40 count] > a3)
       {
         [v38 addObject:{objc_msgSend(*(a1 + 40), "objectAtIndex:", a3)}];
-        [v40 addObject:*(a1 + 128)];
+        [v39 addObject:*(a1 + 128)];
       }
     }
   }
 
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v40];
+  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v39];
   if (result)
   {
     return [*(a1 + 136) addObject:result];
@@ -9999,15 +13061,14 @@ uint64_t __115__CoreThemeDocument__addAssetsAtFileURLs_createProductions_referen
   return dataModelVersion_latestModel;
 }
 
-uint64_t __37__CoreThemeDocument_dataModelVersion__block_invoke()
+void *__37__CoreThemeDocument_dataModelVersion__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v0 = [objc_msgSend(MEMORY[0x277CCA8D8] bundleWithIdentifier:{@"com.apple.CoreThemeDefinition", "URLsForResourcesWithExtension:subdirectory:", @"mom", 0}];
-  v4[0] = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"path" ascending:0];
-  v1 = [objc_msgSend(v0 sortedArrayUsingDescriptors:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v4, 1)), "firstObject"}];
+  v3[0] = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"path" ascending:0];
+  v1 = [objc_msgSend(v0 sortedArrayUsingDescriptors:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v3, 1)), "firstObject"}];
   result = [objc_msgSend(objc_msgSend(objc_msgSend(v1 "lastPathComponent")];
   dataModelVersion_latestModel = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -10039,6 +13100,13 @@ uint64_t __37__CoreThemeDocument_dataModelVersion__block_invoke()
   v2 = [(CoreThemeDocument *)self metadatumForKey:@"CoreThemeDocumentAllowsExtendedRangeKey"];
 
   return [v2 BOOLValue];
+}
+
+- (void)setAllowsExtendedRangePixelFormats:(BOOL)formats
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:formats];
+
+  [(CoreThemeDocument *)self setMetadatum:v4 forKey:@"CoreThemeDocumentAllowsExtendedRangeKey"];
 }
 
 - (unint64_t)colorSpaceID
@@ -10077,54 +13145,54 @@ uint64_t __37__CoreThemeDocument_dataModelVersion__block_invoke()
 
 - (void)convertColorsFromColorSpaceWithIdentifier:(unint64_t)identifier toIdentifier:(unint64_t)toIdentifier
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v6 = [(CoreThemeDocument *)self createCGColorSpaceWithIdentifier:identifier];
   toIdentifierCopy = toIdentifier;
   v7 = [(CoreThemeDocument *)self createCGColorSpaceWithIdentifier:toIdentifier];
   selfCopy = self;
   v8 = [(CoreThemeDocument *)self allObjectsForEntity:@"ColorDefinition" withSortDescriptors:0];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v30;
-    v28 = vdupq_n_s64(0x406FE00000000000uLL);
+    v11 = *v29;
+    v27 = vdupq_n_s64(0x406FE00000000000uLL);
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v30 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v29 + 1) + 8 * i);
+        v13 = *(*(&v28 + 1) + 8 * i);
         v14 = [objc_msgSend(v13 valueForKey:{@"physicalColor", "unsignedIntValue"}];
         v15 = vdup_n_s32(v14);
         v16 = vand_s8(vshl_u32(v15, 0xFFFFFFF8FFFFFFF0), 0xFF000000FFLL);
         v17.i64[0] = v16.u32[0];
         v17.i64[1] = v16.u32[1];
         v18 = vshr_n_u32(v15, 0x18uLL).u32[1];
-        v19 = vdivq_f64(vcvtq_f64_u64(v17), v28);
+        v19 = vdivq_f64(vcvtq_f64_u64(v17), v27);
         v17.i64[0] = v14;
         v17.i64[1] = v18;
         *components = v19;
-        v34 = vdivq_f64(vcvtq_f64_u64(v17), v28);
+        v33 = vdivq_f64(vcvtq_f64_u64(v17), v27);
         v20 = CGColorCreate(v6, components);
         CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v7, kCGRenderingIntentDefault, v20, 0);
         v22 = CGColorGetComponents(CopyByMatchingToColorSpace);
-        v23 = vmovn_s64(vcvtq_u64_f64(vrndxq_f64(vmulq_f64(v22[1], v28))));
-        v24 = vand_s8(vshl_u32(vmovn_s64(vcvtq_u64_f64(vrndxq_f64(vmulq_f64(*v22, v28)))), 0x800000010), 0xFF0000FF0000);
+        v23 = vmovn_s64(vcvtq_u64_f64(vrndxq_f64(vmulq_f64(v22[1], v27))));
+        v24 = vand_s8(vshl_u32(vmovn_s64(vcvtq_u64_f64(vrndxq_f64(vmulq_f64(*v22, v27)))), 0x800000010), 0xFF0000FF0000);
         [v13 setValue:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithUnsignedInt:", v24.i32[1] | v23.u8[0] | (v23.i32[1] << 24) | v24.i32[0]), @"physicalColor"}];
         CGColorRelease(v20);
         CGColorRelease(CopyByMatchingToColorSpace);
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v10);
@@ -10133,7 +13201,6 @@ uint64_t __37__CoreThemeDocument_dataModelVersion__block_invoke()
   CGColorSpaceRelease(v6);
   CGColorSpaceRelease(v7);
   -[CoreThemeDocument setMetadatum:forKey:](selfCopy, "setMetadatum:forKey:", [MEMORY[0x277CCABB0] numberWithInteger:toIdentifierCopy], @"NSCoreThemeDefinitionColorSpaceKey");
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_canremoveKeyAttribte:(unsigned __int16)attribte
@@ -10161,9 +13228,9 @@ uint64_t __37__CoreThemeDocument_dataModelVersion__block_invoke()
 
 - (void)_updateKeyFormatWithContext:(id)context
 {
-  v26 = 0;
+  v22 = 0;
   v4 = [-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:withContext:error:](self objectsForEntity:@"RenditionKeySpec" withPredicate:0 sortDescriptors:0) withContext:"count" error:?];
-  v25 = [MEMORY[0x277CBE408] entityForName:@"RenditionKeySpec" inManagedObjectContext:{-[TDPersistentDocument managedObjectContext](self, "managedObjectContext")}];
+  v21 = [MEMORY[0x277CBE408] entityForName:@"RenditionKeySpec" inManagedObjectContext:{-[TDPersistentDocument managedObjectContext](self, "managedObjectContext")}];
   v5 = [&unk_2859AC530 count];
   if (v5)
   {
@@ -10173,12 +13240,10 @@ uint64_t __37__CoreThemeDocument_dataModelVersion__block_invoke()
       v7 = [&unk_2859AC530 objectAtIndex:v6];
       v8 = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"RenditionKeySpec", [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.identifier == 0", v7], 0);
       v9 = -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:](self, "objectsForEntity:withPredicate:sortDescriptors:", @"RenditionKeySpec", [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == NULL", v7], 0);
-      v26 = 0;
+      v22 = 0;
       v10 = [v8 count];
-      if ([v9 count] + v10 == v4 && -[CoreThemeDocument _canremoveKeyAttribte:](self, "_canremoveKeyAttribte:", LOWORD(dword_247A493AC[v6])))
+      if ([v9 count] + v10 == v4 && -[CoreThemeDocument _canremoveKeyAttribte:](self, "_canremoveKeyAttribte:", word_247A493AC[2 * v6]))
       {
-        keyFormat = self->_keyFormat;
-        v12 = word_247A493C0[2 * v6];
         CUIRenditionKeyFormatRemoveAttribute();
       }
 
@@ -10188,41 +13253,39 @@ uint64_t __37__CoreThemeDocument_dataModelVersion__block_invoke()
     while (v5 != v6);
   }
 
-  v13 = [&unk_2859AC548 count];
-  if (v13)
+  v11 = [&unk_2859AC548 count];
+  if (v11)
   {
-    v14 = 0;
+    v12 = 0;
     do
     {
-      v15 = [MEMORY[0x277CBE428] fetchRequestWithEntityName:@"RenditionKeySpec"];
-      v16 = [&unk_2859AC548 objectAtIndex:v14];
-      v17 = [objc_msgSend(v25 "attributesByName")];
-      v18 = [MEMORY[0x277CCA9C0] expressionForKeyPath:v16];
-      v19 = [MEMORY[0x277CCA9C0] expressionForFunction:@"count:" arguments:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObject:", v18)}];
-      v20 = objc_alloc_init(MEMORY[0x277CBE410]);
-      [v20 setName:@"count"];
-      [v20 setExpression:v19];
-      [v20 setExpressionResultType:200];
-      [v15 setPropertiesToFetch:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:", v17, v20, 0)}];
-      [v15 setPropertiesToGroupBy:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObject:", v17)}];
-      [v15 setResultType:2];
+      v13 = [MEMORY[0x277CBE428] fetchRequestWithEntityName:@"RenditionKeySpec"];
+      v14 = [&unk_2859AC548 objectAtIndex:v12];
+      v15 = [objc_msgSend(v21 "attributesByName")];
+      v16 = [MEMORY[0x277CCA9C0] expressionForKeyPath:v14];
+      v17 = [MEMORY[0x277CCA9C0] expressionForFunction:@"count:" arguments:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObject:", v16)}];
+      v18 = objc_alloc_init(MEMORY[0x277CBE410]);
+      [v18 setName:@"count"];
+      [v18 setExpression:v17];
+      [v18 setExpressionResultType:200];
+      [v13 setPropertiesToFetch:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:", v15, v18, 0)}];
+      [v13 setPropertiesToGroupBy:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObject:", v15)}];
+      [v13 setResultType:2];
 
-      v26 = 0;
-      v21 = [context executeFetchRequest:v15 error:&v26];
-      if ([v21 count] == 1 && !objc_msgSend(objc_msgSend(objc_msgSend(v21, "firstObject"), "objectForKey:", v16), "integerValue"))
+      v22 = 0;
+      v19 = [context executeFetchRequest:v13 error:&v22];
+      if ([v19 count] == 1 && !objc_msgSend(objc_msgSend(objc_msgSend(v19, "firstObject"), "objectForKey:", v14), "integerValue"))
       {
-        v22 = dword_247A493AC[v14];
-        if ([(CoreThemeDocument *)self _canremoveKeyAttribte:dword_247A493AC[v14]])
+        if ([(CoreThemeDocument *)self _canremoveKeyAttribte:*&word_247A493AC[2 * v12]])
         {
-          v23 = self->_keyFormat;
           CUIRenditionKeyFormatRemoveAttribute();
         }
       }
 
-      ++v14;
+      ++v12;
     }
 
-    while (v13 != v14);
+    while (v11 != v12);
   }
 }
 
@@ -10296,38 +13359,38 @@ uint64_t __37__CoreThemeDocument_dataModelVersion__block_invoke()
 
 - (BOOL)customizationExistsForSchemaDefinition:(id)definition
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   parts = [definition parts];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [parts countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [parts countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(parts);
         }
 
-        if ([objc_msgSend(*(*(&v10 + 1) + 8 * v7) "productions")])
+        if ([objc_msgSend(*(*(&v9 + 1) + 8 * v7) "productions")])
         {
           LOBYTE(v4) = 1;
-          goto LABEL_11;
+          return v4;
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v4 = [parts countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [parts countByEnumeratingWithState:&v9 objects:v13 count:16];
       v5 = v4;
       if (v4)
       {
@@ -10338,57 +13401,148 @@ uint64_t __37__CoreThemeDocument_dataModelVersion__block_invoke()
     }
   }
 
-LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
+}
+
+- (void)removeCustomizationForSchemaDefinition:(id)definition shouldDeleteAssetFiles:(BOOL)files
+{
+  filesCopy = files;
+  v16 = *MEMORY[0x277D85DE8];
+  parts = [definition parts];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = [parts countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(parts);
+        }
+
+        -[CoreThemeDocument deleteProductions:shouldDeleteAssetFiles:](self, "deleteProductions:shouldDeleteAssetFiles:", [*(*(&v11 + 1) + 8 * v10++) productions], filesCopy);
+      }
+
+      while (v8 != v10);
+      v8 = [parts countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
+}
+
+- (BOOL)customizeSchemaElementDefinition:(id)definition usingArtworkFormat:(id)format shouldReplaceExisting:(BOOL)existing error:(id *)error
+{
+  existingCopy = existing;
+  v24 = *MEMORY[0x277D85DE8];
+  if (-[CoreThemeDocument allowMultipleInstancesOfElementID:](self, "allowMultipleInstancesOfElementID:", [objc_msgSend(objc_msgSend(definition "parts")]))
+  {
+    _createNamedElementWithNextAvailableIdentifier = [(CoreThemeDocument *)self _createNamedElementWithNextAvailableIdentifier];
+    [_createNamedElementWithNextAvailableIdentifier setName:@"New Structured Image"];
+  }
+
+  else
+  {
+    _createNamedElementWithNextAvailableIdentifier = 0;
+  }
+
+  parts = [definition parts];
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v13 = [parts countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v20;
+LABEL_6:
+    v16 = 0;
+    while (1)
+    {
+      if (*v20 != v15)
+      {
+        objc_enumerationMutation(parts);
+      }
+
+      v17 = [(CoreThemeDocument *)self customizeSchemaPartDefinition:*(*(&v19 + 1) + 8 * v16) usingArtworkFormat:format nameElement:_createNamedElementWithNextAvailableIdentifier shouldReplaceExisting:existingCopy error:error];
+      if (!v17)
+      {
+        break;
+      }
+
+      if (v14 == ++v16)
+      {
+        v14 = [parts countByEnumeratingWithState:&v19 objects:v23 count:16];
+        if (v14)
+        {
+          goto LABEL_6;
+        }
+
+        goto LABEL_12;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_12:
+    LOBYTE(v17) = 1;
+  }
+
+  return v17;
 }
 
 - (BOOL)customizeSchemaEffectDefinition:(id)definition shouldReplaceExisting:(BOOL)existing error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   parts = [definition parts];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v9 = [parts countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [parts countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(parts);
         }
 
-        if (![(CoreThemeDocument *)self createEffectStyleProductionForPartDefinition:*(*(&v17 + 1) + 8 * v12)])
+        if (![(CoreThemeDocument *)self createEffectStyleProductionForPartDefinition:*(*(&v16 + 1) + 8 * v12)])
         {
-          if (error)
+          if (!error)
           {
-            v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to create production for effect definition: %@", objc_msgSend(definition, "name")];
-            v15 = [MEMORY[0x277CCA9B8] errorWithDomain:CoreThemeDefinitionErrorDomain[0] code:0 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjectsAndKeys:", v14, *MEMORY[0x277CCA450], 0)}];
-            result = 0;
-            *error = v15;
+            return 0;
           }
 
-          else
-          {
-            result = 0;
-          }
-
-          goto LABEL_13;
+          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to create production for effect definition: %@", objc_msgSend(definition, "name")];
+          v15 = [MEMORY[0x277CCA9B8] errorWithDomain:CoreThemeDefinitionErrorDomain[0] code:0 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjectsAndKeys:", v14, *MEMORY[0x277CCA450], 0)}];
+          result = 0;
+          *error = v15;
+          return result;
         }
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [parts countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [parts countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         continue;
@@ -10398,94 +13552,100 @@ LABEL_11:
     }
   }
 
-  result = 1;
-LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-- (id)schemaDefinitionWithElementID:(int64_t)d
+- (BOOL)customizeSchemaMaterialDefinition:(id)definition shouldReplaceExisting:(BOOL)existing error:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v4 = [(CoreThemeDocument *)self allObjectsForEntity:@"SchemaPartDefinition" withSortDescriptors:0];
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  result = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (result)
-  {
-    v6 = result;
-    v7 = *v12;
-    while (2)
-    {
-      v8 = 0;
-      do
-      {
-        if (*v12 != v7)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v9 = *(*(&v11 + 1) + 8 * v8);
-        if ([v9 elementID] == d && objc_msgSend(objc_msgSend(v9, "element"), "published"))
-        {
-          result = [v9 element];
-          goto LABEL_12;
-        }
-
-        v8 = v8 + 1;
-      }
-
-      while (v6 != v8);
-      result = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
-      v6 = result;
-      if (result)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-LABEL_12:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-- (id)schemaPartDefinitionWithElementID:(int64_t)d partID:(int64_t)iD
-{
-  v19 = *MEMORY[0x277D85DE8];
-  v6 = [(CoreThemeDocument *)self allObjectsForEntity:@"SchemaPartDefinition" withSortDescriptors:0];
-  v14 = 0u;
+  existingCopy = existing;
+  v20 = *MEMORY[0x277D85DE8];
+  parts = [definition parts];
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v7)
+  v18 = 0u;
+  v9 = [parts countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v9)
   {
-    v8 = v7;
-    v9 = *v15;
+    v10 = v9;
+    v11 = *v16;
 LABEL_3:
-    v10 = 0;
+    v12 = 0;
     while (1)
     {
-      if (*v15 != v9)
+      if (*v16 != v11)
       {
-        objc_enumerationMutation(v6);
+        objc_enumerationMutation(parts);
       }
 
-      v11 = *(*(&v14 + 1) + 8 * v10);
-      if ([v11 elementID] == d && objc_msgSend(v11, "partID") == iD && (objc_msgSend(objc_msgSend(v11, "element"), "published") & 1) != 0)
+      v13 = [(CoreThemeDocument *)self customizeSchemaPartDefinition:*(*(&v15 + 1) + 8 * v12) usingArtworkFormat:CoreThemeArtworkFormatCAAR nameElement:0 shouldReplaceExisting:existingCopy error:error];
+      if (!v13)
       {
         break;
       }
 
-      if (v8 == ++v10)
+      if (v10 == ++v12)
       {
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v8)
+        v10 = [parts countByEnumeratingWithState:&v15 objects:v19 count:16];
+        if (v10)
+        {
+          goto LABEL_3;
+        }
+
+        goto LABEL_9;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_9:
+    LOBYTE(v13) = 1;
+  }
+
+  return v13;
+}
+
+- (BOOL)customizeSchemaPartDefinition:(id)definition usingArtworkFormat:(id)format nameElement:(id)element shouldReplaceExisting:(BOOL)existing error:(id *)error
+{
+  existingCopy = existing;
+  v26 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  obj = [definition renditionGroups];
+  v12 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v22;
+LABEL_3:
+    v15 = 0;
+    while (1)
+    {
+      if (*v22 != v14)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v16 = [(CoreThemeDocument *)self createProductionWithRenditionGroup:*(*(&v21 + 1) + 8 * v15) forPartDefinition:definition artworkFormat:format nameElement:element shouldReplaceExisting:existingCopy error:error];
+      if (!v16)
+      {
+        break;
+      }
+
+      if (element)
+      {
+        v17 = v16;
+        [objc_msgSend(v16 "baseKeySpec")];
+        [element setProduction:v17];
+      }
+
+      if (v13 == ++v15)
+      {
+        v13 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        if (v13)
         {
           goto LABEL_3;
         }
@@ -10498,11 +13658,101 @@ LABEL_3:
   else
   {
 LABEL_11:
-    v11 = 0;
+    LOBYTE(v16) = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v16;
+}
+
+- (id)schemaDefinitionWithElementID:(int64_t)d
+{
+  v15 = *MEMORY[0x277D85DE8];
+  v4 = [(CoreThemeDocument *)self allObjectsForEntity:@"SchemaPartDefinition" withSortDescriptors:0];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  result = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (result)
+  {
+    v6 = result;
+    v7 = *v11;
+    while (2)
+    {
+      v8 = 0;
+      do
+      {
+        if (*v11 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v9 = *(*(&v10 + 1) + 8 * v8);
+        if ([v9 elementID] == d && objc_msgSend(objc_msgSend(v9, "element"), "published"))
+        {
+          return [v9 element];
+        }
+
+        v8 = v8 + 1;
+      }
+
+      while (v6 != v8);
+      result = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = result;
+      if (result)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  return result;
+}
+
+- (id)schemaPartDefinitionWithElementID:(int64_t)d partID:(int64_t)iD
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v6 = [(CoreThemeDocument *)self allObjectsForEntity:@"SchemaPartDefinition" withSortDescriptors:0];
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (!v7)
+  {
+    return 0;
+  }
+
+  v8 = v7;
+  v9 = *v14;
+LABEL_3:
+  v10 = 0;
+  while (1)
+  {
+    if (*v14 != v9)
+    {
+      objc_enumerationMutation(v6);
+    }
+
+    v11 = *(*(&v13 + 1) + 8 * v10);
+    if ([v11 elementID] == d && objc_msgSend(v11, "partID") == iD && (objc_msgSend(objc_msgSend(v11, "element"), "published") & 1) != 0)
+    {
+      return v11;
+    }
+
+    if (v8 == ++v10)
+    {
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      if (v8)
+      {
+        goto LABEL_3;
+      }
+
+      return 0;
+    }
+  }
 }
 
 - (id)namedArtworkProductions
@@ -10523,41 +13773,40 @@ LABEL_11:
 
 - (void)exportCursorsToURL:(id)l
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   obj = [(CoreThemeDocument *)self allObjectsForEntity:@"CursorFacetDefinition" withSortDescriptors:0];
-  v12 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(obj, "count")}];
+  v11 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(obj, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{objc_msgSend(v7, "valueForKey:", @"facetName", @"facetName", objc_msgSend(v7, "valueForKey:", @"hotSpotX", @"hotSpotX", objc_msgSend(v7, "valueForKey:", @"hotSpotY", @"hotSpotY", 0}];
-        [v12 setObject:v8 forKey:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%d", objc_msgSend(objc_msgSend(v7, "keySpec"), "dimension1"))}];
+        [v11 setObject:v8 forKey:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%d", objc_msgSend(objc_msgSend(v7, "keySpec"), "dimension1"))}];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
 
-  v13 = 0;
-  [objc_msgSend(MEMORY[0x277CCAC58] dataWithPropertyList:v12 format:100 options:200 error:{&v13), "writeToURL:atomically:", l, 1}];
-  v9 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  [objc_msgSend(MEMORY[0x277CCAC58] dataWithPropertyList:v11 format:100 options:200 error:{&v12), "writeToURL:atomically:", l, 1}];
 }
 
 - (void)importCursorsFromURL:(id)l getUnusedImportedCursors:(id *)cursors getUnupdatedCursors:(id *)unupdatedCursors
@@ -10971,29 +14220,29 @@ LABEL_11:
 
 - (void)_removeRedundantPDFBasedRenditionsForAssets:(id)assets
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v6 = [assets countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [assets countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(assets);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_isKindOfClass())
         {
           [v5 addObjectsFromArray:{objc_msgSend(objc_msgSend(v10, "renditions"), "allObjects")}];
@@ -11003,44 +14252,42 @@ LABEL_11:
       }
 
       while (v7 != v9);
-      v7 = [assets countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [assets countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   [(CoreThemeDocument *)self _removeRedundantPDFBasedRenditions:v5];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeRedundantPDFBasedRenditions:(id)renditions
 {
-  v84 = *MEMORY[0x277D85DE8];
-  v48 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v83 = *MEMORY[0x277D85DE8];
+  v47 = objc_alloc_init(MEMORY[0x277CBEB58]);
   obj = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v73 = 0u;
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
-  v5 = [renditions countByEnumeratingWithState:&v74 objects:v83 count:16];
+  v5 = [renditions countByEnumeratingWithState:&v73 objects:v82 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v75;
+    v7 = *v74;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v75 != v7)
+        if (*v74 != v7)
         {
           objc_enumerationMutation(renditions);
         }
 
-        keySpec = [*(*(&v74 + 1) + 8 * i) keySpec];
+        keySpec = [*(*(&v73 + 1) + 8 * i) keySpec];
         v10 = [keySpec key];
         v11 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v10 length:4 * CUIRenditionKeyTokenCount()];
-        if ([v48 containsObject:v11])
+        if ([v47 containsObject:v11])
         {
           v12 = [-[CoreThemeDocument renditionsMatchingRenditionKeySpec:](self renditionsMatchingRenditionKeySpec:{keySpec), "sortedArrayUsingComparator:", &__block_literal_global_1215}];
           v13 = obj;
@@ -11048,41 +14295,41 @@ LABEL_11:
 
         else
         {
-          v13 = v48;
+          v13 = v47;
           v12 = v11;
         }
 
         [v13 addObject:v12];
       }
 
-      v6 = [renditions countByEnumeratingWithState:&v74 objects:v83 count:16];
+      v6 = [renditions countByEnumeratingWithState:&v73 objects:v82 count:16];
     }
 
     while (v6);
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
-  v49 = [obj countByEnumeratingWithState:&v70 objects:v82 count:16];
-  if (v49)
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v48 = [obj countByEnumeratingWithState:&v69 objects:v81 count:16];
+  if (v48)
   {
-    v47 = *v71;
+    v46 = *v70;
     do
     {
-      for (j = 0; j != v49; ++j)
+      for (j = 0; j != v48; ++j)
       {
-        if (*v71 != v47)
+        if (*v70 != v46)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v70 + 1) + 8 * j);
+        v15 = *(*(&v69 + 1) + 8 * j);
         v16 = [v15 count];
-        v51 = objc_alloc_init(MEMORY[0x277CCAB58]);
-        v53 = objc_alloc_init(MEMORY[0x277CCAB58]);
+        v50 = objc_alloc_init(MEMORY[0x277CCAB58]);
         v52 = objc_alloc_init(MEMORY[0x277CCAB58]);
+        v51 = objc_alloc_init(MEMORY[0x277CCAB58]);
         v17 = objc_alloc_init(MEMORY[0x277CCAB58]);
         if (v16)
         {
@@ -11095,12 +14342,12 @@ LABEL_11:
               asset = [v19 asset];
               if (![objc_msgSend(objc_msgSend(asset "name")] || !objc_msgSend(objc_msgSend(objc_msgSend(asset, "name"), "pathExtension"), "caseInsensitiveCompare:", @"SVG"))
               {
-                [v53 addIndex:k];
+                [v52 addIndex:k];
               }
 
               if (![objc_msgSend(objc_msgSend(asset "name")])
               {
-                [v51 addIndex:k];
+                [v50 addIndex:k];
               }
 
               fileScaleFactor = [asset fileScaleFactor];
@@ -11123,100 +14370,100 @@ LABEL_11:
                 fileScaleFactor2 = [asset2 fileScaleFactor];
                 if (fileScaleFactor2 != [objc_msgSend(v23 "keySpec")] && (!objc_msgSend(asset2, "fileScaleFactor") || HIDWORD(div(objc_msgSend(objc_msgSend(v23, "keySpec"), "scaleFactor"), objc_msgSend(asset2, "fileScaleFactor")).quot) || objc_msgSend(v17, "count")))
                 {
-                  [v52 addIndex:m];
+                  [v51 addIndex:m];
                 }
               }
             }
           }
         }
 
-        if ([v51 count] && objc_msgSend(v53, "count"))
+        if ([v50 count] && objc_msgSend(v52, "count"))
         {
-          v68 = 0u;
-          v69 = 0u;
-          v66 = 0u;
           v67 = 0u;
-          v26 = [v15 objectsAtIndexes:v53];
-          v27 = [v26 countByEnumeratingWithState:&v66 objects:v81 count:16];
+          v68 = 0u;
+          v65 = 0u;
+          v66 = 0u;
+          v26 = [v15 objectsAtIndexes:v52];
+          v27 = [v26 countByEnumeratingWithState:&v65 objects:v80 count:16];
           if (v27)
           {
             v28 = v27;
-            v29 = *v67;
+            v29 = *v66;
             do
             {
               for (n = 0; n != v28; ++n)
               {
-                if (*v67 != v29)
+                if (*v66 != v29)
                 {
                   objc_enumerationMutation(v26);
                 }
 
-                -[CoreThemeDocument _delete:withRendition:](self, "_delete:withRendition:", [*(*(&v66 + 1) + 8 * n) asset], *(*(&v66 + 1) + 8 * n));
+                -[CoreThemeDocument _delete:withRendition:](self, "_delete:withRendition:", [*(*(&v65 + 1) + 8 * n) asset], *(*(&v65 + 1) + 8 * n));
               }
 
-              v28 = [v26 countByEnumeratingWithState:&v66 objects:v81 count:16];
+              v28 = [v26 countByEnumeratingWithState:&v65 objects:v80 count:16];
             }
 
             while (v28);
           }
         }
 
-        else if ([v17 count] && objc_msgSend(v52, "count"))
+        else if ([v17 count] && objc_msgSend(v51, "count"))
         {
-          v64 = 0u;
-          v65 = 0u;
-          v62 = 0u;
           v63 = 0u;
-          v31 = [v15 objectsAtIndexes:v52];
-          v32 = [v31 countByEnumeratingWithState:&v62 objects:v80 count:16];
+          v64 = 0u;
+          v61 = 0u;
+          v62 = 0u;
+          v31 = [v15 objectsAtIndexes:v51];
+          v32 = [v31 countByEnumeratingWithState:&v61 objects:v79 count:16];
           if (v32)
           {
             v33 = v32;
-            v34 = *v63;
+            v34 = *v62;
             do
             {
               for (ii = 0; ii != v33; ++ii)
               {
-                if (*v63 != v34)
+                if (*v62 != v34)
                 {
                   objc_enumerationMutation(v31);
                 }
 
-                -[CoreThemeDocument _delete:withRendition:](self, "_delete:withRendition:", [*(*(&v62 + 1) + 8 * ii) asset], *(*(&v62 + 1) + 8 * ii));
+                -[CoreThemeDocument _delete:withRendition:](self, "_delete:withRendition:", [*(*(&v61 + 1) + 8 * ii) asset], *(*(&v61 + 1) + 8 * ii));
               }
 
-              v33 = [v31 countByEnumeratingWithState:&v62 objects:v80 count:16];
+              v33 = [v31 countByEnumeratingWithState:&v61 objects:v79 count:16];
             }
 
             while (v33);
           }
         }
 
-        else if ([v52 count] == v16 - 1)
+        else if ([v51 count] == v16 - 1)
         {
-          v60 = 0uLL;
-          v61 = 0uLL;
-          v58 = 0uLL;
           v59 = 0uLL;
-          v36 = [v15 objectsAtIndexes:v52];
-          v37 = [v36 countByEnumeratingWithState:&v58 objects:v79 count:16];
+          v60 = 0uLL;
+          v57 = 0uLL;
+          v58 = 0uLL;
+          v36 = [v15 objectsAtIndexes:v51];
+          v37 = [v36 countByEnumeratingWithState:&v57 objects:v78 count:16];
           if (v37)
           {
             v38 = v37;
-            v39 = *v59;
+            v39 = *v58;
             do
             {
               for (jj = 0; jj != v38; ++jj)
               {
-                if (*v59 != v39)
+                if (*v58 != v39)
                 {
                   objc_enumerationMutation(v36);
                 }
 
-                -[CoreThemeDocument _delete:withRendition:](self, "_delete:withRendition:", [*(*(&v58 + 1) + 8 * jj) asset], *(*(&v58 + 1) + 8 * jj));
+                -[CoreThemeDocument _delete:withRendition:](self, "_delete:withRendition:", [*(*(&v57 + 1) + 8 * jj) asset], *(*(&v57 + 1) + 8 * jj));
               }
 
-              v38 = [v36 countByEnumeratingWithState:&v58 objects:v79 count:16];
+              v38 = [v36 countByEnumeratingWithState:&v57 objects:v78 count:16];
             }
 
             while (v38);
@@ -11225,29 +14472,29 @@ LABEL_11:
 
         else
         {
-          v56 = 0uLL;
-          v57 = 0uLL;
-          v54 = 0uLL;
           v55 = 0uLL;
+          v56 = 0uLL;
+          v53 = 0uLL;
+          v54 = 0uLL;
           v41 = [v15 subarrayWithRange:1];
-          v42 = [v41 countByEnumeratingWithState:&v54 objects:v78 count:16];
+          v42 = [v41 countByEnumeratingWithState:&v53 objects:v77 count:16];
           if (v42)
           {
             v43 = v42;
-            v44 = *v55;
+            v44 = *v54;
             do
             {
               for (kk = 0; kk != v43; ++kk)
               {
-                if (*v55 != v44)
+                if (*v54 != v44)
                 {
                   objc_enumerationMutation(v41);
                 }
 
-                -[CoreThemeDocument _delete:withRendition:](self, "_delete:withRendition:", [*(*(&v54 + 1) + 8 * kk) asset], *(*(&v54 + 1) + 8 * kk));
+                -[CoreThemeDocument _delete:withRendition:](self, "_delete:withRendition:", [*(*(&v53 + 1) + 8 * kk) asset], *(*(&v53 + 1) + 8 * kk));
               }
 
-              v43 = [v41 countByEnumeratingWithState:&v54 objects:v78 count:16];
+              v43 = [v41 countByEnumeratingWithState:&v53 objects:v77 count:16];
             }
 
             while (v43);
@@ -11255,13 +14502,11 @@ LABEL_11:
         }
       }
 
-      v49 = [obj countByEnumeratingWithState:&v70 objects:v82 count:16];
+      v48 = [obj countByEnumeratingWithState:&v69 objects:v81 count:16];
     }
 
-    while (v49);
+    while (v48);
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__CoreThemeDocument__removeRedundantPDFBasedRenditions___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -11372,7 +14617,7 @@ uint64_t __45__CoreThemeDocument__insertRendition_forKey___block_invoke(uint64_t
 
 - (BOOL)_updateRenditionPackings:(id)packings error:(id *)error
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   if (!self->_packableRenditions)
   {
     self->_packableRenditions = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -11386,160 +14631,156 @@ uint64_t __45__CoreThemeDocument__insertRendition_forKey___block_invoke(uint64_t
     [CoreThemeDocument _updateRenditionPackings:error:];
   }
 
-  v70 = 0u;
-  v71 = 0u;
+  v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
-  v7 = [packings countByEnumeratingWithState:&v68 objects:v72 count:16];
+  v65 = 0u;
+  v66 = 0u;
+  v7 = [packings countByEnumeratingWithState:&v65 objects:v69 count:16];
   if (v7)
   {
     v8 = v7;
-    v50 = 0;
-    v9 = *v69;
-    v10 = &selRef__persistentStoreCoordinator;
-    v11 = 0x27EE5A000uLL;
-    v55 = *v69;
+    v48 = 0;
+    v9 = *v66;
+    v10 = 0x27EE5A000uLL;
+    v53 = *v66;
     while (2)
     {
-      v12 = 0;
-      v56 = v10[243];
-      v57 = v8;
+      v11 = 0;
+      v54 = v8;
       do
       {
-        if (*v69 != v9)
+        if (*v66 != v9)
         {
           objc_enumerationMutation(packings);
         }
 
-        v13 = *(*(&v68 + 1) + 8 * v12);
-        v14 = [objc_msgSend(*(&self->super.super.isa + *(v11 + 2204)) objectForKey:{objc_msgSend(objc_msgSend(objc_msgSend(v13, "production"), "name"), "identifier")), "intValue"}];
-        v15 = objc_autoreleasePoolPush();
-        if (v14)
+        v12 = *(*(&v65 + 1) + 8 * v11);
+        v13 = [objc_msgSend(*(&self->super.super.isa + *(v10 + 2204)) objectForKey:{objc_msgSend(objc_msgSend(objc_msgSend(v12, "production"), "name"), "identifier")), "intValue"}];
+        v14 = objc_autoreleasePoolPush();
+        if (v13)
         {
-          [v13 setAlphaCrop:1];
+          [v12 setAlphaCrop:1];
         }
 
-        if (([v13 updatePackingPropertiesWithDocument:self] & 1) == 0)
+        if (([v12 updatePackingPropertiesWithDocument:self] & 1) == 0)
         {
           if (errorCopy)
           {
-            v44 = MEMORY[0x277CCA9B8];
-            v45 = *MEMORY[0x277CCA050];
-            v46 = MEMORY[0x277CBEAC0];
-            v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to generate packing info for %@", objc_msgSend(objc_msgSend(v13, "production"), "relativePath")];
-            *errorCopy = [v44 errorWithDomain:v45 code:0 userInfo:{objc_msgSend(v46, "dictionaryWithObject:forKey:", v47, *MEMORY[0x277CCA450])}];
+            v43 = MEMORY[0x277CCA9B8];
+            v44 = *MEMORY[0x277CCA050];
+            v45 = MEMORY[0x277CBEAC0];
+            v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to generate packing info for %@", objc_msgSend(objc_msgSend(v12, "production"), "relativePath")];
+            *errorCopy = [v43 errorWithDomain:v44 code:0 userInfo:{objc_msgSend(v45, "dictionaryWithObject:forKey:", v46, *MEMORY[0x277CCA450])}];
           }
 
-          objc_autoreleasePoolPop(v15);
-          result = 0;
-          goto LABEL_35;
+          objc_autoreleasePoolPop(v14);
+          return 0;
         }
 
-        if ([v13 canBePackedWithDocument:self])
+        if ([v12 canBePackedWithDocument:self])
         {
-          v66 = v15;
-          v65 = [objc_msgSend(v13 "keySpec")];
-          opaque = [v13 opaque];
-          monochrome = [v13 monochrome];
-          v64 = [objc_msgSend(objc_msgSend(v13 "keySpec")];
-          v63 = [objc_msgSend(objc_msgSend(v13 "keySpec")];
-          v62 = [objc_msgSend(objc_msgSend(v13 "keySpec")];
-          v61 = [objc_msgSend(objc_msgSend(v13 "keySpec")];
-          preserveForArchiveOnly = [v13 preserveForArchiveOnly];
+          v63 = v14;
+          v62 = [objc_msgSend(v12 "keySpec")];
+          opaque = [v12 opaque];
+          monochrome = [v12 monochrome];
+          v61 = [objc_msgSend(objc_msgSend(v12 "keySpec")];
+          v60 = [objc_msgSend(objc_msgSend(v12 "keySpec")];
+          v59 = [objc_msgSend(objc_msgSend(v12 "keySpec")];
+          v58 = [objc_msgSend(objc_msgSend(v12 "keySpec")];
+          preserveForArchiveOnly = [v12 preserveForArchiveOnly];
           if (objc_opt_respondsToSelector())
           {
-            v18 = [objc_msgSend(v13 "compressionType")];
-            if (v18 == 2)
+            v17 = [objc_msgSend(v12 "compressionType")];
+            if (v17 == 2)
             {
-              v19 = 0;
+              v18 = 0;
             }
 
             else
             {
-              v19 = v18;
+              v18 = v17;
             }
 
-            v59 = v19;
+            v56 = v18;
           }
 
           else
           {
-            v59 = 0;
+            v56 = 0;
           }
 
-          v20 = v14 == 0;
-          v21 = v20 & monochrome;
-          v22 = v20 & opaque;
+          v19 = v13 == 0;
+          v20 = v19 & monochrome;
+          v21 = v19 & opaque;
           renditionKeySemantics = [(CoreThemeDocument *)self renditionKeySemantics];
-          keySpec = [v13 keySpec];
+          keySpec = [v12 keySpec];
           if (renditionKeySemantics == 1)
           {
             presentationState = [keySpec presentationState];
-            v26 = [objc_msgSend(v13 "keySpec")];
-            v27 = [MEMORY[0x277CCAB68] stringWithFormat:@"%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d", v65, v22, v21, objc_msgSend(presentationState, "identifier"), objc_msgSend(v26, "identifier"), 0, 0, v14, 0, 0, v64, v59, v63, v62, v61, preserveForArchiveOnly];
+            v25 = [objc_msgSend(v12 "keySpec")];
+            v26 = [MEMORY[0x277CCAB68] stringWithFormat:@"%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d", v62, v21, v20, objc_msgSend(presentationState, "identifier"), objc_msgSend(v25, "identifier"), 0, 0, v13, 0, 0, v61, v56, v60, v59, v58, preserveForArchiveOnly];
           }
 
           else
           {
             subtype = [keySpec subtype];
-            v28 = [objc_msgSend(v13 "keySpec")];
-            v29 = [objc_msgSend(v13 "keySpec")];
-            v53 = v22;
-            v30 = [objc_msgSend(v13 "keySpec")];
-            v52 = v21;
-            v31 = [objc_msgSend(v13 "keySpec")];
-            v32 = v6;
-            v33 = [objc_msgSend(v13 "keySpec")];
-            v51 = MEMORY[0x277CCAB68];
-            identifier = [v28 identifier];
-            identifier2 = [v29 identifier];
-            identifier3 = [v30 identifier];
-            v37 = v33;
-            v6 = v32;
-            v27 = [v51 stringWithFormat:@"%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d", v65, v53, v52, subtype, identifier, identifier2, identifier3, v14, v31, objc_msgSend(v37, "identifier"), v64, v59, v63, v62, v61, preserveForArchiveOnly];
+            v27 = [objc_msgSend(v12 "keySpec")];
+            v28 = [objc_msgSend(v12 "keySpec")];
+            v51 = v21;
+            v29 = [objc_msgSend(v12 "keySpec")];
+            v50 = v20;
+            v30 = [objc_msgSend(v12 "keySpec")];
+            v31 = v6;
+            v32 = [objc_msgSend(v12 "keySpec")];
+            v49 = MEMORY[0x277CCAB68];
+            identifier = [v27 identifier];
+            identifier2 = [v28 identifier];
+            identifier3 = [v29 identifier];
+            v36 = v32;
+            v6 = v31;
+            v26 = [v49 stringWithFormat:@"%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d", v62, v51, v50, subtype, identifier, identifier2, identifier3, v13, v30, objc_msgSend(v36, "identifier"), v61, v56, v60, v59, v58, preserveForArchiveOnly];
           }
 
-          v38 = v27;
-          v39 = [objc_msgSend(v13 "production")];
-          v11 = 0x27EE5A000;
-          v15 = v66;
-          if ([v39 count])
+          v37 = v26;
+          v38 = [objc_msgSend(v12 "production")];
+          v10 = 0x27EE5A000;
+          v14 = v63;
+          if ([v38 count])
           {
-            v40 = objc_alloc_init(MEMORY[0x277CCAB68]);
-            v67[0] = MEMORY[0x277D85DD0];
-            v67[1] = 3221225472;
-            v67[2] = __52__CoreThemeDocument__updateRenditionPackings_error___block_invoke;
-            v67[3] = &unk_278EBAF50;
-            v67[4] = v40;
-            [v39 enumerateObjectsUsingBlock:v67];
-            v41 = [v6 objectForKey:v40];
-            if (v41)
+            v39 = objc_alloc_init(MEMORY[0x277CCAB68]);
+            v64[0] = MEMORY[0x277D85DD0];
+            v64[1] = 3221225472;
+            v64[2] = __52__CoreThemeDocument__updateRenditionPackings_error___block_invoke;
+            v64[3] = &unk_278EBAF50;
+            v64[4] = v39;
+            [v38 enumerateObjectsUsingBlock:v64];
+            v40 = [v6 objectForKey:v39];
+            if (v40)
             {
-              v42 = v41;
+              v41 = v40;
             }
 
             else
             {
-              v42 = [MEMORY[0x277CCABB0] numberWithInt:v50];
-              [v6 setObject:v42 forKey:v40];
-              ++v50;
+              v41 = [MEMORY[0x277CCABB0] numberWithInt:v48];
+              [v6 setObject:v41 forKey:v39];
+              ++v48;
             }
 
-            [v38 appendFormat:@".tag%d", objc_msgSend(v42, "intValue")];
+            [v37 appendFormat:@".tag%d", objc_msgSend(v41, "intValue")];
           }
 
-          [(CoreThemeDocument *)self _insertRendition:v13 forKey:v38];
-          v9 = v55;
-          v8 = v57;
+          [(CoreThemeDocument *)self _insertRendition:v12 forKey:v37];
+          v9 = v53;
+          v8 = v54;
         }
 
-        objc_autoreleasePoolPop(v15);
-        ++v12;
+        objc_autoreleasePoolPop(v14);
+        ++v11;
       }
 
-      while (v8 != v12);
-      v8 = [packings countByEnumeratingWithState:&v68 objects:v72 count:16];
-      v10 = &selRef__persistentStoreCoordinator;
+      while (v8 != v11);
+      v8 = [packings countByEnumeratingWithState:&v65 objects:v69 count:16];
       if (v8)
       {
         continue;
@@ -11549,10 +14790,7 @@ uint64_t __45__CoreThemeDocument__insertRendition_forKey___block_invoke(uint64_t
     }
   }
 
-  result = 1;
-LABEL_35:
-  v48 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 void __52__CoreThemeDocument__updateRenditionPackings_error___block_invoke(uint64_t a1, void *a2)
@@ -11565,62 +14803,62 @@ void __52__CoreThemeDocument__updateRenditionPackings_error___block_invoke(uint6
 
 - (void)_groupPackableRenditions
 {
-  v181 = *MEMORY[0x277D85DE8];
+  v180 = *MEMORY[0x277D85DE8];
   displayGamuts = [(CoreThemeDocument *)self displayGamuts];
   featureSetClasses = [(CoreThemeDocument *)self featureSetClasses];
   idioms = [(CoreThemeDocument *)self idioms];
-  v179[0] = [(CoreThemeDocument *)self sizeWithIdentifier:0];
-  v179[1] = [(CoreThemeDocument *)self sizeWithIdentifier:1];
-  v179[2] = [(CoreThemeDocument *)self sizeWithIdentifier:2];
-  v179[3] = [(CoreThemeDocument *)self sizeWithIdentifier:3];
-  v123 = [MEMORY[0x277CBEA60] arrayWithObjects:v179 count:4];
+  v178[0] = [(CoreThemeDocument *)self sizeWithIdentifier:0];
+  v178[1] = [(CoreThemeDocument *)self sizeWithIdentifier:1];
+  v178[2] = [(CoreThemeDocument *)self sizeWithIdentifier:2];
+  v178[3] = [(CoreThemeDocument *)self sizeWithIdentifier:3];
+  v122 = [MEMORY[0x277CBEA60] arrayWithObjects:v178 count:4];
   sizeClasses = [(CoreThemeDocument *)self sizeClasses];
-  v178[0] = [(CoreThemeDocument *)self presentationStateWithIdentifier:0];
-  v178[1] = [(CoreThemeDocument *)self presentationStateWithIdentifier:1];
-  v178[2] = [(CoreThemeDocument *)self presentationStateWithIdentifier:2];
-  v121 = [MEMORY[0x277CBEA60] arrayWithObjects:v178 count:3];
+  v177[0] = [(CoreThemeDocument *)self presentationStateWithIdentifier:0];
+  v177[1] = [(CoreThemeDocument *)self presentationStateWithIdentifier:1];
+  v177[2] = [(CoreThemeDocument *)self presentationStateWithIdentifier:2];
+  v120 = [MEMORY[0x277CBEA60] arrayWithObjects:v177 count:3];
   compressionTypes = [(CoreThemeDocument *)self compressionTypes];
   deploymentTargets = [(CoreThemeDocument *)self deploymentTargets];
-  v130 = [(CoreThemeDocument *)self partWithIdentifier:181];
-  v129 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1004];
-  v134 = [(CoreThemeDocument *)self elementWithIdentifier:9];
-  v119 = [(CoreThemeDocument *)self partWithIdentifier:127];
-  v149 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v129 = [(CoreThemeDocument *)self partWithIdentifier:181];
+  v128 = [(CoreThemeDocument *)self renditionTypeWithIdentifier:1004];
+  v133 = [(CoreThemeDocument *)self elementWithIdentifier:9];
+  v118 = [(CoreThemeDocument *)self partWithIdentifier:127];
   v148 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v151 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v147 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v150 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v166 = 0u;
   v167 = 0u;
   v168 = 0u;
   v169 = 0u;
-  v170 = 0u;
   obj = [-[NSMutableDictionary allKeys](self->_packableRenditions "allKeys")];
   selfCopy = self;
-  v143 = [obj countByEnumeratingWithState:&v167 objects:v177 count:16];
-  if (v143)
+  v142 = [obj countByEnumeratingWithState:&v166 objects:v176 count:16];
+  if (v142)
   {
-    v141 = *v168;
+    v140 = *v167;
     do
     {
       v3 = 0;
       do
       {
-        if (*v168 != v141)
+        if (*v167 != v140)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v167 + 1) + 8 * v3);
+        v4 = *(*(&v166 + 1) + 8 * v3);
         v5 = [v4 componentsSeparatedByString:@"."];
-        v154 = v4;
+        v153 = v4;
         v6 = [(NSMutableDictionary *)selfCopy->_packableRenditions objectForKey:v4];
         v7 = [v6 count];
         v8 = [objc_msgSend(v5 objectAtIndex:{7), "intValue"}];
         v9 = v8;
-        v145 = v3;
+        v144 = v3;
         if (v7 == 1)
         {
           if (!v8)
           {
-            [v151 addObject:v154];
+            [v150 addObject:v153];
           }
         }
 
@@ -11684,7 +14922,7 @@ void __52__CoreThemeDocument__updateRenditionPackings_error___block_invoke(uint6
               v24 = v7;
               v25 = objc_alloc_init(TDPacker);
               [(TDPacker *)v25 setSizeHandler:&__block_literal_global_1769];
-              v156 = array;
+              v155 = array;
               -[TDPacker setObjectsToPack:](v25, "setObjectsToPack:", [array subarrayWithRange:{v12, v17}]);
               [(TDPacker *)v25 pack];
               [(TDPacker *)v25 enclosingSize];
@@ -11693,23 +14931,8 @@ void __52__CoreThemeDocument__updateRenditionPackings_error___block_invoke(uint6
               countOfEmptyNodes = [(TDPacker *)v25 countOfEmptyNodes];
 
               v7 = v24;
-              if (v20 + countOfEmptyNodes >= v16)
+              if (v20 + countOfEmptyNodes >= v16 || (v31 = objc_alloc_init(TDPacker), -[TDPacker setSizeHandler:](v31, "setSizeHandler:", &__block_literal_global_1769), -[TDPacker setObjectsToPack:](v31, "setObjectsToPack:", [v155 subarrayWithRange:{v12, countOfEmptyNodes + v17}]), -[TDPacker pack](v31, "pack"), -[TDPacker enclosingSize](v31, "enclosingSize"), v33 = v32, v35 = v34, v31, v16 = v20 + countOfEmptyNodes, v35 * v33 != v29 * v27))
               {
-                goto LABEL_22;
-              }
-
-              v31 = objc_alloc_init(TDPacker);
-              [(TDPacker *)v31 setSizeHandler:&__block_literal_global_1769];
-              -[TDPacker setObjectsToPack:](v31, "setObjectsToPack:", [v156 subarrayWithRange:{v12, countOfEmptyNodes + v17}]);
-              [(TDPacker *)v31 pack];
-              [(TDPacker *)v31 enclosingSize];
-              v33 = v32;
-              v35 = v34;
-
-              v16 = v20 + countOfEmptyNodes;
-              if (v35 * v33 != v29 * v27)
-              {
-LABEL_22:
                 v16 = v12 + v17;
               }
 
@@ -11727,10 +14950,10 @@ LABEL_23:
                 }
 
                 v37 = [MEMORY[0x277CBEB70] orderedSetWithOrderedSet:v6 range:v12 copyItems:{v36, 0}];
-                [v151 addObject:v154];
-                v38 = [v154 mutableCopy];
+                [v150 addObject:v153];
+                v38 = [v153 mutableCopy];
                 [v38 appendFormat:@".%d", v13];
-                [v149 setObject:v37 forKey:v38];
+                [v148 setObject:v37 forKey:v38];
               }
             }
 
@@ -11742,50 +14965,50 @@ LABEL_23:
         }
 
 LABEL_30:
-        v3 = v145 + 1;
+        v3 = v144 + 1;
       }
 
-      while (v145 + 1 != v143);
-      v143 = [obj countByEnumeratingWithState:&v167 objects:v177 count:16];
+      while (v144 + 1 != v142);
+      v142 = [obj countByEnumeratingWithState:&v166 objects:v176 count:16];
     }
 
-    while (v143);
+    while (v142);
   }
 
-  [(NSMutableDictionary *)selfCopy->_packableRenditions removeObjectsForKeys:v151];
-  [(NSMutableDictionary *)selfCopy->_packableRenditions addEntriesFromDictionary:v149];
+  [(NSMutableDictionary *)selfCopy->_packableRenditions removeObjectsForKeys:v150];
+  [(NSMutableDictionary *)selfCopy->_packableRenditions addEntriesFromDictionary:v148];
 
   v39 = objc_alloc_init(TDPacker);
   [(TDPacker *)v39 setSizeHandler:&__block_literal_global_1247];
-  v126 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableDictionary count](selfCopy->_packableRenditions, "count")}];
+  v125 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableDictionary count](selfCopy->_packableRenditions, "count")}];
+  v162 = 0u;
   v163 = 0u;
   v164 = 0u;
   v165 = 0u;
-  v166 = 0u;
-  v127 = [-[NSMutableDictionary allKeys](selfCopy->_packableRenditions "allKeys")];
-  v138 = [v127 countByEnumeratingWithState:&v163 objects:v176 count:16];
-  if (!v138)
+  v126 = [-[NSMutableDictionary allKeys](selfCopy->_packableRenditions "allKeys")];
+  v137 = [v126 countByEnumeratingWithState:&v162 objects:v175 count:16];
+  if (!v137)
   {
     goto LABEL_92;
   }
 
+  v134 = 0;
   v135 = 0;
-  v136 = 0;
-  v137 = *v164;
+  v136 = *v163;
   v40.f64[0] = NAN;
   v40.f64[1] = NAN;
-  v128 = vnegq_f64(v40);
+  v127 = vnegq_f64(v40);
   do
   {
     v41 = 0;
     do
     {
-      if (*v164 != v137)
+      if (*v163 != v136)
       {
-        objc_enumerationMutation(v127);
+        objc_enumerationMutation(v126);
       }
 
-      v42 = *(*(&v163 + 1) + 8 * v41);
+      v42 = *(*(&v162 + 1) + 8 * v41);
       v43 = [(NSMutableDictionary *)selfCopy->_packableRenditions objectForKey:v42];
       v44 = [v43 count];
       -[TDPacker setObjectsToPack:](v39, "setObjectsToPack:", [v43 array]);
@@ -11804,11 +15027,11 @@ LABEL_30:
         }
       }
 
-      v155 = v41;
-      v157 = v45;
+      v154 = v41;
+      v156 = v45;
       v49 = [v42 componentsSeparatedByString:@"."];
       v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d", objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 0), "intValue"), objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 3), "intValue"), objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 4), "intValue"), objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 5), "intValue"), objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 6), "intValue"), objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 7), "intValue"), objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 8), "intValue"), objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 9), "intValue"), objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 10), "intValue"), objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 12), "intValue"), objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 13), "intValue"), objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 14), "intValue"), objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 15), "intValue")];
-      v51 = [v148 objectForKey:v50];
+      v51 = [v147 objectForKey:v50];
       if (v51)
       {
         v52 = [v51 intValue] + 1;
@@ -11820,7 +15043,7 @@ LABEL_30:
       }
 
       v53 = [MEMORY[0x277CCABB0] numberWithInt:v52];
-      [v148 setObject:v53 forKey:v50];
+      [v147 setObject:v53 forKey:v50];
       if ([v45 count])
       {
         v54 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"PackedRenditionSpec"];
@@ -11828,24 +15051,24 @@ LABEL_30:
         [v54 setCompressionType:{objc_msgSend(compressionTypes, "objectAtIndexedSubscript:", objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 11), "intValue"))}];
         v55 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"RenditionKeySpec"];
         v56 = [objc_msgSend(v49 objectAtIndex:{7), "intValue"}];
-        v152 = v53;
+        v151 = v53;
         if (v56)
         {
           v57 = v56;
           [v54 setAlphaCrop:1];
-          [v55 setElement:v134];
+          [v55 setElement:v133];
           [v55 setNameIdentifier:v57];
-          v144 = v57;
+          v143 = v57;
           v58 = -[NSMutableDictionary objectForKey:](selfCopy->_explicitlyPackedPackings, "objectForKey:", [MEMORY[0x277CCABB0] numberWithInteger:?]);
           v59 = [(CoreThemeDocument *)selfCopy namedArtworkProductionWithName:v58];
           if (!v59)
           {
-            v146 = v54;
+            v145 = v54;
             v60 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"NamedArtworkProduction"];
-            [v60 setTags:{objc_msgSend(objc_msgSend(objc_msgSend(v157, "firstObject"), "production"), "tags")}];
+            [v60 setTags:{objc_msgSend(objc_msgSend(objc_msgSend(v156, "firstObject"), "production"), "tags")}];
             v61 = v57;
             v62 = v55;
-            v63 = [(CoreThemeDocument *)selfCopy _createNamedElementWithIdentifier:v144];
+            v63 = [(CoreThemeDocument *)selfCopy _createNamedElementWithIdentifier:v143];
             [v63 setDateOfLastChange:{objc_msgSend(MEMORY[0x277CBEAA8], "date")}];
             [v63 setName:v58];
             [v60 setName:v63];
@@ -11854,73 +15077,73 @@ LABEL_30:
             obja = v61;
             [v65 setNameIdentifier:v61];
             [v65 setElement:{objc_msgSend(v62, "element")}];
-            v142 = v62;
+            v141 = v62;
             [v65 setPart:{objc_msgSend(v62, "part")}];
-            v150 = v60;
+            v149 = v60;
             [v60 setBaseKeySpec:v65];
 
-            v120 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"ContentsRenditionSpec"];
+            v119 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"ContentsRenditionSpec"];
             v66 = objc_alloc_init(MEMORY[0x277CBEB58]);
-            v67 = -[NSMutableDictionary objectForKey:](selfCopy->_explicitlyPackedContents, "objectForKey:", [MEMORY[0x277CCABB0] numberWithInteger:v144]);
+            v67 = -[NSMutableDictionary objectForKey:](selfCopy->_explicitlyPackedContents, "objectForKey:", [MEMORY[0x277CCABB0] numberWithInteger:v143]);
+            v158 = 0u;
             v159 = 0u;
             v160 = 0u;
             v161 = 0u;
-            v162 = 0u;
-            v68 = [v67 countByEnumeratingWithState:&v159 objects:v175 count:16];
+            v68 = [v67 countByEnumeratingWithState:&v158 objects:v174 count:16];
             if (v68)
             {
               v69 = v68;
-              v70 = *v160;
+              v70 = *v159;
               do
               {
                 for (j = 0; j != v69; ++j)
                 {
-                  if (*v160 != v70)
+                  if (*v159 != v70)
                   {
                     objc_enumerationMutation(v67);
                   }
 
-                  v72 = *(*(&v159 + 1) + 8 * j);
+                  v72 = *(*(&v158 + 1) + 8 * j);
                   v73 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"ContentsName"];
                   [v73 setName:v72];
                   [v66 addObject:v73];
                 }
 
-                v69 = [v67 countByEnumeratingWithState:&v159 objects:v175 count:16];
+                v69 = [v67 countByEnumeratingWithState:&v158 objects:v174 count:16];
               }
 
               while (v69);
             }
 
-            v74 = v120;
-            [v120 setContains:v66];
+            v74 = v119;
+            [v119 setContains:v66];
 
             v75 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"RenditionKeySpec"];
             [v75 setNameIdentifier:obja];
-            [v75 setElement:v134];
-            [v75 setPart:v119];
+            [v75 setElement:v133];
+            [v75 setPart:v118];
             [v75 setScaleFactor:1];
-            [v120 setKeySpec:v75];
+            [v119 setKeySpec:v75];
 
-            [v120 setProduction:v150];
-            v54 = v146;
-            v55 = v142;
+            [v119 setProduction:v149];
+            v54 = v145;
+            v55 = v141;
 LABEL_57:
 
-            v59 = v150;
+            v59 = v149;
           }
 
           [v59 setBaseKeySpec:{objc_msgSend(v59, "baseKeySpec")}];
           [v54 setKeySpec:v55];
           [v54 resetToBaseKeySpec];
           [v55 setScaleFactor:{objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 0), "intValue")}];
-          [v55 setPart:v130];
+          [v55 setPart:v129];
           renditionKeySemantics = [(CoreThemeDocument *)selfCopy renditionKeySemantics];
           v79 = [objc_msgSend(v49 objectAtIndex:{3), "intValue"}];
           if (renditionKeySemantics == 1)
           {
-            [v55 setPresentationState:{objc_msgSend(v121, "objectAtIndexedSubscript:", v79)}];
-            [v55 setSize:{objc_msgSend(v123, "objectAtIndexedSubscript:", objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 4), "intValue"))}];
+            [v55 setPresentationState:{objc_msgSend(v120, "objectAtIndexedSubscript:", v79)}];
+            [v55 setSize:{objc_msgSend(v122, "objectAtIndexedSubscript:", objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 4), "intValue"))}];
           }
 
           else
@@ -11933,13 +15156,13 @@ LABEL_57:
             [v55 setGraphicsFeatureSetClass:{objc_msgSend(featureSetClasses, "objectAtIndexedSubscript:", objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 9), "intValue"))}];
           }
 
-          v45 = v157;
+          v45 = v156;
           [v55 setGamut:{objc_msgSend(displayGamuts, "objectAtIndexedSubscript:", objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 10), "intValue"))}];
-          [v55 setDimension1:{objc_msgSend(v152, "intValue")}];
+          [v55 setDimension1:{objc_msgSend(v151, "intValue")}];
           [v55 setTarget:{objc_msgSend(deploymentTargets, "objectAtIndexedSubscript:", objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 12), "intValue"))}];
           if ([objc_msgSend(v49 objectAtIndex:{13), "intValue"}])
           {
-            if (v136 && (v80 = [v136 identifier], v81 = objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 13), "intValue"), v82 = v136, v81 == v80))
+            if (v135 && (v80 = [v135 identifier], v81 = objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 13), "intValue"), v82 = v135, v81 == v80))
             {
               v83 = v55;
             }
@@ -11948,7 +15171,7 @@ LABEL_57:
             {
               v82 = -[CoreThemeDocument appearanceWithIdentifier:](selfCopy, "appearanceWithIdentifier:", [objc_msgSend(v49 objectAtIndex:{13), "intValue"}]);
               v83 = v55;
-              v136 = v82;
+              v135 = v82;
             }
           }
 
@@ -11961,7 +15184,7 @@ LABEL_57:
           [v83 setAppearance:v82];
           if ([objc_msgSend(v49 objectAtIndex:{14), "intValue"}])
           {
-            if (v135 && (v84 = [v135 identifier], v85 = objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 14), "intValue"), v86 = v135, v85 == v84))
+            if (v134 && (v84 = [v134 identifier], v85 = objc_msgSend(objc_msgSend(v49, "objectAtIndex:", 14), "intValue"), v86 = v134, v85 == v84))
             {
               v87 = v55;
             }
@@ -11970,7 +15193,7 @@ LABEL_57:
             {
               v86 = -[CoreThemeDocument localizationWithIdentifier:](selfCopy, "localizationWithIdentifier:", [objc_msgSend(v49 objectAtIndex:{14), "intValue"}]);
               v87 = v55;
-              v135 = v86;
+              v134 = v86;
             }
           }
 
@@ -11983,13 +15206,13 @@ LABEL_57:
           [v87 setLocalization:v86];
           [v54 setProduction:v59];
 
-          [v59 setRenditionType:v129];
-          [v54 setRenditionType:v129];
+          [v59 setRenditionType:v128];
+          [v54 setRenditionType:v128];
           [(TDPacker *)v39 enclosingSize];
           *v88.i64 = *v88.i64 + 1.0;
           *v89.i64 = *v89.i64 + 1.0;
           *v90.i64 = *v89.i64 - trunc(*v89.i64 * 0.5) * 2.0;
-          v91 = *vbslq_s8(v128, v90, v89).i64;
+          v91 = *vbslq_s8(v127, v90, v89).i64;
           if (v91 == 0.0)
           {
             v92 = *v89.i64;
@@ -12001,7 +15224,7 @@ LABEL_57:
           }
 
           *v89.i64 = *v88.i64 - trunc(*v88.i64 * 0.5) * 2.0;
-          v89.i64[0] = vbslq_s8(v128, v89, v88).i64[0];
+          v89.i64[0] = vbslq_s8(v127, v89, v88).i64[0];
           if (*v89.i64 != 0.0)
           {
             *v88.i64 = *v88.i64 + *v89.i64;
@@ -12016,41 +15239,41 @@ LABEL_57:
           {
             width2 = [v54 width];
             height = [v54 height];
+            v170 = 0u;
             v171 = 0u;
             v172 = 0u;
             v173 = 0u;
-            v174 = 0u;
             packedRenditions = [v54 packedRenditions];
-            v96 = [packedRenditions countByEnumeratingWithState:&v171 objects:v180 count:16];
+            v96 = [packedRenditions countByEnumeratingWithState:&v170 objects:v179 count:16];
             if (v96)
             {
               v97 = v96;
-              v153 = width2;
-              v147 = v54;
+              v152 = width2;
+              v146 = v54;
               v98 = 0;
-              v99 = *v172;
+              v99 = *v171;
               do
               {
                 for (k = 0; k != v97; ++k)
                 {
-                  if (*v172 != v99)
+                  if (*v171 != v99)
                   {
                     objc_enumerationMutation(packedRenditions);
                   }
 
-                  v101 = *(*(&v171 + 1) + 8 * k);
+                  v101 = *(*(&v170 + 1) + 8 * k);
                   width3 = [v101 width];
                   v98 += [v101 height] * width3;
                 }
 
-                v97 = [packedRenditions countByEnumeratingWithState:&v171 objects:v180 count:16];
+                v97 = [packedRenditions countByEnumeratingWithState:&v170 objects:v179 count:16];
               }
 
               while (v97);
               v103 = v98;
-              v45 = v157;
-              v54 = v147;
-              width2 = v153;
+              v45 = v156;
+              v54 = v146;
+              width2 = v152;
             }
 
             else
@@ -12061,13 +15284,13 @@ LABEL_57:
             v104 = v103 / (height * width2);
             NSLog(&cfstr_PackedRenditio.isa, [v54 renditionPackName], (v104 * 100.0));
             *&v105 = v104;
-            [v126 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithFloat:", v105)}];
+            [v125 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithFloat:", v105)}];
           }
 
           goto LABEL_90;
         }
 
-        [v55 setElement:v134];
+        [v55 setElement:v133];
         v76 = [(CoreThemeDocument *)selfCopy newObjectForEntity:@"ElementProduction"];
         [v76 setTags:{objc_msgSend(objc_msgSend(objc_msgSend(v45, "firstObject"), "production"), "tags")}];
         v77 = v76;
@@ -12075,28 +15298,28 @@ LABEL_57:
         [v74 setNameIdentifier:0];
         [v74 setElement:{objc_msgSend(v55, "element")}];
         [v74 setPart:{objc_msgSend(v55, "part")}];
-        v150 = v76;
+        v149 = v76;
         [v76 setBaseKeySpec:v74];
         goto LABEL_57;
       }
 
 LABEL_90:
 
-      v41 = v155 + 1;
+      v41 = v154 + 1;
     }
 
-    while (v155 + 1 != v138);
-    v138 = [v127 countByEnumeratingWithState:&v163 objects:v176 count:16];
+    while (v154 + 1 != v137);
+    v137 = [v126 countByEnumeratingWithState:&v162 objects:v175 count:16];
   }
 
-  while (v138);
+  while (v137);
 LABEL_92:
 
   if (__coreThemeLoggingEnabled == 1)
   {
-    [objc_msgSend(v126 valueForKeyPath:{@"@avg.self", "floatValue"}];
+    [objc_msgSend(v125 valueForKeyPath:{@"@avg.self", "floatValue"}];
     v107 = v106;
-    v108 = [v126 sortedArrayUsingSelector:sel_compare_];
+    v108 = [v125 sortedArrayUsingSelector:sel_compare_];
     if ([v108 count] == 1)
     {
       v109 = [v108 objectAtIndex:1];
@@ -12125,8 +15348,6 @@ LABEL_97:
     NSLog(&cfstr_MeanSpaceUtili.isa, (v107 * 100.0));
     NSLog(&cfstr_MedianSpaceUti.isa, (v116 * 100.0));
   }
-
-  v118 = *MEMORY[0x277D85DE8];
 }
 
 double __45__CoreThemeDocument__groupPackableRenditions__block_invoke(uint64_t a1, void *a2)
@@ -12166,57 +15387,57 @@ double __45__CoreThemeDocument__groupPackableRenditions__block_invoke(uint64_t a
 
 - (void)_optimizeForDeviceTraits
 {
-  v238 = *MEMORY[0x277D85DE8];
+  v237 = *MEMORY[0x277D85DE8];
   if (![(CoreThemeDocument *)self deviceTraitsUsedForOptimization])
   {
-    goto LABEL_185;
+    return;
   }
 
-  v117 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v116 = objc_alloc_init(MEMORY[0x277CBEB18]);
   hostedIdiomValues = [(TDDeviceTraits *)[(CoreThemeDocument *)self optimizeForDeviceTraits] hostedIdiomValues];
-  v122 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v121 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v117 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v118 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v119 = objc_alloc_init(MEMORY[0x277CBEB58]);
   selfCopy = self;
+  v211 = 0u;
   v212 = 0u;
   v213 = 0u;
   v214 = 0u;
-  v215 = 0u;
   obj = [(CoreThemeDocument *)self allObjectsForEntity:@"ElementProduction" withSortDescriptors:0];
-  v123 = v4;
-  v115 = [obj countByEnumeratingWithState:&v212 objects:v236 count:16];
-  if (!v115)
+  v122 = v4;
+  v114 = [obj countByEnumeratingWithState:&v211 objects:v235 count:16];
+  if (!v114)
   {
     goto LABEL_39;
   }
 
-  v113 = *v213;
+  v112 = *v212;
   do
   {
     v7 = 0;
     do
     {
-      if (*v213 != v113)
+      if (*v212 != v112)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v212 + 1) + 8 * v7);
+      v8 = *(*(&v211 + 1) + 8 * v7);
       if ([objc_msgSend(v8 "renditionType")] == 1006)
       {
-        [v118 addObject:v8];
+        [v117 addObject:v8];
       }
 
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) != 0 && ([objc_msgSend(v8 "renditionType")] == 1018 || objc_msgSend(objc_msgSend(v8, "renditionType"), "identifier") == 1002))
       {
-        [v119 addObject:v8];
+        [v118 addObject:v8];
       }
 
-      v120 = v7;
+      v119 = v7;
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) != 0 && [v8 optOutOfThinning])
       {
@@ -12224,26 +15445,26 @@ double __45__CoreThemeDocument__groupPackableRenditions__block_invoke(uint64_t a
         goto LABEL_37;
       }
 
-      v211 = 0u;
       v210 = 0u;
       v209 = 0u;
       v208 = 0u;
+      v207 = 0u;
       renditions = [v8 renditions];
-      v143 = [renditions countByEnumeratingWithState:&v208 objects:v235 count:16];
-      if (v143)
+      v142 = [renditions countByEnumeratingWithState:&v207 objects:v234 count:16];
+      if (v142)
       {
-        v9 = *v209;
-        v125 = *v209;
+        v9 = *v208;
+        v124 = *v208;
         do
         {
-          for (i = 0; i != v143; ++i)
+          for (i = 0; i != v142; ++i)
           {
-            if (*v209 != v9)
+            if (*v208 != v9)
             {
               objc_enumerationMutation(renditions);
             }
 
-            v11 = *(*(&v208 + 1) + 8 * i);
+            v11 = *(*(&v207 + 1) + 8 * i);
             v12 = [objc_msgSend(objc_msgSend(v11 "keySpec")];
             v13 = [objc_msgSend(objc_msgSend(v11 "keySpec")];
             v14 = [objc_msgSend(objc_msgSend(v11 "keySpec")];
@@ -12254,37 +15475,37 @@ double __45__CoreThemeDocument__groupPackableRenditions__block_invoke(uint64_t a
 
             else if (v13 == 9 && ![objc_msgSend(objc_msgSend(v11 "production")])
             {
-              v20 = v122;
+              v20 = v121;
             }
 
             else
             {
               v15 = [objc_msgSend(objc_msgSend(v11 "keySpec")];
-              v139 = MEMORY[0x277CCACA8];
-              v136 = [objc_msgSend(v11 "keySpec")];
-              v132 = [objc_msgSend(objc_msgSend(v11 "keySpec")];
+              v138 = MEMORY[0x277CCACA8];
+              v135 = [objc_msgSend(v11 "keySpec")];
+              v131 = [objc_msgSend(objc_msgSend(v11 "keySpec")];
               v16 = [objc_msgSend(objc_msgSend(v11 "keySpec")];
               v17 = [objc_msgSend(v11 "keySpec")];
               keySpec = [v11 keySpec];
               if (v15 == 220)
               {
-                v111 = [v139 stringWithFormat:@"%d.%d.%d.%d.%d.%d.%d.%d.%d", v136, v132, v16, v17, objc_msgSend(keySpec, "dimension2"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "appearance"), "identifier"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "localization"), "identifier"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "glyphWeight"), "identifier"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "glyphSize"), "identifier")];
+                v110 = [v138 stringWithFormat:@"%d.%d.%d.%d.%d.%d.%d.%d.%d", v135, v131, v16, v17, objc_msgSend(keySpec, "dimension2"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "appearance"), "identifier"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "localization"), "identifier"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "glyphWeight"), "identifier"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "glyphSize"), "identifier")];
               }
 
               else
               {
-                v111 = [v139 stringWithFormat:@"%d.%d.%d.%d.%d.%d.%d.%d", v136, v132, v16, v17, objc_msgSend(objc_msgSend(keySpec, "appearance"), "identifier"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "localization"), "identifier"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "glyphWeight"), "identifier"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "glyphSize"), "identifier"), v111];
+                v110 = [v138 stringWithFormat:@"%d.%d.%d.%d.%d.%d.%d.%d", v135, v131, v16, v17, objc_msgSend(objc_msgSend(keySpec, "appearance"), "identifier"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "localization"), "identifier"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "glyphWeight"), "identifier"), objc_msgSend(objc_msgSend(objc_msgSend(v11, "keySpec"), "glyphSize"), "identifier"), v110];
               }
 
-              v21 = v111;
-              v4 = v123;
-              v20 = [v123 objectForKey:v111];
-              v9 = v125;
+              v21 = v110;
+              v4 = v122;
+              v20 = [v122 objectForKey:v110];
+              v9 = v124;
               if (!v20)
               {
                 v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
                 [v22 addObject:v11];
-                [v123 setObject:v22 forKey:v21];
+                [v122 setObject:v22 forKey:v21];
 
                 continue;
               }
@@ -12293,127 +15514,127 @@ double __45__CoreThemeDocument__groupPackableRenditions__block_invoke(uint64_t a
             [v20 addObject:v11];
           }
 
-          v143 = [renditions countByEnumeratingWithState:&v208 objects:v235 count:16];
+          v142 = [renditions countByEnumeratingWithState:&v207 objects:v234 count:16];
         }
 
-        while (v143);
+        while (v142);
       }
 
 LABEL_37:
-      v7 = v120 + 1;
+      v7 = v119 + 1;
     }
 
-    while (v120 + 1 != v115);
-    v115 = [obj countByEnumeratingWithState:&v212 objects:v236 count:16];
+    while (v119 + 1 != v114);
+    v114 = [obj countByEnumeratingWithState:&v211 objects:v235 count:16];
   }
 
-  while (v115);
+  while (v114);
 LABEL_39:
-  v207 = 0u;
   v206 = 0u;
   v205 = 0u;
   v204 = 0u;
-  v116 = [v4 countByEnumeratingWithState:&v204 objects:v234 count:16];
-  if (v116)
+  v203 = 0u;
+  v115 = [v4 countByEnumeratingWithState:&v203 objects:v233 count:16];
+  if (v115)
   {
-    v114 = *v205;
+    v113 = *v204;
     do
     {
       v23 = 0;
       do
       {
-        if (*v205 != v114)
+        if (*v204 != v113)
         {
           objc_enumerationMutation(v4);
         }
 
-        v121 = v23;
-        v24 = *(*(&v204 + 1) + 8 * v23);
-        v137 = objc_alloc_init(MEMORY[0x277CBEB58]);
-        v128 = [v4 objectForKey:v24];
+        v120 = v23;
+        v24 = *(*(&v203 + 1) + 8 * v23);
+        v136 = objc_alloc_init(MEMORY[0x277CBEB58]);
+        v127 = [v4 objectForKey:v24];
+        v199 = 0u;
         v200 = 0u;
         v201 = 0u;
         v202 = 0u;
-        v203 = 0u;
         deviceTraitsUsedForOptimization = [(CoreThemeDocument *)selfCopy deviceTraitsUsedForOptimization];
-        v133 = [deviceTraitsUsedForOptimization countByEnumeratingWithState:&v200 objects:v233 count:16];
-        if (v133)
+        v132 = [deviceTraitsUsedForOptimization countByEnumeratingWithState:&v199 objects:v232 count:16];
+        if (v132)
         {
-          v126 = *v201;
+          v125 = *v200;
           do
           {
-            for (j = 0; j != v133; ++j)
+            for (j = 0; j != v132; ++j)
             {
-              if (*v201 != v126)
+              if (*v200 != v125)
               {
                 objc_enumerationMutation(deviceTraitsUsedForOptimization);
               }
 
-              v26 = *(*(&v200 + 1) + 8 * j);
-              v144 = MEMORY[0x277D02670];
+              v26 = *(*(&v199 + 1) + 8 * j);
+              v143 = MEMORY[0x277D02670];
               [v26 scale];
-              v28 = [v144 bestMatchUsingObjects:v128 getAttributeValueUsing:&__block_literal_global_1271 scaleFactor:objc_msgSend(v26 deviceIdiom:"idiomValue") deviceSubtype:objc_msgSend(v26 displayGamut:"subtype") deploymentTarget:objc_msgSend(v26 layoutDirection:"displayGamutValue") sizeClassHorizontal:objc_msgSend(v26 sizeClassVertical:"deploymentTargetValue") memoryClass:v27 graphicsFeatureSetClass:5 graphicsFallBackOrder:0 deviceSubtypeFallBackOrder:0 platform:{objc_msgSend(v26, "memoryPerformanceClass"), objc_msgSend(v26, "graphicsFeatureSetClassValue"), objc_msgSend(v26, "graphicsFeatureSetFallbackValues"), objc_msgSend(v26, "subtypeFallbackValues"), -[CoreThemeDocument targetPlatform](selfCopy, "targetPlatform")}];
+              v28 = [v143 bestMatchUsingObjects:v127 getAttributeValueUsing:&__block_literal_global_1271 scaleFactor:objc_msgSend(v26 deviceIdiom:"idiomValue") deviceSubtype:objc_msgSend(v26 displayGamut:"subtype") deploymentTarget:objc_msgSend(v26 layoutDirection:"displayGamutValue") sizeClassHorizontal:objc_msgSend(v26 sizeClassVertical:"deploymentTargetValue") memoryClass:v27 graphicsFeatureSetClass:5 graphicsFallBackOrder:0 deviceSubtypeFallBackOrder:0 platform:{objc_msgSend(v26, "memoryPerformanceClass"), objc_msgSend(v26, "graphicsFeatureSetClassValue"), objc_msgSend(v26, "graphicsFeatureSetFallbackValues"), objc_msgSend(v26, "subtypeFallbackValues"), -[CoreThemeDocument targetPlatform](selfCopy, "targetPlatform")}];
               if (v28)
               {
                 v29 = v28;
                 [v5 addObject:v28];
-                [v137 addObject:v29];
+                [v136 addObject:v29];
               }
             }
 
-            v133 = [deviceTraitsUsedForOptimization countByEnumeratingWithState:&v200 objects:v233 count:16];
+            v132 = [deviceTraitsUsedForOptimization countByEnumeratingWithState:&v199 objects:v232 count:16];
           }
 
-          while (v133);
+          while (v132);
         }
 
-        v30 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:v128];
+        v30 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:v127];
         [v30 minusSet:v5];
-        v198 = 0u;
-        v199 = 0u;
-        v196 = 0u;
         v197 = 0u;
-        v134 = [v137 countByEnumeratingWithState:&v196 objects:v232 count:16];
-        if (v134)
+        v198 = 0u;
+        v195 = 0u;
+        v196 = 0u;
+        v133 = [v136 countByEnumeratingWithState:&v195 objects:v231 count:16];
+        if (v133)
         {
-          v129 = *v197;
+          v128 = *v196;
           do
           {
             v31 = 0;
             do
             {
-              if (*v197 != v129)
+              if (*v196 != v128)
               {
-                objc_enumerationMutation(v137);
+                objc_enumerationMutation(v136);
               }
 
-              v140 = v31;
-              v32 = *(*(&v196 + 1) + 8 * v31);
+              v139 = v31;
+              v32 = *(*(&v195 + 1) + 8 * v31);
+              v191 = 0u;
               v192 = 0u;
               v193 = 0u;
               v194 = 0u;
-              v195 = 0u;
               allObjects = [v30 allObjects];
               array = [MEMORY[0x277CBEB18] array];
+              v215 = 0u;
               v216 = 0u;
               v217 = 0u;
               v218 = 0u;
-              v219 = 0u;
-              v34 = [allObjects countByEnumeratingWithState:&v216 objects:v237 count:16];
+              v34 = [allObjects countByEnumeratingWithState:&v215 objects:v236 count:16];
               if (v34)
               {
                 v35 = v34;
-                v36 = *v217;
+                v36 = *v216;
                 do
                 {
                   for (k = 0; k != v35; ++k)
                   {
-                    if (*v217 != v36)
+                    if (*v216 != v36)
                     {
                       objc_enumerationMutation(allObjects);
                     }
 
-                    v38 = *(*(&v216 + 1) + 8 * k);
+                    v38 = *(*(&v215 + 1) + 8 * k);
                     v39 = [objc_msgSend(v38 "keySpec")];
                     if (v39 == [objc_msgSend(v32 "keySpec")])
                     {
@@ -12453,7 +15674,7 @@ LABEL_39:
                     }
                   }
 
-                  v35 = [allObjects countByEnumeratingWithState:&v216 objects:v237 count:16];
+                  v35 = [allObjects countByEnumeratingWithState:&v215 objects:v236 count:16];
                 }
 
                 while (v35);
@@ -12465,64 +15686,64 @@ LABEL_39:
                 v48 = 0;
               }
 
-              v49 = [v48 countByEnumeratingWithState:&v192 objects:v231 count:16];
+              v49 = [v48 countByEnumeratingWithState:&v191 objects:v230 count:16];
               if (v49)
               {
                 v50 = v49;
-                v51 = *v193;
+                v51 = *v192;
                 do
                 {
                   for (m = 0; m != v50; ++m)
                   {
-                    if (*v193 != v51)
+                    if (*v192 != v51)
                     {
                       objc_enumerationMutation(v48);
                     }
 
-                    v53 = *(*(&v192 + 1) + 8 * m);
+                    v53 = *(*(&v191 + 1) + 8 * m);
                     [v30 removeObject:v53];
                     [v5 addObject:v53];
                   }
 
-                  v50 = [v48 countByEnumeratingWithState:&v192 objects:v231 count:16];
+                  v50 = [v48 countByEnumeratingWithState:&v191 objects:v230 count:16];
                 }
 
                 while (v50);
               }
 
-              v31 = v140 + 1;
+              v31 = v139 + 1;
             }
 
-            while (v140 + 1 != v134);
-            v134 = [v137 countByEnumeratingWithState:&v196 objects:v232 count:16];
+            while (v139 + 1 != v133);
+            v133 = [v136 countByEnumeratingWithState:&v195 objects:v231 count:16];
           }
 
-          while (v134);
+          while (v133);
         }
 
-        v190 = 0u;
-        v191 = 0u;
-        v188 = 0u;
         v189 = 0u;
-        v54 = [v30 countByEnumeratingWithState:&v188 objects:v230 count:16];
-        v4 = v123;
+        v190 = 0u;
+        v187 = 0u;
+        v188 = 0u;
+        v54 = [v30 countByEnumeratingWithState:&v187 objects:v229 count:16];
+        v4 = v122;
         if (v54)
         {
           v55 = v54;
-          v56 = *v189;
+          v56 = *v188;
           do
           {
             for (n = 0; n != v55; ++n)
             {
-              if (*v189 != v56)
+              if (*v188 != v56)
               {
                 objc_enumerationMutation(v30);
               }
 
-              [objc_msgSend(*(*(&v188 + 1) + 8 * n) "production")];
+              [objc_msgSend(*(*(&v187 + 1) + 8 * n) "production")];
             }
 
-            v55 = [v30 countByEnumeratingWithState:&v188 objects:v230 count:16];
+            v55 = [v30 countByEnumeratingWithState:&v187 objects:v229 count:16];
           }
 
           while (v55);
@@ -12531,91 +15752,91 @@ LABEL_39:
         -[CoreThemeDocument deleteObjects:](selfCopy, "deleteObjects:", [v30 allObjects]);
         [v6 unionSet:v30];
 
-        v23 = v121 + 1;
+        v23 = v120 + 1;
       }
 
-      while (v121 + 1 != v116);
-      v116 = [v123 countByEnumeratingWithState:&v204 objects:v234 count:16];
+      while (v120 + 1 != v115);
+      v115 = [v122 countByEnumeratingWithState:&v203 objects:v233 count:16];
     }
 
-    while (v116);
+    while (v115);
   }
 
-  v186 = 0u;
-  v187 = 0u;
-  v184 = 0u;
   v185 = 0u;
-  v58 = [v118 countByEnumeratingWithState:&v184 objects:v229 count:16];
+  v186 = 0u;
+  v183 = 0u;
+  v184 = 0u;
+  v58 = [v117 countByEnumeratingWithState:&v183 objects:v228 count:16];
   if (v58)
   {
     v59 = v58;
-    v60 = *v185;
+    v60 = *v184;
     do
     {
       for (ii = 0; ii != v59; ++ii)
       {
-        if (*v185 != v60)
+        if (*v184 != v60)
         {
-          objc_enumerationMutation(v118);
+          objc_enumerationMutation(v117);
         }
 
-        v62 = *(*(&v184 + 1) + 8 * ii);
+        v62 = *(*(&v183 + 1) + 8 * ii);
         -[CoreThemeDocument deleteObjects:](selfCopy, "deleteObjects:", [objc_msgSend(v62 "renditions")]);
         [v62 setRenditions:{objc_msgSend(MEMORY[0x277CBEB98], "set")}];
       }
 
-      v59 = [v118 countByEnumeratingWithState:&v184 objects:v229 count:16];
+      v59 = [v117 countByEnumeratingWithState:&v183 objects:v228 count:16];
     }
 
     while (v59);
   }
 
-  v182 = 0u;
-  v183 = 0u;
-  v180 = 0u;
   v181 = 0u;
-  v146 = [v122 countByEnumeratingWithState:&v180 objects:v228 count:16];
-  if (v146)
+  v182 = 0u;
+  v179 = 0u;
+  v180 = 0u;
+  v145 = [v121 countByEnumeratingWithState:&v179 objects:v227 count:16];
+  if (v145)
   {
-    v141 = *v181;
+    v140 = *v180;
     do
     {
-      for (jj = 0; jj != v146; ++jj)
+      for (jj = 0; jj != v145; ++jj)
       {
-        if (*v181 != v141)
+        if (*v180 != v140)
         {
-          objc_enumerationMutation(v122);
+          objc_enumerationMutation(v121);
         }
 
-        v64 = *(*(&v180 + 1) + 8 * jj);
+        v64 = *(*(&v179 + 1) + 8 * jj);
         v65 = [objc_msgSend(v64 "packedRenditions")];
+        v175 = 0u;
         v176 = 0u;
         v177 = 0u;
         v178 = 0u;
-        v179 = 0u;
         packedRenditions = [v64 packedRenditions];
-        v67 = [packedRenditions countByEnumeratingWithState:&v176 objects:v227 count:16];
+        v67 = [packedRenditions countByEnumeratingWithState:&v175 objects:v226 count:16];
         if (v67)
         {
           v68 = v67;
-          v69 = *v177;
+          v69 = *v176;
           do
           {
             for (kk = 0; kk != v68; ++kk)
             {
-              if (*v177 != v69)
+              if (*v176 != v69)
               {
                 objc_enumerationMutation(packedRenditions);
               }
 
-              v71 = *(*(&v176 + 1) + 8 * kk);
+              v71 = *(*(&v175 + 1) + 8 * kk);
               if ([v6 containsObject:v71])
               {
                 [v65 removeObject:v71];
               }
             }
 
-            v68 = [packedRenditions countByEnumeratingWithState:&v176 objects:v227 count:16];
+            v68 = [packedRenditions countByEnumeratingWithState:&v175 objects:v226 count:16];
           }
 
           while (v68);
@@ -12628,206 +15849,206 @@ LABEL_39:
 
         else
         {
-          [v117 addObject:v64];
+          [v116 addObject:v64];
           [objc_msgSend(v64 "production")];
         }
       }
 
-      v146 = [v122 countByEnumeratingWithState:&v180 objects:v228 count:16];
+      v145 = [v121 countByEnumeratingWithState:&v179 objects:v227 count:16];
     }
 
-    while (v146);
+    while (v145);
   }
 
   objc_opt_class();
   objc_opt_class();
+  v171 = 0u;
   v172 = 0u;
   v173 = 0u;
   v174 = 0u;
-  v175 = 0u;
   v72 = [(CoreThemeDocument *)selfCopy allObjectsForEntity:@"Asset" withSortDescriptors:0];
-  v73 = [v72 countByEnumeratingWithState:&v172 objects:v226 count:16];
+  v73 = [v72 countByEnumeratingWithState:&v171 objects:v225 count:16];
   if (v73)
   {
     v74 = v73;
-    v75 = *v173;
+    v75 = *v172;
     do
     {
       for (mm = 0; mm != v74; ++mm)
       {
-        if (*v173 != v75)
+        if (*v172 != v75)
         {
           objc_enumerationMutation(v72);
         }
 
-        v77 = *(*(&v172 + 1) + 8 * mm);
+        v77 = *(*(&v171 + 1) + 8 * mm);
         if ((objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_isKindOfClass()) && ![objc_msgSend(v77 "renditions")])
         {
-          [v117 addObject:v77];
+          [v116 addObject:v77];
         }
       }
 
-      v74 = [v72 countByEnumeratingWithState:&v172 objects:v226 count:16];
+      v74 = [v72 countByEnumeratingWithState:&v171 objects:v225 count:16];
     }
 
     while (v74);
   }
 
-  v170 = 0u;
-  v171 = 0u;
-  v168 = 0u;
   v169 = 0u;
+  v170 = 0u;
+  v167 = 0u;
+  v168 = 0u;
   v78 = [(CoreThemeDocument *)selfCopy allObjectsForEntity:@"ElementProduction" withSortDescriptors:0];
-  v79 = [v78 countByEnumeratingWithState:&v168 objects:v225 count:16];
+  v79 = [v78 countByEnumeratingWithState:&v167 objects:v224 count:16];
   if (v79)
   {
     v80 = v79;
-    v81 = *v169;
+    v81 = *v168;
     do
     {
       for (nn = 0; nn != v80; ++nn)
       {
-        if (*v169 != v81)
+        if (*v168 != v81)
         {
           objc_enumerationMutation(v78);
         }
 
-        v83 = *(*(&v168 + 1) + 8 * nn);
+        v83 = *(*(&v167 + 1) + 8 * nn);
         if (![objc_msgSend(v83 "renditions")])
         {
-          [v117 addObject:v83];
+          [v116 addObject:v83];
         }
       }
 
-      v80 = [v78 countByEnumeratingWithState:&v168 objects:v225 count:16];
+      v80 = [v78 countByEnumeratingWithState:&v167 objects:v224 count:16];
     }
 
     while (v80);
   }
 
   v84 = selfCopy;
-  [(CoreThemeDocument *)selfCopy deleteObjects:v117];
+  [(CoreThemeDocument *)selfCopy deleteObjects:v116];
 
-  if ([v119 count])
+  if ([v118 count])
   {
     v85 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v163 = 0u;
     v164 = 0u;
     v165 = 0u;
     v166 = 0u;
-    v167 = 0u;
-    v135 = [v119 countByEnumeratingWithState:&v164 objects:v224 count:16];
-    if (v135)
+    v134 = [v118 countByEnumeratingWithState:&v163 objects:v223 count:16];
+    if (v134)
     {
-      v130 = *v165;
+      v129 = *v164;
       do
       {
         v86 = 0;
         do
         {
-          if (*v165 != v130)
+          if (*v164 != v129)
           {
-            objc_enumerationMutation(v119);
+            objc_enumerationMutation(v118);
           }
 
-          v138 = v86;
-          flattenedImageProduction = [*(*(&v164 + 1) + 8 * v86) flattenedImageProduction];
+          v137 = v86;
+          flattenedImageProduction = [*(*(&v163 + 1) + 8 * v86) flattenedImageProduction];
+          v159 = 0u;
           v160 = 0u;
           v161 = 0u;
           v162 = 0u;
-          v163 = 0u;
           renditions2 = [flattenedImageProduction renditions];
-          v88 = [renditions2 countByEnumeratingWithState:&v160 objects:v223 count:16];
+          v88 = [renditions2 countByEnumeratingWithState:&v159 objects:v222 count:16];
           if (v88)
           {
             v89 = v88;
-            v147 = *v161;
+            v146 = *v160;
             do
             {
               for (i1 = 0; i1 != v89; ++i1)
               {
-                if (*v161 != v147)
+                if (*v160 != v146)
                 {
                   objc_enumerationMutation(renditions2);
                 }
 
-                layerReferences = [*(*(&v160 + 1) + 8 * i1) layerReferences];
+                layerReferences = [*(*(&v159 + 1) + 8 * i1) layerReferences];
+                v155 = 0u;
                 v156 = 0u;
                 v157 = 0u;
                 v158 = 0u;
-                v159 = 0u;
-                v92 = [layerReferences countByEnumeratingWithState:&v156 objects:v222 count:16];
+                v92 = [layerReferences countByEnumeratingWithState:&v155 objects:v221 count:16];
                 if (v92)
                 {
                   v93 = v92;
-                  v94 = *v157;
+                  v94 = *v156;
                   do
                   {
                     for (i2 = 0; i2 != v93; ++i2)
                     {
-                      if (*v157 != v94)
+                      if (*v156 != v94)
                       {
                         objc_enumerationMutation(layerReferences);
                       }
 
-                      v96 = *(*(&v156 + 1) + 8 * i2);
+                      v96 = *(*(&v155 + 1) + 8 * i2);
                       if ([v6 containsObject:{objc_msgSend(v96, "reference")}])
                       {
                         [v85 addObject:v96];
                       }
                     }
 
-                    v93 = [layerReferences countByEnumeratingWithState:&v156 objects:v222 count:16];
+                    v93 = [layerReferences countByEnumeratingWithState:&v155 objects:v221 count:16];
                   }
 
                   while (v93);
                 }
               }
 
-              v89 = [renditions2 countByEnumeratingWithState:&v160 objects:v223 count:16];
+              v89 = [renditions2 countByEnumeratingWithState:&v159 objects:v222 count:16];
             }
 
             while (v89);
           }
 
-          v86 = v138 + 1;
+          v86 = v137 + 1;
         }
 
-        while (v138 + 1 != v135);
-        v135 = [v119 countByEnumeratingWithState:&v164 objects:v224 count:16];
+        while (v137 + 1 != v134);
+        v134 = [v118 countByEnumeratingWithState:&v163 objects:v223 count:16];
       }
 
-      while (v135);
+      while (v134);
     }
 
     [(CoreThemeDocument *)selfCopy deleteObjects:v85];
 
     v97 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v151 = 0u;
     v152 = 0u;
     v153 = 0u;
     v154 = 0u;
-    v155 = 0u;
-    v98 = [v119 countByEnumeratingWithState:&v152 objects:v221 count:16];
+    v98 = [v118 countByEnumeratingWithState:&v151 objects:v220 count:16];
     if (v98)
     {
       v99 = v98;
-      v100 = *v153;
+      v100 = *v152;
       do
       {
         for (i3 = 0; i3 != v99; ++i3)
         {
-          if (*v153 != v100)
+          if (*v152 != v100)
           {
-            objc_enumerationMutation(v119);
+            objc_enumerationMutation(v118);
           }
 
-          v102 = *(*(&v152 + 1) + 8 * i3);
+          v102 = *(*(&v151 + 1) + 8 * i3);
           if (![objc_msgSend(objc_msgSend(v102 "flattenedImageProduction")])
           {
             [v97 addObject:v102];
           }
         }
 
-        v99 = [v119 countByEnumeratingWithState:&v152 objects:v221 count:16];
+        v99 = [v118 countByEnumeratingWithState:&v151 objects:v220 count:16];
       }
 
       while (v99);
@@ -12838,232 +16059,219 @@ LABEL_39:
   }
 
   v103 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v147 = 0u;
   v148 = 0u;
   v149 = 0u;
   v150 = 0u;
-  v151 = 0u;
   v104 = [(CoreThemeDocument *)v84 allObjectsForEntity:@"MultisizeImageSetRenditionSpec" withSortDescriptors:0];
-  v105 = [v104 countByEnumeratingWithState:&v148 objects:v220 count:16];
+  v105 = [v104 countByEnumeratingWithState:&v147 objects:v219 count:16];
   if (v105)
   {
     v106 = v105;
-    v107 = *v149;
+    v107 = *v148;
     do
     {
       for (i4 = 0; i4 != v106; ++i4)
       {
-        if (*v149 != v107)
+        if (*v148 != v107)
         {
           objc_enumerationMutation(v104);
         }
 
-        v109 = *(*(&v148 + 1) + 8 * i4);
+        v109 = *(*(&v147 + 1) + 8 * i4);
         if (![objc_msgSend(v109 "multisizeImageRenditions")])
         {
           [v103 addObject:v109];
         }
       }
 
-      v106 = [v104 countByEnumeratingWithState:&v148 objects:v220 count:16];
+      v106 = [v104 countByEnumeratingWithState:&v147 objects:v219 count:16];
     }
 
     while (v106);
   }
 
   [(CoreThemeDocument *)selfCopy deleteObjects:v103];
-
-LABEL_185:
-  v110 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_matchesAllExceptGamut:(id)gamut andKeySpec:(id)spec
 {
   nameIdentifier = [gamut nameIdentifier];
-  if (nameIdentifier != [spec nameIdentifier])
+  result = 0;
+  if (nameIdentifier == [spec nameIdentifier])
   {
-    return 0;
+    dimension1 = [gamut dimension1];
+    if (dimension1 == [spec dimension1])
+    {
+      dimension2 = [gamut dimension2];
+      if (dimension2 == [spec dimension2])
+      {
+        scaleFactor = [gamut scaleFactor];
+        if (scaleFactor == [spec scaleFactor])
+        {
+          subtype = [gamut subtype];
+          if (subtype == [spec subtype])
+          {
+            memoryClass = [gamut memoryClass];
+            if (memoryClass == [spec memoryClass])
+            {
+              v12 = [objc_msgSend(gamut "state")];
+              if (v12 == [objc_msgSend(spec "state")])
+              {
+                v13 = [objc_msgSend(gamut "presentationState")];
+                if (v13 == [objc_msgSend(spec "presentationState")])
+                {
+                  v14 = [objc_msgSend(gamut "value")];
+                  if (v14 == [objc_msgSend(spec "value")])
+                  {
+                    v15 = [objc_msgSend(gamut "size")];
+                    if (v15 == [objc_msgSend(spec "size")])
+                    {
+                      v16 = [objc_msgSend(gamut "direction")];
+                      if (v16 == [objc_msgSend(spec "direction")])
+                      {
+                        v17 = [objc_msgSend(gamut "part")];
+                        if (v17 == [objc_msgSend(spec "part")])
+                        {
+                          v18 = [objc_msgSend(gamut "element")];
+                          if (v18 == [objc_msgSend(spec "element")])
+                          {
+                            v19 = [objc_msgSend(gamut "layer")];
+                            if (v19 == [objc_msgSend(spec "layer")])
+                            {
+                              v20 = [objc_msgSend(gamut "previousState")];
+                              if (v20 == [objc_msgSend(spec "previousState")])
+                              {
+                                v21 = [objc_msgSend(gamut "previousValue")];
+                                if (v21 == [objc_msgSend(spec "previousValue")])
+                                {
+                                  v22 = [objc_msgSend(gamut "idiom")];
+                                  if (v22 == [objc_msgSend(spec "idiom")])
+                                  {
+                                    v23 = [objc_msgSend(gamut "target")];
+                                    if (v23 == [objc_msgSend(spec "target")])
+                                    {
+                                      v24 = [objc_msgSend(gamut "sizeClassHorizontal")];
+                                      if (v24 == [objc_msgSend(spec "sizeClassHorizontal")])
+                                      {
+                                        v25 = [objc_msgSend(gamut "sizeClassVertical")];
+                                        if (v25 == [objc_msgSend(spec "sizeClassVertical")])
+                                        {
+                                          v26 = [objc_msgSend(gamut "appearance")];
+                                          if (v26 == [objc_msgSend(spec "appearance")])
+                                          {
+                                            v27 = [objc_msgSend(gamut "graphicsFeatureSetClass")];
+                                            if (v27 == [objc_msgSend(spec "graphicsFeatureSetClass")])
+                                            {
+                                              return 1;
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
-  dimension1 = [gamut dimension1];
-  if (dimension1 != [spec dimension1])
-  {
-    return 0;
-  }
-
-  dimension2 = [gamut dimension2];
-  if (dimension2 != [spec dimension2])
-  {
-    return 0;
-  }
-
-  scaleFactor = [gamut scaleFactor];
-  if (scaleFactor != [spec scaleFactor])
-  {
-    return 0;
-  }
-
-  subtype = [gamut subtype];
-  if (subtype != [spec subtype])
-  {
-    return 0;
-  }
-
-  memoryClass = [gamut memoryClass];
-  if (memoryClass != [spec memoryClass])
-  {
-    return 0;
-  }
-
-  v12 = [objc_msgSend(gamut "state")];
-  if (v12 != [objc_msgSend(spec "state")])
-  {
-    return 0;
-  }
-
-  v13 = [objc_msgSend(gamut "presentationState")];
-  if (v13 != [objc_msgSend(spec "presentationState")])
-  {
-    return 0;
-  }
-
-  v14 = [objc_msgSend(gamut "value")];
-  if (v14 != [objc_msgSend(spec "value")])
-  {
-    return 0;
-  }
-
-  v15 = [objc_msgSend(gamut "size")];
-  if (v15 != [objc_msgSend(spec "size")])
-  {
-    return 0;
-  }
-
-  v16 = [objc_msgSend(gamut "direction")];
-  if (v16 != [objc_msgSend(spec "direction")])
-  {
-    return 0;
-  }
-
-  v17 = [objc_msgSend(gamut "part")];
-  if (v17 != [objc_msgSend(spec "part")])
-  {
-    return 0;
-  }
-
-  v18 = [objc_msgSend(gamut "element")];
-  if (v18 != [objc_msgSend(spec "element")])
-  {
-    return 0;
-  }
-
-  v19 = [objc_msgSend(gamut "layer")];
-  if (v19 != [objc_msgSend(spec "layer")])
-  {
-    return 0;
-  }
-
-  v20 = [objc_msgSend(gamut "previousState")];
-  if (v20 != [objc_msgSend(spec "previousState")])
-  {
-    return 0;
-  }
-
-  v21 = [objc_msgSend(gamut "previousValue")];
-  if (v21 == [objc_msgSend(spec "previousValue")] && (v22 = objc_msgSend(objc_msgSend(gamut, "idiom"), "identifier"), v22 == objc_msgSend(objc_msgSend(spec, "idiom"), "identifier")) && (v23 = objc_msgSend(objc_msgSend(gamut, "target"), "identifier"), v23 == objc_msgSend(objc_msgSend(spec, "target"), "identifier")) && (v24 = objc_msgSend(objc_msgSend(gamut, "sizeClassHorizontal"), "identifier"), v24 == objc_msgSend(objc_msgSend(spec, "sizeClassHorizontal"), "identifier")) && (v25 = objc_msgSend(objc_msgSend(gamut, "sizeClassVertical"), "identifier"), v25 == objc_msgSend(objc_msgSend(spec, "sizeClassVertical"), "identifier")) && (v26 = objc_msgSend(objc_msgSend(gamut, "appearance"), "identifier"), v26 == objc_msgSend(objc_msgSend(spec, "appearance"), "identifier")) && (v27 = objc_msgSend(objc_msgSend(gamut, "graphicsFeatureSetClass"), "identifier"), v27 == objc_msgSend(objc_msgSend(spec, "graphicsFeatureSetClass"), "identifier")))
-  {
-    return 1;
-  }
-
-  else
-  {
-    return 0;
-  }
+  return result;
 }
 
 - (BOOL)shouldGenerateDisplayGamut:(unsigned int)gamut
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   deviceTraits = self->_deviceTraits;
   if (!deviceTraits)
   {
 LABEL_11:
     LOBYTE(v5) = 1;
-    goto LABEL_12;
+    return v5;
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
-  v5 = [(NSMutableArray *)deviceTraits countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v5 = [(NSMutableArray *)deviceTraits countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
 LABEL_4:
     v8 = 0;
     while (1)
     {
-      if (*v12 != v7)
+      if (*v11 != v7)
       {
         objc_enumerationMutation(deviceTraits);
       }
 
-      if ([*(*(&v11 + 1) + 8 * v8) displayGamutValue] == gamut)
+      if ([*(*(&v10 + 1) + 8 * v8) displayGamutValue] == gamut)
       {
         goto LABEL_11;
       }
 
       if (v6 == ++v8)
       {
-        v6 = [(NSMutableArray *)deviceTraits countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [(NSMutableArray *)deviceTraits countByEnumeratingWithState:&v10 objects:v14 count:16];
         LOBYTE(v5) = 0;
         if (v6)
         {
           goto LABEL_4;
         }
 
-        break;
+        return v5;
       }
     }
   }
 
-LABEL_12:
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)_automaticSRGBGenerationFromP3
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   if ([(CoreThemeDocument *)self shouldGenerateDisplayGamut:0])
   {
-    v32 = [(CoreThemeDocument *)self displayGamutWithIdentifier:0];
+    v31 = [(CoreThemeDocument *)self displayGamutWithIdentifier:0];
     v3 = [(CoreThemeDocument *)self allObjectsForEntity:@"NamedArtworkProduction" withSortDescriptors:0];
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
-    v5 = [v3 countByEnumeratingWithState:&v49 objects:v55 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v48 objects:v54 count:16];
     if (v5)
     {
-      v6 = *v50;
+      v6 = *v49;
       do
       {
         v7 = 0;
         do
         {
-          if (*v50 != v6)
+          if (*v49 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [v4 addObjectsFromArray:{objc_msgSend(objc_msgSend(*(*(&v49 + 1) + 8 * v7++), "renditions"), "allObjects")}];
+          [v4 addObjectsFromArray:{objc_msgSend(objc_msgSend(*(*(&v48 + 1) + 8 * v7++), "renditions"), "allObjects")}];
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v49 objects:v55 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v48 objects:v54 count:16];
       }
 
       while (v5);
@@ -13071,74 +16279,74 @@ LABEL_12:
 
     v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
     v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __51__CoreThemeDocument__automaticSRGBGenerationFromP3__block_invoke;
-    v48[3] = &unk_278EBB3D8;
-    v48[4] = v8;
-    v48[5] = v9;
-    [v4 enumerateObjectsUsingBlock:v48];
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __51__CoreThemeDocument__automaticSRGBGenerationFromP3__block_invoke;
+    v47[3] = &unk_278EBB3D8;
+    v47[4] = v8;
+    v47[5] = v9;
+    [v4 enumerateObjectsUsingBlock:v47];
     v45 = 0u;
-    v33 = [v8 countByEnumeratingWithState:&v44 objects:v54 count:16];
-    if (v33)
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v32 = [v8 countByEnumeratingWithState:&v43 objects:v53 count:16];
+    if (v32)
     {
-      v10 = *v45;
-      v30 = v8;
-      v31 = v4;
-      v28 = *v45;
-      v29 = v9;
+      v10 = *v44;
+      v29 = v8;
+      v30 = v4;
+      v27 = *v44;
+      v28 = v9;
       do
       {
         v11 = 0;
         do
         {
-          if (*v45 != v10)
+          if (*v44 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v44 + 1) + 8 * v11);
-          v40 = 0;
-          v41 = &v40;
-          v42 = 0x2020000000;
-          v43 = 0;
-          v39[0] = MEMORY[0x277D85DD0];
-          v39[1] = 3221225472;
-          v39[2] = __51__CoreThemeDocument__automaticSRGBGenerationFromP3__block_invoke_2;
-          v39[3] = &unk_278EBB400;
-          v39[5] = v12;
-          v39[6] = &v40;
-          v39[4] = self;
-          [v9 enumerateObjectsUsingBlock:{v39, v28, v29, v30, v31}];
-          if ((v41[3] & 1) == 0)
+          v12 = *(*(&v43 + 1) + 8 * v11);
+          v39 = 0;
+          v40 = &v39;
+          v41 = 0x2020000000;
+          v42 = 0;
+          v38[0] = MEMORY[0x277D85DD0];
+          v38[1] = 3221225472;
+          v38[2] = __51__CoreThemeDocument__automaticSRGBGenerationFromP3__block_invoke_2;
+          v38[3] = &unk_278EBB400;
+          v38[5] = v12;
+          v38[6] = &v39;
+          v38[4] = self;
+          [v9 enumerateObjectsUsingBlock:{v38, v27, v28, v29, v30}];
+          if ((v40[3] & 1) == 0)
           {
-            v34 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [objc_msgSend(v12 "entity")]);
+            v33 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [objc_msgSend(v12 "entity")]);
             slices = [v12 slices];
             if ([slices count])
             {
               v14 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices, "count")}];
-              v37 = 0u;
-              v38 = 0u;
-              v35 = 0u;
               v36 = 0u;
-              v15 = [slices countByEnumeratingWithState:&v35 objects:v53 count:16];
+              v37 = 0u;
+              v34 = 0u;
+              v35 = 0u;
+              v15 = [slices countByEnumeratingWithState:&v34 objects:v52 count:16];
               if (v15)
               {
-                v16 = *v36;
+                v16 = *v35;
                 do
                 {
                   v17 = 0;
                   do
                   {
-                    if (*v36 != v16)
+                    if (*v35 != v16)
                     {
                       objc_enumerationMutation(slices);
                     }
 
-                    [*(*(&v35 + 1) + 8 * v17) sliceRect];
+                    [*(*(&v34 + 1) + 8 * v17) sliceRect];
                     v19 = v18;
                     v21 = v20;
                     v23 = v22;
@@ -13150,41 +16358,39 @@ LABEL_12:
                   }
 
                   while (v15 != v17);
-                  v15 = [slices countByEnumeratingWithState:&v35 objects:v53 count:16];
+                  v15 = [slices countByEnumeratingWithState:&v34 objects:v52 count:16];
                 }
 
                 while (v15);
               }
 
-              [v34 setSlices:v14];
-              v8 = v30;
-              v4 = v31;
-              v10 = v28;
-              v9 = v29;
+              [v33 setSlices:v14];
+              v8 = v29;
+              v4 = v30;
+              v10 = v27;
+              v9 = v28;
             }
 
-            [v34 setAsset:{objc_msgSend(v12, "asset")}];
-            [v34 setProduction:{objc_msgSend(v12, "production")}];
+            [v33 setAsset:{objc_msgSend(v12, "asset")}];
+            [v33 setProduction:{objc_msgSend(v12, "production")}];
             [objc_msgSend(v12 "production")];
-            [v12 copyAttributesInto:v34];
+            [v12 copyAttributesInto:v33];
             [objc_msgSend(v12 "keySpec")];
-            [objc_msgSend(v34 "keySpec")];
-            [v9 addObject:v34];
+            [objc_msgSend(v33 "keySpec")];
+            [v9 addObject:v33];
           }
 
-          _Block_object_dispose(&v40, 8);
+          _Block_object_dispose(&v39, 8);
           ++v11;
         }
 
-        while (v11 != v33);
-        v33 = [v8 countByEnumeratingWithState:&v44 objects:v54 count:16];
+        while (v11 != v32);
+        v32 = [v8 countByEnumeratingWithState:&v43 objects:v53 count:16];
       }
 
-      while (v33);
+      while (v32);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__CoreThemeDocument__automaticSRGBGenerationFromP3__block_invoke(uint64_t a1, void *a2)
@@ -13208,15 +16414,15 @@ uint64_t __51__CoreThemeDocument__automaticSRGBGenerationFromP3__block_invoke(ui
   return result;
 }
 
-uint64_t __51__CoreThemeDocument__automaticSRGBGenerationFromP3__block_invoke_2(uint64_t result, void *a2, _BYTE *a3)
+id *__51__CoreThemeDocument__automaticSRGBGenerationFromP3__block_invoke_2(id *result, void *a2, _BYTE *a3)
 {
-  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
+  if ((*(*(result[6] + 1) + 24) & 1) == 0)
   {
     v4 = result;
-    result = [*(result + 32) _matchesAllExceptGamut:objc_msgSend(*(result + 40) andKeySpec:{"keySpec"), objc_msgSend(a2, "keySpec")}];
+    result = [result[4] _matchesAllExceptGamut:objc_msgSend(result[5] andKeySpec:{"keySpec"), objc_msgSend(a2, "keySpec")}];
     if (result)
     {
-      *(*(*(v4 + 48) + 8) + 24) = 1;
+      *(*(v4[6] + 1) + 24) = 1;
       *a3 = 1;
     }
   }
@@ -13244,91 +16450,91 @@ uint64_t __51__CoreThemeDocument__automaticSRGBGenerationFromP3__block_invoke_2(
 
 - (void)_automaticP3GenerationFromSRGB
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   if ([(CoreThemeDocument *)self shouldGenerateDisplayGamut:1])
   {
-    v32 = [(CoreThemeDocument *)self displayGamutWithIdentifier:1];
+    v31 = [(CoreThemeDocument *)self displayGamutWithIdentifier:1];
     v3 = [(CoreThemeDocument *)self allObjectsForEntity:@"NamedArtworkProduction" withSortDescriptors:0];
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v5 = [v3 countByEnumeratingWithState:&v44 objects:v50 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v43 objects:v49 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v45;
+      v7 = *v44;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v45 != v7)
+          if (*v44 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          [v4 addObjectsFromArray:{objc_msgSend(objc_msgSend(*(*(&v44 + 1) + 8 * i), "renditions"), "allObjects")}];
+          [v4 addObjectsFromArray:{objc_msgSend(objc_msgSend(*(*(&v43 + 1) + 8 * i), "renditions"), "allObjects")}];
         }
 
-        v6 = [v3 countByEnumeratingWithState:&v44 objects:v50 count:16];
+        v6 = [v3 countByEnumeratingWithState:&v43 objects:v49 count:16];
       }
 
       while (v6);
     }
 
     v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke;
-    v43[3] = &unk_278EBB3D8;
-    v43[4] = self;
-    v43[5] = v9;
-    [v4 enumerateObjectsUsingBlock:v43];
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke;
+    v42[3] = &unk_278EBB3D8;
+    v42[4] = self;
+    v42[5] = v9;
+    [v4 enumerateObjectsUsingBlock:v42];
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     obj = v9;
-    v33 = [v9 countByEnumeratingWithState:&v39 objects:v49 count:16];
-    if (v33)
+    v32 = [v9 countByEnumeratingWithState:&v38 objects:v48 count:16];
+    if (v32)
     {
-      v31 = *v40;
+      v30 = *v39;
       do
       {
-        for (j = 0; j != v33; ++j)
+        for (j = 0; j != v32; ++j)
         {
-          if (*v40 != v31)
+          if (*v39 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v39 + 1) + 8 * j);
+          v11 = *(*(&v38 + 1) + 8 * j);
           v12 = -[CoreThemeDocument newObjectForEntity:](self, "newObjectForEntity:", [objc_msgSend(v11 "entity")]);
           slices = [v11 slices];
           if ([slices count])
           {
-            v34 = j;
+            v33 = j;
             v14 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(slices, "count")}];
+            v34 = 0u;
             v35 = 0u;
             v36 = 0u;
             v37 = 0u;
-            v38 = 0u;
-            v15 = [slices countByEnumeratingWithState:&v35 objects:v48 count:16];
+            v15 = [slices countByEnumeratingWithState:&v34 objects:v47 count:16];
             if (v15)
             {
               v16 = v15;
-              v17 = *v36;
+              v17 = *v35;
               do
               {
                 for (k = 0; k != v16; ++k)
                 {
-                  if (*v36 != v17)
+                  if (*v35 != v17)
                   {
                     objc_enumerationMutation(slices);
                   }
 
-                  [*(*(&v35 + 1) + 8 * k) sliceRect];
+                  [*(*(&v34 + 1) + 8 * k) sliceRect];
                   v20 = v19;
                   v22 = v21;
                   v24 = v23;
@@ -13338,14 +16544,14 @@ uint64_t __51__CoreThemeDocument__automaticSRGBGenerationFromP3__block_invoke_2(
                   [v14 addObject:v27];
                 }
 
-                v16 = [slices countByEnumeratingWithState:&v35 objects:v48 count:16];
+                v16 = [slices countByEnumeratingWithState:&v34 objects:v47 count:16];
               }
 
               while (v16);
             }
 
             [v12 setSlices:v14];
-            j = v34;
+            j = v33;
           }
 
           [v12 setAsset:{objc_msgSend(v11, "asset")}];
@@ -13362,64 +16568,62 @@ uint64_t __51__CoreThemeDocument__automaticSRGBGenerationFromP3__block_invoke_2(
           }
         }
 
-        v33 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+        v32 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
       }
 
-      while (v33);
+      while (v32);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && ([objc_msgSend(a2 "asset")] & 1) == 0 && objc_msgSend(objc_msgSend(a2, "renditionType"), "identifier") != 1006 && !objc_msgSend(objc_msgSend(objc_msgSend(a2, "keySpec"), "gamut"), "identifier") && !objc_msgSend(objc_msgSend(objc_msgSend(a2, "keySpec"), "glyphWeight"), "identifier") && !objc_msgSend(objc_msgSend(objc_msgSend(a2, "keySpec"), "glyphSize"), "identifier"))
   {
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
-    v20 = 0;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 0;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       v4 = [objc_msgSend(a2 "production")];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke_2;
-      v16[3] = &unk_278EBB428;
-      v16[4] = &v17;
-      [v4 enumerateObjectsUsingBlock:v16];
-      if ((v18[3] & 1) == 0)
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke_2;
+      v15[3] = &unk_278EBB428;
+      v15[4] = &v16;
+      [v4 enumerateObjectsUsingBlock:v15];
+      if ((v17[3] & 1) == 0)
       {
-        v14 = 0u;
-        v15 = 0u;
-        v12 = 0u;
         v13 = 0u;
+        v14 = 0u;
+        v11 = 0u;
+        v12 = 0u;
         v5 = [a2 layerReferences];
-        v6 = [v5 countByEnumeratingWithState:&v12 objects:v21 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v11 objects:v20 count:16];
         if (v6)
         {
-          v7 = *v13;
+          v7 = *v12;
           while (2)
           {
             for (i = 0; i != v6; ++i)
             {
-              if (*v13 != v7)
+              if (*v12 != v7)
               {
                 objc_enumerationMutation(v5);
               }
 
-              if ([*(a1 + 32) _testRenditionForP3:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "reference")}])
+              if ([*(a1 + 32) _testRenditionForP3:{objc_msgSend(*(*(&v11 + 1) + 8 * i), "reference")}])
               {
                 [*(a1 + 40) addObject:a2];
                 goto LABEL_22;
               }
             }
 
-            v6 = [v5 countByEnumeratingWithState:&v12 objects:v21 count:16];
+            v6 = [v5 countByEnumeratingWithState:&v11 objects:v20 count:16];
             if (v6)
             {
               continue;
@@ -13434,26 +16638,24 @@ void __51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke(uint64
     else
     {
       v9 = [objc_msgSend(a2 "production")];
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke_3;
-      v11[3] = &unk_278EBB428;
-      v11[4] = &v17;
-      [v9 enumerateObjectsUsingBlock:v11];
-      if ((v18[3] & 1) == 0 && [*(a1 + 32) _testRenditionForP3:a2])
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke_3;
+      v10[3] = &unk_278EBB428;
+      v10[4] = &v16;
+      [v9 enumerateObjectsUsingBlock:v10];
+      if ((v17[3] & 1) == 0 && [*(a1 + 32) _testRenditionForP3:a2])
       {
         [*(a1 + 40) addObject:a2];
       }
     }
 
 LABEL_22:
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v16, 8);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
+void *__51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [objc_msgSend(objc_msgSend(a2 "keySpec")];
   if (result == 1)
@@ -13465,7 +16667,7 @@ uint64_t __51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke_2(
   return result;
 }
 
-uint64_t __51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke_3(uint64_t a1, void *a2, _BYTE *a3)
+void *__51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke_3(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [objc_msgSend(objc_msgSend(a2 "keySpec")];
   if (result == 1)
@@ -13479,53 +16681,53 @@ uint64_t __51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke_3(
 
 - (void)_processModelProductions
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [(CoreThemeDocument *)self allObjectsForEntity:@"ModelIOProduction" withSortDescriptors:0];
   [(NSMutableArray *)self->_cachedModelAssets removeAllObjects];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [objc_msgSend(*(*(&v18 + 1) + 8 * v7) "renditions")];
+        v8 = [objc_msgSend(*(*(&v17 + 1) + 8 * v7) "renditions")];
+        v13 = 0u;
         v14 = 0u;
         v15 = 0u;
         v16 = 0u;
-        v17 = 0u;
-        v9 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v15;
+          v11 = *v14;
           do
           {
             v12 = 0;
             do
             {
-              if (*v15 != v11)
+              if (*v14 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              [*(*(&v14 + 1) + 8 * v12++) processModelObjectsInDocument:self];
+              [*(*(&v13 + 1) + 8 * v12++) processModelObjectsInDocument:self];
             }
 
             while (v10 != v12);
-            v10 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
           }
 
           while (v10);
@@ -13535,13 +16737,315 @@ uint64_t __51__CoreThemeDocument__automaticP3GenerationFromSRGB__block_invoke_3(
       }
 
       while (v7 != v5);
-      v5 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v5);
   }
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (BOOL)featureEnabled:(int)enabled
+{
+  v3 = *&enabled;
+  targetPlatform = [(CoreThemeDocument *)self targetPlatform];
+  v7 = targetPlatform;
+  if ((targetPlatform | 2) == 2)
+  {
+    LOBYTE(v8) = 1;
+    switch(v3)
+    {
+      case 1:
+      case 3:
+        majorVersion = self->_majorVersion;
+        if (targetPlatform)
+        {
+          goto LABEL_62;
+        }
+
+        if (majorVersion != 10)
+        {
+          goto LABEL_73;
+        }
+
+        minorVersion = self->_minorVersion;
+        if (minorVersion <= 10 && (minorVersion != 10 || self->_patchVersion <= 1))
+        {
+          goto LABEL_73;
+        }
+
+        goto LABEL_53;
+      case 2:
+        majorVersion = self->_majorVersion;
+        if (targetPlatform)
+        {
+LABEL_62:
+          v12 = majorVersion <= 8;
+        }
+
+        else
+        {
+          if (majorVersion >= 10 && self->_minorVersion > 10)
+          {
+LABEL_53:
+            LOBYTE(v8) = 1;
+            return v8 & 1;
+          }
+
+LABEL_73:
+          v12 = majorVersion <= 10;
+        }
+
+LABEL_83:
+        LOBYTE(v8) = !v12;
+        break;
+      case 4:
+        majorVersion = self->_majorVersion;
+        if (!targetPlatform)
+        {
+          goto LABEL_46;
+        }
+
+        goto LABEL_82;
+      case 5:
+      case 9:
+        v11 = self->_majorVersion;
+        LOBYTE(v8) = v11 > 9;
+        if (targetPlatform)
+        {
+          return v8 & 1;
+        }
+
+        if (v11 >= 10 && self->_minorVersion > 11)
+        {
+          goto LABEL_53;
+        }
+
+        v12 = v11 <= 10;
+        goto LABEL_83;
+      case 8:
+        return v8 & 1;
+      case 10:
+        majorVersion = self->_majorVersion;
+        if (!targetPlatform)
+        {
+          goto LABEL_51;
+        }
+
+        goto LABEL_73;
+      case 11:
+      case 13:
+        majorVersion = self->_majorVersion;
+        if (targetPlatform)
+        {
+          goto LABEL_68;
+        }
+
+        if (majorVersion < 10 || self->_minorVersion <= 13)
+        {
+          goto LABEL_73;
+        }
+
+        goto LABEL_53;
+      case 12:
+        majorVersion = self->_majorVersion;
+        if (!targetPlatform)
+        {
+          goto LABEL_51;
+        }
+
+LABEL_68:
+        v12 = majorVersion <= 11;
+        goto LABEL_83;
+      case 14:
+        targetPlatform2 = [(CoreThemeDocument *)self targetPlatform];
+        majorVersion = self->_majorVersion;
+        if (!targetPlatform2)
+        {
+          goto LABEL_46;
+        }
+
+LABEL_82:
+        v12 = majorVersion <= 12;
+        goto LABEL_83;
+      case 15:
+        v14 = self->_majorVersion;
+        if (targetPlatform)
+        {
+          v15 = v14 < 11;
+        }
+
+        else
+        {
+          v15 = 0;
+        }
+
+        LOBYTE(v8) = v15;
+        if (targetPlatform || v14 > 10)
+        {
+          return v8 & 1;
+        }
+
+        v16 = self->_minorVersion < 13;
+LABEL_64:
+        LOBYTE(v8) = v16;
+        return v8 & 1;
+      case 16:
+        if (!targetPlatform)
+        {
+          goto LABEL_80;
+        }
+
+LABEL_63:
+        v16 = self->_majorVersion < 11;
+        goto LABEL_64;
+      case 17:
+        if (targetPlatform)
+        {
+          return v8 & 1;
+        }
+
+        majorVersion = self->_majorVersion;
+LABEL_51:
+        if (majorVersion >= 10 && self->_minorVersion > 12)
+        {
+          goto LABEL_53;
+        }
+
+        goto LABEL_73;
+      case 18:
+        if (targetPlatform)
+        {
+          return v8 & 1;
+        }
+
+        majorVersion = self->_majorVersion;
+LABEL_46:
+        if (majorVersion < 10 || self->_minorVersion <= 14)
+        {
+          goto LABEL_73;
+        }
+
+        goto LABEL_53;
+      case 19:
+      case 20:
+        goto LABEL_80;
+      default:
+        [objc_msgSend(MEMORY[0x277CCA890] "currentHandler")];
+        goto LABEL_26;
+    }
+  }
+
+  else
+  {
+LABEL_26:
+    if ([(CoreThemeDocument *)self targetPlatform]== 4)
+    {
+      LOBYTE(v8) = 0;
+      switch(v3)
+      {
+        case 1:
+        case 2:
+        case 3:
+          v12 = self->_majorVersion <= 1;
+          goto LABEL_83;
+        case 4:
+        case 12:
+        case 16:
+        case 18:
+          return v8 & 1;
+        case 5:
+        case 9:
+          v12 = self->_majorVersion <= 2;
+          goto LABEL_83;
+        case 8:
+        case 17:
+        case 19:
+        case 20:
+          goto LABEL_53;
+        case 10:
+          v12 = self->_majorVersion <= 3;
+          goto LABEL_83;
+        case 11:
+        case 13:
+          v12 = self->_majorVersion <= 4;
+          goto LABEL_83;
+        case 14:
+          v12 = self->_majorVersion <= 5;
+          goto LABEL_83;
+        case 15:
+          v16 = self->_majorVersion < 4;
+          goto LABEL_64;
+        default:
+          [objc_msgSend(MEMORY[0x277CCA890] "currentHandler")];
+          goto LABEL_58;
+      }
+    }
+
+    else
+    {
+LABEL_58:
+      if ([(CoreThemeDocument *)self targetPlatform]!= 1 && [(CoreThemeDocument *)self targetPlatform]!= 3)
+      {
+LABEL_75:
+        if ([(CoreThemeDocument *)self targetPlatform]== 5)
+        {
+          v17 = v3 - 1;
+          if (v3 - 1) < 0x14 && ((0xFFF9Fu >> v17))
+          {
+            v8 = 0x13FFFu >> v17;
+            return v8 & 1;
+          }
+
+          [objc_msgSend(MEMORY[0x277CCA890] "currentHandler")];
+        }
+
+LABEL_80:
+        LOBYTE(v8) = 0;
+        return v8 & 1;
+      }
+
+      LOBYTE(v8) = 1;
+      switch(v3)
+      {
+        case 1:
+        case 2:
+        case 3:
+          majorVersion = self->_majorVersion;
+          goto LABEL_62;
+        case 4:
+        case 5:
+        case 9:
+          v12 = self->_majorVersion <= 9;
+          goto LABEL_83;
+        case 8:
+        case 17:
+          return v8 & 1;
+        case 10:
+          majorVersion = self->_majorVersion;
+          goto LABEL_73;
+        case 11:
+        case 12:
+        case 13:
+          majorVersion = self->_majorVersion;
+          goto LABEL_68;
+        case 14:
+          majorVersion = self->_majorVersion;
+          goto LABEL_82;
+        case 15:
+        case 16:
+          goto LABEL_63;
+        case 18:
+        case 19:
+        case 20:
+          goto LABEL_80;
+        default:
+          [objc_msgSend(MEMORY[0x277CCA890] "currentHandler")];
+          goto LABEL_75;
+      }
+    }
+  }
+
+  return v8 & 1;
 }
 
 - (uint64_t)appearanceWithIdentifier:.cold.1()

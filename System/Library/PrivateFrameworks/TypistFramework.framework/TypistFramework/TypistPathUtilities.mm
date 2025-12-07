@@ -1,5 +1,6 @@
 @interface TypistPathUtilities
 + (BOOL)_validatePoints:(CGPoint)points To:(CGPoint)to;
++ (BOOL)isKoreanConsonantVariant:(unsigned __int16)variant;
 + (CGAffineTransform)_determineShiftBasedOnDirection:(SEL)direction;
 + (CGAffineTransform)_makeTranslationWithOffset:(SEL)offset;
 + (CGPoint)_addPoint:(CGPoint)point andPoint:(CGPoint)andPoint;
@@ -14,7 +15,10 @@
 + (id)_decomposeCharactersWhereNeeded:(id)needed;
 + (id)_decomposeGraphemeIntoSeparateCharactersIfNeeded:(id)needed;
 + (id)_determineWritingStyle:(id)style forCharacters:(id)characters;
++ (id)_jamoShiftsForStructure:(int)structure;
 + (id)_processArabicCharacter:(id)character withPathMap:(id)map forLocale:(unint64_t)locale;
++ (id)_processCharacters:(id)characters withPathMap:(id)map forLocale:(int)locale;
++ (id)_processHangulCharacter:(unsigned __int16)character withPathMap:(id)map forLocale:(unint64_t)locale;
 + (id)_processThaiCharacter:(id)character withPathMap:(id)map forLocale:(unint64_t)locale;
 + (id)_queryHandwritingSourceForCharactersInString:(id)string withRegion:(id)region;
 + (id)_separateFinalFormCharacters:(id)characters;
@@ -34,6 +38,7 @@
 + (id)getTextClustersFrom:(id)from forCharacters:(id)characters;
 + (id)getTextClustersFrom:(id)from withRegion:(id)region;
 + (id)shiftJamosInSyllable:(id)syllable withPath:(id)path forLocale:(unint64_t)locale;
++ (id)shiftStrokesForJamo:(id)jamo withDirection:(int)direction;
 + (int)_getScribbleRuleFromRegion:(id)region;
 + (int)_mappingRegionToVariantID:(id)d;
 + (sqlite3)_openDatabaseFromFile:(id)file;
@@ -307,63 +312,63 @@ LABEL_9:
 
 + (id)convertSVGStringPathToUIBezierPath:(id)path
 {
-  v168 = *MEMORY[0x277D85DE8];
+  v167 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v151 = objc_opt_new();
+  v150 = objc_opt_new();
   v4 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"MmLlHhVvCcSsQqTtAaZ"];
+  v162 = 0u;
   v163 = 0u;
   v164 = 0u;
   v165 = 0u;
-  v166 = 0u;
   obj = pathCopy;
-  v152 = [obj countByEnumeratingWithState:&v163 objects:v167 count:16];
-  if (v152)
+  v151 = [obj countByEnumeratingWithState:&v162 objects:v166 count:16];
+  if (v151)
   {
-    v150 = *v164;
-    v146 = *(MEMORY[0x277CBF348] + 8);
-    v147 = *MEMORY[0x277CBF348];
+    v149 = *v163;
+    v145 = *(MEMORY[0x277CBF348] + 8);
+    v146 = *MEMORY[0x277CBF348];
     v5 = 0x277CCA000uLL;
     do
     {
       v6 = 0;
       do
       {
-        if (*v164 != v150)
+        if (*v163 != v149)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v163 + 1) + 8 * v6);
+        v7 = *(*(&v162 + 1) + 8 * v6);
         v8 = [MEMORY[0x277CCAC80] scannerWithString:v7];
         v9 = objc_alloc_init(MEMORY[0x277D75208]);
         v10 = [*(v5 + 3240) stringWithFormat:@"%C", 83];
         if ([v7 containsString:v10])
         {
-          v160 = 1;
+          v159 = 1;
         }
 
         else
         {
           v11 = [*(v5 + 3240) stringWithFormat:@"%C", 115];
-          v160 = [v7 containsString:v11];
+          v159 = [v7 containsString:v11];
         }
 
         v12 = objc_opt_new();
         if (([v8 isAtEnd] & 1) == 0)
         {
-          v13 = v147;
-          v14 = v146;
-          v15 = v147;
-          v16 = v146;
+          v13 = v146;
+          v14 = v145;
+          v15 = v146;
+          v16 = v145;
+          v152 = v145;
           v153 = v146;
-          v154 = v147;
+          v154 = v145;
           v155 = v146;
-          v156 = v147;
           do
           {
-            v162 = 0;
-            [v8 scanCharactersFromSet:v4 intoString:&v162];
-            v17 = v162;
+            v161 = 0;
+            [v8 scanCharactersFromSet:v4 intoString:&v161];
+            v17 = v161;
             if (v17)
             {
               lastObject = v17;
@@ -467,18 +472,18 @@ LABEL_57:
                 if (v25 == 118)
                 {
 LABEL_49:
-                  v161 = 0.0;
-                  [v8 scanDouble:&v161];
+                  v160 = 0.0;
+                  [v8 scanDouble:&v160];
                   if (v26 == 118)
                   {
                     [v9 currentPoint];
-                    v45 = v161 + v51;
-                    v161 = v45;
+                    v45 = v160 + v51;
+                    v160 = v45;
                   }
 
                   else
                   {
-                    v45 = v161;
+                    v45 = v160;
                   }
 
                   v44 = 0.0;
@@ -496,10 +501,10 @@ LABEL_29:
                 {
 LABEL_51:
                   v52 = v13;
-                  v158 = v16;
-                  v159 = v15;
+                  v157 = v16;
+                  v158 = v15;
                   [v8 scanPoint];
-                  v157 = v53;
+                  v156 = v53;
                   v55 = v54;
                   [v8 scanPoint];
                   v57 = v56;
@@ -507,9 +512,9 @@ LABEL_51:
                   [v8 scanPoint];
                   v62 = v60;
                   v63 = v61;
-                  if (v160)
+                  if (v159)
                   {
-                    v149 = v55;
+                    v148 = v55;
                     v64 = v57;
                     v65 = v59;
                     v66 = v61;
@@ -527,25 +532,25 @@ LABEL_51:
                     }
 
                     [v9 currentPoint];
-                    v158 = v65;
-                    v159 = v64;
+                    v157 = v65;
+                    v158 = v64;
                     [TypistPathUtilities _subtractPoint:v64 byPoint:v65, v76, v77];
-                    v155 = v79;
-                    v156 = v78;
+                    v154 = v79;
+                    v155 = v78;
                     [v9 currentPoint];
                     v52 = v67;
                     [TypistPathUtilities _subtractPoint:v67 byPoint:v66, v80, v81];
-                    v153 = v83;
-                    v154 = v82;
+                    v152 = v83;
+                    v153 = v82;
                     v14 = v66;
-                    v55 = v149;
+                    v55 = v148;
                   }
 
                   v84 = v14;
                   if (v26 == 99)
                   {
                     [v9 currentPoint];
-                    [TypistPathUtilities _addPoint:v157 andPoint:v55, v85, v86];
+                    [TypistPathUtilities _addPoint:v156 andPoint:v55, v85, v86];
                     v88 = v87;
                     v55 = v89;
                     [v9 currentPoint];
@@ -560,12 +565,12 @@ LABEL_51:
 
                   else
                   {
-                    v88 = v157;
+                    v88 = v156;
                   }
 
                   [v9 addCurveToPoint:v62 controlPoint1:v63 controlPoint2:{v88, v55, v57, v59}];
-                  v16 = v158;
-                  v15 = v159;
+                  v16 = v157;
+                  v15 = v158;
                   v13 = v52;
                   v14 = v84;
                   goto LABEL_30;
@@ -574,18 +579,18 @@ LABEL_51:
                 if (v25 == 104)
                 {
 LABEL_40:
-                  v161 = 0.0;
-                  [v8 scanDouble:&v161];
+                  v160 = 0.0;
+                  [v8 scanDouble:&v160];
                   if (v26 == 104)
                   {
                     [v9 currentPoint];
-                    v44 = v161 + v46;
-                    v161 = v44;
+                    v44 = v160 + v46;
+                    v160 = v44;
                   }
 
                   else
                   {
-                    v44 = v161;
+                    v44 = v160;
                   }
 
                   v45 = 0.0;
@@ -631,10 +636,10 @@ LABEL_40:
 
             if (v25 == 115)
             {
-              v48 = v155;
-              v47 = v156;
-              v50 = v153;
-              v49 = v154;
+              v48 = v154;
+              v47 = v155;
+              v50 = v152;
+              v49 = v153;
 LABEL_68:
               [TypistPathUtilities _reflectPoint:v47 origin:v48, v49, v50];
               v116 = v115;
@@ -664,12 +669,12 @@ LABEL_68:
               [v9 addCurveToPoint:v13 controlPoint1:v14 controlPoint2:{v116, v118, v15, v16}];
               [v9 currentPoint];
               [TypistPathUtilities _subtractPoint:v15 byPoint:v16, v135, v136];
-              v155 = v138;
-              v156 = v137;
+              v154 = v138;
+              v155 = v137;
               [v9 currentPoint];
               [TypistPathUtilities _subtractPoint:v13 byPoint:v14, v139, v140];
-              v153 = v142;
-              v154 = v141;
+              v152 = v142;
+              v153 = v141;
             }
 
 LABEL_30:
@@ -679,65 +684,61 @@ LABEL_30:
         }
 
 LABEL_10:
-        [v151 addObject:v9];
+        [v150 addObject:v9];
 
         ++v6;
         v5 = 0x277CCA000;
       }
 
-      while (v6 != v152);
-      v143 = [obj countByEnumeratingWithState:&v163 objects:v167 count:16];
-      v152 = v143;
+      while (v6 != v151);
+      v143 = [obj countByEnumeratingWithState:&v162 objects:v166 count:16];
+      v151 = v143;
     }
 
     while (v143);
   }
 
-  v144 = *MEMORY[0x277D85DE8];
-
-  return v151;
+  return v150;
 }
 
 + (id)convertSVGPaths:(id)paths withTransformation:(CGAffineTransform *)transformation
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   v7 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = pathsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = *&transformation->c;
-        v18[0] = *&transformation->a;
-        v18[1] = v14;
-        v18[2] = *&transformation->tx;
-        v15 = [self convertSingleSVGPaths:v13 withTransformation:v18];
+        v17[0] = *&transformation->a;
+        v17[1] = v14;
+        v17[2] = *&transformation->tx;
+        v15 = [self convertSingleSVGPaths:v13 withTransformation:v17];
         [v7 addObject:v15];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -871,6 +872,18 @@ LABEL_19:
   }
 
   return v7;
+}
+
++ (id)_processHangulCharacter:(unsigned __int16)character withPathMap:(id)map forLocale:(unint64_t)locale
+{
+  characterCopy = character;
+  mapCopy = map;
+  v8 = [[TypistKoreanHangulSyllable alloc] initWithSyllable:characterCopy];
+  v9 = [TypistPathUtilities shiftJamosInSyllable:v8 withPath:mapCopy forLocale:locale];
+
+  v10 = [[TYPathData alloc] initWithArray:v9 width:76 height:109 isCursive:0];
+
+  return v10;
 }
 
 + (id)_processArabicCharacter:(id)character withPathMap:(id)map forLocale:(unint64_t)locale
@@ -1045,46 +1058,44 @@ LABEL_19:
 
 + (id)_shiftThaiStrokes:(id)strokes withRatio:(double)ratio ofHeight:(int64_t)height
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   strokesCopy = strokes;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v8 = [objc_alloc(MEMORY[0x277CBEA60]) initWithArray:strokesCopy copyItems:1];
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     v12 = height * ratio;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
-        v19 = 0u;
-        v20 = 0u;
+        v14 = *(*(&v20 + 1) + 8 * i);
         v18 = 0u;
-        [TypistPathUtilities _makeTranslationWithOffset:v12];
-        v17[0] = v18;
-        v17[1] = v19;
-        v17[2] = v20;
-        [v14 applyTransform:v17];
+        v19 = 0u;
+        v17 = 0u;
+        objc_msgSend__makeTranslationWithOffset_(TypistPathUtilities, v12);
+        v16[0] = v17;
+        v16[1] = v18;
+        v16[2] = v19;
+        [v14 applyTransform:v16];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1143,6 +1154,79 @@ LABEL_19:
   return v4;
 }
 
++ (id)_processCharacters:(id)characters withPathMap:(id)map forLocale:(int)locale
+{
+  v5 = *&locale;
+  charactersCopy = characters;
+  mapCopy = map;
+  graphemeCount = [charactersCopy graphemeCount];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  if (graphemeCount)
+  {
+    v12 = 0;
+    v13 = v5;
+    v23 = v5;
+    v24 = v5;
+    do
+    {
+      v14 = [charactersCopy graphemeAtIndex:v12];
+      v15 = [v14 characterAtIndex:0];
+      if ([TypistKoreanHangulSyllable isKoreanSyllable:v15])
+      {
+        v16 = [self _processHangulCharacter:v15 withPathMap:mapCopy forLocale:v13];
+      }
+
+      else if ([self isKoreanConsonantVariant:v15])
+      {
+        v16 = [mapCopy objectForKeyedSubscript:v14];
+      }
+
+      else if ([TypistThaiSyllable isThaiCharacter:v15])
+      {
+        v16 = [self _processThaiCharacter:v14 withPathMap:mapCopy forLocale:v13];
+      }
+
+      else
+      {
+        if (![TypistArabicSyllable isArabicPresentationFormBCharacter:v15])
+        {
+          v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"_%u", v5];
+          v19 = [v14 stringByAppendingString:v18];
+
+          v20 = [mapCopy objectForKeyedSubscript:v19];
+          if (v20)
+          {
+            v21 = v19;
+          }
+
+          else
+          {
+            v21 = v14;
+          }
+
+          v17 = [mapCopy objectForKeyedSubscript:v21];
+
+          v13 = v23;
+          v5 = v24;
+          goto LABEL_12;
+        }
+
+        v16 = [self _processArabicCharacter:v14 withPathMap:mapCopy forLocale:v13];
+      }
+
+      v17 = v16;
+LABEL_12:
+      [dictionary setObject:v17 forKeyedSubscript:v14];
+
+      ++v12;
+    }
+
+    while (graphemeCount != v12);
+  }
+
+  return dictionary;
+}
+
 + (double)getWidthOfFirstCharacterInString:(id)string
 {
   v4 = [self _decomposeCharactersWhereNeeded:string];
@@ -1198,11 +1282,11 @@ LABEL_19:
 
 + (unint64_t)getTotalWidthForText:(id)text isCursive:(BOOL)cursive withRegion:(id)region fromPathMap:(id)map
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   textCopy = text;
   regionCopy = region;
   mapCopy = map;
-  v32 = regionCopy;
+  v31 = regionCopy;
   if (cursive)
   {
     [TypistPathUtilities getTextClustersFrom:textCopy withRegion:regionCopy];
@@ -1213,26 +1297,26 @@ LABEL_19:
     [textCopy graphemeArray];
   }
 
+  v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v12 = v34 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v32 = 0u;
+  v12 = v33 = 0u;
+  v13 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
-    v16 = *v34;
+    v16 = *v33;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v34 != v16)
+        if (*v33 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v33 + 1) + 8 * i);
+        v18 = *(*(&v32 + 1) + 8 * i);
         v19 = [mapCopy objectForKeyedSubscript:v18];
         v26 = v19;
         if (v19)
@@ -1251,11 +1335,11 @@ LABEL_19:
 
         else
         {
-          TYLogl(OS_LOG_TYPE_ERROR, @"No path data found for character: [%@]", v20, v21, v22, v23, v24, v25, v18);
+          TYLogl(OS_LOG_TYPE_ERROR, @"No path data found for character: [%@]", v20, v21, v22, v23, v24, v25, v18, v31, v32);
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v14);
@@ -1266,7 +1350,6 @@ LABEL_19:
     v15 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1284,7 +1367,7 @@ LABEL_19:
 
 + (id)getTextClustersFrom:(id)from forCharacters:(id)characters
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   charactersCopy = characters;
   v8 = charactersCopy;
@@ -1306,37 +1389,35 @@ LABEL_19:
 
     v16 = [self _determineWritingStyle:fromCopy forCharacters:v8];
     v9 = objc_opt_new();
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v17 = v16;
-    v18 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v26;
+      v20 = *v25;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v26 != v20)
+          if (*v25 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          characterCluster = [*(*(&v25 + 1) + 8 * i) characterCluster];
+          characterCluster = [*(*(&v24 + 1) + 8 * i) characterCluster];
           [v9 addObject:characterCluster];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v19);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1626,7 +1707,7 @@ LABEL_16:
 
 + (id)_shiftPath:(id)path forCharacters:(id)characters withRule:(int)rule
 {
-  v121 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   charactersCopy = characters;
   array = [MEMORY[0x277CBEA60] array];
@@ -1652,70 +1733,70 @@ LABEL_16:
 
   v11 = v10;
 
-  v74 = charactersCopy;
+  v73 = charactersCopy;
   textDirectionAnnotations = [charactersCopy textDirectionAnnotations];
   v12 = [textDirectionAnnotations objectAtIndexedSubscript:0];
   textDirection = [v12 textDirection];
 
   v13 = objc_opt_new();
   v14 = objc_opt_new();
+  v110 = 0u;
   v111 = 0u;
   v112 = 0u;
   v113 = 0u;
-  v114 = 0u;
   obj = v11;
-  v15 = [obj countByEnumeratingWithState:&v111 objects:v120 count:16];
+  v15 = [obj countByEnumeratingWithState:&v110 objects:v119 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v112;
+    v17 = *v111;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v112 != v17)
+        if (*v111 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = [self _separateFinalFormCharacters:*(*(&v111 + 1) + 8 * i)];
+        v19 = [self _separateFinalFormCharacters:*(*(&v110 + 1) + 8 * i)];
         [v14 addObjectsFromArray:v19];
       }
 
-      v16 = [obj countByEnumeratingWithState:&v111 objects:v120 count:16];
+      v16 = [obj countByEnumeratingWithState:&v110 objects:v119 count:16];
     }
 
     while (v16);
   }
 
-  v109 = 0u;
-  v110 = 0u;
-  v107 = 0u;
   v108 = 0u;
-  v80 = v14;
-  v78 = [v80 countByEnumeratingWithState:&v107 objects:v119 count:16];
-  if (v78)
+  v109 = 0u;
+  v106 = 0u;
+  v107 = 0u;
+  v79 = v14;
+  v77 = [v79 countByEnumeratingWithState:&v106 objects:v118 count:16];
+  if (v77)
   {
-    v76 = *v108;
+    v75 = *v107;
     v20 = 0.0;
     v21 = 0x277CCA000uLL;
     v22 = 0.0;
-    v81 = pathCopy;
+    v80 = pathCopy;
     do
     {
       v23 = 0;
       do
       {
-        if (*v108 != v76)
+        if (*v107 != v75)
         {
-          objc_enumerationMutation(v80);
+          objc_enumerationMutation(v79);
         }
 
-        v79 = v23;
-        v24 = *(*(&v107 + 1) + 8 * v23);
+        v78 = v23;
+        v24 = *(*(&v106 + 1) + 8 * v23);
         v25 = objc_opt_new();
         v26 = objc_opt_new();
-        v85 = v24;
+        v84 = v24;
         graphemeCount = [v24 graphemeCount];
         if (graphemeCount)
         {
@@ -1723,25 +1804,25 @@ LABEL_16:
           v28 = 0.0;
           do
           {
-            v29 = [v85 graphemeAtIndex:v27];
+            v29 = [v84 graphemeAtIndex:v27];
             v30 = [pathCopy objectForKeyedSubscript:v29];
             strokeArray = [v30 strokeArray];
 
-            if (v27 || ([v80 firstObject], v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v85, "isEqual:", v32), v32, v34 = 0.0, (v33 & 1) == 0))
+            if (v27 || ([v79 firstObject], v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v84, "isEqual:", v32), v32, v34 = 0.0, (v33 & 1) == 0))
             {
               v35 = [pathCopy objectForKeyedSubscript:v29];
               v34 = v28 - [v35 width];
             }
 
             v28 = v34;
-            memset(&v106, 0, sizeof(v106));
+            memset(&v105, 0, sizeof(v105));
             v36 = v20 + v34;
             if (textDirection != 2)
             {
               v36 = v22;
             }
 
-            CGAffineTransformMakeTranslation(&v106, v36, 0.0);
+            CGAffineTransformMakeTranslation(&v105, v36, 0.0);
             cyrillicCharactersWithUniqueWritingRule = [*(v21 + 2304) cyrillicCharactersWithUniqueWritingRule];
             if ([cyrillicCharactersWithUniqueWritingRule characterIsMember:{objc_msgSend(v29, "characterAtIndex:", 0)}])
             {
@@ -1757,34 +1838,34 @@ LABEL_16:
             arabicIsolatedCharacters = [*(v21 + 2304) arabicIsolatedCharacters];
             v41 = [arabicIsolatedCharacters characterIsMember:{objc_msgSend(v29, "characterAtIndex:", 0)}];
 
-            v87 = v29;
-            v88 = v27;
-            v86 = strokeArray;
+            v86 = v29;
+            v87 = v27;
+            v85 = strokeArray;
             if (ruleCopy == 1 || (v38 & 1) != 0 || [v29 length] >= 2)
             {
-              v104 = 0u;
-              v105 = 0u;
-              v102 = 0u;
               v103 = 0u;
+              v104 = 0u;
+              v101 = 0u;
+              v102 = 0u;
               v42 = strokeArray;
-              v43 = [v42 countByEnumeratingWithState:&v102 objects:v118 count:16];
+              v43 = [v42 countByEnumeratingWithState:&v101 objects:v117 count:16];
               if (v43)
               {
                 v44 = v43;
-                v45 = *v103;
+                v45 = *v102;
                 do
                 {
                   for (j = 0; j != v44; ++j)
                   {
-                    if (*v103 != v45)
+                    if (*v102 != v45)
                     {
                       objc_enumerationMutation(v42);
                     }
 
-                    v47 = *(*(&v102 + 1) + 8 * j);
+                    v47 = *(*(&v101 + 1) + 8 * j);
                     v48 = [v47 copy];
-                    v101 = v106;
-                    [v48 applyTransform:&v101];
+                    v100 = v105;
+                    [v48 applyTransform:&v100];
                     firstObject = [v42 firstObject];
                     LODWORD(v47) = [v47 isEqual:firstObject];
 
@@ -1799,7 +1880,7 @@ LABEL_16:
                     }
                   }
 
-                  v44 = [v42 countByEnumeratingWithState:&v102 objects:v118 count:16];
+                  v44 = [v42 countByEnumeratingWithState:&v101 objects:v117 count:16];
                 }
 
                 while (v44);
@@ -1808,32 +1889,32 @@ LABEL_16:
 
             else if (v41)
             {
-              v99 = 0uLL;
-              v100 = 0uLL;
-              v97 = 0uLL;
               v98 = 0uLL;
+              v99 = 0uLL;
+              v96 = 0uLL;
+              v97 = 0uLL;
               v51 = strokeArray;
-              v52 = [v51 countByEnumeratingWithState:&v97 objects:v117 count:16];
+              v52 = [v51 countByEnumeratingWithState:&v96 objects:v116 count:16];
               if (v52)
               {
                 v53 = v52;
-                v54 = *v98;
+                v54 = *v97;
                 do
                 {
                   for (k = 0; k != v53; ++k)
                   {
-                    if (*v98 != v54)
+                    if (*v97 != v54)
                     {
                       objc_enumerationMutation(v51);
                     }
 
-                    v56 = [*(*(&v97 + 1) + 8 * k) copy];
-                    v101 = v106;
-                    [v56 applyTransform:&v101];
+                    v56 = [*(*(&v96 + 1) + 8 * k) copy];
+                    v100 = v105;
+                    [v56 applyTransform:&v100];
                     [v26 addObject:v56];
                   }
 
-                  v53 = [v51 countByEnumeratingWithState:&v97 objects:v117 count:16];
+                  v53 = [v51 countByEnumeratingWithState:&v96 objects:v116 count:16];
                 }
 
                 while (v53);
@@ -1842,47 +1923,47 @@ LABEL_16:
 
             else
             {
-              v95 = 0uLL;
-              v96 = 0uLL;
-              v93 = 0uLL;
               v94 = 0uLL;
+              v95 = 0uLL;
+              v92 = 0uLL;
+              v93 = 0uLL;
               v57 = strokeArray;
-              v58 = [v57 countByEnumeratingWithState:&v93 objects:v116 count:16];
+              v58 = [v57 countByEnumeratingWithState:&v92 objects:v115 count:16];
               if (v58)
               {
                 v59 = v58;
-                v60 = *v94;
+                v60 = *v93;
                 do
                 {
                   for (m = 0; m != v59; ++m)
                   {
-                    if (*v94 != v60)
+                    if (*v93 != v60)
                     {
                       objc_enumerationMutation(v57);
                     }
 
-                    v62 = [*(*(&v93 + 1) + 8 * m) copy];
-                    v101 = v106;
-                    [v62 applyTransform:&v101];
+                    v62 = [*(*(&v92 + 1) + 8 * m) copy];
+                    v100 = v105;
+                    [v62 applyTransform:&v100];
                     [v25 appendPath:v62];
                   }
 
-                  v59 = [v57 countByEnumeratingWithState:&v93 objects:v116 count:16];
+                  v59 = [v57 countByEnumeratingWithState:&v92 objects:v115 count:16];
                 }
 
                 while (v59);
               }
             }
 
-            pathCopy = v81;
-            v50 = [v81 objectForKeyedSubscript:v87];
+            pathCopy = v80;
+            v50 = [v80 objectForKeyedSubscript:v86];
             v22 = v22 + [v50 width];
 
-            v27 = v88 + 1;
+            v27 = v87 + 1;
             v21 = 0x277CCA000;
           }
 
-          while (v88 + 1 != graphemeCount);
+          while (v87 + 1 != graphemeCount);
         }
 
         else
@@ -1895,29 +1976,29 @@ LABEL_16:
           [v13 addObject:v25];
         }
 
-        v91 = 0u;
-        v92 = 0u;
-        v89 = 0u;
         v90 = 0u;
+        v91 = 0u;
+        v88 = 0u;
+        v89 = 0u;
         v63 = v26;
-        v64 = [v63 countByEnumeratingWithState:&v89 objects:v115 count:16];
+        v64 = [v63 countByEnumeratingWithState:&v88 objects:v114 count:16];
         if (v64)
         {
           v65 = v64;
-          v66 = *v90;
+          v66 = *v89;
           do
           {
             for (n = 0; n != v65; ++n)
             {
-              if (*v90 != v66)
+              if (*v89 != v66)
               {
                 objc_enumerationMutation(v63);
               }
 
-              [v13 addObject:*(*(&v89 + 1) + 8 * n)];
+              [v13 addObject:*(*(&v88 + 1) + 8 * n)];
             }
 
-            v65 = [v63 countByEnumeratingWithState:&v89 objects:v115 count:16];
+            v65 = [v63 countByEnumeratingWithState:&v88 objects:v114 count:16];
           }
 
           while (v65);
@@ -1925,20 +2006,18 @@ LABEL_16:
 
         v20 = v20 + v28;
 
-        v23 = v79 + 1;
+        v23 = v78 + 1;
       }
 
-      while (v79 + 1 != v78);
-      v78 = [v80 countByEnumeratingWithState:&v107 objects:v119 count:16];
+      while (v78 + 1 != v77);
+      v77 = [v79 countByEnumeratingWithState:&v106 objects:v118 count:16];
     }
 
-    while (v78);
+    while (v77);
   }
 
-  [self _getWidthAndHeight:pathCopy forCharacters:v74];
+  [self _getWidthAndHeight:pathCopy forCharacters:v73];
   v70 = [[TYPathData alloc] initWithArray:v13 width:v68 height:v69 isCursive:0];
-
-  v71 = *MEMORY[0x277D85DE8];
 
   return v70;
 }
@@ -1983,78 +2062,78 @@ LABEL_16:
 
 + (id)_connectPath:(id)path forCharacters:(id)characters withRegion:(id)region
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   regionCopy = region;
   v10 = [self _determineWritingStyle:pathCopy forCharacters:characters];
   v11 = objc_opt_new();
-  v32 = [self _mappingRegionToVariantID:regionCopy];
-  v27 = regionCopy;
-  v31 = [self _getScribbleRuleFromRegion:regionCopy];
+  v31 = [self _mappingRegionToVariantID:regionCopy];
+  v26 = regionCopy;
+  v30 = [self _getScribbleRuleFromRegion:regionCopy];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = v10;
-  v12 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v12 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v39;
-    v28 = *v39;
+    v14 = *v38;
+    v27 = *v38;
     selfCopy = self;
     do
     {
       v15 = 0;
-      v30 = v13;
+      v29 = v13;
       do
       {
-        if (*v39 != v14)
+        if (*v38 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v38 + 1) + 8 * v15);
+        v16 = *(*(&v37 + 1) + 8 * v15);
         characterCluster = [v16 characterCluster];
         if ([v16 isCursive])
         {
-          v18 = [self _shiftPath:pathCopy forCharacters:characterCluster withRule:v31];
+          v18 = [self _shiftPath:pathCopy forCharacters:characterCluster withRule:v30];
           [v11 setObject:v18 forKeyedSubscript:characterCluster];
         }
 
         else
         {
-          v18 = [self _processCharacters:characterCluster withPathMap:pathCopy forLocale:v32];
+          v18 = [self _processCharacters:characterCluster withPathMap:pathCopy forLocale:v31];
+          v33 = 0u;
           v34 = 0u;
           v35 = 0u;
           v36 = 0u;
-          v37 = 0u;
-          v19 = [v18 countByEnumeratingWithState:&v34 objects:v42 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v33 objects:v41 count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v35;
+            v21 = *v34;
             do
             {
               for (i = 0; i != v20; ++i)
               {
-                if (*v35 != v21)
+                if (*v34 != v21)
                 {
                   objc_enumerationMutation(v18);
                 }
 
-                v23 = *(*(&v34 + 1) + 8 * i);
+                v23 = *(*(&v33 + 1) + 8 * i);
                 v24 = [v18 objectForKeyedSubscript:v23];
                 [v11 setValue:v24 forKey:v23];
               }
 
-              v20 = [v18 countByEnumeratingWithState:&v34 objects:v42 count:16];
+              v20 = [v18 countByEnumeratingWithState:&v33 objects:v41 count:16];
             }
 
             while (v20);
-            v14 = v28;
+            v14 = v27;
             self = selfCopy;
-            v13 = v30;
+            v13 = v29;
           }
         }
 
@@ -2062,13 +2141,11 @@ LABEL_16:
       }
 
       while (v15 != v13);
-      v13 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v13 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v13);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2110,7 +2187,7 @@ LABEL_16:
 
 + (id)_queryHandwritingSourceForCharactersInString:(id)string withRegion:(id)region
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v7 = [v6 pathForResource:@"Handwriting/strokes" ofType:@"db"];
@@ -2119,7 +2196,7 @@ LABEL_16:
   if (v8)
   {
     v9 = v8;
-    v61 = v7;
+    v60 = v7;
   }
 
   else
@@ -2132,7 +2209,7 @@ LABEL_16:
       goto LABEL_41;
     }
 
-    v61 = @"/AppleInternal/Library/Frameworks/TypistFramework.framework/Handwriting/strokes.db";
+    v60 = @"/AppleInternal/Library/Frameworks/TypistFramework.framework/Handwriting/strokes.db";
   }
 
   graphemeCount = [stringCopy graphemeCount];
@@ -2158,37 +2235,37 @@ LABEL_16:
   v21 = [v19 componentsSeparatedByString:@"?"];
   v22 = [v21 count];
 
-  v59 = v17;
-  v60 = v9;
-  v57 = v19;
-  v58 = v18;
-  v62 = v20;
+  v58 = v17;
+  v59 = v9;
+  v56 = v19;
+  v57 = v18;
+  v61 = v20;
   if (v22 - 1 == [v20 count])
   {
-    v65 = 0uLL;
-    v66 = 0uLL;
-    v63 = 0uLL;
     v64 = 0uLL;
+    v65 = 0uLL;
+    v62 = 0uLL;
+    v63 = 0uLL;
     v23 = v20;
-    v24 = [v23 countByEnumeratingWithState:&v63 objects:v68 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v62 objects:v67 count:16];
     if (v24)
     {
       v25 = v24;
       v26 = 0;
-      v27 = *v64;
+      v27 = *v63;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v64 != v27)
+          if (*v63 != v27)
           {
             objc_enumerationMutation(v23);
           }
 
-          sqlite3_bind_text(ppStmt, ++v26, [*(*(&v63 + 1) + 8 * j) UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
+          sqlite3_bind_text(ppStmt, ++v26, [*(*(&v62 + 1) + 8 * j) UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v63 objects:v68 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v62 objects:v67 count:16];
       }
 
       while (v25);
@@ -2197,29 +2274,29 @@ LABEL_16:
 
   else
   {
-    v65 = 0uLL;
-    v66 = 0uLL;
-    v63 = 0uLL;
     v64 = 0uLL;
+    v65 = 0uLL;
+    v62 = 0uLL;
+    v63 = 0uLL;
     v29 = v20;
-    v30 = [v29 countByEnumeratingWithState:&v63 objects:v68 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v62 objects:v67 count:16];
     if (v30)
     {
       v31 = v30;
       v32 = 0;
-      v33 = *v64;
+      v33 = *v63;
       do
       {
         v34 = 0;
         v35 = v32 + 1;
         do
         {
-          if (*v64 != v33)
+          if (*v63 != v33)
           {
             objc_enumerationMutation(v29);
           }
 
-          v36 = *(*(&v63 + 1) + 8 * v34);
+          v36 = *(*(&v62 + 1) + 8 * v34);
           sqlite3_bind_text(ppStmt, v35, [v36 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
           sqlite3_bind_text(ppStmt, v35 + [v29 count], objc_msgSend(v36, "UTF8String"), -1, 0xFFFFFFFFFFFFFFFFLL);
           ++v34;
@@ -2227,7 +2304,7 @@ LABEL_16:
         }
 
         while (v31 != v34);
-        v31 = [v29 countByEnumeratingWithState:&v63 objects:v68 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v62 objects:v67 count:16];
         v32 = v35 - 1;
       }
 
@@ -2290,13 +2367,105 @@ LABEL_16:
 
   sqlite3_finalize(ppStmt);
 
-  sqlite3_close(v60);
-  v10 = v61;
+  sqlite3_close(v59);
+  v10 = v60;
 LABEL_41:
 
-  v55 = *MEMORY[0x277D85DE8];
-
   return v9;
+}
+
++ (id)_jamoShiftsForStructure:(int)structure
+{
+  v3 = 0;
+  v17[2] = *MEMORY[0x277D85DE8];
+  if (structure <= 2)
+  {
+    if (structure)
+    {
+      if (structure != 1)
+      {
+        if (structure != 2)
+        {
+          goto LABEL_17;
+        }
+
+        v4 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:0 direction:4];
+        v15[0] = v4;
+        v5 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:2 direction:5];
+        v15[1] = v5;
+        v6 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:1 direction:6];
+        v15[2] = v6;
+        v7 = MEMORY[0x277CBEA60];
+        v8 = v15;
+        goto LABEL_12;
+      }
+
+      v4 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:0 direction:0];
+      v17[0] = v4;
+      v5 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:2 direction:1];
+      v17[1] = v5;
+      v9 = MEMORY[0x277CBEA60];
+      v10 = v17;
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:*&structure direction:2];
+      v16[0] = v4;
+      v5 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:3 direction:3];
+      v16[1] = v5;
+      v9 = MEMORY[0x277CBEA60];
+      v10 = v16;
+    }
+
+LABEL_15:
+    v3 = [v9 arrayWithObjects:v10 count:2];
+    goto LABEL_16;
+  }
+
+  if (structure != 3)
+  {
+    if (structure != 4)
+    {
+      if (structure != 5)
+      {
+        goto LABEL_17;
+      }
+
+      v4 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:0 direction:11];
+      v5 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:4 direction:{12, v4}];
+      v12[1] = v5;
+      v6 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:1 direction:13];
+      v12[2] = v6;
+      v7 = MEMORY[0x277CBEA60];
+      v8 = v12;
+      goto LABEL_12;
+    }
+
+    v4 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:0 direction:10];
+    v13[0] = v4;
+    v5 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:4 direction:14];
+    v13[1] = v5;
+    v9 = MEMORY[0x277CBEA60];
+    v10 = v13;
+    goto LABEL_15;
+  }
+
+  v4 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:0 direction:7];
+  v14[0] = v4;
+  v5 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:3 direction:8];
+  v14[1] = v5;
+  v6 = [MEMORY[0x277CCAE60] hangulJamoTransformationDataValueWithJamoType:1 direction:9];
+  v14[2] = v6;
+  v7 = MEMORY[0x277CBEA60];
+  v8 = v14;
+LABEL_12:
+  v3 = [v7 arrayWithObjects:v8 count:3];
+
+LABEL_16:
+LABEL_17:
+
+  return v3;
 }
 
 + (id)getStrokesForJamo:(id)jamo forVariant:(BOOL)variant ofType:(int)type fromPath:(id)path forLocale:(unint64_t)locale
@@ -2404,6 +2573,59 @@ LABEL_11:
   }
 
   return v21;
+}
+
++ (BOOL)isKoreanConsonantVariant:(unsigned __int16)variant
+{
+  variantCopy = variant;
+  hangulConsonantVariants = [MEMORY[0x277CCA900] hangulConsonantVariants];
+  LOBYTE(variantCopy) = [hangulConsonantVariants characterIsMember:variantCopy];
+
+  return variantCopy;
+}
+
++ (id)shiftStrokesForJamo:(id)jamo withDirection:(int)direction
+{
+  v23 = *MEMORY[0x277D85DE8];
+  jamoCopy = jamo;
+  v6 = [objc_alloc(MEMORY[0x277CBEA60]) initWithArray:jamoCopy copyItems:1];
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
+  objc_msgSend__determineShiftBasedOnDirection_(self);
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v7 = v6;
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v22 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v16;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v16 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v12 = *(*(&v15 + 1) + 8 * i);
+        v14[0] = v19;
+        v14[1] = v20;
+        v14[2] = v21;
+        [v12 applyTransform:v14];
+      }
+
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v22 count:16];
+    }
+
+    while (v9);
+  }
+
+  return v7;
 }
 
 + (CGAffineTransform)_determineShiftBasedOnDirection:(SEL)direction

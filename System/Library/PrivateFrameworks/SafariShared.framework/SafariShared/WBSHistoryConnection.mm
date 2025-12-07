@@ -57,26 +57,26 @@
 
 - (void)beginURLCompletionSession:(id)session
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
-  v6 = [currentConnection valueForEntitlement:@"com.apple.private.Safari.History"];
-  if (v6)
+  v7 = [currentConnection valueForEntitlement:@"com.apple.private.Safari.History"];
+  if (v7)
   {
-    v7 = [[WBSHistoryURLCompletionSession alloc] initWithHistoryService:self->_historyService];
-    sessionCopy[2](sessionCopy, v7, 0);
+    v8 = [[WBSHistoryURLCompletionSession alloc] initWithHistoryService:self->_historyService];
+    sessionCopy[2](sessionCopy, v8, 0);
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(0, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      -[WBSHistoryConnection beginURLCompletionSession:].cold.1(v10, [currentConnection processIdentifier], v8);
+      -[WBSHistoryConnection beginURLCompletionSession:].cold.1(v11, [currentConnection processIdentifier], v9);
     }
 
-    v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:1 userInfo:0];
-    (sessionCopy)[2](sessionCopy, 0, v9);
+    v10 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:1 userInfo:0];
+    (sessionCopy)[2](sessionCopy, 0, v10);
   }
 }
 
@@ -234,32 +234,32 @@ void __78__WBSHistoryConnection_finishClearingHistoryIfNecessaryWithCompletionHa
 
   if (safari_isSafariFamilyApplicationBundle)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [WBSHistoryConnection initializeCloudHistoryWithConfiguration:v10 completionHandler:?];
+      [WBSHistoryConnection initializeCloudHistoryWithConfiguration:v12 completionHandler:?];
     }
 
-    v11 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:14 userInfo:0];
-    handlerCopy[2](handlerCopy, 0, v11);
+    v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:14 userInfo:0];
+    handlerCopy[2](handlerCopy, 0, v13);
   }
 
   else
   {
     currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
-    v13 = os_transaction_create();
+    v15 = os_transaction_create();
     internalQueue = self->_internalQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __82__WBSHistoryConnection_initializeCloudHistoryWithConfiguration_completionHandler___block_invoke;
     block[3] = &unk_1E7FC6B18;
     block[4] = self;
-    v17 = configurationCopy;
-    v19 = v13;
-    v20 = handlerCopy;
-    v18 = currentConnection;
-    v15 = v13;
-    v11 = currentConnection;
+    v19 = configurationCopy;
+    v21 = v15;
+    v22 = handlerCopy;
+    v20 = currentConnection;
+    v17 = v15;
+    v13 = currentConnection;
     dispatch_async(internalQueue, block);
   }
 }
@@ -361,13 +361,13 @@ LABEL_5:
   (*(v8 + 16))(v8, 0);
 }
 
-void __82__WBSHistoryConnection_initializeCloudHistoryWithConfiguration_completionHandler___block_invoke_4()
+void __82__WBSHistoryConnection_initializeCloudHistoryWithConfiguration_completionHandler___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = WBS_LOG_CHANNEL_PREFIXCloudHistory(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BB6F3000, v0, OS_LOG_TYPE_INFO, "Cloud History initialized", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1BB6F3000, v2, OS_LOG_TYPE_INFO, "Cloud History initialized", v3, 2u);
   }
 }
 
@@ -415,10 +415,10 @@ void __44__WBSHistoryConnection_releaseCloudHistory___block_invoke(uint64_t a1)
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXHistory(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [WBSHistoryConnection getCompletionListItemsForQuery:v10 completionHandler:?];
+      [WBSHistoryConnection getCompletionListItemsForQuery:v12 completionHandler:?];
     }
 
     handlerCopy[2](handlerCopy, MEMORY[0x1E695E0F0]);

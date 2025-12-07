@@ -28,15 +28,13 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   pbRequest = [OUTLINED_FUNCTION_7() pbRequest];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_5_0();
-  _os_log_error_impl(&dword_1DF835000, v1, 0x90u, "Must not forget about an NMSIncomingRequest without first responding to it. Request is an %{public}@", v7, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF835000, v1, 0x90u, "Must not forget about an NMSIncomingRequest without first responding to it. Request is an %{public}@", v6, 0xCu);
 }
 
 - (void)configureResponse
@@ -80,7 +78,7 @@
 
     if (os_log_type_enabled(qword_1EDE73428, OS_LOG_TYPE_ERROR))
     {
-      [NMSIncomingRequest setData:?];
+      [NMSIncomingRequest setData:];
     }
   }
 }
@@ -154,15 +152,6 @@
   WeakRetained = objc_loadWeakRetained(&self->_messageCenter);
 
   return WeakRetained;
-}
-
-- (void)setData:(unsigned __int16 *)a1 .cold.2(unsigned __int16 *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

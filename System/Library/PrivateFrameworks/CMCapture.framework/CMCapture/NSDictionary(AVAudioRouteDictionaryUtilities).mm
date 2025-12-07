@@ -13,32 +13,32 @@
     return 0;
   }
 
-  v2 = [self objectForKeyedSubscript:*MEMORY[0x1E69B0618]];
+  v3 = [self objectForKeyedSubscript:*MEMORY[0x1E69B0618]];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return 0;
   }
 
-  if (![v2 count])
+  if (![v3 count])
   {
     return 0;
   }
 
-  v3 = [v2 objectAtIndexedSubscript:0];
+  v4 = [v3 objectAtIndexedSubscript:0];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = [v3 objectForKeyedSubscript:*MEMORY[0x1E69B0648]];
-  if (!v4)
+  v5 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69B0648]];
+  if (!v5)
   {
     return 0;
   }
 
-  return [v4 isEqualToString:@"MicrophoneBuiltIn"];
+  return objc_msgSend_isEqualToString_(v5);
 }
 
 - (void)bw_dataSourceDictionaryForDesiredMicOrientation:()AVAudioRouteDictionaryUtilities

@@ -94,21 +94,21 @@
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Merging pluginFields from delegate for lock: %{public}@", buf, 0xCu);
 
       pluginFields3 = [(MBCKLock *)self pluginFields];
-      _MBLog();
+      _MBLog(@"Df", "Merging pluginFields from delegate for lock: %{public}@", pluginFields3);
     }
 
     pluginFields4 = [(MBCKLock *)self pluginFields];
     [v6 addEntriesFromDictionary:pluginFields4];
   }
 
-  [recordRepresentation setPluginFields:{v6, pluginFields3}];
-  v13 = MBGetDefaultLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  [recordRepresentation setPluginFields:v6];
+  v14 = MBGetDefaultLog();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
     v18 = recordRepresentation;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Lock record representation: %{public}@", buf, 0xCu);
-    _MBLog();
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Lock record representation: %{public}@", buf, 0xCu);
+    _MBLog(@"I ", "Lock record representation: %{public}@", recordRepresentation);
   }
 
   return recordRepresentation;

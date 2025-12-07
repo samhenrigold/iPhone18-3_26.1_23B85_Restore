@@ -30,6 +30,7 @@
 - (void)setShaderBindings;
 - (void)setSpecularColor:(GLKVector4)specularColor;
 - (void)setSpotCutoff:(GLfloat)spotCutoff;
+- (void)setSpotDirection:(GLKVector3)spotDirection;
 - (void)setSpotExponent:(GLfloat)spotExponent;
 - (void)setTransform:(GLKEffectPropertyTransform *)transform;
 @end
@@ -121,7 +122,7 @@
 
 - (void)setShaderBindings
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   params = 0;
   glGetIntegerv(0x8B8Du, &params);
   snprintf(__str, 0x3FuLL, "light_positionEye[%d]", self->_lightIndex);
@@ -148,7 +149,6 @@
   self->_ambientTermLoc = glGetUniformLocation(params, __str);
   self->_normalizeLoc = glGetUniformLocation(params, "normalizeNormal");
   [(GLKEffectPropertyLight *)self dirtyAllUniforms];
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTransform:(GLKEffectPropertyTransform *)transform
@@ -162,6 +162,46 @@
       self->_transform = transform;
     }
   }
+}
+
+- (void)setSpotDirection:(GLKVector3)spotDirection
+{
+  p_spotDirection = &self->_spotDirection;
+  self->_spotDirection.x = x;
+  self->_spotDirection.y = y;
+  self->_spotDirection.z = z;
+  transform = self->_transform;
+  if (transform)
+  {
+    objc_msgSend_normalMatrix(transform, a2, *&spotDirection.x, *&spotDirection.v[2]);
+    x = p_spotDirection->x;
+    y = p_spotDirection->y;
+    z = p_spotDirection->z;
+    v9 = v19;
+    v10 = v21;
+    v11 = v23;
+    v12 = v20;
+    v13 = v22;
+    v14 = v24;
+  }
+
+  else
+  {
+    v11 = 0;
+    v14 = 0.0;
+    v13 = 0.0;
+    v12 = 0.0;
+    v9 = 0;
+    v10 = 0;
+  }
+
+  v15 = vmul_n_f32(v10, y);
+  v16 = ((y * v13) + (v12 * x)) + (v14 * z);
+  v17 = vmla_n_f32(vmla_n_f32(v15, v9, x), v11, z);
+  v18 = 1.0 / sqrtf((COERCE_FLOAT(vmul_f32(v17, v17).i32[1]) + (v17.f32[0] * v17.f32[0])) + (v16 * v16));
+  *&self->_normalizedSpotDirectionEye.x = vmul_n_f32(v17, v18);
+  self->_normalizedSpotDirectionEye.z = v16 * v18;
+  [(GLKEffectProperty *)self setDirtyUniforms:[(GLKEffectProperty *)self dirtyUniforms]| 0x4000000000];
 }
 
 - (void)setSpecularColor:(GLKVector4)specularColor
@@ -231,7 +271,7 @@
     v48 = v6;
     v42 = v3;
     v44 = v4;
-    [(GLKEffectPropertyTransform *)transform modelviewMatrix:*&position.x];
+    objc_msgSend_modelviewMatrix(transform, a2, *&position.x, *&position.v[2]);
     v3 = v42;
     v7 = v44;
     v5 = v46;
@@ -269,40 +309,8 @@
   }
 
   v20 = vmulq_f32(v14, v16);
-  if (v20.x != self->_positionEye.x)
+  if (v20.x != self->_positionEye.x || v20.y != self->_positionEye.y || v20.z != self->_positionEye.z || v20.w != self->_positionEye.w || (v47 = v5, v49 = v6, v43 = v3, v45 = v7, v41 = v20, v21 = [(GLKEffectProperty *)self masksInitialized], v20 = v41, v3 = v43, v7 = v45, v5 = v47, v6 = v49, !v21))
   {
-    goto LABEL_12;
-  }
-
-  if (v20.y != self->_positionEye.y)
-  {
-    goto LABEL_12;
-  }
-
-  if (v20.z != self->_positionEye.z)
-  {
-    goto LABEL_12;
-  }
-
-  if (v20.w != self->_positionEye.w)
-  {
-    goto LABEL_12;
-  }
-
-  v47 = v5;
-  v49 = v6;
-  v43 = v3;
-  v45 = v7;
-  v41 = v20;
-  masksInitialized = [(GLKEffectProperty *)self masksInitialized];
-  v20 = v41;
-  v3 = v43;
-  v7 = v45;
-  v5 = v47;
-  v6 = v49;
-  if (!masksInitialized)
-  {
-LABEL_12:
     self->_position.x = v3;
     self->_position.y = v7;
     self->_position.z = v5;
@@ -721,31 +729,12 @@ LABEL_32:
 {
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   [v3 appendFormat:@"%@ = %p\n{\n", objc_msgSend(objc_opt_class(), "description"), self];
-  *&v25.x = [v3 appendFormat:@"\tenabled =        %d\n", self->_enabled];
-  x = self->_position.x;
-  y = self->_position.y;
-  z = self->_position.z;
-  w = self->_position.w;
-  *&v26.x = [v3 appendFormat:@"\tposition =       %@\n", NSStringFromGLKVector4(v25)];
-  v8 = self->_ambientColor.x;
-  v9 = self->_ambientColor.y;
-  v10 = self->_ambientColor.z;
-  v11 = self->_ambientColor.w;
-  *&v27.x = [v3 appendFormat:@"\tambientColor =   %@\n", NSStringFromGLKVector4(v26)];
-  v12 = self->_diffuseColor.x;
-  v13 = self->_diffuseColor.y;
-  v14 = self->_diffuseColor.z;
-  v15 = self->_diffuseColor.w;
-  *&v28.x = [v3 appendFormat:@"\tdiffuseColor =   %@\n", NSStringFromGLKVector4(v27)];
-  v16 = self->_specularColor.x;
-  v17 = self->_specularColor.y;
-  v18 = self->_specularColor.z;
-  v19 = self->_specularColor.w;
-  *&v24.x = [v3 appendFormat:@"\tspecularColor =  %@\n", NSStringFromGLKVector4(v28)];
-  v20 = self->_spotDirection.x;
-  v21 = self->_spotDirection.y;
-  v22 = self->_spotDirection.z;
-  [v3 appendFormat:@"\tspotDirection =  %@\n", NSStringFromGLKVector3(v24)];
+  *&v6.x = [v3 appendFormat:@"\tenabled =        %d\n", self->_enabled];
+  *&v7.x = [v3 appendFormat:@"\tposition =       %@\n", NSStringFromGLKVector4(v6)];
+  *&v8.x = [v3 appendFormat:@"\tambientColor =   %@\n", NSStringFromGLKVector4(v7)];
+  *&v9.x = [v3 appendFormat:@"\tdiffuseColor =   %@\n", NSStringFromGLKVector4(v8)];
+  *&v5.x = [v3 appendFormat:@"\tspecularColor =  %@\n", NSStringFromGLKVector4(v9)];
+  [v3 appendFormat:@"\tspotDirection =  %@\n", NSStringFromGLKVector3(v5)];
   [v3 appendFormat:@"\tspotExponent =   %-6.4f\n", self->_spotExponent];
   [v3 appendFormat:@"\tspotCutoff =     %-6.4f\n", self->_spotCutoff];
   [v3 appendFormat:@"\tconstantAtten =  %-6.4f\n", self->_constantAttenuation];
@@ -765,10 +754,6 @@ LABEL_32:
 
 - (GLKVector4)position
 {
-  x = self->_position.x;
-  y = self->_position.y;
-  z = self->_position.z;
-  w = self->_position.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;
@@ -776,10 +761,6 @@ LABEL_32:
 
 - (_GLKVector4)positionEye
 {
-  x = self->_positionEye.x;
-  y = self->_positionEye.y;
-  z = self->_positionEye.z;
-  w = self->_positionEye.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;
@@ -795,10 +776,6 @@ LABEL_32:
 
 - (GLKVector4)ambientColor
 {
-  x = self->_ambientColor.x;
-  y = self->_ambientColor.y;
-  z = self->_ambientColor.z;
-  w = self->_ambientColor.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;
@@ -806,10 +783,6 @@ LABEL_32:
 
 - (GLKVector4)diffuseColor
 {
-  x = self->_diffuseColor.x;
-  y = self->_diffuseColor.y;
-  z = self->_diffuseColor.z;
-  w = self->_diffuseColor.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;
@@ -817,10 +790,6 @@ LABEL_32:
 
 - (GLKVector4)specularColor
 {
-  x = self->_specularColor.x;
-  y = self->_specularColor.y;
-  z = self->_specularColor.z;
-  w = self->_specularColor.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;
@@ -828,9 +797,6 @@ LABEL_32:
 
 - (GLKVector3)spotDirection
 {
-  x = self->_spotDirection.x;
-  y = self->_spotDirection.y;
-  z = self->_spotDirection.z;
   result.z = *&a2;
   *&result.x = self;
   return result;
@@ -838,9 +804,6 @@ LABEL_32:
 
 - (_GLKVector3)normalizedSpotDirectionEye
 {
-  x = self->_normalizedSpotDirectionEye.x;
-  y = self->_normalizedSpotDirectionEye.y;
-  z = self->_normalizedSpotDirectionEye.z;
   result.z = *&a2;
   *&result.x = self;
   return result;

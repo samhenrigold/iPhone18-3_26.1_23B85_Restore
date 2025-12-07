@@ -1644,40 +1644,43 @@ LABEL_14:
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Extracting asset files...", buf, 2u);
   }
 
-  v44[0] = 0;
-  v7 = [v3 createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:0 error:v44];
-  v8 = v44[0];
+  v47[0] = 0;
+  v7 = [v3 createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:0 error:v47];
+  v8 = v47[0];
   v9 = v8;
   if (!v7 || v8)
   {
     sub_100054348();
-LABEL_64:
-    v41 = sub_1000162A8(0x1000000, 0, @"Failed to extract OS update assets.", v36, v37, v38, v39, v40, v42);
-    [(MIBUShippingUpdateOperation *)self setError:v41];
-
-    v34 = 0;
-    goto LABEL_62;
+    goto LABEL_65;
   }
 
   if (([v3 fileExistsAtPath:v4] & 1) == 0)
   {
-    sub_100054424();
-    goto LABEL_64;
+    sub_100054424(v4);
+    goto LABEL_65;
   }
 
-  [v4 cStringUsingEncoding:1];
+  selfCopy = self;
+  v10 = [v4 cStringUsingEncoding:1];
   [v5 cStringUsingEncoding:1];
-  v44[1] = 0;
-  archive_read_new();
+  v47[1] = 0;
+  v11 = archive_read_new();
   if (archive_read_set_format())
   {
-    sub_1000544E0();
-    goto LABEL_64;
+    sub_1000544E0(v11);
+LABEL_64:
+    self = selfCopy;
+LABEL_65:
+    v43 = sub_1000162A8(0x1000000, 0, @"Failed to extract OS update assets.", v38, v39, v40, v41, v42, v44);
+    [(MIBUShippingUpdateOperation *)self setError:v43];
+
+    v36 = 0;
+    goto LABEL_62;
   }
 
   if (archive_read_append_filter())
   {
-    sub_1000545AC();
+    sub_1000545AC(v11);
     goto LABEL_64;
   }
 
@@ -1686,12 +1689,12 @@ LABEL_64:
   archive_write_disk_set_standard_lookup();
   if (archive_read_open_filename())
   {
-    sub_100054678();
+    sub_100054678(v10);
     goto LABEL_64;
   }
 
-  v43 = v5;
-  v10 = 0;
+  v46 = v5;
+  v12 = 0;
   while (1)
   {
     next_header = archive_read_next_header();
@@ -1700,7 +1703,7 @@ LABEL_64:
       break;
     }
 
-    v12 = next_header;
+    v14 = next_header;
     if ((next_header & 0x80000000) == 0)
     {
       goto LABEL_52;
@@ -1711,38 +1714,38 @@ LABEL_64:
       sub_100054734();
     }
 
-    v13 = qword_1000B84A0;
+    v15 = qword_1000B84A0;
     if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
     {
-      sub_10005475C(v51, v13);
+      sub_10005475C(v54, v15);
     }
 
-    if (v12 >= 0xFFFFFFEC)
+    if (v14 >= 0xFFFFFFEC)
     {
 LABEL_52:
-      v14 = archive_entry_pathname();
+      v16 = archive_entry_pathname();
       *buf = @"/tmp/su/";
-      v49 = @"extract";
-      v15 = [NSString stringWithUTF8String:v14];
-      v50 = v15;
-      v16 = [NSArray arrayWithObjects:buf count:3];
-      v17 = [NSString pathWithComponents:v16];
+      v52 = @"extract";
+      v17 = [NSString stringWithUTF8String:v16];
+      v53 = v17;
+      v18 = [NSArray arrayWithObjects:buf count:3];
+      v19 = [NSString pathWithComponents:v18];
 
       if (qword_1000B84A8[0] != -1)
       {
         sub_1000547AC();
       }
 
-      v18 = qword_1000B84A0;
+      v20 = qword_1000B84A0;
       if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_DEFAULT))
       {
-        *v52 = 138543362;
-        v53 = v17;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Extracting file %{public}@", v52, 0xCu);
+        *v55 = 138543362;
+        v56 = v19;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Extracting file %{public}@", v55, 0xCu);
       }
 
-      v10 = v17;
-      [v17 cStringUsingEncoding:1];
+      v12 = v19;
+      [v19 cStringUsingEncoding:1];
       archive_entry_set_pathname();
       if ((archive_write_header() & 0x80000000) != 0)
       {
@@ -1751,16 +1754,16 @@ LABEL_52:
           sub_1000548C4();
         }
 
-        v26 = qword_1000B84A0;
+        v28 = qword_1000B84A0;
         if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
         {
-          sub_1000548EC(v47, v26);
+          sub_1000548EC(v50, v28);
         }
       }
 
       else if (archive_entry_size() >= 1)
       {
-        memset(&v44[2], 0, 24);
+        memset(&v47[2], 0, 24);
         while (1)
         {
           data_block = archive_read_data_block();
@@ -1771,41 +1774,41 @@ LABEL_52:
               sub_10005489C();
             }
 
-            v27 = qword_1000B84A0;
+            v29 = qword_1000B84A0;
             if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_DEFAULT))
             {
-              *v52 = 0;
-              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Reached the end of file", v52, 2u);
+              *v55 = 0;
+              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Reached the end of file", v55, 2u);
             }
 
             goto LABEL_47;
           }
 
-          v20 = data_block;
+          v22 = data_block;
           if ((data_block & 0x80000000) != 0)
           {
             break;
           }
 
-          v20 = archive_write_data_block();
-          if ((v20 & 0x80000000) != 0)
+          v22 = archive_write_data_block();
+          if ((v22 & 0x80000000) != 0)
           {
             if (qword_1000B84A8[0] != -1)
             {
               sub_1000547D4();
             }
 
-            v21 = qword_1000B84A0;
+            v23 = qword_1000B84A0;
             if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
             {
-              v22 = v21;
-              v23 = archive_error_string();
-              *v52 = 136315394;
-              v53 = v23;
-              v54 = 1024;
-              v55 = v20;
-              v24 = v22;
-              v25 = "Failed to write data block with %s; ret: %d";
+              v24 = v23;
+              v25 = archive_error_string();
+              *v55 = 136315394;
+              v56 = v25;
+              v57 = 1024;
+              v58 = v22;
+              v26 = v24;
+              v27 = "Failed to write data block with %s; ret: %d";
               goto LABEL_55;
             }
 
@@ -1818,19 +1821,19 @@ LABEL_52:
           sub_1000547FC();
         }
 
-        v28 = qword_1000B84A0;
+        v30 = qword_1000B84A0;
         if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
         {
-          v22 = v28;
-          v32 = archive_error_string();
-          *v52 = 136315394;
-          v53 = v32;
-          v54 = 1024;
-          v55 = v20;
-          v24 = v22;
-          v25 = "Failed to read data block with %s; ret: %d";
+          v24 = v30;
+          v34 = archive_error_string();
+          *v55 = 136315394;
+          v56 = v34;
+          v57 = 1024;
+          v58 = v22;
+          v26 = v24;
+          v27 = "Failed to read data block with %s; ret: %d";
 LABEL_55:
-          _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, v25, v52, 0x12u);
+          _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, v27, v55, 0x12u);
 
           if (qword_1000B84A8[0] != -1)
           {
@@ -1839,35 +1842,35 @@ LABEL_55:
         }
 
 LABEL_44:
-        v29 = qword_1000B84A0;
+        v31 = qword_1000B84A0;
         if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
         {
-          sub_10005484C(v46, v29);
+          sub_10005484C(v49, v31);
         }
 
-        if (v20 < 0xFFFFFFEC)
+        if (v22 < 0xFFFFFFEC)
         {
           goto LABEL_63;
         }
       }
 
 LABEL_47:
-      v30 = archive_write_finish_entry();
-      if (v30 < 0)
+      v32 = archive_write_finish_entry();
+      if (v32 < 0)
       {
         if (qword_1000B84A8[0] != -1)
         {
           sub_10005493C();
         }
 
-        v31 = qword_1000B84A0;
+        v33 = qword_1000B84A0;
         if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
         {
-          sub_100054964(v45, v31);
+          sub_100054964(v48, v33);
         }
       }
 
-      if (v30 > -21)
+      if (v32 > -21)
       {
         continue;
       }
@@ -1875,7 +1878,7 @@ LABEL_47:
 
 LABEL_63:
 
-    v5 = v43;
+    v5 = v46;
     goto LABEL_64;
   }
 
@@ -1889,18 +1892,18 @@ LABEL_63:
     sub_1000549B4();
   }
 
-  v5 = v43;
-  v33 = qword_1000B84A0;
+  v5 = v46;
+  v35 = qword_1000B84A0;
   if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Successfully extracted asset files!", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Successfully extracted asset files!", buf, 2u);
   }
 
-  v34 = 1;
+  v36 = 1;
 LABEL_62:
 
-  return v34;
+  return v36;
 }
 
 - (BOOL)_connectToWiFi

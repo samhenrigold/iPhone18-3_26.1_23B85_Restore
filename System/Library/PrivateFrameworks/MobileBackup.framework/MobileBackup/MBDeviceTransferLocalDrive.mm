@@ -41,10 +41,10 @@
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v4 = objc_opt_class();
+      v5 = objc_opt_class();
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Invalidated %@", buf, 0xCu);
-      objc_opt_class();
-      _MBLog();
+      v3 = objc_opt_class();
+      _MBLog(@"Df", "Invalidated %@", v3);
     }
   }
 }

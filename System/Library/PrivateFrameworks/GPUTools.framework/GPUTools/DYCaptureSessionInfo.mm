@@ -2,6 +2,7 @@
 + (id)symbolicatorSignatureFromCaptureStore:(id)store;
 + (int)platformOfCaptureStore:(id)store;
 + (unsigned)graphicsAPIOfCaptureStore:(id)store;
+- (BOOL)canPlaybackOnDeviceWithInfo:(id)info limitBackwardsCompatibility:(BOOL)compatibility isInternal:(BOOL)internal withBlock:(id)block;
 - (BOOL)harvestStateAtEnd;
 - (BOOL)lockGraphicsAfterCompletion;
 - (BOOL)suspendAfterCompletion;
@@ -271,6 +272,37 @@
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:d];
 
   return [(NSDictionary *)threadLabels objectForKey:v4];
+}
+
+- (BOOL)canPlaybackOnDeviceWithInfo:(id)info limitBackwardsCompatibility:(BOOL)compatibility isInternal:(BOOL)internal withBlock:(id)block
+{
+  internalCopy = internal;
+  compatibilityCopy = compatibility;
+  if ([objc_msgSend(info "supportedGraphicsAPIInfos")])
+  {
+    if (((*(block + 2))(block) & 1) == 0)
+    {
+      LOBYTE(v11) = 0;
+      return v11;
+    }
+
+LABEL_6:
+    LOBYTE(v11) = 1;
+    return v11;
+  }
+
+  if (!compatibilityCopy)
+  {
+    goto LABEL_6;
+  }
+
+  v11 = [(DYCaptureSessionInfo *)self _isBackwardsCompatible:info isInternal:internalCopy];
+  if (v11)
+  {
+    goto LABEL_6;
+  }
+
+  return v11;
 }
 
 @end

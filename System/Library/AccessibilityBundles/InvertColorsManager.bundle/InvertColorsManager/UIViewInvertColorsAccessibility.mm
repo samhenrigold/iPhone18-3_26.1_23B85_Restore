@@ -1,6 +1,7 @@
 @interface UIViewInvertColorsAccessibility
 - (BOOL)_ancestorHasInvertFilterApplied;
 - (BOOL)accessibilityIgnoresInvertColors;
+- (void)setAccessibilityIgnoresInvertColors:(BOOL)colors;
 - (void)setBackgroundColor:(id)color;
 @end
 
@@ -63,6 +64,14 @@ LABEL_10:
   }
 
   return superview2;
+}
+
+- (void)setAccessibilityIgnoresInvertColors:(BOOL)colors
+{
+  v4.receiver = self;
+  v4.super_class = UIViewInvertColorsAccessibility;
+  [(UIViewInvertColorsAccessibility *)&v4 setAccessibilityIgnoresInvertColors:colors];
+  [AXInvertColorsAppHelper toggleInvertColors:self];
 }
 
 - (void)setBackgroundColor:(id)color

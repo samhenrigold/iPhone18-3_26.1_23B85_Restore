@@ -36,9 +36,9 @@
 - (id)description;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
 - (id)replacementObjectForPortCoder:(id)coder;
-- (uint64_t)_indexClosestToIndex:(int)index equalAllowed:(int)allowed following:;
 - (unint64_t)__getContainmentVector:(BOOL *)vector inRange:(_NSRange)range;
 - (unint64_t)_indexAtIndex:(unint64_t)index;
+- (unint64_t)_indexClosestToIndex:(int)index equalAllowed:(int)allowed following:;
 - (unint64_t)_indexOfRangeAfterOrContainingIndex:(unint64_t)index;
 - (unint64_t)_indexOfRangeBeforeOrContainingIndex:(unint64_t)index;
 - (unint64_t)_indexOfRangeContainingIndex:(unint64_t)index;
@@ -1908,7 +1908,7 @@ LABEL_61:
   return [(NSIndexSet *)v4 initWithIndexSet:self];
 }
 
-- (uint64_t)_indexClosestToIndex:(int)index equalAllowed:(int)allowed following:
+- (unint64_t)_indexClosestToIndex:(int)index equalAllowed:(int)allowed following:
 {
   if (!self)
   {
@@ -2116,7 +2116,7 @@ LABEL_53:
     goto LABEL_62;
   }
 
-  v13 = self + 16;
+  v13 = (self + 16);
   if (!*(*(self + 16) + 8))
   {
     return 0x7FFFFFFFFFFFFFFFLL;

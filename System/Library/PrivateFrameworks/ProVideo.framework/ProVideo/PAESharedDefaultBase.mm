@@ -117,7 +117,7 @@
 {
   pixelTransform = [a4 pixelTransform];
 
-  FxMatrixToPCMatrix(pixelTransform, retstr);
+  FxMatrixToPCMatrix(retstr, pixelTransform);
   return result;
 }
 
@@ -126,7 +126,7 @@
   v4 = v3;
   if (self)
   {
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:image];
+    objc_msgSend_getPixelTransformForImage_(self, a2, image);
     v5 = v7;
     v6 = v8;
   }
@@ -148,7 +148,7 @@
 {
   if (self)
   {
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:a4];
+    objc_msgSend_getPixelTransformForImage_(self, image, a4);
   }
 
   else
@@ -187,43 +187,43 @@
   v5 = v4;
   if (self)
   {
-    [(PAESharedDefaultBase *)self convertRelativeToImageCoordinates:coordinates withImage:?];
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:image];
-    v9 = *v5;
-    v8 = v5[1];
-    v11 = v28;
-    v10 = v29;
-    v12 = v30;
-    v14 = v22;
-    v13 = v23;
-    v16 = v24;
-    v15 = v25;
+    objc_msgSend_convertRelativeToImageCoordinates_withImage_(self, a2, coordinates);
+    objc_msgSend_getPixelTransformForImage_(self);
+    v8 = *v5;
+    v7 = v5[1];
+    v10 = v27;
+    v9 = v28;
+    v11 = v29;
+    v13 = v21;
+    v12 = v22;
+    v15 = v23;
+    v14 = v24;
+    v16 = v25;
     v17 = v26;
-    v18 = v27;
   }
 
   else
   {
-    v18 = 0.0;
     v17 = 0.0;
-    v15 = 0.0;
     v16 = 0.0;
-    v13 = 0.0;
     v14 = 0.0;
+    v15 = 0.0;
     v12 = 0.0;
-    v10 = 0.0;
+    v13 = 0.0;
     v11 = 0.0;
-    v8 = 0.0;
     v9 = 0.0;
+    v10 = 0.0;
+    v7 = 0.0;
+    v8 = 0.0;
   }
 
-  v19 = v12 + v9 * v11 + v8 * v10;
-  v20 = v9 * v15 + v8 * v17;
-  v21 = (v18 + v20) / v19;
-  *v5 = (v16 + v9 * v14 + v8 * v13) / v19;
-  v5[1] = v21;
-  result.var1 = v20;
-  result.var0 = v21;
+  v18 = v11 + v8 * v10 + v7 * v9;
+  v19 = v8 * v14 + v7 * v16;
+  v20 = (v17 + v19) / v18;
+  *v5 = (v15 + v8 * v13 + v7 * v12) / v18;
+  v5[1] = v20;
+  result.var1 = v19;
+  result.var0 = v20;
   return result;
 }
 
@@ -248,64 +248,64 @@
 
 - (PCRect<float>)getCropRectFromImage:(id)image toImage:(id)toImage
 {
-  v7 = v4;
+  v6 = v4;
   [image bounds];
-  v17.f64[0] = v8;
-  v17.f64[1] = v9;
-  v18.f64[0] = v10;
-  v18.f64[1] = v11;
+  v16.f64[0] = v7;
+  v16.f64[1] = v8;
+  v17.f64[0] = v9;
+  v17.f64[1] = v10;
   if (self)
   {
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:toImage];
+    objc_msgSend_getPixelTransformForImage_(self);
   }
 
   else
   {
-    memset(v16, 0, sizeof(v16));
+    memset(v15, 0, sizeof(v15));
   }
 
-  PCMatrix44Tmpl<double>::transformRect<double>(v16, v17.f64, &v17);
-  v14 = *v18.f64;
-  v15 = vcvt_hight_f32_f64(vcvt_f32_f64(v17), v18);
-  *v7 = v15;
-  result.var1 = v15.f32[0];
-  result.var3 = v13;
-  result.var2 = v12;
-  result.var0 = v14;
+  PCMatrix44Tmpl<double>::transformRect<double>(v15, v16.f64, &v16);
+  v13 = *v17.f64;
+  v14 = vcvt_hight_f32_f64(vcvt_f32_f64(v16), v17);
+  *v6 = v14;
+  result.var1 = v14.f32[0];
+  result.var3 = v12;
+  result.var2 = v11;
+  result.var0 = v13;
   return result;
 }
 
 - (BOOL)getCropRectFromImage:(id)image toImage:(id)toImage output:(void *)output
 {
   [image bounds];
-  v15.f64[0] = v8;
-  v15.f64[1] = v9;
-  v16.f64[0] = v10;
-  v16.f64[1] = v11;
+  v14.f64[0] = v7;
+  v14.f64[1] = v8;
+  v15.f64[0] = v9;
+  v15.f64[1] = v10;
   if (self)
   {
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:toImage];
+    objc_msgSend_getPixelTransformForImage_(self);
   }
 
   else
   {
-    memset(v14, 0, sizeof(v14));
+    memset(v13, 0, sizeof(v13));
   }
 
-  v12 = PCMatrix44Tmpl<double>::transformRect<double>(v14, v15.f64, &v15);
-  if (v12)
+  v11 = PCMatrix44Tmpl<double>::transformRect<double>(v13, v14.f64, &v14);
+  if (v11)
   {
-    *output = vcvt_hight_f32_f64(vcvt_f32_f64(v15), v16);
+    *output = vcvt_hight_f32_f64(vcvt_f32_f64(v14), v15);
   }
 
-  return v12;
+  return v11;
 }
 
 - (void)crop:(void *)crop fromImage:(id)image toImage:(id)toImage
 {
   if (self)
   {
-    [(PAESharedDefaultBase *)self getCropRectFromImage:image toImage:toImage];
+    objc_msgSend_getCropRectFromImage_toImage_(self, a2, image, toImage);
   }
 
   else
@@ -360,7 +360,7 @@
   v8 = v4;
   if (image)
   {
-    [image heliumRef];
+    objc_msgSend_heliumRef(image, a2);
   }
 
   else
@@ -375,7 +375,7 @@
 {
   if (self)
   {
-    [(PAESharedDefaultBase *)self getCropRectFromImage:image toImage:toImage];
+    objc_msgSend_getCropRectFromImage_toImage_(self, a2, image, toImage);
   }
 
   Fx_smearToRect();
@@ -395,73 +395,73 @@
 - (void)transform:(void *)transform fromImage:(id)image toImage:(id)toImage fit:(BOOL)fit
 {
   fitCopy = fit;
-  v38 = 0x3FF0000000000000;
-  *v36 = 0x3FF0000000000000;
-  v33 = 1.0;
-  v30 = 1.0;
+  v37 = 0x3FF0000000000000;
+  *v35 = 0x3FF0000000000000;
+  v32 = 1.0;
+  v29 = 1.0;
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
+  v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  *&v36[8] = 0u;
-  v37 = 0u;
+  *&v35[8] = 0u;
+  v36 = 0u;
   [toImage bounds];
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
   [image bounds];
   if (fitCopy)
   {
-    v32 = 0u;
     v31 = 0u;
-    *&v34 = 0;
-    v35 = 0u;
-    v38 = 0x3FF0000000000000;
-    *&v36[16] = 0;
-    v37 = 0uLL;
-    v30 = v16 / v21;
-    *&v32 = v12 - v16 * v19 / v21;
-    v33 = v18 / v22;
-    *(&v34 + 1) = v14 - v18 * v20 / v22;
-    *v36 = xmmword_2603426F0;
+    v30 = 0u;
+    *&v33 = 0;
+    v34 = 0u;
+    v37 = 0x3FF0000000000000;
+    *&v35[16] = 0;
+    v36 = 0uLL;
+    v29 = v15 / v20;
+    *&v31 = v11 - v15 * v18 / v20;
+    v32 = v17 / v21;
+    *(&v33 + 1) = v13 - v17 * v19 / v21;
+    *v35 = xmmword_2603426F0;
   }
 
   if (self)
   {
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:toImage];
-    PCMatrix44Tmpl<double>::operator*(v26, &v30, v27);
-    [(PAESharedDefaultBase *)self getInversePixelTransformForImage:image];
+    objc_msgSend_getPixelTransformForImage_(self);
+    PCMatrix44Tmpl<double>::operator*(v25, &v29, v26);
+    objc_msgSend_getInversePixelTransformForImage_(self);
   }
 
   else
   {
-    memset(v26, 0, sizeof(v26));
-    PCMatrix44Tmpl<double>::operator*(v26, &v30, v27);
     memset(v25, 0, sizeof(v25));
+    PCMatrix44Tmpl<double>::operator*(v25, &v29, v26);
+    memset(v24, 0, sizeof(v24));
   }
 
-  PCMatrix44Tmpl<double>::operator*(v27, v25, v28);
-  FxSupport::makeHeliumXForm(v28, transform, 1, 0, &v29);
-  v23 = *transform;
-  v24 = v29;
-  if (*transform == v29)
+  PCMatrix44Tmpl<double>::operator*(v26, v24, v27);
+  FxSupport::makeHeliumXForm(v27, transform, 1, 0, &v28);
+  v22 = *transform;
+  v23 = v28;
+  if (*transform == v28)
   {
-    if (v23)
+    if (v22)
     {
-      (*(*v29 + 24))(v29);
+      (*(*v28 + 24))(v28);
     }
   }
 
   else
   {
-    if (v23)
+    if (v22)
     {
-      (*(*v23 + 24))(v23);
-      v24 = v29;
+      (*(*v22 + 24))(v22);
+      v23 = v28;
     }
 
-    *transform = v24;
+    *transform = v23;
   }
 }
 
@@ -471,7 +471,7 @@
   v10 = v5;
   if (image)
   {
-    [image heliumRef];
+    objc_msgSend_heliumRef(image, a2);
   }
 
   else

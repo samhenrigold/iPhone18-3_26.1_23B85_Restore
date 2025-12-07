@@ -181,7 +181,7 @@ LABEL_26:
 
 + (id)_titleAndMessageDictForError:()NPHCellularError forSubscriptionContext:
 {
-  v73[2] = *MEMORY[0x277D85DE8];
+  v72[2] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   domain = [v5 domain];
@@ -347,9 +347,9 @@ LABEL_19:
           v31 = MEMORY[0x277CCACA8];
           v32 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
           v33 = [v32 localizedStringForKey:@"CTCELLULARPLANERROR_MULTI_SIM_MESSAGE_PHONE_NUMBER" value:&stru_285611AE0 table:0];
-          v73[0] = v10;
-          v73[1] = v30;
-          v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:2];
+          v72[0] = v10;
+          v72[1] = v30;
+          v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
           v13 = [v31 stringWithPositionalSpecifiersFormat:v33 arguments:v34];
 
           v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"tel://%@", v30];
@@ -363,8 +363,8 @@ LABEL_19:
             v59 = MEMORY[0x277CCACA8];
             v60 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
             v61 = [v60 localizedStringForKey:@"CTCELLULARPLANERROR_MULTI_SIM_MESSAGE_NAME" value:&stru_285611AE0 table:0];
-            v72 = v10;
-            v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
+            v71 = v10;
+            v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
             v13 = [v59 stringWithPositionalSpecifiersFormat:v61 arguments:v62];
           }
 
@@ -428,7 +428,7 @@ LABEL_28:
             v44 = @"CTCELLULARPLANERROR_CANNOT_SOFTWARE_UPDATE_MESSAGE";
 LABEL_32:
             userInfo2 = [v43 localizedStringForKey:v44 value:&stru_285611AE0 table:0];
-            [v42 stringWithFormat:userInfo2, v10, v71];
+            [v42 stringWithFormat:userInfo2, v10, v70];
             v53 = LABEL_33:;
 LABEL_35:
             v13 = v53;
@@ -509,14 +509,12 @@ LABEL_54:
     v68 = 0;
   }
 
-  v69 = *MEMORY[0x277D85DE8];
-
   return v68;
 }
 
 + (id)NPHCellularSanitizedError:()NPHCellularError forSubscriptionContext:
 {
-  v34[4] = *MEMORY[0x277D85DE8];
+  v33[4] = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = v6;
@@ -551,35 +549,35 @@ LABEL_54:
     }
 
     v17 = *MEMORY[0x277CCA450];
-    v34[0] = NPHCellularErrorTitleKey;
-    v34[1] = v17;
-    v34[2] = NPHCellularErrorLinkKey;
-    v34[3] = NPHCellularErrorLinkTextKey;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:4];
+    v33[0] = NPHCellularErrorTitleKey;
+    v33[1] = v17;
+    v33[2] = NPHCellularErrorLinkKey;
+    v33[3] = NPHCellularErrorLinkTextKey;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:4];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v18 = v32 = 0u;
-    v19 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v18 = v31 = 0u;
+    v19 = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v30;
+      v21 = *v29;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v30 != v21)
+          if (*v29 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v29 + 1) + 8 * i);
-          v24 = [v13 objectForKeyedSubscript:{v23, v29}];
+          v23 = *(*(&v28 + 1) + 8 * i);
+          v24 = [v13 objectForKeyedSubscript:{v23, v28}];
           [v14 setObject:v24 forKeyedSubscript:v23];
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v20);
@@ -591,7 +589,6 @@ LABEL_54:
   }
 
 LABEL_16:
-  v27 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -599,32 +596,30 @@ LABEL_16:
 + (uint64_t)_canControlLTEVoiceOptionsSeparately
 {
   v13 = *MEMORY[0x277D85DE8];
-  result = CTSUServerConnectionRef();
+  result = CTSUServerConnectionRef(self, a2);
   if (result)
   {
-    v1 = *MEMORY[0x277CC37F8];
     CanSetCapabilityExtended = _CTServerConnectionCanSetCapabilityExtended();
-    v3 = HIDWORD(CanSetCapabilityExtended);
+    v4 = HIDWORD(CanSetCapabilityExtended);
     if (HIDWORD(CanSetCapabilityExtended))
     {
-      v4 = CanSetCapabilityExtended;
-      v5 = nph_general_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v5 = CanSetCapabilityExtended;
+      v6 = nph_general_log(CanSetCapabilityExtended);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
         v8 = "+[NSError(NPHCellularError) _canControlLTEVoiceOptionsSeparately]";
         v9 = 1024;
-        v10 = v4;
+        v10 = v5;
         v11 = 1024;
-        v12 = v3;
-        _os_log_impl(&dword_243333000, v5, OS_LOG_TYPE_DEFAULT, "%s - Failed to check VoLTE availability error domain:%d error:%d", buf, 0x18u);
+        v12 = v4;
+        _os_log_impl(&dword_243333000, v6, OS_LOG_TYPE_DEFAULT, "%s - Failed to check VoLTE availability error domain:%d error:%d", buf, 0x18u);
       }
     }
 
-    result = 0;
+    return 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 

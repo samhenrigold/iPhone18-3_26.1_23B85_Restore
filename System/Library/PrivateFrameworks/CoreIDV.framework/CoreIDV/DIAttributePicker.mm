@@ -115,11 +115,11 @@
 
 - (id)description
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithFormat:@"<%@: %p ", objc_opt_class(), self];;
-  v21.receiver = self;
-  v21.super_class = DIAttributePicker;
-  v4 = [(DIAttribute *)&v21 description];
+  v20.receiver = self;
+  v20.super_class = DIAttributePicker;
+  v4 = [(DIAttribute *)&v20 description];
   [v3 appendFormat:@"%@", v4];
 
   defaultValue = [(DIAttributePicker *)self defaultValue];
@@ -131,30 +131,30 @@
   [v3 appendFormat:@"currentValue: '%@'; ", v8];
 
   os_unfair_lock_lock(&self->super._lock);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = self->_pickerItems;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v17 + 1) + 8 * i) description];
+        v14 = [*(*(&v16 + 1) + 8 * i) description];
         [v3 appendFormat:@"    picker item: '%@'\n", v14];
       }
 
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v11);
@@ -162,7 +162,6 @@
 
   os_unfair_lock_unlock(&self->super._lock);
   [v3 appendFormat:@">"];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

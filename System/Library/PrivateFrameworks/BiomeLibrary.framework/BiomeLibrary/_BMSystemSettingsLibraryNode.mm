@@ -17,12 +17,10 @@
 
 + (id)sublibraries
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   gestureEducation = [self GestureEducation];
-  v6[0] = gestureEducation;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = gestureEducation;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -138,66 +136,60 @@ LABEL_8:
 
 + (id)SearchTerms
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForSearchTerms = [self configurationForSearchTerms];
   v3 = +[BMSystemSettingsSearchTerms columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"SystemSettings.SearchTerms" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"SystemSettings.SearchTerms" schema:v9 configuration:configurationForSearchTerms];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)ChildMultitaskingSetup
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForChildMultitaskingSetup = [self configurationForChildMultitaskingSetup];
   v3 = +[BMSystemSettingsChildMultitaskingSetup columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"SystemSettings.ChildMultitaskingSetup" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"SystemSettings.ChildMultitaskingSetup" schema:v9 configuration:configurationForChildMultitaskingSetup];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)AppearanceSetup
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForAppearanceSetup = [self configurationForAppearanceSetup];
   v3 = +[BMSystemSettingsAppearanceSetup columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"SystemSettings.AppearanceSetup" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"SystemSettings.AppearanceSetup" schema:v9 configuration:configurationForAppearanceSetup];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

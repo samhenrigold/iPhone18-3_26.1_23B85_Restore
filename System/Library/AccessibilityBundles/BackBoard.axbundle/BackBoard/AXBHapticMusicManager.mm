@@ -39,7 +39,7 @@ void __42__AXBHapticMusicManager_initializeMonitor__block_invoke()
 - (void)setHapticMusicEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if (_os_feature_enabled_impl())
   {
     if (enabledCopy)
@@ -48,9 +48,9 @@ void __42__AXBHapticMusicManager_initializeMonitor__block_invoke()
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = [MEMORY[0x29EDBA070] numberWithBool:1];
-        v14 = 138412290;
-        v15 = v6;
-        _os_log_impl(&dword_29BBBD000, v5, OS_LOG_TYPE_DEFAULT, "Asked to enable Haptic Music from BB: (%@)", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = v6;
+        _os_log_impl(&dword_29BBBD000, v5, OS_LOG_TYPE_DEFAULT, "Asked to enable Haptic Music from BB: (%@)", &v13, 0xCu);
       }
 
       if (!self->_client)
@@ -78,8 +78,6 @@ void __42__AXBHapticMusicManager_initializeMonitor__block_invoke()
       [AXBHapticMusicManager setHapticMusicEnabled:mainAccessQueue];
     }
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void __47__AXBHapticMusicManager_setHapticMusicEnabled___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -130,20 +128,18 @@ void *__83__AXBHapticMusicManager_connectionWithServiceWasInterruptedForUserInte
 
 void __47__AXBHapticMusicManager_setHapticMusicEnabled___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Error starting haptic music: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Error starting haptic music: %@", &v2, 0xCu);
 }
 
 - (void)connectionWithServiceWasInterruptedForUserInterfaceClient:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Connection for haptic music interrupted: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Connection for haptic music interrupted: %@", &v2, 0xCu);
 }
 
 @end

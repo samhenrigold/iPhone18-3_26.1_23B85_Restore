@@ -22,16 +22,16 @@
 
 + (double)absWithDouble:(double)double
 {
-  v3 = JavaLangDouble_doubleToRawLongBitsWithDouble_(double) & 0x7FFFFFFFFFFFFFFFLL;
+  v3 = JavaLangDouble_doubleToRawLongBitsWithDouble_(self, a2, double) & 0x7FFFFFFFFFFFFFFFLL;
 
-  return JavaLangDouble_longBitsToDoubleWithLong_(v3);
+  return JavaLangDouble_longBitsToDoubleWithLong_(v3, v4);
 }
 
 + (float)absWithFloat:(float)float
 {
-  v3 = JavaLangFloat_floatToRawIntBitsWithFloat_(float) & 0x7FFFFFFF;
+  v3 = JavaLangFloat_floatToRawIntBitsWithFloat_(self, a2, float) & 0x7FFFFFFF;
 
-  return JavaLangFloat_intBitsToFloatWithInt_(v3);
+  return JavaLangFloat_intBitsToFloatWithInt_(v3, v4);
 }
 
 + (int)absWithInt:(int)int
@@ -68,7 +68,7 @@
     {
       if (result == double)
       {
-        v5 = JavaLangDouble_doubleToRawLongBitsWithDouble_(result);
+        v5 = JavaLangDouble_doubleToRawLongBitsWithDouble_(self, a2, result);
         result = 0.0;
         if (v5)
         {
@@ -99,7 +99,7 @@
     {
       if (result == float)
       {
-        v5 = JavaLangFloat_floatToRawIntBitsWithFloat_(result);
+        v5 = JavaLangFloat_floatToRawIntBitsWithFloat_(self, a2, result);
         result = 0.0;
         if (v5)
         {
@@ -157,7 +157,7 @@
     {
       if (double == withDouble)
       {
-        if (JavaLangDouble_doubleToRawLongBitsWithDouble_(double) == 0x8000000000000000)
+        if (JavaLangDouble_doubleToRawLongBitsWithDouble_(self, a2, double) == 0x8000000000000000)
         {
           return -0.0;
         }
@@ -187,7 +187,7 @@
     {
       if (float == withFloat)
       {
-        if (JavaLangFloat_floatToRawIntBitsWithFloat_(float) == 0x80000000)
+        if (JavaLangFloat_floatToRawIntBitsWithFloat_(self, a2, float) == 0x80000000)
         {
           return -0.0;
         }
@@ -282,7 +282,7 @@
 
 + (double)signumWithDouble:(double)double
 {
-  if (JavaLangDouble_isNaNWithDouble_())
+  if (JavaLangDouble_isNaNWithDouble_(self, a2))
   {
     return NAN;
   }
@@ -304,7 +304,7 @@
 
 + (float)signumWithFloat:(float)float
 {
-  if (JavaLangFloat_isNaNWithFloat_())
+  if (JavaLangFloat_isNaNWithFloat_(self, a2))
   {
     return NAN;
   }

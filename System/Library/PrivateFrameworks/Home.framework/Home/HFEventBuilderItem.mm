@@ -57,8 +57,8 @@
   {
     v10 = [HFTriggerNaturalLanguageOptions alloc];
     v11 = +[HFHomeKitDispatcher sharedDispatcher];
-    home = [v11 home];
-    naturalLanguageOptions = [(HFTriggerNaturalLanguageOptions *)v10 initWithHome:home nameType:1];
+    v12 = objc_msgSend_home(v11);
+    naturalLanguageOptions = [(HFTriggerNaturalLanguageOptions *)v10 initWithHome:v12 nameType:1];
   }
 
   naturalLanguageOptions2 = [(HFEventBuilderItem *)self naturalLanguageOptions];

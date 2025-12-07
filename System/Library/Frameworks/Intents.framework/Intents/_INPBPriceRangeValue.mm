@@ -212,7 +212,6 @@ LABEL_23:
 
   if (currencyCode)
   {
-    currencyCode = self->_currencyCode;
     PBDataWriterWriteStringField();
   }
 
@@ -234,13 +233,13 @@ LABEL_23:
 
   valueMetadata = [(_INPBPriceRangeValue *)self valueMetadata];
 
-  v11 = toCopy;
+  v10 = toCopy;
   if (valueMetadata)
   {
     valueMetadata2 = [(_INPBPriceRangeValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
 
-    v11 = toCopy;
+    v10 = toCopy;
   }
 }
 

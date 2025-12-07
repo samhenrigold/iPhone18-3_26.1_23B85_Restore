@@ -12,90 +12,70 @@
 - (BKSDisplayArrangementItem)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"displayUUID"];
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"relativeDisplayUUID"];
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"edge"];
-  unsignedIntValue = [v7 unsignedIntValue];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
+  [v7 unsignedIntValue];
 
-  [coderCopy decodeDoubleForKey:@"offset"];
-  v10 = v9;
+  [coderCopy decodeDoubleForKey:?];
+  v8 = [BKSDisplayArrangementItem initWithDisplayUUID:"initWithDisplayUUID:relativeToDisplayUUID:alongEdge:atOffset:" relativeToDisplayUUID:? alongEdge:? atOffset:?];
 
-  v11 = [(BKSDisplayArrangementItem *)self initWithDisplayUUID:v5 relativeToDisplayUUID:v6 alongEdge:unsignedIntValue atOffset:v10];
-  return v11;
+  return v8;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  displayUUID = self->_displayUUID;
   coderCopy = coder;
-  [coderCopy encodeObject:displayUUID forKey:@"displayUUID"];
-  [coderCopy encodeObject:self->_relativeDisplayUUID forKey:@"relativeDisplayUUID"];
-  v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_edge];
-  [coderCopy encodeObject:v5 forKey:@"edge"];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+  [coderCopy encodeObject:? forKey:?];
 
-  [coderCopy encodeDouble:@"offset" forKey:self->_offset];
+  [coderCopy encodeDouble:? forKey:?];
 }
 
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  [formatterCopy appendString:self->_displayUUID withName:@"displayUUID"];
-  [formatterCopy appendString:self->_relativeDisplayUUID withName:@"relativeDisplayUUID" skipIfEmpty:1];
-  v4 = [formatterCopy appendUnsignedInteger:self->_edge withName:@"edge"];
-  v5 = [formatterCopy appendFloat:@"offset" withName:self->_offset];
+  [formatterCopy appendString:? withName:?];
+  [formatterCopy appendString:? withName:? skipIfEmpty:?];
+  v3 = [formatterCopy appendUnsignedInteger:? withName:?];
+  v4 = [formatterCopy appendFloat:? withName:?];
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v5 = [MEMORY[0x1E698E6A0] builderWithObject:equalCopy ofExpectedClass:objc_opt_class()];
-  displayUUID = self->_displayUUID;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __37__BKSDisplayArrangementItem_isEqual___block_invoke;
-  v28[3] = &unk_1E6F470D8;
-  v7 = equalCopy;
-  v29 = v7;
-  v8 = [v5 appendString:displayUUID counterpart:v28];
-  relativeDisplayUUID = self->_relativeDisplayUUID;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __37__BKSDisplayArrangementItem_isEqual___block_invoke_2;
-  v26[3] = &unk_1E6F470D8;
-  v10 = v7;
-  v27 = v10;
-  v11 = [v5 appendString:relativeDisplayUUID counterpart:v26];
-  edge = self->_edge;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __37__BKSDisplayArrangementItem_isEqual___block_invoke_3;
-  v24[3] = &unk_1E6F46710;
-  v13 = v10;
-  v25 = v13;
-  v14 = [v5 appendUnsignedInteger:edge counterpart:v24];
-  offset = self->_offset;
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __37__BKSDisplayArrangementItem_isEqual___block_invoke_4;
-  v22 = &unk_1E6F46738;
-  v23 = v13;
-  v16 = v13;
-  v17 = [v5 appendCGFloat:&v19 counterpart:offset];
-  LOBYTE(v13) = [v5 isEqual];
+  v4 = MEMORY[0x1E698E6A0];
+  objc_opt_class();
+  v5 = [v4 builderWithObject:? ofExpectedClass:?];
+  v15 = equalCopy;
+  v6 = [v5 appendString:? counterpart:?];
+  v14 = v15;
+  v7 = [v5 appendString:? counterpart:?];
+  v13 = v14;
+  v8 = [v5 appendUnsignedInteger:? counterpart:?];
+  v12 = MEMORY[0x1E69E9820];
+  v9 = v13;
+  v10 = [v5 appendCGFloat:v12 counterpart:{3221225472, __37__BKSDisplayArrangementItem_isEqual___block_invoke_4, &unk_1E6F46738}];
+  LOBYTE(equalCopy) = [v5 isEqual];
 
-  return v13;
+  return equalCopy;
 }
 
 - (unint64_t)hash
 {
   builder = [MEMORY[0x1E698E6B8] builder];
-  v4 = [builder appendString:self->_displayUUID];
-  v5 = [builder appendString:self->_relativeDisplayUUID];
-  v6 = [builder appendUnsignedInteger:self->_edge];
-  v7 = [builder appendCGFloat:self->_offset];
-  v8 = [builder hash];
+  v3 = [builder appendString:?];
+  v4 = [builder appendString:?];
+  v5 = [builder appendUnsignedInteger:?];
+  v6 = [builder appendCGFloat:?];
+  v7 = [builder hash];
 
-  return v8;
+  return v7;
 }
 
 - (BKSDisplayArrangementItem)initWithDisplayUUID:(id)d relativeToDisplayUUID:(id)iD alongEdge:(unsigned int)edge atOffset:(double)offset

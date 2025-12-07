@@ -54,7 +54,7 @@
   if (dispatch_semaphore_wait(v15, v16))
   {
     v17 = [NSString stringWithFormat:@"Timed out after %d mins of waiting to snapshot filesystem metadata.", 30, v26, v27];
-    v18 = shared_diagnostics_extension_log_handle();
+    v18 = shared_diagnostics_extension_log_handle(v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -94,12 +94,13 @@ void __76__DiskSpaceDiagnosticsExtension_snapshotFilesystemMetadata_progressHand
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = shared_diagnostics_extension_log_handle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = shared_diagnostics_extension_log_handle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __76__DiskSpaceDiagnosticsExtension_snapshotFilesystemMetadata_progressHandler___block_invoke_cold_1(v6, v7);
+      __76__DiskSpaceDiagnosticsExtension_snapshotFilesystemMetadata_progressHandler___block_invoke_cold_1(v7, v8);
     }
 
     objc_storeStrong((*(a1[4] + 8) + 40), a3);
@@ -107,18 +108,18 @@ void __76__DiskSpaceDiagnosticsExtension_snapshotFilesystemMetadata_progressHand
 
   else if (v5)
   {
-    v8 = [NSURL fileURLWithPath:v5];
-    v9 = *(a1[5] + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    v9 = [NSURL fileURLWithPath:v5];
+    v10 = *(a1[5] + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
   }
 
   else
   {
-    v11 = shared_diagnostics_extension_log_handle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = shared_diagnostics_extension_log_handle(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __76__DiskSpaceDiagnosticsExtension_snapshotFilesystemMetadata_progressHandler___block_invoke_cold_2(v11);
+      __76__DiskSpaceDiagnosticsExtension_snapshotFilesystemMetadata_progressHandler___block_invoke_cold_2(v12);
     }
   }
 
@@ -136,7 +137,6 @@ void __76__DiskSpaceDiagnosticsExtension_snapshotFilesystemMetadata_progressHand
   {
     [objectCopy fractionCompleted];
     [*(context + 1) setPercentComplete:{fmin(v11 * 100.0, 100.0)}];
-    v12 = *(context + 1);
     (*(*context + 16))();
   }
 }
@@ -145,7 +145,7 @@ void __76__DiskSpaceDiagnosticsExtension_snapshotFilesystemMetadata_progressHand
 {
   v9 = 0;
   v4 = [(DiskSpaceDiagnosticsExtension *)self snapshotFilesystemMetadata:&v9 progressHandler:handler];
-  v5 = shared_diagnostics_extension_log_handle();
+  v5 = shared_diagnostics_extension_log_handle(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;

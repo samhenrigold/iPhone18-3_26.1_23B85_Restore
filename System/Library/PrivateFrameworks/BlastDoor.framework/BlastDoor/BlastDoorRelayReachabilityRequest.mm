@@ -8,19 +8,17 @@
 
 - (NSArray)handles
 {
-  v3 = type metadata accessor for RelayReachabilityRequest();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for RelayReachabilityRequest(0);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_213FB568C(self + OBJC_IVAR___BlastDoorRelayReachabilityRequest_relayReachabilityRequest, v6, type metadata accessor for RelayReachabilityRequest);
-  if (*(v6 + 2))
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_213FB568C(self + OBJC_IVAR___BlastDoorRelayReachabilityRequest_relayReachabilityRequest, v5, type metadata accessor for RelayReachabilityRequest);
+  if (*(v5 + 2))
   {
-    v7 = *(v6 + 2);
 
-    sub_213FB5844(v6, type metadata accessor for RelayReachabilityRequest);
-    v8 = sub_2146D98E8();
+    sub_213FB5844(v5, type metadata accessor for RelayReachabilityRequest);
+    v6 = sub_2146D98E8();
 
-    return v8;
+    return v6;
   }
 
   else
@@ -34,22 +32,21 @@
 
 - (BlastDoorRelayReachabilityContext)context
 {
-  v3 = type metadata accessor for RelayReachabilityContext();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for RelayReachabilityContext(0);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = self + OBJC_IVAR___BlastDoorRelayReachabilityRequest_relayReachabilityRequest;
-  v8 = type metadata accessor for RelayReachabilityRequest();
-  sub_213FB568C(&v7[*(v8 + 24)], v6, type metadata accessor for RelayReachabilityContext);
-  v9 = type metadata accessor for _ObjCRelayReachabilityContextWrapper(0);
-  v10 = objc_allocWithZone(v9);
-  sub_213FB568C(v6, v10 + OBJC_IVAR___BlastDoorRelayReachabilityContext_relayReachabilityContext, type metadata accessor for RelayReachabilityContext);
-  v13.receiver = v10;
-  v13.super_class = v9;
-  v11 = [(BlastDoorRelayReachabilityRequest *)&v13 init];
-  sub_213FB5844(v6, type metadata accessor for RelayReachabilityContext);
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = self + OBJC_IVAR___BlastDoorRelayReachabilityRequest_relayReachabilityRequest;
+  v7 = type metadata accessor for RelayReachabilityRequest(0);
+  sub_213FB568C(&v6[*(v7 + 24)], v5, type metadata accessor for RelayReachabilityContext);
+  v8 = type metadata accessor for _ObjCRelayReachabilityContextWrapper(0);
+  v9 = objc_allocWithZone(v8);
+  sub_213FB568C(v5, v9 + OBJC_IVAR___BlastDoorRelayReachabilityContext_relayReachabilityContext, type metadata accessor for RelayReachabilityContext);
+  v12.receiver = v9;
+  v12.super_class = v8;
+  v10 = [(BlastDoorRelayReachabilityRequest *)&v12 init];
+  sub_213FB5844(v5, type metadata accessor for RelayReachabilityContext);
 
-  return v11;
+  return v10;
 }
 
 - (BlastDoorRelayReachabilityRequest)init

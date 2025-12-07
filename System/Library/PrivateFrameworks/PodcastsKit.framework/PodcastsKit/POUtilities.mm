@@ -6,6 +6,7 @@
 + (id)commandStatusForRemoteStatus:(unsigned int)status error:(id)error isRemoteStorePlayback:(BOOL)playback;
 + (id)identifierFromDomainObject:(id)object;
 + (id)typeFromDomainObject:(id)object;
++ (void)_resolveWithDestination:(id)destination hashedRouteIdentifiers:(id)identifiers decodedRouteIdentifiers:(id)routeIdentifiers originatingOutputDeviceUID:(id)d localPlaybackPermitted:(BOOL)permitted audioRoutingInfo:(id)info completion:(id)completion;
 + (void)modifyContextForAirplay:(id)airplay andPlayLocally:(id)locally completion:(id)completion;
 + (void)performPodcastsPlaybackRequestWithIdentifier:(id)identifier assetInfo:(id)info hashedRouteUIDs:(id)ds decodedRouteUIDs:(id)iDs originatingOutputDeviceUID:(id)d startPlaying:(BOOL)playing requesterSharedUserId:(id)id sharedUserIdFromPlayableITunesAccount:(id)self0 context:(id)self1 allowsFallback:(BOOL)self2 completion:(id)self3;
 + (void)setPlaybackRate:(float)rate failureErrorCode:(int64_t)code completion:(id)completion;
@@ -32,7 +33,7 @@
 + (void)performPodcastsPlaybackRequestWithIdentifier:(id)identifier assetInfo:(id)info hashedRouteUIDs:(id)ds decodedRouteUIDs:(id)iDs originatingOutputDeviceUID:(id)d startPlaying:(BOOL)playing requesterSharedUserId:(id)id sharedUserIdFromPlayableITunesAccount:(id)self0 context:(id)self1 allowsFallback:(BOOL)self2 completion:(id)self3
 {
   playingCopy = playing;
-  v86 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   infoCopy = info;
   dsCopy = ds;
@@ -44,124 +45,123 @@
   completionCopy = completion;
   if ([identifierCopy length])
   {
-    v55 = completionCopy;
-    v58 = accountCopy;
-    v59 = idCopy;
-    v24 = iDsCopy;
-    if ([dsCopy count] || objc_msgSend(iDsCopy, "count") && objc_msgSend(dCopy, "length") || (+[PODataSource sharedInstance](PODataSource, "sharedInstance"), v52 = objc_claimAutoreleasedReturnValue(), v53 = objc_msgSend(v52, "isPodcastsInstalled"), v52, (v53 & 1) != 0))
+    v57 = completionCopy;
+    v60 = accountCopy;
+    v61 = idCopy;
+    v25 = [dsCopy count];
+    v27 = iDsCopy;
+    if (v25 || [iDsCopy count] && (v25 = objc_msgSend(dCopy, "length")) != 0 || (+[PODataSource sharedInstance](PODataSource, "sharedInstance"), v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v54, "isPodcastsInstalled"), v54, (v55 & 1) != 0))
     {
-      POLogInitIfNeeded();
+      POLogInitIfNeeded(v25, v26);
       if (POLogContextCommand)
       {
-        v25 = POLogContextCommand;
+        v28 = POLogContextCommand;
       }
 
       else
       {
-        v25 = MEMORY[0x277D86220];
+        v28 = MEMORY[0x277D86220];
       }
 
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = v25;
+        v29 = v28;
         [dsCopy componentsJoinedByString:{@", "}];
-        v28 = v27 = dsCopy;
-        v29 = [iDsCopy componentsJoinedByString:{@", "}];
+        v31 = v30 = dsCopy;
+        v32 = [iDsCopy componentsJoinedByString:{@", "}];
         *buf = 138413058;
-        v79 = identifierCopy;
-        v80 = 2112;
-        v81 = v28;
+        v81 = identifierCopy;
         v82 = 2112;
-        v83 = v29;
+        v83 = v31;
         v84 = 2112;
-        v85 = dCopy;
-        v24 = iDsCopy;
-        _os_log_impl(&dword_25E9F0000, v26, OS_LOG_TYPE_DEFAULT, "Will be setting playbackQueue using MediaRemote to %@ with routeUIDs %@ decodedRouteUIDs %@ originatingOutputDeviceUID %@", buf, 0x2Au);
+        v85 = v32;
+        v86 = 2112;
+        v87 = dCopy;
+        v27 = iDsCopy;
+        _os_log_impl(&dword_25E9F0000, v29, OS_LOG_TYPE_DEFAULT, "Will be setting playbackQueue using MediaRemote to %@ with routeUIDs %@ decodedRouteUIDs %@ originatingOutputDeviceUID %@", buf, 0x2Au);
 
-        dsCopy = v27;
+        dsCopy = v30;
       }
 
-      v77 = identifierCopy;
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v77 count:1];
-      v31 = [self createPlaybackQueueFromRequestIdentifiers:v30 startPlaying:playingCopy assetInfo:infoCopy isSiriRequest:contextCopy != 0 requesterSharedUserId:idCopy sharedUserIdFromPlayableITunesAccount:v58];
+      v79 = identifierCopy;
+      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v79 count:1];
+      v34 = [self createPlaybackQueueFromRequestIdentifiers:v33 startPlaying:playingCopy assetInfo:infoCopy isSiriRequest:contextCopy != 0 requesterSharedUserId:idCopy sharedUserIdFromPlayableITunesAccount:v60];
 
-      v32 = dsCopy;
-      v33 = identifierCopy;
-      v34 = v24;
-      v35 = contextCopy;
-      v36 = [[MTMPCAssistantGenericPlaybackQueue alloc] initWithContextID:contextCopy playbackQueueRef:v31];
+      v35 = dsCopy;
+      v36 = identifierCopy;
+      v37 = v27;
+      v38 = contextCopy;
+      v39 = [[MTMPCAssistantGenericPlaybackQueue alloc] initWithContextID:contextCopy playbackQueueRef:v34];
       podcastsApplicationDestination = [MEMORY[0x277D27850] podcastsApplicationDestination];
       [podcastsApplicationDestination setSingleGroup:1];
-      v62[0] = MEMORY[0x277D85DD0];
-      v62[1] = 3221225472;
-      v62[2] = __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke;
-      v62[3] = &unk_279A44AB0;
+      v64[0] = MEMORY[0x277D85DD0];
+      v64[1] = 3221225472;
+      v64[2] = __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke;
+      v64[3] = &unk_279A44AB0;
       selfCopy = self;
-      v63 = podcastsApplicationDestination;
-      v64 = v32;
-      v65 = v34;
-      v38 = dCopy;
-      v66 = dCopy;
-      completionCopy = v55;
-      v73 = v55;
-      v67 = v36;
+      v65 = podcastsApplicationDestination;
+      v66 = v35;
+      v67 = v37;
+      v41 = dCopy;
+      v68 = dCopy;
+      completionCopy = v57;
+      v75 = v57;
+      v69 = v39;
       fallbackCopy = fallback;
-      v68 = v33;
-      v76 = playingCopy;
-      v69 = infoCopy;
-      v70 = v35;
-      v71 = v59;
-      v72 = v58;
-      v39 = v36;
-      contextCopy = v35;
-      v24 = v34;
-      identifierCopy = v33;
-      dsCopy = v32;
-      v40 = v39;
-      v41 = podcastsApplicationDestination;
-      MPAssistantWatchGetCurrentAudioRoutingInfo(v62);
+      v70 = v36;
+      v78 = playingCopy;
+      v71 = infoCopy;
+      v72 = v38;
+      v73 = v61;
+      v74 = v60;
+      v42 = v39;
+      contextCopy = v38;
+      v27 = v37;
+      identifierCopy = v36;
+      dsCopy = v35;
+      v43 = v42;
+      v44 = podcastsApplicationDestination;
+      MPAssistantWatchGetCurrentAudioRoutingInfo(v64);
 
-      accountCopy = v58;
-      idCopy = v59;
+      accountCopy = v60;
+      idCopy = v61;
     }
 
     else
     {
-      v54 = [MEMORY[0x277CCA9B8] errorWithDomain:@"POUtilitiesErrorDomain" code:103 userInfo:0];
-      completionCopy = v55;
-      (v55)[2](v55, 2, v54);
+      v56 = [MEMORY[0x277CCA9B8] errorWithDomain:@"POUtilitiesErrorDomain" code:103 userInfo:0];
+      completionCopy = v57;
+      (v57)[2](v57, 2, v56);
 
-      v38 = dCopy;
-      accountCopy = v58;
+      v41 = dCopy;
+      accountCopy = v60;
     }
   }
 
   else
   {
-    POLogInitIfNeeded();
+    POLogInitIfNeeded(0, v24);
     if (POLogContextCommand)
     {
-      v42 = POLogContextCommand;
+      v45 = POLogContextCommand;
     }
 
     else
     {
-      v42 = MEMORY[0x277D86220];
+      v45 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
-      [POUtilities performPodcastsPlaybackRequestWithIdentifier:v42 assetInfo:v43 hashedRouteUIDs:v44 decodedRouteUIDs:v45 originatingOutputDeviceUID:v46 startPlaying:v47 requesterSharedUserId:v48 sharedUserIdFromPlayableITunesAccount:v49 context:? allowsFallback:? completion:?];
+      [POUtilities performPodcastsPlaybackRequestWithIdentifier:v45 assetInfo:v46 hashedRouteUIDs:v47 decodedRouteUIDs:v48 originatingOutputDeviceUID:v49 startPlaying:v50 requesterSharedUserId:v51 sharedUserIdFromPlayableITunesAccount:v52 context:? allowsFallback:? completion:?];
     }
 
-    v50 = [MEMORY[0x277CCA9B8] errorWithDomain:@"POUtilitiesErrorDomain" code:102 userInfo:0];
-    (*(completionCopy + 2))(completionCopy, 2, v50);
+    v53 = [MEMORY[0x277CCA9B8] errorWithDomain:@"POUtilitiesErrorDomain" code:102 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, 2, v53);
 
-    v24 = iDsCopy;
-    v38 = dCopy;
+    v27 = iDsCopy;
+    v41 = dCopy;
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke(uint64_t a1, unsigned int a2)
@@ -203,25 +203,25 @@ void __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_h
 
 void __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v26 = *MEMORY[0x277D27CD8];
-  v27[0] = &unk_2870B6B90;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+  v25 = *MEMORY[0x277D27CD8];
+  v26[0] = &unk_2870B6B90;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
   v5 = objc_alloc_init(MEMORY[0x277D27828]);
   v6 = *(a1 + 32);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke_23;
-  v17[3] = &unk_279A44A60;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke_23;
+  v16[3] = &unk_279A44A60;
   v7 = *(a1 + 80);
-  v24 = *(a1 + 96);
-  v18 = v3;
+  v23 = *(a1 + 96);
+  v17 = v3;
   v8 = *(a1 + 88);
-  v22 = v7;
-  v23 = v8;
+  v21 = v7;
+  v22 = v8;
   v9 = *(a1 + 40);
-  v25 = *(a1 + 97);
+  v24 = *(a1 + 97);
   v10 = *(a1 + 48);
   v11 = *(a1 + 56);
   v12 = *(a1 + 64);
@@ -229,110 +229,110 @@ void __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_h
   *(&v13 + 1) = v12;
   *&v14 = v9;
   *(&v14 + 1) = v10;
-  v19 = v14;
-  v20 = v13;
-  v21 = *(a1 + 72);
+  v18 = v14;
+  v19 = v13;
+  v20 = *(a1 + 72);
   v15 = v3;
-  [v5 sendPlaybackQueueWithResult:v6 toDestination:v15 withOptions:v4 completion:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [v5 sendPlaybackQueueWithResult:v6 toDestination:v15 withOptions:v4 completion:v16];
 }
 
 void __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke_23(uint64_t a1, void *a2)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = v3;
+  v5 = v3;
   if (v3)
   {
-    v5 = [v3 returnStatuses];
-    v6 = [v5 firstObject];
-    v7 = [v6 unsignedIntValue];
+    v6 = [v3 returnStatuses];
+    v7 = [v6 firstObject];
+    v8 = [v7 unsignedIntValue];
 
-    v8 = [v4 error];
-    POLogInitIfNeeded();
-    v9 = MEMORY[0x277D86220];
+    v9 = [v5 error];
+    POLogInitIfNeeded(v9, v10);
+    v11 = MEMORY[0x277D86220];
     if (POLogContextCommand)
     {
-      v10 = POLogContextCommand;
+      v12 = POLogContextCommand;
     }
 
     else
     {
-      v10 = MEMORY[0x277D86220];
+      v12 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    if (v13)
     {
-      v11 = v10;
-      v12 = [v8 localizedDescription];
+      v15 = v12;
+      v16 = [v9 localizedDescription];
       *buf = 138412290;
-      *v55 = v12;
-      _os_log_impl(&dword_25E9F0000, v11, OS_LOG_TYPE_DEFAULT, "sendPlaybackQueueWithResult Error: %@", buf, 0xCu);
+      *v65 = v16;
+      _os_log_impl(&dword_25E9F0000, v15, OS_LOG_TYPE_DEFAULT, "sendPlaybackQueueWithResult Error: %@", buf, 0xCu);
     }
 
-    POLogInitIfNeeded();
+    POLogInitIfNeeded(v13, v14);
     if (POLogContextCommand)
     {
-      v13 = POLogContextCommand;
+      v17 = POLogContextCommand;
     }
 
     else
     {
-      v13 = v9;
+      v17 = v11;
     }
 
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *v55 = v7;
-      _os_log_impl(&dword_25E9F0000, v13, OS_LOG_TYPE_DEFAULT, "sendPlaybackQueueWithResult Status: %d", buf, 8u);
+      *v65 = v8;
+      _os_log_impl(&dword_25E9F0000, v17, OS_LOG_TYPE_DEFAULT, "sendPlaybackQueueWithResult Status: %d", buf, 8u);
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v14 = [v8 underlyingErrors];
-    v15 = [(MTMPCAssistantGenericPlaybackQueue *)v14 countByEnumeratingWithState:&v50 objects:v59 count:16];
-    if (v15)
+    v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    v18 = [v9 underlyingErrors];
+    v19 = [(MTMPCAssistantGenericPlaybackQueue *)v18 countByEnumeratingWithState:&v60 objects:v69 count:16];
+    if (v19)
     {
-      v16 = v15;
-      v17 = *v51;
+      v20 = v19;
+      v21 = *v61;
       while (2)
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v51 != v17)
+          if (*v61 != v21)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v18);
           }
 
-          if ([POUtilities errorIsNoNetwork:*(*(&v50 + 1) + 8 * i)])
+          v23 = [POUtilities errorIsNoNetwork:*(*(&v60 + 1) + 8 * i)];
+          if (v23)
           {
-            POLogInitIfNeeded();
+            POLogInitIfNeeded(v23, v24);
             if (POLogContextCommand)
             {
-              v26 = POLogContextCommand;
+              v34 = POLogContextCommand;
             }
 
             else
             {
-              v26 = MEMORY[0x277D86220];
+              v34 = MEMORY[0x277D86220];
             }
 
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
-              __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke_23_cold_1(v26, v27, v28, v29, v30, v31, v32, v33);
+              __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke_23_cold_1(v34, v35, v36, v37, v38, v39, v40, v41);
             }
 
-            v34 = *(*(a1 + 80) + 16);
+            v42 = *(*(a1 + 80) + 16);
             goto LABEL_63;
           }
         }
 
-        v16 = [(MTMPCAssistantGenericPlaybackQueue *)v14 countByEnumeratingWithState:&v50 objects:v59 count:16];
-        if (v16)
+        v20 = [(MTMPCAssistantGenericPlaybackQueue *)v18 countByEnumeratingWithState:&v60 objects:v69 count:16];
+        if (v20)
         {
           continue;
         }
@@ -341,41 +341,41 @@ void __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_h
       }
     }
 
-    v19 = v7;
-    v20 = MEMORY[0x277D86220];
+    v25 = v8;
+    v26 = MEMORY[0x277D86220];
     if (*(a1 + 96) == 1)
     {
-      v21 = [*(a1 + 32) outputDeviceUIDs];
-      if ([v21 count])
+      v27 = [*(a1 + 32) outputDeviceUIDs];
+      if ([v27 count])
       {
 
-        if ((v19 - 1) <= 1)
+        if ((v25 - 1) <= 1)
         {
-          POLogInitIfNeeded();
+          POLogInitIfNeeded(v28, v29);
           if (POLogContextCommand)
           {
-            v22 = POLogContextCommand;
+            v30 = POLogContextCommand;
           }
 
           else
           {
-            v22 = v20;
+            v30 = v26;
           }
 
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            *v55 = v19;
-            _os_log_impl(&dword_25E9F0000, v22, OS_LOG_TYPE_DEFAULT, "Falling back to airplay after status: %d", buf, 8u);
+            *v65 = v25;
+            _os_log_impl(&dword_25E9F0000, v30, OS_LOG_TYPE_DEFAULT, "Falling back to airplay after status: %d", buf, 8u);
           }
 
-          v23 = *(a1 + 88);
-          v58 = *(a1 + 40);
-          v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
-          v25 = [v23 createPlaybackQueueFromRequestIdentifiers:v24 startPlaying:*(a1 + 97) assetInfo:*(a1 + 48) isSiriRequest:*(a1 + 56) != 0 requesterSharedUserId:*(a1 + 64) sharedUserIdFromPlayableITunesAccount:*(a1 + 72)];
+          v31 = *(a1 + 88);
+          v68 = *(a1 + 40);
+          v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
+          v33 = [v31 createPlaybackQueueFromRequestIdentifiers:v32 startPlaying:*(a1 + 97) assetInfo:*(a1 + 48) isSiriRequest:*(a1 + 56) != 0 requesterSharedUserId:*(a1 + 64) sharedUserIdFromPlayableITunesAccount:*(a1 + 72)];
 
-          v14 = [[MTMPCAssistantGenericPlaybackQueue alloc] initWithContextID:*(a1 + 56) playbackQueueRef:v25];
-          [*(a1 + 88) modifyContextForAirplay:*(a1 + 32) andPlayLocally:v14 completion:*(a1 + 80)];
+          v18 = [[MTMPCAssistantGenericPlaybackQueue alloc] initWithContextID:*(a1 + 56) playbackQueueRef:v33];
+          [*(a1 + 88) modifyContextForAirplay:*(a1 + 32) andPlayLocally:v18 completion:*(a1 + 80)];
           goto LABEL_64;
         }
       }
@@ -392,103 +392,125 @@ LABEL_65:
       goto LABEL_66;
     }
 
-    v43 = [v8 domain];
-    if ([v43 isEqualToString:*MEMORY[0x277D277F8]])
+    v51 = [v9 domain];
+    if ([v51 isEqualToString:*MEMORY[0x277D277F8]])
     {
-      v44 = [v8 code];
+      v52 = [v9 code];
     }
 
     else
     {
-      v44 = 0;
+      v52 = 0;
     }
 
-    v45 = [v8 domain];
-    if ([v45 isEqualToString:*MEMORY[0x277D277F0]])
+    v53 = [v9 domain];
+    if ([v53 isEqualToString:*MEMORY[0x277D277F0]])
     {
-      v46 = [v8 code];
+      v54 = [v9 code];
     }
 
     else
     {
-      v46 = 0;
+      v54 = 0;
     }
 
-    POLogInitIfNeeded();
+    POLogInitIfNeeded(v55, v56);
     if (POLogContextCommand)
     {
-      v47 = POLogContextCommand;
+      v57 = POLogContextCommand;
     }
 
     else
     {
-      v47 = v20;
+      v57 = v26;
     }
 
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109632;
-      *v55 = v19;
-      *&v55[4] = 2048;
-      *&v55[6] = v44;
-      v56 = 2048;
-      v57 = v46;
-      _os_log_impl(&dword_25E9F0000, v47, OS_LOG_TYPE_DEFAULT, "Completed sendPlaybackQueueWithResult with MR status: %d, remote error: %ld, assistant error: %ld", buf, 0x1Cu);
+      *v65 = v25;
+      *&v65[4] = 2048;
+      *&v65[6] = v52;
+      v66 = 2048;
+      v67 = v54;
+      _os_log_impl(&dword_25E9F0000, v57, OS_LOG_TYPE_DEFAULT, "Completed sendPlaybackQueueWithResult with MR status: %d, remote error: %ld, assistant error: %ld", buf, 0x1Cu);
     }
 
-    if (v8 && (MPCAssistantErrorIsInformational() & 1) == 0)
+    if (v9 && (MPCAssistantErrorIsInformational() & 1) == 0)
     {
-      v14 = v8;
-      POLogInitIfNeeded();
+      v18 = v9;
+      POLogInitIfNeeded(v18, v58);
       if (POLogContextCommand)
       {
-        v48 = POLogContextCommand;
+        v59 = POLogContextCommand;
       }
 
       else
       {
-        v48 = v20;
+        v59 = v26;
       }
 
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
-        __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke_23_cold_2(v14, v48);
+        __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke_23_cold_2(v18, v59);
       }
     }
 
     else
     {
-      v14 = 0;
+      v18 = 0;
     }
 
-    v34 = *(*(a1 + 80) + 16);
+    v42 = *(*(a1 + 80) + 16);
 LABEL_63:
-    v34();
+    v42();
 LABEL_64:
 
     goto LABEL_65;
   }
 
-  POLogInitIfNeeded();
+  POLogInitIfNeeded(0, v4);
   if (POLogContextCommand)
   {
-    v35 = POLogContextCommand;
+    v43 = POLogContextCommand;
   }
 
   else
   {
-    v35 = MEMORY[0x277D86220];
+    v43 = MEMORY[0x277D86220];
   }
 
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
   {
-    __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke_23_cold_3(v35, v36, v37, v38, v39, v40, v41, v42);
+    __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke_23_cold_3(v43, v44, v45, v46, v47, v48, v49, v50);
   }
 
   (*(*(a1 + 80) + 16))();
 LABEL_66:
+}
 
-  v49 = *MEMORY[0x277D85DE8];
++ (void)_resolveWithDestination:(id)destination hashedRouteIdentifiers:(id)identifiers decodedRouteIdentifiers:(id)routeIdentifiers originatingOutputDeviceUID:(id)d localPlaybackPermitted:(BOOL)permitted audioRoutingInfo:(id)info completion:(id)completion
+{
+  permittedCopy = permitted;
+  destinationCopy = destination;
+  identifiersCopy = identifiers;
+  routeIdentifiersCopy = routeIdentifiers;
+  dCopy = d;
+  completionCopy = completion;
+  if ([dCopy length])
+  {
+    [destinationCopy setOriginatingOutputDeviceUID:dCopy];
+  }
+
+  if ([routeIdentifiersCopy count])
+  {
+    [destinationCopy resolveWithQueue:0 routeIdentifiers:routeIdentifiersCopy localPlaybackPermitted:permittedCopy audioRoutingInfo:*&info completion:completionCopy];
+  }
+
+  else
+  {
+    [destinationCopy resolveWithQueue:0 hashedRouteIdentifiers:identifiersCopy localPlaybackPermitted:permittedCopy audioRoutingInfo:*&info completion:completionCopy];
+  }
 }
 
 + (void)modifyContextForAirplay:(id)airplay andPlayLocally:(id)locally completion:(id)completion
@@ -550,7 +572,7 @@ void __65__POUtilities_modifyContextForAirplay_andPlayLocally_completion___block
 
 void __65__POUtilities_modifyContextForAirplay_andPlayLocally_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 firstObject];
   v7 = [v6 unsignedIntValue];
@@ -577,35 +599,33 @@ void __65__POUtilities_modifyContextForAirplay_andPlayLocally_completion___block
     v11 = 0;
   }
 
-  POLogInitIfNeeded();
+  POLogInitIfNeeded(v12, v13);
   if (POLogContextCommand)
   {
-    v12 = POLogContextCommand;
+    v14 = POLogContextCommand;
   }
 
   else
   {
-    v12 = MEMORY[0x277D86220];
+    v14 = MEMORY[0x277D86220];
   }
 
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v15[0] = 67109632;
-    v15[1] = v7;
-    v16 = 2048;
-    v17 = v9;
-    v18 = 2048;
-    v19 = v11;
-    _os_log_impl(&dword_25E9F0000, v12, OS_LOG_TYPE_DEFAULT, "Completed Airplay fallback with MR status: %d, remote error: %ld, assistant error: %ld", v15, 0x1Cu);
+    v16[0] = 67109632;
+    v16[1] = v7;
+    v17 = 2048;
+    v18 = v9;
+    v19 = 2048;
+    v20 = v11;
+    _os_log_impl(&dword_25E9F0000, v14, OS_LOG_TYPE_DEFAULT, "Completed Airplay fallback with MR status: %d, remote error: %ld, assistant error: %ld", v16, 0x1Cu);
   }
 
-  v13 = *(a1 + 32);
-  if (v13)
+  v15 = *(a1 + 32);
+  if (v15)
   {
-    (*(v13 + 16))(v13, v7, v5);
+    (*(v15 + 16))(v15, v7, v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (_MRSystemAppPlaybackQueue)createPlaybackQueueFromRequestIdentifiers:(id)identifiers startPlaying:(BOOL)playing assetInfo:(id)info isSiriRequest:(BOOL)request requesterSharedUserId:(id)id sharedUserIdFromPlayableITunesAccount:(id)account
@@ -613,22 +633,21 @@ void __65__POUtilities_modifyContextForAirplay_andPlayLocally_completion___block
   requestCopy = request;
   idCopy = id;
   accountCopy = account;
-  v14 = *MEMORY[0x277CBECE8];
   infoCopy = info;
   identifiersCopy = identifiers;
-  v17 = MRSystemAppPlaybackQueueCreate();
+  v16 = MRSystemAppPlaybackQueueCreate();
   MRSystemAppPlaybackQueueSetGenericTrackIdentifiers();
 
-  v18 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
-  v19 = v18;
+  v17 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
+  v18 = v17;
   if (idCopy)
   {
-    [v18 setObject:idCopy forKey:@"requesterUserId"];
+    [v17 setObject:idCopy forKey:@"requesterUserId"];
   }
 
   if (accountCopy)
   {
-    [v19 setObject:accountCopy forKey:@"sharedUserId"];
+    [v18 setObject:accountCopy forKey:@"sharedUserId"];
   }
 
   MRSystemAppPlaybackQueueSetUserInfo();
@@ -642,7 +661,7 @@ void __65__POUtilities_modifyContextForAirplay_andPlayLocally_completion___block
     MRSystemAppPlaybackQueueSetFeatureName();
   }
 
-  return v17;
+  return v16;
 }
 
 + (id)commandStatusForRemoteStatus:(unsigned int)status error:(id)error isRemoteStorePlayback:(BOOL)playback
@@ -865,24 +884,24 @@ LABEL_52:
   return v3;
 }
 
-void __35__POUtilities_isPodcastsNowPlaying__block_invoke(uint64_t a1)
+void __35__POUtilities_isPodcastsNowPlaying__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = MRNowPlayingClientCopyBundleIdentifierHierarchy();
-  v2 = MRNowPlayingClientGetParentAppBundleIdentifier();
-  if ([v8 count])
+  v9 = MRNowPlayingClientCopyBundleIdentifierHierarchy();
+  v3 = MRNowPlayingClientGetParentAppBundleIdentifier();
+  if ([v9 count])
   {
-    v3 = [v8 lastObject];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    v4 = [v9 lastObject];
+    v5 = *(*(a1 + 40) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
   }
 
   else
   {
-    v6 = *(*(a1 + 40) + 8);
-    v7 = v2;
-    v5 = *(v6 + 40);
-    *(v6 + 40) = v7;
+    v7 = *(*(a1 + 40) + 8);
+    v8 = v3;
+    v6 = *(v7 + 40);
+    *(v7 + 40) = v8;
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
@@ -890,39 +909,37 @@ void __35__POUtilities_isPodcastsNowPlaying__block_invoke(uint64_t a1)
 
 + (void)setPlaybackRate:(float)rate failureErrorCode:(int64_t)code completion:(id)completion
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v16[0] = *MEMORY[0x277D27D60];
+  v17[0] = *MEMORY[0x277D27D60];
   *&v7 = rate;
   v8 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-  v16[1] = *MEMORY[0x277D27D10];
-  v17[0] = v8;
-  v17[1] = MEMORY[0x277CBEC38];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v17[1] = *MEMORY[0x277D27D10];
+  v18[0] = v8;
+  v18[1] = MEMORY[0x277CBEC38];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
-  POLogInitIfNeeded();
+  POLogInitIfNeeded(v10, v11);
   if (POLogContextCommand)
   {
-    v10 = POLogContextCommand;
+    v12 = POLogContextCommand;
   }
 
   else
   {
-    v10 = MEMORY[0x277D86220];
+    v12 = MEMORY[0x277D86220];
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
     rateCopy = rate;
-    _os_log_impl(&dword_25E9F0000, v10, OS_LOG_TYPE_INFO, "Will be setting currentPlaybackRate using MediaRemote to %f", buf, 0xCu);
+    _os_log_impl(&dword_25E9F0000, v12, OS_LOG_TYPE_INFO, "Will be setting currentPlaybackRate using MediaRemote to %f", buf, 0xCu);
   }
 
-  v11 = dispatch_get_global_queue(0, 0);
-  v12 = completionCopy;
+  v13 = dispatch_get_global_queue(0, 0);
+  v14 = completionCopy;
   MRMediaRemoteSendCommandWithReply();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __59__POUtilities_setPlaybackRate_failureErrorCode_completion___block_invoke(uint64_t a1, void *a2)
@@ -958,43 +975,43 @@ LABEL_3:
     }
 
     v11 = [*(*(&v20 + 1) + 8 * v10) integerValue];
-    v12 = v11;
+    v13 = v11;
     if (v11)
     {
-      v13 = v11 == 3;
+      v14 = v11 == 3;
     }
 
     else
     {
-      v13 = 1;
+      v14 = 1;
     }
 
-    if (!v13)
+    if (!v14)
     {
-      POLogInitIfNeeded();
+      POLogInitIfNeeded(v11, v12);
       if (POLogContextCommand)
       {
-        v14 = POLogContextCommand;
+        v15 = POLogContextCommand;
       }
 
       else
       {
-        v14 = v9;
+        v15 = v9;
       }
 
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = v19;
-        v25 = v12;
-        _os_log_error_impl(&dword_25E9F0000, v14, OS_LOG_TYPE_ERROR, "MediaRemote command failed with status %u", buf, 8u);
+        v25 = v13;
+        _os_log_error_impl(&dword_25E9F0000, v15, OS_LOG_TYPE_ERROR, "MediaRemote command failed with status %u", buf, 8u);
       }
 
-      v15 = [objc_alloc(MEMORY[0x277D47208]) initWithErrorCode:*(a1 + 40)];
+      v16 = [objc_alloc(MEMORY[0x277D47208]) initWithErrorCode:*(a1 + 40)];
 
-      v7 = v15;
+      v7 = v16;
     }
 
-    if (v12 != 3 && v12 != 0)
+    if (v13 != 3 && v13 != 0)
     {
       break;
     }
@@ -1017,13 +1034,11 @@ LABEL_3:
   }
 
 LABEL_27:
-  v17 = *(a1 + 32);
-  if (v17)
+  v18 = *(a1 + 32);
+  if (v18)
   {
-    (*(v17 + 16))(v17, v7);
+    (*(v18 + 16))(v18, v7);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)errorIsNoNetwork:(id)network
@@ -1062,11 +1077,10 @@ LABEL_27:
 
 void __237__POUtilities_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_decodedRouteUIDs_originatingOutputDeviceUID_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion___block_invoke_23_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25E9F0000, a2, OS_LOG_TYPE_ERROR, "sendPlaybackQueueWithResult encountered error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25E9F0000, a2, OS_LOG_TYPE_ERROR, "sendPlaybackQueueWithResult encountered error %@", &v2, 0xCu);
 }
 
 @end

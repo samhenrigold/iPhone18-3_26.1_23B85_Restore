@@ -10,6 +10,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)descriptionWithContext:(id)context origName:(id)name;
 - (id)displayName;
+- (id)initFromResultSet:(id)set pos:(int)pos;
 - (id)lazyXattrWithXattrStager:(id)stager;
 - (unint64_t)diffAgainst:(id)against;
 - (void)_aliasTargetItemID;
@@ -156,7 +157,7 @@
     if (nameCopy)
     {
       fp_obfuscatedFilename2 = [nameCopy fp_obfuscatedFilename];
-      [v8 appendFormat:@"(o:\"%@\"", fp_obfuscatedFilename2];
+      [v8 appendFormat:@"(o:%@", fp_obfuscatedFilename2];
     }
   }
 
@@ -282,6 +283,77 @@
   [v8 deleteCharactersInRange:{objc_msgSend(v8, "length") - 1, 1}];
 
   return v8;
+}
+
+- (id)initFromResultSet:(id)set pos:(int)pos
+{
+  v4 = *&pos;
+  setCopy = set;
+  v33.receiver = self;
+  v33.super_class = BRCStatInfo;
+  v7 = [(BRCStatInfo *)&v33 init];
+  if (v7)
+  {
+    v8 = [setCopy objectOfClass:objc_opt_class() atIndex:v4];
+    ckInfo = v7->_ckInfo;
+    v7->_ckInfo = v8;
+
+    v7->_state = [setCopy intAtIndex:(v4 + 1)];
+    v7->_type = [setCopy intAtIndex:(v4 + 2)];
+    v10 = [setCopy intAtIndex:(v4 + 3)];
+    v7->_mode = v10;
+    type = v7->_type;
+    v12 = type > 0xA;
+    v13 = (1 << type) & 0x611;
+    if (!v12 && v13 != 0)
+    {
+      v7->_mode = v10 & 0xFD;
+    }
+
+    v7->_birthtime = [setCopy longLongAtIndex:(v4 + 4)];
+    v7->_lastUsedTime = [setCopy longLongAtIndex:(v4 + 5)];
+    v7->_favoriteRank = [setCopy longLongAtIndex:(v4 + 6)];
+    v15 = [setCopy objectOfClass:objc_opt_class() atIndex:(v4 + 7)];
+    parentID = v7->_parentID;
+    v7->_parentID = v15;
+
+    v17 = [setCopy stringAtIndex:(v4 + 8)];
+    logicalName = v7->_logicalName;
+    v7->_logicalName = v17;
+
+    if (![(NSString *)v7->_logicalName length])
+    {
+      v19 = v7->_logicalName;
+      v7->_logicalName = 0;
+    }
+
+    v7->_hiddenExt = [setCopy BOOLAtIndex:(v4 + 9)];
+    v20 = [setCopy dataAtIndex:(v4 + 10)];
+    finderTags = v7->_finderTags;
+    v7->_finderTags = v20;
+
+    v22 = [setCopy dataAtIndex:(v4 + 11)];
+    xattrSignature = v7->_xattrSignature;
+    v7->_xattrSignature = v22;
+
+    v24 = [setCopy stringAtIndex:(v4 + 12)];
+    trashPutBackPath = v7->_trashPutBackPath;
+    v7->_trashPutBackPath = v24;
+
+    v26 = [setCopy objectOfClass:objc_opt_class() atIndex:(v4 + 13)];
+    trashPutBackParentID = v7->_trashPutBackParentID;
+    v7->_trashPutBackParentID = v26;
+
+    v28 = [setCopy stringAtIndex:(v4 + 14)];
+    aliasTarget = v7->_aliasTarget;
+    v7->_aliasTarget = v28;
+
+    v30 = [setCopy numberAtIndex:(v4 + 15)];
+    creatorRowID = v7->_creatorRowID;
+    v7->_creatorRowID = v30;
+  }
+
+  return v7;
 }
 
 - (BRCStatInfo)initWithStatInfo:(id)info
@@ -788,7 +860,7 @@ LABEL_89:
 
 - (id)lazyXattrWithXattrStager:(id)stager
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   stagerCopy = stager;
   v5 = stagerCopy;
   if (self->_xattrSignature)
@@ -814,11 +886,11 @@ LABEL_89:
         {
           xattrSignature = self->_xattrSignature;
           *buf = 138412802;
-          v17 = xattrSignature;
-          v18 = 2112;
-          v19 = 0;
-          v20 = 2112;
-          v21 = v11;
+          v16 = xattrSignature;
+          v17 = 2112;
+          v18 = 0;
+          v19 = 2112;
+          v20 = v11;
           _os_log_fault_impl(&dword_223E7A000, v12, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to load xattr with signature %@ - %@%@", buf, 0x20u);
         }
 
@@ -834,14 +906,11 @@ LABEL_89:
     v7 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (void)_aliasTargetItemID
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -849,15 +918,12 @@ LABEL_89:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _type == BRC_ITEM_TYPE_ALIAS%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _type == BRC_ITEM_TYPE_ALIAS%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAliasTarget:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -865,15 +931,12 @@ LABEL_89:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: containerID%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: containerID%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)diffAgainst:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -881,15 +944,12 @@ LABEL_89:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] UNREACHABLE: Stat shouldn't be nil%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] UNREACHABLE: Stat shouldn't be nil%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCreatorRowID:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -897,10 +957,8 @@ LABEL_89:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: creatorRowIDLongLongValue >= 0%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: creatorRowIDLongLongValue >= 0%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

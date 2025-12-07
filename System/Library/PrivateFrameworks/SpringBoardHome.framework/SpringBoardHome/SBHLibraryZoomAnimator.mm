@@ -33,63 +33,69 @@
 
 + (BOOL)validateWithLibrary:(id)library context:(id)context
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
   contextCopy = context;
+  v7 = contextCopy;
   if (libraryCopy)
   {
-    if ([libraryCopy isPresentingSearch])
+    contextCopy = [libraryCopy isPresentingSearch];
+    if (contextCopy)
     {
-      v7 = @"Library is presenting search";
-    }
-
-    else if ([libraryCopy isPresentingFolder])
-    {
-      v7 = @"Library is presenting a pod";
+      v8 = @"Library is presenting search";
     }
 
     else
     {
-      iconListView = [contextCopy iconListView];
-      numberOfDisplayedIconViews = [iconListView numberOfDisplayedIconViews];
-
-      if (numberOfDisplayedIconViews)
+      contextCopy = [libraryCopy isPresentingFolder];
+      if (contextCopy)
       {
-        libraryPodIconView = [contextCopy libraryPodIconView];
-
-        if (libraryPodIconView)
-        {
-          v11 = 1;
-          goto LABEL_15;
-        }
-
-        v7 = @"No source library pod icon view to zoom to/from";
+        v8 = @"Library is presenting a pod";
       }
 
       else
       {
-        v7 = @"Library is not displaying any icon views to zoom";
+        iconListView = [v7 iconListView];
+        numberOfDisplayedIconViews = [iconListView numberOfDisplayedIconViews];
+
+        if (numberOfDisplayedIconViews)
+        {
+          libraryPodIconView = [v7 libraryPodIconView];
+
+          if (libraryPodIconView)
+          {
+            v12 = 1;
+            goto LABEL_15;
+          }
+
+          v8 = @"No source library pod icon view to zoom to/from";
+        }
+
+        else
+        {
+          v8 = @"Library is not displaying any icon views to zoom";
+        }
       }
     }
   }
 
   else
   {
-    v7 = @"No Library view controller provided";
+    v8 = @"No Library view controller provided";
   }
 
-  v12 = SBLogLibrary();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = SBLogLibrary(contextCopy);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v14 = 138543362;
-    v15 = v7;
-    _os_log_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_INFO, "SBHLibraryZoomAnimator validation failed for reason: %{public}@", &v14, 0xCu);
+    v15 = 138543362;
+    v16 = v8;
+    _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_INFO, "SBHLibraryZoomAnimator validation failed for reason: %{public}@", &v15, 0xCu);
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_15:
 
-  return v11;
+  return v12;
 }
 
 - (SBHLibraryZoomAnimator)init
@@ -183,7 +189,7 @@ LABEL_15:
   firstObject = [(NSMutableArray *)self->_libraryIconViews firstObject];
   icon = [firstObject icon];
   gridSizeClass = [icon gridSizeClass];
-  [layout iconImageInfoForGridSizeClass:gridSizeClass];
+  objc_msgSend_iconImageInfoForGridSizeClass_(layout);
   self->_libraryIconImageInfo.size.width = v31;
   self->_libraryIconImageInfo.size.height = v32;
   self->_libraryIconImageInfo.scale = v33;
@@ -213,7 +219,7 @@ LABEL_15:
   sourceContainerView = [v36 sourceContainerView];
   v66 = contextCopy;
   v42 = [objc_alloc(MEMORY[0x1E69DD648]) initWithSourceView:sourceContainerView];
-  [sourceContainerView bounds];
+  objc_msgSend_bounds(sourceContainerView);
   [v42 setFrame:?];
   [v42 setHidesSourceView:1];
   [v42 setMatchesPosition:1];
@@ -239,7 +245,7 @@ LABEL_15:
 
   [superview2 addSubview:v47];
   _outermostLayer2 = [libraryPodIconView _outermostLayer];
-  [_outermostLayer2 bounds];
+  objc_msgSend_bounds(_outermostLayer2);
   v53 = v52;
   v55 = v54;
   v57 = v56;
@@ -267,7 +273,7 @@ void __67__SBHLibraryZoomAnimator_prepareToAnimateFromEndpoint_withContext___blo
   v3 = a2;
   [*(*(a1 + 32) + 48) addObject:v3];
   v4 = [SBHTouchPassThroughView alloc];
-  [*(a1 + 40) bounds];
+  objc_msgSend_bounds(*(a1 + 40));
   v5 = [(SBHTouchPassThroughView *)v4 initWithFrame:?];
   [(SBHTouchPassThroughView *)v5 setAutoresizingMask:18];
   [*(a1 + 40) addSubview:v5];
@@ -288,7 +294,7 @@ void __67__SBHLibraryZoomAnimator_prepareToAnimateFromEndpoint_withContext___blo
     if (v7)
     {
       v9 = [v8 makeBackgroundView];
-      [*(a1 + 48) bounds];
+      objc_msgSend_bounds(*(a1 + 48));
       [v9 setBounds:?];
       v10 = [[SBHLibraryPodCrossfadeView alloc] initWithBackgroundView:v9 podIconView:v12];
     }
@@ -454,7 +460,7 @@ uint64_t __67__SBHLibraryZoomAnimator_prepareToAnimateFromEndpoint_withContext__
 
     libraryPodIconView = [userInfo libraryPodIconView];
     _outermostLayer = [libraryPodIconView _outermostLayer];
-    [_outermostLayer bounds];
+    objc_msgSend_bounds(_outermostLayer);
     v36 = v35;
     v38 = v37;
     v40 = v39;
@@ -471,7 +477,7 @@ uint64_t __67__SBHLibraryZoomAnimator_prepareToAnimateFromEndpoint_withContext__
 
     firstObject = [(NSMutableArray *)self->_flyingPodWrapperViews firstObject];
     _outermostLayer3 = [firstObject _outermostLayer];
-    [_outermostLayer3 bounds];
+    objc_msgSend_bounds(_outermostLayer3);
     v54 = v53;
     v56 = v55;
     v58 = v57;
@@ -1377,7 +1383,7 @@ LABEL_12:
 - (void)_configureLayoutForPodViewAtIndex:(unint64_t)index forEndpoint:(int64_t)endpoint withContext:(id)context includeYPosition:(BOOL)position
 {
   contextCopy = context;
-  v11 = [(NSMutableArray *)self->_flyingPodViews objectAtIndex:index];
+  v11 = objc_msgSend_objectAtIndex_(self->_flyingPodViews);
   v12 = [(SBHLibraryZoomAnimator *)self _flyingPodIconViewAtIndex:index];
   [(SBHLibraryZoomAnimator *)self _targetFrameForPodView:v11 atIndex:index forEndpoint:endpoint withContext:contextCopy];
   v14 = v13;
@@ -1398,14 +1404,14 @@ LABEL_12:
 
   else
   {
-    [v11 bounds];
+    objc_msgSend_bounds(v11);
     v20 = v14 / v19;
     [(SBHLibraryZoomAnimator *)self _iconImageInfoForPodViewAtIndex:index];
     v22 = v21;
     v24 = v23;
     v26 = v25;
     libraryPodIconView = [contextCopy libraryPodIconView];
-    [libraryPodIconView iconImageInfo];
+    objc_msgSend_iconImageInfo(libraryPodIconView);
     v29 = v28 / v20;
 
     [(SBHLibraryZoomAnimator *)self _setIconImageInfo:index forPodViewAtIndex:v22, v24, v26, v29];
@@ -1434,15 +1440,15 @@ LABEL_12:
 {
   if ([(NSMutableArray *)self->_crossfadeViews count:index]> index)
   {
-    v8 = [(NSMutableArray *)self->_crossfadeViews objectAtIndex:index];
-    v10 = v8;
-    v9 = 0.0;
+    v7 = objc_msgSend_objectAtIndex_(self->_crossfadeViews);
+    v9 = v7;
+    v8 = 0.0;
     if (endpoint == 1)
     {
-      v9 = 1.0;
+      v8 = 1.0;
     }
 
-    [v8 setPodIconViewCrossfadeFraction:v9];
+    [v7 setPodIconViewCrossfadeFraction:v8];
   }
 }
 
@@ -1450,15 +1456,15 @@ LABEL_12:
 {
   if ([(NSMutableArray *)self->_crossfadeViews count:index]> index)
   {
-    v8 = [(NSMutableArray *)self->_crossfadeViews objectAtIndex:index];
-    v10 = v8;
-    v9 = 0.0;
+    v7 = objc_msgSend_objectAtIndex_(self->_crossfadeViews);
+    v9 = v7;
+    v8 = 0.0;
     if (endpoint == 1)
     {
-      v9 = 1.0;
+      v8 = 1.0;
     }
 
-    [v8 setSourceViewCrossfadeFraction:v9];
+    [v7 setSourceViewCrossfadeFraction:v8];
   }
 }
 
@@ -1466,15 +1472,15 @@ LABEL_12:
 {
   if ([(NSMutableArray *)self->_crossfadeViews count:index]<= index)
   {
-    v8 = [(NSMutableArray *)self->_flyingPodViews objectAtIndex:index];
-    v10 = v8;
-    v9 = 0.0;
+    v7 = objc_msgSend_objectAtIndex_(self->_flyingPodViews);
+    v9 = v7;
+    v8 = 0.0;
     if (endpoint == 1)
     {
-      v9 = 1.0;
+      v8 = 1.0;
     }
 
-    [v8 setAlpha:v9];
+    [v7 setAlpha:v8];
   }
 }
 
@@ -1482,7 +1488,7 @@ LABEL_12:
 {
   translationCopy = translation;
   contextCopy = context;
-  v11 = [(NSMutableArray *)self->_flyingPodViews objectAtIndex:index];
+  v11 = objc_msgSend_objectAtIndex_(self->_flyingPodViews);
   memset(&v26, 0, sizeof(v26));
   if (!endpoint)
   {
@@ -1492,7 +1498,7 @@ LABEL_12:
     [libraryPodIconView iconContentScale];
     v20 = v19;
 
-    [v11 bounds];
+    objc_msgSend_bounds(v11);
     CGAffineTransformMakeScale(&v26, v20 * (v17 / v21), v20 * (v17 / v21));
     if (!translationCopy)
     {
@@ -1531,7 +1537,7 @@ LABEL_4:
   contextCopy = context;
   if (index && [(NSMutableArray *)self->_crossfadeViews count]> index)
   {
-    v8 = [(NSMutableArray *)self->_flyingPodViews objectAtIndex:index];
+    v8 = objc_msgSend_objectAtIndex_(self->_flyingPodViews);
     libraryIconViewController = [contextCopy libraryIconViewController];
     categoryStackView = [libraryIconViewController categoryStackView];
 
@@ -1544,7 +1550,7 @@ LABEL_4:
     }
 
     [v8 setAlpha:v12];
-    v13 = [(NSMutableArray *)self->_crossfadeViews objectAtIndex:index];
+    v13 = objc_msgSend_objectAtIndex_(self->_crossfadeViews);
     podIconView = [v13 podIconView];
     [podIconView setIconImageAlpha:v11];
   }
@@ -1592,7 +1598,7 @@ LABEL_4:
 
 - (id)_flyingPodIconViewAtIndex:(unint64_t)index
 {
-  v5 = [(NSMutableArray *)self->_flyingPodViews objectAtIndex:?];
+  v5 = objc_msgSend_objectAtIndex_(self->_flyingPodViews, a2);
   if ([(NSMutableArray *)self->_crossfadeViews count]<= index)
   {
     podIconView = v5;
@@ -1610,9 +1616,9 @@ LABEL_4:
 
 - (SBIconImageInfo)_iconImageInfoForPodViewAtIndex:(SEL)index
 {
-  v5 = [(NSMutableArray *)self->_flyingPodViews objectAtIndex:a4];
+  v5 = objc_msgSend_objectAtIndex_(self->_flyingPodViews, index, a4);
   [(NSMutableArray *)self->_crossfadeViews count];
-  [v5 iconImageInfo];
+  objc_msgSend_iconImageInfo(v5);
 
   return result;
 }
@@ -1623,9 +1629,9 @@ LABEL_4:
   v9 = v6;
   v10 = v5;
   v11 = v4;
-  index = [(NSMutableArray *)self->_flyingPodViews objectAtIndex:info, index];
+  v13 = objc_msgSend_objectAtIndex_(self->_flyingPodViews, a2, info, index);
   [(NSMutableArray *)self->_crossfadeViews count];
-  [index setIconImageInfo:{v11, v10, v9, v8}];
+  [v13 setIconImageInfo:{v11, v10, v9, v8}];
 }
 
 - (CGRect)_targetFrameForPodView:(id)view atIndex:(unint64_t)index forEndpoint:(int64_t)endpoint withContext:(id)context
@@ -1637,7 +1643,7 @@ LABEL_4:
   {
     iconListView = [contextCopy iconListView];
 
-    v14 = [(NSMutableArray *)self->_libraryIconViews objectAtIndex:index];
+    v14 = objc_msgSend_objectAtIndex_(self->_libraryIconViews);
     icon = [v14 icon];
     if ([iconListView isDisplayingIcon:icon] && (objc_msgSend(iconListView, "rectForIcon:", icon), x = v39.origin.x, y = v39.origin.y, width = v39.size.width, height = v39.size.height, !CGRectIsNull(v39)))
     {
@@ -1651,7 +1657,7 @@ LABEL_4:
 
     else
     {
-      [iconListView bounds];
+      objc_msgSend_bounds(iconListView);
       UIRectGetCenter();
       v21 = v20;
       v23 = v22;
@@ -1726,7 +1732,7 @@ LABEL_4:
 
       if (positioningCopy)
       {
-        [libraryPodIconView bounds];
+        objc_msgSend_bounds(libraryPodIconView);
         v50 = v19;
         v21 = v20;
         v23 = v22;
@@ -1765,7 +1771,7 @@ LABEL_4:
 
     else
     {
-      [libraryPodIconView bounds];
+      objc_msgSend_bounds(libraryPodIconView);
       v36 = v14[2](v14, libraryPodIconView);
       v38 = v37;
       v40 = v39;
@@ -1823,7 +1829,7 @@ double __109__SBHLibraryZoomAnimator__sourceFrameForPodViewAtIndex_inCoordinateS
   sourceViewCopy = sourceView;
   viewCopy = view;
   _outermostLayer = [sourceViewCopy _outermostLayer];
-  [_outermostLayer bounds];
+  objc_msgSend_bounds(_outermostLayer);
   v9 = v8;
   v11 = v10;
   v13 = v12;
@@ -1837,7 +1843,7 @@ double __109__SBHLibraryZoomAnimator__sourceFrameForPodViewAtIndex_inCoordinateS
   v25 = v24;
 
   _outermostLayer3 = [viewCopy _outermostLayer];
-  [_outermostLayer3 bounds];
+  objc_msgSend_bounds(_outermostLayer3);
   v28 = v27;
   v30 = v29;
   v32 = v31;
@@ -1902,7 +1908,7 @@ double __109__SBHLibraryZoomAnimator__sourceFrameForPodViewAtIndex_inCoordinateS
   sourceViewCopy = sourceView;
   viewCopy = view;
   _outermostLayer = [sourceViewCopy _outermostLayer];
-  [_outermostLayer bounds];
+  objc_msgSend_bounds(_outermostLayer);
   v10 = v9;
   v12 = v11;
   v14 = v13;

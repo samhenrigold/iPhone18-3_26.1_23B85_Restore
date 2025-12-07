@@ -29,19 +29,19 @@
   if (v23)
   {
     objc_storeStrong(&v23->_taskServerClass, class);
-    v25 = [dCopy copy];
+    v25 = objc_msgSend_copy(dCopy);
     taskUUID = v24->_taskUUID;
     v24->_taskUUID = v25;
 
-    v27 = [iDCopy copy];
+    v27 = objc_msgSend_copy(iDCopy);
     instanceUUID = v24->_instanceUUID;
     v24->_instanceUUID = v27;
 
-    v29 = [configurationCopy copy];
+    v29 = objc_msgSend_copy(configurationCopy);
     taskConfiguration = v24->_taskConfiguration;
     v24->_taskConfiguration = v29;
 
-    v31 = [storeConfigurationCopy copy];
+    v31 = objc_msgSend_copy(storeConfigurationCopy);
     healthStoreConfiguration = v24->_healthStoreConfiguration;
     v24->_healthStoreConfiguration = v31;
 
@@ -94,54 +94,53 @@
   v13 = objc_loadWeakRetained(&self->_databaseAccessibilityAssertions);
   v14 = [(HDHealthStoreClient *)v10 initWithXPCClient:clientCopy configuration:healthStoreConfiguration profile:WeakRetained databaseAccessibilityAssertions:v13];
 
+  v15 = objc_opt_respondsToSelector();
   taskServerClass = self->_taskServerClass;
-  v16 = objc_opt_respondsToSelector();
-  v17 = self->_taskServerClass;
-  if ((v16 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
-    if (([(objc_class *)v17 instancesRespondToSelector:sel_initWithUUID_configuration_client_delegate_]& 1) == 0)
+    if (([(objc_class *)taskServerClass instancesRespondToSelector:sel_initWithUUID_configuration_client_delegate_]& 1) == 0)
     {
       goto LABEL_10;
     }
 
-    v24 = [objc_alloc(self->_taskServerClass) initWithUUID:self->_taskUUID configuration:self->_taskConfiguration client:v14 delegate:taskServerDelegate];
-    if (!v24)
+    v23 = [objc_alloc(self->_taskServerClass) initWithUUID:self->_taskUUID configuration:self->_taskConfiguration client:v14 delegate:taskServerDelegate];
+    if (!v23)
     {
       goto LABEL_10;
     }
 
-    v20 = v24;
-    v22 = 0;
+    v19 = v23;
+    v21 = 0;
 LABEL_9:
-    objc_storeWeak(&self->_taskServer, v20);
+    objc_storeWeak(&self->_taskServer, v19);
     goto LABEL_17;
   }
 
   taskUUID = self->_taskUUID;
   taskConfiguration = self->_taskConfiguration;
-  v32 = 0;
-  v20 = [(objc_class *)v17 createTaskServerWithUUID:taskUUID configuration:taskConfiguration client:v14 delegate:taskServerDelegate error:&v32];
-  v21 = v32;
-  v22 = v21;
-  if (v20)
+  v31 = 0;
+  v19 = [(objc_class *)taskServerClass createTaskServerWithUUID:taskUUID configuration:taskConfiguration client:v14 delegate:taskServerDelegate error:&v31];
+  v20 = v31;
+  v21 = v20;
+  if (v19)
   {
     goto LABEL_9;
   }
 
-  if (!v21)
+  if (!v20)
   {
 LABEL_10:
-    v25 = MEMORY[0x277CCA9B8];
-    v26 = self->_taskServerClass;
+    v24 = MEMORY[0x277CCA9B8];
+    v25 = self->_taskServerClass;
     uUIDString = [(NSUUID *)self->_taskUUID UUIDString];
-    v28 = [v25 hk_error:124 format:{@"Failed to create %@ task server (%@)", v26, uUIDString}];
-    if (v28)
+    v27 = [v24 hk_error:124 format:{@"Failed to create %@ task server (%@)", v25, uUIDString}];
+    if (v27)
     {
-      v29 = v28;
+      v28 = v27;
       if (error)
       {
-        v30 = v28;
-        *error = v29;
+        v29 = v27;
+        *error = v28;
       }
 
       else
@@ -150,14 +149,14 @@ LABEL_10:
       }
     }
 
-    v22 = 0;
+    v21 = 0;
     goto LABEL_16;
   }
 
   if (error)
   {
-    v23 = v21;
-    *error = v22;
+    v22 = v20;
+    *error = v21;
   }
 
   else
@@ -167,10 +166,10 @@ LABEL_10:
 
 LABEL_16:
   [delegate taskServerDidFailToInitializeForUUID:self->_taskUUID];
-  v20 = 0;
+  v19 = 0;
 LABEL_17:
 
-  return v20;
+  return v19;
 }
 
 - (void)connectionConfiguredForListener:(id)listener client:(id)client exportedObject:(id)object
@@ -190,7 +189,7 @@ LABEL_17:
 
 - (void)connectionInvalidatedForListener:(id)listener client:(id)client exportedObject:(id)object
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   profile = [(HDTaskServerEndpoint *)self profile];
   delegate = [(HDTaskServerEndpoint *)self delegate];
@@ -202,12 +201,10 @@ LABEL_17:
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   taskUUID = self->_taskUUID;
-  v16 = @"HDTaskServerUUIDKey";
-  v17[0] = taskUUID;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v15 = @"HDTaskServerUUIDKey";
+  v16[0] = taskUUID;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   [defaultCenter postNotificationName:@"HDTaskServerDidInvalidateNotification" object:0 userInfo:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (HDProfile)profile

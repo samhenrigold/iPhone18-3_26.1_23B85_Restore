@@ -832,7 +832,7 @@ LABEL_3:
   }
 }
 
-uint64_t __49__TUIKBGraphSerialization_preheatWithStatistics___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__49__TUIKBGraphSerialization_preheatWithStatistics___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [objc_msgSend(*(a1 + 32) "objectForKey:{"compare:", objc_msgSend(*(a1 + 32), "objectForKey:", a2)}")];
   if (!result)

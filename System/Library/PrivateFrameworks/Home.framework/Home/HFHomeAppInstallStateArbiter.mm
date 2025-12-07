@@ -92,7 +92,7 @@ void __46__HFHomeAppInstallStateArbiter_sharedInstance__block_invoke_2()
 
 void __54__HFHomeAppInstallStateArbiter_homeAppInstalledFuture__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CC1E60];
   v3 = a2;
   v4 = HFPlatformSpecificHomeAppBundleID();
@@ -104,41 +104,37 @@ void __54__HFHomeAppInstallStateArbiter_homeAppInstalledFuture__block_invoke(uin
   v8 = HFLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109120;
-    v11[1] = v7;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Initializing Home.app install state to: %{BOOL}d", v11, 8u);
+    v10[0] = 67109120;
+    v10[1] = v7;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Initializing Home.app install state to: %{BOOL}d", v10, 8u);
   }
 
   v9 = [MEMORY[0x277CCABB0] numberWithBool:v7];
   [v3 finishWithResult:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_applications:(id)_applications didInstall:(BOOL)install
 {
   installCopy = install;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([_applications na_any:&__block_literal_global_15_13])
   {
     v6 = HFLogForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v11 = installCopy;
+      v10 = installCopy;
       _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Home.app install state changed: %d", buf, 8u);
     }
 
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __57__HFHomeAppInstallStateArbiter__applications_didInstall___block_invoke_16;
-    v8[3] = &unk_277E00998;
-    v8[4] = self;
-    v9 = installCopy;
-    dispatch_async(MEMORY[0x277D85CD0], v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __57__HFHomeAppInstallStateArbiter__applications_didInstall___block_invoke_16;
+    v7[3] = &unk_277E00998;
+    v7[4] = self;
+    v8 = installCopy;
+    dispatch_async(MEMORY[0x277D85CD0], v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__HFHomeAppInstallStateArbiter__applications_didInstall___block_invoke(uint64_t a1, void *a2)
@@ -153,43 +149,41 @@ uint64_t __57__HFHomeAppInstallStateArbiter__applications_didInstall___block_inv
 
 void __57__HFHomeAppInstallStateArbiter__applications_didInstall___block_invoke_16(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D2C900];
   v3 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
   v4 = [v2 futureWithResult:v3];
   [*(a1 + 32) setHomeAppInstalledFuture:v4];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = [*(a1 + 32) observers];
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) installStateArbiter:*(a1 + 32) installStateDidChange:*(a1 + 40)];
+        [*(*(&v10 + 1) + 8 * v9++) installStateArbiter:*(a1 + 32) installStateDidChange:*(a1 + 40)];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_fastPath_isHomeAppInstalled
@@ -227,17 +221,7 @@ void __57__HFHomeAppInstallStateArbiter__applications_didInstall___block_invoke_
 
     v6 = v9;
 
-    if (!v6)
-    {
-      goto LABEL_13;
-    }
-
-    containingBundle = [v6 containingBundle];
-    bundleIdentifier2 = [containingBundle bundleIdentifier];
-    v12 = HFPlatformSpecificHomeAppBundleID();
-    v13 = [bundleIdentifier2 isEqualToString:v12];
-
-    if (v13)
+    if (v6 && (-[NSObject containingBundle](v6, "containingBundle"), v10 = objc_claimAutoreleasedReturnValue(), [v10 bundleIdentifier], v11 = objc_claimAutoreleasedReturnValue(), HFPlatformSpecificHomeAppBundleID(), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "isEqualToString:", v12), v12, v11, v10, v13))
     {
       v14 = HFLogForCategory(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
@@ -251,7 +235,6 @@ void __57__HFHomeAppInstallStateArbiter__applications_didInstall___block_invoke_
 
     else
     {
-LABEL_13:
       v14 = HFLogForCategory(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {

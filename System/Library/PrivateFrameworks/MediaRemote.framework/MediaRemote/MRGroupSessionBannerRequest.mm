@@ -1,10 +1,39 @@
 @interface MRGroupSessionBannerRequest
++ (id)requestWithBundleIdentifierAffinity:(id)affinity hostDisplayName:(id)name routeType:(unsigned __int8)type;
+- (MRGroupSessionBannerRequest)initWithBundleIdentifierAffinity:(id)affinity hostDisplayName:(id)name routeType:(unsigned __int8)type;
 - (MRGroupSessionBannerRequest)initWithCoder:(id)coder;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation MRGroupSessionBannerRequest
+
++ (id)requestWithBundleIdentifierAffinity:(id)affinity hostDisplayName:(id)name routeType:(unsigned __int8)type
+{
+  typeCopy = type;
+  nameCopy = name;
+  affinityCopy = affinity;
+  v9 = [[MRGroupSessionBannerRequest alloc] initWithBundleIdentifierAffinity:affinityCopy hostDisplayName:nameCopy routeType:typeCopy];
+
+  return v9;
+}
+
+- (MRGroupSessionBannerRequest)initWithBundleIdentifierAffinity:(id)affinity hostDisplayName:(id)name routeType:(unsigned __int8)type
+{
+  typeCopy = type;
+  nameCopy = name;
+  v12.receiver = self;
+  v12.super_class = MRGroupSessionBannerRequest;
+  v9 = [(MRBaseBannerRequest *)&v12 initWithBundleIdentifierAffinity:affinity];
+  v10 = v9;
+  if (v9)
+  {
+    [(MRGroupSessionBannerRequest *)v9 setHostDisplayName:nameCopy];
+    [(MRGroupSessionBannerRequest *)v10 setRouteType:typeCopy];
+  }
+
+  return v10;
+}
 
 - (id)description
 {

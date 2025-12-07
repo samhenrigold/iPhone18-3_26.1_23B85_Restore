@@ -18,10 +18,10 @@
   v3 = OBJC_IVAR____TtC7Journal30PrintableHTMLContentController_webView;
   *(&self->super.isa + v3) = [objc_allocWithZone(WKWebView) init];
   v4 = OBJC_IVAR____TtC7Journal30PrintableHTMLContentController_continuation;
-  v5 = sub_1000F24EC(&qword_100AE1BC8);
+  v5 = sub_1000F24EC(&qword_100AE1BC8, &qword_100953248);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v7.receiver = self;
-  v7.super_class = type metadata accessor for PrintableHTMLContentController();
+  v7.super_class = type metadata accessor for PrintableHTMLContentController(0);
   return [(PrintableHTMLContentController *)&v7 init];
 }
 

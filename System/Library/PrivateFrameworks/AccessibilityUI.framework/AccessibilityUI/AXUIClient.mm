@@ -12,6 +12,7 @@
 - (void)messageSender:(id)sender extractCustomDataFromXPCReply:(id)reply numberOfKeyValuePairsForCustomData:(unint64_t *)data;
 - (void)messageSender:(id)sender processCustomDataFromXPCReply:(void *)reply;
 - (void)messageSender:(id)sender willSendXPCMessage:(id)message context:(void *)context;
+- (void)sendAsynchronousMessage:(id)message withIdentifier:(unint64_t)identifier targetAccessQueue:(id)queue completionRequiresWritingBlock:(BOOL)block completion:(id)completion;
 @end
 
 @implementation AXUIClient
@@ -109,6 +110,39 @@
   v4.receiver = self;
   v4.super_class = AXUIClient;
   [(AXUIClient *)&v4 dealloc];
+}
+
+- (void)sendAsynchronousMessage:(id)message withIdentifier:(unint64_t)identifier targetAccessQueue:(id)queue completionRequiresWritingBlock:(BOOL)block completion:(id)completion
+{
+  blockCopy = block;
+  v23 = *MEMORY[0x277D85DE8];
+  queueCopy = queue;
+  completionCopy = completion;
+  messageCopy = message;
+  [(AXUIClient *)self _requestInitializationMessageFromDelegateIfNeeded];
+  v15 = queueCopy;
+  backgroundAccessQueue = v15;
+  if (!v15)
+  {
+    backgroundAccessQueue = 0;
+    if (completionCopy)
+    {
+      v17 = AXLogUI();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      {
+        v19 = 138543618;
+        selfCopy = self;
+        v21 = 2048;
+        identifierCopy = identifier;
+        _os_log_impl(&dword_23DBC7000, v17, OS_LOG_TYPE_INFO, "%{public}@ sending asynchronous message with identifier %lu and a completion handler but no target access queue; defaulting to the background access queue.", &v19, 0x16u);
+      }
+
+      backgroundAccessQueue = [MEMORY[0x277CE6948] backgroundAccessQueue];
+    }
+  }
+
+  messageSender = [(AXUIClient *)self messageSender];
+  [messageSender sendAsynchronousMessage:messageCopy withIdentifier:identifier context:0 targetAccessQueue:backgroundAccessQueue completionRequiresWritingBlock:blockCopy completion:completionCopy];
 }
 
 - (id)sendSynchronousMessage:(id)message withIdentifier:(unint64_t)identifier error:(id *)error
@@ -218,28 +252,26 @@
 
 - (void)invalidate:(id)invalidate
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   invalidateCopy = invalidate;
   v5 = AXLogAssertions();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     clientIdentifier = self->_clientIdentifier;
     *buf = 138412290;
-    v13 = clientIdentifier;
+    v12 = clientIdentifier;
     _os_log_impl(&dword_23DBC7000, v5, OS_LOG_TYPE_DEFAULT, "AXUIClient sending Clean up message %@", buf, 0xCu);
   }
 
   v7 = *MEMORY[0x277CE77A0];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __25__AXUIClient_invalidate___block_invoke;
-  v10[3] = &unk_278BF2268;
-  v10[4] = self;
-  v11 = invalidateCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __25__AXUIClient_invalidate___block_invoke;
+  v9[3] = &unk_278BF2268;
+  v9[4] = self;
+  v10 = invalidateCopy;
   v8 = invalidateCopy;
-  [(AXUIClient *)self sendAsynchronousMessage:MEMORY[0x277CBEC10] withIdentifier:v7 targetAccessQueue:0 completion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(AXUIClient *)self sendAsynchronousMessage:MEMORY[0x277CBEC10] withIdentifier:v7 targetAccessQueue:0 completion:v9];
 }
 
 uint64_t __25__AXUIClient_invalidate___block_invoke(uint64_t a1)
@@ -263,7 +295,7 @@ uint64_t __25__AXUIClient_invalidate___block_invoke(uint64_t a1)
 
 - (void)_cleanUp
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (self->_clientIdentifier)
   {
     v3 = AXLogAssertions();
@@ -271,7 +303,7 @@ uint64_t __25__AXUIClient_invalidate___block_invoke(uint64_t a1)
     {
       clientIdentifier = self->_clientIdentifier;
       *buf = 138412290;
-      v20 = clientIdentifier;
+      v19 = clientIdentifier;
       _os_log_impl(&dword_23DBC7000, v3, OS_LOG_TYPE_DEFAULT, "AXUIClient Clean up %@", buf, 0xCu);
     }
   }
@@ -282,16 +314,16 @@ uint64_t __25__AXUIClient_invalidate___block_invoke(uint64_t a1)
 
   messageSender = [(AXUIClient *)self messageSender];
   messageSchedulingSerializationQueue = [messageSender messageSchedulingSerializationQueue];
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __22__AXUIClient__cleanUp__block_invoke;
-  v16 = &unk_278BF2290;
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __22__AXUIClient__cleanUp__block_invoke;
+  v15 = &unk_278BF2290;
   selfCopy = self;
-  v18 = clientConnection;
+  v17 = clientConnection;
   v9 = clientConnection;
-  [messageSchedulingSerializationQueue performSynchronousWritingBlock:&v13];
+  [messageSchedulingSerializationQueue performSynchronousWritingBlock:&v12];
 
-  v10 = [(AXUIClient *)self clientConnection:v13];
+  v10 = [(AXUIClient *)self clientConnection:v12];
   [v10 cleanUp];
 
   [(AXUIClient *)self setClientConnection:0];
@@ -302,11 +334,9 @@ uint64_t __25__AXUIClient_invalidate___block_invoke(uint64_t a1)
   [(AXUIClient *)self setServiceBundleName:0];
   [(AXUIClient *)self setClientIdentifier:0];
   [(AXUIClient *)self setInitializationMessage:0];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __22__AXUIClient__cleanUp__block_invoke(uint64_t a1)
+void *__22__AXUIClient__cleanUp__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isRegisteredWithServer];
   if (result)
@@ -324,7 +354,7 @@ uint64_t __22__AXUIClient__cleanUp__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __63__AXUIClient__requestInitializationMessageFromDelegateIfNeeded__block_invoke(uint64_t a1)
+void *__63__AXUIClient__requestInitializationMessageFromDelegateIfNeeded__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isRegisteredWithServer];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -357,7 +387,7 @@ uint64_t __63__AXUIClient__requestInitializationMessageFromDelegateIfNeeded__blo
   }
 }
 
-uint64_t __55__AXUIClient_clientConnection_didChangeConnectedState___block_invoke(uint64_t a1)
+void *__55__AXUIClient_clientConnection_didChangeConnectedState___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isRegisteredWithServer];
   if (result)
@@ -397,33 +427,30 @@ void __55__AXUIClient_clientConnection_didChangeConnectedState___block_invoke_2(
 
 - (void)messageSender:(void *)a1 processCustomDataFromXPCReply:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 messageSender];
   v2 = [v1 messageSchedulingSerializationQueue];
   v3 = [v2 label];
-  OUTLINED_FUNCTION_0(&dword_23DBC7000, v4, v5, "This code must execute in a writing block on AXAccessQueue: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 138412290;
+  *(&v10 + 4) = v3;
+  OUTLINED_FUNCTION_0(&dword_23DBC7000, v4, v5, "This code must execute in a writing block on AXAccessQueue: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)messageSender:(void *)a1 willSendXPCMessage:context:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 messageSender];
   v2 = [v1 messageSchedulingSerializationQueue];
   v3 = [v2 label];
-  OUTLINED_FUNCTION_0(&dword_23DBC7000, v4, v5, "This code must execute in a reading (or writing) block on AXAccessQueue: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 138412290;
+  *(&v10 + 4) = v3;
+  OUTLINED_FUNCTION_0(&dword_23DBC7000, v4, v5, "This code must execute in a reading (or writing) block on AXAccessQueue: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)messageSender:(uint64_t)a1 willSendXPCMessage:(NSObject *)a2 context:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_23DBC7000, a2, OS_LOG_TYPE_ERROR, "Failed to convert initialization message to XPC object: %{public}@.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_23DBC7000, a2, OS_LOG_TYPE_ERROR, "Failed to convert initialization message to XPC object: %{public}@.", &v2, 0xCu);
 }
 
 @end

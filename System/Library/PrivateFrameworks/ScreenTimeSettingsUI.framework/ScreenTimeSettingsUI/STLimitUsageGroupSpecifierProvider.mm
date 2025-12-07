@@ -342,11 +342,11 @@
   [appAndWebsiteActivityOnboardingController presentOverViewController:rootViewController completionBlock:v9];
 }
 
-uint64_t __65__STLimitUsageGroupSpecifierProvider_setUpAppAndWebsiteActivity___block_invoke(uint64_t result, int a2)
+id *__65__STLimitUsageGroupSpecifierProvider_setUpAppAndWebsiteActivity___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) setScreenTimeEnabled:1 completionHandler:&__block_literal_global_0];
+    return [result[4] setScreenTimeEnabled:1 completionHandler:&__block_literal_global_0];
   }
 
   return result;

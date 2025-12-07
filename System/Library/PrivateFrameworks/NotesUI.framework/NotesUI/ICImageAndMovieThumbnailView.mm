@@ -459,7 +459,7 @@
       v12 = v11;
       hairlineColors3 = [(ICImageAndMovieThumbnailView *)self hairlineColors];
       v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
-      v15 = [hairlineColors3 objectForKeyedSubscript:v14];
+      v15 = objc_msgSend_objectForKeyedSubscript_(hairlineColors3);
       v16 = [v15 isEqual:colorCopy];
 
       if (v16)
@@ -521,7 +521,7 @@ LABEL_15:
 {
   v3 = +[ICMediaTimeFormatter timecodeFormatter];
   v4 = [ICMediaTime alloc];
-  [(ICImageAndMovieThumbnailView *)self movieDuration];
+  objc_msgSend_movieDuration(self);
   v5 = [(ICMediaTime *)v4 initWithCMTime:v8];
   v6 = [v3 stringForObjectValue:v5];
   movieDurationLabel = [(ICImageAndMovieThumbnailView *)self movieDurationLabel];
@@ -563,7 +563,7 @@ LABEL_15:
   {
     hairlineLayers = [(ICImageAndMovieThumbnailView *)self hairlineLayers];
     v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:edge];
-    v7 = [hairlineLayers objectForKeyedSubscript:v6];
+    v7 = objc_msgSend_objectForKeyedSubscript_(hairlineLayers);
 
     if (!v7)
     {
@@ -581,7 +581,7 @@ LABEL_15:
 
 - (void)updateHairline
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   borderColor = [(ICImageAndMovieThumbnailView *)self borderColor];
 
   if (!borderColor)
@@ -642,39 +642,39 @@ LABEL_15:
         while (v23 < 4);
       }
 
-      v58 = 0u;
-      v59 = 0u;
-      v56 = 0u;
       v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
       hairlineLayers7 = [(ICImageAndMovieThumbnailView *)self hairlineLayers];
-      v25 = [hairlineLayers7 countByEnumeratingWithState:&v56 objects:v61 count:16];
+      v25 = [hairlineLayers7 countByEnumeratingWithState:&v55 objects:v60 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v57;
+        v27 = *v56;
         do
         {
           for (i = 0; i != v26; ++i)
           {
-            if (*v57 != v27)
+            if (*v56 != v27)
             {
               objc_enumerationMutation(hairlineLayers7);
             }
 
-            v29 = *(*(&v56 + 1) + 8 * i);
+            v29 = *(*(&v55 + 1) + 8 * i);
             objc_opt_class();
             hairlineLayers8 = [(ICImageAndMovieThumbnailView *)self hairlineLayers];
-            v31 = [hairlineLayers8 objectForKeyedSubscript:v29];
+            v31 = objc_msgSend_objectForKeyedSubscript_(hairlineLayers8);
             v32 = ICCheckedDynamicCast();
 
             hairlineColors2 = [(ICImageAndMovieThumbnailView *)self hairlineColors];
-            v34 = [hairlineColors2 objectForKeyedSubscript:v29];
+            v34 = objc_msgSend_objectForKeyedSubscript_(hairlineColors2);
             [v32 setBackgroundColor:{objc_msgSend(v34, "CGColor")}];
 
             [v32 setHidden:{-[ICImageAndMovieThumbnailView usesSeparateLayerForHairlineEdge:](self, "usesSeparateLayerForHairlineEdge:", objc_msgSend(v29, "unsignedIntegerValue")) ^ 1}];
           }
 
-          v26 = [hairlineLayers7 countByEnumeratingWithState:&v56 objects:v61 count:16];
+          v26 = [hairlineLayers7 countByEnumeratingWithState:&v55 objects:v60 count:16];
         }
 
         while (v26);
@@ -685,35 +685,34 @@ LABEL_15:
 
     else
     {
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
       v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
       hairlineLayers9 = [(ICImageAndMovieThumbnailView *)self hairlineLayers];
-      v36 = [hairlineLayers9 countByEnumeratingWithState:&v52 objects:v60 count:16];
+      v36 = [hairlineLayers9 countByEnumeratingWithState:&v51 objects:v59 count:16];
       if (v36)
       {
         v37 = v36;
-        v38 = *v53;
+        v38 = *v52;
         do
         {
           for (j = 0; j != v37; ++j)
           {
-            if (*v53 != v38)
+            if (*v52 != v38)
             {
               objc_enumerationMutation(hairlineLayers9);
             }
 
-            v40 = *(*(&v52 + 1) + 8 * j);
             objc_opt_class();
             hairlineLayers10 = [(ICImageAndMovieThumbnailView *)self hairlineLayers];
-            v42 = [hairlineLayers10 objectForKeyedSubscript:v40];
-            v43 = ICCheckedDynamicCast();
+            v41 = objc_msgSend_objectForKeyedSubscript_(hairlineLayers10);
+            v42 = ICCheckedDynamicCast();
 
-            [v43 removeFromSuperlayer];
+            [v42 removeFromSuperlayer];
           }
 
-          v37 = [hairlineLayers9 countByEnumeratingWithState:&v52 objects:v60 count:16];
+          v37 = [hairlineLayers9 countByEnumeratingWithState:&v51 objects:v59 count:16];
         }
 
         while (v37);

@@ -52,48 +52,25 @@ uint64_t __102__MPRecentsTableViewControllerAccessibility__accessibilityTableVie
   _Block_object_dispose(&v62, 8);
   v11 = __UIAccessibilityCastAsClass();
 
-  if (v68 == 1)
+  if (v68 == 1 || (LOBYTE(v62) = 0, objc_opt_class(), [v8 safeValueForKey:@"titleLabel"], v12 = objc_claimAutoreleasedReturnValue(), __UIAccessibilityCastAsClass(), v13 = objc_claimAutoreleasedReturnValue(), v12, v62 == 1) || (objc_msgSend(v13, "accessibilityLabel"), v14 = objc_claimAutoreleasedReturnValue(), v13, LOBYTE(v62) = 0, objc_opt_class(), objc_msgSend(v8, "safeValueForKey:", @"subtitleLabel"), v15 = objc_claimAutoreleasedReturnValue(), __UIAccessibilityCastAsClass(), v16 = objc_claimAutoreleasedReturnValue(), v15, v62 == 1))
   {
-    goto LABEL_43;
-  }
-
-  LOBYTE(v62) = 0;
-  objc_opt_class();
-  v12 = [v8 safeValueForKey:@"titleLabel"];
-  v13 = __UIAccessibilityCastAsClass();
-
-  if (v62 == 1)
-  {
-    goto LABEL_43;
-  }
-
-  accessibilityLabel = [v13 accessibilityLabel];
-
-  LOBYTE(v62) = 0;
-  objc_opt_class();
-  v15 = [v8 safeValueForKey:@"subtitleLabel"];
-  v16 = __UIAccessibilityCastAsClass();
-
-  if (v62 == 1)
-  {
-LABEL_43:
     abort();
   }
 
-  accessibilityLabel2 = [v16 accessibilityLabel];
+  accessibilityLabel = [v16 accessibilityLabel];
 
   v59 = viewCopy;
-  if (accessibilityLabel)
+  if (v14)
   {
     decimalDigitCharacterSet = [MEMORY[0x29EDB9F50] decimalDigitCharacterSet];
-    v19 = [accessibilityLabel rangeOfCharacterFromSet:decimalDigitCharacterSet];
+    v19 = [v14 rangeOfCharacterFromSet:decimalDigitCharacterSet];
 
     if (v19 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v20 = [MEMORY[0x29EDBD7E8] axAttributedStringWithString:accessibilityLabel];
+      v20 = [MEMORY[0x29EDBD7E8] axAttributedStringWithString:v14];
       [v20 setAttribute:*MEMORY[0x29EDB8F00] forKey:*MEMORY[0x29EDBD968]];
 
-      accessibilityLabel = v20;
+      v14 = v20;
     }
   }
 
@@ -141,11 +118,11 @@ LABEL_43:
     v24 = v28;
   }
 
-  v61 = accessibilityLabel2;
+  v61 = accessibilityLabel;
   mediaType = [v11 mediaType];
   serviceProvider = [v11 serviceProvider];
   v57 = v8;
-  v55 = accessibilityLabel;
+  v55 = v14;
   if (![serviceProvider isEqualToString:*MEMORY[0x29EDC0B08]])
   {
     v32 = 0;
@@ -237,10 +214,7 @@ LABEL_33:
 
 uint64_t __77__MPRecentsTableViewControllerAccessibility_tableView_cellForRowAtIndexPath___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) recentCallAtTableViewIndex:{objc_msgSend(*(a1 + 40), "row")}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) recentCallAtTableViewIndex:{objc_msgSend(*(a1 + 40), "row")}];
 
   return MEMORY[0x2A1C71028]();
 }

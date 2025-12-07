@@ -189,7 +189,7 @@ LABEL_35:
   }
 }
 
-uint64_t sub_100000FE8()
+uint64_t sub_100000FE8(uint64_t a1, uint64_t a2)
 {
   if (qword_10000C0C0 != -1)
   {
@@ -558,11 +558,11 @@ LABEL_85:
   _Block_object_dispose(&v94, 8);
 }
 
-void sub_10000193C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10000193C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
+  _Block_object_dispose((v22 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -596,7 +596,7 @@ intptr_t sub_100001A6C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return dispatch_semaphore_signal(v9);
 }
 
-BOOL sub_100001AC8(NSString *a1, NSString **a2)
+BOOL sub_100001AC8(void *a1, void *a2)
 {
   v4 = MKBGetDeviceLockStateInfo();
   v5 = v4;
@@ -674,7 +674,7 @@ LABEL_8:
   return v13;
 }
 
-NSDate *sub_100001CA0(void *a1)
+NSDate *sub_100001CA0(NSString **a1)
 {
   v26 = 0;
   v27 = 0;

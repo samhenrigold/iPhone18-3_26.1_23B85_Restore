@@ -528,7 +528,7 @@ LABEL_33:
     {
       objc_storeWeak(v8 + 15, connectionCopy);
       v8[8] = 1;
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
       v14 = v16;
       *(v8 + 28) = v17;
     }

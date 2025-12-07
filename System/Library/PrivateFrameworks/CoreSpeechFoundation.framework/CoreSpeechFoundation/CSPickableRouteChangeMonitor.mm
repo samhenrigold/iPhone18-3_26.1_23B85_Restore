@@ -29,40 +29,36 @@
 
 - (void)_systemControllerDied:(id)died
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   diedCopy = died;
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[CSPickableRouteChangeMonitor _systemControllerDied:]";
-    v9 = 2114;
-    v10 = diedCopy;
-    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s notification = %{public}@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSPickableRouteChangeMonitor _systemControllerDied:]";
+    v8 = 2114;
+    v9 = diedCopy;
+    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s notification = %{public}@", &v6, 0x16u);
   }
 
   [(CSPickableRouteChangeMonitor *)self _startObservingSystemControllerLifecycle];
   [(CSPickableRouteChangeMonitor *)self _startObservingAudioPickableRouteChange];
   [(CSPickableRouteChangeMonitor *)self pickableRoutesDidChange:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopMonitoring
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter removeObserver:self];
 
   v4 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSPickableRouteChangeMonitor _stopMonitoring]";
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : CSPickableRouteChangeMonitor", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSPickableRouteChangeMonitor _stopMonitoring]";
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : CSPickableRouteChangeMonitor", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startObservingAudioPickableRouteChange
@@ -77,38 +73,35 @@
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   [(CSPickableRouteChangeMonitor *)self _startObservingSystemControllerLifecycle];
   [(CSPickableRouteChangeMonitor *)self _startObservingAudioPickableRouteChange];
   v4 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSPickableRouteChangeMonitor _startMonitoringWithQueue:]";
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : CSPickableRouteChangeMonitor", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSPickableRouteChangeMonitor _startMonitoringWithQueue:]";
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : CSPickableRouteChangeMonitor", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pickableRoutesDidChange:(id)change
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[CSPickableRouteChangeMonitor pickableRoutesDidChange:]";
+    v7 = "[CSPickableRouteChangeMonitor pickableRoutesDidChange:]";
     _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Received external pickable route change notification", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __56__CSPickableRouteChangeMonitor_pickableRoutesDidChange___block_invoke;
-  v6[3] = &unk_1E865CB20;
-  v6[4] = self;
-  [(CSEventMonitor *)self enumerateObserversInQueue:v6];
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __56__CSPickableRouteChangeMonitor_pickableRoutesDidChange___block_invoke;
+  v5[3] = &unk_1E865CB20;
+  v5[4] = self;
+  [(CSEventMonitor *)self enumerateObserversInQueue:v5];
 }
 
 - (CSPickableRouteChangeMonitor)init
@@ -143,9 +136,11 @@
 
 uint64_t __46__CSPickableRouteChangeMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_1331 = objc_alloc_init(CSPickableRouteChangeMonitor);
+  v0 = objc_alloc_init(CSPickableRouteChangeMonitor);
+  v1 = sharedInstance_sharedInstance_1331;
+  sharedInstance_sharedInstance_1331 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

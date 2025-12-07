@@ -7,28 +7,27 @@
 - (void)extensionDeviceLost
 {
   v3 = sub_100003320(&qword_100026E08, &qword_100015630);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8, v5);
-  v7 = &v15 - v6;
-  v8 = objc_opt_self();
+  __chkstk_darwin(v3 - 8, v4);
+  v6 = &v14 - v5;
+  v7 = objc_opt_self();
 
-  sharedManager = [v8 sharedManager];
+  sharedManager = [v7 sharedManager];
   if (sharedManager)
   {
-    v10 = sharedManager;
-    v11 = String._bridgeToObjectiveC()();
-    [v10 logFaultInFunction:"MBLogFault(_:)" atLine:15 withString:v11];
+    v9 = sharedManager;
+    v10 = String._bridgeToObjectiveC()();
+    [v9 logFaultInFunction:"MBLogFault(_:)" atLine:15 withString:v10];
 
-    v12 = type metadata accessor for TaskPriority();
-    (*(*(v12 - 8) + 56))(v7, 1, 1, v12);
+    v11 = type metadata accessor for TaskPriority();
+    (*(*(v11 - 8) + 56))(v6, 1, 1, v11);
     type metadata accessor for MainActor();
 
-    v13 = static MainActor.shared.getter();
-    v14 = swift_allocObject();
-    v14[2] = v13;
-    v14[3] = &protocol witness table for MainActor;
-    v14[4] = self;
-    sub_10000C16C(0, 0, v7, &unk_100015438, v14);
+    v12 = static MainActor.shared.getter();
+    v13 = swift_allocObject();
+    v13[2] = v12;
+    v13[3] = &protocol witness table for MainActor;
+    v13[4] = self;
+    sub_10000C16C(0, 0, v6, &unk_100015438, v13);
   }
 
   else

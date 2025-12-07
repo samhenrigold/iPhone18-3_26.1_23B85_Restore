@@ -9,7 +9,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   fouSemantics = self->_fouSemantics;
   name = self->_name;
   if (fouSemantics)
@@ -30,10 +30,9 @@
     }
   }
 
-  v7.receiver = self;
-  v7.super_class = __CFNotification;
-  [(__CFNotification *)&v7 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = __CFNotification;
+  [(__CFNotification *)&v6 dealloc];
 }
 
 - (unint64_t)hash

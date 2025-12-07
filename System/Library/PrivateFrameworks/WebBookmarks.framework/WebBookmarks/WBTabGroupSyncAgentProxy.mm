@@ -45,9 +45,11 @@
 
 uint64_t __39__WBTabGroupSyncAgentProxy_sharedProxy__block_invoke()
 {
-  sharedProxy_sharedProxy = objc_alloc_init(WBTabGroupSyncAgentProxy);
+  v0 = objc_alloc_init(WBTabGroupSyncAgentProxy);
+  v1 = sharedProxy_sharedProxy;
+  sharedProxy_sharedProxy = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WBTabGroupSyncAgentProxy)init
@@ -205,23 +207,23 @@ void __44__WBTabGroupSyncAgentProxy__setUpConnection__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __44__WBTabGroupSyncAgentProxy__setUpConnection__block_invoke_2(uint64_t a1)
+uint64_t __44__WBTabGroupSyncAgentProxy__setUpConnection__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXTabGroup(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __44__WBTabGroupSyncAgentProxy__setUpConnection__block_invoke_2_cold_1(v2);
+    __44__WBTabGroupSyncAgentProxy__setUpConnection__block_invoke_2_cold_1(v3);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t __44__WBTabGroupSyncAgentProxy__setUpConnection__block_invoke_68(uint64_t a1)
+uint64_t __44__WBTabGroupSyncAgentProxy__setUpConnection__block_invoke_68(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXTabGroup(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __44__WBTabGroupSyncAgentProxy__setUpConnection__block_invoke_68_cold_1(v2);
+    __44__WBTabGroupSyncAgentProxy__setUpConnection__block_invoke_68_cold_1(v3);
   }
 
   return (*(*(a1 + 32) + 16))();
@@ -250,7 +252,7 @@ uint64_t __44__WBTabGroupSyncAgentProxy__setUpConnection__block_invoke_68(uint64
 
 void __54__WBTabGroupSyncAgentProxy__setUpSyncObserverIfNeeded__block_invoke_75(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a1 + 32;
   v2 = *(a1 + 32);
   if (v2[2])
@@ -270,52 +272,52 @@ void __54__WBTabGroupSyncAgentProxy__setUpSyncObserverIfNeeded__block_invoke_75(
   else
   {
     v9 = [v2 _shouldAttemptToReconnect];
-    v10 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    v11 = v10;
-    if (v9)
+    v10 = v9;
+    v12 = WBS_LOG_CHANNEL_PREFIXTabGroup(v9, v11);
+    v13 = v12;
+    if (v10)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v14 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
+      if (v14)
       {
-        LOWORD(v21) = 0;
-        _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_INFO, "Will attempt to add sync observer again after connection ended", &v21, 2u);
+        LOWORD(v24) = 0;
+        _os_log_impl(&dword_272C20000, v13, OS_LOG_TYPE_INFO, "Will attempt to add sync observer again after connection ended", &v24, 2u);
       }
 
       if (!*(*v3 + 40))
       {
-        v12 = [MEMORY[0x277CBEAA8] now];
-        v13 = *(*v3 + 40);
-        *(*v3 + 40) = v12;
+        v16 = [MEMORY[0x277CBEAA8] now];
+        v17 = *(*v3 + 40);
+        *(*v3 + 40) = v16;
 
         *(*v3 + 48) = 0;
       }
 
-      v14 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v18 = WBS_LOG_CHANNEL_PREFIXTabGroup(v14, v15);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v15 = *(*v3 + 40);
-        v16 = *(*v3 + 48);
-        v21 = 134218242;
-        v22 = v16;
-        v23 = 2114;
-        v24 = v15;
-        _os_log_impl(&dword_272C20000, v14, OS_LOG_TYPE_INFO, "Will attempt to reconnect after %ld retries since %{public}@", &v21, 0x16u);
+        v19 = *(*v3 + 40);
+        v20 = *(*v3 + 48);
+        v24 = 134218242;
+        v25 = v20;
+        v26 = 2114;
+        v27 = v19;
+        _os_log_impl(&dword_272C20000, v18, OS_LOG_TYPE_INFO, "Will attempt to reconnect after %ld retries since %{public}@", &v24, 0x16u);
       }
 
       ++*(*(a1 + 32) + 48);
       [*(a1 + 32) _setUpConnection];
-      v17 = [*(*(a1 + 32) + 16) remoteObjectProxy];
-      v18 = *(*(a1 + 40) + 8);
-      v19 = *(v18 + 40);
-      *(v18 + 40) = v17;
+      v21 = [*(*(a1 + 32) + 16) remoteObjectProxy];
+      v22 = *(*(a1 + 40) + 8);
+      v23 = *(v22 + 40);
+      *(v22 + 40) = v21;
     }
 
-    else if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      __54__WBTabGroupSyncAgentProxy__setUpSyncObserverIfNeeded__block_invoke_75_cold_1(v3, v11);
+      __54__WBTabGroupSyncAgentProxy__setUpSyncObserverIfNeeded__block_invoke_75_cold_1(v3, v13);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enumerateSyncObserversUsingBlock:(id)block
@@ -369,44 +371,41 @@ void __62__WBTabGroupSyncAgentProxy__enumerateSyncObserversUsingBlock___block_in
 
 void __62__WBTabGroupSyncAgentProxy__enumerateSyncObserversUsingBlock___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   v2 = *(*(*(a1 + 40) + 8) + 40);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
 
-  v8 = *(*(a1 + 40) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = 0;
-
-  v10 = *MEMORY[0x277D85DE8];
+  v7 = *(*(a1 + 40) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = 0;
 }
 
 - (void)addSyncObserver:(id)observer
@@ -432,25 +431,25 @@ void __62__WBTabGroupSyncAgentProxy__enumerateSyncObserversUsingBlock___block_in
 void __44__WBTabGroupSyncAgentProxy_addSyncObserver___block_invoke(uint64_t a1)
 {
   v2 = *(*(*(a1 + 40) + 8) + 40);
-  v16 = v2;
+  v18 = v2;
   v3 = *(*(a1 + 40) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = 0;
 
   v5 = [*(*(a1 + 32) + 32) safari_isEmpty];
   [*(*(a1 + 32) + 32) addObject:v2];
-  [v16 safari_setDeallocationSentinelForObserver:*(a1 + 32)];
+  [v18 safari_setDeallocationSentinelForObserver:*(a1 + 32)];
   if (v5)
   {
     v6 = *(a1 + 32);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v13 = __44__WBTabGroupSyncAgentProxy_addSyncObserver___block_invoke_2;
-    v14 = &unk_279E751F0;
-    v15 = v6;
-    v7 = v12;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v15 = __44__WBTabGroupSyncAgentProxy_addSyncObserver___block_invoke_2;
+    v16 = &unk_279E751F0;
+    v17 = v6;
+    v7 = v14;
     os_unfair_lock_lock(v6 + 2);
-    v13(v7);
+    v15(v7);
 
     os_unfair_lock_unlock(v6 + 2);
     os_unfair_lock_lock((*(a1 + 32) + 8));
@@ -459,16 +458,16 @@ void __44__WBTabGroupSyncAgentProxy_addSyncObserver___block_invoke(uint64_t a1)
     os_unfair_lock_unlock((v8 + 8));
     if (v9)
     {
-      v10 = [*(a1 + 32) _remoteObjectProxy];
-      [v10 addSyncObserver:*(a1 + 32)];
+      v12 = [*(a1 + 32) _remoteObjectProxy];
+      [v12 addSyncObserver:*(a1 + 32)];
     }
 
     else
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v13 = WBS_LOG_CHANNEL_PREFIXTabGroup(v10, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        __44__WBTabGroupSyncAgentProxy_addSyncObserver___block_invoke_cold_1(v11);
+        __44__WBTabGroupSyncAgentProxy_addSyncObserver___block_invoke_cold_1(v13);
       }
     }
   }
@@ -596,11 +595,9 @@ void __61__WBTabGroupSyncAgentProxy_sentinelDidDeallocateWithContext___block_inv
 void __62__WBTabGroupSyncAgentProxy_shareDidUpdateForTabGroupWithUUID___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 shareDidUpdateForTabGroupWithUUID:*(a1 + 32)];
+    [v3 shareDidUpdateForTabGroupWithUUID:*(a1 + 32)];
   }
 }
 
@@ -623,11 +620,9 @@ void __62__WBTabGroupSyncAgentProxy_shareDidUpdateForTabGroupWithUUID___block_in
 void __71__WBTabGroupSyncAgentProxy_participants_didJoinSharedTabGroupWithUUID___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[6];
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 participants:a1[4] didJoinSharedTabGroupWithUUID:a1[5]];
+    [v3 participants:a1[4] didJoinSharedTabGroupWithUUID:a1[5]];
   }
 }
 
@@ -650,11 +645,9 @@ void __71__WBTabGroupSyncAgentProxy_participants_didJoinSharedTabGroupWithUUID__
 void __72__WBTabGroupSyncAgentProxy_participants_didLeaveSharedTabGroupWithUUID___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[6];
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 participants:a1[4] didLeaveSharedTabGroupWithUUID:a1[5]];
+    [v3 participants:a1[4] didLeaveSharedTabGroupWithUUID:a1[5]];
   }
 }
 
@@ -674,11 +667,9 @@ void __72__WBTabGroupSyncAgentProxy_participants_didLeaveSharedTabGroupWithUUID_
 void __74__WBTabGroupSyncAgentProxy_activeParticipantsDidUpdateInTabGroupWithUUID___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 activeParticipantsDidUpdateInTabGroupWithUUID:*(a1 + 32)];
+    [v3 activeParticipantsDidUpdateInTabGroupWithUUID:*(a1 + 32)];
   }
 }
 
@@ -698,11 +689,9 @@ void __74__WBTabGroupSyncAgentProxy_activeParticipantsDidUpdateInTabGroupWithUUI
 void __69__WBTabGroupSyncAgentProxy_activeParticipantsDidUpdateInTabWithUUID___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 activeParticipantsDidUpdateInTabWithUUID:*(a1 + 32)];
+    [v3 activeParticipantsDidUpdateInTabWithUUID:*(a1 + 32)];
   }
 }
 
@@ -731,11 +720,9 @@ void __69__WBTabGroupSyncAgentProxy_activeParticipantsDidUpdateInTabWithUUID___b
 void __103__WBTabGroupSyncAgentProxy_didAddTabWithUUID_title_inSharedTabGroupWithUUID_byParticipantWithRecordID___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[8];
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 didAddTabWithUUID:a1[4] title:a1[5] inSharedTabGroupWithUUID:a1[6] byParticipantWithRecordID:a1[7]];
+    [v3 didAddTabWithUUID:a1[4] title:a1[5] inSharedTabGroupWithUUID:a1[6] byParticipantWithRecordID:a1[7]];
   }
 }
 
@@ -764,11 +751,9 @@ void __103__WBTabGroupSyncAgentProxy_didAddTabWithUUID_title_inSharedTabGroupWit
 void __110__WBTabGroupSyncAgentProxy_didNavigateInTabWithUUID_title_inSharedTabGroupWithUUID_byParticipantWithRecordID___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[8];
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 didNavigateInTabWithUUID:a1[4] title:a1[5] inSharedTabGroupWithUUID:a1[6] byParticipantWithRecordID:a1[7]];
+    [v3 didNavigateInTabWithUUID:a1[4] title:a1[5] inSharedTabGroupWithUUID:a1[6] byParticipantWithRecordID:a1[7]];
   }
 }
 
@@ -797,11 +782,9 @@ void __110__WBTabGroupSyncAgentProxy_didNavigateInTabWithUUID_title_inSharedTabG
 void __106__WBTabGroupSyncAgentProxy_didRemoveTabWithUUID_title_inSharedTabGroupWithUUID_byParticipantWithRecordID___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[8];
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 didRemoveTabWithUUID:a1[4] title:a1[5] inSharedTabGroupWithUUID:a1[6] byParticipantWithRecordID:a1[7]];
+    [v3 didRemoveTabWithUUID:a1[4] title:a1[5] inSharedTabGroupWithUUID:a1[6] byParticipantWithRecordID:a1[7]];
   }
 }
 
@@ -824,11 +807,9 @@ void __106__WBTabGroupSyncAgentProxy_didRemoveTabWithUUID_title_inSharedTabGroup
 void __103__WBTabGroupSyncAgentProxy_didChangeScopedFavoritesInSharedTabGroupWithUUID_byParticipantWithRecordID___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[6];
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 didChangeScopedFavoritesInSharedTabGroupWithUUID:a1[4] byParticipantWithRecordID:a1[5]];
+    [v3 didChangeScopedFavoritesInSharedTabGroupWithUUID:a1[4] byParticipantWithRecordID:a1[5]];
   }
 }
 
@@ -851,11 +832,9 @@ void __103__WBTabGroupSyncAgentProxy_didChangeScopedFavoritesInSharedTabGroupWit
 void __103__WBTabGroupSyncAgentProxy_didChangeBackgroundImageInSharedTabGroupWithUUID_byParticipantWithRecordID___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[6];
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 didChangeBackgroundImageInSharedTabGroupWithUUID:a1[4] byParticipantWithRecordID:a1[5]];
+    [v3 didChangeBackgroundImageInSharedTabGroupWithUUID:a1[4] byParticipantWithRecordID:a1[5]];
   }
 }
 
@@ -878,22 +857,19 @@ void __103__WBTabGroupSyncAgentProxy_didChangeBackgroundImageInSharedTabGroupWit
 void __93__WBTabGroupSyncAgentProxy_didFetchRecentlyAcceptedSharedTabGroupWithUUID_acceptedShareDate___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[6];
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 didFetchRecentlyAcceptedSharedTabGroupWithUUID:a1[4] acceptedShareDate:a1[5]];
+    [v3 didFetchRecentlyAcceptedSharedTabGroupWithUUID:a1[4] acceptedShareDate:a1[5]];
   }
 }
 
 void __54__WBTabGroupSyncAgentProxy__setUpSyncObserverIfNeeded__block_invoke_75_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 40);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_fault_impl(&dword_272C20000, a2, OS_LOG_TYPE_FAULT, "Failed to reconnect too many times to sync agent since %{public}@, stopping.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_fault_impl(&dword_272C20000, a2, OS_LOG_TYPE_FAULT, "Failed to reconnect too many times to sync agent since %{public}@, stopping.", &v3, 0xCu);
 }
 
 @end

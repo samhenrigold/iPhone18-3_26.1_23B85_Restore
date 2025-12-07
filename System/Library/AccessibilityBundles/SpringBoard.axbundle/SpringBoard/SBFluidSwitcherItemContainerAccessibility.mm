@@ -108,7 +108,7 @@
   return v4;
 }
 
-uint64_t __62__SBFluidSwitcherItemContainerAccessibility_accessibilityPath__block_invoke(uint64_t a1)
+void *__62__SBFluidSwitcherItemContainerAccessibility_accessibilityPath__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cornerRadii];
   v3 = *(*(a1 + 40) + 8);
@@ -818,7 +818,7 @@ void __79__SBFluidSwitcherItemContainerAccessibility__accessibilityIsNewWindowCo
   v3 = v2;
   if (v2)
   {
-    [v2 transform3D];
+    objc_msgSend_transform3D(v2);
     v4 = 0.0 + 0.0 + 0.0;
   }
 

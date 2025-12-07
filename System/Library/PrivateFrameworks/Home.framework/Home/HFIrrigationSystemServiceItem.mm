@@ -27,8 +27,8 @@
 
   if (v6)
   {
-    service = [(HFServiceItem *)self service];
-    v8 = [service hf_childServicesOfType:*MEMORY[0x277CD0F38]];
+    v7 = objc_msgSend_service(self);
+    v8 = [v7 hf_childServicesOfType:*MEMORY[0x277CD0F38]];
     v9 = [v5 na_setByRemovingObjectsFromSet:v8];
 
     v5 = v9;
@@ -40,16 +40,16 @@
 - (id)createControlItemsWithOptions:(id)options
 {
   _childValveServiceFilter = [(HFIrrigationSystemServiceItem *)self _childValveServiceFilter];
-  service = [(HFServiceItem *)self service];
-  v6 = [_childValveServiceFilter filteredChildServicesForParentService:service];
+  v5 = objc_msgSend_service(self);
+  v6 = [_childValveServiceFilter filteredChildServicesForParentService:v5];
   v7 = [v6 count];
 
   if (v7)
   {
     v8 = [HFChildServiceControlItem alloc];
     valueSource = [(HFServiceItem *)self valueSource];
-    service2 = [(HFServiceItem *)self service];
-    v11 = [(HFChildServiceControlItem *)v8 initWithBaseValueSource:valueSource parentService:service2 childServiceFilter:_childValveServiceFilter displayResults:0];
+    v10 = objc_msgSend_service(self);
+    v11 = [(HFChildServiceControlItem *)v8 initWithBaseValueSource:valueSource parentService:v10 childServiceFilter:_childValveServiceFilter displayResults:0];
 
     v12 = [MEMORY[0x277CBEB98] setWithObject:v11];
   }
@@ -64,27 +64,25 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   v5 = *MEMORY[0x277CCF908];
-  v15[0] = *MEMORY[0x277CCF748];
-  v15[1] = v5;
-  v15[2] = *MEMORY[0x277CCF9F8];
+  v14[0] = *MEMORY[0x277CCF748];
+  v14[1] = v5;
+  v14[2] = *MEMORY[0x277CCF9F8];
   v6 = MEMORY[0x277CBEA60];
   optionsCopy = options;
-  v8 = [v6 arrayWithObjects:v15 count:3];
+  v8 = [v6 arrayWithObjects:v14 count:3];
   v9 = [v4 setWithArray:v8];
 
   v10 = [(HFServiceItem *)self performStandardUpdateWithCharacteristicTypes:v9 options:optionsCopy];
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __61__HFIrrigationSystemServiceItem__subclass_updateWithOptions___block_invoke;
-  v14[3] = &unk_277DF2828;
-  v14[4] = self;
-  v11 = [v10 flatMap:v14];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __61__HFIrrigationSystemServiceItem__subclass_updateWithOptions___block_invoke;
+  v13[3] = &unk_277DF2828;
+  v13[4] = self;
+  v11 = [v10 flatMap:v13];
 
   return v11;
 }
@@ -95,12 +93,12 @@ id __61__HFIrrigationSystemServiceItem__subclass_updateWithOptions___block_invok
   v4 = [v3 mutableCopy];
 
   [v4 setObject:&unk_282523DC0 forKeyedSubscript:@"controlSummaryStyle"];
-  v5 = [*(a1 + 32) service];
+  v5 = objc_msgSend_service(*(a1 + 32));
   v6 = [v5 hf_childServicesOfType:*MEMORY[0x277CD0F38]];
   if ([v6 count])
   {
     v7 = [*(a1 + 32) _childValveServiceFilter];
-    v8 = [*(a1 + 32) service];
+    v8 = objc_msgSend_service(*(a1 + 32));
     v9 = [v7 filteredChildServicesForParentService:v8];
     v10 = [v9 count];
 

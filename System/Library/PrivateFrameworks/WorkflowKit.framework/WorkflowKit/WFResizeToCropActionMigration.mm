@@ -23,35 +23,35 @@
 
 - (void)migrateWorkflow
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   actions = [(WFWorkflowMigration *)self actions];
   actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
   v5 = [actions filteredArrayForKey:actionIdentifierKey value:@"is.workflow.actions.image.resize"];
 
   selfCopy = self;
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v7 = v5;
-  v41 = [v7 countByEnumeratingWithState:&v45 objects:v49 count:16];
-  if (v41)
+  v40 = [v7 countByEnumeratingWithState:&v44 objects:v48 count:16];
+  if (v40)
   {
-    v39 = v7;
-    v40 = *v46;
+    v38 = v7;
+    v39 = *v45;
     do
     {
       v8 = 0;
       do
       {
-        if (*v46 != v40)
+        if (*v45 != v39)
         {
           objc_enumerationMutation(v7);
         }
 
-        v9 = *(*(&v45 + 1) + 8 * v8);
+        v9 = *(*(&v44 + 1) + 8 * v8);
         actionParametersKey = [(WFWorkflowMigration *)selfCopy actionParametersKey];
-        v42 = v9;
+        v41 = v9;
         v11 = [v9 objectForKey:actionParametersKey];
 
         v12 = [v11 objectForKeyedSubscript:@"WFImageResizeCropEnabled"];
@@ -63,7 +63,7 @@
           v15 = v13;
         }
 
-        v44 = v15;
+        v43 = v15;
 
         v16 = [v11 objectForKeyedSubscript:@"WFImageResizeHeight"];
         v17 = v16;
@@ -73,7 +73,7 @@
           v18 = v16;
         }
 
-        v43 = v18;
+        v42 = v18;
 
         v19 = [v11 objectForKeyedSubscript:@"WFImageResizeCropX"];
         v20 = v19;
@@ -107,8 +107,8 @@
         if ((objc_opt_isKindOfClass() & 1) != 0 && [v12 BOOLValue])
         {
           v27 = objc_opt_new();
-          [v27 setObject:v44 forKeyedSubscript:@"WFImageCropWidth"];
-          [v27 setObject:v43 forKeyedSubscript:@"WFImageCropHeight"];
+          [v27 setObject:v43 forKeyedSubscript:@"WFImageCropWidth"];
+          [v27 setObject:v42 forKeyedSubscript:@"WFImageCropHeight"];
           objc_opt_class();
           if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()) && ![v22 integerValue] && !objc_msgSend(v26, "integerValue"))
           {
@@ -137,10 +137,10 @@
           actions2 = [(WFWorkflowMigration *)selfCopy actions];
           [(WFWorkflowMigration *)selfCopy actions];
           v36 = v35 = selfCopy;
-          [actions2 insertObject:v31 atIndex:{objc_msgSend(v36, "indexOfObject:", v42) + 1}];
+          [actions2 insertObject:v31 atIndex:{objc_msgSend(v36, "indexOfObject:", v41) + 1}];
 
           selfCopy = v35;
-          v7 = v39;
+          v7 = v38;
         }
 
         [v11 removeObjectForKey:@"WFImageResizeCropEnabled"];
@@ -150,16 +150,15 @@
         ++v8;
       }
 
-      while (v41 != v8);
-      v37 = [v7 countByEnumeratingWithState:&v45 objects:v49 count:16];
-      v41 = v37;
+      while (v40 != v8);
+      v37 = [v7 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v40 = v37;
     }
 
     while (v37);
   }
 
   [(WFWorkflowMigration *)selfCopy finish];
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 @end

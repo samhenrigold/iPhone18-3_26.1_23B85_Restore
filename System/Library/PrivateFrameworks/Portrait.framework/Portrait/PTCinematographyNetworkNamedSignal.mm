@@ -24,24 +24,25 @@
 
 - (void)writePayload:(id)payload toStream:(id)stream
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   streamCopy = stream;
-  if ([(PTCinematographyNetworkSignal *)self checkSignalForStream:streamCopy])
+  v8 = [(PTCinematographyNetworkSignal *)self checkSignalForStream:streamCopy];
+  if (v8)
   {
     detection = [payloadCopy detection];
     _namedSignals = [detection _namedSignals];
     name = [(PTCinematographyNetworkSignal *)self name];
-    v11 = [_namedSignals objectForKeyedSubscript:name];
+    v12 = [_namedSignals objectForKeyedSubscript:name];
 
-    if (v11)
+    if (v12)
     {
       if ([(PTCinematographyNetworkNamedSignal *)self flatten])
       {
-        v12 = [(PTCinematographyNetworkNamedSignal *)self _flattenArray:v11];
+        v13 = [(PTCinematographyNetworkNamedSignal *)self _flattenArray:v12];
 
-        v11 = v12;
-        if (!v11)
+        v12 = v13;
+        if (!v12)
         {
           goto LABEL_22;
         }
@@ -49,50 +50,51 @@
 
       else
       {
-        v11 = v11;
+        v12 = v12;
       }
 
       if (![payloadCopy isMissingDetection])
       {
-        v13 = [v11 count];
-        if (v13 == [(PTCinematographyNetworkSignal *)self count])
+        v14 = [v12 count];
+        v15 = [(PTCinematographyNetworkSignal *)self count];
+        if (v14 == v15)
         {
+          v23 = 0u;
+          v24 = 0u;
           v21 = 0u;
           v22 = 0u;
-          v19 = 0u;
-          v20 = 0u;
-          v11 = v11;
-          v14 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
-          if (v14)
+          v12 = v12;
+          v16 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          if (v16)
           {
-            v15 = v14;
-            v16 = *v20;
+            v17 = v16;
+            v18 = *v22;
             do
             {
-              for (i = 0; i != v15; ++i)
+              for (i = 0; i != v17; ++i)
               {
-                if (*v20 != v16)
+                if (*v22 != v18)
                 {
-                  objc_enumerationMutation(v11);
+                  objc_enumerationMutation(v12);
                 }
 
-                [*(*(&v19 + 1) + 8 * i) floatValue];
+                [*(*(&v21 + 1) + 8 * i) floatValue];
                 [streamCopy writeFloat:?];
               }
 
-              v15 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+              v17 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
             }
 
-            while (v15);
+            while (v17);
           }
 
           goto LABEL_23;
         }
 
-        v18 = _PTLogSystem();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v20 = _PTLogSystem(v15);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          [(PTCinematographyNetworkNamedSignal *)self writePayload:v11 toStream:v18];
+          [(PTCinematographyNetworkNamedSignal *)self writePayload:v12 toStream:v20];
         }
       }
     }
@@ -104,10 +106,10 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v11 = _PTLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = _PTLogSystem(v8);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    [PTCinematographyNetworkNamedSignal writePayload:v11 toStream:?];
+    [PTCinematographyNetworkNamedSignal writePayload:v12 toStream:?];
   }
 
 LABEL_24:

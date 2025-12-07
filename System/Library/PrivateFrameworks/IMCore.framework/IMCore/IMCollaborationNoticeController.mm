@@ -25,100 +25,96 @@
 
 - (IMCollaborationNoticeController)init
 {
-  v9.receiver = self;
-  v9.super_class = IMCollaborationNoticeController;
-  v2 = [(IMCollaborationNoticeController *)&v9 init];
-  v5 = v2;
+  v6.receiver = self;
+  v6.super_class = IMCollaborationNoticeController;
+  v2 = [(IMCollaborationNoticeController *)&v6 init];
+  v3 = v2;
   if (v2)
   {
-    v6 = objc_msgSend_listener(v2, v3, v4);
-    objc_msgSend_addHandler_(v6, v7, v5);
+    listener = [(IMCollaborationNoticeController *)v2 listener];
+    [listener addHandler:v3];
   }
 
-  return v5;
+  return v3;
 }
 
 - (void)dismissNotice:(id)notice
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   noticeCopy = notice;
   if (IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315394;
-      v12 = "[IMCollaborationNoticeController dismissNotice:]";
-      v13 = 2112;
-      v14 = noticeCopy;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "%s dismiss notice: %@", &v11, 0x16u);
+      v7 = 136315394;
+      v8 = "[IMCollaborationNoticeController dismissNotice:]";
+      v9 = 2112;
+      v10 = noticeCopy;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "%s dismiss notice: %@", &v7, 0x16u);
     }
   }
 
-  v8 = objc_msgSend_remoteDaemon(self, v5, v6);
-  objc_msgSend_dismissNotice_(v8, v9, noticeCopy);
-
-  v10 = *MEMORY[0x1E69E9840];
+  remoteDaemon = [(IMCollaborationNoticeController *)self remoteDaemon];
+  [remoteDaemon dismissNotice:noticeCopy];
 }
 
 - (void)markAsViewedForNotice:(id)notice
 {
   noticeCopy = notice;
-  v6 = objc_msgSend_dateViewed(noticeCopy, v4, v5);
+  dateViewed = [noticeCopy dateViewed];
 
-  if (!v6)
+  if (!dateViewed)
   {
-    v9 = objc_msgSend_date(MEMORY[0x1E695DF00], v7, v8);
-    objc_msgSend_setDateViewed_(noticeCopy, v10, v9);
+    date = [MEMORY[0x1E695DF00] date];
+    [noticeCopy setDateViewed:date];
 
-    v13 = objc_msgSend_remoteDaemon(self, v11, v12);
-    objc_msgSend_updateNotice_(v13, v14, noticeCopy);
+    remoteDaemon = [(IMCollaborationNoticeController *)self remoteDaemon];
+    [remoteDaemon updateNotice:noticeCopy];
   }
 }
 
 - (void)collaborationNoticesDidChangeForChatGUIDs:(id)ds
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = dsCopy;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Received notification of collaboration notice changes for guids: %@", &v10, 0xCu);
+      v6 = 138412290;
+      v7 = dsCopy;
+      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "Received notification of collaboration notice changes for guids: %@", &v6, 0xCu);
     }
   }
 
-  v7 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v4, v5);
-  objc_msgSend___mainThreadPostNotificationName_object_(v7, v8, @"__kIMCollaborationNoticesDidChangeNotification", dsCopy);
-
-  v9 = *MEMORY[0x1E69E9840];
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter __mainThreadPostNotificationName:@"__kIMCollaborationNoticesDidChangeNotification" object:dsCopy];
 }
 
 - (void)fetchCollaborationNoticesForChatGUIDs:(id)ds completionHandler:(id)handler
 {
   handlerCopy = handler;
   dsCopy = ds;
-  v11 = objc_msgSend_remoteDaemon(self, v8, v9);
-  objc_msgSend_fetchCollaborationNoticesForChatGUIDs_reply_(v11, v10, dsCopy, handlerCopy);
+  remoteDaemon = [(IMCollaborationNoticeController *)self remoteDaemon];
+  [remoteDaemon fetchCollaborationNoticesForChatGUIDs:dsCopy reply:handlerCopy];
 }
 
 - (id)remoteDaemon
 {
-  v3 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v6 = objc_msgSend_remoteDaemon(v3, v4, v5);
+  v2 = +[IMDaemonController sharedController];
+  remoteDaemon = [v2 remoteDaemon];
 
-  return v6;
+  return remoteDaemon;
 }
 
 - (id)listener
 {
-  v3 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v6 = objc_msgSend_listener(v3, v4, v5);
+  v2 = +[IMDaemonController sharedController];
+  listener = [v2 listener];
 
-  return v6;
+  return listener;
 }
 
 @end

@@ -33,7 +33,7 @@
   {
     v41 = 0uLL;
     v42 = 0;
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v41, v19, v19 + 8 * v17, v17);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v41, v19, &v19[v17], v17);
     v23 = *(v22 + 1);
     if (v23)
     {
@@ -48,7 +48,7 @@
     *(v22 + 3) = v42;
     v41 = 0uLL;
     v42 = 0;
-    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(&v41, v18, v18 + 4 * v17, v17);
+    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(&v41, v18, &v18[v17], v17);
     v24 = *(v22 + 7);
     if (v24)
     {
@@ -312,7 +312,7 @@ LABEL_46:
   v72[0] = &v71;
   v72[1] = v80;
   memset(&v73, 0, sizeof(v73));
-  cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>,cva::Matrix<float,0u,4u,false>>(&v73, v72);
+  cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>,cva::Matrix<float,0u,4u,false>>(&v73, v72, 0);
   cva::inv<cva::Matrix<float,4u,4u,false>,4u,true,float>(&v73, &v74);
   v70 = v80;
   v75[0] = &v74;
@@ -424,7 +424,7 @@ LABEL_36:
       jointTrackingStates2 = [v12 jointTrackingStates];
       jointTrackingStates3 = [v12 jointTrackingStates];
       memset(&v74, 0, 24);
-      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(&v74, jointTrackingStates2, jointTrackingStates3 + 4 * jointCount, (jointTrackingStates3 + 4 * jointCount - jointTrackingStates2) >> 2);
+      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(&v74, jointTrackingStates2, (jointTrackingStates3 + 4 * jointCount), (jointTrackingStates3 + 4 * jointCount - jointTrackingStates2) >> 2);
       v64 = *(v13 + 7);
       if (v64)
       {
@@ -492,29 +492,8 @@ void __104__ABPK2DDetectionResult_initWithJoints_trackingStates_numberOfJoints_a
     if (-[ABPK2DDetectionResult jointTrackingStates](self, "jointTrackingStates")[4 * v11] && *([skeletonCopy jointTrackingStates] + 4 * v11))
     {
       rawJointsOutput = [skeletonCopy rawJointsOutput];
-      if (v68 <= v12)
+      if (v68 <= v12 || (*(v67[0] + v12) = *(rawJointsOutput + 8 * v11), v16 = [skeletonCopy rawJointsOutput], v17 = v68, v68 <= v12) || (v18 = v67[0], *(v67[0] + v68 + v12) = -*(v16 + 4 * v13), v19 = v12 + 2 * v17, v18[v19] = 1065353216, v18[v19 + v17] = 0, v20 = objc_msgSend(skeletonCopy, "rawJointsOutput"), v21 = v12 + 1, v68 <= v21) || (*(v67[0] + v21) = *(v20 + 4 * v13), v22 = objc_msgSend(skeletonCopy, "rawJointsOutput"), v23 = v68, v68 <= v21))
       {
-        goto LABEL_33;
-      }
-
-      *(v67[0] + v12) = *(rawJointsOutput + 8 * v11);
-      rawJointsOutput2 = [skeletonCopy rawJointsOutput];
-      v17 = v68;
-      if (v68 <= v12)
-      {
-        goto LABEL_33;
-      }
-
-      v18 = v67[0];
-      *(v67[0] + v68 + v12) = -*(rawJointsOutput2 + 4 * v13);
-      v19 = v12 + 2 * v17;
-      v18[v19] = 1065353216;
-      v18[v19 + v17] = 0;
-      rawJointsOutput3 = [skeletonCopy rawJointsOutput];
-      v21 = v12 + 1;
-      if (v68 <= v21 || (*(v67[0] + v21) = *(rawJointsOutput3 + 4 * v13), v22 = [skeletonCopy rawJointsOutput], v23 = v68, v68 <= v21))
-      {
-LABEL_33:
         v53 = 2269;
         goto LABEL_35;
       }
@@ -524,8 +503,8 @@ LABEL_33:
       v25 = v21 + 2 * v23;
       v24[v25] = 0;
       v24[v25 + v23] = 1065353216;
-      rawJointsOutput4 = [(ABPK2DDetectionResult *)self rawJointsOutput];
-      if (v66 <= v12 || (*(v65[0] + v12) = *(rawJointsOutput4 + 8 * v11), v27 = [(ABPK2DDetectionResult *)self rawJointsOutput], v66 <= v21))
+      rawJointsOutput2 = [(ABPK2DDetectionResult *)self rawJointsOutput];
+      if (v66 <= v12 || (*(v65[0] + v12) = *(rawJointsOutput2 + 8 * v11), v27 = [(ABPK2DDetectionResult *)self rawJointsOutput], v66 <= v21))
       {
         v53 = 2283;
         v14 = "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)";
@@ -545,7 +524,7 @@ LABEL_35:
   v59[0] = &v58;
   v59[1] = v67;
   memset(&v60, 0, sizeof(v60));
-  cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>,cva::Matrix<float,0u,4u,false>>(&v60, v59);
+  cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>,cva::Matrix<float,0u,4u,false>>(&v60, v59, 0);
   cva::inv<cva::Matrix<float,4u,4u,false>,4u,true,float>(&v60, &__p);
   v57 = v67;
   v62[0] = &__p;
@@ -573,8 +552,8 @@ LABEL_35:
   v33 = vneg_f32(0x3F0000003FLL);
   while ([skeletonCopy jointCount] > v31)
   {
-    rawJointsOutput5 = [skeletonCopy rawJointsOutput];
-    v35 = vaddq_f32(v56, vmlaq_lane_f32(vmulq_n_f32(v29, COERCE_FLOAT(*(rawJointsOutput5 + 8 * v31))), v55, *(rawJointsOutput5 + 8 * v31), 1)).u64[0];
+    rawJointsOutput3 = [skeletonCopy rawJointsOutput];
+    v35 = vaddq_f32(v56, vmlaq_lane_f32(vmulq_n_f32(v29, COERCE_FLOAT(*(rawJointsOutput3 + 8 * v31))), v55, *(rawJointsOutput3 + 8 * v31), 1)).u64[0];
     v36 = vdupq_lane_s64(v35, 0);
     v37.i32[0] = vmovn_s32(vcgtq_f32(v36, v54)).u32[0];
     v37.i32[1] = vmovn_s32(vcgtq_f32(v54, v36)).i32[1];

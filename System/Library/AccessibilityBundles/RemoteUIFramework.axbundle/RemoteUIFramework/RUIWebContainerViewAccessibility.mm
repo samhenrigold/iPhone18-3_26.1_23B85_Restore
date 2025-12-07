@@ -58,19 +58,7 @@
   intValue = [v4 intValue];
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-  v6 = [v3 safeValueForKey:@"linkedPage"];
-
-  if (v6)
-  {
-    goto LABEL_6;
-  }
-
-  if (intValue == 1 && (-[RUIWebContainerViewAccessibility accessibilityContainer](self, "accessibilityContainer"), v7 = objc_claimAutoreleasedReturnValue(), [v7 _accessibilityFindSubviewDescendant:&__block_literal_global_0], v8 = objc_claimAutoreleasedReturnValue(), v7, v8))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && ([v3 safeValueForKey:@"linkedPage"], v6 = objc_claimAutoreleasedReturnValue(), v6, !v6) && intValue == 1 && (-[RUIWebContainerViewAccessibility accessibilityContainer](self, "accessibilityContainer"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "_accessibilityFindSubviewDescendant:", &__block_literal_global_0), v8 = objc_claimAutoreleasedReturnValue(), v7, v8))
   {
     [v8 accessibilityActivationPoint];
     v10 = v9;
@@ -79,7 +67,6 @@
 
   else
   {
-LABEL_6:
     v17.receiver = self;
     v17.super_class = RUIWebContainerViewAccessibility;
     [(RUIWebContainerViewAccessibility *)&v17 accessibilityActivationPoint];

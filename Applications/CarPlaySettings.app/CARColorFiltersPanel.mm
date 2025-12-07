@@ -27,21 +27,21 @@
 - (CARColorFiltersPanel)initWithPanelController:(id)controller
 {
   controllerCopy = controller;
-  v54.receiver = self;
-  v54.super_class = CARColorFiltersPanel;
-  v5 = [(CARSettingsPanel *)&v54 initWithPanelController:controllerCopy];
+  v55.receiver = self;
+  v55.super_class = CARColorFiltersPanel;
+  v5 = [(CARSettingsPanel *)&v55 initWithPanelController:controllerCopy];
   if (v5)
   {
     objc_initWeak(&location, v5);
     [(CARColorFiltersPanel *)v5 setDomainOverride];
     v6 = [CARSettingsSwitchCellSpecifier alloc];
     v7 = sub_10001C80C(@"ACCESSIBILITY_COLOR_FILTERS");
-    v51[0] = _NSConcreteStackBlock;
-    v51[1] = 3221225472;
-    v51[2] = sub_100029220;
-    v51[3] = &unk_1000DAE68;
-    objc_copyWeak(&v52, &location);
-    v8 = [(CARSettingsSwitchCellSpecifier *)v6 initWithTitle:v7 image:0 icon:0 actionBlock:v51];
+    v52[0] = _NSConcreteStackBlock;
+    v52[1] = 3221225472;
+    v52[2] = sub_100029220;
+    v52[3] = &unk_1000DAE68;
+    objc_copyWeak(&v53, &location);
+    v8 = [(CARSettingsSwitchCellSpecifier *)v6 initWithTitle:v7 image:0 icon:0 actionBlock:v52];
     colorFilterSwitchSpecifier = v5->_colorFilterSwitchSpecifier;
     v5->_colorFilterSwitchSpecifier = v8;
 
@@ -51,91 +51,89 @@
     v12 = [NSNumber numberWithBool:getColorFiltersPreferenceIsOn];
     [(CARSettingsCellSpecifier *)v11 setCellValue:v12];
 
-    v13 = sub_10001C784();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_10001C784(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67240192;
-      LODWORD(v56) = getColorFiltersPreferenceIsOn;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[Settings] Saved color filter preference is on: %{public}d", buf, 8u);
+      LODWORD(v57) = getColorFiltersPreferenceIsOn;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[Settings] Saved color filter preference is on: %{public}d", buf, 8u);
     }
 
-    v14 = [CARSettingsGroupCellSpecifier alloc];
+    v15 = [CARSettingsGroupCellSpecifier alloc];
     colorFilters = [objc_opt_class() colorFilters];
-    v16 = [colorFilters valueForKey:@"name"];
+    v17 = [colorFilters valueForKey:@"name"];
     colorBlindnessTypes = [objc_opt_class() colorBlindnessTypes];
-    v18 = [colorBlindnessTypes valueForKey:@"name"];
-    v49[0] = _NSConcreteStackBlock;
-    v49[1] = 3221225472;
-    v49[2] = sub_10002930C;
-    v49[3] = &unk_1000DB000;
-    objc_copyWeak(&v50, &location);
-    v19 = [(CARSettingsGroupCellSpecifier *)v14 initWithTitles:v16 subtitles:v18 actionBlock:v49];
+    v19 = [colorBlindnessTypes valueForKey:@"name"];
+    v50[0] = _NSConcreteStackBlock;
+    v50[1] = 3221225472;
+    v50[2] = sub_10002930C;
+    v50[3] = &unk_1000DB000;
+    objc_copyWeak(&v51, &location);
+    v20 = [(CARSettingsGroupCellSpecifier *)v15 initWithTitles:v17 subtitles:v19 actionBlock:v50];
     colorFilterPickerGroupSpecifier = v5->_colorFilterPickerGroupSpecifier;
-    v5->_colorFilterPickerGroupSpecifier = v19;
+    v5->_colorFilterPickerGroupSpecifier = v20;
 
     groupSpecifiers = [(CARSettingsGroupCellSpecifier *)v5->_colorFilterPickerGroupSpecifier groupSpecifiers];
-    v22 = [groupSpecifiers objectAtIndexedSubscript:0];
-    [v22 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterGrayscale"];
+    v23 = [groupSpecifiers objectAtIndexedSubscript:0];
+    [v23 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterGrayscale"];
 
     groupSpecifiers2 = [(CARSettingsGroupCellSpecifier *)v5->_colorFilterPickerGroupSpecifier groupSpecifiers];
-    v24 = [groupSpecifiers2 objectAtIndexedSubscript:1];
-    [v24 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterRedGreen"];
+    v25 = [groupSpecifiers2 objectAtIndexedSubscript:1];
+    [v25 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterRedGreen"];
 
     groupSpecifiers3 = [(CARSettingsGroupCellSpecifier *)v5->_colorFilterPickerGroupSpecifier groupSpecifiers];
-    v26 = [groupSpecifiers3 objectAtIndexedSubscript:2];
-    [v26 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterGreenRed"];
+    v27 = [groupSpecifiers3 objectAtIndexedSubscript:2];
+    [v27 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterGreenRed"];
 
     groupSpecifiers4 = [(CARSettingsGroupCellSpecifier *)v5->_colorFilterPickerGroupSpecifier groupSpecifiers];
-    v28 = [groupSpecifiers4 objectAtIndexedSubscript:3];
-    [v28 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterBlueYellow"];
+    v29 = [groupSpecifiers4 objectAtIndexedSubscript:3];
+    [v29 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterBlueYellow"];
 
-    v29 = [CARSettingsGroupCellSpecifier alloc];
+    v30 = [CARSettingsGroupCellSpecifier alloc];
     intensities = [objc_opt_class() intensities];
-    v44 = _NSConcreteStackBlock;
-    v45 = 3221225472;
-    v46 = sub_100029420;
-    v47 = &unk_1000DB000;
-    objc_copyWeak(&v48, &location);
-    v31 = [(CARSettingsGroupCellSpecifier *)v29 initWithTitles:intensities actionBlock:&v44];
+    v45 = _NSConcreteStackBlock;
+    v46 = 3221225472;
+    v47 = sub_100029420;
+    v48 = &unk_1000DB000;
+    objc_copyWeak(&v49, &location);
+    v32 = [(CARSettingsGroupCellSpecifier *)v30 initWithTitles:intensities actionBlock:&v45];
     colorFilterIntensityPickerGroupSpecifier = v5->_colorFilterIntensityPickerGroupSpecifier;
-    v5->_colorFilterIntensityPickerGroupSpecifier = v31;
+    v5->_colorFilterIntensityPickerGroupSpecifier = v32;
 
-    v33 = [(CARSettingsGroupCellSpecifier *)v5->_colorFilterIntensityPickerGroupSpecifier groupSpecifiers:v44];
-    v34 = [v33 objectAtIndexedSubscript:0];
-    [v34 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterLowIntensity"];
+    v34 = [(CARSettingsGroupCellSpecifier *)v5->_colorFilterIntensityPickerGroupSpecifier groupSpecifiers:v45];
+    v35 = [v34 objectAtIndexedSubscript:0];
+    [v35 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterLowIntensity"];
 
     groupSpecifiers5 = [(CARSettingsGroupCellSpecifier *)v5->_colorFilterIntensityPickerGroupSpecifier groupSpecifiers];
-    v36 = [groupSpecifiers5 objectAtIndexedSubscript:1];
-    [v36 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterMediumIntensity"];
+    v37 = [groupSpecifiers5 objectAtIndexedSubscript:1];
+    [v37 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterMediumIntensity"];
 
     groupSpecifiers6 = [(CARSettingsGroupCellSpecifier *)v5->_colorFilterIntensityPickerGroupSpecifier groupSpecifiers];
-    v38 = [groupSpecifiers6 objectAtIndexedSubscript:2];
-    [v38 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterHighIntensity"];
+    v39 = [groupSpecifiers6 objectAtIndexedSubscript:2];
+    [v39 setAccessibilityIdentifier:@"CPSettingsAccessibilityColorFilterHighIntensity"];
 
     getColorFiltersPreferenceType = [(CARColorFiltersPanel *)v5 getColorFiltersPreferenceType];
-    [(CARSettingsGroupCellSpecifier *)v5->_colorFilterPickerGroupSpecifier setSelectedIndex:getColorFiltersPreferenceType];
-    v40 = sub_10001C784();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v41 = sub_10001C784([(CARSettingsGroupCellSpecifier *)v5->_colorFilterPickerGroupSpecifier setSelectedIndex:getColorFiltersPreferenceType]);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134349056;
-      v56 = getColorFiltersPreferenceType;
-      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "[Settings] Saved color filter selected index: %{public}lu", buf, 0xCu);
+      v57 = getColorFiltersPreferenceType;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "[Settings] Saved color filter selected index: %{public}lu", buf, 0xCu);
     }
 
-    v41 = [(CARColorFiltersPanel *)v5 getColorFiltersIntensityPreferenceTypeForIndex:[(CARSettingsGroupCellSpecifier *)v5->_colorFilterPickerGroupSpecifier selectedIndex]];
-    [(CARSettingsGroupCellSpecifier *)v5->_colorFilterIntensityPickerGroupSpecifier setSelectedIndex:v41];
-    v42 = sub_10001C784();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v42 = [(CARColorFiltersPanel *)v5 getColorFiltersIntensityPreferenceTypeForIndex:[(CARSettingsGroupCellSpecifier *)v5->_colorFilterPickerGroupSpecifier selectedIndex]];
+    v43 = sub_10001C784([(CARSettingsGroupCellSpecifier *)v5->_colorFilterIntensityPickerGroupSpecifier setSelectedIndex:v42]);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134349056;
-      v56 = v41;
-      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "[Settings] Saved color filter intensity selected index: %{public}lu", buf, 0xCu);
+      v57 = v42;
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "[Settings] Saved color filter intensity selected index: %{public}lu", buf, 0xCu);
     }
 
     [(CARColorFiltersPanel *)v5 _updateSpecifiers];
-    objc_destroyWeak(&v48);
-    objc_destroyWeak(&v50);
-    objc_destroyWeak(&v52);
+    objc_destroyWeak(&v49);
+    objc_destroyWeak(&v51);
+    objc_destroyWeak(&v53);
     objc_destroyWeak(&location);
   }
 

@@ -88,12 +88,11 @@
 
 - (id)defaultPropertiesToLoad
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CF72B8];
-  v6[0] = *MEMORY[0x277CF72B0];
-  v6[1] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277CF72B0];
+  v5[1] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
 
   return v3;
 }
@@ -107,82 +106,79 @@
 
 - (id)copyMatchingItemsWithDatabase:(CalDatabase *)database
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = self->super._timeZone;
-  searchString = self->_searchString;
   if (self->_allNLEvents)
   {
-    v6 = CalDatabaseCopyAllNaturalLanguageSuggestedEventsMatchingSummary();
-    if ([v6 count])
+    v5 = CalDatabaseCopyAllNaturalLanguageSuggestedEventsMatchingSummary();
+    if ([v5 count])
     {
-      v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+      v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v5, "count")}];
       [(NSDate *)self->_startDate timeIntervalSinceReferenceDate];
-      v9 = v8;
+      v8 = v7;
+      v19 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v25 = 0u;
-      v10 = v6;
-      v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
-      if (v11)
+      v9 = v5;
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      if (v10)
       {
-        v12 = v11;
-        v13 = *v23;
+        v11 = v10;
+        v12 = *v20;
         do
         {
-          v14 = 0;
+          v13 = 0;
           do
           {
-            if (*v23 != v13)
+            if (*v20 != v12)
             {
-              objc_enumerationMutation(v10);
+              objc_enumerationMutation(v9);
             }
 
-            v15 = *(*(&v22 + 1) + 8 * v14);
-            v16 = CalEventOccurrenceCreateForInitialOccurrenceWithTimeZone();
-            if (!self->_startDate || (CalEventOccurrenceGetDate(), v17 + CalEventGetDuration() > v9))
+            v14 = CalEventOccurrenceCreateForInitialOccurrenceWithTimeZone();
+            if (!self->_startDate || (CalEventOccurrenceGetDate(), v15 + CalEventGetDuration() > v8))
             {
-              [v7 addObject:{v16, v22}];
+              [v6 addObject:{v14, v19}];
             }
 
-            CFRelease(v16);
-            ++v14;
+            CFRelease(v14);
+            ++v13;
           }
 
-          while (v12 != v14);
-          v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          while (v11 != v13);
+          v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
-        while (v12);
+        while (v11);
       }
     }
 
     else
     {
-      v7 = v6;
+      v6 = v5;
     }
   }
 
   else
   {
     NaturalLanguageSuggestedEventMatchingSummary = CalDatabaseCopyFirstNaturalLanguageSuggestedEventMatchingSummary();
-    v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:1];
+    v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:1];
     if (NaturalLanguageSuggestedEventMatchingSummary)
     {
-      v19 = CalEventOccurrenceCreateForInitialOccurrenceWithTimeZone();
-      [v7 addObject:v19];
-      CFRelease(v19);
+      v17 = CalEventOccurrenceCreateForInitialOccurrenceWithTimeZone();
+      [v6 addObject:v17];
+      CFRelease(v17);
       CFRelease(NaturalLanguageSuggestedEventMatchingSummary);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v6;
 }
 
 - (id)matchingDatesForEvent:(void *)event modifiedProperties:(unint64_t)properties dates:(id)dates inRange:(id)range database:(CalDatabase *)database outReset:(BOOL *)reset
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   if ([(CADNaturalLanguageSuggestedEventsSearchPredicate *)self matchesIgnoringDate:event database:database, dates, range])
   {
     if (self->_allNLEvents)
@@ -191,8 +187,8 @@
       v12 = v11;
       if (v11)
       {
-        v16[0] = v11;
-        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+        v15[0] = v11;
+        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
       }
 
       else
@@ -212,8 +208,6 @@
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -277,30 +271,29 @@ LABEL_11:
 {
   [(NSDate *)self->_startDate timeIntervalSinceReferenceDate];
   v5 = v4;
-  timeZone = self->super._timeZone;
-  v7 = CalEventOccurrenceCreateForInitialOccurrenceWithTimeZone();
+  v6 = CalEventOccurrenceCreateForInitialOccurrenceWithTimeZone();
   CalEventOccurrenceGetDate();
-  v9 = v8;
+  v8 = v7;
   if (self->_startDate)
   {
-    v10 = v8 + CalEventGetDuration();
-    CFRelease(v7);
-    if (v10 <= v5)
+    v9 = v7 + CalEventGetDuration();
+    CFRelease(v6);
+    if (v9 <= v5)
     {
-      v11 = 0;
+      v10 = 0;
       goto LABEL_6;
     }
   }
 
   else
   {
-    CFRelease(v7);
+    CFRelease(v6);
   }
 
-  v11 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v9];
+  v10 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v8];
 LABEL_6:
 
-  return v11;
+  return v10;
 }
 
 @end

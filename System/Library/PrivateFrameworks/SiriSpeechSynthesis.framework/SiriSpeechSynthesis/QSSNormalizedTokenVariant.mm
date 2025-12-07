@@ -38,53 +38,53 @@ flatbuffers::DetachedBuffer *__41__QSSNormalizedTokenVariant_flatbuffData__block
 
 - (Offset<siri::speech::schema_fb::NormalizedTokenVariant>)addObjectToBuffer:(void *)buffer
 {
-  v28 = *MEMORY[0x277D85DE8];
-  memset(&v26, 0, sizeof(v26));
+  v27 = *MEMORY[0x277D85DE8];
+  memset(&v25, 0, sizeof(v25));
   normalized_tokens = [(QSSNormalizedTokenVariant *)self normalized_tokens];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v26, [normalized_tokens count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v25, [normalized_tokens count]);
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   normalized_tokens2 = [(QSSNormalizedTokenVariant *)self normalized_tokens];
-  v7 = [normalized_tokens2 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v7 = [normalized_tokens2 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v7)
   {
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(normalized_tokens2);
         }
 
-        uTF8String = [*(*(&v22 + 1) + 8 * i) UTF8String];
+        uTF8String = [*(*(&v21 + 1) + 8 * i) UTF8String];
         v11 = strlen(uTF8String);
         String = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String, v11);
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v26, &String);
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v25, &String);
       }
 
-      v7 = [normalized_tokens2 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v7 = [normalized_tokens2 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v7);
   }
 
-  begin = v26.__begin_;
-  if (v26.__end_ == v26.__begin_)
+  begin = v25.__begin_;
+  if (v25.__end_ == v25.__begin_)
   {
     v13 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
   }
 
   else
   {
-    v13 = v26.__begin_;
+    v13 = v25.__begin_;
   }
 
-  v14 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v13, v26.__end_ - v26.__begin_);
+  v14 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v13, v25.__end_ - v25.__begin_);
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v15 = *(buffer + 5);
@@ -97,7 +97,6 @@ flatbuffers::DetachedBuffer *__41__QSSNormalizedTokenVariant_flatbuffData__block
     operator delete(begin);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

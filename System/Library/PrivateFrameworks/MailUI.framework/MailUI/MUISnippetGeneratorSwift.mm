@@ -71,17 +71,18 @@
   swift_getObjCClassMetadata();
   MEMORY[0x277D82BE0](tokens);
   MEMORY[0x277D82BE0](string);
-  v11 = _Block_copy(highlighting);
-  v14 = sub_214CCF7E4();
-  v16 = v11;
+  v12 = _Block_copy(highlighting);
+  v15 = sub_214CCF7E4();
+  v17 = v12;
   swift_getObjCClassMetadata();
-  v8 = static SnippetGenerator.highlightedSnippetUsingTokens(tokens:in:inside:highlighting:)(v14, string, sub_214CB432C, v15, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
-  _Block_release(v11);
+  static SnippetGenerator.highlightedSnippetUsingTokens(tokens:in:inside:highlighting:)(v15, string, sub_214CB432C, v16, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+  v9 = v7;
+  _Block_release(v12);
 
   MEMORY[0x277D82BD8](tokens);
   MEMORY[0x277D82BD8](string);
 
-  return v8;
+  return v9;
 }
 
 @end

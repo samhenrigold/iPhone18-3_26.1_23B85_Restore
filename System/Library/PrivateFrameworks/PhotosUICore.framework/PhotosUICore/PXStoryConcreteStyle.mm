@@ -55,7 +55,7 @@
   if (autoEditDecisionList)
   {
     v6 = autoEditDecisionList;
-    [autoEditDecisionList outroDuration];
+    objc_msgSend_outroDuration(autoEditDecisionList);
     autoEditDecisionList = v6;
   }
 

@@ -454,7 +454,7 @@ void sub_83D0(uint64_t a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 144) = v28;
 }
 
-uint64_t NTKSeltzerUseAllUppercaseText()
+uint64_t NTKSeltzerUseAllUppercaseText(uint64_t a1, uint64_t a2)
 {
   if (qword_15E28 != -1)
   {
@@ -532,75 +532,71 @@ id sub_8B98(uint64_t a1)
 
 id sub_8C3C(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = _EnumValueRange();
-  v4 = qword_15E50;
-  qword_15E50 = v3;
+  v2 = _EnumValueRange();
+  v3 = qword_15E50;
+  qword_15E50 = v2;
 
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_8CDC;
-  v6[3] = &unk_10638;
-  v6[4] = *(a1 + 40);
-  return [qword_15E50 sortUsingComparator:v6];
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_8CDC;
+  v5[3] = &unk_10638;
+  v5[4] = *(a1 + 40);
+  return [qword_15E50 sortUsingComparator:v5];
 }
 
 id sub_8CDC(uint64_t a1, void *a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v6 = a3;
-  v7 = a2;
-  v8 = objc_opt_class();
-  v9 = [v7 unsignedIntegerValue];
+  v4 = a3;
+  v5 = a2;
+  v6 = objc_opt_class();
+  v7 = [v5 unsignedIntegerValue];
 
-  v10 = [v8 localizedNameForCalendar:v9];
-  v11 = *(a1 + 32);
-  v12 = objc_opt_class();
-  v13 = [v6 unsignedIntegerValue];
+  v8 = [v6 localizedNameForCalendar:v7];
+  v9 = objc_opt_class();
+  v10 = [v4 unsignedIntegerValue];
 
-  v14 = [v12 localizedNameForCalendar:v13];
-  v15 = [v10 localizedStandardCompare:v14];
+  v11 = [v9 localizedNameForCalendar:v10];
+  v12 = [v8 localizedStandardCompare:v11];
 
-  return v15;
+  return v12;
 }
 
 void sub_8ECC(uint64_t a1)
 {
   v2 = +[NSMutableDictionary dictionary];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = [*(a1 + 32) device];
-  v6 = [v4 _orderedValuesForDevice:v5];
+  v3 = objc_opt_class();
+  v4 = [*(a1 + 32) device];
+  v5 = [v3 _orderedValuesForDevice:v4];
 
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v7)
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v15;
+    v7 = v6;
+    v8 = *v14;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v7; i = i + 1)
       {
-        if (*v15 != v9)
+        if (*v14 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        v12 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"calendar %lu", [v11 unsignedIntValue]);
-        [v2 setObject:v12 forKeyedSubscript:v11];
+        v10 = *(*(&v13 + 1) + 8 * i);
+        v11 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"calendar %lu", [v10 unsignedIntValue]);
+        [v2 setObject:v11 forKeyedSubscript:v10];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  v13 = qword_15E60;
+  v12 = qword_15E60;
   qword_15E60 = v2;
 }

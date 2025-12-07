@@ -250,7 +250,7 @@ uint64_t __38__TSDShapeStyle_mixingTypeWithObject___block_invoke(uint64_t a1)
   return v8;
 }
 
-uint64_t __38__TSDShapeStyle_mixingTypeWithObject___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__38__TSDShapeStyle_mixingTypeWithObject___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) containsProperty:a2];
   if (result)
@@ -324,7 +324,7 @@ id __50__TSDShapeStyle_mixedObjectWithFraction_ofObject___block_invoke(uint64_t 
   return v3;
 }
 
-uint64_t __50__TSDShapeStyle_mixedObjectWithFraction_ofObject___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__50__TSDShapeStyle_mixedObjectWithFraction_ofObject___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsProperty:a2];
   if (result)

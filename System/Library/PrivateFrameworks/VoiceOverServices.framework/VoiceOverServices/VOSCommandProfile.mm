@@ -63,50 +63,50 @@
 
 - (id)debugDescription
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithFormat:@"VOSCommandProfile:<%p>\n", self];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   obj = self->_modes;
-  v36 = [(NSMutableSet *)obj countByEnumeratingWithState:&v55 objects:v63 count:16];
-  if (v36)
+  v35 = [(NSMutableSet *)obj countByEnumeratingWithState:&v54 objects:v62 count:16];
+  if (v35)
   {
-    v35 = *v56;
+    v34 = *v55;
     do
     {
       v4 = 0;
       do
       {
-        if (*v56 != v35)
+        if (*v55 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v37 = v4;
-        v5 = *(*(&v55 + 1) + 8 * v4);
+        v36 = v4;
+        v5 = *(*(&v54 + 1) + 8 * v4);
         [v3 appendFormat:@" %@\n", v5];
-        v53 = 0u;
-        v54 = 0u;
-        v51 = 0u;
         v52 = 0u;
+        v53 = 0u;
+        v50 = 0u;
+        v51 = 0u;
         commands = [v5 commands];
-        v6 = [commands countByEnumeratingWithState:&v51 objects:v62 count:16];
+        v6 = [commands countByEnumeratingWithState:&v50 objects:v61 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v52;
+          v8 = *v51;
           do
           {
             for (i = 0; i != v7; ++i)
             {
-              if (*v52 != v8)
+              if (*v51 != v8)
               {
                 objc_enumerationMutation(commands);
               }
 
-              v10 = *(*(&v51 + 1) + 8 * i);
+              v10 = *(*(&v50 + 1) + 8 * i);
               [v3 appendFormat:@"  %@\n", v10];
               gestures = [v10 gestures];
               v12 = [gestures count];
@@ -114,29 +114,29 @@
               if (v12)
               {
                 [v3 appendString:@"   Gestures:\n"];
-                v49 = 0u;
-                v50 = 0u;
-                v47 = 0u;
                 v48 = 0u;
+                v49 = 0u;
+                v46 = 0u;
+                v47 = 0u;
                 gestures2 = [v10 gestures];
-                v14 = [gestures2 countByEnumeratingWithState:&v47 objects:v61 count:16];
+                v14 = [gestures2 countByEnumeratingWithState:&v46 objects:v60 count:16];
                 if (v14)
                 {
                   v15 = v14;
-                  v16 = *v48;
+                  v16 = *v47;
                   do
                   {
                     for (j = 0; j != v15; ++j)
                     {
-                      if (*v48 != v16)
+                      if (*v47 != v16)
                       {
                         objc_enumerationMutation(gestures2);
                       }
 
-                      [v3 appendFormat:@"    %@\n", *(*(&v47 + 1) + 8 * j)];
+                      [v3 appendFormat:@"    %@\n", *(*(&v46 + 1) + 8 * j)];
                     }
 
-                    v15 = [gestures2 countByEnumeratingWithState:&v47 objects:v61 count:16];
+                    v15 = [gestures2 countByEnumeratingWithState:&v46 objects:v60 count:16];
                   }
 
                   while (v15);
@@ -149,29 +149,29 @@
               if (v19)
               {
                 [v3 appendString:@"   Keyboard Shortcuts:\n"];
-                v45 = 0u;
-                v46 = 0u;
-                v43 = 0u;
                 v44 = 0u;
+                v45 = 0u;
+                v42 = 0u;
+                v43 = 0u;
                 keyboardShortcuts2 = [v10 keyboardShortcuts];
-                v21 = [keyboardShortcuts2 countByEnumeratingWithState:&v43 objects:v60 count:16];
+                v21 = [keyboardShortcuts2 countByEnumeratingWithState:&v42 objects:v59 count:16];
                 if (v21)
                 {
                   v22 = v21;
-                  v23 = *v44;
+                  v23 = *v43;
                   do
                   {
                     for (k = 0; k != v22; ++k)
                     {
-                      if (*v44 != v23)
+                      if (*v43 != v23)
                       {
                         objc_enumerationMutation(keyboardShortcuts2);
                       }
 
-                      [v3 appendFormat:@"    %@\n", *(*(&v43 + 1) + 8 * k)];
+                      [v3 appendFormat:@"    %@\n", *(*(&v42 + 1) + 8 * k)];
                     }
 
-                    v22 = [keyboardShortcuts2 countByEnumeratingWithState:&v43 objects:v60 count:16];
+                    v22 = [keyboardShortcuts2 countByEnumeratingWithState:&v42 objects:v59 count:16];
                   }
 
                   while (v22);
@@ -184,29 +184,29 @@
               if (v26)
               {
                 [v3 appendString:@"   QuickNav Shortcuts:\n"];
-                v41 = 0u;
-                v42 = 0u;
-                v39 = 0u;
                 v40 = 0u;
+                v41 = 0u;
+                v38 = 0u;
+                v39 = 0u;
                 quickNavShortcuts2 = [v10 quickNavShortcuts];
-                v28 = [quickNavShortcuts2 countByEnumeratingWithState:&v39 objects:v59 count:16];
+                v28 = [quickNavShortcuts2 countByEnumeratingWithState:&v38 objects:v58 count:16];
                 if (v28)
                 {
                   v29 = v28;
-                  v30 = *v40;
+                  v30 = *v39;
                   do
                   {
                     for (m = 0; m != v29; ++m)
                     {
-                      if (*v40 != v30)
+                      if (*v39 != v30)
                       {
                         objc_enumerationMutation(quickNavShortcuts2);
                       }
 
-                      [v3 appendFormat:@"    %@\n", *(*(&v39 + 1) + 8 * m)];
+                      [v3 appendFormat:@"    %@\n", *(*(&v38 + 1) + 8 * m)];
                     }
 
-                    v29 = [quickNavShortcuts2 countByEnumeratingWithState:&v39 objects:v59 count:16];
+                    v29 = [quickNavShortcuts2 countByEnumeratingWithState:&v38 objects:v58 count:16];
                   }
 
                   while (v29);
@@ -214,23 +214,21 @@
               }
             }
 
-            v7 = [commands countByEnumeratingWithState:&v51 objects:v62 count:16];
+            v7 = [commands countByEnumeratingWithState:&v50 objects:v61 count:16];
           }
 
           while (v7);
         }
 
-        v4 = v37 + 1;
+        v4 = v36 + 1;
       }
 
-      while (v37 + 1 != v36);
-      v36 = [(NSMutableSet *)obj countByEnumeratingWithState:&v55 objects:v63 count:16];
+      while (v36 + 1 != v35);
+      v35 = [(NSMutableSet *)obj countByEnumeratingWithState:&v54 objects:v62 count:16];
     }
 
-    while (v36);
+    while (v35);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -252,7 +250,7 @@
 
 - (id)commandForTouchGesture:(id)gesture withResolver:(id)resolver
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   resolverCopy = resolver;
   v7 = [(VOSCommandProfile *)self _modifiedGestureRespectingHandednessSetting:gesture];
   selfCopy = self;
@@ -309,50 +307,50 @@ LABEL_5:
 LABEL_6:
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   commands = [v8 commands];
-  v14 = [commands countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v14 = [commands countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v45;
-    v36 = v8;
-    v37 = resolverCopy;
-    v39 = commands;
-    v35 = *v45;
+    v16 = *v44;
+    v35 = v8;
+    v36 = resolverCopy;
+    v38 = commands;
+    v34 = *v44;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v45 != v16)
+        if (*v44 != v16)
         {
           objc_enumerationMutation(commands);
         }
 
-        v18 = *(*(&v44 + 1) + 8 * i);
+        v18 = *(*(&v43 + 1) + 8 * i);
+        v39 = 0u;
         v40 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v43 = 0u;
         gestures = [v18 gestures];
-        v20 = [gestures countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v20 = [gestures countByEnumeratingWithState:&v39 objects:v47 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v41;
+          v22 = *v40;
           while (2)
           {
             for (j = 0; j != v21; ++j)
             {
-              if (*v41 != v22)
+              if (*v40 != v22)
               {
                 objc_enumerationMutation(gestures);
               }
 
-              gesture = [*(*(&v40 + 1) + 8 * j) gesture];
+              gesture = [*(*(&v39 + 1) + 8 * j) gesture];
               v25 = [gesture isEqual:v7];
 
               if (v25)
@@ -360,10 +358,10 @@ LABEL_6:
                 command = [v18 command];
                 if (command)
                 {
-                  resolverCopy = v37;
+                  resolverCopy = v36;
                   v27 = selfCopy;
-                  v8 = v36;
-                  if ([(VOSCommandProfile *)selfCopy availabilityForCommand:command withResolver:v37]== 1)
+                  v8 = v35;
+                  if ([(VOSCommandProfile *)selfCopy availabilityForCommand:command withResolver:v36]== 1)
                   {
                     v28 = VOTLogCommon();
                     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -377,8 +375,8 @@ LABEL_6:
 
                 else
                 {
-                  v8 = v36;
-                  resolverCopy = v37;
+                  v8 = v35;
+                  resolverCopy = v36;
                   v27 = selfCopy;
                 }
 
@@ -388,13 +386,13 @@ LABEL_6:
                   command = 0;
                 }
 
-                commands = v39;
+                commands = v38;
 
                 goto LABEL_39;
               }
             }
 
-            v21 = [gestures countByEnumeratingWithState:&v40 objects:v48 count:16];
+            v21 = [gestures countByEnumeratingWithState:&v39 objects:v47 count:16];
             if (v21)
             {
               continue;
@@ -404,14 +402,14 @@ LABEL_6:
           }
         }
 
-        commands = v39;
-        v16 = v35;
+        commands = v38;
+        v16 = v34;
       }
 
-      v15 = [v39 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v15 = [v38 countByEnumeratingWithState:&v43 objects:v48 count:16];
       command = 0;
-      v8 = v36;
-      resolverCopy = v37;
+      v8 = v35;
+      resolverCopy = v36;
     }
 
     while (v15);
@@ -424,44 +422,42 @@ LABEL_6:
 
 LABEL_39:
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return command;
 }
 
 - (id)commandForKeyChord:(id)chord withResolver:(id)resolver
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   chordCopy = chord;
   resolverCopy = resolver;
   v8 = [(VOSCommandProfile *)self _profileModeForResolver:resolverCopy];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   commands = [v8 commands];
-  v31 = [commands countByEnumeratingWithState:&v38 objects:v43 count:16];
-  if (!v31)
+  v30 = [commands countByEnumeratingWithState:&v37 objects:v42 count:16];
+  if (!v30)
   {
     command = 0;
     goto LABEL_33;
   }
 
-  v10 = *v39;
-  v32 = v8;
-  v33 = commands;
-  v29 = *v39;
+  v10 = *v38;
+  v31 = v8;
+  v32 = commands;
+  v28 = *v38;
   selfCopy = self;
   do
   {
-    for (i = 0; i != v31; ++i)
+    for (i = 0; i != v30; ++i)
     {
-      if (*v39 != v10)
+      if (*v38 != v10)
       {
         objc_enumerationMutation(commands);
       }
 
-      v12 = *(*(&v38 + 1) + 8 * i);
+      v12 = *(*(&v37 + 1) + 8 * i);
       if ([resolverCopy isQuickNavKeyboardMode])
       {
         [v12 quickNavShortcuts];
@@ -472,29 +468,29 @@ LABEL_39:
         [v12 keyboardShortcuts];
       }
       v13 = ;
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       v14 = v13;
-      v15 = [v14 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v33 objects:v41 count:16];
       if (!v15)
       {
         goto LABEL_17;
       }
 
       v16 = v15;
-      v17 = *v35;
+      v17 = *v34;
       while (2)
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v35 != v17)
+          if (*v34 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          keyChord = [*(*(&v34 + 1) + 8 * j) keyChord];
+          keyChord = [*(*(&v33 + 1) + 8 * j) keyChord];
           v20 = [keyChord isEqual:chordCopy];
 
           if (v20)
@@ -503,12 +499,12 @@ LABEL_39:
             {
               v22 = selfCopy;
               v23 = [(VOSCommandProfile *)selfCopy _resolvedSecondaryCommandForProfileCommand:v12 resolver:resolverCopy];
-              v8 = v32;
+              v8 = v31;
               if (v23)
               {
                 command = v23;
 LABEL_27:
-                commands = v33;
+                commands = v32;
                 if ([(VOSCommandProfile *)v22 availabilityForCommand:command withResolver:resolverCopy]== 1)
                 {
                   v26 = VOTLogCommon();
@@ -518,7 +514,7 @@ LABEL_27:
                   }
 
                   command = 0;
-                  v8 = v32;
+                  v8 = v31;
                 }
 
                 goto LABEL_32;
@@ -529,7 +525,7 @@ LABEL_27:
             {
               resolvingEventOccurredBlock = [resolverCopy resolvingEventOccurredBlock];
 
-              v8 = v32;
+              v8 = v31;
               v22 = selfCopy;
               if (resolvingEventOccurredBlock)
               {
@@ -544,14 +540,14 @@ LABEL_27:
               goto LABEL_27;
             }
 
-            commands = v33;
+            commands = v32;
 LABEL_32:
 
             goto LABEL_33;
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v16)
         {
           continue;
@@ -562,26 +558,24 @@ LABEL_32:
 
 LABEL_17:
 
-      commands = v33;
-      v10 = v29;
+      commands = v32;
+      v10 = v28;
     }
 
     command = 0;
-    v8 = v32;
-    v31 = [v33 countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v8 = v31;
+    v30 = [v32 countByEnumeratingWithState:&v37 objects:v42 count:16];
   }
 
-  while (v31);
+  while (v30);
 LABEL_33:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return command;
 }
 
 - (id)_resolvedSecondaryCommandForProfileCommand:(id)command resolver:(id)resolver
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   resolverCopy = resolver;
   pressCount = [resolverCopy pressCount];
@@ -605,27 +599,27 @@ LABEL_33:
   if ([v8 count])
   {
     context = [resolverCopy context];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v14 = v8;
-    v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v15)
     {
       v16 = v15;
       v17 = 0;
-      v18 = *v26;
+      v18 = *v25;
 LABEL_9:
       v19 = 0;
       while (1)
       {
-        if (*v26 != v18)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(v14);
         }
 
-        v20 = *(*(&v25 + 1) + 8 * v19);
+        v20 = *(*(&v24 + 1) + 8 * v19);
         if ([v20 context] == context)
         {
           break;
@@ -640,7 +634,7 @@ LABEL_9:
 
         if (v16 == ++v19)
         {
-          v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
           if (v16)
           {
             goto LABEL_9;
@@ -674,58 +668,54 @@ LABEL_24:
     command2 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return command2;
 }
 
 - (id)allCommandsWithResolver:(id)resolver
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   resolverCopy = resolver;
   v5 = [(VOSCommandProfile *)self _profileModeForResolver:resolverCopy];
   v6 = [MEMORY[0x277CBEB58] set];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   commands = [v5 commands];
-  v8 = [commands countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [commands countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(commands);
         }
 
-        command = [*(*(&v24 + 1) + 8 * i) command];
+        command = [*(*(&v23 + 1) + 8 * i) command];
         [v6 addObject:command];
       }
 
-      v9 = [commands countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [commands countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
   }
 
   v13 = MEMORY[0x277CCAC30];
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __45__VOSCommandProfile_allCommandsWithResolver___block_invoke;
-  v21 = &unk_2784F38E0;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __45__VOSCommandProfile_allCommandsWithResolver___block_invoke;
+  v20 = &unk_2784F38E0;
   selfCopy = self;
-  v23 = resolverCopy;
+  v22 = resolverCopy;
   v14 = resolverCopy;
-  v15 = [v13 predicateWithBlock:&v18];
-  [v6 filterUsingPredicate:{v15, v18, v19, v20, v21, selfCopy}];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = [v13 predicateWithBlock:&v17];
+  [v6 filterUsingPredicate:{v15, v17, v18, v19, v20, selfCopy}];
 
   return v6;
 }
@@ -741,7 +731,7 @@ LABEL_24:
 
 - (id)allShortcutBindingsWithResolver:(id)resolver
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB58];
   resolverCopy = resolver;
   v6 = [v4 set];
@@ -751,26 +741,26 @@ LABEL_24:
   [v7 setScreenreaderMode:v8];
 
   [(VOSCommandProfile *)self _profileModeForResolver:v7];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v23 = v32 = 0u;
-  obj = [v23 commands];
-  v9 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v22 = v31 = 0u;
+  obj = [v22 commands];
+  v9 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v30;
+    v11 = *v29;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v30 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v29 + 1) + 8 * i);
+        v13 = *(*(&v28 + 1) + 8 * i);
         if ([v7 isQuickNavKeyboardMode])
         {
           [v13 quickNavShortcuts];
@@ -781,43 +771,41 @@ LABEL_24:
           [v13 keyboardShortcuts];
         }
         v14 = ;
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
         v26 = 0u;
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
         v15 = v14;
-        v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v26;
+          v18 = *v25;
           do
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v26 != v18)
+              if (*v25 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              keyChord = [*(*(&v25 + 1) + 8 * j) keyChord];
+              keyChord = [*(*(&v24 + 1) + 8 * j) keyChord];
               [v6 addObject:keyChord];
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
           }
 
           while (v17);
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v10 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v10);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -878,61 +866,61 @@ uint64_t __68__VOSCommandProfile_userPresentableAllShortcutBindingsWithResolver_
 
 - (id)gestureBindingsForCommand:(id)command withResolver:(id)resolver
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   resolverCopy = resolver;
   v8 = [MEMORY[0x277CBEB58] set];
-  v26 = resolverCopy;
+  v25 = resolverCopy;
   v9 = [(VOSCommandProfile *)self _profileModeForResolver:resolverCopy];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   commands = [v9 commands];
-  v11 = [commands countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v11 = [commands countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v32;
+    v13 = *v31;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v32 != v13)
+        if (*v31 != v13)
         {
           objc_enumerationMutation(commands);
         }
 
-        v15 = *(*(&v31 + 1) + 8 * i);
+        v15 = *(*(&v30 + 1) + 8 * i);
         command = [v15 command];
         v17 = [command isEqual:commandCopy];
 
         if (v17)
         {
-          v29 = 0u;
-          v30 = 0u;
-          v27 = 0u;
           v28 = 0u;
+          v29 = 0u;
+          v26 = 0u;
+          v27 = 0u;
           gestures = [v15 gestures];
-          v19 = [gestures countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v19 = [gestures countByEnumeratingWithState:&v26 objects:v34 count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v28;
+            v21 = *v27;
             do
             {
               for (j = 0; j != v20; ++j)
               {
-                if (*v28 != v21)
+                if (*v27 != v21)
                 {
                   objc_enumerationMutation(gestures);
                 }
 
-                gesture = [*(*(&v27 + 1) + 8 * j) gesture];
+                gesture = [*(*(&v26 + 1) + 8 * j) gesture];
                 [v8 addObject:gesture];
               }
 
-              v20 = [gestures countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v20 = [gestures countByEnumeratingWithState:&v26 objects:v34 count:16];
             }
 
             while (v20);
@@ -942,7 +930,7 @@ uint64_t __68__VOSCommandProfile_userPresentableAllShortcutBindingsWithResolver_
         }
       }
 
-      v12 = [commands countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v12 = [commands countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v12)
       {
         continue;
@@ -954,38 +942,36 @@ uint64_t __68__VOSCommandProfile_userPresentableAllShortcutBindingsWithResolver_
 
 LABEL_18:
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)shortcutBindingsForCommand:(id)command withResolver:(id)resolver
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   resolverCopy = resolver;
   v8 = [MEMORY[0x277CBEB58] set];
   [(VOSCommandProfile *)self _profileModeForResolver:resolverCopy];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v25 = v33 = 0u;
-  commands = [v25 commands];
-  v10 = [commands countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v24 = v32 = 0u;
+  commands = [v24 commands];
+  v10 = [commands countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v31;
+    v12 = *v30;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(commands);
         }
 
-        v14 = *(*(&v30 + 1) + 8 * i);
+        v14 = *(*(&v29 + 1) + 8 * i);
         command = [v14 command];
         v16 = [command isEqual:commandCopy];
 
@@ -1001,29 +987,29 @@ LABEL_18:
             [v14 keyboardShortcuts];
           }
 
+          v27 = 0u;
           v28 = 0u;
-          v29 = 0u;
-          v26 = 0u;
-          v17 = v27 = 0u;
-          v18 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v25 = 0u;
+          v17 = v26 = 0u;
+          v18 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v27;
+            v20 = *v26;
             do
             {
               for (j = 0; j != v19; ++j)
               {
-                if (*v27 != v20)
+                if (*v26 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                keyChord = [*(*(&v26 + 1) + 8 * j) keyChord];
+                keyChord = [*(*(&v25 + 1) + 8 * j) keyChord];
                 [v8 addObject:keyChord];
               }
 
-              v19 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
             }
 
             while (v19);
@@ -1033,7 +1019,7 @@ LABEL_18:
         }
       }
 
-      v11 = [commands countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v11 = [commands countByEnumeratingWithState:&v29 objects:v34 count:16];
       if (v11)
       {
         continue;
@@ -1044,8 +1030,6 @@ LABEL_18:
   }
 
 LABEL_21:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1724,27 +1708,27 @@ LABEL_23:
 
 - (id)_profileModeForScreenreaderMode:(id)mode
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_modes;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         mode = [v9 mode];
         v11 = [mode isEqual:modeCopy];
 
@@ -1755,7 +1739,7 @@ LABEL_23:
         }
       }
 
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -1767,36 +1751,34 @@ LABEL_23:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)_profileCommandForCommand:(id)command inMode:(id)mode
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   modeCopy = mode;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   commands = [modeCopy commands];
-  v8 = [commands countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v8 = [commands countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v38;
+    v10 = *v37;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v38 != v10)
+        if (*v37 != v10)
         {
           objc_enumerationMutation(commands);
         }
 
-        v12 = *(*(&v37 + 1) + 8 * i);
+        v12 = *(*(&v36 + 1) + 8 * i);
         command = [v12 command];
         v14 = [command isEqual:commandCopy];
 
@@ -1808,7 +1790,7 @@ LABEL_11:
         }
       }
 
-      v9 = [commands countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v9 = [commands countByEnumeratingWithState:&v36 objects:v40 count:16];
       if (v9)
       {
         continue;
@@ -1907,8 +1889,6 @@ LABEL_22:
   }
 
 LABEL_28:
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -2024,18 +2004,17 @@ void __63__VOSCommandProfile__parseProfileProperties_overlayProperties___block_i
 
 void __63__VOSCommandProfile__parseProfileProperties_overlayProperties___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v7 = a2;
+  v6 = a2;
   v5 = a3;
-  if (([*(a1 + 32) containsObject:v7] & 1) == 0)
+  if (([*(a1 + 32) containsObject:v6] & 1) == 0)
   {
-    v6 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
   }
 }
 
 + (void)_addGesturesToCommand:(id)command fromCommandProperties:(id)properties overlayProperties:(id)overlayProperties
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   commandCopy = command;
   propertiesCopy = properties;
   overlayPropertiesCopy = overlayProperties;
@@ -2058,8 +2037,8 @@ void __63__VOSCommandProfile__parseProfileProperties_overlayProperties___block_i
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v25[0] = v11;
-        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+        v24[0] = v11;
+        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
       }
 
       else
@@ -2068,27 +2047,27 @@ void __63__VOSCommandProfile__parseProfileProperties_overlayProperties___block_i
       }
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v21;
+      v16 = *v20;
       do
       {
         v17 = 0;
         do
         {
-          if (*v21 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [_VOSProfileGesture profileGestureWithStringValue:*(*(&v20 + 1) + 8 * v17), v20];
+          v18 = [_VOSProfileGesture profileGestureWithStringValue:*(*(&v19 + 1) + 8 * v17), v19];
           if (v18)
           {
             [commandCopy addGesture:v18];
@@ -2098,19 +2077,17 @@ void __63__VOSCommandProfile__parseProfileProperties_overlayProperties___block_i
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v15);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_addKeyboardShortcutsToCommand:(id)command fromCommandProperties:(id)properties overlayProperties:(id)overlayProperties
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   propertiesCopy = properties;
   overlayPropertiesCopy = overlayProperties;
@@ -2122,43 +2099,41 @@ void __63__VOSCommandProfile__parseProfileProperties_overlayProperties___block_i
       v11 = [propertiesCopy objectForKeyedSubscript:@"KeyChord"];
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v12 = [self _profileKeyChordsFromDictionaryValue:{v11, 0}];
-    v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v19;
+      v15 = *v18;
       do
       {
         v16 = 0;
         do
         {
-          if (*v19 != v15)
+          if (*v18 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          [commandCopy addKeyboardShortcut:*(*(&v18 + 1) + 8 * v16++)];
+          [commandCopy addKeyboardShortcut:*(*(&v17 + 1) + 8 * v16++)];
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v14);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_addQuickNavShortcutsToCommand:(id)command fromCommandProperties:(id)properties overlayProperties:(id)overlayProperties
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   propertiesCopy = properties;
   overlayPropertiesCopy = overlayProperties;
@@ -2170,38 +2145,36 @@ void __63__VOSCommandProfile__parseProfileProperties_overlayProperties___block_i
       v11 = [propertiesCopy objectForKeyedSubscript:@"QuickNav"];
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v12 = [self _profileKeyChordsFromDictionaryValue:{v11, 0}];
-    v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v19;
+      v15 = *v18;
       do
       {
         v16 = 0;
         do
         {
-          if (*v19 != v15)
+          if (*v18 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          [commandCopy addQuickNavShortcut:*(*(&v18 + 1) + 8 * v16++)];
+          [commandCopy addQuickNavShortcut:*(*(&v17 + 1) + 8 * v16++)];
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v14);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_addSecondaryCommandsToCommand:(id)command fromCommandProperties:(id)properties overlayProperties:(id)overlayProperties
@@ -2299,7 +2272,7 @@ LABEL_16:
 
 + (id)_profileKeyChordsFromDictionaryValue:(id)value
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -2313,8 +2286,8 @@ LABEL_5:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v20[0] = valueCopy;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = valueCopy;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     goto LABEL_5;
   }
 
@@ -2323,33 +2296,33 @@ LABEL_7:
   if ([v5 count])
   {
     array = [MEMORY[0x277CBEB18] array];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [_VOSProfileKeyChord profileKeyChordWithStringValue:*(*(&v15 + 1) + 8 * i), v15];
+          v12 = [_VOSProfileKeyChord profileKeyChordWithStringValue:*(*(&v14 + 1) + 8 * i), v14];
           if (v12)
           {
             [array addObject:v12];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -2361,8 +2334,6 @@ LABEL_7:
     array = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
@@ -2371,46 +2342,6 @@ LABEL_7:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)commandForTouchGesture:withResolver:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_223C70000, v0, v1, "commandForGesture resolved to unsupported command for this host: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_profileCommandForCommand:inMode:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_223C70000, v0, v1, "built-in command was unexpectedly unmapped: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_addSecondaryCommandsToCommand:fromCommandProperties:overlayProperties:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_223C70000, v0, v1, "command secondaryInfo is of unexpected type: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __92__VOSCommandProfile__addSecondaryCommandsToCommand_fromCommandProperties_overlayProperties___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_223C70000, v0, v1, "command:secondaryInfo:context is of unexpected type: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __92__VOSCommandProfile__addSecondaryCommandsToCommand_fromCommandProperties_overlayProperties___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_223C70000, v0, v1, "unknown secondary command: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

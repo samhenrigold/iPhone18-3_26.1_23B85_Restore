@@ -1,5 +1,6 @@
 @interface PREUMMessageMetadata
 - (BOOL)isEqual:(id)equal;
+- (id)ageGroupAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -187,7 +188,6 @@ LABEL_5:
       goto LABEL_28;
     }
 
-    v8 = *(equalCopy + 41);
     if (self->_isApricotDevice)
     {
       if ((*(equalCopy + 41) & 1) == 0)
@@ -233,7 +233,7 @@ LABEL_5:
     goto LABEL_28;
   }
 
-  v9 = (*(equalCopy + 44) & 4) == 0;
+  v8 = (*(equalCopy + 44) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 44) & 4) != 0)
@@ -251,17 +251,17 @@ LABEL_5:
         goto LABEL_28;
       }
 
-      v9 = 1;
+      v8 = 1;
       goto LABEL_29;
     }
 
 LABEL_28:
-    v9 = 0;
+    v8 = 0;
   }
 
 LABEL_29:
 
-  return v9;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -404,31 +404,30 @@ LABEL_12:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_hostProcess)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_locale)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_lang)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    isApricotDevice = self->_isApricotDevice;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -447,9 +446,8 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  charCount = self->_charCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -463,15 +461,13 @@ LABEL_10:
   }
 
 LABEL_17:
-  ageGroup = self->_ageGroup;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_11:
-    hasQuestionMark = self->_hasQuestionMark;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_12:
@@ -634,6 +630,21 @@ LABEL_12:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)ageGroupAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_279ABAD78 + string);
   }
 
   return v4;

@@ -7,7 +7,7 @@
 
 - (id).cxx_construct
 {
-  v13[19] = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *self->_online_refinement._search_range_3._view._shape_of_view._sp = 0u;
   self->_online_refinement._vptr$RSOnlineRefinement = &unk_2874EE5A0;
   self->_online_refinement._search_range_7._vptr$Tensor = &unk_2874EE7A8;
@@ -72,9 +72,9 @@
       sub_26226CB7C(v12, v7, &v8);
       v10 = 0xE00000001;
       v11 = 14;
-      sub_26226CB7C(v13, v6, &v10);
+      sub_26226CB7C(&v13, v6, &v10);
       memset(v5, 0, sizeof(v5));
-      sub_26226D514();
+      sub_26226D514(v5, v12, &v14);
     }
   }
 }

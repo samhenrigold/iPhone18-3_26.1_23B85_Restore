@@ -41,7 +41,7 @@
   {
     [(MSDDemoUpdateTimeKeeper *)self setDate:0];
 LABEL_12:
-    v22 = 0;
+    v23 = 0;
     goto LABEL_16;
   }
 
@@ -65,51 +65,51 @@ LABEL_12:
   v13 = v12;
   timeIntervalReservedForCleanup = [(MSDDemoUpdateTimeKeeper *)self timeIntervalReservedForCleanup];
 
-  v15 = sub_100063A54();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  v16 = sub_100063A54(v15);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
   if (v13 > timeIntervalReservedForCleanup)
   {
-    if (v16)
+    if (v17)
     {
       date2 = [(MSDDemoUpdateTimeKeeper *)self date];
       [date2 timeIntervalSinceNow];
-      v19 = v18;
+      v20 = v19;
       date3 = [(MSDDemoUpdateTimeKeeper *)self date];
       timeIntervalReservedForCleanup2 = [(MSDDemoUpdateTimeKeeper *)self timeIntervalReservedForCleanup];
       *buf = 134218498;
-      v30 = v19;
-      v31 = 2114;
-      v32 = date3;
-      v33 = 2048;
-      v34 = timeIntervalReservedForCleanup2;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "The operation needs to complete in %lf seconds (or by %{public}@). Will indicate system to clean up %td second before that. If no clean up action is taken then the device will be forced to demo mode by then (if possible).", buf, 0x20u);
+      v31 = v20;
+      v32 = 2114;
+      v33 = date3;
+      v34 = 2048;
+      v35 = timeIntervalReservedForCleanup2;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "The operation needs to complete in %lf seconds (or by %{public}@). Will indicate system to clean up %td second before that. If no clean up action is taken then the device will be forced to demo mode by then (if possible).", buf, 0x20u);
     }
 
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_1000B5160;
-    v27[3] = &unk_100169B70;
-    v27[4] = self;
-    dispatch_async(&_dispatch_main_q, v27);
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_1000B5160;
+    v28[3] = &unk_100169B70;
+    v28[4] = self;
+    dispatch_async(&_dispatch_main_q, v28);
     goto LABEL_12;
   }
 
-  if (v16)
+  if (v17)
   {
     date4 = [(MSDDemoUpdateTimeKeeper *)self date];
     date5 = [(MSDDemoUpdateTimeKeeper *)self date];
     [date5 timeIntervalSinceNow];
     *buf = 138543618;
-    v30 = date4;
-    v31 = 2048;
-    v32 = v25;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Already time for clean up: %{public}@ (in %lf seconds)", buf, 0x16u);
+    v31 = date4;
+    v32 = 2048;
+    v33 = v26;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Already time for clean up: %{public}@ (in %lf seconds)", buf, 0x16u);
   }
 
-  v22 = [NSError errorDomainMSDWithCode:3727741184 message:@"Cannot finish update within given time."];
+  v23 = [NSError errorDomainMSDWithCode:3727741184 message:@"Cannot finish update within given time."];
 LABEL_16:
 
-  return v22;
+  return v23;
 }
 
 - (id)setCompletionTimeForFatalError:(int)error
@@ -174,7 +174,7 @@ LABEL_6:
 
 - (void)forceSwitchToDemoMode:(id)mode
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

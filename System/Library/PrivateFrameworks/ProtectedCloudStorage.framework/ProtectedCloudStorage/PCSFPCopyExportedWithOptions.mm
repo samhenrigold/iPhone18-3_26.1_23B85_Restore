@@ -3,9 +3,9 @@
 
 @implementation PCSFPCopyExportedWithOptions
 
-void ___PCSFPCopyExportedWithOptions_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void ___PCSFPCopyExportedWithOptions_block_invoke(void *a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *(a1 + 48);
+  v5 = a1[6];
   v6 = *(a3 + 24);
   v7 = (v6 & 1) == 0 && *(v5 + 204) == 3;
   v8 = 72;
@@ -17,7 +17,7 @@ void ___PCSFPCopyExportedWithOptions_block_invoke(uint64_t a1, uint64_t a2, uint
   if ((v6 & 4) != 0 && *(v5 + 56))
   {
     PublicID = PCSPublicIdentityGetPublicID(*(a3 + 16));
-    Value = CFDictionaryGetValue(*(*(a1 + 48) + 56), PublicID);
+    Value = CFDictionaryGetValue(*(a1[6] + 56), PublicID);
     if (!Value)
     {
       ___PCSFPCopyExportedWithOptions_block_invoke_cold_1(0, v11, v12, v13, v14, v15, v16, v17);
@@ -29,16 +29,16 @@ void ___PCSFPCopyExportedWithOptions_block_invoke(uint64_t a1, uint64_t a2, uint
 
   else
   {
-    v18 = PCSPublicServiceIdentityCopyWrappedKey(*(a3 + 16), *(v5 + v8), *(a1 + 56));
+    v18 = PCSPublicServiceIdentityCopyWrappedKey(*(a3 + 16), *(v5 + v8), a1[7]);
     if (!v18)
     {
-      ___PCSFPCopyExportedWithOptions_block_invoke_cold_7((a1 + 56));
+      ___PCSFPCopyExportedWithOptions_block_invoke_cold_7(a1 + 7);
     }
   }
 
   if ((*(a3 + 24) & 4) != 0)
   {
-    v33 = _PCSExportRandomPCSSPKey(*(*(*(a1 + 32) + 8) + 48) + 56 * *(*(*(a1 + 40) + 8) + 24));
+    v33 = _PCSExportRandomPCSSPKey(*(*(a1[4] + 8) + 48) + 56 * *(*(a1[5] + 8) + 24));
     if ((v33 & 1) == 0)
     {
       ___PCSFPCopyExportedWithOptions_block_invoke_cold_2(v33, v34, v35, v36, v37, v38, v39, v40);
@@ -47,7 +47,7 @@ void ___PCSFPCopyExportedWithOptions_block_invoke(uint64_t a1, uint64_t a2, uint
 
   else
   {
-    v25 = _PCSPublicIdentityExportPCSSPKey(*(a3 + 16), *(*(*(a1 + 32) + 8) + 48) + 56 * *(*(*(a1 + 40) + 8) + 24), v19, v20, v21, v22, v23, v24);
+    v25 = _PCSPublicIdentityExportPCSSPKey(*(a3 + 16), *(*(a1[4] + 8) + 48) + 56 * *(*(a1[5] + 8) + 24), v19, v20, v21, v22, v23, v24);
     if ((v25 & 1) == 0)
     {
       ___PCSFPCopyExportedWithOptions_block_invoke_cold_3(v25, v26, v27, v28, v29, v30, v31, v32);
@@ -56,8 +56,8 @@ void ___PCSFPCopyExportedWithOptions_block_invoke(uint64_t a1, uint64_t a2, uint
 
   if (*(a3 + 24))
   {
-    *(*(*(*(a1 + 32) + 8) + 48) + 56 * *(*(*(a1 + 40) + 8) + 24) + 48) = malloc_type_calloc(1uLL, 4uLL, 0x100004052888210uLL);
-    v41 = *(*(*(*(a1 + 32) + 8) + 48) + 56 * *(*(*(a1 + 40) + 8) + 24) + 48);
+    *(*(*(a1[4] + 8) + 48) + 56 * *(*(a1[5] + 8) + 24) + 48) = malloc_type_calloc(1uLL, 4uLL, 0x100004052888210uLL);
+    v41 = *(*(*(a1[4] + 8) + 48) + 56 * *(*(a1[5] + 8) + 24) + 48);
     if (!v41)
     {
       ___PCSFPCopyExportedWithOptions_block_invoke_cold_4();
@@ -66,22 +66,22 @@ void ___PCSFPCopyExportedWithOptions_block_invoke(uint64_t a1, uint64_t a2, uint
     *v41 = *(a3 + 24);
   }
 
-  v42 = FillOctetString((*(*(*(a1 + 32) + 8) + 48) + 56 * *(*(*(a1 + 40) + 8) + 24) + 32), v18);
+  v42 = FillOctetString((*(*(a1[4] + 8) + 48) + 56 * *(*(a1[5] + 8) + 24) + 32), v18);
   if (!v42)
   {
     ___PCSFPCopyExportedWithOptions_block_invoke_cold_5(v42, v43, v44, v45, v46, v47, v48, v49);
   }
 
   CFRelease(v18);
-  v50 = *(*(a1 + 40) + 8);
+  v50 = *(a1[5] + 8);
   v51 = *(v50 + 24);
-  if (*(a1 + 64) <= v51)
+  if (a1[8] <= v51)
   {
     ___PCSFPCopyExportedWithOptions_block_invoke_cold_6();
   }
 
   *(v50 + 24) = v51 + 1;
-  *(*(*(a1 + 32) + 8) + 40) = *(*(*(a1 + 40) + 8) + 24);
+  *(*(a1[4] + 8) + 40) = *(*(a1[5] + 8) + 24);
 }
 
 void ___PCSFPCopyExportedWithOptions_block_invoke_2(void *a1, uint64_t a2)

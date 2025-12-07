@@ -4,7 +4,7 @@
 - (id)physicalInputQueue:(id)queue;
 - (uint64_t)_liveInput;
 - (uint64_t)_physicalInputQueue;
-- (void)_bufferEvent:(uint64_t)event;
+- (void)_bufferEvent:(os_unfair_lock_s *)result;
 - (void)_drainBufferedEvents:(id)events latestOnly:(BOOL)only;
 - (void)_handleButtonEventType:(unint64_t)type buttonMask:;
 - (void)handleMouseMovementEventWithDelta:(double)delta;
@@ -166,20 +166,20 @@
   return v7;
 }
 
-- (void)_bufferEvent:(uint64_t)event
+- (void)_bufferEvent:(os_unfair_lock_s *)result
 {
-  if (event)
+  if (result)
   {
-    os_unfair_lock_lock((event + 648));
-    if ([*(event + 656) count] >= *(event + 664))
+    os_unfair_lock_lock(result + 162);
+    if ([*&result[164]._os_unfair_lock_opaque count] >= *&result[166]._os_unfair_lock_opaque)
     {
       *(a2 + 8) = 0;
-      [*(event + 656) removeAllObjects];
+      [*&result[164]._os_unfair_lock_opaque removeAllObjects];
     }
 
     v4 = [objc_alloc(MEMORY[0x1E696B098]) initWithBytes:a2 objCType:"{?=QQ(?={?=ff}q)}"];
-    [*(event + 656) addObject:v4];
-    [(GCMouseInput *)v4 _bufferEvent:event, &v5];
+    [*&result[164]._os_unfair_lock_opaque addObject:v4];
+    [(GCMouseInput *)v4 _bufferEvent:v5];
   }
 }
 
@@ -321,14 +321,13 @@ uint64_t __58__GCMouseInput_PubSub___handleButtonEventType_buttonMask___block_in
 
 void __58__GCMouseInput_PubSub__handleMouseMovementEventWithDelta___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 56);
-  v4 = *(a1 + 64);
-  (*(*(a1 + 48) + 16))(v3, v4);
-  v5 = _gc_log_signpost();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+  v2 = *(a1 + 56);
+  v3 = *(a1 + 64);
+  (*(*(a1 + 48) + 16))(v2, v3);
+  v4 = _gc_log_signpost();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
-  if (v6)
+  if (v5)
   {
     __58__GCMouseInput_PubSub__handleMouseMovementEventWithDelta___block_invoke_cold_1(a1);
   }
@@ -479,8 +478,8 @@ uint64_t __58__GCMouseInput_PubSub__handleMouseMovementEventWithDelta___block_in
     v33 = -v4;
     v34 = deltaCopy;
     [(GCMouseInput *)self _bufferEvent:?];
-    scroll = [self scroll];
-    handlerQueue = [self handlerQueue];
+    scroll = [(os_unfair_lock_s *)self scroll];
+    handlerQueue = [(os_unfair_lock_s *)self handlerQueue];
     v9 = scroll;
     v10 = handlerQueue;
     [v9 frame];
@@ -556,7 +555,7 @@ uint64_t __58__GCMouseInput_PubSub__handleMouseMovementEventWithDelta___block_in
 
 - (void)handleMouseMovementEventWithDelta:(double)delta
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v6 = -delta;
@@ -570,7 +569,7 @@ uint64_t __58__GCMouseInput_PubSub__handleMouseMovementEventWithDelta___block_in
     [self device];
     objc_claimAutoreleasedReturnValue();
     handlerQueue = [OUTLINED_FUNCTION_8_0() handlerQueue];
-    v11 = _Block_copy(self[89]);
+    v11 = _Block_copy(*(self + 712));
     if (v11)
     {
       v12 = os_signpost_id_generate(v9);
@@ -579,16 +578,16 @@ uint64_t __58__GCMouseInput_PubSub__handleMouseMovementEventWithDelta___block_in
 
       if (v14)
       {
-        v18 = v9;
-        v19 = v18;
-        if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+        v17 = v9;
+        v18 = v17;
+        if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
         {
           [self lastEventTimestamp];
           *buf = 134218240;
           *&buf[4] = v3;
           *&buf[12] = 2048;
-          *&buf[14] = v20;
-          _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v12, "GCMouseInput.callback", "{device: %p, lastEventTimestamp: %f}", buf, 0x16u);
+          *&buf[14] = v19;
+          _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v12, "GCMouseInput.callback", "{device: %p, lastEventTimestamp: %f}", buf, 0x16u);
         }
       }
 
@@ -596,37 +595,34 @@ uint64_t __58__GCMouseInput_PubSub__handleMouseMovementEventWithDelta___block_in
       block[1] = 3221225472;
       block[2] = __58__GCMouseInput_PubSub__handleMouseMovementEventWithDelta___block_invoke;
       block[3] = &unk_1E84190A8;
-      v27 = v11;
+      v26 = v11;
       block[4] = self;
-      v28 = a2;
-      v29 = v6;
-      v26 = v9;
-      v30 = v12;
+      v27 = a2;
+      v28 = v6;
+      v25 = v9;
+      v29 = v12;
       dispatch_async(handlerQueue, block);
     }
 
-    v15 = _Block_copy(self[90]);
+    v15 = _Block_copy(*(self + 720));
     v16 = v15;
     if (v15)
     {
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __58__GCMouseInput_PubSub__handleMouseMovementEventWithDelta___block_invoke_286;
-      v21[3] = &unk_1E84190D0;
-      v21[4] = self;
-      v22 = v15;
-      v23 = a2;
-      v24 = v6;
-      dispatch_async(handlerQueue, v21);
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __58__GCMouseInput_PubSub__handleMouseMovementEventWithDelta___block_invoke_286;
+      v20[3] = &unk_1E84190D0;
+      v20[4] = self;
+      v21 = v15;
+      v22 = a2;
+      v23 = v6;
+      dispatch_async(handlerQueue, v20);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __45__GCMouseInput_PubSub__setButtonEventSource___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = OUTLINED_FUNCTION_12_0();
   v7 = v6;
@@ -642,14 +638,14 @@ void __45__GCMouseInput_PubSub__setButtonEventSource___block_invoke(uint64_t a1,
 
     if (v10)
     {
-      v14 = v8;
+      v13 = v8;
       OUTLINED_FUNCTION_1_2();
-      if (!(!v16 & v15) && os_signpost_enabled(v4))
+      if (!(!v15 & v14) && os_signpost_enabled(v4))
       {
         [v2 timestamp];
         OUTLINED_FUNCTION_11_0();
         OUTLINED_FUNCTION_0_3();
-        OUTLINED_FUNCTION_2_1(&dword_1D2CD5000, v17, v18, v19, "GCMouseInput.handle.ButtonEvent", "{device: %p, eventTimestamp: %llu, lastEventTimestamp: %f}", v20, v21, v28);
+        OUTLINED_FUNCTION_2_1(&dword_1D2CD5000, v16, v17, v18, "GCMouseInput.handle.ButtonEvent", "{device: %p, eventTimestamp: %llu, lastEventTimestamp: %f}", v19, v20);
       }
     }
 
@@ -659,16 +655,165 @@ void __45__GCMouseInput_PubSub__setButtonEventSource___block_invoke(uint64_t a1,
 
     if (v12)
     {
-      v22 = v8;
+      v21 = v8;
       OUTLINED_FUNCTION_1_2();
-      if (!(!v16 & v15) && os_signpost_enabled(v4))
+      if (!(!v15 & v14) && os_signpost_enabled(v4))
       {
-        OUTLINED_FUNCTION_3_0(&dword_1D2CD5000, v23, v24, v25, "GCMouseInput.handle.ButtonEvent", "{}", v26, v27, 0);
+        v27 = 0;
+        OUTLINED_FUNCTION_3_0(&dword_1D2CD5000, v22, v23, v24, "GCMouseInput.handle.ButtonEvent", "{}", v25, v26, v27);
+      }
+    }
+  }
+}
+
+void __45__GCMouseInput_PubSub__setScrollEventSource___block_invoke()
+{
+  OUTLINED_FUNCTION_9_0();
+  v4 = v3;
+  v5 = OUTLINED_FUNCTION_12_0();
+  v6 = v5;
+  if (v5)
+  {
+    [v5 device];
+    objc_claimAutoreleasedReturnValue();
+    [OUTLINED_FUNCTION_8_0() _receivedEvent];
+    v7 = _gc_log_signpost();
+    os_signpost_id_generate(v7);
+    v8 = _gc_log_signpost();
+    v9 = OUTLINED_FUNCTION_7_0(v8);
+
+    if (v9)
+    {
+      v15 = v7;
+      OUTLINED_FUNCTION_1_2();
+      if (!(!v17 & v16) && os_signpost_enabled(v2))
+      {
+        [v0 timestamp];
+        OUTLINED_FUNCTION_11_0();
+        OUTLINED_FUNCTION_0_3();
+        OUTLINED_FUNCTION_2_1(&dword_1D2CD5000, v18, v19, v20, "GCMouseInput.handle.ScrollEvent", "{device: %p, eventTimestamp: %llu, lastEventTimestamp: %f}", v21, v22);
+      }
+    }
+
+    [v0 x];
+    [v0 y];
+    v10 = OUTLINED_FUNCTION_6_0();
+    [(GCMouseInput *)v11 handleScrollEventWithDelta:v10, v12];
+    v13 = _gc_log_signpost();
+    v14 = OUTLINED_FUNCTION_7_0(v13);
+
+    if (v14)
+    {
+      v23 = v7;
+      OUTLINED_FUNCTION_1_2();
+      if (!(!v17 & v16) && os_signpost_enabled(v2))
+      {
+        OUTLINED_FUNCTION_3_0(&dword_1D2CD5000, v24, v25, v26, "GCMouseInput.handle.ScrollEvent", "{}", v27, v28);
       }
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_10_0();
+}
+
+void __48__GCMouseInput_PubSub__setDigitizerEventSource___block_invoke()
+{
+  OUTLINED_FUNCTION_9_0();
+  v4 = v3;
+  v5 = OUTLINED_FUNCTION_12_0();
+  v6 = v5;
+  if (v5)
+  {
+    [v5 device];
+    objc_claimAutoreleasedReturnValue();
+    [OUTLINED_FUNCTION_8_0() _receivedEvent];
+    v7 = _gc_log_signpost();
+    os_signpost_id_generate(v7);
+    v8 = _gc_log_signpost();
+    v9 = OUTLINED_FUNCTION_7_0(v8);
+
+    if (v9)
+    {
+      v14 = v7;
+      OUTLINED_FUNCTION_1_2();
+      if (!(!v16 & v15) && os_signpost_enabled(v2))
+      {
+        [v0 timestamp];
+        OUTLINED_FUNCTION_11_0();
+        OUTLINED_FUNCTION_0_3();
+        OUTLINED_FUNCTION_2_1(&dword_1D2CD5000, v17, v18, v19, "GCMouseInput.handle.DigitizerEvent", "{device: %p, eventTimestamp: %llu, lastEventTimestamp: %f}", v20, v21);
+      }
+    }
+
+    [v0 x];
+    [v0 y];
+    v10 = OUTLINED_FUNCTION_6_0();
+    [v11 handleDigitizerEvent:v10];
+    v12 = _gc_log_signpost();
+    v13 = OUTLINED_FUNCTION_7_0(v12);
+
+    if (v13)
+    {
+      v22 = v7;
+      OUTLINED_FUNCTION_1_2();
+      if (!(!v16 & v15) && os_signpost_enabled(v2))
+      {
+        OUTLINED_FUNCTION_3_0(&dword_1D2CD5000, v23, v24, v25, "GCMouseInput.handle.DigitizerEvent", "{}", v26, v27);
+      }
+    }
+  }
+
+  OUTLINED_FUNCTION_10_0();
+}
+
+void __46__GCMouseInput_PubSub__setPointerEventSource___block_invoke()
+{
+  OUTLINED_FUNCTION_9_0();
+  v4 = v3;
+  v5 = OUTLINED_FUNCTION_12_0();
+  v6 = v5;
+  if (v5)
+  {
+    [v5 device];
+    objc_claimAutoreleasedReturnValue();
+    [OUTLINED_FUNCTION_8_0() _receivedEvent];
+    v7 = _gc_log_signpost();
+    os_signpost_id_generate(v7);
+    v8 = _gc_log_signpost();
+    v9 = OUTLINED_FUNCTION_7_0(v8);
+
+    if (v9)
+    {
+      v15 = v7;
+      OUTLINED_FUNCTION_1_2();
+      if (!(!v17 & v16) && os_signpost_enabled(v2))
+      {
+        [v0 timestamp];
+        OUTLINED_FUNCTION_11_0();
+        OUTLINED_FUNCTION_0_3();
+        OUTLINED_FUNCTION_2_1(&dword_1D2CD5000, v18, v19, v20, "GCMouseInput.handle.PointerEvent", "{device: %p, eventTimestamp: %llu, lastEventTimestamp: %f}", v21, v22);
+      }
+    }
+
+    [v0 x];
+    [v0 y];
+    v10 = OUTLINED_FUNCTION_6_0();
+    [(GCMouseInput *)v11 handleMouseMovementEventWithDelta:v10, v12];
+    v13 = _gc_log_signpost();
+    v14 = OUTLINED_FUNCTION_7_0(v13);
+
+    if (v14)
+    {
+      v23 = v7;
+      OUTLINED_FUNCTION_1_2();
+      if (!(!v17 & v16) && os_signpost_enabled(v2))
+      {
+        OUTLINED_FUNCTION_3_0(&dword_1D2CD5000, v24, v25, v26, "GCMouseInput.handle.PointerEvent", "{}", v27, v28);
+      }
+    }
+  }
+
+  OUTLINED_FUNCTION_10_0();
 }
 
 - (void)_bufferEvent:(id *)a3 .cold.1(void *a1, uint64_t a2, id *a3)

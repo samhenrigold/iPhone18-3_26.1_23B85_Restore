@@ -17,14 +17,18 @@
 - (void)deinitializeSecondPass;
 - (void)fetchAOPVoiceTriggerResult:(id)result;
 - (void)processBargeInVoiceTriggerWithResult:(id)result;
+- (void)processSecondPassVoiceTriggerWithShouldFlushAudio:(BOOL)audio result:(id)result;
 - (void)requestHistoricalAudioBufferFor:(unint64_t)for startSample:(unint64_t)sample numSamples:(unint64_t)samples hostTime:(unint64_t)time;
 - (void)reset;
 - (void)resetFirstPassVoiceTrigger;
 - (void)setAdBlockerAsset:(id)asset;
+- (void)setAssetForLocale:(id)locale isOTA:(BOOL)a completion:(id)completion;
 - (void)setDelegate:(id)delegate;
 - (void)startAdBlockerMatching;
 - (void)startBargeInVoiceTrigger;
+- (void)startSecondPassVoiceTriggerWithFirstPassSource:(unint64_t)source enablePHS:(BOOL)s supportMultiPhrase:(BOOL)phrase activeChannel:(unsigned int)channel;
 - (void)startSecureAdBlockerMobileAssetLoaderService:(id)service;
+- (void)startSecureMobileAssetLoaderService:(BOOL)service completion:(id)completion;
 - (void)stopAdBlockerMatching;
 - (void)stopBargeInVoiceTrigger;
 - (void)stopSecondPassVoiceTrigger;
@@ -108,6 +112,23 @@
   [(CSSecureSiriAudioProvidingProxy *)self->_audioProvidingProxy stopSecureMobileAssetLoaderService:serviceCopy];
 }
 
+- (void)startSecureMobileAssetLoaderService:(BOOL)service completion:(id)completion
+{
+  serviceCopy = service;
+  completionCopy = completion;
+  [(CSExclaveRecordClient *)self _verifySetupComplete];
+  [(CSSecureSiriAudioProvidingProxy *)self->_audioProvidingProxy startSecureMobileAssetLoaderService:serviceCopy completion:completionCopy];
+}
+
+- (void)setAssetForLocale:(id)locale isOTA:(BOOL)a completion:(id)completion
+{
+  aCopy = a;
+  localeCopy = locale;
+  completionCopy = completion;
+  [(CSExclaveRecordClient *)self _verifySetupComplete];
+  [(CSSecureSiriAudioProvidingProxy *)self->_audioProvidingProxy setAssetForLocale:localeCopy isOTA:aCopy completion:completionCopy];
+}
+
 - (BOOL)setSpeakerProfile:(id)profile numEmbeddings:(unint64_t)embeddings dimension:(unint64_t)dimension speakerRecognizerType:(unint64_t)type
 {
   profileCopy = profile;
@@ -117,12 +138,47 @@
   return type;
 }
 
+- (void)processSecondPassVoiceTriggerWithShouldFlushAudio:(BOOL)audio result:(id)result
+{
+  audioCopy = audio;
+  resultCopy = result;
+  [(CSExclaveRecordClient *)self _verifySetupComplete];
+  [(CSSecureSiriAudioProvidingProxy *)self->_audioProvidingProxy processSecondPassVoiceTriggerWithShouldFlushAudio:audioCopy result:resultCopy];
+}
+
 - (void)stopSecondPassVoiceTrigger
 {
   [(CSExclaveRecordClient *)self _verifySetupComplete];
   audioProvidingProxy = self->_audioProvidingProxy;
 
   [(CSSecureSiriAudioProvidingProxy *)audioProvidingProxy stopSecondPassVoiceTrigger];
+}
+
+- (void)startSecondPassVoiceTriggerWithFirstPassSource:(unint64_t)source enablePHS:(BOOL)s supportMultiPhrase:(BOOL)phrase activeChannel:(unsigned int)channel
+{
+  v6 = *&channel;
+  phraseCopy = phrase;
+  sCopy = s;
+  [(CSExclaveRecordClient *)self _verifySetupComplete];
+  if (source - 11 > 3)
+  {
+    v11 = 0;
+  }
+
+  else
+  {
+    v11 = qword_1DDB1F9E0[source - 11];
+  }
+
+  v12 = 256;
+  if (!phraseCopy)
+  {
+    v12 = 0;
+  }
+
+  audioProvidingProxy = self->_audioProvidingProxy;
+
+  [(CSSecureSiriAudioProvidingProxy *)audioProvidingProxy startSecondPassVoiceTriggerWithStartOption:v11, v12 | sCopy | (v6 << 32)];
 }
 
 - (void)deinitializeSecondPass
@@ -174,32 +230,30 @@
 
 - (void)fetchAOPVoiceTriggerResult:(id)result
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   [(CSExclaveRecordClient *)self _verifySetupComplete];
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[CSExclaveRecordClient fetchAOPVoiceTriggerResult:]";
-    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s ", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[CSExclaveRecordClient fetchAOPVoiceTriggerResult:]";
+    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s ", &v6, 0xCu);
   }
 
   [(CSSecureSiriAudioProvidingProxy *)self->_audioProvidingProxy fetchAOPVoiceTriggerResult:resultCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)configAOPVoiceTrigger
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [(CSExclaveRecordClient *)self _verifySetupComplete];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[CSExclaveRecordClient configAOPVoiceTrigger]";
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[CSExclaveRecordClient configAOPVoiceTrigger]";
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v7, 0xCu);
   }
 
   configAOPVoiceTrigger = [(CSSecureSiriAudioProvidingProxy *)self->_audioProvidingProxy configAOPVoiceTrigger];
@@ -208,19 +262,18 @@
     v5 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315138;
-      v9 = "[CSExclaveRecordClient configAOPVoiceTrigger]";
-      _os_log_error_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_ERROR, "%s Failed to config AOP VoiceTrigger", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[CSExclaveRecordClient configAOPVoiceTrigger]";
+      _os_log_error_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_ERROR, "%s Failed to config AOP VoiceTrigger", &v7, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return configAOPVoiceTrigger;
 }
 
 - (void)requestHistoricalAudioBufferFor:(unint64_t)for startSample:(unint64_t)sample numSamples:(unint64_t)samples hostTime:(unint64_t)time
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   [(CSExclaveRecordClient *)self _verifySetupComplete];
   audioCallbackLogHeartbeat = self->_audioCallbackLogHeartbeat;
   if (__ROR8__(0xCCCCCCCCCCCCCCCDLL * audioCallbackLogHeartbeat, 1) <= 0x1999999999999999uLL)
@@ -229,12 +282,12 @@
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v17 = "[CSExclaveRecordClient requestHistoricalAudioBufferFor:startSample:numSamples:hostTime:]";
-      v18 = 2048;
-      v19 = audioCallbackLogHeartbeat;
-      v20 = 2048;
+      v16 = "[CSExclaveRecordClient requestHistoricalAudioBufferFor:startSample:numSamples:hostTime:]";
+      v17 = 2048;
+      v18 = audioCallbackLogHeartbeat;
+      v19 = 2048;
       sampleCopy = sample;
-      v22 = 2048;
+      v21 = 2048;
       timeCopy = time;
       _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, "%s heartbeat = %llu. startSampleCount: %llu. hostTime: %llu", buf, 0x2Au);
       audioCallbackLogHeartbeat = self->_audioCallbackLogHeartbeat;
@@ -243,65 +296,59 @@
 
   self->_audioCallbackLogHeartbeat = audioCallbackLogHeartbeat + 1;
   audioProvidingProxy = self->_audioProvidingProxy;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __89__CSExclaveRecordClient_requestHistoricalAudioBufferFor_startSample_numSamples_hostTime___block_invoke;
-  v15[3] = &unk_1E865AB50;
-  v15[4] = self;
-  v15[5] = samples;
-  v15[6] = for;
-  v15[7] = time;
-  [(CSSecureSiriAudioProvidingProxy *)audioProvidingProxy requestHistoricalAudioBufferWithStartSample:sample completion:v15];
-  v14 = *MEMORY[0x1E69E9840];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __89__CSExclaveRecordClient_requestHistoricalAudioBufferFor_startSample_numSamples_hostTime___block_invoke;
+  v14[3] = &unk_1E865AB50;
+  v14[4] = self;
+  v14[5] = samples;
+  v14[6] = for;
+  v14[7] = time;
+  [(CSSecureSiriAudioProvidingProxy *)audioProvidingProxy requestHistoricalAudioBufferWithStartSample:sample completion:v14];
 }
 
 void __89__CSExclaveRecordClient_requestHistoricalAudioBufferFor_startSample_numSamples_hostTime___block_invoke(uint64_t a1, int a2, int a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  if (!a2)
+  v18 = *MEMORY[0x1E69E9840];
+  if (a2)
   {
-    v14 = CSLogContextFacilityCoreSpeech;
+    v5 = *(a1 + 40);
+    [*(a1 + 32) exclaveIndicatorController];
+    v14 = v6 = (2 * v5 * a3);
+    v7 = [v14 copyBufferWithSize:v6];
+
+    if (v7)
+    {
+      v15 = [MEMORY[0x1E695DEF0] dataWithBytes:v7 length:v6];
+      v8 = v15;
+      if (+[CSConfig inputRecordingIsFloat])
+      {
+        v9 = [CSFLPCMTypeConverter convertToFloatLPCMBufFromShortLPCMBuf:?];
+
+        v8 = v9;
+      }
+
+      v10 = [*(a1 + 32) delegate];
+      v11 = objc_opt_respondsToSelector();
+
+      if (v11)
+      {
+        v12 = [*(a1 + 32) delegate];
+        [v12 exclaveRecordClientAudioBuffer:*(a1 + 32) audioStreamHandleId:*(a1 + 48) audioBuffer:v8 hostTime:*(a1 + 56)];
+      }
+    }
+  }
+
+  else
+  {
+    v13 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v19 = "[CSExclaveRecordClient requestHistoricalAudioBufferFor:startSample:numSamples:hostTime:]_block_invoke";
-      _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s Failed!!!", buf, 0xCu);
+      v17 = "[CSExclaveRecordClient requestHistoricalAudioBufferFor:startSample:numSamples:hostTime:]_block_invoke";
+      _os_log_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_DEFAULT, "%s Failed!!!", buf, 0xCu);
     }
-
-    goto LABEL_12;
   }
-
-  v5 = *(a1 + 40);
-  [*(a1 + 32) exclaveIndicatorController];
-  v16 = v6 = (2 * v5 * a3);
-  v7 = [v16 copyBufferWithSize:v6];
-
-  if (!v7)
-  {
-LABEL_12:
-    v15 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v17 = [MEMORY[0x1E695DEF0] dataWithBytes:v7 length:v6];
-  v8 = v17;
-  if (+[CSConfig inputRecordingIsFloat])
-  {
-    v9 = [CSFLPCMTypeConverter convertToFloatLPCMBufFromShortLPCMBuf:?];
-
-    v8 = v9;
-  }
-
-  v10 = [*(a1 + 32) delegate];
-  v11 = objc_opt_respondsToSelector();
-
-  if (v11)
-  {
-    v12 = [*(a1 + 32) delegate];
-    [v12 exclaveRecordClientAudioBuffer:*(a1 + 32) audioStreamHandleId:*(a1 + 48) audioBuffer:v8 hostTime:*(a1 + 56)];
-  }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)fetchAndStoreAudioBuffer
@@ -314,7 +361,7 @@ LABEL_12:
 
 - (unint64_t)currentSensorStatus
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   [(CSExclaveRecordClient *)self _verifySetupComplete];
   exclaveIndicatorController = [(CSExclaveRecordClient *)self exclaveIndicatorController];
   fetchCurrentSensorStatus = [exclaveIndicatorController fetchCurrentSensorStatus];
@@ -322,20 +369,19 @@ LABEL_12:
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[CSExclaveRecordClient currentSensorStatus]";
-    v10 = 2048;
-    v11 = fetchCurrentSensorStatus;
-    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s fetch current status: %lu", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CSExclaveRecordClient currentSensorStatus]";
+    v9 = 2048;
+    v10 = fetchCurrentSensorStatus;
+    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s fetch current status: %lu", &v7, 0x16u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return fetchCurrentSensorStatus;
 }
 
 - (unint64_t)stopSensor
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   [(CSExclaveRecordClient *)self _verifySetupComplete];
   exclaveIndicatorController = [(CSExclaveRecordClient *)self exclaveIndicatorController];
   sensorStop = [exclaveIndicatorController sensorStop];
@@ -343,20 +389,19 @@ LABEL_12:
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[CSExclaveRecordClient stopSensor]";
-    v10 = 2048;
-    v11 = sensorStop;
-    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s stop sensor with status: %lu", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CSExclaveRecordClient stopSensor]";
+    v9 = 2048;
+    v10 = sensorStop;
+    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s stop sensor with status: %lu", &v7, 0x16u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return sensorStop;
 }
 
 - (unint64_t)startSensor
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   [(CSExclaveRecordClient *)self _verifySetupComplete];
   exclaveIndicatorController = [(CSExclaveRecordClient *)self exclaveIndicatorController];
   sensorStart = [exclaveIndicatorController sensorStart];
@@ -364,33 +409,30 @@ LABEL_12:
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[CSExclaveRecordClient startSensor]";
-    v10 = 2048;
-    v11 = sensorStart;
-    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s Start sensor with status: %lu", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CSExclaveRecordClient startSensor]";
+    v9 = 2048;
+    v10 = sensorStart;
+    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s Start sensor with status: %lu", &v7, 0x16u);
   }
 
   self->_audioCallbackLogHeartbeat = 0;
-  v6 = *MEMORY[0x1E69E9840];
   return sensorStart;
 }
 
 - (BOOL)prepare
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   [(CSExclaveRecordClient *)self _verifySetupComplete];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSExclaveRecordClient prepare]";
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Prepare CSExclaveRecordClient", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSExclaveRecordClient prepare]";
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Prepare CSExclaveRecordClient", &v5, 0xCu);
   }
 
-  result = [(CSSecureSiriAudioProvidingProxy *)self->_audioProvidingProxy prepare];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(CSSecureSiriAudioProvidingProxy *)self->_audioProvidingProxy prepare];
 }
 
 - (void)setDelegate:(id)delegate
@@ -438,10 +480,10 @@ LABEL_12:
 
 - (CSExclaveRecordClient)init
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = CSExclaveRecordClient;
-  v2 = [(CSExclaveRecordClient *)&v13 init];
+  v15 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = CSExclaveRecordClient;
+  v2 = [(CSExclaveRecordClient *)&v12 init];
   if (v2)
   {
     v3 = dispatch_queue_create("CSExclaveRecordClient", 0);
@@ -457,7 +499,7 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __29__CSExclaveRecordClient_init__block_invoke;
     block[3] = &unk_1E865CB68;
-    v12 = v2;
+    v11 = v2;
     dispatch_async(v7, block);
   }
 
@@ -465,11 +507,10 @@ LABEL_12:
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "[CSExclaveRecordClient init]";
+    v14 = "[CSExclaveRecordClient init]";
     _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Creating CSExclaveRecordClient", buf, 0xCu);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -487,9 +528,11 @@ LABEL_12:
 
 uint64_t __37__CSExclaveRecordClient_sharedClient__block_invoke()
 {
-  +[CSExclaveRecordClient sharedClient]::sharedClient = objc_alloc_init(CSExclaveRecordClient);
+  v0 = objc_alloc_init(CSExclaveRecordClient);
+  v1 = +[CSExclaveRecordClient sharedClient]::sharedClient;
+  +[CSExclaveRecordClient sharedClient]::sharedClient = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

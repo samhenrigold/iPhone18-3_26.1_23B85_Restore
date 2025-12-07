@@ -53,26 +53,23 @@
 
 - (CRSUIClusterThemeImageWallpaper)initWithBSXPCCoder:(id)coder
 {
-  selfCopy = self;
-  lightModeAsset = self->_lightModeAsset;
   coderCopy = coder;
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"lightModeAsset"];
-  v7 = selfCopy->_lightModeAsset;
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"darkModeAsset"];
-  v9 = [coderCopy decodeBoolForKey:@"supportsDynamicAppearance"];
+  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"lightModeAsset"];
+  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"darkModeAsset"];
+  v7 = [coderCopy decodeBoolForKey:@"supportsDynamicAppearance"];
 
-  if (v6)
+  if (v5)
   {
-    selfCopy = [(CRSUIClusterThemeImageWallpaper *)selfCopy initWithLightModeAsset:v6 darkModeAsset:v8 supportsDynamicAppearance:v9];
-    v10 = selfCopy;
+    self = [(CRSUIClusterThemeImageWallpaper *)self initWithLightModeAsset:v5 darkModeAsset:v6 supportsDynamicAppearance:v7];
+    selfCopy = self;
   }
 
   else
   {
-    v10 = 0;
+    selfCopy = 0;
   }
 
-  return v10;
+  return selfCopy;
 }
 
 @end

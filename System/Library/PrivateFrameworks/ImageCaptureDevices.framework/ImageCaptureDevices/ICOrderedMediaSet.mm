@@ -16,11 +16,11 @@
 
 - (ICOrderedMediaSet)initWithTypes:(id)types
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   typesCopy = types;
-  v21.receiver = self;
-  v21.super_class = ICOrderedMediaSet;
-  v5 = [(ICOrderedMediaSet *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = ICOrderedMediaSet;
+  v5 = [(ICOrderedMediaSet *)&v20 init];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x29EDB8E00]);
@@ -30,27 +30,27 @@
     v5->_mediaLock._os_unfair_lock_opaque = 0;
     if (typesCopy)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       v8 = typesCopy;
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v18;
+        v11 = *v17;
         do
         {
           v12 = 0;
           do
           {
-            if (*v18 != v11)
+            if (*v17 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v17 + 1) + 8 * v12);
+            v13 = *(*(&v16 + 1) + 8 * v12);
             orderedSet = [MEMORY[0x29EDB8E10] orderedSet];
             [(NSMutableDictionary *)v5->_mediaItems setObject:orderedSet forKeyedSubscript:v13];
 
@@ -58,7 +58,7 @@
           }
 
           while (v10 != v12);
-          v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
         }
 
         while (v10);
@@ -66,39 +66,38 @@
     }
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
 - (unint64_t)mediaItemCount
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   os_unfair_lock_lock(&self->_mediaLock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   allKeys = [(NSMutableDictionary *)self->_mediaItems allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = [(NSMutableDictionary *)self->_mediaItems objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
+        v9 = [(NSMutableDictionary *)self->_mediaItems objectForKeyedSubscript:*(*(&v11 + 1) + 8 * i)];
         v6 += [v9 count];
       }
 
-      v5 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -110,21 +109,20 @@
   }
 
   os_unfair_lock_unlock(&self->_mediaLock);
-  v10 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 - (void)addMediaItemToIndex:(id)index
 {
-  v14[1] = *MEMORY[0x29EDCA608];
+  v13[1] = *MEMORY[0x29EDCA608];
   indexCopy = index;
   mediaItemType = [indexCopy mediaItemType];
   if (mediaItemType)
   {
     unsignedIntegerValue = [indexCopy unsignedIntegerValue];
     mediaItemType2 = [indexCopy mediaItemType];
-    v14[0] = mediaItemType2;
-    v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v14 count:1];
+    v13[0] = mediaItemType2;
+    v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
     v9 = [(ICOrderedMediaSet *)self mediaItemWithHandle:unsignedIntegerValue inTypes:v8];
 
     if (!v9)
@@ -144,8 +142,6 @@
       os_unfair_lock_unlock(&self->_mediaLock);
     }
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __41__ICOrderedMediaSet_addMediaItemToIndex___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -199,39 +195,38 @@ uint64_t __41__ICOrderedMediaSet_addMediaItemToIndex___block_invoke(uint64_t a1,
 
 - (BOOL)removeMediaItemsFromIndex:(id)index
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   indexCopy = index;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [indexCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [indexCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   v6 = v5;
   if (v5)
   {
-    v7 = *v13;
+    v7 = *v12;
     v8 = v5;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(indexCopy);
         }
 
-        [(ICOrderedMediaSet *)self removeMediaItemFromIndex:*(*(&v12 + 1) + 8 * v9++)];
+        [(ICOrderedMediaSet *)self removeMediaItemFromIndex:*(*(&v11 + 1) + 8 * v9++)];
       }
 
       while (v8 != v9);
-      v8 = [indexCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [indexCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return v6 != 0;
 }
 
@@ -248,48 +243,47 @@ uint64_t __41__ICOrderedMediaSet_addMediaItemToIndex___block_invoke(uint64_t a1,
 
 - (void)removeAllItems
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   os_unfair_lock_lock(&self->_mediaLock);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   allKeys = [(NSMutableDictionary *)self->_mediaItems allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v8 = [(NSMutableDictionary *)self->_mediaItems objectForKeyedSubscript:*(*(&v10 + 1) + 8 * v7)];
+        v8 = [(NSMutableDictionary *)self->_mediaItems objectForKeyedSubscript:*(*(&v9 + 1) + 8 * v7)];
         [v8 removeAllObjects];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   os_unfair_lock_unlock(&self->_mediaLock);
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (id)mediaItemWithHandle:(unint64_t)handle inTypes:(id)types
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   typesCopy = types;
   os_unfair_lock_lock(&self->_mediaLock);
   if (typesCopy)
@@ -302,27 +296,27 @@ uint64_t __41__ICOrderedMediaSet_addMediaItemToIndex___block_invoke(uint64_t a1,
     allKeys = [(NSMutableDictionary *)self->_mediaItems allKeys];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = allKeys;
-  v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v19 = typesCopy;
-    v10 = *v22;
+    v18 = typesCopy;
+    v10 = *v21;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = [(NSMutableDictionary *)self->_mediaItems objectForKeyedSubscript:*(*(&v21 + 1) + 8 * i), v19];
+        v12 = [(NSMutableDictionary *)self->_mediaItems objectForKeyedSubscript:*(*(&v20 + 1) + 8 * i), v18];
         v13 = [v12 count];
         v14 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:handle];
         v15 = [v12 indexOfObject:v14 inSortedRange:0 options:v13 usingComparator:{256, &__block_literal_global_5}];
@@ -335,7 +329,7 @@ uint64_t __41__ICOrderedMediaSet_addMediaItemToIndex___block_invoke(uint64_t a1,
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v9)
       {
         continue;
@@ -346,7 +340,7 @@ uint64_t __41__ICOrderedMediaSet_addMediaItemToIndex___block_invoke(uint64_t a1,
 
     v16 = 0;
 LABEL_14:
-    typesCopy = v19;
+    typesCopy = v18;
   }
 
   else
@@ -355,7 +349,6 @@ LABEL_14:
   }
 
   os_unfair_lock_unlock(&self->_mediaLock);
-  v17 = *MEMORY[0x29EDCA608];
 
   return v16;
 }
@@ -427,11 +420,11 @@ uint64_t __49__ICOrderedMediaSet_mediaItemWithHandle_inTypes___block_invoke(uint
 
 - (void)performSelector:(id)selector onTypes:(id)types
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   typesCopy = types;
   v7 = NSSelectorFromString(selector);
   os_unfair_lock_lock(&self->_mediaLock);
-  v20 = typesCopy;
+  v19 = typesCopy;
   if (typesCopy)
   {
     allKeys = typesCopy;
@@ -442,47 +435,47 @@ uint64_t __49__ICOrderedMediaSet_mediaItemWithHandle_inTypes___block_invoke(uint
     allKeys = [(NSMutableDictionary *)self->_mediaItems allKeys];
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = allKeys;
-  v9 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v9 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       v12 = 0;
       do
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = [(NSMutableDictionary *)self->_mediaItems objectForKeyedSubscript:*(*(&v26 + 1) + 8 * v12), v20];
+        v13 = [(NSMutableDictionary *)self->_mediaItems objectForKeyedSubscript:*(*(&v25 + 1) + 8 * v12), v19];
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
-        v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v23;
+          v16 = *v22;
           do
           {
             v17 = 0;
             do
             {
-              if (*v23 != v16)
+              if (*v22 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = *(*(&v22 + 1) + 8 * v17);
+              v18 = *(*(&v21 + 1) + 8 * v17);
               if (objc_opt_respondsToSelector())
               {
                 [v18 performSelector:v7];
@@ -492,7 +485,7 @@ uint64_t __49__ICOrderedMediaSet_mediaItemWithHandle_inTypes___block_invoke(uint
             }
 
             while (v15 != v17);
-            v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
           while (v15);
@@ -502,14 +495,13 @@ uint64_t __49__ICOrderedMediaSet_mediaItemWithHandle_inTypes___block_invoke(uint
       }
 
       while (v12 != v10);
-      v10 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v10 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v10);
   }
 
   os_unfair_lock_unlock(&self->_mediaLock);
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 @end

@@ -16,28 +16,28 @@
   v5 = [(ICQTipInfo *)&v32 init];
   if (v5)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"title"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(ICQTipInfo *)v5 setTitle:v6];
     }
 
-    v7 = [dictionaryCopy objectForKeyedSubscript:@"subTitle"];
+    v7 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(ICQTipInfo *)v5 setSubtitle:v7];
     }
 
-    v8 = [dictionaryCopy objectForKeyedSubscript:@"anchor"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(ICQTipInfo *)v5 setAnchor:v8];
     }
 
-    v9 = [dictionaryCopy objectForKeyedSubscript:@"id"];
+    v9 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -45,7 +45,7 @@
     }
 
     v25 = v9;
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"dismissURL"];
+    v10 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -56,7 +56,7 @@
       }
     }
 
-    v12 = [dictionaryCopy objectForKeyedSubscript:@"icon"];
+    v12 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -64,7 +64,7 @@
       [(ICQTipInfo *)v5 setIcon:v13];
     }
 
-    v14 = [dictionaryCopy objectForKeyedSubscript:@"actions"];
+    v14 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -82,7 +82,7 @@
 
     else
     {
-      v16 = [dictionaryCopy objectForKeyedSubscript:@"button"];
+      v16 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -142,7 +142,7 @@ void __33__ICQTipInfo_initFromDictionary___block_invoke_2(uint64_t a1, void *a2)
   {
     v4 = objc_alloc_init(ICQActionInfo);
     [(ICQActionInfo *)v4 setIsDefault:0];
-    v5 = [v3 objectForKeyedSubscript:@"url"];
+    v5 = objc_msgSend_objectForKeyedSubscript_(v3);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -153,15 +153,15 @@ void __33__ICQTipInfo_initFromDictionary___block_invoke_2(uint64_t a1, void *a2)
       }
     }
 
-    v7 = [v3 objectForKeyedSubscript:@"action"];
-    v8 = [v3 objectForKeyedSubscript:@"actionParameters"];
+    v7 = objc_msgSend_objectForKeyedSubscript_(v3);
+    v8 = objc_msgSend_objectForKeyedSubscript_(v3);
     if (v7)
     {
       v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
       if (v8)
       {
-        v10 = [v8 objectForKeyedSubscript:@"purchaseAttribution"];
-        v11 = [v8 objectForKeyedSubscript:@"route"];
+        v10 = objc_msgSend_objectForKeyedSubscript_(v8);
+        v11 = objc_msgSend_objectForKeyedSubscript_(v8);
         if (v10)
         {
           [v9 setObject:v10 forKeyedSubscript:@"purchaseAttribution"];
@@ -195,7 +195,7 @@ void __33__ICQTipInfo_initFromDictionary___block_invoke_2(uint64_t a1, void *a2)
     }
 
     [(ICQActionInfo *)v4 setIcqLink:v12];
-    v14 = [v3 objectForKeyedSubscript:@"text"];
+    v14 = objc_msgSend_objectForKeyedSubscript_(v3);
     [(ICQActionInfo *)v4 setTitle:v14];
 
     v15 = [*(a1 + 40) subtitle];
@@ -209,12 +209,12 @@ void __33__ICQTipInfo_initFromDictionary___block_invoke_2(uint64_t a1, void *a2)
 - (id)_parseTipIcon:(id)icon
 {
   iconCopy = icon;
-  v4 = [iconCopy objectForKeyedSubscript:@"type"];
+  v4 = objc_msgSend_objectForKeyedSubscript_(iconCopy);
   if ([v4 isEqualToString:@"IMAGE"])
   {
     v5 = objc_alloc_init(ICQTipIconURL);
     [(ICQTipIcon *)v5 setType:v4];
-    v6 = [iconCopy objectForKeyedSubscript:@"urls"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(iconCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -229,13 +229,13 @@ void __33__ICQTipInfo_initFromDictionary___block_invoke_2(uint64_t a1, void *a2)
   {
     v5 = objc_alloc_init(ICQTipIconSymbol);
     [(ICQTipIcon *)v5 setType:v4];
-    v8 = [iconCopy objectForKeyedSubscript:@"path"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(iconCopy);
     [(ICQTipIconURL *)v5 setPath:v8];
 
-    v9 = [iconCopy objectForKeyedSubscript:@"color"];
+    v9 = objc_msgSend_objectForKeyedSubscript_(iconCopy);
     [(ICQTipIconURL *)v5 setSystemColorName:v9];
 
-    v6 = [iconCopy objectForKeyedSubscript:@"id"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(iconCopy);
     [(ICQTipIconURL *)v5 setId:v6];
 LABEL_6:
 
@@ -276,11 +276,11 @@ LABEL_8:
 
 - (ICQTipInfo)initWithCoder:(id)coder
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v25.receiver = self;
-  v25.super_class = ICQTipInfo;
-  v5 = [(ICQTipInfo *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = ICQTipInfo;
+  v5 = [(ICQTipInfo *)&v24 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"id"];
@@ -304,9 +304,9 @@ LABEL_8:
     v5->_dismissURL = v14;
 
     v16 = MEMORY[0x277CBEB98];
-    v26[0] = objc_opt_class();
-    v26[1] = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
     v18 = [v16 setWithArray:v17];
 
     v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"actions"];
@@ -318,7 +318,6 @@ LABEL_8:
     v5->_icon = v21;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -1,34 +1,34 @@
 void CFStringFold(CFMutableStringRef theString, CFStringCompareFlags theFlags, CFLocaleRef theLocale)
 {
-  v117 = *MEMORY[0x1E69E9840];
+  v115 = *MEMORY[0x1E69E9840];
   v3 = atomic_load(&theString->info);
   if ((v3 & 1) == 0)
   {
-    v4 = _CFOSLog();
+    v4 = _CFOSLog(theString, theFlags);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       CFStringFold_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
 
-    goto LABEL_155;
+    return;
   }
 
   v13 = theFlags;
-  v116 = 0;
-  v114 = 0u;
-  v115 = 0u;
+  v114 = 0;
   v112 = 0u;
-  theStringa = 0u;
+  v113 = 0u;
   v110 = 0u;
-  v111 = 0u;
+  theStringa = 0u;
   v108 = 0u;
   v109 = 0u;
   v106 = 0u;
   v107 = 0u;
+  v104 = 0u;
+  v105 = 0u;
   *buffer = 0u;
   Length = CFStringGetLength(theString);
   v16 = CF_IS_OBJC(7uLL, theString);
-  v97 = v16 != 0;
+  v96 = v16 != 0;
   v17 = theLocale;
   if ((v13 & 0x20) != 0)
   {
@@ -58,29 +58,29 @@ void CFStringFold(CFMutableStringRef theString, CFStringCompareFlags theFlags, C
       v18 = __CFStringComputeEightBitStringEncoding();
     }
 
-    CStringPtrInternal = _CFStringGetCStringPtrInternal(theString, v18, 0, v97);
+    CStringPtrInternal = _CFStringGetCStringPtrInternal(theString, v18, 0, v96);
     if (!CStringPtrInternal || (v13 & 1) != 0 || v18 != 1536)
     {
       *&theStringa = theString;
-      *(&v114 + 1) = 0;
-      *&v115 = Length;
+      *(&v112 + 1) = 0;
+      *&v113 = Length;
       CharactersPtr = CFStringGetCharactersPtr(theString);
       v21 = 0;
       *(&theStringa + 1) = CharactersPtr;
       if (!CharactersPtr)
       {
-        v21 = _CFStringGetCStringPtrInternal(theString, 0x600u, 0, v97);
+        v21 = _CFStringGetCStringPtrInternal(theString, 0x600u, 0, v96);
       }
 
       v22 = 0;
-      *(&v115 + 1) = 0;
-      v116 = 0;
-      *&v114 = v21;
-      v95 = v17;
+      *(&v113 + 1) = 0;
+      v114 = 0;
+      *&v112 = v21;
+      v94 = v17;
       v23 = 0;
       if ((v13 & 0x81) != 0 && CStringPtrInternal)
       {
-        v94 = theLocale;
+        v93 = theLocale;
         if (v16)
         {
           v24 = 0;
@@ -114,16 +114,16 @@ void CFStringFold(CFMutableStringRef theString, CFStringCompareFlags theFlags, C
           {
             if (*v31 < 0 || SpecialCaseHandlingLanguageIdentifierForLocale)
             {
-              v32 = __CFStringFoldCharacterClusterAtIndex(*(__CFCharToUniCharTable + 2 * *v31), buffer, v30, theFlagsa, SpecialCaseHandlingLanguageIdentifierForLocale, v103, 0, 0);
+              v32 = __CFStringFoldCharacterClusterAtIndex(*(__CFCharToUniCharTable + 2 * *v31), buffer, v30, theFlagsa, SpecialCaseHandlingLanguageIdentifierForLocale, v102, 0, 0);
               v22 = v32;
               if (v32 >= 1)
               {
-                if (v32 != 1 || v103[0] > 0x7F || !v24)
+                if (v32 != 1 || v102[0] > 0x7F || !v24)
                 {
                   goto LABEL_43;
                 }
 
-                v24[v30] = v103[0];
+                v24[v30] = v102[0];
                 v22 = 1;
               }
             }
@@ -140,7 +140,7 @@ void CFStringFold(CFMutableStringRef theString, CFStringCompareFlags theFlags, C
 
             ++v31;
             ++v30;
-            if (v31 >= CStringPtrInternal + Length)
+            if (v31 >= &CStringPtrInternal[Length])
             {
               goto LABEL_43;
             }
@@ -150,37 +150,37 @@ void CFStringFold(CFMutableStringRef theString, CFStringCompareFlags theFlags, C
         v22 = 0;
         v31 = CStringPtrInternal;
 LABEL_43:
-        v23 = &v31[-CStringPtrInternal];
-        theLocale = v94;
+        v23 = v31 - CStringPtrInternal;
+        theLocale = v93;
       }
 
       if (Length > v23)
       {
         if (v16)
         {
-          Typed = CFAllocatorAllocateTyped(&__kCFAllocatorSystemDefault, 2 * (Length - v23), 0x1000040BDFB0063, 0);
-          v118.location = v23;
-          v118.length = Length - v23;
-          CFStringGetCharacters(theString, v118, Typed);
+          Typed = CFAllocatorAllocateTyped(&__kCFAllocatorSystemDefault, 2 * (Length - v23), 0x1000040BDFB0063uLL);
+          v116.location = v23;
+          v116.length = Length - v23;
+          CFStringGetCharacters(theString, v116, Typed);
           MutableWithExternalCharactersNoCopy = CFStringCreateMutableWithExternalCharactersNoCopy(&__kCFAllocatorSystemDefault, Typed, Length - v23, Length - v23, 0);
           if (MutableWithExternalCharactersNoCopy)
           {
             v35 = MutableWithExternalCharactersNoCopy;
             CFStringFold(MutableWithExternalCharactersNoCopy, theFlagsa, v17);
-            v119.location = v23;
-            v119.length = Length - v23;
-            CFStringReplace(theString, v119, v35);
+            v117.location = v23;
+            v117.length = Length - v23;
+            CFStringReplace(theString, v117, v35);
             CFRelease(v35);
             goto LABEL_152;
           }
         }
 
-        v100 = 0;
+        v99 = 0;
         if (v22 >= 1)
         {
-          v101 = v23 + 1;
-          v102 = 0;
-          __CFStringChangeSizeMultiple(theString, &v101, 1, v22 - 1, 1);
+          v100 = v23 + 1;
+          v101 = 0;
+          __CFStringChangeSizeMultiple(theString, &v100, 1, v22 - 1, 1);
           v36 = atomic_load(&theString->info);
           v37 = v36 & 5;
           v38 = atomic_load(&theString->info);
@@ -213,19 +213,19 @@ LABEL_43:
           }
 
           *&theStringa = theString;
-          *(&v114 + 1) = 0;
-          *&v115 = Length;
+          *(&v112 + 1) = 0;
+          *&v113 = Length;
           v43 = CFStringGetCharactersPtr(theString);
           v44 = 0;
           *(&theStringa + 1) = v43;
           if (!v43)
           {
-            v44 = _CFStringGetCStringPtrInternal(theString, 0x600u, 0, v97);
+            v44 = _CFStringGetCStringPtrInternal(theString, 0x600u, 0, v96);
           }
 
-          *&v114 = v44;
-          *(&v115 + 1) = 0;
-          v116 = 0;
+          *&v112 = v44;
+          *(&v113 + 1) = 0;
+          v114 = 0;
           v45 = atomic_load(&theString->info);
           v46 = &theString->data;
           if ((v45 & 0x60) != 0)
@@ -239,7 +239,7 @@ LABEL_43:
             v47 = &v46[(v48 & 5) != 4];
           }
 
-          v49 = v103;
+          v49 = v102;
           v50 = &v47[2 * v23];
           do
           {
@@ -248,7 +248,7 @@ LABEL_43:
             v50 += 2;
           }
 
-          while (v49 < &v103[v22]);
+          while (v49 < &v102[v22]);
           ++v23;
         }
 
@@ -257,23 +257,23 @@ LABEL_43:
           goto LABEL_152;
         }
 
-        v96 = &theString->data;
+        v95 = &theString->data;
         do
         {
           if (*(&theStringa + 1))
           {
-            v52 = *(*(&theStringa + 1) + 2 * *(&v114 + 1) + 2 * v23);
+            v52 = *(*(&theStringa + 1) + 2 * *(&v112 + 1) + 2 * v23);
           }
 
-          else if (v114)
+          else if (v112)
           {
-            v52 = *(v114 + *(&v114 + 1) + v23);
+            v52 = *(v112 + *(&v112 + 1) + v23);
           }
 
           else
           {
-            v53 = *(&v115 + 1);
-            if (v116 <= v23 || *(&v115 + 1) > v23)
+            v53 = *(&v113 + 1);
+            if (v114 <= v23 || *(&v113 + 1) > v23)
             {
               v55 = v23 - 4;
               if (v23 < 4)
@@ -282,24 +282,24 @@ LABEL_43:
               }
 
               v56 = v55 + 64;
-              if (v55 + 64 >= v115)
+              if (v55 + 64 >= v113)
               {
-                v56 = v115;
+                v56 = v113;
               }
 
-              *(&v115 + 1) = v55;
-              v116 = v56;
-              v120.length = v56 - v55;
-              v120.location = *(&v114 + 1) + v55;
-              CFStringGetCharacters(theStringa, v120, buffer);
-              v53 = *(&v115 + 1);
+              *(&v113 + 1) = v55;
+              v114 = v56;
+              v118.length = v56 - v55;
+              v118.location = *(&v112 + 1) + v55;
+              CFStringGetCharacters(theStringa, v118, buffer);
+              v53 = *(&v113 + 1);
             }
 
             v52 = buffer[v23 - v53];
           }
 
           v57 = v52;
-          v100 = 0;
+          v99 = 0;
           if ((v13 & 0x80) != 0 || SpecialCaseHandlingLanguageIdentifierForLocale || v52 > 0x7Fu)
           {
             v61 = v23 + 1;
@@ -307,17 +307,17 @@ LABEL_43:
             {
               if (*(&theStringa + 1))
               {
-                v63 = *(*(&theStringa + 1) + 2 * *(&v114 + 1) + 2 * v61);
+                v63 = *(*(&theStringa + 1) + 2 * *(&v112 + 1) + 2 * v61);
               }
 
-              else if (v114)
+              else if (v112)
               {
-                v63 = *(v114 + *(&v114 + 1) + v61);
+                v63 = *(v112 + *(&v112 + 1) + v61);
               }
 
               else
               {
-                if (v116 <= v61 || (v64 = *(&v115 + 1), *(&v115 + 1) > v61))
+                if (v114 <= v61 || (v64 = *(&v113 + 1), *(&v113 + 1) > v61))
                 {
                   v65 = v23 - 3;
                   if (v23 < 3)
@@ -326,17 +326,17 @@ LABEL_43:
                   }
 
                   v66 = v65 + 64;
-                  if (v65 + 64 >= v115)
+                  if (v65 + 64 >= v113)
                   {
-                    v66 = v115;
+                    v66 = v113;
                   }
 
-                  *(&v115 + 1) = v65;
-                  v116 = v66;
-                  v121.length = v66 - v65;
-                  v121.location = *(&v114 + 1) + v65;
-                  CFStringGetCharacters(theStringa, v121, buffer);
-                  v64 = *(&v115 + 1);
+                  *(&v113 + 1) = v65;
+                  v114 = v66;
+                  v119.length = v66 - v65;
+                  v119.location = *(&v112 + 1) + v65;
+                  CFStringGetCharacters(theStringa, v119, buffer);
+                  v64 = *(&v113 + 1);
                 }
 
                 v63 = buffer[v61 - v64];
@@ -350,18 +350,18 @@ LABEL_43:
               }
             }
 
-            v69 = __CFStringFoldCharacterClusterAtIndex(v57, buffer, v23, theFlagsa, SpecialCaseHandlingLanguageIdentifierForLocale, v103, &v100, 0);
-            v59 = v100;
-            if (v100 < 1)
+            v69 = __CFStringFoldCharacterClusterAtIndex(v57, buffer, v23, theFlagsa, SpecialCaseHandlingLanguageIdentifierForLocale, v102, &v99, 0);
+            v59 = v99;
+            if (v99 < 1)
             {
               v60 = 1;
-              v17 = v95;
+              v17 = v94;
               goto LABEL_151;
             }
 
             v60 = v69;
-            v58 = &v103[v69];
-            v17 = v95;
+            v58 = &v102[v69];
+            v17 = v94;
             if (v69 < 1)
             {
               v72 = 0;
@@ -377,14 +377,14 @@ LABEL_43:
               goto LABEL_151;
             }
 
-            v100 = 1;
-            v103[0] = v52 | 0x20;
-            v58 = v104;
+            v99 = 1;
+            v102[0] = v52 | 0x20;
+            v58 = &v102[1];
             v59 = 1;
             v60 = 1;
           }
 
-          v70 = v103;
+          v70 = v102;
           do
           {
             v71 = v70 + 1;
@@ -407,7 +407,7 @@ LABEL_117:
               goto LABEL_134;
             }
 
-            v59 = v100;
+            v59 = v99;
           }
 
           v74 = v59 - v60;
@@ -423,9 +423,9 @@ LABEL_117:
             v75 = 0;
           }
 
-          v101 = v59 + v23;
-          v102 = v74;
-          __CFStringChangeSizeMultiple(theString, &v101, 1, v75, 1);
+          v100 = v59 + v23;
+          v101 = v74;
+          __CFStringChangeSizeMultiple(theString, &v100, 1, v75, 1);
           v76 = atomic_load(&theString->info);
           v77 = atomic_load(&theString->info);
           v78 = v77 & 0x60;
@@ -433,13 +433,13 @@ LABEL_117:
           {
             if (v78)
             {
-              v79 = *v96;
+              v79 = *v95;
             }
 
             else
             {
               v80 = atomic_load(&theString->info);
-              v79 = &v96[(v80 & 5) != 4];
+              v79 = &v95[(v80 & 5) != 4];
             }
 
             Length = *v79;
@@ -452,28 +452,28 @@ LABEL_117:
 
           else
           {
-            Length = *v96;
+            Length = *v95;
           }
 
           *&theStringa = theString;
-          *(&v114 + 1) = 0;
-          *&v115 = Length;
+          *(&v112 + 1) = 0;
+          *&v113 = Length;
           v81 = CFStringGetCharactersPtr(theString);
           v82 = 0;
           *(&theStringa + 1) = v81;
           if (!v81)
           {
-            v82 = _CFStringGetCStringPtrInternal(theString, 0x600u, 0, v97);
+            v82 = _CFStringGetCStringPtrInternal(theString, 0x600u, 0, v96);
           }
 
-          *&v114 = v82;
-          *(&v115 + 1) = 0;
-          v116 = 0;
+          *&v112 = v82;
+          *(&v113 + 1) = 0;
+          v114 = 0;
 LABEL_134:
           v83 = atomic_load(&theString->info);
           if ((v83 & 0x60) != 0)
           {
-            v84 = *v96;
+            v84 = *v95;
             if (v72)
             {
               goto LABEL_138;
@@ -483,13 +483,13 @@ LABEL_134:
           }
 
           v85 = atomic_load(&theString->info);
-          v84 = &v96[(v85 & 5) != 4];
+          v84 = &v95[(v85 & 5) != 4];
           if (v72)
           {
 LABEL_138:
             v86 = &v84[2 * v23];
-            v87 = v103;
-            v88 = v103;
+            v87 = v102;
+            v88 = v102;
             do
             {
               v90 = *v88++;
@@ -559,42 +559,35 @@ LABEL_152:
   {
     CFRelease(v17);
   }
-
-LABEL_155:
-  v93 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t checkFileWriteData(_OWORD *a1, uint64_t a2, int a3, const char *a4, uint64_t a5, unsigned int a6)
+uint64_t checkFileWriteData(_OWORD *a1, uint64_t a2, int a3, const char *a4, uint64_t a5, int a6)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v10 = *MEMORY[0x1E69E9BC0] | a6 | *MEMORY[0x1E69E9BB8];
-  v11 = a1[1];
-  v20[0] = *a1;
-  v20[1] = v11;
-  v12 = sandbox_check_by_audit_token();
-  if (v12)
+  v17 = *MEMORY[0x1E69E9840];
+  v9 = a1[1];
+  v16[0] = *a1;
+  v16[1] = v9;
+  v10 = sandbox_check_by_audit_token();
+  if (v10)
   {
-    v13 = openat(a3, a4, 536871426, a5);
-    if ((v13 & 0x80000000) == 0)
+    v11 = openat(a3, a4, 536871426, a5);
+    if ((v11 & 0x80000000) == 0)
     {
-      v14 = v13;
-      bzero(v20, 0x400uLL);
-      fcntl(v14, 50, v20);
-      v15 = a1[1];
-      *&v19.st_dev = *a1;
-      v12 = sandbox_check_by_audit_token();
-      memset(&v19, 0, sizeof(v19));
-      v16 = fstat(v14, &v19);
-      close(v14);
-      if (!v16 && !v19.st_size)
+      v12 = v11;
+      bzero(v16, 0x400uLL);
+      fcntl(v12, 50, v16);
+      v10 = sandbox_check_by_audit_token();
+      memset(&v15, 0, sizeof(v15));
+      v13 = fstat(v12, &v15);
+      close(v12);
+      if (!v13 && !v15.st_size)
       {
         unlinkat(a3, a4, 2048);
       }
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v10;
 }
 
 CFURLRef CFBundleCopyBuiltInPlugInsURL(CFBundleRef bundle)
@@ -655,7 +648,7 @@ LABEL_11:
   v11 = CFURLCreateWithString(v3, v7, v6);
 LABEL_14:
   v12 = v11;
-  if (v11 && _CFURLExists(v11))
+  if (v11 && (_CFURLExists(v11) & 1) != 0)
   {
     return v12;
   }
@@ -710,7 +703,7 @@ LABEL_28:
   if (v19)
   {
     v21 = _CFURLExists(v19);
-    if (v12 || !v21)
+    if (v12 || (v21 & 1) == 0)
     {
       if (v21)
       {
@@ -763,7 +756,7 @@ uint64_t _hasNet(const __CFString *a1)
   return v3;
 }
 
-const __CFString *_unescapedFragment(void *a1)
+CFStringRef _unescapedFragment(void *a1)
 {
   if (CF_IS_OBJC(0x1DuLL, a1))
   {
@@ -885,7 +878,7 @@ CFDictionaryRef CFBundleCopyLocalizedStringTableForLocalization(unint64_t *a1, _
     _CFAssertMismatchedTypeID(0x1FuLL, v6);
   }
 
-  CFBundleAllowMixedLocalizations();
+  CFBundleAllowMixedLocalizations(31, v7);
   if (!a2 || CFEqual(a2, &stru_1EF068AA8))
   {
     a2 = @"Localizable";
@@ -893,49 +886,45 @@ CFDictionaryRef CFBundleCopyLocalizedStringTableForLocalization(unint64_t *a1, _
 
   if (!a3)
   {
-    v8 = _copyStringTable(a1, a2, 0, 0, 0, 0);
-    if (v8)
+    v9 = _copyStringTable(a1, a2, 0, 0, 0, 0);
+    if (v9)
     {
-      goto LABEL_9;
+      return v9;
     }
 
-LABEL_11:
-    v8 = CFDictionaryCreate(&__kCFAllocatorSystemDefault, 0, 0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    goto LABEL_9;
+    return CFDictionaryCreate(&__kCFAllocatorSystemDefault, 0, 0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   }
 
-  v7 = CFArrayCreate(0, v11, 1, &kCFTypeArrayCallBacks);
-  v8 = _copyStringTable(a1, a2, 0, v7, 0, 0);
-  if (v7)
+  v8 = CFArrayCreate(0, v11, 1, &kCFTypeArrayCallBacks);
+  v9 = _copyStringTable(a1, a2, 0, v8, 0, 0);
+  if (v8)
   {
-    CFRelease(v7);
+    CFRelease(v8);
   }
 
-  if (!v8)
+  if (!v9)
   {
-    goto LABEL_11;
+    return CFDictionaryCreate(&__kCFAllocatorSystemDefault, 0, 0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   }
 
-LABEL_9:
-  v9 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 CFStringRef _CFBundleCopyLanguageForStringsResourceURL(const __CFURL *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v1 = CFURLCopyPath(a1);
-  v8.length = CFStringGetLength(v1);
+  v7.length = CFStringGetLength(v1);
   result.location = 0;
   result.length = 0;
-  v5.location = 0;
-  v5.length = 0;
-  v8.location = 0;
-  if (CFStringFindWithOptions(v1, @".lproj", v8, 4uLL, &result) && (v9.length = result.location, v9.location = 0, CFStringFindWithOptions(v1, @"/", v9, 4uLL, &v5)))
+  v4.location = 0;
+  v4.length = 0;
+  v7.location = 0;
+  if (CFStringFindWithOptions(v1, @".lproj", v7, 4uLL, &result) && (v8.length = result.location, v8.location = 0, CFStringFindWithOptions(v1, @"/", v8, 4uLL, &v4)))
   {
-    v10.location = v5.length + v5.location;
-    v10.length = result.location - (v5.length + v5.location);
-    v2 = CFStringCreateWithSubstring(&__kCFAllocatorSystemDefault, v1, v10);
+    v9.location = v4.length + v4.location;
+    v9.length = result.location - (v4.length + v4.location);
+    v2 = CFStringCreateWithSubstring(&__kCFAllocatorSystemDefault, v1, v9);
   }
 
   else
@@ -944,13 +933,12 @@ CFStringRef _CFBundleCopyLanguageForStringsResourceURL(const __CFURL *a1)
   }
 
   CFRelease(v1);
-  v3 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 __CFArray *_CFBundleDYLDCopyLoadedImagePathsForHint(const __CFString *a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = _dyld_image_count();
   theArray = CFArrayCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeArrayCallBacks);
   Length = CFStringGetLength(a1);
@@ -958,30 +946,34 @@ __CFArray *_CFBundleDYLDCopyLoadedImagePathsForHint(const __CFString *a1)
   result.length = 0;
   v4 = _CFProcessPath();
   v5 = _NSGetMachExecuteHeader();
+  v7 = v5;
   location = 0;
   if (Length >= 15)
   {
-    v32.location = 0;
-    v32.length = Length;
-    if (!CFStringFindWithOptions(a1, @".framework", v32, 0xDuLL, &result) || (location = result.location, result.location < 1) || result.length <= 0)
+    v33.location = 0;
+    v33.length = Length;
+    v5 = CFStringFindWithOptions(a1, @".framework", v33, 0xDuLL, &result);
+    if (!v5 || (location = result.location, result.location < 1) || result.length <= 0)
     {
-      v33.location = 0;
-      v33.length = Length;
-      if (!CFStringFindWithOptions(a1, @"framework", v33, 0xDuLL, &result) || (location = result.location, result.location < 1) || result.length <= 0)
+      v34.location = 0;
+      v34.length = Length;
+      v5 = CFStringFindWithOptions(a1, @"framework", v34, 0xDuLL, &result);
+      if (!v5 || (location = result.location, result.location < 1) || result.length <= 0)
       {
-        v34.location = 0;
-        v34.length = Length;
-        if (CFStringFindWithOptions(a1, @"fw", v34, 0xDuLL, &result))
+        v35.location = 0;
+        v35.length = Length;
+        v5 = CFStringFindWithOptions(a1, @"fw", v35, 0xDuLL, &result);
+        if (v5)
         {
-          v7 = result.length <= 0;
+          v9 = result.length <= 0;
         }
 
         else
         {
-          v7 = 1;
+          v9 = 1;
         }
 
-        if (v7 || result.location <= 0)
+        if (v9 || result.location <= 0)
         {
           location = 0;
         }
@@ -994,181 +986,182 @@ __CFArray *_CFBundleDYLDCopyLoadedImagePathsForHint(const __CFString *a1)
     }
   }
 
-  v27 = __CFGetDYLDImageSuffix();
+  v28 = __CFGetDYLDImageSuffix(v5, v6);
   if (v2)
   {
-    v9 = 0;
-    v26 = v2;
-    v24 = v5;
-    v25 = v4;
+    v11 = 0;
+    v27 = v2;
+    v25 = v7;
+    v26 = v4;
     do
     {
-      image_name = _dyld_get_image_name(v9);
-      v11 = _CFBundleNormalizedPath(image_name);
-      if (v11)
+      image_name = _dyld_get_image_name(v11);
+      v13 = _CFBundleNormalizedPath(image_name);
+      if (v13)
       {
-        v12 = v11;
-        if ((!v4 || strcmp(v11, v4)) && v5 != _dyld_get_image_header(v9))
+        v14 = v13;
+        if ((!v4 || strcmp(v13, v4)) && v7 != _dyld_get_image_header(v11))
         {
-          v13 = strrchr(v12, 47);
-          if (v13)
+          v15 = strrchr(v14, 47);
+          if (v15)
           {
-            v14 = CFStringCreateWithFileSystemRepresentation(&__kCFAllocatorSystemDefault, v13 + 1);
-            if (v14)
+            v16 = CFStringCreateWithFileSystemRepresentation(&__kCFAllocatorSystemDefault, v15 + 1);
+            if (v16)
             {
-              cf = v14;
-              v15 = _CFBundleDYLDCreateLoadedImagePathVariants(v27, v14);
-              Count = CFArrayGetCount(v15);
+              cf = v16;
+              v17 = _CFBundleDYLDCreateLoadedImagePathVariants(v28, v16);
+              Count = CFArrayGetCount(v17);
               if (Count >= 1)
               {
-                v17 = Count;
-                for (i = 0; i != v17; ++i)
+                v19 = Count;
+                for (i = 0; i != v19; ++i)
                 {
-                  ValueAtIndex = CFArrayGetValueAtIndex(v15, i);
-                  v35.location = 0;
-                  v35.length = Length;
-                  if (!CFStringFindWithOptions(a1, ValueAtIndex, v35, 0xDuLL, 0))
+                  ValueAtIndex = CFArrayGetValueAtIndex(v17, i);
+                  v36.location = 0;
+                  v36.length = Length;
+                  if (!CFStringFindWithOptions(a1, ValueAtIndex, v36, 0xDuLL, 0))
                   {
                     if (location < 1)
                     {
                       continue;
                     }
 
-                    v36.location = 0;
-                    v36.length = location;
-                    if (!CFStringFindWithOptions(a1, ValueAtIndex, v36, 0xDuLL, 0))
+                    v37.location = 0;
+                    v37.length = location;
+                    if (!CFStringFindWithOptions(a1, ValueAtIndex, v37, 0xDuLL, 0))
                     {
                       continue;
                     }
                   }
 
-                  v20 = CFStringCreateWithFileSystemRepresentation(&__kCFAllocatorSystemDefault, v12);
-                  if (v20)
+                  v22 = CFStringCreateWithFileSystemRepresentation(&__kCFAllocatorSystemDefault, v14);
+                  if (v22)
                   {
-                    v21 = v20;
-                    CFArrayAppendValue(theArray, v20);
-                    CFRelease(v21);
+                    v23 = v22;
+                    CFArrayAppendValue(theArray, v22);
+                    CFRelease(v23);
                   }
                 }
               }
 
-              CFRelease(v15);
+              CFRelease(v17);
               CFRelease(cf);
-              v2 = v26;
-              v5 = v24;
-              v4 = v25;
+              v2 = v27;
+              v7 = v25;
+              v4 = v26;
             }
           }
         }
       }
 
-      ++v9;
+      ++v11;
     }
 
-    while (v9 != v2);
+    while (v11 != v2);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return theArray;
 }
 
 uint64_t _stringContainsCharacter(const __CFString *a1, int a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   Length = CFStringGetLength(a1);
   theString = a1;
-  v26 = 0;
-  v27 = Length;
+  v25 = 0;
+  v26 = Length;
   CharactersPtr = CFStringGetCharactersPtr(a1);
   CStringPtr = 0;
-  v24 = CharactersPtr;
+  v23 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(a1, 0x600u);
   }
 
+  v27 = 0;
   v28 = 0;
-  v29 = 0;
-  v25 = CStringPtr;
-  if (Length >= 1)
+  v24 = CStringPtr;
+  if (Length < 1)
   {
-    v7 = 0;
-    v8 = 0;
-    v9 = 0;
-    v10 = 64;
-    memset(v22, 0, sizeof(v22));
-    while (1)
-    {
-      v11 = v9 >= 4 ? 4 : v9;
-      if (v24)
-      {
-        break;
-      }
-
-      if (!v25)
-      {
-        if (v29 <= v9 || v8 > v9)
-        {
-          v15 = -v11;
-          v16 = v11 + v7;
-          v17 = v10 - v11;
-          v18 = v9 + v15;
-          v19 = v18 + 64;
-          if (v18 + 64 >= v27)
-          {
-            v19 = v27;
-          }
-
-          v28 = v18;
-          v29 = v19;
-          if (v27 < v17)
-          {
-            v17 = v27;
-          }
-
-          v31.location = v18 + v26;
-          v31.length = v17 + v16;
-          CFStringGetCharacters(theString, v31, v22);
-          v8 = v28;
-        }
-
-        v12 = v22 - v8;
-        goto LABEL_10;
-      }
-
-      v13 = v25[v26 + v9];
-LABEL_13:
-      if (a2 == v13)
-      {
-        result = 1;
-        goto LABEL_28;
-      }
-
-      ++v9;
-      --v7;
-      ++v10;
-      if (Length == v9)
-      {
-        goto LABEL_26;
-      }
-    }
-
-    v12 = &v24[v26];
-LABEL_10:
-    v13 = v12[v9];
-    goto LABEL_13;
+    return 0;
   }
 
-LABEL_26:
-  result = 0;
-LABEL_28:
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  v7 = 0;
+  v8 = 0;
+  v9 = 0;
+  v10 = 64;
+  memset(v21, 0, sizeof(v21));
+  while (1)
+  {
+    if (v9 >= 4)
+    {
+      v11 = 4;
+    }
+
+    else
+    {
+      v11 = v9;
+    }
+
+    if (v23)
+    {
+      v12 = &v23[v25];
+LABEL_10:
+      v13 = v12[v9];
+      goto LABEL_13;
+    }
+
+    if (!v24)
+    {
+      if (v28 <= v9 || v8 > v9)
+      {
+        v15 = -v11;
+        v16 = v11 + v7;
+        v17 = v10 - v11;
+        v18 = v9 + v15;
+        v19 = v18 + 64;
+        if (v18 + 64 >= v26)
+        {
+          v19 = v26;
+        }
+
+        v27 = v18;
+        v28 = v19;
+        if (v26 < v17)
+        {
+          v17 = v26;
+        }
+
+        v30.location = v18 + v25;
+        v30.length = v17 + v16;
+        CFStringGetCharacters(theString, v30, v21);
+        v8 = v27;
+      }
+
+      v12 = v21 - v8;
+      goto LABEL_10;
+    }
+
+    v13 = v24[v25 + v9];
+LABEL_13:
+    if (a2 == v13)
+    {
+      return 1;
+    }
+
+    ++v9;
+    --v7;
+    ++v10;
+    if (Length == v9)
+    {
+      return 0;
+    }
+  }
 }
 
 __CFArray *_CFBundleDYLDCreateLoadedImagePathVariants(const char *a1, const __CFString *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   Mutable = CFArrayCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeArrayCallBacks);
   if (a1)
   {
@@ -1196,9 +1189,9 @@ __CFArray *_CFBundleDYLDCreateLoadedImagePathVariants(const char *a1, const __CF
                 v14 = v13;
                 result.location = 0;
                 result.length = 0;
-                v25.location = 0;
-                v25.length = Length;
-                v15 = CFStringFindWithOptions(a2, @".", v25, 4uLL, &result);
+                v24.location = 0;
+                v24.length = Length;
+                v15 = CFStringFindWithOptions(a2, @".", v24, 4uLL, &result);
                 location = result.location;
                 if (!v15)
                 {
@@ -1208,17 +1201,17 @@ __CFArray *_CFBundleDYLDCreateLoadedImagePathVariants(const char *a1, const __CF
                 v17 = location - v14;
                 if (location - v14 >= 1)
                 {
-                  v26.location = location - v14;
-                  v26.length = v14;
-                  if (CFStringCompareWithOptions(a2, ValueAtIndex, v26, 8uLL) == kCFCompareEqualTo)
+                  v25.location = location - v14;
+                  v25.length = v14;
+                  if (CFStringCompareWithOptions(a2, ValueAtIndex, v25, 8uLL) == kCFCompareEqualTo)
                   {
                     MutableCopy = CFStringCreateMutableCopy(&__kCFAllocatorSystemDefault, 0, a2);
                     if (MutableCopy)
                     {
                       v19 = MutableCopy;
-                      v24.location = v17;
-                      v24.length = v14;
-                      CFStringReplace(MutableCopy, v24, &stru_1EF068AA8);
+                      v23.location = v17;
+                      v23.length = v14;
+                      CFStringReplace(MutableCopy, v23, &stru_1EF068AA8);
                       CFArrayAppendValue(Mutable, v19);
                       CFRelease(v19);
                     }
@@ -1235,13 +1228,12 @@ __CFArray *_CFBundleDYLDCreateLoadedImagePathVariants(const char *a1, const __CF
   }
 
   CFArrayAppendValue(Mutable, a2);
-  v20 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
 __CFArray *CFCopySearchPathForDirectoriesInDomains(uint64_t a1, uint64_t a2, int a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   Mutable = CFArrayCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeArrayCallBacks);
   started = sysdir_start_search_path_enumeration_private();
   v6 = MEMORY[0x1865E3930](started, __s);
@@ -1292,7 +1284,6 @@ LABEL_12:
     while (v7);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -1348,49 +1339,44 @@ void _CFBundleEnsureBundlesExistForImagePaths(const __CFArray *a1)
     for (i = 0; i != v3; ++i)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(a1, i);
-      _CFBundleEnsureBundleExistsForImagePath(ValueAtIndex, 1);
+      _CFBundleEnsureBundleExistsForImagePath(ValueAtIndex, 1, v6);
     }
   }
 }
 
 CFArrayRef CFBundleCopyResourceURLsOfTypeInDirectory(CFURLRef bundleURL, CFStringRef resourceType, CFStringRef subDirName)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (CFURLGetFileSystemRepresentation(bundleURL, 1u, buffer, 1026))
+  v12 = *MEMORY[0x1E69E9840];
+  if (!CFURLGetFileSystemRepresentation(bundleURL, 1u, buffer, 1026))
   {
-    v6 = strlen(buffer);
-    v7 = CFURLCreateFromFileSystemRepresentation(&__kCFAllocatorSystemDefault, buffer, v6, 1u);
+    return 0;
+  }
+
+  v6 = strlen(buffer);
+  v7 = CFURLCreateFromFileSystemRepresentation(&__kCFAllocatorSystemDefault, buffer, v6, 1u);
+  if (!v7)
+  {
+    v7 = CFRetain(bundleURL);
+  }
+
+  if (_CFBundleCouldBeBundle(v7))
+  {
+    Resources = _CFBundleCopyFindResources(0, bundleURL, v8, 0, resourceType, subDirName, 0, 1, 0, 0);
     if (!v7)
     {
-      v7 = CFRetain(bundleURL);
+      return Resources;
     }
 
-    if (_CFBundleCouldBeBundle(v7))
-    {
-      Resources = _CFBundleCopyFindResources(0, bundleURL, v8, 0, resourceType, subDirName, 0, 1, 0, 0);
-      if (!v7)
-      {
-        goto LABEL_10;
-      }
-
-      goto LABEL_9;
-    }
-
-    Resources = 0;
-    if (v7)
-    {
-LABEL_9:
-      CFRelease(v7);
-    }
+    goto LABEL_9;
   }
 
-  else
+  Resources = 0;
+  if (v7)
   {
-    Resources = 0;
+LABEL_9:
+    CFRelease(v7);
   }
 
-LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
   return Resources;
 }
 
@@ -1608,44 +1594,44 @@ BOOL __CFStringIsRegionalIndicatorAtIndex(UniChar *buffer, int64_t a2)
 
 void __CFApplySurrogatesInString(uint64_t a1, CFStringRef theString, void (*a3)(uint64_t, uint64_t, uint64_t))
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   Length = CFStringGetLength(theString);
   theStringa = theString;
-  v29 = 0;
-  v30 = Length;
+  v28 = 0;
+  v29 = Length;
   CharactersPtr = CFStringGetCharactersPtr(theString);
   CStringPtr = 0;
-  v27 = CharactersPtr;
+  v26 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(theString, 0x600u);
   }
 
+  v30 = 0;
   v31 = 0;
-  v32 = 0;
-  v28 = CStringPtr;
+  v27 = CStringPtr;
   if (Length >= 1)
   {
     v9 = 0;
     v10 = 0;
     v11 = 0;
-    memset(v25, 0, sizeof(v25));
+    memset(v24, 0, sizeof(v24));
     do
     {
-      if (v27)
+      if (v26)
       {
-        v12 = v27[v29 + v9];
+        v12 = v26[v28 + v9];
       }
 
-      else if (v28)
+      else if (v27)
       {
-        v12 = v28[v29 + v9];
+        v12 = v27[v28 + v9];
       }
 
       else
       {
-        v13 = v31;
-        if (v32 <= v9 || v31 > v9)
+        v13 = v30;
+        if (v31 <= v9 || v30 > v9)
         {
           v15 = v9 - 4;
           if (v9 < 4)
@@ -1654,38 +1640,38 @@ void __CFApplySurrogatesInString(uint64_t a1, CFStringRef theString, void (*a3)(
           }
 
           v16 = v15 + 64;
-          if (v15 + 64 >= v30)
+          if (v15 + 64 >= v29)
           {
-            v16 = v30;
+            v16 = v29;
           }
 
-          v31 = v15;
-          v32 = v16;
-          v34.length = v16 - v15;
-          v34.location = v29 + v15;
-          CFStringGetCharacters(theStringa, v34, v25);
-          v13 = v31;
+          v30 = v15;
+          v31 = v16;
+          v33.length = v16 - v15;
+          v33.location = v28 + v15;
+          CFStringGetCharacters(theStringa, v33, v24);
+          v13 = v30;
         }
 
-        v12 = *(v25 + v9 - v13);
+        v12 = *(v24 + v9 - v13);
       }
 
       v17 = v9 + 1;
       if (v12 >> 10 == 54 && v17 < Length)
       {
-        if (v27)
+        if (v26)
         {
-          v19 = v27[v29 + v17];
+          v19 = v26[v28 + v17];
         }
 
-        else if (v28)
+        else if (v27)
         {
-          v19 = v28[v29 + v17];
+          v19 = v27[v28 + v17];
         }
 
         else
         {
-          if (v32 <= v17 || (v20 = v31, v31 > v17))
+          if (v31 <= v17 || (v20 = v30, v30 > v17))
           {
             v21 = v9 - 3;
             if (v9 < 3)
@@ -1694,20 +1680,20 @@ void __CFApplySurrogatesInString(uint64_t a1, CFStringRef theString, void (*a3)(
             }
 
             v22 = v21 + 64;
-            if (v21 + 64 >= v30)
+            if (v21 + 64 >= v29)
             {
-              v22 = v30;
+              v22 = v29;
             }
 
-            v31 = v21;
-            v32 = v22;
-            v35.length = v22 - v21;
-            v35.location = v29 + v21;
-            CFStringGetCharacters(theStringa, v35, v25);
-            v20 = v31;
+            v30 = v21;
+            v31 = v22;
+            v34.length = v22 - v21;
+            v34.location = v28 + v21;
+            CFStringGetCharacters(theStringa, v34, v24);
+            v20 = v30;
           }
 
-          v19 = *(v25 + v17 - v20);
+          v19 = *(v24 + v17 - v20);
         }
 
         if (v19 >> 10 == 55)
@@ -1745,8 +1731,6 @@ void __CFApplySurrogatesInString(uint64_t a1, CFStringRef theString, void (*a3)(
       a3(a1, v10, v11);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 CFCharacterSetRef CFCharacterSetCreateWithCharactersInRange(CFAllocatorRef alloc, CFRange theRange)
@@ -1838,9 +1822,9 @@ CFCharacterSetRef CFCharacterSetCreateWithCharactersInRange(CFAllocatorRef alloc
 uint64_t CFBundleGetLocalizationInfoForLocalization(CFStringRef localeIdentifier, unsigned int *a2, unsigned int *a3, _DWORD *a4, _DWORD *a5)
 {
   ValueAtIndex = localeIdentifier;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
+  v23 = -1;
   v24 = -1;
-  v25 = -1;
   if (localeIdentifier)
   {
     goto LABEL_2;
@@ -1853,9 +1837,9 @@ uint64_t CFBundleGetLocalizationInfoForLocalization(CFStringRef localeIdentifier
     if (!v16)
     {
 LABEL_13:
-      _CFBundleGetLanguageAndRegionCodes(&v25, &v24);
-      RegionCodeForLocalization = v24;
-      LanguageCodeForLocalization = v25;
+      _CFBundleGetLanguageAndRegionCodes(&v24, &v23);
+      RegionCodeForLocalization = v23;
+      LanguageCodeForLocalization = v24;
       goto LABEL_14;
     }
   }
@@ -1875,17 +1859,17 @@ LABEL_13:
   }
 
 LABEL_2:
-  v23 = -1;
   v22 = -1;
-  v21 = 0;
+  v21 = -1;
   v20 = 0;
-  result = CFLocaleGetLanguageRegionEncodingForLocaleIdentifier(ValueAtIndex, &v23, &v22, &v21, &v20);
+  v19 = 0;
+  result = CFLocaleGetLanguageRegionEncodingForLocaleIdentifier(ValueAtIndex, &v22, &v21, &v20, &v19);
   if (result)
   {
-    LanguageCodeForLocalization = v23;
-    RegionCodeForLocalization = v22;
-    v13 = v21;
-    v14 = v20;
+    LanguageCodeForLocalization = v22;
+    RegionCodeForLocalization = v21;
+    v13 = v20;
+    v14 = v19;
     if (!a2)
     {
       goto LABEL_28;
@@ -1897,9 +1881,9 @@ LABEL_27:
   }
 
   LanguageCodeForLocalization = _CFBundleGetLanguageCodeForLocalization(ValueAtIndex);
-  v25 = LanguageCodeForLocalization;
+  v24 = LanguageCodeForLocalization;
   RegionCodeForLocalization = _CFBundleGetRegionCodeForLocalization(ValueAtIndex);
-  v24 = RegionCodeForLocalization;
+  v23 = RegionCodeForLocalization;
 LABEL_14:
   if (LanguageCodeForLocalization < 0x99 || RegionCodeForLocalization == -1)
   {
@@ -1951,7 +1935,6 @@ LABEL_28:
     *a5 = v14;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1959,956 +1942,947 @@ void CFStringNormalize(CFMutableStringRef theString, CFStringNormalizationForm t
 {
   v2 = theString;
   __src[32] = *MEMORY[0x1E69E9840];
-  if (!CF_IS_OBJC(7uLL, theString))
+  v3 = CF_IS_OBJC(7uLL, theString);
+  if (v3)
   {
-    p_info = &v2->info;
-    v5 = atomic_load(&v2->info);
-    if ((v5 & 1) == 0)
-    {
-      v6 = _CFOSLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-      {
-        CFStringNormalize_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
-      }
 
-      goto LABEL_264;
+    [(__CFString *)v2 _cfNormalize:theForm];
+    return;
+  }
+
+  p_info = &v2->info;
+  v6 = atomic_load(&v2->info);
+  if ((v6 & 1) == 0)
+  {
+    v7 = _CFOSLog(v3, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    {
+      CFStringNormalize_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
     }
 
-    v14 = atomic_load(p_info);
-    v15 = v14 & 5;
-    v16 = atomic_load(p_info);
-    v17 = v16 & 0x60;
-    if (v15 == 4)
+    return;
+  }
+
+  v15 = atomic_load(p_info);
+  v16 = v15 & 5;
+  v17 = atomic_load(p_info);
+  v18 = v17 & 0x60;
+  if (v16 == 4)
+  {
+    p_data = &v2->data;
+    if (v18)
     {
-      p_data = &v2->data;
-      if (v17)
-      {
-        v19 = *p_data;
-      }
-
-      else
-      {
-        v21 = atomic_load(&v2->info);
-        v19 = &p_data[(v21 & 5) != 4];
-      }
-
-      length = *v19;
-    }
-
-    else if ((v16 & 0x60) != 0)
-    {
-      length = v2->length;
+      v20 = *p_data;
     }
 
     else
     {
-      length = v2->data;
+      v22 = atomic_load(&v2->info);
+      v20 = &p_data[(v22 & 5) != 4];
     }
 
-    v22 = atomic_load(&v2->info);
-    if ((v22 & 0x10) != 0)
-    {
-      goto LABEL_27;
-    }
+    length = *v20;
+  }
 
-    if (theForm == kCFStringNormalizationFormC)
-    {
-      goto LABEL_264;
-    }
+  else if ((v17 & 0x60) != 0)
+  {
+    length = v2->length;
+  }
 
-    v23 = atomic_load(&v2->info);
-    v24 = &v2->data;
-    if ((v23 & 0x60) != 0)
-    {
-      v25 = *v24;
-    }
+  else
+  {
+    length = v2->data;
+  }
 
-    else
-    {
-      v26 = atomic_load(&v2->info);
-      v25 = &v24[(v26 & 5) != 4];
-    }
+  v23 = atomic_load(&v2->info);
+  if ((v23 & 0x10) != 0)
+  {
+    goto LABEL_27;
+  }
 
+  if (theForm == kCFStringNormalizationFormC)
+  {
+    return;
+  }
+
+  v24 = atomic_load(&v2->info);
+  v25 = &v2->data;
+  if ((v24 & 0x60) != 0)
+  {
+    v26 = *v25;
+  }
+
+  else
+  {
     v27 = atomic_load(&v2->info);
-    if (length < 1)
-    {
+    v26 = &v25[(v27 & 5) != 4];
+  }
+
+  v28 = atomic_load(&v2->info);
+  if (length < 1)
+  {
 LABEL_27:
-      v29 = 0;
-      v136 = 1;
+    v30 = 0;
+    v136 = 1;
+  }
+
+  else
+  {
+    v29 = (v28 >> 2) & 1;
+    if (*(v26 + v29) < 0)
+    {
+      v136 = 0;
+      v30 = 0;
     }
 
     else
     {
-      v28 = (v27 >> 2) & 1;
-      if (*(v25 + v28) < 0)
+      v30 = 0;
+      v31 = v26 + v29 + 1;
+      do
       {
-        v136 = 0;
-        v29 = 0;
-      }
-
-      else
-      {
-        v29 = 0;
-        v30 = v25 + v28 + 1;
-        do
+        if (length - 1 == v30)
         {
-          if (length - 1 == v29)
-          {
-            goto LABEL_264;
-          }
-
-          v31 = *(v30 + v29++);
+          return;
         }
 
-        while ((v31 & 0x80000000) == 0);
-        v136 = v29 >= length;
+        v32 = *(v31 + v30++);
       }
 
-      __src[0] = 0;
-      __src[1] = 0;
-      __CFStringChangeSizeMultiple(v2, __src, 1, 0, 1);
+      while ((v32 & 0x80000000) == 0);
+      v136 = v30 >= length;
     }
 
-    if (v29 >= length)
-    {
-      goto LABEL_264;
-    }
+    __src[0] = 0;
+    __src[1] = 0;
+    __CFStringChangeSizeMultiple(v2, __src, 1, 0, 1);
+  }
 
-    v32 = atomic_load(&v2->info);
-    v33 = &v2->data;
-    if ((v32 & 0x60) != 0)
+  if (v30 < length)
+  {
+    v33 = atomic_load(&v2->info);
+    v34 = &v2->data;
+    if ((v33 & 0x60) != 0)
     {
-      v34 = *v33;
+      v35 = *v34;
     }
 
     else
     {
-      v35 = atomic_load(&v2->info);
-      v34 = &v33[(v35 & 5) != 4];
+      v36 = atomic_load(&v2->info);
+      v35 = &v34[(v36 & 5) != 4];
     }
 
-    v36 = &v34[2 * length];
-    v37 = atomic_load(&v2->info);
+    v37 = &v35[2 * length];
+    v38 = atomic_load(&v2->info);
     v140 = &v2->data;
-    if ((v37 & 0x60) != 0)
+    if ((v38 & 0x60) != 0)
     {
-      v38 = *v33;
+      v39 = *v34;
     }
 
     else
     {
-      v39 = atomic_load(&v2->info);
-      v38 = &v33[(v39 & 5) != 4];
+      v40 = atomic_load(&v2->info);
+      v39 = &v34[(v40 & 5) != 4];
     }
 
-    v40 = &v38[2 * v29];
+    v41 = &v39[2 * v30];
     BitmapPtrForPlane = CFUniCharGetBitmapPtrForPlane(9u, 0);
-    v41 = CFUniCharGetBitmapPtrForPlane(8u, 0);
+    v42 = CFUniCharGetBitmapPtrForPlane(8u, 0);
     UnicodePropertyDataForPlane = CFUniCharGetUnicodePropertyDataForPlane(0, 0);
-    if (v40 >= v36)
+    if (v41 < v37)
     {
-LABEL_264:
-      v134 = *MEMORY[0x1E69E9840];
-      return;
-    }
-
-    v150 = v41;
-    v151 = UnicodePropertyDataForPlane;
-    v135 = UnicodePropertyDataForPlane + 256;
-    Typed = __src;
-    v44 = 64;
-    v139 = v2;
-LABEL_37:
-    v45 = *v40;
-    v46 = (v40 + 2);
-    v47 = (v45 & 0xFC00) != 0xD800 || v46 >= v36;
-    if (v47 || (v53 = *v46, (v53 & 0xFC00) != 0xDC00))
-    {
-      v48 = 1;
-      v148 = (v40 + 2);
-      v49 = *v40;
-      v149 = 1;
-      v50 = BitmapPtrForPlane;
-      if (!BitmapPtrForPlane)
+      v150 = v42;
+      v151 = UnicodePropertyDataForPlane;
+      v135 = UnicodePropertyDataForPlane + 256;
+      Typed = __src;
+      v45 = 64;
+      v139 = v2;
+      while (1)
       {
-        goto LABEL_54;
-      }
-    }
-
-    else
-    {
-      v49 = (v45 << 10) - 56613888 + v53;
-      v148 = (v40 + 4);
-      v45 = ((v45 << 10) + 9216 + v53);
-      v50 = CFUniCharGetBitmapPtrForPlane(9u, HIWORD(v49));
-      v48 = 0;
-      v149 = 2;
-      if (!v50)
-      {
-        goto LABEL_54;
-      }
-    }
-
-    if ((*(v50 + (v45 >> 3)) >> (v45 & 7)))
-    {
-      v51 = v151;
-      if ((v48 & 1) == 0)
-      {
-        v51 = CFUniCharGetUnicodePropertyDataForPlane(0, HIWORD(v49));
-      }
-
-      if ((!v51 || !*(v51 + (v45 >> 8)) || !*(v51 + (*(v51 + (v45 >> 8)) << 8) - 256 + v45 + 256)) && ((theForm & 2) == 0 || v49 - 55205 <= 0xFFFFD45A))
-      {
-        v52 = CFUniCharDecomposeCharacter(v49, Typed, 64);
-LABEL_55:
-        v147 = v36;
-        if (!((theForm >> 1) & 1 | v136) || v148 >= v36 && v52)
+        v46 = *v41;
+        v47 = (v41 + 2);
+        v48 = (v46 & 0xFC00) != 0xD800 || v47 >= v37;
+        if (v48 || (v54 = *v47, (v54 & 0xFC00) != 0xDC00))
         {
-          goto LABEL_129;
-        }
-
-        if (v52 < 1)
-        {
-          v54 = v49;
-          if (v49 >= 0x10000)
+          v49 = 1;
+          v148 = (v41 + 2);
+          v50 = *v41;
+          v149 = 1;
+          v51 = BitmapPtrForPlane;
+          if (!BitmapPtrForPlane)
           {
-LABEL_68:
-            v57 = CFUniCharGetUnicodePropertyDataForPlane(0, HIWORD(v49));
-            v56 = 0;
-            if (!v57)
-            {
-              goto LABEL_125;
-            }
-
-            goto LABEL_69;
+            goto LABEL_54;
           }
-
-          v56 = 1;
         }
 
         else
         {
-          v54 = *v148;
-          if ((v54 & 0xFC00) == 0xD800 && (v148 + 1) < v36)
+          v50 = (v46 << 10) - 56613888 + v54;
+          v148 = (v41 + 4);
+          v46 = ((v46 << 10) + 9216 + v54);
+          v51 = CFUniCharGetBitmapPtrForPlane(9u, HIWORD(v50));
+          v49 = 0;
+          v149 = 2;
+          if (!v51)
           {
-            v55 = v148[1];
-            if ((v55 & 0xFC00) == 0xDC00)
-            {
-              v49 = (v54 << 10) - 56613888 + v55;
-              v54 = ((v54 << 10) + 9216 + v55);
-              goto LABEL_68;
-            }
+            goto LABEL_54;
           }
-
-          v56 = 1;
-          v49 = *v148;
         }
 
-        v57 = v151;
-        if (!v151)
+        if (((*(v51 + (v46 >> 3)) >> (v46 & 7)) & 1) == 0)
         {
-LABEL_125:
-          v77 = v136;
-          if (v52 <= 1)
-          {
-            v77 = 0;
-          }
-
-          if (v77)
-          {
-            CFUniCharPrioritySort(Typed, v52);
-          }
-
-LABEL_129:
-          if ((theForm & 1) == 0)
-          {
-LABEL_142:
-            if ((theForm & 2) == 0)
-            {
-              goto LABEL_231;
-            }
-
-            v146 = v29;
-            if (v52 < 2)
-            {
-              if (v49 - 4352 >= 0xFF)
-              {
-                if (v148 >= v36)
-                {
-                  goto LABEL_231;
-                }
-
-                do
-                {
-                  v103 = *v148;
-                  v104 = v148 + 1;
-                  v105 = (v103 & 0xFC00) != 0xD800 || v104 >= v36;
-                  if (v105 || (v109 = *v104, (v109 & 0xFC00) != 0xDC00))
-                  {
-                    if (!v150 || ((*(v150 + (v103 >> 3)) >> (v103 & 7)) & 1) == 0 || v151 && *(v151 + (v103 >> 8)) && *(v135 + (*(v151 + (*v148 >> 8)) << 8) - 256 + *v148))
-                    {
-                      goto LABEL_231;
-                    }
-                  }
-
-                  else
-                  {
-                    LODWORD(v103) = (v103 << 10) - 56613888 + v109;
-                    v110 = CFUniCharGetBitmapPtrForPlane(8u, WORD1(v103));
-                    if (!v110 || ((*(v110 + (v103 >> 3)) >> (v109 & 7)) & 1) == 0)
-                    {
-                      v29 = v146;
-                      goto LABEL_231;
-                    }
-
-                    v111 = CFUniCharGetUnicodePropertyDataForPlane(0, WORD1(v103));
-                    if (v111 && *(v111 + BYTE1(v103)))
-                    {
-                      v29 = v146;
-                      if (*(v111 + (*(v111 + BYTE1(v103)) << 8) - 256 + v109 + 256))
-                      {
-                        goto LABEL_231;
-                      }
-                    }
-
-                    else
-                    {
-                      v29 = v146;
-                    }
-                  }
-
-                  v106 = CFUniCharPrecomposeCharacter(v49, v103);
-                  if (v106 == 65533)
-                  {
-                    goto LABEL_231;
-                  }
-
-                  v49 = v106;
-                  v107 = 1;
-                  if (v103 >= 0x10000)
-                  {
-                    v107 = 2;
-                  }
-
-                  v149 += v107;
-                  v108 = 4;
-                  if (v103 < 0x10000)
-                  {
-                    v108 = 2;
-                  }
-
-                  *Typed = v106;
-                  v52 = 1;
-                  v148 = (v148 + v108);
-                }
-
-                while (v148 < v36);
-              }
-
-              else
-              {
-                if (v148 >= v36)
-                {
-                  goto LABEL_231;
-                }
-
-                if (v49 > 0x13)
-                {
-                  goto LABEL_231;
-                }
-
-                v97 = *v148 - 4449;
-                if (v97 > 0x15)
-                {
-                  goto LABEL_231;
-                }
-
-                if ((v148 + 1) >= v36)
-                {
-                  v98 = 0;
-                  ++v149;
-                }
-
-                else
-                {
-                  v98 = (v148[1] - 4519);
-                  if (v148[1] - 4519 > 0x1C)
-                  {
-                    v99 = v149 + 1;
-                  }
-
-                  else
-                  {
-                    v99 = v149 + 2;
-                  }
-
-                  v149 = v99;
-                  if (v148[1] - 4519 > 0x1C)
-                  {
-                    v98 = 0;
-                  }
-                }
-
-                *Typed = v98 + 28 * (v97 + 21 * v49) + 44032;
-              }
-
-              v112 = Typed + 1;
-LABEL_233:
-              LODWORD(v113) = 0;
-              v114 = Typed;
-              do
-              {
-                v115 = v114 + 1;
-                if (*(v114 + 1))
-                {
-                  v116 = 2;
-                }
-
-                else
-                {
-                  v116 = 1;
-                }
-
-                v113 = (v116 + v113);
-                v114 = v115;
-              }
-
-              while (v115 < v112);
-              v117 = 0;
-LABEL_241:
-              if (v149 != v113)
-              {
-                v153[0] = v29;
-                v153[1] = v149;
-                __CFStringChangeSizeMultiple(v2, v153, 1, v113, 1);
-                v149 = v113;
-              }
-
-              v119 = atomic_load(&v2->info);
-              if ((v119 & 0x60) != 0)
-              {
-                v120 = *v140;
-              }
-
-              else
-              {
-                v121 = atomic_load(&v2->info);
-                v120 = &v140[(v121 & 5) != 4];
-              }
-
-              v122 = atomic_load(&v2->info);
-              v123 = atomic_load(&v2->info);
-              v124 = v123 & 0x60;
-              if ((v122 & 5) == 4)
-              {
-                if (v124)
-                {
-                  v125 = *v140;
-                }
-
-                else
-                {
-                  v127 = atomic_load(&v2->info);
-                  v125 = &v140[(v127 & 5) != 4];
-                }
-
-                v126 = *v125;
-              }
-
-              else if (v124)
-              {
-                v126 = v2->length;
-              }
-
-              else
-              {
-                v126 = *v140;
-              }
-
-              if ((v117 & 1) == 0)
-              {
-                v128 = Typed;
-                v129 = &v120[2 * v29];
-                do
-                {
-                  v131 = *v128++;
-                  v130 = v131;
-                  if (v131 < 0x10000)
-                  {
-                    v133 = v129 + 2;
-                    LOWORD(v132) = v130;
-                  }
-
-                  else
-                  {
-                    v132 = ((v130 + 67043328) >> 10) - 10240;
-                    v133 = v129 + 4;
-                    *(v129 + 1) = v130 & 0x3FF | 0xDC00;
-                  }
-
-                  *v129 = v132;
-                  v129 = v133;
-                }
-
-                while (v128 < v112);
-              }
-
-              v36 = &v120[2 * v126];
-              v40 = &v120[2 * v29 + 2 * v113];
-              v118 = v149;
-              goto LABEL_261;
-            }
-
-            v137 = v44;
-            v138 = 0;
-            v143 = 0;
-            v79 = *Typed;
-            v80 = Typed;
-            v81 = 1;
-            while (1)
-            {
-              v141 = v80;
-              v82 = v80;
-              v83 = v81;
-              v84 = v52;
-              v142 = v79;
-              while (1)
-              {
-                v85 = &Typed[v83];
-                v86 = *v85;
-                v87 = v151;
-                if (*v85 >= 0x10000)
-                {
-                  v87 = CFUniCharGetUnicodePropertyDataForPlane(0, HIWORD(v86));
-                }
-
-                if (v87 && *(v87 + BYTE1(v86)))
-                {
-                  v88 = *(v87 + (*(v87 + BYTE1(v86)) << 8) - 256 + v86 + 256);
-                }
-
-                else
-                {
-                  v88 = 0;
-                }
-
-                if ((theForm & 1) == 0)
-                {
-                  v79 = v142;
-                  v80 = v141;
-                  goto LABEL_175;
-                }
-
-                if (v79 - 4352 <= 0xFE && v79 <= 0x13)
-                {
-                  v89 = (v86 - 4449);
-                  if (v89 <= 0x15)
-                  {
-                    v91 = v83 + 1;
-                    *v85 = 65533;
-                    if (v83 + 1 < v84 && (v92 = (Typed[v91] - 4519), v92 <= 0x1C))
-                    {
-                      Typed[v91] = 65533;
-                      v91 = v83 + 2;
-                    }
-
-                    else
-                    {
-                      v92 = 0;
-                    }
-
-                    *v82 = v92 + 28 * (v89 + 21 * v79) + 44032;
-                    if (v84 >= 2)
-                    {
-                      v93 = v84 + 1;
-                      v94 = &Typed[v84 - 1];
-                      v95 = -v84;
-                      do
-                      {
-                        if (*v94 == 65533)
-                        {
-                          --v91;
-                          memmove(v94, v94 + 1, 4 * (v84 + v95));
-                          --v84;
-                        }
-
-                        --v93;
-                        --v94;
-                        ++v95;
-                      }
-
-                      while (v93 > 2);
-                    }
-
-                    v82 = &Typed[v91];
-                    v79 = *v82;
-                    v83 = v91;
-                    goto LABEL_161;
-                  }
-                }
-
-                v90 = v150;
-                if (v86 >= 0x10000)
-                {
-                  v90 = CFUniCharGetBitmapPtrForPlane(8u, HIWORD(v86));
-                }
-
-                if (v90 && ((*(v90 + (v86 >> 3)) >> (v86 & 7)) & 1) != 0)
-                {
-                  break;
-                }
-
-                *v82 = v79;
-                v79 = v86;
-                v82 = &Typed[v83];
-LABEL_161:
-                if (++v83 >= v84)
-                {
-                  v52 = v84;
-                  v80 = v82;
-                  v2 = v139;
-                  v29 = v146;
-                  v36 = v147;
-                  goto LABEL_193;
-                }
-              }
-
-              v80 = v82;
-              v81 = v83;
-              v52 = v84;
-LABEL_175:
-              v36 = v147;
-              if (v143 && v88 <= v143)
-              {
-                v88 = v143;
-              }
-
-              else
-              {
-                v96 = CFUniCharPrecomposeCharacter(v79, v86);
-                if (v96 != 65533)
-                {
-                  Typed[v81] = 65533;
-                  v138 = 1;
-                  v79 = v96;
-                  v88 = v143;
-                }
-              }
-
-              ++v81;
-              v143 = v88;
-              v2 = v139;
-              v29 = v146;
-              if (v81 >= v52)
-              {
-LABEL_193:
-                *v80 = v79;
-                if (v138)
-                {
-                  v44 = v137;
-                  if (v52 > 1)
-                  {
-                    v100 = v52 + 1;
-                    v101 = &Typed[v52 - 1];
-                    v102 = -v52;
-                    do
-                    {
-                      if (*v101 == 65533)
-                      {
-                        memmove(v101, v101 + 1, 4 * (v52 + v102));
-                        --v52;
-                        v36 = v147;
-                      }
-
-                      --v100;
-                      --v101;
-                      ++v102;
-                    }
-
-                    while (v100 > 2);
-                  }
-                }
-
-                else
-                {
-                  v44 = v137;
-                }
-
-LABEL_231:
-                if (v52 >= 1)
-                {
-                  v112 = &Typed[v52];
-                  if (v52)
-                  {
-                    goto LABEL_233;
-                  }
-
-                  v113 = 0;
-                  v117 = 1;
-                  goto LABEL_241;
-                }
-
-                v40 = v148;
-                v118 = v149;
-LABEL_261:
-                v29 += v118;
-                if (v40 >= v36)
-                {
-                  if (Typed != __src)
-                  {
-                    CFAllocatorDeallocate(&__kCFAllocatorSystemDefault, Typed);
-                  }
-
-                  goto LABEL_264;
-                }
-
-                goto LABEL_37;
-              }
-            }
-          }
-
-          if (v52)
-          {
-            if (v52 < 1)
-            {
-              goto LABEL_141;
-            }
-          }
-
-          else
-          {
-            if (!CFUniCharIsMemberOf(v49, 0x64u))
-            {
-LABEL_141:
-              v52 = 0;
-              goto LABEL_142;
-            }
-
-            *Typed = v49;
-            v52 = 1;
-          }
-
-          do
-          {
-            v78 = CFUniCharCompatibilityDecompose(Typed, v52, v44);
-            if (!v78)
-            {
-              v44 += 64;
-              if (Typed == __src)
-              {
-                Typed = CFAllocatorAllocateTyped(&__kCFAllocatorSystemDefault, 4 * v44, 0x100004052888210, 0);
-                memmove(Typed, __src, 0x100uLL);
-              }
-
-              else
-              {
-                Typed = __CFSafelyReallocateWithAllocatorTyped(&__kCFAllocatorSystemDefault, Typed, 4 * v44, 0x100004052888210, 0, 0);
-              }
-            }
-          }
-
-          while (v78 < v52);
-          v52 = v78;
-          goto LABEL_142;
+          goto LABEL_54;
         }
+
+        v52 = v151;
+        if ((v49 & 1) == 0)
+        {
+          v52 = CFUniCharGetUnicodePropertyDataForPlane(0, HIWORD(v50));
+        }
+
+        if (v52 && *(v52 + (v46 >> 8)) && *(v52 + (*(v52 + (v46 >> 8)) << 8) - 256 + v46 + 256) || (theForm & 2) != 0 && v50 - 55205 > 0xFFFFD45A)
+        {
+LABEL_54:
+          v53 = 0;
+          goto LABEL_55;
+        }
+
+        v53 = CFUniCharDecomposeCharacter(v50, Typed, 64);
+LABEL_55:
+        v147 = v37;
+        if (!((theForm >> 1) & 1 | v136) || v148 >= v37 && v53)
+        {
+          goto LABEL_129;
+        }
+
+        if (v53 < 1)
+        {
+          v55 = v50;
+          if (v50 >= 0x10000)
+          {
+            goto LABEL_68;
+          }
+
+          v57 = 1;
+        }
+
+        else
+        {
+          v55 = *v148;
+          if ((v55 & 0xFC00) == 0xD800 && (v148 + 1) < v37)
+          {
+            v56 = v148[1];
+            if ((v56 & 0xFC00) == 0xDC00)
+            {
+              v50 = (v55 << 10) - 56613888 + v56;
+              v55 = ((v55 << 10) + 9216 + v56);
+LABEL_68:
+              v58 = CFUniCharGetUnicodePropertyDataForPlane(0, HIWORD(v50));
+              v57 = 0;
+              if (!v58)
+              {
+                goto LABEL_125;
+              }
 
 LABEL_69:
-        if (*(v57 + (v54 >> 8)) && *(v57 + (*(v57 + (v54 >> 8)) << 8) - 256 + v54 + 256))
+              if (*(v58 + (v55 >> 8)) && *(v58 + (*(v58 + (v55 >> 8)) << 8) - 256 + v55 + 256))
+              {
+                if (v53)
+                {
+                  v59 = 1;
+                  if (!v57)
+                  {
+                    v59 = 2;
+                  }
+
+                  v149 += v59;
+                }
+
+                else
+                {
+                  v60 = 0x7FFFFFFFFFFFFFFELL;
+                  if (v57)
+                  {
+                    v60 = 0x7FFFFFFFFFFFFFFFLL;
+                  }
+
+                  v61 = &v148[v60];
+                  v148 = (v148 + v60 * 2);
+                  if (v30 < 1)
+                  {
+                    v53 = 0;
+                  }
+
+                  else
+                  {
+                    v62 = *(v61 - 1);
+                    if ((v62 & 0xFC00) == 0xDC00 && v30 != 1 && (v63 = *(v148 - 2), (v63 & 0xFC00) == 0xD800))
+                    {
+                      *Typed = v62 - 56613888 + (v63 << 10);
+                      v30 -= 2;
+                      v149 += 2;
+                      v53 = 1;
+                    }
+
+                    else
+                    {
+                      *Typed = v62;
+                      ++v149;
+                      v53 = 1;
+                      --v30;
+                    }
+                  }
+                }
+
+                if (v57)
+                {
+                  v64 = 2;
+                }
+
+                else
+                {
+                  v64 = 4;
+                }
+
+                v65 = BitmapPtrForPlane;
+                if ((v57 & 1) == 0)
+                {
+                  v65 = CFUniCharGetBitmapPtrForPlane(9u, HIWORD(v50));
+                }
+
+                if (v65 && ((*(v65 + (v55 >> 3)) >> (v55 & 7)) & 1) != 0)
+                {
+                  v66 = CFUniCharDecomposeCharacter(v50, &Typed[v53], 64 - v53);
+                }
+
+                else
+                {
+                  Typed[v53] = v50;
+                  v66 = 1;
+                }
+
+                v53 += v66;
+                v148 = (v148 + v64);
+                if (v148 < v37)
+                {
+                  v145 = v30;
+                  v67 = v148;
+                  while (1)
+                  {
+                    v68 = *v67;
+                    v148 = v67;
+                    v69 = v67 + 1;
+                    v70 = (v68 & 0xFC00) != 0xD800 || v69 >= v37;
+                    if (v70 || (v75 = *v69, (v75 & 0xFC00) != 0xDC00))
+                    {
+                      v71 = 1;
+                      v50 = *v67;
+                      v72 = v151;
+                      if (!v151)
+                      {
+                        break;
+                      }
+                    }
+
+                    else
+                    {
+                      v50 = (v68 << 10) - 56613888 + v75;
+                      v68 = ((v68 << 10) + 9216 + v75);
+                      v72 = CFUniCharGetUnicodePropertyDataForPlane(0, HIWORD(v50));
+                      v71 = 0;
+                      if (!v72)
+                      {
+                        break;
+                      }
+                    }
+
+                    if (!*(v72 + (v68 >> 8)) || !*(v72 + (*(v72 + (v68 >> 8)) << 8) - 256 + v68 + 256))
+                    {
+                      break;
+                    }
+
+                    if (v71)
+                    {
+                      v73 = 1;
+                    }
+
+                    else
+                    {
+                      v73 = 2;
+                    }
+
+                    if (v71)
+                    {
+                      v74 = 1;
+                    }
+
+                    else
+                    {
+                      v74 = 2;
+                    }
+
+                    if (v53 == v45)
+                    {
+                      v45 += 64;
+                      if (Typed == __src)
+                      {
+                        Typed = CFAllocatorAllocateTyped(&__kCFAllocatorSystemDefault, 4 * v45, 0x100004052888210uLL);
+                        memmove(Typed, __src, 0x100uLL);
+                      }
+
+                      else
+                      {
+                        Typed = __CFSafelyReallocateWithAllocatorTyped(&__kCFAllocatorSystemDefault, Typed, 4 * v45, 1384677904, 0);
+                      }
+                    }
+
+                    v76 = BitmapPtrForPlane;
+                    if ((v71 & 1) == 0)
+                    {
+                      v76 = CFUniCharGetBitmapPtrForPlane(9u, HIWORD(v50));
+                    }
+
+                    if (v76 && ((*(v76 + (v68 >> 3)) >> (v68 & 7)) & 1) != 0)
+                    {
+                      v77 = CFUniCharDecomposeCharacter(v50, &Typed[v53], 64 - v53);
+                    }
+
+                    else
+                    {
+                      Typed[v53] = v50;
+                      v77 = 1;
+                    }
+
+                    v149 += v73;
+                    v67 = &v148[v74];
+                    v53 += v77;
+                    v37 = v147;
+                    v30 = v145;
+                    if (v67 >= v147)
+                    {
+                      v148 = v67;
+                      goto LABEL_125;
+                    }
+                  }
+
+                  v30 = v145;
+                }
+              }
+
+              goto LABEL_125;
+            }
+          }
+
+          v57 = 1;
+          v50 = *v148;
+        }
+
+        v58 = v151;
+        if (v151)
         {
-          if (v52)
+          goto LABEL_69;
+        }
+
+LABEL_125:
+        v78 = v136;
+        if (v53 <= 1)
+        {
+          v78 = 0;
+        }
+
+        if (v78)
+        {
+          CFUniCharPrioritySort(Typed);
+        }
+
+LABEL_129:
+        if (theForm)
+        {
+          if (v53)
           {
-            v58 = 1;
-            if (!v56)
+            if (v53 >= 1)
             {
-              v58 = 2;
-            }
-
-            v149 += v58;
-          }
-
-          else
-          {
-            v59 = 0x7FFFFFFFFFFFFFFELL;
-            if (v56)
-            {
-              v59 = 0x7FFFFFFFFFFFFFFFLL;
-            }
-
-            v60 = &v148[v59];
-            v148 = (v148 + v59 * 2);
-            if (v29 < 1)
-            {
-              v52 = 0;
-            }
-
-            else
-            {
-              v61 = *(v60 - 1);
-              if ((v61 & 0xFC00) == 0xDC00 && v29 != 1 && (v62 = *(v148 - 2), (v62 & 0xFC00) == 0xD800))
-              {
-                *Typed = v61 - 56613888 + (v62 << 10);
-                v29 -= 2;
-                v149 += 2;
-                v52 = 1;
-              }
-
-              else
-              {
-                *Typed = v61;
-                ++v149;
-                v52 = 1;
-                --v29;
-              }
+              goto LABEL_135;
             }
           }
 
-          if (v56)
+          else if (CFUniCharIsMemberOf(v50, 0x64u))
           {
-            v63 = 2;
-          }
-
-          else
-          {
-            v63 = 4;
-          }
-
-          v64 = BitmapPtrForPlane;
-          if ((v56 & 1) == 0)
-          {
-            v64 = CFUniCharGetBitmapPtrForPlane(9u, HIWORD(v49));
-          }
-
-          if (v64 && ((*(v64 + (v54 >> 3)) >> (v54 & 7)) & 1) != 0)
-          {
-            v65 = CFUniCharDecomposeCharacter(v49, &Typed[v52], 64 - v52);
-          }
-
-          else
-          {
-            Typed[v52] = v49;
-            v65 = 1;
-          }
-
-          v52 += v65;
-          v148 = (v148 + v63);
-          if (v148 < v36)
-          {
-            v145 = v29;
-            v66 = v148;
-            while (1)
+            *Typed = v50;
+            v53 = 1;
+            do
             {
-              v67 = *v66;
-              v148 = v66;
-              v68 = v66 + 1;
-              v69 = (v67 & 0xFC00) != 0xD800 || v68 >= v36;
-              if (v69 || (v74 = *v68, (v74 & 0xFC00) != 0xDC00))
+LABEL_135:
+              v79 = CFUniCharCompatibilityDecompose(Typed, v53, v45);
+              if (!v79)
               {
-                v70 = 1;
-                v49 = *v66;
-                v71 = v151;
-                if (!v151)
-                {
-                  break;
-                }
-              }
-
-              else
-              {
-                v49 = (v67 << 10) - 56613888 + v74;
-                v67 = ((v67 << 10) + 9216 + v74);
-                v71 = CFUniCharGetUnicodePropertyDataForPlane(0, HIWORD(v49));
-                v70 = 0;
-                if (!v71)
-                {
-                  break;
-                }
-              }
-
-              if (!*(v71 + (v67 >> 8)) || !*(v71 + (*(v71 + (v67 >> 8)) << 8) - 256 + v67 + 256))
-              {
-                break;
-              }
-
-              if (v70)
-              {
-                v72 = 1;
-              }
-
-              else
-              {
-                v72 = 2;
-              }
-
-              if (v70)
-              {
-                v73 = 1;
-              }
-
-              else
-              {
-                v73 = 2;
-              }
-
-              if (v52 == v44)
-              {
-                v44 += 64;
+                v45 += 64;
                 if (Typed == __src)
                 {
-                  Typed = CFAllocatorAllocateTyped(&__kCFAllocatorSystemDefault, 4 * v44, 0x100004052888210, 0);
+                  Typed = CFAllocatorAllocateTyped(&__kCFAllocatorSystemDefault, 4 * v45, 0x100004052888210uLL);
                   memmove(Typed, __src, 0x100uLL);
                 }
 
                 else
                 {
-                  Typed = __CFSafelyReallocateWithAllocatorTyped(&__kCFAllocatorSystemDefault, Typed, 4 * v44, 0x100004052888210, 0, 0);
+                  Typed = __CFSafelyReallocateWithAllocatorTyped(&__kCFAllocatorSystemDefault, Typed, 4 * v45, 1384677904, 0);
                 }
               }
+            }
 
-              v75 = BitmapPtrForPlane;
-              if ((v70 & 1) == 0)
-              {
-                v75 = CFUniCharGetBitmapPtrForPlane(9u, HIWORD(v49));
-              }
+            while (v79 < v53);
+            v53 = v79;
+            goto LABEL_142;
+          }
 
-              if (v75 && ((*(v75 + (v67 >> 3)) >> (v67 & 7)) & 1) != 0)
+          v53 = 0;
+        }
+
+LABEL_142:
+        if ((theForm & 2) == 0)
+        {
+          goto LABEL_231;
+        }
+
+        v146 = v30;
+        if (v53 < 2)
+        {
+          if (v50 - 4352 >= 0xFF)
+          {
+            if (v148 >= v37)
+            {
+              goto LABEL_231;
+            }
+
+            do
+            {
+              v104 = *v148;
+              v105 = v148 + 1;
+              v106 = (v104 & 0xFC00) != 0xD800 || v105 >= v37;
+              if (v106 || (v110 = *v105, (v110 & 0xFC00) != 0xDC00))
               {
-                v76 = CFUniCharDecomposeCharacter(v49, &Typed[v52], 64 - v52);
+                if (!v150 || ((*(v150 + (v104 >> 3)) >> (v104 & 7)) & 1) == 0 || v151 && *(v151 + (v104 >> 8)) && *(v135 + (*(v151 + (*v148 >> 8)) << 8) - 256 + *v148))
+                {
+                  goto LABEL_231;
+                }
               }
 
               else
               {
-                Typed[v52] = v49;
-                v76 = 1;
+                LODWORD(v104) = (v104 << 10) - 56613888 + v110;
+                v111 = CFUniCharGetBitmapPtrForPlane(8u, WORD1(v104));
+                if (!v111 || ((*(v111 + (v104 >> 3)) >> (v110 & 7)) & 1) == 0)
+                {
+                  v30 = v146;
+                  goto LABEL_231;
+                }
+
+                v112 = CFUniCharGetUnicodePropertyDataForPlane(0, WORD1(v104));
+                if (v112 && *(v112 + BYTE1(v104)))
+                {
+                  v30 = v146;
+                  if (*(v112 + (*(v112 + BYTE1(v104)) << 8) - 256 + v110 + 256))
+                  {
+                    goto LABEL_231;
+                  }
+                }
+
+                else
+                {
+                  v30 = v146;
+                }
               }
 
-              v149 += v72;
-              v66 = &v148[v73];
-              v52 += v76;
-              v36 = v147;
-              v29 = v145;
-              if (v66 >= v147)
+              v107 = CFUniCharPrecomposeCharacter(v50, v104);
+              if (v107 == 65533)
               {
-                v148 = v66;
-                goto LABEL_125;
+                goto LABEL_231;
+              }
+
+              v50 = v107;
+              v108 = 1;
+              if (v104 >= 0x10000)
+              {
+                v108 = 2;
+              }
+
+              v149 += v108;
+              v109 = 4;
+              if (v104 < 0x10000)
+              {
+                v109 = 2;
+              }
+
+              *Typed = v107;
+              v53 = 1;
+              v148 = (v148 + v109);
+            }
+
+            while (v148 < v37);
+          }
+
+          else
+          {
+            if (v148 >= v37)
+            {
+              goto LABEL_231;
+            }
+
+            if (v50 > 0x13)
+            {
+              goto LABEL_231;
+            }
+
+            v98 = *v148 - 4449;
+            if (v98 > 0x15)
+            {
+              goto LABEL_231;
+            }
+
+            if ((v148 + 1) >= v37)
+            {
+              v99 = 0;
+              ++v149;
+            }
+
+            else
+            {
+              v99 = (v148[1] - 4519);
+              if (v148[1] - 4519 > 0x1C)
+              {
+                v100 = v149 + 1;
+              }
+
+              else
+              {
+                v100 = v149 + 2;
+              }
+
+              v149 = v100;
+              if (v148[1] - 4519 > 0x1C)
+              {
+                v99 = 0;
               }
             }
 
-            v29 = v145;
+            *Typed = v99 + 28 * (v98 + 21 * v50) + 44032;
+          }
+
+          v113 = Typed + 1;
+LABEL_233:
+          LODWORD(v114) = 0;
+          v115 = Typed;
+          do
+          {
+            v116 = v115 + 1;
+            if (*(v115 + 1))
+            {
+              v117 = 2;
+            }
+
+            else
+            {
+              v117 = 1;
+            }
+
+            v114 = (v117 + v114);
+            v115 = v116;
+          }
+
+          while (v116 < v113);
+          v118 = 0;
+LABEL_241:
+          if (v149 != v114)
+          {
+            v153[0] = v30;
+            v153[1] = v149;
+            __CFStringChangeSizeMultiple(v2, v153, 1, v114, 1);
+            v149 = v114;
+          }
+
+          v120 = atomic_load(&v2->info);
+          if ((v120 & 0x60) != 0)
+          {
+            v121 = *v140;
+          }
+
+          else
+          {
+            v122 = atomic_load(&v2->info);
+            v121 = &v140[(v122 & 5) != 4];
+          }
+
+          v123 = atomic_load(&v2->info);
+          v124 = atomic_load(&v2->info);
+          v125 = v124 & 0x60;
+          if ((v123 & 5) == 4)
+          {
+            if (v125)
+            {
+              v126 = *v140;
+            }
+
+            else
+            {
+              v128 = atomic_load(&v2->info);
+              v126 = &v140[(v128 & 5) != 4];
+            }
+
+            v127 = *v126;
+          }
+
+          else if (v125)
+          {
+            v127 = v2->length;
+          }
+
+          else
+          {
+            v127 = *v140;
+          }
+
+          if ((v118 & 1) == 0)
+          {
+            v129 = Typed;
+            v130 = &v121[2 * v30];
+            do
+            {
+              v132 = *v129++;
+              v131 = v132;
+              if (v132 < 0x10000)
+              {
+                v134 = v130 + 2;
+                LOWORD(v133) = v131;
+              }
+
+              else
+              {
+                v133 = ((v131 + 67043328) >> 10) - 10240;
+                v134 = v130 + 4;
+                *(v130 + 1) = v131 & 0x3FF | 0xDC00;
+              }
+
+              *v130 = v133;
+              v130 = v134;
+            }
+
+            while (v129 < v113);
+          }
+
+          v37 = &v121[2 * v127];
+          v41 = &v121[2 * v30 + 2 * v114];
+          v119 = v149;
+          goto LABEL_261;
+        }
+
+        v137 = v45;
+        v138 = 0;
+        v143 = 0;
+        v80 = *Typed;
+        v81 = Typed;
+        v82 = 1;
+        do
+        {
+          v141 = v81;
+          v83 = v81;
+          v84 = v82;
+          v85 = v53;
+          v142 = v80;
+          while (1)
+          {
+            v86 = &Typed[v84];
+            v87 = *v86;
+            v88 = v151;
+            if (*v86 >= 0x10000)
+            {
+              v88 = CFUniCharGetUnicodePropertyDataForPlane(0, HIWORD(v87));
+            }
+
+            if (v88 && *(v88 + BYTE1(v87)))
+            {
+              v89 = *(v88 + (*(v88 + BYTE1(v87)) << 8) - 256 + v87 + 256);
+            }
+
+            else
+            {
+              v89 = 0;
+            }
+
+            if ((theForm & 1) == 0)
+            {
+              v80 = v142;
+              v81 = v141;
+              goto LABEL_175;
+            }
+
+            if (v80 - 4352 <= 0xFE && v80 <= 0x13)
+            {
+              v90 = (v87 - 4449);
+              if (v90 <= 0x15)
+              {
+                v92 = v84 + 1;
+                *v86 = 65533;
+                if (v84 + 1 < v85 && (v93 = (Typed[v92] - 4519), v93 <= 0x1C))
+                {
+                  Typed[v92] = 65533;
+                  v92 = v84 + 2;
+                }
+
+                else
+                {
+                  v93 = 0;
+                }
+
+                *v83 = v93 + 28 * (v90 + 21 * v80) + 44032;
+                if (v85 >= 2)
+                {
+                  v94 = v85 + 1;
+                  v95 = &Typed[v85 - 1];
+                  v96 = -v85;
+                  do
+                  {
+                    if (*v95 == 65533)
+                    {
+                      --v92;
+                      memmove(v95, v95 + 1, 4 * (v85 + v96));
+                      --v85;
+                    }
+
+                    --v94;
+                    --v95;
+                    ++v96;
+                  }
+
+                  while (v94 > 2);
+                }
+
+                v83 = &Typed[v92];
+                v80 = *v83;
+                v84 = v92;
+                goto LABEL_161;
+              }
+            }
+
+            v91 = v150;
+            if (v87 >= 0x10000)
+            {
+              v91 = CFUniCharGetBitmapPtrForPlane(8u, HIWORD(v87));
+            }
+
+            if (v91 && ((*(v91 + (v87 >> 3)) >> (v87 & 7)) & 1) != 0)
+            {
+              break;
+            }
+
+            *v83 = v80;
+            v80 = v87;
+            v83 = &Typed[v84];
+LABEL_161:
+            if (++v84 >= v85)
+            {
+              v53 = v85;
+              v81 = v83;
+              v2 = v139;
+              v30 = v146;
+              v37 = v147;
+              goto LABEL_193;
+            }
+          }
+
+          v81 = v83;
+          v82 = v84;
+          v53 = v85;
+LABEL_175:
+          v37 = v147;
+          if (v143 && v89 <= v143)
+          {
+            v89 = v143;
+          }
+
+          else
+          {
+            v97 = CFUniCharPrecomposeCharacter(v80, v87);
+            if (v97 != 65533)
+            {
+              Typed[v82] = 65533;
+              v138 = 1;
+              v80 = v97;
+              v89 = v143;
+            }
+          }
+
+          ++v82;
+          v143 = v89;
+          v2 = v139;
+          v30 = v146;
+        }
+
+        while (v82 < v53);
+LABEL_193:
+        *v81 = v80;
+        if (v138)
+        {
+          v45 = v137;
+          if (v53 > 1)
+          {
+            v101 = v53 + 1;
+            v102 = &Typed[v53 - 1];
+            v103 = -v53;
+            do
+            {
+              if (*v102 == 65533)
+              {
+                memmove(v102, v102 + 1, 4 * (v53 + v103));
+                --v53;
+                v37 = v147;
+              }
+
+              --v101;
+              --v102;
+              ++v103;
+            }
+
+            while (v101 > 2);
           }
         }
 
-        goto LABEL_125;
+        else
+        {
+          v45 = v137;
+        }
+
+LABEL_231:
+        if (v53 >= 1)
+        {
+          v113 = &Typed[v53];
+          if (v53)
+          {
+            goto LABEL_233;
+          }
+
+          v114 = 0;
+          v118 = 1;
+          goto LABEL_241;
+        }
+
+        v41 = v148;
+        v119 = v149;
+LABEL_261:
+        v30 += v119;
+        if (v41 >= v37)
+        {
+          if (Typed != __src)
+          {
+            CFAllocatorDeallocate(&__kCFAllocatorSystemDefault, Typed);
+          }
+
+          return;
+        }
       }
     }
-
-LABEL_54:
-    v52 = 0;
-    goto LABEL_55;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
-
-  [(__CFString *)v2 _cfNormalize:theForm];
 }
 
 CFDateRef CFDateFormatterCreateDateFromString(CFAllocatorRef allocator, CFDateFormatterRef formatter, CFStringRef string, CFRange *rangep)
@@ -2917,7 +2891,7 @@ CFDateRef CFDateFormatterCreateDateFromString(CFAllocatorRef allocator, CFDateFo
   at[1] = *MEMORY[0x1E69E9840];
   if (!allocator)
   {
-    v8 = _CFGetTSD(1u);
+    v8 = _CFGetTSD(1);
     if (v8)
     {
       v7 = v8;
@@ -2939,21 +2913,18 @@ CFDateRef CFDateFormatterCreateDateFromString(CFAllocatorRef allocator, CFDateFo
   at[0] = 0.0;
   if (CFDateFormatterGetAbsoluteTimeFromString(formatter, string, rangep, at))
   {
-    result = CFDateCreate(v7, at[0]);
+    return CFDateCreate(v7, at[0]);
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t CFLocaleGetLanguageRegionEncodingForLocaleIdentifier(CFStringRef localeIdentifier, _WORD *a2, _WORD *a3, _WORD *a4, _DWORD *a5)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   CanonicalLocaleIdentifierFromString = CFLocaleCreateCanonicalLocaleIdentifierFromString(0, localeIdentifier);
   if (CanonicalLocaleIdentifierFromString)
   {
@@ -2965,7 +2936,7 @@ LABEL_27:
       goto LABEL_28;
     }
 
-    v23 = 0;
+    v22 = 0;
     Language = uloc_getLanguage();
     v12 = 0;
     v13 = Language;
@@ -2973,29 +2944,29 @@ LABEL_27:
     {
 LABEL_28:
       CFRelease(v10);
-      goto LABEL_29;
+      return v12;
     }
 
     __s[Language] = 0;
     __key[0] = __s;
     __key[1] = 0;
-    v23 = 0;
+    v22 = 0;
     Script = uloc_getScript();
     v15 = Script != 0;
     if (!Script)
     {
-      v23 = 0;
+      v22 = 0;
       Script = uloc_getCountry();
       if (!Script)
       {
-        v23 = 0;
+        v22 = 0;
         Script = uloc_getVariant();
       }
     }
 
     if (Script >= 1)
     {
-      v24 = 0;
+      v23 = 0;
       __strlcat_chk();
       __strlcat_chk();
     }
@@ -3092,10 +3063,7 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v12 = 0;
-LABEL_29:
-  v20 = *MEMORY[0x1E69E9840];
-  return v12;
+  return 0;
 }
 
 uint64_t compareHashesAscending(uint64_t a1, uint64_t a2)
@@ -3148,15 +3116,14 @@ Boolean CFDateFormatterGetAbsoluteTimeFromString(CFDateFormatterRef formatter, C
   }
 
   CharactersPtr = CFStringGetCharactersPtr(string);
-  if (!MEMORY[0x1EEE9AC00](CharactersPtr, v13))
+  if (!MEMORY[0x1EEE9AC00](CharactersPtr, v13, v14))
   {
-    v38.location = location;
-    v38.length = v11;
-    CFStringGetCharacters(string, v38, (&v35 - v14));
+    v47.location = location;
+    v47.length = v11;
+    CFStringGetCharacters(string, v47, (&v44 - v15));
   }
 
-  v36 = 0;
-  v15 = *(formatter + 2);
+  v45 = 0;
   __cficu_udat_clone();
   __cficu_udat_getCalendar();
   v16 = __cficu_ucal_clone();
@@ -3188,7 +3155,7 @@ Boolean CFDateFormatterGetAbsoluteTimeFromString(CFDateFormatterRef formatter, C
   {
     __cficu_ucal_clear();
     __cficu_ucal_set();
-    __cficu_udat_set2DigitYearStart();
+    __cficu_udat_set2DigitYearStart(3.16516205e14);
   }
 
 LABEL_17:
@@ -3203,12 +3170,12 @@ LABEL_17:
   Millis = __cficu_ucal_getMillis();
   if (rangep)
   {
-    rangep->length = SHIDWORD(v36);
+    rangep->length = SHIDWORD(v45);
   }
 
-  if (v36 > 0)
+  if (v45 > 0)
   {
-    goto LABEL_82;
+    goto LABEL_90;
   }
 
   valuePtr[0] = 1;
@@ -3218,225 +3185,339 @@ LABEL_17:
     CFNumberGetValue(v20, kCFNumberSInt64Type, valuePtr);
   }
 
-  if (!CFEqual(v17, @"chinese"))
+  if (CFEqual(v17, @"chinese"))
   {
-    if (CFEqual(v17, @"japanese"))
+    if (__cficu_ucal_get() > 9)
     {
-      __cficu_ucal_clear();
-      __cficu_ucal_set();
-      __cficu_udat_parseCalendar();
-      if (__cficu_ucal_getMillis() == Millis)
-      {
-        goto LABEL_81;
-      }
+      goto LABEL_89;
+    }
 
-      __cficu_ucal_setMillis();
-      v21 = __cficu_ucal_get();
-      __cficu_ucal_getNow();
-      __cficu_ucal_setMillis();
-      v22 = __cficu_ucal_get();
-      v23 = __cficu_ucal_get();
-      if (valuePtr[0] > 4)
+    if (valuePtr[0] > 3)
+    {
+      if (valuePtr[0] > 5)
       {
-        switch(valuePtr[0])
+        if (valuePtr[0] == 6)
         {
-          case 5:
-            if (v21 > v22)
-            {
-              if (v23 < 235)
-              {
-                goto LABEL_82;
-              }
+          v21 = v16;
+          v22 = 60;
+          v23 = 10;
+          v24 = 49;
+        }
 
-              v31 = (v23 - 1);
-              while (v21 > __CFDateFormatterGetMaxYearGivenJapaneseEra())
-              {
-                v29 = v31-- < 235;
-                if (v29)
-                {
-                  goto LABEL_82;
-                }
-              }
-            }
+        else
+        {
+          if (valuePtr[0] != 7)
+          {
+            goto LABEL_89;
+          }
 
-            break;
-          case 6:
-            if (v21 < v22 - 10)
-            {
-              goto LABEL_82;
-            }
-
-            break;
-          case 7:
-            if (v21 > v22 + 10)
-            {
-              if (v23 < 235)
-              {
-                goto LABEL_82;
-              }
-
-              v28 = (v23 - 1);
-              while (v21 > __CFDateFormatterGetMaxYearGivenJapaneseEra())
-              {
-                v29 = v28-- < 235;
-                if (v29)
-                {
-                  goto LABEL_82;
-                }
-              }
-            }
-
-            break;
-          default:
-            goto LABEL_81;
+          v21 = v16;
+          v22 = 60;
+          v23 = 49;
+          v24 = 10;
         }
       }
 
       else
       {
-        if (!valuePtr[0])
+        v21 = v16;
+        v22 = 60;
+        if (valuePtr[0] == 4)
         {
-          goto LABEL_82;
+          v23 = 0;
+          v24 = 59;
         }
 
-        if (valuePtr[0] != 2)
+        else
         {
-          if (valuePtr[0] != 4)
-          {
-            goto LABEL_81;
-          }
-
-          if (v21 < v22)
-          {
-            goto LABEL_82;
-          }
+          v23 = 59;
+          v24 = 0;
         }
       }
 
-      goto LABEL_73;
+      goto LABEL_62;
     }
 
-    v24 = __cficu_ucal_get() - 12000;
-    if (v24 > 0x63)
-    {
-      goto LABEL_81;
-    }
-
-    if (*(formatter + 14))
-    {
-      v25 = __cficu_ucal_clone();
-      __cficu_ucal_clear();
-      v26 = (CFDateGetAbsoluteTime(*(formatter + 14)) + 978307200.0) * 1000.0;
-      __cficu_ucal_setMillis();
-      v27 = __cficu_ucal_get() % 100;
-      if (v27 >= v24 && v24 >= v27)
-      {
-        __cficu_ucal_set();
-        __cficu_ucal_getMillis();
-      }
-
-      __cficu_ucal_close(v25);
-      __cficu_ucal_set();
-      v30 = __cficu_ucal_getMillis();
-      goto LABEL_80;
-    }
-
-    if (valuePtr[0] <= 3)
-    {
-      switch(valuePtr[0])
-      {
-        case 0:
-          goto LABEL_82;
-        case 2:
-LABEL_94:
-          __cficu_ucal_getNow();
-          __cficu_ucal_setMillis();
-          __cficu_ucal_get();
-          goto LABEL_73;
-        case 3:
-LABEL_58:
-          v30 = __CFDateFormatterCorrectTimeToARangeAroundCurrentDate();
-LABEL_80:
-          Millis = v30;
-          goto LABEL_81;
-      }
-    }
-
-    else if (valuePtr[0] <= 6 || valuePtr[0] == 7)
-    {
-      goto LABEL_58;
-    }
-
-    if (!CFEqual(v17, @"gregorian"))
-    {
-      goto LABEL_81;
-    }
-
-LABEL_73:
-    v30 = __CFDateFormatterCorrectTimeWithTarget();
-    goto LABEL_80;
-  }
-
-  if (__cficu_ucal_get() > 9)
-  {
-    goto LABEL_81;
-  }
-
-  if (valuePtr[0] <= 3)
-  {
     if (!valuePtr[0])
     {
-      goto LABEL_82;
+      goto LABEL_90;
     }
 
     if (valuePtr[0] != 2)
     {
       if (valuePtr[0] != 3)
       {
-        goto LABEL_81;
+        goto LABEL_89;
       }
 
-      goto LABEL_58;
+      v21 = v16;
+      v22 = 60;
+      v23 = 29;
+      v24 = 30;
+LABEL_62:
+      v36 = 1;
+LABEL_63:
+      v37 = __CFDateFormatterCorrectTimeToARangeAroundCurrentDate(v21, v22, v23, v24, v36, &v45);
+LABEL_88:
+      Millis = v37;
+      goto LABEL_89;
     }
 
-    goto LABEL_94;
+    __cficu_ucal_getNow();
+    __cficu_ucal_setMillis();
+    v28 = __cficu_ucal_get();
+    goto LABEL_79;
   }
 
-  if (valuePtr[0] <= 6 || valuePtr[0] == 7)
+  if (CFEqual(v17, @"japanese"))
   {
-    goto LABEL_58;
+    __cficu_ucal_clear();
+    __cficu_ucal_set();
+    __cficu_udat_parseCalendar();
+    if (__cficu_ucal_getMillis() == Millis)
+    {
+      goto LABEL_89;
+    }
+
+    __cficu_ucal_setMillis();
+    v25 = __cficu_ucal_get();
+    __cficu_ucal_getNow();
+    __cficu_ucal_setMillis();
+    v26 = __cficu_ucal_get();
+    v27 = __cficu_ucal_get();
+    v28 = v27;
+    if (valuePtr[0] <= 4)
+    {
+      if (!valuePtr[0])
+      {
+        goto LABEL_90;
+      }
+
+      if (valuePtr[0] != 2)
+      {
+        if (valuePtr[0] != 4)
+        {
+          goto LABEL_89;
+        }
+
+        if (v25 < v26)
+        {
+          goto LABEL_90;
+        }
+      }
+
+      goto LABEL_79;
+    }
+
+    switch(valuePtr[0])
+    {
+      case 5:
+        if (v25 > v26)
+        {
+          if (v27 < 235)
+          {
+            goto LABEL_90;
+          }
+
+          v34 = (v27 - 1);
+          while (v25 > __CFDateFormatterGetMaxYearGivenJapaneseEra(v16, v34, &v45))
+          {
+            v35 = v34-- < 235;
+            if (v35)
+            {
+              goto LABEL_90;
+            }
+          }
+
+          goto LABEL_100;
+        }
+
+        break;
+      case 6:
+        if (v25 < v26 - 10)
+        {
+          goto LABEL_90;
+        }
+
+        break;
+      case 7:
+        if (v25 <= v26 + 10)
+        {
+          break;
+        }
+
+        if (v27 < 235)
+        {
+          goto LABEL_90;
+        }
+
+        v34 = (v27 - 1);
+        while (v25 > __CFDateFormatterGetMaxYearGivenJapaneseEra(v16, v34, &v45))
+        {
+          v35 = v34-- < 235;
+          if (v35)
+          {
+            goto LABEL_90;
+          }
+        }
+
+LABEL_100:
+        v38 = v16;
+        v28 = v34;
+        goto LABEL_80;
+      default:
+        goto LABEL_89;
+    }
+
+LABEL_79:
+    v38 = v16;
+LABEL_80:
+    v39 = 1;
+LABEL_81:
+    v37 = __CFDateFormatterCorrectTimeWithTarget(v38, v28, v39, &v45);
+    goto LABEL_88;
   }
 
-LABEL_81:
-  if (v36 <= 0)
+  v29 = __cficu_ucal_get();
+  v30 = v29 - 12000;
+  if ((v29 - 12000) > 0x63)
+  {
+    goto LABEL_89;
+  }
+
+  v31 = v29;
+  if (*(formatter + 14))
+  {
+    v32 = __cficu_ucal_clone();
+    __cficu_ucal_clear();
+    CFDateGetAbsoluteTime(*(formatter + 14));
+    __cficu_ucal_setMillis();
+    v33 = __cficu_ucal_get() % 100;
+    if (v33 >= v30 && v30 >= v33)
+    {
+      __cficu_ucal_set();
+      __cficu_ucal_getMillis();
+    }
+
+    __cficu_ucal_close(v32);
+    __cficu_ucal_set();
+    v37 = __cficu_ucal_getMillis();
+    goto LABEL_88;
+  }
+
+  if (valuePtr[0] <= 3)
+  {
+    switch(valuePtr[0])
+    {
+      case 0:
+        goto LABEL_90;
+      case 2:
+        __cficu_ucal_getNow();
+        __cficu_ucal_setMillis();
+        v28 = v31 % 0x64u + 100 * (__cficu_ucal_get() / 100);
+LABEL_110:
+        v38 = v16;
+        v39 = 0;
+        goto LABEL_81;
+      case 3:
+        v21 = v16;
+        v22 = 100;
+        v23 = 50;
+        v36 = 0;
+        v24 = 49;
+        goto LABEL_63;
+    }
+  }
+
+  else
+  {
+    if (valuePtr[0] <= 5)
+    {
+      v21 = v16;
+      v22 = 100;
+      if (valuePtr[0] == 4)
+      {
+        v23 = 0;
+        v24 = 99;
+      }
+
+      else
+      {
+        v23 = 99;
+        v24 = 0;
+      }
+
+      v36 = 0;
+      goto LABEL_63;
+    }
+
+    if (valuePtr[0] == 6)
+    {
+      v21 = v16;
+      v22 = 100;
+      v23 = 9;
+      v36 = 0;
+      v24 = 90;
+      goto LABEL_63;
+    }
+
+    if (valuePtr[0] == 7)
+    {
+      v21 = v16;
+      v22 = 100;
+      v23 = 90;
+      v36 = 0;
+      v24 = 9;
+      goto LABEL_63;
+    }
+  }
+
+  if (CFEqual(v17, @"gregorian"))
+  {
+    v42 = v31 % 0x64u;
+    if (v42 >= 0x32)
+    {
+      v43 = 1900;
+    }
+
+    else
+    {
+      v43 = 2000;
+    }
+
+    v28 = v43 + v42;
+    goto LABEL_110;
+  }
+
+LABEL_89:
+  if (v45 <= 0)
   {
     if (atp)
     {
       *atp = Millis / 1000.0 - 978307200.0;
     }
 
-    v32 = 1;
+    v40 = 1;
     if (v17)
     {
-      goto LABEL_83;
+      goto LABEL_91;
     }
 
-    goto LABEL_84;
+    goto LABEL_92;
   }
 
-LABEL_82:
-  v32 = 0;
+LABEL_90:
+  v40 = 0;
   if (v17)
   {
-LABEL_83:
+LABEL_91:
     CFRelease(v17);
   }
 
-LABEL_84:
+LABEL_92:
   __cficu_udat_close();
   __cficu_ucal_close(v16);
-  v33 = *MEMORY[0x1E69E9840];
-  return v32;
+  return v40;
 }
 
 CFStringRef _CFStringCreateWithASCIICStringNoCopyOrIndirectTagged(const __CFAllocator *a1, char *__s)
@@ -3461,16 +3542,16 @@ CFStringRef _CFBundleCopyLocaleAbbreviationForRegionCode(unsigned int a1)
 
 uint64_t __CFStringCreateCollator(const __CFLocale *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   Value = CFLocaleGetValue(a1, @"locale:collator id");
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
-  v7 = 0u;
+  v11 = 0u;
   v8 = 0u;
-  *buffer = 0u;
+  v9 = 0u;
   v6 = 0u;
+  v7 = 0u;
+  *buffer = 0u;
+  v5 = 0u;
   CFStringGetCString(Value, buffer, 128, 0x600u);
   v2 = ucol_open();
   ucol_setAttribute();
@@ -3478,7 +3559,6 @@ uint64_t __CFStringCreateCollator(const __CFLocale *a1)
   ucol_setAttribute();
   ucol_setAttribute();
   ucol_setAttribute();
-  v3 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -3591,7 +3671,7 @@ CFStringRef CFBundleCopyLocalizationForLocalizationInfo(unsigned int a1, unsigne
   return result;
 }
 
-CFStringRef _CFStringCreateWithASCIIBytesNoCopyOrIndirectTagged(const __CFAllocator *a1, const UInt8 *a2, unint64_t a3)
+CFStringRef _CFStringCreateWithASCIIBytesNoCopyOrIndirectTagged(const __CFAllocator *a1, UInt8 *a2, unint64_t a3)
 {
   result = _CFStringCreateIndirectASCIITaggedPointerString(a2, a3);
   if (!result)
@@ -3612,7 +3692,7 @@ void CFURLClearResourcePropertyCache(CFURLRef url)
 
 CFTypeRef CFDateFormatterCopyProperty(CFDateFormatterRef formatter, CFDateFormatterKey key)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   __CFCheckCFInfoPACSignature(formatter);
   v4 = _CFGetNonObjCTypeID(formatter);
   if (v4 != 56)
@@ -3628,20 +3708,16 @@ CFTypeRef CFDateFormatterCopyProperty(CFDateFormatterRef formatter, CFDateFormat
       goto LABEL_114;
     }
 
-    v8 = *(formatter + 2);
     isLenient = __cficu_udat_isLenient();
-    v10 = &kCFBooleanTrue;
+    v8 = &kCFBooleanTrue;
     if (!isLenient)
     {
-      v10 = &kCFBooleanFalse;
+      v8 = &kCFBooleanFalse;
     }
 
-    v11 = *MEMORY[0x1E69E9840];
 LABEL_42:
-    result = *v10;
-LABEL_115:
-
-    return CFRetain(result);
+    result = *v8;
+    goto LABEL_114;
   }
 
   if (@"kCFDateFormatterDoesRelativeDateFormattingKey" == key)
@@ -3653,8 +3729,7 @@ LABEL_115:
     }
 
 LABEL_41:
-    v12 = *MEMORY[0x1E69E9840];
-    v10 = &kCFBooleanFalse;
+    v8 = &kCFBooleanFalse;
     goto LABEL_42;
   }
 
@@ -3666,13 +3741,13 @@ LABEL_41:
       goto LABEL_114;
     }
 
-    v13 = *(formatter + 3);
-    v14 = &kCFLocaleCalendarKey;
+    v9 = *(formatter + 3);
+    v10 = &kCFLocaleCalendarKey;
 LABEL_47:
-    result = CFLocaleGetValue(v13, *v14);
+    result = CFLocaleGetValue(v9, *v10);
     if (!result)
     {
-      goto LABEL_68;
+      return result;
     }
 
     goto LABEL_114;
@@ -3686,8 +3761,8 @@ LABEL_47:
       goto LABEL_114;
     }
 
-    v13 = *(formatter + 3);
-    v14 = &kCFLocaleCalendarIdentifierKey;
+    v9 = *(formatter + 3);
+    v10 = &kCFLocaleCalendarIdentifierKey;
     goto LABEL_47;
   }
 
@@ -3696,7 +3771,7 @@ LABEL_47:
     result = *(formatter + 11);
     if (!result)
     {
-      goto LABEL_68;
+      return result;
     }
 
     goto LABEL_114;
@@ -3707,7 +3782,7 @@ LABEL_47:
     result = *(formatter + 7);
     if (!result)
     {
-      goto LABEL_68;
+      return result;
     }
 
     goto LABEL_114;
@@ -3718,7 +3793,7 @@ LABEL_47:
     result = *(formatter + 14);
     if (!result)
     {
-      goto LABEL_68;
+      return result;
     }
 
     goto LABEL_114;
@@ -3729,7 +3804,7 @@ LABEL_47:
     result = *(formatter + 15);
     if (!result)
     {
-      goto LABEL_68;
+      return result;
     }
 
     goto LABEL_114;
@@ -3740,12 +3815,10 @@ LABEL_47:
     result = *(formatter + 16);
     if (!result)
     {
-      v15 = *(formatter + 2);
       __cficu_udat_getCalendar();
-      v22 = __cficu_ucal_getGregorianChange() / 1000.0 - 978307200.0;
-      v23 = CFGetAllocator(formatter);
-      result = CFDateCreate(v23, v22);
-      goto LABEL_68;
+      v13 = __cficu_ucal_getGregorianChange() / 1000.0 - 978307200.0;
+      v14 = CFGetAllocator(formatter);
+      return CFDateCreate(v14, v13);
     }
 
     goto LABEL_114;
@@ -3759,12 +3832,12 @@ LABEL_47:
       goto LABEL_114;
     }
 
-    v16 = *(formatter + 2);
-    v17 = *MEMORY[0x1E69E9840];
-    v18 = 0;
+    v11 = *(formatter + 2);
+    v12 = 0;
+    goto LABEL_78;
   }
 
-  else if (@"kCFDateFormatterLongEraSymbolsKey" == key)
+  if (@"kCFDateFormatterLongEraSymbolsKey" == key)
   {
     result = *(formatter + 18);
     if (result)
@@ -3772,12 +3845,12 @@ LABEL_47:
       goto LABEL_114;
     }
 
-    v16 = *(formatter + 2);
-    v19 = *MEMORY[0x1E69E9840];
-    v18 = 7;
+    v11 = *(formatter + 2);
+    v12 = 7;
+    goto LABEL_78;
   }
 
-  else if (@"kCFDateFormatterMonthSymbolsKey" == key)
+  if (@"kCFDateFormatterMonthSymbolsKey" == key)
   {
     result = *(formatter + 19);
     if (result)
@@ -3785,12 +3858,12 @@ LABEL_47:
       goto LABEL_114;
     }
 
-    v16 = *(formatter + 2);
-    v20 = *MEMORY[0x1E69E9840];
-    v18 = 1;
+    v11 = *(formatter + 2);
+    v12 = 1;
+    goto LABEL_78;
   }
 
-  else if (@"kCFDateFormatterShortMonthSymbolsKey" == key)
+  if (@"kCFDateFormatterShortMonthSymbolsKey" == key)
   {
     result = *(formatter + 20);
     if (result)
@@ -3798,12 +3871,12 @@ LABEL_47:
       goto LABEL_114;
     }
 
-    v16 = *(formatter + 2);
-    v21 = *MEMORY[0x1E69E9840];
-    v18 = 2;
+    v11 = *(formatter + 2);
+    v12 = 2;
+    goto LABEL_78;
   }
 
-  else if (@"kCFDateFormatterVeryShortMonthSymbolsKey" == key)
+  if (@"kCFDateFormatterVeryShortMonthSymbolsKey" == key)
   {
     result = *(formatter + 21);
     if (result)
@@ -3811,12 +3884,12 @@ LABEL_47:
       goto LABEL_114;
     }
 
-    v16 = *(formatter + 2);
-    v25 = *MEMORY[0x1E69E9840];
-    v18 = 8;
+    v11 = *(formatter + 2);
+    v12 = 8;
+    goto LABEL_78;
   }
 
-  else if (@"kCFDateFormatterStandaloneMonthSymbolsKey" == key)
+  if (@"kCFDateFormatterStandaloneMonthSymbolsKey" == key)
   {
     result = *(formatter + 22);
     if (result)
@@ -3824,12 +3897,12 @@ LABEL_47:
       goto LABEL_114;
     }
 
-    v16 = *(formatter + 2);
-    v26 = *MEMORY[0x1E69E9840];
-    v18 = 10;
+    v11 = *(formatter + 2);
+    v12 = 10;
+    goto LABEL_78;
   }
 
-  else if (@"kCFDateFormatterShortStandaloneMonthSymbolsKey" == key)
+  if (@"kCFDateFormatterShortStandaloneMonthSymbolsKey" == key)
   {
     result = *(formatter + 23);
     if (result)
@@ -3837,279 +3910,254 @@ LABEL_47:
       goto LABEL_114;
     }
 
-    v16 = *(formatter + 2);
-    v27 = *MEMORY[0x1E69E9840];
-    v18 = 11;
+    v11 = *(formatter + 2);
+    v12 = 11;
+    goto LABEL_78;
   }
 
-  else
+  if (@"kCFDateFormatterVeryShortStandaloneMonthSymbolsKey" == key)
   {
-    if (@"kCFDateFormatterVeryShortStandaloneMonthSymbolsKey" != key)
-    {
-      if (@"kCFDateFormatterWeekdaySymbolsKey" == key)
-      {
-        result = *(formatter + 25);
-        if (result)
-        {
-          goto LABEL_114;
-        }
-
-        v16 = *(formatter + 2);
-        v30 = *MEMORY[0x1E69E9840];
-        v18 = 3;
-      }
-
-      else if (@"kCFDateFormatterShortWeekdaySymbolsKey" == key)
-      {
-        result = *(formatter + 26);
-        if (result)
-        {
-          goto LABEL_114;
-        }
-
-        v16 = *(formatter + 2);
-        v31 = *MEMORY[0x1E69E9840];
-        v18 = 4;
-      }
-
-      else if (@"kCFDateFormatterVeryShortWeekdaySymbolsKey" == key)
-      {
-        result = *(formatter + 27);
-        if (result)
-        {
-          goto LABEL_114;
-        }
-
-        v16 = *(formatter + 2);
-        v32 = *MEMORY[0x1E69E9840];
-        v18 = 9;
-      }
-
-      else if (@"kCFDateFormatterStandaloneWeekdaySymbolsKey" == key)
-      {
-        result = *(formatter + 28);
-        if (result)
-        {
-          goto LABEL_114;
-        }
-
-        v16 = *(formatter + 2);
-        v33 = *MEMORY[0x1E69E9840];
-        v18 = 13;
-      }
-
-      else if (@"kCFDateFormatterShortStandaloneWeekdaySymbolsKey" == key)
-      {
-        result = *(formatter + 29);
-        if (result)
-        {
-          goto LABEL_114;
-        }
-
-        v16 = *(formatter + 2);
-        v34 = *MEMORY[0x1E69E9840];
-        v18 = 14;
-      }
-
-      else
-      {
-        if (@"kCFDateFormatterVeryShortStandaloneWeekdaySymbolsKey" != key)
-        {
-          if (@"kCFDateFormatterQuarterSymbolsKey" == key)
-          {
-            result = *(formatter + 31);
-            if (result)
-            {
-              goto LABEL_114;
-            }
-
-            v16 = *(formatter + 2);
-            v36 = *MEMORY[0x1E69E9840];
-            v18 = 16;
-          }
-
-          else if (@"kCFDateFormatterShortQuarterSymbolsKey" == key)
-          {
-            result = *(formatter + 32);
-            if (result)
-            {
-              goto LABEL_114;
-            }
-
-            v16 = *(formatter + 2);
-            v37 = *MEMORY[0x1E69E9840];
-            v18 = 17;
-          }
-
-          else if (@"kCFDateFormatterStandaloneQuarterSymbolsKey" == key)
-          {
-            result = *(formatter + 33);
-            if (result)
-            {
-              goto LABEL_114;
-            }
-
-            v16 = *(formatter + 2);
-            v38 = *MEMORY[0x1E69E9840];
-            v18 = 18;
-          }
-
-          else
-          {
-            if (@"kCFDateFormatterShortStandaloneQuarterSymbolsKey" != key)
-            {
-              if (@"kCFDateFormatterAMSymbolKey" == key)
-              {
-                result = *(formatter + 35);
-                if (result)
-                {
-                  goto LABEL_114;
-                }
-
-                v40 = *(formatter + 2);
-                v41 = __cficu_udat_countSymbols();
-                if (v41 < 2)
-                {
-                  goto LABEL_59;
-                }
-
-                v42 = v41;
-                v43 = *(formatter + 2);
-              }
-
-              else
-              {
-                if (@"kCFDateFormatterPMSymbolKey" != key)
-                {
-                  if (@"kCFDateFormatterAmbiguousYearStrategyKey" == key)
-                  {
-                    result = *(formatter + 37);
-                    if (!result)
-                    {
-                      goto LABEL_68;
-                    }
-
-                    goto LABEL_114;
-                  }
-
-                  if (@"kCFDateFormatterUsesCharacterDirectionKey" != key)
-                  {
-                    if (CFEqual(key, @"kCFDateFormatterFormattingContextKey"))
-                    {
-                      result = *(formatter + 39);
-                      if (!result)
-                      {
-                        v6 = *(formatter + 2);
-                        *valuePtr = __cficu_udat_getContext();
-                        v7 = CFGetAllocator(formatter);
-                        result = CFNumberCreate(v7, kCFNumberIntType, valuePtr);
-LABEL_68:
-                        v24 = *MEMORY[0x1E69E9840];
-                        return result;
-                      }
-
-                      goto LABEL_114;
-                    }
-
-LABEL_59:
-                    result = 0;
-                    goto LABEL_68;
-                  }
-
-                  result = *(formatter + 38);
-                  if (result)
-                  {
-LABEL_114:
-                    v50 = *MEMORY[0x1E69E9840];
-                    goto LABEL_115;
-                  }
-
-                  goto LABEL_41;
-                }
-
-                result = *(formatter + 36);
-                if (result)
-                {
-                  goto LABEL_114;
-                }
-
-                v44 = *(formatter + 2);
-                v45 = __cficu_udat_countSymbols();
-                if (v45 < 2)
-                {
-                  goto LABEL_59;
-                }
-
-                v42 = v45;
-                v46 = *(formatter + 2);
-              }
-
-              Symbols = __cficu_udat_getSymbols();
-              result = 0;
-              if (v42 <= 0x300)
-              {
-                v48 = Symbols;
-                v49 = CFGetAllocator(formatter);
-                result = CFStringCreateWithCharacters(v49, valuePtr, v48);
-              }
-
-              goto LABEL_68;
-            }
-
-            result = *(formatter + 34);
-            if (result)
-            {
-              goto LABEL_114;
-            }
-
-            v16 = *(formatter + 2);
-            v39 = *MEMORY[0x1E69E9840];
-            v18 = 19;
-          }
-
-          goto LABEL_78;
-        }
-
-        result = *(formatter + 30);
-        if (result)
-        {
-          goto LABEL_114;
-        }
-
-        v16 = *(formatter + 2);
-        v35 = *MEMORY[0x1E69E9840];
-        v18 = 15;
-      }
-
-      v29 = 1;
-      goto LABEL_79;
-    }
-
     result = *(formatter + 24);
     if (result)
     {
       goto LABEL_114;
     }
 
-    v16 = *(formatter + 2);
-    v28 = *MEMORY[0x1E69E9840];
-    v18 = 12;
+    v11 = *(formatter + 2);
+    v12 = 12;
+    goto LABEL_78;
   }
 
+  if (@"kCFDateFormatterWeekdaySymbolsKey" == key)
+  {
+    result = *(formatter + 25);
+    if (result)
+    {
+      goto LABEL_114;
+    }
+
+    v11 = *(formatter + 2);
+    v12 = 3;
+    goto LABEL_94;
+  }
+
+  if (@"kCFDateFormatterShortWeekdaySymbolsKey" == key)
+  {
+    result = *(formatter + 26);
+    if (result)
+    {
+      goto LABEL_114;
+    }
+
+    v11 = *(formatter + 2);
+    v12 = 4;
+    goto LABEL_94;
+  }
+
+  if (@"kCFDateFormatterVeryShortWeekdaySymbolsKey" == key)
+  {
+    result = *(formatter + 27);
+    if (result)
+    {
+      goto LABEL_114;
+    }
+
+    v11 = *(formatter + 2);
+    v12 = 9;
+    goto LABEL_94;
+  }
+
+  if (@"kCFDateFormatterStandaloneWeekdaySymbolsKey" == key)
+  {
+    result = *(formatter + 28);
+    if (result)
+    {
+      goto LABEL_114;
+    }
+
+    v11 = *(formatter + 2);
+    v12 = 13;
+    goto LABEL_94;
+  }
+
+  if (@"kCFDateFormatterShortStandaloneWeekdaySymbolsKey" == key)
+  {
+    result = *(formatter + 29);
+    if (result)
+    {
+      goto LABEL_114;
+    }
+
+    v11 = *(formatter + 2);
+    v12 = 14;
+    goto LABEL_94;
+  }
+
+  if (@"kCFDateFormatterVeryShortStandaloneWeekdaySymbolsKey" == key)
+  {
+    result = *(formatter + 30);
+    if (result)
+    {
+      goto LABEL_114;
+    }
+
+    v11 = *(formatter + 2);
+    v12 = 15;
+LABEL_94:
+    v15 = 1;
+    goto LABEL_79;
+  }
+
+  if (@"kCFDateFormatterQuarterSymbolsKey" == key)
+  {
+    result = *(formatter + 31);
+    if (result)
+    {
+      goto LABEL_114;
+    }
+
+    v11 = *(formatter + 2);
+    v12 = 16;
+    goto LABEL_78;
+  }
+
+  if (@"kCFDateFormatterShortQuarterSymbolsKey" == key)
+  {
+    result = *(formatter + 32);
+    if (result)
+    {
+      goto LABEL_114;
+    }
+
+    v11 = *(formatter + 2);
+    v12 = 17;
+    goto LABEL_78;
+  }
+
+  if (@"kCFDateFormatterStandaloneQuarterSymbolsKey" == key)
+  {
+    result = *(formatter + 33);
+    if (result)
+    {
+      goto LABEL_114;
+    }
+
+    v11 = *(formatter + 2);
+    v12 = 18;
+    goto LABEL_78;
+  }
+
+  if (@"kCFDateFormatterShortStandaloneQuarterSymbolsKey" == key)
+  {
+    result = *(formatter + 34);
+    if (result)
+    {
+      goto LABEL_114;
+    }
+
+    v11 = *(formatter + 2);
+    v12 = 19;
 LABEL_78:
-  v29 = 0;
+    v15 = 0;
 LABEL_79:
 
-  return __CFDateFormatterCopySymbolsArray(v16, v18, v29);
+    return __CFDateFormatterCopySymbolsArray(v11, v12, v15);
+  }
+
+  if (@"kCFDateFormatterAMSymbolKey" == key)
+  {
+    result = *(formatter + 35);
+    if (result)
+    {
+      goto LABEL_114;
+    }
+
+    v16 = __cficu_udat_countSymbols();
+    if (v16 < 2)
+    {
+      return 0;
+    }
+
+    v17 = v16;
+  }
+
+  else
+  {
+    if (@"kCFDateFormatterPMSymbolKey" != key)
+    {
+      if (@"kCFDateFormatterAmbiguousYearStrategyKey" == key)
+      {
+        result = *(formatter + 37);
+        if (!result)
+        {
+          return result;
+        }
+
+        goto LABEL_114;
+      }
+
+      if (@"kCFDateFormatterUsesCharacterDirectionKey" != key)
+      {
+        if (CFEqual(key, @"kCFDateFormatterFormattingContextKey"))
+        {
+          result = *(formatter + 39);
+          if (!result)
+          {
+            *valuePtr = __cficu_udat_getContext();
+            v6 = CFGetAllocator(formatter);
+            return CFNumberCreate(v6, kCFNumberIntType, valuePtr);
+          }
+
+          goto LABEL_114;
+        }
+
+        return 0;
+      }
+
+      result = *(formatter + 38);
+      if (result)
+      {
+LABEL_114:
+
+        return CFRetain(result);
+      }
+
+      goto LABEL_41;
+    }
+
+    result = *(formatter + 36);
+    if (result)
+    {
+      goto LABEL_114;
+    }
+
+    v18 = __cficu_udat_countSymbols();
+    if (v18 < 2)
+    {
+      return 0;
+    }
+
+    v17 = v18;
+  }
+
+  Symbols = __cficu_udat_getSymbols();
+  result = 0;
+  if (v17 <= 0x300)
+  {
+    v20 = Symbols;
+    v21 = CFGetAllocator(formatter);
+    return CFStringCreateWithCharacters(v21, valuePtr, v20);
+  }
+
+  return result;
 }
 
 uint64_t __CompareTextDefault(uint64_t a1, int a2, unsigned int a3, unsigned __int16 *a4, unint64_t a5, unsigned __int16 *a6, unint64_t a7, BOOL *a8, int *a9)
 {
   v14 = a3;
-  v45 = *MEMORY[0x1E69E9840];
   *a8 = 1;
   *a9 = 0;
-  if (!a2 || ((_CFGetTSD(0x11u) >> 6) & 1) != ((a3 >> 6) & 1))
+  if (!a2 || ((_CFGetTSD(17) >> 6) & 1) != ((a3 >> 6) & 1))
   {
     ucol_setAttribute();
   }
@@ -4138,20 +4186,20 @@ LABEL_8:
     ucol_setAttribute();
     ucol_setAttribute();
     ucol_setAttribute();
-    v21 = ucol_strcoll();
-    if (v21)
+    v20 = ucol_strcoll();
+    if (v20)
     {
-      if (v21 == -1)
+      if (v20 == -1)
       {
-        v22 = -1;
+        v21 = -1;
       }
 
       else
       {
-        v22 = 1;
+        v21 = 1;
       }
 
-      *a9 = v22;
+      *a9 = v21;
     }
 
     ucol_setAttribute();
@@ -4160,47 +4208,47 @@ LABEL_8:
     v16 = *a9;
     if ((v14 & 0x10) == 0 && !v16)
     {
-      v40 = a5;
+      v39 = a5;
       ucol_openElements();
-      v26 = ucol_openElements();
-      v39 = a7;
+      v25 = ucol_openElements();
+      v38 = a7;
+      v26 = ucol_next();
+      v41 = v25;
       v27 = ucol_next();
-      v42 = v26;
-      v28 = ucol_next();
       v16 = 0;
-      v41 = 0;
-      if (v27 != -1)
+      v40 = 0;
+      if (v26 != -1)
       {
-        v29 = v28;
-        if (v28 != -1)
+        v28 = v27;
+        if (v27 != -1)
         {
-          v41 = 0;
+          v40 = 0;
+          v29 = 0;
           v30 = 0;
-          v31 = 0;
           while (1)
           {
-            v44 = MEMORY[0x1865E3D10]();
-            v32 = MEMORY[0x1865E3D10](v26);
-            v43 = v32;
-            if ((v29 ^ v27) <= 0xFF)
+            v43 = MEMORY[0x1865E3D10]();
+            v31 = MEMORY[0x1865E3D10](v25);
+            v42 = v31;
+            if ((v28 ^ v26) <= 0xFF)
             {
-              if (v27 >= 0x10000)
+              if (v26 >= 0x10000)
               {
-                v35 = v27;
-                v36 = v29;
-                if (v27 - 143 < 9)
+                v34 = v26;
+                v35 = v28;
+                if (v26 - 143 < 9)
                 {
-                  v35 = v27 - 138;
+                  v34 = v26 - 138;
                 }
 
-                if (v29 - 143 < 9)
+                if (v28 - 143 < 9)
                 {
-                  v36 = v29 - 138;
+                  v35 = v28 - 138;
                 }
 
-                if (v35 != v36)
+                if (v34 != v35)
                 {
-                  if (v35 < v36)
+                  if (v34 < v35)
                   {
                     v16 = -1;
                   }
@@ -4216,44 +4264,44 @@ LABEL_8:
 
               else
               {
-                if (v44 - v31 > v32 - v30)
+                if (v43 - v30 > v31 - v29)
                 {
-                  v33 = -1;
+                  v32 = -1;
                 }
 
                 else
                 {
-                  v33 = 1;
+                  v32 = 1;
                 }
 
-                if (v44 - v31 == v32 - v30)
+                if (v43 - v30 == v31 - v29)
                 {
-                  v33 = 0;
+                  v32 = 0;
                 }
 
-                v34 = v41;
-                if (v41)
+                v33 = v40;
+                if (v40)
                 {
-                  v33 = v41;
+                  v32 = v40;
                 }
 
-                if (v27 >= 0x100)
+                if (v26 >= 0x100)
                 {
-                  v34 = v33;
+                  v33 = v32;
                 }
 
-                v41 = v34;
+                v40 = v33;
               }
             }
 
-            v27 = ucol_next();
-            v26 = v42;
-            v37 = ucol_next();
-            v29 = v37;
-            v38 = v27 == -1 || v37 == -1;
+            v26 = ucol_next();
+            v25 = v41;
+            v36 = ucol_next();
+            v28 = v36;
+            v37 = v26 == -1 || v36 == -1;
+            v29 = v42;
             v30 = v43;
-            v31 = v44;
-            if (v38)
+            if (v37)
             {
               v16 = 0;
               break;
@@ -4264,13 +4312,13 @@ LABEL_8:
 
       ucol_closeElements();
       ucol_closeElements();
-      a7 = v39;
+      a7 = v38;
       if (!v16)
       {
-        v16 = v41;
+        v16 = v40;
       }
 
-      a5 = v40;
+      a5 = v39;
       goto LABEL_8;
     }
   }
@@ -4300,34 +4348,34 @@ LABEL_10:
     {
       if (a5 >= a7)
       {
-        v23 = a7;
+        v22 = a7;
       }
 
       else
       {
-        v23 = a5;
+        v22 = a5;
       }
 
-      if (v23)
+      if (v22)
       {
         while (1)
         {
-          v24 = *a4;
-          v25 = *a6;
-          if (v24 != v25)
+          v23 = *a4;
+          v24 = *a6;
+          if (v23 != v24)
           {
             break;
           }
 
           ++a4;
           ++a6;
-          if (!--v23)
+          if (!--v22)
           {
             goto LABEL_30;
           }
         }
 
-        if (v24 < v25)
+        if (v23 < v24)
         {
           v19 = -1;
         }
@@ -4364,9 +4412,7 @@ LABEL_30:
     ucol_setAttribute();
   }
 
-  result = 0;
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 void __cficu_ucal_clear()
@@ -4635,44 +4681,44 @@ Boolean CFRunLoopContainsObserver(CFRunLoopRef rl, CFRunLoopObserverRef observer
   pthread_mutex_lock((rl + 16));
   if (mode == @"kCFRunLoopCommonModes")
   {
-    v12 = *(rl + 331);
-    if (v12)
+    v17 = *(rl + 331);
+    if (v17)
     {
-      v11 = CFSetContainsValue(v12, observer);
+      v16 = CFSetContainsValue(v17, observer);
       goto LABEL_17;
     }
 
 LABEL_14:
-    v11 = 0;
+    v16 = 0;
     goto LABEL_17;
   }
 
-  v8 = __CFRunLoopCopyMode(rl, mode, 0);
-  if (!v8)
+  v13 = __CFRunLoopCopyMode(rl, mode, 0, v8, v9, v10, v11, v12);
+  if (!v13)
   {
     goto LABEL_14;
   }
 
-  v9 = v8;
-  pthread_mutex_lock((v8 + 16));
-  v10 = *(v9 + 112);
-  if (v10)
+  v14 = v13;
+  pthread_mutex_lock((v13 + 2));
+  v15 = v14[14];
+  if (v15)
   {
-    v14.length = CFArrayGetCount(*(v9 + 112));
-    v14.location = 0;
-    v11 = CFArrayContainsValue(v10, v14, observer);
+    v19.length = CFArrayGetCount(v14[14]);
+    v19.location = 0;
+    v16 = CFArrayContainsValue(v15, v19, observer);
   }
 
   else
   {
-    v11 = 0;
+    v16 = 0;
   }
 
-  pthread_mutex_unlock((v9 + 16));
-  CFRelease(v9);
+  pthread_mutex_unlock((v14 + 2));
+  CFRelease(v14);
 LABEL_17:
   pthread_mutex_unlock((rl + 16));
-  return v11;
+  return v16;
 }
 
 void *__CFAllocatorSystemReallocate(void *ptr, size_t size, int a3, malloc_zone_t *zone)
@@ -4805,17 +4851,17 @@ LABEL_11:
 
 CFPropertyListRef CFPropertyListCreateFromXMLData(CFAllocatorRef allocator, CFDataRef xmlData, CFOptionFlags mutabilityOption, CFStringRef *errorString)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (errorString)
   {
     *errorString = 0;
   }
 
   cf = 0;
-  v10[0] = 0;
-  _CFPropertyListCreateWithData(allocator, xmlData, mutabilityOption, &cf, 1, 0, 0, v10);
+  v9[0] = 0;
+  _CFPropertyListCreateWithData(allocator, xmlData, mutabilityOption, &cf, 1, 0, 0, v9);
   v5 = cf;
-  v6 = v10[0];
+  v6 = v9[0];
   if (errorString && cf)
   {
     *errorString = __copyErrorDebugDescription(cf);
@@ -4827,7 +4873,6 @@ CFPropertyListRef CFPropertyListCreateFromXMLData(CFAllocatorRef allocator, CFDa
     CFRelease(v5);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -4839,34 +4884,34 @@ uint64_t CFDateComponentsCreateCopy(__objc2_class **a1, uint64_t a2, uint64_t a3
     CFDateComponentsCreateCopy_cold_1();
   }
 
-  v10 = v9;
-  v11 = CFDateComponentsCopyCalendar(a2);
-  if (v11)
+  v11 = v9;
+  v12 = CFDateComponentsCopyCalendar(a2, v10);
+  if (v12)
   {
-    v12 = v11;
-    CFDateComponentsSetCalendar(v10, v11);
-    CFRelease(v12);
-  }
-
-  v13 = CFDateComponentsCopyTimeZone(a2);
-  if (v13)
-  {
-    v14 = v13;
-    CFDateComponentsSetTimeZone(v10, v13);
+    v14 = v12;
+    CFDateComponentsSetCalendar(v11, v12);
     CFRelease(v14);
   }
 
-  *(v10 + 32) = *(a2 + 32);
-  *(v10 + 48) = *(a2 + 48);
-  *(v10 + 64) = *(a2 + 64);
-  *(v10 + 80) = *(a2 + 80);
-  *(v10 + 96) = *(a2 + 96);
-  *(v10 + 112) = *(a2 + 112);
-  *(v10 + 128) = *(a2 + 128);
-  *(v10 + 168) = *(a2 + 168);
-  *(v10 + 144) = *(a2 + 144);
-  *(v10 + 160) = *(a2 + 160);
-  return v10;
+  v15 = CFDateComponentsCopyTimeZone(a2, v13);
+  if (v15)
+  {
+    v16 = v15;
+    CFDateComponentsSetTimeZone(v11, v15);
+    CFRelease(v16);
+  }
+
+  *(v11 + 32) = *(a2 + 32);
+  *(v11 + 48) = *(a2 + 48);
+  *(v11 + 64) = *(a2 + 64);
+  *(v11 + 80) = *(a2 + 80);
+  *(v11 + 96) = *(a2 + 96);
+  *(v11 + 112) = *(a2 + 112);
+  *(v11 + 128) = *(a2 + 128);
+  *(v11 + 168) = *(a2 + 168);
+  *(v11 + 144) = *(a2 + 144);
+  *(v11 + 160) = *(a2 + 160);
+  return v11;
 }
 
 CFStringRef __CFURLCopyFormattingDescription(void *cf)
@@ -4944,14 +4989,14 @@ void __CFStringTokenizerDeallocate(uint64_t a1)
   }
 }
 
-uint64_t CFStorageCreate(__objc2_class **a1, int64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t *CFStorageCreate(__objc2_class **a1, int64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   Instance = _CFRuntimeCreateInstance(a1, 0x1AuLL, 168, 0, a5, a6, a7, a8);
   v10 = Instance;
   if (Instance)
   {
-    *(Instance + 128) = 0;
-    *(Instance + 16) = a2;
+    *(Instance + 32) = 0;
+    Instance[2] = a2;
     v11 = __clz(__rbit64(a2));
     if (((a2 + 0x7FFFFFFFFFFFFFFFLL) & a2) != 0)
     {
@@ -4973,16 +5018,16 @@ uint64_t CFStorageCreate(__objc2_class **a1, int64_t a2, uint64_t a3, uint64_t a
       v13 = -1;
     }
 
-    *(Instance + 24) = v13;
-    *(Instance + 32) = 850045857;
-    *(Instance + 40) = 0u;
-    *(Instance + 56) = 0u;
-    *(Instance + 72) = 0u;
-    *(Instance + 88) = 0;
-    *(Instance + 136) = 12288;
+    *(Instance + 6) = v13;
+    Instance[4] = 850045857;
+    *(Instance + 5) = 0u;
+    *(Instance + 7) = 0u;
+    *(Instance + 9) = 0u;
+    Instance[11] = 0;
+    Instance[17] = 12288;
     if (a2 && 12288 % a2)
     {
-      *(Instance + 136) = 12288 - 12288 % a2;
+      Instance[17] = 12288 - 12288 % a2;
     }
 
     *(Instance + 157) = 1;
@@ -5070,7 +5115,7 @@ void CFStorageDeleteValues(uint64_t a1, uint64_t a2, uint64_t a3)
               pthread_mutex_lock((a1 + 32));
               if (v18 > *(a1 + 160))
               {
-                *(a1 + 168) = __CFSafelyReallocateWithAllocatorTyped(v6, *(a1 + 168), v18, 864523722, 0, 0);
+                *(a1 + 168) = __CFSafelyReallocateWithAllocatorTyped(v6, *(a1 + 168), v18, 864523722, 0);
                 if (__CFOASafe == 1)
                 {
                   __CFSetLastAllocationEventName();
@@ -5174,14 +5219,62 @@ void __CFStorageClearRootNode(uint64_t a1)
   *(a1 + 168) = 0;
 }
 
-uint64_t __CFStorageDeleteUnfrozen(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+CFURLRef CFURLCreateWithBytes(CFAllocatorRef allocator, const UInt8 *URLBytes, CFIndex length, CFStringEncoding encoding, CFURLRef baseURL)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v6 = *&encoding;
+  if (_foundation_swift_nsurl_feature_enabled_onceToken != -1)
+  {
+    CFURLCreateWithBytes_cold_1();
+  }
+
+  if (_foundation_swift_nsurl_feature_enabled_featureEnabled != 1)
+  {
+    if (dyld_program_sdk_at_least())
+    {
+      v13 = _CFURLCreateURLStringWithBytes(allocator, URLBytes, length, v6);
+    }
+
+    else
+    {
+      v13 = CFStringCreateWithBytes(allocator, URLBytes, length, v6, 0);
+    }
+
+    v11 = v13;
+    if (v13)
+    {
+      v14 = _CFURLCreateWithURLString(allocator, v13, 0, baseURL);
+      v12 = v14;
+      if (v6 != 134217984 && v14)
+      {
+        *(v14 + 5) = v6;
+      }
+
+      goto LABEL_12;
+    }
+
+    return 0;
+  }
+
+  v10 = _CFURLCreateURLStringWithBytes(allocator, URLBytes, length, v6);
+  if (!v10)
+  {
+    return 0;
+  }
+
+  v11 = v10;
+  v12 = [NSURL _cfurlWithString:v10 encoding:v6 relativeToURL:baseURL encodingInvalidCharacters:1 forceBaseURL:0];
+LABEL_12:
+  CFRelease(v11);
+  return v12;
+}
+
+uint64_t __CFStorageDeleteUnfrozen(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v39 = *MEMORY[0x1E69E9840];
   v6 = *a3 - a5;
   if (*a3 == a5)
   {
-    v7 = 0;
-    goto LABEL_54;
+    return 0;
   }
 
   v7 = a3;
@@ -5197,15 +5290,15 @@ uint64_t __CFStorageDeleteUnfrozen(uint64_t a1, uint64_t a2, uint64_t a3, uint64
         v13 = *v7;
         if (*v7 <= *MEMORY[0x1E69E9AC8] / 2)
         {
-          v30 = v13 + 63;
-          v29 = v13 < -63;
-          v31 = v13 + 126;
-          if (!v29)
+          v32 = v13 + 63;
+          v31 = v13 < -63;
+          v33 = v13 + 126;
+          if (!v31)
           {
-            v31 = v30;
+            v33 = v32;
           }
 
-          v15 = v31 & 0xFFFFFFFFFFFFFFC0;
+          v15 = v33 & 0xFFFFFFFFFFFFFFC0;
         }
 
         else
@@ -5227,7 +5320,7 @@ uint64_t __CFStorageDeleteUnfrozen(uint64_t a1, uint64_t a2, uint64_t a3, uint64
           pthread_mutex_lock((a2 + 32));
           if (v15 != *(v7 + 16))
           {
-            *(v7 + 24) = __CFSafelyReallocateWithAllocatorTyped(a1, *(v7 + 24), v15, 864523722, 0, 0);
+            *(v7 + 24) = __CFSafelyReallocateWithAllocatorTyped(a1, *(v7 + 24), v15, 864523722, 0);
             if (__CFOASafe == 1)
             {
               __CFSetLastAllocationEventName();
@@ -5246,10 +5339,10 @@ uint64_t __CFStorageDeleteUnfrozen(uint64_t a1, uint64_t a2, uint64_t a3, uint64
 
   v16 = 0;
   v17 = 0;
-  v36 = 0uLL;
+  v37 = 0uLL;
   v18 = a4 + a5;
   v19 = 16;
-  v37 = 0;
+  v38 = 0;
   do
   {
     v20 = *(v7 + v19);
@@ -5280,6 +5373,7 @@ uint64_t __CFStorageDeleteUnfrozen(uint64_t a1, uint64_t a2, uint64_t a3, uint64
       v24 = a4 + a5;
     }
 
+    v25 = v24 - v22;
     if (v24 <= v22)
     {
       if (*(v20 + 8))
@@ -5288,10 +5382,11 @@ uint64_t __CFStorageDeleteUnfrozen(uint64_t a1, uint64_t a2, uint64_t a3, uint64
       }
 
 LABEL_27:
-      *(&v36 + v16++) = v20;
+      *(&v37 + v16++) = v20;
       goto LABEL_28;
     }
 
+    v26 = v22 - v17;
     if (*(v20 + 12) != 1)
     {
       goto LABEL_22;
@@ -5301,14 +5396,14 @@ LABEL_27:
     {
       *(v20 + 12) = 0;
 LABEL_22:
-      v25 = __CFStorageDeleteUnfrozen(a1, a2);
+      v27 = __CFStorageDeleteUnfrozen(a1, a2, v20, v26, v25, a6);
       goto LABEL_26;
     }
 
-    v25 = __CFStorageDeleteFrozen(a1, a2, v20, v22 - v17, v24 - v22);
+    v27 = __CFStorageDeleteFrozen(a1, a2, v20, v26, v25);
 LABEL_26:
-    v20 = v25;
-    if (v25)
+    v20 = v27;
+    if (v27)
     {
       goto LABEL_27;
     }
@@ -5320,22 +5415,22 @@ LABEL_28:
 
   while (v19 != 40);
   *v7 -= a5;
-  v26 = *(v7 + 16);
-  if (*(v26 + 8) && atomic_fetch_add_explicit((v26 + 8), 0xFFFFFFFF, memory_order_relaxed) == 1)
-  {
-    __CFStorageDeallocateNode(a2, v26);
-  }
-
-  v27 = *(v7 + 24);
-  if (v27 && *(v27 + 8) && atomic_fetch_add_explicit((v27 + 8), 0xFFFFFFFF, memory_order_relaxed) == 1)
-  {
-    __CFStorageDeallocateNode(a2, v27);
-  }
-
-  v28 = *(v7 + 32);
-  if (v28 && *(v28 + 8) && atomic_fetch_add_explicit((v28 + 8), 0xFFFFFFFF, memory_order_relaxed) == 1)
+  v28 = *(v7 + 16);
+  if (*(v28 + 8) && atomic_fetch_add_explicit((v28 + 8), 0xFFFFFFFF, memory_order_relaxed) == 1)
   {
     __CFStorageDeallocateNode(a2, v28);
+  }
+
+  v29 = *(v7 + 24);
+  if (v29 && *(v29 + 8) && atomic_fetch_add_explicit((v29 + 8), 0xFFFFFFFF, memory_order_relaxed) == 1)
+  {
+    __CFStorageDeallocateNode(a2, v29);
+  }
+
+  v30 = *(v7 + 32);
+  if (v30 && *(v30 + 8) && atomic_fetch_add_explicit((v30 + 8), 0xFFFFFFFF, memory_order_relaxed) == 1)
+  {
+    __CFStorageDeallocateNode(a2, v30);
   }
 
   *(v7 + 16) = 0;
@@ -5343,21 +5438,18 @@ LABEL_28:
   *(v7 + 32) = 0;
   if (v16 == 1)
   {
-    v7 = v36;
-    goto LABEL_54;
+    return v37;
   }
 
-  *(v7 + 16) = v36;
-  *(v7 + 32) = v37;
+  *(v7 + 16) = v37;
+  *(v7 + 32) = v38;
 LABEL_52:
-  v32 = *(v7 + 8);
-  if (v32)
+  v34 = *(v7 + 8);
+  if (v34)
   {
-    *(v7 + 8) = v32 + 1;
+    *(v7 + 8) = v34 + 1;
   }
 
-LABEL_54:
-  v33 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -5510,110 +5602,113 @@ void __CFNumberFormatterDeallocate(void *a1)
 
 uint64_t _CFBundleDlfcnLoadBundle(uint64_t a1, int a2, CFTypeRef *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock_with_options();
   v6 = *(a1 + 52);
   os_unfair_lock_unlock((a1 + 96));
   if (v6)
   {
-    v7 = 1;
-    goto LABEL_26;
+    return 1;
   }
 
   cf = 0;
   v8 = CFBundleCopyExecutableURL(a1);
-  v9 = v8;
-  if (v8 && CFURLGetFileSystemRepresentation(v8, 1u, buffer, 1026))
+  v10 = v8;
+  if (v8)
   {
-    if (a2)
+    v8 = CFURLGetFileSystemRepresentation(v8, 1u, buffer, 1026);
+    if (v8)
     {
-      v10 = 265;
-    }
-
-    else
-    {
-      v10 = 262;
-    }
-
-    v11 = dlopen(buffer, v10);
-    v12 = _CFBundleLoadingLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 138544130;
-      v22 = a1;
-      v23 = 2082;
-      v24 = buffer;
-      v25 = 1024;
-      v26 = v10;
-      v27 = 2048;
-      v28 = v11;
-      _os_log_debug_impl(&dword_1830E6000, v12, OS_LOG_TYPE_DEBUG, "dlfcn load bundle %{public}@, dlopen of %{public}s mode 0x%x returns handle %p", buf, 0x26u);
-    }
-
-    os_unfair_lock_lock_with_options();
-    if (v11)
-    {
-      if (v11 == *(a1 + 56))
+      if (a2)
       {
-        v13 = _CFBundleLoadingLogger();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
-        {
-          _CFBundleDlfcnLoadBundle_cold_1();
-        }
-
-        os_unfair_lock_unlock((a1 + 96));
-        dlclose(v11);
-        os_unfair_lock_lock_with_options();
+        v11 = 265;
       }
 
-      *(a1 + 56) = v11;
-      v7 = 1;
-      *(a1 + 52) = 1;
-      os_unfair_lock_unlock((a1 + 96));
-      goto LABEL_20;
-    }
-
-    *(a1 + 56) = 0;
-    os_unfair_lock_unlock((a1 + 96));
-    v7 = dlerror();
-    v18 = _CFBundleLoadingLogger();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-    {
-      _CFBundleDlfcnLoadBundle_cold_2();
-      if (!v7)
+      else
       {
-LABEL_30:
-        if (a3)
+        v11 = 262;
+      }
+
+      v12 = dlopen(buffer, v11);
+      v14 = _CFBundleLoadingLogger(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138544130;
+        v26 = a1;
+        v27 = 2082;
+        v28 = buffer;
+        v29 = 1024;
+        v30 = v11;
+        v31 = 2048;
+        v32 = v12;
+        _os_log_debug_impl(&dword_1830E6000, v14, OS_LOG_TYPE_DEBUG, "dlfcn load bundle %{public}@, dlopen of %{public}s mode 0x%x returns handle %p", buf, 0x26u);
+      }
+
+      v15 = os_unfair_lock_lock_with_options();
+      if (v12)
+      {
+        if (v12 == *(a1 + 56))
         {
-          _CFBundleDlfcnPreflight(a1, &cf);
-          if (!cf)
+          v17 = _CFBundleLoadingLogger(v15, v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
-            v19 = CFGetAllocator(a1);
-            cf = _CFBundleCreateErrorDebug(v19, a1, 3588, v7);
+            _CFBundleDlfcnLoadBundle_cold_1();
           }
+
+          os_unfair_lock_unlock((a1 + 96));
+          dlclose(v12);
+          os_unfair_lock_lock_with_options();
         }
 
-        if (v7)
-        {
-          CFRelease(v7);
-          v7 = 0;
-        }
-
+        *(a1 + 56) = v12;
+        v7 = 1;
+        *(a1 + 52) = 1;
+        os_unfair_lock_unlock((a1 + 96));
         goto LABEL_20;
       }
-    }
 
-    else if (!v7)
-    {
+      *(a1 + 56) = 0;
+      os_unfair_lock_unlock((a1 + 96));
+      v7 = dlerror();
+      v22 = _CFBundleLoadingLogger(v7, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        _CFBundleDlfcnLoadBundle_cold_2();
+        if (!v7)
+        {
+LABEL_30:
+          if (a3)
+          {
+            _CFBundleDlfcnPreflight(a1, &cf);
+            if (!cf)
+            {
+              v23 = CFGetAllocator(a1);
+              cf = _CFBundleCreateErrorDebug(v23, a1, 3588, v7);
+            }
+          }
+
+          if (v7)
+          {
+            CFRelease(v7);
+            v7 = 0;
+          }
+
+          goto LABEL_20;
+        }
+      }
+
+      else if (!v7)
+      {
+        goto LABEL_30;
+      }
+
+      v7 = CFStringCreateWithFileSystemRepresentation(&__kCFAllocatorSystemDefault, v7);
       goto LABEL_30;
     }
-
-    v7 = CFStringCreateWithFileSystemRepresentation(&__kCFAllocatorSystemDefault, v7);
-    goto LABEL_30;
   }
 
-  v14 = _CFBundleLoadingLogger();
-  if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v18 = _CFBundleLoadingLogger(v8, v9);
+  if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     if (!a3)
     {
@@ -5627,16 +5722,16 @@ LABEL_30:
   if (a3)
   {
 LABEL_18:
-    v15 = CFGetAllocator(a1);
-    cf = _CFBundleCreateError(v15, a1, 4);
+    v19 = CFGetAllocator(a1);
+    cf = _CFBundleCreateError(v19, a1, 4);
   }
 
 LABEL_19:
   v7 = 0;
-  if (v9)
+  if (v10)
   {
 LABEL_20:
-    CFRelease(v9);
+    CFRelease(v10);
   }
 
   if (!a3 || v7)
@@ -5652,8 +5747,6 @@ LABEL_20:
     *a3 = cf;
   }
 
-LABEL_26:
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -5712,7 +5805,7 @@ uint64_t __cficu_ucal_get()
   return v0;
 }
 
-CFTypeRef _CFCopySystemVersionPlatformDictionary()
+CFTypeRef _CFCopySystemVersionPlatformDictionary(uint64_t a1)
 {
   if (_CFCopySystemVersionPlatformDictionary_onceToken != -1)
   {
@@ -5744,7 +5837,7 @@ uint64_t CFStringEncodingIsValidCombiningCharacterForLatin1(int a1)
 
 SInt32 CFURLGetPortNumber(CFURLRef anURL)
 {
-  *&v12[47] = *MEMORY[0x1E69E9840];
+  *&v11[47] = *MEMORY[0x1E69E9840];
   while (1)
   {
     if (_foundation_swift_nsurl_feature_enabled_onceToken != -1)
@@ -5765,46 +5858,43 @@ SInt32 CFURLGetPortNumber(CFURLRef anURL)
     if (CF_IS_OBJC(0x1DuLL, anURL))
     {
       v4 = [(__CFURL *)anURL port];
-      v12[1] = 0;
+      v11[1] = 0;
       if (v4)
       {
         goto LABEL_14;
       }
 
-LABEL_17:
-      result = -1;
-      goto LABEL_24;
+      return -1;
     }
 
     v2 = _retainedComponentString(anURL, 16, 1, 0);
     if (v2)
     {
       v6 = v2;
-      memset(v12, 0, 132);
+      memset(v11, 0, 132);
       Length = CFStringGetLength(v2);
-      *&v12[33] = v6;
-      *&v12[39] = 0;
-      *&v12[41] = Length;
+      *&v11[33] = v6;
+      *&v11[39] = 0;
+      *&v11[41] = Length;
       CharactersPtr = CFStringGetCharactersPtr(v6);
       CStringPtr = 0;
-      *&v12[35] = CharactersPtr;
+      *&v11[35] = CharactersPtr;
       if (!CharactersPtr)
       {
         CStringPtr = CFStringGetCStringPtr(v6, 0x600u);
       }
 
-      *&v12[43] = 0;
-      *&v12[45] = 0;
-      *&v12[37] = CStringPtr;
-      v11 = 0;
-      if (!__CFStringScanInteger(&v12[1], 0, &v11, 0, v12) || v11 != Length)
+      *&v11[43] = 0;
+      *&v11[45] = 0;
+      *&v11[37] = CStringPtr;
+      v10 = 0;
+      if (!__CFStringScanInteger(&v11[1], 0, &v10, 0, v11) || v10 != Length)
       {
-        v12[0] = -1;
+        v11[0] = -1;
       }
 
       CFRelease(v6);
-      result = v12[0];
-      goto LABEL_24;
+      return v11[0];
     }
 
     if (*(anURL + 4))
@@ -5817,30 +5907,26 @@ LABEL_17:
       }
     }
 
-    goto LABEL_17;
+    return -1;
   }
 
   v4 = [(__CFURL *)anURL port];
   if (!v4)
   {
-    goto LABEL_17;
+    return -1;
   }
 
-  v12[1] = 0;
+  v11[1] = 0;
 LABEL_14:
-  if (CFNumberGetValue(v4, kCFNumberSInt32Type, &v12[1]))
+  if (CFNumberGetValue(v4, kCFNumberSInt32Type, &v11[1]))
   {
-    result = v12[1];
+    return v11[1];
   }
 
   else
   {
-    result = -1;
+    return -1;
   }
-
-LABEL_24:
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 CFCharacterSetRef CFCharacterSetCreateWithBitmapRepresentation(CFAllocatorRef alloc, CFDataRef theData)
@@ -5893,7 +5979,7 @@ CFCharacterSetRef CFCharacterSetCreateWithBitmapRepresentation(CFAllocatorRef al
   v16 = Length;
   if (!(Length >> 13))
   {
-    Typed = CFAllocatorAllocateTyped(alloc, 0x2000, 0x100004077774924, 0);
+    Typed = CFAllocatorAllocateTyped(alloc, 0x2000uLL, 0x100004077774924uLL);
     BytePtr = CFDataGetBytePtr(theData);
     memmove(Typed, BytePtr, v16);
     bzero(&Typed[v16], 0x2000 - v16);
@@ -5942,7 +6028,7 @@ CFCharacterSetRef CFCharacterSetCreateWithBitmapRepresentation(CFAllocatorRef al
 
   else
   {
-    v30 = CFAllocatorAllocateTyped(alloc, 0x2000, 0x100004077774924, 0);
+    v30 = CFAllocatorAllocateTyped(alloc, 0x2000uLL, 0x100004077774924uLL);
     v31 = CFDataGetBytePtr(theData);
     memmove(v30, v31, 0x2000uLL);
     v9[3] = v30;
@@ -5982,12 +6068,12 @@ CFCharacterSetRef CFCharacterSetCreateWithBitmapRepresentation(CFAllocatorRef al
           v37 = CFGetAllocator(v9);
           if (v36)
           {
-            result = __CFSafelyReallocateWithAllocatorTyped(v37, *v9[5], 8 * v34, 0x6004044C4A2DFLL, 0, 0);
+            result = __CFSafelyReallocateWithAllocatorTyped(v37, *v9[5], 8 * v34, 1153737439, 0);
             goto LABEL_38;
           }
 
 LABEL_37:
-          result = CFAllocatorAllocateTyped(v37, 8 * v34, 0x6004044C4A2DFLL, 0);
+          result = CFAllocatorAllocateTyped(v37, 8 * v34, 0x6004044C4A2DFuLL);
 LABEL_38:
           v35 = v9[5];
           *v35 = result;
@@ -6005,7 +6091,7 @@ LABEL_38:
         v41 = *(*v35 + 8 * v34 - 8);
         if (v32 <= 0x2000 && v41)
         {
-          v42 = CFAllocatorAllocateTyped(alloc, 0x2000, 0x100004077774924, 0);
+          v42 = CFAllocatorAllocateTyped(alloc, 0x2000uLL, 0x100004077774924uLL);
           memmove(v42, v33, v32 - 1);
           bzero(&v42[v32 - 1], 8193 - v32);
           result = __CFCreateCompactBitmap(alloc, v42);
@@ -6062,7 +6148,7 @@ LABEL_38:
 
           else
           {
-            v50 = CFAllocatorAllocateTyped(alloc, 0x2000, 0x100004077774924, 0);
+            v50 = CFAllocatorAllocateTyped(alloc, 0x2000uLL, 0x100004077774924uLL);
             result = memmove(v50, v33, 0x2000uLL);
             *(v41 + 24) = v50;
             v51 = atomic_load((v41 + 8));
@@ -6082,7 +6168,7 @@ LABEL_38:
       }
 
       v38 = CFGetAllocator(v9);
-      v39 = CFAllocatorAllocateTyped(v38, 16, 0x1080040FC6463CFLL, 0);
+      v39 = CFAllocatorAllocateTyped(v38, 0x10uLL, 0x1080040FC6463CFuLL);
       v9[5] = v39;
       *(v39 + 12) = v34;
       *(v39 + 13) = 0;
@@ -6106,8 +6192,8 @@ LABEL_61:
 
 uint64_t _appendPercentEscapesForCharacter(unsigned __int16 *a1, int a2, uint64_t a3, __CFString *a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v14 = 0;
+  v17 = *MEMORY[0x1E69E9840];
+  v13 = 0;
   if (a2)
   {
     v5 = 2;
@@ -6118,11 +6204,11 @@ uint64_t _appendPercentEscapesForCharacter(unsigned __int16 *a1, int a2, uint64_
     v5 = 1;
   }
 
-  v6 = CFStringEncodingUnicodeToBytes(a3, 0, a1, v5, 0, v17, 8, &v14);
+  v6 = CFStringEncodingUnicodeToBytes(a3, 0, a1, v5, 0, v16, 8, &v13);
   result = 0;
   if (!v6)
   {
-    if (v14 < 1)
+    if (v13 < 1)
     {
       v8 = 0;
     }
@@ -6130,9 +6216,9 @@ uint64_t _appendPercentEscapesForCharacter(unsigned __int16 *a1, int a2, uint64_
     else
     {
       v8 = 0;
-      v9 = (v17 + v14);
-      v10 = v16;
-      v11 = v17;
+      v9 = (v16 + v13);
+      v10 = v15;
+      v11 = v16;
       do
       {
         v12 = *v11;
@@ -6148,10 +6234,9 @@ uint64_t _appendPercentEscapesForCharacter(unsigned __int16 *a1, int a2, uint64_
     }
 
     CFStringAppendCharacters(a4, &chars, v8);
-    result = 1;
+    return 1;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6161,7 +6246,7 @@ void *_CFURLAllocateExtraDataspace(void *result)
   {
     v1 = result;
     v2 = CFGetAllocator(result);
-    result = CFAllocatorAllocateTyped(v2, 24, 0x10E0040191BE475, 0);
+    result = CFAllocatorAllocateTyped(v2, 0x18uLL, 0x10E0040191BE475uLL);
     v3 = v1[5];
     if (v3)
     {
@@ -6186,10 +6271,10 @@ void *_CFURLAllocateExtraDataspace(void *result)
 
 Boolean CFCharacterSetIsSupersetOfSet(CFCharacterSetRef theSet, CFCharacterSetRef theOtherset)
 {
-  v2 = MEMORY[0x1EEE9AC00](theSet, theOtherset);
+  v2 = (MEMORY[0x1EEE9AC00])(theSet, theOtherset);
   v4 = v3;
   v5 = v2;
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   if (CF_IS_OBJC(0x19uLL, v2))
   {
     v6 = [v5 _expandedCFCharacterSet];
@@ -6268,9 +6353,7 @@ LABEL_24:
     v14 = atomic_load(v4 + 1);
     if ((v14 & 8) == 0)
     {
-LABEL_108:
-      LOBYTE(IsEqualBitmap) = 1;
-      goto LABEL_117;
+      goto LABEL_108;
     }
 
 LABEL_36:
@@ -6316,73 +6399,68 @@ LABEL_36:
 
       v21 = atomic_load(v5 + 1);
       v22 = atomic_load(v4 + 1);
-      if ((v21 & 8) == 0)
+      if ((v21 & 8) != 0)
       {
+        v39 = *(v4 + 6);
         if ((v22 & 8) != 0)
         {
-          v58 = *(v5 + 6);
-          if (!v58 && v5[4] == 1114112)
-          {
-            goto LABEL_108;
-          }
-
-          v59 = *(v4 + 6);
-          if (!v59 && v58 >= *(v4 + 8))
-          {
-            goto LABEL_108;
-          }
-
-          if ((v5[4] + v58) > v59)
+          v60 = *(v5 + 6);
+          if (v39 > v60)
           {
             goto LABEL_116;
           }
 
-          LOBYTE(IsEqualBitmap) = v4[4] + v59 == 1114112;
+          v41 = v5[4] + v60;
+          v39 += v4[4];
         }
 
         else
         {
-          v23 = *(v4 + 6);
-          v24 = *(v5 + 6);
-          if (v23 < v24)
+          v40 = *(v5 + 6);
+          if ((v4[4] + v39) <= v40)
           {
-            goto LABEL_116;
+            goto LABEL_108;
           }
 
-          LOBYTE(IsEqualBitmap) = (v5[4] + v24) >= (v4[4] + v23);
+          v41 = v5[4] + v40;
         }
 
-LABEL_117:
-        v62 = *MEMORY[0x1E69E9840];
+        LOBYTE(IsEqualBitmap) = v41 <= v39;
         return IsEqualBitmap;
       }
 
-      v39 = *(v4 + 6);
-      if ((v22 & 8) != 0)
+      if ((v22 & 8) == 0)
       {
-        v60 = *(v5 + 6);
-        if (v39 > v60)
+        v23 = *(v4 + 6);
+        v24 = *(v5 + 6);
+        if (v23 < v24)
         {
           goto LABEL_116;
         }
 
-        v41 = v5[4] + v60;
-        v39 += v4[4];
+        LOBYTE(IsEqualBitmap) = (v5[4] + v24) >= (v4[4] + v23);
+        return IsEqualBitmap;
       }
 
-      else
+      v58 = *(v5 + 6);
+      if (v58 || v5[4] != 1114112)
       {
-        v40 = *(v5 + 6);
-        if ((v4[4] + v39) <= v40)
+        v59 = *(v4 + 6);
+        if (v59 || v58 < *(v4 + 8))
         {
-          goto LABEL_108;
-        }
+          if ((v5[4] + v58) <= v59)
+          {
+            LOBYTE(IsEqualBitmap) = v4[4] + v59 == 1114112;
+            return IsEqualBitmap;
+          }
 
-        v41 = v5[4] + v40;
+          goto LABEL_116;
+        }
       }
 
-      LOBYTE(IsEqualBitmap) = v41 <= v39;
-      goto LABEL_117;
+LABEL_108:
+      LOBYTE(IsEqualBitmap) = 1;
+      return IsEqualBitmap;
     }
 
     v37 = v5[5];
@@ -6458,13 +6536,13 @@ LABEL_75:
 
     v45 = 1;
 LABEL_79:
-    __CFCSetGetBitmap(v5, v66);
+    __CFCSetGetBitmap(v5, v65);
     __CFCSetGetBitmap(v4, __b);
     v47 = 0;
     while (v47 != 2048)
     {
       v48 = __b[0].i32[v47];
-      v49 = v66[0].i32[v47++];
+      v49 = v65[0].i32[v47++];
       if ((v48 & ~v49) != 0)
       {
         goto LABEL_116;
@@ -6475,7 +6553,7 @@ LABEL_79:
     {
       if ((v43 & ~v46) == 0)
       {
-        v64 = v44 << 63 >> 63;
+        v63 = v44 << 63 >> 63;
         v50 = v44 - 1;
         v51 = 1;
         while (1)
@@ -6491,28 +6569,26 @@ LABEL_79:
                 v54 = v4[5];
                 if (v54 && (*(v54 + 8) & (1 << v51)) != 0 && *(v54 + 12) >= v51 && (v55 = *(*v54 + 8 * v51 - 8)) != 0)
                 {
-                  __CFCSetGetBitmap(v53, v66);
+                  __CFCSetGetBitmap(v53, v65);
                   __CFCSetGetBitmap(v55, __b);
-                  v56 = 0;
-                  while (v56 != 2048)
+                  for (i = 0; i != 2048; ++i)
                   {
                     LOBYTE(IsEqualBitmap) = 0;
-                    v57 = v66[0].i32[v56] ^ v50 | __b[0].i32[v56] ^ (v45 << 31 >> 31);
-                    ++v56;
+                    v57 = v65[0].i32[i] ^ v50 | __b[0].i32[i] ^ (v45 << 31 >> 31);
                     if (v57 != -1)
                     {
-                      goto LABEL_117;
+                      return IsEqualBitmap;
                     }
                   }
                 }
 
                 else if ((v45 & 1) == 0)
                 {
-                  __CFCSetGetBitmap(v53, v66);
-                  IsEqualBitmap = __CFCSetIsEqualBitmap(v66, v64);
+                  __CFCSetGetBitmap(v53, v65);
+                  IsEqualBitmap = __CFCSetIsEqualBitmap(v65, v63);
                   if (!IsEqualBitmap)
                   {
-                    goto LABEL_117;
+                    return IsEqualBitmap;
                   }
                 }
               }
@@ -6555,45 +6631,41 @@ LABEL_50:
   v36 = (v35 >> 4) & 7;
   if (v36 > 2)
   {
-    if (v36 != 3 && v36 != 4)
+    if (v36 == 3 || v36 == 4)
     {
-      goto LABEL_117;
-    }
+      if (!v4[3])
+      {
+        goto LABEL_115;
+      }
 
-    if (v4[3])
-    {
       goto LABEL_116;
     }
   }
 
-  else
+  else if (v36 == 1 || v36 == 2)
   {
-    if (v36 != 1 && v36 != 2)
+    if (!v4[4])
     {
-      goto LABEL_117;
-    }
-
-    if (v4[4])
-    {
-      goto LABEL_116;
-    }
-  }
-
-  v61 = atomic_load(v4 + 1);
-  if ((v61 & 8) != 0)
-  {
-LABEL_116:
-    LOBYTE(IsEqualBitmap) = 0;
-    goto LABEL_117;
-  }
+LABEL_115:
+      v61 = atomic_load(v4 + 1);
+      if ((v61 & 8) != 0)
+      {
+        goto LABEL_116;
+      }
 
 LABEL_49:
-  Copy = __CFCharacterSetCreateCopy(&__kCFAllocatorSystemDefault, v5, 1);
-  CFCharacterSetIntersect(Copy, v4);
-  v31 = __CFCharacterSetEqual(Copy, v4);
-  CFRelease(Copy);
-  v32 = *MEMORY[0x1E69E9840];
-  LOBYTE(IsEqualBitmap) = v31;
+      Copy = __CFCharacterSetCreateCopy(&__kCFAllocatorSystemDefault, v5, 1);
+      CFCharacterSetIntersect(Copy, v4);
+      v32 = __CFCharacterSetEqual(Copy, v4, v31);
+      CFRelease(Copy);
+      LOBYTE(IsEqualBitmap) = v32;
+      return IsEqualBitmap;
+    }
+
+LABEL_116:
+    LOBYTE(IsEqualBitmap) = 0;
+  }
+
   return IsEqualBitmap;
 }
 
@@ -6637,55 +6709,106 @@ LABEL_8:
   }
 }
 
+Boolean CFStringIsEncodingAvailable(CFStringEncoding encoding)
+{
+  result = 1;
+  if (encoding > 134217983)
+  {
+    if (encoding > 335544575)
+    {
+      if (encoding == 335544576 || encoding == 402653440)
+      {
+        return result;
+      }
+
+      v3 = 469762304;
+    }
+
+    else
+    {
+      if (encoding == 134217984 || encoding == 201326848)
+      {
+        return result;
+      }
+
+      v3 = 268435712;
+    }
+
+    if (encoding == v3)
+    {
+      return result;
+    }
+
+    return CFStringEncodingIsValidEncoding(encoding);
+  }
+
+  if (encoding <= 1535)
+  {
+    if (!encoding || encoding == 256 || encoding == 1280)
+    {
+      return result;
+    }
+
+    return CFStringEncodingIsValidEncoding(encoding);
+  }
+
+  if (encoding != 1536 && encoding != 2817 && encoding != 3071)
+  {
+    return CFStringEncodingIsValidEncoding(encoding);
+  }
+
+  return result;
+}
+
 BOOL __CFStringEncodingGetCanonicalName(int a1, char *__str, int64_t __size)
 {
   v4 = ((a1 & 0xF00u) - 256) >> 8;
   if (v4 - 3 < 2)
   {
-    v8 = &unk_183446D16;
-    v9 = a1 & 0xFFF;
-    v10 = &__CFKnownEncodingList;
+    v7 = &unk_183446D16;
+    v8 = a1 & 0xFFF;
+    v9 = __CFKnownEncodingList;
     while (1)
     {
-      v11 = &v10[(v8 - v10) >> 2];
-      v12 = *v11;
-      if (v9 == v12)
+      v10 = &v9[(v7 - v9) >> 2];
+      v11 = *v10;
+      if (v8 == v11)
       {
         break;
       }
 
-      v13 = (v11 - 2);
-      v14 = (v11 + 2);
-      if (v9 < v12)
+      v12 = (v10 - 2);
+      v13 = (v10 + 2);
+      if (v8 < v11)
       {
-        v8 = v13;
+        v7 = v12;
       }
 
       else
       {
-        v10 = v14;
+        v9 = v13;
       }
 
-      if (v10 > v8)
+      if (v9 > v7)
       {
         return 0;
       }
     }
 
-    if (v11 - &__CFKnownEncodingList != -2 && *(&__CFWindowsCPList + v11 - &__CFKnownEncodingList))
+    if (v10 - __CFKnownEncodingList != -2 && *(__CFWindowsCPList + v10 - __CFKnownEncodingList))
     {
       if ((a1 & 0xF00) == 0x400)
       {
-        v15 = "cp%d";
+        v14 = "cp%d";
       }
 
       else
       {
-        v15 = "windows-%d";
+        v14 = "windows-%d";
       }
 
-      v7 = snprintf(__str, __size, v15, *(&__CFWindowsCPList + v11 - &__CFKnownEncodingList));
-      return v7 < __size;
+      v6 = snprintf(__str, __size, v14, *(__CFWindowsCPList + v10 - __CFKnownEncodingList));
+      return v6 < __size;
     }
   }
 
@@ -6693,59 +6816,57 @@ BOOL __CFStringEncodingGetCanonicalName(int a1, char *__str, int64_t __size)
   {
     if (v4 == 1)
     {
-      v7 = snprintf(__str, __size, "iso-8859-%u");
-      return v7 < __size;
+      v6 = snprintf(__str, __size, "iso-8859-%u");
+      return v6 < __size;
     }
 
     if (v4)
     {
-      v17 = &unk_183446D16;
-      v18 = a1 & 0xFFF;
-      v19 = &__CFKnownEncodingList;
+      v16 = &unk_183446D16;
+      v17 = a1 & 0xFFF;
+      v18 = __CFKnownEncodingList;
       while (1)
       {
-        v20 = &v19[(v17 - v19) >> 2];
-        v21 = *v20;
-        if (v18 == v21)
+        v19 = &v18[(v16 - v18) >> 2];
+        v20 = *v19;
+        if (v17 == v20)
         {
           break;
         }
 
-        v22 = (v20 - 2);
-        v23 = (v20 + 2);
-        if (v18 < v21)
+        v21 = (v19 - 2);
+        v22 = (v19 + 2);
+        if (v17 < v20)
         {
-          v17 = v22;
+          v16 = v21;
         }
 
         else
         {
-          v19 = v23;
+          v18 = v22;
         }
 
-        if (v19 > v17)
+        if (v18 > v16)
         {
           return 0;
         }
       }
 
-      if (v20 - &__CFKnownEncodingList != -2 && *(__CFCanonicalNameList + 4 * (v20 - &__CFKnownEncodingList)))
+      if (v19 - __CFKnownEncodingList != -2 && *(__CFCanonicalNameList + 4 * (v19 - __CFKnownEncodingList)))
       {
-        v7 = snprintf(__str, __size, "%s%s");
-        return v7 < __size;
+        v6 = snprintf(__str, __size, "%s%s");
+        return v6 < __size;
       }
     }
 
     else
     {
-      HIDWORD(v6) = a1 - 256;
-      LODWORD(v6) = a1 - 256;
-      v5 = v6 >> 26;
-      if (v5 <= 7)
+      HIDWORD(v5) = a1 - 256;
+      LODWORD(v5) = a1 - 256;
+      if ((v5 >> 26) <= 7)
       {
-        v24 = off_1E6DD0850[v5];
-        v7 = snprintf(__str, __size, "%s");
-        return v7 < __size;
+        v6 = snprintf(__str, __size, "%s");
+        return v6 < __size;
       }
     }
   }
@@ -6755,7 +6876,7 @@ BOOL __CFStringEncodingGetCanonicalName(int a1, char *__str, int64_t __size)
 
 CFStringRef CFStringConvertEncodingToIANACharSetName(CFStringEncoding encoding)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = encoding;
   os_unfair_lock_lock_with_options();
   if (!CFStringConvertEncodingToIANACharSetName_mappingTable || (Value = CFDictionaryGetValue(CFStringConvertEncodingToIANACharSetName_mappingTable, v2)) == 0)
@@ -6784,7 +6905,6 @@ CFStringRef CFStringConvertEncodingToIANACharSetName(CFStringEncoding encoding)
   }
 
   os_unfair_lock_unlock(&CFStringConvertEncodingToIANACharSetName_lock);
-  v5 = *MEMORY[0x1E69E9840];
   return Value;
 }
 
@@ -7189,7 +7309,7 @@ LABEL_47:
   return CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"The operation couldn\\U2019t be completed. (%@ error %ld.)", v27, v30);
 }
 
-CFIndex _loadStringsDictTable(const void *a1, void *a2, void *a3, CFDictionaryRef theDict, uint64_t a5, CFTypeRef *a6)
+CFIndex _loadStringsDictTable(const void *a1, void *a2, const __CFSet *a3, CFDictionaryRef theDict, uint64_t a5, CFTypeRef *a6)
 {
   Count = CFDictionaryGetCount(theDict);
   StringsFromData = _loadStringsFromData(a1, a2, a3, *(a5 + 40), *(a5 + 65), theDict, a5);
@@ -7207,13 +7327,13 @@ CFIndex _loadStringsDictTable(const void *a1, void *a2, void *a3, CFDictionaryRe
   return result;
 }
 
-uint64_t _loadStringsFromData(CFTypeRef cf, void *a2, void *a3, const __CFData *a4, int a5, const __CFDictionary *a6, _BYTE *a7)
+uint64_t _loadStringsFromData(CFTypeRef cf, void *a2, const __CFSet *a3, const __CFData *a4, int a5, const __CFDictionary *a6, _BYTE *a7)
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
+  v30 = *MEMORY[0x1E69E9840];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   if (a7[73])
   {
     v14 = 0;
@@ -7247,12 +7367,12 @@ uint64_t _loadStringsFromData(CFTypeRef cf, void *a2, void *a3, const __CFData *
 
   Count = CFSetGetCount(a3);
   Mutable = CFSetCreateMutable(&__kCFAllocatorSystemDefault, Count, &kCFTypeSetCallBacks);
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = ___loadStringsFromData_block_invoke;
-  v26[3] = &__block_descriptor_40_e13_v24__0r_v8_16l;
-  v26[4] = Mutable;
-  CFSetApply(a3, v26);
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = ___loadStringsFromData_block_invoke;
+  v25[3] = &__block_descriptor_40_e13_v24__0r_v8_16l;
+  v25[4] = Mutable;
+  CFSetApply(a3, v25);
   v15 = 0;
   v14 = a3;
 LABEL_11:
@@ -7267,20 +7387,20 @@ LABEL_11:
         v21 = CFDictionaryGetCount(a6);
         CFDictionaryApplyFunction(v20, __CFStringsDictAddFunction, a6);
         v22 = CFDictionaryGetCount(a6) > v21;
-        *(v28 + 24) = v22;
+        *(v27 + 24) = v22;
         a7[74] = 1;
       }
 
       else
       {
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = ___loadStringsFromData_block_invoke_2;
-        v25[3] = &unk_1E6DD1630;
-        v25[4] = &v27;
-        v25[5] = v20;
-        v25[6] = a6;
-        CFSetApply(v14, v25);
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = ___loadStringsFromData_block_invoke_2;
+        v24[3] = &unk_1E6DD1630;
+        v24[4] = &v26;
+        v24[5] = v20;
+        v24[6] = a6;
+        CFSetApply(v14, v24);
       }
     }
 
@@ -7292,28 +7412,26 @@ LABEL_11:
     CFRelease(Mutable);
   }
 
-  v17 = *(v28 + 24);
+  v17 = *(v27 + 24);
 LABEL_20:
-  _Block_object_dispose(&v27, 8);
-  v23 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v26, 8);
   return v17;
 }
 
-void sub_18318AD14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_18318AD14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void ___loadStringsFromData_block_invoke(uint64_t a1, const void *a2)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = a2;
-  v3 = CFArrayCreate(&__kCFAllocatorSystemDefault, v5, 1, &kCFTypeArrayCallBacks);
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = a2;
+  v3 = CFArrayCreate(&__kCFAllocatorSystemDefault, v4, 1, &kCFTypeArrayCallBacks);
   CFSetAddValue(*(a1 + 32), v3);
   CFRelease(v3);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void ___loadStringsFromData_block_invoke_2(uint64_t a1, const void *a2)
@@ -7477,7 +7595,7 @@ LABEL_38:
   return 0;
 }
 
-CFStringRef _CFURLCopyHostName(unint64_t a1, int a2)
+CFStringRef _CFURLCopyHostName(__CFString *a1, int a2)
 {
   while (1)
   {
@@ -7488,7 +7606,7 @@ CFStringRef _CFURLCopyHostName(unint64_t a1, int a2)
 
     if (_foundation_swift_nsurl_feature_enabled_featureEnabled == 1)
     {
-      v7 = [a1 _host:a2 == 0];
+      v7 = [(__CFString *)a1 _host:a2 == 0];
 
       return v7;
     }
@@ -7500,7 +7618,7 @@ CFStringRef _CFURLCopyHostName(unint64_t a1, int a2)
 
     if (CF_IS_OBJC(0x1DuLL, a1))
     {
-      v9 = [a1 host];
+      v9 = [(__CFString *)a1 host];
       v6 = v9;
       if (v9)
       {
@@ -7516,11 +7634,11 @@ CFStringRef _CFURLCopyHostName(unint64_t a1, int a2)
       break;
     }
 
-    if (*(a1 + 32))
+    if (a1[1].isa)
     {
-      v5 = *(a1 + 16);
-      a1 = *(a1 + 32);
-      if ((v5 & 0x1F) == 0)
+      data = a1->data;
+      a1 = a1[1].isa;
+      if ((data & 0x1F) == 0)
       {
         continue;
       }
@@ -7530,7 +7648,7 @@ CFStringRef _CFURLCopyHostName(unint64_t a1, int a2)
   }
 
   v6 = v4;
-  if ((*(a1 + 17) & 4) == 0)
+  if ((BYTE1(a1->data) & 4) == 0)
   {
     return v6;
   }
@@ -7548,7 +7666,7 @@ void CFAllocatorGetContext(CFAllocatorRef allocator, CFAllocatorContext *context
   v3 = allocator;
   if (!allocator)
   {
-    v4 = _CFGetTSD(1u);
+    v4 = _CFGetTSD(1);
     if (v4)
     {
       v3 = v4;
@@ -7609,7 +7727,7 @@ unsigned int *__CFUniCharPrioritySort(unsigned int *result, uint64_t a2)
     while (result < v2);
   }
 
-  if ((v2 - result) >= 5)
+  if (v2 - result >= 5)
   {
     do
     {
@@ -7629,7 +7747,7 @@ unsigned int *__CFUniCharPrioritySort(unsigned int *result, uint64_t a2)
         }
       }
 
-      if ((result + 1) >= v2)
+      if (result + 1 >= v2)
       {
         break;
       }
@@ -7758,9 +7876,9 @@ void _searchForExistingFactoryLocked(const __CFString *a1, uint64_t a2, CFTypeRe
   }
 }
 
-void _registerFactoryLocked(const __CFString *a1, const __CFString *a2, const void *a3)
+void _registerFactoryLocked(const __CFString *a1, __CFString *a2, const void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = CFGetTypeID(a1);
   if (v6 != CFStringGetTypeID() || (v7 = CFUUIDCreateFromString(&__kCFAllocatorSystemDefault, a1)) == 0)
   {
@@ -7781,19 +7899,19 @@ void _registerFactoryLocked(const __CFString *a1, const __CFString *a2, const vo
   v9 = _CFBundlePluginLogger__log;
   if (os_log_type_enabled(_CFBundlePluginLogger__log, OS_LOG_TYPE_DEBUG))
   {
-    v16 = @"<no func>";
-    v17 = 138543874;
+    v15 = @"<no func>";
+    v16 = 138543874;
     if (a2)
     {
-      v16 = a2;
+      v15 = a2;
     }
 
-    v18 = v7;
-    v19 = 2114;
-    v20 = v16;
-    v21 = 2050;
-    v22 = a3;
-    _os_log_debug_impl(&dword_1830E6000, v9, OS_LOG_TYPE_DEBUG, "Registering static factory %{public}@ %{public}@ bundle %{public}p", &v17, 0x20u);
+    v17 = v7;
+    v18 = 2114;
+    v19 = v15;
+    v20 = 2050;
+    v21 = a3;
+    _os_log_debug_impl(&dword_1830E6000, v9, OS_LOG_TYPE_DEBUG, "Registering static factory %{public}@ %{public}@ bundle %{public}p", &v16, 0x20u);
   }
 
   _CFPlugInRegisterFactoryFunctionByNameLocked(v7, a3, a2, v10, v11, v12, v13, v14);
@@ -7801,8 +7919,6 @@ void _registerFactoryLocked(const __CFString *a1, const __CFString *a2, const vo
   {
     CFRelease(v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 const void *__CFDateCopyDescription(void *a1)
@@ -7822,7 +7938,6 @@ const void *__CFDateCopyDescription(void *a1)
 CFErrorRef __CFPropertyListCreateError(CFIndex code, CFStringRef format, ...)
 {
   va_start(va, format);
-  v10 = *MEMORY[0x1E69E9840];
   if (format)
   {
     v3 = CFStringCreateWithFormatAndArguments(&__kCFAllocatorSystemDefault, 0, format, va);
@@ -7831,14 +7946,11 @@ CFErrorRef __CFPropertyListCreateError(CFIndex code, CFStringRef format, ...)
     v5 = CFErrorCreate(&__kCFAllocatorSystemDefault, @"NSCocoaErrorDomain", code, Mutable);
     CFRelease(v3);
     CFRelease(Mutable);
-    v6 = *MEMORY[0x1E69E9840];
     return v5;
   }
 
   else
   {
-    v8 = *MEMORY[0x1E69E9840];
-    v9 = *MEMORY[0x1E69E9840];
 
     return CFErrorCreate(&__kCFAllocatorSystemDefault, @"NSCocoaErrorDomain", code, 0);
   }
@@ -7846,7 +7958,7 @@ CFErrorRef __CFPropertyListCreateError(CFIndex code, CFStringRef format, ...)
 
 CFStringRef _CFStringCreateByRemovingPercentEncoding(const __CFAllocator *a1, CFStringRef theString)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   Length = CFStringGetLength(theString);
   if (Length)
   {
@@ -7854,101 +7966,96 @@ CFStringRef _CFStringCreateByRemovingPercentEncoding(const __CFAllocator *a1, CF
     MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
     if (MaximumSizeForEncoding == -1)
     {
-      v9 = 0;
+      return 0;
     }
 
-    else
+    v9 = MaximumSizeForEncoding;
+    v10 = 0;
+    if ((MaximumSizeForEncoding & 0x8000000000000000) == 0)
     {
-      v8 = MaximumSizeForEncoding;
-      v9 = 0;
-      if ((MaximumSizeForEncoding & 0x8000000000000000) == 0)
+      v11 = 2 * MaximumSizeForEncoding;
+      if (2 * MaximumSizeForEncoding)
       {
-        v10 = 2 * MaximumSizeForEncoding;
-        if (2 * MaximumSizeForEncoding)
+        if (v11 < 0x401)
         {
-          if (v10 < 0x401)
-          {
-            MEMORY[0x1EEE9AC00](MaximumSizeForEncoding, v7);
-            v11 = v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-            bzero(v11, 2 * v8);
-          }
+          MEMORY[0x1EEE9AC00](MaximumSizeForEncoding, v7, v8);
+          v12 = v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+          bzero(v12, 2 * v9);
+        }
 
-          else
-          {
-            v11 = malloc_type_malloc(2 * MaximumSizeForEncoding, 0x100004077774924uLL);
-          }
+        else
+        {
+          v12 = malloc_type_malloc(2 * MaximumSizeForEncoding, 0x100004077774924uLL);
+        }
 
-          v21[0] = 0;
-          v23.location = 0;
-          v23.length = v5;
-          if (CFStringGetBytes(theString, v23, 0x8000100u, 0, 0, v11, v8, v21))
+        v20[0] = 0;
+        v22.location = 0;
+        v22.length = v5;
+        if (CFStringGetBytes(theString, v22, 0x8000100u, 0, 0, v12, v9, v20))
+        {
+          v14 = v20[0];
+          v15 = &v12[v9];
+          if (v20[0] >= 1)
           {
-            v14 = v21[0];
-            v15 = &v11[v8];
-            if (v21[0] >= 1)
+            v16 = 0;
+            v17 = v12;
+            v15 = &v12[v9];
+            do
             {
-              v16 = 0;
-              v17 = v11;
-              v15 = &v11[v8];
-              do
+              v18 = *v17;
+              if (v18 == 37)
               {
-                v18 = *v17;
-                if (v18 == 37)
+                v16 += 2;
+                if (v16 >= v14)
                 {
-                  v16 += 2;
-                  if (v16 >= v14)
-                  {
-                    goto LABEL_22;
-                  }
-
-                  v19 = _CFStringCreateByRemovingPercentEncoding_hexvalues[v17[1]];
-                  v18 = _CFStringCreateByRemovingPercentEncoding_hexvalues[v17[2]];
-                  if (((v18 | v19) & 0x80) != 0)
-                  {
-                    goto LABEL_22;
-                  }
-
-                  v17 += 3;
-                  LOBYTE(v18) = v18 + 16 * v19;
+                  goto LABEL_22;
                 }
 
-                else
+                v19 = _CFStringCreateByRemovingPercentEncoding_hexvalues[v17[1]];
+                v18 = _CFStringCreateByRemovingPercentEncoding_hexvalues[v17[2]];
+                if (((v18 | v19) & 0x80) != 0)
                 {
-                  ++v17;
+                  goto LABEL_22;
                 }
 
-                *v15++ = v18;
-                ++v16;
-                v14 = v21[0];
+                v17 += 3;
+                LOBYTE(v18) = v18 + 16 * v19;
               }
 
-              while (v16 < v21[0]);
+              else
+              {
+                ++v17;
+              }
+
+              *v15++ = v18;
+              ++v16;
+              v14 = v20[0];
             }
 
-            v9 = CFStringCreateWithBytes(0, &v11[v8], v15 - &v11[v8], 0x8000100u, 0);
+            while (v16 < v20[0]);
           }
 
-          else
-          {
+          v10 = CFStringCreateWithBytes(0, &v12[v9], v15 - &v12[v9], 0x8000100u, 0);
+        }
+
+        else
+        {
 LABEL_22:
-            v9 = 0;
-          }
+          v10 = 0;
+        }
 
-          if (v10 >= 0x401)
-          {
-            free(v11);
-          }
+        if (v11 >= 0x401)
+        {
+          free(v12);
         }
       }
     }
 
-    v20 = *MEMORY[0x1E69E9840];
-    return v9;
+    return v10;
   }
 
   else
   {
-    v12 = *MEMORY[0x1E69E9840];
 
     return CFStringCreateCopy(a1, theString);
   }
@@ -7990,21 +8097,21 @@ ssize_t fileWrite(uint64_t a1, const void *a2, size_t a3, uint64_t a4, uint64_t 
   return v6;
 }
 
-uint64_t _CFPFactoryCommonCreateLocked(__objc2_class **a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t *_CFPFactoryCommonCreateLocked(__objc2_class **a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   Instance = _CFRuntimeCreateInstance(a1, 0x20uLL, 48, 0, a5, a6, a7, a8);
   if (Instance)
   {
-    *(Instance + 16) = CFRetain(a2);
+    Instance[2] = CFRetain(a2);
     *(Instance + 24) = 1;
-    *(Instance + 56) = CFArrayCreateMutable(a1, 0, &kCFTypeArrayCallBacks);
-    v11 = *(Instance + 16);
+    Instance[7] = CFArrayCreateMutable(a1, 0, &kCFTypeArrayCallBacks);
+    v11 = Instance[2];
     v12 = _factoriesByFactoryID;
     if (!_factoriesByFactoryID)
     {
-      memset(&v15, 0, sizeof(v15));
-      v12 = CFDictionaryCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeDictionaryKeyCallBacks, &v15);
+      memset(&v14, 0, sizeof(v14));
+      v12 = CFDictionaryCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeDictionaryKeyCallBacks, &v14);
       _factoriesByFactoryID = v12;
     }
 
@@ -8020,7 +8127,6 @@ uint64_t _CFPFactoryCommonCreateLocked(__objc2_class **a1, const void *a2, uint6
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return Instance;
 }
 
@@ -8051,24 +8157,24 @@ CFStringRef _CFPlugInRegisterFactoryFunctionByNameLocked(const void *a1, const v
 
 CFTypeRef _CFLocaleCopyPreferredTemperatureUnit()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = CFPreferencesCopyValue(@"AppleTemperatureUnit", @"kCFPreferencesAnyApplication", @"kCFPreferencesCurrentUser", @"kCFPreferencesAnyHost");
-  v5 = 0;
-  if (!_CFLocaleGetTemperatureUnitForPreferences(v0, &v5))
+  v4 = 0;
+  if (!_CFLocaleGetTemperatureUnitForPreferences(v0, &v4))
   {
     v2 = 0;
     if (!v0)
     {
-      goto LABEL_8;
+      return v2;
     }
 
 LABEL_7:
     CFRelease(v0);
-    goto LABEL_8;
+    return v2;
   }
 
   v1 = &kCFLocaleTemperatureUnitCelsius;
-  if (!v5)
+  if (!v4)
   {
     v1 = &kCFLocaleTemperatureUnitFahrenheit;
   }
@@ -8079,8 +8185,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-LABEL_8:
-  v3 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -8113,7 +8217,7 @@ uint64_t _CFLocaleGetTemperatureUnitForPreferences(uint64_t result, char *a2)
 
 void _registerTypeLocked(const __CFString *a1, const __CFString *cf, const void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v6 = CFGetTypeID(cf);
   if (v6 == CFArrayGetTypeID())
   {
@@ -8160,9 +8264,9 @@ LABEL_7:
           if (os_log_type_enabled(_CFBundlePluginLogger__log, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543618;
-            v22 = v14;
-            v23 = 2114;
-            v24 = v9;
+            v21 = v14;
+            v22 = 2114;
+            v23 = v9;
             _os_log_debug_impl(&dword_1830E6000, v15, OS_LOG_TYPE_DEBUG, "Registering factory %{public}@ type %{public}@", buf, 0x16u);
           }
 
@@ -8209,204 +8313,197 @@ LABEL_31:
   {
     CFRelease(v9);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void CFStringPad(CFMutableStringRef theString, CFStringRef padString, CFIndex length, CFIndex indexIntoPad)
 {
   v50 = *MEMORY[0x1E69E9840];
-  if (!CF_IS_OBJC(7uLL, theString))
+  v8 = CF_IS_OBJC(7uLL, theString);
+  if (v8)
   {
-    p_info = &theString->info;
-    v10 = atomic_load(&theString->info);
-    if ((v10 & 1) == 0)
-    {
-      v11 = _CFOSLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
-      {
-        CFStringPad_cold_1(v11, v12, v13, v14, v15, v16, v17, v18);
-      }
 
-      goto LABEL_49;
+    [(__CFString *)theString _cfPad:padString length:length padIndex:indexIntoPad];
+    return;
+  }
+
+  p_info = &theString->info;
+  v11 = atomic_load(&theString->info);
+  if ((v11 & 1) == 0)
+  {
+    v12 = _CFOSLog(v8, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    {
+      CFStringPad_cold_1(v12, v13, v14, v15, v16, v17, v18, v19);
     }
 
-    v19 = atomic_load(p_info);
-    v20 = v19 & 5;
-    v21 = atomic_load(p_info);
-    v22 = v21 & 0x60;
-    if (v20 == 4)
+    return;
+  }
+
+  v20 = atomic_load(p_info);
+  v21 = v20 & 5;
+  v22 = atomic_load(p_info);
+  v23 = v22 & 0x60;
+  if (v21 == 4)
+  {
+    p_data = &theString->data;
+    if (v23)
     {
-      p_data = &theString->data;
-      if (v22)
-      {
-        v24 = *p_data;
-      }
-
-      else
-      {
-        v26 = atomic_load(&theString->info);
-        v24 = &p_data[(v26 & 5) != 4];
-      }
-
-      data = *v24;
-    }
-
-    else if ((v21 & 0x60) != 0)
-    {
-      data = theString->length;
+      v25 = *p_data;
     }
 
     else
     {
-      data = theString->data;
+      v27 = atomic_load(&theString->info);
+      v25 = &p_data[(v27 & 5) != 4];
     }
 
-    if (data > length)
-    {
-      v48 = length;
-      v49 = data - length;
-      __CFStringChangeSizeMultiple(theString, &v48, 1, 0, 0);
-LABEL_49:
-      v47 = *MEMORY[0x1E69E9840];
-      return;
-    }
+    data = *v25;
+  }
 
-    if (data >= length)
-    {
-      goto LABEL_49;
-    }
+  else if ((v22 & 0x60) != 0)
+  {
+    data = theString->length;
+  }
 
-    v27 = length - data;
+  else
+  {
+    data = theString->data;
+  }
+
+  if (data > length)
+  {
+    v48 = length;
+    v49 = data - length;
+    __CFStringChangeSizeMultiple(theString, &v48, 1, 0, 0);
+    return;
+  }
+
+  if (data < length)
+  {
+    v28 = length - data;
     if (CF_IS_OBJC(7uLL, padString))
     {
-      v28 = CFStringGetLength(padString);
+      v29 = CFStringGetLength(padString);
     }
 
     else
     {
-      v29 = atomic_load(&padString->info);
-      v30 = v29 & 5;
-      v31 = atomic_load(&padString->info);
-      v32 = v31 & 0x60;
-      if (v30 == 4)
+      v30 = atomic_load(&padString->info);
+      v31 = v30 & 5;
+      v32 = atomic_load(&padString->info);
+      v33 = v32 & 0x60;
+      if (v31 == 4)
       {
-        v33 = &padString->data;
-        if (v32)
+        v34 = &padString->data;
+        if (v33)
         {
-          v34 = *v33;
+          v35 = *v34;
         }
 
         else
         {
-          v35 = atomic_load(&padString->info);
-          v34 = &v33[(v35 & 5) != 4];
+          v36 = atomic_load(&padString->info);
+          v35 = &v34[(v36 & 5) != 4];
         }
 
-        v28 = *v34;
+        v29 = *v35;
       }
 
-      else if ((v31 & 0x60) != 0)
+      else if ((v32 & 0x60) != 0)
       {
-        v28 = padString->length;
+        v29 = padString->length;
       }
 
       else
       {
-        v28 = padString->data;
+        v29 = padString->data;
       }
 
-      v36 = atomic_load(&theString->info);
-      if ((v36 & 0x10) == 0)
+      v37 = atomic_load(&theString->info);
+      if ((v37 & 0x10) == 0)
       {
-        v37 = atomic_load(&padString->info);
-        v38 = (v37 >> 4) & 1;
+        v38 = atomic_load(&padString->info);
+        v39 = (v38 >> 4) & 1;
         goto LABEL_32;
       }
     }
 
-    LODWORD(v38) = 1;
+    LODWORD(v39) = 1;
 LABEL_32:
     v48 = data;
     v49 = 0;
-    __CFStringChangeSizeMultiple(theString, &v48, 1, v27, v38);
-    v39 = atomic_load(&theString->info);
-    v40 = &theString->data;
-    if ((v39 & 0x60) != 0)
+    __CFStringChangeSizeMultiple(theString, &v48, 1, v28, v39);
+    v40 = atomic_load(&theString->info);
+    v41 = &theString->data;
+    if ((v40 & 0x60) != 0)
     {
-      v41 = *v40;
+      v42 = *v41;
     }
 
     else
     {
-      v42 = atomic_load(&theString->info);
-      v41 = &v40[(v42 & 5) != 4];
+      v43 = atomic_load(&theString->info);
+      v42 = &v41[(v43 & 5) != 4];
     }
 
-    v43 = atomic_load(&theString->info);
-    if (v27 >= 1)
+    v44 = atomic_load(&theString->info);
+    if (v28 >= 1)
     {
-      if (v27 >= v28 - indexIntoPad)
+      if (v28 >= v29 - indexIntoPad)
       {
-        v44 = v28 - indexIntoPad;
+        v45 = v29 - indexIntoPad;
       }
 
       else
       {
-        v44 = v27;
+        v45 = v28;
       }
 
-      v45 = &v41[(data << v38) + ((v43 >> 2) & 1)];
+      v46 = &v42[(data << v39) + ((v44 >> 2) & 1)];
       do
       {
-        if (v38)
+        if (v39)
         {
           v52.location = indexIntoPad;
-          v52.length = v44;
-          CFStringGetCharacters(padString, v52, v45);
+          v52.length = v45;
+          CFStringGetCharacters(padString, v52, v46);
         }
 
         else
         {
-          v46 = __CFDefaultEightBitStringEncoding;
+          v47 = __CFDefaultEightBitStringEncoding;
           if (__CFDefaultEightBitStringEncoding == -1)
           {
-            v46 = __CFStringComputeEightBitStringEncoding();
+            v47 = __CFStringComputeEightBitStringEncoding();
           }
 
           v53.location = indexIntoPad;
-          v53.length = v44;
-          CFStringGetBytes(padString, v53, v46, 0, 0, v45, v27, 0);
+          v53.length = v45;
+          CFStringGetBytes(padString, v53, v47, 0, 0, v46, v28, 0);
         }
 
         indexIntoPad = 0;
-        v45 = (v45 + (v44 << v38));
-        v27 -= v44;
-        if (v27 >= v44)
+        v46 = (v46 + (v45 << v39));
+        v28 -= v45;
+        if (v28 >= v45)
         {
-          v44 = v28;
+          v45 = v29;
         }
 
         else
         {
-          v44 = v27;
+          v45 = v28;
         }
       }
 
-      while (v27 > 0);
+      while (v28 > 0);
     }
-
-    goto LABEL_49;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
-
-  [(__CFString *)theString _cfPad:padString length:length padIndex:indexIntoPad];
 }
 
 void _CFPlugInRegisterPlugInTypeLocked(void *key, const void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (_factoriesByFactoryID && (v3 = CFDictionaryGetValue(_factoriesByFactoryID, key)) != 0 && (v4 = v3, *(v3 + 24)))
   {
     CFArrayAppendValue(v3[7], a2);
@@ -8420,8 +8517,8 @@ void _CFPlugInRegisterPlugInTypeLocked(void *key, const void *a2)
     Value = CFDictionaryGetValue(Mutable, a2);
     if (!Value)
     {
-      memset(&v8, 0, sizeof(v8));
-      Value = CFArrayCreateMutable(&__kCFAllocatorSystemDefault, 0, &v8);
+      memset(&v7, 0, sizeof(v7));
+      Value = CFArrayCreateMutable(&__kCFAllocatorSystemDefault, 0, &v7);
       CFDictionarySetValue(_factoriesByTypeID, a2, Value);
       CFRelease(Value);
     }
@@ -8434,7 +8531,7 @@ void _CFPlugInRegisterPlugInTypeLocked(void *key, const void *a2)
 
     if (os_log_type_enabled(_CFBundlePluginLogger__log, OS_LOG_TYPE_DEBUG))
     {
-      _CFPlugInRegisterPlugInTypeLocked_cold_2(a2, v4);
+      _CFPlugInRegisterPlugInTypeLocked_cold_2();
     }
   }
 
@@ -8450,13 +8547,11 @@ void _CFPlugInRegisterPlugInTypeLocked(void *key, const void *a2)
       _CFPlugInRegisterPlugInTypeLocked_cold_4();
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 CFArrayRef CFPlugInFindFactoriesForPlugInTypeInPlugIn(CFUUIDRef typeUUID, CFPlugInRef plugIn)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   os_unfair_recursive_lock_lock_with_options();
   if (_factoriesByTypeID && (Value = CFDictionaryGetValue(_factoriesByTypeID, typeUUID)) != 0)
   {
@@ -8529,24 +8624,23 @@ LABEL_17:
   {
     if (Mutable)
     {
-      v16 = CFArrayGetCount(Mutable);
+      v15 = CFArrayGetCount(Mutable);
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
     }
 
-    v17 = 134349570;
-    v18 = v16;
-    v19 = 2114;
-    v20 = typeUUID;
-    v21 = 2114;
-    v22 = plugIn;
-    _os_log_debug_impl(&dword_1830E6000, v13, OS_LOG_TYPE_DEBUG, "%{public}ld factories found for requested plugin type %{public}@ in plugin %{public}@", &v17, 0x20u);
+    v16 = 134349570;
+    v17 = v15;
+    v18 = 2114;
+    v19 = typeUUID;
+    v20 = 2114;
+    v21 = plugIn;
+    _os_log_debug_impl(&dword_1830E6000, v13, OS_LOG_TYPE_DEBUG, "%{public}ld factories found for requested plugin type %{public}@ in plugin %{public}@", &v16, 0x20u);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -8603,7 +8697,7 @@ const void *_CFRunLoopCacheLookup(_opaque_pthread_t *a1, int a2)
 
 void *__cdecl CFPlugInInstanceCreate(CFAllocatorRef allocator, CFUUIDRef factoryUUID, CFUUIDRef typeUUID)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   os_unfair_recursive_lock_lock_with_options();
   if (!_factoriesByFactoryID || (Value = CFDictionaryGetValue(_factoriesByFactoryID, factoryUUID)) == 0 || (v7 = Value, !*(Value + 24)))
   {
@@ -8621,9 +8715,9 @@ void *__cdecl CFPlugInInstanceCreate(CFAllocatorRef allocator, CFUUIDRef factory
   }
 
   v8 = *(Value + 7);
-  v35.length = CFArrayGetCount(v8);
-  v35.location = 0;
-  if ((CFArrayGetFirstIndexOfValue(v8, v35, typeUUID) & 0x80000000) != 0)
+  v34.length = CFArrayGetCount(v8);
+  v34.location = 0;
+  if ((CFArrayGetFirstIndexOfValue(v8, v34, typeUUID) & 0x80000000) != 0)
   {
     if (_CFBundlePluginLogger_onceToken != -1)
     {
@@ -8645,10 +8739,10 @@ void *__cdecl CFPlugInInstanceCreate(CFAllocatorRef allocator, CFUUIDRef factory
       CFPlugInInstanceCreate_cold_6();
     }
 
-    v18 = _CFBundlePluginLogger__log;
+    v17 = _CFBundlePluginLogger__log;
     if (os_log_type_enabled(_CFBundlePluginLogger__log, OS_LOG_TYPE_DEBUG))
     {
-      CFPlugInInstanceCreate_cold_7(v7, v18, v19, v20, v21, v22, v23, v24);
+      CFPlugInInstanceCreate_cold_7(v7, v17, v18, v19, v20, v21, v22, v23);
     }
 
     goto LABEL_27;
@@ -8669,16 +8763,16 @@ void *__cdecl CFPlugInInstanceCreate(CFAllocatorRef allocator, CFUUIDRef factory
       v10 = _CFBundlePluginLogger__log;
       if (os_log_type_enabled(_CFBundlePluginLogger__log, OS_LOG_TYPE_ERROR))
       {
-        v25 = *(v7 + 16);
-        v27 = *(v7 + 40);
-        v26 = *(v7 + 48);
-        v28 = 138543874;
-        v29 = v26;
-        v30 = 2114;
-        v31 = v25;
-        v32 = 2114;
-        v33 = v27;
-        _os_log_error_impl(&dword_1830E6000, v10, OS_LOG_TYPE_ERROR, "Cannot find function pointer %{public}@ for factory %{public}@ in %{public}@", &v28, 0x20u);
+        v24 = *(v7 + 16);
+        v26 = *(v7 + 40);
+        v25 = *(v7 + 48);
+        v27 = 138543874;
+        v28 = v25;
+        v29 = 2114;
+        v30 = v24;
+        v31 = 2114;
+        v32 = v26;
+        _os_log_error_impl(&dword_1830E6000, v10, OS_LOG_TYPE_ERROR, "Cannot find function pointer %{public}@ for factory %{public}@ in %{public}@", &v27, 0x20u);
       }
 
       FunctionPointerForName = *(v7 + 32);
@@ -8720,7 +8814,6 @@ LABEL_27:
 
 LABEL_28:
   os_unfair_recursive_lock_unlock();
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -8776,7 +8869,7 @@ LABEL_8:
 
     else
     {
-      v8 = _CFGetTSD(1u);
+      v8 = _CFGetTSD(1);
       v6 = &__kCFAllocatorSystemDefault;
       if (v8)
       {
@@ -8841,28 +8934,28 @@ uint64_t __CFCalendarCreateUCalendar(const void *a1, CFLocaleIdentifier localeID
     CFRelease(ComponentsFromLocaleIdentifier);
   }
 
-  MEMORY[0x1EEE9AC00](a1, localeID);
+  MEMORY[0x1EEE9AC00](a1, localeID, a3);
   CStringPtr = CFStringGetCStringPtr(LocaleIdentifierFromComponents, 0x600u);
   if (CStringPtr || (CStringPtr = CFStringGetCString(LocaleIdentifierFromComponents, &v17, 512, 0x600u), CStringPtr))
   {
-    MEMORY[0x1EEE9AC00](CStringPtr, v9);
+    MEMORY[0x1EEE9AC00](CStringPtr, v9, v10);
     Name = CFTimeZoneGetName(a3);
     Length = CFStringGetLength(Name);
     if (Length >= 0x200)
     {
-      v12 = 512;
+      v13 = 512;
     }
 
     else
     {
-      v12 = Length;
+      v13 = Length;
     }
 
     v20.location = 0;
-    v20.length = v12;
+    v20.length = v13;
     CFStringGetCharacters(Name, v20, &v16);
     v18 = 0;
-    v13 = __cficu_ucal_open();
+    v14 = __cficu_ucal_open();
     if (a1)
     {
       CFRelease(LocaleIdentifierFromComponents);
@@ -8876,11 +8969,10 @@ uint64_t __CFCalendarCreateUCalendar(const void *a1, CFLocaleIdentifier localeID
       CFRelease(LocaleIdentifierFromComponents);
     }
 
-    v13 = 0;
+    return 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v14;
 }
 
 uint64_t __cficu_ucal_open()
@@ -8922,53 +9014,52 @@ uint64_t __NSOrderedSetChunkIterate(void *a1, uint64_t a2, unint64_t a3, unint64
 
       if (!v16)
       {
-        v32 = 0;
-        goto LABEL_42;
+        v33 = 0;
+        return v33 & 1;
       }
     }
   }
 
   v39 = _CFAutoreleasePoolPush();
   v40 = &v38;
-  v19 = MEMORY[0x1EEE9AC00](v39, v18);
-  v21 = &v38 - v20;
-  MEMORY[0x1EEE9AC00](v19, v22);
-  v24 = &v38 - v23;
-  if ((a2 & 0x1000000000000000) != 0 && ![a5 __getContainmentVector:&v38 - v23 inRange:{a3, a4 - a3 + 1}])
+  v20 = MEMORY[0x1EEE9AC00](v39, v18, v19);
+  v22 = &v38 - v21;
+  MEMORY[0x1EEE9AC00](v20, v23, v24);
+  v26 = &v38 - v25;
+  if ((a2 & 0x1000000000000000) != 0 && ![a5 __getContainmentVector:&v38 - v25 inRange:{a3, a4 - a3 + 1}])
   {
     goto LABEL_41;
   }
 
-  [a1 getObjects:v21 range:{a3, a4 - a3 + 1}];
+  [a1 getObjects:v22 range:{a3, a4 - a3 + 1}];
   if (a4 - a3 == -1)
   {
     goto LABEL_41;
   }
 
-  v25 = 0;
+  v27 = 0;
   v41 = a9;
   while (1)
   {
-    v26 = a4 - a3 - v25;
+    v28 = a4 - a3 - v27;
     if ((a2 & 2) == 0)
     {
-      v26 = v25;
+      v28 = v27;
     }
 
-    if ((a2 & 0x1000000000000000) != 0 && v24[v26] != 1)
+    if ((a2 & 0x1000000000000000) != 0 && v26[v28] != 1)
     {
       goto LABEL_32;
     }
 
-    v27 = *&v21[8 * v26];
     if ((a2 & 2) != 0)
     {
-      v28 = a4 - v25;
+      v29 = a4 - v27;
     }
 
     else
     {
-      v28 = v25 + a3;
+      v29 = v27 + a3;
     }
 
     if ((a2 & 0x6000000000000000) == 0)
@@ -8990,17 +9081,17 @@ LABEL_26:
 
     if ((a2 & 0x2000000000000000) != 0)
     {
-      v29 = atomic_load(v43);
-      if (v29 != 0x7FFFFFFFFFFFFFFFLL)
+      v30 = atomic_load(v43);
+      if (v30 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v30 = v29 >= a3;
-        v31 = v29 <= a4;
+        v31 = v30 >= a3;
+        v32 = v30 <= a4;
         if ((a2 & 2) == 0)
         {
-          v31 = v30;
+          v32 = v31;
         }
 
-        if (!v31)
+        if (!v32)
         {
           goto LABEL_41;
         }
@@ -9008,7 +9099,7 @@ LABEL_26:
     }
 
 LABEL_32:
-    if (++v25 >= a4 - a3 + 1)
+    if (++v27 >= a4 - a3 + 1)
     {
       goto LABEL_41;
     }
@@ -9021,13 +9112,13 @@ LABEL_32:
       if (v41)
       {
         pthread_mutex_lock(v41);
-        [v42 addIndex:v28];
+        [v42 addIndex:v29];
         pthread_mutex_unlock(v41);
       }
 
       else
       {
-        [v42 addIndex:v28];
+        [v42 addIndex:v29];
       }
     }
 
@@ -9036,32 +9127,30 @@ LABEL_32:
 
   do
   {
-    v33 = atomic_load(v43);
-    if (v33 != 0x7FFFFFFFFFFFFFFFLL)
+    v34 = atomic_load(v43);
+    if (v34 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v34 = v33 < v28;
+      v35 = v34 < v29;
       if ((a2 & 2) == 0)
       {
-        v34 = v28 < v33;
+        v35 = v29 < v34;
       }
 
-      if (!v34)
+      if (!v35)
       {
         break;
       }
     }
 
-    v35 = v33;
-    atomic_compare_exchange_strong_explicit(v43, &v35, v28, memory_order_relaxed, memory_order_relaxed);
+    v36 = v34;
+    atomic_compare_exchange_strong_explicit(v43, &v36, v29, memory_order_relaxed, memory_order_relaxed);
   }
 
-  while (v35 != v33);
+  while (v36 != v34);
 LABEL_41:
   _CFAutoreleasePoolPop(v39);
-  v32 = v46;
-LABEL_42:
-  v36 = *MEMORY[0x1E69E9840];
-  return v32 & 1;
+  v33 = v46;
+  return v33 & 1;
 }
 
 CFStringRef CFAttributedStringGetString(CFAttributedStringRef aStr)
@@ -9092,11 +9181,11 @@ CFDictionaryRef CFAttributedStringGetAttributes(CFAttributedStringRef aStr, CFIn
 
 uint64_t __NSCacheCallDelegateWillEvictObjectCallbackWithValue(void *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = _CFGetTSD(3u);
-  _CFSetTSD(3u, a2, 0);
+  v6 = _CFGetTSD(3);
+  _CFSetTSD(3, a2, 0);
   [a1 cache:a2 willEvictObject:a3];
 
-  return _CFSetTSD(3u, v6, 0);
+  return _CFSetTSD(3, v6, 0);
 }
 
 void CFPlugInAddInstanceForFactory(CFUUIDRef factoryID)
@@ -9230,7 +9319,7 @@ CFNumberRef CFNumberFormatterCreateNumberFromString(CFAllocatorRef allocator, CF
   valuePtr[2] = *MEMORY[0x1E69E9840];
   if (!allocator)
   {
-    v10 = _CFGetTSD(1u);
+    v10 = _CFGetTSD(1);
     if (v10)
     {
       v9 = v10;
@@ -9272,8 +9361,8 @@ CFNumberRef CFNumberFormatterCreateNumberFromString(CFAllocatorRef allocator, CF
   if (v12)
   {
     v14 = valuePtr[0];
-    v36 = 1.0;
-    Value = CFNumberGetValue(v12, kCFNumberFloat64Type, &v36);
+    v35 = 1.0;
+    Value = CFNumberGetValue(v12, kCFNumberFloat64Type, &v35);
     if (v14 >= 0)
     {
       v16 = v14;
@@ -9286,7 +9375,7 @@ CFNumberRef CFNumberFormatterCreateNumberFromString(CFAllocatorRef allocator, CF
 
     if (Value)
     {
-      v17 = v36;
+      v17 = v35;
     }
 
     else
@@ -9294,7 +9383,7 @@ CFNumberRef CFNumberFormatterCreateNumberFromString(CFAllocatorRef allocator, CF
       v17 = 1.0;
     }
 
-    v18 = fabs(v36);
+    v18 = fabs(v35);
     if (!Value)
     {
       v18 = 1.0;
@@ -9326,49 +9415,49 @@ CFNumberRef CFNumberFormatterCreateNumberFromString(CFAllocatorRef allocator, CF
         goto LABEL_29;
       }
 
-      v34 = 0.0;
-      v26 = -1;
+      v33 = 0.0;
+      v25 = -1;
       do
       {
-        v27 = scalbn(v17, ++v26);
+        v26 = scalbn(v17, ++v25);
       }
 
-      while (modf(v27, &v34) != 0.0);
-      for (i = v34; ; i *= 2)
+      while (modf(v26, &v33) != 0.0);
+      for (i = v33; ; i *= 2)
       {
-        v29 = i >= 0 ? i : -i;
-        if (v29 >> 50)
+        v28 = i >= 0 ? i : -i;
+        if (v28 >> 50)
         {
           break;
         }
 
-        LOBYTE(v26) = v26 + 1;
+        LOBYTE(v25) = v25 + 1;
       }
 
       if (v16 >> 53)
       {
-        v30 = 0;
-        v31 = v14;
+        v29 = 0;
+        v30 = v14;
         do
         {
-          v14 = v31 - i;
-          v32 = v31 - i;
-          v30 += 1 << v26;
-          if (v32 < 0)
+          v14 = v30 - i;
+          v31 = v30 - i;
+          v29 += 1 << v25;
+          if (v31 < 0)
           {
-            v32 = -v32;
+            v31 = -v31;
           }
 
-          v33 = v32 >> 53;
-          v31 = v14;
+          v32 = v31 >> 53;
+          v30 = v14;
         }
 
-        while (v33);
+        while (v32);
       }
 
       else
       {
-        v30 = 0;
+        v29 = 0;
       }
 
       if (fmod(v14, v17) != 0.0)
@@ -9376,7 +9465,7 @@ CFNumberRef CFNumberFormatterCreateNumberFromString(CFAllocatorRef allocator, CF
         goto LABEL_31;
       }
 
-      v20 = v30 + (v14 / v17);
+      v20 = v29 + (v14 / v17);
     }
 
     valuePtr[0] = v20;
@@ -9393,31 +9482,28 @@ LABEL_29:
     }
 
     v23 = kCFNumberSInt64Type;
-    goto LABEL_37;
+    return CFNumberCreate(v9, v23, valuePtr);
   }
 
 LABEL_31:
-  if ((v5 & 1) == 0)
+  if (v5)
   {
-    v23 = kCFNumberFloat64Type;
-    if (CFNumberFormatterGetValueFromString(formatter, string, rangep, kCFNumberFloat64Type, valuePtr))
-    {
-LABEL_37:
-      result = CFNumberCreate(v9, v23, valuePtr);
-      goto LABEL_38;
-    }
+    return 0;
   }
 
-  result = 0;
-LABEL_38:
-  v25 = *MEMORY[0x1E69E9840];
-  return result;
+  v23 = kCFNumberFloat64Type;
+  if (!CFNumberFormatterGetValueFromString(formatter, string, rangep, kCFNumberFloat64Type, valuePtr))
+  {
+    return 0;
+  }
+
+  return CFNumberCreate(v9, v23, valuePtr);
 }
 
 Boolean CFNumberFormatterGetValueFromString(CFNumberFormatterRef formatter, CFStringRef string, CFRange *rangep, CFNumberType numberType, void *valuePtr)
 {
   theString = string;
-  v70[128] = *MEMORY[0x1E69E9840];
+  v68[128] = *MEMORY[0x1E69E9840];
   __CFCheckCFInfoPACSignature(formatter);
   v9 = _CFGetNonObjCTypeID(formatter);
   if (v9 != 57)
@@ -9459,18 +9545,18 @@ Boolean CFNumberFormatterGetValueFromString(CFNumberFormatterRef formatter, CFSt
     Predefined = CFCharacterSetGetPredefined(kCFCharacterSetWhitespace);
     if (Length >= 1)
     {
-      v42 = Predefined;
+      v41 = Predefined;
       while (1)
       {
         CharacterAtIndex = CFStringGetCharacterAtIndex(v11, location);
-        if (!CFCharacterSetIsCharacterMember(v42, CharacterAtIndex))
+        if (!CFCharacterSetIsCharacterMember(v41, CharacterAtIndex))
         {
           break;
         }
 
         ++location;
-        v34 = Length-- <= 1;
-        if (v34)
+        v33 = Length-- <= 1;
+        if (v33)
         {
           Length = 0;
           break;
@@ -9480,7 +9566,7 @@ Boolean CFNumberFormatterGetValueFromString(CFNumberFormatterRef formatter, CFSt
   }
 
   v14 = *(formatter + 9);
-  v65 = rangep;
+  v63 = rangep;
   if (v14)
   {
     if (*(formatter + 80))
@@ -9514,30 +9600,30 @@ Boolean CFNumberFormatterGetValueFromString(CFNumberFormatterRef formatter, CFSt
   }
 
   CharactersPtr = CFStringGetCharactersPtr(v11);
-  v21 = MEMORY[0x1EEE9AC00](CharactersPtr, v20);
-  v23 = &v60 - v22;
-  if (v21)
+  v22 = MEMORY[0x1EEE9AC00](CharactersPtr, v20, v21);
+  v24 = &v58 - v23;
+  if (v22)
   {
     if (!*(formatter + 80))
     {
-      v23 = (v21 + 2 * location);
-      v24 = (formatter + 64);
-      v64 = *(formatter + 8);
+      v24 = (v22 + 2 * location);
+      v25 = (formatter + 64);
+      v62 = *(formatter + 8);
 LABEL_26:
-      *v24 = 0;
+      *v25 = 0;
       goto LABEL_27;
     }
 
-    v24 = (formatter + 64);
-    v64 = *(formatter + 8);
+    v25 = (formatter + 64);
+    v62 = *(formatter + 8);
     *(formatter + 8) = 0;
-    v23 = v21;
+    v24 = v22;
 LABEL_23:
     __CFNumberFormatterApplyPattern(formatter, *(formatter + 7));
-    v26 = *(formatter + 8);
-    if (v26)
+    v27 = *(formatter + 8);
+    if (v27)
     {
-      CFRelease(v26);
+      CFRelease(v27);
     }
 
     goto LABEL_26;
@@ -9550,102 +9636,98 @@ LABEL_23:
       CFRelease(v11);
     }
 
-LABEL_79:
-    result = 0;
-    goto LABEL_80;
+    return 0;
   }
 
-  v71.location = location;
-  v71.length = v18;
-  CFStringGetCharacters(v11, v71, (&v60 - v22));
-  v24 = (formatter + 64);
-  v64 = *(formatter + 8);
-  v25 = *(formatter + 80);
+  v69.location = location;
+  v69.length = v18;
+  CFStringGetCharacters(v11, v69, (&v58 - v23));
+  v25 = (formatter + 64);
+  v62 = *(formatter + 8);
+  v26 = *(formatter + 80);
   *(formatter + 8) = 0;
-  if (v25)
+  if (v26)
   {
     goto LABEL_23;
   }
 
 LABEL_27:
-  v66 = valuePtr;
+  v64 = valuePtr;
   if (numberType <= kCFNumberCFIndexType && ((1 << numberType) & 0x4F9E) != 0)
   {
-    v27 = numberType;
-    v28 = 1;
+    v28 = numberType;
+    v29 = 1;
   }
 
   else
   {
-    v27 = numberType;
-    v28 = 0;
+    v28 = numberType;
+    v29 = 0;
   }
 
-  v29 = *(formatter + 2);
   __cficu_unum_setAttribute();
-  v69 = 0;
+  v67 = 0;
   if (v16)
   {
-    v63 = v24;
-    bzero(v70, 0x400uLL);
-    v30 = *(formatter + 2);
-    v31 = __cficu_unum_parseDecimal();
-    v32 = v31;
-    v33 = v69;
-    v34 = v69 >= 1 || v31 <= 0;
-    if (v34)
+    v61 = v25;
+    bzero(v68, 0x400uLL);
+    v30 = __cficu_unum_parseDecimal();
+    v31 = v30;
+    v32 = v67;
+    v33 = v67 >= 1 || v30 <= 0;
+    if (v33)
     {
-      v35 = 0;
+      v34 = 0;
     }
 
     else
     {
-      v35 = v28;
+      v34 = v29;
     }
 
-    if (v35 == 1)
+    if (v34 == 1)
     {
-      v68 = 0;
+      v66 = 0;
       *__error() = 0;
-      v62 = strtoll_l(v70, &v68, 10, 0);
-      if (*__error() || *v68)
+      v60 = strtoll_l(v68, &v66, 10, 0);
+      if (*__error() || *v66)
       {
-        v33 = 3;
-        LODWORD(v69) = 3;
+        v32 = 3;
+        LODWORD(v67) = 3;
       }
 
       else
       {
-        v33 = v69;
+        v32 = v67;
       }
     }
 
     else
     {
-      v62 = 0;
+      v60 = 0;
     }
 
-    v38 = v27;
-    v40 = v65;
-    v39 = v66;
-    v37 = 0.0;
-    if (v33 > 0)
+    v37 = v28;
+    v39 = v63;
+    v38 = v64;
+    v36 = 0.0;
+    if (v32 > 0)
     {
-      v24 = v63;
+      v25 = v61;
     }
 
     else
     {
-      v34 = v32 < 1;
-      v24 = v63;
-      if (!v34)
+      v33 = v31 < 1;
+      v25 = v61;
+      if (!v33)
       {
-        v68 = 0;
+        v66 = 0;
         *__error() = 0;
-        v37 = strtod_l(v70, &v68, 0);
-        if (*__error() || *v68)
+        v36 = strtod_l(v68, &v66, 0);
+        if (*__error() || *v66)
         {
-          LODWORD(v69) = 3;
+          LODWORD(v67) = 3;
         }
       }
     }
@@ -9653,168 +9735,165 @@ LABEL_27:
 
   else
   {
-    v36 = CFStringGetLength(v11);
-    v62 = 0;
-    HIDWORD(v69) = v36;
-    v37 = 0.0;
-    v38 = v27;
-    v40 = v65;
-    v39 = v66;
+    v35 = CFStringGetLength(v11);
+    v60 = 0;
+    HIDWORD(v67) = v35;
+    v36 = 0.0;
+    v37 = v28;
+    v39 = v63;
+    v38 = v64;
   }
 
   if (*(formatter + 80))
   {
-    if (v40)
+    if (v39)
     {
-      v44 = v40->location;
-      if (SHIDWORD(v69) >= 1)
+      v43 = v39->location;
+      if (SHIDWORD(v67) >= 1)
       {
-        v63 = v24;
-        v61 = v38;
-        v45 = 0;
-        v46 = v40->length + v44;
-        while (v44 < v46)
+        v61 = v25;
+        v59 = v37;
+        v44 = 0;
+        v45 = v39->length + v43;
+        while (v43 < v45)
         {
-          v47 = v44;
+          v46 = v43;
           while (1)
           {
-            v48 = *&v23[2 * v45];
-            v49 = CFStringGetCharacterAtIndex(theString, v47);
-            v50 = CFCharacterSetGetPredefined(kCFCharacterSetWhitespace);
-            v51 = CFCharacterSetIsCharacterMember(v50, v49) ? 32 : v49;
-            v44 = v47 + 1;
-            if (v48 == v51)
+            v47 = *&v24[2 * v44];
+            v48 = CFStringGetCharacterAtIndex(theString, v46);
+            v49 = CFCharacterSetGetPredefined(kCFCharacterSetWhitespace);
+            v50 = CFCharacterSetIsCharacterMember(v49, v48) ? 32 : v48;
+            v43 = v46 + 1;
+            if (v47 == v50)
             {
               break;
             }
 
-            ++v47;
-            if (v46 == v44)
+            ++v46;
+            if (v45 == v43)
             {
-              v44 = v46;
-              v39 = v66;
+              v43 = v45;
+              v38 = v64;
               goto LABEL_74;
             }
           }
 
-          ++v45;
-          v39 = v66;
-          if (v45 >= SHIDWORD(v69))
+          ++v44;
+          v38 = v64;
+          if (v44 >= SHIDWORD(v67))
           {
-            v44 = v47 + 1;
+            v43 = v46 + 1;
             break;
           }
         }
 
 LABEL_74:
-        v38 = v61;
-        v40 = v65;
-        v24 = v63;
+        v37 = v59;
+        v39 = v63;
+        v25 = v61;
       }
 
-      v40->length = v44 - v40->location;
+      v39->length = v43 - v39->location;
     }
 
     __CFNumberFormatterApplyPattern(formatter, *(formatter + 5));
-    v52 = *(formatter + 8);
-    if (v52)
+    v51 = *(formatter + 8);
+    if (v51)
     {
-      CFRelease(v52);
+      CFRelease(v51);
     }
   }
 
-  else if (v40)
+  else if (v39)
   {
-    v40->length = location - v40->location + SHIDWORD(v69);
+    v39->length = location - v39->location + SHIDWORD(v67);
   }
 
-  *v24 = v64;
+  *v25 = v62;
   CFRelease(v11);
-  if (v69 > 0)
+  if (v67 > 0)
   {
-    goto LABEL_79;
+    return 0;
   }
 
-  v55 = *v24;
-  if (*v24)
+  v53 = *v25;
+  if (*v25)
   {
-    v70[0] = 0x3FF0000000000000;
-    Value = CFNumberGetValue(v55, kCFNumberFloat64Type, v70);
-    v57 = *v70;
+    v68[0] = 0x3FF0000000000000;
+    Value = CFNumberGetValue(v53, kCFNumberFloat64Type, v68);
+    v55 = *v68;
     if (!Value)
     {
-      v57 = 1.0;
+      v55 = 1.0;
     }
 
-    v58 = (v62 / v57);
-    v37 = v37 / v57;
+    v56 = (v60 / v55);
+    v36 = v36 / v55;
   }
 
   else
   {
-    v58 = v62;
+    v56 = v60;
   }
 
-  switch(v38)
+  switch(v37)
   {
     case kCFNumberSInt8Type:
     case kCFNumberCharType:
-      if (v58 != v58)
+      if (v56 != v56)
       {
-        goto LABEL_79;
+        return 0;
       }
 
-      *v39 = v58;
+      *v38 = v56;
       break;
     case kCFNumberSInt16Type:
     case kCFNumberShortType:
-      if (v58 != v58)
+      if (v56 != v56)
       {
-        goto LABEL_79;
+        return 0;
       }
 
-      *v39 = v58;
+      *v38 = v56;
       break;
     case kCFNumberSInt32Type:
     case kCFNumberIntType:
-      if (v58 != v58)
+      if (v56 != v56)
       {
-        goto LABEL_79;
+        return 0;
       }
 
-      *v39 = v58;
+      *v38 = v56;
       break;
     case kCFNumberSInt64Type:
     case kCFNumberLongType:
     case kCFNumberLongLongType:
     case kCFNumberCFIndexType:
-      *v39 = v58;
+      *v38 = v56;
       break;
     case kCFNumberFloat32Type:
     case kCFNumberFloatType:
-      if (fabs(v37) > 3.40282347e38)
+      if (fabs(v36) > 3.40282347e38)
       {
-        goto LABEL_79;
+        return 0;
       }
 
-      v59 = v37;
-      *v39 = v59;
+      v57 = v36;
+      *v38 = v57;
       break;
     case kCFNumberFloat64Type:
     case kCFNumberDoubleType:
-      if (fabs(v37) > 1.79769313e308)
+      if (fabs(v36) > 1.79769313e308)
       {
-        goto LABEL_79;
+        return 0;
       }
 
-      *v39 = v37;
+      *v38 = v36;
       break;
     default:
-      goto LABEL_79;
+      return 0;
   }
 
-  result = 1;
-LABEL_80:
-  v54 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }

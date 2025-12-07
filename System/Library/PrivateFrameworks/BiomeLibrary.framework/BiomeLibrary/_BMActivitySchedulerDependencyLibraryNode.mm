@@ -13,22 +13,20 @@
 
 + (id)Completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForCompletion = [self configurationForCompletion];
   v3 = +[BMActivitySchedulerDependencyCompletion columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"ActivityScheduler.Dependency.Completion" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"ActivityScheduler.Dependency.Completion" schema:v9 configuration:configurationForCompletion];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -56,22 +54,20 @@
 
 + (id)Result
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForResult = [self configurationForResult];
   v3 = +[BMActivitySchedulerDependencyResult columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"ActivityScheduler.Dependency.Result" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"ActivityScheduler.Dependency.Result" schema:v9 configuration:configurationForResult];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

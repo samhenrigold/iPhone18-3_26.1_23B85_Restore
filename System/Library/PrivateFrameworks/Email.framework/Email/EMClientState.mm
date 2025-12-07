@@ -7,6 +7,7 @@
 - (void)exitDaemon;
 - (void)setCurrentlyVisibleMailboxObjectIDs:(id)ds;
 - (void)setCurrentlyVisibleMailboxes:(id)mailboxes;
+- (void)setIsForeground:(BOOL)foreground;
 - (void)setIsRunningTests:(BOOL)tests;
 - (void)setStateForDemoMode:(id)mode;
 - (void)test_handleApplicationDidEnterBackground;
@@ -124,6 +125,24 @@ void __42__EMClientState_initWithRemoteConnection___block_invoke_2(uint64_t a1, 
   [(EMClientState *)self _performAsyncUpdate:v6];
 }
 
+- (void)setIsForeground:(BOOL)foreground
+{
+  if (self->_isForeground != foreground)
+  {
+    foregroundCopy = foreground;
+    self->_isForeground = foreground;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __33__EMClientState_setIsForeground___block_invoke;
+    v7[3] = &__block_descriptor_33_e34_v16__0___EMClientStateInterface__8l;
+    foregroundCopy2 = foreground;
+    [(EMClientState *)self _performAsyncUpdate:v7];
+    foregroundObservable = [(EMClientState *)self foregroundObservable];
+    v6 = [MEMORY[0x1E696AD98] numberWithBool:foregroundCopy];
+    [foregroundObservable observerDidReceiveResult:v6];
+  }
+}
+
 - (id)daemonBoosterWithDescription:(id)description
 {
   descriptionCopy = description;
@@ -190,16 +209,14 @@ void __37__EMClientState_setStateForDemoMode___block_invoke(uint64_t a1)
 
 void __27__EMClientState_exitDaemon__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EMClientState log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = [v2 ef_publicDescription];
-    __27__EMClientState_exitDaemon__block_invoke_cold_1(v4, v6, v3);
+    __27__EMClientState_exitDaemon__block_invoke_cold_1(v4, v5, v3);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIsRunningTests:(BOOL)tests

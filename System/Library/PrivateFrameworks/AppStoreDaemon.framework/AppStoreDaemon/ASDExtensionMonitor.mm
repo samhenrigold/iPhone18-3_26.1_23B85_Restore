@@ -10,11 +10,11 @@
 
 - (ASDExtensionMonitor)initWithAttributes:(id)attributes
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
-  v18.receiver = self;
-  v18.super_class = ASDExtensionMonitor;
-  v5 = [(ASDExtensionMonitor *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = ASDExtensionMonitor;
+  v5 = [(ASDExtensionMonitor *)&v17 init];
   if (v5)
   {
     v6 = [attributesCopy copy];
@@ -22,8 +22,8 @@
     v5->_extensionAttributes = v6;
 
     v5->_lock._os_unfair_lock_opaque = 0;
-    v17 = 0;
-    v8 = [MEMORY[0x1E696ABD0] extensionsWithMatchingAttributes:v5->_extensionAttributes error:&v17];
+    v16 = 0;
+    v8 = [MEMORY[0x1E696ABD0] extensionsWithMatchingAttributes:v5->_extensionAttributes error:&v16];
     extensions = v5->_extensions;
     v5->_extensions = v8;
 
@@ -34,7 +34,7 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf) = 138543362;
-        *(&buf + 4) = v17;
+        *(&buf + 4) = v16;
         _os_log_error_impl(&dword_1B8220000, v10, OS_LOG_TYPE_ERROR, "Failed to get extensions: %{public}@", &buf, 0xCu);
       }
     }
@@ -44,18 +44,17 @@
     v12 = v5->_extensionAttributes;
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v21 = __49__ASDExtensionMonitor__startMonitoringExtensions__block_invoke;
-    v22 = &unk_1E7CDDBE8;
-    objc_copyWeak(v23, &location);
+    v20 = __49__ASDExtensionMonitor__startMonitoringExtensions__block_invoke;
+    v21 = &unk_1E7CDDBE8;
+    objc_copyWeak(v22, &location);
     v13 = [v11 beginMatchingExtensionsWithAttributes:v12 completion:&buf];
     matchingContext = v5->_matchingContext;
     v5->_matchingContext = v13;
 
-    objc_destroyWeak(v23);
+    objc_destroyWeak(v22);
     objc_destroyWeak(&location);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -106,7 +105,7 @@
 
 void __49__ASDExtensionMonitor__startMonitoringExtensions__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -130,14 +129,12 @@ void __49__ASDExtensionMonitor__startMonitoringExtensions__block_invoke(uint64_t
       v9 = ASDLogHandleForCategory(13);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v11 = 138543362;
-        v12 = v6;
-        _os_log_error_impl(&dword_1B8220000, v9, OS_LOG_TYPE_ERROR, "Failed to get extensions: %{public}@", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = v6;
+        _os_log_error_impl(&dword_1B8220000, v9, OS_LOG_TYPE_ERROR, "Failed to get extensions: %{public}@", &v10, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -34,7 +34,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = AXLogUltronKShot();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -44,10 +44,9 @@
   }
 
   [(HearingMLHelperService *)self _destroyXPCConnection];
-  v5.receiver = self;
-  v5.super_class = HearingMLHelperService;
-  [(HearingMLHelperService *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = HearingMLHelperService;
+  [(HearingMLHelperService *)&v4 dealloc];
 }
 
 - (NSXPCConnection)xpcConnection
@@ -73,7 +72,7 @@ void __39__HearingMLHelperService_xpcConnection__block_invoke(uint64_t a1)
   if (!*(*(a1 + 32) + 24))
   {
     v2 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:@"com.apple.accessibility.HearingMLHelperService"];
-    v3 = HearingMLHelperServiceInterface();
+    v3 = HearingMLHelperServiceInterface(v2);
     [v2 setRemoteObjectInterface:v3];
 
     v4 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286434950];
@@ -104,21 +103,20 @@ void __39__HearingMLHelperService_xpcConnection__block_invoke(uint64_t a1)
 
 void __39__HearingMLHelperService_xpcConnection__block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = AXLogUltronKShot();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = WeakRetained;
-    _os_log_impl(&dword_251F67000, v2, OS_LOG_TYPE_DEFAULT, "Connection to service interrupted. client: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = WeakRetained;
+    _os_log_impl(&dword_251F67000, v2, OS_LOG_TYPE_DEFAULT, "Connection to service interrupted. client: %@", &v4, 0xCu);
   }
 
   v3 = [WeakRetained delegate];
   [v3 hearingMLHelperService:WeakRetained eventOccurred:1];
 
   [WeakRetained _destroyXPCConnection];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __39__HearingMLHelperService_xpcConnection__block_invoke_47(uint64_t a1)
@@ -186,20 +184,18 @@ void __39__HearingMLHelperService__serviceProxy__block_invoke(uint64_t a1, void 
 
 void __39__HearingMLHelperService_xpcConnection__block_invoke_47_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_251F67000, a2, OS_LOG_TYPE_ERROR, "Connection to service invalidated. client: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_251F67000, a2, OS_LOG_TYPE_ERROR, "Connection to service invalidated. client: %@", &v2, 0xCu);
 }
 
 void __39__HearingMLHelperService__serviceProxy__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_251F67000, a2, OS_LOG_TYPE_ERROR, "Failed to get service proxy: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_251F67000, a2, OS_LOG_TYPE_ERROR, "Failed to get service proxy: %@", &v2, 0xCu);
 }
 
 @end

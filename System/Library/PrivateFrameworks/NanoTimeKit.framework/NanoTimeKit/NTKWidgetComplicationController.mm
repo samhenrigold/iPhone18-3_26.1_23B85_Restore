@@ -365,15 +365,19 @@ LABEL_10:
 
 - (void)initWithComplication:variant:device:.cold.1()
 {
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0_12(&dword_22D9C5000, v1, v2, "NTKWidgetComplicationController created with a complication of unsupported class %@", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = objc_opt_class();
+  v0 = *(&v7 + 4);
+  OUTLINED_FUNCTION_0_12(&dword_22D9C5000, v1, v2, "NTKWidgetComplicationController created with a complication of unsupported class %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)addDisplayWrapper:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 display];
-  v2 = objc_opt_class();
-  OUTLINED_FUNCTION_0_12(&dword_22D9C5000, v3, v4, "NTKWidgetComplicationController only supports NTKWidgetRichComplicationView displays, got class %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = objc_opt_class();
+  v2 = *(&v9 + 4);
+  OUTLINED_FUNCTION_0_12(&dword_22D9C5000, v3, v4, "NTKWidgetComplicationController only supports NTKWidgetRichComplicationView displays, got class %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

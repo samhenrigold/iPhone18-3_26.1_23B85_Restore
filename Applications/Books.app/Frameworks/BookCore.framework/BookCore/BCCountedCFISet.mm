@@ -102,31 +102,32 @@
 - (BOOL)addCFIString:(id)string count:(double)count error:(id *)error
 {
   stringCopy = string;
-  v15 = 0;
-  v9 = [BCCFI cfiWithString:stringCopy error:&v15];
-  v10 = v15;
+  v16 = 0;
+  v9 = [BCCFI cfiWithString:stringCopy error:&v16];
+  v10 = v16;
+  v11 = v10;
   if (v9)
   {
     [(BCCountedCFISet *)self _updateCountForCFI:v9 value:0 operation:count];
     if (error)
     {
 LABEL_3:
-      v11 = v10;
-      *error = v10;
+      v12 = v11;
+      *error = v11;
     }
   }
 
   else
   {
-    v13 = BCReadingStatisticsLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = BCReadingStatisticsLog(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *error;
+      v15 = *error;
       *buf = 138412546;
-      v17 = stringCopy;
-      v18 = 2112;
-      v19 = v14;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Cannot initialize BCCFI with string %@.  addCFIString:count: will return nil. error=%@", buf, 0x16u);
+      v18 = stringCopy;
+      v19 = 2112;
+      v20 = v15;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Cannot initialize BCCFI with string %@.  addCFIString:count: will return nil. error=%@", buf, 0x16u);
     }
 
     if (error)
@@ -135,37 +136,38 @@ LABEL_3:
     }
   }
 
-  return v10 == 0;
+  return v11 == 0;
 }
 
 - (BOOL)subtractCFIString:(id)string count:(double)count error:(id *)error
 {
   stringCopy = string;
-  v15 = 0;
-  v9 = [BCCFI cfiWithString:stringCopy error:&v15];
-  v10 = v15;
+  v16 = 0;
+  v9 = [BCCFI cfiWithString:stringCopy error:&v16];
+  v10 = v16;
+  v11 = v10;
   if (v9)
   {
     [(BCCountedCFISet *)self _updateCountForCFI:v9 value:0 operation:-count];
     if (error)
     {
 LABEL_3:
-      v11 = v10;
-      *error = v10;
+      v12 = v11;
+      *error = v11;
     }
   }
 
   else
   {
-    v13 = BCReadingStatisticsLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = BCReadingStatisticsLog(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *error;
+      v15 = *error;
       *buf = 138412546;
-      v17 = stringCopy;
-      v18 = 2112;
-      v19 = v14;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Cannot initialize BCCFI with string %@.  subtractCFIString:count: will return nil. error=%@", buf, 0x16u);
+      v18 = stringCopy;
+      v19 = 2112;
+      v20 = v15;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Cannot initialize BCCFI with string %@.  subtractCFIString:count: will return nil. error=%@", buf, 0x16u);
     }
 
     if (error)
@@ -174,7 +176,7 @@ LABEL_3:
     }
   }
 
-  return v10 == 0;
+  return v11 == 0;
 }
 
 - (id)allCFICounts

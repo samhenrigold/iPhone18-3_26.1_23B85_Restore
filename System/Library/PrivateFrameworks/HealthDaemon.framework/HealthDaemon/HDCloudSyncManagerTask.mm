@@ -42,7 +42,7 @@
 
 - (void)startWithCompletion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -56,34 +56,34 @@
   status = self->_status;
   if (!status)
   {
-    v8 = [completionCopy copy];
+    v8 = objc_msgSend_copy(completionCopy);
     completion = self->_completion;
     self->_completion = v8;
 
     self->_status = 1;
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v10 = self->_mirroringTasks;
-    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v20 objects:v26 count:16];
+    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          *(*(*(&v20 + 1) + 8 * i) + 24) = self->_status;
+          *(*(*(&v19 + 1) + 8 * i) + 24) = self->_status;
         }
 
-        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
       }
 
       while (v12);
@@ -121,8 +121,6 @@ LABEL_14:
   }
 
   [(HDCloudSyncManagerTask *)self main];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main
@@ -134,7 +132,7 @@ LABEL_14:
 
 - (void)finish
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   status = self->_status;
   v5 = _Block_copy(self->_completion);
@@ -144,31 +142,31 @@ LABEL_14:
   if (self->_status == 1)
   {
     self->_status = 2;
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v7 = self->_mirroringTasks;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         v11 = 0;
         do
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          *(*(*(&v19 + 1) + 8 * v11++) + 24) = self->_status;
+          *(*(*(&v18 + 1) + 8 * v11++) + 24) = self->_status;
         }
 
         while (v9 != v11);
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v9);
@@ -214,8 +212,6 @@ LABEL_14:
       v5[2](v5);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mirrorTask:(id)task

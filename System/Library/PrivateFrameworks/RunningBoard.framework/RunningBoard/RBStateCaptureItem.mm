@@ -28,7 +28,7 @@
     v11->_block = v16;
 
     v18 = dispatch_get_global_queue(17, 0);
-    v19 = _RBLogAddStateCaptureBlockWithTitle(v18, v11->_title, v11->_block);
+    v19 = _RBLogAddStateCaptureBlockWithTitle(v18, v11->_title, v11->_block, 0);
     invalidatable = v11->_invalidatable;
     v11->_invalidatable = v19;
   }

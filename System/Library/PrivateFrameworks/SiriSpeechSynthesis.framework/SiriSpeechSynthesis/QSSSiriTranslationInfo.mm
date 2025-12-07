@@ -43,101 +43,101 @@ flatbuffers::DetachedBuffer *__38__QSSSiriTranslationInfo_flatbuffData__block_in
 
 - (Offset<siri::speech::schema_fb::SiriTranslationInfo>)addObjectToBuffer:(void *)buffer
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   raw_sausage = [(QSSSiriTranslationInfo *)self raw_sausage];
   v6 = [raw_sausage addObjectToBuffer:buffer];
 
-  memset(&v73, 0, sizeof(v73));
+  memset(&v72, 0, sizeof(v72));
   raw_nbest_choices = [(QSSSiriTranslationInfo *)self raw_nbest_choices];
-  v52 = v6;
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v73, [raw_nbest_choices count]);
+  v51 = v6;
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v72, [raw_nbest_choices count]);
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   raw_nbest_choices2 = [(QSSSiriTranslationInfo *)self raw_nbest_choices];
-  v9 = [raw_nbest_choices2 countByEnumeratingWithState:&v69 objects:v77 count:16];
+  v9 = [raw_nbest_choices2 countByEnumeratingWithState:&v68 objects:v76 count:16];
   if (v9)
   {
-    v10 = *v70;
+    v10 = *v69;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v70 != v10)
+        if (*v69 != v10)
         {
           objc_enumerationMutation(raw_nbest_choices2);
         }
 
-        LODWORD(v68.__begin_) = [*(*(&v69 + 1) + 8 * i) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v73, &v68);
+        LODWORD(v67.__begin_) = [*(*(&v68 + 1) + 8 * i) addObjectToBuffer:buffer];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v72, &v67);
       }
 
-      v9 = [raw_nbest_choices2 countByEnumeratingWithState:&v69 objects:v77 count:16];
+      v9 = [raw_nbest_choices2 countByEnumeratingWithState:&v68 objects:v76 count:16];
     }
 
     while (v9);
   }
 
-  begin = v73.__begin_;
-  if (v73.__end_ == v73.__begin_)
+  begin = v72.__begin_;
+  if (v72.__end_ == v72.__begin_)
   {
     v12 = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::RecognitionChoice>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionChoice>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionChoice>> const&)::t;
   }
 
   else
   {
-    v12 = v73.__begin_;
+    v12 = v72.__begin_;
   }
 
-  v51 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v12, v73.__end_ - v73.__begin_);
-  memset(&v68, 0, sizeof(v68));
+  v50 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v12, v72.__end_ - v72.__begin_);
+  memset(&v67, 0, sizeof(v67));
   post_itn_tokens = [(QSSSiriTranslationInfo *)self post_itn_tokens];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v68, [post_itn_tokens count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v67, [post_itn_tokens count]);
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   post_itn_tokens2 = [(QSSSiriTranslationInfo *)self post_itn_tokens];
-  v15 = [post_itn_tokens2 countByEnumeratingWithState:&v64 objects:v76 count:16];
+  v15 = [post_itn_tokens2 countByEnumeratingWithState:&v63 objects:v75 count:16];
   if (v15)
   {
-    v16 = *v65;
+    v16 = *v64;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v65 != v16)
+        if (*v64 != v16)
         {
           objc_enumerationMutation(post_itn_tokens2);
         }
 
-        uTF8String = [*(*(&v64 + 1) + 8 * j) UTF8String];
+        uTF8String = [*(*(&v63 + 1) + 8 * j) UTF8String];
         v19 = strlen(uTF8String);
-        LODWORD(v63.__begin_) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String, v19);
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v68, &v63);
+        LODWORD(v62.__begin_) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String, v19);
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v67, &v62);
       }
 
-      v15 = [post_itn_tokens2 countByEnumeratingWithState:&v64 objects:v76 count:16];
+      v15 = [post_itn_tokens2 countByEnumeratingWithState:&v63 objects:v75 count:16];
     }
 
     while (v15);
   }
 
-  __p = v68.__begin_;
-  if (v68.__end_ == v68.__begin_)
+  __p = v67.__begin_;
+  if (v67.__end_ == v67.__begin_)
   {
     v20 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
   }
 
   else
   {
-    v20 = v68.__begin_;
+    v20 = v67.__begin_;
   }
 
-  v49 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v20, v68.__end_ - v68.__begin_);
+  v48 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v20, v67.__end_ - v67.__begin_);
   post_itn_recognition = [(QSSSiriTranslationInfo *)self post_itn_recognition];
   v22 = post_itn_recognition;
   if (!post_itn_recognition)
@@ -149,102 +149,102 @@ flatbuffers::DetachedBuffer *__38__QSSSiriTranslationInfo_flatbuffData__block_in
   v24 = strlen(uTF8String2);
   String = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v24);
 
-  memset(&v63, 0, sizeof(v63));
+  memset(&v62, 0, sizeof(v62));
   itn_alignments = [(QSSSiriTranslationInfo *)self itn_alignments];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v63, [itn_alignments count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v62, [itn_alignments count]);
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   itn_alignments2 = [(QSSSiriTranslationInfo *)self itn_alignments];
-  v28 = [itn_alignments2 countByEnumeratingWithState:&v59 objects:v75 count:16];
+  v28 = [itn_alignments2 countByEnumeratingWithState:&v58 objects:v74 count:16];
   if (v28)
   {
-    v29 = *v60;
+    v29 = *v59;
     do
     {
       for (k = 0; k != v28; ++k)
       {
-        if (*v60 != v29)
+        if (*v59 != v29)
         {
           objc_enumerationMutation(itn_alignments2);
         }
 
-        LODWORD(v58.__begin_) = [*(*(&v59 + 1) + 8 * k) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v63, &v58);
+        LODWORD(v57.__begin_) = [*(*(&v58 + 1) + 8 * k) addObjectToBuffer:buffer];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v62, &v57);
       }
 
-      v28 = [itn_alignments2 countByEnumeratingWithState:&v59 objects:v75 count:16];
+      v28 = [itn_alignments2 countByEnumeratingWithState:&v58 objects:v74 count:16];
     }
 
     while (v28);
   }
 
-  v31 = v63.__begin_;
-  if (v63.__end_ == v63.__begin_)
+  v31 = v62.__begin_;
+  if (v62.__end_ == v62.__begin_)
   {
     v32 = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::ItnAlignment>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::ItnAlignment>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::ItnAlignment>> const&)::t;
   }
 
   else
   {
-    v32 = v63.__begin_;
+    v32 = v62.__begin_;
   }
 
-  v33 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v32, v63.__end_ - v63.__begin_);
-  memset(&v58, 0, sizeof(v58));
+  v33 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v32, v62.__end_ - v62.__begin_);
+  memset(&v57, 0, sizeof(v57));
   translation_phrase = [(QSSSiriTranslationInfo *)self translation_phrase];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v58, [translation_phrase count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v57, [translation_phrase count]);
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   translation_phrase2 = [(QSSSiriTranslationInfo *)self translation_phrase];
-  v36 = [translation_phrase2 countByEnumeratingWithState:&v54 objects:v74 count:16];
+  v36 = [translation_phrase2 countByEnumeratingWithState:&v53 objects:v73 count:16];
   if (v36)
   {
-    v37 = *v55;
+    v37 = *v54;
     do
     {
       for (m = 0; m != v36; ++m)
       {
-        if (*v55 != v37)
+        if (*v54 != v37)
         {
           objc_enumerationMutation(translation_phrase2);
         }
 
-        v53 = [*(*(&v54 + 1) + 8 * m) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v58, &v53);
+        v52 = [*(*(&v53 + 1) + 8 * m) addObjectToBuffer:buffer];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v57, &v52);
       }
 
-      v36 = [translation_phrase2 countByEnumeratingWithState:&v54 objects:v74 count:16];
+      v36 = [translation_phrase2 countByEnumeratingWithState:&v53 objects:v73 count:16];
     }
 
     while (v36);
   }
 
-  v39 = v58.__begin_;
-  if (v58.__end_ == v58.__begin_)
+  v39 = v57.__begin_;
+  if (v57.__end_ == v57.__begin_)
   {
     v40 = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::Span>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::Span>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::Span>> const&)::t;
   }
 
   else
   {
-    v40 = v58.__begin_;
+    v40 = v57.__begin_;
   }
 
-  v41 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v40, v58.__end_ - v58.__begin_);
+  v41 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v40, v57.__end_ - v57.__begin_);
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v42 = *(buffer + 8);
   v43 = *(buffer + 12);
   v44 = *(buffer + 10);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, v52);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v51);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v49);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, v51);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v50);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v48);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, String);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v33);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 14, v41);
@@ -269,7 +269,6 @@ flatbuffers::DetachedBuffer *__38__QSSSiriTranslationInfo_flatbuffData__block_in
     operator delete(begin);
   }
 
-  v46 = *MEMORY[0x277D85DE8];
   return v45;
 }
 

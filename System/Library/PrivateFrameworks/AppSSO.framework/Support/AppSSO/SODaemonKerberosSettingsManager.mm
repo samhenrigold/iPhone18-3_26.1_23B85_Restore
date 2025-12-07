@@ -49,7 +49,7 @@
 
 - (void)configurationChanged:(id)changed
 {
-  v4 = sub_100001818();
+  v4 = sub_100001818(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -70,7 +70,7 @@
 
 - (void)saveKerberosValuesForPlugins
 {
-  v3 = sub_100001818();
+  v3 = sub_100001818(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;

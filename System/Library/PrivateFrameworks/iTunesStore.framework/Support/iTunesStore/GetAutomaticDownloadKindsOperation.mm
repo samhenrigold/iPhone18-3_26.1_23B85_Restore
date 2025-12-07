@@ -63,93 +63,102 @@
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v5 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (v7)
   {
-    v32 = 138412290;
-    v33 = objc_opt_class();
-    LODWORD(v30) = 12;
-    v28 = &v32;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v35 = 138412290;
+    v36 = objc_opt_class();
+    v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Fetching enabled kinds", &v35, 12);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [NSString stringWithCString:v8 encoding:4, &v32, v30];
-      free(v9);
-      v28 = v10;
+      v10 = v9;
+      v11 = [NSString stringWithCString:v9 encoding:4];
+      free(v10);
+      v31 = v11;
       SSFileLog();
     }
   }
 
-  v31 = 0;
-  v11 = [(GetAutomaticDownloadKindsOperation *)self runSubOperation:v3 returningError:&v31, v28];
-  if (v11)
+  v34 = 0;
+  v12 = [(GetAutomaticDownloadKindsOperation *)self runSubOperation:v3 returningError:&v34, v31];
+  if (v12)
   {
-    v12 = [objc_msgSend(v3 "dataProvider")];
+    v13 = [objc_msgSend(v3 "dataProvider")];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v13 = [v12 objectForKey:@"enabled-media-kinds"];
+      v14 = [v13 objectForKey:@"enabled-media-kinds"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v14 = +[SSLogConfig sharedDaemonConfig];
-        if (!v14)
+        v15 = +[SSLogConfig sharedDaemonConfig];
+        if (!v15)
         {
-          v14 = +[SSLogConfig sharedConfig];
+          v15 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog2 = [v14 shouldLog];
-        if ([v14 shouldLogToDisk])
+        shouldLog2 = [v15 shouldLog];
+        if ([v15 shouldLogToDisk])
         {
-          v16 = shouldLog2 | 2;
+          LODWORD(v17) = shouldLog2 | 2;
         }
 
         else
         {
-          v16 = shouldLog2;
+          LODWORD(v17) = shouldLog2;
         }
 
-        if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_INFO))
+        oSLogObject2 = [v15 OSLogObject];
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
         {
-          v16 &= 2u;
+          v17 = v17;
         }
 
-        if (v16)
+        else
         {
-          v17 = objc_opt_class();
-          v32 = 138412546;
-          v33 = v17;
-          v34 = 2112;
-          v35 = v13;
-          LODWORD(v30) = 22;
-          v29 = &v32;
-          v18 = _os_log_send_and_compose_impl();
-          if (v18)
+          v17 &= 2u;
+        }
+
+        if (v17)
+        {
+          v19 = objc_opt_class();
+          v35 = 138412546;
+          v36 = v19;
+          v37 = 2112;
+          v38 = v14;
+          LODWORD(v33) = 22;
+          v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Found enabled kinds: %@", &v35, v33);
+          if (v20)
           {
-            v19 = v18;
-            v20 = [NSString stringWithCString:v18 encoding:4, &v32, v30];
-            free(v19);
-            v29 = v20;
+            v21 = v20;
+            v22 = [NSString stringWithCString:v20 encoding:4];
+            free(v21);
+            v32 = v22;
             SSFileLog();
           }
         }
 
         [(GetAutomaticDownloadKindsOperation *)self lock];
 
-        self->_enabledDownloadKinds = v13;
+        self->_enabledDownloadKinds = v14;
         [(GetAutomaticDownloadKindsOperation *)self unlock];
       }
     }
@@ -157,51 +166,56 @@
 
   else
   {
-    v21 = +[SSLogConfig sharedDaemonConfig];
-    if (!v21)
+    v23 = +[SSLogConfig sharedDaemonConfig];
+    if (!v23)
     {
-      v21 = +[SSLogConfig sharedConfig];
+      v23 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v21 shouldLog];
-    if ([v21 shouldLogToDisk])
+    shouldLog3 = [v23 shouldLog];
+    if ([v23 shouldLogToDisk])
     {
-      v23 = shouldLog3 | 2;
+      LODWORD(v25) = shouldLog3 | 2;
     }
 
     else
     {
-      v23 = shouldLog3;
+      LODWORD(v25) = shouldLog3;
     }
 
-    if (!os_log_type_enabled([v21 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject3 = [v23 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v23 &= 2u;
+      v25 = v25;
     }
 
-    if (v23)
+    else
     {
-      v24 = objc_opt_class();
-      v32 = 138412546;
-      v33 = v24;
-      v34 = 2112;
-      v35 = v31;
-      LODWORD(v30) = 22;
-      v29 = &v32;
-      v25 = _os_log_send_and_compose_impl();
-      if (v25)
+      v25 &= 2u;
+    }
+
+    if (v25)
+    {
+      v27 = objc_opt_class();
+      v35 = 138412546;
+      v36 = v27;
+      v37 = 2112;
+      v38 = v34;
+      LODWORD(v33) = 22;
+      v28 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Could not fetch kinds: %@", &v35, v33);
+      if (v28)
       {
-        v26 = v25;
-        v27 = [NSString stringWithCString:v25 encoding:4, &v32, v30];
-        free(v26);
-        v29 = v27;
+        v29 = v28;
+        v30 = [NSString stringWithCString:v28 encoding:4];
+        free(v29);
+        v32 = v30;
         SSFileLog();
       }
     }
   }
 
-  [(GetAutomaticDownloadKindsOperation *)self setError:v31, v29];
-  [(GetAutomaticDownloadKindsOperation *)self setSuccess:v11];
+  [(GetAutomaticDownloadKindsOperation *)self setError:v34, v32];
+  [(GetAutomaticDownloadKindsOperation *)self setSuccess:v12];
 }
 
 @end

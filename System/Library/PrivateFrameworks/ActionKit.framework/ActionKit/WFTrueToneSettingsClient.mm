@@ -2,13 +2,63 @@
 + (void)createClientWithCompletionHandler:(id)handler;
 - (WFTrueToneSettingsClient)initWithBrightnessClient:(id)client adaptationClient:(id)adaptationClient;
 - (void)getStateWithCompletionHandler:(id)handler;
+- (void)setState:(BOOL)state completionHandler:(id)handler;
 @end
 
 @implementation WFTrueToneSettingsClient
 
+- (void)setState:(BOOL)state completionHandler:(id)handler
+{
+  stateCopy = state;
+  v18 = *MEMORY[0x277D85DE8];
+  handlerCopy = handler;
+  adaptationClient = [(WFTrueToneSettingsClient *)self adaptationClient];
+  available = [adaptationClient available];
+
+  if ((available & 1) == 0)
+  {
+LABEL_10:
+    v13 = WFSettingsClientError();
+    handlerCopy[2](handlerCopy, v13);
+
+    goto LABEL_11;
+  }
+
+  adaptationClient2 = [(WFTrueToneSettingsClient *)self adaptationClient];
+  v10 = [adaptationClient2 setEnabled:stateCopy];
+
+  v11 = getWFActionsLogObject();
+  v12 = v11;
+  if (!v10)
+  {
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v14 = 136315394;
+      v15 = "[WFTrueToneSettingsClient setState:completionHandler:]";
+      v16 = 1024;
+      v17 = stateCopy;
+      _os_log_impl(&dword_23DE30000, v12, OS_LOG_TYPE_ERROR, "%s Failed to set True Tone state to: %d", &v14, 0x12u);
+    }
+
+    goto LABEL_10;
+  }
+
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = 136315394;
+    v15 = "[WFTrueToneSettingsClient setState:completionHandler:]";
+    v16 = 1024;
+    v17 = stateCopy;
+    _os_log_impl(&dword_23DE30000, v12, OS_LOG_TYPE_DEFAULT, "%s Successfully set True Tone state to: %d", &v14, 0x12u);
+  }
+
+  handlerCopy[2](handlerCopy, 0);
+LABEL_11:
+}
+
 - (void)getStateWithCompletionHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   adaptationClient = [(WFTrueToneSettingsClient *)self adaptationClient];
   available = [adaptationClient available];
@@ -21,11 +71,11 @@
     v9 = getWFActionsLogObject();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315394;
-      v14 = "[WFTrueToneSettingsClient getStateWithCompletionHandler:]";
-      v15 = 1024;
-      v16 = getEnabled;
-      _os_log_impl(&dword_23DE30000, v9, OS_LOG_TYPE_DEFAULT, "%s Current True Tone State: %d", &v13, 0x12u);
+      v12 = 136315394;
+      v13 = "[WFTrueToneSettingsClient getStateWithCompletionHandler:]";
+      v14 = 1024;
+      v15 = getEnabled;
+      _os_log_impl(&dword_23DE30000, v9, OS_LOG_TYPE_DEFAULT, "%s Current True Tone State: %d", &v12, 0x12u);
     }
 
     handlerCopy[2](handlerCopy, getEnabled, 0);
@@ -36,9 +86,9 @@
     v10 = getWFActionsLogObject();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315138;
-      v14 = "[WFTrueToneSettingsClient getStateWithCompletionHandler:]";
-      _os_log_impl(&dword_23DE30000, v10, OS_LOG_TYPE_ERROR, "%s True Tone is not currently available", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[WFTrueToneSettingsClient getStateWithCompletionHandler:]";
+      _os_log_impl(&dword_23DE30000, v10, OS_LOG_TYPE_ERROR, "%s True Tone is not currently available", &v12, 0xCu);
     }
 
     v11 = WFSettingsClientError();
@@ -46,8 +96,6 @@
 
     handlerCopy = v11;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (WFTrueToneSettingsClient)initWithBrightnessClient:(id)client adaptationClient:(id)adaptationClient

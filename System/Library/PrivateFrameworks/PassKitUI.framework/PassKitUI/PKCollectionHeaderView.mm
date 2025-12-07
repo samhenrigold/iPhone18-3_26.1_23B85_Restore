@@ -21,12 +21,12 @@
   [(PKCollectionHeaderView *)&v4 layoutSubviews];
   contentView = [(PKCollectionHeaderView *)self contentView];
   [contentView bounds];
-  [(PKCollectionHeaderView *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKCollectionHeaderView *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;

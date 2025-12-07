@@ -35,10 +35,10 @@ void __37__ARCubemapCompletion_sharedInstance__block_invoke()
 
 - (ARCubemapCompletion)init
 {
-  v126 = *MEMORY[0x1E69E9840];
-  v114.receiver = self;
-  v114.super_class = ARCubemapCompletion;
-  v2 = [(ARCubemapCompletion *)&v114 init];
+  v136 = *MEMORY[0x1E69E9840];
+  v124.receiver = self;
+  v124.super_class = ARCubemapCompletion;
+  v2 = [(ARCubemapCompletion *)&v124 init];
   if (!v2)
   {
     goto LABEL_75;
@@ -62,120 +62,123 @@ void __37__ARCubemapCompletion_sharedInstance__block_invoke()
   roughness = v2->_roughness;
   v2->_roughness = generateSeamSmoothingTexture;
 
-  v11 = ARKitCoreBundle();
+  v12 = ARKitCoreBundle(v11);
   if (v2->_use_model_pre_A11)
   {
-    v12 = @"gan_model_pre_A11";
+    v13 = @"gan_model_pre_A11";
   }
 
   else
   {
-    v12 = @"gan_model";
+    v13 = @"gan_model";
   }
 
-  v13 = v12;
-  v14 = _ARLogTechnique();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v14 = v13;
+  v15 = _ARLogTechnique(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
     *buf = 138544130;
-    *&buf[4] = v16;
+    *&buf[4] = v17;
     *&buf[12] = 2048;
     *&buf[14] = v2;
-    v122 = 2112;
-    v123 = v18;
-    v124 = 2112;
-    v125 = v13;
-    _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@  model choice : %@", buf, 0x2Au);
+    v132 = 2112;
+    v133 = v19;
+    v134 = 2112;
+    v135 = v14;
+    _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@  model choice : %@", buf, 0x2Au);
   }
 
-  v19 = [v11 pathForResource:v13 ofType:@"mlmodelc"];
-  v20 = [v19 stringByAppendingPathComponent:@"model.espresso.net"];
+  v20 = [v12 pathForResource:v14 ofType:@"mlmodelc"];
+  v21 = [v20 stringByAppendingPathComponent:@"model.espresso.net"];
   context = espresso_create_context();
   v2->_espresso_ctx = context;
   p_espresso_ctx = &v2->_espresso_ctx;
   if (context)
   {
-    v23 = _ARLogTechnique();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v24 = _ARLogTechnique(context);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
       *buf = 138543618;
-      *&buf[4] = v25;
+      *&buf[4] = v26;
       *&buf[12] = 2048;
       *&buf[14] = v2;
-      _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Using ANE for Completion", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Using ANE for Completion", buf, 0x16u);
     }
 
     goto LABEL_13;
   }
 
-  v26 = espresso_create_context();
-  *p_espresso_ctx = v26;
-  if (v26)
+  v27 = espresso_create_context();
+  *p_espresso_ctx = v27;
+  if (v27)
   {
-    v23 = _ARLogTechnique();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v24 = _ARLogTechnique(v27);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      v27 = objc_opt_class();
-      v28 = NSStringFromClass(v27);
+      v28 = objc_opt_class();
+      v29 = NSStringFromClass(v28);
       *buf = 138543618;
-      *&buf[4] = v28;
+      *&buf[4] = v29;
       *&buf[12] = 2048;
       *&buf[14] = v2;
-      _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Using GPU for Completion", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Using GPU for Completion", buf, 0x16u);
     }
 
 LABEL_13:
 
-    if (espresso_context_set_low_precision_accumulation())
+    v30 = espresso_context_set_low_precision_accumulation();
+    if (v30)
     {
-      v29 = _ARLogTechnique();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      v31 = _ARLogTechnique(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
-        v30 = objc_opt_class();
-        v31 = NSStringFromClass(v30);
+        v32 = objc_opt_class();
+        v33 = NSStringFromClass(v32);
         *buf = 138543618;
-        *&buf[4] = v31;
+        *&buf[4] = v33;
         *&buf[12] = 2048;
         *&buf[14] = v2;
-        _os_log_impl(&dword_1C241C000, v29, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Unable to set Espresso low precision accumulation.", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Unable to set Espresso low precision accumulation.", buf, 0x16u);
       }
     }
 
     if (v2->_use_model_pre_A11)
     {
-      v2->_espresso_plan = espresso_create_plan();
-      v32 = _ARLogTechnique();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      plan = espresso_create_plan();
+      v2->_espresso_plan = plan;
+      v35 = _ARLogTechnique(plan);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
-        v33 = objc_opt_class();
-        v34 = NSStringFromClass(v33);
+        v36 = objc_opt_class();
+        v37 = NSStringFromClass(v36);
         *buf = 138543618;
-        *&buf[4] = v34;
+        *&buf[4] = v37;
         *&buf[12] = 2048;
         *&buf[14] = v2;
-        _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Completion model espresso plan at low priority.", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v35, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Completion model espresso plan at low priority.", buf, 0x16u);
       }
     }
 
     else
     {
-      v2->_espresso_plan = espresso_create_plan();
-      v32 = _ARLogTechnique();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v38 = espresso_create_plan();
+      v2->_espresso_plan = v38;
+      v35 = _ARLogTechnique(v38);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
-        v35 = objc_opt_class();
-        v36 = NSStringFromClass(v35);
+        v39 = objc_opt_class();
+        v40 = NSStringFromClass(v39);
         *buf = 138543618;
-        *&buf[4] = v36;
+        *&buf[4] = v40;
         *&buf[12] = 2048;
         *&buf[14] = v2;
-        _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Completion model espresso plan at default priority.", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v35, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Completion model espresso plan at default priority.", buf, 0x16u);
       }
     }
 
@@ -186,73 +189,74 @@ LABEL_13:
         [ARCubemapCompletion init];
       }
 
-      v43 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v44 = _ARLogGeneral();
-      v45 = v44;
-      if (v43 == 1)
+      v49 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v50 = _ARLogGeneral(v41);
+      v51 = v50;
+      if (v49 == 1)
       {
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
-          v46 = objc_opt_class();
-          v47 = NSStringFromClass(v46);
+          v52 = objc_opt_class();
+          v53 = NSStringFromClass(v52);
           *buf = 138543618;
-          *&buf[4] = v47;
+          *&buf[4] = v53;
           *&buf[12] = 2048;
           *&buf[14] = v2;
-          _os_log_impl(&dword_1C241C000, v45, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Espresso plan creation failed.", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v51, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Espresso plan creation failed.", buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
       {
-        v54 = objc_opt_class();
-        v55 = NSStringFromClass(v54);
+        v61 = objc_opt_class();
+        v62 = NSStringFromClass(v61);
         *buf = 138543618;
-        *&buf[4] = v55;
+        *&buf[4] = v62;
         *&buf[12] = 2048;
         *&buf[14] = v2;
-        _os_log_impl(&dword_1C241C000, v45, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Espresso plan creation failed.", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v51, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Espresso plan creation failed.", buf, 0x16u);
       }
 
       espresso_context_destroy();
       goto LABEL_73;
     }
 
-    v37 = v20;
-    [v20 UTF8String];
-    if (espresso_plan_add_network())
+    v42 = v21;
+    [v21 UTF8String];
+    v43 = espresso_plan_add_network();
+    if (v43)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         [ARCubemapCompletion init];
       }
 
-      v38 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v39 = _ARLogGeneral();
-      v40 = v39;
-      if (v38 == 1)
+      v44 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v45 = _ARLogGeneral(v43);
+      v46 = v45;
+      if (v44 == 1)
       {
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
-          v41 = objc_opt_class();
-          v42 = NSStringFromClass(v41);
+          v47 = objc_opt_class();
+          v48 = NSStringFromClass(v47);
           *buf = 138543618;
-          *&buf[4] = v42;
+          *&buf[4] = v48;
           *&buf[12] = 2048;
           *&buf[14] = v2;
-          _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Adding plan to Espresso network failed.", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v46, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Adding plan to Espresso network failed.", buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
       {
-        v52 = objc_opt_class();
-        v53 = NSStringFromClass(v52);
+        v59 = objc_opt_class();
+        v60 = NSStringFromClass(v59);
         *buf = 138543618;
-        *&buf[4] = v53;
+        *&buf[4] = v60;
         *&buf[12] = 2048;
         *&buf[14] = v2;
-        _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Adding plan to Espresso network failed.", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v46, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Adding plan to Espresso network failed.", buf, 0x16u);
       }
 
 LABEL_72:
@@ -262,77 +266,78 @@ LABEL_72:
       *p_espresso_ctx = 0;
       v2->_espresso_plan = 0;
 LABEL_73:
-      v76 = v2;
-      v75 = 0;
+      v84 = v2;
+      v83 = 0;
       goto LABEL_74;
     }
 
-    if (espresso_plan_build())
+    v54 = espresso_plan_build();
+    if (v54)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         [ARCubemapCompletion init];
       }
 
-      v48 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v49 = _ARLogGeneral();
-      v40 = v49;
-      if (v48 == 1)
+      v55 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v56 = _ARLogGeneral(v54);
+      v46 = v56;
+      if (v55 == 1)
       {
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
-          v50 = objc_opt_class();
-          v51 = NSStringFromClass(v50);
+          v57 = objc_opt_class();
+          v58 = NSStringFromClass(v57);
           *buf = 138543618;
-          *&buf[4] = v51;
+          *&buf[4] = v58;
           *&buf[12] = 2048;
           *&buf[14] = v2;
-          _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Building Espresso plan failed.", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v46, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Building Espresso plan failed.", buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
       {
-        v77 = objc_opt_class();
-        v78 = NSStringFromClass(v77);
+        v85 = objc_opt_class();
+        v86 = NSStringFromClass(v85);
         *buf = 138543618;
-        *&buf[4] = v78;
+        *&buf[4] = v86;
         *&buf[12] = 2048;
         *&buf[14] = v2;
-        _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Building Espresso plan failed.", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v46, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Building Espresso plan failed.", buf, 0x16u);
       }
 
       goto LABEL_72;
     }
 
-    v61 = -1.0;
+    v68 = -1.0;
     if (v2->_use_model_pre_A11)
     {
-      v61 = 0.0;
+      v68 = 0.0;
     }
 
-    v62 = 0.0078431;
+    v69 = 0.0078431;
     if (v2->_use_model_pre_A11)
     {
-      v62 = 0.0039216;
+      v69 = 0.0039216;
     }
 
-    v2->_espresso_processing_params.bias_r = v61;
-    v2->_espresso_processing_params.bias_g = v61;
-    v2->_espresso_processing_params.bias_b = v61;
-    v2->_espresso_processing_params.scale = v62;
+    v2->_espresso_processing_params.bias_r = v68;
+    v2->_espresso_processing_params.bias_g = v68;
+    v2->_espresso_processing_params.bias_b = v68;
+    v2->_espresso_processing_params.scale = v69;
     v2->_espresso_processing_params.network_wants_bgr = 1;
     espresso_network_query_blob_dimensions();
-    v63 = *&buf[8];
+    v70 = *&buf[8];
     v2->_gan_width = *buf;
-    v2->_gan_height = v63;
+    v2->_gan_height = v70;
     MEMORY[0x1C691B940](&v2->_vImageBuffer);
-    v64 = 3 * v2->_gan_width * v2->_gan_height;
-    std::vector<unsigned char>::reserve(&v2->_randomNumbers.__begin_, v64);
-    for (; v64; --v64)
+    v71 = 3 * v2->_gan_width * v2->_gan_height;
+    std::vector<unsigned char>::reserve(&v2->_randomNumbers.__begin_, v71);
+    for (; v71; --v71)
     {
-      v115[0] = arc4random_uniform(0xFFu);
-      std::vector<unsigned char>::push_back[abi:ne200100](&v2->_randomNumbers, v115);
+      v125[0] = arc4random_uniform(0xFFu);
+      std::vector<unsigned char>::push_back[abi:ne200100](&v2->_randomNumbers, v125);
     }
 
     if (v2->_use_model_pre_A11)
@@ -340,8 +345,8 @@ LABEL_73:
       std::vector<unsigned char>::reserve(&v2->_srgbToLogLUT_pre_A11.__begin_, 0x100uLL);
       for (i = 0; i != 256; ++i)
       {
-        v115[0] = [(ARCubemapCompletion *)v2 srgbToLog:i];
-        std::vector<unsigned char>::push_back[abi:ne200100](&v2->_srgbToLogLUT_pre_A11, v115);
+        v125[0] = [(ARCubemapCompletion *)v2 srgbToLog:i];
+        std::vector<unsigned char>::push_back[abi:ne200100](&v2->_srgbToLogLUT_pre_A11, v125);
       }
     }
 
@@ -353,92 +358,93 @@ LABEL_73:
 
     [(MTLCommandQueue *)v2->_queue setLabel:@"com.apple.arkit.cubemapcompletion.queue"];
     v2->_espressoInitialized = 1;
-    if (espresso_plan_execute_sync())
+    v75 = espresso_plan_execute_sync();
+    if (v75)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         [ARCubemapCompletion init];
       }
 
-      v68 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v69 = _ARLogGeneral();
-      v70 = v69;
-      if (v68 == 1)
+      v76 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v77 = _ARLogGeneral(v75);
+      v78 = v77;
+      if (v76 == 1)
       {
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
         {
-          v71 = objc_opt_class();
-          v72 = NSStringFromClass(v71);
-          *v115 = 138543618;
-          v116 = v72;
-          v117 = 2048;
-          v118 = v2;
-          _os_log_impl(&dword_1C241C000, v70, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Espresso warm-up failed...", v115, 0x16u);
+          v79 = objc_opt_class();
+          v80 = NSStringFromClass(v79);
+          *v125 = 138543618;
+          v126 = v80;
+          v127 = 2048;
+          v128 = v2;
+          _os_log_impl(&dword_1C241C000, v78, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Espresso warm-up failed...", v125, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
       {
-        v88 = objc_opt_class();
-        v89 = NSStringFromClass(v88);
-        *v115 = 138543618;
-        v116 = v89;
-        v117 = 2048;
-        v118 = v2;
-        _os_log_impl(&dword_1C241C000, v70, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Espresso warm-up failed...", v115, 0x16u);
+        v97 = objc_opt_class();
+        v98 = NSStringFromClass(v97);
+        *v125 = 138543618;
+        v126 = v98;
+        v127 = 2048;
+        v128 = v2;
+        _os_log_impl(&dword_1C241C000, v78, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Espresso warm-up failed...", v125, 0x16u);
       }
 
       espresso_context_destroy();
       espresso_plan_destroy();
       *p_espresso_ctx = 0;
       v2->_espresso_plan = 0;
-      v90 = v2;
-      v75 = 0;
+      v99 = v2;
+      v83 = 0;
       goto LABEL_103;
     }
 
-    v80 = [v11 URLForResource:@"default" withExtension:@"metallib"];
-    v81 = v2->_device;
-    v113 = 0;
-    v109 = v80;
-    v82 = [(MTLDevice *)v81 newLibraryWithURL:v80 error:&v113];
-    v83 = v113;
-    v110 = v82;
-    [v82 setLabel:@"com.apple.arkit.cubemapcompletion.library"];
-    if (v82)
+    v88 = [v12 URLForResource:@"default" withExtension:@"metallib"];
+    v89 = v2->_device;
+    v123 = 0;
+    v119 = v88;
+    v90 = [(MTLDevice *)v89 newLibraryWithURL:v88 error:&v123];
+    v91 = v123;
+    v120 = v90;
+    v92 = [v90 setLabel:@"com.apple.arkit.cubemapcompletion.library"];
+    if (v90)
     {
-      v84 = v2->_device;
+      v93 = v2->_device;
       if (v2->_use_model_pre_A11)
       {
-        v85 = [v82 newFunctionWithName:@"combine_buffers_to_hdr_pre_A11"];
-        v112 = v83;
-        v86 = &v112;
-        v87 = [(MTLDevice *)v84 newComputePipelineStateWithFunction:v85 error:&v112];
+        v94 = [v90 newFunctionWithName:@"combine_buffers_to_hdr_pre_A11"];
+        v122 = v91;
+        v95 = &v122;
+        v96 = [(MTLDevice *)v93 newComputePipelineStateWithFunction:v94 error:&v122];
       }
 
       else
       {
-        v85 = [v82 newFunctionWithName:@"combine_buffers_to_hdr"];
-        v111 = v83;
-        v86 = &v111;
-        v87 = [(MTLDevice *)v84 newComputePipelineStateWithFunction:v85 error:&v111];
+        v94 = [v90 newFunctionWithName:@"combine_buffers_to_hdr"];
+        v121 = v91;
+        v95 = &v121;
+        v96 = [(MTLDevice *)v93 newComputePipelineStateWithFunction:v94 error:&v121];
       }
 
-      v96 = v87;
-      v97 = *v86;
+      v105 = v96;
+      v106 = *v95;
 
       combineBuffersToHDR = v2->_combineBuffersToHDR;
-      v2->_combineBuffersToHDR = v96;
+      v2->_combineBuffersToHDR = v105;
 
       if (v2->_combineBuffersToHDR)
       {
-        v99 = v110;
+        v109 = v120;
         kdebug_trace();
-        v75 = 1;
+        v83 = 1;
 LABEL_102:
 
 LABEL_103:
-        v76 = v2;
+        v84 = v2;
         goto LABEL_74;
       }
 
@@ -447,39 +453,39 @@ LABEL_103:
         [ARCubemapCompletion init];
       }
 
-      v100 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v101 = _ARLogGeneral();
-      v93 = v101;
-      if (v100 == 1)
+      v110 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v111 = _ARLogGeneral(v108);
+      v102 = v111;
+      if (v110 == 1)
       {
-        if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
         {
-          v102 = objc_opt_class();
-          v103 = NSStringFromClass(v102);
-          *v115 = 138543874;
-          v116 = v103;
-          v117 = 2048;
-          v118 = v2;
-          v119 = 2112;
-          v120 = v97;
-          _os_log_impl(&dword_1C241C000, v93, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to create combine buffer to hdr pipeline state %@", v115, 0x20u);
+          v112 = objc_opt_class();
+          v113 = NSStringFromClass(v112);
+          *v125 = 138543874;
+          v126 = v113;
+          v127 = 2048;
+          v128 = v2;
+          v129 = 2112;
+          v130 = v106;
+          _os_log_impl(&dword_1C241C000, v102, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to create combine buffer to hdr pipeline state %@", v125, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v111, OS_LOG_TYPE_INFO))
       {
-        v106 = objc_opt_class();
-        v107 = NSStringFromClass(v106);
-        *v115 = 138543874;
-        v116 = v107;
-        v117 = 2048;
-        v118 = v2;
-        v119 = 2112;
-        v120 = v97;
-        _os_log_impl(&dword_1C241C000, v93, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to create combine buffer to hdr pipeline state %@", v115, 0x20u);
+        v116 = objc_opt_class();
+        v117 = NSStringFromClass(v116);
+        *v125 = 138543874;
+        v126 = v117;
+        v127 = 2048;
+        v128 = v2;
+        v129 = 2112;
+        v130 = v106;
+        _os_log_impl(&dword_1C241C000, v102, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to create combine buffer to hdr pipeline state %@", v125, 0x20u);
       }
 
-      v83 = v97;
+      v91 = v106;
     }
 
     else
@@ -489,43 +495,43 @@ LABEL_103:
         [ARCubemapCompletion init];
       }
 
-      v91 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v92 = _ARLogGeneral();
-      v93 = v92;
-      if (v91 == 1)
+      v100 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v101 = _ARLogGeneral(v92);
+      v102 = v101;
+      if (v100 == 1)
       {
-        if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
         {
-          v94 = objc_opt_class();
-          v95 = NSStringFromClass(v94);
-          *v115 = 138543874;
-          v116 = v95;
-          v117 = 2048;
-          v118 = v2;
-          v119 = 2112;
-          v120 = v83;
-          _os_log_impl(&dword_1C241C000, v93, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to create MTLLibrary %@", v115, 0x20u);
+          v103 = objc_opt_class();
+          v104 = NSStringFromClass(v103);
+          *v125 = 138543874;
+          v126 = v104;
+          v127 = 2048;
+          v128 = v2;
+          v129 = 2112;
+          v130 = v91;
+          _os_log_impl(&dword_1C241C000, v102, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to create MTLLibrary %@", v125, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v92, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
       {
-        v104 = objc_opt_class();
-        v105 = NSStringFromClass(v104);
-        *v115 = 138543874;
-        v116 = v105;
-        v117 = 2048;
-        v118 = v2;
-        v119 = 2112;
-        v120 = v83;
-        _os_log_impl(&dword_1C241C000, v93, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to create MTLLibrary %@", v115, 0x20u);
+        v114 = objc_opt_class();
+        v115 = NSStringFromClass(v114);
+        *v125 = 138543874;
+        v126 = v115;
+        v127 = 2048;
+        v128 = v2;
+        v129 = 2112;
+        v130 = v91;
+        _os_log_impl(&dword_1C241C000, v102, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to create MTLLibrary %@", v125, 0x20u);
       }
     }
 
-    v108 = v2;
-    v75 = 0;
-    v97 = v83;
-    v99 = v110;
+    v118 = v2;
+    v83 = 0;
+    v106 = v91;
+    v109 = v120;
     goto LABEL_102;
   }
 
@@ -534,45 +540,45 @@ LABEL_103:
     [ARCubemapCompletion init];
   }
 
-  v56 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v57 = _ARLogGeneral();
-  v58 = v57;
-  if (v56 == 1)
+  v63 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v64 = _ARLogGeneral(v27);
+  v65 = v64;
+  if (v63 == 1)
   {
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
     {
-      v59 = objc_opt_class();
-      v60 = NSStringFromClass(v59);
+      v66 = objc_opt_class();
+      v67 = NSStringFromClass(v66);
       *buf = 138543618;
-      *&buf[4] = v60;
+      *&buf[4] = v67;
       *&buf[12] = 2048;
       *&buf[14] = v2;
-      _os_log_impl(&dword_1C241C000, v58, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Espresso context creation failed.", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v65, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Espresso context creation failed.", buf, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
   {
-    v73 = objc_opt_class();
-    v74 = NSStringFromClass(v73);
+    v81 = objc_opt_class();
+    v82 = NSStringFromClass(v81);
     *buf = 138543618;
-    *&buf[4] = v74;
+    *&buf[4] = v82;
     *&buf[12] = 2048;
     *&buf[14] = v2;
-    _os_log_impl(&dword_1C241C000, v58, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Espresso context creation failed.", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v65, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Espresso context creation failed.", buf, 0x16u);
   }
 
-  v75 = 0;
-  v76 = 0;
+  v83 = 0;
+  v84 = 0;
 LABEL_74:
 
-  if (v75)
+  if (v83)
   {
 LABEL_75:
-    v76 = v2;
+    v84 = v2;
   }
 
-  return v76;
+  return v84;
 }
 
 - (void)dealloc
@@ -594,10 +600,10 @@ LABEL_75:
 
 - (id)completeCubemap:(simd_float3)cubemap cameraExposure:(simd_float3)exposure rotationWorldFromCube:(simd_float3)cube
 {
-  v31.columns[1] = exposure;
-  v31.columns[2] = cube;
-  v31.columns[0] = cubemap;
-  v36 = *MEMORY[0x1E69E9840];
+  v32.columns[1] = exposure;
+  v32.columns[2] = cube;
+  v32.columns[0] = cubemap;
+  v37 = *MEMORY[0x1E69E9840];
   v9 = a7;
   [v9 width];
   [v9 height];
@@ -612,7 +618,7 @@ LABEL_75:
     *(self + 144) = v15 > a2;
     if (v15 <= a2)
     {
-      v16 = v31;
+      v16 = v32;
       if (*(self + 224))
       {
         v18 = 255;
@@ -628,8 +634,8 @@ LABEL_75:
 
     else
     {
-      v16.columns[1] = v31.columns[1];
-      v16.columns[2] = v31.columns[2];
+      v16.columns[1] = v32.columns[1];
+      v16.columns[2] = v32.columns[2];
       if (*(self + 224))
       {
         *(self + 268) = *(self + 192) / 2;
@@ -638,17 +644,18 @@ LABEL_75:
       }
 
       *(self + 160) = 255;
-      v16.columns[0] = v31.columns[0];
+      v16.columns[0] = v32.columns[0];
     }
 
     v19 = *(self + 120);
-    v38 = __invert_f3(v16);
-    v20 = [v19 equirectangularTextureFromCubemapTexture:v9 rotation:*(self + 184) width:*(self + 192) height:{*v38.columns[0].i64, *v38.columns[1].i64, *v38.columns[2].i64}];
+    v39 = __invert_f3(v16);
+    v20 = [v19 equirectangularTextureFromCubemapTexture:v9 rotation:*(self + 184) width:*(self + 192) height:{*v39.columns[0].i64, *v39.columns[1].i64, *v39.columns[2].i64}];
     v21 = [self completeLatLongImage:v20];
+    v22 = v21;
     if (v21)
     {
-      v22 = [*(self + 120) cubemapTextureFromEquirectangularTexture:v21 rotation:objc_msgSend(v9 size:{"height"), *v31.columns[0].i64, *v31.columns[1].i64, *v31.columns[2].i64}];
-      v17 = [*(self + 128) blurCubemapTexture:v22 roughness:*(self + 136) rotation:{*v31.columns[0].i64, *v31.columns[1].i64, *v31.columns[2].i64}];
+      v23 = [*(self + 120) cubemapTextureFromEquirectangularTexture:v21 rotation:objc_msgSend(v9 size:{"height"), *v32.columns[0].i64, *v32.columns[1].i64, *v32.columns[2].i64}];
+      v17 = [*(self + 128) blurCubemapTexture:v23 roughness:*(self + 136) rotation:{*v32.columns[0].i64, *v32.columns[1].i64, *v32.columns[2].i64}];
       [v17 width];
       [v17 height];
       kdebug_trace();
@@ -661,32 +668,32 @@ LABEL_75:
         [ARCubemapCompletion completeCubemap:cameraExposure:rotationWorldFromCube:];
       }
 
-      v23 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v24 = _ARLogGeneral();
-      v25 = v24;
-      if (v23 == 1)
+      v24 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v25 = _ARLogGeneral(v21);
+      v26 = v25;
+      if (v24 == 1)
       {
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          v26 = objc_opt_class();
-          v27 = NSStringFromClass(v26);
+          v27 = objc_opt_class();
+          v28 = NSStringFromClass(v27);
           *buf = 138543618;
-          v33 = v27;
-          v34 = 2048;
+          v34 = v28;
+          v35 = 2048;
           selfCopy2 = self;
-          _os_log_impl(&dword_1C241C000, v25, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not complete environment texture", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v26, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not complete environment texture", buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
-        v28 = objc_opt_class();
-        v29 = NSStringFromClass(v28);
+        v29 = objc_opt_class();
+        v30 = NSStringFromClass(v29);
         *buf = 138543618;
-        v33 = v29;
-        v34 = 2048;
+        v34 = v30;
+        v35 = 2048;
         selfCopy2 = self;
-        _os_log_impl(&dword_1C241C000, v25, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not complete environment texture", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v26, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not complete environment texture", buf, 0x16u);
       }
 
       v17 = [self grayCubemapOfSize:{objc_msgSend(v9, "width")}];
@@ -705,7 +712,7 @@ LABEL_75:
 {
   v19 = 0u;
   v20 = 0u;
-  [(ARCubemapCompletion *)self toVImageBuffer:image];
+  objc_msgSend_toVImageBuffer_(self, a2, image);
   v8 = v19;
   v9 = v20;
   if (espresso_network_bind_input_vimagebuffer_bgra8() || espresso_network_bind_buffer() || !self->_espresso_plan || (kdebug_trace(), espresso_plan_execute_sync()))

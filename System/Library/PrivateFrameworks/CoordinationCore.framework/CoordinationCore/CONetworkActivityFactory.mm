@@ -1,5 +1,6 @@
 @interface CONetworkActivityFactory
 + (id)activityWithLabel:(unsigned int)label parentActivity:(id)activity;
+- (id)activityWithLabel:(unsigned int)label parentActivity:(id)activity;
 @end
 
 @implementation CONetworkActivityFactory
@@ -14,6 +15,15 @@
   }
 
   return v5;
+}
+
+- (id)activityWithLabel:(unsigned int)label parentActivity:(id)activity
+{
+  v4 = *&label;
+  activityCopy = activity;
+  v6 = [objc_opt_class() activityWithLabel:v4 parentActivity:activityCopy];
+
+  return v6;
 }
 
 @end

@@ -1,37 +1,38 @@
 @interface UIView
-+ (void)safari_animate:(char)safari_animate withDuration:(void *)duration animations:;
-+ (void)safari_animate:(uint64_t)safari_animate withDuration:(char)duration delay:(uint64_t)delay options:(void *)options animations:(void *)animations completion:;
++ (void)safari_animate:(uint64_t)safari_animate withDuration:(void *)duration delay:(void *)delay options:(double)options animations:(double)animations completion:;
++ (void)safari_animate:(void *)safari_animate withDuration:(double)duration animations:;
 @end
 
 @implementation UIView
 
-+ (void)safari_animate:(char)safari_animate withDuration:(void *)duration animations:
++ (void)safari_animate:(void *)safari_animate withDuration:(double)duration animations:
 {
-  durationCopy = duration;
+  v5 = a2;
+  safari_animateCopy = safari_animate;
   v6 = objc_opt_self();
-  [(UIView *)self safari_animate:v6 withDuration:safari_animate delay:0 options:durationCopy animations:0 completion:?];
+  [(UIView *)v6 safari_animate:v5 withDuration:0 delay:safari_animateCopy options:0 animations:duration completion:0.0];
 }
 
-+ (void)safari_animate:(uint64_t)safari_animate withDuration:(char)duration delay:(uint64_t)delay options:(void *)options animations:(void *)animations completion:
++ (void)safari_animate:(uint64_t)safari_animate withDuration:(void *)duration delay:(void *)delay options:(double)options animations:(double)animations completion:
 {
-  optionsCopy = options;
-  animationsCopy = animations;
+  durationCopy = duration;
+  delayCopy = delay;
   v13 = objc_opt_self();
-  v14 = _Block_copy(animationsCopy);
+  v14 = _Block_copy(delayCopy);
 
-  if (duration)
+  if (a2)
   {
-    [v13 animateWithDuration:delay delay:optionsCopy options:v14 animations:self completion:a2];
+    [v13 animateWithDuration:safari_animate delay:durationCopy options:v14 animations:options completion:animations];
   }
 
   else
   {
-    if (optionsCopy)
+    if (durationCopy)
     {
-      optionsCopy[2](optionsCopy);
+      durationCopy[2](durationCopy);
     }
 
-    if (animationsCopy)
+    if (delayCopy)
     {
       v14[2](v14, 1);
     }

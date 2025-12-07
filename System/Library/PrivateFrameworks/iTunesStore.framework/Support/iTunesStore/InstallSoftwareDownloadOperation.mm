@@ -33,19 +33,24 @@
       v10 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v10 shouldLog];
+    LODWORD(v11) = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      shouldLog |= 2u;
+      LODWORD(v11) = v11 | 2;
     }
 
     oSLogObject = [v10 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
     {
-      shouldLog &= 2u;
+      v11 = v11;
     }
 
-    if (shouldLog)
+    else
+    {
+      v11 &= 2u;
+    }
+
+    if (v11)
     {
       v126 = 138412802;
       v127 = objc_opt_class();
@@ -61,9 +66,7 @@
       v17 = selfCopy;
       v18 = mediaAsset;
       v19 = v127;
-      LODWORD(v102) = 32;
-      v99 = &v126;
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Requesting termination of sync bubble for download: %lld bundleID: %@", &v126, 32);
 
       mediaAsset = v18;
       selfCopy = v17;
@@ -75,9 +78,9 @@
 
       if (v20)
       {
-        v102 = [NSString stringWithCString:v20 encoding:4, &v126, v102];
+        v21 = [NSString stringWithCString:v20 encoding:4];
         free(v20);
-        v99 = v102;
+        v99 = v21;
         SSFileLog();
       }
     }
@@ -108,7 +111,7 @@
   {
     [(FinishDownloadResponse *)v5 setError:v25];
     [(FinishDownloadResponse *)v5 setResult:0];
-    goto LABEL_121;
+    goto LABEL_126;
   }
 
   v120 = 0;
@@ -128,21 +131,21 @@
         v81 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v81 shouldLog];
+      shouldLog = [v81 shouldLog];
       if ([v81 shouldLogToDisk])
       {
-        shouldLog2 |= 2u;
+        shouldLog |= 2u;
       }
 
       oSLogObject2 = [v81 OSLogObject];
       if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v84 = shouldLog2;
+        v84 = shouldLog;
       }
 
       else
       {
-        v84 = shouldLog2 & 2;
+        v84 = shouldLog & 2;
       }
 
       if (v84)
@@ -162,8 +165,7 @@
         v90 = mediaAsset;
         v91 = v85;
         LODWORD(v102) = 32;
-        v100 = &v126;
-        v92 = _os_log_send_and_compose_impl();
+        v92 = _os_log_send_and_compose_impl(v84, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Missing sinf data for store download: %lld / %@", &v126, v102);
 
         mediaAsset = v90;
         selfCopy = v89;
@@ -174,28 +176,28 @@
 
         if (!v92)
         {
-LABEL_102:
+LABEL_107:
 
           v93 = SSError();
           [(FinishDownloadResponse *)v5 setError:v93];
 
           [(FinishDownloadResponse *)v5 setResult:3];
-          goto LABEL_119;
+          goto LABEL_124;
         }
 
-        oSLogObject2 = [NSString stringWithCString:v92 encoding:4, &v126, v102];
+        oSLogObject2 = [NSString stringWithCString:v92 encoding:4];
         free(v92);
         v100 = oSLogObject2;
         SSFileLog();
       }
 
-      goto LABEL_102;
+      goto LABEL_107;
     }
   }
 
   if (automaticType != 2)
   {
-    goto LABEL_31;
+    goto LABEL_33;
   }
 
   v28 = [[ApplicationHandle alloc] initWithTransactionIdentifier:transactionID downloadIdentifier:v114 bundleIdentifier:bundleIdentifier];
@@ -205,26 +207,31 @@ LABEL_102:
     v29 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v29 shouldLog];
+  shouldLog2 = [v29 shouldLog];
   if ([v29 shouldLogToDisk])
   {
-    v31 = shouldLog3 | 2;
+    LODWORD(v31) = shouldLog2 | 2;
   }
 
   else
   {
-    v31 = shouldLog3;
+    LODWORD(v31) = shouldLog2;
   }
 
   oSLogObject3 = [v29 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+  {
+    v31 = v31;
+  }
+
+  else
   {
     v31 &= 2u;
   }
 
   if (!v31)
   {
-    goto LABEL_29;
+    goto LABEL_31;
   }
 
   v33 = objc_opt_class();
@@ -235,21 +242,20 @@ LABEL_102:
   v108 = v28;
   v34 = v33;
   LODWORD(v102) = 22;
-  v100 = &v126;
-  v35 = _os_log_send_and_compose_impl();
+  v35 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Installing placeholder for auto-update: %@", &v126, v102);
 
   v28 = v108;
   if (v35)
   {
-    oSLogObject3 = [NSString stringWithCString:v35 encoding:4, &v126, v102];
+    oSLogObject3 = [NSString stringWithCString:v35 encoding:4];
     free(v35);
     v100 = oSLogObject3;
     SSFileLog();
-LABEL_29:
+LABEL_31:
   }
 
   [v116 installPlaceholderForApplicationHandle:v28];
-LABEL_31:
+LABEL_33:
   v118[0] = _NSConcreteStackBlock;
   v118[1] = 3221225472;
   v118[2] = sub_1002323D8;
@@ -265,23 +271,23 @@ LABEL_31:
     v36 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog4 = [v36 shouldLog];
+  shouldLog3 = [v36 shouldLog];
   shouldLogToDisk = [v36 shouldLogToDisk];
   oSLogObject4 = [v36 OSLogObject];
-  v1022 = oSLogObject4;
+  v40 = oSLogObject4;
   if (shouldLogToDisk)
   {
-    shouldLog4 |= 2u;
+    shouldLog3 |= 2u;
   }
 
   if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_INFO))
   {
-    v41 = shouldLog4;
+    v41 = shouldLog3;
   }
 
   else
   {
-    v41 = shouldLog4 & 2;
+    v41 = shouldLog3 & 2;
   }
 
   if (v41)
@@ -296,22 +302,21 @@ LABEL_31:
     v131 = bundleIdentifier;
     v43 = v42;
     LODWORD(v102) = 32;
-    v100 = &v126;
-    v44 = _os_log_send_and_compose_impl();
+    v44 = _os_log_send_and_compose_impl(v41, 0, 0, 0, &_mh_execute_header, v40, 1, "%@: Installing download: %lld / %@", &v126, v102);
 
     mediaAsset = v103;
     if (!v44)
     {
-      goto LABEL_42;
+      goto LABEL_44;
     }
 
-    v1022 = [NSString stringWithCString:v44 encoding:4, &v126, v102];
+    v40 = [NSString stringWithCString:v44 encoding:4];
     free(v44);
-    v100 = v1022;
+    v100 = v40;
     SSFileLog();
   }
 
-LABEL_42:
+LABEL_44:
   v45 = [[InstallSoftwareOperation alloc] initWithSoftwareProperties:v110];
   [(InstallSoftwareOperation *)v45 setDelegate:selfCopy];
   v117 = v25;
@@ -330,7 +335,7 @@ LABEL_42:
   {
     if (!isStoreDownload)
     {
-      goto LABEL_61;
+      goto LABEL_64;
     }
 
     appReceiptData = [v110 appReceiptData];
@@ -338,7 +343,7 @@ LABEL_42:
 
     if (!v48)
     {
-      goto LABEL_61;
+      goto LABEL_64;
     }
 
     v49 = +[SSLogConfig sharedDaemonConfig];
@@ -347,19 +352,24 @@ LABEL_42:
       v49 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog5 = [v49 shouldLog];
+    LODWORD(v50) = [v49 shouldLog];
     if ([v49 shouldLogToDisk])
     {
-      shouldLog5 |= 2u;
+      LODWORD(v50) = v50 | 2;
     }
 
     oSLogObject5 = [v49 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_INFO))
     {
-      shouldLog5 &= 2u;
+      v50 = v50;
     }
 
-    if (shouldLog5)
+    else
+    {
+      v50 &= 2u;
+    }
+
+    if (v50)
     {
       v52 = objc_opt_class();
       v126 = 138412546;
@@ -368,21 +378,20 @@ LABEL_42:
       v129 = bundleIdentifier;
       v53 = v52;
       LODWORD(v102) = 22;
-      v100 = &v126;
-      v54 = _os_log_send_and_compose_impl();
+      v54 = _os_log_send_and_compose_impl(v50, 0, 0, 0, &_mh_execute_header, oSLogObject5, 1, "%@: Loading missing receipt for app: %@", &v126, v102);
 
       if (!v54)
       {
-        goto LABEL_57;
+        goto LABEL_60;
       }
 
-      oSLogObject5 = [NSString stringWithCString:v54 encoding:4, &v126, v102];
+      oSLogObject5 = [NSString stringWithCString:v54 encoding:4];
       free(v54);
       v100 = oSLogObject5;
       SSFileLog();
     }
 
-LABEL_57:
+LABEL_60:
     v55 = objc_alloc_init(AppReceiptRefreshOperationOptions);
     [(AppReceiptRefreshOperationOptions *)v55 setBundleIdentifier:bundleIdentifier];
     v56 = [LSApplicationProxy applicationProxyForIdentifier:bundleIdentifier];
@@ -395,26 +404,31 @@ LABEL_57:
     v58 = [[AppReceiptRefreshOperation alloc] initWithOptions:v55];
     [(InstallSoftwareDownloadOperation *)selfCopy runSubOperation:v58 returningError:0];
 
-LABEL_61:
+LABEL_64:
     v59 = +[SSLogConfig sharedDaemonConfig];
     if (!v59)
     {
       v59 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog6 = [v59 shouldLog];
+    LODWORD(v60) = [v59 shouldLog];
     if ([v59 shouldLogToDisk])
     {
-      shouldLog6 |= 2u;
+      LODWORD(v60) = v60 | 2;
     }
 
     oSLogObject6 = [v59 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_INFO))
     {
-      shouldLog6 &= 2u;
+      v60 = v60;
     }
 
-    if (shouldLog6)
+    else
+    {
+      v60 &= 2u;
+    }
+
+    if (v60)
     {
       v62 = objc_opt_class();
       v126 = 138412546;
@@ -423,11 +437,11 @@ LABEL_61:
       v129 = bundleIdentifier;
       v63 = v62;
       LODWORD(v102) = 22;
-      v64 = _os_log_send_and_compose_impl();
+      v64 = _os_log_send_and_compose_impl(v60, 0, 0, 0, &_mh_execute_header, oSLogObject6, 1, "%@: Adding bundle ID to KVS: %@", &v126, v102);
 
       if (!v64)
       {
-LABEL_71:
+LABEL_75:
 
         v105 = [[NSMutableSet alloc] initWithObjects:{bundleIdentifier, 0}];
         v65 = +[KeyValueStore defaultKeyValueStore];
@@ -443,18 +457,18 @@ LABEL_71:
         allObjects = [v105 allObjects];
         [v65 setValue:allObjects forDomain:v66 key:v67];
 
-        goto LABEL_74;
+        goto LABEL_78;
       }
 
-      oSLogObject6 = [NSString stringWithCString:v64 encoding:4, &v126, v102];
+      oSLogObject6 = [NSString stringWithCString:v64 encoding:4];
       free(v64);
       SSFileLog();
     }
 
-    goto LABEL_71;
+    goto LABEL_75;
   }
 
-LABEL_74:
+LABEL_78:
   if ((v109 & 1) == 0)
   {
     userInfo = [v107 userInfo];
@@ -467,11 +481,11 @@ LABEL_74:
     {
       [(FinishDownloadResponse *)v5 setAssetBlockedReason:1, v100];
       v74 = 1;
-LABEL_117:
+LABEL_122:
       [(FinishDownloadResponse *)v5 setResult:v74, v101];
       [(FinishDownloadResponse *)v5 setError:v107];
 
-      goto LABEL_118;
+      goto LABEL_123;
     }
 
     if ([v71 isEqualToString:{@"AppBlacklisted", v100}])
@@ -482,19 +496,24 @@ LABEL_117:
         v75 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog7 = [v75 shouldLog];
+      LODWORD(v76) = [v75 shouldLog];
       if ([v75 shouldLogToDisk])
       {
-        shouldLog7 |= 2u;
+        LODWORD(v76) = v76 | 2;
       }
 
       oSLogObject7 = [v75 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog7 &= 2u;
+        v76 = v76;
       }
 
-      if (shouldLog7)
+      else
+      {
+        v76 &= 2u;
+      }
+
+      if (v76)
       {
         v78 = objc_opt_class();
         v126 = 138412546;
@@ -503,30 +522,29 @@ LABEL_117:
         v129 = bundleIdentifier;
         v79 = v78;
         LODWORD(v102) = 22;
-        v101 = &v126;
-        v80 = _os_log_send_and_compose_impl();
+        v80 = _os_log_send_and_compose_impl(v76, 0, 0, 0, &_mh_execute_header, oSLogObject7, 0, "%@: Fail permanently for blacklisted app: %@", &v126, v102);
 
         if (!v80)
         {
-LABEL_90:
+LABEL_95:
 
           v74 = 3;
-          goto LABEL_117;
+          goto LABEL_122;
         }
 
-        oSLogObject7 = [NSString stringWithCString:v80 encoding:4, &v126, v102];
+        oSLogObject7 = [NSString stringWithCString:v80 encoding:4];
         free(v80);
         v101 = oSLogObject7;
         SSFileLog();
       }
 
-      goto LABEL_90;
+      goto LABEL_95;
     }
 
     if (![v71 isEqualToString:@"BundleiTunesMetadataVersionMismatch"])
     {
       v74 = 0;
-      goto LABEL_117;
+      goto LABEL_122;
     }
 
     v94 = +[SSLogConfig sharedDaemonConfig];
@@ -535,52 +553,50 @@ LABEL_90:
       v94 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog8 = [v94 shouldLog];
+    shouldLog4 = [v94 shouldLog];
     if ([v94 shouldLogToDisk])
     {
-      shouldLog8 |= 2u;
+      shouldLog4 |= 2u;
     }
 
     oSLogObject8 = [v94 OSLogObject];
     if (os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_ERROR))
     {
-      v97 = shouldLog8;
+      v97 = shouldLog4;
     }
 
     else
     {
-      v97 = shouldLog8 & 2;
+      v97 = shouldLog4 & 2;
     }
 
     if (v97)
     {
       v126 = 134217984;
       v127 = v114;
-      LODWORD(v102) = 12;
-      v101 = &v126;
-      v98 = _os_log_send_and_compose_impl();
+      v98 = _os_log_send_and_compose_impl(v97, 0, 0, 0, &_mh_execute_header, oSLogObject8, 16, "[ApplicationWorkspace]: Fail permanently for bundle version mismatch: %lld", &v126);
 
       if (!v98)
       {
-LABEL_115:
+LABEL_120:
 
         v74 = 6;
-        goto LABEL_117;
+        goto LABEL_122;
       }
 
-      oSLogObject8 = [NSString stringWithCString:v98 encoding:4, &v126, v102];
+      oSLogObject8 = [NSString stringWithCString:v98 encoding:4];
       free(v98);
       v101 = oSLogObject8;
       SSFileLog();
     }
 
-    goto LABEL_115;
+    goto LABEL_120;
   }
 
-LABEL_118:
+LABEL_123:
 
   v25 = v107;
-LABEL_119:
+LABEL_124:
 
   if (cf)
   {
@@ -588,7 +604,7 @@ LABEL_119:
     CFRelease(cf);
   }
 
-LABEL_121:
+LABEL_126:
   [(FinishDownloadStepOperation *)selfCopy finishWithDownloadResponse:v5, v100];
 }
 

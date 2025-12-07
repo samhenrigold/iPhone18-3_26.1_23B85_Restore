@@ -192,7 +192,7 @@ BOOL __86__HDCloudSyncPushReferencesOperation__generateReferenceAndAttachmentRec
 
 BOOL __86__HDCloudSyncPushReferencesOperation__generateReferenceAndAttachmentRecordsWithError___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 identifier];
   v7 = [v6 UUIDString];
@@ -219,13 +219,13 @@ LABEL_12:
 
     [*(*(a1 + 32) + 112) addObject:v5];
     v17 = *(*(a1 + 32) + 120);
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v60[2] = __86__HDCloudSyncPushReferencesOperation__generateReferenceAndAttachmentRecordsWithError___block_invoke_3;
-    v60[3] = &unk_2786167D0;
+    v59[0] = MEMORY[0x277D85DD0];
+    v59[1] = 3221225472;
+    v59[2] = __86__HDCloudSyncPushReferencesOperation__generateReferenceAndAttachmentRecordsWithError___block_invoke_3;
+    v59[3] = &unk_2786167D0;
     v18 = v15;
-    v61 = v18;
-    if ([v17 hk_containsObjectPassingTest:v60])
+    v60 = v18;
+    if ([v17 hk_containsObjectPassingTest:v59])
     {
 LABEL_11:
 
@@ -233,9 +233,9 @@ LABEL_11:
     }
 
     v19 = *(*(a1 + 32) + 128);
-    v59 = 0;
-    v20 = [v19 recordForRecordID:v18 class:objc_opt_class() error:&v59];
-    v21 = v59;
+    v58 = 0;
+    v20 = [v19 recordForRecordID:v18 class:objc_opt_class() error:&v58];
+    v21 = v58;
     if (v21)
     {
       v22 = v21;
@@ -264,39 +264,39 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v51 = [v5 attachmentIdentifier];
-    v54 = [*(a1 + 32) configuration];
-    v30 = [v54 repository];
-    v31 = [v30 profile];
-    v32 = [v31 legacyRepositoryProfile];
-    v58 = 0;
-    v33 = [HDAttachmentEntity attachmentWithIdentifier:v51 profile:v32 error:&v58];
-    v22 = v58;
+    v50 = [v5 attachmentIdentifier];
+    v53 = [*(a1 + 32) configuration];
+    v29 = [v53 repository];
+    v30 = [v29 profile];
+    v31 = [v30 legacyRepositoryProfile];
+    v57 = 0;
+    v32 = [HDAttachmentEntity attachmentWithIdentifier:v50 profile:v31 error:&v57];
+    v22 = v57;
 
-    if (!v33)
+    if (!v32)
     {
       if (!v22)
       {
         _HKInitializeLogging();
-        v46 = *MEMORY[0x277CCC328];
+        v45 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
         {
-          v49 = *(a1 + 32);
+          v48 = *(a1 + 32);
           *buf = 138543618;
-          v63 = v49;
-          v64 = 2114;
-          v65 = v5;
-          _os_log_fault_impl(&dword_228986000, v46, OS_LOG_TYPE_FAULT, "%{public}@ No attachment found for reference %{public}@", buf, 0x16u);
+          v62 = v48;
+          v63 = 2114;
+          v64 = v5;
+          _os_log_fault_impl(&dword_228986000, v45, OS_LOG_TYPE_FAULT, "%{public}@ No attachment found for reference %{public}@", buf, 0x16u);
         }
 
-        v47 = [MEMORY[0x277CCA9B8] hk_error:118 format:{@"No attachment found for reference %@", v5}];
-        v24 = v47 == 0;
-        if (v47)
+        v46 = [MEMORY[0x277CCA9B8] hk_error:118 format:{@"No attachment found for reference %@", v5}];
+        v24 = v46 == 0;
+        if (v46)
         {
           if (a3)
           {
-            v48 = v47;
-            *a3 = v47;
+            v47 = v46;
+            *a3 = v46;
           }
 
           else
@@ -311,7 +311,7 @@ LABEL_10:
 
       if (a3)
       {
-        v41 = v22;
+        v40 = v22;
         v24 = 0;
         *a3 = v22;
         goto LABEL_17;
@@ -325,24 +325,24 @@ LABEL_17:
       goto LABEL_13;
     }
 
-    v52 = [*(a1 + 32) configuration];
-    v34 = [v52 repository];
-    v35 = [v34 attachmentManager];
-    v57 = 0;
-    v36 = [v35 fileHandleForAttachment:v33 error:&v57];
-    v55 = v33;
-    v37 = v57;
+    v51 = [*(a1 + 32) configuration];
+    v33 = [v51 repository];
+    v34 = [v33 attachmentManager];
+    v56 = 0;
+    v35 = [v34 fileHandleForAttachment:v32 error:&v56];
+    v54 = v32;
+    v36 = v56;
 
-    v38 = v36;
-    if (v36)
+    v37 = v35;
+    if (v35)
     {
-      v53 = v37;
-      v39 = [*(*(a1 + 32) + 128) zoneIdentifier];
-      v40 = [v39 zoneIdentifier];
-      v56 = v22;
-      [HDCloudSyncAttachmentRecord recordWithAttachment:v55 fileHandle:v38 zoneID:v40 error:&v56];
-      v20 = v50 = v38;
-      v25 = v56;
+      v52 = v36;
+      v38 = [*(*(a1 + 32) + 128) zoneIdentifier];
+      v39 = [v38 zoneIdentifier];
+      v55 = v22;
+      [HDCloudSyncAttachmentRecord recordWithAttachment:v54 fileHandle:v37 zoneID:v39 error:&v55];
+      v20 = v49 = v37;
+      v25 = v55;
 
       if (v20)
       {
@@ -350,17 +350,17 @@ LABEL_17:
         goto LABEL_10;
       }
 
-      v36 = v50;
-      v43 = v25;
-      v37 = v53;
-      v42 = v55;
-      if (v43)
+      v35 = v49;
+      v42 = v25;
+      v36 = v52;
+      v41 = v54;
+      if (v42)
       {
         if (a3)
         {
-          v45 = v43;
+          v44 = v42;
           v24 = 0;
-          *a3 = v43;
+          *a3 = v42;
         }
 
         else
@@ -369,7 +369,7 @@ LABEL_17:
           v24 = 0;
         }
 
-        v22 = v43;
+        v22 = v42;
         goto LABEL_42;
       }
 
@@ -378,15 +378,15 @@ LABEL_17:
 
     else
     {
-      v42 = v55;
-      v43 = v37;
-      if (v43)
+      v41 = v54;
+      v42 = v36;
+      if (v42)
       {
         if (a3)
         {
-          v44 = v43;
+          v43 = v42;
           v24 = 0;
-          *a3 = v43;
+          *a3 = v42;
         }
 
         else
@@ -408,7 +408,6 @@ LABEL_42:
   v24 = 0;
 LABEL_13:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -448,32 +447,30 @@ uint64_t __86__HDCloudSyncPushReferencesOperation__generateReferenceAndAttachmen
 
 void __73__HDCloudSyncPushReferencesOperation__pushToCloudKitAndFinishForRecords___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = v7;
-    v10 = 2114;
-    v11 = v4;
-    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to modify records: %{public}@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138543618;
+    v8 = v6;
+    v9 = 2114;
+    v10 = v4;
+    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to modify records: %{public}@", &v7, 0x16u);
   }
 
   [*(a1 + 32) finishWithSuccess:0 error:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HDCloudSyncPushReferencesOperation__pushToCloudKitAndFinishForRecords___block_invoke_308(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v15 = 0;
+  v14 = 0;
   v3 = [(HDCloudSyncPushReferencesOperation *)v2 _updateReferencesToSynchronizedWithError:?];
-  v4 = v15;
+  v4 = v14;
   if (v3)
   {
     _HKInitializeLogging();
@@ -486,11 +483,11 @@ void __73__HDCloudSyncPushReferencesOperation__pushToCloudKitAndFinishForRecords
       v9 = [v7 count];
       v10 = [*(*(a1 + 32) + 120) count];
       *buf = 138543874;
-      v17 = v6;
-      v18 = 2048;
-      v19 = v9;
-      v20 = 2048;
-      v21 = v10;
+      v16 = v6;
+      v17 = 2048;
+      v18 = v9;
+      v19 = 2048;
+      v20 = v10;
       _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[attachments] %{public}@: Successfully pushed %lu reference and %lu attachments records", buf, 0x20u);
     }
 
@@ -507,8 +504,6 @@ void __73__HDCloudSyncPushReferencesOperation__pushToCloudKitAndFinishForRecords
   }
 
   [v11 finishWithSuccess:v12 error:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

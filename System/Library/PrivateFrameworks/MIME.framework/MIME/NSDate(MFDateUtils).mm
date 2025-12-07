@@ -6,30 +6,30 @@
 
 + (uint64_t)mf_copyDateInCommonFormatsWithString:()MFDateUtils
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   v3 = a3;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v79[14] = v4;
-  v79[15] = v4;
-  v79[12] = v4;
-  v79[13] = v4;
-  v79[10] = v4;
-  v79[11] = v4;
-  v79[8] = v4;
-  v79[9] = v4;
-  v79[6] = v4;
-  v79[7] = v4;
-  v79[4] = v4;
-  v79[5] = v4;
-  v79[2] = v4;
-  v79[3] = v4;
-  v79[0] = v4;
-  v79[1] = v4;
-  v81.length = [(__CFString *)v3 length];
-  length = v81.length;
-  v81.location = 0;
-  MFStringGetBytes(v3, v81, 0x600u, 0, 0, v79, 256, &length);
+  v78[14] = v4;
+  v78[15] = v4;
+  v78[12] = v4;
+  v78[13] = v4;
+  v78[10] = v4;
+  v78[11] = v4;
+  v78[8] = v4;
+  v78[9] = v4;
+  v78[6] = v4;
+  v78[7] = v4;
+  v78[4] = v4;
+  v78[5] = v4;
+  v78[2] = v4;
+  v78[3] = v4;
+  v78[0] = v4;
+  v78[1] = v4;
+  v80.length = [(__CFString *)v3 length];
+  length = v80.length;
+  v80.location = 0;
+  MFStringGetBytes(v3, v80, 0x600u, 0, 0, v78, 256, &length);
   v5 = length;
   if (!length)
   {
@@ -42,17 +42,17 @@
     v5 = 255;
   }
 
-  *(v79 + v5) = 0;
+  *(v78 + v5) = 0;
   v7 = MEMORY[0x1E69E9830];
   while (1)
   {
-    v8 = *(v79 + v6);
-    if (*(v79 + v6) < 0)
+    v8 = *(v78 + v6);
+    if (*(v78 + v6) < 0)
     {
       break;
     }
 
-    if ((*(v7 + 4 * *(v79 + v6) + 60) & 0x4000) == 0)
+    if ((*(v7 + 4 * *(v78 + v6) + 60) & 0x4000) == 0)
     {
       goto LABEL_10;
     }
@@ -61,7 +61,7 @@ LABEL_9:
     ++v6;
   }
 
-  if (__maskrune(*(v79 + v6), 0x4000uLL))
+  if (__maskrune(*(v78 + v6), 0x4000uLL))
   {
     goto LABEL_9;
   }
@@ -79,7 +79,7 @@ LABEL_10:
   while (1)
   {
     v13 = strlen(*v12);
-    if (!memcmp(*v12, v79 + v6, v13))
+    if (!memcmp(*v12, v78 + v6, v13))
     {
       break;
     }
@@ -98,11 +98,11 @@ LABEL_10:
   {
     v6 = v14;
     v16 = v15;
-    v17 = *(v79 + v14);
-    v18 = *(v79 + v14);
+    v17 = *(v78 + v14);
+    v18 = *(v78 + v14);
     if (v17 < 0)
     {
-      v19 = __maskrune(*(v79 + v14), 0x4000uLL);
+      v19 = __maskrune(*(v78 + v14), 0x4000uLL);
     }
 
     else
@@ -137,7 +137,7 @@ LABEL_29:
   while (1)
   {
     v29 = strlen(kMonthStrs[v21]);
-    if (!memcmp(kMonthStrs[v21], v79 + v6, v29))
+    if (!memcmp(kMonthStrs[v21], v78 + v6, v29))
     {
       break;
     }
@@ -149,7 +149,7 @@ LABEL_29:
   }
 
   v6 = v16 + v29;
-  v37 = v79 + v29 - 1;
+  v37 = v78 + v29 - 1;
   do
   {
     v38 = v37[v14];
@@ -180,7 +180,7 @@ LABEL_30:
   do
   {
     v22 = v9 + 10 * v22;
-    v24 = *(v79 + ++v6);
+    v24 = *(v78 + ++v6);
     if ((v23 & 1) == 0)
     {
       break;
@@ -199,7 +199,7 @@ LABEL_30:
 LABEL_36:
   for (i = __maskrune(v24, 0x4000uLL); v24 == 45 || i; i = *(v7 + 4 * v24 + 60) & 0x4000)
   {
-    v25 = v79 + v6++;
+    v25 = v78 + v6++;
     v24 = v25[1];
     if ((v24 & 0x80) != 0)
     {
@@ -216,7 +216,7 @@ LABEL_37:
     while (1)
     {
       v28 = strlen(kMonthStrs[v21]);
-      if (!memcmp(kMonthStrs[v21], v79 + v6, v28))
+      if (!memcmp(kMonthStrs[v21], v78 + v6, v28))
       {
         break;
       }
@@ -227,7 +227,7 @@ LABEL_37:
       }
     }
 
-    v30 = v79 + v6 + v28;
+    v30 = v78 + v6 + v28;
     v6 = v6 + v28 - 1;
     do
     {
@@ -278,7 +278,7 @@ LABEL_37:
     {
       while (1)
       {
-        v24 = *(v79 + ++v6);
+        v24 = *(v78 + ++v6);
         if ((v24 & 0x80) != 0)
         {
           break;
@@ -312,7 +312,7 @@ LABEL_81:
     do
     {
       v41 = v40 + 10 * v41;
-      v24 = *(v79 + ++v6);
+      v24 = *(v78 + ++v6);
       if ((v42 & 1) == 0)
       {
         break;
@@ -330,8 +330,8 @@ LABEL_81:
     goto LABEL_173;
   }
 
-  v77 = v10;
-  v43 = *(v79 + v6 + 1);
+  v76 = v10;
+  v43 = *(v78 + v6 + 1);
   v44 = v43 - 48;
   if ((v43 - 48) > 9)
   {
@@ -345,7 +345,7 @@ LABEL_81:
     do
     {
       v45 = v44 + 10 * v45;
-      v43 = *(v79 + v6++ + 2);
+      v43 = *(v78 + v6++ + 2);
       if ((v46 & 1) == 0)
       {
         break;
@@ -364,22 +364,22 @@ LABEL_81:
   }
 
   v47 = v6 + 2;
-  v48 = *(v79 + v6 + 2) - 48;
+  v48 = *(v78 + v6 + 2) - 48;
   if (v48 > 9)
   {
-    v76 = 0;
+    v75 = 0;
   }
 
   else
   {
     v47 = v6 + 3;
-    v49 = *(v79 + v6 + 3) - 48;
+    v49 = *(v78 + v6 + 3) - 48;
     if (v49 < 0xA)
     {
       v48 = v49 + 10 * v48;
     }
 
-    v76 = v48;
+    v75 = v48;
     if (v49 < 0xA)
     {
       v47 = v6 + 4;
@@ -387,10 +387,10 @@ LABEL_81:
   }
 
   v50 = v47 + 1;
-  v51 = *(v79 + v47 + 1);
+  v51 = *(v78 + v47 + 1);
   if (v27 == -1)
   {
-    v52 = v79 + v47 + 2;
+    v52 = v78 + v47 + 2;
     if ((v51 & 0x80) == 0)
     {
       goto LABEL_108;
@@ -451,7 +451,7 @@ LABEL_109:
     while (1)
     {
       ++v50;
-      v51 = *(v79 + v50);
+      v51 = *(v78 + v50);
       if ((v51 & 0x80) != 0)
       {
         break;
@@ -470,7 +470,7 @@ LABEL_124:
   {
     if (v51 == 45 || v51 == 43)
     {
-      v59 = *(v79 + v50 + 1) - 48;
+      v59 = *(v78 + v50 + 1) - 48;
       if (v59 > 9)
       {
         v60 = 0;
@@ -480,7 +480,7 @@ LABEL_124:
       {
         v60 = 0;
         v61 = 0;
-        v62 = v79 + 2;
+        v62 = v78 + 2;
         do
         {
           v60 = v59 + 10 * v60;
@@ -502,7 +502,7 @@ LABEL_124:
       goto LABEL_145;
     }
 
-    if (*(v79 + v50) != 19783 || *(v79 + v50 + 2) != 84)
+    if (*(v78 + v50) != 19783 || *(v78 + v50 + 2) != 84)
     {
       goto LABEL_173;
     }
@@ -556,10 +556,10 @@ LABEL_145:
     goto LABEL_173;
   }
 
-  if ((v27 - 2100) >= 0xFFFFFF39 && ((v27 & 3) == 0 ? (v68 = v21 < 2) : (v68 = 0), v68 ? (v69 = -2) : (v69 = -1), v77 == (v27 - 1900 + v22 + ((v27 - 1900) >> 2) + v69 + monthStarts[v21]) % 7))
+  if ((v27 - 2100) >= 0xFFFFFF39 && ((v27 & 3) == 0 ? (v68 = v21 < 2) : (v68 = 0), v68 ? (v69 = -2) : (v69 = -1), v76 == (v27 - 1900 + v22 + ((v27 - 1900) >> 2) + v69 + monthStarts[v21]) % 7))
   {
     date = 0;
-    if (v41 <= 23 && v45 <= 59 && v76 <= 59)
+    if (v41 <= 23 && v45 <= 59 && v75 <= 59)
     {
       if (v51)
       {
@@ -570,19 +570,19 @@ LABEL_145:
       {
         [MEMORY[0x1E695DFE8] systemTimeZone];
       }
-      v73 = ;
-      v74 = objc_alloc_init(MEMORY[0x1E695DF10]);
-      v75 = [MEMORY[0x1E695DEE8] calendarWithIdentifier:*MEMORY[0x1E695D850]];
-      [v74 setCalendar:v75];
+      v72 = ;
+      v73 = objc_alloc_init(MEMORY[0x1E695DF10]);
+      v74 = [MEMORY[0x1E695DEE8] calendarWithIdentifier:*MEMORY[0x1E695D850]];
+      [v73 setCalendar:v74];
 
-      [v74 setYear:v27];
-      [v74 setMonth:v21 + 1];
-      [v74 setDay:v22];
-      [v74 setHour:v41];
-      [v74 setMinute:v45];
-      [v74 setSecond:v76];
-      [v74 setTimeZone:v73];
-      date = [v74 date];
+      [v73 setYear:v27];
+      [v73 setMonth:v21 + 1];
+      [v73 setDay:v22];
+      [v73 setHour:v41];
+      [v73 setMinute:v45];
+      [v73 setSecond:v75];
+      [v73 setTimeZone:v72];
+      date = [v73 date];
     }
   }
 
@@ -597,7 +597,6 @@ LABEL_173:
     date = [MEMORY[0x1E695DF00] mf_copyLenientDateInCommonFormatsWithString:v3];
   }
 
-  v71 = *MEMORY[0x1E69E9840];
   return date;
 }
 

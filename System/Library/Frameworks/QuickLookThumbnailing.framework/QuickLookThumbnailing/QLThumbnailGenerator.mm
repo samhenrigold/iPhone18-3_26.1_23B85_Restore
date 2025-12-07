@@ -51,6 +51,10 @@
 - (void)generateThumbnailForRequest:(id)request updateHandler:(id)handler statusHandler:(id)statusHandler completionHandler:(id)completionHandler;
 - (void)performInBatch:(id)batch;
 - (void)saveBestRepresentationForRequest:(QLThumbnailGenerationRequest *)request toFileAtURL:(NSURL *)fileURL withContentType:(NSString *)contentType completionHandler:(void *)completionHandler;
+- (void)saveBestRepresentationForRequest:(id)request toFileAtURL:(id)l asContentType:(id)type allowingThumbnailDownloads:(BOOL)downloads completionHandler:(id)handler;
+- (void)saveBestRepresentationForRequest:(id)request toFileAtURL:(id)l withContentType:(id)type allowingThumbnailDownloads:(BOOL)downloads completionHandler:(id)handler;
+- (void)saveBestRepresentationForRequest:(id)request toFileHandle:(id)handle asContentType:(id)type allowingThumbnailDownloads:(BOOL)downloads completionHandler:(id)handler;
+- (void)saveBestRepresentationForRequest:(id)request toFileHandle:(id)handle withContentType:(id)type allowingThumbnailDownloads:(BOOL)downloads completionHandler:(id)handler;
 - (void)synchronousGenerateThumbnailForRequest:(id)request updateHandler:(id)handler statusHandler:(id)statusHandler completionHandler:(id)completionHandler;
 @end
 
@@ -428,6 +432,66 @@ intptr_t __109__QLThumbnailGenerator_synchronousGenerateThumbnailForRequest_upda
   [(QLThumbnailGenerator *)self saveBestRepresentationForRequest:v13 toFileAtURL:v12 asContentType:v14 allowingThumbnailDownloads:0 completionHandler:v11];
 }
 
+- (void)saveBestRepresentationForRequest:(id)request toFileAtURL:(id)l asContentType:(id)type allowingThumbnailDownloads:(BOOL)downloads completionHandler:(id)handler
+{
+  downloadsCopy = downloads;
+  handlerCopy = handler;
+  typeCopy = type;
+  requestCopy = request;
+  [requestCopy setSaveURL:l];
+  [requestCopy setSaveURLContentType:typeCopy];
+
+  [requestCopy setDownloadingAllowed:downloadsCopy];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __128__QLThumbnailGenerator_saveBestRepresentationForRequest_toFileAtURL_asContentType_allowingThumbnailDownloads_completionHandler___block_invoke;
+  v16[3] = &unk_1E8369D38;
+  v17 = handlerCopy;
+  v15 = handlerCopy;
+  [(QLThumbnailGenerator *)self generateBestRepresentationForRequest:requestCopy completionHandler:v16];
+}
+
+- (void)saveBestRepresentationForRequest:(id)request toFileAtURL:(id)l withContentType:(id)type allowingThumbnailDownloads:(BOOL)downloads completionHandler:(id)handler
+{
+  downloadsCopy = downloads;
+  v12 = MEMORY[0x1E6982C40];
+  handlerCopy = handler;
+  lCopy = l;
+  requestCopy = request;
+  v16 = [v12 typeWithIdentifier:type];
+  [(QLThumbnailGenerator *)self saveBestRepresentationForRequest:requestCopy toFileAtURL:lCopy asContentType:v16 allowingThumbnailDownloads:downloadsCopy completionHandler:handlerCopy];
+}
+
+- (void)saveBestRepresentationForRequest:(id)request toFileHandle:(id)handle asContentType:(id)type allowingThumbnailDownloads:(BOOL)downloads completionHandler:(id)handler
+{
+  downloadsCopy = downloads;
+  handlerCopy = handler;
+  typeCopy = type;
+  requestCopy = request;
+  [requestCopy setSaveFileHandle:handle];
+  [requestCopy setSaveURLContentType:typeCopy];
+
+  [requestCopy setDownloadingAllowed:downloadsCopy];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __129__QLThumbnailGenerator_saveBestRepresentationForRequest_toFileHandle_asContentType_allowingThumbnailDownloads_completionHandler___block_invoke;
+  v16[3] = &unk_1E8369D38;
+  v17 = handlerCopy;
+  v15 = handlerCopy;
+  [(QLThumbnailGenerator *)self generateBestRepresentationForRequest:requestCopy completionHandler:v16];
+}
+
+- (void)saveBestRepresentationForRequest:(id)request toFileHandle:(id)handle withContentType:(id)type allowingThumbnailDownloads:(BOOL)downloads completionHandler:(id)handler
+{
+  downloadsCopy = downloads;
+  v12 = MEMORY[0x1E6982C40];
+  handlerCopy = handler;
+  handleCopy = handle;
+  requestCopy = request;
+  v16 = [v12 typeWithIdentifier:type];
+  [(QLThumbnailGenerator *)self saveBestRepresentationForRequest:requestCopy toFileHandle:handleCopy asContentType:v16 allowingThumbnailDownloads:downloadsCopy completionHandler:handlerCopy];
+}
+
 - (void)cancelRequest:(QLThumbnailGenerationRequest *)request
 {
   v4 = request;
@@ -455,7 +519,7 @@ intptr_t __109__QLThumbnailGenerator_synchronousGenerateThumbnailForRequest_upda
   objc_sync_exit(selfCopy);
 }
 
-uint64_t __38__QLThumbnailGenerator_cancelRequest___block_invoke(uint64_t a1)
+void *__38__QLThumbnailGenerator_cancelRequest___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _cancelRequestIfNeeded:*(a1 + 40)];
   if (result)
@@ -626,10 +690,7 @@ void __39__QLThumbnailGenerator__removeRequest___block_invoke(uint64_t a1)
 
 uint64_t __41__QLThumbnailGenerator__requestWithUUID___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) __requestWithUUID:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) __requestWithUUID:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -675,27 +736,27 @@ uint64_t __41__QLThumbnailGenerator__requestWithUUID___block_invoke(uint64_t a1)
 
 - (void)_sendSyncGenerationRequest:(id)request
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__0;
-  v14 = __Block_byref_object_dispose__0;
-  v15 = 0;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__0;
+  v13 = __Block_byref_object_dispose__0;
+  v14 = 0;
   queue = self->_queue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __51__QLThumbnailGenerator__sendSyncGenerationRequest___block_invoke;
-  v9[3] = &unk_1E8369DB0;
-  v9[4] = self;
-  v9[5] = &v10;
-  dispatch_sync(queue, v9);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __51__QLThumbnailGenerator__sendSyncGenerationRequest___block_invoke;
+  v8[3] = &unk_1E8369DB0;
+  v8[4] = self;
+  v8[5] = &v9;
+  dispatch_sync(queue, v8);
   if ([requestCopy prepareForSending])
   {
-    v6 = v11[5];
-    v16[0] = requestCopy;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v6 = v10[5];
+    v15[0] = requestCopy;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
     [v6 generateSuccessiveThumbnailRepresentationsForRequests:v7 generationHandler:self completionHandler:&__block_literal_global_2];
   }
 
@@ -704,9 +765,7 @@ uint64_t __41__QLThumbnailGenerator__requestWithUUID___block_invoke(uint64_t a1)
     [(QLThumbnailGenerator *)self _finishRequestIfInvalid:requestCopy];
   }
 
-  _Block_object_dispose(&v10, 8);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v9, 8);
 }
 
 - (void)_sendPendingCancelledRequests
@@ -819,7 +878,7 @@ LABEL_6:
 - (void)_handleThumbnailGenerationCompletionWithUUID:(id)d images:(id)images metadata:(id)metadata contentRect:(CGRect)rect iconFlavor:(int)flavor thumbnailType:(int64_t)type clientShouldTakeOwnership:(BOOL)ownership error:(id)self0
 {
   ownershipCopy = ownership;
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   dCopy = d;
   imagesCopy = images;
   metadataCopy = metadata;
@@ -842,37 +901,37 @@ LABEL_6:
     flavorCopy = flavor;
     selfCopy = self;
     typeCopy = type;
-    v62 = metadataCopy;
-    v64 = dCopy;
+    v61 = metadataCopy;
+    v63 = dCopy;
     v21 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(imagesCopy, "count")}];
+    v70 = 0u;
     v71 = 0u;
     v72 = 0u;
     v73 = 0u;
-    v74 = 0u;
-    v63 = imagesCopy;
+    v62 = imagesCopy;
     obj = imagesCopy;
-    v22 = [obj countByEnumeratingWithState:&v71 objects:v85 count:16];
+    v22 = [obj countByEnumeratingWithState:&v70 objects:v84 count:16];
     if (!v22)
     {
       goto LABEL_27;
     }
 
     v23 = v22;
-    v24 = *v72;
+    v24 = *v71;
     destructor = *MEMORY[0x1E69E9650];
-    v66 = *v72;
+    v65 = *v71;
     while (1)
     {
       v25 = 0;
-      v67 = v23;
+      v66 = v23;
       do
       {
-        if (*v72 != v24)
+        if (*v71 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v71 + 1) + 8 * v25);
+        v26 = *(*(&v70 + 1) + 8 * v25);
         data = [v26 data];
         v28 = data;
         if (ownershipCopy)
@@ -895,9 +954,9 @@ LABEL_6:
               {
                 v39 = mach_error_string(v37);
                 *buf = 67109378;
-                *v78 = v37;
-                *&v78[4] = 2080;
-                *&v78[6] = v39;
+                *v77 = v37;
+                *&v77[4] = 2080;
+                *&v77[6] = v39;
                 v40 = v38;
                 v41 = "Could not copy memory to make the thumbnail count against my jetsam limit: %d (%s)";
                 goto LABEL_18;
@@ -921,9 +980,9 @@ LABEL_6:
               v43 = __error();
               v44 = strerror(*v43);
               *buf = 67109378;
-              *v78 = v42;
-              *&v78[4] = 2080;
-              *&v78[6] = v44;
+              *v77 = v42;
+              *&v77[4] = 2080;
+              *&v77[6] = v44;
               v40 = v38;
               v41 = "Could not allocate memory to make the thumbnail count against my jetsam limit: %d (%s)";
 LABEL_18:
@@ -934,8 +993,8 @@ LABEL_18:
           v20 = v30;
           v21 = v29;
 
-          v24 = v66;
-          v23 = v67;
+          v24 = v65;
+          v23 = v66;
         }
 
         v46 = QLImageCreateForDefaultThumbnailGenerationFromData(v26);
@@ -952,15 +1011,15 @@ LABEL_18:
           v49 = [v28 length];
           format = [v26 format];
           *buf = 138413314;
-          *v78 = v20;
-          *&v78[8] = 2048;
-          *&v78[10] = v49;
-          v79 = 2112;
-          v80 = format;
-          v81 = 2112;
-          v82 = 0;
-          v83 = 2112;
-          v84 = v46;
+          *v77 = v20;
+          *&v77[8] = 2048;
+          *&v77[10] = v49;
+          v78 = 2112;
+          v79 = format;
+          v80 = 2112;
+          v81 = 0;
+          v82 = 2112;
+          v83 = v46;
           _os_log_impl(&dword_1CA1E7000, v48, OS_LOG_TYPE_INFO, "Received thumbnail for %@: data of length %lu, bitmap format %@, error %@, image %@", buf, 0x34u);
         }
 
@@ -970,21 +1029,21 @@ LABEL_18:
       }
 
       while (v23 != v25);
-      v23 = [obj countByEnumeratingWithState:&v71 objects:v85 count:16];
+      v23 = [obj countByEnumeratingWithState:&v70 objects:v84 count:16];
       if (!v23)
       {
 LABEL_27:
 
         if (v21)
         {
-          metadataCopy = v62;
-          imagesCopy = v63;
+          metadataCopy = v61;
+          imagesCopy = v62;
           v51 = typeCopy;
-          if (v62)
+          if (v61)
           {
-            v70 = 0;
-            v52 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v62 error:&v70];
-            v53 = v70;
+            v69 = 0;
+            v52 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v61 error:&v69];
+            v53 = v69;
             if (!v52)
             {
               v54 = qltLogHandles[0];
@@ -1019,31 +1078,29 @@ LABEL_27:
         {
           v53 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Could not decode image for thumbnail request %@ from received thumbnail data", v20];
           v55 = _log();
-          metadataCopy = v62;
-          imagesCopy = v63;
+          metadataCopy = v61;
+          imagesCopy = v62;
           v51 = typeCopy;
           if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
           {
             [QLThumbnailGenerator _handleThumbnailGenerationCompletionWithUUID:images:metadata:contentRect:iconFlavor:thumbnailType:clientShouldTakeOwnership:error:];
           }
 
-          v75 = *MEMORY[0x1E696A278];
-          v76 = v53;
-          v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+          v74 = *MEMORY[0x1E696A278];
+          v75 = v53;
+          v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
           errorCopy = [QLThumbnailGenerator errorWithCode:0 request:v20 additionalUserInfo:v52];
           v56 = 0;
         }
 
         [(QLThumbnailGenerator *)selfCopy _notifyClientWithNewThumbnailRepresentationForRequestIfNeeded:v20 thumbnail:v56 type:v51 error:errorCopy];
-        dCopy = v64;
+        dCopy = v63;
 LABEL_42:
 
         break;
       }
     }
   }
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyClientWithNewThumbnailRepresentationForRequestIfNeeded:(id)needed thumbnail:(id)thumbnail type:(int64_t)type error:(id)error
@@ -1094,7 +1151,7 @@ LABEL_42:
 
 - (id)thumbnailIconForRequest:(id)request
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   [requestCopy scale];
   v6 = v5;
@@ -1134,7 +1191,7 @@ LABEL_11:
     v16 = [v14 fiNodeFromURL:fileURL2];
 
     v17 = [v16 propertyAsNSObject:1769171299];
-    QLApplyCurrentIconAppearance(v9);
+    QLApplyCurrentIconAppearance();
 
 LABEL_12:
     if (![requestCopy iconVariant])
@@ -1164,8 +1221,8 @@ LABEL_12:
     {
       cGImage = [v22 CGImage];
       v25 = [QLThumbnailRepresentation alloc];
-      v31[0] = cGImage;
-      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+      v30[0] = cGImage;
+      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
       v27 = CGImageGetWidth(cGImage) / v6;
       v28 = [(QLThumbnailRepresentation *)v25 initWithThumbnailType:0 iconFlavor:0 images:v26 scale:0 contentRect:v6 generatedProperties:0.0, 0.0, v27, CGImageGetHeight(cGImage) / v6];
     }
@@ -1195,8 +1252,6 @@ LABEL_12:
 
   v28 = 0;
 LABEL_22:
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -1247,7 +1302,7 @@ LABEL_22:
 
 void __107__QLThumbnailGenerator__callUpdateBlockOfRequestIfRunning_andUpdateMostRepresentativeThumbnail_type_error___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) _requestRepresentationTypeIsMoreRepresentative:*(a1 + 40) thanType:*(a1 + 64)] & 1) == 0)
   {
     v2 = [*(a1 + 40) mostRepresentativeTypeForWhichUpdateBlockHasBeenCalled];
@@ -1281,15 +1336,15 @@ void __107__QLThumbnailGenerator__callUpdateBlockOfRequestIfRunning_andUpdateMos
         v10 = v6;
         v11 = QLThumbnailRepresentationTypeToString(v9);
         v12 = *(a1 + 56);
-        v15 = 138413058;
-        v16 = v7;
-        v17 = 2112;
-        v18 = v8;
-        v19 = 2112;
-        v20 = v11;
-        v21 = 2112;
-        v22 = v12;
-        _os_log_impl(&dword_1CA1E7000, v10, OS_LOG_TYPE_INFO, "Calling request updateBlock for %@ with thumbnail: %@, type: %@, error: %@", &v15, 0x2Au);
+        v14 = 138413058;
+        v15 = v7;
+        v16 = 2112;
+        v17 = v8;
+        v18 = 2112;
+        v19 = v11;
+        v20 = 2112;
+        v21 = v12;
+        _os_log_impl(&dword_1CA1E7000, v10, OS_LOG_TYPE_INFO, "Calling request updateBlock for %@ with thumbnail: %@, type: %@, error: %@", &v14, 0x2Au);
       }
 
       v13 = [*(a1 + 40) updateBlock];
@@ -1303,8 +1358,6 @@ void __107__QLThumbnailGenerator__callUpdateBlockOfRequestIfRunning_andUpdateMos
       [*(a1 + 40) setMostRepresentativeThumbnail:?];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setMostRepresentativeThumbnail:(id)thumbnail forRequest:(id)request
@@ -1396,7 +1449,7 @@ uint64_t __50__QLThumbnailGenerator___finishRequest_withError___block_invoke(uin
 
 - (void)__callCompletionBlockOfRequest:(id)request withError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   errorCopy = error;
   completionBlock = [requestCopy completionBlock];
@@ -1433,9 +1486,9 @@ uint64_t __50__QLThumbnailGenerator___finishRequest_withError___block_invoke(uin
       }
 
       *buf = 138412546;
-      v17 = requestCopy;
-      v18 = 2112;
-      v19 = v12;
+      v16 = requestCopy;
+      v17 = 2112;
+      v18 = v12;
       _os_log_impl(&dword_1CA1E7000, v11, OS_LOG_TYPE_INFO, "Calling request completionBlock for %@ %@", buf, 0x16u);
       if (v8)
       {
@@ -1450,8 +1503,6 @@ uint64_t __50__QLThumbnailGenerator___finishRequest_withError___block_invoke(uin
     [requestCopy setStatusBlock:0];
     [requestCopy setCompletionBlock:0];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishRequestWithoutError:(id)error
@@ -1499,7 +1550,7 @@ uint64_t __50__QLThumbnailGenerator___finishRequest_withError___block_invoke(uin
   return queue;
 }
 
-uint64_t __48__QLThumbnailGenerator__finishRequestIfInvalid___block_invoke(uint64_t a1)
+void *__48__QLThumbnailGenerator__finishRequestIfInvalid___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) __finishRequestIfInvalid:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1508,7 +1559,7 @@ uint64_t __48__QLThumbnailGenerator__finishRequestIfInvalid___block_invoke(uint6
 
 - (BOOL)__finishRequestIfInvalid:(id)invalid
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   invalidCopy = invalid;
   dispatch_assert_queue_V2(self->_queue);
   requestIsInvalidError = [invalidCopy requestIsInvalidError];
@@ -1518,16 +1569,15 @@ uint64_t __48__QLThumbnailGenerator__finishRequestIfInvalid___block_invoke(uint6
     v6 = _log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = invalidCopy;
-      _os_log_impl(&dword_1CA1E7000, v6, OS_LOG_TYPE_INFO, "Finishing request %@ because it is invalid.", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = invalidCopy;
+      _os_log_impl(&dword_1CA1E7000, v6, OS_LOG_TYPE_INFO, "Finishing request %@ because it is invalid.", &v9, 0xCu);
     }
 
     requestIsInvalidError2 = [invalidCopy requestIsInvalidError];
     [(QLThumbnailGenerator *)self __finishRequest:invalidCopy withError:requestIsInvalidError2];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return requestIsInvalidError != 0;
 }
 
@@ -1588,7 +1638,7 @@ uint64_t __48__QLThumbnailGenerator__finishRequestIfInvalid___block_invoke(uint6
 
 void __52__QLThumbnailGenerator__finishAllRequestsWithError___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) requests];
   v3 = [v2 allKeys];
   v4 = [v3 copy];
@@ -1596,27 +1646,27 @@ void __52__QLThumbnailGenerator__finishAllRequestsWithError___block_invoke(uint6
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = *(*(*(a1 + 48) + 8) + 40);
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v11);
+        v12 = *(*(&v15 + 1) + 8 * v11);
         v13 = [*(a1 + 32) requests];
         v14 = [v13 objectForKeyedSubscript:v12];
 
@@ -1625,18 +1675,16 @@ void __52__QLThumbnailGenerator__finishAllRequestsWithError___block_invoke(uint6
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_logRequestDuration:(id)duration
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   durationCopy = duration;
   beginDate = [durationCopy beginDate];
   [beginDate timeIntervalSinceNow];
@@ -1653,16 +1701,14 @@ void __52__QLThumbnailGenerator__finishAllRequestsWithError___block_invoke(uint6
   {
     v8 = v7;
     mostRepresentativeThumbnail = [durationCopy mostRepresentativeThumbnail];
-    v11 = 134218498;
-    v12 = -v6;
-    v13 = 2112;
-    v14 = durationCopy;
-    v15 = 2112;
-    v16 = mostRepresentativeThumbnail;
-    _os_log_impl(&dword_1CA1E7000, v8, OS_LOG_TYPE_INFO, "Thumbnail generation duration of %.3f for %@. Most representative thumbnail generated: %@", &v11, 0x20u);
+    v10 = 134218498;
+    v11 = -v6;
+    v12 = 2112;
+    v13 = durationCopy;
+    v14 = 2112;
+    v15 = mostRepresentativeThumbnail;
+    _os_log_impl(&dword_1CA1E7000, v8, OS_LOG_TYPE_INFO, "Thumbnail generation duration of %.3f for %@. Most representative thumbnail generated: %@", &v10, 0x20u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didUpdateStatus:(int64_t)status ofThumbnailGenerationWithUUID:(id)d
@@ -1741,7 +1787,7 @@ void __56__QLThumbnailGenerator__createSyncThumbnailServiceProxy__block_invoke(u
 
 + (id)errorWithCode:(int64_t)code request:(id)request additionalUserInfo:(id)info
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   infoCopy = info;
   requestCopy = request;
   fileURL = [requestCopy fileURL];
@@ -1780,10 +1826,10 @@ LABEL_3:
 
         else
         {
-          v19 = @"QLErrorFailingFileNameKey";
+          v18 = @"QLErrorFailingFileNameKey";
           filename2 = [item filename];
-          v20 = filename2;
-          v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+          v19 = filename2;
+          v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
         }
 
         fileURL = 0;
@@ -1804,13 +1850,11 @@ LABEL_3:
     }
   }
 
-  v21 = *MEMORY[0x1E696A980];
-  v22[0] = fileURL;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v20 = *MEMORY[0x1E696A980];
+  v21[0] = fileURL;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
 LABEL_13:
   v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"QLThumbnailErrorDomain" code:code userInfo:v12];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -1851,42 +1895,9 @@ void __67__QLThumbnailGenerator_canGenerateThumbnailsForContentType_atSize___blo
 
 - (void)_handleThumbnailGenerationCompletionWithUUID:images:metadata:contentRect:iconFlavor:thumbnailType:clientShouldTakeOwnership:error:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_1CA1E7000, v0, OS_LOG_TYPE_DEBUG, "Processing thumbnail request completion for request uuid:%@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleThumbnailGenerationCompletionWithUUID:images:metadata:contentRect:iconFlavor:thumbnailType:clientShouldTakeOwnership:error:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "Failed to unarchive thumbnail's generated properties: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleThumbnailGenerationCompletionWithUUID:images:metadata:contentRect:iconFlavor:thumbnailType:clientShouldTakeOwnership:error:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "Could not decode image for thumbnail request %@ from received thumbnail data", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)thumbnailIconForRequest:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "No fileURL or contentType for %@, not returning any icon", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __52__QLThumbnailGenerator__createThumbnailServiceProxy__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "An error occurred with ThumbnailsAgent: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CA1E7000, v0, OS_LOG_TYPE_DEBUG, "Processing thumbnail request completion for request uuid:%@", v1, 0xCu);
 }
 
 @end

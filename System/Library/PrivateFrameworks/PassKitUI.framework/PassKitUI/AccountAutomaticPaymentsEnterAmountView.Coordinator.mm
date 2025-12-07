@@ -12,7 +12,8 @@
   fromCopy = from;
   toCopy = to;
   selfCopy = self;
-  LOBYTE(to) = sub_1BD7E7B88(view, from, to);
+  sub_1BD7E7B88(view, from, to);
+  LOBYTE(to) = v13;
 
   return to & 1;
 }

@@ -70,18 +70,18 @@
 {
   selectedEntry = [(WFEntityPickerDialogResponse *)self selectedEntry];
   identifier = [selectedEntry identifier];
-  v4 = [identifier isEqualToString:@"WFEntityPickerDialogResponseOpenAppEntryIdentifier"];
+  isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)userRequestedAllOptions
 {
   selectedEntry = [(WFEntityPickerDialogResponse *)self selectedEntry];
   identifier = [selectedEntry identifier];
-  v4 = [identifier isEqualToString:@"WFEntityPickerDialogResponseChooseEntryIdentifier"];
+  isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (WFEntityPickerDialogResponse)initWithSelectedEntry:(id)entry

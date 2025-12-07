@@ -268,27 +268,26 @@ void __43__AFUIAutofillContactsController__meAction__block_invoke(uint64_t a1)
 
 - (id)_chooseOtherMenu
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   objc_initWeak(&location, self);
   v2 = MEMORY[0x1E69DC628];
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3221225472;
-  v13 = __50__AFUIAutofillContactsController__chooseOtherMenu__block_invoke;
-  v14 = &unk_1E84244E0;
-  objc_copyWeak(&v15, &location);
-  v3 = [v2 actionWithHandler:&v11];
-  v4 = [MEMORY[0x1E696AAE8] bundleForClass:{objc_opt_class(), v11, v12, v13, v14}];
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __50__AFUIAutofillContactsController__chooseOtherMenu__block_invoke;
+  v13 = &unk_1E84244E0;
+  objc_copyWeak(&v14, &location);
+  v3 = [v2 actionWithHandler:&v10];
+  v4 = [MEMORY[0x1E696AAE8] bundleForClass:{objc_opt_class(), v10, v11, v12, v13}];
   v5 = [v4 localizedStringForKey:@"Choose Other…" value:&stru_1F4E9A028 table:@"Localizable"];
   [v3 setTitle:v5];
 
   v6 = MEMORY[0x1E69DCC60];
-  v17[0] = v3;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = v3;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   v8 = [v6 menuWithTitle:&stru_1F4E9A028 image:0 identifier:0 options:1 children:v7];
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

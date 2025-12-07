@@ -38,11 +38,11 @@
     if (!descriptor)
     {
       selfCopy = self;
-      v6 = MTLReportFailureTypeEnabled();
+      v10 = MTLReportFailureTypeEnabled();
       self = selfCopy;
-      if (v6)
+      if (v10)
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x4B7, @"MPSNNNeuronDescriptor for fusing with convoution cannot be nil", v6, v7, v8, v9);
         self = selfCopy;
       }
     }
@@ -59,7 +59,7 @@
   {
     v3 = objc_opt_class();
     NSStringFromClass(v3);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x59B, @"Please initialize the %@ class with initWithDevice:convolutionDescriptor:kernelWeights:biasTerms\n", v4, v5, v6, v7);
   }
 
   return 0;
@@ -693,10 +693,12 @@ LABEL_124:
   {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-    goto LABEL_22;
+    v20 = @"kernel width must be > 0";
+    v21 = 1766;
+    goto LABEL_23;
   }
 
   v11 = *(descriptor + 2);
@@ -704,10 +706,12 @@ LABEL_124:
   {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-    goto LABEL_22;
+    v20 = @"kernel height must be > 0";
+    v21 = 1767;
+    goto LABEL_23;
   }
 
   v12 = *(descriptor + 3);
@@ -715,10 +719,12 @@ LABEL_124:
   {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-    goto LABEL_22;
+    v20 = @"number of input feature channels must be > 0";
+    v21 = 1768;
+    goto LABEL_23;
   }
 
   v13 = *(descriptor + 4);
@@ -726,30 +732,36 @@ LABEL_124:
   {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-    goto LABEL_22;
+    v20 = @"number of output feature channels must be > 0";
+    v21 = 1769;
+    goto LABEL_23;
   }
 
   if (!*(descriptor + 6))
   {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-    goto LABEL_22;
+    v20 = @"strideX must be > 0";
+    v21 = 1770;
+    goto LABEL_23;
   }
 
   if (!*(descriptor + 7))
   {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-    goto LABEL_22;
+    v20 = @"strideY must be > 0";
+    v21 = 1771;
+    goto LABEL_23;
   }
 
   v14 = *(descriptor + 8);
@@ -757,44 +769,54 @@ LABEL_124:
   {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-    goto LABEL_22;
+    v20 = @"number of groups must be > 0";
+    v21 = 1772;
+    goto LABEL_23;
   }
 
   v15 = *&type;
-  if (v97 == 268435488)
+  if (v103 == 268435488)
   {
     if (type != 268435488)
     {
       if (MTLReportFailureTypeEnabled())
       {
-        goto LABEL_22;
+        v20 = @"requested use of float32 weights, but weight buffer has type 0x%16.16llx";
+        v21 = 1775;
+LABEL_23:
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", v21, v20, v16, v17, v18, v19);
+        goto LABEL_24;
       }
 
-      goto LABEL_23;
+      goto LABEL_24;
     }
   }
 
-  else if (v97 != 268435472)
+  else if (v103 != 268435472)
   {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-    goto LABEL_22;
+    v20 = @"kernelWeightsDataType must be MPSDataTypeFloat16 for weights of type 0x%16.16llx";
+    v21 = 1777;
+    goto LABEL_23;
   }
 
-  if (v92 != -1 && *(descriptor + 5) != 1)
+  if (v98 != -1 && *(descriptor + 5) != 1)
   {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-    goto LABEL_22;
+    v20 = @"8-bit weights are only allowed for interleaved per array slice layout";
+    v21 = 1781;
+    goto LABEL_23;
   }
 
   if (*(descriptor + 112) == 1)
@@ -803,42 +825,49 @@ LABEL_124:
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_23;
+        goto LABEL_24;
       }
 
-      goto LABEL_22;
+      v20 = @"for depth wise convolution, number of output feature channels (%lu) must be multiple of input feature channels (%lu)";
+      v21 = 1785;
+      goto LABEL_23;
     }
 
     if (v13 / v12 != 1)
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_23;
+        goto LABEL_24;
       }
 
-      goto LABEL_22;
+      v20 = @"for depth wise convolution, currently only channel multiplier of 1 is supported.";
+      v21 = 1788;
+      goto LABEL_23;
     }
 
     if (v14 != 1)
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_23;
+        goto LABEL_24;
       }
 
-      goto LABEL_22;
+      v20 = @"for depth wise convolution, groups should be 1.";
+      v21 = 1789;
+      goto LABEL_23;
     }
 
-    v16 = 1;
+    v22 = 1;
     if (type != 268435472 && type != 268435488)
     {
       if (MTLReportFailureTypeEnabled())
       {
-LABEL_22:
-        MTLReportFailure();
+        v20 = @"depth wise convolution currently only supported for FP weights.";
+        v21 = 1790;
+        goto LABEL_23;
       }
 
-LABEL_23:
+LABEL_24:
 
       return 0;
     }
@@ -846,59 +875,65 @@ LABEL_23:
 
   else
   {
-    v16 = 0;
+    v22 = 0;
   }
 
-  v88 = v16;
+  v94 = v22;
   if (*(descriptor + 10))
   {
     objc_msgSend_a(*(descriptor + 15), a2, initialize, descriptor, weights, *&type, *&layout, v7);
-    objc_msgSend_a(*(descriptor + 15), v18, v19, v20, v21, v22, v23, v24);
-    if (v32 != *(*(descriptor + 10) + 332))
+    objc_msgSend_a(*(descriptor + 15), v24, v25, v26, v27, v28, v29, v30);
+    if (v38 != *(*(descriptor + 10) + 332))
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_23;
+        goto LABEL_24;
       }
 
-      goto LABEL_22;
+      v20 = @"parameterA of depreated neuron property doesnt match the value set for neuronParameterA of convolution descriptor.";
+      v21 = 1794;
+      goto LABEL_23;
     }
 
-    objc_msgSend_b(*(descriptor + 15), v25, v26, v27, v28, v29, v30, v31);
-    objc_msgSend_b(*(descriptor + 15), v33, v34, v35, v36, v37, v38, v39);
-    if (v47 != *(*(descriptor + 10) + 336))
+    objc_msgSend_b(*(descriptor + 15), v31, v32, v33, v34, v35, v36, v37);
+    objc_msgSend_b(*(descriptor + 15), v39, v40, v41, v42, v43, v44, v45);
+    if (v53 != *(*(descriptor + 10) + 336))
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_23;
+        goto LABEL_24;
       }
 
-      goto LABEL_22;
+      v20 = @"parameterB of depreated neuron property doesnt match the value set for neuronParameterB of convolution descriptor.";
+      v21 = 1795;
+      goto LABEL_23;
     }
 
-    objc_msgSend_neuronType(*(descriptor + 15), v40, v41, v42, v43, v44, v45, v46);
-    if (objc_msgSend_neuronType(*(descriptor + 15), v48, v49, v50, v51, v52, v53, v54) != *(*(descriptor + 10) + 328))
+    objc_msgSend_neuronType(*(descriptor + 15), v46, v47, v48, v49, v50, v51, v52);
+    if (objc_msgSend_neuronType(*(descriptor + 15), v54, v55, v56, v57, v58, v59, v60) != *(*(descriptor + 10) + 328))
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_23;
+        goto LABEL_24;
       }
 
-      goto LABEL_22;
+      v20 = @"Neuron type of depreated neuron property doesnt match the value set for neuronType of convolution descriptor.";
+      v21 = 1796;
+      goto LABEL_23;
     }
 
     v9 = *(descriptor + 1);
     v11 = *(descriptor + 2);
   }
 
-  v55 = (*(&self->super.super.super.isa + *MEMORY[0x277CD7370]))[4];
+  v61 = (*(&self->super.super.super.isa + *MEMORY[0x277CD7370]))[4];
   self->_dataSource = 0;
   self->super._kernelWidth = v9;
   self->super._kernelHeight = v11;
   self->_inputFeatureChannels = *(descriptor + 3);
-  v56 = *(descriptor + 5);
+  v62 = *(descriptor + 5);
   self->_outputFeatureChannels = *(descriptor + 4);
-  self->_layout = v56;
+  self->_layout = v62;
   self->super._strideInPixelsX = *(descriptor + 6);
   self->super._strideInPixelsY = *(descriptor + 7);
   self->_groups = *(descriptor + 8);
@@ -912,46 +947,46 @@ LABEL_23:
     self->super._checkFlags |= 0x8000u;
   }
 
-  self->_flags = v94;
-  self->_fullyConnected = v95;
-  self->_convolutionTranspose = v96;
+  self->_flags = v100;
+  self->_fullyConnected = v101;
+  self->_convolutionTranspose = v102;
   self->_weights = 0;
   self->_bias = 0;
   self->_qWts = 0;
   self->super._encodeData = self;
   self->super._encode = sub_239D5FB2C;
-  self->super._batchEncode = (*(*v55 + 128))(v55);
-  self->_qType = v92;
+  self->super._batchEncode = (*(*v61 + 128))(v61);
+  self->_qType = v98;
   self->_weightsDataType = v15;
   self->_weightsLayout = layout;
   self->_biasOriginal = 0;
-  self->_channelMultiplier = v88;
+  self->_channelMultiplier = v94;
   self->_neuronABuffer = 0;
   self->_accumulatorPrecisionOption = 1;
   self->super._pluginOptions = 2;
   self->_batchNormalizationData = *(descriptor + 9);
   self->_fusedNeuronDescriptor = *(descriptor + 15);
-  v65 = v15 == 268435488 && v97 == 268435472;
-  self->_convertFloat32Weights = v65;
-  v66 = *(descriptor + 9);
-  if (v66)
+  v71 = v15 == 268435488 && v103 == 268435472;
+  self->_convertFloat32Weights = v71;
+  v72 = *(descriptor + 9);
+  if (v72)
   {
-    objc_msgSend_bytes(*(descriptor + 9), v57, v58, v59, v60, v61, v62, v63);
+    objc_msgSend_bytes(*(descriptor + 9), v63, v64, v65, v66, v67, v68, v69);
   }
 
-  if (objc_msgSend_data(*(descriptor + 15), v57, v58, v59, v60, v61, v62, v63))
+  if (objc_msgSend_data(*(descriptor + 15), v63, v64, v65, v66, v67, v68, v69))
   {
-    v74 = objc_msgSend_data(*(descriptor + 15), v67, v68, v69, v70, v71, v72, v73);
-    objc_msgSend_bytes(v74, v75, v76, v77, v78, v79, v80, v81);
+    v80 = objc_msgSend_data(*(descriptor + 15), v73, v74, v75, v76, v77, v78, v79);
+    objc_msgSend_bytes(v80, v81, v82, v83, v84, v85, v86, v87);
   }
 
-  if (v66 && v93 && self->_qType >= 2)
+  if (v72 && v99 && self->_qType >= 2)
   {
-    v82 = objc_alloc(MEMORY[0x277CBEA90]);
-    self->_biasOriginal = objc_msgSend_initWithBytes_length_(v82, v83, v93, 4 * self->_outputFeatureChannels, v84, v85, v86, v87);
+    v88 = objc_alloc(MEMORY[0x277CBEA90]);
+    self->_biasOriginal = objc_msgSend_initWithBytes_length_(v88, v89, v99, 4 * self->_outputFeatureChannels, v90, v91, v92, v93);
   }
 
-  return objc_msgSend_PrepareAndLoadData_dataType_weightsLayout_weights_biases_quantizationType_ranges_lookUpTable_convertFloat32Weights_(self, v67, descriptor, v15, layout, weights, v93, v92);
+  return objc_msgSend_PrepareAndLoadData_dataType_weightsLayout_weights_biases_quantizationType_ranges_lookUpTable_convertFloat32Weights_(self, v73, descriptor, v15, layout, weights, v99, v98);
 }
 
 - (MPSCNNConvolution)initWithDevice:(id)device convolutionDescriptor:(id)descriptor kernelWeights:(const float *)weights biasTerms:(const float *)terms flags:(unint64_t)flags fullyConnected:(BOOL)connected convolutionTranspose:(BOOL)transpose
@@ -1041,56 +1076,56 @@ LABEL_23:
   {
     if (!weights && MTLReportFailureTypeEnabled())
     {
-      v184 = objc_opt_class();
-      v187 = NSStringFromClass(v184);
-      MTLReportFailure();
+      v204 = objc_opt_class();
+      v219 = NSStringFromClass(v204);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x830, @"[%@ initWithDevice:convolutionDescriptor:weights:] weights may not be nil", v205, v206, v207, v208);
     }
 
     if (!device && MTLReportFailureTypeEnabled())
     {
-      v185 = objc_opt_class();
-      v187 = NSStringFromClass(v185);
-      MTLReportFailure();
+      v209 = objc_opt_class();
+      v219 = NSStringFromClass(v209);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x831, @"[%@ initWithDevice:convolutionDescriptor:weights:] device may not be nil", v210, v211, v212, v213);
     }
   }
 
-  if ((objc_msgSend_load(weights, a2, device, weights, connected, transpose, v6, v7, v187) & 1) == 0 && MTLReportFailureTypeEnabled())
+  if ((objc_msgSend_load(weights, a2, device, weights, connected, transpose, v6, v7, v219) & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    v183 = objc_opt_class();
-    v188 = NSStringFromClass(v183);
-    MTLReportFailure();
+    v199 = objc_opt_class();
+    v220 = NSStringFromClass(v199);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x836, @"[%@ initWithDevice:convolutionDescriptor:weights:] weights.load should return YES", v200, v201, v202, v203);
   }
 
-  v21 = objc_msgSend_descriptor(weights, v14, v15, v16, v17, v18, v19, v20, v188);
+  v21 = objc_msgSend_descriptor(weights, v14, v15, v16, v17, v18, v19, v20, v220);
   v29 = objc_msgSend_dataType(weights, v22, v23, v24, v25, v26, v27, v28);
   if ((*(&selfCopy->super.super.super.isa + v13) & 1) == 0)
   {
     if (!v21 && MTLReportFailureTypeEnabled())
     {
-      v186 = objc_opt_class();
-      v189 = NSStringFromClass(v186);
-      MTLReportFailure();
+      v214 = objc_opt_class();
+      v221 = NSStringFromClass(v214);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x83D, @"[%@ initWithDevice:convolutionDescriptor:weights:] convolutionDescriptor may not be nil", v215, v216, v217, v218);
     }
 
     if (v29 != 8 && v29 != 268435472 && v29 != 268435488 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x83E, @"Only MPSDataTypeFloat32, MPSDataTypeFloat16 and MPSDataTypeUInt8 are supported by convolution.", v30, v31, v32, v33);
     }
   }
 
   if (objc_opt_respondsToSelector())
   {
-    v37 = objc_msgSend_weightsLayout(weights, v30, v31, v32, v33, v34, v35, v36);
+    v41 = objc_msgSend_weightsLayout(weights, v34, v35, v36, v37, v38, v39, v40);
   }
 
   else
   {
-    v37 = 0;
+    v41 = 0;
   }
 
   if (objc_opt_respondsToSelector())
   {
-    objc_msgSend_kernelWeightsDataType(weights, v38, v39, v40, v41, v42, v43, v44);
+    objc_msgSend_kernelWeightsDataType(weights, v42, v43, v44, v45, v46, v47, v48);
   }
 
   switch(v29)
@@ -1098,30 +1133,30 @@ LABEL_23:
     case 8u:
       if (objc_opt_respondsToSelector())
       {
-        v75 = objc_msgSend_weightsQuantizationType(weights, v68, v69, v70, v71, v72, v73, v74);
-        if (v75 != 2)
+        v79 = objc_msgSend_weightsQuantizationType(weights, v72, v73, v74, v75, v76, v77, v78);
+        if (v79 != 2)
         {
-          if (v75 != 1)
+          if (v79 != 1)
           {
             if (MTLReportFailureTypeEnabled())
             {
-              MTLReportFailure();
+              MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x898, @"Only linear or loopup table based dequantization available for UInt8 datatype", v195, v196, v197, v198);
             }
 
-            v97 = 0;
+            v101 = 0;
             goto LABEL_44;
           }
 
           objc_opt_respondsToSelector();
           if ((objc_opt_respondsToSelector() & 1) == 0 && MTLReportFailureTypeEnabled())
           {
-            MTLReportFailure();
+            MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x874, @"Data source does not implement rangesForUInt8Kernel method", v83, v84, v85, v86);
           }
 
-          objc_msgSend_rangesForUInt8Kernel(weights, v76, v77, v78, v79, v80, v81, v82, v189);
-          if (!objc_msgSend_rangesForUInt8Kernel(weights, v83, v84, v85, v86, v87, v88, v89) && MTLReportFailureTypeEnabled())
+          objc_msgSend_rangesForUInt8Kernel(weights, v80, v81, v82, v83, v84, v85, v86, v221);
+          if (!objc_msgSend_rangesForUInt8Kernel(weights, v87, v88, v89, v90, v91, v92, v93) && MTLReportFailureTypeEnabled())
           {
-            MTLReportFailure();
+            MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x875, @"rangesForUInt8Kernel method returned nil", v97, v98, v99, v100);
           }
 
           goto LABEL_35;
@@ -1130,105 +1165,105 @@ LABEL_23:
         objc_opt_respondsToSelector();
         if ((objc_opt_respondsToSelector() & 1) == 0 && MTLReportFailureTypeEnabled())
         {
-          MTLReportFailure();
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x886, @"Data source does not implement lookupTableForUInt8Kernel method", v153, v154, v155, v156);
         }
 
-        objc_msgSend_lookupTableForUInt8Kernel(weights, v138, v139, v140, v141, v142, v143, v144, v189);
-        if (!objc_msgSend_lookupTableForUInt8Kernel(weights, v145, v146, v147, v148, v149, v150, v151) && MTLReportFailureTypeEnabled())
+        objc_msgSend_lookupTableForUInt8Kernel(weights, v150, v151, v152, v153, v154, v155, v156, v221);
+        if (!objc_msgSend_lookupTableForUInt8Kernel(weights, v157, v158, v159, v160, v161, v162, v163) && MTLReportFailureTypeEnabled())
         {
-          MTLReportFailure();
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x887, @"lookupTableForUInt8Kernel method returned nil", v117, v118, v119, v120);
         }
       }
 
-      else if ((objc_opt_respondsToSelector() & 1) == 0 || !objc_msgSend_lookupTableForUInt8Kernel(weights, v99, v100, v101, v102, v103, v104, v105))
+      else if ((objc_opt_respondsToSelector() & 1) == 0 || !objc_msgSend_lookupTableForUInt8Kernel(weights, v107, v108, v109, v110, v111, v112, v113))
       {
-        if ((objc_opt_respondsToSelector() & 1) == 0 || !objc_msgSend_rangesForUInt8Kernel(weights, v113, v114, v115, v116, v117, v118, v119))
+        if ((objc_opt_respondsToSelector() & 1) == 0 || !objc_msgSend_rangesForUInt8Kernel(weights, v121, v122, v123, v124, v125, v126, v127))
         {
           if (MTLReportFailureTypeEnabled())
           {
-            MTLReportFailure();
+            MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x8BD, @"Weights data provider data type is UInt8 but no method implemented to dequantize the weights or methods returned nil LUT/ranges", v146, v147, v148, v149);
           }
 
-          v97 = 1;
+          v101 = 1;
           goto LABEL_44;
         }
 
 LABEL_35:
-        v120 = objc_msgSend_weights(weights, v90, v91, v92, v93, v94, v95, v96, v189);
-        v128 = objc_msgSend_rangesForUInt8Kernel(weights, v121, v122, v123, v124, v125, v126, v127);
-        HIBYTE(v196) = transpose;
-        LOBYTE(v196) = connected;
-        v194 = objc_msgSend_biasTerms(weights, v129, v130, v131, v132, v133, v134, v135);
-        v137 = objc_msgSend_initialize_convolutionDescriptor_kernelWeights_dataType_weightsLayout_range_lookUpTable_qType_biasTerms_flags_fullyConnected_convolutionTranspose_preferredWeightsDataType_(selfCopy, v136, device, v21, v120, 8, v37, v128, 0, 0, v194, 0, v196);
+        v128 = objc_msgSend_weights(weights, v94, v95, v96, v97, v98, v99, v100, v221);
+        v136 = objc_msgSend_rangesForUInt8Kernel(weights, v129, v130, v131, v132, v133, v134, v135);
+        HIBYTE(v228) = transpose;
+        LOBYTE(v228) = connected;
+        v226 = objc_msgSend_biasTerms(weights, v137, v138, v139, v140, v141, v142, v143);
+        v145 = objc_msgSend_initialize_convolutionDescriptor_kernelWeights_dataType_weightsLayout_range_lookUpTable_qType_biasTerms_flags_fullyConnected_convolutionTranspose_preferredWeightsDataType_(selfCopy, v144, device, v21, v128, 8, v41, v136, 0, 0, v226, 0, v228);
 LABEL_43:
-        v97 = v137;
+        v101 = v145;
         goto LABEL_44;
       }
 
-      v152 = objc_msgSend_weights(weights, v106, v107, v108, v109, v110, v111, v112, v189);
-      v160 = objc_msgSend_lookupTableForUInt8Kernel(weights, v153, v154, v155, v156, v157, v158, v159);
-      HIBYTE(v195) = transpose;
-      LOBYTE(v195) = connected;
-      v193 = objc_msgSend_biasTerms(weights, v161, v162, v163, v164, v165, v166, v167);
-      v192 = 2;
-      v190 = v160;
-      v56 = selfCopy;
+      v164 = objc_msgSend_weights(weights, v114, v115, v116, v117, v118, v119, v120, v221);
+      v172 = objc_msgSend_lookupTableForUInt8Kernel(weights, v165, v166, v167, v168, v169, v170, v171);
+      HIBYTE(v227) = transpose;
+      LOBYTE(v227) = connected;
+      v225 = objc_msgSend_biasTerms(weights, v173, v174, v175, v176, v177, v178, v179);
+      v224 = 2;
+      v222 = v172;
+      v60 = selfCopy;
       deviceCopy3 = device;
-      v58 = v21;
-      v59 = v152;
-      v55 = 8;
+      v62 = v21;
+      v63 = v164;
+      v59 = 8;
       goto LABEL_42;
     case 0x10000010u:
-      v60 = objc_msgSend_weights(weights, v38, v39, v40, v41, v42, v43, v44);
-      HIBYTE(v195) = transpose;
-      LOBYTE(v195) = connected;
-      v193 = objc_msgSend_biasTerms(weights, v61, v62, v63, v64, v65, v66, v67);
-      v192 = -1;
-      v190 = 0;
-      v56 = selfCopy;
+      v64 = objc_msgSend_weights(weights, v42, v43, v44, v45, v46, v47, v48);
+      HIBYTE(v227) = transpose;
+      LOBYTE(v227) = connected;
+      v225 = objc_msgSend_biasTerms(weights, v65, v66, v67, v68, v69, v70, v71);
+      v224 = -1;
+      v222 = 0;
+      v60 = selfCopy;
       deviceCopy3 = device;
-      v58 = v21;
-      v59 = v60;
-      v55 = 268435472;
+      v62 = v21;
+      v63 = v64;
+      v59 = 268435472;
       goto LABEL_42;
     case 0x10000020u:
-      v45 = objc_msgSend_weights(weights, v38, v39, v40, v41, v42, v43, v44);
-      v53 = objc_msgSend_biasTerms(weights, v46, v47, v48, v49, v50, v51, v52);
-      HIBYTE(v195) = transpose;
-      LOBYTE(v195) = connected;
-      v55 = 268435488;
-      v193 = v53;
-      v192 = -1;
-      v190 = 0;
-      v56 = selfCopy;
+      v49 = objc_msgSend_weights(weights, v42, v43, v44, v45, v46, v47, v48);
+      v57 = objc_msgSend_biasTerms(weights, v50, v51, v52, v53, v54, v55, v56);
+      HIBYTE(v227) = transpose;
+      LOBYTE(v227) = connected;
+      v59 = 268435488;
+      v225 = v57;
+      v224 = -1;
+      v222 = 0;
+      v60 = selfCopy;
       deviceCopy3 = device;
-      v58 = v21;
-      v59 = v45;
+      v62 = v21;
+      v63 = v49;
 LABEL_42:
-      v137 = objc_msgSend_initialize_convolutionDescriptor_kernelWeights_dataType_weightsLayout_range_lookUpTable_qType_biasTerms_flags_fullyConnected_convolutionTranspose_preferredWeightsDataType_(v56, v54, deviceCopy3, v58, v59, v55, v37, 0, v190, v192, v193, 0, v195);
+      v145 = objc_msgSend_initialize_convolutionDescriptor_kernelWeights_dataType_weightsLayout_range_lookUpTable_qType_biasTerms_flags_fullyConnected_convolutionTranspose_preferredWeightsDataType_(v60, v58, deviceCopy3, v62, v63, v59, v41, 0, v222, v224, v225, 0, v227);
       goto LABEL_43;
   }
 
-  v97 = 1;
+  v101 = 1;
   if (MTLReportFailureTypeEnabled())
   {
-    v98 = objc_opt_class();
-    v189 = NSStringFromClass(v98);
-    v191 = v29;
-    v97 = 1;
-    MTLReportFailure();
+    v102 = objc_opt_class();
+    v221 = NSStringFromClass(v102);
+    v223 = v29;
+    v101 = 1;
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x8C5, @"[%@ initWithDevice:convolutionDescriptor:weights:] unsupported weights.dataType: 0x%16.16llx", v103, v104, v105, v106);
   }
 
 LABEL_44:
   if (objc_opt_respondsToSelector())
   {
-    v175 = objc_msgSend_performSelector_(weights, v168, sel_label, v170, v171, v172, v173, v174);
-    objc_msgSend_setLabel_(selfCopy, v176, v175, v177, v178, v179, v180, v181);
+    v187 = objc_msgSend_performSelector_(weights, v180, sel_label, v182, v183, v184, v185, v186);
+    objc_msgSend_setLabel_(selfCopy, v188, v187, v189, v190, v191, v192, v193);
   }
 
-  objc_msgSend_purge(weights, v168, v169, v170, v171, v172, v173, v174, v189, v191);
+  objc_msgSend_purge(weights, v180, v181, v182, v183, v184, v185, v186, v221, v223);
   selfCopy->_dataSource = weights;
-  if (v97)
+  if (v101)
   {
 
     return 0;
@@ -1470,7 +1505,7 @@ LABEL_44:
   {
     if ((objc_msgSend_load(v147, v140, v141, v142, v143, v144, v145, v146) & 1) == 0 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xA4A, @"Failed to load data source", v151, v152, v153, v154);
     }
 
     qType = self->_qType;
@@ -1485,7 +1520,7 @@ LABEL_44:
       objc_opt_respondsToSelector();
       if ((objc_opt_respondsToSelector() & 1) == 0 && MTLReportFailureTypeEnabled())
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xA55, @"data source does not repond to selector rangesForUInt8Kernel", v181, v182, v183, v184);
       }
 
       v226 = objc_msgSend_rangesForUInt8Kernel(self->_dataSource, v178, v179, v180, v181, v182, v183, v184);
@@ -1497,7 +1532,7 @@ LABEL_44:
       objc_opt_respondsToSelector();
       if ((objc_opt_respondsToSelector() & 1) == 0 && MTLReportFailureTypeEnabled())
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xA51, @"data source does not repond to selector lookupTableForUInt8Kernel", v159, v160, v161, v162);
       }
 
       v226 = 0;
@@ -1597,7 +1632,7 @@ LABEL_39:
   objc_msgSend_plugin(self, v140, v141, v142, v143, v144, v145, v146);
   if (objc_msgSend_plugin(self, v163, v164, v165, v166, v167, v168, v169) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xA8A, @"Convolution object was not created with data source. Use initWithDevice:weights", v173, v174, v175, v176);
   }
 
   if (!objc_msgSend_plugin(self, v170, v171, v172, v173, v174, v175, v176))
@@ -1609,8 +1644,8 @@ LABEL_39:
 
 - (MPSCNNConvolution)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v423.receiver = self;
-  v423.super_class = MPSCNNConvolution;
+  v427.receiver = self;
+  v427.super_class = MPSCNNConvolution;
   v6 = [MPSCNNKernel initWithCoder:sel_initWithCoder_device_ device:?];
   v12 = v6;
   if (!v6)
@@ -1624,22 +1659,22 @@ LABEL_39:
     {
       v53 = objc_opt_class();
       NSStringFromClass(v53);
-      MTLReportFailure();
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xA9D, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v54, v55, v56, v57);
     }
 
     goto LABEL_64;
   }
 
-  v424[0] = 0;
-  v13 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v7, @"MPSCNNConvolutionDataSourceClass", v424, v8, v9, v10, v11);
-  v420 = device;
-  if (v424[0])
+  v428[0] = 0;
+  v13 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v7, @"MPSCNNConvolutionDataSourceClass", v428, v8, v9, v10, v11);
+  v424 = device;
+  if (v428[0])
   {
     v20 = v13;
     if (v13)
     {
       v21 = objc_alloc(MEMORY[0x277CCACA8]);
-      v26 = objc_msgSend_initWithBytes_length_encoding_(v21, v22, v20, v424[0] - 1, 1, v23, v24, v25);
+      v26 = objc_msgSend_initWithBytes_length_encoding_(v21, v22, v20, v428[0] - 1, 1, v23, v24, v25);
       v27 = v26;
       if (v26)
       {
@@ -1655,7 +1690,7 @@ LABEL_39:
               v33 = v31;
               v34 = objc_msgSend_descriptor(v31, v14, v32, v15, v16, v17, v18, v19);
               v35 = *(v34 + 32);
-              v421 = *(v34 + 24);
+              v425 = *(v34 + 24);
               v36 = *(v34 + 64);
               v44 = objc_msgSend_dataType(v33, v37, v38, v39, v40, v41, v42, v43);
               if (objc_opt_respondsToSelector())
@@ -1669,76 +1704,76 @@ LABEL_39:
                   }
 
 LABEL_70:
-                  v412 = 0;
-                  v413 = objc_msgSend_rangesForUInt8Kernel(v33, v45, v46, v47, v48, v49, v50, v51);
-                  v422 = 0;
+                  v416 = 0;
+                  v417 = objc_msgSend_rangesForUInt8Kernel(v33, v45, v46, v47, v48, v49, v50, v51);
+                  v426 = 0;
 LABEL_73:
-                  v416 = objc_msgSend_neuronType(*(v34 + 120), v45, v46, v47, v48, v49, v50, v51);
-                  objc_msgSend_a(*(v34 + 120), v349, v350, v351, v352, v353, v354, v355);
-                  v88 = v356;
-                  objc_msgSend_b(*(v34 + 120), v357, v358, v359, v360, v361, v362, v363);
-                  v96 = v364;
-                  objc_msgSend_c(*(v34 + 120), v365, v366, v367, v368, v369, v370, v371);
-                  v104 = v372;
+                  v420 = objc_msgSend_neuronType(*(v34 + 120), v45, v46, v47, v48, v49, v50, v51);
+                  objc_msgSend_a(*(v34 + 120), v353, v354, v355, v356, v357, v358, v359);
+                  v92 = v360;
+                  objc_msgSend_b(*(v34 + 120), v361, v362, v363, v364, v365, v366, v367);
+                  v100 = v368;
+                  objc_msgSend_c(*(v34 + 120), v369, v370, v371, v372, v373, v374, v375);
+                  v108 = v376;
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v406 = v35 / v421;
+                    v410 = v35 / v425;
                   }
 
                   else
                   {
-                    v406 = 0;
+                    v410 = 0;
                   }
 
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v411 = objc_msgSend_subPixelScaleFactor(v34, v373, v374, v375, v376, v377, v378, v379);
+                    v415 = objc_msgSend_subPixelScaleFactor(v34, v377, v378, v379, v380, v381, v382, v383);
                   }
 
                   else
                   {
-                    v411 = 1;
+                    v415 = 1;
                   }
 
-                  if ((objc_msgSend_load(v33, v373, v374, v375, v376, v377, v378, v379) & 1) == 0 && MTLReportFailureTypeEnabled())
+                  if ((objc_msgSend_load(v33, v377, v378, v379, v380, v381, v382, v383) & 1) == 0 && MTLReportFailureTypeEnabled())
                   {
-                    MTLReportFailure();
+                    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xADA, @"data source load failed", v387, v388, v389, v390);
                   }
 
-                  v415 = objc_msgSend_weights(v33, v380, v381, v382, v383, v384, v385, v386);
-                  v394 = objc_msgSend_biasTerms(v33, v387, v388, v389, v390, v391, v392, v393);
+                  v419 = objc_msgSend_weights(v33, v384, v385, v386, v387, v388, v389, v390);
+                  v398 = objc_msgSend_biasTerms(v33, v391, v392, v393, v394, v395, v396, v397);
                   if (objc_opt_respondsToSelector())
                   {
-                    v414 = objc_msgSend_weightsLayout(v33, v395, v396, v397, v398, v399, v400, v401);
+                    v418 = objc_msgSend_weightsLayout(v33, v399, v400, v401, v402, v403, v404, v405);
                   }
 
                   else
                   {
-                    v414 = 0;
+                    v418 = 0;
                   }
 
-                  v419 = v44;
-                  v417 = v33;
-                  v418 = v36;
+                  v423 = v44;
+                  v421 = v33;
+                  v422 = v36;
                   if (objc_opt_respondsToSelector())
                   {
-                    objc_msgSend_kernelWeightsDataType(v12->_dataSource, v158, v402, v159, v160, v161, v162, v163);
+                    objc_msgSend_kernelWeightsDataType(v12->_dataSource, v162, v406, v163, v164, v165, v166, v167);
                   }
 
-                  v410 = 0;
-                  v405 = 0;
-                  v164 = v394;
+                  v414 = 0;
+                  v409 = 0;
+                  v168 = v398;
                   goto LABEL_42;
                 }
 
 LABEL_68:
-                v412 = objc_msgSend_lookupTableForUInt8Kernel(v33, v45, v46, v47, v48, v49, v50, v51);
-                v413 = 0;
-                v348 = 2;
+                v416 = objc_msgSend_lookupTableForUInt8Kernel(v33, v45, v46, v47, v48, v49, v50, v51);
+                v417 = 0;
+                v352 = 2;
 LABEL_72:
-                v422 = v348;
+                v426 = v352;
                 goto LABEL_73;
               }
 
@@ -1756,9 +1791,9 @@ LABEL_72:
               }
 
 LABEL_71:
-              v412 = 0;
-              v413 = 0;
-              v348 = -1;
+              v416 = 0;
+              v417 = 0;
+              v352 = -1;
               goto LABEL_72;
             }
           }
@@ -1766,46 +1801,46 @@ LABEL_71:
 
         else if (MTLReportFailureTypeEnabled())
         {
-          v403 = v26;
-          MTLReportFailure();
+          v407 = v26;
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Binaries/MetalPerformanceShaders/install/Symbols/BuiltProducts/MPSCore.framework/PrivateHeaders/Internal/MPSCoreInternal.h", 0x2ED, @"Error: Can not decode. Unable to find class implementation for %@.", v16, v17, v18, v19);
         }
       }
     }
   }
 
-  v54 = objc_msgSend_decodeInt64ForKey_(aDecoder, v14, @"MPSCNNConvolutionInputFeatureChannels", v15, v16, v17, v18, v19, v403);
-  v61 = objc_msgSend_decodeInt64ForKey_(aDecoder, v55, @"MPSCNNConvolutionOutputFeatureChannels", v56, v57, v58, v59, v60);
-  v68 = objc_msgSend_decodeInt64ForKey_(aDecoder, v62, @"MPSCNNConvolutionGroups", v63, v64, v65, v66, v67);
-  v422 = objc_msgSend_decodeInt64ForKey_(aDecoder, v69, @"MPSCNNConvolutionQuantizationType", v70, v71, v72, v73, v74);
-  v416 = objc_msgSend_decodeInt32ForKey_(aDecoder, v75, @"MPSCNNConvolutionNeuronInfo.type", v76, v77, v78, v79, v80);
-  objc_msgSend_decodeFloatForKey_(aDecoder, v81, @"MPSCNNConvolutionNeuronInfo.a", v82, v83, v84, v85, v86);
-  v88 = v87;
-  objc_msgSend_decodeFloatForKey_(aDecoder, v89, @"MPSCNNConvolutionNeuronInfo.b", v90, v91, v92, v93, v94);
-  v96 = v95;
-  objc_msgSend_decodeFloatForKey_(aDecoder, v97, @"MPSCNNConvolutionNeuronInfo.c", v98, v99, v100, v101, v102);
-  v104 = v103;
-  v411 = objc_msgSend_decodeInt64ForKey_(aDecoder, v105, @"MPSCNNConvolutionScaleFactor", v106, v107, v108, v109, v110);
-  v117 = objc_msgSend_decodeInt64ForKey_(aDecoder, v111, @"MPSCNNConvolutionChannelMultipler", v112, v113, v114, v115, v116);
-  v124 = objc_msgSend_decodeInt64ForKey_(aDecoder, v118, @"MPSCNNConvolutionWeight.dataType", v119, v120, v121, v122, v123);
-  v414 = objc_msgSend_decodeInt64ForKey_(aDecoder, v125, @"MPSCNNConvolutionWeight.dataLayout", v126, v127, v128, v129, v130);
-  objc_msgSend_decodeBoolForKey_(aDecoder, v131, @"MPSCNNConvolutionConvertFloat32Weights", v132, v133, v134, v135, v136);
-  v35 = v61;
-  v137 = v12->super._kernelWidth * v61 * v12->super._kernelHeight;
-  v421 = v54;
-  v406 = v117;
-  if (!v117)
+  v58 = objc_msgSend_decodeInt64ForKey_(aDecoder, v14, @"MPSCNNConvolutionInputFeatureChannels", v15, v16, v17, v18, v19, v407);
+  v65 = objc_msgSend_decodeInt64ForKey_(aDecoder, v59, @"MPSCNNConvolutionOutputFeatureChannels", v60, v61, v62, v63, v64);
+  v72 = objc_msgSend_decodeInt64ForKey_(aDecoder, v66, @"MPSCNNConvolutionGroups", v67, v68, v69, v70, v71);
+  v426 = objc_msgSend_decodeInt64ForKey_(aDecoder, v73, @"MPSCNNConvolutionQuantizationType", v74, v75, v76, v77, v78);
+  v420 = objc_msgSend_decodeInt32ForKey_(aDecoder, v79, @"MPSCNNConvolutionNeuronInfo.type", v80, v81, v82, v83, v84);
+  objc_msgSend_decodeFloatForKey_(aDecoder, v85, @"MPSCNNConvolutionNeuronInfo.a", v86, v87, v88, v89, v90);
+  v92 = v91;
+  objc_msgSend_decodeFloatForKey_(aDecoder, v93, @"MPSCNNConvolutionNeuronInfo.b", v94, v95, v96, v97, v98);
+  v100 = v99;
+  objc_msgSend_decodeFloatForKey_(aDecoder, v101, @"MPSCNNConvolutionNeuronInfo.c", v102, v103, v104, v105, v106);
+  v108 = v107;
+  v415 = objc_msgSend_decodeInt64ForKey_(aDecoder, v109, @"MPSCNNConvolutionScaleFactor", v110, v111, v112, v113, v114);
+  v121 = objc_msgSend_decodeInt64ForKey_(aDecoder, v115, @"MPSCNNConvolutionChannelMultipler", v116, v117, v118, v119, v120);
+  v128 = objc_msgSend_decodeInt64ForKey_(aDecoder, v122, @"MPSCNNConvolutionWeight.dataType", v123, v124, v125, v126, v127);
+  v418 = objc_msgSend_decodeInt64ForKey_(aDecoder, v129, @"MPSCNNConvolutionWeight.dataLayout", v130, v131, v132, v133, v134);
+  objc_msgSend_decodeBoolForKey_(aDecoder, v135, @"MPSCNNConvolutionConvertFloat32Weights", v136, v137, v138, v139, v140);
+  v35 = v65;
+  v141 = v12->super._kernelWidth * v65 * v12->super._kernelHeight;
+  v425 = v58;
+  v410 = v121;
+  if (!v121)
   {
-    v137 *= v54 / v68;
+    v141 *= v58 / v72;
   }
 
-  v138 = (v124 >> 3) & 0x1DFFFFFF;
-  v139 = malloc_type_malloc(v137 * v138, 0x13380AA3uLL);
-  v424[0] = 0;
-  v145 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v140, @"MPSCNNConvolutionWeight.data", v424, v141, v142, v143, v144);
-  if (!v145)
+  v142 = (v128 >> 3) & 0x1DFFFFFF;
+  v143 = malloc_type_malloc(v141 * v142, 0x13380AA3uLL);
+  v428[0] = 0;
+  v149 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v144, @"MPSCNNConvolutionWeight.data", v428, v145, v146, v147, v148);
+  if (!v149)
   {
 LABEL_27:
-    if ((objc_msgSend_decodeBoolForKey_(aDecoder, v146, @"MPSCNNConvolutionBias.isNull", v147, v148, v149, v150, v151) & 1) == 0)
+    if ((objc_msgSend_decodeBoolForKey_(aDecoder, v150, @"MPSCNNConvolutionBias.isNull", v151, v152, v153, v154, v155) & 1) == 0)
     {
       goto LABEL_30;
     }
@@ -1813,11 +1848,11 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v146 = v145;
-  if (v138 == 4)
+  v150 = v149;
+  if (v142 == 4)
   {
     MPSCopyToFromNetworkByteOrder32();
-    if ((objc_msgSend_decodeBoolForKey_(aDecoder, v165, @"MPSCNNConvolutionBias.isNull", v166, v167, v168, v169, v170) & 1) == 0)
+    if ((objc_msgSend_decodeBoolForKey_(aDecoder, v169, @"MPSCNNConvolutionBias.isNull", v170, v171, v172, v173, v174) & 1) == 0)
     {
       goto LABEL_30;
     }
@@ -1825,24 +1860,24 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  if (v138 == 2)
+  if (v142 == 2)
   {
     MPSCopyToFromNetworkByteOrder16();
     goto LABEL_27;
   }
 
-  if (v138 != 1)
+  if (v142 != 1)
   {
     goto LABEL_27;
   }
 
-  memcpy(v139, v145, v424[0]);
-  if ((objc_msgSend_decodeBoolForKey_(aDecoder, v152, @"MPSCNNConvolutionBias.isNull", v153, v154, v155, v156, v157) & 1) == 0)
+  memcpy(v143, v149, v428[0]);
+  if ((objc_msgSend_decodeBoolForKey_(aDecoder, v156, @"MPSCNNConvolutionBias.isNull", v157, v158, v159, v160, v161) & 1) == 0)
   {
 LABEL_30:
-    v164 = malloc_type_malloc(4 * v35, 0x100004052888210uLL);
-    v424[0] = 0;
-    if (objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v171, @"MPSCNNConvolutionBias.data", v424, v172, v173, v174, v175))
+    v168 = malloc_type_malloc(4 * v35, 0x100004052888210uLL);
+    v428[0] = 0;
+    if (objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v175, @"MPSCNNConvolutionBias.data", v428, v176, v177, v178, v179))
     {
       MPSCopyToFromNetworkByteOrder32();
     }
@@ -1851,163 +1886,163 @@ LABEL_30:
   }
 
 LABEL_28:
-  v164 = 0;
+  v168 = 0;
 LABEL_32:
-  v418 = v68;
-  v419 = v124;
-  v415 = v139;
-  if (v422 == -1)
+  v422 = v72;
+  v423 = v128;
+  v419 = v143;
+  if (v426 == -1)
   {
+    v421 = 0;
+    v416 = 0;
     v417 = 0;
-    v412 = 0;
-    v413 = 0;
-    v405 = 0;
-    v410 = 1;
+    v409 = 0;
+    v414 = 1;
   }
 
   else
   {
-    if (v422 == 2)
+    if (v426 == 2)
     {
-      v176 = malloc_type_malloc(0x400uLL, 0x100004052888210uLL);
-      v424[0] = 0;
-      if (objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v177, @"MPSCNNConvolutionQuantizationData.data", v424, v178, v179, v180, v181))
+      v180 = malloc_type_malloc(0x400uLL, 0x100004052888210uLL);
+      v428[0] = 0;
+      if (objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v181, @"MPSCNNConvolutionQuantizationData.data", v428, v182, v183, v184, v185))
       {
         MPSCopyToFromNetworkByteOrder32();
       }
 
+      v421 = 0;
       v417 = 0;
-      v413 = 0;
-      v422 = 2;
-      v410 = 1;
-      v412 = v176;
+      v426 = 2;
+      v414 = 1;
+      v416 = v180;
     }
 
     else
     {
-      v176 = malloc_type_malloc(8 * v35, 0x100004052888210uLL);
-      v424[0] = 0;
-      if (objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v182, @"MPSCNNConvolutionQuantizationData.data", v424, v183, v184, v185, v186))
+      v180 = malloc_type_malloc(8 * v35, 0x100004052888210uLL);
+      v428[0] = 0;
+      if (objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v186, @"MPSCNNConvolutionQuantizationData.data", v428, v187, v188, v189, v190))
       {
         MPSCopyToFromNetworkByteOrder32();
       }
 
-      v417 = 0;
-      v412 = 0;
-      v413 = v176;
-      v410 = 1;
+      v421 = 0;
+      v416 = 0;
+      v417 = v180;
+      v414 = 1;
     }
 
-    v405 = v176;
+    v409 = v180;
   }
 
 LABEL_42:
-  v187 = objc_msgSend_decodeInt64ForKey_(aDecoder, v158, @"MPSCNNConvolutionFeatureChannelsLayout", v159, v160, v161, v162, v163);
-  v409 = objc_msgSend_decodeBoolForKey_(aDecoder, v188, @"MPSCNNConvolutionIsFullyConnected", v189, v190, v191, v192, v193);
-  v408 = objc_msgSend_decodeBoolForKey_(aDecoder, v194, @"MPSCNNConvolutionIsConvolutionTranspose", v195, v196, v197, v198, v199);
-  v407 = objc_msgSend_decodeInt64ForKey_(aDecoder, v200, @"MPSCNNConvolutionFlags", v201, v202, v203, v204, v205);
-  v218 = 4 * v35;
-  if ((objc_msgSend_decodeBoolForKey_(aDecoder, v206, @"MPSCNNConvolutionNeuronBufferA.isNull", v207, v208, v209, v210, v211) & 1) == 0)
+  v191 = objc_msgSend_decodeInt64ForKey_(aDecoder, v162, @"MPSCNNConvolutionFeatureChannelsLayout", v163, v164, v165, v166, v167);
+  v413 = objc_msgSend_decodeBoolForKey_(aDecoder, v192, @"MPSCNNConvolutionIsFullyConnected", v193, v194, v195, v196, v197);
+  v412 = objc_msgSend_decodeBoolForKey_(aDecoder, v198, @"MPSCNNConvolutionIsConvolutionTranspose", v199, v200, v201, v202, v203);
+  v411 = objc_msgSend_decodeInt64ForKey_(aDecoder, v204, @"MPSCNNConvolutionFlags", v205, v206, v207, v208, v209);
+  v222 = 4 * v35;
+  if ((objc_msgSend_decodeBoolForKey_(aDecoder, v210, @"MPSCNNConvolutionNeuronBufferA.isNull", v211, v212, v213, v214, v215) & 1) == 0)
   {
-    v220 = malloc_type_malloc(4 * v35, 0x100004052888210uLL);
-    v424[0] = 0;
-    if (objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v228, @"MPSCNNConvolutionNeuronBufferA.data", v424, v229, v230, v231, v232))
+    v224 = malloc_type_malloc(4 * v35, 0x100004052888210uLL);
+    v428[0] = 0;
+    if (objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v232, @"MPSCNNConvolutionNeuronBufferA.data", v428, v233, v234, v235, v236))
     {
       MPSCopyToFromNetworkByteOrder32();
     }
 
-    v219 = v164;
-    v221 = 8 * v35;
-    if ((objc_msgSend_decodeBoolForKey_(aDecoder, v233, @"MPSCNNConvolutionBatchNormalizationData.isNull", v234, v235, v236, v237, v238) & 1) == 0)
+    v223 = v168;
+    v225 = 8 * v35;
+    if ((objc_msgSend_decodeBoolForKey_(aDecoder, v237, @"MPSCNNConvolutionBatchNormalizationData.isNull", v238, v239, v240, v241, v242) & 1) == 0)
     {
       goto LABEL_44;
     }
 
 LABEL_49:
-    v222 = 0;
+    v226 = 0;
     goto LABEL_50;
   }
 
-  v219 = v164;
-  v220 = 0;
-  v221 = 8 * v35;
-  if (objc_msgSend_decodeBoolForKey_(aDecoder, v212, @"MPSCNNConvolutionBatchNormalizationData.isNull", v213, v214, v215, v216, v217))
+  v223 = v168;
+  v224 = 0;
+  v225 = 8 * v35;
+  if (objc_msgSend_decodeBoolForKey_(aDecoder, v216, @"MPSCNNConvolutionBatchNormalizationData.isNull", v217, v218, v219, v220, v221))
   {
     goto LABEL_49;
   }
 
 LABEL_44:
-  v222 = malloc_type_malloc(v221, 0x100004052888210uLL);
-  v424[0] = 0;
-  if (objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v223, @"MPSCNNConvolutionBatchNormalizationData.data", v424, v224, v225, v226, v227))
+  v226 = malloc_type_malloc(v225, 0x100004052888210uLL);
+  v428[0] = 0;
+  if (objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v227, @"MPSCNNConvolutionBatchNormalizationData.data", v428, v228, v229, v230, v231))
   {
     MPSCopyToFromNetworkByteOrder32();
   }
 
 LABEL_50:
-  v242 = objc_autoreleasePoolPush();
+  v246 = objc_autoreleasePoolPush();
   kernelWidth = v12->super._kernelWidth;
   kernelHeight = v12->super._kernelHeight;
-  if (v411 < 2)
+  if (v415 < 2)
   {
-    if (v406)
+    if (v410)
     {
-      v258 = objc_msgSend_cnnConvolutionDescriptorWithKernelWidth_kernelHeight_inputFeatureChannels_outputFeatureChannels_(MPSCNNDepthWiseConvolutionDescriptor, v239, kernelWidth, kernelHeight, v421, v35, v240, v241);
+      v262 = objc_msgSend_cnnConvolutionDescriptorWithKernelWidth_kernelHeight_inputFeatureChannels_outputFeatureChannels_(MPSCNNDepthWiseConvolutionDescriptor, v243, kernelWidth, kernelHeight, v425, v35, v244, v245);
     }
 
     else
     {
-      v258 = objc_msgSend_cnnConvolutionDescriptorWithKernelWidth_kernelHeight_inputFeatureChannels_outputFeatureChannels_(MPSCNNConvolutionDescriptor, v239, kernelWidth, kernelHeight, v421, v35, v240, v241);
+      v262 = objc_msgSend_cnnConvolutionDescriptorWithKernelWidth_kernelHeight_inputFeatureChannels_outputFeatureChannels_(MPSCNNConvolutionDescriptor, v243, kernelWidth, kernelHeight, v425, v35, v244, v245);
     }
 
-    v245 = v258;
+    v249 = v262;
   }
 
   else
   {
-    v245 = objc_msgSend_cnnConvolutionDescriptorWithKernelWidth_kernelHeight_inputFeatureChannels_outputFeatureChannels_(MPSCNNSubPixelConvolutionDescriptor, v239, kernelWidth, kernelHeight, v421, v35, v240, v241);
-    objc_msgSend_setSubPixelScaleFactor_(v245, v246, v411, v247, v248, v249, v250, v251);
+    v249 = objc_msgSend_cnnConvolutionDescriptorWithKernelWidth_kernelHeight_inputFeatureChannels_outputFeatureChannels_(MPSCNNSubPixelConvolutionDescriptor, v243, kernelWidth, kernelHeight, v425, v35, v244, v245);
+    objc_msgSend_setSubPixelScaleFactor_(v249, v250, v415, v251, v252, v253, v254, v255);
   }
 
-  objc_msgSend_setNeuronType_(*(v245 + 120), v252, v416, v253, v254, v255, v256, v257);
-  LODWORD(v259) = v88;
-  objc_msgSend_setA_(*(v245 + 120), v260, v261, v262, v263, v264, v265, v266, v259);
-  LODWORD(v267) = v96;
-  objc_msgSend_setB_(*(v245 + 120), v268, v269, v270, v271, v272, v273, v274, v267);
-  LODWORD(v275) = v104;
-  objc_msgSend_setC_(*(v245 + 120), v276, v277, v278, v279, v280, v281, v282, v275);
-  objc_msgSend_setFeatureChannelsLayout_(v245, v283, v187, v284, v285, v286, v287, v288);
-  objc_msgSend_setGroups_(v245, v289, v418, v290, v291, v292, v293, v294);
-  objc_msgSend_setStrideInPixelsX_(v245, v295, v12->super._strideInPixelsX, v296, v297, v298, v299, v300);
-  objc_msgSend_setStrideInPixelsY_(v245, v301, v12->super._strideInPixelsY, v302, v303, v304, v305, v306);
-  objc_msgSend_setDilationRateX_(v245, v307, v12->super._dilationRateX, v308, v309, v310, v311, v312);
-  objc_msgSend_setDilationRateY_(v245, v313, v12->super._dilationRateY, v314, v315, v316, v317, v318);
-  if (v222)
+  objc_msgSend_setNeuronType_(*(v249 + 120), v256, v420, v257, v258, v259, v260, v261);
+  LODWORD(v263) = v92;
+  objc_msgSend_setA_(*(v249 + 120), v264, v265, v266, v267, v268, v269, v270, v263);
+  LODWORD(v271) = v100;
+  objc_msgSend_setB_(*(v249 + 120), v272, v273, v274, v275, v276, v277, v278, v271);
+  LODWORD(v279) = v108;
+  objc_msgSend_setC_(*(v249 + 120), v280, v281, v282, v283, v284, v285, v286, v279);
+  objc_msgSend_setFeatureChannelsLayout_(v249, v287, v191, v288, v289, v290, v291, v292);
+  objc_msgSend_setGroups_(v249, v293, v422, v294, v295, v296, v297, v298);
+  objc_msgSend_setStrideInPixelsX_(v249, v299, v12->super._strideInPixelsX, v300, v301, v302, v303, v304);
+  objc_msgSend_setStrideInPixelsY_(v249, v305, v12->super._strideInPixelsY, v306, v307, v308, v309, v310);
+  objc_msgSend_setDilationRateX_(v249, v311, v12->super._dilationRateX, v312, v313, v314, v315, v316);
+  objc_msgSend_setDilationRateY_(v249, v317, v12->super._dilationRateY, v318, v319, v320, v321, v322);
+  if (v226)
   {
-    v320 = objc_alloc(MEMORY[0x277CBEA90]);
-    *(v245 + 72) = objc_msgSend_initWithBytes_length_(v320, v321, v222, v221, v322, v323, v324, v325);
+    v324 = objc_alloc(MEMORY[0x277CBEA90]);
+    *(v249 + 72) = objc_msgSend_initWithBytes_length_(v324, v325, v226, v225, v326, v327, v328, v329);
   }
 
-  if (v220)
+  if (v224)
   {
-    v326 = objc_alloc(MEMORY[0x277CBEA90]);
-    v332 = objc_msgSend_initWithBytes_length_(v326, v327, v220, v218, v328, v329, v330, v331);
-    objc_msgSend_setData_(*(v245 + 120), v333, v332, v334, v335, v336, v337, v338);
+    v330 = objc_alloc(MEMORY[0x277CBEA90]);
+    v336 = objc_msgSend_initWithBytes_length_(v330, v331, v224, v222, v332, v333, v334, v335);
+    objc_msgSend_setData_(*(v249 + 120), v337, v336, v338, v339, v340, v341, v342);
   }
 
-  HIBYTE(v404) = v408;
-  LOBYTE(v404) = v409;
-  v339 = objc_msgSend_initialize_convolutionDescriptor_kernelWeights_dataType_weightsLayout_range_lookUpTable_qType_biasTerms_flags_fullyConnected_convolutionTranspose_preferredWeightsDataType_(v12, v319, v420, v245, v415, v419, v414, v413, v412, v422, v219, v407, v404);
-  v12->_dataSource = v417;
-  objc_autoreleasePoolPop(v242);
-  if (v410)
+  HIBYTE(v408) = v412;
+  LOBYTE(v408) = v413;
+  v343 = objc_msgSend_initialize_convolutionDescriptor_kernelWeights_dataType_weightsLayout_range_lookUpTable_qType_biasTerms_flags_fullyConnected_convolutionTranspose_preferredWeightsDataType_(v12, v323, v424, v249, v419, v423, v418, v417, v416, v426, v223, v411, v408);
+  v12->_dataSource = v421;
+  objc_autoreleasePoolPop(v246);
+  if (v414)
   {
-    free(v415);
-    free(v219);
-    free(v405);
-    free(v220);
-    free(v222);
-    if (!v339)
+    free(v419);
+    free(v223);
+    free(v409);
+    free(v224);
+    free(v226);
+    if (!v343)
     {
       return v12;
     }
@@ -2015,10 +2050,10 @@ LABEL_50:
     goto LABEL_64;
   }
 
-  objc_msgSend_purge(v417, v340, v341, v342, v343, v344, v345, v346);
-  free(v220);
-  free(v222);
-  if (v339)
+  objc_msgSend_purge(v421, v344, v345, v346, v347, v348, v349, v350);
+  free(v224);
+  free(v226);
+  if (v343)
   {
 LABEL_64:
 
@@ -2318,7 +2353,7 @@ LABEL_13:
     self = selfCopy;
     if (v10)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xD64, @"Error: [MPSCNNConvolution reloadWeightsAndBiasesWithDataSource:] does not support changing the data source.\nIt has been deprecated. Please use -reloadWeightsAndBiasesFromDataSource instead.\n", v4, v5, v6, v7);
       self = selfCopy;
     }
   }
@@ -2332,11 +2367,11 @@ LABEL_13:
   if ((objc_msgSend_load(dataSource, a2, v2, v3, v4, v5, v6, v7) & 1) == 0 && MTLReportFailureTypeEnabled())
   {
     v71 = objc_opt_class();
-    v72 = NSStringFromClass(v71);
-    MTLReportFailure();
+    v76 = NSStringFromClass(v71);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xD6D, @"[%@ initWithDevice:convolutionDescriptor:weights:] dataSource.load should return YES", v72, v73, v74, v75);
   }
 
-  v17 = objc_msgSend_dataType(dataSource, v10, v11, v12, v13, v14, v15, v16, v72);
+  v17 = objc_msgSend_dataType(dataSource, v10, v11, v12, v13, v14, v15, v16, v76);
   if (v17 != 8)
   {
     goto LABEL_7;
@@ -2398,8 +2433,8 @@ LABEL_8:
   v18 = objc_msgSend_biases(state, v11, v12, v13, v14, v15, v16, v17);
   v26 = objc_msgSend_weightsDataType(state, v19, v20, v21, v22, v23, v24, v25);
   v34 = objc_msgSend_weightsLayout(state, v27, v28, v29, v30, v31, v32, v33);
-  v87 = objc_msgSend_weightsOffset(state, v35, v36, v37, v38, v39, v40, v41);
-  v86 = objc_msgSend_biasesOffset(state, v42, v43, v44, v45, v46, v47, v48);
+  v91 = objc_msgSend_weightsOffset(state, v35, v36, v37, v38, v39, v40, v41);
+  v90 = objc_msgSend_biasesOffset(state, v42, v43, v44, v45, v46, v47, v48);
   outputFeatureChannels = self->_outputFeatureChannels;
   v57 = 1;
   if (v26 == 268435472)
@@ -2420,21 +2455,21 @@ LABEL_8:
   v59 = (self->super._kernelWidth * outputFeatureChannels * self->super._kernelHeight) << v58;
   if (v34 != self->_weightsLayout && MTLReportFailureTypeEnabled())
   {
-    v83 = off_278B36DD8[self->_weightsLayout];
-    v84 = off_278B36DD8[v34];
-    MTLReportFailure();
+    v87 = off_278B36DD8[self->_weightsLayout];
+    v88 = off_278B36DD8[v34];
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xDDA, @"weights layout mismatch. Layout of convolution objct is %s while state object layout is %s", v52, v53, v54, v55);
   }
 
   v60 = v57 * v59;
   if (!v10 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xDDB, @"weights to reload method cannot be nil", v52, v53, v54, v55);
   }
 
-  objc_msgSend_length(v10, v49, v50, v51, v52, v53, v54, v55, v83, v84);
+  objc_msgSend_length(v10, v49, v50, v51, v52, v53, v54, v55, v87, v88);
   if (objc_msgSend_length(v10, v61, v62, v63, v64, v65, v66, v67) < v60 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xDDC, @"weights buffer should have %lu bytes of data", v71, v72, v73, v74);
   }
 
   if (v18)
@@ -2444,14 +2479,14 @@ LABEL_8:
     {
       if (MTLReportFailureTypeEnabled())
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xDDE, @"biases buffer should have %lu bytes of data", v83, v84, v85, v86);
       }
     }
   }
 
   v82 = (*(&self->super.super.super.isa + *MEMORY[0x277CD7370]))[4];
-  LOBYTE(v85) = 0;
-  (*(*v82 + 160))(v82, commandBuffer, self, v10, v26, v87, v34, v18, v86, v85);
+  LOBYTE(v89) = 0;
+  (*(*v82 + 160))(v82, commandBuffer, self, v10, v26, v91, v34, v18, v90, v89);
 
   MPSDecrementReadCount(&state->super);
 }

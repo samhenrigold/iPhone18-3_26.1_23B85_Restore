@@ -16,7 +16,7 @@
   {
     objc_storeStrong((v6 + 50), params);
     v8 = [InstallAttributionDatabaseStore alloc];
-    v9 = sub_1001C0DF0();
+    v9 = sub_1001C0DF0(Environment);
     v10 = sub_1001C0FB8(v9);
     v11 = [(SQLiteDatabaseStore *)v8 initWithDatabase:v10];
     v12 = *(v7 + 58);
@@ -130,7 +130,7 @@ LABEL_35:
 
     if (os_variant_has_internal_content())
     {
-      v19 = sub_1003D5CF8();
+      v19 = sub_1003D5CF8(AppDefaultsManager);
 
       if (v19)
       {
@@ -141,7 +141,7 @@ LABEL_35:
           _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "SKAdNetwork: Web impression fetch URL override.", &buf, 2u);
         }
 
-        v21 = sub_1003D5CF8();
+        v21 = sub_1003D5CF8(AppDefaultsManager);
         v22 = [NSURL URLWithString:v21];
 
         v18 = v22;

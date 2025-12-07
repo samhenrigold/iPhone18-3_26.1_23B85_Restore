@@ -64,31 +64,30 @@
   v5 = [idsService linkedDevicesWithRelationship:v3];
 
   v6 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(v5, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
-        v13 = IDSCopyIDForDevice();
-        [v6 addObject:{v13, v15}];
+        v12 = IDSCopyIDForDevice();
+        [v6 addObject:{v12, v14}];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);

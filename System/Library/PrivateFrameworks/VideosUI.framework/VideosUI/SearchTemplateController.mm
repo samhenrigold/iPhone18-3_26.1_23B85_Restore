@@ -152,18 +152,20 @@
 
 - (CGRect)_searchBar:(id)bar proposedSearchFieldFrame:(CGRect)frame
 {
+  y = frame.origin.y;
+  x = frame.origin.x;
   OUTLINED_FUNCTION_44_11();
-  v6 = v4;
-  v7 = v5;
-  v8 = OUTLINED_FUNCTION_50();
-  sub_1E3947884(v8);
+  v8 = v4;
+  v9 = v5;
+  v10 = OUTLINED_FUNCTION_50();
+  sub_1E3947884(v10, x, y);
   OUTLINED_FUNCTION_3();
 
-  v9 = OUTLINED_FUNCTION_6();
-  result.size.height = v12;
-  result.size.width = v11;
-  result.origin.y = v10;
-  result.origin.x = v9;
+  v11 = OUTLINED_FUNCTION_6();
+  result.size.height = v14;
+  result.size.width = v13;
+  result.origin.y = v12;
+  result.origin.x = v11;
   return result;
 }
 

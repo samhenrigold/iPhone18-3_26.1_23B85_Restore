@@ -3,10 +3,10 @@
 - (double)pressProgress;
 - (id)color;
 - (id)initWithBaseColor:(id *)color;
+- (id)update;
 - (uint64_t)isRingHighlightVisible;
 - (uint64_t)islandMode;
 - (uint64_t)setBaseColor:(int)color animated:;
-- (uint64_t)update;
 - (void)setActive:(uint64_t)active;
 @end
 
@@ -164,7 +164,7 @@
   return result;
 }
 
-- (uint64_t)update
+- (id)update
 {
   if (!result)
   {
@@ -181,32 +181,32 @@
   [v2 timeIntervalSinceReferenceDate];
   v4 = v3;
 
-  [*(v1 + 40) doubleValue];
+  [v1[5] doubleValue];
   if (v4 - v5 > 5.0)
   {
     v6 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-    v7 = *(v1 + 40);
-    *(v1 + 40) = v6;
+    v7 = v1[5];
+    v1[5] = v6;
 
-    result = [*(v1 + 24) setInput:1.0];
+    result = [v1[3] setInput:1.0];
     *(v1 + 49) = 0;
     v8 = 1;
 LABEL_5:
-    *(v1 + 56) = v8;
+    v1[7] = v8;
     return result;
   }
 
-  result = [*(v1 + 40) doubleValue];
+  result = [v1[5] doubleValue];
   if (v4 - v9 > 2.0)
   {
-    *(v1 + 56) = 0;
+    v1[7] = 0;
     return result;
   }
 
-  [*(v1 + 40) doubleValue];
+  [v1[5] doubleValue];
   if (v4 - v10 > 1.0)
   {
-    [*(v1 + 24) setInput:0.0];
+    [v1[3] setInput:0.0];
     v11 = OUTLINED_FUNCTION_0_0();
     [v12 setBounce:v11 duration:2.0];
     v14 = OUTLINED_FUNCTION_0_0();
@@ -215,7 +215,7 @@ LABEL_11:
     return [v13 setInput:v14];
   }
 
-  result = [*(v1 + 40) doubleValue];
+  result = [v1[5] doubleValue];
   if (v4 - v15 > 0.8)
   {
     *(v1 + 49) = 1;
@@ -223,13 +223,13 @@ LABEL_11:
     goto LABEL_5;
   }
 
-  result = [*(v1 + 40) doubleValue];
+  result = [v1[5] doubleValue];
   if (v4 - v16 > 0.1)
   {
-    *(v1 + 56) = 2;
+    v1[7] = 2;
     v17 = OUTLINED_FUNCTION_0_0();
     [v18 setBounce:v17 duration:3.0];
-    v13 = *(v1 + 32);
+    v13 = v1[4];
     v14 = 1.0;
     goto LABEL_11;
   }

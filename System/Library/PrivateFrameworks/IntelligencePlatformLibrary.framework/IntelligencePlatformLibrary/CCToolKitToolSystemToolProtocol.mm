@@ -2148,9 +2148,9 @@ LABEL_564:
       case 5u:
         v159 = [CCToolKitToolSystemToolProtocolConditionallyEnabled alloc];
         v160 = CCPBReaderReadDataNoCopy();
-        v689 = 0;
-        v161 = [(CCItemMessage *)v159 initWithData:v160 error:&v689];
-        v10 = v689;
+        v687 = 0;
+        v161 = [(CCItemMessage *)v159 initWithData:v160 error:&v687];
+        v10 = v687;
         v162 = self->_conditionallyEnabled;
         self->_conditionallyEnabled = v161;
 
@@ -3539,9 +3539,9 @@ LABEL_585:
       case 0x1Bu:
         v454 = [CCToolKitToolSystemToolProtocolPlayVideo alloc];
         v455 = CCPBReaderReadDataNoCopy();
-        v688 = 0;
-        v456 = [(CCItemMessage *)v454 initWithData:v455 error:&v688];
-        v10 = v688;
+        v686 = 0;
+        v456 = [(CCItemMessage *)v454 initWithData:v455 error:&v686];
+        v10 = v686;
         v457 = self->_playVideo;
         self->_playVideo = v456;
 
@@ -4880,9 +4880,9 @@ LABEL_600:
       case 0x2Bu:
         v408 = [CCToolKitToolSystemToolProtocolShowInAppStringSearchResults alloc];
         v409 = CCPBReaderReadDataNoCopy();
-        v687 = 0;
-        v410 = [(CCItemMessage *)v408 initWithData:v409 error:&v687];
-        v10 = v687;
+        v685 = 0;
+        v410 = [(CCItemMessage *)v408 initWithData:v409 error:&v685];
+        v10 = v685;
         v411 = self->_showInAppStringSearchResults;
         self->_showInAppStringSearchResults = v410;
 
@@ -5549,9 +5549,9 @@ LABEL_606:
       case 0x32u:
         v152 = [CCToolKitToolSystemToolProtocolEntityUpdating alloc];
         v153 = CCPBReaderReadDataNoCopy();
-        v686 = 0;
-        v154 = [(CCItemMessage *)v152 initWithData:v153 error:&v686];
-        v10 = v686;
+        v684 = 0;
+        v154 = [(CCItemMessage *)v152 initWithData:v153 error:&v684];
+        v10 = v684;
         v155 = self->_entityUpdating;
         self->_entityUpdating = v154;
 
@@ -5624,9 +5624,9 @@ LABEL_411:
       case 0x33u:
         v30 = [CCToolKitToolSystemToolProtocolPropertyUpdater alloc];
         v31 = CCPBReaderReadDataNoCopy();
-        v685 = 0;
-        v32 = [(CCItemMessage *)v30 initWithData:v31 error:&v685];
-        v10 = v685;
+        v683 = 0;
+        v32 = [(CCItemMessage *)v30 initWithData:v31 error:&v683];
+        v10 = v683;
         v33 = self->_propertyUpdater;
         self->_propertyUpdater = v32;
 
@@ -5930,9 +5930,9 @@ LABEL_608:
       case 0x36u:
         v52 = [CCToolKitToolSystemToolProtocolSiriKitIntent alloc];
         v53 = CCPBReaderReadDataNoCopy();
-        v684 = 0;
-        v54 = [(CCItemMessage *)v52 initWithData:v53 error:&v684];
-        v10 = v684;
+        v682 = 0;
+        v54 = [(CCItemMessage *)v52 initWithData:v53 error:&v682];
+        v10 = v682;
         v55 = self->_siriKitIntent;
         self->_siriKitIntent = v54;
 
@@ -6013,9 +6013,9 @@ LABEL_413:
       case 0x37u:
         v467 = [CCToolKitToolSystemToolProtocolIntentSideEffect alloc];
         v468 = CCPBReaderReadDataNoCopy();
-        v683 = 0;
-        v469 = [(CCItemMessage *)v467 initWithData:v468 error:&v683];
-        v10 = v683;
+        v681 = 0;
+        v469 = [(CCItemMessage *)v467 initWithData:v468 error:&v681];
+        v10 = v681;
         v470 = self->_intentSideEffect;
         self->_intentSideEffect = v469;
 
@@ -6099,9 +6099,9 @@ LABEL_414:
       case 0x38u:
         v477 = [CCToolKitToolSystemToolProtocolAssistantSchema alloc];
         v478 = CCPBReaderReadDataNoCopy();
-        v682 = 0;
-        v479 = [(CCItemMessage *)v477 initWithData:v478 error:&v682];
-        v10 = v682;
+        v680 = 0;
+        v479 = [(CCItemMessage *)v477 initWithData:v478 error:&v680];
+        v10 = v680;
         v480 = self->_assistantSchema;
         self->_assistantSchema = v479;
 
@@ -6554,9 +6554,9 @@ LABEL_611:
       case 0x3Cu:
         v414 = [CCToolKitToolSystemToolProtocolAppIntent alloc];
         v415 = CCPBReaderReadDataNoCopy();
-        v681 = 0;
-        v416 = [(CCItemMessage *)v414 initWithData:v415 error:&v681];
-        v10 = v681;
+        v679 = 0;
+        v416 = [(CCItemMessage *)v414 initWithData:v415 error:&v679];
+        v10 = v679;
         v417 = self->_appIntent;
         self->_appIntent = v416;
 
@@ -6779,9 +6779,9 @@ LABEL_612:
       case 0x3Eu:
         v283 = [CCToolKitToolSystemToolProtocolSynthesizedToolProtocol alloc];
         v284 = CCPBReaderReadDataNoCopy();
-        v680 = 0;
-        v285 = [(CCItemMessage *)v283 initWithData:v284 error:&v680];
-        v10 = v680;
+        v678 = 0;
+        v285 = [(CCItemMessage *)v283 initWithData:v284 error:&v678];
+        v10 = v678;
         v286 = self->_synthesizedTool;
         self->_synthesizedTool = v285;
 
@@ -7284,7 +7284,6 @@ LABEL_615:
         {
           v671 = objc_opt_class();
           v672 = NSStringFromClass(v671);
-          v673 = *&v6[*v9];
           v10 = CCSkipFieldErrorForMessage();
         }
 
@@ -7428,24 +7427,23 @@ LABEL_729:
     if (!*&v6[*v9])
     {
       v10 = 0;
-      v678 = 1;
+      v676 = 1;
       goto LABEL_733;
     }
 
 LABEL_730:
-    v674 = objc_opt_class();
-    v675 = NSStringFromClass(v674);
-    v676 = *&v6[*v9];
-    v677 = CCInvalidBufferErrorForMessage();
+    v673 = objc_opt_class();
+    v674 = NSStringFromClass(v673);
+    v675 = CCInvalidBufferErrorForMessage();
     CCSetError();
 
     v10 = 0;
   }
 
-  v678 = 0;
+  v676 = 0;
 LABEL_733:
 
-  return v678;
+  return v676;
 }
 
 - (CCToolKitToolSystemToolProtocol)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

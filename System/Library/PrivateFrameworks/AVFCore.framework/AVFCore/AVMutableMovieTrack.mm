@@ -837,7 +837,7 @@ LABEL_23:
       }
     }
 
-    v18 = -12782;
+    v18 = 4294954514;
 LABEL_16:
     v20 = 0;
     v21 = v18 == 0;
@@ -975,7 +975,7 @@ LABEL_21:
   v30 = *(*(CMBaseObjectGetVTable() + 16) + 64);
   if (!v30)
   {
-    v31 = -12782;
+    v31 = 4294954514;
     if (!outDecodeTime)
     {
       goto LABEL_11;

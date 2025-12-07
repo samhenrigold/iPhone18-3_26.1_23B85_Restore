@@ -1429,7 +1429,7 @@ void __67__UITextCheckingController_checkGrammarForSentenceInRange_onPause___blo
   {
     v9 = 0;
 LABEL_7:
-    v13 = 0;
+    isEqualToString = 0;
     goto LABEL_10;
   }
 
@@ -1447,18 +1447,18 @@ LABEL_7:
 
   v11 = v10;
   v12 = [(UITextCheckingClient *)self->_client textInRange:v10];
-  if ([v12 isEqualToString:@"'"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
-    v13 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v13 = [v12 isEqualToString:@"’"];
+    isEqualToString = objc_msgSend_isEqualToString_(v12);
   }
 
 LABEL_10:
-  return v13;
+  return isEqualToString;
 }
 
 - (_NSRange)terminatedSentenceRangeInTextRange:(id)range
@@ -1557,7 +1557,7 @@ void __63__UITextCheckingController_terminatedSentenceRangeInTextRange___block_i
       start = [userInfo start];
       v7 = [tokenizer rangeEnclosingPosition:start withGranularity:2 inDirection:0];
 
-      if (v7 && [userInfo isEqual:v7])
+      if (v7 && objc_msgSend_isEqual_(userInfo))
       {
         [(UITextCheckingController *)self removeGrammarMarkersFromWordsInRange:userInfo];
         [(UITextCheckingController *)self checkGrammarForSentenceInRange:userInfo onPause:1];
@@ -1662,7 +1662,7 @@ void __63__UITextCheckingController_terminatedSentenceRangeInTextRange___block_i
 
   v29 = [(UITextCheckingController *)self nsRangeForTextRange:v55];
   v31 = v30;
-  if (([v55 isEqual:v27] & 1) != 0 || v12 + v13 >= v29 && v12 <= v29 + v31)
+  if ((objc_msgSend_isEqual_(v55) & 1) != 0 || v12 + v13 >= v29 && v12 <= v29 + v31)
   {
     goto LABEL_29;
   }
@@ -1774,7 +1774,7 @@ LABEL_54:
       v11 = v10;
       if (textCopy && v10)
       {
-        if ([textCopy isEqualToString:v10])
+        if (objc_msgSend_isEqualToString_(textCopy))
         {
           v12 = 5;
         }

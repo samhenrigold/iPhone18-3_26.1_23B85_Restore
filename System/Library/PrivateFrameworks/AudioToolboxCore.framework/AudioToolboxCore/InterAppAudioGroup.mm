@@ -7,20 +7,20 @@
 
 - (id)getApps:(float)apps
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v5 = CADeprecated::TSingleton<IPCAUClient>::sInstance;
   if (CADeprecated::TSingleton<IPCAUClient>::sInstance)
   {
     os_unfair_recursive_lock_lock_with_options();
-    if (!*(v5 + 248) || (v6 = *(v5 + 232), v38 = (v5 + 240), v6 == (v5 + 240)))
+    if (!*(v5 + 248) || (v6 = *(v5 + 232), v37 = (v5 + 240), v6 == (v5 + 240)))
     {
       os_unfair_recursive_lock_unlock();
     }
 
     else
     {
-      v37 = v4;
+      v36 = v4;
       v7 = 0;
       v8 = 0;
       do
@@ -141,15 +141,15 @@
         v6 = v25;
       }
 
-      while (v25 != v38);
+      while (v25 != v37);
       os_unfair_recursive_lock_unlock();
-      v4 = v37;
+      v4 = v36;
       if (v23 != v8)
       {
         v27 = v23;
         do
         {
-          AddApp(v27++, apps, v37);
+          AddApp(v27++, apps, v36);
         }
 
         while (v27 != v8);
@@ -198,7 +198,7 @@
         {
 LABEL_57:
           mach_msg_destroy(&msg);
-          goto LABEL_64;
+          return v4;
         }
 
         v34 = *&msg_16[12];
@@ -220,7 +220,7 @@ LABEL_57:
 
     if (v32)
     {
-      goto LABEL_64;
+      return v4;
     }
 
     v34 = 0;
@@ -229,23 +229,21 @@ LABEL_60:
     CADeserializer::CADeserializer(&msg, v34);
     while (*&msg_16[8] != *msg_16)
     {
-      v40 = 0;
-      CADeserializer::Read(&msg, &v40);
-      v39.var0 = v40 != 0;
-      CADeserializer::Read(&msg, &v39.var1);
-      v39.var2 = 0;
+      v39 = 0;
+      CADeserializer::Read(&msg, &v39);
+      v38.var0 = v39 != 0;
+      CADeserializer::Read(&msg, &v38.var1);
+      v38.var2 = 0;
       operator>>();
       operator>>();
       operator>>();
-      AddApp(&v39, apps, v4);
+      AddApp(&v38, apps, v4);
     }
 
     mig_deallocate(v34, v33);
     MEMORY[0x193ADE3E0](&msg);
   }
 
-LABEL_64:
-  v35 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

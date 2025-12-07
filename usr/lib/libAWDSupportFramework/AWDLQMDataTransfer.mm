@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)lQMAsString:(int)string;
 - (int)StringAsLQM:(id)m;
 - (int)lQM;
 - (unint64_t)hash;
@@ -35,6 +36,19 @@
   else
   {
     return 0;
+  }
+}
+
+- (id)lQMAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32BA8[string];
   }
 }
 
@@ -187,7 +201,6 @@ LABEL_11:
   has = self->_has;
   if (has)
   {
-    lQM = self->_lQM;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -199,7 +212,6 @@ LABEL_5:
       }
 
 LABEL_10:
-      rxBytes = self->_rxBytes;
       PBDataWriterWriteUint32Field();
       if ((*&self->_has & 4) == 0)
       {
@@ -215,7 +227,6 @@ LABEL_10:
     goto LABEL_5;
   }
 
-  txBytes = self->_txBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -230,7 +241,6 @@ LABEL_6:
   }
 
 LABEL_11:
-  stateDuration = self->_stateDuration;
 
   PBDataWriterWriteUint32Field();
 }

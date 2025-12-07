@@ -19,7 +19,7 @@
 
   else if (gLogCategory_RPNWActivity <= 90 && (gLogCategory_RPNWActivity != -1 || _LogCategory_Initialize()))
   {
-    [RPNWActivityMetrics submitMetrics];
+    [(RPNWActivityMetrics *)_metricsDictionary submitMetrics];
   }
 }
 
@@ -36,7 +36,7 @@
   {
     if (gLogCategory_RPNWActivity <= 90 && (gLogCategory_RPNWActivity != -1 || _LogCategory_Initialize()))
     {
-      +[RPNWActivityMetrics metricsUsingToken:];
+      [RPNWActivityMetrics metricsUsingToken:tokenCopy];
     }
 
     v6 = 0;

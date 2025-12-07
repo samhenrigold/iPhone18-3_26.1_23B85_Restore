@@ -19,9 +19,9 @@ EchoCodeDecoder **std::unique_ptr<EchoCodeDecoder>::~unique_ptr[abi:ne200100](Ec
   return a1;
 }
 
-void sub_24158FB0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, char a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
+void sub_24158FB0C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, char a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
 {
-  MEMORY[0x245CEA790](v52, 0x81C40B8603338);
+  MEMORY[0x245CEA790](v52, 0x81C40B8603338, a3, a4, a5, a6, a7, a8);
   *v53 = 0;
 
   _Unwind_Resume(a1);
@@ -70,14 +70,14 @@ uint64_t *std::unique_ptr<EchoCodeEncoder>::~unique_ptr[abi:ne200100](uint64_t *
   return a1;
 }
 
-void sub_2415909FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2415909FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void *);
-  v9 = va_arg(va1, void);
-  std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::destroy(va, v8);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v7 = va_arg(va1, void);
+  v9 = va_arg(va1, void *);
+  v10 = va_arg(va1, void);
+  std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::destroy(va, v9);
   std::unique_ptr<EchoCodeEncoder>::~unique_ptr[abi:ne200100](va1);
 
   _Unwind_Resume(a1);
@@ -452,48 +452,48 @@ LABEL_9:
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -536,12 +536,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -555,22 +555,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -604,13 +604,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -867,7 +867,7 @@ void sub_24159344C(_Unwind_Exception *a1)
 
 uint64_t EchoCodeDecoder::initialize(float *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   result = EchoCodeDecoder::loadAPCConfig(a1, a2);
   if (!result)
   {
@@ -896,53 +896,52 @@ uint64_t EchoCodeDecoder::initialize(float *a1, uint64_t a2)
       a1[16] = 18000.0;
     }
 
-    v5 = *(a1 + 17);
-    if (!v5)
+    v4 = *(a1 + 17);
+    if (!v4)
     {
-      v5 = 100;
+      v4 = 100;
       *(a1 + 17) = 100;
     }
 
-    SyncType = echoCodec::getSyncType(v5);
+    SyncType = echoCodec::getSyncType(v4);
     if (!*(a1 + 14))
     {
       if (SyncType)
       {
-        v7 = 6;
+        v6 = 6;
       }
 
       else
       {
-        v7 = 4;
+        v6 = 4;
       }
 
-      *(a1 + 14) = *(a1 + 6) >> v7;
+      *(a1 + 14) = *(a1 + 6) >> v6;
     }
 
-    v8 = APCLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v7 = APCLogObject(SyncType);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = (*(a1 + 17) / 100.0);
-      v11 = 134217984;
-      v12 = v9;
-      _os_log_impl(&dword_24158E000, v8, OS_LOG_TYPE_INFO, "APC decoder algorithm version: %3.2f", &v11, 0xCu);
+      v8 = (*(a1 + 17) / 100.0);
+      v10 = 134217984;
+      v11 = v8;
+      _os_log_impl(&dword_24158E000, v7, OS_LOG_TYPE_INFO, "APC decoder algorithm version: %3.2f", &v10, 0xCu);
     }
 
-    v10 = echoCodec::getSyncType(*(a1 + 17));
-    if (!v10)
-    {
-      operator new();
-    }
-
-    if (v10)
+    v9 = echoCodec::getSyncType(*(a1 + 17));
+    if (!v9)
     {
       operator new();
     }
 
-    result = 4294967289;
+    if (v9)
+    {
+      operator new();
+    }
+
+    return 4294967289;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1005,37 +1004,34 @@ void std::vector<float>::resize(std::vector<unsigned int> *this, std::vector<uns
   }
 }
 
-void std::vector<float>::resize(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+void std::vector<float>::resize(void *result, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
-  v4 = (a1[1] - *a1) >> 2;
+  v4 = (result[1] - *result) >> 2;
   if (a2 <= v4)
   {
     if (a2 < v4)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<float>::__append(a1, a2 - v4, a3, a4);
+    std::vector<float>::__append(result, a2 - v4, a3, a4);
   }
 }
 
-void *std::vector<unsigned char>::reserve(void *result, unint64_t a2)
+void std::vector<unsigned char>::reserve(void *a1, unint64_t a2)
 {
-  if (result[2] - *result < a2)
+  if (a1[2] - *a1 < a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v2 = result[1] - *result;
       operator new();
     }
 
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t EchoCodeDecoder::reset(ShapingFilter **this)
@@ -1077,8 +1073,9 @@ uint64_t EchoCodeDecoder::decodeWithSyncSeq(EchoCodeDecoder *this, const float *
 {
   v5 = a3;
   v6 = a2;
-  v25 = 0;
-  if (!(*(**(this + 22) + 40))(*(this + 22), a2, a3, &v25, 0))
+  v26 = 0;
+  v8 = (*(**(this + 22) + 40))(*(this + 22), a2, a3, &v26, 0);
+  if (!v8)
   {
     return 2;
   }
@@ -1088,16 +1085,16 @@ uint64_t EchoCodeDecoder::decodeWithSyncSeq(EchoCodeDecoder *this, const float *
     return 4;
   }
 
-  if ((v25 & 0x80000000) == 0)
+  if ((v26 & 0x80000000) == 0)
   {
-    v6 += v25;
-    v5 -= v25;
+    v6 += v26;
+    v5 -= v26;
     *(this + 11) = 0;
-    v8 = APCLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = APCLogObject(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_24158E000, v8, OS_LOG_TYPE_INFO, "The beginning of the passcode has been found!", buf, 2u);
+      _os_log_impl(&dword_24158E000, v9, OS_LOG_TYPE_INFO, "The beginning of the passcode has been found!", buf, 2u);
     }
   }
 
@@ -1106,13 +1103,13 @@ uint64_t EchoCodeDecoder::decodeWithSyncSeq(EchoCodeDecoder *this, const float *
     return 3;
   }
 
-  v9 = *(this + 11);
-  v10 = *(this + 13) - v9;
-  v11 = v10 >= v5 ? v5 : v10;
-  ShapingFilter::filter(*(this + 20), v6, (*(this + 26) + 4 * v9), v11);
-  v12 = *(this + 11) + v11;
-  *(this + 11) = v12;
-  if (v12 < *(this + 13))
+  v10 = *(this + 11);
+  v11 = *(this + 13) - v10;
+  v12 = v11 >= v5 ? v5 : v11;
+  ShapingFilter::filter(*(this + 20), v6, (*(this + 26) + 4 * v10), v12);
+  v13 = *(this + 11) + v12;
+  *(this + 11) = v13;
+  if (v13 < *(this + 13))
   {
     return 3;
   }
@@ -1121,13 +1118,13 @@ uint64_t EchoCodeDecoder::decodeWithSyncSeq(EchoCodeDecoder *this, const float *
   {
     if (*(this + 15))
     {
-      v14 = 0;
+      v15 = 0;
       do
       {
-        v23 = 0;
-        if (EchoDetector::decodeEcho(*(this + 21), (*(this + 26) + 4 * *(this + 14) * v14), *(this + 6), &v23, 0))
+        v24 = 0;
+        if (EchoDetector::decodeEcho(*(this + 21), (*(this + 26) + 4 * *(this + 14) * v15), *(this + 6), &v24, 0))
         {
-          BitCounter::count(this + 104, v23);
+          BitCounter::count(this + 104, v24);
         }
 
         else
@@ -1135,62 +1132,62 @@ uint64_t EchoCodeDecoder::decodeWithSyncSeq(EchoCodeDecoder *this, const float *
           BitCounter::count(this + 104);
         }
 
-        ++v14;
+        ++v15;
       }
 
-      while (v14 < *(this + 15));
+      while (v15 < *(this + 15));
     }
 
     *a4 = 0;
-    v15 = *(this + 28);
-    v16 = *(this + 29);
-    if (v15 == v16)
+    v16 = *(this + 28);
+    v17 = *(this + 29);
+    if (v16 == v17)
     {
       break;
     }
 
-    if (v15 < v16)
+    if (v16 < v17)
     {
       *a4 = 1;
     }
 
     BitCounter::reset((this + 104), 0);
-    v17 = *(this + 11);
+    v18 = *(this + 11);
     ++*(this + 12);
-    memmove(*(this + 26), (*(this + 26) + 4 * *(this + 13)), 4 * (v17 - *(this + 13)));
-    v18 = *(this + 13);
-    v19 = *(this + 11) - v18;
-    *(this + 11) = v19;
-    v20 = __OFSUB__(v5, v11);
-    v5 -= v11;
-    if ((v5 < 0) ^ v20 | (v5 == 0))
+    memmove(*(this + 26), (*(this + 26) + 4 * *(this + 13)), 4 * (v18 - *(this + 13)));
+    v19 = *(this + 13);
+    v20 = *(this + 11) - v19;
+    *(this + 11) = v20;
+    v21 = __OFSUB__(v5, v12);
+    v5 -= v12;
+    if ((v5 < 0) ^ v21 | (v5 == 0))
     {
       return 0;
     }
 
-    v6 += v11;
-    v21 = v18 - v19;
-    if (v21 >= v5)
+    v6 += v12;
+    v22 = v19 - v20;
+    if (v22 >= v5)
     {
-      v11 = v5;
+      v12 = v5;
     }
 
     else
     {
-      v11 = v21;
+      v12 = v22;
     }
 
-    ShapingFilter::filter(*(this + 20), v6, (*(this + 26) + 4 * v19), v11);
+    ShapingFilter::filter(*(this + 20), v6, (*(this + 26) + 4 * v20), v12);
     result = 0;
-    v22 = *(this + 11) + v11;
-    *(this + 11) = v22;
-    if (v22 < *(this + 13))
+    v23 = *(this + 11) + v12;
+    *(this + 11) = v23;
+    if (v23 < *(this + 13))
     {
       return result;
     }
   }
 
-  if (v15)
+  if (v16)
   {
     return 4294967292;
   }
@@ -1206,7 +1203,7 @@ uint64_t EchoCodeDecoder::decodeWithSyncEcho(EchoCodeDecoder *this, const float 
   v5 = __X;
   v7 = *a3;
   EchoCodeDecoder::decodeWithSyncEcho(float const*,unsigned int &,unsigned char &)::count += v7;
-  v39 = 0;
+  v41 = 0;
   if (*(this + 12) >= (8 * *(this + 5)))
   {
     v15 = 4;
@@ -1214,18 +1211,18 @@ uint64_t EchoCodeDecoder::decodeWithSyncEcho(EchoCodeDecoder *this, const float 
 
   else
   {
-    if ((*(**(this + 22) + 40))(*(this + 22), __X, v7, &v39, 0))
+    if ((*(**(this + 22) + 40))(*(this + 22), __X, v7, &v41, 0))
     {
       v8 = *(this + 11);
-      v9 = v39;
-      if ((v39 + v8) >= 0)
+      v9 = v41;
+      if ((v41 + v8) >= 0)
       {
-        v10 = v39 & (v39 >> 31);
+        v10 = v41 & (v41 >> 31);
         v11 = v10 + v8;
         memmove(*(this + 26), (*(this + 26) + 4 * (v10 + v8)), 4 * -v10);
         v8 = *(this + 11) - v11;
         *(this + 11) = v8;
-        v9 = v39;
+        v9 = v41;
       }
 
       if ((v9 & 0x80000000) == 0)
@@ -1345,8 +1342,8 @@ LABEL_27:
     v27 = 0;
     while (1)
     {
-      v38 = 0;
-      v28 = EchoDetector::decodeEcho(*(this + 21), (*(this + 26) + 4 * (*(this + 14) * v27)), *(this + 6), &v38, 0);
+      v40 = 0;
+      v28 = EchoDetector::decodeEcho(*(this + 21), (*(this + 26) + 4 * (*(this + 14) * v27)), *(this + 6), &v40, 0);
       v29 = *(this + 14);
       if (v28)
       {
@@ -1356,7 +1353,7 @@ LABEL_27:
           *(this + 72) = 1;
         }
 
-        BitCounter::count(this + 104, v38);
+        BitCounter::count(this + 104, v40);
       }
 
       else if (*(this + 72))
@@ -1381,12 +1378,12 @@ LABEL_27:
         {
           BitCounter::reset((this + 104), 0);
           *(this + 72) = 0;
-          (*(**(this + 22) + 24))(*(this + 22));
-          v32 = APCLogObject();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+          v32 = (*(**(this + 22) + 24))(*(this + 22));
+          v33 = APCLogObject(v32);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_24158E000, v32, OS_LOG_TYPE_DEBUG, "A wrong frame start was found. Restarting...", buf, 2u);
+            _os_log_impl(&dword_24158E000, v33, OS_LOG_TYPE_DEBUG, "A wrong frame start was found. Restarting...", buf, 2u);
           }
         }
 
@@ -1425,12 +1422,12 @@ LABEL_49:
 
     *(this + 72) = 0;
     *(this + 12) = 0;
-    (*(**(this + 22) + 24))(*(this + 22));
-    v33 = APCLogObject();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v34 = (*(**(this + 22) + 24))(*(this + 22));
+    v35 = APCLogObject(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      *v36 = 0;
-      _os_log_impl(&dword_24158E000, v33, OS_LOG_TYPE_ERROR, "Passcode bit error. Restarting...", v36, 2u);
+      *v38 = 0;
+      _os_log_impl(&dword_24158E000, v35, OS_LOG_TYPE_ERROR, "Passcode bit error. Restarting...", v38, 2u);
     }
 
     v15 = 4294967286;
@@ -1448,30 +1445,30 @@ LABEL_59:
 
 void EchoCodeDecoder::Process(EchoCodeDecoder *this, const float *a2, int a3, char *a4, int *a5)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (a3 < 1)
   {
-    v43 = 0;
+    v42 = 0;
     v32 = 0;
     goto LABEL_42;
   }
 
   v7 = a3;
-  v42 = a5;
-  v43 = 0;
+  v41 = a5;
+  v42 = 0;
   while (1)
   {
-    v45 = 0;
+    v44 = 0;
     v9 = *(this + 6);
     if (v9 >= v7)
     {
       v9 = v7;
     }
 
-    v44 = v9;
-    v10 = EchoCodeDecoder::decode(this, a2, &v44, &v45);
+    v43 = v9;
+    v10 = EchoCodeDecoder::decode(this, a2, &v43, &v44);
     v11 = v10;
-    v12 = v44;
+    v12 = v43;
     if (v10 <= 1)
     {
       if (v10 != -10)
@@ -1515,9 +1512,9 @@ void EchoCodeDecoder::Process(EchoCodeDecoder *this, const float *a2, int a3, ch
           }
 
           v22 = v14 - v17;
-          *v18 = v45 & 1;
+          *v18 = v44 & 1;
           v15 = v18 + 1;
-          memcpy(0, v17, v22);
+          v10 = memcpy(0, v17, v22);
           *(this + 35) = 0;
           *(this + 36) = v18 + 1;
           *(this + 37) = 0;
@@ -1529,19 +1526,20 @@ void EchoCodeDecoder::Process(EchoCodeDecoder *this, const float *a2, int a3, ch
 
         else
         {
-          *v14 = v45 & 1;
+          *v14 = v44 & 1;
           v15 = v14 + 1;
         }
 
         *(this + 36) = v15;
         if (v15 - *(this + 70) >= (8 * *(this + 5)))
         {
-          v43 = mach_absolute_time();
-          v23 = APCLogObject();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+          v42 = mach_absolute_time();
+          v23 = APCLogObject(v42);
+          v10 = os_log_type_enabled(v23, OS_LOG_TYPE_INFO);
+          if (v10)
           {
             *buf = 134217984;
-            v47 = v43;
+            v46 = v42;
             _os_log_impl(&dword_24158E000, v23, OS_LOG_TYPE_INFO, "Decoding completion time: %llu", buf, 0xCu);
           }
         }
@@ -1550,7 +1548,7 @@ void EchoCodeDecoder::Process(EchoCodeDecoder *this, const float *a2, int a3, ch
         v25 = *(this + 36);
         if (v24 != v25 && ((v25 - v24) & 7) == 0)
         {
-          v26 = APCLogObject();
+          v26 = APCLogObject(v10);
           if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
             v27 = 0;
@@ -1564,7 +1562,7 @@ void EchoCodeDecoder::Process(EchoCodeDecoder *this, const float *a2, int a3, ch
 
             while (!__CFADD__(v29++, 1));
             *buf = 67109120;
-            LODWORD(v47) = v30;
+            LODWORD(v46) = v30;
             _os_log_impl(&dword_24158E000, v26, OS_LOG_TYPE_INFO, "One byte has been decoded: 0x%02X", buf, 8u);
           }
         }
@@ -1611,7 +1609,7 @@ LABEL_40:
   if (!v33)
   {
     v36 = 1;
-    a5 = v42;
+    a5 = v41;
 LABEL_51:
     *a5 = 0;
     if (!v32)
@@ -1622,7 +1620,7 @@ LABEL_51:
     goto LABEL_56;
   }
 
-  a5 = v42;
+  a5 = v41;
 LABEL_42:
   v34 = *(this + 35);
   v35 = *(this + 5);
@@ -1662,12 +1660,12 @@ LABEL_42:
   v36 = 0;
   *(this + 36) = v34;
   *a5 = v40;
-  *a4 = v43;
+  *a4 = v42;
   if (v32)
   {
 LABEL_56:
     EchoCodeDecoder::reset(this);
-    goto LABEL_57;
+    return;
   }
 
 LABEL_55:
@@ -1675,9 +1673,6 @@ LABEL_55:
   {
     goto LABEL_56;
   }
-
-LABEL_57:
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241594850(_Unwind_Exception *a1, int a2)
@@ -1790,28 +1785,27 @@ LABEL_24:
 LABEL_22:
   v14 = a2;
   v15 = &v14;
-  v13 = std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>((a1 + 20), &v14);
+  v13 = std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>((a1 + 20), &v14, &std::piecewise_construct, &v15);
   std::any::operator=[abi:ne200100](v13 + 5, a3);
   return 0;
 }
 
 unint64_t *std::any::operator=[abi:ne200100](unint64_t *a1, void (**a2)(uint64_t))
 {
-  v5[8] = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
-  v5[1] = 0;
+  v4[8] = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
+  v4[1] = 0;
   if (*a2)
   {
     (*a2)(1);
   }
 
-  if (v5 != a1 && *a1 != 0)
+  if (v4 != a1 && *a1 != 0)
   {
-    (*a1)(2, a1, v5, 0, 0);
+    (*a1)(2, a1, v4, 0, 0);
   }
 
-  std::any::reset[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  std::any::reset[abi:ne200100](v4);
   return a1;
 }
 
@@ -2295,7 +2289,8 @@ void APCNullDecoder::APCNullDecoder(APCNullDecoder *this, NullCodecConfiguration
   *(this + 3) = (v5 * v4);
   v6 = [(AUPasscodeCodecConfiguration *)v3 payloadLengthBytes];
   *(this + 4) = v6;
-  std::vector<unsigned char>::vector[abi:ne200100](this + 3, v6);
+  v7 = -1;
+  std::vector<unsigned char>::vector[abi:ne200100](this + 3, v6, &v7);
 }
 
 const void **APCNullDecoder::Process(const void **this, const float *a2, int a3, char *__dst, int *a5)
@@ -2353,29 +2348,17 @@ void APCNullDecoder::~APCNullDecoder(APCNullDecoder *this)
   JUMPOUT(0x245CEA790);
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_241595634(_Unwind_Exception *exception_object)
@@ -2390,7 +2373,7 @@ void sub_241595634(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2400,7 +2383,7 @@ void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t
   std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
 }
 
-void sub_241595EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_241595EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -2432,16 +2415,16 @@ void sub_241596798(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id APCLogObject(void)
+id APCLogObject(uint64_t a1)
 {
-  if ((atomic_load_explicit(&qword_27E548BB0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_27E548BB0, memory_order_acquire) & 1) == 0)
   {
     APCLogObject();
   }
 
-  v1 = _MergedGlobals;
+  v2 = _MergedGlobals;
 
-  return v1;
+  return v2;
 }
 
 void EchoCodeEncoder::EchoCodeEncoder(EchoCodeEncoder *this)
@@ -2502,7 +2485,7 @@ void sub_2415984E8(_Unwind_Exception *a1)
 
 uint64_t EchoCodeEncoder::initialize(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   result = EchoCodeEncoder::loadAPCConfig(a1, a2);
   if (!result)
   {
@@ -2543,13 +2526,13 @@ uint64_t EchoCodeEncoder::initialize(uint64_t a1, uint64_t a2)
       *(a1 + 64) = 100;
     }
 
-    v5 = APCLogObject();
+    v5 = APCLogObject(result);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = (*(a1 + 64) / 100.0);
-      *v13 = 134217984;
-      *&v13[4] = v6;
-      _os_log_impl(&dword_24158E000, v5, OS_LOG_TYPE_INFO, "APC encoder algorithm version: %3.2f", v13, 0xCu);
+      *v12 = 134217984;
+      *&v12[4] = v6;
+      _os_log_impl(&dword_24158E000, v5, OS_LOG_TYPE_INFO, "APC encoder algorithm version: %3.2f", v12, 0xCu);
     }
 
     SyncType = echoCodec::getSyncType(*(a1 + 64));
@@ -2604,16 +2587,15 @@ uint64_t EchoCodeEncoder::initialize(uint64_t a1, uint64_t a2)
     {
       std::vector<float>::resize((a1 + 104), *(a1 + 20));
       std::vector<float>::resize((a1 + 128), *(a1 + 20));
-      result = 0;
+      return 0;
     }
 
     else
     {
-      result = 4294967290;
+      return 4294967290;
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2715,15 +2697,15 @@ EchoEmbedder **std::unique_ptr<SyncedEchoEmbedder>::~unique_ptr[abi:ne200100](Ec
 
 uint64_t EchoCodeEncoder::encode(EchoCodeEncoder *this, const float *a2, float *a3, vDSP_Length a4)
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   ShapingFilter::filter(*(this + 10), a2, a3, a4);
   vDSP_vclr(*(this + 13), 1, (*(this + 14) - *(this + 13)) >> 2);
   v7 = *(this + 12);
-  v20[0] = &unk_28533DA18;
-  v20[1] = this;
-  v20[3] = v20;
-  v8 = (*(*v7 + 40))(v7, this + 104, a4, v20);
-  std::__function::__value_func<void ()(float *,unsigned int)>::~__value_func[abi:ne200100](v20);
+  v19[0] = &unk_28533DA18;
+  v19[1] = this;
+  v19[3] = v19;
+  v8 = (*(*v7 + 40))(v7, this + 104, a4, v19);
+  std::__function::__value_func<void ()(float *,unsigned int)>::~__value_func[abi:ne200100](v19);
   v9 = v8 & ~(v8 >> 31);
   v10 = a4 - v9;
   if ((a4 - v9) < 1)
@@ -2745,7 +2727,7 @@ LABEL_11:
       v13 = v10 >= v12 ? v12 : v10;
       if (!EchoEmbedder::encodeEcho(*(this + 9), v11, v13))
       {
-        break;
+        return 4294967290;
       }
 
       v11 += v13;
@@ -2757,17 +2739,14 @@ LABEL_11:
         goto LABEL_11;
       }
     }
-
-    v15 = 4294967290;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
-void sub_241598F40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241598F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(float *,unsigned int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2803,105 +2782,105 @@ EchoCodeEncoder *EchoCodeEncoder::Process(EchoCodeEncoder *this, const float *a2
   return this;
 }
 
-float EchoCodeEncoder::evaluateCarrier(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
+float EchoCodeEncoder::evaluateCarrier(uint64_t a1, const float *a2, unsigned int a3, uint64_t a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v29 = 0;
-  v30 = 0;
-  v27 = 0;
+  v33 = *MEMORY[0x277D85DE8];
   v28 = 0;
+  v29 = 0;
   v26 = 0;
-  v24 = 0;
-  v25 = a4;
-  v22 = 0;
+  v27 = 0;
+  v25 = 0;
   v23 = 0;
-  *(&v32 + 1) = &v30 + 4;
-  LODWORD(v32) = 0;
-  v33 = 1;
-  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v22, &v32);
-  *(&v32 + 1) = &v30;
-  LODWORD(v32) = 3;
-  v33 = 1;
-  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v22, &v32);
-  *(&v32 + 1) = &v29 + 4;
-  LODWORD(v32) = 100;
-  v33 = 1;
-  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v22, &v32);
-  *(&v32 + 1) = &v29;
-  LODWORD(v32) = 101;
-  v33 = 1;
-  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v22, &v32);
-  *(&v32 + 1) = &v28 + 4;
-  LODWORD(v32) = 102;
-  v33 = 0;
-  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v22, &v32);
-  *(&v32 + 1) = &v28;
-  LODWORD(v32) = 103;
-  v33 = 0;
-  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v22, &v32);
-  *(&v32 + 1) = &v27 + 4;
-  LODWORD(v32) = 111;
-  v33 = 0;
-  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v22, &v32);
-  *(&v32 + 1) = &v26;
-  LODWORD(v32) = 112;
-  v33 = 5;
-  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v22, &v32);
-  *(&v32 + 1) = &v27;
-  LODWORD(v32) = 113;
-  v33 = 1;
-  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v22, &v32);
+  v24 = a4;
+  v21 = 0;
+  v22 = 0;
+  *(&v31 + 1) = &v29 + 4;
+  LODWORD(v31) = 0;
+  v32 = 1;
+  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v21, &v31);
+  *(&v31 + 1) = &v29;
+  LODWORD(v31) = 3;
+  v32 = 1;
+  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v21, &v31);
+  *(&v31 + 1) = &v28 + 4;
+  LODWORD(v31) = 100;
+  v32 = 1;
+  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v21, &v31);
+  *(&v31 + 1) = &v28;
+  LODWORD(v31) = 101;
+  v32 = 1;
+  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v21, &v31);
+  *(&v31 + 1) = &v27 + 4;
+  LODWORD(v31) = 102;
+  v32 = 0;
+  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v21, &v31);
+  *(&v31 + 1) = &v27;
+  LODWORD(v31) = 103;
+  v32 = 0;
+  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v21, &v31);
+  *(&v31 + 1) = &v26 + 4;
+  LODWORD(v31) = 111;
+  v32 = 0;
+  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v21, &v31);
+  *(&v31 + 1) = &v25;
+  LODWORD(v31) = 112;
+  v32 = 5;
+  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v21, &v31);
+  *(&v31 + 1) = &v26;
+  LODWORD(v31) = 113;
+  v32 = 1;
+  std::vector<APCConfigReader::paramData>::push_back[abi:ne200100](&v21, &v31);
   v5 = 0.0;
-  if (!APCConfigReader::loadParams(&v25, &v22))
+  if (!APCConfigReader::loadParams(&v24, &v21))
   {
-    v6 = HIDWORD(v29);
-    if (!HIDWORD(v29))
+    v6 = HIDWORD(v28);
+    if (!HIDWORD(v28))
     {
       v6 = 2048;
-      HIDWORD(v29) = 2048;
+      HIDWORD(v28) = 2048;
     }
 
-    if (!v29)
+    if (!v28)
     {
-      LODWORD(v29) = 2;
-    }
-
-    if (*(&v28 + 1) == 0.0)
-    {
-      HIDWORD(v28) = 1065353216;
-    }
-
-    if (*&v28 == 0.0)
-    {
-      LODWORD(v28) = 1008981770;
+      LODWORD(v28) = 2;
     }
 
     if (*(&v27 + 1) == 0.0)
     {
-      HIDWORD(v27) = 1183621120;
+      HIDWORD(v27) = 1065353216;
     }
 
-    if ((v26 & 0x100) == 0)
+    if (*&v27 == 0.0)
     {
-      v26 = 257;
+      LODWORD(v27) = 1008981770;
     }
 
-    if (!v27)
+    if (*(&v26 + 1) == 0.0)
     {
-      LODWORD(v27) = 100;
+      HIDWORD(v26) = 1183621120;
     }
 
-    HIDWORD(v29) = echoCodec::getSRCFreeFrameSize(v6, HIDWORD(v30));
-    echoCodec::getSRCFreeFrameSize((v6 >> 2), HIDWORD(v30));
-    if (3 * HIDWORD(v30) <= a3)
+    if ((v25 & 0x100) == 0)
     {
-      std::vector<float>::vector[abi:ne200100](&__Y, (2 * HIDWORD(v29)));
-      std::vector<float>::vector[abi:ne200100](v19, HIDWORD(v29));
-      std::vector<float>::vector[abi:ne200100](__C, HIDWORD(v29));
-      std::vector<float>::vector[abi:ne200100](__p, (HIDWORD(v29) + HIDWORD(v29) * v29));
-      vDSP_vclr(__Y, 1, v21 - __Y);
-      v16 = 0;
-      SyncType = echoCodec::getSyncType(v27);
+      v25 = 257;
+    }
+
+    if (!v26)
+    {
+      LODWORD(v26) = 100;
+    }
+
+    HIDWORD(v28) = echoCodec::getSRCFreeFrameSize(v6, HIDWORD(v29));
+    echoCodec::getSRCFreeFrameSize((v6 >> 2), HIDWORD(v29));
+    if (3 * HIDWORD(v29) <= a3)
+    {
+      std::vector<float>::vector[abi:ne200100](&__Y, (2 * HIDWORD(v28)));
+      std::vector<float>::vector[abi:ne200100](v18, HIDWORD(v28));
+      std::vector<float>::vector[abi:ne200100](__C, HIDWORD(v28));
+      std::vector<float>::vector[abi:ne200100](__p, (HIDWORD(v28) + HIDWORD(v28) * v28));
+      vDSP_vclr(__Y, 1, v20 - __Y);
+      v15 = 0;
+      SyncType = echoCodec::getSyncType(v26);
       if (!SyncType)
       {
         operator new();
@@ -2912,36 +2891,36 @@ float EchoCodeEncoder::evaluateCarrier(uint64_t a1, uint64_t a2, unsigned int a3
         operator new();
       }
 
-      LODWORD(v15) = 108;
-      *&v32 = &v15;
-      v8 = std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a4, &v15);
+      LODWORD(v14) = 108;
+      *&v31 = &v14;
+      v8 = std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a4, &v14, &std::piecewise_construct, &v31);
       v9 = (v8 + 5);
-      v31[0] = std::__any_imp::_SmallHandler<unsigned int>::__handle[abi:ne200100];
-      v31[1] = 24000;
-      if (v31 != (v8 + 5))
+      v30[0] = std::__any_imp::_SmallHandler<unsigned int>::__handle[abi:ne200100];
+      v30[1] = 24000;
+      if (v30 != (v8 + 5))
       {
         v10 = *v9;
         if (*v9)
         {
-          v32 = 0uLL;
-          v10(2, v9, &v32, 0, 0);
-          v31[0](2, v31, v9, 0, 0);
-          (v32)(2, &v32, v31, 0, 0);
-          std::any::reset[abi:ne200100](&v32);
+          v31 = 0uLL;
+          v10(2, v9, &v31, 0, 0);
+          v30[0](2, v30, v9, 0, 0);
+          (v31)(2, &v31, v30, 0, 0);
+          std::any::reset[abi:ne200100](&v31);
         }
 
         else
         {
           *(v8 + 12) = 24000;
           v8[5] = std::__any_imp::_SmallHandler<unsigned int>::__handle[abi:ne200100];
-          v31[0] = 0;
+          v30[0] = 0;
         }
       }
 
-      std::any::reset[abi:ne200100](v31);
+      std::any::reset[abi:ne200100](v30);
       v5 = 1.0;
-      v11 = v16;
-      v16 = 0;
+      v11 = v15;
+      v15 = 0;
       if (v11)
       {
         (*(*v11 + 8))(v11);
@@ -2959,27 +2938,26 @@ float EchoCodeEncoder::evaluateCarrier(uint64_t a1, uint64_t a2, unsigned int a3
         operator delete(__C[0]);
       }
 
-      if (v19[0])
+      if (v18[0])
       {
-        v19[1] = v19[0];
-        operator delete(v19[0]);
+        v18[1] = v18[0];
+        operator delete(v18[0]);
       }
 
       if (__Y)
       {
-        v21 = __Y;
+        v20 = __Y;
         operator delete(__Y);
       }
     }
   }
 
-  if (v22)
+  if (v21)
   {
-    v23 = v22;
-    operator delete(v22);
+    v22 = v21;
+    operator delete(v21);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -3079,42 +3057,36 @@ uint64_t EchoCodeEncoder::Status(EchoCodeEncoder *this)
 
 uint64_t EchoCodeEncoder::setPasscode(EchoCodeEncoder *this, const unsigned __int8 *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (*(this + 10) == a3)
+  v13 = *MEMORY[0x277D85DE8];
+  if (*(this + 10) != a3)
   {
-    if (a3)
-    {
-      v6 = a3;
-      v7 = a2;
-      do
-      {
-        v8 = APCLogObject();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-        {
-          v9 = *v7;
-          *buf = 67109120;
-          v13 = v9;
-          _os_log_impl(&dword_24158E000, v8, OS_LOG_TYPE_INFO, "APC encoder just received 1 byte of passcode: 0x%02X", buf, 8u);
-        }
+    return 4294967290;
+  }
 
-        ++v7;
-        --v6;
+  if (a3)
+  {
+    v6 = a3;
+    v7 = a2;
+    do
+    {
+      v8 = APCLogObject(this);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      {
+        v9 = *v7;
+        *buf = 67109120;
+        v12 = v9;
+        _os_log_impl(&dword_24158E000, v8, OS_LOG_TYPE_INFO, "APC encoder just received 1 byte of passcode: 0x%02X", buf, 8u);
       }
 
-      while (v6);
+      ++v7;
+      --v6;
     }
 
-    (*(**(this + 9) + 24))(*(this + 9), a2, a3);
-    result = 0;
+    while (v6);
   }
 
-  else
-  {
-    result = 4294967290;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  (*(**(this + 9) + 24))(*(this + 9), a2, a3);
+  return 0;
 }
 
 uint64_t EchoCodeEncoder::setParams(uint64_t a1, int a2, void (**a3)(uint64_t))
@@ -3263,7 +3235,7 @@ LABEL_37:
 LABEL_35:
   v18 = a2;
   v19 = &v18;
-  v17 = std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1 + 152, &v18);
+  v17 = std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1 + 152, &v18, &std::piecewise_construct, &v19);
   std::any::operator=[abi:ne200100](v17 + 5, a3);
   return 0;
 }
@@ -3388,29 +3360,17 @@ void non-virtual thunk toEchoCodeEncoder::~EchoCodeEncoder(EchoCodeEncoder *this
   EchoCodeEncoder::~EchoCodeEncoder((this - 8));
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_24159A978(_Unwind_Exception *exception_object)
@@ -3425,7 +3385,7 @@ void sub_24159A978(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -3571,12 +3531,9 @@ uint64_t std::__function::__func<EchoCodeEncoder::encode(float const*,float *,un
   return result;
 }
 
-void std::__function::__func<EchoCodeEncoder::encode(float const*,float *,unsigned int)::$_0,std::allocator<EchoCodeEncoder::encode(float const*,float *,unsigned int)::$_0>,void ()(float *,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, unsigned int *a3)
+void std::__function::__func<EchoCodeEncoder::encode(float const*,float *,unsigned int)::$_0,std::allocator<EchoCodeEncoder::encode(float const*,float *,unsigned int)::$_0>,void ()(float *,unsigned int)>::operator()(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
-  v3 = *a2;
-  v4 = *(a1 + 8);
-  Random::getSamples(*(*(v4 + 72) + 112), *(v4 + 128), *a3);
-  v5 = *(v4 + 128);
+  Random::getSamples(*(*(*(a1 + 8) + 72) + 112), *(*(a1 + 8) + 128), *a3);
 
   JUMPOUT(0x245CEAD90);
 }
@@ -3618,12 +3575,9 @@ __n128 std::__function::__func<EchoCodeEncoder::evaluateCarrier(float const*,uns
   return result;
 }
 
-void std::__function::__func<EchoCodeEncoder::evaluateCarrier(float const*,unsigned int,std::map<unsigned int,std::any> &)::$_0,std::allocator<EchoCodeEncoder::evaluateCarrier(float const*,unsigned int,std::map<unsigned int,std::any> &)::$_0>,void ()(float *,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, unsigned int *a3)
+void std::__function::__func<EchoCodeEncoder::evaluateCarrier(float const*,unsigned int,std::map<unsigned int,std::any> &)::$_0,std::allocator<EchoCodeEncoder::evaluateCarrier(float const*,unsigned int,std::map<unsigned int,std::any> &)::$_0>,void ()(float *,unsigned int)>::operator()(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
-  v4 = *a2;
   Random::getSamples(*(**(a1 + 8) + 112), **(a1 + 16), *a3);
-  v5 = *(a1 + 24);
-  v6 = **(a1 + 16);
 
   JUMPOUT(0x245CEAD90);
 }
@@ -4065,7 +4019,7 @@ void sub_24159B848(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_24159C960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_24159C960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -4293,24 +4247,24 @@ void ShapingFilter::filter(ShapingFilter *this, const float *__X, float *__Y, vD
 
 uint64_t APCConfigReader::loadParams(uint64_t a1, void *a2)
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   v3 = -1431655765 * ((a2[1] - *a2) >> 3);
-  v17[0] = 0;
-  v17[1] = 0;
+  v16[0] = 0;
+  v16[1] = 0;
   if (v3)
   {
     v5 = 0;
     v6 = 24 * v3;
     do
     {
-      if (APCConfigReader::getParameter(a1, *(*a2 + v5), v17))
+      if (APCConfigReader::getParameter(a1, *(*a2 + v5), v16))
       {
         v7 = *(*a2 + v5 + 16);
         if (v7)
         {
           if (v7 == 1)
           {
-            v9 = std::any_cast[abi:ne200100]<unsigned int>(v17);
+            v9 = std::any_cast[abi:ne200100]<unsigned int>(v16);
             if (!v9)
             {
               goto LABEL_27;
@@ -4321,7 +4275,7 @@ uint64_t APCConfigReader::loadParams(uint64_t a1, void *a2)
 
           else if (v7 == 5)
           {
-            v8 = std::any_cast[abi:ne200100]<BOOL>(v17);
+            v8 = std::any_cast[abi:ne200100]<BOOL>(v16);
             if (!v8)
             {
               std::__throw_bad_any_cast[abi:ne200100]();
@@ -4333,7 +4287,7 @@ uint64_t APCConfigReader::loadParams(uint64_t a1, void *a2)
 
         else
         {
-          v10 = std::any_cast[abi:ne200100]<float>(v17);
+          v10 = std::any_cast[abi:ne200100]<float>(v16);
           if (!v10)
           {
 LABEL_27:
@@ -4350,9 +4304,9 @@ LABEL_27:
     while (v6 != v5);
   }
 
-  if (APCConfigReader::getParameter(a1, 0, v17))
+  if (APCConfigReader::getParameter(a1, 0, v16))
   {
-    v11 = std::any_cast[abi:ne200100]<unsigned int>(v17);
+    v11 = std::any_cast[abi:ne200100]<unsigned int>(v16);
     if (!v11)
     {
       std::__throw_bad_any_cast[abi:ne200100]();
@@ -4364,12 +4318,12 @@ LABEL_27:
     }
   }
 
-  if (!APCConfigReader::getParameter(a1, 1u, v17))
+  if (!APCConfigReader::getParameter(a1, 1u, v16))
   {
     goto LABEL_24;
   }
 
-  v13 = std::any_cast[abi:ne200100]<unsigned int>(v17);
+  v13 = std::any_cast[abi:ne200100]<unsigned int>(v16);
   if (!v13)
   {
     std::__throw_bad_any_cast[abi:ne200100]();
@@ -4387,14 +4341,13 @@ LABEL_24:
     v14 = 0;
   }
 
-  std::any::reset[abi:ne200100](v17);
-  v15 = *MEMORY[0x277D85DE8];
+  std::any::reset[abi:ne200100](v16);
   return v14;
 }
 
-void sub_24159E780(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24159E780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4431,20 +4384,20 @@ uint64_t APCConfigReader::getParameter(uint64_t a1, unsigned int a2, unint64_t *
   return 1;
 }
 
-void BitCounter::initialize(BitCounter *this, int a2, int a3)
+void BitCounter::initialize(uint64_t this, int a2, int a3)
 {
-  *(this + 1) = a2;
+  *(this + 4) = a2;
   if (a3)
   {
-    v5 = *(this + 3);
+    v5 = *(this + 24);
     v4 = (this + 24);
     v6 = (8 * a2);
-    v7 = *(this + 4) - v5;
+    v7 = *(this + 32) - v5;
     if (v6 <= v7)
     {
       if (v6 < v7)
       {
-        *(this + 4) = v5 + v6;
+        *(this + 32) = v5 + v6;
       }
     }
 
@@ -4454,9 +4407,9 @@ void BitCounter::initialize(BitCounter *this, int a2, int a3)
     }
   }
 
-  *(this + 4) = 0;
+  *(this + 16) = 0;
   *this = 0;
-  *(this + 1) = 0;
+  *(this + 8) = 0;
 }
 
 void BitCounter::reset(BitCounter *this, int a2)
@@ -4464,15 +4417,14 @@ void BitCounter::reset(BitCounter *this, int a2)
   *(this + 4) = 0;
   *this = 0;
   *(this + 1) = 0;
-  v2 = *(this + 24);
-  v3 = *(this + 4);
-  v4 = *(this + 3);
-  if (v4 != v3 && a2 != 0)
+  v2 = *(this + 4);
+  v3 = *(this + 3);
+  if (v3 != v2 && a2 != 0)
   {
     *(this + 12) = 0;
-    if (v3 - v4 >= 1)
+    if (v2 - v3 >= 1)
     {
-      bzero(v4, v3 - v4);
+      bzero(v3, v2 - v3);
     }
   }
 }
@@ -4639,7 +4591,7 @@ int64x2_t std::deque<unsigned char>::push_front(int64x2_t *a1, _BYTE *a2)
   return result;
 }
 
-uint64_t *PayloadQueue::insertBit(PayloadQueue *this, unsigned int a2, char a3)
+void *PayloadQueue::insertBit(PayloadQueue *this, unsigned int a2, char a3)
 {
   v10 = a3;
   v4 = *(this + 2);
@@ -4679,7 +4631,7 @@ uint64_t *PayloadQueue::insertBit(PayloadQueue *this, unsigned int a2, char a3)
   return std::deque<unsigned char>::insert((this + 8), v5, v6, &v10);
 }
 
-uint64_t *std::deque<unsigned char>::insert(int64x2_t *a1, char *a2, uint64_t a3, char *a4)
+void *std::deque<unsigned char>::insert(int64x2_t *a1, char *a2, uint64_t a3, char *a4)
 {
   v6 = a1[2].u64[0];
   v7 = a1->i64[1];
@@ -4996,34 +4948,34 @@ void EchoEmbedder::initialize(uint64_t a1, unsigned int a2, unsigned int a3, uin
 {
   __sz = a3;
   v6 = 0;
-  v36[1] = *MEMORY[0x277D85DE8];
-  v36[0] = 0;
-  v35[0] = 102;
+  v35[1] = *MEMORY[0x277D85DE8];
+  v35[0] = 0;
+  v34[0] = 102;
   v7 = (a1 + 24);
-  v35[1] = a1 + 24;
-  v35[2] = 103;
+  v34[1] = a1 + 24;
+  v34[2] = 103;
   v8 = (a1 + 28);
-  v35[3] = a1 + 28;
-  v35[4] = 105;
-  v35[5] = v36;
-  v35[6] = 106;
-  v35[7] = v36 + 4;
-  v35[8] = 0x10000006ELL;
-  v35[9] = &__sz + 4;
-  v35[10] = 111;
+  v34[3] = a1 + 28;
+  v34[4] = 105;
+  v34[5] = v35;
+  v34[6] = 106;
+  v34[7] = v35 + 4;
+  v34[8] = 0x10000006ELL;
+  v34[9] = &__sz + 4;
+  v34[10] = 111;
   v9 = (a1 + 20);
-  v35[11] = a1 + 20;
-  v35[12] = 0x500000070;
+  v34[11] = a1 + 20;
+  v34[12] = 0x500000070;
   v10 = (a1 + 32);
   v11 = (a4 + 8);
-  v35[13] = a1 + 32;
+  v34[13] = a1 + 32;
   do
   {
     v12 = *v11;
     if (*v11)
     {
-      v13 = &v35[v6];
-      v14 = v35[v6];
+      v13 = &v34[v6];
+      v14 = v34[v6];
       v15 = v11;
       do
       {
@@ -5090,14 +5042,14 @@ LABEL_48:
     *v8 = 0.01;
   }
 
-  if (v36[0].f32[0] == 0.0)
+  if (v35[0].f32[0] == 0.0)
   {
-    v36[0].i32[0] = 990057071;
+    v35[0].i32[0] = 990057071;
   }
 
-  if (v36[0].f32[1] == 0.0)
+  if (v35[0].f32[1] == 0.0)
   {
-    v36[0].i32[1] = 1006834287;
+    v35[0].i32[1] = 1006834287;
   }
 
   if (*v9 == 0.0)
@@ -5107,7 +5059,7 @@ LABEL_48:
 
   std::vector<float>::resize((a1 + 40), 2uLL);
   v22 = *(a1 + 40);
-  *v22 = vcvt_u32_f32(vmul_n_f32(v36[0], a2));
+  *v22 = vcvt_u32_f32(vmul_n_f32(v35[0], a2));
   v23 = (v22 + 4);
   *(a1 + 8) = a2;
   *(a1 + 12) = __sz;
@@ -5169,7 +5121,6 @@ LABEL_48:
   }
 
   v31[1] = v32;
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t EchoEmbedder::reset(uint64_t this)
@@ -5351,7 +5302,7 @@ void SyncedEchoEmbedder::initialize(uint64_t a1, unsigned int a2, unsigned int a
   std::vector<float>::resize((a1 + 88), *(a1 + 12) + *v6);
 }
 
-void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5400,13 +5351,13 @@ void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD 
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-uint64_t *SyncedEchoEmbedder::setPayload(SyncedEchoEmbedder *this, const unsigned __int8 *a2, int a3)
+void *SyncedEchoEmbedder::setPayload(SyncedEchoEmbedder *this, const unsigned __int8 *a2, int a3)
 {
   v4 = (*(this + 12) - *(this + 10)) >> 2;
   v7[0] = v4 - 2;
@@ -5425,7 +5376,8 @@ void EchoDetector::EchoDetector(EchoDetector *this)
   *this = 0;
   *(this + 1) = 0;
   *(this + 4) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 3, 2uLL);
+  v2 = 0;
+  std::vector<float>::vector[abi:ne200100](this + 3, 2uLL, &v2);
   *(this + 4) = 0u;
   *(this + 5) = 0u;
   *(this + 3) = 0u;
@@ -5735,23 +5687,23 @@ _DWORD *SyncSeqEmbedder::setConfig(_DWORD *result, uint64_t a2)
 {
   v2 = result;
   v3 = 0;
-  v22 = *MEMORY[0x277D85DE8];
-  v16 = 100;
-  v17 = 0;
+  v21 = *MEMORY[0x277D85DE8];
+  v15 = 100;
+  v16 = 0;
   v4 = result + 7;
-  v18 = result + 7;
-  v19 = 111;
-  v20 = 1;
+  v17 = result + 7;
+  v18 = 111;
+  v19 = 1;
   v5 = (result + 9);
-  v21 = result + 9;
+  v20 = result + 9;
   v6 = (a2 + 8);
   do
   {
     v7 = *v6;
     if (*v6)
     {
-      v8 = &v16 + v3;
-      v9 = *(&v16 + v3);
+      v8 = &v15 + v3;
+      v9 = *(&v15 + v3);
       v10 = v6;
       do
       {
@@ -5814,7 +5766,6 @@ LABEL_23:
     *v5 = 18000.0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6042,7 +5993,7 @@ void SyncSeqDetector::initialize(SyncSeqDetector *this, int a2, unsigned int a3,
   v16 = a3 / (a3 >> 3);
   *(this + 14) = a3 >> 3;
   *(this + 15) = v16;
-  std::vector<SyncSeqDetector::peakInfo>::resize(this + 8, (2 * v16));
+  std::vector<SyncSeqDetector::peakInfo>::resize(this + 8, 2 * v16);
   v17 = (2 * *(this + 15));
   if (v17)
   {
@@ -6074,27 +6025,27 @@ _DWORD *SyncSeqDetector::setConfig(_DWORD *result, uint64_t a2)
 {
   v2 = result;
   v3 = 0;
-  v28 = *MEMORY[0x277D85DE8];
-  v19 = 100;
-  v20 = 0;
+  v27 = *MEMORY[0x277D85DE8];
+  v18 = 100;
+  v19 = 0;
   v4 = result + 11;
-  v21 = result + 11;
-  v22 = 111;
-  v23 = 1;
+  v20 = result + 11;
+  v21 = 111;
+  v22 = 1;
   v5 = (result + 13);
-  v24 = result + 13;
-  v25 = 109;
-  v26 = 1;
+  v23 = result + 13;
+  v24 = 109;
+  v25 = 1;
   v6 = (result + 9);
-  v27 = result + 9;
+  v26 = result + 9;
   v7 = (a2 + 8);
   do
   {
     v8 = *v7;
     if (*v7)
     {
-      v9 = &v19 + v3;
-      v10 = *(&v19 + v3);
+      v9 = &v18 + v3;
+      v10 = *(&v18 + v3);
       v11 = v7;
       do
       {
@@ -6169,11 +6120,10 @@ LABEL_26:
   }
 
   *v4 = v17;
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t SyncSeqDetector::getFrameStartOffset(SyncSeqDetector *this, const float *a2, int a3, int *a4, int a5)
+uint64_t SyncSeqDetector::getFrameStartOffset(SyncSeqDetector *this, const float *a2, int a3, int *a4, BOOL a5)
 {
   if ((*(this + 24) & 1) != 0 || SyncSeqDetector::detectSyncFrame(this, a2, a3, a5))
   {
@@ -6388,20 +6338,20 @@ LABEL_43:
   return result;
 }
 
-void std::vector<SyncSeqDetector::peakInfo>::resize(void *a1, unint64_t a2)
+void std::vector<SyncSeqDetector::peakInfo>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<SyncSeqDetector::peakInfo>::__append(a1, a2 - v2);
+    std::vector<SyncSeqDetector::peakInfo>::__append(result, a2 - v2);
   }
 }
 
@@ -6473,10 +6423,10 @@ uint64_t PasscodePositioner::getFrameStartOffset(uint64_t a1, uint64_t *a2, unsi
   return v4;
 }
 
-uint64_t SyncEchoDetector::initialize(SyncEchoDetector *this, unsigned int a2, unsigned int a3)
+uint64_t SyncEchoDetector::initialize(SyncEchoDetector *this, int a2, unsigned int a3)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
-  v28[0] = 0x3C23D70A3BA3D70ALL;
+  v27[1] = *MEMORY[0x277D85DE8];
+  v27[0] = 0x3C23D70A3BA3D70ALL;
   v5 = a2 / 48000.0;
   v6 = vcvtps_u32_f32(v5 * (a3 >> 6));
   v7 = *(this + 4) * a3 - vcvtps_u32_f32(v5 * (a3 >> 2));
@@ -6486,8 +6436,8 @@ uint64_t SyncEchoDetector::initialize(SyncEchoDetector *this, unsigned int a2, u
   v9 = (this + 24);
   *(this + 3) = a3;
   *(this + 7) = (v7 - a3) / v6;
-  EchoDetector::initialize((this + 224), a3, a2, v28);
-  BitCounter::initialize((this + 168), *v8 / *v9, 1);
+  EchoDetector::initialize((this + 224), a3, a2, v27);
+  BitCounter::initialize(this + 168, *v8 / *v9, 1);
   ShapingFilter::initialize(this + 320, 1, a2, 1u, 1, *(this + 10));
   std::vector<float>::resize(this + 2, *v8);
   v10 = *(this + 12);
@@ -6575,7 +6525,6 @@ uint64_t SyncEchoDetector::initialize(SyncEchoDetector *this, unsigned int a2, u
   *(this + 4) = 0;
   *(this + 22) = 0;
   *(this + 10) = *(this + 9);
-  v26 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -6590,23 +6539,23 @@ void SyncEchoDetector::reset(SyncEchoDetector *this)
 _DWORD *SyncEchoDetector::setConfig(_DWORD *result, uint64_t a2)
 {
   v2 = 0;
-  v21 = *MEMORY[0x277D85DE8];
-  v15 = 101;
-  v16 = 0;
+  v20 = *MEMORY[0x277D85DE8];
+  v14 = 101;
+  v15 = 0;
   v3 = result + 4;
-  v17 = result + 4;
-  v18 = 111;
-  v19 = 1;
+  v16 = result + 4;
+  v17 = 111;
+  v18 = 1;
   v4 = (result + 10);
-  v20 = result + 10;
+  v19 = result + 10;
   v5 = (a2 + 8);
   do
   {
     v6 = *v5;
     if (*v5)
     {
-      v7 = &v15 + v2;
-      v8 = *(&v15 + v2);
+      v7 = &v14 + v2;
+      v8 = *(&v14 + v2);
       v9 = v5;
       do
       {
@@ -6664,11 +6613,10 @@ LABEL_21:
     *v4 = 18000.0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t SyncEchoDetector::getFrameStartOffset(SyncEchoDetector *this, const float *a2, int a3, int *a4)
+uint64_t SyncEchoDetector::getFrameStartOffset(SyncEchoDetector *this, const float *a2, unsigned int a3, int *a4)
 {
   if (*(this + 45))
   {
@@ -6688,7 +6636,7 @@ uint64_t SyncEchoDetector::getFrameStartOffset(SyncEchoDetector *this, const flo
   return v7 & 1;
 }
 
-uint64_t SyncEchoDetector::detectSyncEcho(SyncEchoDetector *this, const float *__X, int a3)
+uint64_t SyncEchoDetector::detectSyncEcho(SyncEchoDetector *this, const float *__X, unsigned int a3)
 {
   SyncEchoDetector::detectSyncEcho(float const*,unsigned int)::count += a3;
   if (a3 >= 1)
@@ -6721,8 +6669,8 @@ uint64_t SyncEchoDetector::detectSyncEcho(SyncEchoDetector *this, const float *_
       {
         for (i = 0; i < v10; ++i)
         {
-          v34 = 0;
-          if (EchoDetector::decodeEcho((this + 224), (*(this + 6) + 4 * *(this + 6) * i), *(this + 3), &v34, 0))
+          v35 = 0;
+          if (EchoDetector::decodeEcho((this + 224), (*(this + 6) + 4 * *(this + 6) * i), *(this + 3), &v35, 0))
           {
             if ((*(this + 44) & 1) == 0)
             {
@@ -6743,7 +6691,7 @@ uint64_t SyncEchoDetector::detectSyncEcho(SyncEchoDetector *this, const float *_
               *(this + 44) = 1;
             }
 
-            BitCounter::count(this + 168, v34);
+            BitCounter::count(this + 168, v35);
           }
 
           else if (*(this + 44))
@@ -6839,12 +6787,13 @@ uint64_t SyncEchoDetector::detectSyncEcho(SyncEchoDetector *this, const float *_
                   *(this + 45) = v27;
                   if (v27)
                   {
-                    *(this + 9) = v8 + a3 + *(this + 6) * SyncEchoDetector::estimateFrameStart(this) - (v6 + *(this + 8) + 8 * *(this + 5));
-                    v28 = APCLogObject();
-                    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+                    v28 = SyncEchoDetector::estimateFrameStart(this);
+                    *(this + 9) = v8 + a3 + *(this + 6) * v28 - (v6 + *(this + 8) + 8 * *(this + 5));
+                    v29 = APCLogObject(v28);
+                    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
                     {
                       *buf = 0;
-                      _os_log_impl(&dword_24158E000, v28, OS_LOG_TYPE_INFO, "A valid passcode frame start has been found!", buf, 2u);
+                      _os_log_impl(&dword_24158E000, v29, OS_LOG_TYPE_INFO, "A valid passcode frame start has been found!", buf, 2u);
                     }
                   }
 
@@ -6863,16 +6812,16 @@ uint64_t SyncEchoDetector::detectSyncEcho(SyncEchoDetector *this, const float *_
         v9 = *(this + 8);
       }
 
-      v29 = *(this + 6) * v10;
-      memmove(*(this + 6), (*(this + 6) + 4 * v29), 4 * (v9 - v29));
-      v5 = *(this + 8) - v29;
+      v30 = *(this + 6) * v10;
+      memmove(*(this + 6), (*(this + 6) + 4 * v30), 4 * (v9 - v30));
+      v5 = *(this + 8) - v30;
       *(this + 8) = v5;
       __X += v8;
-      v30 = __OFSUB__(v6, v8);
+      v31 = __OFSUB__(v6, v8);
       v6 -= v8;
     }
 
-    while (!((v6 < 0) ^ v30 | (v6 == 0)));
+    while (!((v6 < 0) ^ v31 | (v6 == 0)));
   }
 
   return 1;
@@ -7312,6 +7261,19 @@ void std::vector<signed char>::__append(char **a1, size_t a2)
   }
 }
 
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int32 *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_2415A1D18(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -7475,10 +7437,10 @@ float std::normal_distribution<float>::operator()<std::linear_congruential_engin
   return *a3 + (v5 * a3[1]);
 }
 
-const void **std::deque<unsigned char>::__add_front_capacity(uint64_t a1)
+void std::deque<unsigned char>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -7490,15 +7452,15 @@ const void **std::deque<unsigned char>::__add_front_capacity(uint64_t a1)
     v4 = ((v2 - v1) << 9) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x1000)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x1000)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -7506,24 +7468,24 @@ const void **std::deque<unsigned char>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(a1, v10);
+    v10[4] = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 4096;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<unsigned char *>::emplace_front<unsigned char *&>(a1, v11);
+  a1[4] = (v5 + 4096);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<unsigned char *>::emplace_front<unsigned char *&>(a1, v10);
 }
 
 void sub_2415A2384(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -7537,14 +7499,13 @@ void sub_2415A2384(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const void **std::__split_buffer<unsigned char *>::emplace_front<unsigned char *&>(const void **result, void *a2)
+void std::__split_buffer<unsigned char *>::emplace_front<unsigned char *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7557,38 +7518,36 @@ const void **std::__split_buffer<unsigned char *>::emplace_front<unsigned char *
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7601,52 +7560,50 @@ const void **std::__split_buffer<unsigned char *>::emplace_front<unsigned char *
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<unsigned char *>::emplace_back<unsigned char *>(void *result, void *a2)
+void std::__split_buffer<unsigned char *>::emplace_back<unsigned char *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7655,40 +7612,38 @@ void *std::__split_buffer<unsigned char *>::emplace_back<unsigned char *>(void *
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7697,18 +7652,17 @@ void *std::__split_buffer<unsigned char *>::emplace_back<unsigned char *>(void *
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(uint64_t a1, unint64_t a2)
@@ -7721,7 +7675,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(uin
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void **std::deque<unsigned char>::__move_and_check(int a1, char *a2, char *__src, char *a4, char *a5, void **a6, char *__dst, unint64_t *a8)
+char **std::deque<unsigned char>::__move_and_check(int a1, char *a2, char *__src, char *a4, char *a5, char **a6, char *__dst, unint64_t *a8)
 {
   if (a5 != __src)
   {
@@ -7850,7 +7804,7 @@ void **std::deque<unsigned char>::__move_and_check(int a1, char *a2, char *__src
   return a6;
 }
 
-uint64_t *std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
+void *std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   result = *a1;
   if (a2)
@@ -7859,32 +7813,30 @@ uint64_t *std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,un
     if (v4 < 1)
     {
       result -= (4095 - v4) >> 12;
-      v6 = *result;
     }
 
     else
     {
       result += v4 >> 12;
-      v5 = *result;
     }
   }
 
   return result;
 }
 
-void *std::deque<unsigned char>::__add_back_capacity(void *a1)
+void std::deque<unsigned char>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x1000;
   v3 = v1 - 4096;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -7892,25 +7844,25 @@ void *std::deque<unsigned char>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned char *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<unsigned char *>::emplace_back<unsigned char *>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<unsigned char *>::emplace_back<unsigned char *>(a1, &v9);
 }
 
 void sub_2415A2B20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -8075,7 +8027,7 @@ LABEL_19:
   return a6;
 }
 
-uint64_t *std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>::operator-[abi:ne200100](uint64_t a1, uint64_t a2)
+void *std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>::operator-[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   result = *a1;
   if (a2)
@@ -8084,13 +8036,11 @@ uint64_t *std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,un
     if (v4 < 1)
     {
       result -= (4095 - v4) >> 12;
-      v6 = *result;
     }
 
     else
     {
       result += v4 >> 12;
-      v5 = *result;
     }
   }
 
@@ -8184,7 +8134,7 @@ void sub_2415A3F80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t BufferedAudioBus::allocateRenderResources(BufferedAudioBus *this, int a2)
+void *BufferedAudioBus::allocateRenderResources(BufferedAudioBus *this, int a2)
 {
   *(this + 2) = a2;
   v3 = objc_alloc(MEMORY[0x277CB83C8]);
@@ -8329,6 +8279,19 @@ void DecodedDataMessage::~DecodedDataMessage(DecodedDataMessage *this)
   caulk::concurrent::message::~message(this);
 
   JUMPOUT(0x245CEA790);
+}
+
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_2415A4FE0(_Unwind_Exception *exception_object)
@@ -8477,7 +8440,7 @@ void sub_2415AA9FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_DWORD *std::vector<float>::assign(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+_DWORD *std::vector<float>::assign(uint64_t *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
   v6 = a1[2];
   result = *a1;
@@ -8609,17 +8572,17 @@ _DWORD *std::vector<float>::assign(void *a1, unint64_t a2, __int32 *a3, int16x4_
   return result;
 }
 
-void *std::vector<char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2415AB0A4(_Unwind_Exception *exception_object)
@@ -8636,11 +8599,11 @@ void sub_2415AB0A4(_Unwind_Exception *exception_object)
 
 void APCLogObject()
 {
-  if (__cxa_guard_acquire(&qword_27E548BB0))
+  if (__cxa_guard_acquire(byte_27E548BB0))
   {
     _MergedGlobals = os_log_create("com.apple.audiopasscode", "");
 
-    __cxa_guard_release(&qword_27E548BB0);
+    __cxa_guard_release(byte_27E548BB0);
   }
 }
 

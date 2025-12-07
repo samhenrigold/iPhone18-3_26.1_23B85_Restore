@@ -24,7 +24,7 @@
 
 - (id)initiatingPayload:(id *)payload
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = _CDPSignpostLogSystem();
   v6 = _CDPSignpostCreate();
 
@@ -40,7 +40,7 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v30 = v6;
+    v29 = v6;
     _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: TTSUInitiatingPayload  enableTelemetry=YES ", buf, 0xCu);
   }
 
@@ -65,20 +65,20 @@
     _os_log_impl(&dword_24510B000, v13, OS_LOG_TYPE_DEFAULT, "Creating initiating TTSU payload", buf, 2u);
   }
 
-  v28 = 0;
-  v14 = self->_pairingChannel;
   v27 = 0;
-  v15 = [(KCPairingChannel *)v14 exchangePacket:0 complete:&v28 error:&v27];
-  v16 = v27;
+  v14 = self->_pairingChannel;
+  v26 = 0;
+  v15 = [(KCPairingChannel *)v14 exchangePacket:0 complete:&v27 error:&v26];
+  v16 = v26;
   v17 = _CDPLogSystem();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = v16;
+    v29 = v16;
     _os_log_impl(&dword_24510B000, v17, OS_LOG_TYPE_DEFAULT, "Created initiating TTSU payload with error: %@", buf, 0xCu);
   }
 
-  self->_complete = v28;
+  self->_complete = v27;
   if (payload)
   {
     v18 = v16;
@@ -92,7 +92,7 @@
   {
     code = [v16 code];
     *buf = 67240192;
-    LODWORD(v30) = code;
+    LODWORD(v29) = code;
     _os_signpost_emit_with_name_impl(&dword_24510B000, v21, OS_SIGNPOST_INTERVAL_END, v6, "TTSUInitiatingPayload", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
   }
 
@@ -101,22 +101,20 @@
   {
     code2 = [v16 code];
     *buf = 134218496;
-    v30 = v6;
-    v31 = 2048;
-    v32 = Nanoseconds / 1000000000.0;
-    v33 = 1026;
-    v34 = code2;
+    v29 = v6;
+    v30 = 2048;
+    v31 = Nanoseconds / 1000000000.0;
+    v32 = 1026;
+    v33 = code2;
     _os_log_impl(&dword_24510B000, v23, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: TTSUInitiatingPayload  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (id)processIncomingPayload:(id)payload error:(id *)error
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v7 = _CDPSignpostLogSystem();
   v8 = _CDPSignpostCreate();
@@ -134,7 +132,7 @@
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v50 = v8;
+    v49 = v8;
     _os_log_impl(&dword_24510B000, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: TTSUProcessIncomingPayload  enableTelemetry=YES ", buf, 0xCu);
   }
 
@@ -159,11 +157,11 @@
     _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "Processing incoming TTSU payload", buf, 2u);
   }
 
-  v48 = 0;
-  v17 = self->_pairingChannel;
   v47 = 0;
-  v18 = [(KCPairingChannel *)v17 exchangePacket:payloadCopy complete:&v48 error:&v47];
-  v19 = v47;
+  v17 = self->_pairingChannel;
+  v46 = 0;
+  v18 = [(KCPairingChannel *)v17 exchangePacket:payloadCopy complete:&v47 error:&v46];
+  v19 = v46;
   v20 = _CDPLogSystem();
   v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
   if (v19)
@@ -174,7 +172,7 @@
     }
 
     *buf = 138412290;
-    v50 = v19;
+    v49 = v19;
     v22 = "Processed incoming TTSU payload with error: %@";
     v23 = v20;
     v24 = 12;
@@ -206,7 +204,7 @@ LABEL_18:
       goto LABEL_27;
     }
 
-    v45 = v8;
+    v44 = v8;
     v27 = v8 - 1;
     errorCopy2 = error;
     v29 = _CDPLogSystem();
@@ -221,9 +219,9 @@ LABEL_18:
     self->_pairingChannel = pairingChannelAcceptor2;
 
     v32 = self->_pairingChannel;
-    v46 = v19;
-    v33 = [(KCPairingChannel *)v32 exchangePacket:payloadCopy complete:&v48 error:&v46];
-    v34 = v46;
+    v45 = v19;
+    v33 = [(KCPairingChannel *)v32 exchangePacket:payloadCopy complete:&v47 error:&v45];
+    v34 = v45;
 
     domain = _CDPLogSystem();
     v35 = os_log_type_enabled(domain, OS_LOG_TYPE_DEFAULT);
@@ -232,7 +230,7 @@ LABEL_18:
       if (v35)
       {
         *buf = 138412290;
-        v50 = v34;
+        v49 = v34;
         _os_log_impl(&dword_24510B000, domain, OS_LOG_TYPE_DEFAULT, "After re-initialization, processed incoming TTSU payload with error: %@", buf, 0xCu);
       }
     }
@@ -251,7 +249,7 @@ LABEL_18:
 
   else
   {
-    v45 = v8;
+    v44 = v8;
     v27 = v8 - 1;
     errorCopy2 = error;
     v33 = v18;
@@ -262,9 +260,9 @@ LABEL_18:
   v19 = v34;
   error = errorCopy2;
   v11 = v27;
-  v8 = v45;
+  v8 = v44;
 LABEL_27:
-  self->_complete = v48;
+  self->_complete = v47;
   if (error)
   {
     v36 = v19;
@@ -278,7 +276,7 @@ LABEL_27:
   {
     code2 = [v19 code];
     *buf = 67240192;
-    LODWORD(v50) = code2;
+    LODWORD(v49) = code2;
     _os_signpost_emit_with_name_impl(&dword_24510B000, v39, OS_SIGNPOST_INTERVAL_END, v8, "TTSUProcessIncomingPayload", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
   }
 
@@ -287,32 +285,29 @@ LABEL_27:
   {
     code3 = [v19 code];
     *buf = 134218496;
-    v50 = v8;
-    v51 = 2048;
-    v52 = Nanoseconds / 1000000000.0;
-    v53 = 1026;
-    v54 = code3;
+    v49 = v8;
+    v50 = 2048;
+    v51 = Nanoseconds / 1000000000.0;
+    v52 = 1026;
+    v53 = code3;
     _os_log_impl(&dword_24510B000, v41, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: TTSUProcessIncomingPayload  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 - (BOOL)requiresInitialSync
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   needInitialSync = [(KCPairingChannel *)self->_pairingChannel needInitialSync];
   v3 = _CDPLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = needInitialSync;
-    _os_log_impl(&dword_24510B000, v3, OS_LOG_TYPE_DEFAULT, "Pairing channel indicated initial sync requirement: %{BOOL}d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = needInitialSync;
+    _os_log_impl(&dword_24510B000, v3, OS_LOG_TYPE_DEFAULT, "Pairing channel indicated initial sync requirement: %{BOOL}d", v5, 8u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return needInitialSync;
 }
 

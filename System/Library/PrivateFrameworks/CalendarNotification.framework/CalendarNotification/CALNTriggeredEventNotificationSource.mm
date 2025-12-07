@@ -15,6 +15,7 @@
 - (CALNNotificationManager)notificationManager;
 - (CALNTriggeredEventNotificationSource)initWithDataSource:(id)source notificationManager:(id)manager iconIdentifierProvider:(id)provider sourceEventRepresentationProvider:(id)representationProvider triggerHelper:(id)helper transitionProvider:(id)transitionProvider bodyDescriptionProvider:(id)descriptionProvider travelAdvisoryTimelinessAuthority:(id)self0 dateProvider:(id)self1 notificationDataStorage:(id)self2 urlHandler:(id)self3 mapItemURLProvider:(id)self4 timeToLeaveRefreshStorage:(id)self5 snoozeUpdateTimer:(id)self6;
 - (NSArray)categories;
+- (id)_contentForNotificationWithSourceClientIdentifier:(id)identifier shouldClearHypothesis:(BOOL)hypothesis;
 - (id)_eventRepresentationDictionaryWithSourceNotificationInfo:(id)info hypothesisMessage:(id)message;
 - (id)_existingNotificationDataMatchingEventForSourceClientIdentifier:(id)identifier;
 - (id)_existingRecordMatchingEventForSourceClientIdentifier:(id)identifier;
@@ -24,6 +25,8 @@
 - (id)_notificationResponseDataForRecord:(id)record;
 - (id)_notificationResponseDataForSourceNotificationInfo:(id)info;
 - (id)_resolvedSourceClientIdentifierForNewSourceClientIdentifier:(id)identifier oldSourceClientIdentifier:(id)clientIdentifier;
+- (id)_sourceNotificationInfoForSourceClientIdentifier:(id)identifier notificationInfo:(id)info existingNotificationData:(id)data hypothesis:(id)hypothesis shouldClearHypothesis:(BOOL)clearHypothesis isOffsetFromTravelTimeStart:(BOOL)start isForContentCreation:(BOOL)creation;
+- (id)_sourceNotificationInfoForSourceClientIdentifier:(id)identifier shouldClearHypothesis:(BOOL)hypothesis isForContentCreation:(BOOL)creation;
 - (id)_updatedLastFireTimeOfAlertOffsetFromTravelTimeGivenIsOffsetFromTravelTime:(BOOL)time;
 - (id)_updatedNotificationDataResettingTimeToLeaveDisplayState:(id)state;
 - (id)_updatedSourceNotificationInfoForContentCreation:(id)creation;
@@ -53,8 +56,10 @@
 - (void)_removeStoredNotificationDataForEventWithEventID:(id)d;
 - (void)_resetStoredNotificationDataTimeToLeaveDisplayStateForSourceClientIdentifier:(id)identifier;
 - (void)_setNotificationResponseData:(id)data onNotificationContent:(id)content;
+- (void)_travelAdvisoryAuthorizationChanged:(BOOL)changed;
 - (void)_travelEngineEventSignificantlyChangedWithSourceClientIdentifier:(id)identifier;
 - (void)_triggeredWithSourceClientIdentifier:(id)identifier triggerData:(id)data;
+- (void)_updateNotification:(id)notification shouldClearHypothesis:(BOOL)hypothesis;
 - (void)_updateSnoozeOptionsForEvents:(id)events;
 - (void)_updateStoredNotificationDataForSourceClientIdentifier:(id)identifier sourceNotificationInfo:(id)info existingNotificationData:(id)data transition:(unint64_t)transition now:(id)now;
 - (void)_updateTimeToLeaveRefreshTimerForSourceClientIdentifier:(id)identifier;
@@ -164,10 +169,7 @@
 
 uint64_t __89__CALNTriggeredEventNotificationSource_contentForNotificationWithSourceClientIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _contentForNotificationWithSourceClientIdentifier:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _contentForNotificationWithSourceClientIdentifier:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -175,28 +177,28 @@ uint64_t __89__CALNTriggeredEventNotificationSource_contentForNotificationWithSo
 - (id)contentForSourceClientIdentifier:(id)identifier sourceNotificationInfo:(id)info isProtectedDataAvailable:(BOOL)available
 {
   availableCopy = available;
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   infoCopy = info;
   v10 = +[CALNLogSubsystem calendar];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v87 = identifierCopy;
+    v86 = identifierCopy;
     _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, "Getting content for source client identifier = %{public}@", buf, 0xCu);
   }
 
   v11 = +[CALNBundle bundle];
   title = [infoCopy title];
-  v75 = v11;
+  v74 = v11;
   if ([title length])
   {
-    v82 = title;
+    v81 = title;
   }
 
   else
   {
-    v82 = [v11 localizedStringForKey:@"Event" value:&stru_28551FB98 table:0];
+    v81 = [v11 localizedStringForKey:@"Event" value:&stru_28551FB98 table:0];
 
     if (availableCopy)
     {
@@ -211,13 +213,13 @@ uint64_t __89__CALNTriggeredEventNotificationSource_contentForNotificationWithSo
   dataSource = [(CALNTriggeredEventNotificationSource *)self dataSource];
   eventID = [infoCopy eventID];
   alarmID = [infoCopy alarmID];
-  v81 = [dataSource notificationExpirationDateForEventID:eventID alarmID:alarmID];
+  v80 = [dataSource notificationExpirationDateForEventID:eventID alarmID:alarmID];
 
-  v80 = [CALNNotificationSound soundWithAlertType:10 alertTopic:@"com.apple.mobilecal.bulletin-subsection.upcomingEvents"];
+  v79 = [CALNNotificationSound soundWithAlertType:10 alertTopic:@"com.apple.mobilecal.bulletin-subsection.upcomingEvents"];
   iconIdentifierProvider = [(CALNTriggeredEventNotificationSource *)self iconIdentifierProvider];
   startDate = [infoCopy startDate];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  v79 = [iconIdentifierProvider identifierForIconWithDate:startDate inCalendar:currentCalendar];
+  v78 = [iconIdentifierProvider identifierForIconWithDate:startDate inCalendar:currentCalendar];
 
   v20 = @"com.apple.calendar.notifications.TriggeredEvent";
   alarmID2 = [infoCopy alarmID];
@@ -227,15 +229,15 @@ uint64_t __89__CALNTriggeredEventNotificationSource_contentForNotificationWithSo
 
   mailtoURL = [infoCopy mailtoURL];
 
-  v77 = mapItemURL;
-  v78 = alarmID2;
-  v76 = conferenceURL;
-  v73 = mapItemURL2;
+  v76 = mapItemURL;
+  v77 = alarmID2;
+  v75 = conferenceURL;
+  v72 = mapItemURL2;
   if (alarmID2 && !mapItemURL2 && !conferenceURL && !mailtoURL)
   {
     v25 = kCALNTriggeredEventNotificationCategoryIdentifier_Snooze;
 LABEL_14:
-    v72 = identifierCopy;
+    v71 = identifierCopy;
     v26 = *v25;
 
 LABEL_15:
@@ -249,15 +251,15 @@ LABEL_15:
     suffix = [v32 suffix];
     v34 = [(__CFString *)v26 stringByAppendingString:suffix];
 
-    v85 = [v32 expirationDateForEventWithStartDate:startDate2 endDate:endDate isAllDay:isAllDay];
+    v84 = [v32 expirationDateForEventWithStartDate:startDate2 endDate:endDate isAllDay:isAllDay];
     [v32 leeway];
     v36 = v35;
 
     v20 = startDate2;
-    identifierCopy = v72;
-    mapItemURL = v77;
-    alarmID2 = v78;
-    conferenceURL = v76;
+    identifierCopy = v71;
+    mapItemURL = v76;
+    alarmID2 = v77;
+    conferenceURL = v75;
 LABEL_32:
 
     goto LABEL_33;
@@ -269,7 +271,7 @@ LABEL_32:
     v38 = kCALNTriggeredEventNotificationCategoryIdentifier_Directions;
 LABEL_31:
     v34 = *v38;
-    v85 = 0;
+    v84 = 0;
     v36 = 0.0;
     goto LABEL_32;
   }
@@ -306,53 +308,53 @@ LABEL_31:
     goto LABEL_14;
   }
 
-  v69 = v39 || v37;
+  v68 = v39 || v37;
   if (conferenceURL != 0 && mapItemURL2 != 0 && !alarmID2 && !mailtoURL)
   {
     v38 = kCALNTriggeredEventNotificationCategoryIdentifier_Directions_ConferenceCall;
     goto LABEL_31;
   }
 
-  v70 = v37 || v40;
-  if (!v70 && !alarmID2 && !conferenceURL)
+  v69 = v37 || v40;
+  if (!v69 && !alarmID2 && !conferenceURL)
   {
     v38 = kCALNTriggeredEventNotificationCategoryIdentifier_Directions_MailOrganizer;
     goto LABEL_31;
   }
 
-  v71 = v39 || v40;
-  if (!v71 && !alarmID2 && !mapItemURL2)
+  v70 = v39 || v40;
+  if (!v70 && !alarmID2 && !mapItemURL2)
   {
     v38 = kCALNTriggeredEventNotificationCategoryIdentifier_ConferenceCall_MailOrganizer;
     goto LABEL_31;
   }
 
-  if (!(v69 & 1 | (alarmID2 == 0)) && !mailtoURL)
+  if (!(v68 & 1 | (alarmID2 == 0)) && !mailtoURL)
   {
     v25 = kCALNTriggeredEventNotificationCategoryIdentifier_Directions_ConferenceCall_Snooze;
     goto LABEL_14;
   }
 
-  if (!(v69 & 1 | (mailtoURL == 0)) && !alarmID2)
+  if (!(v68 & 1 | (mailtoURL == 0)) && !alarmID2)
   {
     v38 = kCALNTriggeredEventNotificationCategoryIdentifier_Directions_ConferenceCall_MailOrganizer;
     goto LABEL_31;
   }
 
-  if (!v70 && alarmID2 != 0 && !conferenceURL)
+  if (!v69 && alarmID2 != 0 && !conferenceURL)
   {
     v25 = kCALNTriggeredEventNotificationCategoryIdentifier_Directions_MailOrganizer_Snooze;
     goto LABEL_14;
   }
 
-  if (!v71 && alarmID2 != 0 && !mapItemURL2)
+  if (!v70 && alarmID2 != 0 && !mapItemURL2)
   {
     v25 = kCALNTriggeredEventNotificationCategoryIdentifier_ConferenceCall_MailOrganizer_Snooze;
     goto LABEL_14;
   }
 
-  v72 = identifierCopy;
-  if ((v69 | (alarmID2 == 0) | v40) != 1)
+  v71 = identifierCopy;
+  if ((v68 | (alarmID2 == 0) | v40) != 1)
   {
     v25 = kCALNTriggeredEventNotificationCategoryIdentifier_Directions_ConferenceCall_MailOrganizer_Snooze;
     goto LABEL_14;
@@ -364,7 +366,7 @@ LABEL_31:
     goto LABEL_15;
   }
 
-  v85 = 0;
+  v84 = 0;
   v36 = 0.0;
   v34 = v20;
 LABEL_33:
@@ -372,23 +374,23 @@ LABEL_33:
   if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544898;
-    v87 = v34;
-    v88 = 1024;
-    v89 = alarmID2 != 0;
-    v90 = 1024;
-    v91 = v73 != 0;
-    v92 = 1024;
-    v93 = conferenceURL != 0;
-    v94 = 1024;
-    v95 = mailtoURL != 0;
-    v96 = 2112;
-    v97 = identifierCopy;
-    v98 = 2114;
-    v99 = v85;
+    v86 = v34;
+    v87 = 1024;
+    v88 = alarmID2 != 0;
+    v89 = 1024;
+    v90 = v72 != 0;
+    v91 = 1024;
+    v92 = conferenceURL != 0;
+    v93 = 1024;
+    v94 = mailtoURL != 0;
+    v95 = 2112;
+    v96 = identifierCopy;
+    v97 = 2114;
+    v98 = v84;
     _os_log_impl(&dword_242909000, v41, OS_LOG_TYPE_DEFAULT, "Category identifier for content = %{public}@, should include snooze action = (%{BOOL}d), should include directions action = (%{BOOL}d), should include conference call action = (%{BOOL}d), should include mail organizer action = (%{BOOL}d), source client identifier = %@, snoozeCategoryExpirationDate = %{public}@", buf, 0x38u);
   }
 
-  v84 = v34;
+  v83 = v34;
 
   v42 = objc_alloc_init(MEMORY[0x277CBEB38]);
   eventID2 = [infoCopy eventID];
@@ -397,7 +399,7 @@ LABEL_33:
     [v42 setObject:eventID2 forKeyedSubscript:@"entityID"];
   }
 
-  v74 = eventID2;
+  v73 = eventID2;
   if (alarmID2)
   {
     [v42 setObject:alarmID2 forKeyedSubscript:@"AlarmID"];
@@ -424,9 +426,9 @@ LABEL_33:
     [v42 setObject:absoluteString3 forKeyedSubscript:@"mailto"];
   }
 
-  if (v85)
+  if (v84)
   {
-    [v42 setObject:v85 forKeyedSubscript:@"snoozeCategoryExpirationDate"];
+    [v42 setObject:v84 forKeyedSubscript:@"snoozeCategoryExpirationDate"];
     v49 = [MEMORY[0x277CCABB0] numberWithDouble:v36];
     [v42 setObject:v49 forKeyedSubscript:@"snoozeCategoryExpirationLeeway"];
   }
@@ -442,21 +444,21 @@ LABEL_33:
   v53 = [bodyDescriptionProvider bodyForSourceClientIdentifier:identifierCopy sourceNotificationInfo:infoCopy bodyContainsTravelAdvice:buf];
 
   v54 = objc_alloc_init(CALNMutableNotificationContent);
-  [(CALNMutableNotificationContent *)v54 setTitle:v82];
+  [(CALNMutableNotificationContent *)v54 setTitle:v81];
   [(CALNMutableNotificationContent *)v54 setBody:v53];
-  [(CALNMutableNotificationContent *)v54 setCategoryIdentifier:v84];
+  [(CALNMutableNotificationContent *)v54 setCategoryIdentifier:v83];
   [(CALNMutableNotificationContent *)v54 setSectionIdentifier:@"com.apple.mobilecal.bulletin-subsection.upcomingEvents"];
   startDate3 = [infoCopy startDate];
   [(CALNMutableNotificationContent *)v54 setDate:startDate3];
 
-  [(CALNMutableNotificationContent *)v54 setExpirationDate:v81];
+  [(CALNMutableNotificationContent *)v54 setExpirationDate:v80];
   launchURL = [infoCopy launchURL];
   [(CALNMutableNotificationContent *)v54 setDefaultActionURL:launchURL];
 
-  [(CALNMutableNotificationContent *)v54 setIconIdentifier:v79];
+  [(CALNMutableNotificationContent *)v54 setIconIdentifier:v78];
   -[CALNMutableNotificationContent setShouldHideTime:](v54, "setShouldHideTime:", [infoCopy isAllDay]);
   [(CALNMutableNotificationContent *)v54 setShouldSuppressSyncDismissalWhenRemoved:0];
-  [(CALNMutableNotificationContent *)v54 setSound:v80];
+  [(CALNMutableNotificationContent *)v54 setSound:v79];
   [(CALNMutableNotificationContent *)v54 setThreadIdentifier:@"upcomingEventsThread"];
   [(CALNMutableNotificationContent *)v54 setUserInfo:v42];
   if ([infoCopy isTimeSensitive])
@@ -502,8 +504,6 @@ LABEL_33:
   v65 = [(CALNTriggeredEventNotificationSource *)selfCopy _notificationResponseDataForSourceNotificationInfo:infoCopy];
   [(CALNTriggeredEventNotificationSource *)selfCopy _setNotificationResponseData:v65 onNotificationContent:v54];
   v66 = [(CALNMutableNotificationContent *)v54 copy];
-
-  v67 = *MEMORY[0x277D85DE8];
 
   return v66;
 }
@@ -556,7 +556,7 @@ LABEL_33:
 
 - (void)_didReceiveResponse:(id)response
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -569,9 +569,9 @@ LABEL_33:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v25 = actionIdentifier;
-    v26 = 2114;
-    v27 = sourceClientIdentifier;
+    v24 = actionIdentifier;
+    v25 = 2114;
+    v26 = sourceClientIdentifier;
     _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Received notification response with action identifier = %{public}@, source client identifier = %{public}@", buf, 0x16u);
   }
 
@@ -606,32 +606,32 @@ LABEL_33:
 
   else
   {
-    v22[0] = @"CALNTriggeredEventNotificationSnoozeActionIdentifier";
-    v22[1] = @"CALNTriggeredEventNotificationSnooze5MinutesActionIdentifier";
-    v23[0] = &unk_2855308D8;
-    v23[1] = &unk_2855308F0;
-    v22[2] = @"CALNTriggeredEventNotificationSnooze15MinutesActionIdentifier";
-    v22[3] = @"CALNTriggeredEventNotificationSnooze30MinutesActionIdentifier";
-    v23[2] = &unk_285530908;
-    v23[3] = &unk_285530920;
-    v22[4] = @"CALNTriggeredEventNotificationSnooze1HourActionIdentifier";
-    v22[5] = @"CALNTriggeredEventNotificationSnoozeUntil30MinutesBeforeActionIdentifier";
-    v23[4] = &unk_285530938;
-    v23[5] = &unk_285530950;
-    v22[6] = @"CALNTriggeredEventNotificationSnoozeUntil15MinutesBeforeActionIdentifier";
-    v22[7] = @"CALNTriggeredEventNotificationSnoozeUntil5MinutesBeforeActionIdentifier";
-    v23[6] = &unk_285530968;
-    v23[7] = &unk_285530980;
-    v22[8] = @"CALNTriggeredEventNotificationSnoozeUntilStartActionIdentifier";
-    v22[9] = @"CALNTriggeredEventNotificationSnoozeUntilEndActionIdentifier";
-    v23[8] = &unk_285530998;
-    v23[9] = &unk_2855309B0;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:10];
-    v20 = [v19 objectForKeyedSubscript:actionIdentifier];
-    if (v20)
+    v21[0] = @"CALNTriggeredEventNotificationSnoozeActionIdentifier";
+    v21[1] = @"CALNTriggeredEventNotificationSnooze5MinutesActionIdentifier";
+    v22[0] = &unk_2855308D8;
+    v22[1] = &unk_2855308F0;
+    v21[2] = @"CALNTriggeredEventNotificationSnooze15MinutesActionIdentifier";
+    v21[3] = @"CALNTriggeredEventNotificationSnooze30MinutesActionIdentifier";
+    v22[2] = &unk_285530908;
+    v22[3] = &unk_285530920;
+    v21[4] = @"CALNTriggeredEventNotificationSnooze1HourActionIdentifier";
+    v21[5] = @"CALNTriggeredEventNotificationSnoozeUntil30MinutesBeforeActionIdentifier";
+    v22[4] = &unk_285530938;
+    v22[5] = &unk_285530950;
+    v21[6] = @"CALNTriggeredEventNotificationSnoozeUntil15MinutesBeforeActionIdentifier";
+    v21[7] = @"CALNTriggeredEventNotificationSnoozeUntil5MinutesBeforeActionIdentifier";
+    v22[6] = &unk_285530968;
+    v22[7] = &unk_285530980;
+    v21[8] = @"CALNTriggeredEventNotificationSnoozeUntilStartActionIdentifier";
+    v21[9] = @"CALNTriggeredEventNotificationSnoozeUntilEndActionIdentifier";
+    v22[8] = &unk_285530998;
+    v22[9] = &unk_2855309B0;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:10];
+    v19 = [v18 objectForKeyedSubscript:actionIdentifier];
+    if (v19)
     {
       dataSource2 = [(CALNTriggeredEventNotificationSource *)self dataSource];
-      [dataSource2 snoozeEventWithSourceClientIdentifier:sourceClientIdentifier snoozeType:{objc_msgSend(v20, "unsignedIntegerValue")}];
+      [dataSource2 snoozeEventWithSourceClientIdentifier:sourceClientIdentifier snoozeType:{objc_msgSend(v19, "unsignedIntegerValue")}];
     }
   }
 
@@ -644,8 +644,6 @@ LABEL_33:
     dataSource4 = [(CALNTriggeredEventNotificationSource *)self dataSource];
     [dataSource4 removeTimeToLeaveRefreshTimerForSourceClientIdentifier:sourceClientIdentifier];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)categories
@@ -662,152 +660,150 @@ LABEL_33:
 
 void __50__CALNTriggeredEventNotificationSource_categories__block_invoke()
 {
-  v84[1] = *MEMORY[0x277D85DE8];
-  v61 = +[CALNBundle bundle];
-  v59 = [v61 localizedStringForKey:@"notification.hiddenPreviewsBodyPlaceholder.upcomingEvent" value:@"Upcoming Event" table:0];
-  v58 = [v61 localizedStringForKey:@"%u more upcoming events" value:&stru_28551FB98 table:0];
+  v83[1] = *MEMORY[0x277D85DE8];
+  v60 = +[CALNBundle bundle];
+  v58 = [v60 localizedStringForKey:@"notification.hiddenPreviewsBodyPlaceholder.upcomingEvent" value:@"Upcoming Event" table:0];
+  v57 = [v60 localizedStringForKey:@"%u more upcoming events" value:&stru_28551FB98 table:0];
   v0 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
-  v84[0] = v0;
-  v60 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:1];
+  v83[0] = v0;
+  v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:1];
 
-  v83[0] = v60;
-  v82[0] = @"com.apple.calendar.notifications.TriggeredEvent";
-  v82[1] = @"com.apple.calendar.notifications.TriggeredEvent.Snooze";
-  v57 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
-  v81 = v57;
-  v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v81 count:1];
-  v83[1] = v56;
-  v82[2] = @"com.apple.calendar.notifications.TriggeredEvent.Directions";
-  v55 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
-  v80 = v55;
-  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:&v80 count:1];
-  v83[2] = v54;
-  v82[3] = @"com.apple.calendar.notifications.TriggeredEvent.ConferenceCall";
-  v53 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
-  v79 = v53;
-  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v79 count:1];
-  v83[3] = v52;
-  v82[4] = @"com.apple.calendar.notifications.TriggeredEvent.MailOrganizer";
-  v51 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
-  v78 = v51;
-  v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v78 count:1];
-  v83[4] = v50;
-  v82[5] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.Snooze";
-  v49 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
-  v77[0] = v49;
-  v48 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
-  v77[1] = v48;
-  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:2];
-  v83[5] = v47;
-  v82[6] = @"com.apple.calendar.notifications.TriggeredEvent.ConferenceCall.Snooze";
-  v46 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
-  v76[0] = v46;
-  v45 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
-  v76[1] = v45;
-  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:2];
-  v83[6] = v44;
-  v82[7] = @"com.apple.calendar.notifications.TriggeredEvent.MailOrganizer.Snooze";
-  v43 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
-  v75[0] = v43;
-  v42 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
-  v75[1] = v42;
-  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:2];
-  v83[7] = v41;
-  v82[8] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.ConferenceCall";
-  v40 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
-  v74[0] = v40;
-  v39 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
-  v74[1] = v39;
-  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
-  v83[8] = v38;
-  v82[9] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.MailOrganizer";
-  v37 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
-  v73[0] = v37;
-  v36 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
-  v73[1] = v36;
-  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:2];
-  v83[9] = v35;
-  v82[10] = @"com.apple.calendar.notifications.TriggeredEvent.ConferenceCall.MailOrganizer";
-  v34 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
-  v72[0] = v34;
-  v33 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
-  v72[1] = v33;
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
-  v83[10] = v32;
-  v82[11] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.ConferenceCall.Snooze";
-  v31 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
-  v71[0] = v31;
-  v30 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
-  v71[1] = v30;
-  v29 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
-  v71[2] = v29;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:3];
-  v83[11] = v28;
-  v82[12] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.ConferenceCall.MailOrganizer";
-  v27 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
-  v70[0] = v27;
-  v26 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
-  v70[1] = v26;
-  v25 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
-  v70[2] = v25;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:3];
-  v83[12] = v23;
-  v82[13] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.MailOrganizer.Snooze";
-  v22 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
-  v69[0] = v22;
-  v21 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
-  v69[1] = v21;
-  v20 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
-  v69[2] = v20;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:3];
-  v83[13] = v1;
-  v82[14] = @"com.apple.calendar.notifications.TriggeredEvent.ConferenceCall.MailOrganizer.Snooze";
+  v82[0] = v59;
+  v81[0] = @"com.apple.calendar.notifications.TriggeredEvent";
+  v81[1] = @"com.apple.calendar.notifications.TriggeredEvent.Snooze";
+  v56 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
+  v80 = v56;
+  v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v80 count:1];
+  v82[1] = v55;
+  v81[2] = @"com.apple.calendar.notifications.TriggeredEvent.Directions";
+  v54 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
+  v79 = v54;
+  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v79 count:1];
+  v82[2] = v53;
+  v81[3] = @"com.apple.calendar.notifications.TriggeredEvent.ConferenceCall";
+  v52 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
+  v78 = v52;
+  v51 = [MEMORY[0x277CBEA60] arrayWithObjects:&v78 count:1];
+  v82[3] = v51;
+  v81[4] = @"com.apple.calendar.notifications.TriggeredEvent.MailOrganizer";
+  v50 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
+  v77 = v50;
+  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v77 count:1];
+  v82[4] = v49;
+  v81[5] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.Snooze";
+  v48 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
+  v76[0] = v48;
+  v47 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
+  v76[1] = v47;
+  v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:2];
+  v82[5] = v46;
+  v81[6] = @"com.apple.calendar.notifications.TriggeredEvent.ConferenceCall.Snooze";
+  v45 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
+  v75[0] = v45;
+  v44 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
+  v75[1] = v44;
+  v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:2];
+  v82[6] = v43;
+  v81[7] = @"com.apple.calendar.notifications.TriggeredEvent.MailOrganizer.Snooze";
+  v42 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
+  v74[0] = v42;
+  v41 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
+  v74[1] = v41;
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
+  v82[7] = v40;
+  v81[8] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.ConferenceCall";
+  v39 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
+  v73[0] = v39;
+  v38 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
+  v73[1] = v38;
+  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:2];
+  v82[8] = v37;
+  v81[9] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.MailOrganizer";
+  v36 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
+  v72[0] = v36;
+  v35 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
+  v72[1] = v35;
+  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
+  v82[9] = v34;
+  v81[10] = @"com.apple.calendar.notifications.TriggeredEvent.ConferenceCall.MailOrganizer";
+  v33 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
+  v71[0] = v33;
+  v32 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
+  v71[1] = v32;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+  v82[10] = v31;
+  v81[11] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.ConferenceCall.Snooze";
+  v30 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
+  v70[0] = v30;
+  v29 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
+  v70[1] = v29;
+  v28 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
+  v70[2] = v28;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:3];
+  v82[11] = v27;
+  v81[12] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.ConferenceCall.MailOrganizer";
+  v26 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
+  v69[0] = v26;
+  v25 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
+  v69[1] = v25;
+  v24 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
+  v69[2] = v24;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:3];
+  v82[12] = v22;
+  v81[13] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.MailOrganizer.Snooze";
+  v21 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
+  v68[0] = v21;
+  v20 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
+  v68[1] = v20;
+  v19 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
+  v68[2] = v19;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:3];
+  v82[13] = v1;
+  v81[14] = @"com.apple.calendar.notifications.TriggeredEvent.ConferenceCall.MailOrganizer.Snooze";
   v2 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
-  v68[0] = v2;
+  v67[0] = v2;
   v3 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
-  v68[1] = v3;
+  v67[1] = v3;
   v4 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
-  v68[2] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:3];
-  v83[14] = v5;
-  v82[15] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.ConferenceCall.MailOrganizer.Snooze";
+  v67[2] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:3];
+  v82[14] = v5;
+  v81[15] = @"com.apple.calendar.notifications.TriggeredEvent.Directions.ConferenceCall.MailOrganizer.Snooze";
   v6 = +[CALNTriggeredEventNotificationActionUtilities directionsAction];
-  v67[0] = v6;
+  v66[0] = v6;
   v7 = +[CALNTriggeredEventNotificationActionUtilities conferenceCallAction];
-  v67[1] = v7;
+  v66[1] = v7;
   v8 = +[CALNTriggeredEventNotificationActionUtilities mailOrganizerAction];
-  v67[2] = v8;
+  v66[2] = v8;
   v9 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
-  v67[3] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:4];
-  v83[15] = v10;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:16];
+  v66[3] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:4];
+  v82[15] = v10;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:16];
 
-  v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v24, "count")}];
+  v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v23, "count")}];
   v12 = +[CALNSnoozeCategory snoozeCategories];
-  v62[0] = MEMORY[0x277D85DD0];
-  v62[1] = 3221225472;
-  v62[2] = __50__CALNTriggeredEventNotificationSource_categories__block_invoke_2;
-  v62[3] = &unk_278D6F7B8;
-  v63 = v12;
-  v64 = v59;
-  v65 = v58;
-  v66 = v11;
+  v61[0] = MEMORY[0x277D85DD0];
+  v61[1] = 3221225472;
+  v61[2] = __50__CALNTriggeredEventNotificationSource_categories__block_invoke_2;
+  v61[3] = &unk_278D6F7B8;
+  v62 = v12;
+  v63 = v58;
+  v64 = v57;
+  v65 = v11;
   v13 = v11;
-  v14 = v58;
-  v15 = v59;
+  v14 = v57;
+  v15 = v58;
   v16 = v12;
-  [v24 enumerateKeysAndObjectsUsingBlock:v62];
+  [v23 enumerateKeysAndObjectsUsingBlock:v61];
   v17 = [v13 copy];
   v18 = categories_categories_4;
   categories_categories_4 = v17;
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __50__CALNTriggeredEventNotificationSource_categories__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[CALNTriggeredEventNotificationActionUtilities snoozeAction];
@@ -815,26 +811,26 @@ void __50__CALNTriggeredEventNotificationSource_categories__block_invoke_2(uint6
 
   if (v8)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     obj = *(a1 + 32);
-    v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v23;
+      v11 = *v22;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v23 != v11)
+          if (*v22 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * i);
+          v13 = *(*(&v21 + 1) + 8 * i);
           v14 = [v13 actions];
           v15 = [v6 arrayByAddingObjectsFromArray:v14];
 
@@ -845,7 +841,7 @@ void __50__CALNTriggeredEventNotificationSource_categories__block_invoke_2(uint6
           [*(a1 + 56) addObject:v18];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v10);
@@ -857,8 +853,6 @@ void __50__CALNTriggeredEventNotificationSource_categories__block_invoke_2(uint6
     v19 = [CALNNotificationCategory categoryWithIdentifier:v5 actions:v6 hiddenPreviewsBodyPlaceholder:*(a1 + 40) options:2 categorySummaryFormat:*(a1 + 48)];
     [*(a1 + 56) addObject:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataSource:(id)source triggeredWithSourceClientIdentifier:(id)identifier triggerData:(id)data
@@ -920,7 +914,7 @@ void __50__CALNTriggeredEventNotificationSource_categories__block_invoke_2(uint6
 
 - (void)_triggeredWithSourceClientIdentifier:(id)identifier triggerData:(id)data
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dataCopy = data;
   workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
@@ -930,9 +924,9 @@ void __50__CALNTriggeredEventNotificationSource_categories__block_invoke_2(uint6
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v77 = identifierCopy;
-    v78 = 2114;
-    v79 = dataCopy;
+    v76 = identifierCopy;
+    v77 = 2114;
+    v78 = dataCopy;
     _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Triggered with source client identifier = %{public}@, trigger data = %{public}@", buf, 0x16u);
   }
 
@@ -944,27 +938,27 @@ void __50__CALNTriggeredEventNotificationSource_categories__block_invoke_2(uint6
   {
     notificationManager2 = [(CALNTriggeredEventNotificationSource *)self notificationManager];
     sourceIdentifier = [(CALNTriggeredEventNotificationSource *)self sourceIdentifier];
-    v75 = [notificationManager2 fetchRecordsWithSourceIdentifier:sourceIdentifier];
+    v74 = [notificationManager2 fetchRecordsWithSourceIdentifier:sourceIdentifier];
 
     v15 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v77 = v75;
+      v76 = v74;
       _os_log_impl(&dword_242909000, v15, OS_LOG_TYPE_INFO, "Existing records = %@.", buf, 0xCu);
     }
 
-    v16 = [(CALNTriggeredEventNotificationSource *)self _existingRecordMatchingEventForSourceClientIdentifier:identifierCopy existingRecords:v75];
+    v16 = [(CALNTriggeredEventNotificationSource *)self _existingRecordMatchingEventForSourceClientIdentifier:identifierCopy existingRecords:v74];
     v17 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       sourceClientIdentifier = [v16 sourceClientIdentifier];
       *buf = 138543874;
-      v77 = identifierCopy;
-      v78 = 2114;
-      v79 = sourceClientIdentifier;
-      v80 = 2112;
-      v81 = v16;
+      v76 = identifierCopy;
+      v77 = 2114;
+      v78 = sourceClientIdentifier;
+      v79 = 2112;
+      v80 = v16;
       _os_log_impl(&dword_242909000, v17, OS_LOG_TYPE_INFO, "Existing record matching event for source client identifier = %{public}@, existing record source client identifier = %{public}@, existing record = %@", buf, 0x20u);
     }
 
@@ -973,23 +967,23 @@ void __50__CALNTriggeredEventNotificationSource_categories__block_invoke_2(uint6
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v77 = identifierCopy;
-      v78 = 2112;
-      v79 = v19;
+      v76 = identifierCopy;
+      v77 = 2112;
+      v78 = v19;
       _os_log_impl(&dword_242909000, v20, OS_LOG_TYPE_DEFAULT, "Existing notification data for source client identifier = %{public}@, existing notification data = %@", buf, 0x16u);
     }
 
     dateProvider = [(CALNTriggeredEventNotificationSource *)self dateProvider];
-    v73 = [dateProvider now];
+    v72 = [dateProvider now];
 
     trigger = [dataCopy trigger];
     hypothesis = [dataCopy hypothesis];
     v25 = trigger == 1 && hypothesis == 0;
-    LOBYTE(v64) = 0;
-    v72 = hypothesis;
-    v26 = -[CALNTriggeredEventNotificationSource _sourceNotificationInfoForSourceClientIdentifier:notificationInfo:existingNotificationData:hypothesis:shouldClearHypothesis:isOffsetFromTravelTimeStart:isForContentCreation:](self, "_sourceNotificationInfoForSourceClientIdentifier:notificationInfo:existingNotificationData:hypothesis:shouldClearHypothesis:isOffsetFromTravelTimeStart:isForContentCreation:", identifierCopy, v12, v19, hypothesis, v25, [dataCopy isOffsetFromTravelTimeStart], v64);
+    LOBYTE(v63) = 0;
+    v71 = hypothesis;
+    v26 = -[CALNTriggeredEventNotificationSource _sourceNotificationInfoForSourceClientIdentifier:notificationInfo:existingNotificationData:hypothesis:shouldClearHypothesis:isOffsetFromTravelTimeStart:isForContentCreation:](self, "_sourceNotificationInfoForSourceClientIdentifier:notificationInfo:existingNotificationData:hypothesis:shouldClearHypothesis:isOffsetFromTravelTimeStart:isForContentCreation:", identifierCopy, v12, v19, hypothesis, v25, [dataCopy isOffsetFromTravelTimeStart], v63);
     triggerHelper = [(CALNTriggeredEventNotificationSource *)self triggerHelper];
-    v74 = v26;
+    v73 = v26;
     v28 = [triggerHelper shouldTriggerForSourceClientIdentifier:identifierCopy trigger:trigger sourceNotificationInfo:v26 oldNotificationData:v19];
 
     v29 = +[CALNLogSubsystem calendar];
@@ -998,9 +992,9 @@ void __50__CALNTriggeredEventNotificationSource_categories__block_invoke_2(uint6
       [MEMORY[0x277CCABB0] numberWithBool:v28];
       v31 = v30 = v12;
       *buf = 138543618;
-      v77 = v31;
-      v78 = 2114;
-      v79 = identifierCopy;
+      v76 = v31;
+      v77 = 2114;
+      v78 = identifierCopy;
       _os_log_impl(&dword_242909000, v29, OS_LOG_TYPE_DEFAULT, "Determined that notification should trigger = %{public}@. source client identifier = %{public}@", buf, 0x16u);
 
       v12 = v30;
@@ -1008,52 +1002,52 @@ void __50__CALNTriggeredEventNotificationSource_categories__block_invoke_2(uint6
 
     if ((v28 & 1) == 0)
     {
-      v50 = v74;
-      hypothesis2 = [v74 hypothesis];
-      -[CALNTriggeredEventNotificationSource _updateTimeToLeaveRefreshTimerForSourceClientIdentifier:hypothesis:allowsLocationAlerts:travelAdvisoryDisabled:](self, "_updateTimeToLeaveRefreshTimerForSourceClientIdentifier:hypothesis:allowsLocationAlerts:travelAdvisoryDisabled:", identifierCopy, hypothesis2, [v74 allowsLocationAlerts], objc_msgSend(v74, "travelAdvisoryDisabled"));
+      v50 = v73;
+      hypothesis2 = [v73 hypothesis];
+      -[CALNTriggeredEventNotificationSource _updateTimeToLeaveRefreshTimerForSourceClientIdentifier:hypothesis:allowsLocationAlerts:travelAdvisoryDisabled:](self, "_updateTimeToLeaveRefreshTimerForSourceClientIdentifier:hypothesis:allowsLocationAlerts:travelAdvisoryDisabled:", identifierCopy, hypothesis2, [v73 allowsLocationAlerts], objc_msgSend(v73, "travelAdvisoryDisabled"));
 LABEL_50:
 
       goto LABEL_51;
     }
 
-    v32 = [(CALNTriggeredEventNotificationSource *)self _updatedSourceNotificationInfoForContentCreation:v74];
+    v32 = [(CALNTriggeredEventNotificationSource *)self _updatedSourceNotificationInfoForContentCreation:v73];
     notificationManager3 = [(CALNTriggeredEventNotificationSource *)self notificationManager];
-    v71 = v32;
+    v70 = v32;
     v34 = -[CALNTriggeredEventNotificationSource contentForSourceClientIdentifier:sourceNotificationInfo:isProtectedDataAvailable:](self, "contentForSourceClientIdentifier:sourceNotificationInfo:isProtectedDataAvailable:", identifierCopy, v32, [notificationManager3 isProtectedDataAvailable]);
 
     if (!v34)
     {
       v51 = +[CALNLogSubsystem calendar];
-      v50 = v74;
+      v50 = v73;
       if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
         [CALNTriggeredEventNotificationSource _triggeredWithSourceClientIdentifier:triggerData:];
       }
 
-      hypothesis2 = v71;
+      hypothesis2 = v70;
       goto LABEL_49;
     }
 
     transitionProvider = [(CALNTriggeredEventNotificationSource *)self transitionProvider];
-    v36 = [transitionProvider transitionForSourceClientIdentifier:identifierCopy sourceNotificationInfo:v74 oldNotificationData:v19 trigger:trigger];
+    v36 = [transitionProvider transitionForSourceClientIdentifier:identifierCopy sourceNotificationInfo:v73 oldNotificationData:v19 trigger:trigger];
 
-    v70 = [CALNTriggeredEventNotificationTransitionUtilities descriptionForTransition:v36];
+    v69 = [CALNTriggeredEventNotificationTransitionUtilities descriptionForTransition:v36];
     v37 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v77 = v70;
-      v78 = 2114;
-      v79 = identifierCopy;
+      v76 = v69;
+      v77 = 2114;
+      v78 = identifierCopy;
       _os_log_impl(&dword_242909000, v37, OS_LOG_TYPE_DEFAULT, "Transition = %{public}@, source client identifier = %{public}@", buf, 0x16u);
     }
 
-    v69 = v16;
+    v68 = v16;
     if (v36 > 1)
     {
       if (v36 != 2)
       {
-        hypothesis2 = v71;
+        hypothesis2 = v70;
         if (v36 != 3)
         {
           goto LABEL_46;
@@ -1090,7 +1084,7 @@ LABEL_45:
         if (os_log_type_enabled(notificationManager4, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v77 = identifierCopy;
+          v76 = identifierCopy;
           _os_log_impl(&dword_242909000, notificationManager4, OS_LOG_TYPE_DEFAULT, "No existing delivered notification to perform replace transition, source client identifier = %{public}@", buf, 0xCu);
         }
       }
@@ -1100,20 +1094,20 @@ LABEL_45:
     {
       if (v36)
       {
-        hypothesis2 = v71;
+        hypothesis2 = v70;
         if (v36 == 1)
         {
-          v68 = v12;
+          v67 = v12;
           sourceClientIdentifier2 = [v16 sourceClientIdentifier];
           v40 = [(CALNTriggeredEventNotificationSource *)self _resolvedSourceClientIdentifierForNewSourceClientIdentifier:identifierCopy oldSourceClientIdentifier:sourceClientIdentifier2];
 
           v41 = [CALNNotificationRecord alloc];
           sourceIdentifier3 = [(CALNTriggeredEventNotificationSource *)self sourceIdentifier];
-          v67 = v40;
+          v66 = v40;
           v43 = [(CALNNotificationRecord *)v41 initWithSourceIdentifier:sourceIdentifier3 sourceClientIdentifier:v40 content:v34];
 
           sourceClientIdentifier3 = [(CALNNotificationRecord *)v43 sourceClientIdentifier];
-          v45 = [(CALNTriggeredEventNotificationSource *)self _existingRecordMatchingEventForSourceClientIdentifier:sourceClientIdentifier3 existingRecords:v75];
+          v45 = [(CALNTriggeredEventNotificationSource *)self _existingRecordMatchingEventForSourceClientIdentifier:sourceClientIdentifier3 existingRecords:v74];
 
           if (v45)
           {
@@ -1123,35 +1117,35 @@ LABEL_45:
               v47 = sourceClientIdentifier4;
               notificationManager6 = [(CALNTriggeredEventNotificationSource *)self notificationManager];
               [(CALNTriggeredEventNotificationSource *)self sourceIdentifier];
-              v48 = v65 = v45;
+              v48 = v64 = v45;
               [notificationManager6 removeRecordWithSourceIdentifier:v48 sourceClientIdentifier:v47];
 
-              v45 = v65;
+              v45 = v64;
             }
           }
 
-          -[CALNTriggeredEventNotificationSource _addRecord:sourceNotificationInfo:existingNotificationData:trigger:transition:now:](self, "_addRecord:sourceNotificationInfo:existingNotificationData:trigger:transition:now:", v43, v74, v19, [dataCopy trigger], 1, v73);
+          -[CALNTriggeredEventNotificationSource _addRecord:sourceNotificationInfo:existingNotificationData:trigger:transition:now:](self, "_addRecord:sourceNotificationInfo:existingNotificationData:trigger:transition:now:", v43, v73, v19, [dataCopy trigger], 1, v72);
 
-          notificationManager4 = v67;
-          v12 = v68;
+          notificationManager4 = v66;
+          v12 = v67;
           goto LABEL_45;
         }
 
 LABEL_46:
         if ([(CALNTriggeredEventNotificationSource *)self _shouldUpdateStoredNotificationDataGivenTransition:v36])
         {
-          [(CALNTriggeredEventNotificationSource *)self _updateStoredNotificationDataForSourceClientIdentifier:identifierCopy sourceNotificationInfo:v74 existingNotificationData:v19 transition:v36 now:v73];
+          [(CALNTriggeredEventNotificationSource *)self _updateStoredNotificationDataForSourceClientIdentifier:identifierCopy sourceNotificationInfo:v73 existingNotificationData:v19 transition:v36 now:v72];
         }
 
-        hypothesis3 = [v74 hypothesis];
-        allowsLocationAlerts = [v74 allowsLocationAlerts];
-        travelAdvisoryDisabled = [v74 travelAdvisoryDisabled];
+        hypothesis3 = [v73 hypothesis];
+        allowsLocationAlerts = [v73 allowsLocationAlerts];
+        travelAdvisoryDisabled = [v73 travelAdvisoryDisabled];
         v62 = allowsLocationAlerts;
-        v50 = v74;
+        v50 = v73;
         [(CALNTriggeredEventNotificationSource *)self _updateTimeToLeaveRefreshTimerForSourceClientIdentifier:identifierCopy hypothesis:hypothesis3 allowsLocationAlerts:v62 travelAdvisoryDisabled:travelAdvisoryDisabled];
 
-        v16 = v69;
-        v51 = v70;
+        v16 = v68;
+        v51 = v69;
 LABEL_49:
 
         goto LABEL_50;
@@ -1164,24 +1158,22 @@ LABEL_49:
       }
     }
 
-    hypothesis2 = v71;
+    hypothesis2 = v70;
     goto LABEL_45;
   }
 
-  v75 = +[CALNLogSubsystem calendar];
-  if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+  v74 = +[CALNLogSubsystem calendar];
+  if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
   {
     [CALNTriggeredEventNotificationSource _triggeredWithSourceClientIdentifier:triggerData:];
   }
 
 LABEL_51:
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_travelEngineEventSignificantlyChangedWithSourceClientIdentifier:(id)identifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1189,9 +1181,9 @@ LABEL_51:
   v6 = +[CALNLogSubsystem calendar];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
-    v11 = identifierCopy;
-    _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Travel engine event changed significantly. Will reset 'Time to Leave' display state for existing record if it exists. source client identifier = %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = identifierCopy;
+    _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Travel engine event changed significantly. Will reset 'Time to Leave' display state for existing record if it exists. source client identifier = %{public}@", &v9, 0xCu);
   }
 
   v7 = [(CALNTriggeredEventNotificationSource *)self _existingRecordMatchingEventForSourceClientIdentifier:identifierCopy];
@@ -1208,13 +1200,33 @@ LABEL_51:
       [CALNTriggeredEventNotificationSource _travelEngineEventSignificantlyChangedWithSourceClientIdentifier:];
     }
   }
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)_travelAdvisoryAuthorizationChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v10 = *MEMORY[0x277D85DE8];
+  workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v6 = +[CALNLogSubsystem calendar];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = [MEMORY[0x277CCABB0] numberWithBool:changedCopy];
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Travel advisory authorization changed. authorized = %{public}@", &v8, 0xCu);
+  }
+
+  if (!changedCopy)
+  {
+    [(CALNTriggeredEventNotificationSource *)self _clearTravelAdvisoryHypotheses];
+  }
 }
 
 - (void)_clearTravelAdvisoryHypotheses
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1233,42 +1245,40 @@ LABEL_51:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v23 = v7;
+    v22 = v7;
     _os_log_impl(&dword_242909000, v8, OS_LOG_TYPE_INFO, "Existing records = %@.", buf, 0xCu);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
-        [(CALNTriggeredEventNotificationSource *)self _updateNotification:v14 shouldClearHypothesis:1, v17];
+        v14 = *(*(&v16 + 1) + 8 * i);
+        [(CALNTriggeredEventNotificationSource *)self _updateNotification:v14 shouldClearHypothesis:1, v16];
         sourceClientIdentifier = [v14 sourceClientIdentifier];
         [(CALNTriggeredEventNotificationSource *)self _updateTimeToLeaveRefreshTimerForSourceClientIdentifier:sourceClientIdentifier];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldCeaseRouteMonitoringEventForSourceClientIdentifier:(id)identifier
@@ -1344,7 +1354,7 @@ LABEL_51:
 - (void)_updateTimeToLeaveRefreshTimerForSourceClientIdentifier:(id)identifier hypothesis:(id)hypothesis allowsLocationAlerts:(BOOL)alerts travelAdvisoryDisabled:(BOOL)disabled
 {
   disabledCopy = disabled;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   hypothesisCopy = hypothesis;
   workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
@@ -1353,9 +1363,9 @@ LABEL_51:
   v13 = +[CALNLogSubsystem calendar];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    *v28 = 138543362;
-    *&v28[4] = identifierCopy;
-    _os_log_impl(&dword_242909000, v13, OS_LOG_TYPE_DEFAULT, "Updating refresh timer for source client identifier = %{public}@", v28, 0xCu);
+    *v27 = 138543362;
+    *&v27[4] = identifierCopy;
+    _os_log_impl(&dword_242909000, v13, OS_LOG_TYPE_DEFAULT, "Updating refresh timer for source client identifier = %{public}@", v27, 0xCu);
   }
 
   if (!alerts)
@@ -1363,8 +1373,8 @@ LABEL_51:
     v14 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v28 = 138543362;
-      *&v28[4] = identifierCopy;
+      *v27 = 138543362;
+      *&v27[4] = identifierCopy;
       v15 = "Location alerts are not allowed. Will remove the associated refresh timer for source client identifier = %{public}@";
       goto LABEL_9;
     }
@@ -1372,8 +1382,8 @@ LABEL_51:
 LABEL_10:
 
 LABEL_11:
-    dataSource = [(CALNTriggeredEventNotificationSource *)self dataSource];
-    [dataSource removeTimeToLeaveRefreshTimerForSourceClientIdentifier:identifierCopy];
+    v16 = [(CALNTriggeredEventNotificationSource *)self dataSource:*v27];
+    [v16 removeTimeToLeaveRefreshTimerForSourceClientIdentifier:identifierCopy];
     goto LABEL_12;
   }
 
@@ -1382,11 +1392,11 @@ LABEL_11:
     v14 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v28 = 138543362;
-      *&v28[4] = identifierCopy;
+      *v27 = 138543362;
+      *&v27[4] = identifierCopy;
       v15 = "Time to Leave alarm removed on the event. Will remove the associated refresh timer for source client identifier = %{public}@";
 LABEL_9:
-      _os_log_impl(&dword_242909000, v14, OS_LOG_TYPE_DEFAULT, v15, v28, 0xCu);
+      _os_log_impl(&dword_242909000, v14, OS_LOG_TYPE_DEFAULT, v15, v27, 0xCu);
       goto LABEL_10;
     }
 
@@ -1401,8 +1411,8 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    *v28 = 138543362;
-    *&v28[4] = identifierCopy;
+    *v27 = 138543362;
+    *&v27[4] = identifierCopy;
     v15 = "There is no hypothesis. Will remove the associated refresh timer for source client identifier = %{public}@";
     goto LABEL_9;
   }
@@ -1415,112 +1425,110 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    *v28 = 138543362;
-    *&v28[4] = identifierCopy;
+    *v27 = 138543362;
+    *&v27[4] = identifierCopy;
     v15 = "Hypothesis indicates user has arrived. Will remove associated refresh timer for source client identifier = %{public}@";
     goto LABEL_9;
   }
 
-  v18 = [(CALNTriggeredEventNotificationSource *)self _travelAdvisoryTimelinessPeriodForHypothesis:hypothesisCopy];
-  if (v18 == 2)
+  v17 = [(CALNTriggeredEventNotificationSource *)self _travelAdvisoryTimelinessPeriodForHypothesis:hypothesisCopy];
+  if (v17 == 2)
   {
     travelAdvisoryTimelinessAuthority = [(CALNTriggeredEventNotificationSource *)self travelAdvisoryTimelinessAuthority];
-    dataSource = [travelAdvisoryTimelinessAuthority startOfRunningLatePeriodForHypothesis:hypothesisCopy];
+    v16 = [travelAdvisoryTimelinessAuthority startOfRunningLatePeriodForHypothesis:hypothesisCopy];
 
-    v20 = +[CALNLogSubsystem calendar];
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v19 = +[CALNLogSubsystem calendar];
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      *v28 = 138543618;
-      *&v28[4] = dataSource;
-      *&v28[12] = 2114;
-      *&v28[14] = identifierCopy;
-      v21 = "Will refresh when the user will become late at %{public}@, source client identifier = %{public}@";
-      v22 = v20;
-      v23 = 22;
+      *v27 = 138543618;
+      *&v27[4] = v16;
+      *&v27[12] = 2114;
+      *&v27[14] = identifierCopy;
+      v20 = "Will refresh when the user will become late at %{public}@, source client identifier = %{public}@";
+      v21 = v19;
+      v22 = 22;
       goto LABEL_26;
     }
   }
 
   else
   {
-    if (v18 != 1)
+    if (v17 != 1)
     {
       goto LABEL_11;
     }
 
     travelAdvisoryTimelinessAuthority2 = [(CALNTriggeredEventNotificationSource *)self travelAdvisoryTimelinessAuthority];
-    dataSource = [travelAdvisoryTimelinessAuthority2 startOfLeaveNowPeriodForHypothesis:hypothesisCopy];
+    v16 = [travelAdvisoryTimelinessAuthority2 startOfLeaveNowPeriodForHypothesis:hypothesisCopy];
 
-    v20 = +[CALNLogSubsystem calendar];
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v19 = +[CALNLogSubsystem calendar];
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      *v28 = 138412802;
-      *&v28[4] = dataSource;
-      *&v28[12] = 2114;
-      *&v28[14] = dataSource;
-      v29 = 2114;
-      v30 = identifierCopy;
-      v21 = "Will refresh at date: [%@] when the user needs to 'Leave Now' at %{public}@, source client identifier = %{public}@";
-      v22 = v20;
-      v23 = 32;
+      *v27 = 138412802;
+      *&v27[4] = v16;
+      *&v27[12] = 2114;
+      *&v27[14] = v16;
+      v28 = 2114;
+      v29 = identifierCopy;
+      v20 = "Will refresh at date: [%@] when the user needs to 'Leave Now' at %{public}@, source client identifier = %{public}@";
+      v21 = v19;
+      v22 = 32;
 LABEL_26:
-      _os_log_impl(&dword_242909000, v22, OS_LOG_TYPE_DEFAULT, v21, v28, v23);
+      _os_log_impl(&dword_242909000, v21, OS_LOG_TYPE_DEFAULT, v20, v27, v22);
     }
   }
 
-  if (!dataSource)
+  if (!v16)
   {
     goto LABEL_13;
   }
 
-  dateBySubtractingCalSimulatedOffset = [dataSource dateBySubtractingCalSimulatedOffset];
-  v26 = +[CALNLogSubsystem calendar];
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  dateBySubtractingCalSimulatedOffset = [v16 dateBySubtractingCalSimulatedOffset];
+  v25 = +[CALNLogSubsystem calendar];
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    *v28 = 138543618;
-    *&v28[4] = dateBySubtractingCalSimulatedOffset;
-    *&v28[12] = 2114;
-    *&v28[14] = identifierCopy;
-    _os_log_impl(&dword_242909000, v26, OS_LOG_TYPE_DEFAULT, "Will set up a refresh timer with an adjusted refresh date of %{public}@. source client identifier = %{public}@", v28, 0x16u);
+    *v27 = 138543618;
+    *&v27[4] = dateBySubtractingCalSimulatedOffset;
+    *&v27[12] = 2114;
+    *&v27[14] = identifierCopy;
+    _os_log_impl(&dword_242909000, v25, OS_LOG_TYPE_DEFAULT, "Will set up a refresh timer with an adjusted refresh date of %{public}@. source client identifier = %{public}@", v27, 0x16u);
   }
 
-  dataSource2 = [(CALNTriggeredEventNotificationSource *)self dataSource];
-  [dataSource2 setUpTimeToLeaveRefreshTimerWithTriggerDate:dateBySubtractingCalSimulatedOffset sourceClientIdentifier:identifierCopy];
+  dataSource = [(CALNTriggeredEventNotificationSource *)self dataSource];
+  [dataSource setUpTimeToLeaveRefreshTimerWithTriggerDate:dateBySubtractingCalSimulatedOffset sourceClientIdentifier:identifierCopy];
 
 LABEL_12:
 LABEL_13:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSnoozeOptionsForEvents:(id)events
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   notificationManager = [(CALNTriggeredEventNotificationSource *)self notificationManager];
   sourceIdentifier = [(CALNTriggeredEventNotificationSource *)self sourceIdentifier];
   v7 = [notificationManager fetchRecordsWithSourceIdentifier:sourceIdentifier];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
+        v13 = *(*(&v15 + 1) + 8 * i);
         sourceClientIdentifier = [v13 sourceClientIdentifier];
         if ([eventsCopy containsObject:sourceClientIdentifier])
         {
@@ -1528,13 +1536,11 @@ LABEL_13:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSnoozeOptionsForPostedNotifications
@@ -1567,9 +1573,9 @@ LABEL_13:
 void __81__CALNTriggeredEventNotificationSource_updateSnoozeOptionsForPostedNotifications__block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) dateProvider];
-  v41 = [v2 now];
+  v40 = [v2 now];
 
   v3 = [*(v1 + 32) notificationManager];
   v4 = [*(v1 + 32) sourceIdentifier];
@@ -1580,47 +1586,47 @@ void __81__CALNTriggeredEventNotificationSource_updateSnoozeOptionsForPostedNoti
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v55 = [v5 count];
+    v54 = [v5 count];
     _os_log_impl(&dword_242909000, v7, OS_LOG_TYPE_DEFAULT, "Checking snooze options for %lu posted notifications", buf, 0xCu);
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   obj = v5;
-  v45 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
-  if (v45)
+  v44 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
+  if (v44)
   {
-    v9 = *v51;
+    v9 = *v50;
     *&v8 = 138543874;
-    v39 = v8;
-    v43 = *v51;
-    v40 = v1;
+    v38 = v8;
+    v42 = *v50;
+    v39 = v1;
     do
     {
-      for (i = 0; i != v45; ++i)
+      for (i = 0; i != v44; ++i)
       {
-        if (*v51 != v9)
+        if (*v50 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v50 + 1) + 8 * i);
+        v11 = *(*(&v49 + 1) + 8 * i);
         v12 = [v11 content];
         v13 = [v12 userInfo];
         v14 = [v13 objectForKeyedSubscript:@"AlarmID"];
         v15 = v14;
         if (v14)
         {
-          v46 = v14;
+          v45 = v14;
           v16 = [v13 objectForKeyedSubscript:@"allDay"];
           v17 = [v16 BOOLValue];
           v18 = [v12 categoryIdentifier];
-          v49 = [v12 date];
+          v48 = [v12 date];
           v19 = [v13 objectForKeyedSubscript:@"endDate"];
-          v47 = v18;
-          v48 = v19;
+          v46 = v18;
+          v47 = v19;
           if (v16)
           {
             v20 = v19 == 0;
@@ -1636,36 +1642,28 @@ void __81__CALNTriggeredEventNotificationSource_updateSnoozeOptionsForPostedNoti
             goto LABEL_25;
           }
 
-          v42 = v17;
-          v21 = [CALNSnoozeCategory snoozeCategoryForEventWithStartDate:v49 endDate:v19 now:v41 isAllDay:v17];
+          v41 = v17;
+          v21 = [CALNSnoozeCategory snoozeCategoryForEventWithStartDate:v48 endDate:v19 now:v40 isAllDay:v17];
           v22 = [v21 suffix];
-          if (![v18 hasSuffix:v22])
+          if ([v18 hasSuffix:v22] && (v23 = objc_msgSend(v18, "length"), v24 = objc_msgSend(@"Snooze", "length"), v25 = objc_msgSend(v22, "length") + v24, v23 > v25))
           {
-            goto LABEL_21;
-          }
+            v26 = [v46 compare:@"Snooze" options:0 range:{objc_msgSend(v46, "length") - v25, v24}];
 
-          v23 = [v18 length];
-          v24 = [@"Snooze" length];
-          v25 = [v22 length] + v24;
-          if (v23 > v25)
-          {
-            v26 = [v47 compare:@"Snooze" options:0 range:{objc_msgSend(v47, "length") - v25, v24}];
-
-            v1 = v40;
+            v1 = v39;
             if (!v26)
             {
               v27 = +[CALNLogSubsystem calendar];
-              v9 = v43;
+              v9 = v42;
               if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
               {
                 v28 = [v11 sourceClientIdentifier];
                 *buf = 138543362;
-                v55 = v28;
+                v54 = v28;
                 _os_log_impl(&dword_242909000, v27, OS_LOG_TYPE_INFO, "Notification %{public}@ already has the correct snooze options.", buf, 0xCu);
               }
 
-              v29 = [0 expirationDateForEventWithStartDate:v49 endDate:v48 isAllDay:v42];
-              v30 = [*(v40 + 32) snoozeUpdateTimer];
+              v29 = [0 expirationDateForEventWithStartDate:v48 endDate:v47 isAllDay:v41];
+              v30 = [*(v39 + 32) snoozeUpdateTimer];
               [0 leeway];
               v32 = v31;
               v33 = [v11 sourceClientIdentifier];
@@ -1678,13 +1676,12 @@ void __81__CALNTriggeredEventNotificationSource_updateSnoozeOptionsForPostedNoti
 
           else
           {
-LABEL_21:
 
-            v1 = v40;
+            v1 = v39;
           }
 
           v6 = 0x278D6E000uLL;
-          v9 = v43;
+          v9 = v42;
           if (!v22)
           {
 LABEL_25:
@@ -1693,7 +1690,7 @@ LABEL_25:
             {
               v37 = [v11 sourceClientIdentifier];
               *buf = 138543362;
-              v55 = v37;
+              v54 = v37;
               _os_log_impl(&dword_242909000, v35, OS_LOG_TYPE_DEFAULT, "Refreshing notification %{public}@ because there's not enough information to determine if its snooze category is correct.", buf, 0xCu);
             }
 
@@ -1706,12 +1703,12 @@ LABEL_25:
             if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
             {
               v36 = [v11 sourceClientIdentifier];
-              *buf = v39;
-              v55 = v36;
-              v56 = 2114;
-              v57 = v22;
-              v58 = 2114;
-              v59 = v47;
+              *buf = v38;
+              v54 = v36;
+              v55 = 2114;
+              v56 = v22;
+              v57 = 2114;
+              v58 = v46;
               _os_log_impl(&dword_242909000, v35, OS_LOG_TYPE_DEFAULT, "Refreshing notification %{public}@ because it should have snooze category %{public}@ but has category %{public}@.", buf, 0x20u);
 
               v6 = 0x278D6E000;
@@ -1721,7 +1718,7 @@ LABEL_25:
           [*(v1 + 32) _refreshNotification:v11];
 LABEL_29:
 
-          v15 = v46;
+          v15 = v45;
           goto LABEL_30;
         }
 
@@ -1730,22 +1727,20 @@ LABEL_29:
         {
           v34 = [v11 sourceClientIdentifier];
           *buf = 138543362;
-          v55 = v34;
+          v54 = v34;
           _os_log_impl(&dword_242909000, v16, OS_LOG_TYPE_INFO, "Notification %{public}@ can't be snoozed so it doesn't need refreshing.", buf, 0xCu);
 
-          v9 = v43;
+          v9 = v42;
         }
 
 LABEL_30:
       }
 
-      v45 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
+      v44 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
     }
 
-    while (v45);
+    while (v44);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshNotifications:(id)notifications
@@ -1761,7 +1756,7 @@ LABEL_30:
 
 - (void)_refreshNotificationRecordsWithObjectIDs:(id)ds
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1770,27 +1765,27 @@ LABEL_30:
   sourceIdentifier = [(CALNTriggeredEventNotificationSource *)self sourceIdentifier];
   v8 = [notificationManager fetchRecordsWithSourceIdentifier:sourceIdentifier];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * v13);
+        v14 = *(*(&v17 + 1) + 8 * v13);
         v15 = objc_autoreleasePoolPush();
         sourceClientIdentifier = [v14 sourceClientIdentifier];
         if (!dsCopy || [(CALNTriggeredEventNotificationSource *)self _notificationWithSourceClientIdentifier:sourceClientIdentifier affectedByChangesToObjects:dsCopy])
@@ -1803,18 +1798,16 @@ LABEL_30:
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshNotification:(id)notification
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1823,9 +1816,9 @@ LABEL_30:
   v7 = +[CALNLogSubsystem calendar];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543362;
-    v14 = sourceClientIdentifier;
-    _os_log_impl(&dword_242909000, v7, OS_LOG_TYPE_DEFAULT, "Refreshing notification with source client identifier = %{public}@", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = sourceClientIdentifier;
+    _os_log_impl(&dword_242909000, v7, OS_LOG_TYPE_DEFAULT, "Refreshing notification with source client identifier = %{public}@", &v12, 0xCu);
   }
 
   dataSource = [(CALNTriggeredEventNotificationSource *)self dataSource];
@@ -1842,8 +1835,6 @@ LABEL_30:
   {
     [(CALNTriggeredEventNotificationSource *)self _updateNotification:notificationCopy shouldClearHypothesis:0];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshNotificationMetaDataWithObjectIDs:(id)ds
@@ -1877,7 +1868,7 @@ void __82__CALNTriggeredEventNotificationSource__refreshNotificationMetaDataWith
 
 - (void)_refreshNotificationMetaData:(id)data eventID:(id)d
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataCopy = data;
   workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
@@ -1889,9 +1880,9 @@ void __82__CALNTriggeredEventNotificationSource__refreshNotificationMetaDataWith
     v9 = +[CALNLogSubsystem defaultCategory];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = dCopy;
-      _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Removing notification meta data due to refresh for eventID = %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = dCopy;
+      _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Removing notification meta data due to refresh for eventID = %{public}@", &v11, 0xCu);
     }
 
     dataSource = [(CALNTriggeredEventNotificationSource *)self dataSource];
@@ -1899,13 +1890,11 @@ void __82__CALNTriggeredEventNotificationSource__refreshNotificationMetaDataWith
 
     [(CALNTriggeredEventNotificationSource *)self _removeStoredNotificationDataForEventWithEventID:dCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldRemoveNotificationMetaData:(id)data eventID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataCopy = data;
   workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
@@ -1917,9 +1906,9 @@ void __82__CALNTriggeredEventNotificationSource__refreshNotificationMetaDataWith
     v9 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543362;
-      v15 = dCopy;
-      _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Notification meta data is expired for eventID = %{public}@. Should remove notification meta data.", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = dCopy;
+      _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Notification meta data is expired for eventID = %{public}@. Should remove notification meta data.", &v13, 0xCu);
     }
 
     v10 = 1;
@@ -1931,13 +1920,12 @@ void __82__CALNTriggeredEventNotificationSource__refreshNotificationMetaDataWith
     v10 = [dataSource shouldRemoveNotificationMetaDataWithEventID:dCopy];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)_isNotificationMetaDataExpired:(id)expired eventID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   alarmID = [expired alarmID];
   dataSource = [(CALNTriggeredEventNotificationSource *)self dataSource];
@@ -1957,15 +1945,14 @@ void __82__CALNTriggeredEventNotificationSource__refreshNotificationMetaDataWith
     v14 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543362;
-      v18 = dCopy;
-      _os_log_impl(&dword_242909000, v14, OS_LOG_TYPE_DEFAULT, "Could not get an expiration date for notification meta data for eventID = %{public}@. Treating notification meta data as expired.", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = dCopy;
+      _os_log_impl(&dword_242909000, v14, OS_LOG_TYPE_DEFAULT, "Could not get an expiration date for notification meta data for eventID = %{public}@. Treating notification meta data as expired.", &v16, 0xCu);
     }
 
     v13 = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -2015,7 +2002,7 @@ void __86__CALNTriggeredEventNotificationSource__refreshTimeToLeaveRefreshTimers
 
 - (BOOL)_shouldRemoveTimeToLeaveRefreshTimerWithRefreshDate:(id)date eventID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   dCopy = d;
   workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
@@ -2030,9 +2017,9 @@ void __86__CALNTriggeredEventNotificationSource__refreshTimeToLeaveRefreshTimers
     v14 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543362;
-      v18 = dCopy;
-      _os_log_impl(&dword_242909000, v14, OS_LOG_TYPE_DEFAULT, "Time to leave refresh date is expired for eventID = %{public}@. Should remove time to leave refresh timer.", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = dCopy;
+      _os_log_impl(&dword_242909000, v14, OS_LOG_TYPE_DEFAULT, "Time to leave refresh date is expired for eventID = %{public}@. Should remove time to leave refresh timer.", &v16, 0xCu);
     }
 
     v13 = 1;
@@ -2044,7 +2031,6 @@ void __86__CALNTriggeredEventNotificationSource__refreshTimeToLeaveRefreshTimers
     v13 = [dataSource shouldRemoveTimeToLeaveRefreshTimerWithRefreshDate:dateCopy eventID:dCopy];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -2107,6 +2093,197 @@ LABEL_7:
   return v10;
 }
 
+- (id)_contentForNotificationWithSourceClientIdentifier:(id)identifier shouldClearHypothesis:(BOOL)hypothesis
+{
+  hypothesisCopy = hypothesis;
+  v18 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v8 = +[CALNLogSubsystem calendar];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = [MEMORY[0x277CCABB0] numberWithBool:hypothesisCopy];
+    v14 = 138543618;
+    v15 = identifierCopy;
+    v16 = 2114;
+    v17 = v9;
+    _os_log_impl(&dword_242909000, v8, OS_LOG_TYPE_DEFAULT, "Getting content for notification with source client identifier = %{public}@, should clear hypothesis = %{public}@", &v14, 0x16u);
+  }
+
+  v10 = [(CALNTriggeredEventNotificationSource *)self _sourceNotificationInfoForSourceClientIdentifier:identifierCopy shouldClearHypothesis:hypothesisCopy isForContentCreation:1];
+  if (v10)
+  {
+    notificationManager = [(CALNTriggeredEventNotificationSource *)self notificationManager];
+    v12 = [(CALNTriggeredEventNotificationSource *)self contentForSourceClientIdentifier:identifierCopy sourceNotificationInfo:v10 isProtectedDataAvailable:[notificationManager isProtectedDataAvailable]];
+  }
+
+  else
+  {
+    notificationManager = +[CALNLogSubsystem calendar];
+    if (os_log_type_enabled(notificationManager, OS_LOG_TYPE_ERROR))
+    {
+      [CALNTriggeredEventNotificationSource _contentForNotificationWithSourceClientIdentifier:shouldClearHypothesis:];
+    }
+
+    v12 = 0;
+  }
+
+  return v12;
+}
+
+- (id)_sourceNotificationInfoForSourceClientIdentifier:(id)identifier shouldClearHypothesis:(BOOL)hypothesis isForContentCreation:(BOOL)creation
+{
+  hypothesisCopy = hypothesis;
+  identifierCopy = identifier;
+  dataSource = [(CALNTriggeredEventNotificationSource *)self dataSource];
+  notificationManager = [(CALNTriggeredEventNotificationSource *)self notificationManager];
+  v11 = [dataSource fetchTriggeredEventNotificationInfoWithSourceClientIdentifier:identifierCopy isProtectedDataAvailable:{objc_msgSend(notificationManager, "isProtectedDataAvailable")}];
+
+  if (v11)
+  {
+    v12 = [(CALNTriggeredEventNotificationSource *)self _existingNotificationDataMatchingEventForSourceClientIdentifier:identifierCopy];
+    v13 = v12;
+    if (v12)
+    {
+      isOffsetFromTravelTimeStart = [v12 isOffsetFromTravelTimeStart];
+    }
+
+    else
+    {
+      isOffsetFromTravelTimeStart = 0;
+    }
+
+    LOBYTE(v18) = creation;
+    v16 = [(CALNTriggeredEventNotificationSource *)self _sourceNotificationInfoForSourceClientIdentifier:identifierCopy notificationInfo:v11 existingNotificationData:v13 hypothesis:0 shouldClearHypothesis:hypothesisCopy isOffsetFromTravelTimeStart:isOffsetFromTravelTimeStart isForContentCreation:v18];
+  }
+
+  else
+  {
+    v15 = +[CALNLogSubsystem calendar];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      [CALNTriggeredEventNotificationSource _sourceNotificationInfoForSourceClientIdentifier:shouldClearHypothesis:isForContentCreation:];
+    }
+
+    v16 = 0;
+  }
+
+  return v16;
+}
+
+- (id)_sourceNotificationInfoForSourceClientIdentifier:(id)identifier notificationInfo:(id)info existingNotificationData:(id)data hypothesis:(id)hypothesis shouldClearHypothesis:(BOOL)clearHypothesis isOffsetFromTravelTimeStart:(BOOL)start isForContentCreation:(BOOL)creation
+{
+  startCopy = start;
+  infoCopy = info;
+  dataCopy = data;
+  hypothesisCopy = hypothesis;
+  v64 = [CALNTriggeredEventNotificationSourceClientIdentifierUtilities alarmIDForSourceClientIdentifier:identifier];
+  if (hypothesisCopy)
+  {
+    hypothesis = hypothesisCopy;
+LABEL_3:
+    v51 = [(CALNTriggeredEventNotificationSource *)self _travelAdvisoryTimelinessPeriodForHypothesis:hypothesis];
+    if (!dataCopy)
+    {
+      goto LABEL_13;
+    }
+
+LABEL_11:
+    lastFireTimeOfAlertOffsetFromTravelTime = [dataCopy lastFireTimeOfAlertOffsetFromTravelTime];
+    goto LABEL_14;
+  }
+
+  if (clearHypothesis)
+  {
+    hypothesis = 0;
+    v51 = 0;
+    if (!dataCopy)
+    {
+      goto LABEL_13;
+    }
+
+    goto LABEL_11;
+  }
+
+  if (dataCopy)
+  {
+    hypothesis = [dataCopy hypothesis];
+    if (!hypothesis)
+    {
+      v51 = 0;
+      goto LABEL_11;
+    }
+
+    goto LABEL_3;
+  }
+
+  v51 = 0;
+  hypothesis = 0;
+LABEL_13:
+  lastFireTimeOfAlertOffsetFromTravelTime = 0;
+LABEL_14:
+  eventID = [infoCopy eventID];
+  v62 = [CALNTriggeredEventNotificationLaunchURLProvider launchURLForOptionalEventID:"launchURLForOptionalEventID:hypothesis:isTravelLaunchURL:" hypothesis:? isTravelLaunchURL:?];
+  preferredLocation = [infoCopy preferredLocation];
+  mapItemURLProvider = [(CALNTriggeredEventNotificationSource *)self mapItemURLProvider];
+  v53 = preferredLocation;
+  v61 = [mapItemURLProvider mapItemURLForOptionalEventLocation:preferredLocation hypothesis:hypothesis];
+
+  v55 = hypothesisCopy;
+  v56 = dataCopy;
+  v63 = hypothesis;
+  if (creation)
+  {
+    v22 = [(CALNTriggeredEventNotificationSource *)self _updatedLastFireTimeOfAlertOffsetFromTravelTimeGivenIsOffsetFromTravelTime:startCopy];
+
+    v60 = v22;
+  }
+
+  else
+  {
+    v60 = lastFireTimeOfAlertOffsetFromTravelTime;
+  }
+
+  v50 = [CALNTriggeredEventNotificationSourceNotificationInfo alloc];
+  title = [infoCopy title];
+  location = [infoCopy location];
+  locationWithoutPrediction = [infoCopy locationWithoutPrediction];
+  preferredLocation2 = [infoCopy preferredLocation];
+  startDate = [infoCopy startDate];
+  endDate = [infoCopy endDate];
+  isAllDay = [infoCopy isAllDay];
+  isTimeSensitive = [infoCopy isTimeSensitive];
+  eventID2 = [infoCopy eventID];
+  eventObjectID = [infoCopy eventObjectID];
+  organizerPhoneNumber = [infoCopy organizerPhoneNumber];
+  organizerEmailAddress = [infoCopy organizerEmailAddress];
+  calendarIdentifier = [infoCopy calendarIdentifier];
+  eventRepresentationDictionary = [infoCopy eventRepresentationDictionary];
+  legacyIdentifier = [infoCopy legacyIdentifier];
+  conferenceURL = [infoCopy conferenceURL];
+  conferenceURLIsBroadcast = [infoCopy conferenceURLIsBroadcast];
+  mailtoURL = [infoCopy mailtoURL];
+  hasSuggestedLocation = [infoCopy hasSuggestedLocation];
+  eventHasAlarms = [infoCopy eventHasAlarms];
+  allowsLocationAlerts = [infoCopy allowsLocationAlerts];
+  forceDisplayOfNewTravelAdvisoryHypotheses = [infoCopy forceDisplayOfNewTravelAdvisoryHypotheses];
+  BYTE1(v36) = [infoCopy travelAdvisoryDisabled];
+  LOBYTE(v36) = forceDisplayOfNewTravelAdvisoryHypotheses;
+  LOBYTE(v35) = allowsLocationAlerts;
+  LOBYTE(v34) = startCopy;
+  BYTE1(v33) = eventHasAlarms;
+  LOBYTE(v33) = hasSuggestedLocation;
+  LOBYTE(v32) = conferenceURLIsBroadcast;
+  LOBYTE(v31) = 0;
+  BYTE1(v30) = isTimeSensitive;
+  LOBYTE(v30) = isAllDay;
+  v52 = [CALNTriggeredEventNotificationSourceNotificationInfo initWithTitle:v50 location:"initWithTitle:location:locationWithoutPrediction:preferredLocation:startDate:endDate:isAllDay:isTimeSensitive:launchURL:isLocationEvent:eventID:eventObjectID:organizerPhoneNumber:organizerEmailAddress:calendarIdentifier:eventRepresentationDictionary:legacyIdentifier:mapItemURL:conferenceURL:conferenceURLIsBroadcast:mailtoURL:hasSuggestedLocation:eventHasAlarms:alarmID:isOffsetFromTravelTimeStart:lastFireTimeOfAlertOffsetFromTravelTime:allowsLocationAlerts:hypothesis:travelAdvisoryTimelinessPeriod:forceDisplayOfNewTravelAdvisoryHypotheses:travelAdvisoryDisabled:" locationWithoutPrediction:title preferredLocation:location startDate:locationWithoutPrediction endDate:preferredLocation2 isAllDay:startDate isTimeSensitive:endDate launchURL:v30 isLocationEvent:v62 eventID:v31 eventObjectID:eventID2 organizerPhoneNumber:eventObjectID organizerEmailAddress:organizerPhoneNumber calendarIdentifier:organizerEmailAddress eventRepresentationDictionary:calendarIdentifier legacyIdentifier:eventRepresentationDictionary mapItemURL:legacyIdentifier conferenceURL:v61 conferenceURLIsBroadcast:conferenceURL mailtoURL:v32 hasSuggestedLocation:mailtoURL eventHasAlarms:v33 alarmID:v64 isOffsetFromTravelTimeStart:v34 lastFireTimeOfAlertOffsetFromTravelTime:v60 allowsLocationAlerts:v35 hypothesis:v63 travelAdvisoryTimelinessPeriod:v51 forceDisplayOfNewTravelAdvisoryHypotheses:v36 travelAdvisoryDisabled:?];
+
+  return v52;
+}
+
 - (id)_updatedSourceNotificationInfoForContentCreation:(id)creation
 {
   creationCopy = creation;
@@ -2160,7 +2337,7 @@ LABEL_7:
 
 - (id)_existingRecordMatchingEventForSourceClientIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2172,9 +2349,9 @@ LABEL_7:
   v9 = +[CALNLogSubsystem calendar];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v15 = 138412290;
-    v16 = v8;
-    _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_INFO, "Existing records = %@.", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v8;
+    _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_INFO, "Existing records = %@.", &v14, 0xCu);
   }
 
   v10 = [(CALNTriggeredEventNotificationSource *)self _existingRecordMatchingEventForSourceClientIdentifier:identifierCopy existingRecords:v8];
@@ -2182,16 +2359,14 @@ LABEL_7:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     sourceClientIdentifier = [v10 sourceClientIdentifier];
-    v15 = 138543874;
-    v16 = identifierCopy;
-    v17 = 2114;
-    v18 = sourceClientIdentifier;
-    v19 = 2112;
-    v20 = v10;
-    _os_log_impl(&dword_242909000, v11, OS_LOG_TYPE_INFO, "Existing record matching event for source client identifier = %{public}@, existing record source client identifier = %{public}@, existing record = %@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = identifierCopy;
+    v16 = 2114;
+    v17 = sourceClientIdentifier;
+    v18 = 2112;
+    v19 = v10;
+    _os_log_impl(&dword_242909000, v11, OS_LOG_TYPE_INFO, "Existing record matching event for source client identifier = %{public}@, existing record source client identifier = %{public}@, existing record = %@", &v14, 0x20u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2253,18 +2428,18 @@ uint64_t __110__CALNTriggeredEventNotificationSource__existingRecordMatchingEven
 
 - (void)_notificationAddedWithSourceClientIdentifier:(id)identifier sourceNotificationInfo:(id)info trigger:(unint64_t)trigger
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   infoCopy = info;
   v10 = +[CALNLogSubsystem calendar];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:trigger];
-    v16 = 138543618;
-    v17 = identifierCopy;
-    v18 = 2114;
-    v19 = v11;
-    _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, "Notification added with source client identifier = %{public}@, trigger = %{public}@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = identifierCopy;
+    v17 = 2114;
+    v18 = v11;
+    _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, "Notification added with source client identifier = %{public}@, trigger = %{public}@", &v15, 0x16u);
   }
 
   if (trigger == 2)
@@ -2283,8 +2458,32 @@ uint64_t __110__CALNTriggeredEventNotificationSource__existingRecordMatchingEven
 
 LABEL_7:
   }
+}
 
-  v15 = *MEMORY[0x277D85DE8];
+- (void)_updateNotification:(id)notification shouldClearHypothesis:(BOOL)hypothesis
+{
+  hypothesisCopy = hypothesis;
+  notificationCopy = notification;
+  workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  sourceClientIdentifier = [notificationCopy sourceClientIdentifier];
+  v8 = [(CALNTriggeredEventNotificationSource *)self _sourceNotificationInfoForSourceClientIdentifier:sourceClientIdentifier shouldClearHypothesis:hypothesisCopy isForContentCreation:0];
+  v9 = [(CALNTriggeredEventNotificationSource *)self _updatedSourceNotificationInfoForContentCreation:v8];
+  v10 = [(CALNTriggeredEventNotificationSource *)self _existingNotificationDataMatchingEventForSourceClientIdentifier:sourceClientIdentifier];
+  notificationManager = [(CALNTriggeredEventNotificationSource *)self notificationManager];
+  v12 = -[CALNTriggeredEventNotificationSource contentForSourceClientIdentifier:sourceNotificationInfo:isProtectedDataAvailable:](self, "contentForSourceClientIdentifier:sourceNotificationInfo:isProtectedDataAvailable:", sourceClientIdentifier, v9, [notificationManager isProtectedDataAvailable]);
+
+  v13 = [notificationCopy mutableCopy];
+  [v13 setContent:v12];
+  dateProvider = [(CALNTriggeredEventNotificationSource *)self dateProvider];
+  v15 = [dateProvider now];
+
+  notificationManager2 = [(CALNTriggeredEventNotificationSource *)self notificationManager];
+  v17 = [v13 copy];
+  [notificationManager2 updateRecord:v17];
+
+  [(CALNTriggeredEventNotificationSource *)self _updateStoredNotificationDataForSourceClientIdentifier:sourceClientIdentifier sourceNotificationInfo:v8 existingNotificationData:v10 transition:2 now:v15];
 }
 
 - (void)_addEventURL:(id)l mappingToEventObjectID:(id)d
@@ -2491,7 +2690,7 @@ LABEL_7:
 
 - (void)_updateStoredNotificationDataForSourceClientIdentifier:(id)identifier sourceNotificationInfo:(id)info existingNotificationData:(id)data transition:(unint64_t)transition now:(id)now
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   nowCopy = now;
   dataCopy = data;
@@ -2503,11 +2702,11 @@ LABEL_7:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:transition];
-    v22 = 138543618;
-    v23 = identifierCopy;
-    v24 = 2114;
-    v25 = v18;
-    _os_log_impl(&dword_242909000, v17, OS_LOG_TYPE_DEFAULT, "Updating stored notification data for source client identifier = %{public}@, transition = %{public}@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = identifierCopy;
+    v23 = 2114;
+    v24 = v18;
+    _os_log_impl(&dword_242909000, v17, OS_LOG_TYPE_DEFAULT, "Updating stored notification data for source client identifier = %{public}@, transition = %{public}@", &v21, 0x16u);
   }
 
   v19 = [(CALNTriggeredEventNotificationSource *)self _notificationDataForSourceNotificationInfo:infoCopy existingNotificationData:dataCopy transition:transition now:nowCopy];
@@ -2522,18 +2721,16 @@ LABEL_7:
     v20 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138543362;
-      v23 = identifierCopy;
-      _os_log_impl(&dword_242909000, v20, OS_LOG_TYPE_DEFAULT, "Could not get notification data for source client identifier = %{public}@", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = identifierCopy;
+      _os_log_impl(&dword_242909000, v20, OS_LOG_TYPE_DEFAULT, "Could not get notification data for source client identifier = %{public}@", &v21, 0xCu);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addNotificationDataForSourceClientIdentifier:(id)identifier sourceNotificationInfo:(id)info existingNotificationData:(id)data transition:(unint64_t)transition now:(id)now
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   nowCopy = now;
   dataCopy = data;
@@ -2542,22 +2739,21 @@ LABEL_7:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:transition];
-    v20 = 138543618;
-    v21 = identifierCopy;
-    v22 = 2114;
-    v23 = v17;
-    _os_log_impl(&dword_242909000, v16, OS_LOG_TYPE_DEFAULT, "Adding notification data for source notification info. source client identifier = %{public}@, transition = %{public}@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = identifierCopy;
+    v21 = 2114;
+    v22 = v17;
+    _os_log_impl(&dword_242909000, v16, OS_LOG_TYPE_DEFAULT, "Adding notification data for source notification info. source client identifier = %{public}@, transition = %{public}@", &v19, 0x16u);
   }
 
   v18 = [(CALNTriggeredEventNotificationSource *)self _notificationDataForSourceNotificationInfo:infoCopy existingNotificationData:dataCopy transition:transition now:nowCopy];
 
   [(CALNTriggeredEventNotificationSource *)self _addNotificationData:v18 forSourceClientIdentifier:identifierCopy];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addNotificationData:(id)data forSourceClientIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   identifierCopy = identifier;
   v8 = [CALNTriggeredEventNotificationSourceClientIdentifierUtilities eventIDForSourceClientIdentifier:identifierCopy];
@@ -2569,17 +2765,17 @@ LABEL_7:
     v10 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543874;
-      v16 = identifierCopy;
-      v17 = 2114;
-      v18 = v8;
-      v19 = 2112;
-      v20 = dataCopy;
+      v14 = 138543874;
+      v15 = identifierCopy;
+      v16 = 2114;
+      v17 = v8;
+      v18 = 2112;
+      v19 = dataCopy;
       v11 = "Added notification data, source client identifier = %{public}@, event ID = %{public}@, notification data = %@";
       v12 = v10;
       v13 = 32;
 LABEL_6:
-      _os_log_impl(&dword_242909000, v12, OS_LOG_TYPE_DEFAULT, v11, &v15, v13);
+      _os_log_impl(&dword_242909000, v12, OS_LOG_TYPE_DEFAULT, v11, &v14, v13);
     }
   }
 
@@ -2588,21 +2784,19 @@ LABEL_6:
     v10 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
-      v16 = identifierCopy;
+      v14 = 138543362;
+      v15 = identifierCopy;
       v11 = "No event ID to add notification data for source client identifier = %{public}@";
       v12 = v10;
       v13 = 12;
       goto LABEL_6;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetStoredNotificationDataTimeToLeaveDisplayStateForSourceClientIdentifier:(id)identifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2610,21 +2804,19 @@ LABEL_6:
   v6 = +[CALNLogSubsystem calendar];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
-    v11 = identifierCopy;
-    _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Resetting stored notification data time to leave display state for source client identifier = %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = identifierCopy;
+    _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Resetting stored notification data time to leave display state for source client identifier = %{public}@", &v9, 0xCu);
   }
 
   v7 = [(CALNTriggeredEventNotificationSource *)self _existingNotificationDataMatchingEventForSourceClientIdentifier:identifierCopy];
   v8 = [(CALNTriggeredEventNotificationSource *)self _updatedNotificationDataResettingTimeToLeaveDisplayState:v7];
   [(CALNTriggeredEventNotificationSource *)self _addNotificationData:v8 forSourceClientIdentifier:identifierCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearTravelAdvisoryFromNotificationMetaDataForSourceClientIdentifier:(id)identifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   workQueue = [(CALNTriggeredEventNotificationSource *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2638,12 +2830,10 @@ LABEL_6:
   v9 = +[CALNLogSubsystem calendar];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = identifierCopy;
-    _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Cleared travel advisory from notification meta data for source client identifier = %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = identifierCopy;
+    _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Cleared travel advisory from notification meta data for source client identifier = %{public}@", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_updatedNotificationDataResettingTimeToLeaveDisplayState:(id)state
@@ -2682,7 +2872,7 @@ LABEL_6:
 
 void __57__CALNTriggeredEventNotificationSource_migrateToStorage___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 80);
   if (v3 == v2)
@@ -2698,59 +2888,58 @@ void __57__CALNTriggeredEventNotificationSource_migrateToStorage___block_invoke(
   else
   {
     v4 = [v3 notificationData];
+    v16 = 0u;
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
     if (v5)
     {
       v7 = v5;
-      v8 = *v19;
+      v8 = *v17;
       *&v6 = 138412290;
-      v17 = v6;
+      v15 = v6;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
-          v11 = [v4 objectForKeyedSubscript:v10, v17];
+          v10 = *(*(&v16 + 1) + 8 * i);
+          v11 = [v4 objectForKeyedSubscript:v10, v15];
           v12 = [*(a1 + 40) notificationDataWithIdentifier:v10];
           if (v12)
           {
-            v13 = *(a1 + 32);
-            v14 = [objc_opt_class() _mergeDataFromUnprotectedStore:v11 withDataInProtectedStore:v12];
-            [*(a1 + 40) addNotificationData:v14 withIdentifier:v10];
-            v15 = +[CALNLogSubsystem calendar];
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v13 = [objc_opt_class() _mergeDataFromUnprotectedStore:v11 withDataInProtectedStore:v12];
+            [*(a1 + 40) addNotificationData:v13 withIdentifier:v10];
+            v14 = +[CALNLogSubsystem calendar];
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v23 = v10;
-              v24 = 2112;
-              v25 = v14;
-              _os_log_impl(&dword_242909000, v15, OS_LOG_TYPE_DEFAULT, "Storage migration: key %@ had existing data; adding merged data: %@", buf, 0x16u);
+              v21 = v10;
+              v22 = 2112;
+              v23 = v13;
+              _os_log_impl(&dword_242909000, v14, OS_LOG_TYPE_DEFAULT, "Storage migration: key %@ had existing data; adding merged data: %@", buf, 0x16u);
             }
           }
 
           else
           {
             [*(a1 + 40) addNotificationData:v11 withIdentifier:v10];
-            v14 = +[CALNLogSubsystem calendar];
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+            v13 = +[CALNLogSubsystem calendar];
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v17;
-              v23 = v10;
-              _os_log_impl(&dword_242909000, v14, OS_LOG_TYPE_DEFAULT, "Storage migration: copying data for key %@", buf, 0xCu);
+              *buf = v15;
+              v21 = v10;
+              _os_log_impl(&dword_242909000, v13, OS_LOG_TYPE_DEFAULT, "Storage migration: copying data for key %@", buf, 0xCu);
             }
           }
         }
 
-        v7 = [v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v7 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
       }
 
       while (v7);
@@ -2759,8 +2948,6 @@ void __57__CALNTriggeredEventNotificationSource_migrateToStorage___block_invoke(
     *(*(*(a1 + 48) + 8) + 24) = 1;
     objc_storeStrong((*(a1 + 32) + 80), *(a1 + 40));
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_mergeDataFromUnprotectedStore:(id)store withDataInProtectedStore:(id)protectedStore
@@ -3095,123 +3282,46 @@ LABEL_8:
   dispatch_async(workQueue, v7);
 }
 
-- (void)contentForSourceClientIdentifier:sourceNotificationInfo:isProtectedDataAvailable:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Using default title for notification content despite protected data being available, source client identifier = %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_triggeredWithSourceClientIdentifier:triggerData:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Notification that should trigger cannot because we could not compute the transition type. source client identifier = %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_triggeredWithSourceClientIdentifier:triggerData:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_242909000, v1, OS_LOG_TYPE_ERROR, "Could not get notification content. source client identifier = %{public}@, source notification info = %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_triggeredWithSourceClientIdentifier:triggerData:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Could not get notification info for event (%{public}@).", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_travelEngineEventSignificantlyChangedWithSourceClientIdentifier:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Could not get existing record for source client identifier = %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_contentForNotificationWithSourceClientIdentifier:shouldClearHypothesis:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Failed to get source notification info. source client identifier = %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_sourceNotificationInfoForSourceClientIdentifier:shouldClearHypothesis:isForContentCreation:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Failed to get notification info for event (%{public}@). Returning nil content", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_242909000, v1, OS_LOG_TYPE_ERROR, "Could not get notification content. source client identifier = %{public}@, source notification info = %@", v2, 0x16u);
 }
 
 - (void)_commonHandleResponse:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a1 notificationRecord];
   v3 = [v2 sourceClientIdentifier];
-  v10 = [a1 actionIdentifier];
+  v9 = [a1 actionIdentifier];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notificationResponseDataForRecord:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 sourceClientIdentifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notificationResponseDataForRecord:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 sourceClientIdentifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notificationResponseDataForRecord:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 sourceClientIdentifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_sourceClientIdentifier:matchesEventForSourceClientIdentifier:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_3(&dword_242909000, v0, v1, "Source client identifiers do not refer to the same event. Source client identifier: %{public}@. Other source client identifier: %{public}@.");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_sourceClientIdentifier:matchesEventForSourceClientIdentifier:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_3(&dword_242909000, v0, v1, "Source client identifiers refer to the same event. Source client identifier: %{public}@. Other source client identifier: %{public}@.");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

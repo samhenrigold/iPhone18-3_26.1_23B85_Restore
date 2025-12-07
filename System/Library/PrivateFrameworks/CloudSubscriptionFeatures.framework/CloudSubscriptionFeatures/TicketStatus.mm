@@ -11,14 +11,11 @@
 
 - (NSString)rawValue
 {
-  v2 = (self + OBJC_IVAR____TtC25CloudSubscriptionFeatures12TicketStatus_rawValue);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_1DF564914();
+  v2 = sub_1DF564914();
 
-  return v5;
+  return v2;
 }
 
 - (void)setRawValue:(id)value
@@ -27,7 +24,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR____TtC25CloudSubscriptionFeatures12TicketStatus_rawValue);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -49,17 +45,14 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v5 = (self + OBJC_IVAR____TtC25CloudSubscriptionFeatures12TicketStatus_rawValue);
   swift_beginAccess();
-  v7 = *v5;
-  v6 = v5[1];
   coderCopy = coder;
   selfCopy = self;
 
-  v10 = sub_1DF564914();
+  v7 = sub_1DF564914();
 
-  v11 = sub_1DF564914();
-  [coderCopy encodeObject:v10 forKey:v11];
+  v8 = sub_1DF564914();
+  [coderCopy encodeObject:v7 forKey:v8];
 }
 
 - (BOOL)isEqual:(id)equal

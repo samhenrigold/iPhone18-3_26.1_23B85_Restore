@@ -214,7 +214,7 @@ void __77__REDataSourceManager_initWithRelevanceEngine_dataSourceLoader_withDele
       memset(v20, 0, sizeof(v20));
       if (a2)
       {
-        [a2 minimumSupportedSystemVersion];
+        objc_msgSend_minimumSupportedSystemVersion(a2);
       }
 
       v19 = [MEMORY[0x277CCAE60] value:v20 withObjCType:"{?=qqq}"];
@@ -424,27 +424,26 @@ void __41__REDataSourceManager__updatePreferences__block_invoke_2(uint64_t a1, v
 void __29__REDataSourceManager_resume__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
   if ([objc_opt_class() _isPrioritizedDataSourceClass:{objc_msgSend(v3, "dataSourceClass")}])
   {
     dispatch_group_enter(*(a1 + 40));
     [*(a1 + 48) beginOperation];
     [v3 resume];
-    v6 = MEMORY[0x277D85DD0];
-    v7 = 3221225472;
-    v8 = __29__REDataSourceManager_resume__block_invoke_2;
-    v9 = &unk_2785F9AE0;
-    v10 = *(a1 + 48);
-    v11 = *(a1 + 40);
-    v5 = MEMORY[0x22AABC5E0](&v6);
+    v5 = MEMORY[0x277D85DD0];
+    v6 = 3221225472;
+    v7 = __29__REDataSourceManager_resume__block_invoke_2;
+    v8 = &unk_2785F9AE0;
+    v9 = *(a1 + 48);
+    v10 = *(a1 + 40);
+    v4 = MEMORY[0x22AABC5E0](&v5);
     if (*(*(a1 + 32) + 121) == 1)
     {
-      [v3 processPendingUpdatesWhilePause:{v5, v6, v7, v8, v9, v10}];
+      [v3 processPendingUpdatesWhilePause:{v4, v5, v6, v7, v8, v9}];
     }
 
     else
     {
-      [v3 invalidateAndReloadWithCompletion:{v5, v6, v7, v8, v9, v10}];
+      [v3 invalidateAndReloadWithCompletion:{v4, v5, v6, v7, v8, v9}];
     }
   }
 }
@@ -460,25 +459,24 @@ void __29__REDataSourceManager_resume__block_invoke_2(uint64_t a1)
 void __29__REDataSourceManager_resume__block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
   if (([objc_opt_class() _isPrioritizedDataSourceClass:{objc_msgSend(v3, "dataSourceClass")}] & 1) == 0)
   {
     dispatch_group_enter(*(a1 + 40));
     [v3 resume];
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __29__REDataSourceManager_resume__block_invoke_5;
-    v6[3] = &unk_2785F9AB8;
-    v7 = *(a1 + 40);
-    v5 = MEMORY[0x22AABC5E0](v6);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __29__REDataSourceManager_resume__block_invoke_5;
+    v5[3] = &unk_2785F9AB8;
+    v6 = *(a1 + 40);
+    v4 = MEMORY[0x22AABC5E0](v5);
     if (*(*(a1 + 32) + 121) == 1)
     {
-      [v3 processPendingUpdatesWhilePause:v5];
+      [v3 processPendingUpdatesWhilePause:v4];
     }
 
     else
     {
-      [v3 invalidateAndReloadWithCompletion:v5];
+      [v3 invalidateAndReloadWithCompletion:v4];
     }
   }
 }
@@ -710,35 +708,35 @@ void __61__REDataSourceManager__queue_unloadDataSourceWithIdentifier___block_inv
 
 - (void)_queue_updateAvailableDataSourceIdentifiers
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allKeys = [(NSDictionary *)self->_identifierDataSourceMap allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if (![(REDataSourceManager *)self _isApplicationRemovedOrRestrictedForIdentifier:v9])
         {
           [v3 addObject:v9];
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -752,8 +750,6 @@ void __61__REDataSourceManager__queue_unloadDataSourceWithIdentifier___block_inv
 
     dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_50_0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __66__REDataSourceManager__queue_updateAvailableDataSourceIdentifiers__block_invoke()
@@ -775,33 +771,33 @@ void __66__REDataSourceManager__queue_updateAvailableDataSourceIdentifiers__bloc
 
 - (void)_queue_availableDataSourcesDidChange
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   [RERelevanceEngineSubsystem beginActivity:"beginActivity:forObject:" forObject:?];
   v3 = [MEMORY[0x277CBEB58] set];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   v4 = self->_dataSourceControllers;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v47 objects:v54 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v46 objects:v53 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v48;
+    v7 = *v47;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v48 != v7)
+        if (*v47 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        bundleIdentifier = [*(*(&v47 + 1) + 8 * i) bundleIdentifier];
+        bundleIdentifier = [*(*(&v46 + 1) + 8 * i) bundleIdentifier];
         [v3 addObject:bundleIdentifier];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v47 objects:v54 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v46 objects:v53 count:16];
     }
 
     while (v6);
@@ -814,90 +810,90 @@ void __66__REDataSourceManager__queue_updateAvailableDataSourceIdentifiers__bloc
   [v11 minusSet:self->_disabledDataSources];
   v12 = [v3 mutableCopy];
   [v12 minusSet:v11];
-  v34 = v11;
+  v33 = v11;
   v13 = [v11 mutableCopy];
   [v13 minusSet:v3];
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v43 objects:v53 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v42 objects:v52 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v44;
+    v17 = *v43;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v44 != v17)
+        if (*v43 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [(REDataSourceManager *)self _queue_unloadDataSourceWithIdentifier:*(*(&v43 + 1) + 8 * j)];
+        [(REDataSourceManager *)self _queue_unloadDataSourceWithIdentifier:*(*(&v42 + 1) + 8 * j)];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v43 objects:v53 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v42 objects:v52 count:16];
     }
 
     while (v16);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v19 = v13;
-  v20 = [v19 countByEnumeratingWithState:&v39 objects:v52 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v38 objects:v51 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v40;
+    v22 = *v39;
     do
     {
       for (k = 0; k != v21; ++k)
       {
-        if (*v40 != v22)
+        if (*v39 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        [(REDataSourceManager *)self _queue_loadDataSourceWithIdentifier:*(*(&v39 + 1) + 8 * k)];
+        [(REDataSourceManager *)self _queue_loadDataSourceWithIdentifier:*(*(&v38 + 1) + 8 * k)];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v39 objects:v52 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v38 objects:v51 count:16];
     }
 
     while (v21);
   }
 
   v24 = objc_opt_new();
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v25 = self->_dataSourceControllers;
-  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v35 objects:v51 count:16];
+  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v34 objects:v50 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v36;
+    v28 = *v35;
     do
     {
       for (m = 0; m != v27; ++m)
       {
-        if (*v36 != v28)
+        if (*v35 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        dataSource = [*(*(&v35 + 1) + 8 * m) dataSource];
+        dataSource = [*(*(&v34 + 1) + 8 * m) dataSource];
         [v24 addObject:dataSource];
       }
 
-      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v35 objects:v51 count:16];
+      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v34 objects:v50 count:16];
     }
 
     while (v27);
@@ -913,8 +909,6 @@ void __66__REDataSourceManager__queue_updateAvailableDataSourceIdentifiers__bloc
   }
 
   [(RERelevanceEngineSubsystem *)self endActivity:@"RERelevanceEngineSubsystemLoadingActivity" forObject:self];
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)unrestirctedDataSourceIdentifiers
@@ -935,7 +929,7 @@ void __66__REDataSourceManager__queue_updateAvailableDataSourceIdentifiers__bloc
 
 - (id)elementGroupForIdentifier:(id)identifier
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = [(REConcurrentDictionary *)self->_elementGroupMap objectForKeyedSubscript:identifierCopy];
   if (v5)
@@ -953,19 +947,19 @@ void __66__REDataSourceManager__queue_updateAvailableDataSourceIdentifiers__bloc
 
   else
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v9 = self->_elementGroupSupportingConfigurations;
-    v10 = [(NSSet *)v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v10 = [(NSSet *)v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
-      v26 = 112;
+      v25 = 112;
       selfCopy = self;
       v6 = 0;
-      v12 = *v29;
+      v12 = *v28;
       v13 = *MEMORY[0x277CBE660];
       do
       {
@@ -973,12 +967,12 @@ void __66__REDataSourceManager__queue_updateAvailableDataSourceIdentifiers__bloc
         v15 = v6;
         do
         {
-          if (*v29 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v6 = [*(*(&v28 + 1) + 8 * v14) elementGroupWithIdentifier:{identifierCopy, v26}];
+          v6 = [*(*(&v27 + 1) + 8 * v14) elementGroupWithIdentifier:{identifierCopy, v25}];
 
           groupIdentifier = [v6 groupIdentifier];
           v17 = [groupIdentifier isEqualToString:identifierCopy];
@@ -987,14 +981,14 @@ void __66__REDataSourceManager__queue_updateAvailableDataSourceIdentifiers__bloc
           {
             if (v6)
             {
-              [*(&selfCopy->super.super.isa + v26) setObject:v6 forKeyedSubscript:identifierCopy];
+              [*(&selfCopy->super.super.isa + v25) setObject:v6 forKeyedSubscript:identifierCopy];
               goto LABEL_17;
             }
           }
 
           else
           {
-            RERaiseInternalException(v13, @"The group identifiers should match", v18, v19, v20, v21, v22, v23, v26);
+            RERaiseInternalException(v13, @"The group identifiers should match", v18, v19, v20, v21, v22, v23, v25);
           }
 
           ++v14;
@@ -1002,7 +996,7 @@ void __66__REDataSourceManager__queue_updateAvailableDataSourceIdentifiers__bloc
         }
 
         while (v11 != v14);
-        v11 = [(NSSet *)v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v11 = [(NSSet *)v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v11);
@@ -1015,8 +1009,6 @@ void __66__REDataSourceManager__queue_updateAvailableDataSourceIdentifiers__bloc
 
 LABEL_17:
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

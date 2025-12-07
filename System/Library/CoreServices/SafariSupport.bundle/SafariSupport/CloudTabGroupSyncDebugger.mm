@@ -33,9 +33,9 @@
 
 - (CloudTabGroupSyncDebugger)init
 {
-  v19.receiver = self;
-  v19.super_class = CloudTabGroupSyncDebugger;
-  v2 = [(CloudTabGroupSyncDebugger *)&v19 init];
+  v23.receiver = self;
+  v23.super_class = CloudTabGroupSyncDebugger;
+  v2 = [(CloudTabGroupSyncDebugger *)&v23 init];
   if (v2)
   {
     v3 = +[NSMutableArray array];
@@ -43,43 +43,44 @@
     v2->_events = v3;
 
     fileURL = [(CloudTabGroupSyncDebugger *)v2 fileURL];
-    v18 = 0;
-    v6 = [NSData dataWithContentsOfURL:fileURL options:8 error:&v18];
-    v7 = v18;
+    v22 = 0;
+    v6 = [NSData dataWithContentsOfURL:fileURL options:8 error:&v22];
+    v7 = v22;
 
     if (v6)
     {
-      v17 = 0;
-      v8 = [NSPropertyListSerialization propertyListWithData:v6 options:0 format:0 error:&v17];
-      v9 = v17;
-      if (v8)
+      v21 = 0;
+      v10 = [NSPropertyListSerialization propertyListWithData:v6 options:0 format:0 error:&v21];
+      v11 = v21;
+      v13 = v11;
+      if (v10)
       {
-        v10 = [v8 safari_mapObjectsUsingBlock:&stru_1001350E0];
-        v11 = [v10 mutableCopy];
-        v12 = v2->_events;
-        v2->_events = v11;
+        v14 = [v10 safari_mapObjectsUsingBlock:&stru_1001350E0];
+        v15 = [v14 mutableCopy];
+        v16 = v2->_events;
+        v2->_events = v15;
       }
 
       else
       {
-        v14 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v18 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v11, v12);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          sub_10007E928(v9, v14);
+          sub_10007E928(v13, v18);
         }
       }
     }
 
     else
     {
-      v13 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v17 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v8, v9);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        sub_10007E9A0(v7, v13);
+        sub_10007E9A0(v7, v17);
       }
     }
 
-    v15 = v2;
+    v19 = v2;
   }
 
   return v2;

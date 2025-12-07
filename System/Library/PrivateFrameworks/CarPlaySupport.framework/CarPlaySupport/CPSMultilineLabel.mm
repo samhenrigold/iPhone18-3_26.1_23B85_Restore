@@ -30,12 +30,10 @@
 {
   currentConfiguration = [(CPSMultilineLabel *)self currentConfiguration];
   [(CPSMultilineLabelConfig *)currentConfiguration setAttributedText:0];
-  MEMORY[0x277D82BD8](currentConfiguration);
   [(CPSMultilineLabel *)self setNeedsDisplay];
   [(CPSMultilineLabel *)self invalidateIntrinsicContentSize];
   baselineViewTopAnchor = [(CPSMultilineLabel *)self baselineViewTopAnchor];
   [(NSLayoutConstraint *)baselineViewTopAnchor setActive:0];
-  MEMORY[0x277D82BD8](baselineViewTopAnchor);
   baselineViewBottomAnchor = [(CPSMultilineLabel *)self baselineViewBottomAnchor];
   [(NSLayoutConstraint *)baselineViewBottomAnchor setActive:0];
   MEMORY[0x277D82BD8](baselineViewBottomAnchor);
@@ -44,49 +42,48 @@
 - (CGSize)intrinsicContentSize
 {
   selfCopy = self;
-  v24 = a2;
-  v23 = *MEMORY[0x277D77260];
+  v25 = a2;
+  v24 = *MEMORY[0x277D77260];
   text = [(CPSMultilineLabel *)self text];
-  v19 = [(NSString *)text length];
-  MEMORY[0x277D82BD8](text);
-  if (v19)
+  v20 = [(NSString *)text length];
+  *&v2 = MEMORY[0x277D82BD8](text).n128_u64[0];
+  if (v20)
   {
     currentConfiguration = [(CPSMultilineLabel *)selfCopy currentConfiguration];
     attributedText = [(CPSMultilineLabelConfig *)currentConfiguration attributedText];
-    v20 = 0;
+    v21 = 0;
     if (attributedText)
     {
-      v2 = MEMORY[0x277D82BE0](attributedText);
+      v3 = MEMORY[0x277D82BE0](attributedText);
     }
 
     else
     {
       [(CPSMultilineLabel *)selfCopy bounds];
       CGRectMake();
-      v21 = [(CPSMultilineLabel *)selfCopy _attributedTextForRect:v3, v4, v5, v6];
-      v20 = 1;
-      v2 = MEMORY[0x277D82BE0](v21);
+      v22 = [(CPSMultilineLabel *)selfCopy _attributedTextForRect:v4, v5, v6, v7];
+      v21 = 1;
+      v3 = MEMORY[0x277D82BE0](v22);
     }
 
-    v22 = v2;
-    if (v20)
+    v23 = v3;
+    if (v21)
     {
-      MEMORY[0x277D82BD8](v21);
+      MEMORY[0x277D82BD8](v22);
     }
 
     MEMORY[0x277D82BD8](attributedText);
-    MEMORY[0x277D82BD8](currentConfiguration);
-    v14 = selfCopy;
-    v15 = v22;
+    v15 = selfCopy;
+    v16 = v23;
     [(CPSMultilineLabel *)selfCopy bounds];
-    [(CPSMultilineLabel *)v14 _heightForAttributedString:v15 inRect:v7, v8, v9, v10];
-    v23 = v11;
-    objc_storeStrong(&v22, 0);
+    [(CPSMultilineLabel *)v15 _heightForAttributedString:v16 inRect:v8, v9, v10, v11];
+    v24 = v12;
+    objc_storeStrong(&v23, 0);
   }
 
   CGSizeMake_1();
-  result.height = v13;
-  result.width = v12;
+  result.height = v14;
+  result.width = v13;
   return result;
 }
 
@@ -107,41 +104,39 @@
 {
   baselineViewTopAnchor = [(CPSMultilineLabel *)self baselineViewTopAnchor];
   [(NSLayoutConstraint *)baselineViewTopAnchor setActive:1];
-  MEMORY[0x277D82BD8](baselineViewTopAnchor);
   baselineViewBottomAnchor = [(CPSMultilineLabel *)self baselineViewBottomAnchor];
   [(NSLayoutConstraint *)baselineViewBottomAnchor setActive:1];
-  MEMORY[0x277D82BD8](baselineViewBottomAnchor);
   baselineOffsets = [(CPSMultilineLabel *)self baselineOffsets];
-  v18 = [(NSArray *)baselineOffsets count];
-  MEMORY[0x277D82BD8](baselineOffsets);
-  if (v18)
+  v20 = [(NSArray *)baselineOffsets count];
+  *&v2 = MEMORY[0x277D82BD8](baselineOffsets).n128_u64[0];
+  if (v20)
   {
     [(CPSMultilineLabel *)self bounds];
-    v10 = v2;
+    v12 = v3;
     baselineOffsets2 = [(CPSMultilineLabel *)self baselineOffsets];
     firstObject = [(NSArray *)baselineOffsets2 firstObject];
     [firstObject doubleValue];
-    v11 = v10 - v3;
+    v13 = v12 - v4;
     baselineViewTopAnchor2 = [(CPSMultilineLabel *)self baselineViewTopAnchor];
-    [(NSLayoutConstraint *)baselineViewTopAnchor2 setConstant:v11];
+    [(NSLayoutConstraint *)baselineViewTopAnchor2 setConstant:v13];
     MEMORY[0x277D82BD8](baselineViewTopAnchor2);
     MEMORY[0x277D82BD8](firstObject);
-    MEMORY[0x277D82BD8](baselineOffsets2);
+    v5 = MEMORY[0x277D82BD8](baselineOffsets2).n128_u64[0];
   }
 
   else
   {
     baselineViewTopAnchor3 = [(CPSMultilineLabel *)self baselineViewTopAnchor];
     [(NSLayoutConstraint *)baselineViewTopAnchor3 setConstant:0.0];
-    MEMORY[0x277D82BD8](baselineViewTopAnchor3);
+    v5 = MEMORY[0x277D82BD8](baselineViewTopAnchor3).n128_u64[0];
   }
 
   baselineOffsets3 = [(CPSMultilineLabel *)self baselineOffsets];
   lastObject = [(NSArray *)baselineOffsets3 lastObject];
   [lastObject doubleValue];
-  v5 = -v4;
+  v7 = -v6;
   baselineViewBottomAnchor2 = [(CPSMultilineLabel *)self baselineViewBottomAnchor];
-  [(NSLayoutConstraint *)baselineViewBottomAnchor2 setConstant:v5];
+  [(NSLayoutConstraint *)baselineViewBottomAnchor2 setConstant:v7];
   MEMORY[0x277D82BD8](baselineViewBottomAnchor2);
   MEMORY[0x277D82BD8](lastObject);
   MEMORY[0x277D82BD8](baselineOffsets3);
@@ -351,7 +346,7 @@ void __50__CPSMultilineLabel__updateLayoutGuideConstraints__block_invoke(void *a
     Count = CFArrayGetCount(Lines);
     v43[4] = &v9;
     v33 = 16 * Count;
-    MEMORY[0x28223BE20]();
+    MEMORY[0x28223BE20](Count);
     v34 = &v9 - v33;
     v43[3] = v8;
     v58 = 0;
@@ -691,123 +686,124 @@ void __50__CPSMultilineLabel__updateLayoutGuideConstraints__block_invoke(void *a
 
 - (id)_attributedStringWithSize:(double)size
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v59 = a2;
+  v60 = a2;
   sizeCopy = size;
-  v57 = objc_opt_new();
+  v58 = objc_opt_new();
   font = [(CPSMultilineLabel *)selfCopy font];
-  v40 = 0;
+  v41 = 0;
   CopyWithSymbolicTraits = CTFontCreateCopyWithSymbolicTraits(font, sizeCopy, 0, 0, 0);
 
-  v56[1] = CopyWithSymbolicTraits;
-  v62 = CopyWithSymbolicTraits;
-  v37 = CopyWithSymbolicTraits;
-  v3 = CopyWithSymbolicTraits;
+  v57[1] = CopyWithSymbolicTraits;
+  v63 = CopyWithSymbolicTraits;
   v38 = CopyWithSymbolicTraits;
-  [v57 setObject:? forKeyedSubscript:?];
+  v3 = CopyWithSymbolicTraits;
+  v39 = CopyWithSymbolicTraits;
+  [v58 setObject:? forKeyedSubscript:?];
 
   textColor = [(CPSMultilineLabel *)selfCopy textColor];
-  [v57 setObject:? forKeyedSubscript:?];
+  [v58 setObject:? forKeyedSubscript:?];
 
-  v56[0] = objc_opt_new();
-  v55 = NSTextAlignmentToCTTextAlignment([(CPSMultilineLabel *)selfCopy textAlignment]);
-  v53 = 0;
-  v41 = 0;
-  if (v55 == kCTTextAlignmentNatural)
+  v57[0] = objc_opt_new();
+  v56 = NSTextAlignmentToCTTextAlignment([(CPSMultilineLabel *)selfCopy textAlignment]);
+  v54 = 0;
+  v42 = 0;
+  if (v56 == kCTTextAlignmentNatural)
   {
     traitCollection = [(CPSMultilineLabel *)selfCopy traitCollection];
-    v53 = 1;
-    v41 = [traitCollection layoutDirection] == 1;
+    v54 = 1;
+    v42 = [traitCollection layoutDirection] == 1;
   }
 
-  v34 = v41;
-  if (v53 == 1)
+  v35 = v42;
+  if (v54 == 1)
   {
   }
 
-  if (v34)
+  if (v35)
   {
-    v55 = kCTTextAlignmentRight;
+    v56 = kCTTextAlignmentRight;
   }
 
-  v52[0] = 0;
-  v52[1] = 1;
-  v52[2] = &v55;
-  v32 = v56[0];
-  v33 = [MEMORY[0x277CCAE60] valueWithBytes:v52 objCType:"{CTParagraphStyleSetting=IQ^v}"];
-  [v32 addObject:?];
+  v53[0] = 0;
+  v53[1] = 1;
+  v53[2] = &v56;
+  v33 = v57[0];
+  v34 = [MEMORY[0x277CCAE60] valueWithBytes:v53 objCType:"{CTParagraphStyleSetting=IQ^v}"];
+  [v33 addObject:?];
 
   [(CPSMultilineLabel *)selfCopy lineSpacing];
   if (v4 > -1.79769313e308)
   {
     [(CPSMultilineLabel *)selfCopy lineSpacing];
-    v51 = v5;
-    v50[0] = 14;
+    v52 = v5;
+    v51[0] = 14;
+    v51[1] = 8;
+    v51[2] = &v52;
+    v50[0] = 15;
     v50[1] = 8;
-    v50[2] = &v51;
-    v49[0] = 15;
-    v49[1] = 8;
-    v49[2] = &v51;
-    v26 = v56[0];
-    v28 = 0x277CCA000uLL;
-    v29 = "{CTParagraphStyleSetting=IQ^v}";
-    v27 = [MEMORY[0x277CCAE60] valueWithBytes:v50 objCType:?];
-    [v26 addObject:?];
+    v50[2] = &v52;
+    v27 = v57[0];
+    v29 = 0x277CCA000uLL;
+    v30 = "{CTParagraphStyleSetting=IQ^v}";
+    v28 = [MEMORY[0x277CCAE60] valueWithBytes:v51 objCType:?];
+    [v27 addObject:?];
 
-    v30 = v56[0];
-    v31 = [MEMORY[0x277CCAE60] valueWithBytes:v49 objCType:"{CTParagraphStyleSetting=IQ^v}"];
-    [v30 addObject:?];
+    v31 = v57[0];
+    v32 = [MEMORY[0x277CCAE60] valueWithBytes:v50 objCType:"{CTParagraphStyleSetting=IQ^v}"];
+    [v31 addObject:?];
   }
 
-  if ([v56[0] count])
+  if ([v57[0] count])
   {
-    v48 = &v15;
-    v24 = (24 * [v56[0] count] + 15) & 0xFFFFFFFFFFFFFFF0;
-    v6 = MEMORY[0x28223BE20]();
-    v25 = (&v15 - v24);
-    v47 = v6;
+    v6 = [v57[0] count];
+    v49 = &v16;
+    v25 = (24 * v6 + 15) & 0xFFFFFFFFFFFFFFF0;
+    v7 = MEMORY[0x28223BE20](v6);
+    v26 = (&v16 - v25);
+    v48 = v7;
     for (i = 0; ; ++i)
     {
-      v23 = i;
-      v7 = [v56[0] count];
-      if (v23 >= v7)
+      v24 = i;
+      v8 = [v57[0] count];
+      if (v24 >= v8)
       {
         break;
       }
 
-      location = [v56[0] objectAtIndexedSubscript:i];
-      v22 = 0;
-      v44 = 0;
-      v43 = 0uLL;
-      [location getValue:&v43];
-      v8 = v22;
-      v9 = &v25[i];
-      v10 = v43;
-      v9->value = v44;
-      *&v9->spec = v10;
-      objc_storeStrong(&location, v8);
+      location = [v57[0] objectAtIndexedSubscript:i];
+      v23 = 0;
+      v45 = 0;
+      v44 = 0uLL;
+      [location getValue:&v44];
+      v9 = v23;
+      v10 = &v26[i];
+      v11 = v44;
+      v10->value = v45;
+      *&v10->spec = v11;
+      objc_storeStrong(&location, v9);
     }
 
-    v11 = [v56[0] count];
-    v42 = CTParagraphStyleCreate(v25, v11);
-    v61 = v42;
-    v20 = v42;
-    v12 = v42;
-    v21 = v20;
-    [v57 setObject:? forKeyedSubscript:?];
+    v12 = [v57[0] count];
+    v43 = CTParagraphStyleCreate(v26, v12);
+    v62 = v43;
+    v21 = v43;
+    v13 = v43;
+    v22 = v21;
+    [v58 setObject:? forKeyedSubscript:?];
   }
 
-  v16 = objc_alloc(MEMORY[0x277CCAB48]);
+  v17 = objc_alloc(MEMORY[0x277CCAB48]);
   text = [(CPSMultilineLabel *)selfCopy text];
-  v18 = [v16 initWithString:? attributes:?];
+  v19 = [v17 initWithString:? attributes:?];
 
-  v19 = 0;
-  objc_storeStrong(v56, 0);
-  objc_storeStrong(&v57, v19);
-  v13 = v18;
+  v20 = 0;
+  objc_storeStrong(v57, 0);
+  objc_storeStrong(&v58, v20);
+  v14 = v19;
 
-  return v13;
+  return v14;
 }
 
 - (id)_ellipsedString:(id)string inRect:(CGRect)rect

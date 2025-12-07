@@ -21,20 +21,20 @@
 
 + (BOOL)willEnableDiagnostics
 {
-  v3 = sub_10000B598();
+  v3 = sub_10000B598(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     prefixForDefaults = [self prefixForDefaults];
-    v7 = 138412290;
-    v8 = prefixForDefaults;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "PDSE: Enable HangTracer: set necessary settings with HT's Self-Enablement prefix = %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = prefixForDefaults;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "PDSE: Enable HangTracer: set necessary settings with HT's Self-Enablement prefix = %@", &v8, 0xCu);
   }
 
-  v5 = sub_10000A720();
-  if (os_signpost_enabled(v5))
+  v6 = sub_10000A720(v5);
+  if (os_signpost_enabled(v6))
   {
-    LOWORD(v7) = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HTSelfEnable.DisableToEnable", " enableTelemetry=YES ", &v7, 2u);
+    LOWORD(v8) = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HTSelfEnable.DisableToEnable", " enableTelemetry=YES ", &v8, 2u);
   }
 
   [self writeEnablementSettings];
@@ -48,43 +48,43 @@
   v4 = sub_100000F10(@"HangTracerEnabled", prefixForDefaults);
   CFPreferencesSetValue(v4, kCFBooleanTrue, @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
 
-  v5 = sub_10000B598();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = sub_10000B598(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_10000D01C();
   }
 
   prefixForDefaults2 = [self prefixForDefaults];
-  v7 = sub_100000F10(@"HangTracerReportPeriod", prefixForDefaults2);
-  CFPreferencesSetValue(v7, [NSNumber numberWithDouble:3600.0], @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
+  v8 = sub_100000F10(@"HangTracerReportPeriod", prefixForDefaults2);
+  CFPreferencesSetValue(v8, [NSNumber numberWithDouble:3600.0], @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
 
-  v8 = sub_10000B598();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v10 = sub_10000B598(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_10000D0B8();
   }
 
   prefixForDefaults3 = [self prefixForDefaults];
-  v10 = sub_100000F10(@"HangTracerDailyThirdPartyLogLimit", prefixForDefaults3);
-  CFPreferencesSetValue(v10, [NSNumber numberWithInt:0], @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
+  v12 = sub_100000F10(@"HangTracerDailyThirdPartyLogLimit", prefixForDefaults3);
+  CFPreferencesSetValue(v12, [NSNumber numberWithInt:0], @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
 
-  v11 = sub_10000B598();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v14 = sub_10000B598(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     sub_10000D154();
   }
 
-  v12 = +[HTPrefs sharedPrefs];
-  pdseAllowEnableTailspin = [v12 pdseAllowEnableTailspin];
+  v15 = +[HTPrefs sharedPrefs];
+  pdseAllowEnableTailspin = [v15 pdseAllowEnableTailspin];
 
   if (pdseAllowEnableTailspin)
   {
     prefixForDefaults4 = [self prefixForDefaults];
-    v15 = sub_100000F10(@"HangTracerEnableTailspin", prefixForDefaults4);
-    CFPreferencesSetValue(v15, kCFBooleanTrue, @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
+    v18 = sub_100000F10(@"HangTracerEnableTailspin", prefixForDefaults4);
+    CFPreferencesSetValue(v18, kCFBooleanTrue, @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
 
-    v16 = sub_10000B598();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v20 = sub_10000B598(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       sub_10000D01C();
     }
@@ -95,49 +95,49 @@
 
 + (BOOL)didDisableDiagnostics
 {
-  v3 = sub_10000B598();
+  v3 = sub_10000B598(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     prefixForDefaults = [self prefixForDefaults];
     *buf = 138412290;
-    v26 = prefixForDefaults;
+    v29 = prefixForDefaults;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "HTSE: Disable HTSE: disable tailspin and delete all settings with Self-Enablement prefix = %@", buf, 0xCu);
   }
 
-  v22 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
+  v24 = 0u;
   selfCopy = self;
   prefixForDefaults2 = [self prefixForDefaults];
   v6 = sub_100000F48(@"com.apple.da", @"mobile", prefixForDefaults2);
 
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v21 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         CFPreferencesSetValue(v11, 0, @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
-        v12 = sub_10000B598();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v13 = sub_10000B598(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v26 = v11;
-          _os_log_debug_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "HTSE: Disable HTSE: delete setting %@", buf, 0xCu);
+          v29 = v11;
+          _os_log_debug_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "HTSE: Disable HTSE: delete setting %@", buf, 0xCu);
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v8);
@@ -145,36 +145,36 @@
 
   CFPreferencesSynchronize(@"com.apple.da", @"mobile", kCFPreferencesAnyHost);
   prefixForDefaults3 = [selfCopy prefixForDefaults];
-  v14 = sub_100000F48(@"com.apple.da", @"mobile", prefixForDefaults3);
-  v15 = [v14 count];
+  v15 = sub_100000F48(@"com.apple.da", @"mobile", prefixForDefaults3);
+  v16 = [v15 count];
 
-  v16 = sub_10000B598();
-  v17 = v16;
-  if (v15)
+  v18 = sub_10000B598(v17);
+  v19 = v18;
+  if (v16)
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_10000D1F0(selfCopy, v17);
+      sub_10000D1F0(selfCopy, v19);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "HTSE: Disable HTSE: All prefix'ed settings were successfully deleted", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "HTSE: Disable HTSE: All prefix'ed settings were successfully deleted", buf, 2u);
     }
 
-    v17 = sub_10000A720();
-    if (os_signpost_enabled(v17))
+    v19 = sub_10000A720(v20);
+    if (os_signpost_enabled(v19))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HTSelfEnable.EnableToDisable", " enableTelemetry=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HTSelfEnable.EnableToDisable", " enableTelemetry=YES ", buf, 2u);
     }
   }
 
-  return v15 == 0;
+  return v16 == 0;
 }
 
 + (tailspin_config)desiredTailspinConfig
@@ -190,7 +190,7 @@
 
   else
   {
-    v3 = sub_10000B598();
+    v3 = sub_10000B598(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10000C078(v3);

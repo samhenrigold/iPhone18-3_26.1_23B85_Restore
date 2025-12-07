@@ -1,4 +1,7 @@
 @interface BRCItemID
++ (BOOL)migrateItemIDsToVersion11WithDB:(id)b serverTruth:(BOOL)truth;
++ (BOOL)migrateItemIDsToVersion5WithDB:(id)b serverTruth:(BOOL)truth;
++ (BOOL)migrateItemIDsToVersion8WithDB:(id)b serverTruth:(BOOL)truth;
 + (id)appLibraryRowIDFromRootOrDocumentsSQLiteValue:(sqlite3_value *)value;
 + (id)defaultDesktopItemID;
 + (id)defaultDocumentsItemID;
@@ -25,6 +28,7 @@
 - (id)_initAsLibraryRootWithAppLibraryRowID:(id)d;
 - (id)_initAsZoneRootWithZoneRowID:(id)d;
 - (id)contentsRecordIDInZoneID:(id)d;
+- (id)debugItemIDStringWithVerbose:(BOOL)verbose;
 - (id)derivedAliasItemIDWithOwnerName:(id)name;
 - (id)directoryReferenceInZone:(id)zone action:(unint64_t)action;
 - (id)directoryStructureRecordIDInZone:(id)zone;
@@ -34,6 +38,7 @@
 - (id)pcsChainDocumentStructureReferenceInZoneID:(id)d;
 - (id)sideCarRecordIDWithZone:(id)zone;
 - (id)sideCarRecordNameWithZone:(id)zone;
+- (id)structureRecordIDForItemType:(char)type zone:(id)zone aliasTargetZoneIsShared:(BOOL)shared;
 - (id)zoneUniqueItemIDStringWithSession:(id)session;
 - (unint64_t)hash;
 - (void)appLibraryRowID;
@@ -111,21 +116,20 @@
 
 - (NSString)itemIDString
 {
-  v13 = *MEMORY[0x277D85DE8];
-  memset(v12, 0, sizeof(v12));
-  p_kind = &self->_kind;
+  v11 = *MEMORY[0x277D85DE8];
+  memset(v10, 0, sizeof(v10));
   kind = self->_kind;
   if (kind > 1)
   {
     switch(kind)
     {
       case 2u:
-        v4 = BRCItemIDDocuments;
+        v3 = BRCItemIDDocuments;
         goto LABEL_12;
       case 3u:
-        v8 = brc_bread_crumbs();
-        v9 = brc_default_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+        v7 = brc_bread_crumbs();
+        v8 = brc_default_log();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
         {
           [BRCItemID_v9 itemIDString];
         }
@@ -133,22 +137,22 @@
         goto LABEL_16;
       case 5u:
 LABEL_5:
-        v4 = BRCItemIDZoneRoot;
+        v3 = BRCItemIDZoneRoot;
 LABEL_12:
-        v7 = v4;
+        v6 = v3;
         goto LABEL_18;
     }
 
 LABEL_8:
-    v5 = brc_bread_crumbs();
-    v6 = brc_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v4 = brc_bread_crumbs();
+    v5 = brc_default_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [BRCItemID zoneUniqueItemIDStringWithSession:?];
+      [BRCItemID zoneUniqueItemIDStringWithSession:];
     }
 
 LABEL_16:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_18;
   }
 
@@ -162,12 +166,11 @@ LABEL_16:
     goto LABEL_8;
   }
 
-  uuid_unparse_upper(self->_uuid, v12);
-  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v12 length:36 encoding:4];
+  uuid_unparse_upper(self->_uuid, v10);
+  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v10 length:36 encoding:4];
 LABEL_18:
-  v10 = *MEMORY[0x277D85DE8];
 
-  return v7;
+  return v6;
 }
 
 - (id)contentsRecordIDInZoneID:(id)d
@@ -323,6 +326,72 @@ LABEL_22:
   return v16;
 }
 
+- (id)structureRecordIDForItemType:(char)type zone:(id)zone aliasTargetZoneIsShared:(BOOL)shared
+{
+  sharedCopy = shared;
+  typeCopy = type;
+  zoneCopy = zone;
+  if ((-[BRCItemID isDocumentsFolder](self, "isDocumentsFolder") || -[BRCItemID isNonDesktopRoot](self, "isNonDesktopRoot")) && [zoneCopy isPrivateZone])
+  {
+    session = [zoneCopy session];
+    appLibraryRowID = [(BRCItemID *)self appLibraryRowID];
+    v11 = [session appLibraryByRowID:appLibraryRowID];
+
+    if (!v11)
+    {
+      [BRCItemID(CKConversions) structureRecordIDForItemType:zone:aliasTargetZoneIsShared:];
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  if (![v11 wasMovedToCloudDocs] || !objc_msgSend(zoneCopy, "isPrivateZone") || (objc_msgSend(v11, "isCloudDocsAppLibrary") & 1) != 0)
+  {
+    goto LABEL_10;
+  }
+
+  if ([(BRCItemID *)self isNonDesktopRoot])
+  {
+    appLibraryID = [v11 appLibraryID];
+    v21 = @"directory/appData_";
+LABEL_22:
+    v16 = [(__CFString *)v21 stringByAppendingString:appLibraryID];
+    goto LABEL_15;
+  }
+
+  if ([(BRCItemID *)self isDocumentsFolder])
+  {
+    appLibraryID = [v11 appLibraryID];
+    v21 = @"directory/appDocuments_";
+    goto LABEL_22;
+  }
+
+LABEL_10:
+  appLibraryID = [BRCItemID structureRecordPrefixForItemType:typeCopy targetZoneShared:sharedCopy];
+  if (!appLibraryID)
+  {
+    v13 = brc_bread_crumbs();
+    v14 = brc_default_log();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    {
+      [BRCItemID(CKConversions) structureRecordIDForItemType:zone:aliasTargetZoneIsShared:];
+    }
+  }
+
+  itemIDString = [(BRCItemID *)self itemIDString];
+  v16 = [appLibraryID stringByAppendingString:itemIDString];
+
+LABEL_15:
+  v17 = objc_alloc(MEMORY[0x277CBC5D0]);
+  zoneID = [zoneCopy zoneID];
+  v19 = [v17 initWithRecordName:v16 zoneID:zoneID];
+
+  return v19;
+}
+
 - (id)sideCarRecordNameWithZone:(id)zone
 {
   ownerName = [zone ownerName];
@@ -420,7 +489,7 @@ LABEL_8:
 
 - (id)itemUUIDString
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (self->_kind)
   {
     v2 = 0;
@@ -428,19 +497,17 @@ LABEL_8:
 
   else
   {
-    memset(v5, 0, sizeof(v5));
-    uuid_unparse_upper(self->_uuid, v5);
-    v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v5 length:36 encoding:1];
+    memset(v4, 0, sizeof(v4));
+    uuid_unparse_upper(self->_uuid, v4);
+    v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v4 length:36 encoding:1];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (id)zoneUniqueItemIDStringWithSession:(id)session
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   v5 = sessionCopy;
   if (self->_appLibraryRowID)
@@ -464,15 +531,14 @@ LABEL_8:
     clientZone = 0;
   }
 
-  memset(v21, 0, 37);
-  p_kind = &self->_kind;
+  memset(v19, 0, 37);
   kind = self->_kind;
   if (kind <= 1)
   {
     if (!self->_kind)
     {
-      uuid_unparse_upper(self->_uuid, v21);
-      v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v21 length:36 encoding:4];
+      uuid_unparse_upper(self->_uuid, v19);
+      v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v19 length:36 encoding:4];
       goto LABEL_30;
     }
 
@@ -488,9 +554,9 @@ LABEL_8:
 
     appLibraryID = [v6 appLibraryID];
     mangledID = appLibraryID;
-    v15 = BRCItemIDZoneRoot;
+    v14 = BRCItemIDZoneRoot;
 LABEL_20:
-    v13 = [appLibraryID stringByAppendingPathComponent:v15];
+    v12 = [appLibraryID stringByAppendingPathComponent:v14];
 LABEL_21:
 
     goto LABEL_30;
@@ -501,12 +567,12 @@ LABEL_21:
     case 2u:
       appLibraryID = [v6 appLibraryID];
       mangledID = appLibraryID;
-      v15 = BRCItemIDDocuments;
+      v14 = BRCItemIDDocuments;
       goto LABEL_20;
     case 3u:
-      v16 = brc_bread_crumbs();
-      v17 = brc_default_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v15 = brc_bread_crumbs();
+      v16 = brc_default_log();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         [BRCItemID_v9 itemIDString];
       }
@@ -520,24 +586,115 @@ LABEL_21:
 
       mangledID = [clientZone mangledID];
       mangledIDString = [mangledID mangledIDString];
-      v13 = [mangledIDString stringByAppendingPathComponent:BRCItemIDZoneRoot];
+      v12 = [mangledIDString stringByAppendingPathComponent:BRCItemIDZoneRoot];
 
       goto LABEL_21;
   }
 
 LABEL_26:
-  v16 = brc_bread_crumbs();
-  v18 = brc_default_log();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+  v15 = brc_bread_crumbs();
+  v17 = brc_default_log();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
   {
-    [BRCItemID zoneUniqueItemIDStringWithSession:?];
+    [BRCItemID zoneUniqueItemIDStringWithSession:];
   }
 
 LABEL_29:
-  v13 = 0;
+  v12 = 0;
 LABEL_30:
 
-  v19 = *MEMORY[0x277D85DE8];
+  return v12;
+}
+
+- (id)debugItemIDStringWithVerbose:(BOOL)verbose
+{
+  v18 = *MEMORY[0x277D85DE8];
+  memset(out, 0, 37);
+  kind = self->_kind;
+  if (kind > 2)
+  {
+    if (kind - 3 < 2)
+    {
+      v6 = brc_bread_crumbs();
+      v7 = brc_default_log();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      {
+        [BRCItemID debugItemIDStringWithVerbose:];
+      }
+
+      goto LABEL_17;
+    }
+
+    if (kind == 5)
+    {
+      unk_283812588(BRCItemIDZoneRoot, "stringByAppendingFormat:", @"{%llu}", [(BRCZoneRowID *)self->_zoneRowID unsignedLongLongValue]);
+      v13 = LABEL_20:;
+      goto LABEL_28;
+    }
+
+LABEL_14:
+    v11 = brc_bread_crumbs();
+    v12 = brc_default_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    {
+      [BRCItemID zoneUniqueItemIDStringWithSession:];
+    }
+
+LABEL_17:
+    v13 = 0;
+    goto LABEL_28;
+  }
+
+  if (self->_kind)
+  {
+    if (kind == 1)
+    {
+      v5 = BRCItemIDZoneRoot;
+      goto LABEL_19;
+    }
+
+    if (kind == 2)
+    {
+      v5 = BRCItemIDDocuments;
+LABEL_19:
+      [(__CFString *)v5 stringByAppendingFormat:@"[%llu]", [(BRCALRowID *)self->_appLibraryRowID unsignedLongLongValue]];
+      goto LABEL_20;
+    }
+
+    goto LABEL_14;
+  }
+
+  v9 = out;
+  uuid_unparse_upper(self->_uuid, out);
+  if (verbose)
+  {
+    v10 = 36;
+  }
+
+  else
+  {
+    v14 = *self->_uuid == 0x30000000000000;
+    if (*self->_uuid == 0x30000000000000)
+    {
+      v10 = 17;
+    }
+
+    else
+    {
+      v10 = 8;
+    }
+
+    v15 = 19;
+    if (!v14)
+    {
+      v15 = 0;
+    }
+
+    v9 = &out[v15];
+  }
+
+  v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v9 length:v10 encoding:4];
+LABEL_28:
 
   return v13;
 }
@@ -556,13 +713,12 @@ LABEL_30:
   if (!dCopy || (v4 = dCopy, ![dCopy unsignedLongLongValue]))
   {
     abc_report_panic_with_signature();
-    [MEMORY[0x277CCACA8] stringWithFormat:@"invalid library rowid"];
-    objc_claimAutoreleasedReturnValue();
-    v7 = brc_bread_crumbs();
-    v8 = brc_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"invalid library rowid"];
+    v8 = brc_bread_crumbs();
+    v9 = brc_default_log();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      __37__BRCPQLConnection__setLockedHandler__block_invoke_cold_1();
+      __37__BRCPQLConnection__setLockedHandler__block_invoke_cold_1(v7);
     }
 
     brc_append_system_info_to_message();
@@ -571,8 +727,8 @@ LABEL_30:
   }
 
   intValue = [v4 intValue];
-  v10 = 2;
-  v5 = [[BRCItemID alloc] initWithRootObject:&v10];
+  v11 = 2;
+  v5 = [[BRCItemID alloc] initWithRootObject:&v11];
 
   return v5;
 }
@@ -725,13 +881,13 @@ LABEL_12:
 
 - (BRCItemID)initWithUUIDString:(id)string
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   stringCopy = string;
-  v10[0] = 0;
-  v10[1] = 0;
+  v9[0] = 0;
+  v9[1] = 0;
   if (_br_parseUUIDString())
   {
-    self = [(BRCItemID *)self initWithUUID:v10];
+    self = [(BRCItemID *)self initWithUUID:v9];
     selfCopy = self;
   }
 
@@ -747,7 +903,6 @@ LABEL_12:
     selfCopy = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -883,35 +1038,33 @@ LABEL_12:
 
 + (id)newFromSqliteValue:(sqlite3_value *)value
 {
-  *&v26[13] = *MEMORY[0x277D85DE8];
+  *&v23[13] = *MEMORY[0x277D85DE8];
   v4 = sqlite3_value_type(value);
   if (v4 == 5)
   {
-LABEL_17:
-    v20 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
   v5 = v4;
   if (v4 != 4)
   {
-    v11 = sqlite3_value_text(value);
-    v12 = sqlite3_value_bytes(value);
-    v13 = brc_bread_crumbs();
-    v14 = brc_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v10 = sqlite3_value_text(value);
+    v11 = sqlite3_value_bytes(value);
+    v12 = brc_bread_crumbs();
+    v13 = brc_default_log();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      v21 = [MEMORY[0x277CBEA90] dataWithBytes:v11 length:v12];
-      v23 = 138412802;
-      v24 = v21;
-      v25 = 1024;
-      *v26 = v5;
-      v26[2] = 2112;
-      *&v26[3] = v13;
-      _os_log_fault_impl(&dword_223E7A000, v14, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: unmigrated? invalid BRCItemID (%@) - %d%@", &v23, 0x1Cu);
+      v18 = [MEMORY[0x277CBEA90] dataWithBytes:v10 length:v11];
+      v20 = 138412802;
+      v21 = v18;
+      v22 = 1024;
+      *v23 = v5;
+      v23[2] = 2112;
+      *&v23[3] = v12;
+      _os_log_fault_impl(&dword_223E7A000, v13, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: unmigrated? invalid BRCItemID (%@) - %d%@", &v20, 0x1Cu);
     }
 
-    goto LABEL_17;
+    return 0;
   }
 
   v6 = sqlite3_value_blob(value);
@@ -919,66 +1072,62 @@ LABEL_17:
   if (v7 == 16)
   {
     v8 = [BRCItemID alloc];
-    v9 = *MEMORY[0x277D85DE8];
 
     return [(BRCItemID *)v8 initWithUUID:v6];
   }
 
-  v15 = v7;
+  v14 = v7;
   if (v7 != 5)
   {
-    v18 = brc_bread_crumbs();
-    v19 = brc_default_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v16 = brc_bread_crumbs();
+    v17 = brc_default_log();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      v22 = [MEMORY[0x277CBEA90] dataWithBytes:v6 length:v15];
-      v23 = 138412546;
-      v24 = v22;
-      v25 = 2112;
-      *v26 = v18;
-      _os_log_fault_impl(&dword_223E7A000, v19, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid BRCItemID (%@)%@", &v23, 0x16u);
+      v19 = [MEMORY[0x277CBEA90] dataWithBytes:v6 length:v14];
+      v20 = 138412546;
+      v21 = v19;
+      v22 = 2112;
+      *v23 = v16;
+      _os_log_fault_impl(&dword_223E7A000, v17, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid BRCItemID (%@)%@", &v20, 0x16u);
     }
 
-    goto LABEL_17;
+    return 0;
   }
 
-  v16 = [BRCItemID alloc];
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = [BRCItemID alloc];
 
-  return [(BRCItemID *)v16 initWithRootObject:v6];
+  return [(BRCItemID *)v15 initWithRootObject:v6];
 }
 
 + (id)newFromSqliteStatement:(sqlite3_stmt *)statement atIndex:(int)index
 {
-  *&v28[13] = *MEMORY[0x277D85DE8];
+  *&v25[13] = *MEMORY[0x277D85DE8];
   v6 = sqlite3_column_type(statement, index);
   if (v6 == 5)
   {
-LABEL_17:
-    v22 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
   v7 = v6;
   if (v6 != 4)
   {
-    v13 = sqlite3_column_text(statement, index);
-    v14 = sqlite3_column_bytes(statement, index);
-    v15 = brc_bread_crumbs();
-    v16 = brc_default_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v12 = sqlite3_column_text(statement, index);
+    v13 = sqlite3_column_bytes(statement, index);
+    v14 = brc_bread_crumbs();
+    v15 = brc_default_log();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      v23 = [MEMORY[0x277CBEA90] dataWithBytes:v13 length:v14];
-      v25 = 138412802;
-      v26 = v23;
-      v27 = 1024;
-      *v28 = v7;
-      v28[2] = 2112;
-      *&v28[3] = v15;
-      _os_log_fault_impl(&dword_223E7A000, v16, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: unmigrated? invalid BRCItemID (%@) - %d%@", &v25, 0x1Cu);
+      v20 = [MEMORY[0x277CBEA90] dataWithBytes:v12 length:v13];
+      v22 = 138412802;
+      v23 = v20;
+      v24 = 1024;
+      *v25 = v7;
+      v25[2] = 2112;
+      *&v25[3] = v14;
+      _os_log_fault_impl(&dword_223E7A000, v15, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: unmigrated? invalid BRCItemID (%@) - %d%@", &v22, 0x1Cu);
     }
 
-    goto LABEL_17;
+    return 0;
   }
 
   v8 = sqlite3_column_blob(statement, index);
@@ -986,33 +1135,31 @@ LABEL_17:
   if (v9 == 16)
   {
     v10 = [BRCItemID alloc];
-    v11 = *MEMORY[0x277D85DE8];
 
     return [(BRCItemID *)v10 initWithUUID:v8];
   }
 
-  v17 = v9;
+  v16 = v9;
   if (v9 != 5)
   {
-    v20 = brc_bread_crumbs();
-    v21 = brc_default_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+    v18 = brc_bread_crumbs();
+    v19 = brc_default_log();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      v24 = [MEMORY[0x277CBEA90] dataWithBytes:v8 length:v17];
-      v25 = 138412546;
-      v26 = v24;
-      v27 = 2112;
-      *v28 = v20;
-      _os_log_fault_impl(&dword_223E7A000, v21, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid BRCItemID (%@)%@", &v25, 0x16u);
+      v21 = [MEMORY[0x277CBEA90] dataWithBytes:v8 length:v16];
+      v22 = 138412546;
+      v23 = v21;
+      v24 = 2112;
+      *v25 = v18;
+      _os_log_fault_impl(&dword_223E7A000, v19, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid BRCItemID (%@)%@", &v22, 0x16u);
     }
 
-    goto LABEL_17;
+    return 0;
   }
 
-  v18 = [BRCItemID alloc];
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = [BRCItemID alloc];
 
-  return [(BRCItemID *)v18 initWithRootObject:v8];
+  return [(BRCItemID *)v17 initWithRootObject:v8];
 }
 
 + (id)appLibraryRowIDFromRootOrDocumentsSQLiteValue:(sqlite3_value *)value
@@ -1223,19 +1370,19 @@ LABEL_21:
 
 - (id)derivedAliasItemIDWithOwnerName:(id)name
 {
-  v17 = *MEMORY[0x277D85DE8];
-  *v15 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
+  *v14 = 0u;
   selfCopy = self;
   nameCopy = name;
   v7 = [(BRCItemID *)self UTF8String:0];
   uTF8String = [nameCopy UTF8String];
 
-  CC_MD5_Init(&v14);
+  CC_MD5_Init(&v13);
   v9 = strlen(uTF8String);
-  CC_MD5_Update(&v14, uTF8String, v9);
+  CC_MD5_Update(&v13, uTF8String, v9);
   v10 = strlen(v7);
-  CC_MD5_Update(&v14, v7, v10);
-  CC_MD5_Final(md, &v14);
+  CC_MD5_Update(&v13, v7, v10);
+  CC_MD5_Final(md, &v13);
   md[6] = md[6] & 0xF | 0x30;
   md[8] = md[8] & 0x3F | 0x80;
   v11 = objc_alloc_init(BRCItemID);
@@ -1244,8 +1391,6 @@ LABEL_21:
     v11->_kind = 0;
     *v11->_uuid = *md;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1335,9 +1480,84 @@ LABEL_16:
   return v17;
 }
 
++ (BOOL)migrateItemIDsToVersion5WithDB:(id)b serverTruth:(BOOL)truth
+{
+  truthCopy = truth;
+  *&v23[5] = *MEMORY[0x277D85DE8];
+  bCopy = b;
+  v6 = [(BRCPQLInjectionServerClientTableBase *)[BRCPQLInjectionServerClientItemsTable alloc] initWithServerTruth:truthCopy];
+  v7 = [(BRCPQLInjectionServerClientTableBase *)[BRCPQLInjectionServerClientZonesTable alloc] initWithServerTruth:truthCopy];
+  v8 = [bCopy fetch:{@"SELECT rowid FROM %@ WHERE zone_owner != %@", v7, *MEMORY[0x277CBBF28]}];
+  if ([v8 next])
+  {
+    v17 = truthCopy;
+    v9 = 1;
+    do
+    {
+      v10 = [v8 numberAtIndex:0];
+      intValue = 0;
+      v20 = 1;
+      intValue = [v10 intValue];
+      if (!intValue)
+      {
+        [BRCItemID migrateItemIDsToVersion5WithDB:v22 serverTruth:v23];
+      }
+
+      v11 = [[BRCItemID alloc] initWithRootObject:&v20];
+      if (v9)
+      {
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke;
+        v18[3] = &unk_2784FF870;
+        v12 = v10;
+        v19 = v12;
+        v13 = MEMORY[0x22AA4A310](v18);
+        v9 = [bCopy execute:{@"UPDATE %@ SET item_id = call_block(%@, item_id), item_parent_id = %@ WHERE zone_rowid = %@", v6, v13, v11, v12}];
+      }
+
+      else
+      {
+        v9 = 0;
+      }
+    }
+
+    while (([v8 next] & 1) != 0);
+    [v8 close];
+    LOBYTE(truthCopy) = v17;
+    if ((v9 & 1) == 0)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+    [v8 close];
+  }
+
+  if (![bCopy execute:{@"UPDATE %@ SET item_id = call_block(%@, item_id, zone_rowid) WHERE item_type = 3", v6, &__block_literal_global_38}] || !objc_msgSend(bCopy, "execute:", @"UPDATE %@ SET item_parent_id = call_block(%@, zone_rowid) WHERE item_parent_id = root", v6, &__block_literal_global_72) || !objc_msgSend(bCopy, "execute:", @"UPDATE %@ SET item_parent_id = call_block(%@, zone_rowid) WHERE item_parent_id = documents", v6, &__block_literal_global_75))
+  {
+LABEL_18:
+    v15 = 0;
+    goto LABEL_19;
+  }
+
+  v14 = [bCopy execute:{@"UPDATE %@ SET item_id = call_block(%@, zone_rowid) WHERE item_id = documents", v6, &__block_literal_global_75}];
+  v15 = truthCopy & v14;
+  if (!truthCopy && (v14 & 1) != 0)
+  {
+    v15 = [bCopy execute:{@"UPDATE client_unapplied_table SET item_id = call_block(%@, zone_rowid) WHERE item_id = documents", &__block_literal_global_75}];
+  }
+
+LABEL_19:
+
+  return v15;
+}
+
 void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke(uint64_t a1, sqlite3_context *a2, int a3, sqlite3_value **a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (a3 != 1)
   {
     __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_cold_1();
@@ -1346,23 +1566,21 @@ void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke(u
   v7 = sqlite3_value_blob(*a4);
   if (sqlite3_value_bytes(*a4) == 16)
   {
-    v9 = 4;
-    v10 = [*(a1 + 32) intValue];
-    v11 = *v7;
-    sqlite3_result_blob(a2, &v9, 21, 0xFFFFFFFFFFFFFFFFLL);
+    v8 = 4;
+    v9 = [*(a1 + 32) intValue];
+    v10 = *v7;
+    sqlite3_result_blob(a2, &v8, 21, 0xFFFFFFFFFFFFFFFFLL);
   }
 
   else
   {
     __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_cold_2(a2);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_66(uint64_t a1, sqlite3_context *a2, int a3, sqlite3_value **a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a3 != 2)
   {
     __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_66_cold_1();
@@ -1373,18 +1591,16 @@ void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_6
   v8 = sqlite3_value_int(a4[1]);
   if (v7 == 16)
   {
-    v10 = 3;
-    v11 = v8;
-    v12 = *v6;
-    sqlite3_result_blob(a2, &v10, 21, 0xFFFFFFFFFFFFFFFFLL);
+    v9 = 3;
+    v10 = v8;
+    v11 = *v6;
+    sqlite3_result_blob(a2, &v9, 21, 0xFFFFFFFFFFFFFFFFLL);
   }
 
   else
   {
     __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_66_cold_2(a2);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_70(uint64_t a1, sqlite3_context *a2, int a3, sqlite3_value **a4)
@@ -1413,6 +1629,16 @@ void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_7
   sqlite3_result_blob(a2, &v7, 5, 0xFFFFFFFFFFFFFFFFLL);
 }
 
++ (BOOL)migrateItemIDsToVersion8WithDB:(id)b serverTruth:(BOOL)truth
+{
+  truthCopy = truth;
+  bCopy = b;
+  v6 = [(BRCPQLInjectionServerClientTableBase *)[BRCPQLInjectionServerClientItemsTable alloc] initWithServerTruth:truthCopy];
+  v7 = [bCopy execute:{@"UPDATE %@ SET item_id = call_block(%@, item_id) WHERE item_type = 3", v6, &__block_literal_global_89_0}];
+
+  return v7;
+}
+
 void __56__BRCItemID_migrateItemIDsToVersion8WithDB_serverTruth___block_invoke(uint64_t a1, sqlite3_context *a2, int a3, sqlite3_value **a4)
 {
   if (a3 != 1)
@@ -1432,9 +1658,53 @@ void __56__BRCItemID_migrateItemIDsToVersion8WithDB_serverTruth___block_invoke(u
   }
 }
 
++ (BOOL)migrateItemIDsToVersion11WithDB:(id)b serverTruth:(BOOL)truth
+{
+  truthCopy = truth;
+  bCopy = b;
+  v6 = [(BRCPQLInjectionServerClientTableBase *)[BRCPQLInjectionServerClientItemsTable alloc] initWithServerTruth:truthCopy];
+  v15 = [(BRCPQLInjectionServerClientTableBase *)[BRCPQLInjectionServerClientZonesTable alloc] initWithServerTruth:truthCopy];
+  v7 = [bCopy fetch:{@"SELECT rowid FROM %@ WHERE zone_owner != %@", v15, *MEMORY[0x277CBBF28]}];
+  if ([v7 next])
+  {
+    v8 = 1;
+    do
+    {
+      v9 = [v7 numberAtIndex:0];
+      v10 = v9;
+      v11 = 0;
+      if (v8)
+      {
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_95;
+        v16[3] = &unk_278503518;
+        v18 = truthCopy;
+        v12 = v9;
+        v17 = v12;
+        v13 = MEMORY[0x22AA4A310](v16);
+        v11 = [bCopy execute:{@"UPDATE %@ SET item_id = call_block(%@, item_id), item_parent_id = call_block(%@, item_parent_id) WHERE zone_rowid = %@", v6, &__block_literal_global_94, v13, v12}];
+      }
+
+      v8 = v11;
+    }
+
+    while (([v7 next] & 1) != 0);
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  [v7 close];
+
+  return v11;
+}
+
 void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke(uint64_t a1, sqlite3_context *a2, int a3, sqlite3_value **a4)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (a3 != 1)
   {
     __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_cold_1();
@@ -1448,16 +1718,14 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke(
       __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_cold_3();
     }
 
-    v8 = *(v6 + 5);
-    sqlite3_result_blob(a2, &v8, 16, 0xFFFFFFFFFFFFFFFFLL);
+    v7 = *(v6 + 5);
+    sqlite3_result_blob(a2, &v7, 16, 0xFFFFFFFFFFFFFFFFLL);
   }
 
   else
   {
     __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_cold_2(a2);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_95(uint64_t a1, sqlite3_context *a2, int a3, sqlite3_value **a4)
@@ -1495,7 +1763,6 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
 
 - (void)appLibraryRowID
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1503,15 +1770,12 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: self.isNonDesktopRoot || self.isDocumentsFolder%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: self.isNonDesktopRoot || self.isDocumentsFolder%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sharedZoneRowID
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1519,15 +1783,12 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: self.isSharedZoneRoot%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: self.isSharedZoneRoot%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)zoneUniqueItemIDStringWithSession:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1535,15 +1796,12 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: sharedZone%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: sharedZone%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)zoneUniqueItemIDStringWithSession:.cold.3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1551,41 +1809,19 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: appLibrary%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: appLibrary%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-- (void)zoneUniqueItemIDStringWithSession:(unsigned __int8 *)a1 .cold.4(unsigned __int8 *a1)
+- (void)zoneUniqueItemIDStringWithSession:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_6_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)debugItemIDStringWithVerbose:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: we should not have alias or share uuid types anymores%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isEqualToItemID:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: we should not have alias or shared uuid types anymores%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)initWithString:libraryRowID:sharedZoneRowID:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1593,15 +1829,12 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: libraryRowID%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: libraryRowID%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithString:libraryRowID:sharedZoneRowID:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1609,59 +1842,40 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: libraryRowID || sharedZoneRowID%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: libraryRowID || sharedZoneRowID%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithUUIDString:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7(&dword_223E7A000, v1, v2, "[CRIT] UNREACHABLE: invalid UUID: %s%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_223E7A000, v1, v2, "[CRIT] UNREACHABLE: invalid UUID: %s%@", v3, v4, v5, v6);
 }
 
 - (void)_initAsLibraryRootWithAppLibraryRowID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_6_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initAsZoneRootWithZoneRowID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_6_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initAsDocumentsWithAppLibraryRowID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_6_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithRootObject:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: object->item_code == BRCItemIDCodeDocuments || object->item_code == BRCItemIDCodeZoneRoot || object->item_code == BRCItemIDCodeSharedZoneRoot%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)appLibraryRowIDFromRootOrDocumentsSQLiteValue:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1669,31 +1883,12 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: appLibraryRowID%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: appLibraryRowID%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithCoder:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: decoding an unknown kind of itemid%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)encodeWithCoder:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: encoding an item id with an unknown kind%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sqliteBind:index:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1701,15 +1896,12 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: rio.zone_rowid%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: rio.zone_rowid%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sqliteBind:index:.cold.3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1717,15 +1909,12 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: rio.app_lib_rowid%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: rio.app_lib_rowid%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sqliteBind:index:.cold.4()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1733,27 +1922,15 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: rio.app_lib_rowid%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: rio.app_lib_rowid%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sqliteBind:index:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: unknown itemID kind%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)parseMangledItemIDString:(void *)a1 mangledID:etag:session:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7(&dword_223E7A000, v1, v2, "[CRIT] UNREACHABLE: unparsable mangled itemID: %s%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_223E7A000, v1, v2, "[CRIT] UNREACHABLE: unparsable mangled itemID: %s%@", v3, v4, v5, v6);
 }
 
 + (void)migrateItemIDsToVersion5WithDB:(uint8_t *)a1 serverTruth:(void *)a2 .cold.1(uint8_t *a1, void *a2)
@@ -1772,7 +1949,6 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
 
 void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1780,15 +1956,12 @@ void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_c
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: argc == 1%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: argc == 1%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_cold_2(sqlite3_context *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_4();
@@ -1796,7 +1969,7 @@ void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_c
   if (OUTLINED_FUNCTION_13_1(v4))
   {
     OUTLINED_FUNCTION_10_1();
-    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v7, v8, "[CRIT] Assertion failed: len == sizeof(uuid_t)%@", v9, v10, v11, v12, v19);
+    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: len == sizeof(uuid_t)%@", v8, v9, v10, v11);
   }
 
   brc_bread_crumbs();
@@ -1806,16 +1979,14 @@ void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_c
   if (OUTLINED_FUNCTION_13_1(v5))
   {
     OUTLINED_FUNCTION_10_1();
-    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v13, v14, "[CRIT] UNREACHABLE: Invalid Shared ItemID%@", v15, v16, v17, v18, v19);
+    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v12, v13, "[CRIT] UNREACHABLE: Invalid Shared ItemID%@", v14, v15, v16, v17);
   }
 
   sqlite3_result_null(a1);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_66_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1823,15 +1994,12 @@ void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_6
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: argc == 2%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: argc == 2%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_66_cold_2(sqlite3_context *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_4();
@@ -1839,7 +2007,7 @@ void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_6
   if (OUTLINED_FUNCTION_13_1(v4))
   {
     OUTLINED_FUNCTION_10_1();
-    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v7, v8, "[CRIT] Assertion failed: len == sizeof(uuid_t)%@", v9, v10, v11, v12, v19);
+    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: len == sizeof(uuid_t)%@", v8, v9, v10, v11);
   }
 
   brc_bread_crumbs();
@@ -1849,16 +2017,14 @@ void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_6
   if (OUTLINED_FUNCTION_13_1(v5))
   {
     OUTLINED_FUNCTION_10_1();
-    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v13, v14, "[CRIT] UNREACHABLE: Invalid Shared ItemID%@", v15, v16, v17, v18, v19);
+    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v12, v13, "[CRIT] UNREACHABLE: Invalid Shared ItemID%@", v14, v15, v16, v17);
   }
 
   sqlite3_result_null(a1);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_70_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1866,15 +2032,12 @@ void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_7
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: argc == 1%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: argc == 1%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_73_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1882,15 +2045,12 @@ void __56__BRCItemID_migrateItemIDsToVersion5WithDB_serverTruth___block_invoke_7
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: argc == 1%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: argc == 1%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCItemID_migrateItemIDsToVersion8WithDB_serverTruth___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1898,15 +2058,12 @@ void __56__BRCItemID_migrateItemIDsToVersion8WithDB_serverTruth___block_invoke_c
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: argc == 1%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: argc == 1%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCItemID_migrateItemIDsToVersion8WithDB_serverTruth___block_invoke_cold_2(sqlite3_context *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_4();
@@ -1914,7 +2071,7 @@ void __56__BRCItemID_migrateItemIDsToVersion8WithDB_serverTruth___block_invoke_c
   if (OUTLINED_FUNCTION_13_1(v4))
   {
     OUTLINED_FUNCTION_10_1();
-    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v7, v8, "[CRIT] Assertion failed: len == sizeof(_UUIDItemObject_OLD)%@", v9, v10, v11, v12, v19);
+    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: len == sizeof(_UUIDItemObject_OLD)%@", v8, v9, v10, v11);
   }
 
   brc_bread_crumbs();
@@ -1924,16 +2081,14 @@ void __56__BRCItemID_migrateItemIDsToVersion8WithDB_serverTruth___block_invoke_c
   if (OUTLINED_FUNCTION_13_1(v5))
   {
     OUTLINED_FUNCTION_10_1();
-    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v13, v14, "[CRIT] UNREACHABLE: Invalid Alias ItemID%@", v15, v16, v17, v18, v19);
+    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v12, v13, "[CRIT] UNREACHABLE: Invalid Alias ItemID%@", v14, v15, v16, v17);
   }
 
   sqlite3_result_null(a1);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1941,15 +2096,12 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: argc == 1%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: argc == 1%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_cold_2(sqlite3_context *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_4();
@@ -1957,7 +2109,7 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_13_1(v4))
   {
     OUTLINED_FUNCTION_10_1();
-    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v7, v8, "[CRIT] Assertion failed: len == sizeof(_UUIDItemObject_OLD)%@", v9, v10, v11, v12, v19);
+    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: len == sizeof(_UUIDItemObject_OLD)%@", v8, v9, v10, v11);
   }
 
   brc_bread_crumbs();
@@ -1967,16 +2119,14 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_13_1(v5))
   {
     OUTLINED_FUNCTION_10_1();
-    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v13, v14, "[CRIT] UNREACHABLE: Invalid Shared ItemID%@", v15, v16, v17, v18, v19);
+    OUTLINED_FUNCTION_4_4(&dword_223E7A000, v12, v13, "[CRIT] UNREACHABLE: Invalid Shared ItemID%@", v14, v15, v16, v17);
   }
 
   sqlite3_result_null(a1);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_cold_3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1984,15 +2134,12 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: p->item_code == _UNUSED_BRCItemIDCodeSharedUUID%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: p->item_code == _UNUSED_BRCItemIDCodeSharedUUID%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_95_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2000,15 +2147,12 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: argc == 1%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: argc == 1%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_95_cold_2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2016,10 +2160,8 @@ void __57__BRCItemID_migrateItemIDsToVersion11WithDB_serverTruth___block_invoke_
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: len == sizeof(_UUIDItemObject_OLD) && ((_UUIDItemObject_OLD*)blob)->item_code == BRCItemIDCodeSharedZoneRoot%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: len == sizeof(_UUIDItemObject_OLD) && ((_UUIDItemObject_OLD*)blob)->item_code == BRCItemIDCodeSharedZoneRoot%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

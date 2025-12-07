@@ -12,7 +12,10 @@
 - (void)updateButtonTrayCaption:(id)caption;
 - (void)updateHeadphoneState;
 - (void)updateViewForCurrentNode;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)volumeDidChanged:(id)changed;
 @end
 
@@ -125,7 +128,7 @@
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Headphone changed %@", buf, 0xCu);
   }
 
-  AXPerformBlockOnMainThreadAfterDelay();
+  AXPerformBlockOnMainThreadAfterDelay(0.5);
 }
 
 - (void)updateHeadphoneState
@@ -164,7 +167,7 @@
 
   if (section == &dword_0 + 2)
   {
-    AXPerformBlockOnMainThreadAfterDelay();
+    AXPerformBlockOnMainThreadAfterDelay(0.2);
   }
 }
 
@@ -178,9 +181,9 @@
 
 - (void)viewDidLoad
 {
-  v46.receiver = self;
-  v46.super_class = PersonalAudioStimuliViewController;
-  [(PersonalAudioStimuliViewController *)&v46 viewDidLoad];
+  v45.receiver = self;
+  v45.super_class = PersonalAudioStimuliViewController;
+  [(PersonalAudioStimuliViewController *)&v45 viewDidLoad];
   [(PersonalAudioStimuliViewController *)self setEdgesForExtendedLayout:5];
   v3 = +[NSMutableArray array];
   v4 = +[OBBoldTrayButton boldButton];
@@ -217,24 +220,24 @@
   contentView2 = [(PersonalAudioStimuliViewController *)self contentView];
   [contentView2 addSubview:self->_optionControl];
 
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2050000000;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2050000000;
   v17 = qword_574F8;
-  v51 = qword_574F8;
+  v50 = qword_574F8;
   if (!qword_574F8)
   {
-    v47[0] = _NSConcreteStackBlock;
-    v47[1] = 3221225472;
-    v47[2] = sub_25A9C;
-    v47[3] = &unk_48A48;
-    v47[4] = &v48;
-    sub_25A9C(v47);
-    v17 = v49[3];
+    v46[0] = _NSConcreteStackBlock;
+    v46[1] = 3221225472;
+    v46[2] = sub_25A9C;
+    v46[3] = &unk_48A48;
+    v46[4] = &v47;
+    sub_25A9C(v46);
+    v17 = v48[3];
   }
 
   v18 = v17;
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v47, 8);
   v19 = [[v17 alloc] initWithFrame:0 style:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
   volumeSlider = self->_volumeSlider;
   self->_volumeSlider = v19;
@@ -246,7 +249,7 @@
   v24 = [UIImage _systemImageNamed:@"speaker.wave.3.fill"];
   v25 = [v24 imageWithTintColor:v21 renderingMode:1];
 
-  v45 = v23;
+  v44 = v23;
   [(MPVolumeSlider *)self->_volumeSlider setMinimumValueImage:v23];
   [(MPVolumeSlider *)self->_volumeSlider setMaximumValueImage:v25];
   [(MPVolumeSlider *)self->_volumeSlider setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -288,8 +291,7 @@
   if (self->_visualizerView)
   {
     v40 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"V:|-(%lf)-[_visualizerView]-(%lf)-[_optionControl]-(%lf)-[_instructions]-(%lf)-[_volumeSlider]-|", xmmword_574D8, qword_574E8, qword_574F0);
-    v41 = self->_optionControl;
-    _NSDictionaryOfVariableBindings(@"_visualizerView, _optionControl, _instructions, _volumeSlider", self->_visualizerView, v41, self->_instructions, self->_volumeSlider, 0);
+    _NSDictionaryOfVariableBindings(@"_visualizerView, _optionControl, _instructions, _volumeSlider", self->_visualizerView, self->_optionControl, self->_instructions, self->_volumeSlider, 0);
   }
 
   else
@@ -297,9 +299,9 @@
     v40 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"V:|-(%lf)-[_optionControl]-(%lf)-[_instructions]-(%lf)-[_volumeSlider]-|", *(&xmmword_574D8 + 1), qword_574E8, qword_574F0);
     _NSDictionaryOfVariableBindings(@"_optionControl, _instructions, _volumeSlider", self->_optionControl, self->_instructions, self->_volumeSlider, 0);
   }
-  v42 = ;
-  v43 = [NSLayoutConstraint constraintsWithVisualFormat:v40 options:0 metrics:0 views:v42];
-  [v3 addObjectsFromArray:v43];
+  v41 = ;
+  v42 = [NSLayoutConstraint constraintsWithVisualFormat:v40 options:0 metrics:0 views:v41];
+  [v3 addObjectsFromArray:v42];
 
   contentView5 = [(PersonalAudioStimuliViewController *)self contentView];
   [contentView5 addConstraints:v3];
@@ -334,6 +336,34 @@
 LABEL_6:
 
   [(PersonalAudioStimuliViewController *)self nextButtonTapped:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PersonalAudioStimuliViewController;
+  [(PersonalAudioStimuliViewController *)&v4 viewWillAppear:appear];
+  [(PersonalAudioStimuliViewController *)self updateButtonTrayCaption:self->_captionText];
+  [(PersonalAudioStimuliViewController *)self registerNotifications];
+  [(PersonalAudioStimuliViewController *)self updateHeadphoneState];
+  [(PersonalAudioStimuliViewController *)self updateViewForCurrentNode];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PersonalAudioStimuliViewController;
+  [(PersonalAudioStimuliViewController *)&v4 viewDidAppear:appear];
+  [(PersonalAudioStimuliViewController *)self updateButtonTrayCaption:self->_captionText];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = PersonalAudioStimuliViewController;
+  [(PersonalAudioStimuliViewController *)&v5 viewDidDisappear:disappear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:self];
 }
 
 - (void)updateViewForCurrentNode

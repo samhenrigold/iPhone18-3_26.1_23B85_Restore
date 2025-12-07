@@ -13,7 +13,7 @@
   if (self->_osTransaction)
   {
     v3 = os_transaction_copy_description();
-    v4 = sub_100002660();
+    v4 = sub_100002660(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 136446466;
@@ -39,7 +39,7 @@
 
   else
   {
-    v7 = sub_100002660();
+    v7 = sub_100002660(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 134217984;
@@ -64,7 +64,7 @@
   if (self->_osTransaction)
   {
     v3 = os_transaction_copy_description();
-    v4 = sub_100002660();
+    v4 = sub_100002660(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
@@ -95,23 +95,23 @@
 
 - (BDSOSTransaction)initWithTransactionName:(const char *)name
 {
-  v9.receiver = self;
-  v9.super_class = BDSOSTransaction;
-  v4 = [(BDSOSTransaction *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = BDSOSTransaction;
+  v4 = [(BDSOSTransaction *)&v10 init];
   if (v4)
   {
     v5 = os_transaction_create();
     osTransaction = v4->_osTransaction;
     v4->_osTransaction = v5;
 
-    v7 = sub_100002660();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002660(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
       nameCopy = name;
-      v12 = 2048;
-      v13 = v4;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[Transaction]: Created transaction %{public}s(%p)", buf, 0x16u);
+      v13 = 2048;
+      v14 = v4;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[Transaction]: Created transaction %{public}s(%p)", buf, 0x16u);
     }
   }
 
@@ -123,17 +123,16 @@
   if (self->_osTransaction)
   {
     v3 = os_transaction_copy_description();
-    v4 = sub_100002660();
+    v4 = sub_100002660(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136446466;
+      v6 = 136446466;
       selfCopy2 = v3;
-      v9 = 2048;
+      v8 = 2048;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[Transaction]: Transaction needs more time %{public}s(%p)", &v7, 0x16u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[Transaction]: Transaction needs more time %{public}s(%p)", &v6, 0x16u);
     }
 
-    osTransaction = self->_osTransaction;
     os_transaction_needs_more_time();
     if (v3)
     {
@@ -143,12 +142,12 @@
 
   else
   {
-    v6 = sub_100002660();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100002660(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 134217984;
+      v6 = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[Transaction]: transactionNeedsMoreTime was called but transaction was already nil.(%p)", &v7, 0xCu);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[Transaction]: transactionNeedsMoreTime was called but transaction was already nil.(%p)", &v6, 0xCu);
     }
   }
 }

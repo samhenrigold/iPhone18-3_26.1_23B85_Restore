@@ -193,23 +193,24 @@
 
 - (SCNLight)init
 {
-  v5.receiver = self;
-  v5.super_class = SCNLight;
-  v2 = [(SCNLight *)&v5 init];
+  v7.receiver = self;
+  v7.super_class = SCNLight;
+  v2 = [(SCNLight *)&v7 init];
+  v4 = v2;
   if (v2)
   {
-    v3 = C3DLightCreate();
-    v2->_light = v3;
-    if (v3)
+    v5 = C3DLightCreate(v2, v3);
+    v4->_light = v5;
+    if (v5)
     {
-      C3DEntitySetObjCWrapper(v3, v2);
+      C3DEntitySetObjCWrapper(v5, v4);
     }
 
-    v2->_animationsLock._os_unfair_lock_opaque = 0;
-    [(SCNLight *)v2 _syncObjCModel];
+    v4->_animationsLock._os_unfair_lock_opaque = 0;
+    [(SCNLight *)v4 _syncObjCModel];
   }
 
-  return v2;
+  return v4;
 }
 
 - (SCNLight)initWithLightRef:(__C3DLight *)ref
@@ -318,7 +319,7 @@
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setName:];
@@ -359,16 +360,17 @@ CFStringRef __20__SCNLight_setName___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNLight *)self sceneRef];
-  v5 = sceneRef;
+  v6 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v5);
   }
 
-  Name = C3DEntityGetName([(SCNLight *)self __CFObject]);
-  if (v5)
+  __CFObject = [(SCNLight *)self __CFObject];
+  Name = C3DEntityGetName(__CFObject, v8);
+  if (v6)
   {
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v9);
   }
 
   return Name;
@@ -385,57 +387,57 @@ CFStringRef __20__SCNLight_setName___block_invoke(uint64_t a1)
 {
   __CFObject = [(SCNLight *)self __CFObject];
 
-  return C3DEntityGetID(__CFObject);
+  return C3DEntityGetID(__CFObject, v3);
 }
 
 - (void)_syncEntityObjCModel
 {
   __CFObject = [(SCNLight *)self __CFObject];
 
-  self->_name = C3DEntityGetName(__CFObject);
+  self->_name = C3DEntityGetName(__CFObject, v4);
 }
 
 - (void)_syncObjCModel
 {
   sceneRef = [(SCNLight *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  Type = C3DLightGetType(self->_light);
+  Type = C3DLightGetType(self->_light, v6);
   self->_type = SCNLightTypeFromC3DLightType(Type);
-  Color = C3DLightGetColor(self->_light);
+  Color = C3DLightGetColor(self->_light, v8);
 
   self->_color = [MEMORY[0x277D75348] scn_colorWithC3DColor:Color];
-  self->_intensity = C3DLightGetIntensity(self->_light);
-  self->_temperature = C3DLightGetTemperature(self->_light);
-  v24[0] = C3DLightGetShadowColor(self->_light);
-  v24[1] = v7;
+  self->_intensity = C3DLightGetIntensity(self->_light, v10);
+  self->_temperature = C3DLightGetTemperature(self->_light, v11);
+  v60[0] = C3DLightGetShadowColor(self->_light, v12);
+  v60[1] = v13;
 
-  self->_shadowColor = [MEMORY[0x277D75348] scn_colorWithC3DColor:v24];
-  if (C3DLightGetCastsShadow(self->_light))
+  self->_shadowColor = [MEMORY[0x277D75348] scn_colorWithC3DColor:v60];
+  if (C3DLightGetCastsShadow(self->_light, v14))
   {
-    v8 = 2;
+    v16 = 2;
   }
 
   else
   {
-    v8 = 0;
+    v16 = 0;
   }
 
-  *(self + 16) = *(self + 16) & 0xFD | v8;
-  self->_shadowRadius = C3DLightGetShadowRadius(self->_light);
-  self->_zNear = C3DLightGetZNear(self->_light);
-  self->_zFar = C3DLightGetZFar(self->_light);
-  self->_shadowBias = C3DLightGetShadowBias(self->_light);
-  self->_attenuationEndDistance = C3DLightGetAttenuationStartDistance(self->_light);
-  self->_attenuationFalloffExponent = C3DLightGetAttenuationEndDistance(self->_light);
-  self->_spotInnerAngle = C3DLightGetAttenuationFalloffExponent(self->_light);
-  self->_spotOuterAngle = C3DLightGetSpotInnerAngle(self->_light);
-  self->_spotFalloffExponent = C3DLightGetSpotOuterAngle(self->_light);
-  *(&self->_spotFalloffExponent + 1) = C3DLightGetSpotFalloffExponent(self->_light);
+  *(self + 16) = *(self + 16) & 0xFD | v16;
+  self->_shadowRadius = C3DLightGetShadowRadius(self->_light, v15);
+  self->_zNear = C3DLightGetZNear(self->_light, v17);
+  self->_zFar = C3DLightGetZFar(self->_light, v18);
+  self->_shadowBias = C3DLightGetShadowBias(self->_light, v19);
+  self->_attenuationEndDistance = C3DLightGetAttenuationStartDistance(self->_light, v20);
+  self->_attenuationFalloffExponent = C3DLightGetAttenuationEndDistance(self->_light, v21);
+  self->_spotInnerAngle = C3DLightGetAttenuationFalloffExponent(self->_light, v22);
+  self->_spotOuterAngle = C3DLightGetSpotInnerAngle(self->_light, v23);
+  self->_spotFalloffExponent = C3DLightGetSpotOuterAngle(self->_light, v24);
+  *(&self->_spotFalloffExponent + 1) = C3DLightGetSpotFalloffExponent(self->_light, v25);
 
   Gobo = C3DLightGetGobo(self->_light, 0);
   if (Gobo)
@@ -444,86 +446,86 @@ CFStringRef __20__SCNLight_setName___block_invoke(uint64_t a1)
   }
 
   self->_gobo = Gobo;
-  v22 = 0u;
-  v23 = 0u;
-  C3DLightGetAreaDescription(self->_light, &v22);
-  v10 = v22;
-  self->_areaType = v22;
-  v11 = v23;
+  v58 = 0u;
+  v59 = 0u;
+  C3DLightGetAreaDescription(self->_light, v27, &v58);
+  v28 = v58;
+  self->_areaType = v58;
+  v29 = v59;
   __asm { FMOV            V0.4S, #1.0 }
 
-  if (v10 > 1)
+  if (v28 > 1)
   {
-    if (v10 == 2)
+    if (v28 == 2)
     {
 LABEL_14:
-      v11.i32[2] = 0.5;
+      v29.i32[2] = 0.5;
       goto LABEL_15;
     }
 
-    if (v10 == 3)
+    if (v28 == 3)
     {
 LABEL_15:
-      _Q0 = vaddq_f32(v11, v11);
+      _Q0 = vaddq_f32(v29, v29);
     }
   }
 
   else
   {
-    if (v10)
+    if (v28)
     {
       goto LABEL_14;
     }
 
-    _Q0.f32[0] = v23.f32[0] + v23.f32[0];
+    _Q0.f32[0] = v59.f32[0] + v59.f32[0];
   }
 
   *self->_areaExtents = _Q0;
-  v21[0] = v22;
-  v21[1] = v23;
-  self->_areaPolygonVertices = _SCNAreaLightpolygonVerticesFromDescription(v21);
-  self->_drawsArea = C3DLightGetDrawsArea(self->_light);
-  self->_doubleSided = C3DLightGetDoubleSided(self->_light);
-  self->_categoryBitMask = C3DLightGetCategoryBitMask(self->_light);
-  self->_orthographicScale = C3DLightGetOrthographicScale(self->_light);
-  self->_shadowSampleCount = C3DLightGetShadowSampleCount(self->_light);
-  if (C3DLightGetUsesDeferredShadows(self->_light))
+  v57[0] = v58;
+  v57[1] = v59;
+  self->_areaPolygonVertices = _SCNAreaLightpolygonVerticesFromDescription(v57);
+  self->_drawsArea = C3DLightGetDrawsArea(self->_light, v35);
+  self->_doubleSided = C3DLightGetDoubleSided(self->_light, v36);
+  self->_categoryBitMask = C3DLightGetCategoryBitMask(self->_light, v37);
+  self->_orthographicScale = C3DLightGetOrthographicScale(self->_light, v38);
+  self->_shadowSampleCount = C3DLightGetShadowSampleCount(self->_light, v39);
+  if (C3DLightGetUsesDeferredShadows(self->_light, v40))
   {
-    v17 = 4;
+    v42 = 4;
   }
 
   else
   {
-    v17 = 0;
+    v42 = 0;
   }
 
-  *(self + 16) = *(self + 16) & 0xFB | v17;
-  if (C3DLightGetAutomaticallyAdjustsShadowProjection(self->_light))
+  *(self + 16) = *(self + 16) & 0xFB | v42;
+  if (C3DLightGetAutomaticallyAdjustsShadowProjection(self->_light, v41))
   {
-    v18 = 0x80;
+    v43 = 0x80;
   }
 
   else
   {
-    v18 = 0;
+    v43 = 0;
   }
 
-  *(self + 16) = v18 & 0x80 | *(self + 16) & 0x7F;
+  *(self + 16) = v43 & 0x80 | *(self + 16) & 0x7F;
   self->_maximumShadowDistance = C3DMeshElementGetPointSize(self->_light);
-  self->_shadowCascadeCount = C3DLightGetShadowCascadeCount(self->_light);
-  self->_shadowCascadeSplittingFactor = C3DLightGetShadowCascadeSplittingFactor(self->_light);
-  *(self + 17) = *(self + 17) & 0xFE | C3DLightGetForceCasterBackFaceOnly(self->_light);
+  self->_shadowCascadeCount = C3DLightGetShadowCascadeCount(self->_light, v44);
+  self->_shadowCascadeSplittingFactor = C3DLightGetShadowCascadeSplittingFactor(self->_light, v45);
+  *(self + 17) = *(self + 17) & 0xFE | C3DLightGetForceCasterBackFaceOnly(self->_light, v46);
   if (C3DLightGetEnableSampleDistributed(self->_light))
   {
-    v19 = 2;
+    v47 = 2;
   }
 
   else
   {
-    v19 = 0;
+    v47 = 0;
   }
 
-  *(self + 17) = *(self + 17) & 0xFD | v19;
+  *(self + 17) = *(self + 17) & 0xFD | v47;
 
   ProbeEnvironment = C3DLightGetProbeEnvironment(self->_light, 0);
   if (ProbeEnvironment)
@@ -532,17 +534,17 @@ LABEL_15:
   }
 
   self->_probeEnvironment = ProbeEnvironment;
-  self->_probeType = C3DLightGetProbeType(self->_light);
-  self->_probeUpdateType = C3DLightGetProbeUpdateType(self->_light);
-  self->_parallaxCorrectionEnabled = C3DLightGetParallaxCorrectionEnabled(self->_light);
-  *&self->_probeExtents[7] = C3DLightGetProbeExtents(self->_light);
-  *&self->_probeOffset[7] = C3DLightGetProbeOffset(self->_light);
-  *&self->_parallaxExtentsFactor[7] = C3DLightGetParallaxExtentsFactor(self->_light);
-  *&self->_parallaxCenterOffset[7] = C3DLightGetParallaxCenterOffset(self->_light);
+  self->_probeType = C3DLightGetProbeType(self->_light, v49);
+  self->_probeUpdateType = C3DLightGetProbeUpdateType(self->_light, v50);
+  self->_parallaxCorrectionEnabled = C3DLightGetParallaxCorrectionEnabled(self->_light, v51);
+  *&self->_probeExtents[7] = C3DLightGetProbeExtents(self->_light, v52);
+  *&self->_probeOffset[7] = C3DLightGetProbeOffset(self->_light, v53);
+  *&self->_parallaxExtentsFactor[7] = C3DLightGetParallaxExtentsFactor(self->_light, v54);
+  *&self->_parallaxCenterOffset[7] = C3DLightGetParallaxCenterOffset(self->_light, v55);
   [(SCNLight *)self _syncEntityObjCModel];
-  if (v4)
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v56);
   }
 }
 
@@ -562,7 +564,7 @@ LABEL_15:
 {
   __CFObject = [(SCNLight *)self __CFObject];
 
-  return C3DGetScene(__CFObject);
+  return C3DGetScene(__CFObject, v3);
 }
 
 - (id)scene
@@ -595,7 +597,7 @@ LABEL_15:
   if (result)
   {
 
-    return C3DSceneGetAnimationManager(result);
+    return C3DSceneGetAnimationManager(result, v3);
   }
 
   return result;
@@ -614,12 +616,13 @@ LABEL_15:
   {
     [(SCNOrderedDictionary *)self->_animations removeObjectForKey:key];
     __CFObject = [(SCNLight *)self __CFObject];
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v9 = scn_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [SCNTechnique __removeAnimation:v9 forKey:?];
+        [SCNTechnique __removeAnimation:v11 forKey:?];
       }
     }
 
@@ -663,7 +666,7 @@ LABEL_15:
 
   else
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNTechnique addAnimationPlayer:v9 forKey:?];
@@ -709,7 +712,7 @@ void __38__SCNLight_addAnimationPlayer_forKey___block_invoke(uint64_t a1)
 
   else
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNTechnique addAnimation:v8 forKey:?];
@@ -802,10 +805,10 @@ void __38__SCNLight_addAnimationPlayer_forKey___block_invoke(uint64_t a1)
 - (void)_syncObjCAnimations
 {
   sceneRef = [(SCNLight *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   os_unfair_lock_lock(&self->_animationsLock);
@@ -815,29 +818,30 @@ void __38__SCNLight_addAnimationPlayer_forKey___block_invoke(uint64_t a1)
   __CFObject = [(SCNLight *)self __CFObject];
   if (__CFObject)
   {
-    v6 = __CFObject;
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v8 = __CFObject;
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [(SCNTechnique *)v7 _syncObjCAnimations];
+        [(SCNTechnique *)v11 _syncObjCAnimations];
       }
     }
 
-    Animations = C3DEntityGetAnimations(v6);
+    Animations = C3DEntityGetAnimations(v8, v10);
     if (Animations)
     {
-      v9 = Animations;
+      v13 = Animations;
       os_unfair_lock_lock(&self->_animationsLock);
-      C3DOrderedDictionaryApplyFunction(v9, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
+      C3DOrderedDictionaryApplyFunction(v13, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
       os_unfair_lock_unlock(&self->_animationsLock);
     }
   }
 
-  if (v4)
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v7);
   }
 }
 
@@ -1006,21 +1010,21 @@ void __37__SCNLight_setSpeed_forAnimationKey___block_invoke(uint64_t a1)
 - (BOOL)isAnimationForKeyPaused:(id)paused
 {
   sceneRef = [(SCNLight *)self sceneRef];
-  v6 = sceneRef;
+  v7 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v6);
   }
 
   __CFObject = [(SCNLight *)self __CFObject];
   if (__CFObject)
   {
-    v8 = __CFObject;
+    v10 = __CFObject;
     animationManager = [(SCNLight *)self animationManager];
     if (animationManager)
     {
-      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v8, paused);
-      if (!v6)
+      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v10, paused);
+      if (!v7)
       {
         return IsPaused;
       }
@@ -1030,10 +1034,10 @@ void __37__SCNLight_setSpeed_forAnimationKey___block_invoke(uint64_t a1)
   }
 
   IsPaused = 0;
-  if (v6)
+  if (v7)
   {
 LABEL_8:
-    C3DSceneUnlock(v6);
+    C3DSceneUnlock(v7, v9);
   }
 
   return IsPaused;
@@ -1127,7 +1131,7 @@ void __29__SCNLight_removeAllBindings__block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) __CFObject];
 
-  C3DEntityRemoveAllBindings(v1);
+  C3DEntityRemoveAllBindings(v1, v2);
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -1214,7 +1218,7 @@ void __29__SCNLight_removeAllBindings__block_invoke(uint64_t a1)
 
 - (void)setAttribute:(id)attribute forKey:(NSString *)key
 {
-  if ([(NSString *)key isEqualToString:@"SCNLightAttenuationStartKey"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"SCNLightAttenuationStartKey"))
   {
     [attribute floatValue];
     v8 = v7;
@@ -1222,7 +1226,7 @@ void __29__SCNLight_removeAllBindings__block_invoke(uint64_t a1)
     [(SCNLight *)self setAttenuationStartDistance:v8];
   }
 
-  else if ([(NSString *)key isEqualToString:@"SCNLightAttenuationEndKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [attribute floatValue];
     v10 = v9;
@@ -1230,7 +1234,7 @@ void __29__SCNLight_removeAllBindings__block_invoke(uint64_t a1)
     [(SCNLight *)self setAttenuationEndDistance:v10];
   }
 
-  else if ([(NSString *)key isEqualToString:@"SCNLightAttenuationFalloffExponentKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [attribute floatValue];
     v12 = v11;
@@ -1238,7 +1242,7 @@ void __29__SCNLight_removeAllBindings__block_invoke(uint64_t a1)
     [(SCNLight *)self setAttenuationFalloffExponent:v12];
   }
 
-  else if ([(NSString *)key isEqualToString:@"SCNLightSpotInnerAngleKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [attribute floatValue];
     v14 = v13;
@@ -1246,7 +1250,7 @@ void __29__SCNLight_removeAllBindings__block_invoke(uint64_t a1)
     [(SCNLight *)self setSpotInnerAngle:v14];
   }
 
-  else if ([(NSString *)key isEqualToString:@"SCNLightSpotOuterAngleKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [attribute floatValue];
     v16 = v15;
@@ -1254,7 +1258,7 @@ void __29__SCNLight_removeAllBindings__block_invoke(uint64_t a1)
     [(SCNLight *)self setSpotOuterAngle:v16];
   }
 
-  else if ([(NSString *)key isEqualToString:@"SCNLightSpotFalloffExponentKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [attribute floatValue];
     v18 = v17;
@@ -1262,7 +1266,7 @@ void __29__SCNLight_removeAllBindings__block_invoke(uint64_t a1)
     [(SCNLight *)self setSpotFalloffExponent:v18];
   }
 
-  else if ([(NSString *)key isEqualToString:@"SCNLightShadowNearClippingKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [attribute floatValue];
     v20 = v19;
@@ -1270,7 +1274,7 @@ void __29__SCNLight_removeAllBindings__block_invoke(uint64_t a1)
     [(SCNLight *)self setZNear:v20];
   }
 
-  else if ([(NSString *)key isEqualToString:@"SCNLightShadowFarClippingKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [attribute floatValue];
     v22 = v21;
@@ -1281,44 +1285,44 @@ void __29__SCNLight_removeAllBindings__block_invoke(uint64_t a1)
 
 - (id)attributeForKey:(NSString *)key
 {
-  if ([(NSString *)key isEqualToString:@"SCNLightAttenuationStartKey"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"SCNLightAttenuationStartKey"))
   {
     [(SCNLight *)self attenuationStartDistance];
   }
 
-  else if ([(NSString *)key isEqualToString:@"SCNLightAttenuationEndKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [(SCNLight *)self attenuationEndDistance];
   }
 
-  else if ([(NSString *)key isEqualToString:@"SCNLightAttenuationFalloffExponentKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [(SCNLight *)self attenuationFalloffExponent];
   }
 
-  else if ([(NSString *)key isEqualToString:@"SCNLightSpotInnerAngleKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [(SCNLight *)self spotInnerAngle];
   }
 
-  else if ([(NSString *)key isEqualToString:@"SCNLightSpotOuterAngleKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [(SCNLight *)self spotOuterAngle];
   }
 
-  else if ([(NSString *)key isEqualToString:@"SCNLightSpotFalloffExponentKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [(SCNLight *)self spotFalloffExponent];
   }
 
-  else if ([(NSString *)key isEqualToString:@"SCNLightShadowNearClippingKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [(SCNLight *)self zNear];
   }
 
   else
   {
-    if (![(NSString *)key isEqualToString:@"SCNLightShadowFarClippingKey"])
+    if (!objc_msgSend_isEqualToString_(key))
     {
       return 0;
     }
@@ -1389,15 +1393,15 @@ void __29__SCNLight_removeAllBindings__block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      AttenuationEndDistance = C3DLightGetAttenuationEndDistance(self->_light);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      AttenuationEndDistance = C3DLightGetAttenuationEndDistance(self->_light, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DLightGetAttenuationEndDistance(self->_light);
+      return C3DLightGetAttenuationEndDistance(self->_light, v5);
     }
   }
 
@@ -1413,7 +1417,7 @@ void __29__SCNLight_removeAllBindings__block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setAttenuationEndDistance:];
@@ -1435,10 +1439,10 @@ void __29__SCNLight_removeAllBindings__block_invoke(uint64_t a1)
   }
 }
 
-float __38__SCNLight_setAttenuationEndDistance___block_invoke(uint64_t a1)
+float __38__SCNLight_setAttenuationEndDistance___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DLightSetAttenuationEndDistance(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DLightSetAttenuationEndDistance(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -1449,15 +1453,15 @@ float __38__SCNLight_setAttenuationEndDistance___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      AttenuationFalloffExponent = C3DLightGetAttenuationFalloffExponent(self->_light);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      AttenuationFalloffExponent = C3DLightGetAttenuationFalloffExponent(self->_light, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DLightGetAttenuationFalloffExponent(self->_light);
+      return C3DLightGetAttenuationFalloffExponent(self->_light, v5);
     }
   }
 
@@ -1473,7 +1477,7 @@ float __38__SCNLight_setAttenuationEndDistance___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setAttenuationFalloffExponent:];
@@ -1495,10 +1499,10 @@ float __38__SCNLight_setAttenuationEndDistance___block_invoke(uint64_t a1)
   }
 }
 
-float __42__SCNLight_setAttenuationFalloffExponent___block_invoke(uint64_t a1)
+float __42__SCNLight_setAttenuationFalloffExponent___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DLightSetAttenuationFalloffExponent(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DLightSetAttenuationFalloffExponent(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -1509,15 +1513,15 @@ float __42__SCNLight_setAttenuationFalloffExponent___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      AttenuationStartDistance = C3DLightGetAttenuationStartDistance(self->_light);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      AttenuationStartDistance = C3DLightGetAttenuationStartDistance(self->_light, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DLightGetAttenuationStartDistance(self->_light);
+      return C3DLightGetAttenuationStartDistance(self->_light, v5);
     }
   }
 
@@ -1533,7 +1537,7 @@ float __42__SCNLight_setAttenuationFalloffExponent___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setAttenuationStartDistance:];
@@ -1555,10 +1559,10 @@ float __42__SCNLight_setAttenuationFalloffExponent___block_invoke(uint64_t a1)
   }
 }
 
-float __40__SCNLight_setAttenuationStartDistance___block_invoke(uint64_t a1)
+float __40__SCNLight_setAttenuationStartDistance___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DLightSetAttenuationStartDistance(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DLightSetAttenuationStartDistance(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -1570,10 +1574,10 @@ float __40__SCNLight_setAttenuationStartDistance___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v6 = sceneRef;
-      C3DSceneLock(sceneRef);
-      Baked = C3DLightGetBaked(self->_light);
-      C3DSceneUnlock(v6);
+      v7 = sceneRef;
+      C3DSceneLock(sceneRef, v6);
+      Baked = C3DLightGetBaked(self->_light, v8);
+      C3DSceneUnlock(v7, v10);
       LOBYTE(v3) = Baked;
     }
 
@@ -1581,7 +1585,7 @@ float __40__SCNLight_setAttenuationStartDistance___block_invoke(uint64_t a1)
     {
       light = self->_light;
 
-      LOBYTE(v3) = C3DLightGetBaked(light);
+      LOBYTE(v3) = C3DLightGetBaked(light, v6);
     }
   }
 
@@ -1598,7 +1602,7 @@ float __40__SCNLight_setAttenuationStartDistance___block_invoke(uint64_t a1)
   v4 = *(self + 16);
   if (v4)
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setBaked:];
@@ -1637,10 +1641,10 @@ float __40__SCNLight_setAttenuationStartDistance___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v6 = sceneRef;
-      C3DSceneLock(sceneRef);
-      CastsShadow = C3DLightGetCastsShadow(self->_light);
-      C3DSceneUnlock(v6);
+      v7 = sceneRef;
+      C3DSceneLock(sceneRef, v6);
+      CastsShadow = C3DLightGetCastsShadow(self->_light, v8);
+      C3DSceneUnlock(v7, v10);
       LOBYTE(v3) = CastsShadow;
     }
 
@@ -1648,7 +1652,7 @@ float __40__SCNLight_setAttenuationStartDistance___block_invoke(uint64_t a1)
     {
       light = self->_light;
 
-      LOBYTE(v3) = C3DLightGetCastsShadow(light);
+      LOBYTE(v3) = C3DLightGetCastsShadow(light, v6);
     }
   }
 
@@ -1665,7 +1669,7 @@ float __40__SCNLight_setAttenuationStartDistance___block_invoke(uint64_t a1)
   v4 = *(self + 16);
   if (v4)
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setCastsShadow:];
@@ -1706,10 +1710,10 @@ float __40__SCNLight_setAttenuationStartDistance___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    CategoryBitMask = C3DLightGetCategoryBitMask(self->_light);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    CategoryBitMask = C3DLightGetCategoryBitMask(self->_light, v7);
+    C3DSceneUnlock(v6, v9);
     return CategoryBitMask;
   }
 
@@ -1717,7 +1721,7 @@ float __40__SCNLight_setAttenuationStartDistance___block_invoke(uint64_t a1)
   {
     light = self->_light;
 
-    return C3DLightGetCategoryBitMask(light);
+    return C3DLightGetCategoryBitMask(light, v5);
   }
 }
 
@@ -1725,7 +1729,7 @@ float __40__SCNLight_setAttenuationStartDistance___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setCategoryBitMask:];
@@ -1754,17 +1758,17 @@ float __40__SCNLight_setAttenuationStartDistance___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNLight *)self sceneRef];
-  v5 = sceneRef;
+  v6 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v5);
   }
 
-  Color = C3DLightGetColor(self->_light);
+  Color = C3DLightGetColor(self->_light, v5);
   v3 = C3DColor4ToRGBCFColor(Color);
-  if (v5)
+  if (v6)
   {
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
   }
 
   return v3;
@@ -1774,7 +1778,7 @@ float __40__SCNLight_setAttenuationStartDistance___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setColor:];
@@ -1817,13 +1821,13 @@ void __21__SCNLight_setColor___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DLightGetIntensity(self->_light);
+    return C3DLightGetIntensity(self->_light, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  Intensity = C3DLightGetIntensity(self->_light);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  Intensity = C3DLightGetIntensity(self->_light, v7);
+  C3DSceneUnlock(v6, v8);
   return Intensity;
 }
 
@@ -1831,7 +1835,7 @@ void __21__SCNLight_setColor___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setIntensity:];
@@ -1852,11 +1856,11 @@ void __21__SCNLight_setColor___block_invoke(uint64_t a1)
   }
 }
 
-float __25__SCNLight_setIntensity___block_invoke(uint64_t a1, float32x4_t a2, float32x4_t a3, double a4, double a5, double a6, double a7, __n128 a8)
+float __25__SCNLight_setIntensity___block_invoke(uint64_t a1, uint64_t a2, float32x4_t a3, float32x4_t a4, double a5, double a6, double a7, double a8, __n128 a9)
 {
-  a2.i64[0] = *(a1 + 40);
-  a2.f32[0] = *a2.i64;
-  C3DLightSetIntensity(*(*(a1 + 32) + 8), a2, a3, a4, a5, a6, a7, a8);
+  a3.i64[0] = *(a1 + 40);
+  a3.f32[0] = *a3.i64;
+  C3DLightSetIntensity(*(*(a1 + 32) + 8), a2, a3, a4, a5, a6, a7, a8, a9);
   return result;
 }
 
@@ -1870,13 +1874,13 @@ float __25__SCNLight_setIntensity___block_invoke(uint64_t a1, float32x4_t a2, fl
   sceneRef = [(SCNLight *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DLightGetOrthographicScale(self->_light);
+    return C3DLightGetOrthographicScale(self->_light, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  OrthographicScale = C3DLightGetOrthographicScale(self->_light);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  OrthographicScale = C3DLightGetOrthographicScale(self->_light, v7);
+  C3DSceneUnlock(v6, v8);
   return OrthographicScale;
 }
 
@@ -1884,7 +1888,7 @@ float __25__SCNLight_setIntensity___block_invoke(uint64_t a1, float32x4_t a2, fl
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setOrthographicScale:];
@@ -1905,10 +1909,10 @@ float __25__SCNLight_setIntensity___block_invoke(uint64_t a1, float32x4_t a2, fl
   }
 }
 
-float __33__SCNLight_setOrthographicScale___block_invoke(uint64_t a1)
+float __33__SCNLight_setOrthographicScale___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DLightSetOrthographicScale(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DLightSetOrthographicScale(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -1922,10 +1926,10 @@ float __33__SCNLight_setOrthographicScale___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    ShadowBias = C3DLightGetShadowBias(self->_light);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    ShadowBias = C3DLightGetShadowBias(self->_light, v7);
+    C3DSceneUnlock(v6, v9);
     return ShadowBias;
   }
 
@@ -1933,7 +1937,7 @@ float __33__SCNLight_setOrthographicScale___block_invoke(uint64_t a1)
   {
     light = self->_light;
 
-    return C3DLightGetShadowBias(light);
+    return C3DLightGetShadowBias(light, v5);
   }
 }
 
@@ -1941,7 +1945,7 @@ float __33__SCNLight_setOrthographicScale___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setShadowBias:];
@@ -1970,18 +1974,18 @@ float __33__SCNLight_setOrthographicScale___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNLight *)self sceneRef];
-  v5 = sceneRef;
+  v6 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v5);
   }
 
-  v8[0] = C3DLightGetShadowColor(self->_light);
-  v8[1] = v6;
-  v3 = C3DColor4ToRGBCFColor(v8);
-  if (v5)
+  v10[0] = C3DLightGetShadowColor(self->_light, v5);
+  v10[1] = v7;
+  v3 = C3DColor4ToRGBCFColor(v10);
+  if (v6)
   {
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
   }
 
   return v3;
@@ -1991,7 +1995,7 @@ float __33__SCNLight_setOrthographicScale___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setShadowColor:];
@@ -2030,18 +2034,18 @@ double __27__SCNLight_setShadowColor___block_invoke(uint64_t a1)
   if (*(self + 16))
   {
     sceneRef = [(SCNLight *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
-    shadowMapSize = vcvtq_f64_f32(COERCE_FLOAT32X2_T(C3DLightGetShadowMapSize(self->_light)));
-    if (v5)
+    shadowMapSize = vcvtq_f64_f32(COERCE_FLOAT32X2_T(C3DLightGetShadowMapSize(self->_light, v5)));
+    if (v6)
     {
-      v7 = shadowMapSize;
-      C3DSceneUnlock(v5);
-      shadowMapSize = v7;
+      v9 = shadowMapSize;
+      C3DSceneUnlock(v6, v7);
+      shadowMapSize = v9;
     }
   }
 
@@ -2060,7 +2064,7 @@ double __27__SCNLight_setShadowColor___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setShadowMapSize:];
@@ -2094,15 +2098,15 @@ double __27__SCNLight_setShadowColor___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ShadowRadius = C3DLightGetShadowRadius(self->_light);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ShadowRadius = C3DLightGetShadowRadius(self->_light, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DLightGetShadowRadius(self->_light);
+      return C3DLightGetShadowRadius(self->_light, v5);
     }
   }
 
@@ -2118,7 +2122,7 @@ double __27__SCNLight_setShadowColor___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setShadowRadius:];
@@ -2140,10 +2144,10 @@ double __27__SCNLight_setShadowColor___block_invoke(uint64_t a1)
   }
 }
 
-float __28__SCNLight_setShadowRadius___block_invoke(uint64_t a1)
+float __28__SCNLight_setShadowRadius___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DLightSetShadowRadius(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DLightSetShadowRadius(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2157,13 +2161,13 @@ float __28__SCNLight_setShadowRadius___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DLightGetShadowSampleCount(self->_light);
+    return C3DLightGetShadowSampleCount(self->_light, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ShadowSampleCount = C3DLightGetShadowSampleCount(self->_light);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ShadowSampleCount = C3DLightGetShadowSampleCount(self->_light, v7);
+  C3DSceneUnlock(v6, v8);
   return ShadowSampleCount;
 }
 
@@ -2171,7 +2175,7 @@ float __28__SCNLight_setShadowRadius___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setShadowSampleCount:];
@@ -2212,15 +2216,15 @@ float __28__SCNLight_setShadowRadius___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      SpotFalloffExponent = C3DLightGetSpotFalloffExponent(self->_light);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      SpotFalloffExponent = C3DLightGetSpotFalloffExponent(self->_light, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DLightGetSpotFalloffExponent(self->_light);
+      return C3DLightGetSpotFalloffExponent(self->_light, v5);
     }
   }
 
@@ -2236,7 +2240,7 @@ float __28__SCNLight_setShadowRadius___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setSpotFalloffExponent:];
@@ -2258,10 +2262,10 @@ float __28__SCNLight_setShadowRadius___block_invoke(uint64_t a1)
   }
 }
 
-float __35__SCNLight_setSpotFalloffExponent___block_invoke(uint64_t a1)
+float __35__SCNLight_setSpotFalloffExponent___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DLightSetSpotFalloffExponent(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DLightSetSpotFalloffExponent(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2272,15 +2276,15 @@ float __35__SCNLight_setSpotFalloffExponent___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      SpotInnerAngle = C3DLightGetSpotInnerAngle(self->_light);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      SpotInnerAngle = C3DLightGetSpotInnerAngle(self->_light, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DLightGetSpotInnerAngle(self->_light);
+      return C3DLightGetSpotInnerAngle(self->_light, v5);
     }
   }
 
@@ -2296,7 +2300,7 @@ float __35__SCNLight_setSpotFalloffExponent___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setSpotInnerAngle:];
@@ -2318,10 +2322,10 @@ float __35__SCNLight_setSpotFalloffExponent___block_invoke(uint64_t a1)
   }
 }
 
-float __30__SCNLight_setSpotInnerAngle___block_invoke(uint64_t a1)
+float __30__SCNLight_setSpotInnerAngle___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DLightSetSpotInnerAngle(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DLightSetSpotInnerAngle(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2332,15 +2336,15 @@ float __30__SCNLight_setSpotInnerAngle___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      SpotOuterAngle = C3DLightGetSpotOuterAngle(self->_light);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      SpotOuterAngle = C3DLightGetSpotOuterAngle(self->_light, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DLightGetSpotOuterAngle(self->_light);
+      return C3DLightGetSpotOuterAngle(self->_light, v5);
     }
   }
 
@@ -2356,7 +2360,7 @@ float __30__SCNLight_setSpotInnerAngle___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setSpotOuterAngle:];
@@ -2378,10 +2382,10 @@ float __30__SCNLight_setSpotInnerAngle___block_invoke(uint64_t a1)
   }
 }
 
-float __30__SCNLight_setSpotOuterAngle___block_invoke(uint64_t a1)
+float __30__SCNLight_setSpotOuterAngle___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DLightSetSpotOuterAngle(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DLightSetSpotOuterAngle(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2390,17 +2394,17 @@ float __30__SCNLight_setSpotOuterAngle___block_invoke(uint64_t a1)
   if (*(self + 16))
   {
     sceneRef = [(SCNLight *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
-    Technique = C3DLightGetTechnique(self->_light);
+    Technique = C3DLightGetTechnique(self->_light, v5);
     if (Technique)
     {
       v3 = [SCNTechnique techniqueWithTechniqueRef:Technique];
-      if (!v5)
+      if (!v6)
       {
         return v3;
       }
@@ -2409,13 +2413,13 @@ float __30__SCNLight_setSpotOuterAngle___block_invoke(uint64_t a1)
     else
     {
       v3 = 0;
-      if (!v5)
+      if (!v6)
       {
         return v3;
       }
     }
 
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
     return v3;
   }
 
@@ -2426,7 +2430,7 @@ float __30__SCNLight_setSpotOuterAngle___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setTechnique:];
@@ -2470,13 +2474,13 @@ void __25__SCNLight_setTechnique___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DLightGetTemperature(self->_light);
+    return C3DLightGetTemperature(self->_light, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  Temperature = C3DLightGetTemperature(self->_light);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  Temperature = C3DLightGetTemperature(self->_light, v7);
+  C3DSceneUnlock(v6, v8);
   return Temperature;
 }
 
@@ -2484,7 +2488,7 @@ void __25__SCNLight_setTechnique___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setTemperature:];
@@ -2505,11 +2509,11 @@ void __25__SCNLight_setTechnique___block_invoke(uint64_t a1)
   }
 }
 
-float __27__SCNLight_setTemperature___block_invoke(uint64_t a1, float32x4_t a2, float32x4_t a3, double a4, double a5, double a6, double a7, __n128 a8)
+float __27__SCNLight_setTemperature___block_invoke(uint64_t a1, uint64_t a2, float32x4_t a3, float32x4_t a4, double a5, double a6, double a7, double a8, __n128 a9)
 {
-  a2.i64[0] = *(a1 + 40);
-  a2.f32[0] = *a2.i64;
-  C3DLightSetTemperature(*(*(a1 + 32) + 8), a2, a3, a4, a5, a6, a7, a8);
+  a3.i64[0] = *(a1 + 40);
+  a3.f32[0] = *a3.i64;
+  C3DLightSetTemperature(*(*(a1 + 32) + 8), a2, a3, a4, a5, a6, a7, a8, a9);
   return result;
 }
 
@@ -2540,17 +2544,17 @@ float __27__SCNLight_setTemperature___block_invoke(uint64_t a1, float32x4_t a2, 
   if (*(self + 16))
   {
     sceneRef = [(SCNLight *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
-    Type = C3DLightGetType(self->_light);
+    Type = C3DLightGetType(self->_light, v5);
     v3 = SCNLightTypeFromC3DLightType(Type);
-    if (v5)
+    if (v6)
     {
-      C3DSceneUnlock(v5);
+      C3DSceneUnlock(v6, v8);
     }
   }
 
@@ -2559,16 +2563,16 @@ float __27__SCNLight_setTemperature___block_invoke(uint64_t a1, float32x4_t a2, 
     v3 = self->_type;
   }
 
-  v7 = [(NSString *)v3 copy];
+  v9 = [(NSString *)v3 copy];
 
-  return v7;
+  return v9;
 }
 
 - (void)setType:(SCNLightType)type
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setType:];
@@ -2594,19 +2598,20 @@ float __27__SCNLight_setTemperature___block_invoke(uint64_t a1, float32x4_t a2, 
   }
 }
 
-void __20__SCNLight_setType___block_invoke(uint64_t a1)
+void __20__SCNLight_setType___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = SCNLightTypeToC3DLightType(*(*(a1 + 32) + 48));
-  C3DLightSetType(*(*(a1 + 32) + 8), v2);
-  if (v2 == 6)
+  v3 = SCNLightTypeToC3DLightType(*(*(a1 + 32) + 48), a2);
+  v4 = v3;
+  C3DLightSetType(*(*(a1 + 32) + 8), v3);
+  if (v4 == 6)
   {
-    v3 = *(a1 + 32);
-    v4 = v3->i64[1];
-    v5 = v3[21].i64[0];
-    v6 = v3[22];
-    v7 = v3[23].i64[0];
+    v5 = *(a1 + 32);
+    v6 = v5->i64[1];
+    v7 = v5[21].i64[0];
+    v8 = v5[22];
+    v9 = v5[23].i64[0];
 
-    _SCNLightUpdateC3DLightDescription(v4, v5, v7, v6);
+    _SCNLightUpdateC3DLightDescription(v6, v7, v9, v8);
   }
 }
 
@@ -2618,10 +2623,10 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v6 = sceneRef;
-      C3DSceneLock(sceneRef);
-      UsesDeferredShadows = C3DLightGetUsesDeferredShadows(self->_light);
-      C3DSceneUnlock(v6);
+      v7 = sceneRef;
+      C3DSceneLock(sceneRef, v6);
+      UsesDeferredShadows = C3DLightGetUsesDeferredShadows(self->_light, v8);
+      C3DSceneUnlock(v7, v10);
       LOBYTE(v3) = UsesDeferredShadows;
     }
 
@@ -2629,7 +2634,7 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
     {
       light = self->_light;
 
-      LOBYTE(v3) = C3DLightGetUsesDeferredShadows(light);
+      LOBYTE(v3) = C3DLightGetUsesDeferredShadows(light, v6);
     }
   }
 
@@ -2646,7 +2651,7 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
   v4 = *(self + 16);
   if (v4)
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setUsesDeferredShadows:];
@@ -2685,10 +2690,10 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v6 = sceneRef;
-      C3DSceneLock(sceneRef);
-      UsesModulatedMode = C3DLightGetUsesModulatedMode(self->_light);
-      C3DSceneUnlock(v6);
+      v7 = sceneRef;
+      C3DSceneLock(sceneRef, v6);
+      UsesModulatedMode = C3DLightGetUsesModulatedMode(self->_light, v8);
+      C3DSceneUnlock(v7, v10);
       LOBYTE(v3) = UsesModulatedMode;
     }
 
@@ -2696,7 +2701,7 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
     {
       light = self->_light;
 
-      LOBYTE(v3) = C3DLightGetUsesModulatedMode(light);
+      LOBYTE(v3) = C3DLightGetUsesModulatedMode(light, v6);
     }
   }
 
@@ -2713,7 +2718,7 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
   v4 = *(self + 16);
   if (v4)
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setUsesModulatedMode:];
@@ -2754,10 +2759,10 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    ZFar = C3DLightGetZFar(self->_light);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    ZFar = C3DLightGetZFar(self->_light, v7);
+    C3DSceneUnlock(v6, v9);
     return ZFar;
   }
 
@@ -2765,7 +2770,7 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
   {
     light = self->_light;
 
-    return C3DLightGetZFar(light);
+    return C3DLightGetZFar(light, v5);
   }
 }
 
@@ -2773,7 +2778,7 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setZFar:];
@@ -2804,10 +2809,10 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    ZNear = C3DLightGetZNear(self->_light);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    ZNear = C3DLightGetZNear(self->_light, v7);
+    C3DSceneUnlock(v6, v9);
     return ZNear;
   }
 
@@ -2815,7 +2820,7 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
   {
     light = self->_light;
 
-    return C3DLightGetZNear(light);
+    return C3DLightGetZNear(light, v5);
   }
 }
 
@@ -2823,7 +2828,7 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setZNear:];
@@ -2851,15 +2856,15 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ShadowCascadeCount = C3DLightGetShadowCascadeCount(self->_light);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ShadowCascadeCount = C3DLightGetShadowCascadeCount(self->_light, v7);
+      C3DSceneUnlock(v6, v8);
     }
 
     else
     {
-      return C3DLightGetShadowCascadeCount(self->_light);
+      return C3DLightGetShadowCascadeCount(self->_light, v5);
     }
   }
 
@@ -2875,7 +2880,7 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setShadowCascadeCount:];
@@ -2914,10 +2919,10 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v6 = sceneRef;
-      C3DSceneLock(sceneRef);
-      AutomaticallyAdjustsShadowProjection = C3DLightGetAutomaticallyAdjustsShadowProjection(self->_light);
-      C3DSceneUnlock(v6);
+      v7 = sceneRef;
+      C3DSceneLock(sceneRef, v6);
+      AutomaticallyAdjustsShadowProjection = C3DLightGetAutomaticallyAdjustsShadowProjection(self->_light, v8);
+      C3DSceneUnlock(v7, v10);
       LOBYTE(v3) = AutomaticallyAdjustsShadowProjection;
     }
 
@@ -2925,7 +2930,7 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
     {
       light = self->_light;
 
-      LOBYTE(v3) = C3DLightGetAutomaticallyAdjustsShadowProjection(light);
+      LOBYTE(v3) = C3DLightGetAutomaticallyAdjustsShadowProjection(light, v6);
     }
   }
 
@@ -2942,7 +2947,7 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
   v4 = *(self + 16);
   if (v4)
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setAutomaticallyAdjustsShadowProjection:];
@@ -2986,10 +2991,10 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
     return C3DMeshElementGetPointSize(self->_light);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
   PointSize = C3DMeshElementGetPointSize(self->_light);
-  C3DSceneUnlock(v5);
+  C3DSceneUnlock(v6, v7);
   return PointSize;
 }
 
@@ -2997,7 +3002,7 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setMaximumShadowDistance:];
@@ -3023,10 +3028,10 @@ void __20__SCNLight_setType___block_invoke(uint64_t a1)
   }
 }
 
-float __37__SCNLight_setMaximumShadowDistance___block_invoke(uint64_t a1)
+float __37__SCNLight_setMaximumShadowDistance___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DLightSetMaximumShadowDistance(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DLightSetMaximumShadowDistance(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3040,10 +3045,10 @@ float __37__SCNLight_setMaximumShadowDistance___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    ForceCasterBackFaceOnly = C3DLightGetForceCasterBackFaceOnly(self->_light);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    ForceCasterBackFaceOnly = C3DLightGetForceCasterBackFaceOnly(self->_light, v7);
+    C3DSceneUnlock(v6, v9);
     return ForceCasterBackFaceOnly;
   }
 
@@ -3051,7 +3056,7 @@ float __37__SCNLight_setMaximumShadowDistance___block_invoke(uint64_t a1)
   {
     light = self->_light;
 
-    return C3DLightGetForceCasterBackFaceOnly(light);
+    return C3DLightGetForceCasterBackFaceOnly(light, v5);
   }
 }
 
@@ -3059,7 +3064,7 @@ float __37__SCNLight_setMaximumShadowDistance___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setForcesBackFaceCasters:];
@@ -3091,10 +3096,10 @@ float __37__SCNLight_setMaximumShadowDistance___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
       EnableSampleDistributed = C3DLightGetEnableSampleDistributed(self->_light);
-      C3DSceneUnlock(v5);
+      C3DSceneUnlock(v6, v8);
       LOBYTE(v3) = EnableSampleDistributed;
     }
 
@@ -3118,7 +3123,7 @@ float __37__SCNLight_setMaximumShadowDistance___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setSampleDistributedShadowMaps:];
@@ -3163,13 +3168,13 @@ float __37__SCNLight_setMaximumShadowDistance___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DLightGetShadowCascadeSplittingFactor(self->_light);
+    return C3DLightGetShadowCascadeSplittingFactor(self->_light, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ShadowCascadeSplittingFactor = C3DLightGetShadowCascadeSplittingFactor(self->_light);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ShadowCascadeSplittingFactor = C3DLightGetShadowCascadeSplittingFactor(self->_light, v7);
+  C3DSceneUnlock(v6, v8);
   return ShadowCascadeSplittingFactor;
 }
 
@@ -3177,7 +3182,7 @@ float __37__SCNLight_setMaximumShadowDistance___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNLight setShadowCascadeSplittingFactor:];
@@ -3198,10 +3203,10 @@ float __37__SCNLight_setMaximumShadowDistance___block_invoke(uint64_t a1)
   }
 }
 
-float __44__SCNLight_setShadowCascadeSplittingFactor___block_invoke(uint64_t a1)
+float __44__SCNLight_setShadowCascadeSplittingFactor___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DLightSetShadowCascadeSplittingFactor(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DLightSetShadowCascadeSplittingFactor(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3215,13 +3220,13 @@ float __44__SCNLight_setShadowCascadeSplittingFactor___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DLightGetShadowCascadeDebugFactor(self->_light);
+    return C3DLightGetShadowCascadeDebugFactor(self->_light, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ShadowCascadeDebugFactor = C3DLightGetShadowCascadeDebugFactor(self->_light);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ShadowCascadeDebugFactor = C3DLightGetShadowCascadeDebugFactor(self->_light, v7);
+  C3DSceneUnlock(v6, v8);
   return ShadowCascadeDebugFactor;
 }
 
@@ -3229,7 +3234,7 @@ float __44__SCNLight_setShadowCascadeSplittingFactor___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNLight set_shadowCascadeDebugFactor:];
@@ -3250,10 +3255,10 @@ float __44__SCNLight_setShadowCascadeSplittingFactor___block_invoke(uint64_t a1)
   }
 }
 
-float __41__SCNLight_set_shadowCascadeDebugFactor___block_invoke(uint64_t a1)
+float __41__SCNLight_set_shadowCascadeDebugFactor___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DLightSetShadowCascadeDebugFactor(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DLightSetShadowCascadeDebugFactor(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3289,13 +3294,13 @@ float __41__SCNLight_set_shadowCascadeDebugFactor___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DLightGetProbeType(self->_light);
+    return C3DLightGetProbeType(self->_light, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ProbeType = C3DLightGetProbeType(self->_light);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ProbeType = C3DLightGetProbeType(self->_light, v7);
+  C3DSceneUnlock(v6, v8);
   return ProbeType;
 }
 
@@ -3327,13 +3332,13 @@ float __41__SCNLight_set_shadowCascadeDebugFactor___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DLightGetProbeUpdateType(self->_light);
+    return C3DLightGetProbeUpdateType(self->_light, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ProbeUpdateType = C3DLightGetProbeUpdateType(self->_light);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ProbeUpdateType = C3DLightGetProbeUpdateType(self->_light, v7);
+  C3DSceneUnlock(v6, v8);
   return ProbeUpdateType;
 }
 
@@ -3365,10 +3370,10 @@ float __41__SCNLight_set_shadowCascadeDebugFactor___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    ParallaxCorrectionEnabled = C3DLightGetParallaxCorrectionEnabled(self->_light);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    ParallaxCorrectionEnabled = C3DLightGetParallaxCorrectionEnabled(self->_light, v7);
+    C3DSceneUnlock(v6, v9);
     return ParallaxCorrectionEnabled;
   }
 
@@ -3376,7 +3381,7 @@ float __41__SCNLight_set_shadowCascadeDebugFactor___block_invoke(uint64_t a1)
   {
     light = self->_light;
 
-    return C3DLightGetParallaxCorrectionEnabled(light);
+    return C3DLightGetParallaxCorrectionEnabled(light, v5);
   }
 }
 
@@ -3405,16 +3410,16 @@ float __41__SCNLight_set_shadowCascadeDebugFactor___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ParallaxCenterOffset = C3DLightGetParallaxCenterOffset(self->_light);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ParallaxCenterOffset = C3DLightGetParallaxCenterOffset(self->_light, v7);
+      C3DSceneUnlock(v6, v8);
       return ParallaxCenterOffset;
     }
 
     else
     {
-      return C3DLightGetParallaxCenterOffset(self->_light);
+      return C3DLightGetParallaxCenterOffset(self->_light, v5);
     }
   }
 
@@ -3451,16 +3456,16 @@ float __41__SCNLight_set_shadowCascadeDebugFactor___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ParallaxExtentsFactor = C3DLightGetParallaxExtentsFactor(self->_light);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ParallaxExtentsFactor = C3DLightGetParallaxExtentsFactor(self->_light, v7);
+      C3DSceneUnlock(v6, v8);
       return ParallaxExtentsFactor;
     }
 
     else
     {
-      return C3DLightGetParallaxExtentsFactor(self->_light);
+      return C3DLightGetParallaxExtentsFactor(self->_light, v5);
     }
   }
 
@@ -3497,16 +3502,16 @@ float __41__SCNLight_set_shadowCascadeDebugFactor___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ProbeExtents = C3DLightGetProbeExtents(self->_light);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ProbeExtents = C3DLightGetProbeExtents(self->_light, v7);
+      C3DSceneUnlock(v6, v8);
       return ProbeExtents;
     }
 
     else
     {
-      return C3DLightGetProbeExtents(self->_light);
+      return C3DLightGetProbeExtents(self->_light, v5);
     }
   }
 
@@ -3543,16 +3548,16 @@ float __41__SCNLight_set_shadowCascadeDebugFactor___block_invoke(uint64_t a1)
     sceneRef = [(SCNLight *)self sceneRef];
     if (sceneRef)
     {
-      v5 = sceneRef;
-      C3DSceneLock(sceneRef);
-      ProbeOffset = C3DLightGetProbeOffset(self->_light);
-      C3DSceneUnlock(v5);
+      v6 = sceneRef;
+      C3DSceneLock(sceneRef, v5);
+      ProbeOffset = C3DLightGetProbeOffset(self->_light, v7);
+      C3DSceneUnlock(v6, v8);
       return ProbeOffset;
     }
 
     else
     {
-      return C3DLightGetProbeOffset(self->_light);
+      return C3DLightGetProbeOffset(self->_light, v5);
     }
   }
 
@@ -3610,17 +3615,17 @@ float __41__SCNLight_set_shadowCascadeDebugFactor___block_invoke(uint64_t a1)
   sceneRef = [(SCNLight *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    C3DLightGetAreaDescription(self->_light, v7);
-    v3 = LOBYTE(v7[0]);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    C3DLightGetAreaDescription(self->_light, v7, v10);
+    v3 = LOBYTE(v10[0]);
+    C3DSceneUnlock(v6, v8);
   }
 
   else
   {
-    C3DLightGetAreaDescription(self->_light, v7);
-    return LOBYTE(v7[0]);
+    C3DLightGetAreaDescription(self->_light, v5, v10);
+    return LOBYTE(v10[0]);
   }
 
   return v3;
@@ -3651,53 +3656,53 @@ float __41__SCNLight_set_shadowCascadeDebugFactor___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNLight *)self sceneRef];
-  v5 = sceneRef;
+  v6 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v5);
   }
 
-  C3DLightGetAreaDescription(self->_light, &v12);
+  C3DLightGetAreaDescription(self->_light, v5, &v14);
   __asm { FMOV            V0.4S, #1.0 }
 
-  if (v12 > 1u)
+  if (v14 > 1u)
   {
-    if (v12 != 2)
+    if (v14 != 2)
     {
-      if (v12 != 3)
+      if (v14 != 3)
       {
         goto LABEL_15;
       }
 
-      v10 = v13;
+      v12 = v15;
       goto LABEL_14;
     }
 
     goto LABEL_12;
   }
 
-  if (!v12)
+  if (!v14)
   {
-    v10.i64[1] = 0x3F0000003F000000;
-    v10.i64[0] = v13.u32[0] | 0x3F00000000000000;
+    v12.i64[1] = 0x3F0000003F000000;
+    v12.i64[0] = v15.u32[0] | 0x3F00000000000000;
     goto LABEL_14;
   }
 
-  if (v12 == 1)
+  if (v14 == 1)
   {
 LABEL_12:
-    v10 = v13;
-    v10.i32[2] = 0.5;
+    v12 = v15;
+    v12.i32[2] = 0.5;
 LABEL_14:
-    result = vaddq_f32(v10, v10);
+    result = vaddq_f32(v12, v12);
   }
 
 LABEL_15:
-  if (v5)
+  if (v6)
   {
-    v11 = result;
-    C3DSceneUnlock(v5);
-    return v11;
+    v13 = result;
+    C3DSceneUnlock(v6, v7);
+    return v13;
   }
 
   return result;
@@ -3730,10 +3735,10 @@ LABEL_15:
   sceneRef = [(SCNLight *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    DrawsArea = C3DLightGetDrawsArea(self->_light);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    DrawsArea = C3DLightGetDrawsArea(self->_light, v7);
+    C3DSceneUnlock(v6, v9);
     return DrawsArea;
   }
 
@@ -3741,7 +3746,7 @@ LABEL_15:
   {
     light = self->_light;
 
-    return C3DLightGetDrawsArea(light);
+    return C3DLightGetDrawsArea(light, v5);
   }
 }
 
@@ -3773,10 +3778,10 @@ LABEL_15:
   sceneRef = [(SCNLight *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    DoubleSided = C3DLightGetDoubleSided(self->_light);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    DoubleSided = C3DLightGetDoubleSided(self->_light, v7);
+    C3DSceneUnlock(v6, v9);
     return DoubleSided;
   }
 
@@ -3784,7 +3789,7 @@ LABEL_15:
   {
     light = self->_light;
 
-    return C3DLightGetDoubleSided(light);
+    return C3DLightGetDoubleSided(light, v5);
   }
 }
 
@@ -3814,21 +3819,21 @@ LABEL_15:
   }
 
   sceneRef = [(SCNLight *)self sceneRef];
-  v5 = sceneRef;
+  v6 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v5);
   }
 
-  v8 = 0u;
-  v9 = 0u;
-  C3DLightGetAreaDescription(self->_light, &v8);
-  v7[0] = v8;
-  v7[1] = v9;
-  v3 = _SCNAreaLightpolygonVerticesFromDescription(v7);
-  if (v5)
+  v10 = 0u;
+  v11 = 0u;
+  C3DLightGetAreaDescription(self->_light, v5, &v10);
+  v9[0] = v10;
+  v9[1] = v11;
+  v3 = _SCNAreaLightpolygonVerticesFromDescription(v9);
+  if (v6)
   {
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v7);
   }
 
   return v3;
@@ -3881,10 +3886,10 @@ LABEL_15:
   sceneRef = [(SCNLight *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    IESProfileURL = C3DLightGetIESProfileURL(self->_light);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    IESProfileURL = C3DLightGetIESProfileURL(self->_light, v7);
+    C3DSceneUnlock(v6, v9);
     return IESProfileURL;
   }
 
@@ -3892,7 +3897,7 @@ LABEL_15:
   {
     light = self->_light;
 
-    return C3DLightGetIESProfileURL(light);
+    return C3DLightGetIESProfileURL(light, v5);
   }
 }
 
@@ -3905,13 +3910,13 @@ void __41__SCNLight_setIESProfileURL_resolvedURL___block_invoke(uint64_t a1)
   C3DLightSetIESProfileURL(v3, v2);
 }
 
-void __41__SCNLight_setIESProfileURL_resolvedURL___block_invoke_2(uint64_t a1)
+void __41__SCNLight_setIESProfileURL_resolvedURL___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 8);
-  v3 = SCNLightTypeToC3DLightType(*(v1 + 48));
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 8);
+  v4 = SCNLightTypeToC3DLightType(*(v2 + 48), a2);
 
-  C3DLightSetType(v2, v3);
+  C3DLightSetType(v3, v4);
 }
 
 - (void)setIESProfileURL:(NSURL *)IESProfileURL
@@ -3977,7 +3982,7 @@ void __41__SCNLight_setIESProfileURL_resolvedURL___block_invoke_2(uint64_t a1)
   [light encodeInteger:self->_categoryBitMask forKey:@"lightCategoryBitMask"];
   LODWORD(v10) = *(&self->_spotFalloffExponent + 1);
   [light encodeFloat:@"spotFallOffExponent" forKey:v10];
-  if ([(NSString *)self->_type isEqualToString:@"probe"])
+  if (objc_msgSend_isEqualToString_(self->_type))
   {
     [light encodeInt:LODWORD(self->_probeType) forKey:@"probeType"];
     [light encodeInt:LODWORD(self->_probeUpdateType) forKey:@"probeUpdateType"];
@@ -4245,18 +4250,18 @@ void __41__SCNLight_setIESProfileURL_resolvedURL___block_invoke_2(uint64_t a1)
 
 - (SCNLight)initWithCoder:(id)coder
 {
-  v45.receiver = self;
-  v45.super_class = SCNLight;
-  v4 = [(SCNLight *)&v45 init];
+  v47.receiver = self;
+  v47.super_class = SCNLight;
+  v4 = [(SCNLight *)&v47 init];
   if (v4)
   {
     v5 = +[SCNTransaction immediateMode];
-    [SCNTransaction setImmediateMode:1];
-    v6 = C3DLightCreate();
-    v4->_light = v6;
-    if (v6)
+    v6 = [SCNTransaction setImmediateMode:1];
+    v8 = C3DLightCreate(v6, v7);
+    v4->_light = v8;
+    if (v8)
     {
-      C3DEntitySetObjCWrapper(v6, v4);
+      C3DEntitySetObjCWrapper(v8, v4);
     }
 
     [(SCNLight *)v4 _syncObjCModel];
@@ -4269,49 +4274,49 @@ void __41__SCNLight_setIESProfileURL_resolvedURL___block_invoke_2(uint64_t a1)
     -[SCNLight setShouldBakeIndirectLighting:](v4, "setShouldBakeIndirectLighting:", [coder decodeIntForKey:@"shouldBakeIndirectLighting"] != 0);
     -[SCNLight set_sphericalHarmonics:](v4, "set_sphericalHarmonics:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"sphericalHarmonics"]);
     -[SCNLight setName:](v4, "setName:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"name"]);
-    if ([(NSString *)v4->_type isEqualToString:@"probe"])
+    if (objc_msgSend_isEqualToString_(v4->_type))
     {
       -[SCNLight setProbeType:](v4, "setProbeType:", [coder decodeIntForKey:@"probeType"]);
       -[SCNLight setProbeUpdateType:](v4, "setProbeUpdateType:", [coder decodeIntForKey:@"probeUpdateType"]);
       -[SCNLight setParallaxCorrectionEnabled:](v4, "setParallaxCorrectionEnabled:", [coder decodeBoolForKey:@"parallaxCorrectionEnabled"]);
       [coder decodeFloatForKey:@"probeExtentsX"];
-      v40 = v7;
+      v42 = v9;
       [coder decodeFloatForKey:@"probeExtentsY"];
-      v36 = v8;
+      v38 = v10;
       [coder decodeFloatForKey:@"probeExtentsZ"];
-      [(SCNLight *)v4 setProbeExtents:COERCE_DOUBLE(__PAIR64__(v36, v40))];
+      [(SCNLight *)v4 setProbeExtents:COERCE_DOUBLE(__PAIR64__(v38, v42))];
       [coder decodeFloatForKey:@"probeOffsetX"];
-      v41 = v9;
+      v43 = v11;
       [coder decodeFloatForKey:@"probeOffsetX"];
-      v37 = v10;
+      v39 = v12;
       [coder decodeFloatForKey:@"probeOffsetX"];
-      [(SCNLight *)v4 setProbeOffset:COERCE_DOUBLE(__PAIR64__(v37, v41))];
+      [(SCNLight *)v4 setProbeOffset:COERCE_DOUBLE(__PAIR64__(v39, v43))];
       [coder decodeFloatForKey:@"parallaxOffsetX"];
-      v42 = v11;
+      v44 = v13;
       [coder decodeFloatForKey:@"parallaxOffsetY"];
-      v38 = v12;
+      v40 = v14;
       [coder decodeFloatForKey:@"parallaxOffsetZ"];
-      [(SCNLight *)v4 setParallaxCenterOffset:COERCE_DOUBLE(__PAIR64__(v38, v42))];
+      [(SCNLight *)v4 setParallaxCenterOffset:COERCE_DOUBLE(__PAIR64__(v40, v44))];
       if ([coder containsValueForKey:@"parallaxExtentsFactorX"])
       {
         [coder decodeFloatForKey:@"parallaxExtentsFactorX"];
         __asm { FMOV            V1.4S, #1.0 }
 
-        LODWORD(_Q1) = v18;
-        *&v43 = _Q1;
+        LODWORD(_Q1) = v20;
+        *&v45 = _Q1;
       }
 
       else
       {
         __asm { FMOV            V0.4S, #1.0 }
 
-        *&v43 = _Q0;
+        *&v45 = _Q0;
       }
 
       if ([coder containsValueForKey:@"parallaxExtentsFactorY"])
       {
         [coder decodeFloatForKey:@"parallaxExtentsFactorY"];
-        *&v43 = __PAIR64__(v20, LODWORD(v43));
+        *&v45 = __PAIR64__(v22, LODWORD(v45));
       }
 
       if ([coder containsValueForKey:@"parallaxExtentsFactorZ"])
@@ -4319,35 +4324,35 @@ void __41__SCNLight_setIESProfileURL_resolvedURL___block_invoke_2(uint64_t a1)
         [coder decodeFloatForKey:@"parallaxExtentsFactorZ"];
       }
 
-      [(SCNLight *)v4 setParallaxExtentsFactor:v43];
+      [(SCNLight *)v4 setParallaxExtentsFactor:v45];
     }
 
     if ([coder containsValueForKey:@"scncolor"])
     {
-      v21 = SCNDecodeColor(coder, @"scncolor");
-    }
-
-    else
-    {
-      v22 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-      v21 = SCNDecodeUnsafeObjectForKey(coder, @"color", v22);
-    }
-
-    [(SCNLight *)v4 setColor:v21];
-    if ([coder containsValueForKey:@"scnShadowColor"])
-    {
-      v23 = SCNDecodeColor(coder, @"scnShadowColor");
+      v23 = SCNDecodeColor(coder, @"scncolor");
     }
 
     else
     {
       v24 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-      v23 = SCNDecodeUnsafeObjectForKey(coder, @"shadowColor", v24);
+      v23 = SCNDecodeUnsafeObjectForKey(coder, @"color", v24);
     }
 
-    [(SCNLight *)v4 setShadowColor:v23];
+    [(SCNLight *)v4 setColor:v23];
+    if ([coder containsValueForKey:@"scnShadowColor"])
+    {
+      v25 = SCNDecodeColor(coder, @"scnShadowColor");
+    }
+
+    else
+    {
+      v26 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
+      v25 = SCNDecodeUnsafeObjectForKey(coder, @"shadowColor", v26);
+    }
+
+    [(SCNLight *)v4 setShadowColor:v25];
     [coder decodeFloatForKey:@"shadowRadius"];
-    [(SCNLight *)v4 setShadowRadius:v25];
+    [(SCNLight *)v4 setShadowRadius:v27];
     if ([coder containsValueForKey:@"intensity"])
     {
       [coder decodeDoubleForKey:@"intensity"];
@@ -4364,24 +4369,24 @@ void __41__SCNLight_setIESProfileURL_resolvedURL___block_invoke_2(uint64_t a1)
     [(SCNLight *)v4 setOrthographicScale:?];
     if ([coder containsValueForKey:@"shadowSampleCount2"])
     {
-      v26 = [coder decodeIntegerForKey:@"shadowSampleCount2"];
+      v28 = [coder decodeIntegerForKey:@"shadowSampleCount2"];
     }
 
     else
     {
-      v27 = [coder decodeIntegerForKey:@"shadowSampleCount"];
-      if (v27 == 16)
+      v29 = [coder decodeIntegerForKey:@"shadowSampleCount"];
+      if (v29 == 16)
       {
-        v26 = 0;
+        v28 = 0;
       }
 
       else
       {
-        v26 = v27;
+        v28 = v29;
       }
     }
 
-    [(SCNLight *)v4 setShadowSampleCount:v26];
+    [(SCNLight *)v4 setShadowSampleCount:v28];
     [objc_msgSend(coder decodeObjectOfClass:objc_opt_class() forKey:{@"shadowMapSize", "CGSizeValue"}];
     [(SCNLight *)v4 setShadowMapSize:?];
     [coder decodeDoubleForKey:@"zNear"];
@@ -4394,15 +4399,15 @@ void __41__SCNLight_setIESProfileURL_resolvedURL___block_invoke_2(uint64_t a1)
     v4->_probeEnvironment = [coder decodeObjectOfClass:objc_opt_class() forKey:@"probeEnvironment"];
     if ([coder containsValueForKey:@"IESProfileURL"])
     {
-      v28 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"IESProfileURL"];
-      if ([v28 isFileURL] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v29 = objc_msgSend(v28, "relativePath"), (objc_msgSend(v29, "isAbsolutePath") & 1) == 0) && (v30 = objc_msgSend(objc_msgSend(coder, "documentEnclosingURL"), "URLByAppendingPathComponent:", v29)) != 0)
+      v30 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"IESProfileURL"];
+      if ([v30 isFileURL] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v31 = objc_msgSend(v30, "relativePath"), (objc_msgSend(v31, "isAbsolutePath") & 1) == 0) && (v32 = objc_msgSend(objc_msgSend(coder, "documentEnclosingURL"), "URLByAppendingPathComponent:", v31)) != 0)
       {
-        [(SCNLight *)v4 setIESProfileURL:v28 resolvedURL:v30];
+        [(SCNLight *)v4 setIESProfileURL:v30 resolvedURL:v32];
       }
 
       else
       {
-        [(SCNLight *)v4 setIESProfileURL:v28];
+        [(SCNLight *)v4 setIESProfileURL:v30];
       }
     }
 
@@ -4411,14 +4416,14 @@ void __41__SCNLight_setIESProfileURL_resolvedURL___block_invoke_2(uint64_t a1)
     {
       -[SCNLight setAreaType:](v4, "setAreaType:", [coder decodeIntegerForKey:@"areaType"]);
       [coder decodeFloatForKey:@"areaExtentsX"];
-      v44 = v31;
+      v46 = v33;
       [coder decodeFloatForKey:@"areaExtentsY"];
-      v39 = v32;
+      v41 = v34;
       [coder decodeFloatForKey:@"areaExtentsZ"];
-      [(SCNLight *)v4 setAreaExtents:COERCE_DOUBLE(__PAIR64__(v39, v44))];
+      [(SCNLight *)v4 setAreaExtents:COERCE_DOUBLE(__PAIR64__(v41, v46))];
       -[SCNLight setAreaPolygonVertices:](v4, "setAreaPolygonVertices:", [coder scn_decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"areaPolygonVertices"]);
       -[SCNLight setDrawsArea:](v4, "setDrawsArea:", [coder decodeBoolForKey:@"drawsArea"]);
-      v33 = [coder decodeBoolForKey:@"doubleSided"];
+      v35 = [coder decodeBoolForKey:@"doubleSided"];
     }
 
     else
@@ -4429,10 +4434,10 @@ void __41__SCNLight_setIESProfileURL_resolvedURL___block_invoke_2(uint64_t a1)
       [(SCNLight *)v4 setAreaExtents:*&_Q0];
       [(SCNLight *)v4 setAreaPolygonVertices:0];
       [(SCNLight *)v4 setDrawsArea:1];
-      v33 = 0;
+      v35 = 0;
     }
 
-    [(SCNLight *)v4 setDoubleSided:v33];
+    [(SCNLight *)v4 setDoubleSided:v35];
     v4->_animationsLock._os_unfair_lock_opaque = 0;
     SCNDecodeEntity(coder, v4);
     SCNDecodeAnimations(coder, v4);
@@ -4445,226 +4450,258 @@ void __41__SCNLight_setIESProfileURL_resolvedURL___block_invoke_2(uint64_t a1)
 
 - (void)setName:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setAttenuationEndDistance:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setAttenuationFalloffExponent:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setAttenuationStartDistance:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setBaked:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setCastsShadow:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setCategoryBitMask:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setColor:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setIntensity:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setOrthographicScale:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setShadowBias:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setShadowColor:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setShadowMapSize:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setShadowRadius:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setShadowSampleCount:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSpotFalloffExponent:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSpotInnerAngle:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSpotOuterAngle:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setTechnique:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setTemperature:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setType:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setUsesDeferredShadows:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setUsesModulatedMode:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setZFar:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setZNear:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setShadowCascadeCount:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setAutomaticallyAdjustsShadowProjection:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setMaximumShadowDistance:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setForcesBackFaceCasters:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSampleDistributedShadowMaps:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setShadowCascadeSplittingFactor:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)set_shadowCascadeDebugFactor:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 @end

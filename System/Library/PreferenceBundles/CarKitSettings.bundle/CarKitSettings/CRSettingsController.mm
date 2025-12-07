@@ -23,7 +23,10 @@
 - (void)vehicleDiscoverer:(id)discoverer didDiscoverVehicle:(id)vehicle;
 - (void)vehicleDiscoverer:(id)discoverer didRemoveVehicle:(id)vehicle;
 - (void)vehicleDiscoverer:(id)discoverer didUpdateVehicle:(id)vehicle;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CRSettingsController
@@ -643,6 +646,38 @@ LABEL_17:
   }
 
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = CRSettingsController;
+  [(CRSettingsController *)&v6 viewWillAppear:appear];
+  vehicleDiscoverer = [(CRSettingsController *)self vehicleDiscoverer];
+  [vehicleDiscoverer startWirelessDiscovery];
+
+  radiosPowerPrompt = [(CRSettingsController *)self radiosPowerPrompt];
+  [radiosPowerPrompt setPresentingController:self];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CRSettingsController;
+  [(CRSettingsController *)&v4 viewDidAppear:appear];
+  [(CRSettingsController *)self _car_emitNavigationEvent:@"CARPLAY_NAVIGATION_TITLE" navigationComponents:0];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = CRSettingsController;
+  [(CRSettingsController *)&v6 viewWillDisappear:disappear];
+  vehicleDiscoverer = [(CRSettingsController *)self vehicleDiscoverer];
+  [vehicleDiscoverer stopWirelessDiscovery];
+
+  radiosPowerPrompt = [(CRSettingsController *)self radiosPowerPrompt];
+  [radiosPowerPrompt setPresentingController:0];
 }
 
 - (void)_showActivityOnOtherCarsGroup:(BOOL)group

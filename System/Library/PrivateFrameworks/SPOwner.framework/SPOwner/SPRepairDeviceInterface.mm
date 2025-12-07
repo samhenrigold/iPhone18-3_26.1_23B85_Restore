@@ -85,14 +85,15 @@ void __65__SPRepairDeviceInterface_deviceAttributesForContext_completion___block
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
-      v8 = LogCategory_OwnerSession();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = LogCategory_OwnerSession(WeakRetained);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __65__SPRepairDeviceInterface_deviceAttributesForContext_completion___block_invoke_cold_1(v6, v8);
+        __65__SPRepairDeviceInterface_deviceAttributesForContext_completion___block_invoke_cold_1(v6, v9);
       }
 
       (*(*(a1 + 32) + 16))();
@@ -100,51 +101,51 @@ void __65__SPRepairDeviceInterface_deviceAttributesForContext_completion___block
 
     else
     {
-      v11 = [v5 insertions];
-      v12 = [v11 count];
+      v12 = [v5 insertions];
+      v13 = [v12 count];
 
-      if (v12)
+      if (v13)
       {
-        v13 = [WeakRetained beaconSession];
+        v14 = [v8 beaconSession];
         v29[0] = MEMORY[0x277D85DD0];
         v29[1] = 3221225472;
         v29[2] = __65__SPRepairDeviceInterface_deviceAttributesForContext_completion___block_invoke_3;
         v29[3] = &unk_279B58A20;
         v30 = 0;
-        [v13 stopUpdatingSimpleBeaconsWithCompletion:v29];
+        [v14 stopUpdatingSimpleBeaconsWithCompletion:v29];
 
-        v14 = objc_opt_new();
+        v15 = objc_opt_new();
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v15 = [v5 insertions];
-        v16 = [v15 countByEnumeratingWithState:&v25 objects:v31 count:16];
-        if (v16)
+        v16 = [v5 insertions];
+        v17 = [v16 countByEnumeratingWithState:&v25 objects:v31 count:16];
+        if (v17)
         {
-          v17 = v16;
-          v18 = *v26;
+          v18 = v17;
+          v19 = *v26;
           do
           {
-            for (i = 0; i != v17; ++i)
+            for (i = 0; i != v18; ++i)
             {
-              if (*v26 != v18)
+              if (*v26 != v19)
               {
-                objc_enumerationMutation(v15);
+                objc_enumerationMutation(v16);
               }
 
-              v20 = *(*(&v25 + 1) + 8 * i);
-              v21 = [SPRepairDeviceAttributes alloc];
-              v22 = [v20 object];
-              v23 = [(SPRepairDeviceAttributes *)v21 initWithInternalSimpleBeacon:v22];
+              v21 = *(*(&v25 + 1) + 8 * i);
+              v22 = [SPRepairDeviceAttributes alloc];
+              v23 = [v21 object];
+              v24 = [(SPRepairDeviceAttributes *)v22 initWithInternalSimpleBeacon:v23];
 
-              [v14 addObject:v23];
+              [v15 addObject:v24];
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v25 objects:v31 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v25 objects:v31 count:16];
           }
 
-          while (v17);
+          while (v18);
         }
 
         (*(*(a1 + 32) + 16))();
@@ -155,79 +156,73 @@ void __65__SPRepairDeviceInterface_deviceAttributesForContext_completion___block
 
   else
   {
-    v9 = *(a1 + 32);
-    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:19 userInfo:0];
-    (*(v9 + 16))(v9, 0, v10);
+    v10 = *(a1 + 32);
+    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:19 userInfo:0];
+    (*(v10 + 16))(v10, 0, v11);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SPRepairDeviceInterface_deviceAttributesForContext_completion___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v5 = LogCategory_OwnerSession();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v3 = LogCategory_OwnerSession(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __65__SPRepairDeviceInterface_deviceAttributesForContext_completion___block_invoke_3_cold_1(a2, a1);
+      __65__SPRepairDeviceInterface_deviceAttributesForContext_completion___block_invoke_3_cold_1();
     }
   }
 }
 
 void __65__SPRepairDeviceInterface_deviceAttributesForContext_completion___block_invoke_7(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v5 = LogCategory_OwnerSession();
+  v5 = LogCategory_OwnerSession(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109378;
-    v7[1] = a2;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "Starting fetch of devices. Subscribed %i, error: %@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = a2;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "Starting fetch of devices. Subscribed %i, error: %@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceForSerialNumber:(id)number completion:(id)completion
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   numberCopy = number;
   completionCopy = completion;
   v8 = objc_opt_new();
   v9 = [SPSimpleBeaconContext alloc];
-  v23[0] = numberCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = numberCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   v11 = [(SPSimpleBeaconContext *)v9 initWithFetchProperties:0x2000 matchingSerialNumbers:v10];
 
   [(SPSimpleBeaconContext *)v11 setRepairContextType:@"REPAIR"];
   [(SPRepairDeviceInterface *)self setBeaconSession:v8];
   objc_initWeak(&location, self);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke;
-  v18[3] = &unk_279B58AB8;
-  objc_copyWeak(&v21, &location);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke;
+  v17[3] = &unk_279B58AB8;
+  objc_copyWeak(&v20, &location);
   v12 = completionCopy;
-  v20 = v12;
+  v19 = v12;
   v13 = numberCopy;
-  v19 = v13;
-  [v8 setSimpleBeaconDifferenceBlock:v18];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_10;
-  v16[3] = &unk_279B58A20;
+  v18 = v13;
+  [v8 setSimpleBeaconDifferenceBlock:v17];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_10;
+  v15[3] = &unk_279B58A20;
   v14 = v13;
-  v17 = v14;
-  [v8 startUpdatingSimpleBeaconsWithContext:v11 completion:v16];
+  v16 = v14;
+  [v8 startUpdatingSimpleBeaconsWithContext:v11 completion:v15];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -235,11 +230,12 @@ void __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invo
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v8 = WeakRetained;
   if (!WeakRetained)
   {
-    v9 = *(a1 + 40);
-    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:19 userInfo:0];
-    (*(v9 + 16))(v9, 0, v10);
+    v10 = *(a1 + 40);
+    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:19 userInfo:0];
+    (*(v10 + 16))(v10, 0, v11);
 LABEL_9:
 
     goto LABEL_10;
@@ -247,33 +243,33 @@ LABEL_9:
 
   if (!v6)
   {
-    v11 = [v5 insertions];
-    v12 = [v11 firstObject];
-    v10 = [v12 object];
+    v12 = [v5 insertions];
+    v13 = [v12 firstObject];
+    v11 = [v13 object];
 
-    if (v10)
+    if (v11)
     {
-      v13 = [WeakRetained beaconSession];
-      v16 = MEMORY[0x277D85DD0];
-      v17 = 3221225472;
-      v18 = __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_9;
-      v19 = &unk_279B58A90;
-      v20 = *(a1 + 32);
-      v21 = 0;
-      [v13 stopUpdatingSimpleBeaconsWithCompletion:&v16];
+      v14 = [v8 beaconSession];
+      v17 = MEMORY[0x277D85DD0];
+      v18 = 3221225472;
+      v19 = __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_9;
+      v20 = &unk_279B58A90;
+      v21 = *(a1 + 32);
+      v22 = 0;
+      [v14 stopUpdatingSimpleBeaconsWithCompletion:&v17];
 
-      v14 = [SPRepairDeviceAttributes alloc];
-      v15 = [(SPRepairDeviceAttributes *)v14 initWithInternalSimpleBeacon:v10, v16, v17, v18, v19];
+      v15 = [SPRepairDeviceAttributes alloc];
+      v16 = [(SPRepairDeviceAttributes *)v15 initWithInternalSimpleBeacon:v11, v17, v18, v19, v20];
       (*(*(a1 + 40) + 16))();
     }
 
     goto LABEL_9;
   }
 
-  v8 = LogCategory_OwnerSession();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = LogCategory_OwnerSession(WeakRetained);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_cold_1(a1);
+    __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -284,70 +280,66 @@ void __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invo
 {
   if (a3)
   {
-    v4 = LogCategory_OwnerSession();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = LogCategory_OwnerSession(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_9_cold_1(a1);
+      __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_9_cold_1();
     }
   }
 }
 
 void __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_10(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = LogCategory_OwnerSession();
+  v6 = LogCategory_OwnerSession(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Starting fetch of device for %@. Subscribed %i, error: %@", &v9, 0x1Cu);
+    v8 = 138412802;
+    v9 = v7;
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Starting fetch of device for %@. Subscribed %i, error: %@", &v8, 0x1Cu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceForFindMyId:(id)id completion:(id)completion
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   completionCopy = completion;
   v8 = objc_opt_new();
   v9 = [SPSimpleBeaconContext alloc];
-  v23[0] = idCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = idCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   v11 = [(SPSimpleBeaconContext *)v9 initWithFetchProperties:0x2000 matchingFindMyIds:v10];
 
   [(SPSimpleBeaconContext *)v11 setRepairContextType:@"REPAIR"];
   [(SPRepairDeviceInterface *)self setBeaconSession:v8];
   objc_initWeak(&location, self);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __56__SPRepairDeviceInterface_deviceForFindMyId_completion___block_invoke;
-  v18[3] = &unk_279B58AB8;
-  objc_copyWeak(&v21, &location);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __56__SPRepairDeviceInterface_deviceForFindMyId_completion___block_invoke;
+  v17[3] = &unk_279B58AB8;
+  objc_copyWeak(&v20, &location);
   v12 = completionCopy;
-  v20 = v12;
+  v19 = v12;
   v13 = idCopy;
-  v19 = v13;
-  [v8 setSimpleBeaconDifferenceBlock:v18];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __56__SPRepairDeviceInterface_deviceForFindMyId_completion___block_invoke_12;
-  v16[3] = &unk_279B58A20;
+  v18 = v13;
+  [v8 setSimpleBeaconDifferenceBlock:v17];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __56__SPRepairDeviceInterface_deviceForFindMyId_completion___block_invoke_12;
+  v15[3] = &unk_279B58A20;
   v14 = v13;
-  v17 = v14;
-  [v8 startUpdatingSimpleBeaconsWithContext:v11 completion:v16];
+  v16 = v14;
+  [v8 startUpdatingSimpleBeaconsWithContext:v11 completion:v15];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SPRepairDeviceInterface_deviceForFindMyId_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -355,11 +347,12 @@ void __56__SPRepairDeviceInterface_deviceForFindMyId_completion___block_invoke(u
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v8 = WeakRetained;
   if (!WeakRetained)
   {
-    v9 = *(a1 + 40);
-    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:19 userInfo:0];
-    (*(v9 + 16))(v9, 0, v10);
+    v10 = *(a1 + 40);
+    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:19 userInfo:0];
+    (*(v10 + 16))(v10, 0, v11);
 LABEL_9:
 
     goto LABEL_10;
@@ -367,33 +360,33 @@ LABEL_9:
 
   if (!v6)
   {
-    v11 = [v5 insertions];
-    v12 = [v11 firstObject];
-    v10 = [v12 object];
+    v12 = [v5 insertions];
+    v13 = [v12 firstObject];
+    v11 = [v13 object];
 
-    if (v10)
+    if (v11)
     {
-      v13 = [WeakRetained beaconSession];
-      v16 = MEMORY[0x277D85DD0];
-      v17 = 3221225472;
-      v18 = __56__SPRepairDeviceInterface_deviceForFindMyId_completion___block_invoke_11;
-      v19 = &unk_279B58A90;
-      v20 = *(a1 + 32);
-      v21 = 0;
-      [v13 stopUpdatingSimpleBeaconsWithCompletion:&v16];
+      v14 = [v8 beaconSession];
+      v17 = MEMORY[0x277D85DD0];
+      v18 = 3221225472;
+      v19 = __56__SPRepairDeviceInterface_deviceForFindMyId_completion___block_invoke_11;
+      v20 = &unk_279B58A90;
+      v21 = *(a1 + 32);
+      v22 = 0;
+      [v14 stopUpdatingSimpleBeaconsWithCompletion:&v17];
 
-      v14 = [SPRepairDeviceAttributes alloc];
-      v15 = [(SPRepairDeviceAttributes *)v14 initWithInternalSimpleBeacon:v10, v16, v17, v18, v19];
+      v15 = [SPRepairDeviceAttributes alloc];
+      v16 = [(SPRepairDeviceAttributes *)v15 initWithInternalSimpleBeacon:v11, v17, v18, v19, v20];
       (*(*(a1 + 40) + 16))();
     }
 
     goto LABEL_9;
   }
 
-  v8 = LogCategory_OwnerSession();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = LogCategory_OwnerSession(WeakRetained);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_cold_1(a1);
+    __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -404,70 +397,66 @@ void __56__SPRepairDeviceInterface_deviceForFindMyId_completion___block_invoke_1
 {
   if (a3)
   {
-    v4 = LogCategory_OwnerSession();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = LogCategory_OwnerSession(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_9_cold_1(a1);
+      __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_9_cold_1();
     }
   }
 }
 
 void __56__SPRepairDeviceInterface_deviceForFindMyId_completion___block_invoke_12(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = LogCategory_OwnerSession();
+  v6 = LogCategory_OwnerSession(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Starting fetch of device for %@. Subscribed %i, error: %@", &v9, 0x1Cu);
+    v8 = 138412802;
+    v9 = v7;
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Starting fetch of device for %@. Subscribed %i, error: %@", &v8, 0x1Cu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceForBeaconIdentifier:(id)identifier completion:(id)completion
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = objc_opt_new();
   v9 = [SPSimpleBeaconContext alloc];
-  v23[0] = identifierCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = identifierCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   v11 = [(SPSimpleBeaconContext *)v9 initWithFetchProperties:0x2000 matchingBeaconUUIDs:v10];
 
   [(SPSimpleBeaconContext *)v11 setRepairContextType:@"REPAIR"];
   [(SPRepairDeviceInterface *)self setBeaconSession:v8];
   objc_initWeak(&location, self);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __64__SPRepairDeviceInterface_deviceForBeaconIdentifier_completion___block_invoke;
-  v18[3] = &unk_279B58AB8;
-  objc_copyWeak(&v21, &location);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __64__SPRepairDeviceInterface_deviceForBeaconIdentifier_completion___block_invoke;
+  v17[3] = &unk_279B58AB8;
+  objc_copyWeak(&v20, &location);
   v12 = completionCopy;
-  v20 = v12;
+  v19 = v12;
   v13 = identifierCopy;
-  v19 = v13;
-  [v8 setSimpleBeaconDifferenceBlock:v18];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __64__SPRepairDeviceInterface_deviceForBeaconIdentifier_completion___block_invoke_14;
-  v16[3] = &unk_279B58A20;
+  v18 = v13;
+  [v8 setSimpleBeaconDifferenceBlock:v17];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __64__SPRepairDeviceInterface_deviceForBeaconIdentifier_completion___block_invoke_14;
+  v15[3] = &unk_279B58A20;
   v14 = v13;
-  v17 = v14;
-  [v8 startUpdatingSimpleBeaconsWithContext:v11 completion:v16];
+  v16 = v14;
+  [v8 startUpdatingSimpleBeaconsWithContext:v11 completion:v15];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SPRepairDeviceInterface_deviceForBeaconIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -475,11 +464,12 @@ void __64__SPRepairDeviceInterface_deviceForBeaconIdentifier_completion___block_
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v8 = WeakRetained;
   if (!WeakRetained)
   {
-    v9 = *(a1 + 40);
-    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:19 userInfo:0];
-    (*(v9 + 16))(v9, 0, v10);
+    v10 = *(a1 + 40);
+    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:19 userInfo:0];
+    (*(v10 + 16))(v10, 0, v11);
 LABEL_9:
 
     goto LABEL_10;
@@ -487,33 +477,33 @@ LABEL_9:
 
   if (!v6)
   {
-    v11 = [v5 insertions];
-    v12 = [v11 firstObject];
-    v10 = [v12 object];
+    v12 = [v5 insertions];
+    v13 = [v12 firstObject];
+    v11 = [v13 object];
 
-    if (v10)
+    if (v11)
     {
-      v13 = [WeakRetained beaconSession];
-      v16 = MEMORY[0x277D85DD0];
-      v17 = 3221225472;
-      v18 = __64__SPRepairDeviceInterface_deviceForBeaconIdentifier_completion___block_invoke_13;
-      v19 = &unk_279B58A90;
-      v20 = *(a1 + 32);
-      v21 = 0;
-      [v13 stopUpdatingSimpleBeaconsWithCompletion:&v16];
+      v14 = [v8 beaconSession];
+      v17 = MEMORY[0x277D85DD0];
+      v18 = 3221225472;
+      v19 = __64__SPRepairDeviceInterface_deviceForBeaconIdentifier_completion___block_invoke_13;
+      v20 = &unk_279B58A90;
+      v21 = *(a1 + 32);
+      v22 = 0;
+      [v14 stopUpdatingSimpleBeaconsWithCompletion:&v17];
 
-      v14 = [SPRepairDeviceAttributes alloc];
-      v15 = [(SPRepairDeviceAttributes *)v14 initWithInternalSimpleBeacon:v10, v16, v17, v18, v19];
+      v15 = [SPRepairDeviceAttributes alloc];
+      v16 = [(SPRepairDeviceAttributes *)v15 initWithInternalSimpleBeacon:v11, v17, v18, v19, v20];
       (*(*(a1 + 40) + 16))();
     }
 
     goto LABEL_9;
   }
 
-  v8 = LogCategory_OwnerSession();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = LogCategory_OwnerSession(WeakRetained);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_cold_1(a1);
+    __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -524,70 +514,66 @@ void __64__SPRepairDeviceInterface_deviceForBeaconIdentifier_completion___block_
 {
   if (a3)
   {
-    v4 = LogCategory_OwnerSession();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = LogCategory_OwnerSession(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_9_cold_1(a1);
+      __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_9_cold_1();
     }
   }
 }
 
 void __64__SPRepairDeviceInterface_deviceForBeaconIdentifier_completion___block_invoke_14(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = LogCategory_OwnerSession();
+  v6 = LogCategory_OwnerSession(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Starting fetch of device for %@. Subscribed %i, error: %@", &v9, 0x1Cu);
+    v8 = 138412802;
+    v9 = v7;
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Starting fetch of device for %@. Subscribed %i, error: %@", &v8, 0x1Cu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateRepairStateForSerialNumber:(id)number updateBlock:(id)block
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   numberCopy = number;
   blockCopy = block;
   v8 = objc_opt_new();
   v9 = [SPSimpleBeaconContext alloc];
-  v23[0] = numberCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = numberCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   v11 = [(SPSimpleBeaconContext *)v9 initWithFetchProperties:0x2000 matchingSerialNumbers:v10];
 
   [(SPSimpleBeaconContext *)v11 setRepairContextType:@"REPAIR"];
   [(SPRepairDeviceInterface *)self setBeaconSession:v8];
   objc_initWeak(&location, self);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __72__SPRepairDeviceInterface_updateRepairStateForSerialNumber_updateBlock___block_invoke;
-  v18[3] = &unk_279B58AB8;
-  objc_copyWeak(&v21, &location);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __72__SPRepairDeviceInterface_updateRepairStateForSerialNumber_updateBlock___block_invoke;
+  v17[3] = &unk_279B58AB8;
+  objc_copyWeak(&v20, &location);
   v12 = blockCopy;
-  v20 = v12;
+  v19 = v12;
   v13 = numberCopy;
-  v19 = v13;
-  [v8 setSimpleBeaconDifferenceBlock:v18];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __72__SPRepairDeviceInterface_updateRepairStateForSerialNumber_updateBlock___block_invoke_15;
-  v16[3] = &unk_279B58A20;
+  v18 = v13;
+  [v8 setSimpleBeaconDifferenceBlock:v17];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __72__SPRepairDeviceInterface_updateRepairStateForSerialNumber_updateBlock___block_invoke_15;
+  v15[3] = &unk_279B58A20;
   v14 = v13;
-  v17 = v14;
-  [v8 startUpdatingSimpleBeaconsWithContext:v11 completion:v16];
+  v16 = v14;
+  [v8 startUpdatingSimpleBeaconsWithContext:v11 completion:v15];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __72__SPRepairDeviceInterface_updateRepairStateForSerialNumber_updateBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -595,11 +581,12 @@ void __72__SPRepairDeviceInterface_updateRepairStateForSerialNumber_updateBlock_
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v8 = WeakRetained;
   if (!WeakRetained)
   {
-    v9 = *(a1 + 40);
-    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:19 userInfo:0];
-    (*(v9 + 16))(v9, 0, v10);
+    v10 = *(a1 + 40);
+    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:19 userInfo:0];
+    (*(v10 + 16))(v10, 0, v11);
 LABEL_9:
 
     goto LABEL_10;
@@ -607,23 +594,23 @@ LABEL_9:
 
   if (!v6)
   {
-    v11 = [v5 insertions];
-    v12 = [v11 firstObject];
-    v10 = [v12 object];
+    v12 = [v5 insertions];
+    v13 = [v12 firstObject];
+    v11 = [v13 object];
 
-    if (v10)
+    if (v11)
     {
-      v13 = [[SPRepairDeviceAttributes alloc] initWithInternalSimpleBeacon:v10];
+      v14 = [[SPRepairDeviceAttributes alloc] initWithInternalSimpleBeacon:v11];
       (*(*(a1 + 40) + 16))();
     }
 
     goto LABEL_9;
   }
 
-  v8 = LogCategory_OwnerSession();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = LogCategory_OwnerSession(WeakRetained);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_cold_1(a1);
+    __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -632,58 +619,44 @@ LABEL_10:
 
 void __72__SPRepairDeviceInterface_updateRepairStateForSerialNumber_updateBlock___block_invoke_15(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = LogCategory_OwnerSession();
+  v6 = LogCategory_OwnerSession(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Starting fetch of device for %@. Subscribed %i, error: %@", &v9, 0x1Cu);
+    v8 = 138412802;
+    v9 = v7;
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Starting fetch of device for %@. Subscribed %i, error: %@", &v8, 0x1Cu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SPRepairDeviceInterface_deviceAttributesForContext_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "Error during update of devices error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "Error during update of devices error: %@", &v2, 0xCu);
 }
 
-void __65__SPRepairDeviceInterface_deviceAttributesForContext_completion___block_invoke_3_cold_1(uint64_t a1, uint64_t a2)
+void __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = *(a2 + 32);
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_9_cold_1(uint64_t a1)
+void __60__SPRepairDeviceInterface_deviceForSerialNumber_completion___block_invoke_9_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 @end

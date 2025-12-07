@@ -6,7 +6,7 @@
 
 - (id)collectLinkEntities
 {
-  v2 = [(TUILayout *)self box];
+  v2 = objc_msgSend_box(self, a2);
   linkEntities = [v2 linkEntities];
 
   return linkEntities;

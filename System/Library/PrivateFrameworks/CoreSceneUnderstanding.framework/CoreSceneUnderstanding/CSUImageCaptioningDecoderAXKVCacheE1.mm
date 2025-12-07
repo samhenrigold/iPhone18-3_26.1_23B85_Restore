@@ -2,9 +2,11 @@
 - (BOOL)compareTensorShapesForShape1:(const void *)shape1 Shape2:(const void *)shape2;
 - (BOOL)loadDecoder:(id *)decoder;
 - (BOOL)loadDecoderObj:(id *)obj;
+- (BOOL)loadPostProcUtilsWithBeamWidth:(int)width error:(id *)error;
 - (BOOL)loadResources:(id *)resources;
 - (BOOL)populateInputBuffer:(id)buffer WithError:(id *)error;
 - (CSUImageCaptioningDecoderAXKVCacheE1)initWithConfiguration:(id)configuration;
+- (ModelOutput)nextTokensForInputs:(SEL)inputs KVCache:(const void *)cache AndforMaskPosition:(const void *)position;
 - (id).cxx_construct;
 - (id)computeDecodedCaptionsForFeatures:(id)features withDecodingMethod:(int64_t)method runDecoderOnly:(BOOL)only error:(id *)error;
 - (id)getCaptionsAfterGreedyDecodingOnEncodedFeatures;
@@ -49,7 +51,7 @@
               objc_msgSend_setComputeDevice_(configurationCopy, v13, v17, v18, v19, v24);
 
               objc_storeStrong(&v10->_configuration, configuration);
-              v21 = v10;
+              v22 = v10;
               goto LABEL_16;
             }
           }
@@ -61,23 +63,33 @@
       while (v14);
     }
 
-    v20 = sub_1AC090E50();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = sub_1AC090E50(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_1AC120118(v20);
+      sub_1AC120118(v21);
     }
 
-    v21 = 0;
+    v22 = 0;
 LABEL_16:
   }
 
   else
   {
-    v21 = 0;
+    v22 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-  return v21;
+  return v22;
+}
+
+- (BOOL)loadPostProcUtilsWithBeamWidth:(int)width error:(id *)error
+{
+  v5 = *&width;
+  v7 = [CSUCaptioningProcUtils alloc];
+  v9 = objc_msgSend_initWithDecoderConfiguration_beamWidth_beamScorerType_error_(v7, v8, self->_configuration, v5, 1, error);
+  procUtils = self->_procUtils;
+  self->_procUtils = v9;
+
+  return self->_procUtils != 0;
 }
 
 - (BOOL)loadDecoderObj:(id *)obj
@@ -198,19 +210,54 @@ LABEL_11:
   return v10 >= v6;
 }
 
+- (ModelOutput)nextTokensForInputs:(SEL)inputs KVCache:(const void *)cache AndforMaskPosition:(const void *)position
+{
+  decoderNetObj = self->_decoderNetObj;
+  v11 = a6;
+  v23 = 0;
+  objc_msgSend_buildNetworkForSequenceLength_error_(decoderNetObj, inputs, a6, &v23, *&a6);
+  v15 = v23;
+  if (v15)
+  {
+    objc_msgSend_logInternalError_(CSUError, v12, v15, v13, v14);
+    v16 = 0uLL;
+    *(&retstr->var1 + 1) = 0u;
+  }
+
+  else
+  {
+    objc_msgSend_copyInputContextIDs_EncoderFeatures_KVCache_MaskPosition_(self->_decoderNetObj, v12, cache, &self->_encodedFeaturesBuffer, position, v11);
+    v21 = self->_decoderNetObj;
+    if (v21)
+    {
+      objc_msgSend_predict(v21, v17, v18, v19, v20);
+      goto LABEL_6;
+    }
+
+    v16 = 0uLL;
+    *&retstr->var1.var1 = 0u;
+  }
+
+  *&retstr->var0.__begin_ = v16;
+  *&retstr->var0.__cap_ = v16;
+LABEL_6:
+
+  return result;
+}
+
 - (BOOL)populateInputBuffer:(id)buffer WithError:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13[8] = *MEMORY[0x1E69E9840];
   bufferCopy = buffer;
   if (bufferCopy)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      objc_msgSend_espressoBuffer(bufferCopy, v5, v6, v7, v8);
+      v9 = objc_msgSend_espressoBuffer(bufferCopy, v5, v6, v7, v8);
 
-      LOWORD(v11) = 1;
-      sub_1AC06910C();
+      LOWORD(v12) = 1;
+      sub_1AC06910C(v13, v9);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -253,7 +300,7 @@ LABEL_11:
 
 - (id)getCaptionsAfterGreedyDecodingOnEncodedFeatures
 {
-  v2 = sub_1AC090E50();
+  v2 = sub_1AC090E50(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1AC12015C(v2);
@@ -269,23 +316,23 @@ LABEL_11:
 
   if (v11)
   {
-    v16 = objc_msgSend_postProcessingHandler(self->_procUtils, v12, v13, v14, v15);
-    v21 = objc_msgSend_genderOptionForBeamSearch(self->_procUtils, v17, v18, v19, v20);
-    v23 = objc_msgSend_postProcessResults_genderOption_error_(v16, v22, resultsCopy, v21, error);
+    v17 = objc_msgSend_postProcessingHandler(self->_procUtils, v13, v14, v15, v16);
+    v22 = objc_msgSend_genderOptionForBeamSearch(self->_procUtils, v18, v19, v20, v21);
+    v24 = objc_msgSend_postProcessResults_genderOption_error_(v17, v23, resultsCopy, v22, error);
   }
 
   else
   {
-    v24 = sub_1AC090E50();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v25 = sub_1AC090E50(v12);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      sub_1AC1201A0(v24);
+      sub_1AC1201A0(v25);
     }
 
-    v23 = resultsCopy;
+    v24 = resultsCopy;
   }
 
-  return v23;
+  return v24;
 }
 
 - (id).cxx_construct

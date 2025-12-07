@@ -103,21 +103,22 @@
 - (HKSPSleepSchedule)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v11.receiver = self;
-  v11.super_class = HKSPSleepSchedule;
-  v5 = [(HKSPSleepSchedule *)&v11 init];
+  v13.receiver = self;
+  v13.super_class = HKSPSleepSchedule;
+  v5 = [(HKSPSleepSchedule *)&v13 init];
   v6 = v5;
   if (v5)
   {
     HKSPDecodeObjectWithCoder(v5, coderCopy);
-    if (([coderCopy hksp_serializationOptions] & 1) == 0)
+    hksp_serializationOptions = [coderCopy hksp_serializationOptions];
+    if ((hksp_serializationOptions & 1) == 0)
     {
-      v7 = [coderCopy decodeObjectOfClass:HKSPSyncAnchorClass() forKey:@"HKSPScheduleSyncAnchor"];
+      v9 = [coderCopy decodeObjectOfClass:HKSPSyncAnchorClass(hksp_serializationOptions forKey:{v8), @"HKSPScheduleSyncAnchor"}];
       syncAnchor = v6->_syncAnchor;
-      v6->_syncAnchor = v7;
+      v6->_syncAnchor = v9;
     }
 
-    v9 = v6;
+    v11 = v6;
   }
 
   return v6;
@@ -616,35 +617,35 @@ BOOL __37__HKSPSleepSchedule_occurrenceOnDay___block_invoke(uint64_t a1, void *a
 
 - (unint64_t)weekdaysWithOccurrences
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   occurrences = [(HKSPSleepSchedule *)self occurrences];
-  v3 = [occurrences countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [occurrences countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(occurrences);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if ([v8 weekdays] != 0xFFFFFFFFLL)
         {
           v5 |= [v8 weekdays];
         }
       }
 
-      v4 = [occurrences countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [occurrences countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -655,7 +656,6 @@ BOOL __37__HKSPSleepSchedule_occurrenceOnDay___block_invoke(uint64_t a1, void *a
     v5 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -747,7 +747,7 @@ BOOL __37__HKSPSleepSchedule_occurrenceOnDay___block_invoke(uint64_t a1, void *a
   return v24;
 }
 
-uint64_t __47__HKSPSleepSchedule_allowableRangeForWeekdays___block_invoke(uint64_t a1, uint64_t a2)
+void *__47__HKSPSleepSchedule_allowableRangeForWeekdays___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2 == 7)
   {

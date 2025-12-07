@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)repetitionTypeAsString:(int)string;
 - (int)StringAsRepetitionType:(id)type;
 - (int)repetitionType;
 - (unint64_t)hash;
@@ -139,20 +140,18 @@ LABEL_12:
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    asrHypothesisIndex = self->_asrHypothesisIndex;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    repetitionType = self->_repetitionType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -225,6 +224,21 @@ LABEL_12:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)repetitionTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8327F58[string];
   }
 
   return v4;

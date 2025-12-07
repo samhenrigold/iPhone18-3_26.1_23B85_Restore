@@ -19,7 +19,7 @@ uint64_t sub_241D203A0()
 
 void sub_241D20504()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (qword_280BC58C8)
   {
     v0 = qword_280BC58C8;
@@ -36,12 +36,10 @@ void sub_241D20504()
   v2 = BLDefaultLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 138412290;
-    v5 = qword_280BC5948;
-    _os_log_impl(&dword_241D1F000, v2, OS_LOG_TYPE_DEFAULT, "[DownloadQueueNonUI]: using singelton instance: %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = qword_280BC5948;
+    _os_log_impl(&dword_241D1F000, v2, OS_LOG_TYPE_DEFAULT, "[DownloadQueueNonUI]: using singelton instance: %@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_241D2066C(uint64_t a1)
@@ -51,9 +49,9 @@ uint64_t sub_241D2066C(uint64_t a1)
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_241D208E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D208E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -73,7 +71,7 @@ void sub_241D208F8(uint64_t a1)
 
   if (v3)
   {
-    v4 = BLServiceProxyLog();
+    v4 = BLServiceProxyLog(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -129,7 +127,7 @@ void sub_241D208F8(uint64_t a1)
 
   else if (v2 == 3)
   {
-    v16 = BLServiceProxyLog();
+    v16 = BLServiceProxyLog(3);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -149,16 +147,16 @@ void sub_241D20C04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id BLServiceProxyLog()
+id BLServiceProxyLog(uint64_t a1)
 {
   if (qword_280BC59D0 != -1)
   {
     sub_241D20C80();
   }
 
-  v1 = qword_280BC59D8;
+  v2 = qword_280BC59D8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D20C94()
@@ -199,33 +197,32 @@ id BLDaemonLog()
   return v1;
 }
 
-id BLServiceLog()
+id BLServiceLog(uint64_t a1)
 {
   if (qword_280BC58E0 != -1)
   {
     sub_241D76C38();
   }
 
-  v1 = qword_280BC58E8;
+  v2 = qword_280BC58E8;
 
-  return v1;
+  return v2;
 }
 
-id BLServiceDownloadManagerLog()
+id BLServiceDownloadManagerLog(uint64_t a1)
 {
   if (qword_280BC5900 != -1)
   {
     sub_241D76C88();
   }
 
-  v1 = qword_280BC5908;
+  v2 = qword_280BC5908;
 
-  return v1;
+  return v2;
 }
 
-void sub_241D213C8(uint64_t a1)
+void sub_241D213C8(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = [v3 pathForResource:@"BKPurchases" ofType:@"momd"];
 
@@ -262,7 +259,7 @@ uint64_t sub_241D219E8()
 
 void sub_241D21AF8()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = container_system_group_path_for_identifier();
   if (v0)
   {
@@ -279,9 +276,9 @@ void sub_241D21AF8()
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v9 = "systemgroup.com.apple.media.books.managed";
-      v10 = 2048;
-      v11 = 1;
+      v8 = "systemgroup.com.apple.media.books.managed";
+      v9 = 2048;
+      v10 = 1;
       _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_ERROR, "Error getting system group container: %s => %llu", buf, 0x16u);
     }
 
@@ -291,8 +288,6 @@ void sub_241D21AF8()
   v5 = [v3 path];
   v6 = qword_280BC5990;
   qword_280BC5990 = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_241D21D34()
@@ -334,11 +329,11 @@ uint64_t sub_241D230F8(uint64_t result)
   return result;
 }
 
-void sub_241D23DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_241D23DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 128), 8);
+  _Block_object_dispose((v24 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -382,58 +377,58 @@ uint64_t sub_241D24160(uint64_t a1, void *a2)
   return v4;
 }
 
-void sub_241D2444C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_241D2444C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_241D24470(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = [*(a1 + 32) _allPlists];
-  v26 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+  if (v25)
   {
-    v27 = 0;
-    v25 = *v33;
+    v26 = 0;
+    v24 = *v32;
     while (2)
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v33 != v25)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = *(*(&v32 + 1) + 8 * i);
+        v3 = *(*(&v31 + 1) + 8 * i);
         v4 = [*(a1 + 32) _bookItemsFromPlist:v3];
+        v27 = 0u;
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
         v5 = v4;
-        v6 = [v5 countByEnumeratingWithState:&v28 objects:v39 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v27 objects:v38 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v29;
+          v8 = *v28;
 LABEL_8:
           v9 = 0;
           while (1)
           {
-            if (*v29 != v8)
+            if (*v28 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v28 + 1) + 8 * v9);
+            v10 = *(*(&v27 + 1) + 8 * v9);
             v11 = [v10 identifier];
             v12 = [v11 isEqualToString:*(a1 + 40)];
 
@@ -444,7 +439,7 @@ LABEL_8:
 
             if (v7 == ++v9)
             {
-              v7 = [v5 countByEnumeratingWithState:&v28 objects:v39 count:16];
+              v7 = [v5 countByEnumeratingWithState:&v27 objects:v38 count:16];
               if (v7)
               {
                 goto LABEL_8;
@@ -459,13 +454,13 @@ LABEL_8:
 
           if (!v13)
           {
-            v27 = v14;
+            v26 = v14;
             continue;
           }
 
           v15 = [v14 lastPathComponent];
-          v38 = v15;
-          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+          v37 = v15;
+          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
           [v13 addDeletedFiles:v16];
 
           if (([*(a1 + 32) _isMultiUser] & 1) == 0)
@@ -481,8 +476,8 @@ LABEL_8:
 LABEL_14:
       }
 
-      v26 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
-      if (v26)
+      v25 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+      if (v25)
       {
         continue;
       }
@@ -493,7 +488,7 @@ LABEL_14:
 
   else
   {
-    v27 = 0;
+    v26 = 0;
   }
 
   if (*(a1 + 64))
@@ -505,78 +500,76 @@ LABEL_14:
       v19 = *(a1 + 40);
     }
 
-    v36 = @"identifier";
-    v37 = v19;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    v35 = @"identifier";
+    v36 = v19;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
     v20 = [v18 errorWithDomain:@"BLLibraryErrorDomain" code:-1000 userInfo:v13];
     v21 = *(*(a1 + 56) + 8);
     v22 = *(v21 + 40);
     *(v21 + 40) = v20;
 
-    v14 = v27;
+    v14 = v26;
 LABEL_28:
   }
 
   else
   {
-    v14 = v27;
+    v14 = v26;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void sub_241D24908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_241D24908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_241D2492C(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = [*(a1 + 32) _allPlists];
-  v26 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+  if (v25)
   {
-    v27 = 0;
-    v25 = *v33;
+    v26 = 0;
+    v24 = *v32;
     while (2)
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v33 != v25)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = *(*(&v32 + 1) + 8 * i);
+        v3 = *(*(&v31 + 1) + 8 * i);
         v4 = [*(a1 + 32) _bookItemsFromPlist:v3];
+        v27 = 0u;
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
         v5 = v4;
-        v6 = [v5 countByEnumeratingWithState:&v28 objects:v39 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v27 objects:v38 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v29;
+          v8 = *v28;
 LABEL_8:
           v9 = 0;
           while (1)
           {
-            if (*v29 != v8)
+            if (*v28 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v28 + 1) + 8 * v9);
+            v10 = *(*(&v27 + 1) + 8 * v9);
             v11 = [v10 path];
             v12 = [v11 isEqualToString:*(a1 + 40)];
 
@@ -587,7 +580,7 @@ LABEL_8:
 
             if (v7 == ++v9)
             {
-              v7 = [v5 countByEnumeratingWithState:&v28 objects:v39 count:16];
+              v7 = [v5 countByEnumeratingWithState:&v27 objects:v38 count:16];
               if (v7)
               {
                 goto LABEL_8;
@@ -602,13 +595,13 @@ LABEL_8:
 
           if (!v13)
           {
-            v27 = v14;
+            v26 = v14;
             continue;
           }
 
           v15 = [v14 lastPathComponent];
-          v38 = v15;
-          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+          v37 = v15;
+          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
           [v13 addDeletedFiles:v16];
 
           if (([*(a1 + 32) _isMultiUser] & 1) == 0)
@@ -624,8 +617,8 @@ LABEL_8:
 LABEL_14:
       }
 
-      v26 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
-      if (v26)
+      v25 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+      if (v25)
       {
         continue;
       }
@@ -636,7 +629,7 @@ LABEL_14:
 
   else
   {
-    v27 = 0;
+    v26 = 0;
   }
 
   if (*(a1 + 64))
@@ -648,24 +641,22 @@ LABEL_14:
       v19 = *(a1 + 40);
     }
 
-    v36 = @"path";
-    v37 = v19;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    v35 = @"path";
+    v36 = v19;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
     v20 = [v18 errorWithDomain:@"BLLibraryErrorDomain" code:-1000 userInfo:v13];
     v21 = *(*(a1 + 56) + 8);
     v22 = *(v21 + 40);
     *(v21 + 40) = v20;
 
-    v14 = v27;
+    v14 = v26;
 LABEL_28:
   }
 
   else
   {
-    v14 = v27;
+    v14 = v26;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_241D25100(uint64_t a1, void *a2)
@@ -696,7 +687,7 @@ uint64_t sub_241D25270(uint64_t a1, void *a2)
 
 void sub_241D25904(void *a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4)
   {
@@ -704,11 +695,11 @@ void sub_241D25904(void *a1, uint64_t a2, void *a3)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = a1[4];
-      v9 = 138412546;
-      v10 = v6;
-      v11 = 2112;
-      v12 = v4;
-      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "Failed to add permalink %@. Error:  %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v4;
+      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "Failed to add permalink %@. Error:  %@", &v8, 0x16u);
     }
 
     (*(a1[6] + 16))();
@@ -719,120 +710,117 @@ void sub_241D25904(void *a1, uint64_t a2, void *a3)
     v7 = [[BLBookItem alloc] initWithPeristentIdentifier:@"0" permlink:a1[4] title:a1[5]];
     (*(a1[6] + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_241D25B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_241D25B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_241D25BB4(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v2 = 0x278D16000uLL;
   v3 = [*(a1 + 32) sharedPlist];
   v4 = [v3 contents];
   v5 = [IMLibraryPlist booksArrayFromPlistEntry:v4];
 
-  v45 = 0u;
-  v46 = 0u;
   v43 = 0u;
   v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v43 objects:v50 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v41 objects:v48 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v44;
+    v9 = *v42;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v44 != v9)
+        if (*v42 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v43 + 1) + 8 * i);
         objc_opt_class();
-        v12 = BUDynamicCast();
-        if (v12)
+        v11 = BUDynamicCast();
+        if (v11)
         {
-          v13 = [IMLibraryPlist permlinkFromPlistEntry:v12];
-          v14 = [v13 isEqual:*(a1 + 40)];
+          v12 = [IMLibraryPlist permlinkFromPlistEntry:v11];
+          v13 = [v12 isEqual:*(a1 + 40)];
 
-          if (v14)
+          if (v13)
           {
 
-            v21 = [*(a1 + 32) purchasedPlist];
-            v22 = [v21 contents];
+            v20 = [*(a1 + 32) purchasedPlist];
+            v21 = [v20 contents];
 
-            v41 = v22;
-            v23 = [IMLibraryPlist booksArrayFromPlistEntry:v22];
-            v24 = v23;
-            if (v23)
+            v39 = v21;
+            v22 = [IMLibraryPlist booksArrayFromPlistEntry:v21];
+            v23 = v22;
+            if (v22)
             {
-              v25 = [v23 mutableCopy];
+              v24 = [v22 mutableCopy];
             }
 
             else
             {
-              v25 = objc_opt_new();
+              v24 = objc_opt_new();
             }
 
-            v26 = v25;
-            v42 = v6;
-            v27 = [v25 count];
-            if (v27 - 1 >= 0)
+            v25 = v24;
+            v40 = v6;
+            v26 = [v24 count];
+            if (v26 - 1 >= 0)
             {
-              v28 = v27;
+              v27 = v26;
               do
               {
-                --v28;
+                --v27;
                 objc_opt_class();
-                v29 = [v26 objectAtIndexedSubscript:v28];
-                v30 = BUDynamicCast();
+                v28 = [v25 objectAtIndexedSubscript:v27];
+                v29 = BUDynamicCast();
 
-                v31 = v2;
-                v32 = [*(v2 + 1488) permlinkFromPlistEntry:v30];
-                v33 = [v32 isEqual:*(a1 + 40)];
+                v30 = v2;
+                v31 = [*(v2 + 1488) permlinkFromPlistEntry:v29];
+                v32 = [v31 isEqual:*(a1 + 40)];
 
-                if (v33)
+                if (v32)
                 {
-                  [v26 removeObjectAtIndex:v28];
+                  [v25 removeObjectAtIndex:v27];
                 }
 
-                v2 = v31;
+                v2 = v30;
               }
 
-              while (v28 > 0);
+              while (v27 > 0);
             }
 
-            [v26 addObject:v12];
-            v34 = [MEMORY[0x277CBEB38] dictionary];
-            [*(v2 + 1488) setBooksArray:v26 toPlistEntry:v34];
-            v35 = [*(a1 + 32) purchasedPlist];
-            v36 = [v35 path];
-            *(*(*(a1 + 48) + 8) + 24) = [v34 writeToFile:v36 atomically:1];
+            [v25 addObject:v11];
+            v33 = [MEMORY[0x277CBEB38] dictionary];
+            [*(v2 + 1488) setBooksArray:v25 toPlistEntry:v33];
+            v34 = [*(a1 + 32) purchasedPlist];
+            v35 = [v34 path];
+            *(*(*(a1 + 48) + 8) + 24) = [v33 writeToFile:v35 atomically:1];
 
-            v37 = [*(v2 + 1488) folderNameFromPlistEntry:v12];
-            v38 = [*(a1 + 32) purchasedPlist];
-            v49 = v37;
-            v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
-            [v38 removeDeletedPaths:v39];
+            v36 = [*(v2 + 1488) folderNameFromPlistEntry:v11];
+            v37 = [*(a1 + 32) purchasedPlist];
+            v47 = v36;
+            v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+            [v37 removeDeletedPaths:v38];
 
-            v6 = v42;
+            v6 = v40;
             goto LABEL_24;
           }
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v43 objects:v50 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v41 objects:v48 count:16];
       if (v8)
       {
         continue;
@@ -844,29 +832,27 @@ void sub_241D25BB4(uint64_t a1)
 
   if (*(a1 + 64))
   {
-    v15 = MEMORY[0x277CCA9B8];
-    v47 = @"BLLibraryErrorPermlink";
-    v16 = *(a1 + 40);
-    v12 = v16;
-    if (!v16)
+    v14 = MEMORY[0x277CCA9B8];
+    v45 = @"BLLibraryErrorPermlink";
+    v15 = *(a1 + 40);
+    v11 = v15;
+    if (!v15)
     {
-      v12 = [MEMORY[0x277CBEB68] null];
+      v11 = [MEMORY[0x277CBEB68] null];
     }
 
-    v48 = v12;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-    v18 = [v15 errorWithDomain:@"BLLibraryErrorDomain" code:-1003 userInfo:v17];
-    v19 = *(*(a1 + 56) + 8);
-    v20 = *(v19 + 40);
-    *(v19 + 40) = v18;
+    v46 = v11;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+    v17 = [v14 errorWithDomain:@"BLLibraryErrorDomain" code:-1003 userInfo:v16];
+    v18 = *(*(a1 + 56) + 8);
+    v19 = *(v18 + 40);
+    *(v18 + 40) = v17;
 
-    if (!v16)
+    if (!v15)
     {
 LABEL_24:
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D262D8(uint64_t a1)
@@ -906,50 +892,49 @@ void sub_241D262D8(uint64_t a1)
   }
 }
 
-void sub_241D265A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_241D265A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_241D265C8(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) contents];
   v3 = [IMLibraryPlist booksArrayFromPlistEntry:v2];
 
-  v27 = 0u;
-  v28 = 0u;
   v25 = 0u;
   v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v24;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v26 != v7)
+      if (*v24 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v25 + 1) + 8 * v8);
       objc_opt_class();
-      v10 = BUDynamicCast();
-      if (sub_241D268C0(v10, *(a1 + 40)))
+      v9 = BUDynamicCast();
+      if (sub_241D268C0(v9, *(a1 + 40)))
       {
         break;
       }
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -959,46 +944,46 @@ LABEL_3:
       }
     }
 
-    v11 = [v10 mutableCopy];
-    [IMLibraryPlist setAccessDate:*(a1 + 48) toPlistEntry:v11];
+    v10 = [v9 mutableCopy];
+    [IMLibraryPlist setAccessDate:*(a1 + 48) toPlistEntry:v10];
 
-    if (!v11)
+    if (!v10)
     {
       goto LABEL_17;
     }
 
-    v12 = [v4 mutableCopy];
-    v13 = [v12 count];
-    if (v13 - 1 >= 0)
+    v11 = [v4 mutableCopy];
+    v12 = [v11 count];
+    if (v12 - 1 >= 0)
     {
-      v14 = v13;
+      v13 = v12;
       do
       {
-        --v14;
+        --v13;
         objc_opt_class();
-        v15 = [v12 objectAtIndexedSubscript:v14];
-        v16 = BUDynamicCast();
+        v14 = [v11 objectAtIndexedSubscript:v13];
+        v15 = BUDynamicCast();
 
-        if (sub_241D268C0(v16, *(a1 + 40)))
+        if (sub_241D268C0(v15, *(a1 + 40)))
         {
-          [v12 removeObjectAtIndex:v14];
+          [v11 removeObjectAtIndex:v13];
         }
       }
 
-      while (v14 > 0);
+      while (v13 > 0);
     }
 
-    [v12 addObject:v11];
-    v17 = [MEMORY[0x277CBEB38] dictionary];
-    [IMLibraryPlist setBooksArray:v12 toPlistEntry:v17];
-    v18 = [*(a1 + 32) path];
-    *(*(*(a1 + 56) + 8) + 24) = [v17 writeToFile:v18 atomically:1];
+    [v11 addObject:v10];
+    v16 = [MEMORY[0x277CBEB38] dictionary];
+    [IMLibraryPlist setBooksArray:v11 toPlistEntry:v16];
+    v17 = [*(a1 + 32) path];
+    *(*(*(a1 + 56) + 8) + 24) = [v16 writeToFile:v17 atomically:1];
 
-    v19 = [IMLibraryPlist folderNameFromPlistEntry:v11];
-    v20 = *(a1 + 32);
-    v29 = v19;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
-    [v20 removeDeletedPaths:v21];
+    v18 = [IMLibraryPlist folderNameFromPlistEntry:v10];
+    v19 = *(a1 + 32);
+    v27 = v18;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+    [v19 removeDeletedPaths:v20];
 
     goto LABEL_19;
   }
@@ -1008,14 +993,12 @@ LABEL_9:
 LABEL_17:
   if (*(a1 + 72))
   {
-    v22 = [MEMORY[0x277CCA9B8] errorWithDomain:@"BLLibraryErrorDomain" code:-1000 userInfo:0];
-    v23 = *(*(a1 + 64) + 8);
-    v11 = *(v23 + 40);
-    *(v23 + 40) = v22;
+    v21 = [MEMORY[0x277CCA9B8] errorWithDomain:@"BLLibraryErrorDomain" code:-1000 userInfo:0];
+    v22 = *(*(a1 + 64) + 8);
+    v10 = *(v22 + 40);
+    *(v22 + 40) = v21;
 LABEL_19:
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_241D268C0(void *a1, void *a2)
@@ -1061,30 +1044,28 @@ LABEL_8:
 
 id BLError(int a1, __CFString *a2, __CFString *a3)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v5 = @"Unknown Error";
   if (a3)
   {
     v5 = a3;
   }
 
-  v14[0] = @"message";
-  v14[1] = @"title";
+  v13[0] = @"message";
+  v13[1] = @"title";
   v6 = @"BLService error";
   if (a2)
   {
     v6 = a2;
   }
 
-  v15[0] = v5;
-  v15[1] = v6;
+  v14[0] = v5;
+  v14[1] = v6;
   v7 = MEMORY[0x277CBEAC0];
   v8 = a3;
   v9 = a2;
-  v10 = [v7 dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v10 = [v7 dictionaryWithObjects:v14 forKeys:v13 count:2];
   v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"BLErrorDomain" code:a1 userInfo:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1120,7 +1101,7 @@ id BLErrorWithUserInfo(int a1, __CFString *a2, __CFString *a3, void *a4)
   return v12;
 }
 
-uint64_t BLErrorIsEqual(void *a1, void *a2, uint64_t a3)
+uint64_t BLErrorIsEqual(void *a1, void *a2, void *a3)
 {
   v5 = a1;
   v6 = a2;
@@ -1140,31 +1121,29 @@ uint64_t BLErrorIsEqual(void *a1, void *a2, uint64_t a3)
 
 id BLErrorWithDomain(void *a1, uint64_t a2, __CFString *a3, __CFString *a4)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v7 = @"Unknown Error";
   if (a4)
   {
     v7 = a4;
   }
 
-  v17[0] = @"message";
-  v17[1] = @"title";
+  v16[0] = @"message";
+  v16[1] = @"title";
   v8 = @"BLService error";
   if (a3)
   {
     v8 = a3;
   }
 
-  v18[0] = v7;
-  v18[1] = v8;
+  v17[0] = v7;
+  v17[1] = v8;
   v9 = MEMORY[0x277CBEAC0];
   v10 = a4;
   v11 = a3;
   v12 = a1;
-  v13 = [v9 dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v13 = [v9 dictionaryWithObjects:v17 forKeys:v16 count:2];
   v14 = [MEMORY[0x277CCA9B8] errorWithDomain:v12 code:a2 userInfo:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1184,16 +1163,16 @@ uint64_t sub_241D2BC5C()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLServiceDownloadQueueLog()
+id BLServiceDownloadQueueLog(uint64_t a1)
 {
   if (qword_280BC58F0 != -1)
   {
     sub_241D76C4C();
   }
 
-  v1 = qword_280BC58F8;
+  v2 = qword_280BC58F8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2BCE4()
@@ -1203,16 +1182,16 @@ uint64_t sub_241D2BCE4()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLServicePurchaseManagerLog()
+id BLServicePurchaseManagerLog(uint64_t a1)
 {
   if (qword_280BC57E0 != -1)
   {
     sub_241D76C60();
   }
 
-  v1 = qword_280BC57E8;
+  v2 = qword_280BC57E8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2BD6C()
@@ -1222,16 +1201,16 @@ uint64_t sub_241D2BD6C()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLServiceMediaLibraryManagerLog()
+id BLServiceMediaLibraryManagerLog(uint64_t a1)
 {
   if (qword_27EC71ED8 != -1)
   {
     sub_241D76C74();
   }
 
-  v1 = qword_27EC71ED0;
+  v2 = qword_27EC71ED0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2BDF4()
@@ -1248,16 +1227,16 @@ uint64_t sub_241D2BE38()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLServiceDownloadPipelineLog()
+id BLServiceDownloadPipelineLog(uint64_t a1)
 {
   if (qword_27EC71EE8 != -1)
   {
     sub_241D76C9C();
   }
 
-  v1 = qword_27EC71EE0;
+  v2 = qword_27EC71EE0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2BEC0()
@@ -1267,16 +1246,16 @@ uint64_t sub_241D2BEC0()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLServiceDatabaseManagerLog()
+id BLServiceDatabaseManagerLog(uint64_t a1)
 {
   if (qword_280BC5910 != -1)
   {
     sub_241D76CB0();
   }
 
-  v1 = qword_280BC5918;
+  v2 = qword_280BC5918;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2BF48()
@@ -1286,16 +1265,16 @@ uint64_t sub_241D2BF48()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLServiceDownloadFilesystemLog()
+id BLServiceDownloadFilesystemLog(uint64_t a1)
 {
   if (qword_27EC71EF8 != -1)
   {
     sub_241D76CC4();
   }
 
-  v1 = qword_27EC71EF0;
+  v2 = qword_27EC71EF0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2BFD0()
@@ -1305,16 +1284,16 @@ uint64_t sub_241D2BFD0()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLServiceDownloadStreamingZipLog()
+id BLServiceDownloadStreamingZipLog(uint64_t a1)
 {
   if (qword_27EC71F08 != -1)
   {
     sub_241D76CD8();
   }
 
-  v1 = qword_27EC71F00;
+  v2 = qword_27EC71F00;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2C058()
@@ -1324,16 +1303,16 @@ uint64_t sub_241D2C058()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLServiceNotificationLog()
+id BLServiceNotificationLog(uint64_t a1)
 {
   if (qword_280BC58D0 != -1)
   {
     sub_241D76CEC();
   }
 
-  v1 = qword_280BC58D8;
+  v2 = qword_280BC58D8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2C0E0()
@@ -1343,16 +1322,16 @@ uint64_t sub_241D2C0E0()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLServiceMetadataStoreLog()
+id BLServiceMetadataStoreLog(uint64_t a1)
 {
   if (qword_280BC57F0 != -1)
   {
     sub_241D76D00();
   }
 
-  v1 = qword_280BC57F8;
+  v2 = qword_280BC57F8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2C168()
@@ -1369,16 +1348,16 @@ uint64_t sub_241D2C1AC()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLBookInstallLog()
+id BLBookInstallLog(uint64_t a1)
 {
   if (qword_280BC5920 != -1)
   {
     sub_241D76D14();
   }
 
-  v1 = qword_280BC5928;
+  v2 = qword_280BC5928;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2C234()
@@ -1388,16 +1367,16 @@ uint64_t sub_241D2C234()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLBookCacheDeleteLog()
+id BLBookCacheDeleteLog(uint64_t a1)
 {
   if (qword_280BC5930 != -1)
   {
     sub_241D76D28();
   }
 
-  v1 = qword_280BC5938;
+  v2 = qword_280BC5938;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2C2BC()
@@ -1407,16 +1386,16 @@ uint64_t sub_241D2C2BC()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLUtilitiesLog()
+id BLUtilitiesLog(uint64_t a1)
 {
   if (qword_27EC71F18 != -1)
   {
     sub_241D76D3C();
   }
 
-  v1 = qword_27EC71F10;
+  v2 = qword_27EC71F10;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2C344()
@@ -1426,16 +1405,16 @@ uint64_t sub_241D2C344()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLAudiobookSyncLog()
+id BLAudiobookSyncLog(uint64_t a1)
 {
   if (qword_27EC71F28 != -1)
   {
     sub_241D76D50();
   }
 
-  v1 = qword_27EC71F20;
+  v2 = qword_27EC71F20;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2C3CC()
@@ -1445,16 +1424,16 @@ uint64_t sub_241D2C3CC()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLHLSKeyFetchingLog()
+id BLHLSKeyFetchingLog(uint64_t a1)
 {
   if (qword_27EC71F38 != -1)
   {
     sub_241D76D64();
   }
 
-  v1 = qword_27EC71F30;
+  v2 = qword_27EC71F30;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2C454()
@@ -1464,16 +1443,16 @@ uint64_t sub_241D2C454()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLFamilyLog()
+id BLFamilyLog(uint64_t a1)
 {
   if (qword_27EC71F48 != -1)
   {
     sub_241D76D78();
   }
 
-  v1 = qword_27EC71F40;
+  v2 = qword_27EC71F40;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2C4DC()
@@ -1483,16 +1462,16 @@ uint64_t sub_241D2C4DC()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLAudiobookMLImporterLog()
+id BLAudiobookMLImporterLog(uint64_t a1)
 {
   if (qword_27EC71F58 != -1)
   {
     sub_241D76D8C();
   }
 
-  v1 = qword_27EC71F50;
+  v2 = qword_27EC71F50;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2C564()
@@ -1502,16 +1481,16 @@ uint64_t sub_241D2C564()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLBooksAskPermissionExtensionLog()
+id BLBooksAskPermissionExtensionLog(uint64_t a1)
 {
   if (qword_27EC71F68 != -1)
   {
     sub_241D76DA0();
   }
 
-  v1 = qword_27EC71F60;
+  v2 = qword_27EC71F60;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2C5EC()
@@ -1521,16 +1500,16 @@ uint64_t sub_241D2C5EC()
   return MEMORY[0x2821F96F8]();
 }
 
-id BLBooksDiagnosticExtensionLog()
+id BLBooksDiagnosticExtensionLog(uint64_t a1)
 {
   if (qword_27EC71F78 != -1)
   {
     sub_241D76DB4();
   }
 
-  v1 = qword_27EC71F70;
+  v2 = qword_27EC71F70;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241D2C674()
@@ -1549,10 +1528,7 @@ uint64_t sub_241D2CFF4()
 
 uint64_t sub_241D2D1D0(uint64_t a1)
 {
-  v2 = [*(a1 + 40) URLForUbiquityContainerIdentifier:@"iCloud.com.apple.iBooks.iTunesU"];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 24);
-  *(v3 + 24) = v2;
+  *(*(a1 + 32) + 24) = [*(a1 + 40) URLForUbiquityContainerIdentifier:@"iCloud.com.apple.iBooks.iTunesU"];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1566,10 +1542,11 @@ void sub_241D2D2D8(uint64_t a1)
   *(v3 + 8) = v2;
 }
 
-void sub_241D2DBD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_241D2DBD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1615,11 +1592,11 @@ id deleteItemAtURLCoordinated(void *a1)
 
 void sub_241D2E140(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v8 = 0;
-  v3 = [v2 removeItemAtURL:a2 error:&v8];
-  v4 = v8;
+  v7 = 0;
+  v3 = [v2 removeItemAtURL:a2 error:&v7];
+  v4 = v7;
   v5 = v4;
   if ((v3 & 1) == 0 && v4)
   {
@@ -1627,17 +1604,15 @@ void sub_241D2E140(uint64_t a1, uint64_t a2)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v10 = v5;
+      v9 = v5;
       _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_ERROR, "Failed to delete iTunesU file with error:  %@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_241D2EB74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241D2EB74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1671,7 +1646,7 @@ void sub_241D2EC48(uint64_t a1, uint64_t a2)
 
 void sub_241D2ECE4(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = BLDefaultLog();
@@ -1681,11 +1656,11 @@ void sub_241D2ECE4(uint64_t a1, void *a2)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v7 = *(a1 + 32);
-      v12 = 138412546;
-      v13 = v3;
-      v14 = 2112;
-      v15 = v7;
-      _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_ERROR, "Encountered error doing a coordinated read of %@. Error:  %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v3;
+      v13 = 2112;
+      v14 = v7;
+      _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_ERROR, "Encountered error doing a coordinated read of %@. Error:  %@", &v11, 0x16u);
     }
   }
 
@@ -1693,9 +1668,9 @@ void sub_241D2ECE4(uint64_t a1, void *a2)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 138412290;
-      v13 = v3;
-      _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_DEBUG, "coordinated read taken for: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v3;
+      _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_DEBUG, "coordinated read taken for: %@", &v11, 0xCu);
     }
 
     v8 = [v3 lastPathComponent];
@@ -1707,20 +1682,18 @@ void sub_241D2ECE4(uint64_t a1, void *a2)
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void sub_241D2EFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_241D2EFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_241D2EFF0(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (a1[4])
   {
     v2 = BLDefaultLog();
@@ -1729,9 +1702,9 @@ void sub_241D2EFF0(void *a1)
       v3 = a1[6];
       v4 = a1[4];
       *buf = 138412546;
-      v11 = v3;
-      v12 = 2112;
-      v13 = v4;
+      v10 = v3;
+      v11 = 2112;
+      v12 = v4;
       _os_log_impl(&dword_241D1F000, v2, OS_LOG_TYPE_ERROR, "Encountered error doing a coordinated read of %@. Error:  %@", buf, 0x16u);
     }
   }
@@ -1739,16 +1712,14 @@ void sub_241D2EFF0(void *a1)
   else
   {
     v5 = a1[5];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = sub_241D2F138;
-    v8[3] = &unk_278D17440;
-    v8[4] = v5;
-    v9 = *(a1 + 3);
-    v6 = [v5 performMetadataActionOnCloudURL:v9 action:v8];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = sub_241D2F138;
+    v7[3] = &unk_278D17440;
+    v7[4] = v5;
+    v8 = *(a1 + 3);
+    v6 = [v5 performMetadataActionOnCloudURL:v8 action:v7];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D2F138(uint64_t a1, uint64_t a2)
@@ -1835,7 +1806,7 @@ uint64_t sub_241D34064()
 
 void sub_241D3593C()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = container_system_group_path_for_identifier();
   if (v0)
   {
@@ -1853,99 +1824,93 @@ void sub_241D3593C()
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v7 = "systemgroup.com.apple.media.shared.books";
-      v8 = 2048;
-      v9 = 1;
+      v6 = "systemgroup.com.apple.media.shared.books";
+      v7 = 2048;
+      v8 = 1;
       _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_ERROR, "Error getting system group container: %s => %llu", buf, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D35AEC(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (+[BLLibraryUtility _isMultiUser])
   {
-    v2 = *(a1 + 32);
-    v3 = [objc_opt_class() sharedContainerURL];
-    v4 = [v3 URLByAppendingPathComponent:@"Library"];
+    v1 = [objc_opt_class() sharedContainerURL];
+    v2 = [v1 URLByAppendingPathComponent:@"Library"];
 
-    v18 = 0;
-    v5 = *MEMORY[0x277CBE878];
-    v17 = 0;
-    v6 = [v4 getResourceValue:&v18 forKey:v5 error:&v17];
-    v7 = v18;
-    v8 = v17;
-    if (v6)
+    v15 = 0;
+    v3 = *MEMORY[0x277CBE878];
+    v14 = 0;
+    v4 = [v2 getResourceValue:&v15 forKey:v3 error:&v14];
+    v5 = v15;
+    v6 = v14;
+    if (v4)
     {
-      if (v7 && ([v7 BOOLValue] & 1) != 0)
+      if (v5 && ([v5 BOOLValue] & 1) != 0)
       {
         goto LABEL_13;
       }
 
-      v16 = v8;
-      v9 = [v4 setResourceValue:MEMORY[0x277CBEC38] forKey:v5 error:&v16];
-      v10 = v16;
+      v13 = v6;
+      v7 = [v2 setResourceValue:MEMORY[0x277CBEC38] forKey:v3 error:&v13];
+      v8 = v13;
 
-      if (v9)
+      if (v7)
       {
 LABEL_12:
-        v8 = v10;
+        v6 = v8;
 LABEL_13:
-        v13 = [v4 path];
-        v14 = qword_27EC71FA0;
-        qword_27EC71FA0 = v13;
+        v11 = [v2 path];
+        v12 = qword_27EC71FA0;
+        qword_27EC71FA0 = v11;
 
-        goto LABEL_14;
+        return;
       }
 
-      v11 = BLDefaultLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v9 = BLDefaultLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v12 = [v4 lastPathComponent];
+        v10 = [v2 lastPathComponent];
         *buf = 138412546;
-        v20 = v12;
-        v21 = 2112;
-        v22 = v10;
-        _os_log_impl(&dword_241D1F000, v11, OS_LOG_TYPE_ERROR, "Error excluding %@ from backup:  %@", buf, 0x16u);
+        v17 = v10;
+        v18 = 2112;
+        v19 = v8;
+        _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_ERROR, "Error excluding %@ from backup:  %@", buf, 0x16u);
       }
     }
 
     else
     {
-      v11 = BLDefaultLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v9 = BLDefaultLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v20 = v8;
-        _os_log_impl(&dword_241D1F000, v11, OS_LOG_TYPE_ERROR, "Error encountered accessing resource value for backup exclusion key. Error:  %@", buf, 0xCu);
+        v17 = v6;
+        _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_ERROR, "Error encountered accessing resource value for backup exclusion key. Error:  %@", buf, 0xCu);
       }
 
-      v10 = v8;
+      v8 = v6;
     }
 
     goto LABEL_12;
   }
-
-LABEL_14:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-id BLBundle()
+id BLBundle(uint64_t a1)
 {
   if (qword_27EC71FB8 != -1)
   {
     sub_241D76E04();
   }
 
-  v1 = qword_27EC71FB0;
+  v2 = qword_27EC71FB0;
 
-  return v1;
+  return v2;
 }
 
-uint64_t sub_241D35DB0()
+uint64_t sub_241D35DB0(uint64_t a1, uint64_t a2)
 {
   qword_27EC71FB0 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
 
@@ -1961,7 +1926,7 @@ void sub_241D36904(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_241D36920(uint64_t a1)
 {
-  v2 = BLServiceProxyLog();
+  v2 = BLServiceProxyLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1974,7 +1939,7 @@ void sub_241D36920(uint64_t a1)
 
 void sub_241D36A94(uint64_t a1)
 {
-  v2 = BLServiceProxyLog();
+  v2 = BLServiceProxyLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2006,7 +1971,7 @@ void sub_241D36BB0(uint64_t a1)
 
 void sub_241D36BF4(uint64_t a1)
 {
-  v2 = BLServiceProxyLog();
+  v2 = BLServiceProxyLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
@@ -2043,14 +2008,14 @@ void sub_241D36D10(uint64_t a1)
 
 void sub_241D36E30(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = BLServiceProxyLog();
+  v4 = BLServiceProxyLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_ERROR, "Remote proxy hit an error:  %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_ERROR, "Remote proxy hit an error:  %@", &v7, 0xCu);
   }
 
   v5 = MEMORY[0x245CFF560](*(a1 + 32));
@@ -2059,20 +2024,18 @@ void sub_241D36E30(uint64_t a1, void *a2)
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D36FD0(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = BLServiceProxyLog();
+  v4 = BLServiceProxyLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_ERROR, "Synchronous Remote proxy hit an error:  %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_ERROR, "Synchronous Remote proxy hit an error:  %@", &v7, 0xCu);
   }
 
   v5 = MEMORY[0x245CFF560](*(a1 + 32));
@@ -2081,8 +2044,6 @@ void sub_241D36FD0(uint64_t a1, void *a2)
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D371A8(uint64_t a1, void *a2)
@@ -2309,53 +2270,51 @@ void sub_241D3BAA4(_Unwind_Exception *a1)
 
 void sub_241D3BAC8(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = a2;
-  v17 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v17)
+  v16 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v16)
   {
-    v2 = *v19;
+    v2 = *v18;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v19 != v2)
+        if (*v18 != v2)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v18 + 1) + 8 * i);
+        v4 = *(*(&v17 + 1) + 8 * i);
         if ([v4 state] == 4)
         {
           WeakRetained = objc_loadWeakRetained((a1 + 40));
-          v16 = [v4 storeIdentifier];
+          v15 = [v4 storeIdentifier];
           v6 = [v4 storePlaylistIdentifier];
           v7 = [v4 permlink];
           v8 = [v4 downloadID];
           v9 = [v4 title];
           v10 = [v4 collectionTitle];
           v11 = [v4 kind];
-          LOBYTE(v13) = 1;
-          [WeakRetained sendInitialProgressNotificationForDownloadWithStoreID:v16 storePlaylistID:v6 orPermlink:v7 downloadID:v8 title:v9 collectionTitle:v10 assetKind:v11 isPaused:v13 targetObserver:*(a1 + 32)];
+          LOBYTE(v12) = 1;
+          [WeakRetained sendInitialProgressNotificationForDownloadWithStoreID:v15 storePlaylistID:v6 orPermlink:v7 downloadID:v8 title:v9 collectionTitle:v10 assetKind:v11 isPaused:v12 targetObserver:*(a1 + 32)];
         }
       }
 
-      v17 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v16 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v17);
+    while (v16);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D3D738(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = BLDownloadQueueServiceProgressMonitorLog();
   v4 = v3;
@@ -2363,28 +2322,26 @@ void sub_241D3D738(uint64_t a1, void *a2)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v2;
+      v9 = 138412290;
+      v10 = v2;
       v5 = "[BLDownloadQueueServerProgressObserver] Failed registering to monitor progress:  %@";
       v6 = v4;
       v7 = OS_LOG_TYPE_ERROR;
       v8 = 12;
 LABEL_6:
-      _os_log_impl(&dword_241D1F000, v6, v7, v5, &v10, v8);
+      _os_log_impl(&dword_241D1F000, v6, v7, v5, &v9, v8);
     }
   }
 
   else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v10) = 0;
+    LOWORD(v9) = 0;
     v5 = "[BLDownloadQueueServerProgressObserver] Successfully registered to monitor progress.";
     v6 = v4;
     v7 = OS_LOG_TYPE_DEFAULT;
     v8 = 2;
     goto LABEL_6;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 Class sub_241D3D8D0()
@@ -2397,15 +2354,14 @@ Class sub_241D3D8D0()
 
 uint64_t sub_241D3D9AC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_280BC5848 = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_241D45C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D45C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2417,11 +2373,11 @@ uint64_t sub_241D45C74(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_241D45E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D45E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2439,11 +2395,11 @@ void sub_241D45E34(uint64_t a1, void *a2, void *a3)
   *(v9 + 40) = v6;
 }
 
-void sub_241D460D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D460D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2461,16 +2417,16 @@ void sub_241D460FC(uint64_t a1, void *a2, void *a3)
   *(v9 + 40) = v6;
 }
 
-void sub_241D46298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D46298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241D46508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D46508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2482,11 +2438,11 @@ uint64_t sub_241D46520(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_241D466AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D466AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2504,107 +2460,109 @@ void sub_241D466D4(uint64_t a1, void *a2, void *a3)
   *(v9 + 40) = v6;
 }
 
-void sub_241D46854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D46854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_241D46CD4(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v10 = v9;
   if (!v9)
   {
     objc_opt_class();
-    v13 = BUDynamicCast();
-    v12 = v13;
-    if (v13 && ([v13 statusCode] < 200 || objc_msgSend(v12, "statusCode") >= 300))
+    v14 = BUDynamicCast();
+    v13 = v14;
+    if (v14 && ((v14 = [v14 statusCode], v14 < 200) || (v14 = objc_msgSend(v13, "statusCode"), v14 >= 300)))
     {
-      v14 = BLAudiobookSyncLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = BLAudiobookSyncLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_241D76F10(v12);
+        sub_241D76F10(v13);
       }
 
-      v15 = MEMORY[0x245CFF560](*(a1 + 32));
-      if (!v15)
+      v16 = MEMORY[0x245CFF560](*(a1 + 32));
+      if (!v16)
       {
         goto LABEL_21;
       }
 
-      v16 = MEMORY[0x277CCA9B8];
-      v34 = @"BLKeyHTTPResponseCode";
-      v17 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v12, "statusCode")}];
-      v35[0] = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
-      v19 = [v16 errorWithDomain:@"BLErrorDomain" code:39 userInfo:v18];
-      (*(v15 + 2))(v15, 0, v19);
+      v17 = MEMORY[0x277CCA9B8];
+      v35 = @"BLKeyHTTPResponseCode";
+      v18 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v13, "statusCode")}];
+      v36[0] = v18;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+      v20 = [v17 errorWithDomain:@"BLErrorDomain" code:39 userInfo:v19];
+      (*(v16 + 2))(v16, 0, v20);
     }
 
     else
     {
-      v20 = BLAudiobookSyncLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = BLAudiobookSyncLog(v14);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_241D1F000, v20, OS_LOG_TYPE_DEFAULT, "Downloaded master playlist, about to parse it.", buf, 2u);
+        _os_log_impl(&dword_241D1F000, v21, OS_LOG_TYPE_DEFAULT, "Downloaded master playlist, about to parse it.", buf, 2u);
       }
 
-      v29 = 0;
-      v17 = [BLHLSPlaylist playlistParsingURL:v7 error:&v29];
-      v15 = v29;
-      v18 = [BLHLSAudiobookFetcher preferredStreamFromMasterPlaylist:v17];
-      if (v18)
+      v30 = 0;
+      v18 = [BLHLSPlaylist playlistParsingURL:v7 error:&v30];
+      v16 = v30;
+      v22 = [BLHLSAudiobookFetcher preferredStreamFromMasterPlaylist:v18];
+      v19 = v22;
+      if (v22)
       {
-        v21 = BLAudiobookSyncLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v23 = BLAudiobookSyncLog(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = [v17 streamInfs];
-          v23 = [v22 count];
+          v24 = [v18 streamInfs];
+          v25 = [v24 count];
           *buf = 134218242;
-          v31 = v23;
-          v32 = 2112;
-          v33 = v18;
-          _os_log_impl(&dword_241D1F000, v21, OS_LOG_TYPE_DEFAULT, "Parsed master playlist. Out of a total of %lu choices, using streamInf: %@", buf, 0x16u);
+          v32 = v25;
+          v33 = 2112;
+          v34 = v19;
+          _os_log_impl(&dword_241D1F000, v23, OS_LOG_TYPE_DEFAULT, "Parsed master playlist. Out of a total of %lu choices, using streamInf: %@", buf, 0x16u);
         }
 
-        v24 = MEMORY[0x245CFF560](*(a1 + 32));
-        v19 = v24;
-        if (v24)
+        v26 = MEMORY[0x245CFF560](*(a1 + 32));
+        v20 = v26;
+        if (v26)
         {
-          (*(v24 + 16))(v24, v18, 0);
+          (*(v26 + 16))(v26, v19, 0);
         }
       }
 
       else
       {
-        v26 = BLAudiobookSyncLog();
-        v27 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
-        if (v17)
+        v27 = BLAudiobookSyncLog(0);
+        v28 = os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
+        if (v18)
         {
-          if (v27)
+          if (v28)
           {
             sub_241D76F88();
           }
 
-          v26 = v15;
-          v15 = 0;
+          v27 = v16;
+          v16 = 0;
         }
 
-        else if (v27)
+        else if (v28)
         {
           sub_241D76FF0();
         }
 
-        v19 = MEMORY[0x245CFF560](*(a1 + 32));
-        if (v19)
+        v20 = MEMORY[0x245CFF560](*(a1 + 32));
+        if (v20)
         {
-          v28 = [MEMORY[0x277CCA9B8] bu_errorWithDomain:@"BLErrorDomain" code:2 description:@"Unable to parse master HLS Playlist" underlyingError:v15];
-          (v19)[2](v19, 0, v28);
+          v29 = [MEMORY[0x277CCA9B8] bu_errorWithDomain:@"BLErrorDomain" code:2 description:@"Unable to parse master HLS Playlist" underlyingError:v16];
+          (v20)[2](v20, 0, v29);
         }
       }
     }
@@ -2613,93 +2571,93 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v10 = BLAudiobookSyncLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = BLAudiobookSyncLog(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     sub_241D76EA8();
   }
 
-  v11 = MEMORY[0x245CFF560](*(a1 + 32));
-  v12 = v11;
-  if (v11)
+  v12 = MEMORY[0x245CFF560](*(a1 + 32));
+  v13 = v12;
+  if (v12)
   {
-    (*(v11 + 16))(v11, 0, v9);
+    (*(v12 + 16))(v12, 0, v10);
   }
 
 LABEL_22:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D471B8(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v10 = v9;
   if (!v9)
   {
     objc_opt_class();
-    v13 = BUDynamicCast();
-    v12 = v13;
-    if (v13 && ([v13 statusCode] < 200 || objc_msgSend(v12, "statusCode") >= 300))
+    v14 = BUDynamicCast();
+    v13 = v14;
+    if (v14 && ((v14 = [v14 statusCode], v14 < 200) || (v14 = objc_msgSend(v13, "statusCode"), v14 >= 300)))
     {
-      v14 = BLAudiobookSyncLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = BLAudiobookSyncLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_241D76F10(v12);
+        sub_241D76F10(v13);
       }
 
-      v15 = MEMORY[0x245CFF560](*(a1 + 32));
-      if (!v15)
+      v16 = MEMORY[0x245CFF560](*(a1 + 32));
+      if (!v16)
       {
         goto LABEL_23;
       }
 
-      v16 = MEMORY[0x277CCA9B8];
-      v26 = @"BLKeyHTTPResponseCode";
-      v17 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v12, "statusCode")}];
-      v27[0] = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-      v19 = [v16 errorWithDomain:@"BLErrorDomain" code:39 userInfo:v18];
-      (v15[2].isa)(v15, 0, v19);
+      v17 = MEMORY[0x277CCA9B8];
+      v27 = @"BLKeyHTTPResponseCode";
+      v18 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v13, "statusCode")}];
+      v28[0] = v18;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+      v20 = [v17 errorWithDomain:@"BLErrorDomain" code:39 userInfo:v19];
+      (v16[2].isa)(v16, 0, v20);
     }
 
     else
     {
-      v20 = BLAudiobookSyncLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = BLAudiobookSyncLog(v14);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_241D1F000, v20, OS_LOG_TYPE_DEFAULT, "Downloaded master playlist, about to parse it to get racGUID.", buf, 2u);
+        _os_log_impl(&dword_241D1F000, v21, OS_LOG_TYPE_DEFAULT, "Downloaded master playlist, about to parse it to get racGUID.", buf, 2u);
       }
 
-      v24 = 0;
-      v18 = [BLHLSPlaylist playlistParsingURL:v7 error:&v24];
-      v15 = v24;
-      if (v18)
+      v25 = 0;
+      v19 = [BLHLSPlaylist playlistParsingURL:v7 error:&v25];
+      v22 = v25;
+      v16 = v22;
+      if (v19)
       {
-        v17 = [v18 racGUID];
-        v21 = v15;
-        v15 = 0;
+        v18 = [v19 racGUID];
+        v23 = v16;
+        v16 = 0;
       }
 
       else
       {
-        v21 = BLAudiobookSyncLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v23 = BLAudiobookSyncLog(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           sub_241D76FF0();
         }
 
-        v17 = 0;
+        v18 = 0;
       }
 
-      v22 = MEMORY[0x245CFF560](*(a1 + 32));
-      v19 = v22;
-      if (v22)
+      v24 = MEMORY[0x245CFF560](*(a1 + 32));
+      v20 = v24;
+      if (v24)
       {
-        (*(v22 + 16))(v22, v17, v15);
+        (*(v24 + 16))(v24, v18, v16);
       }
     }
 
@@ -2707,34 +2665,34 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v10 = BLAudiobookSyncLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = BLAudiobookSyncLog(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     sub_241D76EA8();
   }
 
-  v11 = MEMORY[0x245CFF560](*(a1 + 32));
-  v12 = v11;
-  if (v11)
+  v12 = MEMORY[0x245CFF560](*(a1 + 32));
+  v13 = v12;
+  if (v12)
   {
-    (*(v11 + 16))(v11, 0, v9);
+    (*(v12 + 16))(v12, 0, v10);
   }
 
 LABEL_24:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void sub_241D474E0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_241D474E0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_241D47508(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_241D47508(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_241D47528(void *a1, uint64_t a2, void *a3, void *a4)
@@ -2865,14 +2823,14 @@ void sub_241D47720(void *a1, uint64_t a2, void *a3, void *a4)
 LABEL_7:
 }
 
-void *sub_241D477C8(void *a1, const char *a2, uint64_t a3)
+void *sub_241D477C8(void *result, const char *a2, uint64_t a3)
 {
   if (a3)
   {
-    return [a1 setValue:? forKey:?];
+    return [result setValue:? forKey:?];
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t BLItemImageSizeEqualToSize(double a1, double a2, double a3, double a4)
@@ -2899,29 +2857,27 @@ __CFString *NSStringFromBLDownloadState(unint64_t a1)
   }
 }
 
-id BLDownloadSupportedDownloadKinds()
+id BLDownloadSupportedDownloadKinds(uint64_t a1)
 {
   if (qword_280BC5808 != -1)
   {
     sub_241D77058();
   }
 
-  v1 = qword_280BC5800;
+  v2 = qword_280BC5800;
 
-  return v1;
+  return v2;
 }
 
 void sub_241D49150()
 {
-  v3[3] = *MEMORY[0x277D85DE8];
-  v3[0] = @"book";
-  v3[1] = @"ebook";
-  v3[2] = @"pdf";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
+  v2[3] = *MEMORY[0x277D85DE8];
+  v2[0] = @"book";
+  v2[1] = @"ebook";
+  v2[2] = @"pdf";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:3];
   v1 = qword_280BC5800;
   qword_280BC5800 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D4AED0(uint64_t a1, void *a2, void *a3)
@@ -2938,7 +2894,7 @@ void sub_241D4AED0(uint64_t a1, void *a2, void *a3)
 
 void sub_241D4B07C(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = BLDefaultLog();
@@ -2950,8 +2906,8 @@ void sub_241D4B07C(uint64_t a1, void *a2, void *a3)
       goto LABEL_7;
     }
 
-    v17 = 138412290;
-    v18 = v6;
+    v16 = 138412290;
+    v17 = v6;
     v9 = "[UIHostServiceProxy] received error from AMSSystemAlertDialogTask:  %@";
     v10 = v8;
     v11 = OS_LOG_TYPE_ERROR;
@@ -2966,17 +2922,17 @@ void sub_241D4B07C(uint64_t a1, void *a2, void *a3)
     }
 
     v13 = *(a1 + 32);
-    v17 = 138412546;
-    v18 = v13;
-    v19 = 2112;
-    v20 = v5;
+    v16 = 138412546;
+    v17 = v13;
+    v18 = 2112;
+    v19 = v5;
     v9 = "[UIHostServiceProxy] received result from AMSSystemAlertDialogTask for request %@ and calling replay block with result %@";
     v10 = v8;
     v11 = OS_LOG_TYPE_DEFAULT;
     v12 = 22;
   }
 
-  _os_log_impl(&dword_241D1F000, v10, v11, v9, &v17, v12);
+  _os_log_impl(&dword_241D1F000, v10, v11, v9, &v16, v12);
 LABEL_7:
 
   v14 = MEMORY[0x245CFF560](*(a1 + 40));
@@ -2985,8 +2941,6 @@ LABEL_7:
   {
     (*(v14 + 16))(v14, v5, v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D4B2E4(uint64_t a1, void *a2, void *a3)
@@ -3058,74 +3012,74 @@ BOOL sub_241D4BA44(void *a1)
 
 id sub_241D4BB08(void *a1)
 {
-  v59[3] = *MEMORY[0x277D85DE8];
-  v33 = [a1 userInfo];
-  if (![v33 count])
+  v58[3] = *MEMORY[0x277D85DE8];
+  v32 = [a1 userInfo];
+  if (![v32 count])
   {
     v27 = a1;
     goto LABEL_39;
   }
 
   v1 = MEMORY[0x277CBEB98];
-  v59[0] = @"NSErrorPeerCertificateChainKey";
-  v59[1] = @"NSErrorClientCertificateChainKey";
-  v59[2] = *MEMORY[0x277CCA750];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:3];
-  v39 = [v1 setWithArray:v2];
+  v58[0] = @"NSErrorPeerCertificateChainKey";
+  v58[1] = @"NSErrorClientCertificateChainKey";
+  v58[2] = *MEMORY[0x277CCA750];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:3];
+  v38 = [v1 setWithArray:v2];
 
-  v36 = [MEMORY[0x277CBEB98] setWithArray:MEMORY[0x277CBEBF8]];
-  v38 = [v33 mutableCopy];
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
+  v35 = [MEMORY[0x277CBEB98] setWithArray:MEMORY[0x277CBEBF8]];
+  v37 = [v32 mutableCopy];
   v49 = 0u;
-  obj = v33;
-  v3 = [obj countByEnumeratingWithState:&v48 objects:v58 count:16];
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  obj = v32;
+  v3 = [obj countByEnumeratingWithState:&v47 objects:v57 count:16];
   if (!v3)
   {
 
     goto LABEL_38;
   }
 
-  v35 = 0;
-  v4 = *v49;
-  v32 = v41;
+  v34 = 0;
+  v4 = *v48;
+  v31 = v40;
   do
   {
     v5 = 0;
     do
     {
-      if (*v49 != v4)
+      if (*v48 != v4)
       {
         objc_enumerationMutation(obj);
       }
 
-      v6 = *(*(&v48 + 1) + 8 * v5);
-      if ([v39 containsObject:{v6, v32}])
+      v6 = *(*(&v47 + 1) + 8 * v5);
+      if ([v38 containsObject:{v6, v31}])
       {
-        v35 = 1;
+        v34 = 1;
 LABEL_10:
-        [v38 removeObjectForKey:v6];
+        [v37 removeObjectForKey:v6];
         goto LABEL_23;
       }
 
-      if ([v36 containsObject:v6])
+      if ([v35 containsObject:v6])
       {
         goto LABEL_10;
       }
 
       v7 = [obj objectForKeyedSubscript:v6];
-      v44 = 0;
-      v45 = &v44;
-      v46 = 0x2020000000;
-      v47 = 0;
+      v43 = 0;
+      v44 = &v43;
+      v45 = 0x2020000000;
+      v46 = 0;
       objc_opt_class();
       v8 = BUDynamicCast();
       v9 = v8;
       if (v8)
       {
         v10 = [v8 bl_securelyCodableError];
-        [v38 setObject:v10 forKeyedSubscript:v6];
+        [v37 setObject:v10 forKeyedSubscript:v6];
       }
 
       else
@@ -3135,14 +3089,14 @@ LABEL_10:
         v11 = v12;
         if (v12)
         {
-          v43[0] = MEMORY[0x277D85DD0];
-          v43[1] = 3221225472;
-          v43[2] = sub_241D4C184;
-          v43[3] = &unk_278D17918;
-          v43[4] = a1;
-          v43[5] = &v44;
-          v13 = [v12 ams_filterUsingTest:v43];
-          [v38 setObject:v13 forKeyedSubscript:v6];
+          v42[0] = MEMORY[0x277D85DD0];
+          v42[1] = 3221225472;
+          v42[2] = sub_241D4C184;
+          v42[3] = &unk_278D17918;
+          v42[4] = a1;
+          v42[5] = &v43;
+          v13 = [v12 ams_filterUsingTest:v42];
+          [v37 setObject:v13 forKeyedSubscript:v6];
 
           goto LABEL_16;
         }
@@ -3152,14 +3106,14 @@ LABEL_10:
         v14 = v19;
         if (v19)
         {
-          v42[0] = MEMORY[0x277D85DD0];
-          v42[1] = 3221225472;
-          v42[2] = sub_241D4C19C;
-          v42[3] = &unk_278D17940;
-          v42[4] = a1;
-          v42[5] = &v44;
-          v20 = [v19 ams_filterUsingTest:v42];
-          [v38 setObject:v20 forKeyedSubscript:v6];
+          v41[0] = MEMORY[0x277D85DD0];
+          v41[1] = 3221225472;
+          v41[2] = sub_241D4C19C;
+          v41[3] = &unk_278D17940;
+          v41[4] = a1;
+          v41[5] = &v43;
+          v20 = [v19 ams_filterUsingTest:v41];
+          [v37 setObject:v20 forKeyedSubscript:v6];
 
           v11 = 0;
           goto LABEL_17;
@@ -3170,14 +3124,14 @@ LABEL_10:
         v15 = v21;
         if (v21)
         {
-          v40[0] = MEMORY[0x277D85DD0];
-          v40[1] = 3221225472;
-          v41[0] = sub_241D4C1B0;
-          v41[1] = &unk_278D17968;
-          v41[2] = a1;
-          v41[3] = &v44;
-          v22 = [v21 objectsPassingTest:v40];
-          [v38 setObject:v22 forKeyedSubscript:v6];
+          v39[0] = MEMORY[0x277D85DD0];
+          v39[1] = 3221225472;
+          v40[0] = sub_241D4C1B0;
+          v40[1] = &unk_278D17968;
+          v40[2] = a1;
+          v40[3] = &v43;
+          v22 = [v21 objectsPassingTest:v39];
+          [v37 setObject:v22 forKeyedSubscript:v6];
 
           v11 = 0;
           v14 = 0;
@@ -3192,15 +3146,15 @@ LABEL_10:
             v24 = objc_opt_class();
             Name = class_getName(v24);
             *buf = 138412802;
-            v53 = v6;
-            v54 = 2080;
-            v55 = Name;
-            v56 = 2112;
-            v57 = v7;
+            v52 = v6;
+            v53 = 2080;
+            v54 = Name;
+            v55 = 2112;
+            v56 = v7;
             _os_log_impl(&dword_241D1F000, v23, OS_LOG_TYPE_ERROR, "userInfo[%@] of class '%s' does not support NSSecureCoding, value: %@", buf, 0x20u);
           }
 
-          [v38 removeObjectForKey:v6];
+          [v37 removeObjectForKey:v6];
         }
       }
 
@@ -3210,7 +3164,7 @@ LABEL_16:
 LABEL_17:
       v15 = 0;
 LABEL_18:
-      if (*(v45 + 24) == 1)
+      if (*(v44 + 24) == 1)
       {
         v16 = BLDefaultLog();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -3218,41 +3172,47 @@ LABEL_18:
           v17 = objc_opt_class();
           v18 = class_getName(v17);
           *buf = 138412802;
-          v53 = v6;
-          v54 = 2080;
-          v55 = v18;
-          v56 = 2112;
-          v57 = v7;
+          v52 = v6;
+          v53 = 2080;
+          v54 = v18;
+          v55 = 2112;
+          v56 = v7;
           _os_log_impl(&dword_241D1F000, v16, OS_LOG_TYPE_ERROR, "userInfo[%@] of class '%s' contains items not supporting NSSecureCoding, value: %@", buf, 0x20u);
         }
       }
 
-      _Block_object_dispose(&v44, 8);
+      _Block_object_dispose(&v43, 8);
 LABEL_23:
       ++v5;
     }
 
     while (v3 != v5);
-    v26 = [obj countByEnumeratingWithState:&v48 objects:v58 count:16];
+    v26 = [obj countByEnumeratingWithState:&v47 objects:v57 count:16];
     v3 = v26;
   }
 
   while (v26);
 
-  if (v35)
+  if (v34)
   {
-    [v38 removeObjectForKey:*MEMORY[0x277CCA7E8]];
+    [v37 removeObjectForKey:*MEMORY[0x277CCA7E8]];
   }
 
 LABEL_38:
   v28 = MEMORY[0x277CCA9B8];
   v29 = [a1 domain];
-  v27 = [v28 errorWithDomain:v29 code:objc_msgSend(a1 userInfo:{"code"), v38}];
+  v27 = [v28 errorWithDomain:v29 code:objc_msgSend(a1 userInfo:{"code"), v37}];
 
 LABEL_39:
-  v30 = *MEMORY[0x277D85DE8];
 
   return v27;
+}
+
+void sub_241D4C150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_241D4C1C8(uint64_t a1, uint64_t a2, void *a3)
@@ -3272,9 +3232,9 @@ uint64_t sub_241D4C1C8(uint64_t a1, uint64_t a2, void *a3)
   return v4;
 }
 
-uint64_t sub_241D4C234(void *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *sub_241D4C234(void *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  result = [a1 _secureCodingSupportedByObject:?];
+  result = [a1 _secureCodingSupportedByObject:a3];
   if (a4)
   {
     if ((result & 1) == 0)
@@ -3331,6 +3291,28 @@ id sub_241D4C9E4(xmlTextReader *a1)
   return v4;
 }
 
+void sub_241D4D350(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, int buf, __int128 a26)
+{
+  if (a2 == 1)
+  {
+    v27 = objc_begin_catch(exc_buf);
+    v28 = BLDefaultLog();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      buf = 138412546;
+      WORD2(a26) = 2112;
+      *(&a26 + 6) = v27;
+      _os_log_impl(&dword_241D1F000, v28, OS_LOG_TYPE_ERROR, "Encountered exception parsing %@. %@", &buf, 0x16u);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x241D4D280);
+  }
+
+  _Block_object_dispose(&a19, 8);
+  _Unwind_Resume(exc_buf);
+}
+
 uint64_t sub_241D4D4C0(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -3340,7 +3322,7 @@ uint64_t sub_241D4D4C0(uint64_t result, uint64_t a2)
 
 void sub_241D4D4D8(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -3349,11 +3331,11 @@ void sub_241D4D4D8(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = *(a1 + 32);
-      v13 = 138412546;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_impl(&dword_241D1F000, v7, OS_LOG_TYPE_ERROR, "Error creating zip archive at %@. error:  %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_241D1F000, v7, OS_LOG_TYPE_ERROR, "Error creating zip archive at %@. error:  %@", &v12, 0x16u);
     }
   }
 
@@ -3363,7 +3345,6 @@ void sub_241D4D4D8(uint64_t a1, void *a2, void *a3)
   v11 = v5;
 
   dispatch_group_leave(*(a1 + 40));
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D4DD0C()
@@ -3376,7 +3357,7 @@ void sub_241D4DD0C()
 
 id sub_241D4DD84(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 dataUsingEncoding:2483028224];
   memset(&c, 0, sizeof(c));
   CC_MD5_Init(&c);
@@ -3408,14 +3389,12 @@ id sub_241D4DD84(void *a1)
   CC_MD5_Final(md, &c);
   v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", md[0], md[1], md[2], md[3], md[4], md[5], md[6], md[7], md[8], md[9], md[10], md[11], md[12], md[13], md[14], md[15]];
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 id sub_241D4DEFC(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = [a1 dataUsingEncoding:2483028224];
   CC_SHA1([v1 bytes], objc_msgSend(v1, "length"), md);
   v2 = [MEMORY[0x277CCAB68] string];
@@ -3423,8 +3402,6 @@ id sub_241D4DEFC(void *a1)
   {
     [v2 appendFormat:@"%02x", md[i]];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -3439,10 +3416,10 @@ id sub_241D4DFF0(void *a1)
 
 void sub_241D4E20C(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = BLServiceLog();
+  v7 = BLServiceLog(v6);
   v8 = v7;
   if (v6)
   {
@@ -3452,10 +3429,10 @@ void sub_241D4E20C(uint64_t a1, void *a2, void *a3)
     }
 
     v9 = *(a1 + 32);
-    v17 = 134218242;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v6;
+    v16 = 134218242;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v6;
     v10 = "[DownloadManifestRequest] addDownloadsWithManifestRequest for request %p returned error:  %@";
     v11 = v8;
     v12 = OS_LOG_TYPE_ERROR;
@@ -3469,16 +3446,16 @@ void sub_241D4E20C(uint64_t a1, void *a2, void *a3)
     }
 
     v13 = *(a1 + 32);
-    v17 = 134218242;
-    v18 = v13;
-    v19 = 2112;
-    v20 = v5;
+    v16 = 134218242;
+    v17 = v13;
+    v18 = 2112;
+    v19 = v5;
     v10 = "[DownloadManifestRequest] addDownloadsWithManifestRequest for request %p completed with response %@.";
     v11 = v8;
     v12 = OS_LOG_TYPE_DEFAULT;
   }
 
-  _os_log_impl(&dword_241D1F000, v11, v12, v10, &v17, 0x16u);
+  _os_log_impl(&dword_241D1F000, v11, v12, v10, &v16, 0x16u);
 LABEL_7:
 
   v14 = MEMORY[0x245CFF560](*(a1 + 40));
@@ -3487,8 +3464,6 @@ LABEL_7:
   {
     (*(v14 + 16))(v14, v5, v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D4E6C0()
@@ -3520,20 +3495,20 @@ uint64_t sub_241D4F748(void *a1, void *a2)
 
 uint64_t sub_241D500E0(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v2 = *MEMORY[0x277CBE8B8];
+  v12 = *MEMORY[0x277D85DE8];
   v9 = 0;
-  [a1 getResourceValue:&v10 forKey:v2 error:&v9];
-  v3 = v10;
-  v4 = v9;
+  v2 = *MEMORY[0x277CBE8B8];
+  v8 = 0;
+  [a1 getResourceValue:&v9 forKey:v2 error:&v8];
+  v3 = v9;
+  v4 = v8;
   if (v4)
   {
     v5 = BLDefaultLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v4;
+      v11 = v4;
       _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "Error [NSURL bl_isUbiquitous]:  %@", buf, 0xCu);
     }
 
@@ -3545,7 +3520,6 @@ uint64_t sub_241D500E0(void *a1)
     v6 = [a1 bl_BOOLFromResourceValue:v3];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3558,20 +3532,20 @@ uint64_t sub_241D501EC(void *a1)
 
 uint64_t sub_241D5022C(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v2 = *MEMORY[0x277CBE948];
+  v12 = *MEMORY[0x277D85DE8];
   v9 = 0;
-  [a1 getResourceValue:&v10 forKey:v2 error:&v9];
-  v3 = v10;
-  v4 = v9;
+  v2 = *MEMORY[0x277CBE948];
+  v8 = 0;
+  [a1 getResourceValue:&v9 forKey:v2 error:&v8];
+  v3 = v9;
+  v4 = v8;
   if (v4)
   {
     v5 = BLDefaultLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v4;
+      v11 = v4;
       _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "Error [NSURL bl_isDownloaded]:  %@", buf, 0xCu);
     }
 
@@ -3583,26 +3557,25 @@ uint64_t sub_241D5022C(void *a1)
     v6 = [a1 bl_isDownloadedWithResourceValue:v3];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t sub_241D50338(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v2 = *MEMORY[0x277CBE960];
+  v12 = *MEMORY[0x277D85DE8];
   v9 = 0;
-  [a1 getResourceValue:&v10 forKey:v2 error:&v9];
-  v3 = v10;
-  v4 = v9;
+  v2 = *MEMORY[0x277CBE960];
+  v8 = 0;
+  [a1 getResourceValue:&v9 forKey:v2 error:&v8];
+  v3 = v9;
+  v4 = v8;
   if (v4)
   {
     v5 = BLDefaultLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v4;
+      v11 = v4;
       _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "Error [NSURL bl_isDownloading]:  %@", buf, 0xCu);
     }
 
@@ -3614,7 +3587,6 @@ uint64_t sub_241D50338(void *a1)
     v6 = [a1 bl_BOOLFromResourceValue:v3];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3634,17 +3606,17 @@ uint64_t sub_241D50484(void *a1)
 
 uint64_t sub_241D504C4(void *a1)
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CBE8B8];
   v3 = *MEMORY[0x277CBE948];
-  v21[0] = *MEMORY[0x277CBE8B8];
-  v21[1] = v3;
+  v20[0] = *MEMORY[0x277CBE8B8];
+  v20[1] = v3;
   v4 = *MEMORY[0x277CBE960];
-  v21[2] = *MEMORY[0x277CBE960];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
-  v18 = 0;
-  v6 = [a1 resourceValuesForKeys:v5 error:&v18];
-  v7 = v18;
+  v20[2] = *MEMORY[0x277CBE960];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  v17 = 0;
+  v6 = [a1 resourceValuesForKeys:v5 error:&v17];
+  v7 = v17;
 
   if (v7)
   {
@@ -3652,7 +3624,7 @@ uint64_t sub_241D504C4(void *a1)
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v7;
+      v19 = v7;
       _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_ERROR, "Error querying bl_isUbiquitousPromise  %@", buf, 0xCu);
     }
 
@@ -3681,7 +3653,6 @@ uint64_t sub_241D504C4(void *a1)
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
@@ -3716,7 +3687,7 @@ uint64_t sub_241D506F0(uint64_t a1, uint64_t a2, void *a3)
 
 void sub_241D50E00(uint64_t a1)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _persistentStoreOptions];
   v3 = [*(a1 + 32) p_databaseExistsAtSharediBooksContainerLocation];
   v4 = [*(a1 + 32) p_databaseExistsAtPrivateiBooksContainerLocation];
@@ -3746,12 +3717,12 @@ void sub_241D50E00(uint64_t a1)
 
     [*(a1 + 32) p_createPersistentDirectoryIfNeeded];
     v15 = *MEMORY[0x277CBE2E8];
-    v51 = 0;
-    v16 = [v8 addPersistentStoreWithType:v15 configuration:0 URL:v11 options:v2 error:&v51];
-    v17 = v51;
-    v50 = v17;
-    v18 = [v8 migratePersistentStore:v16 toURL:v14 options:0 withType:v15 error:&v50];
-    v5 = v50;
+    v50 = 0;
+    v16 = [v8 addPersistentStoreWithType:v15 configuration:0 URL:v11 options:v2 error:&v50];
+    v17 = v50;
+    v49 = v17;
+    v18 = [v8 migratePersistentStore:v16 toURL:v14 options:0 withType:v15 error:&v49];
+    v5 = v49;
 
     if (!v18 || v5)
     {
@@ -3759,7 +3730,7 @@ void sub_241D50E00(uint64_t a1)
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v53 = v5;
+        v52 = v5;
         _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "It looks like the migration failed:  %@", buf, 0xCu);
       }
     }
@@ -3778,9 +3749,9 @@ void sub_241D50E00(uint64_t a1)
 
   v28 = *(*(a1 + 32) + 24);
   v29 = *MEMORY[0x277CBE2E8];
-  v49 = v5;
-  v30 = [v28 addPersistentStoreWithType:v29 configuration:0 URL:v27 options:v2 error:&v49];
-  v31 = v49;
+  v48 = v5;
+  v30 = [v28 addPersistentStoreWithType:v29 configuration:0 URL:v27 options:v2 error:&v48];
+  v31 = v48;
 
   if (v30)
   {
@@ -3791,9 +3762,9 @@ LABEL_22:
     {
       v40 = [v30 identifier];
       *buf = 138412546;
-      v53 = v27;
-      v54 = 2112;
-      v55 = v40;
+      v52 = v27;
+      v53 = 2112;
+      v54 = v40;
       _os_log_impl(&dword_241D1F000, v39, OS_LOG_TYPE_DEFAULT, "Added jalisco Persistent Store: %@ persistentstoreID:%@", buf, 0x16u);
     }
 
@@ -3806,35 +3777,35 @@ LABEL_22:
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v53 = v27;
-      v54 = 2112;
-      v55 = v31;
+      v52 = v27;
+      v53 = 2112;
+      v54 = v31;
       _os_log_impl(&dword_241D1F000, v33, OS_LOG_TYPE_ERROR, "Error adding local Persistent Store at URL: %@. Trying to recover %@", buf, 0x16u);
     }
   }
 
   v34 = *(*(a1 + 32) + 24);
-  v48 = 0;
-  v35 = [v34 destroyPersistentStoreAtURL:v27 withType:v29 options:0 error:&v48];
-  v36 = v48;
+  v47 = 0;
+  v35 = [v34 destroyPersistentStoreAtURL:v27 withType:v29 options:0 error:&v47];
+  v36 = v47;
   if ((v35 & 1) == 0)
   {
     v37 = BLJaliscoLog();
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v53 = v27;
-      v54 = 2112;
-      v55 = v36;
+      v52 = v27;
+      v53 = 2112;
+      v54 = v36;
       _os_log_impl(&dword_241D1F000, v37, OS_LOG_TYPE_ERROR, "Could not remove local Persistent Store at URL: %@ %@", buf, 0x16u);
     }
   }
 
   [*(a1 + 32) p_createPersistentDirectoryIfNeeded];
   v38 = *(*(a1 + 32) + 24);
-  v47 = v31;
-  v30 = [v38 addPersistentStoreWithType:v29 configuration:0 URL:v27 options:v2 error:&v47];
-  v32 = v47;
+  v46 = v31;
+  v30 = [v38 addPersistentStoreWithType:v29 configuration:0 URL:v27 options:v2 error:&v46];
+  v32 = v46;
 
   if (v30)
   {
@@ -3853,9 +3824,9 @@ LABEL_22:
   if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v53 = v27;
-    v54 = 2112;
-    v55 = v39;
+    v52 = v27;
+    v53 = 2112;
+    v54 = v39;
     _os_log_impl(&dword_241D1F000, v43, OS_LOG_TYPE_ERROR, "Failed to add jalisco Persistent Store: %@ %@", buf, 0x16u);
   }
 
@@ -3865,39 +3836,88 @@ LABEL_22:
 
   v30 = 0;
 LABEL_29:
+}
 
-  v46 = *MEMORY[0x277D85DE8];
+void sub_241D51384(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, __int128 buf, int a16, __int16 a17, __int16 a18, void *a19)
+{
+  if (a2 == 1)
+  {
+    v20 = objc_begin_catch(a1);
+    v21 = [v20 userInfo];
+    if (v21)
+    {
+      v22 = [v20 userInfo];
+      v23 = [v22 objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+
+    v24 = [MEMORY[0x277CCA9B8] bu_errorWithDomain:@"BLJaliscoDAAPClientError" code:2 description:@"Unable to bring up jalisco core data stack" underlyingError:v23];
+    v25 = v24;
+    if (*(v19 + 40))
+    {
+      v26 = v24;
+      **(v19 + 40) = v25;
+    }
+
+    v27 = *(v19 + 32);
+    v28 = *(v27 + 24);
+    *(v27 + 24) = 0;
+
+    v29 = BLJaliscoLog();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    {
+      v30 = [v20 name];
+      v31 = [v20 reason];
+      v32 = [v20 userInfo];
+      LODWORD(buf) = 138543874;
+      *(&buf + 4) = v30;
+      WORD6(buf) = 2114;
+      *(&buf + 14) = v31;
+      a18 = 2114;
+      a19 = v32;
+      _os_log_impl(&dword_241D1F000, v29, OS_LOG_TYPE_ERROR, "[BLJaliscoServerSource persistentStoreCoordinatorWithError]: Unable to bring up jalisco core data stack. Exception: %{public}@ %{public}@ %{public}@", &buf, 0x20u);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x241D51348);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 void sub_241D53C18(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = [a1 userInfo];
   v2 = [v1 objectForKey:@"NSDetailedErrors"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [v2 count])
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         v7 = 0;
         do
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v10 + 1) + 8 * v7);
+          v8 = *(*(&v9 + 1) + 8 * v7);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -3908,14 +3928,12 @@ void sub_241D53C18(void *a1)
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 unint64_t sub_241D53D80(void *a1)
@@ -3925,9 +3943,8 @@ unint64_t sub_241D53D80(void *a1)
   return strtoull(v1, 0, 0);
 }
 
-void sub_241D55968(uint64_t a1)
+void sub_241D55968(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v2 objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 
@@ -4134,7 +4151,7 @@ void sub_241D56764(uint64_t a1, void *a2, void *a3)
 
 __CFString *sub_241D567FC(void *a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = v1;
   if (v1)
@@ -4146,8 +4163,8 @@ __CFString *sub_241D567FC(void *a1)
     {
       v6 = 2 * v4;
       MEMORY[0x28223BE20]();
-      bzero(v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), 2 * v5);
-      v7 = v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0) + 1;
+      bzero(v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), 2 * v5);
+      v7 = v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0) + 1;
       do
       {
         v8 = *v3++;
@@ -4158,7 +4175,7 @@ __CFString *sub_241D567FC(void *a1)
       }
 
       while (v5);
-      v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0) length:v6 encoding:4];
+      v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0) length:v6 encoding:4];
     }
 
     else
@@ -4171,8 +4188,6 @@ __CFString *sub_241D567FC(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -4219,7 +4234,7 @@ id IMStreamingHashWithFilePathSync(void *a1, int a2, void *a3)
   return v9;
 }
 
-void sub_241D56B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_241D56B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -4293,7 +4308,7 @@ id IMStreamingHashStringWithFilePathSync(void *a1, int a2, void *a3)
   return v9;
 }
 
-void sub_241D56DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_241D56DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -4334,16 +4349,16 @@ BOOL _BLStoreDemoModeEnabled()
   return !v0;
 }
 
-void sub_241D57244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D57244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241D573E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D573E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4361,38 +4376,36 @@ uint64_t sub_241D57480(uint64_t result)
 
 void sub_241D575AC(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = [*(a1 + 32) _allPurchaseDAAPServers];
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) updateItemImageURLsIgnoringCache:0 completion:0];
+        [*(*(&v6 + 1) + 8 * v5++) updateItemImageURLsIgnoringCache:0 completion:0];
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D5773C(uint64_t a1)
@@ -4421,9 +4434,9 @@ void sub_241D5773C(uint64_t a1)
   _Block_object_dispose(&v5, 8);
 }
 
-void sub_241D5783C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D5783C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4606,9 +4619,9 @@ void sub_241D582E0(uint64_t a1)
   _Block_object_dispose(&v6, 8);
 }
 
-void sub_241D583F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D583F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4661,14 +4674,14 @@ void sub_241D58654(uint64_t a1, void *a2)
 
 void sub_241D58E0C(uint64_t a1, uint64_t a2)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = BLJaliscoLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_INFO, "UpdatePolitely was successful. Clearing storeAuthenticationRequired, isGDPRPrivacyAcknowledgementRequired", v16, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_INFO, "UpdatePolitely was successful. Clearing storeAuthenticationRequired, isGDPRPrivacyAcknowledgementRequired", v15, 2u);
     }
 
     [*(a1 + 32) setIsGDPRPrivacyAcknowledgementRequired:0];
@@ -4680,9 +4693,9 @@ void sub_241D58E0C(uint64_t a1, uint64_t a2)
   if (v5)
   {
     v7 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
-    v20[0] = @"GDPR acknowledgement required";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA450];
+    v19[0] = @"GDPR acknowledgement required";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v9 = [v7 errorWithDomain:@"BLJaliscoDAAPClientError" code:6 userInfo:v8];
   }
 
@@ -4694,9 +4707,9 @@ void sub_241D58E0C(uint64_t a1, uint64_t a2)
   if ([*(a1 + 32) storeAuthenticationRequired])
   {
     v10 = MEMORY[0x277CCA9B8];
-    v17 = *v6;
-    v18 = @"need store auth to get jalisco items";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *v6;
+    v17 = @"need store auth to get jalisco items";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v12 = [v10 errorWithDomain:@"BLJaliscoDAAPClientError" code:5 userInfo:v11];
 
     v9 = v12;
@@ -4708,21 +4721,19 @@ void sub_241D58E0C(uint64_t a1, uint64_t a2)
   {
     (*(v13 + 16))(v13, a2, v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D5909C(uint64_t a1)
 {
-  v76 = *MEMORY[0x277D85DE8];
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x2020000000;
-  v66 = 0x7FFFFFFFFFFFFFFFLL;
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x2020000000;
+  v75 = *MEMORY[0x277D85DE8];
   v62 = 0;
+  v63 = &v62;
+  v64 = 0x2020000000;
+  v65 = 0x7FFFFFFFFFFFFFFFLL;
+  v58 = 0;
+  v59 = &v58;
+  v60 = 0x2020000000;
+  v61 = 0;
   v2 = *(a1 + 32);
   v3 = *(v2 + 112);
   block[0] = MEMORY[0x277D85DD0];
@@ -4730,10 +4741,10 @@ void sub_241D5909C(uint64_t a1)
   block[2] = sub_241D597AC;
   block[3] = &unk_278D17D00;
   block[4] = v2;
-  block[5] = &v63;
-  block[6] = &v59;
+  block[5] = &v62;
+  block[6] = &v58;
   dispatch_sync(v3, block);
-  if (v60[3])
+  if (v59[3])
   {
     v4 = *(a1 + 40);
     if (v4)
@@ -4744,41 +4755,41 @@ void sub_241D5909C(uint64_t a1)
     }
 
     v7 = [*(a1 + 32) _currentPurchaseDAAPServers];
-    v44 = [v7 valueForKey:@"dsid"];
+    v43 = [v7 valueForKey:@"dsid"];
     v8 = BLJaliscoLog();
-    v43 = v7;
+    v42 = v7;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 56);
       v10 = *(a1 + 48);
       *buf = 67109634;
       *&buf[4] = v9;
-      *v75 = 2048;
-      *&v75[2] = v10;
-      *&v75[10] = 2112;
-      *&v75[12] = v44;
+      *v74 = 2048;
+      *&v74[2] = v10;
+      *&v74[10] = 2112;
+      *&v74[12] = v43;
       _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_DEFAULT, "[BLJaliscoDAAPClient] updatePolitely:%{BOOL}d reason:%ld will update for DSIDs:(%@)", buf, 0x1Cu);
     }
 
-    if ([v44 count])
+    if ([v43 count])
     {
       v11 = *(a1 + 32);
       if ((*(v11 + 33) & 1) == 0)
       {
         v12 = dispatch_get_global_queue(0, 0);
-        v56[0] = MEMORY[0x277D85DD0];
-        v56[1] = 3221225472;
-        v56[2] = sub_241D598C8;
-        v56[3] = &unk_278D17380;
-        v56[4] = v11;
-        v57 = v44;
-        dispatch_async(v12, v56);
+        v55[0] = MEMORY[0x277D85DD0];
+        v55[1] = 3221225472;
+        v55[2] = sub_241D598C8;
+        v55[3] = &unk_278D17380;
+        v55[4] = v11;
+        v56 = v43;
+        dispatch_async(v12, v55);
       }
 
       *buf = 0;
-      *v75 = buf;
-      *&v75[8] = 0x2020000000;
-      v75[16] = 1;
+      *v74 = buf;
+      *&v74[8] = 0x2020000000;
+      v74[16] = 1;
       v13 = dispatch_group_create();
       v14 = BLJaliscoLog();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
@@ -4786,34 +4797,34 @@ void sub_241D5909C(uint64_t a1)
         v15 = [MEMORY[0x277CCACC8] currentThread];
         v16 = [*(a1 + 32) purchaseDAAPSyncsInFlight];
         v17 = [v16 count];
-        *v67 = 138412546;
-        v68 = v15;
-        v69 = 2048;
-        v70 = v17;
-        _os_log_impl(&dword_241D1F000, v14, OS_LOG_TYPE_INFO, "Dispatch group: creation thread %@ purchaseDAAPSyncsInFlight %lu - updatePolitely", v67, 0x16u);
+        *v66 = 138412546;
+        v67 = v15;
+        v68 = 2048;
+        v69 = v17;
+        _os_log_impl(&dword_241D1F000, v14, OS_LOG_TYPE_INFO, "Dispatch group: creation thread %@ purchaseDAAPSyncsInFlight %lu - updatePolitely", v66, 0x16u);
       }
 
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
       v53 = 0u;
-      v18 = v43;
-      v19 = [v18 countByEnumeratingWithState:&v52 objects:v73 count:16];
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
+      v18 = v42;
+      v19 = [v18 countByEnumeratingWithState:&v51 objects:v72 count:16];
       if (v19)
       {
-        v20 = *v53;
+        v20 = *v52;
         do
         {
           v21 = 0;
-          v45 = v19;
+          v44 = v19;
           do
           {
-            if (*v53 != v20)
+            if (*v52 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
-            v22 = *(*(&v52 + 1) + 8 * v21);
+            v22 = *(*(&v51 + 1) + 8 * v21);
             v23 = [*(a1 + 32) purchaseDAAPSyncsInFlight];
             v24 = [v23 containsObject:v22];
 
@@ -4833,41 +4844,41 @@ void sub_241D5909C(uint64_t a1)
                 v31 = [v22 dsid];
                 v32 = [*(a1 + 32) purchaseDAAPSyncsInFlight];
                 v33 = [v32 count];
-                *v67 = 138412802;
-                v68 = v30;
-                v69 = 2112;
-                v70 = v31;
-                v71 = 2048;
-                v72 = v33;
-                _os_log_impl(&dword_241D1F000, v26, OS_LOG_TYPE_INFO, "Dispatch group: entry thread %@ dsid:%@ purchaseDAAPSyncsInFlight %lu - updatePolitely", v67, 0x20u);
+                *v66 = 138412802;
+                v67 = v30;
+                v68 = 2112;
+                v69 = v31;
+                v70 = 2048;
+                v71 = v33;
+                _os_log_impl(&dword_241D1F000, v26, OS_LOG_TYPE_INFO, "Dispatch group: entry thread %@ dsid:%@ purchaseDAAPSyncsInFlight %lu - updatePolitely", v66, 0x20u);
 
                 v18 = v29;
                 v13 = v28;
                 v20 = v27;
-                v19 = v45;
+                v19 = v44;
               }
 
               v34 = *(a1 + 48);
               v35 = *(a1 + 32);
               v36 = *(v35 + 40);
-              v47[0] = MEMORY[0x277D85DD0];
-              v47[1] = 3221225472;
-              v47[2] = sub_241D59AB0;
-              v47[3] = &unk_278D17DA0;
-              v51 = *(a1 + 56);
-              v47[4] = v22;
-              v47[5] = v35;
-              v49 = buf;
-              v50 = v34;
-              v48 = v13;
-              [v22 setupWithReason:v34 queue:v36 completion:v47];
+              v46[0] = MEMORY[0x277D85DD0];
+              v46[1] = 3221225472;
+              v46[2] = sub_241D59AB0;
+              v46[3] = &unk_278D17DA0;
+              v50 = *(a1 + 56);
+              v46[4] = v22;
+              v46[5] = v35;
+              v48 = buf;
+              v49 = v34;
+              v47 = v13;
+              [v22 setupWithReason:v34 queue:v36 completion:v46];
             }
 
             ++v21;
           }
 
           while (v19 != v21);
-          v19 = [v18 countByEnumeratingWithState:&v52 objects:v73 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v51 objects:v72 count:16];
         }
 
         while (v19);
@@ -4875,14 +4886,14 @@ void sub_241D5909C(uint64_t a1)
 
       v37 = *(a1 + 32);
       v38 = *(v37 + 40);
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = sub_241D5A084;
-      v46[3] = &unk_278D17DC8;
-      v46[4] = v37;
-      v46[5] = buf;
-      v46[6] = &v63;
-      dispatch_group_notify(v13, v38, v46);
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = sub_241D5A084;
+      v45[3] = &unk_278D17DC8;
+      v45[4] = v37;
+      v45[5] = buf;
+      v45[6] = &v62;
+      dispatch_group_notify(v13, v38, v45);
 
       _Block_object_dispose(buf, 8);
     }
@@ -4896,7 +4907,7 @@ void sub_241D5909C(uint64_t a1)
         _os_log_impl(&dword_241D1F000, v41, OS_LOG_TYPE_DEFAULT, "[BLJaliscoDAAPClient] no update - no signed in user", buf, 2u);
       }
 
-      [*(a1 + 32) _sendCompletionHandlersWithSuccess:1 generation:{v64[3], v7}];
+      [*(a1 + 32) _sendCompletionHandlersWithSuccess:1 generation:{v63[3], v7}];
     }
   }
 
@@ -4916,21 +4927,21 @@ void sub_241D5909C(uint64_t a1)
     }
   }
 
-  _Block_object_dispose(&v59, 8);
-  _Block_object_dispose(&v63, 8);
-  v42 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v62, 8);
 }
 
-void sub_241D59740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_241D59740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
 {
+  va_start(va, a56);
   _Block_object_dispose(&a53, 8);
-  _Block_object_dispose(&a57, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_241D597AC(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   *(*(a1[5] + 8) + 24) = *(a1[4] + 88);
   *(*(a1[6] + 8) + 24) = *(a1[4] + 96) != *(a1[4] + 88);
   v2 = BLJaliscoLog();
@@ -4940,41 +4951,39 @@ void sub_241D597AC(void *a1)
     v5 = *(v3 + 88);
     v4 = *(v3 + 96);
     v6 = *(*(a1[6] + 8) + 24);
-    v8 = 134218496;
-    v9 = v5;
-    v10 = 2048;
-    v11 = v4;
-    v12 = 1024;
-    v13 = v6;
-    _os_log_impl(&dword_241D1F000, v2, OS_LOG_TYPE_DEFAULT, "Need update test: currentGeneration:%lu pendingGeneration:%lu Needs update:%{BOOL}d", &v8, 0x1Cu);
+    v7 = 134218496;
+    v8 = v5;
+    v9 = 2048;
+    v10 = v4;
+    v11 = 1024;
+    v12 = v6;
+    _os_log_impl(&dword_241D1F000, v2, OS_LOG_TYPE_DEFAULT, "Need update test: currentGeneration:%lu pendingGeneration:%lu Needs update:%{BOOL}d", &v7, 0x1Cu);
   }
 
   if (*(*(a1[6] + 8) + 24) == 1)
   {
     *(a1[4] + 96) = *(a1[4] + 88);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D598C8(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) newManagedObjectContext];
   v3 = +[BLJaliscoServerSource sharedSource];
   v4 = [v3 itemsFetchRequestForDSIDs:*(a1 + 40)];
 
   [v4 setFetchLimit:1];
-  v12 = 0;
-  v5 = [v2 countForFetchRequest:v4 error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [v2 countForFetchRequest:v4 error:&v11];
+  v6 = v11;
   if (v5 == 0x7FFFFFFFFFFFFFFFLL)
   {
     v9 = BLJaliscoLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v6;
+      v13 = v6;
       _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_ERROR, "DAAP Setup: Couldn't count items.  %@", buf, 0xCu);
     }
   }
@@ -4983,15 +4992,13 @@ void sub_241D598C8(uint64_t a1)
   {
     v7 = *(a1 + 32);
     v8 = *(v7 + 40);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = sub_241D59A58;
-    v11[3] = &unk_278D173A8;
-    v11[4] = v7;
-    dispatch_async(v8, v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = sub_241D59A58;
+    v10[3] = &unk_278D173A8;
+    v10[4] = v7;
+    dispatch_async(v8, v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_241D59A58(uint64_t a1)
@@ -5005,15 +5012,15 @@ uint64_t sub_241D59A58(uint64_t a1)
 
 void sub_241D59AB0(uint64_t a1, int a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = BLJaliscoLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [*(a1 + 32) dsid];
     *buf = 138412546;
-    v25 = v5;
-    v26 = 1024;
-    v27 = a2;
+    v24 = v5;
+    v25 = 1024;
+    v26 = a2;
     _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_INFO, "DAAP Setup, dsid: %@, success: %d", buf, 0x12u);
   }
 
@@ -5024,17 +5031,17 @@ void sub_241D59AB0(uint64_t a1, int a2)
     v9 = *(a1 + 32);
     v8 = *(a1 + 40);
     v10 = *(v8 + 40);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = sub_241D59CA4;
-    v22[3] = &unk_278D17D50;
-    v22[4] = v9;
-    v22[5] = v8;
-    v11 = &v23;
-    v18 = *(a1 + 48);
-    v12 = v18;
-    v23 = v18;
-    [v9 fetchAllItemsPolitely:v6 reason:v7 queue:v10 completion:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = sub_241D59CA4;
+    v21[3] = &unk_278D17D50;
+    v21[4] = v9;
+    v21[5] = v8;
+    v11 = &v22;
+    v17 = *(a1 + 48);
+    v12 = v17;
+    v22 = v17;
+    [v9 fetchAllItemsPolitely:v6 reason:v7 queue:v10 completion:v21];
   }
 
   else
@@ -5048,27 +5055,25 @@ void sub_241D59AB0(uint64_t a1, int a2)
     v15 = *(a1 + 32);
     block[4] = v13;
     block[5] = v15;
-    v11 = &v21;
-    v19 = *(a1 + 48);
-    v16 = v19;
-    v21 = v19;
+    v11 = &v20;
+    v18 = *(a1 + 48);
+    v16 = v18;
+    v20 = v18;
     dispatch_async(v14, block);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D59CA4(uint64_t a1, int a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = BLJaliscoLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [*(a1 + 32) dsid];
     *buf = 138412546;
-    v16 = v5;
-    v17 = 1024;
-    v18 = a2;
+    v15 = v5;
+    v16 = 1024;
+    v17 = a2;
     _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_INFO, "DAAP Update, dsid: %@, success: %d", buf, 0x12u);
   }
 
@@ -5078,21 +5083,19 @@ void sub_241D59CA4(uint64_t a1, int a2)
   block[1] = 3221225472;
   block[2] = sub_241D59DF8;
   block[3] = &unk_278D17D28;
-  v14 = a2;
+  v13 = a2;
   v8 = *(a1 + 32);
   block[4] = v6;
   block[5] = v8;
-  v11 = *(a1 + 48);
-  v9 = v11;
-  v13 = v11;
+  v10 = *(a1 + 48);
+  v9 = v10;
+  v12 = v10;
   dispatch_async(v7, block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D59DF8(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 56) + 8);
   if (*(v2 + 24) == 1)
   {
@@ -5115,21 +5118,19 @@ void sub_241D59DF8(uint64_t a1)
     v6 = [MEMORY[0x277CCACC8] currentThread];
     v7 = [*(a1 + 40) dsid];
     v8 = [*(a1 + 32) purchaseDAAPSyncsInFlight];
-    v10 = 138412802;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v7;
-    v14 = 2048;
-    v15 = [v8 count];
-    _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_INFO, "Dispatch group:leave thread %@ dsid:%@  purchaseDAAPSyncsInFlight %lu - after DAAP update", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    v13 = 2048;
+    v14 = [v8 count];
+    _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_INFO, "Dispatch group:leave thread %@ dsid:%@  purchaseDAAPSyncsInFlight %lu - after DAAP update", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D59F4C(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   *(*(*(a1 + 56) + 8) + 24) = 0;
   v2 = [*(a1 + 32) purchaseDAAPSyncsInFlight];
   [v2 removeObject:*(a1 + 40)];
@@ -5141,36 +5142,32 @@ void sub_241D59F4C(uint64_t a1)
     v4 = [MEMORY[0x277CCACC8] currentThread];
     v5 = [*(a1 + 40) dsid];
     v6 = [*(a1 + 32) purchaseDAAPSyncsInFlight];
-    v8 = 138412802;
-    v9 = v4;
-    v10 = 2112;
-    v11 = v5;
-    v12 = 2048;
-    v13 = [v6 count];
-    _os_log_impl(&dword_241D1F000, v3, OS_LOG_TYPE_INFO, "Dispatch group:leave thread %@ dsid:%@ purchaseDAAPSyncsInFlight %lu - NO DAAP update", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    v11 = 2048;
+    v12 = [v6 count];
+    _os_log_impl(&dword_241D1F000, v3, OS_LOG_TYPE_INFO, "Dispatch group:leave thread %@ dsid:%@ purchaseDAAPSyncsInFlight %lu - NO DAAP update", &v7, 0x20u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_241D5A084(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = BLJaliscoLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [MEMORY[0x277CCACC8] currentThread];
     v4 = [*(a1 + 32) purchaseDAAPSyncsInFlight];
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2048;
-    v10 = [v4 count];
-    _os_log_impl(&dword_241D1F000, v2, OS_LOG_TYPE_INFO, "Dispatch group:NOTIFY thread %@  purchaseDAAPSyncsInFlight %lu - updatePolitely", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2048;
+    v9 = [v4 count];
+    _os_log_impl(&dword_241D1F000, v2, OS_LOG_TYPE_INFO, "Dispatch group:NOTIFY thread %@  purchaseDAAPSyncsInFlight %lu - updatePolitely", &v6, 0x16u);
   }
 
-  result = [*(a1 + 32) _sendCompletionHandlersWithSuccess:*(*(*(a1 + 40) + 8) + 24) generation:*(*(*(a1 + 48) + 8) + 24)];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _sendCompletionHandlersWithSuccess:*(*(*(a1 + 40) + 8) + 24) generation:*(*(*(a1 + 48) + 8) + 24)];
 }
 
 void sub_241D5A368(uint64_t a1)
@@ -5181,7 +5178,7 @@ void sub_241D5A368(uint64_t a1)
 
 void sub_241D5A560(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 120) objectForKeyedSubscript:*(*(a1 + 32) + 8)];
 
   if (!v2)
@@ -5195,11 +5192,11 @@ void sub_241D5A560(uint64_t a1)
       v5 = *(a1 + 32);
       v6 = *(v5 + 8);
       v7 = *(v5 + 88);
-      v14 = 138412546;
-      v15 = v6;
-      v16 = 2048;
-      v17 = v7;
-      _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_DEFAULT, "_addPurchaseServerForCurrentUser Created daap server for dsid:(%@) currentServerGen:(%lu)", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v6;
+      v15 = 2048;
+      v16 = v7;
+      _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_DEFAULT, "_addPurchaseServerForCurrentUser Created daap server for dsid:(%@) currentServerGen:(%lu)", &v13, 0x16u);
     }
 
     ++*(*(a1 + 32) + 88);
@@ -5215,27 +5212,25 @@ void sub_241D5A560(uint64_t a1)
       v10 = *(a1 + 32);
       v11 = *(v10 + 8);
       v12 = *(v10 + 88);
-      v14 = 138412546;
-      v15 = v11;
-      v16 = 2048;
-      v17 = v12;
-      _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_DEFAULT, "_addPurchaseServerForCurrentUser Finished for dsid:(%@) currentServerGen:(%lu)", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v11;
+      v15 = 2048;
+      v16 = v12;
+      _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_DEFAULT, "_addPurchaseServerForCurrentUser Finished for dsid:(%@) currentServerGen:(%lu)", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D5A990(uint64_t a1, uint64_t a2)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = BLJaliscoLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_INFO, "updateFamilyPolitely was successful. Clearing storeAuthenticationRequired, isGDPRPrivacyAcknowledgementRequired", v16, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_INFO, "updateFamilyPolitely was successful. Clearing storeAuthenticationRequired, isGDPRPrivacyAcknowledgementRequired", v15, 2u);
     }
 
     [*(a1 + 32) setIsGDPRPrivacyAcknowledgementRequired:0];
@@ -5247,9 +5242,9 @@ void sub_241D5A990(uint64_t a1, uint64_t a2)
   if (v5)
   {
     v7 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
-    v20[0] = @"GDPR acknowledgement required";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA450];
+    v19[0] = @"GDPR acknowledgement required";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v9 = [v7 errorWithDomain:@"BLJaliscoDAAPClientError" code:6 userInfo:v8];
   }
 
@@ -5261,9 +5256,9 @@ void sub_241D5A990(uint64_t a1, uint64_t a2)
   if ([*(a1 + 32) storeAuthenticationRequired])
   {
     v10 = MEMORY[0x277CCA9B8];
-    v17 = *v6;
-    v18 = @"need store auth to get family jalisco items";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *v6;
+    v17 = @"need store auth to get family jalisco items";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v12 = [v10 errorWithDomain:@"BLJaliscoDAAPClientError" code:5 userInfo:v11];
 
     v9 = v12;
@@ -5275,8 +5270,6 @@ void sub_241D5A990(uint64_t a1, uint64_t a2)
   {
     (*(v13 + 16))(v13, a2, v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D5ADDC(_Unwind_Exception *a1)
@@ -5303,7 +5296,7 @@ void sub_241D5AE08(uint64_t a1)
 
 void sub_241D5AEB0(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   if (v2)
   {
@@ -5313,33 +5306,33 @@ void sub_241D5AEB0(uint64_t a1)
   }
 
   v5 = [*(a1 + 32) _familyPurchaseDAAPServers];
-  v37[0] = 0;
-  v37[1] = v37;
-  v37[2] = 0x2020000000;
-  v38 = 1;
+  v36[0] = 0;
+  v36[1] = v36;
+  v36[2] = 0x2020000000;
+  v37 = 1;
   v6 = dispatch_group_create();
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v8)
   {
-    v10 = *v34;
+    v10 = *v33;
     *&v9 = 138412290;
-    v26 = v9;
+    v25 = v9;
     do
     {
       v11 = 0;
       do
       {
-        if (*v34 != v10)
+        if (*v33 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v33 + 1) + 8 * v11);
+        v12 = *(*(&v32 + 1) + 8 * v11);
         v13 = [*(a1 + 32) purchaseDAAPSyncsInFlight];
         v14 = [v13 containsObject:v12];
 
@@ -5349,8 +5342,8 @@ void sub_241D5AEB0(uint64_t a1)
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             v16 = [v12 dsid];
-            *buf = v26;
-            v40 = v16;
+            *buf = v25;
+            v39 = v16;
             _os_log_impl(&dword_241D1F000, v15, OS_LOG_TYPE_DEFAULT, "Skipping family purchase history update for %@ (already in-flight)", buf, 0xCu);
           }
         }
@@ -5365,32 +5358,32 @@ void sub_241D5AEB0(uint64_t a1)
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             v19 = [v12 dsid];
-            *buf = v26;
-            v40 = v19;
+            *buf = v25;
+            v39 = v19;
             _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_DEFAULT, "Setting up family purchase history request for %@", buf, 0xCu);
           }
 
           v20 = *(a1 + 48);
           v21 = *(a1 + 32);
           v22 = *(v21 + 40);
-          v28[0] = MEMORY[0x277D85DD0];
-          v28[1] = 3221225472;
-          v28[2] = sub_241D5B264;
-          v28[3] = &unk_278D17DA0;
-          v32 = *(a1 + 56);
-          v28[4] = v12;
-          v28[5] = v21;
-          v30 = v37;
-          v31 = v20;
-          v29 = v6;
-          [v12 setupWithReason:v20 queue:v22 completion:v28];
+          v27[0] = MEMORY[0x277D85DD0];
+          v27[1] = 3221225472;
+          v27[2] = sub_241D5B264;
+          v27[3] = &unk_278D17DA0;
+          v31 = *(a1 + 56);
+          v27[4] = v12;
+          v27[5] = v21;
+          v29 = v36;
+          v30 = v20;
+          v28 = v6;
+          [v12 setupWithReason:v20 queue:v22 completion:v27];
         }
 
         ++v11;
       }
 
       while (v8 != v11);
-      v8 = [v7 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v8);
@@ -5403,11 +5396,17 @@ void sub_241D5AEB0(uint64_t a1)
   block[2] = sub_241D5B660;
   block[3] = &unk_278D17BE8;
   block[4] = v23;
-  block[5] = v37;
+  block[5] = v36;
   dispatch_group_notify(v6, v24, block);
 
-  _Block_object_dispose(v37, 8);
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v36, 8);
+}
+
+void sub_241D5B22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_241D5B264(uint64_t a1, int a2)
@@ -5468,7 +5467,7 @@ void sub_241D5B3B0(uint64_t a1, char a2)
 
 void sub_241D5B454(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 56) + 8);
   if (*(v2 + 24) == 1)
   {
@@ -5489,20 +5488,19 @@ void sub_241D5B454(uint64_t a1)
   {
     v6 = [*(a1 + 40) dsid];
     v7 = *(a1 + 64);
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 1024;
-    v12 = v7;
-    _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_DEFAULT, "Family purchase history update completed for %@ (%d)", &v9, 0x12u);
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 1024;
+    v11 = v7;
+    _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_DEFAULT, "Family purchase history update completed for %@ (%d)", &v8, 0x12u);
   }
 
   dispatch_group_leave(*(a1 + 48));
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D5B570(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   *(*(*(a1 + 56) + 8) + 24) = 0;
   v2 = [*(a1 + 32) purchaseDAAPSyncsInFlight];
   [v2 removeObject:*(a1 + 40)];
@@ -5511,18 +5509,17 @@ void sub_241D5B570(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = [*(a1 + 40) dsid];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_241D1F000, v3, OS_LOG_TYPE_ERROR, "Family purchase history setup failed for %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_241D1F000, v3, OS_LOG_TYPE_ERROR, "Family purchase history setup failed for %@", &v5, 0xCu);
   }
 
   dispatch_group_leave(*(a1 + 48));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D5B660(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = BLJaliscoLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -5538,9 +5535,9 @@ void sub_241D5B660(uint64_t a1)
 
     v4 = [*(a1 + 32) purchaseDAAPSyncsInFlight];
     *buf = 138543618;
-    v12 = v3;
-    v13 = 2048;
-    v14 = [v4 count];
+    v11 = v3;
+    v12 = 2048;
+    v13 = [v4 count];
     _os_log_impl(&dword_241D1F000, v2, OS_LOG_TYPE_DEFAULT, "Jalisco family purchase updates completed %{public}@ (%lu)", buf, 0x16u);
   }
 
@@ -5549,56 +5546,51 @@ void sub_241D5B660(uint64_t a1)
 
   if (!v6)
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = sub_241D5B7D8;
-    v9[3] = &unk_278D175C0;
-    v10 = *(a1 + 32);
-    v7 = MEMORY[0x245CFF560](v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = sub_241D5B7D8;
+    v8[3] = &unk_278D175C0;
+    v9 = *(a1 + 32);
+    v7 = MEMORY[0x245CFF560](v8);
     v7[2]();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_241D5B7D8(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12 = 0u;
-  v13 = 0u;
+  v13 = *MEMORY[0x277D85DE8];
   v10 = 0u;
   v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v2 = *(*(a1 + 32) + 24);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(*(a1 + 40) + 8) + 24);
-        (*(*(*(&v10 + 1) + 8 * v6) + 16))(*(*(&v10 + 1) + 8 * v6));
+        (*(*(*(&v8 + 1) + 8 * v6) + 16))(*(*(&v8 + 1) + 8 * v6));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(*(a1 + 32) + 24) removeAllObjects];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 24) removeAllObjects];
 }
 
 void sub_241D5B8EC(uint64_t a1, void *a2, void *a3, void *a4)
@@ -5612,7 +5604,7 @@ void sub_241D5B8EC(uint64_t a1, void *a2, void *a3, void *a4)
 
 void sub_241D5C220(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = +[BLJaliscoServerSource sharedSource];
   v3 = [*(a1 + 32) _dsids];
   v4 = [v2 allItemsFetchRequestForDSIDs:v3];
@@ -5631,14 +5623,14 @@ void sub_241D5C220(uint64_t a1)
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v31 = v4;
+    v30 = v4;
     _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_ERROR, "Deleting items %@", buf, 0xCu);
   }
 
   v10 = *(*(a1 + 32) + 136);
-  v27 = 0;
-  v11 = [v10 executeFetchRequest:v4 error:&v27];
-  v12 = v27;
+  v26 = 0;
+  v11 = [v10 executeFetchRequest:v4 error:&v26];
+  v12 = v26;
   if (v12)
   {
     v13 = v12;
@@ -5649,7 +5641,7 @@ void sub_241D5C220(uint64_t a1)
     }
 
     *buf = 138412290;
-    v31 = v13;
+    v30 = v13;
     v15 = "Couldn't fetch items to delete Error: %@";
     v16 = v14;
     v17 = 12;
@@ -5661,17 +5653,17 @@ void sub_241D5C220(uint64_t a1)
     v14 = [v11 firstObject];
     [*(*(a1 + 32) + 136) deleteObject:v14];
     v18 = *(*(a1 + 32) + 136);
-    v26 = 0;
-    [v18 save:&v26];
-    v13 = v26;
+    v25 = 0;
+    [v18 save:&v25];
+    v13 = v25;
     v19 = BLJaliscoLog();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = [v14 storeID];
       *buf = 138412546;
-      v31 = v20;
-      v32 = 2112;
-      v33 = v13;
+      v30 = v20;
+      v31 = 2112;
+      v32 = v13;
       _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "Deleted jalisco items %@. Error: %@", buf, 0x16u);
     }
   }
@@ -5679,18 +5671,18 @@ void sub_241D5C220(uint64_t a1)
   else
   {
     v21 = MEMORY[0x277CCA9B8];
-    v28 = *MEMORY[0x277CCA450];
-    v29 = @"Can't delete jalisco items. Nothing to delete.";
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x277CCA450];
+    v28 = @"Can't delete jalisco items. Nothing to delete.";
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
     v13 = [v21 errorWithDomain:@"BLJaliscoDAAPClientError" code:1 userInfo:v22];
 
     v14 = BLJaliscoLog();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v31 = v11;
-      v32 = 2112;
-      v33 = v13;
+      v30 = v11;
+      v31 = 2112;
+      v32 = v13;
       v15 = "Fail to delete jalisco items %@. Error: %@";
       v16 = v14;
       v17 = 22;
@@ -5707,8 +5699,6 @@ LABEL_15:
   {
     (*(v23 + 16))(v23, v13);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D5C664(uint64_t a1)
@@ -5738,9 +5728,9 @@ void sub_241D5C758(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_241D5C8C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D5C8C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5754,16 +5744,16 @@ void sub_241D5C8DC(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_241D5CA48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D5CA48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_241D5CA60(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2[1])
   {
@@ -5772,20 +5762,18 @@ void sub_241D5CA60(uint64_t a1)
 
     if (v4)
     {
-      v9[0] = v4;
-      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+      v8[0] = v4;
+      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
       v6 = *(*(a1 + 40) + 8);
       v7 = *(v6 + 40);
       *(v6 + 40) = v5;
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_241D5CC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D5CC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5814,21 +5802,21 @@ void sub_241D5CC40(uint64_t a1)
   }
 }
 
-void sub_241D5CE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D5CE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_241D5CE3C(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   if (v2)
   {
-    v5[0] = *(*(a1 + 32) + 8);
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+    v4[0] = *(*(a1 + 32) + 8);
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   }
 
   else
@@ -5840,13 +5828,11 @@ void sub_241D5CE3C(uint64_t a1)
   if (v2)
   {
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D5D06C(uint64_t a1)
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) setByAddingObjectsFromSet:*(a1 + 40)];
   v3 = [v2 allObjects];
 
@@ -5859,25 +5845,25 @@ void sub_241D5D06C(uint64_t a1)
     _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_DEFAULT, "Adding family member BLPurchaseDAAPServer objects for %@", &buf, 0xCu);
   }
 
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
   v78 = 0u;
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v77 objects:v92 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v76 objects:v91 count:16];
   if (v7)
   {
-    v8 = *v78;
+    v8 = *v77;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v78 != v8)
+        if (*v77 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v77 + 1) + 8 * i);
+        v10 = *(*(&v76 + 1) + 8 * i);
         v11 = [*(a1 + 48) swqDSIDToDAAPServer];
         v12 = [v11 objectForKeyedSubscript:v10];
         v13 = v12 == 0;
@@ -5890,7 +5876,7 @@ void sub_241D5D06C(uint64_t a1)
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v77 objects:v92 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v76 objects:v91 count:16];
     }
 
     while (v7);
@@ -5905,30 +5891,30 @@ void sub_241D5D06C(uint64_t a1)
     _os_log_impl(&dword_241D1F000, v16, OS_LOG_TYPE_DEFAULT, "Removing family member BLPurchaseDAAPServer objects for %@", &buf, 0xCu);
   }
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   v18 = *(a1 + 56);
-  v19 = [v18 countByEnumeratingWithState:&v73 objects:v91 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v72 objects:v90 count:16];
   if (v19)
   {
-    v20 = *v74;
+    v20 = *v73;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v74 != v20)
+        if (*v73 != v20)
         {
           objc_enumerationMutation(v18);
         }
 
-        v22 = *(*(&v73 + 1) + 8 * j);
+        v22 = *(*(&v72 + 1) + 8 * j);
         v23 = [*(a1 + 48) swqDSIDToDAAPServer];
         [v23 setObject:0 forKeyedSubscript:v22];
       }
 
-      v19 = [v18 countByEnumeratingWithState:&v73 objects:v91 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v72 objects:v90 count:16];
     }
 
     while (v19);
@@ -5936,28 +5922,28 @@ void sub_241D5D06C(uint64_t a1)
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v87 = 0x3032000000;
-  v88 = sub_241D57854;
-  v89 = sub_241D57864;
-  v90 = 0;
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3032000000;
-  v70 = sub_241D57854;
-  v71 = sub_241D57864;
-  v72 = 0;
+  v86 = 0x3032000000;
+  v87 = sub_241D57854;
+  v88 = sub_241D57864;
+  v89 = 0;
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x3032000000;
+  v69 = sub_241D57854;
+  v70 = sub_241D57864;
+  v71 = 0;
   v24 = *(a1 + 48);
   v25 = *(v24 + 136);
-  v63[0] = MEMORY[0x277D85DD0];
-  v63[1] = 3221225472;
-  v63[2] = sub_241D5D818;
-  v63[3] = &unk_278D17EE0;
-  v63[4] = v24;
+  v62[0] = MEMORY[0x277D85DD0];
+  v62[1] = 3221225472;
+  v62[2] = sub_241D5D818;
+  v62[3] = &unk_278D17EE0;
+  v62[4] = v24;
   v26 = v3;
-  v64 = v26;
-  v65 = &v67;
+  v63 = v26;
+  v64 = &v66;
   p_buf = &buf;
-  [v25 performBlockAndWait:v63];
+  [v25 performBlockAndWait:v62];
   if (*(*(&buf + 1) + 40))
   {
     v27 = BLJaliscoLog();
@@ -5969,20 +5955,20 @@ LABEL_25:
     }
 
     v28 = *(*(&buf + 1) + 40);
-    *v82 = 138412546;
-    v83 = v26;
-    v84 = 2112;
-    v85 = v28;
+    *v81 = 138412546;
+    v82 = v26;
+    v83 = 2112;
+    v84 = v28;
     v29 = "_processFamilyCircle: Failed to fetch jalisco objects excluding current family members: %@,  %@";
     v30 = v27;
     v31 = OS_LOG_TYPE_ERROR;
     v32 = 22;
 LABEL_24:
-    _os_log_impl(&dword_241D1F000, v30, v31, v29, v82, v32);
+    _os_log_impl(&dword_241D1F000, v30, v31, v29, v81, v32);
     goto LABEL_25;
   }
 
-  if (![v68[5] count])
+  if (![v67[5] count])
   {
     v27 = BLJaliscoLog();
     if (!os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
@@ -5990,7 +5976,7 @@ LABEL_24:
       goto LABEL_25;
     }
 
-    *v82 = 0;
+    *v81 = 0;
     v29 = "_processFamilyCircle: No items up for deletion";
     v30 = v27;
     v31 = OS_LOG_TYPE_INFO;
@@ -5998,70 +5984,70 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v39 = BLJaliscoLog();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+  v38 = BLJaliscoLog();
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
   {
-    v40 = [v68[5] count];
-    v41 = [v68[5] valueForKey:@"storeID"];
-    v42 = [v41 bu_arrayByRemovingDuplicates];
-    *v82 = 134218242;
-    v83 = v40;
-    v84 = 2112;
-    v85 = v42;
-    _os_log_impl(&dword_241D1F000, v39, OS_LOG_TYPE_DEBUG, "_processFamilyCircle: Deleting %lu jalisco objects that are no longer accessible: %@", v82, 0x16u);
+    v39 = [v67[5] count];
+    v40 = [v67[5] valueForKey:@"storeID"];
+    v41 = [v40 bu_arrayByRemovingDuplicates];
+    *v81 = 134218242;
+    v82 = v39;
+    v83 = 2112;
+    v84 = v41;
+    _os_log_impl(&dword_241D1F000, v38, OS_LOG_TYPE_DEBUG, "_processFamilyCircle: Deleting %lu jalisco objects that are no longer accessible: %@", v81, 0x16u);
   }
 
-  v62 = 0u;
-  v60 = 0u;
   v61 = 0u;
   v59 = 0u;
-  v43 = v68[5];
-  v44 = [v43 countByEnumeratingWithState:&v59 objects:v81 count:16];
-  if (v44)
+  v60 = 0u;
+  v58 = 0u;
+  v42 = v67[5];
+  v43 = [v42 countByEnumeratingWithState:&v58 objects:v80 count:16];
+  if (v43)
   {
-    v45 = *v60;
+    v44 = *v59;
     do
     {
-      for (k = 0; k != v44; ++k)
+      for (k = 0; k != v43; ++k)
       {
-        if (*v60 != v45)
+        if (*v59 != v44)
         {
-          objc_enumerationMutation(v43);
+          objc_enumerationMutation(v42);
         }
 
-        [*(*(a1 + 48) + 136) deleteObject:*(*(&v59 + 1) + 8 * k)];
+        [*(*(a1 + 48) + 136) deleteObject:*(*(&v58 + 1) + 8 * k)];
       }
 
-      v44 = [v43 countByEnumeratingWithState:&v59 objects:v81 count:16];
+      v43 = [v42 countByEnumeratingWithState:&v58 objects:v80 count:16];
     }
 
-    while (v44);
+    while (v43);
   }
 
   if ([*(*(a1 + 48) + 136) hasChanges])
   {
-    v47 = *(*(a1 + 48) + 136);
-    v58 = 0;
-    v48 = [v47 save:&v58];
-    v27 = v58;
+    v46 = *(*(a1 + 48) + 136);
+    v57 = 0;
+    v47 = [v46 save:&v57];
+    v27 = v57;
     if (v27)
     {
-      v49 = v48;
+      v48 = v47;
     }
 
     else
     {
-      v49 = 1;
+      v48 = 1;
     }
 
-    if ((v49 & 1) == 0)
+    if ((v48 & 1) == 0)
     {
-      v50 = BLJaliscoLog();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+      v49 = BLJaliscoLog();
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
-        *v82 = 138412290;
-        v83 = v27;
-        _os_log_impl(&dword_241D1F000, v50, OS_LOG_TYPE_ERROR, "Moc Save Error:  %@", v82, 0xCu);
+        *v81 = 138412290;
+        v82 = v27;
+        _os_log_impl(&dword_241D1F000, v49, OS_LOG_TYPE_ERROR, "Moc Save Error:  %@", v81, 0xCu);
       }
     }
 
@@ -6074,22 +6060,20 @@ LABEL_26:
   block[1] = 3221225472;
   block[2] = sub_241D5D8D8;
   block[3] = &unk_278D17F08;
-  v52 = *(a1 + 32);
+  v51 = *(a1 + 32);
   v34 = *(a1 + 56);
   v35 = *(a1 + 48);
-  v53 = v34;
-  v54 = v35;
+  v52 = v34;
+  v53 = v35;
   v36 = *(a1 + 64);
-  v56 = 0;
-  v57 = v36;
-  v55 = v26;
+  v55 = 0;
+  v56 = v36;
+  v54 = v26;
   v37 = v26;
   dispatch_async(v33, block);
 
-  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(&v66, 8);
   _Block_object_dispose(&buf, 8);
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D5D7C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
@@ -6143,11 +6127,11 @@ void sub_241D5D8D8(uint64_t a1)
 
 void sub_241D5D9EC(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   v2 = *(a1 + 32);
   v3 = *(v2 + 112);
   block[0] = MEMORY[0x277D85DD0];
@@ -6155,11 +6139,11 @@ void sub_241D5D9EC(uint64_t a1)
   block[2] = sub_241D5DC0C;
   block[3] = &unk_278D17F58;
   block[4] = v2;
-  block[5] = &v17;
+  block[5] = &v15;
   block[6] = *(a1 + 40);
   dispatch_sync(v3, block);
   v4 = *(a1 + 32);
-  if (*(v4 + 32) == 1 && *(v18 + 24) == 1)
+  if (*(v4 + 32) == 1 && *(v16 + 24) == 1)
   {
     [v4 willChangeValueForKey:@"initiallyLoadingJalisco"];
     *(*(a1 + 32) + 32) = 0;
@@ -6169,34 +6153,33 @@ void sub_241D5D9EC(uint64_t a1)
   }
 
   v5 = *(v4 + 16);
-  if (v5 && *(v18 + 24) == 1)
+  if (v5 && *(v16 + 24) == 1)
   {
-    v14 = 0u;
-    v15 = 0u;
     v12 = 0u;
     v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v10 objects:v19 count:16];
     if (v7)
     {
-      v8 = *v13;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(a1 + 48);
-          (*(*(*(&v12 + 1) + 8 * v9) + 16))(*(*(&v12 + 1) + 8 * v9));
+          (*(*(*(&v10 + 1) + 8 * v9) + 16))(*(*(&v10 + 1) + 8 * v9));
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [v6 countByEnumeratingWithState:&v12 objects:v21 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v10 objects:v19 count:16];
       }
 
       while (v7);
@@ -6205,8 +6188,7 @@ void sub_241D5D9EC(uint64_t a1)
     [*(*(a1 + 32) + 16) removeAllObjects];
   }
 
-  _Block_object_dispose(&v17, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 }
 
 void *sub_241D5DC0C(void *result)
@@ -6246,7 +6228,7 @@ void sub_241D5E2AC(uint64_t a1)
 
 void sub_241D5E608(uint64_t a1, uint64_t a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -6256,14 +6238,14 @@ void sub_241D5E608(uint64_t a1, uint64_t a2, void *a3)
     v9 = [*(a1 + 32) body];
     v10 = [(AMSURLRequestEncoder *)v7 requestWithMethod:v8 URL:v6 parameters:v9];
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = sub_241D5E894;
-    v21[3] = &unk_278D17FA8;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = sub_241D5E894;
+    v20[3] = &unk_278D17FA8;
     v11 = *(a1 + 40);
-    v21[4] = *(a1 + 32);
-    v22 = v11;
-    [v10 resultWithCompletion:v21];
+    v20[4] = *(a1 + 32);
+    v21 = v11;
+    [v10 resultWithCompletion:v20];
 
     v12 = v5;
   }
@@ -6275,16 +6257,16 @@ void sub_241D5E608(uint64_t a1, uint64_t a2, void *a3)
     {
       v14 = *(a1 + 32);
       *buf = 138412290;
-      v26 = v14;
+      v25 = v14;
       _os_log_impl(&dword_241D1F000, v13, OS_LOG_TYPE_ERROR, "%@: No URL to configure with.", buf, 0xCu);
     }
 
     if (v5)
     {
-      v23 = @"Underlying Error Description";
+      v22 = @"Underlying Error Description";
       v15 = [v5 description];
-      v24 = v15;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v23 = v15;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     }
 
     else
@@ -6304,13 +6286,11 @@ void sub_241D5E608(uint64_t a1, uint64_t a2, void *a3)
       (*(v19 + 16))(v19, 0, v12);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D5E894(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -6321,9 +6301,9 @@ void sub_241D5E894(uint64_t a1, void *a2, void *a3)
     {
       v12 = *(a1 + 32);
       *buf = 138412546;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v7;
+      v24 = v12;
+      v25 = 2112;
+      v26 = v7;
       _os_log_impl(&dword_241D1F000, v11, OS_LOG_TYPE_ERROR, "Error with BLURLRequestEncoder creating request %@ %@", buf, 0x16u);
     }
 
@@ -6334,10 +6314,10 @@ void sub_241D5E894(uint64_t a1, void *a2, void *a3)
       goto LABEL_9;
     }
 
-    v22 = @"Underlying Error Description";
+    v21 = @"Underlying Error Description";
     v8 = [v7 description];
-    v23 = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v22 = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
     v10 = @"AMS error - nil request %@";
 LABEL_8:
 
@@ -6352,10 +6332,10 @@ LABEL_9:
 
   if (v6)
   {
-    v20 = @"Underlying Error Description";
+    v19 = @"Underlying Error Description";
     v8 = [v6 description];
-    v21 = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v20 = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     v10 = @"AMS error with creating request in %@";
     goto LABEL_8;
   }
@@ -6368,28 +6348,26 @@ LABEL_11:
   {
     (*(v17 + 16))(v17, v5, v16);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D5EBCC(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
     v7 = +[BLPurchaseDAAPServer sharedSession];
-    v14 = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = sub_241D5ED84;
-    v17 = &unk_278D17FF8;
-    v18 = v5;
-    v19 = *(a1 + 40);
-    v8 = [v7 dataTaskWithRequest:v18 completionHandler:&v14];
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = sub_241D5ED84;
+    v16 = &unk_278D17FF8;
+    v17 = v5;
+    v18 = *(a1 + 40);
+    v8 = [v7 dataTaskWithRequest:v17 completionHandler:&v13];
 
     [v8 resume];
-    v9 = v18;
+    v9 = v17;
   }
 
   else
@@ -6399,9 +6377,9 @@ void sub_241D5EBCC(uint64_t a1, void *a2, void *a3)
     {
       v11 = *(a1 + 32);
       *buf = 138412546;
-      v21 = v11;
-      v22 = 2112;
-      v23 = v6;
+      v20 = v11;
+      v21 = 2112;
+      v22 = v6;
       _os_log_impl(&dword_241D1F000, v10, OS_LOG_TYPE_ERROR, "%@: Cannot execute request because request is nil %@", buf, 0x16u);
     }
 
@@ -6412,13 +6390,11 @@ void sub_241D5EBCC(uint64_t a1, void *a2, void *a3)
       (*(v12 + 16))(v12, 0, v6);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D5ED84(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -6427,11 +6403,11 @@ void sub_241D5ED84(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = *(a1 + 32);
-      v14 = 138412546;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_241D1F000, v7, OS_LOG_TYPE_ERROR, "daapURL request failed - Request %@, error:  %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_impl(&dword_241D1F000, v7, OS_LOG_TYPE_ERROR, "daapURL request failed - Request %@, error:  %@", &v13, 0x16u);
     }
 
     v9 = MEMORY[0x245CFF560](*(a1 + 40));
@@ -6454,8 +6430,6 @@ LABEL_8:
       goto LABEL_8;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D5F02C(uint64_t a1, void *a2, void *a3)
@@ -6537,7 +6511,7 @@ void sub_241D5F224(uint64_t a1, void *a2, void *a3)
 
 void sub_241D5F3FC(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   if (!v6)
@@ -6545,11 +6519,11 @@ void sub_241D5F3FC(uint64_t a1, void *a2, uint64_t a3, void *a4)
     v8 = BLJaliscoLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412546;
-      v13 = @"purchase-daap";
-      v14 = 2112;
-      v15 = v7;
-      _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_ERROR, "Error fetching %@:  %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = @"purchase-daap";
+      v13 = 2112;
+      v14 = v7;
+      _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_ERROR, "Error fetching %@:  %@", &v11, 0x16u);
     }
   }
 
@@ -6559,8 +6533,6 @@ void sub_241D5F3FC(uint64_t a1, void *a2, uint64_t a3, void *a4)
   {
     (*(v9 + 16))(v9, v6, v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t BLBookTypeFromPathExtension(void *a1)
@@ -6589,9 +6561,9 @@ uint64_t BLBookTypeFromPathExtension(void *a1)
   return v2;
 }
 
-void sub_241D60B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241D60B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6605,17 +6577,14 @@ uint64_t sub_241D60BC0(uint64_t result, uint64_t a2)
 
 uint64_t sub_241D60BD8(uint64_t a1, uint64_t a2)
 {
-  v3 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:a2];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [MEMORY[0x277CBEA90] dataWithContentsOfURL:a2];
 
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_241D61120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_241D61120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6745,21 +6714,19 @@ uint64_t sub_241D62524(uint64_t a1, double a2)
 
 void sub_241D62604(uint64_t a1, void *a2)
 {
-  v6 = a2;
+  v4 = a2;
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v4 = *(a1 + 32);
-  if (isKindOfClass)
+  if (objc_opt_isKindOfClass())
   {
-    v5 = v6;
+    v3 = v4;
   }
 
   else
   {
-    v5 = 0;
+    v3 = 0;
   }
 
-  (*(*(a1 + 32) + 16))(*(a1 + 32), v5);
+  (*(*(a1 + 32) + 16))(*(a1 + 32), v3);
 }
 
 uint64_t sub_241D627D4(uint64_t a1)
@@ -6773,7 +6740,7 @@ uint64_t sub_241D627D4(uint64_t a1)
 
 void sub_241D62920(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   if (v6)
@@ -6786,17 +6753,15 @@ void sub_241D62920(uint64_t a1, void *a2, uint64_t a3, void *a4)
     v8 = BLJaliscoLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412546;
-      v11 = @"purchase-daap";
-      v12 = 2112;
-      v13 = v7;
-      _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_ERROR, "Error fetching %@:  %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = @"purchase-daap";
+      v11 = 2112;
+      v12 = v7;
+      _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_ERROR, "Error fetching %@:  %@", &v9, 0x16u);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D6319C(uint64_t a1, int a2)
@@ -6914,7 +6879,7 @@ void sub_241D63478(uint64_t a1, void *a2, void *a3)
 
 void sub_241D635C4(uint64_t a1, uint64_t a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   switch(a2)
   {
     case 2:
@@ -6923,7 +6888,7 @@ void sub_241D635C4(uint64_t a1, uint64_t a2)
       {
         v9 = [*(a1 + 32) dsid];
         *buf = 138412290;
-        v26 = v9;
+        v25 = v9;
         _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_INFO, "Art Request: dsid: %@ succeeded", buf, 0xCu);
       }
 
@@ -6944,9 +6909,9 @@ void sub_241D635C4(uint64_t a1, uint64_t a2)
         block[2] = sub_241D63904;
         block[3] = &unk_278D182D8;
         block[4] = v16;
-        v23 = v14;
+        v22 = v14;
         v5 = v12;
-        v24 = v5;
+        v23 = v5;
         v18 = v14;
         dispatch_async(v17, block);
 
@@ -6966,9 +6931,9 @@ void sub_241D635C4(uint64_t a1, uint64_t a2)
         v6 = [*(a1 + 32) dsid];
         v7 = *(a1 + 40);
         *buf = 138412546;
-        v26 = v6;
-        v27 = 2112;
-        v28 = v7;
+        v25 = v6;
+        v26 = 2112;
+        v27 = v7;
         _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "Art Request: %@, Error getting response:  %@", buf, 0x16u);
       }
 
@@ -6981,12 +6946,12 @@ LABEL_14:
       {
         v4 = [*(a1 + 32) dsid];
         *buf = 138412290;
-        v26 = v4;
+        v25 = v4;
         _os_log_impl(&dword_241D1F000, v3, OS_LOG_TYPE_DEBUG, "Art Request: dsid: %@, RETRY", buf, 0xCu);
       }
 
       [*(a1 + 32) updateItemImageURLsIgnoringCache:*(a1 + 72) completion:*(a1 + 64)];
-      goto LABEL_18;
+      return;
   }
 
   v19 = MEMORY[0x245CFF560](*(a1 + 64));
@@ -6995,56 +6960,53 @@ LABEL_14:
   {
     (*(v19 + 16))(v19);
   }
-
-LABEL_18:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D63904(uint64_t a1)
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v54[1] = *MEMORY[0x277D85DE8];
   v1 = +[BLJaliscoServerSource sharedSource];
   v2 = [*(a1 + 32) dsid];
-  v55[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:1];
-  v38 = [v1 itemsFetchRequestForDSIDs:v3];
+  v54[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
+  v37 = [v1 itemsFetchRequestForDSIDs:v3];
 
   v4 = *(a1 + 40);
-  v49 = 0;
-  v5 = [v4 executeFetchRequest:v38 error:&v49];
-  v36 = v49;
-  v37 = v5;
+  v48 = 0;
+  v5 = [v4 executeFetchRequest:v37 error:&v48];
+  v35 = v48;
+  v36 = v5;
   if (v5)
   {
-    v35 = [*(a1 + 48) objectForKey:@"dmap.listing"];
+    v34 = [*(a1 + 48) objectForKey:@"dmap.listing"];
     v6 = MEMORY[0x277CBEAC0];
-    v7 = [v37 valueForKey:@"cloudID"];
-    v42 = [v6 dictionaryWithObjects:v37 forKeys:v7];
+    v7 = [v36 valueForKey:@"cloudID"];
+    v41 = [v6 dictionaryWithObjects:v36 forKeys:v7];
 
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
-    v8 = v35;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v8 = v34;
     obj = v8;
-    v9 = [v8 countByEnumeratingWithState:&v45 objects:v54 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v44 objects:v53 count:16];
     if (v9)
     {
       v10 = 0;
-      v41 = *v46;
+      v40 = *v45;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v46 != v41)
+          if (*v45 != v40)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v45 + 1) + 8 * i);
+          v12 = *(*(&v44 + 1) + 8 * i);
           v13 = [v12 itemID];
           v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", v13];
-          v15 = [v42 objectForKey:v14];
+          v15 = [v41 objectForKey:v14];
 
           if (v15)
           {
@@ -7063,9 +7025,9 @@ void sub_241D63904(uint64_t a1)
                   v21 = +[BLJaliscoDAAPClient sharedClient];
                   v22 = [v21 imageManagerDelegate];
                   v23 = [v15 storeID];
-                  v44 = 0;
-                  v24 = [v22 removeImageForStoreID:v23 error:&v44];
-                  v25 = v44;
+                  v43 = 0;
+                  v24 = [v22 removeImageForStoreID:v23 error:&v43];
+                  v25 = v43;
 
                   if ((v24 & 1) == 0)
                   {
@@ -7073,7 +7035,7 @@ void sub_241D63904(uint64_t a1)
                     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412290;
-                      v51 = v25;
+                      v50 = v25;
                       _os_log_impl(&dword_241D1F000, v26, OS_LOG_TYPE_ERROR, "ERROR removing time-bombed artwork:  %@", buf, 0xCu);
                     }
                   }
@@ -7093,16 +7055,16 @@ void sub_241D63904(uint64_t a1)
                 v28 = [v15 storeID];
                 v29 = [v12 additionalInfo];
                 *buf = 138412546;
-                v51 = v28;
-                v52 = 2112;
-                v53 = v29;
+                v50 = v28;
+                v51 = 2112;
+                v52 = v29;
                 _os_log_impl(&dword_241D1F000, v27, OS_LOG_TYPE_DEBUG, "Incomplete artwork response for %@ -- %@", buf, 0x16u);
               }
             }
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
+        v9 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
       }
 
       while (v9);
@@ -7114,16 +7076,16 @@ void sub_241D63904(uint64_t a1)
 
       v30 = *(a1 + 32);
       v31 = *(a1 + 40);
-      v43 = 0;
-      v32 = [v30 _saveInMoc:v31 error:&v43];
-      v8 = v43;
+      v42 = 0;
+      v32 = [v30 _saveInMoc:v31 error:&v42];
+      v8 = v42;
       if ((v32 & 1) == 0)
       {
         v33 = BLJaliscoLog();
         if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v51 = v8;
+          v50 = v8;
           _os_log_impl(&dword_241D1F000, v33, OS_LOG_TYPE_ERROR, "Error saving artwork state %@", buf, 0xCu);
         }
       }
@@ -7131,8 +7093,6 @@ void sub_241D63904(uint64_t a1)
 
 LABEL_30:
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D6475C(id *a1, int a2)
@@ -7250,7 +7210,7 @@ void sub_241D64A90(uint64_t a1, void *a2, void *a3)
 
 void sub_241D64BBC(uint64_t a1, uint64_t a2)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   switch(a2)
   {
     case 2:
@@ -7262,25 +7222,25 @@ void sub_241D64BBC(uint64_t a1, uint64_t a2)
       [*(a1 + 32) _updateVersionAfterHideRequest:v7];
       v8 = [v7 objectForKey:@"dmap.listing"];
       v9 = objc_opt_new();
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
       v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
       v10 = v8;
-      v11 = [v10 countByEnumeratingWithState:&v51 objects:v57 count:{16, v8}];
+      v11 = [v10 countByEnumeratingWithState:&v50 objects:v56 count:{16, v8}];
       if (v11)
       {
-        v12 = *v52;
+        v12 = *v51;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v52 != v12)
+            if (*v51 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            v14 = *(*(&v51 + 1) + 8 * i);
+            v14 = *(*(&v50 + 1) + 8 * i);
             v15 = [v14 additionalInfo];
             v16 = [v15 objectForKey:@"dmap.status"];
 
@@ -7291,7 +7251,7 @@ void sub_241D64BBC(uint64_t a1, uint64_t a2)
             }
           }
 
-          v11 = [v10 countByEnumeratingWithState:&v51 objects:v57 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v50 objects:v56 count:16];
         }
 
         while (v11);
@@ -7307,39 +7267,39 @@ void sub_241D64BBC(uint64_t a1, uint64_t a2)
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v59 = v9;
+          v58 = v9;
           _os_log_impl(&dword_241D1F000, v20, OS_LOG_TYPE_DEFAULT, "HideItems: Finding corresponding jalisco items with cloudIDs(%@)", buf, 0xCu);
         }
 
         v21 = +[BLJaliscoServerSource sharedSource];
         v22 = [*(a1 + 32) dsid];
-        v56 = v22;
-        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
-        v42 = [v21 fetchRequestForAllCloudIDs:v9 dsids:v23];
+        v55 = v22;
+        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+        v41 = [v21 fetchRequestForAllCloudIDs:v9 dsids:v23];
 
-        v50 = 0;
-        v24 = [v19 executeFetchRequest:v42 error:&v50];
-        v41 = v50;
+        v49 = 0;
+        v24 = [v19 executeFetchRequest:v41 error:&v49];
+        v40 = v49;
+        v45 = 0u;
         v46 = 0u;
         v47 = 0u;
         v48 = 0u;
-        v49 = 0u;
         v25 = v24;
-        v26 = [v25 countByEnumeratingWithState:&v46 objects:v55 count:16];
+        v26 = [v25 countByEnumeratingWithState:&v45 objects:v54 count:16];
         if (v26)
         {
-          v27 = *v47;
+          v27 = *v46;
           v28 = MEMORY[0x277CBEC38];
           do
           {
             for (j = 0; j != v26; ++j)
             {
-              if (*v47 != v27)
+              if (*v46 != v27)
               {
                 objc_enumerationMutation(v25);
               }
 
-              v30 = *(*(&v46 + 1) + 8 * j);
+              v30 = *(*(&v45 + 1) + 8 * j);
               [v30 setIsHidden:v28];
               v31 = [v30 storeID];
               if (v31)
@@ -7348,7 +7308,7 @@ void sub_241D64BBC(uint64_t a1, uint64_t a2)
               }
             }
 
-            v26 = [v25 countByEnumeratingWithState:&v46 objects:v55 count:16];
+            v26 = [v25 countByEnumeratingWithState:&v45 objects:v54 count:16];
           }
 
           while (v26);
@@ -7360,21 +7320,21 @@ void sub_241D64BBC(uint64_t a1, uint64_t a2)
           if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v59 = v3;
+            v58 = v3;
             _os_log_impl(&dword_241D1F000, v32, OS_LOG_TYPE_DEFAULT, "HideItems: Hiding items locally in database:(%@)", buf, 0xCu);
           }
 
           v33 = *(a1 + 32);
-          v45 = 0;
-          v34 = [v33 _saveInMoc:v19 error:&v45];
-          v35 = v45;
+          v44 = 0;
+          v34 = [v33 _saveInMoc:v19 error:&v44];
+          v35 = v44;
           if ((v34 & 1) == 0)
           {
             v36 = BLJaliscoLog();
             if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v59 = v35;
+              v58 = v35;
               _os_log_impl(&dword_241D1F000, v36, OS_LOG_TYPE_ERROR, "Error saving items after hiding.  %@", buf, 0xCu);
             }
           }
@@ -7385,7 +7345,7 @@ void sub_241D64BBC(uint64_t a1, uint64_t a2)
       if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v59 = v3;
+        v58 = v3;
         _os_log_impl(&dword_241D1F000, v37, OS_LOG_TYPE_DEFAULT, "HideItems: success %@", buf, 0xCu);
       }
 
@@ -7396,7 +7356,7 @@ void sub_241D64BBC(uint64_t a1, uint64_t a2)
       {
         v4 = *(a1 + 48);
         *buf = 138412290;
-        v59 = v4;
+        v58 = v4;
         _os_log_impl(&dword_241D1F000, oslog, OS_LOG_TYPE_ERROR, "HideItems: Error getting response:  %@", buf, 0xCu);
       }
 
@@ -7424,8 +7384,6 @@ LABEL_45:
   {
     (*(v38 + 16))(v38, v3);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D653E8(uint64_t a1)
@@ -7537,7 +7495,7 @@ void sub_241D65738(uint64_t a1, char a2)
 
 uint64_t sub_241D657B0(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v3 = BLJaliscoLog();
   v4 = v3;
@@ -7546,9 +7504,9 @@ uint64_t sub_241D657B0(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v5 = [*(a1 + 32) dsid];
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_INFO, "DAAP Login success for dsid: %@. Kicking off artwork fetch..", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_INFO, "DAAP Login success for dsid: %@. Kicking off artwork fetch..", &v8, 0xCu);
     }
 
     v4 = +[BLJaliscoDAAPClient sharedClient];
@@ -7558,13 +7516,11 @@ uint64_t sub_241D657B0(uint64_t a1)
 
   else if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_ERROR, "DAAP Login failed.", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_ERROR, "DAAP Login failed.", &v8, 2u);
   }
 
-  result = [*(a1 + 32) _sendSetupConfigurationHandlersWithSuccess:v2];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _sendSetupConfigurationHandlersWithSuccess:v2];
 }
 
 void sub_241D65AD4(uint64_t a1)
@@ -7661,7 +7617,7 @@ void sub_241D65E78(uint64_t a1, uint64_t a2)
 
 void sub_241D65EB8(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) dsid];
   v3 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v4 = [v3 objectForKey:@"kJaliscoDAAPClientLastSuccessfulFullUpdateDateDictionary"];
@@ -7709,13 +7665,13 @@ LABEL_10:
   {
     v16 = [*(a1 + 32) dsid];
     *buf = 138413058;
-    v36 = v6;
-    v37 = 2112;
-    v38 = v7;
-    v39 = 2112;
-    v40 = v9;
-    v41 = 2112;
-    v42 = v16;
+    v35 = v6;
+    v36 = 2112;
+    v37 = v7;
+    v38 = 2112;
+    v39 = v9;
+    v40 = 2112;
+    v41 = v16;
     _os_log_impl(&dword_241D1F000, v15, OS_LOG_TYPE_DEFAULT, "1. [BLPurchaseDAAPServer] FetchItemsPolitely: dsid:%@ lastFullRefreshedAt:%@ nextUpdateAt:%@ nextFullRefreshAt:%@", buf, 0x2Au);
   }
 
@@ -7724,22 +7680,22 @@ LABEL_10:
     v17 = *(*(*(a1 + 80) + 8) + 24);
     v19 = *(a1 + 32);
     v18 = *(a1 + 40);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = sub_241D6632C;
-    v27[3] = &unk_278D18648;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = sub_241D6632C;
+    v26[3] = &unk_278D18648;
     v20 = v18;
     v21 = *(a1 + 32);
-    v28 = v20;
-    v29 = v21;
-    v32 = *(a1 + 80);
-    v33 = v14;
-    v34 = *(a1 + 88);
-    v31 = *(a1 + 48);
-    v30 = v2;
-    [v19 setupWithReason:v17 queue:v20 completion:v27];
+    v27 = v20;
+    v28 = v21;
+    v31 = *(a1 + 80);
+    v32 = v14;
+    v33 = *(a1 + 88);
+    v30 = *(a1 + 48);
+    v29 = v2;
+    [v19 setupWithReason:v17 queue:v20 completion:v26];
 
-    v22 = v28;
+    v22 = v27;
   }
 
   else
@@ -7749,9 +7705,9 @@ LABEL_10:
     {
       v24 = [MEMORY[0x277CBEAA8] date];
       *buf = 138412546;
-      v36 = v7;
-      v37 = 2112;
-      v38 = v24;
+      v35 = v7;
+      v36 = 2112;
+      v37 = v24;
       _os_log_impl(&dword_241D1F000, v23, OS_LOG_TYPE_DEFAULT, "[BLPurchaseDAAPServer] FetchItemsPolitely: Being polite and NOT updating at the current time. %@ > %@", buf, 0x16u);
     }
 
@@ -7762,8 +7718,6 @@ LABEL_10:
       (*(v25 + 16))(v25, 1);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D6632C(uint64_t a1, char a2)
@@ -7785,7 +7739,7 @@ void sub_241D6632C(uint64_t a1, char a2)
 
 void sub_241D66408(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 72);
   v3 = BLJaliscoLog();
   v4 = v3;
@@ -7796,30 +7750,30 @@ void sub_241D66408(uint64_t a1)
       v5 = [*(a1 + 32) dsid];
       v6 = *(*(*(a1 + 64) + 8) + 24);
       *buf = 138412546;
-      v24 = v5;
-      v25 = 2048;
-      v26 = v6;
+      v23 = v5;
+      v24 = 2048;
+      v25 = v6;
       _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_DEFAULT, "2. [BLPurchaseDAAPServer] dsid: %@ Setup server with reason %ld. Now polling", buf, 0x16u);
     }
 
     v7 = *(*(*(a1 + 64) + 8) + 24);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = sub_241D66664;
-    v17[3] = &unk_278D185F8;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = sub_241D66664;
+    v16[3] = &unk_278D185F8;
     v8 = *(a1 + 32);
     v9 = *(a1 + 40);
     v10 = *(a1 + 32);
-    v18 = v9;
-    v19 = v10;
-    v22 = *(a1 + 73);
-    v16 = *(a1 + 56);
-    v11 = v16;
-    v21 = v16;
-    v20 = *(a1 + 48);
-    [v8 _pollLatestRevisionWithReason:v7 completion:v17];
+    v17 = v9;
+    v18 = v10;
+    v21 = *(a1 + 73);
+    v15 = *(a1 + 56);
+    v11 = v15;
+    v20 = v15;
+    v19 = *(a1 + 48);
+    [v8 _pollLatestRevisionWithReason:v7 completion:v16];
 
-    v12 = v18;
+    v12 = v17;
   }
 
   else
@@ -7828,7 +7782,7 @@ void sub_241D66408(uint64_t a1)
     {
       v13 = [*(a1 + 32) dsid];
       *buf = 138412290;
-      v24 = v13;
+      v23 = v13;
       _os_log_impl(&dword_241D1F000, v4, OS_LOG_TYPE_ERROR, "[BLPurchaseDAAPServer] FetchItemsPolitely fail for %@", buf, 0xCu);
     }
 
@@ -7839,8 +7793,6 @@ void sub_241D66408(uint64_t a1)
       (*(v14 + 16))(v14, 0);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D66664(uint64_t a1, char a2, void *a3)
@@ -7865,7 +7817,7 @@ void sub_241D66664(uint64_t a1, char a2, void *a3)
 
 void sub_241D66758(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (*(a1 + 80) == 1)
   {
     v2 = +[BLJaliscoServerSource sharedSource];
@@ -7879,13 +7831,13 @@ void sub_241D66758(uint64_t a1)
       v7 = *(a1 + 40);
       v8 = *(*(a1 + 32) + 8);
       *buf = 138413058;
-      v41 = v6;
-      v42 = 2112;
-      *v43 = v8;
-      *&v43[8] = 2114;
-      *&v43[10] = v7;
-      v44 = 2114;
-      v45 = v4;
+      v40 = v6;
+      v41 = 2112;
+      *v42 = v8;
+      *&v42[8] = 2114;
+      *&v42[10] = v7;
+      v43 = 2114;
+      v44 = v4;
       _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_DEFAULT, "3. [BLPurchaseDAAPServer] dsid: %@ Last poll before this at:(%@). Finished POLLING, latestVersion:%{public}@ localServerRevision:%{public}@ Fetching database", buf, 0x2Au);
     }
 
@@ -7902,11 +7854,11 @@ void sub_241D66758(uint64_t a1)
         v13 = [*(a1 + 32) dsid];
         v14 = *(a1 + 40);
         *buf = 138412802;
-        v41 = v13;
-        v42 = 2114;
-        *v43 = v14;
-        *&v43[8] = 2114;
-        *&v43[10] = v4;
+        v40 = v13;
+        v41 = 2114;
+        *v42 = v14;
+        *&v42[8] = 2114;
+        *&v42[10] = v4;
         _os_log_impl(&dword_241D1F000, v12, OS_LOG_TYPE_DEFAULT, "4b. [BLPurchaseDAAPServer] FetchItemsPolitely No update required, we have the latest revision for dsid:(%@): latest:%{public}@ -- local:%{public}@", buf, 0x20u);
       }
 
@@ -7926,36 +7878,36 @@ void sub_241D66758(uint64_t a1)
         v21 = [*(a1 + 32) dsid];
         v22 = *(a1 + 82);
         *buf = 138412802;
-        v41 = v21;
-        v42 = 1024;
-        *v43 = v22;
-        *&v43[4] = 2112;
-        *&v43[6] = v4;
+        v40 = v21;
+        v41 = 1024;
+        *v42 = v22;
+        *&v42[4] = 2112;
+        *&v42[6] = v4;
         _os_log_impl(&dword_241D1F000, v20, OS_LOG_TYPE_DEFAULT, "4a. [BLPurchaseDAAPServer] dsid: %@ Need to fetch a new database politely:%{BOOL}d localServerRevision %@", buf, 0x1Cu);
       }
 
       v23 = *(*(*(a1 + 72) + 8) + 24);
       v25 = *(a1 + 32);
       v24 = *(a1 + 40);
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = sub_241D66C38;
-      v31[3] = &unk_278D185A8;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = sub_241D66C38;
+      v30[3] = &unk_278D185A8;
       v26 = *(a1 + 48);
       v27 = *(a1 + 32);
-      v32 = v26;
-      v33 = v27;
-      v34 = v3;
-      v38 = *(a1 + 64);
-      v35 = v4;
+      v31 = v26;
+      v32 = v27;
+      v33 = v3;
+      v37 = *(a1 + 64);
+      v34 = v4;
       v28 = *(a1 + 40);
       v29 = *(a1 + 72);
-      v36 = v28;
-      v39 = v29;
-      v37 = *(a1 + 56);
-      [v25 _fetchDatabaseWithReason:v23 localServerRevision:v35 latestVersion:v24 completionHandler:v31];
+      v35 = v28;
+      v38 = v29;
+      v36 = *(a1 + 56);
+      [v25 _fetchDatabaseWithReason:v23 localServerRevision:v34 latestVersion:v24 completionHandler:v30];
 
-      v16 = v32;
+      v16 = v31;
     }
   }
 
@@ -7966,7 +7918,7 @@ void sub_241D66758(uint64_t a1)
     {
       v18 = [*(a1 + 32) dsid];
       *buf = 138412290;
-      v41 = v18;
+      v40 = v18;
       _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_ERROR, "[BLPurchaseDAAPServer] FetchItemsPolitely Error polling latest version for dsid:%@.", buf, 0xCu);
     }
 
@@ -7977,8 +7929,6 @@ void sub_241D66758(uint64_t a1)
       (*(v19 + 16))(v19, 0);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D66C38(uint64_t a1, char a2, void *a3)
@@ -8008,7 +7958,7 @@ void sub_241D66C38(uint64_t a1, char a2, void *a3)
 
 void sub_241D66D64(uint64_t a1)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 104);
   v2 = BLJaliscoLog();
   v3 = v2;
@@ -8019,50 +7969,50 @@ void sub_241D66D64(uint64_t a1)
       v4 = [*(a1 + 32) dsid];
       v5 = *(a1 + 40);
       *buf = 138412546;
-      v58 = v4;
-      v59 = 2112;
-      v60 = v5;
+      v57 = v4;
+      v58 = 2112;
+      v59 = v5;
       _os_log_impl(&dword_241D1F000, v3, OS_LOG_TYPE_DEFAULT, "5. [BLPurchaseDAAPServer] dsid: %@ Got database %@", buf, 0x16u);
     }
 
     v6 = +[BLJaliscoServerSource sharedSource];
     v7 = [*(a1 + 32) dsid];
-    v56 = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
-    v40 = [v6 itemsFetchRequestForDSIDs:v8];
+    v55 = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+    v39 = [v6 itemsFetchRequestForDSIDs:v8];
 
-    v41 = [MEMORY[0x277CBEB58] set];
-    v55[0] = @"purchasedTokenCode";
-    v55[1] = @"cloudID";
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
-    [v40 setPropertiesToFetch:v9];
+    v40 = [MEMORY[0x277CBEB58] set];
+    v54[0] = @"purchasedTokenCode";
+    v54[1] = @"cloudID";
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+    [v39 setPropertiesToFetch:v9];
 
     v10 = *(a1 + 48);
-    v53 = 0;
-    v11 = [v10 executeFetchRequest:v40 error:&v53];
-    v37 = v11;
-    v38 = v53;
+    v52 = 0;
+    v11 = [v10 executeFetchRequest:v39 error:&v52];
+    v36 = v11;
+    v37 = v52;
     if (v11)
     {
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       v12 = v11;
-      v13 = [v12 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v48 objects:v53 count:16];
       if (v13)
       {
-        v14 = *v50;
+        v14 = *v49;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v50 != v14)
+            if (*v49 != v14)
             {
               objc_enumerationMutation(v12);
             }
 
-            v16 = *(*(&v49 + 1) + 8 * i);
+            v16 = *(*(&v48 + 1) + 8 * i);
             v17 = [v16 cloudID];
             v18 = v17 == 0;
 
@@ -8081,11 +8031,11 @@ void sub_241D66D64(uint64_t a1)
               v23 = [v16 cloudID];
               [v19 setObject:v23 forKey:@"clientID"];
 
-              [v41 addObject:v19];
+              [v40 addObject:v19];
             }
           }
 
-          v13 = [v12 countByEnumeratingWithState:&v49 objects:v54 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v48 objects:v53 count:16];
         }
 
         while (v13);
@@ -8096,9 +8046,9 @@ void sub_241D66D64(uint64_t a1)
       {
         v25 = [*(a1 + 32) dsid];
         *buf = 138412546;
-        v58 = v25;
-        v59 = 2112;
-        v60 = v41;
+        v57 = v25;
+        v58 = 2112;
+        v59 = v40;
         _os_log_impl(&dword_241D1F000, v24, OS_LOG_TYPE_DEFAULT, "6. [BLPurchaseDAAPServer] dsid: %@ Fetching items _fetchItemsWithLocalVersion with pairs:%@", buf, 0x16u);
       }
 
@@ -8106,21 +8056,21 @@ void sub_241D66D64(uint64_t a1)
       v27 = *(a1 + 56);
       v28 = *(a1 + 64);
       v29 = *(*(*(a1 + 96) + 8) + 24);
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = sub_241D67408;
-      v42[3] = &unk_278D18558;
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = sub_241D67408;
+      v41[3] = &unk_278D18558;
       v30 = *(a1 + 72);
       v31 = *(a1 + 32);
-      v43 = v30;
-      v44 = v31;
-      v45 = *(a1 + 64);
-      v46 = *(a1 + 40);
-      v48 = *(a1 + 88);
-      v47 = *(a1 + 80);
-      [v26 _fetchItemsWithLocalVersion:v27 serverVersion:v28 reason:v29 tokenPairs:v41 completionHandler:v42];
+      v42 = v30;
+      v43 = v31;
+      v44 = *(a1 + 64);
+      v45 = *(a1 + 40);
+      v47 = *(a1 + 88);
+      v46 = *(a1 + 80);
+      [v26 _fetchItemsWithLocalVersion:v27 serverVersion:v28 reason:v29 tokenPairs:v40 completionHandler:v41];
 
-      v32 = v43;
+      v32 = v42;
     }
 
     else
@@ -8129,7 +8079,7 @@ void sub_241D66D64(uint64_t a1)
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v58 = v38;
+        v57 = v37;
         _os_log_impl(&dword_241D1F000, v34, OS_LOG_TYPE_ERROR, "Couldn't find existing items.  %@", buf, 0xCu);
       }
 
@@ -8151,14 +8101,12 @@ void sub_241D66D64(uint64_t a1)
     }
 
     v33 = MEMORY[0x245CFF560](*(a1 + 88));
-    v40 = v33;
+    v39 = v33;
     if (v33)
     {
       (*(v33 + 16))(v33, 0);
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D67408(uint64_t a1, char a2, void *a3)
@@ -8183,7 +8131,7 @@ void sub_241D67408(uint64_t a1, char a2, void *a3)
 
 void sub_241D67504(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   if (*(a1 + 80) == 1)
   {
     v2 = BLJaliscoLog();
@@ -8194,13 +8142,13 @@ void sub_241D67504(uint64_t a1)
       v5 = *(a1 + 48);
       v6 = *(a1 + 56);
       *buf = 138413058;
-      v39 = v3;
+      v37 = v3;
+      v38 = 2112;
+      v39 = v4;
       v40 = 2112;
-      v41 = v4;
+      v41 = v5;
       v42 = 2112;
-      v43 = v5;
-      v44 = 2112;
-      v45 = v6;
+      v43 = v6;
       _os_log_impl(&dword_241D1F000, v2, OS_LOG_TYPE_DEFAULT, "7. [BLPurchaseDAAPServer] dsid: %@ Fetch items succesful. Saving latestVersion:%@ database:%@ items:%@", buf, 0x2Au);
     }
 
@@ -8208,25 +8156,25 @@ void sub_241D67504(uint64_t a1)
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
     v10 = *(a1 + 56);
-    v37 = 0;
-    v11 = [v7 _updatePersistentServerRevision:v8 database:v9 items:v10 error:&v37];
-    v12 = v37;
+    v35 = 0;
+    v11 = [v7 _updatePersistentServerRevision:v8 database:v9 items:v10 error:&v35];
+    v12 = v35;
     if ((v11 & 1) == 0)
     {
-      v29 = BLJaliscoLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v28 = BLJaliscoLog();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v39 = v12;
-        _os_log_impl(&dword_241D1F000, v29, OS_LOG_TYPE_ERROR, "Error updating database. %@", buf, 0xCu);
+        v37 = v12;
+        _os_log_impl(&dword_241D1F000, v28, OS_LOG_TYPE_ERROR, "Error updating database. %@", buf, 0xCu);
       }
 
       [v12 logRecursively];
-      v30 = MEMORY[0x245CFF560](*(a1 + 72));
-      v31 = v30;
-      if (v30)
+      v29 = MEMORY[0x245CFF560](*(a1 + 72));
+      v30 = v29;
+      if (v29)
       {
-        (*(v30 + 16))(v30, 0);
+        (*(v29 + 16))(v29, 0);
       }
 
       goto LABEL_28;
@@ -8237,9 +8185,9 @@ void sub_241D67504(uint64_t a1)
     {
       v14 = [*(a1 + 32) dsid];
       *buf = 138412546;
-      v39 = v14;
-      v40 = 2112;
-      v41 = v12;
+      v37 = v14;
+      v38 = 2112;
+      v39 = v12;
       _os_log_impl(&dword_241D1F000, v13, OS_LOG_TYPE_DEFAULT, "7. [BLPurchaseDAAPServer] dsid: %@ CoreData Save items sucess! %@", buf, 0x16u);
     }
 
@@ -8269,7 +8217,7 @@ void sub_241D67504(uint64_t a1)
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v39 = v17;
+        v37 = v17;
         v24 = "8. FetchItemsPolitely: Updated kJaliscoDAAPClientLastSuccessfulFullUpdateDateDictionary user default to %@";
         v25 = v23;
         v26 = OS_LOG_TYPE_DEFAULT;
@@ -8293,35 +8241,32 @@ LABEL_23:
       }
     }
 
-    v32 = BLJaliscoLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v31 = BLJaliscoLog();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = [*(a1 + 32) dsid];
+      v32 = [*(a1 + 32) dsid];
       *buf = 138412290;
-      v39 = v33;
-      _os_log_impl(&dword_241D1F000, v32, OS_LOG_TYPE_DEFAULT, "FetchItemsPolitely %@ completed!", buf, 0xCu);
+      v37 = v32;
+      _os_log_impl(&dword_241D1F000, v31, OS_LOG_TYPE_DEFAULT, "FetchItemsPolitely %@ completed!", buf, 0xCu);
     }
 
-    v34 = MEMORY[0x245CFF560](*(a1 + 72));
-    v31 = v34;
-    if (v34)
+    v33 = MEMORY[0x245CFF560](*(a1 + 72));
+    v30 = v33;
+    if (v33)
     {
-      (*(v34 + 16))(v34, 1);
+      (*(v33 + 16))(v33, 1);
     }
 
 LABEL_28:
 
-    v35 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v36 = MEMORY[0x245CFF560](*(a1 + 72));
-  if (v36)
+  v34 = MEMORY[0x245CFF560](*(a1 + 72));
+  if (v34)
   {
-    v36[2](v36, 0);
+    v34[2](v34, 0);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D67C38(_Unwind_Exception *a1)
@@ -8347,10 +8292,9 @@ uint64_t sub_241D68310(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_241D68328(uint64_t a1)
+void sub_241D68328(uint64_t a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v30 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -8366,31 +8310,31 @@ void sub_241D68328(uint64_t a1)
 
   v6 = *(a1 + 40);
   v7 = *(*(*(a1 + 56) + 8) + 40);
-  v28 = 0;
-  v8 = [v6 _updatePersistentServerRevision:v7 moc:v5 error:&v28];
-  v9 = v28;
+  v27 = 0;
+  v8 = [v6 _updatePersistentServerRevision:v7 moc:v5 error:&v27];
+  v9 = v27;
   v10 = v9;
   if (v8)
   {
     v11 = *(a1 + 40);
     v12 = *(a1 + 48);
-    v27 = v10;
-    v13 = [v11 _updatePersistentDatabase:v12 server:v8 moc:v5 error:&v27];
-    v14 = v27;
+    v26 = v10;
+    v13 = [v11 _updatePersistentDatabase:v12 server:v8 moc:v5 error:&v26];
+    v14 = v26;
 
     if (v13)
     {
       v16 = *(a1 + 32);
       v15 = *(a1 + 40);
-      v26 = v14;
-      v17 = [v15 _updatePersistentItems:v16 moc:v5 database:v13 error:&v26];
-      v18 = v26;
+      v25 = v14;
+      v17 = [v15 _updatePersistentItems:v16 moc:v5 database:v13 error:&v25];
+      v18 = v25;
 
       v19 = BLJaliscoLog();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v30 = v17;
+        v29 = v17;
         _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_DEFAULT, "_updatePersistentServerRevision updating local db with items %@", buf, 0xCu);
       }
 
@@ -8404,7 +8348,7 @@ void sub_241D68328(uint64_t a1)
           {
             v21 = **(a1 + 72);
             *buf = 138412290;
-            v30 = v21;
+            v29 = v21;
             _os_log_impl(&dword_241D1F000, v20, OS_LOG_TYPE_ERROR, "_updatePersistentServerRevision failed %@", buf, 0xCu);
           }
         }
@@ -8448,8 +8392,6 @@ void sub_241D68328(uint64_t a1)
 
     *(*(*(a1 + 64) + 8) + 24) = 0;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D687CC(_Unwind_Exception *a1)
@@ -8461,7 +8403,7 @@ void sub_241D687CC(_Unwind_Exception *a1)
 
 void sub_241D6A14C(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (!v2[6])
   {
@@ -8474,10 +8416,10 @@ void sub_241D6A14C(uint64_t a1)
 LABEL_4:
     if ([v2 _isGDPRPrivacyAcknowledgementRequired])
     {
-      v11 = [*(a1 + 32) delegate];
-      if (v11)
+      v9 = [*(a1 + 32) delegate];
+      if (v9)
       {
-        [v11 purchaseServerRequestGDPRPrivacyAcknowledgementRequired];
+        [v9 purchaseServerRequestGDPRPrivacyAcknowledgementRequired];
       }
 
       v3 = MEMORY[0x245CFF560](*(a1 + 40));
@@ -8490,40 +8432,36 @@ LABEL_4:
 
     else
     {
-      v11 = MEMORY[0x245CFF560](*(a1 + 40));
-      if (v11)
+      v9 = MEMORY[0x245CFF560](*(a1 + 40));
+      if (v9)
       {
-        (*(v11 + 2))(v11, [*(a1 + 32) _canMakeDAAPRequest]);
+        (*(v9 + 2))(v9, [*(a1 + 32) _canMakeDAAPRequest]);
       }
     }
-
-    v5 = *MEMORY[0x277D85DE8];
 
     return;
   }
 
-  v6 = BLJaliscoLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v5 = BLJaliscoLog();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = [*(*(a1 + 32) + 48) backoffUntil];
+    v6 = [*(*(a1 + 32) + 48) backoffUntil];
     *buf = 138412290;
-    v13 = v7;
-    _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_INFO, "Ignoring request due to backoff being in effect. Will resume %@", buf, 0xCu);
+    v11 = v6;
+    _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_INFO, "Ignoring request due to backoff being in effect. Will resume %@", buf, 0xCu);
   }
 
-  v8 = MEMORY[0x245CFF560](*(a1 + 40));
-  v9 = v8;
-  if (v8)
+  v7 = MEMORY[0x245CFF560](*(a1 + 40));
+  v8 = v7;
+  if (v7)
   {
-    (*(v8 + 16))(v8, 0);
+    (*(v7 + 16))(v7, 0);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D6A438(uint64_t a1)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) response];
   v3 = [*(a1 + 40) domain];
   if ([v3 isEqualToString:*MEMORY[0x277CCA738]])
@@ -8587,9 +8525,9 @@ void sub_241D6A438(uint64_t a1)
       }
 
       *buf = 138412546;
-      v54 = v16;
-      v55 = 2112;
-      v56 = v17;
+      v53 = v16;
+      v54 = 2112;
+      v55 = v17;
       _os_log_impl(&dword_241D1F000, v15, OS_LOG_TYPE_ERROR, "failed with error: %@ %@", buf, 0x16u);
     }
   }
@@ -8657,7 +8595,7 @@ LABEL_31:
     {
       v28 = *(*(a1 + 48) + 16);
       *buf = 138412290;
-      v54 = v28;
+      v53 = v28;
       _os_log_impl(&dword_241D1F000, v27, OS_LOG_TYPE_INFO, "Server requested backoff. Trying again at %@", buf, 0xCu);
     }
 
@@ -8697,7 +8635,7 @@ LABEL_70:
     {
       v33 = [*(a1 + 48) dsid];
       *buf = 138412290;
-      v54 = v33;
+      v53 = v33;
       _os_log_impl(&dword_241D1F000, v32, OS_LOG_TYPE_DEFAULT, "Requestenting silent auth for %@", buf, 0xCu);
     }
 
@@ -8712,9 +8650,9 @@ LABEL_70:
 
     v40 = [objc_alloc(MEMORY[0x277CEE3E8]) initWithRequest:v39];
     v41 = [v40 performAuthentication];
-    v52 = 0;
-    v42 = [v41 resultWithTimeout:&v52 error:90.0];
-    v43 = v52;
+    v51 = 0;
+    v42 = [v41 resultWithTimeout:&v51 error:90.0];
+    v43 = v51;
 
     v44 = BLJaliscoLog();
     if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
@@ -8731,7 +8669,7 @@ LABEL_70:
 
       v46 = v45;
       *buf = 67109120;
-      LODWORD(v54) = v46;
+      LODWORD(v53) = v46;
       _os_log_impl(&dword_241D1F000, v44, OS_LOG_TYPE_DEFAULT, "Silent auth returned: %{BOOL}d", buf, 8u);
     }
 
@@ -8790,8 +8728,6 @@ LABEL_69:
   }
 
 LABEL_71:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D6AB30(_Unwind_Exception *a1)
@@ -8803,25 +8739,25 @@ void sub_241D6AB30(_Unwind_Exception *a1)
 
 void sub_241D6B200(uint64_t a1, char a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = [BLDAAPServerInfoRequest alloc];
     v4 = [*(a1 + 40) dsid];
     v5 = [(BLDAAPServerInfoRequest *)v3 initWithDSID:v4 reason:*(a1 + 56)];
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = sub_241D6B3D8;
-    v13[3] = &unk_278D18760;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = sub_241D6B3D8;
+    v12[3] = &unk_278D18760;
     v6 = *(a1 + 32);
     v7 = *(a1 + 40);
     v8 = *(a1 + 48);
-    v14 = v6;
-    v15 = v7;
-    v17 = *(a1 + 56);
-    v16 = v8;
-    [(BLDAAPURLRequest *)v5 executeWithCompletionHandler:v13];
+    v13 = v6;
+    v14 = v7;
+    v16 = *(a1 + 56);
+    v15 = v8;
+    [(BLDAAPURLRequest *)v5 executeWithCompletionHandler:v12];
   }
 
   else
@@ -8831,7 +8767,7 @@ void sub_241D6B200(uint64_t a1, char a2)
     {
       v10 = *(a1 + 32);
       *buf = 138412290;
-      v19 = v10;
+      v18 = v10;
       _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_DEBUG, "%@ will not make request", buf, 0xCu);
     }
 
@@ -8842,13 +8778,11 @@ void sub_241D6B200(uint64_t a1, char a2)
       (*(v11 + 16))(v11, 0);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D6B3D8(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = BLJaliscoLog();
@@ -8858,38 +8792,36 @@ void sub_241D6B3D8(uint64_t a1, void *a2, void *a3)
     v9 = [*(a1 + 40) dsid];
     v10 = *(a1 + 56);
     *buf = 138412802;
-    v26 = v8;
-    v27 = 2112;
-    v28 = v9;
-    v29 = 2048;
-    v30 = v10;
+    v25 = v8;
+    v26 = 2112;
+    v27 = v9;
+    v28 = 2048;
+    v29 = v10;
     _os_log_impl(&dword_241D1F000, v7, OS_LOG_TYPE_DEBUG, "%@ dsid:%@ reason:%ld", buf, 0x20u);
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = sub_241D6B5D8;
-  v18[3] = &unk_278D18738;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = sub_241D6B5D8;
+  v17[3] = &unk_278D18738;
   v11 = *(a1 + 40);
   v12 = *(a1 + 32);
   v13 = *(a1 + 40);
   v14 = *(a1 + 48);
-  v19 = v12;
-  v20 = v13;
-  v24 = *(a1 + 56);
-  v23 = v14;
+  v18 = v12;
+  v19 = v13;
+  v23 = *(a1 + 56);
+  v22 = v14;
   v15 = v6;
-  v21 = v15;
+  v20 = v15;
   v16 = v5;
-  v22 = v16;
-  [v11 _preProcessResponse:v16 error:v15 responseBlock:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v21 = v16;
+  [v11 _preProcessResponse:v16 error:v15 responseBlock:v17];
 }
 
 void sub_241D6B5D8(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   switch(a2)
   {
     case 2:
@@ -8909,9 +8841,9 @@ LABEL_14:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = *(a1 + 32);
-        v20 = 138412290;
-        v21 = v12;
-        _os_log_impl(&dword_241D1F000, v11, OS_LOG_TYPE_ERROR, "%@ Error no response data", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = v12;
+        _os_log_impl(&dword_241D1F000, v11, OS_LOG_TYPE_ERROR, "%@ Error no response data", &v19, 0xCu);
       }
 
 LABEL_13:
@@ -8923,11 +8855,11 @@ LABEL_13:
       {
         v6 = *(a1 + 32);
         v7 = *(a1 + 48);
-        v20 = 138412546;
-        v21 = v6;
-        v22 = 2112;
-        v23 = v7;
-        _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "%@ Error getting response:  %@", &v20, 0x16u);
+        v19 = 138412546;
+        v20 = v6;
+        v21 = 2112;
+        v22 = v7;
+        _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "%@ Error getting response:  %@", &v19, 0x16u);
       }
 
       goto LABEL_13;
@@ -8936,13 +8868,13 @@ LABEL_13:
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
         v4 = *(a1 + 32);
-        v20 = 138412290;
-        v21 = v4;
-        _os_log_impl(&dword_241D1F000, v3, OS_LOG_TYPE_DEBUG, "%@ retry", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = v4;
+        _os_log_impl(&dword_241D1F000, v3, OS_LOG_TYPE_DEBUG, "%@ retry", &v19, 0xCu);
       }
 
       [*(a1 + 40) _configureWithReason:*(a1 + 72) completion:*(a1 + 64)];
-      goto LABEL_23;
+      return;
   }
 
   v10 = 0;
@@ -8958,11 +8890,11 @@ LABEL_16:
       v16 = @"successfully";
     }
 
-    v20 = 138543618;
-    v21 = v16;
-    v22 = 2112;
-    v23 = v14;
-    _os_log_impl(&dword_241D1F000, v13, OS_LOG_TYPE_INFO, "PurchaseDAAPServer Server Info request completed %{public}@ for (%@)", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v16;
+    v21 = 2112;
+    v22 = v14;
+    _os_log_impl(&dword_241D1F000, v13, OS_LOG_TYPE_INFO, "PurchaseDAAPServer Server Info request completed %{public}@ for (%@)", &v19, 0x16u);
   }
 
   v17 = MEMORY[0x245CFF560](*(a1 + 64));
@@ -8971,9 +8903,6 @@ LABEL_16:
   {
     (*(v17 + 16))(v17, v10);
   }
-
-LABEL_23:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241D6BA3C(uint64_t a1, char a2)
@@ -9033,7 +8962,7 @@ void sub_241D6BB8C(uint64_t a1, void *a2, void *a3)
 
 void sub_241D6BCB4(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   switch(a2)
   {
     case 2:
@@ -9053,11 +8982,11 @@ void sub_241D6BCB4(uint64_t a1, uint64_t a2)
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           v12 = *(a1 + 48);
-          v20 = 138412546;
-          v21 = v6;
-          v22 = 2112;
-          v23 = v12;
-          _os_log_impl(&dword_241D1F000, v11, OS_LOG_TYPE_ERROR, "Configure(login) parsed data unrecognized %@ %@", &v20, 0x16u);
+          v19 = 138412546;
+          v20 = v6;
+          v21 = 2112;
+          v22 = v12;
+          _os_log_impl(&dword_241D1F000, v11, OS_LOG_TYPE_ERROR, "Configure(login) parsed data unrecognized %@ %@", &v19, 0x16u);
         }
       }
 
@@ -9068,11 +8997,11 @@ void sub_241D6BCB4(uint64_t a1, uint64_t a2)
       {
         v7 = [*(a1 + 40) dsid];
         v8 = *(a1 + 48);
-        v20 = 138412546;
-        v21 = v7;
-        v22 = 2112;
-        v23 = v8;
-        _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_ERROR, "Configure(login) dsid: %@, Error getting response %@", &v20, 0x16u);
+        v19 = 138412546;
+        v20 = v7;
+        v21 = 2112;
+        v22 = v8;
+        _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_ERROR, "Configure(login) dsid: %@, Error getting response %@", &v19, 0x16u);
       }
 
       isKindOfClass = 0;
@@ -9085,15 +9014,15 @@ LABEL_16:
       {
         v4 = [*(a1 + 32) DSID];
         v5 = [*(a1 + 32) reason];
-        v20 = 138412546;
-        v21 = v4;
-        v22 = 2048;
-        v23 = v5;
-        _os_log_impl(&dword_241D1F000, v3, OS_LOG_TYPE_DEBUG, "Configure(login) dsid: %@, Reason: %ld RETRY", &v20, 0x16u);
+        v19 = 138412546;
+        v20 = v4;
+        v21 = 2048;
+        v22 = v5;
+        _os_log_impl(&dword_241D1F000, v3, OS_LOG_TYPE_DEBUG, "Configure(login) dsid: %@, Reason: %ld RETRY", &v19, 0x16u);
       }
 
       [*(a1 + 40) _loginWithRequest:*(a1 + 32) completion:*(a1 + 64)];
-      goto LABEL_24;
+      return;
   }
 
   isKindOfClass = 0;
@@ -9109,11 +9038,11 @@ LABEL_17:
       v16 = @"successfully";
     }
 
-    v20 = 138543618;
-    v21 = v16;
-    v22 = 2112;
-    v23 = v14;
-    _os_log_impl(&dword_241D1F000, v13, OS_LOG_TYPE_INFO, "PurchaseDAAPServer login request completed %{public}@ for (%@)", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v16;
+    v21 = 2112;
+    v22 = v14;
+    _os_log_impl(&dword_241D1F000, v13, OS_LOG_TYPE_INFO, "PurchaseDAAPServer login request completed %{public}@ for (%@)", &v19, 0x16u);
   }
 
   v17 = MEMORY[0x245CFF560](*(a1 + 64));
@@ -9122,7 +9051,4 @@ LABEL_17:
   {
     (*(v17 + 16))(v17, isKindOfClass & 1);
   }
-
-LABEL_24:
-  v19 = *MEMORY[0x277D85DE8];
 }

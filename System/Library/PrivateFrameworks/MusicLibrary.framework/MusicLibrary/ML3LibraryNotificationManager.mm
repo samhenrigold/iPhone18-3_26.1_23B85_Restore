@@ -319,7 +319,7 @@ LABEL_11:
   dispatch_sync(serialQueue, v7);
 }
 
-uint64_t __69__ML3LibraryNotificationManager_enqueueDistributedNotificationNamed___block_invoke(uint64_t a1)
+void *__69__ML3LibraryNotificationManager_enqueueDistributedNotificationNamed___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) containsObject:*(a1 + 40)];
   if ((result & 1) == 0)

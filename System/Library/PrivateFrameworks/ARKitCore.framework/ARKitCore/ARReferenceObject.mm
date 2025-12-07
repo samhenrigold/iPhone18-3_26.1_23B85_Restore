@@ -102,7 +102,7 @@
 
 - (ARReferenceObject)initWithArchive:(id)archive name:(id)name error:(id *)error
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   archiveCopy = archive;
   nameCopy = name;
   if (archiveCopy)
@@ -129,49 +129,50 @@
 
     if (integerValue < 2)
     {
-      v16 = [v12 objectForKeyedSubscript:@"TrackingDataReference"];
+      v17 = [v12 objectForKeyedSubscript:@"TrackingDataReference"];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([archiveCopy dataForResourceAtPath:v16], (v19 = objc_claimAutoreleasedReturnValue()) != 0))
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) != 0 && ([archiveCopy dataForResourceAtPath:v17], (isKindOfClass = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        v20 = v19;
-        v21 = [v12 objectForKeyedSubscript:@"ReferenceOrigin"];
+        v21 = isKindOfClass;
+        v22 = [v12 objectForKeyedSubscript:@"ReferenceOrigin"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v22 = ARMatrix4x4FromDictionary(v21);
-          [ARWorldMap boundsForTrackingData:v20, v27, v28, v25, v26, v23, v24, *&v22];
+          v23 = ARMatrix4x4FromDictionary(v22);
+          [ARWorldMap boundsForTrackingData:v21, v28, v29, v26, v27, v24, v25, *&v23];
         }
 
         else
         {
-          [ARWorldMap boundsForTrackingData:v20, *(MEMORY[0x1E69E9B18] + 48), *(MEMORY[0x1E69E9B18] + 56), *(MEMORY[0x1E69E9B18] + 32), *(MEMORY[0x1E69E9B18] + 40), *(MEMORY[0x1E69E9B18] + 16), *(MEMORY[0x1E69E9B18] + 24), *MEMORY[0x1E69E9B18], *(MEMORY[0x1E69E9B18] + 8)];
+          [ARWorldMap boundsForTrackingData:v21, *(MEMORY[0x1E69E9B18] + 48), *(MEMORY[0x1E69E9B18] + 56), *(MEMORY[0x1E69E9B18] + 32), *(MEMORY[0x1E69E9B18] + 40), *(MEMORY[0x1E69E9B18] + 16), *(MEMORY[0x1E69E9B18] + 24), *MEMORY[0x1E69E9B18], *(MEMORY[0x1E69E9B18] + 8)];
         }
 
         ARMatrix4x4FromRotationAndTranslation();
-        v31 = 0;
-        v43[0] = v32;
-        v43[1] = v33;
-        v43[2] = v34;
-        v43[3] = v35;
+        v32 = 0;
+        v44[0] = v33;
+        v44[1] = v34;
+        v44[2] = v35;
+        v44[3] = v36;
         memset(buf, 0, sizeof(buf));
-        v45 = 0u;
         v46 = 0u;
+        v47 = 0u;
         do
         {
-          *&buf[v31 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v42, COERCE_FLOAT(v43[v31])), v41, *&v43[v31], 1), v40, v43[v31], 2), v39, v43[v31], 3);
-          ++v31;
+          *&buf[v32 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v43, COERCE_FLOAT(v44[v32])), v42, *&v44[v32], 1), v41, v44[v32], 2), v40, v44[v32], 3);
+          ++v32;
         }
 
-        while (v31 != 4);
-        v36 = [(ARReferenceObject *)self initWithTrackingData:v20 referenceOriginTransform:*buf, *&buf[16], *&v45, *&v46];
-        v37 = v36;
-        if (v36)
+        while (v32 != 4);
+        v37 = [(ARReferenceObject *)self initWithTrackingData:v21 referenceOriginTransform:*buf, *&buf[16], *&v46, *&v47];
+        v38 = v37;
+        if (v37)
         {
-          v36->_version = integerValue;
-          objc_storeStrong(&v36->_name, name);
+          v37->_version = integerValue;
+          objc_storeStrong(&v37->_name, name);
         }
 
-        self = v37;
+        self = v38;
 
         selfCopy = self;
       }
@@ -180,19 +181,20 @@
       {
         if (error)
         {
-          *error = ARErrorWithCodeAndUserInfo(301, 0);
+          isKindOfClass = ARErrorWithCodeAndUserInfo(301, 0);
+          *error = isKindOfClass;
         }
 
-        v20 = _ARLogGeneral_27();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v21 = _ARLogGeneral_27(isKindOfClass);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          v29 = objc_opt_class();
-          v30 = NSStringFromClass(v29);
+          v30 = objc_opt_class();
+          v31 = NSStringFromClass(v30);
           *buf = 138543618;
-          *&buf[4] = v30;
+          *&buf[4] = v31;
           *&buf[12] = 2048;
           *&buf[14] = self;
-          _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error loading reference object: Malformed data", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error loading reference object: Malformed data", buf, 0x16u);
         }
 
         selfCopy = 0;
@@ -203,21 +205,22 @@
     {
       if (error)
       {
-        *error = ARErrorWithCodeAndUserInfo(301, 0);
+        v16 = ARErrorWithCodeAndUserInfo(301, 0);
+        *error = v16;
       }
 
-      v16 = _ARLogGeneral_27();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = _ARLogGeneral_27(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v17 = objc_opt_class();
-        v18 = NSStringFromClass(v17);
+        v18 = objc_opt_class();
+        v19 = NSStringFromClass(v18);
         *buf = 138543874;
-        *&buf[4] = v18;
+        *&buf[4] = v19;
         *&buf[12] = 2048;
         *&buf[14] = self;
         *&buf[22] = 2048;
         *&buf[24] = integerValue;
-        _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error loading reference object: Unsupported object version (%ld)", buf, 0x20u);
+        _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error loading reference object: Unsupported object version (%ld)", buf, 0x20u);
       }
 
       selfCopy = 0;
@@ -250,7 +253,7 @@
   if (error && !dataRepresentation)
   {
     v12 = *MEMORY[0x1E696A588];
-    v8 = ARKitCoreBundle();
+    v8 = ARKitCoreBundle(0);
     v9 = [v8 localizedStringForKey:@"Unable to create archive." value:&stru_1F4208A80 table:@"Localizable"];
     v13[0] = v9;
     v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
@@ -294,7 +297,7 @@
 
 - (ARReferenceObject)referenceObjectByMergingObject:(ARReferenceObject *)object error:(NSError *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v6 = object;
   trackingData = [(ARReferenceObject *)v6 trackingData];
   trackingData2 = [(ARReferenceObject *)self trackingData];
@@ -318,42 +321,42 @@
     trackingData5 = [(ARReferenceObject *)v6 trackingData];
     v15 = CV3DVIOAlignAndMergeMaps();
 
-    if (v15 || ![name length])
+    if (v15 || (v16 = [name length]) == 0)
     {
-      v16 = _ARLogGeneral_27();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = _ARLogGeneral_27(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v17 = objc_opt_class();
-        v18 = NSStringFromClass(v17);
-        v19 = [(ARReferenceObject *)self description];
-        v20 = [(ARReferenceObject *)v6 description];
-        v26 = 138544386;
-        v27 = v18;
-        v28 = 2048;
+        v18 = objc_opt_class();
+        v19 = NSStringFromClass(v18);
+        v20 = [(ARReferenceObject *)self description];
+        v21 = [(ARReferenceObject *)v6 description];
+        v27 = 138544386;
+        v28 = v19;
+        v29 = 2048;
         selfCopy = self;
-        v30 = 2114;
-        v31 = v19;
-        v32 = 2114;
-        v33 = v20;
-        v34 = 1024;
-        v35 = v15;
-        _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to merge reference object %{public}@ with %{public}@ (%u)", &v26, 0x30u);
+        v31 = 2114;
+        v32 = v20;
+        v33 = 2114;
+        v34 = v21;
+        v35 = 1024;
+        v36 = v15;
+        _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to merge reference object %{public}@ with %{public}@ (%u)", &v27, 0x30u);
       }
 
       if (error)
       {
         if (v15 == 19)
         {
-          v21 = 301;
+          v22 = 301;
         }
 
         else
         {
-          v21 = 401;
+          v22 = 401;
         }
 
-        v24 = ARErrorWithCodeAndUserInfo(v21, 0);
-        *error = v24;
+        v25 = ARErrorWithCodeAndUserInfo(v22, 0);
+        *error = v25;
 
         error = 0;
       }
@@ -361,9 +364,9 @@
 
     else
     {
-      v22 = [ARReferenceObject alloc];
+      v23 = [ARReferenceObject alloc];
       [(ARReferenceObject *)self referenceOriginTransform];
-      error = [(ARReferenceObject *)v22 initWithTrackingData:name referenceOriginTransform:?];
+      error = [(ARReferenceObject *)v23 initWithTrackingData:name referenceOriginTransform:?];
       name2 = [(ARReferenceObject *)self name];
       [error setName:name2];
     }
@@ -468,7 +471,7 @@
 
 - (ARReferenceObject)initWithCoder:(id)coder
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeIntegerForKey:@"version"];
   if (v5 >= 2)
@@ -476,18 +479,18 @@
     v6 = ARErrorWithCodeAndUserInfo(301, 0);
     [coderCopy failWithError:v6];
 
-    v7 = _ARLogGeneral_27();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ARLogGeneral_27(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v20 = 138543874;
-      v21 = v9;
-      v22 = 2048;
-      selfCopy2 = self;
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v22 = 138543874;
+      v23 = v10;
       v24 = 2048;
-      v25 = v5;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error loading reference object: Unsupported object version (%ld)", &v20, 0x20u);
+      selfCopy2 = self;
+      v26 = 2048;
+      v27 = v5;
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error loading reference object: Unsupported object version (%ld)", &v22, 0x20u);
     }
 
 LABEL_11:
@@ -495,39 +498,39 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"trackingData"];
-  if (!v7)
+  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"trackingData"];
+  if (!v8)
   {
-    v15 = ARErrorWithCodeAndUserInfo(301, 0);
-    [coderCopy failWithError:v15];
+    v16 = ARErrorWithCodeAndUserInfo(301, 0);
+    [coderCopy failWithError:v16];
 
-    v16 = _ARLogGeneral_27();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = _ARLogGeneral_27(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      v20 = 138543618;
-      v21 = v18;
-      v22 = 2048;
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
+      v22 = 138543618;
+      v23 = v20;
+      v24 = 2048;
       selfCopy2 = self;
-      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error loading reference object: Malformed data", &v20, 0x16u);
+      _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error loading reference object: Malformed data", &v22, 0x16u);
     }
 
     goto LABEL_11;
   }
 
   [coderCopy ar_decodeMatrix4x4ForKey:@"referenceOriginTransform"];
-  v10 = [(ARReferenceObject *)self initWithTrackingData:v7 referenceOriginTransform:?];
-  v11 = v10;
-  if (v10)
+  v11 = [(ARReferenceObject *)self initWithTrackingData:v8 referenceOriginTransform:?];
+  v12 = v11;
+  if (v11)
   {
-    v10->_version = v5;
-    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
-    name = v11->_name;
-    v11->_name = v12;
+    v11->_version = v5;
+    v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
+    name = v12->_name;
+    v12->_name = v13;
   }
 
-  self = v11;
+  self = v12;
   selfCopy3 = self;
 LABEL_12:
 
@@ -624,7 +627,7 @@ LABEL_12:
             else
             {
               v17 = version;
-              v18 = _ARLogGeneral_27();
+              v18 = _ARLogGeneral_27(version);
               if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
               {
                 v19 = objc_opt_class();
@@ -650,7 +653,7 @@ LABEL_15:
 
           else
           {
-            v18 = _ARLogGeneral_27();
+            v18 = _ARLogGeneral_27(v13);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               v21 = objc_opt_class();
@@ -684,7 +687,7 @@ LABEL_15:
     }
   }
 
-  namedRecognitionObjectObjectList = _ARLogGeneral_27();
+  namedRecognitionObjectObjectList = _ARLogGeneral_27(0);
   if (os_log_type_enabled(namedRecognitionObjectObjectList, OS_LOG_TYPE_ERROR))
   {
     v35 = objc_opt_class();
@@ -715,81 +718,83 @@ LABEL_26:
 
 + (id)referenceObjectsInGroupNamed:(id)named catalogName:(id)name bundle:(id)bundle
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   nameCopy = name;
   bundleCopy = bundle;
-  v18 = 0;
-  v11 = [objc_alloc(MEMORY[0x1E6999368]) initWithName:nameCopy fromBundle:bundleCopy error:&v18];
-  v12 = v18;
+  v19 = 0;
+  v11 = [objc_alloc(MEMORY[0x1E6999368]) initWithName:nameCopy fromBundle:bundleCopy error:&v19];
+  v12 = v19;
+  v13 = v12;
   if (v12)
   {
-    v13 = _ARLogGeneral_27();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = _ARLogGeneral_27(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
       *buf = 138544386;
-      v20 = v15;
-      v21 = 2048;
+      v21 = v16;
+      v22 = 2048;
       selfCopy = self;
-      v23 = 2114;
-      v24 = nameCopy;
-      v25 = 2114;
-      v26 = bundleCopy;
-      v27 = 2112;
-      v28 = v12;
-      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error while opening catalog named %{public}@ in bundle %{public}@: %@", buf, 0x34u);
+      v24 = 2114;
+      v25 = nameCopy;
+      v26 = 2114;
+      v27 = bundleCopy;
+      v28 = 2112;
+      v29 = v13;
+      _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error while opening catalog named %{public}@ in bundle %{public}@: %@", buf, 0x34u);
     }
 
-    v16 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v16 = [objc_opt_class() referenceObjectsInGroupNamed:namedCopy catalog:v11];
+    v17 = [objc_opt_class() referenceObjectsInGroupNamed:namedCopy catalog:v11];
   }
 
-  return v16;
+  return v17;
 }
 
 + (id)referenceObjectsInGroupNamed:(id)named catalogURL:(id)l
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   lCopy = l;
-  v15 = 0;
-  v8 = [objc_alloc(MEMORY[0x1E6999368]) initWithURL:lCopy error:&v15];
-  v9 = v15;
+  v16 = 0;
+  v8 = [objc_alloc(MEMORY[0x1E6999368]) initWithURL:lCopy error:&v16];
+  v9 = v16;
+  v10 = v9;
   if (v9)
   {
-    v10 = _ARLogGeneral_27();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _ARLogGeneral_27(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138544386;
-      v17 = v12;
-      v18 = 2048;
+      v18 = v13;
+      v19 = 2048;
       selfCopy = self;
-      v20 = 2114;
-      v21 = namedCopy;
-      v22 = 2114;
-      v23 = lCopy;
-      v24 = 2112;
-      v25 = v9;
-      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error while opening catalog named %{public}@ from URL %{public}@: %@", buf, 0x34u);
+      v21 = 2114;
+      v22 = namedCopy;
+      v23 = 2114;
+      v24 = lCopy;
+      v25 = 2112;
+      v26 = v10;
+      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error while opening catalog named %{public}@ from URL %{public}@: %@", buf, 0x34u);
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v13 = [objc_opt_class() referenceObjectsInGroupNamed:namedCopy catalog:v8];
+    v14 = [objc_opt_class() referenceObjectsInGroupNamed:namedCopy catalog:v8];
   }
 
-  return v13;
+  return v14;
 }
 
 @end

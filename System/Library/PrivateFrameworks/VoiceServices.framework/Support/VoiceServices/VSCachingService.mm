@@ -19,11 +19,11 @@
 - (id)popShortTermCacheForHash:(id)hash
 {
   hashCopy = hash;
-  v5 = [(VSCachingService *)self shortTermCacheForHash:hashCopy];
+  v5 = [(VSCachingService *)self shortTermCacheForHash:?];
   if (v5)
   {
     shortTermCache = [(VSCachingService *)self shortTermCache];
-    [shortTermCache removeObjectForKey:hashCopy];
+    [shortTermCache removeObjectForKey:?];
   }
 
   return v5;
@@ -33,7 +33,7 @@
 {
   hashCopy = hash;
   shortTermCache = [(VSCachingService *)self shortTermCache];
-  v6 = [shortTermCache objectForKey:hashCopy];
+  v6 = [shortTermCache objectForKey:?];
 
   return v6;
 }
@@ -46,10 +46,10 @@
   infoCopy = info;
   audioCopy = audio;
   hashCopy = hash;
-  v20 = [[VSSpeechCacheAudio alloc] initWithKey:hashCopy audio:audioCopy wordTimingInfo:infoCopy voiceKey:keyCopy voiceResourceKey:resourceKeyCopy];
+  v20 = [VSSpeechCacheAudio initWithKey:"initWithKey:audio:wordTimingInfo:voiceKey:voiceResourceKey:" audio:? wordTimingInfo:? voiceKey:? voiceResourceKey:?];
 
   shortTermCache = [(VSCachingService *)self shortTermCache];
-  [shortTermCache setObject:v20 forKey:hashCopy timeToLive:10.0];
+  [shortTermCache setObject:? forKey:? timeToLive:?];
 
   cachingQueue = [(VSCachingService *)self cachingQueue];
   block[0] = MEMORY[0x277D85DD0];
@@ -74,7 +74,7 @@ uint64_t __104__VSCachingService_enqueueShortTermCacheWithHash_audio_timingInfo_
 
 - (void)fetchCacheForTask:(id)task
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   speechCache = [taskCopy speechCache];
 
@@ -87,8 +87,8 @@ uint64_t __104__VSCachingService_enqueueShortTermCacheWithHash_audio_timingInfo_
     languageCode = [request2 languageCode];
     request3 = [taskCopy request];
     voiceName = [request3 voiceName];
-    v13 = [cacheStore preinstalledCacheForText:text language:languageCode name:voiceName];
-    [taskCopy setSpeechCache:v13];
+    v13 = [cacheStore preinstalledCacheForText:? language:? name:?];
+    [taskCopy setSpeechCache:?];
 
     speechCache2 = [taskCopy speechCache];
 
@@ -99,23 +99,23 @@ uint64_t __104__VSCachingService_enqueueShortTermCacheWithHash_audio_timingInfo_
       {
         speechCache3 = [taskCopy speechCache];
         v17 = [speechCache3 key];
-        v60 = 138412290;
-        v61 = v17;
-        _os_log_impl(&dword_2727E4000, v15, OS_LOG_TYPE_DEFAULT, "Preinstalled cached synthesis %@ is found.", &v60, 0xCu);
+        v57 = 138412290;
+        v58 = v17;
+        _os_log_impl(&dword_2727E4000, v15, OS_LOG_TYPE_DEFAULT, "Preinstalled cached synthesis %@ is found.", &v57, 0xCu);
       }
 
       instrumentMetrics = [taskCopy instrumentMetrics];
-      [instrumentMetrics setIsCacheHitFromDisk:1];
+      [instrumentMetrics setIsCacheHitFromDisk:?];
 
       speechCache4 = [taskCopy speechCache];
       voiceKey = [speechCache4 voiceKey];
       instrumentMetrics2 = [taskCopy instrumentMetrics];
-      [instrumentMetrics2 setVoiceAssetKey:voiceKey];
+      [instrumentMetrics2 setVoiceAssetKey:?];
 
       speechCache5 = [taskCopy speechCache];
       voiceResourceKey = [speechCache5 voiceResourceKey];
       instrumentMetrics3 = [taskCopy instrumentMetrics];
-      [instrumentMetrics3 setVoiceResourceAssetKey:voiceResourceKey];
+      [instrumentMetrics3 setVoiceResourceAssetKey:?];
     }
 
     standardInstance = [MEMORY[0x277D79998] standardInstance];
@@ -128,8 +128,8 @@ uint64_t __104__VSCachingService_enqueueShortTermCacheWithHash_audio_timingInfo_
 
       if (!speechCache6)
       {
-        v29 = [(VSCachingService *)self _inMemoryCacheForHash:taskHash];
-        [taskCopy setSpeechCache:v29];
+        v29 = [(VSCachingService *)self _inMemoryCacheForHash:?];
+        [taskCopy setSpeechCache:?];
 
         speechCache7 = [taskCopy speechCache];
 
@@ -140,13 +140,13 @@ uint64_t __104__VSCachingService_enqueueShortTermCacheWithHash_audio_timingInfo_
           {
             speechCache8 = [taskCopy speechCache];
             v33 = [speechCache8 key];
-            v60 = 138412290;
-            v61 = v33;
-            _os_log_impl(&dword_2727E4000, v31, OS_LOG_TYPE_DEFAULT, "In-memory cached synthesis %@ is found.", &v60, 0xCu);
+            v57 = 138412290;
+            v58 = v33;
+            _os_log_impl(&dword_2727E4000, v31, OS_LOG_TYPE_DEFAULT, "In-memory cached synthesis %@ is found.", &v57, 0xCu);
           }
 
           instrumentMetrics4 = [taskCopy instrumentMetrics];
-          [instrumentMetrics4 setIsCacheHitFromMemory:1];
+          [instrumentMetrics4 setIsCacheHitFromMemory:?];
         }
       }
 
@@ -154,8 +154,8 @@ uint64_t __104__VSCachingService_enqueueShortTermCacheWithHash_audio_timingInfo_
 
       if (!speechCache9)
       {
-        v36 = [(VSCachingService *)self _onDiskCacheForHash:taskHash];
-        [taskCopy setSpeechCache:v36];
+        v36 = [(VSCachingService *)self _onDiskCacheForHash:?];
+        [taskCopy setSpeechCache:?];
 
         speechCache10 = [taskCopy speechCache];
 
@@ -166,13 +166,13 @@ uint64_t __104__VSCachingService_enqueueShortTermCacheWithHash_audio_timingInfo_
           {
             speechCache11 = [taskCopy speechCache];
             v40 = [speechCache11 key];
-            v60 = 138412290;
-            v61 = v40;
-            _os_log_impl(&dword_2727E4000, v38, OS_LOG_TYPE_DEFAULT, "On-disk cached synthesis %@ is found.", &v60, 0xCu);
+            v57 = 138412290;
+            v58 = v40;
+            _os_log_impl(&dword_2727E4000, v38, OS_LOG_TYPE_DEFAULT, "On-disk cached synthesis %@ is found.", &v57, 0xCu);
           }
 
           instrumentMetrics5 = [taskCopy instrumentMetrics];
-          [instrumentMetrics5 setIsCacheHitFromDisk:1];
+          [instrumentMetrics5 setIsCacheHitFromDisk:?];
         }
       }
 
@@ -182,8 +182,8 @@ uint64_t __104__VSCachingService_enqueueShortTermCacheWithHash_audio_timingInfo_
       {
         request4 = [taskCopy request];
         text2 = [request4 text];
-        v45 = [(VSCachingService *)self popShortTermCacheForHash:text2];
-        [taskCopy setSpeechCache:v45];
+        v45 = [(VSCachingService *)self popShortTermCacheForHash:?];
+        [taskCopy setSpeechCache:?];
 
         speechCache13 = [taskCopy speechCache];
 
@@ -194,9 +194,9 @@ uint64_t __104__VSCachingService_enqueueShortTermCacheWithHash_audio_timingInfo_
           {
             request5 = [taskCopy request];
             logText = [request5 logText];
-            v60 = 138412290;
-            v61 = logText;
-            _os_log_impl(&dword_2727E4000, v47, OS_LOG_TYPE_DEFAULT, "Short-term cached synthesis is found for text '%@'", &v60, 0xCu);
+            v57 = 138412290;
+            v58 = logText;
+            _os_log_impl(&dword_2727E4000, v47, OS_LOG_TYPE_DEFAULT, "Short-term cached synthesis is found for text '%@'", &v57, 0xCu);
           }
         }
       }
@@ -213,26 +213,23 @@ uint64_t __104__VSCachingService_enqueueShortTermCacheWithHash_audio_timingInfo_
         if (!timingInfos)
         {
           timingInfos2 = [speechCache15 timingInfos];
-          [taskCopy setTimingInfos:timingInfos2];
+          [taskCopy setTimingInfos:?];
         }
 
         audio = [speechCache15 audio];
         [audio duration];
-        v57 = v56;
         instrumentMetrics6 = [taskCopy instrumentMetrics];
-        [instrumentMetrics6 setAudioDuration:v57];
+        [instrumentMetrics6 setAudioDuration:?];
       }
     }
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_onDiskCacheForHash:(id)hash
 {
   hashCopy = hash;
   cacheStore = [(VSCachingService *)self cacheStore];
-  v6 = [cacheStore cacheDataForKey:hashCopy];
+  v6 = [cacheStore cacheDataForKey:?];
 
   return v6;
 }
@@ -250,7 +247,7 @@ uint64_t __104__VSCachingService_enqueueShortTermCacheWithHash_audio_timingInfo_
 
   else
   {
-    v7 = [(VSCachingService *)self _onDiskCacheForHash:hashCopy];
+    v7 = [(VSCachingService *)self _onDiskCacheForHash:?];
   }
 
   return v7;
@@ -258,32 +255,27 @@ uint64_t __104__VSCachingService_enqueueShortTermCacheWithHash_audio_timingInfo_
 
 - (id)_inMemoryCacheForHash:(id)hash
 {
-  v21 = *MEMORY[0x277D85DE8];
   hashCopy = hash;
   threadLock = [(VSCachingService *)self threadLock];
   [threadLock lock];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   inMemoryCaches = [(VSCachingService *)self inMemoryCaches];
-  v7 = [inMemoryCaches countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [inMemoryCaches countByEnumeratingWithState:? objects:? count:?];
   if (v7)
   {
-    v8 = *v17;
+    v8 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v17 != v8)
+        if (MEMORY[0] != v8)
         {
           objc_enumerationMutation(inMemoryCaches);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(8 * i);
         v11 = [v10 key];
-        v12 = [hashCopy isEqualToString:v11];
+        v12 = [hashCopy isEqualToString:?];
 
         if (v12)
         {
@@ -292,7 +284,7 @@ uint64_t __104__VSCachingService_enqueueShortTermCacheWithHash_audio_timingInfo_
         }
       }
 
-      v7 = [inMemoryCaches countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [inMemoryCaches countByEnumeratingWithState:? objects:? count:?];
       if (v7)
       {
         continue;
@@ -306,8 +298,6 @@ LABEL_11:
 
   threadLock2 = [(VSCachingService *)self threadLock];
   [threadLock2 unlock];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -325,7 +315,7 @@ LABEL_11:
 
   else
   {
-    v7 = [(VSCachingService *)self _inMemoryCacheForHash:hashCopy];
+    v7 = [(VSCachingService *)self _inMemoryCacheForHash:?];
   }
 
   return v7;
@@ -333,7 +323,7 @@ LABEL_11:
 
 - (void)_enqueueCacheWithHash:(id)hash audioObject:(id)object timingInfo:(id)info voiceKey:(id)key voiceResourceKey:(id)resourceKey completion:(id)completion
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   hashCopy = hash;
   objectCopy = object;
   infoCopy = info;
@@ -385,7 +375,7 @@ LABEL_11:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v49 = v24;
+        v48 = v24;
         v25 = "Audio duration is too short: %.2f second, skip caching";
 LABEL_15:
         v27 = v22;
@@ -405,7 +395,7 @@ LABEL_18:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v49 = v24;
+        v48 = v24;
         v25 = "Audio duration is too long: %.2f second, skip caching";
         goto LABEL_15;
       }
@@ -424,7 +414,7 @@ LABEL_30:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v29 = [(VSCachingService *)self compressStreamAudio:objectCopy];
+      v29 = [(VSCachingService *)self compressStreamAudio:?];
     }
 
     else
@@ -436,7 +426,7 @@ LABEL_30:
         goto LABEL_27;
       }
 
-      v29 = [(VSCachingService *)self compressAudio:objectCopy];
+      v29 = [(VSCachingService *)self compressAudio:?];
     }
 
     v30 = v29;
@@ -448,56 +438,54 @@ LABEL_27:
       _os_log_impl(&dword_2727E4000, v31, OS_LOG_TYPE_INFO, "Audio compressed for caching.", buf, 2u);
     }
 
-    v32 = [[VSSpeechCacheAudio alloc] initWithKey:hashCopy audio:v30 wordTimingInfo:infoCopy voiceKey:keyCopy voiceResourceKey:resourceKeyCopy];
+    v32 = [VSSpeechCacheAudio initWithKey:"initWithKey:audio:wordTimingInfo:voiceKey:voiceResourceKey:" audio:? wordTimingInfo:? voiceKey:? voiceResourceKey:?];
     threadLock = [(VSCachingService *)self threadLock];
     [threadLock lock];
 
     inMemoryCaches = [(VSCachingService *)self inMemoryCaches];
-    [inMemoryCaches addObject:v32];
+    [inMemoryCaches addObject:?];
 
     threadLock2 = [(VSCachingService *)self threadLock];
     [threadLock2 unlock];
 
     cachingQueue = [(VSCachingService *)self cachingQueue];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __102__VSCachingService__enqueueCacheWithHash_audioObject_timingInfo_voiceKey_voiceResourceKey_completion___block_invoke;
-    v39[3] = &unk_279E4BBB8;
-    v40 = hashCopy;
-    v41 = v30;
-    v42 = infoCopy;
-    v43 = keyCopy;
-    v44 = resourceKeyCopy;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __102__VSCachingService__enqueueCacheWithHash_audioObject_timingInfo_voiceKey_voiceResourceKey_completion___block_invoke;
+    v38[3] = &unk_279E4BBB8;
+    v39 = hashCopy;
+    v40 = v30;
+    v41 = infoCopy;
+    v42 = keyCopy;
+    v43 = resourceKeyCopy;
     selfCopy = self;
-    v46 = v32;
-    v47 = completionCopy;
+    v45 = v32;
+    v46 = completionCopy;
     v37 = v32;
     v22 = v30;
-    dispatch_async(cachingQueue, v39);
+    dispatch_async(cachingQueue, v38);
 
     goto LABEL_30;
   }
 
 LABEL_31:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __102__VSCachingService__enqueueCacheWithHash_audioObject_timingInfo_voiceKey_voiceResourceKey_completion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = [[VSSpeechCacheAudio alloc] initWithKey:*(a1 + 32) audio:*(a1 + 40) wordTimingInfo:*(a1 + 48) voiceKey:*(a1 + 56) voiceResourceKey:*(a1 + 64)];
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = [VSSpeechCacheAudio initWithKey:"initWithKey:audio:wordTimingInfo:voiceKey:voiceResourceKey:" audio:? wordTimingInfo:? voiceKey:? voiceResourceKey:?];
   v3 = [*(a1 + 72) cacheStore];
-  v4 = [v3 addCache:v2];
+  v4 = [v3 addCache:?];
 
   if (v4)
   {
     v5 = VSGetLogDefault();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v4;
-      _os_log_error_impl(&dword_2727E4000, v5, OS_LOG_TYPE_ERROR, "Can't add audio cache, error: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v4;
+      _os_log_error_impl(&dword_2727E4000, v5, OS_LOG_TYPE_ERROR, "Can't add audio cache, error: %@", &v10, 0xCu);
     }
   }
 
@@ -505,7 +493,7 @@ void __102__VSCachingService__enqueueCacheWithHash_audioObject_timingInfo_voiceK
   [v6 lock];
 
   v7 = [*(a1 + 72) inMemoryCaches];
-  [v7 removeObject:*(a1 + 80)];
+  [v7 removeObject:?];
 
   v8 = [*(a1 + 72) threadLock];
   [v8 unlock];
@@ -515,74 +503,55 @@ void __102__VSCachingService__enqueueCacheWithHash_audioObject_timingInfo_voiceK
   {
     (*(v9 + 16))(v9, v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)compressStreamAudio:(id)audio
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   audioCopy = audio;
   v4 = objc_alloc(MEMORY[0x277D79968]);
   if (audioCopy)
   {
-    [audioCopy asbd];
+    [&v17 asbd];
   }
 
   else
   {
-    v30 = 0;
-    v28 = 0u;
-    v29 = 0u;
+    v19 = 0;
+    v17 = 0u;
+    v18 = 0u;
   }
 
-  v5 = [v4 initWithSourceASBD:&v28];
+  v5 = [v4 initWithSourceASBD:?];
   data = [MEMORY[0x277CBEB28] data];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x2020000000;
+  v21[3] = 0;
   data2 = [MEMORY[0x277CBEB28] data];
-  *&v28 = 0;
-  *(&v28 + 1) = &v28;
-  *&v29 = 0x3032000000;
-  *(&v29 + 1) = __Block_byref_object_copy__3455;
-  v30 = __Block_byref_object_dispose__3456;
-  v31 = 0;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __40__VSCachingService_compressStreamAudio___block_invoke;
-  v27[3] = &unk_279E4BB40;
-  v27[4] = &v28;
-  [v5 setErrorHandler:v27];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __40__VSCachingService_compressStreamAudio___block_invoke_2;
-  v23[3] = &unk_279E4BB68;
+  *&v17 = 0;
+  *(&v17 + 1) = &v17;
+  *&v18 = 0x3032000000;
+  *(&v18 + 1) = __Block_byref_object_copy__3455;
+  v19 = __Block_byref_object_dispose__3456;
+  v20 = 0;
+  [v5 setErrorHandler:?];
   v8 = data;
-  v24 = v8;
-  v26 = &v32;
   v9 = data2;
-  v25 = v9;
-  [v5 setOpusDataHandler:v23];
+  [v5 setOpusDataHandler:?];
   [v5 beginEncoding];
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __40__VSCachingService_compressStreamAudio___block_invoke_3;
-  v20 = &unk_279E4BB90;
+  v16 = MEMORY[0x277D85DD0];
   v10 = v5;
-  v21 = v10;
-  v22 = &v28;
-  [audioCopy enumerateAudioWithBlock:&v17];
+  [audioCopy enumerateAudioWithBlock:{v16, 3221225472, __40__VSCachingService_compressStreamAudio___block_invoke_3, &unk_279E4BB90}];
   [v10 endEncoding];
-  if (*(*(&v28 + 1) + 40))
+  if (*(*(&v17 + 1) + 40))
   {
     v11 = VSGetLogDefault();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(*(&v28 + 1) + 40);
+      v15 = *(*(&v17 + 1) + 40);
       *buf = 138412290;
-      *&buf[4] = v16;
+      *&buf[4] = v15;
       _os_log_error_impl(&dword_2727E4000, v11, OS_LOG_TYPE_ERROR, "Error converting stream audio during caching. %@", buf, 0xCu);
     }
 
@@ -594,34 +563,32 @@ void __102__VSCachingService__enqueueCacheWithHash_audioObject_timingInfo_voiceK
     v12 = objc_alloc_init(MEMORY[0x277D79920]);
     v13 = *(MEMORY[0x277D799F0] + 16);
     *buf = *MEMORY[0x277D799F0];
-    v37 = v13;
-    v38 = *(MEMORY[0x277D799F0] + 32);
-    [v12 setAsbd:buf];
-    [v12 setAudioData:v8];
-    [v12 setPacketDescriptions:v9];
-    [v12 setPacketCount:v33[3]];
+    v23 = v13;
+    v24 = *(MEMORY[0x277D799F0] + 32);
+    [v12 setAsbd:?];
+    [v12 setAudioData:?];
+    [v12 setPacketDescriptions:?];
+    [v12 setPacketCount:?];
   }
 
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v32, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(v21, 8);
 
   return v12;
 }
 
 void __40__VSCachingService_compressStreamAudio___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v7 = *(a1 + 32);
-  v8 = a4;
-  [v7 appendData:a2];
+  v6 = *(a1 + 32);
+  v7 = a4;
+  [v6 appendData:?];
   *(*(*(a1 + 48) + 8) + 24) += a3;
-  [*(a1 + 40) appendData:v8];
+  [*(a1 + 40) appendData:?];
 }
 
-uint64_t __40__VSCachingService_compressStreamAudio___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__40__VSCachingService_compressStreamAudio___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  result = [*(a1 + 32) encodeChunk:a2];
+  result = [*(a1 + 32) encodeChunk:?];
   if (*(*(*(a1 + 40) + 8) + 40))
   {
     *a5 = 1;
@@ -632,63 +599,52 @@ uint64_t __40__VSCachingService_compressStreamAudio___block_invoke_3(uint64_t a1
 
 - (id)compressAudio:(id)audio
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   audioCopy = audio;
   v4 = objc_alloc(MEMORY[0x277D79968]);
   if (audioCopy)
   {
-    [audioCopy asbd];
+    [&v17 asbd];
   }
 
   else
   {
-    v27 = 0;
-    v25 = 0u;
-    v26 = 0u;
+    v19 = 0;
+    v17 = 0u;
+    v18 = 0u;
   }
 
-  v5 = [v4 initWithSourceASBD:&v25];
+  v5 = [v4 initWithSourceASBD:?];
   data = [MEMORY[0x277CBEB28] data];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 0;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x2020000000;
+  v21[3] = 0;
   data2 = [MEMORY[0x277CBEB28] data];
-  *&v25 = 0;
-  *(&v25 + 1) = &v25;
-  *&v26 = 0x3032000000;
-  *(&v26 + 1) = __Block_byref_object_copy__3455;
-  v27 = __Block_byref_object_dispose__3456;
-  v28 = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __34__VSCachingService_compressAudio___block_invoke;
-  v24[3] = &unk_279E4BB40;
-  v24[4] = &v25;
-  [v5 setErrorHandler:v24];
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __34__VSCachingService_compressAudio___block_invoke_2;
-  v20 = &unk_279E4BB68;
+  *&v17 = 0;
+  *(&v17 + 1) = &v17;
+  *&v18 = 0x3032000000;
+  *(&v18 + 1) = __Block_byref_object_copy__3455;
+  v19 = __Block_byref_object_dispose__3456;
+  v20 = 0;
+  [v5 setErrorHandler:?];
+  v16 = MEMORY[0x277D85DD0];
   v8 = data;
-  v21 = v8;
-  v23 = &v29;
   v9 = data2;
-  v22 = v9;
-  [v5 setOpusDataHandler:&v17];
+  [v5 setOpusDataHandler:{v16, 3221225472, __34__VSCachingService_compressAudio___block_invoke_2, &unk_279E4BB68}];
   [v5 beginEncoding];
   audioData = [audioCopy audioData];
-  [v5 encodeChunk:audioData];
+  [v5 encodeChunk:?];
 
   [v5 endEncoding];
-  if (*(*(&v25 + 1) + 40))
+  if (*(*(&v17 + 1) + 40))
   {
     v11 = VSGetLogDefault();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(*(&v25 + 1) + 40);
+      v15 = *(*(&v17 + 1) + 40);
       *buf = 138412290;
-      *&buf[4] = v16;
+      *&buf[4] = v15;
       _os_log_error_impl(&dword_2727E4000, v11, OS_LOG_TYPE_ERROR, "Error converting audio during caching. %@", buf, 0xCu);
     }
 
@@ -700,29 +656,27 @@ uint64_t __40__VSCachingService_compressStreamAudio___block_invoke_3(uint64_t a1
     v12 = objc_alloc_init(MEMORY[0x277D79920]);
     v13 = *(MEMORY[0x277D799F0] + 16);
     *buf = *MEMORY[0x277D799F0];
-    v34 = v13;
-    v35 = *(MEMORY[0x277D799F0] + 32);
-    [v12 setAsbd:buf];
-    [v12 setAudioData:v8];
-    [v12 setPacketDescriptions:v9];
-    [v12 setPacketCount:v30[3]];
+    v23 = v13;
+    v24 = *(MEMORY[0x277D799F0] + 32);
+    [v12 setAsbd:?];
+    [v12 setAudioData:?];
+    [v12 setPacketDescriptions:?];
+    [v12 setPacketCount:?];
   }
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v29, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(v21, 8);
 
   return v12;
 }
 
 void __34__VSCachingService_compressAudio___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v7 = *(a1 + 32);
-  v8 = a4;
-  [v7 appendData:a2];
+  v6 = *(a1 + 32);
+  v7 = a4;
+  [v6 appendData:?];
   *(*(*(a1 + 48) + 8) + 24) += a3;
-  [*(a1 + 40) appendData:v8];
+  [*(a1 + 40) appendData:?];
 }
 
 - (VSCachingService)initWithCache:(id)cache shortTermMemory:(id)memory
@@ -771,7 +725,7 @@ void __35__VSCachingService_standardService__block_invoke()
   v0 = [VSCachingService alloc];
   v4 = +[VSSpeechCache defaultCacheStore];
   v1 = +[VSShortTermCache sharedInstance];
-  v2 = [(VSCachingService *)v0 initWithCache:v4 shortTermMemory:v1];
+  v2 = [VSCachingService initWithCache:v0 shortTermMemory:"initWithCache:shortTermMemory:"];
   v3 = standardService___standardService;
   standardService___standardService = v2;
 }

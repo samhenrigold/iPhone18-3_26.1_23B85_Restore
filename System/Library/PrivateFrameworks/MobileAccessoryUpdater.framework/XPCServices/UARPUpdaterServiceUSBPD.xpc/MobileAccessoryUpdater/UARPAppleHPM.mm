@@ -31,13 +31,21 @@
 - (BOOL)processAppleVDOs:(id *)os;
 - (BOOL)processCapabilityVDO:(id *)o;
 - (BOOL)processEndpointVDO:(id *)o;
+- (BOOL)processIOService:(unsigned int)service;
 - (BOOL)processVDOs:(id *)os;
 - (BOOL)readCFUa:(unsigned int)ua remoteEndpoint:(unsigned int)endpoint offset:(unsigned __int16)offset buffer:(char *)buffer bufferLength:(unsigned int)length lengthRead:(unsigned int *)read error:(id *)error;
+- (BOOL)receiveVDM:(int *)m buffer:(void *)buffer length:(unint64_t)length flags:(unsigned int)flags sequence:(char *)sequence checkSequence:(BOOL)checkSequence maxRetries:(unsigned int)retries lengthReceived:(unint64_t *)self0 error:(id *)self1;
+- (BOOL)receiveVDM:(int *)m buffer:(void *)buffer length:(unint64_t)length flags:(unsigned int)flags sequence:(char *)sequence lengthReceived:(unint64_t *)received error:(id *)error;
+- (BOOL)sendVDM:(int)m buffer:(void *)buffer length:(unint64_t)length flags:(unsigned int)flags error:(id *)error;
 - (BOOL)setCFUp:(BOOL)up error:(id *)error;
+- (BOOL)writeCFUa:(unsigned int)ua remoteEndpoint:(unsigned int)endpoint offset:(unsigned __int16)offset buffer:(char *)buffer bufferLength:(unsigned int)length lengthWritten:(unsigned int *)written error:(id *)error;
+- (BOOL)writeCFUs:(unsigned int)us remoteEndpoint:(unsigned int)endpoint protocol:(unsigned int)protocol buffer:(char *)buffer bufferLength:(unsigned int)length lengthWritten:(unsigned int *)written error:(id *)error;
+- (UARPAppleHPM)initWithIOService:(unsigned int)service;
 - (id)accMode7StagedFwVersion:(id *)version;
 - (id)description;
 - (void)checkForPassthroughCharging:(unsigned int)charging;
 - (void)checkForPassthroughChargingOnAppleHPMDevice:(unsigned int)device;
+- (void)checkIfMagSafe:(unsigned int)safe;
 - (void)clearVDOs;
 - (void)dealloc;
 - (void)handleNotConnected;
@@ -131,9 +139,9 @@ LABEL_5:
     sub_1000223D0();
   }
 
-  v15 = 0;
-  v14 = 0;
-  if (![(UARPAppleHPM *)self accMode7FirmwareUpdateGetState:&v14 error:initialize])
+  v13 = 0;
+  v12 = 0;
+  if (![(UARPAppleHPM *)self accMode7FirmwareUpdateGetState:&v12 error:initialize])
   {
     v6 = os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR);
     if (!v6)
@@ -144,7 +152,7 @@ LABEL_5:
     goto LABEL_9;
   }
 
-  if (v14 == 1)
+  if (v12 == 1)
   {
 LABEL_19:
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
@@ -152,9 +160,7 @@ LABEL_19:
       sub_100022580();
     }
 
-    v9 = [(UARPAppleHPM *)self accMode7FirmwareUpdateSendCommand:2 error:initialize];
-    log = self->_log;
-    if ((v9 & 1) == 0)
+    if (![(UARPAppleHPM *)self accMode7FirmwareUpdateSendCommand:2 error:initialize])
     {
       v6 = os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR);
       if (!v6)
@@ -171,10 +177,10 @@ LABEL_19:
       sub_100022634();
     }
 
-    v11 = 300;
+    v9 = 300;
     while (1)
     {
-      if (![(UARPAppleHPM *)self accMode7FirmwareUpdateGetState:&v14 error:initialize])
+      if (![(UARPAppleHPM *)self accMode7FirmwareUpdateGetState:&v12 error:initialize])
       {
         v6 = os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR);
         if (!v6)
@@ -185,13 +191,13 @@ LABEL_19:
         goto LABEL_9;
       }
 
-      if (v14 != 2)
+      if (v12 != 2)
       {
         break;
       }
 
       sleepMS(100);
-      if (!--v11)
+      if (!--v9)
       {
         goto LABEL_37;
       }
@@ -199,7 +205,7 @@ LABEL_19:
 
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_100022668(&v14);
+      sub_100022668();
     }
 
 LABEL_37:
@@ -208,12 +214,12 @@ LABEL_37:
       sub_1000226E4();
     }
 
-    if ([(UARPAppleHPM *)self accMode7FirmwareUpdateGetState:&v14 error:initialize])
+    if ([(UARPAppleHPM *)self accMode7FirmwareUpdateGetState:&v12 error:initialize])
     {
-      v12 = self->_log;
-      if (v14 == 3)
+      log = self->_log;
+      if (v12 == 3)
       {
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
         {
           sub_100022794();
         }
@@ -222,13 +228,13 @@ LABEL_37:
         return v6;
       }
 
-      v6 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+      v6 = os_log_type_enabled(log, OS_LOG_TYPE_ERROR);
       if (!v6)
       {
         return v6;
       }
 
-      sub_100022718(&v14);
+      sub_100022718();
       goto LABEL_10;
     }
 
@@ -245,7 +251,7 @@ LABEL_10:
     return v6;
   }
 
-  if (v14 == 7)
+  if (v12 == 7)
   {
     v5 = self->_log;
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
@@ -255,9 +261,9 @@ LABEL_10:
     }
 
     *buf = 136315394;
-    v17 = "[UARPAppleHPM(AccMode7) accMode7FirmwareUpdateInitialize:]";
-    v18 = 1024;
-    v19 = HIDWORD(v14);
+    v15 = "[UARPAppleHPM(AccMode7) accMode7FirmwareUpdateInitialize:]";
+    v16 = 1024;
+    v17 = HIDWORD(v12);
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%s: Firmware udpate is BLOCKED, (error %d)", buf, 0x12u);
     goto LABEL_10;
   }
@@ -266,11 +272,11 @@ LABEL_10:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v17 = "[UARPAppleHPM(AccMode7) accMode7FirmwareUpdateInitialize:]";
+    v15 = "[UARPAppleHPM(AccMode7) accMode7FirmwareUpdateInitialize:]";
+    v16 = 1024;
+    v17 = v12;
     v18 = 1024;
-    v19 = v14;
-    v20 = 1024;
-    v21 = HIDWORD(v14);
+    v19 = HIDWORD(v12);
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%s: Expected Idle, but in state %d (error %d). Attempting to recover.", buf, 0x18u);
   }
 
@@ -289,7 +295,7 @@ LABEL_10:
   v8 = 300;
   do
   {
-    if (![(UARPAppleHPM *)self accMode7FirmwareUpdateGetState:&v14 error:initialize])
+    if (![(UARPAppleHPM *)self accMode7FirmwareUpdateGetState:&v12 error:initialize])
     {
       v6 = os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR);
       if (!v6)
@@ -300,7 +306,7 @@ LABEL_10:
       goto LABEL_9;
     }
 
-    if (v14 == 1)
+    if (v12 == 1)
     {
       goto LABEL_19;
     }
@@ -310,7 +316,7 @@ LABEL_10:
   }
 
   while (v8);
-  if (v14 == 1)
+  if (v12 == 1)
   {
     goto LABEL_19;
   }
@@ -318,7 +324,7 @@ LABEL_10:
   v6 = os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR);
   if (v6)
   {
-    sub_100022504(&v14);
+    sub_100022504();
     goto LABEL_10;
   }
 
@@ -432,7 +438,7 @@ LABEL_14:
 
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    sub_1000228FC(&v8);
+    sub_1000228FC();
   }
 
 LABEL_13:
@@ -455,7 +461,7 @@ LABEL_22:
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_100022978(&v8);
+      sub_100022978();
     }
 
     goto LABEL_22;
@@ -524,7 +530,7 @@ LABEL_22:
       return v4;
     }
 
-    sub_100022B90(&v6);
+    sub_100022B90();
 LABEL_9:
     LOBYTE(v4) = 0;
     return v4;
@@ -963,7 +969,7 @@ LABEL_32:
     state->var1 = -1;
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
     {
-      sub_100023384(&state->var0);
+      sub_100023384();
     }
 
     goto LABEL_10;
@@ -977,7 +983,7 @@ LABEL_32:
       return v6;
     }
 
-    sub_1000234A4(&v8);
+    sub_1000234A4();
 LABEL_14:
     LOBYTE(v6) = 0;
     return v6;
@@ -985,7 +991,7 @@ LABEL_14:
 
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_100023404(&state->var0);
+    sub_100023404();
   }
 
 LABEL_10:
@@ -1370,6 +1376,212 @@ LABEL_24:
   return v5;
 }
 
+- (UARPAppleHPM)initWithIOService:(unsigned int)service
+{
+  v3 = *&service;
+  v12.receiver = self;
+  v12.super_class = UARPAppleHPM;
+  v4 = [(UARPAppleHPM *)&v12 init];
+  if (v4)
+  {
+    v5 = os_log_create("com.apple.accessoryupdater.uarp", "hpm");
+    log = v4->_log;
+    v4->_log = v5;
+
+    v4->_rid = -1;
+    v4->_sopType = 3;
+    v4->_lastRxSequence = -1;
+    v7 = +[NSUUID UUID];
+    uuid = v4->_uuid;
+    v4->_uuid = v7;
+
+    if (![(UARPAppleHPM *)v4 processIOService:v3])
+    {
+      v10 = 0;
+      goto LABEL_7;
+    }
+
+    v9 = v4->_log;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v14 = v4;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Initialized HPM %@", buf, 0xCu);
+    }
+  }
+
+  v10 = v4;
+LABEL_7:
+
+  return v10;
+}
+
+- (BOOL)processIOService:(unsigned int)service
+{
+  v3 = *&service;
+  CFProperty = IORegistryEntryCreateCFProperty(service, @"RID", kCFAllocatorDefault, 0);
+  if (CFProperty)
+  {
+    v6 = CFProperty;
+    v7 = CFGetTypeID(CFProperty);
+    if (v7 == CFNumberGetTypeID())
+    {
+      CFNumberGetValue(v6, kCFNumberShortType, &self->_rid);
+    }
+
+    CFRelease(v6);
+    v8 = MGCopyAnswer();
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v42 = v8;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "Internal/External HPM: cpu type is %@", buf, 0xCu);
+    }
+
+    v10 = [v8 intValue] & 0xC;
+    if (v10)
+    {
+      v11 = self->_log;
+      if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_14;
+      }
+
+      rid = self->_rid;
+      *buf = 67109120;
+      LODWORD(v42) = rid;
+      v13 = "Internal/External HPM: Apple Silicon for RID %d";
+    }
+
+    else
+    {
+      if (([v8 unsignedIntegerValue] & 7) == 0 || (v11 = self->_log, !os_log_type_enabled(v11, OS_LOG_TYPE_INFO)))
+      {
+LABEL_14:
+        v16 = IORegistryEntryCreateCFProperty(v3, @"Route String", kCFAllocatorDefault, 0);
+        if (v16)
+        {
+          v17 = v16;
+          v18 = CFGetTypeID(v16);
+          if (v18 != CFNumberGetTypeID() || (valuePtr = 0, CFNumberGetValue(v17, kCFNumberSInt32Type, &valuePtr), valuePtr))
+          {
+            CFRelease(v17);
+LABEL_23:
+            v23 = self->_log;
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+            {
+              v24 = self->_rid;
+              *buf = 67109120;
+              LODWORD(v42) = v24;
+              _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "External HPM: RID %d", buf, 8u);
+            }
+
+            v14 = 0;
+LABEL_38:
+
+            return v14;
+          }
+
+          v25 = self->_log;
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+          {
+            v26 = self->_rid;
+            *buf = 67109120;
+            LODWORD(v42) = v26;
+            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Internal HPM: RID %d, Route String is zero", buf, 8u);
+          }
+
+          CFRelease(v17);
+        }
+
+        else
+        {
+          v19 = self->_log;
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+          {
+            v20 = self->_rid;
+            *buf = 67109120;
+            LODWORD(v42) = v20;
+            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Internal/External HPM: No Route String on RID %d", buf, 8u);
+          }
+
+          if (!v10)
+          {
+            goto LABEL_23;
+          }
+
+          v21 = self->_log;
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+          {
+            v22 = self->_rid;
+            *buf = 67109120;
+            LODWORD(v42) = v22;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Internal HPM: RID %d on Apple Silicon", buf, 8u);
+          }
+        }
+
+        v27 = self->_log;
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        {
+          v28 = self->_rid;
+          *buf = 67109120;
+          LODWORD(v42) = v28;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Internal HPM: RID %d", buf, 8u);
+        }
+
+        [(UARPAppleHPM *)self checkForPassthroughCharging:v3];
+        v29 = self->_log;
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+        {
+          v30 = self->_rid;
+          if (self->_hasChargePassthru)
+          {
+            v31 = "may";
+          }
+
+          else
+          {
+            v31 = "may NOT";
+          }
+
+          *buf = 136315394;
+          v42 = v31;
+          v43 = 1024;
+          v44 = v30;
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Power Adapter %s be behind a passthru dongle on RID %u", buf, 0x12u);
+        }
+
+        *buf = 0;
+        v32 = CFUUIDGetConstantUUIDWithBytes(0, 0x12u, 0xA1u, 0xDCu, 0xCFu, 0xCFu, 0x7Au, 0x47u, 0x75u, 0xBEu, 0xE5u, 0x9Cu, 0x43u, 0x19u, 0xF4u, 0xCDu, 0x2Bu);
+        v33 = CFUUIDGetConstantUUIDWithBytes(0, 0xC2u, 0x44u, 0xE8u, 0x58u, 0x10u, 0x9Cu, 0x11u, 0xD4u, 0x91u, 0xD4u, 0, 0x50u, 0xE4u, 0xC6u, 0x42u, 0x6Fu);
+        v34 = IOCreatePlugInInterfaceForService(v3, v32, v33, &self->_pluginInterface, buf);
+        v14 = 0;
+        if (!v34)
+        {
+          pluginInterface = self->_pluginInterface;
+          QueryInterface = (*pluginInterface)->QueryInterface;
+          v37 = CFUUIDGetConstantUUIDWithBytes(0, 0xC1u, 0x3Au, 0xCDu, 0xD9u, 0x20u, 0x9Eu, 0x4Bu, 1u, 0xB7u, 0xBEu, 0xE0u, 0x5Cu, 0xD8u, 0x83u, 0xC7u, 0xB1u);
+          v38 = CFUUIDGetUUIDBytes(v37);
+          v14 = (QueryInterface)(pluginInterface, *&v38.byte0, *&v38.byte8, &self->_deviceInterface) == 0;
+        }
+
+        goto LABEL_38;
+      }
+
+      v15 = self->_rid;
+      *buf = 67109120;
+      LODWORD(v42) = v15;
+      v13 = "Internal/External HPM: Intel Silicon for RID %d";
+    }
+
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, v13, buf, 8u);
+    goto LABEL_14;
+  }
+
+  return 0;
+}
+
 - (void)dealloc
 {
   deviceInterface = self->_deviceInterface;
@@ -1387,6 +1599,41 @@ LABEL_24:
   v5.receiver = self;
   v5.super_class = UARPAppleHPM;
   [(UARPAppleHPM *)&v5 dealloc];
+}
+
+- (void)checkIfMagSafe:(unsigned int)safe
+{
+  v3 = *&safe;
+  v5 = [UARPMagSafeCable rid:?];
+  if (self->_rid == v5)
+  {
+    self->_hasMagSafe = 1;
+    if (![UARPMagSafeCable isActive:v3])
+    {
+      log = self->_log;
+      if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+      {
+        v8 = 138412290;
+        v9[0] = self;
+        _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "Identifying MagSafe (disconnected) on %@", &v8, 0xCu);
+      }
+
+      [(UARPAppleHPM *)self handleNotConnected];
+    }
+  }
+
+  else
+  {
+    v7 = self->_log;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      v8 = 67109378;
+      LODWORD(v9[0]) = v5;
+      WORD2(v9[0]) = 2112;
+      *(v9 + 6) = self;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "RID Mismatch %d identifying MagSafe on %@", &v8, 0x12u);
+    }
+  }
 }
 
 - (void)checkForPassthroughCharging:(unsigned int)charging
@@ -1666,6 +1913,154 @@ LABEL_10:
   }
 
   return v6 == 0;
+}
+
+- (BOOL)sendVDM:(int)m buffer:(void *)buffer length:(unint64_t)length flags:(unsigned int)flags error:(id *)error
+{
+  v7 = *&flags;
+  v10 = *&m;
+  if ([(UARPAppleHPM *)self isConnnected:*&m])
+  {
+    if (!(*(*self->_deviceInterface + 8))(self->_deviceInterface, 0, v10, buffer, length, v7))
+    {
+      LOBYTE(v12) = 1;
+      return v12;
+    }
+
+    if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+    {
+      sub_100027114();
+    }
+
+    [(UARPAppleHPM *)self checkConnection:0];
+  }
+
+  else
+  {
+    v12 = os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR);
+    if (!v12)
+    {
+      return v12;
+    }
+
+    sub_100027098();
+  }
+
+  LOBYTE(v12) = 0;
+  return v12;
+}
+
+- (BOOL)receiveVDM:(int *)m buffer:(void *)buffer length:(unint64_t)length flags:(unsigned int)flags sequence:(char *)sequence lengthReceived:(unint64_t *)received error:(id *)error
+{
+  v11 = *&flags;
+  if ([(UARPAppleHPM *)self isConnnected])
+  {
+    sopType = self->_sopType;
+    if (sopType >= 2)
+    {
+      if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000271D0();
+      }
+
+      sopType = self->_sopType;
+    }
+
+    *m = sopType;
+    if (!(*(*self->_deviceInterface + 9))(self->_deviceInterface, 0, buffer, length, v11, m, sequence, received))
+    {
+      LOBYTE(v17) = 1;
+      return v17;
+    }
+
+    if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+    {
+      sub_100027238();
+    }
+
+    [(UARPAppleHPM *)self checkConnection:0];
+  }
+
+  else
+  {
+    v17 = os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR);
+    if (!v17)
+    {
+      return v17;
+    }
+
+    sub_100027154();
+  }
+
+  LOBYTE(v17) = 0;
+  return v17;
+}
+
+- (BOOL)receiveVDM:(int *)m buffer:(void *)buffer length:(unint64_t)length flags:(unsigned int)flags sequence:(char *)sequence checkSequence:(BOOL)checkSequence maxRetries:(unsigned int)retries lengthReceived:(unint64_t *)self0 error:(id *)self1
+{
+  checkSequenceCopy = checkSequence;
+  if (retries)
+  {
+    v13 = *&flags;
+    v17 = 0;
+    while (1)
+    {
+      bzero(buffer, length);
+      *received = 0;
+      *m = self->_sopType;
+      v18 = [(UARPAppleHPM *)self receiveVDM:m buffer:buffer length:length flags:v13 sequence:sequence lengthReceived:received error:error];
+      if (!v18)
+      {
+        break;
+      }
+
+      if (*m == self->_sopType)
+      {
+        if (!checkSequenceCopy)
+        {
+          return v18;
+        }
+
+        v19 = *sequence;
+        if (self->_lastRxSequence != v19)
+        {
+          self->_lastRxSequence = v19;
+          [(UARPAppleHPM *)self updateRetryMetric:v17];
+          LOBYTE(v18) = 1;
+          return v18;
+        }
+      }
+
+      else
+      {
+        [NSString stringWithFormat:@"RX VDM Unexpected SOP <Seq No=%d> <Last Seq No=%d>", *sequence, self->_lastRxSequence];
+        v21 = v20 = v13;
+        [(UARPAppleHPM *)self logBuffer:*m buffer:buffer length:length desc:v21];
+
+        v13 = v20;
+      }
+
+      sleepMS(5);
+      if (retries == ++v17)
+      {
+        goto LABEL_10;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_10:
+    log = self->_log;
+    v18 = os_log_type_enabled(log, OS_LOG_TYPE_ERROR);
+    if (v18)
+    {
+      sub_1000272A0(log, v23, v24, v25, v26, v27, v28, v29);
+      LOBYTE(v18) = 0;
+    }
+  }
+
+  return v18;
 }
 
 - (BOOL)isConnnected
@@ -2002,6 +2397,61 @@ LABEL_15:
   return v6;
 }
 
+- (BOOL)writeCFUs:(unsigned int)us remoteEndpoint:(unsigned int)endpoint protocol:(unsigned int)protocol buffer:(char *)buffer bufferLength:(unsigned int)length lengthWritten:(unsigned int *)written error:(id *)error
+{
+  v11 = length - protocol;
+  if (length - protocol >= 0x40)
+  {
+    v11 = 64;
+  }
+
+  v12 = ((us & 7) << 21) | (v11 << 24) | ((endpoint & 7) << 18) | ((self->_sopType & 3) << 14);
+  if (protocol >= 0x14)
+  {
+    protocolCopy = 20;
+  }
+
+  else
+  {
+    protocolCopy = protocol;
+  }
+
+  v24 = 0;
+  if (![(UARPAppleHPM *)self doAtomic4CC:1934968387 data:buffer dataLength:*&length extData:v12 | (protocolCopy << 8) dataOut:0 dataOutLength:0 dataOutLengthRead:0 extDataOut:&v24 error:error])
+  {
+    log = self->_log;
+    v14 = os_log_type_enabled(log, OS_LOG_TYPE_ERROR);
+    if (!v14)
+    {
+      return v14;
+    }
+
+    sub_1000277AC(log, v16, v17, v18, v19, v20, v21, v22);
+LABEL_16:
+    LOBYTE(v14) = 0;
+    return v14;
+  }
+
+  if ((v24 & 0x800000) != 0)
+  {
+    if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+    {
+      sub_100027824();
+    }
+
+    [(UARPAppleHPM *)self checkConnection:0];
+    goto LABEL_16;
+  }
+
+  if (written)
+  {
+    *written = HIBYTE(v24) & 0x3F;
+  }
+
+  LOBYTE(v14) = 1;
+  return v14;
+}
+
 - (BOOL)readCFUa:(unsigned int)ua remoteEndpoint:(unsigned int)endpoint offset:(unsigned __int16)offset buffer:(char *)buffer bufferLength:(unsigned int)length lengthRead:(unsigned int *)read error:(id *)error
 {
   sopType = self->_sopType;
@@ -2040,7 +2490,7 @@ LABEL_16:
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_100027918(&v23);
+      sub_100027918();
     }
 
     [(UARPAppleHPM *)self checkConnection:0];
@@ -2050,6 +2500,54 @@ LABEL_16:
   if (read)
   {
     *read = HIBYTE(v23) & 0x1F;
+  }
+
+  LOBYTE(v13) = 1;
+  return v13;
+}
+
+- (BOOL)writeCFUa:(unsigned int)ua remoteEndpoint:(unsigned int)endpoint offset:(unsigned __int16)offset buffer:(char *)buffer bufferLength:(unsigned int)length lengthWritten:(unsigned int *)written error:(id *)error
+{
+  v11 = self->_sopType << 30;
+  if (length >= 0x18)
+  {
+    lengthCopy = 24;
+  }
+
+  else
+  {
+    lengthCopy = length;
+  }
+
+  v15 = 0;
+  if (![(UARPAppleHPM *)self doAtomic4CC:1632978499 data:buffer dataLength:*&length extData:v11 & 0xFF03FFFF | (lengthCopy << 24) | ((ua & 7) << 21) | ((endpoint & 7) << 18) | offset dataOut:0 dataOutLength:0 dataOutLengthRead:0 extDataOut:&v15 error:error])
+  {
+    v13 = os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR);
+    if (!v13)
+    {
+      return v13;
+    }
+
+    sub_100027994();
+LABEL_14:
+    LOBYTE(v13) = 0;
+    return v13;
+  }
+
+  if ((v15 & 0x800000) != 0)
+  {
+    if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+    {
+      sub_100027A10();
+    }
+
+    [(UARPAppleHPM *)self checkConnection:0];
+    goto LABEL_14;
+  }
+
+  if (written)
+  {
+    *written = HIBYTE(v15) & 0x1F;
   }
 
   LOBYTE(v13) = 1;

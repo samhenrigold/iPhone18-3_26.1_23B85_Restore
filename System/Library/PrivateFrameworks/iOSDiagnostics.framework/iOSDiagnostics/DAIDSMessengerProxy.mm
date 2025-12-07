@@ -5,6 +5,7 @@
 - (id)_createXPCConnection;
 - (void)availableDestinationsWithCompletion:(id)completion;
 - (void)receiveMessage:(id)message data:(id)data fromDestination:(id)destination expectsResponse:(BOOL)response response:(id)a7;
+- (void)sendMessage:(id)message data:(id)data toDestination:(id)destination forceLocalDelivery:(BOOL)delivery expectsResponse:(BOOL)response response:(id)a8;
 - (void)setReceiver:(id)receiver;
 @end
 
@@ -106,6 +107,20 @@
   v6 = [connection remoteObjectProxyWithErrorHandler:&stru_10001C788];
 
   [v6 availableDestinationsWithCompletion:completionCopy];
+}
+
+- (void)sendMessage:(id)message data:(id)data toDestination:(id)destination forceLocalDelivery:(BOOL)delivery expectsResponse:(BOOL)response response:(id)a8
+{
+  responseCopy = response;
+  deliveryCopy = delivery;
+  v14 = a8;
+  destinationCopy = destination;
+  dataCopy = data;
+  messageCopy = message;
+  connection = [(DAIDSMessengerProxy *)self connection];
+  v19 = [connection remoteObjectProxyWithErrorHandler:&stru_10001C7A8];
+
+  [v19 sendMessage:messageCopy data:dataCopy toDestination:destinationCopy forceLocalDelivery:deliveryCopy expectsResponse:responseCopy response:v14];
 }
 
 - (void)receiveMessage:(id)message data:(id)data fromDestination:(id)destination expectsResponse:(BOOL)response response:(id)a7

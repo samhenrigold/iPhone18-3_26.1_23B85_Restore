@@ -1,7 +1,6 @@
 @interface GEOAPCountsAggregator
 - (BOOL)aggregateDailyCountsAndReportFrom:(id)from until:(id)until;
 - (GEOAPCountsAggregator)init;
-- (double)retrieveDailyAggregationInterval;
 - (id)now;
 - (void)aggregateDailyUsageCountsAndReportFrom:(id)from until:(id)until;
 - (void)reportDailySettingsFrom:(id)from until:(id)until;
@@ -17,13 +16,6 @@
   bestReferenceDate = [v2 bestReferenceDate];
 
   return bestReferenceDate;
-}
-
-- (double)retrieveDailyAggregationInterval
-{
-  v2 = GeoAnalyticsConfig_DailyCountsAggregationInterval[1];
-  GEOConfigGetDouble();
-  return result;
 }
 
 - (BOOL)aggregateDailyCountsAndReportFrom:(id)from until:(id)until

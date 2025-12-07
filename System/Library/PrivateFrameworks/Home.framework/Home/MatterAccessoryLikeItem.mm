@@ -8,6 +8,9 @@
 - (id)copyWithValueSource:(id)source;
 - (id)copyWithZone:(void *)zone;
 - (id)currentStateActionBuildersForHome:(id)home;
+- (id)hf_updateIsFavorite:(BOOL)favorite;
+- (id)hf_updateIsVisibleInHomeStatus:(BOOL)status;
+- (id)hf_updateShowInHomeDashboard:(BOOL)dashboard;
 - (id)namingComponentForHomeKitObject;
 - (id)serviceLikeBuilderInHome:(id)home;
 @end
@@ -51,14 +54,35 @@
   return result;
 }
 
+- (id)hf_updateShowInHomeDashboard:(BOOL)dashboard
+{
+  v3 = [*(&self->super.super.super.isa + OBJC_IVAR____TtC4Home23MatterAccessoryLikeItem_matterAccessoryRepresentable) hf:dashboard updateShowInHomeDashboard:?];
+
+  return v3;
+}
+
+- (id)hf_updateIsFavorite:(BOOL)favorite
+{
+  v3 = [*(&self->super.super.super.isa + OBJC_IVAR____TtC4Home23MatterAccessoryLikeItem_matterAccessoryRepresentable) hf:favorite updateIsFavorite:?];
+
+  return v3;
+}
+
+- (id)hf_updateIsVisibleInHomeStatus:(BOOL)status
+{
+  v3 = [*(&self->super.super.super.isa + OBJC_IVAR____TtC4Home23MatterAccessoryLikeItem_matterAccessoryRepresentable) hf:status updateIsVisibleInHomeStatus:?];
+
+  return v3;
+}
+
 - (id)copyWithValueSource:(id)source
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v5 = MatterAccessoryLikeItem.copy(with:)();
+  v6 = MatterAccessoryLikeItem.copy(with:)(source);
   swift_unknownObjectRelease();
 
-  return v5;
+  return v6;
 }
 
 - (HMHome)home
@@ -119,9 +143,10 @@
 {
   homeCopy = home;
   selfCopy = self;
-  v6 = MatterAccessoryLikeItem.currentStateActionBuilders(for:)(homeCopy);
+  MatterAccessoryLikeItem.currentStateActionBuilders(for:)(homeCopy);
+  v7 = v6;
 
-  return v6;
+  return v7;
 }
 
 @end

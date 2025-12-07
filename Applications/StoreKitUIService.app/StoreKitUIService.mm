@@ -5,11 +5,11 @@ void sub_100002644(id a1)
   _objc_release_x1();
 }
 
-void sub_1000041DC(uint64_t a1)
+void sub_1000041DC(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    sub_10002BFBC(a1);
+    sub_10002BFBC();
   }
 }
 
@@ -21,7 +21,7 @@ void sub_100004224(uint64_t a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_10002C03C(a1);
+      sub_10002C03C();
     }
   }
 
@@ -212,9 +212,9 @@ void sub_100005140(uint64_t a1)
   [WeakRetained _serviceConnectionInvalidated];
 }
 
-void sub_1000060D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000060D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -296,7 +296,7 @@ LABEL_4:
         do
         {
           v8 = [v1 objectAtIndexedSubscript:v7];
-          v9 = sub_1000061D8();
+          v9 = sub_1000061D8(v8);
           v10 = v9;
           if (v9)
           {
@@ -337,14 +337,14 @@ LABEL_5:
   return v3;
 }
 
-void sub_100006484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100006484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -360,7 +360,7 @@ uint64_t sub_1000064B8(uint64_t result, uint64_t a2)
 void sub_1000064D0(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v9 = a2;
-  v7 = sub_1000061D8();
+  v7 = sub_1000061D8(v9);
   if (v7 != v9)
   {
     v8 = v7;
@@ -488,9 +488,8 @@ void sub_1000087D0(uint64_t a1, uint64_t a2, void *a3)
 
     if (v14)
     {
-      v26[0] = 0;
-      LODWORD(v23) = 2;
-      v15 = _os_log_send_and_compose_impl();
+      v25[0] = 0;
+      v15 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, v13, 16, "Review service controller deallocated at review completion", v25, 2);
 
       if (!v15)
       {
@@ -499,7 +498,7 @@ LABEL_22:
         goto LABEL_23;
       }
 
-      v13 = [NSString stringWithCString:v15 encoding:4, v26, v23];
+      v13 = [NSString stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog();
     }
@@ -550,12 +549,12 @@ LABEL_21:
     v21 = [v20 localizedStringForKey:@"TOAST_REVIEW_FINISHED_SECONDARY" value:&stru_100052318 table:0];
     v22 = [v17 initWithTitle:v19 description:v21 image:v9];
 
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_100008B04;
-    v24[3] = &unk_100051148;
-    v25 = v7;
-    [v22 presentFromViewController:v25 completion:v24];
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100008B04;
+    v23[3] = &unk_100051148;
+    v24 = v7;
+    [v22 presentFromViewController:v24 completion:v23];
 
     goto LABEL_22;
   }
@@ -582,43 +581,46 @@ void sub_1000092F8(uint64_t a1, void *a2)
   v5 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v6) = v5 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v6) = v5;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  v8 = *(a1 + 32);
-  *v12 = 138412546;
-  *&v12[4] = objc_opt_class();
-  *&v12[12] = 2112;
-  *&v12[14] = v3;
-  v9 = *&v12[4];
-  LODWORD(v11) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v10 = 138412546;
+  v11 = objc_opt_class();
+  v12 = 2112;
+  v13 = v3;
+  v8 = v11;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, v7, 16, "[%@]: StoreKit service XPC error: %@", &v10, 22);
 
-  if (v10)
+  if (v9)
   {
-    v7 = [NSString stringWithCString:v10 encoding:4, v12, v11, *v12, *&v12[16]];
-    free(v10);
+    v7 = [NSString stringWithCString:v9 encoding:4];
+    free(v9);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
-  (*(*(a1 + 40) + 16))();
+  (*(*(a1 + 40) + 16))(*(a1 + 40));
 }
 
 void sub_10000948C(uint64_t a1, void *a2, void *a3)
@@ -635,100 +637,106 @@ void sub_10000948C(uint64_t a1, void *a2, void *a3)
       v10 = [v7 _inAppConfigurationWithItemID:v6 bundleID:v8 title:v9 icon:*(a1 + 56) sandboxed:*(a1 + 80) storeExternalVersionID:*(a1 + 64)];
 
       (*(*(a1 + 72) + 16))();
-LABEL_24:
+LABEL_26:
 
-      goto LABEL_25;
+      goto LABEL_27;
     }
 
-    v18 = +[SSLogConfig sharedConfig];
-    v19 = [v18 shouldLog];
-    if ([v18 shouldLogToDisk])
+    v17 = +[SSLogConfig sharedConfig];
+    v18 = [v17 shouldLog];
+    if ([v17 shouldLogToDisk])
     {
-      v20 = v19 | 2;
+      LODWORD(v19) = v18 | 2;
     }
 
     else
     {
-      v20 = v19;
+      LODWORD(v19) = v18;
     }
 
-    v21 = [v18 OSLogObject];
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = [v17 OSLogObject];
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v20 &= 2u;
+      v19 = v19;
     }
 
-    if (v20)
+    else
     {
-      v22 = *(a1 + 32);
-      v23 = objc_opt_class();
-      v24 = *(a1 + 40);
-      *v28 = 138412546;
-      *&v28[4] = v23;
-      *&v28[12] = 2112;
-      *&v28[14] = v24;
-      v25 = v23;
-      LODWORD(v27) = 22;
-      v26 = _os_log_send_and_compose_impl();
+      v19 &= 2u;
+    }
 
-      if (!v26)
+    if (v19)
+    {
+      v21 = objc_opt_class();
+      v22 = *(a1 + 40);
+      v25 = 138412546;
+      v26 = v21;
+      v27 = 2112;
+      v28 = v22;
+      v23 = v21;
+      v24 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, v20, 16, "[%@] Item ID for bundle ID '%@' not found", &v25, 22);
+
+      if (!v24)
       {
-LABEL_23:
+LABEL_25:
 
-        (*(*(a1 + 72) + 16))();
-        goto LABEL_24;
+        (*(*(a1 + 72) + 16))(*(a1 + 72));
+        goto LABEL_26;
       }
 
-      v21 = [NSString stringWithCString:v26 encoding:4, v28, v27, *v28, *&v28[8]];
-      free(v26);
+      v20 = [NSString stringWithCString:v24 encoding:4];
+      free(v24);
       SSFileLog();
     }
 
-    goto LABEL_23;
+    goto LABEL_25;
   }
 
   v11 = +[SSLogConfig sharedConfig];
   v12 = [v11 shouldLog];
   if ([v11 shouldLogToDisk])
   {
-    v13 = v12 | 2;
+    LODWORD(v13) = v12 | 2;
   }
 
   else
   {
-    v13 = v12;
+    LODWORD(v13) = v12;
   }
 
   v14 = [v11 OSLogObject];
-  if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
 
   if (!v13)
   {
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-  v15 = *(a1 + 32);
-  *v28 = 138412546;
-  *&v28[4] = objc_opt_class();
-  *&v28[12] = 2112;
-  *&v28[14] = v5;
-  v16 = *&v28[4];
-  LODWORD(v27) = 22;
-  v17 = _os_log_send_and_compose_impl();
+  v25 = 138412546;
+  v26 = objc_opt_class();
+  v27 = 2112;
+  v28 = v5;
+  v15 = v26;
+  v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, v14, 16, "[%@] Item ID lookup error: %@", &v25, 22);
 
-  if (v17)
+  if (v16)
   {
-    v14 = [NSString stringWithCString:v17 encoding:4, v28, v27, *v28, *&v28[16]];
-    free(v17);
+    v14 = [NSString stringWithCString:v16 encoding:4];
+    free(v16);
     SSFileLog();
-LABEL_12:
+LABEL_13:
   }
 
-  (*(*(a1 + 72) + 16))();
-LABEL_25:
+  (*(*(a1 + 72) + 16))(*(a1 + 72));
+LABEL_27:
 }
 
 void sub_100009CF8(uint64_t a1)
@@ -931,8 +939,7 @@ BOOL sub_10000D270(_OWORD *a1, const __CFString *a2)
     {
       token.val[0] = 138412290;
       *&token.val[1] = error;
-      LODWORD(v16) = 12;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, v10, 0, "Unable to get entitlements: %@", &token, 12);
 
       if (!v12)
       {
@@ -942,7 +949,7 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      v10 = [NSString stringWithCString:v12 encoding:4, &token, v16];
+      v10 = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
@@ -967,10 +974,11 @@ LABEL_14:
   return v14;
 }
 
-void sub_10000E7E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_10000E7E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a18, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1146,9 +1154,9 @@ id sub_100011E18()
   return v1;
 }
 
-void sub_100011EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100011EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1235,7 +1243,7 @@ Class sub_100013044(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1255,7 +1263,6 @@ LABEL_4:
 
 uint64_t sub_100013188(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100069548 = result;
   return result;
@@ -1278,48 +1285,51 @@ void sub_100014168(uint64_t a1, uint64_t a2, void *a3)
     v8 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v9) = v8;
     }
 
     v10 = [v7 OSLogObject];
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      *v15 = 138543618;
-      *&v15[4] = objc_opt_class();
-      *&v15[12] = 2112;
-      *&v15[14] = v5;
-      v11 = *&v15[4];
-      LODWORD(v14) = 22;
-      v13 = v15;
-      v12 = _os_log_send_and_compose_impl();
+      v14 = 138543618;
+      v15 = objc_opt_class();
+      v16 = 2112;
+      v17 = v5;
+      v11 = v15;
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, v10, 0, "%{public}@: Could not load configuration, reason: %@", &v14, 22);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      v10 = [NSString stringWithCString:v12 encoding:4, v15, v14, *v15, *&v15[16]];
+      v10 = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       v13 = v10;
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
   [WeakRetained _loadURLWithActiveConfiguration:{*(a1 + 32), v13}];
 }
 
@@ -1330,9 +1340,9 @@ void sub_1000146C0(uint64_t a1)
   [v1 dismissAnimated:0];
 }
 
-void sub_100014F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100014F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1378,89 +1388,92 @@ void sub_100015D28(uint64_t a1, void *a2, void *a3)
 void sub_100015E00(uint64_t a1)
 {
   v2 = [*(a1 + 32) object];
-  v3 = *(a1 + 40);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v15 = +[SSLogConfig sharedConfig];
-    v16 = [v15 shouldLog];
-    if ([v15 shouldLogToDisk])
+    v14 = +[SSLogConfig sharedConfig];
+    v15 = [v14 shouldLog];
+    if ([v14 shouldLogToDisk])
     {
-      v17 = v16 | 2;
+      LODWORD(v16) = v15 | 2;
     }
 
     else
     {
-      v17 = v16;
+      LODWORD(v16) = v15;
     }
 
-    v18 = [v15 OSLogObject];
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = [v14 OSLogObject];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v17 &= 2u;
+      v16 = v16;
     }
 
-    if (v17)
+    else
     {
-      *v22 = 138543618;
-      *&v22[4] = objc_opt_class();
-      *&v22[12] = 2112;
-      *&v22[14] = @"paymentsAndShippingUrl";
-      v19 = *&v22[4];
-      LODWORD(v21) = 22;
-      v20 = _os_log_send_and_compose_impl();
+      v16 &= 2u;
+    }
 
-      if (!v20)
+    if (v16)
+    {
+      v20 = 138543618;
+      v21 = objc_opt_class();
+      v22 = 2112;
+      v23 = @"paymentsAndShippingUrl";
+      v18 = v21;
+      v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, v17, 16, "%{public}@: Bag key for %@ was not found", &v20, 22);
+
+      if (!v19)
       {
-LABEL_16:
+LABEL_17:
 
         [v2 _presentErrorViewControllerWithError:*(a1 + 48)];
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      v18 = [NSString stringWithCString:v20 encoding:4, v22, v21, *v22, *&v22[16]];
-      free(v20);
+      v17 = [NSString stringWithCString:v19 encoding:4];
+      free(v19);
       SSFileLog();
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
-  v4 = [[NSURL alloc] initWithString:*(a1 + 40)];
-  v5 = [[SUAccountViewController alloc] initWithExternalAccountURL:v4];
-  v6 = [v2 account];
-  [v5 setAccount:v6];
+  v3 = [[NSURL alloc] initWithString:*(a1 + 40)];
+  v4 = [[SUAccountViewController alloc] initWithExternalAccountURL:v3];
+  v5 = [v2 account];
+  [v4 setAccount:v5];
 
   if (objc_opt_respondsToSelector())
   {
-    [v5 setShowAccountGlyph:{objc_msgSend(v2, "showAccountGlyph")}];
+    [v4 setShowAccountGlyph:{objc_msgSend(v2, "showAccountGlyph")}];
   }
+
+  v6 = [v2 clientInterface];
+  [v6 setShowDialogOnError:1];
 
   v7 = [v2 clientInterface];
-  [v7 setShowDialogOnError:1];
+  [v4 setClientInterface:v7];
 
-  v8 = [v2 clientInterface];
-  [v5 setClientInterface:v8];
+  v8 = [v4 authenticationContext];
+  v9 = [v8 mutableCopy];
 
-  v9 = [v5 authenticationContext];
-  v10 = [v9 mutableCopy];
-
-  if (!v10)
+  if (!v9)
   {
-    v11 = [SSMutableAuthenticationContext alloc];
-    v12 = [SSAccount alloc];
-    v13 = [v2 account];
-    v14 = [v12 initWithBackingAccount:v13];
-    v10 = [v11 initWithAccount:v14];
+    v10 = [SSMutableAuthenticationContext alloc];
+    v11 = [SSAccount alloc];
+    v12 = [v2 account];
+    v13 = [v11 initWithBackingAccount:v12];
+    v9 = [v10 initWithAccount:v13];
   }
 
-  [v10 setDisplaysOnLockScreen:1];
-  [v5 setAuthenticationContext:v10];
-  [v5 setStyle:0];
-  [v2 setPresentedAccountViewController:v5];
-  [v2 _presentViewController:v5];
+  [v9 setDisplaysOnLockScreen:1];
+  [v4 setAuthenticationContext:v9];
+  [v4 setStyle:0];
+  [v2 setPresentedAccountViewController:v4];
+  [v2 _presentViewController:v4];
 
-LABEL_17:
+LABEL_18:
 }
 
 void sub_100016138(uint64_t a1, void *a2, void *a3)
@@ -1544,9 +1557,9 @@ void sub_1000167A0(uint64_t a1)
   [WeakRetained dismissHostViewControllerWithResult:0 error:*(a1 + 32)];
 }
 
-void sub_1000172DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000172DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1575,9 +1588,9 @@ id sub_1000172F4()
   return v1;
 }
 
-void sub_1000173BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000173BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1646,7 +1659,7 @@ Class sub_100017F34(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1666,7 +1679,6 @@ LABEL_4:
 
 uint64_t sub_100018078(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100069558 = result;
   return result;
@@ -1706,7 +1718,7 @@ void sub_100018144()
   v0 = v1[0];
   if (!qword_100069568)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -1719,7 +1731,6 @@ LABEL_7:
 
 uint64_t sub_100018240(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100069568 = result;
   return result;
@@ -1737,7 +1748,7 @@ Class sub_1000182B4(uint64_t a1)
 
   else
   {
-    v3 = sub_10002C538();
+    sub_10002C538();
     return +[(ServiceHostRegistry *)v3];
   }
 
@@ -1792,24 +1803,23 @@ void sub_100018CF4(uint64_t a1, void *a2)
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v10 = objc_opt_class();
   v11 = *(a1 + 32);
-  v19 = v10;
+  v18 = v10;
   v12 = objc_loadWeakRetained((a1 + 40));
   v13 = [v12 _hostApplicationBundleIdentifier];
   v14 = *(a1 + 48);
-  v20 = 138544130;
-  v21 = v10;
-  v22 = 2114;
-  v23 = v11;
-  v24 = 2112;
-  v25 = v13;
-  v26 = 2048;
-  v27 = v14;
-  LODWORD(v18) = 42;
-  v15 = _os_log_send_and_compose_impl();
+  v19 = 138544130;
+  v20 = v10;
+  v21 = 2114;
+  v22 = v11;
+  v23 = 2112;
+  v24 = v13;
+  v25 = 2048;
+  v26 = v14;
+  v15 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v7, 2, "[%{public}@][%{public}@]: Setting up extension with client: %@, bagType: %li", &v19, 42);
 
   if (v15)
   {
-    v7 = [NSString stringWithCString:v15 encoding:4, &v20, v18];
+    v7 = [NSString stringWithCString:v15 encoding:4];
     free(v15);
     SSFileLog();
 LABEL_10:
@@ -1901,46 +1911,51 @@ void sub_100019F9C(uint64_t a1, void *a2)
   v6 = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = v6 | 2;
+    LODWORD(v7) = v6 | 2;
   }
 
   else
   {
-    v7 = v6;
+    LODWORD(v7) = v6;
   }
 
   v8 = [v5 OSLogObject];
-  if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v9 = objc_opt_class();
   v11 = *(a1 + 32);
   v10 = *(a1 + 40);
   v14 = v9;
-  [WeakRetained _hostApplicationBundleIdentifier];
+  v12 = [WeakRetained _hostApplicationBundleIdentifier];
   v15 = 138544130;
   v16 = v9;
   v17 = 2114;
   v18 = v11;
   v19 = 2112;
   v20 = v10;
-  v22 = v21 = 2112;
-  LODWORD(v13) = 42;
-  v12 = _os_log_send_and_compose_impl();
+  v21 = 2112;
+  v22 = v12;
+  v13 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, v8, 2, "[%{public}@][%{public}@]: Loading request: %@ for client: %@", &v15, 42);
 
-  if (v12)
+  if (v13)
   {
-    v8 = [NSString stringWithCString:v12 encoding:4, &v15, v13];
-    free(v12);
+    v8 = [NSString stringWithCString:v13 encoding:4];
+    free(v13);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   [v3 loadProductWithRequest:*(a1 + 40)];
@@ -2026,16 +2041,21 @@ void sub_10001C988(uint64_t a1, uint64_t a2)
     v6 = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = v6 | 2;
+      LODWORD(v7) = v6 | 2;
     }
 
     else
     {
-      v7 = v6;
+      LODWORD(v7) = v6;
     }
 
     v8 = [v5 OSLogObject];
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -2045,36 +2065,35 @@ void sub_10001C988(uint64_t a1, uint64_t a2)
       v9 = objc_opt_class();
       v10 = *(a1 + 32);
       v11 = *(a1 + 40);
-      *v16 = 138543874;
-      *&v16[4] = v9;
-      *&v16[12] = 2114;
-      *&v16[14] = v10;
-      *&v16[22] = 2114;
-      v17 = v11;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = v10;
+      v19 = 2114;
+      v20 = v11;
       v12 = v9;
-      LODWORD(v15) = 32;
-      v13 = _os_log_send_and_compose_impl();
+      v13 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, v8, 16, "[%{public}@][%{public}@]: Unable to retrieve remote view controller for item %{public}@", &v15, 32);
 
       if (!v13)
       {
-LABEL_12:
+LABEL_13:
 
         v14 = [NSError errorWithDomain:SKErrorDomain code:0 userInfo:0];
-        (*(*(a1 + 48) + 16))();
+        (*(*(a1 + 48) + 16))(*(a1 + 48));
 
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      v8 = [NSString stringWithCString:v13 encoding:4, v16, v15, *v16, *&v16[16], v17];
+      v8 = [NSString stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog();
     }
 
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
   (*(*(a1 + 48) + 16))();
-LABEL_13:
+LABEL_14:
 }
 
 void sub_10001CB9C(uint64_t a1, void *a2)
@@ -2085,21 +2104,26 @@ void sub_10001CB9C(uint64_t a1, void *a2)
   if (![v5 isEqualToString:SKErrorDomain])
   {
 
-LABEL_14:
+LABEL_15:
     v7 = +[SSLogConfig sharedConfig];
     v16 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v17 = v16 | 2;
+      LODWORD(v17) = v16 | 2;
     }
 
     else
     {
-      v17 = v16;
+      LODWORD(v17) = v16;
     }
 
     v18 = [v7 OSLogObject];
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
@@ -2108,83 +2132,86 @@ LABEL_14:
     {
       v19 = objc_opt_class();
       v20 = *(a1 + 32);
-      *v24 = 138543874;
-      *&v24[4] = v19;
-      *&v24[12] = 2114;
-      *&v24[14] = v20;
-      *&v24[22] = 2114;
-      v25 = v3;
+      v23 = 138543874;
+      v24 = v19;
+      v25 = 2114;
+      v26 = v20;
+      v27 = 2114;
+      v28 = v3;
       v21 = v19;
-      LODWORD(v23) = 32;
-      v22 = _os_log_send_and_compose_impl();
+      v22 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, v18, 16, "[%{public}@][%{public}@]: Failed to lookup product. Error: %{public}@", &v23, 32);
 
       if (!v22)
       {
-        goto LABEL_23;
+        goto LABEL_25;
       }
 
-      v18 = [NSString stringWithCString:v22 encoding:4, v24, v23, *v24, *&v24[8], v25];
+      v18 = [NSString stringWithCString:v22 encoding:4];
       free(v22);
       SSFileLog();
     }
 
-    goto LABEL_23;
+    goto LABEL_25;
   }
 
   v6 = [v3 code];
 
   if (v6 != 5)
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v7 = +[SSLogConfig sharedConfig];
   v8 = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = v8 | 2;
+    LODWORD(v9) = v8 | 2;
   }
 
   else
   {
-    v9 = v8;
+    LODWORD(v9) = v8;
   }
 
   v10 = [v7 OSLogObject];
-  if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   v11 = objc_opt_class();
   v12 = *(a1 + 32);
   v13 = *(a1 + 40);
-  *v24 = 138543874;
-  *&v24[4] = v11;
-  *&v24[12] = 2114;
-  *&v24[14] = v12;
-  *&v24[22] = 2114;
-  v25 = v13;
+  v23 = 138543874;
+  v24 = v11;
+  v25 = 2114;
+  v26 = v12;
+  v27 = 2114;
+  v28 = v13;
   v14 = v11;
-  LODWORD(v23) = 32;
-  v15 = _os_log_send_and_compose_impl();
+  v15 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, v10, 0, "[%{public}@][%{public}@]: Product lookup for %{public}@ not found.", &v23, 32);
 
   if (v15)
   {
-    v10 = [NSString stringWithCString:v15 encoding:4, v24, v23, *v24, *&v24[16], v25];
+    v10 = [NSString stringWithCString:v15 encoding:4];
     free(v15);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
-LABEL_23:
+LABEL_25:
 
-  (*(*(a1 + 48) + 16))();
+  (*(*(a1 + 48) + 16))(*(a1 + 48));
 }
 
 void sub_10001D25C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location)
@@ -2210,60 +2237,64 @@ void sub_10001D280(uint64_t a1, void *a2, void *a3)
       if (v9)
       {
         v11 = *(a1 + 56);
-LABEL_27:
-        v21 = *(v11 + 16);
-        goto LABEL_28;
+LABEL_29:
+        (*(v11 + 16))(v11);
+        goto LABEL_30;
       }
 
-LABEL_17:
-      v22 = +[SSLogConfig sharedConfig];
-      v23 = [v22 shouldLog];
-      if ([v22 shouldLogToDisk])
+LABEL_18:
+      v21 = +[SSLogConfig sharedConfig];
+      v22 = [v21 shouldLog];
+      if ([v21 shouldLogToDisk])
       {
-        v24 = v23 | 2;
+        LODWORD(v23) = v22 | 2;
       }
 
       else
       {
-        v24 = v23;
+        LODWORD(v23) = v22;
       }
 
-      v25 = [v22 OSLogObject];
-      if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = [v21 OSLogObject];
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        v24 &= 2u;
+        v23 = v23;
       }
 
-      if (v24)
+      else
       {
-        v26 = objc_opt_class();
-        v27 = *(a1 + 32);
-        v28 = *(a1 + 40);
-        *v32 = 138543874;
-        *&v32[4] = v26;
-        *&v32[12] = 2114;
-        *&v32[14] = v27;
-        *&v32[22] = 2114;
-        v33 = v28;
-        v29 = v26;
-        LODWORD(v31) = 32;
-        v30 = _os_log_send_and_compose_impl();
+        v23 &= 2u;
+      }
 
-        if (!v30)
+      if (v23)
+      {
+        v25 = objc_opt_class();
+        v26 = *(a1 + 32);
+        v27 = *(a1 + 40);
+        v30 = 138543874;
+        v31 = v25;
+        v32 = 2114;
+        v33 = v26;
+        v34 = 2114;
+        v35 = v27;
+        v28 = v25;
+        v29 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, v24, 16, "[%{public}@][%{public}@]: Lookup for %{public}@ completed without an item.", &v30, 32);
+
+        if (!v29)
         {
-LABEL_26:
+LABEL_28:
 
           v10 = [NSError errorWithDomain:SKErrorDomain code:5 userInfo:0];
           v11 = *(a1 + 48);
-          goto LABEL_27;
+          goto LABEL_29;
         }
 
-        v25 = [NSString stringWithCString:v30 encoding:4, v32, v31, *v32, *&v32[8], v33];
-        free(v30);
+        v24 = [NSString stringWithCString:v29 encoding:4];
+        free(v29);
         SSFileLog();
       }
 
-      goto LABEL_26;
+      goto LABEL_28;
     }
   }
 
@@ -2271,7 +2302,7 @@ LABEL_26:
   {
     if (!v5)
     {
-      goto LABEL_17;
+      goto LABEL_18;
     }
 
     v10 = 0;
@@ -2281,51 +2312,54 @@ LABEL_26:
   v13 = [v12 shouldLog];
   if ([v12 shouldLogToDisk])
   {
-    v14 = v13 | 2;
+    LODWORD(v14) = v13 | 2;
   }
 
   else
   {
-    v14 = v13;
+    LODWORD(v14) = v13;
   }
 
   v15 = [v12 OSLogObject];
-  if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  {
+    v14 = v14;
+  }
+
+  else
   {
     v14 &= 2u;
   }
 
   if (!v14)
   {
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
   v16 = objc_opt_class();
   v17 = *(a1 + 32);
   v18 = *(a1 + 40);
-  *v32 = 138544130;
-  *&v32[4] = v16;
-  *&v32[12] = 2114;
-  *&v32[14] = v17;
-  *&v32[22] = 2114;
-  v33 = v18;
-  LOWORD(v34) = 2114;
-  *(&v34 + 2) = v5;
+  v30 = 138544130;
+  v31 = v16;
+  v32 = 2114;
+  v33 = v17;
+  v34 = 2114;
+  v35 = v18;
+  v36 = 2114;
+  v37 = v5;
   v19 = v16;
-  LODWORD(v31) = 42;
-  v20 = _os_log_send_and_compose_impl();
+  v20 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, v15, 16, "[%{public}@][%{public}@]: Lookup for %{public}@ completed with error: %{public}@", &v30, 42);
 
   if (v20)
   {
-    v15 = [NSString stringWithCString:v20 encoding:4, v32, v31, *v32, *&v32[16], v33, v34];
+    v15 = [NSString stringWithCString:v20 encoding:4];
     free(v20);
     SSFileLog();
-LABEL_15:
+LABEL_16:
   }
 
-  v21 = *(*(a1 + 48) + 16);
-LABEL_28:
-  v21();
+  (*(*(a1 + 48) + 16))(*(a1 + 48));
+LABEL_30:
 }
 
 void sub_10001D838(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
@@ -2364,30 +2398,30 @@ void sub_10001D990(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   if (WeakRetained)
   {
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x3032000000;
-    v33 = sub_10001DD70;
-    v34 = sub_10001DD80;
-    v35 = 0;
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_10001DD88;
-    v27[3] = &unk_100051B98;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x3032000000;
+    v32 = sub_10001DD70;
+    v33 = sub_10001DD80;
+    v34 = 0;
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_10001DD88;
+    v26[3] = &unk_100051B98;
     v3 = *(a1 + 32);
-    v28 = *(a1 + 40);
-    v29 = &v30;
-    [v3 enumerateObjectsUsingBlock:v27];
-    [WeakRetained _makeItemKindEventForItem:*(a1 + 40) extension:v31[5]];
-    v4 = v31[5];
+    v27 = *(a1 + 40);
+    v28 = &v29;
+    [v3 enumerateObjectsUsingBlock:v26];
+    [WeakRetained _makeItemKindEventForItem:*(a1 + 40) extension:v30[5]];
+    v4 = v30[5];
     if (v4)
     {
-      v22[0] = _NSConcreteStackBlock;
-      v22[1] = 3221225472;
-      v22[2] = sub_10001E0DC;
-      v22[3] = &unk_100051BC0;
-      objc_copyWeak(&v26, (a1 + 72));
-      v25 = &v30;
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_10001E0DC;
+      v21[3] = &unk_100051BC0;
+      objc_copyWeak(&v25, (a1 + 72));
+      v24 = &v29;
       v5 = *(a1 + 48);
       v6 = *(a1 + 64);
       v7 = *(a1 + 40);
@@ -2395,30 +2429,35 @@ void sub_10001D990(uint64_t a1)
       *(&v8 + 1) = v6;
       *&v9 = v5;
       *(&v9 + 1) = v7;
-      v23 = v9;
-      v24 = v8;
-      v10 = [ServiceResilientRemoteViewContainerViewController instantiateWithExtension:v4 completion:v22];
+      v22 = v9;
+      v23 = v8;
+      v10 = [ServiceResilientRemoteViewContainerViewController instantiateWithExtension:v4 completion:v21];
       v11 = WeakRetained[9];
       WeakRetained[9] = v10;
 
-      objc_destroyWeak(&v26);
-LABEL_14:
+      objc_destroyWeak(&v25);
+LABEL_15:
 
-      _Block_object_dispose(&v30, 8);
-      goto LABEL_15;
+      _Block_object_dispose(&v29, 8);
+      goto LABEL_16;
     }
 
     v12 = +[SSLogConfig sharedConfig];
-    v13 = [v12 shouldLog];
+    LODWORD(v13) = [v12 shouldLog];
     v14 = [v12 shouldLogToDisk];
     v15 = [v12 OSLogObject];
     v16 = v15;
     if (v14)
     {
-      v13 |= 2u;
+      LODWORD(v13) = v13 | 2;
     }
 
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
@@ -2427,32 +2466,38 @@ LABEL_14:
     {
       v17 = objc_opt_class();
       v18 = *(a1 + 48);
-      v36 = 138543618;
-      v37 = v17;
-      v38 = 2114;
-      v39 = v18;
+      v35 = 138543618;
+      v36 = v17;
+      v37 = 2114;
+      v38 = v18;
       v19 = v17;
-      LODWORD(v21) = 22;
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, v16, 0, "[%{public}@][%{public}@]: No extension found to handle product.", &v35, 22);
 
       if (!v20)
       {
-LABEL_13:
+LABEL_14:
 
-        (*(*(a1 + 64) + 16))();
-        goto LABEL_14;
+        (*(*(a1 + 64) + 16))(*(a1 + 64));
+        goto LABEL_15;
       }
 
-      v16 = [NSString stringWithCString:v20 encoding:4, &v36, v21];
+      v16 = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   (*(*(a1 + 64) + 16))();
-LABEL_15:
+LABEL_16:
+}
+
+void sub_10001DD2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_10001DD70(uint64_t result, uint64_t a2)
@@ -2599,16 +2644,21 @@ void sub_10001E0DC(uint64_t a1, void *a2, void *a3, void *a4)
     v13 = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
-      v14 = v13 | 2;
+      LODWORD(v14) = v13 | 2;
     }
 
     else
     {
-      v14 = v13;
+      LODWORD(v14) = v13;
     }
 
     v15 = [v12 OSLogObject];
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      v14 = v14;
+    }
+
+    else
     {
       v14 &= 2u;
     }
@@ -2617,31 +2667,30 @@ void sub_10001E0DC(uint64_t a1, void *a2, void *a3, void *a4)
     {
       v16 = objc_opt_class();
       v17 = *(a1 + 32);
-      v24 = 138543874;
-      v25 = v16;
-      v26 = 2114;
-      v27 = v17;
-      v28 = 2114;
-      v29 = v8;
+      v23 = 138543874;
+      v24 = v16;
+      v25 = 2114;
+      v26 = v17;
+      v27 = 2114;
+      v28 = v8;
       v18 = v16;
-      LODWORD(v20) = 32;
-      v19 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, v15, 16, "[%{public}@][%{public}@]: Failed to retrieve remote view controller with error %{public}@.", &v23, 32);
 
       if (!v19)
       {
-LABEL_14:
+LABEL_15:
 
         [WeakRetained _cleanUpExtension];
-        (*(*(a1 + 56) + 16))();
-        goto LABEL_15;
+        (*(*(a1 + 56) + 16))(*(a1 + 56));
+        goto LABEL_16;
       }
 
-      v15 = [NSString stringWithCString:v19 encoding:4, &v24, v20];
+      v15 = [NSString stringWithCString:v19 encoding:4];
       free(v19);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   [WeakRetained _didReceiveRemoteViewController:v7 forItem:*(a1 + 40) withParameters:*(a1 + 48)];
@@ -2653,14 +2702,14 @@ LABEL_14:
     block[1] = 3221225472;
     block[2] = sub_10001E398;
     block[3] = &unk_1000516B0;
-    objc_copyWeak(&v23, (a1 + 72));
-    v22 = v7;
+    objc_copyWeak(&v22, (a1 + 72));
+    v21 = v7;
     dispatch_after(v11, &_dispatch_main_q, block);
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
   }
 
-LABEL_15:
+LABEL_16:
 }
 
 void sub_10001E398(uint64_t a1)
@@ -2729,16 +2778,15 @@ void sub_10001F5A8(uint64_t a1, uint64_t a2)
         v21 = *(a1 + 32);
         v22 = *(a1 + 40);
         v23 = *(a1 + 48);
-        v35 = 138544130;
-        v36 = WeakRetained;
-        v37 = 2114;
-        v38 = v21;
-        v39 = 2114;
-        v40 = v22;
-        v41 = 2114;
-        v42 = v23;
-        LODWORD(v29) = 42;
-        v24 = _os_log_send_and_compose_impl();
+        v34 = 138544130;
+        v35 = WeakRetained;
+        v36 = 2114;
+        v37 = v21;
+        v38 = 2114;
+        v39 = v22;
+        v40 = 2114;
+        v41 = v23;
+        v24 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, v19, 16, "[%{public}@][%{public}@/%{public}@]: Showing legacy controller for %{public}@.", &v34, 42);
 
         if (!v24)
         {
@@ -2748,17 +2796,17 @@ LABEL_24:
           block[1] = 3221225472;
           block[2] = sub_10001F9E4;
           block[3] = &unk_100051C60;
-          objc_copyWeak(&v34, (a1 + 72));
-          v31 = *(a1 + 48);
-          v32 = *(a1 + 56);
-          v33 = *(a1 + 64);
+          objc_copyWeak(&v33, (a1 + 72));
+          v30 = *(a1 + 48);
+          v31 = *(a1 + 56);
+          v32 = *(a1 + 64);
           dispatch_async(&_dispatch_main_q, block);
 
-          objc_destroyWeak(&v34);
+          objc_destroyWeak(&v33);
           goto LABEL_33;
         }
 
-        v19 = [NSString stringWithCString:v24 encoding:4, &v35, v29];
+        v19 = [NSString stringWithCString:v24 encoding:4];
         free(v24);
         SSFileLog();
       }
@@ -2780,24 +2828,23 @@ LABEL_24:
     {
       v26 = *(a1 + 32);
       v27 = *(a1 + 40);
-      v35 = 138543874;
-      v36 = WeakRetained;
-      v37 = 2114;
-      v38 = v26;
-      v39 = 2114;
-      v40 = v27;
-      LODWORD(v29) = 32;
-      v28 = _os_log_send_and_compose_impl();
+      v34 = 138543874;
+      v35 = WeakRetained;
+      v36 = 2114;
+      v37 = v26;
+      v38 = 2114;
+      v39 = v27;
+      v28 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, v19, 0, "[%{public}@][%{public}@/%{public}@]: Showing product page.", &v34, 32);
 
       if (!v28)
       {
 LABEL_32:
 
-        (*(*(a1 + 64) + 16))();
+        (*(*(a1 + 64) + 16))(*(a1 + 64));
         goto LABEL_33;
       }
 
-      v19 = [NSString stringWithCString:v28 encoding:4, &v35, v29];
+      v19 = [NSString stringWithCString:v28 encoding:4];
       free(v28);
       SSFileLog();
     }
@@ -2836,20 +2883,19 @@ LABEL_32:
   v10 = *(a1 + 32);
   v11 = *(a1 + 40);
   v12 = *(a1 + 48);
-  v35 = 138544130;
-  v36 = WeakRetained;
-  v37 = 2114;
-  v38 = v10;
-  v39 = 2114;
-  v40 = v11;
-  v41 = 2114;
-  v42 = v12;
-  LODWORD(v29) = 42;
-  v13 = _os_log_send_and_compose_impl();
+  v34 = 138544130;
+  v35 = WeakRetained;
+  v36 = 2114;
+  v37 = v10;
+  v38 = 2114;
+  v39 = v11;
+  v40 = 2114;
+  v41 = v12;
+  v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, v8, 16, "[%{public}@][%{public}@/%{public}@]: Failed to get remote controller for %{public}@.", &v34, 42);
 
   if (v13)
   {
-    v8 = [NSString stringWithCString:v13 encoding:4, &v35, v29];
+    v8 = [NSString stringWithCString:v13 encoding:4];
     free(v13);
     SSFileLog();
 LABEL_11:
@@ -2876,7 +2922,6 @@ uint64_t sub_10001FADC(uint64_t a1)
 
 uint64_t sub_10001FEA8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100069588 = objc_opt_new();
 
   return _objc_release_x1();
@@ -2903,9 +2948,9 @@ void sub_100020300(uint64_t a1)
   WeakRetained[4] = 0;
 }
 
-void sub_100020494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100020494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2926,87 +2971,69 @@ void sub_1000204C4(uint64_t a1)
   *(v3 + 40) = v2;
 
   v5 = *(a1 + 56);
-  if (v5 <= 3)
+  if (v5 > 3)
   {
-    if ((v5 - 1) >= 3)
+    switch(v5)
     {
-      if (v5)
-      {
-        goto LABEL_13;
-      }
+      case 4:
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          goto LABEL_12;
+        }
 
-      v8 = *(*(*(a1 + 48) + 8) + 40);
-    }
+        v8 = objc_opt_respondsToSelector();
+        v9 = *(*(a1 + 48) + 8);
+        v7 = *(v9 + 40);
+        if ((v8 & 1) == 0)
+        {
+          *(v9 + 40) = 0;
+          goto LABEL_11;
+        }
 
-    else
-    {
-      v6 = *(*(*(a1 + 48) + 8) + 40);
-    }
-
+        v10 = [v7 stringValue];
+        break;
+      case 5:
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
 LABEL_10:
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      goto LABEL_13;
+          v6 = *(*(a1 + 48) + 8);
+          v7 = *(v6 + 40);
+          *(v6 + 40) = 0;
+LABEL_11:
+
+          goto LABEL_12;
+        }
+
+        v10 = [NSURL URLWithString:*(*(*(a1 + 48) + 8) + 40)];
+        break;
+      case 6:
+LABEL_9:
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          goto LABEL_12;
+        }
+
+        goto LABEL_10;
+      default:
+        goto LABEL_12;
     }
 
+    v11 = v10;
+    v12 = *(*(a1 + 48) + 8);
+    v7 = *(v12 + 40);
+    *(v12 + 40) = v11;
     goto LABEL_11;
   }
 
-  if (v5 != 4)
+  if ((v5 - 1) < 3 || !v5)
   {
-    if (v5 != 5)
-    {
-      if (v5 != 6)
-      {
-        goto LABEL_13;
-      }
+    goto LABEL_9;
+  }
 
-      v7 = *(*(*(a1 + 48) + 8) + 40);
-      goto LABEL_10;
-    }
-
-    v16 = *(*(*(a1 + 48) + 8) + 40);
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-LABEL_11:
-      v9 = *(*(a1 + 48) + 8);
-      v10 = *(v9 + 40);
-      *(v9 + 40) = 0;
 LABEL_12:
-
-      goto LABEL_13;
-    }
-
-    v15 = [NSURL URLWithString:*(*(*(a1 + 48) + 8) + 40)];
-LABEL_22:
-    v17 = v15;
-    v18 = *(*(a1 + 48) + 8);
-    v10 = *(v18 + 40);
-    *(v18 + 40) = v17;
-    goto LABEL_12;
-  }
-
-  v11 = *(*(*(a1 + 48) + 8) + 40);
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v12 = *(*(*(a1 + 48) + 8) + 40);
-    v13 = objc_opt_respondsToSelector();
-    v14 = *(*(a1 + 48) + 8);
-    v10 = *(v14 + 40);
-    if ((v13 & 1) == 0)
-    {
-      *(v14 + 40) = 0;
-      goto LABEL_12;
-    }
-
-    v15 = [v10 stringValue];
-    goto LABEL_22;
-  }
-
-LABEL_13:
   if (!*(*(*(a1 + 48) + 8) + 40) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
     sub_10002C618((a1 + 40), (a1 + 56));
@@ -3065,10 +3092,11 @@ LABEL_13:
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_100020A84(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100020A84(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100020EB4(id a1)
@@ -3117,7 +3145,7 @@ Class sub_100021A2C(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -3137,7 +3165,6 @@ LABEL_4:
 
 uint64_t sub_100021B70(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000695B0 = result;
   return result;
@@ -3188,45 +3215,48 @@ void sub_100021BE4(id a1)
 
 void sub_100022924(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = +[SSLogConfig sharedConfig];
-  v5 = [v4 shouldLog];
-  if ([v4 shouldLogToDisk])
+  v2 = a2;
+  v3 = +[SSLogConfig sharedConfig];
+  v4 = [v3 shouldLog];
+  if ([v3 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v5) = v4 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v5) = v4;
   }
 
-  v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v6 = [v3 OSLogObject];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v6 &= 2u;
+    v5 = v5;
   }
 
-  if (!v6)
+  else
   {
-    goto LABEL_9;
+    v5 &= 2u;
   }
 
-  v8 = *(a1 + 32);
-  *v12 = 138543618;
-  *&v12[4] = objc_opt_class();
-  *&v12[12] = 2114;
-  *&v12[14] = v3;
-  v9 = *&v12[4];
-  LODWORD(v11) = 22;
-  v10 = _os_log_send_and_compose_impl();
-
-  if (v10)
+  if (!v5)
   {
-    v7 = [NSString stringWithCString:v10 encoding:4, v12, v11, *v12, *&v12[16]];
-    free(v10);
+    goto LABEL_10;
+  }
+
+  v9 = 138543618;
+  v10 = objc_opt_class();
+  v11 = 2114;
+  v12 = v2;
+  v7 = v10;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, v6, 16, "[%{public}@]: Failed to retrieve remote proxy for cotent size with error: %{public}@", &v9, 22);
+
+  if (v8)
+  {
+    v6 = [NSString stringWithCString:v8 encoding:4];
+    free(v8);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 }
 
@@ -3234,19 +3264,18 @@ void sub_100022D04(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v8 = *(a1 + 32);
-  v7 = (a1 + 32);
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_100022E7C;
-  v14[3] = &unk_100050FC8;
-  v14[4] = v8;
-  v9 = [v8 _clientViewControllerProxyWithErrorHandler:v14];
+  v7 = *(a1 + 32);
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100022E7C;
+  v13[3] = &unk_100050FC8;
+  v13[4] = v7;
+  v8 = [v7 _clientViewControllerProxyWithErrorHandler:v13];
   if (v6)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_10002C9E0(v7);
+      sub_10002C9E0();
     }
 
     goto LABEL_4;
@@ -3255,64 +3284,67 @@ void sub_100022D04(uint64_t a1, void *a2, void *a3)
   if (!v5)
   {
 LABEL_4:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_10;
   }
 
-  v13 = 0;
-  v10 = [NSKeyedArchiver archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v13];
-  v11 = v13;
-  if (v11 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  v12 = 0;
+  v9 = [NSKeyedArchiver archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v12];
+  v10 = v12;
+  if (v10 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    sub_10002CA60(v7);
+    sub_10002CA60();
   }
 
 LABEL_10:
-  v12 = [v5 userInfo];
-  [v9 engagementTaskDidFinishWithResult:v12 resultData:v10 error:v6 completion:&stru_100051DE0];
+  v11 = [v5 userInfo];
+  [v8 engagementTaskDidFinishWithResult:v11 resultData:v9 error:v6 completion:&stru_100051DE0];
 }
 
 void sub_100022E7C(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = +[SSLogConfig sharedConfig];
-  v5 = [v4 shouldLog];
-  if ([v4 shouldLogToDisk])
+  v2 = a2;
+  v3 = +[SSLogConfig sharedConfig];
+  v4 = [v3 shouldLog];
+  if ([v3 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v5) = v4 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v5) = v4;
   }
 
-  v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v6 = [v3 OSLogObject];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v6 &= 2u;
+    v5 = v5;
   }
 
-  if (!v6)
+  else
   {
-    goto LABEL_9;
+    v5 &= 2u;
   }
 
-  v8 = *(a1 + 32);
-  *v12 = 138543618;
-  *&v12[4] = objc_opt_class();
-  *&v12[12] = 2114;
-  *&v12[14] = v3;
-  v9 = *&v12[4];
-  LODWORD(v11) = 22;
-  v10 = _os_log_send_and_compose_impl();
-
-  if (v10)
+  if (!v5)
   {
-    v7 = [NSString stringWithCString:v10 encoding:4, v12, v11, *v12, *&v12[16]];
-    free(v10);
+    goto LABEL_10;
+  }
+
+  v9 = 138543618;
+  v10 = objc_opt_class();
+  v11 = 2114;
+  v12 = v2;
+  v7 = v10;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, v6, 16, "[%{public}@]: Failed to retreive remote proxy for engagement task with error: %{public}@", &v9, 22);
+
+  if (v8)
+  {
+    v6 = [NSString stringWithCString:v8 encoding:4];
+    free(v8);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 }
 
@@ -3362,53 +3394,57 @@ void sub_1000243BC(uint64_t a1, void *a2)
   v6 = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = v6 | 2;
+    LODWORD(v7) = v6 | 2;
   }
 
   else
   {
-    v7 = v6;
+    LODWORD(v7) = v6;
   }
 
   v8 = [v5 OSLogObject];
-  if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v9 = objc_opt_class();
   v10 = *(a1 + 40);
   v11 = *(*(a1 + 32) + 8);
-  v21 = 138544130;
-  v22 = v9;
-  v23 = 2114;
-  v24 = v11;
-  v25 = 2114;
-  v26 = v10;
-  v27 = 2114;
-  v28 = v3;
+  v20 = 138544130;
+  v21 = v9;
+  v22 = 2114;
+  v23 = v11;
+  v24 = 2114;
+  v25 = v10;
+  v26 = 2114;
+  v27 = v3;
   v12 = v9;
-  LODWORD(v18) = 42;
-  v13 = _os_log_send_and_compose_impl();
+  v13 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, v8, 16, "[%{public}@][%{public}@]: Item not found for ID: %{public}@ with error: %{public}@.", &v20, 42);
 
   if (v13)
   {
-    v8 = [NSString stringWithCString:v13 encoding:4, &v21, v18];
+    v8 = [NSString stringWithCString:v13 encoding:4];
     free(v13);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
-  v19 = NSLocalizedDescriptionKey;
+  v18 = NSLocalizedDescriptionKey;
   v14 = [NSBundle bundleForClass:objc_opt_class()];
   v15 = [v14 localizedStringForKey:@"ITEM_NOT_SHARABLE_TITLE" value:&stru_100052318 table:0];
-  v20 = v15;
-  v16 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+  v19 = v15;
+  v16 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
   v17 = [NSError errorWithDomain:SKErrorDomain code:5 userInfo:v16];
 
   [WeakRetained _loadDidFailWithError:v17];
@@ -3420,46 +3456,49 @@ void sub_10002471C(uint64_t a1)
   v3 = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = v3 | 2;
+    LODWORD(v4) = v3 | 2;
   }
 
   else
   {
-    v4 = v3;
+    LODWORD(v4) = v3;
   }
 
   v5 = [v2 OSLogObject];
-  if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  v6 = *(a1 + 32);
-  v7 = objc_opt_class();
-  v8 = *(a1 + 40);
-  *v13 = 138543618;
-  *&v13[4] = v7;
-  *&v13[12] = 2114;
-  *&v13[14] = v8;
-  v9 = v7;
-  LODWORD(v12) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v6 = objc_opt_class();
+  v7 = *(a1 + 40);
+  v11 = 138543618;
+  v12 = v6;
+  v13 = 2114;
+  v14 = v7;
+  v8 = v6;
+  v9 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &_mh_execute_header, v5, 0, "[%{public}@][%{public}@]: Finish immediately.", &v11, 22);
 
-  if (v10)
+  if (v9)
   {
-    v5 = [NSString stringWithCString:v10 encoding:4, v13, v12, *v13, *&v13[16]];
-    free(v10);
+    v5 = [NSString stringWithCString:v9 encoding:4];
+    free(v9);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
-  v11 = [*(a1 + 32) _clientViewControllerProxy];
-  [v11 didFinishWithResult:&off_100054FE8 error:0];
+  v10 = [*(a1 + 32) _clientViewControllerProxy];
+  [v10 didFinishWithResult:&off_100054FE8 error:0];
 }
 
 void sub_1000249B4(uint64_t a1, void *a2)
@@ -3512,111 +3551,117 @@ void sub_100024CAC(uint64_t a1, void *a2, int a3, void *a4, void *a5)
   v11 = a5;
   if (!v11)
   {
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
   v12 = +[SSLogConfig sharedConfig];
   v13 = [v12 shouldLog];
   if ([v12 shouldLogToDisk])
   {
-    v14 = v13 | 2;
+    LODWORD(v14) = v13 | 2;
   }
 
   else
   {
-    v14 = v13;
+    LODWORD(v14) = v13;
   }
 
   v15 = [v12 OSLogObject];
-  if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  {
+    v14 = v14;
+  }
+
+  else
   {
     v14 &= 2u;
   }
 
   if (!v14)
   {
-    goto LABEL_10;
+    goto LABEL_11;
   }
 
-  v16 = *(a1 + 32);
-  v17 = objc_opt_class();
-  v18 = *(a1 + 40);
-  *v35 = 138543874;
-  *&v35[4] = v17;
-  *&v35[12] = 2114;
-  *&v35[14] = v18;
-  *&v35[22] = 2114;
-  v36 = v11;
-  v19 = v17;
-  LODWORD(v34) = 32;
-  v33 = v35;
-  v20 = _os_log_send_and_compose_impl();
+  v16 = objc_opt_class();
+  v17 = *(a1 + 40);
+  v33 = 138543874;
+  v34 = v16;
+  v35 = 2114;
+  v36 = v17;
+  v37 = 2114;
+  v38 = v11;
+  v18 = v16;
+  v19 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, v15, 16, "[%{public}@][%{public}@]: Activity controller completed with error: %{public}@.", &v33, 32);
 
-  if (v20)
+  if (v19)
   {
-    v15 = [NSString stringWithCString:v20 encoding:4, v35, v34, *v35, *&v35[16], v36];
-    free(v20);
-    v33 = v15;
+    v15 = [NSString stringWithCString:v19 encoding:4];
+    free(v19);
+    v31 = v15;
     SSFileLog();
-LABEL_10:
+LABEL_11:
   }
 
-LABEL_12:
-  v21 = +[SSLogConfig sharedConfig];
-  v22 = [v21 shouldLog];
-  if ([v21 shouldLogToDisk])
+LABEL_13:
+  v20 = +[SSLogConfig sharedConfig];
+  v21 = [v20 shouldLog];
+  if ([v20 shouldLogToDisk])
   {
-    v23 = v22 | 2;
+    LODWORD(v22) = v21 | 2;
   }
 
   else
   {
-    v23 = v22;
+    LODWORD(v22) = v21;
   }
 
-  v24 = [v21 OSLogObject];
-  if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v23 = [v20 OSLogObject];
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v23 &= 2u;
+    v22 = v22;
   }
 
-  if (v23)
+  else
   {
-    v25 = *(a1 + 32);
-    v26 = objc_opt_class();
-    v27 = *(a1 + 40);
-    *v35 = 138543618;
-    *&v35[4] = v26;
-    *&v35[12] = 2114;
-    *&v35[14] = v27;
-    v28 = v26;
-    LODWORD(v34) = 22;
-    v29 = _os_log_send_and_compose_impl();
+    v22 &= 2u;
+  }
 
-    if (!v29)
+  if (v22)
+  {
+    v24 = objc_opt_class();
+    v25 = *(a1 + 40);
+    v33 = 138543618;
+    v34 = v24;
+    v35 = 2114;
+    v36 = v25;
+    v26 = v24;
+    LODWORD(v32) = 22;
+    v27 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, v23, 0, "[%{public}@][%{public}@]: Activity controller completed.", &v33, v32);
+
+    if (!v27)
     {
-      goto LABEL_21;
+      goto LABEL_23;
     }
 
-    v24 = [NSString stringWithCString:v29 encoding:4, v35, v34];
-    free(v29);
+    v23 = [NSString stringWithCString:v27 encoding:4];
+    free(v27);
     SSFileLog();
   }
 
-LABEL_21:
+LABEL_23:
   if (a3)
   {
-    v30 = 2;
+    v28 = 2;
   }
 
   else
   {
-    v30 = 1;
+    v28 = 1;
   }
 
-  v31 = [*(a1 + 32) _clientViewControllerProxy];
-  v32 = [NSNumber numberWithUnsignedInteger:v30];
-  [v31 didFinishWithResult:v32 error:0];
+  v29 = [*(a1 + 32) _clientViewControllerProxy];
+  v30 = [NSNumber numberWithUnsignedInteger:v28];
+  [v29 didFinishWithResult:v30 error:0];
 }
 
 id sub_100024FCC(uint64_t a1)
@@ -3659,136 +3704,140 @@ void sub_100025A3C(uint64_t a1, void *a2, void *a3)
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (!v5)
   {
-    v17 = +[SSLogConfig sharedConfig];
-    v18 = [v17 shouldLog];
-    if ([v17 shouldLogToDisk])
+    v16 = +[SSLogConfig sharedConfig];
+    v17 = [v16 shouldLog];
+    if ([v16 shouldLogToDisk])
     {
-      v19 = v18 | 2;
+      LODWORD(v18) = v17 | 2;
     }
 
     else
     {
-      v19 = v18;
+      LODWORD(v18) = v17;
     }
 
-    v20 = [v17 OSLogObject];
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = [v16 OSLogObject];
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v19 &= 2u;
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 &= 2u;
     }
 
     if (v6)
     {
-      if (v19)
+      if (v18)
       {
-        v21 = objc_opt_class();
-        v22 = *(a1 + 32);
-        *v31 = 138543874;
-        *&v31[4] = v21;
-        *&v31[12] = 2114;
-        *&v31[14] = v22;
-        *&v31[22] = 2114;
-        v32 = v6;
-        v23 = v21;
-        LODWORD(v30) = 32;
-        v24 = _os_log_send_and_compose_impl();
+        v20 = objc_opt_class();
+        v21 = *(a1 + 32);
+        v29 = 138543874;
+        v30 = v20;
+        v31 = 2114;
+        v32 = v21;
+        v33 = 2114;
+        v34 = v6;
+        v22 = v20;
+        v23 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, v19, 16, "[%{public}@][%{public}@] Lookup request completed with error: %{public}@.", &v29, 32);
 
-        if (!v24)
+        if (!v23)
         {
-LABEL_22:
+LABEL_24:
 
-          v16 = *(*(a1 + 48) + 16);
-          goto LABEL_23;
+          (*(*(a1 + 48) + 16))(*(a1 + 48));
+          goto LABEL_25;
         }
 
-        v20 = [NSString stringWithCString:v24 encoding:4, v31, v30, *v31, *&v31[8], v32];
-        free(v24);
+        v19 = [NSString stringWithCString:v23 encoding:4];
+        free(v23);
         SSFileLog();
       }
 
-      goto LABEL_22;
+      goto LABEL_24;
     }
 
-    if (v19)
+    if (v18)
     {
-      v25 = objc_opt_class();
-      v26 = *(a1 + 32);
-      *v31 = 138543618;
-      *&v31[4] = v25;
-      *&v31[12] = 2114;
-      *&v31[14] = v26;
-      v27 = v25;
-      LODWORD(v30) = 22;
-      v28 = _os_log_send_and_compose_impl();
+      v24 = objc_opt_class();
+      v25 = *(a1 + 32);
+      v29 = 138543618;
+      v30 = v24;
+      v31 = 2114;
+      v32 = v25;
+      v26 = v24;
+      v27 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, v19, 16, "[%{public}@][%{public}@] Lookup request completed without a result or error.", &v29, 22);
 
-      if (!v28)
+      if (!v27)
       {
-LABEL_29:
+LABEL_30:
 
-        v29 = [[NSError alloc] initWithDomain:SKErrorDomain code:0 userInfo:0];
-        (*(*(a1 + 48) + 16))();
+        v28 = [[NSError alloc] initWithDomain:SKErrorDomain code:0 userInfo:0];
+        (*(*(a1 + 48) + 16))(*(a1 + 48));
 
-        goto LABEL_24;
+        goto LABEL_25;
       }
 
-      v20 = [NSString stringWithCString:v28 encoding:4, v31, v30, *v31, *&v31[8]];
-      free(v28);
+      v19 = [NSString stringWithCString:v27 encoding:4];
+      free(v27);
       SSFileLog();
     }
 
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
   v8 = +[SSLogConfig sharedConfig];
   v9 = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = v9 | 2;
+    LODWORD(v10) = v9 | 2;
   }
 
   else
   {
-    v10 = v9;
+    LODWORD(v10) = v9;
   }
 
   v11 = [v8 OSLogObject];
-  if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
 
   if (!v10)
   {
-    goto LABEL_10;
+    goto LABEL_11;
   }
 
   v12 = objc_opt_class();
   v13 = *(a1 + 32);
-  *v31 = 138543618;
-  *&v31[4] = v12;
-  *&v31[12] = 2114;
-  *&v31[14] = v13;
+  v29 = 138543618;
+  v30 = v12;
+  v31 = 2114;
+  v32 = v13;
   v14 = v12;
-  LODWORD(v30) = 22;
-  v15 = _os_log_send_and_compose_impl();
+  v15 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, v11, 0, "[%{public}@][%{public}@] Lookup request completed.", &v29, 22);
 
   if (v15)
   {
-    v11 = [NSString stringWithCString:v15 encoding:4, v31, v30, *v31, *&v31[16]];
+    v11 = [NSString stringWithCString:v15 encoding:4];
     free(v15);
     SSFileLog();
-LABEL_10:
+LABEL_11:
   }
 
-  v16 = *(*(a1 + 40) + 16);
-LABEL_23:
-  v16();
-LABEL_24:
+  (*(*(a1 + 40) + 16))(*(a1 + 40));
+LABEL_25:
 }
 
 uint64_t sub_100025F90(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100069608 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
@@ -3846,18 +3895,17 @@ void sub_10002660C(uint64_t a1, void *a2, void *a3)
 
 void sub_1000266E4(uint64_t a1)
 {
-  v4 = [*(a1 + 32) object];
-  v2 = *(a1 + 40);
+  v3 = [*(a1 + 32) object];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = [[NSURL alloc] initWithString:*(a1 + 40)];
-    [v4 loadPageWithURL:v3];
+    v2 = [[NSURL alloc] initWithString:*(a1 + 40)];
+    [v3 loadPageWithURL:v2];
   }
 
   else
   {
-    [v4 _finishLoadWithResult:0 error:*(a1 + 48)];
+    [v3 _finishLoadWithResult:0 error:*(a1 + 48)];
   }
 }
 
@@ -3881,20 +3929,18 @@ void type metadata accessor for AMSAccountMediaType()
   }
 }
 
-NSString sub_100026D40@<X0>(void *a1@<X8>)
+NSString sub_100026D40@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>)
 {
-  result = sub_10002717C();
+  result = sub_10002717C(a2);
   *a1 = result;
   return result;
 }
 
-uint64_t sub_100026D68@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100026D68@<X0>(void *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
@@ -3908,50 +3954,43 @@ uint64_t sub_100026DB0@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_100026DDC(uint64_t a1)
 {
-  v2 = sub_1000271EC(&qword_1000691D0);
-  v3 = sub_1000271EC(&qword_1000691D8);
+  v2 = sub_1000271EC(&qword_1000691D0, &unk_1000391EC);
+  v3 = sub_1000271EC(&qword_1000691D8, &unk_10003918C);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
 
-uint64_t sub_100026EF4(uint64_t *a1, uint64_t *a2)
+uint64_t sub_100026F34(uint64_t a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  return sub_100026F34();
-}
-
-uint64_t sub_100026F34()
-{
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
-uint64_t sub_100026FB8()
+uint64_t sub_100026FB8(uint64_t a1, uint64_t a2)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int sub_10002700C()
+Swift::Int sub_10002700C(uint64_t a1, uint64_t a2)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v0 = Hasher._finalize()();
+  v2 = Hasher._finalize()();
 
-  return v0;
+  return v2;
 }
 
 uint64_t sub_100027084(uint64_t a1, id *a2)
@@ -3968,23 +4007,23 @@ uint64_t sub_1000270FC(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-NSString sub_10002717C()
+NSString sub_10002717C(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v0 = String._bridgeToObjectiveC()();
+  v1 = String._bridgeToObjectiveC()();
 
-  return v0;
+  return v1;
 }
 
-uint64_t sub_1000271B4()
+uint64_t sub_1000271B4(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v0 = String.hashValue.getter();
+  v1 = String.hashValue.getter();
 
-  return v0;
+  return v1;
 }
 
-uint64_t sub_1000271EC(unint64_t *a1)
+uint64_t sub_1000271EC(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -3999,31 +4038,30 @@ uint64_t sub_1000271EC(unint64_t *a1)
 
 uint64_t sub_100027230()
 {
-  v0 = type metadata accessor for SKLogger();
-  v1 = *(*(v0 - 8) + 64);
-  __chkstk_darwin();
-  v3 = &v11 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = MKBGetDeviceLockState();
+  v0 = type metadata accessor for SKLogger(0);
+  __chkstk_darwin(v0);
+  v2 = &v10 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = MKBGetDeviceLockState();
   result = 1;
-  if (v4 && v4 != 3)
+  if (v3 && v3 != 3)
   {
     if (qword_1000691A8 != -1)
     {
       swift_once();
     }
 
-    v6 = sub_100027498(v0, qword_100069E20);
-    sub_1000274D0(v6, v3);
-    v7 = Logger.logObject.getter();
-    v8 = type metadata accessor for Logger();
-    (*(*(v8 - 8) + 8))(v3, v8);
-    v9 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v7, v9))
+    v5 = sub_100027498(v0, qword_100069E20);
+    sub_1000274D0(v5, v2);
+    v6 = Logger.logObject.getter();
+    v7 = type metadata accessor for Logger();
+    (*(*(v7 - 8) + 8))(v2, v7);
+    v8 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v6, v8))
     {
-      v10 = swift_slowAlloc();
-      *v10 = 67109120;
-      *(v10 + 4) = v4;
-      _os_log_impl(&_mh_execute_header, v7, v9, "Device is locked: %d", v10, 8u);
+      v9 = swift_slowAlloc();
+      *v9 = 67109120;
+      *(v9 + 4) = v3;
+      _os_log_impl(&_mh_execute_header, v6, v8, "Device is locked: %d", v9, 8u);
     }
 
     return 0;
@@ -4058,7 +4096,7 @@ uint64_t sub_100027498(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1000274D0(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for SKLogger();
+  v4 = type metadata accessor for SKLogger(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -4087,143 +4125,138 @@ id sub_10002771C()
   swift_getObjectType();
   v2 = type metadata accessor for Mirror();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v26 = &v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_10002826C(&qword_100069298, &qword_1000392F8);
-  v7 = *(*(v6 - 8) + 64);
-  v8 = __chkstk_darwin(v6 - 8);
-  v24 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __chkstk_darwin(v8);
-  v12 = &v21 - v11;
-  __chkstk_darwin(v10);
-  v14 = &v21 - v13;
-  *(&v30 + 1) = type metadata accessor for AnalyticsEvent();
-  *&v29 = v1;
-  v15 = v1;
+  v24 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_10002826C(&qword_100069298, &qword_1000392F8);
+  v6 = __chkstk_darwin(v5 - 8);
+  v22 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __chkstk_darwin(v6);
+  v10 = &v19 - v9;
+  __chkstk_darwin(v8);
+  v12 = &v19 - v11;
+  *(&v28 + 1) = type metadata accessor for AnalyticsEvent();
+  *&v27 = v1;
+  v13 = v1;
   Mirror.init(reflecting:)();
-  sub_100028244(v14, 0, 1, v2);
+  sub_100028244(v12, 0, 1, v2);
   sub_100028200();
-  v27 = Dictionary.init(dictionaryLiteral:)();
-  v22 = (v3 + 8);
-  v23 = (v3 + 32);
-  v16 = v14;
-  for (i = v12; ; v12 = i)
+  v25 = Dictionary.init(dictionaryLiteral:)();
+  v20 = (v3 + 8);
+  v21 = (v3 + 32);
+  v14 = v12;
+  for (i = v10; ; v10 = i)
   {
-    v17 = v16;
-    sub_10002834C(v16, v12, &qword_100069298, &qword_1000392F8);
-    if (sub_1000282B4(v12, 1, v2) == 1)
+    v15 = v14;
+    sub_10002834C(v14, v10, &qword_100069298, &qword_1000392F8);
+    if (sub_1000282B4(v10, 1, v2) == 1)
     {
       break;
     }
 
-    (*v23)(v26, v12, v2);
+    (*v21)(v24, v10, v2);
     Mirror.children.getter();
-    v32 = v27;
+    v30 = v25;
     dispatch thunk of _AnySequenceBox._makeIterator()();
     while (1)
     {
       dispatch thunk of _AnyIteratorBoxBase.next()();
-      if (!*(&v31 + 1))
+      if (!*(&v29 + 1))
       {
         break;
       }
 
-      v28[0] = v29;
-      v28[1] = v30;
-      v28[2] = v31;
-      sub_100027AB0(&v32, v28);
-      sub_1000283AC(v28, &qword_1000692A0, &qword_100039300);
+      v26[0] = v27;
+      v26[1] = v28;
+      v26[2] = v29;
+      sub_100027AB0(&v30, v26);
+      sub_1000283AC(v26, &qword_1000692A0, &qword_100039300);
     }
 
-    v27 = v32;
-    v18 = v24;
-    v19 = v26;
+    v25 = v30;
+    v16 = v22;
+    v17 = v24;
     Mirror.superclassMirror.getter();
-    (*v22)(v19, v2);
-    v16 = v17;
-    sub_1000283AC(v17, &qword_100069298, &qword_1000392F8);
-    sub_1000282DC(v18, v17);
+    (*v20)(v17, v2);
+    v14 = v15;
+    sub_1000283AC(v15, &qword_100069298, &qword_1000392F8);
+    sub_1000282DC(v16, v15);
   }
 
-  sub_1000283AC(v16, &qword_100069298, &qword_1000392F8);
-  sub_1000283AC(v12, &qword_100069298, &qword_1000392F8);
-  return v27;
+  sub_1000283AC(v14, &qword_100069298, &qword_1000392F8);
+  sub_1000283AC(v10, &qword_100069298, &qword_1000392F8);
+  return v25;
 }
 
 void sub_100027AB0(id *a1, uint64_t a2)
 {
-  sub_10002834C(a2, &v17, &qword_1000692A0, &qword_100039300);
-  v4 = v18;
-  if (v18)
+  sub_10002834C(a2, &v15, &qword_1000692A0, &qword_100039300);
+  v4 = v16;
+  if (v16)
   {
-    v5 = v17;
-    sub_100028460(v19);
-    sub_10002834C(a2, &v17, &qword_1000692A0, &qword_100039300);
+    v5 = v15;
+    sub_100028460(v17);
+    sub_10002834C(a2, &v15, &qword_1000692A0, &qword_100039300);
 
     v6 = sub_100028200();
     if (swift_dynamicCast())
     {
-      v7 = v16[0];
-      v8 = *a1;
+      v7 = v14[0];
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v17 = *a1;
+      v15 = *a1;
       sub_1000285D8(v7, v5, v4, isUniquelyReferenced_nonNull_native);
 
-      *a1 = v17;
+      *a1 = v15;
       return;
     }
 
-    sub_10002834C(a2, &v17, &qword_1000692A0, &qword_100039300);
+    sub_10002834C(a2, &v15, &qword_1000692A0, &qword_100039300);
 
     sub_10002826C(&qword_1000692A8, &qword_100039308);
     if ((swift_dynamicCast() & 1) == 0)
     {
 
-      v15 = 0;
-      memset(v14, 0, sizeof(v14));
-      sub_1000283AC(v14, &qword_1000692B0, &qword_100039310);
+      v13 = 0;
+      memset(v12, 0, sizeof(v12));
+      sub_1000283AC(v12, &qword_1000692B0, &qword_100039310);
       return;
     }
 
-    sub_100028404(v14, v16);
-    sub_10002841C(v16, v16[3]);
-    sub_100027CF0(v6, &v17);
-    if (v17)
+    sub_100028404(v12, v14);
+    sub_10002841C(v14, v14[3]);
+    sub_100027CF0(v6, &v15);
+    if (v15)
     {
-      v11 = v17;
-      v12 = *a1;
-      v13 = swift_isUniquelyReferenced_nonNull_native();
-      v17 = *a1;
-      sub_1000285D8(v11, v5, v4, v13);
+      v10 = v15;
+      v11 = swift_isUniquelyReferenced_nonNull_native();
+      v15 = *a1;
+      sub_1000285D8(v10, v5, v4, v11);
 
-      *a1 = v17;
+      *a1 = v15;
     }
 
     else
     {
     }
 
-    v10 = v16;
+    v9 = v14;
   }
 
   else
   {
-    v10 = v19;
+    v9 = v17;
   }
 
-  sub_100028460(v10);
+  sub_100028460(v9);
 }
 
-uint64_t sub_100027CF0@<X0>(uint64_t a1@<X2>, uint64_t a2@<X8>)
+uint64_t sub_100027CF0@<X0>(uint64_t a1@<X2>, uint64_t a4@<X8>)
 {
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5 = sub_1000287FC(AssociatedTypeWitness);
-  v7 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v5);
+  swift_getAssociatedTypeWitness();
+  sub_1000287FC();
+  __chkstk_darwin(v6);
   dispatch thunk of RawRepresentable.rawValue.getter();
-  v8 = swift_dynamicCast();
-  return sub_100028244(a2, v8 ^ 1u, 1, a1);
+  v7 = swift_dynamicCast();
+  return sub_100028244(a4, v7 ^ 1u, 1, a1);
 }
 
 uint64_t sub_100027E24()
@@ -4233,7 +4266,7 @@ uint64_t sub_100027E24()
     swift_once();
   }
 
-  v0 = type metadata accessor for SKLogger();
+  v0 = type metadata accessor for SKLogger(0);
   sub_100027498(v0, qword_100069E20);
   _StringGuts.grow(_:)(20);
   v1 = _typeName(_:qualified:)();
@@ -4269,18 +4302,18 @@ uint64_t sub_100027E24()
   return 0;
 }
 
-id sub_100028018()
+id sub_100028018(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for AnalyticsEvent();
-  return objc_msgSendSuper2(&v2, "init");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for AnalyticsEvent();
+  return objc_msgSendSuper2(&v3, "init");
 }
 
-id sub_100028070()
+id sub_100028070(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for AnalyticsEvent();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for AnalyticsEvent();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 unint64_t sub_100028200()
@@ -4301,7 +4334,6 @@ uint64_t sub_10002826C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -4318,17 +4350,17 @@ uint64_t sub_1000282DC(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10002834C(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v6 = sub_10002826C(a3, a4);
-  sub_1000287FC(v6);
-  (*(v7 + 16))(a2, a1);
+  sub_10002826C(a3, a4);
+  sub_1000287FC();
+  (*(v6 + 16))(a2, a1);
   return a2;
 }
 
 uint64_t sub_1000283AC(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v4 = sub_10002826C(a2, a3);
-  sub_1000287FC(v4);
-  (*(v5 + 8))(a1);
+  sub_10002826C(a2, a3);
+  sub_1000287FC();
+  (*(v4 + 8))(a1);
   return a1;
 }
 
@@ -4352,25 +4384,26 @@ void *sub_10002841C(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100028460(uint64_t *a1)
+uint64_t sub_100028460(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 unint64_t sub_1000284AC(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return sub_100028524(a1, a2, v6);
+  return sub_100028524(a1, a2, v4);
 }
 
 unint64_t sub_100028524(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4394,7 +4427,7 @@ void sub_1000285D8(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
   v5 = v4;
   v10 = *v4;
   v11 = sub_1000284AC(a2, a3);
-  v13 = *(v10 + 16);
+  v13 = v10[2];
   v14 = (v12 & 1) == 0;
   v15 = v13 + v14;
   if (__OFADD__(v13, v14))
@@ -4411,9 +4444,8 @@ void sub_1000285D8(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
     goto LABEL_5;
   }
 
-  v18 = *v5;
-  v19 = sub_1000284AC(a2, a3);
-  if ((v17 & 1) != (v20 & 1))
+  v18 = sub_1000284AC(a2, a3);
+  if ((v17 & 1) != (v19 & 1))
   {
 LABEL_13:
     KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
@@ -4421,19 +4453,19 @@ LABEL_13:
     return;
   }
 
-  v16 = v19;
+  v16 = v18;
 LABEL_5:
-  v21 = *v5;
+  v20 = *v5;
   if (v17)
   {
-    v22 = v21[7];
-    v23 = *(v22 + 8 * v16);
-    *(v22 + 8 * v16) = a1;
+    v21 = v20[7];
+    v22 = *(v21 + 8 * v16);
+    *(v21 + 8 * v16) = a1;
   }
 
   else
   {
-    sub_100028714(v16, a2, a3, a1, v21);
+    sub_100028714(v16, a2, a3, a1, v20);
   }
 }
 
@@ -4462,16 +4494,8 @@ unint64_t sub_100028714(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t sub_10002875C()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
-}
-
-uint64_t sub_100028794()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
 }
 
 uint64_t sub_1000287BC()
@@ -4502,33 +4526,32 @@ void sub_10002880C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 void sub_1000288E4(void *a1)
 {
-  v2 = type metadata accessor for SKLogger();
-  v3 = *(*(v2 - 8) + 64);
+  v2 = type metadata accessor for SKLogger(0);
   __chkstk_darwin(v2);
-  v5 = aBlock - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = aBlock - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ([a1 canCreatePayload])
   {
-    v6 = [a1 eventName];
-    if (!v6)
+    v5 = [a1 eventName];
+    if (!v5)
     {
       static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v6 = String._bridgeToObjectiveC()();
+      v5 = String._bridgeToObjectiveC()();
     }
 
-    v7 = swift_allocObject();
-    *(v7 + 16) = a1;
+    v6 = swift_allocObject();
+    *(v6 + 16) = a1;
     aBlock[4] = sub_100029058;
-    aBlock[5] = v7;
+    aBlock[5] = v6;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     sub_1000290A0();
-    aBlock[2] = v8;
+    aBlock[2] = v7;
     aBlock[3] = &unk_100052118;
-    v9 = _Block_copy(aBlock);
+    v8 = _Block_copy(aBlock);
     swift_unknownObjectRetain();
 
     AnalyticsSendEventLazy();
-    _Block_release(v9);
+    _Block_release(v8);
   }
 
   else
@@ -4538,17 +4561,17 @@ void sub_1000288E4(void *a1)
       swift_once();
     }
 
-    v10 = sub_100027498(v2, qword_100069E20);
-    sub_1000274D0(v10, v5);
-    v6 = Logger.logObject.getter();
-    v11 = type metadata accessor for Logger();
-    (*(*(v11 - 8) + 8))(v5, v11);
-    v12 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v6, v12))
+    v9 = sub_100027498(v2, qword_100069E20);
+    sub_1000274D0(v9, v4);
+    v5 = Logger.logObject.getter();
+    v10 = type metadata accessor for Logger();
+    (*(*(v10 - 8) + 8))(v4, v10);
+    v11 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v5, v11))
     {
-      v13 = swift_slowAlloc();
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v6, v12, "Error sending CoreAnalytics event, invalid event provided", v13, 2u);
+      v12 = swift_slowAlloc();
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v5, v11, "Error sending CoreAnalytics event, invalid event provided", v12, 2u);
     }
   }
 }
@@ -4571,69 +4594,67 @@ uint64_t sub_100028B38(void *a1)
 Class sub_100028BA8(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v4 = v1(v3);
+  v3 = v1(v2);
 
-  if (v4)
+  if (v3)
   {
     sub_100028200();
-    v5.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v5.super.isa = 0;
+    v4.super.isa = 0;
   }
 
-  return v5.super.isa;
+  return v4.super.isa;
 }
 
 uint64_t sub_100028C34(uint64_t (*a1)(uint64_t))
 {
-  v2 = type metadata accessor for SKLogger();
-  v3 = *(*(v2 - 8) + 64);
-  v4 = __chkstk_darwin();
-  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = a1(v4);
-  v8 = v7;
-  if (!v7 || ![v7 canCreatePayload])
+  v2 = type metadata accessor for SKLogger(0);
+  v3 = __chkstk_darwin(v2);
+  v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = a1(v3);
+  v7 = v6;
+  if (!v6 || ![v6 canCreatePayload])
   {
     if (qword_1000691A8 != -1)
     {
       swift_once();
     }
 
-    v12 = sub_100027498(v2, qword_100069E20);
-    sub_1000274D0(v12, v6);
-    v13 = Logger.logObject.getter();
-    v14 = type metadata accessor for Logger();
-    (*(*(v14 - 8) + 8))(v6, v14);
-    v15 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v13, v15))
+    v11 = sub_100027498(v2, qword_100069E20);
+    sub_1000274D0(v11, v5);
+    v12 = Logger.logObject.getter();
+    v13 = type metadata accessor for Logger();
+    (*(*(v13 - 8) + 8))(v5, v13);
+    v14 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v12, v14))
     {
-      v16 = swift_slowAlloc();
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v13, v15, "Error sending CoreAnalytics event, invalid event provided", v16, 2u);
+      v15 = swift_slowAlloc();
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v12, v14, "Error sending CoreAnalytics event, invalid event provided", v15, 2u);
     }
 
     goto LABEL_10;
   }
 
-  v9 = [v8 createPayload];
-  if (!v9)
+  v8 = [v7 createPayload];
+  if (!v8)
   {
 LABEL_10:
     swift_unknownObjectRelease();
     return 0;
   }
 
-  v10 = v9;
+  v9 = v8;
   sub_100028200();
-  v11 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
   swift_unknownObjectRelease();
-  return v11;
+  return v10;
 }
 
 id sub_100028F18()
@@ -4652,7 +4673,6 @@ id sub_100028F70()
 
 uint64_t sub_100028FC8()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -4666,7 +4686,6 @@ uint64_t sub_100029008(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100029020()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 24, 7);
@@ -4681,7 +4700,7 @@ uint64_t sub_100029060()
 
 uint64_t sub_1000290B4()
 {
-  v0 = type metadata accessor for SKLogger();
+  v0 = type metadata accessor for SKLogger(0);
   sub_10002912C(v0, qword_100069E20);
   sub_100027498(v0, qword_100069E20);
   return Logger.init(subsystem:category:)();
@@ -4689,20 +4708,17 @@ uint64_t sub_1000290B4()
 
 uint64_t *sub_10002912C(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
 }
 
-uint64_t type metadata accessor for SKLogger()
+uint64_t type metadata accessor for SKLogger(uint64_t a1)
 {
   result = qword_100069340;
   if (!qword_100069340)
@@ -4727,10 +4743,10 @@ uint64_t sub_10002924C(uint64_t a1, uint64_t a2)
   return sub_100028244(a1, a2, a2, v4);
 }
 
-uint64_t sub_100029298()
+uint64_t sub_100029298(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -4759,172 +4775,174 @@ id sub_1000293BC(uint64_t a1, unint64_t a2)
   {
     if (qword_1000691A8 != -1)
     {
-      sub_10002A8D8();
+      sub_10002A8D8(&qword_1000691A8);
     }
 
-    v4 = type metadata accessor for SKLogger();
+    v4 = type metadata accessor for SKLogger(0);
     v5 = sub_100027498(v4, qword_100069E20);
     v6 = static os_log_type_t.error.getter();
     v7 = Logger.logObject.getter();
     if (os_log_type_enabled(v7, v6))
     {
       v5 = swift_slowAlloc();
-      *&v62[0] = swift_slowAlloc();
+      v8 = swift_slowAlloc();
+      *&v63[0] = v8;
       *v5 = 136446466;
-      *(v5 + 4) = sub_100029FBC(0, 0xE000000000000000, v62);
+      *(v5 + 4) = sub_100029FBC(0, 0xE000000000000000, v63);
       *(v5 + 12) = 2082;
-      *(v5 + 14) = sub_100029FBC(0xD00000000000002ALL, 0x80000001000456E0, v62);
+      *(v5 + 14) = sub_100029FBC(0xD00000000000002ALL, 0x80000001000456E0, v63);
       _os_log_impl(&_mh_execute_header, v7, v6, "%{public}s%{public}s", v5, 0x16u);
       swift_arrayDestroy();
-      sub_10002A910();
-      sub_10002A910();
+      sub_10002A910(v8);
+      sub_10002A910(v5);
     }
 
     sub_100029D98();
     swift_allocError();
-    *v8 = 0;
+    *v9 = 0;
     swift_willThrow();
     return v5;
   }
 
-  v9 = v2;
-  v10 = type metadata accessor for JSONDecoder();
-  v11 = *(v10 + 48);
-  v12 = *(v10 + 52);
+  v10 = v2;
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
-  v13 = sub_10002A928();
-  sub_10002A080(v13, v14);
+  v11 = sub_10002A928();
+  sub_10002A080(v11, v12);
   v5 = JSONDecoder.init()();
   sub_10002A0D8();
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
   if (v3)
   {
-    v15 = sub_10002A928();
-    sub_100029D2C(v15, v16);
+    v13 = sub_10002A928();
+    sub_100029D2C(v13, v14);
 
     return v5;
   }
 
-  v60[0] = v62[0];
-  v60[1] = v62[1];
-  *v61 = v63[0];
-  *&v61[9] = *(v63 + 9);
+  v61[0] = v63[0];
+  v61[1] = v63[1];
+  *v62 = v64[0];
+  *&v62[9] = *(v64 + 9);
   sub_10002A180(0, &qword_1000693B0, NSKeyedUnarchiver_ptr);
   sub_10002A180(0, &qword_1000693B8, AMSEngagementRequest_ptr);
-  v17 = static NSKeyedUnarchiver.unarchivedObject<A>(ofClass:from:)();
-  v21 = v17;
-  if (!v17)
+  v15 = static NSKeyedUnarchiver.unarchivedObject<A>(ofClass:from:)();
+  v19 = v15;
+  if (!v15)
   {
     if (qword_1000691A8 != -1)
     {
-      sub_10002A8D8();
+      sub_10002A8D8(&qword_1000691A8);
     }
 
-    v24 = type metadata accessor for SKLogger();
-    v5 = sub_100027498(v24, qword_100069E20);
-    v25 = static os_log_type_t.error.getter();
+    v22 = type metadata accessor for SKLogger(0);
+    v5 = sub_100027498(v22, qword_100069E20);
+    v23 = static os_log_type_t.error.getter();
 
-    v26 = Logger.logObject.getter();
+    v24 = Logger.logObject.getter();
 
-    if (os_log_type_enabled(v26, v25))
+    if (os_log_type_enabled(v24, v23))
     {
-      v27 = swift_slowAlloc();
-      v64 = swift_slowAlloc();
+      v25 = swift_slowAlloc();
+      v26 = swift_slowAlloc();
+      v65 = v26;
       sub_10002A8F8(4.8752e-34);
-      String.append(_:)(v60[0]);
-      v28._countAndFlagsBits = 8285;
-      v28._object = 0xE200000000000000;
-      String.append(_:)(v28);
-      v5 = v59;
-      v29 = sub_100029FBC(v58, v59, &v64);
+      String.append(_:)(v61[0]);
+      v27._countAndFlagsBits = 8285;
+      v27._object = 0xE200000000000000;
+      String.append(_:)(v27);
+      v5 = v60;
+      v28 = sub_100029FBC(v59, v60, &v65);
 
-      *(v27 + 4) = v29;
-      *(v27 + 12) = 2082;
-      *(v27 + 14) = sub_100029FBC(0xD000000000000041, 0x8000000100045710, &v64);
-      _os_log_impl(&_mh_execute_header, v26, v25, "%{public}s%{public}s", v27, 0x16u);
+      *(v25 + 4) = v28;
+      *(v25 + 12) = 2082;
+      *(v25 + 14) = sub_100029FBC(0xD000000000000041, 0x8000000100045710, &v65);
+      _os_log_impl(&_mh_execute_header, v24, v23, "%{public}s%{public}s", v25, 0x16u);
       swift_arrayDestroy();
-      sub_10002A910();
-      sub_10002A910();
+      sub_10002A910(v26);
+      sub_10002A910(v25);
     }
 
     sub_100029D98();
     swift_allocError();
-    *v30 = 1;
+    *v29 = 1;
     swift_willThrow();
-    sub_10002A12C(v60);
-    v18 = sub_10002A928();
-    sub_100029D2C(v18, v19);
+    sub_10002A12C(v61);
+    v16 = sub_10002A928();
+    sub_100029D2C(v16, v17);
     return v5;
   }
 
-  v56 = v9;
-  if (v61[24] == 1)
+  v57 = v10;
+  if (v62[24] == 1)
   {
-    v22 = objc_opt_self();
-    v23 = v21;
-    v57 = [v22 shared];
+    v20 = objc_opt_self();
+    v21 = v19;
+    v58 = [v20 shared];
 LABEL_20:
-    v33 = [objc_opt_self() currentProcess];
-    v34 = String._bridgeToObjectiveC()();
-    [v33 setProxyAppBundleID:v34];
+    v32 = [objc_opt_self() currentProcess];
+    v33 = String._bridgeToObjectiveC()();
+    [v32 setProxyAppBundleID:v33];
 
     String.lowercased()();
-    v35._countAndFlagsBits = 0x6C7070612E6D6F63;
-    v35._object = 0xE900000000000065;
-    v36 = String.hasPrefix(_:)(v35);
+    v34._countAndFlagsBits = 0x6C7070612E6D6F63;
+    v34._object = 0xE900000000000065;
+    v35 = String.hasPrefix(_:)(v34);
 
-    if (v36)
+    if (v35)
     {
-      v37 = String._bridgeToObjectiveC()();
-      [v33 setBundleIdentifier:v37];
+      v36 = String._bridgeToObjectiveC()();
+      [v32 setBundleIdentifier:v36];
     }
 
-    v55 = v21;
-    [v33 setAccountMediaType:*&v61[16]];
+    v56 = v19;
+    [v32 setAccountMediaType:*&v62[16]];
     if (qword_1000691A8 != -1)
     {
-      sub_10002A8D8();
+      sub_10002A8D8(&qword_1000691A8);
     }
 
-    v38 = type metadata accessor for SKLogger();
-    sub_100027498(v38, qword_100069E20);
+    v37 = type metadata accessor for SKLogger(0);
+    sub_100027498(v37, qword_100069E20);
     _StringGuts.grow(_:)(51);
-    v39._countAndFlagsBits = 0xD000000000000031;
-    v39._object = 0x8000000100045760;
-    String.append(_:)(v39);
-    v54 = v33;
-    v40 = [v33 description];
-    v41 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v43 = v42;
+    v38._countAndFlagsBits = 0xD000000000000031;
+    v38._object = 0x8000000100045760;
+    String.append(_:)(v38);
+    v55 = v32;
+    v39 = [v32 description];
+    v40 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v42 = v41;
 
-    v44._countAndFlagsBits = v41;
-    v44._object = v43;
-    String.append(_:)(v44);
+    v43._countAndFlagsBits = v40;
+    v43._object = v42;
+    String.append(_:)(v43);
 
-    v45 = static os_log_type_t.default.getter();
+    v44 = static os_log_type_t.default.getter();
 
-    v46 = Logger.logObject.getter();
+    v45 = Logger.logObject.getter();
 
-    if (os_log_type_enabled(v46, v45))
+    v54 = v44;
+    if (os_log_type_enabled(v45, v44))
     {
+      v46 = swift_slowAlloc();
       v47 = swift_slowAlloc();
-      v64 = swift_slowAlloc();
+      v65 = v47;
       sub_10002A8F8(4.8752e-34);
-      String.append(_:)(v60[0]);
+      String.append(_:)(v61[0]);
       v48._countAndFlagsBits = 8285;
       v48._object = 0xE200000000000000;
       String.append(_:)(v48);
-      v49 = sub_100029FBC(0, 0xE000000000000000, &v64);
+      v49 = sub_100029FBC(0, 0xE000000000000000, &v65);
 
-      *(v47 + 4) = v49;
-      *(v47 + 12) = 2082;
-      v50 = sub_100029FBC(0, 0xE000000000000000, &v64);
+      *(v46 + 4) = v49;
+      *(v46 + 12) = 2082;
+      v50 = sub_100029FBC(0, 0xE000000000000000, &v65);
 
-      *(v47 + 14) = v50;
-      _os_log_impl(&_mh_execute_header, v46, v45, "%{public}s%{public}s", v47, 0x16u);
+      *(v46 + 14) = v50;
+      _os_log_impl(&_mh_execute_header, v45, v54, "%{public}s%{public}s", v46, 0x16u);
       swift_arrayDestroy();
-      sub_10002A910();
-      sub_10002A910();
+      sub_10002A910(v47);
+      sub_10002A910(v46);
     }
 
     else
@@ -4932,22 +4950,22 @@ LABEL_20:
     }
 
     sub_10002A180(0, &qword_1000693C0, AMSUIEngagementTask_ptr);
-    v51 = v55;
+    v51 = v56;
     swift_unknownObjectRetain();
-    v5 = sub_100029BD8(v51, v57, v56);
-    [v5 setClientInfo:v54];
+    v5 = sub_100029BD8(v51, v58, v57);
+    [v5 setClientInfo:v55];
 
     swift_unknownObjectRelease();
-    sub_10002A12C(v60);
+    sub_10002A12C(v61);
     v52 = sub_10002A928();
     sub_100029D2C(v52, v53);
     return v5;
   }
 
-  v31 = objc_opt_self();
-  v32 = v21;
-  result = [v31 createBagForSubProfile];
-  v57 = result;
+  v30 = objc_opt_self();
+  v31 = v19;
+  result = [v30 createBagForSubProfile];
+  v58 = result;
   if (result)
   {
     goto LABEL_20;
@@ -4975,13 +4993,13 @@ uint64_t sub_100029D2C(uint64_t a1, unint64_t a2)
   return a1;
 }
 
-uint64_t sub_100029D40(uint64_t a1, unint64_t a2)
+uint64_t sub_100029D40(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v2;
     }
   }
 }
@@ -5005,11 +5023,11 @@ Swift::Int sub_100029E24(char a1)
   return Hasher._finalize()();
 }
 
-Swift::Int sub_100029E88()
+Swift::Int sub_100029E88(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
@@ -5029,9 +5047,9 @@ _BYTE **sub_100029F28(_BYTE **result, uint64_t a2, uint64_t a3, char a4)
   return result;
 }
 
-uint64_t sub_100029F60(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(void))
+uint64_t sub_100029F60(unint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(unint64_t **, uint64_t))
 {
-  v6 = a4();
+  v6 = a4(a1, a2);
   v8 = sub_100029FBC(v6, v7, a3);
 
   v10 = *a1;
@@ -5040,7 +5058,7 @@ uint64_t sub_100029F60(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(
   return result;
 }
 
-uint64_t sub_100029FBC(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_100029FBC(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_10002A1C0(v11, 0, 0, 1, a1, a2);
@@ -5071,13 +5089,13 @@ uint64_t sub_100029FBC(uint64_t a1, unint64_t a2, uint64_t *a3)
   return v7;
 }
 
-uint64_t sub_10002A080(uint64_t a1, unint64_t a2)
+uint64_t sub_10002A080(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v2;
     }
   }
 }
@@ -5094,12 +5112,11 @@ unint64_t sub_10002A0D8()
   return result;
 }
 
-uint64_t sub_10002A180(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_10002A180(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -5178,16 +5195,14 @@ uint64_t sub_10002A2C0(uint64_t a1, uint64_t a2)
 
 char *sub_10002A31C(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_10002A368(a1, a2);
+  v3 = sub_10002A368(a1, a2);
   sub_10002A480(&off_100052000);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_10002A368(uint64_t a1, unint64_t a2)
 {
-  v4 = HIBYTE(a2) & 0xF;
+  v4 = (HIBYTE(a2) & 0xF);
   if ((a2 & 0x1000000000000000) != 0)
   {
     goto LABEL_19;
@@ -5237,8 +5252,8 @@ char *sub_10002A368(uint64_t a1, unint64_t a2)
       {
         if ((a1 & 0x1000000000000000) != 0)
         {
-          v8 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
-          v4 = a1 & 0xFFFFFFFFFFFFLL;
+          v8 = ((a2 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v4 = (a1 & 0xFFFFFFFFFFFFLL);
         }
 
         else
@@ -5290,21 +5305,20 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (!result || v5 > *(v3 + 24) >> 1)
   {
     if (v4 <= v5)
     {
-      v8 = v4 + v2;
+      v7 = v4 + v2;
     }
 
     else
     {
-      v8 = v4;
+      v7 = v4;
     }
 
-    result = sub_10002A5D4(result, v8, 1, v3);
+    result = sub_10002A5D4(result, v7, 1, v3);
     v3 = result;
   }
 
@@ -5319,15 +5333,15 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v9 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v9 < v2)
+  v8 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v9 + 32), (v6 + 32), v2);
+  memcpy((v3 + v8 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -5336,12 +5350,12 @@ LABEL_14:
     return result;
   }
 
-  v10 = *(v3 + 16);
-  v11 = __OFADD__(v10, v2);
-  v12 = v10 + v2;
-  if (!v11)
+  v9 = *(v3 + 16);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v12;
+    *(v3 + 16) = v11;
     goto LABEL_14;
   }
 
@@ -5629,13 +5643,13 @@ unint64_t sub_10002A884()
   return result;
 }
 
-uint64_t sub_10002A8D8()
+uint64_t sub_10002A8D8(uint64_t a1)
 {
 
   return swift_once();
 }
 
-uint64_t sub_10002A910()
+uint64_t sub_10002A910(uint64_t a1)
 {
 }
 
@@ -5851,13 +5865,11 @@ uint64_t sub_10002ADE4(uint64_t a1)
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void sub_10002AE20(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+void sub_10002AE20(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v5 = sub_10002826C(&qword_1000693D8, &qword_1000395E0);
-  v6 = sub_10002B85C(v5);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v9 = a1[4];
+  sub_10002826C(&qword_1000693D8, &qword_1000395E0);
+  sub_10002B85C();
+  __chkstk_darwin(v5);
   sub_10002841C(a1, a1[3]);
   sub_10002B3F0();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -5869,51 +5881,51 @@ void sub_10002AE20(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
   else
   {
     sub_10002B82C();
-    v10 = KeyedDecodingContainer.decode(_:forKey:)();
-    v22 = v11;
-    LOBYTE(v26) = 1;
+    v6 = KeyedDecodingContainer.decode(_:forKey:)();
+    v18 = v7;
+    LOBYTE(v22) = 1;
     sub_10002B82C();
-    v12 = KeyedDecodingContainer.decode(_:forKey:)();
-    *(&v21 + 1) = v13;
-    *&v21 = v12;
-    LOBYTE(v23) = 2;
+    v8 = KeyedDecodingContainer.decode(_:forKey:)();
+    *(&v17 + 1) = v9;
+    *&v17 = v8;
+    LOBYTE(v19) = 2;
     sub_10002B444();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v19 = v27;
-    v20 = v26;
-    LOBYTE(v26) = 3;
+    v15 = v23;
+    v16 = v22;
+    LOBYTE(v22) = 3;
     sub_10002B82C();
     KeyedDecodingContainer.decode(_:forKey:)();
-    v18 = String._bridgeToObjectiveC()();
+    v14 = String._bridgeToObjectiveC()();
 
-    v34 = 4;
+    v30 = 4;
     sub_10002B82C();
-    v14 = KeyedDecodingContainer.decode(_:forKey:)();
-    v15 = sub_10002B81C();
-    v16(v15);
-    v33 = v14 & 1;
-    *&v23 = v10;
-    *(&v23 + 1) = v22;
-    v24 = v21;
-    *v25 = v20;
-    *&v25[8] = v19;
-    *&v25[16] = v18;
-    v25[24] = v14 & 1;
-    sub_10002B498(&v23, &v26);
+    v10 = KeyedDecodingContainer.decode(_:forKey:)();
+    v11 = sub_10002B81C();
+    v12(v11);
+    v29 = v10 & 1;
+    *&v19 = v6;
+    *(&v19 + 1) = v18;
+    v20 = v17;
+    *v21 = v16;
+    *&v21[8] = v15;
+    *&v21[16] = v14;
+    v21[24] = v10 & 1;
+    sub_10002B498(&v19, &v22);
     sub_100028460(a1);
-    v26 = v10;
-    v27 = v22;
-    v28 = v21;
-    v29 = v20;
-    v30 = v19;
-    v31 = v18;
-    v32 = v33;
-    sub_10002A12C(&v26);
-    v17 = v24;
-    *a2 = v23;
-    a2[1] = v17;
-    a2[2] = *v25;
-    *(a2 + 41) = *&v25[9];
+    v22 = v6;
+    v23 = v18;
+    v24 = v17;
+    v25 = v16;
+    v26 = v15;
+    v27 = v14;
+    v28 = v29;
+    sub_10002A12C(&v22);
+    v13 = v20;
+    *a2 = v19;
+    a2[1] = v13;
+    a2[2] = *v21;
+    *(a2 + 41) = *&v21[9];
   }
 }
 
@@ -5921,46 +5933,42 @@ uint64_t sub_10002B180(void *a1)
 {
   v3 = v1;
   v5 = sub_10002826C(&qword_1000693F0, &qword_1000395E8);
-  v6 = sub_10002B85C(v5);
-  v8 = v7;
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v6);
-  v12 = &v24[-v11 - 8];
-  v13 = a1[4];
+  sub_10002B85C();
+  v7 = v6;
+  __chkstk_darwin(v8);
+  v10 = &v19[-v9 - 8];
   sub_10002841C(a1, a1[3]);
   sub_10002B3F0();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v14 = *v3;
-  v15 = *(v3 + 8);
-  LOBYTE(v25) = 0;
-  sub_10002B83C(v14, v15);
+  v11 = *v3;
+  v12 = *(v3 + 8);
+  LOBYTE(v20) = 0;
+  sub_10002B83C(v11, v12);
   if (!v2)
   {
-    v16 = *(v3 + 16);
-    v17 = *(v3 + 24);
-    LOBYTE(v25) = 1;
-    sub_10002B83C(v16, v17);
-    v25 = *(v3 + 32);
-    v26 = v25;
-    v24[23] = 2;
-    sub_10002B4D0(&v26, v24);
+    v13 = *(v3 + 16);
+    v14 = *(v3 + 24);
+    LOBYTE(v20) = 1;
+    sub_10002B83C(v13, v14);
+    v20 = *(v3 + 32);
+    v21 = v20;
+    v19[23] = 2;
+    sub_10002B4D0(&v21, v19);
     sub_10002B52C();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    sub_100029D40(v25, *(&v25 + 1));
-    v19 = *(v3 + 48);
-    v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    LOBYTE(v25) = 3;
-    sub_10002B83C(v20, v21);
+    sub_100029D40(v20, *(&v20 + 1));
+    v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    LOBYTE(v20) = 3;
+    sub_10002B83C(v16, v17);
 
-    v22 = *(v3 + 56);
-    LOBYTE(v25) = 4;
+    LOBYTE(v20) = 4;
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  return (*(v8 + 8))(v12, v5);
+  return (*(v7 + 8))(v10, v5);
 }
 
-double sub_10002B38C@<D0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+double sub_10002B38C@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   sub_10002AE20(a1, v6);
   if (!v2)
@@ -6305,11 +6313,6 @@ id sub_10002BC90()
 
 uint64_t sub_10002BD20()
 {
-  v1 = *(v0 + OBJC_IVAR____TtC17StoreKitUIService18ProductLookupEvent_productID + 8);
-
-  v2 = *(v0 + OBJC_IVAR____TtC17StoreKitUIService18ProductLookupEvent_extensionName + 8);
-
-  v3 = *(v0 + OBJC_IVAR____TtC17StoreKitUIService18ProductLookupEvent_itemKind + 8);
 }
 
 id sub_10002BD7C()
@@ -6334,7 +6337,6 @@ uint64_t sub_10002BE3C(void *a1, SEL *a2)
 uint64_t sub_10002BE98@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = (v3 + a3);
-  v5 = *(v3 + a3 + 8);
   *v4 = a1;
   v4[1] = a2;
 }
@@ -6342,16 +6344,12 @@ uint64_t sub_10002BE98@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
 uint64_t sub_10002BEAC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = (v3 + a3);
-  v6 = *(v3 + a3 + 8);
   *v5 = a1;
   v5[1] = a2;
 }
 
-uint64_t sub_10002BECC@<X0>(uint64_t a1@<X8>)
+uint64_t sub_10002BECC()
 {
-  v3 = (v1 + a1);
-  v4 = *v3;
-  v5 = v3[1];
 }
 
 void sub_10002BF3C(uint64_t a1)
@@ -6361,58 +6359,39 @@ void sub_10002BF3C(uint64_t a1)
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%{public}@ Not registering for unfinished transaction notifications because no bundle ID was available", &v1, 0xCu);
 }
 
-void sub_10002BFBC(uint64_t a1)
+void sub_10002C1E4()
 {
-  v1 = *(a1 + 32);
-  sub_10000443C();
-  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%{public}@: Error in remote proxy getting unfinished transactions: %{public}@", v2, 0x16u);
-}
-
-void sub_10002C03C(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_10000443C();
-  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%{public}@: Error getting unfinished transactions: %{public}@", v2, 0x16u);
-}
-
-void sub_10002C1E4(uint64_t a1)
-{
-  v1 = *(a1 + 56);
   sub_1000131FC();
   sub_100013214();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002C268(uint64_t a1)
+void sub_10002C268()
 {
-  v1 = *(a1 + 56);
   sub_1000131FC();
   sub_100013214();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002C2EC(uint64_t a1)
+void sub_10002C2EC()
 {
-  v1 = *(a1 + 56);
   sub_1000131FC();
   sub_100013214();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002C370(uint64_t a1)
+void sub_10002C370()
 {
-  v1 = *(a1 + 56);
   sub_1000131FC();
   sub_100013214();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_10002C3FC(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 56);
-  v8 = [a2 absoluteString];
+  v7 = [a2 absoluteString];
   sub_100013214();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void sub_10002C574(uint64_t a1, uint64_t a2)
@@ -6438,16 +6417,36 @@ void sub_10002C618(uint64_t *a1, uint64_t *a2)
   _os_log_debug_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEBUG, "No bag value for requested key: %{public}@ of type: %ld", &v4, 0x16u);
 }
 
+void sub_10002C6F4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100020A84(&_mh_execute_header, &_os_log_default, a3, "Error fetching bag %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10002C768(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100020A84(&_mh_execute_header, &_os_log_default, a3, "Error deserializing response %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10002C7DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100020A84(&_mh_execute_header, &_os_log_default, a3, "The fetched bag is invalid %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10002C878(uint64_t a1, void *a2, uint64_t a3)
 {
-  v4 = *(a1 + 32);
-  v5 = a2;
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2114;
-  v10 = a3;
-  v6 = v8;
-  _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}@: Failed to get remote view controller proxy: %{public}@", &v7, 0x16u);
+  v4 = a2;
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to get remote view controller proxy: %{public}@", &v6, 0x16u);
 }
 
 void sub_10002C960(uint64_t a1)
@@ -6455,34 +6454,6 @@ void sub_10002C960(uint64_t a1)
   v1 = 138543362;
   v2 = a1;
   _os_log_debug_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEBUG, "%{public}@: No dismissal delegate.", &v1, 0xCu);
-}
-
-void sub_10002C9E0(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_10000443C();
-  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "[%@]: Engagement presentation failed with error %{public}@", v2, 0x16u);
-}
-
-void sub_10002CA60(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_10000443C();
-  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "[%@]: Failed to archive engagement result, error: %{public}@", v2, 0x16u);
-}
-
-void sub_10002CAE0(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  sub_1000131FC();
-  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "[%{public}@][%{public}@]: Invalid format for product ID.", v2, 0x16u);
-}
-
-void sub_10002CB68(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  sub_1000131FC();
-  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "[%{public}@][%{public}@]: No ID provided for product.", v2, 0x16u);
 }
 
 Swift::String __swiftcall String.lowercased()()

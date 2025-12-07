@@ -3,6 +3,7 @@
 - (NSData)serializedECDHPublicKey;
 - (NSData)signature;
 - (_TtC17MessageProtection17TetraRegistration)init;
+- (_TtC17MessageProtection17TetraRegistration)initWithKyberPublicKey:(id)key ecdhPublicKey:(id)publicKey timestamp:(double)timestamp version:(unsigned int)version signedBy:(id)by;
 @end
 
 @implementation TetraRegistration
@@ -40,16 +41,27 @@
   return v4.super.isa;
 }
 
+- (_TtC17MessageProtection17TetraRegistration)initWithKyberPublicKey:(id)key ecdhPublicKey:(id)publicKey timestamp:(double)timestamp version:(unsigned int)version signedBy:(id)by
+{
+  v8 = *&version;
+  keyCopy = key;
+  publicKeyCopy = publicKey;
+  byCopy = by;
+  v14 = specialized TetraRegistration.init(kyberPublicKey:ecdhPublicKey:timestamp:version:signedBy:)(keyCopy, publicKeyCopy, v8, byCopy, timestamp);
+
+  return v14;
+}
+
 - (NSData)registrationData
 {
   selfCopy = self;
-  v3 = TetraRegistration.registrationData.getter();
-  v5 = v4;
+  v4 = TetraRegistration.registrationData.getter(selfCopy, v3);
+  v6 = v5;
 
-  v6.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  outlined consume of Data._Representation(v3, v5);
+  v7.super.isa = Data._bridgeToObjectiveC()().super.isa;
+  outlined consume of Data._Representation(v4, v6);
 
-  return v6.super.isa;
+  return v7.super.isa;
 }
 
 - (_TtC17MessageProtection17TetraRegistration)init

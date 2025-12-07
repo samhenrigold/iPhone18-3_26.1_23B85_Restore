@@ -1778,88 +1778,92 @@ LABEL_8:
 - (NSString)lastPageInChapterString
 {
   _useCompactStrings = [(BKFlowingBookLayoutConfiguration *)self _useCompactStrings];
-  v3 = AEBundle();
-  v4 = v3;
-  if (_useCompactStrings)
+  v3 = _useCompactStrings;
+  v4 = AEBundle(_useCompactStrings);
+  v5 = v4;
+  if (v3)
   {
-    v5 = @"Last page";
+    v6 = @"Last page";
   }
 
   else
   {
-    v5 = @"Last page in this chapter";
+    v6 = @"Last page in this chapter";
   }
 
-  v6 = [v3 localizedStringForKey:v5 value:&stru_1E7188 table:0];
+  v7 = [v4 localizedStringForKey:v6 value:&stru_1E7188 table:0];
 
-  return v6;
+  return v7;
 }
 
 - (id)singularPagesLeftInChapterWithRemainingPageCount:(unint64_t)count
 {
   v4 = [NSNumberFormatter imaxLocalizedUnsignedInteger:count usesGroupingSeparator:0];
-  LODWORD(self) = [(BKFlowingBookLayoutConfiguration *)self _useCompactStrings];
-  v5 = AEBundle();
-  v6 = v5;
+  _useCompactStrings = [(BKFlowingBookLayoutConfiguration *)self _useCompactStrings];
+  LODWORD(self) = _useCompactStrings;
+  v6 = AEBundle(_useCompactStrings);
+  v7 = v6;
   if (self)
   {
-    v7 = @"%@ page left";
+    v8 = @"%@ page left";
   }
 
   else
   {
-    v7 = @"%@ page left in this chapter";
+    v8 = @"%@ page left in this chapter";
   }
 
-  v8 = [v5 localizedStringForKey:v7 value:&stru_1E7188 table:0];
+  v9 = [v6 localizedStringForKey:v8 value:&stru_1E7188 table:0];
 
-  v9 = [NSString stringWithFormat:v8, v4];
+  v10 = [NSString stringWithFormat:v9, v4];
 
-  return v9;
+  return v10;
 }
 
 - (id)pluralPagesLeftInChapterWithRemainingPageCount:(unint64_t)count
 {
   v4 = [NSNumberFormatter imaxLocalizedUnsignedInteger:count usesGroupingSeparator:0];
-  LODWORD(self) = [(BKFlowingBookLayoutConfiguration *)self _useCompactStrings];
-  v5 = AEBundle();
-  v6 = v5;
+  _useCompactStrings = [(BKFlowingBookLayoutConfiguration *)self _useCompactStrings];
+  LODWORD(self) = _useCompactStrings;
+  v6 = AEBundle(_useCompactStrings);
+  v7 = v6;
   if (self)
   {
-    v7 = @"%@ pages left";
+    v8 = @"%@ pages left";
   }
 
   else
   {
-    v7 = @"%@ pages left in this chapter";
+    v8 = @"%@ pages left in this chapter";
   }
 
-  v8 = [v5 localizedStringForKey:v7 value:&stru_1E7188 table:0];
+  v9 = [v6 localizedStringForKey:v8 value:&stru_1E7188 table:0];
 
-  v9 = [NSString stringWithFormat:v8, v4];
+  v10 = [NSString stringWithFormat:v9, v4];
 
-  return v9;
+  return v10;
 }
 
 - (id)backToPageWithPageTitle:(id)title
 {
   titleCopy = title;
-  LODWORD(self) = [(BKFlowingBookLayoutConfiguration *)self _useCompactStrings];
-  v5 = AEBundle();
-  v6 = v5;
+  _useCompactStrings = [(BKFlowingBookLayoutConfiguration *)self _useCompactStrings];
+  LODWORD(self) = _useCompactStrings;
+  v6 = AEBundle(_useCompactStrings);
+  v7 = v6;
   if (self)
   {
-    v7 = @"Back to p.%@";
+    v8 = @"Back to p.%@";
   }
 
   else
   {
-    v7 = @"Back to page %@";
+    v8 = @"Back to page %@";
   }
 
-  v8 = [v5 localizedStringForKey:v7 value:&stru_1E7188 table:0];
+  v9 = [v6 localizedStringForKey:v8 value:&stru_1E7188 table:0];
 
-  titleCopy = [NSString stringWithFormat:v8, titleCopy];
+  titleCopy = [NSString stringWithFormat:v9, titleCopy];
 
   return titleCopy;
 }
@@ -1867,22 +1871,23 @@ LABEL_8:
 - (id)goToPageWithPageTitle:(id)title
 {
   titleCopy = title;
-  LODWORD(self) = [(BKFlowingBookLayoutConfiguration *)self _useCompactStrings];
-  v5 = AEBundle();
-  v6 = v5;
+  _useCompactStrings = [(BKFlowingBookLayoutConfiguration *)self _useCompactStrings];
+  LODWORD(self) = _useCompactStrings;
+  v6 = AEBundle(_useCompactStrings);
+  v7 = v6;
   if (self)
   {
-    v7 = @"Go to p.%@";
+    v8 = @"Go to p.%@";
   }
 
   else
   {
-    v7 = @"Go to page %@";
+    v8 = @"Go to page %@";
   }
 
-  v8 = [v5 localizedStringForKey:v7 value:&stru_1E7188 table:0];
+  v9 = [v6 localizedStringForKey:v8 value:&stru_1E7188 table:0];
 
-  titleCopy = [NSString stringWithFormat:v8, titleCopy];
+  titleCopy = [NSString stringWithFormat:v9, titleCopy];
 
   return titleCopy;
 }
@@ -2043,7 +2048,7 @@ LABEL_8:
     }
 
 LABEL_10:
-    v9 = _AEBookPluginsPageTurnLog();
+    v9 = _AEBookPluginsPageTurnLog(layout);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = [NSNumber numberWithUnsignedInteger:[(BKFlowingBookLayoutConfiguration *)self layout]];

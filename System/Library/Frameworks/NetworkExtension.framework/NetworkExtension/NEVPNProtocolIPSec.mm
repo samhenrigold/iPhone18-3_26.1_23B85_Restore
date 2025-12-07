@@ -5,9 +5,11 @@
 - (NEVPNProtocolIPSec)initWithType:(int64_t)type;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 - (void)migratePasswordsFromPreferences:(__SCPreferences *)preferences;
+- (void)removeKeychainItemsInDomain:(int64_t)domain keepIdentity:(BOOL)identity;
 - (void)syncWithKeychainInDomain:(int64_t)domain configuration:(id)configuration suffix:(id)suffix;
 @end
 
@@ -20,6 +22,26 @@
 
   sharedSecretKeychainItem = [(NEVPNProtocolIPSec *)self sharedSecretKeychainItem];
   [sharedSecretKeychainItem migrateFromPreferences:preferences];
+}
+
+- (void)removeKeychainItemsInDomain:(int64_t)domain keepIdentity:(BOOL)identity
+{
+  v11.receiver = self;
+  v11.super_class = NEVPNProtocolIPSec;
+  [(NEVPNProtocol *)&v11 removeKeychainItemsInDomain:domain keepIdentity:identity];
+  sharedSecretKeychainItem = [(NEVPNProtocolIPSec *)self sharedSecretKeychainItem];
+  if (sharedSecretKeychainItem)
+  {
+    v7 = sharedSecretKeychainItem;
+    sharedSecretKeychainItem2 = [(NEVPNProtocolIPSec *)self sharedSecretKeychainItem];
+    domain = [sharedSecretKeychainItem2 domain];
+
+    if (domain == domain)
+    {
+      sharedSecretKeychainItem3 = [(NEVPNProtocolIPSec *)self sharedSecretKeychainItem];
+      [sharedSecretKeychainItem3 setIdentifier:0];
+    }
+  }
 }
 
 - (BOOL)needToUpdateKeychain
@@ -185,7 +207,7 @@
 
 - (id)initFromLegacyDictionary:(id)dictionary
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy objectForKeyedSubscript:@"__NEVPNProtocolIdentifier"];
   v6 = isa_nsuuid(v5);
@@ -233,7 +255,7 @@
   }
 
   v17 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E6982458]];
-  if (isa_nsstring(v17) && [v17 isEqualToString:*MEMORY[0x1E6982890]])
+  if (isa_nsstring(v17) && objc_msgSend_isEqualToString_(v17))
   {
     [(NEVPNProtocolIPSec *)v8 setExtendedAuthPasswordPrompt:1];
   }
@@ -244,7 +266,7 @@
 
   if (v20)
   {
-    if (isa_nsstring(v17) && [v17 isEqualToString:*MEMORY[0x1E6982888]])
+    if (isa_nsstring(v17) && objc_msgSend_isEqualToString_(v17))
     {
       v21 = [NEKeychainItem alloc];
       v22 = [dictionaryCopy objectForKeyedSubscript:v18];
@@ -332,14 +354,14 @@
   if (v63)
   {
     v64 = [dictionaryCopy objectForKeyedSubscript:v61];
-    if ([v64 isEqualToString:*MEMORY[0x1E6982870]])
+    if (objc_msgSend_isEqualToString_(v64))
     {
       v65 = 2;
     }
 
     else
     {
-      if (![v64 isEqualToString:*MEMORY[0x1E6982868]])
+      if (!objc_msgSend_isEqualToString_(v64))
       {
 LABEL_36:
 
@@ -371,32 +393,32 @@ LABEL_37:
   {
     array = [MEMORY[0x1E695DF70] array];
     v72 = [dictionaryCopy objectForKeyedSubscript:@"Proposals"];
+    v80 = 0u;
     v81 = 0u;
     v82 = 0u;
     v83 = 0u;
-    v84 = 0u;
-    v73 = [v72 countByEnumeratingWithState:&v81 objects:v85 count:16];
+    v73 = [v72 countByEnumeratingWithState:&v80 objects:v84 count:16];
     if (v73)
     {
       v74 = v73;
-      v75 = *v82;
+      v75 = *v81;
       do
       {
         for (i = 0; i != v74; ++i)
         {
-          if (*v82 != v75)
+          if (*v81 != v75)
           {
             objc_enumerationMutation(v72);
           }
 
-          v77 = [[NEVPNIKEv1ProposalParameters alloc] initFromLegacyDictionary:*(*(&v81 + 1) + 8 * i)];
+          v77 = [[NEVPNIKEv1ProposalParameters alloc] initFromLegacyDictionary:*(*(&v80 + 1) + 8 * i)];
           if (v77)
           {
             [array addObject:v77];
           }
         }
 
-        v74 = [v72 countByEnumeratingWithState:&v81 objects:v85 count:16];
+        v74 = [v72 countByEnumeratingWithState:&v80 objects:v84 count:16];
       }
 
       while (v74);
@@ -412,13 +434,12 @@ LABEL_37:
   v78 = v8;
 
 LABEL_53:
-  v79 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (id)copyLegacyDictionary
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   serverAddress = [(NEVPNProtocol *)self serverAddress];
 
@@ -644,33 +665,33 @@ LABEL_38:
   if (legacyProposals)
   {
     array = [MEMORY[0x1E695DF70] array];
+    v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
     legacyProposals2 = [(NEVPNProtocolIPSec *)self legacyProposals];
-    v50 = [legacyProposals2 countByEnumeratingWithState:&v59 objects:v63 count:16];
+    v50 = [legacyProposals2 countByEnumeratingWithState:&v58 objects:v62 count:16];
     if (v50)
     {
       v51 = v50;
-      v52 = *v60;
+      v52 = *v59;
       do
       {
         for (i = 0; i != v51; ++i)
         {
-          if (*v60 != v52)
+          if (*v59 != v52)
           {
             objc_enumerationMutation(legacyProposals2);
           }
 
-          copyLegacyDictionary = [*(*(&v59 + 1) + 8 * i) copyLegacyDictionary];
+          copyLegacyDictionary = [*(*(&v58 + 1) + 8 * i) copyLegacyDictionary];
           if (copyLegacyDictionary)
           {
             [array addObject:copyLegacyDictionary];
           }
         }
 
-        v51 = [legacyProposals2 countByEnumeratingWithState:&v59 objects:v63 count:16];
+        v51 = [legacyProposals2 countByEnumeratingWithState:&v58 objects:v62 count:16];
       }
 
       while (v51);
@@ -685,8 +706,68 @@ LABEL_38:
   }
 
   [(NEVPNProtocol *)self addDisconnectOptions:v3];
-  v55 = *MEMORY[0x1E69E9840];
   return v3;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v19.receiver = self;
+  v19.super_class = NEVPNProtocolIPSec;
+  v8 = [(NEVPNProtocol *)&v19 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  if ([(NEVPNProtocolIPSec *)self authenticationMethod])
+  {
+    if ([(NEVPNProtocolIPSec *)self authenticationMethod]== NEVPNIKEAuthenticationMethodCertificate)
+    {
+      v10 = options | 8;
+      v11 = @"certificate";
+    }
+
+    else
+    {
+      v10 = options | 8;
+      if ([(NEVPNProtocolIPSec *)self authenticationMethod]!= NEVPNIKEAuthenticationMethodSharedSecret)
+      {
+        goto LABEL_8;
+      }
+
+      v11 = @"shared-secret";
+    }
+  }
+
+  else
+  {
+    v10 = options | 8;
+    v11 = @"none";
+  }
+
+  [v9 appendPrettyObject:v11 withName:@"authenticationMethod" andIndent:v5 options:v10];
+LABEL_8:
+  sharedSecretKeychainItem = [(NEVPNProtocolIPSec *)self sharedSecretKeychainItem];
+  [v9 appendPrettyObject:sharedSecretKeychainItem withName:@"sharedSecret" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  sharedSecretReference = [(NEVPNProtocolIPSec *)self sharedSecretReference];
+  [v9 appendPrettyObject:sharedSecretReference withName:@"sharedSecretReference" andIndent:v5 options:v10];
+
+  localIdentifier = [(NEVPNProtocolIPSec *)self localIdentifier];
+  [v9 appendPrettyObject:localIdentifier withName:@"localIdentifier" andIndent:v5 options:options | 9];
+
+  remoteIdentifier = [(NEVPNProtocolIPSec *)self remoteIdentifier];
+  [v9 appendPrettyObject:remoteIdentifier withName:@"remoteIdentifier" andIndent:v5 options:options | 9];
+
+  [v9 appendPrettyBOOL:-[NEVPNProtocolIPSec useExtendedAuthentication](self withName:"useExtendedAuthentication") andIndent:@"useExtendedAuthentication" options:{v5, v10}];
+  legacyProposals = [(NEVPNProtocolIPSec *)self legacyProposals];
+  [v9 appendPrettyObject:legacyProposals withName:@"legacyProposalParameters" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  legacyExchangeMode = [(NEVPNProtocolIPSec *)self legacyExchangeMode];
+  [v9 appendPrettyObject:legacyExchangeMode withName:@"legacyExchangeMode" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  [v9 appendPrettyBOOL:-[NEVPNProtocolIPSec extendedAuthPasswordPrompt](self withName:"extendedAuthPasswordPrompt") andIndent:@"extendedAuthPasswordPrompt" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+
+  return v9;
 }
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors

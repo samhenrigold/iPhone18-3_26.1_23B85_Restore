@@ -2,11 +2,16 @@
 - (HSNetworkInterfaceManager)initWithAlertHostViewController:(id)controller;
 - (UIViewController)alertHostViewController;
 - (id)_alertBaseLocalizationKeyForRequestBluetooth:(BOOL)bluetooth Wifi:(BOOL)wifi;
+- (id)_alertLocalizedDescriptionForRequestBluetooth:(BOOL)bluetooth Wifi:(BOOL)wifi;
+- (id)_alertLocalizedTitleForRequestBluetooth:(BOOL)bluetooth Wifi:(BOOL)wifi;
 - (unint64_t)_wiFiInterfaceStatus;
 - (void)_setBluetoothPowerState:(BOOL)state;
+- (void)_setWiFiPowerState:(BOOL)state autoJoinDisabled:(BOOL)disabled;
 - (void)_updateAlertForBluetooth:(BOOL)bluetooth Wifi:(BOOL)wifi;
 - (void)_updateBluetoothInterfaceStatusWithCompletion:(id)completion;
+- (void)checkNetworkStatusAndShowAlertIfNeededForBluetooth:(BOOL)bluetooth Wifi:(BOOL)wifi;
 - (void)dealloc;
+- (void)setNetworkInterfacePowerState:(BOOL)state;
 @end
 
 @implementation HSNetworkInterfaceManager
@@ -35,12 +40,89 @@
   return v6;
 }
 
+- (void)checkNetworkStatusAndShowAlertIfNeededForBluetooth:(BOOL)bluetooth Wifi:(BOOL)wifi
+{
+  wifiCopy = wifi;
+  bluetoothCopy = bluetooth;
+  v7 = MGGetBoolAnswer();
+  v8 = MGGetBoolAnswer();
+  v9 = HFLogForCategory();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10007A3C0();
+  }
+
+  if ((v7 & v8) == 1)
+  {
+    v10 = HFLogForCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v16 = "[HSNetworkInterfaceManager checkNetworkStatusAndShowAlertIfNeededForBluetooth:Wifi:]";
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s skip alert checking since this is running on internal virtual device.", buf, 0xCu);
+    }
+  }
+
+  else if (bluetoothCopy || wifiCopy)
+  {
+    if (wifiCopy)
+    {
+      wifiInterface = [(HSNetworkInterfaceManager *)self wifiInterface];
+      [wifiInterface activate];
+    }
+
+    if (bluetoothCopy)
+    {
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_1000494AC;
+      v12[3] = &unk_1000C76E0;
+      v12[4] = self;
+      v13 = bluetoothCopy;
+      v14 = wifiCopy;
+      [(HSNetworkInterfaceManager *)self _updateBluetoothInterfaceStatusWithCompletion:v12];
+    }
+
+    else
+    {
+      [(HSNetworkInterfaceManager *)self _updateAlertForBluetooth:0 Wifi:wifiCopy];
+    }
+  }
+}
+
 - (void)dealloc
 {
   [(CWFInterface *)self->_wifiInterface invalidate];
   v3.receiver = self;
   v3.super_class = HSNetworkInterfaceManager;
   [(HSNetworkInterfaceManager *)&v3 dealloc];
+}
+
+- (void)setNetworkInterfacePowerState:(BOOL)state
+{
+  stateCopy = state;
+  if (state)
+  {
+    v5 = 2;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  bluetoothInterfaceStatus = [(HSNetworkInterfaceManager *)self bluetoothInterfaceStatus];
+  _wiFiInterfaceStatus = [(HSNetworkInterfaceManager *)self _wiFiInterfaceStatus];
+  if ((bluetoothInterfaceStatus & ~v5) != 0)
+  {
+    [(HSNetworkInterfaceManager *)self _setBluetoothPowerState:stateCopy];
+  }
+
+  if ((_wiFiInterfaceStatus & ~v5) != 0)
+  {
+
+    [(HSNetworkInterfaceManager *)self _setWiFiPowerState:stateCopy autoJoinDisabled:stateCopy ^ 1];
+  }
 }
 
 - (void)_updateBluetoothInterfaceStatusWithCompletion:(id)completion
@@ -98,6 +180,39 @@
   }
 
   return v5;
+}
+
+- (void)_setWiFiPowerState:(BOOL)state autoJoinDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  stateCopy = state;
+  wifiInterface = [(HSNetworkInterfaceManager *)self wifiInterface];
+  v14 = 0;
+  [wifiInterface setPower:stateCopy error:&v14];
+  v8 = v14;
+
+  wifiInterface2 = [(HSNetworkInterfaceManager *)self wifiInterface];
+  v13 = 0;
+  [wifiInterface2 setUserAutoJoinDisabled:disabledCopy error:&v13];
+  v10 = v13;
+
+  if (v8)
+  {
+    v11 = HFLogForCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      sub_10007A554();
+    }
+  }
+
+  if (v10)
+  {
+    v12 = HFLogForCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      sub_10007A5CC();
+    }
+  }
 }
 
 - (void)_updateAlertForBluetooth:(BOOL)bluetooth Wifi:(BOOL)wifi
@@ -195,6 +310,40 @@
   }
 
 LABEL_21:
+}
+
+- (id)_alertLocalizedTitleForRequestBluetooth:(BOOL)bluetooth Wifi:(BOOL)wifi
+{
+  v4 = [(HSNetworkInterfaceManager *)self _alertBaseLocalizationKeyForRequestBluetooth:bluetooth Wifi:wifi];
+  if (v4)
+  {
+    v5 = [NSString stringWithFormat:@"%@_Title", v4];
+    v6 = sub_100063A44(v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
+}
+
+- (id)_alertLocalizedDescriptionForRequestBluetooth:(BOOL)bluetooth Wifi:(BOOL)wifi
+{
+  v4 = [(HSNetworkInterfaceManager *)self _alertBaseLocalizationKeyForRequestBluetooth:bluetooth Wifi:wifi];
+  if (v4)
+  {
+    v5 = [NSString stringWithFormat:@"%@_Description", v4];
+    v6 = sub_100063A44(v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
 }
 
 - (id)_alertBaseLocalizationKeyForRequestBluetooth:(BOOL)bluetooth Wifi:(BOOL)wifi

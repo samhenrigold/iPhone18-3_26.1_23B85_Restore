@@ -33,7 +33,10 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)unregisterForNotifications;
 - (void)updateSearchResultsForSearchController:(id)controller;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation DSSharingPermissionsController
@@ -42,9 +45,11 @@
 {
   if (objc_opt_class() == self)
   {
-    DSLogSharingPermissions = os_log_create("com.apple.DigitalSeparation", "DSSharingPermissions");
+    v2 = os_log_create("com.apple.DigitalSeparation", "DSSharingPermissions");
+    v3 = DSLogSharingPermissions;
+    DSLogSharingPermissions = v2;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v2, v3);
   }
 }
 
@@ -88,59 +93,91 @@
   return v2;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = DSSharingPermissionsController;
+  [(OBTableWelcomeController *)&v4 viewWillAppear:appear];
+  [(DSSharingPermissionsController *)self registerForNotifications];
+  [(DSSharingPermissionsController *)self setFetchNeeded];
+  [(DSSharingPermissionsController *)self _updateButton];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = DSSharingPermissionsController;
+  [(OBBaseWelcomeController *)&v6 viewDidAppear:appear];
+  cachedFetchError = [(DSSharingPermissionsController *)self cachedFetchError];
+
+  if (cachedFetchError)
+  {
+    cachedFetchError2 = [(DSSharingPermissionsController *)self cachedFetchError];
+    [(DSSharingPermissionsController *)self presentFetchErrorMessage:cachedFetchError2];
+
+    [(DSSharingPermissionsController *)self setCachedFetchError:0];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(DSSharingPermissionsController *)self postAnalytics];
+  [(DSSharingPermissionsController *)self unregisterForNotifications];
+  v5.receiver = self;
+  v5.super_class = DSSharingPermissionsController;
+  [(OBBaseWelcomeController *)&v5 viewDidDisappear:disappearCopy];
+}
+
 - (void)postAnalytics
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   permissions = [(DSSharingPermissionsController *)self permissions];
   elapsedUnfinishedFetchesBySource = [permissions elapsedUnfinishedFetchesBySource];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = elapsedUnfinishedFetchesBySource;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = MEMORY[0x277D85DD0];
-        v12 = *(*(&v13 + 1) + 8 * i);
+        v10 = MEMORY[0x277D85DD0];
+        v11 = *(*(&v12 + 1) + 8 * i);
         v9 = v4;
         AnalyticsSendEventLazy();
       }
 
-      v6 = [v9 countByEnumeratingWithState:&v13 objects:v17 count:{16, v11, 3221225472, __47__DSSharingPermissionsController_postAnalytics__block_invoke, &unk_278F751E0, v12}];
+      v6 = [v9 countByEnumeratingWithState:&v12 objects:v16 count:{16, v10, 3221225472, __47__DSSharingPermissionsController_postAnalytics__block_invoke, &unk_278F751E0, v11}];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 id __47__DSSharingPermissionsController_postAnalytics__block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
-  v7[0] = @"sourceName";
-  v7[1] = @"elapsedTime";
-  v8[0] = v2;
+  v6[0] = @"sourceName";
+  v6[1] = @"elapsedTime";
+  v7[0] = v2;
   v3 = [v1 objectForKeyedSubscript:?];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -175,15 +212,15 @@ id __47__DSSharingPermissionsController_postAnalytics__block_invoke(uint64_t a1)
 
 - (void)viewDidLoad
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = DSSharingPermissionsController;
-  [(DSTableWelcomeController *)&v12 viewDidLoad];
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = DSSharingPermissionsController;
+  [(DSTableWelcomeController *)&v11 viewDidLoad];
   v3 = DSUILocStringForKey(@"BY_PERSON");
-  v13[0] = v3;
+  v12[0] = v3;
   v4 = DSUILocStringForKey(@"BY_TYPE");
-  v13[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   searchController = [(DSTableWelcomeController *)self searchController];
   searchBar = [searchController searchBar];
   [searchBar setScopeButtonTitles:v5];
@@ -192,19 +229,16 @@ id __47__DSSharingPermissionsController_postAnalytics__block_invoke(uint64_t a1)
   searchController2 = [(DSTableWelcomeController *)self searchController];
   searchBar2 = [searchController2 searchBar];
   [searchBar2 setPlaceholder:v8];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSharingPermissions
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134349312;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134349312;
   selfCopy = self;
-  v6 = 2050;
-  v7 = a2;
-  _os_log_fault_impl(&dword_248C7E000, log, OS_LOG_TYPE_FAULT, "mach_continuous_time walked backwards (now: %{public}llu, then: %{public}llu)", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2050;
+  v6 = a2;
+  _os_log_fault_impl(&dword_248C7E000, log, OS_LOG_TYPE_FAULT, "mach_continuous_time walked backwards (now: %{public}llu, then: %{public}llu)", &v3, 0x16u);
 }
 
 void __57__DSSharingPermissionsController_fetchSharingPermissions__block_invoke(uint64_t a1, void *a2)
@@ -313,30 +347,30 @@ void __57__DSSharingPermissionsController_fetchSharingPermissions__block_invoke_
 
 - (BOOL)isFindMyASource
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   permissions = [(DSSharingPermissionsController *)self permissions];
   allSharingTypes = [permissions allSharingTypes];
 
-  v4 = [allSharingTypes countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [allSharingTypes countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = *MEMORY[0x277D05450];
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(allSharingTypes);
         }
 
-        source = [*(*(&v15 + 1) + 8 * i) source];
+        source = [*(*(&v14 + 1) + 8 * i) source];
         name = [source name];
         v11 = [name isEqualToString:v7];
 
@@ -347,7 +381,7 @@ void __57__DSSharingPermissionsController_fetchSharingPermissions__block_invoke_
         }
       }
 
-      v5 = [allSharingTypes countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [allSharingTypes countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -360,20 +394,19 @@ void __57__DSSharingPermissionsController_fetchSharingPermissions__block_invoke_
   v12 = 0;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)stopAllSharing
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = DSUILocStringForKey(@"STOP_ALL_SHARING_CONFIRMATION");
   if ([(DSSharingPermissionsController *)self isFindMyASource])
   {
-    v16[0] = v3;
+    v15[0] = v3;
     v4 = DSUILocStringForKey(@"FIND_MY_NOTIFICATION_WARNING");
-    v16[1] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[1] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     v6 = [v5 componentsJoinedByString:@" "];
 
     v3 = v6;
@@ -386,18 +419,16 @@ LABEL_11:
 
   v11 = MEMORY[0x277D750F8];
   v12 = DSUILocStringForKey(@"STOP_ALL_SHARING_BY_TYPE_ALERT_LABEL");
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __48__DSSharingPermissionsController_stopAllSharing__block_invoke_2;
-  v15[3] = &unk_278F750A0;
-  v15[4] = self;
-  v13 = [v11 actionWithTitle:v12 style:2 handler:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __48__DSSharingPermissionsController_stopAllSharing__block_invoke_2;
+  v14[3] = &unk_278F750A0;
+  v14[4] = self;
+  v13 = [v11 actionWithTitle:v12 style:2 handler:v14];
 
   [v7 addAction:v13];
   [v7 addAction:v10];
   [(DSSharingPermissionsController *)self presentViewController:v7 animated:1 completion:0];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __48__DSSharingPermissionsController_stopAllSharing__block_invoke_2(uint64_t a1, void *a2)
@@ -423,65 +454,65 @@ void __48__DSSharingPermissionsController_stopAllSharing__block_invoke_2(uint64_
 
 void __48__DSSharingPermissionsController_stopAllSharing__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v28 = a3;
-  v29 = a1;
+  v27 = a3;
+  v28 = a1;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = [WeakRetained permissions];
-  v32 = [v7 allPeople];
+  v31 = [v7 allPeople];
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   obj = v5;
-  v8 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v8 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v8)
   {
     v9 = v8;
-    v31 = *v44;
+    v30 = *v43;
     do
     {
       v10 = 0;
       do
       {
         v11 = WeakRetained;
-        if (*v44 != v31)
+        if (*v43 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v43 + 1) + 8 * v10);
+        v12 = *(*(&v42 + 1) + 8 * v10);
         v13 = [MEMORY[0x277CBEB58] set];
+        v38 = 0u;
         v39 = 0u;
         v40 = 0u;
         v41 = 0u;
-        v42 = 0u;
-        v14 = v32;
-        v15 = [v14 countByEnumeratingWithState:&v39 objects:v48 count:16];
+        v14 = v31;
+        v15 = [v14 countByEnumeratingWithState:&v38 objects:v47 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v40;
+          v17 = *v39;
           do
           {
             v18 = 0;
             do
             {
-              if (*v40 != v17)
+              if (*v39 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v19 = [*(*(&v39 + 1) + 8 * v18) sharedResourcesForSourceName:v12];
+              v19 = [*(*(&v38 + 1) + 8 * v18) sharedResourcesForSourceName:v12];
               [v13 unionSet:v19];
 
               ++v18;
             }
 
             while (v16 != v18);
-            v16 = [v14 countByEnumeratingWithState:&v39 objects:v48 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v38 objects:v47 count:16];
           }
 
           while (v16);
@@ -494,40 +525,40 @@ void __48__DSSharingPermissionsController_stopAllSharing__block_invoke_3(uint64_
       }
 
       while (v10 != v9);
-      v9 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v9 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
     }
 
     while (v9);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  v20 = v32;
-  v21 = [v20 countByEnumeratingWithState:&v35 objects:v47 count:16];
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v20 = v31;
+  v21 = [v20 countByEnumeratingWithState:&v34 objects:v46 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v36;
+    v23 = *v35;
     do
     {
       v24 = 0;
       do
       {
-        if (*v36 != v23)
+        if (*v35 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = [*(*(&v35 + 1) + 8 * v24) displayName];
+        v25 = [*(*(&v34 + 1) + 8 * v24) displayName];
         [WeakRetained addUnsharedPerson:v25];
 
         ++v24;
       }
 
       while (v22 != v24);
-      v22 = [v20 countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v34 objects:v46 count:16];
     }
 
     while (v22);
@@ -537,13 +568,11 @@ void __48__DSSharingPermissionsController_stopAllSharing__block_invoke_3(uint64_
   block[1] = 3221225472;
   block[2] = __48__DSSharingPermissionsController_stopAllSharing__block_invoke_4;
   block[3] = &unk_278F752F8;
-  block[4] = *(v29 + 32);
+  block[4] = *(v28 + 32);
   block[5] = WeakRetained;
-  v34 = v28;
-  v26 = v28;
+  v33 = v27;
+  v26 = v27;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __48__DSSharingPermissionsController_stopAllSharing__block_invoke_4(id *a1)
@@ -568,7 +597,7 @@ void __48__DSSharingPermissionsController_stopAllSharing__block_invoke_4(id *a1)
 
 - (void)reviewSelectedSharing
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   tableView = [(OBTableWelcomeController *)self tableView];
   indexPathsForSelectedRows = [tableView indexPathsForSelectedRows];
   v5 = [indexPathsForSelectedRows sortedArrayUsingComparator:&__block_literal_global_384];
@@ -581,27 +610,27 @@ void __48__DSSharingPermissionsController_stopAllSharing__block_invoke_4(id *a1)
   array2 = [MEMORY[0x277CBEB18] array];
   if (selectedScopeButtonIndex == 1)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v18 = v5;
-    v19 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v28;
+      v21 = *v27;
       do
       {
         v22 = 0;
         do
         {
-          if (*v28 != v21)
+          if (*v27 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = [(DSSharingPermissionsController *)self sharingTypeForIndexPath:*(*(&v27 + 1) + 8 * v22), v27];
+          v23 = [(DSSharingPermissionsController *)self sharingTypeForIndexPath:*(*(&v26 + 1) + 8 * v22), v26];
           if (v23)
           {
             [array2 addObject:v23];
@@ -611,7 +640,7 @@ void __48__DSSharingPermissionsController_stopAllSharing__block_invoke_4(id *a1)
         }
 
         while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v20);
@@ -626,27 +655,27 @@ void __48__DSSharingPermissionsController_stopAllSharing__block_invoke_4(id *a1)
 
   else if (!selectedScopeButtonIndex)
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v11 = v5;
-    v12 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v32;
+      v14 = *v31;
       do
       {
         v15 = 0;
         do
         {
-          if (*v32 != v14)
+          if (*v31 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = [(DSSharingPermissionsController *)self personForIndexPath:*(*(&v31 + 1) + 8 * v15)];
+          v16 = [(DSSharingPermissionsController *)self personForIndexPath:*(*(&v30 + 1) + 8 * v15)];
           if (v16)
           {
             [array addObject:v16];
@@ -656,7 +685,7 @@ void __48__DSSharingPermissionsController_stopAllSharing__block_invoke_4(id *a1)
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v13);
@@ -671,8 +700,6 @@ LABEL_25:
       [navigationController pushViewController:v24 animated:1];
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__DSSharingPermissionsController_reviewSelectedSharing__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -801,7 +828,7 @@ LABEL_7:
 
 - (void)filterContentForSearchText:(id)text category:(int64_t)category
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   textCopy = text;
   if (category == 1)
   {
@@ -822,16 +849,16 @@ LABEL_5:
   {
     permissions = [MEMORY[0x277CCAC30] predicateWithFormat:@"displayName contains[c] %@", textCopy];
     v8 = MEMORY[0x277CCAC30];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __70__DSSharingPermissionsController_filterContentForSearchText_category___block_invoke;
-    v19[3] = &unk_278F75340;
-    v20 = textCopy;
-    v9 = [v8 predicateWithBlock:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __70__DSSharingPermissionsController_filterContentForSearchText_category___block_invoke;
+    v18[3] = &unk_278F75340;
+    v19 = textCopy;
+    v9 = [v8 predicateWithBlock:v18];
     v10 = MEMORY[0x277CCA920];
-    v21[0] = permissions;
-    v21[1] = v9;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[0] = permissions;
+    v20[1] = v9;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
     textCopy = [v10 orPredicateWithSubpredicates:v11];
 
     permissions2 = [(DSSharingPermissionsController *)self permissions];
@@ -859,7 +886,6 @@ LABEL_9:
   [tableView reloadData];
 
   [(DSSharingPermissionsController *)self _updateButton];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __70__DSSharingPermissionsController_filterContentForSearchText_category___block_invoke(uint64_t a1, void *a2)
@@ -953,7 +979,7 @@ LABEL_9:
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   v6 = atomic_load(&self->_fetchState);
   if (v6 - 1 < 2)
@@ -1016,82 +1042,81 @@ LABEL_13:
   }
 
 LABEL_15:
-  v40 = viewCopy;
-  v18 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v39 = viewCopy;
+  v17 = objc_alloc_init(MEMORY[0x277CBEB58]);
   cachedFetchError = [(DSSharingPermissionsController *)self cachedFetchError];
   ds_localizedAppNames = [cachedFetchError ds_localizedAppNames];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   selfCopy = self;
   repo = [(DSSharingPermissionsController *)self repo];
   sources = [repo sources];
 
-  v23 = [sources countByEnumeratingWithState:&v41 objects:v49 count:16];
-  if (v23)
+  v22 = [sources countByEnumeratingWithState:&v40 objects:v48 count:16];
+  if (v22)
   {
-    v24 = v23;
-    v25 = *v42;
+    v23 = v22;
+    v24 = *v41;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v42 != v25)
+        if (*v41 != v24)
         {
           objc_enumerationMutation(sources);
         }
 
-        v27 = MEMORY[0x277D054C0];
-        name = [*(*(&v41 + 1) + 8 * i) name];
-        v29 = [v27 sourceDescriptorForSource:name];
-        localizedAppName = [v29 localizedAppName];
+        v26 = MEMORY[0x277D054C0];
+        name = [*(*(&v40 + 1) + 8 * i) name];
+        v28 = [v26 sourceDescriptorForSource:name];
+        localizedAppName = [v28 localizedAppName];
 
         if ([ds_localizedAppNames containsObject:localizedAppName])
         {
-          v31 = DSLogSharingPermissions;
+          v30 = DSLogSharingPermissions;
           if (os_log_type_enabled(DSLogSharingPermissions, OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v46 = localizedAppName;
-            v47 = 2112;
-            v48 = ds_localizedAppNames;
-            _os_log_impl(&dword_248C7E000, v31, OS_LOG_TYPE_INFO, "Excluding %{public}@ from the no sharing copy because of source errors %@", buf, 0x16u);
+            v45 = localizedAppName;
+            v46 = 2112;
+            v47 = ds_localizedAppNames;
+            _os_log_impl(&dword_248C7E000, v30, OS_LOG_TYPE_INFO, "Excluding %{public}@ from the no sharing copy because of source errors %@", buf, 0x16u);
           }
         }
 
         else
         {
-          [v18 addObject:localizedAppName];
+          [v17 addObject:localizedAppName];
         }
       }
 
-      v24 = [sources countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v23 = [sources countByEnumeratingWithState:&v40 objects:v48 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
 
-  v32 = MEMORY[0x277CCAAF0];
-  allObjects = [v18 allObjects];
-  v34 = [v32 localizedStringByJoiningStrings:allObjects];
+  v31 = MEMORY[0x277CCAAF0];
+  allObjects = [v17 allObjects];
+  v33 = [v31 localizedStringByJoiningStrings:allObjects];
 
-  v35 = MEMORY[0x277CCACA8];
-  v36 = DSUILocStringForKey(@"NO_SHARING_INFORMATION");
-  v37 = [v35 localizedStringWithFormat:v36, v34];
+  v34 = MEMORY[0x277CCACA8];
+  v35 = DSUILocStringForKey(@"NO_SHARING_INFORMATION");
+  v36 = [v34 localizedStringWithFormat:v35, v33];
 
-  v38 = [MEMORY[0x277D755B8] systemImageNamed:@"person.3.fill"];
-  [(DSTableWelcomeController *)selfCopy showNoSharingViewWithText:v37 image:v38];
+  v37 = [MEMORY[0x277D755B8] systemImageNamed:@"person.3.fill"];
+  [(DSTableWelcomeController *)selfCopy showNoSharingViewWithText:v36 image:v37];
 
   [(DSTableWelcomeController *)selfCopy setIsModelEmpty:1];
   [(DSSharingPermissionsController *)selfCopy _updateButton];
 
   v12 = 0;
-  viewCopy = v40;
+  viewCopy = v39;
 LABEL_14:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1297,34 +1322,34 @@ LABEL_12:
 
 - (void)sharingStoppedForPerson:(id)person sourceNames:(id)names
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   personCopy = person;
   namesCopy = names;
   array = [MEMORY[0x277CBEB18] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v9 = namesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v10)
   {
     v12 = v10;
-    v13 = *v25;
+    v13 = *v24;
     *&v11 = 138543362;
-    v23 = v11;
+    v22 = v11;
     do
     {
       v14 = 0;
       do
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * v14);
-        v16 = [(DSSharingPermissionsController *)self repo:v23];
+        v15 = *(*(&v23 + 1) + 8 * v14);
+        v16 = [(DSSharingPermissionsController *)self repo:v22];
         v17 = [v16 objectForKeyedSubscript:v15];
 
         if (v17)
@@ -1339,8 +1364,8 @@ LABEL_12:
           v19 = DSLogSharingPermissions;
           if (os_log_type_enabled(DSLogSharingPermissions, OS_LOG_TYPE_FAULT))
           {
-            *buf = v23;
-            v29 = v15;
+            *buf = v22;
+            v28 = v15;
             _os_log_fault_impl(&dword_248C7E000, v19, OS_LOG_TYPE_FAULT, "Failed to find source named %{public}@", buf, 0xCu);
           }
         }
@@ -1349,7 +1374,7 @@ LABEL_12:
       }
 
       while (v12 != v14);
-      v12 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v12);
@@ -1362,39 +1387,38 @@ LABEL_12:
   [permissions removePerson:personCopy sources:array];
 
   [(DSSharingPermissionsController *)self reloadTableViewData];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sharingStoppedForType:(id)type people:(id)people
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   peopleCopy = people;
   permissions = [(DSSharingPermissionsController *)self permissions];
   [permissions removeSharingType:typeCopy people:peopleCopy];
 
   v9 = [MEMORY[0x277CBEB58] set];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = peopleCopy;
-  v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     do
     {
       v13 = 0;
       do
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * v13);
+        v14 = *(*(&v22 + 1) + 8 * v13);
         source = [typeCopy source];
         name = [source name];
         v17 = [v14 sharedResourcesForSourceName:name];
@@ -1407,7 +1431,7 @@ LABEL_12:
       }
 
       while (v11 != v13);
-      v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
@@ -1418,7 +1442,6 @@ LABEL_12:
   [(DSSharingPermissionsController *)self addUnsharedSource:name2 resources:v9];
 
   [(DSSharingPermissionsController *)self reloadTableViewData];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopSharingFailedWithError:(id)error
@@ -1429,30 +1452,30 @@ LABEL_12:
 
 - (void)reviewSelectedSharingFlowCompleted
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   tableView = [(OBTableWelcomeController *)self tableView];
   indexPathsForSelectedRows = [tableView indexPathsForSelectedRows];
 
-  v5 = [indexPathsForSelectedRows countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v5 = [indexPathsForSelectedRows countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       v8 = 0;
       do
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(indexPathsForSelectedRows);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * v8);
+        v9 = *(*(&v27 + 1) + 8 * v8);
         tableView2 = [(OBTableWelcomeController *)self tableView];
         [tableView2 deselectRowAtIndexPath:v9 animated:0];
 
@@ -1460,7 +1483,7 @@ LABEL_12:
       }
 
       while (v6 != v8);
-      v6 = [indexPathsForSelectedRows countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v6 = [indexPathsForSelectedRows countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v6);
@@ -1476,29 +1499,29 @@ LABEL_12:
   [delegate pushPaneAfterPaneType:objc_opt_class()];
 
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   navigationController = [(DSSharingPermissionsController *)self navigationController];
   viewControllers = [navigationController viewControllers];
 
-  v17 = [viewControllers countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v17 = [viewControllers countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v25;
+    v19 = *v24;
     do
     {
       v20 = 0;
       do
       {
-        if (*v25 != v19)
+        if (*v24 != v19)
         {
           objc_enumerationMutation(viewControllers);
         }
 
-        v21 = *(*(&v24 + 1) + 8 * v20);
+        v21 = *(*(&v23 + 1) + 8 * v20);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -1509,7 +1532,7 @@ LABEL_12:
       }
 
       while (v18 != v20);
-      v18 = [viewControllers countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v18 = [viewControllers countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v18);
@@ -1517,8 +1540,6 @@ LABEL_12:
 
   navigationController2 = [(DSSharingPermissionsController *)self navigationController];
   [navigationController2 setViewControllers:v14];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addUnsharedSource:(id)source resources:(id)resources
@@ -1539,12 +1560,11 @@ LABEL_12:
 
 id __62__DSSharingPermissionsController_addUnsharedSource_resources___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v5 = @"source";
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = @"source";
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1569,20 +1589,18 @@ id __62__DSSharingPermissionsController_addUnsharedSource_resources___block_invo
 
 - (void)presentFetchErrorMessage:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch permissions because %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch permissions because %{public}@", &v2, 0xCu);
 }
 
 - (void)filterContentForSearchText:(uint64_t)a1 category:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134349056;
-  v4 = a1;
-  _os_log_fault_impl(&dword_248C7E000, a2, OS_LOG_TYPE_FAULT, "Failed to find a predicate for search scope %{public}ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134349056;
+  v3 = a1;
+  _os_log_fault_impl(&dword_248C7E000, a2, OS_LOG_TYPE_FAULT, "Failed to find a predicate for search scope %{public}ld", &v2, 0xCu);
 }
 
 @end

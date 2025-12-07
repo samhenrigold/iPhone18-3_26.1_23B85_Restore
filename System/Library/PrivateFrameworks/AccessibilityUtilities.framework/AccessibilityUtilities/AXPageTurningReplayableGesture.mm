@@ -38,7 +38,7 @@
 
 - (CGPoint)pointForFingerIdentifier:(id)identifier atEventIndex:(unint64_t)index
 {
-  MainScreenBounds = AXDeviceGetMainScreenBounds();
+  MainScreenBounds = AXDeviceGetMainScreenBounds(self);
   v8 = v7;
   v10 = v9;
   v12 = v11;

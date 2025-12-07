@@ -44,7 +44,7 @@ void __96___UIAlertControllerPhoneTVMacView__unlocalizedOrderedPresentableAlertA
   [*(a1 + 48) addObject:v3];
 }
 
-uint64_t __86___UIAlertControllerPhoneTVMacView__shouldAllowPassthroughToLayersBehindUsForTouches___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__86___UIAlertControllerPhoneTVMacView__shouldAllowPassthroughToLayersBehindUsForTouches___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   [a2 locationInView:*(a1 + 32)];
   result = [*(a1 + 32) pointInside:0 withEvent:?];

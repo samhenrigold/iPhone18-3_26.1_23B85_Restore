@@ -34,12 +34,12 @@
   }
 
   v9 = [dictionaryCopy PKStringForKey:@"scheme"];
-  v10 = PKTerminalPublicKeySchemeFromString(v9);
+  v11 = PKTerminalPublicKeySchemeFromString(v9, v10);
   selfCopy = 0;
-  if (v10)
+  if (v11)
   {
-    v11 = v10;
-    if (v10 == 1 && ([v7 PKStringForKey:@"publicKey"], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "pk_decodeHexadecimal"), selfCopy = objc_claimAutoreleasedReturnValue(), v12, !selfCopy))
+    v12 = v11;
+    if (v11 == 1 && ([v7 PKStringForKey:@"publicKey"], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "pk_decodeHexadecimal"), selfCopy = objc_claimAutoreleasedReturnValue(), v13, !selfCopy))
     {
       selfCopy = 0;
       if (success)
@@ -50,17 +50,17 @@
 
     else
     {
-      v16.receiver = self;
-      v16.super_class = PKPaymentApplicationAssociatedReaderCA;
-      v13 = [(PKPaymentApplicationAssociatedReaderCA *)&v16 init];
-      v14 = v13;
-      if (v13)
+      v17.receiver = self;
+      v17.super_class = PKPaymentApplicationAssociatedReaderCA;
+      v14 = [(PKPaymentApplicationAssociatedReaderCA *)&v17 init];
+      v15 = v14;
+      if (v14)
       {
-        v13->_scheme = v11;
-        objc_storeStrong(&v13->_publicKey, selfCopy);
+        v14->_scheme = v12;
+        objc_storeStrong(&v14->_publicKey, selfCopy);
       }
 
-      self = v14;
+      self = v15;
 
       selfCopy = self;
     }

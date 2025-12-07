@@ -158,21 +158,21 @@ id __111__FPPreflightUserInteraction_interactionFromDictionary_localizationLooku
 {
   v3 = a2;
   v4 = v3;
-  if (a1[4] || a1[5])
+  if (*(a1 + 2) == 0)
   {
-    v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:v3];
-    [FPPreflightUserInteraction propagateConfigurationKeysDownInteractionTreeWithObject:v5 key:@"SuppressionIdentifier" value:a1[4]];
-    [FPPreflightUserInteraction propagateConfigurationKeysDownInteractionTreeWithObject:v5 key:@"HelpURL" value:a1[5]];
+    v7 = v3;
   }
 
   else
   {
-    v5 = v3;
+    v7 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:v3];
+    [FPPreflightUserInteraction propagateConfigurationKeysDownInteractionTreeWithObject:v7 key:@"SuppressionIdentifier" value:a1[4]];
+    [FPPreflightUserInteraction propagateConfigurationKeysDownInteractionTreeWithObject:v7 key:@"HelpURL" value:a1[5]];
   }
 
-  v6 = [FPPreflightUserInteraction interactionFromDictionary:v5 localizationLookup:a1[6] providerIdentifier:a1[7] domainIdentifier:a1[8]];
+  v5 = [FPPreflightUserInteraction interactionFromDictionary:v7 localizationLookup:a1[6] providerIdentifier:a1[7] domainIdentifier:a1[8]];
 
-  return v6;
+  return v5;
 }
 
 + (void)propagateConfigurationKeysDownInteractionTreeWithObject:(id)object key:(id)key value:(id)value
@@ -276,50 +276,50 @@ id __106__FPPreflightUserInteraction_interactionsForArray_localizationLookup_pro
 
 - (id)_evaluateWithObjectsByName:(id)name sourceItems:(id)items suppressionDelegate:(id)delegate errorIndex:(unint64_t *)index
 {
-  v102 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   itemsCopy = items;
   delegateCopy = delegate;
   indexCopy = index;
   ++*index;
-  v83 = objc_opt_new();
-  v80 = nameCopy;
+  v82 = objc_opt_new();
+  v79 = nameCopy;
   v10 = [nameCopy mutableCopy];
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(itemsCopy, "count")}];
   [v10 setObject:v11 forKeyedSubscript:@"sourceItemsCount"];
 
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
   v96 = 0u;
+  v97 = 0u;
+  v94 = 0u;
+  v95 = 0u;
   v12 = itemsCopy;
   v13 = 0;
-  v14 = [v12 countByEnumeratingWithState:&v95 objects:v101 count:16];
+  v14 = [v12 countByEnumeratingWithState:&v94 objects:v100 count:16];
   if (v14)
   {
-    v15 = *v96;
+    v15 = *v95;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v96 != v15)
+        if (*v95 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v95 + 1) + 8 * i);
+        v17 = *(*(&v94 + 1) + 8 * i);
         [v10 setObject:v17 forKeyedSubscript:@"sourceItem"];
         predicate = [(FPPreflightUserInteraction *)self predicate];
         v19 = [predicate evaluateWithObject:v10];
 
         if (v19)
         {
-          [v83 addObject:v17];
+          [v82 addObject:v17];
           v13 = 1;
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v95 objects:v101 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v94 objects:v100 count:16];
     }
 
     while (v14);
@@ -338,52 +338,52 @@ LABEL_12:
       if (v22)
       {
         subInteractions2 = [(FPPreflightUserInteraction *)self subInteractions];
-        v89[0] = MEMORY[0x1E69E9820];
-        v89[1] = 3221225472;
-        v89[2] = __100__FPPreflightUserInteraction__evaluateWithObjectsByName_sourceItems_suppressionDelegate_errorIndex___block_invoke;
-        v89[3] = &unk_1E793BE70;
-        v90 = v80;
-        v91 = v83;
-        v92 = delegateCopy;
-        v94 = indexCopy;
-        v93 = v20;
-        [subInteractions2 enumerateObjectsUsingBlock:v89];
+        v88[0] = MEMORY[0x1E69E9820];
+        v88[1] = 3221225472;
+        v88[2] = __100__FPPreflightUserInteraction__evaluateWithObjectsByName_sourceItems_suppressionDelegate_errorIndex___block_invoke;
+        v88[3] = &unk_1E793BE70;
+        v89 = v79;
+        v90 = v82;
+        v91 = delegateCopy;
+        v93 = indexCopy;
+        v92 = v20;
+        [subInteractions2 enumerateObjectsUsingBlock:v88];
       }
 
       alert = [(FPPreflightUserInteraction *)self alert];
       if (alert)
       {
-        v79 = [v80 mutableCopy];
-        if ([v83 count])
+        v78 = [v79 mutableCopy];
+        if ([v82 count])
         {
-          firstObject = [v83 firstObject];
-          [v79 setObject:firstObject forKeyedSubscript:@"firstMatchingItem"];
+          firstObject = [v82 firstObject];
+          [v78 setObject:firstObject forKeyedSubscript:@"firstMatchingItem"];
 
-          v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v83, "count")}];
-          [v79 setObject:v26 forKeyedSubscript:@"matchingItemsCount"];
+          v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v82, "count")}];
+          [v78 setObject:v26 forKeyedSubscript:@"matchingItemsCount"];
 
-          if ([v83 count] >= 2)
+          if ([v82 count] >= 2)
           {
-            v27 = [v83 objectAtIndex:1];
-            [v79 setObject:v27 forKeyedSubscript:@"secondMatchingItem"];
+            v27 = [v82 objectAtIndex:1];
+            [v78 setObject:v27 forKeyedSubscript:@"secondMatchingItem"];
 
-            v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v83, "count") - 1}];
-            [v79 setObject:v28 forKeyedSubscript:@"matchingItemsCountMinusOne"];
+            v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v82, "count") - 1}];
+            [v78 setObject:v28 forKeyedSubscript:@"matchingItemsCountMinusOne"];
 
-            if ([v83 count] >= 3)
+            if ([v82 count] >= 3)
             {
-              v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v83, "count") - 2}];
-              [v79 setObject:v29 forKeyedSubscript:@"matchingItemsCountMinusTwo"];
+              v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v82, "count") - 2}];
+              [v78 setObject:v29 forKeyedSubscript:@"matchingItemsCountMinusTwo"];
             }
           }
         }
 
         cancelCaptionFormat = [alert cancelCaptionFormat];
-        v88 = 0;
-        v77 = [cancelCaptionFormat evaluateWithValuesByName:v79 error:&v88];
-        v31 = v88;
+        v87 = 0;
+        v76 = [cancelCaptionFormat evaluateWithValuesByName:v78 error:&v87];
+        v31 = v87;
 
-        if (!v77)
+        if (!v76)
         {
           if (v31)
           {
@@ -394,7 +394,7 @@ LABEL_12:
             }
           }
 
-          v77 = FPLocalizedErrorStringForKey(@"Preflight-Cancel");
+          v76 = FPLocalizedErrorStringForKey(@"Preflight-Cancel");
         }
 
         alert2 = [(FPPreflightUserInteraction *)self alert];
@@ -404,9 +404,9 @@ LABEL_12:
         {
 
           continueCaptionFormat = [alert continueCaptionFormat];
-          v87 = 0;
-          v36 = [continueCaptionFormat evaluateWithValuesByName:v79 error:&v87];
-          v31 = v87;
+          v86 = 0;
+          v36 = [continueCaptionFormat evaluateWithValuesByName:v78 error:&v86];
+          v31 = v86;
 
           if (!v36)
           {
@@ -422,15 +422,15 @@ LABEL_12:
             v36 = FPLocalizedErrorStringForKey(@"Preflight-Continue");
           }
 
-          v100[0] = v77;
-          v100[1] = v36;
-          v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v100 count:2];
+          v99[0] = v76;
+          v99[1] = v36;
+          v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v99 count:2];
         }
 
         else
         {
-          v99 = v77;
-          v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v99 count:1];
+          v98 = v76;
+          v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v98 count:1];
         }
 
         hasSuppressionIdentifier = [(FPPreflightUserInteraction *)self hasSuppressionIdentifier];
@@ -462,9 +462,9 @@ LABEL_12:
         v46 = objc_opt_new();
 
         titleFormat = [alert titleFormat];
-        v86 = 0;
-        v48 = [titleFormat evaluateWithValuesByName:v79 error:&v86];
-        v49 = v86;
+        v85 = 0;
+        v48 = [titleFormat evaluateWithValuesByName:v78 error:&v85];
+        v49 = v85;
         v50 = *MEMORY[0x1E696A578];
         [v46 setObject:v48 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
@@ -491,9 +491,9 @@ LABEL_12:
         }
 
         subtitleFormat = [alert subtitleFormat];
-        v85 = 0;
-        v56 = [subtitleFormat evaluateWithValuesByName:v79 error:&v85];
-        v57 = v85;
+        v84 = 0;
+        v56 = [subtitleFormat evaluateWithValuesByName:v78 error:&v84];
+        v57 = v84;
         v58 = *MEMORY[0x1E696A598];
         [v46 setObject:v56 forKeyedSubscript:*MEMORY[0x1E696A598]];
 
@@ -577,8 +577,6 @@ LABEL_12:
 
   v20 = MEMORY[0x1E695E0F0];
 LABEL_71:
-
-  v75 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -712,48 +710,46 @@ id __77__FPPreflightUserInteraction_Convenience__interactionsForProviderItem_err
 
 + (id)gatherErrorsForInteractions:(id)interactions evaluationObjects:(id)objects suppressionDelegate:(id)delegate
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   interactionsCopy = interactions;
   objectsCopy = objects;
   delegateCopy = delegate;
   array = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v11 = interactionsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [*(*(&v19 + 1) + 8 * i) evaluateWithObjectsByName:objectsCopy suppressionDelegate:{delegateCopy, v19}];
+        v16 = [*(*(&v18 + 1) + 8 * i) evaluateWithObjectsByName:objectsCopy suppressionDelegate:{delegateCopy, v18}];
         [array addObjectsFromArray:v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 + (id)userInteractionErrorsInInfoPlistDict:(id)dict forAction:(id)action bundleID:(id)d hierarchyServicer:(id)servicer sourceNSFPItems:(id)items destinationNSFPItem:(id)item localizationLookup:(id)lookup provider:(id)self0 domain:(id)self1 extensionCapabilities:(unint64_t)self2 useFPFS:(BOOL)self3
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   actionCopy = action;
   dCopy = d;
@@ -763,26 +759,26 @@ id __77__FPPreflightUserInteraction_Convenience__interactionsForProviderItem_err
   providerCopy = provider;
   domainCopy = domain;
   v18 = objc_opt_new();
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   v19 = itemsCopy;
-  v20 = [(FPItem *)v19 countByEnumeratingWithState:&v52 objects:v57 count:16];
+  v20 = [(FPItem *)v19 countByEnumeratingWithState:&v51 objects:v56 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v53;
+    v22 = *v52;
     while (2)
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v53 != v22)
+        if (*v52 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = [[FPItem alloc] initWithVendorItem:*(*(&v52 + 1) + 8 * i) provider:providerCopy domain:domainCopy spotlightDomainIdentifier:0 extensionCapabilities:capabilities useFPFS:s];
+        v24 = [[FPItem alloc] initWithVendorItem:*(*(&v51 + 1) + 8 * i) provider:providerCopy domain:domainCopy spotlightDomainIdentifier:0 extensionCapabilities:capabilities useFPFS:s];
         if (!v24)
         {
           v27 = fp_current_or_default_log();
@@ -800,7 +796,7 @@ id __77__FPPreflightUserInteraction_Convenience__interactionsForProviderItem_err
         [v18 addObject:v24];
       }
 
-      v21 = [(FPItem *)v19 countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v21 = [(FPItem *)v19 countByEnumeratingWithState:&v51 objects:v56 count:16];
       if (v21)
       {
         continue;
@@ -821,89 +817,79 @@ id __77__FPPreflightUserInteraction_Convenience__interactionsForProviderItem_err
   }
 
   v29 = [dictCopy objectForKeyedSubscript:{@"NSFileProviderUserInteractions", self}];
-  v30 = [v40 interactionsForArray:v29 localizationLookup:lookupCopy providerIdentifier:dCopy domainIdentifier:0];
+  v30 = [v39 interactionsForArray:v29 localizationLookup:lookupCopy providerIdentifier:dCopy domainIdentifier:0];
 
   v31 = [FPPreflightUserInteraction evaluationObjectsForAction:actionCopy sourceItems:v18 destinationItem:v26 domainUserInfo:0 sourceItemKeysAllowList:0 destinationItemKeysAllowList:0];
   array = [MEMORY[0x1E695DF70] array];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   v27 = v30;
-  v32 = [v27 countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v32 = [v27 countByEnumeratingWithState:&v47 objects:v55 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v49;
+    v34 = *v48;
     do
     {
       for (j = 0; j != v33; ++j)
       {
-        if (*v49 != v34)
+        if (*v48 != v34)
         {
           objc_enumerationMutation(v27);
         }
 
-        v36 = [*(*(&v48 + 1) + 8 * j) evaluateWithObjectsByName:v31 suppressionDelegate:0];
+        v36 = [*(*(&v47 + 1) + 8 * j) evaluateWithObjectsByName:v31 suppressionDelegate:0];
         [array addObjectsFromArray:v36];
       }
 
-      v33 = [v27 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v33 = [v27 countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
     while (v33);
   }
 
 LABEL_23:
-  v37 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 + (void)interactionFromDictionary:localizationLookup:providerIdentifier:domainIdentifier:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)interactionFromDictionary:localizationLookup:providerIdentifier:domainIdentifier:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] Can't parse activation rule: %@: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] Can't parse activation rule: %@: %@", v2, 0x16u);
 }
 
 + (void)interactionFromDictionary:localizationLookup:providerIdentifier:domainIdentifier:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)interactionsForBundle:providerIdentifier:domainIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __106__FPPreflightUserInteraction_interactionsForArray_localizationLookup_providerIdentifier_domainIdentifier___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_evaluateWithObjectsByName:(void *)a1 sourceItems:(uint64_t)a2 suppressionDelegate:(uint8_t *)buf errorIndex:(os_log_t)log .cold.1(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -917,52 +903,38 @@ void __106__FPPreflightUserInteraction_interactionsForArray_localizationLookup_p
 
 - (void)_evaluateWithObjectsByName:(void *)a1 sourceItems:(NSObject *)a2 suppressionDelegate:errorIndex:.cold.2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 predicate];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] No match for predicate %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] No match for predicate %@", v4, 0xCu);
 }
 
 - (void)_evaluateWithObjectsByName:(void *)a1 sourceItems:suppressionDelegate:errorIndex:.cold.3(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] Failed to evaluate alert cancel caption format. Error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] Failed to evaluate alert cancel caption format. Error: %@", v4, v5, v6, v7);
 }
 
 - (void)_evaluateWithObjectsByName:(void *)a1 sourceItems:suppressionDelegate:errorIndex:.cold.4(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] Failed to evaluate alert continue caption format. Error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] Failed to evaluate alert continue caption format. Error: %@", v4, v5, v6, v7);
 }
 
 - (void)_evaluateWithObjectsByName:(void *)a1 sourceItems:suppressionDelegate:errorIndex:.cold.6(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] Failed to evaluate alert title format. Error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] Failed to evaluate alert title format. Error: %@", v4, v5, v6, v7);
 }
 
 - (void)_evaluateWithObjectsByName:(void *)a1 sourceItems:suppressionDelegate:errorIndex:.cold.7(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] Failed to evaluate alert subtitle format. Error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] Failed to evaluate alert subtitle format. Error: %@", v4, v5, v6, v7);
 }
 
 @end

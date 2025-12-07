@@ -20,7 +20,7 @@
   bitsPerChannel = [self bitsPerChannel];
   intValue2 = [bitsPerChannel intValue];
   framesPerPacket = [self framesPerPacket];
-  v15 = [v5 stringWithFormat:@"'%c%c%c%c', %.0fhz, %d bits, %d FPP, ", v4, v6, v7, v8, *&v11, intValue2, objc_msgSend(framesPerPacket, "intValue")];
+  v15 = [v5 stringWithFormat:v4, v6, v7, v8, *&v11, intValue2, objc_msgSend(framesPerPacket, "intValue")];
 
   return v15;
 }

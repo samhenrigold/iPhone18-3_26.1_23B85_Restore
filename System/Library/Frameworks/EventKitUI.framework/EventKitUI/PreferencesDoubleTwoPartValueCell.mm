@@ -23,8 +23,8 @@
     clearColor = [MEMORY[0x1E69DC888] clearColor];
     [(UILabel *)self->_textLabel2 setBackgroundColor:clearColor];
 
-    contentView = [(PreferencesDoubleTwoPartValueCell *)self contentView];
-    [contentView addSubview:self->_textLabel2];
+    v8 = objc_msgSend_contentView(self);
+    [v8 addSubview:self->_textLabel2];
 
     textLabel2 = self->_textLabel2;
   }
@@ -50,8 +50,8 @@
     clearColor = [MEMORY[0x1E69DC888] clearColor];
     [(TwoPartTextLabel *)self->_twoPartLabel2 setBackgroundColor:clearColor];
 
-    contentView = [(PreferencesDoubleTwoPartValueCell *)self contentView];
-    [contentView addSubview:self->_twoPartLabel2];
+    v9 = objc_msgSend_contentView(self);
+    [v9 addSubview:self->_twoPartLabel2];
 
     twoPartLabel2 = self->_twoPartLabel2;
   }
@@ -120,8 +120,8 @@ LABEL_11:
   v46.receiver = self;
   v46.super_class = PreferencesDoubleTwoPartValueCell;
   [(PreferencesTwoPartValueCell *)&v46 layoutText:textLabel2 andValue:twoPartLabel2];
-  contentView = [(PreferencesDoubleTwoPartValueCell *)self contentView];
-  [contentView bounds];
+  v7 = objc_msgSend_contentView(self);
+  [v7 bounds];
   v9 = v8;
   v11 = v10;
   v13 = v12;

@@ -35,13 +35,13 @@
 
 void __29__DEExtensionTracker_checkIn__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = Log();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = Log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "+[DEExtensionTracker checkIn]_block_invoke";
-    _os_log_impl(&dword_248AB3000, v2, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: %s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "+[DEExtensionTracker checkIn]_block_invoke";
+    _os_log_impl(&dword_248AB3000, v2, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: %s", &v5, 0xCu);
   }
 
   v3 = +[DEExtensionManager sharedInstance];
@@ -49,8 +49,6 @@ void __29__DEExtensionTracker_checkIn__block_invoke(uint64_t a1)
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [objc_opt_class() _updateXPCActivityDate];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)shouldSetupWithIdentifier:(id)identifier session:(id)session expirationDate:(id)date
@@ -89,7 +87,7 @@ void __29__DEExtensionTracker_checkIn__block_invoke(uint64_t a1)
 void __71__DEExtensionTracker_shouldSetupWithIdentifier_session_expirationDate___block_invoke(uint64_t a1)
 {
   v17 = *MEMORY[0x277D85DE8];
-  v2 = Log();
+  v2 = Log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -112,16 +110,14 @@ void __71__DEExtensionTracker_shouldSetupWithIdentifier_session_expirationDate__
   v7 = objc_loadWeakRetained((a1 + 64));
   [objc_opt_class() updateExpirationDateWithIdentifier:*(a1 + 32) expirationDate:*(a1 + 48)];
 
-  v8 = Log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = Log(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = *(*(*(a1 + 56) + 8) + 24);
+    v10 = *(*(*(a1 + 56) + 8) + 24);
     v11 = 67109120;
-    LODWORD(v12) = v9;
-    _os_log_impl(&dword_248AB3000, v8, OS_LOG_TYPE_INFO, "isFirstTimeRunningExtension: %i", &v11, 8u);
+    LODWORD(v12) = v10;
+    _os_log_impl(&dword_248AB3000, v9, OS_LOG_TYPE_INFO, "isFirstTimeRunningExtension: %i", &v11, 8u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)shouldTeardownWithIdentifier:(id)identifier session:(id)session
@@ -157,7 +153,7 @@ void __71__DEExtensionTracker_shouldSetupWithIdentifier_session_expirationDate__
 void __59__DEExtensionTracker_shouldTeardownWithIdentifier_session___block_invoke(uint64_t a1)
 {
   v22 = *MEMORY[0x277D85DE8];
-  v2 = Log();
+  v2 = Log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -179,30 +175,28 @@ void __59__DEExtensionTracker_shouldTeardownWithIdentifier_session___block_invok
 
   if (v6)
   {
-    v9 = *(a1 + 48);
-    v8 = a1 + 48;
-    *(*(v9 + 8) + 24) = 0;
+    v10 = *(a1 + 48);
+    v9 = a1 + 48;
+    *(*(v10 + 8) + 24) = 0;
   }
 
   else
   {
-    v10 = objc_loadWeakRetained((a1 + 56));
-    v11 = [objc_opt_class() hasInactiveLoggingSession:*(a1 + 32)];
-    v12 = *(a1 + 48);
-    v8 = a1 + 48;
-    *(*(v12 + 8) + 24) = v11;
+    v11 = objc_loadWeakRetained((a1 + 56));
+    v12 = [objc_opt_class() hasInactiveLoggingSession:*(a1 + 32)];
+    v13 = *(a1 + 48);
+    v9 = a1 + 48;
+    *(*(v13 + 8) + 24) = v12;
   }
 
-  v13 = Log();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = Log(v8);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v14 = *(*(*v8 + 8) + 24);
+    v15 = *(*(*v9 + 8) + 24);
     v16 = 67109120;
-    LODWORD(v17) = v14;
-    _os_log_impl(&dword_248AB3000, v13, OS_LOG_TYPE_INFO, "shouldTeardownExtension: %i", &v16, 8u);
+    LODWORD(v17) = v15;
+    _os_log_impl(&dword_248AB3000, v14, OS_LOG_TYPE_INFO, "shouldTeardownExtension: %i", &v16, 8u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)currentLoggingExtensions
@@ -222,22 +216,19 @@ void __59__DEExtensionTracker_shouldTeardownWithIdentifier_session___block_invok
 
 + (void)saveCurrentLoggingExtensionsWithDictionary:(id)dictionary
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   userDefaults = [objc_opt_class() userDefaults];
   [userDefaults setObject:dictionaryCopy forKey:@"com.apple.DiagnosticExtensions.extensionTracker"];
 
-  [userDefaults synchronize];
-  v5 = Log();
+  v5 = Log([userDefaults synchronize]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     currentLoggingExtensions = [objc_opt_class() currentLoggingExtensions];
-    v8 = 138412290;
-    v9 = currentLoggingExtensions;
-    _os_log_impl(&dword_248AB3000, v5, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: currentLoggingExtensions: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = currentLoggingExtensions;
+    _os_log_impl(&dword_248AB3000, v5, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: currentLoggingExtensions: %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)hasInactiveLoggingSession:(id)session
@@ -271,7 +262,7 @@ void __59__DEExtensionTracker_shouldTeardownWithIdentifier_session___block_invok
   return v8;
 }
 
-uint64_t __48__DEExtensionTracker_hasInactiveLoggingSession___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__48__DEExtensionTracker_hasInactiveLoggingSession___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 intValue];
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -306,7 +297,7 @@ uint64_t __39__DEExtensionTracker_sharedSerialQueue__block_invoke()
 
 + (void)_updateExtensionExpirationDateWithIdentifier:(id)identifier expirationDate:(id)date
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dateCopy = date;
   currentLoggingExtensions = [objc_opt_class() currentLoggingExtensions];
@@ -345,27 +336,24 @@ uint64_t __39__DEExtensionTracker_sharedSerialQueue__block_invoke()
   v18 = [v17 laterDate:dateCopy];
 
   [v13 setObject:v18 forKeyedSubscript:@"ExpirationDate"];
-  [v10 setObject:v13 forKeyedSubscript:identifierCopy];
-  v19 = Log();
+  v19 = Log([v10 setObject:v13 forKeyedSubscript:identifierCopy]);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412546;
-    v24 = identifierCopy;
-    v25 = 2112;
-    v26 = v18;
-    _os_log_impl(&dword_248AB3000, v19, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: Updating %@ expiration date to %@", &v23, 0x16u);
+    v22 = 138412546;
+    v23 = identifierCopy;
+    v24 = 2112;
+    v25 = v18;
+    _os_log_impl(&dword_248AB3000, v19, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: Updating %@ expiration date to %@", &v22, 0x16u);
   }
 
   v20 = objc_opt_class();
   v21 = [v10 copy];
   [v20 saveCurrentLoggingExtensionsWithDictionary:v21];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_updateXPCActivityDate
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   currentLoggingExtensions = [objc_opt_class() currentLoggingExtensions];
   v4 = currentLoggingExtensions;
   if (!currentLoggingExtensions)
@@ -395,76 +383,75 @@ uint64_t __39__DEExtensionTracker_sharedSerialQueue__block_invoke()
   {
   }
 
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy_;
-  v28 = __Block_byref_object_dispose_;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy_;
+  v29 = __Block_byref_object_dispose_;
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __44__DEExtensionTracker__updateXPCActivityDate__block_invoke;
-  v23[3] = &unk_278F635A0;
-  v23[4] = &v24;
-  [v5 enumerateKeysAndObjectsUsingBlock:v23];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __44__DEExtensionTracker__updateXPCActivityDate__block_invoke;
+  v24[3] = &unk_278F635A0;
+  v24[4] = &v25;
+  [v5 enumerateKeysAndObjectsUsingBlock:v24];
   date = [MEMORY[0x277CBEAA8] date];
-  if ([v25[5] compare:date] == -1)
+  if ([v26[5] compare:date] == -1)
   {
-    v11 = Log();
+    v11 = Log(-1);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = v25[5];
+      v12 = v26[5];
       *buf = 138412546;
-      v33 = v12;
-      v34 = 2112;
-      v35 = date;
+      v34 = v12;
+      v35 = 2112;
+      v36 = date;
       _os_log_impl(&dword_248AB3000, v11, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: extensionEarliestDate is aged out (%@), assign to %@ instead", buf, 0x16u);
     }
 
-    objc_storeStrong(v25 + 5, date);
+    objc_storeStrong(v26 + 5, date);
   }
 
-  v13 = v25[5];
+  v13 = v26[5];
   [objc_opt_class() xpcActivityTimeInterval];
   v14 = [v13 dateByAddingTimeInterval:?];
-  v15 = v25[5];
-  v30[0] = @"EarliestExpirationDate";
-  v30[1] = @"XPCActivityScheduledDate";
-  v31[0] = v15;
-  v31[1] = v14;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+  v15 = v26[5];
+  v31[0] = @"EarliestExpirationDate";
+  v31[1] = @"XPCActivityScheduledDate";
+  v32[0] = v15;
+  v32[1] = v14;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
   [v5 setObject:v16 forKeyedSubscript:@"XPCActivity"];
 
-  v17 = Log();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v18 = Log(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
-    v18 = v25[5];
+    v19 = v26[5];
     *buf = 138412546;
-    v33 = @"XPCActivity";
-    v34 = 2112;
-    v35 = v18;
-    _os_log_impl(&dword_248AB3000, v17, OS_LOG_TYPE_INFO, "DEExtensionTracker: Updating %@ to %@", buf, 0x16u);
+    v34 = @"XPCActivity";
+    v35 = 2112;
+    v36 = v19;
+    _os_log_impl(&dword_248AB3000, v18, OS_LOG_TYPE_INFO, "DEExtensionTracker: Updating %@ to %@", buf, 0x16u);
   }
 
-  v19 = Log();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  v21 = Log(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v33 = @"XPCActivityScheduledDate";
-    v34 = 2112;
-    v35 = v14;
-    _os_log_impl(&dword_248AB3000, v19, OS_LOG_TYPE_INFO, "DEExtensionTracker: Updating %@ to %@", buf, 0x16u);
+    v34 = @"XPCActivityScheduledDate";
+    v35 = 2112;
+    v36 = v14;
+    _os_log_impl(&dword_248AB3000, v21, OS_LOG_TYPE_INFO, "DEExtensionTracker: Updating %@ to %@", buf, 0x16u);
   }
 
-  v20 = objc_opt_class();
-  v21 = [v5 copy];
-  [v20 saveCurrentLoggingExtensionsWithDictionary:v21];
+  v22 = objc_opt_class();
+  v23 = [v5 copy];
+  [v22 saveCurrentLoggingExtensionsWithDictionary:v23];
 
   [self scheduleXPCActivity];
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v25, 8);
 
 LABEL_16:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__DEExtensionTracker__updateXPCActivityDate__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -500,7 +487,7 @@ uint64_t __44__DEExtensionTracker__updateXPCActivityDate__block_invoke(uint64_t 
 + (void)scheduleXPCActivity
 {
   v19 = *MEMORY[0x277D85DE8];
-  v3 = Log();
+  v3 = Log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -520,36 +507,34 @@ uint64_t __44__DEExtensionTracker__updateXPCActivityDate__block_invoke(uint64_t 
   v7 = [v6 objectForKeyedSubscript:@"XPCActivity"];
   v8 = [v7 objectForKeyedSubscript:@"XPCActivityScheduledDate"];
 
-  v9 = Log();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = Log(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (v8)
   {
-    if (v10)
+    if (v11)
     {
       *buf = 138412290;
       v18 = v8;
-      _os_log_impl(&dword_248AB3000, v9, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: scheduleXPCActivityToDate %@", buf, 0xCu);
+      _os_log_impl(&dword_248AB3000, v10, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: scheduleXPCActivityToDate %@", buf, 0xCu);
     }
 
     uTF8String = [@"com.apple.DiagnosticExtensions.extensionTracker" UTF8String];
-    v12 = *MEMORY[0x277D86238];
+    v13 = *MEMORY[0x277D86238];
     v14[0] = MEMORY[0x277D85DD0];
     v14[1] = 3221225472;
     v14[2] = __41__DEExtensionTracker_scheduleXPCActivity__block_invoke;
     v14[3] = &unk_278F635C8;
     selfCopy = self;
     v15 = v8;
-    xpc_activity_register(uTF8String, v12, v14);
-    v9 = v15;
+    xpc_activity_register(uTF8String, v13, v14);
+    v10 = v15;
   }
 
-  else if (v10)
+  else if (v11)
   {
     *buf = 0;
-    _os_log_impl(&dword_248AB3000, v9, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: tracker dict is empty. There's nothing to schedule.", buf, 2u);
+    _os_log_impl(&dword_248AB3000, v10, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: tracker dict is empty. There's nothing to schedule.", buf, 2u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __41__DEExtensionTracker_scheduleXPCActivity__block_invoke(uint64_t a1, void *a2)
@@ -558,20 +543,19 @@ void __41__DEExtensionTracker_scheduleXPCActivity__block_invoke(uint64_t a1, voi
   state = xpc_activity_get_state(v3);
   if (state == 2)
   {
-    v7 = Log();
+    v7 = Log(2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_248AB3000, v7, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: XPC_ACTIVITY_STATE_RUN", v9, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_248AB3000, v7, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: XPC_ACTIVITY_STATE_RUN", v8, 2u);
     }
 
-    v8 = *(a1 + 40);
     [objc_opt_class() extensionTrackerCleanup];
   }
 
   else if (!state)
   {
-    v5 = Log();
+    v5 = Log(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -601,8 +585,8 @@ void __41__DEExtensionTracker_scheduleXPCActivity__block_invoke(uint64_t a1, voi
 
 void __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = Log();
+  v21 = *MEMORY[0x277D85DE8];
+  v2 = Log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 136315138;
@@ -620,19 +604,19 @@ void __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke(uint64_t a1)
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v18 = 0x3032000000;
-    v19 = __Block_byref_object_copy_;
-    v20 = __Block_byref_object_dispose_;
-    v21 = [v4 mutableCopy];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke_32;
-    v13[3] = &unk_278F635F0;
+    v17 = 0x3032000000;
+    v18 = __Block_byref_object_copy_;
+    v19 = __Block_byref_object_dispose_;
+    v20 = [v4 mutableCopy];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke_32;
+    v12[3] = &unk_278F635F0;
     v7 = v6;
-    v14 = v7;
+    v13 = v7;
     p_buf = &buf;
-    v16 = *(a1 + 40);
-    [v4 enumerateKeysAndObjectsUsingBlock:v13];
+    v15 = *(a1 + 40);
+    [v4 enumerateKeysAndObjectsUsingBlock:v12];
     v8 = objc_loadWeakRetained((a1 + 32));
     v9 = objc_opt_class();
     v10 = [*(*(&buf + 1) + 40) copy];
@@ -646,20 +630,18 @@ void __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke(uint64_t a1)
 
   else
   {
-    v7 = Log();
+    v7 = Log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
       _os_log_impl(&dword_248AB3000, v7, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: Exit early. Nothing to clean up.", &buf, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke_32(void *a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 objectForKeyedSubscript:@"ExpirationDate"];
@@ -667,7 +649,7 @@ void __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke_32(void *a1,
   if (v7)
   {
     v9 = [v7 compare:a1[4]];
-    v10 = Log();
+    v10 = Log(v9);
     v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
     if (v9 == 1)
     {
@@ -679,7 +661,7 @@ void __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke_32(void *a1,
         *&buf[12] = 2112;
         *&buf[14] = v8;
         *&buf[22] = 2112;
-        v30 = v12;
+        v29 = v12;
         _os_log_impl(&dword_248AB3000, v10, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: %@ (%@) is NOT due (%@). Start cleaning up '0' retain count.", buf, 0x20u);
       }
 
@@ -687,15 +669,15 @@ void __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke_32(void *a1,
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v30 = __Block_byref_object_copy_;
-      v31 = __Block_byref_object_dispose_;
-      v32 = [v13 mutableCopy];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke_33;
-      v28[3] = &unk_278F63558;
-      v28[4] = buf;
-      [v13 enumerateKeysAndObjectsUsingBlock:v28];
+      v29 = __Block_byref_object_copy_;
+      v30 = __Block_byref_object_dispose_;
+      v31 = [v13 mutableCopy];
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke_33;
+      v27[3] = &unk_278F63558;
+      v27[4] = buf;
+      [v13 enumerateKeysAndObjectsUsingBlock:v27];
       v14 = [v6 mutableCopy];
       v15 = [*(*&buf[8] + 40) copy];
       [v14 setObject:v15 forKeyedSubscript:@"Sessions"];
@@ -716,7 +698,7 @@ void __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke_32(void *a1,
         *&buf[12] = 2112;
         *&buf[14] = v8;
         *&buf[22] = 2112;
-        v30 = v17;
+        v29 = v17;
         _os_log_impl(&dword_248AB3000, v10, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: %@ (%@) is due (%@). Calling checkAndTeardownWithHandler:", buf, 0x20u);
       }
 
@@ -724,15 +706,16 @@ void __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke_32(void *a1,
       v13 = [v18 extensionForIdentifier:v5];
 
       v19 = [v13 checkAndTeardown];
-      v20 = Log();
-      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
-      if (v19)
+      v20 = v19;
+      v21 = Log(v19);
+      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+      if (v20)
       {
-        if (v21)
+        if (v22)
         {
           *buf = 138412290;
           *&buf[4] = v5;
-          _os_log_impl(&dword_248AB3000, v20, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: %@ is done cleaning up.", buf, 0xCu);
+          _os_log_impl(&dword_248AB3000, v21, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: %@ is done cleaning up.", buf, 0xCu);
         }
 
         [*(*(a1[5] + 8) + 40) setObject:0 forKeyedSubscript:v5];
@@ -740,16 +723,15 @@ void __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke_32(void *a1,
 
       else
       {
-        if (v21)
+        if (v22)
         {
           *buf = 0;
-          _os_log_impl(&dword_248AB3000, v20, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: extension failed to turn off. Reschedule to (now + 2 hours).", buf, 2u);
+          _os_log_impl(&dword_248AB3000, v21, OS_LOG_TYPE_DEFAULT, "DEExtensionTracker: extension failed to turn off. Reschedule to (now + 2 hours).", buf, 2u);
         }
 
-        v22 = [MEMORY[0x277CBEAA8] date];
-        v23 = a1[6];
+        v23 = [MEMORY[0x277CBEAA8] date];
         [objc_opt_class() xpcActivityTimeInterval];
-        v24 = [v22 dateByAddingTimeInterval:?];
+        v24 = [v23 dateByAddingTimeInterval:?];
 
         v25 = [v6 mutableCopy];
         [v25 setObject:v24 forKeyedSubscript:@"ExpirationDate"];
@@ -758,27 +740,22 @@ void __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke_32(void *a1,
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __45__DEExtensionTracker_extensionTrackerCleanup__block_invoke_33(uint64_t a1, void *a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (![a3 intValue])
   {
-    [*(*(*(a1 + 32) + 8) + 40) setObject:0 forKeyedSubscript:v5];
-    v6 = Log();
+    v6 = Log([*(*(*(a1 + 32) + 8) + 40) setObject:0 forKeyedSubscript:v5]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_248AB3000, v6, OS_LOG_TYPE_INFO, "DEExtensionTracker: %@ retain count is 0. Removing it.", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_248AB3000, v6, OS_LOG_TYPE_INFO, "DEExtensionTracker: %@ retain count is 0. Removing it.", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)updateRetainCountWithIdentifier:(id)identifier session:(id)session offsetBy:(int)by

@@ -11,7 +11,7 @@
 
 - (void)applyToAcquisitionContext:()RBProcessState
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (![v4 acquisitionPolicy])
   {
@@ -24,16 +24,14 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         identifier = [v7 identifier];
-        v13 = 138412290;
-        v14 = identifier;
-        _os_log_impl(&dword_262485000, v10, OS_LOG_TYPE_INFO, "forcing acquisition after state application for assertion %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = identifier;
+        _os_log_impl(&dword_262485000, v10, OS_LOG_TYPE_INFO, "forcing acquisition after state application for assertion %@", &v12, 0xCu);
       }
 
       [v4 setAcquisitionPolicy:1];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyToAssertionIntransientState:()RBProcessState attributePath:context:
@@ -385,7 +383,7 @@ LABEL_4:
 
 - (uint64_t)isValidForContext:()RBProcessState withError:
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = a3;
   if (!a4)
   {
@@ -405,7 +403,7 @@ LABEL_4:
         assertionDescriptor = [v7 assertionDescriptor];
         identifier = [assertionDescriptor identifier];
         *buf = 138543362;
-        v33 = identifier;
+        v32 = identifier;
         _os_log_impl(&dword_262485000, v10, OS_LOG_TYPE_DEFAULT, "Mutating assertion %{public}@ reason from ViewService to Extension because it targets an xpc service.", buf, 0xCu);
       }
 
@@ -413,17 +411,17 @@ LABEL_4:
     }
   }
 
-  v29 = 0;
-  v13 = [(RBSLegacyAttribute *)self _isOriginatorValidForContext:v7 errorReason:&v29];
-  v14 = v29;
+  v28 = 0;
+  v13 = [(RBSLegacyAttribute *)self _isOriginatorValidForContext:v7 errorReason:&v28];
+  v14 = v28;
   v15 = v14;
   if (v13)
   {
-    v28 = 0;
-    v27 = [(RBSLegacyAttribute *)self _isTargetValidForContext:v7 errorReason:&v28];
-    v16 = v28;
+    v27 = 0;
+    v26 = [(RBSLegacyAttribute *)self _isTargetValidForContext:v7 errorReason:&v27];
+    v16 = v27;
 
-    if (v27)
+    if (v26)
     {
       v24 = 1;
       goto LABEL_15;
@@ -449,37 +447,36 @@ LABEL_4:
   v18 = MEMORY[0x277CCA9B8];
   v19 = *MEMORY[0x277D47050];
   v20 = *MEMORY[0x277CCA470];
-  v31[0] = v16;
+  v30[0] = v16;
   v21 = *MEMORY[0x277D47048];
-  v30[0] = v20;
-  v30[1] = v21;
+  v29[0] = v20;
+  v29[1] = v21;
   v22 = [self description];
-  v31[1] = v22;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+  v30[1] = v22;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
   *a4 = [v18 errorWithDomain:v19 code:2 userInfo:v23];
 
   v24 = 0;
 LABEL_15:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (uint64_t)allowedWithAttribute:()RBProcessState error:
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v6 = a3;
   if (v6 != self && (v7 = objc_opt_class(), v7 == objc_opt_class()))
   {
     if (a4)
     {
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Attribute conflict: attribute %@ conflicts with attribute %@", self, v6];
-      v11 = MEMORY[0x277CCA9B8];
-      v12 = *MEMORY[0x277D47050];
-      v14 = *MEMORY[0x277CCA470];
-      v15[0] = v10;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-      *a4 = [v11 errorWithDomain:v12 code:2 userInfo:v13];
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Attribute conflict: attribute %@ conflicts with attribute %@", self, v6];
+      v10 = MEMORY[0x277CCA9B8];
+      v11 = *MEMORY[0x277D47050];
+      v13 = *MEMORY[0x277CCA470];
+      v14[0] = v9;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      *a4 = [v10 errorWithDomain:v11 code:2 userInfo:v12];
 
       a4 = 0;
     }
@@ -490,21 +487,17 @@ LABEL_15:
     a4 = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return a4;
 }
 
 - (void)applyToAssertionIntransientState:()RBProcessState attributePath:context:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 assertion];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_262485000, v2, v3, "Not applying RBSLegacyAttribute as it is not permitted as the subattribute of a hereditary grant for assertion %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_262485000, v2, v3, "Not applying RBSLegacyAttribute as it is not permitted as the subattribute of a hereditary grant for assertion %{public}@", v4, v5, v6, v7);
 }
 
-- (unint64_t)applyToAssertionTransientState:()RBProcessState attributePath:context:.cold.1(void *a1, void *a2)
+- (void)applyToAssertionTransientState:()RBProcessState attributePath:context:.cold.1(void *a1, void *a2)
 {
   v4 = a1;
   if ([a1 reason])
@@ -559,11 +552,9 @@ LABEL_15:
 
 - (void)isValidForContext:()RBProcessState withError:.cold.3(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_262485000, v1, v2, "legacy assertion validation failed: %s", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_262485000, v1, v2, "legacy assertion validation failed: %s", v3, v4, v5, v6);
 }
 
 @end

@@ -23,7 +23,7 @@
 
 - (Class)annotationSubclassForType:(id)type
 {
-  type metadata accessor for CanvasElementPDFAnnotation();
+  type metadata accessor for CanvasElementPDFAnnotation(0);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -100,7 +100,7 @@
 
 - (BOOL)unlockWithPassword:(id)password
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8PaperKit6PageIdVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8PaperKit6PageIdVSgMd, &_s8PaperKit6PageIdVSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v15 - v6;
   v8 = type metadata accessor for PaperKitPDFDocument();

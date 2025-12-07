@@ -25,7 +25,7 @@ void __70___GCSonyDualShockControllerProfile_physicalDevice_getLightWithReply___
   v13 = [(GCColor *)v9 initWithRed:v10 green:v11 blue:v12];
   v14 = [(GCDeviceLight *)v8 initWithColor:v13];
 
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v15, v16))
   {
     __70___GCSonyDualSenseControllerProfile_physicalDevice_getLightWithReply___block_invoke_cold_1(a1);
   }
@@ -33,9 +33,9 @@ void __70___GCSonyDualShockControllerProfile_physicalDevice_getLightWithReply___
   (*(*(a1 + 40) + 16))();
 }
 
-uint64_t __79___GCSonyDualShockControllerProfile_physicalDevice_getSensorsEnabledWithReply___block_invoke(uint64_t a1)
+uint64_t __79___GCSonyDualShockControllerProfile_physicalDevice_getSensorsEnabledWithReply___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __79___GCSonyDualSenseControllerProfile_physicalDevice_getSensorsEnabledWithReply___block_invoke_cold_1(a1);
   }
@@ -46,7 +46,7 @@ uint64_t __79___GCSonyDualShockControllerProfile_physicalDevice_getSensorsEnable
 void __72___GCSonyDualShockControllerProfile_physicalDevice_getBatteryWithReply___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = [[GCDeviceBattery alloc] initWithLevel:a2 isCharging:a3];
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v4, v5))
   {
     __72___GCSonyDualSenseControllerProfile_physicalDevice_getBatteryWithReply___block_invoke_cold_1(a1);
   }

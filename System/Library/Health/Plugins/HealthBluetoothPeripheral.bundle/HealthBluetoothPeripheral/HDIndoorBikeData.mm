@@ -1,4 +1,5 @@
 @interface HDIndoorBikeData
++ (id)unitTest_fakeIndoorBikeDataForInstantaneousCadence:(double)cadence averageCadence:(double)averageCadence instantaneousSpeed:(double)speed totalDistance:(unsigned int)distance instantaneousPower:(signed __int16)power averagePower:(signed __int16)averagePower energy:(unsigned __int16)energy elapsedTime:(unsigned __int16)self0;
 - (id)_init;
 - (id)allFields;
 - (id)description;
@@ -496,6 +497,34 @@ LABEL_51:
   }
 
   return v12;
+}
+
++ (id)unitTest_fakeIndoorBikeDataForInstantaneousCadence:(double)cadence averageCadence:(double)averageCadence instantaneousSpeed:(double)speed totalDistance:(unsigned int)distance instantaneousPower:(signed __int16)power averagePower:(signed __int16)averagePower energy:(unsigned __int16)energy elapsedTime:(unsigned __int16)self0
+{
+  timeCopy = time;
+  energyCopy = energy;
+  averagePowerCopy = averagePower;
+  powerCopy = power;
+  v14 = *&distance;
+  _init = [[HDIndoorBikeData alloc] _init];
+  [_init[4] setValue:cadence];
+  [_init[4] setIsSet:1];
+  [_init[5] setValue:averageCadence];
+  [_init[5] setIsSet:1];
+  [_init[2] setValue:speed];
+  [_init[2] setIsSet:1];
+  [_init[6] setValue:v14];
+  [_init[6] setIsSet:1];
+  [_init[8] setValue:powerCopy];
+  [_init[8] setIsSet:1];
+  [_init[9] setValue:averagePowerCopy];
+  [_init[9] setIsSet:1];
+  [_init[10] setValue:energyCopy];
+  [_init[10] setIsSet:1];
+  [_init[15] setValue:timeCopy];
+  [_init[15] setIsSet:1];
+
+  return _init;
 }
 
 @end

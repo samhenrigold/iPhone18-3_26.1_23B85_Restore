@@ -7,7 +7,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   connectionCopy = connection;
   v5 = objc_autoreleasePoolPush();
   v6 = [connectionCopy valueForEntitlement:@"com.apple.audio.adam.xpc"];
@@ -44,13 +44,13 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [connectionCopy description];
-    *v23 = 136315650;
-    *&v23[4] = "ADAMServiceListenerDelegate.mm";
-    *&v23[12] = 1024;
-    *&v23[14] = 39;
-    *&v23[18] = 2112;
-    *&v23[20] = v12;
-    _os_log_impl(&dword_296C34000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Entitlement missing when connecting to ADAM: %@", v23, 0x1Cu);
+    *v22 = 136315650;
+    *&v22[4] = "ADAMServiceListenerDelegate.mm";
+    *&v22[12] = 1024;
+    *&v22[14] = 39;
+    *&v22[18] = 2112;
+    *&v22[20] = v12;
+    _os_log_impl(&dword_296C34000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Entitlement missing when connecting to ADAM: %@", v22, 0x1Cu);
   }
 
 LABEL_12:
@@ -87,27 +87,26 @@ LABEL_12:
   {
     processIdentifier = [connectionCopy processIdentifier];
     v20 = "Failed";
-    *v23 = 136315906;
-    *&v23[4] = "ADAMServiceListenerDelegate.mm";
-    *&v23[12] = 1024;
-    *&v23[14] = 51;
+    *v22 = 136315906;
+    *&v22[4] = "ADAMServiceListenerDelegate.mm";
+    *&v22[12] = 1024;
+    *&v22[14] = 51;
     if (bOOLValue)
     {
       v20 = "Success";
     }
 
-    *&v23[18] = 1024;
-    *&v23[20] = processIdentifier;
-    *&v23[24] = 2080;
-    *&v23[26] = v20;
-    _os_log_impl(&dword_296C34000, v18, OS_LOG_TYPE_INFO, "%25s:%-5d New XPC Connection to ADAM from pid: %d [%s]", v23, 0x22u);
+    *&v22[18] = 1024;
+    *&v22[20] = processIdentifier;
+    *&v22[24] = 2080;
+    *&v22[26] = v20;
+    _os_log_impl(&dword_296C34000, v18, OS_LOG_TYPE_INFO, "%25s:%-5d New XPC Connection to ADAM from pid: %d [%s]", v22, 0x22u);
   }
 
 LABEL_23:
   [connectionCopy resume];
 
   objc_autoreleasePoolPop(v5);
-  v21 = *MEMORY[0x29EDCA608];
   return 1;
 }
 

@@ -26,28 +26,26 @@
 
 - (id)dictionaryRepresentation
 {
-  v11[7] = *MEMORY[0x277D85DE8];
-  v10[0] = @"type";
-  v10[1] = @"messageVersion";
-  v11[0] = @"context";
-  v11[1] = @"1.0";
-  v11[2] = &unk_28578CB68;
-  v10[2] = @"version";
-  v10[3] = @"streamIdentifier";
+  v10[7] = *MEMORY[0x277D85DE8];
+  v9[0] = @"type";
+  v9[1] = @"messageVersion";
+  v10[0] = @"context";
+  v10[1] = @"1.0";
+  v10[2] = &unk_28578CB68;
+  v9[2] = @"version";
+  v9[3] = @"streamIdentifier";
   streamIdentifier = [(BMDistributedContextTranslatedEventMessage *)self->_translatedEvent streamIdentifier];
-  v11[3] = streamIdentifier;
-  v10[4] = @"event";
+  v10[3] = streamIdentifier;
+  v9[4] = @"event";
   eventData = [(BMDistributedContextTranslatedEventMessage *)self->_translatedEvent eventData];
-  v11[4] = eventData;
-  v10[5] = @"dataVersion";
+  v10[4] = eventData;
+  v9[5] = @"dataVersion";
   eventDataVersion = [(BMDistributedContextTranslatedEventMessage *)self->_translatedEvent eventDataVersion];
-  v10[6] = @"identifier";
+  v9[6] = @"identifier";
   subscriptionIdentifier = self->_subscriptionIdentifier;
-  v11[5] = eventDataVersion;
-  v11[6] = subscriptionIdentifier;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:7];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[5] = eventDataVersion;
+  v10[6] = subscriptionIdentifier;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:7];
 
   return v7;
 }

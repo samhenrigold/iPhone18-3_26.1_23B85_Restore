@@ -368,18 +368,18 @@
 
   if (_progenitor != clientSettings)
   {
-    v11 = FBLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = FBLogCommon(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [FBSScene updateClientSettings:? withTransitionContext:?];
     }
 
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __55__FBSScene_updateClientSettings_withTransitionContext___block_invoke;
-    v18[3] = &unk_1E76BD2A0;
-    v19 = settingsCopy;
-    settingsCopy = [clientSettings copy:v18];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __55__FBSScene_updateClientSettings_withTransitionContext___block_invoke;
+    v19[3] = &unk_1E76BD2A0;
+    v20 = settingsCopy;
+    settingsCopy = [clientSettings copy:v19];
   }
 
   if (contextCopy && ![(FBSSettings *)contextCopy _isEmpty])
@@ -390,9 +390,9 @@
     }
 
     _beginUpdate = [(FBSScene *)self _beginUpdate];
-    v14 = [settingsCopy copy];
-    v15 = *(_beginUpdate + 1);
-    *(_beginUpdate + 1) = v14;
+    v15 = [settingsCopy copy];
+    v16 = *(_beginUpdate + 1);
+    *(_beginUpdate + 1) = v15;
 
     objc_storeStrong(_beginUpdate + 5, context);
     [(FBSScene *)self _updateClientSettings:0];
@@ -400,17 +400,17 @@
 
   else
   {
-    v12 = [FBSSceneClientSettingsDiff diffFromSettings:clientSettings toSettings:settingsCopy];
-    _beginUpdate = v12;
-    if (v12)
+    v13 = [FBSSceneClientSettingsDiff diffFromSettings:clientSettings toSettings:settingsCopy];
+    _beginUpdate = v13;
+    if (v13)
     {
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __55__FBSScene_updateClientSettings_withTransitionContext___block_invoke_2;
-      v16[3] = &unk_1E76BD2C8;
-      _beginUpdate = v12;
-      v17 = _beginUpdate;
-      [(FBSScene *)self _updateClientSettings:v16];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __55__FBSScene_updateClientSettings_withTransitionContext___block_invoke_2;
+      v17[3] = &unk_1E76BD2C8;
+      _beginUpdate = v13;
+      v18 = _beginUpdate;
+      [(FBSScene *)self _updateClientSettings:v17];
     }
   }
 }
@@ -639,13 +639,13 @@
   if (self->_callOutQueue_mutationLocked)
   {
     self->_callOutQueue_mutationLocked = 0;
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"mutation locked"];
+    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"mutation locked"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      [FBSScene _updateClientSettings:a2];
+      [(FBSScene *)a2 _updateClientSettings:v22];
     }
 
-    [v21 UTF8String];
+    [v22 UTF8String];
     _bs_set_crash_log_message();
   }
 
@@ -705,10 +705,10 @@
 
         else
         {
-          v18 = FBLogSceneClient();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+          v19 = FBLogSceneClient(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
-            [(FBSScene *)self _updateClientSettings:v18];
+            [(FBSScene *)self _updateClientSettings:v19];
           }
         }
       }
@@ -720,7 +720,7 @@
   self->_callout_updateDepth = callout_updateDepth;
   if (!callout_updateDepth)
   {
-    if (!self->_callout_coalesceUpdates || (-[FBSSceneDefinition specification](self->_definition, "specification"), v19 = objc_claimAutoreleasedReturnValue(), v20 = [v19 _isSignificantTransitionContext:_beginUpdate->_context], v19, v20))
+    if (!self->_callout_coalesceUpdates || (-[FBSSceneDefinition specification](self->_definition, "specification"), v20 = objc_claimAutoreleasedReturnValue(), v21 = [v20 _isSignificantTransitionContext:_beginUpdate->_context], v20, v21))
     {
       [(FBSScene *)self _sendUpdate:_beginUpdate];
     }
@@ -876,7 +876,7 @@
         if ([actions count])
         {
           fbs_singleLineDescriptionOfBSActions = [actions fbs_singleLineDescriptionOfBSActions];
-          v30 = FBLogSceneClient();
+          v30 = FBLogSceneClient(fbs_singleLineDescriptionOfBSActions);
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             identity = [(FBSScene *)self identity];
@@ -1111,7 +1111,7 @@ void __24__FBSScene__sendUpdate___block_invoke_2(uint64_t a1)
 
 - (void)_callOutQueue_didCreateWithTransitionContext:(id)context alternativeCreationCallout:(id)callout completion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   calloutCopy = callout;
   completionCopy = completion;
@@ -1120,37 +1120,38 @@ void __24__FBSScene__sendUpdate___block_invoke_2(uint64_t a1)
   settings = [(FBSScene *)self settings];
   v12 = [FBSSceneSettingsDiff diffFromSettings:0 toSettings:settings];
   actions = [contextCopy actions];
-  if ([actions count])
+  v14 = [actions count];
+  if (v14)
   {
-    v14 = FBLogSceneClient();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = FBLogSceneClient(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       loggingIdentifier = [(FBSScene *)self loggingIdentifier];
       fbs_singleLineDescriptionOfBSActions = [actions fbs_singleLineDescriptionOfBSActions];
       *buf = 138543618;
-      v29 = loggingIdentifier;
-      v30 = 2114;
-      v31 = fbs_singleLineDescriptionOfBSActions;
-      _os_log_impl(&dword_1A2DBB000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received action(s) in scene-create: %{public}@", buf, 0x16u);
+      v30 = loggingIdentifier;
+      v31 = 2114;
+      v32 = fbs_singleLineDescriptionOfBSActions;
+      _os_log_impl(&dword_1A2DBB000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received action(s) in scene-create: %{public}@", buf, 0x16u);
     }
   }
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __95__FBSScene__callOutQueue_didCreateWithTransitionContext_alternativeCreationCallout_completion___block_invoke;
-  v22[3] = &unk_1E76BD388;
-  v22[4] = self;
-  v23 = v12;
-  v24 = contextCopy;
-  v25 = settings;
-  v26 = completionCopy;
-  v27 = calloutCopy;
-  v17 = calloutCopy;
-  v18 = completionCopy;
-  v19 = settings;
-  v20 = contextCopy;
-  v21 = v12;
-  [(FBSScene *)self _callOutQueue_maybeCoalesceClientSettingsUpdates:v22];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __95__FBSScene__callOutQueue_didCreateWithTransitionContext_alternativeCreationCallout_completion___block_invoke;
+  v23[3] = &unk_1E76BD388;
+  v23[4] = self;
+  v24 = v12;
+  v25 = contextCopy;
+  v26 = settings;
+  v27 = completionCopy;
+  v28 = calloutCopy;
+  v18 = calloutCopy;
+  v19 = completionCopy;
+  v20 = settings;
+  v21 = contextCopy;
+  v22 = v12;
+  [(FBSScene *)self _callOutQueue_maybeCoalesceClientSettingsUpdates:v23];
 }
 
 void __95__FBSScene__callOutQueue_didCreateWithTransitionContext_alternativeCreationCallout_completion___block_invoke(uint64_t a1)
@@ -1377,7 +1378,7 @@ uint64_t __70__FBSScene__callOutQueue_willDestroyWithTransitionContext_completio
 
 - (void)_callOutQueue_updateExtensionsFromSettings:(id)settings toSettings:(id)toSettings withDiff:(id)diff
 {
-  v123 = *MEMORY[0x1E69E9840];
+  v126 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   toSettingsCopy = toSettings;
   diffCopy = diff;
@@ -1391,12 +1392,12 @@ uint64_t __70__FBSScene__callOutQueue_willDestroyWithTransitionContext_completio
     [FBSScene _callOutQueue_updateExtensionsFromSettings:a2 toSettings:? withDiff:?];
   }
 
-  v70 = toSettingsCopy;
-  v71 = settingsCopy;
-  v69 = diffCopy;
+  v73 = toSettingsCopy;
+  v74 = settingsCopy;
+  v72 = diffCopy;
   if (settingsCopy && ![(FBSSettingsDiff *)diffCopy _containsKey:?])
   {
-    v73 = 0;
+    v76 = 0;
     array = 0;
   }
 
@@ -1405,29 +1406,29 @@ uint64_t __70__FBSScene__callOutQueue_willDestroyWithTransitionContext_completio
     os_unfair_lock_lock(&self->_lock);
     _allSceneExtensions = [settingsCopy _allSceneExtensions];
     _allSceneExtensions2 = [toSettingsCopy _allSceneExtensions];
-    v108 = 0u;
-    v109 = 0u;
-    v110 = 0u;
     v111 = 0u;
-    v14 = [_allSceneExtensions2 countByEnumeratingWithState:&v108 objects:v122 count:16];
+    v112 = 0u;
+    v113 = 0u;
+    v114 = 0u;
+    v14 = [_allSceneExtensions2 countByEnumeratingWithState:&v111 objects:v125 count:16];
     if (v14)
     {
       v15 = v14;
       array = 0;
-      v17 = *v109;
+      v17 = *v112;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v109 != v17)
+          if (*v112 != v17)
           {
             objc_enumerationMutation(_allSceneExtensions2);
           }
 
-          v19 = *(*(&v108 + 1) + 8 * i);
+          v19 = *(*(&v111 + 1) + 8 * i);
           if (([_allSceneExtensions containsObject:v19] & 1) == 0)
           {
-            FBSRealizeSceneExtension(v19);
+            FBSRealizeSceneExtension(v19, v20);
             if (!array)
             {
               array = [MEMORY[0x1E695DF70] array];
@@ -1437,7 +1438,7 @@ uint64_t __70__FBSScene__callOutQueue_willDestroyWithTransitionContext_completio
           }
         }
 
-        v15 = [_allSceneExtensions2 countByEnumeratingWithState:&v108 objects:v122 count:16];
+        v15 = [_allSceneExtensions2 countByEnumeratingWithState:&v111 objects:v125 count:16];
       }
 
       while (v15);
@@ -1448,147 +1449,148 @@ uint64_t __70__FBSScene__callOutQueue_willDestroyWithTransitionContext_completio
       array = 0;
     }
 
-    v106 = 0u;
+    v109 = 0u;
+    v110 = 0u;
     v107 = 0u;
-    v104 = 0u;
-    v105 = 0u;
-    v20 = _allSceneExtensions;
-    v21 = [v20 countByEnumeratingWithState:&v104 objects:v121 count:16];
-    if (v21)
+    v108 = 0u;
+    v21 = _allSceneExtensions;
+    v22 = [v21 countByEnumeratingWithState:&v107 objects:v124 count:16];
+    if (v22)
     {
-      v22 = v21;
-      v73 = 0;
-      v23 = *v105;
+      v23 = v22;
+      v76 = 0;
+      v24 = *v108;
       do
       {
-        for (j = 0; j != v22; ++j)
+        for (j = 0; j != v23; ++j)
         {
-          if (*v105 != v23)
+          if (*v108 != v24)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v21);
           }
 
-          v25 = *(*(&v104 + 1) + 8 * j);
-          if (([_allSceneExtensions2 containsObject:v25] & 1) == 0)
+          v26 = *(*(&v107 + 1) + 8 * j);
+          if (([_allSceneExtensions2 containsObject:v26] & 1) == 0)
           {
-            array2 = v73;
-            if (!v73)
+            array2 = v76;
+            if (!v76)
             {
               array2 = [MEMORY[0x1E695DF70] array];
             }
 
-            v73 = array2;
-            [array2 addObject:v25];
+            v76 = array2;
+            [array2 addObject:v26];
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v104 objects:v121 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v107 objects:v124 count:16];
       }
 
-      while (v22);
+      while (v23);
     }
 
     else
     {
-      v73 = 0;
+      v76 = 0;
     }
 
     os_unfair_lock_unlock(&self->_lock);
   }
 
-  v102 = 0u;
+  v105 = 0u;
+  v106 = 0u;
   v103 = 0u;
-  v100 = 0u;
-  v101 = 0u;
+  v104 = 0u;
   obj = array;
+  v28 = [obj countByEnumeratingWithState:&v103 objects:v123 count:16];
   selfCopy = self;
-  v75 = [obj countByEnumeratingWithState:&v100 objects:v120 count:16];
-  if (v75)
+  v78 = v28;
+  if (v28)
   {
-    v74 = *v101;
+    v77 = *v104;
     do
     {
-      v27 = 0;
+      v29 = 0;
       do
       {
-        if (*v101 != v74)
+        if (*v104 != v77)
         {
           objc_enumerationMutation(obj);
         }
 
-        v77 = v27;
-        v28 = *(*(&v100 + 1) + 8 * v27);
-        v29 = FBLogSceneClient();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        v80 = v29;
+        v30 = *(*(&v103 + 1) + 8 * v29);
+        v31 = FBLogSceneClient(v28);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
           loggingIdentifier = [(FBSScene *)self loggingIdentifier];
           *buf = 138412546;
-          v117 = loggingIdentifier;
-          v118 = 2112;
-          v119 = v28;
-          _os_log_debug_impl(&dword_1A2DBB000, v29, OS_LOG_TYPE_DEBUG, "[%@] Adding extension: %@", buf, 0x16u);
+          v120 = loggingIdentifier;
+          v121 = 2112;
+          v122 = v30;
+          _os_log_debug_impl(&dword_1A2DBB000, v31, OS_LOG_TYPE_DEBUG, "[%@] Adding extension: %@", buf, 0x16u);
         }
 
-        v30 = [[FBSComponentScene alloc] initWithScene:self extension:v28];
+        v32 = [[FBSComponentScene alloc] initWithScene:self extension:v30];
         array3 = [MEMORY[0x1E695DF70] array];
-        v96 = 0u;
-        v97 = 0u;
-        v98 = 0u;
         v99 = 0u;
-        v31 = v28;
-        clientComponents = [v28 clientComponents];
-        v33 = [clientComponents countByEnumeratingWithState:&v96 objects:v115 count:16];
-        if (v33)
+        v100 = 0u;
+        v101 = 0u;
+        v102 = 0u;
+        v33 = v30;
+        clientComponents = [v30 clientComponents];
+        v35 = [clientComponents countByEnumeratingWithState:&v99 objects:v118 count:16];
+        if (v35)
         {
-          v34 = v33;
-          v35 = *v97;
-          v80 = v30;
+          v36 = v35;
+          v37 = *v100;
+          v83 = v32;
           do
           {
-            for (k = 0; k != v34; ++k)
+            for (k = 0; k != v36; ++k)
             {
-              if (*v97 != v35)
+              if (*v100 != v37)
               {
                 objc_enumerationMutation(clientComponents);
               }
 
-              v37 = objc_alloc(*(*(&v96 + 1) + 8 * k));
+              v39 = objc_alloc(*(*(&v99 + 1) + 8 * k));
               if (objc_opt_respondsToSelector())
               {
-                v38 = [v37 initWithScene:v30];
+                v40 = [v39 initWithScene:v32];
               }
 
               else
               {
-                v38 = [v37 init];
+                v40 = [v39 init];
               }
 
-              v39 = v38;
-              if (v38)
+              v41 = v40;
+              if (v40)
               {
-                v40 = FBLogSceneClient();
-                if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+                v42 = FBLogSceneClient(v40);
+                if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
                 {
                   loggingIdentifier2 = [(FBSScene *)selfCopy loggingIdentifier];
-                  v43 = [off_1E76BC9B0 succinctDescriptionForObject:v39];
+                  v45 = [off_1E76BC9B0 succinctDescriptionForObject:v41];
                   *buf = 138412546;
-                  v117 = loggingIdentifier2;
-                  v118 = 2112;
-                  v119 = v43;
-                  _os_log_debug_impl(&dword_1A2DBB000, v40, OS_LOG_TYPE_DEBUG, "[%@] Instantiated component: %@", buf, 0x16u);
+                  v120 = loggingIdentifier2;
+                  v121 = 2112;
+                  v122 = v45;
+                  _os_log_debug_impl(&dword_1A2DBB000, v42, OS_LOG_TYPE_DEBUG, "[%@] Instantiated component: %@", buf, 0x16u);
 
-                  v30 = v80;
+                  v32 = v83;
                 }
 
-                v41 = [[FBSSceneObserver alloc] initWithComponent:v39 extension:v31];
-                [array3 addObject:v41];
+                v43 = [[FBSSceneObserver alloc] initWithComponent:v41 extension:v33];
+                [array3 addObject:v43];
               }
             }
 
-            v34 = [clientComponents countByEnumeratingWithState:&v96 objects:v115 count:16];
+            v36 = [clientComponents countByEnumeratingWithState:&v99 objects:v118 count:16];
           }
 
-          while (v34);
+          while (v36);
         }
 
         self = selfCopy;
@@ -1599,149 +1601,151 @@ uint64_t __70__FBSScene__callOutQueue_willDestroyWithTransitionContext_completio
           if (!lock_components)
           {
             strongToStrongObjectsMapTable = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
-            v46 = selfCopy->_lock_components;
+            v48 = selfCopy->_lock_components;
             selfCopy->_lock_components = strongToStrongObjectsMapTable;
 
             lock_components = selfCopy->_lock_components;
           }
 
-          [(NSMapTable *)lock_components setObject:array3 forKey:v31, v69];
+          [(NSMapTable *)lock_components setObject:array3 forKey:v33, v72];
           os_unfair_lock_unlock(&selfCopy->_lock);
-          v94 = 0u;
+          v97 = 0u;
+          v98 = 0u;
           v95 = 0u;
-          v92 = 0u;
-          v93 = 0u;
-          v47 = array3;
-          v48 = [v47 countByEnumeratingWithState:&v92 objects:v114 count:16];
-          if (v48)
+          v96 = 0u;
+          v49 = array3;
+          v50 = [v49 countByEnumeratingWithState:&v95 objects:v117 count:16];
+          if (v50)
           {
-            v49 = v48;
-            v50 = *v93;
+            v51 = v50;
+            v52 = *v96;
             do
             {
-              for (m = 0; m != v49; ++m)
+              for (m = 0; m != v51; ++m)
               {
-                if (*v93 != v50)
+                if (*v96 != v52)
                 {
-                  objc_enumerationMutation(v47);
+                  objc_enumerationMutation(v49);
                 }
 
-                component = [*(*(&v92 + 1) + 8 * m) component];
+                component = [*(*(&v95 + 1) + 8 * m) component];
                 if (objc_opt_respondsToSelector())
                 {
-                  [component setScene:v30];
+                  [component setScene:v32];
                 }
               }
 
-              v49 = [v47 countByEnumeratingWithState:&v92 objects:v114 count:16];
+              v51 = [v49 countByEnumeratingWithState:&v95 objects:v117 count:16];
             }
 
-            while (v49);
+            while (v51);
           }
         }
 
-        v27 = v77 + 1;
+        v29 = v80 + 1;
       }
 
-      while ((v77 + 1) != v75);
-      v75 = [obj countByEnumeratingWithState:&v100 objects:v120 count:16];
+      while ((v80 + 1) != v78);
+      v28 = [obj countByEnumeratingWithState:&v103 objects:v123 count:16];
+      v78 = v28;
     }
 
-    while (v75);
+    while (v28);
   }
 
-  v90 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   v91 = 0u;
-  v88 = 0u;
-  v89 = 0u;
-  v76 = v73;
-  v79 = [v76 countByEnumeratingWithState:&v88 objects:v113 count:16];
-  if (v79)
+  v92 = 0u;
+  v79 = v76;
+  v56 = [v79 countByEnumeratingWithState:&v91 objects:v116 count:16];
+  v82 = v56;
+  if (v56)
   {
-    v78 = *v89;
+    v81 = *v92;
     do
     {
-      v54 = 0;
+      v57 = 0;
       do
       {
-        if (*v89 != v78)
+        if (*v92 != v81)
         {
-          objc_enumerationMutation(v76);
+          objc_enumerationMutation(v79);
         }
 
-        v55 = *(*(&v88 + 1) + 8 * v54);
-        v56 = FBLogSceneClient();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+        v58 = *(*(&v91 + 1) + 8 * v57);
+        v59 = FBLogSceneClient(v56);
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
         {
           loggingIdentifier3 = [(FBSScene *)self loggingIdentifier];
           *buf = 138412546;
-          v117 = loggingIdentifier3;
-          v118 = 2112;
-          v119 = v55;
-          _os_log_debug_impl(&dword_1A2DBB000, v56, OS_LOG_TYPE_DEBUG, "[%@] Removing extension: %@", buf, 0x16u);
+          v120 = loggingIdentifier3;
+          v121 = 2112;
+          v122 = v58;
+          _os_log_debug_impl(&dword_1A2DBB000, v59, OS_LOG_TYPE_DEBUG, "[%@] Removing extension: %@", buf, 0x16u);
         }
 
-        v81 = v54;
+        v84 = v57;
 
         os_unfair_lock_lock(&self->_lock);
-        v57 = [(NSMapTable *)self->_lock_components objectForKey:v55];
-        [(NSMapTable *)self->_lock_components removeObjectForKey:v55];
+        v60 = [(NSMapTable *)self->_lock_components objectForKey:v58];
+        [(NSMapTable *)self->_lock_components removeObjectForKey:v58];
         if (![(NSMapTable *)self->_lock_components count])
         {
-          v58 = self->_lock_components;
+          v61 = self->_lock_components;
           self->_lock_components = 0;
         }
 
         os_unfair_lock_unlock(&self->_lock);
-        v86 = 0u;
+        v89 = 0u;
+        v90 = 0u;
         v87 = 0u;
-        v84 = 0u;
-        v85 = 0u;
-        v59 = v57;
-        v60 = [v59 countByEnumeratingWithState:&v84 objects:v112 count:16];
-        if (v60)
+        v88 = 0u;
+        v62 = v60;
+        v63 = [v62 countByEnumeratingWithState:&v87 objects:v115 count:16];
+        if (v63)
         {
-          v61 = v60;
-          v62 = *v85;
+          v64 = v63;
+          v65 = *v88;
           do
           {
-            for (n = 0; n != v61; ++n)
+            for (n = 0; n != v64; ++n)
             {
-              if (*v85 != v62)
+              if (*v88 != v65)
               {
-                objc_enumerationMutation(v59);
+                objc_enumerationMutation(v62);
               }
 
-              component2 = [*(*(&v84 + 1) + 8 * n) component];
-              [component2 invalidate];
-              v65 = FBLogSceneClient();
-              if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+              component2 = [*(*(&v87 + 1) + 8 * n) component];
+              v68 = FBLogSceneClient([component2 invalidate]);
+              if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
               {
                 loggingIdentifier4 = [(FBSScene *)selfCopy loggingIdentifier];
-                v67 = [off_1E76BC9B0 succinctDescriptionForObject:component2];
+                v70 = [off_1E76BC9B0 succinctDescriptionForObject:component2];
                 *buf = 138412546;
-                v117 = loggingIdentifier4;
-                v118 = 2112;
-                v119 = v67;
-                _os_log_debug_impl(&dword_1A2DBB000, v65, OS_LOG_TYPE_DEBUG, "[%@] Invalidated component: %@", buf, 0x16u);
+                v120 = loggingIdentifier4;
+                v121 = 2112;
+                v122 = v70;
+                _os_log_debug_impl(&dword_1A2DBB000, v68, OS_LOG_TYPE_DEBUG, "[%@] Invalidated component: %@", buf, 0x16u);
               }
             }
 
-            v61 = [v59 countByEnumeratingWithState:&v84 objects:v112 count:16];
+            v64 = [v62 countByEnumeratingWithState:&v87 objects:v115 count:16];
           }
 
-          while (v61);
+          while (v64);
         }
 
         self = selfCopy;
-        v54 = v81 + 1;
+        v57 = v84 + 1;
       }
 
-      while (v81 + 1 != v79);
-      v79 = [v76 countByEnumeratingWithState:&v88 objects:v113 count:16];
+      while (v84 + 1 != v82);
+      v56 = [v79 countByEnumeratingWithState:&v91 objects:v116 count:16];
+      v82 = v56;
     }
 
-    while (v79);
+    while (v56);
   }
 }
 
@@ -1819,7 +1823,7 @@ void __50__FBSScene_descriptionBuilderWithMultilinePrefix___block_invoke(uint64_
 
 - (void)updater:(id)updater didUpdateSettings:(id)settings withDiff:(id)diff transitionContext:(id)context completion:(id)completion
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   diffCopy = diff;
   contextCopy = context;
@@ -1851,7 +1855,7 @@ LABEL_4:
 
   diffCopy = 0;
 LABEL_5:
-  v38 = self->_lock_settings;
+  v39 = self->_lock_settings;
   os_unfair_lock_unlock(&self->_lock);
   animationFence = [contextCopy animationFence];
   v20 = [animationFence copy];
@@ -1860,57 +1864,58 @@ LABEL_5:
 
   v22 = self->_callOutQueue_agent;
   v23 = objc_opt_class();
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_completion___block_invoke;
-  v48[3] = &unk_1E76BD3B0;
-  v49 = completionCopy;
-  v50 = v23;
-  v48[4] = self;
-  v39 = completionCopy;
-  v24 = [off_1E76BC9A0 sentinelWithSignalCount:2 signalHandler:v48];
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_completion___block_invoke;
+  v49[3] = &unk_1E76BD3B0;
+  v50 = completionCopy;
+  v51 = v23;
+  v49[4] = self;
+  v40 = completionCopy;
+  v24 = [off_1E76BC9A0 sentinelWithSignalCount:2 signalHandler:v49];
   actions = [contextCopy actions];
-  if ([actions count])
+  v26 = [actions count];
+  if (v26)
   {
-    v26 = FBLogSceneClient();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v27 = FBLogSceneClient(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       [(FBSScene *)self loggingIdentifier];
-      v27 = v37 = v15;
+      v28 = v38 = v15;
       fbs_singleLineDescriptionOfBSActions = [actions fbs_singleLineDescriptionOfBSActions];
       *buf = 138543618;
-      v52 = v27;
-      v53 = 2114;
-      v54 = fbs_singleLineDescriptionOfBSActions;
-      _os_log_impl(&dword_1A2DBB000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received action(s) in scene-update: %{public}@", buf, 0x16u);
+      v53 = v28;
+      v54 = 2114;
+      v55 = fbs_singleLineDescriptionOfBSActions;
+      _os_log_impl(&dword_1A2DBB000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received action(s) in scene-update: %{public}@", buf, 0x16u);
 
-      v15 = v37;
+      v15 = v38;
     }
   }
 
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_completion___block_invoke_129;
-  v40[3] = &unk_1E76BD450;
-  v40[4] = self;
-  v41 = v15;
-  v42 = v38;
-  v43 = diffCopy;
-  v44 = contextCopy;
-  v45 = v22;
-  v46 = v24;
-  v47 = WeakRetained;
-  v29 = WeakRetained;
-  v30 = v24;
-  v31 = v22;
-  v32 = contextCopy;
-  v33 = diffCopy;
-  v34 = v38;
-  v35 = v15;
-  [(FBSScene *)self _callOutQueue_maybeCoalesceClientSettingsUpdates:v40];
-  [v30 signal];
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_completion___block_invoke_129;
+  v41[3] = &unk_1E76BD450;
+  v41[4] = self;
+  v42 = v15;
+  v43 = v39;
+  v44 = diffCopy;
+  v45 = contextCopy;
+  v46 = v22;
+  v47 = v24;
+  v48 = WeakRetained;
+  v30 = WeakRetained;
+  v31 = v24;
+  v32 = v22;
+  v33 = contextCopy;
+  v34 = diffCopy;
+  v35 = v39;
+  v36 = v15;
+  [(FBSScene *)self _callOutQueue_maybeCoalesceClientSettingsUpdates:v41];
+  [v31 signal];
   [(BKSAnimationFenceHandle *)self->_calloutQueue_animationFence invalidate];
-  v36 = self->_calloutQueue_animationFence;
+  v37 = self->_calloutQueue_animationFence;
   self->_calloutQueue_animationFence = 0;
 }
 
@@ -1919,25 +1924,26 @@ void __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_complet
   v3 = a2;
   if ([v3 isComplete])
   {
-    if ([v3 isFailed])
+    v4 = [v3 isFailed];
+    if (v4)
     {
-      v4 = FBLogCommon();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = FBLogCommon(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_completion___block_invoke_cold_1(a1);
       }
     }
 
-    v5 = *(a1 + 40);
+    v6 = *(a1 + 40);
     if ([v3 isFailed])
     {
-      (*(v5 + 16))(v5, 0);
+      (*(v6 + 16))(v6, 0);
     }
 
     else
     {
-      v6 = objc_opt_new();
-      (*(v5 + 16))(v5, v6);
+      v7 = objc_opt_new();
+      (*(v6 + 16))(v6, v7);
     }
   }
 }
@@ -2040,13 +2046,13 @@ void __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_complet
 
 - (void)updater:(id)updater didReceiveActions:(id)actions forExtension:(Class)extension
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   [(BSServiceQueue *)self->_callOutQueue assertBarrierOnQueue];
-  if (extension && ![(FBSScene *)self conformsToExtension:extension])
+  if (extension && (v8 = [(FBSScene *)self conformsToExtension:extension], (v8 & 1) == 0))
   {
-    v17 = FBLogSceneClient();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = FBLogSceneClient(v8);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [FBSScene updater:extension didReceiveActions:? forExtension:?];
     }
@@ -2054,27 +2060,27 @@ void __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_complet
 
   else
   {
-    v8 = [actionsCopy bs_map:&__block_literal_global_133];
-    allObjects = [v8 allObjects];
-    v10 = [allObjects componentsJoinedByString:{@", "}];
+    v9 = [actionsCopy bs_map:&__block_literal_global_133];
+    allObjects = [v9 allObjects];
+    v11 = [allObjects componentsJoinedByString:{@", "}];
 
-    v11 = FBLogSceneClient();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v13 = FBLogSceneClient(v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
     extensionCopy = extension;
-    v51 = v10;
+    v56 = v11;
     if (extension)
     {
-      if (v12)
+      if (v14)
       {
         loggingIdentifier = [(FBSScene *)self loggingIdentifier];
-        v14 = NSStringFromClass(extension);
+        v16 = NSStringFromClass(extension);
         *buf = 138543874;
-        v69 = loggingIdentifier;
-        v70 = 2114;
-        v71 = v14;
-        v72 = 2114;
-        v73 = v10;
-        _os_log_impl(&dword_1A2DBB000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received action(s) for %{public}@: %{public}@", buf, 0x20u);
+        v74 = loggingIdentifier;
+        v75 = 2114;
+        v76 = v16;
+        v77 = 2114;
+        v78 = v11;
+        _os_log_impl(&dword_1A2DBB000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received action(s) for %{public}@: %{public}@", buf, 0x20u);
 
         extension = extensionCopy;
       }
@@ -2083,85 +2089,86 @@ void __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_complet
       os_unfair_lock_lock(&self->_lock);
       _lock_allComponents = [(NSMapTable *)self->_lock_components objectForKey:extension];
       WeakRetained = 0;
-      v53 = 0;
+      v58 = 0;
     }
 
     else
     {
-      if (v12)
+      if (v14)
       {
         loggingIdentifier2 = [(FBSScene *)self loggingIdentifier];
         *buf = 138543618;
-        v69 = loggingIdentifier2;
-        v70 = 2114;
-        v71 = v10;
-        _os_log_impl(&dword_1A2DBB000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received action(s): %{public}@", buf, 0x16u);
+        v74 = loggingIdentifier2;
+        v75 = 2114;
+        v76 = v11;
+        _os_log_impl(&dword_1A2DBB000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received action(s): %{public}@", buf, 0x16u);
       }
 
       p_lock = &self->_lock;
       os_unfair_lock_lock(&self->_lock);
       WeakRetained = objc_loadWeakRetained(&self->_lock_delegate);
-      v53 = [(NSMutableArray *)self->_lock_sceneObservers copy];
+      v58 = [(NSMutableArray *)self->_lock_sceneObservers copy];
       _lock_allComponents = [(FBSScene *)self _lock_allComponents];
     }
 
     os_unfair_lock_unlock(p_lock);
-    v50 = actionsCopy;
-    v19 = [actionsCopy mutableCopy];
-    v62 = 0u;
-    v63 = 0u;
-    v64 = 0u;
-    v65 = 0u;
+    v55 = actionsCopy;
+    v21 = [actionsCopy mutableCopy];
+    v67 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    v70 = 0u;
     obj = _lock_allComponents;
-    v20 = [obj countByEnumeratingWithState:&v62 objects:v67 count:16];
+    v22 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
     selfCopy = self;
-    if (v20)
+    if (v22)
     {
-      v21 = v20;
-      v22 = *v63;
+      v23 = v22;
+      v24 = *v68;
       while (2)
       {
-        for (i = 0; i != v21; ++i)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v63 != v22)
+          if (*v68 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v62 + 1) + 8 * i);
+          v26 = *(*(&v67 + 1) + 8 * i);
           if (extension)
           {
-            [v24 scene:self handlePrivateActions:v19];
+            [v26 scene:self handlePrivateActions:v21];
           }
 
           else
           {
-            [v24 scene:self handleActions:v19];
+            [v26 scene:self handleActions:v21];
           }
-          v25 = ;
-          if ([v25 count])
+          v27 = ;
+          v28 = [v27 count];
+          if (v28)
           {
-            v26 = FBLogCommon();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v29 = FBLogCommon(v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
               loggingIdentifier3 = [(FBSScene *)self loggingIdentifier];
-              component = [v24 component];
-              v29 = [off_1E76BC9B0 succinctDescriptionForObject:component];
-              v30 = [v25 bs_reduce:&stru_1F1595B30 block:&__block_literal_global_143];
+              component = [v26 component];
+              v32 = [off_1E76BC9B0 succinctDescriptionForObject:component];
+              v33 = [v27 bs_reduce:&stru_1F1595B30 block:&__block_literal_global_143];
               *buf = 138543874;
-              v69 = loggingIdentifier3;
-              v70 = 2114;
-              v71 = v29;
-              v72 = 2112;
-              v73 = v30;
-              _os_log_impl(&dword_1A2DBB000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@] Component %{public}@ handled action(s): %@", buf, 0x20u);
+              v74 = loggingIdentifier3;
+              v75 = 2114;
+              v76 = v32;
+              v77 = 2112;
+              v78 = v33;
+              _os_log_impl(&dword_1A2DBB000, v29, OS_LOG_TYPE_DEFAULT, "[%{public}@] Component %{public}@ handled action(s): %@", buf, 0x20u);
 
               self = selfCopy;
               extension = extensionCopy;
             }
 
-            [v19 minusSet:v25];
-            if (![v19 count])
+            [v21 minusSet:v27];
+            if (![v21 count])
             {
 
               goto LABEL_28;
@@ -2169,8 +2176,8 @@ void __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_complet
           }
         }
 
-        v21 = [obj countByEnumeratingWithState:&v62 objects:v67 count:16];
-        if (v21)
+        v23 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
+        if (v23)
         {
           continue;
         }
@@ -2181,87 +2188,89 @@ void __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_complet
 
 LABEL_28:
 
-    if ([v19 count])
+    v34 = [v21 count];
+    if (v34)
     {
       if (extension)
       {
-        v31 = FBLogSceneClient();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v35 = FBLogSceneClient(v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           loggingIdentifier4 = [(FBSScene *)self loggingIdentifier];
-          v47 = NSStringFromClass(extension);
-          v48 = [v19 bs_map:&__block_literal_global_149];
+          v52 = NSStringFromClass(extension);
+          v53 = [v21 bs_map:&__block_literal_global_149];
           *buf = 138543874;
-          v69 = loggingIdentifier4;
-          v70 = 2114;
-          v71 = v47;
-          v72 = 2114;
-          v73 = v48;
-          _os_log_error_impl(&dword_1A2DBB000, v31, OS_LOG_TYPE_ERROR, "[%{public}@] Extension %{public}@ did not handle actions: %{public}@", buf, 0x20u);
+          v74 = loggingIdentifier4;
+          v75 = 2114;
+          v76 = v52;
+          v77 = 2114;
+          v78 = v53;
+          _os_log_error_impl(&dword_1A2DBB000, v35, OS_LOG_TYPE_ERROR, "[%{public}@] Extension %{public}@ did not handle actions: %{public}@", buf, 0x20u);
         }
       }
 
-      v32 = [v19 copy];
+      v36 = [v21 copy];
 
-      v49 = v32;
+      v54 = v36;
       if (self->_hasAgent)
       {
         _createTransitionContext = [(FBSScene *)self _createTransitionContext];
-        [_createTransitionContext setActions:v32];
-        v34 = objc_alloc_init(FBSSceneEvent);
-        [(FBSSceneEvent *)v34 setTransitionContext:_createTransitionContext];
-        [(FBSSceneEvent *)v34 setSource:1];
-        [(FBSSceneClientAgent *)self->_callOutQueue_agent scene:self handleEvent:v34 withCompletion:0];
+        [_createTransitionContext setActions:v36];
+        v38 = objc_alloc_init(FBSSceneEvent);
+        [(FBSSceneEvent *)v38 setTransitionContext:_createTransitionContext];
+        [(FBSSceneEvent *)v38 setSource:1];
+        [(FBSSceneClientAgent *)self->_callOutQueue_agent scene:self handleEvent:v38 withCompletion:0];
       }
 
       else
       {
-        [WeakRetained scene:self didReceiveActions:v32];
+        [WeakRetained scene:self didReceiveActions:v36];
       }
 
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
-      v59 = 0u;
-      v55 = v53;
-      v35 = [v55 countByEnumeratingWithState:&v58 objects:v66 count:16];
-      if (v35)
+      v65 = 0u;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
+      v60 = v58;
+      v39 = [v60 countByEnumeratingWithState:&v63 objects:v71 count:16];
+      if (v39)
       {
-        v36 = v35;
-        v37 = *v59;
+        v40 = v39;
+        v41 = *v64;
         while (2)
         {
-          for (j = 0; j != v36; ++j)
+          for (j = 0; j != v40; ++j)
           {
-            if (*v59 != v37)
+            if (*v64 != v41)
             {
-              objc_enumerationMutation(v55);
+              objc_enumerationMutation(v60);
             }
 
-            v39 = *(*(&v58 + 1) + 8 * j);
-            v40 = [v39 scene:self handleActions:v19];
-            if ([v40 count])
+            v43 = *(*(&v63 + 1) + 8 * j);
+            v44 = [v43 scene:self handleActions:v21];
+            v45 = [v44 count];
+            if (v45)
             {
-              v41 = FBLogCommon();
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+              v46 = FBLogCommon(v45);
+              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
               {
                 loggingIdentifier5 = [(FBSScene *)self loggingIdentifier];
-                observer = [v39 observer];
-                v44 = [off_1E76BC9B0 succinctDescriptionForObject:observer];
-                v45 = [v40 bs_reduce:&stru_1F1595B30 block:&__block_literal_global_152];
+                observer = [v43 observer];
+                v49 = [off_1E76BC9B0 succinctDescriptionForObject:observer];
+                v50 = [v44 bs_reduce:&stru_1F1595B30 block:&__block_literal_global_152];
                 *buf = 138543874;
-                v69 = loggingIdentifier5;
-                v70 = 2114;
-                v71 = v44;
-                v72 = 2112;
-                v73 = v45;
-                _os_log_impl(&dword_1A2DBB000, v41, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observer %{public}@ handled action(s): %@", buf, 0x20u);
+                v74 = loggingIdentifier5;
+                v75 = 2114;
+                v76 = v49;
+                v77 = 2112;
+                v78 = v50;
+                _os_log_impl(&dword_1A2DBB000, v46, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observer %{public}@ handled action(s): %@", buf, 0x20u);
 
                 self = selfCopy;
               }
 
-              [v19 minusSet:v40];
-              if (![v19 count])
+              [v21 minusSet:v44];
+              if (![v21 count])
               {
 
                 goto LABEL_50;
@@ -2269,8 +2278,8 @@ LABEL_28:
             }
           }
 
-          v36 = [v55 countByEnumeratingWithState:&v58 objects:v66 count:16];
-          if (v36)
+          v40 = [v60 countByEnumeratingWithState:&v63 objects:v71 count:16];
+          if (v40)
           {
             continue;
           }
@@ -2281,23 +2290,23 @@ LABEL_28:
 
 LABEL_50:
 
-      actionsCopy = v49;
+      actionsCopy = v54;
     }
 
     else
     {
-      actionsCopy = v50;
+      actionsCopy = v55;
     }
 
-    v17 = v51;
+    v19 = v56;
   }
 }
 
-NSString *__51__FBSScene_updater_didReceiveActions_forExtension___block_invoke()
+NSString *__51__FBSScene_updater_didReceiveActions_forExtension___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 id __51__FBSScene_updater_didReceiveActions_forExtension___block_invoke_140(uint64_t a1, void *a2, uint64_t a3)
@@ -2656,7 +2665,7 @@ void __43__FBSScene_agent_sendMessage_withResponse___block_invoke(uint64_t a1, v
       }
 
       fbs_singleLineDescriptionOfBSActions = [v8 fbs_singleLineDescriptionOfBSActions];
-      v18 = FBLogSceneClient();
+      v18 = FBLogSceneClient(fbs_singleLineDescriptionOfBSActions);
       v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
       if (extension)
       {
@@ -2911,15 +2920,14 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
 
 - (void)addObserver:(char *)a1 withConfiguration:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"observer != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -2931,12 +2939,11 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot begin a new update while one is ongoing"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2952,12 +2959,23 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
   _os_log_debug_impl(&dword_1A2DBB000, a2, OS_LOG_TYPE_DEBUG, "[%{public}@] Ignoring update containing only animation settings.", &v4, 0xCu);
 }
 
-- (void)_updateClientSettings:(const char *)a1 .cold.2(const char *a1)
+- (void)_updateClientSettings:(uint64_t)a3 .cold.2(const char *a1, uint64_t a2, uint64_t a3)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v8 = NSStringFromClass(v2);
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v3, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v4, v5, v6, v7, 2u);
+  v5 = NSStringFromSelector(a1);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  *v13 = 138544642;
+  *&v13[4] = v5;
+  *&v13[12] = 2114;
+  *&v13[14] = v7;
+  *&v13[22] = 2048;
+  LOWORD(v14) = 2114;
+  *(&v14 + 2) = @"FBSScene.m";
+  WORD5(v14) = 1024;
+  HIDWORD(v14) = 346;
+  LOWORD(v15) = 2114;
+  *(&v15 + 2) = a3;
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16], a2, v14, v15, HIWORD(a3));
 }
 
 - (void)_updateClientSettings:(char *)a1 .cold.3(char *a1)
@@ -2965,12 +2983,11 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"too many nested updates"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2982,15 +2999,14 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid scene update"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
@@ -3000,12 +3016,11 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"it is not appropriate to call -updateSettings: on this scene"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3014,15 +3029,14 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
 
 - (void)_initWithUpdater:(char *)a1 identityToken:identity:parameters:hostHandle:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSServiceQueueClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:BSServiceQueueClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3031,15 +3045,14 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
 
 - (void)_initWithUpdater:(char *)a1 identityToken:identity:parameters:hostHandle:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneIdentityTokenClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneIdentityTokenClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3048,15 +3061,14 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
 
 - (void)_initWithUpdater:(char *)a1 identityToken:identity:parameters:hostHandle:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneIdentityClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneIdentityClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3065,15 +3077,14 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
 
 - (void)_initWithUpdater:(char *)a1 identityToken:identity:parameters:hostHandle:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"BSEqualObjects([identity identifier], [identityToken identifier])"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"BSEqualObjects([identity identifier], [identityToken identifier])", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3082,15 +3093,14 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
 
 - (void)_initWithUpdater:(char *)a1 identityToken:identity:parameters:hostHandle:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneSpecificationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneSpecificationClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3105,35 +3115,34 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-- (void)_initWithUpdater:(objc_class *)a1 identityToken:(const char *)a2 identity:parameters:hostHandle:.cold.7(objc_class *a1, const char *a2)
+- (void)_initWithUpdater:(uint64_t)a3 identityToken:identity:parameters:hostHandle:.cold.7(objc_class *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v12 = NSStringFromClass(a1);
-  v4 = [v3 stringWithFormat:@"agent class %@ failed to allocate"];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = NSStringFromClass(a1);
+  v6 = [v4 stringWithFormat:@"agent class %@ failed to allocate", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a2);
-    v6 = objc_opt_class();
-    v14 = NSStringFromClass(v6);
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, 2u);
+    v7 = NSStringFromSelector(a2);
+    v8 = objc_opt_class();
+    v16 = NSStringFromClass(v8);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v4 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)_initWithUpdater:(char *)a1 identityToken:identity:parameters:hostHandle:.cold.8(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3142,15 +3151,14 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
 
 - (void)_initWithUpdater:(char *)a1 identityToken:identity:parameters:hostHandle:.cold.9(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3159,15 +3167,14 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
 
 - (void)_initWithUpdater:(char *)a1 identityToken:identity:parameters:hostHandle:.cold.10(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3176,15 +3183,14 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
 
 - (void)_initWithUpdater:(char *)a1 identityToken:identity:parameters:hostHandle:.cold.11(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3193,15 +3199,14 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
 
 - (void)_initWithUpdater:(char *)a1 identityToken:identity:parameters:hostHandle:.cold.12(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"updater"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"updater", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3213,12 +3218,11 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot update parameters after activation"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3227,15 +3231,14 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
 
 - (void)_callOutQueue_maybeCoalesceClientSettingsUpdates:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_callout_coalesceUpdates"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"!_callout_coalesceUpdates", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3247,12 +3250,11 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"extensions should only be updated while coalescing"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3261,15 +3263,14 @@ void __56__FBSScene_FBSWorkspaceService__activateWithCompletion___block_invoke(u
 
 - (void)_callOutQueue_updateExtensionsFromSettings:(char *)a1 toSettings:withDiff:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_callOutQueue_mutationLocked == NO"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_callOutQueue_mutationLocked == NO", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3296,15 +3297,14 @@ void __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_complet
 
 - (void)agent:(char *)a1 registerMessageHandler:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"agent && (agent == _callOutQueue_agent)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"agent && (agent == _callOutQueue_agent)", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3313,15 +3313,14 @@ void __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_complet
 
 - (void)agent:(char *)a1 sendMessage:withResponse:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"agent == _callOutQueue_agent"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"agent == _callOutQueue_agent", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3330,15 +3329,14 @@ void __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_complet
 
 - (void)agent:(char *)a1 sendMessage:withResponse:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneMessageClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneMessageClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3347,15 +3345,14 @@ void __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_complet
 
 - (void)agent:(char *)a1 sendMessage:withResponse:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3367,33 +3364,31 @@ void __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_complet
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send actions until activated"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)sendActions:(uint64_t)a1 toExtension:(char *)a2 .cold.2(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"only actions of type BSAction can be sent : tried to send %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"only actions of type BSAction can be sent : tried to send %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v14, v15);
   }
 
-  v11 = v3;
+  v13 = v3;
   [v3 UTF8String];
   _bs_set_crash_log_message();
 }
@@ -3403,12 +3398,11 @@ void __76__FBSScene_updater_didUpdateSettings_withDiff_transitionContext_complet
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send invocations until activated"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

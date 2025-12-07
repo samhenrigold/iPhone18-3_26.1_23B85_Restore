@@ -49,9 +49,9 @@
 
   if (!sourceCopy || range.location > objc_msgSend_length(sourceCopy, v6, v7) || (v130 = range.location + range2, range.location + range2 > objc_msgSend_length(sourceCopy, v8, v9)))
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d The source storage and/or the specified sub range are invalid.", "[TSWPTypesetterTextSource initWithSource:subRange:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTypesetterTextSource.mm", 54);
     v116 = MEMORY[0x277D81150];
-    v118 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v117, "[TSWPTypesetterTextSource initWithSource:subRange:]", "[TSWPTypesetterTextSource initWithSource:subRange:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTypesetterTextSource.mm", 54);
+    v118 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v117, "[TSWPTypesetterTextSource initWithSource:subRange:]");
     v120 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v119, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTypesetterTextSource.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v116, v121, v118, v120, 54, 1, "The source storage and/or the specified sub range are invalid.");
 
@@ -154,9 +154,9 @@
         v59 = v58;
         if (!v58)
         {
-          TSUSetCrashReporterInfo();
+          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d zero-length character", "[TSWPTypesetterTextSource initWithSource:subRange:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTypesetterTextSource.mm", 148);
           v104 = MEMORY[0x277D81150];
-          v106 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v105, "[TSWPTypesetterTextSource initWithSource:subRange:]", "[TSWPTypesetterTextSource initWithSource:subRange:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTypesetterTextSource.mm", 148);
+          v106 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v105, "[TSWPTypesetterTextSource initWithSource:subRange:]");
           v108 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v107, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTypesetterTextSource.mm");
           objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v104, v109, v106, v108, 148, 1, "zero-length character");
 
@@ -250,9 +250,9 @@ LABEL_61:
       v76 = *(&v137 + 1) + v137;
       if (v128 >= *(&v137 + 1) + v137)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to advance curCharIndex", "[TSWPTypesetterTextSource initWithSource:subRange:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTypesetterTextSource.mm", 179);
         v110 = MEMORY[0x277D81150];
-        v112 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v111, "[TSWPTypesetterTextSource initWithSource:subRange:]", "[TSWPTypesetterTextSource initWithSource:subRange:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTypesetterTextSource.mm", 179);
+        v112 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v111, "[TSWPTypesetterTextSource initWithSource:subRange:]");
         v114 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v113, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTypesetterTextSource.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v110, v115, v112, v114, 179, 1, "Failed to advance curCharIndex");
 
@@ -346,9 +346,9 @@ LABEL_61:
       }
     }
 
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d RTL: zero-length character", "[TSWPTypesetterTextSource initWithSource:subRange:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTypesetterTextSource.mm", 122);
     v98 = MEMORY[0x277D81150];
-    v100 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v99, "[TSWPTypesetterTextSource initWithSource:subRange:]", "[TSWPTypesetterTextSource initWithSource:subRange:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTypesetterTextSource.mm", 122);
+    v100 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v99, "[TSWPTypesetterTextSource initWithSource:subRange:]");
     v102 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v101, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTypesetterTextSource.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v98, v103, v100, v102, 122, 1, "RTL: zero-length character");
 

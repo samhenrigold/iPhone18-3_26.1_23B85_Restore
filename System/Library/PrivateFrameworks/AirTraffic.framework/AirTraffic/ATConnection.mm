@@ -14,13 +14,16 @@
 - (void)connectionWasInterrupted:(id)interrupted;
 - (void)dealloc;
 - (void)initiateAssetDownloadSessionsWithCompletion:(id)completion;
+- (void)keepATCAlive:(BOOL)alive;
 - (void)lowBatteryNotification;
+- (void)openDeviceMessageLinkWithPriority:(int)priority;
 - (void)prioritizeAsset:(id)asset forDataclass:(id)dataclass;
 - (void)purgePartialAsset:(id)asset forDataclass:(id)dataclass;
 - (void)registerForAssetProgressForDataclass:(id)dataclass;
 - (void)registerForStatus;
 - (void)requestKeybagSyncToPairedDevice;
 - (void)requestSyncForLibrary:(id)library;
+- (void)requestSyncForPairedDeviceWithPriority:(int)priority;
 - (void)unregisterForStatus;
 @end
 
@@ -244,7 +247,7 @@ uint64_t __60__ATConnection_initiateAssetDownloadSessionsWithCompletion___block_
 
 void __40__ATConnection_getDataRestoreIsComplete__block_invoke_184(uint64_t a1, void *a2, char a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a2;
   *(*(*(a1 + 32) + 8) + 24) = a3;
   if (v5)
@@ -252,28 +255,24 @@ void __40__ATConnection_getDataRestoreIsComplete__block_invoke_184(uint64_t a1, 
     v6 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138543362;
-      v9 = v5;
-      _os_log_impl(&dword_23EC61000, v6, OS_LOG_TYPE_ERROR, "check data restore state failed. err=%{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v5;
+      _os_log_impl(&dword_23EC61000, v6, OS_LOG_TYPE_ERROR, "check data restore state failed. err=%{public}@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __40__ATConnection_getDataRestoreIsComplete__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "check data restore state - failed to obtain remote proxy. err=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "check data restore state - failed to obtain remote proxy. err=%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getAssetMetrics
@@ -307,7 +306,7 @@ void __40__ATConnection_getDataRestoreIsComplete__block_invoke(uint64_t a1, void
 
 void __31__ATConnection_getAssetMetrics__block_invoke_181(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -315,9 +314,9 @@ void __31__ATConnection_getAssetMetrics__block_invoke_181(uint64_t a1, void *a2,
     v7 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_impl(&dword_23EC61000, v7, OS_LOG_TYPE_ERROR, "get asset metrics failed. err=%{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_impl(&dword_23EC61000, v7, OS_LOG_TYPE_ERROR, "get asset metrics failed. err=%{public}@", &v8, 0xCu);
     }
   }
 
@@ -325,23 +324,19 @@ void __31__ATConnection_getAssetMetrics__block_invoke_181(uint64_t a1, void *a2,
   {
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __31__ATConnection_getAssetMetrics__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "get asset metrics - failed to obtain remote proxy. err=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "get asset metrics - failed to obtain remote proxy. err=%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)restoreDeviceWithIdentifier:(id)identifier
@@ -373,27 +368,52 @@ void __31__ATConnection_getAssetMetrics__block_invoke(uint64_t a1, void *a2)
   return v7;
 }
 
+- (void)openDeviceMessageLinkWithPriority:(int)priority
+{
+  v3 = *&priority;
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = os_log_create("com.apple.amp.AirTraffic", "XPC");
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v13 = v3;
+    _os_log_impl(&dword_23EC61000, v5, OS_LOG_TYPE_DEFAULT, "Open device message link with priority %d", buf, 8u);
+  }
+
+  xpcConnection = self->_xpcConnection;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __50__ATConnection_openDeviceMessageLinkWithPriority___block_invoke;
+  v10[3] = &__block_descriptor_36_e17_v16__0__NSError_8l;
+  v11 = v3;
+  v7 = [(NSXPCConnection *)xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v10];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __50__ATConnection_openDeviceMessageLinkWithPriority___block_invoke_178;
+  v8[3] = &__block_descriptor_36_e17_v16__0__NSError_8l;
+  v9 = v3;
+  [v7 openDeviceMessageLinkWithPriority:v3 withCompletion:v8];
+}
+
 void __50__ATConnection_openDeviceMessageLinkWithPriority___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
-    v7[0] = 67109378;
-    v7[1] = v5;
-    v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "Open device message link with priority %d - failed to obtain remote proxy. err=%{public}@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = v5;
+    v7 = 2114;
+    v8 = v3;
+    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "Open device message link with priority %d - failed to obtain remote proxy. err=%{public}@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __50__ATConnection_openDeviceMessageLinkWithPriority___block_invoke_178(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -401,15 +421,13 @@ void __50__ATConnection_openDeviceMessageLinkWithPriority___block_invoke_178(uin
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v7[0] = 67109378;
-      v7[1] = v5;
-      v8 = 2114;
-      v9 = v3;
-      _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "Open device message link with priority %d failed. err=%{public}@", v7, 0x12u);
+      v6[0] = 67109378;
+      v6[1] = v5;
+      v7 = 2114;
+      v8 = v3;
+      _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "Open device message link with priority %d failed. err=%{public}@", v6, 0x12u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSyncing:(BOOL *)syncing automatically:(BOOL *)automatically wirelessly:(BOOL *)wirelessly
@@ -454,7 +472,7 @@ void __50__ATConnection_openDeviceMessageLinkWithPriority___block_invoke_178(uin
 
 void __51__ATConnection_isSyncing_automatically_wirelessly___block_invoke_166(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -462,9 +480,9 @@ void __51__ATConnection_isSyncing_automatically_wirelessly___block_invoke_166(ui
     v7 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_impl(&dword_23EC61000, v7, OS_LOG_TYPE_ERROR, "failed to get sync state. err=%{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_impl(&dword_23EC61000, v7, OS_LOG_TYPE_ERROR, "failed to get sync state. err=%{public}@", &v8, 0xCu);
     }
   }
 
@@ -472,56 +490,64 @@ void __51__ATConnection_isSyncing_automatically_wirelessly___block_invoke_166(ui
   {
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __51__ATConnection_isSyncing_automatically_wirelessly___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "isSyncing - failed to obtain remote proxy. err=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "isSyncing - failed to obtain remote proxy. err=%{public}@", &v4, 0xCu);
+  }
+}
+
+- (void)keepATCAlive:(BOOL)alive
+{
+  aliveCopy = alive;
+  v8 = *MEMORY[0x277D85DE8];
+  v5 = os_log_create("com.apple.amp.AirTraffic", "XPC");
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v7[0] = 67109120;
+    v7[1] = aliveCopy;
+    _os_log_impl(&dword_23EC61000, v5, OS_LOG_TYPE_DEFAULT, "keep ATC alive, enabled:%d", v7, 8u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = [(NSXPCConnection *)self->_xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_160];
+  [v6 keepATCAlive:aliveCopy withCompletion:&__block_literal_global_163];
 }
 
 void __29__ATConnection_keepATCAlive___block_invoke_161(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "keep ATC alive failed. err=%{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "keep ATC alive failed. err=%{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __29__ATConnection_keepATCAlive___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "keep ATC alive - failed to obtain remote proxy. err=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "keep ATC alive - failed to obtain remote proxy. err=%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lowBatteryNotification
@@ -539,35 +565,31 @@ void __29__ATConnection_keepATCAlive___block_invoke(uint64_t a1, void *a2)
 
 void __38__ATConnection_lowBatteryNotification__block_invoke_156(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "low battery notification failed. err=%{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "low battery notification failed. err=%{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __38__ATConnection_lowBatteryNotification__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "low battery notification - failed to obtain remote proxy. err=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "low battery notification - failed to obtain remote proxy. err=%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearSyncData
@@ -585,35 +607,31 @@ void __38__ATConnection_lowBatteryNotification__block_invoke(uint64_t a1, void *
 
 void __29__ATConnection_clearSyncData__block_invoke_151(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "clear sync data failed. err=%{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "clear sync data failed. err=%{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __29__ATConnection_clearSyncData__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "clear sync data - failed to obtain remote proxy. err=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "clear sync data - failed to obtain remote proxy. err=%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForAssetProgressForDataclass:(id)dataclass
@@ -636,7 +654,7 @@ void __29__ATConnection_clearSyncData__block_invoke(uint64_t a1, void *a2)
 
 - (void)_sendStatusRegistrationWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -653,43 +671,41 @@ void __29__ATConnection_clearSyncData__block_invoke(uint64_t a1, void *a2)
     }
 
     *buf = 136315394;
-    v20 = v7;
-    v21 = 2114;
-    v22 = registeredDataclasses;
+    v19 = v7;
+    v20 = 2114;
+    v21 = registeredDataclasses;
     _os_log_impl(&dword_23EC61000, v5, OS_LOG_TYPE_DEFAULT, "sending async registration %s message, dataclasses %{public}@", buf, 0x16u);
   }
 
   xpcConnection = self->_xpcConnection;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __54__ATConnection__sendStatusRegistrationWithCompletion___block_invoke;
-  v17[3] = &unk_278C6DA58;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __54__ATConnection__sendStatusRegistrationWithCompletion___block_invoke;
+  v16[3] = &unk_278C6DA58;
   v9 = completionCopy;
-  v18 = v9;
-  v10 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v17];
+  v17 = v9;
+  v10 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v16];
   v11 = self->_registeredDataclasses;
   v12 = [MEMORY[0x277CCABB0] numberWithBool:self->_registerForStatus];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __54__ATConnection__sendStatusRegistrationWithCompletion___block_invoke_146;
-  v15[3] = &unk_278C6DA58;
-  v16 = v9;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __54__ATConnection__sendStatusRegistrationWithCompletion___block_invoke_146;
+  v14[3] = &unk_278C6DA58;
+  v15 = v9;
   v13 = v9;
-  [v10 registerForStatusOfDataclasses:v11 enabled:v12 withCompletion:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [v10 registerForStatusOfDataclasses:v11 enabled:v12 withCompletion:v14];
 }
 
 void __54__ATConnection__sendStatusRegistrationWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "sending async registration - failed to obtain remote proxy. err=%{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "sending async registration - failed to obtain remote proxy. err=%{public}@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -697,8 +713,6 @@ void __54__ATConnection__sendStatusRegistrationWithCompletion___block_invoke(uin
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__ATConnection__sendStatusRegistrationWithCompletion___block_invoke_146(uint64_t a1)
@@ -738,110 +752,98 @@ uint64_t __54__ATConnection__sendStatusRegistrationWithCompletion___block_invoke
 
 - (void)purgePartialAsset:(id)asset forDataclass:(id)dataclass
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   dataclassCopy = dataclass;
   v8 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
-    v12 = assetCopy;
-    v13 = 2114;
-    v14 = dataclassCopy;
-    _os_log_impl(&dword_23EC61000, v8, OS_LOG_TYPE_DEFAULT, "purge partial asset:%{public}@ for data class:%{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = assetCopy;
+    v12 = 2114;
+    v13 = dataclassCopy;
+    _os_log_impl(&dword_23EC61000, v8, OS_LOG_TYPE_DEFAULT, "purge partial asset:%{public}@ for data class:%{public}@", &v10, 0x16u);
   }
 
   v9 = [(NSXPCConnection *)self->_xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_136];
   [v9 purgePartialAsset:assetCopy forDataclass:dataclassCopy withCompletion:&__block_literal_global_139];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __47__ATConnection_purgePartialAsset_forDataclass___block_invoke_137(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "purge partial asset failed. err=%{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "purge partial asset failed. err=%{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __47__ATConnection_purgePartialAsset_forDataclass___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "purge partial asset - failed to obtain remote proxy. err=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "purge partial asset - failed to obtain remote proxy. err=%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prioritizeAsset:(id)asset forDataclass:(id)dataclass
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   dataclassCopy = dataclass;
   v8 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
-    v12 = dataclassCopy;
-    v13 = 2114;
-    v14 = assetCopy;
-    _os_log_impl(&dword_23EC61000, v8, OS_LOG_TYPE_DEFAULT, "prioritize asset - %{public}@ %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = dataclassCopy;
+    v12 = 2114;
+    v13 = assetCopy;
+    _os_log_impl(&dword_23EC61000, v8, OS_LOG_TYPE_DEFAULT, "prioritize asset - %{public}@ %{public}@", &v10, 0x16u);
   }
 
   v9 = [(NSXPCConnection *)self->_xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_131];
   [v9 prioritizeAsset:assetCopy forDataclass:dataclassCopy withCompletion:&__block_literal_global_134];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __45__ATConnection_prioritizeAsset_forDataclass___block_invoke_132(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "prioritize asset failed. err=%{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "prioritize asset failed. err=%{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __45__ATConnection_prioritizeAsset_forDataclass___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "prioritize asset - failed to obtain remote proxy. err=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "prioritize asset - failed to obtain remote proxy. err=%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelSync
@@ -859,35 +861,31 @@ void __45__ATConnection_prioritizeAsset_forDataclass___block_invoke(uint64_t a1,
 
 void __26__ATConnection_cancelSync__block_invoke_127(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "cancel sync failed. err=%{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "cancel sync failed. err=%{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __26__ATConnection_cancelSync__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "cancel sync - failed to obtain remote proxy. err=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "cancel sync - failed to obtain remote proxy. err=%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestKeybagSyncToPairedDevice
@@ -905,119 +903,119 @@ void __26__ATConnection_cancelSync__block_invoke(uint64_t a1, void *a2)
 
 void __47__ATConnection_requestKeybagSyncToPairedDevice__block_invoke_122(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "requesting keybag sync to paired device failed. err=%{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "requesting keybag sync to paired device failed. err=%{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __47__ATConnection_requestKeybagSyncToPairedDevice__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "requesting keybag sync to paired device - failed to obtain remote proxy. err=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "requesting keybag sync to paired device - failed to obtain remote proxy. err=%{public}@", &v4, 0xCu);
+  }
+}
+
+- (void)requestSyncForPairedDeviceWithPriority:(int)priority
+{
+  v3 = *&priority;
+  v5 = os_log_create("com.apple.amp.AirTraffic", "XPC");
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *v7 = 0;
+    _os_log_impl(&dword_23EC61000, v5, OS_LOG_TYPE_DEFAULT, "sync request for paired device", v7, 2u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = [(NSXPCConnection *)self->_xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_116];
+  [v6 requestSyncForPairedDeviceWithPriority:v3 withCompletion:&__block_literal_global_119];
 }
 
 void __55__ATConnection_requestSyncForPairedDeviceWithPriority___block_invoke_117(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "request sync for paired device failed. err=%{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "request sync for paired device failed. err=%{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __55__ATConnection_requestSyncForPairedDeviceWithPriority___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "request sync for paired device - failed to obtain remote proxy. err=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "request sync for paired device - failed to obtain remote proxy. err=%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestSyncForLibrary:(id)library
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   libraryCopy = library;
   v5 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = libraryCopy;
-    _os_log_impl(&dword_23EC61000, v5, OS_LOG_TYPE_DEFAULT, "Sync request for library %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = libraryCopy;
+    _os_log_impl(&dword_23EC61000, v5, OS_LOG_TYPE_DEFAULT, "Sync request for library %{public}@", &v7, 0xCu);
   }
 
   v6 = [(NSXPCConnection *)self->_xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_1270];
   [v6 requestSyncForLibrary:libraryCopy withCompletion:&__block_literal_global_114];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __38__ATConnection_requestSyncForLibrary___block_invoke_112(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "request sync for library failed. err=%{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "request sync for library failed. err=%{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __38__ATConnection_requestSyncForLibrary___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "request sync for library - failed to obtain remote proxy. err=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "request sync for library - failed to obtain remote proxy. err=%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDisconnect
@@ -1053,7 +1051,7 @@ void __38__ATConnection_requestSyncForLibrary___block_invoke(uint64_t a1, void *
 
 void __20__ATConnection_init__block_invoke(uint64_t a1, int a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -1072,9 +1070,9 @@ void __20__ATConnection_init__block_invoke(uint64_t a1, int a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v13 = state;
-        v14 = 2048;
-        v15 = state64;
+        v12 = state;
+        v13 = 2048;
+        v14 = state64;
         _os_log_impl(&dword_23EC61000, v7, OS_LOG_TYPE_DEFAULT, "Error getting state - startupState %u, state %llu", buf, 0x12u);
       }
 
@@ -1093,16 +1091,14 @@ void __20__ATConnection_init__block_invoke(uint64_t a1, int a2)
 
     else
     {
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __20__ATConnection_init__block_invoke_2;
-      v9[3] = &unk_278C6D9C0;
-      v10 = WeakRetained;
-      [v10 _sendStatusRegistrationWithCompletion:v9];
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __20__ATConnection_init__block_invoke_2;
+      v8[3] = &unk_278C6D9C0;
+      v9 = WeakRetained;
+      [v9 _sendStatusRegistrationWithCompletion:v8];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __20__ATConnection_init__block_invoke_106(uint64_t a1)
@@ -1133,18 +1129,17 @@ void __20__ATConnection_init__block_invoke_108(uint64_t a1)
 
 void __20__ATConnection_init__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_DEFAULT, "sending async registration finished with err=%{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_DEFAULT, "sending async registration finished with err=%{public}@", &v5, 0xCu);
   }
 
   *(*(a1 + 32) + 36) = 1;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

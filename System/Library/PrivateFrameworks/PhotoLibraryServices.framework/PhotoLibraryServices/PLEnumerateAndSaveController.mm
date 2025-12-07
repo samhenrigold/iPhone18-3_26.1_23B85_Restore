@@ -123,7 +123,7 @@
     v26 = dispatch_queue_create(uTF8String, v29);
   }
 
-  v30 = [v25 count];
+  v30 = objc_msgSend_count(v25);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __56__PLEnumerateAndSaveController_processObjectsWithError___block_invoke_4;
@@ -162,11 +162,11 @@ void __56__PLEnumerateAndSaveController_processObjectsWithError___block_invoke(v
   *(v6 + 40) = v5;
 }
 
-uint64_t __56__PLEnumerateAndSaveController_processObjectsWithError___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__56__PLEnumerateAndSaveController_processObjectsWithError___block_invoke_3(uint64_t a1, uint64_t a2, char *a3)
 {
   [*(a1 + 32) addObject:a2];
-  v5 = [*(*(*(a1 + 48) + 8) + 40) count];
-  result = [*(a1 + 32) count];
+  v5 = objc_msgSend_count(*(*(*(a1 + 48) + 8) + 40));
+  result = objc_msgSend_count(*(a1 + 32));
   if (result == *(a1 + 56) || v5 - 1 == a3)
   {
     v8 = *(a1 + 40);

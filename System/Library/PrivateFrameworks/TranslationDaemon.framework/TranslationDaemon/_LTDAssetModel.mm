@@ -58,21 +58,21 @@
 - (_LTDAssetModel)initWithProvider:(id)provider
 {
   providerCopy = provider;
-  v19.receiver = self;
-  v19.super_class = _LTDAssetModel;
-  v5 = [(_LTDAssetModel *)&v19 init];
-  v6 = v5;
+  v20.receiver = self;
+  v20.super_class = _LTDAssetModel;
+  v5 = [(_LTDAssetModel *)&v20 init];
+  v7 = v5;
   if (!v5)
   {
 LABEL_6:
-    v16 = 0;
+    v17 = 0;
     goto LABEL_7;
   }
 
   if (!providerCopy)
   {
-    v17 = _LTOSLogAssets();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _LTOSLogAssets(v5, v6);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [_LTDAssetModel initWithProvider:];
     }
@@ -81,25 +81,25 @@ LABEL_6:
   }
 
   v5->_lock._os_unfair_lock_opaque = 0;
-  v7 = [MEMORY[0x277CBEB18] arrayWithObject:providerCopy];
-  components = v6->_components;
-  v6->_components = v7;
+  v8 = [MEMORY[0x277CBEB18] arrayWithObject:providerCopy];
+  components = v7->_components;
+  v7->_components = v8;
 
-  v9 = [objc_opt_class() _offlineStateForAssetState:{objc_msgSend(providerCopy, "state")}];
-  v10 = MEMORY[0x277CE1AC0];
+  v10 = [objc_opt_class() _offlineStateForAssetState:{objc_msgSend(providerCopy, "state")}];
+  v11 = MEMORY[0x277CE1AC0];
   identifier = [providerCopy identifier];
-  v12 = [v10 discreteProgressWithIdentifier:identifier offlineState:v9];
-  progress = v6->_progress;
-  v6->_progress = v12;
+  v13 = [v11 discreteProgressWithIdentifier:identifier offlineState:v10];
+  progress = v7->_progress;
+  v7->_progress = v13;
 
-  v14 = v6->_progress;
+  v15 = v7->_progress;
   progress = [providerCopy progress];
-  [(_LTAssetProgress *)v14 addComponent:progress];
+  [(_LTAssetProgress *)v15 addComponent:progress];
 
-  v16 = v6;
+  v17 = v7;
 LABEL_7:
 
-  return v16;
+  return v17;
 }
 
 - (_LTDAssetModelProtocol)provider
@@ -129,24 +129,26 @@ LABEL_7:
 {
   assetCopy = asset;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = _LTOSLogAssets();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = _LTOSLogAssets(isKindOfClass, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [_LTDAssetModel addComponentAsset:];
     }
 
 LABEL_11:
-    v14 = 0;
+    v20 = 0;
     goto LABEL_12;
   }
 
   assetType = [(_LTDAssetModel *)self assetType];
-  if (assetType != [assetCopy assetType])
+  assetType2 = [assetCopy assetType];
+  if (assetType != assetType2)
   {
-    v13 = _LTOSLogAssets();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v19 = _LTOSLogAssets(assetType2, v10);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [_LTDAssetModel addComponentAsset:];
     }
@@ -156,26 +158,26 @@ LABEL_11:
 
   os_unfair_lock_lock(&self->_lock);
   components = [(_LTDAssetModel *)self components];
-  v8 = [components count];
+  v12 = [components count];
 
   os_unfair_lock_unlock(&self->_lock);
-  if (v8)
+  if (v12)
   {
     os_unfair_lock_lock(&self->_lock);
     components2 = [(_LTDAssetModel *)self components];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __36___LTDAssetModel_addComponentAsset___block_invoke;
-    v16[3] = &unk_2789B5A08;
-    v10 = assetCopy;
-    v17 = v10;
-    v11 = [components2 lt_hasObjectPassingTest:v16];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __36___LTDAssetModel_addComponentAsset___block_invoke;
+    v22[3] = &unk_2789B5A08;
+    v14 = assetCopy;
+    v23 = v14;
+    v15 = [components2 lt_hasObjectPassingTest:v22];
 
     os_unfair_lock_unlock(&self->_lock);
-    if (v11)
+    if (v15)
     {
-      v12 = _LTOSLogAssets();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = _LTOSLogAssets(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [_LTDAssetModel addComponentAsset:];
       }
@@ -183,21 +185,21 @@ LABEL_11:
 
     else
     {
-      [(_LTDAssetModel *)self _addComponentAsset:v10];
+      [(_LTDAssetModel *)self _addComponentAsset:v14];
     }
 
-    v14 = v11 ^ 1;
+    v20 = v15 ^ 1;
   }
 
   else
   {
     [(_LTDAssetModel *)self _addComponentAsset:assetCopy];
-    v14 = 1;
+    v20 = 1;
   }
 
 LABEL_12:
 
-  return v14;
+  return v20;
 }
 
 - (id)firstComponentAssetWithAssetSubtype:(unint64_t)subtype
@@ -786,7 +788,7 @@ LABEL_9:
 
 + (id)localeIdentifiersForLanguageName:(id)name
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = _LTPreferencesSupportedLocales(1);
   array = [MEMORY[0x277CBEB18] array];
@@ -798,13 +800,13 @@ LABEL_9:
 
     if (!v8)
     {
-      v30[0] = nameCopy;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+      v29[0] = nameCopy;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
       goto LABEL_16;
     }
 
-    v24 = array;
-    v22 = v6;
+    v23 = array;
+    v21 = v6;
     v9 = [v6 objectAtIndexedSubscript:0];
 
     nameCopy = v9;
@@ -812,61 +814,59 @@ LABEL_9:
 
   else
   {
-    v22 = v6;
-    v24 = array;
+    v21 = v6;
+    v23 = array;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
-  v23 = v4;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v22 = v4;
   v10 = v4;
-  v11 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v26;
+    v13 = *v25;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        _ltLocaleIdentifier = [*(*(&v25 + 1) + 8 * i) _ltLocaleIdentifier];
+        _ltLocaleIdentifier = [*(*(&v24 + 1) + 8 * i) _ltLocaleIdentifier];
         v16 = [_ltLocaleIdentifier componentsSeparatedByString:@"_"];
         v17 = [v16 objectAtIndexedSubscript:0];
         v18 = [nameCopy isEqualToString:v17];
 
         if (v18)
         {
-          [v24 addObject:_ltLocaleIdentifier];
+          [v23 addObject:_ltLocaleIdentifier];
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v12);
   }
 
-  array = v24;
-  v19 = [v24 copy];
-  v6 = v22;
-  v4 = v23;
+  array = v23;
+  v19 = [v23 copy];
+  v6 = v21;
+  v4 = v22;
 LABEL_16:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 - (NSArray)localeIdentifiers
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   localeIdentifiers = self->_localeIdentifiers;
   if (localeIdentifiers)
   {
@@ -879,79 +879,79 @@ LABEL_16:
   if (!v6)
   {
     identifier = [(_LTDAssetModel *)selfCopy identifier];
-    v47 = [identifier componentsSeparatedByString:@"-"];
+    v46 = [identifier componentsSeparatedByString:@"-"];
 
     assetType = [(_LTDAssetModel *)selfCopy assetType];
     if (assetType > 7)
     {
       if (assetType == 8)
       {
-        v22 = objc_opt_new();
-        v23 = [v47 indexOfObject:@"partial"];
-        if (v23 == 0x7FFFFFFFFFFFFFFFLL || (v38 = v23 + 1, v23 + 1 < [v47 count]) && (objc_msgSend(v47, "objectAtIndexedSubscript:", v23 + 1), v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v39, "isEqualToString:", @"en"), v39, v40))
+        v21 = objc_opt_new();
+        v22 = [v46 indexOfObject:@"partial"];
+        if (v22 == 0x7FFFFFFFFFFFFFFFLL || (v37 = v22 + 1, v22 + 1 < [v46 count]) && (objc_msgSend(v46, "objectAtIndexedSubscript:", v22 + 1), v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v38, "isEqualToString:", @"en"), v38, v39))
         {
-          for (i = 2; i < [v47 count]; ++i)
+          for (i = 2; i < [v46 count]; ++i)
           {
-            if (v23 != 0x7FFFFFFFFFFFFFFFLL)
+            if (v22 != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v25 = [v47 objectAtIndexedSubscript:i];
-              v26 = [v25 isEqualToString:@"partial"];
+              v24 = [v46 objectAtIndexedSubscript:i];
+              v25 = [v24 isEqualToString:@"partial"];
 
-              if (v26)
+              if (v25)
               {
                 break;
               }
             }
 
-            v27 = [v47 objectAtIndexedSubscript:i];
+            v26 = [v46 objectAtIndexedSubscript:i];
             decimalDigitCharacterSet = [MEMORY[0x277CCA900] decimalDigitCharacterSet];
-            v29 = [v27 rangeOfCharacterFromSet:decimalDigitCharacterSet];
+            v28 = [v26 rangeOfCharacterFromSet:decimalDigitCharacterSet];
 
-            if (v29 == 0x7FFFFFFFFFFFFFFFLL)
+            if (v28 == 0x7FFFFFFFFFFFFFFFLL)
             {
-              v30 = objc_opt_class();
-              v31 = [v47 objectAtIndexedSubscript:i];
-              v32 = [v30 localeIdentifiersForLanguageName:v31];
+              v29 = objc_opt_class();
+              v30 = [v46 objectAtIndexedSubscript:i];
+              v31 = [v29 localeIdentifiersForLanguageName:v30];
 
-              [v22 addObjectsFromArray:v32];
+              [v21 addObjectsFromArray:v31];
             }
           }
         }
 
-        else if (v38 < [v47 count])
+        else if (v37 < [v46 count])
         {
-          v41 = objc_opt_class();
-          v42 = [v47 objectAtIndexedSubscript:v38];
-          v43 = [v41 localeIdentifiersForLanguageName:v42];
+          v40 = objc_opt_class();
+          v41 = [v46 objectAtIndexedSubscript:v37];
+          v42 = [v40 localeIdentifiersForLanguageName:v41];
 
-          [v22 addObjectsFromArray:v43];
+          [v21 addObjectsFromArray:v42];
         }
 
-        v44 = [v22 copy];
-        v45 = self->_localeIdentifiers;
-        self->_localeIdentifiers = v44;
+        v43 = [v21 copy];
+        v44 = self->_localeIdentifiers;
+        self->_localeIdentifiers = v43;
 
         goto LABEL_44;
       }
 
       if (assetType == 10)
       {
-        if ([v47 count] == 2)
+        if ([v46 count] == 2)
         {
-          v33 = [v47 objectAtIndexedSubscript:1];
-          if ([v33 isEqualToString:@"en"])
+          v32 = [v46 objectAtIndexedSubscript:1];
+          if ([v32 isEqualToString:@"en"])
           {
-            v34 = _LTPreferencesSupportedLocales(1);
-            v35 = [v34 _ltCompactMap:&__block_literal_global_45];
-            v36 = self->_localeIdentifiers;
-            self->_localeIdentifiers = v35;
+            v33 = _LTPreferencesSupportedLocales(1);
+            v34 = [v33 _ltCompactMap:&__block_literal_global_45];
+            v35 = self->_localeIdentifiers;
+            self->_localeIdentifiers = v34;
           }
 
           else
           {
-            v46 = [objc_opt_class() localeIdentifiersForLanguageName:v33];
-            v34 = self->_localeIdentifiers;
-            self->_localeIdentifiers = v46;
+            v45 = [objc_opt_class() localeIdentifiersForLanguageName:v32];
+            v33 = self->_localeIdentifiers;
+            self->_localeIdentifiers = v45;
           }
 
           goto LABEL_44;
@@ -963,7 +963,7 @@ LABEL_16:
       if (assetType != 11)
       {
 LABEL_36:
-        v37 = self->_localeIdentifiers;
+        v36 = self->_localeIdentifiers;
         self->_localeIdentifiers = MEMORY[0x277CBEBF8];
 
         goto LABEL_44;
@@ -974,38 +974,38 @@ LABEL_36:
     {
       if ((assetType - 6) < 2)
       {
-        v11 = objc_opt_new();
-        v50 = 0u;
-        v51 = 0u;
-        v48 = 0u;
+        v10 = objc_opt_new();
         v49 = 0u;
+        v50 = 0u;
+        v47 = 0u;
+        v48 = 0u;
         supportedLanguages = [(_LTDAssetModel *)selfCopy supportedLanguages];
-        v13 = [supportedLanguages countByEnumeratingWithState:&v48 objects:v52 count:16];
-        if (v13)
+        v12 = [supportedLanguages countByEnumeratingWithState:&v47 objects:v51 count:16];
+        if (v12)
         {
-          v14 = *v49;
+          v13 = *v48;
           do
           {
-            for (j = 0; j != v13; ++j)
+            for (j = 0; j != v12; ++j)
             {
-              if (*v49 != v14)
+              if (*v48 != v13)
               {
                 objc_enumerationMutation(supportedLanguages);
               }
 
-              v16 = [*(*(&v48 + 1) + 8 * j) stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-              [v11 addObject:v16];
+              v15 = [*(*(&v47 + 1) + 8 * j) stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+              [v10 addObject:v15];
             }
 
-            v13 = [supportedLanguages countByEnumeratingWithState:&v48 objects:v52 count:16];
+            v12 = [supportedLanguages countByEnumeratingWithState:&v47 objects:v51 count:16];
           }
 
-          while (v13);
+          while (v12);
         }
 
-        v17 = [v11 copy];
-        v18 = self->_localeIdentifiers;
-        self->_localeIdentifiers = v17;
+        v16 = [v10 copy];
+        v17 = self->_localeIdentifiers;
+        self->_localeIdentifiers = v16;
 
         goto LABEL_44;
       }
@@ -1016,13 +1016,13 @@ LABEL_36:
       }
     }
 
-    if ([v47 count] == 2)
+    if ([v46 count] == 2)
     {
-      v19 = [v47 objectAtIndexedSubscript:1];
-      v53[0] = v19;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
-      v21 = self->_localeIdentifiers;
-      self->_localeIdentifiers = v20;
+      v18 = [v46 objectAtIndexedSubscript:1];
+      v52[0] = v18;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:1];
+      v20 = self->_localeIdentifiers;
+      self->_localeIdentifiers = v19;
 
 LABEL_44:
       objc_sync_exit(selfCopy);
@@ -1040,7 +1040,6 @@ LABEL_2:
   objc_sync_exit(selfCopy);
 
 LABEL_5:
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

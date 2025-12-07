@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)nowPlayingVisibilityAsString:(int)string;
 - (int)StringAsNowPlayingVisibility:(id)visibility;
 - (int)nowPlayingVisibility;
 - (unint64_t)hash;
@@ -60,25 +61,40 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)nowPlayingVisibilityAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A1670[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsNowPlayingVisibility:(id)visibility
 {
   visibilityCopy = visibility;
-  if ([visibilityCopy isEqualToString:@"Undefined"])
+  if (objc_msgSend_isEqualToString_(visibilityCopy))
   {
     v4 = 0;
   }
 
-  else if ([visibilityCopy isEqualToString:@"AlwaysVisible"])
+  else if (objc_msgSend_isEqualToString_(visibilityCopy))
   {
     v4 = 1;
   }
 
-  else if ([visibilityCopy isEqualToString:@"VisibleWhenBackgrounded"])
+  else if (objc_msgSend_isEqualToString_(visibilityCopy))
   {
     v4 = 2;
   }
 
-  else if ([visibilityCopy isEqualToString:@"NeverVisible"])
+  else if (objc_msgSend_isEqualToString_(visibilityCopy))
   {
     v4 = 3;
   }
@@ -218,11 +234,10 @@
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ((*&self->_has & 2) != 0)
   {
-    processIdentifier = self->_processIdentifier;
     PBDataWriterWriteInt32Field();
   }
 
@@ -239,14 +254,12 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    processUserIdentifier = self->_processUserIdentifier;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    nowPlayingVisibility = self->_nowPlayingVisibility;
     PBDataWriterWriteInt32Field();
   }
 
@@ -260,38 +273,36 @@
     PBDataWriterWriteStringField();
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v9 = self->_extendedBundleIdentifierHierarchys;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v10)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_extendedBundleIdentifierHierarchys;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v11 = v10;
-    v12 = *v18;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v12)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v11);
+    while (v8);
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    isEmptyDeprecated = self->_isEmptyDeprecated;
     PBDataWriterWriteBOOLField();
   }
 
@@ -299,8 +310,6 @@
   {
     PBDataWriterWriteStringField();
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -380,7 +389,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if ((*&self->_has & 2) != 0)
@@ -419,30 +428,30 @@
   v15 = *(v6 + 16);
   *(v6 + 16) = v14;
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v16 = self->_extendedBundleIdentifierHierarchys;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v27;
+    v19 = *v26;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [*(*(&v26 + 1) + 8 * i) copyWithZone:{zone, v26}];
+        v21 = [*(*(&v25 + 1) + 8 * i) copyWithZone:{zone, v25}];
         [v6 addExtendedBundleIdentifierHierarchy:v21];
       }
 
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v18);
@@ -454,11 +463,10 @@
     *(v6 + 76) |= 8u;
   }
 
-  v22 = [(NSString *)self->_iconURL copyWithZone:zone, v26];
+  v22 = [(NSString *)self->_iconURL copyWithZone:zone, v25];
   v23 = *(v6 + 32);
   *(v6 + 32) = v22;
 
-  v24 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -470,7 +478,6 @@
     goto LABEL_32;
   }
 
-  v5 = *(equalCopy + 76);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 76) & 2) == 0 || self->_processIdentifier != *(equalCopy + 14))
@@ -499,7 +506,6 @@
     }
   }
 
-  v8 = *(equalCopy + 76);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 76) & 4) == 0 || self->_processUserIdentifier != *(equalCopy + 15))
@@ -550,7 +556,6 @@
     }
   }
 
-  v12 = *(equalCopy + 76);
   if ((*&self->_has & 8) == 0)
   {
     if ((*(equalCopy + 76) & 8) == 0)
@@ -559,7 +564,7 @@
     }
 
 LABEL_32:
-    v14 = 0;
+    v11 = 0;
     goto LABEL_33;
   }
 
@@ -568,7 +573,6 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  v16 = *(equalCopy + 72);
   if (self->_isEmptyDeprecated)
   {
     if ((*(equalCopy + 72) & 1) == 0)
@@ -586,17 +590,17 @@ LABEL_29:
   iconURL = self->_iconURL;
   if (iconURL | *(equalCopy + 4))
   {
-    v14 = [(NSString *)iconURL isEqual:?];
+    v11 = [(NSString *)iconURL isEqual:?];
   }
 
   else
   {
-    v14 = 1;
+    v11 = 1;
   }
 
 LABEL_33:
 
-  return v14;
+  return v11;
 }
 
 - (unint64_t)hash
@@ -653,7 +657,7 @@ LABEL_9:
 
 - (void)mergeFrom:(id)from
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   if ((fromCopy[19] & 2) != 0)
@@ -706,29 +710,29 @@ LABEL_9:
     [(_MRNowPlayingClientProtobuf *)self setDisplayName:?];
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = *(v5 + 3);
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [(_MRNowPlayingClientProtobuf *)self addExtendedBundleIdentifierHierarchy:*(*(&v15 + 1) + 8 * i), v15];
+        [(_MRNowPlayingClientProtobuf *)self addExtendedBundleIdentifierHierarchy:*(*(&v14 + 1) + 8 * i), v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
@@ -744,8 +748,6 @@ LABEL_9:
   {
     [(_MRNowPlayingClientProtobuf *)self setIconURL:?];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

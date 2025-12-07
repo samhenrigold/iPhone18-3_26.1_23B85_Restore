@@ -18,7 +18,7 @@
   v6 = sub_10000D0FC(v5, qword_100982190);
   (*(*(v5 - 8) + 16))(self + v4, v6, v5);
   v7 = OBJC_IVAR____TtC22SubscribePageExtension43InAppPurchaseSearchResultCollectionViewCell_bodyBackgroundColor;
-  sub_100016C60(0, &qword_100923500);
+  sub_100016C60(0, &qword_100923500, UIColor_ptr);
   *(&self->super.super.super.super.super.isa + v7) = sub_100753E74();
   result = sub_100754644();
   __break(1u);

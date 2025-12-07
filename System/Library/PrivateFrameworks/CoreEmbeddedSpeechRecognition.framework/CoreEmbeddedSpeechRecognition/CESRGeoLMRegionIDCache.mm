@@ -41,38 +41,38 @@
 
 - (void)purgeUserDefaultsGeoLMAssetsInfoDictForLanguages:(id)languages
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   languagesCopy = languages;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [languagesCopy countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v5 = [languagesCopy countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v16;
+    v8 = *v15;
     v9 = MEMORY[0x277CEF0E8];
     *&v6 = 136315394;
-    v14 = v6;
+    v13 = v6;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(languagesCopy);
         }
 
-        v11 = [(CESRGeoLMRegionIDCache *)self _userDefaultsGeoLMAssetsInfoDictKeyForLanguage:*(*(&v15 + 1) + 8 * v10), v14];
+        v11 = [(CESRGeoLMRegionIDCache *)self _userDefaultsGeoLMAssetsInfoDictKeyForLanguage:*(*(&v14 + 1) + 8 * v10), v13];
         v12 = *v9;
         if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v14;
-          v20 = "[CESRGeoLMRegionIDCache purgeUserDefaultsGeoLMAssetsInfoDictForLanguages:]";
-          v21 = 2112;
-          v22 = v11;
+          *buf = v13;
+          v19 = "[CESRGeoLMRegionIDCache purgeUserDefaultsGeoLMAssetsInfoDictForLanguages:]";
+          v20 = 2112;
+          v21 = v11;
           _os_log_debug_impl(&dword_225EEB000, v12, OS_LOG_TYPE_DEBUG, "%s GeoLM: Going to delete: %@", buf, 0x16u);
         }
 
@@ -82,45 +82,43 @@
       }
 
       while (v7 != v10);
-      v7 = [languagesCopy countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v7 = [languagesCopy countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)lastUsedGeoLMRegionIdForLanguage:(id)language
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   v5 = [(CESRGeoLMRegionIDCache *)self _geoLMAssetsInfoDictForLanguage:languageCopy];
   if ([v5 count])
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
       v10 = 0;
-      v11 = *v24;
+      v11 = *v23;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(v6);
           }
 
-          v13 = *(*(&v23 + 1) + 8 * i);
-          v14 = [v6 objectForKeyedSubscript:{v13, v23}];
+          v13 = *(*(&v22 + 1) + 8 * i);
+          v14 = [v6 objectForKeyedSubscript:{v13, v22}];
           v15 = v14;
           if (v10 | v9)
           {
@@ -141,7 +139,7 @@
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v8);
@@ -158,9 +156,9 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v28 = "[CESRGeoLMRegionIDCache lastUsedGeoLMRegionIdForLanguage:]";
-      v29 = 2112;
-      v30 = v19;
+      v27 = "[CESRGeoLMRegionIDCache lastUsedGeoLMRegionIdForLanguage:]";
+      v28 = 2112;
+      v29 = v19;
       _os_log_debug_impl(&dword_225EEB000, v20, OS_LOG_TYPE_DEBUG, "%s GeoLM: Last used GeoLM regionId: %@", buf, 0x16u);
     }
   }
@@ -171,21 +169,19 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v28 = "[CESRGeoLMRegionIDCache lastUsedGeoLMRegionIdForLanguage:]";
+      v27 = "[CESRGeoLMRegionIDCache lastUsedGeoLMRegionIdForLanguage:]";
       _os_log_debug_impl(&dword_225EEB000, v18, OS_LOG_TYPE_DEBUG, "%s GeoLM: No history of GeoLM usage. regionId: nil", buf, 0xCu);
     }
 
     v19 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (id)purgeUnusedGeoLMRegionIdFromCacheForLanguage:(id)language
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   v5 = _AFPreferencesBoolValueForKeyWithContext();
   v6 = [(CESRGeoLMRegionIDCache *)self _geoLMAssetsInfoDictForLanguage:languageCopy];
@@ -199,9 +195,9 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v40 = "[CESRGeoLMRegionIDCache purgeUnusedGeoLMRegionIdFromCacheForLanguage:]";
-      v41 = 2048;
-      v42 = v9;
+      v39 = "[CESRGeoLMRegionIDCache purgeUnusedGeoLMRegionIdFromCacheForLanguage:]";
+      v40 = 2048;
+      v41 = v9;
       _os_log_debug_impl(&dword_225EEB000, v10, OS_LOG_TYPE_DEBUG, "%s GeoLM: GeoLM region specific assets deletion is disabled, number of regionIds used till now: %ld", buf, 0x16u);
     }
 
@@ -215,30 +211,30 @@ LABEL_5:
     goto LABEL_26;
   }
 
-  v34 = v8;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
+  v33 = v8;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v12 = v7;
-  v13 = [v12 countByEnumeratingWithState:&v35 objects:v45 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v34 objects:v44 count:16];
   selfCopy = self;
   if (v13)
   {
     v14 = v13;
     v15 = 0;
     v16 = 0;
-    v17 = *v36;
+    v17 = *v35;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v36 != v17)
+        if (*v35 != v17)
         {
           objc_enumerationMutation(v12);
         }
 
-        v19 = *(*(&v35 + 1) + 8 * i);
+        v19 = *(*(&v34 + 1) + 8 * i);
         v20 = [v12 objectForKeyedSubscript:{v19, selfCopy}];
         v21 = v20;
         if (v16 | v15)
@@ -260,7 +256,7 @@ LABEL_5:
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v34 objects:v44 count:16];
     }
 
     while (v14);
@@ -273,17 +269,17 @@ LABEL_5:
   }
 
   v11 = v16;
-  if (v34 != 2)
+  if (v33 != 2)
   {
     v29 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v40 = "[CESRGeoLMRegionIDCache purgeUnusedGeoLMRegionIdFromCacheForLanguage:]";
-      v41 = 2112;
-      v42 = v11;
-      v43 = 2048;
-      v44 = v34;
+      v39 = "[CESRGeoLMRegionIDCache purgeUnusedGeoLMRegionIdFromCacheForLanguage:]";
+      v40 = 2112;
+      v41 = v11;
+      v42 = 2048;
+      v43 = v33;
       v27 = "%s GeoLM: regionIdToBePurged: %@, _geoLMAssetsInfoDict count: %ld";
       v28 = v29;
       goto LABEL_30;
@@ -291,7 +287,7 @@ LABEL_5:
 
 LABEL_24:
     [v12 removeObjectForKey:{v11, selfCopy}];
-    [v33 _updateUserDefaultsWithGeoLMAssetsInfoDict:v12 language:languageCopy];
+    [v32 _updateUserDefaultsWithGeoLMAssetsInfoDict:v12 language:languageCopy];
     goto LABEL_25;
   }
 
@@ -304,11 +300,11 @@ LABEL_24:
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v40 = "[CESRGeoLMRegionIDCache purgeUnusedGeoLMRegionIdFromCacheForLanguage:]";
-      v41 = 2112;
-      v42 = v11;
-      v43 = 2048;
-      v44 = v25;
+      v39 = "[CESRGeoLMRegionIDCache purgeUnusedGeoLMRegionIdFromCacheForLanguage:]";
+      v40 = 2112;
+      v41 = v11;
+      v42 = 2048;
+      v43 = v25;
       v27 = "%s GeoLM: regionIdToBePurged: %@, lastWhenUsed: %ld days ago";
       v28 = v26;
 LABEL_30:
@@ -322,7 +318,6 @@ LABEL_30:
 LABEL_25:
 
 LABEL_26:
-  v30 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

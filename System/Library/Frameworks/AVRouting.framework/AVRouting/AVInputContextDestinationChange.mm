@@ -12,7 +12,6 @@
 
 - (void)changeToTerminalStatusBasedOnInputRouteChangeEndedReason:(__CFString *)reason
 {
-  v4 = *MEMORY[0x1E69AF450];
   if (FigCFEqual())
   {
 
@@ -21,7 +20,6 @@
 
   else
   {
-    v5 = *MEMORY[0x1E69AF448];
     FigCFEqual();
 
     [(AVInputContextDestinationChange *)self markAsFailed];
@@ -30,8 +28,7 @@
 
 - (void)changeToTerminalStatusBasedOnInputRouteConfigUpdatedReason:(__CFString *)reason
 {
-  v4 = *MEMORY[0x1E69AF3E8];
-  if (FigCFEqual() || (v5 = *MEMORY[0x1E69AF3D0], !FigCFEqual()) && ((v6 = *MEMORY[0x1E69AF3E0], FigCFEqual()) || (v7 = *MEMORY[0x1E69AF3C8], FigCFEqual())))
+  if (FigCFEqual() || !FigCFEqual() && (FigCFEqual() || FigCFEqual()))
   {
 
     [(AVInputContextDestinationChange *)self markAsFinished];

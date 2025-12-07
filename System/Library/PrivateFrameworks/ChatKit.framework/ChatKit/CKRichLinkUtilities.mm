@@ -12,7 +12,7 @@
   v8 = sub_190D56F10();
   _s7ChatKit19CKRichLinkUtilitiesC17validURLsInString_7inRange013validatesRichD7SupportSayAA014CKDataDetectedD6ResultCGSS_So8_NSRangeVSbtFZ_0(v8, v9, location, length, support);
 
-  type metadata accessor for CKDataDetectedLinkResult();
+  type metadata accessor for CKDataDetectedLinkResult(0);
   v10 = sub_190D57160();
 
   return v10;

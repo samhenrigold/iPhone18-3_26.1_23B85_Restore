@@ -10,7 +10,7 @@
 
 - (WFPrivateAddressConfig)initWithPrivateAddressConfigDictionary:(id)dictionary ssid:(id)ssid
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   ssidCopy = ssid;
   if (!dictionaryCopy || ![dictionaryCopy count])
@@ -24,9 +24,9 @@
     goto LABEL_35;
   }
 
-  v28.receiver = self;
-  v28.super_class = WFPrivateAddressConfig;
-  v8 = [(WFPrivateAddressConfig *)&v28 init];
+  v33.receiver = self;
+  v33.super_class = WFPrivateAddressConfig;
+  v8 = [(WFPrivateAddressConfig *)&v33 init];
   self = v8;
   if (!v8)
   {
@@ -39,62 +39,64 @@ LABEL_35:
   objc_storeStrong(&v8->_ssid, ssid);
   v9 = WFLogForCategory(0);
   v10 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v9 && os_log_type_enabled(v9, v10))
+  v11 = v10;
+  if (WFCurrentLogLevel(v10, v12) >= 4 && v9 && os_log_type_enabled(v9, v11))
   {
     ssid = self->_ssid;
     *buf = 136315650;
-    v30 = "[WFPrivateAddressConfig initWithPrivateAddressConfigDictionary:ssid:]";
-    v31 = 2112;
-    *v32 = ssid;
-    *&v32[8] = 2112;
-    *&v32[10] = dictionaryCopy;
-    _os_log_impl(&dword_273ECD000, v9, v10, "%s: %@ private address config: %@", buf, 0x20u);
+    v35 = "[WFPrivateAddressConfig initWithPrivateAddressConfigDictionary:ssid:]";
+    v36 = 2112;
+    *v37 = ssid;
+    *&v37[8] = 2112;
+    *&v37[10] = dictionaryCopy;
+    _os_log_impl(&dword_273ECD000, v9, v11, "%s: %@ private address config: %@", buf, 0x20u);
   }
 
-  v12 = *MEMORY[0x277D298E0];
-  v13 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x277D298E0]];
+  v14 = *MEMORY[0x277D298E0];
+  v15 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x277D298E0]];
 
-  if (v13)
+  if (v15)
   {
-    v14 = [dictionaryCopy objectForKeyedSubscript:v12];
-    self->_carrierBundleBased = [v14 BOOLValue];
+    v16 = [dictionaryCopy objectForKeyedSubscript:v14];
+    self->_carrierBundleBased = [v16 BOOLValue];
   }
 
-  v15 = *MEMORY[0x277D298C0];
-  v16 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x277D298C0]];
+  v17 = *MEMORY[0x277D298C0];
+  v18 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x277D298C0]];
 
-  if (!v16)
+  if (!v18)
   {
-    v20 = WFLogForCategory(0);
-    v21 = OSLogForWFLogLevel(4uLL);
-    v19 = 0;
-    if (WFCurrentLogLevel() >= 4 && v20)
+    v22 = WFLogForCategory(0);
+    v23 = OSLogForWFLogLevel(4uLL);
+    v24 = v23;
+    v21 = 0;
+    if (WFCurrentLogLevel(v23, v25) >= 4 && v22)
     {
-      if (os_log_type_enabled(v20, v21))
+      if (os_log_type_enabled(v22, v24))
       {
-        v22 = self->_ssid;
+        v26 = self->_ssid;
         *buf = 136315394;
-        v30 = "[WFPrivateAddressConfig initWithPrivateAddressConfigDictionary:ssid:]";
-        v31 = 2112;
-        *v32 = v22;
-        _os_log_impl(&dword_273ECD000, v20, v21, "%s: missing disabled reason key for %@, defaulting to none", buf, 0x16u);
+        v35 = "[WFPrivateAddressConfig initWithPrivateAddressConfigDictionary:ssid:]";
+        v36 = 2112;
+        *v37 = v26;
+        _os_log_impl(&dword_273ECD000, v22, v24, "%s: missing disabled reason key for %@, defaulting to none", buf, 0x16u);
       }
 
-      v19 = 0;
+      v21 = 0;
     }
 
     goto LABEL_33;
   }
 
-  v17 = [dictionaryCopy objectForKeyedSubscript:v15];
-  intValue = [v17 intValue];
+  v19 = [dictionaryCopy objectForKeyedSubscript:v17];
+  intValue = [v19 intValue];
 
-  v19 = 0;
+  v21 = 0;
   if (intValue > 2)
   {
     if (intValue == 3)
     {
-      v19 = 1;
+      v21 = 1;
       goto LABEL_28;
     }
 
@@ -114,49 +116,49 @@ LABEL_35:
       }
 
 LABEL_23:
-      v19 = 2;
+      v21 = 2;
       goto LABEL_28;
     }
 
     if (self->_carrierBundleBased)
     {
-      v19 = 3;
+      v21 = 3;
     }
 
     else
     {
-      v19 = 4;
+      v21 = 4;
     }
   }
 
 LABEL_28:
-  v20 = WFLogForCategory(0);
-  v23 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v20)
+  v22 = WFLogForCategory(0);
+  v27 = OSLogForWFLogLevel(3uLL);
+  v28 = v27;
+  if (WFCurrentLogLevel(v27, v29) >= 3 && v22)
   {
-    v20 = v20;
-    if (os_log_type_enabled(v20, v23))
+    v22 = v22;
+    if (os_log_type_enabled(v22, v28))
     {
-      v24 = *(&off_279EBE430 + v19);
-      v25 = self->_ssid;
+      v30 = *(&off_279EBE430 + v21);
+      v31 = self->_ssid;
       *buf = 136315906;
-      v30 = "[WFPrivateAddressConfig initWithPrivateAddressConfigDictionary:ssid:]";
-      v31 = 1024;
-      *v32 = intValue;
-      *&v32[4] = 2112;
-      *&v32[6] = v24;
-      *&v32[14] = 2112;
-      *&v32[16] = v25;
-      _os_log_impl(&dword_273ECD000, v20, v23, "%s: disable reason: %d (%@) for %@", buf, 0x26u);
+      v35 = "[WFPrivateAddressConfig initWithPrivateAddressConfigDictionary:ssid:]";
+      v36 = 1024;
+      *v37 = intValue;
+      *&v37[4] = 2112;
+      *&v37[6] = v30;
+      *&v37[14] = 2112;
+      *&v37[16] = v31;
+      _os_log_impl(&dword_273ECD000, v22, v28, "%s: disable reason: %d (%@) for %@", buf, 0x26u);
     }
   }
 
 LABEL_33:
 
-  self->_disabledReason = v19;
+  self->_disabledReason = v21;
 LABEL_36:
 
-  v26 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -237,17 +239,16 @@ LABEL_36:
 
 - (void)initWithPrivateAddressConfigDictionary:ssid:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) && v0 && os_log_type_enabled(v0, v2))
   {
-    v3 = 136315138;
-    v4 = "[WFPrivateAddressConfig initWithPrivateAddressConfigDictionary:ssid:]";
-    _os_log_impl(&dword_273ECD000, v0, v1, "%s: ssid is null", &v3, 0xCu);
+    v4 = 136315138;
+    v5 = "[WFPrivateAddressConfig initWithPrivateAddressConfigDictionary:ssid:]";
+    _os_log_impl(&dword_273ECD000, v0, v2, "%s: ssid is null", &v4, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

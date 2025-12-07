@@ -100,31 +100,30 @@ void __51__NWCFiveHourForecastView_processSimpleEntryModel___block_invoke(uint64
 
 - (void)_applyConstraints
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   horizontalStackView = [(NWCFiveHourForecastView *)self horizontalStackView];
   topAnchor = [horizontalStackView topAnchor];
   topAnchor2 = [(NWCFiveHourForecastView *)self topAnchor];
-  v17 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v21[0] = v17;
+  v16 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v20[0] = v16;
   bottomAnchor = [(NWCFiveHourForecastView *)self bottomAnchor];
   horizontalStackView2 = [(NWCFiveHourForecastView *)self horizontalStackView];
   bottomAnchor2 = [horizontalStackView2 bottomAnchor];
   v3 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v21[1] = v3;
+  v20[1] = v3;
   horizontalStackView3 = [(NWCFiveHourForecastView *)self horizontalStackView];
   leadingAnchor = [horizontalStackView3 leadingAnchor];
   leadingAnchor2 = [(NWCFiveHourForecastView *)self leadingAnchor];
   v7 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v21[2] = v7;
+  v20[2] = v7;
   trailingAnchor = [(NWCFiveHourForecastView *)self trailingAnchor];
   horizontalStackView4 = [(NWCFiveHourForecastView *)self horizontalStackView];
   trailingAnchor2 = [horizontalStackView4 trailingAnchor];
   v11 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v21[3] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+  v20[3] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
 
   [MEMORY[0x277CCAAD0] activateConstraints:v12];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initFullColorImageViewWithDevice:(id)device
@@ -165,7 +164,7 @@ void __51__NWCFiveHourForecastView_processSimpleEntryModel___block_invoke(uint64
 
 - (void)transitionToMonochromeWithFraction:(double)fraction
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   filterProvider = [(NWCFiveHourForecastView *)self filterProvider];
   v6 = [filterProvider colorForView:self accented:0];
   device = [(NWCFiveHourForecastView *)self device];
@@ -175,31 +174,31 @@ void __51__NWCFiveHourForecastView_processSimpleEntryModel___block_invoke(uint64
   {
     v9 = [filterProvider filtersForView:self style:2 fraction:fraction];
     layer = [filterProvider filtersForView:self style:0 fraction:fraction];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     hourlyForecastViews = [(NWCFiveHourForecastView *)self hourlyForecastViews];
-    v12 = [hourlyForecastViews countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v12 = [hourlyForecastViews countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v23;
+      v14 = *v22;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(hourlyForecastViews);
           }
 
-          v16 = *(*(&v22 + 1) + 8 * i);
+          v16 = *(*(&v21 + 1) + 8 * i);
           [v16 applyAccentFilters:v9];
           [v16 applyNonAccentFilters:layer];
         }
 
-        v13 = [hourlyForecastViews countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v13 = [hourlyForecastViews countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v13);
@@ -219,13 +218,11 @@ void __51__NWCFiveHourForecastView_processSimpleEntryModel___block_invoke(uint64
 
   separatorViews = [(NWCFiveHourForecastView *)self separatorViews];
   [separatorViews makeObjectsPerformSelector:sel_setBackgroundColor_ withObject:v19];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateMonochromeColor
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   filterProvider = [(NWCFiveHourForecastView *)self filterProvider];
   v4 = [filterProvider colorForView:self accented:0];
   device = [(NWCFiveHourForecastView *)self device];
@@ -235,31 +232,31 @@ void __51__NWCFiveHourForecastView_processSimpleEntryModel___block_invoke(uint64
   {
     v7 = [filterProvider filtersForView:self style:2];
     layer = [filterProvider filtersForView:self style:0];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     hourlyForecastViews = [(NWCFiveHourForecastView *)self hourlyForecastViews];
-    v10 = [hourlyForecastViews countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [hourlyForecastViews countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(hourlyForecastViews);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * i);
+          v14 = *(*(&v17 + 1) + 8 * i);
           [v14 applyAccentFilters:v7];
           [v14 applyNonAccentFilters:layer];
         }
 
-        v11 = [hourlyForecastViews countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [hourlyForecastViews countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -276,8 +273,6 @@ void __51__NWCFiveHourForecastView_processSimpleEntryModel___block_invoke(uint64
   v15 = [v4 colorWithAlphaComponent:0.25];
   separatorViews = [(NWCFiveHourForecastView *)self separatorViews];
   [separatorViews makeObjectsPerformSelector:sel_setBackgroundColor_ withObject:v15];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_setupViewBuilderForDevice:(id)device

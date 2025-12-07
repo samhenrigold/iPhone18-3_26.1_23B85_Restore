@@ -104,7 +104,7 @@
 
 - (id)buildDescriptions
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   result = [(SPUISResultBuilder *)self result];
   contentType = [result contentType];
   if ([contentType isEqualToString:@"com.apple.podcasts.show"])
@@ -117,8 +117,8 @@
       authors2 = [(SPUISPodcastResultBuilder *)self authors];
       v8 = [authors2 componentsJoinedByString:{@", "}];
       v9 = [v6 textWithString:v8];
-      v14[0] = v9;
-      buildDescriptions = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+      v13[0] = v9;
+      buildDescriptions = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
 
       goto LABEL_6;
     }
@@ -128,11 +128,10 @@
   {
   }
 
-  v13.receiver = self;
-  v13.super_class = SPUISPodcastResultBuilder;
-  buildDescriptions = [(SPUISResultBuilder *)&v13 buildDescriptions];
+  v12.receiver = self;
+  v12.super_class = SPUISPodcastResultBuilder;
+  buildDescriptions = [(SPUISResultBuilder *)&v12 buildDescriptions];
 LABEL_6:
-  v11 = *MEMORY[0x277D85DE8];
 
   return buildDescriptions;
 }

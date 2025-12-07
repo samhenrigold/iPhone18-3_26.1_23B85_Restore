@@ -17,12 +17,12 @@
 
 - (PRProximitySingleThresholdDevice)initWithPeer:(id)peer andPeerModel:(id)model withError:(id *)error
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   modelCopy = model;
-  v25.receiver = self;
-  v25.super_class = PRProximitySingleThresholdDevice;
-  v11 = [(PRProximitySingleThresholdDevice *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = PRProximitySingleThresholdDevice;
+  v11 = [(PRProximitySingleThresholdDevice *)&v24 init];
   if (v11)
   {
     v12 = os_log_create("com.apple.Proximity", "SingleThreshold");
@@ -49,7 +49,7 @@
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v27 = v18;
+            v26 = v18;
             _os_log_impl(&dword_230EB5000, v19, OS_LOG_TYPE_DEFAULT, "Unknown scanning model; using default rx offset of %d.", buf, 8u);
           }
         }
@@ -60,7 +60,7 @@
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v27 = v17;
+            v26 = v17;
             _os_log_impl(&dword_230EB5000, v20, OS_LOG_TYPE_DEFAULT, "Unknown advertising model; using default tx power of %d.", buf, 8u);
           }
         }
@@ -72,9 +72,9 @@
     if (error)
     {
       v21 = MEMORY[0x277CCA9B8];
-      v28 = *MEMORY[0x277CCA450];
-      v29[0] = @"Unknown error getting device model; prox unavailable";
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v27 = *MEMORY[0x277CCA450];
+      v28[0] = @"Unknown error getting device model; prox unavailable";
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
       *error = [v21 errorWithDomain:@"com.apple.Proximity.ErrorDomain" code:999 userInfo:v22];
 
       error = 0;
@@ -86,7 +86,6 @@
     error = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return error;
 }
 

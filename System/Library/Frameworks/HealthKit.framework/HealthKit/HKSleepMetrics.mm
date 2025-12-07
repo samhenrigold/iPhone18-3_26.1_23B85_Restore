@@ -1,4 +1,5 @@
 @interface HKSleepMetrics
++ (id)sleepMetricsWithMorningIndexRange:(id)range sleepAnalysisAsleepCount:(int64_t)count sleepAnalysisInBedCount:(int64_t)bedCount sleepAnalysisCount:(int64_t)analysisCount averageSleepDuration:(id)duration averageInBedDuration:(id)bedDuration averageREMSleepDuration:(id)sleepDuration averageCoreSleepDuration:(id)self0 averageDeepSleepDuration:(id)self1 averageUnspecifiedSleepDuration:(id)self2 averageAwakeDuration:(id)self3 bedtimeAchievedCount:(int64_t)self4 sleepDurationGoalAchievedCount:(int64_t)self5 sleepDurationGoalStreakCount:(int64_t)self6 averageBedtimeMiss:(id)self7 averageSleepDurationGoalMiss:(id)self8 averageBedtime:(id)self9 averageWakeTime:(id)time averageInBedStartTime:(id)startTime averageInBedEndTime:(id)endTime averageSleepStartTime:(id)sleepStartTime averageSleepEndTime:(id)sleepEndTime standardDeviationActualTimeAsleep:(id)asleep standardDeviationScheduledTimeAsleep:(id)timeAsleep standardDeviationActualVsScheduledTimeAsleep:(id)scheduledTimeAsleep averageSleepStartOffset:(id)offset averageSleepEndOffset:(id)endOffset averageInBedStartOffset:(id)range0 averageInBedEndOffset:(id)range1;
 - ($0AC6E346AE4835514AAA8AC86D8F4844)morningIndexRange;
 - (BOOL)isEqual:(id)equal;
 - (HKSleepMetrics)initWithCoder:(id)coder;
@@ -7,6 +8,130 @@
 @end
 
 @implementation HKSleepMetrics
+
++ (id)sleepMetricsWithMorningIndexRange:(id)range sleepAnalysisAsleepCount:(int64_t)count sleepAnalysisInBedCount:(int64_t)bedCount sleepAnalysisCount:(int64_t)analysisCount averageSleepDuration:(id)duration averageInBedDuration:(id)bedDuration averageREMSleepDuration:(id)sleepDuration averageCoreSleepDuration:(id)self0 averageDeepSleepDuration:(id)self1 averageUnspecifiedSleepDuration:(id)self2 averageAwakeDuration:(id)self3 bedtimeAchievedCount:(int64_t)self4 sleepDurationGoalAchievedCount:(int64_t)self5 sleepDurationGoalStreakCount:(int64_t)self6 averageBedtimeMiss:(id)self7 averageSleepDurationGoalMiss:(id)self8 averageBedtime:(id)self9 averageWakeTime:(id)time averageInBedStartTime:(id)startTime averageInBedEndTime:(id)endTime averageSleepStartTime:(id)sleepStartTime averageSleepEndTime:(id)sleepEndTime standardDeviationActualTimeAsleep:(id)asleep standardDeviationScheduledTimeAsleep:(id)timeAsleep standardDeviationActualVsScheduledTimeAsleep:(id)scheduledTimeAsleep averageSleepStartOffset:(id)offset averageSleepEndOffset:(id)endOffset averageInBedStartOffset:(id)range0 averageInBedEndOffset:(id)range1
+{
+  bedEndOffsetCopy = bedEndOffset;
+  startOffsetCopy = startOffset;
+  endOffsetCopy = endOffset;
+  offsetCopy = offset;
+  scheduledTimeAsleepCopy = scheduledTimeAsleep;
+  timeAsleepCopy = timeAsleep;
+  asleepCopy = asleep;
+  sleepEndTimeCopy = sleepEndTime;
+  sleepStartTimeCopy = sleepStartTime;
+  endTimeCopy = endTime;
+  startTimeCopy = startTime;
+  timeCopy = time;
+  bedtimeCopy = bedtime;
+  goalMissCopy = goalMiss;
+  missCopy = miss;
+  awakeDurationCopy = awakeDuration;
+  unspecifiedSleepDurationCopy = unspecifiedSleepDuration;
+  deepSleepDurationCopy = deepSleepDuration;
+  coreSleepDurationCopy = coreSleepDuration;
+  sleepDurationCopy = sleepDuration;
+  bedDurationCopy = bedDuration;
+  durationCopy = duration;
+  v39 = objc_alloc_init(HKSleepMetrics);
+  v39->_morningIndexRange = range;
+  v39->_sleepAnalysisAsleepCount = count;
+  v39->_sleepAnalysisInBedCount = bedCount;
+  v39->_sleepAnalysisCount = analysisCount;
+  v40 = [durationCopy copy];
+
+  averageSleepDuration = v39->_averageSleepDuration;
+  v39->_averageSleepDuration = v40;
+
+  v42 = [bedDurationCopy copy];
+  averageInBedDuration = v39->_averageInBedDuration;
+  v39->_averageInBedDuration = v42;
+
+  v44 = [sleepDurationCopy copy];
+  averageREMSleepDuration = v39->_averageREMSleepDuration;
+  v39->_averageREMSleepDuration = v44;
+
+  v46 = [coreSleepDurationCopy copy];
+  averageCoreSleepDuration = v39->_averageCoreSleepDuration;
+  v39->_averageCoreSleepDuration = v46;
+
+  v48 = [deepSleepDurationCopy copy];
+  averageDeepSleepDuration = v39->_averageDeepSleepDuration;
+  v39->_averageDeepSleepDuration = v48;
+
+  v50 = [unspecifiedSleepDurationCopy copy];
+  averageUnspecifiedSleepDuration = v39->_averageUnspecifiedSleepDuration;
+  v39->_averageUnspecifiedSleepDuration = v50;
+
+  v52 = [awakeDurationCopy copy];
+  averageAwakeDuration = v39->_averageAwakeDuration;
+  v39->_averageAwakeDuration = v52;
+
+  *&v39->_bedtimeAchievedCount = *&achievedCount;
+  v39->_sleepDurationGoalStreakCount = streakCount;
+  v54 = [missCopy copy];
+
+  averageBedtimeMiss = v39->_averageBedtimeMiss;
+  v39->_averageBedtimeMiss = v54;
+
+  v56 = [goalMissCopy copy];
+  averageSleepDurationGoalMiss = v39->_averageSleepDurationGoalMiss;
+  v39->_averageSleepDurationGoalMiss = v56;
+
+  v58 = [bedtimeCopy copy];
+  averageBedtime = v39->_averageBedtime;
+  v39->_averageBedtime = v58;
+
+  v60 = [timeCopy copy];
+  averageWakeTime = v39->_averageWakeTime;
+  v39->_averageWakeTime = v60;
+
+  v62 = [startTimeCopy copy];
+  averageInBedStartTime = v39->_averageInBedStartTime;
+  v39->_averageInBedStartTime = v62;
+
+  v64 = [endTimeCopy copy];
+  averageInBedEndTime = v39->_averageInBedEndTime;
+  v39->_averageInBedEndTime = v64;
+
+  v66 = [sleepStartTimeCopy copy];
+  averageSleepStartTime = v39->_averageSleepStartTime;
+  v39->_averageSleepStartTime = v66;
+
+  v68 = [sleepEndTimeCopy copy];
+  averageSleepEndTime = v39->_averageSleepEndTime;
+  v39->_averageSleepEndTime = v68;
+
+  v70 = [asleepCopy copy];
+  standardDeviationActualTimeAsleep = v39->_standardDeviationActualTimeAsleep;
+  v39->_standardDeviationActualTimeAsleep = v70;
+
+  v72 = [timeAsleepCopy copy];
+  standardDeviationScheduledTimeAsleep = v39->_standardDeviationScheduledTimeAsleep;
+  v39->_standardDeviationScheduledTimeAsleep = v72;
+
+  v74 = [scheduledTimeAsleepCopy copy];
+  standardDeviationActualVsScheduledTimeAsleep = v39->_standardDeviationActualVsScheduledTimeAsleep;
+  v39->_standardDeviationActualVsScheduledTimeAsleep = v74;
+
+  v76 = [offsetCopy copy];
+  averageSleepStartOffset = v39->_averageSleepStartOffset;
+  v39->_averageSleepStartOffset = v76;
+
+  v78 = [endOffsetCopy copy];
+  averageSleepEndOffset = v39->_averageSleepEndOffset;
+  v39->_averageSleepEndOffset = v78;
+
+  v80 = [startOffsetCopy copy];
+  averageInBedStartOffset = v39->_averageInBedStartOffset;
+  v39->_averageInBedStartOffset = v80;
+
+  v82 = [bedEndOffsetCopy copy];
+  averageInBedEndOffset = v39->_averageInBedEndOffset;
+  v39->_averageInBedEndOffset = v82;
+
+  return v39;
+}
 
 - (void)encodeWithCoder:(id)coder
 {

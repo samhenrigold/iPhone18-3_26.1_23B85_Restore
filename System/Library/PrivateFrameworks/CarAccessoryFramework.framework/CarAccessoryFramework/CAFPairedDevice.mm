@@ -97,8 +97,8 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v12[0] = @"identifier";
+  v12[4] = *MEMORY[0x277D85DE8];
+  v11[0] = @"identifier";
   identifier = [(CAFPairedDevice *)self identifier];
   null = identifier;
   if (!identifier)
@@ -106,8 +106,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"name";
+  v12[0] = null;
+  v11[1] = @"name";
   name = [(CAFPairedDevice *)self name];
   null2 = name;
   if (!name)
@@ -115,14 +115,14 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"sortOrder";
+  v12[1] = null2;
+  v11[2] = @"sortOrder";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{-[CAFPairedDevice sortOrder](self, "sortOrder")}];
-  v13[2] = v7;
-  v12[3] = @"state";
+  v12[2] = v7;
+  v11[3] = @"state";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFPairedDevice state](self, "state")}];
-  v13[3] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
+  v12[3] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
 
   if (!name)
   {
@@ -131,8 +131,6 @@
   if (!identifier)
   {
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

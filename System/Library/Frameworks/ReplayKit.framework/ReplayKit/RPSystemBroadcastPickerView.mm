@@ -71,13 +71,13 @@
 
 - (void)screenCaptureChanged
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v6 = "[RPSystemBroadcastPickerView screenCaptureChanged]";
-    v7 = 1024;
-    v8 = 69;
+    v5 = "[RPSystemBroadcastPickerView screenCaptureChanged]";
+    v6 = 1024;
+    v7 = 69;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
@@ -87,7 +87,6 @@
   block[3] = &unk_278B61B70;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __51__RPSystemBroadcastPickerView_screenCaptureChanged__block_invoke(uint64_t a1)
@@ -114,15 +113,15 @@ void __51__RPSystemBroadcastPickerView_screenCaptureChanged__block_invoke(uint64
 
 - (void)buttonPressed:(id)pressed
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136446466;
-    v9 = "[RPSystemBroadcastPickerView buttonPressed:]";
-    v10 = 1024;
-    v11 = 81;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v8, 0x12u);
+    v7 = 136446466;
+    v8 = "[RPSystemBroadcastPickerView buttonPressed:]";
+    v9 = 1024;
+    v10 = 81;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v7, 0x12u);
   }
 
   v5 = +[RPDaemonProxy daemonProxy];
@@ -130,8 +129,6 @@ void __51__RPSystemBroadcastPickerView_screenCaptureChanged__block_invoke(uint64
 
   v6 = +[RPDaemonProxy daemonProxy];
   [v6 openControlCenterSystemRecordingView];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -17,7 +17,7 @@
 
 - (void)_updateWithAsset:(id)asset
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained)
   {
@@ -32,9 +32,9 @@
 
       if (asset && languageCode)
       {
-        v20 = languageCode;
-        v21[0] = MEMORY[0x277CBEC38];
-        dictionary = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+        v19 = languageCode;
+        v20[0] = MEMORY[0x277CBEC38];
+        dictionary = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       }
 
       else
@@ -49,16 +49,14 @@
       v14 = *MEMORY[0x277D015A8];
       if (os_log_type_enabled(*MEMORY[0x277D015A8], OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 136315394;
-        v17 = "[CSAttSiriAttentionAssetsStatusProvider _updateWithAsset:]";
-        v18 = 2112;
-        v19 = v12;
-        _os_log_impl(&dword_222E4D000, v14, OS_LOG_TYPE_DEFAULT, "%s Sent attention asset update status: %@", &v16, 0x16u);
+        v15 = 136315394;
+        v16 = "[CSAttSiriAttentionAssetsStatusProvider _updateWithAsset:]";
+        v17 = 2112;
+        v18 = v12;
+        _os_log_impl(&dword_222E4D000, v14, OS_LOG_TYPE_DEFAULT, "%s Sent attention asset update status: %@", &v15, 0x16u);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (CSAttSiriAttentionAssetsStatusProvider)init
@@ -71,44 +69,43 @@
 
 - (CSAttSiriAttentionAssetsStatusProvider)initWithMitigationAssetHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v11.receiver = self;
-  v11.super_class = CSAttSiriAttentionAssetsStatusProvider;
-  v5 = [(CSAttSiriAttentionAssetsStatusProvider *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = CSAttSiriAttentionAssetsStatusProvider;
+  v5 = [(CSAttSiriAttentionAssetsStatusProvider *)&v10 init];
   if (v5)
   {
     if (handlerCopy)
     {
       [handlerCopy registerObserver:v5];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __73__CSAttSiriAttentionAssetsStatusProvider_initWithMitigationAssetHandler___block_invoke;
-      v9[3] = &unk_2784C6B78;
-      v10 = v5;
-      [handlerCopy getMitigationAssetWithEndpointId:0 completion:v9];
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __73__CSAttSiriAttentionAssetsStatusProvider_initWithMitigationAssetHandler___block_invoke;
+      v8[3] = &unk_2784C6B78;
+      v9 = v5;
+      [handlerCopy getMitigationAssetWithEndpointId:0 completion:v8];
     }
 
     v6 = *MEMORY[0x277D015A8];
     if (os_log_type_enabled(*MEMORY[0x277D015A8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v13 = "[CSAttSiriAttentionAssetsStatusProvider initWithMitigationAssetHandler:]";
+      v12 = "[CSAttSiriAttentionAssetsStatusProvider initWithMitigationAssetHandler:]";
       _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-uint64_t __73__CSAttSiriAttentionAssetsStatusProvider_initWithMitigationAssetHandler___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__73__CSAttSiriAttentionAssetsStatusProvider_initWithMitigationAssetHandler___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
     if (!a3)
     {
-      return [*(result + 32) _updateWithAsset:a2];
+      return [result[4] _updateWithAsset:a2];
     }
   }
 

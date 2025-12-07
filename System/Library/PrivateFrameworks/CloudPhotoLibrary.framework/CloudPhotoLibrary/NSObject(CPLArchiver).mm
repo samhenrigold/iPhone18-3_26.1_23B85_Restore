@@ -8,47 +8,42 @@
 
 - (void)initWithCPLArchiver:()CPLArchiver
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = v4[2];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v8 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         archiverContext = [v4 archiverContext];
-        v12 = v4[2];
-        v13 = objc_opt_class();
-        v14 = v4[2];
+        v10 = objc_opt_class();
+        v11 = v4[2];
         *buf = 138412802;
-        v26 = archiverContext;
-        v27 = 2112;
-        v28 = v13;
-        v29 = 2112;
-        v30 = v14;
-        v15 = v13;
-        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "%@: Invalid object properties dictionary. Found %@ in archive: '%@'", buf, 0x20u);
+        v21 = archiverContext;
+        v22 = 2112;
+        v23 = v10;
+        v24 = 2112;
+        v25 = v11;
+        v12 = v10;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "%@: Invalid object properties dictionary. Found %@ in archive: '%@'", buf, 0x20u);
       }
     }
 
-    v16 = v4[2];
-    v17 = objc_opt_class();
-    v24 = v4[2];
-    _CPLArchiverFailure(v4, @"Invalid object properties dictionary. Found %@ in archive: '%@'", v18, v19, v20, v21, v22, v23, v17);
+    v13 = objc_opt_class();
+    _CPLArchiverFailure(v4, @"Invalid object properties dictionary. Found %@ in archive: '%@'", v14, v15, v16, v17, v18, v19, v13);
   }
 
-  v6 = [self init];
-  v7 = v6;
-  if (v6)
+  v5 = [self init];
+  v6 = v5;
+  if (v5)
   {
-    [v6 cplDecodePropertiesFromCoder:v4];
+    [v5 cplDecodePropertiesFromCoder:v4];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-  return v7;
+  return v6;
 }
 
 - (id)plistArchiveWithCPLArchiver:()CPLArchiver

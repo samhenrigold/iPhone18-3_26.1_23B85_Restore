@@ -42,30 +42,26 @@
 
 - (id)handleRequestCommandTypeNames
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = +[(CDMBaseCommand *)CDMNLv4ProtoRequestCommand];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 setWithArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)getCDMServiceAssetConfig
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(CDMServiceAssetConfig);
-  v7 = @"temp_model";
-  v8 = @"com.apple.siri.nl.nlv4";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = @"temp_model";
+  v7 = @"com.apple.siri.nl.nlv4";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CDMServiceAssetConfig *)v2 addCDMFactorToFoldersMapping:v4 forAssetSet:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -80,22 +76,22 @@
 
 - (id)doNLv4Inference:(id)inference outError:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   inferenceCopy = inference;
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v20 = "[CDMNLv4ProtoService doNLv4Inference:outError:]";
+    v19 = "[CDMNLv4ProtoService doNLv4Inference:outError:]";
     _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s Start NLv4 Inference", buf, 0xCu);
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
   parser = selfCopy->_parser;
-  v18 = 0;
-  v10 = [(SNLPNaturalLanguageParser *)parser inferenceResponseForRequest:inferenceCopy error:&v18];
-  v11 = v18;
+  v17 = 0;
+  v10 = [(SNLPNaturalLanguageParser *)parser inferenceResponseForRequest:inferenceCopy error:&v17];
+  v11 = v17;
   if (!v10)
   {
     v12 = CDMLogContext;
@@ -103,11 +99,11 @@
     {
       localizedDescription = [v11 localizedDescription];
       *buf = 136315650;
-      v20 = "[CDMNLv4ProtoService doNLv4Inference:outError:]";
-      v21 = 2112;
-      v22 = @"nlv4";
-      v23 = 2112;
-      v24 = localizedDescription;
+      v19 = "[CDMNLv4ProtoService doNLv4Inference:outError:]";
+      v20 = 2112;
+      v21 = @"nlv4";
+      v22 = 2112;
+      v23 = localizedDescription;
       _os_log_error_impl(&dword_1DC287000, v12, OS_LOG_TYPE_ERROR, "%s [ERR]: [insights-cdm-%@]:\nNLv4 inference error: %@", buf, 0x20u);
     }
 
@@ -120,11 +116,9 @@
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v20 = "[CDMNLv4ProtoService doNLv4Inference:outError:]";
+    v19 = "[CDMNLv4ProtoService doNLv4Inference:outError:]";
     _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s CDMNLv4ProtoService::doNLv4Inference finished", buf, 0xCu);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -158,21 +152,21 @@
 
 - (id)handle:(id)handle
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v44 = "[CDMNLv4ProtoService handle:]";
+    v43 = "[CDMNLv4ProtoService handle:]";
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s calling NLv4 Inference", buf, 0xCu);
   }
 
   if (+[CDMFeatureFlags isLogNluEnabled])
   {
     parserRequest = [handleCopy parserRequest];
-    v42 = 0;
-    v7 = [CDMNluLogUtil writeNlv4RequestToDisk:parserRequest error:&v42];
+    v41 = 0;
+    v7 = [CDMNluLogUtil writeNlv4RequestToDisk:parserRequest error:&v41];
   }
 
   if (self->super.super._serviceState == 2)
@@ -183,35 +177,35 @@
     {
       objc_sync_exit(selfCopy);
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       parserRequest2 = [handleCopy parserRequest];
       tokenisedUtterance = [parserRequest2 tokenisedUtterance];
       tokenChain = [tokenisedUtterance tokenChain];
       tokens = [tokenChain tokens];
 
-      v13 = [tokens countByEnumeratingWithState:&v38 objects:v49 count:16];
+      v13 = [tokens countByEnumeratingWithState:&v37 objects:v48 count:16];
       if (v13)
       {
-        v14 = *v39;
+        v14 = *v38;
         while (2)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v39 != v14)
+            if (*v38 != v14)
             {
               objc_enumerationMutation(tokens);
             }
 
-            if (([*(*(&v38 + 1) + 8 * i) isWhitespace] & 1) == 0)
+            if (([*(*(&v37 + 1) + 8 * i) isWhitespace] & 1) == 0)
             {
 
               parserRequest3 = [handleCopy parserRequest];
-              v37 = 0;
-              v21 = [(CDMNLv4ProtoService *)selfCopy doNLv4Inference:parserRequest3 outError:&v37];
-              v22 = v37;
+              v36 = 0;
+              v21 = [(CDMNLv4ProtoService *)selfCopy doNLv4Inference:parserRequest3 outError:&v36];
+              v22 = v36;
 
               if (v22)
               {
@@ -223,8 +217,8 @@
               {
                 if (+[CDMFeatureFlags isLogNluEnabled])
                 {
-                  v36 = 0;
-                  v24 = [CDMNluLogUtil writeNlv4ResponseToDisk:v21 error:&v36];
+                  v35 = 0;
+                  v24 = [CDMNluLogUtil writeNlv4ResponseToDisk:v21 error:&v35];
                 }
 
                 hypotheses = [v21 hypotheses];
@@ -238,15 +232,15 @@
                   if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                   {
                     hypotheses2 = [v21 hypotheses];
-                    v33 = [hypotheses2 count];
+                    v32 = [hypotheses2 count];
                     parserRequest5 = [handleCopy parserRequest];
                     maxNumParses = [parserRequest5 maxNumParses];
                     *buf = 136315650;
-                    v44 = "[CDMNLv4ProtoService handle:]";
-                    v45 = 2048;
-                    v46 = v33;
-                    v47 = 2048;
-                    v48 = maxNumParses;
+                    v43 = "[CDMNLv4ProtoService handle:]";
+                    v44 = 2048;
+                    v45 = v32;
+                    v46 = 2048;
+                    v47 = maxNumParses;
                     _os_log_error_impl(&dword_1DC287000, v28, OS_LOG_TYPE_ERROR, "%s [ERR]: The number of parses in the response (%lu) is greater than the max num parses in the request (%llu)", buf, 0x20u);
                   }
                 }
@@ -260,7 +254,7 @@
             }
           }
 
-          v13 = [tokens countByEnumeratingWithState:&v38 objects:v49 count:16];
+          v13 = [tokens countByEnumeratingWithState:&v37 objects:v48 count:16];
           if (v13)
           {
             continue;
@@ -274,9 +268,9 @@
       if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v44 = "[CDMNLv4ProtoService handle:]";
-        v45 = 2112;
-        v46 = @"nlv4";
+        v43 = "[CDMNLv4ProtoService handle:]";
+        v44 = 2112;
+        v45 = @"nlv4";
         _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, "%s [WARN]: [insights-cdm-%@]:\nNo non whitespace tokens found. Skipping call to the model.", buf, 0x16u);
       }
 
@@ -290,7 +284,7 @@
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v44 = "[CDMNLv4ProtoService handle:]";
+        v43 = "[CDMNLv4ProtoService handle:]";
         _os_log_error_impl(&dword_1DC287000, v23, OS_LOG_TYPE_ERROR, "%s [ERR]: _parser not initialized", buf, 0xCu);
       }
 
@@ -306,9 +300,9 @@
     {
       serviceState = self->super.super._serviceState;
       *buf = 136315394;
-      v44 = "[CDMNLv4ProtoService handle:]";
-      v45 = 2048;
-      v46 = serviceState;
+      v43 = "[CDMNLv4ProtoService handle:]";
+      v44 = 2048;
+      v45 = serviceState;
       _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_INFO, "%s Not Ready! State: %tu", buf, 0x16u);
     }
 
@@ -319,20 +313,18 @@
 
 LABEL_34:
 
-  v30 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 - (id)warmup:(id)warmup
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   warmupCopy = warmup;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v26 = "[CDMNLv4ProtoService warmup:]";
+    v25 = "[CDMNLv4ProtoService warmup:]";
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Prewarm NLv4 model", buf, 0xCu);
   }
 
@@ -352,13 +344,13 @@ LABEL_34:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v26 = "[CDMNLv4ProtoService warmup:]";
+        v25 = "[CDMNLv4ProtoService warmup:]";
         _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s Performing NLv4 warmup request", buf, 0xCu);
       }
 
-      v24 = 0;
-      v13 = [(CDMNLv4ProtoService *)selfCopy doNLv4Inference:v10 outError:&v24];
-      v14 = v24;
+      v23 = 0;
+      v13 = [(CDMNLv4ProtoService *)selfCopy doNLv4Inference:v10 outError:&v23];
+      v14 = v23;
       if (!v13)
       {
         v15 = CDMOSLoggerForCategory(0);
@@ -366,10 +358,10 @@ LABEL_34:
         {
           localizedDescription = [v14 localizedDescription];
           *buf = 136315394;
-          v26 = "[CDMNLv4ProtoService warmup:]";
-          v27 = 2112;
-          v28 = localizedDescription;
-          v23 = localizedDescription;
+          v25 = "[CDMNLv4ProtoService warmup:]";
+          v26 = 2112;
+          v27 = localizedDescription;
+          v22 = localizedDescription;
           _os_log_impl(&dword_1DC287000, v15, OS_LOG_TYPE_INFO, "%s [WARN]: Warmup NLv4 request failed: %@", buf, 0x16u);
         }
       }
@@ -384,7 +376,7 @@ LABEL_34:
     if (os_log_type_enabled(embeddingConfigs, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v26 = "[CDMNLv4ProtoService warmup:]";
+      v25 = "[CDMNLv4ProtoService warmup:]";
       _os_log_debug_impl(&dword_1DC287000, embeddingConfigs, OS_LOG_TYPE_DEBUG, "%s Model prewarming is turned off. NLv4 will not prewarm.", buf, 0xCu);
     }
   }
@@ -394,20 +386,18 @@ LABEL_34:
   serviceName = [(CDMBaseService *)self serviceName];
   v20 = [(CDMWarmupResponseCommand *)v17 initWithServiceState:serviceState serviceName:serviceName];
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 - (id)setup:(id)setup
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v33 = "[CDMNLv4ProtoService setup:]";
+    v32 = "[CDMNLv4ProtoService setup:]";
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s NLv4 model setup...", buf, 0xCu);
   }
 
@@ -428,9 +418,9 @@ LABEL_34:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v33 = "[CDMNLv4ProtoService setup:]";
-        v34 = 2112;
-        v35 = v11;
+        v32 = "[CDMNLv4ProtoService setup:]";
+        v33 = 2112;
+        v34 = v11;
         _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s NLv4 proto service passing assets path to NLv4IO: %@", buf, 0x16u);
       }
 
@@ -440,14 +430,14 @@ LABEL_34:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v33 = "[CDMNLv4ProtoService setup:]";
+        v32 = "[CDMNLv4ProtoService setup:]";
         _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s Creating _parser", buf, 0xCu);
       }
 
       selfMetadata = [setupCopy selfMetadata];
-      v31 = 0;
-      v16 = [(CDMNLv4ProtoService *)selfCopy parserFromAssetDirectory:v11 selfMetadata:selfMetadata error:&v31];
-      v17 = v31;
+      v30 = 0;
+      v16 = [(CDMNLv4ProtoService *)selfCopy parserFromAssetDirectory:v11 selfMetadata:selfMetadata error:&v30];
+      v17 = v30;
       parser = selfCopy->_parser;
       selfCopy->_parser = v16;
 
@@ -464,9 +454,9 @@ LABEL_34:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v33 = "[CDMNLv4ProtoService setup:]";
-          v34 = 2112;
-          v35 = v22;
+          v32 = "[CDMNLv4ProtoService setup:]";
+          v33 = 2112;
+          v34 = v22;
           _os_log_error_impl(&dword_1DC287000, v23, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", buf, 0x16u);
         }
 
@@ -481,7 +471,7 @@ LABEL_34:
         if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v33 = "[CDMNLv4ProtoService setup:]";
+          v32 = "[CDMNLv4ProtoService setup:]";
           _os_log_impl(&dword_1DC287000, v25, OS_LOG_TYPE_INFO, "%s NLv4 model loaded during setup", buf, 0xCu);
         }
 
@@ -499,9 +489,9 @@ LABEL_34:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v33 = "[CDMNLv4ProtoService setup:]";
-        v34 = 2112;
-        v35 = v26;
+        v32 = "[CDMNLv4ProtoService setup:]";
+        v33 = 2112;
+        v34 = v26;
         _os_log_impl(&dword_1DC287000, v27, OS_LOG_TYPE_INFO, "%s [WARN]: %@", buf, 0x16u);
       }
 
@@ -520,23 +510,21 @@ LABEL_34:
     [selfMetadata setCmdError:v11];
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return selfMetadata;
 }
 
 + (id)assetsPathURLForModelBundle:(id)bundle
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   resourcePath = [bundleCopy resourcePath];
   v5 = [resourcePath stringByAppendingPathComponent:@"model_bundle/bundleCopy/"];
 
-  v12 = 0;
+  v11 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v7 = [defaultManager fileExistsAtPath:v5 isDirectory:&v12];
+  v7 = [defaultManager fileExistsAtPath:v5 isDirectory:&v11];
 
-  if (v7 && (v12 & 1) != 0)
+  if (v7 && (v11 & 1) != 0)
   {
     v8 = [MEMORY[0x1E695DFF8] fileURLWithPath:v5 isDirectory:1];
   }
@@ -547,16 +535,14 @@ LABEL_34:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v14 = "+[CDMNLv4ProtoService assetsPathURLForModelBundle:]";
-      v15 = 2112;
-      v16 = v5;
+      v13 = "+[CDMNLv4ProtoService assetsPathURLForModelBundle:]";
+      v14 = 2112;
+      v15 = v5;
       _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: NLv4 assets path does not exist or is not a directory: %@", buf, 0x16u);
     }
 
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -590,14 +576,14 @@ LABEL_34:
 
 + (void)handleTrialAssetUpdate:(id)update selfMetadata:(id)metadata
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   metadataCopy = metadata;
   v8 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v24 = "+[CDMNLv4ProtoService(SystemEvent) handleTrialAssetUpdate:selfMetadata:]";
+    v23 = "+[CDMNLv4ProtoService(SystemEvent) handleTrialAssetUpdate:selfMetadata:]";
     _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s Pre-compiling NLv4 mil assets to E5RT.", buf, 0xCu);
   }
 
@@ -611,13 +597,13 @@ LABEL_34:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v24 = "+[CDMNLv4ProtoService(SystemEvent) handleTrialAssetUpdate:selfMetadata:]";
+      v23 = "+[CDMNLv4ProtoService(SystemEvent) handleTrialAssetUpdate:selfMetadata:]";
       _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s Triggering on-device E5RT compilation of NLv4 model assets.", buf, 0xCu);
     }
 
-    v22 = 0;
-    v13 = [selfCopy parserFromAssetDirectory:v10 selfMetadata:metadataCopy error:&v22];
-    v14 = v22;
+    v21 = 0;
+    v13 = [selfCopy parserFromAssetDirectory:v10 selfMetadata:metadataCopy error:&v21];
+    v14 = v21;
     v15 = v14;
     if (!v13)
     {
@@ -629,9 +615,9 @@ LABEL_34:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v24 = "+[CDMNLv4ProtoService(SystemEvent) handleTrialAssetUpdate:selfMetadata:]";
-        v25 = 2112;
-        v26 = v18;
+        v23 = "+[CDMNLv4ProtoService(SystemEvent) handleTrialAssetUpdate:selfMetadata:]";
+        v24 = 2112;
+        v25 = v18;
         _os_log_error_impl(&dword_1DC287000, v19, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", buf, 0x16u);
       }
     }
@@ -646,19 +632,17 @@ LABEL_34:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "+[CDMNLv4ProtoService(SystemEvent) handleTrialAssetUpdate:selfMetadata:]";
-      v25 = 2112;
-      v26 = selfCopy;
+      v23 = "+[CDMNLv4ProtoService(SystemEvent) handleTrialAssetUpdate:selfMetadata:]";
+      v24 = 2112;
+      v25 = selfCopy;
       _os_log_error_impl(&dword_1DC287000, v20, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", buf, 0x16u);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handleXPCActivity:(id)activity withAssets:(id)assets withSelfMetadata:(id)metadata
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   assetsCopy = assets;
   metadataCopy = metadata;
@@ -672,20 +656,18 @@ LABEL_34:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "+[CDMNLv4ProtoService(SystemEvent) handleXPCActivity:withAssets:withSelfMetadata:]";
-      v15 = 2112;
-      v16 = activityCopy;
-      _os_log_error_impl(&dword_1DC287000, v11, OS_LOG_TYPE_ERROR, "%s [ERR]: Unhandled activity type: %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "+[CDMNLv4ProtoService(SystemEvent) handleXPCActivity:withAssets:withSelfMetadata:]";
+      v14 = 2112;
+      v15 = activityCopy;
+      _os_log_error_impl(&dword_1DC287000, v11, OS_LOG_TYPE_ERROR, "%s [ERR]: Unhandled activity type: %@", &v12, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handleXPCEvent:(id)event fromStream:(id)stream withAssets:(id)assets withSelfMetadata:(id)metadata
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   streamCopy = stream;
   assetsCopy = assets;
@@ -696,10 +678,10 @@ LABEL_34:
     v15 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315394;
-      v21 = "+[CDMNLv4ProtoService(SystemEvent) handleXPCEvent:fromStream:withAssets:withSelfMetadata:]";
-      v22 = 2048;
-      v23 = eventCopy;
+      v19 = 136315394;
+      v20 = "+[CDMNLv4ProtoService(SystemEvent) handleXPCEvent:fromStream:withAssets:withSelfMetadata:]";
+      v21 = 2048;
+      v22 = eventCopy;
       v16 = "%s [ERR]: Could not extract XPC event name for event %p";
       v17 = v15;
       v18 = 22;
@@ -716,17 +698,17 @@ LABEL_9:
     v15 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315650;
-      v21 = "+[CDMNLv4ProtoService(SystemEvent) handleXPCEvent:fromStream:withAssets:withSelfMetadata:]";
-      v22 = 2112;
-      v23 = streamCopy;
-      v24 = 2112;
-      v25 = v14;
+      v19 = 136315650;
+      v20 = "+[CDMNLv4ProtoService(SystemEvent) handleXPCEvent:fromStream:withAssets:withSelfMetadata:]";
+      v21 = 2112;
+      v22 = streamCopy;
+      v23 = 2112;
+      v24 = v14;
       v16 = "%s [ERR]: Unhandled XPC event with streamName=%@, eventName=%@";
       v17 = v15;
       v18 = 32;
 LABEL_12:
-      _os_log_error_impl(&dword_1DC287000, v17, OS_LOG_TYPE_ERROR, v16, &v20, v18);
+      _os_log_error_impl(&dword_1DC287000, v17, OS_LOG_TYPE_ERROR, v16, &v19, v18);
       goto LABEL_9;
     }
 
@@ -735,8 +717,6 @@ LABEL_12:
 
   [self handleTrialAssetUpdate:assetsCopy selfMetadata:metadataCopy];
 LABEL_10:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

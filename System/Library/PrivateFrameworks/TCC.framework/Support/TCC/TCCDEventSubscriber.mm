@@ -75,8 +75,7 @@
   [(NSMutableArray *)self->_pendingEvents addObject:eventCopy];
   if ([(NSMutableArray *)self->_pendingEvents count]>= 0x21)
   {
-    [(NSMutableArray *)self->_pendingEvents removeObjectAtIndex:0];
-    v5 = tcc_events_log();
+    v5 = tcc_events_log([(NSMutableArray *)self->_pendingEvents removeObjectAtIndex:0]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       sub_10005C064(self, v5);

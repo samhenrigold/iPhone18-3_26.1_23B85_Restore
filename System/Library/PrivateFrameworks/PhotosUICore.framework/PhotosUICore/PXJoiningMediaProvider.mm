@@ -376,11 +376,11 @@ void __92__PXJoiningMediaProvider_requestImageForAsset_targetSize_contentMode_op
   return v8;
 }
 
-NSString *__65__PXJoiningMediaProvider_initWithMediaProvidersByAssetClassName___block_invoke()
+NSString *__65__PXJoiningMediaProvider_initWithMediaProvidersByAssetClassName___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 @end

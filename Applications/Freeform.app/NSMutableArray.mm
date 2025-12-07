@@ -142,18 +142,22 @@
 - (void)crlaxAddObjectIfNotNilWithAssert:(id)assert
 {
   assertCopy = assert;
-  v12 = assertCopy;
+  v14 = assertCopy;
   if (assertCopy)
   {
     [(NSMutableArray *)self addObject:assertCopy];
   }
 
-  else if (CRLAccessibilityShouldPerformValidationChecks())
+  else
   {
-    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Parameter was nil.", v6, v7, v8, v9, v10, v11))
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(0, v5);
+    if (ShouldPerformValidationChecks)
     {
-      abort();
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Parameter was nil.", v8, v9, v10, v11, v12, v13))
+      {
+        abort();
+      }
     }
   }
 }
@@ -178,18 +182,22 @@
 - (void)crlaxAddObjectsFromArrayIfNotNilWithAssert:(id)assert
 {
   assertCopy = assert;
-  v12 = assertCopy;
+  v14 = assertCopy;
   if (assertCopy)
   {
     [(NSMutableArray *)self addObjectsFromArray:assertCopy];
   }
 
-  else if (CRLAccessibilityShouldPerformValidationChecks())
+  else
   {
-    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Parameter was nil.", v6, v7, v8, v9, v10, v11))
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(0, v5);
+    if (ShouldPerformValidationChecks)
     {
-      abort();
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Parameter was nil.", v8, v9, v10, v11, v12, v13))
+      {
+        abort();
+      }
     }
   }
 }

@@ -1,8 +1,10 @@
 @interface _INPBBillDetailsValue
 - (BOOL)isEqual:(id)equal;
 - (_INPBBillDetailsValue)initWithCoder:(id)coder;
+- (id)billTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)statusAsString:(int)string;
 - (int)StringAsBillType:(id)type;
 - (int)StringAsStatus:(id)status;
 - (unint64_t)hash;
@@ -424,7 +426,6 @@ LABEL_46:
 
   if ([(_INPBBillDetailsValue *)self hasBillType])
   {
-    billType = self->_billType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -462,19 +463,18 @@ LABEL_46:
 
   if ([(_INPBBillDetailsValue *)self hasStatus])
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
   }
 
   valueMetadata = [(_INPBBillDetailsValue *)self valueMetadata];
 
-  v19 = toCopy;
+  v17 = toCopy;
   if (valueMetadata)
   {
     valueMetadata2 = [(_INPBBillDetailsValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
 
-    v19 = toCopy;
+    v17 = toCopy;
   }
 }
 
@@ -509,6 +509,21 @@ LABEL_46:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)statusAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7280838[string - 1];
   }
 
   return v4;
@@ -660,6 +675,21 @@ LABEL_46:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)billTypeAsString:(int)string
+{
+  if ((string - 1) >= 0x16)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7280788[string - 1];
   }
 
   return v4;

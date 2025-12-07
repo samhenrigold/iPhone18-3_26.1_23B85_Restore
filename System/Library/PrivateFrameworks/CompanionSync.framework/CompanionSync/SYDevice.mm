@@ -63,31 +63,31 @@
 
 + (id)deviceForIDSDeviceID:(id)d fromList:(id)list
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dCopy = d;
   listCopy = list;
   if ([dCopy hasPrefix:@"device:"])
   {
     v7 = [dCopy substringFromIndex:7];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v8 = listCopy;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
-      v10 = *v21;
+      v10 = *v20;
       while (2)
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v20 + 1) + 8 * i);
+          v12 = *(*(&v19 + 1) + 8 * i);
           uniqueIDOverride = [v12 uniqueIDOverride];
           v14 = [uniqueIDOverride isEqualToString:v7];
 
@@ -103,7 +103,7 @@
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v9)
         {
           continue;
@@ -121,8 +121,6 @@ LABEL_13:
     v9 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
@@ -135,11 +133,11 @@ LABEL_13:
 
 - (SYDevice)initWithNRDevice:(id)device
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
-  v32.receiver = self;
-  v32.super_class = SYDevice;
-  v6 = [(SYDevice *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = SYDevice;
+  v6 = [(SYDevice *)&v31 init];
   v7 = v6;
   if (v6)
   {
@@ -151,20 +149,20 @@ LABEL_13:
 
     nrDevice = v7->_nrDevice;
     v12 = *MEMORY[0x1E69B35F8];
-    v33[0] = v8;
-    v33[1] = v12;
+    v32[0] = v8;
+    v32[1] = v12;
     v13 = *MEMORY[0x1E69B35D0];
-    v33[2] = *MEMORY[0x1E69B35E8];
-    v33[3] = v13;
+    v32[2] = *MEMORY[0x1E69B35E8];
+    v32[3] = v13;
     v15 = *MEMORY[0x1E69B3640];
-    v34 = *MEMORY[0x1E69B3598];
-    v14 = v34;
-    v35 = v15;
+    v33 = *MEMORY[0x1E69B3598];
+    v14 = v33;
+    v34 = v15;
     v17 = *MEMORY[0x1E69B35F0];
-    v36 = *MEMORY[0x1E69B3628];
-    v16 = v36;
-    v37 = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:8];
+    v35 = *MEMORY[0x1E69B3628];
+    v16 = v35;
+    v36 = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:8];
     [(NRDevice *)nrDevice addPropertyObserver:v7 forPropertyChanges:v18];
 
     [(SYDevice *)v7 _updateStateFlagsPostingNotifications:0];
@@ -191,7 +189,6 @@ LABEL_13:
     v29 = v7;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -294,7 +291,7 @@ LABEL_13:
 
 - (void)device:(id)device propertyDidChange:(id)change fromValue:(id)value
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   changeCopy = change;
   valueCopy = value;
@@ -307,13 +304,13 @@ LABEL_13:
   v12 = _sync_log_facilities;
   if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138543874;
-    v23 = changeCopy;
-    v24 = 2112;
-    v25 = valueCopy;
-    v26 = 2112;
-    v27 = v11;
-    _os_log_impl(&dword_1DF835000, v12, OS_LOG_TYPE_DEFAULT, "NRDevice property changed: %{public}@, %@ -> %@", &v22, 0x20u);
+    v21 = 138543874;
+    v22 = changeCopy;
+    v23 = 2112;
+    v24 = valueCopy;
+    v25 = 2112;
+    v26 = v11;
+    _os_log_impl(&dword_1DF835000, v12, OS_LOG_TYPE_DEFAULT, "NRDevice property changed: %{public}@, %@ -> %@", &v21, 0x20u);
   }
 
   [(SYDevice *)self _updateCachedStateForProperty:changeCopy];
@@ -342,8 +339,8 @@ LABEL_13:
       v20 = _sync_log_facilities;
       if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v22) = 0;
-        _os_log_impl(&dword_1DF835000, v20, OS_LOG_TYPE_DEFAULT, "Disregarding NR attempt to zap pairing ID", &v22, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&dword_1DF835000, v20, OS_LOG_TYPE_DEFAULT, "Disregarding NR attempt to zap pairing ID", &v21, 2u);
       }
     }
 
@@ -379,8 +376,8 @@ LABEL_24:
       v19 = _sync_log_facilities;
       if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v22) = 0;
-        _os_log_impl(&dword_1DF835000, v19, OS_LOG_TYPE_DEFAULT, "Posting SYDeviceOSInfoChangedNotification", &v22, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&dword_1DF835000, v19, OS_LOG_TYPE_DEFAULT, "Posting SYDeviceOSInfoChangedNotification", &v21, 2u);
       }
 
       defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
@@ -390,8 +387,6 @@ LABEL_24:
   }
 
 LABEL_25:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateCachedStateForProperty:(id)property
@@ -442,7 +437,7 @@ LABEL_12:
 - (void)_updateStateFlagsPostingNotifications:(BOOL)notifications
 {
   notificationsCopy = notifications;
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   state = selfCopy->_state;
@@ -479,11 +474,11 @@ LABEL_12:
     v16 = v14;
     uUIDString = [(NSUUID *)pairingID UUIDString];
     v18 = selfCopy->_state;
-    v31 = 138543618;
-    v32 = uUIDString;
-    v33 = 1024;
-    LODWORD(v34) = v18;
-    _os_log_impl(&dword_1DF835000, v16, OS_LOG_TYPE_DEFAULT, "Device %{public}@ state changed: %{companionsync:SYDeviceState}d", &v31, 0x12u);
+    v30 = 138543618;
+    v31 = uUIDString;
+    v32 = 1024;
+    LODWORD(v33) = v18;
+    _os_log_impl(&dword_1DF835000, v16, OS_LOG_TYPE_DEFAULT, "Device %{public}@ state changed: %{companionsync:SYDeviceState}d", &v30, 0x12u);
   }
 
   if (notificationsCopy)
@@ -514,11 +509,11 @@ LABEL_12:
         v27 = "";
       }
 
-      v31 = 138543618;
-      v32 = uUIDString2;
-      v33 = 2080;
-      v34 = v27;
-      _os_log_impl(&dword_1DF835000, v24, OS_LOG_TYPE_DEFAULT, "Device %{public}@ became %stargetable", &v31, 0x16u);
+      v30 = 138543618;
+      v31 = uUIDString2;
+      v32 = 2080;
+      v33 = v27;
+      _os_log_impl(&dword_1DF835000, v24, OS_LOG_TYPE_DEFAULT, "Device %{public}@ became %stargetable", &v30, 0x16u);
     }
 
     if (notificationsCopy)
@@ -533,8 +528,6 @@ LABEL_12:
       }
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)description

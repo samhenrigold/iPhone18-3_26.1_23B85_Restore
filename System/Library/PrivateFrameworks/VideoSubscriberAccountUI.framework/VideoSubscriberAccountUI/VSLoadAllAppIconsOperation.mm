@@ -58,7 +58,7 @@
   resultCompletionBlock = self->_resultCompletionBlock;
   self->_resultCompletionBlock = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, resultCompletionBlock);
 }
 
 - (void)executionDidBegin
@@ -71,14 +71,14 @@
 
 uint64_t __47__VSLoadAllAppIconsOperation_executionDidBegin__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = VSDefaultLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) appDescriptions];
-    v10 = 134217984;
-    v11 = [v3 count];
-    _os_log_impl(&dword_270DD4000, v2, OS_LOG_TYPE_DEFAULT, "Finished Loading %lu Images", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = [v3 count];
+    _os_log_impl(&dword_270DD4000, v2, OS_LOG_TYPE_DEFAULT, "Finished Loading %lu Images", &v9, 0xCu);
   }
 
   v4 = [*(a1 + 32) resultCompletionBlock];
@@ -91,9 +91,7 @@ uint64_t __47__VSLoadAllAppIconsOperation_executionDidBegin__block_invoke(uint64
     (*(v6 + 16))(v6, v7);
   }
 
-  result = [*(a1 + 32) finishExecutionIfPossible];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) finishExecutionIfPossible];
 }
 
 void __47__VSLoadAllAppIconsOperation_executionDidBegin__block_invoke_11(uint64_t a1)
@@ -157,22 +155,21 @@ void __47__VSLoadAllAppIconsOperation_executionDidBegin__block_invoke_3(uint64_t
 
 - (void)cancel
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = VSLoadAllAppIconsOperation;
-  [(VSAsyncOperation *)&v7 cancel];
+  v9 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = VSLoadAllAppIconsOperation;
+  [(VSAsyncOperation *)&v6 cancel];
   v3 = VSDefaultLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     appDescriptions = [(VSLoadAllAppIconsOperation *)self appDescriptions];
     v5 = [appDescriptions count];
     *buf = 134217984;
-    v9 = v5;
+    v8 = v5;
     _os_log_impl(&dword_270DD4000, v3, OS_LOG_TYPE_DEFAULT, "Cancelling Loading %lu Images", buf, 0xCu);
   }
 
   [(VSAsyncOperation *)self finishExecutionIfPossible];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (CGSize)preferredSize
@@ -186,11 +183,10 @@ void __47__VSLoadAllAppIconsOperation_executionDidBegin__block_invoke_3(uint64_t
 
 void __47__VSLoadAllAppIconsOperation_executionDidBegin__block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Failed to set App Icon: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Failed to set App Icon: %@", &v2, 0xCu);
 }
 
 @end

@@ -2,7 +2,6 @@
 - (BWVideoPlaybackSupportMetadataNode)init;
 - (uint64_t)_emitPlaybackSupportBoxedMetadataForSampleBuffer:(void *)buffer metadata:(CMTime *)metadata time:;
 - (uint64_t)_emptyMetadataBlockBuffer;
-- (uint64_t)init;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
 - (void)dealloc;
 - (void)didReachEndOfDataForConfigurationID:(id)d input:(id)input;
@@ -194,8 +193,8 @@
     return 0;
   }
 
-  v17 = 0;
-  blockBufferOut = 0;
+  v23 = 0;
+  v24 = 0;
   v6 = *(self + 168);
   v7 = FigCaptureSceneIlluminationValueFromLuxLevel([buffer objectForKeyedSubscript:*off_1E798B4B8], *(self + 172));
   v8 = v7;
@@ -207,67 +206,72 @@
     *v11 = 201326592;
     v11[1] = *(self + 152);
     v11[2] = bswap32(v8);
-    if (CMBlockBufferCreateWithMemoryBlock(*v9, v11, 0xCuLL, *MEMORY[0x1E695E488], 0, 0, 0xCuLL, 0, &blockBufferOut))
+    v12 = CMBlockBufferCreateWithMemoryBlock(*v9, v11, 0xCuLL, *MEMORY[0x1E695E488], 0, 0, 0xCuLL, 0, &v24);
+    if (v12)
     {
+      v16 = v12;
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_6();
+      LODWORD(blockBufferOut) = v16;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOut);
       goto LABEL_16;
     }
 
-    v12 = blockBufferOut;
+    v13 = v24;
     sampleSizeArray = 0;
-    if (!blockBufferOut)
+    if (!v24)
     {
 LABEL_12:
       v10 = 0;
-      goto LABEL_20;
+      goto LABEL_19;
     }
 
 LABEL_7:
     memcpy(&__dst, MEMORY[0x1E6960CF0], sizeof(__dst));
     __dst.presentationTimeStamp = *metadata;
-    sampleSizeArray = CMBlockBufferGetDataLength(v12);
-    if (!CMSampleBufferCreate(*v9, blockBufferOut, 1u, 0, 0, *(self + 144), 1, 1, &__dst, 1, &sampleSizeArray, &v17))
+    sampleSizeArray = CMBlockBufferGetDataLength(v13);
+    v14 = CMSampleBufferCreate(*v9, v24, 1u, 0, 0, *(self + 144), 1, 1, &__dst, 1, &sampleSizeArray, &v23);
+    if (v14)
     {
-      if (v17)
-      {
-        [*(self + 136) emitSampleBuffer:?];
-        *(self + 168) = v8 == -1;
-        v10 = 1;
-        goto LABEL_18;
-      }
-
-LABEL_17:
-      v10 = 0;
-LABEL_18:
-      if (blockBufferOut)
-      {
-        CFRelease(blockBufferOut);
-      }
-
-      goto LABEL_20;
+      v17 = v14;
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_1_6();
+      LODWORD(blockBufferOuta) = v17;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOuta);
     }
 
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_1_6();
+    else if (v23)
+    {
+      [*(self + 136) emitSampleBuffer:?];
+      *(self + 168) = v8 == -1;
+      v10 = 1;
+      goto LABEL_17;
+    }
+
 LABEL_16:
-    FigDebugAssert3();
-    goto LABEL_17;
+    v10 = 0;
+LABEL_17:
+    if (v24)
+    {
+      CFRelease(v24);
+    }
+
+    goto LABEL_19;
   }
 
   if (v6)
   {
     v10 = 0;
     sampleSizeArray = 0;
-    goto LABEL_18;
+    goto LABEL_17;
   }
 
   _emptyMetadataBlockBuffer = [(BWVideoPlaybackSupportMetadataNode *)self _emptyMetadataBlockBuffer];
   if (_emptyMetadataBlockBuffer)
   {
-    v12 = CFRetain(_emptyMetadataBlockBuffer);
-    blockBufferOut = v12;
-    if (!v12)
+    v13 = CFRetain(_emptyMetadataBlockBuffer);
+    v24 = v13;
+    if (!v13)
     {
       goto LABEL_12;
     }
@@ -276,11 +280,11 @@ LABEL_16:
   }
 
   v10 = 0;
-  blockBufferOut = 0;
-LABEL_20:
-  if (v17)
+  v24 = 0;
+LABEL_19:
+  if (v23)
   {
-    CFRelease(v17);
+    CFRelease(v23);
   }
 
   return v10;
@@ -297,35 +301,30 @@ LABEL_20:
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_1_12();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       }
 
       else
       {
         dataPointerOut = 0;
-        if (!CMBlockBufferGetDataPointer(*(v1 + 160), 0, 0, 0, &dataPointerOut))
+        if (CMBlockBufferGetDataPointer(*(v1 + 160), 0, 0, 0, &dataPointerOut))
         {
-          *dataPointerOut = 0x8000000;
-          return *(v1 + 160);
+          fig_log_get_emitter();
+          OUTLINED_FUNCTION_1_12();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
         }
 
-        fig_log_get_emitter();
-        OUTLINED_FUNCTION_1_12();
+        else
+        {
+          *dataPointerOut = 0x8000000;
+        }
       }
-
-      FigDebugAssert3();
     }
 
     return *(v1 + 160);
   }
 
   return result;
-}
-
-- (uint64_t)init
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

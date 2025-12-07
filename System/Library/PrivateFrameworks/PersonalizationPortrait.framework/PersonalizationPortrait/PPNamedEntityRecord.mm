@@ -327,42 +327,42 @@ LABEL_24:
 
 + (id)algorithmForName:(id)name
 {
-  v12[16] = *MEMORY[0x1E69E9840];
-  v11[0] = @"CoreNLP";
-  v11[1] = @"Lookup Hints";
-  v12[0] = &unk_1F1B45D00;
-  v12[1] = &unk_1F1B45CE8;
-  v11[2] = @"Data Detectors";
-  v11[3] = @"Custom Tagger";
-  v12[2] = &unk_1F1B45D30;
-  v12[3] = &unk_1F1B45DA8;
-  v11[4] = @"Core Routine";
-  v11[5] = @"NSUA Structured Location";
-  v12[4] = &unk_1F1B45D18;
-  v12[5] = &unk_1F1B45D48;
-  v11[6] = @"Trusted Location";
-  v11[7] = @"Maps Interaction";
-  v12[6] = &unk_1F1B45D60;
-  v12[7] = &unk_1F1B45D78;
-  v11[8] = @"Media Player Now Playing";
-  v11[9] = @"EventKit Import";
-  v12[8] = &unk_1F1B45D90;
-  v12[9] = &unk_1F1B45DC0;
-  v11[10] = @"Photos Knowledge Graph";
-  v11[11] = @"Parsec Donation";
-  v12[10] = &unk_1F1B45DD8;
-  v12[11] = &unk_1F1B45DF0;
-  v11[12] = @"Podcasts Interaction";
-  v11[13] = @"Contacts Import";
-  v12[12] = &unk_1F1B45E08;
-  v12[13] = &unk_1F1B45E20;
-  v11[14] = @"Augmented Gazetteer";
-  v11[15] = @"Knowledge Graph";
-  v12[14] = &unk_1F1B45E50;
-  v12[15] = &unk_1F1B45E68;
+  v11[16] = *MEMORY[0x1E69E9840];
+  v10[0] = @"CoreNLP";
+  v10[1] = @"Lookup Hints";
+  v11[0] = &unk_1F1B45D00;
+  v11[1] = &unk_1F1B45CE8;
+  v10[2] = @"Data Detectors";
+  v10[3] = @"Custom Tagger";
+  v11[2] = &unk_1F1B45D30;
+  v11[3] = &unk_1F1B45DA8;
+  v10[4] = @"Core Routine";
+  v10[5] = @"NSUA Structured Location";
+  v11[4] = &unk_1F1B45D18;
+  v11[5] = &unk_1F1B45D48;
+  v10[6] = @"Trusted Location";
+  v10[7] = @"Maps Interaction";
+  v11[6] = &unk_1F1B45D60;
+  v11[7] = &unk_1F1B45D78;
+  v10[8] = @"Media Player Now Playing";
+  v10[9] = @"EventKit Import";
+  v11[8] = &unk_1F1B45D90;
+  v11[9] = &unk_1F1B45DC0;
+  v10[10] = @"Photos Knowledge Graph";
+  v10[11] = @"Parsec Donation";
+  v11[10] = &unk_1F1B45DD8;
+  v11[11] = &unk_1F1B45DF0;
+  v10[12] = @"Podcasts Interaction";
+  v10[13] = @"Contacts Import";
+  v11[12] = &unk_1F1B45E08;
+  v11[13] = &unk_1F1B45E20;
+  v10[14] = @"Augmented Gazetteer";
+  v10[15] = @"Knowledge Graph";
+  v11[14] = &unk_1F1B45E50;
+  v11[15] = &unk_1F1B45E68;
   v3 = MEMORY[0x1E695DF20];
   nameCopy = name;
-  v5 = [v3 dictionaryWithObjects:v12 forKeys:v11 count:16];
+  v5 = [v3 dictionaryWithObjects:v11 forKeys:v10 count:16];
   v6 = [v5 objectForKeyedSubscript:nameCopy];
 
   if (v6)
@@ -377,7 +377,6 @@ LABEL_24:
 
   v8 = v7;
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

@@ -174,7 +174,7 @@ LABEL_24:
     self->_delegateQueue = 0;
   }
 
-  VCRemoteImageQueue_Destroy(&self->_remoteQueue);
+  VCRemoteImageQueue_Destroy(&self->_remoteQueue, a2);
 
   attributes = self->_attributes;
   if (attributes)
@@ -212,7 +212,7 @@ LABEL_24:
     v3 = v7[0];
   }
 
-  VCRemoteImageQueue_Destroy((self + v3));
+  VCRemoteImageQueue_Destroy((self + v3), a2);
   backingBufferAllocator = self->_backingBufferAllocator;
   if (backingBufferAllocator)
   {
@@ -446,7 +446,7 @@ void ___VCStreamOutput_SendSampleBufferToXPCClient_block_invoke(uint64_t a1)
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create queue", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create queue", v2, v3, v4, v5);
     }
   }
 }
@@ -509,7 +509,7 @@ void ___VCStreamOutput_SendSampleBufferToXPCClient_block_invoke(uint64_t a1)
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create xpcCommandQueue", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create xpcCommandQueue", v2, v3, v4, v5);
     }
   }
 }
@@ -518,7 +518,7 @@ void ___VCStreamOutput_SendSampleBufferToXPCClient_block_invoke(uint64_t a1)
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Client run out of process, should not do delegate callback", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Client run out of process, should not do delegate callback", v2, v3, v4, v5);
 }
 
 @end

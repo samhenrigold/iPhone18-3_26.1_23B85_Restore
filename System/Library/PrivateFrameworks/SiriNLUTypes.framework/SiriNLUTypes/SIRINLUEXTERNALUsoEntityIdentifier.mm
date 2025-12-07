@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)sourceComponentAsString:(int)string;
 - (int)StringAsSourceComponent:(id)component;
 - (int)sourceComponent;
 - (unint64_t)hash;
@@ -189,7 +190,6 @@ LABEL_7:
     goto LABEL_29;
   }
 
-  v5 = *(equalCopy + 64);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 64) & 4) == 0 || self->_nodeIndex != *(equalCopy + 8))
@@ -201,7 +201,7 @@ LABEL_7:
   else if ((*(equalCopy + 64) & 4) != 0)
   {
 LABEL_29:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_30;
   }
 
@@ -264,7 +264,7 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  v10 = (*(equalCopy + 64) & 2) == 0;
+  v9 = (*(equalCopy + 64) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 64) & 2) == 0 || self->_interpretationGroup != *(equalCopy + 5))
@@ -272,12 +272,12 @@ LABEL_29:
       goto LABEL_29;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_30:
 
-  return v10;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -418,7 +418,6 @@ LABEL_15:
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    nodeIndex = self->_nodeIndex;
     PBDataWriterWriteUint32Field();
   }
 
@@ -445,7 +444,6 @@ LABEL_15:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    sourceComponent = self->_sourceComponent;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -465,12 +463,10 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  groupIndex = self->_groupIndex;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_14:
-    interpretationGroup = self->_interpretationGroup;
     PBDataWriterWriteUint32Field();
   }
 
@@ -655,6 +651,21 @@ LABEL_15:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)sourceComponentAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8328120[string];
   }
 
   return v4;

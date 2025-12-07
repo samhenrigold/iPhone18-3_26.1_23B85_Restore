@@ -9,7 +9,7 @@
 
 - (void)stopGestureUpdatesPrivate
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self->fGestureHandler)
   {
     if (qword_1EAFE27B0 != -1)
@@ -33,25 +33,25 @@
         dispatch_once(&qword_1EAFE27B0, &unk_1F0E27F20);
       }
 
-      v5 = _os_log_send_and_compose_impl();
+      v8[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27E8, 0, "Stopping gesture updates", v8, 2);
+      v6 = v5;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMGestureManagerInternal stopGestureUpdatesPrivate]", "CoreLocation: %s\n", v5);
-      if (v5 != buf)
+      if (v6 != buf)
       {
-        free(v5);
+        free(v6);
       }
     }
 
     self->fGestureHandler = 0;
     if (self->fLocationdConnection)
     {
-      v6 = MEMORY[0x19EAE71C0]();
-      MEMORY[0x19EAE76F0](v6, 0xB0C40BC2CC919);
+      v7 = MEMORY[0x19EAE71C0]();
+      MEMORY[0x19EAE76F0](v7, 0xB0C40BC2CC919);
     }
 
     self->fLocationdConnection = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (CMGestureManagerInternal)initWithPriority:(int)priority
@@ -80,7 +80,7 @@
 
 - (void)startGestureUpdatesWithHandlerPrivate:(id)private
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   fGestureHandler = self->fGestureHandler;
   if (fGestureHandler != private)
   {
@@ -91,8 +91,6 @@
       operator new();
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

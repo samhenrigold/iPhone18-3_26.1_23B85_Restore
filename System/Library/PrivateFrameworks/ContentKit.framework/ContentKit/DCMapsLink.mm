@@ -200,7 +200,7 @@ void __75__DCMapsLink_CLGeocoding__geocodeDirectionsEndpointsWithCompletionHandl
   {
     if (v6(latitude, longitude))
     {
-      [(DCMapsLink *)self coordinateSpanForMapSize:256.0 centeredAtLocation:256.0, latitude, longitude];
+      objc_msgSend_coordinateSpanForMapSize_centeredAtLocation_(self, 256.0, 256.0, latitude, longitude);
       v9 = latitude - v8;
       v11 = longitude - v10;
       v12 = [objc_alloc(getCLLocationClass()) initWithLatitude:latitude longitude:longitude];
@@ -1127,7 +1127,7 @@ void __132__DCMapsLink_WFLocationCoercions__createMapsLinkWithPlacemark_location
 {
   longitude = a5.longitude;
   latitude = a5.latitude;
-  [(DCMapsLink *)self coordinateSpanForMapSize:location.width centeredAtLocation:location.height];
+  objc_msgSend_coordinateSpanForMapSize_centeredAtLocation_(self, size, location.width, location.height);
 
   WFMKCoordinateRegionMake(latitude, longitude, v7, v8);
   return result;
@@ -1140,11 +1140,11 @@ void __132__DCMapsLink_WFLocationCoercions__createMapsLinkWithPlacemark_location
   height = size.height;
   width = size.width;
   v9 = objc_opt_class();
-  zoomLevel = [(DCMapsLink *)self zoomLevel];
+  [(DCMapsLink *)self zoomLevel];
 
-  [v9 coordinateSpanForMapSize:zoomLevel centeredAtLocation:width atZoomLevel:{height, latitude, longitude}];
-  result.var1 = v12;
-  result.var0 = v11;
+  objc_msgSend_coordinateSpanForMapSize_centeredAtLocation_atZoomLevel_(v9, width, height, latitude, longitude);
+  result.var1 = v11;
+  result.var0 = v10;
   return result;
 }
 
@@ -1297,7 +1297,7 @@ LABEL_9:
 {
   longitude = level.longitude;
   latitude = level.latitude;
-  [a2 coordinateSpanForMapSize:a6 centeredAtLocation:location.width atZoomLevel:location.height];
+  objc_msgSend_coordinateSpanForMapSize_centeredAtLocation_atZoomLevel_(a2, size, a6, location.width, location.height);
 
   WFMKCoordinateRegionMake(latitude, longitude, v8, v9);
   return result;

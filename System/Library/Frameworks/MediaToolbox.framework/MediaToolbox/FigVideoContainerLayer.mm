@@ -162,21 +162,21 @@ uint64_t __39__FigVideoContainerLayer_initWithUUID___block_invoke(uint64_t a1)
 
 - (BOOL)_checkIfRebuildIsRequiredWhileHoldingVideoTargetMutex
 {
-  videoTarget = self->_videoTarget;
-  if (!videoTarget)
+  if (!self->_videoTarget)
   {
     return 1;
   }
 
   cf = 0;
-  CMBaseObject = FigVideoTargetGetCMBaseObject(videoTarget);
+  FigVideoTargetGetCMBaseObject();
+  v3 = v2;
   v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (!v4)
   {
     return *MEMORY[0x1E695E4D0] != 0;
   }
 
-  v4(CMBaseObject, @"IsValid", *MEMORY[0x1E695E480], &cf);
+  v4(v3, @"IsValid", *MEMORY[0x1E695E480], &cf);
   v5 = *MEMORY[0x1E695E4D0] != cf;
   if (cf)
   {
@@ -344,28 +344,29 @@ uint64_t __38__FigVideoContainerLayer_setSTSLabel___block_invoke(uint64_t a1)
 
 - (CALayer)videoLayer
 {
-  v7 = 0;
+  v8 = 0;
   if (_os_feature_enabled_impl() && self->_createdForVideoReceiver)
   {
     FigSimpleMutexLock();
-    CMBaseObject = FigVideoReceiverGetCMBaseObject(self->_videoReceiver);
-    v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v4)
+    FigVideoReceiverGetCMBaseObject();
+    v4 = v3;
+    v5 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v5)
     {
-      v4(CMBaseObject, @"VideoLayer", *MEMORY[0x1E695E480], &v7);
+      v5(v4, @"VideoLayer", *MEMORY[0x1E695E480], &v8);
     }
 
     FigSimpleMutexUnlock();
-    v5 = v7;
+    v6 = v8;
   }
 
   else
   {
-    v5 = self->_videoLayer;
-    v7 = v5;
+    v6 = self->_videoLayer;
+    v8 = v6;
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)preferredDynamicRange
@@ -494,29 +495,29 @@ uint64_t __38__FigVideoContainerLayer_setSTSLabel___block_invoke(uint64_t a1)
     FigSimpleMutexLock();
     if ([(FigVideoContainerLayer *)self _checkIfRebuildIsRequiredWhileHoldingVideoTargetMutex])
     {
-      videoReceiver = self->_videoReceiver;
-      if (videoReceiver)
+      if (self->_videoReceiver)
       {
-        v10 = 0;
-        CMBaseObject = FigVideoReceiverGetCMBaseObject(videoReceiver);
+        v11 = 0;
+        FigVideoReceiverGetCMBaseObject();
+        v5 = v4;
         v6 = *(*(CMBaseObjectGetVTable() + 8) + 48);
         if (v6)
         {
-          v6(CMBaseObject, @"VideoLayer", v3, &v10);
-          if (v10)
+          v6(v5, @"VideoLayer", v3, &v11);
+          if (v11)
           {
-            v7 = CFArrayCreate(v3, &v10, 1, MEMORY[0x1E695E9C0]);
-            FPSupport_AppendDeferredTransactionChangeForClearingFigVideoLayers(cf, v7, 1);
-            FPSupport_AppendDeferredTransactionChangeToRelease(cf, v10);
-            FPSupport_AppendDeferredTransactionChangeToRelease(cf, v7);
+            v8 = CFArrayCreate(v3, &v11, 1, MEMORY[0x1E695E9C0]);
+            FPSupport_AppendDeferredTransactionChangeForClearingFigVideoLayers(cf, v8, 1);
+            FPSupport_AppendDeferredTransactionChangeToRelease(cf, v11);
+            v7 = FPSupport_AppendDeferredTransactionChangeToRelease(cf, v8);
           }
         }
 
-        [(FigVideoContainerLayer *)self _unsubscribeFromVideoReceiver:self->_videoReceiver, v10];
-        v8 = self->_videoReceiver;
-        if (v8)
+        [(FigVideoContainerLayer *)self _unsubscribeFromVideoReceiver:self->_videoReceiver, v7, v11];
+        videoReceiver = self->_videoReceiver;
+        if (videoReceiver)
         {
-          CFRelease(v8);
+          CFRelease(videoReceiver);
           self->_videoReceiver = 0;
         }
       }
@@ -550,9 +551,9 @@ uint64_t __38__FigVideoContainerLayer_setSTSLabel___block_invoke(uint64_t a1)
 - (int)_createAndSetupVideoReceiverWithDeferredTransaction:(OpaqueFigDeferredTransaction *)transaction
 {
   transactionCopy = transaction;
-  v20[24] = *MEMORY[0x1E69E9840];
+  v21[24] = *MEMORY[0x1E69E9840];
   cf = 0;
-  v20[0] = self;
+  v21[0] = self;
   v5 = MEMORY[0x1E695E480];
   if (!transaction)
   {
@@ -564,7 +565,8 @@ uint64_t __38__FigVideoContainerLayer_setSTSLabel___block_invoke(uint64_t a1)
   values = v6;
   if (!v6)
   {
-    goto LABEL_20;
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED4CBDC8, 4294951726, "<<<< FigVideoContainerLayer >>>>", 555);
+    goto LABEL_23;
   }
 
   v7 = v6;
@@ -573,62 +575,70 @@ uint64_t __38__FigVideoContainerLayer_setSTSLabel___block_invoke(uint64_t a1)
   v9 = FigVideoReceiverCreateWithVideoLayer(v8, v7, 0, &self->_videoReceiver);
   if (v9)
   {
-LABEL_21:
-    v15 = v9;
+LABEL_23:
+    v16 = v9;
     Mutable = 0;
     goto LABEL_15;
   }
 
   [(FigVideoContainerLayer *)self _subscribeToVideoReceiver:self->_videoReceiver];
   v10 = CFArrayCreate(v8, &values, 1, MEMORY[0x1E695E9C0]);
-  if (!v10 || (v11 = v10, (v12 = CFArrayCreate(v8, v20, 1, MEMORY[0x1E695E9C0])) == 0))
+  if (!v10)
   {
-LABEL_20:
-    v9 = FigSignalErrorAtGM();
-    goto LABEL_21;
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED4CBDC8, 4294951726, "<<<< FigVideoContainerLayer >>>>", 565);
+    goto LABEL_23;
+  }
+
+  v11 = v10;
+  v12 = CFArrayCreate(v8, v21, 1, MEMORY[0x1E695E9C0]);
+  if (!v12)
+  {
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED4CBDC8, 4294951726, "<<<< FigVideoContainerLayer >>>>", 567);
+    goto LABEL_23;
   }
 
   v13 = v12;
-  v9 = FPSupport_AppendDeferredTransactionChangeForClearingFigVideoLayers(transactionCopy, v11, 1);
+  FPSupport_AppendDeferredTransactionChangeForClearingFigVideoLayers(transactionCopy, v11, 1);
   if (v9)
   {
-    goto LABEL_21;
+    goto LABEL_23;
   }
 
-  v9 = FPSupport_AppendDeferredTransactionChangeForAttachingFigVideoLayersToClientLayers();
+  FPSupport_AppendDeferredTransactionChangeForAttachingFigVideoLayersToClientLayers();
   if (v9)
   {
-    goto LABEL_21;
+    goto LABEL_23;
   }
 
-  v9 = FPSupport_AppendDeferredTransactionChangeForSettingEdgeAntialiasingMaskOnLayers(transactionCopy, 0, v11);
+  FPSupport_AppendDeferredTransactionChangeForSettingEdgeAntialiasingMaskOnLayers(transactionCopy, 0, v11);
   if (v9)
   {
-    goto LABEL_21;
+    goto LABEL_23;
   }
 
-  v9 = FPSupport_AppendDeferredTransactionChangeToRelease(transactionCopy, v13);
+  FPSupport_AppendDeferredTransactionChangeToRelease(transactionCopy, v13);
   if (v9)
   {
-    goto LABEL_21;
+    goto LABEL_23;
   }
 
-  v9 = FPSupport_AppendDeferredTransactionChangeToRelease(transactionCopy, v11);
+  FPSupport_AppendDeferredTransactionChangeToRelease(transactionCopy, v11);
   if (v9)
   {
-    goto LABEL_21;
+    goto LABEL_23;
   }
 
-  v9 = FPSupport_AppendDeferredTransactionChangeToRelease(transactionCopy, values);
+  FPSupport_AppendDeferredTransactionChangeToRelease(transactionCopy, values);
   if (v9)
   {
-    goto LABEL_21;
+    goto LABEL_23;
   }
 
   Mutable = CFDictionaryCreateMutable(v8, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   CFDictionarySetValue(Mutable, @"ReceiverInSuspendibleProcess", *MEMORY[0x1E695E4D0]);
   CFDictionarySetValue(Mutable, @"RequiresOSTransaction", *MEMORY[0x1E695E4C0]);
-  v15 = FigVideoTargetCreateWithVideoReceiver(v8, *(v20[0] + 18), Mutable, v20[0] + 152);
+  FigVideoTargetCreateWithVideoReceiver(v8, *(v21[0] + 18), Mutable, v21[0] + 152);
+  v16 = v15;
   if (dword_1ED4CBDD0)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -648,7 +658,7 @@ LABEL_15:
     CFRelease(Mutable);
   }
 
-  return v15;
+  return v16;
 }
 
 - (void)setupVideoLayer:(id)layer

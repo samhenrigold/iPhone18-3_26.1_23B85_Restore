@@ -300,7 +300,7 @@
 - (void)device:(id)device pairingDeleted:(BOOL)deleted
 {
   deletedCopy = deleted;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
@@ -312,9 +312,9 @@
     }
 
     *buf = 138412546;
-    v18 = deviceCopy;
-    v19 = 2112;
-    v20 = v8;
+    v17 = deviceCopy;
+    v18 = 2112;
+    v19 = v8;
     _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Received pairing removed notification from daemon, device: %@, deleted: %@", buf, 0x16u);
   }
 
@@ -333,15 +333,13 @@
     block[1] = 3221225472;
     block[2] = sub_195A5790C;
     block[3] = &unk_1E743E878;
-    v16 = v10;
+    v15 = v10;
     v12 = v10;
     dispatch_async(queue, block);
 
     deleteCompletion = self->_deleteCompletion;
     self->_deleteCompletion = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deliveryStats:(id)stats

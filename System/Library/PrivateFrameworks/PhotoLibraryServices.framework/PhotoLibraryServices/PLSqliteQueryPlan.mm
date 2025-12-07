@@ -21,7 +21,7 @@
   v20[3] = &__block_descriptor_36_e31_B16__0__PLSqliteQueryPlanNode_8l;
   identifierCopy = identifier;
   v11 = [(NSMutableArray *)nodes _pl_filter:v20];
-  v12 = [v11 count];
+  v12 = objc_msgSend_count(v11);
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
   v15[2] = __71__PLSqliteQueryPlan__renderLevelWithParentIdentifier_prefix_intoLines___block_invoke_2;

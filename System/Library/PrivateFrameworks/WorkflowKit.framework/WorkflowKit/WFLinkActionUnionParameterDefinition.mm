@@ -31,7 +31,7 @@
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   valueCopy = value;
   valueType = [(WFLinkActionParameterDefinition *)self valueType];
   v6 = objc_opt_class();
@@ -76,9 +76,9 @@
       v21 = [wf_parameterDefinition parameterStateFromLinkValue:valueCopy];
       v22 = NSStringFromClass(v17);
       v23 = [WFUnionParameterState alloc];
-      v29 = v22;
-      v30[0] = v21;
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+      v28 = v22;
+      v29[0] = v21;
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
       v18 = [(WFUnionParameterState *)v23 initWithWhich:v22 states:v24];
     }
 
@@ -93,8 +93,6 @@ LABEL_7:
   {
     v18 = 0;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -220,7 +218,7 @@ void __172__WFLinkActionUnionParameterDefinition_getLinkValueFromProcessedParame
 
 - (id)subdefinitionForState:(id)state
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   valueType = [(WFLinkActionParameterDefinition *)self valueType];
   v6 = objc_opt_class();
@@ -228,11 +226,11 @@ void __172__WFLinkActionUnionParameterDefinition_getLinkValueFromProcessedParame
 
   if (v7 && ([stateCopy which], v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
   {
-    v31 = v7;
+    v30 = v7;
     memberValueTypes = [v7 memberValueTypes];
     parameterMetadata = [(WFLinkActionParameterDefinition *)self parameterMetadata];
     typeSpecificMetadata = [parameterMetadata typeSpecificMetadata];
-    v32 = [typeSpecificMetadata objectForKey:@"LNValueTypeSpecificMetadataKeyLinkUnionMetadata"];
+    v31 = [typeSpecificMetadata objectForKey:@"LNValueTypeSpecificMetadataKeyLinkUnionMetadata"];
 
     v12 = memberValueTypes;
     v13 = [memberValueTypes count];
@@ -246,7 +244,7 @@ void __172__WFLinkActionUnionParameterDefinition_getLinkValueFromProcessedParame
     while (1)
     {
       v16 = [v12 objectAtIndex:v15];
-      v17 = [v32 objectAtIndex:v15];
+      v17 = [v31 objectAtIndex:v15];
       v18 = [(WFLinkActionUnionParameterDefinition *)self contentItemClassFromValueType:v16 metadata:v17];
       if (v18)
       {
@@ -269,9 +267,9 @@ void __172__WFLinkActionUnionParameterDefinition_getLinkValueFromProcessedParame
     }
 
     parameterMetadata2 = [(WFLinkActionParameterDefinition *)self parameterMetadata];
-    v29 = [v32 objectAtIndex:v15];
-    v30 = [parameterMetadata2 wf_parameterMetadataWithValueType:v16 typeSpecificMetadata:v29];
-    wf_parameterDefinition = [v30 wf_parameterDefinition];
+    v28 = [v31 objectAtIndex:v15];
+    v29 = [parameterMetadata2 wf_parameterMetadataWithValueType:v16 typeSpecificMetadata:v28];
+    wf_parameterDefinition = [v29 wf_parameterDefinition];
 
     stateCopy = v20;
     if (!wf_parameterDefinition)
@@ -282,16 +280,16 @@ LABEL_8:
       {
         which = [stateCopy which];
         *buf = 136315394;
-        v34 = "[WFLinkActionUnionParameterDefinition subdefinitionForState:]";
-        v35 = 2112;
-        v36 = which;
+        v33 = "[WFLinkActionUnionParameterDefinition subdefinitionForState:]";
+        v34 = 2112;
+        v35 = which;
         _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_ERROR, "%s no subdefinition for %@", buf, 0x16u);
       }
 
       wf_parameterDefinition = 0;
     }
 
-    v7 = v31;
+    v7 = v30;
   }
 
   else
@@ -299,24 +297,22 @@ LABEL_8:
     wf_parameterDefinition = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return wf_parameterDefinition;
 }
 
 - (id)parameterDefinitionDictionary
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v26.receiver = self;
-  v26.super_class = WFLinkActionUnionParameterDefinition;
-  parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v26 parameterDefinitionDictionary];
+  v32 = *MEMORY[0x1E69E9840];
+  v25.receiver = self;
+  v25.super_class = WFLinkActionUnionParameterDefinition;
+  parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v25 parameterDefinitionDictionary];
   valueType = [(WFLinkActionParameterDefinition *)self valueType];
   v5 = objc_opt_class();
   v6 = WFEnforceClass_72101(valueType, v5);
 
   if (v6)
   {
-    v25 = parameterDefinitionDictionary;
+    v24 = parameterDefinitionDictionary;
     memberValueTypes = [v6 memberValueTypes];
     parameterMetadata = [(WFLinkActionParameterDefinition *)self parameterMetadata];
     typeSpecificMetadata = [parameterMetadata typeSpecificMetadata];
@@ -344,9 +340,9 @@ LABEL_8:
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v30 = "[WFLinkActionUnionParameterDefinition parameterDefinitionDictionary]";
-            v31 = 2112;
-            v32 = v15;
+            v29 = "[WFLinkActionUnionParameterDefinition parameterDefinitionDictionary]";
+            v30 = 2112;
+            v31 = v15;
             _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_ERROR, "%s could not map %@ to a content item class.", buf, 0x16u);
           }
         }
@@ -356,21 +352,19 @@ LABEL_8:
     parameterMetadata2 = [(WFLinkActionParameterDefinition *)self parameterMetadata];
     v20 = [v6 memberTypeParameterDefinitionsFromParameterMetadata:parameterMetadata2];
 
-    v27[0] = @"WFUnionTypes";
-    v27[1] = @"WFUnionDefinitions";
-    v28[0] = v11;
-    v28[1] = v20;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
-    parameterDefinitionDictionary = v25;
-    v22 = [v25 definitionByAddingEntriesInDictionary:v21];
+    v26[0] = @"WFUnionTypes";
+    v26[1] = @"WFUnionDefinitions";
+    v27[0] = v11;
+    v27[1] = v20;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    parameterDefinitionDictionary = v24;
+    v22 = [v24 definitionByAddingEntriesInDictionary:v21];
   }
 
   else
   {
     v22 = parameterDefinitionDictionary;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }

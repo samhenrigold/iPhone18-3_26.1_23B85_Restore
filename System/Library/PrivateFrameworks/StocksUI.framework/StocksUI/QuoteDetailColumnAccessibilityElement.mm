@@ -10,19 +10,19 @@
 - (NSArray)accessibilityElements
 {
   selfCopy = self;
-  v3 = sub_22069AB40();
+  v4 = sub_22069AB40(selfCopy, v3);
 
-  if (v3)
+  if (v4)
   {
-    v4 = sub_2208916DC();
+    v5 = sub_2208916DC();
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)setAccessibilityElements:(id)elements

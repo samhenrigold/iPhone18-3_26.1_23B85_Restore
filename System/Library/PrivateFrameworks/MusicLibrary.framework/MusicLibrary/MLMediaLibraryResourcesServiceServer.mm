@@ -231,7 +231,7 @@ void __79__MLMediaLibraryResourcesServiceServer__unblockExecutionForFutureAccoun
   processIdentifier = [connectionCopy processIdentifier];
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else

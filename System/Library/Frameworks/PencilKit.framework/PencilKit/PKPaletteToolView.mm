@@ -126,7 +126,7 @@
     [(PKPaletteToolView *)v14 addSubview:v14->_toolShadowView];
     v26 = [PKPaletteToolImageContentView alloc];
     v27 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
-    v28 = [(PKPaletteToolImageContentView *)v26 initWithImageView:v27];
+    v28 = [(PKPaletteToolImageContentView *)&v26->super.super.super.isa initWithImageView:v27];
     imageContentView = v14->_imageContentView;
     v14->_imageContentView = v28;
 

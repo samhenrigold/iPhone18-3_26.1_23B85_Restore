@@ -16,7 +16,7 @@
 
 + (id)columns
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"emNum" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"MCC" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"MNC" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
@@ -24,16 +24,14 @@
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"sip380Procedure" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:4 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"sip380RedirectedURN" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:4 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"callDuration" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:2 convertedType:0];
-  v12[0] = v2;
-  v12[1] = v3;
-  v12[2] = v4;
-  v12[3] = v5;
-  v12[4] = v6;
-  v12[5] = v7;
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[0] = v2;
+  v11[1] = v3;
+  v11[2] = v4;
+  v11[3] = v5;
+  v11[4] = v6;
+  v11[5] = v7;
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
@@ -142,7 +140,7 @@ LABEL_25:
 
 - (id)jsonDictionary
 {
-  v26[7] = *MEMORY[0x1E69E9840];
+  v25[7] = *MEMORY[0x1E69E9840];
   emNum = [(BMCommCenterEmergencyVoiceCall *)self emNum];
   v4 = [(BMCommCenterEmergencyVoiceCall *)self MCC];
   v5 = [(BMCommCenterEmergencyVoiceCall *)self MNC];
@@ -159,68 +157,68 @@ LABEL_25:
     v9 = 0;
   }
 
-  v25[0] = @"emNum";
+  v24[0] = @"emNum";
   null = emNum;
   if (!emNum)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = null;
-  v26[0] = null;
-  v25[1] = @"MCC";
+  v21 = null;
+  v25[0] = null;
+  v24[1] = @"MCC";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null2;
-  v26[1] = null2;
-  v25[2] = @"MNC";
+  v20 = null2;
+  v25[1] = null2;
+  v24[2] = @"MNC";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = emNum;
-  v20 = null3;
-  v26[2] = null3;
-  v25[3] = @"matchedEmNumSource";
+  v23 = emNum;
+  v19 = null3;
+  v25[2] = null3;
+  v24[3] = @"matchedEmNumSource";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = v4;
-  v26[3] = null4;
-  v25[4] = @"sip380Procedure";
+  v22 = v4;
+  v25[3] = null4;
+  v24[4] = @"sip380Procedure";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[4] = null5;
-  v25[5] = @"sip380RedirectedURN";
+  v25[4] = null5;
+  v24[5] = @"sip380RedirectedURN";
   null6 = v8;
   if (!v8)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[5] = null6;
-  v25[6] = @"callDuration";
+  v25[5] = null6;
+  v24[6] = @"callDuration";
   null7 = v9;
   if (!v9)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[6] = null7;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:7];
+  v25[6] = null7;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:7];
   if (v9)
   {
     if (v8)
@@ -258,14 +256,14 @@ LABEL_21:
 
   if (v5)
   {
-    if (v23)
+    if (v22)
     {
       goto LABEL_25;
     }
 
 LABEL_33:
 
-    if (v24)
+    if (v23)
     {
       goto LABEL_26;
     }
@@ -273,13 +271,13 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  if (!v23)
+  if (!v22)
   {
     goto LABEL_33;
   }
 
 LABEL_25:
-  if (v24)
+  if (v23)
   {
     goto LABEL_26;
   }
@@ -287,19 +285,18 @@ LABEL_25:
 LABEL_34:
 
 LABEL_26:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (BMCommCenterEmergencyVoiceCall)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v79[1] = *MEMORY[0x1E69E9840];
+  v78[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"emNum"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v64 = 0;
+    v63 = 0;
 LABEL_4:
     v7 = [dictionaryCopy objectForKeyedSubscript:@"MCC"];
     if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -316,10 +313,10 @@ LABEL_4:
         v21 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
         v23 = *MEMORY[0x1E698F240];
-        v76 = *MEMORY[0x1E696A578];
-        v63 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"MCC"];
-        v77 = v63;
-        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+        v75 = *MEMORY[0x1E696A578];
+        v62 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"MCC"];
+        v76 = v62;
+        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
         v25 = [v21 initWithDomain:v23 code:2 userInfo:v24];
         error = 0;
         v20 = 0;
@@ -338,7 +335,7 @@ LABEL_4:
     }
 
     v8 = [dictionaryCopy objectForKeyedSubscript:@"MNC"];
-    v59 = v8;
+    v58 = v8;
     if (v8 && (v9 = v8, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -346,37 +343,37 @@ LABEL_4:
       {
         if (!errorCopy3)
         {
-          v63 = 0;
+          v62 = 0;
           v20 = 0;
-          v24 = v59;
+          v24 = v58;
           goto LABEL_54;
         }
 
         v26 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy4 = error;
         v27 = *MEMORY[0x1E698F240];
-        v74 = *MEMORY[0x1E696A578];
-        v58 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"MNC"];
-        v75 = v58;
-        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+        v73 = *MEMORY[0x1E696A578];
+        v57 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"MNC"];
+        v74 = v57;
+        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
         v29 = v27;
         error = errorCopy4;
-        v63 = 0;
+        v62 = 0;
         v20 = 0;
         *errorCopy3 = [v26 initWithDomain:v29 code:2 userInfo:v28];
-        v24 = v59;
+        v24 = v58;
 LABEL_53:
 
 LABEL_54:
         goto LABEL_55;
       }
 
-      v63 = v9;
+      v62 = v9;
     }
 
     else
     {
-      v63 = 0;
+      v62 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"matchedEmNumSource"];
@@ -396,24 +393,24 @@ LABEL_54:
           v28 = v10;
           if (!errorCopy3)
           {
-            v58 = 0;
+            v57 = 0;
             v20 = 0;
-            v24 = v59;
+            v24 = v58;
             goto LABEL_53;
           }
 
-          v44 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v45 = *MEMORY[0x1E698F240];
-          v72 = *MEMORY[0x1E696A578];
-          v62 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"matchedEmNumSource"];
-          v73 = v62;
-          v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-          v47 = [v44 initWithDomain:v45 code:2 userInfo:v46];
-          v58 = 0;
+          v43 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v44 = *MEMORY[0x1E698F240];
+          v71 = *MEMORY[0x1E696A578];
+          v61 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"matchedEmNumSource"];
+          v72 = v61;
+          v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+          v46 = [v43 initWithDomain:v44 code:2 userInfo:v45];
+          v57 = 0;
           v20 = 0;
-          *errorCopy3 = v47;
-          v37 = v46;
-          v24 = v59;
+          *errorCopy3 = v46;
+          v37 = v45;
+          v24 = v58;
           goto LABEL_52;
         }
 
@@ -427,10 +424,10 @@ LABEL_54:
     }
 
     v12 = [dictionaryCopy objectForKeyedSubscript:@"sip380Procedure"];
-    v55 = v6;
-    v56 = v10;
-    v57 = v12;
-    v58 = v11;
+    v54 = v6;
+    v55 = v10;
+    v56 = v12;
+    v57 = v11;
     if (v12 && (v13 = v12, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -446,28 +443,28 @@ LABEL_54:
         {
           if (!errorCopy3)
           {
-            v62 = 0;
+            v61 = 0;
             v20 = 0;
             goto LABEL_51;
           }
 
-          v48 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v49 = *MEMORY[0x1E698F240];
-          v70 = *MEMORY[0x1E696A578];
-          v61 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"sip380Procedure"];
-          v71 = v61;
-          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
-          v50 = [v48 initWithDomain:v49 code:2 userInfo:v30];
-          v62 = 0;
+          v47 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v48 = *MEMORY[0x1E698F240];
+          v69 = *MEMORY[0x1E696A578];
+          v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"sip380Procedure"];
+          v70 = v60;
+          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+          v49 = [v47 initWithDomain:v48 code:2 userInfo:v30];
+          v61 = 0;
           v20 = 0;
-          *errorCopy3 = v50;
+          *errorCopy3 = v49;
 LABEL_50:
 
-          v6 = v55;
+          v6 = v54;
 LABEL_51:
-          v24 = v59;
-          v28 = v56;
-          v37 = v57;
+          v24 = v58;
+          v28 = v55;
+          v37 = v56;
 LABEL_52:
 
           goto LABEL_53;
@@ -476,12 +473,12 @@ LABEL_52:
         v14 = [MEMORY[0x1E696AD98] numberWithInt:BMCommCenterEmergencyVoiceCallSIP380ProcedureFromString(v13)];
       }
 
-      v62 = v14;
+      v61 = v14;
     }
 
     else
     {
-      v62 = 0;
+      v61 = 0;
     }
 
     v30 = [dictionaryCopy objectForKeyedSubscript:@"sip380RedirectedURN"];
@@ -500,33 +497,33 @@ LABEL_52:
         {
           if (!errorCopy3)
           {
-            v61 = 0;
+            v60 = 0;
             v20 = 0;
             goto LABEL_50;
           }
 
-          v51 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v52 = *MEMORY[0x1E698F240];
-          v68 = *MEMORY[0x1E696A578];
+          v50 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v51 = *MEMORY[0x1E698F240];
+          v67 = *MEMORY[0x1E696A578];
           v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"sip380RedirectedURN"];
-          v69 = v36;
-          v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
-          v53 = [v51 initWithDomain:v52 code:2 userInfo:v32];
-          v61 = 0;
+          v68 = v36;
+          v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+          v52 = [v50 initWithDomain:v51 code:2 userInfo:v32];
+          v60 = 0;
           v20 = 0;
-          *errorCopy3 = v53;
+          *errorCopy3 = v52;
           goto LABEL_49;
         }
 
         v31 = [MEMORY[0x1E696AD98] numberWithInt:BMCommCenterEmergencyVoiceCallEmergencyURNFromString(v30)];
       }
 
-      v61 = v31;
+      v60 = v31;
     }
 
     else
     {
-      v61 = 0;
+      v60 = 0;
     }
 
     v32 = [dictionaryCopy objectForKeyedSubscript:@"callDuration"];
@@ -537,13 +534,13 @@ LABEL_52:
       {
         if (errorCopy3)
         {
-          v40 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v41 = *MEMORY[0x1E698F240];
-          v66 = *MEMORY[0x1E696A578];
-          v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"callDuration"];
-          v67 = v42;
-          v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
-          *errorCopy3 = [v40 initWithDomain:v41 code:2 userInfo:v43];
+          v39 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v40 = *MEMORY[0x1E698F240];
+          v65 = *MEMORY[0x1E696A578];
+          v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"callDuration"];
+          v66 = v41;
+          v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+          *errorCopy3 = [v39 initWithDomain:v40 code:2 userInfo:v42];
         }
 
         v36 = 0;
@@ -552,7 +549,7 @@ LABEL_52:
       }
 
       v33 = v7;
-      v35 = v64;
+      v35 = v63;
       selfCopy2 = self;
       v36 = v32;
     }
@@ -560,13 +557,13 @@ LABEL_52:
     else
     {
       v33 = v7;
-      v35 = v64;
+      v35 = v63;
       selfCopy2 = self;
       v36 = 0;
     }
 
-    v64 = v35;
-    v20 = -[BMCommCenterEmergencyVoiceCall initWithEmNum:MCC:MNC:matchedEmNumSource:sip380Procedure:sip380RedirectedURN:callDuration:](selfCopy2, "initWithEmNum:MCC:MNC:matchedEmNumSource:sip380Procedure:sip380RedirectedURN:callDuration:", v35, error, v63, [v11 intValue], objc_msgSend(v62, "intValue"), objc_msgSend(v61, "intValue"), v36);
+    v63 = v35;
+    v20 = -[BMCommCenterEmergencyVoiceCall initWithEmNum:MCC:MNC:matchedEmNumSource:sip380Procedure:sip380RedirectedURN:callDuration:](selfCopy2, "initWithEmNum:MCC:MNC:matchedEmNumSource:sip380Procedure:sip380RedirectedURN:callDuration:", v35, error, v62, [v11 intValue], objc_msgSend(v61, "intValue"), objc_msgSend(v60, "intValue"), v36);
     self = v20;
     v7 = v33;
 LABEL_49:
@@ -577,13 +574,13 @@ LABEL_49:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v64 = v6;
+    v63 = v6;
     goto LABEL_4;
   }
 
   if (!error)
   {
-    v64 = 0;
+    v63 = 0;
     v20 = 0;
     goto LABEL_56;
   }
@@ -591,19 +588,18 @@ LABEL_49:
   v15 = objc_alloc(MEMORY[0x1E696ABC0]);
   errorCopy5 = error;
   v17 = *MEMORY[0x1E698F240];
-  v78 = *MEMORY[0x1E696A578];
+  v77 = *MEMORY[0x1E696A578];
   v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"emNum"];
-  v79[0] = v18;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:&v78 count:1];
+  v78[0] = v18;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v78 forKeys:&v77 count:1];
   v19 = v17;
   error = v18;
-  v64 = 0;
+  v63 = 0;
   v20 = 0;
   *errorCopy5 = [v15 initWithDomain:v19 code:2 userInfo:v7];
 LABEL_55:
 
 LABEL_56:
-  v38 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -634,15 +630,11 @@ LABEL_56:
     PBDataWriterWriteStringField();
   }
 
-  matchedEmNumSource = self->_matchedEmNumSource;
   PBDataWriterWriteUint32Field();
-  sip380Procedure = self->_sip380Procedure;
   PBDataWriterWriteUint32Field();
-  sip380RedirectedURN = self->_sip380RedirectedURN;
   PBDataWriterWriteUint32Field();
   if (self->_hasCallDuration)
   {
-    callDuration = self->_callDuration;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -1019,23 +1011,21 @@ LABEL_89:
 
 + (id)protoFields
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"emNum" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"MCC" number:2 type:13 subMessageClass:{0, v2}];
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"MNC" number:3 type:13 subMessageClass:0];
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"matchedEmNumSource" number:4 type:4 subMessageClass:0];
-  v12[3] = v5;
+  v11[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sip380Procedure" number:5 type:4 subMessageClass:0];
-  v12[4] = v6;
+  v11[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sip380RedirectedURN" number:6 type:4 subMessageClass:0];
-  v12[5] = v7;
+  v11[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"callDuration" number:7 type:2 subMessageClass:0];
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }

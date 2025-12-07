@@ -93,17 +93,17 @@
 
 - (void)initWithPosition:(double)position size:(double)size zRotation:(double)rotation innerRect:(float)rect outerRect:(uint64_t)outerRect context:(uint64_t)context
 {
-  v27 = [self init];
-  v29 = v27;
-  if (v27)
+  v25 = [self init];
+  v27 = v25;
+  if (v25)
   {
-    *&v28 = rect;
-    [v27 fakeRenderInContext:context atPosition:a2 andSize:position zRotation:{size, rotation, v28}];
-    [v29 setInnerRect:{a12, a13, a14, a15}];
-    [v29 setOuterRect:{a16, a17, a18, a19}];
+    *&v26 = rect;
+    [v25 fakeRenderInContext:context atPosition:a2 andSize:position zRotation:{size, rotation, v26}];
+    [v27 setInnerRect:{a12, a13, a14, a15}];
+    [v27 setOuterRect:{a16, a17, a18, a19}];
   }
 
-  return v29;
+  return v27;
 }
 
 - (void)reset

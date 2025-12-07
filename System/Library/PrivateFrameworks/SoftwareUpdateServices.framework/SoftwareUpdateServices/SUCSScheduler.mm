@@ -3,6 +3,9 @@
 + (BOOL)_getBoolForKeyPath:(id)path;
 + (BOOL)_hasNetworkConnection;
 + (id)batteryLevelPredicate:(id)predicate;
++ (id)carplayPredicate:(BOOL)predicate;
++ (id)networkPredicate:(BOOL)predicate;
++ (id)phoneCallPredicate:(BOOL)predicate;
 + (int)_batteryLevel;
 + (int)_getIntForKeyPath:(id)path;
 - (SUCSScheduler)init;
@@ -41,18 +44,18 @@
 
 - (void)registerInstallAlertConditionsWithHandler:(id)handler
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v23[4] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = MEMORY[0x277CFE360];
   v6 = [SUCSScheduler batteryLevelPredicate:&unk_287B6F7C0];
-  v24[0] = v6;
+  v23[0] = v6;
   v7 = [SUCSScheduler phoneCallPredicate:0];
-  v24[1] = v7;
+  v23[1] = v7;
   v8 = [SUCSScheduler networkPredicate:1];
-  v24[2] = v8;
+  v23[2] = v8;
   v9 = [SUCSScheduler carplayPredicate:0];
-  v24[3] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
+  v23[3] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
   v11 = [v5 andPredicateWithSubpredicates:v10];
 
   userContext = [MEMORY[0x277CFE318] userContext];
@@ -60,7 +63,7 @@
 
   if (v7)
   {
-    SULogInfo(@"Installation alert predicate conditions met", v13, v14, v15, v16, v17, v18, v19, v23);
+    SULogInfo(@"Installation alert predicate conditions met", v13, v14, v15, v16, v17, v18, v19, v22);
     handlerCopy[2](handlerCopy, @"com.apple.softwareupdateservicesd.installAlert");
   }
 
@@ -72,8 +75,6 @@
 
     [(_CDContext *)self->_context registerCallback:self->_registration];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterInstallationAlertAction
@@ -84,13 +85,50 @@
     if (context)
     {
       [(_CDContext *)context deregisterCallback:?];
-      registration = self->_registration;
     }
 
     self->_registration = 0;
 
     MEMORY[0x2821F9730]();
   }
+}
+
++ (id)networkPredicate:(BOOL)predicate
+{
+  predicateCopy = predicate;
+  v10[2] = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CFE338] predicateForCellConnectionAvailability:?];
+  v5 = [MEMORY[0x277CFE338] predicateForWiFiConnectionAvailability:predicateCopy];
+  v6 = MEMORY[0x277CFE360];
+  v10[0] = v4;
+  v10[1] = v5;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v8 = [v6 orPredicateWithSubpredicates:v7];
+
+  return v8;
+}
+
++ (id)phoneCallPredicate:(BOOL)predicate
+{
+  predicateCopy = predicate;
+  v16[2] = *MEMORY[0x277D85DE8];
+  v4 = MEMORY[0x277CFE360];
+  keyPathForCallInProgressStatus = [MEMORY[0x277CFE338] keyPathForCallInProgressStatus];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:predicateCopy];
+  v7 = [v4 predicateForKeyPath:keyPathForCallInProgressStatus equalToValue:v6];
+
+  v8 = MEMORY[0x277CFE360];
+  keyPathForCallInProgressStatus2 = [MEMORY[0x277CFE338] keyPathForCallInProgressStatus];
+  null = [MEMORY[0x277CBEB68] null];
+  v11 = [v8 predicateForKeyPath:keyPathForCallInProgressStatus2 equalToValue:null];
+
+  v12 = MEMORY[0x277CFE360];
+  v16[0] = v7;
+  v16[1] = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v14 = [v12 orPredicateWithSubpredicates:v13];
+
+  return v14;
 }
 
 + (id)batteryLevelPredicate:(id)predicate
@@ -110,6 +148,27 @@
   else
   {
     SULogInfo(@"Failed to create battery level _CDContextualPredicate", v8, v9, v10, v11, v12, v13, v14, keyPathForBatteryLevel2);
+  }
+
+  return v7;
+}
+
++ (id)carplayPredicate:(BOOL)predicate
+{
+  predicateCopy = predicate;
+  v4 = MEMORY[0x277CFE360];
+  keyPathForCarplayConnectedStatus = [MEMORY[0x277CFE338] keyPathForCarplayConnectedStatus];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:predicateCopy];
+  v7 = [v4 predicateForKeyPath:keyPathForCarplayConnectedStatus equalToValue:v6];
+
+  if (v7)
+  {
+    v15 = v7;
+  }
+
+  else
+  {
+    SULogInfo(@"Failed to create carplay _CDContextualPredicate", v8, v9, v10, v11, v12, v13, v14, v17);
   }
 
   return v7;

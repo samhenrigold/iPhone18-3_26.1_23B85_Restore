@@ -4,7 +4,7 @@
 + (id)morpher;
 + (id)weightIndexStringForIndex:(int64_t)index;
 - (BOOL)__removeAnimation:(id)animation forKey:(id)key;
-- (BOOL)_validateTargetsAndInBetweens:(void *)betweens inBetweenCounts:(void *)counts inBetweenWeights:;
+- (BOOL)_validateTargetsAndInBetweens:(void *)betweens inBetweenCounts:(void *)counts inBetweenWeights:(uint64_t)weights;
 - (BOOL)isAnimationForKeyPaused:(id)paused;
 - (CGFloat)weightForTargetAtIndex:(NSUInteger)targetIndex;
 - (CGFloat)weightForTargetNamed:(NSString *)targetName;
@@ -84,23 +84,24 @@
 
 - (SCNMorpher)init
 {
-  v5.receiver = self;
-  v5.super_class = SCNMorpher;
-  v2 = [(SCNMorpher *)&v5 init];
+  v7.receiver = self;
+  v7.super_class = SCNMorpher;
+  v2 = [(SCNMorpher *)&v7 init];
+  v4 = v2;
   if (v2)
   {
-    v3 = C3DMorphCreate();
-    v2->_morpher = v3;
-    if (v3)
+    v5 = C3DMorphCreate(v2, v3);
+    v4->_morpher = v5;
+    if (v5)
     {
-      C3DEntitySetObjCWrapper(v3, v2);
+      C3DEntitySetObjCWrapper(v5, v4);
     }
 
-    v2->_animationsLock._os_unfair_lock_opaque = 0;
-    [(SCNMorpher *)v2 _syncObjCModel];
+    v4->_animationsLock._os_unfair_lock_opaque = 0;
+    [(SCNMorpher *)v4 _syncObjCModel];
   }
 
-  return v2;
+  return v4;
 }
 
 - (SCNMorpher)initWithMorphRef:(__C3DMorph *)ref
@@ -207,7 +208,7 @@
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNMorpher setName:];
@@ -248,16 +249,17 @@ CFStringRef __22__SCNMorpher_setName___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNMorpher *)self sceneRef];
-  v5 = sceneRef;
+  v6 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v5);
   }
 
-  Name = C3DEntityGetName([(SCNMorpher *)self __CFObject]);
-  if (v5)
+  __CFObject = [(SCNMorpher *)self __CFObject];
+  Name = C3DEntityGetName(__CFObject, v8);
+  if (v6)
   {
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v9);
   }
 
   return Name;
@@ -274,14 +276,14 @@ CFStringRef __22__SCNMorpher_setName___block_invoke(uint64_t a1)
 {
   __CFObject = [(SCNMorpher *)self __CFObject];
 
-  return C3DEntityGetID(__CFObject);
+  return C3DEntityGetID(__CFObject, v3);
 }
 
 - (void)_syncEntityObjCModel
 {
   __CFObject = [(SCNMorpher *)self __CFObject];
 
-  self->_name = C3DEntityGetName(__CFObject);
+  self->_name = C3DEntityGetName(__CFObject, v4);
 }
 
 - (__C3DAnimationManager)animationManager
@@ -290,7 +292,7 @@ CFStringRef __22__SCNMorpher_setName___block_invoke(uint64_t a1)
   if (result)
   {
 
-    return C3DSceneGetAnimationManager(result);
+    return C3DSceneGetAnimationManager(result, v3);
   }
 
   return result;
@@ -309,12 +311,13 @@ CFStringRef __22__SCNMorpher_setName___block_invoke(uint64_t a1)
   {
     [(SCNOrderedDictionary *)self->_animations removeObjectForKey:key];
     __CFObject = [(SCNMorpher *)self __CFObject];
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v9 = scn_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [(SCNNode *)v9 __removeAnimation:v10 forKey:v11, v12, v13, v14, v15, v16];
+        [(SCNNode *)v11 __removeAnimation:v12 forKey:v13, v14, v15, v16, v17, v18];
       }
     }
 
@@ -358,7 +361,7 @@ CFStringRef __22__SCNMorpher_setName___block_invoke(uint64_t a1)
 
   else
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem addAnimationPlayer:forKey:];
@@ -404,7 +407,7 @@ void __40__SCNMorpher_addAnimationPlayer_forKey___block_invoke(uint64_t a1)
 
   else
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem addAnimation:forKey:];
@@ -497,10 +500,10 @@ void __40__SCNMorpher_addAnimationPlayer_forKey___block_invoke(uint64_t a1)
 - (void)_syncObjCAnimations
 {
   sceneRef = [(SCNMorpher *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   os_unfair_lock_lock(&self->_animationsLock);
@@ -510,29 +513,30 @@ void __40__SCNMorpher_addAnimationPlayer_forKey___block_invoke(uint64_t a1)
   __CFObject = [(SCNMorpher *)self __CFObject];
   if (__CFObject)
   {
-    v6 = __CFObject;
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v8 = __CFObject;
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [(SCNNode *)v7 _syncObjCAnimations:v8];
+        [(SCNNode *)v11 _syncObjCAnimations:v10];
       }
     }
 
-    Animations = C3DEntityGetAnimations(v6);
+    Animations = C3DEntityGetAnimations(v8, v10);
     if (Animations)
     {
-      v16 = Animations;
+      v19 = Animations;
       os_unfair_lock_lock(&self->_animationsLock);
-      C3DOrderedDictionaryApplyFunction(v16, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
+      C3DOrderedDictionaryApplyFunction(v19, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
       os_unfair_lock_unlock(&self->_animationsLock);
     }
   }
 
-  if (v4)
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v7);
   }
 }
 
@@ -701,21 +705,21 @@ void __39__SCNMorpher_setSpeed_forAnimationKey___block_invoke(uint64_t a1)
 - (BOOL)isAnimationForKeyPaused:(id)paused
 {
   sceneRef = [(SCNMorpher *)self sceneRef];
-  v6 = sceneRef;
+  v7 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v6);
   }
 
   __CFObject = [(SCNMorpher *)self __CFObject];
   if (__CFObject)
   {
-    v8 = __CFObject;
+    v10 = __CFObject;
     animationManager = [(SCNMorpher *)self animationManager];
     if (animationManager)
     {
-      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v8, paused);
-      if (!v6)
+      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v10, paused);
+      if (!v7)
       {
         return IsPaused;
       }
@@ -725,10 +729,10 @@ void __39__SCNMorpher_setSpeed_forAnimationKey___block_invoke(uint64_t a1)
   }
 
   IsPaused = 0;
-  if (v6)
+  if (v7)
   {
 LABEL_8:
-    C3DSceneUnlock(v6);
+    C3DSceneUnlock(v7, v9);
   }
 
   return IsPaused;
@@ -822,16 +826,16 @@ void __31__SCNMorpher_removeAllBindings__block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) __CFObject];
 
-  C3DEntityRemoveAllBindings(v1);
+  C3DEntityRemoveAllBindings(v1, v2);
 }
 
 - (void)_syncObjCModel
 {
   sceneRef = [(SCNMorpher *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   morpher = self->_morpher;
@@ -841,149 +845,149 @@ void __31__SCNMorpher_removeAllBindings__block_invoke(uint64_t a1)
   }
 
   self->_unifyNormal = C3DMorphGetMorphNormals(self->_morpher) ^ 1;
-  self->_useSparseTargets = C3DMorphIsUsingSparseTargets(morpher);
-  v6 = C3DMorphCopyMainTargets(morpher);
-  if (v6)
+  self->_useSparseTargets = C3DMorphIsUsingSparseTargets(morpher, v7);
+  v8 = C3DMorphCopyMainTargets(morpher);
+  if (v8)
   {
-    v7 = v6;
+    v9 = v8;
 
     [(SCNMorpher *)self clearInBetweens];
     [(SCNMorpher *)self clearCorrectives];
-    self->_mainTargets = _createSCNGeometryArrayFromC3DGeometryArray(v7);
-    Count = CFArrayGetCount(v7);
-    v9 = Count < 1;
+    self->_mainTargets = _createSCNGeometryArrayFromC3DGeometryArray(v9);
+    Count = CFArrayGetCount(v9);
+    v11 = Count < 1;
     if (Count >= 1)
     {
-      v10 = Count;
+      v12 = Count;
       self->_weightCount = Count;
-      v11 = 0;
+      v13 = 0;
       self->_weights = malloc_type_realloc(self->_weights, 4 * Count, 0x100004052888210uLL);
       do
       {
-        self->_weights[v11] = C3DMorphGetWeightAtIndex(morpher, v11);
-        ++v11;
+        self->_weights[v13] = C3DMorphGetWeightAtIndex(morpher, v13);
+        ++v13;
       }
 
-      while (v10 != v11);
+      while (v12 != v13);
     }
 
-    CFRelease(v7);
+    CFRelease(v9);
   }
 
   else
   {
-    v9 = 1;
+    v11 = 1;
   }
 
-  v35 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v32 = 0u;
-  C3DMorpherGetExtraTargetInfo(morpher, &v32);
-  v12 = DWORD1(v32);
-  if (DWORD1(v32))
+  v37 = 0u;
+  v35 = 0u;
+  C3DMorpherGetExtraTargetInfo(morpher, &v35);
+  v14 = DWORD1(v35);
+  if (DWORD1(v35))
   {
-    v13 = (v32 + DWORD1(v32));
+    v15 = (v35 + DWORD1(v35));
     OverrideMaterial = C3DGeometryGetOverrideMaterial(morpher);
-    self->_mainTargetsAndInBetweens = _createSCNGeometrySubArrayFromC3DGeometryArray(OverrideMaterial, 0, v13);
-    v15 = objc_alloc(MEMORY[0x277CBEB18]);
-    self->_inBetweenCounts = [v15 initWithCapacity:v32];
-    if (v32)
+    self->_mainTargetsAndInBetweens = _createSCNGeometrySubArrayFromC3DGeometryArray(OverrideMaterial, 0, v15);
+    v17 = objc_alloc(MEMORY[0x277CBEB18]);
+    self->_inBetweenCounts = [v17 initWithCapacity:v35];
+    if (v35)
     {
-      v16 = 0;
+      v18 = 0;
       do
       {
-        -[NSArray addObject:](self->_inBetweenCounts, "addObject:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*(&v32 + 1) + 4 * v16++)]);
+        -[NSArray addObject:](self->_inBetweenCounts, "addObject:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*(&v35 + 1) + 4 * v18++)]);
       }
 
-      while (v16 < v32);
+      while (v18 < v35);
     }
 
-    v17 = objc_alloc(MEMORY[0x277CBEB18]);
-    self->_inBetweenInfluenceWeights = [v17 initWithCapacity:DWORD1(v32)];
-    v12 = DWORD1(v32);
-    if (DWORD1(v32))
+    v19 = objc_alloc(MEMORY[0x277CBEB18]);
+    self->_inBetweenInfluenceWeights = [v19 initWithCapacity:DWORD1(v35)];
+    v14 = DWORD1(v35);
+    if (DWORD1(v35))
     {
-      v19 = 0;
+      v21 = 0;
       do
       {
-        LODWORD(v18) = *(v33 + 4 * v19);
-        -[NSArray addObject:](self->_inBetweenInfluenceWeights, "addObject:", [MEMORY[0x277CCABB0] numberWithFloat:v18]);
-        ++v19;
-        v12 = DWORD1(v32);
+        LODWORD(v20) = *(v36 + 4 * v21);
+        -[NSArray addObject:](self->_inBetweenInfluenceWeights, "addObject:", [MEMORY[0x277CCABB0] numberWithFloat:v20]);
+        ++v21;
+        v14 = DWORD1(v35);
       }
 
-      while (v19 < DWORD1(v32));
+      while (v21 < DWORD1(v35));
     }
   }
 
-  if (DWORD2(v33))
+  if (DWORD2(v36))
   {
-    v20 = (v12 + v32);
-    v21 = (DWORD2(v35) + DWORD2(v33));
-    v22 = C3DGeometryGetOverrideMaterial(morpher);
-    self->_correctivesAndInBetweens = _createSCNGeometrySubArrayFromC3DGeometryArray(v22, v20, v21);
-    v23 = objc_alloc(MEMORY[0x277CBEB18]);
-    self->_correctiveDriverCounts = [v23 initWithCapacity:DWORD2(v33)];
-    if (DWORD2(v33))
-    {
-      v24 = 0;
-      do
-      {
-        -[NSArray addObject:](self->_correctiveDriverCounts, "addObject:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v34 + 4 * v24++)]);
-      }
-
-      while (v24 < DWORD2(v33));
-    }
-
+    v22 = (v14 + v35);
+    v23 = (DWORD2(v38) + DWORD2(v36));
+    v24 = C3DGeometryGetOverrideMaterial(morpher);
+    self->_correctivesAndInBetweens = _createSCNGeometrySubArrayFromC3DGeometryArray(v24, v22, v23);
     v25 = objc_alloc(MEMORY[0x277CBEB18]);
-    self->_correctiveDriverIndices = [v25 initWithCapacity:DWORD2(v34)];
-    if (DWORD2(v34))
+    self->_correctiveDriverCounts = [v25 initWithCapacity:DWORD2(v36)];
+    if (DWORD2(v36))
     {
       v26 = 0;
       do
       {
-        -[NSArray addObject:](self->_correctiveDriverIndices, "addObject:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v35 + 4 * v26++)]);
+        -[NSArray addObject:](self->_correctiveDriverCounts, "addObject:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v37 + 4 * v26++)]);
       }
 
-      while (v26 < DWORD2(v34));
+      while (v26 < DWORD2(v36));
     }
 
-    if (DWORD2(v35))
+    v27 = objc_alloc(MEMORY[0x277CBEB18]);
+    self->_correctiveDriverIndices = [v27 initWithCapacity:DWORD2(v37)];
+    if (DWORD2(v37))
     {
-      v27 = objc_alloc(MEMORY[0x277CBEB18]);
-      self->_correctiveInBetweenCounts = [v27 initWithCapacity:DWORD2(v33)];
-      if (DWORD2(v33))
+      v28 = 0;
+      do
       {
-        v28 = 0;
-        do
-        {
-          -[NSArray addObject:](self->_correctiveInBetweenCounts, "addObject:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v36 + 4 * v28++)]);
-        }
-
-        while (v28 < DWORD2(v33));
+        -[NSArray addObject:](self->_correctiveDriverIndices, "addObject:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v38 + 4 * v28++)]);
       }
 
+      while (v28 < DWORD2(v37));
+    }
+
+    if (DWORD2(v38))
+    {
       v29 = objc_alloc(MEMORY[0x277CBEB18]);
-      self->_correctiveInBetweenInfluenceWeights = [v29 initWithCapacity:DWORD2(v35)];
-      if (DWORD2(v35))
+      self->_correctiveInBetweenCounts = [v29 initWithCapacity:DWORD2(v36)];
+      if (DWORD2(v36))
       {
-        v31 = 0;
+        v30 = 0;
         do
         {
-          LODWORD(v30) = *(*(&v36 + 1) + 4 * v31);
-          -[NSArray addObject:](self->_correctiveInBetweenInfluenceWeights, "addObject:", [MEMORY[0x277CCABB0] numberWithFloat:v30]);
-          ++v31;
+          -[NSArray addObject:](self->_correctiveInBetweenCounts, "addObject:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v39 + 4 * v30++)]);
         }
 
-        while (v31 < DWORD2(v35));
+        while (v30 < DWORD2(v36));
+      }
+
+      v31 = objc_alloc(MEMORY[0x277CBEB18]);
+      self->_correctiveInBetweenInfluenceWeights = [v31 initWithCapacity:DWORD2(v38)];
+      if (DWORD2(v38))
+      {
+        v33 = 0;
+        do
+        {
+          LODWORD(v32) = *(*(&v39 + 1) + 4 * v33);
+          -[NSArray addObject:](self->_correctiveInBetweenInfluenceWeights, "addObject:", [MEMORY[0x277CCABB0] numberWithFloat:v32]);
+          ++v33;
+        }
+
+        while (v33 < DWORD2(v38));
       }
     }
   }
 
   self->_calculationMode = C3DMorphGetCalculationMode(morpher) == 1;
-  if (v9)
+  if (v11)
   {
 LABEL_32:
     free(self->_weights);
@@ -991,9 +995,9 @@ LABEL_32:
   }
 
   [(SCNMorpher *)self _syncEntityObjCModel];
-  if (v4)
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v34);
   }
 }
 
@@ -1053,17 +1057,17 @@ void __25__SCNMorpher_setTargets___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNMorpher *)self sceneRef];
-  v5 = sceneRef;
+  v6 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v5);
   }
 
   morpher = self->_morpher;
-  if (!morpher || (v7 = C3DMorphCopyMainTargets(morpher)) == 0)
+  if (!morpher || (v8 = C3DMorphCopyMainTargets(morpher)) == 0)
   {
     SCNGeometryArrayFromC3DGeometryArray = 0;
-    if (!v5)
+    if (!v6)
     {
       goto LABEL_12;
     }
@@ -1071,13 +1075,13 @@ void __25__SCNMorpher_setTargets___block_invoke(uint64_t a1)
     goto LABEL_11;
   }
 
-  v8 = v7;
-  SCNGeometryArrayFromC3DGeometryArray = _createSCNGeometryArrayFromC3DGeometryArray(v7);
-  CFRelease(v8);
-  if (v5)
+  v9 = v8;
+  SCNGeometryArrayFromC3DGeometryArray = _createSCNGeometryArrayFromC3DGeometryArray(v8);
+  CFRelease(v9);
+  if (v6)
   {
 LABEL_11:
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v5);
   }
 
 LABEL_12:
@@ -1095,27 +1099,27 @@ LABEL_12:
   if (*(self + 16))
   {
     sceneRef = [(SCNMorpher *)self sceneRef];
-    v11 = sceneRef;
+    v12 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v11);
     }
 
     morpher = self->_morpher;
     if (morpher)
     {
-      WeightCount = C3DMorphGetWeightCount(self->_morpher);
-      v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:WeightCount];
+      WeightCount = C3DMorphGetWeightCount(self->_morpher, v11);
+      v15 = [MEMORY[0x277CBEB18] arrayWithCapacity:WeightCount];
       if (WeightCount >= 1)
       {
         for (i = 0; i != WeightCount; ++i)
         {
-          *&v16 = C3DMorphGetWeightAtIndex(morpher, i);
-          -[NSArray addObject:](v14, "addObject:", [MEMORY[0x277CCABB0] numberWithFloat:v16]);
+          *&v17 = C3DMorphGetWeightAtIndex(morpher, i);
+          -[NSArray addObject:](v15, "addObject:", [MEMORY[0x277CCABB0] numberWithFloat:v17]);
         }
       }
 
-      if (!v11)
+      if (!v12)
       {
         goto LABEL_17;
       }
@@ -1123,13 +1127,13 @@ LABEL_12:
 
     else
     {
-      v14 = 0;
-      if (!v11)
+      v15 = 0;
+      if (!v12)
       {
 LABEL_17:
-        if (v14)
+        if (v15)
         {
-          return v14;
+          return v15;
         }
 
         else
@@ -1139,7 +1143,7 @@ LABEL_17:
       }
     }
 
-    C3DSceneUnlock(v11);
+    C3DSceneUnlock(v12, v11);
     goto LABEL_17;
   }
 
@@ -1327,7 +1331,7 @@ void __25__SCNMorpher_setWeights___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __40__SCNMorpher_weightIndexStringForIndex___block_invoke()
+void *__40__SCNMorpher_weightIndexStringForIndex___block_invoke()
 {
   for (i = 0; i != 128; ++i)
   {
@@ -1340,11 +1344,11 @@ uint64_t __40__SCNMorpher_weightIndexStringForIndex___block_invoke()
 
 - (void)setWeight:(CGFloat)weight forTargetAtIndex:(NSUInteger)targetIndex
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*(self + 16))
   {
-    v13 = scn_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = scn_default_log(self, a2);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SCNMorpher setWeight:forTargetAtIndex:];
     }
@@ -1355,17 +1359,17 @@ uint64_t __40__SCNMorpher_weightIndexStringForIndex___block_invoke()
     v7 = [(NSArray *)self->_mainTargets count];
     if (v7 <= targetIndex)
     {
-      v14 = v7;
-      v15 = scn_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v15 = v7;
+      v16 = scn_default_log(v7, v8);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
         selfCopy = self;
-        v19 = 1024;
-        v20 = targetIndex;
-        v21 = 1024;
-        v22 = v14;
-        _os_log_error_impl(&dword_21BEF7000, v15, OS_LOG_TYPE_ERROR, "Error: %@ setWeight:forTargetAtIndex:%d - index out of bounds (%d)", buf, 0x18u);
+        v20 = 1024;
+        v21 = targetIndex;
+        v22 = 1024;
+        v23 = v15;
+        _os_log_error_impl(&dword_21BEF7000, v16, OS_LOG_TYPE_ERROR, "Error: %@ setWeight:forTargetAtIndex:%d - index out of bounds (%d)", buf, 0x18u);
       }
     }
 
@@ -1373,27 +1377,27 @@ uint64_t __40__SCNMorpher_weightIndexStringForIndex___block_invoke()
     {
       if (self->_weightCount <= targetIndex)
       {
-        v8 = malloc_type_realloc(self->_weights, 4 * (targetIndex + 1), 0x100004052888210uLL);
-        self->_weights = v8;
-        bzero(&v8[self->_weightCount], 4 * (targetIndex + 1 - self->_weightCount));
+        v9 = malloc_type_realloc(self->_weights, 4 * (targetIndex + 1), 0x100004052888210uLL);
+        self->_weights = v9;
+        bzero(&v9[self->_weightCount], 4 * (targetIndex + 1 - self->_weightCount));
         self->_weightCount = targetIndex + 1;
       }
 
       weights = self->_weights;
       if (weights[targetIndex] != weight)
       {
-        v10 = weight;
-        weights[targetIndex] = v10;
-        v11 = [SCNMorpher weightIndexStringForIndex:targetIndex];
+        v11 = weight;
+        weights[targetIndex] = v11;
+        v12 = [SCNMorpher weightIndexStringForIndex:targetIndex];
         sceneRef = [(SCNMorpher *)self sceneRef];
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __41__SCNMorpher_setWeight_forTargetAtIndex___block_invoke;
-        v16[3] = &unk_2782FE238;
-        v16[4] = self;
-        v16[5] = targetIndex;
-        *&v16[6] = weight;
-        [SCNTransaction postCommandWithContext:sceneRef object:self key:@"weights" subscriptIndex:targetIndex derivedKeyPath:v11 applyBlock:v16];
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __41__SCNMorpher_setWeight_forTargetAtIndex___block_invoke;
+        v17[3] = &unk_2782FE238;
+        v17[4] = self;
+        v17[5] = targetIndex;
+        *&v17[6] = weight;
+        [SCNTransaction postCommandWithContext:sceneRef object:self key:@"weights" subscriptIndex:targetIndex derivedKeyPath:v12 applyBlock:v17];
       }
     }
   }
@@ -1416,17 +1420,17 @@ void __41__SCNMorpher_setWeight_forTargetAtIndex___block_invoke(uint64_t a1)
   if (*(self + 16))
   {
     sceneRef = [(SCNMorpher *)self sceneRef];
-    v7 = sceneRef;
+    v8 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v7);
     }
 
     morpher = self->_morpher;
     if (morpher)
     {
       WeightAtIndex = C3DMorphGetWeightAtIndex(morpher, targetIndex);
-      if (!v7)
+      if (!v8)
       {
         return WeightAtIndex;
       }
@@ -1435,13 +1439,13 @@ void __41__SCNMorpher_setWeight_forTargetAtIndex___block_invoke(uint64_t a1)
     else
     {
       WeightAtIndex = 0.0;
-      if (!v7)
+      if (!v8)
       {
         return WeightAtIndex;
       }
     }
 
-    C3DSceneUnlock(v7);
+    C3DSceneUnlock(v8, v7);
     return WeightAtIndex;
   }
 
@@ -1456,12 +1460,13 @@ void __41__SCNMorpher_setWeight_forTargetAtIndex___block_invoke(uint64_t a1)
 
 - (double)_presentationWeightForTargetAtIndex:(unint64_t)index token:(const void *)token
 {
-  if (*token != [(SCNMorpher *)self sceneRef])
+  sceneRef = [(SCNMorpher *)self sceneRef];
+  if (*token != sceneRef)
   {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v9 = scn_default_log(sceneRef, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMorpher *)v6 _presentationWeightForTargetAtIndex:v7 token:v8, v9, v10, v11, v12, v13];
+      [(SCNMorpher *)v9 _presentationWeightForTargetAtIndex:v10 token:v11, v12, v13, v14, v15, v16];
     }
   }
 
@@ -1544,12 +1549,13 @@ void __41__SCNMorpher_setWeight_forTargetAtIndex___block_invoke(uint64_t a1)
   }
 
   v6 = [(NSArray *)mainTargetsAndInBetweens count];
-  if (v6 != [between count])
+  v7 = [between count];
+  if (v6 != v7)
   {
-    v7 = scn_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v9 = scn_default_log(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMorpher *)v7 _updateTargetsAndInBetween:v8, v9, v10, v11, v12, v13, v14];
+      [(SCNMorpher *)v9 _updateTargetsAndInBetween:v10, v11, v12, v13, v14, v15, v16];
     }
   }
 
@@ -1559,12 +1565,13 @@ void __41__SCNMorpher_setWeight_forTargetAtIndex___block_invoke(uint64_t a1)
 - (void)_updateCorrectivesAndInBetween:(id)between
 {
   v5 = [(NSArray *)self->_correctivesAndInBetweens count];
-  if (v5 != [between count])
+  v6 = [between count];
+  if (v5 != v6)
   {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v8 = scn_default_log(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMorpher *)v6 _updateCorrectivesAndInBetween:v7, v8, v9, v10, v11, v12, v13];
+      [(SCNMorpher *)v8 _updateCorrectivesAndInBetween:v9, v10, v11, v12, v13, v14, v15];
     }
   }
 
@@ -1746,19 +1753,19 @@ void __41__SCNMorpher_setWeight_forTargetAtIndex___block_invoke(uint64_t a1)
 - (void)setTargetsAndInBetweens:(id)betweens inBetweenCounts:(id)counts inBetweenWeights:(id)weights correctives:(id)correctives driverCounts:(id)driverCounts driverIndices:(id)indices inBetweenCounts:(id)betweenCounts inBetweenWeights:(id)self0
 {
   betweenCountsCopy = betweenCounts;
-  v71 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   countsCopy = counts;
   betweensCopy = betweens;
   correctivesCopy = correctives;
   weightsCopy = weights;
   v18 = [counts count];
   v19 = [correctives count];
-  v20 = v19;
+  v24 = v19;
   if (v19)
   {
     indicesCopy2 = indices;
-    v54 = v19 != 0;
-    v21 = [betweenCountsCopy count] != 0;
+    v62 = v19 != 0;
+    v25 = [betweenCountsCopy count] != 0;
     if (!v18)
     {
       goto LABEL_3;
@@ -1770,83 +1777,85 @@ void __41__SCNMorpher_setWeight_forTargetAtIndex___block_invoke(uint64_t a1)
   if (v18)
   {
     indicesCopy2 = indices;
-    v54 = v19 != 0;
-    v21 = 0;
+    v62 = v19 != 0;
+    v25 = 0;
 LABEL_29:
-    if ([(SCNMorpher *)self _validateTargetsAndInBetweens:betweens inBetweenCounts:counts inBetweenWeights:weights])
+    v43 = [(SCNMorpher *)self _validateTargetsAndInBetweens:betweens inBetweenCounts:counts inBetweenWeights:weights, v20, v21, v22, v23];
+    if (v43)
     {
-      v50 = v20;
+      v58 = v24;
       driverCountsCopy = driverCounts;
       [(SCNMorpher *)self _sortTargetsAndInBetweens:&countsCopy inBetweenCounts:&weightsCopy inBetweenWeights:?];
-      v51 = v21;
-      if (v21)
+      v59 = v25;
+      if (v25)
       {
         [(SCNMorpher *)self _sortTargetsAndInBetweens:&betweenCounts inBetweenCounts:&betweenWeights inBetweenWeights:?];
       }
 
-      v40 = objc_alloc(MEMORY[0x277CBEB18]);
-      v41 = countsCopy;
-      v42 = [v40 initWithCapacity:{-[NSArray count](countsCopy, "count")}];
-      v60 = 0u;
-      v61 = 0u;
-      v62 = 0u;
-      v63 = 0u;
-      v43 = [(NSArray *)v41 countByEnumeratingWithState:&v60 objects:v70 count:16];
-      v23 = betweensCopy;
-      if (v43)
+      v46 = objc_alloc(MEMORY[0x277CBEB18]);
+      v47 = countsCopy;
+      v48 = [v46 initWithCapacity:{-[NSArray count](countsCopy, "count")}];
+      v68 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v71 = 0u;
+      v49 = [(NSArray *)v47 countByEnumeratingWithState:&v68 objects:v78 count:16];
+      v27 = betweensCopy;
+      if (v49)
       {
-        v44 = v43;
-        v45 = 0;
-        v46 = *v61;
+        v50 = v49;
+        v51 = 0;
+        v52 = *v69;
         do
         {
-          for (i = 0; i != v44; ++i)
+          for (i = 0; i != v50; ++i)
           {
-            if (*v61 != v46)
+            if (*v69 != v52)
             {
-              objc_enumerationMutation(v41);
+              objc_enumerationMutation(v47);
             }
 
-            v45 += [*(*(&v60 + 1) + 8 * i) unsignedIntegerValue];
-            if (v45 - 1 >= [(NSArray *)v23 count])
+            v51 += [*(*(&v68 + 1) + 8 * i) unsignedIntegerValue];
+            v54 = [(NSArray *)v27 count];
+            if (v51 - 1 >= v54)
             {
-              v48 = scn_default_log();
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
+              v56 = scn_default_log(v54, v55);
+              if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
               {
-                [SCNMorpher setTargetsAndInBetweens:buf inBetweenCounts:&v69 inBetweenWeights:v48 correctives:? driverCounts:? driverIndices:? inBetweenCounts:? inBetweenWeights:?];
+                [SCNMorpher setTargetsAndInBetweens:buf inBetweenCounts:&v77 inBetweenWeights:v56 correctives:? driverCounts:? driverIndices:? inBetweenCounts:? inBetweenWeights:?];
               }
             }
 
-            [(NSArray *)v42 addObject:[(NSArray *)v23 objectAtIndexedSubscript:v45 - 1]];
+            [(NSArray *)v48 addObject:[(NSArray *)v27 objectAtIndexedSubscript:v51 - 1]];
           }
 
-          v44 = [(NSArray *)v41 countByEnumeratingWithState:&v60 objects:v70 count:16];
+          v50 = [(NSArray *)v47 countByEnumeratingWithState:&v68 objects:v78 count:16];
         }
 
-        while (v44);
+        while (v50);
       }
 
-      self->_mainTargets = v42;
+      self->_mainTargets = v48;
       mainTargetsAndInBetweens = self->_mainTargetsAndInBetweens;
-      if (mainTargetsAndInBetweens != v23)
+      if (mainTargetsAndInBetweens != v27)
       {
 
-        self->_mainTargetsAndInBetweens = [(NSArray *)v23 copy];
+        self->_mainTargetsAndInBetweens = [(NSArray *)v27 copy];
       }
 
-      v53 = 1;
+      v61 = 1;
       driverCounts = driverCountsCopy;
-      LOBYTE(v21) = v51;
-      v20 = v50;
+      LOBYTE(v25) = v59;
+      v24 = v58;
       goto LABEL_7;
     }
 
-    v39 = scn_default_log();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v45 = scn_default_log(v43, v44);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_21BEF7000, v39, OS_LOG_TYPE_ERROR, "Error: invalid in-between buffer, ignoring in-betweens", buf, 2u);
-      if (!v21)
+      _os_log_error_impl(&dword_21BEF7000, v45, OS_LOG_TYPE_ERROR, "Error: invalid in-between buffer, ignoring in-betweens", buf, 2u);
+      if (!v25)
       {
         goto LABEL_4;
       }
@@ -1855,18 +1864,18 @@ LABEL_29:
     }
 
 LABEL_3:
-    if (!v21)
+    if (!v25)
     {
 LABEL_4:
       mainTargets = self->_mainTargets;
-      v23 = betweensCopy;
+      v27 = betweensCopy;
       if (mainTargets != betweensCopy)
       {
 
-        self->_mainTargets = [(NSArray *)v23 copy];
+        self->_mainTargets = [(NSArray *)v27 copy];
       }
 
-      v53 = 0;
+      v61 = 0;
       self->_mainTargetsAndInBetweens = 0;
 LABEL_7:
 
@@ -1875,27 +1884,27 @@ LABEL_7:
       self->_weightCount = 0;
       self->_weights = 0;
       inBetweenInfluenceWeights = self->_inBetweenInfluenceWeights;
-      v25 = weightsCopy;
+      v29 = weightsCopy;
       if (inBetweenInfluenceWeights != weightsCopy)
       {
 
-        self->_inBetweenInfluenceWeights = [(NSArray *)v25 copy];
+        self->_inBetweenInfluenceWeights = [(NSArray *)v29 copy];
       }
 
       inBetweenCounts = self->_inBetweenCounts;
-      v27 = countsCopy;
+      v31 = countsCopy;
       if (inBetweenCounts != countsCopy)
       {
 
-        self->_inBetweenCounts = [(NSArray *)v27 copy];
+        self->_inBetweenCounts = [(NSArray *)v31 copy];
       }
 
       correctivesAndInBetweens = self->_correctivesAndInBetweens;
-      v29 = correctivesCopy;
+      v33 = correctivesCopy;
       if (correctivesAndInBetweens != correctivesCopy)
       {
 
-        self->_correctivesAndInBetweens = [(NSArray *)v29 copy];
+        self->_correctivesAndInBetweens = [(NSArray *)v33 copy];
       }
 
       correctiveDriverCounts = self->_correctiveDriverCounts;
@@ -1929,30 +1938,30 @@ LABEL_7:
         self->_correctiveInBetweenInfluenceWeights = [betweenWeightsCopy copy];
       }
 
-      if (v20)
+      if (v24)
       {
-        v23 = [(NSArray *)v23 arrayByAddingObjectsFromArray:v29];
+        v27 = [(NSArray *)v27 arrayByAddingObjectsFromArray:v33];
       }
 
-      C3DGeometryArrayFromSCNGeometryArray = _createC3DGeometryArrayFromSCNGeometryArray(v23);
+      C3DGeometryArrayFromSCNGeometryArray = _createC3DGeometryArrayFromSCNGeometryArray(v27);
       sceneRef = [(SCNMorpher *)self sceneRef];
-      v56[0] = MEMORY[0x277D85DD0];
-      v56[1] = 3221225472;
-      v56[2] = __143__SCNMorpher_setTargetsAndInBetweens_inBetweenCounts_inBetweenWeights_correctives_driverCounts_driverIndices_inBetweenCounts_inBetweenWeights___block_invoke;
-      v56[3] = &unk_2783003A8;
-      v57 = v53;
-      v56[4] = v27;
-      v56[5] = v25;
-      v58 = v54;
-      v56[6] = betweensCopy;
-      v56[7] = driverCountsCopy2;
-      v59 = v21;
-      v56[8] = indicesCopy2;
-      v56[9] = betweenCountsCopy2;
-      v56[10] = betweenWeightsCopy;
-      v56[11] = self;
-      v56[12] = C3DGeometryArrayFromSCNGeometryArray;
-      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v56];
+      v64[0] = MEMORY[0x277D85DD0];
+      v64[1] = 3221225472;
+      v64[2] = __143__SCNMorpher_setTargetsAndInBetweens_inBetweenCounts_inBetweenWeights_correctives_driverCounts_driverIndices_inBetweenCounts_inBetweenWeights___block_invoke;
+      v64[3] = &unk_2783003A8;
+      v65 = v61;
+      v64[4] = v31;
+      v64[5] = v29;
+      v66 = v62;
+      v64[6] = betweensCopy;
+      v64[7] = driverCountsCopy2;
+      v67 = v25;
+      v64[8] = indicesCopy2;
+      v64[9] = betweenCountsCopy2;
+      v64[10] = betweenWeightsCopy;
+      v64[11] = self;
+      v64[12] = C3DGeometryArrayFromSCNGeometryArray;
+      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v64];
 
       return;
     }
@@ -2134,7 +2143,7 @@ uint64_t __73__SCNMorpher__sortTargetsAndInBetweens_inBetweenCounts_inBetweenWei
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNMorpher setCalculationMode:];
@@ -2155,7 +2164,7 @@ uint64_t __73__SCNMorpher__sortTargetsAndInBetweens_inBetweenCounts_inBetweenWei
   }
 }
 
-uint64_t __33__SCNMorpher_setCalculationMode___block_invoke(uint64_t a1)
+void *__33__SCNMorpher_setCalculationMode___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) morphRef];
   if (result)
@@ -2173,17 +2182,17 @@ uint64_t __33__SCNMorpher_setCalculationMode___block_invoke(uint64_t a1)
   if (*(self + 16))
   {
     sceneRef = [(SCNMorpher *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
     morpher = self->_morpher;
     if (morpher)
     {
       v3 = (C3DMorphGetCalculationMode(morpher) == 1);
-      if (!v5)
+      if (!v6)
       {
         return v3;
       }
@@ -2192,13 +2201,13 @@ uint64_t __33__SCNMorpher_setCalculationMode___block_invoke(uint64_t a1)
     else
     {
       v3 = SCNMorpherCalculationModeNormalized;
-      if (!v5)
+      if (!v6)
       {
         return v3;
       }
     }
 
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v5);
     return v3;
   }
 
@@ -2223,7 +2232,7 @@ uint64_t __33__SCNMorpher_setCalculationMode___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __32__SCNMorpher_setUnifiesNormals___block_invoke(uint64_t a1)
+void *__32__SCNMorpher_setUnifiesNormals___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) morphRef];
   if (result)
@@ -2241,10 +2250,10 @@ uint64_t __32__SCNMorpher_setUnifiesNormals___block_invoke(uint64_t a1)
   sceneRef = [(SCNMorpher *)self sceneRef];
   if (sceneRef)
   {
-    v4 = sceneRef;
-    C3DSceneLock(sceneRef);
-    WeightIncrementalThreshold = C3DMorphGetWeightIncrementalThreshold(self->_morpher);
-    C3DSceneUnlock(v4);
+    v5 = sceneRef;
+    C3DSceneLock(sceneRef, v4);
+    WeightIncrementalThreshold = C3DMorphGetWeightIncrementalThreshold(self->_morpher, v6);
+    C3DSceneUnlock(v5, v8);
     return WeightIncrementalThreshold;
   }
 
@@ -2252,7 +2261,7 @@ uint64_t __32__SCNMorpher_setUnifiesNormals___block_invoke(uint64_t a1)
   {
     morpher = self->_morpher;
 
-    return C3DMorphGetWeightIncrementalThreshold(morpher);
+    return C3DMorphGetWeightIncrementalThreshold(morpher, v4);
   }
 }
 
@@ -2271,9 +2280,9 @@ uint64_t __32__SCNMorpher_setUnifiesNormals___block_invoke(uint64_t a1)
 void __44__SCNMorpher_setWeightIncrementalThreshold___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) morphRef];
-  v3 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  C3DMorphSetWeightIncrementalThreshold(v2, v3);
+  C3DMorphSetWeightIncrementalThreshold(v2, v3, v4);
 }
 
 - (void)convertToAdditiveWithBaseGeometry:(id)geometry
@@ -2288,7 +2297,7 @@ void __44__SCNMorpher_setWeightIncrementalThreshold___block_invoke(uint64_t a1)
   [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v6];
 }
 
-uint64_t __48__SCNMorpher_convertToAdditiveWithBaseGeometry___block_invoke(uint64_t a1)
+void *__48__SCNMorpher_convertToAdditiveWithBaseGeometry___block_invoke(uint64_t a1)
 {
   result = C3DMorphConvertToCalculationMode([*(a1 + 32) morphRef], objc_msgSend(*(a1 + 40), "geometryRef"), 1, &__block_literal_global_32_0);
   if (result)
@@ -2313,7 +2322,7 @@ uint64_t __48__SCNMorpher_convertToAdditiveWithBaseGeometry___block_invoke(uint6
   [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v6];
 }
 
-uint64_t __46__SCNMorpher_convertToSparseWithBaseGeometry___block_invoke(uint64_t a1)
+void *__46__SCNMorpher_convertToSparseWithBaseGeometry___block_invoke(uint64_t a1)
 {
   result = C3DMorphConvertToSparse([*(a1 + 32) morphRef], objc_msgSend(*(a1 + 40), "geometryRef"), 1, &__block_literal_global_32_0);
   if (result)
@@ -2330,7 +2339,7 @@ uint64_t __46__SCNMorpher_convertToSparseWithBaseGeometry___block_invoke(uint64_
 {
   __CFObject = [(SCNMorpher *)self __CFObject];
 
-  return C3DGetScene(__CFObject);
+  return C3DGetScene(__CFObject, v3);
 }
 
 - (id)scene
@@ -2388,7 +2397,7 @@ uint64_t __46__SCNMorpher_convertToSparseWithBaseGeometry___block_invoke(uint64_
 
 - (void)_customDecodingOfSCNMorpher:(id)morpher
 {
-  v4 = C3DMorphCreate();
+  v4 = C3DMorphCreate(self, a2);
   self->_morpher = v4;
   if (v4)
   {
@@ -2420,7 +2429,7 @@ uint64_t __46__SCNMorpher_convertToSparseWithBaseGeometry___block_invoke(uint64_
 {
   if (*(self + 16))
   {
-    v11 = scn_default_log();
+    v11 = scn_default_log(self, a2);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SCNMorpher setValue:forUndefinedKey:];
@@ -2449,7 +2458,7 @@ uint64_t __46__SCNMorpher_convertToSparseWithBaseGeometry___block_invoke(uint64_
   WeightsSource = C3DMorphGetWeightsSource(self->_morpher);
   if (WeightsSource)
   {
-    ID = C3DEntityGetID(WeightsSource);
+    ID = C3DEntityGetID(WeightsSource, v5);
     if (ID)
     {
 
@@ -2724,7 +2733,7 @@ LABEL_33:
 
 + (Class)SCNUID_classForElementOfArray:(id)array
 {
-  if (([array isEqualToString:@"weights"] & 1) == 0 && (objc_msgSend(array, "isEqualToString:", @"channelTargetWeights") & 1) == 0 && !objc_msgSend(array, "isEqualToString:", @"channelTargetCounts"))
+  if ((objc_msgSend_isEqualToString_(array, a2, @"weights") & 1) == 0 && (objc_msgSend_isEqualToString_(array) & 1) == 0 && !objc_msgSend_isEqualToString_(array))
   {
     return 0;
   }
@@ -2732,53 +2741,54 @@ LABEL_33:
   return objc_opt_class();
 }
 
-- (BOOL)_validateTargetsAndInBetweens:(void *)betweens inBetweenCounts:(void *)counts inBetweenWeights:
+- (BOOL)_validateTargetsAndInBetweens:(void *)betweens inBetweenCounts:(void *)counts inBetweenWeights:(uint64_t)weights
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if (result)
   {
-    v6 = OUTLINED_FUNCTION_5_6(result, a2, betweens, counts);
-    if (v6)
+    v10 = OUTLINED_FUNCTION_5_6(result, a2, betweens, counts, weights, a6, a7, a8);
+    if (v10)
     {
-      v8 = v6;
-      v9 = 0;
-      v10 = 0;
-      v11 = MEMORY[0];
-      *&v7 = 136315138;
-      v21 = v7;
+      v12 = v10;
+      v13 = 0;
+      v14 = 0;
+      v15 = MEMORY[0];
+      *&v11 = 136315138;
+      v33 = v11;
       while (2)
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (MEMORY[0] != v11)
+          if (MEMORY[0] != v15)
           {
             objc_enumerationMutation(betweens);
           }
 
           unsignedIntegerValue = [*(8 * i) unsignedIntegerValue];
-          v9 += unsignedIntegerValue;
-          if (v9 - 1 >= [a2 count])
+          v13 += unsignedIntegerValue;
+          v18 = [a2 count];
+          if (v13 - 1 >= v18)
           {
-            v14 = scn_default_log();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+            v20 = scn_default_log(v18, v19);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
             {
-              *buf = v21;
-              v24 = "inBetweenIndex < targetsAndInBetweens.count";
-              _os_log_fault_impl(&dword_21BEF7000, v14, OS_LOG_TYPE_FAULT, "Assertion '%s' failed. Invalid in-between count (out of bounds) passed to morpher initialization", buf, 0xCu);
+              *buf = v33;
+              v36 = "inBetweenIndex < targetsAndInBetweens.count";
+              _os_log_fault_impl(&dword_21BEF7000, v20, OS_LOG_TYPE_FAULT, "Assertion '%s' failed. Invalid in-between count (out of bounds) passed to morpher initialization", buf, 0xCu);
             }
           }
 
-          v15 = [a2 count];
-          if (v9 - 1 >= v15)
+          v21 = [a2 count];
+          if (v13 - 1 >= v21)
           {
             return 0;
           }
 
-          v10 = v10 + unsignedIntegerValue - 1;
+          v14 = v14 + unsignedIntegerValue - 1;
         }
 
-        v8 = OUTLINED_FUNCTION_5_6(v15, v16, v17, v18);
-        if (v8)
+        v12 = OUTLINED_FUNCTION_5_6(v21, v22, v23, v24, v25, v26, v27, v28);
+        if (v12)
         {
           continue;
         }
@@ -2789,26 +2799,27 @@ LABEL_33:
 
     else
     {
-      v10 = 0;
+      v14 = 0;
     }
 
-    if ([counts count] != v10)
+    v29 = [counts count];
+    if (v29 != v14)
     {
-      v19 = scn_default_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+      v31 = scn_default_log(v29, v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
       {
-        v20 = [counts count];
+        v32 = [counts count];
         *buf = 136315650;
-        v24 = "inBetweenWeights.count == inBetweenCountValidation";
-        v25 = 1024;
-        v26 = v20;
-        v27 = 1024;
-        v28 = v10;
-        _os_log_fault_impl(&dword_21BEF7000, v19, OS_LOG_TYPE_FAULT, "Assertion '%s' failed. Expected %u in-betweens but found %u", buf, 0x18u);
+        v36 = "inBetweenWeights.count == inBetweenCountValidation";
+        v37 = 1024;
+        v38 = v32;
+        v39 = 1024;
+        v40 = v14;
+        _os_log_fault_impl(&dword_21BEF7000, v31, OS_LOG_TYPE_FAULT, "Assertion '%s' failed. Expected %u in-betweens but found %u", buf, 0x18u);
       }
     }
 
-    return [counts count] == v10;
+    return [counts count] == v14;
   }
 
   return result;
@@ -3005,6 +3016,27 @@ LABEL_13:
   OUTLINED_FUNCTION_0_11();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
+}
+
+- (void)_presentationWeightForTargetAtIndex:(uint64_t)a3 token:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "token->sceneRef == scene";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Presentation instance query targets the wrong scene", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_updateTargetsAndInBetween:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "oldTargetsAndInBetweens.count == targetsAndInBetweens.count";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Update can't be done in place", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_updateCorrectivesAndInBetween:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_correctivesAndInBetweens.count == correctivesAndInBetweens.count";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Update can't be done in place", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setTargetsAndInBetweens:(os_log_t)log inBetweenCounts:inBetweenWeights:correctives:driverCounts:driverIndices:inBetweenCounts:inBetweenWeights:.cold.1(uint8_t *buf, void *a2, os_log_t log)

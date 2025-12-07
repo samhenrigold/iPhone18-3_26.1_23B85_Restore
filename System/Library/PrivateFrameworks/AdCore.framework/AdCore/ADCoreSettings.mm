@@ -36,6 +36,10 @@
 - (void)reloadStorefront:(id)storefront;
 - (void)setBundleIdentifier:(id)identifier;
 - (void)setITunesStorefront:(id)storefront;
+- (void)setIdentifierForAdvertisingAllowed:(BOOL)allowed;
+- (void)setIsPersonalizedAdsEnabled:(BOOL)enabled;
+- (void)setMaxSegmentSendInterval:(int)interval;
+- (void)setSegmentRetrievalInterval:(int)interval;
 - (void)setStorefrontLocalizationLanguage:(id)language;
 @end
 
@@ -56,7 +60,6 @@
 
 uint64_t __32__ADCoreSettings_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance_4 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -113,13 +116,12 @@ uint64_t __32__ADCoreSettings_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)deviceDescription
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
-  sysctlbyname("hw.machine", 0, v6, 0, 0);
-  v2 = v6 - ((v6[0] + 15) & 0xFFFFFFFFFFFFFFF0);
-  sysctlbyname("hw.machine", v2, v6, 0, 0);
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
+  sysctlbyname("hw.machine", 0, v5, 0, 0);
+  v2 = v5 - ((v5[0] + 15) & 0xFFFFFFFFFFFFFFF0);
+  sysctlbyname("hw.machine", v2, v5, 0, 0);
   v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:v2];
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -829,6 +831,13 @@ LABEL_7:
   return v13 & 1;
 }
 
+- (void)setIdentifierForAdvertisingAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
+  [mEMORY[0x277D262A0] setBoolValue:allowedCopy forSetting:*MEMORY[0x277D25F28]];
+}
+
 - (BOOL)isRestrictedByScreenTime
 {
   v2 = CFPreferencesCopyAppValue(@"SBParentalControlsCapabilities", @"com.apple.springboard");
@@ -857,6 +866,23 @@ LABEL_7:
   v6 = [mEMORY[0x277D262A0]2 effectiveBoolValueForSetting:v4] == 1;
 
   return v6;
+}
+
+- (void)setIsPersonalizedAdsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if (![(ADCoreSettings *)self isRestrictedByScreenTime])
+  {
+    mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
+    v6 = *MEMORY[0x277D25D28];
+    v7 = [mEMORY[0x277D262A0] isBoolSettingLockedDownByRestrictions:*MEMORY[0x277D25D28]];
+
+    if ((v7 & 1) == 0 && ![(ADCoreSettings *)self isAccountRestricted])
+    {
+      mEMORY[0x277D262A0]2 = [MEMORY[0x277D262A0] sharedConnection];
+      [mEMORY[0x277D262A0]2 setBoolValue:enabledCopy forSetting:v6];
+    }
+  }
 }
 
 - (int)connectionType
@@ -897,6 +923,15 @@ LABEL_7:
   return v4;
 }
 
+- (void)setSegmentRetrievalInterval:(int)interval
+{
+  v3 = [MEMORY[0x277CCABB0] numberWithInt:*&interval];
+  stringValue = [v3 stringValue];
+
+  v4 = +[ADCoreDefaults sharedInstance];
+  [v4 setString:stringValue forKey:@"adprivacydSegmentInterval"];
+}
+
 - (int)maxSegmentSendInterval
 {
   if (!MGGetBoolAnswer() || (+[ADCoreDefaults sharedInstance](ADCoreDefaults, "sharedInstance"), v2 = objc_claimAutoreleasedReturnValue(), [v2 stringForKey:@"adprivacydMaxSegmentSendIntervalOverride"], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "integerValue"), v3, v2, v4 <= 0))
@@ -917,6 +952,15 @@ LABEL_7:
   }
 
   return v4;
+}
+
+- (void)setMaxSegmentSendInterval:(int)interval
+{
+  v3 = [MEMORY[0x277CCABB0] numberWithInt:*&interval];
+  stringValue = [v3 stringValue];
+
+  v4 = +[ADCoreDefaults sharedInstance];
+  [v4 setString:stringValue forKey:@"adprivacydMaxSegmentSendInterval"];
 }
 
 - (BOOL)unitTesting

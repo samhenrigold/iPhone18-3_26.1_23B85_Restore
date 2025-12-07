@@ -102,7 +102,7 @@
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "=ck-fetch= Adding a fetch for %{public}@ to %{public}@", buf, 0x16u);
     v52 = dCopy;
-    _MBLog();
+    _MBLog(@"Db", "=ck-fetch= Adding a fetch for %{public}@ to %{public}@");
   }
 
   if (dCopy)
@@ -384,49 +384,48 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v38 = recordID2;
+    v37 = recordID2;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "=ck-fetch= Performing callbacks for fetch of record %{public}@", buf, 0xCu);
-    v23 = recordID2;
-    _MBLog();
+    _MBLog(@"Db", "=ck-fetch= Performing callbacks for fetch of record %{public}@", recordID2);
   }
 
   [infoCopy setState:3];
   callbacks = [infoCopy callbacks];
   [infoCopy setCallbacks:0];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v12 = callbacks;
-  v13 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v33;
+    v15 = *v32;
     do
     {
       for (i = 0; i != v14; i = i + 1)
       {
-        if (*v33 != v15)
+        if (*v32 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v32 + 1) + 8 * i);
+        v17 = *(*(&v31 + 1) + 8 * i);
         callbackQueue = [(MBCKBatchFetch *)self callbackQueue];
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_10010A518;
         block[3] = &unk_1003BEC90;
-        v31 = v17;
-        v28 = recordID2;
-        v29 = recordCopy;
-        v30 = errorCopy;
+        v30 = v17;
+        v27 = recordID2;
+        v28 = recordCopy;
+        v29 = errorCopy;
         v19 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
         dispatch_async(callbackQueue, v19);
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v14);
@@ -470,7 +469,7 @@
         v18 = 2112;
         v19 = v8;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "=ck-fetch= Failed %{public}@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "=ck-fetch= Failed %{public}@: %@", selfCopy, v8);
       }
     }
 
@@ -479,7 +478,7 @@
       *buf = 138543362;
       v17 = selfCopy;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=ck-fetch= Finished %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "=ck-fetch= Finished %{public}@", selfCopy);
     }
 
     if (completionCopy)
@@ -519,46 +518,37 @@
       v33 = v32;
       if (fetchAttempts == 1)
       {
-        if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
-          goto LABEL_50;
+          *buf = 138543362;
+          v52 = recordID;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEBUG, "=ck-fetch= Fetched record %{public}@", buf, 0xCu);
+          _MBLog(@"Db", "=ck-fetch= Fetched record %{public}@", recordID);
         }
-
-        *buf = 138543362;
-        v54 = recordID;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEBUG, "=ck-fetch= Fetched record %{public}@", buf, 0xCu);
       }
 
-      else
+      else if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_50;
-        }
-
         *buf = 138543618;
-        v54 = recordID;
-        v55 = 2048;
-        v56 = *&fetchAttempts;
+        v52 = recordID;
+        v53 = 2048;
+        v54 = *&fetchAttempts;
         _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "=ck-fetch= Fetched record %{public}@ after %lu attempts", buf, 0x16u);
+        _MBLog(@"Df", "=ck-fetch= Fetched record %{public}@ after %lu attempts", recordID, fetchAttempts);
       }
 
-LABEL_49:
-      _MBLog();
-      goto LABEL_50;
+      goto LABEL_49;
     }
 
     v15 = MBGetDefaultLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v54 = recordID;
-      v55 = 2112;
-      v56 = *&v11;
+      v52 = recordID;
+      v53 = 2112;
+      v54 = *&v11;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "=ck-fetch= Handling fetch error for record %{public}@: %@", buf, 0x16u);
-      v49 = recordID;
-      v51 = v11;
-      _MBLog();
+      _MBLog(@"E ", "=ck-fetch= Handling fetch error for record %{public}@: %@", recordID, v11);
     }
 
     ckOperationTracker = [(MBCKBatchFetch *)self ckOperationTracker];
@@ -575,7 +565,7 @@ LABEL_49:
     }
 
     v19 = ckOperationPolicy;
-    v52 = fetchAttempts;
+    v50 = fetchAttempts;
     v20 = v17;
     [ckOperationPolicy retryAfterInterval];
     v22 = v21;
@@ -595,126 +585,110 @@ LABEL_49:
           if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v54 = recordID;
+            v52 = recordID;
             _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "=ck-fetch= Fetch of record %{public}@ hit a service unavailable error", buf, 0xCu);
-            v49 = recordID;
-            _MBLog();
+            _MBLog(@"E ", "=ck-fetch= Fetch of record %{public}@ hit a service unavailable error", recordID);
           }
 
-          v28 = v52;
-          goto LABEL_46;
+          v28 = v50;
         }
 
-        v27 = v17;
-        if (code != 7)
+        else
         {
-          v28 = v52;
-          if (code != 23)
+          v27 = v17;
+          if (code == 7)
           {
-            goto LABEL_47;
+            v40 = MBGetDefaultLog();
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 138543362;
+              v52 = recordID;
+              _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "=ck-fetch= Fetch of record %{public}@ was rate limited", buf, 0xCu);
+              _MBLog(@"E ", "=ck-fetch= Fetch of record %{public}@ was rate limited", recordID);
+            }
+
+            v28 = v50;
+            if ([MBError isNetworkDisconnectedError:v11]&& ![(MBCKBatchFetch *)self retryWhenNetworkDisconnected])
+            {
+              goto LABEL_47;
+            }
           }
 
-          v34 = MBGetDefaultLog();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          else
           {
-            *buf = 138543362;
-            v54 = recordID;
-            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "=ck-fetch= Fetch of record %{public}@ got a zone busy error", buf, 0xCu);
-            v49 = recordID;
-            _MBLog();
+            v28 = v50;
+            if (code != 23)
+            {
+              goto LABEL_47;
+            }
+
+            v34 = MBGetDefaultLog();
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 138543362;
+              v52 = recordID;
+              _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "=ck-fetch= Fetch of record %{public}@ got a zone busy error", buf, 0xCu);
+              _MBLog(@"E ", "=ck-fetch= Fetch of record %{public}@ got a zone busy error", recordID);
+            }
           }
-
-          goto LABEL_46;
         }
-
-        v40 = MBGetDefaultLog();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138543362;
-          v54 = recordID;
-          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "=ck-fetch= Fetch of record %{public}@ was rate limited", buf, 0xCu);
-          v49 = recordID;
-          _MBLog();
-        }
-
-        v28 = v52;
-        if (![MBError isNetworkDisconnectedError:v11]|| [(MBCKBatchFetch *)self retryWhenNetworkDisconnected])
-        {
-LABEL_46:
-          if (v28 > [v19 maxRetryAttempts])
-          {
-            goto LABEL_47;
-          }
-
-          userInfo = [v11 userInfo];
-          v37 = [userInfo objectForKeyedSubscript:CKErrorRetryAfterKey];
-
-          if (v37)
-          {
-            [v37 doubleValue];
-            v25 = v42;
-          }
-
-          v43 = fmax(v25, 0.0);
-          v44 = MBGetDefaultLog();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
-          {
-            recordID2 = [infoCopy recordID];
-            *buf = 138543874;
-            v54 = recordID2;
-            v55 = 2048;
-            v56 = v43;
-            v57 = 2048;
-            v58 = v28;
-            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "=ck-fetch= Retrying fetch of record %{public}@ after %0.3fs and %lu attempts", buf, 0x20u);
-
-            recordID3 = [infoCopy recordID];
-            _MBLog();
-          }
-
-          v46 = [NSDate dateWithTimeIntervalSinceNow:v43];
-          [infoCopy setRetryDate:v46];
-
-          [infoCopy setState:1];
-          v12 = 0;
-LABEL_56:
-
-          goto LABEL_57;
-        }
-      }
-
-      else if (code == 2)
-      {
-        userInfo2 = [v11 userInfo];
-        v36 = [userInfo2 objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
-        v37 = [v36 objectForKeyedSubscript:recordID];
-
-        if (v37)
-        {
-          v12 = [(MBCKBatchFetch *)self _handleCompletionForFetchInfo:infoCopy record:recordCopy error:v37];
-          v27 = v20;
-          goto LABEL_56;
-        }
-
-        v48 = MBGetDefaultLog();
-        v27 = v20;
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138543362;
-          v54 = recordID;
-          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "=ck-fetch= No partial error found for record %{public}@", buf, 0xCu);
-          _MBLog();
-        }
-
-        v28 = v52;
       }
 
       else
       {
-        if (code != 3)
+        if (code == 2)
+        {
+          userInfo = [v11 userInfo];
+          v36 = [userInfo objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
+          v37 = [v36 objectForKeyedSubscript:recordID];
+
+          if (!v37)
+          {
+            v49 = MBGetDefaultLog();
+            v27 = v20;
+            if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 138543362;
+              v52 = recordID;
+              _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "=ck-fetch= No partial error found for record %{public}@", buf, 0xCu);
+              _MBLog(@"E ", "=ck-fetch= No partial error found for record %{public}@", recordID);
+            }
+
+            v28 = v50;
+            goto LABEL_47;
+          }
+
+          v12 = [(MBCKBatchFetch *)self _handleCompletionForFetchInfo:infoCopy record:recordCopy error:v37];
+          v27 = v20;
+          goto LABEL_55;
+        }
+
+        if (code == 3)
+        {
+          v39 = MBGetDefaultLog();
+          v27 = v17;
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543362;
+            v52 = recordID;
+            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "=ck-fetch= Fetch of record %{public}@ hit a network unavailable error", buf, 0xCu);
+            _MBLog(@"E ", "=ck-fetch= Fetch of record %{public}@ hit a network unavailable error", recordID);
+          }
+
+          v28 = v50;
+          if ([MBError isNetworkDisconnectedError:v11]&& ![(MBCKBatchFetch *)self retryWhenNetworkDisconnected])
+          {
+            goto LABEL_47;
+          }
+
+          v30 = arc4random_uniform(5u);
+          v31 = 10.0;
+        }
+
+        else
         {
           v27 = v17;
-          v28 = v52;
+          v28 = v50;
           if (code != 4)
           {
             goto LABEL_47;
@@ -724,37 +698,16 @@ LABEL_56:
           if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v54 = recordID;
+            v52 = recordID;
             _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "=ck-fetch= Fetch of record %{public}@ hit a network failure error", buf, 0xCu);
-            v49 = recordID;
-            _MBLog();
+            _MBLog(@"E ", "=ck-fetch= Fetch of record %{public}@ hit a network failure error", recordID);
           }
 
           v30 = arc4random_uniform(5u);
           v31 = 1.0;
-          goto LABEL_41;
         }
 
-        v39 = MBGetDefaultLog();
-        v27 = v17;
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138543362;
-          v54 = recordID;
-          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "=ck-fetch= Fetch of record %{public}@ hit a network unavailable error", buf, 0xCu);
-          v49 = recordID;
-          _MBLog();
-        }
-
-        v28 = v52;
-        if (![MBError isNetworkDisconnectedError:v11]|| [(MBCKBatchFetch *)self retryWhenNetworkDisconnected])
-        {
-          v30 = arc4random_uniform(5u);
-          v31 = 10.0;
-LABEL_41:
-          v25 = fmax(v25, v30 + v31);
-          goto LABEL_46;
-        }
+        v25 = fmax(v25, v30 + v31);
       }
     }
 
@@ -762,46 +715,82 @@ LABEL_41:
     {
       v25 = 2.0;
       v27 = v17;
-      v28 = v52;
-      if (([MBError isError:v11 withCode:304]& 1) != 0)
+      v28 = v50;
+      if (([MBError isError:v11 withCode:304]& 1) == 0)
       {
-        goto LABEL_46;
-      }
-
-      v25 = 5.0;
-      if ([MBError isRetryableXPCError:v11])
-      {
-        goto LABEL_46;
-      }
-    }
-
+        v25 = 5.0;
+        if (![MBError isRetryableXPCError:v11])
+        {
 LABEL_47:
 
-    [infoCopy setError:v11];
-    v33 = MBGetDefaultLog();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138543874;
-      v54 = recordID;
-      v55 = 2048;
-      v56 = *&v28;
-      v57 = 2112;
-      v58 = v11;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "=ck-fetch= Failed to fetch record %{public}@ after %lu attempts, error:%@", buf, 0x20u);
-      goto LABEL_49;
+          [infoCopy setError:v11];
+          v33 = MBGetDefaultLog();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543874;
+            v52 = recordID;
+            v53 = 2048;
+            v54 = *&v28;
+            v55 = 2112;
+            v56 = v11;
+            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "=ck-fetch= Failed to fetch record %{public}@ after %lu attempts, error:%@", buf, 0x20u);
+            _MBLog(@"E ", "=ck-fetch= Failed to fetch record %{public}@ after %lu attempts, error:%@", recordID, v28, v11);
+          }
+
+LABEL_49:
+
+          [(MBCKBatchFetch *)self _performCallbacksForFetchInfo:infoCopy record:recordCopy error:v11];
+          v12 = 1;
+LABEL_56:
+
+          goto LABEL_57;
+        }
+      }
     }
 
-LABEL_50:
+    if (v28 > [v19 maxRetryAttempts])
+    {
+      goto LABEL_47;
+    }
 
-    [(MBCKBatchFetch *)self _performCallbacksForFetchInfo:infoCopy record:recordCopy error:v11];
-    v12 = 1;
-LABEL_57:
+    userInfo2 = [v11 userInfo];
+    v37 = [userInfo2 objectForKeyedSubscript:CKErrorRetryAfterKey];
 
-    goto LABEL_58;
+    if (v37)
+    {
+      [v37 doubleValue];
+      v25 = v42;
+    }
+
+    v43 = fmax(v25, 0.0);
+    v44 = MBGetDefaultLog();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    {
+      recordID2 = [infoCopy recordID];
+      *buf = 138543874;
+      v52 = recordID2;
+      v53 = 2048;
+      v54 = v43;
+      v55 = 2048;
+      v56 = v28;
+      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "=ck-fetch= Retrying fetch of record %{public}@ after %0.3fs and %lu attempts", buf, 0x20u);
+
+      recordID3 = [infoCopy recordID];
+      _MBLog(@"Df", "=ck-fetch= Retrying fetch of record %{public}@ after %0.3fs and %lu attempts", recordID3, *&v43, v28);
+    }
+
+    v47 = [NSDate dateWithTimeIntervalSinceNow:v43];
+    [infoCopy setRetryDate:v47];
+
+    [infoCopy setState:1];
+    v12 = 0;
+LABEL_55:
+
+    goto LABEL_56;
   }
 
   v12 = 1;
-LABEL_58:
+LABEL_57:
 
   return v12;
 }
@@ -844,8 +833,7 @@ LABEL_58:
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "=ck-fetch= Performing a %@ for %{public}@, c:%lu", buf, 0x20u);
       }
 
-      [infosCopy count];
-      _MBLog();
+      _MBLog(@"Df", "=ck-fetch= Performing a %@ for %{public}@, c:%lu", @"PrivilegedBatchRecordFetch", self, [infosCopy count]);
     }
 
     v9 = [NSPredicate predicateWithFormat:@"recordID IN %@", v37];
@@ -878,8 +866,7 @@ LABEL_58:
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "=ck-fetch= Fetching a batch for %{public}@, c:%lu", buf, 0x16u);
       }
 
-      [infosCopy count];
-      _MBLog();
+      _MBLog(@"Df", "=ck-fetch= Fetching a batch for %{public}@, c:%lu", self, [infosCopy count]);
     }
 
     v11 = [[CKFetchRecordsOperation alloc] initWithRecordIDs:v37];
@@ -966,8 +953,7 @@ LABEL_58:
     }
 
     operationID2 = [v11 operationID];
-    [v37 count];
-    _MBLog();
+    _MBLog(@"Df", "=ck-fetch= Created operation %{public}@ for %{public}@, c:%lu, o:%ld", operationID2, self, [v37 count], v25);
   }
 
   fetchGroup = [(MBCKBatchFetch *)self fetchGroup];
@@ -1082,8 +1068,7 @@ LABEL_58:
     v43 = 2048;
     v44 = v10;
     _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "=ck-fetch= Preparing to fetch a batch for %{public}@, c:%lu, sz:%llu, tq:%.3fs", buf, 0x2Au);
-    [v11 count];
-    _MBLog();
+    _MBLog(@"Df", "=ck-fetch= Preparing to fetch a batch for %{public}@, c:%lu, sz:%llu, tq:%.3fs", self, [v11 count], v14, v10);
   }
 
   if (v15)
@@ -1098,7 +1083,7 @@ LABEL_58:
       v39 = 2048;
       v40 = v25;
       _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "=ck-fetch= Scheduling a batch for %{public}@ in %0.3fs", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "=ck-fetch= Scheduling a batch for %{public}@ in %0.3fs", self, *&v25);
     }
 
     v27 = dispatch_time(0, (v25 * 1000000000.0));
@@ -1220,7 +1205,7 @@ LABEL_26:
       }
 
       recordID3 = [nextObject recordID];
-      _MBLog();
+      _MBLog(@"Db", "=ck-fetch= Adding record %{public}@ to fetch batch", recordID3);
     }
 
     [nextObject setState:2];
@@ -1230,7 +1215,7 @@ LABEL_26:
       v10 = objc_opt_new();
     }
 
-    [v10 addObject:{nextObject, recordID3}];
+    [v10 addObject:nextObject];
     v11 += integerValue;
 LABEL_33:
   }
@@ -1247,8 +1232,7 @@ LABEL_12:
     *buf = 134217984;
     v44 = v14;
     _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "=ck-fetch= Flushing %lu batched fetches", buf, 0xCu);
-    recordID3 = v14;
-    _MBLog();
+    _MBLog(@"I ", "=ck-fetch= Flushing %lu batched fetches", v14);
   }
 
   [v37 addObject:v10];
@@ -1280,29 +1264,29 @@ LABEL_37:
   v41 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v27 = v37;
-  v28 = [v27 countByEnumeratingWithState:&v38 objects:v42 count:16];
-  if (v28)
+  v28 = v37;
+  v29 = [v28 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  if (v29)
   {
-    v29 = *v39;
+    v30 = *v39;
     do
     {
-      for (i = 0; i != v28; i = i + 1)
+      for (i = 0; i != v29; i = i + 1)
       {
-        if (*v39 != v29)
+        if (*v39 != v30)
         {
-          objc_enumerationMutation(v27);
+          objc_enumerationMutation(v28);
         }
 
-        [(MBCKBatchFetch *)selfCopy _scheduleBatchFetchOperationForFetchInfos:*(*(&v38 + 1) + 8 * i), recordID3];
+        [(MBCKBatchFetch *)selfCopy _scheduleBatchFetchOperationForFetchInfos:*(*(&v38 + 1) + 8 * i)];
         fetchGroup2 = [(MBCKBatchFetch *)selfCopy fetchGroup];
         dispatch_group_leave(fetchGroup2);
       }
 
-      v28 = [v27 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
-    while (v28);
+    while (v29);
   }
 }
 

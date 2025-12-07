@@ -11,7 +11,7 @@
 
 + (id)modelFromMobileAssetForName:(id)name language:(id)language
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   languageCopy = language;
   if ([nameCopy hasPrefix:@"args:"])
@@ -22,7 +22,7 @@
     v11 = [v10 componentsSeparatedByString:{@", "}];
 
     objc_autoreleasePoolPop(v9);
-    if ([v11 count] == 3)
+    if (objc_msgSend_count(v11) == 3)
     {
       v12 = [v11 objectAtIndexedSubscript:0];
       v13 = [v11 objectAtIndexedSubscript:1];
@@ -38,9 +38,9 @@
         v19 = sgLogHandle();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v23 = 136315138;
+          v22 = 136315138;
           uTF8String = [(NSString *)v14 UTF8String];
-          _os_log_error_impl(&dword_231E60000, v19, OS_LOG_TYPE_ERROR, "Unknown model class: %s", &v23, 0xCu);
+          _os_log_error_impl(&dword_231E60000, v19, OS_LOG_TYPE_ERROR, "Unknown model class: %s", &v22, 0xCu);
         }
 
         v16 = 0;
@@ -52,9 +52,9 @@
       v12 = sgLogHandle();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v23 = 136315138;
+        v22 = 136315138;
         uTF8String = [nameCopy UTF8String];
-        _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "Invalid model string: %s", &v23, 0xCu);
+        _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "Invalid model string: %s", &v22, 0xCu);
       }
 
       v16 = 0;
@@ -101,25 +101,23 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v22 = sgLogHandle();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v21 = sgLogHandle();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
-    v23 = 136315138;
+    v22 = 136315138;
     uTF8String = [nameCopy UTF8String];
-    _os_log_error_impl(&dword_231E60000, v22, OS_LOG_TYPE_ERROR, "Unknown model name: %s", &v23, 0xCu);
+    _os_log_error_impl(&dword_231E60000, v21, OS_LOG_TYPE_ERROR, "Unknown model name: %s", &v22, 0xCu);
   }
 
   v16 = 0;
 LABEL_19:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 + (id)modelFromMobileAssetForEntity:(id)entity type:(id)type language:(id)language class:(Class)class
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   typeCopy = type;
   languageCopy = language;
@@ -140,14 +138,14 @@ LABEL_19:
       asset2 = [MEMORY[0x277D02558] asset];
       *buf = 136316162;
       uTF8String5 = uTF8String;
-      v28 = 2080;
-      v29 = uTF8String2;
-      v30 = 2080;
-      v31 = uTF8String3;
+      v27 = 2080;
+      v28 = uTF8String2;
+      v29 = 2080;
+      v30 = uTF8String3;
       class = classCopy;
-      v32 = 2048;
+      v31 = 2048;
       assetVersion = [asset2 assetVersion];
-      v34 = 2080;
+      v33 = 2080;
       uTF8String4 = [v15 UTF8String];
       _os_log_impl(&dword_231E60000, v17, OS_LOG_TYPE_INFO, "Loading model {entity: %s, type: %s, language: %s, version: %tu, path: %s}", buf, 0x34u);
     }
@@ -167,14 +165,12 @@ LABEL_19:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 + (id)modelForPath:(id)path modelClass:(Class)class
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v5 = PMLReadChunkFile();
   v6 = sgLogHandle();
@@ -183,26 +179,24 @@ LABEL_19:
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_INFO, "Model loaded.", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_INFO, "Model loaded.", &v9, 2u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v10 = 136315138;
+    v9 = 136315138;
     uTF8String = [pathCopy UTF8String];
-    _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "Failed to load model chunk file resource %s", &v10, 0xCu);
+    _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "Failed to load model chunk file resource %s", &v9, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v29[6] = *MEMORY[0x277D85DE8];
+  v28[6] = *MEMORY[0x277D85DE8];
   chunksCopy = chunks;
   model = [(SGModel *)self model];
   objc_opt_class();
@@ -229,31 +223,29 @@ LABEL_19:
   featurizer = [(SGModel *)self featurizer];
   v16 = [v14 writeToPlistWithObject:featurizer andChunks:chunksCopy];
 
-  v28[0] = @"MODEL_DATA";
+  v27[0] = @"MODEL_DATA";
   model3 = [(SGModel *)self model];
   v18 = [model3 toPlistWithChunks:chunksCopy];
-  v29[0] = v18;
-  v28[1] = @"MODEL_LOCALE";
+  v28[0] = v18;
+  v27[1] = @"MODEL_LOCALE";
   locale = [(SGModel *)self locale];
-  v29[1] = locale;
-  v29[2] = v8;
-  v28[2] = @"MODEL_TYPE";
-  v28[3] = @"MODEL_FEATURIZER";
-  v29[3] = v16;
-  v28[4] = @"MODEL_SOURCE_SESSION_DESCRIPTOR";
+  v28[1] = locale;
+  v28[2] = v8;
+  v27[2] = @"MODEL_TYPE";
+  v27[3] = @"MODEL_FEATURIZER";
+  v28[3] = v16;
+  v27[4] = @"MODEL_SOURCE_SESSION_DESCRIPTOR";
   modelSource = [(SGModel *)self modelSource];
   sessionDescriptor = [modelSource sessionDescriptor];
   v22 = [sessionDescriptor toPlistWithChunks:chunksCopy];
 
-  v29[4] = v22;
-  v28[5] = @"MODEL_DECISION_THRESHOLD";
+  v28[4] = v22;
+  v27[5] = @"MODEL_DECISION_THRESHOLD";
   v23 = MEMORY[0x277CCABB0];
   [(SGBinaryClassificationModel *)self threshold];
   v24 = [v23 numberWithDouble:?];
-  v29[5] = v24;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:6];
-
-  v26 = *MEMORY[0x277D85DE8];
+  v28[5] = v24;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:6];
 
   return v25;
 }

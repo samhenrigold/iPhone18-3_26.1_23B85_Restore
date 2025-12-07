@@ -39,7 +39,8 @@
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      _os_log_send_and_compose_impl();
+      v10[0] = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 1, "[corewifi] Empty profile list", v10, 2);
     }
 
     v5 = 0;
@@ -50,7 +51,7 @@
 
 - (id)localNetworkPromptProfiles
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   profiles = [(CWFKnownNetworkPreparer *)self profiles];
   _localNetworkFilter = [(CWFKnownNetworkPreparer *)self _localNetworkFilter];
   v5 = [profiles filteredArrayUsingPredicate:_localNetworkFilter];
@@ -69,11 +70,9 @@
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v58 = 138412290;
-    v59 = v5;
-    LODWORD(v46) = 12;
-    v44 = &v58;
-    _os_log_send_and_compose_impl();
+    v54 = 138412290;
+    v55 = v5;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 1, "[corewifi] filtered profiles = '%@'", &v54, 12);
   }
 
   _lastJoinedComparator = [(CWFKnownNetworkPreparer *)self _lastJoinedComparator];
@@ -93,18 +92,17 @@
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v58 = 138412290;
-    v59 = v10;
-    LODWORD(v46) = 12;
-    v44 = &v58;
-    _os_log_send_and_compose_impl();
+    v54 = 138412290;
+    v55 = v10;
+    LODWORD(v43) = 12;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 1, "[corewifi] sorted profiles = '%@'", &v54, v43);
   }
 
   profiles2 = [(CWFKnownNetworkPreparer *)self profiles];
   v15 = [(CWFKnownNetworkPreparer *)self _filterForPrimaryHomeNetworkProfile:profiles2];
 
-  v52 = v5;
-  v50 = v15;
+  v48 = v5;
+  v46 = v15;
   if (v15)
   {
     if (([v10 containsObject:v15] & 1) == 0)
@@ -129,38 +127,37 @@
 
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v58 = 138412290;
-      v59 = v15;
-      LODWORD(v46) = 12;
-      v44 = &v58;
-      _os_log_send_and_compose_impl();
+      v54 = 138412290;
+      v55 = v15;
+      LODWORD(v43) = 12;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 1, "[corewifi] primary home network profile = '%@'", &v54, v43);
     }
   }
 
   selfCopy = self;
-  [(CWFKnownNetworkPreparer *)self _removeProfilesAtSimilarLocations:v10, v44, v46];
-  v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v48 = v56 = 0u;
-  v49 = v10;
-  v20 = [v48 differenceFromArray:v10];
-  v21 = [v20 countByEnumeratingWithState:&v53 objects:v57 count:16];
+  [(CWFKnownNetworkPreparer *)self _removeProfilesAtSimilarLocations:v10];
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v44 = v52 = 0u;
+  v45 = v10;
+  v20 = [v44 differenceFromArray:v10];
+  v21 = [v20 countByEnumeratingWithState:&v49 objects:v53 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v54;
+    v23 = *v50;
     v24 = MEMORY[0x1E69E9C10];
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v54 != v23)
+        if (*v50 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v26 = *(*(&v53 + 1) + 8 * i);
+        v26 = *(*(&v49 + 1) + 8 * i);
         v27 = CWFGetOSLog();
         if (v27)
         {
@@ -176,24 +173,23 @@
         if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
           object = [v26 object];
-          v58 = 138412290;
-          v59 = object;
-          LODWORD(v47) = 12;
-          v45 = &v58;
-          _os_log_send_and_compose_impl();
+          v54 = 138412290;
+          v55 = object;
+          LODWORD(v43) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v28, 1, "[corewifi] removed profile in similar location = '%@'", &v54, v43);
         }
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v53 objects:v57 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v49 objects:v53 count:16];
     }
 
     while (v22);
   }
 
-  v31 = v48;
+  v31 = v44;
   v32 = [v31 mutableCopy];
   v33 = [MEMORY[0x1E695DFA8] set];
-  for (j = [v33 count]; j < -[CWFKnownNetworkPreparer maxResults](selfCopy, "maxResults", v45, v47) && objc_msgSend(v32, "count"); j = objc_msgSend(v33, "count"))
+  for (j = [v33 count]; j < -[CWFKnownNetworkPreparer maxResults](selfCopy, "maxResults") && objc_msgSend(v32, "count"); j = objc_msgSend(v33, "count"))
   {
     firstObject = [v32 firstObject];
     [v33 addObject:firstObject];
@@ -216,9 +212,10 @@
 
   if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
   {
-    v58 = 138412290;
-    v59 = allObjects;
-    _os_log_send_and_compose_impl();
+    v54 = 138412290;
+    v55 = allObjects;
+    LODWORD(v43) = 12;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v38, 1, "[corewifi] return profiles = '%@'", &v54, v43);
   }
 
   if ([allObjects count])
@@ -233,13 +230,12 @@
 
   v41 = v40;
 
-  v42 = *MEMORY[0x1E69E9840];
   return v40;
 }
 
 - (id)prepareLocalNetworkProfilesForPresentation:(id)presentation
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   presentationCopy = presentation;
   v5 = presentationCopy;
   if (presentationCopy && [presentationCopy count])
@@ -247,11 +243,11 @@
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     array = [MEMORY[0x1E695DF70] array];
     _presentationSortComparator = [(CWFKnownNetworkPreparer *)self _presentationSortComparator];
-    v80 = v5;
+    v76 = v5;
     v7 = [v5 sortedArrayUsingComparator:_presentationSortComparator];
 
     v8 = [(CWFKnownNetworkPreparer *)self _filterProfilesForHomeNetworksExceedingMaximumDistance:v7];
-    v78 = v8;
+    v74 = v8;
     if (v8)
     {
       v9 = v8;
@@ -269,11 +265,9 @@
 
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v90 = 138412290;
-        v91 = v9;
-        LODWORD(v76) = 12;
-        v74 = &v90;
-        _os_log_send_and_compose_impl();
+        v86 = 138412290;
+        v87 = v9;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 1, "[corewifi] filtered home profiles='%@'", &v86, 12);
       }
 
       v14 = [v7 mutableCopy];
@@ -295,14 +289,13 @@
 
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v96.location = 2;
-          v96.length = v15;
-          v19 = NSStringFromRange(v96);
-          v90 = 138412290;
-          v91 = v19;
-          LODWORD(v76) = 12;
-          v74 = &v90;
-          _os_log_send_and_compose_impl();
+          v92.location = 2;
+          v92.length = v15;
+          v19 = NSStringFromRange(v92);
+          v86 = 138412290;
+          v87 = v19;
+          LODWORD(v73) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v17, 1, "[corewifi] results exceed maximum removing at range='%@'", &v86, v73);
         }
 
         [v14 removeObjectsInRange:{2, v15}];
@@ -324,11 +317,10 @@
 
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        v90 = 138412290;
-        v91 = v12;
-        LODWORD(v76) = 12;
-        v74 = &v90;
-        _os_log_send_and_compose_impl();
+        v86 = 138412290;
+        v87 = v12;
+        LODWORD(v73) = 12;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v21, 1, "[corewifi] remaining profiles='%@'", &v86, v73);
       }
     }
 
@@ -340,26 +332,26 @@
     firstObject = [v12 firstObject];
     _location = [firstObject _location];
 
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
-    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
     obj = v12;
-    v24 = [obj countByEnumeratingWithState:&v84 objects:v94 count:16];
+    v24 = [obj countByEnumeratingWithState:&v80 objects:v90 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v85;
+      v26 = *v81;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v85 != v26)
+          if (*v81 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v84 + 1) + 8 * i);
+          v28 = *(*(&v80 + 1) + 8 * i);
           dictionary2 = [MEMORY[0x1E695DF90] dictionary];
           networkName = [v28 networkName];
 
@@ -396,11 +388,10 @@
 
                 if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
                 {
-                  v90 = 138412290;
-                  v91 = v28;
-                  LODWORD(v77) = 12;
-                  v75 = &v90;
-                  _os_log_send_and_compose_impl();
+                  v86 = 138412290;
+                  v87 = v28;
+                  LODWORD(v73) = 12;
+                  _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v39, 1, "[corewifi] profile='%@' does not contain device count", &v86, v73);
                 }
               }
 
@@ -431,11 +422,10 @@
 
                 if (os_log_type_enabled(_removeBackslashAndSpaceCharacter, OS_LOG_TYPE_INFO))
                 {
-                  v90 = 138412290;
-                  v91 = v28;
-                  LODWORD(v77) = 12;
-                  v75 = &v90;
-                  _os_log_send_and_compose_impl();
+                  v86 = 138412290;
+                  v87 = v28;
+                  LODWORD(v73) = 12;
+                  _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, _removeBackslashAndSpaceCharacter, 1, "[corewifi] profile='%@' does not contain device names", &v86, v73);
                 }
               }
             }
@@ -456,11 +446,10 @@
 
               if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
               {
-                v90 = 138412290;
-                v91 = v28;
-                LODWORD(v77) = 12;
-                v75 = &v90;
-                _os_log_send_and_compose_impl();
+                v86 = 138412290;
+                v87 = v28;
+                LODWORD(v73) = 12;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 1, "[corewifi] profile='%@' does not contain discovered devices", &v86, v73);
               }
             }
 
@@ -486,29 +475,28 @@
 
                 if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
                 {
-                  v90 = 138412546;
-                  v91 = v28;
-                  v92 = 2048;
-                  v93 = v59;
-                  LODWORD(v77) = 22;
-                  v75 = &v90;
-                  _os_log_send_and_compose_impl();
+                  v86 = 138412546;
+                  v87 = v28;
+                  v88 = 2048;
+                  v89 = v59;
+                  LODWORD(v73) = 22;
+                  _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v61, 1, "[corewifi] profile='%@' distance exceeds max distance from primary callout (distance=%f)", &v86, v73);
                 }
               }
 
               else
               {
-                v88[0] = @"mapLabelCalloutLatKey";
+                v84[0] = @"mapLabelCalloutLatKey";
                 v51 = MEMORY[0x1E696AD98];
                 [v36 coordinate];
                 v52 = [v51 numberWithDouble:?];
-                v88[1] = @"mapLabelCalloutLngKey";
-                v89[0] = v52;
+                v84[1] = @"mapLabelCalloutLngKey";
+                v85[0] = v52;
                 v53 = MEMORY[0x1E696AD98];
                 [v36 coordinate];
                 v55 = [v53 numberWithDouble:v54];
-                v89[1] = v55;
-                v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v89 forKeys:v88 count:2];
+                v85[1] = v55;
+                v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:v84 count:2];
 
                 [dictionary2 setObject:v56 forKey:@"mapLabelCalloutLocationKey"];
                 [array addObject:dictionary2];
@@ -531,11 +519,10 @@
 
               if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
               {
-                v90 = 138412290;
-                v91 = v28;
-                LODWORD(v77) = 12;
-                v75 = &v90;
-                _os_log_send_and_compose_impl();
+                v86 = 138412290;
+                v87 = v28;
+                LODWORD(v73) = 12;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v58, 1, "[corewifi] profile='%@' does not have a location, skipping for presentation", &v86, v73);
               }
 
               v36 = 0;
@@ -558,16 +545,15 @@
 
             if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
             {
-              v90 = 138412290;
-              v91 = v28;
-              LODWORD(v77) = 12;
-              v75 = &v90;
-              _os_log_send_and_compose_impl();
+              v86 = 138412290;
+              v87 = v28;
+              LODWORD(v73) = 12;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v36, 1, "[corewifi] profile='%@' does not have a networkName, skipping for presentation", &v86, v73);
             }
           }
         }
 
-        v25 = [obj countByEnumeratingWithState:&v84 objects:v94 count:16];
+        v25 = [obj countByEnumeratingWithState:&v80 objects:v90 count:16];
       }
 
       while (v25);
@@ -578,28 +564,28 @@
     v65 = dictionary;
     v66 = array;
     [dictionary setObject:array forKey:@"mapLabelArrayForCalloutsKey"];
-    v5 = v80;
-    v67 = v78;
+    v5 = v76;
+    v67 = v74;
   }
 
   else
   {
-    v71 = CWFGetOSLog();
-    if (v71)
+    v70 = CWFGetOSLog();
+    if (v70)
     {
-      v72 = CWFGetOSLog();
+      v71 = CWFGetOSLog();
     }
 
     else
     {
+      v71 = MEMORY[0x1E69E9C10];
       v72 = MEMORY[0x1E69E9C10];
-      v73 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v90) = 0;
-      _os_log_send_and_compose_impl();
+      LOWORD(v86) = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v71, 1, "[corewifi] Empty profile list", &v86, 2);
     }
 
     _location = 0;
@@ -611,69 +597,68 @@
 
   v68 = v65;
 
-  v69 = *MEMORY[0x1E69E9840];
   return v65;
 }
 
 - (id)_filterProfilesForHomeNetworksExceedingMaximumDistance:(id)distance
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   distanceCopy = distance;
   array = [MEMORY[0x1E695DF70] array];
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = sub_1E0C5CB14;
-  v42[3] = &unk_1E86E7250;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = sub_1E0C5CB14;
+  v40[3] = &unk_1E86E7250;
   v5 = array;
-  v43 = v5;
-  [distanceCopy enumerateObjectsUsingBlock:v42];
+  v41 = v5;
+  [distanceCopy enumerateObjectsUsingBlock:v40];
   if ([v5 count])
   {
-    v29 = distanceCopy;
-    v33 = [distanceCopy mutableCopy];
-    [v33 removeObjectsInArray:v5];
+    v27 = distanceCopy;
+    v31 = [distanceCopy mutableCopy];
+    [v31 removeObjectsInArray:v5];
     array2 = [MEMORY[0x1E695DF70] array];
+    v36 = 0u;
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v28 = v5;
+    v26 = v5;
     obj = v5;
-    v6 = [obj countByEnumeratingWithState:&v38 objects:v51 count:16];
+    v6 = [obj countByEnumeratingWithState:&v36 objects:v49 count:16];
     if (v6)
     {
       v7 = v6;
-      v32 = *v39;
+      v30 = *v37;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v39 != v32)
+          if (*v37 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v38 + 1) + 8 * i);
+          v9 = *(*(&v36 + 1) + 8 * i);
+          v32 = 0u;
+          v33 = 0u;
           v34 = 0u;
           v35 = 0u;
-          v36 = 0u;
-          v37 = 0u;
-          v10 = v33;
-          v11 = [v10 countByEnumeratingWithState:&v34 objects:v50 count:16];
+          v10 = v31;
+          v11 = [v10 countByEnumeratingWithState:&v32 objects:v48 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v35;
+            v13 = *v33;
             while (2)
             {
               for (j = 0; j != v12; ++j)
               {
-                if (*v35 != v13)
+                if (*v33 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v15 = *(*(&v34 + 1) + 8 * j);
+                v15 = *(*(&v32 + 1) + 8 * j);
                 _location = [v9 _location];
                 _location2 = [v15 _location];
                 [_location distanceFromLocation:_location2];
@@ -695,15 +680,14 @@
 
                   if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
                   {
-                    v44 = 138412802;
-                    v45 = v9;
-                    v46 = 2112;
-                    v47 = v15;
-                    v48 = 2048;
-                    v49 = v19;
-                    LODWORD(v27) = 32;
-                    v26 = &v44;
-                    _os_log_send_and_compose_impl();
+                    v42 = 138412802;
+                    v43 = v9;
+                    v44 = 2112;
+                    v45 = v15;
+                    v46 = 2048;
+                    v47 = v19;
+                    LODWORD(v25) = 32;
+                    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v21, 1, "[corewifi] home profile='%@' distance exceeds max distance to non-home profile='%@' (distance=%f)", &v42, v25);
                   }
 
                   [array2 addObject:v9];
@@ -711,7 +695,7 @@
                 }
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v34 objects:v50 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v32 objects:v48 count:16];
               if (v12)
               {
                 continue;
@@ -724,7 +708,7 @@
 LABEL_22:
         }
 
-        v7 = [obj countByEnumeratingWithState:&v38 objects:v51 count:16];
+        v7 = [obj countByEnumeratingWithState:&v36 objects:v49 count:16];
       }
 
       while (v7);
@@ -740,8 +724,8 @@ LABEL_22:
       v23 = 0;
     }
 
-    v5 = v28;
-    distanceCopy = v29;
+    v5 = v26;
+    distanceCopy = v27;
   }
 
   else
@@ -749,40 +733,38 @@ LABEL_22:
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v23;
 }
 
 - (BOOL)profilesContainsHomeProfile:(id)profile
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   profileCopy = profile;
-  v4 = [profileCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [profileCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(profileCopy);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) _isHomeNetwork])
+        if ([*(*(&v8 + 1) + 8 * i) _isHomeNetwork])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [profileCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [profileCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -794,7 +776,6 @@ LABEL_22:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -825,17 +806,17 @@ LABEL_11:
 
 - (id)_removeProfilesAtSimilarLocations:(id)locations
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   locationsCopy = locations;
   if (!qword_1ED7E3880)
   {
-    v54 = MEMORY[0x1E69E9820];
-    v55 = 3221225472;
-    v56 = sub_1E0C5DF88;
-    v57 = &unk_1E86E55D8;
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = sub_1E0C5DF88;
+    v53[3] = &unk_1E86E55D8;
+    v53[4] = 0;
+    v57 = xmmword_1E86E72E0;
     v58 = 0;
-    v62 = xmmword_1E86E72E0;
-    v63 = 0;
     qword_1ED7E3880 = _sl_dlopen();
   }
 
@@ -843,75 +824,75 @@ LABEL_11:
   {
     array = [MEMORY[0x1E695DF70] array];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
-    v36 = locationsCopy;
+    v35 = locationsCopy;
     v6 = locationsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v50 objects:v61 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v49 objects:v56 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v51;
-      v38 = v6;
+      v9 = *v50;
+      v37 = v6;
       selfCopy = self;
-      v37 = *v51;
+      v36 = *v50;
       do
       {
         v10 = 0;
-        v40 = v8;
+        v39 = v8;
         do
         {
-          if (*v51 != v9)
+          if (*v50 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v50 + 1) + 8 * v10);
+          v11 = *(*(&v49 + 1) + 8 * v10);
           if (([array containsObject:v11] & 1) == 0)
           {
             array2 = [MEMORY[0x1E695DF70] array];
             _location = [v11 _location];
             if (_location)
             {
-              v48 = 0u;
-              v49 = 0u;
-              v46 = 0u;
               v47 = 0u;
+              v48 = 0u;
+              v45 = 0u;
+              v46 = 0u;
               v14 = v6;
-              v15 = [v14 countByEnumeratingWithState:&v46 objects:v60 count:16];
+              v15 = [v14 countByEnumeratingWithState:&v45 objects:v55 count:16];
               if (v15)
               {
                 v16 = v15;
-                v17 = *v47;
+                v17 = *v46;
                 do
                 {
                   for (i = 0; i != v16; ++i)
                   {
-                    if (*v47 != v17)
+                    if (*v46 != v17)
                     {
                       objc_enumerationMutation(v14);
                     }
 
-                    v19 = *(*(&v46 + 1) + 8 * i);
+                    v19 = *(*(&v45 + 1) + 8 * i);
                     if (([v19 isEqual:v11] & 1) == 0 && (objc_msgSend(array, "containsObject:", v19) & 1) == 0)
                     {
                       [v19 _location];
                     }
                   }
 
-                  v16 = [v14 countByEnumeratingWithState:&v46 objects:v60 count:16];
+                  v16 = [v14 countByEnumeratingWithState:&v45 objects:v55 count:16];
                 }
 
                 while (v16);
               }
 
               [dictionary setObject:array2 forKey:v11];
-              v6 = v38;
+              v6 = v37;
               self = selfCopy;
-              v9 = v37;
-              v8 = v40;
+              v9 = v36;
+              v8 = v39;
             }
           }
 
@@ -919,33 +900,33 @@ LABEL_11:
         }
 
         while (v10 != v8);
-        v8 = [v6 countByEnumeratingWithState:&v50 objects:v61 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v49 objects:v56 count:16];
       }
 
       while (v8);
     }
 
     array3 = [MEMORY[0x1E695DF70] array];
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     allKeys = [dictionary allKeys];
-    v22 = [allKeys countByEnumeratingWithState:&v42 objects:v59 count:16];
+    v22 = [allKeys countByEnumeratingWithState:&v41 objects:v54 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v43;
+      v24 = *v42;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v43 != v24)
+          if (*v42 != v24)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v26 = *(*(&v42 + 1) + 8 * j);
+          v26 = *(*(&v41 + 1) + 8 * j);
           v27 = [MEMORY[0x1E695DF70] arrayWithObject:v26];
           v28 = [dictionary objectForKeyedSubscript:v26];
           [v27 addObjectsFromArray:v28];
@@ -957,13 +938,13 @@ LABEL_11:
           [array3 addObject:firstObject];
         }
 
-        v23 = [allKeys countByEnumeratingWithState:&v42 objects:v59 count:16];
+        v23 = [allKeys countByEnumeratingWithState:&v41 objects:v54 count:16];
       }
 
       while (v23);
     }
 
-    locationsCopy = v36;
+    locationsCopy = v35;
   }
 
   else
@@ -982,14 +963,12 @@ LABEL_11:
 
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v54) = 0;
-      _os_log_send_and_compose_impl();
+      LOWORD(v53[0]) = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v32, 16, "[corewifi] CoreLocation not available", v53, 2);
     }
 
     array3 = locationsCopy;
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return array3;
 }

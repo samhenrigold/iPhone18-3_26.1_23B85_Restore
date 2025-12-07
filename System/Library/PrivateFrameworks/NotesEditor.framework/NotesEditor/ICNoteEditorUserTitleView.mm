@@ -517,60 +517,60 @@ void __47__ICNoteEditorUserTitleView_editButtonPressed___block_invoke(uint64_t a
   [v7 setDelegate:WeakRetained];
 }
 
-void __47__ICNoteEditorUserTitleView_editButtonPressed___block_invoke_3(uint64_t a1)
+void __47__ICNoteEditorUserTitleView_editButtonPressed___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) textFields];
-  v3 = [v2 firstObject];
-  v15 = ICDynamicCast();
+  v3 = [*(a1 + 32) textFields];
+  v4 = [v3 firstObject];
+  v16 = ICDynamicCast();
 
-  v4 = [v15 text];
-  v5 = [v15 attributedText];
-  v6 = v5;
+  v5 = [v16 text];
+  v6 = [v16 attributedText];
+  v7 = v6;
   if (*(a1 + 64) == 1)
   {
-    if ([v5 isEqualToAttributedString:*(a1 + 40)])
+    if ([v6 isEqualToAttributedString:*(a1 + 40)])
     {
       goto LABEL_12;
     }
   }
 
-  else if ([v4 isEqualToString:*(a1 + 48)])
+  else if ([v5 isEqualToString:*(a1 + 48)])
   {
     goto LABEL_12;
   }
 
-  v7 = [*(a1 + 56) note];
-  v8 = [v7 isEditable];
+  v8 = [*(a1 + 56) note];
+  v9 = [v8 isEditable];
 
-  if (v8)
+  if (v9)
   {
-    if ([v4 length])
+    if ([v5 length])
     {
-      v9 = v4;
+      v10 = v5;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    [*(a1 + 56) setUserTitle:v9];
+    [*(a1 + 56) setUserTitle:v10];
     [*(a1 + 56) updateChangeCountWithReason:@"Edited user title"];
-    v10 = [*(a1 + 56) note];
-    v11 = [v10 regenerateTitle:1 snippet:1];
+    v11 = [*(a1 + 56) note];
+    v12 = [v11 regenerateTitle:1 snippet:1];
 
-    if (v11)
+    if (v12)
     {
-      v12 = [*(a1 + 56) note];
-      [v12 markShareDirtyIfNeededWithReason:@"Edited attachment user title"];
-
       v13 = [*(a1 + 56) note];
-      [v13 updateChangeCountWithReason:@"Edited attachment user title"];
+      [v13 markShareDirtyIfNeededWithReason:@"Edited attachment user title"];
+
+      v14 = [*(a1 + 56) note];
+      [v14 updateChangeCountWithReason:@"Edited attachment user title"];
     }
 
-    v14 = [*(a1 + 56) note];
-    [v14 updateModificationDateAndChangeCountAndSaveImmediately];
+    v15 = [*(a1 + 56) note];
+    [v15 updateModificationDateAndChangeCountAndSaveImmediately];
   }
 
 LABEL_12:

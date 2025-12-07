@@ -31,7 +31,7 @@
 
     else
     {
-      v7 = sub_1003DC0F4();
+      v7 = sub_1003DC0F4(ODRServiceDelegate);
       v8 = v7;
       if (v7)
       {

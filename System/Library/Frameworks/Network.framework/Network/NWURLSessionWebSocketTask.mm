@@ -237,7 +237,7 @@ void __43__NWURLSessionWebSocketTask_receiveMessage__block_invoke_2(uint64_t a1,
     {
       if (*(v12 + 296) == 2)
       {
-        ([NWURLSessionWebSocketTask processWork])();
+        [(NWURLSessionWebSocketTask *)v12 processWork];
         goto LABEL_83;
       }
     }
@@ -282,11 +282,11 @@ void __43__NWURLSessionWebSocketTask_receiveMessage__block_invoke_2(uint64_t a1,
     v58 = *(a1 + 32);
     if (v58)
     {
-      [v58 logDescription];
+      objc_msgSend_logDescription(v58);
       v59 = *(a1 + 32);
       if (v59)
       {
-        [v59 logDescription];
+        objc_msgSend_logDescription(v59);
         v60 = v68;
         size = newValue;
 LABEL_95:
@@ -773,8 +773,8 @@ void __51__NWURLSessionWebSocketTask__sendCloseCode_reason___block_invoke_4(uint
     v3 = gurlLogObj;
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      [v2 logDescription];
-      [v2 logDescription];
+      objc_msgSend_logDescription(v2);
+      objc_msgSend_logDescription(v2);
       *buf = 68289282;
       v7 = 16;
       v8 = 2098;
@@ -1533,8 +1533,8 @@ void __42__NWURLSessionWebSocketTask_startNextLoad__block_invoke(uint64_t a1)
 
 void __42__NWURLSessionWebSocketTask_startNextLoad__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v75 = *MEMORY[0x1E69E9840];
-  v57 = a2;
+  v74 = *MEMORY[0x1E69E9840];
+  v56 = a2;
   v5 = a3;
   v6 = v5;
   v7 = *(a1 + 32);
@@ -1562,7 +1562,7 @@ LABEL_8:
     }
 
 LABEL_50:
-    v53 = v57;
+    v52 = v56;
 LABEL_45:
 
     goto LABEL_46;
@@ -1584,181 +1584,181 @@ LABEL_9:
   v9 = *(v7 + 280);
   if (!v9)
   {
-    v10 = v57;
+    v10 = v56;
     nw_context_assert_queue(*(v7 + 320));
-    v12 = *(v7 + 344);
-    if (v12)
+    v11 = *(v7 + 344);
+    if (v11)
     {
       *(v7 + 344) = 0;
-      nw_queue_cancel_source(v12, v11);
+      nw_queue_cancel_source(v11);
     }
 
-    v13 = *(v7 + 336);
-    if (v13)
+    v12 = *(v7 + 336);
+    if (v12)
     {
       *(v7 + 336) = 0;
-      nw_queue_cancel_source(v13, v11);
+      nw_queue_cancel_source(v12);
     }
 
-    v14 = *(v7 + 360);
-    if (v14)
+    v13 = *(v7 + 360);
+    if (v13)
     {
       *(v7 + 360) = 0;
-      nw_queue_cancel_source(v14, v11);
+      nw_queue_cancel_source(v13);
     }
 
     [(NWURLSessionTask *)v7 updateResponse:v10];
-    objc_setProperty_nonatomic_copy(v7, v15, v10, 520);
+    objc_setProperty_nonatomic_copy(v7, v14, v10, 520);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v56 = v10;
-      v16 = [v7 currentRequest];
-      v54 = [v16 valueForHTTPHeaderField:@"Sec-WebSocket-Key"];
+      v55 = v10;
+      v15 = [v7 currentRequest];
+      v53 = [v15 valueForHTTPHeaderField:@"Sec-WebSocket-Key"];
 
       options = nw_ws_create_options(nw_ws_version_13);
       nw_ws_options_set_permessage_deflate(options, 1);
       nw_ws_options_set_auto_reply_ping(options, 1);
       nw_ws_options_set_skip_handshake(options, 1);
       nw_ws_options_set_maximum_message_size(options, [v7 maximumMessageSize]);
-      v55 = [v56 valueForHTTPHeaderField:@"Sec-WebSocket-Protocol"];
-      if (v55)
+      v54 = [v55 valueForHTTPHeaderField:@"Sec-WebSocket-Protocol"];
+      if (v54)
       {
-        v18 = [v7 currentRequest];
-        v19 = [v18 valueForHTTPHeaderField:@"Sec-WebSocket-Protocol"];
-        v20 = [v19 componentsSeparatedByString:{@", "}];
+        v17 = [v7 currentRequest];
+        v18 = [v17 valueForHTTPHeaderField:@"Sec-WebSocket-Protocol"];
+        v19 = [v18 componentsSeparatedByString:{@", "}];
 
-        v64 = 0u;
-        v65 = 0u;
-        v62 = 0u;
         v63 = 0u;
-        v21 = v20;
-        v22 = [v21 countByEnumeratingWithState:&v62 objects:v74 count:16];
-        if (v22)
+        v64 = 0u;
+        v61 = 0u;
+        v62 = 0u;
+        v20 = v19;
+        v21 = [v20 countByEnumeratingWithState:&v61 objects:v73 count:16];
+        if (v21)
         {
-          v23 = *v63;
+          v22 = *v62;
           do
           {
-            for (i = 0; i != v22; ++i)
+            for (i = 0; i != v21; ++i)
             {
-              if (*v63 != v23)
+              if (*v62 != v22)
               {
-                objc_enumerationMutation(v21);
+                objc_enumerationMutation(v20);
               }
 
-              v25 = *(*(&v62 + 1) + 8 * i);
-              v26 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-              v27 = [v25 stringByTrimmingCharactersInSet:v26];
+              v24 = *(*(&v61 + 1) + 8 * i);
+              v25 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
+              v26 = [v24 stringByTrimmingCharactersInSet:v25];
 
-              nw_ws_options_add_subprotocol(options, [v27 cStringUsingEncoding:5]);
+              nw_ws_options_add_subprotocol(options, [v26 cStringUsingEncoding:5]);
             }
 
-            v22 = [v21 countByEnumeratingWithState:&v62 objects:v74 count:16];
+            v21 = [v20 countByEnumeratingWithState:&v61 objects:v73 count:16];
           }
 
-          while (v22);
+          while (v21);
         }
       }
 
       HTTPResponse = CFURLResponseGetHTTPResponse();
-      v61 = 0;
-      if (nw_ws_validate_server_response_with_protocol_options(HTTPResponse, v54, options, &v61))
+      v60 = 0;
+      if (nw_ws_validate_server_response_with_protocol_options(HTTPResponse, v53, options, &v60))
       {
-        v29 = 248;
+        v28 = 248;
         if (!*(v7 + 248))
         {
-          v29 = 240;
+          v28 = 240;
         }
 
-        v30 = *(v7 + v29);
-        v31 = v7;
-        v33 = v55;
-        if (v30)
+        v29 = *(v7 + v28);
+        v30 = v7;
+        v32 = v54;
+        if (v29)
         {
-          v34 = [(NWURLSessionDelegateWrapper *)v30 delegateFor_didOpenWithProtocol];
-          if (v34)
+          v33 = [(NWURLSessionDelegateWrapper *)v29 delegateFor_didOpenWithProtocol];
+          if (v33)
           {
-            v35 = *(v30 + 40);
-            v66 = MEMORY[0x1E69E9820];
-            v67 = 3221225472;
-            v68 = __65__NWURLSessionDelegateWrapper_webSocketTask_didOpenWithProtocol___block_invoke;
-            v69 = &unk_1E6A3C038;
+            v34 = *(v29 + 40);
+            v65 = MEMORY[0x1E69E9820];
+            v66 = 3221225472;
+            v67 = __65__NWURLSessionDelegateWrapper_webSocketTask_didOpenWithProtocol___block_invoke;
+            v68 = &unk_1E6A3C038;
+            v69 = v33;
             v70 = v34;
-            v71 = v35;
-            v72 = v31;
-            v73 = v33;
-            v36 = *(v30 + 56);
-            v37 = v35;
-            [(NWURLSessionDelegateQueue *)v36 runDelegateBlock:?];
+            v71 = v30;
+            v72 = v32;
+            v35 = *(v29 + 56);
+            v36 = v34;
+            [(NWURLSessionDelegateQueue *)v35 runDelegateBlock:?];
           }
         }
 
-        v38 = v31[33];
-        v39 = [v38 underlyingConnection];
-        v40 = v31[66];
-        v31[66] = v39;
+        v37 = v30[33];
+        v38 = [v37 underlyingConnection];
+        v39 = v30[66];
+        v30[66] = v38;
 
-        v66 = 0;
-        v67 = &v66;
-        v68 = 0x2020000000;
-        LOBYTE(v69) = 0;
-        v41 = v31[66];
-        v58[0] = MEMORY[0x1E69E9820];
-        v58[1] = 3221225472;
-        v58[2] = __44__NWURLSessionWebSocketTask_handleResponse___block_invoke;
-        v58[3] = &unk_1E6A33F38;
-        v60 = &v66;
-        v59 = options;
-        nw_connection_modify_connected_protocol_stack_internal(v41, v58, 1);
+        v65 = 0;
+        v66 = &v65;
+        v67 = 0x2020000000;
+        LOBYTE(v68) = 0;
+        v40 = v30[66];
+        v57[0] = MEMORY[0x1E69E9820];
+        v57[1] = 3221225472;
+        v57[2] = __44__NWURLSessionWebSocketTask_handleResponse___block_invoke;
+        v57[3] = &unk_1E6A33F38;
+        v59 = &v65;
+        v58 = options;
+        nw_connection_modify_connected_protocol_stack_internal(v40, v57, 1);
 
-        [(NWURLSessionWebSocketTask *)v31 processWork];
-        _Block_object_dispose(&v66, 8);
+        [(NWURLSessionWebSocketTask *)v30 processWork];
+        _Block_object_dispose(&v65, 8);
       }
 
       else
       {
-        v46 = [NWURLError alloc];
-        v47 = *(v7 + 264);
-        v48 = v7;
-        if (v46)
+        v45 = [NWURLError alloc];
+        v46 = *(v7 + 264);
+        v47 = v7;
+        if (v45)
         {
-          v49 = [(NWURLError *)v46 initWithErrorCode:-1011];
-          v46 = v49;
-          if (v49)
+          v48 = [(NWURLError *)v45 initWithErrorCode:-1011];
+          v45 = v48;
+          if (v48)
           {
-            [(NWURLError *)v49 fillErrorForLoader:v47 andTask:v48];
+            [(NWURLError *)v48 fillErrorForLoader:v46 andTask:v47];
           }
         }
 
-        v50 = [(NWURLError *)v46 webSocketHandshakeFailureReason];
-        v51 = v50 == 0;
+        v49 = [(NWURLError *)v45 webSocketHandshakeFailureReason];
+        v50 = v49 == 0;
 
-        if (v51)
+        if (v50)
         {
-          v52 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v61];
-          [(NWURLError *)v46 setWebSocketHandshakeFailureReason:v52];
+          v51 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v60];
+          [(NWURLError *)v45 setWebSocketHandshakeFailureReason:v51];
         }
 
-        [v48 completeTaskWithError:v46 retryable:0];
+        [v47 completeTaskWithError:v45 retryable:0];
       }
     }
 
     else
     {
-      v42 = [NWURLError alloc];
-      v43 = *(v7 + 264);
-      v44 = v7;
-      if (v42)
+      v41 = [NWURLError alloc];
+      v42 = *(v7 + 264);
+      v43 = v7;
+      if (v41)
       {
-        v45 = [(NWURLError *)v42 initWithErrorCode:-1011];
-        v42 = v45;
-        if (v45)
+        v44 = [(NWURLError *)v41 initWithErrorCode:-1011];
+        v41 = v44;
+        if (v44)
         {
-          [(NWURLError *)v45 fillErrorForLoader:v43 andTask:v44];
+          [(NWURLError *)v44 fillErrorForLoader:v42 andTask:v43];
         }
       }
 
-      [v44 completeTaskWithError:v42 retryable:0];
+      [v43 completeTaskWithError:v41 retryable:0];
     }
 
     goto LABEL_45;

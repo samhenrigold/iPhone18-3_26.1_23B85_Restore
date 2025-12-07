@@ -21,11 +21,4 @@
   return v9;
 }
 
-void __70__HMDAccessorySettingEventsGenerated_topicsForAccessoryUUID_homeUUID___block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  JUMPOUT(0x259C01CC0);
-}
-
 @end

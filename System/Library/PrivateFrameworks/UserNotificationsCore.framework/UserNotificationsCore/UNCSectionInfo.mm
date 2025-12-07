@@ -29,6 +29,8 @@
 - (id)copyFromManagedSettings;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)effectiveSectionInfoWithDefaultContentPreviewSetting:(int64_t)setting globalAnnounceSetting:(int64_t)announceSetting globalScheduledDeliverySetting:(int64_t)deliverySetting hasPairedVehiclesForCarPlay:(BOOL)play hasDestinationForRemoteNotifications:(BOOL)notifications;
+- (id)effectiveSectionInfoWithFactoryInfo:(id)info defaultContentPreviewSetting:(int64_t)setting globalAnnounceSetting:(int64_t)announceSetting globalScheduledDeliverySetting:(int64_t)deliverySetting hasPairedVehiclesForCarPlay:(BOOL)play hasDestinationForRemoteNotifications:(BOOL)notifications;
 - (int64_t)announceSetting;
 - (int64_t)authorizationStatus;
 - (int64_t)bulletinGroupingSetting;
@@ -51,6 +53,7 @@
 - (void)_deliverQuietly:(BOOL)quietly;
 - (void)_dissociateDataProviderSectionInfo:(id)info;
 - (void)_replaceSubsection:(id)subsection;
+- (void)deliverQuietly:(BOOL)quietly changeAuthorizationStatus:(BOOL)status;
 - (void)encodeWithCoder:(id)coder;
 - (void)makeAuthorizationPermanent;
 - (void)muteSectionUntilDate:(id)date;
@@ -58,6 +61,7 @@
 - (void)queryAndUseManagedSettings;
 - (void)queryAndUseManagedSettingsForSectionID:(id)d;
 - (void)setAlertType:(unint64_t)type;
+- (void)setAllowsNotifications:(BOOL)notifications;
 - (void)setAnnounceSetting:(int64_t)setting;
 - (void)setAuthorizationExpirationDate:(id)date;
 - (void)setAuthorizationStatus:(int64_t)status;
@@ -75,8 +79,15 @@
 - (void)setPushSettings:(unint64_t)settings;
 - (void)setRemoteNotificationsSetting:(int64_t)setting;
 - (void)setScheduledDeliverySetting:(int64_t)setting;
+- (void)setShowsCustomSettingsLink:(BOOL)link;
+- (void)setShowsInLockScreen:(BOOL)screen;
+- (void)setShowsInNotificationCenter:(BOOL)center;
+- (void)setShowsMessagePreview:(BOOL)preview;
+- (void)setShowsOnExternalDevices:(BOOL)devices;
 - (void)setSpokenNotificationSetting:(int64_t)setting;
 - (void)setTimeSensitiveSetting:(int64_t)setting;
+- (void)setUserConfiguredDirectMessagesSetting:(BOOL)setting;
+- (void)setUserConfiguredTimeSensitiveSetting:(BOOL)setting;
 - (void)unmuteSection;
 - (void)unmuteThreadIdentifier:(id)identifier;
 - (void)updateWithDefaultSectionInfo:(id)info;
@@ -140,7 +151,7 @@
 
 - (void)_replaceSubsection:(id)subsection
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   subsectionCopy = subsection;
   selfCopy = self;
   subsections = [(UNCSectionInfo *)self subsections];
@@ -148,27 +159,27 @@
   if ([subsections count] && subsectionID)
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v17 = subsections;
+    v16 = subsections;
     v8 = subsections;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * i);
+          v13 = *(*(&v18 + 1) + 8 * i);
           subsectionID2 = [v13 subsectionID];
           v15 = [subsectionID2 isEqualToString:subsectionID];
 
@@ -182,42 +193,40 @@
           [array addObject:v13];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
     }
 
     [(UNCSectionInfo *)selfCopy setSubsections:array];
-    subsections = v17;
+    subsections = v16;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_subsectionForID:(id)d
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   subsections = [(UNCSectionInfo *)self subsections];
-  v6 = [subsections countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [subsections countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(subsections);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         subsectionID = [v9 subsectionID];
         v11 = [subsectionID isEqualToString:dCopy];
 
@@ -228,7 +237,7 @@
         }
       }
 
-      v6 = [subsections countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [subsections countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -239,8 +248,6 @@
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -358,33 +365,30 @@ LABEL_11:
     return 0;
   }
 
-  if ([(UNCSectionInfo *)self carPlaySetting]!= 2)
+  if ([(UNCSectionInfo *)self carPlaySetting]== 2)
   {
-    goto LABEL_14;
+    v10 = objc_alloc_init(getCRPairedVehicleManagerClass());
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x3032000000;
+    v17 = __Block_byref_object_copy_;
+    v18 = __Block_byref_object_dispose_;
+    v19 = 0;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __37__UNCSectionInfo__isDeliveredQuietly__block_invoke;
+    v13[3] = &unk_1E85D6DC0;
+    v13[4] = &v14;
+    [v10 syncFetchAllVehiclesWithCompletion:v13];
+    v11 = [v15[5] count];
+    _Block_object_dispose(&v14, 8);
+
+    if (v11)
+    {
+      return 0;
+    }
   }
 
-  v10 = objc_alloc_init(getCRPairedVehicleManagerClass());
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy_;
-  v18 = __Block_byref_object_dispose_;
-  v19 = 0;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __37__UNCSectionInfo__isDeliveredQuietly__block_invoke;
-  v13[3] = &unk_1E85D6DC0;
-  v13[4] = &v14;
-  [v10 syncFetchAllVehiclesWithCompletion:v13];
-  v11 = [v15[5] count];
-  _Block_object_dispose(&v14, 8);
-
-  if (v11)
-  {
-    return 0;
-  }
-
-LABEL_14:
   if ([(UNCSectionInfo *)self announceSetting]!= 2 && [(UNCSectionInfo *)self announceSetting]!= 3)
   {
     return 1;
@@ -398,7 +402,7 @@ LABEL_14:
 
 - (BOOL)isDeliveredQuietly
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   subsections = [(UNCSectionInfo *)self subsections];
   v4 = [subsections count];
 
@@ -407,34 +411,34 @@ LABEL_14:
     allowsNotifications = [(UNCSectionInfo *)self allowsNotifications];
     if (allowsNotifications)
     {
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       subsections2 = [(UNCSectionInfo *)self subsections];
-      v7 = [subsections2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [subsections2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (!v7)
       {
 LABEL_18:
 
 LABEL_19:
         LOBYTE(allowsNotifications) = 0;
-        goto LABEL_20;
+        return allowsNotifications;
       }
 
       v8 = v7;
       v9 = 0;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(subsections2);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * i);
           if ([v12 allowsNotifications] && objc_msgSend(v12, "notificationCenterSetting") == 2)
           {
             if (![v12 _isDeliveredQuietly])
@@ -446,7 +450,7 @@ LABEL_19:
           }
         }
 
-        v8 = [subsections2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [subsections2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -470,8 +474,6 @@ LABEL_17:
     }
   }
 
-LABEL_20:
-  v13 = *MEMORY[0x1E69E9840];
   return allowsNotifications;
 }
 
@@ -539,6 +541,82 @@ LABEL_20:
 LABEL_20:
 
       [(UNCSectionInfo *)self setAnnounceSetting:v6];
+    }
+  }
+}
+
+- (void)deliverQuietly:(BOOL)quietly changeAuthorizationStatus:(BOOL)status
+{
+  statusCopy = status;
+  quietlyCopy = quietly;
+  v23 = *MEMORY[0x1E69E9840];
+  v7 = MEMORY[0x1E69DA8E0];
+  sectionID = [(UNCSectionInfo *)self sectionID];
+  v9 = [v7 unc_toneLibraryAlertTypeForSectionID:sectionID];
+
+  if (v9)
+  {
+    [MEMORY[0x1E69DA8E0] _setCurrentOverridePolicy:quietlyCopy forType:v9];
+  }
+
+  subsections = [(UNCSectionInfo *)self subsections];
+  v11 = [subsections count];
+
+  if (v11)
+  {
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    subsections2 = [(UNCSectionInfo *)self subsections];
+    v13 = [subsections2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v13)
+    {
+      v14 = v13;
+      v15 = *v19;
+      do
+      {
+        v16 = 0;
+        do
+        {
+          if (*v19 != v15)
+          {
+            objc_enumerationMutation(subsections2);
+          }
+
+          [*(*(&v18 + 1) + 8 * v16++) _deliverQuietly:quietlyCopy];
+        }
+
+        while (v14 != v16);
+        v14 = [subsections2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      }
+
+      while (v14);
+    }
+
+    if (statusCopy)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+    [(UNCSectionInfo *)self _deliverQuietly:quietlyCopy];
+    if (statusCopy)
+    {
+LABEL_12:
+      [(UNCSectionInfo *)self makeAuthorizationPermanent];
+    }
+  }
+
+  if (quietlyCopy)
+  {
+    muteAssertion = [(UNCSectionInfo *)self muteAssertion];
+
+    if (muteAssertion)
+    {
+      [(UNCSectionInfo *)self setMuteAssertion:0];
     }
   }
 }
@@ -812,7 +890,7 @@ LABEL_37:
 
 - (NSDictionary)stateCapture
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   stateCapture = [(UNCSectionInfoSettings *)self->_sectionInfoSettings stateCapture];
   [v3 setValue:stateCapture forKey:@"SectionInfoSettings"];
@@ -884,32 +962,32 @@ LABEL_37:
   if ([subsections count])
   {
     parentSection3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v22 = subsections;
-    v23 = [v22 countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v40;
+      v25 = *v39;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v40 != v25)
+          if (*v39 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v39 + 1) + 8 * i);
+          v27 = *(*(&v38 + 1) + 8 * i);
           stateCapture3 = [v27 stateCapture];
           subsectionID3 = [v27 subsectionID];
           [parentSection3 setValue:stateCapture3 forKey:subsectionID3];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v38 objects:v42 count:16];
       }
 
       while (v24);
@@ -922,13 +1000,13 @@ LABEL_37:
   parentSection = [(UNCSectionInfo *)self parentSection];
   if (parentSection)
   {
-    v33 = parentSection;
+    v32 = parentSection;
     parentSection2 = [(UNCSectionInfo *)self parentSection];
     sectionID = [parentSection2 sectionID];
     sectionID2 = [(UNCSectionInfo *)self sectionID];
-    v37 = [sectionID isEqualToString:sectionID2];
+    v36 = [sectionID isEqualToString:sectionID2];
 
-    if ((v37 & 1) == 0)
+    if ((v36 & 1) == 0)
     {
       parentSection3 = [(UNCSectionInfo *)self parentSection];
       sectionID3 = [parentSection3 sectionID];
@@ -937,8 +1015,6 @@ LABEL_37:
 LABEL_25:
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1321,7 +1397,7 @@ LABEL_25:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   parentSection = [(UNCSectionInfo *)self parentSection];
   [v5 setParentSection:parentSection];
@@ -1362,34 +1438,34 @@ LABEL_25:
   customSettingsDetailControllerClass = [(UNCSectionInfo *)self customSettingsDetailControllerClass];
   [v5 setCustomSettingsDetailControllerClass:customSettingsDetailControllerClass];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   subsections = [(UNCSectionInfo *)self subsections];
-  v18 = [subsections countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v18 = [subsections countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v28;
+    v20 = *v27;
     do
     {
       v21 = 0;
       do
       {
-        if (*v28 != v20)
+        if (*v27 != v20)
         {
           objc_enumerationMutation(subsections);
         }
 
-        v22 = [*(*(&v27 + 1) + 8 * v21) copyWithZone:zone];
+        v22 = [*(*(&v26 + 1) + 8 * v21) copyWithZone:zone];
         [v5 _addSubsection:v22];
 
         ++v21;
       }
 
       while (v19 != v21);
-      v19 = [subsections countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v19 = [subsections countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v19);
@@ -1406,17 +1482,16 @@ LABEL_25:
 
   [v5 setVersion:{-[UNCSectionInfo version](self, "version")}];
   [v5 setIsRestricted:{-[UNCSectionInfo isRestricted](self, "isRestricted")}];
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (UNCSectionInfo)initWithCoder:(id)coder
 {
-  v44[2] = *MEMORY[0x1E69E9840];
+  v43[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v41.receiver = self;
-  v41.super_class = UNCSectionInfo;
-  v5 = [(UNCSectionInfo *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = UNCSectionInfo;
+  v5 = [(UNCSectionInfo *)&v40 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sectionID"];
@@ -1444,38 +1519,38 @@ LABEL_25:
     [(UNCSectionInfo *)v5 setIcon:v11];
 
     v12 = MEMORY[0x1E695DFD8];
-    v44[0] = objc_opt_class();
-    v44[1] = objc_opt_class();
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
+    v43[0] = objc_opt_class();
+    v43[1] = objc_opt_class();
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
     v14 = [v12 setWithArray:v13];
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"subsections"];
 
     [(UNCSectionInfo *)v5 setSubsections:v15];
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v16 = v15;
-    v17 = [v16 countByEnumeratingWithState:&v37 objects:v43 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v36 objects:v42 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v38;
+      v19 = *v37;
       do
       {
         v20 = 0;
         do
         {
-          if (*v38 != v19)
+          if (*v37 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          [*(*(&v37 + 1) + 8 * v20++) setParentSection:{v5, v37}];
+          [*(*(&v36 + 1) + 8 * v20++) setParentSection:{v5, v36}];
         }
 
         while (v18 != v20);
-        v18 = [v16 countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v36 objects:v42 count:16];
       }
 
       while (v18);
@@ -1488,9 +1563,9 @@ LABEL_25:
     [(UNCSectionInfo *)v5 setFactorySectionID:v21];
 
     v22 = MEMORY[0x1E695DFD8];
-    v42[0] = objc_opt_class();
-    v42[1] = objc_opt_class();
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
+    v41[0] = objc_opt_class();
+    v41[1] = objc_opt_class();
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
     v24 = [v22 setWithArray:v23];
     v25 = [coderCopy decodeObjectOfClasses:v24 forKey:@"dataProviderIDs"];
     [(UNCSectionInfo *)v5 setDataProviderIDs:v25];
@@ -1526,7 +1601,7 @@ LABEL_25:
         v33 = 1;
       }
 
-      [(UNCSectionInfoSettings *)v5->_sectionInfoSettings setAllowsNotifications:v33, v37];
+      [(UNCSectionInfoSettings *)v5->_sectionInfoSettings setAllowsNotifications:v33, v36];
       -[UNCSectionInfoSettings setShowsInNotificationCenter:](v5->_sectionInfoSettings, "setShowsInNotificationCenter:", [coderCopy decodeBoolForKey:@"showsInNotificationCenter"]);
       -[UNCSectionInfoSettings setShowsInLockScreen:](v5->_sectionInfoSettings, "setShowsInLockScreen:", [coderCopy decodeBoolForKey:@"showsInLockScreen"]);
       -[UNCSectionInfoSettings setShowsCustomSettingsLink:](v5->_sectionInfoSettings, "setShowsCustomSettingsLink:", [coderCopy decodeBoolForKey:@"showsCustomSettingsLink"]);
@@ -1543,7 +1618,7 @@ LABEL_25:
       }
     }
 
-    if ([coderCopy containsValueForKey:{@"bulletinGroupingSetting", v37}])
+    if ([coderCopy containsValueForKey:{@"bulletinGroupingSetting", v36}])
     {
       -[UNCSectionInfo setBulletinGroupingSetting:](v5, "setBulletinGroupingSetting:", [coderCopy decodeIntegerForKey:@"bulletinGroupingSetting"]);
     }
@@ -1555,7 +1630,6 @@ LABEL_25:
     }
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1610,6 +1684,856 @@ LABEL_25:
   [coderCopy encodeObject:customSettingsDetailControllerClass forKey:@"customSettingsDetailControllerClass"];
 }
 
+- (id)effectiveSectionInfoWithDefaultContentPreviewSetting:(int64_t)setting globalAnnounceSetting:(int64_t)announceSetting globalScheduledDeliverySetting:(int64_t)deliverySetting hasPairedVehiclesForCarPlay:(BOOL)play hasDestinationForRemoteNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  playCopy = play;
+  selfCopy = self;
+  v74 = *MEMORY[0x1E69E9840];
+  parentSection = [(UNCSectionInfo *)self parentSection];
+  if (!parentSection)
+  {
+    subsections = [(UNCSectionInfo *)selfCopy subsections];
+    v16 = [subsections count];
+
+    if (!v16)
+    {
+      goto LABEL_45;
+    }
+
+    copyFromManagedSettings = [(UNCSectionInfo *)selfCopy copyFromManagedSettings];
+    v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v68 = 0u;
+    v69 = 0u;
+    v70 = 0u;
+    v71 = 0u;
+    v50 = selfCopy;
+    subsections2 = [(UNCSectionInfo *)selfCopy subsections];
+    v20 = [subsections2 countByEnumeratingWithState:&v68 objects:v73 count:16];
+    if (v20)
+    {
+      v21 = v20;
+      v22 = *v69;
+      do
+      {
+        for (i = 0; i != v21; ++i)
+        {
+          if (*v69 != v22)
+          {
+            objc_enumerationMutation(subsections2);
+          }
+
+          v24 = [*(*(&v68 + 1) + 8 * i) effectiveSectionInfoWithDefaultContentPreviewSetting:setting globalAnnounceSetting:announceSetting globalScheduledDeliverySetting:deliverySetting hasPairedVehiclesForCarPlay:playCopy hasDestinationForRemoteNotifications:notificationsCopy];
+          [v18 addObject:v24];
+        }
+
+        v21 = [subsections2 countByEnumeratingWithState:&v68 objects:v73 count:16];
+      }
+
+      while (v21);
+    }
+
+    suppressedSettings = [copyFromManagedSettings suppressedSettings];
+    v26 = suppressedSettings;
+    if ((suppressedSettings & 2) != 0)
+    {
+      lockScreenSetting = 0;
+      if ((suppressedSettings & 4) != 0)
+      {
+        goto LABEL_35;
+      }
+    }
+
+    else
+    {
+      lockScreenSetting = [copyFromManagedSettings lockScreenSetting];
+      if ((v26 & 4) != 0)
+      {
+LABEL_35:
+        showsOnExternalDevices = 0;
+        if ((v26 & 1) == 0)
+        {
+          goto LABEL_36;
+        }
+
+        goto LABEL_62;
+      }
+    }
+
+    showsOnExternalDevices = [copyFromManagedSettings showsOnExternalDevices];
+    if ((v26 & 1) == 0)
+    {
+LABEL_36:
+      notificationCenterSetting = [copyFromManagedSettings notificationCenterSetting];
+      if ((v26 & 0x40) == 0)
+      {
+        goto LABEL_37;
+      }
+
+      goto LABEL_63;
+    }
+
+LABEL_62:
+    notificationCenterSetting = 0;
+    if ((v26 & 0x40) == 0)
+    {
+LABEL_37:
+      contentPreviewSetting = [copyFromManagedSettings contentPreviewSetting];
+      if ((v26 & 0x2000) != 0)
+      {
+        goto LABEL_38;
+      }
+
+      goto LABEL_64;
+    }
+
+LABEL_63:
+    contentPreviewSetting = 0;
+    if ((v26 & 0x2000) != 0)
+    {
+LABEL_38:
+      v27 = 0;
+      if ((v26 & 0x4000) != 0)
+      {
+        goto LABEL_39;
+      }
+
+      goto LABEL_65;
+    }
+
+LABEL_64:
+    v27 = [copyFromManagedSettings pushSettings] & 9;
+    if ((v26 & 0x4000) != 0)
+    {
+LABEL_39:
+      v28 = 0;
+      if ((v26 & 0x20) != 0)
+      {
+        goto LABEL_40;
+      }
+
+      goto LABEL_66;
+    }
+
+LABEL_65:
+    v28 = [copyFromManagedSettings pushSettings] & 0x12;
+    if ((v26 & 0x20) != 0)
+    {
+LABEL_40:
+      alertType = 0;
+      v29 = v28 | v27;
+      if ((v26 & 0x80) == 0)
+      {
+        goto LABEL_41;
+      }
+
+      goto LABEL_67;
+    }
+
+LABEL_66:
+    v29 = v27 | v28 | [copyFromManagedSettings pushSettings] & 0x24;
+    alertType = [copyFromManagedSettings alertType];
+    if ((v26 & 0x80) == 0)
+    {
+LABEL_41:
+      carPlaySetting = [copyFromManagedSettings carPlaySetting];
+      if ((v26 & 0x10000) == 0)
+      {
+        goto LABEL_42;
+      }
+
+      goto LABEL_68;
+    }
+
+LABEL_67:
+    carPlaySetting = 0;
+    if ((v26 & 0x10000) == 0)
+    {
+LABEL_42:
+      remoteNotificationsSetting = [copyFromManagedSettings remoteNotificationsSetting];
+      if ((v26 & 0x100) == 0)
+      {
+        goto LABEL_43;
+      }
+
+      goto LABEL_69;
+    }
+
+LABEL_68:
+    remoteNotificationsSetting = 0;
+    if ((v26 & 0x100) == 0)
+    {
+LABEL_43:
+      criticalAlertSetting = [copyFromManagedSettings criticalAlertSetting];
+      if ((v26 & 0x400) == 0)
+      {
+LABEL_44:
+        announceSetting = [copyFromManagedSettings announceSetting];
+        goto LABEL_71;
+      }
+
+LABEL_70:
+      announceSetting = 0;
+LABEL_71:
+      v48 = notificationsCopy;
+      if ((v26 & 0x800) != 0)
+      {
+        timeSensitiveSetting = 0;
+      }
+
+      else
+      {
+        timeSensitiveSetting = [copyFromManagedSettings timeSensitiveSetting];
+      }
+
+      notificationsCopy = copyFromManagedSettings;
+      if ((v26 & 0x1000) != 0)
+      {
+        scheduledDeliverySetting = 0;
+        if ((v26 & 0x8000) == 0)
+        {
+LABEL_76:
+          v30 = copyFromManagedSettings;
+          directMessagesSetting = [copyFromManagedSettings directMessagesSetting];
+LABEL_79:
+          settingCopy = setting;
+          [v30 setSubsections:0];
+          v66 = 0u;
+          v67 = 0u;
+          v64 = 0u;
+          v65 = 0u;
+          v32 = v18;
+          v33 = [v32 countByEnumeratingWithState:&v64 objects:v72 count:16];
+          if (!v33)
+          {
+            goto LABEL_127;
+          }
+
+          v34 = v33;
+          v35 = *v65;
+          while (1)
+          {
+            for (j = 0; j != v34; ++j)
+            {
+              if (*v65 != v35)
+              {
+                objc_enumerationMutation(v32);
+              }
+
+              v37 = *(*(&v64 + 1) + 8 * j);
+              [notificationsCopy _addSubsection:v37];
+              if ([v37 sectionType] == 2)
+              {
+                if ((v26 & 0x2000) != 0)
+                {
+                  v29 |= [v37 pushSettings] & 9;
+                  if ((v26 & 0x4000) != 0)
+                  {
+                    goto LABEL_90;
+                  }
+
+LABEL_87:
+                  if ((v26 & 0x20) != 0)
+                  {
+LABEL_91:
+                    v29 |= [v37 pushSettings] & 0x24;
+                    if ([v37 alertType] > alertType)
+                    {
+                      alertType = [v37 alertType];
+                    }
+                  }
+                }
+
+                else
+                {
+                  if ((v26 & 0x4000) == 0)
+                  {
+                    goto LABEL_87;
+                  }
+
+LABEL_90:
+                  v29 |= [v37 pushSettings] & 0x12;
+                  if ((v26 & 0x20) != 0)
+                  {
+                    goto LABEL_91;
+                  }
+                }
+
+                if ((v26 & 2) != 0 && lockScreenSetting != 2)
+                {
+                  lockScreenSetting = [v37 lockScreenSetting];
+                }
+
+                if ((v26 & 4) != 0)
+                {
+                  showsOnExternalDevices |= [v37 showsOnExternalDevices];
+                }
+
+                if ((v26 & 1) != 0 && notificationCenterSetting != 2)
+                {
+                  notificationCenterSetting = [v37 notificationCenterSetting];
+                }
+
+                if ((v26 & 0x40) != 0 && contentPreviewSetting != 1)
+                {
+                  contentPreviewSetting = [v37 contentPreviewSetting];
+                }
+
+                if ((v26 & 0x80) != 0 && carPlaySetting != 2)
+                {
+                  carPlaySetting = [v37 carPlaySetting];
+                }
+
+                if ((v26 & 0x10000) != 0 && remoteNotificationsSetting != 2)
+                {
+                  remoteNotificationsSetting = [v37 remoteNotificationsSetting];
+                }
+
+                if ((v26 & 0x400) != 0 && (announceSetting - 4) <= 0xFFFFFFFFFFFFFFFDLL)
+                {
+                  announceSetting = [v37 announceSetting];
+                }
+
+                if ((v26 & 0x100) != 0 && criticalAlertSetting != 2)
+                {
+                  criticalAlertSetting = [v37 criticalAlertSetting];
+                }
+
+                if ((v26 & 0x800) != 0 && timeSensitiveSetting != 2)
+                {
+                  timeSensitiveSetting = [v37 timeSensitiveSetting];
+                }
+
+                if ((v26 & 0x1000) != 0 && scheduledDeliverySetting != 2)
+                {
+                  scheduledDeliverySetting = [v37 scheduledDeliverySetting];
+                }
+
+                if ((v26 & 0x8000) != 0 && directMessagesSetting != 2)
+                {
+                  directMessagesSetting = [v37 directMessagesSetting];
+                }
+
+                continue;
+              }
+            }
+
+            v34 = [v32 countByEnumeratingWithState:&v64 objects:v72 count:16];
+            if (!v34)
+            {
+LABEL_127:
+
+              [notificationsCopy setLockScreenSetting:lockScreenSetting];
+              [notificationsCopy setShowsOnExternalDevices:showsOnExternalDevices & 1];
+              [notificationsCopy setNotificationCenterSetting:notificationCenterSetting];
+              [notificationsCopy setPushSettings:v29];
+              [notificationsCopy setAlertType:alertType];
+              [notificationsCopy setContentPreviewSetting:contentPreviewSetting];
+              [notificationsCopy setAnnounceSetting:announceSetting];
+              [notificationsCopy setCarPlaySetting:carPlaySetting];
+              [notificationsCopy setRemoteNotificationsSetting:remoteNotificationsSetting];
+              [notificationsCopy setCriticalAlertSetting:criticalAlertSetting];
+              [notificationsCopy setTimeSensitiveSetting:timeSensitiveSetting];
+              copyFromManagedSettings2 = notificationsCopy;
+              [notificationsCopy setScheduledDeliverySetting:scheduledDeliverySetting];
+              [notificationsCopy setDirectMessagesSetting:directMessagesSetting];
+
+              selfCopy = v50;
+              parentSection = 0;
+              setting = settingCopy;
+              LOBYTE(notificationsCopy) = v48;
+              goto LABEL_128;
+            }
+          }
+        }
+      }
+
+      else
+      {
+        scheduledDeliverySetting = [copyFromManagedSettings scheduledDeliverySetting];
+        if ((v26 & 0x8000) == 0)
+        {
+          goto LABEL_76;
+        }
+      }
+
+      directMessagesSetting = 0;
+      v30 = copyFromManagedSettings;
+      goto LABEL_79;
+    }
+
+LABEL_69:
+    criticalAlertSetting = 0;
+    if ((v26 & 0x400) == 0)
+    {
+      goto LABEL_44;
+    }
+
+    goto LABEL_70;
+  }
+
+  if ([(UNCSectionInfo *)selfCopy sectionType]!= 2)
+  {
+LABEL_45:
+    copyFromManagedSettings2 = 0;
+    goto LABEL_128;
+  }
+
+  copyFromManagedSettings2 = [(UNCSectionInfo *)selfCopy copyFromManagedSettings];
+  if (([parentSection allowsNotifications] & 1) == 0)
+  {
+    -[UNCSectionInfo setAuthorizationStatus:](copyFromManagedSettings2, "setAuthorizationStatus:", [parentSection authorizationStatus]);
+  }
+
+  if ([parentSection suppressedSettings] & 0x2000) == 0 && (objc_msgSend(parentSection, "pushSettings") & 1) != 0 && (objc_msgSend(parentSection, "pushSettings") & 8) == 0 && (-[UNCSectionInfo pushSettings](copyFromManagedSettings2, "pushSettings"))
+  {
+    [(UNCSectionInfo *)copyFromManagedSettings2 setPushSettings:[(UNCSectionInfo *)copyFromManagedSettings2 pushSettings]& 0xFFFFFFFFFFFFFFF7];
+  }
+
+  suppressedSettings2 = [(UNCSectionInfo *)copyFromManagedSettings2 suppressedSettings];
+  v14 = suppressedSettings2;
+  if (suppressedSettings2)
+  {
+    -[UNCSectionInfo setNotificationCenterSetting:](copyFromManagedSettings2, "setNotificationCenterSetting:", [parentSection notificationCenterSetting]);
+    if ((v14 & 2) == 0)
+    {
+LABEL_12:
+      if ((v14 & 4) == 0)
+      {
+        goto LABEL_13;
+      }
+
+      goto LABEL_48;
+    }
+  }
+
+  else if ((suppressedSettings2 & 2) == 0)
+  {
+    goto LABEL_12;
+  }
+
+  -[UNCSectionInfo setLockScreenSetting:](copyFromManagedSettings2, "setLockScreenSetting:", [parentSection lockScreenSetting]);
+  if ((v14 & 4) == 0)
+  {
+LABEL_13:
+    if ((v14 & 0x2000) == 0)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_49;
+  }
+
+LABEL_48:
+  -[UNCSectionInfo setShowsOnExternalDevices:](copyFromManagedSettings2, "setShowsOnExternalDevices:", [parentSection showsOnExternalDevices]);
+  if ((v14 & 0x2000) == 0)
+  {
+LABEL_14:
+    if ((v14 & 0x4000) == 0)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_50;
+  }
+
+LABEL_49:
+  -[UNCSectionInfo setPushSettings:](copyFromManagedSettings2, "setPushSettings:", [parentSection pushSettings] & 9 | -[UNCSectionInfo pushSettings](copyFromManagedSettings2, "pushSettings") & 0xFFFFFFFFFFFFFFF6);
+  if ((v14 & 0x4000) == 0)
+  {
+LABEL_15:
+    if ((v14 & 0x20) == 0)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_51;
+  }
+
+LABEL_50:
+  -[UNCSectionInfo setPushSettings:](copyFromManagedSettings2, "setPushSettings:", [parentSection pushSettings] & 0x12 | -[UNCSectionInfo pushSettings](copyFromManagedSettings2, "pushSettings") & 0xFFFFFFFFFFFFFFEDLL);
+  if ((v14 & 0x20) == 0)
+  {
+LABEL_16:
+    if ((v14 & 0x40) == 0)
+    {
+      goto LABEL_17;
+    }
+
+    goto LABEL_52;
+  }
+
+LABEL_51:
+  -[UNCSectionInfo setPushSettings:](copyFromManagedSettings2, "setPushSettings:", [parentSection pushSettings] & 0x24 | -[UNCSectionInfo pushSettings](copyFromManagedSettings2, "pushSettings") & 0xFFFFFFFFFFFFFFDBLL);
+  -[UNCSectionInfo setAlertType:](copyFromManagedSettings2, "setAlertType:", [parentSection alertType]);
+  if ((v14 & 0x40) == 0)
+  {
+LABEL_17:
+    if ((v14 & 0x400) == 0)
+    {
+      goto LABEL_18;
+    }
+
+    goto LABEL_53;
+  }
+
+LABEL_52:
+  -[UNCSectionInfo setContentPreviewSetting:](copyFromManagedSettings2, "setContentPreviewSetting:", [parentSection contentPreviewSetting]);
+  if ((v14 & 0x400) == 0)
+  {
+LABEL_18:
+    if ((v14 & 0x80) == 0)
+    {
+      goto LABEL_19;
+    }
+
+    goto LABEL_54;
+  }
+
+LABEL_53:
+  -[UNCSectionInfo setAnnounceSetting:](copyFromManagedSettings2, "setAnnounceSetting:", [parentSection announceSetting]);
+  if ((v14 & 0x80) == 0)
+  {
+LABEL_19:
+    if ((v14 & 0x10000) == 0)
+    {
+      goto LABEL_20;
+    }
+
+    goto LABEL_55;
+  }
+
+LABEL_54:
+  -[UNCSectionInfo setCarPlaySetting:](copyFromManagedSettings2, "setCarPlaySetting:", [parentSection carPlaySetting]);
+  if ((v14 & 0x10000) == 0)
+  {
+LABEL_20:
+    if ((v14 & 0x100) == 0)
+    {
+      goto LABEL_21;
+    }
+
+    goto LABEL_56;
+  }
+
+LABEL_55:
+  -[UNCSectionInfo setRemoteNotificationsSetting:](copyFromManagedSettings2, "setRemoteNotificationsSetting:", [parentSection remoteNotificationsSetting]);
+  if ((v14 & 0x100) == 0)
+  {
+LABEL_21:
+    if ((v14 & 0x800) == 0)
+    {
+      goto LABEL_22;
+    }
+
+    goto LABEL_57;
+  }
+
+LABEL_56:
+  -[UNCSectionInfo setCriticalAlertSetting:](copyFromManagedSettings2, "setCriticalAlertSetting:", [parentSection criticalAlertSetting]);
+  if ((v14 & 0x800) == 0)
+  {
+LABEL_22:
+    if ((v14 & 0x1000) == 0)
+    {
+      goto LABEL_23;
+    }
+
+LABEL_58:
+    -[UNCSectionInfo setScheduledDeliverySetting:](copyFromManagedSettings2, "setScheduledDeliverySetting:", [parentSection scheduledDeliverySetting]);
+    if ((v14 & 0x8000) == 0)
+    {
+      goto LABEL_128;
+    }
+
+    goto LABEL_59;
+  }
+
+LABEL_57:
+  -[UNCSectionInfo setTimeSensitiveSetting:](copyFromManagedSettings2, "setTimeSensitiveSetting:", [parentSection timeSensitiveSetting]);
+  if ((v14 & 0x1000) != 0)
+  {
+    goto LABEL_58;
+  }
+
+LABEL_23:
+  if ((v14 & 0x8000) != 0)
+  {
+LABEL_59:
+    -[UNCSectionInfo setDirectMessagesSetting:](copyFromManagedSettings2, "setDirectMessagesSetting:", [parentSection directMessagesSetting]);
+  }
+
+LABEL_128:
+  if ([(UNCSectionInfo *)selfCopy isRestricted])
+  {
+    if (!copyFromManagedSettings2)
+    {
+      copyFromManagedSettings2 = [(UNCSectionInfo *)selfCopy copyFromManagedSettings];
+    }
+
+    [(UNCSectionInfo *)copyFromManagedSettings2 setAuthorizationStatus:1];
+  }
+
+  if (![(UNCSectionInfo *)selfCopy allowsNotifications])
+  {
+    if (!copyFromManagedSettings2)
+    {
+      copyFromManagedSettings2 = [(UNCSectionInfo *)selfCopy copyFromManagedSettings];
+    }
+
+LABEL_138:
+    if (![parentSection allowsNotifications] || (objc_msgSend(parentSection, "pushSettings") & 1) == 0 || (objc_msgSend(parentSection, "suppressedSettings") & 0x2000) != 0 || (-[UNCSectionInfo suppressedSettings](selfCopy, "suppressedSettings") & 0x2000) != 0)
+    {
+      v38 = -57;
+    }
+
+    else
+    {
+      v38 = -49;
+    }
+
+    [(UNCSectionInfo *)copyFromManagedSettings2 setPushSettings:[(UNCSectionInfo *)selfCopy pushSettings]& v38];
+    [(UNCSectionInfo *)copyFromManagedSettings2 setAlertType:0];
+    [(UNCSectionInfo *)copyFromManagedSettings2 setNotificationCenterSetting:[(UNCSectionInfo *)selfCopy disabledSettingForSetting:[(UNCSectionInfo *)selfCopy notificationCenterSetting]]];
+    [(UNCSectionInfo *)copyFromManagedSettings2 setLockScreenSetting:[(UNCSectionInfo *)selfCopy disabledSettingForSetting:[(UNCSectionInfo *)selfCopy lockScreenSetting]]];
+    [(UNCSectionInfo *)copyFromManagedSettings2 setShowsOnExternalDevices:0];
+    [(UNCSectionInfo *)copyFromManagedSettings2 setShowsCustomSettingsLink:0];
+    [(UNCSectionInfo *)copyFromManagedSettings2 setContentPreviewSetting:0];
+    [(UNCSectionInfo *)copyFromManagedSettings2 setAnnounceSetting:1];
+    [(UNCSectionInfo *)copyFromManagedSettings2 setCarPlaySetting:[(UNCSectionInfo *)selfCopy disabledSettingForSetting:[(UNCSectionInfo *)selfCopy carPlaySetting]]];
+    [(UNCSectionInfo *)copyFromManagedSettings2 setRemoteNotificationsSetting:[(UNCSectionInfo *)selfCopy disabledSettingForSetting:[(UNCSectionInfo *)selfCopy remoteNotificationsSetting]]];
+    [(UNCSectionInfo *)copyFromManagedSettings2 setDirectMessagesSetting:[(UNCSectionInfo *)selfCopy disabledSettingForSetting:[(UNCSectionInfo *)selfCopy directMessagesSetting]]];
+    [(UNCSectionInfo *)copyFromManagedSettings2 setScheduledDeliverySetting:[(UNCSectionInfo *)selfCopy disabledSettingForSetting:[(UNCSectionInfo *)selfCopy scheduledDeliverySetting]]];
+    [(UNCSectionInfo *)copyFromManagedSettings2 setTimeSensitiveSetting:[(UNCSectionInfo *)selfCopy disabledSettingForSetting:[(UNCSectionInfo *)selfCopy timeSensitiveSetting]]];
+LABEL_145:
+    if (announceSetting != -1)
+    {
+      if (announceSetting >= 2)
+      {
+        goto LABEL_158;
+      }
+
+      if (copyFromManagedSettings2)
+      {
+        goto LABEL_154;
+      }
+
+      goto LABEL_153;
+    }
+
+    if (copyFromManagedSettings2)
+    {
+LABEL_156:
+      v39 = copyFromManagedSettings2;
+      v40 = 0;
+      goto LABEL_157;
+    }
+
+LABEL_155:
+    copyFromManagedSettings2 = [(UNCSectionInfo *)selfCopy copyFromManagedSettings];
+    goto LABEL_156;
+  }
+
+  if (copyFromManagedSettings2)
+  {
+    if ([(UNCSectionInfo *)copyFromManagedSettings2 allowsNotifications])
+    {
+      goto LABEL_145;
+    }
+
+    goto LABEL_138;
+  }
+
+  if (announceSetting == -1)
+  {
+    goto LABEL_155;
+  }
+
+  if (announceSetting >= 2)
+  {
+    if ((deliverySetting + 1) < 3)
+    {
+      goto LABEL_160;
+    }
+
+LABEL_163:
+    copyFromManagedSettings2 = [(UNCSectionInfo *)selfCopy copyFromManagedSettings];
+    goto LABEL_164;
+  }
+
+LABEL_153:
+  copyFromManagedSettings2 = [(UNCSectionInfo *)selfCopy copyFromManagedSettings];
+LABEL_154:
+  v39 = copyFromManagedSettings2;
+  v40 = 1;
+LABEL_157:
+  [(UNCSectionInfo *)v39 setAnnounceSetting:v40];
+LABEL_158:
+  if ((deliverySetting + 1) < 3)
+  {
+    if (copyFromManagedSettings2)
+    {
+LABEL_161:
+      [(UNCSectionInfo *)copyFromManagedSettings2 setScheduledDeliverySetting:1];
+      goto LABEL_164;
+    }
+
+LABEL_160:
+    copyFromManagedSettings2 = [(UNCSectionInfo *)selfCopy copyFromManagedSettings];
+    goto LABEL_161;
+  }
+
+  if (!copyFromManagedSettings2)
+  {
+    goto LABEL_163;
+  }
+
+LABEL_164:
+  if (!playCopy)
+  {
+    if (!copyFromManagedSettings2)
+    {
+      copyFromManagedSettings2 = [(UNCSectionInfo *)selfCopy copyFromManagedSettings];
+    }
+
+    [(UNCSectionInfo *)copyFromManagedSettings2 setCarPlaySetting:0];
+  }
+
+  if (!notificationsCopy)
+  {
+    if (!copyFromManagedSettings2)
+    {
+      copyFromManagedSettings2 = [(UNCSectionInfo *)selfCopy copyFromManagedSettings];
+    }
+
+    [(UNCSectionInfo *)copyFromManagedSettings2 setRemoteNotificationsSetting:0];
+  }
+
+  if (copyFromManagedSettings2)
+  {
+    v41 = copyFromManagedSettings2;
+  }
+
+  else
+  {
+    v41 = selfCopy;
+  }
+
+  v42 = v41;
+  if (![(UNCSectionInfo *)v42 contentPreviewSetting])
+  {
+    if (!copyFromManagedSettings2)
+    {
+      copyFromManagedSettings2 = [(UNCSectionInfo *)selfCopy copyFromManagedSettings];
+    }
+
+    [(UNCSectionInfo *)copyFromManagedSettings2 setContentPreviewSetting:setting];
+  }
+
+  if ([(UNCSectionInfo *)v42 authorizationStatus]== 4)
+  {
+    if (!copyFromManagedSettings2)
+    {
+      copyFromManagedSettings2 = [(UNCSectionInfo *)selfCopy copyFromManagedSettings];
+    }
+
+    sectionInfoSettings = [(UNCSectionInfo *)selfCopy sectionInfoSettings];
+    if ([sectionInfoSettings isAuthorizedTemporarily])
+    {
+      v44 = 2;
+    }
+
+    else
+    {
+      v44 = 0;
+    }
+
+    [(UNCSectionInfo *)copyFromManagedSettings2 setAuthorizationStatus:v44];
+  }
+
+  if (copyFromManagedSettings2)
+  {
+    v45 = copyFromManagedSettings2;
+  }
+
+  else
+  {
+    v45 = selfCopy;
+  }
+
+  v46 = v45;
+
+  return v45;
+}
+
+- (id)effectiveSectionInfoWithFactoryInfo:(id)info defaultContentPreviewSetting:(int64_t)setting globalAnnounceSetting:(int64_t)announceSetting globalScheduledDeliverySetting:(int64_t)deliverySetting hasPairedVehiclesForCarPlay:(BOOL)play hasDestinationForRemoteNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  playCopy = play;
+  infoCopy = info;
+  if (!infoCopy)
+  {
+    goto LABEL_9;
+  }
+
+  factorySectionID = [(UNCSectionInfo *)self factorySectionID];
+  sectionID = [infoCopy sectionID];
+  if (([factorySectionID isEqualToString:sectionID] & 1) == 0)
+  {
+
+    goto LABEL_9;
+  }
+
+  [infoCopy dataProviderIDs];
+  deliverySettingCopy = deliverySetting;
+  v17 = v26 = announceSetting;
+  [(UNCSectionInfo *)self sectionID];
+  v19 = v18 = notificationsCopy;
+  v20 = [v17 containsObject:v19];
+
+  if ((v20 & 1) == 0)
+  {
+LABEL_9:
+    selfCopy = self;
+    goto LABEL_10;
+  }
+
+  v21 = [(UNCSectionInfo *)self copy];
+  if ([v21 suppressFromSettings] && (objc_msgSend(infoCopy, "suppressFromSettings") & 1) == 0)
+  {
+    [v21 setNotificationCenterSetting:{objc_msgSend(infoCopy, "notificationCenterSetting")}];
+    [v21 setLockScreenSetting:{objc_msgSend(infoCopy, "lockScreenSetting")}];
+    if ([v21 showsOnExternalDevices])
+    {
+      showsOnExternalDevices = [infoCopy showsOnExternalDevices];
+    }
+
+    else
+    {
+      showsOnExternalDevices = 0;
+    }
+
+    [v21 setShowsOnExternalDevices:showsOnExternalDevices];
+    [v21 setContentPreviewSetting:{objc_msgSend(infoCopy, "contentPreviewSetting")}];
+    [v21 setPushSettings:{objc_msgSend(infoCopy, "pushSettings")}];
+    [v21 setAlertType:{objc_msgSend(infoCopy, "alertType")}];
+    [v21 setAuthorizationStatus:{objc_msgSend(infoCopy, "authorizationStatus")}];
+    [v21 setCarPlaySetting:{objc_msgSend(infoCopy, "carPlaySetting")}];
+    [v21 setRemoteNotificationsSetting:{objc_msgSend(infoCopy, "remoteNotificationsSetting")}];
+    [v21 setAnnounceSetting:{objc_msgSend(infoCopy, "announceSetting")}];
+    [v21 setCriticalAlertSetting:{objc_msgSend(infoCopy, "criticalAlertSetting")}];
+    [v21 setTimeSensitiveSetting:{objc_msgSend(infoCopy, "timeSensitiveSetting")}];
+    [v21 setScheduledDeliverySetting:{objc_msgSend(infoCopy, "scheduledDeliverySetting")}];
+    [v21 setDirectMessagesSetting:{objc_msgSend(infoCopy, "directMessagesSetting")}];
+  }
+
+  selfCopy = [v21 effectiveSectionInfoWithDefaultContentPreviewSetting:setting globalAnnounceSetting:v26 globalScheduledDeliverySetting:deliverySettingCopy hasPairedVehiclesForCarPlay:playCopy hasDestinationForRemoteNotifications:v18];
+
+LABEL_10:
+
+  return selfCopy;
+}
+
 - (UNCSectionInfo)parentSection
 {
   WeakRetained = objc_loadWeakRetained(&self->_parentSection);
@@ -1653,7 +2577,7 @@ LABEL_25:
 
 - (void)updateWithDefaultSectionInfo:(id)info
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   alertType = [(UNCSectionInfo *)self alertType];
   pushSettings = [(UNCSectionInfo *)self pushSettings];
@@ -1719,33 +2643,33 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   subsections2 = [(UNCSectionInfo *)self subsections];
-  v18 = [subsections2 countByEnumeratingWithState:&v57 objects:v61 count:16];
+  v18 = [subsections2 countByEnumeratingWithState:&v56 objects:v60 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v58;
+    v20 = *v57;
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v58 != v20)
+        if (*v57 != v20)
         {
           objc_enumerationMutation(subsections2);
         }
 
-        if (([*(*(&v57 + 1) + 8 * i) pushSettings] & 8) != 0)
+        if (([*(*(&v56 + 1) + 8 * i) pushSettings] & 8) != 0)
         {
           v11 |= 9uLL;
           goto LABEL_81;
         }
       }
 
-      v19 = [subsections2 countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v19 = [subsections2 countByEnumeratingWithState:&v56 objects:v60 count:16];
       if (v19)
       {
         continue;
@@ -1950,8 +2874,6 @@ LABEL_29:
 
   customSettingsDetailControllerClass = [infoCopy customSettingsDetailControllerClass];
   [(UNCSectionInfo *)self setCustomSettingsDetailControllerClass:customSettingsDetailControllerClass];
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryAndUseManagedSettings
@@ -1962,7 +2884,7 @@ LABEL_29:
 
 - (void)queryAndUseManagedSettingsForSectionID:(id)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = [UNCSectionInfoSettings sectionInfoSettingsForManagedBundleID:dCopy];
   v6 = MEMORY[0x1E69833A0];
@@ -1971,9 +2893,9 @@ LABEL_29:
     v7 = *MEMORY[0x1E69833A0];
     if (os_log_type_enabled(*MEMORY[0x1E69833A0], OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = dCopy;
-      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "Managed settings found for section %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = dCopy;
+      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "Managed settings found for section %{public}@", &v11, 0xCu);
     }
   }
 
@@ -1986,56 +2908,52 @@ LABEL_29:
     v10 = *v6;
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = dCopy;
-      _os_log_impl(&dword_1DA7A9000, v10, OS_LOG_TYPE_DEFAULT, "Modification not allowed for section %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = dCopy;
+      _os_log_impl(&dword_1DA7A9000, v10, OS_LOG_TYPE_DEFAULT, "Modification not allowed for section %{public}@", &v11, 0xCu);
     }
   }
 
   [(UNCSectionInfo *)self setIsModificationAllowed:v9 ^ 1u];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setManagedSectionInfoSettings:(id)settings
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   v5 = [settingsCopy copy];
   managedSectionInfoSettings = self->_managedSectionInfoSettings;
   self->_managedSectionInfoSettings = v5;
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = self->_subsections;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) setManagedSectionInfoSettings:{settingsCopy, v13}];
+        [*(*(&v12 + 1) + 8 * v11++) setManagedSectionInfoSettings:{settingsCopy, v12}];
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (UNCSectionInfoSettings)readableSettings
@@ -2082,6 +3000,13 @@ LABEL_29:
   allowsNotifications = [readableSettings allowsNotifications];
 
   return allowsNotifications;
+}
+
+- (void)setAllowsNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  writableSettings = [(UNCSectionInfo *)self writableSettings];
+  [writableSettings setAllowsNotifications:notificationsCopy];
 }
 
 - (NSDate)authorizationExpirationDate
@@ -2165,6 +3090,13 @@ LABEL_29:
   return showsInNotificationCenter;
 }
 
+- (void)setShowsInNotificationCenter:(BOOL)center
+{
+  centerCopy = center;
+  writableSettings = [(UNCSectionInfo *)self writableSettings];
+  [writableSettings setShowsInNotificationCenter:centerCopy];
+}
+
 - (int64_t)lockScreenSetting
 {
   readableSettings = [(UNCSectionInfo *)self readableSettings];
@@ -2185,6 +3117,13 @@ LABEL_29:
   showsInLockScreen = [readableSettings showsInLockScreen];
 
   return showsInLockScreen;
+}
+
+- (void)setShowsInLockScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  writableSettings = [(UNCSectionInfo *)self writableSettings];
+  [writableSettings setShowsInLockScreen:screenCopy];
 }
 
 - (unint64_t)alertType
@@ -2293,6 +3232,13 @@ LABEL_29:
   return hasUserConfiguredTimeSensitiveSetting;
 }
 
+- (void)setUserConfiguredTimeSensitiveSetting:(BOOL)setting
+{
+  settingCopy = setting;
+  writableSettings = [(UNCSectionInfo *)self writableSettings];
+  [writableSettings setUserConfiguredTimeSensitiveSetting:settingCopy];
+}
+
 - (int64_t)bulletinGroupingSetting
 {
   readableSettings = [(UNCSectionInfo *)self readableSettings];
@@ -2357,12 +3303,26 @@ LABEL_29:
   return hasUserConfiguredDirectMessagesSetting;
 }
 
+- (void)setUserConfiguredDirectMessagesSetting:(BOOL)setting
+{
+  settingCopy = setting;
+  writableSettings = [(UNCSectionInfo *)self writableSettings];
+  [writableSettings setUserConfiguredDirectMessagesSetting:settingCopy];
+}
+
 - (BOOL)showsOnExternalDevices
 {
   sectionInfoSettings = [(UNCSectionInfo *)self sectionInfoSettings];
   showsOnExternalDevices = [sectionInfoSettings showsOnExternalDevices];
 
   return showsOnExternalDevices;
+}
+
+- (void)setShowsOnExternalDevices:(BOOL)devices
+{
+  devicesCopy = devices;
+  sectionInfoSettings = [(UNCSectionInfo *)self sectionInfoSettings];
+  [sectionInfoSettings setShowsOnExternalDevices:devicesCopy];
 }
 
 - (int64_t)contentPreviewSetting
@@ -2387,12 +3347,26 @@ LABEL_29:
   return showsMessagePreview;
 }
 
+- (void)setShowsMessagePreview:(BOOL)preview
+{
+  previewCopy = preview;
+  sectionInfoSettings = [(UNCSectionInfo *)self sectionInfoSettings];
+  [sectionInfoSettings setShowsMessagePreview:previewCopy];
+}
+
 - (BOOL)showsCustomSettingsLink
 {
   sectionInfoSettings = [(UNCSectionInfo *)self sectionInfoSettings];
   showsCustomSettingsLink = [sectionInfoSettings showsCustomSettingsLink];
 
   return showsCustomSettingsLink;
+}
+
+- (void)setShowsCustomSettingsLink:(BOOL)link
+{
+  linkCopy = link;
+  sectionInfoSettings = [(UNCSectionInfo *)self sectionInfoSettings];
+  [sectionInfoSettings setShowsCustomSettingsLink:linkCopy];
 }
 
 @end

@@ -2,6 +2,7 @@
 - (FMDAudioChannelStatus)initWithCoder:(id)coder;
 - (FMDAudioChannelStatus)initWithConfiguration:(id)configuration;
 - (FMDAudioChannelStatus)initWithDictionary:(id)dictionary;
+- (FMDAudioChannelStatus)initWithName:(id)name active:(BOOL)active;
 - (NSDictionary)dictionaryValue;
 - (NSNumber)muted;
 - (NSNumber)playingSound;
@@ -11,6 +12,29 @@
 @end
 
 @implementation FMDAudioChannelStatus
+
+- (FMDAudioChannelStatus)initWithName:(id)name active:(BOOL)active
+{
+  activeCopy = active;
+  nameCopy = name;
+  v10.receiver = self;
+  v10.super_class = FMDAudioChannelStatus;
+  v7 = [(FMDBLEBeacon *)&v10 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(FMDAudioChannelStatus *)v7 setInEar:0];
+    [(FMDAudioChannelStatus *)v8 setOnHeadStatus:0];
+    [(FMDAudioChannelStatus *)v8 setInCase:0];
+    [(FMDAudioChannelStatus *)v8 setLidClosed:0];
+    [(FMDAudioChannelStatus *)v8 setChannelName:nameCopy];
+    [(FMDBLEBeacon *)v8 setActive:activeCopy];
+    [(FMDAudioChannelStatus *)v8 setAvailability:0];
+    [(FMDAudioChannelStatus *)v8 setAudioState:0];
+  }
+
+  return v8;
+}
 
 - (FMDAudioChannelStatus)initWithConfiguration:(id)configuration
 {

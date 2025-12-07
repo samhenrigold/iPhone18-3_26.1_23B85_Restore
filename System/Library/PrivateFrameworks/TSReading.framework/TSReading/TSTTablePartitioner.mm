@@ -483,7 +483,7 @@ LABEL_14:
 
   else if ([(TSDDrawableInfo *)self->mTableInfo isInlineWithText])
   {
-    if (self->mFirstPartitionWidth != width && !(v23 | (v22 << 16)) || ([(TSTTablePartitioner *)self scaleToFit], v34 == v31) && v33 == v30 || ([(TSDInfoGeometry *)[(TSTTablePartitioner *)self infoGeometry] size], v58 = v57, v60 = v59, [(TSDInfoGeometry *)[(TSDDrawableInfo *)[(TSTTablePartitioner *)self tableInfo] geometry] size], v58 != v62) || v60 != v61)
+    if (self->mFirstPartitionWidth != width && !(v23 | (v22 << 16)) || ([(TSTTablePartitioner *)self scaleToFit], v34 == v31) && v33 == v30 || ([(TSDInfoGeometry *)[(TSTTablePartitioner *)self infoGeometry] size], v62 = v61, v64 = v63, [(TSDInfoGeometry *)[(TSDDrawableInfo *)[(TSTTablePartitioner *)self tableInfo] geometry] size], v62 != v66) || v64 != v65)
     {
       [(TSTLayout *)[(TSTTablePartitioner *)self scaledLayout] scaleToFit];
       if (v36 != 1.0 || v35 != 1.0 || ([(TSDInfoGeometry *)[(TSTTablePartitioner *)self infoGeometry] size], v38 = v37, v40 = v39, [(TSDInfoGeometry *)[(TSDDrawableInfo *)[(TSTTablePartitioner *)self tableInfo] geometry] size], v38 != v42) || v40 != v41)
@@ -493,31 +493,33 @@ LABEL_14:
         range = [(TSTTableModel *)[(TSTTableInfo *)self->mTableInfo tableModel] range];
         v46 = scaledLayout;
         v21 = v43;
-        (TSTLayoutInvalidateCellRange)(v46, range);
+        TSTLayoutInvalidateCellRange(v46, *&range, v47);
       }
 
       [(TSTTablePartitioner *)self setScaleToFit:1.0, 1.0];
       [(TSTTablePartitioner *)self validateScaledLayout];
       [(TSTLayout *)[(TSTTablePartitioner *)self scaledLayout] computeLayoutGeometry];
       StrokeFrame = TSTLayoutGetStrokeFrame([(TSTTablePartitioner *)self scaledLayout]);
-      v49 = v48;
+      v50 = v49;
       [(TSTLayout *)[(TSTTablePartitioner *)self scaledLayout] alignmentFrame];
-      v51 = width - (v50 - v49);
-      v52 = 1.0;
-      if (v49 > v51)
+      v52 = width - (v51 - v50);
+      v53 = 1.0;
+      if (v50 > v52)
       {
-        v52 = v51 / v49;
+        v53 = v52 / v50;
       }
 
-      [(TSTTablePartitioner *)self setScaleToFit:v52, 1.0];
+      [(TSTTablePartitioner *)self setScaleToFit:v53, 1.0];
       self->mFirstPartitionWidth = width;
       [(TSTTablePartitioner *)self scaleToFit];
-      [(TSTLayout *)[(TSTTablePartitioner *)self scaledLayout] setScaleToFit:v53, v54];
+      [(TSTLayout *)[(TSTTablePartitioner *)self scaledLayout] setScaleToFit:v54, v55];
       [(TSTTablePartitioner *)self scaleToFit];
-      if (v56 != 1.0 || v55 != 1.0)
+      if (v57 != 1.0 || v56 != 1.0)
       {
         [(TSTMasterLayout *)masterLayout addChangeDescriptor:[TSTChangeDescriptor changeDescriptorWithType:33 cellRange:[(TSTTableModel *)[(TSTTableInfo *)[(TSTTablePartitioner *)self tableInfo] tableModel] range]]];
-        TSTLayoutInvalidateCellRange([(TSTTablePartitioner *)self scaledLayout], [(TSTTableModel *)[(TSTTableInfo *)self->mTableInfo tableModel] range]);
+        scaledLayout2 = [(TSTTablePartitioner *)self scaledLayout];
+        range2 = [(TSTTableModel *)[(TSTTableInfo *)self->mTableInfo tableModel] range];
+        TSTLayoutInvalidateCellRange(scaledLayout2, *&range2, v60);
       }
     }
   }
@@ -680,7 +682,8 @@ LABEL_33:
 
   else
   {
-    TSTLayoutInvalidateCellRange(v13, [v8 cellRange]);
+    cellRange3 = [v8 cellRange];
+    TSTLayoutInvalidateCellRange(v13, cellRange3, v27);
   }
 
   TSTLayoutInvalidateLayoutSpaceCoordinates(v13);

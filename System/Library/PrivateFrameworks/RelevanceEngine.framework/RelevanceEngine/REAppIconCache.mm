@@ -84,6 +84,7 @@ void __62__REAppIconCache_iconForApplicationWithIdentifier_completion___block_in
   v28 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
+  v9 = completionCopy;
   v19 = 0;
   if (!RelevanceEngineUILibraryCore_frameworkLibrary)
   {
@@ -95,7 +96,7 @@ void __62__REAppIconCache_iconForApplicationWithIdentifier_completion___block_in
     v25 = xmmword_2785FA720;
     v26 = 0;
     RelevanceEngineUILibraryCore_frameworkLibrary = _sl_dlopen();
-    v8 = v19;
+    completionCopy = v19;
     if (RelevanceEngineUILibraryCore_frameworkLibrary)
     {
       if (!v19)
@@ -106,19 +107,19 @@ void __62__REAppIconCache_iconForApplicationWithIdentifier_completion___block_in
 
     else
     {
-      v8 = abort_report_np();
+      completionCopy = abort_report_np("%s", v19);
       __break(1u);
     }
 
-    free(v8);
+    free(completionCopy);
   }
 
 LABEL_4:
-  v9 = REDeviceScreenScale();
+  v10 = REDeviceScreenScale(completionCopy, v8);
   *&v25 = 0;
   *(&v25 + 1) = &v25;
   v26 = 0x2050000000;
-  v10 = getNanoResourceGrabberClass_softClass;
+  v11 = getNanoResourceGrabberClass_softClass;
   v27 = getNanoResourceGrabberClass_softClass;
   if (!getNanoResourceGrabberClass_softClass)
   {
@@ -128,32 +129,30 @@ LABEL_4:
     v23 = &unk_2785F9BC0;
     v24 = &v25;
     __getNanoResourceGrabberClass_block_invoke(&v20);
-    v10 = *(*(&v25 + 1) + 24);
+    v11 = *(*(&v25 + 1) + 24);
   }
 
-  if (v9 < 3.0)
+  if (v10 < 3.0)
   {
-    v11 = 47;
+    v12 = 47;
   }
 
   else
   {
-    v11 = 48;
+    v12 = 48;
   }
 
-  v12 = v10;
+  v13 = v11;
   _Block_object_dispose(&v25, 8);
-  sharedInstance = [v10 sharedInstance];
+  sharedInstance = [v11 sharedInstance];
   queue = self->_queue;
   v17[0] = MEMORY[0x277D85DD0];
   v17[1] = 3221225472;
   v17[2] = __58__REAppIconCache__loadRemoteIconForIdentifier_completion___block_invoke;
   v17[3] = &unk_2785FA6E8;
-  v18 = completionCopy;
-  v15 = completionCopy;
-  [sharedInstance getIconForBundleID:identifierCopy iconVariant:v11 queue:queue block:v17 timeout:0.0];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = v9;
+  v16 = v9;
+  [sharedInstance getIconForBundleID:identifierCopy iconVariant:v12 queue:queue block:v17 timeout:0.0];
 }
 
 void __58__REAppIconCache__loadRemoteIconForIdentifier_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -177,33 +176,34 @@ void __58__REAppIconCache__loadRemoteIconForIdentifier_completion___block_invoke
   dispatch_async(MEMORY[0x277D85CD0], v9);
 }
 
-void __52__REAppIconCache__loadIconForIdentifier_completion___block_invoke(uint64_t a1)
+void __52__REAppIconCache__loadIconForIdentifier_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = REDeviceScreenScale();
-  v3 = _REIconDescriptionForDevice(0, 0, v2);
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2050000000;
-  v4 = getISIconClass_softClass;
-  v12 = getISIconClass_softClass;
+  v3 = REDeviceScreenScale(a1, a2);
+  v4 = _REIconDescriptionForDevice(0, 0, v3);
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2050000000;
+  v5 = getISIconClass_softClass;
+  v15 = getISIconClass_softClass;
   if (!getISIconClass_softClass)
   {
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __getISIconClass_block_invoke;
-    v8[3] = &unk_2785F9BC0;
-    v8[4] = &v9;
-    __getISIconClass_block_invoke(v8);
-    v4 = v10[3];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __getISIconClass_block_invoke;
+    v11[3] = &unk_2785F9BC0;
+    v11[4] = &v12;
+    __getISIconClass_block_invoke(v11);
+    v5 = v13[3];
   }
 
-  v5 = v4;
-  _Block_object_dispose(&v9, 8);
-  v6 = [[v4 alloc] initWithBundleIdentifier:*(a1 + 32)];
-  v7 = [v6 CGImageForImageDescriptor:v3];
-  if (v7)
+  v6 = v5;
+  _Block_object_dispose(&v12, 8);
+  v7 = [[v5 alloc] initWithBundleIdentifier:*(a1 + 32)];
+  v8 = [v7 CGImageForImageDescriptor:v4];
+  v10 = v8;
+  if (v8)
   {
-    v7 = [REImage imageWithCGImage:v7 scale:REDeviceScreenScale()];
+    v10 = [REImage imageWithCGImage:v8 scale:REDeviceScreenScale(v8, v9)];
   }
 
   (*(*(a1 + 40) + 16))();

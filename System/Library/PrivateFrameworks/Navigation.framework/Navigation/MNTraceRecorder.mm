@@ -10,7 +10,9 @@
 - (void)_logError:(id)error resultCode:(int)code;
 - (void)_logSqliteErrorWithResult:(int)result file:(const char *)file line:(int)line;
 - (void)_prepareStatements;
+- (void)_recordLocationEvent:(int64_t)event recordingTimestamp:(double)timestamp coordinate:(CLLocationCoordinate2D)coordinate rawCoordinate:(CLLocationCoordinate2D)rawCoordinate timestamp:(double)a7 horizontalAccuracy:(double)accuracy verticalAccuracy:(double)verticalAccuracy altitude:(double)self0 speed:(double)self1 speedAccuracy:(double)self2 course:(double)self3 rawCourse:(double)self4 type:(int)self5 courseAccuracy:(double)self6 correctedCoordinate:(CLLocationCoordinate2D)self7 correctedCourse:(double)self8 matchType:(int)self9 activeTransportType:(int)transportType matchInfo:(id)info correctedLocation:(id)location speedLimit:(int)limit shieldText:(id)text shieldType:(int)shieldType;
 - (void)_recordLocationEvent:(int64_t)event recordingTimestamp:(double)timestamp location:(id)location correctedLocation:(id)correctedLocation;
+- (void)_recordLocationMatchInfoOnWriteQueue:(id)queue forLocationID:(int)d;
 - (void)_recordNavigationUpdate:(int64_t)update parameters:(id)parameters;
 - (void)_updateForExistingTrace;
 - (void)beginTransaction;
@@ -34,6 +36,7 @@
 - (void)recordNavigationEvent:(int64_t)event description:(id)description;
 - (void)recordRouteChangeWithIndex:(unint64_t)index directionsResponseID:(id)d etauResponseID:(id)iD rerouteReason:(unint64_t)reason;
 - (void)recordRouteCreationAction:(unint64_t)action request:(id)request response:(id)response error:(id)error anchorPoints:(id)points requestDate:(id)date responseDate:(id)responseDate;
+- (void)recordSimulatedCoordinate:(CLLocationCoordinate2D)coordinate course:(double)course altitude:(double)altitude speed:(double)speed timestamp:(double)timestamp activeTransportType:(int)type;
 - (void)recordStylesheet:(id)stylesheet data:(id)data;
 - (void)recordTransitUpdateError:(id)error;
 - (void)recordTransitUpdateRequest:(id)request withTimestamp:(double)timestamp;
@@ -98,7 +101,7 @@
 
 void __53__MNTraceRecorder__executeStatementForQuery_handler___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   ppStmt = 0;
   v2 = sqlite3_prepare_v2([*(*(a1 + 32) + 8) db], objc_msgSend(*(a1 + 40), "UTF8String"), objc_msgSend(*(a1 + 40), "length"), &ppStmt, 0);
   if (v2)
@@ -110,11 +113,11 @@ void __53__MNTraceRecorder__executeStatementForQuery_handler___block_invoke(uint
       v5 = *(a1 + 40);
       v6 = sqlite3_errmsg([*(*(a1 + 32) + 8) db]);
       *buf = 138412802;
-      v15 = v5;
-      v16 = 1024;
-      v17 = v3;
-      v18 = 2080;
-      v19 = v6;
+      v14 = v5;
+      v15 = 1024;
+      v16 = v3;
+      v17 = 2080;
+      v18 = v6;
       _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Error preparing statement for query %@: %d | %s", buf, 0x1Cu);
     }
   }
@@ -132,57 +135,53 @@ void __53__MNTraceRecorder__executeStatementForQuery_handler___block_invoke(uint
         v10 = *(a1 + 40);
         v11 = sqlite3_errmsg([*(*(a1 + 32) + 8) db]);
         *buf = 138412802;
-        v15 = v10;
-        v16 = 1024;
-        v17 = v8;
-        v18 = 2080;
-        v19 = v11;
+        v14 = v10;
+        v15 = 1024;
+        v16 = v8;
+        v17 = 2080;
+        v18 = v11;
         _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "Error executing statement for query %@: %d | %s", buf, 0x1Cu);
       }
     }
 
     sqlite3_finalize(ppStmt);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_recordNavigationUpdate:(int64_t)update parameters:(id)parameters
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   if (self->_closed)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v11 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v17 = "!_closed";
-      v18 = 2112;
-      v19 = v10;
-      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v16 = "!_closed";
+      v17 = 2112;
+      v18 = v9;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
   [(MNTraceRecorder *)self timeSinceRecordingBegan];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __54__MNTraceRecorder__recordNavigationUpdate_parameters___block_invoke;
-  v12[3] = &unk_1E842AAC0;
-  v14 = v7;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __54__MNTraceRecorder__recordNavigationUpdate_parameters___block_invoke;
+  v11[3] = &unk_1E842AAC0;
+  v13 = v7;
   updateCopy = update;
-  v12[4] = self;
-  v13 = parametersCopy;
+  v11[4] = self;
+  v12 = parametersCopy;
   v8 = parametersCopy;
-  [(MNTraceRecorder *)self _dispatchWrite:v12];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v11];
 }
 
 void __54__MNTraceRecorder__recordNavigationUpdate_parameters___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -204,25 +203,23 @@ void __54__MNTraceRecorder__recordNavigationUpdate_parameters___block_invoke(uin
 
     if (([*(*(a1 + 32) + 232) execute] & 1) == 0)
     {
-      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording navigation update"];
-      v9 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording navigation update"];
+      v8 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v10 = 136315394;
-        v11 = "result";
-        v12 = 2112;
-        v13 = v8;
-        _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v10, 0x16u);
+        v9 = 136315394;
+        v10 = "result";
+        v11 = 2112;
+        v12 = v7;
+        _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v9, 0x16u);
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordRouteCreationAction:(unint64_t)action request:(id)request response:(id)response error:(id)error anchorPoints:(id)points requestDate:(id)date responseDate:(id)responseDate
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   responseCopy = response;
   errorCopy = error;
@@ -230,65 +227,63 @@ void __54__MNTraceRecorder__recordNavigationUpdate_parameters___block_invoke(uin
   dateCopy = date;
   responseDateCopy = responseDate;
   if (self->_traceType != 2)
-    v29 = {;
-    v30 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v28 = {;
+    v29 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v42 = "[MNTraceRecorder recordRouteCreationAction:request:response:error:anchorPoints:requestDate:responseDate:]";
-      v43 = 2080;
-      v44 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-      v45 = 1024;
-      v46 = 1229;
-      v47 = 2080;
-      v48 = "_traceType == MNTraceTypeCustomRouteCreation";
-      v49 = 2112;
-      v50 = v29;
-      _os_log_impl(&dword_1D311E000, v30, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
+      v41 = "[MNTraceRecorder recordRouteCreationAction:request:response:error:anchorPoints:requestDate:responseDate:]";
+      v42 = 2080;
+      v43 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+      v44 = 1024;
+      v45 = 1229;
+      v46 = 2080;
+      v47 = "_traceType == MNTraceTypeCustomRouteCreation";
+      v48 = 2112;
+      v49 = v28;
+      _os_log_impl(&dword_1D311E000, v29, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
     }
   }
 
   if (self->_closed)
   {
-    v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v32 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v31 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v42 = "!_closed";
-      v43 = 2112;
-      v44 = v31;
-      _os_log_impl(&dword_1D311E000, v32, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v41 = "!_closed";
+      v42 = 2112;
+      v43 = v30;
+      _os_log_impl(&dword_1D311E000, v31, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
   [dateCopy timeIntervalSinceDate:self->_recordingStartDate];
   v22 = v21;
   [responseDateCopy timeIntervalSinceDate:self->_recordingStartDate];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __106__MNTraceRecorder_recordRouteCreationAction_request_response_error_anchorPoints_requestDate_responseDate___block_invoke;
-  v33[3] = &unk_1E842AB60;
-  v38 = v22;
-  v39 = v23;
-  v33[4] = self;
-  v34 = requestCopy;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __106__MNTraceRecorder_recordRouteCreationAction_request_response_error_anchorPoints_requestDate_responseDate___block_invoke;
+  v32[3] = &unk_1E842AB60;
+  v37 = v22;
+  v38 = v23;
+  v32[4] = self;
+  v33 = requestCopy;
   actionCopy = action;
-  v35 = responseCopy;
-  v36 = pointsCopy;
-  v37 = errorCopy;
+  v34 = responseCopy;
+  v35 = pointsCopy;
+  v36 = errorCopy;
   v24 = errorCopy;
   v25 = pointsCopy;
   v26 = responseCopy;
   v27 = requestCopy;
-  [(MNTraceRecorder *)self _dispatchWrite:v33];
-
-  v28 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v32];
 }
 
 void __106__MNTraceRecorder_recordRouteCreationAction_request_response_error_anchorPoints_requestDate_responseDate___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -296,9 +291,9 @@ void __106__MNTraceRecorder_recordRouteCreationAction_request_response_error_anc
     if (!v3)
     {
       v4 = *(v1 + 8);
-      v23 = 0;
-      v5 = [v4 prepareStatement:@"INSERT INTO custom_route_creation_actions (request_timestamp outError:{response_timestamp, request_data, response_data, response_error_data, anchor_points_data, action) VALUES (:request_time, :response_time, :request, :response, :error, :anchor_points, :action)", &v23}];
-      v6 = v23;
+      v22 = 0;
+      v5 = [v4 prepareStatement:@"INSERT INTO custom_route_creation_actions (request_timestamp outError:{response_timestamp, request_data, response_data, response_error_data, anchor_points_data, action) VALUES (:request_time, :response_time, :request, :response, :error, :anchor_points, :action)", &v22}];
+      v6 = v22;
       v7 = *(a1 + 32);
       v8 = *(v7 + 240);
       *(v7 + 240) = v5;
@@ -310,15 +305,15 @@ void __106__MNTraceRecorder_recordRouteCreationAction_request_response_error_anc
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 136316162;
-          v25 = "[MNTraceRecorder recordRouteCreationAction:request:response:error:anchorPoints:requestDate:responseDate:]_block_invoke";
-          v26 = 2080;
-          v27 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-          v28 = 1024;
-          v29 = 1244;
-          v30 = 2080;
-          v31 = "NO";
-          v32 = 2112;
-          v33 = v9;
+          v24 = "[MNTraceRecorder recordRouteCreationAction:request:response:error:anchorPoints:requestDate:responseDate:]_block_invoke";
+          v25 = 2080;
+          v26 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+          v27 = 1024;
+          v28 = 1244;
+          v29 = 2080;
+          v30 = "NO";
+          v31 = 2112;
+          v32 = v9;
           _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
         }
 
@@ -354,78 +349,72 @@ void __106__MNTraceRecorder_recordRouteCreationAction_request_response_error_anc
 
     if (([*(*(a1 + 32) + 240) execute] & 1) == 0)
     {
-      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording route creation action."];
-      v22 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording route creation action."];
+      v21 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v25 = "result";
-        v26 = 2112;
-        v27 = v21;
-        _os_log_impl(&dword_1D311E000, v22, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+        v24 = "result";
+        v25 = 2112;
+        v26 = v20;
+        _os_log_impl(&dword_1D311E000, v21, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_logError:(id)error resultCode:(int)code
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (code != 101)
   {
     v6 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138543618;
-      v9 = errorCopy;
-      v10 = 1024;
+      v7 = 138543618;
+      v8 = errorCopy;
+      v9 = 1024;
       codeCopy = code;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "%{public}@: %d", &v8, 0x12u);
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "%{public}@: %d", &v7, 0x12u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordVirtualGarageVehicleState:(id)state isDifferentVehicle:(BOOL)vehicle
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   if (self->_closed)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v11 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "!_closed";
-      v19 = 2112;
-      v20 = v10;
-      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v17 = "!_closed";
+      v18 = 2112;
+      v19 = v9;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
   [(MNTraceRecorder *)self timeSinceRecordingBegan];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __70__MNTraceRecorder_recordVirtualGarageVehicleState_isDifferentVehicle___block_invoke;
-  v12[3] = &unk_1E842AB38;
-  v13 = stateCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __70__MNTraceRecorder_recordVirtualGarageVehicleState_isDifferentVehicle___block_invoke;
+  v11[3] = &unk_1E842AB38;
+  v12 = stateCopy;
   selfCopy = self;
-  v15 = v7;
+  v14 = v7;
   vehicleCopy = vehicle;
   v8 = stateCopy;
-  [(MNTraceRecorder *)self _dispatchWrite:v12];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v11];
 }
 
 void __70__MNTraceRecorder_recordVirtualGarageVehicleState_isDifferentVehicle___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) currentVehicleState];
   [*(*(a1 + 40) + 216) bind:1 double:*(a1 + 48)];
   v3 = *(*(a1 + 40) + 216);
@@ -532,36 +521,34 @@ void __70__MNTraceRecorder_recordVirtualGarageVehicleState_isDifferentVehicle___
 
   if (([*(*(a1 + 40) + 216) execute] & 1) == 0)
   {
-    v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording EV data"];
-    v42 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording EV data"];
+    v41 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      v43 = 136315394;
-      v44 = "result";
-      v45 = 2112;
-      v46 = v41;
-      _os_log_impl(&dword_1D311E000, v42, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v43, 0x16u);
+      v42 = 136315394;
+      v43 = "result";
+      v44 = 2112;
+      v45 = v40;
+      _os_log_impl(&dword_1D311E000, v41, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v42, 0x16u);
     }
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordCompassHeading:(double)heading magneticHeading:(double)magneticHeading accuracy:(double)accuracy timestamp:(id)timestamp
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   timestampCopy = timestamp;
   if (self->_closed)
   {
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v17 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v16 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "!_closed";
-      v26 = 2112;
-      v27 = v16;
-      _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v24 = "!_closed";
+      v25 = 2112;
+      v26 = v15;
+      _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
@@ -571,25 +558,23 @@ void __70__MNTraceRecorder_recordVirtualGarageVehicleState_isDifferentVehicle___
   {
     objc_storeStrong(&self->_recordingCompassHeadingLastDate, v12);
     [(MNTraceRecorder *)self timeSinceRecordingBegan];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __75__MNTraceRecorder_recordCompassHeading_magneticHeading_accuracy_timestamp___block_invoke;
-    v18[3] = &unk_1E842AB10;
-    v18[4] = self;
-    v20 = v14;
-    v19 = timestampCopy;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __75__MNTraceRecorder_recordCompassHeading_magneticHeading_accuracy_timestamp___block_invoke;
+    v17[3] = &unk_1E842AB10;
+    v17[4] = self;
+    v19 = v14;
+    v18 = timestampCopy;
     headingCopy = heading;
     magneticHeadingCopy = magneticHeading;
     accuracyCopy = accuracy;
-    [(MNTraceRecorder *)self _dispatchWrite:v18];
+    [(MNTraceRecorder *)self _dispatchWrite:v17];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __75__MNTraceRecorder_recordCompassHeading_magneticHeading_accuracy_timestamp___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -602,36 +587,34 @@ void __75__MNTraceRecorder_recordCompassHeading_magneticHeading_accuracy_timesta
     [*(*(a1 + 32) + 208) bind:5 double:*(a1 + 72)];
     if (([*(*(a1 + 32) + 208) execute] & 1) == 0)
     {
-      v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording compass heading"];
-      v6 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording compass heading"];
+      v5 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v7 = 136315394;
-        v8 = "result";
-        v9 = 2112;
-        v10 = v5;
-        _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v7, 0x16u);
+        v6 = 136315394;
+        v7 = "result";
+        v8 = 2112;
+        v9 = v4;
+        _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v6, 0x16u);
       }
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordMotionUpdate:(unint64_t)update exitType:(unint64_t)type confidence:(unint64_t)confidence
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (self->_closed)
   {
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v16 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v15 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "!_closed";
-      v20 = 2112;
-      v21 = v15;
-      _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v18 = "!_closed";
+      v19 = 2112;
+      v20 = v14;
+      _os_log_impl(&dword_1D311E000, v15, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
@@ -641,23 +624,22 @@ void __75__MNTraceRecorder_recordCompassHeading_magneticHeading_accuracy_timesta
   [date timeIntervalSinceReferenceDate];
   v13 = v12;
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __58__MNTraceRecorder_recordMotionUpdate_exitType_confidence___block_invoke;
-  v17[3] = &unk_1E842AAE8;
-  v17[4] = self;
-  v17[5] = v10;
-  v17[6] = v13;
-  v17[7] = update;
-  v17[8] = type;
-  v17[9] = confidence;
-  [(MNTraceRecorder *)self _dispatchWrite:v17];
-  v14 = *MEMORY[0x1E69E9840];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __58__MNTraceRecorder_recordMotionUpdate_exitType_confidence___block_invoke;
+  v16[3] = &unk_1E842AAE8;
+  v16[4] = self;
+  v16[5] = v10;
+  v16[6] = v13;
+  v16[7] = update;
+  v16[8] = type;
+  v16[9] = confidence;
+  [(MNTraceRecorder *)self _dispatchWrite:v16];
 }
 
 void __58__MNTraceRecorder_recordMotionUpdate_exitType_confidence___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -668,58 +650,54 @@ void __58__MNTraceRecorder_recordMotionUpdate_exitType_confidence___block_invoke
     [*(*(a1 + 32) + 200) bind:5 int:*(a1 + 72)];
     if (([*(*(a1 + 32) + 200) execute] & 1) == 0)
     {
-      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording motion update"];
-      v5 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording motion update"];
+      v4 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v6 = 136315394;
-        v7 = "result";
-        v8 = 2112;
-        v9 = v4;
-        _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v6, 0x16u);
+        v5 = 136315394;
+        v6 = "result";
+        v7 = 2112;
+        v8 = v3;
+        _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v5, 0x16u);
       }
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordVehicleHeading:(double)heading timestamp:(id)timestamp
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   timestampCopy = timestamp;
   if (self->_closed)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v11 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v17 = "!_closed";
-      v18 = 2112;
-      v19 = v10;
-      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v16 = "!_closed";
+      v17 = 2112;
+      v18 = v9;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
   [(MNTraceRecorder *)self timeSinceRecordingBegan];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __50__MNTraceRecorder_recordVehicleHeading_timestamp___block_invoke;
-  v12[3] = &unk_1E842AAC0;
-  v12[4] = self;
-  v13 = timestampCopy;
-  v14 = v7;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __50__MNTraceRecorder_recordVehicleHeading_timestamp___block_invoke;
+  v11[3] = &unk_1E842AAC0;
+  v11[4] = self;
+  v12 = timestampCopy;
+  v13 = v7;
   headingCopy = heading;
   v8 = timestampCopy;
-  [(MNTraceRecorder *)self _dispatchWrite:v12];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v11];
 }
 
 void __50__MNTraceRecorder_recordVehicleHeading_timestamp___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -730,58 +708,54 @@ void __50__MNTraceRecorder_recordVehicleHeading_timestamp___block_invoke(uint64_
     [*(*(a1 + 32) + 192) bind:3 double:*(a1 + 56)];
     if (([*(*(a1 + 32) + 192) execute] & 1) == 0)
     {
-      v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording vehicle heading"];
-      v6 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording vehicle heading"];
+      v5 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v7 = 136315394;
-        v8 = "result";
-        v9 = 2112;
-        v10 = v5;
-        _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v7, 0x16u);
+        v6 = 136315394;
+        v7 = "result";
+        v8 = 2112;
+        v9 = v4;
+        _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v6, 0x16u);
       }
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordVehicleSpeed:(double)speed timestamp:(id)timestamp
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   timestampCopy = timestamp;
   if (self->_closed)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v11 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v17 = "!_closed";
-      v18 = 2112;
-      v19 = v10;
-      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v16 = "!_closed";
+      v17 = 2112;
+      v18 = v9;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
   [(MNTraceRecorder *)self timeSinceRecordingBegan];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __48__MNTraceRecorder_recordVehicleSpeed_timestamp___block_invoke;
-  v12[3] = &unk_1E842AAC0;
-  v12[4] = self;
-  v13 = timestampCopy;
-  v14 = v7;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __48__MNTraceRecorder_recordVehicleSpeed_timestamp___block_invoke;
+  v11[3] = &unk_1E842AAC0;
+  v11[4] = self;
+  v12 = timestampCopy;
+  v13 = v7;
   speedCopy = speed;
   v8 = timestampCopy;
-  [(MNTraceRecorder *)self _dispatchWrite:v12];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v11];
 }
 
 void __48__MNTraceRecorder_recordVehicleSpeed_timestamp___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -792,57 +766,53 @@ void __48__MNTraceRecorder_recordVehicleSpeed_timestamp___block_invoke(uint64_t 
     [*(*(a1 + 32) + 184) bind:3 double:*(a1 + 56)];
     if (([*(*(a1 + 32) + 184) execute] & 1) == 0)
     {
-      v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording vehicle speed"];
-      v6 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording vehicle speed"];
+      v5 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v7 = 136315394;
-        v8 = "result";
-        v9 = 2112;
-        v10 = v5;
-        _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v7, 0x16u);
+        v6 = 136315394;
+        v7 = "result";
+        v8 = 2112;
+        v9 = v4;
+        _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v6, 0x16u);
       }
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordTransitUpdateError:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self->_closed)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v9 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v8 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "!_closed";
-      v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v13 = "!_closed";
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
   [(MNTraceRecorder *)self timeSinceRecordingBegan];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __44__MNTraceRecorder_recordTransitUpdateError___block_invoke;
-  v10[3] = &unk_1E84309E8;
-  v12 = v5;
-  v10[4] = self;
-  v11 = errorCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __44__MNTraceRecorder_recordTransitUpdateError___block_invoke;
+  v9[3] = &unk_1E84309E8;
+  v11 = v5;
+  v9[4] = self;
+  v10 = errorCopy;
   v6 = errorCopy;
-  [(MNTraceRecorder *)self _dispatchWrite:v10];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v9];
 }
 
 void __44__MNTraceRecorder_recordTransitUpdateError___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -851,59 +821,55 @@ void __44__MNTraceRecorder_recordTransitUpdateError___block_invoke(uint64_t a1)
     [*(*(a1 + 32) + 176) bind:2 data:v3];
     if (([*(*(a1 + 32) + 176) execute] & 1) == 0)
     {
-      v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording realtime transit update error"];
-      v6 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording realtime transit update error"];
+      v5 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v7 = 136315394;
-        v8 = "result";
-        v9 = 2112;
-        v10 = v5;
-        _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v7, 0x16u);
+        v6 = 136315394;
+        v7 = "result";
+        v8 = 2112;
+        v9 = v4;
+        _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v6, 0x16u);
       }
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordTransitUpdateResponse:(id)response
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   if (self->_closed)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v11 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v16 = "!_closed";
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v15 = "!_closed";
+      v16 = 2112;
+      v17 = v9;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
   [(MNTraceRecorder *)self timeSinceRecordingBegan];
   v6 = v5;
   data = [responseCopy data];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __47__MNTraceRecorder_recordTransitUpdateResponse___block_invoke;
-  v12[3] = &unk_1E84309E8;
-  v14 = v6;
-  v12[4] = self;
-  v13 = data;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __47__MNTraceRecorder_recordTransitUpdateResponse___block_invoke;
+  v11[3] = &unk_1E84309E8;
+  v13 = v6;
+  v11[4] = self;
+  v12 = data;
   v8 = data;
-  [(MNTraceRecorder *)self _dispatchWrite:v12];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v11];
 }
 
 void __47__MNTraceRecorder_recordTransitUpdateResponse___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -911,57 +877,53 @@ void __47__MNTraceRecorder_recordTransitUpdateResponse___block_invoke(uint64_t a
     [*(*(a1 + 32) + 168) bind:2 data:*(a1 + 40)];
     if (([*(*(a1 + 32) + 168) execute] & 1) == 0)
     {
-      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording realtime transit update response"];
-      v5 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording realtime transit update response"];
+      v4 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v6 = 136315394;
-        v7 = "result";
-        v8 = 2112;
-        v9 = v4;
-        _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v6, 0x16u);
+        v5 = 136315394;
+        v6 = "result";
+        v7 = 2112;
+        v8 = v3;
+        _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v5, 0x16u);
       }
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordTransitUpdateRequest:(id)request withTimestamp:(double)timestamp
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   if (self->_closed)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v11 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v16 = "!_closed";
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v15 = "!_closed";
+      v16 = 2112;
+      v17 = v9;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
   data = [requestCopy data];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __60__MNTraceRecorder_recordTransitUpdateRequest_withTimestamp___block_invoke;
-  v12[3] = &unk_1E84309E8;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __60__MNTraceRecorder_recordTransitUpdateRequest_withTimestamp___block_invoke;
+  v11[3] = &unk_1E84309E8;
   timestampCopy = timestamp;
-  v12[4] = self;
-  v13 = data;
+  v11[4] = self;
+  v12 = data;
   v8 = data;
-  [(MNTraceRecorder *)self _dispatchWrite:v12];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v11];
 }
 
 void __60__MNTraceRecorder_recordTransitUpdateRequest_withTimestamp___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -969,66 +931,62 @@ void __60__MNTraceRecorder_recordTransitUpdateRequest_withTimestamp___block_invo
     [*(*(a1 + 32) + 160) bind:2 data:*(a1 + 40)];
     if (([*(*(a1 + 32) + 160) execute] & 1) == 0)
     {
-      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording realtime transit update request"];
-      v5 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording realtime transit update request"];
+      v4 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v6 = 136315394;
-        v7 = "result";
-        v8 = 2112;
-        v9 = v4;
-        _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v6, 0x16u);
+        v5 = 136315394;
+        v6 = "result";
+        v7 = 2112;
+        v8 = v3;
+        _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v5, 0x16u);
       }
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordETAURequest:(id)request response:(id)response error:(id)error destinationName:(id)name requestTimestamp:(double)timestamp responseTimestamp:(double)responseTimestamp
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   responseCopy = response;
   errorCopy = error;
   nameCopy = name;
   if (self->_closed)
   {
-    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v24 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v23 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v33 = "!_closed";
-      v34 = 2112;
-      v35 = v23;
-      _os_log_impl(&dword_1D311E000, v24, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v32 = "!_closed";
+      v33 = 2112;
+      v34 = v22;
+      _os_log_impl(&dword_1D311E000, v23, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __103__MNTraceRecorder_recordETAURequest_response_error_destinationName_requestTimestamp_responseTimestamp___block_invoke;
-  v25[3] = &unk_1E842AA98;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __103__MNTraceRecorder_recordETAURequest_response_error_destinationName_requestTimestamp_responseTimestamp___block_invoke;
+  v24[3] = &unk_1E842AA98;
   timestampCopy = timestamp;
   responseTimestampCopy = responseTimestamp;
-  v25[4] = self;
-  v26 = requestCopy;
-  v27 = responseCopy;
-  v28 = errorCopy;
-  v29 = nameCopy;
+  v24[4] = self;
+  v25 = requestCopy;
+  v26 = responseCopy;
+  v27 = errorCopy;
+  v28 = nameCopy;
   v18 = nameCopy;
   v19 = errorCopy;
   v20 = responseCopy;
   v21 = requestCopy;
-  [(MNTraceRecorder *)self _dispatchWrite:v25];
-
-  v22 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v24];
 }
 
 void __103__MNTraceRecorder_recordETAURequest_response_error_destinationName_requestTimestamp_responseTimestamp___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -1052,54 +1010,51 @@ void __103__MNTraceRecorder_recordETAURequest_response_error_destinationName_req
     [*(*(a1 + 32) + 152) bind:6 string:*(a1 + 64)];
     if (([*(*(a1 + 32) + 152) execute] & 1) == 0)
     {
-      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording ETA update"];
-      v11 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording ETA update"];
+      v10 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v12 = 136315394;
-        v13 = "result";
-        v14 = 2112;
-        v15 = v10;
-        _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v12, 0x16u);
+        v11 = 136315394;
+        v12 = "result";
+        v13 = 2112;
+        v14 = v9;
+        _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v11, 0x16u);
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordInitialCourse:(double)course
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self->_closed)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v6 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v10 = "!_closed";
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v9 = "!_closed";
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __39__MNTraceRecorder_recordInitialCourse___block_invoke;
-  v8[3] = &unk_1E8430A10;
-  v8[4] = self;
-  *&v8[5] = course;
-  [(MNTraceRecorder *)self _dispatchWrite:v8];
-  v5 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __39__MNTraceRecorder_recordInitialCourse___block_invoke;
+  v7[3] = &unk_1E8430A10;
+  v7[4] = self;
+  *&v7[5] = course;
+  [(MNTraceRecorder *)self _dispatchWrite:v7];
 }
 
-uint64_t __39__MNTraceRecorder_recordInitialCourse___block_invoke(uint64_t a1)
+_BYTE *__39__MNTraceRecorder_recordInitialCourse___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   result = *(a1 + 32);
-  if ((*(result + 48) & 1) == 0)
+  if ((result[48] & 1) == 0)
   {
     ppStmt = 0;
     v3 = [result trace];
@@ -1107,96 +1062,93 @@ uint64_t __39__MNTraceRecorder_recordInitialCourse___block_invoke(uint64_t a1)
 
     if (v4)
     {
-      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error preparing statement to record initial course"];
-      v8 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error preparing statement to record initial course"];
+      v7 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v13 = "result == SQLITE_OK";
-        v14 = 2112;
-        v15 = v7;
-        _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+        v12 = "result == SQLITE_OK";
+        v13 = 2112;
+        v14 = v6;
+        _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
       }
     }
 
     v5 = sqlite3_bind_double(ppStmt, 1, *(a1 + 40));
     if (v5)
     {
-      result = [*(a1 + 32) _logSqliteErrorWithResult:v5 file:"/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m" line:1024];
+      return [*(a1 + 32) _logSqliteErrorWithResult:v5 file:"/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m" line:1024];
     }
 
     else
     {
       if (sqlite3_step(ppStmt) != 101)
       {
-        v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording initial course"];
-        v10 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording initial course"];
+        v9 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v13 = "result == SQLITE_DONE";
-          v14 = 2112;
-          v15 = v9;
-          _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+          v12 = "result == SQLITE_DONE";
+          v13 = 2112;
+          v14 = v8;
+          _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
         }
       }
 
-      result = sqlite3_finalize(ppStmt);
+      return sqlite3_finalize(ppStmt);
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)recordDirectionsRequest:(id)request response:(id)response error:(id)error waypoints:(id)waypoints selectedRouteIndex:(unint64_t)index requestTimestamp:(double)timestamp responseTimestamp:(double)responseTimestamp
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   responseCopy = response;
   errorCopy = error;
   waypointsCopy = waypoints;
   if (self->_closed)
   {
-    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v27 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v26 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v38 = "!_closed";
-      v39 = 2112;
-      v40 = v26;
-      _os_log_impl(&dword_1D311E000, v27, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v37 = "!_closed";
+      v38 = 2112;
+      v39 = v25;
+      _os_log_impl(&dword_1D311E000, v26, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
   routeRequestCount = self->_routeRequestCount;
   self->_routeRequestCount = routeRequestCount + 1;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __122__MNTraceRecorder_recordDirectionsRequest_response_error_waypoints_selectedRouteIndex_requestTimestamp_responseTimestamp___block_invoke;
-  v28[3] = &unk_1E842AA70;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __122__MNTraceRecorder_recordDirectionsRequest_response_error_waypoints_selectedRouteIndex_requestTimestamp_responseTimestamp___block_invoke;
+  v27[3] = &unk_1E842AA70;
   timestampCopy = timestamp;
   responseTimestampCopy = responseTimestamp;
-  v28[4] = self;
-  v29 = requestCopy;
-  v30 = responseCopy;
-  v31 = errorCopy;
-  v32 = waypointsCopy;
+  v27[4] = self;
+  v28 = requestCopy;
+  v29 = responseCopy;
+  v30 = errorCopy;
+  v31 = waypointsCopy;
   indexCopy = index;
-  v36 = routeRequestCount == 0;
+  v35 = routeRequestCount == 0;
   v21 = waypointsCopy;
   v22 = errorCopy;
   v23 = responseCopy;
   v24 = requestCopy;
-  [(MNTraceRecorder *)self _dispatchWrite:v28];
-
-  v25 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v27];
 }
 
 void __122__MNTraceRecorder_recordDirectionsRequest_response_error_waypoints_selectedRouteIndex_requestTimestamp_responseTimestamp___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -1209,31 +1161,31 @@ void __122__MNTraceRecorder_recordDirectionsRequest_response_error_waypoints_sel
     if (v4)
     {
       v5 = [v4 copy];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v6 = [v5 routes];
-      v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v20;
+        v9 = *v19;
         do
         {
           v10 = 0;
           do
           {
-            if (*v20 != v9)
+            if (*v19 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            [*(*(&v19 + 1) + 8 * v10++) setUnpackedLatLngVertices:0];
+            [*(*(&v18 + 1) + 8 * v10++) setUnpackedLatLngVertices:0];
           }
 
           while (v8 != v10);
-          v8 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
         }
 
         while (v8);
@@ -1255,15 +1207,15 @@ void __122__MNTraceRecorder_recordDirectionsRequest_response_error_waypoints_sel
     [*(*(a1 + 32) + 144) bind:8 int:*(a1 + 88)];
     if (([*(*(a1 + 32) + 144) execute] & 1) == 0)
     {
-      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording directions request"];
-      v18 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording directions request"];
+      v17 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v24 = "result";
-        v25 = 2112;
-        v26 = v17;
-        _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+        v23 = "result";
+        v24 = 2112;
+        v25 = v16;
+        _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
       }
     }
 
@@ -1274,27 +1226,24 @@ void __122__MNTraceRecorder_recordDirectionsRequest_response_error_waypoints_sel
       [*(*(a1 + 32) + 64) execute];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordDepartWaypoint:(id)waypoint legIndex:(unint64_t)index departureReason:(unint64_t)reason
 {
-  v15[3] = *MEMORY[0x1E69E9840];
-  v15[0] = waypoint;
-  v14[0] = @"waypoint";
-  v14[1] = @"legIndex";
+  v14[3] = *MEMORY[0x1E69E9840];
+  v14[0] = waypoint;
+  v13[0] = @"waypoint";
+  v13[1] = @"legIndex";
   v8 = MEMORY[0x1E696AD98];
   waypointCopy = waypoint;
   v10 = [v8 numberWithUnsignedInteger:index];
-  v15[1] = v10;
-  v14[2] = @"reason";
+  v14[1] = v10;
+  v13[2] = @"reason";
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:reason];
-  v15[2] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
 
   [(MNTraceRecorder *)self _recordNavigationUpdate:2 parameters:v12];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordRouteChangeWithIndex:(unint64_t)index directionsResponseID:(id)d etauResponseID:(id)iD rerouteReason:(unint64_t)reason
@@ -1375,28 +1324,27 @@ uint64_t __42__MNTraceRecorder_setNavigationStartDate___block_invoke(uint64_t a1
 
 - (void)endTransaction
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self->_closed)
   {
-    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v5 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v4 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v8 = "!_closed";
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v7 = "!_closed";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __33__MNTraceRecorder_endTransaction__block_invoke;
-  v6[3] = &unk_1E8430ED8;
-  v6[4] = self;
-  [(MNTraceRecorder *)self _dispatchWrite:v6];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __33__MNTraceRecorder_endTransaction__block_invoke;
+  v5[3] = &unk_1E8430ED8;
+  v5[4] = self;
+  [(MNTraceRecorder *)self _dispatchWrite:v5];
 }
 
 void __33__MNTraceRecorder_endTransaction__block_invoke(uint64_t a1)
@@ -1411,28 +1359,27 @@ void __33__MNTraceRecorder_endTransaction__block_invoke(uint64_t a1)
 
 - (void)beginTransaction
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self->_closed)
   {
-    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v5 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v4 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v8 = "!_closed";
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v7 = "!_closed";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __35__MNTraceRecorder_beginTransaction__block_invoke;
-  v6[3] = &unk_1E8430ED8;
-  v6[4] = self;
-  [(MNTraceRecorder *)self _dispatchWrite:v6];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __35__MNTraceRecorder_beginTransaction__block_invoke;
+  v5[3] = &unk_1E8430ED8;
+  v5[4] = self;
+  [(MNTraceRecorder *)self _dispatchWrite:v5];
 }
 
 void __35__MNTraceRecorder_beginTransaction__block_invoke(uint64_t a1)
@@ -1447,28 +1394,27 @@ void __35__MNTraceRecorder_beginTransaction__block_invoke(uint64_t a1)
 
 - (void)resetLocationsForSimulation
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self->_closed)
   {
-    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v5 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v4 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v8 = "!_closed";
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v7 = "!_closed";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __46__MNTraceRecorder_resetLocationsForSimulation__block_invoke;
-  v6[3] = &unk_1E8430ED8;
-  v6[4] = self;
-  [(MNTraceRecorder *)self _dispatchWrite:v6];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __46__MNTraceRecorder_resetLocationsForSimulation__block_invoke;
+  v5[3] = &unk_1E8430ED8;
+  v5[4] = self;
+  [(MNTraceRecorder *)self _dispatchWrite:v5];
 }
 
 void __46__MNTraceRecorder_resetLocationsForSimulation__block_invoke(uint64_t a1)
@@ -1489,29 +1435,28 @@ void __46__MNTraceRecorder_resetLocationsForSimulation__block_invoke(uint64_t a1
 
 - (void)setRouteGenius:(BOOL)genius
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self->_closed)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v6 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "!_closed";
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v10 = "!_closed";
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __34__MNTraceRecorder_setRouteGenius___block_invoke;
-  v8[3] = &unk_1E8430928;
-  v8[4] = self;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __34__MNTraceRecorder_setRouteGenius___block_invoke;
+  v7[3] = &unk_1E8430928;
+  v7[4] = self;
   geniusCopy = genius;
-  [(MNTraceRecorder *)self _dispatchWrite:v8];
-  v5 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v7];
 }
 
 void __34__MNTraceRecorder_setRouteGenius___block_invoke(uint64_t a1)
@@ -1538,29 +1483,28 @@ void __34__MNTraceRecorder_setRouteGenius___block_invoke(uint64_t a1)
 
 - (void)setIsSimulation:(BOOL)simulation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self->_closed)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v6 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "!_closed";
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v10 = "!_closed";
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __35__MNTraceRecorder_setIsSimulation___block_invoke;
-  v8[3] = &unk_1E8430928;
-  v8[4] = self;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __35__MNTraceRecorder_setIsSimulation___block_invoke;
+  v7[3] = &unk_1E8430928;
+  v7[4] = self;
   simulationCopy = simulation;
-  [(MNTraceRecorder *)self _dispatchWrite:v8];
-  v5 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v7];
 }
 
 void __35__MNTraceRecorder_setIsSimulation___block_invoke(uint64_t a1)
@@ -1583,39 +1527,37 @@ void __35__MNTraceRecorder_setIsSimulation___block_invoke(uint64_t a1)
 
 - (void)recordError:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self->_closed)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v9 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v8 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "!_closed";
-      v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v13 = "!_closed";
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
   [(MNTraceRecorder *)self timeSinceRecordingBegan];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __31__MNTraceRecorder_recordError___block_invoke;
-  v10[3] = &unk_1E84309E8;
-  v12 = v5;
-  v10[4] = self;
-  v11 = errorCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __31__MNTraceRecorder_recordError___block_invoke;
+  v9[3] = &unk_1E84309E8;
+  v11 = v5;
+  v9[4] = self;
+  v10 = errorCopy;
   v6 = errorCopy;
-  [(MNTraceRecorder *)self _dispatchWrite:v10];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v9];
 }
 
 void __31__MNTraceRecorder_recordError___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -1624,20 +1566,18 @@ void __31__MNTraceRecorder_recordError___block_invoke(uint64_t a1)
     [*(*(a1 + 32) + 128) bind:2 data:v3];
     if (([*(*(a1 + 32) + 128) execute] & 1) == 0)
     {
-      v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording location error."];
-      v6 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording location error."];
+      v5 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v7 = 136315394;
-        v8 = "result";
-        v9 = 2112;
-        v10 = v5;
-        _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v7, 0x16u);
+        v6 = 136315394;
+        v7 = "result";
+        v8 = 2112;
+        v9 = v4;
+        _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v6, 0x16u);
       }
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordLocationUpdateResume
@@ -1660,6 +1600,17 @@ void __31__MNTraceRecorder_recordError___block_invoke(uint64_t a1)
   locationCopy = location;
   [(MNTraceRecorder *)self timeSinceRecordingBegan];
   [(MNTraceRecorder *)self _recordLocationEvent:0 recordingTimestamp:locationCopy location:correctedLocationCopy correctedLocation:?];
+}
+
+- (void)recordSimulatedCoordinate:(CLLocationCoordinate2D)coordinate course:(double)course altitude:(double)altitude speed:(double)speed timestamp:(double)timestamp activeTransportType:(int)type
+{
+  v8 = *&type;
+  longitude = coordinate.longitude;
+  latitude = coordinate.latitude;
+  [(MNTraceRecorder *)self timeSinceRecordingBegan];
+  LODWORD(v16) = -1;
+  LODWORD(v15) = -1;
+  [MNTraceRecorder _recordLocationEvent:"_recordLocationEvent:recordingTimestamp:coordinate:rawCoordinate:timestamp:horizontalAccuracy:verticalAccuracy:altitude:speed:speedAccuracy:course:rawCourse:type:courseAccuracy:correctedCoordinate:correctedCourse:matchType:activeTransportType:matchInfo:correctedLocation:speedLimit:shieldText:shieldType:" recordingTimestamp:0 coordinate:1 rawCoordinate:0xFFFFFFFFLL timestamp:v8 horizontalAccuracy:0 verticalAccuracy:0 altitude:*&altitude speed:*&speed speedAccuracy:0 course:*&course rawCourse:*&course type:0x4024000000000000 courseAccuracy:*&latitude correctedCoordinate:*&longitude correctedCourse:*&course matchType:v15 activeTransportType:0 matchInfo:v16 correctedLocation:? speedLimit:? shieldText:? shieldType:?];
 }
 
 - (void)_recordLocationEvent:(int64_t)event recordingTimestamp:(double)timestamp location:(id)location correctedLocation:(id)correctedLocation
@@ -1768,9 +1719,109 @@ LABEL_10:
 LABEL_11:
 }
 
+- (void)_recordLocationEvent:(int64_t)event recordingTimestamp:(double)timestamp coordinate:(CLLocationCoordinate2D)coordinate rawCoordinate:(CLLocationCoordinate2D)rawCoordinate timestamp:(double)a7 horizontalAccuracy:(double)accuracy verticalAccuracy:(double)verticalAccuracy altitude:(double)self0 speed:(double)self1 speedAccuracy:(double)self2 course:(double)self3 rawCourse:(double)self4 type:(int)self5 courseAccuracy:(double)self6 correctedCoordinate:(CLLocationCoordinate2D)self7 correctedCourse:(double)self8 matchType:(int)self9 activeTransportType:(int)transportType matchInfo:(id)info correctedLocation:(id)location speedLimit:(int)limit shieldText:(id)text shieldType:(int)shieldType
+{
+  v25 = *&transportType;
+  longitude_low = LODWORD(correctedCoordinate.longitude);
+  latitude_low = LODWORD(correctedCoordinate.latitude);
+  longitude = rawCoordinate.longitude;
+  latitude = rawCoordinate.latitude;
+  limitCopy2 = limit;
+  courseCopy2 = course;
+  speedCopy2 = speed;
+  altitudeCopy2 = altitude;
+  v97 = *MEMORY[0x1E69E9840];
+  v35 = *&matchType;
+  v36 = v25;
+  textCopy = text;
+  speedAccuracyCopy2 = speedAccuracy;
+  rawCourseCopy2 = rawCourse;
+  timestampCopy2 = timestamp;
+  v40 = coordinate.latitude;
+  courseAccuracyCopy2 = courseAccuracy;
+  v43 = coordinate.longitude;
+  locationCopy2 = location;
+  v45 = a7;
+  accuracyCopy2 = accuracy;
+  infoCopy2 = info;
+  verticalAccuracyCopy2 = verticalAccuracy;
+  v49 = latitude_low;
+  v50 = longitude_low;
+  v51 = textCopy;
+  if (self->_closed)
+  {
+    v55 = v49;
+    v56 = v50;
+    v58 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v57 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v94 = "!_closed";
+      v95 = 2112;
+      v96 = v58;
+      _os_log_impl(&dword_1D311E000, v57, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+    }
+
+    v50 = v56;
+    v49 = v55;
+    verticalAccuracyCopy2 = verticalAccuracy;
+    infoCopy2 = info;
+    accuracyCopy2 = accuracy;
+    limitCopy2 = limit;
+    courseAccuracyCopy2 = courseAccuracy;
+    locationCopy2 = location;
+    v45 = a7;
+    v40 = coordinate.latitude;
+    v43 = coordinate.longitude;
+    timestampCopy2 = timestamp;
+    courseCopy2 = course;
+    rawCourseCopy2 = rawCourse;
+    speedCopy2 = speed;
+    speedAccuracyCopy2 = speedAccuracy;
+    altitudeCopy2 = altitude;
+  }
+
+  v66[0] = MEMORY[0x1E69E9820];
+  v66[1] = 3221225472;
+  v66[2] = __323__MNTraceRecorder__recordLocationEvent_recordingTimestamp_coordinate_rawCoordinate_timestamp_horizontalAccuracy_verticalAccuracy_altitude_speed_speedAccuracy_course_rawCourse_type_courseAccuracy_correctedCoordinate_correctedCourse_matchType_activeTransportType_matchInfo_correctedLocation_speedLimit_shieldText_shieldType___block_invoke;
+  v66[3] = &unk_1E842AA48;
+  v70 = timestampCopy2;
+  v71 = v45;
+  v72 = v40;
+  v73 = v43;
+  v74 = latitude;
+  v75 = longitude;
+  v76 = accuracyCopy2;
+  v77 = verticalAccuracyCopy2;
+  v78 = altitudeCopy2;
+  v79 = speedCopy2;
+  v80 = speedAccuracyCopy2;
+  v81 = courseCopy2;
+  v82 = rawCourseCopy2;
+  v83 = courseAccuracyCopy2;
+  eventCopy = event;
+  correctedCourseCopy = correctedCourse;
+  v86 = infoCopy2;
+  v87 = locationCopy2;
+  typeCopy = type;
+  v89 = v49;
+  v90 = v50;
+  v91 = limitCopy2;
+  v66[4] = self;
+  v67 = v51;
+  shieldTypeCopy = shieldType;
+  v68 = v35;
+  v69 = v36;
+  v52 = v36;
+  v53 = v35;
+  v54 = v51;
+  [(MNTraceRecorder *)self _dispatchWrite:v66];
+}
+
 void __323__MNTraceRecorder__recordLocationEvent_recordingTimestamp_coordinate_rawCoordinate_timestamp_horizontalAccuracy_verticalAccuracy_altitude_speed_speedAccuracy_course_rawCourse_type_courseAccuracy_correctedCoordinate_correctedCourse_matchType_activeTransportType_matchInfo_correctedLocation_speedLimit_shieldText_shieldType___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -1815,15 +1866,15 @@ void __323__MNTraceRecorder__recordLocationEvent_recordingTimestamp_coordinate_r
     [*(*(a1 + 32) + 120) bind:33 int:{objc_msgSend(*(a1 + 48), "isMatchShifted")}];
     if (([*(*(a1 + 32) + 120) execute] & 1) == 0)
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording location"];
-      v10 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording location"];
+      v9 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v11 = 136315394;
-        v12 = "result";
-        v13 = 2112;
-        v14 = v9;
-        _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v11, 0x16u);
+        v10 = 136315394;
+        v11 = "result";
+        v12 = 2112;
+        v13 = v8;
+        _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v10, 0x16u);
       }
     }
 
@@ -1834,42 +1885,169 @@ void __323__MNTraceRecorder__recordLocationEvent_recordingTimestamp_coordinate_r
       [*(a1 + 32) _recordLocationMatchInfoOnWriteQueue:*(a1 + 56) forLocationID:{sqlite3_last_insert_rowid(objc_msgSend(*(*(a1 + 32) + 8), "db"))}];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordLocation:(id)location rawLocation:(id)rawLocation timestamp:(double)timestamp
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   rawLocationCopy = rawLocation;
   if (self->_closed)
   {
-    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v14 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v13 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "!_closed";
-      v21 = 2112;
-      v22 = v13;
-      _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v19 = "!_closed";
+      v20 = 2112;
+      v21 = v12;
+      _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __56__MNTraceRecorder_recordLocation_rawLocation_timestamp___block_invoke;
-  v15[3] = &unk_1E842AA20;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __56__MNTraceRecorder_recordLocation_rawLocation_timestamp___block_invoke;
+  v14[3] = &unk_1E842AA20;
   timestampCopy = timestamp;
-  v15[4] = self;
-  v16 = locationCopy;
-  v17 = rawLocationCopy;
+  v14[4] = self;
+  v15 = locationCopy;
+  v16 = rawLocationCopy;
   v10 = rawLocationCopy;
   v11 = locationCopy;
-  [(MNTraceRecorder *)self _dispatchWrite:v15];
+  [(MNTraceRecorder *)self _dispatchWrite:v14];
+}
 
-  v12 = *MEMORY[0x1E69E9840];
+void __56__MNTraceRecorder_recordLocation_rawLocation_timestamp___block_invoke(uint64_t a1)
+{
+  v51 = *MEMORY[0x1E69E9840];
+  v1 = *(a1 + 32);
+  if ((*(v1 + 48) & 1) == 0)
+  {
+    [*(v1 + 120) bind:1 double:*(a1 + 56)];
+    v3 = *(*(a1 + 32) + 120);
+    v4 = [*(a1 + 40) timestamp];
+    [v4 timeIntervalSinceReferenceDate];
+    [v3 bind:2 double:?];
+
+    v5 = *(*(a1 + 32) + 120);
+    [*(a1 + 48) coordinate];
+    [v5 bind:3 double:?];
+    v6 = *(*(a1 + 32) + 120);
+    [*(a1 + 48) coordinate];
+    [v6 bind:4 double:v7];
+    v8 = *(*(a1 + 32) + 120);
+    [*(a1 + 48) rawCoordinate];
+    [v8 bind:5 double:?];
+    v9 = *(*(a1 + 32) + 120);
+    [*(a1 + 48) rawCoordinate];
+    [v9 bind:6 double:v10];
+    v11 = *(*(a1 + 32) + 120);
+    [*(a1 + 48) horizontalAccuracy];
+    [v11 bind:7 double:?];
+    v12 = *(*(a1 + 32) + 120);
+    [*(a1 + 48) verticalAccuracy];
+    [v12 bind:8 double:?];
+    v13 = *(*(a1 + 32) + 120);
+    [*(a1 + 48) altitude];
+    [v13 bind:9 double:?];
+    v14 = *(*(a1 + 32) + 120);
+    [*(a1 + 48) speed];
+    [v14 bind:10 double:?];
+    v15 = *(*(a1 + 32) + 120);
+    [*(a1 + 48) speedAccuracy];
+    [v15 bind:11 double:?];
+    v16 = *(*(a1 + 32) + 120);
+    [*(a1 + 48) course];
+    [v16 bind:12 double:?];
+    v17 = *(*(a1 + 32) + 120);
+    [*(a1 + 48) rawCourse];
+    [v17 bind:13 double:?];
+    v18 = *(*(a1 + 32) + 120);
+    [*(a1 + 48) courseAccuracy];
+    [v18 bind:14 double:?];
+    [*(*(a1 + 32) + 120) bind:15 int:{objc_msgSend(*(a1 + 48), "type")}];
+    [*(*(a1 + 32) + 120) bind:16 int:{objc_msgSend(*(a1 + 48), "referenceFrame")}];
+    v19 = *(*(a1 + 32) + 120);
+    v20 = *(a1 + 48);
+    if (v20)
+    {
+      objc_msgSend_clientLocation(v20);
+      v21 = DWORD2(v45);
+    }
+
+    else
+    {
+      v21 = 0;
+      *(&v46 - 4) = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v37 = 0u;
+    }
+
+    [v19 bind:17 int:{v21, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46}];
+    [*(*(a1 + 32) + 120) bind:18 int:0];
+    v22 = *(*(a1 + 32) + 120);
+    [*(a1 + 40) coordinate];
+    [v22 bind:19 double:?];
+    v23 = *(*(a1 + 32) + 120);
+    [*(a1 + 40) coordinate];
+    [v23 bind:20 double:v24];
+    v25 = *(*(a1 + 32) + 120);
+    [*(a1 + 40) course];
+    [v25 bind:21 double:?];
+    [*(*(a1 + 32) + 120) bind:22 double:{objc_msgSend(*(a1 + 40), "state")}];
+    [*(*(a1 + 32) + 120) bind:23 int:4];
+    [*(*(a1 + 32) + 120) bind:24 int:{objc_msgSend(*(a1 + 40), "speedLimit")}];
+    v26 = *(*(a1 + 32) + 120);
+    v27 = [*(a1 + 40) shieldText];
+    [v26 bind:25 string:v27];
+
+    [*(*(a1 + 32) + 120) bind:26 int:{objc_msgSend(*(a1 + 40), "shieldType")}];
+    v28 = [*(a1 + 48) matchInfo];
+    [*(*(a1 + 32) + 120) bind:27 int:{objc_msgSend(v28, "matchQuality")}];
+    v29 = *(*(a1 + 32) + 120);
+    [v28 matchCoordinate];
+    [v29 bind:28 double:?];
+    v30 = *(*(a1 + 32) + 120);
+    [v28 matchCoordinate];
+    [v30 bind:29 double:v31];
+    v32 = *(*(a1 + 32) + 120);
+    [v28 matchCourse];
+    [v32 bind:30 double:?];
+    [*(*(a1 + 32) + 120) bind:31 int:{objc_msgSend(v28, "matchFormOfWay")}];
+    [*(*(a1 + 32) + 120) bind:32 int:{objc_msgSend(v28, "matchRoadClass")}];
+    [*(*(a1 + 32) + 120) bind:33 int:{objc_msgSend(v28, "isMatchShifted")}];
+    if (([*(*(a1 + 32) + 120) execute] & 1) == 0)
+    {
+      v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording location"];
+      v36 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v48 = "result";
+        v49 = 2112;
+        v50 = v35;
+        _os_log_impl(&dword_1D311E000, v36, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      }
+    }
+
+    insert_rowid = sqlite3_last_insert_rowid([*(*(a1 + 32) + 8) db]);
+    [*(a1 + 40) setTraceIndex:insert_rowid];
+    v34 = [*(a1 + 40) detailedMatchInfo];
+
+    if (v34)
+    {
+      [*(a1 + 32) _recordLocationMatchInfoOnWriteQueue:*(a1 + 40) forLocationID:insert_rowid];
+    }
+  }
 }
 
 - (void)recordLocation:(id)location rawLocation:(id)rawLocation
@@ -1880,21 +2058,122 @@ void __323__MNTraceRecorder__recordLocationEvent_recordingTimestamp_coordinate_r
   [(MNTraceRecorder *)self recordLocation:locationCopy rawLocation:rawLocationCopy timestamp:?];
 }
 
+- (void)_recordLocationMatchInfoOnWriteQueue:(id)queue forLocationID:(int)d
+{
+  v4 = *&d;
+  v38 = *MEMORY[0x1E69E9840];
+  queueCopy = queue;
+  _navigation_detailedMatchInfo = [queueCopy _navigation_detailedMatchInfo];
+
+  if (!_navigation_detailedMatchInfo)
+  {
+    v27 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      v30 = 136315906;
+      v31 = "[MNTraceRecorder _recordLocationMatchInfoOnWriteQueue:forLocationID:]";
+      v32 = 2080;
+      v33 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+      v34 = 1024;
+      v35 = 564;
+      v36 = 2080;
+      v37 = "correctedLocation.detailedMatchInfo != nil";
+      _os_log_impl(&dword_1D311E000, v27, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s)", &v30, 0x26u);
+    }
+  }
+
+  _navigation_detailedMatchInfo2 = [queueCopy _navigation_detailedMatchInfo];
+
+  if (_navigation_detailedMatchInfo2)
+  {
+    _navigation_routeMatch = [queueCopy _navigation_routeMatch];
+    _navigation_detailedMatchInfo3 = [queueCopy _navigation_detailedMatchInfo];
+    [(MNTracePreparedStatement *)self->_recordMatchInfoStatement bind:1 int:v4];
+    -[MNTracePreparedStatement bind:double:](self->_recordMatchInfoStatement, "bind:double:", 2, COERCE_FLOAT([_navigation_routeMatch routeCoordinate] >> 32) + objc_msgSend(_navigation_routeMatch, "routeCoordinate"));
+    -[MNTracePreparedStatement bind:int:](self->_recordMatchInfoStatement, "bind:int:", 3, [_navigation_routeMatch stepIndex]);
+    road = [_navigation_routeMatch road];
+    if (road)
+    {
+      road2 = [_navigation_routeMatch road];
+      formOfWay = [road2 formOfWay];
+    }
+
+    else
+    {
+      formOfWay = 0;
+    }
+
+    [(MNTracePreparedStatement *)self->_recordMatchInfoStatement bind:4 int:formOfWay];
+    recordMatchInfoStatement = self->_recordMatchInfoStatement;
+    [_navigation_detailedMatchInfo3 routeMatchScore];
+    [(MNTracePreparedStatement *)recordMatchInfoStatement bind:5 double:?];
+    v15 = self->_recordMatchInfoStatement;
+    [_navigation_detailedMatchInfo3 distanceFromRoute];
+    [(MNTracePreparedStatement *)v15 bind:6 double:?];
+    v16 = self->_recordMatchInfoStatement;
+    [_navigation_detailedMatchInfo3 maxDistance];
+    [(MNTracePreparedStatement *)v16 bind:7 double:?];
+    v17 = self->_recordMatchInfoStatement;
+    [_navigation_detailedMatchInfo3 distanceMatchScore];
+    [(MNTracePreparedStatement *)v17 bind:8 double:?];
+    v18 = self->_recordMatchInfoStatement;
+    [_navigation_detailedMatchInfo3 distanceWeight];
+    [(MNTracePreparedStatement *)v18 bind:9 double:?];
+    v19 = self->_recordMatchInfoStatement;
+    [_navigation_detailedMatchInfo3 courseDelta];
+    [(MNTracePreparedStatement *)v19 bind:10 double:?];
+    v20 = self->_recordMatchInfoStatement;
+    [_navigation_detailedMatchInfo3 maxCourseDelta];
+    [(MNTracePreparedStatement *)v20 bind:11 double:?];
+    v21 = self->_recordMatchInfoStatement;
+    [_navigation_detailedMatchInfo3 courseMatchScore];
+    [(MNTracePreparedStatement *)v21 bind:12 double:?];
+    v22 = self->_recordMatchInfoStatement;
+    [_navigation_detailedMatchInfo3 courseWeight];
+    [(MNTracePreparedStatement *)v22 bind:13 double:?];
+    v23 = self->_recordMatchInfoStatement;
+    [_navigation_detailedMatchInfo3 roadWidthOnRoute];
+    [(MNTracePreparedStatement *)v23 bind:14 double:?];
+    v24 = self->_recordMatchInfoStatement;
+    [_navigation_detailedMatchInfo3 distanceFromRoad];
+    [(MNTracePreparedStatement *)v24 bind:15 double:?];
+    v25 = self->_recordMatchInfoStatement;
+    [_navigation_detailedMatchInfo3 roadCourseDelta];
+    [(MNTracePreparedStatement *)v25 bind:16 double:?];
+    v26 = self->_recordMatchInfoStatement;
+    [_navigation_detailedMatchInfo3 distanceFromNearestJunction];
+    [(MNTracePreparedStatement *)v26 bind:17 double:?];
+    if (![(MNTracePreparedStatement *)self->_recordMatchInfoStatement execute])
+    {
+      v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording location"];
+      v29 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      {
+        v30 = 136315394;
+        v31 = "result";
+        v32 = 2112;
+        v33 = v28;
+        _os_log_impl(&dword_1D311E000, v29, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v30, 0x16u);
+      }
+    }
+  }
+}
+
 - (void)recordNavigationEvent:(int64_t)event description:(id)description
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   if (self->_closed)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v15 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v14 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "!_closed";
-      v23 = 2112;
-      v24 = v14;
-      _os_log_impl(&dword_1D311E000, v15, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v21 = "!_closed";
+      v22 = 2112;
+      v23 = v13;
+      _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
@@ -1904,24 +2183,22 @@ void __323__MNTraceRecorder__recordLocationEvent_recordingTimestamp_coordinate_r
   [date timeIntervalSinceReferenceDate];
   v11 = v10;
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __53__MNTraceRecorder_recordNavigationEvent_description___block_invoke;
-  v16[3] = &unk_1E842A9F8;
-  v18 = v8;
-  v19 = v11;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __53__MNTraceRecorder_recordNavigationEvent_description___block_invoke;
+  v15[3] = &unk_1E842A9F8;
+  v17 = v8;
+  v18 = v11;
   eventCopy = event;
-  v16[4] = self;
-  v17 = descriptionCopy;
+  v15[4] = self;
+  v16 = descriptionCopy;
   v12 = descriptionCopy;
-  [(MNTraceRecorder *)self _dispatchWrite:v16];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(MNTraceRecorder *)self _dispatchWrite:v15];
 }
 
 void __53__MNTraceRecorder_recordNavigationEvent_description___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 48) & 1) == 0)
   {
@@ -1931,20 +2208,18 @@ void __53__MNTraceRecorder_recordNavigationEvent_description___block_invoke(uint
     [*(*(a1 + 32) + 224) bindParameter:@":event_description" string:*(a1 + 40)];
     if (([*(*(a1 + 32) + 224) execute] & 1) == 0)
     {
-      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording navigation event"];
-      v5 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording navigation event"];
+      v4 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v6 = 136315394;
-        v7 = "result";
-        v8 = 2112;
-        v9 = v4;
-        _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v6, 0x16u);
+        v5 = 136315394;
+        v6 = "result";
+        v7 = 2112;
+        v8 = v3;
+        _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v5, 0x16u);
       }
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordMiscInfo:(id)info value:(id)value
@@ -1967,30 +2242,29 @@ void __53__MNTraceRecorder_recordNavigationEvent_description___block_invoke(uint
 
 void __40__MNTraceRecorder_recordMiscInfo_value___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 32);
+  v22 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v20 = *(a1 + 32);
-    v5 = sqlite3_bind_text(a2, 1, [*(a1 + 40) UTF8String], -1, 0);
-    if (v5)
+    v17 = *(a1 + 32);
+    v4 = sqlite3_bind_text(a2, 1, [*(a1 + 40) UTF8String], -1, 0);
+    if (v4)
     {
-      v6 = v5;
-      v7 = *(a1 + 48);
-      v8 = 529;
+      v5 = v4;
+      v6 = *(a1 + 48);
+      v7 = 529;
 LABEL_17:
-      [v7 _logSqliteErrorWithResult:v6 file:"/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m" line:v8];
+      [v6 _logSqliteErrorWithResult:v5 file:"/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m" line:v7];
       goto LABEL_18;
     }
 
-    v14 = v20;
-    v15 = sqlite3_bind_text(a2, 2, [v20 UTF8String], objc_msgSend(v20, "length"), 0);
-    if (v15)
+    v12 = v17;
+    v13 = sqlite3_bind_text(a2, 2, [v17 UTF8String], objc_msgSend(v17, "length"), 0);
+    if (v13)
     {
-      v6 = v15;
-      v7 = *(a1 + 48);
-      v8 = 530;
+      v5 = v13;
+      v6 = *(a1 + 48);
+      v7 = 530;
       goto LABEL_17;
     }
 
@@ -2000,60 +2274,57 @@ LABEL_17:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v20 = *(a1 + 32);
-    v9 = sqlite3_bind_text(a2, 1, [*(a1 + 40) UTF8String], -1, 0);
-    if (v9)
+    v17 = *(a1 + 32);
+    v8 = sqlite3_bind_text(a2, 1, [*(a1 + 40) UTF8String], -1, 0);
+    if (v8)
     {
-      v6 = v9;
-      v7 = *(a1 + 48);
-      v8 = 533;
+      v5 = v8;
+      v6 = *(a1 + 48);
+      v7 = 533;
       goto LABEL_17;
     }
 
-    if (CFNumberIsFloatType(v20))
+    if (CFNumberIsFloatType(v17))
     {
-      [v20 doubleValue];
-      v17 = sqlite3_bind_double(a2, 2, v16);
-      if (v17)
+      [v17 doubleValue];
+      v15 = sqlite3_bind_double(a2, 2, v14);
+      if (v15)
       {
-        v6 = v17;
-        v7 = *(a1 + 48);
-        v8 = 535;
+        v5 = v15;
+        v6 = *(a1 + 48);
+        v7 = 535;
         goto LABEL_17;
       }
     }
 
     else
     {
-      v18 = sqlite3_bind_int(a2, 2, [v20 intValue]);
-      if (v18)
+      v16 = sqlite3_bind_int(a2, 2, [v17 intValue]);
+      if (v16)
       {
-        v6 = v18;
-        v7 = *(a1 + 48);
-        v8 = 537;
+        v5 = v16;
+        v6 = *(a1 + 48);
+        v7 = 537;
         goto LABEL_17;
       }
     }
 
 LABEL_18:
-    v19 = *MEMORY[0x1E69E9840];
 
     return;
   }
 
-  v10 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v9 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 32);
-    v11 = *(a1 + 40);
+    v11 = *(a1 + 32);
+    v10 = *(a1 + 40);
     *buf = 138412546;
-    v22 = v11;
-    v23 = 2112;
-    v24 = v12;
-    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Error recording %@ to misc_info: Invalid type: %@", buf, 0x16u);
+    v19 = v10;
+    v20 = 2112;
+    v21 = v11;
+    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "Error recording %@ to misc_info: Invalid type: %@", buf, 0x16u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordStylesheet:(id)stylesheet data:(id)data
@@ -2075,24 +2346,22 @@ LABEL_18:
 
 void __41__MNTraceRecorder_recordStylesheet_data___block_invoke(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [*(a1[4] + 112) bind:1 string:a1[5]];
   [*(a1[4] + 112) bind:2 data:a1[6]];
   if (([*(a1[4] + 112) execute] & 1) == 0)
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording debug setting"];
-    v4 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording debug setting"];
+    v3 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "result";
-      v7 = 2112;
-      v8 = v3;
-      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "result";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v4, 0x16u);
     }
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordAudioSetting:(BOOL)setting voiceGuidance:(int64_t)guidance
@@ -2116,7 +2385,7 @@ void __41__MNTraceRecorder_recordStylesheet_data___block_invoke(void *a1)
 
 void __52__MNTraceRecorder_recordAudioSetting_voiceGuidance___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = v2[13];
   [v2 timeSinceRecordingBegan];
@@ -2125,19 +2394,17 @@ void __52__MNTraceRecorder_recordAudioSetting_voiceGuidance___block_invoke(uint6
   [*(*(a1 + 32) + 104) bind:3 int:*(a1 + 40)];
   if (([*(*(a1 + 32) + 104) execute] & 1) == 0)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording audio setting"];
-    v6 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording audio setting"];
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "result";
-      v9 = 2112;
-      v10 = v5;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "result";
+      v8 = 2112;
+      v9 = v4;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v6, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordDebugSetting:(id)setting settingValue:(id)value
@@ -2160,24 +2427,22 @@ void __52__MNTraceRecorder_recordAudioSetting_voiceGuidance___block_invoke(uint6
 
 void __51__MNTraceRecorder_recordDebugSetting_settingValue___block_invoke(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [*(a1[4] + 96) bind:1 string:a1[5]];
   [*(a1[4] + 96) bind:2 string:a1[6]];
   if (([*(a1[4] + 96) execute] & 1) == 0)
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording debug setting"];
-    v4 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording debug setting"];
+    v3 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "result";
-      v7 = 2112;
-      v8 = v3;
-      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "result";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v4, 0x16u);
     }
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordEnvironmentInfo:(id)info value:(id)value
@@ -2200,29 +2465,27 @@ void __51__MNTraceRecorder_recordDebugSetting_settingValue___block_invoke(void *
 
 void __47__MNTraceRecorder_recordEnvironmentInfo_value___block_invoke(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [*(a1[4] + 88) bind:1 string:a1[5]];
   [*(a1[4] + 88) bind:2 string:a1[6]];
   if (([*(a1[4] + 88) execute] & 1) == 0)
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording environment info"];
-    v4 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording environment info"];
+    v3 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "result";
-      v7 = 2112;
-      v8 = v3;
-      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "result";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v4, 0x16u);
     }
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRecordingStartDate:(id)date
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   if (dateCopy)
   {
@@ -2234,7 +2497,7 @@ void __47__MNTraceRecorder_recordEnvironmentInfo_value___block_invoke(void *a1)
     }
 
     *buf = 138412290;
-    v14 = v5;
+    v13 = v5;
     v7 = "Setting recording start time to %@";
     v8 = v6;
     v9 = 12;
@@ -2261,16 +2524,14 @@ LABEL_7:
   objc_storeStrong(&self->_recordingStartDate, v5);
   if (self->_trace)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __41__MNTraceRecorder_setRecordingStartDate___block_invoke;
-    v11[3] = &unk_1E8430D50;
-    v11[4] = self;
-    v12 = v5;
-    [(MNTraceRecorder *)self _dispatchWrite:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __41__MNTraceRecorder_setRecordingStartDate___block_invoke;
+    v10[3] = &unk_1E8430D50;
+    v10[4] = self;
+    v11 = v5;
+    [(MNTraceRecorder *)self _dispatchWrite:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __41__MNTraceRecorder_setRecordingStartDate___block_invoke(uint64_t a1)
@@ -2307,13 +2568,13 @@ uint64_t __41__MNTraceRecorder_setRecordingStartDate___block_invoke(uint64_t a1)
 
 - (void)_prepareStatements
 {
-  v109 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   if (!self->_corrupted)
   {
     trace = self->_trace;
-    v98 = 0;
-    v4 = [(MNTrace *)trace prepareStatement:@"UPDATE info SET recording_start_time = :recording_start_time" outError:&v98];
-    v5 = v98;
+    v97 = 0;
+    v4 = [(MNTrace *)trace prepareStatement:@"UPDATE info SET recording_start_time = :recording_start_time" outError:&v97];
+    v5 = v97;
     updateRecordingStartTimeStatement = self->_updateRecordingStartTimeStatement;
     self->_updateRecordingStartTimeStatement = v4;
 
@@ -2324,15 +2585,15 @@ uint64_t __41__MNTraceRecorder_setRecordingStartDate___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v100 = "[MNTraceRecorder _prepareStatements]";
-        v101 = 2080;
-        v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-        v103 = 1024;
-        v104 = 395;
-        v105 = 2080;
-        v106 = "NO";
-        v107 = 2112;
-        v108 = v7;
+        v99 = "[MNTraceRecorder _prepareStatements]";
+        v100 = 2080;
+        v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+        v102 = 1024;
+        v103 = 395;
+        v104 = 2080;
+        v105 = "NO";
+        v106 = 2112;
+        v107 = v7;
 LABEL_71:
         _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
       }
@@ -2341,9 +2602,9 @@ LABEL_71:
     else
     {
       v9 = self->_trace;
-      v97 = 0;
-      v10 = [(MNTrace *)v9 prepareStatement:@"UPDATE info SET directions_start_time = :directions_start_time" outError:&v97];
-      v5 = v97;
+      v96 = 0;
+      v10 = [(MNTrace *)v9 prepareStatement:@"UPDATE info SET directions_start_time = :directions_start_time" outError:&v96];
+      v5 = v96;
       updateDirectionsStartTimeStatement = self->_updateDirectionsStartTimeStatement;
       self->_updateDirectionsStartTimeStatement = v10;
 
@@ -2354,15 +2615,15 @@ LABEL_71:
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           *buf = 136316162;
-          v100 = "[MNTraceRecorder _prepareStatements]";
-          v101 = 2080;
-          v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-          v103 = 1024;
-          v104 = 396;
-          v105 = 2080;
-          v106 = "NO";
-          v107 = 2112;
-          v108 = v7;
+          v99 = "[MNTraceRecorder _prepareStatements]";
+          v100 = 2080;
+          v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+          v102 = 1024;
+          v103 = 396;
+          v104 = 2080;
+          v105 = "NO";
+          v106 = 2112;
+          v107 = v7;
           goto LABEL_71;
         }
       }
@@ -2370,9 +2631,9 @@ LABEL_71:
       else
       {
         v12 = self->_trace;
-        v96 = 0;
-        v13 = [(MNTrace *)v12 prepareStatement:@"UPDATE info SET navigation_start_time = :navigation_start_time" outError:&v96];
-        v5 = v96;
+        v95 = 0;
+        v13 = [(MNTrace *)v12 prepareStatement:@"UPDATE info SET navigation_start_time = :navigation_start_time" outError:&v95];
+        v5 = v95;
         updateNavigationStartTimeStatement = self->_updateNavigationStartTimeStatement;
         self->_updateNavigationStartTimeStatement = v13;
 
@@ -2383,15 +2644,15 @@ LABEL_71:
           if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             *buf = 136316162;
-            v100 = "[MNTraceRecorder _prepareStatements]";
-            v101 = 2080;
-            v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-            v103 = 1024;
-            v104 = 397;
-            v105 = 2080;
-            v106 = "NO";
-            v107 = 2112;
-            v108 = v7;
+            v99 = "[MNTraceRecorder _prepareStatements]";
+            v100 = 2080;
+            v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+            v102 = 1024;
+            v103 = 397;
+            v104 = 2080;
+            v105 = "NO";
+            v106 = 2112;
+            v107 = v7;
             goto LABEL_71;
           }
         }
@@ -2399,9 +2660,9 @@ LABEL_71:
         else
         {
           v15 = self->_trace;
-          v95 = 0;
-          v16 = [(MNTrace *)v15 prepareStatement:@"UPDATE info SET navigation_end_time = :navigation_end_time" outError:&v95];
-          v5 = v95;
+          v94 = 0;
+          v16 = [(MNTrace *)v15 prepareStatement:@"UPDATE info SET navigation_end_time = :navigation_end_time" outError:&v94];
+          v5 = v94;
           updateNavigationEndTimeStatement = self->_updateNavigationEndTimeStatement;
           self->_updateNavigationEndTimeStatement = v16;
 
@@ -2412,15 +2673,15 @@ LABEL_71:
             if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
             {
               *buf = 136316162;
-              v100 = "[MNTraceRecorder _prepareStatements]";
-              v101 = 2080;
-              v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-              v103 = 1024;
-              v104 = 398;
-              v105 = 2080;
-              v106 = "NO";
-              v107 = 2112;
-              v108 = v7;
+              v99 = "[MNTraceRecorder _prepareStatements]";
+              v100 = 2080;
+              v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+              v102 = 1024;
+              v103 = 398;
+              v104 = 2080;
+              v105 = "NO";
+              v106 = 2112;
+              v107 = v7;
               goto LABEL_71;
             }
           }
@@ -2428,9 +2689,9 @@ LABEL_71:
           else
           {
             v18 = self->_trace;
-            v94 = 0;
-            v19 = [(MNTrace *)v18 prepareStatement:@"INSERT INTO environment_info (name outError:value) VALUES (?, ?)", &v94];
-            v5 = v94;
+            v93 = 0;
+            v19 = [(MNTrace *)v18 prepareStatement:@"INSERT INTO environment_info (name outError:value) VALUES (?, ?)", &v93];
+            v5 = v93;
             recordEnvironmentInfoStatement = self->_recordEnvironmentInfoStatement;
             self->_recordEnvironmentInfoStatement = v19;
 
@@ -2441,15 +2702,15 @@ LABEL_71:
               if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136316162;
-                v100 = "[MNTraceRecorder _prepareStatements]";
-                v101 = 2080;
-                v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                v103 = 1024;
-                v104 = 399;
-                v105 = 2080;
-                v106 = "NO";
-                v107 = 2112;
-                v108 = v7;
+                v99 = "[MNTraceRecorder _prepareStatements]";
+                v100 = 2080;
+                v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                v102 = 1024;
+                v103 = 399;
+                v104 = 2080;
+                v105 = "NO";
+                v106 = 2112;
+                v107 = v7;
                 goto LABEL_71;
               }
             }
@@ -2457,9 +2718,9 @@ LABEL_71:
             else
             {
               v21 = self->_trace;
-              v93 = 0;
-              v22 = [(MNTrace *)v21 prepareStatement:@"INSERT INTO debug_settings (setting_name outError:setting_value) VALUES (?, ?)", &v93];
-              v5 = v93;
+              v92 = 0;
+              v22 = [(MNTrace *)v21 prepareStatement:@"INSERT INTO debug_settings (setting_name outError:setting_value) VALUES (?, ?)", &v92];
+              v5 = v92;
               recordDebugSettingStatement = self->_recordDebugSettingStatement;
               self->_recordDebugSettingStatement = v22;
 
@@ -2470,15 +2731,15 @@ LABEL_71:
                 if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 136316162;
-                  v100 = "[MNTraceRecorder _prepareStatements]";
-                  v101 = 2080;
-                  v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                  v103 = 1024;
-                  v104 = 400;
-                  v105 = 2080;
-                  v106 = "NO";
-                  v107 = 2112;
-                  v108 = v7;
+                  v99 = "[MNTraceRecorder _prepareStatements]";
+                  v100 = 2080;
+                  v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                  v102 = 1024;
+                  v103 = 400;
+                  v104 = 2080;
+                  v105 = "NO";
+                  v106 = 2112;
+                  v107 = v7;
                   goto LABEL_71;
                 }
               }
@@ -2486,9 +2747,9 @@ LABEL_71:
               else
               {
                 v24 = self->_trace;
-                v92 = 0;
-                v25 = [(MNTrace *)v24 prepareStatement:@"INSERT INTO audio_settings (db_timestamp outError:pause_spoken_audio, volume_setting) VALUES (?, ?, ?)", &v92];
-                v5 = v92;
+                v91 = 0;
+                v25 = [(MNTrace *)v24 prepareStatement:@"INSERT INTO audio_settings (db_timestamp outError:pause_spoken_audio, volume_setting) VALUES (?, ?, ?)", &v91];
+                v5 = v91;
                 recordAudioSettingStatement = self->_recordAudioSettingStatement;
                 self->_recordAudioSettingStatement = v25;
 
@@ -2499,15 +2760,15 @@ LABEL_71:
                   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 136316162;
-                    v100 = "[MNTraceRecorder _prepareStatements]";
-                    v101 = 2080;
-                    v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                    v103 = 1024;
-                    v104 = 401;
-                    v105 = 2080;
-                    v106 = "NO";
-                    v107 = 2112;
-                    v108 = v7;
+                    v99 = "[MNTraceRecorder _prepareStatements]";
+                    v100 = 2080;
+                    v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                    v102 = 1024;
+                    v103 = 401;
+                    v104 = 2080;
+                    v105 = "NO";
+                    v106 = 2112;
+                    v107 = v7;
                     goto LABEL_71;
                   }
                 }
@@ -2515,9 +2776,9 @@ LABEL_71:
                 else
                 {
                   v27 = self->_trace;
-                  v91 = 0;
-                  v28 = [(MNTrace *)v27 prepareStatement:@"INSERT INTO stylesheets (stylesheet_name outError:stylesheet_data) VALUES (?, ?)", &v91];
-                  v5 = v91;
+                  v90 = 0;
+                  v28 = [(MNTrace *)v27 prepareStatement:@"INSERT INTO stylesheets (stylesheet_name outError:stylesheet_data) VALUES (?, ?)", &v90];
+                  v5 = v90;
                   recordStylesheetStatement = self->_recordStylesheetStatement;
                   self->_recordStylesheetStatement = v28;
 
@@ -2528,15 +2789,15 @@ LABEL_71:
                     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 136316162;
-                      v100 = "[MNTraceRecorder _prepareStatements]";
-                      v101 = 2080;
-                      v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                      v103 = 1024;
-                      v104 = 402;
-                      v105 = 2080;
-                      v106 = "NO";
-                      v107 = 2112;
-                      v108 = v7;
+                      v99 = "[MNTraceRecorder _prepareStatements]";
+                      v100 = 2080;
+                      v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                      v102 = 1024;
+                      v103 = 402;
+                      v104 = 2080;
+                      v105 = "NO";
+                      v106 = 2112;
+                      v107 = v7;
                       goto LABEL_71;
                     }
                   }
@@ -2544,9 +2805,9 @@ LABEL_71:
                   else
                   {
                     v30 = self->_trace;
-                    v90 = 0;
-                    v31 = [(MNTrace *)v30 prepareStatement:@"INSERT INTO locations (db_timestamp outError:cl_timestamp, latitude, longitude, raw_latitude, raw_longitude, horizontal_accuracy, vertical_accuracy, altitude, speed, speed_accuracy, course, raw_course, course_accuracy, type, reference_frame, raw_reference_frame, event_type, corrected_latitude, corrected_longitude, corrected_course, match_type, active_transport_type, speed_limit, shield_text, shield_type, match_info_quality, match_info_latitude, match_info_longitude, match_info_course, match_info_form_of_way, match_info_road_class, match_info_shifted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", &v90];
-                    v5 = v90;
+                    v89 = 0;
+                    v31 = [(MNTrace *)v30 prepareStatement:@"INSERT INTO locations (db_timestamp outError:cl_timestamp, latitude, longitude, raw_latitude, raw_longitude, horizontal_accuracy, vertical_accuracy, altitude, speed, speed_accuracy, course, raw_course, course_accuracy, type, reference_frame, raw_reference_frame, event_type, corrected_latitude, corrected_longitude, corrected_course, match_type, active_transport_type, speed_limit, shield_text, shield_type, match_info_quality, match_info_latitude, match_info_longitude, match_info_course, match_info_form_of_way, match_info_road_class, match_info_shifted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", &v89];
+                    v5 = v89;
                     recordLocationStatement = self->_recordLocationStatement;
                     self->_recordLocationStatement = v31;
 
@@ -2557,15 +2818,15 @@ LABEL_71:
                       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 136316162;
-                        v100 = "[MNTraceRecorder _prepareStatements]";
-                        v101 = 2080;
-                        v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                        v103 = 1024;
-                        v104 = 403;
-                        v105 = 2080;
-                        v106 = "NO";
-                        v107 = 2112;
-                        v108 = v7;
+                        v99 = "[MNTraceRecorder _prepareStatements]";
+                        v100 = 2080;
+                        v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                        v102 = 1024;
+                        v103 = 403;
+                        v104 = 2080;
+                        v105 = "NO";
+                        v106 = 2112;
+                        v107 = v7;
                         goto LABEL_71;
                       }
                     }
@@ -2573,9 +2834,9 @@ LABEL_71:
                     else
                     {
                       v33 = self->_trace;
-                      v89 = 0;
-                      v34 = [(MNTrace *)v33 prepareStatement:@"INSERT INTO locations (db_timestamp outError:error_data) VALUES (?, ?)", &v89];
-                      v5 = v89;
+                      v88 = 0;
+                      v34 = [(MNTrace *)v33 prepareStatement:@"INSERT INTO locations (db_timestamp outError:error_data) VALUES (?, ?)", &v88];
+                      v5 = v88;
                       recordLocationErrorStatement = self->_recordLocationErrorStatement;
                       self->_recordLocationErrorStatement = v34;
 
@@ -2586,15 +2847,15 @@ LABEL_71:
                         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 136316162;
-                          v100 = "[MNTraceRecorder _prepareStatements]";
-                          v101 = 2080;
-                          v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                          v103 = 1024;
-                          v104 = 404;
-                          v105 = 2080;
-                          v106 = "NO";
-                          v107 = 2112;
-                          v108 = v7;
+                          v99 = "[MNTraceRecorder _prepareStatements]";
+                          v100 = 2080;
+                          v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                          v102 = 1024;
+                          v103 = 404;
+                          v104 = 2080;
+                          v105 = "NO";
+                          v106 = 2112;
+                          v107 = v7;
                           goto LABEL_71;
                         }
                       }
@@ -2602,9 +2863,9 @@ LABEL_71:
                       else
                       {
                         v36 = self->_trace;
-                        v88 = 0;
-                        v37 = [(MNTrace *)v36 prepareStatement:@"INSERT INTO location_match_info (location_id outError:route_coordinate, step_index, form_of_way, route_match_score, distance_from_route, max_route_distance, route_distance_match_score, route_distance_weight, route_course_delta, max_route_course_delta, route_course_match_score, route_course_weight, road_width_on_route, distance_from_road, road_course_delta, distance_from_nearest_junction) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", &v88];
-                        v5 = v88;
+                        v87 = 0;
+                        v37 = [(MNTrace *)v36 prepareStatement:@"INSERT INTO location_match_info (location_id outError:route_coordinate, step_index, form_of_way, route_match_score, distance_from_route, max_route_distance, route_distance_match_score, route_distance_weight, route_course_delta, max_route_course_delta, route_course_match_score, route_course_weight, road_width_on_route, distance_from_road, road_course_delta, distance_from_nearest_junction) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", &v87];
+                        v5 = v87;
                         recordMatchInfoStatement = self->_recordMatchInfoStatement;
                         self->_recordMatchInfoStatement = v37;
 
@@ -2615,15 +2876,15 @@ LABEL_71:
                           if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                           {
                             *buf = 136316162;
-                            v100 = "[MNTraceRecorder _prepareStatements]";
-                            v101 = 2080;
-                            v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                            v103 = 1024;
-                            v104 = 405;
-                            v105 = 2080;
-                            v106 = "NO";
-                            v107 = 2112;
-                            v108 = v7;
+                            v99 = "[MNTraceRecorder _prepareStatements]";
+                            v100 = 2080;
+                            v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                            v102 = 1024;
+                            v103 = 405;
+                            v104 = 2080;
+                            v105 = "NO";
+                            v106 = 2112;
+                            v107 = v7;
                             goto LABEL_71;
                           }
                         }
@@ -2631,9 +2892,9 @@ LABEL_71:
                         else
                         {
                           v39 = self->_trace;
-                          v87 = 0;
-                          v40 = [(MNTrace *)v39 prepareStatement:@"INSERT INTO directions (id outError:request_timestamp, response_timestamp, request_data, response_data, response_error_data, waypoints_data, selected_route_index) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", &v87];
-                          v5 = v87;
+                          v86 = 0;
+                          v40 = [(MNTrace *)v39 prepareStatement:@"INSERT INTO directions (id outError:request_timestamp, response_timestamp, request_data, response_data, response_error_data, waypoints_data, selected_route_index) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", &v86];
+                          v5 = v86;
                           recordDirectionsStatement = self->_recordDirectionsStatement;
                           self->_recordDirectionsStatement = v40;
 
@@ -2644,15 +2905,15 @@ LABEL_71:
                             if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                             {
                               *buf = 136316162;
-                              v100 = "[MNTraceRecorder _prepareStatements]";
-                              v101 = 2080;
-                              v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                              v103 = 1024;
-                              v104 = 406;
-                              v105 = 2080;
-                              v106 = "NO";
-                              v107 = 2112;
-                              v108 = v7;
+                              v99 = "[MNTraceRecorder _prepareStatements]";
+                              v100 = 2080;
+                              v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                              v102 = 1024;
+                              v103 = 406;
+                              v104 = 2080;
+                              v105 = "NO";
+                              v106 = 2112;
+                              v107 = v7;
                               goto LABEL_71;
                             }
                           }
@@ -2660,9 +2921,9 @@ LABEL_71:
                           else
                           {
                             v42 = self->_trace;
-                            v86 = 0;
-                            v43 = [(MNTrace *)v42 prepareStatement:@"INSERT INTO eta_traffic_updates (request_timestamp outError:response_timestamp, request_data, response_data, response_error_data, destination_name) VALUES (?, ?, ?, ?, ?, ?)", &v86];
-                            v5 = v86;
+                            v85 = 0;
+                            v43 = [(MNTrace *)v42 prepareStatement:@"INSERT INTO eta_traffic_updates (request_timestamp outError:response_timestamp, request_data, response_data, response_error_data, destination_name) VALUES (?, ?, ?, ?, ?, ?)", &v85];
+                            v5 = v85;
                             recordETAUStatement = self->_recordETAUStatement;
                             self->_recordETAUStatement = v43;
 
@@ -2673,15 +2934,15 @@ LABEL_71:
                               if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                               {
                                 *buf = 136316162;
-                                v100 = "[MNTraceRecorder _prepareStatements]";
-                                v101 = 2080;
-                                v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                                v103 = 1024;
-                                v104 = 407;
-                                v105 = 2080;
-                                v106 = "NO";
-                                v107 = 2112;
-                                v108 = v7;
+                                v99 = "[MNTraceRecorder _prepareStatements]";
+                                v100 = 2080;
+                                v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                                v102 = 1024;
+                                v103 = 407;
+                                v104 = 2080;
+                                v105 = "NO";
+                                v106 = 2112;
+                                v107 = v7;
                                 goto LABEL_71;
                               }
                             }
@@ -2689,9 +2950,9 @@ LABEL_71:
                             else
                             {
                               v45 = self->_trace;
-                              v85 = 0;
-                              v46 = [(MNTrace *)v45 prepareStatement:@"INSERT INTO realtime_transit_updates (timestamp outError:request_data) VALUES (?, ?)", &v85];
-                              v5 = v85;
+                              v84 = 0;
+                              v46 = [(MNTrace *)v45 prepareStatement:@"INSERT INTO realtime_transit_updates (timestamp outError:request_data) VALUES (?, ?)", &v84];
+                              v5 = v84;
                               recordRealtimeTransitUpdateRequest = self->_recordRealtimeTransitUpdateRequest;
                               self->_recordRealtimeTransitUpdateRequest = v46;
 
@@ -2702,15 +2963,15 @@ LABEL_71:
                                 if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                                 {
                                   *buf = 136316162;
-                                  v100 = "[MNTraceRecorder _prepareStatements]";
-                                  v101 = 2080;
-                                  v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                                  v103 = 1024;
-                                  v104 = 408;
-                                  v105 = 2080;
-                                  v106 = "NO";
-                                  v107 = 2112;
-                                  v108 = v7;
+                                  v99 = "[MNTraceRecorder _prepareStatements]";
+                                  v100 = 2080;
+                                  v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                                  v102 = 1024;
+                                  v103 = 408;
+                                  v104 = 2080;
+                                  v105 = "NO";
+                                  v106 = 2112;
+                                  v107 = v7;
                                   goto LABEL_71;
                                 }
                               }
@@ -2718,9 +2979,9 @@ LABEL_71:
                               else
                               {
                                 v48 = self->_trace;
-                                v84 = 0;
-                                v49 = [(MNTrace *)v48 prepareStatement:@"INSERT INTO realtime_transit_updates (timestamp outError:response_data) VALUES (?, ?)", &v84];
-                                v5 = v84;
+                                v83 = 0;
+                                v49 = [(MNTrace *)v48 prepareStatement:@"INSERT INTO realtime_transit_updates (timestamp outError:response_data) VALUES (?, ?)", &v83];
+                                v5 = v83;
                                 recordRealtimeTransitUpdateResponse = self->_recordRealtimeTransitUpdateResponse;
                                 self->_recordRealtimeTransitUpdateResponse = v49;
 
@@ -2731,15 +2992,15 @@ LABEL_71:
                                   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                                   {
                                     *buf = 136316162;
-                                    v100 = "[MNTraceRecorder _prepareStatements]";
-                                    v101 = 2080;
-                                    v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                                    v103 = 1024;
-                                    v104 = 409;
-                                    v105 = 2080;
-                                    v106 = "NO";
-                                    v107 = 2112;
-                                    v108 = v7;
+                                    v99 = "[MNTraceRecorder _prepareStatements]";
+                                    v100 = 2080;
+                                    v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                                    v102 = 1024;
+                                    v103 = 409;
+                                    v104 = 2080;
+                                    v105 = "NO";
+                                    v106 = 2112;
+                                    v107 = v7;
                                     goto LABEL_71;
                                   }
                                 }
@@ -2747,9 +3008,9 @@ LABEL_71:
                                 else
                                 {
                                   v51 = self->_trace;
-                                  v83 = 0;
-                                  v52 = [(MNTrace *)v51 prepareStatement:@"INSERT INTO realtime_transit_updates (timestamp outError:response_error_data) VALUES (?, ?)", &v83];
-                                  v5 = v83;
+                                  v82 = 0;
+                                  v52 = [(MNTrace *)v51 prepareStatement:@"INSERT INTO realtime_transit_updates (timestamp outError:response_error_data) VALUES (?, ?)", &v82];
+                                  v5 = v82;
                                   recordRealtimeTransitUpdateResponseError = self->_recordRealtimeTransitUpdateResponseError;
                                   self->_recordRealtimeTransitUpdateResponseError = v52;
 
@@ -2760,15 +3021,15 @@ LABEL_71:
                                     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                                     {
                                       *buf = 136316162;
-                                      v100 = "[MNTraceRecorder _prepareStatements]";
-                                      v101 = 2080;
-                                      v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                                      v103 = 1024;
-                                      v104 = 410;
-                                      v105 = 2080;
-                                      v106 = "NO";
-                                      v107 = 2112;
-                                      v108 = v7;
+                                      v99 = "[MNTraceRecorder _prepareStatements]";
+                                      v100 = 2080;
+                                      v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                                      v102 = 1024;
+                                      v103 = 410;
+                                      v104 = 2080;
+                                      v105 = "NO";
+                                      v106 = 2112;
+                                      v107 = v7;
                                       goto LABEL_71;
                                     }
                                   }
@@ -2776,9 +3037,9 @@ LABEL_71:
                                   else
                                   {
                                     v54 = self->_trace;
-                                    v82 = 0;
-                                    v55 = [(MNTrace *)v54 prepareStatement:@"INSERT INTO vehicle_speed_data (relative_timestamp outError:absolute_timestamp, speed) VALUES (?, ?, ?)", &v82];
-                                    v5 = v82;
+                                    v81 = 0;
+                                    v55 = [(MNTrace *)v54 prepareStatement:@"INSERT INTO vehicle_speed_data (relative_timestamp outError:absolute_timestamp, speed) VALUES (?, ?, ?)", &v81];
+                                    v5 = v81;
                                     recordVehicleSpeed = self->_recordVehicleSpeed;
                                     self->_recordVehicleSpeed = v55;
 
@@ -2789,15 +3050,15 @@ LABEL_71:
                                       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                                       {
                                         *buf = 136316162;
-                                        v100 = "[MNTraceRecorder _prepareStatements]";
-                                        v101 = 2080;
-                                        v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                                        v103 = 1024;
-                                        v104 = 411;
-                                        v105 = 2080;
-                                        v106 = "NO";
-                                        v107 = 2112;
-                                        v108 = v7;
+                                        v99 = "[MNTraceRecorder _prepareStatements]";
+                                        v100 = 2080;
+                                        v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                                        v102 = 1024;
+                                        v103 = 411;
+                                        v104 = 2080;
+                                        v105 = "NO";
+                                        v106 = 2112;
+                                        v107 = v7;
                                         goto LABEL_71;
                                       }
                                     }
@@ -2805,9 +3066,9 @@ LABEL_71:
                                     else
                                     {
                                       v57 = self->_trace;
-                                      v81 = 0;
-                                      v58 = [(MNTrace *)v57 prepareStatement:@"INSERT INTO vehicle_heading_data (relative_timestamp outError:absolute_timestamp, heading) VALUES(?, ?, ?)", &v81];
-                                      v5 = v81;
+                                      v80 = 0;
+                                      v58 = [(MNTrace *)v57 prepareStatement:@"INSERT INTO vehicle_heading_data (relative_timestamp outError:absolute_timestamp, heading) VALUES(?, ?, ?)", &v80];
+                                      v5 = v80;
                                       recordVehicleHeading = self->_recordVehicleHeading;
                                       self->_recordVehicleHeading = v58;
 
@@ -2818,15 +3079,15 @@ LABEL_71:
                                         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                                         {
                                           *buf = 136316162;
-                                          v100 = "[MNTraceRecorder _prepareStatements]";
-                                          v101 = 2080;
-                                          v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                                          v103 = 1024;
-                                          v104 = 412;
-                                          v105 = 2080;
-                                          v106 = "NO";
-                                          v107 = 2112;
-                                          v108 = v7;
+                                          v99 = "[MNTraceRecorder _prepareStatements]";
+                                          v100 = 2080;
+                                          v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                                          v102 = 1024;
+                                          v103 = 412;
+                                          v104 = 2080;
+                                          v105 = "NO";
+                                          v106 = 2112;
+                                          v107 = v7;
                                           goto LABEL_71;
                                         }
                                       }
@@ -2834,9 +3095,9 @@ LABEL_71:
                                       else
                                       {
                                         v60 = self->_trace;
-                                        v80 = 0;
-                                        v61 = [(MNTrace *)v60 prepareStatement:@"INSERT INTO motion_data (relative_timestamp outError:absolute_timestamp, type, exit_type, confidence) VALUES(?, ?, ?, ?, ?)", &v80];
-                                        v5 = v80;
+                                        v79 = 0;
+                                        v61 = [(MNTrace *)v60 prepareStatement:@"INSERT INTO motion_data (relative_timestamp outError:absolute_timestamp, type, exit_type, confidence) VALUES(?, ?, ?, ?, ?)", &v79];
+                                        v5 = v79;
                                         recordMotionData = self->_recordMotionData;
                                         self->_recordMotionData = v61;
 
@@ -2847,15 +3108,15 @@ LABEL_71:
                                           if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                                           {
                                             *buf = 136316162;
-                                            v100 = "[MNTraceRecorder _prepareStatements]";
-                                            v101 = 2080;
-                                            v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                                            v103 = 1024;
-                                            v104 = 413;
-                                            v105 = 2080;
-                                            v106 = "NO";
-                                            v107 = 2112;
-                                            v108 = v7;
+                                            v99 = "[MNTraceRecorder _prepareStatements]";
+                                            v100 = 2080;
+                                            v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                                            v102 = 1024;
+                                            v103 = 413;
+                                            v104 = 2080;
+                                            v105 = "NO";
+                                            v106 = 2112;
+                                            v107 = v7;
                                             goto LABEL_71;
                                           }
                                         }
@@ -2863,9 +3124,9 @@ LABEL_71:
                                         else
                                         {
                                           v63 = self->_trace;
-                                          v79 = 0;
-                                          v64 = [(MNTrace *)v63 prepareStatement:@"INSERT INTO compass_heading_data (relative_timestamp outError:absolute_timestamp, true_heading, magnetic_heading, accuracy) VALUES(?, ?, ?, ?, ?)", &v79];
-                                          v5 = v79;
+                                          v78 = 0;
+                                          v64 = [(MNTrace *)v63 prepareStatement:@"INSERT INTO compass_heading_data (relative_timestamp outError:absolute_timestamp, true_heading, magnetic_heading, accuracy) VALUES(?, ?, ?, ?, ?)", &v78];
+                                          v5 = v78;
                                           recordCompassHeading = self->_recordCompassHeading;
                                           self->_recordCompassHeading = v64;
 
@@ -2876,15 +3137,15 @@ LABEL_71:
                                             if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                                             {
                                               *buf = 136316162;
-                                              v100 = "[MNTraceRecorder _prepareStatements]";
-                                              v101 = 2080;
-                                              v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                                              v103 = 1024;
-                                              v104 = 414;
-                                              v105 = 2080;
-                                              v106 = "NO";
-                                              v107 = 2112;
-                                              v108 = v7;
+                                              v99 = "[MNTraceRecorder _prepareStatements]";
+                                              v100 = 2080;
+                                              v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                                              v102 = 1024;
+                                              v103 = 414;
+                                              v104 = 2080;
+                                              v105 = "NO";
+                                              v106 = 2112;
+                                              v107 = v7;
                                               goto LABEL_71;
                                             }
                                           }
@@ -2892,9 +3153,9 @@ LABEL_71:
                                           else
                                           {
                                             v66 = self->_trace;
-                                            v78 = 0;
-                                            v67 = [(MNTrace *)v66 prepareStatement:@"INSERT INTO ev_data (relative_timestamp outError:absolute_timestamp, identifier, current_range_m, max_range_m, battery_percentage, min_battery_capacity_kwh, current_battery_capacity_kwh, max_battery_capacity_kwh, consumption_arguments, charging_arguments, is_charging, active_connector, vehicle_state_origin, vehicle_data) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", &v78];
-                                            v5 = v78;
+                                            v77 = 0;
+                                            v67 = [(MNTrace *)v66 prepareStatement:@"INSERT INTO ev_data (relative_timestamp outError:absolute_timestamp, identifier, current_range_m, max_range_m, battery_percentage, min_battery_capacity_kwh, current_battery_capacity_kwh, max_battery_capacity_kwh, consumption_arguments, charging_arguments, is_charging, active_connector, vehicle_state_origin, vehicle_data) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", &v77];
+                                            v5 = v77;
                                             recordVirtualGarageVehicleState = self->_recordVirtualGarageVehicleState;
                                             self->_recordVirtualGarageVehicleState = v67;
 
@@ -2905,15 +3166,15 @@ LABEL_71:
                                               if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                                               {
                                                 *buf = 136316162;
-                                                v100 = "[MNTraceRecorder _prepareStatements]";
-                                                v101 = 2080;
-                                                v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                                                v103 = 1024;
-                                                v104 = 415;
-                                                v105 = 2080;
-                                                v106 = "NO";
-                                                v107 = 2112;
-                                                v108 = v7;
+                                                v99 = "[MNTraceRecorder _prepareStatements]";
+                                                v100 = 2080;
+                                                v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                                                v102 = 1024;
+                                                v103 = 415;
+                                                v104 = 2080;
+                                                v105 = "NO";
+                                                v106 = 2112;
+                                                v107 = v7;
                                                 goto LABEL_71;
                                               }
                                             }
@@ -2921,9 +3182,9 @@ LABEL_71:
                                             else
                                             {
                                               v69 = self->_trace;
-                                              v77 = 0;
-                                              v70 = [(MNTrace *)v69 prepareStatement:@"INSERT INTO navigation_events (relative_timestamp outError:absolute_timestamp, event_id, event_description) VALUES (:relative_timestamp, :absolute_timestamp, :event_id, :event_description)", &v77];
-                                              v5 = v77;
+                                              v76 = 0;
+                                              v70 = [(MNTrace *)v69 prepareStatement:@"INSERT INTO navigation_events (relative_timestamp outError:absolute_timestamp, event_id, event_description) VALUES (:relative_timestamp, :absolute_timestamp, :event_id, :event_description)", &v76];
+                                              v5 = v76;
                                               recordNavigationEvent = self->_recordNavigationEvent;
                                               self->_recordNavigationEvent = v70;
 
@@ -2934,15 +3195,15 @@ LABEL_71:
                                                 if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                                                 {
                                                   *buf = 136316162;
-                                                  v100 = "[MNTraceRecorder _prepareStatements]";
-                                                  v101 = 2080;
-                                                  v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                                                  v103 = 1024;
-                                                  v104 = 416;
-                                                  v105 = 2080;
-                                                  v106 = "NO";
-                                                  v107 = 2112;
-                                                  v108 = v7;
+                                                  v99 = "[MNTraceRecorder _prepareStatements]";
+                                                  v100 = 2080;
+                                                  v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                                                  v102 = 1024;
+                                                  v103 = 416;
+                                                  v104 = 2080;
+                                                  v105 = "NO";
+                                                  v106 = 2112;
+                                                  v107 = v7;
                                                   goto LABEL_71;
                                                 }
                                               }
@@ -2950,9 +3211,9 @@ LABEL_71:
                                               else
                                               {
                                                 v72 = self->_trace;
-                                                v76 = 0;
-                                                v73 = [(MNTrace *)v72 prepareStatement:@"INSERT INTO navigation_updates (timestamp outError:type, parameters) VALUES (?, ?, ?)", &v76];
-                                                v5 = v76;
+                                                v75 = 0;
+                                                v73 = [(MNTrace *)v72 prepareStatement:@"INSERT INTO navigation_updates (timestamp outError:type, parameters) VALUES (?, ?, ?)", &v75];
+                                                v5 = v75;
                                                 recordNavigationUpdate = self->_recordNavigationUpdate;
                                                 self->_recordNavigationUpdate = v73;
 
@@ -2960,7 +3221,7 @@ LABEL_71:
                                                 {
 LABEL_73:
 
-                                                  goto LABEL_74;
+                                                  return;
                                                 }
 
                                                 v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@", v5];
@@ -2968,15 +3229,15 @@ LABEL_73:
                                                 if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
                                                 {
                                                   *buf = 136316162;
-                                                  v100 = "[MNTraceRecorder _prepareStatements]";
-                                                  v101 = 2080;
-                                                  v102 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-                                                  v103 = 1024;
-                                                  v104 = 417;
-                                                  v105 = 2080;
-                                                  v106 = "NO";
-                                                  v107 = 2112;
-                                                  v108 = v7;
+                                                  v99 = "[MNTraceRecorder _prepareStatements]";
+                                                  v100 = 2080;
+                                                  v101 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+                                                  v102 = 1024;
+                                                  v103 = 417;
+                                                  v104 = 2080;
+                                                  v105 = "NO";
+                                                  v106 = 2112;
+                                                  v107 = v7;
                                                   goto LABEL_71;
                                                 }
                                               }
@@ -3004,18 +3265,15 @@ LABEL_73:
 
     goto LABEL_73;
   }
-
-LABEL_74:
-  v75 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_recordInfo
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   trace = self->_trace;
-  v15 = 0;
-  v4 = [(MNTrace *)trace prepareStatement:@"INSERT INTO info (trace_type outError:version, original_version, recording_start_time, directions_url, is_internal_install) VALUES (:trace_type, :version, :original_version, :recording_start_time, :directions_url, :is_internal_install)", &v15];
-  v5 = v15;
+  v14 = 0;
+  v4 = [(MNTrace *)trace prepareStatement:@"INSERT INTO info (trace_type outError:version, original_version, recording_start_time, directions_url, is_internal_install) VALUES (:trace_type, :version, :original_version, :recording_start_time, :directions_url, :is_internal_install)", &v14];
+  v5 = v14;
   if (v5)
   {
     directionsURL = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@", v5];
@@ -3023,15 +3281,15 @@ LABEL_74:
     if (os_log_type_enabled(absoluteString, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v17 = "[MNTraceRecorder _recordInfo]";
-      v18 = 2080;
-      v19 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-      v20 = 1024;
-      v21 = 359;
-      v22 = 2080;
-      v23 = "NO";
-      v24 = 2112;
-      v25 = directionsURL;
+      v16 = "[MNTraceRecorder _recordInfo]";
+      v17 = 2080;
+      v18 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+      v19 = 1024;
+      v20 = 359;
+      v21 = 2080;
+      v22 = "NO";
+      v23 = 2112;
+      v24 = directionsURL;
       _os_log_impl(&dword_1D311E000, absoluteString, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
     }
 
@@ -3060,55 +3318,89 @@ LABEL_74:
     execute = [v4 execute];
     if ((execute & 1) == 0)
     {
-      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording info statement."];
-      v14 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error recording info statement."];
+      v13 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v17 = "[MNTraceRecorder _recordInfo]";
-        v18 = 2080;
-        v19 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
-        v20 = 1024;
-        v21 = 377;
-        v22 = 2080;
-        v23 = "success";
-        v24 = 2112;
-        v25 = v13;
-        _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
+        v16 = "[MNTraceRecorder _recordInfo]";
+        v17 = 2080;
+        v18 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Traces/MNTraceRecorder.m";
+        v19 = 1024;
+        v20 = 377;
+        v21 = 2080;
+        v22 = "success";
+        v23 = 2112;
+        v24 = v12;
+        _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
       }
     }
 
     [v4 finalize];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return execute;
 }
 
 - (void)_updateForExistingTrace
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   ppStmt = 0;
-  if (!sqlite3_prepare_v2([(MNTrace *)self->_trace db], "SELECT cl_timestamp FROM locations ORDER BY db_timestamp ASC LIMIT 1", -1, &ppStmt, 0))
+  if (sqlite3_prepare_v2([(MNTrace *)self->_trace db], "SELECT cl_timestamp FROM locations ORDER BY db_timestamp ASC LIMIT 1", -1, &ppStmt, 0))
   {
-    if ((sqlite3_step(ppStmt) - 102) > 0xFFFFFFFD)
+    v3 = GEOFindOrCreateLog();
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v10 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:{sqlite3_column_double(ppStmt, 0)}];
-      recordingStartDate = self->_recordingStartDate;
-      self->_recordingStartDate = v10;
+LABEL_5:
 
-      sqlite3_finalize(ppStmt);
-      v12 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      return;
+    }
+
+    v4 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
+    *buf = 136315138;
+    v23 = v4;
+LABEL_4:
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, v5, buf, 0xCu);
+    goto LABEL_5;
+  }
+
+  if ((sqlite3_step(ppStmt) - 102) > 0xFFFFFFFD)
+  {
+    v9 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:{sqlite3_column_double(ppStmt, 0)}];
+    recordingStartDate = self->_recordingStartDate;
+    self->_recordingStartDate = v9;
+
+    sqlite3_finalize(ppStmt);
+    v11 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = self->_recordingStartDate;
+      *buf = 138412290;
+      v23 = v12;
+      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEFAULT, "Trace recorder updating existing trace file. Recording start time set to: %@", buf, 0xCu);
+    }
+
+    pStmt = 0;
+    if (sqlite3_prepare_v2([(MNTrace *)self->_trace db], "SELECT id FROM directions ORDER BY id DESC LIMIT 1", -1, &pStmt, 0))
+    {
+      v3 = GEOFindOrCreateLog();
+      if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
-        v13 = self->_recordingStartDate;
-        *buf = 138412290;
-        v24 = v13;
-        _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_DEFAULT, "Trace recorder updating existing trace file. Recording start time set to: %@", buf, 0xCu);
+        goto LABEL_5;
       }
 
-      pStmt = 0;
-      if (sqlite3_prepare_v2([(MNTrace *)self->_trace db], "SELECT id FROM directions ORDER BY id DESC LIMIT 1", -1, &pStmt, 0))
+      v13 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
+      *buf = 136315138;
+      v23 = v13;
+      goto LABEL_4;
+    }
+
+    if ((sqlite3_step(pStmt) - 102) > 0xFFFFFFFD)
+    {
+      self->_routeRequestCount = sqlite3_column_int(pStmt, 0);
+      sqlite3_finalize(pStmt);
+      v19 = 0;
+      if (sqlite3_prepare_v2([(MNTrace *)self->_trace db], "SELECT id FROM eta_traffic_updates ORDER BY id DESC LIMIT 1", -1, &v19, 0))
       {
         v3 = GEOFindOrCreateLog();
         if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -3116,100 +3408,64 @@ LABEL_74:
           goto LABEL_5;
         }
 
-        v14 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
+        v16 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
         *buf = 136315138;
-        v24 = v14;
+        v23 = v16;
         goto LABEL_4;
       }
 
-      if ((sqlite3_step(pStmt) - 102) > 0xFFFFFFFD)
+      if ((sqlite3_step(v19) - 102) > 0xFFFFFFFD)
       {
-        self->_routeRequestCount = sqlite3_column_int(pStmt, 0);
-        sqlite3_finalize(pStmt);
-        v20 = 0;
-        if (sqlite3_prepare_v2([(MNTrace *)self->_trace db], "SELECT id FROM eta_traffic_updates ORDER BY id DESC LIMIT 1", -1, &v20, 0))
-        {
-          v3 = GEOFindOrCreateLog();
-          if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_5;
-          }
-
-          v17 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
-          *buf = 136315138;
-          v24 = v17;
-          goto LABEL_4;
-        }
-
-        if ((sqlite3_step(v20) - 102) > 0xFFFFFFFD)
-        {
-          self->_etaTrafficUpdateCount = sqlite3_column_int(v20, 0);
-        }
-
-        else
-        {
-          v18 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-          {
-            v19 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
-            *buf = 136315138;
-            v24 = v19;
-          }
-        }
-
-        v8 = v20;
+        self->_etaTrafficUpdateCount = sqlite3_column_int(v19, 0);
       }
 
       else
       {
-        v15 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v17 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v16 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
+          v18 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
           *buf = 136315138;
-          v24 = v16;
+          v23 = v18;
         }
-
-        v8 = pStmt;
       }
+
+      v8 = v19;
     }
 
     else
     {
-      v6 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v14 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v7 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
+        v15 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
         *buf = 136315138;
-        v24 = v7;
+        v23 = v15;
       }
 
-      v8 = ppStmt;
+      v8 = pStmt;
+    }
+  }
+
+  else
+  {
+    v6 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
+      *buf = 136315138;
+      v23 = v7;
     }
 
-    sqlite3_finalize(v8);
-    goto LABEL_11;
+    v8 = ppStmt;
   }
 
-  v3 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-  {
-    v4 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
-    *buf = 136315138;
-    v24 = v4;
-LABEL_4:
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, v5, buf, 0xCu);
-  }
-
-LABEL_5:
-
-LABEL_11:
-  v9 = *MEMORY[0x1E69E9840];
+  sqlite3_finalize(v8);
 }
 
 - (void)_initializeTraceDB
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (!self->_corrupted)
   {
     v3 = +[MNTrace mainSchema];
@@ -3241,7 +3497,7 @@ LABEL_11:
       {
         v9 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
         *buf = 136315138;
-        v27 = v9;
+        v26 = v9;
         _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "Error executing trace schema: %s", buf, 0xCu);
       }
     }
@@ -3262,7 +3518,7 @@ LABEL_11:
         {
           v14 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
           *buf = 136315138;
-          v27 = v14;
+          v26 = v14;
         }
 
 LABEL_17:
@@ -3297,7 +3553,7 @@ LABEL_17:
             {
               v20 = sqlite3_errmsg([(MNTrace *)self->_trace db]);
               *buf = 136315138;
-              v27 = v20;
+              v26 = v20;
             }
           }
 
@@ -3317,8 +3573,6 @@ LABEL_29:
       }
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isTracePathValid:(id)valid
@@ -3333,20 +3587,20 @@ LABEL_29:
 
 - (void)_logSqliteErrorWithResult:(int)result file:(const char *)file line:(int)line
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v9 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     trace = [(MNTraceRecorder *)self trace];
-    v13 = 136446978;
+    v12 = 136446978;
     fileCopy = file;
-    v15 = 1024;
+    v14 = 1024;
     lineCopy = line;
-    v17 = 1024;
+    v16 = 1024;
     resultCopy = result;
-    v19 = 2082;
-    v20 = sqlite3_errmsg([trace db]);
-    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "%{public}s:%d  SQL error: (%d) %{public}s", &v13, 0x22u);
+    v18 = 2082;
+    v19 = sqlite3_errmsg([trace db]);
+    _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "%{public}s:%d  SQL error: (%d) %{public}s", &v12, 0x22u);
   }
 
   if (!self->_corrupted)
@@ -3358,8 +3612,6 @@ LABEL_29:
       dispatch_async(MEMORY[0x1E69E96A0], errorHandler);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dispatchWrite:(id)write
@@ -3394,18 +3646,18 @@ void __34__MNTraceRecorder__dispatchWrite___block_invoke(uint64_t a1)
 
 - (void)saveTraceSynchronously
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (self->_closed)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v6 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "!_closed";
-      v10 = 2112;
-      v11 = v6;
-      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "!_closed";
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v7, 0x16u);
     }
   }
 
@@ -3413,25 +3665,23 @@ void __34__MNTraceRecorder__dispatchWrite___block_invoke(uint64_t a1)
   trace = [(MNTraceRecorder *)self trace];
   writeGroup = [trace writeGroup];
   dispatch_group_wait(writeGroup, 0xFFFFFFFFFFFFFFFFLL);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveTraceWithCompletionHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (self->_closed)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
-    v11 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot complete operation on closed trace."];
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "!_closed";
-      v16 = 2112;
-      v17 = v10;
-      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v14 = "!_closed";
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
@@ -3440,28 +3690,26 @@ void __34__MNTraceRecorder__dispatchWrite___block_invoke(uint64_t a1)
   {
     tracePath = self->_tracePath;
     *buf = 138477827;
-    v15 = tracePath;
+    v14 = tracePath;
     _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "Closing trace: %{private}@", buf, 0xCu);
   }
 
   self->_closed = 1;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __50__MNTraceRecorder_saveTraceWithCompletionHandler___block_invoke;
-  v12[3] = &unk_1E842F580;
-  v12[4] = self;
-  v13 = handlerCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __50__MNTraceRecorder_saveTraceWithCompletionHandler___block_invoke;
+  v11[3] = &unk_1E842F580;
+  v11[4] = self;
+  v12 = handlerCopy;
   v7 = handlerCopy;
-  [(MNTraceRecorder *)self _dispatchWrite:v12];
+  [(MNTraceRecorder *)self _dispatchWrite:v11];
   errorHandler = self->_errorHandler;
   self->_errorHandler = 0;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __50__MNTraceRecorder_saveTraceWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _closeTraceDB];
   v2 = *(*(a1 + 32) + 16);
   v3 = [MEMORY[0x1E696AC08] defaultManager];
@@ -3472,9 +3720,9 @@ void __50__MNTraceRecorder_saveTraceWithCompletionHandler___block_invoke(uint64_
     v5 = [MEMORY[0x1E695DFF8] fileURLWithPath:v2];
     v6 = *MEMORY[0x1E695DAE8];
     v7 = *MEMORY[0x1E695DAF0];
-    v17 = 0;
-    v8 = [v5 setResourceValue:v6 forKey:v7 error:&v17];
-    v9 = v17;
+    v16 = 0;
+    v8 = [v5 setResourceValue:v6 forKey:v7 error:&v16];
+    v9 = v16;
     v10 = v9;
     if (v8)
     {
@@ -3492,9 +3740,9 @@ void __50__MNTraceRecorder_saveTraceWithCompletionHandler___block_invoke(uint64_
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543619;
-        v19 = v10;
-        v20 = 2113;
-        v21 = v2;
+        v18 = v10;
+        v19 = 2113;
+        v20 = v2;
         _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_ERROR, "Failed applying file protection to %{public}@, error: %{private}@", buf, 0x16u);
       }
     }
@@ -3506,7 +3754,7 @@ void __50__MNTraceRecorder_saveTraceWithCompletionHandler___block_invoke(uint64_
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v19 = v2;
+      v18 = v2;
       _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "Failed applying file protection to %{public}@, error: File not found", buf, 0xCu);
     }
   }
@@ -3516,7 +3764,7 @@ void __50__MNTraceRecorder_saveTraceWithCompletionHandler___block_invoke(uint64_
   {
     v14 = *(*(a1 + 32) + 16);
     *buf = 138477827;
-    v19 = v14;
+    v18 = v14;
     _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_DEFAULT, "Finished closing trace: %{private}@", buf, 0xCu);
   }
 
@@ -3525,26 +3773,24 @@ void __50__MNTraceRecorder_saveTraceWithCompletionHandler___block_invoke(uint64_
   {
     (*(v15 + 16))();
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startWritingTraceToPath:(id)path traceType:(int64_t)type withErrorHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   handlerCopy = handler;
   if (self->_trace)
   {
-    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"startWritingTraceToPath: called when trace was already created"];
-    v24 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"startWritingTraceToPath: called when trace was already created"];
+    v23 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v32 = "_trace == nil";
-      v33 = 2112;
-      v34 = v23;
-      _os_log_impl(&dword_1D311E000, v24, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
+      v31 = "_trace == nil";
+      v32 = 2112;
+      v33 = v22;
+      _os_log_impl(&dword_1D311E000, v23, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", buf, 0x16u);
     }
   }
 
@@ -3556,7 +3802,7 @@ void __50__MNTraceRecorder_saveTraceWithCompletionHandler___block_invoke(uint64_
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v32 = pathCopy;
+      v31 = pathCopy;
       _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_DEFAULT, "Start writing trace to path: %{private}@", buf, 0xCu);
     }
 
@@ -3585,41 +3831,39 @@ void __50__MNTraceRecorder_saveTraceWithCompletionHandler___block_invoke(uint64_
     block[1] = 3221225472;
     block[2] = __70__MNTraceRecorder_startWritingTraceToPath_traceType_withErrorHandler___block_invoke;
     block[3] = &unk_1E842F448;
-    v26 = pathCopy;
+    v25 = pathCopy;
     selfCopy = self;
-    v28 = handlerCopy;
+    v27 = handlerCopy;
     dispatch_async(writeQueue, block);
 
-    v20 = v26;
+    v20 = v25;
     goto LABEL_14;
   }
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 138477827;
-    v32 = pathCopy;
+    v31 = pathCopy;
     _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_ERROR, "Error opening trace recorder due to invalid path: %{private}@", buf, 0xCu);
   }
 
   if (handlerCopy)
   {
-    v29[0] = *MEMORY[0x1E696A578];
-    v29[1] = @"path";
-    v30[0] = @"Invalid path";
-    v30[1] = pathCopy;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
+    v28[0] = *MEMORY[0x1E696A578];
+    v28[1] = @"path";
+    v29[0] = @"Invalid path";
+    v29[1] = pathCopy;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
     v21 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MNTraceErrorDomain" code:10 userInfo:v20];
     (*(handlerCopy + 2))(handlerCopy, v21);
 
 LABEL_14:
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __70__MNTraceRecorder_startWritingTraceToPath_traceType_withErrorHandler___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v3 = [v2 fileExistsAtPath:*(a1 + 32)];
 
@@ -3630,7 +3874,7 @@ void __70__MNTraceRecorder_startWritingTraceToPath_traceType_withErrorHandler___
     {
       v5 = *(a1 + 32);
       *buf = 138477827;
-      v21 = v5;
+      v20 = v5;
       _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_DEFAULT, "File already exists at path: %{private}@. Attempting to append", buf, 0xCu);
     }
   }
@@ -3658,30 +3902,28 @@ void __70__MNTraceRecorder_startWritingTraceToPath_traceType_withErrorHandler___
 
   else if (*(a1 + 48))
   {
-    v18 = *MEMORY[0x1E696A578];
-    v19 = @"Failed to begin writing trace to file.";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A578];
+    v18 = @"Failed to begin writing trace to file.";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MNTraceErrorDomain" code:8 userInfo:v7];
     v9 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v8;
+      v20 = v8;
       _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "Error: %{public}@", buf, 0xCu);
     }
 
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __70__MNTraceRecorder_startWritingTraceToPath_traceType_withErrorHandler___block_invoke_37;
-    v15[3] = &unk_1E842F580;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __70__MNTraceRecorder_startWritingTraceToPath_traceType_withErrorHandler___block_invoke_37;
+    v14[3] = &unk_1E842F580;
     v10 = *(a1 + 48);
-    v16 = v8;
-    v17 = v10;
+    v15 = v8;
+    v16 = v10;
     v11 = v8;
-    dispatch_async(MEMORY[0x1E69E96A0], v15);
+    dispatch_async(MEMORY[0x1E69E96A0], v14);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (MNTraceRecorder)init

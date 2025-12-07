@@ -11,13 +11,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10008D3D8();
+  sub_10008D3D8(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10008D4EC(appear);
+  sub_10008D4EC(appearCopy);
 }
 
 - (int64_t)numberOfSectionsInTableView:(id)view
@@ -27,11 +28,6 @@
   v5 = *(&self->super.super.super.super.super.isa + v4);
   if (v5 >> 62)
   {
-    if (v5 < 0)
-    {
-      v8 = *(&self->super.super.super.super.super.isa + v4);
-    }
-
     v6 = sub_1000AC65C();
   }
 
@@ -48,35 +44,32 @@
   v5 = OBJC_IVAR____TtC8Business35IMBTimeSelectionTableViewController_dates;
   swift_beginAccess();
   v6 = *(&self->super.super.super.super.super.isa + v5);
-  if (!(v6 >> 62))
+  if (v6 >> 62)
+  {
+    return sub_1000AC65C();
+  }
+
+  else
   {
     return *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
-
-  if (v6 < 0)
-  {
-    v8 = *(&self->super.super.super.super.super.isa + v5);
-  }
-
-  return sub_1000AC65C();
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
   v6 = sub_1000AB97C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6, v9);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000AB93C();
   viewCopy = view;
   selfCopy = self;
   sub_10008DBEC(viewCopy);
-  v15 = v14;
+  v13 = v12;
 
-  (*(v7 + 8))(v11, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v15;
+  return v13;
 }
 
 @end

@@ -1,4 +1,4 @@
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -12,13 +12,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -125,13 +125,13 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
 
 void vg::hrtf::setError(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = __VGLogSharedInstance();
+  v4 = __VGLogSharedInstance(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v13 = [v3 UTF8String];
+    v12 = [v3 UTF8String];
     _os_log_impl(&dword_270F06000, v4, OS_LOG_TYPE_ERROR, " %s ", buf, 0xCu);
   }
 
@@ -140,16 +140,14 @@ void vg::hrtf::setError(void *a1, void *a2)
     v5 = MEMORY[0x277CCA9B8];
     v6 = [MEMORY[0x277CCA8D8] vg_bundle];
     v7 = [v6 bundleIdentifier];
-    v10 = *MEMORY[0x277CCA450];
-    v11 = v3;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x277CCA450];
+    v10 = v3;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
     *a1 = [v5 errorWithDomain:v7 code:100 userInfo:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void sub_270F08B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_270F08B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -348,7 +346,7 @@ void sub_270F0DBC8(_Unwind_Exception *a1, int a2)
 
 id detail::getFacePoseList(void *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = v3;
   if (a2)
@@ -360,28 +358,28 @@ id detail::getFacePoseList(void *a1, uint64_t a2)
   {
     [v3 yawAngleCapturedPoses];
   }
-  v19 = ;
+  v18 = ;
 
   v5 = objc_opt_new();
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
-  v6 = v19;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v6 = v18;
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         [v10 doubleValue];
         v12 = v11;
         v13 = [v6 objectForKey:v10];
@@ -392,13 +390,11 @@ id detail::getFacePoseList(void *a1, uint64_t a2)
         [v5 setObject:v15 forKeyedSubscript:v16];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -418,28 +414,28 @@ void sub_270F0EDDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 id detail::getEarPoseList(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v15 = a1;
+  v20 = *MEMORY[0x277D85DE8];
+  v14 = a1;
   v1 = objc_opt_new();
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v2 = v15;
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v2 = v14;
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
-    v4 = *v17;
+    v4 = *v16;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v17 != v4)
+        if (*v16 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v16 + 1) + 8 * i);
+        v6 = *(*(&v15 + 1) + 8 * i);
         v7 = [v2 objectForKey:v6];
         v8 = [v7 BOOLValue];
         [v6 doubleValue];
@@ -449,13 +445,11 @@ id detail::getEarPoseList(void *a1)
         [v1 setObject:v11 forKeyedSubscript:v12];
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v3);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v1;
 }
@@ -463,74 +457,76 @@ id detail::getEarPoseList(void *a1)
 NSObject *detail::getEarFrameData(void *a1, void *a2)
 {
   v3 = a1;
-  v22 = a2;
-  v4 = [v22 allValues];
+  v24 = a2;
+  v4 = [v24 allValues];
   v5 = [v4 count];
-  if (v5 == [v3 count])
+  v6 = [v3 count];
+  if (v5 == v6)
   {
-    v6 = objc_opt_new();
-    v7 = 0;
-    v8 = MEMORY[0x277CBF3A0];
+    v7 = objc_opt_new();
+    v8 = 0;
+    v9 = MEMORY[0x277CBF3A0];
     while (1)
     {
-      if (v7 >= [v4 count])
+      if (v8 >= [v4 count])
       {
-        v6 = v6;
-        v19 = v6;
+        v7 = v7;
+        v21 = v7;
         goto LABEL_13;
       }
 
-      v9 = [v4 objectAtIndexedSubscript:v7];
-      v10 = [v3 objectAtIndexedSubscript:v7];
-      v11 = *(v8 + 16);
-      rect.origin = *v8;
-      rect.size = v11;
-      if (!CGRectMakeWithDictionaryRepresentation(v9, &rect))
+      v10 = [v4 objectAtIndexedSubscript:v8];
+      v11 = [v3 objectAtIndexedSubscript:v8];
+      v12 = *(v9 + 16);
+      rect.origin = *v9;
+      rect.size = v12;
+      v13 = CGRectMakeWithDictionaryRepresentation(v10, &rect);
+      if (!v13)
       {
         break;
       }
 
       x = rect.origin.x;
       y = rect.origin.y;
-      v14 = [[VGHRTFEarFrameData alloc] initEmpty];
-      v15 = [v10 captureData];
-      [v14 setRgbImage:{CVPixelBufferGetIOSurface(objc_msgSend(v15, "rgbRectified"))}];
+      v16 = [[VGHRTFEarFrameData alloc] initEmpty];
+      v17 = [v11 captureData];
+      [v16 setRgbImage:{CVPixelBufferGetIOSurface(objc_msgSend(v17, "rgbRectified"))}];
 
-      v16 = [v10 captureData];
-      [v14 setDepthImage:{CVPixelBufferGetIOSurface(objc_msgSend(v16, "depth"))}];
-      *&v17 = x;
-      v18 = y;
-      *(&v17 + 1) = v18;
-      v23 = v17;
+      v18 = [v11 captureData];
+      [v16 setDepthImage:{CVPixelBufferGetIOSurface(objc_msgSend(v18, "depth"))}];
+      *&v19 = x;
+      v20 = y;
+      *(&v19 + 1) = v20;
+      v25 = v19;
 
-      [v14 setEarBox:v23];
-      [v6 addObject:v14];
+      [v16 setEarBox:v25];
+      [v7 addObject:v16];
 
-      ++v7;
+      ++v8;
     }
 
-    v20 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = __VGLogSharedInstance(v13);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_270F06000, v20, OS_LOG_TYPE_ERROR, " CGRectMakeWithDictionaryRepresentation failed. ", buf, 2u);
+      _os_log_impl(&dword_270F06000, v22, OS_LOG_TYPE_ERROR, " CGRectMakeWithDictionaryRepresentation failed. ", buf, 2u);
     }
   }
 
   else
   {
-    v6 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __VGLogSharedInstance(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       LOWORD(rect.origin.x) = 0;
-      _os_log_impl(&dword_270F06000, v6, OS_LOG_TYPE_ERROR, " Captured size and Rect dictionary size doesn't match ", &rect, 2u);
+      _os_log_impl(&dword_270F06000, v7, OS_LOG_TYPE_ERROR, " Captured size and Rect dictionary size doesn't match ", &rect, 2u);
     }
   }
 
-  v19 = 0;
+  v21 = 0;
 LABEL_13:
 
-  return v19;
+  return v21;
 }
 
 void sub_270F0F624(_Unwind_Exception *exception_object)
@@ -616,7 +612,7 @@ void vg::frame_selection::VGEarSelectionState::~VGEarSelectionState(id *this)
   }
 }
 
-vg::frame_selection::VGEarFrameSelector *std::unique_ptr<vg::frame_selection::VGEarFrameSelector>::reset[abi:ne200100](vg::frame_selection::VGEarFrameSelector **a1, vg::frame_selection::VGEarFrameSelector *a2)
+vg::frame_selection::VGEarFrameSelectorImpl **std::unique_ptr<vg::frame_selection::VGEarFrameSelector>::reset[abi:ne200100](vg::frame_selection::VGEarFrameSelectorImpl ***a1, vg::frame_selection::VGEarFrameSelectorImpl **a2)
 {
   result = *a1;
   *a1 = a2;
@@ -643,22 +639,21 @@ void sub_270F10424(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<vg::hrtf::EarFrameData>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+_OWORD *std::vector<vg::hrtf::EarFrameData>::push_back[abi:ne200100](uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v7 = *(a1 + 8);
+  if (v7 >= *(a1 + 16))
   {
-    result = std::vector<vg::hrtf::EarFrameData>::__emplace_back_slow_path<vg::hrtf::EarFrameData>(a1, a2);
+    result = std::vector<vg::hrtf::EarFrameData>::__emplace_back_slow_path<vg::hrtf::EarFrameData>(a1, a2, a3, a4, a5, a6);
   }
 
   else
   {
-    v4 = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *v3 = v4;
-    v3[1] = *(a2 + 16);
-    result = (v3 + 2);
+    v8 = *a2;
+    *a2 = 0uLL;
+    *v7 = v8;
+    v7[1] = a2[1];
+    result = v7 + 2;
   }
 
   *(a1 + 8) = result;
@@ -682,7 +677,7 @@ std::string *std::optional<std::string>::operator=[abi:ne200100]<char const*,voi
   return a1;
 }
 
-vg::hrtf::HRTFModel **std::unique_ptr<vg::hrtf::HRTFModel>::~unique_ptr[abi:ne200100](vg::hrtf::HRTFModel **a1)
+vg::hrtf::HRTFModelImplInput ***std::unique_ptr<vg::hrtf::HRTFModel>::~unique_ptr[abi:ne200100](vg::hrtf::HRTFModelImplInput ***a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -702,21 +697,21 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-uint64_t std::vector<vg::hrtf::FaceFrameData>::__emplace_back_slow_path<vg::hrtf::FaceFrameData>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<vg::hrtf::FaceFrameData>::__emplace_back_slow_path<vg::hrtf::FaceFrameData>(unint64_t *a1, __int128 *a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
   v3 = v2 + 1;
   if (v2 + 1 > 0x2AAAAAAAAAAAAAALL)
   {
     std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 5) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 5);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 5) >= 0x155555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 5) >= 0x155555555555555)
   {
     v6 = 0x2AAAAAAAAAAAAAALL;
   }
@@ -753,14 +748,14 @@ uint64_t std::vector<vg::hrtf::FaceFrameData>::__emplace_back_slow_path<vg::hrtf
   *(v7 + 80) = *(a2 + 20);
   *(a2 + 20) = 0;
   *&v20 = 96 * v2 + 96;
-  v12 = *(a1 + 8);
+  v12 = a1[1];
   v13 = 96 * v2 + *a1 - v12;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<vg::hrtf::FaceFrameData>,vg::hrtf::FaceFrameData*>(a1, *a1, v12, v13);
   v14 = *a1;
   *a1 = v13;
-  v15 = *(a1 + 16);
+  v15 = a1[2];
   v17 = v20;
-  *(a1 + 8) = v20;
+  *(a1 + 1) = v20;
   *&v20 = v14;
   *(&v20 + 1) = v15;
   v18 = v14;
@@ -769,9 +764,9 @@ uint64_t std::vector<vg::hrtf::FaceFrameData>::__emplace_back_slow_path<vg::hrtf
   return v17;
 }
 
-void sub_270F109B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_270F109B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<vg::hrtf::FaceFrameData>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -786,7 +781,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<vg::hrtf::FaceFrameDa
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<vg::hrtf::FaceFrameData>,vg::hrtf::FaceFrameData*>(uint64_t a1, void **a2, void **a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<vg::hrtf::FaceFrameData>,vg::hrtf::FaceFrameData*>(uint64_t a1, void **a2, __int128 *a3, uint64_t a4)
 {
   v15 = a4;
   v16 = a4;
@@ -807,20 +802,20 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<vg
       v8 = *v7;
       *v7 = 0uLL;
       *a4 = v8;
-      v9 = *(v7 + 2);
-      v10 = *(v7 + 3);
-      *(a4 + 16) = *(v7 + 1);
+      v9 = v7[2];
+      v10 = v7[3];
+      *(a4 + 16) = v7[1];
       *(a4 + 32) = v9;
       *(a4 + 48) = v10;
       *(a4 + 64) = 0uLL;
-      v11 = v7[9];
-      *(a4 + 64) = v7[8];
+      v11 = *(v7 + 9);
+      *(a4 + 64) = *(v7 + 8);
       *(a4 + 72) = v11;
-      v7[8] = 0;
-      v7[9] = 0;
+      *(v7 + 8) = 0;
+      *(v7 + 9) = 0;
       *(a4 + 80) = *(v7 + 20);
       *(v7 + 20) = 0;
-      v7 += 12;
+      v7 += 6;
       a4 += 96;
     }
 
@@ -905,66 +900,66 @@ void vg::hrtf::FaceFrameData::~FaceFrameData(void **this)
   free(this[8]);
 }
 
-uint64_t std::vector<vg::hrtf::EarFrameData>::__emplace_back_slow_path<vg::hrtf::EarFrameData>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<vg::hrtf::EarFrameData>::__emplace_back_slow_path<vg::hrtf::EarFrameData>(__int128 **a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
-  v3 = v2 + 1;
-  if ((v2 + 1) >> 59)
+  v6 = (a1[1] - *a1) >> 5;
+  v7 = v6 + 1;
+  if ((v6 + 1) >> 59)
   {
     std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
-  if (v6 >> 4 > v3)
+  v10 = a1[2] - *a1;
+  if (v10 >> 4 > v7)
   {
-    v3 = v6 >> 4;
+    v7 = v10 >> 4;
   }
 
-  if (v6 >= 0x7FFFFFFFFFFFFFE0)
+  if (v10 >= 0x7FFFFFFFFFFFFFE0)
   {
-    v7 = 0x7FFFFFFFFFFFFFFLL;
+    v11 = 0x7FFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v7 = v3;
+    v11 = v7;
   }
 
-  v19 = a1;
-  if (v7)
+  v23 = a1;
+  if (v11)
   {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<vg::hrtf::EarFrameData>>(a1, v7);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<vg::hrtf::EarFrameData>>(a1, v11);
   }
 
-  v8 = (32 * v2);
-  v16 = 0;
-  v17 = 32 * v2;
-  *(&v18 + 1) = 0;
-  v9 = *a2;
+  v12 = (32 * v6);
+  v20 = 0;
+  v21 = 32 * v6;
+  *(&v22 + 1) = 0;
+  v13 = *a2;
   *a2 = 0;
   *(a2 + 1) = 0;
-  *v8 = v9;
-  v8[1] = a2[1];
-  *&v18 = 32 * v2 + 32;
-  v10 = *(a1 + 8);
-  v11 = (32 * v2 + *a1 - v10);
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<vg::hrtf::EarFrameData>,vg::hrtf::EarFrameData*>(a1, *a1, v10, v11);
-  v12 = *a1;
-  *a1 = v11;
-  v13 = *(a1 + 16);
-  v15 = v18;
-  *(a1 + 8) = v18;
-  *&v18 = v12;
-  *(&v18 + 1) = v13;
-  v16 = v12;
-  v17 = v12;
-  std::__split_buffer<vg::hrtf::EarFrameData>::~__split_buffer(&v16);
-  return v15;
+  *v12 = v13;
+  v12[1] = a2[1];
+  *&v22 = 32 * v6 + 32;
+  v14 = a1[1];
+  v15 = (32 * v6 + *a1 - v14);
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<vg::hrtf::EarFrameData>,vg::hrtf::EarFrameData*>(a1, *a1, v14, v15, a5, a6);
+  v16 = *a1;
+  *a1 = v15;
+  v17 = a1[2];
+  v19 = v22;
+  *(a1 + 1) = v22;
+  *&v22 = v16;
+  *(&v22 + 1) = v17;
+  v20 = v16;
+  v21 = v16;
+  std::__split_buffer<vg::hrtf::EarFrameData>::~__split_buffer(&v20);
+  return v19;
 }
 
-void sub_270F10DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_270F10DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<vg::hrtf::EarFrameData>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -979,34 +974,34 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<vg::hrtf::EarFrameDat
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<vg::hrtf::EarFrameData>,vg::hrtf::EarFrameData*>(uint64_t a1, void **a2, void **a3, _OWORD *a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<vg::hrtf::EarFrameData>,vg::hrtf::EarFrameData*>(uint64_t a1, void **a2, void **a3, __int128 *a4, uint64_t a5, uint64_t a6)
 {
-  v10 = a4;
-  v9 = a4;
-  v7[0] = a1;
-  v7[1] = &v9;
-  v7[2] = &v10;
+  v12 = a4;
+  v11 = a4;
+  v9[0] = a1;
+  v9[1] = &v11;
+  v9[2] = &v12;
   if (a2 != a3)
   {
-    v4 = a2;
+    v6 = a2;
     do
     {
-      v5 = *v4;
-      *v4 = 0;
-      v4[1] = 0;
-      *a4 = v5;
-      a4[1] = *(v4 + 1);
-      v4 += 4;
+      v7 = *v6;
+      *v6 = 0;
+      *(v6 + 1) = 0;
+      *a4 = v7;
+      a4[1] = v6[1];
+      v6 += 2;
       a4 += 2;
     }
 
-    while (v4 != a3);
-    v10 = a4;
+    while (v6 != a3);
+    v12 = a4;
   }
 
-  v8 = 1;
+  v10 = 1;
   std::__allocator_destroy[abi:ne200100]<std::allocator<vg::hrtf::EarFrameData>,vg::hrtf::EarFrameData*,vg::hrtf::EarFrameData*>(a1, a2, a3);
-  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<vg::hrtf::EarFrameData>,vg::hrtf::EarFrameData*>>::~__exception_guard_exceptions[abi:ne200100](v7);
+  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<vg::hrtf::EarFrameData>,vg::hrtf::EarFrameData*>>::~__exception_guard_exceptions[abi:ne200100](v9);
 }
 
 void std::__allocator_destroy[abi:ne200100]<std::allocator<vg::hrtf::EarFrameData>,vg::hrtf::EarFrameData*,vg::hrtf::EarFrameData*>(uint64_t a1, void **a2, void **a3)
@@ -1108,7 +1103,7 @@ void std::vector<vg::hrtf::EarFrameData>::__base_destruct_at_end[abi:ne200100](u
   *(a1 + 8) = a2;
 }
 
-void std::vector<vg::hrtf::FaceFrameData>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<vg::hrtf::FaceFrameData>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v2 = *a1;
   if (*v2)
@@ -1130,100 +1125,100 @@ void std::vector<vg::hrtf::FaceFrameData>::__base_destruct_at_end[abi:ne200100](
   *(a1 + 8) = a2;
 }
 
-void vg::ear_detection::BoxModelPreProcessor::create(uint32x2_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void vg::ear_detection::BoxModelPreProcessor::create(uint32x2_t *a1@<X0>, const void **a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   __p = 0;
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
   v9 = *a2;
   v8 = a2[1];
   v10 = (v8 - *a2) >> 2;
   _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE7reserveEm(&__p, v10);
   if (v8 != v9)
   {
-    v11 = 0;
+    v12 = 0;
     if (v10 <= 1)
     {
-      v12 = 1;
+      v13 = 1;
     }
 
     else
     {
-      v12 = v10;
+      v13 = v10;
     }
 
     while (1)
     {
-      vg::ear_detection::makeSquareCropBox(a1, buf, *(*a2 + 4 * v11));
-      if ((v28 & 1) == 0)
+      vg::ear_detection::makeSquareCropBox(a1, buf, *(*a2 + v12));
+      if ((v27 & 1) == 0)
       {
         goto LABEL_28;
       }
 
-      v13 = v25;
-      if (v25 >= v26)
+      v14 = v24;
+      if (v24 >= v25)
       {
-        v15 = (v25 - __p) >> 4;
-        if ((v15 + 1) >> 60)
+        v16 = (v24 - __p) >> 4;
+        if ((v16 + 1) >> 60)
         {
           std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
         }
 
-        v16 = (v26 - __p) >> 3;
-        if (v16 <= v15 + 1)
+        v17 = (v25 - __p) >> 3;
+        if (v17 <= v16 + 1)
         {
-          v16 = v15 + 1;
+          v17 = v16 + 1;
         }
 
-        if (v26 - __p >= 0x7FFFFFFFFFFFFFF0)
+        if (v25 - __p >= 0x7FFFFFFFFFFFFFF0)
         {
-          v17 = 0xFFFFFFFFFFFFFFFLL;
+          v18 = 0xFFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v17 = v16;
+          v18 = v17;
         }
 
-        if (v17)
+        if (v18)
         {
-          _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv4_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(&__p, v17);
+          _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv4_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(&__p, v18);
         }
 
-        *(16 * v15) = *buf;
-        v14 = 16 * v15 + 16;
-        v18 = (16 * v15 - (v25 - __p));
-        memcpy(v18, __p, v25 - __p);
-        v19 = __p;
-        __p = v18;
-        v25 = v14;
-        v26 = 0;
-        if (v19)
+        *(16 * v16) = *buf;
+        v15 = 16 * v16 + 16;
+        v19 = (16 * v16 - (v24 - __p));
+        memcpy(v19, __p, v24 - __p);
+        v11 = __p;
+        __p = v19;
+        v24 = v15;
+        v25 = 0;
+        if (v11)
         {
-          operator delete(v19);
+          operator delete(v11);
         }
       }
 
       else
       {
-        *v25 = *buf;
-        v14 = (v13 + 16);
+        *v24 = *buf;
+        v15 = (v14 + 16);
       }
 
-      v25 = v14;
-      if (v12 == ++v11)
+      v24 = v15;
+      if (v13 == ++v12)
       {
         goto LABEL_21;
       }
     }
   }
 
-  v14 = v25;
+  v15 = v24;
 LABEL_21:
-  if ((a2[1] - *a2) >> 2 != (v14 - __p) >> 4)
+  if ((a2[1] - *a2) >> 2 != (v15 - __p) >> 4)
   {
-    v22 = __VGLogSharedInstance();
+    v22 = __VGLogSharedInstance(v11);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -1246,16 +1241,14 @@ LABEL_28:
 LABEL_29:
   if (__p)
   {
-    v25 = __p;
+    v24 = __p;
     operator delete(__p);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void sub_270F11410(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+void sub_270F11410(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11)
 {
-  MEMORY[0x2743B9360](v11, MEMORY[0x277D826F0]);
+  MEMORY[0x2743B9360](v11, MEMORY[0x277D826F0], a3, a4, a5, a6, a7, a8);
   if (__p)
   {
     operator delete(__p);
@@ -1264,38 +1257,35 @@ void sub_270F11410(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *_ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE7reserveEm(void *result, unint64_t a2)
+void _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE7reserveEm(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv4_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(result, a2);
+      _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv4_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(a1, a2);
     }
 
     std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-uint64_t vg::ear_detection::BoxModelPreProcessor::BoxModelPreProcessor(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+uint64_t vg::ear_detection::BoxModelPreProcessor::BoxModelPreProcessor(uint64_t a1, void *a2, uint64_t a3, const void **a4, uint64_t a5)
 {
-  v41[4] = *MEMORY[0x277D85DE8];
+  v40[4] = *MEMORY[0x277D85DE8];
   *a1 = *a2;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  v33 = a1 + 8;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 8, *a4, a4[1], (a4[1] - *a4) >> 2);
+  v32 = a1 + 8;
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 8), *a4, a4[1], (a4[1] - *a4) >> 2);
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(a1 + 32, *a5, a5[1], (a5[1] - *a5) >> 4);
+  _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m((a1 + 32), *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 4);
   *(a1 + 56) = 0u;
   *(a1 + 104) = 0u;
-  v34 = (a1 + 104);
+  v33 = (a1 + 104);
   *(a1 + 120) = 0;
   *(a1 + 72) = 0u;
   *(a1 + 88) = 0u;
@@ -1307,31 +1297,31 @@ uint64_t vg::ear_detection::BoxModelPreProcessor::BoxModelPreProcessor(uint64_t 
     do
     {
       v15 = objc_alloc(MEMORY[0x277CD2930]);
-      v40[0] = *MEMORY[0x277CD2928];
-      v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{a3, v33}];
-      v41[0] = v16;
-      v40[1] = *MEMORY[0x277CD28D0];
+      v39[0] = *MEMORY[0x277CD2928];
+      v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{a3, v32}];
+      v40[0] = v16;
+      v39[1] = *MEMORY[0x277CD28D0];
       v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:a3];
       v18 = *MEMORY[0x277CD28D8];
-      v41[1] = v17;
-      v41[2] = &unk_2880F5E60;
+      v40[1] = v17;
+      v40[2] = &unk_2880F5E60;
       v19 = *MEMORY[0x277CD28B0];
-      v40[2] = v18;
-      v40[3] = v19;
-      v41[3] = &unk_2880F5E78;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:4];
+      v39[2] = v18;
+      v39[3] = v19;
+      v40[3] = &unk_2880F5E78;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:4];
       v21 = [v15 initWithProperties:v20];
       v23 = *(a1 + 112);
       v22 = *(a1 + 120);
       if (v23 >= v22)
       {
-        v25 = (v23 - *v34) >> 3;
+        v25 = (v23 - *v33) >> 3;
         if ((v25 + 1) >> 61)
         {
           std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
         }
 
-        v26 = v22 - *v34;
+        v26 = v22 - *v33;
         v27 = v26 >> 2;
         if (v26 >> 2 <= (v25 + 1))
         {
@@ -1348,20 +1338,20 @@ uint64_t vg::ear_detection::BoxModelPreProcessor::BoxModelPreProcessor(uint64_t 
           v28 = v27;
         }
 
-        v39 = a1 + 104;
+        v38 = a1 + 104;
         if (v28)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<IOSurface * {__strong}>>(v34, v28);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<IOSurface * {__strong}>>(v33, v28);
         }
 
-        v35 = 0;
-        v36 = (8 * v25);
-        v38 = 0;
-        *v36 = v21;
-        v37 = 8 * v25 + 8;
-        std::vector<IOSurface * {__strong}>::__swap_out_circular_buffer(v34, &v35);
+        v34 = 0;
+        v35 = (8 * v25);
+        v37 = 0;
+        *v35 = v21;
+        v36 = 8 * v25 + 8;
+        std::vector<IOSurface * {__strong}>::__swap_out_circular_buffer(v33, &v34);
         v24 = *(a1 + 112);
-        std::__split_buffer<IOSurface * {__strong}>::~__split_buffer(&v35);
+        std::__split_buffer<IOSurface * {__strong}>::~__split_buffer(&v34);
       }
 
       else
@@ -1374,20 +1364,19 @@ uint64_t vg::ear_detection::BoxModelPreProcessor::BoxModelPreProcessor(uint64_t 
       *(a1 + 112) = v24;
 
       v29 = vcvt_s32_f32(*(*(a1 + 32) + 16 * v9));
-      WORD1(v35) = v29.i16[2];
-      LOWORD(v35) = v29.i16[0];
-      _ZNSt3__16vectorIDv2_tNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(a1 + 56, &v35);
+      WORD1(v34) = v29.i16[2];
+      LOWORD(v34) = v29.i16[0];
+      _ZNSt3__16vectorIDv2_tNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(a1 + 56, &v34);
       v30 = vcvt_s32_f32(vadd_f32(vsub_f32(*&vextq_s8(*(*(a1 + 32) + 16 * v9), *(*(a1 + 32) + 16 * v9), 8uLL), *(*(a1 + 32) + 16 * v9)), _D8));
-      WORD1(v35) = v30.i16[2];
-      LOWORD(v35) = v30.i16[0];
-      _ZNSt3__16vectorIDv2_tNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(a1 + 80, &v35);
+      WORD1(v34) = v30.i16[2];
+      LOWORD(v34) = v30.i16[0];
+      _ZNSt3__16vectorIDv2_tNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(a1 + 80, &v34);
       ++v9;
     }
 
     while (v9 < (a4[1] - *a4) >> 2);
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -1465,41 +1454,42 @@ void _ZNSt3__16vectorIDv2_tNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(uint64_
 void vg::ear_detection::BoxModelPreProcessor::preProcessImage(vg::ear_detection::BoxModelPreProcessor *this@<X0>, IOSurface *a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = a2;
-  if ([(IOSurface *)v5 width]== *this && [(IOSurface *)v5 height]== *(this + 1))
+  v6 = [(IOSurface *)v5 width];
+  if (v6 == *this && (v6 = [(IOSurface *)v5 height], v6 == *(this + 1)))
   {
     if (*(this + 5) != *(this + 4))
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        [(IOSurface *)v5 vg_cropAndResizeYIntoSurface:*(*(this + 13) + 8 * v6) origin:*(*(this + 7) + 4 * v6) size:*(*(this + 10) + 4 * v6)];
-        ++v6;
+        [(IOSurface *)v5 vg_cropAndResizeYIntoSurface:*(*(this + 13) + 8 * v7) origin:*(*(this + 7) + 4 * v7) size:*(*(this + 10) + 4 * v7)];
+        ++v7;
       }
 
-      while (v6 < (*(this + 5) - *(this + 4)) >> 4);
+      while (v7 < (*(this + 5) - *(this + 4)) >> 4);
     }
 
     *a3 = 0;
     *(a3 + 8) = 0;
     *(a3 + 16) = 0;
     std::vector<IOSurface * {__strong}>::__init_with_size[abi:ne200100]<IOSurface * {__strong}*,IOSurface * {__strong}*>(a3, *(this + 13), *(this + 14), (*(this + 14) - *(this + 13)) >> 3);
-    v7 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v8 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __VGLogSharedInstance(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_270F06000, v8, OS_LOG_TYPE_ERROR, " Invalid input image size. ", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_270F06000, v9, OS_LOG_TYPE_ERROR, " Invalid input image size. ", v10, 2u);
     }
 
-    v7 = 0;
+    v8 = 0;
     *a3 = 0;
   }
 
-  *(a3 + 24) = v7;
+  *(a3 + 24) = v8;
 }
 
 double vg::ear_detection::BoxModelPreProcessor::makeScaledBox(uint64_t a1, float32x4_t *a2, uint64_t a3)
@@ -1520,7 +1510,7 @@ void _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv4_fEEEENS_19__allo
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1542,7 +1532,7 @@ void sub_270F11BD4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -1562,7 +1552,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(uint64_t a1, 
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1584,7 +1574,7 @@ void sub_270F11CD4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -1685,7 +1675,7 @@ void std::vector<IOSurface * {__strong}>::__destroy_vector::operator()[abi:ne200
   }
 }
 
-uint64_t std::vector<IOSurface * {__strong}>::__init_with_size[abi:ne200100]<IOSurface * {__strong}*,IOSurface * {__strong}*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<IOSurface * {__strong}>::__init_with_size[abi:ne200100]<IOSurface * {__strong}*,IOSurface * {__strong}*>(uint64_t *result, void **a2, void **a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1695,7 +1685,7 @@ uint64_t std::vector<IOSurface * {__strong}>::__init_with_size[abi:ne200100]<IOS
   return result;
 }
 
-void std::vector<IOSurface * {__strong}>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<IOSurface * {__strong}>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1746,9 +1736,9 @@ BOOL vg::ear_detection::isTooClose(vg::ear_detection *this, const IOSurface *a2)
   return v14;
 }
 
-void sub_270F120AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_270F120AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   vg::IOSurfaceData::~IOSurfaceData(va);
 
   _Unwind_Resume(a1);
@@ -1788,9 +1778,9 @@ BOOL vg::ear_detection::isEarTooFar(void *a1, __n128 a2)
   return v7;
 }
 
-void sub_270F121A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_270F121A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   vg::IOSurfaceData::~IOSurfaceData(va);
 
   _Unwind_Resume(a1);
@@ -1866,56 +1856,54 @@ uint64_t vg::ear_detection::EarSideSmoothPredictorImpl::estimateSmoothEarSide(in
   {
     if (v5 >= *&this[4].i32[2])
     {
-      v15 = a2 & 0xFFFFFF00;
-      v13 = a2;
-      v14 = 0x100000000;
-      goto LABEL_17;
+      v16 = a2 & 0xFFFFFF00;
+      v14 = a2;
+      v15 = 0x100000000;
+      return v15 | v16 | v14;
     }
 
-    v10 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = __VGLogSharedInstance(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = "right";
-      v12 = *&this[4].i32[2];
+      v12 = "right";
+      v13 = *&this[4].i32[2];
       if (!a2)
       {
-        v11 = "left";
+        v12 = "left";
       }
 
       v18 = 136315650;
-      v19 = v11;
+      v19 = v12;
       v20 = 2048;
       v21 = v5;
       v22 = 2048;
-      v23 = v12;
-      _os_log_impl(&dword_270F06000, v10, OS_LOG_TYPE_INFO, " Ear side not consistent with the buffer threshold; ignoring frame for selection purposes; side: %s, ratio: %f, threshold: %f ", &v18, 0x20u);
+      v23 = v13;
+      _os_log_impl(&dword_270F06000, v11, OS_LOG_TYPE_INFO, " Ear side not consistent with the buffer threshold; ignoring frame for selection purposes; side: %s, ratio: %f, threshold: %f ", &v18, 0x20u);
     }
   }
 
   else
   {
-    v7 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = __VGLogSharedInstance(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = this[2].i64[1];
-      v9 = *this[4].i64;
+      v9 = this[2].i64[1];
+      v10 = this[4].i64[0];
       v18 = 134218240;
-      v19 = v8;
+      v19 = v9;
       v20 = 2048;
-      v21 = v9;
-      _os_log_impl(&dword_270F06000, v7, OS_LOG_TYPE_INFO, " Collecting data for the ear side smoothing buffer: %zu / %zu ", &v18, 0x16u);
+      v21 = *&v10;
+      _os_log_impl(&dword_270F06000, v8, OS_LOG_TYPE_INFO, " Collecting data for the ear side smoothing buffer: %zu / %zu ", &v18, 0x16u);
     }
   }
 
-  v13 = 0;
   v14 = 0;
   v15 = 0;
-LABEL_17:
-  v16 = *MEMORY[0x277D85DE8];
-  return v14 | v15 | v13;
+  v16 = 0;
+  return v15 | v16 | v14;
 }
 
-void vg::ear_detection::EarSideSmoothPredictor::EarSideSmoothPredictor()
+void vg::ear_detection::EarSideSmoothPredictor::EarSideSmoothPredictor(uint64_t *a1, uint64_t a2)
 {
   operator new();
 }
@@ -1935,50 +1923,47 @@ void vg::ear_detection::EarSideSmoothPredictor::~EarSideSmoothPredictor(vg::ear_
   }
 }
 
-void *std::deque<vg::ear_detection::EarSide>::push_back(void *result, _DWORD *a2)
+void std::deque<vg::ear_detection::EarSide>::push_back(unint64_t *result, _DWORD *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 7) - 1;
+    v6 = ((v4 - v5) << 7) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<vg::ear_detection::EarSide>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<vg::ear_detection::EarSide>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v9 & 0x3FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<vg::ear_detection::EarSide>::__add_back_capacity(void *a1)
+void std::deque<vg::ear_detection::EarSide>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x400;
   v3 = v1 - 1024;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -1986,25 +1971,25 @@ void *std::deque<vg::ear_detection::EarSide>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<IOSurface * {__strong}>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<IOSurface * {__strong}>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<vg::ear_detection::EarSide *>::emplace_back<vg::ear_detection::EarSide *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<vg::ear_detection::EarSide *>::emplace_back<vg::ear_detection::EarSide *&>(a1, &v9);
 }
 
 void sub_270F12994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -2018,27 +2003,26 @@ void sub_270F12994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<vg::ear_detection::EarSide *>::emplace_back<vg::ear_detection::EarSide *&>(void *result, void *a2)
+void std::__split_buffer<vg::ear_detection::EarSide *>::emplace_back<vg::ear_detection::EarSide *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<IOSurface * {__strong}>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<IOSurface * {__strong}>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -2047,28 +2031,26 @@ void *std::__split_buffer<vg::ear_detection::EarSide *>::emplace_back<vg::ear_de
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<vg::ear_detection::EarSide *>::emplace_front<vg::ear_detection::EarSide *>(const void **result, void *a2)
+void std::__split_buffer<vg::ear_detection::EarSide *>::emplace_front<vg::ear_detection::EarSide *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -2081,52 +2063,50 @@ const void **std::__split_buffer<vg::ear_detection::EarSide *>::emplace_front<vg
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<IOSurface * {__strong}>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<IOSurface * {__strong}>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<vg::ear_detection::EarSide *>::emplace_back<vg::ear_detection::EarSide *>(void *result, void *a2)
+void std::__split_buffer<vg::ear_detection::EarSide *>::emplace_back<vg::ear_detection::EarSide *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<IOSurface * {__strong}>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<IOSurface * {__strong}>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -2135,28 +2115,26 @@ void *std::__split_buffer<vg::ear_detection::EarSide *>::emplace_back<vg::ear_de
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<vg::ear_detection::EarSide *>::emplace_front<vg::ear_detection::EarSide *&>(const void **result, void *a2)
+void std::__split_buffer<vg::ear_detection::EarSide *>::emplace_front<vg::ear_detection::EarSide *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -2169,29 +2147,28 @@ const void **std::__split_buffer<vg::ear_detection::EarSide *>::emplace_front<vg
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<IOSurface * {__strong}>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<IOSurface * {__strong}>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 uint64_t std::deque<vg::ear_detection::EarSide>::__maybe_remove_front_spare[abi:ne200100](uint64_t a1, int a2)
@@ -2288,28 +2265,25 @@ uint64_t std::__split_buffer<vg::ear_detection::EarSide *>::~__split_buffer(uint
 
 void vg::ear_detection::EarPoseDetectorImpl::detect(vg::ear_detection::EarPoseDetectorImpl *this@<X0>, IOSurface *a2@<X1>, IOSurface *a3@<X2>, simd::float3x3 a4@<0:Q0, 16:Q1, 32:Q2>, uint64_t a5@<X8>)
 {
-  v75 = *a4.columns[1].i64;
-  v77 = a4.columns[2];
-  v73 = a4.columns[0].f32[0];
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a3;
-  vg::ear_detection::EarBoundingBoxModel::predictBoundingBox(*this, v8, v100);
-  if ((v101 & 1) == 0)
+  vg::ear_detection::EarBoundingBoxModel::predictBoundingBox(v99, *this, v8);
+  if ((v100 & 1) == 0)
   {
     goto LABEL_29;
   }
 
-  vg::ear_detection::EarLandmarksModel::predictLandmarks(*(this + 1), v8, v100, v97);
-  if ((v99 & 1) == 0)
+  vg::ear_detection::EarLandmarksModel::predictLandmarks(*(this + 1), v8, v99, v96);
+  if ((v98 & 1) == 0)
   {
     goto LABEL_29;
   }
 
-  v10 = vg::ear_detection::EarPoseDetectorImpl::checkEarQuality(this, v8, v9, v100, v97);
+  v10 = vg::ear_detection::EarPoseDetectorImpl::checkEarQuality(this, v8, v9, v99, v96);
   if (!v10)
   {
-    v11 = vg::ear_detection::EarLandmarksModel::estimateEarSide(v98[0].f64);
+    v11 = vg::ear_detection::EarLandmarksModel::estimateEarSide(v97[0].f64);
     v12 = v11;
     if ((v11 & 0x100000000) != 0)
     {
@@ -2330,171 +2304,177 @@ void vg::ear_detection::EarPoseDetectorImpl::detect(vg::ear_detection::EarPoseDe
 
       v24 = vadd_f32(v17, _D1);
       v25 = vdiv_f32(v17, vcvt_f32_f64(vcvtq_f64_s64(v18)));
-      v31 = vmul_f32(v25, vcvt_f32_f64(v98[0]));
-      v26 = vmul_f32(v25, vcvt_f32_f64(*(&v98[19] + 8)));
+      v31 = vmul_f32(v25, vcvt_f32_f64(v97[0]));
+      v26 = vmul_f32(v25, vcvt_f32_f64(*(&v97[19] + 8)));
       v27 = vmul_f32(vadd_f32(v31, v26), 0x3F0000003F000000);
       v28 = vbic_s8(vbsl_s8(vcgt_f32(v27, v24), v24, v27), vcltz_f32(v27));
       v29 = vsub_f32(v26, v31);
       v30 = v26.f32[1] - v31.f32[1];
-      v66 = v29;
-      v67 = v26;
+      v67 = v29;
+      v68 = v26;
       v31.i32[0] = vsub_f32(v31, v26).u32[0];
       if (v12 != 1)
       {
         v30 = v31.f32[1] - v26.f32[1];
       }
 
-      v70 = v30;
-      v96.n128_u32[2] = 0;
+      v71 = v30;
+      v95.n128_u32[2] = 0;
       v32 = v12 == 1 ? v31.f32[0] : v29.f32[0];
-      v68 = v32;
-      v96 = vg::ear_detection::pointFromPixelOnDepthImage(v9, *&v28, v73, v75, v77);
-      v33 = vmulq_f32(v96, v96);
+      v69 = v32;
+      v95 = vg::ear_detection::pointFromPixelOnDepthImage(v9, *&v28, a4.columns[0].f32[0], *a4.columns[1].i64, a4.columns[2]);
+      v33 = vmulq_f32(v95, v95);
       if ((v33.f32[2] + vaddv_f32(*v33.f32)) != 0.0)
       {
-        v71 = __PAIR64__(LODWORD(v68), LODWORD(v70));
-        v34 = vmla_f32(v28, 0x3F0000003F000000, v71);
-        v95 = vg::ear_detection::pointFromPixelOnDepthImage(v9, COERCE_DOUBLE(vbic_s8(vbsl_s8(vcgt_f32(v34, v24), v24, v34), vcltz_f32(v34))), v73, v75, v77);
-        v35 = vmulq_f32(v95, v95);
+        v72 = __PAIR64__(LODWORD(v69), LODWORD(v71));
+        v34 = vmla_f32(v28, 0x3F0000003F000000, v72);
+        v94 = vg::ear_detection::pointFromPixelOnDepthImage(v9, COERCE_DOUBLE(vbic_s8(vbsl_s8(vcgt_f32(v34, v24), v24, v34), vcltz_f32(v34))), a4.columns[0].f32[0], *a4.columns[1].i64, a4.columns[2]);
+        v35 = vmulq_f32(v94, v94);
         if ((v35.f32[2] + vaddv_f32(*v35.f32)) != 0.0)
         {
           __asm { FMOV            V0.2S, #0.75 }
 
-          v37 = vmla_f32(v28, _D0, v71);
-          v94 = vg::ear_detection::pointFromPixelOnDepthImage(v9, COERCE_DOUBLE(vbic_s8(vbsl_s8(vcgt_f32(v37, v24), v24, v37), vcltz_f32(v37))), v73, v75, v77);
-          v38 = vmulq_f32(v94, v94);
+          v37 = vmla_f32(v28, _D0, v72);
+          v93 = vg::ear_detection::pointFromPixelOnDepthImage(v9, COERCE_DOUBLE(vbic_s8(vbsl_s8(vcgt_f32(v37, v24), v24, v37), vcltz_f32(v37))), a4.columns[0].f32[0], *a4.columns[1].i64, a4.columns[2]);
+          v38 = vmulq_f32(v93, v93);
           if ((v38.f32[2] + vaddv_f32(*v38.f32)) != 0.0)
           {
-            v39 = vbic_s8(vbsl_s8(vcgt_f32(v67, v24), v24, v67), vcltz_f32(v67));
-            v93 = vg::ear_detection::pointFromPixelOnDepthImage(v9, *&v39, v73, v75, v77);
-            v40 = vmulq_f32(v93, v93);
+            v39 = vbic_s8(vbsl_s8(vcgt_f32(v68, v24), v24, v68), vcltz_f32(v68));
+            v92 = vg::ear_detection::pointFromPixelOnDepthImage(v9, *&v39, a4.columns[0].f32[0], *a4.columns[1].i64, a4.columns[2]);
+            v40 = vmulq_f32(v92, v92);
             if ((v40.f32[2] + vaddv_f32(*v40.f32)) != 0.0)
             {
-              v41 = vmla_f32(v39, vdup_n_s32(0x3E4CCCCDu), v66);
-              v92 = vg::ear_detection::pointFromPixelOnDepthImage(v9, COERCE_DOUBLE(vbic_s8(vbsl_s8(vcgt_f32(v41, v24), v24, v41), vcltz_f32(v41))), v73, v75, v77);
-              v42 = vmulq_f32(v92, v92);
+              v41 = vmla_f32(v39, vdup_n_s32(0x3E4CCCCDu), v67);
+              v91 = vg::ear_detection::pointFromPixelOnDepthImage(v9, COERCE_DOUBLE(vbic_s8(vbsl_s8(vcgt_f32(v41, v24), v24, v41), vcltz_f32(v41))), a4.columns[0].f32[0], *a4.columns[1].i64, a4.columns[2]);
+              v42 = vmulq_f32(v91, v91);
               if ((v42.f32[2] + vaddv_f32(*v42.f32)) != 0.0)
               {
-                if (vg::shared::arePointsCollinear(&v96, &v95, &v94, 0.9) && vg::shared::arePointsCollinear(&v96, &v93, &v92, 0.9))
+                v43 = vg::shared::arePointsCollinear(&v95, &v94, &v93, 0.9);
+                if (v43)
                 {
-                  v85 = 0u;
-                  v86 = 0u;
-                  v83 = 0u;
-                  v84 = 0u;
-                  v87 = 0;
-                  v88 = 0;
-                  memset(v91, 0, sizeof(v91));
-                  std::vector<float>::reserve(v91, 0x62uLL);
-                  for (i = 16; i != 1192; i += 24)
+                  v43 = vg::shared::arePointsCollinear(&v95, &v92, &v91, 0.9);
+                  if (v43)
                   {
-                    std::vector<float>::emplace_back<double const&>(v91, &v97[i]);
-                    std::vector<float>::emplace_back<double const&>(v91, &v97[i + 8]);
-                  }
-
-                  v44 = vg::ear_detection::EarPoseDetectorImpl::computeEarPlaneNormal(v73, v75, v77, this, *&v91[0], v12, v8, v9);
-                  v45 = vmulq_f32(v44, v44);
-                  *&v46 = v45.f32[2] + vaddv_f32(*v45.f32);
-                  *v45.f32 = vrsqrte_f32(v46);
-                  *v45.f32 = vmul_f32(*v45.f32, vrsqrts_f32(v46, vmul_f32(*v45.f32, *v45.f32)));
-                  v81 = vnegq_f32(vmulq_n_f32(v44, vmul_f32(*v45.f32, vrsqrts_f32(v46, vmul_f32(*v45.f32, *v45.f32))).f32[0]));
-                  v80 = 0;
-                  *v79 = 0u;
-                  if (vg::shared::intersectPlane(&v81, &v96, v79, &v93, &v80))
-                  {
-                    v48 = v81;
-                    v78 = v81;
-                    if (fabsf(v81.f32[2]) >= 0.1)
+                    v84 = 0u;
+                    v85 = 0u;
+                    v82 = 0u;
+                    v83 = 0u;
+                    v86 = 0;
+                    v87 = 0;
+                    memset(v90, 0, sizeof(v90));
+                    std::vector<float>::reserve(v90, 0x62uLL);
+                    for (i = 16; i != 1192; i += 24)
                     {
-                      v54 = *(this + 9);
-                      if (v54)
-                      {
-                        v47 = vmlaq_n_f32(vmulq_n_f32(*(this + 3), 1.0 - *(this + 16)), v81, *(this + 16));
-                        *(this + 3) = v47;
-                        v78 = v47;
-                      }
-
-                      else
-                      {
-                        v48 = v81;
-                        *(this + 3) = v81;
-                      }
-
-                      v48.i32[0] = 0;
-                      v47.i32[0] = v12;
-                      v55 = vdupq_lane_s32(*&vceqq_s32(v47, v48), 0);
-                      v56.i64[0] = 0;
-                      v56.i64[1] = v78.u32[0];
-                      v57.i64[0] = 0;
-                      v57.i32[3] = 0;
-                      *&v57.i32[2] = -v78.f32[0];
-                      v58 = vbslq_s8(v55, v57, v56);
-                      *(this + 9) = v54 + 1;
-                      v59 = v78.f32[2];
-                      v76 = v58;
-                      if (v78.f32[2] == 0.0)
-                      {
-                        v59 = 0.001;
-                      }
-
-                      v74 = atanf(*&v58.i32[2] / v59);
-                      v69 = asinf(v78.f32[1]);
-                      CompactBoundingBox = vg::ear_detection::EarLandmarksModel::Landmarks::makeCompactBoundingBox(v97, 0.1);
-                      v60 = [(IOSurface *)v8 width];
-                      v61 = [(IOSurface *)v8 height];
-                      *&v62 = 0;
-                      *(&v62 + 1) = COERCE_UNSIGNED_INT(vmuls_lane_f32(0.25, *v78.f32, 1));
-                      *&v63 = 0;
-                      *(&v63 + 1) = v78.u32[2];
-                      v64.i64[0] = v60;
-                      v64.i64[1] = v61;
-                      v65 = vcvtq_f64_s64(v64);
-                      LODWORD(buf) = v12;
-                      v83 = v76;
-                      v84 = v62;
-                      v85 = v63;
-                      v86 = xmmword_270FA6700;
-                      v89 = vmul_f32(__PAIR64__(LODWORD(v69), LODWORD(v74)), 0xC2652EE042652EE0);
-                      v90 = vdivq_f32(CompactBoundingBox, vcvt_hight_f32_f64(vcvt_f32_f64(v65), v65));
-                      _ZNSt3__127__optional_move_assign_baseIN2vg13ear_detection7EarPoseELb0EECI2NS_24__optional_destruct_baseIS3_Lb0EEEIJRS3_EEENS_10in_place_tEDpOT_(a5, &buf);
-                      v53 = 0;
-                      goto LABEL_41;
+                      std::vector<float>::emplace_back<double const&>(v90, &v96[i]);
+                      std::vector<float>::emplace_back<double const&>(v90, &v96[i + 8]);
                     }
 
-                    v49 = __VGLogSharedInstance();
-                    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+                    v45 = vg::ear_detection::EarPoseDetectorImpl::computeEarPlaneNormal(a4.columns[0], a4.columns[1], a4.columns[2], this, *&v90[0], v12, v8, v9);
+                    v46 = vmulq_f32(v45, v45);
+                    *&v47 = v46.f32[2] + vaddv_f32(*v46.f32);
+                    *v46.f32 = vrsqrte_f32(v47);
+                    *v46.f32 = vmul_f32(*v46.f32, vrsqrts_f32(v47, vmul_f32(*v46.f32, *v46.f32)));
+                    v80 = vnegq_f32(vmulq_n_f32(v45, vmul_f32(*v46.f32, vrsqrts_f32(v47, vmul_f32(*v46.f32, *v46.f32))).f32[0]));
+                    v79 = 0;
+                    *v78 = 0u;
+                    v48 = vg::shared::intersectPlane(&v80, &v95, v78, &v92, &v79);
+                    if (v48)
                     {
-                      *v79 = 0;
-                      v50 = " Frame rejected by pose estimator because of noise in angle estimation. test ";
+                      v50 = v80;
+                      v77 = v80;
+                      if (fabsf(v80.f32[2]) >= 0.1)
+                      {
+                        v55 = *(this + 9);
+                        if (v55)
+                        {
+                          v49 = vmlaq_n_f32(vmulq_n_f32(*(this + 3), 1.0 - *(this + 16)), v80, *(this + 16));
+                          *(this + 3) = v49;
+                          v77 = v49;
+                        }
+
+                        else
+                        {
+                          v50 = v80;
+                          *(this + 3) = v80;
+                        }
+
+                        v50.i32[0] = 0;
+                        v49.i32[0] = v12;
+                        v56 = vdupq_lane_s32(*&vceqq_s32(v49, v50), 0);
+                        v57.i64[0] = 0;
+                        v57.i64[1] = v77.u32[0];
+                        v58.i64[0] = 0;
+                        v58.i32[3] = 0;
+                        *&v58.i32[2] = -v77.f32[0];
+                        v59 = vbslq_s8(v56, v58, v57);
+                        *(this + 9) = v55 + 1;
+                        v60 = v77.f32[2];
+                        v76 = v59;
+                        if (v77.f32[2] == 0.0)
+                        {
+                          v60 = 0.001;
+                        }
+
+                        v75 = atanf(*&v59.i32[2] / v60);
+                        v70 = asinf(v77.f32[1]);
+                        CompactBoundingBox = vg::ear_detection::EarLandmarksModel::Landmarks::makeCompactBoundingBox(v96, 0.1);
+                        v61 = [(IOSurface *)v8 width];
+                        v62 = [(IOSurface *)v8 height];
+                        *&v63 = 0;
+                        *(&v63 + 1) = COERCE_UNSIGNED_INT(vmuls_lane_f32(0.25, *v77.f32, 1));
+                        *&v64 = 0;
+                        *(&v64 + 1) = v77.u32[2];
+                        v65.i64[0] = v61;
+                        v65.i64[1] = v62;
+                        v66 = vcvtq_f64_s64(v65);
+                        *buf = v12;
+                        v82 = v76;
+                        v83 = v63;
+                        v84 = v64;
+                        v85 = xmmword_270FA6700;
+                        v88 = vmul_f32(__PAIR64__(LODWORD(v70), LODWORD(v75)), 0xC2652EE042652EE0);
+                        v89 = vdivq_f32(CompactBoundingBox, vcvt_hight_f32_f64(vcvt_f32_f64(v66), v66));
+                        _ZNSt3__127__optional_move_assign_baseIN2vg13ear_detection7EarPoseELb0EECI2NS_24__optional_destruct_baseIS3_Lb0EEEIJRS3_EEENS_10in_place_tEDpOT_(a5, buf);
+                        v54 = 0;
+                        goto LABEL_41;
+                      }
+
+                      v51 = __VGLogSharedInstance(v48);
+                      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+                      {
+                        *v78 = 0;
+                        v52 = " Frame rejected by pose estimator because of noise in angle estimation. test ";
 LABEL_33:
-                      _os_log_impl(&dword_270F06000, v49, OS_LOG_TYPE_DEBUG, v50, v79, 2u);
+                        _os_log_impl(&dword_270F06000, v51, OS_LOG_TYPE_DEBUG, v52, v78, 2u);
+                      }
                     }
-                  }
 
-                  else
-                  {
-                    v49 = __VGLogSharedInstance();
-                    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+                    else
                     {
-                      *v79 = 0;
-                      v50 = " Frame rejected by pose estimator because of failing normal - plane intersection test ";
-                      goto LABEL_33;
+                      v51 = __VGLogSharedInstance(v48);
+                      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+                      {
+                        *v78 = 0;
+                        v52 = " Frame rejected by pose estimator because of failing normal - plane intersection test ";
+                        goto LABEL_33;
+                      }
                     }
-                  }
 
-                  *a5 = 0;
-                  *(a5 + 176) = 0;
-                  v53 = 1;
+                    *a5 = 0;
+                    *(a5 + 176) = 0;
+                    v54 = 1;
 LABEL_41:
-                  *(a5 + 192) = v53;
-                  vg::ear_detection::EarPose::~EarPose(&buf);
-                  goto LABEL_30;
+                    *(a5 + 192) = v54;
+                    vg::ear_detection::EarPose::~EarPose(buf);
+                    goto LABEL_30;
+                  }
                 }
 
-                v51 = __VGLogSharedInstance();
-                if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+                v53 = __VGLogSharedInstance(v43);
+                if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
                 {
-                  LOWORD(buf) = 0;
-                  _os_log_impl(&dword_270F06000, v51, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of noisy depth ", &buf, 2u);
+                  *buf = 0;
+                  _os_log_impl(&dword_270F06000, v53, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of noisy depth ", buf, 2u);
                 }
               }
             }
@@ -2514,13 +2494,12 @@ LABEL_29:
   *(a5 + 176) = 0;
   *(a5 + 192) = v10;
 LABEL_30:
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
-void sub_270F13650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_270F13650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  vg::ear_detection::EarPose::~EarPose(&a29);
+  va_start(va, a28);
+  vg::ear_detection::EarPose::~EarPose(va);
 
   _Unwind_Resume(a1);
 }
@@ -2529,121 +2508,120 @@ uint64_t vg::ear_detection::EarPoseDetectorImpl::checkEarQuality(vg::ear_detecti
 {
   v9 = a2;
   v10 = a3;
-  if (vg::ear_detection::isTooClose(v10, v11))
+  isTooClose = vg::ear_detection::isTooClose(v10, v11);
+  if (isTooClose)
   {
-    v12 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = __VGLogSharedInstance(isTooClose);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of camera too close. ", buf, 2u);
+      _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of camera too close. ", buf, 2u);
     }
 
-    v13 = 6;
+    v14 = 6;
     goto LABEL_14;
   }
 
   if (a4[3].f32[0] < *(this + 4))
   {
-    v12 = __VGLogSharedInstance();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = __VGLogSharedInstance(isTooClose);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
 LABEL_9:
-      v13 = 1;
+      v14 = 1;
       goto LABEL_14;
     }
 
-    *v28 = 0;
-    v14 = " Frame rejected by pose estimator because of ear not present. ";
-    v15 = v28;
+    *v32 = 0;
+    v15 = " Frame rejected by pose estimator because of ear not present. ";
+    v16 = v32;
 LABEL_8:
-    _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_DEBUG, v14, v15, 2u);
+    _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_DEBUG, v15, v16, 2u);
     goto LABEL_9;
   }
 
   if (a4[3].f32[1] < *(this + 5))
   {
-    v12 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = __VGLogSharedInstance(isTooClose);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      *v27 = 0;
-      _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of ear occlusion. ", v27, 2u);
+      *v31 = 0;
+      _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of ear occlusion. ", v31, 2u);
     }
 
-    v13 = 4;
+    v14 = 4;
     goto LABEL_14;
   }
 
   if (vg::ear_detection::EarBoundingBoxModel::BoundingBox::getMeanVisibility(a4) < *(this + 6))
   {
-    v12 = __VGLogSharedInstance();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = __VGLogSharedInstance(v18);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_9;
     }
 
-    v26 = 0;
-    v14 = " Frame rejected by pose estimator because of low confidence bbox ";
-    v15 = &v26;
+    v30 = 0;
+    v15 = " Frame rejected by pose estimator because of low confidence bbox ";
+    v16 = &v30;
     goto LABEL_8;
   }
 
   if (vg::ear_detection::EarLandmarksModel::Landmarks::getVisibleLandmarksFraction(a5, *(this + 7)) < *(this + 8))
   {
-    v12 = __VGLogSharedInstance();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = __VGLogSharedInstance(v19);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_9;
     }
 
-    v25 = 0;
-    v14 = " Frame rejected by pose estimator because of low percentile confidence landmarks ";
-    v15 = &v25;
+    v29 = 0;
+    v15 = " Frame rejected by pose estimator because of low percentile confidence landmarks ";
+    v16 = &v29;
     goto LABEL_8;
   }
 
-  v17 = [(IOSurface *)v10 width];
-  v18 = [(IOSurface *)v9 width];
-  v19 = [(IOSurface *)v10 height];
-  v20 = [(IOSurface *)v9 height];
-  v21 = v17 / v18;
-  v22 = v19 / v20;
-  v23.n128_f32[0] = v21 * COERCE_FLOAT(*a4->f32);
-  v23.n128_u32[1] = vmuls_lane_f32(v22, *a4, 1);
-  v23.n128_u64[1] = __PAIR64__(COERCE_UNSIGNED_INT(vmuls_lane_f32(v22, *a4->f32, 3)), COERCE_UNSIGNED_INT(vmuls_lane_f32(v21, *a4->f32, 2)));
-  if (!vg::ear_detection::isEarTooFar(v10, v23))
+  v20 = [(IOSurface *)v10 width];
+  v21 = [(IOSurface *)v9 width];
+  v22 = [(IOSurface *)v10 height];
+  v23 = [(IOSurface *)v9 height];
+  v24 = v20 / v21;
+  v25 = v22 / v23;
+  v26.n128_f32[0] = v24 * COERCE_FLOAT(*a4->f32);
+  v26.n128_u32[1] = vmuls_lane_f32(v25, *a4, 1);
+  v26.n128_u64[1] = __PAIR64__(COERCE_UNSIGNED_INT(vmuls_lane_f32(v25, *a4->f32, 3)), COERCE_UNSIGNED_INT(vmuls_lane_f32(v24, *a4->f32, 2)));
+  isEarTooFar = vg::ear_detection::isEarTooFar(v10, v26);
+  if (!isEarTooFar)
   {
-    v13 = 0;
+    v14 = 0;
     goto LABEL_15;
   }
 
-  v12 = __VGLogSharedInstance();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = __VGLogSharedInstance(isEarTooFar);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    *v24 = 0;
-    _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of camera too far. ", v24, 2u);
+    *v28 = 0;
+    _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of camera too far. ", v28, 2u);
   }
 
-  v13 = 7;
+  v14 = 7;
 LABEL_14:
 
 LABEL_15:
-  return v13;
+  return v14;
 }
 
-void *std::vector<float>::reserve(void *result, unint64_t a2)
+void std::vector<float>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 2)
+  if (a2 > (a1[2] - *a1) >> 2)
   {
     if (!(a2 >> 62))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a1, a2);
     }
 
     std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 float *std::vector<float>::emplace_back<double const&>(const void **a1, double *a2)
@@ -2681,7 +2659,7 @@ float *std::vector<float>::emplace_back<double const&>(const void **a1, double *
     v14 = (4 * (v9 >> 2));
     v15 = *a2;
     *v14 = v15;
-    v7 = v14 + 1;
+    v7 = (v14 + 1);
     memcpy(0, v8, v9);
     v16 = *a1;
     *a1 = 0;
@@ -2697,14 +2675,14 @@ float *std::vector<float>::emplace_back<double const&>(const void **a1, double *
   {
     v6 = *a2;
     *v5 = v6;
-    v7 = v5 + 1;
+    v7 = (v5 + 1);
   }
 
   a1[1] = v7;
-  return v7 - 1;
+  return (v7 - 4);
 }
 
-__n128 vg::ear_detection::EarPoseDetectorImpl::computeEarPlaneNormal(float a1, double a2, __n128 a3, uint64_t a4, float *a5, int a6, void *a7, void *a8)
+__n128 vg::ear_detection::EarPoseDetectorImpl::computeEarPlaneNormal(__n128 a1, __n128 a2, __n128 a3, uint64_t a4, float *a5, uint64_t a6, void *a7, void *a8)
 {
   vg::ear_detection::EarPoseDetectorImpl::findROI(a5, a6, a7, a8, __p, a1, a2, a3);
   result.n128_f64[0] = vg::ear_detection::computePlaneNormal(__p);
@@ -2729,8 +2707,11 @@ void sub_270F13B9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void vg::ear_detection::EarPoseDetectorImpl::findROI(float *a1@<X1>, int a2@<W2>, void *a3@<X3>, void *a4@<X4>, uint64_t a5@<X8>, float a6@<S0>, double a7@<D1>, __n128 a8@<Q2>)
+void vg::ear_detection::EarPoseDetectorImpl::findROI(float *a1@<X1>, uint64_t a2@<X2>, void *a3@<X3>, void *a4@<X4>, uint64_t a5@<X8>, __n128 a6@<Q0>, __n128 a7@<Q1>, __n128 a8@<Q2>)
 {
+  v63 = a7.n128_f64[0];
+  v62 = a6.n128_f32[0];
+  v9 = a2;
   v59 = a3;
   v12 = a4;
   v13 = [(IOSurface *)v12 width];
@@ -2745,7 +2726,7 @@ void vg::ear_detection::EarPoseDetectorImpl::findROI(float *a1@<X1>, int a2@<W2>
   v20.f32[1] = v18 * a1[27];
   v70 = v20;
   v71[0] = v19;
-  EarTriangleROIVertex = vg::ear_detection::getEarTriangleROIVertex(a2, v19, v20);
+  EarTriangleROIVertex = vg::ear_detection::getEarTriangleROIVertex(v9, v19, v20);
   v69 = EarTriangleROIVertex;
   v23 = v70;
   v22 = v71[0];
@@ -2754,7 +2735,7 @@ void vg::ear_detection::EarPoseDetectorImpl::findROI(float *a1@<X1>, int a2@<W2>
   *a5 = 0;
   vg::IOSurfaceData::IOSurfaceData(v68, v12, 1);
   v66.i32[0] = 0;
-  std::vector<float>::vector[abi:ne200100](__p, -[IOSurface height](v12, "height") * -[IOSurface width](v12, "width"));
+  std::vector<float>::vector[abi:ne200100](__p, -[IOSurface height](v12, "height") * -[IOSurface width](v12, "width"), &v66);
   v24 = [(IOSurface *)v12 width];
   v25 = [(IOSurface *)v12 height];
   v26 = vminnm_f32(EarTriangleROIVertex, vminnm_f32(v22, v23));
@@ -2832,7 +2813,7 @@ void vg::ear_detection::EarPoseDetectorImpl::findROI(float *a1@<X1>, int a2@<W2>
               v46 = v40;
             }
 
-            v47 = vg::ear_detection::pointFromPixelOnDepthImage(v12, COERCE_DOUBLE(__PAIR64__(LODWORD(v46), LODWORD(v65))), a6, a7, a8);
+            v47 = vg::ear_detection::pointFromPixelOnDepthImage(v12, COERCE_DOUBLE(__PAIR64__(LODWORD(v46), LODWORD(v65))), v62, v63, a8);
             *&v48 = vmul_f32(v47.n128_u64[0], v41);
             DWORD2(v48) = vmuls_lane_f32(1000.0, v47, 2);
             v50 = *(a5 + 8);
@@ -2968,11 +2949,11 @@ uint64_t _ZNSt3__127__optional_move_assign_baseIN2vg13ear_detection7EarPoseELb0E
   *(a1 + 128) = 0;
   *(a1 + 136) = 0;
   *(a1 + 144) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 128, *(a2 + 16), *(a2 + 17), (*(a2 + 17) - *(a2 + 16)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 128), *(a2 + 16), *(a2 + 17), (*(a2 + 17) - *(a2 + 16)) >> 2);
   *(a1 + 152) = 0;
   *(a1 + 160) = 0;
   *(a1 + 168) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 152, *(a2 + 19), *(a2 + 20), (*(a2 + 20) - *(a2 + 19)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 152), *(a2 + 19), *(a2 + 20), (*(a2 + 20) - *(a2 + 19)) >> 2);
   *(a1 + 176) = 1;
   return a1;
 }
@@ -2989,29 +2970,17 @@ void sub_270F141AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int32 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_270F142C0(_Unwind_Exception *exception_object)
@@ -3028,8 +2997,8 @@ void sub_270F142C0(_Unwind_Exception *exception_object)
 
 uint64_t vg::ear_detection::EarPoseDetectorImpl::EarPoseDetectorImpl(uint64_t a1, uint64_t a2)
 {
-  vg::ear_detection::EarBoundingBoxModel::create((a2 + 24), a1);
-  vg::ear_detection::EarLandmarksModel::create((a2 + 24), (a1 + 8));
+  vg::ear_detection::EarBoundingBoxModel::create(a2 + 24, a1);
+  vg::ear_detection::EarLandmarksModel::create(a2 + 24, (a1 + 8));
   *(a1 + 16) = *a2;
   *(a1 + 32) = *(a2 + 16);
   *(a1 + 36) = 0x100000000;
@@ -3066,7 +3035,7 @@ void vg::ear_detection::makeSquareCropBox(uint32x2_t *a1@<X0>, uint64_t a2@<X8>,
       v10 = (*&v13 + v9.f32[1]) + -1.0;
       if (!v4)
       {
-        v5 = __VGLogSharedInstance();
+        v5 = __VGLogSharedInstance(a1);
         if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_8;
@@ -3087,7 +3056,7 @@ void vg::ear_detection::makeSquareCropBox(uint32x2_t *a1@<X0>, uint64_t a2@<X8>,
       v11 = (v12 + v9.f32[0]) + -1.0;
       if (!v4)
       {
-        v5 = __VGLogSharedInstance();
+        v5 = __VGLogSharedInstance(a1);
         if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_8;
@@ -3107,7 +3076,7 @@ void vg::ear_detection::makeSquareCropBox(uint32x2_t *a1@<X0>, uint64_t a2@<X8>,
     goto LABEL_16;
   }
 
-  v5 = __VGLogSharedInstance();
+  v5 = __VGLogSharedInstance(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
@@ -3125,9 +3094,9 @@ LABEL_16:
   *(a2 + 16) = v8;
 }
 
-uint64_t vg::ear_detection::EarLandmarksModelImpl::EarLandmarksModelImpl(uint64_t a1, uint64_t a2)
+uint64_t vg::ear_detection::EarLandmarksModelImpl::EarLandmarksModelImpl(uint64_t a1, unint64_t a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   *(a1 + 16) = 0u;
   v4 = (a1 + 16);
   *(a1 + 64) = 0u;
@@ -3135,86 +3104,86 @@ uint64_t vg::ear_detection::EarLandmarksModelImpl::EarLandmarksModelImpl(uint64_
   *(a1 + 32) = 0u;
   *(a1 + 48) = 0u;
   *a1 = 0u;
-  vg::ear_detection::LandmarkModelPreProcessor::create(0x190, (a1 + 80));
-  v6 = VGLogEarLandmarksModel();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v6 = vg::ear_detection::LandmarkModelPreProcessor::create(0x190, (a1 + 80));
+  v7 = VGLogEarLandmarksModel(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     if (*(a2 + 23) >= 0)
     {
-      v7 = a2;
+      v8 = a2;
     }
 
     else
     {
-      v7 = *a2;
+      v8 = *a2;
     }
 
     *buf = 136315138;
-    *&buf[4] = v7;
-    _os_log_impl(&dword_270F06000, v6, OS_LOG_TYPE_INFO, "Using model root path %s", buf, 0xCu);
+    *&buf[4] = v8;
+    _os_log_impl(&dword_270F06000, v7, OS_LOG_TYPE_INFO, "Using model root path %s", buf, 0xCu);
   }
 
   vg::shared::VGE5RT::compileModel(a2, 1, buf);
   std::shared_ptr<E5RT::ExecutionStreamOperation>::operator=[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(a1, buf);
-  v8 = *buf;
+  v9 = *buf;
   *buf = 0;
-  if (v8)
+  if (v9)
   {
-    (*(*v8 + 8))(v8);
+    (*(*v9 + 8))(v9);
   }
 
   InputPorts = E5RT::ExecutionStreamOperation::GetInputPorts(*a1);
   std::string::basic_string[abi:ne200100]<0>(buf, "input_image");
-  v10 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(InputPorts, buf);
-  if (!v10)
+  v11 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(InputPorts, buf);
+  if (!v11)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v12 = v10[5];
-  v11 = v10[6];
-  if (v11)
+  v13 = v11[5];
+  v12 = v11[6];
+  if (v12)
   {
-    atomic_fetch_add_explicit(v11 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v12 + 1, 1uLL, memory_order_relaxed);
   }
 
-  v13 = *(a1 + 40);
-  *(a1 + 32) = v12;
-  *(a1 + 40) = v11;
-  if (v13)
+  v14 = *(a1 + 40);
+  *(a1 + 32) = v13;
+  *(a1 + 40) = v12;
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 
-  if (v30 < 0)
+  if (v28 < 0)
   {
     operator delete(*buf);
   }
 
   OutputPorts = E5RT::ExecutionStreamOperation::GetOutputPorts(*a1);
   std::string::basic_string[abi:ne200100]<0>(buf, "detection");
-  v15 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(OutputPorts, buf);
-  if (!v15)
+  v16 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(OutputPorts, buf);
+  if (!v16)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v17 = v15[5];
-  v16 = v15[6];
-  if (v16)
+  v18 = v16[5];
+  v17 = v16[6];
+  if (v17)
   {
-    atomic_fetch_add_explicit(v16 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v17 + 1, 1uLL, memory_order_relaxed);
   }
 
-  v18 = *(a1 + 56);
-  *(a1 + 48) = v17;
-  *(a1 + 56) = v16;
-  if (v18)
+  v19 = *(a1 + 56);
+  *(a1 + 48) = v18;
+  *(a1 + 56) = v17;
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
-  if (v30 < 0)
+  if (v28 < 0)
   {
     operator delete(*buf);
   }
@@ -3223,27 +3192,25 @@ uint64_t vg::ear_detection::EarLandmarksModelImpl::EarLandmarksModelImpl(uint64_
   E5RT::OperandDescriptor::TryAsTensorDescriptor(PortDescriptorRef);
   E5RT::TensorDescriptor::AllocateMemory();
   std::shared_ptr<E5RT::BufferObject>::operator=[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>(v5, buf);
-  v20 = *buf;
+  v21 = *buf;
   *buf = 0;
-  if (v20)
+  if (v21)
   {
-    (*(*v20 + 8))(v20);
+    (*(*v21 + 8))(v21);
   }
 
-  v21 = *(a1 + 48);
   v22 = *(a1 + 72);
-  v27 = *(a1 + 64);
-  v28 = v22;
+  v26 = v22;
   if (v22)
   {
     atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   E5RT::IOPort::BindMemoryObject();
-  v23 = v28;
-  if (v28)
+  v23 = v26;
+  if (v26)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
   }
 
   E5RT::ExecutionStream::CreateExecutionStream(buf, v23);
@@ -3255,7 +3222,6 @@ uint64_t vg::ear_detection::EarLandmarksModelImpl::EarLandmarksModelImpl(uint64_
     (*(*v24 + 8))(v24);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -3271,16 +3237,16 @@ void sub_270F147F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id VGLogEarLandmarksModel(void)
+id VGLogEarLandmarksModel(uint64_t a1)
 {
   if (VGLogEarLandmarksModel(void)::onceToken != -1)
   {
     VGLogEarLandmarksModel();
   }
 
-  v1 = VGLogEarLandmarksModel(void)::handle;
+  v2 = VGLogEarLandmarksModel(void)::handle;
 
-  return v1;
+  return v2;
 }
 
 void *std::shared_ptr<E5RT::ExecutionStreamOperation>::operator=[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(void *a1, uint64_t *a2)
@@ -3348,12 +3314,12 @@ void vg::ear_detection::EarLandmarksModelImpl::predictLandmarks(uint64_t *a1@<X0
 {
   v7 = a2;
   v8 = [v7 width];
-  v46 = __PAIR64__([v7 height], v8);
-  *v45[0].f32 = 0uLL;
+  v44 = __PAIR64__([v7 height], v8);
+  v43 = 0uLL;
   LODWORD(v9) = 1036831949;
-  *&v10 = vg::ear_detection::makeLargeBox(&v46, *a3, v9);
-  *v45[0].f32 = v10;
-  v11 = vg::ear_detection::LandmarkModelPreProcessor::preProcessImage(a1[10], v7, v45);
+  *&v10 = vg::ear_detection::makeLargeBox(&v44, *a3, v9);
+  v43 = v10;
+  v11 = vg::ear_detection::LandmarkModelPreProcessor::preProcessImage(a1[10], v7, &v43);
   if (v11)
   {
     PortDescriptorRef = E5RT::IOPort::GetPortDescriptorRef(a1[4]);
@@ -3367,68 +3333,64 @@ void vg::ear_detection::EarLandmarksModelImpl::predictLandmarks(uint64_t *a1@<X0
       v11 = v16;
     }
 
-    v17 = a1[4];
     E5RT::BufferObject::CreateBufferFromHandle<__IOSurface *>();
-    v43 = *&__src[0];
+    v41 = *&__src[0];
     if (*&__src[0])
     {
       operator new();
     }
 
-    v44 = 0;
+    v42 = 0;
     E5RT::IOPort::BindMemoryObject();
     *&__src[0] = 0;
-    v20 = a1[1];
-    v19 = a1[2];
-    v41 = *a1;
-    v42 = v20;
-    if (v20)
+    v18 = a1[1];
+    v39 = *a1;
+    v40 = v18;
+    if (v18)
     {
-      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     E5RT::ExecutionStream::EncodeOperation();
-    if (v42)
+    if (v40)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v40);
     }
 
     E5RT::ExecutionStream::ExecuteStreamSync(a1[2]);
     E5RT::ExecutionStream::ResetStream(a1[2]);
-    v21 = a1[8];
-    v22 = E5RT::BufferObject::GetHandle<__IOSurface *>();
-    if (v22)
+    v19 = E5RT::BufferObject::GetHandle<__IOSurface *>();
+    if (v19)
     {
-      v23 = E5RT::IOPort::GetPortDescriptorRef(a1[6]);
-      v24 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v23);
-      vg::shared::VGE5RT::convertSurfaceTo2DMatrix(v22, v24, v25, &v39);
-      if (v40 == 49)
+      v20 = E5RT::IOPort::GetPortDescriptorRef(a1[6]);
+      v21 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v20);
+      vg::shared::VGE5RT::convertSurfaceTo2DMatrix(&v37, v19, v21, v22);
+      if (v38 == 49)
       {
-        v26 = 0;
+        v24 = 0;
         __src[0] = *a3;
-        v27 = v39;
-        v28 = &__src[2];
-        v29 = 49;
+        v25 = v37;
+        v26 = &__src[2];
+        v27 = 49;
         while (1)
         {
-          v37 = 0uLL;
-          v30 = *&v27[(v26 + v29)];
-          v37.f64[0] = *&v27[v26];
-          v37.f64[1] = v30;
-          v31 = a1[10];
-          vg::ear_detection::LandmarkModelPreProcessor::makeScaledPoint(v45, &v37, &v35);
-          if ((v36 & 1) == 0)
+          v35 = 0uLL;
+          v28 = *&v25[(v24 + v27)];
+          v35.f64[0] = *&v25[v24];
+          v35.f64[1] = v28;
+          vg::ear_detection::LandmarkModelPreProcessor::makeScaledPoint(&v43, &v35, &v33);
+          if ((v34 & 1) == 0)
           {
             break;
           }
 
-          v29 = v40;
-          v27 = v39;
-          v32 = v39[(v26 + 2 * v40)];
-          *(v28 - 1) = v35;
-          *v28 = v32;
-          v28 += 6;
-          if (++v26 == 49)
+          v27 = v38;
+          v25 = v37;
+          v30 = v37[(v24 + 2 * v38)];
+          *(v26 - 1) = v33;
+          *v26 = v30;
+          v26 += 6;
+          if (++v24 == 49)
           {
             memcpy(a4, __src, 0x4B0uLL);
             a4[1200] = 1;
@@ -3436,8 +3398,8 @@ void vg::ear_detection::EarLandmarksModelImpl::predictLandmarks(uint64_t *a1@<X0
           }
         }
 
-        v34 = VGLogEarLandmarksModel();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v32 = VGLogEarLandmarksModel(v29);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           vg::ear_detection::EarLandmarksModelImpl::predictLandmarks();
         }
@@ -3445,8 +3407,8 @@ void vg::ear_detection::EarLandmarksModelImpl::predictLandmarks(uint64_t *a1@<X0
 
       else
       {
-        v34 = VGLogEarLandmarksModel();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v32 = VGLogEarLandmarksModel(v23);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           vg::ear_detection::EarLandmarksModelImpl::predictLandmarks();
         }
@@ -3455,13 +3417,13 @@ void vg::ear_detection::EarLandmarksModelImpl::predictLandmarks(uint64_t *a1@<X0
       *a4 = 0;
       a4[1200] = 0;
 LABEL_27:
-      free(v39);
+      free(v37);
     }
 
     else
     {
-      v33 = VGLogEarLandmarksModel();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v31 = VGLogEarLandmarksModel(0);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         vg::ear_detection::EarLandmarksModelImpl::predictLandmarks();
       }
@@ -3473,8 +3435,8 @@ LABEL_27:
 
   else
   {
-    v18 = VGLogEarLandmarksModel();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = VGLogEarLandmarksModel(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       vg::ear_detection::EarLandmarksModelImpl::predictLandmarks();
     }
@@ -3525,23 +3487,23 @@ void vg::ear_detection::EarLandmarksModel::~EarLandmarksModel(vg::ear_detection:
   }
 }
 
-void vg::ear_detection::EarLandmarksModel::create(uint64_t *a1@<X0>, void *a2@<X8>)
+void vg::ear_detection::EarLandmarksModel::create(uint64_t a1@<X0>, uint64_t **a2@<X8>)
 {
-  v18[3] = *MEMORY[0x277D85DE8];
-  v4 = a1 + 23;
+  v20[3] = *MEMORY[0x277D85DE8];
+  v4 = (a1 + 23);
   if (*(a1 + 23) < 0)
   {
-    if (!a1[1])
+    if (!*(a1 + 8))
     {
 LABEL_10:
-      v13 = VGLogEarLandmarksModel();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = VGLogEarLandmarksModel(a1);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         vg::ear_detection::EarLandmarksModel::create();
       }
 
       *a2 = 0;
-      goto LABEL_20;
+      return;
     }
 
     v5 = *a1;
@@ -3558,59 +3520,59 @@ LABEL_10:
 
   v6 = MEMORY[0x277CCACA8];
   v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v5];
-  v18[0] = v7;
-  v18[1] = @"ear_landmarks_detector_mlmodel";
-  v18[2] = @"ear_landmarks_fp16.espresso.net";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v20[0] = v7;
+  v20[1] = @"ear_landmarks_detector_mlmodel";
+  v20[2] = @"ear_landmarks_fp16.espresso.net";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
   v9 = [v6 pathWithComponents:v8];
 
   v10 = [MEMORY[0x277CCAA00] defaultManager];
   v11 = v10;
   if (v9)
   {
-    if ([v10 fileExistsAtPath:v9])
+    v12 = [v10 fileExistsAtPath:v9];
+    if (v12)
     {
-      if (operator new(8uLL, MEMORY[0x277D826F0]))
+      v13 = operator new(8uLL, MEMORY[0x277D826F0]);
+      if (v13)
       {
-        v12 = v9;
-        std::string::basic_string[abi:ne200100]<0>(&__p, [v9 UTF8String]);
-        vg::ear_detection::EarLandmarksModel::EarLandmarksModel();
+        v14 = v13;
+        v15 = v9;
+        std::string::basic_string[abi:ne200100]<0>(__p, [v9 UTF8String]);
+        vg::ear_detection::EarLandmarksModel::EarLandmarksModel(v14, __p);
       }
     }
 
     else
     {
-      v15 = VGLogEarLandmarksModel();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = VGLogEarLandmarksModel(v12);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        vg::ear_detection::EarLandmarksModel::create(v9, v15);
+        vg::ear_detection::EarLandmarksModel::create(v9, v18);
       }
     }
   }
 
   else
   {
-    v14 = VGLogEarLandmarksModel();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = VGLogEarLandmarksModel(v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      vg::ear_detection::EarLandmarksModel::create(v4, a1, v14);
+      vg::ear_detection::EarLandmarksModel::create(v4, a1, v17);
     }
   }
 
   *a2 = 0;
-
-LABEL_20:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-void sub_270F1516C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_270F1516C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x2743B9360](v17, MEMORY[0x277D826F0]);
+  MEMORY[0x2743B9360](v17, MEMORY[0x277D826F0], a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -3738,18 +3700,18 @@ void ___ZL22VGLogEarLandmarksModelv_block_invoke()
   VGLogEarLandmarksModel(void)::handle = v0;
 }
 
-uint64_t *std::shared_ptr<E5RT::ExecutionStreamOperation>::shared_ptr[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<E5RT::ExecutionStreamOperation>::shared_ptr[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<E5RT::ExecutionStreamOperation  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -3806,7 +3768,7 @@ void std::__throw_out_of_range[abi:ne200100](const char *a1)
   __cxa_throw(exception, off_279E28D10, MEMORY[0x277D825F8]);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -3875,9 +3837,9 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_pt
   return i;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -4081,18 +4043,18 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-uint64_t *std::shared_ptr<E5RT::BufferObject>::shared_ptr[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<E5RT::BufferObject>::shared_ptr[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 uint64_t std::__shared_ptr_pointer<E5RT::BufferObject  *>::__on_zero_shared(uint64_t a1)
@@ -4118,18 +4080,18 @@ uint64_t std::__shared_ptr_pointer<E5RT::BufferObject  *>::__get_deleter(uint64_
   }
 }
 
-uint64_t *std::shared_ptr<E5RT::ExecutionStream>::shared_ptr[abi:ne200100]<E5RT::ExecutionStream,std::default_delete<E5RT::ExecutionStream>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<E5RT::ExecutionStream>::shared_ptr[abi:ne200100]<E5RT::ExecutionStream,std::default_delete<E5RT::ExecutionStream>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 uint64_t std::__shared_ptr_pointer<E5RT::ExecutionStream  *>::__on_zero_shared(uint64_t a1)
@@ -4155,10 +4117,11 @@ uint64_t std::__shared_ptr_pointer<E5RT::ExecutionStream  *>::__get_deleter(uint
   }
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t vg::ear_detection::EarLandmarksModelImpl::EarLandmarksModelImpl(uint64_t a1)
@@ -4210,36 +4173,35 @@ void vg::ear_detection::EarLandmarksModelImpl::EarLandmarksModelImpl(void *a1)
 void vg::ear_detection::EarLandmarksModelImpl::predictLandmarks()
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Incorrect number of detections for landmarks points.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Incorrect number of detections for landmarks points.", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Failed to scale CG point.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Failed to scale CG point.", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Invalid landmark network output.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Invalid landmark network output.", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Failed to prep image for landmark model.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Failed to prep image for landmark model.", v2, v3, v4, v5);
 }
 
 void vg::ear_detection::EarLandmarksModel::create(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270F06000, a2, OS_LOG_TYPE_ERROR, "No model found at path: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270F06000, a2, OS_LOG_TYPE_ERROR, "No model found at path: %@", &v2, 0xCu);
 }
 
 void vg::ear_detection::EarLandmarksModel::create(char *a1, void *a2, os_log_t log)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*a1 >= 0)
   {
     v3 = a2;
@@ -4250,14 +4212,13 @@ void vg::ear_detection::EarLandmarksModel::create(char *a1, void *a2, os_log_t l
     v3 = *a2;
   }
 
-  v5 = 136315650;
-  v6 = v3;
-  v7 = 2112;
-  v8 = @"ear_landmarks_detector_mlmodel";
-  v9 = 2112;
-  v10 = @"ear_landmarks_fp16.espresso.net";
-  _os_log_error_impl(&dword_270F06000, log, OS_LOG_TYPE_ERROR, "Failed to create model path from modelRootPath: %s with directory: %@ and model file: %@", &v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315650;
+  v5 = v3;
+  v6 = 2112;
+  v7 = @"ear_landmarks_detector_mlmodel";
+  v8 = 2112;
+  v9 = @"ear_landmarks_fp16.espresso.net";
+  _os_log_error_impl(&dword_270F06000, log, OS_LOG_TYPE_ERROR, "Failed to create model path from modelRootPath: %s with directory: %@ and model file: %@", &v4, 0x20u);
 }
 
 float32x2_t vg::ear_detection::getEarTriangleROIVertex(int a1, float32x2_t a2, float32x2_t a3)
@@ -4287,7 +4248,7 @@ __n128 vg::ear_detection::pointFromPixelOnDepthImage(void *a1, double a2, float 
   v7 = [(IOSurface *)v5 height];
   if (*&a2 < 0.0 || (*(&a2 + 1) >= 0.0 ? (v8 = *&a2 < v6) : (v8 = 0), v8 ? (v9 = *(&a2 + 1) < v7) : (v9 = 0), !v9))
   {
-    v10 = __VGLogSharedInstance();
+    v10 = __VGLogSharedInstance(v7);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf[0]) = 0;
@@ -4322,30 +4283,31 @@ void vg::ear_detection::EarPCADetectorImpl::detect(uint64_t a1@<X0>, void *a2@<X
   v89 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
+  v11 = v10;
   if ((a4 & 0x100000000) != 0)
   {
-    v11 = *&a4;
+    v12 = *&a4;
     if (fabsf(*&a4) < *(a1 + 44))
     {
-      v12 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = __VGLogSharedInstance(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v13 = *(a1 + 44);
+        v14 = *(a1 + 44);
         *buf = 134218240;
-        v83 = v11;
+        v83 = v12;
         v84 = 2048;
-        *v85 = v13;
-        _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of front facing view, yaw = %f, limit = %f ", buf, 0x16u);
+        *v85 = v14;
+        _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of front facing view, yaw = %f, limit = %f ", buf, 0x16u);
       }
 
       *a5 = 0;
       *(a5 + 176) = 0;
-      v14 = 3;
+      v15 = 3;
       goto LABEL_15;
     }
   }
 
-  vg::ear_detection::EarBoundingBoxModel::predictBoundingBox(*a1, v9, v87);
+  vg::ear_detection::EarBoundingBoxModel::predictBoundingBox(v87, *a1, v9);
   if ((v88 & 1) == 0)
   {
     goto LABEL_14;
@@ -4357,29 +4319,29 @@ void vg::ear_detection::EarPCADetectorImpl::detect(uint64_t a1@<X0>, void *a2@<X
     goto LABEL_14;
   }
 
-  v15 = vg::ear_detection::EarPCADetectorImpl::checkEarQuality(a1, v9, v10, v87, buf);
-  if (v15)
+  v16 = vg::ear_detection::EarPCADetectorImpl::checkEarQuality(a1, v9, v11, v87, buf);
+  if (v16)
   {
     *a5 = 0;
     *(a5 + 176) = 0;
-    *(a5 + 192) = v15;
+    *(a5 + 192) = v16;
     goto LABEL_16;
   }
 
-  v16 = vg::ear_detection::EarLandmarksModel::estimateEarSide((v85 + 2));
-  if (*(a1 + 48) == 1 && (v16 & 0x100000000) != 0)
+  v17 = vg::ear_detection::EarLandmarksModel::estimateEarSide((v85 + 2));
+  if (*(a1 + 48) == 1 && (v17 & 0x100000000) != 0)
   {
-    v16 = vg::ear_detection::EarSideSmoothPredictor::estimateSmoothEarSide(*(a1 + 24), v16);
+    v17 = vg::ear_detection::EarSideSmoothPredictor::estimateSmoothEarSide(*(a1 + 24), v17);
   }
 
-  if ((v16 & 0x100000000) == 0)
+  if ((v17 & 0x100000000) == 0)
   {
 LABEL_14:
     *a5 = 0;
     *(a5 + 176) = 0;
-    v14 = 1;
+    v15 = 1;
 LABEL_15:
-    *(a5 + 192) = v14;
+    *(a5 + 192) = v15;
     goto LABEL_16;
   }
 
@@ -4392,7 +4354,7 @@ LABEL_15:
   *__src = 0u;
   *__p = 0u;
   v81 = 0u;
-  LODWORD(v71) = v16;
+  LODWORD(v71) = v17;
   std::vector<float>::reserve(__src, 0x31uLL);
   std::vector<float>::reserve(&__p[1], 0x31uLL);
   for (i = 0; i != 1176; i += 24)
@@ -4590,11 +4552,11 @@ LABEL_56:
   v67 = __src[1];
   v68 = (__src[1] - __src[0]) >> 2;
   *(a5 + 144) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a5 + 128, v66, v67, v68);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a5 + 128), v66, v67, v68);
   *(a5 + 152) = 0;
   *(a5 + 160) = 0;
   *(a5 + 168) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a5 + 152, __p[1], v81, (v81 - __p[1]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a5 + 152), __p[1], v81, (v81 - __p[1]) >> 2);
   *(a5 + 176) = 1;
   *(a5 + 192) = 0;
   if (__p[1])
@@ -4610,18 +4572,16 @@ LABEL_56:
   }
 
 LABEL_16:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-void sub_270F16948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_270F16948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  v16 = *v14;
-  if (*v14)
+  va_start(va, a18);
+  v23 = *v21;
+  if (*v21)
   {
-    *(v13 + 136) = v16;
-    operator delete(v16);
+    *(v20 + 136) = v23;
+    operator delete(v23);
   }
 
   vg::ear_detection::EarPose::~EarPose(va);
@@ -4633,16 +4593,17 @@ uint64_t vg::ear_detection::EarPCADetectorImpl::checkEarQuality(vg::ear_detectio
 {
   v9 = a2;
   v10 = a3;
-  if (vg::ear_detection::isTooClose(v10, v11))
+  isTooClose = vg::ear_detection::isTooClose(v10, v11);
+  if (isTooClose)
   {
-    v12 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = __VGLogSharedInstance(isTooClose);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of camera too close. ", buf, 2u);
+      _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of camera too close. ", buf, 2u);
     }
 
-    v13 = 6;
+    v14 = 6;
   }
 
   else if (a4[3].f32[0] >= *(this + 8))
@@ -4650,127 +4611,128 @@ uint64_t vg::ear_detection::EarPCADetectorImpl::checkEarQuality(vg::ear_detectio
     if (a4[3].f32[1] >= *(this + 9))
     {
       MeanLandmarkVisibility = vg::ear_detection::EarLandmarksModel::Landmarks::getMeanLandmarkVisibility(a5);
-      v15 = *(this + 10);
-      if (MeanLandmarkVisibility >= v15 && vg::ear_detection::EarLandmarksModel::Landmarks::getVisibleLandmarksFraction(a5, v15) >= 0.5)
+      v17 = *(this + 10);
+      if (MeanLandmarkVisibility >= v17 && vg::ear_detection::EarLandmarksModel::Landmarks::getVisibleLandmarksFraction(a5, v17) >= 0.5)
       {
         for (i = 704; i != 1136; i += 24)
         {
           if (*(a5 + i) < *(this + 10))
           {
-            v12 = __VGLogSharedInstance();
-            v13 = 2;
-            if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+            v13 = __VGLogSharedInstance(v15);
+            v14 = 2;
+            if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_18;
             }
 
-            v34 = 0;
-            v16 = " Frame rejected by pose estimator because of low inner landmarks visibility ";
-            v17 = &v34;
+            v37 = 0;
+            v18 = " Frame rejected by pose estimator because of low inner landmarks visibility ";
+            v19 = &v37;
             goto LABEL_17;
           }
         }
 
-        v20 = [(IOSurface *)v10 width];
-        v21 = [(IOSurface *)v9 width];
-        v22 = [(IOSurface *)v10 height];
-        v23 = [(IOSurface *)v9 height];
-        v24 = v20 / v21;
-        v25 = v22 / v23;
-        v26.n128_f32[0] = v24 * COERCE_FLOAT(*a4->f32);
-        v26.n128_u32[1] = vmuls_lane_f32(v25, *a4, 1);
-        v26.n128_u64[1] = __PAIR64__(COERCE_UNSIGNED_INT(vmuls_lane_f32(v25, *a4->f32, 3)), COERCE_UNSIGNED_INT(vmuls_lane_f32(v24, *a4->f32, 2)));
-        if (vg::ear_detection::isEarTooFar(v10, v26))
+        v22 = [(IOSurface *)v10 width];
+        v23 = [(IOSurface *)v9 width];
+        v24 = [(IOSurface *)v10 height];
+        v25 = [(IOSurface *)v9 height];
+        v26 = v22 / v23;
+        v27 = v24 / v25;
+        v28.n128_f32[0] = v26 * COERCE_FLOAT(*a4->f32);
+        v28.n128_u32[1] = vmuls_lane_f32(v27, *a4, 1);
+        v28.n128_u64[1] = __PAIR64__(COERCE_UNSIGNED_INT(vmuls_lane_f32(v27, *a4->f32, 3)), COERCE_UNSIGNED_INT(vmuls_lane_f32(v26, *a4->f32, 2)));
+        isEarTooFar = vg::ear_detection::isEarTooFar(v10, v28);
+        if (isEarTooFar)
         {
-          v12 = __VGLogSharedInstance();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v13 = __VGLogSharedInstance(isEarTooFar);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            *v33 = 0;
-            _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of camera too far. ", v33, 2u);
+            *v36 = 0;
+            _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of camera too far. ", v36, 2u);
           }
 
-          v13 = 7;
+          v14 = 7;
         }
 
         else
         {
           CompactBoundingBox = vg::ear_detection::EarLandmarksModel::Landmarks::makeCompactBoundingBox(a5, 0.1);
-          v27 = [(IOSurface *)v9 height];
-          v28 = [(IOSurface *)v9 width];
+          v30 = [(IOSurface *)v9 height];
+          v31 = [(IOSurface *)v9 width];
           if (CompactBoundingBox.n128_f32[0] >= 0.0)
           {
-            v29 = (v28 - 1);
-            if (CompactBoundingBox.n128_f32[0] <= v29 && CompactBoundingBox.n128_f32[1] >= 0.0)
+            v32 = (v31 - 1);
+            if (CompactBoundingBox.n128_f32[0] <= v32 && CompactBoundingBox.n128_f32[1] >= 0.0)
             {
-              v30 = (v27 - 1);
-              if (CompactBoundingBox.n128_f32[1] <= v30 && CompactBoundingBox.n128_f32[2] >= 0.0 && CompactBoundingBox.n128_f32[2] <= v29 && CompactBoundingBox.n128_f32[3] >= 0.0 && CompactBoundingBox.n128_f32[3] <= v30)
+              v33 = (v30 - 1);
+              if (CompactBoundingBox.n128_f32[1] <= v33 && CompactBoundingBox.n128_f32[2] >= 0.0 && CompactBoundingBox.n128_f32[2] <= v32 && CompactBoundingBox.n128_f32[3] >= 0.0 && CompactBoundingBox.n128_f32[3] <= v33)
               {
-                v13 = 0;
+                v14 = 0;
                 goto LABEL_19;
               }
             }
           }
 
-          v12 = __VGLogSharedInstance();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v13 = __VGLogSharedInstance(v31);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            *v32 = 0;
-            _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of box out of image bounds. ", v32, 2u);
+            *v35 = 0;
+            _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of box out of image bounds. ", v35, 2u);
           }
 
-          v13 = 8;
+          v14 = 8;
         }
       }
 
       else
       {
-        v12 = __VGLogSharedInstance();
-        v13 = 2;
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v13 = __VGLogSharedInstance(v15);
+        v14 = 2;
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
-          *v35 = 0;
-          v16 = " Frame rejected by pose estimator because of low mean or percentile confidence landmarks ";
-          v17 = v35;
+          *v38 = 0;
+          v18 = " Frame rejected by pose estimator because of low mean or percentile confidence landmarks ";
+          v19 = v38;
 LABEL_17:
-          _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_DEBUG, v16, v17, 2u);
+          _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_DEBUG, v18, v19, 2u);
         }
       }
     }
 
     else
     {
-      v12 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = __VGLogSharedInstance(isTooClose);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        *v36 = 0;
-        _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of ear occlusion. ", v36, 2u);
+        *v39 = 0;
+        _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of ear occlusion. ", v39, 2u);
       }
 
-      v13 = 4;
+      v14 = 4;
     }
   }
 
   else
   {
-    v12 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = __VGLogSharedInstance(isTooClose);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      *v37 = 0;
-      _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of ear not present. ", v37, 2u);
+      *v40 = 0;
+      _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_DEBUG, " Frame rejected by pose estimator because of ear not present. ", v40, 2u);
     }
 
-    v13 = 1;
+    v14 = 1;
   }
 
 LABEL_18:
 
 LABEL_19:
-  return v13;
+  return v14;
 }
 
-void sub_270F16ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_270F16ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::unique_ptr<vg::ear_detection::EarPCADetector>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4804,20 +4766,17 @@ void vg::ear_detection::EarPCADetector::~EarPCADetector(vg::ear_detection::EarBo
 
 uint64_t vg::ear_detection::EarPCADetectorImpl::EarPCADetectorImpl(uint64_t a1, __int128 *a2)
 {
-  vg::ear_detection::EarBoundingBoxModel::create(a2 + 3, a1);
-  vg::ear_detection::EarLandmarksModel::create(a2 + 3, (a1 + 8));
+  vg::ear_detection::EarBoundingBoxModel::create(a2 + 24, a1);
+  vg::ear_detection::EarLandmarksModel::create(a2 + 24, (a1 + 8));
   vg::ear_detection::EarLandmarksPCA::create((a1 + 16));
   *(a1 + 24) = 0;
   v4 = *a2;
-  v5 = *(a2 + 12);
   *(&v4 + 1) = *(a2 + 12);
   *(a1 + 32) = v4;
-  v6 = *(a2 + 48);
-  *(a1 + 48) = v6;
-  if (v6 == 1)
+  v5 = *(a2 + 48);
+  *(a1 + 48) = v5;
+  if (v5 == 1)
   {
-    v8 = *(a2 + 13);
-    v9 = *(a2 + 14);
     vg::ear_detection::EarSideSmoothPredictor::create();
   }
 
@@ -4875,66 +4834,66 @@ vg::ear_detection::EarSideSmoothPredictor *std::unique_ptr<vg::ear_detection::Ea
 
 void vg::ear_detection::EarLandmarksPCAImpl::create(void *a1@<X8>)
 {
-  v3 = [MEMORY[0x277CCA8D8] vg_resourcePath];
-  v4 = [v3 stringByAppendingPathComponent:@"ear_landmarks_pca/lm_pca_mean.bin"];
+  v2 = [MEMORY[0x277CCA8D8] vg_resourcePath];
+  v3 = [v2 stringByAppendingPathComponent:@"ear_landmarks_pca/lm_pca_mean.bin"];
 
-  std::string::basic_string[abi:ne200100]<0>(__p, [v4 UTF8String]);
+  std::string::basic_string[abi:ne200100]<0>(__p, [v3 UTF8String]);
   vg::load1DVectorData<float>(__p, &__src);
-  if (v15 < 0)
+  if (v16 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v17 == 147)
+  if (v18 == 147)
   {
     v5 = [MEMORY[0x277CCA8D8] vg_resourcePath];
     v6 = [v5 stringByAppendingPathComponent:@"ear_landmarks_pca/lm_pca_weights.bin"];
 
-    std::string::basic_string[abi:ne200100]<0>(v11, [v6 UTF8String]);
-    vg::load1DVectorData<float>(v11, __p);
-    if (v12 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v12, [v6 UTF8String]);
+    vg::load1DVectorData<float>(v12, __p);
+    if (v13 < 0)
     {
-      operator delete(v11[0]);
+      operator delete(v12[0]);
     }
 
-    if (v14 == 2352)
+    if (v15 == 2352)
     {
-      v7 = operator new(0x270CuLL, MEMORY[0x277D826F0]);
-      v8 = v7;
-      if (v7)
+      v8 = operator new(0x270CuLL, MEMORY[0x277D826F0]);
+      v9 = v8;
+      if (v8)
       {
-        if (v17)
+        if (v18)
         {
-          memmove(v7, __src, 4 * v17);
+          memmove(v8, __src, 4 * v18);
         }
 
-        memmove(v8 + 588, __p[0], 0x24C0uLL);
+        memmove(v9 + 588, __p[0], 0x24C0uLL);
       }
     }
 
     else
     {
-      v10 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = __VGLogSharedInstance(v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v11[0]) = 0;
-        _os_log_impl(&dword_270F06000, v10, OS_LOG_TYPE_ERROR, " Invalid input data size for PCA matrix. ", v11, 2u);
+        LOWORD(v12[0]) = 0;
+        _os_log_impl(&dword_270F06000, v11, OS_LOG_TYPE_ERROR, " Invalid input data size for PCA matrix. ", v12, 2u);
       }
 
-      v8 = 0;
+      v9 = 0;
     }
 
-    *a1 = v8;
+    *a1 = v9;
     free(__p[0]);
   }
 
   else
   {
-    v9 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __VGLogSharedInstance(v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       LOWORD(__p[0]) = 0;
-      _os_log_impl(&dword_270F06000, v9, OS_LOG_TYPE_ERROR, " Invalid input data size for PCA mean vector. ", __p, 2u);
+      _os_log_impl(&dword_270F06000, v10, OS_LOG_TYPE_ERROR, " Invalid input data size for PCA mean vector. ", __p, 2u);
     }
 
     *a1 = 0;
@@ -5020,13 +4979,13 @@ char *vg::ear_detection::EarLandmarksPCAImpl::EarLandmarksPCAImpl(char *__dst, u
 void vg::ear_detection::EarLandmarksPCAImpl::computePCA(uint64_t a1@<X0>, double *a2@<X1>, int a3@<W2>, float *a4@<X8>)
 {
   v8 = 0;
-  v9 = (a2 + 2);
+  v9 = a2 + 2;
   memset(__A, 0, 512);
   do
   {
-    *(__A + v8) = vcvt_f32_f64(v9[-1]);
-    v10 = LODWORD(v9->f64[0]);
-    v9 = (v9 + 24);
+    *(__A + v8) = vcvt_f32_f64(*(v9 - 2));
+    v10 = *v9;
+    v9 += 3;
     *(&__A[24] + v8++ + 2) = v10;
   }
 
@@ -5056,9 +5015,9 @@ void vg::ear_detection::EarLandmarksPCAImpl::computePCA(uint64_t a1@<X0>, double
 
 void *vg::ear_detection::EarLandmarksPCA::create@<X0>(void *a1@<X8>)
 {
-  vg::ear_detection::EarLandmarksPCAImpl::create(&v5);
-  v3 = v5;
-  if (v5)
+  vg::ear_detection::EarLandmarksPCAImpl::create(&v4);
+  v2 = v4;
+  if (v4)
   {
     result = operator new(8uLL, MEMORY[0x277D826F0]);
     if (!result)
@@ -5068,7 +5027,7 @@ void *vg::ear_detection::EarLandmarksPCA::create@<X0>(void *a1@<X8>)
       JUMPOUT(0x2743B9370);
     }
 
-    *result = v3;
+    *result = v2;
   }
 
   else
@@ -5178,33 +5137,32 @@ float64x2_t vg::ear_detection::LandmarkModelPreProcessor::makeScaledPoint@<Q0>(f
 
 vg::ear_detection::LandmarkModelPreProcessor *vg::ear_detection::LandmarkModelPreProcessor::LandmarkModelPreProcessor(vg::ear_detection::LandmarkModelPreProcessor *this, uint64_t a2)
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   *this = 0;
   v4 = objc_alloc(MEMORY[0x277CD2930]);
-  v14[0] = *MEMORY[0x277CD2928];
+  v13[0] = *MEMORY[0x277CD2928];
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:a2];
-  v15[0] = v5;
-  v14[1] = *MEMORY[0x277CD28D0];
+  v14[0] = v5;
+  v13[1] = *MEMORY[0x277CD28D0];
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:a2];
   v7 = *MEMORY[0x277CD28D8];
-  v15[1] = v6;
-  v15[2] = &unk_2880F5E90;
+  v14[1] = v6;
+  v14[2] = &unk_2880F5E90;
   v8 = *MEMORY[0x277CD28B0];
-  v14[2] = v7;
-  v14[3] = v8;
-  v15[3] = &unk_2880F5EA8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v13[2] = v7;
+  v13[3] = v8;
+  v14[3] = &unk_2880F5EA8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
   v10 = [v4 initWithProperties:v9];
   v11 = *this;
   *this = v10;
 
-  v12 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-uint64_t vg::ear_detection::EarBoundingBoxModelImpl::EarBoundingBoxModelImpl(uint64_t a1, uint64_t a2)
+uint64_t vg::ear_detection::EarBoundingBoxModelImpl::EarBoundingBoxModelImpl(uint64_t a1, uint64_t *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   *(a1 + 16) = 0u;
   v4 = (a1 + 16);
   *(a1 + 64) = 0u;
@@ -5213,7 +5171,7 @@ uint64_t vg::ear_detection::EarBoundingBoxModelImpl::EarBoundingBoxModelImpl(uin
   *(a1 + 32) = 0u;
   *(a1 + 48) = 0u;
   *a1 = 0u;
-  v6 = VGLogEarBoundingBoxModel();
+  v6 = VGLogEarBoundingBoxModel(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     if (*(a2 + 23) >= 0)
@@ -5263,7 +5221,7 @@ uint64_t vg::ear_detection::EarBoundingBoxModelImpl::EarBoundingBoxModelImpl(uin
     std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
-  if (v30 < 0)
+  if (v27 < 0)
   {
     operator delete(*buf);
   }
@@ -5291,7 +5249,7 @@ uint64_t vg::ear_detection::EarBoundingBoxModelImpl::EarBoundingBoxModelImpl(uin
     std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
 
-  if (v30 < 0)
+  if (v27 < 0)
   {
     operator delete(*buf);
   }
@@ -5307,32 +5265,29 @@ uint64_t vg::ear_detection::EarBoundingBoxModelImpl::EarBoundingBoxModelImpl(uin
     (*(*v20 + 8))(v20);
   }
 
-  v21 = *(a1 + 48);
-  v22 = *(a1 + 72);
-  v27 = *(a1 + 64);
-  v28 = v22;
-  if (v22)
+  v21 = *(a1 + 72);
+  v25 = v21;
+  if (v21)
   {
-    atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   E5RT::IOPort::BindMemoryObject();
-  v23 = v28;
-  if (v28)
+  v22 = v25;
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
-  E5RT::ExecutionStream::CreateExecutionStream(buf, v23);
+  E5RT::ExecutionStream::CreateExecutionStream(buf, v22);
   std::shared_ptr<E5RT::ExecutionStream>::operator=[abi:ne200100]<E5RT::ExecutionStream,std::default_delete<E5RT::ExecutionStream>,0>(v4, buf);
-  v24 = *buf;
+  v23 = *buf;
   *buf = 0;
-  if (v24)
+  if (v23)
   {
-    (*(*v24 + 8))(v24);
+    (*(*v23 + 8))(v23);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -5377,16 +5332,16 @@ void sub_270F17FB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id VGLogEarBoundingBoxModel(void)
+id VGLogEarBoundingBoxModel(uint64_t a1)
 {
   if (VGLogEarBoundingBoxModel(void)::onceToken != -1)
   {
     VGLogEarBoundingBoxModel();
   }
 
-  v1 = VGLogEarBoundingBoxModel(void)::handle;
+  v2 = VGLogEarBoundingBoxModel(void)::handle;
 
-  return v1;
+  return v2;
 }
 
 void vg::ear_detection::EarBoundingBoxModelImpl::predictBoundingBox(vg::ear_detection::EarBoundingBoxModelImpl *this@<X0>, IOSurface *a2@<X1>, uint64_t a3@<X8>)
@@ -5396,19 +5351,19 @@ void vg::ear_detection::EarBoundingBoxModelImpl::predictBoundingBox(vg::ear_dete
   v6 = *(this + 10);
   if (!v6)
   {
-    LODWORD(v35[0]) = 1056964608;
+    LODWORD(v34[0]) = 1056964608;
+    v39 = 0;
     v40 = 0;
-    v41 = 0;
     __p = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&__p, v35, v35 + 4, 1uLL);
+    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&__p, v34, v34 + 1, 1uLL);
     v8 = [(IOSurface *)v5 width];
-    v34.i64[0] = __PAIR64__([(IOSurface *)v5 height], v8);
-    vg::ear_detection::BoxModelPreProcessor::create(&v34, &__p, 400, v35);
-    v9 = v35[0];
-    v35[0] = 0;
+    v33.i64[0] = __PAIR64__([(IOSurface *)v5 height], v8);
+    vg::ear_detection::BoxModelPreProcessor::create(&v33, &__p, 400, v34);
+    v9 = v34[0];
+    v34[0] = 0;
     std::unique_ptr<vg::ear_detection::BoxModelPreProcessor>::reset[abi:ne200100](this + 10, v9);
-    v10 = v35[0];
-    v35[0] = 0;
+    v10 = v34[0];
+    v34[0] = 0;
     if (v10)
     {
       vg::ear_detection::BoxModelPreProcessor::~BoxModelPreProcessor(v10);
@@ -5417,7 +5372,7 @@ void vg::ear_detection::EarBoundingBoxModelImpl::predictBoundingBox(vg::ear_dete
 
     if (__p)
     {
-      v40 = __p;
+      v39 = __p;
       operator delete(__p);
     }
 
@@ -5425,10 +5380,10 @@ void vg::ear_detection::EarBoundingBoxModelImpl::predictBoundingBox(vg::ear_dete
   }
 
   vg::ear_detection::BoxModelPreProcessor::preProcessImage(v6, v5, &__p);
-  if ((v42 & 1) == 0)
+  if ((v41 & 1) == 0)
   {
-    v18 = VGLogEarBoundingBoxModel();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = VGLogEarBoundingBoxModel(v11);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       vg::ear_detection::EarBoundingBoxModelImpl::predictBoundingBox();
     }
@@ -5436,10 +5391,11 @@ void vg::ear_detection::EarBoundingBoxModelImpl::predictBoundingBox(vg::ear_dete
     goto LABEL_18;
   }
 
-  if (vg::ear_detection::BoxModelPreProcessor::getCropCount(*v7) != 1)
+  CropCount = vg::ear_detection::BoxModelPreProcessor::getCropCount(*v7);
+  if (CropCount != 1)
   {
-    v18 = VGLogEarBoundingBoxModel();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = VGLogEarBoundingBoxModel(CropCount);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       vg::ear_detection::EarBoundingBoxModelImpl::predictBoundingBox();
     }
@@ -5451,107 +5407,104 @@ LABEL_18:
     goto LABEL_39;
   }
 
-  if ((v42 & 1) == 0)
+  if ((v41 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  v11 = *__p;
+  v13 = *__p;
   PortDescriptorRef = E5RT::IOPort::GetPortDescriptorRef(*(this + 4));
-  v13 = E5RT::OperandDescriptor::TryAsTensorDescriptor(PortDescriptorRef);
-  TensorStrides = E5RT::TensorDescriptor::GetTensorStrides(v13);
-  v15 = *(*(TensorStrides + 8) - 16);
-  if (v15 != [v11 bytesPerRow])
+  v15 = E5RT::OperandDescriptor::TryAsTensorDescriptor(PortDescriptorRef);
+  TensorStrides = E5RT::TensorDescriptor::GetTensorStrides(v15);
+  v17 = *(*(TensorStrides + 8) - 16);
+  if (v17 != [v13 bytesPerRow])
   {
-    v16 = [v11 vg_convertSurfaceStride:*(*(TensorStrides + 8) - 16)];
+    v18 = [v13 vg_convertSurfaceStride:*(*(TensorStrides + 8) - 16)];
 
-    v11 = v16;
+    v13 = v18;
   }
 
-  v17 = *(this + 4);
   E5RT::BufferObject::CreateBufferFromHandle<__IOSurface *>();
-  v37 = v35[0];
-  if (v35[0])
+  v36 = v34[0];
+  if (v34[0])
   {
     operator new();
   }
 
-  v38 = 0;
-  v35[0] = 0;
+  v37 = 0;
+  v34[0] = 0;
   E5RT::IOPort::BindMemoryObject();
-  if (v38)
+  if (v37)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v37);
   }
 
-  v19 = v35[0];
-  v35[0] = 0;
-  if (v19)
+  v20 = v34[0];
+  v34[0] = 0;
+  if (v20)
   {
-    (*(*v19 + 8))(v19);
+    (*(*v20 + 8))(v20);
   }
 
   v21 = *(this + 1);
-  v20 = *(this + 2);
-  v35[3] = *this;
-  v36 = v21;
+  v34[3] = *this;
+  v35 = v21;
   if (v21)
   {
     atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   E5RT::ExecutionStream::EncodeOperation();
-  if (v36)
+  if (v35)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
   }
 
   E5RT::ExecutionStream::ExecuteStreamSync(*(this + 2));
   E5RT::ExecutionStream::ResetStream(*(this + 2));
-  v22 = *(this + 8);
-  v23 = E5RT::BufferObject::GetHandle<__IOSurface *>();
-  if (v23)
+  v22 = E5RT::BufferObject::GetHandle<__IOSurface *>();
+  if (v22)
   {
-    v24 = E5RT::IOPort::GetPortDescriptorRef(*(this + 6));
-    v25 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v24);
-    vg::shared::VGE5RT::convertSurfaceTo1DVector(v23, v25, v26, v35);
-    v34 = *v35[0];
-    *&v27 = vg::ear_detection::BoxModelPreProcessor::makeScaledBox(*v7, &v34, 0);
-    v28 = v35[0];
-    v29 = *(v35[0] + 4);
+    v23 = E5RT::IOPort::GetPortDescriptorRef(*(this + 6));
+    v24 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v23);
+    vg::shared::VGE5RT::convertSurfaceTo1DVector(v34, v22, v24, v25);
+    v33 = *v34[0];
+    *&v26 = vg::ear_detection::BoxModelPreProcessor::makeScaledBox(*v7, &v33, 0);
+    v27 = v34[0];
+    v28 = *(v34[0] + 4);
+    v29 = 0.0;
     v30 = 0.0;
-    v31 = 0.0;
-    if (v29 >= 0.0)
-    {
-      v31 = 1.0;
-      if (v29 <= 1.0)
-      {
-        v31 = *(v35[0] + 4);
-      }
-    }
-
-    v32 = *(v35[0] + 5);
-    if (v32 >= 0.0)
+    if (v28 >= 0.0)
     {
       v30 = 1.0;
-      if (v32 <= 1.0)
+      if (v28 <= 1.0)
       {
-        v30 = *(v35[0] + 5);
+        v30 = *(v34[0] + 4);
       }
     }
 
-    *a3 = v27;
+    v31 = *(v34[0] + 5);
+    if (v31 >= 0.0)
+    {
+      v29 = 1.0;
+      if (v31 <= 1.0)
+      {
+        v29 = *(v34[0] + 5);
+      }
+    }
+
+    *a3 = v26;
     *(a3 + 16) = 0x3F8000003F800000;
-    *(a3 + 24) = v31;
-    *(a3 + 28) = v30;
+    *(a3 + 24) = v30;
+    *(a3 + 28) = v29;
     *(a3 + 32) = 1;
-    free(v28);
+    free(v27);
   }
 
   else
   {
-    v33 = VGLogEarBoundingBoxModel();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = VGLogEarBoundingBoxModel(0);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       vg::ear_detection::EarBoundingBoxModelImpl::predictBoundingBox();
     }
@@ -5561,10 +5514,10 @@ LABEL_18:
   }
 
 LABEL_39:
-  if (v42 == 1)
+  if (v41 == 1)
   {
-    v35[0] = &__p;
-    std::vector<IOSurface * {__strong}>::__destroy_vector::operator()[abi:ne200100](v35);
+    v34[0] = &__p;
+    std::vector<IOSurface * {__strong}>::__destroy_vector::operator()[abi:ne200100](v34);
   }
 }
 
@@ -5622,23 +5575,23 @@ void vg::ear_detection::EarBoundingBoxModel::~EarBoundingBoxModel(vg::ear_detect
   }
 }
 
-void vg::ear_detection::EarBoundingBoxModel::create(uint64_t *a1@<X0>, void *a2@<X8>)
+void vg::ear_detection::EarBoundingBoxModel::create(uint64_t a1@<X0>, uint64_t **a2@<X8>)
 {
-  v18[3] = *MEMORY[0x277D85DE8];
-  v4 = a1 + 23;
+  v20[3] = *MEMORY[0x277D85DE8];
+  v4 = (a1 + 23);
   if (*(a1 + 23) < 0)
   {
-    if (!a1[1])
+    if (!*(a1 + 8))
     {
 LABEL_10:
-      v13 = VGLogEarBoundingBoxModel();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = VGLogEarBoundingBoxModel(a1);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         vg::ear_detection::EarLandmarksModel::create();
       }
 
       *a2 = 0;
-      goto LABEL_20;
+      return;
     }
 
     v5 = *a1;
@@ -5655,59 +5608,59 @@ LABEL_10:
 
   v6 = MEMORY[0x277CCACA8];
   v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v5];
-  v18[0] = v7;
-  v18[1] = @"ear_bbox_detector_mlmodel";
-  v18[2] = @"ear_box_fp16.espresso.net";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v20[0] = v7;
+  v20[1] = @"ear_bbox_detector_mlmodel";
+  v20[2] = @"ear_box_fp16.espresso.net";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
   v9 = [v6 pathWithComponents:v8];
 
   v10 = [MEMORY[0x277CCAA00] defaultManager];
   v11 = v10;
   if (v9)
   {
-    if ([v10 fileExistsAtPath:v9])
+    v12 = [v10 fileExistsAtPath:v9];
+    if (v12)
     {
-      if (operator new(8uLL, MEMORY[0x277D826F0]))
+      v13 = operator new(8uLL, MEMORY[0x277D826F0]);
+      if (v13)
       {
-        v12 = v9;
-        std::string::basic_string[abi:ne200100]<0>(&__p, [v9 UTF8String]);
-        vg::ear_detection::EarBoundingBoxModel::EarBoundingBoxModel();
+        v14 = v13;
+        v15 = v9;
+        std::string::basic_string[abi:ne200100]<0>(__p, [v9 UTF8String]);
+        vg::ear_detection::EarBoundingBoxModel::EarBoundingBoxModel(v14, __p);
       }
     }
 
     else
     {
-      v15 = VGLogEarBoundingBoxModel();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = VGLogEarBoundingBoxModel(v12);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        vg::ear_detection::EarLandmarksModel::create(v9, v15);
+        vg::ear_detection::EarLandmarksModel::create(v9, v18);
       }
     }
   }
 
   else
   {
-    v14 = VGLogEarBoundingBoxModel();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = VGLogEarBoundingBoxModel(v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      vg::ear_detection::EarBoundingBoxModel::create(v4, a1, v14);
+      vg::ear_detection::EarBoundingBoxModel::create(v4, a1, v17);
     }
   }
 
   *a2 = 0;
-
-LABEL_20:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-void sub_270F188C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_270F188C0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x2743B9360](v17, MEMORY[0x277D826F0]);
+  MEMORY[0x2743B9360](v17, MEMORY[0x277D826F0], a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -5720,7 +5673,7 @@ void ___ZL24VGLogEarBoundingBoxModelv_block_invoke()
   VGLogEarBoundingBoxModel(void)::handle = v0;
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5792,22 +5745,22 @@ void vg::ear_detection::BoxModelPreProcessor::~BoxModelPreProcessor(vg::ear_dete
 void vg::ear_detection::EarBoundingBoxModelImpl::predictBoundingBox()
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Failed to prep image.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Failed to prep image.", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Single crop expected.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Single crop expected.", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Invalid box network output.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Invalid box network output.", v2, v3, v4, v5);
 }
 
 void vg::ear_detection::EarBoundingBoxModel::create(char *a1, void *a2, os_log_t log)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*a1 >= 0)
   {
     v3 = a2;
@@ -5818,14 +5771,13 @@ void vg::ear_detection::EarBoundingBoxModel::create(char *a1, void *a2, os_log_t
     v3 = *a2;
   }
 
-  v5 = 136315650;
-  v6 = v3;
-  v7 = 2112;
-  v8 = @"ear_bbox_detector_mlmodel";
-  v9 = 2112;
-  v10 = @"ear_box_fp16.espresso.net";
-  _os_log_error_impl(&dword_270F06000, log, OS_LOG_TYPE_ERROR, "Failed to create model path from modelRootPath: %s with directory: %@ and model file: %@", &v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315650;
+  v5 = v3;
+  v6 = 2112;
+  v7 = @"ear_bbox_detector_mlmodel";
+  v8 = 2112;
+  v9 = @"ear_box_fp16.espresso.net";
+  _os_log_error_impl(&dword_270F06000, log, OS_LOG_TYPE_ERROR, "Failed to create model path from modelRootPath: %s with directory: %@ and model file: %@", &v4, 0x20u);
 }
 
 double vg::frame_selection::VGExpressionFilter::remap(vg::frame_selection::VGExpressionFilter *this, float a2, float a3, float a4)
@@ -5876,10 +5828,10 @@ double vg::frame_selection::VGExpressionFilter::remap(vg::frame_selection::VGExp
   return result;
 }
 
-void sub_270F18F2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_270F18F2C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VGFaceCapture;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -5945,7 +5897,7 @@ void sub_270F1AA44(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_270F1CA50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, void **a27)
+void sub_270F1CA50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, char *a27)
 {
   a27 = &a24;
   std::vector<TargetPoseData>::__destroy_vector::operator()[abi:ne200100](&a27);
@@ -5953,7 +5905,7 @@ void sub_270F1CA50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_270F1CF58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void **a19)
+void sub_270F1CF58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t *a19)
 {
   a19 = &a13;
   std::vector<TargetPoseData>::__destroy_vector::operator()[abi:ne200100](&a19);
@@ -5965,26 +5917,26 @@ void sub_270F1CF58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_270F1D29C(_Unwind_Exception *a1)
 {
-  __74__VGFrameSelector_applyVisionFilters_bestTargetPoseData_frameTimestampMS___block_invoke();
+  __74__VGFrameSelector_applyVisionFilters_bestTargetPoseData_frameTimestampMS___block_invoke(v4);
 
   _Unwind_Resume(a1);
 }
 
-id VGLogVGFrameSelector(void)
+id VGLogVGFrameSelector(uint64_t a1)
 {
   if (VGLogVGFrameSelector(void)::onceToken != -1)
   {
     VGLogVGFrameSelector();
   }
 
-  v1 = VGLogVGFrameSelector(void)::handle;
+  v2 = VGLogVGFrameSelector(void)::handle;
 
-  return v1;
+  return v2;
 }
 
 void sub_270F1D664(_Unwind_Exception *a1)
 {
-  __86__VGFrameSelector_applyVisionFaceLandmarksFilter_bestTargetPoseData_frameTimestampMS___block_invoke();
+  __86__VGFrameSelector_applyVisionFaceLandmarksFilter_bestTargetPoseData_frameTimestampMS___block_invoke(v4);
 
   _Unwind_Resume(a1);
 }
@@ -6000,13 +5952,13 @@ void sub_270F1ED64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   a15[2]();
 
-  __93__VGFrameSelector_processHeadPose_captureData_trackingData_validDataBounds_frameTimestampMS___block_invoke();
+  __93__VGFrameSelector_processHeadPose_captureData_trackingData_validDataBounds_frameTimestampMS___block_invoke(v71);
   _Unwind_Resume(a1);
 }
 
 void sub_270F1FFD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37)
 {
-  __82__VGFrameSelector_processCaptureData_trackingData_framePose_validDataFrameBounds___block_invoke();
+  __82__VGFrameSelector_processCaptureData_trackingData_framePose_validDataFrameBounds___block_invoke(v42);
 
   _Unwind_Resume(a1);
 }
@@ -6015,54 +5967,54 @@ void vg::frame_selection::frameRejectionReasonToString(int a1@<W0>, std::string 
 {
   {
     std::string::basic_string[abi:ne200100]<0>(vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString, "kNone");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[24], "kBadState");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[48], "kNoTrackingData");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[72], "kNoTrackedFace");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[96], "kTrackedFaceIdentifierChanged");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[120], "kLowContrast");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[144], "kMotionBlurDetected");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[168], "kMotionBlurTemporalStateInit");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[192], "kLowTrackingConfidence");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[216], "kFaceLandmarksNotDetected");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[240], "kWarmupFrameFiltering");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[264], "kFaceLeftOfFOV");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[288], "kFaceRightOfFOV");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[312], "kFaceTopOfFOV");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[336], "kFaceBottomOfFOV");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[360], "kOutOfRange");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[384], "kExpressionOtherFilter");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[408], "kExpressionIsEyesNeutralOpenFilter");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[432], "kExpressionIsNeutralFilter");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[456], "kExpressionIsEyesForwardFilter");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[480], "kExpressionIsAlmostNeutralFilter");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[504], "kExpressionIsMouthOpenFilter");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[528], "kExpressionIsSmileClosedMouthFilter");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[552], "kLowerScore");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[576], "kBadAlignment");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[600], "kLowerAlignment");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[624], "kDistanceFilterFaceTooClose");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[648], "kDistanceFilterFaceTooFar");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[672], "kExpressionIsBlink");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[696], "kBodyPoseGuidanceBodyJointsNotVisible");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[720], "kBodyPoseGuidanceHeadNotUpright");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[744], "kBodyPoseGuidanceShouldersNotStraight");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[768], "kBodyPoseGuidanceLeftElbowTooHigh");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[792], "kBodyPoseGuidanceLeftElbowTooLow");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[816], "kBodyPoseGuidanceRightElbowTooHigh");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[840], "kBodyPoseGuidanceRightElbowTooLow");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[864], "kBodyPoseGuidanceShoulderHeightAsymmetric");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[888], "kBodyPoseGuidanceLeftShoulderTooFarBehind");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[912], "kBodyPoseGuidanceLeftShoulderTooFarInFront");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[936], "kBodyPoseGuidanceRightShoulderTooFarBehind");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[960], "kBodyPoseGuidanceRightShoulderTooFarInFront");
-    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[984], "kBodyPoseGuidanceLowerAggregatedScore");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[3], "kBadState");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[6], "kNoTrackingData");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[9], "kNoTrackedFace");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[12], "kTrackedFaceIdentifierChanged");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[15], "kLowContrast");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[18], "kMotionBlurDetected");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[21], "kMotionBlurTemporalStateInit");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[24], "kLowTrackingConfidence");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[27], "kFaceLandmarksNotDetected");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[30], "kWarmupFrameFiltering");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[33], "kFaceLeftOfFOV");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[36], "kFaceRightOfFOV");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[39], "kFaceTopOfFOV");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[42], "kFaceBottomOfFOV");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[45], "kOutOfRange");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[48], "kExpressionOtherFilter");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[51], "kExpressionIsEyesNeutralOpenFilter");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[54], "kExpressionIsNeutralFilter");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[57], "kExpressionIsEyesForwardFilter");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[60], "kExpressionIsAlmostNeutralFilter");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[63], "kExpressionIsMouthOpenFilter");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[66], "kExpressionIsSmileClosedMouthFilter");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[69], "kLowerScore");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[72], "kBadAlignment");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[75], "kLowerAlignment");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[78], "kDistanceFilterFaceTooClose");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[81], "kDistanceFilterFaceTooFar");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[84], "kExpressionIsBlink");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[87], "kBodyPoseGuidanceBodyJointsNotVisible");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[90], "kBodyPoseGuidanceHeadNotUpright");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[93], "kBodyPoseGuidanceShouldersNotStraight");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[96], "kBodyPoseGuidanceLeftElbowTooHigh");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[99], "kBodyPoseGuidanceLeftElbowTooLow");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[102], "kBodyPoseGuidanceRightElbowTooHigh");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[105], "kBodyPoseGuidanceRightElbowTooLow");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[108], "kBodyPoseGuidanceShoulderHeightAsymmetric");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[111], "kBodyPoseGuidanceLeftShoulderTooFarBehind");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[114], "kBodyPoseGuidanceLeftShoulderTooFarInFront");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[117], "kBodyPoseGuidanceRightShoulderTooFarBehind");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[120], "kBodyPoseGuidanceRightShoulderTooFarInFront");
+    std::string::basic_string[abi:ne200100]<0>(&vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[123], "kBodyPoseGuidanceLowerAggregatedScore");
   }
 
-  v4 = &vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[24 * a1];
-  if (v4[23] < 0)
+  v4 = &vg::frame_selection::frameRejectionReasonToString(vg::frame_selection::FrameRejectionReason)::kFrameRejectionReasonToString[3 * a1];
+  if (*(v4 + 23) < 0)
   {
     v5 = *v4;
-    v6 = *(v4 + 1);
+    v6 = v4[1];
 
     std::string::__init_copy_ctor_external(a2, v5, v6);
   }
@@ -6070,24 +6022,24 @@ void vg::frame_selection::frameRejectionReasonToString(int a1@<W0>, std::string 
   else
   {
     *&a2->__r_.__value_.__l.__data_ = *v4;
-    a2->__r_.__value_.__r.__words[2] = *(v4 + 2);
+    a2->__r_.__value_.__r.__words[2] = v4[2];
   }
 }
 
-void *std::vector<TargetPoseData>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<TargetPoseData>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<TargetPoseData>::__vallocate[abi:ne200100](result, a2);
+    std::vector<TargetPoseData>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<TargetPoseData>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TargetPoseData>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x24924924924924ALL)
   {
@@ -6152,21 +6104,21 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-void std::vector<TargetPoseData>::__assign_with_size[abi:ne200100]<TargetPoseData*,TargetPoseData*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<TargetPoseData>::__assign_with_size[abi:ne200100]<TargetPoseData*,TargetPoseData*>(id **a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v7 = *a1;
-  if (0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *a1) >> 4) < a4)
+  if (0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 4) < a4)
   {
     std::vector<TargetPoseData>::__vdeallocate(a1);
     if (a4 <= 0x249249249249249)
     {
-      v8 = 0xDB6DB6DB6DB6DB6ELL * ((*(a1 + 16) - *a1) >> 4);
+      v8 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 4);
       if (v8 <= a4)
       {
         v8 = a4;
       }
 
-      if ((0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *a1) >> 4)) >= 0x124924924924924)
+      if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 4)) >= 0x124924924924924)
       {
         v9 = 0x249249249249249;
       }
@@ -6182,12 +6134,12 @@ void std::vector<TargetPoseData>::__assign_with_size[abi:ne200100]<TargetPoseDat
     std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
   }
 
-  v10 = *(a1 + 8) - v7;
+  v10 = a1[1] - v7;
   if (0x6DB6DB6DB6DB6DB7 * (v10 >> 4) >= a4)
   {
     std::__copy_impl::operator()[abi:ne200100]<TargetPoseData *,TargetPoseData *,TargetPoseData *>(&v22, a2, a3, v7);
     v18 = v17;
-    v19 = *(a1 + 8);
+    v19 = a1[1];
     if (v19 != v17)
     {
       do
@@ -6200,17 +6152,17 @@ void std::vector<TargetPoseData>::__assign_with_size[abi:ne200100]<TargetPoseDat
       while (v20 != v18);
     }
 
-    *(a1 + 8) = v18;
+    a1[1] = v18;
   }
 
   else
   {
     v11 = a2 + v10;
     std::__copy_impl::operator()[abi:ne200100]<TargetPoseData *,TargetPoseData *,TargetPoseData *>(&v21, a2, a2 + v10, v7);
-    v12 = *(a1 + 8);
+    v12 = a1[1];
     if (v11 != a3)
     {
-      v13 = *(a1 + 8);
+      v13 = a1[1];
       do
       {
         *v13 = *v11;
@@ -6231,11 +6183,11 @@ void std::vector<TargetPoseData>::__assign_with_size[abi:ne200100]<TargetPoseDat
       while (v11 != a3);
     }
 
-    *(a1 + 8) = v12;
+    a1[1] = v12;
   }
 }
 
-void std::vector<TargetPoseData>::__vdeallocate(void **a1)
+void std::vector<TargetPoseData>::__vdeallocate(id **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -6415,9 +6367,9 @@ LABEL_18:
   return v5;
 }
 
-void sub_270F210D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_270F210D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TargetPoseData>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6635,50 +6587,48 @@ void sub_270F22C64(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-id VGLogVGEarPCASelectionState(void)
+id VGLogVGEarPCASelectionState(uint64_t a1)
 {
   if (VGLogVGEarPCASelectionState(void)::onceToken != -1)
   {
     VGLogVGEarPCASelectionState();
   }
 
-  v1 = VGLogVGEarPCASelectionState(void)::handle;
+  v2 = VGLogVGEarPCASelectionState(void)::handle;
 
-  return v1;
+  return v2;
 }
 
-void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm(void *a1, unint64_t a2)
+void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE8__appendEm(a1, a2 - v2);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE8__appendEm(result, a2 - v2);
   }
 }
 
-void sub_270F232C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_270F232C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<EarFrame>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<EarFrame>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<EarFrame>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 6) < a2)
   {
     if (a2 < 0x155555555555556)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<EarFrame>>(result, a2);
     }
 
@@ -6688,9 +6638,9 @@ void *std::vector<EarFrame>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_270F233A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_270F233A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<EarFrame>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6710,20 +6660,17 @@ void sub_270F239D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(void *result, unint64_t a2)
+void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv2_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(result, a2);
+      _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv2_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(a1, a2);
     }
 
     std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_270F2416C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
@@ -6893,7 +6840,7 @@ void anonymous namespace::EarFrameGroup::addFrame(_anonymous_namespace_::EarFram
   *&v37[2].captureData = v42;
   if (v37 != a2)
   {
-    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v37[3].captureData, a2[3].captureData, *&a2[3].pose.side, (*&a2[3].pose.side - a2[3].captureData) >> 2);
+    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v37[3], a2[3].captureData, *&a2[3].pose.side, (*&a2[3].pose.side - a2[3].captureData) >> 2);
     std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v37[3].pose.faceYawAngle, *&a2[3].pose.faceYawAngle, *&a2[3].pose.yawAngle, (*&a2[3].pose.yawAngle - *&a2[3].pose.faceYawAngle) >> 2);
   }
 
@@ -6919,7 +6866,7 @@ void EarFrame::~EarFrame(EarFrame *this)
   }
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7085,7 +7032,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<EarFrame>>(uint64_t a
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<EarFrame>,EarFrame*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<EarFrame>,EarFrame*>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   v18 = a4;
   v19 = a4;
@@ -7106,37 +7053,37 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<Ea
       v8 = *v7;
       *v7 = 0;
       *a4 = v8;
-      v9 = *(v7 + 16);
-      v10 = *(v7 + 32);
-      v11 = *(v7 + 64);
-      *(a4 + 48) = *(v7 + 48);
+      v9 = *(v7 + 1);
+      v10 = *(v7 + 2);
+      v11 = *(v7 + 4);
+      *(a4 + 48) = *(v7 + 3);
       *(a4 + 64) = v11;
       *(a4 + 16) = v9;
       *(a4 + 32) = v10;
-      v12 = *(v7 + 80);
-      v13 = *(v7 + 96);
-      v14 = *(v7 + 128);
-      *(a4 + 112) = *(v7 + 112);
+      v12 = *(v7 + 5);
+      v13 = *(v7 + 6);
+      v14 = *(v7 + 8);
+      *(a4 + 112) = *(v7 + 7);
       *(a4 + 128) = v14;
       *(a4 + 80) = v12;
       *(a4 + 96) = v13;
       *(a4 + 152) = 0;
       *(a4 + 160) = 0;
       *(a4 + 144) = 0;
-      *(a4 + 144) = *(v7 + 144);
-      *(a4 + 160) = *(v7 + 160);
-      *(v7 + 144) = 0;
-      *(v7 + 152) = 0;
-      *(v7 + 160) = 0;
+      *(a4 + 144) = *(v7 + 9);
+      *(a4 + 160) = v7[20];
+      v7[18] = 0;
+      v7[19] = 0;
+      v7[20] = 0;
       *(a4 + 168) = 0;
       *(a4 + 176) = 0;
       *(a4 + 184) = 0;
-      *(a4 + 168) = *(v7 + 168);
-      *(a4 + 184) = *(v7 + 184);
-      *(v7 + 168) = 0;
-      *(v7 + 176) = 0;
-      *(v7 + 184) = 0;
-      v7 += 192;
+      *(a4 + 168) = *(v7 + 21);
+      *(a4 + 184) = v7[23];
+      v7[21] = 0;
+      v7[22] = 0;
+      v7[23] = 0;
+      v7 += 24;
       a4 += 192;
     }
 
@@ -7146,7 +7093,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<Ea
     while (v5 != a3)
     {
       std::allocator_traits<std::allocator<EarFrame>>::destroy[abi:ne200100]<EarFrame,void,0>(a1, v5);
-      v5 += 192;
+      v5 += 24;
     }
   }
 
@@ -7228,7 +7175,7 @@ void std::__split_buffer<EarFrame>::__destruct_at_end[abi:ne200100](uint64_t a1,
   }
 }
 
-uint64_t std::vector<EarFrame>::__construct_one_at_end[abi:ne200100]<EarFrame const&>(uint64_t a1, uint64_t a2)
+uint64_t *std::vector<EarFrame>::__construct_one_at_end[abi:ne200100]<EarFrame const&>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 8);
   *v4 = *a2;
@@ -7249,11 +7196,11 @@ uint64_t std::vector<EarFrame>::__construct_one_at_end[abi:ne200100]<EarFrame co
   *(v4 + 144) = 0;
   *(v4 + 152) = 0;
   *(v4 + 160) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4 + 144, *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v4 + 144), *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 2);
   *(v4 + 168) = 0;
   *(v4 + 176) = 0;
   *(v4 + 184) = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4 + 168, *(a2 + 168), *(a2 + 176), (*(a2 + 176) - *(a2 + 168)) >> 2);
+  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v4 + 168), *(a2 + 168), *(a2 + 176), (*(a2 + 176) - *(a2 + 168)) >> 2);
   *(a1 + 8) = v4 + 192;
   return result;
 }
@@ -7271,21 +7218,21 @@ void sub_270F24DC0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<EarFrame>::__emplace_back_slow_path<EarFrame const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<EarFrame>::__emplace_back_slow_path<EarFrame const&>(uint64_t a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 6);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 6);
   v3 = v2 + 1;
   if (v2 + 1 > 0x155555555555555)
   {
     std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((a1[2] - *a1) >> 6) > v3)
+  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 6) > v3)
   {
-    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 6);
+    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 6);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 6) >= 0xAAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 6) >= 0xAAAAAAAAAAAAAALL)
   {
     v6 = 0x155555555555555;
   }
@@ -7323,20 +7270,20 @@ uint64_t std::vector<EarFrame>::__emplace_back_slow_path<EarFrame const&>(uint64
   *(v7 + 144) = 0;
   *(v7 + 152) = 0;
   *(v7 + 160) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(192 * v2 + 144, *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((192 * v2 + 144), *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 2);
   *(v7 + 168) = 0;
   *(v7 + 176) = 0;
   *(v7 + 184) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(192 * v2 + 168, *(a2 + 168), *(a2 + 176), (*(a2 + 176) - *(a2 + 168)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((192 * v2 + 168), *(a2 + 168), *(a2 + 176), (*(a2 + 176) - *(a2 + 168)) >> 2);
   *&v22 = v22 + 192;
-  v14 = a1[1];
+  v14 = *(a1 + 8);
   v15 = v21 + *a1 - v14;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<EarFrame>,EarFrame*>(a1, *a1, v14, v15);
   v16 = *a1;
   *a1 = v15;
-  v17 = a1[2];
+  v17 = *(a1 + 16);
   v19 = v22;
-  *(a1 + 1) = v22;
+  *(a1 + 8) = v22;
   *&v22 = v16;
   *(&v22 + 1) = v17;
   v20 = v16;
@@ -7345,9 +7292,9 @@ uint64_t std::vector<EarFrame>::__emplace_back_slow_path<EarFrame const&>(uint64
   return v19;
 }
 
-void sub_270F24F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_270F24F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<EarFrame>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7362,7 +7309,7 @@ void std::vector<EarFrame>::__base_destruct_at_end[abi:ne200100](uint64_t a1, ui
   *(a1 + 8) = a2;
 }
 
-void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(void *result, char *__src, char *a3, unint64_t a4)
+void **_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7437,7 +7384,7 @@ void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IP
   return result;
 }
 
-void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -7470,7 +7417,7 @@ uint64_t std::array<EarFrame,3ul>::array(uint64_t a1, uint64_t a2)
   for (i = 0; i != 576; i += 192)
   {
     v5 = a1 + i;
-    v6 = (a2 + i);
+    v6 = a2 + i;
     *v5 = *(a2 + i);
     v7 = *(a2 + i + 80);
     v8 = *(a2 + i + 96);
@@ -7491,12 +7438,12 @@ uint64_t std::array<EarFrame,3ul>::array(uint64_t a1, uint64_t a2)
     *(v5 + 96) = v8;
     *(v5 + 152) = 0;
     *(v5 + 160) = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + i + 144, v6[18], v6[19], (v6[19] - v6[18]) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + i + 144), *(v6 + 144), *(v6 + 152), (*(v6 + 152) - *(v6 + 144)) >> 2);
     *(v5 + 168) = 0;
     *(v5 + 176) = 0;
-    v15 = a1 + i + 168;
-    *(v15 + 16) = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v15, v6[21], v6[22], (v6[22] - v6[21]) >> 2);
+    v15 = (a1 + i + 168);
+    v15[2] = 0;
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v15, *(v6 + 168), *(v6 + 176), (*(v6 + 176) - *(v6 + 168)) >> 2);
   }
 
   return a1;
@@ -7571,7 +7518,7 @@ void vg::ear_detection::EarPCADetector::EarDetectionOutput::~EarDetectionOutput(
   }
 }
 
-vg::ear_detection::EarPCADetector *std::unique_ptr<vg::ear_detection::EarPCADetector>::reset[abi:ne200100](vg::ear_detection::EarPCADetector **a1, vg::ear_detection::EarPCADetector *a2)
+vg::ear_detection::EarBoundingBoxModel ***std::unique_ptr<vg::ear_detection::EarPCADetector>::reset[abi:ne200100](vg::ear_detection::EarBoundingBoxModel ****a1, vg::ear_detection::EarBoundingBoxModel ***a2)
 {
   result = *a1;
   *a1 = a2;
@@ -7585,23 +7532,23 @@ vg::ear_detection::EarPCADetector *std::unique_ptr<vg::ear_detection::EarPCADete
   return result;
 }
 
-void sub_270F25968(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_270F25968(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VGFaceKitTracker;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_270F25AA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_270F25AA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   cva::DictionaryHandler::~DictionaryHandler(va);
   _Unwind_Resume(a1);
 }
 
-void sub_270F25BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_270F25BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   cva::DictionaryHandler::~DictionaryHandler(va);
   _Unwind_Resume(a1);
 }
@@ -7613,9 +7560,9 @@ void sub_270F2691C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_270F26A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_270F26A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -7645,22 +7592,20 @@ BOOL device_space_joint_pos(float32x4_t *a1, void *a2, uint64_t a3)
   return v9 >= 0.2;
 }
 
-void missing_joint(NSString *a1@<X0>, uint64_t a2@<X8>)
+void missing_joint(uint64_t *__return_ptr a1@<X8>, NSString *a2@<X0>)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v3 = a1;
+  v9[1] = *MEMORY[0x277D85DE8];
+  v3 = a2;
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not calculate pose values. Joint %@ not visible. Try a different pose.", v3];
-  *a2 = 29;
-  *(a2 + 8) = [MEMORY[0x277CCACA8] stringWithFormat:@"Body Pose Guidance filter failed with feedback: %@", v4];
-  *(a2 + 16) = 0;
-  v8 = v4;
-  v9 = @"poseGuidance";
-  v7 = @"feedback";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
-  v10[0] = v5;
-  *(a2 + 24) = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  *a1 = 29;
+  a1[1] = [MEMORY[0x277CCACA8] stringWithFormat:@"Body Pose Guidance filter failed with feedback: %@", v4];
+  a1[2] = 0;
+  v7 = v4;
+  v8 = @"poseGuidance";
+  v6 = @"feedback";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+  v9[0] = v5;
+  a1[3] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 }
 
 float angle_deg_in_2d_plane(float32x4_t a1, float32x4_t a2, float32x4_t a3)
@@ -7682,59 +7627,59 @@ float deg_angle_between(float32x4_t a1, float32x4_t a2)
 
 void ___ZL25blendshapesInitializationv_block_invoke()
 {
-  v9[51] = *MEMORY[0x277D85DE8];
-  v9[0] = @"eyeBlink_L";
-  v9[1] = @"eyeBlink_R";
-  v9[2] = @"eyeSquint_L";
-  v9[3] = @"eyeSquint_R";
-  v9[4] = @"eyeLookDown_L";
-  v9[5] = @"eyeLookDown_R";
-  v9[6] = @"eyeLookIn_L";
-  v9[7] = @"eyeLookIn_R";
-  v9[8] = @"eyeWide_L";
-  v9[9] = @"eyeWide_R";
-  v9[10] = @"eyeLookOut_L";
-  v9[11] = @"eyeLookOut_R";
-  v9[12] = @"eyeLookUp_L";
-  v9[13] = @"eyeLookUp_R";
-  v9[14] = @"browDown_L";
-  v9[15] = @"browDown_R";
-  v9[16] = @"browInnerUp";
-  v9[17] = @"browOuterUp_L";
-  v9[18] = @"browOuterUp_R";
-  v9[19] = @"jawOpen";
-  v9[20] = @"mouthClose";
-  v9[21] = @"jawLeft";
-  v9[22] = @"jawRight";
-  v9[23] = @"jawForward";
-  v9[24] = @"mouthUpperUp_L";
-  v9[25] = @"mouthUpperUp_R";
-  v9[26] = @"mouthLowerDown_L";
-  v9[27] = @"mouthLowerDown_R";
-  v9[28] = @"mouthRollUpper";
-  v9[29] = @"mouthRollLower";
-  v9[30] = @"mouthSmile_L";
-  v9[31] = @"mouthSmile_R";
-  v9[32] = @"mouthDimple_L";
-  v9[33] = @"mouthDimple_R";
-  v9[34] = @"mouthStretch_L";
-  v9[35] = @"mouthStretch_R";
-  v9[36] = @"mouthFrown_L";
-  v9[37] = @"mouthFrown_R";
-  v9[38] = @"mouthPress_L";
-  v9[39] = @"mouthPress_R";
-  v9[40] = @"mouthPucker";
-  v9[41] = @"mouthFunnel";
-  v9[42] = @"mouthLeft";
-  v9[43] = @"mouthRight";
-  v9[44] = @"mouthShrugLower";
-  v9[45] = @"mouthShrugUpper";
-  v9[46] = @"noseSneer_L";
-  v9[47] = @"noseSneer_R";
-  v9[48] = @"cheekPuff";
-  v9[49] = @"cheekSquint_L";
-  v9[50] = @"cheekSquint_R";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:51];
+  v8[51] = *MEMORY[0x277D85DE8];
+  v8[0] = @"eyeBlink_L";
+  v8[1] = @"eyeBlink_R";
+  v8[2] = @"eyeSquint_L";
+  v8[3] = @"eyeSquint_R";
+  v8[4] = @"eyeLookDown_L";
+  v8[5] = @"eyeLookDown_R";
+  v8[6] = @"eyeLookIn_L";
+  v8[7] = @"eyeLookIn_R";
+  v8[8] = @"eyeWide_L";
+  v8[9] = @"eyeWide_R";
+  v8[10] = @"eyeLookOut_L";
+  v8[11] = @"eyeLookOut_R";
+  v8[12] = @"eyeLookUp_L";
+  v8[13] = @"eyeLookUp_R";
+  v8[14] = @"browDown_L";
+  v8[15] = @"browDown_R";
+  v8[16] = @"browInnerUp";
+  v8[17] = @"browOuterUp_L";
+  v8[18] = @"browOuterUp_R";
+  v8[19] = @"jawOpen";
+  v8[20] = @"mouthClose";
+  v8[21] = @"jawLeft";
+  v8[22] = @"jawRight";
+  v8[23] = @"jawForward";
+  v8[24] = @"mouthUpperUp_L";
+  v8[25] = @"mouthUpperUp_R";
+  v8[26] = @"mouthLowerDown_L";
+  v8[27] = @"mouthLowerDown_R";
+  v8[28] = @"mouthRollUpper";
+  v8[29] = @"mouthRollLower";
+  v8[30] = @"mouthSmile_L";
+  v8[31] = @"mouthSmile_R";
+  v8[32] = @"mouthDimple_L";
+  v8[33] = @"mouthDimple_R";
+  v8[34] = @"mouthStretch_L";
+  v8[35] = @"mouthStretch_R";
+  v8[36] = @"mouthFrown_L";
+  v8[37] = @"mouthFrown_R";
+  v8[38] = @"mouthPress_L";
+  v8[39] = @"mouthPress_R";
+  v8[40] = @"mouthPucker";
+  v8[41] = @"mouthFunnel";
+  v8[42] = @"mouthLeft";
+  v8[43] = @"mouthRight";
+  v8[44] = @"mouthShrugLower";
+  v8[45] = @"mouthShrugUpper";
+  v8[46] = @"noseSneer_L";
+  v8[47] = @"noseSneer_R";
+  v8[48] = @"cheekPuff";
+  v8[49] = @"cheekSquint_L";
+  v8[50] = @"cheekSquint_R";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:51];
   v1 = objc_opt_new();
   for (i = 0; i < [v0 count]; ++i)
   {
@@ -7749,59 +7694,57 @@ void ___ZL25blendshapesInitializationv_block_invoke()
 
   v7 = _blendshapeNameToIdx;
   _blendshapeNameToIdx = v1;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 id vg::frame_selection::VGEarCaptureOptions::toDictionary(vg::frame_selection::VGEarCaptureOptions *this, double a2)
 {
-  v37[17] = *MEMORY[0x277D85DE8];
-  v36[0] = @"earPresenceThreshold";
+  v36[17] = *MEMORY[0x277D85DE8];
+  v35[0] = @"earPresenceThreshold";
   LODWORD(a2) = *this;
-  v35 = [MEMORY[0x277CCABB0] numberWithFloat:a2];
-  v37[0] = v35;
-  v36[1] = @"earOcclusionThreshold";
+  v34 = [MEMORY[0x277CCABB0] numberWithFloat:a2];
+  v36[0] = v34;
+  v35[1] = @"earOcclusionThreshold";
   LODWORD(v3) = *(this + 1);
-  v34 = [MEMORY[0x277CCABB0] numberWithFloat:v3];
-  v37[1] = v34;
-  v36[2] = @"bboxVisibilityThreshold";
+  v33 = [MEMORY[0x277CCABB0] numberWithFloat:v3];
+  v36[1] = v33;
+  v35[2] = @"bboxVisibilityThreshold";
   LODWORD(v4) = *(this + 2);
-  v33 = [MEMORY[0x277CCABB0] numberWithFloat:v4];
-  v37[2] = v33;
-  v36[3] = @"landmarkVisibilityThreshold";
+  v32 = [MEMORY[0x277CCABB0] numberWithFloat:v4];
+  v36[2] = v32;
+  v35[3] = @"landmarkVisibilityThreshold";
   LODWORD(v5) = *(this + 3);
-  v32 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
-  v37[3] = v32;
-  v36[4] = @"percentileDetectionConfidence";
+  v31 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
+  v36[3] = v31;
+  v35[4] = @"percentileDetectionConfidence";
   LODWORD(v6) = *(this + 4);
-  v31 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
-  v37[4] = v31;
-  v36[5] = @"yawCount";
-  v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 3)];
-  v37[5] = v30;
-  v36[6] = @"pitchCount";
-  v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 4)];
-  v37[6] = v29;
-  v36[7] = @"yawLimit";
+  v30 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
+  v36[4] = v30;
+  v35[5] = @"yawCount";
+  v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 3)];
+  v36[5] = v29;
+  v35[6] = @"pitchCount";
+  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 4)];
+  v36[6] = v28;
+  v35[7] = @"yawLimit";
   LODWORD(v7) = *(this + 10);
   v8 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-  v37[7] = v8;
-  v36[8] = @"yawSensitivity";
+  v36[7] = v8;
+  v35[8] = @"yawSensitivity";
   LODWORD(v9) = *(this + 11);
   v10 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
-  v37[8] = v10;
-  v36[9] = @"pitchLimit";
+  v36[8] = v10;
+  v35[9] = @"pitchLimit";
   LODWORD(v11) = *(this + 12);
   v12 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
-  v37[9] = v12;
-  v36[10] = @"pitchSensitivity";
+  v36[9] = v12;
+  v35[10] = @"pitchSensitivity";
   LODWORD(v13) = *(this + 13);
   v14 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
-  v37[10] = v14;
-  v36[11] = @"writeDebugData";
+  v36[10] = v14;
+  v35[11] = @"writeDebugData";
   v15 = [MEMORY[0x277CCABB0] numberWithBool:*(this + 56)];
-  v37[11] = v15;
-  v36[12] = @"debugDataPath";
+  v36[11] = v15;
+  v35[12] = @"debugDataPath";
   v16 = objc_alloc(MEMORY[0x277CCACA8]);
   v17 = (this + 64);
   if (*(this + 87) < 0)
@@ -7810,8 +7753,8 @@ id vg::frame_selection::VGEarCaptureOptions::toDictionary(vg::frame_selection::V
   }
 
   v18 = [v16 initWithUTF8String:v17];
-  v37[12] = v18;
-  v36[13] = @"modelsRootPath";
+  v36[12] = v18;
+  v35[13] = @"modelsRootPath";
   v19 = objc_alloc(MEMORY[0x277CCACA8]);
   v20 = (this + 88);
   if (*(this + 111) < 0)
@@ -7820,39 +7763,37 @@ id vg::frame_selection::VGEarCaptureOptions::toDictionary(vg::frame_selection::V
   }
 
   v21 = [v19 initWithUTF8String:v20];
-  v37[13] = v21;
-  v36[14] = @"useMotionBlurFilter";
+  v36[13] = v21;
+  v35[14] = @"useMotionBlurFilter";
   v22 = [MEMORY[0x277CCABB0] numberWithBool:*(this + 112)];
-  v37[14] = v22;
-  v36[15] = @"motionBlurFilterThreshold";
+  v36[14] = v22;
+  v35[15] = @"motionBlurFilterThreshold";
   LODWORD(v23) = *(this + 29);
   v24 = [MEMORY[0x277CCABB0] numberWithFloat:v23];
-  v36[16] = @"yawAngles";
+  v35[16] = @"yawAngles";
   v25 = *(this + 15);
-  v37[15] = v24;
-  v37[16] = v25;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:17];
-
-  v27 = *MEMORY[0x277D85DE8];
+  v36[15] = v24;
+  v36[16] = v25;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:17];
 
   return v26;
 }
 
 id vg::frame_selection::face_tracker::createARKitDictFromFaceKitDict(vg::frame_selection::face_tracker *this, float64x2_t *a2, const CGSize *a3)
 {
-  v45[1] = *MEMORY[0x277D85DE8];
-  v41 = this;
+  v44[1] = *MEMORY[0x277D85DE8];
+  v40 = this;
   v4 = objc_opt_new();
-  v5 = [(vg::frame_selection::face_tracker *)v41 objectForKeyedSubscript:@"timestamp"];
+  v5 = [(vg::frame_selection::face_tracker *)v40 objectForKeyedSubscript:@"timestamp"];
   [v4 setObject:v5 forKeyedSubscript:@"timestamp"];
 
-  v40 = [(vg::frame_selection::face_tracker *)v41 objectForKeyedSubscript:@"tracked_faces"];
-  if ([v40 count])
+  v39 = [(vg::frame_selection::face_tracker *)v40 objectForKeyedSubscript:@"tracked_faces"];
+  if ([v39 count])
   {
-    v39 = [v40 firstObject];
+    v38 = [v39 firstObject];
     v6 = objc_opt_new();
     [v6 setObject:&unk_2880F5CD8 forKeyedSubscript:@"confidence"];
-    v7 = [v39 objectForKeyedSubscript:@"smooth_data"];
+    v7 = [v38 objectForKeyedSubscript:@"smooth_data"];
     v8 = objc_opt_new();
     v9 = [v7 objectForKeyedSubscript:@"pose"];
     [v8 setObject:v9 forKeyedSubscript:@"pose"];
@@ -7918,24 +7859,24 @@ id vg::frame_selection::face_tracker::createARKitDictFromFaceKitDict(vg::frame_s
     else
     {
       __p = 0;
+      v42 = 0;
       v43 = 0;
-      v44 = 0;
     }
 
-    v32 = v40;
+    v32 = v39;
     v33.i32[0] = 1036831949;
-    v47.origin.x = vg::shared::computeBBox(&__p, a2, 0.1, v33);
-    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v47);
+    v46.origin.x = vg::shared::computeBBox(&__p, a2, 0.1, v33);
+    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v46);
     [v6 setObject:DictionaryRepresentation forKeyedSubscript:@"Rect"];
 
-    v45[0] = v6;
-    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
+    v44[0] = v6;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
     [v4 setObject:v35 forKeyedSubscript:@"tracked_faces"];
 
     v36 = v4;
     if (__p)
     {
-      v43 = __p;
+      v42 = __p;
       operator delete(__p);
     }
   }
@@ -7944,25 +7885,23 @@ id vg::frame_selection::face_tracker::createARKitDictFromFaceKitDict(vg::frame_s
   {
     [v4 setObject:MEMORY[0x277CBEBF8] forKeyedSubscript:@"tracked_faces"];
     v31 = v4;
-    v32 = v40;
+    v32 = v39;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
-void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEEC2B8ne200100Em(void *result, unint64_t a2)
+uint64_t *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEEC2B8ne200100Em(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_270F298EC(_Unwind_Exception *exception_object)
@@ -7984,10 +7923,10 @@ void sub_270F29AE4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_270F2A060(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_270F2A060(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VGFaceCaptureData;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7996,27 +7935,27 @@ void sub_270F3016C(_Unwind_Exception *a1)
   v2[2](v2);
 
   v1[2](v1);
-  __39__VGCaptureData__createColorFromYCbCr___block_invoke();
+  __39__VGCaptureData__createColorFromYCbCr___block_invoke(v5);
   _Unwind_Resume(a1);
 }
 
-id VGLogVGCaptureData(void)
+id VGLogVGCaptureData(uint64_t a1)
 {
   if (VGLogVGCaptureData(void)::onceToken != -1)
   {
     VGLogVGCaptureData();
   }
 
-  v1 = VGLogVGCaptureData(void)::handle;
+  v2 = VGLogVGCaptureData(void)::handle;
 
-  return v1;
+  return v2;
 }
 
 void sub_270F30754(_Unwind_Exception *a1)
 {
   v6 = v4;
 
-  __88__VGCaptureData_computeYuvHighResChromaticAdaptationReverted_chromaticAdaptationMatrix___block_invoke();
+  __88__VGCaptureData_computeYuvHighResChromaticAdaptationReverted_chromaticAdaptationMatrix___block_invoke(v8);
   _Unwind_Resume(a1);
 }
 
@@ -8031,10 +7970,10 @@ void sub_270F30FE0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_270F31D80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_270F31D80(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VGCaptureData;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8163,12 +8102,12 @@ void vg::frame_selection::VGBlendshapeExpressionFilter::processBlendshapeConfigF
 
                 if (v18)
                 {
-                  v28 = __VGLogSharedInstance();
-                  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+                  v29 = __VGLogSharedInstance(v19);
+                  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
                     v50 = v16;
-                    _os_log_impl(&dword_270F06000, v28, OS_LOG_TYPE_ERROR, " Blendshape config is invalid. Missing key: %@ ", buf, 0xCu);
+                    _os_log_impl(&dword_270F06000, v29, OS_LOG_TYPE_ERROR, " Blendshape config is invalid. Missing key: %@ ", buf, 0xCu);
                   }
 
                   goto LABEL_25;
@@ -8185,18 +8124,18 @@ void vg::frame_selection::VGBlendshapeExpressionFilter::processBlendshapeConfigF
             }
           }
 
-          v19 = [v10 objectForKeyedSubscript:@"name"];
-          v20 = v19;
-          std::string::basic_string[abi:ne200100]<0>(v51, [v19 UTF8String]);
-          v21 = [v35 objectForKeyedSubscript:v19];
-          *&v53 = [v21 unsignedIntValue];
-          v22 = [v10 objectForKeyedSubscript:@"clip_threshold_low"];
-          [v22 floatValue];
-          DWORD2(v53) = v23;
-          v24 = [v10 objectForKeyedSubscript:@"clip_threshold_high"];
-          [v24 floatValue];
-          HIDWORD(v53) = v25;
-          v26 = *(&v41 + 1);
+          v20 = [v10 objectForKeyedSubscript:@"name"];
+          v21 = v20;
+          std::string::basic_string[abi:ne200100]<0>(v51, [v20 UTF8String]);
+          v22 = [v35 objectForKeyedSubscript:v20];
+          *&v53 = [v22 unsignedIntValue];
+          v23 = [v10 objectForKeyedSubscript:@"clip_threshold_low"];
+          [v23 floatValue];
+          DWORD2(v53) = v24;
+          v25 = [v10 objectForKeyedSubscript:@"clip_threshold_high"];
+          [v25 floatValue];
+          HIDWORD(v53) = v26;
+          v27 = *(&v41 + 1);
           if (*(&v41 + 1) >= v42)
           {
             *(&v41 + 1) = std::vector<vg::frame_selection::BlendshapeConfig>::__emplace_back_slow_path<vg::frame_selection::BlendshapeConfig>(&v41, v51);
@@ -8208,13 +8147,13 @@ void vg::frame_selection::VGBlendshapeExpressionFilter::processBlendshapeConfigF
 
           else
           {
-            v27 = *v51;
+            v28 = *v51;
             *(*(&v41 + 1) + 16) = v52;
-            *v26 = v27;
+            *v27 = v28;
             v52 = 0;
             memset(v51, 0, sizeof(v51));
-            *(v26 + 24) = v53;
-            *(&v41 + 1) = v26 + 40;
+            *(v27 + 24) = v53;
+            *(&v41 + 1) = v27 + 40;
           }
 
 LABEL_25:
@@ -8238,50 +8177,49 @@ LABEL_25:
 
   else
   {
-    v29 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v30 = __VGLogSharedInstance(0);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *v51 = 138412290;
       *&v51[4] = v34;
-      _os_log_impl(&dword_270F06000, v29, OS_LOG_TYPE_ERROR, " Unable to parse blendshape config from file: %@ ", v51, 0xCu);
+      _os_log_impl(&dword_270F06000, v30, OS_LOG_TYPE_ERROR, " Unable to parse blendshape config from file: %@ ", v51, 0xCu);
     }
 
     *v31 = 0;
     *(v31 + 24) = 0;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-void vg::frame_selection::VGBlendshapeExpressionFilter::getBlendshapesFromTrackingData(vg::frame_selection::VGBlendshapeExpressionFilter *this@<X0>, uint64_t a2@<X8>)
+void vg::frame_selection::VGBlendshapeExpressionFilter::getBlendshapesFromTrackingData(vg::frame_selection::VGBlendshapeExpressionFilter *this@<X0>, uint64_t *a2@<X8>)
 {
   __p[3] = *MEMORY[0x277D85DE8];
-  v4 = [(vg::frame_selection::VGBlendshapeExpressionFilter *)this objectForKeyedSubscript:@"tracked_faces"];
-  v5 = v4;
-  if (v4 && [v4 count])
+  v3 = [(vg::frame_selection::VGBlendshapeExpressionFilter *)this objectForKeyedSubscript:@"tracked_faces"];
+  v4 = v3;
+  if (v3 && [v3 count])
   {
-    v6 = [v5 objectAtIndexedSubscript:0];
-    v7 = v6;
-    if (v6)
+    v5 = [v4 objectAtIndexedSubscript:0];
+    v6 = v5;
+    if (v5)
     {
-      v8 = [v6 objectForKeyedSubscript:@"smooth_data"];
-      v9 = [v8 objectForKeyedSubscript:@"animation"];
+      v7 = [v5 objectForKeyedSubscript:@"smooth_data"];
+      v8 = [v7 objectForKeyedSubscript:@"animation"];
 
-      v10 = [v9 objectForKeyedSubscript:@"blendshapes"];
-      v11 = v10;
-      if (v10)
+      v9 = [v8 objectForKeyedSubscript:@"blendshapes"];
+      v10 = v9;
+      if (v9)
       {
-        v12 = [v10 length];
-        v13 = +[VGFaceTrackerHelper blendshapeNames];
-        if (v12 >> 2 == [v13 count])
+        v11 = [v9 length];
+        v12 = +[VGFaceTrackerHelper blendshapeNames];
+        v13 = [v12 count];
+        if (v11 >> 2 == v13)
         {
-          v14 = [v11 bytes];
-          v15 = [v11 length];
+          v14 = [v10 bytes];
+          v15 = [v10 length];
           memset(__p, 0, 24);
-          std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(__p, v14, v14 + (v15 & 0xFFFFFFFFFFFFFFFCLL), v15 >> 2);
+          std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(__p, v14, (v14 + (v15 & 0xFFFFFFFFFFFFFFFCLL)), v15 >> 2);
           *a2 = 0;
-          *(a2 + 8) = 0;
-          *(a2 + 16) = 0;
+          a2[1] = 0;
+          a2[2] = 0;
           std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a2, __p[0], __p[1], (__p[1] - __p[0]) >> 2);
           *(a2 + 24) = 1;
           if (__p[0])
@@ -8293,11 +8231,11 @@ void vg::frame_selection::VGBlendshapeExpressionFilter::getBlendshapesFromTracki
 
         else
         {
-          v17 = __VGLogSharedInstance();
+          v17 = __VGLogSharedInstance(v13);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             LODWORD(__p[0]) = 134217984;
-            *(__p + 4) = [v13 count];
+            *(__p + 4) = [v12 count];
             _os_log_impl(&dword_270F06000, v17, OS_LOG_TYPE_ERROR, " Blendshape values should consist of %lu floats ", __p, 0xCu);
           }
 
@@ -8308,7 +8246,7 @@ void vg::frame_selection::VGBlendshapeExpressionFilter::getBlendshapesFromTracki
 
       else
       {
-        v16 = __VGLogSharedInstance();
+        v16 = __VGLogSharedInstance(0);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           LOWORD(__p[0]) = 0;
@@ -8332,8 +8270,6 @@ void vg::frame_selection::VGBlendshapeExpressionFilter::getBlendshapesFromTracki
     *a2 = 0;
     *(a2 + 24) = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 vg::frame_selection::VGExpressionIsNeutralFilter *vg::frame_selection::VGExpressionIsNeutralFilter::VGExpressionIsNeutralFilter(vg::frame_selection::VGExpressionIsNeutralFilter *this)
@@ -8376,13 +8312,13 @@ vg::frame_selection::VGExpressionIsNeutralFilter *vg::frame_selection::VGExpress
 
   p_buf = &buf;
   std::vector<vg::frame_selection::BlendshapeConfig>::__destroy_vector::operator()[abi:ne200100](&p_buf);
-  v3 = __VGLogSharedInstance();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = __VGLogSharedInstance(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v4 = 0xCCCCCCCCCCCCCCCDLL * ((*(this + 3) - *(this + 2)) >> 3);
+    v5 = 0xCCCCCCCCCCCCCCCDLL * ((*(this + 3) - *(this + 2)) >> 3);
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v4;
-    _os_log_impl(&dword_270F06000, v3, OS_LOG_TYPE_INFO, " Loaded %zu blendshape configurations for VGExpressionIsNeutralFilter_New filter ", &buf, 0xCu);
+    *(&buf + 4) = v5;
+    _os_log_impl(&dword_270F06000, v4, OS_LOG_TYPE_INFO, " Loaded %zu blendshape configurations for VGExpressionIsNeutralFilter_New filter ", &buf, 0xCu);
   }
 
   if (v10 == 1)
@@ -8396,7 +8332,6 @@ vg::frame_selection::VGExpressionIsNeutralFilter *vg::frame_selection::VGExpress
     operator delete(v11.__r_.__value_.__l.__data_);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -8414,43 +8349,43 @@ void sub_270F34964(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 float vg::frame_selection::VGExpressionIsNeutralFilter::filter(vg::frame_selection::VGExpressionIsNeutralFilter *this, NSDictionary *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  vg::frame_selection::VGBlendshapeExpressionFilter::getBlendshapesFromTrackingData(v3, &v26);
-  if (v28)
+  vg::frame_selection::VGBlendshapeExpressionFilter::getBlendshapesFromTrackingData(v3, &v27);
+  if (v29)
   {
-    v23 = 0;
     v24 = 0;
     v25 = 0;
-    v4 = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v23, v26, v27, (v27 - v26) >> 2);
+    v26 = 0;
+    v5 = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v24, v27, v28, (v28 - v27) >> 2);
     memset(&__p, 0, sizeof(__p));
-    v21 = 0x80000000000000;
-    v5 = *(this + 2);
-    v6 = *(this + 3);
-    v7 = 0.0;
-    while (v5 != v6)
+    v22 = 0x80000000000000;
+    v6 = *(this + 2);
+    v7 = *(this + 3);
+    v8 = 0.0;
+    while (v6 != v7)
     {
-      v8 = vg::frame_selection::VGExpressionFilter::remap(v4, *(v23 + *(v5 + 24)), *(v5 + 32), *(v5 + 36));
-      v9 = *&v8;
-      v10 = *(&v21 + 1);
-      if (v9 > *(&v21 + 1))
+      v9 = vg::frame_selection::VGExpressionFilter::remap(v5, *(v24 + *(v6 + 24)), *(v6 + 32), *(v6 + 36));
+      v10 = *&v9;
+      v11 = *(&v22 + 1);
+      if (v10 > *(&v22 + 1))
       {
-        if (*(&v21 + 1) <= v9)
+        if (*(&v22 + 1) <= v10)
         {
-          v10 = v9;
+          v11 = v10;
         }
 
-        *(&v21 + 1) = v10;
-        v4 = std::string::operator=(&__p, v5);
-        LODWORD(v21) = *(v23 + *(v5 + 24));
+        *(&v22 + 1) = v11;
+        v5 = std::string::operator=(&__p, v6);
+        LODWORD(v22) = *(v24 + *(v6 + 24));
       }
 
-      v7 = v7 + v9;
-      v5 += 40;
+      v8 = v8 + v10;
+      v6 += 40;
     }
 
-    v13 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = __VGLogSharedInstance(v5);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
@@ -8463,23 +8398,23 @@ float vg::frame_selection::VGExpressionIsNeutralFilter::filter(vg::frame_selecti
       }
 
       *buf = 134218498;
-      v30 = *(&v21 + 1);
-      v31 = 2048;
-      v32 = *&v21;
-      v33 = 2080;
-      v34 = p_p;
-      _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_DEBUG, " VGExpressionIsNeutralFilter: Max blendshape found: clippedValue: %f, rawValue: %f, name: %s ", buf, 0x20u);
+      v31 = *(&v22 + 1);
+      v32 = 2048;
+      v33 = *&v22;
+      v34 = 2080;
+      v35 = p_p;
+      _os_log_impl(&dword_270F06000, v14, OS_LOG_TYPE_DEBUG, " VGExpressionIsNeutralFilter: Max blendshape found: clippedValue: %f, rawValue: %f, name: %s ", buf, 0x20u);
     }
 
-    v16 = *(this + 2);
-    v15 = *(this + 3);
-    v17 = __VGLogSharedInstance();
-    v18 = v7 / (0xCCCCCCCCCCCCCCCDLL * ((v15 - v16) >> 3));
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v17 = *(this + 2);
+    v16 = *(this + 3);
+    v19 = __VGLogSharedInstance(v18);
+    v20 = v8 / (0xCCCCCCCCCCCCCCCDLL * ((v16 - v17) >> 3));
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v30 = v18;
-      _os_log_impl(&dword_270F06000, v17, OS_LOG_TYPE_DEBUG, " VGExpressionIsNeutralFilter: L1Distance = %f ", buf, 0xCu);
+      v31 = v20;
+      _os_log_impl(&dword_270F06000, v19, OS_LOG_TYPE_DEBUG, " VGExpressionIsNeutralFilter: L1Distance = %f ", buf, 0xCu);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -8487,35 +8422,34 @@ float vg::frame_selection::VGExpressionIsNeutralFilter::filter(vg::frame_selecti
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v23)
+    if (v24)
     {
-      v24 = v23;
-      operator delete(v23);
+      v25 = v24;
+      operator delete(v24);
     }
 
-    v12 = 1.0 - v18;
+    v13 = 1.0 - v20;
   }
 
   else
   {
-    v11 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __VGLogSharedInstance(v4);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_270F06000, v11, OS_LOG_TYPE_ERROR, " No blendshapes found in tracking data ", &v21, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_ERROR, " No blendshapes found in tracking data ", &v22, 2u);
     }
 
-    v12 = 0.0;
+    v13 = 0.0;
   }
 
-  if (v28 == 1 && v26)
+  if (v29 == 1 && v27)
   {
-    v27 = v26;
-    operator delete(v26);
+    v28 = v27;
+    operator delete(v27);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 void sub_270F34CC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, char a23)
@@ -8555,21 +8489,21 @@ void vg::frame_selection::VGExpressionIsNeutralFilter::~VGExpressionIsNeutralFil
   MEMORY[0x2743B9370](this, 0x10A1C4037ACD87BLL);
 }
 
-uint64_t std::vector<vg::frame_selection::BlendshapeConfig>::__emplace_back_slow_path<vg::frame_selection::BlendshapeConfig>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<vg::frame_selection::BlendshapeConfig>::__emplace_back_slow_path<vg::frame_selection::BlendshapeConfig>(unint64_t *a1, __int128 *a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0x666666666666666)
   {
     std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x999999999999999ALL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x999999999999999ALL * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 3) >= 0x333333333333333)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) >= 0x333333333333333)
   {
     v6 = 0x666666666666666;
   }
@@ -8597,14 +8531,14 @@ uint64_t std::vector<vg::frame_selection::BlendshapeConfig>::__emplace_back_slow
   *a2 = 0;
   *(v7 + 24) = *(a2 + 24);
   *&v17 = 40 * v2 + 40;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = 40 * v2 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<vg::frame_selection::BlendshapeConfig>,vg::frame_selection::BlendshapeConfig*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -8613,9 +8547,9 @@ uint64_t std::vector<vg::frame_selection::BlendshapeConfig>::__emplace_back_slow
   return v14;
 }
 
-void sub_270F34F28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_270F34F28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<vg::frame_selection::BlendshapeConfig>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8763,7 +8697,7 @@ void std::vector<vg::frame_selection::BlendshapeConfig>::clear[abi:ne200100](voi
   a1[1] = v2;
 }
 
-uint64_t std::vector<vg::frame_selection::BlendshapeConfig>::__init_with_size[abi:ne200100]<vg::frame_selection::BlendshapeConfig*,vg::frame_selection::BlendshapeConfig*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<vg::frame_selection::BlendshapeConfig>::__init_with_size[abi:ne200100]<vg::frame_selection::BlendshapeConfig*,vg::frame_selection::BlendshapeConfig*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8780,7 +8714,7 @@ void sub_270F35270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<vg::frame_selection::BlendshapeConfig>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<vg::frame_selection::BlendshapeConfig>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x666666666666667)
   {
@@ -8947,20 +8881,20 @@ uint64_t vg::frame_selection::VGBlurDetectorImpl::init(uint64_t a1, uint64_t a2)
   return 1;
 }
 
-uint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlur(uint64_t a1, unint64_t *a2)
+unint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlur(uint64_t a1, double *a2)
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v4 = a2[1];
-  v5 = a2[2];
+  v45 = *MEMORY[0x277D85DE8];
+  v4 = *(a2 + 1);
+  v5 = *(a2 + 2);
   v6 = (a2 + 1);
   if (v4 == v5)
   {
-    v12 = __VGLogSharedInstance();
+    v12 = __VGLogSharedInstance(a1);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = *a2;
       *buf = 134217984;
-      v41 = v13;
+      v40 = v13;
       _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_INFO, " VGBlurDetectorImpl::isMotionBlurPresent: no landmarks data for frame#%zu ", buf, 0xCu);
     }
 
@@ -8989,20 +8923,20 @@ uint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlur(uint64_t a1,
         if (v7 != v8)
         {
           __src = 0;
+          v37 = 0;
           v38 = 0;
-          v39 = 0;
           std::vector<float>::reserve(&__src, (v5 - v4) >> 3);
-          v19 = a2[1];
-          if (a2[2] != v19)
+          v19 = *(a2 + 1);
+          if (*(a2 + 2) != v19)
           {
             v20 = 0;
             v21 = v15;
-            v22 = v38;
+            v22 = v37;
             do
             {
               v23 = vsub_f32(*(v19 + 8 * v20), *(*a1 + 8 * v20));
               v24 = sqrtf(vaddv_f32(vmul_f32(v23, v23))) / v21;
-              if (v22 >= v39)
+              if (v22 >= v38)
               {
                 v25 = __src;
                 v26 = v22 - __src;
@@ -9013,8 +8947,8 @@ uint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlur(uint64_t a1,
                   std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
                 }
 
-                v29 = v39 - __src;
-                if ((v39 - __src) >> 1 > v28)
+                v29 = v38 - __src;
+                if ((v38 - __src) >> 1 > v28)
                 {
                   v28 = v29 >> 1;
                 }
@@ -9042,8 +8976,8 @@ uint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlur(uint64_t a1,
                 memcpy(v33, v25, v26);
                 v34 = __src;
                 __src = v33;
-                v38 = v22;
-                v39 = 0;
+                v37 = v22;
+                v38 = 0;
                 if (v34)
                 {
                   operator delete(v34);
@@ -9055,18 +8989,18 @@ uint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlur(uint64_t a1,
                 *v22++ = v24;
               }
 
-              v38 = v22;
+              v37 = v22;
               ++v20;
-              v19 = a2[1];
+              v19 = *(a2 + 1);
             }
 
-            while (v20 < (a2[2] - v19) >> 3);
+            while (v20 < (*(a2 + 2) - v19) >> 3);
           }
 
           vg::shared::computeMedian<float>();
         }
 
-        v16 = __VGLogSharedInstance();
+        v16 = __VGLogSharedInstance(a1);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
@@ -9076,12 +9010,12 @@ uint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlur(uint64_t a1,
 
       else
       {
-        v17 = __VGLogSharedInstance();
+        v17 = __VGLogSharedInstance(a1);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           v18 = *a2;
           *buf = 134217984;
-          v41 = v18;
+          v40 = v18;
           _os_log_impl(&dword_270F06000, v17, OS_LOG_TYPE_INFO, " VGBlurDetectorImpl::isMotionBlurPresent: no previous landmarks data recorded, updated with data from frame#%zu ", buf, 0xCu);
         }
 
@@ -9092,23 +9026,22 @@ uint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlur(uint64_t a1,
 
     else
     {
-      v9 = __VGLogSharedInstance();
+      v9 = __VGLogSharedInstance(a1);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = *a2;
         v11 = *(a1 + 32);
         *buf = 134218496;
-        v41 = v10;
-        v42 = 2048;
-        v43 = v10;
-        v44 = 2048;
-        v45 = v11;
+        v40 = v10;
+        v41 = 2048;
+        v42 = v10;
+        v43 = 2048;
+        v44 = v11;
         _os_log_impl(&dword_270F06000, v9, OS_LOG_TYPE_ERROR, " Frame#%zu has timestamp value lower than the timestamp of the previously processed frame (%zu < %zu) ", buf, 0x20u);
       }
     }
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -9144,9 +9077,9 @@ uint64_t _ZNSt3__18optionalINS_6vectorIDv2_fNS_9allocatorIS2_EEEEEaSB8ne200100IR
   return a1;
 }
 
-uint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlurHRTF(uint64_t a1, char **a2)
+unint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlurHRTF(uint64_t a1, char **a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   if (*a2 >= v4)
   {
@@ -9155,88 +9088,88 @@ uint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlurHRTF(uint64_t
       v8 = &(*a2)[-v4];
       if (v8)
       {
-        v14 = v8;
-        v15 = v8 / *(a1 + 40);
-        if (v15 > 0.0)
+        v13 = v8;
+        v14 = v8 / *(a1 + 40);
+        if (v14 > 0.0)
         {
           __src = 0;
+          v31 = 0;
           v32 = 0;
-          v33 = 0;
           std::vector<float>::reserve(&__src, (a2[2] - a2[1]) >> 3);
-          v16 = a2[1];
-          if (a2[2] != v16)
+          v15 = a2[1];
+          if (a2[2] != v15)
           {
-            v17 = 0;
-            v18 = v32;
+            v16 = 0;
+            v17 = v31;
             do
             {
-              v19 = vsub_f32(*&v16[8 * v17], *(*a1 + 8 * v17));
-              v20 = (vaddv_f32(vmul_f32(v19, v19)) / v14) / v15;
-              if (v18 >= v33)
+              v18 = vsub_f32(*&v15[8 * v16], *(*a1 + 8 * v16));
+              v19 = (vaddv_f32(vmul_f32(v18, v18)) / v13) / v14;
+              if (v17 >= v32)
               {
-                v21 = __src;
-                v22 = v18 - __src;
-                v23 = (v18 - __src) >> 2;
-                v24 = v23 + 1;
-                if ((v23 + 1) >> 62)
+                v20 = __src;
+                v21 = v17 - __src;
+                v22 = (v17 - __src) >> 2;
+                v23 = v22 + 1;
+                if ((v22 + 1) >> 62)
                 {
                   std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
                 }
 
-                v25 = v33 - __src;
-                if ((v33 - __src) >> 1 > v24)
+                v24 = v32 - __src;
+                if ((v32 - __src) >> 1 > v23)
                 {
-                  v24 = v25 >> 1;
+                  v23 = v24 >> 1;
                 }
 
-                if (v25 >= 0x7FFFFFFFFFFFFFFCLL)
+                if (v24 >= 0x7FFFFFFFFFFFFFFCLL)
                 {
-                  v26 = 0x3FFFFFFFFFFFFFFFLL;
+                  v25 = 0x3FFFFFFFFFFFFFFFLL;
                 }
 
                 else
                 {
-                  v26 = v24;
+                  v25 = v23;
                 }
 
-                if (v26)
+                if (v25)
                 {
-                  std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(&__src, v26);
+                  std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(&__src, v25);
                 }
 
-                v27 = (v18 - __src) >> 2;
-                v28 = (4 * v23);
-                v29 = (4 * v23 - 4 * v27);
-                *v28 = v20;
-                v18 = v28 + 1;
-                memcpy(v29, v21, v22);
-                v30 = __src;
-                __src = v29;
-                v32 = v18;
-                v33 = 0;
-                if (v30)
+                v26 = (v17 - __src) >> 2;
+                v27 = (4 * v22);
+                v28 = (4 * v22 - 4 * v26);
+                *v27 = v19;
+                v17 = v27 + 1;
+                memcpy(v28, v20, v21);
+                v29 = __src;
+                __src = v28;
+                v31 = v17;
+                v32 = 0;
+                if (v29)
                 {
-                  operator delete(v30);
+                  operator delete(v29);
                 }
               }
 
               else
               {
-                *v18++ = v20;
+                *v17++ = v19;
               }
 
-              v32 = v18;
-              ++v17;
-              v16 = a2[1];
+              v31 = v17;
+              ++v16;
+              v15 = a2[1];
             }
 
-            while (v17 < (a2[2] - v16) >> 3);
+            while (v16 < (a2[2] - v15) >> 3);
           }
 
           vg::shared::computeMedian<float>();
         }
 
-        v9 = __VGLogSharedInstance();
+        v9 = __VGLogSharedInstance(a1);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
@@ -9246,7 +9179,7 @@ uint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlurHRTF(uint64_t
 
       else
       {
-        v9 = __VGLogSharedInstance();
+        v9 = __VGLogSharedInstance(a1);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
@@ -9257,12 +9190,12 @@ uint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlurHRTF(uint64_t
 
     else
     {
-      v10 = __VGLogSharedInstance();
+      v10 = __VGLogSharedInstance(a1);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v11 = *a2;
         *buf = 134217984;
-        v35 = v11;
+        v34 = v11;
         _os_log_impl(&dword_270F06000, v10, OS_LOG_TYPE_INFO, " VGBlurDetectorImpl::isMotionBlurPresent: no previous landmarks data recorded, updated with data from frame#%zu ", buf, 0xCu);
       }
 
@@ -9273,22 +9206,21 @@ uint64_t vg::frame_selection::VGBlurDetectorImpl::_detectMotionBlurHRTF(uint64_t
 
   else
   {
-    v5 = __VGLogSharedInstance();
+    v5 = __VGLogSharedInstance(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = *a2;
       v7 = *(a1 + 32);
       *buf = 134218496;
-      v35 = v6;
-      v36 = 2048;
-      v37 = v6;
-      v38 = 2048;
-      v39 = v7;
+      v34 = v6;
+      v35 = 2048;
+      v36 = v6;
+      v37 = 2048;
+      v38 = v7;
       _os_log_impl(&dword_270F06000, v5, OS_LOG_TYPE_ERROR, " Frame#%zu has timestamp value lower than the timestamp of the previously processed frame (%zu < %zu) ", buf, 0x20u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -9302,9 +9234,9 @@ void sub_270F374E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vg::frame_selection::VGBlurDetectorImpl::detectMotionBlur(uint64_t a1, char **a2)
+unint64_t vg::frame_selection::VGBlurDetectorImpl::detectMotionBlur(uint64_t a1, char **a2)
 {
-  v4 = VGLogVGBlurDetector();
+  v4 = VGLogVGBlurDetector(a1);
   if (os_signpost_enabled(v4))
   {
     v8[0] = 0;
@@ -9322,35 +9254,35 @@ uint64_t vg::frame_selection::VGBlurDetectorImpl::detectMotionBlur(uint64_t a1, 
   }
 
   v6 = v5;
-  ___ZN2vg15frame_selection18VGBlurDetectorImpl16detectMotionBlurERKNS0_19VGBlurDetectorInputE_block_invoke();
+  ___ZN2vg15frame_selection18VGBlurDetectorImpl16detectMotionBlurERKNS0_19VGBlurDetectorInputE_block_invoke(v5);
   return v6;
 }
 
-id VGLogVGBlurDetector(void)
+id VGLogVGBlurDetector(uint64_t a1)
 {
   if (VGLogVGBlurDetector(void)::onceToken != -1)
   {
     VGLogVGBlurDetector();
   }
 
-  v1 = VGLogVGBlurDetector(void)::handle;
+  v2 = VGLogVGBlurDetector(void)::handle;
 
-  return v1;
+  return v2;
 }
 
-void ___ZN2vg15frame_selection18VGBlurDetectorImpl16detectMotionBlurERKNS0_19VGBlurDetectorInputE_block_invoke()
+void ___ZN2vg15frame_selection18VGBlurDetectorImpl16detectMotionBlurERKNS0_19VGBlurDetectorInputE_block_invoke(uint64_t a1)
 {
-  v0 = VGLogVGBlurDetector();
-  if (os_signpost_enabled(v0))
+  v1 = VGLogVGBlurDetector(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_270F06000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "DetectMotionBlur", &unk_270FBF062, v1, 2u);
+    *v2 = 0;
+    _os_signpost_emit_with_name_impl(&dword_270F06000, v1, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "DetectMotionBlur", &unk_270FBF062, v2, 2u);
   }
 }
 
 void vg::frame_selection::VGBlurDetectorImpl::resetPreviousState(vg::frame_selection::VGBlurDetectorImpl *this)
 {
-  v2 = __VGLogSharedInstance();
+  v2 = __VGLogSharedInstance(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -9400,7 +9332,7 @@ void vg::frame_selection::VGBlurDetector::~VGBlurDetector(vg::frame_selection::V
   }
 }
 
-uint64_t _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9464,25 +9396,23 @@ uint64_t vg::frame_selection::metrics::sendStartEvent(vg::frame_selection::metri
 
 uint64_t vg::frame_selection::metrics::sendCompleteEvent(vg::frame_selection::metrics *this, const Data *a2)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   isSupported = vg::shared::metrics::isSupported(this);
   if (!isSupported)
   {
-LABEL_91:
-    v53 = 0;
-    goto LABEL_92;
+    return 0;
   }
 
   if (!*(this + 1))
   {
-    v54 = __VGLogSharedInstance();
+    v54 = __VGLogSharedInstance(isSupported);
     if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
       _os_log_impl(&dword_270F06000, v54, OS_LOG_TYPE_ERROR, " Invalid metrics data: no processed frame ", buf, 2u);
     }
 
-    goto LABEL_91;
+    return 0;
   }
 
   v4 = vg::shared::metrics::createDictionary(isSupported);
@@ -9807,7 +9737,5 @@ LABEL_76:
 
   v53 = vg::shared::metrics::sendEvent("com.apple.visage.frameSelectionComplete", v4, v34);
 
-LABEL_92:
-  v55 = *MEMORY[0x277D85DE8];
   return v53;
 }

@@ -80,9 +80,8 @@
     [SYClock writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteSubmessage();
-  version = self->_version;
   PBDataWriterWriteUint64Field();
 }
 

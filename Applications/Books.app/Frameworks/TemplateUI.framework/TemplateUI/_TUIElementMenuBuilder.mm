@@ -71,7 +71,7 @@
   textCopy = text;
   roleCopy = role;
   v7 = roleCopy;
-  if (!roleCopy || [roleCopy isEqualToString:@"title"])
+  if (!roleCopy || objc_msgSend_isEqualToString_(roleCopy))
   {
     v8 = [textCopy copy];
     title = self->_title;
@@ -84,7 +84,7 @@
   modelCopy = model;
   roleCopy = role;
   v8 = roleCopy;
-  if (!roleCopy || [roleCopy isEqualToString:@"image"])
+  if (!roleCopy || objc_msgSend_isEqualToString_(roleCopy))
   {
     objc_storeStrong(&self->_imageModel, model);
   }

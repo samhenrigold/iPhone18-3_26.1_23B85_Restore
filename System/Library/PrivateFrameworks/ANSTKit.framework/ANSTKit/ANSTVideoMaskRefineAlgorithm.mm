@@ -11,21 +11,19 @@
 
 + (id)supportedSemanticCategoriesOfVersion:(unint64_t)version
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (version == 0x10000)
   {
-    v6[0] = @"Person";
-    v6[1] = @"Skin";
-    v6[2] = @"Hair";
-    v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v6, 3);
+    v5[0] = @"Person";
+    v5[1] = @"Skin";
+    v5[2] = @"Hair";
+    v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v5, 3);
   }
 
   else
   {
     v3 = MEMORY[0x277CBEBF8];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

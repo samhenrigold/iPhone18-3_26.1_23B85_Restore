@@ -3021,7 +3021,7 @@ uint64_t __90__TUIKeyboardTrackingCoordinator_updateClientsForState_finalFrame_a
   return [*(a1 + 32) setLastKnownFrame:{*(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88)}];
 }
 
-uint64_t __90__TUIKeyboardTrackingCoordinator_updateClientsForState_finalFrame_animationInfo_forStart___block_invoke_2(uint64_t a1, double a2, double a3, double a4, double a5)
+void *__90__TUIKeyboardTrackingCoordinator_updateClientsForState_finalFrame_animationInfo_forStart___block_invoke_2(uint64_t a1, double a2, double a3, double a4, double a5)
 {
   result = [*(a1 + 32) _isTextEffectsWindow];
   if (result)

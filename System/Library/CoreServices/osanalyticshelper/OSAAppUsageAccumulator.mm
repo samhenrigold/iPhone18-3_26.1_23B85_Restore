@@ -223,7 +223,7 @@ LABEL_21:
       v43 = OSAStabilityMonitorLogDomain();
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000152E8(eventCopy, &self->_startDate);
+        sub_1000152E8(eventCopy);
       }
 
       v44 = self->_startDate;
@@ -240,7 +240,7 @@ LABEL_21:
       v49 = OSAStabilityMonitorLogDomain();
       if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
       {
-        sub_100015398(eventCopy, &self->_endDate);
+        sub_100015398(eventCopy);
       }
 
       v50 = self->_endDate;

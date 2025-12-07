@@ -30,21 +30,21 @@
 - (TSTLayoutTask)initWithLayoutTask:(id)task
 {
   taskCopy = task;
-  v23.receiver = self;
-  v23.super_class = TSTLayoutTask;
-  v9 = [(TSTLayoutTask *)&v23 init];
-  if (v9)
+  v20.receiver = self;
+  v20.super_class = TSTLayoutTask;
+  v8 = [(TSTLayoutTask *)&v20 init];
+  if (v8)
   {
-    v10 = objc_msgSend_layoutEngine(taskCopy, v5, v6, v7, v8);
-    objc_storeWeak(&v9->_layoutEngine, v10);
+    v9 = objc_msgSend_layoutEngine(taskCopy, v5, v6, v7);
+    objc_storeWeak(&v8->_layoutEngine, v9);
 
-    v15 = objc_msgSend_cellStatesToLayout(taskCopy, v11, v12, v13, v14);
-    v20 = objc_msgSend_copy(v15, v16, v17, v18, v19);
-    cellStatesToLayout = v9->_cellStatesToLayout;
-    v9->_cellStatesToLayout = v20;
+    v13 = objc_msgSend_cellStatesToLayout(taskCopy, v10, v11, v12);
+    v17 = objc_msgSend_copy(v13, v14, v15, v16);
+    cellStatesToLayout = v8->_cellStatesToLayout;
+    v8->_cellStatesToLayout = v17;
   }
 
-  return v9;
+  return v8;
 }
 
 - (void)enumerateCellStatesUsingBlock:(id)block
@@ -95,33 +95,33 @@ LABEL_3:
   cachesCopy = caches;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v11 = objc_msgSend_generateWidthHeightCollection(cachesCopy, v7, v8, v9, v10);
+  v10 = objc_msgSend_generateWidthHeightCollection(cachesCopy, v7, v8, v9);
   cellStatesToLayout = self->_cellStatesToLayout;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = sub_2213ECB74;
-  v36[3] = &unk_278464908;
-  v13 = v6;
-  v37 = v13;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = sub_2213ECB74;
+  v30[3] = &unk_278464908;
+  v12 = v6;
+  v31 = v12;
   selfCopy = self;
-  v14 = v11;
-  v39 = v14;
-  objc_msgSend_enumerateObjectsUsingBlock_(cellStatesToLayout, v15, v36, v16, v17);
+  v13 = v10;
+  v33 = v13;
+  objc_msgSend_enumerateObjectsUsingBlock_(cellStatesToLayout, v14, v30, v15);
   WeakRetained = objc_loadWeakRetained(&self->_layoutEngine);
-  v23 = objc_msgSend_dupContentCache(WeakRetained, v19, v20, v21, v22);
-  objc_msgSend_addEntriesFromDictionary_(v23, v24, v5, v25, v26);
+  v20 = objc_msgSend_dupContentCache(WeakRetained, v17, v18, v19);
+  objc_msgSend_addEntriesFromDictionary_(v20, v21, v5, v22);
 
-  v27 = objc_loadWeakRetained(&self->_layoutEngine);
-  v32 = objc_msgSend_cellIDToWPColumnCache(v27, v28, v29, v30, v31);
-  objc_msgSend_addEntriesFromDictionary_(v32, v33, v13, v34, v35);
+  v23 = objc_loadWeakRetained(&self->_layoutEngine);
+  v27 = objc_msgSend_cellIDToWPColumnCache(v23, v24, v25, v26);
+  objc_msgSend_addEntriesFromDictionary_(v27, v28, v12, v29);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v9 = objc_msgSend_allocWithZone_(v5, v6, zone, v7, v8);
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
 
-  return MEMORY[0x2821F9670](v9, sel_initWithLayoutTask_, self, v10, v11);
+  return MEMORY[0x2821F9670](v8, sel_initWithLayoutTask_, self, v9);
 }
 
 - (TSTLayoutEngine)layoutEngine

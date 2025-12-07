@@ -16,18 +16,18 @@
   v4 = [PSSpecifier preferenceSpecifierNamed:&stru_14F50 target:0 set:0 get:0 detail:0 cell:3 edit:0];
   if (![identifierCopy length])
   {
-    v5 = sub_59B0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_59B0(0, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_9FEC(v5);
+      sub_9FEC(v6);
     }
   }
 
   [v4 cps_setBundleIdentifier:identifierCopy];
   [v4 setProperty:objc_opt_class() forKey:PSCellClassKey];
   [v4 cps_isTestFlight];
-  v6 = _CPSLocalizedString();
-  [v4 setProperty:v6 forKey:PSTitleKey];
+  v7 = _CPSLocalizedString();
+  [v4 setProperty:v7 forKey:PSTitleKey];
 
   [v4 setProperty:&__kCFBooleanTrue forKey:PSEnabledKey];
 
@@ -99,36 +99,37 @@
 
   [(ASCLockupView *)self->_lockupView setSize:ASCLockupViewSizeSmall];
   cps_isTestFlight = [specifierCopy cps_isTestFlight];
+  v14 = cps_isTestFlight;
   if ((cps_isTestFlight & 1) == 0 && !cps_storeItemIdentifier)
   {
-    v13 = sub_59B0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = sub_59B0(cps_isTestFlight, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_A030(cps_bundleIdentifier, v13);
+      sub_A030(cps_bundleIdentifier, v15);
     }
   }
 
-  v14 = self->_lockupView;
-  if (cps_isTestFlight)
+  v16 = self->_lockupView;
+  if (v14)
   {
-    [(ASCLockupView *)v14 setUserInteractionEnabled:0];
+    [(ASCLockupView *)v16 setUserInteractionEnabled:0];
     preferredImageDescriptor = [(CPSClipStoreTableViewCell *)self preferredImageDescriptor];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_3D24;
-    v19[3] = &unk_148C0;
-    v19[4] = self;
-    v20 = v9;
-    v21 = specifierCopy;
-    [CPSAppClipRecord getApplicationIconForBundleIdentifier:cps_bundleIdentifier imageDescriptor:preferredImageDescriptor resultHandler:v19];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_3D24;
+    v21[3] = &unk_148C0;
+    v21[4] = self;
+    v22 = v9;
+    v23 = specifierCopy;
+    [CPSAppClipRecord getApplicationIconForBundleIdentifier:cps_bundleIdentifier imageDescriptor:preferredImageDescriptor resultHandler:v21];
   }
 
   else
   {
-    [(ASCLockupView *)v14 setUserInteractionEnabled:1];
-    v16 = [ASCLockupRequest alloc];
-    v17 = [v16 initWithID:v9 kind:ASCLockupKindApp context:ASCLockupContextStandard];
-    [(ASCLockupView *)self->_lockupView setRequest:v17];
+    [(ASCLockupView *)v16 setUserInteractionEnabled:1];
+    v18 = [ASCLockupRequest alloc];
+    v19 = [v18 initWithID:v9 kind:ASCLockupKindApp context:ASCLockupContextStandard];
+    [(ASCLockupView *)self->_lockupView setRequest:v19];
   }
 
   contentView = [(CPSClipStoreTableViewCell *)self contentView];
@@ -179,18 +180,18 @@
 - (void)refreshCellContentsWithSpecifier:(id)specifier
 {
   specifierCopy = specifier;
-  v8.receiver = self;
-  v8.super_class = CPSClipStoreTableViewCell;
-  [(CPSClipStoreTableViewCell *)&v8 refreshCellContentsWithSpecifier:specifierCopy];
+  v10.receiver = self;
+  v10.super_class = CPSClipStoreTableViewCell;
+  [(CPSClipStoreTableViewCell *)&v10 refreshCellContentsWithSpecifier:specifierCopy];
   cps_bundleIdentifier = [specifierCopy cps_bundleIdentifier];
   v6 = [cps_bundleIdentifier length];
 
   if (!v6)
   {
-    v7 = sub_59B0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sub_59B0(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_A0A8(v7);
+      sub_A0A8(v9);
     }
   }
 

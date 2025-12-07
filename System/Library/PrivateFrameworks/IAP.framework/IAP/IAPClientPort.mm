@@ -7,31 +7,31 @@
 
 - (IAPClientPort)initWithUUID:(id)d queue:(id)queue sendHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = IAPClientPort;
-  v8 = [(IAPClientPort *)&v14 init];
+  v30 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = IAPClientPort;
+  v8 = [(IAPClientPort *)&v13 init];
   v9 = v8;
   if (v8)
   {
     *&v10 = 0xAAAAAAAAAAAAAAAALL;
     *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v29 = v10;
-    v30 = v10;
-    v27 = v10;
     v28 = v10;
-    v25 = v10;
+    v29 = v10;
     v26 = v10;
-    v23 = v10;
+    v27 = v10;
     v24 = v10;
-    v21 = v10;
+    v25 = v10;
     v22 = v10;
-    v19 = v10;
+    v23 = v10;
     v20 = v10;
-    v17 = v10;
+    v21 = v10;
     v18 = v10;
-    *__str = v10;
+    v19 = v10;
     v16 = v10;
+    v17 = v10;
+    *__str = v10;
+    v15 = v10;
     v8->_uuid = d;
     dCopy = d;
     v9->_sendDataHandlerQueue = queue;
@@ -41,7 +41,6 @@
     v9->_clientPortEventQueue = dispatch_queue_create(__str, 0);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

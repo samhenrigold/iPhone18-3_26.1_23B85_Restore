@@ -106,7 +106,7 @@
 
 - (void)performPeriodicActivity:(id)activity completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   completionCopy = completion;
   _HKInitializeLogging();
@@ -119,7 +119,7 @@
     *&buf[12] = 2114;
     *&buf[14] = taskName;
     *&buf[22] = 2112;
-    v28 = activityCopy;
+    v27 = activityCopy;
     _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_INFO, "%{public}@: %{public}@ fired with activity %@", buf, 0x20u);
     v10 = self == 0;
 LABEL_5:
@@ -127,7 +127,7 @@ LABEL_5:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __42___HDAWDPeriodicAction__beginWaitingToRun__block_invoke;
-    v28 = &unk_278613968;
+    v27 = &unk_278613968;
     selfCopy3 = self;
     dispatch_sync(queue, buf);
     goto LABEL_6;
@@ -141,14 +141,14 @@ LABEL_5:
 
   v10 = 1;
 LABEL_6:
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __59___HDAWDPeriodicAction_performPeriodicActivity_completion___block_invoke;
-  v24 = &unk_278616CC8;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __59___HDAWDPeriodicAction_performPeriodicActivity_completion___block_invoke;
+  v23 = &unk_278616CC8;
   selfCopy2 = self;
-  v26 = completionCopy;
+  v25 = completionCopy;
   v12 = completionCopy;
-  v13 = &v21;
+  v13 = &v20;
   v14 = v13;
   if (!v10)
   {
@@ -156,17 +156,15 @@ LABEL_6:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __69___HDAWDPeriodicAction__doIfWaitingOnMaintenanceQueueWithCompletion___block_invoke;
-    v28 = &unk_278621600;
+    v27 = &unk_278621600;
     selfCopy3 = self;
-    v30 = v13;
-    v16 = [HDMaintenanceOperation maintenanceOperationWithName:v15 asynchronousBlock:buf, v21, v22, v23, v24, selfCopy2, v26];
+    v29 = v13;
+    v16 = [HDMaintenanceOperation maintenanceOperationWithName:v15 asynchronousBlock:buf, v20, v21, v22, v23, selfCopy2, v25];
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     daemon = [WeakRetained daemon];
     maintenanceWorkCoordinator = [daemon maintenanceWorkCoordinator];
     [maintenanceWorkCoordinator enqueueMaintenanceOperation:v16];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

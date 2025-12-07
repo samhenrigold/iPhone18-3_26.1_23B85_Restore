@@ -264,7 +264,7 @@ LABEL_13:
   {
     v7 = [v5 mutableCopy];
     v8 = [v5 indexOfObject:self->_fromAppLayout];
-    if (([v7 containsObject:self->_adjustedFromAppLayout] & 1) == 0 && v8 != 0x7FFFFFFFFFFFFFFFLL)
+    if ((objc_msgSend_containsObject_(v7) & 1) == 0 && v8 != 0x7FFFFFFFFFFFFFFFLL)
     {
       [v7 replaceObjectAtIndex:v8 withObject:self->_adjustedFromAppLayout];
     }
@@ -281,7 +281,7 @@ LABEL_13:
     slideOverAppLayout = self->_slideOverAppLayout;
     self->_slideOverAppLayout = v12;
 
-    if (([v7 containsObject:self->_slideOverAppLayout] & 1) == 0 && v10 != 0x7FFFFFFFFFFFFFFFLL)
+    if ((objc_msgSend_containsObject_(v7) & 1) == 0 && v10 != 0x7FFFFFFFFFFFFFFFLL)
     {
       [v7 insertObject:self->_slideOverAppLayout atIndex:v10];
     }
@@ -570,7 +570,7 @@ LABEL_11:
       else
       {
         [(SBFullScreenCrossBlurBehindSlideOverItemWindowingModifier *)self bestSupportedDefaultCornerRadiusForAppLayout:appLayout];
-        [(SBFullScreenCrossBlurBehindSlideOverItemWindowingModifier *)self frameForItem:v6];
+        objc_msgSend_frameForItem_(self);
       }
 
       SBRectCornerRadiiForRadius();

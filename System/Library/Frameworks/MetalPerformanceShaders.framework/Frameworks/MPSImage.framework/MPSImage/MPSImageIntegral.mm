@@ -9,15 +9,15 @@
 
 - (MPSImageIntegral)initWithDevice:(id)device
 {
-  v10.receiver = self;
-  v10.super_class = MPSImageIntegral;
-  result = [(MPSUnaryImageKernel *)&v10 initWithDevice:device];
+  v7.receiver = self;
+  v7.super_class = MPSImageIntegral;
+  result = [(MPSUnaryImageKernel *)&v7 initWithDevice:device];
   if (result)
   {
-    v9 = result;
-    objc_msgSend_InitEncoder(result, v4, v5, v6, v7, v8);
-    result = v9;
-    v9->super._checkFlags = 833;
+    v6 = result;
+    objc_msgSend_InitEncoder(result, v4, v5);
+    result = v6;
+    v6->super._checkFlags = 833;
   }
 
   return result;
@@ -25,26 +25,26 @@
 
 - (MPSImageIntegral)initWithCoder:(id)coder device:(id)device
 {
-  v13.receiver = self;
-  v13.super_class = MPSImageIntegral;
-  v4 = [(MPSUnaryImageKernel *)&v13 initWithCoder:coder device:device];
-  v10 = v4;
+  v10.receiver = self;
+  v10.super_class = MPSImageIntegral;
+  v4 = [(MPSUnaryImageKernel *)&v10 initWithCoder:coder device:device];
+  v7 = v4;
   if (!v4)
   {
-    return v10;
+    return v7;
   }
 
   if (*(&v4->super.super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
   {
-    objc_msgSend_InitEncoder(v4, v5, v6, v7, v8, v9);
-    v10->super._checkFlags = 833;
-    return v10;
+    objc_msgSend_InitEncoder(v4, v5, v6);
+    v7->super._checkFlags = 833;
+    return v7;
   }
 
   if (MTLReportFailureTypeEnabled())
   {
-    v12 = objc_opt_class();
-    NSStringFromClass(v12);
+    v9 = objc_opt_class();
+    NSStringFromClass(v9);
     MTLReportFailure();
   }
 
@@ -61,14 +61,14 @@
 
 - (id)copyWithZone:(_NSZone *)zone device:(id)device
 {
-  v12.receiver = self;
-  v12.super_class = MPSImageIntegral;
-  result = [(MPSUnaryImageKernel *)&v12 copyWithZone:zone device:device];
+  v9.receiver = self;
+  v9.super_class = MPSImageIntegral;
+  result = [(MPSUnaryImageKernel *)&v9 copyWithZone:zone device:device];
   if (result)
   {
-    v11 = result;
-    objc_msgSend_InitEncoder(self, v6, v7, v8, v9, v10);
-    return v11;
+    v8 = result;
+    objc_msgSend_InitEncoder(self, v6, v7);
+    return v8;
   }
 
   return result;

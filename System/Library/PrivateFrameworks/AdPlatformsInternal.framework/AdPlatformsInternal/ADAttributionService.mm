@@ -26,7 +26,6 @@
 
 uint64_t __38__ADAttributionService_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -63,7 +62,7 @@ uint64_t __38__ADAttributionService_sharedInstance__block_invoke(uint64_t a1)
   v23 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   if (!ba_is_process_extension())

@@ -84,8 +84,7 @@
 - (void)extensionInfoWithCompletion:(id)completion
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D6F4620, &qword_224DB34D0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v16 - v7;
   v9 = _Block_copy(completion);
   v10 = swift_allocObject();
@@ -157,8 +156,7 @@
 - (void)fetchWidgetSceneInfoWithCompletion:(id)completion
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D6F4620, &qword_224DB34D0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v15 - v7;
   v9 = _Block_copy(completion);
   v10 = swift_allocObject();

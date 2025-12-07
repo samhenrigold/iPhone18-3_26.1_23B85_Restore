@@ -68,7 +68,7 @@
 - (NSString)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NSOrderedSet wrapper '%@' for fetch request results: %@", self, self->_underlyingArray];
+  v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self, self->_underlyingArray);
   objc_autoreleasePoolPop(v3);
 
   return v4;
@@ -77,7 +77,7 @@
 - (id)descriptionWithLocale:(id)locale
 {
   v4 = objc_autoreleasePoolPush();
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NSOrderedSet wrapper '%@' for fetch request results: %@", self, self->_underlyingArray];
+  v5 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self, self->_underlyingArray);
   objc_autoreleasePoolPop(v4);
 
   return v5;
@@ -108,7 +108,7 @@
 
 - (BOOL)isEqualToOrderedSet:(id)set
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (set == self)
   {
     goto LABEL_13;
@@ -118,14 +118,14 @@
   if (v5 != [set count])
   {
     LOBYTE(v13) = 0;
-    goto LABEL_15;
+    return v13;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v6 = [set countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v6 = [set countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (!v6)
   {
 LABEL_13:
@@ -136,17 +136,17 @@ LABEL_13:
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v17;
+    v9 = *v16;
 LABEL_5:
     v10 = 0;
     while (1)
     {
-      if (*v17 != v9)
+      if (*v16 != v9)
       {
         objc_enumerationMutation(set);
       }
 
-      v11 = *(*(&v16 + 1) + 8 * v10);
+      v11 = *(*(&v15 + 1) + 8 * v10);
       v12 = [(NSArray *)self->_underlyingArray objectAtIndex:v8];
       if (v12 != v11)
       {
@@ -160,20 +160,18 @@ LABEL_5:
       ++v8;
       if (v7 == ++v10)
       {
-        v7 = [set countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [set countByEnumeratingWithState:&v15 objects:v19 count:16];
         LOBYTE(v13) = 1;
         if (v7)
         {
           goto LABEL_5;
         }
 
-        break;
+        return v13;
       }
     }
   }
 
-LABEL_15:
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

@@ -27,7 +27,7 @@
 
 - (void)confirmRecoveryKey:(id)key completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   completionCopy = completion;
   v8 = _CDPLogSystem();
@@ -50,9 +50,9 @@
   {
     octagonTrustProxy = self->_octagonTrustProxy;
     altDSID = [(CDPContext *)self->_context altDSID];
-    v25 = 0;
-    v13 = [(CDPDOctagonTrustProxy *)octagonTrustProxy cacheRecoveryKey:keyCopy forAltDSID:altDSID error:&v25];
-    v14 = v25;
+    v24 = 0;
+    v13 = [(CDPDOctagonTrustProxy *)octagonTrustProxy cacheRecoveryKey:keyCopy forAltDSID:altDSID error:&v24];
+    v14 = v24;
 
     v15 = _CDPLogSystem();
     v16 = v15;
@@ -71,9 +71,9 @@
     }
 
     v18 = self->_octagonTrustProxy;
-    v24 = 0;
-    v19 = [(CDPDOctagonTrustProxy *)v18 registerRecoveryKey:keyCopy error:&v24];
-    v20 = v24;
+    v23 = 0;
+    v19 = [(CDPDOctagonTrustProxy *)v18 registerRecoveryKey:keyCopy error:&v23];
+    v20 = v23;
     v21 = _CDPLogSystem();
     v22 = v21;
     if (v19)
@@ -108,13 +108,11 @@
 
     completionCopy[2](completionCopy, 0, 0);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateRecoveryKey:(id)key
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = _CDPLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -125,15 +123,13 @@
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v11 = 0;
-  v7 = [WeakRetained generateRecoveryKeyWithInfo:MEMORY[0x277CBEC10] error:&v11];
-  v8 = v11;
+  v10 = 0;
+  v7 = [WeakRetained generateRecoveryKeyWithInfo:MEMORY[0x277CBEC10] error:&v10];
+  v8 = v10;
   [(CDPDRecoveryKeyValidatorImpl *)self setRecoveryKey:v7];
 
   recoveryKey = [(CDPDRecoveryKeyValidatorImpl *)self recoveryKey];
   keyCopy[2](keyCopy, recoveryKey, v8);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRecoveryKey:(id)key
@@ -146,13 +142,12 @@
 
 - (void)confirmRecoveryKey:(uint64_t)a1 completion:(NSObject *)a2 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 141558274;
-  v4 = 1752392040;
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to register recovery key in local trust systems with error: %{mask.hash}@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 141558274;
+  v3 = 1752392040;
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to register recovery key in local trust systems with error: %{mask.hash}@", &v2, 0x16u);
 }
 
 @end

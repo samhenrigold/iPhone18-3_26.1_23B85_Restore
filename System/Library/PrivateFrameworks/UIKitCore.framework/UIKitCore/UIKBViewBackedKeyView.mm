@@ -31,8 +31,8 @@
 - (id)renderFlagsForTraits:(id)traits
 {
   traitsCopy = traits;
-  geometry = [traitsCopy geometry];
-  detachedVariants = [geometry detachedVariants];
+  v5 = objc_msgSend_geometry(traitsCopy);
+  detachedVariants = [v5 detachedVariants];
 
   if (detachedVariants)
   {
@@ -204,8 +204,8 @@ void __41__UIKBViewBackedKeyView_setRenderConfig___block_invoke(uint64_t a1)
   v8 = variantTraits;
   if (variantTraits)
   {
-    geometry = [variantTraits geometry];
-    [geometry symbolFrame];
+    v9 = objc_msgSend_geometry(variantTraits);
+    [v9 symbolFrame];
     [(UIKBKeyViewContentView *)self->_contentView setFrame:?];
   }
 

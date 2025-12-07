@@ -28,7 +28,6 @@
 
 - (void)setPath:(id)path
 {
-  v10 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -43,27 +42,21 @@
     v7 = pathCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 4, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFileType:(unsigned __int8)type
 {
   typeCopy = type;
-  v7 = *MEMORY[0x277D85DE8];
   firstError = [(AFBBufferBuilder *)self->_owner firstError];
 
   if (!firstError)
   {
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(self->_bldr->var0, 6, typeCopy);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAssetId:(id)id
 {
-  v10 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (!idCopy)
   {
@@ -78,13 +71,10 @@
     v7 = idCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 8, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCloudKitMetadataWithTreatment:(id)treatment
 {
-  v10 = *MEMORY[0x277D85DE8];
   treatmentCopy = treatment;
   if (!treatmentCopy)
   {
@@ -100,13 +90,10 @@
     v7 = treatmentCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 12, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCloudKitMetadataWithAsset:(id)asset
 {
-  v10 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   if (!assetCopy)
   {
@@ -122,40 +109,31 @@
     v7 = assetCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 12, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setIsOnDemand:(BOOL)demand
 {
   demandCopy = demand;
-  v7 = *MEMORY[0x277D85DE8];
   firstError = [(AFBBufferBuilder *)self->_owner firstError];
 
   if (!firstError)
   {
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(self->_bldr->var0, 14, demandCopy);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDownloadSize:(unint64_t)size
 {
-  v7 = *MEMORY[0x277D85DE8];
   firstError = [(AFBBufferBuilder *)self->_owner firstError];
 
   if (!firstError)
   {
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned long long>(self->_bldr->var0, 16, size);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAssetName:(id)name
 {
-  v10 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (!nameCopy)
   {
@@ -170,22 +148,17 @@
     v7 = nameCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 18, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setHasOnDemandFlag:(BOOL)flag
 {
   flagCopy = flag;
-  v7 = *MEMORY[0x277D85DE8];
   firstError = [(AFBBufferBuilder *)self->_owner firstError];
 
   if (!firstError)
   {
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(self->_bldr->var0, 20, flagCopy);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

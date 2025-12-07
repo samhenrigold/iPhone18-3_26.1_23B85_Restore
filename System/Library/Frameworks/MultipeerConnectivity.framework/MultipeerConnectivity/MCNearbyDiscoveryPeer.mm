@@ -37,8 +37,8 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = mcdp_log();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = mcdp_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -53,10 +53,9 @@
   [(MCNearbyDiscoveryPeerConnection *)self->_trialConnection invalidate];
 
   self->_trialConnection = 0;
-  v5.receiver = self;
-  v5.super_class = MCNearbyDiscoveryPeer;
-  [(MCNearbyDiscoveryPeer *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = MCNearbyDiscoveryPeer;
+  [(MCNearbyDiscoveryPeer *)&v4 dealloc];
 }
 
 - (id)description
@@ -94,29 +93,23 @@
 
 - (id)stringForState:(int)state
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if (state >= 3)
+  v11 = *MEMORY[0x277D85DE8];
+  if (state < 3)
   {
-    v6 = mcdp_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = 138412546;
-      selfCopy = self;
-      v10 = 1024;
-      stateCopy = state;
-      _os_log_impl(&dword_239FB7000, v6, OS_LOG_TYPE_DEFAULT, "Peer [%@] unrecognized state [%d].", &v8, 0x12u);
-    }
-
-    result = @"unknown";
+    return off_278B447F8[state];
   }
 
-  else
+  v6 = mcdp_log(self, a2);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    result = off_278B447F8[state];
+    v7 = 138412546;
+    selfCopy = self;
+    v9 = 1024;
+    stateCopy = state;
+    _os_log_impl(&dword_239FB7000, v6, OS_LOG_TYPE_DEFAULT, "Peer [%@] unrecognized state [%d].", &v7, 0x12u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return @"unknown";
 }
 
 - (void)sendData:(id)data withCompletionHandler:(id)handler
@@ -139,98 +132,101 @@
 
 - (void)flushDataBuffer
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (self->_state == 2)
   {
-    v3 = mcdp_log();
+    v3 = mcdp_log(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [(NSMutableArray *)self->_sendDataBuffer count];
       *buf = 138412546;
       selfCopy2 = self;
-      v32 = 1024;
-      v33 = v4;
+      v33 = 1024;
+      v34 = v4;
       _os_log_impl(&dword_239FB7000, v3, OS_LOG_TYPE_DEFAULT, "Peer [%@] relaying buffered data (%d sendData calls) to the peer connection object).", buf, 0x12u);
     }
 
-    v26 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
+    v26 = 0u;
     sendDataBuffer = self->_sendDataBuffer;
-    v6 = [(NSMutableArray *)sendDataBuffer countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v6 = [(NSMutableArray *)sendDataBuffer countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v25;
+      v8 = *v26;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v25 != v8)
+          if (*v26 != v8)
           {
             objc_enumerationMutation(sendDataBuffer);
           }
 
-          -[MCNearbyDiscoveryPeerConnection sendData:withCompletionHandler:](self->_connection, "sendData:withCompletionHandler:", [*(*(&v24 + 1) + 8 * i) objectForKey:@"NSNearbyDiscoveryPeerSendDataKey"], objc_msgSend(*(*(&v24 + 1) + 8 * i), "objectForKey:", @"NSNearbyDiscoveryPeerSendCompletionHandlerKey"));
+          -[MCNearbyDiscoveryPeerConnection sendData:withCompletionHandler:](self->_connection, "sendData:withCompletionHandler:", [*(*(&v25 + 1) + 8 * i) objectForKey:@"NSNearbyDiscoveryPeerSendDataKey"], objc_msgSend(*(*(&v25 + 1) + 8 * i), "objectForKey:", @"NSNearbyDiscoveryPeerSendCompletionHandlerKey"));
         }
 
-        v7 = [(NSMutableArray *)sendDataBuffer countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v7 = [(NSMutableArray *)sendDataBuffer countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v7);
     }
   }
 
-  else if ([(NSMutableArray *)self->_sendDataBuffer count])
+  else
   {
-    v10 = mcdp_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v10 = [(NSMutableArray *)self->_sendDataBuffer count];
+    if (v10)
     {
-      v11 = [(NSMutableArray *)self->_sendDataBuffer count];
-      *buf = 138412546;
-      selfCopy2 = self;
-      v32 = 1024;
-      v33 = v11;
-      _os_log_impl(&dword_239FB7000, v10, OS_LOG_TYPE_DEFAULT, "Peer [%@] failed to send [%d] messages.", buf, 0x12u);
-    }
-
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v12 = self->_sendDataBuffer;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
-    if (v13)
-    {
-      v14 = v13;
-      v15 = *v21;
-      v16 = *MEMORY[0x277CCA450];
-      do
+      v12 = mcdp_log(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        for (j = 0; j != v14; ++j)
-        {
-          if (*v21 != v15)
-          {
-            objc_enumerationMutation(v12);
-          }
-
-          v18 = [*(*(&v20 + 1) + 8 * j) objectForKey:@"NSNearbyDiscoveryPeerSendCompletionHandlerKey"];
-          if (v18)
-          {
-            (*(v18 + 16))(v18, [MEMORY[0x277CCA9B8] errorWithDomain:@"NSNearbyDiscoveryPeer" code:-1 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObject:forKey:", @"Peer doesn't have a connection object", v16)}]);
-          }
-        }
-
-        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v13 = [(NSMutableArray *)self->_sendDataBuffer count];
+        *buf = 138412546;
+        selfCopy2 = self;
+        v33 = 1024;
+        v34 = v13;
+        _os_log_impl(&dword_239FB7000, v12, OS_LOG_TYPE_DEFAULT, "Peer [%@] failed to send [%d] messages.", buf, 0x12u);
       }
 
-      while (v14);
+      v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v14 = self->_sendDataBuffer;
+      v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      if (v15)
+      {
+        v16 = v15;
+        v17 = *v22;
+        v18 = *MEMORY[0x277CCA450];
+        do
+        {
+          for (j = 0; j != v16; ++j)
+          {
+            if (*v22 != v17)
+            {
+              objc_enumerationMutation(v14);
+            }
+
+            v20 = [*(*(&v21 + 1) + 8 * j) objectForKey:@"NSNearbyDiscoveryPeerSendCompletionHandlerKey"];
+            if (v20)
+            {
+              (*(v20 + 16))(v20, [MEMORY[0x277CCA9B8] errorWithDomain:@"NSNearbyDiscoveryPeer" code:-1 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObject:forKey:", @"Peer doesn't have a connection object", v18)}]);
+            }
+          }
+
+          v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        }
+
+        while (v16);
+      }
     }
   }
 
   [(NSMutableArray *)self->_sendDataBuffer removeAllObjects];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

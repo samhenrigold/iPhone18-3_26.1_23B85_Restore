@@ -109,7 +109,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -118,8 +118,8 @@
     v12 = systemSettingsLogHandle;
     if (os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "SDM: Change detected, updating smart data mode status", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "SDM: Change detected, updating smart data mode status", &v14, 2u);
     }
 
     [(SmartDataModeRelay *)self _updateCellDataStatus];
@@ -130,28 +130,26 @@
     v13 = systemSettingsLogHandle;
     if (os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412546;
-      v16 = pathCopy;
-      v17 = 2112;
-      v18 = objectCopy;
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Got unexpected KVO update for keypath %@ of object %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = pathCopy;
+      v16 = 2112;
+      v17 = objectCopy;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Got unexpected KVO update for keypath %@ of object %@", &v14, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCellDataStatus
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = systemSettingsLogHandle;
   if (os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     systemSettingsRelay = self->_systemSettingsRelay;
     v5 = v3;
-    v14 = 67109120;
-    LODWORD(v15) = [(SystemSettingsRelay *)systemSettingsRelay smartDataModeEnabled];
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "SDM: SystemSettingsRelay.SDMEnabled: %hhd", &v14, 8u);
+    v13 = 67109120;
+    LODWORD(v14) = [(SystemSettingsRelay *)systemSettingsRelay smartDataModeEnabled];
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "SDM: SystemSettingsRelay.SDMEnabled: %hhd", &v13, 8u);
   }
 
   v6 = systemSettingsLogHandle;
@@ -160,9 +158,9 @@
     cellStateRelay = self->_cellStateRelay;
     v8 = v6;
     ratSelectionIsNR = [(CellularStateRelay *)cellStateRelay ratSelectionIsNR];
-    v14 = 67109120;
-    LODWORD(v15) = ratSelectionIsNR;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "SDM: _cellStateRelay.ratSelectionIsNR: %hhd", &v14, 8u);
+    v13 = 67109120;
+    LODWORD(v14) = ratSelectionIsNR;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "SDM: _cellStateRelay.ratSelectionIsNR: %hhd", &v13, 8u);
   }
 
   if ([(SystemSettingsRelay *)self->_systemSettingsRelay smartDataModeEnabled])
@@ -184,21 +182,21 @@
   v12 = systemSettingsLogHandle;
   if (os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 138412290;
-    v15 = v11;
-    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "SDM: SmartDataModeRelay updating status: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v11;
+    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "SDM: SmartDataModeRelay updating status: %@", &v13, 0xCu);
   }
 
   [(SmartDataModeRelay *)self setCellDataStatus:v10];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __36__SmartDataModeRelay_sharedInstance__block_invoke()
 {
-  sharedInstance_instance = objc_alloc_init(SmartDataModeRelay);
+  v0 = objc_alloc_init(SmartDataModeRelay);
+  v1 = sharedInstance_instance;
+  sharedInstance_instance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)cellDataStatusToString:(unsigned __int8)string

@@ -2349,7 +2349,7 @@ LABEL_6:
   }
 }
 
-uint64_t __84__OKPageUXViewController_updateWithMotionTiltRotationX_tiltRotationY_tiltRotationZ___block_invoke(uint64_t a1)
+void *__84__OKPageUXViewController_updateWithMotionTiltRotationX_tiltRotationY_tiltRotationZ___block_invoke(uint64_t a1)
 {
   v33 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 120);

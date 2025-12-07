@@ -39,7 +39,7 @@
 
 - (void)_consumeCallbackHandlerWithNumber:(id)number result:(id)result errorMessage:(id)message
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   resultCopy = result;
   messageCopy = message;
@@ -55,18 +55,16 @@
     v12 = MUGetMUWebContentLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = numberCopy;
-      _os_log_impl(&dword_1C5620000, v12, OS_LOG_TYPE_ERROR, "No matching callback handler found for callback %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = numberCopy;
+      _os_log_impl(&dword_1C5620000, v12, OS_LOG_TYPE_ERROR, "No matching callback handler found for callback %@", &v13, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dispatchCallback:(id)callback
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
   v5 = callbackCopy;
   if (self->_connectionState == 1)
@@ -89,9 +87,9 @@
         v13 = MUGetMUWebContentLog();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v15 = 138412290;
-          v16 = v5;
-          _os_log_impl(&dword_1C5620000, v13, OS_LOG_TYPE_ERROR, "Unknown status in message: %@", &v15, 0xCu);
+          v14 = 138412290;
+          v15 = v5;
+          _os_log_impl(&dword_1C5620000, v13, OS_LOG_TYPE_ERROR, "Unknown status in message: %@", &v14, 0xCu);
         }
 
         goto LABEL_10;
@@ -109,8 +107,6 @@
 
 LABEL_10:
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dispatchCall:(id)call
@@ -216,38 +212,34 @@ void __29__MUWebBridge__dispatchCall___block_invoke(uint64_t a1, void *a2, void 
 
 void __29__MUWebBridge__dispatchCall___block_invoke_43(uint64_t a1, uint64_t a2, void *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a3;
   if (v3)
   {
     v4 = MUGetMUWebContentLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_ERROR, "Error evaluating JavaScript: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_ERROR, "Error evaluating JavaScript: %@", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __29__MUWebBridge__dispatchCall___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a3;
   if (v3)
   {
     v4 = MUGetMUWebContentLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_ERROR, "Error evaluating JavaScript: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_ERROR, "Error evaluating JavaScript: %@", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postMessage:(id)message completionHandler:(id)handler
@@ -279,7 +271,7 @@ void __29__MUWebBridge__dispatchCall___block_invoke_2(uint64_t a1, uint64_t a2, 
 
 - (void)_receiveMessage:(id)message
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [[MUWebMessage alloc] initWithJSONObject:messageCopy]) != 0)
@@ -296,22 +288,22 @@ void __29__MUWebBridge__dispatchCall___block_invoke_2(uint64_t a1, uint64_t a2, 
     else
     {
       type2 = [p_super type];
-      v11 = [type2 isEqualToString:@"callback"];
+      v10 = [type2 isEqualToString:@"callback"];
 
-      if (v11)
+      if (v10)
       {
         [(MUWebBridge *)self _dispatchCallback:p_super];
       }
 
       else
       {
-        v12 = MUGetMUWebContentLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v11 = MUGetMUWebContentLog();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           type3 = [p_super type];
-          v14 = 138412290;
-          v15 = type3;
-          _os_log_impl(&dword_1C5620000, v12, OS_LOG_TYPE_ERROR, "Unknown message type: %@", &v14, 0xCu);
+          v13 = 138412290;
+          v14 = type3;
+          _os_log_impl(&dword_1C5620000, v11, OS_LOG_TYPE_ERROR, "Unknown message type: %@", &v13, 0xCu);
         }
       }
     }
@@ -322,12 +314,10 @@ void __29__MUWebBridge__dispatchCall___block_invoke_2(uint64_t a1, uint64_t a2, 
     p_super = MUGetMUWebContentLog();
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_1C5620000, p_super, OS_LOG_TYPE_ERROR, "Invalid message", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_1C5620000, p_super, OS_LOG_TYPE_ERROR, "Invalid message", &v13, 2u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addCallableMethod:(id)method handler:(id)handler
@@ -400,7 +390,7 @@ void __29__MUWebBridge__dispatchCall___block_invoke_2(uint64_t a1, uint64_t a2, 
 
 void __52__MUWebBridge_callMethod_arguments_callbackHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -408,9 +398,9 @@ void __52__MUWebBridge_callMethod_arguments_callbackHandler___block_invoke(uint6
     WeakRetained = MUGetMUWebContentLog();
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_1C5620000, WeakRetained, OS_LOG_TYPE_ERROR, "Error evaluating JavaScript: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_1C5620000, WeakRetained, OS_LOG_TYPE_ERROR, "Error evaluating JavaScript: %@", &v8, 0xCu);
     }
 
     goto LABEL_6;
@@ -422,8 +412,6 @@ void __52__MUWebBridge_callMethod_arguments_callbackHandler___block_invoke(uint6
     [WeakRetained _receiveMessage:v5];
 LABEL_6:
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)closeConnection
@@ -473,20 +461,18 @@ LABEL_6:
 
 void __42__MUWebBridge_initWithWebViewFactoryItem___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a3;
   if (v3)
   {
     v4 = MUGetMUWebContentLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_ERROR, "Bad message response: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_ERROR, "Bad message response: %@", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_operatingSystemVersion
@@ -496,7 +482,7 @@ void __42__MUWebBridge_initWithWebViewFactoryItem___block_invoke(uint64_t a1, ui
   v3 = processInfo;
   if (processInfo)
   {
-    [processInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo);
   }
 
   else

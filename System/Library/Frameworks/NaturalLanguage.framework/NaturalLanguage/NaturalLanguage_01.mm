@@ -1,7 +1,350 @@
-void sub_19D4AAC80(_Unwind_Exception *a1, uint64_t a2, ...)
+uint64_t std::__shared_ptr_pointer<E5RT::ExecutionStreamOperation  *>::__get_deleter(uint64_t a1, uint64_t a2)
 {
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  {
+    return a1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+BOOL std::type_info::operator==[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a2 + 8);
+  if (v2 == v3)
+  {
+    return 1;
+  }
+
+  if ((v3 & v2) < 0 != __OFSUB__(v2, v3))
+  {
+    return strcmp((v2 & 0x7FFFFFFFFFFFFFFFLL), (v3 & 0x7FFFFFFFFFFFFFFFLL)) == 0;
+  }
+
+  return 0;
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<E5RT::BufferObject>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+{
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
+  {
+    goto LABEL_18;
+  }
+
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
+  {
+    v11 = v6;
+    if (v6 >= *&v8)
+    {
+      v11 = v6 % *&v8;
+    }
+  }
+
+  else
+  {
+    v11 = (*&v8 - 1) & v6;
+  }
+
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
+  {
+LABEL_18:
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__construct_node_hash<std::string const&,std::unique_ptr<E5RT::BufferObject>>();
+  }
+
+  while (1)
+  {
+    v14 = v13[1];
+    if (v14 == v7)
+    {
+      break;
+    }
+
+    if (v10 > 1)
+    {
+      if (v14 >= *&v8)
+      {
+        v14 %= *&v8;
+      }
+    }
+
+    else
+    {
+      v14 &= *&v8 - 1;
+    }
+
+    if (v14 != v11)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v13 = *v13;
+    if (!v13)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v13;
+}
+
+void sub_19D4AA498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>>>>::~unique_ptr[abi:ne200100](va, a2);
+  _Unwind_Resume(a1);
+}
+
+std::string *std::pair<std::string const,std::shared_ptr<E5RT::BufferObject>>::pair[abi:ne200100]<std::string const&,std::unique_ptr<E5RT::BufferObject>,0>(std::string *this, __int128 *a2, uint64_t *a3)
+{
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
+  }
+
+  else
+  {
+    v5 = *a2;
+    this->__r_.__value_.__r.__words[2] = *(a2 + 2);
+    *&this->__r_.__value_.__l.__data_ = v5;
+  }
+
+  std::shared_ptr<E5RT::BufferObject>::shared_ptr[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>(&this[1], a3);
+  return this;
+}
+
+void sub_19D4AA598(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::shared_ptr<E5RT::BufferObject>::shared_ptr[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>(uint64_t *a1, uint64_t *a2)
+{
+  v2 = *a2;
+  *a1 = *a2;
+  if (v2)
+  {
+    operator new();
+  }
+
+  a1[1] = 0;
+  *a2 = 0;
+  return a1;
+}
+
+void std::__shared_ptr_pointer<E5RT::BufferObject  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x19EAFC130);
+}
+
+uint64_t std::__shared_ptr_pointer<E5RT::BufferObject  *>::__on_zero_shared(uint64_t a1)
+{
+  result = *(a1 + 24);
+  if (result)
+  {
+    return (*(*result + 8))();
+  }
+
+  return result;
+}
+
+uint64_t std::__shared_ptr_pointer<E5RT::BufferObject  *>::__get_deleter(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
+  {
+    goto LABEL_18;
+  }
+
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
+  {
+    v12 = v7;
+    if (v7 >= *&v9)
+    {
+      v12 = v7 % *&v9;
+    }
+  }
+
+  else
+  {
+    v12 = (*&v9 - 1) & v7;
+  }
+
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
+  {
+LABEL_18:
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
+  }
+
+  while (1)
+  {
+    v15 = v14[1];
+    if (v15 == v8)
+    {
+      break;
+    }
+
+    if (v11 > 1)
+    {
+      if (v15 >= *&v9)
+      {
+        v15 %= *&v9;
+      }
+    }
+
+    else
+    {
+      v15 &= *&v9 - 1;
+    }
+
+    if (v15 != v12)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v14 = *v14;
+    if (!v14)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v14;
+}
+
+void sub_19D4AA940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>>>>::~unique_ptr[abi:ne200100](va, a2);
+  _Unwind_Resume(a1);
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
+{
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
+  {
+    goto LABEL_18;
+  }
+
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
+  {
+    v11 = v6;
+    if (v6 >= *&v8)
+    {
+      v11 = v6 % *&v8;
+    }
+  }
+
+  else
+  {
+    v11 = (*&v8 - 1) & v6;
+  }
+
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v14 = v13[1];
+    if (v14 == v7)
+    {
+      break;
+    }
+
+    if (v10 > 1)
+    {
+      if (v14 >= *&v8)
+      {
+        v14 %= *&v8;
+      }
+    }
+
+    else
+    {
+      v14 &= *&v8 - 1;
+    }
+
+    if (v14 != v11)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v13 = *v13;
+    if (!v13)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v13;
+}
+
+void sub_19D4AAC80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>>>>::~unique_ptr[abi:ne200100](va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -65,7 +408,7 @@ void applesauce::CF::details::CFArray_get_value_to<std::vector<int>>(const __CFA
         }
 
         *(4 * v13) = v7;
-        v10 = 4 * v13 + 4;
+        v10 = (4 * v13 + 4);
         memcpy(0, begin, v12);
         v17 = a2->__begin_;
         a2->__begin_ = 0;
@@ -80,7 +423,7 @@ void applesauce::CF::details::CFArray_get_value_to<std::vector<int>>(const __CFA
       else
       {
         *end = v7;
-        v10 = (end + 4);
+        v10 = end + 1;
       }
 
       a2->__end_ = v10;
@@ -109,7 +452,6 @@ void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_ty
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:ne200100]<std::allocator<ME_Model::ME_Feature>>(this, __n);
     }
 
@@ -295,7 +637,7 @@ LABEL_32:
   return v18.i64[0] | v14 | v18.i64[1];
 }
 
-void predictedMRLModelLabelForString(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
+void predictedMRLModelLabelForString(const void *a1, BOOL a2, void *a3, void *a4, void *a5)
 {
   v7 = a3;
   v8 = a4;
@@ -304,7 +646,7 @@ void predictedMRLModelLabelForString(uint64_t a1, uint64_t a2, void *a3, void *a
   operator new[]();
 }
 
-void fillOutputProbabilities(const void *a1, BOOL a2, NSDictionary *a3, NSString *a4, float *a5)
+void fillOutputProbabilities(const void *a1, int a2, NSDictionary *a3, NSString *a4, float *a5)
 {
   a3;
   v7 = a4;
@@ -314,7 +656,7 @@ void fillOutputProbabilities(const void *a1, BOOL a2, NSDictionary *a3, NSString
   operator new[]();
 }
 
-void predictedMRLModelLabelHypothesesForString(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
+void predictedMRLModelLabelHypothesesForString(const void *a1, int a2, void *a3, void *a4, void *a5)
 {
   v7 = a3;
   v8 = a4;
@@ -348,26 +690,26 @@ uint64_t createMRLModelFromData(void *a1)
   return v3;
 }
 
-id dataFromMRLModel()
+id dataFromMRLModel(uint64_t a1)
 {
-  v0 = MRLModelCopyQuantizedSerializedData();
+  v1 = MRLModelCopyQuantizedSerializedData();
 
-  return v0;
+  return v1;
 }
 
-void sub_19D4AE3DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_19D4AE3DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -422,101 +764,100 @@ LABEL_9:
   return v4;
 }
 
-void sub_19D4AFE68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_19D4AFE68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
+  va_start(va, a48);
   _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a49, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __tagForNLTag_block_invoke()
 {
-  v4[40] = *MEMORY[0x1E69E9840];
+  v3[40] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Word";
+  v2[1] = @"Punctuation";
   v3[0] = @"Word";
   v3[1] = @"Punctuation";
-  v4[0] = @"Word";
-  v4[1] = @"Punctuation";
+  v2[2] = @"Whitespace";
+  v2[3] = @"Other";
   v3[2] = @"Whitespace";
   v3[3] = @"Other";
-  v4[2] = @"Whitespace";
-  v4[3] = @"Other";
+  v2[4] = @"Noun";
+  v2[5] = @"Verb";
   v3[4] = @"Noun";
   v3[5] = @"Verb";
-  v4[4] = @"Noun";
-  v4[5] = @"Verb";
+  v2[6] = @"Adjective";
+  v2[7] = @"Adverb";
   v3[6] = @"Adjective";
   v3[7] = @"Adverb";
-  v4[6] = @"Adjective";
-  v4[7] = @"Adverb";
+  v2[8] = @"Pronoun";
+  v2[9] = @"Determiner";
   v3[8] = @"Pronoun";
   v3[9] = @"Determiner";
-  v4[8] = @"Pronoun";
-  v4[9] = @"Determiner";
+  v2[10] = @"Particle";
+  v2[11] = @"Preposition";
   v3[10] = @"Particle";
   v3[11] = @"Preposition";
-  v4[10] = @"Particle";
-  v4[11] = @"Preposition";
+  v2[12] = @"Number";
+  v2[13] = @"Conjunction";
   v3[12] = @"Number";
   v3[13] = @"Conjunction";
-  v4[12] = @"Number";
-  v4[13] = @"Conjunction";
+  v2[14] = @"Interjection";
+  v2[15] = @"Classifier";
   v3[14] = @"Interjection";
   v3[15] = @"Classifier";
-  v4[14] = @"Interjection";
-  v4[15] = @"Classifier";
+  v2[16] = @"Idiom";
+  v2[17] = @"OtherWord";
   v3[16] = @"Idiom";
   v3[17] = @"OtherWord";
-  v4[16] = @"Idiom";
-  v4[17] = @"OtherWord";
+  v2[18] = @"SentenceTerminator";
+  v2[19] = @"OpenQuote";
   v3[18] = @"SentenceTerminator";
   v3[19] = @"OpenQuote";
-  v4[18] = @"SentenceTerminator";
-  v4[19] = @"OpenQuote";
+  v2[20] = @"CloseQuote";
+  v2[21] = @"OpenParenthesis";
   v3[20] = @"CloseQuote";
   v3[21] = @"OpenParenthesis";
-  v4[20] = @"CloseQuote";
-  v4[21] = @"OpenParenthesis";
+  v2[22] = @"CloseParenthesis";
+  v2[23] = @"WordJoiner";
   v3[22] = @"CloseParenthesis";
   v3[23] = @"WordJoiner";
-  v4[22] = @"CloseParenthesis";
-  v4[23] = @"WordJoiner";
+  v2[24] = @"Dash";
+  v2[25] = @"Punctuation";
   v3[24] = @"Dash";
   v3[25] = @"Punctuation";
-  v4[24] = @"Dash";
-  v4[25] = @"Punctuation";
+  v2[26] = @"ParagraphBreak";
+  v2[27] = @"Whitespace";
   v3[26] = @"ParagraphBreak";
   v3[27] = @"Whitespace";
-  v4[26] = @"ParagraphBreak";
-  v4[27] = @"Whitespace";
+  v2[28] = @"PersonalName";
+  v2[29] = @"PlaceName";
   v3[28] = @"PersonalName";
   v3[29] = @"PlaceName";
-  v4[28] = @"PersonalName";
-  v4[29] = @"PlaceName";
+  v2[30] = @"OrganizationName";
+  v2[31] = 0x1F10C78E0;
   v3[30] = @"OrganizationName";
-  v3[31] = 0x1F10C78E0;
-  v4[30] = @"OrganizationName";
-  v4[31] = @"1.0";
-  v3[32] = 0x1F10C7900;
+  v3[31] = @"1.0";
+  v2[32] = 0x1F10C7900;
+  v2[33] = @"Anger";
+  v3[32] = @"-1.0";
   v3[33] = @"Anger";
-  v4[32] = @"-1.0";
-  v4[33] = @"Anger";
+  v2[34] = @"Fear";
+  v2[35] = @"Happiness";
   v3[34] = @"Fear";
   v3[35] = @"Happiness";
-  v4[34] = @"Fear";
-  v4[35] = @"Happiness";
+  v2[36] = @"Love";
+  v2[37] = @"Sadness";
   v3[36] = @"Love";
   v3[37] = @"Sadness";
-  v4[36] = @"Love";
-  v4[37] = @"Sadness";
+  v2[38] = @"Surprise";
+  v2[39] = @"OtherEmotion";
   v3[38] = @"Surprise";
   v3[39] = @"OtherEmotion";
-  v4[38] = @"Surprise";
-  v4[39] = @"OtherEmotion";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:40];
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:40];
   v1 = tagForNLTag_tagDictionary;
   tagForNLTag_tagDictionary = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void ___loadTextInput_block_invoke()
@@ -559,59 +900,58 @@ void ___loadTextInput_block_invoke()
 LABEL_10:
 }
 
-void createMaxEntModelFromTrainingDataSet(void *a1, void *a2)
+void createMaxEntModelFromTrainingDataSet(void *a1, void *a2, unint64_t a3)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = a1;
+  v4 = a1;
   a2;
-  [v3 labelMap];
+  [v4 labelMap];
   objc_claimAutoreleasedReturnValue();
-  [v3 inverseLabelMap];
+  [v4 inverseLabelMap];
   objc_claimAutoreleasedReturnValue();
-  [v3 vocabularyMap];
+  [v4 vocabularyMap];
   objc_claimAutoreleasedReturnValue();
-  [v3 documentFrequencyMap];
+  [v4 documentFrequencyMap];
   objc_claimAutoreleasedReturnValue();
-  v4 = [v3 dataProviderOfType:0];
-  [v3 dataProviderOfType:1];
+  v5 = [v4 dataProviderOfType:0];
+  [v4 dataProviderOfType:1];
   objc_claimAutoreleasedReturnValue();
-  v4;
+  v5;
   operator new();
 }
 
-void createSample(NSArray *a1@<X0>, NSDictionary *a2@<X1>, NSDictionary *a3@<X2>, NSDictionary *a4@<X3>, uint64_t a5@<X8>)
+void createSample(uint64_t *__return_ptr a1@<X8>, NSArray *a2@<X0>, NSDictionary *a3@<X1>, NSDictionary *a4@<X2>, NSDictionary *a5@<X3>)
 {
-  v62 = *MEMORY[0x1E69E9840];
-  v42 = a1;
-  v45 = a2;
+  v61 = *MEMORY[0x1E69E9840];
+  v41 = a2;
   v44 = a3;
-  *a5 = 0;
-  *(a5 + 23) = 0u;
-  *(a5 + 39) = 0u;
-  *(a5 + 55) = 0u;
-  *(a5 + 71) = 0;
+  v43 = a4;
+  *a1 = 0;
+  *(a1 + 23) = 0u;
+  *(a1 + 39) = 0u;
+  *(a1 + 55) = 0u;
+  *(a1 + 71) = 0;
   v9 = [MEMORY[0x1E695DF90] dictionary];
-  v41 = a4;
+  v40 = a5;
   v10 = [MEMORY[0x1E695DF90] dictionary];
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
-  obj = v42;
-  v11 = [(NSArray *)obj countByEnumeratingWithState:&v55 objects:v61 count:16];
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  obj = v41;
+  v11 = [(NSArray *)obj countByEnumeratingWithState:&v54 objects:v60 count:16];
   if (v11)
   {
-    v12 = *v56;
+    v12 = *v55;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v56 != v12)
+        if (*v55 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = tokenIDFromTokenAndVocabularyMap(*(*(&v55 + 1) + 8 * i), v45);
+        v14 = tokenIDFromTokenAndVocabularyMap(*(*(&v54 + 1) + 8 * i), v44);
         if (v14 != 3)
         {
           v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v14];
@@ -623,33 +963,33 @@ void createSample(NSArray *a1@<X0>, NSDictionary *a2@<X1>, NSDictionary *a3@<X2>
         }
       }
 
-      v11 = [(NSArray *)obj countByEnumeratingWithState:&v55 objects:v61 count:16];
+      v11 = [(NSArray *)obj countByEnumeratingWithState:&v54 objects:v60 count:16];
     }
 
     while (v11);
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v19 = [v9 allKeys];
-  v20 = [v19 countByEnumeratingWithState:&v51 objects:v60 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v50 objects:v59 count:16];
   if (v20)
   {
-    v21 = *v52;
+    v21 = *v51;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v52 != v21)
+        if (*v51 != v21)
         {
           objc_enumerationMutation(v19);
         }
 
-        v23 = *(*(&v51 + 1) + 8 * j);
+        v23 = *(*(&v50 + 1) + 8 * j);
         v24 = [v9 objectForKey:v23];
-        v25 = [(NSDictionary *)v44 objectForKey:v23];
+        v25 = [(NSDictionary *)v43 objectForKey:v23];
         [v24 doubleValue];
         v27 = v26;
         if (v25)
@@ -683,57 +1023,55 @@ void createSample(NSArray *a1@<X0>, NSDictionary *a2@<X1>, NSDictionary *a3@<X2>
         }
 
         v31 = log(v29 + 1.0);
-        v32 = log(v41 / v30);
-        std::to_string(&v50, [v23 unsignedIntegerValue]);
-        ME_Sample::add_feature(a5, &v50, v31 * v32);
-        if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+        v32 = log(v40 / v30);
+        std::to_string(&v49, [v23 unsignedIntegerValue]);
+        ME_Sample::add_feature(a1, &v49, v31 * v32);
+        if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v50.__r_.__value_.__l.__data_);
+          operator delete(v49.__r_.__value_.__l.__data_);
         }
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v51 objects:v60 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v50 objects:v59 count:16];
     }
 
     while (v20);
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v33 = [v10 allKeys];
-  v34 = [v33 countByEnumeratingWithState:&v46 objects:v59 count:16];
+  v34 = [v33 countByEnumeratingWithState:&v45 objects:v58 count:16];
   if (v34)
   {
-    v35 = *v47;
+    v35 = *v46;
     do
     {
       for (k = 0; k != v34; ++k)
       {
-        if (*v47 != v35)
+        if (*v46 != v35)
         {
           objc_enumerationMutation(v33);
         }
 
-        v37 = *(*(&v46 + 1) + 8 * k);
+        v37 = *(*(&v45 + 1) + 8 * k);
         v38 = [v10 objectForKey:v37];
-        std::to_string(&v50, [v37 unsignedIntegerValue] + 98304);
+        std::to_string(&v49, [v37 unsignedIntegerValue] + 98304);
         [v38 doubleValue];
-        ME_Sample::add_feature(a5, &v50, v39);
-        if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+        ME_Sample::add_feature(a1, &v49, v39);
+        if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v50.__r_.__value_.__l.__data_);
+          operator delete(v49.__r_.__value_.__l.__data_);
         }
       }
 
-      v34 = [v33 countByEnumeratingWithState:&v46 objects:v59 count:16];
+      v34 = [v33 countByEnumeratingWithState:&v45 objects:v58 count:16];
     }
 
     while (v34);
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void sub_19D4B2030(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -745,7 +1083,7 @@ void sub_19D4B2030(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void __createMaxEntModelFromTrainingDataSet_block_invoke(uint64_t a1, uint64_t a2, int a3, float a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v7 = *(a1 + 32);
   v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a2];
   [v7 logMessage:v8];
@@ -757,13 +1095,13 @@ void __createMaxEntModelFromTrainingDataSet_block_invoke(uint64_t a1, uint64_t a
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = *(a1 + 40) - a3 + 1;
-    v17 = 134218496;
-    v18 = 2;
-    v19 = 2048;
-    v20 = 0;
-    v21 = 2048;
-    v22 = *&v12;
-    _os_log_impl(&dword_19D48F000, v11, OS_LOG_TYPE_INFO, "event: %lu, column: %lu, value: %ld", &v17, 0x20u);
+    v16 = 134218496;
+    v17 = 2;
+    v18 = 2048;
+    v19 = 0;
+    v20 = 2048;
+    v21 = *&v12;
+    _os_log_impl(&dword_19D48F000, v11, OS_LOG_TYPE_INFO, "event: %lu, column: %lu, value: %ld", &v16, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -773,17 +1111,16 @@ void __createMaxEntModelFromTrainingDataSet_block_invoke(uint64_t a1, uint64_t a
 
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v17 = 134218496;
-    v18 = 2;
-    v19 = 2048;
-    v20 = 1;
-    v21 = 2048;
-    v22 = a4;
-    _os_log_impl(&dword_19D48F000, v15, OS_LOG_TYPE_INFO, "event: %lu, column: %lu, value: %f", &v17, 0x20u);
+    v16 = 134218496;
+    v17 = 2;
+    v18 = 2048;
+    v19 = 1;
+    v20 = 2048;
+    v21 = a4;
+    _os_log_impl(&dword_19D48F000, v15, OS_LOG_TYPE_INFO, "event: %lu, column: %lu, value: %f", &v16, 0x20u);
   }
 
   objc_autoreleasePoolPop(v13);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 id predictedMaxEntModelLabelForString(ME_Model *a1, void *a2, void *a3, void *a4, NSDictionary *a5, void *a6)
@@ -792,8 +1129,8 @@ id predictedMaxEntModelLabelForString(ME_Model *a1, void *a2, void *a3, void *a4
   v12 = a3;
   v13 = a4;
   v14 = inputSequenceFromSentence(a6, 0);
-  createSample(v14, v12, v13, a5, v20);
-  ME_Model::classify(a1, v20, __p);
+  createSample(v20, v14, v12, v13, a5);
+  ME_Model::classify(__p, a1, v20);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -825,9 +1162,9 @@ id predictedMaxEntModelLabelForString(ME_Model *a1, void *a2, void *a3, void *a4
   return v17;
 }
 
-void sub_19D4B24A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_19D4B24A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   ME_Sample::~ME_Sample(va);
   _Unwind_Resume(a1);
@@ -839,9 +1176,9 @@ id predictedMaxEntModelLabelHypothesesForString(ME_Model *a1, void *a2, void *a3
   v12 = a3;
   v24 = a4;
   v13 = inputSequenceFromSentence(a6, 0);
-  createSample(v13, v12, v24, a5, v28);
+  createSample(v28, v13, v12, v24, a5);
   v14 = [MEMORY[0x1E695DF90] dictionary];
-  ME_Model::classify(a1, v28, &__p);
+  ME_Model::classify(&__p, a1, v28);
   if (((v27 - __p) >> 3) >= 1)
   {
     v15 = 0;
@@ -1343,32 +1680,32 @@ id createCRFSuiteMaxEntModelDataFromTrainingDataSet(void *a1)
 
 uint64_t createSample(NSArray *a1, NSDictionary *a2, NSDictionary *a3, NSDictionary *a4)
 {
-  v59 = *MEMORY[0x1E69E9840];
-  v38 = a1;
-  v42 = a2;
-  v41 = a3;
+  v58 = *MEMORY[0x1E69E9840];
+  v37 = a1;
+  v41 = a2;
+  v40 = a3;
   v7 = maxent_sample_create();
   v8 = [MEMORY[0x1E695DF90] dictionary];
-  v40 = [MEMORY[0x1E695DF90] dictionary];
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
+  v39 = [MEMORY[0x1E695DF90] dictionary];
   v53 = 0u;
-  obj = v38;
-  v9 = [(NSArray *)obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  obj = v37;
+  v9 = [(NSArray *)obj countByEnumeratingWithState:&v51 objects:v57 count:16];
   if (v9)
   {
-    v10 = *v53;
+    v10 = *v52;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v53 != v10)
+        if (*v52 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = tokenIDFromTokenAndVocabularyMap(*(*(&v52 + 1) + 8 * i), v42);
+        v12 = tokenIDFromTokenAndVocabularyMap(*(*(&v51 + 1) + 8 * i), v41);
         if (v12 != 3)
         {
           v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
@@ -1380,34 +1717,34 @@ uint64_t createSample(NSArray *a1, NSDictionary *a2, NSDictionary *a3, NSDiction
         }
       }
 
-      v9 = [(NSArray *)obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+      v9 = [(NSArray *)obj countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
     while (v9);
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v17 = [v8 allKeys];
-  v18 = [v17 countByEnumeratingWithState:&v48 objects:v57 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v47 objects:v56 count:16];
   if (v18)
   {
-    v19 = *v49;
+    v19 = *v48;
     v20 = a4;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v49 != v19)
+        if (*v48 != v19)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v48 + 1) + 8 * j);
+        v22 = *(*(&v47 + 1) + 8 * j);
         v23 = [v8 objectForKey:v22];
-        v24 = [(NSDictionary *)v41 objectForKey:v22];
+        v24 = [(NSDictionary *)v40 objectForKey:v22];
         [v23 doubleValue];
         v26 = v25;
         if (v24)
@@ -1442,56 +1779,55 @@ uint64_t createSample(NSArray *a1, NSDictionary *a2, NSDictionary *a3, NSDiction
 
         log(v28 + 1.0);
         log(v20 / v29);
-        std::to_string(&v47, [v22 unsignedIntegerValue]);
+        std::to_string(&v46, [v22 unsignedIntegerValue]);
         maxent_sample_add_feature_with_value();
-        if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v47.__r_.__value_.__l.__data_);
+          operator delete(v46.__r_.__value_.__l.__data_);
         }
       }
 
-      v18 = [v17 countByEnumeratingWithState:&v48 objects:v57 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v47 objects:v56 count:16];
     }
 
     while (v18);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
-  v30 = [v40 allKeys];
-  v31 = [v30 countByEnumeratingWithState:&v43 objects:v56 count:16];
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v30 = [v39 allKeys];
+  v31 = [v30 countByEnumeratingWithState:&v42 objects:v55 count:16];
   if (v31)
   {
-    v32 = *v44;
+    v32 = *v43;
     do
     {
       for (k = 0; k != v31; ++k)
       {
-        if (*v44 != v32)
+        if (*v43 != v32)
         {
           objc_enumerationMutation(v30);
         }
 
-        v34 = *(*(&v43 + 1) + 8 * k);
-        v35 = [v40 objectForKey:v34];
-        std::to_string(&v47, [v34 unsignedIntegerValue] + 98304);
+        v34 = *(*(&v42 + 1) + 8 * k);
+        v35 = [v39 objectForKey:v34];
+        std::to_string(&v46, [v34 unsignedIntegerValue] + 98304);
         [v35 doubleValue];
         maxent_sample_add_feature_with_value();
-        if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v47.__r_.__value_.__l.__data_);
+          operator delete(v46.__r_.__value_.__l.__data_);
         }
       }
 
-      v31 = [v30 countByEnumeratingWithState:&v43 objects:v56 count:16];
+      v31 = [v30 countByEnumeratingWithState:&v42 objects:v55 count:16];
     }
 
     while (v31);
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -1535,9 +1871,9 @@ id predictedCRFSuiteMaxEntModelLabelHypothesesForString(uint64_t a1, void *a2, v
   return v15;
 }
 
-void sub_19D4B3C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_19D4B3C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1545,22 +1881,20 @@ void sub_19D4B3C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void __predictedCRFSuiteMaxEntModelLabelHypothesesForString_block_invoke(void *a1, double a2)
 {
-  v4 = a1[7];
-  v5 = *(*(a1[6] + 8) + 24);
   class_label = maxent_get_class_label();
-  v7 = strtoul(class_label, 0, 10);
-  v8 = a1[4];
-  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v7];
-  v13 = [v8 objectForKey:v9];
+  v5 = strtoul(class_label, 0, 10);
+  v6 = a1[4];
+  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v5];
+  v11 = [v6 objectForKey:v7];
 
-  v10 = v13;
-  if (v13)
+  v8 = v11;
+  if (v11)
   {
-    v11 = a1[5];
-    v12 = [MEMORY[0x1E696AD98] numberWithDouble:a2];
-    [v11 setObject:v12 forKey:v13];
+    v9 = a1[5];
+    v10 = [MEMORY[0x1E696AD98] numberWithDouble:a2];
+    [v9 setObject:v10 forKey:v11];
 
-    v10 = v13;
+    v8 = v11;
   }
 
   ++*(*(a1[6] + 8) + 24);
@@ -1599,9 +1933,9 @@ _DWORD *tokensForEntrySequence(void *a1)
   return v4;
 }
 
-void sub_19D4B788C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19D4B788C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1664,12 +1998,12 @@ LABEL_2:
 
 void *NLPClassifierModelCreateTrainedModelWithData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, void *a8)
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   v14 = a7;
-  v31 = 0;
+  v30 = 0;
   v15 = a8;
-  v16 = [NLModelConfiguration defaultModelConfigurationForType:0 options:a1 error:&v31];
-  v17 = v31;
+  v16 = [NLModelConfiguration defaultModelConfigurationForType:0 options:a1 error:&v30];
+  v17 = v30;
   v18 = [[NLPModelTrainingDelegate alloc] initWithLogHandler:v15];
 
   if (a2 >= 1 && v16)
@@ -1701,9 +2035,9 @@ void *NLPClassifierModelCreateTrainedModelWithData(uint64_t a1, uint64_t a2, uin
     }
 
     v25 = MEMORY[0x1E696ABC0];
-    v32 = *MEMORY[0x1E696A578];
-    v33[0] = @"Failed to train model, no training data supplied";
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v31 = *MEMORY[0x1E696A578];
+    v32[0] = @"Failed to train model, no training data supplied";
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     [v25 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:9 userInfo:v19];
     v23 = 0;
     v17 = v20 = v17;
@@ -1728,7 +2062,6 @@ LABEL_11:
     *a6 = v17;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -1889,12 +2222,12 @@ void *NLPClassifierModelCopyTestResults(void *a1, uint64_t a2, uint64_t a3, void
 
 void *NLPSequenceModelCreateTrainedModelWithData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, void *a8)
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   v14 = a7;
-  v31 = 0;
+  v30 = 0;
   v15 = a8;
-  v16 = [NLModelConfiguration defaultModelConfigurationForType:1 options:a1 error:&v31];
-  v17 = v31;
+  v16 = [NLModelConfiguration defaultModelConfigurationForType:1 options:a1 error:&v30];
+  v17 = v30;
   v18 = [[NLPModelTrainingDelegate alloc] initWithLogHandler:v15];
 
   if (a2 >= 1 && v16)
@@ -1926,9 +2259,9 @@ void *NLPSequenceModelCreateTrainedModelWithData(uint64_t a1, uint64_t a2, uint6
     }
 
     v25 = MEMORY[0x1E696ABC0];
-    v32 = *MEMORY[0x1E696A578];
-    v33[0] = @"Failed to train model, no training data supplied";
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v31 = *MEMORY[0x1E696A578];
+    v32[0] = @"Failed to train model, no training data supplied";
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     [v25 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:9 userInfo:v19];
     v23 = 0;
     v17 = v20 = v17;
@@ -1953,7 +2286,6 @@ LABEL_11:
     *a6 = v17;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -2367,37 +2699,37 @@ uint64_t NLPEmbeddingModelWriteCoreMLModelToURLWithOptions(void *a1, uint64_t a2
 
 id NLPEmbeddingModelCopyVectorForString(void *a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [a1 predictedLabelForString:a2];
   if (v2)
   {
     v3 = [MEMORY[0x1E695DF70] array];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v4 = [v2 componentsSeparatedByString:{@", ", 0}];
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
           v9 = MEMORY[0x1E696AD98];
-          [*(*(&v13 + 1) + 8 * i) doubleValue];
+          [*(*(&v12 + 1) + 8 * i) doubleValue];
           v10 = [v9 numberWithDouble:?];
           [v3 addObject:v10];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -2414,7 +2746,6 @@ id NLPEmbeddingModelCopyVectorForString(void *a1, uint64_t a2)
     v3 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -2439,9 +2770,9 @@ uint64_t NLPEmbeddingModelGetRevision(void *a1)
   return v2;
 }
 
-void sub_19D4BE384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19D4BE384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2453,9 +2784,30 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_19D4BE6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19D4BE6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19D4BF598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19D4BFD54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19D4C0CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, ...)
+{
+  va_start(va, a49);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2475,7 +2827,8 @@ void ME_Model::regularized_func_grad(ME_Model *this, double a2, double **a3, dou
 
     do
     {
-      v10 = *v7++;
+      v10 = *v7;
+      v7 += 8;
       v6 = v6 + a2 * fabs(v10);
       --v9;
     }
@@ -2520,7 +2873,7 @@ double ME_Model::constrained_line_search(ME_Model *this, double a2, const Vec *a
   {
     while (1)
     {
-      Vec::Vec(v53, (*(a6 + 1) - *a6) >> 3, 0.0);
+      Vec::Vec(v53, 0.0, (*(a6 + 1) - *a6) >> 3);
       v19 = v19 * 0.5;
       v20 = *a6;
       v21 = *(a6 + 1) - *a6;
@@ -2543,7 +2896,7 @@ double ME_Model::constrained_line_search(ME_Model *this, double a2, const Vec *a
         while (v22);
       }
 
-      Vec::Vec(&__p, (*(a3 + 1) - *a3) >> 3, 0.0);
+      Vec::Vec(&__p, 0.0, (*(a3 + 1) - *a3) >> 3);
       v25 = *a3;
       v26 = *(a3 + 1) - *a3;
       if (v26)
@@ -2613,7 +2966,7 @@ double ME_Model::constrained_line_search(ME_Model *this, double a2, const Vec *a
 
       ME_Model::regularized_func_grad(this, a2, a7, a8);
       v38 = v37;
-      Vec::Vec(&__p, (a7[1] - *a7) >> 3, 0.0);
+      Vec::Vec(&__p, 0.0, (a7[1] - *a7) >> 3);
       v39 = *a7;
       v40 = a7[1] - *a7;
       if (v40)
@@ -2706,28 +3059,28 @@ void sub_19D4C11C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ME_Model::perform_OWLQN(int *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>, double a4@<D0>)
+void ME_Model::perform_OWLQN(ME_Model *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>, double a4@<D0>)
 {
-  v96 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   v7 = *a2;
-  v8 = a2[1];
+  v8 = *(a2 + 8);
   v10 = (v8 - v7) >> 3;
+  v89 = 0;
   v90 = 0;
   v91 = 0;
-  v92 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v90, v7, v8, v10);
-  Vec::Vec(&v88, v10, 0.0);
-  Vec::Vec(&v86, v10, 0.0);
-  ME_Model::regularized_func_grad(a1, a4, &v90, &v88);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v89, v7, v8, v10);
+  Vec::Vec(&v87, 0.0, v10);
+  Vec::Vec(&v85, 0.0, v10);
+  ME_Model::regularized_func_grad(a1, a4, &v89, &v87);
   v12 = v11;
   for (i = 0; i != 30; i += 3)
   {
-    Vec::Vec(&v95[i], 0, 0.0);
+    Vec::Vec(&v94[i], 0.0, 0);
   }
 
   for (j = 0; j != 30; j += 3)
   {
-    Vec::Vec(&v94[j], 0, 0.0);
+    Vec::Vec(&v93[j], 0.0, 0);
   }
 
   if (OWLQN_MAX_ITER >= 1)
@@ -2735,38 +3088,38 @@ void ME_Model::perform_OWLQN(int *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>, dou
     v15 = 0;
     while (1)
     {
+      v82 = 0;
       v83 = 0;
       v84 = 0;
-      v85 = 0;
-      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v83, v88, v89, (v89 - v88) >> 3);
-      v16 = v90;
-      if (v91 != v90)
+      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v82, v87, v88, (v88 - v87) >> 3);
+      v16 = v89;
+      if (v90 != v89)
       {
         break;
       }
 
 LABEL_23:
-      if (a1[100] >= 1)
+      if (*(a1 + 100) >= 1)
       {
         ME_Model::heldout_likelihood(a1);
       }
 
-      v23 = v83;
-      if (v84 == v83)
+      v23 = v82;
+      if (v83 == v82)
       {
         v25 = 0.0;
       }
 
       else
       {
-        v24 = (v84 - v83) >> 3;
+        v24 = (v83 - v82) >> 3;
         if (v24 <= 1)
         {
           v24 = 1;
         }
 
         v25 = 0.0;
-        v26 = v83;
+        v26 = v82;
         do
         {
           v27 = *v26++;
@@ -2780,12 +3133,12 @@ LABEL_23:
       v28 = sqrt(v25);
       if (v28 >= 0.0001)
       {
-        approximate_Hg(&v83, v95, v94, v93, v15, &v79);
-        Vec::Vec(&__p, (v80 - v79) >> 3, 0.0);
-        v29 = v79;
-        if (v80 != v79)
+        approximate_Hg(&v78, &v82, v94, v93, v92, v15);
+        Vec::Vec(&__p, 0.0, (v79 - v78) >> 3);
+        v29 = v78;
+        if (v79 != v78)
         {
-          v30 = (v80 - v79) >> 3;
+          v30 = (v79 - v78) >> 3;
           v31 = __p;
           if (v30 <= 1)
           {
@@ -2802,33 +3155,33 @@ LABEL_23:
           while (v30);
         }
 
-        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v86, __p, v82, (v82 - __p) >> 3);
+        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v85, __p, v81, (v81 - __p) >> 3);
         if (__p)
         {
-          v82 = __p;
+          v81 = __p;
           operator delete(__p);
         }
 
-        if (v79)
+        if (v78)
         {
-          v80 = v79;
-          operator delete(v79);
+          v79 = v78;
+          operator delete(v78);
         }
 
-        v33 = v86;
-        if (v87 == v86)
+        v33 = v85;
+        if (v86 == v85)
         {
           goto LABEL_47;
         }
 
-        v34 = (v87 - v86) >> 3;
+        v34 = (v86 - v85) >> 3;
         if (v34 <= 1)
         {
           v34 = 1;
         }
 
         v35 = 0.0;
-        v36 = v83;
+        v36 = v82;
         do
         {
           v37 = *v33++;
@@ -2842,11 +3195,11 @@ LABEL_23:
         if (v35 >= 0.0)
         {
 LABEL_47:
-          Vec::Vec(&__p, (v84 - v83) >> 3, 0.0);
-          v40 = v83;
-          if (v84 != v83)
+          Vec::Vec(&__p, 0.0, (v83 - v82) >> 3);
+          v40 = v82;
+          if (v83 != v82)
           {
-            v41 = (v84 - v83) >> 3;
+            v41 = (v83 - v82) >> 3;
             v42 = __p;
             if (v41 <= 1)
             {
@@ -2863,11 +3216,11 @@ LABEL_47:
             while (v41);
           }
 
-          v44 = v86;
+          v44 = v85;
           v45 = __p;
-          if (v87 != v86)
+          if (v86 != v85)
           {
-            v46 = (v87 - v86) >> 3;
+            v46 = (v86 - v85) >> 3;
             if (v46 <= 1)
             {
               v46 = 1;
@@ -2891,21 +3244,21 @@ LABEL_47:
 
           if (v45)
           {
-            v82 = v45;
+            v81 = v45;
             operator delete(v45);
           }
         }
 
-        Vec::Vec(&__p, v10, 0.0);
-        Vec::Vec(&v79, v10, 0.0);
-        v12 = ME_Model::constrained_line_search(a1, a4, &v90, &v83, v12, &v86, &__p, &v79);
-        Vec::Vec(&v77, (v82 - __p) >> 3, 0.0);
+        Vec::Vec(&__p, 0.0, v10);
+        Vec::Vec(&v78, 0.0, v10);
+        v12 = ME_Model::constrained_line_search(a1, a4, &v89, &v82, v12, &v85, &__p, &v78);
+        Vec::Vec(&v76, 0.0, (v81 - __p) >> 3);
         v47 = __p;
-        if (v82 != __p)
+        if (v81 != __p)
         {
-          v48 = (v82 - __p) >> 3;
-          v49 = v90;
-          v50 = v77;
+          v48 = (v81 - __p) >> 3;
+          v49 = v89;
+          v50 = v76;
           if (v48 <= 1)
           {
             v48 = 1;
@@ -2924,25 +3277,25 @@ LABEL_47:
         }
 
         v54 = v15 % 0xA;
-        v55 = &v95[3 * v54];
-        if (v55 != &v77)
+        v55 = &v94[3 * v54];
+        if (v55 != &v76)
         {
-          std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v95[3 * v54], v77, v78, (v78 - v77) >> 3);
+          std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v94[3 * v54], v76, v77, (v77 - v76) >> 3);
         }
 
-        if (v77)
+        if (v76)
         {
-          v78 = v77;
-          operator delete(v77);
+          v77 = v76;
+          operator delete(v76);
         }
 
-        Vec::Vec(&v77, (v80 - v79) >> 3, 0.0);
-        v56 = v79;
-        if (v80 != v79)
+        Vec::Vec(&v76, 0.0, (v79 - v78) >> 3);
+        v56 = v78;
+        if (v79 != v78)
         {
-          v57 = (v80 - v79) >> 3;
-          v58 = v88;
-          v59 = v77;
+          v57 = (v79 - v78) >> 3;
+          v58 = v87;
+          v59 = v76;
           if (v57 <= 1)
           {
             v57 = 1;
@@ -2960,16 +3313,16 @@ LABEL_47:
           while (v57);
         }
 
-        v63 = &v94[3 * v54];
-        if (v63 != &v77)
+        v63 = &v93[3 * v54];
+        if (v63 != &v76)
         {
-          std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v94[3 * v54], v77, v78, (v78 - v77) >> 3);
+          std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v93[3 * v54], v76, v77, (v77 - v76) >> 3);
         }
 
-        if (v77)
+        if (v76)
         {
-          v78 = v77;
-          operator delete(v77);
+          v77 = v76;
+          operator delete(v76);
         }
 
         v64 = *v63;
@@ -3001,27 +3354,27 @@ LABEL_47:
           v68 = 0.0;
         }
 
-        v93[v54] = 1.0 / v68;
-        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v90, __p, v82, (v82 - __p) >> 3);
-        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v88, v79, v80, (v80 - v79) >> 3);
-        if (v79)
+        v92[v54] = 1.0 / v68;
+        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v89, __p, v81, (v81 - __p) >> 3);
+        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v87, v78, v79, (v79 - v78) >> 3);
+        if (v78)
         {
-          v80 = v79;
-          operator delete(v79);
+          v79 = v78;
+          operator delete(v78);
         }
 
         if (__p)
         {
-          v82 = __p;
+          v81 = __p;
           operator delete(__p);
         }
 
-        v23 = v83;
+        v23 = v82;
       }
 
       if (v23)
       {
-        v84 = v23;
+        v83 = v23;
         operator delete(v23);
       }
 
@@ -3033,9 +3386,9 @@ LABEL_47:
       goto LABEL_92;
     }
 
-    v17 = (v91 - v90) >> 3;
-    v18 = v88;
-    v19 = v83;
+    v17 = (v90 - v89) >> 3;
+    v18 = v87;
+    v19 = v82;
     if (v17 <= 1)
     {
       v17 = 1;
@@ -3096,79 +3449,77 @@ LABEL_92:
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a3, v90, v91, (v91 - v90) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a3, v89, v90, (v90 - v89) >> 3);
   for (k = 0; k != -30; k -= 3)
   {
-    v73 = v94[k + 27];
+    v73 = v93[k + 27];
     if (v73)
     {
-      v94[k + 28] = v73;
+      v93[k + 28] = v73;
       operator delete(v73);
     }
   }
 
   for (m = 0; m != -30; m -= 3)
   {
-    v75 = v95[m + 27];
+    v75 = v94[m + 27];
     if (v75)
     {
-      v95[m + 28] = v75;
+      v94[m + 28] = v75;
       operator delete(v75);
     }
   }
 
-  if (v86)
+  if (v85)
   {
-    v87 = v86;
-    operator delete(v86);
+    v86 = v85;
+    operator delete(v85);
   }
 
-  if (v88)
+  if (v87)
   {
-    v89 = v88;
-    operator delete(v88);
+    v88 = v87;
+    operator delete(v87);
   }
 
-  if (v90)
+  if (v89)
   {
-    v91 = v90;
-    operator delete(v90);
+    v90 = v89;
+    operator delete(v89);
   }
-
-  v76 = *MEMORY[0x1E69E9840];
 }
 
 void sub_19D4C18AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v70 = &a69;
-  v71 = -240;
+  v66 = &a65;
+  v67 = -240;
   while (1)
   {
-    v72 = *(v70 - 1);
-    if (v72)
+    v68 = *(v66 - 1);
+    if (v68)
     {
-      *v70 = v72;
-      operator delete(v72);
+      *v66 = v68;
+      operator delete(v68);
     }
 
-    v70 -= 3;
-    v71 += 24;
-    if (!v71)
+    v66 -= 3;
+    v67 += 24;
+    if (!v67)
     {
-      v73 = &STACK[0x2D0];
-      v74 = -240;
+      v69 = &STACK[0x2D0];
+      v70 = -240;
       while (1)
       {
-        v75 = *(v73 - 1);
-        if (v75)
+        v71 = *(v69 - 1);
+        if (v71)
         {
-          *v73 = v75;
-          operator delete(v75);
+          *v69 = v71;
+          operator delete(v71);
         }
 
-        v73 -= 3;
-        v74 += 24;
-        if (!v74)
+        v69 -= 3;
+        v70 += 24;
+        if (!v70)
         {
           if (__p)
           {
@@ -3197,7 +3548,7 @@ void sub_19D4C1A00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   if (v41)
   {
     v42 = -v41;
-    v43 = &a41 + v41 - 24;
+    v43 = &a38 + v41;
     do
     {
       v44 = *v43;
@@ -3219,36 +3570,36 @@ void sub_19D4C1A00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
 void sub_19D4C1A38(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (v71)
+  if (v65)
   {
-    v72 = -v71;
-    v73 = &a71 + v71 - 24;
+    v66 = -v65;
+    v67 = &a65 + v65;
     do
     {
-      v74 = *v73;
-      if (*v73)
+      v68 = *v67;
+      if (*v67)
       {
-        *(v73 + 1) = v74;
-        operator delete(v74);
+        *(v67 + 1) = v68;
+        operator delete(v68);
       }
 
-      v73 -= 24;
-      v72 += 24;
+      v67 -= 24;
+      v66 += 24;
     }
 
-    while (v72);
+    while (v66);
   }
 
   JUMPOUT(0x19D4C19C8);
 }
 
-void Vec::Vec(Vec *this, unint64_t a2, double a3)
+void Vec::Vec(Vec *this, double a2, unint64_t a3)
 {
-  v3 = a3;
+  v3 = a2;
   *(this + 1) = 0;
   *(this + 2) = 0;
   *this = 0;
-  std::vector<double>::resize(this, a2, &v3);
+  std::vector<double>::resize(this, a3, &v3);
 }
 
 void sub_19D4C1AB0(_Unwind_Exception *exception_object)
@@ -3263,20 +3614,20 @@ void sub_19D4C1AB0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<double>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v3, a3);
+    std::vector<double>::__append(result, a2 - v3, a3);
   }
 }
 
@@ -3406,7 +3757,7 @@ void sub_19D4C2288(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19D4C2668(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, char a19, void *a20)
+void sub_19D4C2668(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, void *a20)
 {
   std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::destroy(&a19, a20);
 
@@ -3422,44 +3773,44 @@ void sub_19D4C2784(_Unwind_Exception *a1)
 
 void makeContext(NSArray *a1@<X0>, language_modeling::v1::LinguisticContext *a2@<X8>)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a1;
   language_modeling::v1::LinguisticContext::LinguisticContext(a2);
   std::string::basic_string[abi:ne200100]<0>(__p, "");
-  v17 = 1;
+  v16 = 1;
   MEMORY[0x19EAFBD10](a2, __p);
-  if (v16 < 0)
+  if (v15 < 0)
   {
     operator delete(__p[0]);
   }
 
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = v3;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v18 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v17 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         v9 = [v8 UTF8String];
         if (v9)
         {
           std::string::basic_string[abi:ne200100]<0>(__p, v9);
-          v17 = 0;
+          v16 = 0;
           MEMORY[0x19EAFBD10](a2, __p);
-          if (v16 < 0)
+          if (v15 < 0)
           {
             operator delete(__p[0]);
           }
@@ -3469,13 +3820,11 @@ void makeContext(NSArray *a1@<X0>, language_modeling::v1::LinguisticContext *a2@
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v18 count:16];
+      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void sub_19D4C2924(_Unwind_Exception *a1)
@@ -3615,7 +3964,7 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__d
   }
 }
 
-double std::__variant_detail::__assignment<std::__variant_detail::__traits<BOOL,std::string>>::__assign_alt[abi:ne200100]<1ul,std::string,char const*&>(uint64_t a1, std::string *this, char **a3)
+double std::__variant_detail::__assignment<std::__variant_detail::__traits<BOOL,std::string>>::__assign_alt[abi:ne200100]<1ul,std::string,char const*&>(uint64_t a1, std::string *this, const std::string::value_type **a3)
 {
   if (*(a1 + 24) == 1)
   {
@@ -3716,7 +4065,7 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__d
   }
 }
 
-double std::__variant_detail::__assignment<std::__variant_detail::__traits<language_modeling::v1::SessionType,std::string>>::__assign_alt[abi:ne200100]<1ul,std::string,char const*&>(uint64_t a1, std::string *this, char **a3)
+double std::__variant_detail::__assignment<std::__variant_detail::__traits<language_modeling::v1::SessionType,std::string>>::__assign_alt[abi:ne200100]<1ul,std::string,char const*&>(uint64_t a1, std::string *this, const std::string::value_type **a3)
 {
   if (*(a1 + 24) == 1)
   {
@@ -3769,18 +4118,18 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::variant<BO
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::variant<BOOL,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<BOOL,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::variant<BOOL,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<BOOL,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, uint64_t ***a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::variant<BOOL,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<BOOL,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<BOOL,std::string>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,std::variant<BOOL,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<BOOL,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<BOOL,std::string>>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-void *std::__tree<std::__value_type<std::string,std::variant<BOOL,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<BOOL,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<BOOL,std::string>>>>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,std::variant<BOOL,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<BOOL,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<BOOL,std::string>>>>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -3791,7 +4140,7 @@ void *std::__tree<std::__value_type<std::string,std::variant<BOOL,std::string>>,
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -3809,8 +4158,8 @@ void *std::__tree<std::__value_type<std::string,std::variant<BOOL,std::string>>,
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -3826,7 +4175,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,std::variant<BOOL,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<BOOL,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<BOOL,std::string>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,std::variant<BOOL,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<BOOL,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<BOOL,std::string>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -3861,7 +4210,7 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::var
   return a1;
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -3871,7 +4220,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -3884,12 +4233,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -3940,12 +4289,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -3959,22 +4308,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -4008,13 +4357,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -4079,15 +4428,15 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::variant<la
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::variant<BOOL,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<BOOL,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<BOOL,std::string>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,std::variant<BOOL,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<BOOL,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<BOOL,std::string>>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -4137,15 +4486,16 @@ uint64_t std::__function::__value_func<BOOL ()(language_modeling::v1::Prediction
   return a1;
 }
 
-void sub_19D4C4C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+void sub_19D4C4C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
 {
+  va_start(va, a54);
   _Block_object_dispose(&a39, 8);
   _Block_object_dispose(&a43, 8);
   _Block_object_dispose(&a47, 8);
   _Block_object_dispose(&a51, 8);
-  _Block_object_dispose(&a55, 8);
-  _Block_object_dispose((v55 - 256), 8);
-  _Block_object_dispose((v55 - 224), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v54 - 256), 8);
+  _Block_object_dispose((v54 - 224), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4167,7 +4517,7 @@ uint64_t copySampleDataEnumerator(void *a1, _BYTE *a2)
   return v5;
 }
 
-uint64_t rangesMatch(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+BOOL rangesMatch(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   v5 = a1 == a3 && a2 == a4;
   if (a3 >= a1 && !v5)
@@ -4261,39 +4611,39 @@ unint64_t maxTokensFromBatchComponents(void *a1, void *a2, void *a3)
   return v7;
 }
 
-void sub_19D4CAFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_19D4CAFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19D4CB474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_19D4CB474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19D4CB924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_19D4CB924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4367,16 +4717,16 @@ __CFString *NLBooleanToString(int a1)
   }
 }
 
-id NLContextualEmbeddingSignpostHandle()
+id NLContextualEmbeddingSignpostHandle(uint64_t a1)
 {
   if (NLContextualEmbeddingSignpostHandle_onceToken != -1)
   {
     NLContextualEmbeddingSignpostHandle_cold_1();
   }
 
-  v1 = NLContextualEmbeddingSignpostHandle_log_handle;
+  v2 = NLContextualEmbeddingSignpostHandle_log_handle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __NLContextualEmbeddingSignpostHandle_block_invoke()
@@ -4386,17 +4736,17 @@ uint64_t __NLContextualEmbeddingSignpostHandle_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void ME_Model::backtracking_line_search(ME_Model *this, const Vec *a2, double **a3, double a4, const Vec *a5, void **a6, double **a7)
+void ME_Model::backtracking_line_search(ME_Model *this, double **a2, double **a3, double a4, double **a5, void **a6, double **a7)
 {
   v15 = *a5;
-  v14 = *(a5 + 1);
+  v14 = a5[1];
   v16 = 2.0;
   do
   {
     v16 = v16 * 0.5;
-    Vec::Vec(v38, (v14 - v15) >> 3, 0.0);
+    Vec::Vec(v38, 0.0, (v14 - v15) >> 3);
     v17 = *a5;
-    v18 = *(a5 + 1) - *a5;
+    v18 = a5[1] - *a5;
     if (v18)
     {
       v19 = v18 >> 3;
@@ -4416,9 +4766,9 @@ void ME_Model::backtracking_line_search(ME_Model *this, const Vec *a2, double **
       while (v19);
     }
 
-    Vec::Vec(&__p, (*(a2 + 1) - *a2) >> 3, 0.0);
+    Vec::Vec(&__p, 0.0, a2[1] - *a2);
     v22 = *a2;
-    v23 = *(a2 + 1) - *a2;
+    v23 = a2[1] - *a2;
     if (v23)
     {
       v24 = v23 >> 3;
@@ -4431,7 +4781,8 @@ void ME_Model::backtracking_line_search(ME_Model *this, const Vec *a2, double **
 
       do
       {
-        v27 = *v22++;
+        v27 = *v22;
+        v22 += 8;
         v28 = v27;
         v29 = *v25++;
         *v26++ = v28 + v29;
@@ -4460,7 +4811,7 @@ void ME_Model::backtracking_line_search(ME_Model *this, const Vec *a2, double **
 
     v30 = ME_Model::FunctionGradient(this, a6, a7);
     v15 = *a5;
-    v14 = *(a5 + 1);
+    v14 = a5[1];
     if (v14 == *a5)
     {
       v33 = 0.0;
@@ -4468,7 +4819,7 @@ void ME_Model::backtracking_line_search(ME_Model *this, const Vec *a2, double **
 
     else
     {
-      v31 = (v14 - *a5) >> 3;
+      v31 = v14 - *a5;
       v32 = *a3;
       if (v31 <= 1)
       {
@@ -4479,7 +4830,8 @@ void ME_Model::backtracking_line_search(ME_Model *this, const Vec *a2, double **
       v34 = *a5;
       do
       {
-        v35 = *v34++;
+        v35 = *v34;
+        v34 += 8;
         v36 = v35;
         v37 = *v32++;
         v33 = v33 + v36 * v37;
@@ -4508,23 +4860,23 @@ void sub_19D4CF2C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, const double *a4@<X4>, int a5@<W0>, double **a6@<X8>)
+void approximate_Hg(uint64_t *__return_ptr a1@<X8>, const Vec *a2@<X1>, const Vec *a3@<X2>, const Vec *a4@<X3>, const double *a5@<X4>, int a6@<W0>)
 {
-  v72[10] = *MEMORY[0x1E69E9840];
-  v67 = a5 - 1;
-  if (a5 >= 11)
+  v71[10] = *MEMORY[0x1E69E9840];
+  v66 = a6 - 1;
+  if (a6 >= 11)
   {
     v10 = 9;
   }
 
   else
   {
-    v10 = (a5 - 1);
+    v10 = (a6 - 1);
   }
 
-  if (a5 >= 11)
+  if (a6 >= 11)
   {
-    v11 = a5 - 10;
+    v11 = a6 - 10;
   }
 
   else
@@ -4532,23 +4884,23 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
     v11 = 0;
   }
 
-  *a6 = 0;
-  a6[1] = 0;
-  a6[2] = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a6, *a1, *(a1 + 1), (*(a1 + 1) - *a1) >> 3);
-  v69 = v10;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1, *a2, *(a2 + 1), (*(a2 + 1) - *a2) >> 3);
+  v68 = v10;
   if ((v10 & 0x80000000) == 0)
   {
     do
     {
       v12 = (v11 + v10) % 0xAu;
-      v13 = *(a2 + 3 * v12);
+      v13 = *(a3 + 3 * v12);
       v14 = 0.0;
-      v15 = *(a2 + 3 * v12 + 1) - v13;
+      v15 = *(a3 + 3 * v12 + 1) - v13;
       if (v15)
       {
         v16 = v15 >> 3;
-        v17 = *a6;
+        v17 = *a1;
         if (v16 <= 1)
         {
           v16 = 1;
@@ -4566,10 +4918,10 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
         while (v16);
       }
 
-      v21 = a4[v12];
-      *&v72[v10] = v21 * v14;
-      v22 = (a3 + 24 * v12);
-      Vec::Vec(&__p, v22[1] - *v22, 0.0);
+      v21 = a5[v12];
+      *&v71[v10] = v21 * v14;
+      v22 = (a4 + 24 * v12);
+      Vec::Vec(&__p, 0.0, v22[1] - *v22);
       v23 = *v22;
       v24 = v22[1] - *v22;
       if (v24)
@@ -4591,8 +4943,8 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
         while (v25);
       }
 
-      v28 = *a6;
-      v29 = a6[1] - *a6;
+      v28 = *a1;
+      v29 = a1[1] - *a1;
       if (v29)
       {
         v30 = v29 >> 3;
@@ -4615,7 +4967,7 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
 
       if (__p)
       {
-        v71 = __p;
+        v70 = __p;
         operator delete(__p);
       }
     }
@@ -4623,10 +4975,10 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
     while (v10-- > 0);
   }
 
-  if (a5 > 0)
+  if (a6 > 0)
   {
-    v34 = *(a3 + 3 * (v67 % 0xA));
-    v35 = *(a3 + 3 * (v67 % 0xA) + 1) - v34;
+    v34 = *(a4 + 3 * (v66 % 0xA));
+    v35 = *(a4 + 3 * (v66 % 0xA) + 1) - v34;
     if (v35)
     {
       v36 = v35 >> 3;
@@ -4651,11 +5003,11 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
       v37 = 0.0;
     }
 
-    v39 = *a6;
-    v40 = a6[1] - *a6;
+    v39 = *a1;
+    v40 = a1[1] - *a1;
     if (v40)
     {
-      v41 = 1.0 / a4[v67 % 0xA] / v37;
+      v41 = 1.0 / a5[v66 % 0xA] / v37;
       v42 = v40 >> 3;
       if ((v40 >> 3) <= 1)
       {
@@ -4673,19 +5025,19 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
     }
   }
 
-  if ((v69 & 0x80000000) == 0)
+  if ((v68 & 0x80000000) == 0)
   {
     v43 = 0;
     do
     {
       v44 = (v11 + v43) % 10;
-      v45 = *(a3 + 3 * v44);
+      v45 = *(a4 + 3 * v44);
       v46 = 0.0;
-      v47 = *(a3 + 3 * v44 + 1) - v45;
+      v47 = *(a4 + 3 * v44 + 1) - v45;
       if (v47)
       {
         v48 = v47 >> 3;
-        v49 = *a6;
+        v49 = *a1;
         if (v48 <= 1)
         {
           v48 = 1;
@@ -4703,10 +5055,10 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
         while (v48);
       }
 
-      v53 = a4[v44];
-      v54 = (a2 + 24 * v44);
-      v55 = *&v72[v43];
-      Vec::Vec(&__p, v54[1] - *v54, 0.0);
+      v53 = a5[v44];
+      v54 = (a3 + 24 * v44);
+      v55 = *&v71[v43];
+      Vec::Vec(&__p, 0.0, v54[1] - *v54);
       v56 = *v54;
       v57 = v54[1] - *v54;
       if (v57)
@@ -4728,8 +5080,8 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
         while (v58);
       }
 
-      v61 = *a6;
-      v62 = a6[1] - *a6;
+      v61 = *a1;
+      v62 = a1[1] - *a1;
       if (v62)
       {
         v63 = v62 >> 3;
@@ -4752,17 +5104,15 @@ void approximate_Hg(const Vec *a1@<X1>, const Vec *a2@<X2>, const Vec *a3@<X3>, 
 
       if (__p)
       {
-        v71 = __p;
+        v70 = __p;
         operator delete(__p);
       }
 
       ++v43;
     }
 
-    while (v43 != v69 + 1);
+    while (v43 != v68 + 1);
   }
-
-  v66 = *MEMORY[0x1E69E9840];
 }
 
 void sub_19D4CF6A0(_Unwind_Exception *exception_object)
@@ -4777,27 +5127,27 @@ void sub_19D4CF6A0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void ME_Model::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void ME_Model::perform_LBFGS(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v6 = *a2;
-  v7 = a2[1];
+  v7 = *(a2 + 8);
   v9 = (v7 - v6) >> 3;
+  v66 = 0;
   v67 = 0;
   v68 = 0;
-  v69 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v67, v6, v7, v9);
-  Vec::Vec(&v65, v9, 0.0);
-  Vec::Vec(v64, v9, 0.0);
-  v10 = ME_Model::FunctionGradient(a1, &v67, &v65);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v66, v6, v7, v9);
+  Vec::Vec(&v64, 0.0, v9);
+  Vec::Vec(v63, 0.0, v9);
+  v10 = ME_Model::FunctionGradient(a1, &v66, &v64);
   for (i = 0; i != 30; i += 3)
   {
-    Vec::Vec(&v74[i], 0, 0.0);
+    Vec::Vec(&v73[i], 0.0, 0);
   }
 
   for (j = 0; j != 30; j += 3)
   {
-    Vec::Vec(&v73[j], 0, 0.0);
+    Vec::Vec(&v72[j], 0.0, 0);
   }
 
   if (LBFGS_MAX_ITER >= 1)
@@ -4829,15 +5179,15 @@ void ME_Model::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X
         }
       }
 
-      v20 = v65;
-      if (v66 == v65)
+      v20 = v64;
+      if (v65 == v64)
       {
         v22 = 0.0;
       }
 
       else
       {
-        v21 = (v66 - v65) >> 3;
+        v21 = (v65 - v64) >> 3;
         if (v21 <= 1)
         {
           v21 = 1;
@@ -4859,12 +5209,12 @@ void ME_Model::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X
         break;
       }
 
-      approximate_Hg(&v65, v74, v73, v72, v13, &__p);
-      Vec::Vec(__str, (v63 - __p) >> 3, 0.0);
+      approximate_Hg(&__p, &v64, v73, v72, v71, v13);
+      Vec::Vec(__str, 0.0, (v62 - __p) >> 3);
       v24 = __p;
-      if (v63 != __p)
+      if (v62 != __p)
       {
-        v25 = (v63 - __p) >> 3;
+        v25 = (v62 - __p) >> 3;
         v26 = *__str;
         if (v25 <= 1)
         {
@@ -4882,30 +5232,30 @@ void ME_Model::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X
         while (v25);
       }
 
-      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(v64, *__str, v71, &v71[-*__str] >> 3);
+      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(v63, *__str, v70, &v70[-*__str] >> 3);
       if (*__str)
       {
-        v71 = *__str;
+        v70 = *__str;
         operator delete(*__str);
       }
 
       if (__p)
       {
-        v63 = __p;
+        v62 = __p;
         operator delete(__p);
       }
 
-      Vec::Vec(__str, v9, 0.0);
-      Vec::Vec(&__p, v9, 0.0);
-      ME_Model::backtracking_line_search(a1, &v67, &v65, v10, v64, __str, &__p);
+      Vec::Vec(__str, 0.0, v9);
+      Vec::Vec(&__p, 0.0, v9);
+      ME_Model::backtracking_line_search(a1, &v66, &v64, v10, v63, __str, &__p);
       v10 = v28;
-      Vec::Vec(&v60, &v71[-*__str] >> 3, 0.0);
+      Vec::Vec(&v59, 0.0, &v70[-*__str] >> 3);
       v29 = *__str;
-      if (v71 != *__str)
+      if (v70 != *__str)
       {
-        v30 = &v71[-*__str] >> 3;
-        v31 = v67;
-        v32 = v60;
+        v30 = &v70[-*__str] >> 3;
+        v31 = v66;
+        v32 = v59;
         if (v30 <= 1)
         {
           v30 = 1;
@@ -4925,25 +5275,25 @@ void ME_Model::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X
       }
 
       v36 = v13 % 0xAu;
-      v37 = &v74[3 * v36];
-      if (v37 != &v60)
+      v37 = &v73[3 * v36];
+      if (v37 != &v59)
       {
-        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v74[3 * v36], v60, v61, (v61 - v60) >> 3);
+        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v73[3 * v36], v59, v60, (v60 - v59) >> 3);
       }
 
-      if (v60)
+      if (v59)
       {
-        v61 = v60;
-        operator delete(v60);
+        v60 = v59;
+        operator delete(v59);
       }
 
-      Vec::Vec(&v60, (v63 - __p) >> 3, 0.0);
+      Vec::Vec(&v59, 0.0, (v62 - __p) >> 3);
       v38 = __p;
-      if (v63 != __p)
+      if (v62 != __p)
       {
-        v39 = (v63 - __p) >> 3;
-        v40 = v65;
-        v41 = v60;
+        v39 = (v62 - __p) >> 3;
+        v40 = v64;
+        v41 = v59;
         if (v39 <= 1)
         {
           v39 = 1;
@@ -4961,16 +5311,16 @@ void ME_Model::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X
         while (v39);
       }
 
-      v45 = &v73[3 * v36];
-      if (v45 != &v60)
+      v45 = &v72[3 * v36];
+      if (v45 != &v59)
       {
-        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v73[3 * v36], v60, v61, (v61 - v60) >> 3);
+        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v72[3 * v36], v59, v60, (v60 - v59) >> 3);
       }
 
-      if (v60)
+      if (v59)
       {
-        v61 = v60;
-        operator delete(v60);
+        v60 = v59;
+        operator delete(v59);
       }
 
       v46 = *v45;
@@ -5002,18 +5352,18 @@ void ME_Model::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X
         v50 = 0.0;
       }
 
-      v72[v36] = 1.0 / v50;
-      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v67, *__str, v71, &v71[-*__str] >> 3);
-      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v65, __p, v63, (v63 - __p) >> 3);
+      v71[v36] = 1.0 / v50;
+      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v66, *__str, v70, &v70[-*__str] >> 3);
+      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v64, __p, v62, (v62 - __p) >> 3);
       if (__p)
       {
-        v63 = __p;
+        v62 = __p;
         operator delete(__p);
       }
 
       if (*__str)
       {
-        v71 = *__str;
+        v70 = *__str;
         operator delete(*__str);
       }
 
@@ -5026,46 +5376,44 @@ void ME_Model::perform_LBFGS(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a4, v67, v68, (v68 - v67) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a4, v66, v67, (v67 - v66) >> 3);
   for (k = 0; k != -30; k -= 3)
   {
-    v55 = v73[k + 27];
+    v55 = v72[k + 27];
     if (v55)
     {
-      v73[k + 28] = v55;
+      v72[k + 28] = v55;
       operator delete(v55);
     }
   }
 
   for (m = 0; m != -30; m -= 3)
   {
-    v57 = v74[m + 27];
+    v57 = v73[m + 27];
     if (v57)
     {
-      v74[m + 28] = v57;
+      v73[m + 28] = v57;
       operator delete(v57);
     }
   }
 
-  if (v64[0])
+  if (v63[0])
   {
-    v64[1] = v64[0];
-    operator delete(v64[0]);
+    v63[1] = v63[0];
+    operator delete(v63[0]);
   }
 
-  if (v65)
+  if (v64)
   {
-    v66 = v65;
-    operator delete(v65);
+    v65 = v64;
+    operator delete(v64);
   }
 
-  if (v67)
+  if (v66)
   {
-    v68 = v67;
-    operator delete(v67);
+    v67 = v66;
+    operator delete(v66);
   }
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 void sub_19D4CFC2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26)
@@ -5124,24 +5472,24 @@ void sub_19D4CFC2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_19D4CFD64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (v71)
+  if (v65)
   {
-    v72 = -v71;
-    v73 = &a71 + v71 - 24;
+    v66 = -v65;
+    v67 = &a65 + v65;
     do
     {
-      v74 = *v73;
-      if (*v73)
+      v68 = *v67;
+      if (*v67)
       {
-        *(v73 + 1) = v74;
-        operator delete(v74);
+        *(v67 + 1) = v68;
+        operator delete(v68);
       }
 
-      v73 -= 24;
-      v72 += 24;
+      v67 -= 24;
+      v66 += 24;
     }
 
-    while (v72);
+    while (v66);
   }
 
   JUMPOUT(0x19D4CFD04);
@@ -5186,7 +5534,7 @@ void requestContextualEmbeddingAssetsForEmbedding(void *a1)
   }
 }
 
-void sub_19D4D1020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_19D4D1020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a49, 8);
   _Block_object_dispose(&a53, 8);
@@ -5248,29 +5596,29 @@ LABEL_8:
 
 id _parameterValuesForHyperTuneValues(void *a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v16 = [MEMORY[0x1E695DF90] dictionary];
+  v20 = *MEMORY[0x1E69E9840];
+  v14 = [MEMORY[0x1E695DF90] dictionary];
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   v2 = a1;
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v16;
     v6 = 0x1E696A000uLL;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         v9 = [v2 objectForKey:v8];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -5280,40 +5628,37 @@ id _parameterValuesForHyperTuneValues(void *a1)
           {
             [v10 firstObject];
             v12 = v11 = v6;
-            [v16 setObject:v12 forKey:v8];
+            [v14 setObject:v12 forKey:v8];
 
             v6 = v11;
           }
 
           else
           {
-            [v16 setObject:v10 forKey:v8];
+            [v14 setObject:v10 forKey:v8];
           }
         }
 
         else
         {
-          v13 = *(v6 + 3480);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v16 setObject:v9 forKey:v8];
+            [v14 setObject:v9 forKey:v8];
           }
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v4);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v14;
 }
 
-void createMRLModelFromTrainingDataSet(void *a1, uint64_t a2, uint64_t a3, void *a4)
+void createMRLModelFromTrainingDataSet(void *a1, int a2, unint64_t a3, void *a4)
 {
   v28[3] = *MEMORY[0x1E69E9840];
   v6 = a1;
@@ -5393,10 +5738,10 @@ void createMRLModelFromTrainingDataSet(void *a1, uint64_t a2, uint64_t a3, void 
 void prepareData(NSString *a1, const float **a2, const int **a3, unint64_t *a4)
 {
   v4 = a1;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
-  v10 = 0;
+  v7[0] = 0;
+  v7[1] = v7;
+  v7[2] = 0x2020000000;
+  v7[3] = 0;
   v6[0] = 0;
   v6[1] = v6;
   v6[2] = 0x2020000000;
@@ -5405,17 +5750,16 @@ void prepareData(NSString *a1, const float **a2, const int **a3, unint64_t *a4)
   v5[1] = 3221225472;
   v5[2] = ___ZL11prepareDataP8NSStringPPKfPPKiPm_block_invoke;
   v5[3] = &unk_1E762A0B0;
-  v5[4] = &v7;
+  v5[4] = v7;
   [(NSString *)v4 enumerateLinesUsingBlock:v5];
-  v8[3];
   operator new[]();
 }
 
-void sub_19D4DCCF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19D4DCCF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v14 - 96), 8);
+  _Block_object_dispose((v21 - 96), 8);
 
   _Unwind_Resume(a1);
 }
@@ -5545,8 +5889,8 @@ void requestContextualEmbeddingAssetsForEmbedding_0(void *a1)
 
 void sub_19D4DF428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a72, 8);
-  _Block_object_dispose((v72 - 176), 8);
+  _Block_object_dispose(&a65, 8);
+  _Block_object_dispose((v65 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5683,29 +6027,29 @@ LABEL_24:
 
 id normalizedQuoteTokens(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [MEMORY[0x1E695DF70] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v15 != v6)
+      if (*v14 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      v8 = *(*(&v14 + 1) + 8 * v7);
+      v8 = *(*(&v13 + 1) + 8 * v7);
       if ([v2 count] > 0x27)
       {
         break;
@@ -5724,7 +6068,7 @@ LABEL_3:
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -5735,14 +6079,12 @@ LABEL_3:
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 id formattedTokens(void *a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [MEMORY[0x1E695DF70] array];
   if (formattedTokens_onceToken != -1)
@@ -5750,55 +6092,55 @@ id formattedTokens(void *a1)
     formattedTokens_cold_1();
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = v1;
-  v3 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v3 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v30;
-    v21 = *v30;
+    v5 = *v29;
+    v20 = *v29;
     do
     {
       v6 = 0;
-      v22 = v4;
+      v21 = v4;
       do
       {
-        if (*v30 != v5)
+        if (*v29 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v29 + 1) + 8 * v6);
+        v7 = *(*(&v28 + 1) + 8 * v6);
         if ([v2 count] <= 0x31)
         {
           [v7 rangeOfCharacterFromSet:formattedTokens_alphanumericCharacterSet];
           if (v8)
           {
-            v24 = v6;
-            v27 = 0u;
-            v28 = 0u;
-            v25 = 0u;
+            v23 = v6;
             v26 = 0u;
+            v27 = 0u;
+            v24 = 0u;
+            v25 = 0u;
             v9 = [v7 componentsSeparatedByCharactersInSet:formattedTokens_internalSeparatorCharacterSet];
-            v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v10 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
             if (v10)
             {
               v11 = v10;
-              v12 = *v26;
+              v12 = *v25;
               do
               {
                 for (i = 0; i != v11; ++i)
                 {
-                  if (*v26 != v12)
+                  if (*v25 != v12)
                   {
                     objc_enumerationMutation(v9);
                   }
 
-                  v14 = *(*(&v25 + 1) + 8 * i);
+                  v14 = *(*(&v24 + 1) + 8 * i);
                   if ([v2 count] <= 0x31)
                   {
                     [v14 rangeOfCharacterFromSet:formattedTokens_alphanumericCharacterSet];
@@ -5818,15 +6160,15 @@ id formattedTokens(void *a1)
                   }
                 }
 
-                v11 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
+                v11 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
               }
 
               while (v11);
             }
 
-            v5 = v21;
-            v4 = v22;
-            v6 = v24;
+            v5 = v20;
+            v4 = v21;
+            v6 = v23;
           }
         }
 
@@ -5834,13 +6176,11 @@ id formattedTokens(void *a1)
       }
 
       while (v6 != v4);
-      v4 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v4 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v4);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

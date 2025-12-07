@@ -50,7 +50,7 @@
   selfCopy = self;
   ICQueryResultsController.performFetch()();
 
-  sub_214D55670(0, &qword_27CA44A80);
+  sub_214D55670(0, &qword_27CA44A80, 0x277CBE448);
   sub_214FC7854();
   v3 = sub_2150A52D0();
 

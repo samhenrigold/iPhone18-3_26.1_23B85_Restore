@@ -149,7 +149,7 @@
   if (v5)
   {
     v5->_lock._os_unfair_lock_opaque = 0;
-    v7 = bls_scenes_log();
+    v7 = bls_scenes_log(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [(BLSBacklightFBSSceneEnvironment *)v6 initWithFBSScene:sceneCopy];
@@ -172,18 +172,18 @@
   os_unfair_lock_lock(&self->_lock);
   objc_storeStrong(&self->_delegate, delegate);
   os_unfair_lock_unlock(&self->_lock);
-  v6 = bls_scenes_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = bls_scenes_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     if (delegateCopy)
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
     }
 
     else
     {
-      v8 = @"NULL";
+      v9 = @"NULL";
     }
 
     identifier = [(BLSBacklightFBSSceneEnvironment *)self identifier];
@@ -192,12 +192,12 @@
     v16 = 2048;
     v17 = delegateCopy;
     v18 = 2114;
-    v19 = v8;
+    v19 = v9;
     v20 = 1024;
     v21 = delegateCopy != 0;
     v22 = 2114;
     v23 = identifier;
-    _os_log_impl(&dword_21FE25000, v6, OS_LOG_TYPE_DEFAULT, "%p setDelegate:<%p %{public}@> hasDelegate:%{BOOL}u for environment:%{public}@", buf, 0x30u);
+    _os_log_impl(&dword_21FE25000, v7, OS_LOG_TYPE_DEFAULT, "%p setDelegate:<%p %{public}@> hasDelegate:%{BOOL}u for environment:%{public}@", buf, 0x30u);
     if (delegateCopy)
     {
     }
@@ -210,8 +210,6 @@
   v12[3] = &__block_descriptor_33_e39_v16__0__FBSMutableSceneClientSettings_8l;
   v13 = delegateCopy != 0;
   [_FBSScene updateClientSettingsWithBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpdater:(id)updater
@@ -220,10 +218,10 @@
   os_unfair_lock_lock(&self->_lock);
   objc_storeStrong(&self->_updater, updater);
   os_unfair_lock_unlock(&self->_lock);
-  v6 = bls_scenes_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = bls_scenes_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    [(BLSBacklightFBSSceneEnvironment *)self setUpdater:updaterCopy, v6];
+    [(BLSBacklightFBSSceneEnvironment *)self setUpdater:updaterCopy, v7];
   }
 }
 
@@ -265,7 +263,7 @@
 
 - (void)setSupportsAlwaysOn:(BOOL)on
 {
-  v5 = bls_scenes_log();
+  v5 = bls_scenes_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [BLSBacklightFBSSceneEnvironment setSupportsAlwaysOn:?];
@@ -291,7 +289,7 @@
 
 - (void)setAlwaysOnContentIs1hz:(BOOL)is1hz
 {
-  v5 = bls_scenes_log();
+  v5 = bls_scenes_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [BLSBacklightFBSSceneEnvironment setAlwaysOnContentIs1hz:?];
@@ -309,35 +307,33 @@
 - (void)setOptsOutOfProcessAssertions:(BOOL)assertions
 {
   assertionsCopy = assertions;
-  v17 = *MEMORY[0x277D85DE8];
-  v5 = bls_scenes_log();
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = bls_scenes_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     identifier = [(BLSBacklightFBSSceneEnvironment *)self identifier];
     *buf = 134218498;
     selfCopy = self;
-    v13 = 1024;
-    v14 = assertionsCopy;
-    v15 = 2114;
-    v16 = identifier;
+    v12 = 1024;
+    v13 = assertionsCopy;
+    v14 = 2114;
+    v15 = identifier;
     _os_log_impl(&dword_21FE25000, v5, OS_LOG_TYPE_INFO, "%p setOptsOutOfProcessAssertions:%{BOOL}u for environment:%{public}@", buf, 0x1Cu);
   }
 
   _FBSScene = [(BLSBacklightFBSSceneEnvironment *)self _FBSScene];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __65__BLSBacklightFBSSceneEnvironment_setOptsOutOfProcessAssertions___block_invoke;
-  v9[3] = &__block_descriptor_33_e39_v16__0__FBSMutableSceneClientSettings_8l;
-  v10 = assertionsCopy;
-  [_FBSScene updateClientSettingsWithBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __65__BLSBacklightFBSSceneEnvironment_setOptsOutOfProcessAssertions___block_invoke;
+  v8[3] = &__block_descriptor_33_e39_v16__0__FBSMutableSceneClientSettings_8l;
+  v9 = assertionsCopy;
+  [_FBSScene updateClientSettingsWithBlock:v8];
 }
 
 - (void)invalidateAllTimelinesForReason:(id)reason
 {
   reasonCopy = reason;
-  v5 = bls_scenes_log();
+  v5 = bls_scenes_log(reasonCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [BLSBacklightFBSSceneEnvironment invalidateAllTimelinesForReason:?];
@@ -364,57 +360,44 @@
 
 - (void)initWithFBSScene:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a2 debugDescription];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpdater:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_debug_impl(&dword_21FE25000, log, OS_LOG_TYPE_DEBUG, "%p setUpdater: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_debug_impl(&dword_21FE25000, log, OS_LOG_TYPE_DEBUG, "%p setUpdater: %{public}@", &v3, 0x16u);
 }
 
 - (void)setSupportsAlwaysOn:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAlwaysOnContentIs1hz:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateAllTimelinesForReason:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

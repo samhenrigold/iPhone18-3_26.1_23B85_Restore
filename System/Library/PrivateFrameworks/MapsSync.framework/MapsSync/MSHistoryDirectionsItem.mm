@@ -2,6 +2,7 @@
 + (Class)managedClass;
 - (BOOL)navigationInterrupted;
 - (GEOStorageRouteRequestStorage)routeRequestStorage;
+- (MSHistoryDirectionsItem)initWithNavigationInterrupted:(BOOL)interrupted routeRequestStorage:(id)storage sharedETAData:(id)data;
 - (MSHistoryDirectionsItem)initWithObject:(id)object store:(id)store lazyLoad:(BOOL)load parent:(BOOL)parent;
 - (MSHistoryDirectionsItem)initWithStore:(id)store navigationInterrupted:(BOOL)interrupted routeRequestStorage:(id)storage sharedETAData:(id)data;
 - (NSData)sharedETAData;
@@ -12,6 +13,48 @@
 @end
 
 @implementation MSHistoryDirectionsItem
+
+- (MSHistoryDirectionsItem)initWithNavigationInterrupted:(BOOL)interrupted routeRequestStorage:(id)storage sharedETAData:(id)data
+{
+  dataCopy = data;
+  interruptedCopy = interrupted;
+  if (data)
+  {
+    storageCopy = storage;
+    v10 = dataCopy;
+    dataCopy = sub_1B63BE924();
+    v12 = v11;
+  }
+
+  else
+  {
+    storageCopy2 = storage;
+    v12 = 0xF000000000000000;
+  }
+
+  if (qword_1EDB0F2A0 != -1)
+  {
+    swift_once();
+  }
+
+  v14 = qword_1EDB0F2A8;
+  if (v12 >> 60 == 15)
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    sub_1B629119C(dataCopy, v12);
+    v15 = sub_1B63BE904();
+    sub_1B6284F64(dataCopy, v12);
+  }
+
+  v16 = [(MSHistoryDirectionsItem *)self initWithStore:v14 navigationInterrupted:interruptedCopy routeRequestStorage:storage sharedETAData:v15];
+  sub_1B6284F64(dataCopy, v12);
+
+  return v16;
+}
 
 - (MSHistoryDirectionsItem)initWithStore:(id)store navigationInterrupted:(BOOL)interrupted routeRequestStorage:(id)storage sharedETAData:(id)data
 {
@@ -70,9 +113,9 @@
 - (GEOStorageRouteRequestStorage)routeRequestStorage
 {
   selfCopy = self;
-  v3 = sub_1B62EC234();
+  v4 = sub_1B62EC234(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setRouteRequestStorage:(id)storage
@@ -89,22 +132,22 @@
 - (NSData)sharedETAData
 {
   selfCopy = self;
-  v3 = sub_1B62ECDCC();
-  v5 = v4;
+  v4 = sub_1B62ECDCC(selfCopy, v3);
+  v6 = v5;
 
-  if (v5 >> 60 == 15)
+  if (v6 >> 60 == 15)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = sub_1B63BE904();
-    sub_1B6284F64(v3, v5);
-    v6 = v7;
+    v8 = sub_1B63BE904();
+    sub_1B6284F64(v4, v6);
+    v7 = v8;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)setSharedETAData:(id)data

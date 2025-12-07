@@ -78,37 +78,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    lastUnlockDate = self->_lastUnlockDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_lastAppLaunch)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    lastAppLaunchDate = self->_lastAppLaunchDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_secondMostRecentAppLaunch)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_lastAppActionLaunch)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -187,7 +185,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 48);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 48) & 2) == 0 || self->_lastUnlockDate != *(equalCopy + 2))
@@ -207,14 +204,13 @@
     if (![(NSString *)lastAppLaunch isEqual:?])
     {
 LABEL_19:
-      v11 = 0;
+      v9 = 0;
       goto LABEL_20;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 48);
   if (has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_lastAppLaunchDate != *(equalCopy + 1))
@@ -237,17 +233,17 @@ LABEL_19:
   lastAppActionLaunch = self->_lastAppActionLaunch;
   if (lastAppActionLaunch | *(equalCopy + 3))
   {
-    v11 = [(NSString *)lastAppActionLaunch isEqual:?];
+    v9 = [(NSString *)lastAppActionLaunch isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_20:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

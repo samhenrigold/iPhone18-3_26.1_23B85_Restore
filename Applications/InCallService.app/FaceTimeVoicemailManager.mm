@@ -24,14 +24,14 @@
 {
   voicemailCopy = voicemail;
   selfCopy = self;
-  sub_10020FE94();
+  sub_10020FE94(0);
 }
 
 - (void)reportTranscriptionProblemForVoicemail:(id)voicemail
 {
   voicemailCopy = voicemail;
   selfCopy = self;
-  sub_10020FE94();
+  sub_10020FE94(selfCopy);
 }
 
 @end

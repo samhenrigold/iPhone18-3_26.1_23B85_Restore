@@ -83,7 +83,7 @@ uint64_t __36__PLAWDAuxMetrics_initWithOperator___block_invoke()
   return 0;
 }
 
-uint64_t __44__PLAWDAuxMetrics_getSharedObjWithOperator___block_invoke(uint64_t a1)
+void *__44__PLAWDAuxMetrics_getSharedObjWithOperator___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   getSharedObjWithOperator__classDebugEnabled = result;
@@ -123,7 +123,7 @@ uint64_t __44__PLAWDAuxMetrics_getSharedObjWithOperator___block_invoke(uint64_t 
   }
 }
 
-uint64_t __41__PLAWDAuxMetrics_startMetricCollection___block_invoke(uint64_t a1)
+void *__41__PLAWDAuxMetrics_startMetricCollection___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startMetricCollection__classDebugEnabled_4 = result;
@@ -163,7 +163,7 @@ uint64_t __41__PLAWDAuxMetrics_startMetricCollection___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __40__PLAWDAuxMetrics_stopMetricCollection___block_invoke(uint64_t a1)
+void *__40__PLAWDAuxMetrics_stopMetricCollection___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   stopMetricCollection__classDebugEnabled_4 = result;
@@ -205,7 +205,7 @@ uint64_t __40__PLAWDAuxMetrics_stopMetricCollection___block_invoke(uint64_t a1)
   return 0;
 }
 
-uint64_t __53__PLAWDAuxMetrics_submitDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
+void *__53__PLAWDAuxMetrics_submitDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitDataToAWDServer_withAwdConn__classDebugEnabled_2 = result;
@@ -370,34 +370,11 @@ LABEL_21:
       v14 = [v13 objectAtIndexedSubscript:0];
       if (v14)
       {
-        if (forward)
+        if (forward || !awdStartTime || ([awdStartTime timeIntervalSince1970], v16 = v15, objc_msgSend(v14, "entryDate"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "timeIntervalSince1970"), v19 = v16 - v18, v17, objc_msgSend(entryCopy, "entryDate"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "timeIntervalSince1970"), v22 = v21, objc_msgSend(awdStartTime, "timeIntervalSince1970"), v24 = v22 - v23, v20, v24 >= v19))
         {
-          goto LABEL_7;
-        }
-
-        if (!awdStartTime)
-        {
-          goto LABEL_7;
-        }
-
-        [awdStartTime timeIntervalSince1970];
-        v16 = v15;
-        entryDate = [v14 entryDate];
-        [entryDate timeIntervalSince1970];
-        v19 = v16 - v18;
-
-        entryDate2 = [entryCopy entryDate];
-        [entryDate2 timeIntervalSince1970];
-        v22 = v21;
-        [awdStartTime timeIntervalSince1970];
-        v24 = v22 - v23;
-
-        if (v24 >= v19)
-        {
-LABEL_7:
-          entryDate3 = [v14 entryDate];
-          entryDate4 = [entryCopy entryDate];
-          [(PLAWDAuxMetrics *)self doesInterfereWithChargerWithStartDate:entryDate3 withEndDate:entryDate4];
+          entryDate = [v14 entryDate];
+          entryDate2 = [entryCopy entryDate];
+          [(PLAWDAuxMetrics *)self doesInterfereWithChargerWithStartDate:entryDate withEndDate:entryDate2];
         }
       }
     }

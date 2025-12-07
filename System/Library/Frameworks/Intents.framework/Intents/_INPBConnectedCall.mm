@@ -1,6 +1,7 @@
 @interface _INPBConnectedCall
 - (BOOL)isEqual:(id)equal;
 - (_INPBConnectedCall)initWithCoder:(id)coder;
+- (id)audioRouteAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsAudioRoute:(id)route;
@@ -106,7 +107,6 @@
   toCopy = to;
   if ([(_INPBConnectedCall *)self hasAudioRoute])
   {
-    audioRoute = self->_audioRoute;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -132,6 +132,21 @@
   else
   {
     v4 = 2;
+  }
+
+  return v4;
+}
+
+- (id)audioRouteAsString:(int)string
+{
+  if ((string - 2) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7287FE0[string - 2];
   }
 
   return v4;

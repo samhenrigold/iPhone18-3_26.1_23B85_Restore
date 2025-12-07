@@ -25,32 +25,6 @@ __n128 ARDepthCameraCalibrationCopy(uint64_t a1, uint64_t a2)
   return result;
 }
 
-__n128 ARDepthCameraCalibrationGetIntrinsics(uint64_t a1)
-{
-  result = *a1;
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 32);
-  return result;
-}
-
-__n128 ARDepthCameraCalibrationGetExtrinsics(uint64_t a1)
-{
-  result = *(a1 + 48);
-  v2 = *(a1 + 64);
-  v3 = *(a1 + 80);
-  v4 = *(a1 + 96);
-  return result;
-}
-
-__n128 ARDepthCameraCalibrationGetDeviceTransform(uint64_t a1)
-{
-  result = *(a1 + 128);
-  v2 = *(a1 + 144);
-  v3 = *(a1 + 160);
-  v4 = *(a1 + 176);
-  return result;
-}
-
 __n128 *ARDepthCameraCalibrationSetIntrinsics(__n128 *result, __n128 a2, __n128 a3, __n128 a4)
 {
   *result = a2;

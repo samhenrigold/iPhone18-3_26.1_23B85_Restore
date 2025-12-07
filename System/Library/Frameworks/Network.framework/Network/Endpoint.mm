@@ -56,7 +56,7 @@
 
   v6 = Endpoint.isEqual(_:)(v8);
 
-  sub_181F49A88(v8, &unk_1EA83A4F0);
+  sub_181F49A88(v8, &unk_1EA83A4F0, &unk_182AF65A0);
   return v6 & 1;
 }
 

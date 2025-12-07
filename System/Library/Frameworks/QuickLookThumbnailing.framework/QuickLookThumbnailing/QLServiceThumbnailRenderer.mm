@@ -5,6 +5,7 @@
 - (id)_drawInContextOfSize:(CGSize)size colorSpace:(CGColorSpace *)space error:(id *)error drawingBlock:(id)block;
 - (id)_thumbnailDataDestructionConcurrenQueue;
 - (id)protocolHostWithErrorHandler:(id)handler;
+- (void)_afterGeneratingIOSurfaceThumbnail:(BOOL)thumbnail surface:(id)surface;
 - (void)_drawInCurrentContextOfSize:(CGSize)size colorSpace:(CGColorSpace *)space drawingBlock:(id)block;
 - (void)_drawInIOSurface;
 - (void)_drawMultipleImages;
@@ -42,7 +43,7 @@
 
 - (void)generateThumbnailAndPerformCompletionHandler
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   reply = self->_reply;
   if (!reply)
   {
@@ -55,42 +56,41 @@
     if (!type)
     {
       [(QLThumbnailReply *)self->_reply contextSize];
+      v8 = v7;
       v10 = v9;
-      v12 = v11;
       colorSpace = [(QLThumbnailReply *)self->_reply colorSpace];
-      v33 = 0;
+      v28 = 0;
       drawInContextBlock = [(QLThumbnailReply *)self->_reply drawInContextBlock];
-      v15 = [(QLServiceThumbnailRenderer *)self _drawInContextOfSize:colorSpace colorSpace:&v33 error:drawInContextBlock drawingBlock:v10, v12];
-      v16 = v33;
+      v13 = [(QLServiceThumbnailRenderer *)self _drawInContextOfSize:colorSpace colorSpace:&v28 error:drawInContextBlock drawingBlock:v8, v10];
+      v14 = v28;
 
-      if (v15)
+      if (v13)
       {
-        v34[0] = v15;
-        v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
-        [(QLThumbnailReply *)self->_reply setBitmapImages:v17];
+        v29[0] = v13;
+        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+        [(QLThumbnailReply *)self->_reply setBitmapImages:v15];
 
         selfCopy2 = self;
-        v19 = 1;
-        v20 = 0;
+        v17 = 1;
+        v18 = 0;
       }
 
       else
       {
         selfCopy2 = self;
-        v19 = 0;
-        v20 = v16;
+        v17 = 0;
+        v18 = v14;
       }
 
-      [(QLServiceThumbnailRenderer *)selfCopy2 _finishWithSuccess:v19 error:v20];
+      [(QLServiceThumbnailRenderer *)selfCopy2 _finishWithSuccess:v17 error:v18];
 
-      goto LABEL_28;
+      return;
     }
 
     if (type != 1)
     {
       if (type == 3)
       {
-        v5 = *MEMORY[0x1E69E9840];
 
         [(QLServiceThumbnailRenderer *)self _finishWithSuccess:1 error:0];
         return;
@@ -101,50 +101,45 @@
 
     selfCopy3 = self;
     reply = [(QLServiceThumbnailRenderer *)selfCopy3 reply];
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __74__QLServiceThumbnailRenderer_generateThumbnailAndPerformCompletionHandler__block_invoke;
-    v30[3] = &unk_1E8369BD0;
-    v31 = selfCopy3;
-    v32 = reply;
-    v24 = reply;
-    v7 = selfCopy3;
-    QLTRunInMainThreadAsync(v30);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __74__QLServiceThumbnailRenderer_generateThumbnailAndPerformCompletionHandler__block_invoke;
+    v25[3] = &unk_1E8369BD0;
+    v26 = selfCopy3;
+    v27 = reply;
+    v21 = reply;
+    v6 = selfCopy3;
+    QLTRunInMainThreadAsync(v25);
 
 LABEL_22:
-LABEL_28:
-    v26 = *MEMORY[0x1E69E9840];
     return;
   }
 
   switch(type)
   {
     case 4:
-      v21 = *MEMORY[0x1E69E9840];
 
       [(QLServiceThumbnailRenderer *)self _drawInIOSurface];
       break;
     case 5:
-      v25 = *MEMORY[0x1E69E9840];
 
       [(QLServiceThumbnailRenderer *)self _drawMultipleImages];
       break;
     case 6:
       selfCopy4 = self;
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __74__QLServiceThumbnailRenderer_generateThumbnailAndPerformCompletionHandler__block_invoke_2;
-      v28[3] = &unk_1E8369F88;
-      v29 = selfCopy4;
-      v7 = selfCopy4;
-      QLTRunInMainThreadAsync(v28);
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __74__QLServiceThumbnailRenderer_generateThumbnailAndPerformCompletionHandler__block_invoke_2;
+      v23[3] = &unk_1E8369F88;
+      v24 = selfCopy4;
+      v6 = selfCopy4;
+      QLTRunInMainThreadAsync(v23);
 
       goto LABEL_22;
     default:
 LABEL_13:
-      v27 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.quicklook.QLThumbnailServiceContextGenerator" code:0 userInfo:0];
+      v22 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.quicklook.QLThumbnailServiceContextGenerator" code:0 userInfo:0];
       [(QLServiceThumbnailRenderer *)self _finishWithSuccess:0 error:?];
-      v8 = *MEMORY[0x1E69E9840];
 
       return;
   }
@@ -165,7 +160,7 @@ void __74__QLServiceThumbnailRenderer_generateThumbnailAndPerformCompletionHandl
 {
   height = size.height;
   width = size.width;
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (blockCopy)
   {
@@ -175,25 +170,25 @@ void __74__QLServiceThumbnailRenderer_generateThumbnailAndPerformCompletionHandl
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [(QLFileThumbnailRequest *)self->_request maximumSize];
-        v42 = v41;
+        v41 = v40;
         [(QLFileThumbnailRequest *)self->_request maximumSize];
-        v44 = v43;
+        v43 = v42;
         [(QLFileThumbnailRequest *)self->_request minimumSize];
-        v46 = v45;
+        v45 = v44;
         [(QLFileThumbnailRequest *)self->_request minimumSize];
-        *v48 = 134219264;
-        *&v48[4] = width;
-        v49 = 2048;
-        v50 = height;
-        v51 = 2048;
-        v52 = v42;
-        v53 = 2048;
-        v54 = v44;
-        v55 = 2048;
-        v56 = v46;
-        v57 = 2048;
-        v58 = v47;
-        _os_log_error_impl(&dword_1CA1E7000, v20, OS_LOG_TYPE_ERROR, "Could not draw thumbnail from QLThumbnailReply because the requested context size is invalid (received: (%f, %f), maximum size is: (%f, %f), minimum size is: (%f, %f)). The maximum supported thumbnail size is 1284 * 2778", v48, 0x3Eu);
+        *v47 = 134219264;
+        *&v47[4] = width;
+        v48 = 2048;
+        v49 = height;
+        v50 = 2048;
+        v51 = v41;
+        v52 = 2048;
+        v53 = v43;
+        v54 = 2048;
+        v55 = v45;
+        v56 = 2048;
+        v57 = v46;
+        _os_log_error_impl(&dword_1CA1E7000, v20, OS_LOG_TYPE_ERROR, "Could not draw thumbnail from QLThumbnailReply because the requested context size is invalid (received: (%f, %f), maximum size is: (%f, %f), minimum size is: (%f, %f)). The maximum supported thumbnail size is 1284 * 2778", v47, 0x3Eu);
       }
 
       v21 = MEMORY[0x1E696ABC0];
@@ -201,7 +196,7 @@ void __74__QLServiceThumbnailRenderer_generateThumbnailAndPerformCompletionHandl
       goto LABEL_21;
     }
 
-    *v48 = 0;
+    *v47 = 0;
     if (space && CGColorSpaceSupportsOutput(space))
     {
       CFRetain(space);
@@ -213,7 +208,7 @@ void __74__QLServiceThumbnailRenderer_generateThumbnailAndPerformCompletionHandl
     }
 
     [(QLFileThumbnailRequest *)self->_request scale];
-    v24 = QLTCreateCGContextWithSize(space, 1, v48, width, height, v23);
+    v24 = QLTCreateCGContextWithSize(space, 1, v47, width, height, v23);
     CFRelease(space);
     if (!v24)
     {
@@ -262,8 +257,6 @@ LABEL_21:
   *error = v30 = 0;
 LABEL_22:
 
-  v39 = *MEMORY[0x1E69E9840];
-
   return v30;
 }
 
@@ -271,24 +264,24 @@ LABEL_22:
 {
   height = size.height;
   width = size.width;
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v10 = blockCopy;
   if (blockCopy)
   {
-    v28 = 0;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __82__QLServiceThumbnailRenderer__drawInCurrentContextOfSize_colorSpace_drawingBlock___block_invoke;
-    v26[3] = &unk_1E836A688;
-    v26[4] = self;
-    v27 = blockCopy;
-    height = [(QLServiceThumbnailRenderer *)self _drawInContextOfSize:space colorSpace:&v28 error:v26 drawingBlock:width, height];
-    v12 = v28;
+    v27 = 0;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __82__QLServiceThumbnailRenderer__drawInCurrentContextOfSize_colorSpace_drawingBlock___block_invoke;
+    v25[3] = &unk_1E836A688;
+    v25[4] = self;
+    v26 = blockCopy;
+    height = [(QLServiceThumbnailRenderer *)self _drawInContextOfSize:space colorSpace:&v27 error:v25 drawingBlock:width, height];
+    v12 = v27;
     if (height)
     {
-      v29[0] = height;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+      v28[0] = height;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
       [(QLThumbnailReply *)self->_reply setBitmapImages:v13];
 
       selfCopy2 = self;
@@ -317,8 +310,6 @@ LABEL_22:
     v12 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.quicklook.QLThumbnailServiceContextGenerator" code:0 userInfo:0];
     [(QLServiceThumbnailRenderer *)self _finishWithSuccess:0 error:v12];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __82__QLServiceThumbnailRenderer__drawInCurrentContextOfSize_colorSpace_drawingBlock___block_invoke(uint64_t a1, CGContextRef context)
@@ -447,9 +438,20 @@ void __46__QLServiceThumbnailRenderer__drawInIOSurface__block_invoke_8(uint64_t 
   }
 }
 
+- (void)_afterGeneratingIOSurfaceThumbnail:(BOOL)thumbnail surface:(id)surface
+{
+  thumbnailCopy = thumbnail;
+  if (thumbnail)
+  {
+    [(QLThumbnailReply *)self->_reply setIoSurface:surface];
+  }
+
+  [(QLServiceThumbnailRenderer *)self _finishWithSuccess:thumbnailCopy error:0];
+}
+
 - (CGSize)_IOSurfaceSizeFromThumbnailReply:(id)reply
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   request = self->_request;
   replyCopy = reply;
   [(QLFileThumbnailRequest *)request scale];
@@ -468,22 +470,21 @@ void __46__QLServiceThumbnailRenderer__drawInIOSurface__block_invoke_8(uint64_t 
     v17 = _log_2();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      v19 = 134218752;
-      v20 = v12;
-      v21 = 2048;
-      v22 = v14;
-      v23 = 2048;
-      v24 = v8;
-      v25 = 2048;
-      v26 = v10;
-      _os_log_fault_impl(&dword_1CA1E7000, v17, OS_LOG_TYPE_FAULT, "Requested scaled IOSurface context size of non-integer pixel width or height (%f, %f). Will ceil requested size values (%f, %f)", &v19, 0x2Au);
+      v18 = 134218752;
+      v19 = v12;
+      v20 = 2048;
+      v21 = v14;
+      v22 = 2048;
+      v23 = v8;
+      v24 = 2048;
+      v25 = v10;
+      _os_log_fault_impl(&dword_1CA1E7000, v17, OS_LOG_TYPE_FAULT, "Requested scaled IOSurface context size of non-integer pixel width or height (%f, %f). Will ceil requested size values (%f, %f)", &v18, 0x2Au);
     }
 
     v11 = v6 * round(v8);
     v13 = v6 * round(v10);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   result.height = v13;
   result.width = v11;
   return result;
@@ -491,7 +492,7 @@ void __46__QLServiceThumbnailRenderer__drawInIOSurface__block_invoke_8(uint64_t 
 
 - (void)_drawMultipleImages
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF70];
   reply = [(QLServiceThumbnailRenderer *)self reply];
   images = [reply images];
@@ -499,46 +500,46 @@ void __46__QLServiceThumbnailRenderer__drawInIOSurface__block_invoke_8(uint64_t 
 
   [(QLFileThumbnailRequest *)self->_request scale];
   v8 = v7;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   reply2 = [(QLServiceThumbnailRenderer *)self reply];
   images2 = [reply2 images];
 
   obj = images2;
-  v11 = [images2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v11 = [images2 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v14 = *v28;
+    v14 = *v27;
     while (2)
     {
       v15 = 0;
       v16 = v13;
       do
       {
-        if (*v28 != v14)
+        if (*v27 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * v15);
+        v17 = *(*(&v26 + 1) + 8 * v15);
         Width = CGImageGetWidth(v17);
         Height = CGImageGetHeight(v17);
         ColorSpace = CGImageGetColorSpace(v17);
-        v25[7] = v17;
-        v26 = v16;
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __49__QLServiceThumbnailRenderer__drawMultipleImages__block_invoke;
-        v25[3] = &__block_descriptor_64_e20_B16__0__CGContext__8l;
-        v25[4] = v8;
-        *&v25[5] = Width;
-        *&v25[6] = Height;
-        height = [(QLServiceThumbnailRenderer *)self _drawInContextOfSize:ColorSpace colorSpace:&v26 error:v25 drawingBlock:Width, Height];
-        v13 = v26;
+        v24[7] = v17;
+        v25 = v16;
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __49__QLServiceThumbnailRenderer__drawMultipleImages__block_invoke;
+        v24[3] = &__block_descriptor_64_e20_B16__0__CGContext__8l;
+        v24[4] = v8;
+        *&v24[5] = Width;
+        *&v24[6] = Height;
+        height = [(QLServiceThumbnailRenderer *)self _drawInContextOfSize:ColorSpace colorSpace:&v25 error:v24 drawingBlock:Width, Height];
+        v13 = v25;
 
         if (!height)
         {
@@ -553,7 +554,7 @@ void __46__QLServiceThumbnailRenderer__drawInIOSurface__block_invoke_8(uint64_t 
       }
 
       while (v12 != v15);
-      v12 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v12 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v12)
       {
         continue;
@@ -569,7 +570,6 @@ LABEL_11:
   [reply3 setBitmapImages:v6];
 
   [(QLServiceThumbnailRenderer *)self _finishWithSuccess:1 error:0];
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__QLServiceThumbnailRenderer__drawMultipleImages__block_invoke(uint64_t a1, CGContextRef c)
@@ -585,40 +585,39 @@ uint64_t __49__QLServiceThumbnailRenderer__drawMultipleImages__block_invoke(uint
 
 - (void)_drawWithRendererBlock
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   [(QLFileThumbnailRequest *)self->_request scale];
   v4 = v3;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
   rendererBlock = [(QLThumbnailReply *)self->_reply rendererBlock];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __52__QLServiceThumbnailRenderer__drawWithRendererBlock__block_invoke;
-  v16[3] = &unk_1E836A720;
-  v16[4] = &v17;
-  v16[5] = v4;
-  (rendererBlock)[2](rendererBlock, v16);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __52__QLServiceThumbnailRenderer__drawWithRendererBlock__block_invoke;
+  v15[3] = &unk_1E836A720;
+  v15[4] = &v16;
+  v15[5] = v4;
+  (rendererBlock)[2](rendererBlock, v15);
 
   v6 = objc_alloc(MEMORY[0x1E695DEF0]);
-  Data = CGBitmapContextGetData(v18[3]);
-  BytesPerRow = CGBitmapContextGetBytesPerRow(v18[3]);
-  v9 = [v6 initWithBytesNoCopy:Data length:CGBitmapContextGetHeight(v18[3]) * BytesPerRow deallocator:*MEMORY[0x1E696A268]];
+  Data = CGBitmapContextGetData(v17[3]);
+  BytesPerRow = CGBitmapContextGetBytesPerRow(v17[3]);
+  v9 = [v6 initWithBytesNoCopy:Data length:CGBitmapContextGetHeight(v17[3]) * BytesPerRow deallocator:*MEMORY[0x1E696A268]];
   v10 = [QLTBitmapFormat alloc];
-  v11 = [(QLTBitmapFormat *)v10 initWithBitmapContext:v18[3]];
-  CGContextRelease(v18[3]);
+  v11 = [(QLTBitmapFormat *)v10 initWithBitmapContext:v17[3]];
+  CGContextRelease(v17[3]);
   v12 = objc_opt_new();
   [v12 setFormat:v11];
   [v12 setData:v9];
-  v21[0] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v20[0] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
   reply = [(QLServiceThumbnailRenderer *)self reply];
   [reply setBitmapImages:v13];
 
   [(QLServiceThumbnailRenderer *)self _finishWithSuccess:1 error:0];
-  _Block_object_dispose(&v17, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v16, 8);
 }
 
 uint64_t __52__QLServiceThumbnailRenderer__drawWithRendererBlock__block_invoke(uint64_t a1, double a2, double a3)
@@ -717,36 +716,31 @@ uint64_t __69__QLServiceThumbnailRenderer__thumbnailDataDestructionConcurrenQueu
 
 void __59__QLServiceThumbnailRenderer_protocolHostWithErrorHandler___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "Error while calling host: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "Error while calling host: %@", &v4, 0xCu);
 }
 
 void __46__QLServiceThumbnailRenderer__drawInIOSurface__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "Host connection error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "Host connection error: %@", &v2, 0xCu);
 }
 
 void __46__QLServiceThumbnailRenderer__drawInIOSurface__block_invoke_8_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [*(a1 + 32) request];
   v6 = [v5 fileURL];
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_error_impl(&dword_1CA1E7000, a3, OS_LOG_TYPE_ERROR, "Could not draw thumbnail because received nil IOSurface for request %@. Error: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_error_impl(&dword_1CA1E7000, a3, OS_LOG_TYPE_ERROR, "Could not draw thumbnail because received nil IOSurface for request %@. Error: %@", &v7, 0x16u);
 }
 
 @end

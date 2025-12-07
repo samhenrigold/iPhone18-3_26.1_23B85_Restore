@@ -3,6 +3,7 @@
 - (WLKSettingsAMSBagTracker)init;
 - (id)isNowPlayingEnabled;
 - (void)_removeInactiveKeys:(id)keys;
+- (void)_setIsNowPlayingEnabled:(BOOL)enabled;
 - (void)_updateBoolValueForTrackedKey:(id)key;
 - (void)_updateKeys:(id)keys;
 - (void)updateTrackedBagValues;
@@ -25,22 +26,24 @@
 
 uint64_t __41__WLKSettingsAMSBagTracker_sharedTracker__block_invoke()
 {
-  sharedTracker___singleInstance = objc_alloc_init(WLKSettingsAMSBagTracker);
+  v0 = objc_alloc_init(WLKSettingsAMSBagTracker);
+  v1 = sharedTracker___singleInstance;
+  sharedTracker___singleInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WLKSettingsAMSBagTracker)init
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = WLKSettingsAMSBagTracker;
-  v2 = [(WLKSettingsAMSBagTracker *)&v10 init];
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = WLKSettingsAMSBagTracker;
+  v2 = [(WLKSettingsAMSBagTracker *)&v9 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v11[0] = kBagKeyUVSearchNowPlayingEnabled;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = kBagKeyUVSearchNowPlayingEnabled;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     [v3 setValue:v4 forKey:@"uvSearch"];
 
     v5 = [v3 copy];
@@ -51,88 +54,85 @@ uint64_t __41__WLKSettingsAMSBagTracker_sharedTracker__block_invoke()
     [(WLKSettingsAMSBagTracker *)v2 _removeInactiveKeys:v7];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (void)updateTrackedBagValues
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v3 = WLKSystemLogObject();
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = WLKSystemLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKSettingsAMSBagTracker - updateTrackedBagValues", buf, 2u);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = self->_trackedBagKeys;
-  v5 = [(NSDictionary *)v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v5 = [(NSDictionary *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [(NSDictionary *)self->_trackedBagKeys objectForKey:*(*(&v11 + 1) + 8 * v8), v11];
+        v9 = [(NSDictionary *)self->_trackedBagKeys objectForKey:*(*(&v10 + 1) + 8 * v8), v10];
         [(WLKSettingsAMSBagTracker *)self _updateKeys:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [(NSDictionary *)v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v6 = [(NSDictionary *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTrackedBagValuesWithChangedKeys:(id)keys
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
-  v5 = WLKSystemLogObject();
+  v5 = WLKSystemLogObject(keysCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKSettingsAMSBagTracker - Update tracked bag values did change", buf, 2u);
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = keysCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        v12 = [(NSDictionary *)self->_trackedBagKeys objectForKey:v11, v15];
+        v11 = *(*(&v14 + 1) + 8 * i);
+        v12 = [(NSDictionary *)self->_trackedBagKeys objectForKey:v11, v14];
 
         if (v12)
         {
@@ -141,13 +141,11 @@ uint64_t __41__WLKSettingsAMSBagTracker_sharedTracker__block_invoke()
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)isNowPlayingEnabled
@@ -168,54 +166,58 @@ uint64_t __41__WLKSettingsAMSBagTracker_sharedTracker__block_invoke()
     v6 = [v5 cachedBooleanForKey:keyCopy];
     bOOLValue = [v6 BOOLValue];
 
-    v8 = WLKSystemLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = WLKSystemLogObject(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10[0] = 67109120;
       v10[1] = bOOLValue;
-      _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKSettingsAMSBagTracker - Update now playing enabled: %d", v10, 8u);
+      _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKSettingsAMSBagTracker - Update now playing enabled: %d", v10, 8u);
     }
 
     [(WLKSettingsAMSBagTracker *)self _setIsNowPlayingEnabled:bOOLValue];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateKeys:(id)keys
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [keysCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [keysCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(keysCopy);
         }
 
-        [(WLKSettingsAMSBagTracker *)self _updateBoolValueForTrackedKey:*(*(&v10 + 1) + 8 * v8++)];
+        [(WLKSettingsAMSBagTracker *)self _updateBoolValueForTrackedKey:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [keysCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [keysCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)_setIsNowPlayingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  wlk_userDefaults = [MEMORY[0x277CBEBD0] wlk_userDefaults];
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [wlk_userDefaults setObject:v4 forKey:@"AMSBagTracker_NowPlayingEnabledKey"];
 }
 
 - (void)_removeInactiveKeys:(id)keys
@@ -252,12 +254,12 @@ uint64_t __41__WLKSettingsAMSBagTracker_sharedTracker__block_invoke()
           wlk_userDefaults2 = [MEMORY[0x277CBEBD0] wlk_userDefaults];
           [wlk_userDefaults2 removeObjectForKey:v9];
 
-          v13 = WLKSystemLogObject();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = WLKSystemLogObject(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v15;
             v21 = v9;
-            _os_log_impl(&dword_272A0F000, v13, OS_LOG_TYPE_DEFAULT, "WLKSettingsAMSBagTracker - Removed object from user defaults for key: %@", buf, 0xCu);
+            _os_log_impl(&dword_272A0F000, v14, OS_LOG_TYPE_DEFAULT, "WLKSettingsAMSBagTracker - Removed object from user defaults for key: %@", buf, 0xCu);
           }
         }
 
@@ -270,8 +272,6 @@ uint64_t __41__WLKSettingsAMSBagTracker_sharedTracker__block_invoke()
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -14,7 +14,7 @@
   v10 = [(PRSL2FeatureVectorProcessingContext *)&v28 init];
   if (v10)
   {
-    v11 = [orderCopy count] + inflation;
+    v11 = objc_msgSend_count(orderCopy) + inflation;
     v25 = v10;
     v10->_expandedFeatureCount = v11;
     v12 = malloc_type_malloc(2 * v11, 0x5D7163CBuLL);
@@ -25,7 +25,7 @@
     }
 
     v14 = +[PRSL2FeatureVector getL2FeatureSet];
-    v15 = [orderCopy count];
+    v15 = objc_msgSend_count(orderCopy);
     if (v15)
     {
       v16 = v15;

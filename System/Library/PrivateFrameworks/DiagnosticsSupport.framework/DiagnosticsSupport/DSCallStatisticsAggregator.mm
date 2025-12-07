@@ -101,7 +101,7 @@
 
 uint64_t __46__DSCallStatisticsAggregator_beginAggregation__block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) isCancelled];
   if (v4)
@@ -149,9 +149,9 @@ uint64_t __46__DSCallStatisticsAggregator_beginAggregation__block_invoke(uint64_
         {
           if (v17)
           {
-            v36 = 134217984;
-            v37 = v14;
-            _os_log_impl(&dword_248BD5000, v16, OS_LOG_TYPE_DEFAULT, "date change, flushing new log entry; daysElapsed=%ld", &v36, 0xCu);
+            v35 = 134217984;
+            v36 = v14;
+            _os_log_impl(&dword_248BD5000, v16, OS_LOG_TYPE_DEFAULT, "date change, flushing new log entry; daysElapsed=%ld", &v35, 0xCu);
           }
 
           [*(a1 + 32) _flushAccumulatedLogDataWithDate:*(*(*(a1 + 40) + 8) + 40)];
@@ -162,8 +162,8 @@ uint64_t __46__DSCallStatisticsAggregator_beginAggregation__block_invoke(uint64_
         {
           if (v17)
           {
-            LOWORD(v36) = 0;
-            _os_log_impl(&dword_248BD5000, v16, OS_LOG_TYPE_DEFAULT, "new log line contains the same date as a previous one, accumulating", &v36, 2u);
+            LOWORD(v35) = 0;
+            _os_log_impl(&dword_248BD5000, v16, OS_LOG_TYPE_DEFAULT, "new log line contains the same date as a previous one, accumulating", &v35, 2u);
           }
         }
 
@@ -191,13 +191,12 @@ uint64_t __46__DSCallStatisticsAggregator_beginAggregation__block_invoke(uint64_
     }
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (id)getSynchronousResult
 {
-  v19[7] = *MEMORY[0x277D85DE8];
+  v18[7] = *MEMORY[0x277D85DE8];
   generationLock = [(DSCallStatisticsAggregator *)self generationLock];
   [generationLock lock];
 
@@ -222,40 +221,38 @@ uint64_t __46__DSCallStatisticsAggregator_beginAggregation__block_invoke(uint64_
 
   else
   {
-    v18[0] = @"futureDateDetected";
+    v17[0] = @"futureDateDetected";
     v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[DSCallStatisticsAggregator futureDateDetected](self, "futureDateDetected")}];
-    v19[0] = v7;
-    v18[1] = @"outOfOrderDateDetected";
+    v18[0] = v7;
+    v17[1] = @"outOfOrderDateDetected";
     v8 = [MEMORY[0x277CCABB0] numberWithBool:{-[DSCallStatisticsAggregator outOfOrderDateDetected](self, "outOfOrderDateDetected")}];
-    v19[1] = v8;
-    v18[2] = @"totalLoggedDayCount";
+    v18[1] = v8;
+    v17[2] = @"totalLoggedDayCount";
     v9 = MEMORY[0x277CCABB0];
     callLog = [(DSCallStatisticsAggregator *)self callLog];
     v11 = [v9 numberWithUnsignedInteger:{objc_msgSend(callLog, "count")}];
-    v19[2] = v11;
-    v18[3] = @"totalPlacedCallCount";
+    v18[2] = v11;
+    v17[3] = @"totalPlacedCallCount";
     v12 = [MEMORY[0x277CCABB0] numberWithInt:self->_totals.placedCallCount];
-    v19[3] = v12;
-    v18[4] = @"totalDroppedCallCount";
+    v18[3] = v12;
+    v17[4] = @"totalDroppedCallCount";
     v13 = [MEMORY[0x277CCABB0] numberWithInt:self->_totals.droppedCallCount];
-    v19[4] = v13;
-    v18[5] = @"totalDeviceDroppedCallCount";
+    v18[4] = v13;
+    v17[5] = @"totalDeviceDroppedCallCount";
     v14 = [MEMORY[0x277CCABB0] numberWithInt:self->_totals.deviceDroppedCallCount];
-    v19[5] = v14;
-    v18[6] = @"callLog";
+    v18[5] = v14;
+    v17[6] = @"callLog";
     callLog2 = [(DSCallStatisticsAggregator *)self callLog];
-    v19[6] = callLog2;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:7];
+    v18[6] = callLog2;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:7];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (BOOL)_isDateInRange:(id)range
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   rangeCopy = range;
   referenceDate = [(DSCallStatisticsAggregator *)self referenceDate];
   [rangeCopy timeIntervalSinceDate:referenceDate];
@@ -264,24 +261,18 @@ uint64_t __46__DSCallStatisticsAggregator_beginAggregation__block_invoke(uint64_
   v8 = DiagnosticLogHandleForCategory(3);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
-    v12 = v7;
-    _os_log_impl(&dword_248BD5000, v8, OS_LOG_TYPE_DEFAULT, "interval since now: %f", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = v7;
+    _os_log_impl(&dword_248BD5000, v8, OS_LOG_TYPE_DEFAULT, "interval since now: %f", &v10, 0xCu);
   }
 
   if (v7 <= 86400.0)
   {
-    result = v7 > -1209600.0;
+    return v7 > -1209600.0;
   }
 
-  else
-  {
-    [(DSCallStatisticsAggregator *)self setFutureDateDetected:1];
-    result = 0;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  [(DSCallStatisticsAggregator *)self setFutureDateDetected:1];
+  return 0;
 }
 
 - (id)_getAndValidateDateFromLogLine:(id)line
@@ -315,7 +306,7 @@ LABEL_5:
 
 - (void)_fillCallLogWithMissingDays:(int64_t)days fromDate:(id)date
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   missingDaysRemaining = [(DSCallStatisticsAggregator *)self missingDaysRemaining];
   if (missingDaysRemaining >= days)
@@ -332,13 +323,13 @@ LABEL_5:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v23 = daysCopy;
-    v24 = 2112;
-    v25 = dateCopy;
+    v22 = daysCopy;
+    v23 = 2112;
+    v24 = dateCopy;
     _os_log_impl(&dword_248BD5000, v9, OS_LOG_TYPE_DEFAULT, "filling call log with empty data for %ld days starting from [%@]", buf, 0x16u);
   }
 
-  v19 = daysCopy;
+  v18 = daysCopy;
   if (daysCopy >= 1)
   {
     v10 = 1;
@@ -352,19 +343,19 @@ LABEL_5:
 
       if (v15)
       {
-        v20[0] = @"date";
-        v20[1] = @"placedCallCount";
-        v21[0] = v15;
-        v21[1] = &unk_285B95B68;
-        v20[2] = @"droppedCallCount";
-        v20[3] = @"deviceDroppedCallCount";
-        v21[2] = &unk_285B95B68;
-        v21[3] = &unk_285B95B68;
-        v20[4] = @"droppedWiFiCallCount";
-        v20[5] = @"droppedVoLTECallCount";
-        v21[4] = &unk_285B95B68;
-        v21[5] = &unk_285B95B68;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
+        v19[0] = @"date";
+        v19[1] = @"placedCallCount";
+        v20[0] = v15;
+        v20[1] = &unk_285B95B68;
+        v19[2] = @"droppedCallCount";
+        v19[3] = @"deviceDroppedCallCount";
+        v20[2] = &unk_285B95B68;
+        v20[3] = &unk_285B95B68;
+        v19[4] = @"droppedWiFiCallCount";
+        v19[5] = @"droppedVoLTECallCount";
+        v20[4] = &unk_285B95B68;
+        v20[5] = &unk_285B95B68;
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
         callLog = [(DSCallStatisticsAggregator *)self callLog];
         [callLog addObject:v16];
       }
@@ -376,14 +367,12 @@ LABEL_5:
     while (v11);
   }
 
-  [(DSCallStatisticsAggregator *)self setMissingDaysRemaining:[(DSCallStatisticsAggregator *)self missingDaysRemaining]- v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [(DSCallStatisticsAggregator *)self setMissingDaysRemaining:[(DSCallStatisticsAggregator *)self missingDaysRemaining]- v18];
 }
 
 - (int64_t)_getDaysBetween:(id)between and:(id)and
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   betweenCopy = between;
   andCopy = and;
   v7 = andCopy;
@@ -397,22 +386,21 @@ LABEL_5:
   v10 = DiagnosticLogHandleForCategory(3);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412802;
-    v14 = betweenCopy;
-    v15 = 2112;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v8;
-    _os_log_impl(&dword_248BD5000, v10, OS_LOG_TYPE_DEFAULT, "days between [%@] and [%@]: %ld", &v13, 0x20u);
+    v12 = 138412802;
+    v13 = betweenCopy;
+    v14 = 2112;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v8;
+    _os_log_impl(&dword_248BD5000, v10, OS_LOG_TYPE_DEFAULT, "days between [%@] and [%@]: %ld", &v12, 0x20u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)_flushAccumulatedLogDataWithDate:(id)date
 {
-  v17[6] = *MEMORY[0x277D85DE8];
+  v16[6] = *MEMORY[0x277D85DE8];
   if (date)
   {
     dateCopy = date;
@@ -422,24 +410,24 @@ LABEL_5:
 
     if (v7)
     {
-      v17[0] = v7;
-      v16[0] = @"date";
-      v16[1] = @"placedCallCount";
+      v16[0] = v7;
+      v15[0] = @"date";
+      v15[1] = @"placedCallCount";
       v8 = [MEMORY[0x277CCABB0] numberWithInt:self->_accumulated.placedCallCount];
-      v17[1] = v8;
-      v16[2] = @"droppedCallCount";
+      v16[1] = v8;
+      v15[2] = @"droppedCallCount";
       v9 = [MEMORY[0x277CCABB0] numberWithInt:self->_accumulated.droppedCallCount];
-      v17[2] = v9;
-      v16[3] = @"deviceDroppedCallCount";
+      v16[2] = v9;
+      v15[3] = @"deviceDroppedCallCount";
       v10 = [MEMORY[0x277CCABB0] numberWithInt:self->_accumulated.deviceDroppedCallCount];
-      v17[3] = v10;
-      v16[4] = @"droppedWiFiCallCount";
+      v16[3] = v10;
+      v15[4] = @"droppedWiFiCallCount";
       v11 = [MEMORY[0x277CCABB0] numberWithInt:self->_accumulated.droppedWiFiCallCount];
-      v17[4] = v11;
-      v16[5] = @"droppedVoLTECallCount";
+      v16[4] = v11;
+      v15[5] = @"droppedVoLTECallCount";
       v12 = [MEMORY[0x277CCABB0] numberWithInt:self->_accumulated.droppedVoLTECallCount];
-      v17[5] = v12;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:6];
+      v16[5] = v12;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:6];
 
       callLog = [(DSCallStatisticsAggregator *)self callLog];
       [callLog addObject:v13];
@@ -450,7 +438,6 @@ LABEL_5:
   }
 
   [(DSCallStatisticsAggregator *)self _resetAccumulator];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

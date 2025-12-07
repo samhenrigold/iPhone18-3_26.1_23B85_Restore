@@ -261,32 +261,32 @@ LABEL_12:
 
 - (void)_updateSeparatorsIfNeeded:(id)needed
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   _mapsui_isRTL = [(UIView *)self _mapsui_isRTL];
   showSeparators = [(MUPlaceVerticalCardConfiguration *)self->_configuration showSeparators];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   reverseObjectEnumerator = [neededCopy reverseObjectEnumerator];
-  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v21;
+    v11 = *v20;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
-        if (v10 || ([*(*(&v20 + 1) + 8 * i) isHidden] & 1) != 0)
+        v13 = *(*(&v19 + 1) + 8 * i);
+        if (v10 || ([*(*(&v19 + 1) + 8 * i) isHidden] & 1) != 0)
         {
           if (v13 != v10 && showSeparators)
           {
@@ -328,7 +328,7 @@ LABEL_12:
         [v13 setRightHairlineInset:v18];
       }
 
-      v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (!v9)
       {
         goto LABEL_22;
@@ -338,8 +338,6 @@ LABEL_12:
 
   v10 = 0;
 LABEL_22:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateForPlatterAvailability
@@ -420,11 +418,11 @@ id __65__MUPlaceVerticalCardContainerView__updateForPlatterAvailability__block_i
 
 - (MUPlaceVerticalCardContainerView)initWithConfiguration:(id)configuration
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v15.receiver = self;
-  v15.super_class = MUPlaceVerticalCardContainerView;
-  v6 = [(MUStackView *)&v15 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v14.receiver = self;
+  v14.super_class = MUPlaceVerticalCardContainerView;
+  v6 = [(MUStackView *)&v14 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   v7 = v6;
   if (v6)
   {
@@ -441,12 +439,11 @@ id __65__MUPlaceVerticalCardContainerView__updateForPlatterAvailability__block_i
     }
 
     v10 = objc_opt_self();
-    v16[0] = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
     v12 = [(MUPlaceVerticalCardContainerView *)v7 registerForTraitChanges:v11 withAction:sel__updateForPlatterAvailability];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

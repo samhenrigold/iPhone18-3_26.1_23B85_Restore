@@ -174,7 +174,7 @@ void __25__FCProductLookup_lookup__block_invoke(uint64_t a1, void *a2, void *a3)
   dispatch_group_notify(v12, v13, block);
 }
 
-uint64_t __25__FCProductLookup_lookup__block_invoke_2(uint64_t *a1)
+uint64_t __25__FCProductLookup_lookup__block_invoke_2(void *a1)
 {
   v2 = a1[4];
   if (!v2)
@@ -184,36 +184,28 @@ uint64_t __25__FCProductLookup_lookup__block_invoke_2(uint64_t *a1)
 
   if (*(v2 + 56))
   {
-    v3 = a1[5];
-    v4 = *(a1[5] + 16);
-    goto LABEL_9;
+    v3 = *(a1[5] + 16);
+    goto LABEL_8;
   }
 
   if (*(v2 + 64))
   {
-    v5 = a1[6];
+    v4 = a1[6];
   }
 
   else
   {
 LABEL_6:
-    v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.news.productlookup" code:1001 userInfo:0];
-    [(FCProductLookup *)a1[4] setProductLookupError:v6];
+    v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.news.productlookup" code:1001 userInfo:0];
+    [(FCProductLookup *)a1[4] setProductLookupError:v5];
 
-    v2 = a1[4];
-    v5 = a1[6];
-    if (!v2)
-    {
-      goto LABEL_8;
-    }
+    v4 = a1[6];
   }
 
-  v7 = *(v2 + 64);
+  v3 = *(v4 + 16);
 LABEL_8:
-  v4 = *(v5 + 16);
-LABEL_9:
 
-  return v4();
+  return v3();
 }
 
 - (void)setProductLookupError:(uint64_t)error

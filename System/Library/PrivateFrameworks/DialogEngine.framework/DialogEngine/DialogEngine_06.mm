@@ -1,134 +1,3 @@
-void sub_1000592C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-    if ((v15 & 1) == 0)
-    {
-LABEL_6:
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v15)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v14);
-  goto LABEL_6;
-}
-
-void YAML::Scanner::ScanAnchorOrAlias(YAML::Scanner *this)
-{
-  memset(&__str, 0, sizeof(__str));
-  YAML::Scanner::InsertPotentialSimpleKey(this);
-  *(this + 73) = 0;
-  v2 = *(this + 1);
-  v3 = *(this + 4);
-  v4 = YAML::Stream::get(this);
-  while (YAML::Stream::operator BOOL(this))
-  {
-    v5 = sub_10005962C();
-    *&v16 = 0;
-    *(&v16 + 1) = this;
-    if (!*(this + 8) && !YAML::Stream::_ReadAheadTo(this, 0))
-    {
-      break;
-    }
-
-    if ((sub_1000550E8(v5, &v16) & 0x80000000) != 0)
-    {
-      break;
-    }
-
-    v6 = YAML::Stream::get(this);
-    std::string::push_back(&__str, v6);
-  }
-
-  size = HIBYTE(__str.__r_.__value_.__r.__words[2]);
-  if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    size = __str.__r_.__value_.__l.__size_;
-  }
-
-  if (!size)
-  {
-    exception = __cxa_allocate_exception(0x38uLL);
-    v11 = *(this + 4);
-    v21 = *(this + 1);
-    v22 = v11;
-    if (v4 == 42)
-    {
-      v12 = "alias not found after *";
-    }
-
-    else
-    {
-      v12 = "anchor not found after &";
-    }
-
-    sub_10000143C(&v16, v12);
-    sub_100041860(exception, &v21, &v16);
-    *exception = off_100075368;
-  }
-
-  if (YAML::Stream::operator BOOL(this))
-  {
-    if ((v8 = sub_10005978C(), *&v16 = 0, *(&v16 + 1) = this, !*(this + 8)) && !YAML::Stream::_ReadAheadTo(this, 0) || (sub_1000550E8(v8, &v16) & 0x80000000) != 0)
-    {
-      v13 = __cxa_allocate_exception(0x38uLL);
-      v14 = *(this + 4);
-      v21 = *(this + 1);
-      v22 = v14;
-      if (v4 == 42)
-      {
-        v15 = "illegal character found while scanning alias";
-      }
-
-      else
-      {
-        v15 = "illegal character found while scanning anchor";
-      }
-
-      sub_10000143C(&v16, v15);
-      sub_100041860(v13, &v21, &v16);
-      *v13 = off_100075368;
-    }
-  }
-
-  if (v4 == 42)
-  {
-    v9 = 17;
-  }
-
-  else
-  {
-    v9 = 16;
-  }
-
-  LODWORD(v16) = 0;
-  DWORD1(v16) = v9;
-  *(&v16 + 1) = v2;
-  v17 = v3;
-  *__p = 0u;
-  memset(v19, 0, sizeof(v19));
-  v20 = 0;
-  std::string::operator=(__p, &__str);
-  sub_10005B214(this + 96, &v16);
-  v21 = v19 + 1;
-  sub_100002260(&v21);
-  if (SBYTE7(v19[0]) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__str.__r_.__value_.__l.__data_);
-  }
-}
-
 void sub_1000595BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
@@ -160,10 +29,10 @@ void *sub_10005962C()
   if ((atomic_load_explicit(&qword_100078468, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100078468))
   {
     sub_10000143C(__p, "[]{},");
-    YAML::RegEx::RegEx(&v4, __p, 3);
+    YAML::RegEx::RegEx(v4, __p, 3);
     v1 = sub_100054EE8();
-    YAML::operator|(&v4, v1, &v6);
-    YAML::operator!(&v6, &unk_100078448);
+    YAML::operator|(v6, v4, v1);
+    YAML::operator!(v6, &unk_100078448);
     v8 = &v7;
     sub_100051FAC(&v8);
     v8 = &v5;
@@ -199,9 +68,9 @@ void *sub_10005978C()
 {
   if ((atomic_load_explicit(&qword_100078490, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100078490))
   {
-    YAML::RegEx::RegEx(&v4, __p, 3);
+    YAML::RegEx::RegEx(v4, __p, 3);
     v1 = sub_100054EE8();
-    YAML::operator|(&v4, v1, &unk_100078470);
+    YAML::operator|(&unk_100078470, v4, v1);
     v6 = &v5;
     sub_100051FAC(&v6);
     if (v3 < 0)
@@ -320,7 +189,7 @@ LABEL_24:
   }
 
 LABEL_25:
-  sub_10005B214(this + 96, &v11);
+  sub_10005B214(this + 12, &v11);
   __str.__r_.__value_.__r.__words[0] = v14 + 8;
   sub_100002260(&__str);
   if (SBYTE7(v14[0]) < 0)
@@ -384,7 +253,7 @@ void YAML::Scanner::ScanPlainScalar(YAML::Scanner *this)
   memset(v8, 0, sizeof(v8));
   v9 = 0;
   std::string::operator=(__p, &__str);
-  sub_10005B214(this + 96, &v6);
+  sub_10005B214(this + 12, &v6);
   v21 = v8 + 1;
   sub_100002260(&v21);
   if (SBYTE7(v8[0]) < 0)
@@ -404,9 +273,9 @@ void *sub_100059C34()
   {
     v1 = sub_10005AAC4();
     v2 = sub_100054EE8();
-    sub_1000585E0(&v3);
-    YAML::operator+(v2, &v3, &v5);
-    YAML::operator|(v1, &v5, &unk_100078498);
+    sub_1000585E0(v3);
+    YAML::operator+(v5, v2, v3);
+    YAML::operator|(&unk_100078498, v1, v5);
     v7 = &v6;
     sub_100051FAC(&v7);
     v7 = &v4;
@@ -434,9 +303,9 @@ void *sub_100059D6C()
   {
     v1 = sub_10005ADA4();
     v2 = sub_100054EE8();
-    sub_1000585E0(&v3);
-    YAML::operator+(v2, &v3, &v5);
-    YAML::operator|(v1, &v5, &unk_1000784E8);
+    sub_1000585E0(v3);
+    YAML::operator+(v5, v2, v3);
+    YAML::operator|(&unk_1000784E8, v1, v5);
     v7 = &v6;
     sub_100051FAC(&v7);
     v7 = &v4;
@@ -474,7 +343,7 @@ void YAML::Scanner::ScanQuotedScalar(std::string::size_type *this)
     YAML::RegEx::RegEx(&v7, 39);
     v3 = sub_10005A100();
     YAML::operator!(v3, &p_size);
-    YAML::operator&(&v7, &p_size, v13);
+    YAML::operator&(v13, &v7, &p_size);
     v22 = &v12;
     sub_100051FAC(&v22);
     p_size = &v7.__r_.__value_.__l.__size_;
@@ -510,7 +379,7 @@ void YAML::Scanner::ScanQuotedScalar(std::string::size_type *this)
   memset(v9, 0, sizeof(v9));
   v10 = 0;
   std::string::operator=(__p, &__str);
-  sub_10005B214((this + 12), &v7);
+  sub_10005B214(this + 12, &v7);
   p_size = v9 + 1;
   sub_100002260(&p_size);
   if (SBYTE7(v9[0]) < 0)
@@ -685,7 +554,7 @@ LABEL_27:
     {
       v10 = sub_100055048();
       v11 = sub_100053F44();
-      YAML::operator|(v10, v11, &unk_100078088);
+      YAML::operator|(&unk_100078088, v10, v11);
       __cxa_atexit(sub_100053FE4, &unk_100078088, &_mh_execute_header);
       __cxa_guard_release(&qword_1000780A8);
     }
@@ -785,7 +654,7 @@ LABEL_27:
   memset(v24, 0, sizeof(v24));
   v25 = 0;
   std::string::operator=(v23, &__p);
-  sub_10005B214(this + 96, &v22);
+  sub_10005B214(this + 12, &v22);
   v37.__r_.__value_.__r.__words[0] = v24 + 8;
   sub_100002260(&v37);
   if (SBYTE7(v24[0]) < 0)
@@ -816,15 +685,15 @@ void *sub_10005A8F8()
   {
     v1 = sub_10005AF0C();
     v2 = sub_100057E80();
-    YAML::operator+(v1, v2, &v9);
+    YAML::operator+(v9, v1, v2);
     v3 = sub_100057E80();
     v4 = sub_10005AF0C();
-    YAML::operator+(v3, v4, &v7);
-    YAML::operator|(&v9, &v7, &v11);
+    YAML::operator+(&v7, v3, v4);
+    YAML::operator|(v11, v9, &v7);
     v5 = sub_10005AF0C();
-    YAML::operator|(&v11, v5, &v13);
+    YAML::operator|(v13, v11, v5);
     v6 = sub_100057E80();
-    YAML::operator|(&v13, v6, &unk_100078560);
+    YAML::operator|(&unk_100078560, v13, v6);
     v15 = &v14;
     sub_100051FAC(&v15);
     v15 = &v12;
@@ -854,17 +723,17 @@ void *sub_10005AAC4()
 {
   if ((atomic_load_explicit(&qword_1000784E0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1000784E0))
   {
-    YAML::RegEx::RegEx(&v16, 58);
+    YAML::RegEx::RegEx(v16, 58);
     v1 = sub_100054EE8();
-    YAML::RegEx::RegEx(&v10);
-    YAML::operator|(v1, &v10, &v12);
+    YAML::RegEx::RegEx(v10);
+    YAML::operator|(v12, v1, v10);
     sub_10000143C(v6, ",]}");
     YAML::RegEx::RegEx(&v8, v6, 3);
-    YAML::operator|(&v12, &v8, &v14);
-    YAML::operator+(&v16, &v14, &v18);
+    YAML::operator|(&v14, v12, &v8);
+    YAML::operator+(v18, v16, &v14);
     sub_10000143C(__p, ",?[]{}");
     YAML::RegEx::RegEx(&v4, __p, 3);
-    YAML::operator|(&v18, &v4, &unk_1000784C0);
+    YAML::operator|(&unk_1000784C0, v18, &v4);
     v20 = &v5;
     sub_100051FAC(&v20);
     if (v3 < 0)
@@ -930,11 +799,11 @@ void *sub_10005ADA4()
 {
   if ((atomic_load_explicit(&qword_100078530, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100078530))
   {
-    YAML::RegEx::RegEx(&v6, 58);
+    YAML::RegEx::RegEx(v6, 58);
     v1 = sub_100054EE8();
-    YAML::RegEx::RegEx(&v2);
-    YAML::operator|(v1, &v2, &v4);
-    YAML::operator+(&v6, &v4, &unk_100078510);
+    YAML::RegEx::RegEx(v2);
+    YAML::operator|(&v4, v1, v2);
+    YAML::operator+(&unk_100078510, v6, &v4);
     v8 = &v5;
     sub_100051FAC(&v8);
     v8 = &v3;
@@ -1174,47 +1043,46 @@ uint64_t sub_10005AFF0(uint64_t a1, void *a2)
   return v5;
 }
 
-uint64_t sub_10005B214(uint64_t a1, __int128 *a2)
+uint64_t *sub_10005B214(unint64_t *a1, __int128 *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 51 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 51 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     sub_100055C9C(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = *(v6 + 8 * (v8 / 0x33)) + 80 * (v8 % 0x33);
-  v10 = *a2;
-  *(v9 + 16) = *(a2 + 4);
-  *v9 = v10;
+  v8 = *(v5 + 8 * (v7 / 0x33)) + 80 * (v7 % 0x33);
+  v9 = *a2;
+  *(v8 + 16) = *(a2 + 4);
+  *v8 = v9;
   if (*(a2 + 47) < 0)
   {
-    sub_100001C60((v9 + 24), *(a2 + 3), *(a2 + 4));
+    sub_100001C60((v8 + 24), *(a2 + 3), *(a2 + 4));
   }
 
   else
   {
-    v11 = *(a2 + 24);
-    *(v9 + 40) = *(a2 + 5);
-    *(v9 + 24) = v11;
+    v10 = *(a2 + 24);
+    *(v8 + 40) = *(a2 + 5);
+    *(v8 + 24) = v10;
   }
 
-  *(v9 + 48) = 0;
-  *(v9 + 56) = 0;
-  *(v9 + 64) = 0;
-  result = sub_100001FDC(v9 + 48, *(a2 + 6), *(a2 + 7), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 7) - *(a2 + 6)) >> 3));
-  *(v9 + 72) = *(a2 + 18);
-  ++*(a1 + 40);
+  *(v8 + 48) = 0;
+  *(v8 + 56) = 0;
+  *(v8 + 64) = 0;
+  result = sub_100001FDC((v8 + 48), *(a2 + 6), *(a2 + 7), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 7) - *(a2 + 6)) >> 3));
+  *(v8 + 72) = *(a2 + 18);
+  ++a1[5];
   return result;
 }
 
@@ -1228,50 +1096,47 @@ void sub_10005B32C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *sub_10005B348(void *result, _DWORD *a2)
+void sub_10005B348(unint64_t *result, _DWORD *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 7) - 1;
+    v6 = ((v4 - v5) << 7) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = sub_10005B3D0(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    sub_10005B3D0(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v9 & 0x3FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *sub_10005B3D0(void *a1)
+void sub_10005B3D0(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x400;
   v3 = v1 - 1024;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -1279,25 +1144,25 @@ void *sub_10005B3D0(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    sub_10005B9CC(a1, v9);
+    v10 = a1;
+    sub_10005B9CC(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return sub_10005B5A4(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  sub_10005B5A4(a1, &v9);
 }
 
 void sub_10005B558(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -1311,27 +1176,26 @@ void sub_10005B558(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *sub_10005B5A4(void *result, void *a2)
+void sub_10005B5A4(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      sub_10005B9CC(result, v11);
+      sub_10005B9CC(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1340,28 +1204,26 @@ void *sub_10005B5A4(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **sub_10005B6AC(const void **result, void *a2)
+void sub_10005B6AC(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -1374,52 +1236,50 @@ const void **sub_10005B6AC(const void **result, void *a2)
         v9 = (v7 - v4) >> 2;
       }
 
-      sub_10005B9CC(result, v9);
+      sub_10005B9CC(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *sub_10005B7B8(void *result, void *a2)
+void sub_10005B7B8(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      sub_10005B9CC(result[4], v11);
+      sub_10005B9CC(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1428,28 +1288,26 @@ void *sub_10005B7B8(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **sub_10005B8C0(const void **result, void *a2)
+void sub_10005B8C0(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -1462,29 +1320,28 @@ const void **sub_10005B8C0(const void **result, void *a2)
         v9 = (v7 - v4) >> 2;
       }
 
-      sub_10005B9CC(result[4], v9);
+      sub_10005B9CC(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void sub_10005B9CC(uint64_t a1, unint64_t a2)
@@ -1536,15 +1393,15 @@ uint64_t sub_10005BA14(void *a1, int a2)
   return v7 ^ 1u;
 }
 
-double YAML::Scanner::InsertPotentialSimpleKey(YAML::Scanner *this)
+double YAML::Scanner::InsertPotentialSimpleKey(uint64_t this)
 {
   if (*(this + 146) == 1)
   {
-    v2 = *(this + 24);
+    v2 = *(this + 192);
     if (v2)
     {
-      v3 = *(*(*(this + 20) + 8 * ((v2 + *(this + 23) - 1) / 0x55uLL)) + 48 * ((v2 + *(this + 23) - 1) % 0x55uLL) + 16);
-      v4 = *(this + 39);
+      v3 = *(*(*(this + 160) + 8 * ((v2 + *(this + 184) - 1) / 0x55uLL)) + 48 * ((v2 + *(this + 184) - 1) % 0x55uLL) + 16);
+      v4 = *(this + 312);
       if (v3 == v4)
       {
         return result;
@@ -1553,11 +1410,11 @@ double YAML::Scanner::InsertPotentialSimpleKey(YAML::Scanner *this)
 
     else
     {
-      v4 = *(this + 39);
+      v4 = *(this + 312);
     }
 
-    v5 = *(this + 4);
-    v16 = *(this + 1);
+    v5 = *(this + 16);
+    v16 = *(this + 8);
     v17 = v5;
     v18 = v4;
     v19 = 0;
@@ -1565,7 +1422,7 @@ double YAML::Scanner::InsertPotentialSimpleKey(YAML::Scanner *this)
     v21 = 0;
     if (!v4)
     {
-      v6 = YAML::Scanner::PushIndentTo(this);
+      v6 = YAML::Scanner::PushIndentTo(this, v5, 0);
       v19 = v6;
       if (v6)
       {
@@ -1575,15 +1432,15 @@ double YAML::Scanner::InsertPotentialSimpleKey(YAML::Scanner *this)
       }
     }
 
-    v7 = *(this + 1);
-    v8 = *(this + 4);
+    v7 = *(this + 8);
+    v8 = *(this + 16);
     *&v11 = 0xE00000000;
     *(&v11 + 1) = v7;
     v12 = v8;
     *__p = 0u;
     memset(v14, 0, sizeof(v14));
     v15 = 0;
-    sub_100055BA4(this + 96, &v11);
+    sub_100055BA4((this + 96), &v11);
     v22 = v14 + 1;
     sub_100002260(&v22);
     if (SBYTE7(v14[0]) < 0)
@@ -1591,18 +1448,18 @@ double YAML::Scanner::InsertPotentialSimpleKey(YAML::Scanner *this)
       operator delete(__p[0]);
     }
 
-    v9 = *(this + 17) + *(this + 16) - 1;
-    v21 = (*(*(this + 13) + 8 * (v9 / 0x33)) + 80 * (v9 % 0x33));
+    v9 = *(this + 136) + *(this + 128) - 1;
+    v21 = (*(*(this + 104) + 8 * (v9 / 0x33)) + 80 * (v9 % 0x33));
     *v21 = 2;
-    *&result = sub_10005BE00(this + 152, &v16).n128_u64[0];
+    *&result = sub_10005BE00((this + 152), &v16).n128_u64[0];
   }
 
   return result;
 }
 
-void sub_10005BC04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10005BC04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1000546CC(va);
   _Unwind_Resume(a1);
 }
@@ -1727,48 +1584,47 @@ uint64_t YAML::Scanner::PopAllSimpleKeys(uint64_t this)
   return this;
 }
 
-__n128 sub_10005BE00(uint64_t a1, uint64_t a2)
+__n128 sub_10005BE00(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 85 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 85 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     sub_10005BEB0(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = *(v6 + 8 * (v8 / 0x55)) + 48 * (v8 % 0x55);
+  v8 = *(v5 + 8 * (v7 / 0x55)) + 48 * (v7 % 0x55);
   result = *a2;
-  v11 = *(a2 + 32);
-  *(v9 + 16) = *(a2 + 16);
-  *(v9 + 32) = v11;
-  *v9 = result;
-  ++*(a1 + 40);
+  v10 = *(a2 + 32);
+  *(v8 + 16) = *(a2 + 16);
+  *(v8 + 32) = v10;
+  *v8 = result;
+  ++a1[5];
   return result;
 }
 
-void *sub_10005BEB0(void *a1)
+void sub_10005BEB0(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x55;
   v3 = v1 - 85;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -1776,25 +1632,25 @@ void *sub_10005BEB0(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    sub_10004FE34(a1, v9);
+    v10 = a1;
+    sub_10004FE34(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return sub_100055E70(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  sub_100055E70(a1, &v9);
 }
 
 void sub_10005C038(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -2142,14 +1998,14 @@ unint64_t YAML::SingleDocParser::HandleMap(int64x2_t **a1, uint64_t a2)
   return result;
 }
 
-uint64_t YAML::SingleDocParser::LookupAnchor(uint64_t a1, _DWORD *a2, uint64_t a3)
+uint64_t YAML::SingleDocParser::LookupAnchor(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v5 = sub_10000E230(a1 + 24, a3);
   if (a1 + 32 == v5)
   {
     exception = __cxa_allocate_exception(0x38uLL);
-    sub_10000143C(v8, "the referenced anchor is not defined");
-    sub_100041860(exception, a2, v8);
+    sub_10000143C(&v8, "the referenced anchor is not defined");
+    sub_100041860(exception, a2, &v8);
     *exception = off_100075368;
   }
 
@@ -2258,25 +2114,25 @@ uint64_t YAML::SingleDocParser::HandleBlockSequence(uint64_t a1, uint64_t a2)
 {
   YAML::Scanner::pop(*a1);
   v4 = *(a1 + 16);
-  LODWORD(v17) = 2;
-  sub_10005DE14(v4, &v17);
+  LODWORD(v16) = 2;
+  sub_10005DE14(v4, &v16);
   do
   {
     if (YAML::Scanner::empty(*a1))
     {
       exception = __cxa_allocate_exception(0x38uLL);
-      v15 = YAML::Scanner::mark(*a1);
-      v16 = v14;
-      sub_10000143C(&v17, "end of sequence not found");
-      sub_100041860(exception, &v15, &v17);
+      *&v15 = YAML::Scanner::mark(*a1);
+      DWORD2(v15) = v14;
+      sub_10000143C(&v16, "end of sequence not found");
+      sub_100041860(exception, &v15, &v16);
       *exception = off_100075368;
     }
 
     v5 = YAML::Scanner::peek(*a1);
     v6 = v5;
     v7 = *(v5 + 16);
-    v17 = *v5;
-    v18 = v7;
+    v16 = *v5;
+    v17 = v7;
     if (*(v5 + 47) < 0)
     {
       sub_100001C60(&__p, *(v5 + 24), *(v5 + 32));
@@ -2285,24 +2141,24 @@ uint64_t YAML::SingleDocParser::HandleBlockSequence(uint64_t a1, uint64_t a2)
     else
     {
       v8 = *(v5 + 24);
-      v20 = *(v5 + 40);
+      v19 = *(v5 + 40);
       __p = v8;
     }
 
-    memset(v21, 0, sizeof(v21));
-    sub_100001FDC(v21, *(v6 + 48), *(v6 + 56), 0xAAAAAAAAAAAAAAABLL * ((*(v6 + 56) - *(v6 + 48)) >> 3));
-    v22 = *(v6 + 72);
-    if ((DWORD1(v17) & 0xFFFFFFFD) != 5)
+    memset(v20, 0, sizeof(v20));
+    sub_100001FDC(v20, *(v6 + 48), *(v6 + 56), 0xAAAAAAAAAAAAAAABLL * ((*(v6 + 56) - *(v6 + 48)) >> 3));
+    v21 = *(v6 + 72);
+    if ((DWORD1(v16) & 0xFFFFFFFD) != 5)
     {
       v12 = __cxa_allocate_exception(0x38uLL);
       sub_10000143C(&v15, "end of sequence not found");
-      sub_100041860(v12, &v17 + 2, &v15);
+      sub_100041860(v12, &v16 + 1, &v15);
       *v12 = off_100075368;
     }
 
     YAML::Scanner::pop(*a1);
-    v9 = DWORD1(v17);
-    if (DWORD1(v17) != 5)
+    v9 = DWORD1(v16);
+    if (DWORD1(v16) != 5)
     {
       if (YAML::Scanner::empty(*a1) || (v10 = YAML::Scanner::peek(*a1), (*(v10 + 4) | 2) != 7))
       {
@@ -2315,9 +2171,9 @@ uint64_t YAML::SingleDocParser::HandleBlockSequence(uint64_t a1, uint64_t a2)
       }
     }
 
-    v15 = v21;
+    *&v15 = v20;
     sub_100002260(&v15);
-    if (SHIBYTE(v20) < 0)
+    if (SHIBYTE(v19) < 0)
     {
       operator delete(__p);
     }
@@ -2352,8 +2208,8 @@ uint64_t YAML::SingleDocParser::HandleFlowSequence(uint64_t a1, uint64_t a2)
 {
   YAML::Scanner::pop(*a1);
   v4 = *(a1 + 16);
-  v18[0] = 4;
-  sub_10005DE14(v4, v18);
+  LODWORD(v18) = 4;
+  sub_10005DE14(v4, &v18);
   while (1)
   {
     if (YAML::Scanner::empty(*a1))
@@ -2363,8 +2219,8 @@ uint64_t YAML::SingleDocParser::HandleFlowSequence(uint64_t a1, uint64_t a2)
       v10 = exception;
       v19 = YAML::Scanner::mark(*v9);
       v20 = v11;
-      sub_10000143C(v18, "end of sequence flow not found");
-      sub_100041860(v10, &v19, v18);
+      sub_10000143C(&v18, "end of sequence flow not found");
+      sub_100041860(v10, &v19, &v18);
       *v10 = off_100075368;
     }
 
@@ -2381,8 +2237,8 @@ uint64_t YAML::SingleDocParser::HandleFlowSequence(uint64_t a1, uint64_t a2)
       v14 = v12;
       v19 = YAML::Scanner::mark(*v13);
       v20 = v15;
-      sub_10000143C(v18, "end of sequence flow not found");
-      sub_100041860(v14, &v19, v18);
+      sub_10000143C(&v18, "end of sequence flow not found");
+      sub_100041860(v14, &v19, &v18);
       *v14 = off_100075368;
     }
 
@@ -2394,8 +2250,8 @@ uint64_t YAML::SingleDocParser::HandleFlowSequence(uint64_t a1, uint64_t a2)
       {
         v16 = v5;
         v17 = __cxa_allocate_exception(0x38uLL);
-        sub_10000143C(v18, "end of sequence flow not found");
-        sub_100041860(v17, (v16 + 8), v18);
+        sub_10000143C(&v18, "end of sequence flow not found");
+        sub_100041860(v17, (v16 + 8), &v18);
         *v17 = off_100075368;
       }
 
@@ -2422,7 +2278,7 @@ void sub_10005D1B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_10005D1F8(void *a1, int a2)
+uint64_t sub_10005D1F8(void *a1, uint64_t a2)
 {
   v3 = a1[5];
   if (v3)
@@ -2449,8 +2305,8 @@ uint64_t YAML::SingleDocParser::HandleBlockMap(uint64_t a1, uint64_t a2)
 {
   YAML::Scanner::pop(*a1);
   v4 = *(a1 + 16);
-  LODWORD(v16) = 1;
-  sub_10005DE14(v4, &v16);
+  LODWORD(v15) = 1;
+  sub_10005DE14(v4, &v15);
   do
   {
     while (1)
@@ -2458,18 +2314,18 @@ uint64_t YAML::SingleDocParser::HandleBlockMap(uint64_t a1, uint64_t a2)
       if (YAML::Scanner::empty(*a1))
       {
         exception = __cxa_allocate_exception(0x38uLL);
-        v14 = YAML::Scanner::mark(*a1);
-        v15 = v12;
-        sub_10000143C(&v16, "end of map not found");
-        sub_100041860(exception, &v14, &v16);
+        *&v14 = YAML::Scanner::mark(*a1);
+        DWORD2(v14) = v12;
+        sub_10000143C(&v15, "end of map not found");
+        sub_100041860(exception, &v14, &v15);
         *exception = off_100075368;
       }
 
       v5 = YAML::Scanner::peek(*a1);
       v6 = v5;
       v7 = *(v5 + 16);
-      v16 = *v5;
-      v17 = v7;
+      v15 = *v5;
+      v16 = v7;
       if (*(v5 + 47) < 0)
       {
         sub_100001C60(&__p, *(v5 + 24), *(v5 + 32));
@@ -2478,14 +2334,14 @@ uint64_t YAML::SingleDocParser::HandleBlockMap(uint64_t a1, uint64_t a2)
       else
       {
         v8 = *(v5 + 24);
-        v19 = *(v5 + 40);
+        v18 = *(v5 + 40);
         __p = v8;
       }
 
-      memset(v20, 0, sizeof(v20));
-      sub_100001FDC(v20, *(v6 + 48), *(v6 + 56), 0xAAAAAAAAAAAAAAABLL * ((*(v6 + 56) - *(v6 + 48)) >> 3));
-      v21 = *(v6 + 72);
-      if (DWORD1(v16) == 6)
+      memset(v19, 0, sizeof(v19));
+      sub_100001FDC(v19, *(v6 + 48), *(v6 + 56), 0xAAAAAAAAAAAAAAABLL * ((*(v6 + 56) - *(v6 + 48)) >> 3));
+      v20 = *(v6 + 72);
+      if (DWORD1(v15) == 6)
       {
         YAML::Scanner::pop(*a1);
         v9 = 0;
@@ -2493,7 +2349,7 @@ uint64_t YAML::SingleDocParser::HandleBlockMap(uint64_t a1, uint64_t a2)
 
       else
       {
-        if (DWORD1(v16) == 14)
+        if (DWORD1(v15) == 14)
         {
           YAML::Scanner::pop(*a1);
           YAML::SingleDocParser::HandleNode(a1, a2);
@@ -2501,20 +2357,20 @@ uint64_t YAML::SingleDocParser::HandleBlockMap(uint64_t a1, uint64_t a2)
 
         else
         {
-          if (DWORD1(v16) != 15)
+          if (DWORD1(v15) != 15)
           {
             v13 = __cxa_allocate_exception(0x38uLL);
             sub_10000143C(&v14, "end of map not found");
-            sub_100041860(v13, &v16 + 2, &v14);
+            sub_100041860(v13, &v15 + 1, &v14);
             *v13 = off_100075368;
           }
 
-          (*(*a2 + 32))(a2, &v16 + 8, 0);
+          (*(*a2 + 32))(a2, &v15 + 8, 0);
         }
 
         if (YAML::Scanner::empty(*a1) || *(YAML::Scanner::peek(*a1) + 4) != 15)
         {
-          (*(*a2 + 32))(a2, &v16 + 8, 0);
+          (*(*a2 + 32))(a2, &v15 + 8, 0);
         }
 
         else
@@ -2526,9 +2382,9 @@ uint64_t YAML::SingleDocParser::HandleBlockMap(uint64_t a1, uint64_t a2)
         v9 = 1;
       }
 
-      v14 = v20;
+      *&v14 = v19;
       sub_100002260(&v14);
-      if (SHIBYTE(v19) < 0)
+      if (SHIBYTE(v18) < 0)
       {
         break;
       }
@@ -2572,8 +2428,8 @@ uint64_t YAML::SingleDocParser::HandleFlowMap(uint64_t a1, uint64_t a2)
 {
   YAML::Scanner::pop(*a1);
   v4 = *(a1 + 16);
-  v20[0] = 3;
-  sub_10005DE14(v4, v20);
+  LODWORD(v20) = 3;
+  sub_10005DE14(v4, &v20);
   while (1)
   {
     if (YAML::Scanner::empty(*a1))
@@ -2581,8 +2437,8 @@ uint64_t YAML::SingleDocParser::HandleFlowMap(uint64_t a1, uint64_t a2)
       exception = __cxa_allocate_exception(0x38uLL);
       v21 = YAML::Scanner::mark(*a1);
       v22 = v11;
-      sub_10000143C(v20, "end of map flow not found");
-      sub_100041860(exception, &v21, v20);
+      sub_10000143C(&v20, "end of map flow not found");
+      sub_100041860(exception, &v21, &v20);
       *exception = off_100075368;
     }
 
@@ -2622,8 +2478,8 @@ LABEL_7:
       v14 = v12;
       v18 = YAML::Scanner::mark(*v13);
       v19 = v15;
-      sub_10000143C(v20, "end of map flow not found");
-      sub_100041860(v14, &v18, v20);
+      sub_10000143C(&v20, "end of map flow not found");
+      sub_100041860(v14, &v18, &v20);
       *v14 = off_100075368;
     }
 
@@ -2635,8 +2491,8 @@ LABEL_7:
       {
         v16 = v7;
         v17 = __cxa_allocate_exception(0x38uLL);
-        sub_10000143C(v20, "end of map flow not found");
-        sub_100041860(v17, (v16 + 8), v20);
+        sub_10000143C(&v20, "end of map flow not found");
+        sub_100041860(v17, (v16 + 8), &v20);
         *v17 = off_100075368;
       }
 
@@ -2699,7 +2555,7 @@ uint64_t YAML::SingleDocParser::HandleCompactMapWithNoKey(uint64_t a1, uint64_t 
   return sub_10005D1F8(*(a1 + 16), 5);
 }
 
-void YAML::SingleDocParser::ParseTag(uint64_t a1, uint64_t a2)
+void YAML::SingleDocParser::ParseTag(int64x2_t **a1, uint64_t a2)
 {
   v4 = YAML::Scanner::peek(*a1);
   v5 = *(a2 + 23);
@@ -2712,13 +2568,13 @@ void YAML::SingleDocParser::ParseTag(uint64_t a1, uint64_t a2)
   {
     v6 = v4;
     exception = __cxa_allocate_exception(0x38uLL);
-    sub_10000143C(v9, "cannot assign multiple tags to the same node");
-    sub_100041860(exception, (v6 + 8), v9);
+    sub_10000143C(&v9, "cannot assign multiple tags to the same node");
+    sub_100041860(exception, (v6 + 8), &v9);
     *exception = off_100075368;
   }
 
-  YAML::Tag::Tag(v9, v4);
-  YAML::Tag::Translate(v9, *(a1 + 8), &__p);
+  YAML::Tag::Tag(&v9, v4);
+  YAML::Tag::Translate(&__p, &v9, a1[1]);
   std::string::operator=(a2, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2726,14 +2582,14 @@ void YAML::SingleDocParser::ParseTag(uint64_t a1, uint64_t a2)
   }
 
   YAML::Scanner::pop(*a1);
-  if (v13 < 0)
+  if (v12 < 0)
   {
-    operator delete(v12);
+    operator delete(v11);
   }
 
-  if (v11 < 0)
+  if (v10 < 0)
   {
-    operator delete(v10);
+    operator delete(*(&v9 + 1));
   }
 }
 
@@ -2765,8 +2621,8 @@ void YAML::SingleDocParser::ParseAnchor(int64x2_t **a1, uint64_t *a2, std::strin
   if (*a2)
   {
     exception = __cxa_allocate_exception(0x38uLL);
-    sub_10000143C(v10, "cannot assign multiple anchors to the same node");
-    sub_100041860(exception, &v7->__r_.__value_.__r.__words[1], v10);
+    sub_10000143C(&v10, "cannot assign multiple anchors to the same node");
+    sub_100041860(exception, &v7->__r_.__value_.__l.__size_, &v10);
     *exception = off_100075368;
   }
 
@@ -2813,54 +2669,52 @@ uint64_t YAML::SingleDocParser::RegisterAnchor(uint64_t a1, uint64_t a2)
 
   v3 = *(a1 + 48) + 1;
   *(a1 + 48) = v3;
-  *(sub_10005E0B4(a1 + 24, a2) + 56) = v3;
+  v6 = a2;
+  sub_10005E0B4((a1 + 24), a2, &std::piecewise_construct, &v6, &v5)[7] = v3;
   return v3;
 }
 
-void *sub_10005DE14(void *result, _DWORD *a2)
+void sub_10005DE14(unint64_t *result, _DWORD *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 7) - 1;
+    v6 = ((v4 - v5) << 7) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = sub_10005DE9C(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    sub_10005DE9C(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v9 & 0x3FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *sub_10005DE9C(void *a1)
+void sub_10005DE9C(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x400;
   v3 = v1 - 1024;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -2868,25 +2722,25 @@ void *sub_10005DE9C(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    sub_10005B9CC(a1, v9);
+    v10 = a1;
+    sub_10005B9CC(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return sub_10005B5A4(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  sub_10005B5A4(a1, &v9);
 }
 
 void sub_10005E024(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -2915,9 +2769,9 @@ uint64_t sub_10005E070(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_10005E0B4(uint64_t a1, const void **a2)
+void *sub_10005E0B4(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *sub_1000229D8(a1, &v3, a2);
+  result = *sub_1000229D8(a1, &v6, a2);
   if (!result)
   {
     sub_10005E14C();
@@ -2933,7 +2787,7 @@ void sub_10005E1E8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void YAML::Stream::Stream(uint64_t a1, uint64_t a2)
+void YAML::Stream::Stream(uint64_t a1, void *a2)
 {
   *a1 = a2;
   *(a1 + 8) = 0u;
@@ -3015,19 +2869,18 @@ uint64_t YAML::Stream::AdvanceCurrent(YAML::Stream *this)
   return result;
 }
 
-void YAML::Stream::get(YAML::Stream *this@<X0>, int a2@<W1>, std::string *a3@<X8>)
+void YAML::Stream::get(std::string *__return_ptr a1@<X8>, YAML::Stream *this@<X0>, int a3@<W1>)
 {
-  v3 = a2;
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
-  std::string::reserve(a3, a2);
+  v3 = a3;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  std::string::reserve(a1, a3);
   if (v3 >= 1)
   {
     do
     {
       v6 = YAML::Stream::get(this);
-      std::string::push_back(a3, v6);
+      std::string::push_back(a1, v6);
       --v3;
     }
 
@@ -3111,31 +2964,28 @@ LABEL_11:
   return v5 > a2;
 }
 
-void *YAML::Stream::StreamInUtf8(YAML::Stream *this)
+void YAML::Stream::StreamInUtf8(YAML::Stream *this)
 {
-  result = YAML::Stream::GetNextByte(this);
+  NextByte = YAML::Stream::GetNextByte(this);
   if (!*(*this + *(**this - 24) + 32))
   {
-    v3 = result;
-    return sub_10005EB30(this + 3, &v3);
+    v3 = NextByte;
+    sub_10005EB30(this + 3, &v3);
   }
-
-  return result;
 }
 
-void *YAML::Stream::StreamInUtf16(YAML::Stream *this)
+void YAML::Stream::StreamInUtf16(YAML::Stream *this)
 {
   v2 = *(this + 5);
   NextByte = YAML::Stream::GetNextByte(this);
-  result = YAML::Stream::GetNextByte(this);
-  v15 = result;
+  v14 = YAML::Stream::GetNextByte(this);
   if (*(*this + *(**this - 24) + 32))
   {
-    return result;
+    return;
   }
 
-  v4 = v2 == 2;
-  v5 = v2 != 2;
+  v3 = v2 == 2;
+  v4 = v2 != 2;
   if (v2 == 2)
   {
     p_NextByte = &NextByte;
@@ -3143,58 +2993,58 @@ void *YAML::Stream::StreamInUtf16(YAML::Stream *this)
 
   else
   {
-    p_NextByte = &v15;
+    p_NextByte = &v14;
   }
 
-  v7 = *p_NextByte;
-  if ((v7 & 0xFC) != 0xDC)
+  v6 = *p_NextByte;
+  if ((v6 & 0xFC) != 0xDC)
   {
-    v10 = *(&NextByte + (v2 == 2)) | (v7 << 8);
-    if ((v7 & 0xFC) != 0xD8)
+    v9 = *(&NextByte + (v2 == 2)) | (v6 << 8);
+    if ((v6 & 0xFC) != 0xD8)
     {
 LABEL_13:
-      v8 = (this + 24);
-      v9 = v10;
+      v7 = (this + 24);
+      v8 = v9;
       goto LABEL_14;
     }
 
     while (1)
     {
-      v11 = v10;
+      v10 = v9;
       NextByte = YAML::Stream::GetNextByte(this);
-      v15 = YAML::Stream::GetNextByte(this);
+      v14 = YAML::Stream::GetNextByte(this);
       if (*(*this + *(**this - 24) + 32))
       {
         break;
       }
 
-      v12 = *(&NextByte + v5);
-      v10 = *(&NextByte + v4) | (v12 << 8);
-      v13 = (v12 + 32);
-      if (v13 > 0xFB)
+      v11 = *(&NextByte + v4);
+      v9 = *(&NextByte + v3) | (v11 << 8);
+      v12 = (v11 + 32);
+      if (v12 > 0xFB)
       {
-        v10 = (v10 & 0x3FF | ((v11 & 0x3FF) << 10)) + 0x10000;
+        v9 = (v9 & 0x3FF | ((v10 & 0x3FF) << 10)) + 0x10000;
         goto LABEL_13;
       }
 
       sub_10005EC88(this + 3, 0xFFFDuLL);
-      if (v13 <= 0xF7)
+      if (v12 <= 0xF7)
       {
-        v8 = (this + 24);
-        v9 = v11;
+        v7 = (this + 24);
+        v8 = v10;
         goto LABEL_14;
       }
     }
   }
 
-  v8 = (this + 24);
-  v9 = 65533;
+  v7 = (this + 24);
+  v8 = 65533;
 LABEL_14:
 
-  return sub_10005EC88(v8, v9);
+  sub_10005EC88(v7, v8);
 }
 
-void *YAML::Stream::StreamInUtf32(YAML::Stream *this)
+void YAML::Stream::StreamInUtf32(YAML::Stream *this)
 {
   if (*(this + 5) == 4)
   {
@@ -3206,52 +3056,46 @@ void *YAML::Stream::StreamInUtf32(YAML::Stream *this)
     v2 = &unk_10006474C;
   }
 
-  v6[0] = YAML::Stream::GetNextByte(this);
-  v6[1] = YAML::Stream::GetNextByte(this);
-  v6[2] = YAML::Stream::GetNextByte(this);
-  result = YAML::Stream::GetNextByte(this);
-  v6[3] = result;
+  v5[0] = YAML::Stream::GetNextByte(this);
+  v5[1] = YAML::Stream::GetNextByte(this);
+  v5[2] = YAML::Stream::GetNextByte(this);
+  v5[3] = YAML::Stream::GetNextByte(this);
   if (!*(*this + *(**this - 24) + 32))
   {
+    v3 = 0;
     v4 = 0;
-    v5 = 0;
     do
     {
-      v5 = v6[*&v2[v4]] | (v5 << 8);
-      v4 += 4;
+      v4 = v5[*&v2[v3]] | (v4 << 8);
+      v3 += 4;
     }
 
-    while (v4 != 16);
+    while (v3 != 16);
 
-    return sub_10005EC88(this + 3, v5);
+    sub_10005EC88(this + 3, v4);
   }
-
-  return result;
 }
 
-void *sub_10005EB30(void *result, _BYTE *a2)
+void sub_10005EB30(unint64_t *result, _BYTE *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  v7 = ((v5 - v6) << 9) - 1;
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  v6 = ((v4 - v5) << 9) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = result[5] + result[4];
-  if (v7 == v8)
+  v7 = result[5] + result[4];
+  if (v6 == v7)
   {
-    result = sub_10005EDB8(result);
-    v6 = v3[1];
-    v8 = v3[5] + v3[4];
+    sub_10005EDB8(result);
+    v5 = result[1];
+    v7 = result[5] + result[4];
   }
 
-  *(*(v6 + ((v8 >> 9) & 0x7FFFFFFFFFFFF8)) + (v8 & 0xFFF)) = *a2;
-  ++v3[5];
-  return result;
+  *(*(v5 + ((v7 >> 9) & 0x7FFFFFFFFFFFF8)) + (v7 & 0xFFF)) = *a2;
+  ++result[5];
 }
 
 uint64_t YAML::Stream::GetNextByte(YAML::Stream *this)
@@ -3278,7 +3122,7 @@ LABEL_5:
   return 0;
 }
 
-void *sub_10005EC88(void *a1, unint64_t a2)
+void sub_10005EC88(unint64_t *a1, unint64_t a2)
 {
   if (a2 == 4)
   {
@@ -3296,58 +3140,58 @@ void *sub_10005EC88(void *a1, unint64_t a2)
     {
       if (v3 >> 16)
       {
-        v9 = (v3 >> 18) & 7 | 0xF0;
-        sub_10005EB30(a1, &v9);
-        v8 = (v3 >> 12) & 0x3F | 0x80;
+        v8 = (v3 >> 18) & 7 | 0xF0;
         sub_10005EB30(a1, &v8);
-        v7 = (v3 >> 6) & 0x3F | 0x80;
+        v7 = (v3 >> 12) & 0x3F | 0x80;
         sub_10005EB30(a1, &v7);
-        v6 = v3 & 0x3F | 0x80;
-        v4 = &v6;
+        v6 = (v3 >> 6) & 0x3F | 0x80;
+        sub_10005EB30(a1, &v6);
+        v5 = v3 & 0x3F | 0x80;
+        v4 = &v5;
       }
 
       else
       {
-        v12 = (v3 >> 12) | 0xE0;
-        sub_10005EB30(a1, &v12);
-        v11 = (v3 >> 6) & 0x3F | 0x80;
+        v11 = (v3 >> 12) | 0xE0;
         sub_10005EB30(a1, &v11);
-        v10 = v3 & 0x3F | 0x80;
-        v4 = &v10;
+        v10 = (v3 >> 6) & 0x3F | 0x80;
+        sub_10005EB30(a1, &v10);
+        v9 = v3 & 0x3F | 0x80;
+        v4 = &v9;
       }
     }
 
     else
     {
-      v14 = (v3 >> 6) | 0xC0;
-      sub_10005EB30(a1, &v14);
-      v13 = v3 & 0x3F | 0x80;
-      v4 = &v13;
+      v13 = (v3 >> 6) | 0xC0;
+      sub_10005EB30(a1, &v13);
+      v12 = v3 & 0x3F | 0x80;
+      v4 = &v12;
     }
   }
 
   else
   {
-    v15 = v3;
-    v4 = &v15;
+    v14 = v3;
+    v4 = &v14;
   }
 
-  return sub_10005EB30(a1, v4);
+  sub_10005EB30(a1, v4);
 }
 
-void *sub_10005EDB8(void *a1)
+void sub_10005EDB8(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x1000;
   v3 = v1 - 4096;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -3355,25 +3199,25 @@ void *sub_10005EDB8(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    sub_10005B9CC(a1, v9);
+    v10 = a1;
+    sub_10005B9CC(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return sub_10005B5A4(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  sub_10005B5A4(a1, &v9);
 }
 
 void sub_10005EF40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -3518,7 +3362,7 @@ void sub_10005F158(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void YAML::Tag::Translate(YAML::Tag *this@<X0>, const YAML::Directives *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Tag::Translate(void *__return_ptr a1@<X8>, YAML::Tag *this@<X0>, const YAML::Directives *a3@<X1>)
 {
   v6 = *this;
   if (*this <= 1)
@@ -3530,13 +3374,13 @@ void YAML::Tag::Translate(YAML::Tag *this@<X0>, const YAML::Directives *a2@<X1>,
         v10 = *(this + 4);
         v11 = *(this + 5);
 
-        sub_100001C60(a3, v10, v11);
+        sub_100001C60(a1, v10, v11);
       }
 
       else
       {
-        *a3 = *(this + 2);
-        *(a3 + 16) = *(this + 6);
+        *a1 = *(this + 2);
+        a1[2] = *(this + 6);
       }
 
       return;
@@ -3548,8 +3392,8 @@ void YAML::Tag::Translate(YAML::Tag *this@<X0>, const YAML::Directives *a2@<X1>,
     }
 
     sub_10000143C(v13, "!");
-    YAML::Directives::TranslateTagHandle(a2, v13, __p);
-    sub_100029BE8(__p, this + 4, a3);
+    YAML::Directives::TranslateTagHandle(a3, v13, __p);
+    sub_100029BE8(__p, this + 4, a1);
   }
 
   else
@@ -3561,7 +3405,7 @@ void YAML::Tag::Translate(YAML::Tag *this@<X0>, const YAML::Directives *a2@<X1>,
         if (v6 == 4)
         {
 
-          sub_10000143C(a3, "!");
+          sub_10000143C(a1, "!");
           return;
         }
 
@@ -3569,7 +3413,7 @@ LABEL_29:
         sub_10005F3FC();
       }
 
-      std::operator+<char>();
+      std::operator+<char>(&v12, "!");
       v8 = std::string::append(&v12, "!");
       v9 = *&v8->__r_.__value_.__l.__data_;
       v14 = v8->__r_.__value_.__r.__words[2];
@@ -3577,8 +3421,8 @@ LABEL_29:
       v8->__r_.__value_.__l.__size_ = 0;
       v8->__r_.__value_.__r.__words[2] = 0;
       v8->__r_.__value_.__r.__words[0] = 0;
-      YAML::Directives::TranslateTagHandle(a2, v13, __p);
-      sub_100029BE8(__p, this + 4, a3);
+      YAML::Directives::TranslateTagHandle(a3, v13, __p);
+      sub_100029BE8(__p, this + 4, a1);
       if (v16 < 0)
       {
         operator delete(__p[0]);
@@ -3599,8 +3443,8 @@ LABEL_29:
     }
 
     sub_10000143C(v13, "!!");
-    YAML::Directives::TranslateTagHandle(a2, v13, __p);
-    sub_100029BE8(__p, this + 4, a3);
+    YAML::Directives::TranslateTagHandle(a3, v13, __p);
+    sub_100029BE8(__p, this + 4, a1);
   }
 
   if (v16 < 0)
@@ -3673,7 +3517,7 @@ uint64_t sub_10005F428(uint64_t result, unsigned __int8 **a2, uint64_t a3)
       __assert_rtn("ParseNumber", "reader.h", 1532, "!HasParseError()");
     }
 
-    v43 = (v8 - v5);
+    v43 = v8 - v5;
     v44 = 3;
     goto LABEL_104;
   }
@@ -3822,7 +3666,7 @@ LABEL_40:
         __assert_rtn("ParseNumber", "reader.h", 1575, "!HasParseError()");
       }
 
-      v43 = (v8 - v5);
+      v43 = v8 - v5;
       v44 = 14;
       goto LABEL_104;
     }
@@ -4123,7 +3967,7 @@ LABEL_102:
       __assert_rtn("ParseNumber", "reader.h", 1660, "!HasParseError()");
     }
 
-    v43 = (v8 - v5);
+    v43 = v8 - v5;
     v44 = 15;
 LABEL_104:
     *(result + 48) = v44;
@@ -4204,40 +4048,40 @@ _DWORD *sub_10005FD9C(_DWORD *a1, void *a2, uint64_t a3)
   return sub_100009694(a1, a2, a3);
 }
 
-uint64_t sub_10005FE00(uint64_t a1, unsigned __int8 **a2, void *a3, int *a4, __n128 a5)
+uint64_t sub_10005FE00(uint64_t a1, uint64_t a2, void *a3, int *a4)
 {
-  v9 = 0;
+  v8 = 0;
   while (1)
   {
-    result = sub_1000065AC(a1, a2, a3, a5);
+    result = sub_1000065AC(a1, a2);
     if (*a4)
     {
       return result;
     }
 
-    v11 = *a2;
+    v10 = *a2;
     for (i = *a2; ; ++i)
     {
-      v13 = *i;
-      v14 = v13 > 0x20;
-      v15 = (1 << v13) & 0x100002600;
-      if (v14 || v15 == 0)
+      v12 = *i;
+      v13 = v12 > 0x20;
+      v14 = (1 << v12) & 0x100002600;
+      if (v13 || v14 == 0)
       {
         break;
       }
 
-      ++v11;
+      ++v10;
     }
 
-    ++v9;
+    ++v8;
     *a2 = i;
-    v17 = *i;
-    if (v17 != 44)
+    v16 = *i;
+    if (v16 != 44)
     {
-      if (v17 == 93)
+      if (v16 == 93)
       {
         *a2 = i + 1;
-        result = sub_1000077A8(a3, v9);
+        result = sub_1000077A8(a3, v8);
         if (result)
         {
           return result;
@@ -4249,40 +4093,40 @@ uint64_t sub_10005FE00(uint64_t a1, unsigned __int8 **a2, void *a3, int *a4, __n
         }
 
 LABEL_25:
-        v22 = (*a2 - a2[1]);
-        v23 = 16;
+        v21 = (*a2 - *(a2 + 8));
+        v22 = 16;
       }
 
       else
       {
-        v22 = (v11 - a2[1]);
-        v23 = 7;
+        v21 = &v10[-*(a2 + 8)];
+        v22 = 7;
       }
 
-      *a4 = v23;
-      *(a1 + 56) = v22;
+      *a4 = v22;
+      *(a1 + 56) = v21;
       return result;
     }
 
-    v18 = i + 1;
+    v17 = i + 1;
     *a2 = i + 1;
     while (1)
     {
-      v19 = *v18;
-      v14 = v19 > 0x20;
-      v20 = (1 << v19) & 0x100002600;
-      if (v14 || v20 == 0)
+      v18 = *v17;
+      v13 = v18 > 0x20;
+      v19 = (1 << v18) & 0x100002600;
+      if (v13 || v19 == 0)
       {
         break;
       }
 
-      ++v18;
+      ++v17;
     }
 
-    *a2 = v18;
-    if (*v18 == 93)
+    *a2 = v17;
+    if (*v17 == 93)
     {
-      result = sub_1000077A8(a3, v9);
+      result = sub_1000077A8(a3, v8);
       if (result)
       {
         ++*a2;
@@ -4358,7 +4202,7 @@ uint64_t sub_1000601A0(uint64_t result, unsigned __int8 **a2, uint64_t a3)
       __assert_rtn("ParseNumber", "reader.h", 1532, "!HasParseError()");
     }
 
-    v43 = (v8 - v5);
+    v43 = v8 - v5;
     v44 = 3;
     goto LABEL_104;
   }
@@ -4507,7 +4351,7 @@ LABEL_40:
         __assert_rtn("ParseNumber", "reader.h", 1575, "!HasParseError()");
       }
 
-      v43 = (v8 - v5);
+      v43 = v8 - v5;
       v44 = 14;
       goto LABEL_104;
     }
@@ -4808,7 +4652,7 @@ LABEL_102:
       __assert_rtn("ParseNumber", "reader.h", 1660, "!HasParseError()");
     }
 
-    v43 = (v8 - v5);
+    v43 = v8 - v5;
     v44 = 15;
 LABEL_104:
     *(result + 48) = v44;

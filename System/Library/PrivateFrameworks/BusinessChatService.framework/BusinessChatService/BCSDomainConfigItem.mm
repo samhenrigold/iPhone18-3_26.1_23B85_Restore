@@ -92,21 +92,20 @@
 
 + (id)keysRequestedForCloudKitFetch
 {
-  v5[5] = *MEMORY[0x277D85DE8];
-  v5[0] = @"buckets";
-  v5[1] = @"domainShards";
-  v5[2] = @"filterShards";
-  v5[3] = @"ttl";
-  v5[4] = @"itemTtl";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:5];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
+  v4[0] = @"buckets";
+  v4[1] = @"domainShards";
+  v4[2] = @"filterShards";
+  v4[3] = @"ttl";
+  v4[4] = @"itemTtl";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:5];
 
   return v2;
 }
 
 - (BCSDomainConfigItem)initWithJSONObj:(id)obj
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = [obj objectForKeyedSubscript:@"records"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -133,9 +132,9 @@
       {
         date = [MEMORY[0x277CBEAA8] date];
         [v14 doubleValue];
-        v24 = [date dateByAddingTimeInterval:?];
+        v23 = [date dateByAddingTimeInterval:?];
 
-        self = -[BCSDomainConfigItem initWithBuckets:domainShards:filterShards:expirationDate:](self, "initWithBuckets:domainShards:filterShards:expirationDate:", -[NSObject longLongValue](v8, "longLongValue"), [v10 longValue], objc_msgSend(v12, "longLongValue"), v24);
+        self = -[BCSDomainConfigItem initWithBuckets:domainShards:filterShards:expirationDate:](self, "initWithBuckets:domainShards:filterShards:expirationDate:", -[NSObject longLongValue](v8, "longLongValue"), [v10 longValue], objc_msgSend(v12, "longLongValue"), v23);
         selfCopy = self;
       }
 
@@ -157,12 +156,12 @@
       v8 = ABSLogCommon();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v22 = objc_opt_class();
-        v23 = NSStringFromClass(v22);
+        v21 = objc_opt_class();
+        v22 = NSStringFromClass(v21);
         *buf = 136315394;
-        v26 = "[BCSDomainConfigItem(Conversion) initWithJSONObj:]";
-        v27 = 2112;
-        v28 = v23;
+        v25 = "[BCSDomainConfigItem(Conversion) initWithJSONObj:]";
+        v26 = 2112;
+        v27 = v22;
         _os_log_error_impl(&dword_242072000, v8, OS_LOG_TYPE_ERROR, "%s - Expected NSDictionary fields parameter. Got %@", buf, 0x16u);
       }
 
@@ -175,25 +174,24 @@
     firstObject = ABSLogCommon();
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
     {
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
       *buf = 136315394;
-      v26 = "[BCSDomainConfigItem(Conversion) initWithJSONObj:]";
-      v27 = 2112;
-      v28 = v21;
+      v25 = "[BCSDomainConfigItem(Conversion) initWithJSONObj:]";
+      v26 = 2112;
+      v27 = v20;
       _os_log_error_impl(&dword_242072000, firstObject, OS_LOG_TYPE_ERROR, "%s - Expected NSArray for records parameter. Got %@", buf, 0x16u);
     }
 
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (BCSDomainConfigItem)initWithRecord:(id)record
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v5 = [recordCopy objectForKeyedSubscript:@"buckets"];
   v6 = [recordCopy objectForKeyedSubscript:@"domainShards"];
@@ -210,7 +208,7 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v26 = "[BCSDomainConfigItem(Conversion) initWithRecord:]";
+        v25 = "[BCSDomainConfigItem(Conversion) initWithRecord:]";
         _os_log_impl(&dword_242072000, v11, OS_LOG_TYPE_DEFAULT, "%s - No Filter Megashard to download", buf, 0xCu);
       }
     }
@@ -221,23 +219,23 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v26 = "[BCSDomainConfigItem(Conversion) initWithRecord:]";
+        v25 = "[BCSDomainConfigItem(Conversion) initWithRecord:]";
         _os_log_impl(&dword_242072000, v12, OS_LOG_TYPE_DEFAULT, "%s - No Domain Megashard to download", buf, 0xCu);
       }
     }
 
     date = [MEMORY[0x277CBEAA8] date];
     [v8 doubleValue];
-    v24 = [date dateByAddingTimeInterval:?];
+    v23 = [date dateByAddingTimeInterval:?];
 
     longLongValue = [v5 longLongValue];
     longLongValue2 = [v6 longLongValue];
     longLongValue3 = [v7 longLongValue];
     fileURL = [v9 fileURL];
     [v10 fileURL];
-    v15 = v23 = v10;
+    v15 = v22 = v10;
     v16 = [(BCSConfigItem *)self _extractItemTTLFromConfigRecord:recordCopy];
-    self = [(BCSDomainConfigItem *)self initWithBuckets:longLongValue domainShards:longLongValue2 filterShards:longLongValue3 expirationDate:v24 filterMegaShardURL:fileURL domainMegaShardURL:v15 itemTTL:v16];
+    self = [(BCSDomainConfigItem *)self initWithBuckets:longLongValue domainShards:longLongValue2 filterShards:longLongValue3 expirationDate:v23 filterMegaShardURL:fileURL domainMegaShardURL:v15 itemTTL:v16];
 
     selfCopy = self;
   }
@@ -254,7 +252,6 @@
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

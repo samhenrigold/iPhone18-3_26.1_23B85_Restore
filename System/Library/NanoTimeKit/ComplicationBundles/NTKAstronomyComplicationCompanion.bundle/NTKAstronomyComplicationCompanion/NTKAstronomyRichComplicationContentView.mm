@@ -9,6 +9,7 @@
 - (void)handleWristRaiseScreenWake;
 - (void)layoutSubviews;
 - (void)prepareWristRaiseAnimation;
+- (void)setTimeTravelDate:(id)date animated:(BOOL)animated;
 @end
 
 @implementation NTKAstronomyRichComplicationContentView
@@ -239,6 +240,14 @@ LABEL_21:
     [v4 homeCoordinate];
     [v4 setCenterCoordinate:1 animated:?];
   }
+}
+
+- (void)setTimeTravelDate:(id)date animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  objc_storeStrong(&self->_timeTravelDate, date);
+  dateCopy = date;
+  [(NUNIAstronomyVistaView *)self->_astronomyVistaView updateSunLocationAnimated:animatedCopy];
 }
 
 @end

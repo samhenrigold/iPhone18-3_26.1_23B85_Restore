@@ -45,8 +45,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v18[5] = *MEMORY[0x1E69E9840];
-  v17[0] = @"fromAccount";
+  v17[5] = *MEMORY[0x1E69E9840];
+  v16[0] = @"fromAccount";
   fromAccount = [(INTransferMoneyIntent *)self fromAccount];
   v4 = fromAccount;
   if (!fromAccount)
@@ -54,8 +54,8 @@
     fromAccount = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = fromAccount;
-  v17[1] = @"toAccount";
+  v17[0] = fromAccount;
+  v16[1] = @"toAccount";
   toAccount = [(INTransferMoneyIntent *)self toAccount];
   null = toAccount;
   if (!toAccount)
@@ -63,8 +63,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null;
-  v17[2] = @"transactionAmount";
+  v17[1] = null;
+  v16[2] = @"transactionAmount";
   transactionAmount = [(INTransferMoneyIntent *)self transactionAmount];
   null2 = transactionAmount;
   if (!transactionAmount)
@@ -72,8 +72,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[2] = null2;
-  v17[3] = @"transactionScheduledDate";
+  v17[2] = null2;
+  v16[3] = @"transactionScheduledDate";
   transactionScheduledDate = [(INTransferMoneyIntent *)self transactionScheduledDate];
   null3 = transactionScheduledDate;
   if (!transactionScheduledDate)
@@ -81,8 +81,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[3] = null3;
-  v17[4] = @"transactionNote";
+  v17[3] = null3;
+  v16[4] = @"transactionNote";
   transactionNote = [(INTransferMoneyIntent *)self transactionNote];
   null4 = transactionNote;
   if (!transactionNote)
@@ -90,8 +90,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[4] = null4;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v17[4] = null4;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:5];
   if (!transactionNote)
   {
   }
@@ -111,8 +111,6 @@
   if (!v4)
   {
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

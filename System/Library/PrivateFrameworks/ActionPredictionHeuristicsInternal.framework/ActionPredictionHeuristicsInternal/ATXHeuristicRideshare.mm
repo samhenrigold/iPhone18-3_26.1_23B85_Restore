@@ -82,12 +82,12 @@ void __55__ATXHeuristicRideshare_setupCellularNetworkMonitoring__block_invoke_2(
   v5 = status;
   currentStatus = self->_currentStatus;
   p_currentStatus = &self->_currentStatus;
-  if (currentStatus != 1 && status == nw_path_status_satisfied)
+  if (currentStatus != 1 && status == 1)
   {
-    v9 = __atxlog_handle_context_heuristic();
+    v9 = __atxlog_handle_context_heuristic(status);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [ATXHeuristicRideshare sendRefreshNotificationIfRequired:?];
+      [ATXHeuristicRideshare sendRefreshNotificationIfRequired:];
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -180,7 +180,7 @@ void __55__ATXHeuristicRideshare_setupCellularNetworkMonitoring__block_invoke_2(
 {
   changeCopy = change;
   userInfo = [changeCopy userInfo];
-  v5 = __atxlog_handle_context_heuristic();
+  v5 = __atxlog_handle_context_heuristic(userInfo);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     +[ATXHeuristicRideshare _appRegistrationChange:];
@@ -196,17 +196,17 @@ void __55__ATXHeuristicRideshare_setupCellularNetworkMonitoring__block_invoke_2(
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"ATXRideshareAppChangeNotification" object:0];
 
-  v12 = __atxlog_handle_context_heuristic();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+  v13 = __atxlog_handle_context_heuristic(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
   if (v10)
   {
-    if (v13)
+    if (v14)
     {
       +[ATXHeuristicRideshare _appRegistrationChange:];
     }
   }
 
-  else if (v13)
+  else if (v14)
   {
     +[ATXHeuristicRideshare _appRegistrationChange:];
   }
@@ -235,50 +235,48 @@ void __55__ATXHeuristicRideshare_setupCellularNetworkMonitoring__block_invoke_2(
   v11[3] = &unk_278C3D2D0;
   v11[4] = &v15;
   v11[5] = &v12;
-  [(ATXUserAppPreferenceDataSource *)v4 preferredAppForIntentName:@"INRequestRideIntent" andParameterCombination:&unk_2850BA338 skipAppSchemaCheck:1 callback:v11];
+  v5 = [(ATXUserAppPreferenceDataSource *)v4 preferredAppForIntentName:@"INRequestRideIntent" andParameterCombination:&unk_2850BA338 skipAppSchemaCheck:1 callback:v11];
   if (*(v13[0] + 40))
   {
-    v5 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_context_heuristic(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(ATXHeuristicRideshare *)v13 rideShareAppWithHeuristicDevice:v5];
+      [(ATXHeuristicRideshare *)v13 rideShareAppWithHeuristicDevice:v6];
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
     if (v16[5])
     {
-      v7 = __atxlog_handle_context_heuristic();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = __atxlog_handle_context_heuristic(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = v16[5];
+        v9 = v16[5];
         *buf = 138412290;
-        v22 = v8;
-        _os_log_impl(&dword_23E3EA000, v7, OS_LOG_TYPE_DEFAULT, "Using %@ app for rideshare", buf, 0xCu);
+        v22 = v9;
+        _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_DEFAULT, "Using %@ app for rideshare", buf, 0xCu);
       }
     }
 
     else
     {
-      v7 = __atxlog_handle_context_heuristic();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = __atxlog_handle_context_heuristic(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [ATXHeuristicRideshare rideShareAppWithHeuristicDevice:];
       }
     }
 
-    v6 = v16[5];
+    v7 = v16[5];
   }
 
   _Block_object_dispose(&v12, 8);
   _Block_object_dispose(&v15, 8);
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v6;
+  return v7;
 }
 
 void __57__ATXHeuristicRideshare_rideShareAppWithHeuristicDevice___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -304,16 +302,17 @@ void __57__ATXHeuristicRideshare_rideShareAppWithHeuristicDevice___block_invoke(
   endDateCopy = endDate;
   intervalCopy = interval;
   keyExistsAndHasValidFormat = 0;
-  if (CFPreferencesGetAppBooleanValue(@"zkwShowRequestRide", *MEMORY[0x277CEBD00], &keyExistsAndHasValidFormat))
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"zkwShowRequestRide", *MEMORY[0x277CEBD00], &keyExistsAndHasValidFormat);
+  if (AppBooleanValue)
   {
     reasonsCopy = reasons;
-    v35 = endDateCopy;
-    v22 = dateCopy;
-    v23 = MEMORY[0x277CCACA8];
-    v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v25 = [v24 localizedStringForKey:@"REQUEST_RIDE_TO_NEXT_EVENT_TITLE" value:&stru_2850AD368 table:0];
+    v36 = endDateCopy;
+    v23 = dateCopy;
+    v24 = MEMORY[0x277CCACA8];
+    v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v26 = [v25 localizedStringForKey:@"REQUEST_RIDE_TO_NEXT_EVENT_TITLE" value:&stru_2850AD368 table:0];
     name = [destinationCopy name];
-    v27 = [v23 localizedStringWithFormat:v25, name];
+    v28 = [v24 localizedStringWithFormat:v26, name];
 
     name2 = 0;
     if (!schemaCopy)
@@ -321,40 +320,40 @@ void __57__ATXHeuristicRideshare_rideShareAppWithHeuristicDevice___block_invoke(
       name2 = [destinationCopy name];
     }
 
-    v29 = deviceCopy;
-    v30 = [(ATXHeuristicRideshare *)self rideShareAppWithHeuristicDevice:deviceCopy];
-    dateCopy = v22;
-    if (v30)
+    v30 = deviceCopy;
+    v31 = [(ATXHeuristicRideshare *)self rideShareAppWithHeuristicDevice:deviceCopy];
+    dateCopy = v23;
+    if (v31)
     {
-      v31 = [[ATXContextFlightEventSuggestionProducer alloc] initWithTitle:v27 flightInformationSchema:schemaCopy urlString:0 teamIdentifier:0 validFromStartDate:v22 validToEndDate:v35 alternateDestinationTitle:name2 dateInterval:intervalCopy];
-      v32 = [(ATXContextFlightEventSuggestionProducer *)v31 suggestionForRideShareAppForDestination:destinationCopy source:0 rideOptionName:0 preferredBundleId:v30 predictionReasons:reasonsCopy score:score];
-      [ATXHeuristicFlightEventUtilities logSuggestion:v32 description:@"ATXHeuristicRideshare: Rideshare app for flight suggestion"];
+      v32 = [[ATXContextFlightEventSuggestionProducer alloc] initWithTitle:v28 flightInformationSchema:schemaCopy urlString:0 teamIdentifier:0 validFromStartDate:v23 validToEndDate:v36 alternateDestinationTitle:name2 dateInterval:intervalCopy];
+      v33 = [(ATXContextFlightEventSuggestionProducer *)v32 suggestionForRideShareAppForDestination:destinationCopy source:0 rideOptionName:0 preferredBundleId:v31 predictionReasons:reasonsCopy score:score];
+      [ATXHeuristicFlightEventUtilities logSuggestion:v33 description:@"ATXHeuristicRideshare: Rideshare app for flight suggestion"];
 
-      dateCopy = v22;
+      dateCopy = v23;
     }
 
     else
     {
-      v32 = 0;
+      v33 = 0;
     }
 
-    endDateCopy = v35;
+    endDateCopy = v36;
   }
 
   else
   {
-    name2 = __atxlog_handle_ui();
+    name2 = __atxlog_handle_ui(AppBooleanValue);
     if (os_log_type_enabled(name2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_23E3EA000, name2, OS_LOG_TYPE_DEFAULT, "Debug: Skip suggestion for request ride", buf, 2u);
     }
 
-    v32 = 0;
-    v29 = deviceCopy;
+    v33 = 0;
+    v30 = deviceCopy;
   }
 
-  return v32;
+  return v33;
 }
 
 - (id)rideShareSuggestionActionForEvent:(id)event heuristicDevice:(id)device predictionReasons:(unint64_t)reasons score:(double)score validFromStartDate:(id)date validToEndDate:(id)endDate
@@ -371,9 +370,9 @@ void __57__ATXHeuristicRideshare_rideShareAppWithHeuristicDevice___block_invoke(
 
   if ((reasons & 0x80000000) != 0)
   {
-    v28 = [v17 objectForKeyedSubscript:@"reservationFor"];
-    v29 = [v28 objectForKeyedSubscript:@"departureAirport"];
-    title = [v29 objectForKeyedSubscript:@"iataCode"];
+    v29 = [v17 objectForKeyedSubscript:@"reservationFor"];
+    v30 = [v29 objectForKeyedSubscript:@"departureAirport"];
+    title = [v30 objectForKeyedSubscript:@"iataCode"];
 
     if (!title)
     {
@@ -381,9 +380,9 @@ void __57__ATXHeuristicRideshare_rideShareAppWithHeuristicDevice___block_invoke(
       title = [structuredLocation title];
     }
 
-    v31 = eventCopy;
-    v32 = title;
-    v33 = 0;
+    v32 = eventCopy;
+    v33 = title;
+    v34 = 0;
   }
 
   else
@@ -391,20 +390,10 @@ void __57__ATXHeuristicRideshare_rideShareAppWithHeuristicDevice___block_invoke(
     if ((((reasons & 0x200000000) != 0) & v20) == 1)
     {
       structuredLocation2 = [eventCopy structuredLocation];
-      if (!structuredLocation2)
+      if (!structuredLocation2 || (v23 = structuredLocation2, [eventCopy structuredLocation], v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "geoLocation"), v25 = objc_claimAutoreleasedReturnValue(), v25, v24, v23, !v25) || (objc_msgSend(eventCopy, "structuredLocation"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "title"), title = objc_claimAutoreleasedReturnValue(), v26, !title))
       {
-        goto LABEL_6;
-      }
-
-      v22 = structuredLocation2;
-      structuredLocation3 = [eventCopy structuredLocation];
-      geoLocation = [structuredLocation3 geoLocation];
-
-      if (!geoLocation || ([eventCopy structuredLocation], v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "title"), title = objc_claimAutoreleasedReturnValue(), v25, !title))
-      {
-LABEL_6:
-        v27 = [v17 objectForKeyedSubscript:@"reservationFor"];
-        title = [v27 objectForKeyedSubscript:@"name"];
+        v28 = [v17 objectForKeyedSubscript:@"reservationFor"];
+        title = [v28 objectForKeyedSubscript:@"name"];
       }
     }
 
@@ -412,59 +401,59 @@ LABEL_6:
     {
       if ((reasons & 0x100000) == 0)
       {
-        v34 = __atxlog_handle_context_heuristic();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+        v35 = __atxlog_handle_context_heuristic(v21);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
         {
           [ATXHeuristicRideshare rideShareSuggestionActionForEvent:heuristicDevice:predictionReasons:score:validFromStartDate:validToEndDate:];
         }
 
         title = 0;
-        v35 = 0;
-        v36 = dateCopy;
+        v36 = 0;
+        v37 = dateCopy;
         goto LABEL_19;
       }
 
       title2 = [eventCopy title];
       if (!title2)
       {
-        v34 = __atxlog_handle_context_heuristic();
-        v36 = dateCopy;
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+        v35 = __atxlog_handle_context_heuristic(0);
+        v37 = dateCopy;
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
         {
           [ATXHeuristicRideshare rideShareSuggestionActionForEvent:heuristicDevice:predictionReasons:score:validFromStartDate:validToEndDate:];
         }
 
         title = 0;
-        v35 = 0;
+        v36 = 0;
         goto LABEL_19;
       }
 
       title = title2;
     }
 
-    v31 = eventCopy;
-    v32 = title;
-    v33 = 1;
+    v32 = eventCopy;
+    v33 = title;
+    v34 = 1;
   }
 
-  v38 = [ATXHeuristicNavigationUtilities destinationPlacemarkForEvent:v31 name:v32 schemaType:v33];
-  if (v38)
+  v39 = [ATXHeuristicNavigationUtilities destinationPlacemarkForEvent:v32 name:v33 schemaType:v34];
+  if (v39)
   {
-    v34 = v38;
-    v39 = [(ATXHeuristicRideshare *)self _dateIntervalWithEvent:eventCopy];
+    v35 = v39;
+    v40 = [(ATXHeuristicRideshare *)self _dateIntervalWithEvent:eventCopy];
     selfCopy = self;
-    v36 = dateCopy;
-    v35 = [(ATXHeuristicRideshare *)selfCopy _rideShareSuggestionActionForDestination:v34 heuristicDevice:deviceCopy flightInformationSchema:v17 predictionReasons:reasons score:dateCopy validFromStartDate:endDateCopy validToEndDate:score dateInterval:v39];
+    v37 = dateCopy;
+    v36 = [(ATXHeuristicRideshare *)selfCopy _rideShareSuggestionActionForDestination:v35 heuristicDevice:deviceCopy flightInformationSchema:v17 predictionReasons:reasons score:dateCopy validFromStartDate:endDateCopy validToEndDate:score dateInterval:v40];
 
 LABEL_19:
     goto LABEL_21;
   }
 
-  v35 = 0;
-  v36 = dateCopy;
+  v36 = 0;
+  v37 = dateCopy;
 LABEL_21:
 
-  return v35;
+  return v36;
 }
 
 - (id)suggestionForUpcomingFlightWithHeuristicDevice:(id)device
@@ -492,7 +481,7 @@ LABEL_21:
 
       if ([v14 compare:v16] == 1)
       {
-        v17 = __atxlog_handle_context_heuristic();
+        v17 = __atxlog_handle_context_heuristic(1);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
           [ATXHeuristicRideshare suggestionForUpcomingFlightWithHeuristicDevice:];
@@ -537,7 +526,7 @@ LABEL_21:
   v11 = [(ATXCalendarEventsDataSource *)v9 sortEkEvents:v10];
   if (![v11 count])
   {
-    v45 = 0;
+    v46 = 0;
     goto LABEL_44;
   }
 
@@ -549,7 +538,7 @@ LABEL_21:
   v58 = [v12 countByEnumeratingWithState:&v72 objects:v79 count:16];
   if (!v58)
   {
-    v45 = 0;
+    v46 = 0;
     goto LABEL_43;
   }
 
@@ -629,15 +618,15 @@ LABEL_21:
 
                   if ([endDate2 compare:endDate4] == 1)
                   {
-                    v46 = __atxlog_handle_context_heuristic();
+                    v47 = __atxlog_handle_context_heuristic(1);
                     v9 = v52;
                     v5 = v53;
-                    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+                    if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
                     {
                       [ATXHeuristicRideshare suggestionForUpcomingFlightWithHeuristicDevice:];
                     }
 
-                    v45 = 0;
+                    v46 = 0;
                     v8 = v32;
                     goto LABEL_42;
                   }
@@ -645,7 +634,7 @@ LABEL_21:
                   v36 = [(ATXHeuristicRideshare *)self rideShareSuggestionActionForEvent:v24 heuristicDevice:v65 predictionReasons:0x200000000 score:endDate2 validFromStartDate:endDate4 validToEndDate:60.0];
                   if (v36)
                   {
-                    v45 = v36;
+                    v46 = v36;
                     [ATXHeuristicFlightEventUtilities logSuggestion:v36 description:@"ATXHeuristicRideshare: Concluded flight suggestion"];
                     v8 = v32;
                     v9 = v52;
@@ -686,37 +675,38 @@ LABEL_21:
         v60 = v14;
         obj = [ATXHeuristicNavigationUtilities fetchLocationForLOI:0];
         v37 = [ATXHeuristicNavigationUtilities allowNavigationSuggestionForLocation:"allowNavigationSuggestionForLocation:maxDistance:" maxDistance:?];
-        v38 = __atxlog_handle_context_heuristic();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v38 = v37;
+        v39 = __atxlog_handle_context_heuristic(v37);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          v77 = v37;
-          _os_log_impl(&dword_23E3EA000, v38, OS_LOG_TYPE_DEFAULT, "ATXHeursiticRideshare: Can we go home (%{BOOL}d)", buf, 8u);
+          v77 = v38;
+          _os_log_impl(&dword_23E3EA000, v39, OS_LOG_TYPE_DEFAULT, "ATXHeursiticRideshare: Can we go home (%{BOOL}d)", buf, 8u);
         }
 
-        if (v37)
+        if (v38)
         {
-          v39 = v9;
-          v40 = v8;
-          v41 = MEMORY[0x277CCACA8];
-          v42 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-          v43 = [v42 localizedStringForKey:@"HOME_NAVIGATION_TITLE" value:&stru_2850AD368 table:0];
-          v25 = [v41 localizedStringWithFormat:v43];
+          v40 = v9;
+          v41 = v8;
+          v42 = MEMORY[0x277CCACA8];
+          v43 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+          v44 = [v43 localizedStringForKey:@"HOME_NAVIGATION_TITLE" value:&stru_2850AD368 table:0];
+          v25 = [v42 localizedStringWithFormat:v44];
 
-          v44 = [ATXHeuristicNavigationUtilities placemarkForLOI:0 name:v25];
-          if (v44)
+          v45 = [ATXHeuristicNavigationUtilities placemarkForLOI:0 name:v25];
+          if (v45)
           {
-            endDate2 = v44;
+            endDate2 = v45;
             v54 = v19;
             endDate4 = [v66 endDate];
             endDate5 = [v66 endDate];
             v50 = [endDate5 dateByAddingTimeInterval:14400.0];
 
             v51 = [(ATXHeuristicRideshare *)self _dateIntervalWithEvent:v66];
-            v45 = [(ATXHeuristicRideshare *)self _rideShareSuggestionActionForDestination:endDate2 heuristicDevice:v65 flightInformationSchema:v63 predictionReasons:0x200000000 score:endDate4 validFromStartDate:v50 validToEndDate:60.0 dateInterval:v51];
+            v46 = [(ATXHeuristicRideshare *)self _rideShareSuggestionActionForDestination:endDate2 heuristicDevice:v65 flightInformationSchema:v63 predictionReasons:0x200000000 score:endDate4 validFromStartDate:v50 validToEndDate:60.0 dateInterval:v51];
 
-            v8 = v40;
-            v9 = v39;
+            v8 = v41;
+            v9 = v40;
 LABEL_42:
 
             v11 = v56;
@@ -725,8 +715,8 @@ LABEL_42:
             goto LABEL_43;
           }
 
-          v8 = v40;
-          v9 = v39;
+          v8 = v41;
+          v9 = v40;
           v11 = v56;
           v10 = v57;
           v12 = v55;
@@ -740,7 +730,7 @@ LABEL_33:
     }
 
     while (v61 + 1 != v58);
-    v45 = 0;
+    v46 = 0;
     v58 = [v12 countByEnumeratingWithState:&v72 objects:v79 count:16];
     if (v58)
     {
@@ -753,9 +743,8 @@ LABEL_33:
 LABEL_43:
 
 LABEL_44:
-  v47 = *MEMORY[0x277D85DE8];
 
-  return v45;
+  return v46;
 }
 
 - (id)_dateIntervalWithEvent:(id)event
@@ -771,15 +760,6 @@ LABEL_44:
   return v8;
 }
 
-- (void)sendRefreshNotificationIfRequired:(int *)a1 .cold.1(int *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1_6();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 + (void)_appRegistrationChange:.cold.1()
 {
   OUTLINED_FUNCTION_1_3();
@@ -787,38 +767,13 @@ LABEL_44:
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-+ (void)_appRegistrationChange:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_6();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_appRegistrationChange:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_6();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)rideShareAppWithHeuristicDevice:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "Error while resolving ride share apps: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)suggestionForUpcomingFlightWithHeuristicDevice:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_3_1(&dword_23E3EA000, v0, v1, "ATXHeuristicRideshare: Start %@ is after End %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "Error while resolving ride share apps: %@", &v3, 0xCu);
 }
 
 @end

@@ -139,10 +139,9 @@ void __37__NUNIRenderer__asyncDeallocInstance__block_invoke(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v4 = WeakRetained;
-    v3 = *(a1 + 32);
-    [objc_opt_class() _deallocInstanceWithPixelFormat:objc_msgSend(v4 rendererStyle:"pixelFormat"), objc_msgSend(v4, "rendererStyle")];
-    WeakRetained = v4;
+    v2 = WeakRetained;
+    [objc_opt_class() _deallocInstanceWithPixelFormat:objc_msgSend(v2 rendererStyle:"pixelFormat"), objc_msgSend(v2, "rendererStyle")];
+    WeakRetained = v2;
   }
 }
 

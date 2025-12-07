@@ -26,15 +26,15 @@
 
 - (id)_createGlyphWithName:(id)name
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if ([nameCopy containsString:@"high"])
   {
     yellowColor = [MEMORY[0x277D75348] yellowColor];
-    v17[0] = yellowColor;
+    v16[0] = yellowColor;
     color = [(NWKUIAQIModel *)self color];
-    v17[1] = color;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[1] = color;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
 
     v8 = [MEMORY[0x277D755D0] _configurationWithHierarchicalColors:v7];
     v9 = MEMORY[0x277D755D0];
@@ -52,8 +52,6 @@
   }
 
   v14 = [MEMORY[0x277D755B8] systemImageNamed:nameCopy withConfiguration:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

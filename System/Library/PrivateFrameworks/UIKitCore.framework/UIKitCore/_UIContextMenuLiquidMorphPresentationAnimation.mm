@@ -83,13 +83,13 @@
   accessoryViews = [(_UIFulfilledContextMenuConfiguration *)menuConfiguration accessoryViews];
   if (accessoryViews)
   {
-    sub_188A34624(0, &qword_1EA930348);
+    sub_188A34624(0, &qword_1EA930348, off_1E70EB308);
     sub_18A4A7548();
 
     selfCopy = accessoryViews;
   }
 
-  sub_188A34624(0, &qword_1EA930348);
+  sub_188A34624(0, &qword_1EA930348, off_1E70EB308);
   v6 = sub_18A4A7518();
 
   return v6;
@@ -155,10 +155,11 @@
 
   v7 = (self + OBJC_IVAR____UIContextMenuLiquidMorphPresentationAnimation_accessoryAnimationBlock);
   v8 = *(self + OBJC_IVAR____UIContextMenuLiquidMorphPresentationAnimation_accessoryAnimationBlock);
+  v9 = *(self + OBJC_IVAR____UIContextMenuLiquidMorphPresentationAnimation_accessoryAnimationBlock + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v8, v9);
 }
 
 - (id)accessoryAnimationBlock
@@ -269,7 +270,7 @@ LABEL_5:
   selfCopy = self;
   uiController = [(_UIContextMenuPresentationAnimation *)selfCopy uiController];
   [forCopy _internalIdentifier];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA940A10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA940A10, &qword_18A675D50);
   v7 = sub_18A4A7D28();
   swift_unknownObjectRelease();
   v8 = [(_UIContextMenuUIController *)uiController dismissalPreviewForSecondaryItem:v7 style:[(_UIContextMenuPresentationAnimation *)selfCopy dismissalStyle]];

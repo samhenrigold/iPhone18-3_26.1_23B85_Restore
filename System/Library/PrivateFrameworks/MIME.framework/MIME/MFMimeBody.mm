@@ -9,6 +9,7 @@
 - (NSString)mimeType;
 - (id)attachmentURLs;
 - (id)attachments;
+- (id)contentToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset asHTML:(BOOL)l isComplete:(BOOL *)complete;
 - (id)partWithNumber:(id)number;
 - (id)preferredBodyPart;
 - (id)textHtmlPart;
@@ -24,9 +25,10 @@
 
 uint64_t ___ef_log_MFMimeBody_block_invoke()
 {
-  _ef_log_MFMimeBody_log = os_log_create("com.apple.email", "MFMimeBody");
+  v0 = os_log_create("com.apple.email", "MFMimeBody");
+  _ef_log_MFMimeBody_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (id)versionString
@@ -113,85 +115,86 @@ void __27__MFMimeBody_versionString__block_invoke()
 
 - (BOOL)hasEncryptedDescendantPart
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   encryptedDescendantState = self->_encryptedDescendantState;
   if (!encryptedDescendantState)
   {
     selfCopy = self;
-    v33 = selfCopy;
+    v32 = selfCopy;
     topLevelPart = [(MFMimeBody *)selfCopy topLevelPart];
     [topLevelPart decodeIfNecessary];
     if ([topLevelPart isMultipartSigned])
     {
       subparts = [topLevelPart subparts];
-      if ([subparts count] != 2)
+      v7 = [subparts count];
+      if (v7 != 2)
       {
-        v7 = _ef_log_MFMimeBody();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = _ef_log_MFMimeBody(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          -[MFMimeBody hasEncryptedDescendantPart].cold.1(buf, [subparts count], v7);
+          -[MFMimeBody hasEncryptedDescendantPart].cold.1(buf, [subparts count], v8);
         }
 
 LABEL_39:
         goto LABEL_40;
       }
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
-      v7 = subparts;
-      v8 = [v7 countByEnumeratingWithState:&v38 objects:v49 count:16];
-      if (v8)
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
+      v8 = subparts;
+      v9 = [v8 countByEnumeratingWithState:&v37 objects:v48 count:16];
+      if (v9)
       {
-        v9 = 0;
-        v10 = *v39;
+        v10 = 0;
+        v11 = *v38;
         while (2)
         {
-          for (i = 0; i != v8; ++i)
+          for (i = 0; i != v9; ++i)
           {
-            if (*v39 != v10)
+            if (*v38 != v11)
             {
-              objc_enumerationMutation(v7);
+              objc_enumerationMutation(v8);
             }
 
-            v12 = *(*(&v38 + 1) + 8 * i);
-            if (([v12 isDetatchedSignature] & 1) == 0)
+            v13 = *(*(&v37 + 1) + 8 * i);
+            if (([v13 isDetatchedSignature] & 1) == 0)
             {
               buf[0] = 0;
-              v13 = [v12 decryptedMessageBodyIsEncrypted:buf isSigned:0];
+              v14 = [v13 decryptedMessageBodyIsEncrypted:buf isSigned:0];
               if (buf[0] == 1)
               {
-                v14 = v12;
+                v15 = v13;
 
-                [v14 decodeIfNecessary];
-                v15 = [v14 decryptedMessageBodyIsEncrypted:0 isSigned:0];
-                ++v9;
+                [v15 decodeIfNecessary];
+                v14 = [v15 decryptedMessageBodyIsEncrypted:0 isSigned:0];
+                ++v10;
               }
 
               else
               {
-                v14 = topLevelPart;
+                v15 = topLevelPart;
               }
 
-              if (v9 >= 2)
+              if (v10 >= 2)
               {
-                v30 = _ef_log_MFMimeBody();
+                v30 = _ef_log_MFMimeBody(v14);
                 if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
                 {
                   [(MFMimeBody *)v30 hasEncryptedDescendantPart];
                 }
 
-                topLevelPart = v14;
+                topLevelPart = v15;
                 goto LABEL_39;
               }
 
-              topLevelPart = v14;
+              topLevelPart = v15;
             }
           }
 
-          v8 = [v7 countByEnumeratingWithState:&v38 objects:v49 count:16];
-          if (v8)
+          v9 = [v8 countByEnumeratingWithState:&v37 objects:v48 count:16];
+          if (v9)
           {
             continue;
           }
@@ -222,19 +225,19 @@ LABEL_39:
       topLevelPart = topLevelPart2;
     }
 
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x2020000000;
-    v37 = 0;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2020000000;
+    v36 = 0;
     *buf = MEMORY[0x1E69E9820];
-    v44 = 3221225472;
-    v45 = __computeHasEncryptedDescendant_block_invoke;
-    v46 = &unk_1E84551E8;
-    v47 = topLevelPart;
-    v48 = &v34;
-    v21 = v47;
+    v43 = 3221225472;
+    v44 = __computeHasEncryptedDescendant_block_invoke;
+    v45 = &unk_1E84551E8;
+    v46 = topLevelPart;
+    v47 = &v33;
+    v21 = v46;
     v22 = buf;
-    v42 = 0;
+    v41 = 0;
     v23 = v21;
     v24 = v23;
     if (v23)
@@ -242,8 +245,8 @@ LABEL_39:
       v25 = v23;
       while (1)
       {
-        v45(v22, v25, &v42);
-        if (v42)
+        v44(v22, v25, &v41);
+        if (v41)
         {
           break;
         }
@@ -276,15 +279,15 @@ LABEL_39:
 LABEL_30:
     }
 
-    v29 = *(v35 + 24);
-    _Block_object_dispose(&v34, 8);
+    v29 = *(v34 + 24);
+    _Block_object_dispose(&v33, 8);
 
     if ((v29 & 1) == 0)
     {
       encryptedDescendantState = 2;
 LABEL_41:
       self->_encryptedDescendantState = encryptedDescendantState;
-      goto LABEL_42;
+      return encryptedDescendantState == 1;
     }
 
 LABEL_40:
@@ -292,10 +295,7 @@ LABEL_40:
     goto LABEL_41;
   }
 
-LABEL_42:
-  result = encryptedDescendantState == 1;
-  v32 = *MEMORY[0x1E69E9840];
-  return result;
+  return encryptedDescendantState == 1;
 }
 
 - (unsigned)numberOfAttachmentsSigned:(BOOL *)signed encrypted:(BOOL *)encrypted
@@ -368,6 +368,47 @@ LABEL_42:
   }
 
   return isRich;
+}
+
+- (id)contentToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset asHTML:(BOOL)l isComplete:(BOOL *)complete
+{
+  lCopy = l;
+  startPart = [(MFMimePart *)self->_topLevelPart startPart];
+  v12 = [startPart contentToOffset:offset resultOffset:resultOffset downloadIfNecessary:1 asHTML:lCopy isComplete:complete];
+
+  if (!v12)
+  {
+    numberOfAlternatives = [(MFMimeBody *)self numberOfAlternatives];
+    preferredAlternative = [(MFMimeBody *)self preferredAlternative];
+    if (numberOfAlternatives >= 1 && preferredAlternative)
+    {
+      if (preferredAlternative == -1)
+      {
+        preferredAlternative = [(MFMimeBody *)self numberOfAlternatives]- 1;
+      }
+
+      [(MFMimeBody *)self setPreferredAlternative:preferredAlternative - 1];
+      v15 = [(MFMimeBody *)self contentToOffset:offset resultOffset:resultOffset asHTML:lCopy isComplete:complete];
+      goto LABEL_9;
+    }
+
+    rawData = [(MFMessageBody *)self rawData];
+    v17 = [rawData length];
+
+    if (v17)
+    {
+      v15 = [MEMORY[0x1E696AD98] numberWithInt:4294967254];
+LABEL_9:
+      v12 = v15;
+      goto LABEL_10;
+    }
+
+    v12 = 0;
+  }
+
+LABEL_10:
+
+  return v12;
 }
 
 - (int64_t)numberOfAlternatives

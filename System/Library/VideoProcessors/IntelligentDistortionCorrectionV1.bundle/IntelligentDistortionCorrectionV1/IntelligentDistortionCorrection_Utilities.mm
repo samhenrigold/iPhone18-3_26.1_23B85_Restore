@@ -10,6 +10,7 @@
 - (int)extractBundleConfigurationParameters:(id *)parameters cameraInfo:(id)info tuningParameters:(id)tuningParameters imageInfo:(id)imageInfo;
 - (int)extractFloat:(id)float name:(id)name value:(float *)value mandatory:(BOOL)mandatory cumulativeError:(int *)error;
 - (int)extractImageOptions:(id *)options imageInfo:(id)info portType:(id *)type cumulativeError:(int *)error;
+- (int)gatherGatingStatistics:(id)statistics area:(id *)area center:(float)center radiusFromCenter:(id)fromCenter sharedMetalBuffer:(unint64_t)buffer sharedMetalBufferoffset:(unsigned int *)bufferoffset activePixelCount:(unsigned int *)count centerPixelCount:;
 - (int)lumaCropAndDownscale4to1:(id)downscale4to1 outputLumaTexture:(id)texture region:(id *)region;
 - (int)setSharedMetalBuffer:(id)buffer offset:(unint64_t)offset size:(unint64_t)size;
 - (int)testArrayObject:(id)object withName:(id)name cumulativeError:(int *)error;
@@ -21,6 +22,7 @@
 - (int)undistortBGRATexture:(id *)texture inputBGRATexture:(id)aTexture intoOutputBGRA:(id)a encoder:(id)encoder crop:(id *)crop;
 - (int)undistortSingleChannelTexture:(id *)texture inputTexture:(id)inputTexture outputTexture:(id)outputTexture;
 - (int)warpAndOrUndistortPrimaryAsset:(id *)asset inputImageTexture:(id)texture inputMeshTexture:(id)meshTexture outputImageTexture:(id)imageTexture roiTracker:(id)tracker inputImageMetadataDictionary:(id)dictionary;
+- (int)warpAndOrUndistortSecondaryAsset:(id *)asset inputImageTexture:(id)texture inputMeshTexture:(id)meshTexture normalizedInputCrop:(CGRect)crop primaryImageDimensions:(id)dimensions inputHorizontalSecondaryToPrimaryScaleFactor:(float)factor inputVerticalSecondaryToPrimaryScaleFactor:(float)scaleFactor inputHorizontalSecondaryToPrimaryShift:(float)self0 inputVerticalSecondaryToPrimaryShift:(float)self1 outputImageTexture:(id)self2 outputHorizontalAdditionalScaleFactor:(float)self3 outputVerticalAdditionalScaleFactor:(float)self4 roiTracker:(id)self5 isDepthData:(BOOL)self6 commandBuffer:(id)self7 sensorInputCropRect:(id *)self8;
 - (int)zeroMetalBuffer:(id)buffer range:(_NSRange)range commandEncoder:(id)encoder;
 - (void)buildParameters:(id *)parameters bundleConfiguration:(id *)configuration;
 - (void)computeTextureStrideForBufferAllocation:(id *)allocation;
@@ -288,7 +290,7 @@ LABEL_4:
 
   else
   {
-    sub_2957BF364();
+    sub_2957BF364(self, a2);
     return -12780;
   }
 
@@ -448,24 +450,8 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  if ((location & 0xF) == 0 && length > 0x20)
+  if ((location & 0xF) == 0 && length > 0x20 || (length >= 0x21 ? (v12 = 16 - (location & 0xF)) : (v12 = length), [encoderCopy setComputePipelineState:self->_kernels.zeroBuffer1], objc_msgSend(v11, "setBuffer:offset:atIndex:", bufferCopy, location, 0), v18 = v12, v19 = vdupq_n_s64(1uLL), v16 = v12, v17 = v19, objc_msgSend(v11, "dispatchThreads:threadsPerThreadgroup:", &v18, &v16), length -= v12, location += v12, length >= 0x10))
   {
-    goto LABEL_9;
-  }
-
-  v12 = length >= 0x21 ? 16 - (location & 0xF) : length;
-  [encoderCopy setComputePipelineState:self->_kernels.zeroBuffer1];
-  [v11 setBuffer:bufferCopy offset:location atIndex:0];
-  v18 = v12;
-  v19 = vdupq_n_s64(1uLL);
-  v16 = v12;
-  v17 = v19;
-  [v11 dispatchThreads:&v18 threadsPerThreadgroup:&v16];
-  length -= v12;
-  location += v12;
-  if (length >= 0x10)
-  {
-LABEL_9:
     maxTotalThreadsPerThreadgroup = length >> 4;
     if ([(MTLComputePipelineState *)self->_kernels.zeroBuffer16 maxTotalThreadsPerThreadgroup]< length >> 4)
     {
@@ -1195,34 +1181,32 @@ LABEL_8:
   dictionaryCopy = dictionary;
   [(IntelligentDistortionCorrection_Utilities *)self buildParameters:&self->_warpAndOrUndistortPrimaryAsset bundleConfiguration:asset];
   v20 = *(MEMORY[0x29EDB90D8] + 16);
-  v47.origin = *MEMORY[0x29EDB90D8];
-  v47.size = v20;
-  v46.origin = v47.origin;
-  v46.size = v20;
-  v21 = *MEMORY[0x29EDC0008];
+  v45.origin = *MEMORY[0x29EDB90D8];
+  v45.size = v20;
+  v44.origin = v45.origin;
+  v44.size = v20;
   FigCFDictionaryGetCGRectIfPresent();
-  v22 = *MEMORY[0x29EDC0010];
   FigCFDictionaryGetCGRectIfPresent();
-  if (!CGRectIsNull(v47) && !CGRectEqualToRect(v47, v46))
+  if (!CGRectIsNull(v45) && !CGRectEqualToRect(v45, v44))
   {
     point.x = 0.0;
     point.y = 0.0;
-    v44 = 0u;
-    v45 = 0u;
-    v43 = 0;
-    [(IntelligentDistortionCorrection_Utilities *)self getTransformFromRect:*&v46.origin toRect:*&v46.size, *&v47.origin, *&v47.size];
-    v23 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x29EDC04B0]];
+    v42 = 0u;
+    v43 = 0u;
+    v41 = 0;
+    objc_msgSend_getTransformFromRect_toRect_(self, *&v44.origin, *&v44.size, *&v45.origin, *&v45.size);
+    v21 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x29EDC04B0]];
 
-    CGPointMakeWithDictionaryRepresentation(v23, &point);
+    CGPointMakeWithDictionaryRepresentation(v21, &point);
     width = [textureCopy width];
     point.x = point.x / (width / COERCE_FLOAT(*&asset->var4));
     height = [textureCopy height];
     point.y = point.y / (height / asset->var5.var0);
-    v26 = *(&v45 + 1) + point.y * *(&v44 + 1) + v43.y * point.x;
-    v27 = *&v45 + point.y * *&v44 + v43.x * point.x;
-    *&self[1]._kernels.gatherGatingStatistics = v27 * [textureCopy width];
-    *&v26 = v26;
-    *(&self[1]._kernels.gatherGatingStatistics + 1) = *&v26 * [textureCopy height];
+    v24 = *(&v43 + 1) + point.y * *(&v42 + 1) + v41.y * point.x;
+    v25 = *&v43 + point.y * *&v42 + v41.x * point.x;
+    *&self[1]._kernels.gatherGatingStatistics = v25 * [textureCopy width];
+    *&v24 = v24;
+    *(&self[1]._kernels.gatherGatingStatistics + 1) = *&v24 * [textureCopy height];
   }
 
   *&self->_warpAndOrUndistortPrimaryAsset.var0 = vdiv_f32(vcvt_f32_s32(*&asset->var15.var0.var3), vcvt_f32_s32(p_var5[2]));
@@ -1230,11 +1214,11 @@ LABEL_8:
   self[1]._kernels.undistortBGRA = vmul_n_f32(*&asset->var4, asset->var3);
   if (meshTextureCopy)
   {
-    v40 = ([meshTextureCopy width] - 1) / (asset->var17.var3 - 1);
+    v38 = ([meshTextureCopy width] - 1) / (asset->var17.var3 - 1);
     height2 = [meshTextureCopy height];
-    *&v29 = v40;
-    *(&v29 + 1) = (height2 - 1) / (asset->var17.var4 - 1);
-    self[1]._kernels.lumaCropAndDownscale4to1 = v29;
+    *&v27 = v38;
+    *(&v27 + 1) = (height2 - 1) / (asset->var17.var4 - 1);
+    self[1]._kernels.lumaCropAndDownscale4to1 = v27;
     self[1]._anon_a8[1] = 1;
   }
 
@@ -1249,7 +1233,7 @@ LABEL_8:
   {
     sub_2957C0574();
 LABEL_18:
-    v38 = -12786;
+    v36 = -12786;
     goto LABEL_15;
   }
 
@@ -1260,60 +1244,192 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v33 = computeCommandEncoder;
+  v31 = computeCommandEncoder;
   [computeCommandEncoder setComputePipelineState:self->_kernels.fillRoiData];
   if (trackerCopy)
   {
     if (![trackerCopy isCpuMaster])
     {
       metalBuffer = [trackerCopy metalBuffer];
-      [v33 setBuffer:metalBuffer offset:objc_msgSend(trackerCopy atIndex:{"metalBufferOffset"), 0}];
+      [v31 setBuffer:metalBuffer offset:objc_msgSend(trackerCopy atIndex:{"metalBufferOffset"), 0}];
 
       goto LABEL_14;
     }
 
-    *&v43.x = [trackerCopy getRoiData];
-    v43.y = v34;
+    *&v41.x = [trackerCopy getRoiData];
+    v41.y = v32;
   }
 
   else
   {
-    v43.x = 0.0;
-    LODWORD(v43.y) = [textureCopy width] - 1;
-    HIDWORD(v43.y) = [textureCopy height] - 1;
+    v41.x = 0.0;
+    LODWORD(v41.y) = [textureCopy width] - 1;
+    HIDWORD(v41.y) = [textureCopy height] - 1;
   }
 
-  [v33 setBytes:&v43 length:16 atIndex:0];
+  [v31 setBytes:&v41 length:16 atIndex:0];
 LABEL_14:
-  [v33 setBuffer:self[2]._kernels.undistortBGRA offset:0 atIndex:1];
-  v43 = vdupq_n_s64(1uLL);
-  *&v44 = 1;
-  point = v43;
-  v42 = 1;
-  [v33 dispatchThreads:&v43 threadsPerThreadgroup:&point];
-  [v33 setComputePipelineState:self->_kernels.warpAndOrUndistortPrimaryAsset2_YCbCr420];
-  [v33 setImageblockWidth:32 height:32];
-  [v33 setTexture:textureCopy atIndex:0];
-  [v33 setTexture:meshTextureCopy atIndex:1];
-  [v33 setTexture:imageTextureCopy atIndex:2];
-  [v33 setBytes:&self->_warpAndOrUndistortPrimaryAsset length:256 atIndex:0];
-  [v33 setBuffer:self[2]._kernels.undistortBGRA offset:0 atIndex:1];
-  v36 = [imageTextureCopy width] >> 1;
+  [v31 setBuffer:self[2]._kernels.undistortBGRA offset:0 atIndex:1];
+  v41 = vdupq_n_s64(1uLL);
+  *&v42 = 1;
+  point = v41;
+  v40 = 1;
+  [v31 dispatchThreads:&v41 threadsPerThreadgroup:&point];
+  [v31 setComputePipelineState:self->_kernels.warpAndOrUndistortPrimaryAsset2_YCbCr420];
+  [v31 setImageblockWidth:32 height:32];
+  [v31 setTexture:textureCopy atIndex:0];
+  [v31 setTexture:meshTextureCopy atIndex:1];
+  [v31 setTexture:imageTextureCopy atIndex:2];
+  [v31 setBytes:&self->_warpAndOrUndistortPrimaryAsset length:256 atIndex:0];
+  [v31 setBuffer:self[2]._kernels.undistortBGRA offset:0 atIndex:1];
+  v34 = [imageTextureCopy width] >> 1;
   height3 = [imageTextureCopy height];
-  *&v43.x = v36;
-  *&v43.y = height3 >> 1;
-  *&v44 = 1;
+  *&v41.x = v34;
+  *&v41.y = height3 >> 1;
+  *&v42 = 1;
   point = vdupq_n_s64(0x10uLL);
-  v42 = 1;
-  [v33 dispatchThreads:&v43 threadsPerThreadgroup:&point];
-  [v33 endEncoding];
+  v40 = 1;
+  [v31 dispatchThreads:&v41 threadsPerThreadgroup:&point];
+  [v31 endEncoding];
   [commandBuffer commit];
   [commandBuffer waitUntilCompleted];
 
-  v38 = 0;
+  v36 = 0;
 LABEL_15:
 
-  return v38;
+  return v36;
+}
+
+- (int)warpAndOrUndistortSecondaryAsset:(id *)asset inputImageTexture:(id)texture inputMeshTexture:(id)meshTexture normalizedInputCrop:(CGRect)crop primaryImageDimensions:(id)dimensions inputHorizontalSecondaryToPrimaryScaleFactor:(float)factor inputVerticalSecondaryToPrimaryScaleFactor:(float)scaleFactor inputHorizontalSecondaryToPrimaryShift:(float)self0 inputVerticalSecondaryToPrimaryShift:(float)self1 outputImageTexture:(id)self2 outputHorizontalAdditionalScaleFactor:(float)self3 outputVerticalAdditionalScaleFactor:(float)self4 roiTracker:(id)self5 isDepthData:(BOOL)self6 commandBuffer:(id)self7 sensorInputCropRect:(id *)self8
+{
+  v46 = *&scaleFactor;
+  height = crop.size.height;
+  width = crop.size.width;
+  y = crop.origin.y;
+  x = crop.origin.x;
+  textureCopy = texture;
+  meshTextureCopy = meshTexture;
+  imageTextureCopy = imageTexture;
+  bufferCopy = buffer;
+  if ([textureCopy pixelFormat] == 25 || objc_msgSend(textureCopy, "pixelFormat") == 10 || objc_msgSend(textureCopy, "pixelFormat") == 20)
+  {
+    v31 = 48;
+  }
+
+  else
+  {
+    if ([textureCopy pixelFormat] != 65)
+    {
+      goto LABEL_20;
+    }
+
+    v31 = 56;
+  }
+
+  v32 = *(&self->super.isa + v31);
+  if (!v32)
+  {
+LABEL_20:
+    sub_2957C08EC();
+    v33 = 0;
+LABEL_21:
+    computeCommandEncoder = 0;
+LABEL_22:
+    v44 = -12786;
+    goto LABEL_17;
+  }
+
+  v33 = v32;
+  if (!bufferCopy)
+  {
+    sub_2957C0874();
+    goto LABEL_21;
+  }
+
+  computeCommandEncoder = [bufferCopy computeCommandEncoder];
+  if (!computeCommandEncoder)
+  {
+    sub_2957C07FC();
+    goto LABEL_22;
+  }
+
+  LOBYTE(self[1]._kernels.zeroBuffer16) = LOBYTE(asset->var2);
+  undistortSingleChannel_low = LODWORD(self[2]._kernels.undistortSingleChannel);
+  *&self[1]._kernels.warpAndOrUndistortPrimaryAsset2_YCbCr420 = undistortSingleChannel_low / [imageTextureCopy width];
+  undistortSingleChannel_high = HIDWORD(self[2]._kernels.undistortSingleChannel);
+  *(&self[1]._kernels.warpAndOrUndistortPrimaryAsset2_YCbCr420 + 1) = undistortSingleChannel_high / [imageTextureCopy height];
+  self[1]._kernels.warpAndOrUndistortSecondaryAsset_R8Unorm = __PAIR64__(v46, LODWORD(factor));
+  self[1]._kernels.warpAndOrUndistortSecondaryAsset_RG8Unorm = __PAIR64__(LODWORD(primaryShift), LODWORD(shift));
+  if (!dimensions.var0)
+  {
+    sub_2957C074C(v52);
+LABEL_28:
+    v44 = v52[0];
+    goto LABEL_17;
+  }
+
+  if (!HIDWORD(*&dimensions))
+  {
+    sub_2957C069C(v52);
+    goto LABEL_28;
+  }
+
+  *&self[1]._kernels.undistortSingleChannel = [textureCopy width] / dimensions.var0;
+  *(&self[1]._kernels.undistortSingleChannel + 1) = [textureCopy height] / dimensions.var1;
+  LOBYTE(self[1]._kernels.warpLinesAndMeasureDistance) = data;
+  contents = [(MTLComputePipelineState *)self[2]._kernels.undistortBGRA contents];
+  if (!contents)
+  {
+    sub_2957C05EC(v52);
+    goto LABEL_28;
+  }
+
+  v38 = contents;
+  zeroBuffer1 = self[1]._kernels.zeroBuffer1;
+  v53.origin.x = x;
+  v53.origin.y = y;
+  v53.size.width = width;
+  v53.size.height = height;
+  IsNull = CGRectIsNull(v53);
+  if (!IsNull)
+  {
+    self[1]._kernels.zeroBuffer1 = vcvt_f32_u32(self[2]._kernels.undistortSingleChannel);
+  }
+
+  [computeCommandEncoder setComputePipelineState:{v33, v46}];
+  v50 = textureCopy;
+  [computeCommandEncoder setTexture:textureCopy atIndex:0];
+  v41 = meshTextureCopy;
+  [computeCommandEncoder setTexture:meshTextureCopy atIndex:1];
+  [computeCommandEncoder setTexture:imageTextureCopy atIndex:2];
+  [computeCommandEncoder setBytes:&self->_warpAndOrUndistortPrimaryAsset length:256 atIndex:0];
+  [computeCommandEncoder setBytes:v38 length:16 atIndex:1];
+  threadExecutionWidth = [v33 threadExecutionWidth];
+  v43 = [v33 maxTotalThreadsPerThreadgroup] / threadExecutionWidth;
+  v52[0] = ([imageTextureCopy width] + 1) >> 1;
+  v52[1] = ([imageTextureCopy height] + 1) >> 1;
+  v52[2] = 1;
+  v51[0] = threadExecutionWidth;
+  v51[1] = v43;
+  v51[2] = 1;
+  [computeCommandEncoder dispatchThreads:v52 threadsPerThreadgroup:v51];
+  [computeCommandEncoder endEncoding];
+  if (IsNull)
+  {
+    v44 = 0;
+  }
+
+  else
+  {
+    v44 = 0;
+    self[1]._kernels.zeroBuffer1 = zeroBuffer1;
+  }
+
+  meshTextureCopy = v41;
+  textureCopy = v50;
+LABEL_17:
+
+  return v44;
 }
 
 - (int)undistortSingleChannelTexture:(id *)texture inputTexture:(id)inputTexture outputTexture:(id)outputTexture
@@ -1660,6 +1776,105 @@ LABEL_7:
   *(&parameters[2].var6 + 1) = configuration[1].var12.var0;
 }
 
+- (int)gatherGatingStatistics:(id)statistics area:(id *)area center:(float)center radiusFromCenter:(id)fromCenter sharedMetalBuffer:(unint64_t)buffer sharedMetalBufferoffset:(unsigned int *)bufferoffset activePixelCount:(unsigned int *)count centerPixelCount:
+{
+  v14 = v9;
+  v15 = *&center;
+  statisticsCopy = statistics;
+  fromCenterCopy = fromCenter;
+  v20 = fromCenterCopy;
+  v36 = 0u;
+  v37 = 0u;
+  if (!statisticsCopy)
+  {
+    sub_2957C0E5C();
+LABEL_14:
+    v32 = -12780;
+    goto LABEL_9;
+  }
+
+  if (!fromCenterCopy)
+  {
+    sub_2957C0DE4();
+    goto LABEL_14;
+  }
+
+  if (!bufferoffset)
+  {
+    sub_2957C0D6C();
+    goto LABEL_14;
+  }
+
+  if (!count)
+  {
+    sub_2957C0CF4();
+    goto LABEL_14;
+  }
+
+  *bufferoffset = 0;
+  *count = 0;
+  v37 = *&area->var0;
+  *&v36 = v15;
+  *(&v36 + 1) = v14 | 0x800000000;
+  commandQueue = [(FigMetalContext *)self->_metalContext commandQueue];
+  commandBuffer = [commandQueue commandBuffer];
+
+  if (!commandBuffer)
+  {
+    sub_2957C0C7C();
+LABEL_17:
+    v32 = -12786;
+    goto LABEL_9;
+  }
+
+  computeCommandEncoder = [commandBuffer computeCommandEncoder];
+  if (!computeCommandEncoder)
+  {
+    sub_2957C0BEC(commandBuffer);
+    goto LABEL_17;
+  }
+
+  v24 = computeCommandEncoder;
+  v25 = [(IntelligentDistortionCorrection_Utilities *)self zeroMetalBuffer:v20 range:buffer commandEncoder:8, computeCommandEncoder];
+  if (v25)
+  {
+    v32 = v25;
+    sub_2957C0B44(v25, v24, commandBuffer);
+  }
+
+  else
+  {
+    threadExecutionWidth = [(MTLComputePipelineState *)self->_kernels.gatherGatingStatistics threadExecutionWidth];
+    maxTotalThreadsPerThreadgroup = [(MTLComputePipelineState *)self->_kernels.gatherGatingStatistics maxTotalThreadsPerThreadgroup];
+    gatherGatingStatistics = self->_kernels.gatherGatingStatistics;
+    v29 = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
+    [v24 setComputePipelineState:gatherGatingStatistics];
+    [v24 setTexture:statisticsCopy atIndex:0];
+    [v24 setBuffer:v20 offset:buffer atIndex:0];
+    [v24 setBytes:&v36 length:32 atIndex:1];
+    var5 = area->var5;
+    v35[0] = (area->var4 + (area->var4 < 0 ? 7 : 0)) >> 3;
+    v35[1] = (var5 + (var5 < 0 ? 7 : 0)) >> 3;
+    v35[2] = 1;
+    v34[0] = threadExecutionWidth;
+    v34[1] = v29;
+    v34[2] = 1;
+    [v24 dispatchThreads:v35 threadsPerThreadgroup:v34];
+    [v24 endEncoding];
+    [commandBuffer commit];
+    [commandBuffer waitUntilCompleted];
+    contents = [v20 contents];
+    *bufferoffset = *(contents + buffer);
+    *count = *(contents + buffer + 4);
+
+    v32 = 0;
+  }
+
+LABEL_9:
+
+  return v32;
+}
+
 - (int)erodeSegmentationMask:(id)mask to:(id)to radius:(int)radius commandEncoder:(id)encoder
 {
   maskCopy = mask;
@@ -1796,145 +2011,162 @@ LABEL_4:
 {
   v7 = v6;
   entryCopy = entry;
-  if (*error | [(IntelligentDistortionCorrection_Utilities *)self testDictionaryObject:entryCopy withName:@"cameraDictionary" cumulativeError:error])
+  v12 = *error | [(IntelligentDistortionCorrection_Utilities *)self testDictionaryObject:entryCopy withName:@"cameraDictionary" cumulativeError:error];
+  if (v12)
   {
     fig_log_get_emitter();
     sub_2957B5BF0();
-    FigDebugAssert3();
-    v12 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12, v28, v29, v30, v31, v32, v33, v34);
+    v13 = 0;
 LABEL_19:
     sub_2957B5C24();
-    v24 = 0;
+    v27 = 0;
     sub_2957B5C18();
     goto LABEL_16;
   }
 
-  v12 = entryCopy;
-  v25 = 0.0;
-  sub_2957B5C30([(IntelligentDistortionCorrection_Utilities *)self extractFloat:v12 name:@"PixelSize" value:&v25 mandatory:1 cumulativeError:error]);
+  v13 = entryCopy;
+  HIDWORD(v30) = 0;
+  [(IntelligentDistortionCorrection_Utilities *)self extractFloat:v13 name:@"PixelSize" value:&v30 + 4 mandatory:1 cumulativeError:error];
+  sub_2957B5C30();
   if (v5)
   {
     fig_log_get_emitter();
     sub_2957B5BF0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v28, v29, v30, v31, v32, v33, v34);
     goto LABEL_19;
   }
 
-  options->var5.var3 = (v25 * LODWORD(options->var6.var0)) / 1000.0;
+  options->var5.var3 = (*(&v30 + 1) * LODWORD(options->var6.var0)) / 1000.0;
   if ((options->var14.var1.var4 & 0x10000) != 0)
   {
     sub_2957B5C24();
-    v24 = 0;
+    v27 = 0;
+    goto LABEL_16;
+  }
+
+  v14 = [v13 objectForKeyedSubscript:*MEMORY[0x29EDBFF30]];
+  if (v14)
+  {
+    v15 = v14;
+    v16 = @"OpticalCenterOffsetInPhysicalSensorDimensions";
   }
 
   else
   {
-    v13 = [v12 objectForKeyedSubscript:*MEMORY[0x29EDBFF30]];
-    if (v13)
-    {
-      v14 = v13;
-      v15 = @"OpticalCenterOffsetInPhysicalSensorDimensions";
-    }
-
-    else
-    {
-      v14 = [v12 objectForKeyedSubscript:*MEMORY[0x29EDBFF28]];
-      v15 = @"OpticalCenterOffset";
-    }
-
-    sub_2957B5C30([(IntelligentDistortionCorrection_Utilities *)self testDictionaryObject:v14 withName:v15 cumulativeError:error]);
-    v5 = @"X";
-    v16 = [v14 objectForKeyedSubscript:@"X"];
-    sub_2957B5C30([(IntelligentDistortionCorrection_Utilities *)self testNumberObject:v16 withName:@"X" cumulativeError:error]);
-    if (@"X")
-    {
-      fig_log_get_emitter();
-      sub_2957B5BF0();
-      FigDebugAssert3();
-      sub_2957B5C18();
-
-      sub_2957B5C24();
-      v24 = v16;
-    }
-
-    else
-    {
-      [v16 floatValue];
-      options->var5.var5 = v17;
-      v5 = @"Y";
-      v18 = [v14 objectForKeyedSubscript:@"Y"];
-
-      sub_2957B5C30([(IntelligentDistortionCorrection_Utilities *)self testNumberObject:v18 withName:@"Y" cumulativeError:error]);
-      if (@"Y")
-      {
-        fig_log_get_emitter();
-        sub_2957B5BF0();
-        FigDebugAssert3();
-        sub_2957B5C18();
-
-        sub_2957B5C24();
-      }
-
-      else
-      {
-        [v18 floatValue];
-        options->var5.var6 = v19;
-        v20 = [v12 objectForKeyedSubscript:*MEMORY[0x29EDBFEF8]];
-
-        sub_2957B5C30([(IntelligentDistortionCorrection_Utilities *)self testDictionaryObject:v20 withName:@"GeometricDistortionCoefficients" cumulativeError:error]);
-        v18 = v20;
-
-        v5 = [v18 objectForKeyedSubscript:*MEMORY[0x29EDC0328]];
-        if (*error | [(IntelligentDistortionCorrection_Utilities *)self testDataObject:v5 withName:@"BasePolynomial" cumulativeError:error]|| [(__CFString *)v5 length]!= 64)
-        {
-          fig_log_get_emitter();
-          sub_2957B5BF0();
-          FigDebugAssert3();
-          sub_2957B5C18();
-
-          v7 = 0;
-        }
-
-        else
-        {
-          v7 = [v18 objectForKeyedSubscript:*MEMORY[0x29EDC0330]];
-          if (*error | -[IntelligentDistortionCorrection_Utilities testDataObject:withName:cumulativeError:](self, "testDataObject:withName:cumulativeError:", v7, @"DynamicPolynomial", error) || [v7 length] != 64)
-          {
-            fig_log_get_emitter();
-            sub_2957B5C54();
-            FigDebugAssert3();
-            sub_2957B5C18();
-          }
-
-          else
-          {
-            var7 = options->var5.var7;
-            bytes = [(__CFString *)v5 bytes];
-            bytes2 = [v7 bytes];
-            options->var6.var1 = *bytes + (var7 * *bytes2);
-            options->var6.var2 = bytes[1] + (var7 * bytes2[1]);
-            options->var6.var3 = bytes[2] + (var7 * bytes2[2]);
-            options->var6.var4 = bytes[3] + (var7 * bytes2[3]);
-            options->var6.var5 = bytes[4] + (var7 * bytes2[4]);
-            options->var6.var6 = bytes[5] + (var7 * bytes2[5]);
-            options->var6.var7 = bytes[6] + (var7 * bytes2[6]);
-            *&options->var7 = bytes[7] + (var7 * bytes2[7]);
-            *&options->var12.var0 = bytes[8] + (var7 * bytes2[8]);
-            *&options->var12.var1 = bytes[9] + (var7 * bytes2[9]);
-            *&options->var12.var2 = bytes[10] + (var7 * bytes2[10]);
-            *&options->var12.var3 = bytes[11] + (var7 * bytes2[11]);
-            options->var12.var4 = bytes[12] + (var7 * bytes2[12]);
-            *&options->var12.var5 = bytes[13] + (var7 * bytes2[13]);
-            options->var13[0] = bytes[14] + (var7 * bytes2[14]);
-            options->var13[1] = bytes[15] + (var7 * bytes2[15]);
-          }
-        }
-      }
-
-      v24 = v18;
-    }
+    v15 = [v13 objectForKeyedSubscript:*MEMORY[0x29EDBFF28]];
+    v16 = @"OpticalCenterOffset";
   }
 
+  [(IntelligentDistortionCorrection_Utilities *)self testDictionaryObject:v15 withName:v16 cumulativeError:error];
+  sub_2957B5C30();
+  v5 = @"X";
+  v17 = [v15 objectForKeyedSubscript:@"X"];
+  [(IntelligentDistortionCorrection_Utilities *)self testNumberObject:v17 withName:@"X" cumulativeError:error];
+  sub_2957B5C30();
+  if (@"X")
+  {
+    fig_log_get_emitter();
+    sub_2957B5BF0();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", @"X");
+    sub_2957B5C18();
+
+    sub_2957B5C24();
+    v27 = v17;
+    goto LABEL_16;
+  }
+
+  [v17 floatValue];
+  options->var5.var5 = v18;
+  v5 = @"Y";
+  v19 = [v15 objectForKeyedSubscript:@"Y"];
+
+  [(IntelligentDistortionCorrection_Utilities *)self testNumberObject:v19 withName:@"Y" cumulativeError:error];
+  sub_2957B5C30();
+  if (@"Y")
+  {
+    fig_log_get_emitter();
+    sub_2957B5BF0();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", @"Y", v28, v29, v30, v31, v32, v33, v34);
+    sub_2957B5C18();
+
+    sub_2957B5C24();
+    goto LABEL_15;
+  }
+
+  [v19 floatValue];
+  options->var5.var6 = v20;
+  v21 = [v13 objectForKeyedSubscript:*MEMORY[0x29EDBFEF8]];
+
+  [(IntelligentDistortionCorrection_Utilities *)self testDictionaryObject:v21 withName:@"GeometricDistortionCoefficients" cumulativeError:error];
+  sub_2957B5C30();
+  v19 = v21;
+
+  v5 = [v19 objectForKeyedSubscript:*MEMORY[0x29EDC0328]];
+  v22 = *error | [(IntelligentDistortionCorrection_Utilities *)self testDataObject:v5 withName:@"BasePolynomial" cumulativeError:error];
+  if (v22)
+  {
+    fig_log_get_emitter();
+    sub_2957B5BF0();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v22);
+LABEL_25:
+    sub_2957B5C18();
+
+    v7 = 0;
+    goto LABEL_15;
+  }
+
+  if ([(__CFString *)v5 length]!= 64)
+  {
+    fig_log_get_emitter();
+    sub_2957B5BF0();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+    goto LABEL_25;
+  }
+
+  v7 = [v19 objectForKeyedSubscript:*MEMORY[0x29EDC0330]];
+  v23 = *error | [(IntelligentDistortionCorrection_Utilities *)self testDataObject:v7 withName:@"DynamicPolynomial" cumulativeError:error];
+  if (v23)
+  {
+    fig_log_get_emitter();
+    sub_2957B5C54();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v23);
+LABEL_28:
+    sub_2957B5C18();
+    goto LABEL_14;
+  }
+
+  if ([v7 length] != 64)
+  {
+    fig_log_get_emitter();
+    sub_2957B5C54();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+    goto LABEL_28;
+  }
+
+  var7 = options->var5.var7;
+  bytes = [(__CFString *)v5 bytes];
+  bytes2 = [v7 bytes];
+  options->var6.var1 = *bytes + (var7 * *bytes2);
+  options->var6.var2 = bytes[1] + (var7 * bytes2[1]);
+  options->var6.var3 = bytes[2] + (var7 * bytes2[2]);
+  options->var6.var4 = bytes[3] + (var7 * bytes2[3]);
+  options->var6.var5 = bytes[4] + (var7 * bytes2[4]);
+  options->var6.var6 = bytes[5] + (var7 * bytes2[5]);
+  options->var6.var7 = bytes[6] + (var7 * bytes2[6]);
+  *&options->var7 = bytes[7] + (var7 * bytes2[7]);
+  *&options->var12.var0 = bytes[8] + (var7 * bytes2[8]);
+  *&options->var12.var1 = bytes[9] + (var7 * bytes2[9]);
+  *&options->var12.var2 = bytes[10] + (var7 * bytes2[10]);
+  *&options->var12.var3 = bytes[11] + (var7 * bytes2[11]);
+  options->var12.var4 = bytes[12] + (var7 * bytes2[12]);
+  *&options->var12.var5 = bytes[13] + (var7 * bytes2[13]);
+  options->var13[0] = bytes[14] + (var7 * bytes2[14]);
+  options->var13[1] = bytes[15] + (var7 * bytes2[15]);
+LABEL_14:
+
+LABEL_15:
+  v27 = v19;
 LABEL_16:
 }
 

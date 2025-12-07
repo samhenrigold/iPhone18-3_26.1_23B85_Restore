@@ -9,19 +9,17 @@
 
 - (void)cancelRequestId:(id)id
 {
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_100025430;
+  v8 = sub_100025440;
+  v9 = 0;
   idCopy = id;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3032000000;
-  v10 = sub_100025430;
-  v11 = sub_100025440;
-  v12 = 0;
-  inflightIsolater = self->_inflightIsolater;
-  v6 = idCopy;
   geo_isolate_sync();
-  [v8[5] cancel];
+  [v5[5] cancel];
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v4, 8);
 }
 
 - (void)submitWiFiQualityTileLoadForKey:(id)key eTag:(id)tag requestId:(id)id auditToken:(id)token completionQueue:(id)queue completion:(id)completion
@@ -50,122 +48,116 @@
     }
   }
 
-  inflightIsolater = self->_inflightIsolater;
-  v70 = _NSConcreteStackBlock;
-  v71 = 3221225472;
-  v72 = sub_1000259B4;
-  v73 = &unk_100083A30;
+  v64 = _NSConcreteStackBlock;
+  v65 = 3221225472;
+  v66 = sub_1000259B4;
+  v67 = &unk_100083A30;
   selfCopy = self;
-  v75 = idCopy;
-  v76 = v18;
-  v24 = v18;
+  v69 = idCopy;
+  v70 = v18;
+  v23 = v18;
   geo_isolate_sync();
-  v66[0] = _NSConcreteStackBlock;
-  v66[1] = 3221225472;
-  v66[2] = sub_1000259C4;
-  v66[3] = &unk_1000822C8;
-  v66[4] = self;
-  v67 = v75;
-  v68 = v19;
-  v69 = completionCopy;
-  v25 = v19;
-  v26 = completionCopy;
-  v27 = v75;
-  v28 = queueCopy;
-  v29 = v66;
-  if (v24)
+  v60[0] = _NSConcreteStackBlock;
+  v60[1] = 3221225472;
+  v60[2] = sub_1000259C4;
+  v60[3] = &unk_1000822C8;
+  v60[4] = self;
+  v61 = v69;
+  v62 = v19;
+  v63 = completionCopy;
+  v24 = v19;
+  v25 = completionCopy;
+  v26 = v69;
+  v27 = queueCopy;
+  v28 = v60;
+  if (v23)
   {
-    v30 = GEOURLString();
-    if ([v30 length])
+    v29 = GEOURLString();
+    if ([v29 length])
     {
-      v58 = v28;
-      v59 = v29;
-      v61 = v27;
-      v63 = v26;
-      v65 = v25;
-      v31 = [v29 copy];
-      completion = v24->_completion;
-      v24->_completion = v31;
+      v52 = v27;
+      v53 = v28;
+      v55 = v26;
+      v57 = v25;
+      v59 = v24;
+      v30 = [v28 copy];
+      completion = v23->_completion;
+      v23->_completion = v30;
 
-      v33 = [NSMutableDictionary dictionaryWithCapacity:2];
-      [v33 setObject:v24->_tileKey forKey:@"X-tilekey"];
-      v34 = GeoServicesConfig_WiFiQualityTileSendVersioning[1];
+      v32 = [NSMutableDictionary dictionaryWithCapacity:2];
+      [v32 setObject:v23->_tileKey forKey:@"X-tilekey"];
       if (GEOConfigGetBOOL())
       {
-        v35 = +[GEOPlatform sharedPlatform];
-        osAndBuildVersion = [v35 osAndBuildVersion];
+        v33 = +[GEOPlatform sharedPlatform];
+        osAndBuildVersion = [v33 osAndBuildVersion];
 
-        [v33 setObject:osAndBuildVersion forKey:@"X-os-version"];
+        [v32 setObject:osAndBuildVersion forKey:@"X-os-version"];
       }
 
       requestKind = [objc_opt_class() requestKind];
-      v38 = +[GEORequestCounter sharedCounter];
-      v39 = [v38 requestCounterTicketForType:requestKind auditToken:v24->_auditToken traits:0];
+      v36 = +[GEORequestCounter sharedCounter];
+      v37 = [v36 requestCounterTicketForType:requestKind auditToken:v23->_auditToken traits:0];
 
-      v40 = GeoServicesConfig_WiFiQualityTileAllowCellular[1];
       if (GEOConfigGetBOOL())
       {
-        v41 = 0;
+        v38 = 0;
       }
 
       else
       {
-        v41 = 16;
+        v38 = 16;
       }
 
-      v42 = GeoServicesConfig_WiFiQualityTileRequirePower[1];
       if (GEOConfigGetBOOL())
       {
-        v41 |= 0x20uLL;
+        v38 |= 0x20uLL;
       }
 
-      v43 = GeoServicesConfig_TLSSessionTicketsEnabled[1];
       if (GEOConfigGetBOOL())
       {
-        v44 = v41 | 2;
+        v39 = v38 | 2;
       }
 
       else
       {
-        v44 = v41;
+        v39 = v38;
       }
 
-      v45 = [GEODataRequest alloc];
-      v46 = [NSURL URLWithString:v30];
-      auditToken = v24->_auditToken;
-      v48 = GeoServicesConfig_WiFiQualityTileTimeout[1];
+      v40 = [GEODataRequest alloc];
+      v41 = [NSURL URLWithString:v29];
+      auditToken = v23->_auditToken;
       GEOConfigGetDouble();
-      v50 = v49;
-      v51 = [v33 copy];
-      v52 = [v45 initWithKind:requestKind URL:v46 auditToken:auditToken timeoutInterval:v51 additionalHTTPHeaders:0 bodyData:0 userAgent:v50 entityTag:v24->_eTag cachedData:0 requestCounterTicket:v39 multipathServiceType:0 multipathAlternatePort:0 backgroundSessionIdentifier:0 throttleToken:0 options:v44];
+      v44 = v43;
+      v45 = [v32 copy];
+      v46 = [v40 initWithKind:requestKind URL:v41 auditToken:auditToken timeoutInterval:v45 additionalHTTPHeaders:0 bodyData:0 userAgent:v44 entityTag:v23->_eTag cachedData:0 requestCounterTicket:v37 multipathServiceType:0 multipathAlternatePort:0 backgroundSessionIdentifier:0 throttleToken:0 options:v39];
 
-      v53 = +[GEODataURLSession sharedDataURLSession];
-      v28 = v58;
-      v54 = [v53 taskWithRequest:v52 delegate:v24 delegateQueue:v58];
-      task = v24->_task;
-      v24->_task = v54;
+      v47 = +[GEODataURLSession sharedDataURLSession];
+      v27 = v52;
+      v48 = [v47 taskWithRequest:v46 delegate:v23 delegateQueue:v52];
+      task = v23->_task;
+      v23->_task = v48;
 
-      [(GEODataURLSessionTask *)v24->_task start];
-      v26 = v63;
-      v25 = v65;
-      v29 = v59;
-      v27 = v61;
+      [(GEODataURLSessionTask *)v23->_task start];
+      v25 = v57;
+      v24 = v59;
+      v28 = v53;
+      v26 = v55;
     }
 
     else
     {
-      v56 = [NSError GEOErrorWithCode:-4 reason:@"No URL in manifest for WiFi tile service"];
+      v50 = [NSError GEOErrorWithCode:-4 reason:@"No URL in manifest for WiFi tile service"];
       block.receiver = _NSConcreteStackBlock;
       block.super_class = 3221225472;
-      v78 = sub_100036A78;
-      v79 = &unk_100083BC0;
-      v57 = v29;
-      v80 = v56;
-      v81 = v57;
-      v33 = v56;
-      dispatch_async(v28, &block);
+      v72 = sub_100036A78;
+      v73 = &unk_100083BC0;
+      v51 = v28;
+      v74 = v50;
+      v75 = v51;
+      v32 = v50;
+      dispatch_async(v27, &block);
 
-      v39 = v81;
+      v37 = v75;
     }
   }
 }
@@ -182,9 +174,9 @@
   v19 = tokenCopy;
   if (v17)
   {
-    v42.receiver = v17;
-    v42.super_class = GEOWiFiQualityServiceRequester;
-    v20 = [(GEOWiFiQualityServiceLocalProxy *)&v42 init];
+    v41.receiver = v17;
+    v41.super_class = GEOWiFiQualityServiceRequester;
+    v20 = [(GEOWiFiQualityServiceLocalProxy *)&v41 init];
     v17 = v20;
     if (v20)
     {
@@ -193,41 +185,40 @@
     }
   }
 
-  inflightIsolater = self->_inflightIsolater;
-  v35 = _NSConcreteStackBlock;
-  v36 = 3221225472;
-  v37 = sub_100025DAC;
-  v38 = &unk_100083A30;
+  v34 = _NSConcreteStackBlock;
+  v35 = 3221225472;
+  v36 = sub_100025DAC;
+  v37 = &unk_100083A30;
   selfCopy = self;
-  v40 = idCopy;
-  v41 = v17;
-  v22 = v17;
+  v39 = idCopy;
+  v40 = v17;
+  v21 = v17;
   geo_isolate_sync();
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_100025DBC;
-  v32[3] = &unk_1000822A0;
-  v32[4] = self;
-  v33 = v40;
-  v34 = completionCopy;
-  v31 = completionCopy;
-  v23 = v40;
-  v24 = queueCopy;
-  v25 = v32;
-  if (v22)
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_100025DBC;
+  v31[3] = &unk_1000822A0;
+  v31[4] = self;
+  v32 = v39;
+  v33 = completionCopy;
+  v30 = completionCopy;
+  v22 = v39;
+  v23 = queueCopy;
+  v24 = v31;
+  if (v21)
   {
-    v26 = objc_alloc_init(GEOWiFiQualityServiceDataRequestConfig);
-    request = v22->_request;
-    v28 = +[GEOMapService sharedService];
-    defaultTraits = [v28 defaultTraits];
-    token = v22->_token;
-    v42.receiver = _NSConcreteStackBlock;
-    v42.super_class = 3221225472;
-    v43 = sub_10003AE0C;
-    v44 = &unk_100082DE0;
+    v25 = objc_alloc_init(GEOWiFiQualityServiceDataRequestConfig);
+    request = v21->_request;
+    v27 = +[GEOMapService sharedService];
+    defaultTraits = [v27 defaultTraits];
+    token = v21->_token;
+    v41.receiver = _NSConcreteStackBlock;
+    v41.super_class = 3221225472;
+    v42 = sub_10003AE0C;
+    v43 = &unk_100082DE0;
+    v44 = v23;
     v45 = v24;
-    v46 = v25;
-    [(GEOWiFiQualityServiceRequester *)v22 _startWithRequest:request traits:defaultTraits auditToken:token config:v26 throttleToken:0 options:0 completionHandler:&v42];
+    [(GEOWiFiQualityServiceRequester *)v21 _startWithRequest:request traits:defaultTraits auditToken:token config:v25 throttleToken:0 options:0 completionHandler:&v41];
   }
 }
 

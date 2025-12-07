@@ -1,7 +1,7 @@
 _BYTE *MD4End(CC_MD4_CTX *c, _BYTE *a2)
 {
   v2 = a2;
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (a2 || (v2 = malloc_type_malloc(0x21uLL, 0x614AAE4EuLL)) != 0)
   {
     v4 = md;
@@ -17,26 +17,25 @@ _BYTE *MD4End(CC_MD4_CTX *c, _BYTE *a2)
     v2[32] = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
-_BYTE *MD4FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *MD4FdChunk(int a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
-  v42 = *MEMORY[0x29EDCA608];
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x7800000000;
-  memset(&v40, 0, sizeof(v40));
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2000000000;
+  v41 = *MEMORY[0x29EDCA608];
   v36 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2000000000;
+  v37 = &v36;
+  v38 = 0x7800000000;
+  memset(&v39, 0, sizeof(v39));
   v32 = 0;
-  if ((a4 & 0x8000000000000000) != 0)
+  v33 = &v32;
+  v34 = 0x2000000000;
+  v35 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2000000000;
+  v31 = 0;
+  if (a4 < 0)
   {
     v23 = 0;
     *__error() = 22;
@@ -44,7 +43,7 @@ _BYTE *MD4FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
   else
   {
-    CC_MD4_Init(&v40);
+    CC_MD4_Init(&v39);
     if (a3 && ((*__error() = 0, lseek(a1, a3, 0) != a3) || a3 == -1 && *__error()))
     {
       v23 = 0;
@@ -86,7 +85,7 @@ _BYTE *MD4FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       cleanup_handler[1] = 0x40000000;
       cleanup_handler[2] = __MD4FdChunk_block_invoke;
       cleanup_handler[3] = &unk_29EF07230;
-      cleanup_handler[4] = &v33;
+      cleanup_handler[4] = &v32;
       cleanup_handler[5] = v12;
       v14 = dispatch_io_create(0, a1, v11, cleanup_handler);
       if (!v14)
@@ -95,8 +94,8 @@ _BYTE *MD4FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       }
 
       v15 = v14;
-      v26 = a1;
-      if ((v30[3] & 1) == 0)
+      v25 = a1;
+      if ((v29[3] & 1) == 0)
       {
         v16 = 0;
         if (a4 >= 0xA00000)
@@ -132,7 +131,7 @@ _BYTE *MD4FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           }
 
           v20 = v19;
-          if (*(v34 + 6))
+          if (*(v33 + 6))
           {
             v21 = 1;
           }
@@ -151,16 +150,16 @@ _BYTE *MD4FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           io_handler[1] = 0x40000000;
           io_handler[2] = __MD4FdChunk_block_invoke_2;
           io_handler[3] = &unk_29EF07280;
-          io_handler[4] = &v37;
-          io_handler[5] = &v33;
-          io_handler[6] = &v29;
+          io_handler[4] = &v36;
+          io_handler[5] = &v32;
+          io_handler[6] = &v28;
           io_handler[7] = v13;
           dispatch_io_read(v15, v16, v18, v11, io_handler);
           dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
           v16 += 10485760;
         }
 
-        while (!*(v30 + 24));
+        while (!*(v29 + 24));
       }
 
       dispatch_release(v15);
@@ -169,10 +168,10 @@ _BYTE *MD4FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       dispatch_release(v13);
       if ((v8 & 0x40000) == 0)
       {
-        fcntl(v26, 48, 0);
+        fcntl(v25, 48, 0);
       }
 
-      v22 = *(v34 + 6);
+      v22 = *(v33 + 6);
       if (v22)
       {
         v23 = 0;
@@ -181,15 +180,14 @@ _BYTE *MD4FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
       else
       {
-        v23 = MD4End((v38 + 3), a2);
+        v23 = MD4End((v37 + 3), a2);
       }
     }
   }
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
-  v24 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
   return v23;
 }
 
@@ -231,7 +229,7 @@ intptr_t __MD4FdChunk_block_invoke_2(intptr_t result, int a2, dispatch_data_t da
   return result;
 }
 
-uint64_t __MD4FdChunk_block_invoke_3(uint64_t a1, int a2, int a3, void *data, unint64_t len)
+uint64_t __MD4FdChunk_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, void *data, unint64_t len)
 {
   if (len >> 31)
   {
@@ -242,7 +240,7 @@ uint64_t __MD4FdChunk_block_invoke_3(uint64_t a1, int a2, int a3, void *data, un
   return 1;
 }
 
-_BYTE *MD4FileChunk(const char *a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *MD4FileChunk(const char *a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
   v7 = open(a1, 0);
   if (v7 < 0)
@@ -269,7 +267,7 @@ _BYTE *MD4Data(const void *a1, CC_LONG a2, _BYTE *a3)
 _BYTE *SHA384_End(CC_SHA512_CTX *c, _BYTE *a2)
 {
   v2 = a2;
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (a2 || (v2 = malloc_type_malloc(0x61uLL, 0x3C75CE88uLL)) != 0)
   {
     v4 = md;
@@ -285,26 +283,25 @@ _BYTE *SHA384_End(CC_SHA512_CTX *c, _BYTE *a2)
     v2[96] = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
-_BYTE *SHA384_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *SHA384_FdChunk(int a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
-  v42 = *MEMORY[0x29EDCA608];
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0xE800000000;
-  memset(&v40, 0, sizeof(v40));
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2000000000;
+  v41 = *MEMORY[0x29EDCA608];
   v36 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2000000000;
+  v37 = &v36;
+  v38 = 0xE800000000;
+  memset(&v39, 0, sizeof(v39));
   v32 = 0;
-  if ((a4 & 0x8000000000000000) != 0)
+  v33 = &v32;
+  v34 = 0x2000000000;
+  v35 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2000000000;
+  v31 = 0;
+  if (a4 < 0)
   {
     v23 = 0;
     *__error() = 22;
@@ -312,7 +309,7 @@ _BYTE *SHA384_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
   else
   {
-    CC_SHA384_Init(&v40);
+    CC_SHA384_Init(&v39);
     if (a3 && ((*__error() = 0, lseek(a1, a3, 0) != a3) || a3 == -1 && *__error()))
     {
       v23 = 0;
@@ -354,7 +351,7 @@ _BYTE *SHA384_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       cleanup_handler[1] = 0x40000000;
       cleanup_handler[2] = __SHA384_FdChunk_block_invoke;
       cleanup_handler[3] = &unk_29EF072A8;
-      cleanup_handler[4] = &v33;
+      cleanup_handler[4] = &v32;
       cleanup_handler[5] = v12;
       v14 = dispatch_io_create(0, a1, v11, cleanup_handler);
       if (!v14)
@@ -363,8 +360,8 @@ _BYTE *SHA384_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       }
 
       v15 = v14;
-      v26 = a1;
-      if ((v30[3] & 1) == 0)
+      v25 = a1;
+      if ((v29[3] & 1) == 0)
       {
         v16 = 0;
         if (a4 >= 0xA00000)
@@ -400,7 +397,7 @@ _BYTE *SHA384_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           }
 
           v20 = v19;
-          if (*(v34 + 6))
+          if (*(v33 + 6))
           {
             v21 = 1;
           }
@@ -419,16 +416,16 @@ _BYTE *SHA384_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           io_handler[1] = 0x40000000;
           io_handler[2] = __SHA384_FdChunk_block_invoke_2;
           io_handler[3] = &unk_29EF072F8;
-          io_handler[4] = &v37;
-          io_handler[5] = &v33;
-          io_handler[6] = &v29;
+          io_handler[4] = &v36;
+          io_handler[5] = &v32;
+          io_handler[6] = &v28;
           io_handler[7] = v13;
           dispatch_io_read(v15, v16, v18, v11, io_handler);
           dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
           v16 += 10485760;
         }
 
-        while (!*(v30 + 24));
+        while (!*(v29 + 24));
       }
 
       dispatch_release(v15);
@@ -437,10 +434,10 @@ _BYTE *SHA384_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       dispatch_release(v13);
       if ((v8 & 0x40000) == 0)
       {
-        fcntl(v26, 48, 0);
+        fcntl(v25, 48, 0);
       }
 
-      v22 = *(v34 + 6);
+      v22 = *(v33 + 6);
       if (v22)
       {
         v23 = 0;
@@ -449,19 +446,18 @@ _BYTE *SHA384_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
       else
       {
-        v23 = SHA384_End((v38 + 3), a2);
+        v23 = SHA384_End((v37 + 3), a2);
       }
     }
   }
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
-  v24 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
   return v23;
 }
 
-_BYTE *SHA384_FileChunk(const char *a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *SHA384_FileChunk(const char *a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
   v7 = open(a1, 0);
   if (v7 < 0)
@@ -488,7 +484,7 @@ _BYTE *SHA384_Data(const void *a1, CC_LONG a2, _BYTE *a3)
 _BYTE *SHA224_End(CC_SHA256_CTX *c, _BYTE *a2)
 {
   v2 = a2;
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (a2 || (v2 = malloc_type_malloc(0x39uLL, 0x26DA88CFuLL)) != 0)
   {
     v4 = md;
@@ -504,26 +500,25 @@ _BYTE *SHA224_End(CC_SHA256_CTX *c, _BYTE *a2)
     v2[56] = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
-_BYTE *SHA224_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *SHA224_FdChunk(int a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
-  v42 = *MEMORY[0x29EDCA608];
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x8000000000;
-  memset(&v40, 0, sizeof(v40));
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2000000000;
+  v41 = *MEMORY[0x29EDCA608];
   v36 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2000000000;
+  v37 = &v36;
+  v38 = 0x8000000000;
+  memset(&v39, 0, sizeof(v39));
   v32 = 0;
-  if ((a4 & 0x8000000000000000) != 0)
+  v33 = &v32;
+  v34 = 0x2000000000;
+  v35 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2000000000;
+  v31 = 0;
+  if (a4 < 0)
   {
     v23 = 0;
     *__error() = 22;
@@ -531,7 +526,7 @@ _BYTE *SHA224_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
   else
   {
-    CC_SHA224_Init(&v40);
+    CC_SHA224_Init(&v39);
     if (a3 && ((*__error() = 0, lseek(a1, a3, 0) != a3) || a3 == -1 && *__error()))
     {
       v23 = 0;
@@ -573,7 +568,7 @@ _BYTE *SHA224_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       cleanup_handler[1] = 0x40000000;
       cleanup_handler[2] = __SHA224_FdChunk_block_invoke;
       cleanup_handler[3] = &unk_29EF07320;
-      cleanup_handler[4] = &v33;
+      cleanup_handler[4] = &v32;
       cleanup_handler[5] = v12;
       v14 = dispatch_io_create(0, a1, v11, cleanup_handler);
       if (!v14)
@@ -582,8 +577,8 @@ _BYTE *SHA224_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       }
 
       v15 = v14;
-      v26 = a1;
-      if ((v30[3] & 1) == 0)
+      v25 = a1;
+      if ((v29[3] & 1) == 0)
       {
         v16 = 0;
         if (a4 >= 0xA00000)
@@ -619,7 +614,7 @@ _BYTE *SHA224_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           }
 
           v20 = v19;
-          if (*(v34 + 6))
+          if (*(v33 + 6))
           {
             v21 = 1;
           }
@@ -638,16 +633,16 @@ _BYTE *SHA224_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           io_handler[1] = 0x40000000;
           io_handler[2] = __SHA224_FdChunk_block_invoke_2;
           io_handler[3] = &unk_29EF07370;
-          io_handler[4] = &v37;
-          io_handler[5] = &v33;
-          io_handler[6] = &v29;
+          io_handler[4] = &v36;
+          io_handler[5] = &v32;
+          io_handler[6] = &v28;
           io_handler[7] = v13;
           dispatch_io_read(v15, v16, v18, v11, io_handler);
           dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
           v16 += 10485760;
         }
 
-        while (!*(v30 + 24));
+        while (!*(v29 + 24));
       }
 
       dispatch_release(v15);
@@ -656,10 +651,10 @@ _BYTE *SHA224_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       dispatch_release(v13);
       if ((v8 & 0x40000) == 0)
       {
-        fcntl(v26, 48, 0);
+        fcntl(v25, 48, 0);
       }
 
-      v22 = *(v34 + 6);
+      v22 = *(v33 + 6);
       if (v22)
       {
         v23 = 0;
@@ -668,19 +663,18 @@ _BYTE *SHA224_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
       else
       {
-        v23 = SHA224_End((v38 + 3), a2);
+        v23 = SHA224_End((v37 + 3), a2);
       }
     }
   }
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
-  v24 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
   return v23;
 }
 
-_BYTE *SHA224_FileChunk(const char *a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *SHA224_FileChunk(const char *a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
   v7 = open(a1, 0);
   if (v7 < 0)
@@ -707,7 +701,7 @@ _BYTE *SHA224_Data(const void *a1, CC_LONG a2, _BYTE *a3)
 _BYTE *SHA1_End(CC_SHA1_CTX *c, _BYTE *a2)
 {
   v2 = a2;
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (a2 || (v2 = malloc_type_malloc(0x29uLL, 0x261C85AEuLL)) != 0)
   {
     v4 = md;
@@ -723,26 +717,25 @@ _BYTE *SHA1_End(CC_SHA1_CTX *c, _BYTE *a2)
     v2[40] = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
-_BYTE *SHA1_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *SHA1_FdChunk(int a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
-  v42 = *MEMORY[0x29EDCA608];
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x7800000000;
-  memset(&v40, 0, sizeof(v40));
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2000000000;
+  v41 = *MEMORY[0x29EDCA608];
   v36 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2000000000;
+  v37 = &v36;
+  v38 = 0x7800000000;
+  memset(&v39, 0, sizeof(v39));
   v32 = 0;
-  if ((a4 & 0x8000000000000000) != 0)
+  v33 = &v32;
+  v34 = 0x2000000000;
+  v35 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2000000000;
+  v31 = 0;
+  if (a4 < 0)
   {
     v23 = 0;
     *__error() = 22;
@@ -750,7 +743,7 @@ _BYTE *SHA1_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
   else
   {
-    CC_SHA1_Init(&v40);
+    CC_SHA1_Init(&v39);
     if (a3 && ((*__error() = 0, lseek(a1, a3, 0) != a3) || a3 == -1 && *__error()))
     {
       v23 = 0;
@@ -792,7 +785,7 @@ _BYTE *SHA1_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       cleanup_handler[1] = 0x40000000;
       cleanup_handler[2] = __SHA1_FdChunk_block_invoke;
       cleanup_handler[3] = &unk_29EF07398;
-      cleanup_handler[4] = &v33;
+      cleanup_handler[4] = &v32;
       cleanup_handler[5] = v12;
       v14 = dispatch_io_create(0, a1, v11, cleanup_handler);
       if (!v14)
@@ -801,8 +794,8 @@ _BYTE *SHA1_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       }
 
       v15 = v14;
-      v26 = a1;
-      if ((v30[3] & 1) == 0)
+      v25 = a1;
+      if ((v29[3] & 1) == 0)
       {
         v16 = 0;
         if (a4 >= 0xA00000)
@@ -838,7 +831,7 @@ _BYTE *SHA1_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           }
 
           v20 = v19;
-          if (*(v34 + 6))
+          if (*(v33 + 6))
           {
             v21 = 1;
           }
@@ -857,16 +850,16 @@ _BYTE *SHA1_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           io_handler[1] = 0x40000000;
           io_handler[2] = __SHA1_FdChunk_block_invoke_2;
           io_handler[3] = &unk_29EF073E8;
-          io_handler[4] = &v37;
-          io_handler[5] = &v33;
-          io_handler[6] = &v29;
+          io_handler[4] = &v36;
+          io_handler[5] = &v32;
+          io_handler[6] = &v28;
           io_handler[7] = v13;
           dispatch_io_read(v15, v16, v18, v11, io_handler);
           dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
           v16 += 10485760;
         }
 
-        while (!*(v30 + 24));
+        while (!*(v29 + 24));
       }
 
       dispatch_release(v15);
@@ -875,10 +868,10 @@ _BYTE *SHA1_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       dispatch_release(v13);
       if ((v8 & 0x40000) == 0)
       {
-        fcntl(v26, 48, 0);
+        fcntl(v25, 48, 0);
       }
 
-      v22 = *(v34 + 6);
+      v22 = *(v33 + 6);
       if (v22)
       {
         v23 = 0;
@@ -887,19 +880,18 @@ _BYTE *SHA1_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
       else
       {
-        v23 = SHA1_End((v38 + 3), a2);
+        v23 = SHA1_End((v37 + 3), a2);
       }
     }
   }
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
-  v24 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
   return v23;
 }
 
-_BYTE *SHA1_FileChunk(const char *a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *SHA1_FileChunk(const char *a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
   v7 = open(a1, 0);
   if (v7 < 0)
@@ -926,7 +918,7 @@ _BYTE *SHA1_Data(const void *a1, CC_LONG a2, _BYTE *a3)
 _BYTE *SHA_End(SHA_CTX *c, _BYTE *a2)
 {
   v2 = a2;
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (a2 || (v2 = malloc_type_malloc(0x29uLL, 0xCDA390B0uLL)) != 0)
   {
     v4 = md;
@@ -942,26 +934,25 @@ _BYTE *SHA_End(SHA_CTX *c, _BYTE *a2)
     v2[40] = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
-_BYTE *SHA_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *SHA_FdChunk(int a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
-  v42 = *MEMORY[0x29EDCA608];
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x7800000000;
-  memset(&v40, 0, sizeof(v40));
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2000000000;
+  v41 = *MEMORY[0x29EDCA608];
   v36 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2000000000;
+  v37 = &v36;
+  v38 = 0x7800000000;
+  memset(&v39, 0, sizeof(v39));
   v32 = 0;
-  if ((a4 & 0x8000000000000000) != 0)
+  v33 = &v32;
+  v34 = 0x2000000000;
+  v35 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2000000000;
+  v31 = 0;
+  if (a4 < 0)
   {
     v23 = 0;
     *__error() = 22;
@@ -969,7 +960,7 @@ _BYTE *SHA_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
   else
   {
-    SHA_Init(&v40);
+    SHA_Init(&v39);
     if (a3 && ((*__error() = 0, lseek(a1, a3, 0) != a3) || a3 == -1 && *__error()))
     {
       v23 = 0;
@@ -1011,7 +1002,7 @@ _BYTE *SHA_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       cleanup_handler[1] = 0x40000000;
       cleanup_handler[2] = __SHA_FdChunk_block_invoke;
       cleanup_handler[3] = &unk_29EF07410;
-      cleanup_handler[4] = &v33;
+      cleanup_handler[4] = &v32;
       cleanup_handler[5] = v12;
       v14 = dispatch_io_create(0, a1, v11, cleanup_handler);
       if (!v14)
@@ -1020,8 +1011,8 @@ _BYTE *SHA_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       }
 
       v15 = v14;
-      v26 = a1;
-      if ((v30[3] & 1) == 0)
+      v25 = a1;
+      if ((v29[3] & 1) == 0)
       {
         v16 = 0;
         if (a4 >= 0xA00000)
@@ -1057,7 +1048,7 @@ _BYTE *SHA_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           }
 
           v20 = v19;
-          if (*(v34 + 6))
+          if (*(v33 + 6))
           {
             v21 = 1;
           }
@@ -1076,16 +1067,16 @@ _BYTE *SHA_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           io_handler[1] = 0x40000000;
           io_handler[2] = __SHA_FdChunk_block_invoke_2;
           io_handler[3] = &unk_29EF07460;
-          io_handler[4] = &v37;
-          io_handler[5] = &v33;
-          io_handler[6] = &v29;
+          io_handler[4] = &v36;
+          io_handler[5] = &v32;
+          io_handler[6] = &v28;
           io_handler[7] = v13;
           dispatch_io_read(v15, v16, v18, v11, io_handler);
           dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
           v16 += 10485760;
         }
 
-        while (!*(v30 + 24));
+        while (!*(v29 + 24));
       }
 
       dispatch_release(v15);
@@ -1094,10 +1085,10 @@ _BYTE *SHA_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       dispatch_release(v13);
       if ((v8 & 0x40000) == 0)
       {
-        fcntl(v26, 48, 0);
+        fcntl(v25, 48, 0);
       }
 
-      v22 = *(v34 + 6);
+      v22 = *(v33 + 6);
       if (v22)
       {
         v23 = 0;
@@ -1106,19 +1097,18 @@ _BYTE *SHA_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
       else
       {
-        v23 = SHA_End((v38 + 3), a2);
+        v23 = SHA_End((v37 + 3), a2);
       }
     }
   }
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
-  v24 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
   return v23;
 }
 
-_BYTE *SHA_FileChunk(const char *a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *SHA_FileChunk(const char *a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
   v7 = open(a1, 0);
   if (v7 < 0)
@@ -1145,7 +1135,7 @@ _BYTE *SHA_Data(const void *a1, unsigned int a2, _BYTE *a3)
 _BYTE *MD5End(CC_MD5_CTX *c, _BYTE *a2)
 {
   v2 = a2;
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (a2 || (v2 = malloc_type_malloc(0x21uLL, 0xC363230EuLL)) != 0)
   {
     v4 = md;
@@ -1161,26 +1151,25 @@ _BYTE *MD5End(CC_MD5_CTX *c, _BYTE *a2)
     v2[32] = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
-_BYTE *MD5FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *MD5FdChunk(int a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
-  v42 = *MEMORY[0x29EDCA608];
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x7800000000;
-  memset(&v40, 0, sizeof(v40));
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2000000000;
+  v41 = *MEMORY[0x29EDCA608];
   v36 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2000000000;
+  v37 = &v36;
+  v38 = 0x7800000000;
+  memset(&v39, 0, sizeof(v39));
   v32 = 0;
-  if ((a4 & 0x8000000000000000) != 0)
+  v33 = &v32;
+  v34 = 0x2000000000;
+  v35 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2000000000;
+  v31 = 0;
+  if (a4 < 0)
   {
     v23 = 0;
     *__error() = 22;
@@ -1188,7 +1177,7 @@ _BYTE *MD5FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
   else
   {
-    CC_MD5_Init(&v40);
+    CC_MD5_Init(&v39);
     if (a3 && ((*__error() = 0, lseek(a1, a3, 0) != a3) || a3 == -1 && *__error()))
     {
       v23 = 0;
@@ -1230,7 +1219,7 @@ _BYTE *MD5FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       cleanup_handler[1] = 0x40000000;
       cleanup_handler[2] = __MD5FdChunk_block_invoke;
       cleanup_handler[3] = &unk_29EF07488;
-      cleanup_handler[4] = &v33;
+      cleanup_handler[4] = &v32;
       cleanup_handler[5] = v12;
       v14 = dispatch_io_create(0, a1, v11, cleanup_handler);
       if (!v14)
@@ -1239,8 +1228,8 @@ _BYTE *MD5FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       }
 
       v15 = v14;
-      v26 = a1;
-      if ((v30[3] & 1) == 0)
+      v25 = a1;
+      if ((v29[3] & 1) == 0)
       {
         v16 = 0;
         if (a4 >= 0xA00000)
@@ -1276,7 +1265,7 @@ _BYTE *MD5FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           }
 
           v20 = v19;
-          if (*(v34 + 6))
+          if (*(v33 + 6))
           {
             v21 = 1;
           }
@@ -1295,16 +1284,16 @@ _BYTE *MD5FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           io_handler[1] = 0x40000000;
           io_handler[2] = __MD5FdChunk_block_invoke_2;
           io_handler[3] = &unk_29EF074D8;
-          io_handler[4] = &v37;
-          io_handler[5] = &v33;
-          io_handler[6] = &v29;
+          io_handler[4] = &v36;
+          io_handler[5] = &v32;
+          io_handler[6] = &v28;
           io_handler[7] = v13;
           dispatch_io_read(v15, v16, v18, v11, io_handler);
           dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
           v16 += 10485760;
         }
 
-        while (!*(v30 + 24));
+        while (!*(v29 + 24));
       }
 
       dispatch_release(v15);
@@ -1313,10 +1302,10 @@ _BYTE *MD5FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       dispatch_release(v13);
       if ((v8 & 0x40000) == 0)
       {
-        fcntl(v26, 48, 0);
+        fcntl(v25, 48, 0);
       }
 
-      v22 = *(v34 + 6);
+      v22 = *(v33 + 6);
       if (v22)
       {
         v23 = 0;
@@ -1325,15 +1314,14 @@ _BYTE *MD5FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
       else
       {
-        v23 = MD5End((v38 + 3), a2);
+        v23 = MD5End((v37 + 3), a2);
       }
     }
   }
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
-  v24 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
   return v23;
 }
 
@@ -1375,7 +1363,7 @@ intptr_t __MD5FdChunk_block_invoke_2(intptr_t result, int a2, dispatch_data_t da
   return result;
 }
 
-uint64_t __MD5FdChunk_block_invoke_3(uint64_t a1, int a2, int a3, void *data, unint64_t len)
+uint64_t __MD5FdChunk_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, void *data, unint64_t len)
 {
   if (len >> 31)
   {
@@ -1386,7 +1374,7 @@ uint64_t __MD5FdChunk_block_invoke_3(uint64_t a1, int a2, int a3, void *data, un
   return 1;
 }
 
-_BYTE *MD5FileChunk(const char *a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *MD5FileChunk(const char *a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
   v7 = open(a1, 0);
   if (v7 < 0)
@@ -2419,7 +2407,7 @@ LABEL_13:
 _BYTE *SHA256_End(CC_SHA256_CTX *c, _BYTE *a2)
 {
   v2 = a2;
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (a2 || (v2 = malloc_type_malloc(0x41uLL, 0x8E260086uLL)) != 0)
   {
     v4 = md;
@@ -2435,26 +2423,25 @@ _BYTE *SHA256_End(CC_SHA256_CTX *c, _BYTE *a2)
     v2[64] = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
-_BYTE *SHA256_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *SHA256_FdChunk(int a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
-  v42 = *MEMORY[0x29EDCA608];
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x8000000000;
-  memset(&v40, 0, sizeof(v40));
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2000000000;
+  v41 = *MEMORY[0x29EDCA608];
   v36 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2000000000;
+  v37 = &v36;
+  v38 = 0x8000000000;
+  memset(&v39, 0, sizeof(v39));
   v32 = 0;
-  if ((a4 & 0x8000000000000000) != 0)
+  v33 = &v32;
+  v34 = 0x2000000000;
+  v35 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2000000000;
+  v31 = 0;
+  if (a4 < 0)
   {
     v23 = 0;
     *__error() = 22;
@@ -2462,7 +2449,7 @@ _BYTE *SHA256_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
   else
   {
-    CC_SHA256_Init(&v40);
+    CC_SHA256_Init(&v39);
     if (a3 && ((*__error() = 0, lseek(a1, a3, 0) != a3) || a3 == -1 && *__error()))
     {
       v23 = 0;
@@ -2504,7 +2491,7 @@ _BYTE *SHA256_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       cleanup_handler[1] = 0x40000000;
       cleanup_handler[2] = __SHA256_FdChunk_block_invoke;
       cleanup_handler[3] = &unk_29EF07500;
-      cleanup_handler[4] = &v33;
+      cleanup_handler[4] = &v32;
       cleanup_handler[5] = v12;
       v14 = dispatch_io_create(0, a1, v11, cleanup_handler);
       if (!v14)
@@ -2513,8 +2500,8 @@ _BYTE *SHA256_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       }
 
       v15 = v14;
-      v26 = a1;
-      if ((v30[3] & 1) == 0)
+      v25 = a1;
+      if ((v29[3] & 1) == 0)
       {
         v16 = 0;
         if (a4 >= 0xA00000)
@@ -2550,7 +2537,7 @@ _BYTE *SHA256_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           }
 
           v20 = v19;
-          if (*(v34 + 6))
+          if (*(v33 + 6))
           {
             v21 = 1;
           }
@@ -2569,16 +2556,16 @@ _BYTE *SHA256_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           io_handler[1] = 0x40000000;
           io_handler[2] = __SHA256_FdChunk_block_invoke_2;
           io_handler[3] = &unk_29EF07550;
-          io_handler[4] = &v37;
-          io_handler[5] = &v33;
-          io_handler[6] = &v29;
+          io_handler[4] = &v36;
+          io_handler[5] = &v32;
+          io_handler[6] = &v28;
           io_handler[7] = v13;
           dispatch_io_read(v15, v16, v18, v11, io_handler);
           dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
           v16 += 10485760;
         }
 
-        while (!*(v30 + 24));
+        while (!*(v29 + 24));
       }
 
       dispatch_release(v15);
@@ -2587,10 +2574,10 @@ _BYTE *SHA256_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       dispatch_release(v13);
       if ((v8 & 0x40000) == 0)
       {
-        fcntl(v26, 48, 0);
+        fcntl(v25, 48, 0);
       }
 
-      v22 = *(v34 + 6);
+      v22 = *(v33 + 6);
       if (v22)
       {
         v23 = 0;
@@ -2599,19 +2586,18 @@ _BYTE *SHA256_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
       else
       {
-        v23 = SHA256_End((v38 + 3), a2);
+        v23 = SHA256_End((v37 + 3), a2);
       }
     }
   }
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
-  v24 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
   return v23;
 }
 
-_BYTE *SHA256_FileChunk(const char *a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *SHA256_FileChunk(const char *a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
   v7 = open(a1, 0);
   if (v7 < 0)
@@ -2638,7 +2624,7 @@ _BYTE *SHA256_Data(const void *a1, CC_LONG a2, _BYTE *a3)
 _BYTE *SHA512_End(CC_SHA512_CTX *c, _BYTE *a2)
 {
   v2 = a2;
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (a2 || (v2 = malloc_type_malloc(0x81uLL, 0x76F14ACuLL)) != 0)
   {
     v4 = md;
@@ -2654,26 +2640,25 @@ _BYTE *SHA512_End(CC_SHA512_CTX *c, _BYTE *a2)
     v2[128] = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
-_BYTE *SHA512_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *SHA512_FdChunk(int a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
-  v42 = *MEMORY[0x29EDCA608];
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0xE800000000;
-  memset(&v40, 0, sizeof(v40));
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2000000000;
+  v41 = *MEMORY[0x29EDCA608];
   v36 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2000000000;
+  v37 = &v36;
+  v38 = 0xE800000000;
+  memset(&v39, 0, sizeof(v39));
   v32 = 0;
-  if ((a4 & 0x8000000000000000) != 0)
+  v33 = &v32;
+  v34 = 0x2000000000;
+  v35 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2000000000;
+  v31 = 0;
+  if (a4 < 0)
   {
     v23 = 0;
     *__error() = 22;
@@ -2681,7 +2666,7 @@ _BYTE *SHA512_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
   else
   {
-    CC_SHA512_Init(&v40);
+    CC_SHA512_Init(&v39);
     if (a3 && ((*__error() = 0, lseek(a1, a3, 0) != a3) || a3 == -1 && *__error()))
     {
       v23 = 0;
@@ -2723,7 +2708,7 @@ _BYTE *SHA512_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       cleanup_handler[1] = 0x40000000;
       cleanup_handler[2] = __SHA512_FdChunk_block_invoke;
       cleanup_handler[3] = &unk_29EF07578;
-      cleanup_handler[4] = &v33;
+      cleanup_handler[4] = &v32;
       cleanup_handler[5] = v12;
       v14 = dispatch_io_create(0, a1, v11, cleanup_handler);
       if (!v14)
@@ -2732,8 +2717,8 @@ _BYTE *SHA512_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       }
 
       v15 = v14;
-      v26 = a1;
-      if ((v30[3] & 1) == 0)
+      v25 = a1;
+      if ((v29[3] & 1) == 0)
       {
         v16 = 0;
         if (a4 >= 0xA00000)
@@ -2769,7 +2754,7 @@ _BYTE *SHA512_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           }
 
           v20 = v19;
-          if (*(v34 + 6))
+          if (*(v33 + 6))
           {
             v21 = 1;
           }
@@ -2788,16 +2773,16 @@ _BYTE *SHA512_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
           io_handler[1] = 0x40000000;
           io_handler[2] = __SHA512_FdChunk_block_invoke_2;
           io_handler[3] = &unk_29EF075C8;
-          io_handler[4] = &v37;
-          io_handler[5] = &v33;
-          io_handler[6] = &v29;
+          io_handler[4] = &v36;
+          io_handler[5] = &v32;
+          io_handler[6] = &v28;
           io_handler[7] = v13;
           dispatch_io_read(v15, v16, v18, v11, io_handler);
           dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
           v16 += 10485760;
         }
 
-        while (!*(v30 + 24));
+        while (!*(v29 + 24));
       }
 
       dispatch_release(v15);
@@ -2806,10 +2791,10 @@ _BYTE *SHA512_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
       dispatch_release(v13);
       if ((v8 & 0x40000) == 0)
       {
-        fcntl(v26, 48, 0);
+        fcntl(v25, 48, 0);
       }
 
-      v22 = *(v34 + 6);
+      v22 = *(v33 + 6);
       if (v22)
       {
         v23 = 0;
@@ -2818,19 +2803,18 @@ _BYTE *SHA512_FdChunk(int a1, _BYTE *a2, off_t a3, unint64_t a4)
 
       else
       {
-        v23 = SHA512_End((v38 + 3), a2);
+        v23 = SHA512_End((v37 + 3), a2);
       }
     }
   }
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
-  v24 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
   return v23;
 }
 
-_BYTE *SHA512_FileChunk(const char *a1, _BYTE *a2, off_t a3, unint64_t a4)
+_BYTE *SHA512_FileChunk(const char *a1, _BYTE *a2, off_t a3, uint64_t a4)
 {
   v7 = open(a1, 0);
   if (v7 < 0)

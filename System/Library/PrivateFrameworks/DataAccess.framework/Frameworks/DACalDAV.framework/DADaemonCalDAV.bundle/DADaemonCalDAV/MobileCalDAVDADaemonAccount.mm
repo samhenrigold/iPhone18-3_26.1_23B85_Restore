@@ -313,26 +313,13 @@
   v6 = [v5 accountWithAccountID:identifierCopy];
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_4;
-  }
-
-  backingAccountInfo = [v6 backingAccountInfo];
-  parentAccount = [backingAccountInfo parentAccount];
-  identifier = [parentAccount identifier];
-  backingAccountInfo2 = [(MobileCalDAVDADaemonAccount *)self backingAccountInfo];
-  identifier2 = [backingAccountInfo2 identifier];
-  v12 = [identifier isEqualToString:identifier2];
-
-  if (v12)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && ([v6 backingAccountInfo], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "parentAccount"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "identifier"), v9 = objc_claimAutoreleasedReturnValue(), -[MobileCalDAVDADaemonAccount backingAccountInfo](self, "backingAccountInfo"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "identifier"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v9, "isEqualToString:", v11), v11, v10, v9, v8, v7, v12))
   {
     v13 = v6;
   }
 
   else
   {
-LABEL_4:
     v13 = 0;
   }
 
@@ -381,30 +368,13 @@ LABEL_4:
 
 - (id)stateString
 {
-  if (![(MobileCalDAVDADaemonAccount *)self isDelegateAccount])
-  {
-    goto LABEL_5;
-  }
-
-  taskManager = [(MobileCalDAVDADaemonAccount *)self taskManager];
-
-  v4 = +[DABabysitter sharedBabysitter];
-  mobileCalDAVAccount = [(MobileCalDAVDADaemonAccount *)self mobileCalDAVAccount];
-  v6 = [v4 accountShouldContinue:mobileCalDAVAccount];
-
-  if (taskManager)
-  {
-    goto LABEL_5;
-  }
-
-  if (v6)
+  if (-[MobileCalDAVDADaemonAccount isDelegateAccount](self, "isDelegateAccount") && (-[MobileCalDAVDADaemonAccount taskManager](self, "taskManager"), v3 = objc_claimAutoreleasedReturnValue(), v3, +[DABabysitter sharedBabysitter](DABabysitter, "sharedBabysitter"), v4 = objc_claimAutoreleasedReturnValue(), -[MobileCalDAVDADaemonAccount mobileCalDAVAccount](self, "mobileCalDAVAccount"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v4 accountShouldContinue:v5], v5, v4, !v3) && (v6 & 1) != 0)
   {
     stateString = 0;
   }
 
   else
   {
-LABEL_5:
     v9.receiver = self;
     v9.super_class = MobileCalDAVDADaemonAccount;
     stateString = [(MobileCalDAVDADaemonAccount *)&v9 stateString];

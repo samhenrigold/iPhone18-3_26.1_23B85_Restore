@@ -79,16 +79,13 @@
   }
 
   PBDataWriterWriteStringField();
-  accepted = self->_accepted;
   PBDataWriterWriteBOOLField();
   if (self->_error)
   {
     PBDataWriterWriteSubmessage();
   }
 
-  supportsRollback = self->_supportsRollback;
   PBDataWriterWriteBOOLField();
-  supportsRestart = self->_supportsRestart;
   PBDataWriterWriteBOOLField();
   if (self->_metadata)
   {
@@ -169,7 +166,6 @@
     }
   }
 
-  v7 = *(equalCopy + 40);
   if (self->_accepted)
   {
     if ((*(equalCopy + 40) & 1) == 0)
@@ -189,7 +185,6 @@
     goto LABEL_18;
   }
 
-  v9 = *(equalCopy + 42);
   if (!self->_supportsRollback)
   {
     if ((*(equalCopy + 42) & 1) == 0)
@@ -198,7 +193,7 @@
     }
 
 LABEL_18:
-    v11 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
@@ -208,7 +203,6 @@ LABEL_18:
   }
 
 LABEL_16:
-  v10 = *(equalCopy + 41);
   if (self->_supportsRestart)
   {
     if ((*(equalCopy + 41) & 1) == 0)
@@ -225,17 +219,17 @@ LABEL_16:
   metadata = self->_metadata;
   if (metadata | *(equalCopy + 3))
   {
-    v11 = [(NSData *)metadata isEqual:?];
+    v8 = [(NSData *)metadata isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v8 = 1;
   }
 
 LABEL_19:
 
-  return v11;
+  return v8;
 }
 
 - (unint64_t)hash

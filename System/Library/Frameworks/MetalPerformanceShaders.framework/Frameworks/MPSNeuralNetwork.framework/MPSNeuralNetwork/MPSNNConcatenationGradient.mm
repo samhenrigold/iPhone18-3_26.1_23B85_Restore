@@ -27,9 +27,9 @@
 
 - (MPSNNConcatenationGradient)initWithCoder:(id)coder device:(id)device
 {
-  v15.receiver = self;
-  v15.super_class = MPSNNConcatenationGradient;
-  v5 = [(MPSCNNGradientKernel *)&v15 initWithCoder:coder device:device];
+  v19.receiver = self;
+  v19.super_class = MPSNNConcatenationGradient;
+  v5 = [(MPSCNNGradientKernel *)&v19 initWithCoder:coder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -48,7 +48,7 @@
   {
     v14 = objc_opt_class();
     NSStringFromClass(v14);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNSlice.mm", 0x14C, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v15, v16, v17, v18);
   }
 
   return 0;

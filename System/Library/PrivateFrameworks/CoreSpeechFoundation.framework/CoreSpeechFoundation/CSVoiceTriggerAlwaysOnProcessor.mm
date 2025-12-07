@@ -40,21 +40,19 @@
 
 - (void)_setBuiltInRTModelDictionary:(id)dictionary
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v4 = CSLogCategoryVT;
   if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[CSVoiceTriggerAlwaysOnProcessor _setBuiltInRTModelDictionary:]";
-    v8 = 2114;
-    v9 = dictionaryCopy;
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s setting rtModel dictionary : %{public}@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[CSVoiceTriggerAlwaysOnProcessor _setBuiltInRTModelDictionary:]";
+    v7 = 2114;
+    v8 = dictionaryCopy;
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s setting rtModel dictionary : %{public}@", &v5, 0x16u);
   }
 
   [MEMORY[0x1E69E1488] setCurrentBuiltInRTModelDictionary:dictionaryCopy];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disableVoiceTriggerOnAlwaysOnProcessorWithCompletion:(id)completion
@@ -73,7 +71,7 @@
 
 void __88__CSVoiceTriggerAlwaysOnProcessor_disableVoiceTriggerOnAlwaysOnProcessorWithCompletion___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = +[CSUserSessionActiveMonitor sharedInstance];
   v3 = [v2 isUserActive];
 
@@ -84,20 +82,20 @@ void __88__CSVoiceTriggerAlwaysOnProcessor_disableVoiceTriggerOnAlwaysOnProcesso
     if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[CSVoiceTriggerAlwaysOnProcessor disableVoiceTriggerOnAlwaysOnProcessorWithCompletion:]_block_invoke";
+      v13 = "[CSVoiceTriggerAlwaysOnProcessor disableVoiceTriggerOnAlwaysOnProcessorWithCompletion:]_block_invoke";
       _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Disabling VoiceTrigger in AOP", buf, 0xCu);
     }
 
     dispatch_group_enter(*(*(a1 + 32) + 8));
     v5 = +[CSAVVoiceTriggerClientManager sharedVoiceTriggerClient];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __88__CSVoiceTriggerAlwaysOnProcessor_disableVoiceTriggerOnAlwaysOnProcessorWithCompletion___block_invoke_21;
-    v11[3] = &unk_1E865BEC8;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __88__CSVoiceTriggerAlwaysOnProcessor_disableVoiceTriggerOnAlwaysOnProcessorWithCompletion___block_invoke_21;
+    v10[3] = &unk_1E865BEC8;
     v6 = *(a1 + 40);
-    v11[4] = *(a1 + 32);
-    v12 = v6;
-    [v5 enableVoiceTriggerListening:0 completionBlock:v11];
+    v10[4] = *(a1 + 32);
+    v11 = v6;
+    [v5 enableVoiceTriggerListening:0 completionBlock:v10];
   }
 
   else
@@ -106,7 +104,7 @@ void __88__CSVoiceTriggerAlwaysOnProcessor_disableVoiceTriggerOnAlwaysOnProcesso
     if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v14 = "[CSVoiceTriggerAlwaysOnProcessor disableVoiceTriggerOnAlwaysOnProcessorWithCompletion:]_block_invoke";
+      v13 = "[CSVoiceTriggerAlwaysOnProcessor disableVoiceTriggerOnAlwaysOnProcessorWithCompletion:]_block_invoke";
       _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Current user doesn't have owner ship of AOP, it cannot disable AOP VoiceTrigger", buf, 0xCu);
     }
 
@@ -117,22 +115,20 @@ void __88__CSVoiceTriggerAlwaysOnProcessor_disableVoiceTriggerOnAlwaysOnProcesso
       (*(v8 + 16))(v8, v9);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __88__CSVoiceTriggerAlwaysOnProcessor_disableVoiceTriggerOnAlwaysOnProcessorWithCompletion___block_invoke_21(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = CSLogCategoryVT;
     if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "[CSVoiceTriggerAlwaysOnProcessor disableVoiceTriggerOnAlwaysOnProcessorWithCompletion:]_block_invoke";
-      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Failed to disable AOP VoiceTrigger", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[CSVoiceTriggerAlwaysOnProcessor disableVoiceTriggerOnAlwaysOnProcessorWithCompletion:]_block_invoke";
+      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Failed to disable AOP VoiceTrigger", &v6, 0xCu);
     }
   }
 
@@ -143,8 +139,6 @@ void __88__CSVoiceTriggerAlwaysOnProcessor_disableVoiceTriggerOnAlwaysOnProcesso
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enableVoiceTriggerOnAlwaysOnProcessorWithAsset:(id)asset completion:(id)completion
@@ -166,7 +160,7 @@ void __88__CSVoiceTriggerAlwaysOnProcessor_disableVoiceTriggerOnAlwaysOnProcesso
 
 void __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessorWithAsset_completion___block_invoke(id *a1)
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v2 = +[CSUserSessionActiveMonitor sharedInstance];
   v3 = [v2 isUserActive];
 
@@ -184,10 +178,10 @@ void __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessor
     v6 = [v5 builtInRTModelDictionary];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v54 = 0x3032000000;
-    v55 = __Block_byref_object_copy__6202;
-    v56 = __Block_byref_object_dispose__6203;
-    v57 = 0;
+    v53 = 0x3032000000;
+    v54 = __Block_byref_object_copy__6202;
+    v55 = __Block_byref_object_dispose__6203;
+    v56 = 0;
     v7 = [MEMORY[0x1E69E1488] requestCurrentBuiltInRTModelDictionary];
     v8 = [v7 isEqualToDictionary:v6];
     v9 = CSLogCategoryVT;
@@ -196,13 +190,13 @@ void __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessor
     {
       if (v10)
       {
-        *v47 = 136315650;
-        v48 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
-        v49 = 2114;
-        v50 = v6;
-        v51 = 2114;
-        v52 = v7;
-        _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s RT model %{public}@ already set (current RT model : %{public}@, skip updating", v47, 0x20u);
+        *v46 = 136315650;
+        v47 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
+        v48 = 2114;
+        v49 = v6;
+        v50 = 2114;
+        v51 = v7;
+        _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s RT model %{public}@ already set (current RT model : %{public}@, skip updating", v46, 0x20u);
       }
 
 LABEL_33:
@@ -217,13 +211,13 @@ LABEL_33:
 
     if (v10)
     {
-      *v47 = 136315650;
-      v48 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
-      v49 = 2114;
-      v50 = v7;
-      v51 = 2114;
-      v52 = v6;
-      _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Going to replace current RT model %{public}@ with : %{public}@", v47, 0x20u);
+      *v46 = 136315650;
+      v47 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
+      v48 = 2114;
+      v49 = v7;
+      v50 = 2114;
+      v51 = v6;
+      _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Going to replace current RT model %{public}@ with : %{public}@", v46, 0x20u);
     }
 
     v12 = [v5 modelData];
@@ -239,9 +233,9 @@ LABEL_33:
       {
         if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_FAULT))
         {
-          *v47 = 136315138;
-          v48 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
-          _os_log_fault_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_FAULT, "%s Unable to send model to AOP since it failed to initialize NDEAPI", v47, 0xCu);
+          *v46 = 136315138;
+          v47 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
+          _os_log_fault_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_FAULT, "%s Unable to send model to AOP since it failed to initialize NDEAPI", v46, 0xCu);
         }
 
         v33 = a1[6];
@@ -257,9 +251,9 @@ LABEL_33:
 
       if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
       {
-        *v47 = 136315138;
-        v48 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
-        _os_log_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_DEFAULT, "%s Successfully validate model with NDEAPI", v47, 0xCu);
+        *v46 = 136315138;
+        v47 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
+        _os_log_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_DEFAULT, "%s Successfully validate model with NDEAPI", v46, 0xCu);
       }
     }
 
@@ -274,9 +268,9 @@ LABEL_33:
       v31 = CSLogCategoryVT;
       if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_ERROR))
       {
-        *v47 = 136315138;
-        v48 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
-        _os_log_error_impl(&dword_1DDA4B000, v31, OS_LOG_TYPE_ERROR, "%s RTModel doesn't exist, fail to enable VoiceTrigger in AOP", v47, 0xCu);
+        *v46 = 136315138;
+        v47 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
+        _os_log_error_impl(&dword_1DDA4B000, v31, OS_LOG_TYPE_ERROR, "%s RTModel doesn't exist, fail to enable VoiceTrigger in AOP", v46, 0xCu);
       }
 
       goto LABEL_33;
@@ -287,9 +281,9 @@ LABEL_33:
       v23 = CSLogCategoryVT;
       if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
       {
-        *v47 = 136315138;
-        v48 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
-        _os_log_impl(&dword_1DDA4B000, v23, OS_LOG_TYPE_DEFAULT, "%s Enabling VoiceTrigger in AOP", v47, 0xCu);
+        *v46 = 136315138;
+        v47 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
+        _os_log_impl(&dword_1DDA4B000, v23, OS_LOG_TYPE_DEFAULT, "%s Enabling VoiceTrigger in AOP", v46, 0xCu);
       }
 
       dispatch_group_enter(*(a1[5] + 1));
@@ -302,46 +296,46 @@ LABEL_33:
         v26 = CSLogCategoryVT;
         if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
         {
-          *v47 = 136315138;
-          v48 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
-          _os_log_impl(&dword_1DDA4B000, v26, OS_LOG_TYPE_DEFAULT, "%s Directly enable AOP without configuring model", v47, 0xCu);
+          *v46 = 136315138;
+          v47 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
+          _os_log_impl(&dword_1DDA4B000, v26, OS_LOG_TYPE_DEFAULT, "%s Directly enable AOP without configuring model", v46, 0xCu);
         }
 
         v27 = +[CSAVVoiceTriggerClientManager sharedVoiceTriggerClient];
-        v37[0] = MEMORY[0x1E69E9820];
-        v37[1] = 3221225472;
-        v37[2] = __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessorWithAsset_completion___block_invoke_19;
-        v37[3] = &unk_1E865AE28;
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 3221225472;
+        v36[2] = __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessorWithAsset_completion___block_invoke_19;
+        v36[3] = &unk_1E865AE28;
         v28 = a1[5];
         p_buf = &buf;
-        v37[4] = v28;
+        v36[4] = v28;
         v22 = v24;
-        v38 = v22;
-        v39 = a1[6];
-        [v27 enableVoiceTriggerListening:1 completionBlock:v37];
+        v37 = v22;
+        v38 = a1[6];
+        [v27 enableVoiceTriggerListening:1 completionBlock:v36];
       }
 
       else
       {
         v34 = +[CSAVVoiceTriggerClientManager sharedVoiceTriggerClient];
-        objc_initWeak(v47, v34);
+        objc_initWeak(v46, v34);
 
         v35 = +[CSAVVoiceTriggerClientManager sharedVoiceTriggerClient];
-        v41[0] = MEMORY[0x1E69E9820];
-        v41[1] = 3221225472;
-        v41[2] = __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessorWithAsset_completion___block_invoke_17;
-        v41[3] = &unk_1E865AE00;
-        objc_copyWeak(&v46, v47);
-        v41[4] = a1[5];
-        v45 = &buf;
-        v42 = v6;
+        v40[0] = MEMORY[0x1E69E9820];
+        v40[1] = 3221225472;
+        v40[2] = __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessorWithAsset_completion___block_invoke_17;
+        v40[3] = &unk_1E865AE00;
+        objc_copyWeak(&v45, v46);
+        v40[4] = a1[5];
+        v44 = &buf;
+        v41 = v6;
         v22 = v24;
-        v43 = v22;
-        v44 = a1[6];
-        [v35 updateVoiceTriggerConfiguration:v42 completionBlock:v41];
+        v42 = v22;
+        v43 = a1[6];
+        [v35 updateVoiceTriggerConfiguration:v41 completionBlock:v40];
 
-        objc_destroyWeak(&v46);
-        objc_destroyWeak(v47);
+        objc_destroyWeak(&v45);
+        objc_destroyWeak(v46);
       }
     }
 
@@ -350,9 +344,9 @@ LABEL_33:
       v19 = CSLogCategoryVT;
       if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_FAULT))
       {
-        *v47 = 136315138;
-        v48 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
-        _os_log_fault_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_FAULT, "%s Unable to enable AOP, due to AOP Enable WatchDog", v47, 0xCu);
+        *v46 = 136315138;
+        v47 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
+        _os_log_fault_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_FAULT, "%s Unable to enable AOP, due to AOP Enable WatchDog", v46, 0xCu);
       }
 
       v20 = +[CSFPreferences sharedPreferences];
@@ -390,13 +384,11 @@ LABEL_41:
     v11[2](v11, v5);
 LABEL_42:
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessorWithAsset_completion___block_invoke_17(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -405,7 +397,7 @@ void __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessor
     if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v21 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
+      v20 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
       _os_log_error_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_ERROR, "%s Failed to update AOP VoiceTrigger configuration", buf, 0xCu);
     }
 
@@ -424,13 +416,13 @@ void __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessor
   else
   {
     WeakRetained = objc_loadWeakRetained((a1 + 72));
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessorWithAsset_completion___block_invoke_2;
-    v16[3] = &unk_1E865ADD8;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessorWithAsset_completion___block_invoke_2;
+    v15[3] = &unk_1E865ADD8;
     v9 = *(a1 + 40);
-    v16[4] = *(a1 + 32);
-    v17 = 0;
+    v15[4] = *(a1 + 32);
+    v16 = 0;
     v10 = *(a1 + 64);
     v11 = v9;
     v12 = *(a1 + 48);
@@ -438,26 +430,24 @@ void __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessor
     *(&v13 + 1) = v10;
     *&v14 = v11;
     *(&v14 + 1) = v12;
-    v18 = v14;
-    v19 = v13;
-    [WeakRetained enableVoiceTriggerListening:1 completionBlock:v16];
+    v17 = v14;
+    v18 = v13;
+    [WeakRetained enableVoiceTriggerListening:1 completionBlock:v15];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessorWithAsset_completion___block_invoke_19(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
     v5 = CSLogCategoryVT;
     if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
-      _os_log_error_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_ERROR, "%s Failed to enable AOP VoiceTrigger", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke";
+      _os_log_error_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_ERROR, "%s Failed to enable AOP VoiceTrigger", &v8, 0xCu);
     }
 
     objc_storeStrong((*(a1[7] + 8) + 40), a2);
@@ -472,13 +462,11 @@ void __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessor
   {
     (*(v7 + 16))(v7, *(*(a1[7] + 8) + 40));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessorWithAsset_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v3)
@@ -487,9 +475,9 @@ void __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessor
     v5 = CSLogCategoryVT;
     if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke_2";
-      _os_log_error_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_ERROR, "%s Failed to enable AOP VoiceTrigger", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[CSVoiceTriggerAlwaysOnProcessor enableVoiceTriggerOnAlwaysOnProcessorWithAsset:completion:]_block_invoke_2";
+      _os_log_error_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_ERROR, "%s Failed to enable AOP VoiceTrigger", &v8, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 72) + 8) + 40), *(a1 + 40));
@@ -509,8 +497,6 @@ void __93__CSVoiceTriggerAlwaysOnProcessor_enableVoiceTriggerOnAlwaysOnProcessor
   {
     (*(v7 + 16))(v7, *(*(*(a1 + 72) + 8) + 40));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

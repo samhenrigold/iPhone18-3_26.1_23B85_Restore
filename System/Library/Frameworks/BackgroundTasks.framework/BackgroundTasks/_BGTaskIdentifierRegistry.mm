@@ -21,10 +21,10 @@
 
 - (_BGTaskIdentifierRegistry)initWithContentsFromPlist
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v30.receiver = self;
-  v30.super_class = _BGTaskIdentifierRegistry;
-  v2 = [(_BGTaskIdentifierRegistry *)&v30 init];
+  v33 = *MEMORY[0x1E69E9840];
+  v29.receiver = self;
+  v29.super_class = _BGTaskIdentifierRegistry;
+  v2 = [(_BGTaskIdentifierRegistry *)&v29 init];
   if (v2)
   {
     v3 = os_log_create("com.apple.BackgroundTasks", "TaskIdentifierRegistry");
@@ -43,29 +43,29 @@
     }
 
     v8 = [MEMORY[0x1E695DFA8] set];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v33 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v32 count:16];
     if (v10)
     {
       v12 = v10;
-      v13 = *v27;
+      v13 = *v26;
       *&v11 = 138412290;
-      v25 = v11;
+      v24 = v11;
       do
       {
         v14 = 0;
         do
         {
-          if (*v27 != v13)
+          if (*v26 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v26 + 1) + 8 * v14);
+          v15 = *(*(&v25 + 1) + 8 * v14);
           if ([v15 length] >= 0x81)
           {
             v16 = v2->_log;
@@ -74,8 +74,8 @@
               goto LABEL_17;
             }
 
-            *buf = v25;
-            v32 = v15;
+            *buf = v24;
+            v31 = v15;
             v17 = v16;
             v18 = "Identifier is too long, must be less than 128 characters: %@";
             goto LABEL_12;
@@ -86,8 +86,8 @@
             v19 = v2->_log;
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
-              *buf = v25;
-              v32 = v15;
+              *buf = v24;
+              v31 = v15;
               v17 = v19;
               v18 = "Invalid identifier form for Continued Processing Task: %@";
 LABEL_12:
@@ -105,7 +105,7 @@ LABEL_17:
         }
 
         while (v12 != v14);
-        v20 = [v9 countByEnumeratingWithState:&v26 objects:v33 count:16];
+        v20 = [v9 countByEnumeratingWithState:&v25 objects:v32 count:16];
         v12 = v20;
       }
 
@@ -117,13 +117,12 @@ LABEL_17:
     v2->_permittedIdentifiers = v21;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (NSSet)permittedContinuedProcessingBaseNotationIdentifiers
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   permittedContinuedProcessingBaseNotationIdentifiers = self->_permittedContinuedProcessingBaseNotationIdentifiers;
   if (permittedContinuedProcessingBaseNotationIdentifiers)
   {
@@ -133,26 +132,26 @@ LABEL_17:
   else
   {
     v5 = [MEMORY[0x1E695DFA8] set];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     permittedIdentifiers = [(_BGTaskIdentifierRegistry *)self permittedIdentifiers];
-    v7 = [permittedIdentifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [permittedIdentifiers countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(permittedIdentifiers);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           if ([(_BGTaskIdentifierRegistry *)self isIdentifierValidContinuedProcessingWildcardNotation:v11])
           {
             v12 = [v11 stringByReplacingOccurrencesOfString:@".*" withString:@"."];
@@ -160,7 +159,7 @@ LABEL_17:
           }
         }
 
-        v8 = [permittedIdentifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [permittedIdentifiers countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -172,8 +171,6 @@ LABEL_17:
 
     v3 = self->_permittedContinuedProcessingBaseNotationIdentifiers;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -259,30 +256,30 @@ LABEL_17:
 
 - (BOOL)isIdentifierValidContinuedProcessingComposedNotation:(id)notation
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   notationCopy = notation;
   if ([notationCopy length] <= 0x80)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     permittedContinuedProcessingBaseNotationIdentifiers = [(_BGTaskIdentifierRegistry *)self permittedContinuedProcessingBaseNotationIdentifiers];
-    v7 = [permittedContinuedProcessingBaseNotationIdentifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [permittedContinuedProcessingBaseNotationIdentifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(permittedContinuedProcessingBaseNotationIdentifiers);
           }
 
-          if ([notationCopy hasPrefix:*(*(&v15 + 1) + 8 * i)])
+          if ([notationCopy hasPrefix:*(*(&v14 + 1) + 8 * i)])
           {
             permittedIdentifiers = [(_BGTaskIdentifierRegistry *)self permittedIdentifiers];
             if ([permittedIdentifiers containsObject:notationCopy])
@@ -300,7 +297,7 @@ LABEL_17:
           }
         }
 
-        v8 = [permittedContinuedProcessingBaseNotationIdentifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [permittedContinuedProcessingBaseNotationIdentifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v8)
         {
           continue;
@@ -319,7 +316,6 @@ LABEL_16:
     LOBYTE(v5) = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

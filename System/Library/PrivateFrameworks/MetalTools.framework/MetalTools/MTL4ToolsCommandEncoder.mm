@@ -10,6 +10,7 @@
 - (void)barrierAfterStages:(unint64_t)stages beforeQueueStages:(unint64_t)queueStages visibilityOptions:(unint64_t)options;
 - (void)dealloc;
 - (void)endEncoding;
+- (void)filterCounterRangeWithFirstBatch:(unsigned int)batch lastBatch:(unsigned int)lastBatch filterIndex:(unsigned int)index;
 - (void)insertDebugSignpost:(id)signpost;
 - (void)popDebugGroup;
 - (void)pushDebugGroup:(id)group;
@@ -134,6 +135,16 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject endEncodingAndRetrieveProgramAddressTable];
+}
+
+- (void)filterCounterRangeWithFirstBatch:(unsigned int)batch lastBatch:(unsigned int)lastBatch filterIndex:(unsigned int)index
+{
+  v5 = *&index;
+  v6 = *&lastBatch;
+  v7 = *&batch;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject filterCounterRangeWithFirstBatch:v7 lastBatch:v6 filterIndex:v5];
 }
 
 - (BOOL)commandBatchIdRangeMin:(unsigned int *)min max:(unsigned int *)max

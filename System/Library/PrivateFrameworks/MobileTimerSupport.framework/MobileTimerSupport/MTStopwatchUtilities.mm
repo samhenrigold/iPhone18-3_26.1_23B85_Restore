@@ -19,7 +19,7 @@
 
 + (id)decodeStopwatchesFromDictionary:(id)dictionary
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   objc_opt_class();
   v5 = dictionaryCopy;
@@ -46,15 +46,13 @@
     v10 = MTLogForCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v13 = 138543362;
+      v12 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_22D741000, v10, OS_LOG_TYPE_INFO, "%{public}@ decoding defaults could not generate dictionary", &v13, 0xCu);
+      _os_log_impl(&dword_22D741000, v10, OS_LOG_TYPE_INFO, "%{public}@ decoding defaults could not generate dictionary", &v12, 0xCu);
     }
 
     v9 = MEMORY[0x277CBEBF8];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

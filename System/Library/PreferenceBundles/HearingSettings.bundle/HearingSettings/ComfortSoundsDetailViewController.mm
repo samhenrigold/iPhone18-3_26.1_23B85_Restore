@@ -8,12 +8,15 @@
 - (void)editPressed;
 - (void)reloadSpecifiers;
 - (void)setDownloadProgress:(id)progress;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)startListeningForUpdates;
 - (void)stopListeningForUpdates;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ComfortSoundsDetailViewController
@@ -59,6 +62,23 @@
   v4 = objc_opt_class();
   v5 = +[HearingSettingsAssetCell cellReuseIdentifier];
   [table registerClass:v4 forCellReuseIdentifier:v5];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ComfortSoundsDetailViewController;
+  [(ComfortSoundsDetailViewController *)&v4 viewWillAppear:appear];
+  [(ComfortSoundsDetailViewController *)self startListeningForUpdates];
+  [(ComfortSoundsDetailViewController *)self configureBarButton];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = ComfortSoundsDetailViewController;
+  [(ComfortSoundsDetailViewController *)&v4 viewDidDisappear:disappear];
+  [(ComfortSoundsDetailViewController *)self stopListeningForUpdates];
 }
 
 - (void)startListeningForUpdates
@@ -138,6 +158,23 @@
   [(ComfortSoundsDetailViewController *)self setEditing:0 animated:1];
 
   [(ComfortSoundsDetailViewController *)self configureBarButton];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  v7 = OBJC_IVAR___PSListController__table;
+  [*&self->PSListController_opaque[OBJC_IVAR___PSListController__table] beginUpdates];
+  v10.receiver = self;
+  v10.super_class = ComfortSoundsDetailViewController;
+  [(ComfortSoundsDetailViewController *)&v10 setEditing:editingCopy animated:animatedCopy];
+  [*&self->PSListController_opaque[v7] endUpdates];
+  table = [(ComfortSoundsDetailViewController *)self table];
+  [table setEditing:editingCopy animated:animatedCopy];
+
+  table2 = [(ComfortSoundsDetailViewController *)self table];
+  [table2 reloadData];
 }
 
 - (void)setDownloadProgress:(id)progress

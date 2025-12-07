@@ -12,14 +12,14 @@
 
 - (CTStewieFindMyMessage)initWithData:(id)data error:(id *)p_isa
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v8 = dataCopy;
   if (dataCopy && [dataCopy length])
   {
-    v14.receiver = self;
-    v14.super_class = CTStewieFindMyMessage;
-    v9 = [(CTStewieFindMyMessage *)&v14 init];
+    v13.receiver = self;
+    v13.super_class = CTStewieFindMyMessage;
+    v9 = [(CTStewieFindMyMessage *)&v13 init];
     p_isa = &v9->super.isa;
     if (v9)
     {
@@ -37,15 +37,14 @@
   else if (p_isa)
   {
     v10 = MEMORY[0x1E696ABC0];
-    v15 = *MEMORY[0x1E696A578];
-    v16[0] = @"Data provided is either nil or empty";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x1E696A578];
+    v15[0] = @"Data provided is either nil or empty";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     *p_isa = [v10 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v11];
 
     p_isa = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 

@@ -488,31 +488,31 @@ void __49__WBSScribbleController__validateHiddenElements___block_invoke_46(void 
   if ([v7 isBackedByGlobalAction])
   {
     v8 = [v7 backingAction];
-    v9 = v8;
+    v10 = v8;
     if (v8)
     {
-      v10 = [v8 databaseID];
-      if (v10 != *MEMORY[0x1E69C96F0])
+      v11 = [v8 databaseID];
+      if (v11 != *MEMORY[0x1E69C96F0])
       {
-        v11 = *(a1[4] + 112);
-        v12 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v9, "databaseID")}];
-        [v11 setObject:v9 forKeyedSubscript:v12];
+        v12 = *(a1[4] + 112);
+        v13 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v10, "databaseID")}];
+        [v12 setObject:v10 forKeyedSubscript:v13];
       }
 
       if (([v6 isInVisibilityAdjustmentSubtree] & 1) == 0)
       {
-        v13 = [v9 hostsWhereActionHasApplied];
-        v14 = [v13 containsObject:a1[5]];
+        v14 = [v10 hostsWhereActionHasApplied];
+        v15 = [v14 containsObject:a1[5]];
 
-        if ((v14 & 1) == 0)
+        if ((v15 & 1) == 0)
         {
           [v6 bounds];
-          v17 = *(a1[6] + 8);
-          if (v15 * v16 > *(v17 + 24))
+          v18 = *(a1[6] + 8);
+          if (v16 * v17 > *(v18 + 24))
           {
-            *(v17 + 24) = v15 * v16;
+            *(v18 + 24) = v16 * v17;
             objc_storeStrong((*(a1[7] + 8) + 40), a2);
-            objc_storeStrong((*(a1[8] + 8) + 40), v9);
+            objc_storeStrong((*(a1[8] + 8) + 40), v10);
           }
         }
       }
@@ -520,8 +520,8 @@ void __49__WBSScribbleController__validateHiddenElements___block_invoke_46(void 
 
     else
     {
-      v18 = WBS_LOG_CHANNEL_PREFIXScribble();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = WBS_LOG_CHANNEL_PREFIXScribble(0, v9);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         __49__WBSScribbleController__validateHiddenElements___block_invoke_46_cold_1();
       }
@@ -889,11 +889,11 @@ void __51__WBSScribbleController_loadContentBlockerForHost___block_invoke_2(uint
   }
 }
 
-uint64_t __38__WBSScribbleController_clearAllEdits__block_invoke(uint64_t result, uint64_t a2)
+id *__38__WBSScribbleController_clearAllEdits__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) deleteActionsForContentBlocker:a2];
+    return [result[4] deleteActionsForContentBlocker:a2];
   }
 
   return result;
@@ -1153,20 +1153,21 @@ void __48__WBSScribbleController_updateSelectionToPoint___block_invoke(uint64_t 
   v6 = a2;
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v10 = WeakRetained;
   if (WeakRetained)
   {
     if (v7)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXScribble();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXScribble(WeakRetained, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __48__WBSScribbleController_updateSelectionToPoint___block_invoke_cold_1(a1, v9, v7);
+        __48__WBSScribbleController_updateSelectionToPoint___block_invoke_cold_1(a1, v11, v7);
       }
     }
 
-    objc_storeStrong(WeakRetained + 19, a2);
-    v10 = objc_loadWeakRetained(WeakRetained + 18);
-    [v10 scribbleController:WeakRetained didUpdateSelectedElement:v6 withError:v7];
+    objc_storeStrong(v10 + 19, a2);
+    v12 = objc_loadWeakRetained(v10 + 18);
+    [v12 scribbleController:v10 didUpdateSelectedElement:v6 withError:v7];
   }
 }
 
@@ -1273,21 +1274,26 @@ void __48__WBSScribbleController_updateSelectionToPoint___block_invoke(uint64_t 
 void __60__WBSScribbleController__disableHiddenActiveElementIfNeeded__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXScribble();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXScribble(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __60__WBSScribbleController__disableHiddenActiveElementIfNeeded__block_invoke_cold_1();
     }
   }
 
-  else if ([a2 BOOLValue])
+  else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXScribble();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = [a2 BOOLValue];
+    if (v8)
     {
-      __60__WBSScribbleController__disableHiddenActiveElementIfNeeded__block_invoke_cold_2();
+      v10 = WBS_LOG_CHANNEL_PREFIXScribble(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      {
+        __60__WBSScribbleController__disableHiddenActiveElementIfNeeded__block_invoke_cold_2();
+      }
     }
   }
 }
@@ -1328,16 +1334,16 @@ void __67__WBSScribbleController__makePageScrollableAndInteractableIfNeeded__blo
   if (WeakRetained)
   {
     v8 = objc_alloc_init(MEMORY[0x1E69C8A40]);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __67__WBSScribbleController__makePageScrollableAndInteractableIfNeeded__block_invoke_2;
-    v10[3] = &unk_1E8283080;
-    v10[4] = WeakRetained;
-    [v8 setHandler:v10];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __67__WBSScribbleController__makePageScrollableAndInteractableIfNeeded__block_invoke_2;
+    v12[3] = &unk_1E8283080;
+    v12[4] = WeakRetained;
+    v9 = [v8 setHandler:v12];
     if (v6)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXScribble();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXScribble(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __67__WBSScribbleController__makePageScrollableAndInteractableIfNeeded__block_invoke_cold_1();
       }
@@ -1695,11 +1701,11 @@ void __53__WBSScribbleController_endScribblingAndSaveChanges___block_invoke_3(ui
   }
 }
 
-void __53__WBSScribbleController_endScribblingAndSaveChanges___block_invoke_6(uint64_t a1, char a2)
+void __53__WBSScribbleController_endScribblingAndSaveChanges___block_invoke_6(uint64_t result, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXScribble();
+    v2 = WBS_LOG_CHANNEL_PREFIXScribble(result, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __53__WBSScribbleController_endScribblingAndSaveChanges___block_invoke_6_cold_1();

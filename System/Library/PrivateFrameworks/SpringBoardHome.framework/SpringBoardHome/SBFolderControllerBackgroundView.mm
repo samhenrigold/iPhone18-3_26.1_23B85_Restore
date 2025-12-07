@@ -130,7 +130,7 @@
   return result;
 }
 
-void __56__SBFolderControllerBackgroundView__updateCurrentEffect__block_invoke(uint64_t a1)
+void __56__SBFolderControllerBackgroundView__updateCurrentEffect__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48) == 1)
   {
@@ -138,14 +138,14 @@ void __56__SBFolderControllerBackgroundView__updateCurrentEffect__block_invoke(u
     {
       *(*(*(a1 + 40) + 8) + 24) = 1;
       [*(*(a1 + 32) + 408) removeFromSuperview];
-      v2 = *(a1 + 32);
-      v3 = *(v2 + 408);
-      *(v2 + 408) = 0;
+      v3 = *(a1 + 32);
+      v4 = *(v3 + 408);
+      *(v3 + 408) = 0;
 
-      v4 = objc_alloc_init(MEMORY[0x1E69DD250]);
-      v5 = *(a1 + 32);
-      v6 = *(v5 + 424);
-      *(v5 + 424) = v4;
+      v5 = objc_alloc_init(MEMORY[0x1E69DD250]);
+      v6 = *(a1 + 32);
+      v7 = *(v6 + 424);
+      *(v6 + 424) = v5;
 
       [*(*(a1 + 32) + 424) setAlpha:0.0];
       [*(a1 + 32) addSubview:*(*(a1 + 32) + 424)];
@@ -158,49 +158,49 @@ void __56__SBFolderControllerBackgroundView__updateCurrentEffect__block_invoke(u
     {
       if (SBFEffectiveDeviceClass())
       {
-        v7 = SBFEffectiveDeviceClass() == 1;
+        v8 = SBFEffectiveDeviceClass() == 1;
       }
 
       else
       {
-        v7 = 1;
+        v8 = 1;
       }
     }
 
     else
     {
-      v8 = [MEMORY[0x1E69DC938] currentDevice];
-      v7 = [v8 userInterfaceIdiom] == 0;
+      v9 = [MEMORY[0x1E69DC938] currentDevice];
+      v8 = [v9 userInterfaceIdiom] == 0;
     }
 
-    v9 = [MEMORY[0x1E69DC938] currentDevice];
-    v10 = [v9 sbf_homescreenFolderBackgroundGraphicsQuality];
+    v10 = [MEMORY[0x1E69DC938] currentDevice];
+    v11 = [v10 sbf_homescreenFolderBackgroundGraphicsQuality];
 
-    v11 = [*(a1 + 32) currentEffectMaterialRecipeNameForHighQualityBlur:(v10 == 100) | v7];
+    v12 = [*(a1 + 32) currentEffectMaterialRecipeNameForHighQualityBlur:(v11 == 100) | v8];
     if ((*(a1 + 49) & 1) != 0 || *(a1 + 50) == 1)
     {
       *(*(*(a1 + 40) + 8) + 24) = 1;
       [*(*(a1 + 32) + 424) removeFromSuperview];
-      v12 = *(a1 + 32);
-      v13 = *(v12 + 424);
-      *(v12 + 424) = 0;
+      v13 = *(a1 + 32);
+      v14 = *(v13 + 424);
+      *(v13 + 424) = 0;
 
-      v14 = MEMORY[0x1E69AE158];
-      v15 = SBHBundle();
-      v16 = [v14 materialViewWithRecipeNamed:v11 inBundle:v15 options:0 initialWeighting:0 scaleAdjustment:0.01];
-      v17 = *(a1 + 32);
-      v18 = *(v17 + 408);
-      *(v17 + 408) = v16;
+      v15 = MEMORY[0x1E69AE158];
+      v17 = SBHBundle(v16);
+      v18 = [v15 materialViewWithRecipeNamed:v12 inBundle:v17 options:0 initialWeighting:0 scaleAdjustment:0.01];
+      v19 = *(a1 + 32);
+      v20 = *(v19 + 408);
+      *(v19 + 408) = v18;
 
       [*(*(a1 + 32) + 408) setGroupNameBase:@"SBFolderControllerBackgroundViewBlurGroupName"];
       [*(*(a1 + 32) + 408) setUseBuiltInAlphaTransformerAndBackdropScaleAdjustment:1];
-      if (v10 == 100 && v7)
+      if (v11 == 100 && v8)
       {
-        v20 = [*(a1 + 32) traitCollection];
-        [v20 displayScale];
-        v22 = v21;
+        v22 = [*(a1 + 32) traitCollection];
+        [v22 displayScale];
+        v24 = v23;
 
-        if (v22 == 3.0)
+        if (v24 == 3.0)
         {
           [*(*(a1 + 32) + 408) setBackdropScaleAdjustment:&__block_literal_global_5];
         }
@@ -215,9 +215,9 @@ void __56__SBFolderControllerBackgroundView__updateCurrentEffect__block_invoke(u
   {
     [*(a1 + 32) bringSubviewToFront:*(*(a1 + 32) + 432)];
     [*(a1 + 32) setNeedsLayout];
-    v23 = *(a1 + 32);
+    v25 = *(a1 + 32);
 
-    [v23 layoutIfNeeded];
+    [v25 layoutIfNeeded];
   }
 }
 
@@ -275,7 +275,7 @@ LABEL_5:
   v18.receiver = self;
   v18.super_class = SBFolderControllerBackgroundView;
   [(SBFolderControllerBackgroundView *)&v18 layoutSubviews];
-  [(SBFolderControllerBackgroundView *)self bounds];
+  objc_msgSend_bounds(self);
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -405,7 +405,7 @@ uint64_t __56__SBFolderControllerBackgroundView__updateCurrentEffect__block_invo
       defaultFormat = [MEMORY[0x1E69DCA80] defaultFormat];
       [defaultFormat setOpaque:1];
       v8 = objc_alloc(MEMORY[0x1E69DCA78]);
-      [(MTMaterialView *)self->_blurView bounds];
+      objc_msgSend_bounds(self->_blurView);
       v11 = [v8 initWithSize:defaultFormat format:{v9, v10}];
       v16[0] = MEMORY[0x1E69E9820];
       v16[1] = 3221225472;
@@ -430,7 +430,7 @@ uint64_t __56__SBFolderControllerBackgroundView__updateCurrentEffect__block_invo
 uint64_t __46__SBFolderControllerBackgroundView_setFrozen___block_invoke(uint64_t a1)
 {
   v1 = *(*(a1 + 32) + 408);
-  [v1 bounds];
+  objc_msgSend_bounds(v1);
 
   return [v1 drawViewHierarchyInRect:0 afterScreenUpdates:?];
 }

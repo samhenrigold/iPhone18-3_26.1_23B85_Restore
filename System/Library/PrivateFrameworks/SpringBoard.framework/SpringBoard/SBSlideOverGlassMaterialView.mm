@@ -228,7 +228,7 @@
   v22 = 0u;
   v23 = 0u;
   v21 = 0u;
-  [(SBSlideOverGlassMaterialView *)self _lightKeyFillVibrantColorMatrix];
+  objc_msgSend__lightKeyFillVibrantColorMatrix(self);
   v16 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA640]];
   v20[2] = v23;
   v20[3] = v24;

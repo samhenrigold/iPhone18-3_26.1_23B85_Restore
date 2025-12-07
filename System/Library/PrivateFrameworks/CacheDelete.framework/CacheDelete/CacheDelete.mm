@@ -341,8 +341,9 @@ LABEL_63:
   return v61;
 }
 
-uint64_t purge_orphans(signed int a1, char a2)
+uint64_t purge_orphans(uint64_t a1, char a2)
 {
+  v3 = a1;
   v4 = getRootVolume();
   v5 = [CacheDeleteVolume volumeWithMountpoint:v4];
 
@@ -358,7 +359,7 @@ uint64_t purge_orphans(signed int a1, char a2)
     *buf = 67109890;
     v23 = 1063;
     v24 = 1024;
-    v25 = a1;
+    v25 = v3;
     v26 = 2112;
     v27 = v7;
     v28 = 2048;
@@ -372,10 +373,10 @@ uint64_t purge_orphans(signed int a1, char a2)
     v15[1] = 3221225472;
     v15[2] = __purge_orphans_block_invoke;
     v15[3] = &unk_10000C700;
-    v16 = a1;
+    v16 = v3;
     v17 = a2;
     v15[4] = &v18;
-    iterate_orphans(a1, 0, v15);
+    iterate_orphans(v3, 0, v15);
     if (os_variant_is_darwinos())
     {
       v9 = CDGetLogHandle();
@@ -384,7 +385,7 @@ uint64_t purge_orphans(signed int a1, char a2)
         *buf = 67109376;
         v23 = 1077;
         v24 = 1024;
-        v25 = a1;
+        v25 = v3;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%d purge_orphans urgency: %d, clearing /tmp/", buf, 0xEu);
       }
 
@@ -402,7 +403,7 @@ uint64_t purge_orphans(signed int a1, char a2)
     *buf = 67109890;
     v23 = 1082;
     v24 = 1024;
-    v25 = a1;
+    v25 = v3;
     v26 = 2112;
     v27 = v11;
     v28 = 2048;
@@ -416,9 +417,9 @@ uint64_t purge_orphans(signed int a1, char a2)
   return v13;
 }
 
-void sub_100001ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -483,19 +484,19 @@ void iterate_orphans(signed int a1, char a2, void *a3)
   }
 }
 
-uint64_t __purge_orphans_block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __purge_orphans_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = CDGetLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = CDGetLogHandle();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 40);
-    v8[0] = 67109634;
-    v8[1] = 1066;
-    v9 = 1024;
-    v10 = v5;
-    v11 = 2080;
-    v12 = a2;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%d purge_orphans urgency: %d, clearing: %s", v8, 0x18u);
+    v6 = *(a1 + 40);
+    v9[0] = 67109634;
+    v9[1] = 1066;
+    v10 = 1024;
+    v11 = v6;
+    v12 = 2080;
+    v13 = a2;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%d purge_orphans urgency: %d, clearing: %s", v9, 0x18u);
   }
 
   if (*(a1 + 44) == 1)
@@ -503,14 +504,14 @@ uint64_t __purge_orphans_block_invoke(uint64_t a1, uint64_t a2)
     return nuke_dir();
   }
 
-  v7 = size_dir();
+  v8 = size_dir();
   nuke_dir();
   result = size_dir();
-  *(*(*(a1 + 32) + 8) + 24) += v7 - result;
+  *(*(*(a1 + 32) + 8) + 24) += v8 - result;
   return result;
 }
 
-id fsPurgeable(void *a1, int32_t a2)
+NSMutableDictionary *fsPurgeable(void *a1, int32_t a2)
 {
   v3 = a1;
   v135 = 0;
@@ -1227,6 +1228,13 @@ LABEL_106:
   return v131;
 }
 
+void sub_100003534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 int main(int argc, const char **argv, const char **envp)
 {
   v3 = objc_autoreleasePoolPush();
@@ -1886,7 +1894,7 @@ LABEL_82:
   return v43;
 }
 
-void *releaseReservedSpaceFromUpdateVolume(char *a1)
+char *releaseReservedSpaceFromUpdateVolume(char *a1)
 {
   v2 = CDGetLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -1974,6 +1982,116 @@ void *releaseReservedSpaceFromUpdateVolume(char *a1)
 
   free(v4);
   return v12;
+}
+
+__CFDictionary *__cdecl __main_block_invoke_81(id a1, int a2, __CFDictionary *a3)
+{
+  v4 = *&a2;
+  v5 = [(__CFDictionary *)a3 objectForKeyedSubscript:@"CACHE_DELETE_RELEASE_SPACE"];
+  v6 = evaluateBoolProperty();
+
+  if (v6)
+  {
+    v7 = [(__CFDictionary *)a3 objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
+    v8 = evaluateNumberProperty();
+    v9 = [v8 unsignedLongLongValue];
+
+    updated = releaseReservedSpaceFromUpdateVolume(v9);
+    if (updated >= v9)
+    {
+
+      return [(__CFDictionary *)a3 copy];
+    }
+  }
+
+  else
+  {
+    updated = 0;
+  }
+
+  if (qword_1000103A8 != -1)
+  {
+    dispatch_once(&qword_1000103A8, &__block_literal_global_85);
+  }
+
+  if (qword_1000103A0)
+  {
+    if (v4 == 4)
+    {
+      v12 = objc_alloc_init(qword_1000103A0);
+      v13 = [v12 submit];
+      v14 = CDGetLogHandle();
+      v15 = v14;
+      if (v13)
+      {
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Osanalytics logs submitted successfully.", buf, 2u);
+        }
+      }
+
+      else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        *v28 = 0;
+        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to submit osanalytics logs.", v28, 2u);
+      }
+
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+    v16 = CDGetLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v27[0] = 0;
+      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Unable to get OSASubmissionClient NSClassFromString:OSASubmissionClient", v27, 2u);
+    }
+
+    if (v4 == 4)
+    {
+      goto LABEL_21;
+    }
+  }
+
+  purge_orphans(v4, 1);
+LABEL_21:
+  v17 = [(__CFDictionary *)a3 objectForKeyedSubscript:@"CACHE_DELETE_RELEASE_SPACE"];
+  v18 = evaluateBoolProperty();
+
+  if (v18)
+  {
+    setiopolicy_np(14, 1, 1);
+  }
+
+  v19 = fsPurge(a3, v4);
+  v20 = [v19 mutableCopy];
+
+  v21 = [v20 objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
+  v22 = evaluateNumberProperty();
+  v23 = [v22 unsignedLongLongValue];
+
+  if (!v20)
+  {
+    v20 = [(__CFDictionary *)a3 copy];
+  }
+
+  v24 = [NSNumber numberWithUnsignedLongLong:&updated[v23]];
+  [v20 setObject:v24 forKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
+
+  v25 = [(__CFDictionary *)a3 objectForKeyedSubscript:@"CACHE_DELETE_RELEASE_SPACE"];
+  LODWORD(v24) = evaluateBoolProperty();
+
+  if (v24)
+  {
+    setiopolicy_np(14, 1, 0);
+  }
+
+  v26 = [v20 copy];
+
+  return v26;
 }
 
 __CFDictionary *__cdecl __main_block_invoke_90(id a1, int a2, __CFDictionary *a3)
@@ -2084,9 +2202,9 @@ void __main_block_invoke_2_96(id a1)
   exit(0);
 }
 
-void sub_100005D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100005D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

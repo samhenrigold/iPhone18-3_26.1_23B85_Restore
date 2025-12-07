@@ -25,8 +25,8 @@
 - (void)infoUpdaterDidUpdate:(id)update
 {
   resultsInfoUpdater = [(PXSettingsSearchViewController *)self resultsInfoUpdater];
-  info = [resultsInfoUpdater info];
-  [(PXSettingsSearchViewController *)self setSearchResults:info];
+  v4 = objc_msgSend_info(resultsInfoUpdater);
+  [(PXSettingsSearchViewController *)self setSearchResults:v4];
 }
 
 - (int64_t)priorityForInfoRequestOfKind:(id)kind

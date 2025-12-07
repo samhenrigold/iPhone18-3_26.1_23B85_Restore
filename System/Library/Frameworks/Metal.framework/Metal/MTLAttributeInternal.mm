@@ -29,39 +29,37 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v11[18] = *MEMORY[0x1E69E9840];
+  v10[18] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = MEMORY[0x1E696AEC0];
-  v10.receiver = self;
-  v10.super_class = MTLAttributeInternal;
-  v6 = [(MTLAttributeInternal *)&v10 description];
-  v11[0] = v4;
-  v11[1] = @"name =";
+  v9.receiver = self;
+  v9.super_class = MTLAttributeInternal;
+  v6 = [(MTLAttributeInternal *)&v9 description];
+  v10[0] = v4;
+  v10[1] = @"name =";
   name = self->_name;
   if (!name)
   {
     name = @"<none>";
   }
 
-  v11[2] = name;
-  v11[3] = v4;
-  v11[4] = @"attributeIndex =";
-  v11[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_attributeIndex];
-  v11[6] = v4;
-  v11[7] = @"attributeType =";
-  v11[8] = MTLDataTypeString(self->_attributeType);
-  v11[9] = v4;
-  v11[10] = @"active =";
-  v11[11] = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_flags & 1];
-  v11[12] = v4;
-  v11[13] = @"isPatchData =";
-  v11[14] = [MEMORY[0x1E696AD98] numberWithUnsignedChar:(self->_flags >> 1) & 1];
-  v11[15] = v4;
-  v11[16] = @"isPatchControlPointData =";
-  v11[17] = [MEMORY[0x1E696AD98] numberWithUnsignedChar:(self->_flags >> 2) & 1];
-  result = [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v11, 18), "componentsJoinedByString:", @" "];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  v10[2] = name;
+  v10[3] = v4;
+  v10[4] = @"attributeIndex =";
+  v10[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_attributeIndex];
+  v10[6] = v4;
+  v10[7] = @"attributeType =";
+  v10[8] = MTLDataTypeString(self->_attributeType);
+  v10[9] = v4;
+  v10[10] = @"active =";
+  v10[11] = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_flags & 1];
+  v10[12] = v4;
+  v10[13] = @"isPatchData =";
+  v10[14] = [MEMORY[0x1E696AD98] numberWithUnsignedChar:(self->_flags >> 1) & 1];
+  v10[15] = v4;
+  v10[16] = @"isPatchControlPointData =";
+  v10[17] = [MEMORY[0x1E696AD98] numberWithUnsignedChar:(self->_flags >> 2) & 1];
+  return [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v10, 18), "componentsJoinedByString:", @" "];
 }
 
 @end

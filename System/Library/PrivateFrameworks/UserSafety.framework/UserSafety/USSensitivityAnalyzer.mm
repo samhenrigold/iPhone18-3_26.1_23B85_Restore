@@ -12,9 +12,11 @@
 + (id)subscribeForAnalysisEnabledChanges:(id)changes;
 - (USSensitivityAnalyzer)init;
 - (USSensitivityAnalyzer)initWithQueue:(id)queue madService:(id)service;
+- (void)analyzeCGImage:(CGImage *)image withOrientation:(unsigned int)orientation completionHandler:(id)handler;
 - (void)analyzeImageFile:(id)file completionHandler:(id)handler;
 - (void)analyzeImageWithLocalIdentifier:(id)identifier fromPhotoLibraryWithURL:(id)l completionHandler:(id)handler;
 - (void)analyzeVideoFile:(id)file progressHandler:(id)handler completionHandler:(id)completionHandler;
+- (void)analyzeVideoFile:(id)file useBlastdoor:(BOOL)blastdoor progressHandler:(id)handler completionHandler:(id)completionHandler;
 - (void)analyzeVideoWithLocalIdentifier:(id)identifier fromPhotoLibraryWithURL:(id)l progressHandler:(id)handler completionHandler:(id)completionHandler;
 @end
 
@@ -102,6 +104,20 @@ void __60__USSensitivityAnalyzer_analyzeImageFile_completionHandler___block_invo
   }
 }
 
+- (void)analyzeCGImage:(CGImage *)image withOrientation:(unsigned int)orientation completionHandler:(id)handler
+{
+  v5 = *&orientation;
+  handlerCopy = handler;
+  scsAnalyzer = self->_scsAnalyzer;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __74__USSensitivityAnalyzer_analyzeCGImage_withOrientation_completionHandler___block_invoke;
+  v11[3] = &unk_279E15F38;
+  v12 = handlerCopy;
+  v10 = handlerCopy;
+  [(SCSensitivityAnalyzer *)scsAnalyzer analyzeCGImage:image orientation:v5 completionHandler:v11];
+}
+
 void __74__USSensitivityAnalyzer_analyzeCGImage_withOrientation_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v3 = *(a1 + 32);
@@ -154,6 +170,30 @@ void __76__USSensitivityAnalyzer_analyzeVideoFile_progressHandler_completionHand
     v5 = a3;
     (*(v3 + 16))(v3, [a2 isSensitive], v5);
   }
+}
+
+- (void)analyzeVideoFile:(id)file useBlastdoor:(BOOL)blastdoor progressHandler:(id)handler completionHandler:(id)completionHandler
+{
+  blastdoorCopy = blastdoor;
+  fileCopy = file;
+  handlerCopy = handler;
+  completionHandlerCopy = completionHandler;
+  scsAnalyzer = self->_scsAnalyzer;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __89__USSensitivityAnalyzer_analyzeVideoFile_useBlastdoor_progressHandler_completionHandler___block_invoke;
+  v19[3] = &unk_279E15F60;
+  v20 = fileCopy;
+  v21 = handlerCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __89__USSensitivityAnalyzer_analyzeVideoFile_useBlastdoor_progressHandler_completionHandler___block_invoke_2;
+  v17[3] = &unk_279E15F38;
+  v18 = completionHandlerCopy;
+  v14 = completionHandlerCopy;
+  v15 = fileCopy;
+  v16 = handlerCopy;
+  [(SCSensitivityAnalyzer *)scsAnalyzer analyzeVideoFile:v15 useBlastdoor:blastdoorCopy progressHandler:v19 completionHandler:v17];
 }
 
 uint64_t __89__USSensitivityAnalyzer_analyzeVideoFile_useBlastdoor_progressHandler_completionHandler___block_invoke(uint64_t a1)
@@ -334,36 +374,36 @@ uint64_t __60__USSensitivityAnalyzer_subscribeForAnalysisEnabledChanges___block_
 
 + (BOOL)_isNudityDetectionEnabledForAnyOfServices:(id)services scanningPolicy:(id)policy
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   policyCopy = policy;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = servicesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        if ([self _isNudityDetectionEnabledForService:*(*(&v16 + 1) + 8 * i) scanningPolicy:{policyCopy, v16}])
+        if ([self _isNudityDetectionEnabledForService:*(*(&v15 + 1) + 8 * i) scanningPolicy:{policyCopy, v15}])
         {
           v13 = 1;
           goto LABEL_11;
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         continue;
@@ -376,7 +416,6 @@ uint64_t __60__USSensitivityAnalyzer_subscribeForAnalysisEnabledChanges___block_
   v13 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

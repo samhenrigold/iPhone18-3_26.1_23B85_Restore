@@ -53,37 +53,37 @@
 
 - (BOOL)validateOperation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   context = [(FCDraftIssuesFetchOperation *)self context];
 
   if (!context && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"issues fetch operation requires a context"];
-    v10 = 136315906;
-    v11 = "[FCDraftIssuesFetchOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCDraftIssuesFetchOperation.m";
-    v14 = 1024;
-    v15 = 59;
-    v16 = 2114;
-    v17 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"issues fetch operation requires a context"];
+    v9 = 136315906;
+    v10 = "[FCDraftIssuesFetchOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCDraftIssuesFetchOperation.m";
+    v13 = 1024;
+    v14 = 59;
+    v15 = 2114;
+    v16 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
   }
 
   issueListID = [(FCDraftIssuesFetchOperation *)self issueListID];
 
   if (!issueListID && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"fetch operation requires issue list ID"];
-    v10 = 136315906;
-    v11 = "[FCDraftIssuesFetchOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCDraftIssuesFetchOperation.m";
-    v14 = 1024;
-    v15 = 63;
-    v16 = 2114;
-    v17 = v9;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"fetch operation requires issue list ID"];
+    v9 = 136315906;
+    v10 = "[FCDraftIssuesFetchOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCDraftIssuesFetchOperation.m";
+    v13 = 1024;
+    v14 = 63;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
   }
 
   if (context)
@@ -96,33 +96,29 @@
     v5 = 1;
   }
 
-  result = !v5;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return !v5;
 }
 
 - (void)performOperation
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   context = [(FCDraftIssuesFetchOperation *)self context];
   internalContentContext = [context internalContentContext];
   issueListRecordSource = [internalContentContext issueListRecordSource];
 
   issueListID = [(FCDraftIssuesFetchOperation *)self issueListID];
-  v11[0] = issueListID;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = issueListID;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   v8 = [issueListRecordSource fetchOperationForRecordsWithIDs:v7];
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __47__FCDraftIssuesFetchOperation_performOperation__block_invoke;
-  v10[3] = &unk_1E7C3EF70;
-  v10[4] = self;
-  [v8 setFetchCompletionBlock:v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __47__FCDraftIssuesFetchOperation_performOperation__block_invoke;
+  v9[3] = &unk_1E7C3EF70;
+  v9[4] = self;
+  [v8 setFetchCompletionBlock:v9];
   [(FCOperation *)self associateChildOperation:v8];
   [v8 start];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __47__FCDraftIssuesFetchOperation_performOperation__block_invoke(uint64_t a1, void *a2)

@@ -6,15 +6,16 @@
 
 - (id)maximumLogLevelString:()DiagnosticsController
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a3;
   selfCopy = self;
   v6 = selfCopy;
   v7 = selfCopy;
   if (v4)
   {
-    v7 = selfCopy;
-    if (([selfCopy isEqualToString:v4] & 1) == 0)
+    selfCopy = [selfCopy isEqualToString:v4];
+    v7 = v6;
+    if ((selfCopy & 1) == 0)
     {
       if ([v6 isEqualToString:@"debug"])
       {
@@ -36,23 +37,28 @@
         v8 = 0;
       }
 
-      if ([v4 isEqualToString:@"debug"])
+      selfCopy = [v4 isEqualToString:@"debug"];
+      if (selfCopy)
       {
         v9 = 4;
       }
 
-      else if ([v4 isEqualToString:@"info"])
-      {
-        v9 = 3;
-      }
-
       else
       {
-        v10 = [v4 isEqualToString:@"default"];
-        v9 = 2;
-        if (!v10)
+        selfCopy = [v4 isEqualToString:@"info"];
+        if (selfCopy)
         {
-          v9 = 0;
+          v9 = 3;
+        }
+
+        else
+        {
+          selfCopy = [v4 isEqualToString:@"default"];
+          v9 = 2;
+          if (!selfCopy)
+          {
+            v9 = 0;
+          }
         }
       }
 
@@ -64,15 +70,13 @@
     }
   }
 
-  v11 = diagcollectLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v10 = diagcollectLogHandle(selfCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 138412290;
-    v15 = v7;
-    _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEBUG, "> Choosing log level: %@", &v14, 0xCu);
+    v12 = 138412290;
+    v13 = v7;
+    _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "> Choosing log level: %@", &v12, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

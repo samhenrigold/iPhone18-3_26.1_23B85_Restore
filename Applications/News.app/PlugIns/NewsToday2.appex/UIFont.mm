@@ -40,14 +40,14 @@
 {
   stringCopy = string;
   v5 = [stringCopy length];
-  __chkstk_darwin();
+  __chkstk_darwin(v5);
   v6 = (2 * v5 + 15) & 0xFFFFFFFFFFFFFFF0;
-  [stringCopy getCharacters:&v7 - v6 range:{0, v5}];
+  [stringCopy getCharacters:&v8 - v6 range:{0, v5}];
 
-  __chkstk_darwin();
-  if (CTFontGetGlyphsForCharacters(self, (&v7 - v6), (&v7 - v6), v5))
+  __chkstk_darwin(v7);
+  if (CTFontGetGlyphsForCharacters(self, (&v8 - v6), (&v8 - v6), v5))
   {
-    return CTFontGetBoundingRectsForGlyphs(self, kCTFontOrientationDefault, (&v7 - v6), 0, v5);
+    return CTFontGetBoundingRectsForGlyphs(self, kCTFontOrientationDefault, (&v8 - v6), 0, v5);
   }
 
   else

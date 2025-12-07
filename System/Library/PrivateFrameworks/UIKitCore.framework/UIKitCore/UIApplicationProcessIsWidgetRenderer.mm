@@ -6,7 +6,7 @@
 void ___UIApplicationProcessIsWidgetRenderer_block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  byte_1EA992DC1 = [v0 isEqualToString:@"com.apple.chrono.WidgetRenderer-Default"];
+  byte_1EA992DC1 = objc_msgSend_isEqualToString_(v0);
 }
 
 @end

@@ -12,70 +12,63 @@
 
 - (NSSet)aliases
 {
-  v3 = type metadata accessor for Group();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for Group(0);
   MEMORY[0x28223BE20](v3);
-  v6 = v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
-  v7 = OBJC_IVAR___DDGroup__group;
+  v5 = v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
+  v6 = OBJC_IVAR___DDGroup__group;
   swift_beginAccess();
-  sub_2480D1F28(self + v7, v12);
+  sub_2480D1F28(self + v6, v10);
   swift_dynamicCast();
-  v8 = *&v6[*(v3 + 32)];
 
-  sub_2480D8A88(v6, type metadata accessor for Group);
-  v9 = sub_2480DCABC();
+  sub_2480D8A88(v5, type metadata accessor for Group);
+  v7 = sub_2480DCABC();
 
-  return v9;
+  return v7;
 }
 
 - (void)setAliases:(id)aliases
 {
-  v4 = type metadata accessor for Group();
-  v5 = *(*(v4 - 8) + 64);
+  v4 = type metadata accessor for Group(0);
   MEMORY[0x28223BE20](v4);
-  v7 = &v14[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v8 = sub_2480DCACC();
-  v9 = OBJC_IVAR___DDGroup__group;
+  v6 = &v11[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = sub_2480DCACC();
+  v8 = OBJC_IVAR___DDGroup__group;
   swift_beginAccess();
-  sub_2480D1F28(self + v9, &v15);
+  sub_2480D1F28(self + v8, &v12);
   selfCopy = self;
   swift_dynamicCast();
-  v11 = *(v4 + 32);
-  v12 = *&v7[v11];
-  *&v7[v11] = v8;
+  *&v6[*(v4 + 32)] = v7;
 
-  v16 = v4;
-  boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(&v15);
-  sub_2480D8AE8(v7, boxed_opaque_existential_0, type metadata accessor for Group);
+  v13 = v4;
+  boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(&v12);
+  sub_2480D8AE8(v6, boxed_opaque_existential_0, type metadata accessor for Group);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_0((self + v9));
-  sub_2480D899C(&v15, (self + v9));
+  __swift_destroy_boxed_opaque_existential_0((&self->super.isa + v8));
+  sub_2480D899C(&v12, (self + v8));
   swift_endAccess();
 }
 
 - (NSSet)nestedGroups
 {
-  v3 = type metadata accessor for Group();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for Group(0);
   MEMORY[0x28223BE20](v3);
-  v6 = v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
-  v7 = OBJC_IVAR___DDGroup__group;
+  v5 = v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
+  v6 = OBJC_IVAR___DDGroup__group;
   swift_beginAccess();
-  sub_2480D1F28(self + v7, v17);
+  sub_2480D1F28(self + v6, v15);
   selfCopy = self;
   swift_dynamicCast();
-  v9 = *&v6[*(v3 + 36)];
 
-  v11 = sub_2480D1304(v10);
+  v9 = sub_2480D1304(v8);
 
-  sub_2480D8A88(v6, type metadata accessor for Group);
-  sub_2480D8168(v11);
+  sub_2480D8A88(v5, type metadata accessor for Group);
+  sub_2480D8168(v9);
 
-  type metadata accessor for DDGroup(v12);
-  sub_2480D8908(&qword_27EE87380, v13, type metadata accessor for DDGroup);
-  v14 = sub_2480DCABC();
+  type metadata accessor for DDGroup(v10);
+  sub_2480D8908(&qword_27EE87380, v11, type metadata accessor for DDGroup, MEMORY[0x277D85378]);
+  v12 = sub_2480DCABC();
 
-  return v14;
+  return v12;
 }
 
 - (DDGroup)groupWithName:(id)name fullName:(id)fullName

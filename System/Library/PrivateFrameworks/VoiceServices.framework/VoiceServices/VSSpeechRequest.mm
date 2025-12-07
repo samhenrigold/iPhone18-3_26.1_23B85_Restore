@@ -50,7 +50,7 @@
   return v5;
 }
 
-uint64_t __36__VSSpeechRequest_contextInfoString__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__36__VSSpeechRequest_contextInfoString__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(a1 + 32);
   if (*(*(*(a1 + 40) + 8) + 24))
@@ -70,11 +70,11 @@ uint64_t __36__VSSpeechRequest_contextInfoString__block_invoke(uint64_t a1, uint
 
 - (VSSpeechRequest)initWithCoder:(id)coder
 {
-  v45[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v43.receiver = self;
-  v43.super_class = VSSpeechRequest;
-  v5 = [(VSSpeechRequest *)&v43 init];
+  v42.receiver = self;
+  v42.super_class = VSSpeechRequest;
+  v5 = [(VSSpeechRequest *)&v42 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_text"];
@@ -133,19 +133,19 @@ uint64_t __36__VSSpeechRequest_contextInfoString__block_invoke(uint64_t a1, uint
     v5->_resourceSearchPathURL = v25;
 
     v27 = MEMORY[0x277CBEB98];
-    v45[0] = objc_opt_class();
-    v45[1] = objc_opt_class();
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+    v44[0] = objc_opt_class();
+    v44[1] = objc_opt_class();
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
     v29 = [v27 setWithArray:v28];
     v30 = [coderCopy decodeObjectOfClasses:v29 forKey:@"_customResourceURLs"];
     customResourceURLs = v5->_customResourceURLs;
     v5->_customResourceURLs = v30;
 
     v32 = MEMORY[0x277CBEB98];
-    v44[0] = objc_opt_class();
-    v44[1] = objc_opt_class();
-    v44[2] = objc_opt_class();
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
+    v43[0] = objc_opt_class();
+    v43[1] = objc_opt_class();
+    v43[2] = objc_opt_class();
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
     v34 = [v32 setWithArray:v33];
     v35 = [coderCopy decodeObjectOfClasses:v34 forKey:@"_contextInfo"];
     contextInfo = v5->_contextInfo;
@@ -168,7 +168,6 @@ uint64_t __36__VSSpeechRequest_contextInfoString__block_invoke(uint64_t a1, uint
     }
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

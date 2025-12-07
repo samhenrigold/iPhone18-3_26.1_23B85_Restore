@@ -63,59 +63,58 @@
 
 - (CGRect)boundingBox
 {
-  v25[5] = *MEMORY[0x277D85DE8];
+  v24[5] = *MEMORY[0x277D85DE8];
   [(BCSImageQuad *)self topLeft];
   v4 = v3;
   v6 = v5;
   [(BCSImageQuad *)self topRight];
-  v24 = v7;
-  v25[0] = v8;
+  v23 = v7;
+  v24[0] = v8;
   [(BCSImageQuad *)self bottomLeft];
-  v25[1] = v9;
-  v25[2] = v10;
+  v24[1] = v9;
+  v24[2] = v10;
   [(BCSImageQuad *)self bottomRight];
   v11 = 0;
-  v25[3] = v12;
-  v25[4] = v13;
+  v24[3] = v12;
+  v24[4] = v13;
   v14 = v6;
   v15 = v4;
   do
   {
-    v16 = *&v23[v11 * 8 + 16];
-    v17 = *&v25[v11];
+    v16 = *&v22[v11 * 8 + 16];
+    v17 = *&v24[v11];
     if (v4 >= v16)
     {
-      v4 = *&v23[v11 * 8 + 16];
+      v4 = *&v22[v11 * 8 + 16];
     }
 
     if (v15 < v16)
     {
-      v15 = *&v23[v11 * 8 + 16];
+      v15 = *&v22[v11 * 8 + 16];
     }
 
     if (v6 >= v17)
     {
-      v6 = *&v25[v11];
+      v6 = *&v24[v11];
     }
 
     if (v14 < v17)
     {
-      v14 = *&v25[v11];
+      v14 = *&v24[v11];
     }
 
     v11 += 2;
   }
 
   while (v11 != 6);
-  v18 = *MEMORY[0x277D85DE8];
-  v19 = v15 - v4;
-  v20 = v14 - v6;
-  v21 = v4;
-  v22 = v6;
-  result.size.height = v20;
-  result.size.width = v19;
-  result.origin.y = v22;
-  result.origin.x = v21;
+  v18 = v15 - v4;
+  v19 = v14 - v6;
+  v20 = v4;
+  v21 = v6;
+  result.size.height = v19;
+  result.size.width = v18;
+  result.origin.y = v21;
+  result.origin.x = v20;
   return result;
 }
 
@@ -235,24 +234,24 @@
 - (void)adjustOrientationInImageSpace:(BOOL)space
 {
   spaceCopy = space;
-  v44[4] = *MEMORY[0x277D85DE8];
+  v43[4] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCAE60];
   [(BCSImageQuad *)self topLeft];
   v6 = [v5 valueWithCGPoint:?];
-  v44[0] = v6;
+  v43[0] = v6;
   v7 = MEMORY[0x277CCAE60];
   [(BCSImageQuad *)self topRight];
   v8 = [v7 valueWithCGPoint:?];
-  v44[1] = v8;
+  v43[1] = v8;
   v9 = MEMORY[0x277CCAE60];
   [(BCSImageQuad *)self bottomLeft];
   v10 = [v9 valueWithCGPoint:?];
-  v44[2] = v10;
+  v43[2] = v10;
   v11 = MEMORY[0x277CCAE60];
   [(BCSImageQuad *)self bottomRight];
   v12 = [v11 valueWithCGPoint:?];
-  v44[3] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:4];
+  v43[3] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:4];
 
   v14 = [v13 sortedArrayUsingComparator:&__block_literal_global_0];
   v15 = [v14 objectAtIndexedSubscript:0];
@@ -322,8 +321,6 @@
   [v40 CGPointValue];
   self->_bottomRight.x = v41;
   self->_bottomRight.y = v42;
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__BCSImageQuad_adjustOrientationInImageSpace___block_invoke(uint64_t a1, void *a2, void *a3)

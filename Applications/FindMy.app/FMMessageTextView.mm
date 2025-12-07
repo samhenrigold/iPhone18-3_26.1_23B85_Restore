@@ -12,7 +12,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100155084();
+  sub_100155084(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

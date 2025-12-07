@@ -30,82 +30,83 @@
 
 - (SKUIGiftRecipientTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (os_variant_has_internal_content() && _os_feature_enabled_impl() && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
     [SKUIGiftRecipientTableViewCell initWithStyle:reuseIdentifier:];
   }
 
-  v44.receiver = self;
-  v44.super_class = SKUIGiftRecipientTableViewCell;
-  v7 = [(SKUIGiftRecipientTableViewCell *)&v44 initWithStyle:style reuseIdentifier:identifierCopy];
+  v46.receiver = self;
+  v46.super_class = SKUIGiftRecipientTableViewCell;
+  v7 = [(SKUIGiftRecipientTableViewCell *)&v46 initWithStyle:style reuseIdentifier:identifierCopy];
+  v9 = v7;
   if (v7)
   {
-    v8 = SKUIContactsAutocompleteUIFramework();
-    v9 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Cncomposerecip_0.isa, v8));
-    recipientView = v7->_recipientView;
-    v7->_recipientView = v9;
+    v10 = SKUIContactsAutocompleteUIFramework(v7, v8);
+    v11 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Cncomposerecip_0.isa, v10));
+    recipientView = v9->_recipientView;
+    v9->_recipientView = v11;
 
-    labelView = [(CNComposeRecipientTextView *)v7->_recipientView labelView];
-    v12 = [MEMORY[0x277D74300] systemFontOfSize:18.0];
-    [labelView setFont:v12];
+    labelView = [(CNComposeRecipientTextView *)v9->_recipientView labelView];
+    v14 = [MEMORY[0x277D74300] systemFontOfSize:18.0];
+    [labelView setFont:v14];
 
-    labelView2 = [(CNComposeRecipientTextView *)v7->_recipientView labelView];
+    labelView2 = [(CNComposeRecipientTextView *)v9->_recipientView labelView];
     _labelColor = [MEMORY[0x277D75348] _labelColor];
     [labelView2 setTextColor:_labelColor];
 
-    labelView3 = [(CNComposeRecipientTextView *)v7->_recipientView labelView];
+    labelView3 = [(CNComposeRecipientTextView *)v9->_recipientView labelView];
     clearColor = [MEMORY[0x277D75348] clearColor];
     [labelView3 setBackgroundColor:clearColor];
 
-    v17 = v7->_recipientView;
+    v19 = v9->_recipientView;
     clearColor2 = [MEMORY[0x277D75348] clearColor];
-    [(CNComposeRecipientTextView *)v17 setBackgroundColor:clearColor2];
+    [(CNComposeRecipientTextView *)v19 setBackgroundColor:clearColor2];
 
-    [(CNComposeRecipientTextView *)v7->_recipientView setDelegate:v7];
-    v19 = v7->_recipientView;
-    labelView4 = [(CNComposeRecipientTextView *)v19 labelView];
+    [(CNComposeRecipientTextView *)v9->_recipientView setDelegate:v9];
+    v21 = v9->_recipientView;
+    labelView4 = [(CNComposeRecipientTextView *)v21 labelView];
     font = [labelView4 font];
-    [(CNComposeRecipientTextView *)v19 setBaseFont:font];
+    [(CNComposeRecipientTextView *)v21 setBaseFont:font];
 
-    v22 = *MEMORY[0x277D76840];
-    [(CNComposeRecipientTextView *)v7->_recipientView setMaximumContentSizeCategory:*MEMORY[0x277D76840]];
-    [(CNComposeRecipientTextView *)v7->_recipientView setMinimumContentSizeCategory:v22];
-    textView = [(CNComposeRecipientTextView *)v7->_recipientView textView];
+    v24 = *MEMORY[0x277D76840];
+    [(CNComposeRecipientTextView *)v9->_recipientView setMaximumContentSizeCategory:*MEMORY[0x277D76840]];
+    [(CNComposeRecipientTextView *)v9->_recipientView setMinimumContentSizeCategory:v24];
+    textView = [(CNComposeRecipientTextView *)v9->_recipientView textView];
     textContainer = [textView textContainer];
     [textContainer setLineFragmentPadding:0.0];
 
-    [(CNComposeRecipientTextView *)v7->_recipientView subviews];
-    v40 = 0u;
-    v41 = 0u;
+    [(CNComposeRecipientTextView *)v9->_recipientView subviews];
     v42 = 0u;
-    v25 = v43 = 0u;
-    v26 = [v25 countByEnumeratingWithState:&v40 objects:v45 count:16];
-    if (v26)
+    v43 = 0u;
+    v44 = 0u;
+    v27 = v45 = 0u;
+    v28 = [v27 countByEnumeratingWithState:&v42 objects:v47 count:16];
+    if (v28)
     {
-      v27 = v26;
-      v28 = *v41;
+      v29 = v28;
+      v30 = *v43;
       while (2)
       {
-        for (i = 0; i != v27; ++i)
+        for (i = 0; i != v29; ++i)
         {
-          if (*v41 != v28)
+          if (*v43 != v30)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v27);
           }
 
-          v30 = *(*(&v40 + 1) + 8 * i);
-          [v30 frame];
-          if (v31 <= 1.0)
+          v32 = *(*(&v42 + 1) + 8 * i);
+          [v32 frame];
+          if (v33 <= 1.0)
           {
-            [v30 setHidden:1];
+            [v32 setHidden:1];
             goto LABEL_16;
           }
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v40 objects:v45 count:16];
-        if (v27)
+        v29 = [v27 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        if (v29)
         {
           continue;
         }
@@ -116,28 +117,28 @@
 
 LABEL_16:
 
-    [(CNComposeRecipientTextView *)v7->_recipientView sizeToFit];
-    contentView = [(SKUIGiftRecipientTableViewCell *)v7 contentView];
-    [contentView addSubview:v7->_recipientView];
+    [(CNComposeRecipientTextView *)v9->_recipientView sizeToFit];
+    contentView = [(SKUIGiftRecipientTableViewCell *)v9 contentView];
+    [contentView addSubview:v9->_recipientView];
 
-    v33 = objc_alloc_init(MEMORY[0x277D75D18]);
-    topBorderView = v7->_topBorderView;
-    v7->_topBorderView = v33;
+    v35 = objc_alloc_init(MEMORY[0x277D75D18]);
+    topBorderView = v9->_topBorderView;
+    v9->_topBorderView = v35;
 
-    v35 = v7->_topBorderView;
+    v37 = v9->_topBorderView;
     tableSeparatorColor = [MEMORY[0x277D75348] tableSeparatorColor];
-    [(UIView *)v35 setBackgroundColor:tableSeparatorColor];
+    [(UIView *)v37 setBackgroundColor:tableSeparatorColor];
 
-    contentView2 = [(SKUIGiftRecipientTableViewCell *)v7 contentView];
-    [contentView2 addSubview:v7->_topBorderView];
+    contentView2 = [(SKUIGiftRecipientTableViewCell *)v9 contentView];
+    [contentView2 addSubview:v9->_topBorderView];
 
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
-    v7->_leftToRight = [mEMORY[0x277D75128] userInterfaceLayoutDirection] == 0;
+    v9->_leftToRight = [mEMORY[0x277D75128] userInterfaceLayoutDirection] == 0;
 
-    [(SKUIGiftRecipientTableViewCell *)v7 setDidLayoutSubviews:0];
+    [(SKUIGiftRecipientTableViewCell *)v9 setDidLayoutSubviews:0];
   }
 
-  return v7;
+  return v9;
 }
 
 - (void)dealloc
@@ -351,13 +352,13 @@ LABEL_16:
 - (void)contactPicker:(id)picker didSelectContactProperty:(id)property
 {
   propertyCopy = property;
-  v6 = SKUIContactsAutocompleteUIFramework();
-  v7 = objc_alloc(SKUIWeakLinkedClassForString(&cfstr_Cncomposerecip_1.isa, v6));
+  v7 = SKUIContactsAutocompleteUIFramework(propertyCopy, v6);
+  v8 = objc_alloc(SKUIWeakLinkedClassForString(&cfstr_Cncomposerecip_1.isa, v7));
   contact = [propertyCopy contact];
   value = [propertyCopy value];
 
-  v10 = [v7 initWithContact:contact address:value kind:0];
-  [(CNComposeRecipientTextView *)self->_recipientView addRecipient:v10];
+  v11 = [v8 initWithContact:contact address:value kind:0];
+  [(CNComposeRecipientTextView *)self->_recipientView addRecipient:v11];
   [(SKUIGiftRecipientTableViewCell *)self _sendDismissContactPicker];
 }
 
@@ -402,10 +403,10 @@ LABEL_16:
 - (id)composeRecipientView:(id)view composeRecipientForAddress:(id)address
 {
   addressCopy = address;
-  v5 = SKUIContactsAutocompleteUIFramework();
-  v6 = [objc_alloc(SKUIWeakLinkedClassForString(&cfstr_Cncomposerecip_1.isa v5))];
+  v6 = SKUIContactsAutocompleteUIFramework(addressCopy, v5);
+  v7 = [objc_alloc(SKUIWeakLinkedClassForString(&cfstr_Cncomposerecip_1.isa v6))];
 
-  return v6;
+  return v7;
 }
 
 - (void)composeRecipientView:(id)view didAddRecipient:(id)recipient
@@ -466,7 +467,7 @@ LABEL_16:
 
 - (void)composeRecipientViewRequestAddRecipient:(id)recipient
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   superview = [(SKUIGiftRecipientTableViewCell *)self superview];
   if (superview)
   {
@@ -487,30 +488,31 @@ LABEL_16:
   }
 
   delegate = [superview delegate];
-  if (objc_opt_respondsToSelector())
+  v7 = objc_opt_respondsToSelector();
+  if (v7)
   {
     contactPickerController = self->_contactPickerController;
     if (!contactPickerController)
     {
-      v8 = SKUIContactsUIFramework();
-      v9 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Cncontactpicke.isa, v8));
-      v10 = self->_contactPickerController;
-      self->_contactPickerController = v9;
+      v10 = SKUIContactsUIFramework(v7, v8);
+      v11 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Cncontactpicke.isa, v10));
+      v12 = self->_contactPickerController;
+      self->_contactPickerController = v11;
 
-      [(CNContactPickerViewController *)self->_contactPickerController setDelegate:self];
-      v11 = SKUIContactsFramework();
-      v12 = SKUIWeakLinkedSymbolForString("CNContactEmailAddressesKey", v11);
-      v13 = self->_contactPickerController;
-      v17[0] = *v12;
-      v14 = MEMORY[0x277CBEA60];
-      v15 = v17[0];
-      v16 = [v14 arrayWithObjects:v17 count:1];
-      [(CNContactPickerViewController *)v13 setDisplayedPropertyKeys:v16];
+      v13 = [(CNContactPickerViewController *)self->_contactPickerController setDelegate:self];
+      v15 = SKUIContactsFramework(v13, v14);
+      v16 = SKUIWeakLinkedSymbolForString("CNContactEmailAddressesKey", v15);
+      v17 = self->_contactPickerController;
+      v21[0] = *v16;
+      v18 = MEMORY[0x277CBEA60];
+      v19 = v21[0];
+      v20 = [v18 arrayWithObjects:v21 count:1];
+      [(CNContactPickerViewController *)v17 setDisplayedPropertyKeys:v20];
 
       contactPickerController = self->_contactPickerController;
     }
 
-    [delegate tableView:superview giftRecipientCell:self presentContactPicker:{contactPickerController, v17[0]}];
+    [delegate tableView:superview giftRecipientCell:self presentContactPicker:{contactPickerController, v21[0]}];
   }
 }
 
@@ -535,7 +537,7 @@ LABEL_16:
   contactStore = self->_contactStore;
   if (!contactStore)
   {
-    v4 = SKUIContactsFramework();
+    v4 = SKUIContactsFramework(0, a2);
     v5 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Cncontactstore.isa, v4));
     v6 = self->_contactStore;
     self->_contactStore = v5;

@@ -71,8 +71,9 @@
 
 - (void)setHideToneAndColorLabels:(BOOL)labels
 {
+  labelsCopy = labels;
   selfCopy = self;
-  PEPhotoStyleValuesPlatterView.hideToneAndColorLabels.setter();
+  PEPhotoStyleValuesPlatterView.hideToneAndColorLabels.setter(labelsCopy);
 }
 
 - (BOOL)hidePaletteLabel
@@ -85,8 +86,9 @@
 
 - (void)setHidePaletteLabel:(BOOL)label
 {
+  labelCopy = label;
   selfCopy = self;
-  PEPhotoStyleValuesPlatterView.hidePaletteLabel.setter();
+  PEPhotoStyleValuesPlatterView.hidePaletteLabel.setter(labelCopy);
 }
 
 - (BOOL)hideResetButton
@@ -99,8 +101,9 @@
 
 - (void)setHideResetButton:(BOOL)button
 {
+  buttonCopy = button;
   selfCopy = self;
-  PEPhotoStyleValuesPlatterView.hideResetButton.setter();
+  PEPhotoStyleValuesPlatterView.hideResetButton.setter(buttonCopy);
 }
 
 - (BOOL)isResetButtonEnabled
@@ -113,8 +116,9 @@
 
 - (void)setIsResetButtonEnabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  PEPhotoStyleValuesPlatterView.isResetButtonEnabled.setter();
+  PEPhotoStyleValuesPlatterView.isResetButtonEnabled.setter(enabledCopy);
 }
 
 - (id)resetAction
@@ -139,7 +143,7 @@
   v4 = _Block_copy(action);
   *(swift_allocObject() + 16) = v4;
   selfCopy = self;
-  PEPhotoStyleValuesPlatterView.resetAction.setter();
+  PEPhotoStyleValuesPlatterView.resetAction.setter(sub_25E70147C);
 }
 
 @end

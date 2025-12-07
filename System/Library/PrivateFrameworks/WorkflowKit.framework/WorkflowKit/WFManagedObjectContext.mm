@@ -15,44 +15,42 @@
 
 - (void)logFaultForIncompatibleSortDescriptorsInFetchRequest:(id)request
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   if ([requestCopy includesPendingChanges] && objc_msgSend(requestCopy, "resultType") != 2 && -[WFManagedObjectContext hasChanges](self, "hasChanges"))
   {
     sortDescriptors = [requestCopy sortDescriptors];
-    v13 = MEMORY[0x1E69E9820];
-    v14 = 3221225472;
-    v15 = __79__WFManagedObjectContext_logFaultForIncompatibleSortDescriptorsInFetchRequest___block_invoke;
-    v16 = &unk_1E837FF68;
+    v12 = MEMORY[0x1E69E9820];
+    v13 = 3221225472;
+    v14 = __79__WFManagedObjectContext_logFaultForIncompatibleSortDescriptorsInFetchRequest___block_invoke;
+    v15 = &unk_1E837FF68;
     v6 = requestCopy;
-    v17 = v6;
+    v16 = v6;
     selfCopy = self;
-    v7 = [sortDescriptors if_firstObjectPassingTest:&v13];
+    v7 = [sortDescriptors if_firstObjectPassingTest:&v12];
 
     if (v7)
     {
       v8 = getWFDatabaseLogObject();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        v9 = [(WFManagedObjectContext *)self insertedObjects:v13];
+        v9 = [(WFManagedObjectContext *)self insertedObjects:v12];
         deletedObjects = [(WFManagedObjectContext *)self deletedObjects];
         updatedObjects = [(WFManagedObjectContext *)self updatedObjects];
         *buf = 136316162;
-        v20 = "[WFManagedObjectContext logFaultForIncompatibleSortDescriptorsInFetchRequest:]";
-        v21 = 2114;
-        v22 = v6;
-        v23 = 2114;
-        v24 = v9;
-        v25 = 2114;
-        v26 = deletedObjects;
-        v27 = 2114;
-        v28 = updatedObjects;
+        v19 = "[WFManagedObjectContext logFaultForIncompatibleSortDescriptorsInFetchRequest:]";
+        v20 = 2114;
+        v21 = v6;
+        v22 = 2114;
+        v23 = v9;
+        v24 = 2114;
+        v25 = deletedObjects;
+        v26 = 2114;
+        v27 = updatedObjects;
         _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Fetch requests with sort descriptors referencing parent entity cannot be run on dirty contexts. Fetch request: %{public}@, inserted: %{public}@, deleted: %{public}@, updated: %{public}@", buf, 0x34u);
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __79__WFManagedObjectContext_logFaultForIncompatibleSortDescriptorsInFetchRequest___block_invoke(uint64_t a1, void *a2)

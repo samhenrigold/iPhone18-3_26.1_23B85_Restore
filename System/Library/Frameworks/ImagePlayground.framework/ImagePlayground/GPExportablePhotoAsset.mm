@@ -68,19 +68,18 @@
 {
   v3 = sub_1D2AC5F54();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v12[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v6 = &v11[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
   selfCopy = self;
   _creationDate = [(GPExportablePhotoAsset *)selfCopy _creationDate];
   sub_1D2AC6FF4();
   swift_unknownObjectRelease();
 
   swift_dynamicCast();
-  v10 = sub_1D2AC5F34();
-  (*(v4 + 8))(v7, v3);
+  v9 = sub_1D2AC5F34();
+  (*(v4 + 8))(v6, v3);
 
-  return v10;
+  return v9;
 }
 
 - (GPGenerationRecipeData)recipeData
@@ -93,44 +92,42 @@
 
 - (id)_recipeData
 {
-  sub_1D2A613A0(self + OBJC_IVAR___GPExportablePhotoAsset__recipeData, v10);
-  v2 = v11;
-  if (v11)
+  sub_1D2A613A0(self + OBJC_IVAR___GPExportablePhotoAsset__recipeData, v9);
+  v2 = v10;
+  if (v10)
   {
-    v3 = __swift_project_boxed_opaque_existential_1(v10, v11);
+    v3 = __swift_project_boxed_opaque_existential_1(v9, v10);
     v4 = *(v2 - 8);
-    v5 = *(v4 + 64);
     MEMORY[0x1EEE9AC00](v3);
-    v7 = v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v4 + 16))(v7);
-    v8 = sub_1D2AC7344();
-    (*(v4 + 8))(v7, v2);
-    __swift_destroy_boxed_opaque_existential_0(v10);
+    v6 = v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v4 + 16))(v6);
+    v7 = sub_1D2AC7344();
+    (*(v4 + 8))(v6, v2);
+    __swift_destroy_boxed_opaque_existential_0(v9);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (GPExportablePhotoAsset)initWithIdentifier:(id)identifier imageURLWrapper:(id)wrapper previewImage:(id)image pixelWidth:(id)width pixelHeight:(id)height creationDate:(id)date recipeData:(id)data
 {
   v13 = sub_1D2AC5F54();
-  v14 = *(*(v13 - 8) + 64);
   MEMORY[0x1EEE9AC00](v13 - 8);
-  v16 = &v26 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = sub_1D2AC6C24();
-  v19 = v18;
+  v15 = &v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = sub_1D2AC6C24();
+  v18 = v17;
   sub_1D2AC5F44();
   wrapperCopy = wrapper;
   imageCopy = image;
   widthCopy = width;
   heightCopy = height;
   dataCopy = data;
-  return GPExportablePhotoAsset.init(identifier:imageURLWrapper:previewImage:pixelWidth:pixelHeight:creationDate:recipeData:)(v17, v19, wrapperCopy, imageCopy, widthCopy, heightCopy, v16, data);
+  return GPExportablePhotoAsset.init(identifier:imageURLWrapper:previewImage:pixelWidth:pixelHeight:creationDate:recipeData:)(v16, v18, wrapperCopy, imageCopy, widthCopy, heightCopy, v15, data);
 }
 
 - (GPExportablePhotoAsset)init

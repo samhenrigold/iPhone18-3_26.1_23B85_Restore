@@ -61,19 +61,19 @@
 
 void __54__FAFamilyRequest__baseURLForEndpoint_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
-  v7 = _FALogSystem();
+  v7 = _FALogSystem(v6);
   v8 = v7;
   if (a2)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "Recieved url for endpoint %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "Recieved url for endpoint %@", &v10, 0xCu);
     }
   }
 
@@ -83,7 +83,6 @@ void __54__FAFamilyRequest__baseURLForEndpoint_withCompletion___block_invoke(uin
   }
 
   (*(*(a1 + 40) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_decoratedURLWithCompletion:(id)completion
@@ -107,7 +106,7 @@ void __47__FAFamilyRequest__decoratedURLWithCompletion___block_invoke(uint64_t a
   v7 = v6;
   if (!v5 || v6)
   {
-    v12 = _FALogSystem();
+    v12 = _FALogSystem(v6);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __47__FAFamilyRequest__decoratedURLWithCompletion___block_invoke_cold_1();
@@ -151,17 +150,16 @@ void __47__FAFamilyRequest__decoratedURLWithCompletion___block_invoke(uint64_t a
 void __44__FAFamilyRequest_URLRequestWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = *(a1 + 32);
-  v7 = a3;
+  v6 = a3;
   [v5 setURL:a2];
   [*(a1 + 40) _configureRequest:*(a1 + 32) includePayload:0];
   [*(a1 + 32) setHTTPMethod:@"GET"];
-  v6 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
 }
 
 - (id)urlRequest
 {
-  v3 = _FALogSystem();
+  v3 = _FALogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(FAFamilyRequest *)v3 urlRequest];
@@ -199,20 +197,18 @@ void __29__FAFamilyRequest_urlRequest__block_invoke(uint64_t a1, void *a2)
 
 void __54__FAFamilyRequest__baseURLForEndpoint_withCompletion___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_21BB35000, v0, OS_LOG_TYPE_ERROR, "No url received %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21BB35000, v0, OS_LOG_TYPE_ERROR, "No url received %@", v1, 0xCu);
 }
 
 void __47__FAFamilyRequest__decoratedURLWithCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_21BB35000, v1, OS_LOG_TYPE_ERROR, "Unable to decorate URL %@ error %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_21BB35000, v1, OS_LOG_TYPE_ERROR, "Unable to decorate URL %@ error %@", v2, 0x16u);
 }
 
 @end

@@ -79,7 +79,7 @@
   }
 }
 
-uint64_t __64__SBHViewControllerTransitionAnimatorAdapter_animateTransition___block_invoke(uint64_t a1)
+void *__64__SBHViewControllerTransitionAnimatorAdapter_animateTransition___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 64);
   result = [*(a1 + 32) transitionToken];
@@ -146,7 +146,7 @@ uint64_t __64__SBHViewControllerTransitionAnimatorAdapter_animateTransition___bl
   }
 }
 
-uint64_t __99__SBHViewControllerTransitionAnimatorAdapter_cancelTransition_withCompletionSpeed_completionCurve___block_invoke(uint64_t a1)
+void *__99__SBHViewControllerTransitionAnimatorAdapter_cancelTransition_withCompletionSpeed_completionCurve___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 64);
   result = [*(a1 + 32) transitionToken];

@@ -63,7 +63,7 @@ LABEL_3:
 
 - (id)addTask:(id)task startTime:(id)time tags:(id)tags dependencies:(id)dependencies error:(id *)error
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  v48[1] = *MEMORY[0x277D85DE8];
   taskCopy = task;
   timeCopy = time;
   tagsCopy = tags;
@@ -77,45 +77,45 @@ LABEL_3:
   if (-[TRITaskSetProviding taskClassForTaskType:](self->_taskSetProvider, "taskClassForTaskType:", [taskCopy taskType]))
   {
     serialize = [taskCopy serialize];
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x3032000000;
-    v45 = __Block_byref_object_copy__25;
-    v46 = __Block_byref_object_dispose__25;
-    v47 = 0;
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = __Block_byref_object_copy__25;
-    v40 = __Block_byref_object_dispose__25;
     v41 = 0;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_invoke;
-    v28[3] = &unk_279DE1E38;
-    v28[4] = self;
-    v29 = taskCopy;
-    v34 = &v42;
-    v35 = &v36;
-    v30 = dependenciesCopy;
+    v42 = &v41;
+    v43 = 0x3032000000;
+    v44 = __Block_byref_object_copy__25;
+    v45 = __Block_byref_object_dispose__25;
+    v46 = 0;
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = __Block_byref_object_copy__25;
+    v39 = __Block_byref_object_dispose__25;
+    v40 = 0;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_invoke;
+    v27[3] = &unk_279DE1E38;
+    v27[4] = self;
+    v28 = taskCopy;
+    v33 = &v41;
+    v34 = &v35;
+    v29 = dependenciesCopy;
     v18 = serialize;
-    v31 = v18;
-    v32 = timeCopy;
-    v33 = tagsCopy;
-    [(TRITaskDatabase *)self writeTransactionWithFailableBlock:v28];
+    v30 = v18;
+    v31 = timeCopy;
+    v32 = tagsCopy;
+    [(TRITaskDatabase *)self writeTransactionWithFailableBlock:v27];
     if (error)
     {
-      v19 = v43[5];
+      v19 = v42[5];
       if (v19)
       {
         *error = v19;
       }
     }
 
-    error = v37[5];
+    error = v36[5];
 
-    _Block_object_dispose(&v36, 8);
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v41, 8);
   }
 
   else
@@ -126,36 +126,35 @@ LABEL_3:
     }
 
     v20 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v48 = *MEMORY[0x277CCA450];
+    v47 = *MEMORY[0x277CCA450];
     v21 = objc_alloc(MEMORY[0x277CCACA8]);
     v22 = objc_opt_class();
     v18 = NSStringFromClass(v22);
     v23 = [v21 initWithFormat:@"Can't add task of class %@ which is not registered", v18];
-    v49[0] = v23;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+    v48[0] = v23;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
     *error = [v20 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v24];
 
     error = 0;
   }
 
 LABEL_11:
-  v25 = *MEMORY[0x277D85DE8];
 
   return error;
 }
 
 uint64_t __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_invoke(uint64_t a1, void *a2)
 {
-  v81[1] = *MEMORY[0x277D85DE8];
+  v80[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) idForTask:*(a1 + 40)];
 
   if (v4)
   {
     v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Tried to add TRITask %@, which has a duplicate already present in the database", *(a1 + 40)];
-    v80 = *MEMORY[0x277CCA450];
-    v81[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:&v80 count:1];
+    v79 = *MEMORY[0x277CCA450];
+    v80[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:&v79 count:1];
     v7 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v6];
     v8 = *(*(a1 + 80) + 8);
     v9 = *(v8 + 40);
@@ -180,126 +179,126 @@ uint64_t __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v78 = 0x2020000000;
-    v79 = 0x8000000000000000;
+    v77 = 0x2020000000;
+    v78 = 0x8000000000000000;
     v4 = [v3 db];
-    v71[0] = MEMORY[0x277D85DD0];
-    v71[1] = 3221225472;
-    v71[2] = __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_invoke_37;
-    v71[3] = &unk_279DDF860;
-    v72 = *(a1 + 48);
     v70[0] = MEMORY[0x277D85DD0];
     v70[1] = 3221225472;
-    v70[2] = __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_invoke_2;
-    v70[3] = &unk_279DDFC98;
-    v70[4] = &buf;
-    v16 = *(*(a1 + 32) + 8);
-    v17 = *(*(a1 + 80) + 8);
-    obj = *(v17 + 40);
-    v18 = [v16 generalErrorHandlerWithOutError:&obj];
-    objc_storeStrong((v17 + 40), obj);
-    LOBYTE(v17) = [v4 prepAndRunQuery:@" WITH depsTable (dep_rowid) AS(    SELECT * FROM _pas_nsarray(:dependencies)) SELECT dep_rowid FROM     depsTable WHERE     dep_rowid NOT IN (SELECT rowid FROM tasks) LIMIT 1;" onPrep:v71 onRow:v70 onError:v18];
+    v70[2] = __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_invoke_37;
+    v70[3] = &unk_279DDF860;
+    v71 = *(a1 + 48);
+    v69[0] = MEMORY[0x277D85DD0];
+    v69[1] = 3221225472;
+    v69[2] = __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_invoke_2;
+    v69[3] = &unk_279DDFC98;
+    v69[4] = &buf;
+    v15 = *(*(a1 + 32) + 8);
+    v16 = *(*(a1 + 80) + 8);
+    obj = *(v16 + 40);
+    v17 = [v15 generalErrorHandlerWithOutError:&obj];
+    objc_storeStrong((v16 + 40), obj);
+    LOBYTE(v16) = [v4 prepAndRunQuery:@" WITH depsTable (dep_rowid) AS(    SELECT * FROM _pas_nsarray(:dependencies)) SELECT dep_rowid FROM     depsTable WHERE     dep_rowid NOT IN (SELECT rowid FROM tasks) LIMIT 1;" onPrep:v70 onRow:v69 onError:v17];
 
-    if (v17)
+    if (v16)
     {
       if (*(*(&buf + 1) + 24) == 0x8000000000000000)
       {
-        v19 = 1;
+        v18 = 1;
         goto LABEL_18;
       }
 
-      v22 = objc_alloc(MEMORY[0x277CCACA8]);
-      v23 = [v22 initWithFormat:@"Tried to add TRITask with dependent task %lld, which is not in the db", *(*(&buf + 1) + 24)];
-      v75 = *MEMORY[0x277CCA450];
-      v76 = v23;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-      v25 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v24];
-      v26 = *(*(a1 + 80) + 8);
-      v27 = *(v26 + 40);
-      *(v26 + 40) = v25;
+      v21 = objc_alloc(MEMORY[0x277CCACA8]);
+      v22 = [v21 initWithFormat:@"Tried to add TRITask with dependent task %lld, which is not in the db", *(*(&buf + 1) + 24)];
+      v74 = *MEMORY[0x277CCA450];
+      v75 = v22;
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+      v24 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v23];
+      v25 = *(*(a1 + 80) + 8);
+      v26 = *(v25 + 40);
+      *(v25 + 40) = v24;
 
-      v28 = TRILogCategory_Server();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v27 = TRILogCategory_Server();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        *v73 = 138543362;
-        v74 = v23;
-        _os_log_error_impl(&dword_26F567000, v28, OS_LOG_TYPE_ERROR, "%{public}@", v73, 0xCu);
+        *v72 = 138543362;
+        v73 = v22;
+        _os_log_error_impl(&dword_26F567000, v27, OS_LOG_TYPE_ERROR, "%{public}@", v72, 0xCu);
       }
 
-      v29 = *(*(a1 + 88) + 8);
-      v30 = *(v29 + 40);
-      *(v29 + 40) = 0;
+      v28 = *(*(a1 + 88) + 8);
+      v29 = *(v28 + 40);
+      *(v28 + 40) = 0;
     }
 
     else
     {
-      v20 = *(*(a1 + 88) + 8);
-      v21 = *(v20 + 40);
-      *(v20 + 40) = 0;
+      v19 = *(*(a1 + 88) + 8);
+      v20 = *(v19 + 40);
+      *(v19 + 40) = 0;
     }
 
-    v19 = 0;
+    v18 = 0;
     v4 = *MEMORY[0x277D42678];
 LABEL_18:
 
     _Block_object_dispose(&buf, 8);
-    if ((v19 & 1) == 0)
+    if ((v18 & 1) == 0)
     {
       goto LABEL_7;
     }
   }
 
-  v31 = [v3 db];
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_invoke_49;
-  v65[3] = &unk_279DE1780;
-  v66 = *(a1 + 40);
-  v67 = *(a1 + 56);
-  v68 = *(a1 + 64);
-  v32 = *(*(a1 + 32) + 8);
-  v33 = *(*(a1 + 80) + 8);
-  v64 = *(v33 + 40);
-  v34 = [v32 generalErrorHandlerWithOutError:&v64];
-  objc_storeStrong((v33 + 40), v64);
-  v35 = [v31 prepAndRunQuery:@" INSERT INTO tasks(    taskType onPrep:serializedTask onRow:startSecondsFromEpoch onError:{hash, capabilities) VALUES(    :task_type, :serialized_task, :start_seconds, :hash, :capabilities_mask);", v65, 0, v34}];
+  v30 = [v3 db];
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_invoke_49;
+  v64[3] = &unk_279DE1780;
+  v65 = *(a1 + 40);
+  v66 = *(a1 + 56);
+  v67 = *(a1 + 64);
+  v31 = *(*(a1 + 32) + 8);
+  v32 = *(*(a1 + 80) + 8);
+  v63 = *(v32 + 40);
+  v33 = [v31 generalErrorHandlerWithOutError:&v63];
+  objc_storeStrong((v32 + 40), v63);
+  v34 = [v30 prepAndRunQuery:@" INSERT INTO tasks(    taskType onPrep:serializedTask onRow:startSecondsFromEpoch onError:{hash, capabilities) VALUES(    :task_type, :serialized_task, :start_seconds, :hash, :capabilities_mask);", v64, 0, v33}];
 
-  if ((v35 & 1) == 0)
+  if ((v34 & 1) == 0)
   {
-    v36 = *(*(a1 + 88) + 8);
-    v37 = *(v36 + 40);
-    *(v36 + 40) = 0;
+    v35 = *(*(a1 + 88) + 8);
+    v36 = *(v35 + 40);
+    *(v35 + 40) = 0;
 
     v4 = *MEMORY[0x277D42678];
   }
 
-  if (v35)
+  if (v34)
   {
-    v38 = [v3 db];
-    v39 = v38;
-    insert_rowid = sqlite3_last_insert_rowid([v38 handle]);
+    v37 = [v3 db];
+    v38 = v37;
+    insert_rowid = sqlite3_last_insert_rowid([v37 handle]);
 
     if ([*(a1 + 72) count])
     {
-      v41 = [v3 db];
-      v61[0] = MEMORY[0x277D85DD0];
-      v61[1] = 3221225472;
-      v61[2] = __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_invoke_2_59;
-      v61[3] = &unk_279DE1538;
-      v63 = insert_rowid;
-      v62 = *(a1 + 72);
-      v42 = *(*(a1 + 32) + 8);
-      v43 = *(*(a1 + 80) + 8);
-      v60 = *(v43 + 40);
-      v44 = [v42 generalErrorHandlerWithOutError:&v60];
-      objc_storeStrong((v43 + 40), v60);
-      LODWORD(v43) = [v41 prepAndRunQuery:@" INSERT OR IGNORE INTO taskTags(    taskId onPrep:tag) SELECT     :tasks_rowid onRow:* FROM     _pas_nsarray(:tags);" onError:{v61, 0, v44}];
+      v40 = [v3 db];
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_invoke_2_59;
+      v60[3] = &unk_279DE1538;
+      v62 = insert_rowid;
+      v61 = *(a1 + 72);
+      v41 = *(*(a1 + 32) + 8);
+      v42 = *(*(a1 + 80) + 8);
+      v59 = *(v42 + 40);
+      v43 = [v41 generalErrorHandlerWithOutError:&v59];
+      objc_storeStrong((v42 + 40), v59);
+      LODWORD(v42) = [v40 prepAndRunQuery:@" INSERT OR IGNORE INTO taskTags(    taskId onPrep:tag) SELECT     :tasks_rowid onRow:* FROM     _pas_nsarray(:tags);" onError:{v60, 0, v43}];
 
-      if (!v43)
+      if (!v42)
       {
-        v52 = *(*(a1 + 88) + 8);
-        v53 = *(v52 + 40);
-        *(v52 + 40) = 0;
+        v51 = *(*(a1 + 88) + 8);
+        v52 = *(v51 + 40);
+        *(v51 + 40) = 0;
 
         goto LABEL_5;
       }
@@ -308,38 +307,38 @@ LABEL_18:
     if (![*(a1 + 48) count])
     {
 LABEL_28:
-      v49 = [objc_alloc(MEMORY[0x277CCABB0]) initWithLongLong:insert_rowid];
-      v50 = *(*(a1 + 88) + 8);
-      v51 = *(v50 + 40);
-      *(v50 + 40) = v49;
+      v48 = [objc_alloc(MEMORY[0x277CCABB0]) initWithLongLong:insert_rowid];
+      v49 = *(*(a1 + 88) + 8);
+      v50 = *(v49 + 40);
+      *(v49 + 40) = v48;
 
       v13 = MEMORY[0x277D42670];
       goto LABEL_6;
     }
 
-    v45 = [v3 db];
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_invoke_3;
-    v57[3] = &unk_279DE1538;
-    v59 = insert_rowid;
-    v58 = *(a1 + 48);
-    v46 = *(*(a1 + 32) + 8);
-    v47 = *(*(a1 + 80) + 8);
-    v56 = *(v47 + 40);
-    v48 = [v46 generalErrorHandlerWithOutError:&v56];
-    objc_storeStrong((v47 + 40), v56);
-    LODWORD(v47) = [v45 prepAndRunQuery:@" INSERT OR IGNORE INTO taskDependencies(    taskId onPrep:dependentTaskId) SELECT     :tasks_rowid onRow:* FROM     _pas_nsarray(:dependencies);" onError:{v57, 0, v48}];
+    v44 = [v3 db];
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_invoke_3;
+    v56[3] = &unk_279DE1538;
+    v58 = insert_rowid;
+    v57 = *(a1 + 48);
+    v45 = *(*(a1 + 32) + 8);
+    v46 = *(*(a1 + 80) + 8);
+    v55 = *(v46 + 40);
+    v47 = [v45 generalErrorHandlerWithOutError:&v55];
+    objc_storeStrong((v46 + 40), v55);
+    LODWORD(v46) = [v44 prepAndRunQuery:@" INSERT OR IGNORE INTO taskDependencies(    taskId onPrep:dependentTaskId) SELECT     :tasks_rowid onRow:* FROM     _pas_nsarray(:dependencies);" onError:{v56, 0, v47}];
 
-    if (v47)
+    if (v46)
     {
 
       goto LABEL_28;
     }
 
-    v54 = *(*(a1 + 88) + 8);
-    v55 = *(v54 + 40);
-    *(v54 + 40) = 0;
+    v53 = *(*(a1 + 88) + 8);
+    v54 = *(v53 + 40);
+    *(v53 + 40) = 0;
 
 LABEL_5:
     v13 = MEMORY[0x277D42678];
@@ -349,7 +348,6 @@ LABEL_6:
 
 LABEL_7:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -394,7 +392,7 @@ void __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_inv
 
 - (BOOL)removeTaskWithId:(id)id cleanupBlock:(id)block
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   idCopy = id;
   blockCopy = block;
   if (!idCopy)
@@ -403,135 +401,134 @@ void __61__TRITaskDatabase_addTask_startTime_tags_dependencies_error___block_inv
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRITaskDatabase.m" lineNumber:224 description:{@"Invalid parameter not satisfying: %@", @"taskId != nil"}];
   }
 
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
-  v31[0] = 0;
-  v31[1] = v31;
-  v31[2] = 0x3032000000;
-  v31[3] = __Block_byref_object_copy__69;
-  v31[4] = __Block_byref_object_dispose__70;
   v32 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__25;
-  v29 = __Block_byref_object_dispose__25;
-  v30 = 0;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke;
-  v17[3] = &unk_279DE1E88;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
+  v30[0] = 0;
+  v30[1] = v30;
+  v30[2] = 0x3032000000;
+  v30[3] = __Block_byref_object_copy__69;
+  v30[4] = __Block_byref_object_dispose__70;
+  v31 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__25;
+  v28 = __Block_byref_object_dispose__25;
+  v29 = 0;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke;
+  v16[3] = &unk_279DE1E88;
   v9 = blockCopy;
-  v20 = v9;
+  v19 = v9;
   v10 = idCopy;
-  v18 = v10;
+  v17 = v10;
   selfCopy = self;
-  v21 = v31;
-  v22 = &v33;
-  v23 = &v25;
-  v24 = a2;
-  [(TRITaskDatabase *)self writeTransactionWithFailableBlock:v17];
-  if (v26[5])
+  v20 = v30;
+  v21 = &v32;
+  v22 = &v24;
+  v23 = a2;
+  [(TRITaskDatabase *)self writeTransactionWithFailableBlock:v16];
+  if (v25[5])
   {
     v11 = [(TRITaskDatabase *)self taskTypeForTaskWithId:v10];
     v12 = TRILogCategory_Server();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412546;
-      v38 = v10;
-      v39 = 1024;
-      v40 = v11;
+      v37 = v10;
+      v38 = 1024;
+      v39 = v11;
       _os_log_fault_impl(&dword_26F567000, v12, OS_LOG_TYPE_FAULT, "removeTaskWithId:cleanupBlock: failed to remove task with taskId %@ and type %d", buf, 0x12u);
     }
   }
 
-  v13 = *(v34 + 24);
+  v13 = *(v33 + 24);
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(v31, 8);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(v30, 8);
 
-  _Block_object_dispose(&v33, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v32, 8);
   return v13 & 1;
 }
 
 uint64_t __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (*(a1 + 48))
   {
     v5 = [v3 db];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_2;
-    v35[3] = &unk_279DDF860;
-    v36 = *(a1 + 32);
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_3;
-    v32[3] = &unk_279DE1E60;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_2;
+    v34[3] = &unk_279DDF860;
+    v35 = *(a1 + 32);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_3;
+    v31[3] = &unk_279DE1E60;
     v6 = *(a1 + 40);
-    v34 = *(a1 + 80);
-    v32[4] = v6;
-    v24 = *(a1 + 48);
-    v7 = v24;
-    v33 = v24;
+    v33 = *(a1 + 80);
+    v31[4] = v6;
+    v23 = *(a1 + 48);
+    v7 = v23;
+    v32 = v23;
     v8 = [*(*(a1 + 40) + 8) generalErrorHandlerWithOutError:0];
-    [v5 prepAndRunQuery:@" SELECT     taskType onPrep:serializedTask FROM     tasks WHERE     rowid = :task_id LIMIT 1;" onRow:v35 onError:{v32, v8}];
+    [v5 prepAndRunQuery:@" SELECT     taskType onPrep:serializedTask FROM     tasks WHERE     rowid = :task_id LIMIT 1;" onRow:v34 onError:{v31, v8}];
   }
 
   v9 = [v4 db];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_2_85;
-  v30[3] = &unk_279DDF860;
-  v31 = *(a1 + 32);
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_2_85;
+  v29[3] = &unk_279DDF860;
+  v30 = *(a1 + 32);
   v10 = [*(*(a1 + 40) + 8) generalErrorHandlerWithOutError:0];
-  v11 = [v9 prepAndRunQuery:@" DELETE FROM         taskDependencies WHERE         taskId = :task_id    OR   dependentTaskId = :task_id;" onPrep:v30 onRow:0 onError:v10];
+  v11 = [v9 prepAndRunQuery:@" DELETE FROM         taskDependencies WHERE         taskId = :task_id    OR   dependentTaskId = :task_id;" onPrep:v29 onRow:0 onError:v10];
 
   if ((v11 & 1) == 0)
   {
     *(*(*(a1 + 64) + 8) + 24) = 0;
     v18 = *MEMORY[0x277D42678];
-    v19 = v31;
+    v19 = v30;
 LABEL_12:
 
     goto LABEL_13;
   }
 
   v12 = [v4 db];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_3_89;
-  v28[3] = &unk_279DDF860;
-  v29 = *(a1 + 32);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_3_89;
+  v27[3] = &unk_279DDF860;
+  v28 = *(a1 + 32);
   v13 = [*(*(a1 + 40) + 8) generalErrorHandlerWithOutError:0];
-  v14 = [v12 prepAndRunQuery:@" DELETE FROM     taskTags WHERE     taskId = :task_id;" onPrep:v28 onRow:0 onError:v13];
+  v14 = [v12 prepAndRunQuery:@" DELETE FROM     taskTags WHERE     taskId = :task_id;" onPrep:v27 onRow:0 onError:v13];
 
   if ((v14 & 1) == 0)
   {
     *(*(*(a1 + 64) + 8) + 24) = 0;
     v18 = *MEMORY[0x277D42678];
-    v19 = v29;
+    v19 = v28;
     goto LABEL_12;
   }
 
   v15 = [v4 db];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_4;
-  v26[3] = &unk_279DDF860;
-  v27 = *(a1 + 32);
   v25[0] = MEMORY[0x277D85DD0];
   v25[1] = 3221225472;
-  v25[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_5;
-  v25[3] = &unk_279DDF778;
-  v25[4] = *(a1 + 72);
-  v16 = [v15 prepAndRunQuery:@" DELETE FROM     tasks WHERE     rowid = :task_id;" onPrep:v26 onRow:0 onError:v25];
+  v25[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_4;
+  v25[3] = &unk_279DDF860;
+  v26 = *(a1 + 32);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_5;
+  v24[3] = &unk_279DDF778;
+  v24[4] = *(a1 + 72);
+  v16 = [v15 prepAndRunQuery:@" DELETE FROM     tasks WHERE     rowid = :task_id;" onPrep:v25 onRow:0 onError:v24];
 
   if (!v16 || *(*(*(a1 + 72) + 8) + 40))
   {
@@ -539,42 +536,41 @@ LABEL_12:
     v17 = TRILogCategory_Server();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v23 = [*(*(*(a1 + 72) + 8) + 40) localizedDescription];
+      v22 = [*(*(*(a1 + 72) + 8) + 40) localizedDescription];
       *buf = 138412290;
-      v38 = v23;
+      v37 = v22;
       _os_log_error_impl(&dword_26F567000, v17, OS_LOG_TYPE_ERROR, "Unable to remove task from task table due to SQLite error: %@", buf, 0xCu);
     }
 
     v18 = *MEMORY[0x277D42678];
-    v19 = v27;
+    v19 = v26;
     goto LABEL_12;
   }
 
   *(*(*(a1 + 64) + 8) + 24) = 1;
-  v22 = *(*(*(a1 + 56) + 8) + 40);
-  if (v22)
+  v21 = *(*(*(a1 + 56) + 8) + 40);
+  if (v21)
   {
-    (*(v22 + 16))();
+    (*(v21 + 16))();
   }
 
   v18 = *MEMORY[0x277D42670];
 LABEL_13:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 uint64_t __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 getInt64ForColumnName:"taskType" table:0];
   v5 = [v3 getNSDataForColumnName:"serializedTask" table:0];
 
   if (!v5)
   {
-    v15 = [MEMORY[0x277CCA890] currentHandler];
-    [v15 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRITaskDatabase.m" lineNumber:252 description:@"read NULL serializedTask for NOT NULL column"];
+    v14 = [MEMORY[0x277CCA890] currentHandler];
+    [v14 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRITaskDatabase.m" lineNumber:252 description:@"read NULL serializedTask for NOT NULL column"];
   }
 
   v6 = [*(*(a1 + 32) + 16) taskClassForTaskType:v4];
@@ -583,13 +579,13 @@ uint64_t __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_3(ui
     v7 = [v6 parseFromData:v5];
     if (v7)
     {
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_80;
-      v16[3] = &unk_279DDF7C8;
-      v18 = *(a1 + 40);
-      v17 = v7;
-      v8 = MEMORY[0x2743948D0](v16);
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_80;
+      v15[3] = &unk_279DDF7C8;
+      v17 = *(a1 + 40);
+      v16 = v7;
+      v8 = MEMORY[0x2743948D0](v15);
       v9 = *(*(a1 + 48) + 8);
       v10 = *(v9 + 40);
       *(v9 + 40) = v8;
@@ -609,14 +605,13 @@ uint64_t __49__TRITaskDatabase_removeTaskWithId_cleanupBlock___block_invoke_3(ui
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v20 = v4;
+      v19 = v4;
       _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Failure deserializing task of unsupported type %d", buf, 8u);
     }
 
     v11 = *MEMORY[0x277D42698];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -781,13 +776,13 @@ uint64_t __27__TRITaskDatabase_allTasks__block_invoke(uint64_t *a1, void *a2)
 
 uint64_t __27__TRITaskDatabase_allTasks__block_invoke_2(void *a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 getInt64AsNSNumberForColumnName:"rowid" table:0];
   if (!v4)
   {
-    v23 = [MEMORY[0x277CCA890] currentHandler];
-    [v23 handleFailureInMethod:a1[6] object:a1[4] file:@"TRITaskDatabase.m" lineNumber:359 description:@"read NULL rowid from PRIMARY KEY column"];
+    v22 = [MEMORY[0x277CCA890] currentHandler];
+    [v22 handleFailureInMethod:a1[6] object:a1[4] file:@"TRITaskDatabase.m" lineNumber:359 description:@"read NULL rowid from PRIMARY KEY column"];
   }
 
   v5 = [v3 getInt64ForColumnName:"taskType" table:0];
@@ -807,8 +802,8 @@ uint64_t __27__TRITaskDatabase_allTasks__block_invoke_2(void *a1, void *a2)
   v9 = [v3 getNSDataForColumnName:"serializedTask" table:0];
   if (!v9)
   {
-    v24 = [MEMORY[0x277CCA890] currentHandler];
-    [v24 handleFailureInMethod:a1[6] object:a1[4] file:@"TRITaskDatabase.m" lineNumber:368 description:@"read NULL serializedTask from NOT NULL column"];
+    v23 = [MEMORY[0x277CCA890] currentHandler];
+    [v23 handleFailureInMethod:a1[6] object:a1[4] file:@"TRITaskDatabase.m" lineNumber:368 description:@"read NULL serializedTask from NOT NULL column"];
   }
 
   v10 = [*(a1[4] + 16) taskClassForTaskType:v5];
@@ -838,7 +833,7 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      LOWORD(v25) = 0;
+      LOWORD(v24) = 0;
       v18 = "task capabilities mismatch in tasks table";
       v19 = v17;
       v20 = 2;
@@ -852,29 +847,28 @@ LABEL_18:
         goto LABEL_18;
       }
 
-      v25 = 67109120;
-      v26 = v5;
+      v24 = 67109120;
+      v25 = v5;
       v18 = "Failure deserializing task of type %d";
       v19 = v17;
       v20 = 8;
     }
 
-    _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, v18, &v25, v20);
+    _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, v18, &v24, v20);
     goto LABEL_18;
   }
 
   v16 = TRILogCategory_Server();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    v25 = 67109120;
-    v26 = v5;
-    _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Failure deserializing task of unsupported type %d", &v25, 8u);
+    v24 = 67109120;
+    v25 = v5;
+    _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Failure deserializing task of unsupported type %d", &v24, 8u);
   }
 
   v15 = *MEMORY[0x277D42690];
 LABEL_20:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1147,13 +1141,13 @@ uint64_t __41__TRITaskDatabase__tasksForQuery_onPrep___block_invoke(uint64_t a1,
 
 uint64_t __41__TRITaskDatabase__tasksForQuery_onPrep___block_invoke_2(void *a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 getInt64AsNSNumberForColumnName:"rowid" table:0];
   if (!v4)
   {
-    v23 = [MEMORY[0x277CCA890] currentHandler];
-    [v23 handleFailureInMethod:a1[6] object:a1[4] file:@"TRITaskDatabase.m" lineNumber:545 description:@"read NULL rowid from PRIMARY KEY column"];
+    v22 = [MEMORY[0x277CCA890] currentHandler];
+    [v22 handleFailureInMethod:a1[6] object:a1[4] file:@"TRITaskDatabase.m" lineNumber:545 description:@"read NULL rowid from PRIMARY KEY column"];
   }
 
   v5 = [v3 getInt64ForColumnName:"taskType" table:0];
@@ -1173,8 +1167,8 @@ uint64_t __41__TRITaskDatabase__tasksForQuery_onPrep___block_invoke_2(void *a1, 
   v9 = [v3 getNSDataForColumnName:"serializedTask" table:0];
   if (!v9)
   {
-    v24 = [MEMORY[0x277CCA890] currentHandler];
-    [v24 handleFailureInMethod:a1[6] object:a1[4] file:@"TRITaskDatabase.m" lineNumber:554 description:@"read NULL serializedTask from NOT NULL column"];
+    v23 = [MEMORY[0x277CCA890] currentHandler];
+    [v23 handleFailureInMethod:a1[6] object:a1[4] file:@"TRITaskDatabase.m" lineNumber:554 description:@"read NULL serializedTask from NOT NULL column"];
   }
 
   v10 = [*(a1[4] + 16) taskClassForTaskType:v5];
@@ -1204,7 +1198,7 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      LOWORD(v25) = 0;
+      LOWORD(v24) = 0;
       v18 = "task capabilities mismatch in tasks table";
       v19 = v17;
       v20 = 2;
@@ -1218,29 +1212,28 @@ LABEL_18:
         goto LABEL_18;
       }
 
-      v25 = 67109120;
-      v26 = v5;
+      v24 = 67109120;
+      v25 = v5;
       v18 = "Failure deserializing task of type %d";
       v19 = v17;
       v20 = 8;
     }
 
-    _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, v18, &v25, v20);
+    _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, v18, &v24, v20);
     goto LABEL_18;
   }
 
   v16 = TRILogCategory_Server();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    v25 = 67109120;
-    v26 = v5;
-    _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Failure deserializing task of unsupported type %d", &v25, 8u);
+    v24 = 67109120;
+    v25 = v5;
+    _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Failure deserializing task of unsupported type %d", &v24, 8u);
   }
 
   v15 = *MEMORY[0x277D42690];
 LABEL_20:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -2038,7 +2031,7 @@ void __29__TRITaskDatabase_idForTask___block_invoke_2(uint64_t a1, void *a2)
 
 uint64_t __29__TRITaskDatabase_idForTask___block_invoke_3(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 getInt64ForColumnName:"taskType" table:0];
   v5 = [*(*(a1 + 32) + 16) taskClassForTaskType:v4];
@@ -2048,8 +2041,8 @@ uint64_t __29__TRITaskDatabase_idForTask___block_invoke_3(uint64_t a1, void *a2)
     v7 = [v3 getNSDataForColumnName:"serializedTask" table:0];
     if (!v7)
     {
-      v17 = [MEMORY[0x277CCA890] currentHandler];
-      [v17 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRITaskDatabase.m" lineNumber:961 description:@"read NULL serializedTask from NOT NULL column"];
+      v16 = [MEMORY[0x277CCA890] currentHandler];
+      [v16 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRITaskDatabase.m" lineNumber:961 description:@"read NULL serializedTask from NOT NULL column"];
     }
 
     v8 = [v6 parseFromData:v7];
@@ -2062,8 +2055,8 @@ uint64_t __29__TRITaskDatabase_idForTask___block_invoke_3(uint64_t a1, void *a2)
 
       if (!*(*(*(a1 + 48) + 8) + 40))
       {
-        v18 = [MEMORY[0x277CCA890] currentHandler];
-        [v18 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRITaskDatabase.m" lineNumber:970 description:@"read NULL rowid from PRIMARY KEY column"];
+        v17 = [MEMORY[0x277CCA890] currentHandler];
+        [v17 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRITaskDatabase.m" lineNumber:970 description:@"read NULL rowid from PRIMARY KEY column"];
       }
 
       v12 = MEMORY[0x277D42698];
@@ -2082,15 +2075,14 @@ uint64_t __29__TRITaskDatabase_idForTask___block_invoke_3(uint64_t a1, void *a2)
     v14 = TRILogCategory_Server();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v19[0] = 67109120;
-      v19[1] = v4;
-      _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Failure deserializing task of unsupported type %d", v19, 8u);
+      v18[0] = 67109120;
+      v18[1] = v4;
+      _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Failure deserializing task of unsupported type %d", v18, 8u);
     }
 
     v13 = *MEMORY[0x277D42690];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

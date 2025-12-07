@@ -106,47 +106,47 @@
 
 - (id)_cachedSpanResultsBetweenStartDate:(id)date endDate:(id)endDate ignoredEventID:(id)d addresses:(id)addresses
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   dCopy = d;
   addressesCopy = addresses;
   dispatch_assert_queue_V2(self->_processingQueue);
-  v33 = dCopy;
+  v32 = dCopy;
   v13 = [(EKAvailabilityCache *)self _dictionaryForIgnoredEventID:dCopy];
-  v34 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v33 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = addressesCopy;
-  v14 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+  v14 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
   if (v14)
   {
     v16 = v14;
-    v17 = *v40;
+    v17 = *v39;
     *&v15 = 138412546;
-    v32 = v15;
+    v31 = v15;
     do
     {
       v18 = 0;
       do
       {
-        if (*v40 != v17)
+        if (*v39 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v39 + 1) + 8 * v18);
+        v19 = *(*(&v38 + 1) + 8 * v18);
         v20 = EKAvailabilityHandle;
         if (os_log_type_enabled(EKAvailabilityHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v44 = v19;
+          v43 = v19;
           _os_log_debug_impl(&dword_1A805E000, v20, OS_LOG_TYPE_DEBUG, "Gathering cached availability for address: [%@]", buf, 0xCu);
         }
 
-        v21 = [v13 objectForKey:{v19, v32}];
+        v21 = [v13 objectForKey:{v19, v31}];
         if (v21)
         {
           v22 = v21;
@@ -158,11 +158,11 @@ LABEL_11:
             v26 = EKAvailabilityHandle;
             if (os_log_type_enabled(EKAvailabilityHandle, OS_LOG_TYPE_DEBUG))
             {
-              [EKAvailabilityCache _cachedSpanResultsBetweenStartDate:v38 endDate:v26 ignoredEventID:? addresses:?];
+              [EKAvailabilityCache _cachedSpanResultsBetweenStartDate:v37 endDate:v26 ignoredEventID:? addresses:?];
             }
 
             CalAnalyticsSendEvent();
-            [v34 setObject:v25 forKey:v19];
+            [v33 setObject:v25 forKey:v19];
           }
 
           else
@@ -171,11 +171,11 @@ LABEL_11:
             if (os_log_type_enabled(EKAvailabilityHandle, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412802;
-              v44 = v19;
-              v45 = 2112;
-              v46 = dateCopy;
-              v47 = 2112;
-              v48 = endDateCopy;
+              v43 = v19;
+              v44 = 2112;
+              v45 = dateCopy;
+              v46 = 2112;
+              v47 = endDateCopy;
               _os_log_debug_impl(&dword_1A805E000, v27, OS_LOG_TYPE_DEBUG, "Found stale cached spans for address [%@] in range with start date [%@] and end date: [%@].  Will send out remote fetch for availability.", buf, 0x20u);
             }
 
@@ -196,10 +196,10 @@ LABEL_11:
         v28 = EKAvailabilityHandle;
         if (os_log_type_enabled(EKAvailabilityHandle, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v32;
-          v44 = v19;
-          v45 = 2112;
-          v46 = v33;
+          *buf = v31;
+          v43 = v19;
+          v44 = 2112;
+          v45 = v32;
           _os_log_debug_impl(&dword_1A805E000, v28, OS_LOG_TYPE_DEBUG, "No cached spans found for address: [%@].  Ignored event ID: [%@].  Will send out remote fetch for availability.", buf, 0x16u);
         }
 
@@ -208,16 +208,14 @@ LABEL_20:
       }
 
       while (v16 != v18);
-      v29 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+      v29 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
       v16 = v29;
     }
 
     while (v29);
   }
 
-  v30 = *MEMORY[0x1E69E9840];
-
-  return v34;
+  return v33;
 }
 
 - (BOOL)_validateRequestStartDate:(id)date endDate:(id)endDate addresses:(id)addresses error:(id *)error
@@ -243,7 +241,7 @@ LABEL_17:
   {
     if (os_log_type_enabled(EKAvailabilityHandle, OS_LOG_TYPE_DEBUG))
     {
-      [EKAvailabilityCache _validateRequestStartDate:? endDate:? addresses:? error:?];
+      [EKAvailabilityCache _validateRequestStartDate:endDate:addresses:error:];
     }
 
     v13 = MEMORY[0x1E696ABC0];
@@ -298,7 +296,7 @@ LABEL_20:
 
 - (id)requestAvailabilityBetweenStartDate:(id)date endDate:(id)endDate ignoredEventID:(id)d addresses:(id)addresses resultsBlock:(id)block completionBlock:(id)completionBlock
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   dCopy = d;
@@ -313,25 +311,25 @@ LABEL_20:
     *&buf[12] = 2112;
     *&buf[14] = endDateCopy;
     *&buf[22] = 2112;
-    v47 = dCopy;
-    LOWORD(v48) = 2112;
-    *(&v48 + 2) = addressesCopy;
+    v46 = dCopy;
+    LOWORD(v47) = 2112;
+    *(&v47 + 2) = addressesCopy;
     _os_log_debug_impl(&dword_1A805E000, v20, OS_LOG_TYPE_DEBUG, "A client requested availability between start date [%@] and end date [%@].  Ignored event ID: [%@].  Addresses: [%@]", buf, 0x2Au);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v47 = __Block_byref_object_copy_;
-  *&v48 = __Block_byref_object_dispose_;
-  *(&v48 + 1) = 0;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
+  v46 = __Block_byref_object_copy_;
+  *&v47 = __Block_byref_object_dispose_;
+  *(&v47 + 1) = 0;
   v41 = 0;
-  v21 = [(EKAvailabilityCache *)self _validateRequestStartDate:dateCopy endDate:endDateCopy addresses:addressesCopy error:&v41];
-  v22 = v41;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
+  v40 = 0;
+  v21 = [(EKAvailabilityCache *)self _validateRequestStartDate:dateCopy endDate:endDateCopy addresses:addressesCopy error:&v40];
+  v22 = v40;
   if (v21)
   {
     processingQueue = self->_processingQueue;
@@ -340,17 +338,17 @@ LABEL_20:
     block[2] = __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke;
     block[3] = &unk_1E77FD220;
     block[4] = self;
-    v33 = dateCopy;
-    v34 = endDateCopy;
-    v35 = dCopy;
-    v36 = addressesCopy;
-    v37 = blockCopy;
-    v39 = &v42;
-    v40 = buf;
-    v38 = completionBlockCopy;
+    v32 = dateCopy;
+    v33 = endDateCopy;
+    v34 = dCopy;
+    v35 = addressesCopy;
+    v36 = blockCopy;
+    v38 = &v41;
+    v39 = buf;
+    v37 = completionBlockCopy;
     dispatch_sync(processingQueue, block);
 
-    v24 = *(v43 + 24);
+    v24 = *(v42 + 24);
     if (!completionBlockCopy)
     {
       goto LABEL_9;
@@ -360,7 +358,7 @@ LABEL_20:
   else
   {
     v24 = 1;
-    *(v43 + 24) = 1;
+    *(v42 + 24) = 1;
     if (!completionBlockCopy)
     {
       goto LABEL_9;
@@ -370,29 +368,27 @@ LABEL_20:
   if (v24)
   {
     callbackQueue = self->_callbackQueue;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_3;
-    v29[3] = &unk_1E77FD108;
-    v31 = completionBlockCopy;
-    v30 = v22;
-    dispatch_async(callbackQueue, v29);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_3;
+    v28[3] = &unk_1E77FD108;
+    v30 = completionBlockCopy;
+    v29 = v22;
+    dispatch_async(callbackQueue, v28);
   }
 
 LABEL_9:
   v26 = *(*&buf[8] + 40);
 
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v41, 8);
   _Block_object_dispose(buf, 8);
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
 
 void __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke(uint64_t a1)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _cachedSpanResultsBetweenStartDate:*(a1 + 40) endDate:*(a1 + 48) ignoredEventID:*(a1 + 56) addresses:*(a1 + 64)];
   v3 = [v2 count];
   if (v3)
@@ -401,16 +397,16 @@ void __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_igno
     v5 = EKAvailabilityHandle;
     if (os_log_type_enabled(EKAvailabilityHandle, OS_LOG_TYPE_DEBUG))
     {
-      v28 = v5;
-      v29 = [v2 allKeys];
-      v30 = *(a1 + 56);
+      v27 = v5;
+      v28 = [v2 allKeys];
+      v29 = *(a1 + 56);
       *buf = 134218498;
-      v56 = v4;
-      v57 = 2112;
-      v58 = v29;
-      v59 = 2112;
-      v60 = v30;
-      _os_log_debug_impl(&dword_1A805E000, v28, OS_LOG_TYPE_DEBUG, "[%lu] local cached spans were found for addresses: [%@].  Ignored event ID: [%@].  Sending these results immediately to the requesting client.", buf, 0x20u);
+      v55 = v4;
+      v56 = 2112;
+      v57 = v28;
+      v58 = 2112;
+      v59 = v29;
+      _os_log_debug_impl(&dword_1A805E000, v27, OS_LOG_TYPE_DEBUG, "[%lu] local cached spans were found for addresses: [%@].  Ignored event ID: [%@].  Sending these results immediately to the requesting client.", buf, 0x20u);
     }
 
     v6 = *(a1 + 72);
@@ -421,21 +417,21 @@ void __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_igno
       block[1] = 3221225472;
       block[2] = __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_36;
       block[3] = &unk_1E77FD108;
-      v54 = v6;
-      v53 = v2;
+      v53 = v6;
+      v52 = v2;
       dispatch_async(v7, block);
     }
   }
 
   v8 = *(a1 + 64);
   v9 = MEMORY[0x1E696AE18];
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_2;
-  v50[3] = &unk_1E77FD130;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_2;
+  v49[3] = &unk_1E77FD130;
   v10 = v2;
-  v51 = v10;
-  v11 = [v9 predicateWithBlock:v50];
+  v50 = v10;
+  v11 = [v9 predicateWithBlock:v49];
   v12 = [v8 filteredArrayUsingPredicate:v11];
 
   v13 = [v12 count];
@@ -445,20 +441,20 @@ void __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_igno
     v15 = EKAvailabilityHandle;
     if (os_log_type_enabled(EKAvailabilityHandle, OS_LOG_TYPE_DEBUG))
     {
-      v31 = *(a1 + 48);
-      v32 = *(a1 + 56);
-      v33 = *(a1 + 40);
-      v34 = *(*(a1 + 32) + 16);
+      v30 = *(a1 + 48);
+      v31 = *(a1 + 56);
+      v32 = *(a1 + 40);
+      v33 = *(*(a1 + 32) + 16);
       *buf = 138413314;
-      v56 = v12;
-      v57 = 2112;
-      v58 = v33;
-      v59 = 2112;
-      v60 = v31;
-      v61 = 2112;
-      v62 = v32;
-      v63 = 2112;
-      v64 = v34;
+      v55 = v12;
+      v56 = 2112;
+      v57 = v32;
+      v58 = 2112;
+      v59 = v30;
+      v60 = 2112;
+      v61 = v31;
+      v62 = 2112;
+      v63 = v33;
       _os_log_debug_impl(&dword_1A805E000, v15, OS_LOG_TYPE_DEBUG, "Sending network request for addresses: [%@].  Start date: [%@].  End date: [%@]  Ignored event ID: [%@].  Account ID: [%@]", buf, 0x34u);
     }
 
@@ -468,28 +464,28 @@ void __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_igno
     aBlock[1] = 3221225472;
     aBlock[2] = __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_41;
     aBlock[3] = &unk_1E77FD180;
-    v49 = *(a1 + 96);
+    v48 = *(a1 + 96);
     v17 = v16;
     v18 = *(a1 + 32);
-    v45 = v17;
-    v46 = v18;
-    v48 = *(a1 + 72);
-    v47 = *(a1 + 56);
+    v44 = v17;
+    v45 = v18;
+    v47 = *(a1 + 72);
+    v46 = *(a1 + 56);
     v19 = _Block_copy(aBlock);
-    v35 = MEMORY[0x1E69E9820];
-    v36 = 3221225472;
-    v37 = __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_2_44;
-    v38 = &unk_1E77FD1F8;
-    v42 = *(a1 + 96);
+    v34 = MEMORY[0x1E69E9820];
+    v35 = 3221225472;
+    v36 = __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_2_44;
+    v37 = &unk_1E77FD1F8;
+    v41 = *(a1 + 96);
     v20 = *(a1 + 32);
-    v39 = v17;
-    v40 = v20;
-    v41 = *(a1 + 80);
-    v43 = v14;
+    v38 = v17;
+    v39 = v20;
+    v40 = *(a1 + 80);
+    v42 = v14;
     v21 = v17;
-    v22 = _Block_copy(&v35);
+    v22 = _Block_copy(&v34);
     v23 = [MEMORY[0x1E69998A8] sharedConnection];
-    v24 = [v23 requestCalendarAvailabilityWithAccountID:*(*(a1 + 32) + 16) startDate:*(a1 + 40) endDate:*(a1 + 48) ignoredEventID:*(a1 + 56) addresses:v12 resultsBlock:v19 completionBlock:{v22, v35, v36, v37, v38}];
+    v24 = [v23 requestCalendarAvailabilityWithAccountID:*(*(a1 + 32) + 16) startDate:*(a1 + 40) endDate:*(a1 + 48) ignoredEventID:*(a1 + 56) addresses:v12 resultsBlock:v19 completionBlock:{v22, v34, v35, v36, v37}];
     v25 = *(*(a1 + 96) + 8);
     v26 = *(v25 + 40);
     *(v25 + 40) = v24;
@@ -499,8 +495,6 @@ void __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_igno
   {
     *(*(*(a1 + 88) + 8) + 24) = 1;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -559,34 +553,33 @@ void __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_igno
   dispatch_async(v6, block);
 }
 
-uint64_t __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_45(uint64_t a1)
+uint64_t __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_45(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48))
   {
-    v2 = *(*(a1 + 32) + 40);
+    v3 = *(*(a1 + 32) + 40);
     v5[0] = MEMORY[0x1E69E9820];
     v5[1] = 3221225472;
     v5[2] = __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_2_46;
     v5[3] = &unk_1E77FD1A8;
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    dispatch_async(v2, v5);
+    dispatch_async(v3, v5);
   }
 
-  v3 = *(a1 + 32);
   return [objc_opt_class() _logRequestElapsedTime:*(a1 + 64) forNumberOfAddresses:*(a1 + 56)];
 }
 
 void __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_2_46(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
     v3 = MEMORY[0x1E696ABC0];
-    v7 = *MEMORY[0x1E696AA08];
-    v8[0] = v2;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = *MEMORY[0x1E696AA08];
+    v7[0] = v2;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     v5 = [v3 errorWithDomain:@"EKAvailabilityCacheError" code:3 userInfo:v4];
   }
 
@@ -596,8 +589,6 @@ void __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_igno
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)cachedAvailabilityInDateRange:(id)range ignoredEventID:(id)d addresses:(id)addresses
@@ -743,14 +734,13 @@ void __86__EKAvailabilityCache_cachedAvailabilityInDateRange_ignoredEventID_addr
 
 void __66__EKAvailabilityCache__handleResults_resultsBlock_ignoredEventID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v8 = a2;
-  v5 = *(a1 + 32);
-  v6 = a3;
-  v7 = [objc_opt_class() _generateEventKitSpansFromPersistenceSpans:v6];
+  v7 = a2;
+  v5 = a3;
+  v6 = [objc_opt_class() _generateEventKitSpansFromPersistenceSpans:v5];
 
-  if (v7)
+  if (v6)
   {
-    [*(a1 + 40) setObject:v7 forKey:v8];
+    [*(a1 + 40) setObject:v6 forKey:v7];
   }
 }
 
@@ -773,7 +763,7 @@ void __66__EKAvailabilityCache__handleResults_resultsBlock_ignoredEventID___bloc
 
   else if (os_log_type_enabled(EKAvailabilityHandle, OS_LOG_TYPE_ERROR))
   {
-    __66__EKAvailabilityCache__handleResults_resultsBlock_ignoredEventID___block_invoke_3_cold_1(v5, a1);
+    __66__EKAvailabilityCache__handleResults_resultsBlock_ignoredEventID___block_invoke_3_cold_1();
   }
 }
 
@@ -833,12 +823,11 @@ void __66__EKAvailabilityCache__generateEventKitSpansFromPersistenceSpans___bloc
 {
   v3 = a2;
   v4 = [v3 type];
-  v8 = [v3 startDate];
+  v7 = [v3 startDate];
   v5 = [v3 endDate];
 
-  v6 = *(a1 + 40);
-  v7 = -[EKAvailabilitySpan initWithStartDate:endDate:type:]([EKAvailabilitySpan alloc], "initWithStartDate:endDate:type:", v8, v5, [objc_opt_class() _convertType:v4]);
-  [*(a1 + 32) addObject:v7];
+  v6 = -[EKAvailabilitySpan initWithStartDate:endDate:type:]([EKAvailabilitySpan alloc], "initWithStartDate:endDate:type:", v7, v5, [objc_opt_class() _convertType:v4]);
+  [*(a1 + 32) addObject:v6];
 }
 
 + (int64_t)_convertType:(int64_t)type
@@ -856,7 +845,7 @@ void __66__EKAvailabilityCache__generateEventKitSpansFromPersistenceSpans___bloc
 
 + (void)_logRequestElapsedTime:(double)time forNumberOfAddresses:(unint64_t)addresses
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (addresses >= 3)
   {
     if (addresses >= 6)
@@ -936,30 +925,25 @@ void __66__EKAvailabilityCache__generateEventKitSpansFromPersistenceSpans___bloc
   }
 
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"AvailabilityCacheRoundtripTimeInMilliseconds-%@", v5];
-  v10 = @"elapsedTime";
+  v9 = @"elapsedTime";
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:time];
-  v11[0] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   CalAnalyticsSendEvent();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithSource:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1A805E000, v0, OS_LOG_TYPE_ERROR, "The given source's 'accountID' is nil.  The availability cache will not be able to give availability data.  Cache: [%@]", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A805E000, v0, OS_LOG_TYPE_ERROR, "The given source's 'accountID' is nil.  The availability cache will not be able to give availability data.  Cache: [%@]", v1, 0xCu);
 }
 
 - (void)initWithSource:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cachedSpanResultsBetweenStartDate:(os_log_t)log endDate:ignoredEventID:addresses:.cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -969,65 +953,45 @@ void __66__EKAvailabilityCache__generateEventKitSpansFromPersistenceSpans___bloc
   _os_log_debug_impl(&dword_1A805E000, log, OS_LOG_TYPE_DEBUG, "Cache hit.   freshly cached spans found.", buf, 2u);
 }
 
-- (void)_validateRequestStartDate:(uint64_t)a1 endDate:addresses:error:.cold.3(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 16);
-  OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_validateRequestStartDate:endDate:addresses:error:.cold.4()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1A805E000, v0, OS_LOG_TYPE_ERROR, "This availability cache's source is invalid.  Will not execute the availability request.  Cache: [%@]", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A805E000, v0, OS_LOG_TYPE_ERROR, "This availability cache's source is invalid.  Will not execute the availability request.  Cache: [%@]", v1, 0xCu);
 }
 
 void __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_41_cold_1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = *(*(*(a1 + 64) + 8) + 40);
-  v4 = *(a1 + 32);
-  v5 = a3;
-  OUTLINED_FUNCTION_0_0([v4 elapsedTimeAsNumber:3], 1000000.0);
-  OUTLINED_FUNCTION_3(&dword_1A805E000, v6, v7, "Availability request with ID [%@] received a response with results: [%@]. Elapsed milliseconds: [%f]", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  v4 = a3;
+  v12 = 138412802;
+  v5 = OUTLINED_FUNCTION_0_0([v3 elapsedTimeAsNumber:3], 1000000.0);
+  OUTLINED_FUNCTION_3(&dword_1A805E000, v6, v7, "Availability request with ID [%@] received a response with results: [%@]. Elapsed milliseconds: [%f]", v8, v9, v10, v11, v5, v12);
 }
 
 void __121__EKAvailabilityCache_requestAvailabilityBetweenStartDate_endDate_ignoredEventID_addresses_resultsBlock_completionBlock___block_invoke_2_44_cold_1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = *(*(*(a1 + 56) + 8) + 40);
-  v4 = *(a1 + 32);
-  v5 = a3;
-  OUTLINED_FUNCTION_0_0([v4 elapsedTimeAsNumber:3], 1000000.0);
-  OUTLINED_FUNCTION_3(&dword_1A805E000, v6, v7, "Availability request with ID [%@] completed with error: [%@].  Total elapsed milliseconds: [%f]", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  v4 = a3;
+  v12 = 138412802;
+  v5 = OUTLINED_FUNCTION_0_0([v3 elapsedTimeAsNumber:3], 1000000.0);
+  OUTLINED_FUNCTION_3(&dword_1A805E000, v6, v7, "Availability request with ID [%@] completed with error: [%@].  Total elapsed milliseconds: [%f]", v8, v9, v10, v11, v5, v12);
 }
 
 - (void)cancelAvailabilityRequestWithID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __66__EKAvailabilityCache__handleResults_resultsBlock_ignoredEventID___block_invoke_3_cold_1(uint64_t a1, uint64_t a2)
+void __66__EKAvailabilityCache__handleResults_resultsBlock_ignoredEventID___block_invoke_3_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 32);
-  OUTLINED_FUNCTION_1();
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_1A805E000, v4, OS_LOG_TYPE_ERROR, "No spans were returned for address [%@] and ignored event ID [%@]", v6, 0x16u);
   v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1();
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1A805E000, v1, OS_LOG_TYPE_ERROR, "No spans were returned for address [%@] and ignored event ID [%@]", v2, 0x16u);
 }
 
 @end

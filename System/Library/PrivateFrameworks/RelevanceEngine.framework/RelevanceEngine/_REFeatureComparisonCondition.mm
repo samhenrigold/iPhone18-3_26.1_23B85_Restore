@@ -30,14 +30,12 @@
 
 - (id)_dependentFeatures
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   rightFeature = self->_rightFeature;
-  v7[0] = self->_leftFeature;
-  v7[1] = rightFeature;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = self->_leftFeature;
+  v6[1] = rightFeature;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   v4 = [REFeatureSet featureSetWithFeatures:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -115,16 +113,14 @@ LABEL_9:
 
 - (id)_inflectionFeatureValuePairs
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v3 = [[REFeatureValuePair alloc] initWithFeature:self->_leftFeature value:0];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [[REFeatureValuePair alloc] initWithFeature:self->_rightFeature value:0];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
 
   v6 = [MEMORY[0x277CBEB98] setWithArray:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

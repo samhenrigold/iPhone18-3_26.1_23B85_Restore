@@ -140,39 +140,37 @@ LABEL_21:
 
 void __72__HDOntologyShardDownloader__notifyDownloadObserversAboutStagedEntries___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 ontologyShardDownloader:*(a1 + 40) didStageEntry:{*(*(&v10 + 1) + 8 * v8++), v10}];
+        [v3 ontologyShardDownloader:*(a1 + 40) didStageEntry:{*(*(&v9 + 1) + 8 * v8++), v9}];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HDOntologyUpdateCoordinator)updateCoordinator
@@ -284,32 +282,32 @@ void __72__HDOntologyShardDownloader__notifyDownloadObserversAboutStagedEntries_
 
 - (id)_requiredEntriesWithError:(uint64_t)error
 {
-  v25[3] = *MEMORY[0x277D85DE8];
+  v24[3] = *MEMORY[0x277D85DE8];
   if (error)
   {
     v2 = MEMORY[0x277D10B20];
     v3 = [MEMORY[0x277D10B18] predicateWithProperty:@"desired_state" equalToValue:&unk_286374670];
-    v25[0] = v3;
+    v24[0] = v3;
     v4 = [MEMORY[0x277D10B60] isNotNullPredicateWithProperty:@"available_url"];
-    v25[1] = v4;
+    v24[1] = v4;
     v5 = MEMORY[0x277D10B20];
     v6 = [MEMORY[0x277D10B18] predicateWithProperty:@"available_state" equalToValue:&unk_286374688];
-    v24[0] = v6;
+    v23[0] = v6;
     v7 = [MEMORY[0x277D10B18] predicateWithProperty:@"available_state" equalToValue:&unk_2863746A0];
-    v24[1] = v7;
+    v23[1] = v7;
     v8 = [MEMORY[0x277D10B18] predicateWithProperty:@"current_version" lessThanOrEqualToValue:&unk_2863746B8];
-    v24[2] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
+    v23[2] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
     v10 = [v5 predicateMatchingAnyPredicates:v9];
-    v25[2] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+    v24[2] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
     v12 = [v2 predicateMatchingAllPredicates:v11];
 
     v13 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"current_version" entityClass:objc_opt_class() ascending:1];
-    v23[0] = v13;
+    v22[0] = v13;
     v14 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"desired_state_date" entityClass:objc_opt_class() ascending:0];
-    v23[1] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[1] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
 
     WeakRetained = objc_loadWeakRetained((error + 24));
     shardRegistry = [WeakRetained shardRegistry];
@@ -321,50 +319,48 @@ void __72__HDOntologyShardDownloader__notifyDownloadObserversAboutStagedEntries_
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)_entriesToDownloadForRequiredEntries:(void *)entries existingStagedEntries:(uint64_t)stagedEntries error:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v6 = a2;
   entriesCopy = entries;
   selfCopy = self;
   if (self)
   {
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (!v10)
     {
       goto LABEL_16;
     }
 
     v11 = v10;
-    v12 = *v28;
+    v12 = *v27;
     while (1)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v28 != v12)
+        if (*v27 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v27 + 1) + 8 * i);
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __94__HDOntologyShardDownloader__entriesToDownloadForRequiredEntries_existingStagedEntries_error___block_invoke;
-        v26[3] = &unk_2796B9118;
-        v26[4] = v14;
-        if ([entriesCopy hk_containsObjectPassingTest:v26])
+        v14 = *(*(&v26 + 1) + 8 * i);
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __94__HDOntologyShardDownloader__entriesToDownloadForRequiredEntries_existingStagedEntries_error___block_invoke;
+        v25[3] = &unk_2796B9118;
+        v25[4] = v14;
+        if ([entriesCopy hk_containsObjectPassingTest:v25])
         {
           if ([v14 availableState] == 2)
           {
@@ -372,7 +368,7 @@ void __72__HDOntologyShardDownloader__notifyDownloadObserversAboutStagedEntries_
           }
 
           v15 = [v14 copyWithAvailableState:2];
-          v16 = v25;
+          v16 = v24;
         }
 
         else
@@ -384,7 +380,7 @@ void __72__HDOntologyShardDownloader__notifyDownloadObserversAboutStagedEntries_
             v18 = v8;
             v19 = [v15 copyWithAvailableState:1];
 
-            [v25 addObject:v19];
+            [v24 addObject:v19];
             v15 = v19;
             v8 = v18;
             v9 = v17;
@@ -396,12 +392,12 @@ void __72__HDOntologyShardDownloader__notifyDownloadObserversAboutStagedEntries_
         [v16 addObject:v15];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (!v11)
       {
 LABEL_16:
 
-        if ([(HDOntologyShardDownloader *)selfCopy _persistStagedEntries:v25 error:stagedEntries])
+        if ([(HDOntologyShardDownloader *)selfCopy _persistStagedEntries:v24 error:stagedEntries])
         {
           v20 = v8;
         }
@@ -418,8 +414,6 @@ LABEL_16:
 
   v20 = 0;
 LABEL_20:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

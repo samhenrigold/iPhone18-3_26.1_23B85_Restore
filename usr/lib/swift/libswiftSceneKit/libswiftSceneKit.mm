@@ -76,7 +76,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -242,47 +241,43 @@ id SCNGeometrySource.init(vertices:)(uint64_t a1, SEL *a2)
 
 __n128 SCNBoundingVolume.boundingBox.getter@<Q0>(__n128 *a1@<X8>)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v3 = *(MEMORY[0x29EDBBB58] + 4);
   v4 = *(MEMORY[0x29EDBBB58] + 8);
-  LODWORD(v10) = *MEMORY[0x29EDBBB58];
-  HIDWORD(v10) = v3;
-  v11 = v4;
-  v8 = v10;
-  v9 = __PAIR64__(v4, v3);
-  [v1 getBoundingBoxMin:&v10 max:&v8];
-  v5 = v9;
-  result.n128_u64[0] = v10;
-  result.n128_u64[1] = __PAIR64__(v8, v11);
+  LODWORD(v9) = *MEMORY[0x29EDBBB58];
+  HIDWORD(v9) = v3;
+  v10 = v4;
+  v7 = v9;
+  v8 = __PAIR64__(v4, v3);
+  [v1 getBoundingBoxMin:&v9 max:&v7];
+  v5 = v8;
+  result.n128_u64[0] = v9;
+  result.n128_u64[1] = __PAIR64__(v7, v10);
   *a1 = result;
   a1[1].n128_u64[0] = v5;
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-double key path getter for SCNBoundingVolume.boundingBox : <A>A@<D0>(uint64_t *a1@<X0>, __n128 *a2@<X8>)
+double key path getter for SCNBoundingVolume.boundingBox : <A>A@<D0>(__n128 *a1@<X8>)
 {
-  v3 = *a1;
-  SCNBoundingVolume.boundingBox.getter(&v6);
-  result = v6.n128_f64[0];
-  v5 = v7;
-  *a2 = v6;
-  a2[1].n128_u64[0] = v5;
+  SCNBoundingVolume.boundingBox.getter(&v4);
+  result = v4.n128_f64[0];
+  v3 = v5;
+  *a1 = v4;
+  a1[1].n128_u64[0] = v3;
   return result;
 }
 
 id SCNBoundingVolume.boundingBox.setter(float a1, float a2, float a3, float a4, float a5, float a6)
 {
-  v11 = *MEMORY[0x29EDCA608];
-  *v10 = a1;
-  *&v10[1] = a2;
-  *&v10[2] = a3;
-  *v9 = a4;
-  *&v9[1] = a5;
-  *&v9[2] = a6;
-  result = [v6 setBoundingBoxMin:v10 max:v9];
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
+  v10 = *MEMORY[0x29EDCA608];
+  *v9 = a1;
+  *&v9[1] = a2;
+  *&v9[2] = a3;
+  *v8 = a4;
+  *&v8[1] = a5;
+  *&v8[2] = a6;
+  return [v6 setBoundingBoxMin:v9 max:v8];
 }
 
 void (*SCNBoundingVolume.boundingBox.modify(uint64_t *a1))(void ***a1)
@@ -327,23 +322,21 @@ void SCNBoundingVolume.boundingBox.modify(void ***a1)
 
 float SCNBoundingVolume.boundingSphere.getter()
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v1 = *(MEMORY[0x29EDBBB58] + 8);
-  v5 = *MEMORY[0x29EDBBB58];
-  v6 = v1;
-  v4 = 0;
-  [v0 getBoundingSphereCenter:&v5 radius:&v4];
-  result = *&v5;
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  v4 = *MEMORY[0x29EDBBB58];
+  v5 = v1;
+  v3 = 0;
+  [v0 getBoundingSphereCenter:&v4 radius:&v3];
+  return *&v4;
 }
 
-uint64_t SCNSceneSource.entryWithIdentifier<A>(_:withClass:)()
+uint64_t SCNSceneSource.entryWithIdentifier<A>(_:withClass:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = MEMORY[0x29C2ACAA0]();
-  v2 = [v0 entryWithIdentifier:v1 withClass:swift_getObjCClassFromMetadata()];
+  v5 = MEMORY[0x29C2ACAA0](a1, a2);
+  v6 = [v4 entryWithIdentifier:v5 withClass:swift_getObjCClassFromMetadata()];
 
-  if (v2)
+  if (v6)
   {
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
@@ -351,29 +344,29 @@ uint64_t SCNSceneSource.entryWithIdentifier<A>(_:withClass:)()
 
   else
   {
-    v5 = 0u;
-    v6 = 0u;
+    v9 = 0u;
+    v10 = 0u;
   }
 
-  v7[0] = v5;
-  v7[1] = v6;
-  if (*(&v6 + 1))
+  v11[0] = v9;
+  v11[1] = v10;
+  if (*(&v10 + 1))
   {
-    outlined init with take of Any(v7, &v8);
+    outlined init with take of Any(v11, &v12);
     swift_dynamicCast();
-    return v4;
+    return v8;
   }
 
   else
   {
-    outlined destroy of Any?(v7);
+    outlined destroy of Any?(v11);
     return 0;
   }
 }
 
 uint64_t specialized Data.InlineData.init(_:)(_BYTE *__src, _BYTE *a2)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v2 = a2 - __src;
   if (__src)
   {
@@ -399,20 +392,22 @@ LABEL_11:
 
   result = 0;
   __dst = 0;
-  v10 = v3;
-  v9 = 0;
+  v9 = v3;
   v8 = 0;
-  if (__src && a2 != __src)
+  v7 = 0;
+  if (__src)
   {
-    memcpy(&__dst, __src, v2);
-    result = __dst;
+    if (a2 != __src)
+    {
+      memcpy(&__dst, __src, v2);
+      return __dst;
+    }
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t specialized Data.init(bytes:count:)(_BYTE *a1, uint64_t a2)
+unint64_t specialized Data.init(bytes:count:)(_BYTE *a1, unint64_t a2)
 {
   if (!a2)
   {
@@ -424,9 +419,7 @@ uint64_t specialized Data.init(bytes:count:)(_BYTE *a1, uint64_t a2)
     return specialized Data.InlineData.init(_:)(a1, &a1[a2]);
   }
 
-  v3 = type metadata accessor for __DataStorage();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  type metadata accessor for __DataStorage();
   swift_allocObject();
   __DataStorage.init(bytes:length:)();
   if (a2 < 0x7FFFFFFF)
@@ -441,13 +434,13 @@ uint64_t specialized Data.init(bytes:count:)(_BYTE *a1, uint64_t a2)
   return result;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -620,12 +613,12 @@ uint64_t storeEnumTagSinglePayload for SCNVector3(uint64_t result, int a2, int a
   return result;
 }
 
-void type metadata accessor for SCNMatrix4(uint64_t a1, unint64_t *a2)
+void type metadata accessor for SCNMatrix4(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -1251,25 +1244,25 @@ BOOL protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeFromO
   return result;
 }
 
-id protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance SCNMatrix4@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
+id protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance SCNMatrix4@<X0>(void *a1@<X0>, _OWORD *a3@<X8>)
 {
   if (a1)
   {
-    v4 = [a1 objCType];
+    v5 = [a1 objCType];
     if (one-time initialization token for SCNMatrix4InNSValueObjCType != -1)
     {
-      v6 = v4;
+      v7 = v5;
       swift_once();
-      v4 = v6;
+      v5 = v7;
     }
 
-    if (!strcmp(v4, SCNMatrix4InNSValueObjCType))
+    if (!strcmp(v5, SCNMatrix4InNSValueObjCType))
     {
       result = [a1 SCNMatrix4Value];
-      *a2 = v7;
-      a2[1] = v8;
-      a2[2] = v9;
-      a2[3] = v10;
+      *a3 = v8;
+      a3[1] = v9;
+      a3[2] = v10;
+      a3[3] = v11;
       return result;
     }
 

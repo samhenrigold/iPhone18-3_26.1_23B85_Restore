@@ -14,7 +14,11 @@
 - (id)publisherWithUseCase:(id)case options:(id)options;
 - (id)publisherWithUser:(unsigned int)user useCase:(id)case options:(id)options;
 - (id)publishersForAccounts:(id)accounts deviceTypes:(unint64_t)types includeLocal:(BOOL)local options:(id)options useCase:(id)case pipeline:(id)pipeline;
+- (id)publishersForDevices:(id)devices startTime:(double)time includeLocal:(BOOL)local pipeline:(id)pipeline;
+- (id)publishersForDevices:(id)devices startTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed includeLocal:(BOOL)local pipeline:(id)self0;
+- (id)publishersForDevices:(id)devices withUseCase:(id)case startTime:(double)time includeLocal:(BOOL)local pipeline:(id)pipeline;
 - (id)publishersForDevices:(id)devices withUseCase:(id)case startTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed includeLocal:(BOOL)self0 pipeline:(id)self1;
+- (id)publishersForRemoteDevices:(id)devices startTime:(double)time includeLocal:(BOOL)local pipeline:(id)pipeline;
 - (id)publishersForRemoteDevices:(id)devices startTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed includeLocal:(BOOL)local pipeline:(id)self0;
 - (id)remoteDevices;
 - (id)remoteDevicesForAccount:(id)account error:(id *)error;
@@ -442,6 +446,46 @@ LABEL_8:
   return v9;
 }
 
+- (id)publishersForDevices:(id)devices startTime:(double)time includeLocal:(BOOL)local pipeline:(id)pipeline
+{
+  localCopy = local;
+  v10 = *MEMORY[0x1E698E928];
+  pipelineCopy = pipeline;
+  devicesCopy = devices;
+  v13 = [(BMStreamBase *)self _storeStreamForUseCase:v10];
+  v14 = [v13 publishersForDevices:devicesCopy startTime:localCopy includeLocal:pipelineCopy pipeline:time];
+
+  return v14;
+}
+
+- (id)publishersForDevices:(id)devices startTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed includeLocal:(BOOL)local pipeline:(id)self0
+{
+  reversedCopy = reversed;
+  v17 = *MEMORY[0x1E698E928];
+  pipelineCopy = pipeline;
+  nCopy = n;
+  eventsCopy = events;
+  endTimeCopy = endTime;
+  timeCopy = time;
+  devicesCopy = devices;
+  v24 = [(BMStreamBase *)self _storeStreamForUseCase:v17];
+  LOBYTE(v27) = local;
+  v25 = [v24 publishersForDevices:devicesCopy startTime:timeCopy endTime:endTimeCopy maxEvents:eventsCopy lastN:nCopy reversed:reversedCopy includeLocal:v27 pipeline:pipelineCopy];
+
+  return v25;
+}
+
+- (id)publishersForDevices:(id)devices withUseCase:(id)case startTime:(double)time includeLocal:(BOOL)local pipeline:(id)pipeline
+{
+  localCopy = local;
+  pipelineCopy = pipeline;
+  devicesCopy = devices;
+  v14 = [(BMStreamBase *)self _storeStreamForUseCase:case];
+  v15 = [v14 publishersForDevices:devicesCopy startTime:localCopy includeLocal:pipelineCopy pipeline:time];
+
+  return v15;
+}
+
 - (id)publishersForDevices:(id)devices withUseCase:(id)case startTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed includeLocal:(BOOL)self0 pipeline:(id)self1
 {
   pipelineCopy = pipeline;
@@ -520,6 +564,16 @@ id __108__BMStreamBase_publishersForRemoteDevices_startTime_endTime_maxEvents_la
   return v4;
 }
 
+- (id)publishersForRemoteDevices:(id)devices startTime:(double)time includeLocal:(BOOL)local pipeline:(id)pipeline
+{
+  localCopy = local;
+  pipelineCopy = pipeline;
+  v11 = [devices _pas_mappedArrayWithTransform:&__block_literal_global_69];
+  v12 = [(BMStreamBase *)self publishersForDevices:v11 withUseCase:*MEMORY[0x1E698E928] startTime:localCopy includeLocal:pipelineCopy pipeline:time];
+
+  return v12;
+}
+
 id __75__BMStreamBase_publishersForRemoteDevices_startTime_includeLocal_pipeline___block_invoke(uint64_t a1, void *a2)
 {
   v2 = MEMORY[0x1E698F358];
@@ -559,87 +613,85 @@ id __75__BMStreamBase_publishersForRemoteDevices_startTime_includeLocal_pipeline
 - (id)publishersForAccounts:(id)accounts deviceTypes:(unint64_t)types includeLocal:(BOOL)local options:(id)options useCase:(id)case pipeline:(id)pipeline
 {
   localCopy = local;
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   accountsCopy = accounts;
   optionsCopy = options;
   caseCopy = case;
   pipelineCopy = pipeline;
-  v34 = caseCopy;
-  v33 = [objc_alloc(MEMORY[0x1E698E980]) initWithUseCase:caseCopy];
-  if (v33)
+  v33 = caseCopy;
+  v32 = [objc_alloc(MEMORY[0x1E698E980]) initWithUseCase:caseCopy];
+  if (v32)
   {
     v14 = objc_opt_new();
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v28 = accountsCopy;
+    v27 = accountsCopy;
     obj = accountsCopy;
-    v36 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
-    if (v36)
+    v35 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+    if (v35)
     {
-      v30 = *v45;
+      v29 = *v44;
       do
       {
-        for (i = 0; i != v36; ++i)
+        for (i = 0; i != v35; ++i)
         {
-          if (*v45 != v30)
+          if (*v44 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v44 + 1) + 8 * i);
-          v39 = [v33 deviceIdentifiersForAccount:{v16, v28}];
-          v17 = [v39 _pas_mappedArrayWithTransform:&__block_literal_global_76];
-          v37 = [(BMStreamBase *)self _storeStreamForAccount:v16 useCase:v34];
-          v38 = v17;
-          v18 = [v37 _publishersForDevices:v17 includeLocal:localCopy options:optionsCopy];
+          v16 = *(*(&v43 + 1) + 8 * i);
+          v38 = [v32 deviceIdentifiersForAccount:{v16, v27}];
+          v17 = [v38 _pas_mappedArrayWithTransform:&__block_literal_global_76];
+          v36 = [(BMStreamBase *)self _storeStreamForAccount:v16 useCase:v33];
+          v37 = v17;
+          v18 = [v36 _publishersForDevices:v17 includeLocal:localCopy options:optionsCopy];
+          v39 = 0u;
           v40 = 0u;
           v41 = 0u;
           v42 = 0u;
-          v43 = 0u;
           publishers = [v18 publishers];
-          v20 = [publishers countByEnumeratingWithState:&v40 objects:v48 count:16];
+          v20 = [publishers countByEnumeratingWithState:&v39 objects:v47 count:16];
           if (v20)
           {
             v21 = v20;
-            v22 = *v41;
+            v22 = *v40;
             do
             {
               for (j = 0; j != v21; ++j)
               {
-                if (*v41 != v22)
+                if (*v40 != v22)
                 {
                   objc_enumerationMutation(publishers);
                 }
 
-                v24 = pipelineCopy[2](pipelineCopy, *(*(&v40 + 1) + 8 * j));
+                v24 = pipelineCopy[2](pipelineCopy, *(*(&v39 + 1) + 8 * j));
                 [v14 addObject:v24];
               }
 
-              v21 = [publishers countByEnumeratingWithState:&v40 objects:v48 count:16];
+              v21 = [publishers countByEnumeratingWithState:&v39 objects:v47 count:16];
             }
 
             while (v21);
           }
         }
 
-        v36 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v35 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
       }
 
-      while (v36);
+      while (v35);
     }
 
     v25 = [[BMSharedPublishers alloc] initWithPublishers:v14];
-    accountsCopy = v28;
+    accountsCopy = v27;
   }
 
   else
   {
     v25 = 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -675,7 +727,7 @@ id __88__BMStreamBase_publishersForAccounts_deviceTypes_includeLocal_options_use
 
 - (void)executePruningPolicyForAccount:(id)account
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = [(BMStreamBase *)self _storeStreamForUseCase:*MEMORY[0x1E698E948]];
   storeConfig = [v5 storeConfig];
   pruningPolicy = [storeConfig pruningPolicy];
@@ -685,8 +737,8 @@ id __88__BMStreamBase_publishersForAccounts_deviceTypes_includeLocal_options_use
     v8 = __biome_log_for_category();
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v17 = 0x2020000000;
-    v18 = 16;
+    v16 = 0x2020000000;
+    v17 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __68__BMStreamBase_PeriodicMaintenance__executePruningPolicyForAccount___block_invoke;
@@ -735,8 +787,6 @@ id __88__BMStreamBase_publishersForAccounts_deviceTypes_includeLocal_options_use
 
   [(BMStreamBase *)self _pruneEmptyRemotesNotRecentlyModified];
   [(BMStreamBase *)self _pruneDisabledSubstreams];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_executePruningPolicyOnSubscriptionSubstream
@@ -804,18 +854,16 @@ uint64_t __81__BMStreamBase_PeriodicMaintenance___executePruningPolicyOnSubscrip
 
 id __81__BMStreamBase_PeriodicMaintenance___executePruningPolicyOnSubscriptionSubstream__block_invoke_3(uint64_t a1, void *a2)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [v2 eventBody];
   v4 = [v3 client];
-  v10[0] = v4;
+  v9[0] = v4;
   v5 = [v2 eventBody];
 
   v6 = [v5 identifier];
-  v10[1] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[1] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
 
   return v7;
 }
@@ -886,29 +934,28 @@ LABEL_10:
 
 + (BOOL)_atLeastOneSegmentFileInDirectory:(id)directory fileManager:(id)manager
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  v4 = [manager contentsOfDirectoryAtPath:directory error:&v17];
-  v5 = v17;
+  v17 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v4 = [manager contentsOfDirectoryAtPath:directory error:&v15];
+  v5 = v15;
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
         if (_PASIsAllDigits())
         {
           LOBYTE(v7) = 1;
@@ -916,7 +963,7 @@ LABEL_10:
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -928,62 +975,61 @@ LABEL_10:
 
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)_pruneEmptyRemotesNotRecentlyModified
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   configuration = [(BMStreamBase *)self configuration];
   storeConfig = [configuration storeConfig];
   datastorePath = [storeConfig datastorePath];
   identifier = [(BMStreamBase *)self identifier];
   v7 = [datastorePath stringByAppendingPathComponent:identifier];
 
-  v28 = v7;
+  v27 = v7;
   v8 = [MEMORY[0x1E698E9B8] fileManagerWithDirectAccessToDirectory:v7 cachingOptions:0];
   remoteDevices = [MEMORY[0x1E698EA08] remoteDevices];
-  v36 = 0;
-  v10 = [v8 contentsOfDirectoryAtPath:remoteDevices error:&v36];
-  v11 = v36;
+  v35 = 0;
+  v10 = [v8 contentsOfDirectoryAtPath:remoteDevices error:&v35];
+  v11 = v35;
 
   v12 = objc_opt_new();
   [v12 timeIntervalSince1970];
   v14 = v13;
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = v10;
-  v15 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v15 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v33;
+    v17 = *v32;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v33 != v17)
+        if (*v32 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v32 + 1) + 8 * i);
+        v19 = *(*(&v31 + 1) + 8 * i);
         v20 = MEMORY[0x1E696AEC0];
         remoteDevices2 = [MEMORY[0x1E698EA08] remoteDevices];
-        v39[0] = remoteDevices2;
-        v39[1] = v19;
-        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
+        v38[0] = remoteDevices2;
+        v38[1] = v19;
+        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
         v23 = [v20 pathWithComponents:v22];
 
         if (([objc_opt_class() _atLeastOneSegmentFileInDirectory:v23 fileManager:v8] & 1) == 0)
         {
-          v31 = v11;
-          v24 = [v8 modificationTimeOfFileAtPath:v23 error:&v31];
-          v25 = v31;
+          v30 = v11;
+          v24 = [v8 modificationTimeOfFileAtPath:v23 error:&v30];
+          v25 = v30;
 
           if (v25)
           {
@@ -992,7 +1038,7 @@ LABEL_9:
             v26 = __biome_log_for_category();
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
-              [(BMStreamBase(PeriodicMaintenance) *)&v37 _pruneEmptyRemotesNotRecentlyModified];
+              [(BMStreamBase(PeriodicMaintenance) *)&v36 _pruneEmptyRemotesNotRecentlyModified];
             }
 
             goto LABEL_16;
@@ -1004,9 +1050,9 @@ LABEL_9:
             goto LABEL_16;
           }
 
-          v30 = 0;
-          [v8 removeDirectoryAtPath:v23 error:&v30];
-          v11 = v30;
+          v29 = 0;
+          [v8 removeDirectoryAtPath:v23 error:&v29];
+          v11 = v29;
           if (v11)
           {
             goto LABEL_9;
@@ -1016,18 +1062,16 @@ LABEL_9:
 LABEL_16:
       }
 
-      v16 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v16 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v16);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_pruneDisabledSubstreams
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   configuration = [(BMStreamBase *)self configuration];
   enableSubscriptionSubstream = [configuration enableSubscriptionSubstream];
@@ -1064,37 +1108,37 @@ LABEL_16:
     v17 = [datastorePath stringByAppendingPathComponent:identifier];
 
     v18 = [MEMORY[0x1E698E9B8] fileManagerWithDirectAccessToDirectory:v17 cachingOptions:0];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v29 = v17;
+    v28 = v17;
     v19 = [v17 stringsByAppendingPaths:v3];
-    v20 = [v19 countByEnumeratingWithState:&v31 objects:v37 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v30 objects:v36 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v32;
+      v22 = *v31;
       do
       {
         v23 = 0;
         do
         {
-          if (*v32 != v22)
+          if (*v31 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v31 + 1) + 8 * v23);
-          v30 = 0;
-          v25 = [v18 removeDirectoryAtPath:v24 error:&v30];
-          v26 = v30;
+          v24 = *(*(&v30 + 1) + 8 * v23);
+          v29 = 0;
+          v25 = [v18 removeDirectoryAtPath:v24 error:&v29];
+          v26 = v29;
           if ((v25 & 1) == 0)
           {
             v27 = __biome_log_for_category();
             if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
             {
-              [(BMStreamBase(PeriodicMaintenance) *)&v35 _pruneDisabledSubstreams];
+              [(BMStreamBase(PeriodicMaintenance) *)&v34 _pruneDisabledSubstreams];
             }
           }
 
@@ -1102,14 +1146,12 @@ LABEL_16:
         }
 
         while (v21 != v23);
-        v21 = [v19 countByEnumeratingWithState:&v31 objects:v37 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v30 objects:v36 count:16];
       }
 
       while (v21);
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (id)subscriptionStoreStreamForUseCase:(id)case

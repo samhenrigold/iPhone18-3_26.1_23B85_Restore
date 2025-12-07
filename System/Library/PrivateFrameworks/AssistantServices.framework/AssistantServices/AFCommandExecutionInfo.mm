@@ -16,7 +16,7 @@
 
 - (id)buildDictionaryRepresentation
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = v3;
   executionID = self->_executionID;
@@ -82,29 +82,29 @@
   if (self->_deviceRestrictions)
   {
     v20 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_deviceRestrictions, "count")}];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v21 = self->_deviceRestrictions;
-    v22 = [(NSArray *)v21 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v22 = [(NSArray *)v21 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v32;
+      v24 = *v31;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v32 != v24)
+          if (*v31 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          [v20 addObject:{*(*(&v31 + 1) + 8 * i), v31}];
+          [v20 addObject:{*(*(&v30 + 1) + 8 * i), v30}];
         }
 
-        v23 = [(NSArray *)v21 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v23 = [(NSArray *)v21 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v23);
@@ -122,14 +122,12 @@
 
   v28 = [v4 copy];
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v28;
 }
 
 - (AFCommandExecutionInfo)initWithDictionaryRepresentation:(id)representation
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = representationCopy;
   if (representationCopy)
@@ -162,19 +160,7 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v49 = v11;
-    }
-
-    else
-    {
-      v49 = 0;
-    }
-
-    v12 = [v5 objectForKey:@"originPeerInfo"];
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v48 = [[AFPeerInfo alloc] initWithDictionaryRepresentation:v12];
+      v48 = v11;
     }
 
     else
@@ -182,11 +168,11 @@
       v48 = 0;
     }
 
-    v13 = [v5 objectForKey:@"currentHomeInfo"];
+    v12 = [v5 objectForKey:@"originPeerInfo"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v47 = [[AFHomeInfo alloc] initWithDictionaryRepresentation:v13];
+      v47 = [[AFPeerInfo alloc] initWithDictionaryRepresentation:v12];
     }
 
     else
@@ -194,11 +180,11 @@
       v47 = 0;
     }
 
-    v14 = [v5 objectForKey:@"endpointInfo"];
+    v13 = [v5 objectForKey:@"currentHomeInfo"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v46 = [[AFEndpointInfo alloc] initWithDictionaryRepresentation:v14];
+      v46 = [[AFHomeInfo alloc] initWithDictionaryRepresentation:v13];
     }
 
     else
@@ -206,11 +192,11 @@
       v46 = 0;
     }
 
-    v15 = [v5 objectForKey:@"instanceInfo"];
+    v14 = [v5 objectForKey:@"endpointInfo"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v45 = [[AFInstanceInfo alloc] initWithDictionaryRepresentation:v15];
+      v45 = [[AFEndpointInfo alloc] initWithDictionaryRepresentation:v14];
     }
 
     else
@@ -218,12 +204,11 @@
       v45 = 0;
     }
 
-    v16 = [v5 objectForKey:@"speechInfo"];
+    v15 = [v5 objectForKey:@"instanceInfo"];
     objc_opt_class();
-    selfCopy = self;
     if (objc_opt_isKindOfClass())
     {
-      v44 = [[AFSpeechInfo alloc] initWithDictionaryRepresentation:v16];
+      v44 = [[AFInstanceInfo alloc] initWithDictionaryRepresentation:v15];
     }
 
     else
@@ -231,11 +216,12 @@
       v44 = 0;
     }
 
-    v17 = [v5 objectForKey:@"requestHandlingContextSnapshot"];
+    v16 = [v5 objectForKey:@"speechInfo"];
     objc_opt_class();
+    selfCopy = self;
     if (objc_opt_isKindOfClass())
     {
-      v43 = [[AFRequestHandlingContext alloc] initWithDictionaryRepresentation:v17];
+      v43 = [[AFSpeechInfo alloc] initWithDictionaryRepresentation:v16];
     }
 
     else
@@ -243,33 +229,45 @@
       v43 = 0;
     }
 
+    v17 = [v5 objectForKey:@"requestHandlingContextSnapshot"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v42 = [[AFRequestHandlingContext alloc] initWithDictionaryRepresentation:v17];
+    }
+
+    else
+    {
+      v42 = 0;
+    }
+
     v18 = [v5 objectForKey:@"deviceRestrictions"];
     objc_opt_class();
-    v50 = v10;
-    v51 = v7;
+    v49 = v10;
+    v50 = v7;
     if (objc_opt_isKindOfClass())
     {
       v19 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v18, "count")}];
+      v57 = 0u;
       v58 = 0u;
       v59 = 0u;
       v60 = 0u;
-      v61 = 0u;
       v20 = v18;
-      v21 = [v20 countByEnumeratingWithState:&v58 objects:v63 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v57 objects:v62 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v59;
+        v23 = *v58;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v59 != v23)
+            if (*v58 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            v25 = *(*(&v58 + 1) + 8 * i);
+            v25 = *(*(&v57 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -288,20 +286,20 @@
             }
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v58 objects:v63 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v57 objects:v62 count:16];
         }
 
         while (v22);
       }
 
-      v42 = [v19 copy];
-      v10 = v50;
-      v7 = v51;
+      v41 = [v19 copy];
+      v10 = v49;
+      v7 = v50;
     }
 
     else
     {
-      v42 = 0;
+      v41 = 0;
     }
 
     v27 = [v5 objectForKey:@"userInfo"];
@@ -309,26 +307,26 @@
     if (objc_opt_isKindOfClass())
     {
       v28 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v27, "count")}];
+      v53 = 0u;
       v54 = 0u;
       v55 = 0u;
       v56 = 0u;
-      v57 = 0u;
       v29 = v27;
-      v30 = [v29 countByEnumeratingWithState:&v54 objects:v62 count:16];
+      v30 = [v29 countByEnumeratingWithState:&v53 objects:v61 count:16];
       if (v30)
       {
         v31 = v30;
-        v32 = *v55;
+        v32 = *v54;
         do
         {
           for (j = 0; j != v31; ++j)
           {
-            if (*v55 != v32)
+            if (*v54 != v32)
             {
               objc_enumerationMutation(v29);
             }
 
-            v34 = *(*(&v54 + 1) + 8 * j);
+            v34 = *(*(&v53 + 1) + 8 * j);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -337,16 +335,16 @@
             }
           }
 
-          v31 = [v29 countByEnumeratingWithState:&v54 objects:v62 count:16];
+          v31 = [v29 countByEnumeratingWithState:&v53 objects:v61 count:16];
         }
 
         while (v31);
       }
 
       v36 = [v28 copy];
-      v38 = v51;
+      v38 = v50;
       v37 = selfCopy;
-      v39 = v50;
+      v39 = v49;
     }
 
     else
@@ -357,10 +355,10 @@
       v38 = v7;
     }
 
-    v53 = [(AFCommandExecutionInfo *)v37 initWithExecutionID:v38 requestID:v39 turnId:v49 originPeerInfo:v48 currentHomeInfo:v47 endpointInfo:v46 instanceInfo:v45 speechInfo:v44 requestHandlingContextSnapshot:v43 deviceRestrictions:v42 userInfo:v36];
-    self = v53;
+    v52 = [(AFCommandExecutionInfo *)v37 initWithExecutionID:v38 requestID:v39 turnId:v48 originPeerInfo:v47 currentHomeInfo:v46 endpointInfo:v45 instanceInfo:v44 speechInfo:v43 requestHandlingContextSnapshot:v42 deviceRestrictions:v41 userInfo:v36];
+    self = v52;
 
-    v8 = v53;
+    v8 = v52;
   }
 
   else
@@ -368,7 +366,6 @@
     v8 = 0;
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

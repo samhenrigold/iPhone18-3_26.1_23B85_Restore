@@ -2,6 +2,7 @@
 + (id)nodeFromIRNode:(id)node;
 + (id)nodeFromOutputDevice:(id)device;
 - (BOOL)isEqual:(id)equal;
+- (MRIRNode)initWithAVOutputDeviceID:(id)d isLocal:(BOOL)local;
 - (NSString)description;
 - (unint64_t)hash;
 @end
@@ -66,6 +67,40 @@
   v7 = [(MRIRNode *)v5 initWithAVOutputDeviceID:v6 isLocal:v4];
 
   return v7;
+}
+
+- (MRIRNode)initWithAVOutputDeviceID:(id)d isLocal:(BOOL)local
+{
+  localCopy = local;
+  dCopy = d;
+  v8 = dCopy;
+  if (!localCopy && objc_msgSend_isEqualToString_(dCopy))
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"MRRouteRepresentable.m" lineNumber:57 description:@"Non local MRIRNodes not allowed with id = Speaker!"];
+  }
+
+  v14.receiver = self;
+  v14.super_class = MRIRNode;
+  v10 = [(MRIRNode *)&v14 init];
+  v11 = v10;
+  if (v10)
+  {
+    if (localCopy)
+    {
+      v12 = @"Speaker";
+    }
+
+    else
+    {
+      v12 = v8;
+    }
+
+    [(MRIRNode *)v10 setAvOutputDeviceIdentifier:v12];
+    [(MRIRNode *)v11 setIsLocal:localCopy];
+  }
+
+  return v11;
 }
 
 - (BOOL)isEqual:(id)equal

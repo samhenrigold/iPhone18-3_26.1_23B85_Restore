@@ -15,9 +15,11 @@
 
 uint64_t __37__EKAppProtectionUtils_reminderApApp__block_invoke()
 {
-  reminderApApp__reminderApApp = [MEMORY[0x1E698B0D0] applicationWithBundleIdentifier:*MEMORY[0x1E6993170]];
+  v0 = [MEMORY[0x1E698B0D0] applicationWithBundleIdentifier:*MEMORY[0x1E6993170]];
+  v1 = reminderApApp__reminderApApp;
+  reminderApApp__reminderApApp = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)reminderApApp

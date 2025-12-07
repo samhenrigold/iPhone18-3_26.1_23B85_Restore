@@ -34,7 +34,7 @@ LABEL_4:
     v16 = 0;
   }
 
-  v5 = [(TUILayout *)self box];
+  v5 = objc_msgSend_box(self);
   axis = [v5 axis];
 
   if (axis || (axis = [v16 ruleLayoutAxis]) != 0)
@@ -81,12 +81,12 @@ LABEL_13:
 {
   contextCopy = context;
   v6 = [_TUIRuleLayerConfig alloc];
-  v7 = [(TUILayout *)self box];
+  v7 = objc_msgSend_box(self);
   color = [v7 color];
   v9 = [(_TUIRuleLayerConfig *)v6 initWithColor:color];
 
   v10 = [[TUIRenderModelLayer alloc] initWithSubmodels:0 config:v9 erasableInsets:UIEdgeInsetsZero.top, UIEdgeInsetsZero.left, UIEdgeInsetsZero.bottom, UIEdgeInsetsZero.right];
-  v11 = [(TUILayout *)self box];
+  v11 = objc_msgSend_box(self);
   identifier = [v11 identifier];
   [(TUIRenderModelLayer *)v10 setIdentifier:identifier];
 

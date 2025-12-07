@@ -319,7 +319,8 @@ LABEL_25:
     goto LABEL_14;
   }
 
-  if ([(BKMLAudiobookIdentifier *)self isValid])
+  isValid = [(BKMLAudiobookIdentifier *)self isValid];
+  if (isValid)
   {
     query2 = +[MPMediaQuery bk_audiobooksQuery];
     [query2 setIgnoreSystemFilterPredicates:1];
@@ -329,10 +330,10 @@ LABEL_25:
     if (persistentID)
     {
       persistentID2 = [(BKMLAudiobookIdentifier *)self persistentID];
-      v7 = &MPMediaItemPropertyPersistentID;
+      v8 = &MPMediaItemPropertyPersistentID;
 LABEL_13:
-      v12 = [MPMediaPropertyPredicate predicateWithValue:persistentID2 forProperty:*v7];
-      [query2 addFilterPredicate:v12];
+      v13 = [MPMediaPropertyPredicate predicateWithValue:persistentID2 forProperty:*v8];
+      [query2 addFilterPredicate:v13];
 
       goto LABEL_14;
     }
@@ -342,17 +343,17 @@ LABEL_13:
     if (albumPersistentID)
     {
       persistentID2 = [(BKMLAudiobookIdentifier *)self albumPersistentID];
-      v7 = &MPMediaItemPropertyAlbumPersistentID;
+      v8 = &MPMediaItemPropertyAlbumPersistentID;
       goto LABEL_13;
     }
 
     albumTitle = [(BKMLAudiobookIdentifier *)self albumTitle];
-    v11 = [albumTitle length];
+    v12 = [albumTitle length];
 
-    if (v11)
+    if (v12)
     {
       persistentID2 = [(BKMLAudiobookIdentifier *)self albumTitle];
-      v7 = &MPMediaItemPropertyAlbumTitle;
+      v8 = &MPMediaItemPropertyAlbumTitle;
       goto LABEL_13;
     }
 
@@ -361,18 +362,18 @@ LABEL_13:
     if (storeID)
     {
       storeID2 = [(BKMLAudiobookIdentifier *)self storeID];
-      v16 = MPMediaItemPropertyStorePlaylistID;
-      v17 = [MPMediaPropertyPredicate predicateWithValue:storeID2 forProperty:MPMediaItemPropertyStorePlaylistID];
-      [query2 addFilterPredicate:v17];
+      v17 = MPMediaItemPropertyStorePlaylistID;
+      v18 = [MPMediaPropertyPredicate predicateWithValue:storeID2 forProperty:MPMediaItemPropertyStorePlaylistID];
+      [query2 addFilterPredicate:v18];
 
       collections = [query2 collections];
-      v19 = [collections count];
+      v20 = [collections count];
 
-      if (!v19)
+      if (!v20)
       {
-        [query2 removePredicatesForProperty:v16];
+        [query2 removePredicatesForProperty:v17];
         persistentID2 = [(BKMLAudiobookIdentifier *)self storeID];
-        v7 = &MPMediaItemPropertyStoreID;
+        v8 = &MPMediaItemPropertyStoreID;
         goto LABEL_13;
       }
     }
@@ -380,10 +381,10 @@ LABEL_13:
 
   else
   {
-    v8 = BKAudiobooksLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = BKAudiobooksLog(isValid);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_218B4(v8);
+      sub_218B4(v9);
     }
 
     query2 = 0;

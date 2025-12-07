@@ -39,37 +39,37 @@
 
 - (ATXUserEducationSuggestion)initWithCoder:(id)coder
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_context_user_education_suggestions();
+  v7 = __atxlog_handle_context_user_education_suggestions(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"DiscoverySuggestions.codingKeyForUUID" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.decode.ATXUserEducationSuggestion" errorCode:-7 logHandle:v7];
 
   error = [coderCopy error];
 
   if (error)
   {
-    v10 = __atxlog_handle_context_user_education_suggestions();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_context_user_education_suggestions(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       error2 = [coderCopy error];
       *buf = 136315394;
-      v15 = "[ATXUserEducationSuggestion initWithCoder:]";
-      v16 = 2114;
-      v17 = error2;
-      _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "%s: decoding error: %{public}@", buf, 0x16u);
+      v16 = "[ATXUserEducationSuggestion initWithCoder:]";
+      v17 = 2114;
+      v18 = error2;
+      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "%s: decoding error: %{public}@", buf, 0x16u);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = [objc_alloc(objc_opt_class()) initWithUUID_ATXUserEducationSuggestion:v8];
+    v13 = [objc_alloc(objc_opt_class()) initWithUUID_ATXUserEducationSuggestion:v8];
   }
 
-  return v12;
+  return v13;
 }
 
 @end

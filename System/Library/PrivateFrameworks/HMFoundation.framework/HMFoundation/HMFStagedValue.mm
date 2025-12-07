@@ -164,19 +164,19 @@ HMFTimer *__32__HMFStagedValue_initWithValue___block_invoke(double a1)
     delegate = [(HMFStagedValue *)self delegate];
     v8 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = HMFGetOSLogHandle(selfCopy, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = HMFGetLogIdentifier(selfCopy);
+      v12 = HMFGetLogIdentifier(selfCopy);
       v13 = 138544130;
-      v14 = v11;
+      v14 = v12;
       v15 = 2112;
       v16 = v6;
       v17 = 2112;
       v18 = v5;
       v19 = 2112;
       v20 = delegate;
-      _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, "%{public}@Notify of expired value: %@ committed value: %@ delegate: %@", &v13, 0x2Au);
+      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Notify of expired value: %@ committed value: %@ delegate: %@", &v13, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -197,8 +197,6 @@ HMFTimer *__32__HMFStagedValue_initWithValue___block_invoke(double a1)
   {
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -215,9 +213,11 @@ HMFTimer *__32__HMFStagedValue_initWithValue___block_invoke(double a1)
 
 uint64_t __29__HMFStagedValue_logCategory__block_invoke()
 {
-  qword_280AFC558 = HMFCreateOSLogHandle(@"StagedValue", @"com.apple.HMFoundation");
+  v0 = HMFCreateOSLogHandle(@"StagedValue", @"com.apple.HMFoundation");
+  v1 = qword_280AFC558;
+  qword_280AFC558 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (HMFStagedValueDelegate)delegate

@@ -1,5 +1,6 @@
 @interface HMDCameraClipOperationDataSource
 - (double)operationTimeout;
+- (id)timerWithTimeInterval:(double)interval options:(unsigned int)options;
 - (void)submitOperationEvent:(id)event;
 @end
 
@@ -10,6 +11,13 @@
   eventCopy = event;
   v4 = +[HMDMetricsManager sharedLogEventSubmitter];
   [v4 submitLogEvent:eventCopy];
+}
+
+- (id)timerWithTimeInterval:(double)interval options:(unsigned int)options
+{
+  v4 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:*&options options:interval];
+
+  return v4;
 }
 
 - (double)operationTimeout

@@ -8,7 +8,7 @@
 
 + (void)requestProductPageWithDistributorID:(NSString *)d itemID:(unint64_t)iD versionID:(unint64_t)versionID completionHandler:(id)handler
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0, &qword_1DA275840);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v13 = &v20 - v12;
   v14 = _Block_copy(handler);
@@ -36,7 +36,7 @@
 
 + (void)requestSearchPageWithDistributorID:(NSString *)d searchString:(NSString *)string completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0, &qword_1DA275840);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);

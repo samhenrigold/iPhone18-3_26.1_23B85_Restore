@@ -53,7 +53,7 @@
 
 - (NSURLRequest)urlRequest
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   urlString = [(AARequest *)self urlString];
   if (urlString)
   {
@@ -66,11 +66,11 @@
   }
 
   v5 = [objc_alloc(MEMORY[0x1E696AF20]) initWithString:v4];
-  v6 = _AALogSystem();
+  v6 = _AALogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v52 = v5;
+    v53 = v5;
     _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Request URL: %@", buf, 0xCu);
   }
 
@@ -80,11 +80,11 @@
   v10 = [v8 requestWithURL:v9 cachePolicy:flushCache timeoutInterval:60.0];
 
   v11 = +[AADeviceInfo clientInfoHeader];
-  v12 = _AALogSystem();
+  v12 = _AALogSystem(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v52 = v11;
+    v53 = v11;
     _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "Client Info Header: %@", buf, 0xCu);
   }
 
@@ -111,115 +111,113 @@
 
   v20 = MEMORY[0x1E695DF58];
   _deviceLanguage = [MEMORY[0x1E695DF58] _deviceLanguage];
-  v50 = _deviceLanguage;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v50 count:1];
+  v51 = _deviceLanguage;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
   v23 = [v20 minimizedLanguagesFromLanguages:v22];
   v24 = [v23 componentsJoinedByString:{@", "}];
 
-  [v10 addValue:v24 forHTTPHeaderField:@"Accept-Language"];
+  v25 = [v10 addValue:v24 forHTTPHeaderField:@"Accept-Language"];
   if (self->_cookieStorage)
   {
     [v10 _CFURLRequest];
-    cookieStorage = self->_cookieStorage;
-    CFURLRequestSetHTTPCookieStorage();
-    v26 = _AALogSystem();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v26 = CFURLRequestSetHTTPCookieStorage();
+    v27 = _AALogSystem(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v52 = v4;
-      _os_log_impl(&dword_1B6F6A000, v26, OS_LOG_TYPE_DEFAULT, "Use custom cookie storage for urlRequest: %@", buf, 0xCu);
+      v53 = v4;
+      _os_log_impl(&dword_1B6F6A000, v27, OS_LOG_TYPE_DEFAULT, "Use custom cookie storage for urlRequest: %@", buf, 0xCu);
     }
   }
 
   if (self->_oneTimePassword)
   {
-    v27 = _AALogSystem();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = _AALogSystem(v25);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B6F6A000, v27, OS_LOG_TYPE_DEFAULT, "Adding device provisioning OTP to the request header", buf, 2u);
+      _os_log_impl(&dword_1B6F6A000, v28, OS_LOG_TYPE_DEFAULT, "Adding device provisioning OTP to the request header", buf, 2u);
     }
 
-    [v10 addValue:self->_oneTimePassword forHTTPHeaderField:@"X-Apple-MD"];
+    v25 = [v10 addValue:self->_oneTimePassword forHTTPHeaderField:@"X-Apple-MD"];
   }
 
   if (self->_machineId)
   {
-    v28 = _AALogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v29 = _AALogSystem(v25);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B6F6A000, v28, OS_LOG_TYPE_DEFAULT, "Adding device provisioning machineId to the request header", buf, 2u);
+      _os_log_impl(&dword_1B6F6A000, v29, OS_LOG_TYPE_DEFAULT, "Adding device provisioning machineId to the request header", buf, 2u);
     }
 
     [v10 addValue:self->_machineId forHTTPHeaderField:@"X-Apple-MD-M"];
   }
 
   [v10 aa_addMultiUserDeviceHeaderIfEnabled];
-  if (+[AAPreferences isExperimentalModeEnabled])
+  v30 = +[AAPreferences isExperimentalModeEnabled];
+  if (v30)
   {
-    v29 = _AALogSystem();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v31 = _AALogSystem(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B6F6A000, v29, OS_LOG_TYPE_DEFAULT, "Adding exp mode header", buf, 2u);
+      _os_log_impl(&dword_1B6F6A000, v31, OS_LOG_TYPE_DEFAULT, "Adding exp mode header", buf, 2u);
     }
 
-    [v10 addValue:@"true" forHTTPHeaderField:@"X-iCloud-Experiment-Mode"];
+    v30 = [v10 addValue:@"true" forHTTPHeaderField:@"X-iCloud-Experiment-Mode"];
   }
 
   if (self->_customHeaders)
   {
-    v43 = v24;
-    v44 = v11;
-    v30 = v5;
-    v31 = v4;
-    v32 = _AALogSystem();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v44 = v24;
+    v45 = v11;
+    v32 = v5;
+    v33 = v4;
+    v34 = _AALogSystem(v30);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       customHeaders = self->_customHeaders;
       *buf = 138412290;
-      v52 = customHeaders;
-      _os_log_impl(&dword_1B6F6A000, v32, OS_LOG_TYPE_DEFAULT, "Appending custom headers %@", buf, 0xCu);
+      v53 = customHeaders;
+      _os_log_impl(&dword_1B6F6A000, v34, OS_LOG_TYPE_DEFAULT, "Appending custom headers %@", buf, 0xCu);
     }
 
-    v47 = 0u;
     v48 = 0u;
-    v45 = 0u;
+    v49 = 0u;
     v46 = 0u;
-    v34 = self->_customHeaders;
-    v35 = [(NSDictionary *)v34 countByEnumeratingWithState:&v45 objects:v49 count:16];
-    if (v35)
+    v47 = 0u;
+    v36 = self->_customHeaders;
+    v37 = [(NSDictionary *)v36 countByEnumeratingWithState:&v46 objects:v50 count:16];
+    if (v37)
     {
-      v36 = v35;
-      v37 = *v46;
+      v38 = v37;
+      v39 = *v47;
       do
       {
-        for (i = 0; i != v36; ++i)
+        for (i = 0; i != v38; ++i)
         {
-          if (*v46 != v37)
+          if (*v47 != v39)
           {
-            objc_enumerationMutation(v34);
+            objc_enumerationMutation(v36);
           }
 
-          v39 = *(*(&v45 + 1) + 8 * i);
-          v40 = [(NSDictionary *)self->_customHeaders objectForKeyedSubscript:v39, v43, v44, v45];
-          [v10 setValue:v40 forHTTPHeaderField:v39];
+          v41 = *(*(&v46 + 1) + 8 * i);
+          v42 = [(NSDictionary *)self->_customHeaders objectForKeyedSubscript:v41, v44, v45, v46];
+          [v10 setValue:v42 forHTTPHeaderField:v41];
         }
 
-        v36 = [(NSDictionary *)v34 countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v38 = [(NSDictionary *)v36 countByEnumeratingWithState:&v46 objects:v50 count:16];
       }
 
-      while (v36);
+      while (v38);
     }
 
-    v4 = v31;
-    v5 = v30;
-    v24 = v43;
-    v11 = v44;
+    v4 = v33;
+    v5 = v32;
+    v24 = v44;
+    v11 = v45;
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -340,33 +338,33 @@ void __70__AARequest_performRequestForDevice_anisetteDataProvider_withHandler___
 
 void __51__AARequest_performRequestWithSession_withHandler___block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) urlString];
 
   if (v3)
   {
-    v4 = [*v2 urlRequest];
-    if (v4)
+    v5 = [*v2 urlRequest];
+    if (v5)
     {
-      v5 = [*(a1 + 48) copy];
-      v6 = *(a1 + 32);
-      v7 = *(v6 + 8);
-      *(v6 + 8) = v5;
+      v6 = [*(a1 + 48) copy];
+      v7 = *(a1 + 32);
+      v8 = *(v7 + 8);
+      *(v7 + 8) = v6;
 
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __51__AARequest_performRequestWithSession_withHandler___block_invoke_86;
-      v24[3] = &unk_1E7C9C230;
-      v8 = *(a1 + 40);
-      v24[4] = *(a1 + 32);
-      v9 = [v8 dataTaskWithRequest:v4 completion:v24];
-      [v9 resume];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __51__AARequest_performRequestWithSession_withHandler___block_invoke_86;
+      v22[3] = &unk_1E7C9C230;
+      v9 = *(a1 + 40);
+      v22[4] = *(a1 + 32);
+      v10 = [v9 dataTaskWithRequest:v5 completion:v22];
+      [v10 resume];
     }
 
     else
     {
-      v16 = _AALogSystem();
+      v16 = _AALogSystem(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         __51__AARequest_performRequestWithSession_withHandler___block_invoke_cold_1(v2, v16);
@@ -375,14 +373,13 @@ void __51__AARequest_performRequestWithSession_withHandler___block_invoke(uint64
       if (*(a1 + 48))
       {
         v17 = MEMORY[0x1E696ABC0];
-        v25 = *MEMORY[0x1E696A578];
+        v23 = *MEMORY[0x1E696A578];
         v18 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.AppleAccount"];
         v19 = [v18 localizedStringForKey:@"ICLOUD_CONFIG_ERROR" value:0 table:@"Localizable"];
-        v26 = v19;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+        v24 = v19;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
         v21 = [v17 errorWithDomain:@"com.apple.appleaccount" code:-2 userInfo:v20];
 
-        v22 = *(a1 + 32);
         (*(*(a1 + 48) + 16))();
       }
     }
@@ -390,64 +387,61 @@ void __51__AARequest_performRequestWithSession_withHandler___block_invoke(uint64
     goto LABEL_12;
   }
 
-  v10 = _AALogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = _AALogSystem(v4);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    __51__AARequest_performRequestWithSession_withHandler___block_invoke_cold_2(v2, v10);
+    __51__AARequest_performRequestWithSession_withHandler___block_invoke_cold_2(v2, v11);
   }
 
   if (*(a1 + 48))
   {
-    v11 = MEMORY[0x1E696ABC0];
-    v27 = *MEMORY[0x1E696A578];
-    v12 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.AppleAccount"];
-    v13 = [v12 localizedStringForKey:@"ICLOUD_CONFIG_ERROR" value:0 table:@"Localizable"];
-    v28[0] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-    v4 = [v11 errorWithDomain:@"com.apple.appleaccount" code:-2 userInfo:v14];
+    v12 = MEMORY[0x1E696ABC0];
+    v25 = *MEMORY[0x1E696A578];
+    v13 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.AppleAccount"];
+    v14 = [v13 localizedStringForKey:@"ICLOUD_CONFIG_ERROR" value:0 table:@"Localizable"];
+    v26[0] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v5 = [v12 errorWithDomain:@"com.apple.appleaccount" code:-2 userInfo:v15];
 
-    v15 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
 LABEL_12:
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleDataTaskCompletionWithData:(id)data response:(id)response error:(id)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   errorCopy = error;
   dataCopy = data;
-  v11 = _AALogSystem();
+  v11 = _AALogSystem(dataCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412290;
-    v20 = errorCopy;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "Data task did complete with error: %@", &v19, 0xCu);
+    v20 = 138412290;
+    v21 = errorCopy;
+    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "Data task did complete with error: %@", &v20, 0xCu);
   }
 
   if (!errorCopy)
   {
-    v12 = _AALogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _AALogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = responseCopy;
-      _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "Response: %@", &v19, 0xCu);
+      v20 = 138412290;
+      v21 = responseCopy;
+      _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "Response: %@", &v20, 0xCu);
     }
   }
 
-  v13 = [objc_alloc(objc_msgSend(objc_opt_class() "responseClass"))];
+  v14 = [objc_alloc(objc_msgSend(objc_opt_class() "responseClass"))];
 
-  if (!v13)
+  if (!v14)
   {
-    v14 = _AALogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = _AALogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "Failed to parse an AAResponse", &v19, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_1B6F6A000, v16, OS_LOG_TYPE_DEFAULT, "Failed to parse an AAResponse", &v20, 2u);
     }
   }
 
@@ -455,12 +449,10 @@ LABEL_12:
   handler = self->_handler;
   if (handler)
   {
-    handler[2](handler, self, v13, _aa_userReadableError);
-    v17 = self->_handler;
+    handler[2](handler, self, v14, _aa_userReadableError);
+    v19 = self->_handler;
     self->_handler = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -478,27 +470,27 @@ LABEL_12:
 
 - (id)redactedBodyStringWithPropertyList:(id)list
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = [list mutableCopy];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v4 = [&unk_1F2F24CE0 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [&unk_1F2F24CE0 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(&unk_1F2F24CE0);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v16 + 1) + 8 * i);
         v9 = [v3 valueForKey:v8];
         v10 = v9;
         if (v9)
@@ -509,7 +501,7 @@ LABEL_12:
         }
       }
 
-      v5 = [&unk_1F2F24CE0 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [&unk_1F2F24CE0 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
@@ -518,34 +510,32 @@ LABEL_12:
   v13 = [MEMORY[0x1E696AE40] dataWithPropertyList:v3 format:100 options:0 error:0];
   v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:objc_msgSend(v13 length:"bytes") encoding:{objc_msgSend(v13, "length"), 4}];
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (id)redactedHeadersFromHTTPHeaders:(id)headers
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = [headers mutableCopy];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v4 = [&unk_1F2F24CF8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [&unk_1F2F24CF8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(&unk_1F2F24CF8);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         v9 = [v3 valueForKey:v8];
         v10 = v9;
         if (v9)
@@ -556,35 +546,31 @@ LABEL_12:
         }
       }
 
-      v5 = [&unk_1F2F24CF8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [&unk_1F2F24CF8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 void __51__AARequest_performRequestWithSession_withHandler___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138477827;
-  v5 = v2;
-  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "AARequest has nil underlying request (%{private}@). Calling handler with an error.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138477827;
+  v4 = v2;
+  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "AARequest has nil underlying request (%{private}@). Calling handler with an error.", &v3, 0xCu);
 }
 
 void __51__AARequest_performRequestWithSession_withHandler___block_invoke_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138477827;
-  v5 = v2;
-  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "AARequest has nil URL (%{private}@). Calling handler with an error.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138477827;
+  v4 = v2;
+  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "AARequest has nil URL (%{private}@). Calling handler with an error.", &v3, 0xCu);
 }
 
 @end

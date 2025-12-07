@@ -63,28 +63,36 @@
 
 - (void)_activate
 {
-  if (dword_1001D39B8 <= 30 && (dword_1001D39B8 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D39B8 <= 30)
   {
-    sub_100118128();
+    if (dword_1001D39B8 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      self = sub_100118128(self, a2, v2);
+    }
   }
 
-  if (sub_10005826C())
+  resume = sub_10005826C(self);
+  if (resume)
   {
-    if (!self->_xpcListener)
+    if (!selfCopy->_xpcListener)
     {
-      v3 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.rapport.nearfield.service"];
-      xpcListener = self->_xpcListener;
-      self->_xpcListener = v3;
+      v7 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.rapport.nearfield.service"];
+      xpcListener = selfCopy->_xpcListener;
+      selfCopy->_xpcListener = v7;
 
-      [(NSXPCListener *)self->_xpcListener setDelegate:self];
-      [(NSXPCListener *)self->_xpcListener _setQueue:self->_dispatchQueue];
-      [(NSXPCListener *)self->_xpcListener resume];
+      [(NSXPCListener *)selfCopy->_xpcListener setDelegate:selfCopy];
+      [(NSXPCListener *)selfCopy->_xpcListener _setQueue:selfCopy->_dispatchQueue];
+      resume = [(NSXPCListener *)selfCopy->_xpcListener resume];
     }
 
-    self->_invalidateCalled = 0;
-    if (dword_1001D39B8 <= 30 && (dword_1001D39B8 != -1 || _LogCategory_Initialize()))
+    selfCopy->_invalidateCalled = 0;
+    if (dword_1001D39B8 <= 30)
     {
-      sub_100118164();
+      if (dword_1001D39B8 != -1 || (resume = _LogCategory_Initialize(), resume))
+      {
+        sub_100118164(resume, v5, v6);
+      }
     }
   }
 
@@ -96,17 +104,21 @@
 
 - (void)invalidate
 {
-  if (dword_1001D39B8 <= 30 && (dword_1001D39B8 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D39B8 <= 30)
   {
-    sub_100118180();
+    if (dword_1001D39B8 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100118180(self, a2, v2);
+    }
   }
 
-  dispatchQueue = self->_dispatchQueue;
+  dispatchQueue = selfCopy->_dispatchQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100057BA4;
   block[3] = &unk_1001AA970;
-  block[4] = self;
+  block[4] = selfCopy;
   dispatch_async(dispatchQueue, block);
 }
 
@@ -114,22 +126,26 @@
 {
   if (!self->_invalidateCalled)
   {
-    v9 = v2;
+    v10 = v3;
+    selfCopy = self;
     self->_invalidateCalled = 1;
-    if (dword_1001D39B8 <= 30 && (dword_1001D39B8 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D39B8 <= 30)
     {
-      sub_10011819C();
+      if (dword_1001D39B8 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10011819C(self, a2, v2);
+      }
     }
 
-    [(NSXPCListener *)self->_xpcListener invalidate:v3];
-    xpcListener = self->_xpcListener;
-    self->_xpcListener = 0;
+    [(NSXPCListener *)selfCopy->_xpcListener invalidate:v4];
+    xpcListener = selfCopy->_xpcListener;
+    selfCopy->_xpcListener = 0;
 
-    [(RPNearFieldDaemonController *)self->_nearFieldController invalidate];
-    nearFieldController = self->_nearFieldController;
-    self->_nearFieldController = 0;
+    [(RPNearFieldDaemonController *)selfCopy->_nearFieldController invalidate];
+    nearFieldController = selfCopy->_nearFieldController;
+    selfCopy->_nearFieldController = 0;
 
-    [(RPNearFieldDaemon *)self _invalidated];
+    [(RPNearFieldDaemon *)selfCopy _invalidated];
   }
 }
 
@@ -140,9 +156,12 @@
   {
     self->_invalidateDone = 1;
     self->_activateCalled = 0;
-    if (dword_1001D39B8 <= 30 && (dword_1001D39B8 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D39B8 <= 30)
     {
-      sub_1001181B8();
+      if (dword_1001D39B8 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1001181B8(v3, v4, v5);
+      }
     }
   }
 }

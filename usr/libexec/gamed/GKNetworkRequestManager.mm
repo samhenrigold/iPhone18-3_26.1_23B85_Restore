@@ -1151,11 +1151,9 @@ LABEL_18:
     [v5 timeIntervalSinceNow];
     if (v7 > 0.0)
     {
-      v8 = [NSString stringWithFormat:@"A wait period is active not allowing network requests for this bag key: %@, %@", requestCopy, v6];
-      v12 = NSLocalizedFailureReasonErrorKey;
-      v13 = v8;
-      v9 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-      v10 = [NSError userErrorForCode:3 userInfo:v9];
+      v11 = [NSString stringWithFormat:@"A wait period is active not allowing network requests for this bag key: %@, %@", requestCopy, v6];
+      v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+      v9 = [NSError userErrorForCode:3 userInfo:v8];
 
       goto LABEL_6;
     }
@@ -1163,10 +1161,10 @@ LABEL_18:
     [(GKNetworkRequestManager *)self setWaitPeriod:requestCopy waitPeriod:0.0];
   }
 
-  v10 = 0;
+  v9 = 0;
 LABEL_6:
 
-  return v10;
+  return v9;
 }
 
 - (void)issueRequestForPlayer:(id)player bagKey:(id)key clientProxy:(id)proxy locale:(id)locale playerCredential:(id)credential handler:(id)handler
@@ -1486,12 +1484,12 @@ LABEL_6:
     v4 = 0;
   }
 
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_1002085A4(v4);
+  v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  sub_1002085A4(v4, v5, v6);
 
-  v5 = String._bridgeToObjectiveC()();
+  v7 = String._bridgeToObjectiveC()();
 
-  return v5;
+  return v7;
 }
 
 @end

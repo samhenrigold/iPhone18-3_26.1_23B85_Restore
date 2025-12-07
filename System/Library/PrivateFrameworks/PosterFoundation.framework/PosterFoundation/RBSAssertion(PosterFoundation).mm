@@ -151,205 +151,183 @@ LABEL_21:
 
 + (id)pf_prewarmRuntimeAssertionForTarget:()PosterFoundation explanation:
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69C7560];
   v6 = a4;
   v7 = a3;
   v8 = [v5 attributeWithDomain:@"com.apple.posterkit.provider" name:@"PosterPrewarm"];
   v9 = objc_alloc(MEMORY[0x1E69C7548]);
-  v14[0] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v11 = [v9 initWithExplanation:v6 target:v7 attributes:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)pf_migrationRuntimeAssertionWithExplanation:()PosterFoundation
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E69C7560];
   v4 = a3;
   v5 = [v3 attributeWithDomain:@"com.apple.posterboard" name:@"Foreground"];
   v6 = objc_alloc(MEMORY[0x1E69C7548]);
   currentProcess = [MEMORY[0x1E69C7640] currentProcess];
-  v12[0] = v5;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = v5;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v9 = [v6 initWithExplanation:v4 target:currentProcess attributes:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)pf_posterUpdateRuntimeAssertionForTarget:()PosterFoundation explanation:
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69C7560];
   v6 = a4;
   v7 = a3;
   v8 = [v5 attributeWithDomain:@"com.apple.posterkit.provider" name:@"PosterUpdate"];
   v9 = objc_alloc(MEMORY[0x1E69C7548]);
-  v14[0] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v11 = [v9 initWithExplanation:v6 target:v7 attributes:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)pf_posterUpdateEntitledMemoryAssertionForTarget:()PosterFoundation explanation:
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69C7560];
   v6 = a4;
   v7 = a3;
   v8 = [v5 attributeWithDomain:@"com.apple.posterkit.provider" name:@"Updating-Entitled"];
   v9 = objc_alloc(MEMORY[0x1E69C7548]);
-  v14[0] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v11 = [v9 initWithExplanation:v6 target:v7 attributes:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)pf_photosPosterUpdateEntitledMemoryAssertionForTarget:()PosterFoundation explanation:
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69C7560];
   v6 = a4;
   v7 = a3;
   v8 = [v5 attributeWithDomain:@"com.apple.posterkit.provider" name:@"Updating-Photos"];
   v9 = objc_alloc(MEMORY[0x1E69C7548]);
-  v14[0] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v11 = [v9 initWithExplanation:v6 target:v7 attributes:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)pf_posterEditingRuntimeAssertionForTarget:()PosterFoundation explanation:
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69C7560];
   v6 = a4;
   v7 = a3;
   v8 = [v5 attributeWithDomain:@"com.apple.posterkit.provider" name:@"Editing"];
   v9 = objc_alloc(MEMORY[0x1E69C7548]);
-  v14[0] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v11 = [v9 initWithExplanation:v6 target:v7 attributes:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)pf_posterRenderingRuntimeAssertionForTarget:()PosterFoundation explanation:
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69C7560];
   v6 = a4;
   v7 = a3;
   v8 = [v5 attributeWithDomain:@"com.apple.posterkit.provider" name:@"Rendering-Nominal"];
   v9 = objc_alloc(MEMORY[0x1E69C7548]);
-  v14[0] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v11 = [v9 initWithExplanation:v6 target:v7 attributes:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)pf_posterRenderingEntitledRuntimeAssertionForTarget:()PosterFoundation explanation:
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69C7560];
   v6 = a4;
   v7 = a3;
   v8 = [v5 attributeWithDomain:@"com.apple.posterkit.provider" name:@"Rendering-Entitled"];
   v9 = objc_alloc(MEMORY[0x1E69C7548]);
-  v14[0] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v11 = [v9 initWithExplanation:v6 target:v7 attributes:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)pf_posterRenderingPhotosMemoryHogRuntimeAssertionForTarget:()PosterFoundation explanation:
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69C7560];
   v6 = a4;
   v7 = a3;
   v8 = [v5 attributeWithDomain:@"com.apple.posterkit.provider" name:@"Rendering-Photos"];
   v9 = objc_alloc(MEMORY[0x1E69C7548]);
-  v14[0] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v11 = [v9 initWithExplanation:v6 target:v7 attributes:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)pf_posterDeviceMotionAssertionForTarget:()PosterFoundation explanation:
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69C7560];
   v6 = a4;
   v7 = a3;
   v8 = [v5 attributeWithDomain:@"com.apple.posterkit.provider" name:@"PosterDeviceMotion"];
   v9 = objc_alloc(MEMORY[0x1E69C7548]);
-  v14[0] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v11 = [v9 initWithExplanation:v6 target:v7 attributes:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)pf_finishTaskInterruptableWithExplanation:()PosterFoundation invalidationHandler:
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v5 = a4;
   v6 = MEMORY[0x1E69C7640];
   v7 = a3;
   currentProcess = [v6 currentProcess];
   v9 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.common" name:@"FinishTaskInterruptable"];
   v10 = objc_alloc(MEMORY[0x1E69C7548]);
-  v17[0] = v9;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = v9;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   v12 = [v10 initWithExplanation:v7 target:currentProcess attributes:v11];
 
   if (v5)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __96__RBSAssertion_PosterFoundation__pf_finishTaskInterruptableWithExplanation_invalidationHandler___block_invoke;
-    v15[3] = &unk_1E8189A68;
-    v16 = v5;
-    [v12 setInvalidationHandler:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __96__RBSAssertion_PosterFoundation__pf_finishTaskInterruptableWithExplanation_invalidationHandler___block_invoke;
+    v14[3] = &unk_1E8189A68;
+    v15 = v5;
+    [v12 setInvalidationHandler:v14];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (id)pf_extendRenderSessionWithReason:()PosterFoundation
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v3 = a3;
   if (pf_extendRenderSessionWithReason__onceToken != -1)
   {
@@ -383,18 +361,16 @@ LABEL_21:
   v8 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.PosterKit" name:v7];
   v9 = objc_alloc(MEMORY[0x1E69C7548]);
   currentProcess = [MEMORY[0x1E69C7640] currentProcess];
-  v15[0] = v8;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = v8;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   v12 = [v9 initWithExplanation:v6 target:currentProcess attributes:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (void)pf_assertionForTarget:()PosterFoundation assertionIdentifier:explanation:invalidationHandler:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:RBSTargetClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -402,7 +378,7 @@ LABEL_21:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:RBSTargetClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -412,7 +388,7 @@ LABEL_21:
 
 + (void)pf_assertionForTarget:()PosterFoundation assertionIdentifier:explanation:invalidationHandler:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -420,7 +396,7 @@ LABEL_21:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -430,30 +406,28 @@ LABEL_21:
 
 + (void)pf_assertionForTarget:()PosterFoundation assertionIdentifier:explanation:invalidationHandler:.cold.3(const char *a1, uint64_t a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = NSStringFromSelector(a1);
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v9 = 138544642;
-  v10 = v5;
-  v11 = 2114;
-  v12 = v7;
-  v13 = 2048;
-  v14 = a2;
-  v15 = 2114;
-  v16 = @"RBSAssertion+PosterFoundation.m";
-  v17 = 1024;
-  v18 = 50;
-  v19 = 2114;
-  v20 = a3;
-  _os_log_error_impl(&dword_1C269D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9, 0x3Au);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138544642;
+  v9 = v5;
+  v10 = 2114;
+  v11 = v7;
+  v12 = 2048;
+  v13 = a2;
+  v14 = 2114;
+  v15 = @"RBSAssertion+PosterFoundation.m";
+  v16 = 1024;
+  v17 = 50;
+  v18 = 2114;
+  v19 = a3;
+  _os_log_error_impl(&dword_1C269D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v8, 0x3Au);
 }
 
 + (void)pf_assertionForTarget:()PosterFoundation assertionIdentifier:explanation:invalidationHandler:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -461,7 +435,7 @@ LABEL_21:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -471,7 +445,7 @@ LABEL_21:
 
 + (void)pf_assertionForTarget:()PosterFoundation assertionIdentifier:explanation:invalidationHandler:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -479,7 +453,7 @@ LABEL_21:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

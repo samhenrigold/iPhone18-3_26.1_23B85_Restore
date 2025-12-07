@@ -32,9 +32,9 @@
   {
     v5 = [(SUUIArtworkRequest *)self URL];
     scheme = [v5 scheme];
-    v7 = [scheme isEqualToString:@"x-apple-identity-image"];
+    isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-    if (v7)
+    if (isEqualToString)
     {
       v8 = MEMORY[0x277D755B8];
       v9 = UIImagePNGRepresentation(image);

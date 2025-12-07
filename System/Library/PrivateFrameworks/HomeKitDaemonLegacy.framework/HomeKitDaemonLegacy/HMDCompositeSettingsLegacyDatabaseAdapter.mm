@@ -40,7 +40,7 @@
 
 - (void)localZone:(id)zone didProcessModelDeletion:(id)deletion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   deletionCopy = deletion;
   model = [deletionCopy model];
@@ -59,13 +59,13 @@
   if (v10)
   {
     queue = [(HMDCompositeSettingsLegacyDatabaseAdapter *)self queue];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __79__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelDeletion___block_invoke;
-    v18[3] = &unk_2797359B0;
-    v18[4] = self;
-    v19 = v10;
-    dispatch_async(queue, v18);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __79__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelDeletion___block_invoke;
+    v17[3] = &unk_2797359B0;
+    v17[4] = self;
+    v18 = v10;
+    dispatch_async(queue, v17);
   }
 
   else
@@ -78,16 +78,14 @@
       v15 = HMFGetLogIdentifier();
       model2 = [deletionCopy model];
       *buf = 138543618;
-      v21 = v15;
-      v22 = 2112;
-      v23 = model2;
+      v20 = v15;
+      v21 = 2112;
+      v22 = model2;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid model deletion object, ignoring %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelDeletion___block_invoke(uint64_t a1)
@@ -98,7 +96,7 @@ void __79__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelDe
 
 - (void)localZone:(id)zone didProcessModelUpdate:(id)update
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   updateCopy = update;
   model = [updateCopy model];
@@ -117,13 +115,13 @@ void __79__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelDe
   if (v10)
   {
     queue = [(HMDCompositeSettingsLegacyDatabaseAdapter *)self queue];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __77__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelUpdate___block_invoke;
-    v18[3] = &unk_2797359B0;
-    v18[4] = self;
-    v19 = v10;
-    dispatch_async(queue, v18);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __77__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelUpdate___block_invoke;
+    v17[3] = &unk_2797359B0;
+    v17[4] = self;
+    v18 = v10;
+    dispatch_async(queue, v17);
   }
 
   else
@@ -136,16 +134,14 @@ void __79__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelDe
       v15 = HMFGetLogIdentifier();
       model2 = [updateCopy model];
       *buf = 138543618;
-      v21 = v15;
-      v22 = 2112;
-      v23 = model2;
+      v20 = v15;
+      v21 = 2112;
+      v22 = model2;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid model update object, ignoring %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelUpdate___block_invoke(uint64_t a1)
@@ -156,7 +152,7 @@ void __77__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelUp
 
 - (void)localZone:(id)zone didProcessModelCreation:(id)creation
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   creationCopy = creation;
   model = [creationCopy model];
@@ -175,13 +171,13 @@ void __77__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelUp
   if (v10)
   {
     queue = [(HMDCompositeSettingsLegacyDatabaseAdapter *)self queue];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __79__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelCreation___block_invoke;
-    v18[3] = &unk_2797359B0;
-    v18[4] = self;
-    v19 = v10;
-    dispatch_async(queue, v18);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __79__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelCreation___block_invoke;
+    v17[3] = &unk_2797359B0;
+    v17[4] = self;
+    v18 = v10;
+    dispatch_async(queue, v17);
   }
 
   else
@@ -194,16 +190,14 @@ void __77__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelUp
       v15 = HMFGetLogIdentifier();
       model2 = [creationCopy model];
       *buf = 138543618;
-      v21 = v15;
-      v22 = 2112;
-      v23 = model2;
+      v20 = v15;
+      v21 = 2112;
+      v22 = model2;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid model creation object, ignoring %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HMDCompositeSettingsLegacyDatabaseAdapter_localZone_didProcessModelCreation___block_invoke(uint64_t a1)
@@ -264,7 +258,7 @@ LABEL_13:
 
 - (void)addModel:(id)model withOptionsLabel:(id)label completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   labelCopy = label;
   completionCopy = completion;
@@ -277,11 +271,11 @@ LABEL_13:
     block[1] = 3221225472;
     block[2] = __82__HMDCompositeSettingsLegacyDatabaseAdapter_addModel_withOptionsLabel_completion___block_invoke;
     block[3] = &unk_279734668;
-    v20 = labelCopy;
-    v21 = v12;
-    v22 = modelCopy;
+    v19 = labelCopy;
+    v20 = v12;
+    v21 = modelCopy;
     selfCopy = self;
-    v24 = completionCopy;
+    v23 = completionCopy;
     dispatch_async(workQueue, block);
   }
 
@@ -294,36 +288,32 @@ LABEL_13:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v17;
+      v25 = v17;
       _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Nil zone manager while adding model", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __82__HMDCompositeSettingsLegacyDatabaseAdapter_addModel_withOptionsLabel_completion___block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D17108] optionsWithLabel:*(a1 + 32)];
   v3 = [*(a1 + 40) localZone];
   v4 = MEMORY[0x277CBEB98];
-  v13[0] = *(a1 + 48);
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = *(a1 + 48);
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v6 = [v4 setWithArray:v5];
   v7 = [v3 addModels:v6 options:v2];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __82__HMDCompositeSettingsLegacyDatabaseAdapter_addModel_withOptionsLabel_completion___block_invoke_2;
-  v11[3] = &unk_27972B7B8;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __82__HMDCompositeSettingsLegacyDatabaseAdapter_addModel_withOptionsLabel_completion___block_invoke_2;
+  v10[3] = &unk_27972B7B8;
   v8 = *(a1 + 64);
-  v11[4] = *(a1 + 56);
-  v12 = v8;
-  v9 = [v7 addCompletionBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[4] = *(a1 + 56);
+  v11 = v8;
+  v9 = [v7 addCompletionBlock:v10];
 }
 
 void __82__HMDCompositeSettingsLegacyDatabaseAdapter_addModel_withOptionsLabel_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -354,7 +344,7 @@ uint64_t __82__HMDCompositeSettingsLegacyDatabaseAdapter_addModel_withOptionsLab
 
 - (id)fetchModelWithID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   zoneManager = [(HMDCompositeSettingsLegacyDatabaseAdapter *)self zoneManager];
   v6 = zoneManager;
@@ -372,23 +362,21 @@ uint64_t __82__HMDCompositeSettingsLegacyDatabaseAdapter_addModel_withOptionsLab
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Nil zone manager while fetching model", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Nil zone manager while fetching model", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (void)stopObservingModelWithID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   zoneManager = [(HMDCompositeSettingsLegacyDatabaseAdapter *)self zoneManager];
   v6 = zoneManager;
@@ -399,9 +387,9 @@ uint64_t __82__HMDCompositeSettingsLegacyDatabaseAdapter_addModel_withOptionsLab
     block[1] = 3221225472;
     block[2] = __70__HMDCompositeSettingsLegacyDatabaseAdapter_stopObservingModelWithID___block_invoke;
     block[3] = &unk_279734960;
-    v14 = v6;
+    v13 = v6;
     selfCopy = self;
-    v16 = dCopy;
+    v15 = dCopy;
     dispatch_async(workQueue, block);
   }
 
@@ -414,14 +402,12 @@ uint64_t __82__HMDCompositeSettingsLegacyDatabaseAdapter_addModel_withOptionsLab
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v11;
+      v17 = v11;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Nil zone manager while stopping observation", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HMDCompositeSettingsLegacyDatabaseAdapter_stopObservingModelWithID___block_invoke(uint64_t a1)
@@ -432,20 +418,20 @@ void __70__HMDCompositeSettingsLegacyDatabaseAdapter_stopObservingModelWithID___
 
 - (void)startObservingModelWithID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   zoneManager = [(HMDCompositeSettingsLegacyDatabaseAdapter *)self zoneManager];
   v6 = zoneManager;
   if (zoneManager)
   {
     workQueue = [zoneManager workQueue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __71__HMDCompositeSettingsLegacyDatabaseAdapter_startObservingModelWithID___block_invoke;
-    v13[3] = &unk_2797359B0;
-    v13[4] = self;
-    v14 = dCopy;
-    dispatch_async(workQueue, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __71__HMDCompositeSettingsLegacyDatabaseAdapter_startObservingModelWithID___block_invoke;
+    v12[3] = &unk_2797359B0;
+    v12[4] = self;
+    v13 = dCopy;
+    dispatch_async(workQueue, v12);
   }
 
   else
@@ -457,14 +443,12 @@ void __70__HMDCompositeSettingsLegacyDatabaseAdapter_stopObservingModelWithID___
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v11;
+      v15 = v11;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Nil zone manager while starting observation", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HMDCompositeSettingsLegacyDatabaseAdapter_startObservingModelWithID___block_invoke(uint64_t a1)
@@ -490,7 +474,7 @@ void __71__HMDCompositeSettingsLegacyDatabaseAdapter_startObservingModelWithID__
 
 void __63__HMDCompositeSettingsLegacyDatabaseAdapter_startWithDelegate___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -499,9 +483,9 @@ void __63__HMDCompositeSettingsLegacyDatabaseAdapter_startWithDelegate___block_i
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     *buf = 138543618;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v6;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v6;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Starting legacy database adapter with delegate %@", buf, 0x16u);
   }
 
@@ -510,24 +494,22 @@ void __63__HMDCompositeSettingsLegacyDatabaseAdapter_startWithDelegate___block_i
   v7 = [*(a1 + 32) zoneManager];
   objc_initWeak(buf, v7);
   v8 = [v7 configurationFuture];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __63__HMDCompositeSettingsLegacyDatabaseAdapter_startWithDelegate___block_invoke_8;
-  v13[3] = &unk_279730E78;
-  objc_copyWeak(&v14, buf);
-  v13[4] = *(a1 + 32);
-  v9 = [v8 addSuccessBlock:v13];
   v12[0] = MEMORY[0x277D85DD0];
   v12[1] = 3221225472;
-  v12[2] = __63__HMDCompositeSettingsLegacyDatabaseAdapter_startWithDelegate___block_invoke_3;
-  v12[3] = &unk_2797359D8;
+  v12[2] = __63__HMDCompositeSettingsLegacyDatabaseAdapter_startWithDelegate___block_invoke_8;
+  v12[3] = &unk_279730E78;
+  objc_copyWeak(&v13, buf);
   v12[4] = *(a1 + 32);
-  v10 = [v9 addFailureBlock:v12];
+  v9 = [v8 addSuccessBlock:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __63__HMDCompositeSettingsLegacyDatabaseAdapter_startWithDelegate___block_invoke_3;
+  v11[3] = &unk_2797359D8;
+  v11[4] = *(a1 + 32);
+  v10 = [v9 addFailureBlock:v11];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDCompositeSettingsLegacyDatabaseAdapter_startWithDelegate___block_invoke_8(uint64_t a1)

@@ -23,31 +23,31 @@
 
 - (void)migrateWorkflow
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   actions = [(WFWorkflowMigration *)self actions];
-  v4 = [actions countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [actions countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(actions);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
         v10 = [v8 objectForKey:actionIdentifierKey];
 
-        if ([v10 isEqualToString:@"is.workflow.actions.deletephotos"])
+        if (objc_msgSend_isEqualToString_(v10))
         {
           actionParametersKey = [(WFWorkflowMigration *)self actionParametersKey];
           v12 = [v8 objectForKeyedSubscript:actionParametersKey];
@@ -66,14 +66,13 @@
         }
       }
 
-      v5 = [actions countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [actions countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
 
   [(WFWorkflowMigration *)self finish];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -6,6 +6,7 @@
 - (void)setBackgroundColor:(id)color;
 - (void)setContentInsets:(UIEdgeInsets)insets;
 - (void)setTitle:(id)title;
+- (void)title;
 @end
 
 @implementation SKUIProductPageTableHeaderView
@@ -59,7 +60,7 @@
 
   title = [(SKUIProductPageTableHeaderView *)self title];
   v14 = title;
-  if (title != titleCopy && ([title isEqualToString:titleCopy] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(title) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)
@@ -120,22 +121,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIProductPageTableHeaderView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  [(SKUIProductPageTableHeaderView *)self bounds];
-  v12 = v11;
-  [(UILabel *)self->_titleLabel frame];
-  [(UILabel *)self->_titleLabel setFrame:self->_contentInsets.left, self->_contentInsets.top, v12 - self->_contentInsets.right - self->_contentInsets.left];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageTableHeaderView layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -192,6 +179,36 @@
   result.left = left;
   result.top = top;
   return result;
+}
+
+- (void)setContentInsets:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageTableHeaderView setContentInsets:]";
+}
+
+- (void)setTitle:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageTableHeaderView setTitle:]";
+}
+
+- (void)title
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageTableHeaderView title]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageTableHeaderView setBackgroundColor:]";
+}
+
+- (void)sizeThatFits:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageTableHeaderView sizeThatFits:]";
 }
 
 @end

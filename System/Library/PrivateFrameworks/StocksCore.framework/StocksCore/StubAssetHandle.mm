@@ -8,12 +8,10 @@
 
 - (NSString)uniqueKey
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR____TtC10StocksCore15StubAssetHandle_identifier);
-  v3 = *(&self->super._dataProvider + OBJC_IVAR____TtC10StocksCore15StubAssetHandle_identifier);
   sub_1DACB71E4();
-  v4 = sub_1DACB92F4();
+  v2 = sub_1DACB92F4();
 
-  return v4;
+  return v2;
 }
 
 - (_TtC10StocksCore15StubAssetHandle)init
@@ -21,19 +19,18 @@
   ObjectType = swift_getObjectType();
   v4 = sub_1DACB7D04();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = (self + OBJC_IVAR____TtC10StocksCore15StubAssetHandle_identifier);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = (self + OBJC_IVAR____TtC10StocksCore15StubAssetHandle_identifier);
   sub_1DACB6D04();
-  v10 = sub_1DACB7CE4();
-  v12 = v11;
-  (*(v5 + 8))(v8, v4);
-  *v9 = v10;
-  v9[1] = v12;
-  v14.receiver = self;
-  v14.super_class = ObjectType;
-  return [(StubAssetHandle *)&v14 init];
+  v9 = sub_1DACB7CE4();
+  v11 = v10;
+  (*(v5 + 8))(v7, v4);
+  *v8 = v9;
+  v8[1] = v11;
+  v13.receiver = self;
+  v13.super_class = ObjectType;
+  return [(StubAssetHandle *)&v13 init];
 }
 
 - (FCAssetDataProvider)dataProvider

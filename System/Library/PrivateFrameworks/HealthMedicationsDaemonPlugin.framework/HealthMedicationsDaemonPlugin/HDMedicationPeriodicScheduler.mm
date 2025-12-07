@@ -49,7 +49,7 @@
 
 - (void)periodicActivity:(id)activity configureXPCActivityCriteria:(id)criteria
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   criteriaCopy = criteria;
   name = [activityCopy name];
@@ -63,11 +63,11 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       name2 = [activityCopy name];
-      v14 = 138543618;
+      v13 = 138543618;
       selfCopy = self;
-      v16 = 2114;
-      v17 = name2;
-      _os_log_impl(&dword_25181C000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@]: configuring periodic activity %{public}@", &v14, 0x16u);
+      v15 = 2114;
+      v16 = name2;
+      _os_log_impl(&dword_25181C000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@]: configuring periodic activity %{public}@", &v13, 0x16u);
     }
 
     xpc_dictionary_set_string(criteriaCopy, *MEMORY[0x277D86340], *MEMORY[0x277D86350]);
@@ -83,13 +83,11 @@
       [(HDMedicationPeriodicScheduler *)self periodicActivity:activityCopy configureXPCActivityCriteria:v11];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performPeriodicActivity:(id)activity completion:(id)completion
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   name = [activity name];
   if ([name isEqualToString:@"com.apple.healthd.medications.scheduler"])
@@ -105,9 +103,9 @@
     v15 = [v10 stringWithFormat:@"%@-%@", v12, uUIDString];
 
     database = [primaryProfile database];
-    v39 = 0;
-    v17 = [database takeAccessibilityAssertionWithOwnerIdentifier:v15 timeout:&v39 error:300.0];
-    v18 = v39;
+    v38 = 0;
+    v17 = [database takeAccessibilityAssertionWithOwnerIdentifier:v15 timeout:&v38 error:300.0];
+    v18 = v38;
 
     if (!v17)
     {
@@ -122,8 +120,8 @@
         {
           *buf = 138543618;
           selfCopy = self;
-          v42 = 2114;
-          v43 = v18;
+          v41 = 2114;
+          v42 = v18;
           _os_log_impl(&dword_25181C000, v21, OS_LOG_TYPE_INFO, "[%{public}@]: unable to take accessibility assertion: %{public}@", buf, 0x16u);
         }
       }
@@ -132,23 +130,23 @@
     v22 = MEMORY[0x277D10748];
     v23 = objc_opt_class();
     v24 = NSStringFromClass(v23);
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __68__HDMedicationPeriodicScheduler_performPeriodicActivity_completion___block_invoke;
-    v34[3] = &unk_2796CE4D8;
-    v34[4] = self;
-    v35 = name;
-    v36 = v17;
-    v37 = primaryProfile;
-    v38 = completionCopy;
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __68__HDMedicationPeriodicScheduler_performPeriodicActivity_completion___block_invoke_2;
-    v32[3] = &unk_2796CE500;
-    v33 = v36;
-    v25 = v36;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __68__HDMedicationPeriodicScheduler_performPeriodicActivity_completion___block_invoke;
+    v33[3] = &unk_2796CE4D8;
+    v33[4] = self;
+    v34 = name;
+    v35 = v17;
+    v36 = primaryProfile;
+    v37 = completionCopy;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __68__HDMedicationPeriodicScheduler_performPeriodicActivity_completion___block_invoke_2;
+    v31[3] = &unk_2796CE500;
+    v32 = v35;
+    v25 = v35;
     v26 = primaryProfile;
-    v27 = [v22 maintenanceOperationWithName:v24 asynchronousBlock:v34 canceledBlock:v32];
+    v27 = [v22 maintenanceOperationWithName:v24 asynchronousBlock:v33 canceledBlock:v31];
 
     v28 = objc_loadWeakRetained(&self->_daemon);
     maintenanceWorkCoordinator = [v28 maintenanceWorkCoordinator];
@@ -166,13 +164,11 @@
 
     (*(completionCopy + 2))(completionCopy, 1, 0, 0.0);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HDMedicationPeriodicScheduler_performPeriodicActivity_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = HKLogMedication();
@@ -181,9 +177,9 @@ void __68__HDMedicationPeriodicScheduler_performPeriodicActivity_completion___bl
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
     *buf = 138543618;
-    v20 = v5;
-    v21 = 2114;
-    v22 = v6;
+    v19 = v5;
+    v20 = 2114;
+    v21 = v6;
     _os_log_impl(&dword_25181C000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@]: performing periodic activity %{public}@", buf, 0x16u);
   }
 
@@ -195,14 +191,14 @@ void __68__HDMedicationPeriodicScheduler_performPeriodicActivity_completion___bl
   }
 
   v8 = [*(a1 + 56) database];
-  v18 = 0;
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __68__HDMedicationPeriodicScheduler_performPeriodicActivity_completion___block_invoke_339;
-  v16 = &unk_2796CD798;
-  v17 = *(a1 + 56);
-  v9 = [v8 performWithTransactionContext:v7 error:&v18 block:&v13];
-  v10 = v18;
+  v17 = 0;
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __68__HDMedicationPeriodicScheduler_performPeriodicActivity_completion___block_invoke_339;
+  v15 = &unk_2796CD798;
+  v16 = *(a1 + 56);
+  v9 = [v8 performWithTransactionContext:v7 error:&v17 block:&v12];
+  v10 = v17;
 
   [*(a1 + 48) invalidate];
   if (v9)
@@ -217,8 +213,6 @@ void __68__HDMedicationPeriodicScheduler_performPeriodicActivity_completion___bl
 
   (*(*(a1 + 64) + 16))(*(a1 + 64), v11, v10, 0.0);
   v3[2](v3);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__HDMedicationPeriodicScheduler_performPeriodicActivity_completion___block_invoke_339(uint64_t a1, uint64_t a2)
@@ -253,26 +247,23 @@ void __68__HDMedicationPeriodicScheduler_performPeriodicActivity_completion___bl
 
 - (void)periodicActivity:(NSObject *)a3 configureXPCActivityCriteria:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 name];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_25181C000, a3, OS_LOG_TYPE_ERROR, "[%{public}@]: periodic activity %{public}@ is not an expected activity, not configuring", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_25181C000, a3, OS_LOG_TYPE_ERROR, "[%{public}@]: periodic activity %{public}@ is not an expected activity, not configuring", &v6, 0x16u);
 }
 
 - (void)performPeriodicActivity:(os_log_t)log completion:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_25181C000, log, OS_LOG_TYPE_ERROR, "[%{public}@]: periodic activity %{public}@ is not an expected activity, not performing", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_25181C000, log, OS_LOG_TYPE_ERROR, "[%{public}@]: periodic activity %{public}@ is not an expected activity, not performing", &v3, 0x16u);
 }
 
 @end

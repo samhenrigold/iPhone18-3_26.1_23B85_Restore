@@ -165,8 +165,8 @@ LABEL_3:
 
 + (id)fromDictionary:(id)dictionary error:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v41 = 0;
+  v41[17] = *MEMORY[0x1E69E9840];
+  v41[0] = 0;
   if (!dictionary)
   {
     return 0;
@@ -177,7 +177,7 @@ LABEL_3:
   {
     v8 = [dictionary objectForKey:@"Tracks"];
     array = [MEMORY[0x1E695DF70] array];
-    v17 = OUTLINED_FUNCTION_2_5(array, v10, v11, v12, v13, v14, v15, v16, 0, 0, 0, 0, 0, 0, 0, 0, v41, v42);
+    v17 = OUTLINED_FUNCTION_2_5(array, v10, v11, v12, v13, v14, v15, v16, 0, 0, 0, 0, 0, 0, 0, 0, v41[0]);
     if (v17)
     {
       v18 = v17;
@@ -191,18 +191,19 @@ LABEL_3:
             objc_enumerationMutation(v8);
           }
 
-          v21 = [AVAssetPlannerTrackState fromDictionary:*(v34 + 8 * i) error:&v41];
-          if (!v21 || v41)
+          v21 = [AVAssetPlannerTrackState fromDictionary:*(v34 + 8 * i) error:v41];
+          if (!v21 || v41[0])
           {
             fig_log_get_emitter();
             OUTLINED_FUNCTION_1_7();
+            v32 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
             goto LABEL_16;
           }
 
           v22 = [array addObject:v21];
         }
 
-        v18 = OUTLINED_FUNCTION_2_5(v22, v23, v24, v25, v26, v27, v28, v29, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42);
+        v18 = OUTLINED_FUNCTION_2_5(v22, v23, v24, v25, v26, v27, v28, v29, v33, v34, v35, v36, v37, v38, v39, v40, v41[0]);
         if (v18)
         {
           continue;
@@ -221,8 +222,8 @@ LABEL_3:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_7();
+    v32 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
 LABEL_16:
-    v32 = FigSignalErrorAtGM();
     v30 = 0;
     if (error && v32)
     {

@@ -90,10 +90,7 @@
 
 uint64_t __39__TUMetadataCacheDataProvider_delegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 8));
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -331,13 +328,12 @@ void __38__TUMetadataCacheDataProvider_isEmpty__block_invoke(uint64_t a1)
 void __42__TUMetadataCacheDataProvider_description__block_invoke(uint64_t a1)
 {
   v2 = MEMORY[0x1E696AEC0];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v8 = [*(a1 + 32) providerCache];
-  v5 = [v2 stringWithFormat:@"%@: %@", v4, v8];
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v3 = objc_opt_class();
+  v7 = [*(a1 + 32) providerCache];
+  v4 = [v2 stringWithFormat:@"%@: %@", v3, v7];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 @end

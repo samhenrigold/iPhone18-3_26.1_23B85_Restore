@@ -9,34 +9,34 @@
 
 - (id)updateSuggestionsForDate:(id)date numberOfSuggestions:(int64_t)suggestions
 {
-  v6 = sub_1C754DF6C();
-  v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1C754DF2C();
-  selfCopy = self;
-  v11 = sub_1C7259D24(v9, suggestions);
-
-  (*(v7 + 8))(v9, v6);
-
-  return v11;
-}
-
-- (id)assetsForDate:(id)date numberOfAssets:(int64_t)assets
-{
   v5 = sub_1C754DF6C();
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C754DF2C();
   selfCopy = self;
-  sub_1C725A380(v8);
+  v10 = sub_1C7259D24();
 
   (*(v6 + 8))(v8, v5);
-  sub_1C6F65BE8(0, &qword_1EDD0FA70);
-  v10 = sub_1C7550B3C();
 
   return v10;
+}
+
+- (id)assetsForDate:(id)date numberOfAssets:(int64_t)assets
+{
+  v6 = sub_1C754DF6C();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1C754DF2C();
+  selfCopy = self;
+  sub_1C725A380(v9, assets);
+
+  (*(v7 + 8))(v9, v6);
+  sub_1C6F65BE8(0, &qword_1EDD0FA70, 0x1E6978630);
+  v11 = sub_1C7550B3C();
+
+  return v11;
 }
 
 + (id)cloudIdentifierForShuffleUserAlbumWithAssetCollection:(id)collection photoLibrary:(id)library

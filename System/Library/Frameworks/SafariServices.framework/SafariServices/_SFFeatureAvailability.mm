@@ -7,25 +7,26 @@
 + (BOOL)_isEligibleForDomain:(unint64_t)domain
 {
   domain_answer = os_eligibility_get_domain_answer();
-  v4 = WBS_LOG_CHANNEL_PREFIXViewService();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-  if (domain_answer)
+  v4 = domain_answer;
+  v6 = WBS_LOG_CHANNEL_PREFIXViewService(domain_answer, v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+  if (v4)
   {
-    if (v5)
+    if (v7)
     {
-      [(_SFFeatureAvailability *)domain_answer _isEligibleForDomain:v4];
+      [(_SFFeatureAvailability *)v4 _isEligibleForDomain:v6];
 LABEL_6:
-      LOBYTE(v5) = 0;
+      LOBYTE(v7) = 0;
     }
   }
 
-  else if (v5)
+  else if (v7)
   {
-    [_SFFeatureAvailability _isEligibleForDomain:v4];
+    [_SFFeatureAvailability _isEligibleForDomain:v6];
     goto LABEL_6;
   }
 
-  return v5;
+  return v7;
 }
 
 + (void)_isEligibleForDomain:(int)a1 .cold.1(int a1, NSObject *a2)

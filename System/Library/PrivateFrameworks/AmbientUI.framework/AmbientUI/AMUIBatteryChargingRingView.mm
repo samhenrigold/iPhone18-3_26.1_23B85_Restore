@@ -40,11 +40,11 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v81[1] = *MEMORY[0x277D85DE8];
+  v80[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v80.receiver = self;
-  v80.super_class = AMUIBatteryChargingRingView;
-  height = [(AMUIBatteryChargingView *)&v80 initWithFrame:x, y, width, height];
+  v79.receiver = self;
+  v79.super_class = AMUIBatteryChargingRingView;
+  height = [(AMUIBatteryChargingView *)&v79 initWithFrame:x, y, width, height];
   v12 = height;
   if (height)
   {
@@ -125,7 +125,7 @@
 
     v48 = [MEMORY[0x277D755B8] systemImageNamed:@"bolt.fill"];
     [MEMORY[0x277D75348] whiteColor];
-    v49 = v79 = configurationCopy;
+    v49 = v78 = configurationCopy;
     v50 = [v48 _flatImageWithColor:v49];
 
     v51 = [v50 imageWithRenderingMode:2];
@@ -137,11 +137,11 @@
     -[CALayer setContents:](v12->_chargingBoltGlyph, "setContents:", [v51 CGImage]);
     v54 = v12->_chargingBoltGlyph;
     v55 = [MEMORY[0x277CD9EA0] brightnessFilterWithAmount:0.1];
-    v81[0] = v55;
-    v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:1];
+    v80[0] = v55;
+    v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:1];
     [(CALayer *)v54 setFilters:v56];
 
-    v57 = [(AMUIBatteryChargingRingView *)v12 _ringLayerForRingConfiguration:v79];
+    v57 = [(AMUIBatteryChargingRingView *)v12 _ringLayerForRingConfiguration:v78];
 
     batteryLevelRing = v12->_batteryLevelRing;
     v12->_batteryLevelRing = v57;
@@ -156,8 +156,8 @@
 
     v63 = MEMORY[0x277D74300];
     [(AMUIBatteryChargingUIConfiguration *)v12->_configuration chargingTextFontSize];
-    v78 = [v63 boldSystemFontOfSize:?];
-    [(UILabel *)v12->_chargePercentLabel setFont:v78];
+    v77 = [v63 boldSystemFontOfSize:?];
+    [(UILabel *)v12->_chargePercentLabel setFont:v77];
     v64 = [objc_alloc(MEMORY[0x277D3D328]) initWithRecipe:6];
     platterView = v12->_platterView;
     v12->_platterView = v64;
@@ -186,7 +186,7 @@
     v73 = v12->_ringLayer;
     layer9 = [(PLPlatterView *)v12->_platterView layer];
     v75 = v73;
-    configurationCopy = v79;
+    configurationCopy = v78;
     [(CALayer *)v75 addSublayer:layer9];
 
     [(CALayer *)v12->_ringLayer addSublayer:v12->_trackFillRingLayer];
@@ -195,7 +195,6 @@
     [(AMUIBatteryChargingRingView *)v12 addSubview:v12->_grabberView];
   }
 
-  v76 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -459,28 +458,28 @@ uint64_t __72__AMUIBatteryChargingRingView_presentChargingViewWithCompletionHand
 
 - (BOOL)_layerHasGaussianBlurFilter:(id)filter
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   filters = [filter filters];
-  v4 = [filters countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [filters countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     v7 = *MEMORY[0x277CDA328];
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(filters);
         }
 
-        name = [*(*(&v14 + 1) + 8 * i) name];
+        name = [*(*(&v13 + 1) + 8 * i) name];
         v10 = [name isEqualToString:v7];
 
         if (v10)
@@ -490,7 +489,7 @@ uint64_t __72__AMUIBatteryChargingRingView_presentChargingViewWithCompletionHand
         }
       }
 
-      v5 = [filters countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [filters countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -503,13 +502,12 @@ uint64_t __72__AMUIBatteryChargingRingView_presentChargingViewWithCompletionHand
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)_addGaussianBlurToLayerIfNeeded:(id)needed inputRadius:(double)radius
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   if (![(AMUIBatteryChargingRingView *)self _layerHasGaussianBlurFilter:neededCopy])
   {
@@ -527,12 +525,10 @@ LABEL_11:
     v11 = [filters mutableCopy];
 
     [v11 addObject:v7];
-    v14[0] = v7;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = v7;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     [neededCopy setFilters:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLegibilitySettings:(id)settings
@@ -640,7 +636,7 @@ LABEL_11:
 
 - (id)_ringLayerForRingConfiguration:(id)configuration
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   if (configuration)
   {
     configurationCopy = configuration;
@@ -668,8 +664,8 @@ LABEL_11:
     }
 
     v12 = [MEMORY[0x277CD9EA0] brightnessFilterWithAmount:0.1];
-    v16[0] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     [v9 setFilters:v13];
   }
 
@@ -677,8 +673,6 @@ LABEL_11:
   {
     v9 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

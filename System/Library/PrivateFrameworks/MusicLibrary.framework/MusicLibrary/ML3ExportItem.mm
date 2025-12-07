@@ -336,7 +336,7 @@ LABEL_36:
   return v18;
 }
 
-unint64_t __87__ML3ExportItem_initWithPersistentId_entityClass_propertyKeysToExport_numKeys_library___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__87__ML3ExportItem_initWithPersistentId_entityClass_propertyKeysToExport_numKeys_library___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = *(*(*(a1 + 40) + 8) + 40);
   v6 = [MEMORY[0x277CCABB0] numberWithLongLong:a2];

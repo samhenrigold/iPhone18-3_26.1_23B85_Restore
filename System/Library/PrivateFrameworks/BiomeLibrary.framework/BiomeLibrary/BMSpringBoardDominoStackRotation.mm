@@ -16,20 +16,18 @@
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"widget_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_79];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"stackId" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"reason" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"newWidgetSuggestion" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:12 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"source" dataType:2 requestOnly:0 fieldNumber:5 protoDataType:13 convertedType:0];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
@@ -117,7 +115,7 @@ LABEL_19:
 
 - (id)jsonDictionary
 {
-  v24[5] = *MEMORY[0x1E69E9840];
+  v23[5] = *MEMORY[0x1E69E9840];
   widget = [(BMSpringBoardDominoStackRotation *)self widget];
   jsonDictionary = [widget jsonDictionary];
 
@@ -134,48 +132,48 @@ LABEL_19:
   }
 
   source = [(BMSpringBoardDominoStackRotation *)self source];
-  v19 = @"widget";
+  v18 = @"widget";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17 = null;
-  v24[0] = null;
-  v20 = @"stackId";
+  v16 = null;
+  v23[0] = null;
+  v19 = @"stackId";
   null2 = stackId;
   if (!stackId)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[1] = null2;
-  v21 = @"reason";
+  v23[1] = null2;
+  v20 = @"reason";
   null3 = v6;
   if (!v6)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[2] = null3;
-  v22 = @"newWidgetSuggestion";
+  v23[2] = null3;
+  v21 = @"newWidgetSuggestion";
   null4 = v7;
   if (!v7)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[3] = null4;
-  v23 = @"source";
+  v23[3] = null4;
+  v22 = @"source";
   null5 = source;
   if (!source)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[4] = null5;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v19 count:{5, v17}];
+  v23[4] = null5;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v18 count:{5, v16}];
   if (source)
   {
     if (v7)
@@ -233,14 +231,13 @@ LABEL_18:
 LABEL_26:
 
 LABEL_19:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (BMSpringBoardDominoStackRotation)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v56[1] = *MEMORY[0x1E69E9840];
+  v55[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"widget"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -253,9 +250,9 @@ LABEL_19:
   if (objc_opt_isKindOfClass())
   {
     v11 = v7;
-    v46 = 0;
-    v8 = [[BMSpringBoardDominoWidget alloc] initWithJSONDictionary:v11 error:&v46];
-    v12 = v46;
+    v45 = 0;
+    v8 = [[BMSpringBoardDominoWidget alloc] initWithJSONDictionary:v11 error:&v45];
+    v12 = v45;
     if (v12)
     {
       v13 = v11;
@@ -286,10 +283,10 @@ LABEL_4:
         v21 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
         v22 = *MEMORY[0x1E698F240];
-        v53 = *MEMORY[0x1E696A578];
-        v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"stackId"];
-        v54 = v43;
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+        v52 = *MEMORY[0x1E696A578];
+        v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"stackId"];
+        v53 = v42;
+        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
         v23 = [v21 initWithDomain:v22 code:2 userInfo:v10];
         error = 0;
         v14 = 0;
@@ -300,16 +297,16 @@ LABEL_36:
         goto LABEL_37;
       }
 
-      v41 = v9;
+      v40 = v9;
     }
 
     else
     {
-      v41 = 0;
+      v40 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"reason"];
-    v42 = v8;
+    v41 = v8;
     selfCopy = self;
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
@@ -326,34 +323,34 @@ LABEL_36:
         {
           if (!error)
           {
-            v43 = 0;
+            v42 = 0;
             v14 = 0;
-            error = v41;
+            error = v40;
             goto LABEL_35;
           }
 
-          v44 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v35 = *MEMORY[0x1E698F240];
-          v51 = *MEMORY[0x1E696A578];
+          v43 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v34 = *MEMORY[0x1E698F240];
+          v50 = *MEMORY[0x1E696A578];
           v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"reason"];
-          v52 = v25;
-          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-          v36 = [v44 initWithDomain:v35 code:2 userInfo:v24];
-          v43 = 0;
+          v51 = v25;
+          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+          v35 = [v43 initWithDomain:v34 code:2 userInfo:v24];
+          v42 = 0;
           v14 = 0;
-          *error = v36;
+          *error = v35;
           goto LABEL_54;
         }
 
         v15 = [MEMORY[0x1E696AD98] numberWithInt:BMSpringBoardDominoStackRotationReasonFromString(v10)];
       }
 
-      v43 = v15;
+      v42 = v15;
     }
 
     else
     {
-      v43 = 0;
+      v42 = 0;
     }
 
     v24 = [dictionaryCopy objectForKeyedSubscript:@"newWidgetSuggestion"];
@@ -376,18 +373,18 @@ LABEL_29:
         {
           if (error)
           {
-            v40 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v37 = *MEMORY[0x1E698F240];
-            v47 = *MEMORY[0x1E696A578];
-            v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"source"];
-            v48 = v33;
-            v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-            *error = [v40 initWithDomain:v37 code:2 userInfo:v34];
+            v39 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v36 = *MEMORY[0x1E698F240];
+            v46 = *MEMORY[0x1E696A578];
+            v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"source"];
+            v47 = v32;
+            v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+            *error = [v39 initWithDomain:v36 code:2 userInfo:v33];
           }
 
           v27 = 0;
           v14 = 0;
-          error = v41;
+          error = v40;
           goto LABEL_33;
         }
 
@@ -399,38 +396,38 @@ LABEL_29:
         v27 = 0;
       }
 
-      error = v41;
-      v14 = -[BMSpringBoardDominoStackRotation initWithWidget:stackId:reason:newWidgetSuggestion:source:](selfCopy, "initWithWidget:stackId:reason:newWidgetSuggestion:source:", v42, v41, [v43 intValue], v25, v27);
+      error = v40;
+      v14 = -[BMSpringBoardDominoStackRotation initWithWidget:stackId:reason:newWidgetSuggestion:source:](selfCopy, "initWithWidget:stackId:reason:newWidgetSuggestion:source:", v41, v40, [v42 intValue], v25, v27);
       selfCopy = v14;
 LABEL_33:
 
 LABEL_34:
       self = selfCopy;
-      v8 = v42;
+      v8 = v41;
       goto LABEL_35;
     }
 
     if (error)
     {
-      v30 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v29 = objc_alloc(MEMORY[0x1E696ABC0]);
       errorCopy2 = error;
-      v31 = *MEMORY[0x1E698F240];
-      v49 = *MEMORY[0x1E696A578];
+      v30 = *MEMORY[0x1E698F240];
+      v48 = *MEMORY[0x1E696A578];
       v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"newWidgetSuggestion"];
-      v50 = v27;
-      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
-      v32 = [v30 initWithDomain:v31 code:2 userInfo:v26];
+      v49 = v27;
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+      v31 = [v29 initWithDomain:v30 code:2 userInfo:v26];
       v25 = 0;
       v14 = 0;
-      error = v41;
-      *errorCopy2 = v32;
+      error = v40;
+      *errorCopy2 = v31;
       goto LABEL_33;
     }
 
     v25 = 0;
     v14 = 0;
 LABEL_54:
-    error = v41;
+    error = v40;
     goto LABEL_34;
   }
 
@@ -443,10 +440,10 @@ LABEL_54:
   v16 = objc_alloc(MEMORY[0x1E696ABC0]);
   errorCopy3 = error;
   v18 = *MEMORY[0x1E698F240];
-  v55 = *MEMORY[0x1E696A578];
+  v54 = *MEMORY[0x1E696A578];
   v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"widget"];
-  v56[0] = v8;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:&v55 count:1];
+  v55[0] = v8;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:&v54 count:1];
   v20 = v18;
   error = v19;
   v14 = 0;
@@ -454,7 +451,6 @@ LABEL_54:
 LABEL_37:
 
 LABEL_38:
-  v28 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -482,11 +478,9 @@ LABEL_38:
     PBDataWriterWriteStringField();
   }
 
-  reason = self->_reason;
   PBDataWriterWriteUint32Field();
   if (self->_hasNewWidgetSuggestion)
   {
-    newWidgetSuggestion = self->_newWidgetSuggestion;
     PBDataWriterWriteBOOLField();
   }
 
@@ -769,31 +763,29 @@ LABEL_59:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"widget" number:1 type:14 subMessageClass:objc_opt_class()];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"stackId" number:2 type:13 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"reason" number:3 type:4 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"newWidgetSuggestion" number:4 type:12 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"source" number:5 type:13 subMessageClass:0];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
-id __43__BMSpringBoardDominoStackRotation_columns__block_invoke(uint64_t a1, void *a2)
+id __43__BMSpringBoardDominoStackRotation_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 widget];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 widget];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

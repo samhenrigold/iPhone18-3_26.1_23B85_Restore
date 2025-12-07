@@ -34,194 +34,194 @@ LABEL_89:
     goto LABEL_90;
   }
 
-  v8 = [(__CFString *)v6 isEqualToString:@"wallet:passAdded"];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (!v8)
+  if (!isEqualToString)
   {
     v10 = v7;
-    if (v10 == @"wallet:passRemoved" || (v11 = v10, v12 = [(__CFString *)v10 isEqualToString:@"wallet:passRemoved"], v11, v12))
+    if (v10 == @"wallet:passRemoved" || (v11 = v10, v12 = objc_msgSend_isEqualToString_(v10), v11, v12))
     {
       [self firePassRemovedEvent];
       goto LABEL_7;
     }
 
     v13 = v11;
-    if (v13 == @"wallet:expressPassInfoChanged" || (v14 = v13, v15 = [(__CFString *)v13 isEqualToString:@"wallet:expressPassInfoChanged"], v14, v15))
+    if (v13 == @"wallet:expressPassInfoChanged" || (v14 = v13, v15 = objc_msgSend_isEqualToString_(v13), v14, v15))
     {
       [self fireExpressPassInfoChangedEvent];
       goto LABEL_7;
     }
 
     v16 = v14;
-    if (v16 == @"wallet:locationChanged" || (v17 = v16, v18 = [(__CFString *)v16 isEqualToString:@"wallet:locationChanged"], v17, v18))
+    if (v16 == @"wallet:locationChanged" || (v17 = v16, v18 = objc_msgSend_isEqualToString_(v16), v17, v18))
     {
       [self fireLocationChangedEvent];
       goto LABEL_7;
     }
 
     v19 = v17;
-    if (v19 == @"wallet:accountAdded" || (v20 = v19, v21 = [(__CFString *)v19 isEqualToString:@"wallet:accountAdded"], v20, v21))
+    if (v19 == @"wallet:accountAdded" || (v20 = v19, v21 = objc_msgSend_isEqualToString_(v19), v20, v21))
     {
       [self fireAccountAddedEvent];
       goto LABEL_7;
     }
 
     v22 = v20;
-    if (v22 == @"wallet:accountUpdated" || (v23 = v22, v24 = [(__CFString *)v22 isEqualToString:@"wallet:accountUpdated"], v23, v24))
+    if (v22 == @"wallet:accountUpdated" || (v23 = v22, v24 = objc_msgSend_isEqualToString_(v22), v23, v24))
     {
       [self fireAccountUpdatedEvent];
       goto LABEL_7;
     }
 
     v25 = v23;
-    if (v25 == @"wallet:accountRemoved" || (v26 = v25, v27 = [(__CFString *)v25 isEqualToString:@"wallet:accountRemoved"], v26, v27))
+    if (v25 == @"wallet:accountRemoved" || (v26 = v25, v27 = objc_msgSend_isEqualToString_(v25), v26, v27))
     {
       [self fireAccountRemovedEvent];
       goto LABEL_7;
     }
 
     v28 = v26;
-    if (v28 == @"wallet:peerPaymentAccountUpdated" || (v29 = v28, v30 = [(__CFString *)v28 isEqualToString:@"wallet:peerPaymentAccountUpdated"], v29, v30))
+    if (v28 == @"wallet:peerPaymentAccountUpdated" || (v29 = v28, v30 = objc_msgSend_isEqualToString_(v28), v29, v30))
     {
       [self firePeerPaymentAccountUpdatedEvent];
       goto LABEL_7;
     }
 
     v31 = v29;
-    if (v31 == @"wallet:featureApplicationAdded" || (v32 = v31, v33 = [(__CFString *)v31 isEqualToString:@"wallet:featureApplicationAdded"], v32, v33))
+    if (v31 == @"wallet:featureApplicationAdded" || (v32 = v31, v33 = objc_msgSend_isEqualToString_(v31), v32, v33))
     {
       [self fireFeatureApplicationAddedEvent];
       goto LABEL_7;
     }
 
     v34 = v32;
-    if (v34 == @"wallet:featureApplicationRemoved" || (v35 = v34, v36 = [(__CFString *)v34 isEqualToString:@"wallet:featureApplicationRemoved"], v35, v36))
+    if (v34 == @"wallet:featureApplicationRemoved" || (v35 = v34, v36 = objc_msgSend_isEqualToString_(v34), v35, v36))
     {
       [self fireFeatureApplicationRemovedEvent];
       goto LABEL_7;
     }
 
     v37 = v35;
-    if (v37 == @"wallet:featureApplicationUpdated" || (v38 = v37, v39 = [(__CFString *)v37 isEqualToString:@"wallet:featureApplicationUpdated"], v38, v39))
+    if (v37 == @"wallet:featureApplicationUpdated" || (v38 = v37, v39 = objc_msgSend_isEqualToString_(v37), v38, v39))
     {
       [self fireFeatureApplicationUpdatedEvent];
       goto LABEL_7;
     }
 
     v40 = v38;
-    if (v40 == @"wallet:DCINotificationForMarketAdded" || (v41 = v40, v42 = [(__CFString *)v40 isEqualToString:@"wallet:DCINotificationForMarketAdded"], v41, v42))
+    if (v40 == @"wallet:DCINotificationForMarketAdded" || (v41 = v40, v42 = objc_msgSend_isEqualToString_(v40), v41, v42))
     {
       [self fireDCINotificationForMarketAddedEvent];
       goto LABEL_7;
     }
 
     v43 = v41;
-    if (v43 == @"wallet:openLoopUpgradeNotificationForMarketAdded" || (v44 = v43, v45 = [(__CFString *)v43 isEqualToString:@"wallet:openLoopUpgradeNotificationForMarketAdded"], v44, v45))
+    if (v43 == @"wallet:openLoopUpgradeNotificationForMarketAdded" || (v44 = v43, v45 = objc_msgSend_isEqualToString_(v43), v44, v45))
     {
       [self fireOpenLoopUpgradeNotificationForMarketAddedEvent];
       goto LABEL_7;
     }
 
     v46 = v44;
-    if (v46 == @"wallet:renotifyNotificationForMaketAdded" || (v47 = v46, v48 = [(__CFString *)v46 isEqualToString:@"wallet:renotifyNotificationForMaketAdded"], v47, v48))
+    if (v46 == @"wallet:renotifyNotificationForMaketAdded" || (v47 = v46, v48 = objc_msgSend_isEqualToString_(v46), v47, v48))
     {
       [self fireRenotifyNotificationForMarketAddedEvent];
       goto LABEL_7;
     }
 
     v49 = v47;
-    if (v49 == @"wallet:transactionsUpdated" || (v50 = v49, v51 = [(__CFString *)v49 isEqualToString:@"wallet:transactionsUpdated"], v50, v51))
+    if (v49 == @"wallet:transactionsUpdated" || (v50 = v49, v51 = objc_msgSend_isEqualToString_(v49), v50, v51))
     {
       [self fireTransactionsUpdatedEvent];
       goto LABEL_7;
     }
 
     v52 = v50;
-    if (v52 == @"wallet:familyCircleChanged" || (v53 = v52, v54 = [(__CFString *)v52 isEqualToString:@"wallet:familyCircleChanged"], v53, v54))
+    if (v52 == @"wallet:familyCircleChanged" || (v53 = v52, v54 = objc_msgSend_isEqualToString_(v52), v53, v54))
     {
       [self fireFamilyCircleChangedEvent];
       goto LABEL_7;
     }
 
     v55 = v53;
-    if (v55 == @"wallet:currentLocaleChanged" || (v56 = v55, v57 = [(__CFString *)v55 isEqualToString:@"wallet:currentLocaleChanged"], v56, v57))
+    if (v55 == @"wallet:currentLocaleChanged" || (v56 = v55, v57 = objc_msgSend_isEqualToString_(v55), v56, v57))
     {
       [self fireCurrentLocaleChangedEvent];
       goto LABEL_7;
     }
 
     v58 = v56;
-    if (v58 == @"wallet:applePayContextChanged" || (v59 = v58, v60 = [(__CFString *)v58 isEqualToString:@"wallet:applePayContextChanged"], v59, v60))
+    if (v58 == @"wallet:applePayContextChanged" || (v59 = v58, v60 = objc_msgSend_isEqualToString_(v58), v59, v60))
     {
       [self fireApplePayContextChangedEvent];
       goto LABEL_7;
     }
 
     v61 = v59;
-    if (v61 == @"wallet:dayChanged" || (v62 = v61, v63 = [(__CFString *)v61 isEqualToString:@"wallet:dayChanged"], v62, v63))
+    if (v61 == @"wallet:dayChanged" || (v62 = v61, v63 = objc_msgSend_isEqualToString_(v61), v62, v63))
     {
       [self fireDayChangedEvent];
       goto LABEL_7;
     }
 
     v64 = v62;
-    if (v64 == @"wallet:scheduledPaymentsChanged" || (v65 = v64, v66 = [(__CFString *)v64 isEqualToString:@"wallet:scheduledPaymentsChanged"], v65, v66))
+    if (v64 == @"wallet:scheduledPaymentsChanged" || (v65 = v64, v66 = objc_msgSend_isEqualToString_(v64), v65, v66))
     {
       [self fireScheduledPaymentsChangedEvent];
       goto LABEL_7;
     }
 
     v67 = v65;
-    if (v67 == @"wallet:defaultCreditAccountCreditLimitIncreased" || (v68 = v67, v69 = [(__CFString *)v67 isEqualToString:@"wallet:defaultCreditAccountCreditLimitIncreased"], v68, v69))
+    if (v67 == @"wallet:defaultCreditAccountCreditLimitIncreased" || (v68 = v67, v69 = objc_msgSend_isEqualToString_(v67), v68, v69))
     {
       [self fireDefaultCreditAccountCreditLimitIncreasedEvent];
       goto LABEL_7;
     }
 
     v70 = v68;
-    if (v70 == @"wallet:defaultCreditAccountBalancePaidInFull" || (v71 = v70, v72 = [(__CFString *)v70 isEqualToString:@"wallet:defaultCreditAccountBalancePaidInFull"], v71, v72))
+    if (v70 == @"wallet:defaultCreditAccountBalancePaidInFull" || (v71 = v70, v72 = objc_msgSend_isEqualToString_(v70), v71, v72))
     {
       [self fireDefaultCreditAccountBalancePaidInFullEvent];
       goto LABEL_7;
     }
 
     v73 = v71;
-    if (v73 == @"wallet:defaultCreditAccountBonusDailyCashReceived" || (v74 = v73, v75 = [(__CFString *)v73 isEqualToString:@"wallet:defaultCreditAccountBonusDailyCashReceived"], v74, v75))
+    if (v73 == @"wallet:defaultCreditAccountBonusDailyCashReceived" || (v74 = v73, v75 = objc_msgSend_isEqualToString_(v73), v74, v75))
     {
       [self fireDefaultCreditAccountReceivedBonusDailyCashEvent];
       goto LABEL_7;
     }
 
     v76 = v74;
-    if (v76 == @"wallet:defaultCreditAccountPurchaseMissedApplePayMerchantRewards" || (v77 = v76, v78 = [(__CFString *)v76 isEqualToString:@"wallet:defaultCreditAccountPurchaseMissedApplePayMerchantRewards"], v77, v78))
+    if (v76 == @"wallet:defaultCreditAccountPurchaseMissedApplePayMerchantRewards" || (v77 = v76, v78 = objc_msgSend_isEqualToString_(v76), v77, v78))
     {
       [self fireDefaultCreditAccountPurchaseMissedApplePayMerchantRewardsEvent];
       goto LABEL_7;
     }
 
     v79 = v77;
-    if (v79 == @"wallet:appleAccountInStoreTopUp" || (v80 = v79, v81 = [(__CFString *)v79 isEqualToString:@"wallet:appleAccountInStoreTopUp"], v80, v81))
+    if (v79 == @"wallet:appleAccountInStoreTopUp" || (v80 = v79, v81 = objc_msgSend_isEqualToString_(v79), v80, v81))
     {
       [self fireAppleAccountInStoreTopUpEvent];
       goto LABEL_7;
     }
 
     v82 = v80;
-    if (v82 == @"wallet:appleAccountCardTopUp" || (v83 = v82, v84 = [(__CFString *)v82 isEqualToString:@"wallet:appleAccountCardTopUp"], v83, v84))
+    if (v82 == @"wallet:appleAccountCardTopUp" || (v83 = v82, v84 = objc_msgSend_isEqualToString_(v82), v83, v84))
     {
       [self fireAppleAccountCardTopUpEventWithSubtype:5];
       goto LABEL_7;
     }
 
     v85 = v83;
-    if (v85 == @"wallet:issuerMessagingFlagsChanged" || (v86 = v85, v87 = [(__CFString *)v85 isEqualToString:@"wallet:issuerMessagingFlagsChanged"], v86, v87))
+    if (v85 == @"wallet:issuerMessagingFlagsChanged" || (v86 = v85, v87 = objc_msgSend_isEqualToString_(v85), v86, v87))
     {
       [self fireIssuerMessagingFlagsChangedEvent];
       goto LABEL_7;
     }
 
     v88 = v86;
-    if (v88 == @"wallet:defaultCreditAccountPropensityRankUpdated" || (v89 = v88, v90 = [(__CFString *)v88 isEqualToString:@"wallet:defaultCreditAccountPropensityRankUpdated"], v89, v90))
+    if (v88 == @"wallet:defaultCreditAccountPropensityRankUpdated" || (v89 = v88, v90 = objc_msgSend_isEqualToString_(v88), v89, v90))
     {
       [self fireDefaultCreditAccountPropensityRankUpdatedEvent];
       goto LABEL_7;

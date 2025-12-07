@@ -204,7 +204,7 @@ uint64_t __85__AVMutableVideoComposition_videoCompositionWithPropertiesOfAsset_c
           v24 = v23;
           if (v19)
           {
-            [v19 preferredTransform];
+            objc_msgSend_preferredTransform(v19);
           }
 
           else
@@ -248,7 +248,7 @@ LABEL_14:
               v30 = *(*(&v104 + 1) + 8 * v29);
               if (v30)
               {
-                [v30 timeMapping];
+                objc_msgSend_timeMapping(v30);
               }
 
               else
@@ -286,7 +286,7 @@ LABEL_14:
           v33 = [objc_msgSend(v19 "segments")];
           if (v33)
           {
-            [v33 timeMapping];
+            objc_msgSend_timeMapping(v33);
           }
 
           else
@@ -441,7 +441,7 @@ LABEL_14:
                     {
                       if (v55)
                       {
-                        [v55 timeMapping];
+                        objc_msgSend_timeMapping(v55);
                       }
 
                       else
@@ -461,7 +461,7 @@ LABEL_14:
                         memset(&lhs, 0, sizeof(lhs));
                         if (v54)
                         {
-                          [v54 preferredTransform];
+                          objc_msgSend_preferredTransform(v54);
                         }
 
                         else
@@ -517,7 +517,7 @@ LABEL_14:
   memset(&rhs, 0, 24);
   if (lastObject)
   {
-    [lastObject timeRange];
+    objc_msgSend_timeRange(lastObject);
   }
 
   else
@@ -529,7 +529,7 @@ LABEL_14:
   memset(&v79, 0, 24);
   if (v65)
   {
-    [(AVAsset *)v65 duration];
+    objc_msgSend_duration(v65);
   }
 
   *&lhs.start.value = *&v79.a;

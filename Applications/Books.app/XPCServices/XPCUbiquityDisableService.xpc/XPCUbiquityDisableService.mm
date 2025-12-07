@@ -8,16 +8,16 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-id BKDisableiCloudServiceLog()
+id BKDisableiCloudServiceLog(uint64_t a1)
 {
   if (qword_1000085E8 != -1)
   {
     sub_100001390();
   }
 
-  v1 = qword_1000085E0;
+  v2 = qword_1000085E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000E10(id a1)
@@ -49,7 +49,7 @@ void sub_100001444(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "_isServiceDisabled(%{public}@): TCC returned a NULL array!", &v2, 0xCu);
 }
 
-FAULT, "isLiverpoolAndUbiquityEnabled - liverpool OFF, ubiquity ON --> forcing liverpool ON", v11, 2u);
+DEFAULT, "isLiverpoolAndUbiquityEnabled - liverpool OFF, ubiquity ON --> forcing liverpool ON", v13, 2u);
       }
 
       v6 = 1;
@@ -62,25 +62,26 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v8 = v5 | [(XPCUbiquityDisableService *)self _isServiceDisabledAlternative:kTCCServiceUbiquity];
-  v9 = BKDisableiCloudServiceLog();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-  if (!v8)
+  v9 = [(XPCUbiquityDisableService *)self _isServiceDisabledAlternative:kTCCServiceUbiquity];
+  v10 = v5 | v9;
+  v11 = BKDisableiCloudServiceLog(v9);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if ((v10 & 1) == 0)
   {
-    if (v10)
+    if (v12)
     {
-      LOWORD(v11[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "isLiverpoolAndUbiquityEnabled - Skip setting unknown liverpool value because ubiquity is also unknown!", v11, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "isLiverpoolAndUbiquityEnabled - Skip setting unknown liverpool value because ubiquity is also unknown!", v13, 2u);
     }
 
     goto LABEL_15;
   }
 
-  if (v10)
+  if (v12)
   {
-    v11[0] = 67109120;
-    v11[1] = v5;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "isLiverpoolAndUbiquityEnabled - Setting unknown liverpool value to %{BOOL}d", v11, 8u);
+    v13[0] = 67109120;
+    v13[1] = v5;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "isLiverpoolAndUbiquityEnabled - Setting unknown liverpool value to %{BOOL}d", v13, 8u);
   }
 
   [(XPCUbiquityDisableService *)self _setService:kTCCServiceLiverpool enabled:v5 withReply:&stru_100004188];
@@ -96,7 +97,7 @@ LABEL_16:
 {
   v5 = a4;
   v7 = a5;
-  v8 = BKDisableiCloudServiceLog();
+  v8 = BKDisableiCloudServiceLog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = @"NO";
@@ -105,32 +106,33 @@ LABEL_16:
       v9 = @"YES";
     }
 
-    v12 = 138412546;
-    v13 = v9;
-    v14 = 2114;
-    v15 = a3;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Setting iCloud enabled to %@ for %{public}@.", &v12, 0x16u);
+    v13 = 138412546;
+    v14 = v9;
+    v15 = 2114;
+    v16 = a3;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Setting iCloud enabled to %@ for %{public}@.", &v13, 0x16u);
   }
 
-  if (TCCAccessSetForBundleId())
+  v10 = TCCAccessSetForBundleId();
+  if (v10)
   {
-    v10 = 0;
+    v11 = 0;
     if (v7)
     {
 LABEL_7:
-      v7[2](v7, v10);
+      v7[2](v7, v11);
     }
   }
 
   else
   {
-    v11 = BKDisableiCloudServiceLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = BKDisableiCloudServiceLog(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_1000013A4(v5, a3, v11);
+      sub_1000013A4(v5, a3, v12);
     }
 
-    v10 = [NSError errorWithDomain:@"XPCUbiquityDisableServiceErrorDomain" code:0 userInfo:0];
+    v11 = [NSError errorWithDomain:@"XPCUbiquityDisableServiceErrorDomain" code:0 userInfo:0];
     if (v7)
     {
       goto LABEL_7;
@@ -182,7 +184,7 @@ LABEL_7:
 
   else
   {
-    v9 = BKDisableiCloudServiceLog();
+    v9 = BKDisableiCloudServiceLog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_100001444(a3, v9);
@@ -205,7 +207,7 @@ LABEL_7:
 
   else
   {
-    v9 = BKDisableiCloudServiceLog();
+    v9 = BKDisableiCloudServiceLog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_100001444(a3, v9);

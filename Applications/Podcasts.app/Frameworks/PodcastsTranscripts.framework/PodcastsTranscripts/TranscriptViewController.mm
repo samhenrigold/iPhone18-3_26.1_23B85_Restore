@@ -107,7 +107,7 @@
   sub_95FF8();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_8E4D0();
+  LOBYTE(self) = sub_8E4D0(v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -138,7 +138,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_8E8C4();
+  sub_8E8C4(v11);
 
   (*(v9 + 8))(v11, v8);
 }
@@ -181,16 +181,16 @@
   v7 = sub_97FC8();
   viewCopy = view;
   selfCopy = self;
-  v10 = _s19PodcastsTranscripts24TranscriptViewControllerC010collectionD0_34contextMenuConfigurationForItemsAt5pointSo09UIContexthI0CSgSo012UICollectionD0C_Say10Foundation9IndexPathVGSo7CGPointVtF_0(viewCopy, v7);
+  v11 = _s19PodcastsTranscripts24TranscriptViewControllerC010collectionD0_34contextMenuConfigurationForItemsAt5pointSo09UIContexthI0CSgSo012UICollectionD0C_Say10Foundation9IndexPathVGSo7CGPointVtF_0(viewCopy, v7, v10);
 
-  return v10;
+  return v11;
 }
 
 - (id)findInteraction:(id)interaction sessionForView:(id)view
 {
   swift_getObjectType();
-  sub_E104(0, &qword_C7958);
-  sub_8DACC(&unk_C7960, v5, type metadata accessor for TranscriptViewController);
+  sub_E104(0, &qword_C7958, UITextSearchingFindSession_ptr);
+  sub_8DACC(&unk_C7960, v5, type metadata accessor for TranscriptViewController, &protocol conformance descriptor for TranscriptViewController);
   selfCopy = self;
   v7 = sub_98388();
 
@@ -235,14 +235,14 @@
 
 - (NSArray)keyCommands
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_C6598);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_C6598, &qword_9FD00);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_9CF70;
   v3 = sub_97DC8();
   v4 = [objc_opt_self() keyCommandWithInput:v3 modifierFlags:0x100000 action:"commandFKeyboardSearch"];
 
   *(v2 + 32) = v4;
-  sub_E104(0, &qword_C7B60);
+  sub_E104(0, &qword_C7B60, UIKeyCommand_ptr);
   v5.super.isa = sub_97FB8().super.isa;
 
   return v5.super.isa;

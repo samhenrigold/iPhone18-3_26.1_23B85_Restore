@@ -74,7 +74,7 @@ LABEL_4:
 LABEL_8:
   sub_10017939C(v10, v12, v18, v15, context);
 
-  sub_100024F64(v18, &unk_101908380);
+  sub_100024F64(v18, &unk_101908380, &unk_1011E6860);
 }
 
 - (void)applicationWillTerminate

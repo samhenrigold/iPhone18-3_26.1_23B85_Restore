@@ -23,7 +23,7 @@
 
   selfCopy = self;
   sub_248313130(v7, v6);
-  sub_248167864(v7);
+  sub_248167864(v7, v6);
 }
 
 @end

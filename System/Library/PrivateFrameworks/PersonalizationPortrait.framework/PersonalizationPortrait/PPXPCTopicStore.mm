@@ -6,6 +6,7 @@
 - (BOOL)deleteAllTopicsFromSourcesWithBundleId:(id)id documentIds:(id)ids deletedCount:(unint64_t *)count error:(id *)error;
 - (BOOL)deleteAllTopicsFromSourcesWithBundleId:(id)id groupIds:(id)ids deletedCount:(unint64_t *)count error:(id *)error;
 - (BOOL)deleteAllTopicsWithTopicId:(id)id deletedCount:(unint64_t *)count error:(id *)error;
+- (BOOL)donateTopics:(id)topics source:(id)source algorithm:(unint64_t)algorithm cloudSync:(BOOL)sync sentimentScore:(double)score exactMatchesInSourceText:(id)text error:(id *)error;
 - (BOOL)iterRankedTopicsWithQuery:(id)query error:(id *)error block:(id)block;
 - (BOOL)iterScoresForTopicMapping:(id)mapping query:(id)query error:(id *)error block:(id)block;
 - (BOOL)iterTopicRecordsWithQuery:(id)query error:(id *)error block:(id)block;
@@ -194,6 +195,60 @@ uint64_t __47__PPXPCTopicStore_registerFeedback_completion___block_invoke(uint64
   return error;
 }
 
+- (BOOL)donateTopics:(id)topics source:(id)source algorithm:(unint64_t)algorithm cloudSync:(BOOL)sync sentimentScore:(double)score exactMatchesInSourceText:(id)text error:(id *)error
+{
+  syncCopy = sync;
+  topicsCopy = topics;
+  sourceCopy = source;
+  textCopy = text;
+  if (!topicsCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PPXPCTopicStore.m" lineNumber:198 description:{@"Invalid parameter not satisfying: %@", @"topics"}];
+
+    if (sourceCopy)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_11:
+    currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"PPXPCTopicStore.m" lineNumber:199 description:{@"Invalid parameter not satisfying: %@", @"source"}];
+
+    goto LABEL_3;
+  }
+
+  if (!sourceCopy)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_3:
+  v20 = pp_topics_signpost_handle();
+  v21 = os_signpost_id_generate(v20);
+
+  v22 = pp_topics_signpost_handle();
+  v23 = v22;
+  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A7FD3000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v21, "PPXPCTopicStore.donateTopics", "", buf, 2u);
+  }
+
+  v24 = +[PPTopicReadWriteClient sharedInstance];
+  v25 = [v24 donateTopics:topicsCopy source:sourceCopy algorithm:algorithm cloudSync:syncCopy sentimentScore:textCopy exactMatchesInSourceText:error error:score];
+
+  v26 = pp_topics_signpost_handle();
+  v27 = v26;
+  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+  {
+    *v31 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A7FD3000, v27, OS_SIGNPOST_INTERVAL_END, v21, "PPXPCTopicStore.donateTopics", "", v31, 2u);
+  }
+
+  return v25;
+}
+
 - (id)unmapMappedTopicIdentifier:(id)identifier mappingIdentifier:(id)mappingIdentifier error:(id *)error
 {
   mappingIdentifierCopy = mappingIdentifier;
@@ -253,13 +308,13 @@ uint64_t __47__PPXPCTopicStore_registerFeedback_completion___block_invoke(uint64
 
 - (id)topicRecordsWithQuery:(id)query error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   v6 = objc_opt_new();
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   v7 = pp_topics_signpost_handle();
   v8 = os_signpost_id_generate(v7);
 
@@ -272,14 +327,14 @@ uint64_t __47__PPXPCTopicStore_registerFeedback_completion___block_invoke(uint64
   }
 
   v11 = +[PPTopicReadOnlyClient sharedInstance];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __47__PPXPCTopicStore_topicRecordsWithQuery_error___block_invoke;
-  v28[3] = &unk_1E77F6748;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __47__PPXPCTopicStore_topicRecordsWithQuery_error___block_invoke;
+  v27[3] = &unk_1E77F6748;
   v12 = v6;
-  v29 = v12;
-  v30 = &v32;
-  v13 = [v11 topicRecordsWithQuery:queryCopy error:error handleBatch:v28];
+  v28 = v12;
+  v29 = &v31;
+  v13 = [v11 topicRecordsWithQuery:queryCopy error:error handleBatch:v27];
 
   v14 = pp_topics_signpost_handle();
   v15 = v14;
@@ -292,29 +347,29 @@ uint64_t __47__PPXPCTopicStore_registerFeedback_completion___block_invoke(uint64
   if (v13)
   {
     v16 = objc_alloc(MEMORY[0x1E695DF70]);
-    v17 = [v16 initWithCapacity:v33[3]];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
+    v17 = [v16 initWithCapacity:v32[3]];
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v18 = v12;
-    v19 = [v18 countByEnumeratingWithState:&v24 objects:v36 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v23 objects:v35 count:16];
     if (v19)
     {
-      v20 = *v25;
+      v20 = *v24;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v25 != v20)
+          if (*v24 != v20)
           {
             objc_enumerationMutation(v18);
           }
 
-          [v17 addObjectsFromArray:{*(*(&v24 + 1) + 8 * i), v24}];
+          [v17 addObjectsFromArray:{*(*(&v23 + 1) + 8 * i), v23}];
         }
 
-        v19 = [v18 countByEnumeratingWithState:&v24 objects:v36 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v23 objects:v35 count:16];
       }
 
       while (v19);
@@ -326,8 +381,7 @@ uint64_t __47__PPXPCTopicStore_registerFeedback_completion___block_invoke(uint64
     v17 = 0;
   }
 
-  _Block_object_dispose(&v32, 8);
-  v22 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v31, 8);
 
   return v17;
 }
@@ -379,31 +433,30 @@ void __47__PPXPCTopicStore_topicRecordsWithQuery_error___block_invoke(uint64_t a
 
 void __57__PPXPCTopicStore_iterTopicRecordsWithQuery_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -412,7 +465,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -423,20 +476,18 @@ LABEL_4:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)scoresForTopicMapping:(id)mapping query:(id)query error:(id *)error
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   queryCopy = query;
   v7 = objc_opt_new();
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
-  v50 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 0;
   v8 = pp_topics_signpost_handle();
   v9 = os_signpost_id_generate(v8);
 
@@ -449,14 +500,14 @@ LABEL_4:
   }
 
   v12 = +[PPTopicReadOnlyClient sharedInstance];
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __53__PPXPCTopicStore_scoresForTopicMapping_query_error___block_invoke;
-  v43[3] = &unk_1E77F6748;
-  v31 = v7;
-  v44 = v31;
-  v45 = &v47;
-  v13 = [v12 scoresForTopicMapping:mappingCopy query:queryCopy error:error handleBatch:v43];
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __53__PPXPCTopicStore_scoresForTopicMapping_query_error___block_invoke;
+  v42[3] = &unk_1E77F6748;
+  v30 = v7;
+  v43 = v30;
+  v44 = &v46;
+  v13 = [v12 scoresForTopicMapping:mappingCopy query:queryCopy error:error handleBatch:v42];
 
   v14 = pp_topics_signpost_handle();
   v15 = v14;
@@ -469,58 +520,58 @@ LABEL_4:
   if (v13)
   {
     v16 = objc_alloc(MEMORY[0x1E695DF90]);
-    v17 = [v16 initWithCapacity:v48[3]];
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
+    v17 = [v16 initWithCapacity:v47[3]];
     v40 = 0u;
-    obj = v31;
-    v18 = [obj countByEnumeratingWithState:&v39 objects:v52 count:16];
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    obj = v30;
+    v18 = [obj countByEnumeratingWithState:&v38 objects:v51 count:16];
     if (v18)
     {
-      v19 = *v40;
+      v19 = *v39;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v40 != v19)
+          if (*v39 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v39 + 1) + 8 * i);
+          v21 = *(*(&v38 + 1) + 8 * i);
+          v34 = 0u;
           v35 = 0u;
           v36 = 0u;
           v37 = 0u;
-          v38 = 0u;
           v22 = v21;
-          v23 = [v22 countByEnumeratingWithState:&v35 objects:v51 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v34 objects:v50 count:16];
           if (v23)
           {
-            v24 = *v36;
+            v24 = *v35;
             do
             {
               for (j = 0; j != v23; ++j)
               {
-                if (*v36 != v24)
+                if (*v35 != v24)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                v26 = *(*(&v35 + 1) + 8 * j);
+                v26 = *(*(&v34 + 1) + 8 * j);
                 second = [v26 second];
                 first = [v26 first];
                 [v17 setObject:second forKeyedSubscript:first];
               }
 
-              v23 = [v22 countByEnumeratingWithState:&v35 objects:v51 count:16];
+              v23 = [v22 countByEnumeratingWithState:&v34 objects:v50 count:16];
             }
 
             while (v23);
           }
         }
 
-        v18 = [obj countByEnumeratingWithState:&v39 objects:v52 count:16];
+        v18 = [obj countByEnumeratingWithState:&v38 objects:v51 count:16];
       }
 
       while (v18);
@@ -532,8 +583,7 @@ LABEL_4:
     v17 = 0;
   }
 
-  _Block_object_dispose(&v47, 8);
-  v29 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v46, 8);
 
   return v17;
 }
@@ -586,31 +636,31 @@ void __53__PPXPCTopicStore_scoresForTopicMapping_query_error___block_invoke(uint
 
 void __63__PPXPCTopicStore_iterScoresForTopicMapping_query_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * v11);
+        v12 = *(*(&v16 + 1) + 8 * v11);
         v13 = *(a1 + 32);
         v14 = [v12 first];
         v15 = [v12 second];
@@ -623,7 +673,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -634,19 +684,17 @@ LABEL_4:
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)rankedTopicsWithQuery:(id)query error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   v6 = objc_opt_new();
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   v7 = pp_topics_signpost_handle();
   v8 = os_signpost_id_generate(v7);
 
@@ -659,14 +707,14 @@ LABEL_4:
   }
 
   v11 = +[PPTopicReadOnlyClient sharedInstance];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __47__PPXPCTopicStore_rankedTopicsWithQuery_error___block_invoke;
-  v28[3] = &unk_1E77F6748;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __47__PPXPCTopicStore_rankedTopicsWithQuery_error___block_invoke;
+  v27[3] = &unk_1E77F6748;
   v12 = v6;
-  v29 = v12;
-  v30 = &v32;
-  v13 = [v11 rankedTopicsWithQuery:queryCopy error:error handleBatch:v28];
+  v28 = v12;
+  v29 = &v31;
+  v13 = [v11 rankedTopicsWithQuery:queryCopy error:error handleBatch:v27];
 
   v14 = pp_topics_signpost_handle();
   v15 = v14;
@@ -679,29 +727,29 @@ LABEL_4:
   if (v13)
   {
     v16 = objc_alloc(MEMORY[0x1E695DF70]);
-    v17 = [v16 initWithCapacity:v33[3]];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
+    v17 = [v16 initWithCapacity:v32[3]];
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v18 = v12;
-    v19 = [v18 countByEnumeratingWithState:&v24 objects:v36 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v23 objects:v35 count:16];
     if (v19)
     {
-      v20 = *v25;
+      v20 = *v24;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v25 != v20)
+          if (*v24 != v20)
           {
             objc_enumerationMutation(v18);
           }
 
-          [v17 addObjectsFromArray:{*(*(&v24 + 1) + 8 * i), v24}];
+          [v17 addObjectsFromArray:{*(*(&v23 + 1) + 8 * i), v23}];
         }
 
-        v19 = [v18 countByEnumeratingWithState:&v24 objects:v36 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v23 objects:v35 count:16];
       }
 
       while (v19);
@@ -713,8 +761,7 @@ LABEL_4:
     v17 = 0;
   }
 
-  _Block_object_dispose(&v32, 8);
-  v22 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v31, 8);
 
   return v17;
 }
@@ -766,31 +813,30 @@ void __47__PPXPCTopicStore_rankedTopicsWithQuery_error___block_invoke(uint64_t a
 
 void __57__PPXPCTopicStore_iterRankedTopicsWithQuery_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -799,7 +845,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -810,8 +856,6 @@ LABEL_4:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

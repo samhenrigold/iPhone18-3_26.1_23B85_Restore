@@ -36,18 +36,18 @@
 
 - (uint64_t)setRelativePriority:()FCOperationPrioritizingSupport
 {
-  if ((a3 + 1) >= 4)
+  if ((a4 + 1) >= 4)
   {
     v4 = MEMORY[0x1E695ABC0];
   }
 
   else
   {
-    v4 = (&unk_1B681A400 + 4 * a3 + 4);
+    v4 = (&unk_1B681A400 + 4 * a4 + 4);
   }
 
-  LODWORD(a4) = *v4;
-  return [self setPriority:a4];
+  LODWORD(a2) = *v4;
+  return [self setPriority:a2];
 }
 
 @end

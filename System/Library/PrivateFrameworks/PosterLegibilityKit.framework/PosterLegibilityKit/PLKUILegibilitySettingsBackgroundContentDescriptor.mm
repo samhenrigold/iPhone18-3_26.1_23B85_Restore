@@ -23,7 +23,7 @@
     v9 = settingsCopy;
     if (!settingsCopy)
     {
-      v9 = [MEMORY[0x277D760A8] sharedInstanceForStyle:0];
+      v9 = [MEMORY[0x277D760A8] sharedInstanceForStyle:?];
     }
 
     objc_storeStrong(&v8->_legibilitySettings, v9);
@@ -39,14 +39,12 @@
 
 - (CGSize)sizeForContentSize:(CGSize)size
 {
-  height = size.height;
-  width = size.width;
-  v5 = MEMORY[0x277D755B8];
-  style = [(_UILegibilitySettings *)self->_legibilitySettings style];
+  v3 = MEMORY[0x277D755B8];
+  [(_UILegibilitySettings *)self->_legibilitySettings style];
 
-  [v5 _legibilityImageSizeForSize:style style:{width, height}];
-  result.height = v8;
-  result.width = v7;
+  [v3 _legibilityImageSizeForSize:? style:?];
+  result.height = v5;
+  result.width = v4;
   return result;
 }
 
@@ -88,7 +86,7 @@
 
       legibilitySettings = [(PLKUILegibilitySettingsBackgroundContentDescriptor *)v9 legibilitySettings];
       legibilitySettings2 = [(PLKUILegibilitySettingsBackgroundContentDescriptor *)self legibilitySettings];
-      if ([legibilitySettings isEqual:legibilitySettings2])
+      if ([legibilitySettings isEqual:?])
       {
         [(PLKUILegibilitySettingsBackgroundContentDescriptor *)v9 strength];
         v13 = v12;
@@ -115,38 +113,35 @@
 {
   builder = [MEMORY[0x277CF0C40] builder];
   legibilitySettings = [(PLKUILegibilitySettingsBackgroundContentDescriptor *)self legibilitySettings];
-  v5 = [builder appendObject:legibilitySettings];
+  v5 = [builder appendObject:?];
 
   [(PLKUILegibilitySettingsBackgroundContentDescriptor *)self strength];
-  *&v6 = v6;
-  v7 = [builder appendFloat:v6];
-  v8 = [builder hash];
+  v6 = [builder appendFloat:?];
+  v7 = [builder hash];
 
-  return v8;
+  return v7;
 }
 
 - (id)cacheKey
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   cacheKey = self->_cacheKey;
   if (!cacheKey)
   {
     v4 = MEMORY[0x277CCACA8];
     legibilitySettings = [(PLKUILegibilitySettingsBackgroundContentDescriptor *)self legibilitySettings];
-    v13[0] = legibilitySettings;
+    v12 = legibilitySettings;
     v6 = MEMORY[0x277CCABB0];
     [(PLKUILegibilitySettingsBackgroundContentDescriptor *)self strength];
     v7 = [v6 numberWithDouble:?];
-    v13[1] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-    v9 = [v4 plk_sha256HashForObject:v8 error:0];
+    v13 = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v9 = [v4 plk_sha256HashForObject:? error:?];
     v10 = self->_cacheKey;
     self->_cacheKey = v9;
 
     cacheKey = self->_cacheKey;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return cacheKey;
 }
@@ -155,10 +150,10 @@
 {
   currentImage = [context currentImage];
   [currentImage size];
-  plk_isAlphaMask = [currentImage plk_isAlphaMask];
+  [currentImage plk_isAlphaMask];
   legibilitySettings = [(PLKUILegibilitySettingsBackgroundContentDescriptor *)self legibilitySettings];
   [(PLKUILegibilitySettingsBackgroundContentDescriptor *)self strength];
-  [currentImage _drawImageForLegibilitySettings:legibilitySettings strength:plk_isAlphaMask size:? alphaOnly:?];
+  [currentImage _drawImageForLegibilitySettings:? strength:? size:? alphaOnly:?];
 }
 
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix
@@ -166,11 +161,13 @@
   v11.receiver = self;
   v11.super_class = PLKUILegibilitySettingsBackgroundContentDescriptor;
   v4 = [(PLKLegibilityBackgroundContentDescriptor *)&v11 descriptionBuilderWithMultilinePrefix:prefix];
-  v5 = [v4 appendObject:self->_legibilitySettings withName:@"legibilitySettings"];
-  v6 = [v4 appendFloat:@"strength" withName:self->_strength];
-  v7 = [v4 appendObject:self->_cacheKey withName:@"cacheKey"];
-  v8 = [v4 appendBool:-[PLKUILegibilitySettingsBackgroundContentDescriptor usesUILegibility](self withName:{"usesUILegibility"), @"usesUILegibility"}];
-  v9 = [v4 appendBool:-[PLKUILegibilitySettingsBackgroundContentDescriptor isRenderable](self withName:{"isRenderable"), @"isRenderable"}];
+  v5 = [v4 appendObject:? withName:?];
+  v6 = [v4 appendFloat:? withName:?];
+  v7 = [v4 appendObject:? withName:?];
+  [(PLKUILegibilitySettingsBackgroundContentDescriptor *)self usesUILegibility];
+  v8 = [v4 appendBool:? withName:?];
+  [(PLKUILegibilitySettingsBackgroundContentDescriptor *)self isRenderable];
+  v9 = [v4 appendBool:? withName:?];
 
   return v4;
 }

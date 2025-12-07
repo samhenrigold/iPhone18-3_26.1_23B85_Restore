@@ -1,9 +1,26 @@
 @interface CTXPCSetRegulatedRATsUserPreferenceRequest
 + (id)allowedClassesForArguments;
+- (CTXPCSetRegulatedRATsUserPreferenceRequest)initWithContext:(id)context enable:(BOOL)enable;
 - (void)performRequestWithHandler:(id)handler completionHandler:(id)completionHandler;
 @end
 
 @implementation CTXPCSetRegulatedRATsUserPreferenceRequest
+
+- (CTXPCSetRegulatedRATsUserPreferenceRequest)initWithContext:(id)context enable:(BOOL)enable
+{
+  enableCopy = enable;
+  v13[1] = *MEMORY[0x1E69E9840];
+  contextCopy = context;
+  v12 = @"enable";
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:enableCopy];
+  v13[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11.receiver = self;
+  v11.super_class = CTXPCSetRegulatedRATsUserPreferenceRequest;
+  v9 = [(CTXPCSubscriptionContextRequest *)&v11 initWithContext:contextCopy namedArguments:v8];
+
+  return v9;
+}
 
 - (void)performRequestWithHandler:(id)handler completionHandler:(id)completionHandler
 {

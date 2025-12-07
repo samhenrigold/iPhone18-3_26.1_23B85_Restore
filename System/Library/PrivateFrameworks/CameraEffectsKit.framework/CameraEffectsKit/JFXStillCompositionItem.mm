@@ -50,7 +50,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  [(JFXCompositionItem *)self sourceTimeRange];
+  objc_msgSend_sourceTimeRange(self);
   v25 = v23;
   v26 = v24;
   memset(&v22, 0, sizeof(v22));
@@ -58,7 +58,7 @@ LABEL_14:
   v6 = asset;
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else

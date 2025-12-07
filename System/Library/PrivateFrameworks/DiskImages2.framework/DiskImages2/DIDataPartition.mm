@@ -172,47 +172,59 @@ LABEL_9:
 
 - (BOOL)resizeFileSystemToMinimumWithError:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = [(DIDataPartition *)self getFileSystemMinimalBlocks:?];
   if (v5)
   {
     v6 = v5;
     v7 = *__error();
-    if (DIForwardLogs())
+    v8 = DIForwardLogs();
+    if (v8)
     {
-      v8 = getDIOSLog();
-      os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-      *buf = 68158466;
-      v18 = 54;
-      v19 = 2080;
-      v20 = "[DIDataPartition resizeFileSystemToMinimumWithError:]";
-      v21 = 2048;
-      v22 = v6;
-      v23 = 2048;
-      numBlocks = [(DIDataPartition *)self numBlocks];
-      v9 = _os_log_send_and_compose_impl();
-
-      if (v9)
+      v24 = 0;
+      v10 = getDIOSLog(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-        free(v9);
+        v11 = 3;
+      }
+
+      else
+      {
+        v11 = 2;
+      }
+
+      *buf = 68158466;
+      v26 = 54;
+      v27 = 2080;
+      v28 = "[DIDataPartition resizeFileSystemToMinimumWithError:]";
+      v29 = 2048;
+      v30 = v6;
+      v31 = 2048;
+      numBlocks = [(DIDataPartition *)self numBlocks];
+      LODWORD(v22) = 38;
+      v12 = _os_log_send_and_compose_impl(v11, &v24, 0, 0, &dword_248DE0000, v10, 0, "%.*s: Minimum data partition size is %lld blocks (estimation was %lld blocks)", buf, v22, v23);
+
+      if (v12)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v12);
+        free(v12);
       }
     }
 
     else
     {
-      v10 = getDIOSLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v13 = getDIOSLog(v8, v9);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68158466;
-        v18 = 54;
-        v19 = 2080;
-        v20 = "[DIDataPartition resizeFileSystemToMinimumWithError:]";
-        v21 = 2048;
-        v22 = v6;
-        v23 = 2048;
+        v26 = 54;
+        v27 = 2080;
+        v28 = "[DIDataPartition resizeFileSystemToMinimumWithError:]";
+        v29 = 2048;
+        v30 = v6;
+        v31 = 2048;
         numBlocks = [(DIDataPartition *)self numBlocks];
-        _os_log_impl(&dword_248DE0000, v10, OS_LOG_TYPE_DEFAULT, "%.*s: Minimum data partition size is %lld blocks (estimation was %lld blocks)", buf, 0x26u);
+        _os_log_impl(&dword_248DE0000, v13, OS_LOG_TYPE_DEFAULT, "%.*s: Minimum data partition size is %lld blocks (estimation was %lld blocks)", buf, 0x26u);
       }
     }
 
@@ -224,53 +236,63 @@ LABEL_9:
         LODWORD(v5) = [(DIDataPartition *)self resizeFileSystemWithNumBlocks:v6 error:error];
         if (!v5)
         {
-          goto LABEL_20;
+          return v5;
         }
 
-        v11 = *__error();
-        if (DIForwardLogs())
+        v14 = *__error();
+        v15 = DIForwardLogs();
+        if (v15)
         {
-          v12 = getDIOSLog();
-          os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-          *buf = 68157954;
-          v18 = 54;
-          v19 = 2080;
-          v20 = "[DIDataPartition resizeFileSystemToMinimumWithError:]";
-          v13 = _os_log_send_and_compose_impl();
-
-          if (v13)
+          v24 = 0;
+          v17 = getDIOSLog(v15, v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
-            free(v13);
+            v18 = 3;
+          }
+
+          else
+          {
+            v18 = 2;
+          }
+
+          *buf = 68157954;
+          v26 = 54;
+          v27 = 2080;
+          v28 = "[DIDataPartition resizeFileSystemToMinimumWithError:]";
+          LODWORD(v22) = 18;
+          v19 = _os_log_send_and_compose_impl(v18, &v24, 0, 0, &dword_248DE0000, v17, 0, "%.*s: File system resized", buf, v22);
+
+          if (v19)
+          {
+            fprintf(*MEMORY[0x277D85DF8], "%s\n", v19);
+            free(v19);
           }
         }
 
         else
         {
-          v14 = getDIOSLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v20 = getDIOSLog(v15, v16);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 68157954;
-            v18 = 54;
-            v19 = 2080;
-            v20 = "[DIDataPartition resizeFileSystemToMinimumWithError:]";
-            _os_log_impl(&dword_248DE0000, v14, OS_LOG_TYPE_DEFAULT, "%.*s: File system resized", buf, 0x12u);
+            v26 = 54;
+            v27 = 2080;
+            v28 = "[DIDataPartition resizeFileSystemToMinimumWithError:]";
+            _os_log_impl(&dword_248DE0000, v20, OS_LOG_TYPE_DEFAULT, "%.*s: File system resized", buf, 0x12u);
           }
         }
 
-        *__error() = v11;
+        *__error() = v14;
         [(DIDataPartition *)self setNumBlocks:v6];
       }
 
       LOBYTE(v5) = 1;
-      goto LABEL_20;
+      return v5;
     }
 
     LOBYTE(v5) = [DIError failWithEnumValue:154 verboseInfo:@"Invalid minimum data partition size" error:error];
   }
 
-LABEL_20:
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -58,7 +58,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Provided CSR nonce does not match provided csrElementsTLV");
     }
   }
 

@@ -1,22 +1,20 @@
 char *ipsec_dump_policy1()
 {
   v0 = MEMORY[0x2A1C7C4A8]();
-  v42 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   if (!v0)
   {
-LABEL_48:
-    v11 = 0;
-    goto LABEL_49;
+    return 0;
   }
 
   v3 = v0;
   if (*(v0 + 2) != 18)
   {
     v11 = 0;
-    v33 = 12;
+    v28 = 12;
 LABEL_40:
-    __ipsec_errcode = v33;
-    goto LABEL_49;
+    __ipsec_errcode = v28;
+    return v11;
   }
 
   if (v1)
@@ -33,7 +31,7 @@ LABEL_40:
   if (v5 >= 3)
   {
     v11 = 0;
-    v33 = 17;
+    v28 = 17;
     goto LABEL_40;
   }
 
@@ -41,7 +39,7 @@ LABEL_40:
   if (v6 >= 6)
   {
     v11 = 0;
-    v33 = 5;
+    v28 = 5;
     goto LABEL_40;
   }
 
@@ -52,139 +50,134 @@ LABEL_40:
   v11 = v10;
   if (!v10)
   {
-    v33 = 21;
+    v28 = 21;
     goto LABEL_40;
   }
 
-  v12 = (&ipsp_dir_strs)[*(v3 + 6)];
-  snprintf(v10, v9 + 2, "%s %s", v12, (&ipsp_policy_strs)[v3[2]]);
+  snprintf(v10, v9 + 2, "%s %s", (&ipsp_dir_strs)[*(v3 + 6)], (&ipsp_policy_strs)[v3[2]]);
   if (v3[2] == 2)
   {
-    v13 = *v3;
-    if (v13 >= 3)
+    v12 = *v3;
+    if (v12 >= 3)
     {
-      v14 = 8 * *v3;
-      v15 = 16;
+      v13 = 8 * *v3;
+      v14 = 16;
       do
       {
-        v15 += *(v3 + v15);
+        v14 += *(v3 + v14);
       }
 
-      while (v15 < v14);
-      if (v15 == v14)
+      while (v14 < v13);
+      if (v14 == v13)
       {
-        v16 = 16;
+        v15 = 16;
         while (1)
         {
-          v17 = v3 + v16;
-          v18 = v14 - v16;
-          v19 = *(v3 + v16);
-          if (v18 < v19)
+          v16 = v3 + v15;
+          v17 = v13 - v15;
+          v18 = *(v3 + v15);
+          if (v17 < v18)
           {
             break;
           }
 
-          v20 = *(v17 + 1);
-          switch(v20)
+          v19 = *(v16 + 1);
+          switch(v19)
           {
             case '2':
-              v21 = "esp";
+              v20 = "esp";
               break;
             case 'l':
-              v21 = "ipcomp";
+              v20 = "ipcomp";
               break;
             case '3':
-              v21 = "ah";
+              v20 = "ah";
               break;
             default:
               goto LABEL_51;
           }
 
-          v22 = v17[4];
-          if (v22 > 2)
+          if (v16[4] > 2uLL)
           {
-            v37 = 8;
+            v31 = 8;
             goto LABEL_54;
           }
 
-          v23 = (&off_29EF06830)[v22];
           __str[0] = 0;
-          if (v19 >= 9)
+          if (v18 >= 9)
           {
-            v24 = v17[8];
-            if (v24 + v17[v24 + 8] + 8 != v19 || !set_address(v41, (v17 + 8), v7) || !set_address(__s, &v17[v24 + 8], v7) || (v25 = strlen(v41), v25 + strlen(__s) - 2051 < 0xFFFFFFFFFFFFF7FBLL))
+            v21 = v16[8];
+            if (v21 + v16[v21 + 8] + 8 != v18 || !set_address(v35, (v16 + 8), v7) || !set_address(__s, &v16[v21 + 8], v7) || (v22 = strlen(v35), v22 + strlen(__s) - 2051 < 0xFFFFFFFFFFFFF7FBLL))
             {
-              v37 = 6;
+              v31 = 6;
 LABEL_54:
-              __ipsec_errcode = v37;
+              __ipsec_errcode = v31;
               goto LABEL_47;
             }
 
-            snprintf(__str, 0x804uLL, "%s-%s", v41, __s);
+            snprintf(__str, 0x804uLL, "%s-%s", v35, __s);
           }
 
-          v26 = v17[5];
-          if (v26 > 3)
+          if (v16[5] > 3uLL)
           {
-            v37 = 9;
+            v31 = 9;
             goto LABEL_54;
           }
 
-          v27 = (&off_29EF06848)[v26];
-          if (*(v17 + 3))
+          if (*(v16 + 3))
           {
-            snprintf(v38, 0x400uLL, "%s/%s/%s/%s%c%u", v21);
+            snprintf(v32, 0x400uLL, "%s/%s/%s/%s%c%u", v20);
           }
 
           else
           {
-            snprintf(v38, 0x400uLL, "%s/%s/%s/%s");
+            snprintf(v32, 0x400uLL, "%s/%s/%s/%s");
           }
 
-          v28 = strlen(v11);
-          v29 = strlen(v4);
-          v30 = v29 + v28 + strlen(v38) + 1;
-          v31 = malloc_type_realloc(v11, v30, 0x100004077774924uLL);
-          if (!v31)
+          v23 = strlen(v11);
+          v24 = strlen(v4);
+          v25 = v24 + v23 + strlen(v32) + 1;
+          v26 = malloc_type_realloc(v11, v25, 0x100004077774924uLL);
+          if (!v26)
           {
-            v34 = 21;
+            v29 = 21;
             goto LABEL_46;
           }
 
-          v32 = v31;
-          snprintf(&v31[v28], v30 - v28, "%s%s", v4, v38);
-          v16 += *(v3 + v16);
-          v14 = 8 * *v3;
-          v11 = v32;
-          if (v16 >= v14)
+          v27 = v26;
+          snprintf(&v26[v23], v25 - v23, "%s%s", v4, v32);
+          v15 += *(v3 + v15);
+          v13 = 8 * *v3;
+          v11 = v27;
+          if (v15 >= v13)
           {
             goto LABEL_44;
           }
         }
 
 LABEL_51:
-        v37 = 7;
+        v31 = 7;
         goto LABEL_54;
       }
 
       goto LABEL_45;
     }
 
-    if (v13 != 2)
+    if (v12 != 2)
     {
 LABEL_45:
-      v34 = 3;
+      v29 = 3;
 LABEL_46:
-      __ipsec_errcode = v34;
+      __ipsec_errcode = v29;
 LABEL_47:
       free(v11);
-      goto LABEL_48;
+      return 0;
     }
 
-    v32 = v11;
+    v27 = v11;
 LABEL_44:
     __ipsec_errcode = 0;
-    v11 = v32;
+    return v27;
   }
 
   else
@@ -192,22 +185,20 @@ LABEL_44:
     __ipsec_errcode = 0;
   }
 
-LABEL_49:
-  v35 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
 char *set_address(char *a1, sockaddr *a2, int a3)
 {
   v4 = a1;
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   *a1 = 0;
-  if (getnameinfo(a2, a2->sa_len, v8, 0x401u, v7, 0x20u, 10))
+  if (getnameinfo(a2, a2->sa_len, v7, 0x401u, v6, 0x20u, 10))
   {
-    v4 = 0;
+    return 0;
   }
 
-  else if (a3)
+  if (a3)
   {
     snprintf(v4, 0x401uLL, "%s[%s]");
   }
@@ -217,7 +208,6 @@ char *set_address(char *a1, sockaddr *a2, int a3)
     snprintf(v4, 0x401uLL, "%s");
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -256,16 +246,16 @@ uint64_t __ipsec_set_strerror(uint64_t result)
 uint64_t __libipsecparse()
 {
   v0 = 0u;
-  v1 = v45;
+  v1 = v44;
   v2 = 200;
-  v47 = *MEMORY[0x29EDCA608];
-  v44 = 0uLL;
+  v46 = *MEMORY[0x29EDCA608];
+  v43 = 0uLL;
   __libipsecnerrs = 0;
   __libipsecchar = -2;
   v3 = 0x2A145C000;
-  v4 = v46;
-  v5 = v46;
-  v6 = v45;
+  v4 = v45;
+  v5 = v45;
+  v6 = v44;
   while (1)
   {
     *v5 = v0;
@@ -284,7 +274,7 @@ LABEL_86:
       v9 = ((v5 - v4) >> 1) + 1;
       memcpy(v7, v4, 2 * v9);
       memcpy(&v8[(2 * v2 + 15) & 0x7FFFFFFFFFFFFFF0], v1, 16 * v9);
-      if (v4 != v46)
+      if (v4 != v45)
       {
         free(v4);
       }
@@ -342,14 +332,14 @@ LABEL_85:
 
     v14 = yydefact[v0];
     v15 = yyr2[yydefact[v0]];
-    v44 = *&v6[16 * (1 - v15)];
+    v43 = *&v6[16 * (1 - v15)];
     switch(v14)
     {
-      case 2u:
+      case 2:
         p_dir = *(v6 - 4);
         p_type = *v6;
         goto LABEL_60;
-      case 4u:
+      case 4:
         p_dir = *(v6 - 12);
         p_type = *v6;
         v22 = malloc_type_malloc(*(v6 - 4) + 2, 0xC2ED66BFuLL);
@@ -379,11 +369,11 @@ LABEL_58:
 LABEL_61:
         if (init_x_policy())
         {
-          goto LABEL_102;
+          return 0xFFFFFFFFLL;
         }
 
         goto LABEL_62;
-      case 6u:
+      case 6:
         p_dir = *(v6 - 16);
         p_type = *v6;
         *__error() = 0;
@@ -398,12 +388,12 @@ LABEL_61:
         }
 
         goto LABEL_95;
-      case 8u:
+      case 8:
         p_dir = *(v6 - 12);
         p_type = *v6;
         v21 = *(v6 - 4);
         goto LABEL_58;
-      case 0xAu:
+      case 10:
         p_dir = *(v6 - 20);
         p_type = *v6;
         *__error() = 0;
@@ -421,7 +411,7 @@ LABEL_61:
 
         v21 = *(v6 - 12) - v20;
         goto LABEL_58;
-      case 0xCu:
+      case 12:
         p_dir = *(v6 - 20);
         p_type = *v6;
         *__error() = 0;
@@ -435,14 +425,14 @@ LABEL_93:
 
         v21 = *(v6 - 12) + v26;
         goto LABEL_58;
-      case 0xEu:
+      case 14:
         p_dir = *v6;
         p_type = 0;
 LABEL_60:
         p_priority = 0;
         goto LABEL_61;
-      case 0x10u:
-        v43 = v1;
+      case 16:
+        v42 = v1;
         if (p_type == 2)
         {
           if (!p_protocol)
@@ -474,9 +464,7 @@ LABEL_60:
             v40 = 6;
 LABEL_101:
             __ipsec_errcode = v40;
-LABEL_102:
-            v38 = 0xFFFFFFFFLL;
-            goto LABEL_103;
+            return 0xFFFFFFFFLL;
           }
 
           if (*(p_src + 1) != *(p_dst + 1))
@@ -541,11 +529,11 @@ LABEL_96:
         __ipsec_errcode = 0;
         policy_parse_request_init();
         v3 = 0x2A145C000;
-        v1 = v43;
+        v1 = v42;
 LABEL_62:
         v5 -= 2 * v15;
         v6 = &v6[-16 * v15 + 16];
-        *v6 = v44;
+        *v6 = v43;
         v27 = yyr1[v14] - 19;
         v28 = *v5 + yypgoto[v27];
         if (v28 <= 0x30 && *v5 == yycheck[v28])
@@ -561,62 +549,62 @@ LABEL_62:
 LABEL_66:
         v5 += 2;
         break;
-      case 0x17u:
-      case 0x18u:
+      case 23:
+      case 24:
         v40 = 25;
         goto LABEL_101;
-      case 0x19u:
+      case 25:
         p_protocol = *v6;
         goto LABEL_62;
-      case 0x1Au:
+      case 26:
         p_mode = *v6;
         goto LABEL_62;
-      case 0x1Bu:
+      case 27:
         p_level = *v6;
         p_reqid = 0;
         goto LABEL_62;
-      case 0x1Cu:
+      case 28:
         p_level = 3;
         p_reqid = atol(*(v6 + 1));
         goto LABEL_62;
-      case 0x1Du:
+      case 29:
         v16 = v6;
         v17 = 0;
         goto LABEL_38;
-      case 0x1Eu:
+      case 30:
         v18 = v6;
         v19 = 0;
         goto LABEL_44;
-      case 0x1Fu:
+      case 31:
         v16 = (v6 - 16);
         v17 = v6;
 LABEL_38:
         p_src = parse_sockaddr(v16, v17);
         if (!p_src)
         {
-          goto LABEL_102;
+          return 0xFFFFFFFFLL;
         }
 
         goto LABEL_62;
-      case 0x20u:
+      case 32:
         v18 = (v6 - 16);
         v19 = v6;
 LABEL_44:
         p_dst = parse_sockaddr(v18, v19);
         if (!p_dst)
         {
-          goto LABEL_102;
+          return 0xFFFFFFFFLL;
         }
 
         goto LABEL_62;
-      case 0x21u:
+      case 33:
         if (p_dir != 2)
         {
           goto LABEL_94;
         }
 
         goto LABEL_62;
-      case 0x22u:
+      case 34:
         if (p_dir == 1)
         {
           goto LABEL_62;
@@ -652,13 +640,11 @@ LABEL_94:
 LABEL_87:
   v8 = v4;
 LABEL_88:
-  if (v8 != v46)
+  if (v8 != v45)
   {
     free(v8);
   }
 
-LABEL_103:
-  v41 = *MEMORY[0x29EDCA608];
   return v38;
 }
 
@@ -897,8 +883,8 @@ uint64_t __libipseclex()
       *(yy_buffer_stack + 8 * yy_buffer_stack_top) = buffer;
     }
 
-    yy_n_chars = *(buffer + 32);
-    v3 = *(buffer + 16);
+    yy_n_chars = *(buffer + 4);
+    v3 = *(buffer + 2);
     yy_c_buf_p = v3;
     __libipsectext = v3;
     __libipsecin = **(v4 + 8 * v5);
@@ -1473,7 +1459,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t __libipsec_create_buffer(FILE *a1, int a2)
+_DWORD *__libipsec_create_buffer(FILE *a1, int a2)
 {
   v4 = malloc_type_malloc(0x48uLL, 0x8DDB1617uLL);
   if (!v4 || (v5 = v4, v4[6] = a2, v6 = malloc_type_malloc(a2 + 2, 0x8DDB1617uLL), (*(v5 + 8) = v6) == 0))

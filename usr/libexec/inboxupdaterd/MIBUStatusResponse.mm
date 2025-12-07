@@ -621,21 +621,21 @@ LABEL_11:
   if (status && ![(MIBUNFCResponse *)self rejected])
   {
     status2 = [(MIBUStatusResponse *)self status];
-    v42 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [status2 state]);
-    v46[0] = v42;
+    v40 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [status2 state]);
+    v44[0] = v40;
     serialNumber = [(MIBUStatusResponse *)self serialNumber];
-    v46[1] = serialNumber;
+    v44[1] = serialNumber;
     osVersion = [(MIBUStatusResponse *)self osVersion];
-    v46[2] = osVersion;
+    v44[2] = osVersion;
     buildVersion = [(MIBUStatusResponse *)self buildVersion];
-    v46[3] = buildVersion;
+    v44[3] = buildVersion;
     status3 = [(MIBUStatusResponse *)self status];
     v8 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [status3 operation]);
-    v46[4] = v8;
+    v44[4] = v8;
     status4 = [(MIBUStatusResponse *)self status];
     batteryLevel = [status4 batteryLevel];
-    v46[5] = batteryLevel;
-    v11 = [NSArray arrayWithObjects:v46 count:6];
+    v44[5] = batteryLevel;
+    v11 = [NSArray arrayWithObjects:v44 count:6];
     v12 = [v3 serialize:&off_1000A9F50 withValue:v11];
 
     if (v12)
@@ -665,14 +665,14 @@ LABEL_11:
             dispatch_once(qword_1000B84A8, &stru_10009F5E0);
           }
 
-          v30 = qword_1000B84A0;
+          v29 = qword_1000B84A0;
           if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
           {
-            v31 = v30;
+            v30 = v29;
             status6 = [(MIBUStatusResponse *)self status];
-            operationError2 = [status6 operationError];
-            HIDWORD(v45) = HIDWORD(operationError2);
-            sub_1000459C4(&_mh_execute_header, v34, v35, "Failed to serialize operation error: %{public}@", v36, v37, v38, v39, v40, serialNumber, v42, status2, 2u);
+            [status6 operationError];
+            v43 = *buf = 138543362;
+            sub_1000459C4(&_mh_execute_header, v32, v33, "Failed to serialize operation error: %{public}@", v34, v35, v36, v37, v38, serialNumber, v40, status2);
           }
         }
       }
@@ -688,9 +688,9 @@ LABEL_11:
         if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
         {
           v22 = v21;
-          error2 = [(MIBUNFCResponse *)self error];
-          HIDWORD(v45) = HIDWORD(error2);
-          sub_1000459C4(&_mh_execute_header, v24, v25, "Failed to serialize response error: %{public}@", v26, v27, v28, v29, v40, serialNumber, v42, status2, 2u);
+          [(MIBUNFCResponse *)self error];
+          v43 = *buf = 138543362;
+          sub_1000459C4(&_mh_execute_header, v23, v24, "Failed to serialize response error: %{public}@", v25, v26, v27, v28, v38, serialNumber, v40, status2);
         }
       }
     }

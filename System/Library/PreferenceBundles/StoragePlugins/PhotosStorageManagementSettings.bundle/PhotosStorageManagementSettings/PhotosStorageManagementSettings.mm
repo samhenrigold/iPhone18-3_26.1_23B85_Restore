@@ -1,40 +1,38 @@
-id sub_1760(uint64_t a1)
+id sub_1760(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = PLUIGetLog();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = *(a1 + 32);
-    v10 = 138543618;
-    v11 = v4;
-    v12 = 2048;
-    v13 = v5;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Will present iCloud up-sell workflow", &v10, 0x16u);
+    v5 = objc_opt_class();
+    v6 = *(a1 + 32);
+    v11 = 138543618;
+    v12 = v5;
+    v13 = 2048;
+    v14 = v6;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Will present iCloud up-sell workflow", &v11, 0x16u);
   }
 
-  v6 = objc_alloc_init(ICQUICloudStorageOffersManager);
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 24);
-  *(v7 + 24) = v6;
+  v7 = objc_alloc_init(ICQUICloudStorageOffersManager);
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 24);
+  *(v8 + 24) = v7;
 
   [*(*(a1 + 32) + 24) setDelegate:?];
   return [*(*(a1 + 32) + 24) beginFlowWithNavigationController:*(a1 + 40) modally:1];
 }
 
-void sub_185C(uint64_t a1)
+void sub_185C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = PLUIGetLog();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = *(a1 + 32);
-    v6 = 138543618;
-    v7 = v4;
-    v8 = 2048;
-    v9 = v5;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> User cancelled insufficient iCloud storage alert", &v6, 0x16u);
+    v5 = objc_opt_class();
+    v6 = *(a1 + 32);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2048;
+    v10 = v6;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> User cancelled insufficient iCloud storage alert", &v7, 0x16u);
   }
 }
 
@@ -56,13 +54,12 @@ void sub_1FD8(uint64_t a1, int a2, void *a3)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = *(a1 + 32);
+      v8 = objc_opt_class();
+      v9 = *(a1 + 32);
       *buf = 138543618;
+      v15 = v8;
+      v16 = 2048;
       v17 = v9;
-      v18 = 2048;
-      v19 = v10;
       _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Did enable iCloud Photos", buf, 0x16u);
     }
   }
@@ -71,25 +68,24 @@ void sub_1FD8(uint64_t a1, int a2, void *a3)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
+      v10 = objc_opt_class();
       v11 = *(a1 + 32);
-      v12 = objc_opt_class();
-      v13 = *(a1 + 32);
       *buf = 138543874;
-      v17 = v12;
-      v18 = 2048;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v5;
+      v15 = v10;
+      v16 = 2048;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v5;
       _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "<%{public}@:%p> Failed to enable iCloud Photos: %@", buf, 0x20u);
     }
 
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_27D8;
-    v14[3] = &unk_8308;
-    v14[4] = *(a1 + 32);
-    v15 = v5;
-    dispatch_async(&_dispatch_main_q, v14);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_27D8;
+    v12[3] = &unk_8308;
+    v12[4] = *(a1 + 32);
+    v13 = v5;
+    dispatch_async(&_dispatch_main_q, v12);
   }
 }
 
@@ -106,36 +102,34 @@ void sub_21A0(uint64_t a1, _BYTE *a2, double a3)
   v6 = PLUIGetLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 40);
-    v8 = objc_opt_class();
-    v9 = *(a1 + 40);
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2048;
-    v13 = v9;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Did enable iCloud Photos optimized mode", &v10, 0x16u);
+    v7 = objc_opt_class();
+    v8 = *(a1 + 40);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2048;
+    v12 = v8;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Did enable iCloud Photos optimized mode", &v9, 0x16u);
   }
 }
 
-void sub_22B8(uint64_t a1)
+void sub_22B8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = PLUIGetLog();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = v4;
-    v11 = 2048;
-    v12 = v5;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> User cancelled confirmation to empty recently deleted items", &v9, 0x16u);
+    v5 = objc_opt_class();
+    v6 = *(a1 + 32);
+    v10 = 138543618;
+    v11 = v5;
+    v12 = 2048;
+    v13 = v6;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> User cancelled confirmation to empty recently deleted items", &v10, 0x16u);
   }
 
-  v6 = +[UIApplication sharedApplication];
-  v7 = [v6 keyWindow];
-  v8 = [v7 rootViewController];
-  [v8 dismissViewControllerAnimated:1 completion:0];
+  v7 = +[UIApplication sharedApplication];
+  v8 = [v7 keyWindow];
+  v9 = [v8 rootViewController];
+  [v9 dismissViewControllerAnimated:1 completion:0];
 }
 
 void sub_23C0(uint64_t a1, void *a2)
@@ -144,28 +138,27 @@ void sub_23C0(uint64_t a1, void *a2)
   v4 = PLUIGetLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = *(a1 + 32);
+    v5 = objc_opt_class();
+    v6 = *(a1 + 32);
     *buf = 138543618;
-    v16 = v6;
-    v17 = 2048;
-    v18 = v7;
+    v15 = v5;
+    v16 = 2048;
+    v17 = v6;
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Will empty recently deleted items", buf, 0x16u);
   }
 
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_2534;
-  v11[3] = &unk_83D0;
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 32);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_2534;
+  v10[3] = &unk_83D0;
+  v7 = *(a1 + 32);
+  v8 = *(a1 + 40);
+  v9 = *(a1 + 32);
+  v11 = v8;
   v12 = v9;
-  v13 = v10;
-  objc_copyWeak(&v14, (a1 + 48));
-  [v8 _performTipOperation:v11];
-  objc_destroyWeak(&v14);
+  objc_copyWeak(&v13, (a1 + 48));
+  [v7 _performTipOperation:v10];
+  objc_destroyWeak(&v13);
 }
 
 void sub_2534(uint64_t a1, void *a2, double a3)
@@ -196,58 +189,55 @@ void sub_2614(uint64_t a1, int a2, void *a3)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = *(a1 + 32);
-      v22 = 138543618;
+      v8 = objc_opt_class();
+      v9 = *(a1 + 32);
+      v20 = 138543618;
+      v21 = v8;
+      v22 = 2048;
       v23 = v9;
-      v24 = 2048;
-      v25 = v10;
-      v11 = "<%{public}@:%p> Succesfully emptied recently deleted items";
-      v12 = v7;
-      v13 = OS_LOG_TYPE_DEFAULT;
-      v14 = 22;
+      v10 = "<%{public}@:%p> Succesfully emptied recently deleted items";
+      v11 = v7;
+      v12 = OS_LOG_TYPE_DEFAULT;
+      v13 = 22;
 LABEL_6:
-      _os_log_impl(&dword_0, v12, v13, v11, &v22, v14);
+      _os_log_impl(&dword_0, v11, v12, v10, &v20, v13);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
+    v14 = objc_opt_class();
     v15 = *(a1 + 32);
-    v16 = objc_opt_class();
-    v17 = *(a1 + 32);
-    v22 = 138543874;
-    v23 = v16;
-    v24 = 2048;
-    v25 = v17;
-    v26 = 2112;
-    v27 = v5;
-    v11 = "<%{public}@:%p> Failed to empty recently deleted items: %@";
-    v12 = v7;
-    v13 = OS_LOG_TYPE_ERROR;
-    v14 = 32;
+    v20 = 138543874;
+    v21 = v14;
+    v22 = 2048;
+    v23 = v15;
+    v24 = 2112;
+    v25 = v5;
+    v10 = "<%{public}@:%p> Failed to empty recently deleted items: %@";
+    v11 = v7;
+    v12 = OS_LOG_TYPE_ERROR;
+    v13 = 32;
     goto LABEL_6;
   }
 
-  LODWORD(v18) = 1.0;
-  [*(a1 + 40) setActivationPercent:v18];
+  LODWORD(v16) = 1.0;
+  [*(a1 + 40) setActivationPercent:v16];
   [*(a1 + 40) setEventualGain:0];
   [*(a1 + 40) setImmediateGain:0];
   [*(a1 + 40) setSize:0];
-  v19 = PULocalizedString();
-  [*(a1 + 40) setInfoText:v19];
+  v17 = PULocalizedString();
+  [*(a1 + 40) setInfoText:v17];
   **(a1 + 56) = 1;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   [WeakRetained _refreshSizeGainForICPLEnableTip];
 
-  v21 = objc_loadWeakRetained((a1 + 48));
-  [v21 notifyUsageChanged];
+  v19 = objc_loadWeakRetained((a1 + 48));
+  [v19 notifyUsageChanged];
 }
 
 uint64_t sub_293C(uint64_t a1)
 {
-  v2 = *(*(a1 + 40) + 8);
   (*(*(a1 + 32) + 16))();
   do
   {

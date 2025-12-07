@@ -28,7 +28,7 @@
   {
     v12 = MEMORY[0x1E69DCAB8];
     cGImage = [v10 CGImage];
-    [v11 scale];
+    objc_msgSend_scale(v11);
     v14 = [v12 imageWithCGImage:cGImage scale:0 orientation:?];
   }
 

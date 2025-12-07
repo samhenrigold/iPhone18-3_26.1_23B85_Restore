@@ -46,7 +46,7 @@ void __47__CEKLightingCubeStyleGlowing_studioAppearance__block_invoke()
 {
   v13 = *MEMORY[0x1E69E9840];
   space = CGColorSpaceCreateDeviceGray();
-  BackgroundGradient = CreateBackgroundGradient();
+  BackgroundGradient = CreateBackgroundGradient(0.8);
   FillColor = CreateFillColor();
   GlowGradient = CreateGlowGradient();
   MaskGradient = CreateMaskGradient(0.1, 0.3);
@@ -96,7 +96,7 @@ void __48__CEKLightingCubeStyleGlowing_contourAppearance__block_invoke()
 {
   v13 = *MEMORY[0x1E69E9840];
   space = CGColorSpaceCreateDeviceGray();
-  BackgroundGradient = CreateBackgroundGradient();
+  BackgroundGradient = CreateBackgroundGradient(0.4);
   FillColor = CreateFillColor();
   GlowGradient = CreateGlowGradient();
   MaskGradient = CreateMaskGradient(0.5, 0.8);
@@ -184,7 +184,7 @@ void __51__CEKLightingCubeStyleGlowing_stageWhiteAppearance__block_invoke()
 {
   v16 = *MEMORY[0x1E69E9840];
   DeviceGray = CGColorSpaceCreateDeviceGray();
-  BackgroundGradient = CreateBackgroundGradient();
+  BackgroundGradient = CreateBackgroundGradient(0.4);
   *components = xmmword_1B7EDA600;
   v2 = CGColorCreate(DeviceGray, components);
   GlowGradient = CreateGlowGradient();

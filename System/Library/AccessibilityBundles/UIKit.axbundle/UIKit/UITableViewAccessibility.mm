@@ -685,7 +685,7 @@ LABEL_12:
   return v18;
 }
 
-uint64_t __89__UITableViewAccessibility__axFirstLastOpaqueHeaderElementFromSection_options_direction___block_invoke(uint64_t a1)
+void *__89__UITableViewAccessibility__axFirstLastOpaqueHeaderElementFromSection_options_direction___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _sectionForHeaderView:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -858,7 +858,8 @@ void __89__UITableViewAccessibility__axFirstLastOpaqueHeaderElementFromSection_o
     v84 = v29;
     v85 = v30;
     MEMORY[0x29EDC9740](v81);
-    range = 0uLL;
+    range.location = 0;
+    range.length = 0;
     v73 = 0;
     v74 = &v73;
     v75 = 0x10000000;
@@ -876,7 +877,7 @@ void __89__UITableViewAccessibility__axFirstLastOpaqueHeaderElementFromSection_o
     v71 = v86;
     v72 = v87;
     AXPerformSafeBlock();
-    range = *(v74 + 2);
+    range = v74[2];
     objc_storeStrong(v70, 0);
     _Block_object_dispose(&v73, 8);
     oslog[0] = AXLogOpaqueElements();
@@ -893,10 +894,10 @@ void __89__UITableViewAccessibility__axFirstLastOpaqueHeaderElementFromSection_o
 
     objc_storeStrong(oslog, 0);
     v62 = 0x7FFFFFFFFFFFFFFFLL;
-    for (i = range; ; ++i)
+    for (i = range.location; ; ++i)
     {
       v98 = range;
-      if (i >= range + *(&range + 1))
+      if (i >= range.location + range.length)
       {
         break;
       }
@@ -943,7 +944,7 @@ void __89__UITableViewAccessibility__axFirstLastOpaqueHeaderElementFromSection_o
     if (v94 == 1)
     {
       v97 = range;
-      v45 = range + *(&range + 1);
+      v45 = range.location + range.length;
       _axNumberOfSections = [(UITableViewAccessibility *)selfCopy _axNumberOfSections];
       for (j = v45; j < _axNumberOfSections; ++j)
       {
@@ -963,8 +964,8 @@ void __89__UITableViewAccessibility__axFirstLastOpaqueHeaderElementFromSection_o
 
     else
     {
-      v42 = range;
-      for (k = range; ; --k)
+      v42 = range.location;
+      for (k = range.location; ; --k)
       {
         v16 = [selfCopy _axFirstLastOpaqueHeaderElementFromSection:k options:location direction:v94];
         v17 = v90;
@@ -986,7 +987,7 @@ void __89__UITableViewAccessibility__axFirstLastOpaqueHeaderElementFromSection_o
     }
 
     v39 = 0u;
-    v40 = 0u;
+    *v40 = 0u;
     v38 = 0;
     objc_opt_class();
     v37 = __UIAccessibilityCastAsClass();
@@ -998,7 +999,7 @@ void __89__UITableViewAccessibility__axFirstLastOpaqueHeaderElementFromSection_o
     *&v27 = v20;
     *(&v27 + 1) = v21;
     v39 = v26;
-    v40 = v27;
+    *v40 = v27;
     MEMORY[0x29EDC9740](v36);
     if (!v90 || (CGRectNearlyEqualToRect() & 1) != 0)
     {
@@ -3081,7 +3082,7 @@ LABEL_40:
         {
           _accessibilitySearchResultsTableView = [(UITableViewAccessibility *)selfCopy _accessibilitySearchResultsTableView];
           v31 = _accessibilitySearchResultsTableView;
-          [_accessibilitySearchResultsTableView convertPoint:selfCopy fromView:testCopy];
+          [_accessibilitySearchResultsTableView convertPoint:selfCopy fromView:{testCopy.x, testCopy.y}];
           v69[1] = v12;
           v69[2] = v13;
           v122 = [v31 _accessibilityHitTest:location[0] withEvent:{*&v12, *&v13}];
@@ -3138,7 +3139,7 @@ LABEL_40:
           MEMORY[0x29EDC9740](v68);
         }
 
-        if (!v30 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (([v69[0] convertPoint:selfCopy fromView:testCopy], v60 = v14, v61 = v15, v62 = objc_msgSend(v69[0], "_accessibilityHitTest:withEvent:", location[0], v14, v15), (objc_msgSend(v62, "isAccessibilityElement") & 1) == 0) ? (v108 = 0) : (v122 = MEMORY[0x29EDC9748](v62), v108 = 1), objc_storeStrong(&v62, 0), !v108))
+        if (!v30 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (([v69[0] convertPoint:selfCopy fromView:{testCopy.x, testCopy.y}], v60 = v14, v61 = v15, v62 = objc_msgSend(v69[0], "_accessibilityHitTest:withEvent:", location[0], v14, v15), (objc_msgSend(v62, "isAccessibilityElement") & 1) == 0) ? (v108 = 0) : (v122 = MEMORY[0x29EDC9748](v62), v108 = 1), objc_storeStrong(&v62, 0), !v108))
         {
           if (_axNumberOfSections)
           {
@@ -4626,14 +4627,14 @@ LABEL_9:
   return accessibleElementCount;
 }
 
-uint64_t __64__UITableViewAccessibility__accessibilityInitializeInternalData__block_invoke(uint64_t a1)
+void *__64__UITableViewAccessibility__accessibilityInitializeInternalData__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _delegateWantsHeaderForSection:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __64__UITableViewAccessibility__accessibilityInitializeInternalData__block_invoke_2(uint64_t a1)
+void *__64__UITableViewAccessibility__accessibilityInitializeInternalData__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _delegateWantsFooterForSection:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

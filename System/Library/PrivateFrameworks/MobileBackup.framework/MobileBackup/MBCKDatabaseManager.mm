@@ -93,7 +93,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received notification: %@", buf, 0xCu);
 
     name2 = [notificationCopy name];
-    _MBLog();
+    _MBLog(@"Df", "Received notification: %@", name2);
   }
 
   containersByPersonaIdentifier = [(MBCKDatabaseManager *)self containersByPersonaIdentifier];
@@ -114,7 +114,7 @@
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Clearing %{public}@ for account %{public}@", buf, 0x16u);
 
     accountIdentifier2 = [accountCopy accountIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "Clearing %{public}@ for account %{public}@", @"SyncZoneFetched", accountIdentifier2);
   }
 
   persona = [accountCopy persona];
@@ -135,7 +135,7 @@
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Caching %{public}@ for account %{public}@", buf, 0x16u);
 
     accountIdentifier2 = [accountCopy accountIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "Caching %{public}@ for account %{public}@", @"SyncZoneFetched", accountIdentifier2);
   }
 
   persona = [accountCopy persona];
@@ -288,7 +288,7 @@
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Creating the sync zone for account %{public}@(%{public}@)", buf, 0x16u);
 
     accountIdentifier2 = [account accountIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "Creating the sync zone for account %{public}@(%{public}@)", accountIdentifier2, personaIdentifier);
   }
 
   ckDatabase = [containerCopy ckDatabase];
@@ -309,12 +309,12 @@
   v56 = sub_100131808;
   v57 = sub_100131818;
   v58 = 0;
-  v20 = dispatch_group_create();
-  dispatch_group_enter(v20);
-  v21 = [CKFetchRecordZonesOperation alloc];
+  v21 = dispatch_group_create();
+  dispatch_group_enter(v21);
+  v22 = [CKFetchRecordZonesOperation alloc];
   v54 = syncZoneID;
-  v22 = [NSArray arrayWithObjects:&v54 count:1];
-  v23 = [v21 initWithRecordZoneIDs:v22];
+  v23 = [NSArray arrayWithObjects:&v54 count:1];
+  v24 = [v22 initWithRecordZoneIDs:v23];
 
   v44[0] = _NSConcreteStackBlock;
   v44[1] = 3221225472;
@@ -323,24 +323,24 @@
   v34 = syncZoneID;
   v45 = v34;
   v53 = buf;
-  v24 = v20;
-  v46 = v24;
+  v25 = v21;
+  v46 = v25;
   selfCopy = self;
-  v25 = containerCopy;
-  v48 = v25;
-  v26 = policyCopy;
-  v49 = v26;
-  v27 = groupCopy;
-  v50 = v27;
-  v28 = v35;
-  v51 = v28;
-  v29 = ckDatabase;
-  v52 = v29;
-  [v23 setFetchRecordZonesCompletionBlock:v44];
-  [(MBCKDatabaseManager *)self _configureCKOperation:v23 container:v25 policy:v26 operationGroup:v27 xpcActivity:v28];
-  [v29 addOperation:v23];
-  v36 = v25;
-  v30 = dispatch_get_global_queue(17, 0);
+  v26 = containerCopy;
+  v48 = v26;
+  v27 = policyCopy;
+  v49 = v27;
+  v28 = groupCopy;
+  v50 = v28;
+  v29 = v35;
+  v51 = v29;
+  v30 = ckDatabase;
+  v52 = v30;
+  [v24 setFetchRecordZonesCompletionBlock:v44];
+  [(MBCKDatabaseManager *)self _configureCKOperation:v24 container:v26 policy:v27 operationGroup:v28 xpcActivity:v29];
+  [v30 addOperation:v24];
+  v36 = v26;
+  v31 = dispatch_get_global_queue(17, 0);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100131D5C;
@@ -349,9 +349,9 @@
   v41 = account;
   v43 = buf;
   v42 = completionCopy;
-  v31 = completionCopy;
-  v32 = account;
-  dispatch_group_notify(v24, v30, block);
+  v32 = completionCopy;
+  v33 = account;
+  dispatch_group_notify(v25, v31, block);
 
   _Block_object_dispose(buf, 8);
 }
@@ -419,7 +419,7 @@
 
       persona2 = [accountCopy persona];
       personaIdentifier2 = [persona2 personaIdentifier];
-      _MBLog();
+      _MBLog(@"Df", "Deleting all CK zones for persona:%@: %{public}@", personaIdentifier2, v16);
     }
 
     *buf = 0;
@@ -428,30 +428,30 @@
     v43 = sub_100131808;
     v44 = sub_100131818;
     v45 = 0;
-    v21 = dispatch_semaphore_create(0);
-    v22 = [[CKModifyRecordZonesOperation alloc] initWithRecordZonesToSave:0 recordZoneIDsToDelete:v16];
-    operationID = [v22 operationID];
+    v22 = dispatch_semaphore_create(0);
+    v23 = [[CKModifyRecordZonesOperation alloc] initWithRecordZonesToSave:0 recordZoneIDsToDelete:v16];
+    operationID = [v23 operationID];
     v37[0] = _NSConcreteStackBlock;
     v37[1] = 3221225472;
     v37[2] = sub_100132334;
     v37[3] = &unk_1003BF7E8;
-    v24 = v16;
-    v38 = v24;
-    v25 = operationID;
-    v39 = v25;
+    v25 = v16;
+    v38 = v25;
+    v26 = operationID;
+    v39 = v26;
     v41 = buf;
-    v26 = v21;
-    v40 = v26;
-    [v22 setModifyRecordZonesCompletionBlock:v37];
-    [(MBCKDatabaseManager *)self addDatabaseOperation:v22 container:v13 policy:policyCopy operationGroup:groupCopy];
+    v27 = v22;
+    v40 = v27;
+    [v23 setModifyRecordZonesCompletionBlock:v37];
+    [(MBCKDatabaseManager *)self addDatabaseOperation:v23 container:v13 policy:policyCopy operationGroup:groupCopy];
     MBSemaphoreWaitForever();
-    v27 = *(*&buf[8] + 40);
-    if (v27)
+    v28 = *(*&buf[8] + 40);
+    if (v28)
     {
-      v28 = 0;
+      v29 = 0;
       if (error)
       {
-        *error = v27;
+        *error = v28;
       }
     }
 
@@ -461,13 +461,13 @@
       personaIdentifier3 = [persona3 personaIdentifier];
       [(MBCKDatabaseManager *)self _removeContainerForPersonaIdentifier:personaIdentifier3];
 
-      v31 = (*&buf[8] + 40);
+      v32 = (*&buf[8] + 40);
       obj = *(*&buf[8] + 40);
-      v32 = [(MBCKDatabaseManager *)self _createContainerWithSyncZoneForAccount:accountCopy policy:policyCopy operationGroup:groupCopy xpcActivity:0 error:&obj];
-      objc_storeStrong(v31, obj);
+      v33 = [(MBCKDatabaseManager *)self _createContainerWithSyncZoneForAccount:accountCopy policy:policyCopy operationGroup:groupCopy xpcActivity:0 error:&obj];
+      objc_storeStrong(v32, obj);
 
-      v28 = v32 != 0;
-      v13 = v32;
+      v29 = v33 != 0;
+      v13 = v33;
     }
 
     _Block_object_dispose(buf, 8);
@@ -475,10 +475,10 @@
 
   else
   {
-    v28 = 0;
+    v29 = 0;
   }
 
-  return v28;
+  return v29;
 }
 
 - (BOOL)resetDatabaseWithError:(id *)error
@@ -501,7 +501,7 @@
     {
       *v13 = 0;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "nil service account", v13, 2u);
-      _MBLog();
+      _MBLog(@"E ", "nil service account");
     }
 
     v10 = 0;
@@ -779,47 +779,44 @@ LABEL_6:
     [(MBCKDatabaseManager *)self _configureCKOperation:operationCopy container:containerCopy policy:policyCopy operationGroup:groupCopy xpcActivity:v20];
     if (MBIsInternalInstall())
     {
-      v46 = policyCopy;
+      v42 = policyCopy;
       group = [operationCopy group];
       name = [group name];
 
       if (name)
       {
-        policyCopy = v46;
+        policyCopy = v42;
       }
 
       else
       {
-        policyCopy = v46;
+        policyCopy = v42;
         if (!dword_1004217C0 && !atomic_fetch_add_explicit(&dword_1004217C0, 1u, memory_order_relaxed))
         {
           v26 = MBGetDefaultLog();
           if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
           {
-            v43 = objc_opt_class();
+            v39 = objc_opt_class();
             operationID = [operationCopy operationID];
             [operationCopy group];
-            v28 = v45 = v26;
+            v28 = v41 = v26;
             *buf = 138413058;
-            v49 = v43;
+            v45 = v39;
+            v46 = 2112;
+            v47 = operationID;
+            v48 = 2112;
+            v49 = groupCopy;
             v50 = 2112;
-            v51 = operationID;
-            v52 = 2112;
-            v53 = groupCopy;
-            v54 = 2112;
-            v55 = v28;
-            _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_FAULT, "%@(%@) doesn't have a group name: %@, %@", buf, 0x2Au);
+            v51 = v28;
+            _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_FAULT, "%@(%@) doesn't have a group name: %@, %@", buf, 0x2Au);
 
-            v44 = objc_opt_class();
+            v40 = objc_opt_class();
             operationID2 = [operationCopy operationID];
-            [operationCopy group];
-            v42 = v41 = groupCopy;
-            v37 = v44;
-            v39 = operationID2;
-            _MBLog();
+            group2 = [operationCopy group];
+            _MBLog(@"F ", "%@(%@) doesn't have a group name: %@, %@", v40, operationID2, groupCopy, group2);
 
-            policyCopy = v46;
-            v26 = v45;
+            policyCopy = v42;
+            v26 = v41;
           }
         }
       }
@@ -828,9 +825,9 @@ LABEL_6:
     goto LABEL_14;
   }
 
-  v47 = 0;
-  containerCopy = [(MBCKDatabaseManager *)self _createContainerWithSyncZoneForAccount:accountCopy policy:policyCopy operationGroup:groupCopy xpcActivity:activityCopy error:&v47];
-  v23 = v47;
+  v43 = 0;
+  containerCopy = [(MBCKDatabaseManager *)self _createContainerWithSyncZoneForAccount:accountCopy policy:policyCopy operationGroup:groupCopy xpcActivity:activityCopy error:&v43];
+  v23 = v43;
   v22 = v23 == 0;
   if (!(containerCopy | v23))
   {
@@ -844,39 +841,38 @@ LABEL_6:
   }
 
 LABEL_14:
-  v30 = [(MBCKDatabaseManager *)self operationQueue:v37];
-  if (!v30)
+  operationQueue = [(MBCKDatabaseManager *)self operationQueue];
+  if (!operationQueue)
   {
     __assert_rtn("[MBCKDatabaseManager _addDatabaseOperation:account:container:policy:operationGroup:xpcActivity:]", "MBCKDatabaseManager.m", 484, "operationQueue");
   }
 
-  v31 = v30;
+  v32 = operationQueue;
   if (!v22)
   {
-    v32 = policyCopy;
+    v33 = policyCopy;
     operationID3 = [operationCopy operationID];
-    v34 = [MBError errorWithCode:202 error:v21 format:@"Failed to configure operation %@", operationID3];
+    v35 = [MBError errorWithCode:202 error:v21 format:@"Failed to configure operation %@", operationID3];
 
-    v35 = MBGetDefaultLog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v36 = MBGetDefaultLog();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       operationID4 = [operationCopy operationID];
       *buf = 138543618;
-      v49 = operationID4;
-      v50 = 2114;
-      v51 = v34;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Canceling operation %{public}@ since we don't have a container: %{public}@", buf, 0x16u);
+      v45 = operationID4;
+      v46 = 2114;
+      v47 = v35;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Canceling operation %{public}@ since we don't have a container: %{public}@", buf, 0x16u);
 
       operationID5 = [operationCopy operationID];
-      v40 = v34;
-      _MBLog();
+      _MBLog(@"E ", "Canceling operation %{public}@ since we don't have a container: %{public}@", operationID5, v35);
     }
 
-    [operationCopy cancelWithUnderlyingError:v34];
-    policyCopy = v32;
+    [operationCopy cancelWithUnderlyingError:v35];
+    policyCopy = v33;
   }
 
-  [v31 addOperation:{operationCopy, operationID5, v40}];
+  [v32 addOperation:operationCopy];
 }
 
 - (void)addDatabaseOperation:(id)operation container:(id)container policy:(id)policy operationGroup:(id)group
@@ -943,68 +939,66 @@ LABEL_14:
   }
 
   ckContainer = [v10 ckContainer];
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = sub_100131808;
+  v45 = sub_100131818;
+  v46 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = sub_100131808;
+  v39 = sub_100131818;
   v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = sub_100131808;
-  v44 = sub_100131818;
-  v45 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = sub_100131808;
-  v38 = sub_100131818;
-  v39 = 0;
   v13 = dispatch_group_create();
   dispatch_group_enter(v13);
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_100133988;
-  v30[3] = &unk_1003BF810;
-  v32 = &v40;
-  v33 = &v34;
+  v28 = _NSConcreteStackBlock;
+  v29 = 3221225472;
+  v30 = sub_100133988;
+  v31 = &unk_1003BF810;
+  v33 = &v41;
+  v34 = &v35;
   v14 = v13;
-  v31 = v14;
-  [ckContainer accountInfoWithCompletionHandler:v30];
+  v32 = v14;
+  [ckContainer accountInfoWithCompletionHandler:&v28];
   MBGroupWaitForever();
-  if (v41[5])
+  if (v42[5])
   {
     v15 = MBGetDefaultLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v16 = v41[5];
+      v16 = v42[5];
       *buf = 138412290;
-      v47 = v16;
+      v48 = v16;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to fetch the CK account info: %@", buf, 0xCu);
-      v28 = v41[5];
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the CK account info: %@", v42[5], v28, v29, v30, v31);
     }
 
-    v17 = v41[5];
+    v17 = v42[5];
   }
 
   else
   {
-    if (v35[5])
+    if (v36[5])
     {
       v22 = MBGetDefaultLog();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = v35[5];
+        v23 = v36[5];
         *buf = 138543362;
-        v47 = v23;
+        v48 = v23;
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Fetched the CK account info: %{public}@", buf, 0xCu);
-        v29 = v35[5];
-        _MBLog();
+        _MBLog(@"Df", "Fetched the CK account info: %{public}@", v36[5], v28, v29, v30, v31);
       }
 
-      if ([v35[5] accountStatus] != 1)
+      if ([v36[5] accountStatus] != 1)
       {
         v18 = 1;
         goto LABEL_11;
       }
 
-      deviceToDeviceEncryptionAvailability = [v35[5] deviceToDeviceEncryptionAvailability];
+      deviceToDeviceEncryptionAvailability = [v36[5] deviceToDeviceEncryptionAvailability];
       v19 = deviceToDeviceEncryptionAvailability & 1;
       *account = deviceToDeviceEncryptionAvailability & 1;
       v18 = 1;
@@ -1024,7 +1018,7 @@ LABEL_32:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "nil CK account info", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "nil CK account info");
     }
 
     v17 = [MBError errorWithCode:1 format:@"nil CK account info"];
@@ -1047,13 +1041,13 @@ LABEL_12:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v47) = v19;
+    LODWORD(v48) = v19;
     _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "isDeviceToDeviceEncryptionSupportedByAccount:%{BOOL}d", buf, 8u);
-    _MBLog();
+    _MBLog(@"Df", "isDeviceToDeviceEncryptionSupportedByAccount:%{BOOL}d", v19);
   }
 
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v41, 8);
 
 LABEL_16:
   return v18;
@@ -1089,7 +1083,7 @@ LABEL_16:
         *buf = 138412290;
         v15 = v10;
         _os_log_impl(&_mh_execute_header, containersByPersonaIdentifier2, OS_LOG_TYPE_ERROR, "Failed to make container for account: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to make container for account: %@", v10);
       }
     }
   }
@@ -1180,7 +1174,7 @@ LABEL_16:
           }
 
           syncZoneID2 = [objc_opt_class() syncZoneID];
-          _MBLog();
+          _MBLog(@"I ", "Sync zone %{public}@ already exists", syncZoneID2);
         }
       }
 
@@ -1191,10 +1185,10 @@ LABEL_16:
           policyCopy = +[MBCKOperationPolicy expensiveCellularPolicy];
         }
 
-        v28 = groupCopy;
+        v29 = groupCopy;
         if (!groupCopy)
         {
-          v28 = [policyCopy operationGroupWithName:@"setUpSyncZone" processName:0];
+          v29 = [policyCopy operationGroupWithName:@"setUpSyncZone" processName:0];
         }
 
         dispatch_group_enter(v22);
@@ -1204,17 +1198,17 @@ LABEL_16:
         v35[3] = &unk_1003BC160;
         v37 = &v38;
         v36 = v22;
-        groupCopy = v28;
-        [(MBCKDatabaseManager *)selfCopy _setUpSyncZoneWithContainer:v18 policy:policyCopy operationGroup:v28 xpcActivity:activityCopy completion:v35];
+        groupCopy = v29;
+        [(MBCKDatabaseManager *)selfCopy _setUpSyncZoneWithContainer:v18 policy:policyCopy operationGroup:v29 xpcActivity:activityCopy completion:v35];
         v24 = v36;
       }
 
       MBGroupWaitForever();
-      v29 = v39[5];
-      v27 = v29 == 0;
-      if (v29)
+      v30 = v39[5];
+      v28 = v30 == 0;
+      if (v30)
       {
-        *error = v29;
+        *error = v30;
       }
 
       else
@@ -1225,20 +1219,20 @@ LABEL_16:
 
       _Block_object_dispose(&v38, 8);
 
-      v26 = 0;
+      v27 = 0;
     }
 
     else
     {
-      v26 = v18;
-      v27 = 0;
+      v27 = v18;
+      v28 = 0;
     }
 
     objc_sync_exit(selfCopy);
-    if (v27)
+    if (v28)
     {
       v18 = v18;
-      v26 = v18;
+      v27 = v18;
     }
   }
 
@@ -1246,10 +1240,10 @@ LABEL_16:
   {
     objc_sync_exit(selfCopy);
 
-    v26 = 0;
+    v27 = 0;
   }
 
-  return v26;
+  return v27;
 }
 
 - (void)_removeContainerForPersonaIdentifier:(id)identifier

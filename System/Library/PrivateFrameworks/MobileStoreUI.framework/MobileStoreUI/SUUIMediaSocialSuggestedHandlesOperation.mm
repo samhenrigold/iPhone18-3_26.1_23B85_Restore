@@ -145,7 +145,7 @@
     {
       v22 = [v21 objectForKey:@"status"];
       v23 = v22;
-      if (v22 && [v22 isEqualToString:@"success"])
+      if (v22 && objc_msgSend_isEqualToString_(v22))
       {
         v24 = [v35[5] objectForKey:@"suggestions"];
       }

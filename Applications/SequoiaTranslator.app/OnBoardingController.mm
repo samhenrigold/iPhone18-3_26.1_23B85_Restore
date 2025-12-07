@@ -35,11 +35,11 @@
   v2 = v5.receiver;
   [(OnBoardingController *)&v5 viewDidLoad];
   [v2 setNavigationBarHidden:{1, v5.receiver, v5.super_class}];
-  sub_100005AD4(&unk_1003AFCC0);
+  sub_100005AD4(&unk_1003AFCC0, &unk_1002D54E0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1002D95A0;
   *(v3 + 32) = sub_10019A6F4();
-  sub_10000A2CC(0, &qword_1003B5470);
+  sub_10000A2CC(0, &qword_1003B5470, UIViewController_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v2 setViewControllers:isa];
@@ -47,14 +47,14 @@
 
 - (NSArray)keyCommands
 {
-  sub_100005AD4(&unk_1003AFCC0);
+  sub_100005AD4(&unk_1003AFCC0, &unk_1002D54E0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1002D95A0;
   v3 = String._bridgeToObjectiveC()();
   v4 = [objc_opt_self() keyCommandWithInput:v3 modifierFlags:0 action:"_primaryActionKeyTriggered"];
 
   *(v2 + 32) = v4;
-  sub_10000A2CC(0, &qword_1003BB710);
+  sub_10000A2CC(0, &qword_1003BB710, UIKeyCommand_ptr);
   v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;

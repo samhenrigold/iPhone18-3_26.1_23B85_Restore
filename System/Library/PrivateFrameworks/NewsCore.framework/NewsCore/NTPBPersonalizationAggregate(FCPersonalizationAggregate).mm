@@ -11,29 +11,27 @@
 
 - (id)dictionaryRepresentation
 {
-  v13[5] = *MEMORY[0x1E69E9840];
-  v12[0] = @"clicks";
+  v12[5] = *MEMORY[0x1E69E9840];
+  v11[0] = @"clicks";
   v2 = MEMORY[0x1E696AD98];
   [self clicks];
   v3 = [v2 numberWithDouble:?];
-  v13[0] = v3;
-  v12[1] = @"impressions";
+  v12[0] = v3;
+  v11[1] = @"impressions";
   v4 = MEMORY[0x1E696AD98];
   [self impressions];
   v5 = [v4 numberWithDouble:?];
-  v13[1] = v5;
-  v12[2] = @"eventCount";
+  v12[1] = v5;
+  v11[2] = @"eventCount";
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(self, "eventCount")}];
-  v13[2] = v6;
-  v12[3] = @"timestamp";
+  v12[2] = v6;
+  v11[3] = @"timestamp";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(self, "timestamp")}];
-  v13[3] = v7;
-  v12[4] = @"featureKey";
+  v12[3] = v7;
+  v11[4] = @"featureKey";
   featureKey = [self featureKey];
-  v13[4] = featureKey;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:5];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v12[4] = featureKey;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
 
   return v9;
 }

@@ -1,24 +1,49 @@
 @interface APSRateControllerDelegate
 - (APSRateControllerDelegate)initWithContext:(void *)context;
 - (void)dealloc;
+- (void)rateController:(id)controller probingSequenceRequestedWithID:(unsigned int)d probingSequenceSize:(unsigned int)size;
 - (void)rateController:(id)controller targetBitrateDidChange:(unsigned int)change rateChangeCounter:(unsigned int)counter;
 @end
 
 @implementation APSRateControllerDelegate
 
-- (void)rateController:(id)controller targetBitrateDidChange:(unsigned int)change rateChangeCounter:(unsigned int)counter
+- (void)rateController:(id)controller probingSequenceRequestedWithID:(unsigned int)d probingSequenceSize:(unsigned int)size
 {
-  if (gLogCategory_APSRateControllerAVCWrapper <= 50 && (gLogCategory_APSRateControllerAVCWrapper != -1 || _LogCategory_Initialize()))
+  v5 = *&size;
+  v6 = *&d;
+  if (gLogCategory_APSRateControllerAVCWrapper <= 40 && (gLogCategory_APSRateControllerAVCWrapper != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSRateControllerAVCWrapper, "[APSRateControllerDelegate rateController:probingSequenceRequestedWithID:probingSequenceSize:]", 33554472, "AVCRateController %{ptr} probingSequenceRequestedWithID probingSequenceID:%d, probingSequenceSize:%d", controller, v6, v5);
   }
 
-  weakWrapper = self->_weakWrapper;
   v8 = FigCFWeakReferenceHolderCopyReferencedObject();
   if (v8)
   {
     v9 = v8;
-    v8[4] = change;
+    v10 = *(v8 + 56);
+    if (v10)
+    {
+      v10(*(v8 + 64), v6, v5);
+    }
+
+    CFRelease(v9);
+  }
+}
+
+- (void)rateController:(id)controller targetBitrateDidChange:(unsigned int)change rateChangeCounter:(unsigned int)counter
+{
+  v5 = *&counter;
+  v6 = *&change;
+  if (gLogCategory_APSRateControllerAVCWrapper <= 50 && (gLogCategory_APSRateControllerAVCWrapper != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_APSRateControllerAVCWrapper, "[APSRateControllerDelegate rateController:targetBitrateDidChange:rateChangeCounter:]", 33554482, "AVCRateController %{ptr} targetBitrateDidChange targetBitrate:%d, rateChangeCounter:%d", controller, v6, v5);
+  }
+
+  v8 = FigCFWeakReferenceHolderCopyReferencedObject();
+  if (v8)
+  {
+    v9 = v8;
+    v8[4] = v6;
     v10 = v8[5];
     if (v10)
     {

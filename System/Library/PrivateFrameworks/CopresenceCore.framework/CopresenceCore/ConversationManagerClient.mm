@@ -9,7 +9,7 @@
 {
   type metadata accessor for UUID();
   type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUConversationActivitySessionContainer, 0x1E69D8B60);
-  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695B8]);
   v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   ConversationManagerClient.updateConversationContainers(conversationContainersByGroupUUID:)(v4);
@@ -19,21 +19,20 @@
 {
   v9 = type metadata accessor for UUID();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x1EEE9AC00](v9);
-  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = _Block_copy(completion);
-  v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v17 = v16;
+  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = _Block_copy(completion);
+  v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v16 = v15;
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  _Block_copy(v14);
+  _Block_copy(v13);
   activityCopy = activity;
   selfCopy = self;
-  specialized ConversationManagerClient.requestEndpoint(with:activitySessionUUID:activity:completion:)(v15, v17, v13, activityCopy, selfCopy, v14);
-  _Block_release(v14);
-  _Block_release(v14);
+  specialized ConversationManagerClient.requestEndpoint(with:activitySessionUUID:activity:completion:)(v14, v16, v12, activityCopy, selfCopy, v13);
+  _Block_release(v13);
+  _Block_release(v13);
 
-  (*(v10 + 8))(v13, v9);
+  (*(v10 + 8))(v12, v9);
 }
 
 @end

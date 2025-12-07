@@ -1,8 +1,8 @@
 @interface NSFileManager(FCAdditions)
+- (char)fc_sizeOfItemAtURL:()FCAdditions error:;
 - (uint64_t)fc_removeContentsOfDirectoryAtURL:()FCAdditions removedItemCount:error:;
 - (uint64_t)fc_removeLargeDirectoryAtURL:()FCAdditions error:;
 - (uint64_t)fc_sizeOfItemAtPath:()FCAdditions error:;
-- (uint64_t)fc_sizeOfItemAtURL:()FCAdditions error:;
 - (void)fc_quicklyClearDirectory:()FCAdditions callbackQueue:completion:;
 @end
 
@@ -10,40 +10,40 @@
 
 - (uint64_t)fc_removeContentsOfDirectoryAtURL:()FCAdditions removedItemCount:error:
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v8 = a3;
   if (v8)
   {
-    v25 = a4;
-    v26 = a5;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
+    v24 = a4;
+    v25 = a5;
     v31 = 0u;
-    v29 = 0;
-    v27 = v8;
-    v9 = [self contentsOfDirectoryAtURL:v8 includingPropertiesForKeys:MEMORY[0x1E695E0F0] options:0 error:&v29];
-    v10 = v29;
-    v11 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v28 = 0;
+    v26 = v8;
+    v9 = [self contentsOfDirectoryAtURL:v8 includingPropertiesForKeys:MEMORY[0x1E695E0F0] options:0 error:&v28];
+    v10 = v28;
+    v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v11)
     {
       v12 = v11;
       v13 = 0;
-      v14 = *v31;
+      v14 = *v30;
       v15 = 1;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v31 != v14)
+          if (*v30 != v14)
           {
             objc_enumerationMutation(v9);
           }
 
-          v17 = *(*(&v30 + 1) + 8 * i);
-          v28 = 0;
-          v18 = [self removeItemAtURL:v17 error:&v28];
-          v19 = v28;
+          v17 = *(*(&v29 + 1) + 8 * i);
+          v27 = 0;
+          v18 = [self removeItemAtURL:v17 error:&v27];
+          v19 = v27;
           v20 = v19;
           if (v18)
           {
@@ -59,7 +59,7 @@
           }
         }
 
-        v12 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v12 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v12);
@@ -71,18 +71,18 @@
       v15 = 1;
     }
 
+    if (v24)
+    {
+      *v24 = v13;
+    }
+
     if (v25)
     {
-      *v25 = v13;
-    }
-
-    if (v26)
-    {
       v22 = v10;
-      *v26 = v10;
+      *v25 = v10;
     }
 
-    v8 = v27;
+    v8 = v26;
   }
 
   else
@@ -90,7 +90,6 @@
     v15 = 1;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v15 & 1;
 }
 
@@ -236,13 +235,13 @@ LABEL_4:
   return v12;
 }
 
-- (uint64_t)fc_sizeOfItemAtURL:()FCAdditions error:
+- (char)fc_sizeOfItemAtURL:()FCAdditions error:
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
-  v28 = 0;
-  v7 = [v6 getResourceValue:&v28 forKey:*MEMORY[0x1E695DB78] error:a4];
-  v8 = v28;
+  v27 = 0;
+  v7 = [v6 getResourceValue:&v27 forKey:*MEMORY[0x1E695DB78] error:a4];
+  v8 = v27;
   v9 = v8;
   if (!v7)
   {
@@ -251,10 +250,10 @@ LABEL_4:
 
   if (![v8 BOOLValue])
   {
-    v22 = 0;
-    if ([v6 getResourceValue:&v22 forKey:*MEMORY[0x1E695DB50] error:a4])
+    v21 = 0;
+    if ([v6 getResourceValue:&v21 forKey:*MEMORY[0x1E695DB50] error:a4])
     {
-      unsignedLongLongValue = [v22 unsignedLongLongValue];
+      unsignedLongLongValue = [v21 unsignedLongLongValue];
       goto LABEL_18;
     }
 
@@ -264,39 +263,39 @@ LABEL_15:
   }
 
   v10 = *MEMORY[0x1E695DB50];
-  v30[0] = *MEMORY[0x1E695DB50];
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+  v29[0] = *MEMORY[0x1E695DB50];
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
   v12 = [self enumeratorAtURL:v6 includingPropertiesForKeys:v11 options:0 errorHandler:0];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v14)
   {
     v15 = v14;
     unsignedLongLongValue = 0;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * i);
-        v23 = 0;
-        if ([v19 getResourceValue:&v23 forKey:v10 error:0])
+        v19 = *(*(&v23 + 1) + 8 * i);
+        v22 = 0;
+        if ([v19 getResourceValue:&v22 forKey:v10 error:0])
         {
-          unsignedLongLongValue += [v23 unsignedLongLongValue];
+          unsignedLongLongValue += [v22 unsignedLongLongValue];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v15);
@@ -308,13 +307,12 @@ LABEL_15:
   }
 
 LABEL_18:
-  v20 = *MEMORY[0x1E69E9840];
   return unsignedLongLongValue;
 }
 
 - (uint64_t)fc_sizeOfItemAtPath:()FCAdditions error:
 {
-  v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:?];
+  v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:a3];
   v7 = [self fc_sizeOfItemAtURL:v6 error:a4];
 
   return v7;

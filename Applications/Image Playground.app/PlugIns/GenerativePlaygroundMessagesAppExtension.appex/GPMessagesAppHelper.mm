@@ -12,7 +12,7 @@
   {
     if (v4)
     {
-      [v4 balloonHostAuditToken];
+      objc_msgSend_balloonHostAuditToken(v4);
     }
 
     *token->var0 = 0u;

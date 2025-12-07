@@ -50,7 +50,7 @@
 
 + (BOOL)_needsReindexingDueToVersionMismatch
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   currentClientState = [self currentClientState];
   needsReindex = [currentClientState needsReindex];
   needsDeferredIndexing = [self needsDeferredIndexing];
@@ -60,21 +60,20 @@
     indexRevision = [currentClientState indexRevision];
     _latestIndexRevision = [MEMORY[0x277D1AC60] _latestIndexRevision];
     v9 = @"NO";
-    v12 = 134218498;
-    v13 = indexRevision;
+    v11 = 134218498;
+    v12 = indexRevision;
     if (needsDeferredIndexing)
     {
       v9 = @"YES";
     }
 
-    v14 = 2048;
-    v15 = _latestIndexRevision;
-    v16 = 2112;
-    v17 = v9;
-    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Current index version %lld expected %lld. Needs Deferred Indexing %@", &v12, 0x20u);
+    v13 = 2048;
+    v14 = _latestIndexRevision;
+    v15 = 2112;
+    v16 = v9;
+    _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Current index version %lld expected %lld. Needs Deferred Indexing %@", &v11, 0x20u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return (needsDeferredIndexing | needsReindex) & 1;
 }
 
@@ -130,7 +129,7 @@
 + (void)stageIndexingDeletionForMigrationIfNeededWithCompletion:(id)completion
 {
   completionCopy = completion;
-  if (!sub_22B5918C0())
+  if (!sub_22B5918C0(0))
   {
     v6 = IMLogHandleForCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))

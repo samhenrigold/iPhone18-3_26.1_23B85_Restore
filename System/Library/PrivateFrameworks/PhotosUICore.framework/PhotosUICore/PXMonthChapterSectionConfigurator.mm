@@ -23,7 +23,7 @@
 
   if (sectionLayoutCopy)
   {
-    [sectionLayoutCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(sectionLayoutCopy);
   }
 
   else

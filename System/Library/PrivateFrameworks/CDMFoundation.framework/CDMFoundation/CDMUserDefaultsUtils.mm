@@ -1,6 +1,7 @@
 @interface CDMUserDefaultsUtils
 + (BOOL)isSkipNodeEnabled;
 + (BOOL)isWriteDebugToDiskEnabled;
++ (BOOL)readUserDefaultForKeyBool:(id)bool andDefaultValue:(BOOL)value;
 + (id)readCustomAssetsRootPath;
 + (id)readCustomLogPath;
 + (id)readUaaPNLAppModelPaths;
@@ -87,7 +88,7 @@
 
 + (unsigned)readAsrAlternativeCount:(id)count
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   countCopy = count;
   v4 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.siri.cdm"];
   if (+[CDMPlatformUtils isInternalInstall])
@@ -96,15 +97,15 @@
     v6 = CDMOSLoggerForCategory(1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v18 = 136315906;
-      v19 = "+[CDMUserDefaultsUtils readAsrAlternativeCount:]";
-      v20 = 2112;
-      v21 = @"com.apple.siri.cdm";
-      v22 = 2112;
-      v23 = @"asr alternatives count";
-      v24 = 2112;
-      v25 = v5;
-      _os_log_impl(&dword_1DC287000, v6, OS_LOG_TYPE_INFO, "%s defaults read %@ %@ -> %@", &v18, 0x2Au);
+      v17 = 136315906;
+      v18 = "+[CDMUserDefaultsUtils readAsrAlternativeCount:]";
+      v19 = 2112;
+      v20 = @"com.apple.siri.cdm";
+      v21 = 2112;
+      v22 = @"asr alternatives count";
+      v23 = 2112;
+      v24 = v5;
+      _os_log_impl(&dword_1DC287000, v6, OS_LOG_TYPE_INFO, "%s defaults read %@ %@ -> %@", &v17, 0x2Au);
     }
   }
 
@@ -132,13 +133,13 @@ LABEL_7:
         v11 = CDMOSLoggerForCategory(1);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          v18 = 136315650;
-          v19 = "+[CDMUserDefaultsUtils readAsrAlternativeCount:]";
-          v20 = 2112;
-          v21 = countCopy;
-          v22 = 2112;
-          v23 = v10;
-          _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s NSUserDefaults found AND locale=%@ found in dict, returning %@", &v18, 0x20u);
+          v17 = 136315650;
+          v18 = "+[CDMUserDefaultsUtils readAsrAlternativeCount:]";
+          v19 = 2112;
+          v20 = countCopy;
+          v21 = 2112;
+          v22 = v10;
+          _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s NSUserDefaults found AND locale=%@ found in dict, returning %@", &v17, 0x20u);
         }
 
         intValue = [(__CFString *)v10 intValue];
@@ -149,13 +150,13 @@ LABEL_7:
         v13 = CDMOSLoggerForCategory(1);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          v18 = 136315650;
-          v19 = "+[CDMUserDefaultsUtils readAsrAlternativeCount:]";
-          v20 = 2112;
-          v21 = countCopy;
-          v22 = 2112;
-          v23 = v5;
-          _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s [WARN]: Returning 1. NSUserDefaults found, BUT locale=%@'s value is invalid in it? %@", &v18, 0x20u);
+          v17 = 136315650;
+          v18 = "+[CDMUserDefaultsUtils readAsrAlternativeCount:]";
+          v19 = 2112;
+          v20 = countCopy;
+          v21 = 2112;
+          v22 = v5;
+          _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s [WARN]: Returning 1. NSUserDefaults found, BUT locale=%@'s value is invalid in it? %@", &v17, 0x20u);
         }
 
         intValue = 1;
@@ -167,13 +168,13 @@ LABEL_7:
     v14 = CDMOSLoggerForCategory(1);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v18 = 136315650;
-      v19 = "+[CDMUserDefaultsUtils readAsrAlternativeCount:]";
-      v20 = 2112;
-      v21 = countCopy;
-      v22 = 2112;
-      v23 = v8;
-      _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s NSUserDefaults not found. Locale=%@ found in default dict, returning %@", &v18, 0x20u);
+      v17 = 136315650;
+      v18 = "+[CDMUserDefaultsUtils readAsrAlternativeCount:]";
+      v19 = 2112;
+      v20 = countCopy;
+      v21 = 2112;
+      v22 = v8;
+      _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s NSUserDefaults not found. Locale=%@ found in default dict, returning %@", &v17, 0x20u);
     }
 
     intValue = [(__CFString *)v8 intValue];
@@ -184,13 +185,13 @@ LABEL_7:
     v15 = CDMOSLoggerForCategory(1);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v18 = 136315650;
-      v19 = "+[CDMUserDefaultsUtils readAsrAlternativeCount:]";
-      v20 = 2112;
-      v21 = countCopy;
-      v22 = 2112;
-      v23 = &unk_1F5819CE0;
-      _os_log_impl(&dword_1DC287000, v15, OS_LOG_TYPE_INFO, "%s [WARN]: Returning 1. NSUserDefaults not found and locale=%@'s value is invalid in default dict? %@", &v18, 0x20u);
+      v17 = 136315650;
+      v18 = "+[CDMUserDefaultsUtils readAsrAlternativeCount:]";
+      v19 = 2112;
+      v20 = countCopy;
+      v21 = 2112;
+      v22 = &unk_1F5819CE0;
+      _os_log_impl(&dword_1DC287000, v15, OS_LOG_TYPE_INFO, "%s [WARN]: Returning 1. NSUserDefaults not found and locale=%@'s value is invalid in default dict? %@", &v17, 0x20u);
     }
 
     intValue = 1;
@@ -198,7 +199,6 @@ LABEL_7:
 
 LABEL_25:
 
-  v16 = *MEMORY[0x1E69E9840];
   return intValue;
 }
 
@@ -250,7 +250,7 @@ LABEL_25:
 
 + (unint64_t)readUserDefaultsValueForKeyUint64:(id)uint64 defaultValue:(int64_t)value
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   uint64Copy = uint64;
   v6 = +[CDMUserDefaultsUtils userDefaultsCache];
   v7 = [v6 objectForKey:uint64Copy];
@@ -276,13 +276,13 @@ LABEL_25:
     {
       if (v13)
       {
-        v19 = 136315906;
-        v20 = "+[CDMUserDefaultsUtils readUserDefaultsValueForKeyUint64:defaultValue:]";
-        v21 = 2112;
-        v22 = @"com.apple.siri.cdm";
-        v23 = 2112;
-        v24 = uint64Copy;
-        v25 = 2048;
+        v18 = 136315906;
+        v19 = "+[CDMUserDefaultsUtils readUserDefaultsValueForKeyUint64:defaultValue:]";
+        v20 = 2112;
+        v21 = @"com.apple.siri.cdm";
+        v22 = 2112;
+        v23 = uint64Copy;
+        v24 = 2048;
         valueCopy2 = value;
         v14 = "%s defaults read %@ %@ -> not set (or set to <= 0). Using default: count=%zd";
         goto LABEL_11;
@@ -291,17 +291,17 @@ LABEL_25:
 
     else if (v13)
     {
-      v19 = 136315906;
-      v20 = "+[CDMUserDefaultsUtils readUserDefaultsValueForKeyUint64:defaultValue:]";
-      v21 = 2112;
-      v22 = @"com.apple.siri.cdm";
-      v23 = 2112;
-      v24 = uint64Copy;
-      v25 = 2048;
+      v18 = 136315906;
+      v19 = "+[CDMUserDefaultsUtils readUserDefaultsValueForKeyUint64:defaultValue:]";
+      v20 = 2112;
+      v21 = @"com.apple.siri.cdm";
+      v22 = 2112;
+      v23 = uint64Copy;
+      v24 = 2048;
       valueCopy2 = v10;
       v14 = "%s defaults read %@ %@ -> count=%zd";
 LABEL_11:
-      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, v14, &v19, 0x2Au);
+      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, v14, &v18, 0x2Au);
     }
 
     v15 = [MEMORY[0x1E696AD98] numberWithInteger:valueCopy];
@@ -309,7 +309,6 @@ LABEL_11:
     [v16 setObject:v15 forKeyedSubscript:uint64Copy];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return valueCopy;
 }
 
@@ -363,7 +362,7 @@ LABEL_11:
 
 + (id)readUaaPNLSystemConfigPath
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!+[CDMPlatformUtils isInternalInstall])
   {
     v3 = 0;
@@ -378,22 +377,22 @@ LABEL_11:
   {
     if (v5)
     {
-      v11 = 136315394;
-      v12 = "+[CDMUserDefaultsUtils readUaaPNLSystemConfigPath]";
-      v13 = 2112;
-      v14 = v3;
+      v10 = 136315394;
+      v11 = "+[CDMUserDefaultsUtils readUaaPNLSystemConfigPath]";
+      v12 = 2112;
+      v13 = v3;
       v6 = "%s UaaP system config path: %@";
       v7 = v4;
       v8 = 22;
 LABEL_8:
-      _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, v6, &v11, v8);
+      _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, v6, &v10, v8);
     }
   }
 
   else if (v5)
   {
-    v11 = 136315138;
-    v12 = "+[CDMUserDefaultsUtils readUaaPNLSystemConfigPath]";
+    v10 = 136315138;
+    v11 = "+[CDMUserDefaultsUtils readUaaPNLSystemConfigPath]";
     v6 = "%s No UaaP system config path provided via defaults write";
     v7 = v4;
     v8 = 12;
@@ -401,14 +400,13 @@ LABEL_8:
   }
 
 LABEL_10:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 + (id)readUaaPNLCoreModelPath
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!+[CDMPlatformUtils isInternalInstall])
   {
     v3 = 0;
@@ -423,22 +421,22 @@ LABEL_10:
   {
     if (v5)
     {
-      v11 = 136315394;
-      v12 = "+[CDMUserDefaultsUtils readUaaPNLCoreModelPath]";
-      v13 = 2112;
-      v14 = v3;
+      v10 = 136315394;
+      v11 = "+[CDMUserDefaultsUtils readUaaPNLCoreModelPath]";
+      v12 = 2112;
+      v13 = v3;
       v6 = "%s UaaP Core model path: %@";
       v7 = v4;
       v8 = 22;
 LABEL_8:
-      _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, v6, &v11, v8);
+      _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, v6, &v10, v8);
     }
   }
 
   else if (v5)
   {
-    v11 = 136315138;
-    v12 = "+[CDMUserDefaultsUtils readUaaPNLCoreModelPath]";
+    v10 = 136315138;
+    v11 = "+[CDMUserDefaultsUtils readUaaPNLCoreModelPath]";
     v6 = "%s No UaaP Core model path provided via defaults write";
     v7 = v4;
     v8 = 12;
@@ -446,14 +444,13 @@ LABEL_8:
   }
 
 LABEL_10:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 + (id)readUaaPNLAppModelPaths
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (+[CDMPlatformUtils isInternalInstall])
   {
     v2 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.internal.ck"];
@@ -467,11 +464,11 @@ LABEL_10:
         v5 = CDMOSLoggerForCategory(1);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
         {
-          v8 = 136315394;
-          v9 = "+[CDMUserDefaultsUtils readUaaPNLAppModelPaths]";
-          v10 = 2112;
-          v11 = _cdm_JSONDictionary;
-          _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s %@", &v8, 0x16u);
+          v7 = 136315394;
+          v8 = "+[CDMUserDefaultsUtils readUaaPNLAppModelPaths]";
+          v9 = 2112;
+          v10 = _cdm_JSONDictionary;
+          _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s %@", &v7, 0x16u);
         }
       }
     }
@@ -487,14 +484,12 @@ LABEL_10:
     _cdm_JSONDictionary = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return _cdm_JSONDictionary;
 }
 
 + (id)readUserDefaultForKeyString:(id)string andDefaultValue:(id)value
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   valueCopy = value;
   v7 = +[CDMUserDefaultsUtils userDefaultsCache];
@@ -516,14 +511,14 @@ LABEL_10:
       goto LABEL_10;
     }
 
-    v18 = 136315906;
-    v19 = "+[CDMUserDefaultsUtils readUserDefaultForKeyString:andDefaultValue:]";
-    v20 = 2112;
-    v21 = @"com.apple.siri.cdm";
-    v22 = 2112;
-    v23 = stringCopy;
-    v24 = 2112;
-    v25 = v11;
+    v17 = 136315906;
+    v18 = "+[CDMUserDefaultsUtils readUserDefaultForKeyString:andDefaultValue:]";
+    v19 = 2112;
+    v20 = @"com.apple.siri.cdm";
+    v21 = 2112;
+    v22 = stringCopy;
+    v23 = 2112;
+    v24 = v11;
     v13 = "%s defaults read %@ %@ -> %@";
     goto LABEL_9;
   }
@@ -543,25 +538,102 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v18 = 136315906;
-    v19 = "+[CDMUserDefaultsUtils readUserDefaultForKeyString:andDefaultValue:]";
-    v20 = 2112;
-    v21 = @"com.apple.siri.cdm";
-    v22 = 2112;
-    v23 = stringCopy;
-    v24 = 2112;
-    v25 = v11;
+    v17 = 136315906;
+    v18 = "+[CDMUserDefaultsUtils readUserDefaultForKeyString:andDefaultValue:]";
+    v19 = 2112;
+    v20 = @"com.apple.siri.cdm";
+    v21 = 2112;
+    v22 = stringCopy;
+    v23 = 2112;
+    v24 = v11;
     v13 = "%s defaults read %@ %@ -> not set. Using default value: %@";
 LABEL_9:
-    _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, v13, &v18, 0x2Au);
+    _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, v13, &v17, 0x2Au);
     goto LABEL_10;
   }
 
 LABEL_11:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v11;
+}
+
++ (BOOL)readUserDefaultForKeyBool:(id)bool andDefaultValue:(BOOL)value
+{
+  valueCopy = value;
+  v21 = *MEMORY[0x1E69E9840];
+  boolCopy = bool;
+  v6 = +[CDMUserDefaultsUtils userDefaultsCache];
+  v7 = [v6 objectForKey:boolCopy];
+
+  v8 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.siri.cdm"];
+  v9 = [v8 objectForKey:boolCopy];
+  if (v9)
+  {
+    v10 = v9;
+    if (v7 != v9)
+    {
+      v11 = CDMOSLoggerForCategory(1);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      {
+        *v18 = 136315906;
+        *&v18[4] = "+[CDMUserDefaultsUtils readUserDefaultForKeyBool:andDefaultValue:]";
+        *&v18[12] = 2112;
+        *&v18[14] = @"com.apple.siri.cdm";
+        *&v18[22] = 2112;
+        v19 = boolCopy;
+        LOWORD(v20) = 2112;
+        *(&v20 + 2) = v10;
+        v12 = "%s defaults read %@ %@ -> %@";
+LABEL_11:
+        _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, v12, v18, 0x2Au);
+        goto LABEL_12;
+      }
+
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+    v13 = [MEMORY[0x1E696AD98] numberWithBool:valueCopy];
+    v10 = v13;
+    if (v7)
+    {
+      v14 = v7 == v13;
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    if (!v14)
+    {
+      v11 = CDMOSLoggerForCategory(1);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      {
+        *v18 = 136315906;
+        *&v18[4] = "+[CDMUserDefaultsUtils readUserDefaultForKeyBool:andDefaultValue:]";
+        *&v18[12] = 2112;
+        *&v18[14] = @"com.apple.siri.cdm";
+        *&v18[22] = 2112;
+        v19 = boolCopy;
+        LOWORD(v20) = 2112;
+        *(&v20 + 2) = v10;
+        v12 = "%s defaults read %@ %@ -> not set. Using default value: %@";
+        goto LABEL_11;
+      }
+
+LABEL_12:
+
+      v15 = +[CDMUserDefaultsUtils userDefaultsCache];
+      [v15 setObject:v10 forKeyedSubscript:boolCopy];
+    }
+  }
+
+  bOOLValue = [v10 BOOLValue];
+
+  return bOOLValue;
 }
 
 + (void)initialize

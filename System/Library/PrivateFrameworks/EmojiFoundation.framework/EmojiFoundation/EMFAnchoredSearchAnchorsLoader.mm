@@ -62,7 +62,7 @@
 
 - (void)_loadAndCacheAnchorsForLocaleIdentifierIfNecessary:(id)necessary
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   locallyCachedAnchorCollection = [(EMFAnchoredSearchAnchorsLoader *)self locallyCachedAnchorCollection];
 
@@ -79,176 +79,177 @@ LABEL_44:
       goto LABEL_45;
     }
 
-    v8 = emf_logging_get_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = emf_logging_get_default_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf) = 138543362;
       *(&buf + 4) = necessaryCopy;
-      _os_log_impl(&dword_1AF04E000, v8, OS_LOG_TYPE_INFO, "Loading search anchors for locale '%{public}@'", &buf, 0xCu);
+      _os_log_impl(&dword_1AF04E000, v9, OS_LOG_TYPE_INFO, "Loading search anchors for locale '%{public}@'", &buf, 0xCu);
     }
 
-    v9 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v10 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v53 = 0x3032000000;
-    v54 = __Block_byref_object_copy__0;
-    v55 = __Block_byref_object_dispose__0;
-    v56 = [v9 URLForResource:necessaryCopy withExtension:@"plist" subdirectory:@"Anchor Strings"];
-    v10 = *(*(&buf + 1) + 40);
-    if (!v10)
+    v59 = 0x3032000000;
+    v60 = __Block_byref_object_copy__0;
+    v61 = __Block_byref_object_dispose__0;
+    v62 = [v10 URLForResource:necessaryCopy withExtension:@"plist" subdirectory:@"Anchor Strings"];
+    v11 = *(*(&buf + 1) + 40);
+    if (!v11)
     {
-      v11 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:necessaryCopy];
-      languageIdentifier = [v11 languageIdentifier];
+      v12 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:necessaryCopy];
+      languageIdentifier = [v12 languageIdentifier];
 
-      v13 = emf_logging_get_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v15 = emf_logging_get_default_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        *v44 = 138543618;
-        v45 = necessaryCopy;
-        v46 = 2114;
-        v47 = languageIdentifier;
-        _os_log_impl(&dword_1AF04E000, v13, OS_LOG_TYPE_INFO, "No search anchors found for locale identifier '%{public}@'; attempting to load data associated with the normalized locale identifier '%{public}@'.", v44, 0x16u);
+        *v50 = 138543618;
+        v51 = necessaryCopy;
+        v52 = 2114;
+        v53 = languageIdentifier;
+        _os_log_impl(&dword_1AF04E000, v15, OS_LOG_TYPE_INFO, "No search anchors found for locale identifier '%{public}@'; attempting to load data associated with the normalized locale identifier '%{public}@'.", v50, 0x16u);
       }
 
-      v14 = [v9 URLForResource:languageIdentifier withExtension:@"plist" subdirectory:@"Anchor Strings"];
-      v15 = *(*(&buf + 1) + 40);
-      *(*(&buf + 1) + 40) = v14;
+      v16 = [v10 URLForResource:languageIdentifier withExtension:@"plist" subdirectory:@"Anchor Strings"];
+      v17 = *(*(&buf + 1) + 40);
+      *(*(&buf + 1) + 40) = v16;
 
-      v10 = *(*(&buf + 1) + 40);
-      if (!v10)
+      v11 = *(*(&buf + 1) + 40);
+      if (!v11)
       {
-        v16 = emf_logging_get_default_log();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v19 = emf_logging_get_default_log(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
-          *v44 = 138543362;
-          v45 = necessaryCopy;
-          _os_log_impl(&dword_1AF04E000, v16, OS_LOG_TYPE_INFO, "No search anchors found for locale identifier '%{public}@'; attempting to load a fallback language.", v44, 0xCu);
+          *v50 = 138543362;
+          v51 = necessaryCopy;
+          _os_log_impl(&dword_1AF04E000, v19, OS_LOG_TYPE_INFO, "No search anchors found for locale identifier '%{public}@'; attempting to load a fallback language.", v50, 0xCu);
         }
 
-        v17 = MEMORY[0x1E695DF58];
-        v40[0] = MEMORY[0x1E69E9820];
-        v40[1] = 3221225472;
-        v40[2] = __85__EMFAnchoredSearchAnchorsLoader__loadAndCacheAnchorsForLocaleIdentifierIfNecessary___block_invoke;
-        v40[3] = &unk_1E7A5F6A0;
-        v18 = necessaryCopy;
-        v41 = v18;
+        v20 = MEMORY[0x1E695DF58];
+        v46[0] = MEMORY[0x1E69E9820];
+        v46[1] = 3221225472;
+        v46[2] = __85__EMFAnchoredSearchAnchorsLoader__loadAndCacheAnchorsForLocaleIdentifierIfNecessary___block_invoke;
+        v46[3] = &unk_1E7A5F6A0;
+        v21 = necessaryCopy;
+        v47 = v21;
         p_buf = &buf;
-        v42 = v9;
-        [v17 _enumerateLanguageFallbackGraphForLocaleIdentifier:v18 usingBlock:v40];
+        v48 = v10;
+        v22 = [v20 _enumerateLanguageFallbackGraphForLocaleIdentifier:v21 usingBlock:v46];
         if (!*(*(&buf + 1) + 40))
         {
-          v34 = emf_logging_get_default_log();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          v40 = emf_logging_get_default_log(v22);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
-            [(EMFAnchoredSearchAnchorsLoader *)v18 _loadAndCacheAnchorsForLocaleIdentifierIfNecessary:v34];
+            [(EMFAnchoredSearchAnchorsLoader *)v21 _loadAndCacheAnchorsForLocaleIdentifierIfNecessary:v40];
           }
 
           v7 = 0;
-          v20 = v41;
+          v25 = v47;
           goto LABEL_43;
         }
 
-        v10 = *(*(&buf + 1) + 40);
+        v11 = *(*(&buf + 1) + 40);
       }
     }
 
-    v39 = 0;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v10 error:&v39];
-    v20 = v39;
-    if (v20 || !v19 || ![v19 count])
+    v45 = 0;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v11 error:&v45];
+    v24 = v45;
+    v25 = v24;
+    if (v24 || !v23 || (v24 = [v23 count]) == 0)
     {
-      v22 = emf_logging_get_default_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v27 = emf_logging_get_default_log(v24);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         absoluteString = [*(*(&buf + 1) + 40) absoluteString];
-        localizedDescription = [v20 localizedDescription];
-        *v44 = 138543874;
-        v45 = absoluteString;
-        v46 = 2114;
-        v47 = necessaryCopy;
-        v48 = 2114;
-        v49 = localizedDescription;
-        _os_log_error_impl(&dword_1AF04E000, v22, OS_LOG_TYPE_ERROR, "Search anchor plist at path '%{public}@' for locale '%{public}@' could not be read with error: '%{public}@", v44, 0x20u);
+        localizedDescription = [v25 localizedDescription];
+        *v50 = 138543874;
+        v51 = absoluteString;
+        v52 = 2114;
+        v53 = necessaryCopy;
+        v54 = 2114;
+        v55 = localizedDescription;
+        _os_log_error_impl(&dword_1AF04E000, v27, OS_LOG_TYPE_ERROR, "Search anchor plist at path '%{public}@' for locale '%{public}@' could not be read with error: '%{public}@", v50, 0x20u);
       }
 
       v7 = 0;
       goto LABEL_42;
     }
 
-    v21 = [v19 objectForKeyedSubscript:@"metadata"];
-    v22 = v21;
-    if (!v21)
+    v26 = [v23 objectForKeyedSubscript:@"metadata"];
+    v27 = v26;
+    if (!v26)
     {
-      v24 = emf_logging_get_default_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v29 = emf_logging_get_default_log(0);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         absoluteString2 = [*(*(&buf + 1) + 40) absoluteString];
-        [(EMFAnchoredSearchAnchorsLoader *)absoluteString2 _loadAndCacheAnchorsForLocaleIdentifierIfNecessary:v44, v24];
+        [(EMFAnchoredSearchAnchorsLoader *)absoluteString2 _loadAndCacheAnchorsForLocaleIdentifierIfNecessary:v50, v29];
       }
 
       v7 = 0;
       goto LABEL_41;
     }
 
-    v23 = [v21 objectForKeyedSubscript:@"schemaVersion"];
-    v24 = v23;
-    if (v23)
+    v28 = [v26 objectForKeyedSubscript:@"schemaVersion"];
+    v29 = v28;
+    if (v28)
     {
-      if ([v23 unsignedLongValue]== 1)
+      unsignedLongValue = [v28 unsignedLongValue];
+      if (unsignedLongValue == 1)
       {
         v7 = [[EMFAnchoredSearchAnchorCollection alloc] initWithLocaleIdentifier:necessaryCopy];
-        v25 = [v19 objectForKeyedSubscript:@"leftHandAnchors"];
-        v26 = v25;
-        if (v25 && [v25 count])
+        v31 = [v23 objectForKeyedSubscript:@"leftHandAnchors"];
+        v32 = v31;
+        if (v31 && [v31 count])
         {
-          [(EMFAnchoredSearchAnchorCollection *)v7 setLeftHandAnchors:v26];
+          [(EMFAnchoredSearchAnchorCollection *)v7 setLeftHandAnchors:v32];
         }
 
-        v38 = [v19 objectForKeyedSubscript:@"rightHandAnchors"];
-        if (v38 && [v38 count])
+        v44 = [v23 objectForKeyedSubscript:@"rightHandAnchors"];
+        if (v44 && [v44 count])
         {
-          [(EMFAnchoredSearchAnchorCollection *)v7 setRightHandAnchors:v38];
+          [(EMFAnchoredSearchAnchorCollection *)v7 setRightHandAnchors:v44];
         }
 
         anchorsCache2 = [(EMFAnchoredSearchAnchorsLoader *)self anchorsCache];
         [anchorsCache2 setAnchorCollection:v7 forLocaleIdentifier:necessaryCopy];
 
-        [(EMFAnchoredSearchAnchorsLoader *)self setLocallyCachedAnchorCollection:v7];
-        v28 = emf_logging_get_default_log();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+        v34 = emf_logging_get_default_log([(EMFAnchoredSearchAnchorsLoader *)self setLocallyCachedAnchorCollection:v7]);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
         {
           absoluteString3 = [*(*(&buf + 1) + 40) absoluteString];
-          v37 = [v26 count];
-          v30 = [v38 count];
-          *v44 = 138544130;
-          v45 = absoluteString3;
-          v46 = 2114;
-          v47 = necessaryCopy;
-          v48 = 2048;
-          v49 = v37;
-          v50 = 2048;
-          v51 = v30;
-          _os_log_impl(&dword_1AF04E000, v28, OS_LOG_TYPE_INFO, "Loaded search anchor plist '%{public}@' for locale '%{public}@' (%lu left, %lu right)", v44, 0x2Au);
+          v43 = [v32 count];
+          v36 = [v44 count];
+          *v50 = 138544130;
+          v51 = absoluteString3;
+          v52 = 2114;
+          v53 = necessaryCopy;
+          v54 = 2048;
+          v55 = v43;
+          v56 = 2048;
+          v57 = v36;
+          _os_log_impl(&dword_1AF04E000, v34, OS_LOG_TYPE_INFO, "Loaded search anchor plist '%{public}@' for locale '%{public}@' (%lu left, %lu right)", v50, 0x2Au);
         }
 
         goto LABEL_40;
       }
 
-      v26 = emf_logging_get_default_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v32 = emf_logging_get_default_log(unsignedLongValue);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         absoluteString4 = [*(*(&buf + 1) + 40) absoluteString];
-        [(EMFAnchoredSearchAnchorsLoader *)absoluteString4 _loadAndCacheAnchorsForLocaleIdentifierIfNecessary:v44, [v24 unsignedLongValue], v26];
+        [(EMFAnchoredSearchAnchorsLoader *)absoluteString4 _loadAndCacheAnchorsForLocaleIdentifierIfNecessary:v50, [v29 unsignedLongValue], v32];
       }
     }
 
     else
     {
-      v26 = emf_logging_get_default_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v32 = emf_logging_get_default_log(0);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         absoluteString5 = [*(*(&buf + 1) + 40) absoluteString];
-        [(EMFAnchoredSearchAnchorsLoader *)absoluteString5 _loadAndCacheAnchorsForLocaleIdentifierIfNecessary:v44, v26];
+        [(EMFAnchoredSearchAnchorsLoader *)absoluteString5 _loadAndCacheAnchorsForLocaleIdentifierIfNecessary:v50, v32];
       }
     }
 
@@ -269,22 +270,23 @@ LABEL_45:
 
 void __85__EMFAnchoredSearchAnchorsLoader__loadAndCacheAnchorsForLocaleIdentifierIfNecessary___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  if (([*(a1 + 32) isEqualToString:v5] & 1) == 0)
+  v6 = [*(a1 + 32) isEqualToString:v5];
+  if ((v6 & 1) == 0)
   {
-    v6 = emf_logging_get_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = emf_logging_get_default_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = 138543362;
-      v11 = v5;
-      _os_log_impl(&dword_1AF04E000, v6, OS_LOG_TYPE_INFO, "Loading search anchors for language fallback '%{public}@'", &v10, 0xCu);
+      v11 = 138543362;
+      v12 = v5;
+      _os_log_impl(&dword_1AF04E000, v7, OS_LOG_TYPE_INFO, "Loading search anchors for language fallback '%{public}@'", &v11, 0xCu);
     }
 
-    v7 = [*(a1 + 40) URLForResource:v5 withExtension:@"plist" subdirectory:@"Anchor Strings"];
-    v8 = *(*(a1 + 48) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v8 = [*(a1 + 40) URLForResource:v5 withExtension:@"plist" subdirectory:@"Anchor Strings"];
+    v9 = *(*(a1 + 48) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
 
     if (*(*(*(a1 + 48) + 8) + 40))
     {

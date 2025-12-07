@@ -13,14 +13,12 @@
 
 + (id)foreignKeys
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"original_unit";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"original_unit";
   v2 = objc_alloc(MEMORY[0x277D10B38]);
   v3 = [v2 initWithEntityClass:objc_opt_class() property:*MEMORY[0x277D10A40] deletionAction:0];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

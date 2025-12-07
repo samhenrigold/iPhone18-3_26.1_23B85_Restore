@@ -727,7 +727,7 @@ void sub_20DC(void *a1@<X0>, const void **a2@<X8>)
           *(v21 + 8) = v10;
           *(v21 + 16) = v11;
           *(v21 + 24) = v12;
-          v15 = 32 * v18 + 32;
+          v15 = (32 * v18 + 32);
           memcpy(0, v16, v17);
           v22 = *a2;
           *a2 = 0;
@@ -743,7 +743,7 @@ void sub_20DC(void *a1@<X0>, const void **a2@<X8>)
         {
           *v13 = v9;
           *(v13 + 1) = v10;
-          v15 = (v13 + 32);
+          v15 = v13 + 32;
           *(v13 + 2) = v11;
           *(v13 + 3) = v12;
         }
@@ -861,7 +861,7 @@ void sub_24E0()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-void *sub_2514(void *result, char *__src, char *a3, unint64_t a4)
+void **sub_2514(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -936,7 +936,7 @@ void *sub_2514(void *result, char *__src, char *a3, unint64_t a4)
   return result;
 }
 
-void sub_2640(uint64_t a1, unint64_t a2)
+void sub_2640(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -1517,9 +1517,9 @@ id sub_8070(uint64_t a1, void *a2)
   return v47;
 }
 
-void sub_8960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_8960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1563,86 +1563,87 @@ void sub_961C(uint64_t a1)
   }
 }
 
-uint64_t sub_9F58(uint64_t a1, int a2)
+uint64_t sub_9F58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = _BookEPUBWebProcessPluginLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = a2;
+  v7 = _BookEPUBWebProcessPluginLog(a1);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v5 = *(a1 + 32);
-    v11 = 67109378;
-    LODWORD(v12[0]) = a2;
-    WORD2(v12[0]) = 2114;
-    *(v12 + 6) = v5;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "Received match state: %d for #fontFamily '%{public}@'", &v11, 0x12u);
+    v8 = *(a1 + 32);
+    v15 = 67109378;
+    LODWORD(v16[0]) = v5;
+    WORD2(v16[0]) = 2114;
+    *(v16 + 6) = v8;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "Received match state: %d for #fontFamily '%{public}@'", &v15, 0x12u);
   }
 
-  if ((a2 - 3) >= 3)
+  if ((v5 - 3) >= 3)
   {
-    if (a2 == 1)
+    if (v5 == 1)
     {
-      v6 = _BookEPUBWebProcessPluginLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v10 = _BookEPUBWebProcessPluginLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *(a1 + 32);
-        v11 = 138543362;
-        v12[0] = v10;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Completed matching #fontFamily '%{public}@'", &v11, 0xCu);
+        v14 = *(a1 + 32);
+        v15 = 138543362;
+        v16[0] = v14;
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Completed matching #fontFamily '%{public}@'", &v15, 0xCu);
       }
 
-      v8 = 1;
+      v12 = 1;
       goto LABEL_9;
     }
 
-    if (a2 != 8)
+    if (v5 != 8)
     {
       return 1;
     }
   }
 
-  v6 = _BookEPUBWebProcessPluginLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v10 = _BookEPUBWebProcessPluginLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v11 = 67240450;
-    LODWORD(v12[0]) = a2;
-    WORD2(v12[0]) = 2114;
-    *(v12 + 6) = v7;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "Error state:%{public}u registering #fontFamily:'%{public}@'", &v11, 0x12u);
+    v11 = *(a1 + 32);
+    v15 = 67240450;
+    LODWORD(v16[0]) = v5;
+    WORD2(v16[0]) = 2114;
+    *(v16 + 6) = v11;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Error state:%{public}u registering #fontFamily:'%{public}@'", &v15, 0x12u);
   }
 
-  v8 = 0;
+  v12 = 0;
 LABEL_9:
 
   CFRelease(*(a1 + 48));
   (*(*(a1 + 40) + 16))();
-  return v8;
+  return v12;
 }
 
 id BEAXWebNotificationWithName(void *a1)
 {
   v1 = a1;
-  v2 = sub_BA4C();
+  v2 = sub_BA4C(v1);
   v3 = [v2 valueForKey:v1];
 
   return v3;
 }
 
-id sub_BA4C()
+id sub_BA4C(uint64_t a1)
 {
   if (qword_26D70 != -1)
   {
     sub_12F28();
   }
 
-  v1 = qword_26D68;
+  v2 = qword_26D68;
 
-  return v1;
+  return v2;
 }
 
 id BEAXWebNotificationName(void *a1)
 {
   v1 = a1;
-  sub_BA4C();
+  sub_BA4C(v1);
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
@@ -1693,20 +1694,21 @@ void BEAXPostWebProcessNotification(void *a1, uint64_t a2, void *a3)
   v7 = [NSNumber numberWithUnsignedInt:a2];
   v8 = BEAXWebNotificationName(v7);
 
-  if (objc_opt_respondsToSelector())
+  v9 = objc_opt_respondsToSelector();
+  if (v9)
   {
     [v5 accessibilityOverrideProcessNotification:v8 notificationData:v6];
   }
 
   else
   {
-    v9 = _BookEPUBWebProcessPluginLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _BookEPUBWebProcessPluginLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = NSStringFromSelector("accessibilityOverrideProcessNotification:notificationData:");
-      v11 = 138543362;
-      v12 = v10;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Attempting to call selector '%{public}@'", &v11, 0xCu);
+      v11 = NSStringFromSelector("accessibilityOverrideProcessNotification:notificationData:");
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Attempting to call selector '%{public}@'", &v12, 0xCu);
     }
   }
 }
@@ -1761,6 +1763,13 @@ uint64_t sub_C3A4(uint64_t a1)
   return _objc_release_x1();
 }
 
+void sub_CD98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_CDB0(uint64_t a1, uint64_t a2)
 {
   v14 = [*(a1 + 32) objectAtIndexedSubscript:a2];
@@ -1804,21 +1813,25 @@ LABEL_8:
 
 void sub_DB04(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v16 = a2;
+  v19 = a2;
   v7 = objc_opt_class();
-  v8 = __BAXCastAsSafeCategory(v7, v16, 0, 0);
-  v9 = [v8 baxAttachmentElement];
-  if (v9)
+  v8 = __BAXCastAsSafeCategory(v7, v19, 0, 0);
+  v10 = [v8 baxAttachmentElement];
+  if (v10)
   {
-    [*(a1 + 32) addAttribute:UIAccessibilityTokenAttachment value:v9 range:{a3, a4}];
+    [*(a1 + 32) addAttribute:UIAccessibilityTokenAttachment value:v10 range:{a3, a4}];
   }
 
-  else if (BAXShouldPerformValidationChecks())
+  else
   {
-    v10 = BAXShouldCrashOnValidationErrorAfterLaunch();
-    if (__BAXHandleValidationErrorWithDescription(v10, 0, @"We probably need to handle attachments like this one: %@", v11, v12, v13, v14, v15, *(a1 + 40)))
+    v11 = BAXShouldPerformValidationChecks(0, v9);
+    if (v11)
     {
-      abort();
+      v13 = BAXShouldCrashOnValidationErrorAfterLaunch(v11, v12);
+      if (__BAXHandleValidationErrorWithDescription(v13, 0, @"We probably need to handle attachments like this one: %@", v14, v15, v16, v17, v18, *(a1 + 40)))
+      {
+        abort();
+      }
     }
   }
 }
@@ -1959,16 +1972,16 @@ uint64_t sub_FAA4(uint64_t a1)
   return _objc_release_x1();
 }
 
-id _BookEPUBWebProcessPluginLog()
+id _BookEPUBWebProcessPluginLog(uint64_t a1)
 {
   if (qword_26DB8 != -1)
   {
     sub_12F3C();
   }
 
-  v1 = qword_26DB0;
+  v2 = qword_26DB0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10308(id a1)
@@ -1978,16 +1991,16 @@ void sub_10308(id a1)
   _objc_release_x1();
 }
 
-id BookEPUBWebProcessPluginRectFilteringLog()
+id BookEPUBWebProcessPluginRectFilteringLog(uint64_t a1)
 {
   if (qword_26DC8 != -1)
   {
     sub_12F50();
   }
 
-  v1 = qword_26DC0;
+  v2 = qword_26DC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10390(id a1)
@@ -2013,7 +2026,7 @@ JSValue *__cdecl sub_10450(id a1, JSValue *a2, JSValue *a3, JSValue *a4, JSValue
   return v13;
 }
 
-uint64_t BAXShouldPerformValidationChecks()
+uint64_t BAXShouldPerformValidationChecks(uint64_t a1, uint64_t a2)
 {
   if (qword_26DD0 != -1)
   {
@@ -2053,7 +2066,7 @@ uint64_t __BAXHandleValidationErrorWithDescription(int a1, int a2, void *a3, uin
   return v10;
 }
 
-uint64_t BAXShouldCrashOnValidationErrorAfterLaunch()
+uint64_t BAXShouldCrashOnValidationErrorAfterLaunch(uint64_t a1, uint64_t a2)
 {
   if (qword_26DE0 != -1)
   {
@@ -2291,7 +2304,7 @@ void BAXInstallSafeCategory(NSString *a1)
   [(objc_class *)v2 performSelector:"_baxInitializeSafeCategory"];
 }
 
-uint64_t BAXShouldCrashOnValidationError()
+uint64_t BAXShouldCrashOnValidationError(uint64_t a1, uint64_t a2)
 {
   if (qword_26DD8 != -1)
   {
@@ -2463,7 +2476,7 @@ id sub_11434(void *a1, void *a2)
   return v4;
 }
 
-uint64_t sub_114F8(void **a1, void **a2, uint64_t a3)
+uint64_t sub_114F8(void *a1, void **a2, uint64_t a3)
 {
   result = [a2[4] compare:*(a3 + 32)];
   if (!result)

@@ -5,6 +5,7 @@
 - (BOOL)_isPropertyEnabled:(id)enabled consideringWeighting:(BOOL)weighting;
 - (BOOL)_isTintEnabledWithSettings:(id)settings;
 - (BOOL)isBackdropRequiredEver;
+- (BOOL)isBackdropRequiredInitially;
 - (BOOL)isBlurAtEnd;
 - (BOOL)isCurvesEnabled;
 - (BOOL)isTintEnabled;
@@ -58,7 +59,6 @@
 
 - (NSDictionary)curvesValues
 {
-  v46 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   baseMaterialSettings = [(MTRecipeMaterialSettingsProviding *)self->_initialSettings baseMaterialSettings];
   curvesValues = [baseMaterialSettings curvesValues];
@@ -67,29 +67,24 @@
   curvesValues2 = [baseMaterialSettings2 curvesValues];
 
   v6 = v3;
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  obj = MTCAFilterCurvesInputValuesKeys();
-  v39 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
-  if (v39)
+  obj = MTCAFilterCurvesInputValuesKeys(v7);
+  v30 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v30)
   {
-    v37 = *v42;
-    v34 = v3;
+    v28 = MEMORY[0];
+    v26 = v3;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v42 != v37)
+        if (MEMORY[0] != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v41 + 1) + 8 * v7);
-        v9 = [curvesValues objectForKey:v8];
-        v10 = [curvesValues2 objectForKey:v8];
+        v9 = [curvesValues objectForKey:?];
+        v10 = [curvesValues2 objectForKey:?];
         v11 = v10;
         if (!(v9 | v10))
         {
@@ -97,7 +92,6 @@
           goto LABEL_38;
         }
 
-        v36 = v8;
         if (v9)
         {
           v12 = [v9 count];
@@ -138,32 +132,28 @@ LABEL_15:
                 if (!MTFloatIsOne(self->_weighting))
                 {
                   v20 = MEMORY[0x1E696AD98];
-                  v21 = [v9 objectAtIndexedSubscript:v17];
+                  v21 = [v9 objectAtIndexedSubscript:?];
                   [v21 floatValue];
-                  v23 = v22;
-                  weighting = self->_weighting;
-                  v25 = [v11 objectAtIndexedSubscript:v17];
-                  [v25 floatValue];
-                  v27 = v26;
-                  v28 = [v9 objectAtIndexedSubscript:v17];
-                  [v28 floatValue];
-                  v30 = v23 + weighting * (v27 - v29);
+                  v22 = [v11 objectAtIndexedSubscript:?];
+                  [v22 floatValue];
+                  v23 = [v9 objectAtIndexedSubscript:?];
+                  [v23 floatValue];
 
-                  v19 = [v20 numberWithDouble:v30];
+                  v19 = [v20 numberWithDouble:?];
                   goto LABEL_34;
                 }
 
                 v18 = v11;
               }
 
-              v19 = [v18 objectAtIndexedSubscript:v17];
+              v19 = [v18 objectAtIndexedSubscript:?];
 LABEL_34:
-              v31 = v19;
-              [v14 addObject:v19];
+              v24 = v19;
+              [v14 addObject:?];
 
               if (++v17 == 4)
               {
-                v6 = v34;
+                v6 = v26;
                 goto LABEL_37;
               }
             }
@@ -199,20 +189,18 @@ LABEL_23:
         }
 
 LABEL_37:
-        [v6 setObject:v14 forKey:v36];
+        [v6 setObject:? forKey:?];
 LABEL_38:
 
-        ++v7;
+        v8 = (v8 + 1);
       }
 
-      while (v7 != v39);
-      v39 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+      while (v8 != v30);
+      v30 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v39);
+    while (v30);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -291,7 +279,7 @@ double __47__MTMaterialSettingsInterpolator_backdropScale__block_invoke(double a
 
 - (BOOL)isCurvesEnabled
 {
-  v3 = NSSelectorFromString(&cfstr_Curvesvalues.isa);
+  NSSelectorFromString(&cfstr_Curvesvalues.isa);
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     [MTMaterialSettingsInterpolator isCurvesEnabled];
@@ -299,27 +287,25 @@ double __47__MTMaterialSettingsInterpolator_backdropScale__block_invoke(double a
 
   if (self->_initialSettings)
   {
-    v4 = [(MTMaterialSettingsInterpolator *)self performSelector:v3 withObject:?]!= 0;
+    v3 = [MTMaterialSettingsInterpolator performSelector:"performSelector:withObject:" withObject:?]!= 0;
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return [(MTMaterialSettingsInterpolator *)self performSelector:v3 withObject:self->_finalSettings]|| v4;
+  return [MTMaterialSettingsInterpolator performSelector:"performSelector:withObject:" withObject:?]|| v3;
 }
 
 - (BOOL)isTintEnabled
 {
-  if ([(MTMaterialSettingsInterpolator *)self _isTintEnabledWithSettings:self->_initialSettings])
+  if ([(MTMaterialSettingsInterpolator *)self _isTintEnabledWithSettings:?])
   {
     return 1;
   }
 
-  finalSettings = self->_finalSettings;
-
-  return [(MTMaterialSettingsInterpolator *)self _isTintEnabledWithSettings:finalSettings];
+  return [(MTMaterialSettingsInterpolator *)self _isTintEnabledWithSettings:?];
 }
 
 - (BOOL)isBlurAtEnd
@@ -332,12 +318,12 @@ double __47__MTMaterialSettingsInterpolator_backdropScale__block_invoke(double a
 
 - (MTColor)tintColor
 {
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __43__MTMaterialSettingsInterpolator_tintColor__block_invoke;
-  v4[3] = &unk_1E80BDD58;
-  v4[4] = self;
-  v2 = [(MTMaterialSettingsInterpolator *)self _colorWithGetterBlock:v4];
+  v4 = MEMORY[0x1E69E9820];
+  v5 = 3221225472;
+  v6 = __43__MTMaterialSettingsInterpolator_tintColor__block_invoke;
+  v7 = &unk_1E80BDD58;
+  selfCopy = self;
+  v2 = [(MTMaterialSettingsInterpolator *)self _colorWithGetterBlock:?];
 
   return v2;
 }
@@ -382,28 +368,24 @@ double __47__MTMaterialSettingsInterpolator_backdropScale__block_invoke(double a
           if (!MTFloatIsOne(self->_weighting))
           {
             v12 = MEMORY[0x1E696AD98];
-            v13 = [luminanceValues objectAtIndexedSubscript:v9];
+            v13 = [luminanceValues objectAtIndexedSubscript:?];
             [v13 floatValue];
-            v15 = v14;
-            weighting = self->_weighting;
-            v17 = [luminanceValues2 objectAtIndexedSubscript:v9];
-            [v17 floatValue];
-            v19 = v18;
-            v20 = [luminanceValues objectAtIndexedSubscript:v9];
-            [v20 floatValue];
-            v22 = v15 + weighting * (v19 - v21);
+            v14 = [luminanceValues2 objectAtIndexedSubscript:?];
+            [v14 floatValue];
+            v15 = [luminanceValues objectAtIndexedSubscript:?];
+            [v15 floatValue];
 
-            v11 = [v12 numberWithDouble:v22];
+            v11 = [v12 numberWithDouble:?];
             goto LABEL_16;
           }
 
           v10 = luminanceValues2;
         }
 
-        v11 = [v10 objectAtIndexedSubscript:v9];
+        v11 = [v10 objectAtIndexedSubscript:?];
 LABEL_16:
-        v23 = v11;
-        [v8 addObject:v11];
+        v16 = v11;
+        [v8 addObject:?];
 
         if (++v9 == 4)
         {
@@ -414,15 +396,15 @@ LABEL_16:
 
     if (luminanceValues)
     {
-      v24 = luminanceValues;
+      v17 = luminanceValues;
     }
 
     else
     {
-      v24 = luminanceValues2;
+      v17 = luminanceValues2;
     }
 
-    v8 = v24;
+    v8 = v17;
   }
 
   else
@@ -431,16 +413,17 @@ LABEL_16:
   }
 
 LABEL_23:
-  v25 = v8;
+  v18 = v8;
 
   return v8;
 }
 
 uint64_t __63__MTMaterialSettingsInterpolator__filteringProtocolGetterNames__block_invoke()
 {
-  _filteringProtocolGetterNames___filteringProtocolSelectorNames = MTProtocolGetProperties(&unk_1F3E04410, 3);
+  v0 = MTProtocolGetProperties(&unk_1F3E04410, 3);
+  _filteringProtocolGetterNames___filteringProtocolSelectorNames = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (MTMaterialSettingsInterpolator)initWithSettings:(id)settings
@@ -452,7 +435,7 @@ uint64_t __63__MTMaterialSettingsInterpolator__filteringProtocolGetterNames__blo
   v6 = v5;
   if (v5)
   {
-    [(MTMaterialSettingsInterpolator *)v5 setFinalSettings:settingsCopy];
+    [(MTMaterialSettingsInterpolator *)v5 setFinalSettings:?];
   }
 
   return v6;
@@ -468,18 +451,18 @@ uint64_t __63__MTMaterialSettingsInterpolator__filteringProtocolGetterNames__blo
       finalSettings = self->_initialSettings;
     }
 
-    v4 = finalSettings;
-    v5 = [[MTMaterialSettingsInterpolator alloc] initWithSettings:v4];
+    v3 = finalSettings;
+    v4 = [[MTMaterialSettingsInterpolator alloc] initWithSettings:?];
 
-    [(MTMaterialSettingsInterpolator *)v5 setWeighting:self->_previousWeighting];
+    [(MTMaterialSettingsInterpolator *)v4 setWeighting:?];
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)setWeighting:(double)weighting
@@ -492,13 +475,26 @@ uint64_t __63__MTMaterialSettingsInterpolator__filteringProtocolGetterNames__blo
   }
 }
 
+- (BOOL)isBackdropRequiredInitially
+{
+  if (self->_initialSettings)
+  {
+    return [(MTMaterialSettingsInterpolator *)self _isBackdropRequiredWithSettings:?];
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
 - (CAColorMatrix)colorMatrix
 {
-  v4 = [(MTMaterialSettingsInterpolator *)self _propertyValueForProperty:@"colorMatrix" withTransformer:&__block_literal_global_3];
+  v4 = [MTMaterialSettingsInterpolator _propertyValueForProperty:"_propertyValueForProperty:withTransformer:" withTransformer:?];
   if (v4)
   {
     v6 = v4;
-    [v4 CAColorMatrixValue];
+    [(CAColorMatrix *)retstr CAColorMatrixValue];
     v4 = v6;
   }
 
@@ -522,11 +518,11 @@ id __45__MTMaterialSettingsInterpolator_colorMatrix__block_invoke(double a1, uin
   v9 = MEMORY[0x1E696B098];
   if (v6)
   {
-    [v6 CAColorMatrixValue];
+    [(float32x4_t *)v13 CAColorMatrixValue];
     if (v8)
     {
 LABEL_3:
-      [v8 CAColorMatrixValue];
+      [(float32x4_t *)v12 CAColorMatrixValue];
       goto LABEL_6;
     }
   }
@@ -542,7 +538,8 @@ LABEL_3:
 
   memset(v12, 0, sizeof(v12));
 LABEL_6:
-  v10 = [v9 valueWithBytes:v14 objCType:{"{CAColorMatrix=ffffffffffffffffffff}", *MTCAColorMatrixInterpolate(v13, v12, v14, a1).i64}];
+  MTCAColorMatrixInterpolate(v13, v12, v14, a1);
+  v10 = [v9 valueWithBytes:? objCType:?];
 
   return v10;
 }
@@ -550,111 +547,103 @@ LABEL_6:
 - (BOOL)_isPropertyEnabled:(id)enabled consideringWeighting:(BOOL)weighting
 {
   enabledCopy = enabled;
-  enabledCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"_%@WithSettings:", enabledCopy];
-  v9 = NSSelectorFromString(enabledCopy);
+  v8 = [MEMORY[0x1E696AEC0] stringWithFormat:enabledCopy];
+  NSSelectorFromString(v8);
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    [(MTMaterialSettingsInterpolator *)a2 _isPropertyEnabled:enabledCopy consideringWeighting:?];
+    [(MTMaterialSettingsInterpolator *)a2 _isPropertyEnabled:v8 consideringWeighting:?];
   }
 
   if (self->_initialSettings)
   {
-    v10 = [-[MTMaterialSettingsInterpolator performSelector:withObject:](self performSelector:v9) withObject:{"mt_isIdentityValueForMaterialSettingsProperty:", enabledCopy}] ^ 1;
+    v9 = [-[MTMaterialSettingsInterpolator performSelector:withObject:](self "performSelector:"mt_isIdentityValueForMaterialSettingsProperty:" withObject:?")] ^ 1;
   }
 
   else
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(v9) = 0;
   }
 
-  v11 = [-[MTMaterialSettingsInterpolator performSelector:withObject:](self performSelector:v9 withObject:{self->_finalSettings), "mt_isIdentityValueForMaterialSettingsProperty:", enabledCopy}];
+  v10 = [-[MTMaterialSettingsInterpolator performSelector:withObject:](self "performSelector:"mt_isIdentityValueForMaterialSettingsProperty:" withObject:?")];
   weighting = self->_weighting;
-  v13 = !weighting;
-  v14 = weighting < 1.0 || !weighting;
-  v15 = v10 & v14;
+  v12 = !weighting;
+  v13 = weighting < 1.0 || !weighting;
+  v14 = v9 & v13;
   if (weighting > 0.0)
   {
-    v13 = 1;
+    v12 = 1;
   }
 
-  if (v15)
+  if (v14)
   {
-    v13 = v15;
+    v12 = v14;
   }
 
-  if (v11)
+  if (v10)
   {
-    v16 = v15;
+    v15 = v14;
   }
 
   else
   {
-    v16 = v13;
+    v15 = v12;
   }
 
-  return v16;
+  return v15;
 }
 
 - (id)_propertyValueForProperty:(id)property withTransformer:(id)transformer
 {
   propertyCopy = property;
   transformerCopy = transformer;
-  propertyCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"_%@WithSettings:", propertyCopy];
-  v10 = NSSelectorFromString(propertyCopy);
+  v9 = [MEMORY[0x1E696AEC0] stringWithFormat:propertyCopy];
+  NSSelectorFromString(v9);
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    [(MTMaterialSettingsInterpolator *)a2 _propertyValueForProperty:propertyCopy withTransformer:?];
+    [(MTMaterialSettingsInterpolator *)a2 _propertyValueForProperty:v9 withTransformer:?];
   }
 
   if (self->_initialSettings)
   {
-    v11 = [(MTMaterialSettingsInterpolator *)self performSelector:v10 withObject:?];
+    v10 = [MTMaterialSettingsInterpolator performSelector:"performSelector:withObject:" withObject:?];
   }
 
   else
   {
-    v11 = [MEMORY[0x1E696B098] mt_identityValueForMaterialSettingsProperty:propertyCopy];
+    v10 = [MEMORY[0x1E696B098] mt_identityValueForMaterialSettingsProperty:?];
   }
 
-  v12 = v11;
-  v13 = [(MTMaterialSettingsInterpolator *)self performSelector:v10 withObject:self->_finalSettings];
-  v14 = v13;
+  v11 = v10;
+  v12 = [MTMaterialSettingsInterpolator performSelector:"performSelector:withObject:" withObject:?];
+  v13 = v12;
   if (transformerCopy)
   {
-    v15 = transformerCopy[2](transformerCopy, v12, v13, self->_weighting);
+    v14 = transformerCopy[2](transformerCopy, v11, v12, self->_weighting);
   }
 
   else
   {
-    v15 = v13;
+    v14 = v12;
   }
 
-  v16 = v15;
+  v15 = v14;
 
-  return v16;
+  return v15;
 }
 
 - (double)_floatPropertyValueForProperty:(id)property withTransformer:(id)transformer
 {
   transformerCopy = transformer;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __81__MTMaterialSettingsInterpolator__floatPropertyValueForProperty_withTransformer___block_invoke;
-  v13[3] = &unk_1E80BDD80;
-  v15 = a2;
-  v13[4] = self;
-  v8 = transformerCopy;
-  v14 = v8;
-  v9 = [(MTMaterialSettingsInterpolator *)self _propertyValueForProperty:property withTransformer:v13];
+  v6 = [MTMaterialSettingsInterpolator _propertyValueForProperty:"_propertyValueForProperty:withTransformer:" withTransformer:?];
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     [MTMaterialSettingsInterpolator _floatPropertyValueForProperty:withTransformer:];
   }
 
-  [v9 floatValue];
-  v11 = v10;
+  [v6 floatValue];
+  v8 = v7;
 
-  return v11;
+  return v8;
 }
 
 id __81__MTMaterialSettingsInterpolator__floatPropertyValueForProperty_withTransformer___block_invoke(uint64_t a1, void *a2, void *a3, double a4)
@@ -678,16 +667,13 @@ id __81__MTMaterialSettingsInterpolator__floatPropertyValueForProperty_withTrans
 
   else
   {
-    v15 = v11;
     [v8 floatValue];
-    v17 = v16;
     [v7 floatValue];
-    v14 = v15 + a4 * (v17 - v18);
   }
 
-  v19 = [v10 numberWithDouble:v14];
+  v14 = [v10 numberWithDouble:?];
 
-  return v19;
+  return v14;
 }
 
 - (id)_colorWithGetterBlock:(id)block
@@ -719,7 +705,7 @@ id __81__MTMaterialSettingsInterpolator__floatPropertyValueForProperty_withTrans
     v7 = 0.0;
   }
 
-  v8 = [(MTMaterialSettingsInterpolator *)self _tintAlphaWithSettings:self->_finalSettings];
+  v8 = [(MTMaterialSettingsInterpolator *)self _tintAlphaWithSettings:?];
   [v8 doubleValue];
   v10 = v9 * self->_weighting;
   if (self->_initialSettings)
@@ -760,10 +746,10 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v14 = [v11 colorWithAlphaComponent:v7];
-  v15 = [v13 colorWithAlphaComponent:v10];
-  v16 = [v14 colorBlendedWithColor:v15];
-  v17 = [v16 colorWithAlphaComponent:v10];
+  v14 = [v11 colorWithAlphaComponent:?];
+  v15 = [v13 colorWithAlphaComponent:?];
+  v16 = [v14 colorBlendedWithColor:?];
+  v17 = [v16 colorWithAlphaComponent:?];
 
 LABEL_22:
   v19 = v17;
@@ -781,13 +767,10 @@ LABEL_22:
   if (settingsCopy)
   {
     _filteringProtocolGetterNames = [objc_opt_class() _filteringProtocolGetterNames];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __69__MTMaterialSettingsInterpolator__isBackdropRequiredWithSubSettings___block_invoke;
-    v7[3] = &unk_1E80BDDA8;
+    v7 = MEMORY[0x1E69E9820];
     v9 = &v10;
     v8 = settingsCopy;
-    [_filteringProtocolGetterNames enumerateObjectsUsingBlock:v7];
+    [_filteringProtocolGetterNames enumerateObjectsUsingBlock:{v7, 3221225472, __69__MTMaterialSettingsInterpolator__isBackdropRequiredWithSubSettings___block_invoke, &unk_1E80BDDA8}];
 
     v5 = *(v11 + 24);
   }
@@ -805,8 +788,8 @@ LABEL_22:
 void __69__MTMaterialSettingsInterpolator__isBackdropRequiredWithSubSettings___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v9 = a2;
-  v5 = [v9 isEqualToString:@"curvesValues"];
-  v6 = [*(a1 + 32) valueForKey:v9];
+  v5 = [v9 isEqualToString:?];
+  v6 = [*(a1 + 32) valueForKey:?];
   v7 = v6;
   if (v5)
   {
@@ -815,7 +798,7 @@ void __69__MTMaterialSettingsInterpolator__isBackdropRequiredWithSubSettings___b
 
   else
   {
-    v8 = [v6 mt_isIdentityValueForMaterialSettingsProperty:v9] ^ 1;
+    v8 = [v6 mt_isIdentityValueForMaterialSettingsProperty:?] ^ 1;
   }
 
   *(*(*(a1 + 40) + 8) + 24) = v8;
@@ -826,7 +809,7 @@ void __69__MTMaterialSettingsInterpolator__isBackdropRequiredWithSubSettings___b
 - (BOOL)_isBackdropRequiredWithSettings:(id)settings
 {
   baseMaterialSettings = [settings baseMaterialSettings];
-  LOBYTE(self) = [(MTMaterialSettingsInterpolator *)self _isBackdropRequiredWithSubSettings:baseMaterialSettings];
+  LOBYTE(self) = [(MTMaterialSettingsInterpolator *)self _isBackdropRequiredWithSubSettings:?];
 
   return self;
 }
@@ -836,7 +819,7 @@ void __69__MTMaterialSettingsInterpolator__isBackdropRequiredWithSubSettings___b
   if (settings)
   {
     v3 = [(MTMaterialSettingsInterpolator *)self _tintAlphaWithSettings:?];
-    v4 = [v3 mt_isIdentityValueForMaterialSettingsProperty:@"tintAlpha"] ^ 1;
+    v4 = [v3 mt_isIdentityValueForMaterialSettingsProperty:?] ^ 1;
   }
 
   else
@@ -852,7 +835,7 @@ void __69__MTMaterialSettingsInterpolator__isBackdropRequiredWithSubSettings___b
   propertyCopy = property;
   settingsCopy = settings;
   _filteringProtocolGetterNames = [objc_opt_class() _filteringProtocolGetterNames];
-  v8 = [_filteringProtocolGetterNames containsObject:propertyCopy];
+  v8 = [_filteringProtocolGetterNames containsObject:?];
 
   if ((v8 & 1) == 0)
   {
@@ -860,7 +843,7 @@ void __69__MTMaterialSettingsInterpolator__isBackdropRequiredWithSubSettings___b
   }
 
   baseMaterialSettings = [settingsCopy baseMaterialSettings];
-  v10 = [baseMaterialSettings valueForKey:propertyCopy];
+  v10 = [baseMaterialSettings valueForKey:?];
 
   return v10;
 }
@@ -890,16 +873,17 @@ void __69__MTMaterialSettingsInterpolator__isBackdropRequiredWithSubSettings___b
   baseMaterialSettings = [settings baseMaterialSettings];
   if ([baseMaterialSettings tintColor])
   {
-    v6 = +[MTColor colorWithCGColor:](MTColor, "colorWithCGColor:", [baseMaterialSettings tintColor]);
-    v7 = [v6 colorWithAlphaComponent:alpha];
+    [baseMaterialSettings tintColor];
+    v5 = [MTColor colorWithCGColor:?];
+    v6 = [v5 colorWithAlphaComponent:?];
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)_backdropScaleWithSettings:(id)settings
@@ -916,21 +900,22 @@ void __69__MTMaterialSettingsInterpolator__isBackdropRequiredWithSubSettings___b
 {
   v3 = MEMORY[0x1E696AD98];
   baseMaterialSettings = [settings baseMaterialSettings];
-  v5 = [v3 numberWithBool:{objc_msgSend(baseMaterialSettings, "isAverageColorEnabled")}];
+  [baseMaterialSettings isAverageColorEnabled];
+  v5 = [v3 numberWithBool:?];
 
   return v5;
 }
 
 - (id)description
 {
-  v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"<%@: %p final settings: %@", objc_opt_class(), self, self->_finalSettings];;
+  v3 = [MEMORY[0x1E696AD60] stringWithFormat:objc_opt_class(), self, self->_finalSettings];
   v4 = v3;
   if (self->_initialSettings)
   {
-    [v3 appendFormat:@"; initial settings: %@", self->_initialSettings];
+    [v3 appendFormat:self->_initialSettings];
   }
 
-  [v4 appendFormat:@"; weighting: %f>", *&self->_weighting];
+  [v4 appendFormat:*&self->_weighting];
 
   return v4;
 }
@@ -947,19 +932,19 @@ void __69__MTMaterialSettingsInterpolator__isBackdropRequiredWithSubSettings___b
 {
   OUTLINED_FUNCTION_2_0();
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  [currentHandler handleFailureInMethod:v3 object:v2 file:@"MTMaterialSettingsInterpolator.m" lineNumber:179 description:{@"Either 'initialValues' (%@) or 'finalValues' (%@) doesn't have the required number of objects (4)", v1, v0}];
+  [currentHandler handleFailureInMethod:v1 object:v0 file:? lineNumber:? description:?];
 }
 
 - (void)_isPropertyEnabled:(uint64_t)a3 consideringWeighting:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = [MEMORY[0x1E696AAA8] currentHandler];
-  [v6 handleFailureInMethod:a1 object:a2 file:@"MTMaterialSettingsInterpolator.m" lineNumber:224 description:{@"This class doesn't respond to constructed selector '%@'", a3}];
+  v4 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v4 handleFailureInMethod:a3 object:? file:? lineNumber:? description:?];
 }
 
 - (void)_propertyValueForProperty:(uint64_t)a3 withTransformer:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = [MEMORY[0x1E696AAA8] currentHandler];
-  [v6 handleFailureInMethod:a1 object:a2 file:@"MTMaterialSettingsInterpolator.m" lineNumber:236 description:{@"This class doesn't respond to constructed selector '%@'", a3}];
+  v4 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v4 handleFailureInMethod:a3 object:? file:? lineNumber:? description:?];
 }
 
 - (void)_floatPropertyValueForProperty:withTransformer:.cold.1()
@@ -972,8 +957,8 @@ void __69__MTMaterialSettingsInterpolator__isBackdropRequiredWithSubSettings___b
 
 void __81__MTMaterialSettingsInterpolator__floatPropertyValueForProperty_withTransformer___block_invoke_cold_1(uint64_t a1)
 {
-  v2 = [MEMORY[0x1E696AAA8] currentHandler];
-  [v2 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"MTMaterialSettingsInterpolator.m" lineNumber:247 description:{@"Invalid parameter not satisfying: %@", @"(!initialValue || [initialValue respondsToSelector:@selector(floatValue)]) && (!finalValue || [finalValue respondsToSelector:@selector(floatValue)])"}];
+  v1 = [MEMORY[0x1E696AAA8] currentHandler];
+  [v1 handleFailureInMethod:@"(!initialValue || [initialValue respondsToSelector:@selector(floatValue)]) && (!finalValue || [finalValue respondsToSelector:@selector(floatValue)])" object:? file:? lineNumber:? description:?];
 }
 
 - (void)_colorWithGetterBlock:.cold.1()
@@ -988,7 +973,7 @@ void __81__MTMaterialSettingsInterpolator__floatPropertyValueForProperty_withTra
 {
   OUTLINED_FUNCTION_2_0();
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  [currentHandler handleFailureInMethod:v3 object:v2 file:@"MTMaterialSettingsInterpolator.m" lineNumber:285 description:{@"Either 'initialValues' (%@) or 'finalValues' (%@) doesn't have the required number of objects (4)", v1, v0}];
+  [currentHandler handleFailureInMethod:v1 object:v0 file:? lineNumber:? description:?];
 }
 
 - (void)_filteringProperty:withSettings:.cold.1()

@@ -38,7 +38,7 @@
 
 - (id)sendEventForState:(unint64_t)state
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   cameraClip = [(HFCameraAnalyticsEvent *)self cameraClip];
 
   v5 = HFLogForCategory(6uLL);
@@ -47,22 +47,21 @@
   {
     if (v6)
     {
-      v10 = 138412290;
+      v9 = 138412290;
       selfCopy2 = self;
 LABEL_7:
-      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, v7, &v10, 0xCu);
+      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, v7, &v9, 0xCu);
     }
   }
 
   else if (v6)
   {
-    v10 = 138412290;
+    v9 = 138412290;
     selfCopy2 = self;
     v7 = "Unable to send event for %@";
     goto LABEL_7;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return MEMORY[0x277CBEC10];
 }
 

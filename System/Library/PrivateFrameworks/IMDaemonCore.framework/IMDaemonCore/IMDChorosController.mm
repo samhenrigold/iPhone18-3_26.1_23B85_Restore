@@ -320,7 +320,7 @@ LABEL_16:
 
 - (void)sendStewieMessage:(id)message forChat:(id)chat
 {
-  v73[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   chatCopy = chat;
   chatIdentifier = [chatCopy chatIdentifier];
@@ -369,8 +369,8 @@ LABEL_16:
       goto LABEL_60;
     }
 
-    v57 = [(IMDChorosController *)self _isMessageStewieCompatible:messageCopy];
-    if (!v57 && IMOSLoggingEnabled())
+    v56 = [(IMDChorosController *)self _isMessageStewieCompatible:messageCopy];
+    if (!v56 && IMOSLoggingEnabled())
     {
       v15 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
@@ -389,7 +389,7 @@ LABEL_16:
       [messageCopy setTime:date];
     }
 
-    v59 = [IMDChorosController outgoingSequenceNumberDefaultsKeyForService:v9];
+    v58 = [IMDChorosController outgoingSequenceNumberDefaultsKeyForService:v9];
     v19 = IMGetDomainIntForKey();
     if (v19 + 1 <= 0)
     {
@@ -403,7 +403,7 @@ LABEL_16:
 
     IMSetDomainIntForKey();
     [messageCopy setReplaceID:-1];
-    v56 = [IMDChorosController incomingSequenceNumberDefaultsKeyForService:v9];
+    v55 = [IMDChorosController incomingSequenceNumberDefaultsKeyForService:v9];
     [messageCopy setStewieSequenceNumber:IMGetDomainIntForKey()];
     if (IMOSLoggingEnabled())
     {
@@ -421,9 +421,9 @@ LABEL_16:
     }
 
     v24 = [IMDChorosController conversationIDDefaultsKeyForService:v9];
-    v58 = IMGetDomainIntForKey();
+    v57 = IMGetDomainIntForKey();
 
-    v55 = [(IMDChorosController *)self conversationUUIDForConversationID:v58 service:v9];
+    v54 = [(IMDChorosController *)self conversationUUIDForConversationID:v57 service:v9];
     if (v9 == 8)
     {
       chatIdentifier2 = [chatCopy chatIdentifier];
@@ -431,38 +431,38 @@ LABEL_16:
 
       if (v30)
       {
-        v68 = 0;
-        v54 = [objc_alloc(MEMORY[0x277CC3760]) initWithConversationID:v58 providerId:objc_msgSend(v30 sequenceNum:"integerValue") text:v20 error:{string, &v68}];
-        v31 = v68;
+        v67 = 0;
+        v53 = [objc_alloc(MEMORY[0x277CC3760]) initWithConversationID:v57 providerId:objc_msgSend(v30 sequenceNum:"integerValue") text:v20 error:{string, &v67}];
+        v31 = v67;
       }
 
       else
       {
         v38 = MEMORY[0x277CCA9B8];
-        v72 = *MEMORY[0x277CCA450];
-        v73[0] = @"Failed to send message. ProviderId is invalid";
-        v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
+        v71 = *MEMORY[0x277CCA450];
+        v72[0] = @"Failed to send message. ProviderId is invalid";
+        v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
         v31 = [v38 errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:v39];
 
-        v54 = 0;
+        v53 = 0;
       }
 
       v25 = v31;
       if (v31)
       {
 LABEL_26:
-        v53 = v25;
+        v52 = v25;
         v26 = IMLogHandleForCategory();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          v50 = [IMDChorosController nameForService:v9];
-          localizedDescription = [v53 localizedDescription];
+          v49 = [IMDChorosController nameForService:v9];
+          localizedDescription = [v52 localizedDescription];
           *buf = 138412802;
-          *&buf[4] = v50;
+          *&buf[4] = v49;
           *&buf[12] = 2112;
           *&buf[14] = localizedDescription;
           *&buf[22] = 2112;
-          *&buf[24] = v54;
+          *&buf[24] = v53;
           _os_log_error_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_ERROR, "Stewie %@ text message reported error: %@, message: %@", buf, 0x20u);
         }
 
@@ -476,10 +476,10 @@ LABEL_26:
       {
         *buf = xmmword_278706AE0;
         *&buf[16] = *off_278706AF0;
-        v71 = 263;
+        v70 = 263;
         v32 = MEMORY[0x277CCACA8];
         v33 = IMFileLocationTrimFileName();
-        v34 = v71;
+        v34 = v70;
         v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"outgoingSequenceNumberDefaultsKeyForService: Unsupported service type: %lld", v9];
         v36 = [v32 stringWithFormat:@"Unexpected false '%@' in %s at %s:%d. %@", @"NO", "-[IMDChorosController sendStewieMessage:forChat:]", v33, v34, v35];
 
@@ -498,63 +498,45 @@ LABEL_26:
           }
         }
 
+        v52 = 0;
         v53 = 0;
-        v54 = 0;
         goto LABEL_46;
       }
 
-      v69 = 0;
-      v54 = [objc_alloc(MEMORY[0x277CC3740]) initWithConversationID:v58 sequenceNum:v20 emergencyText:string error:&v69];
-      v25 = v69;
+      v68 = 0;
+      v53 = [objc_alloc(MEMORY[0x277CC3740]) initWithConversationID:v57 sequenceNum:v20 emergencyText:string error:&v68];
+      v25 = v68;
       if (v25)
       {
         goto LABEL_26;
       }
     }
 
-    v53 = 0;
+    v52 = 0;
 LABEL_46:
-    [messageCopy setStewieConversationID:v58];
-    [messageCopy setStewieConversationUUID:v55];
+    [messageCopy setStewieConversationID:v57];
+    [messageCopy setStewieConversationUUID:v54];
     [messageCopy setIsStewie:1];
     v41 = +[IMDMessageStore sharedInstance];
-    LOBYTE(v52) = 0;
-    v42 = [v41 storeMessage:messageCopy forceReplace:0 modifyError:0 modifyFlags:1 flagMask:objc_msgSend(messageCopy updateMessageCache:"flags") calculateUnreadCount:{1, v52}];
+    LOBYTE(v51) = 0;
+    v42 = [v41 storeMessage:messageCopy forceReplace:0 modifyError:0 modifyFlags:1 flagMask:objc_msgSend(messageCopy updateMessageCache:"flags") calculateUnreadCount:{1, v51}];
 
     guid = [messageCopy guid];
-    v44 = !v57;
+    v44 = !v56;
     if (!guid)
     {
       v44 = 1;
     }
 
-    if (v44)
+    if ((v44 & 1) != 0 || (-[IMDChorosController _enableEmergencyMode](self, "_enableEmergencyMode"), -[IMDChorosController coreTelephonyStewieClient](self, "coreTelephonyStewieClient"), v45 = objc_claimAutoreleasedReturnValue(), v62[0] = MEMORY[0x277D85DD0], v62[1] = 3221225472, v62[2] = sub_22B63B1B4, v62[3] = &unk_278706B10, v63 = messageCopy, v64 = guid, v65 = self, v66 = v14, v46 = [v45 sendMessage:v53 completion:v62], v45, v66, v64, v63, !v46))
     {
-      goto LABEL_65;
-    }
-
-    [(IMDChorosController *)self _enableEmergencyMode];
-    coreTelephonyStewieClient = [(IMDChorosController *)self coreTelephonyStewieClient];
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = sub_22B63B1B4;
-    v63[3] = &unk_278706B10;
-    v64 = messageCopy;
-    v65 = guid;
-    selfCopy = self;
-    v67 = v14;
-    v46 = [coreTelephonyStewieClient sendMessage:v54 completion:v63];
-
-    if (!v46)
-    {
-LABEL_65:
       if (IMOSLoggingEnabled())
       {
         v48 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          *&buf[4] = v54;
+          *&buf[4] = v53;
           _os_log_impl(&dword_22B4CC000, v48, OS_LOG_TYPE_INFO, "**** Failed sending message (%@)", buf, 0xCu);
         }
       }
@@ -564,8 +546,8 @@ LABEL_65:
       block[2] = sub_22B63B3AC;
       block[3] = &unk_2787038F8;
       block[4] = self;
-      v61 = guid;
-      v62 = v14;
+      v60 = guid;
+      v61 = v14;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
 
@@ -575,12 +557,12 @@ LABEL_65:
       if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *&buf[4] = v54;
+        *&buf[4] = v53;
         _os_log_impl(&dword_22B4CC000, v47, OS_LOG_TYPE_INFO, "Message transmitted to CT: %@", buf, 0xCu);
       }
     }
 
-    v28 = v59;
+    v28 = v58;
 LABEL_60:
 
 LABEL_61:
@@ -594,13 +576,11 @@ LABEL_61:
   }
 
 LABEL_62:
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processMessageSent:(id)sent forSession:(id)session
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   sentCopy = sent;
   sessionCopy = session;
   if (IMOSLoggingEnabled())
@@ -608,21 +588,19 @@ LABEL_62:
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = sentCopy;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "ACK - Sent message for guid: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = sentCopy;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "ACK - Sent message for guid: %@", &v9, 0xCu);
     }
   }
 
   date = [MEMORY[0x277CBEAA8] date];
   [sessionCopy didReceiveMessageDeliveryReceiptForMessageID:sentCopy date:date];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processMessageSendFailure:(id)failure forSession:(id)session
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
   sessionCopy = session;
   if (IMOSLoggingEnabled())
@@ -630,20 +608,18 @@ LABEL_62:
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = failureCopy;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "ACK - Failed to send message for guid: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = failureCopy;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "ACK - Failed to send message for guid: %@", &v8, 0xCu);
     }
   }
 
   [sessionCopy didReceiveError:4 forMessageID:failureCopy forceError:1];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isMessageStewieCompatible:(id)compatible
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   compatibleCopy = compatible;
   v4 = objc_opt_class();
   if ([v4 isEqual:objc_opt_class()])
@@ -660,9 +636,9 @@ LABEL_62:
         {
           fileTransferGUIDs2 = [compatibleCopy fileTransferGUIDs];
           firstObject = [fileTransferGUIDs2 firstObject];
-          v17 = 138412290;
-          v18 = firstObject;
-          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Emergency stewie is not allowed to send a file: %@", &v17, 0xCu);
+          v16 = 138412290;
+          v17 = firstObject;
+          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Emergency stewie is not allowed to send a file: %@", &v16, 0xCu);
         }
 
 LABEL_10:
@@ -672,9 +648,9 @@ LABEL_10:
     else
     {
       payloadData = [compatibleCopy payloadData];
-      v15 = [payloadData length];
+      v14 = [payloadData length];
 
-      if (!v15)
+      if (!v14)
       {
         v11 = 1;
         goto LABEL_12;
@@ -686,9 +662,9 @@ LABEL_10:
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           payloadData2 = [compatibleCopy payloadData];
-          v17 = 138412290;
-          v18 = payloadData2;
-          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Emergency stewie is not allowed to process payload data: %@", &v17, 0xCu);
+          v16 = 138412290;
+          v17 = payloadData2;
+          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Emergency stewie is not allowed to process payload data: %@", &v16, 0xCu);
         }
 
         goto LABEL_10;
@@ -701,10 +677,10 @@ LABEL_10:
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v17 = 138412290;
-      v18 = objc_opt_class();
-      v10 = v18;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Emergency stewie is not of class IMMessageItem: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = objc_opt_class();
+      v10 = v17;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Emergency stewie is not of class IMMessageItem: %@", &v16, 0xCu);
     }
 
     goto LABEL_10;
@@ -713,105 +689,105 @@ LABEL_10:
   v11 = 0;
 LABEL_12:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 + (id)generatePresentationForEmergencyQuestionnaire:(id)questionnaire
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   questionnaireCopy = questionnaire;
   if (questionnaireCopy)
   {
     v4 = questionnaireCopy;
     v5 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:&stru_283F23018];
-    v30 = v4;
-    v33 = [v4 objectForKeyedSubscript:*MEMORY[0x277CC42D8]];
-    if ([v33 length])
+    v32 = v4;
+    v35 = [v4 objectForKeyedSubscript:*MEMORY[0x277CC42D8]];
+    v6 = [v35 length];
+    if (v6)
     {
-      v6 = MEMORY[0x277CCACA8];
-      v7 = IMDaemonCoreBundle();
-      v8 = [v7 __im_localizedStringForKey:@"STEWIE_EMERGENCY_MESSAGE_INFO_LIST" table:@"DaemonCoreLocalizable-SOS"];
-      v9 = [v6 localizedStringWithFormat:v8, v33];
+      v7 = MEMORY[0x277CCACA8];
+      v8 = IMDaemonCoreBundle(v6);
+      v9 = [v8 __im_localizedStringForKey:@"STEWIE_EMERGENCY_MESSAGE_INFO_LIST" table:@"DaemonCoreLocalizable-SOS"];
+      v10 = [v7 localizedStringWithFormat:v9, v35];
 
-      v10 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v9];
-      [v5 appendAttributedString:v10];
-
-      v11 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n\n"];
+      v11 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v10];
       [v5 appendAttributedString:v11];
+
+      v12 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n\n"];
+      [v5 appendAttributedString:v12];
     }
 
     else
     {
       if (IMOSLoggingEnabled())
       {
-        v13 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v15 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "No emergency type provided", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "No emergency type provided", buf, 2u);
         }
       }
 
-      v14 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n"];
-      [v5 appendAttributedString:v14];
+      v16 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n"];
+      [v5 appendAttributedString:v16];
     }
 
-    v15 = IMDaemonCoreBundle();
-    v31 = [v15 __im_localizedStringForKey:@"STEWIE_EMERGENCY_MESSAGE_INFO" table:@"DaemonCoreLocalizable-SOS"];
+    v17 = IMDaemonCoreBundle(v13);
+    v33 = [v17 __im_localizedStringForKey:@"STEWIE_EMERGENCY_MESSAGE_INFO" table:@"DaemonCoreLocalizable-SOS"];
 
-    v34 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v31];
-    v16 = [v34 length];
-    [v34 addAttribute:*MEMORY[0x277D196A8] value:@"boldValue" range:{0, v16}];
-    [v5 appendAttributedString:v34];
-    v32 = [v30 objectForKeyedSubscript:*MEMORY[0x277CC42E0]];
-    if ([v32 count])
+    v36 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v33];
+    v18 = [v36 length];
+    [v36 addAttribute:*MEMORY[0x277D196A8] value:@"boldValue" range:{0, v18}];
+    [v5 appendAttributedString:v36];
+    v34 = [v32 objectForKeyedSubscript:*MEMORY[0x277CC42E0]];
+    if ([v34 count])
     {
+      v40 = 0u;
+      v41 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v36 = 0u;
-      v37 = 0u;
-      obj = v32;
-      v17 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
-      if (v17)
+      obj = v34;
+      v19 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      if (v19)
       {
-        v18 = *v37;
+        v20 = *v39;
         do
         {
-          for (i = 0; i != v17; ++i)
+          for (i = 0; i != v19; ++i)
           {
-            if (*v37 != v18)
+            if (*v39 != v20)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v36 + 1) + 8 * i);
-            v21 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n"];
-            [v5 appendAttributedString:v21];
+            v22 = *(*(&v38 + 1) + 8 * i);
+            v23 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n"];
+            [v5 appendAttributedString:v23];
 
-            v22 = MEMORY[0x277CCACA8];
-            v23 = IMDaemonCoreBundle();
-            v24 = [v23 __im_localizedStringForKey:@"STEWIE_EMERGENCY_MESSAGE_INFO_LIST" table:@"DaemonCoreLocalizable-SOS"];
-            v25 = [v22 localizedStringWithFormat:v24, v20];
+            v24 = MEMORY[0x277CCACA8];
+            v26 = IMDaemonCoreBundle(v25);
+            v27 = [v26 __im_localizedStringForKey:@"STEWIE_EMERGENCY_MESSAGE_INFO_LIST" table:@"DaemonCoreLocalizable-SOS"];
+            v28 = [v24 localizedStringWithFormat:v27, v22];
 
-            v26 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v25];
-            [v5 appendAttributedString:v26];
+            v29 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v28];
+            [v5 appendAttributedString:v29];
           }
 
-          v17 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v19 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
         }
 
-        while (v17);
+        while (v19);
       }
 
-      v27 = [objc_alloc(MEMORY[0x277CCA898]) initWithAttributedString:v5];
-      __im_attributedStringByAssigningMessagePartNumbers = [v27 __im_attributedStringByAssigningMessagePartNumbers];
+      v30 = [objc_alloc(MEMORY[0x277CCA898]) initWithAttributedString:v5];
+      __im_attributedStringByAssigningMessagePartNumbers = [v30 __im_attributedStringByAssigningMessagePartNumbers];
     }
 
     else
     {
-      v27 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v30 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         sub_22B7D7498();
       }
@@ -819,7 +795,7 @@ LABEL_12:
       __im_attributedStringByAssigningMessagePartNumbers = 0;
     }
 
-    questionnaireCopy = v30;
+    questionnaireCopy = v32;
   }
 
   else
@@ -827,106 +803,105 @@ LABEL_12:
     __im_attributedStringByAssigningMessagePartNumbers = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return __im_attributedStringByAssigningMessagePartNumbers;
 }
 
 + (id)generatePresentationForRoadsideQuestionnaire:(id)questionnaire
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   questionnaireCopy = questionnaire;
   if (questionnaireCopy)
   {
     v3 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:&stru_283F23018];
     v4 = +[IMDChorosController reportTypeKey];
-    v31 = [questionnaireCopy objectForKeyedSubscript:v4];
+    v33 = [questionnaireCopy objectForKeyedSubscript:v4];
 
-    if ([v31 length])
+    v5 = [v33 length];
+    if (v5)
     {
-      v5 = MEMORY[0x277CCACA8];
-      v6 = IMDaemonCoreBundle();
-      v7 = [v6 __im_localizedStringForKey:@"STEWIE_ROADSIDE_MESSAGE_INFO_LIST" table:@"DaemonCoreLocalizable-Avocet"];
-      v8 = [v5 localizedStringWithFormat:v7, v31];
+      v6 = MEMORY[0x277CCACA8];
+      v7 = IMDaemonCoreBundle(v5);
+      v8 = [v7 __im_localizedStringForKey:@"STEWIE_ROADSIDE_MESSAGE_INFO_LIST" table:@"DaemonCoreLocalizable-Avocet"];
+      v9 = [v6 localizedStringWithFormat:v8, v33];
 
-      v9 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v8];
-      [v3 appendAttributedString:v9];
-
-      v10 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n\n"];
+      v10 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v9];
       [v3 appendAttributedString:v10];
+
+      v11 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n\n"];
+      [v3 appendAttributedString:v11];
     }
 
     else
     {
       if (IMOSLoggingEnabled())
       {
-        v12 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v14 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "No roadside type provided", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "No roadside type provided", buf, 2u);
         }
       }
 
-      v13 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n"];
-      [v3 appendAttributedString:v13];
+      v15 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n"];
+      [v3 appendAttributedString:v15];
     }
 
-    v14 = IMDaemonCoreBundle();
-    v29 = [v14 __im_localizedStringForKey:@"STEWIE_ROADSIDE_MESSAGE_INFO" table:@"DaemonCoreLocalizable-Avocet"];
+    v16 = IMDaemonCoreBundle(v12);
+    v31 = [v16 __im_localizedStringForKey:@"STEWIE_ROADSIDE_MESSAGE_INFO" table:@"DaemonCoreLocalizable-Avocet"];
 
-    v32 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v29];
-    v15 = [v32 length];
-    [v32 addAttribute:*MEMORY[0x277D196A8] value:@"boldValue" range:{0, v15}];
-    [v3 appendAttributedString:v32];
-    v30 = [questionnaireCopy objectForKeyedSubscript:*MEMORY[0x277CC42E0]];
-    if ([v30 count])
+    v34 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v31];
+    v17 = [v34 length];
+    [v34 addAttribute:*MEMORY[0x277D196A8] value:@"boldValue" range:{0, v17}];
+    [v3 appendAttributedString:v34];
+    v32 = [questionnaireCopy objectForKeyedSubscript:*MEMORY[0x277CC42E0]];
+    if ([v32 count])
     {
+      v39 = 0u;
+      v40 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v35 = 0u;
-      v36 = 0u;
-      obj = v30;
-      v16 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
-      if (v16)
+      obj = v32;
+      v18 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+      if (v18)
       {
-        v17 = *v36;
+        v19 = *v38;
         do
         {
-          for (i = 0; i != v16; ++i)
+          for (i = 0; i != v18; ++i)
           {
-            if (*v36 != v17)
+            if (*v38 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v35 + 1) + 8 * i);
-            v20 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n"];
-            [v3 appendAttributedString:v20];
+            v21 = *(*(&v37 + 1) + 8 * i);
+            v22 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n"];
+            [v3 appendAttributedString:v22];
 
-            v21 = MEMORY[0x277CCACA8];
-            v22 = IMDaemonCoreBundle();
-            v23 = [v22 __im_localizedStringForKey:@"STEWIE_ROADSIDE_MESSAGE_INFO_LIST" table:@"DaemonCoreLocalizable-Avocet"];
-            v24 = [v21 localizedStringWithFormat:v23, v19];
+            v23 = MEMORY[0x277CCACA8];
+            v25 = IMDaemonCoreBundle(v24);
+            v26 = [v25 __im_localizedStringForKey:@"STEWIE_ROADSIDE_MESSAGE_INFO_LIST" table:@"DaemonCoreLocalizable-Avocet"];
+            v27 = [v23 localizedStringWithFormat:v26, v21];
 
-            v25 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v24];
-            [v3 appendAttributedString:v25];
+            v28 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v27];
+            [v3 appendAttributedString:v28];
           }
 
-          v16 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v18 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
         }
 
-        while (v16);
+        while (v18);
       }
 
-      v26 = [objc_alloc(MEMORY[0x277CCA898]) initWithAttributedString:v3];
-      __im_attributedStringByAssigningMessagePartNumbers = [v26 __im_attributedStringByAssigningMessagePartNumbers];
+      v29 = [objc_alloc(MEMORY[0x277CCA898]) initWithAttributedString:v3];
+      __im_attributedStringByAssigningMessagePartNumbers = [v29 __im_attributedStringByAssigningMessagePartNumbers];
     }
 
     else
     {
-      v26 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v29 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         sub_22B7D74D4();
       }
@@ -939,8 +914,6 @@ LABEL_12:
   {
     __im_attributedStringByAssigningMessagePartNumbers = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return __im_attributedStringByAssigningMessagePartNumbers;
 }
@@ -1062,7 +1035,7 @@ LABEL_12:
 {
   if (service == 8)
   {
-    v4 = IMDaemonCoreBundle();
+    v4 = IMDaemonCoreBundle(self);
     v5 = v4;
     v6 = @"STEWIE_ROADSIDE_MESSAGE_SUBJECT";
     v7 = @"DaemonCoreLocalizable-Avocet";
@@ -1071,7 +1044,7 @@ LABEL_12:
 
   if (service == 1)
   {
-    v4 = IMDaemonCoreBundle();
+    v4 = IMDaemonCoreBundle(self);
     v5 = v4;
     v6 = @"STEWIE_EMERGENCY_MESSAGE_SUBJECT";
     v7 = @"DaemonCoreLocalizable-SOS";
@@ -1109,9 +1082,9 @@ LABEL_12:
 
 - (void)updateChatPropertiesIfRequiredForEmergencyChat:(id)chat
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
-  v4 = IMDaemonCoreBundle();
+  v4 = IMDaemonCoreBundle(chatCopy);
   v5 = [v4 __im_localizedStringForKey:@"STEWIE_EMERGENCY_DISPLAY_NAME" table:@"DaemonCoreLocalizable-SOS"];
 
   displayName = [chatCopy displayName];
@@ -1124,23 +1097,21 @@ LABEL_12:
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v10 = 138412546;
-        v11 = chatCopy;
-        v12 = 2112;
-        v13 = v5;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Updating chat: %@ display name to: %@", &v10, 0x16u);
+        v9 = 138412546;
+        v10 = chatCopy;
+        v11 = 2112;
+        v12 = v5;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Updating chat: %@ display name to: %@", &v9, 0x16u);
       }
     }
 
     [chatCopy updateDisplayName:v5];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateChatPropertiesIfRequiredForRoadsideChat:(id)chat
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   chatIdentifier = [chatCopy chatIdentifier];
   v6 = [(IMDChorosController *)self roadsideProviderForChatIdentifier:chatIdentifier];
@@ -1148,7 +1119,7 @@ LABEL_12:
   providerName = [v6 providerName];
   if (!providerName)
   {
-    v8 = IMDaemonCoreBundle();
+    v8 = IMDaemonCoreBundle(0);
     providerName = [v8 __im_localizedStringForKey:@"STEWIE_ROADSIDE_FALLBACK_DISPLAY_NAME" table:@"DaemonCoreLocalizable-Avocet"];
   }
 
@@ -1162,11 +1133,11 @@ LABEL_12:
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v17 = 138412546;
-        v18 = chatCopy;
-        v19 = 2112;
-        v20 = providerName;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Updating chat: %@ display name to: %@", &v17, 0x16u);
+        v16 = 138412546;
+        v17 = chatCopy;
+        v18 = 2112;
+        v19 = providerName;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Updating chat: %@ display name to: %@", &v16, 0x16u);
       }
     }
 
@@ -1186,19 +1157,17 @@ LABEL_12:
         v15 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v17 = 138412546;
-          v18 = chatCopy;
-          v19 = 2112;
-          v20 = bizId;
-          _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Updating chat: %@ associated business ID to: %@", &v17, 0x16u);
+          v16 = 138412546;
+          v17 = chatCopy;
+          v18 = 2112;
+          v19 = bizId;
+          _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Updating chat: %@ associated business ID to: %@", &v16, 0x16u);
         }
       }
 
       [chatCopy updateAssociatedBusinessID:bizId];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateChatPropertiesIfRequiredForChat:(id)chat service:(int64_t)service
@@ -1240,7 +1209,7 @@ LABEL_12:
 
 - (void)sendQuestionnaire:(id)questionnaire
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   questionnaireCopy = questionnaire;
   if (questionnaireCopy)
   {
@@ -1267,7 +1236,7 @@ LABEL_12:
       {
         v9 = [IMDChorosController nameForService:integerValue];
         *buf = 138412290;
-        v88 = v9;
+        v87 = v9;
         _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "sendQuestionnaire: invoked for service type: %@", buf, 0xCu);
       }
     }
@@ -1290,10 +1259,10 @@ LABEL_12:
     }
 
     v13 = [questionnaireCopy objectForKeyedSubscript:*MEMORY[0x277CC4300]];
-    v74 = [IMDChorosController generatePresentationForStewieQuestionnaire:v13 forService:integerValue];
+    v73 = [IMDChorosController generatePresentationForStewieQuestionnaire:v13 forService:integerValue];
 
-    v14 = v74;
-    if (!v74)
+    v14 = v73;
+    if (!v73)
     {
 LABEL_83:
 
@@ -1301,8 +1270,8 @@ LABEL_84:
       goto LABEL_85;
     }
 
-    v72 = [questionnaireCopy objectForKey:*MEMORY[0x277CC42D0]];
-    if (!v72)
+    v71 = [questionnaireCopy objectForKey:*MEMORY[0x277CC42D0]];
+    if (!v71)
     {
       v15 = IMLogHandleForCategory();
       v17 = v15;
@@ -1310,7 +1279,7 @@ LABEL_84:
       {
 LABEL_82:
 
-        v14 = v74;
+        v14 = v73;
         goto LABEL_83;
       }
 
@@ -1322,7 +1291,7 @@ LABEL_36:
 
     if (integerValue == 1)
     {
-      v71 = +[IMDChorosController chatIdentifierForEmergency];
+      v70 = +[IMDChorosController chatIdentifierForEmergency];
       v15 = 0;
     }
 
@@ -1356,13 +1325,13 @@ LABEL_33:
         goto LABEL_36;
       }
 
-      v71 = [IMDChorosController chatIdentifierForRoadside:[v18 integerValue]];
+      v70 = [IMDChorosController chatIdentifierForRoadside:[v18 integerValue]];
     }
 
-    if (v71)
+    if (v70)
     {
-      v67 = v15;
-      integerValue2 = [v72 integerValue];
+      v66 = v15;
+      integerValue2 = [v71 integerValue];
       if (integerValue2 < 0)
       {
         defaultCenter = IMLogHandleForCategory();
@@ -1380,7 +1349,7 @@ LABEL_33:
           if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
           {
             *buf = 134217984;
-            v88 = integerValue2;
+            v87 = integerValue2;
             _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Conversation ID: %ld", buf, 0xCu);
           }
         }
@@ -1398,10 +1367,10 @@ LABEL_33:
         [defaultCenter __mainThreadPostNotificationName:*MEMORY[0x277D1A6F0] object:0];
       }
 
-      v86 = 0;
-      v69 = [IMDChorosController generateCTStewieStartMessage:questionnaireCopy forService:integerValue error:&v86];
-      v64 = v86;
-      if (v64 || !v69)
+      v85 = 0;
+      v68 = [IMDChorosController generateCTStewieStartMessage:questionnaireCopy forService:integerValue error:&v85];
+      v63 = v85;
+      if (v63 || !v68)
       {
         v24 = IMLogHandleForCategory();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -1417,22 +1386,22 @@ LABEL_33:
         {
           v26 = [IMDChorosController nameForService:integerValue];
           *buf = 138412290;
-          v88 = v26;
+          v87 = v26;
           _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "Sending %@ start message to CT", buf, 0xCu);
         }
       }
 
       date = [MEMORY[0x277CBEAA8] date];
-      v66 = StringGUID();
-      v73 = [objc_alloc(MEMORY[0x277D1AA70]) initWithSender:v71 time:date body:v74 attributes:0 fileTransferGUIDs:0 flags:0x200000005 error:0 guid:v66 threadIdentifier:0];
-      v27 = [(IMDChorosController *)selfCopy _createChatIfNecessary:v12 chatIdentifier:v71 service:integerValue];
+      v65 = StringGUID();
+      v72 = [objc_alloc(MEMORY[0x277D1AA70]) initWithSender:v70 time:date body:v73 attributes:0 fileTransferGUIDs:0 flags:0x200000005 error:0 guid:v65 threadIdentifier:0];
+      v27 = [(IMDChorosController *)selfCopy _createChatIfNecessary:v12 chatIdentifier:v70 service:integerValue];
       v28 = +[IMDChatRegistry sharedInstance];
       account = [v12 account];
-      v70 = [v28 existingChatWithIdentifier:v71 account:account];
+      v69 = [v28 existingChatWithIdentifier:v70 account:account];
 
       if (!v27)
       {
-        [(IMDChorosController *)selfCopy updateChatPropertiesIfRequiredForChat:v70 service:integerValue];
+        [(IMDChorosController *)selfCopy updateChatPropertiesIfRequiredForChat:v69 service:integerValue];
       }
 
       if (integerValue == 1)
@@ -1463,7 +1432,7 @@ LABEL_33:
           if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
           {
             *buf = 134217984;
-            v88 = integerValue3;
+            v87 = integerValue3;
             _os_log_impl(&dword_22B4CC000, v35, OS_LOG_TYPE_INFO, "Transcript sharing off: %ld", buf, 0xCu);
           }
         }
@@ -1471,7 +1440,7 @@ LABEL_33:
 
       v34 = 0;
 LABEL_62:
-      [v70 updateEmergencyTranscriptSharingStateChatProperty:v34];
+      [v69 updateEmergencyTranscriptSharingStateChatProperty:v34];
       uUID = [MEMORY[0x277CCAD78] UUID];
       [(IMDChorosController *)selfCopy setConversationUUID:uUID forConversationID:integerValue2 service:integerValue];
       v36 = [IMDChorosController outgoingSequenceNumberDefaultsKeyForService:integerValue];
@@ -1480,35 +1449,35 @@ LABEL_62:
       v37 = [IMDChorosController incomingSequenceNumberDefaultsKeyForService:integerValue];
       IMSetDomainIntForKey();
 
-      lastAddressedLocalHandle = [v70 lastAddressedLocalHandle];
+      lastAddressedLocalHandle = [v69 lastAddressedLocalHandle];
       if (!lastAddressedLocalHandle)
       {
         lastAddressedLocalHandle = [(IMDChorosController *)selfCopy _simNumber];
       }
 
-      v63 = lastAddressedLocalHandle;
-      [v73 setDestinationCallerID:?];
+      v62 = lastAddressedLocalHandle;
+      [v72 setDestinationCallerID:?];
       accountID = [v12 accountID];
-      [v73 setAccountID:accountID];
+      [v72 setAccountID:accountID];
 
-      [v73 setIsStewie:1];
-      [v73 setService:*v11];
-      [v73 setHandle:v71];
-      [v73 setReplaceID:-1];
-      [v73 setStewieConversationID:integerValue2];
-      [v73 setStewieConversationUUID:uUID];
+      [v72 setIsStewie:1];
+      [v72 setService:*v11];
+      [v72 setHandle:v70];
+      [v72 setReplaceID:-1];
+      [v72 setStewieConversationID:integerValue2];
+      [v72 setStewieConversationUUID:uUID];
       v40 = [IMDChorosController chatSubjectForService:integerValue];
-      [v73 setSubject:v40];
+      [v72 setSubject:v40];
 
       v41 = +[IMDMessageStore sharedInstance];
-      LOBYTE(v62) = 0;
-      v42 = [v41 storeMessage:v73 forceReplace:0 modifyError:0 modifyFlags:1 flagMask:0x200000005 updateMessageCache:1 calculateUnreadCount:v62];
+      LOBYTE(v61) = 0;
+      v42 = [v41 storeMessage:v72 forceReplace:0 modifyError:0 modifyFlags:1 flagMask:0x200000005 updateMessageCache:1 calculateUnreadCount:v61];
 
       v43 = +[IMDChatRegistry sharedInstance];
-      [v43 addMessage:v73 toChat:v70];
+      [v43 addMessage:v72 toChat:v69];
 
       v44 = +[IMDChatRegistry sharedInstance];
-      [v44 updateStateForChat:v70 hintMessage:v73 shouldRebuildFailedMessageDate:1 shouldCalculateUnreadCount:0];
+      [v44 updateStateForChat:v69 hintMessage:v72 shouldRebuildFailedMessageDate:1 shouldCalculateUnreadCount:0];
 
       [(IMDChorosController *)selfCopy _enableEmergencyMode];
       if (IMOSLoggingEnabled())
@@ -1517,7 +1486,7 @@ LABEL_62:
         if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v88 = v71;
+          v87 = v70;
           _os_log_impl(&dword_22B4CC000, v45, OS_LOG_TYPE_INFO, "Will broadcast initialEmergencyQuestionnaireReceived for chatIdentifier: %@", buf, 0xCu);
         }
       }
@@ -1525,32 +1494,32 @@ LABEL_62:
       broadcasterForChatListeners = [v12 broadcasterForChatListeners];
       account2 = [v12 account];
       accountID2 = [account2 accountID];
-      chatProperties = [v70 chatProperties];
-      groupID = [v70 groupID];
-      personCentricID = [v70 personCentricID];
-      [broadcasterForChatListeners account:accountID2 chat:v71 style:45 chatProperties:chatProperties groupID:groupID chatPersonCentricID:personCentricID initialEmergencyQuestionnaireReceived:v73];
+      chatProperties = [v69 chatProperties];
+      groupID = [v69 groupID];
+      personCentricID = [v69 personCentricID];
+      [broadcasterForChatListeners account:accountID2 chat:v70 style:45 chatProperties:chatProperties groupID:groupID chatPersonCentricID:personCentricID initialEmergencyQuestionnaireReceived:v72];
 
       if ((IMIsRunningInUnitTesting() & 1) == 0 && [IMDChorosController needToOpenChatForService:integerValue questionnaireDictionary:questionnaireCopy])
       {
-        [(IMDChorosController *)selfCopy _openStewieChatWithChatIdentifier:v71 keepTranscriptStatus:0];
+        [(IMDChorosController *)selfCopy _openStewieChatWithChatIdentifier:v70 keepTranscriptStatus:0];
       }
 
       coreTelephonyStewieClient = [(IMDChorosController *)selfCopy coreTelephonyStewieClient];
-      v79[0] = MEMORY[0x277D85DD0];
-      v79[1] = 3221225472;
-      v79[2] = sub_22B63D948;
-      v79[3] = &unk_278706BD8;
-      v53 = v73;
-      v80 = v53;
-      v54 = v66;
-      v81 = v54;
-      v82 = selfCopy;
+      v78[0] = MEMORY[0x277D85DD0];
+      v78[1] = 3221225472;
+      v78[2] = sub_22B63D948;
+      v78[3] = &unk_278706BD8;
+      v53 = v72;
+      v79 = v53;
+      v54 = v65;
+      v80 = v54;
+      v81 = selfCopy;
       v55 = v12;
-      v83 = v55;
-      v85 = integerValue;
-      v56 = v67;
-      v84 = v56;
-      v57 = [coreTelephonyStewieClient sendMessage:v69 completion:v79];
+      v82 = v55;
+      v84 = integerValue;
+      v56 = v66;
+      v83 = v56;
+      v57 = [coreTelephonyStewieClient sendMessage:v68 completion:v78];
 
       v58 = IMOSLoggingEnabled();
       if (v57)
@@ -1561,7 +1530,7 @@ LABEL_62:
           if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v88 = v69;
+            v87 = v68;
             _os_log_impl(&dword_22B4CC000, v59, OS_LOG_TYPE_INFO, "Message transmitted to CT: %@", buf, 0xCu);
           }
         }
@@ -1575,7 +1544,7 @@ LABEL_62:
           if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v88 = v69;
+            v87 = v68;
             _os_log_impl(&dword_22B4CC000, v60, OS_LOG_TYPE_INFO, "**** Failed sending start Stewie message (%@)", buf, 0xCu);
           }
         }
@@ -1585,12 +1554,12 @@ LABEL_62:
         block[2] = sub_22B63DC4C;
         block[3] = &unk_2787038F8;
         block[4] = selfCopy;
-        v77 = v54;
-        v78 = v55;
+        v76 = v54;
+        v77 = v55;
         dispatch_async(MEMORY[0x277D85CD0], block);
       }
 
-      v17 = v71;
+      v17 = v70;
       goto LABEL_82;
     }
 
@@ -1604,8 +1573,6 @@ LABEL_62:
   }
 
 LABEL_85:
-
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendEmergencyQuestionnaire:(id)questionnaire
@@ -1619,7 +1586,7 @@ LABEL_85:
 
 - (void)stopTranscriptSharingWithChat:(id)chat
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   if (IMOSLoggingEnabled())
   {
@@ -1636,9 +1603,9 @@ LABEL_85:
 
   if (v6)
   {
-    v23 = 0;
-    v21 = [objc_alloc(MEMORY[0x277CC3730]) initWithNotifyOption:1 error:&v23];
-    v7 = v23;
+    v22 = 0;
+    v20 = [objc_alloc(MEMORY[0x277CC3730]) initWithNotifyOption:1 error:&v22];
+    v7 = v22;
     if (v7)
     {
       v8 = IMLogHandleForCategory();
@@ -1648,7 +1615,7 @@ LABEL_85:
       }
     }
 
-    v20 = [(IMDChorosController *)self _generateStopTranscriptSharingStatusItemForChat:chatCopy];
+    v19 = [(IMDChorosController *)self _generateStopTranscriptSharingStatusItemForChat:chatCopy];
     [(IMDChorosController *)self _enableEmergencyMode];
     broadcasterForChatListeners = [v6 broadcasterForChatListeners];
     account = [v6 account];
@@ -1657,10 +1624,10 @@ LABEL_85:
     chatProperties = [chatCopy chatProperties];
     groupID = [chatCopy groupID];
     personCentricID = [chatCopy personCentricID];
-    [broadcasterForChatListeners account:accountID chat:v12 style:45 chatProperties:chatProperties groupID:groupID chatPersonCentricID:personCentricID messageReceived:v20];
+    [broadcasterForChatListeners account:accountID chat:v12 style:45 chatProperties:chatProperties groupID:groupID chatPersonCentricID:personCentricID messageReceived:v19];
 
     coreTelephonyStewieClient = [(IMDChorosController *)self coreTelephonyStewieClient];
-    LODWORD(personCentricID) = [coreTelephonyStewieClient sendMessage:v21 completion:&unk_283F1A888];
+    LODWORD(personCentricID) = [coreTelephonyStewieClient sendMessage:v20 completion:&unk_283F1A888];
 
     v17 = IMOSLoggingEnabled();
     if (personCentricID)
@@ -1671,7 +1638,7 @@ LABEL_85:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v25 = v21;
+          v24 = v20;
           _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Message transmitted to CT: %@", buf, 0xCu);
         }
 
@@ -1685,7 +1652,7 @@ LABEL_20:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v25 = v21;
+        v24 = v20;
         _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "**** Failed sending message (%@)", buf, 0xCu);
       }
 
@@ -1702,13 +1669,11 @@ LABEL_20:
   }
 
 LABEL_22:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processReceivedTextMessageForService:(int64_t)service chatIdentifier:(id)identifier conversationID:(int64_t)d sequenceNum:(int64_t)num text:(id)text
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   textCopy = text;
   if ([IMDChorosController supportsService:service])
@@ -1765,9 +1730,9 @@ LABEL_22:
 
     [(IMDChorosController *)self _createChatIfNecessary:v16 chatIdentifier:identifierCopy service:service];
     [v22 setStewieSequenceNumber:numCopy];
-    v40 = [(IMDChorosController *)self conversationUUIDForConversationID:dCopy service:service];
+    v39 = [(IMDChorosController *)self conversationUUIDForConversationID:dCopy service:service];
     v23 = [IMDChorosController incomingSequenceNumberDefaultsKeyForService:service];
-    v39 = v22;
+    v38 = v22;
     v24 = IMGetDomainIntForKey();
 
     if (v24 < numCopy)
@@ -1829,9 +1794,9 @@ LABEL_22:
           if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
           {
             *buf = 134218240;
-            v46 = dCopy;
-            v47 = 2048;
-            v48 = numCopy;
+            v45 = dCopy;
+            v46 = 2048;
+            v47 = numCopy;
             _os_log_impl(&dword_22B4CC000, v33, OS_LOG_TYPE_INFO, "Message has the same text, conversation ID: %lld and sequence number: %lld", buf, 0x16u);
           }
 
@@ -1851,19 +1816,19 @@ LABEL_22:
     }
 
     string = [(IMDChorosController *)self _simNumber];
-    [v39 setDestinationCallerID:string];
+    [v38 setDestinationCallerID:string];
     accountID = [v16 accountID];
-    [v39 setAccountID:accountID];
+    [v38 setAccountID:accountID];
 
-    [v39 setIsStewie:1];
-    [v39 setReplaceID:numCopy];
-    [v39 setStewieConversationID:dCopy];
-    [v39 setStewieConversationUUID:v40];
+    [v38 setIsStewie:1];
+    [v38 setReplaceID:numCopy];
+    [v38 setStewieConversationID:dCopy];
+    [v38 setStewieConversationUUID:v39];
     [(IMDChorosController *)self _enableEmergencyMode];
     mEMORY[0x277D1AA78]2 = [MEMORY[0x277D1AA78] sharedInstance];
     [mEMORY[0x277D1AA78]2 sendNotificationMessageIfNeededForIncomingMessageFromChatIdentifier:identifierCopy];
 
-    [v16 didReceiveMessage:v39 forChat:identifierCopy style:45 fromIDSID:0];
+    [v16 didReceiveMessage:v38 forChat:identifierCopy style:45 fromIDSID:0];
     if (!IMOSLoggingEnabled())
     {
 LABEL_45:
@@ -1877,11 +1842,11 @@ LABEL_46:
     {
       v37 = [IMDChorosController nameForService:service];
       *buf = 138412802;
-      v46 = v37;
-      v47 = 2048;
-      v48 = dCopy;
-      v49 = 2048;
-      v50 = numCopy;
+      v45 = v37;
+      v46 = 2048;
+      v47 = dCopy;
+      v48 = 2048;
+      v49 = numCopy;
       _os_log_impl(&dword_22B4CC000, v33, OS_LOG_TYPE_INFO, "Session received Stewie %@ text message with Conversation ID: %lld, sequence number: %lld", buf, 0x20u);
     }
 
@@ -1897,25 +1862,21 @@ LABEL_44:
   }
 
 LABEL_47:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationUpdateSent
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v3 = +[IMDChorosController serviceTypeKey];
-  v6 = v3;
-  v7[0] = &unk_283F4EB40;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = v3;
+  v6[0] = &unk_283F4EB40;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [(IMDChorosController *)self locationUpdateDelivered:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationUpdateDelivered:(id)delivered
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   deliveredCopy = delivered;
   v5 = +[IMDChorosController serviceTypeKey];
   v6 = [deliveredCopy objectForKeyedSubscript:v5];
@@ -1978,32 +1939,32 @@ LABEL_47:
     if (v11)
     {
       v14 = [(IMDChorosController *)self _createChatIfNecessary:v10 chatIdentifier:v11 service:integerValue];
-      v25 = [v10 chatForChatIdentifier:v11 style:45 updatingAccount:1];
+      v24 = [v10 chatForChatIdentifier:v11 style:45 updatingAccount:1];
       if (IMOSLoggingEnabled())
       {
         v15 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v27 = v25;
+          v26 = v24;
           _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Location sent with chat %@", buf, 0xCu);
         }
       }
 
       if (!v14)
       {
-        [(IMDChorosController *)self updateChatPropertiesIfRequiredForChat:v25 service:integerValue];
+        [(IMDChorosController *)self updateChatPropertiesIfRequiredForChat:v24 service:integerValue];
       }
 
-      v24 = [(IMDChorosController *)self _generateLocationUpdateSentStatusItemForChat:v25];
+      v23 = [(IMDChorosController *)self _generateLocationUpdateSentStatusItemForChat:v24];
       [(IMDChorosController *)self _enableEmergencyMode];
       broadcasterForChatListeners = [v10 broadcasterForChatListeners];
       account = [v10 account];
       accountID = [account accountID];
-      chatProperties = [v25 chatProperties];
-      groupID = [v25 groupID];
-      personCentricID = [v25 personCentricID];
-      [broadcasterForChatListeners account:accountID chat:v11 style:45 chatProperties:chatProperties groupID:groupID chatPersonCentricID:personCentricID messageReceived:v24];
+      chatProperties = [v24 chatProperties];
+      groupID = [v24 groupID];
+      personCentricID = [v24 personCentricID];
+      [broadcasterForChatListeners account:accountID chat:v11 style:45 chatProperties:chatProperties groupID:groupID chatPersonCentricID:personCentricID messageReceived:v23];
 
       if (IMOSLoggingEnabled())
       {
@@ -2036,8 +1997,6 @@ LABEL_28:
   }
 
 LABEL_31:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openStewieChatWithContext:(id)context
@@ -2297,7 +2256,7 @@ LABEL_7:
 
 - (BOOL)_createChatIfNecessary:(id)necessary chatIdentifier:(id)identifier service:(int64_t)service
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   necessaryCopy = necessary;
   identifierCopy = identifier;
   v10 = +[IMDChatRegistry sharedInstance];
@@ -2316,9 +2275,9 @@ LABEL_7:
       }
 
       *buf = 138412546;
-      v28 = identifierCopy;
-      v29 = 2112;
-      v30 = v14;
+      v27 = identifierCopy;
+      v28 = 2112;
+      v29 = v14;
       _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Found existing Stewie %@ chat: %@", buf, 0x16u);
     }
   }
@@ -2326,18 +2285,18 @@ LABEL_7:
   if (!v12)
   {
     v15 = *MEMORY[0x277D193A8];
-    v25[0] = *MEMORY[0x277D192F8];
-    v25[1] = v15;
-    v26[0] = &unk_283F4EB58;
-    v26[1] = identifierCopy;
+    v24[0] = *MEMORY[0x277D192F8];
+    v24[1] = v15;
+    v25[0] = &unk_283F4EB58;
+    v25[1] = identifierCopy;
     v16 = *MEMORY[0x277D193A0];
-    v25[2] = *MEMORY[0x277D193C0];
-    v25[3] = v16;
-    v26[2] = identifierCopy;
-    v26[3] = @"us";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
-    v24 = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+    v24[2] = *MEMORY[0x277D193C0];
+    v24[3] = v16;
+    v25[2] = identifierCopy;
+    v25[3] = @"us";
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
+    v23 = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
     [necessaryCopy didJoinChat:identifierCopy style:45 displayName:0 groupID:0 originalGroupID:0 handleInfo:v18 category:0 spamExtensionName:0];
     v19 = +[IMDChatRegistry sharedInstance];
     account2 = [necessaryCopy account];
@@ -2348,13 +2307,12 @@ LABEL_7:
     [(IMDChorosController *)self updateChatPropertiesIfRequiredForChat:v21 service:service];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12 == 0;
 }
 
 - (id)_simNumber
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D1A908] = [MEMORY[0x277D1A908] sharedInstance];
   ctPhoneNumber = [mEMORY[0x277D1A908] ctPhoneNumber];
 
@@ -2363,9 +2321,9 @@ LABEL_7:
     v4 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = ctPhoneNumber;
-      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "My CT Phone Number from subscription context is: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = ctPhoneNumber;
+      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "My CT Phone Number from subscription context is: %@", &v8, 0xCu);
     }
   }
 
@@ -2375,13 +2333,11 @@ LABEL_7:
     v6 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "My CT SIM Phone Number is: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "My CT SIM Phone Number is: %@", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -2648,7 +2604,7 @@ LABEL_15:
 
 - (id)conversationUUIDForConversationID:(int64_t)d service:(int64_t)service
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = [(IMDChorosController *)self _stringKeyForConversationID:?];
   v8 = [(IMDChorosController *)self conversationIDToConversationUUIDMapForService:service];
   v9 = [v8 objectForKeyedSubscript:v7];
@@ -2663,25 +2619,23 @@ LABEL_15:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = [MEMORY[0x277CCABB0] numberWithInteger:d];
-        v15 = 138412802;
-        v16 = v12;
-        v17 = 2112;
-        v18 = v7;
-        v19 = 2112;
-        v20 = uUID;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "No existing conversationUUID for conversationID %@ (key %@), assigning %@", &v15, 0x20u);
+        v14 = 138412802;
+        v15 = v12;
+        v16 = 2112;
+        v17 = v7;
+        v18 = 2112;
+        v19 = uUID;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "No existing conversationUUID for conversationID %@ (key %@), assigning %@", &v14, 0x20u);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return uUID;
 }
 
 - (void)setConversationUUID:(id)d forConversationID:(int64_t)iD service:(int64_t)service
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v9 = [(IMDChorosController *)self conversationIDToConversationUUIDMapForService:service];
   v10 = [v9 mutableCopy];
@@ -2709,22 +2663,20 @@ LABEL_15:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = [MEMORY[0x277CCABB0] numberWithInteger:iD];
-      v19 = 138412802;
-      v20 = dCopy;
-      v21 = 2112;
-      v22 = v17;
-      v23 = 2112;
-      v24 = v14;
-      _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Assigning conversationUUID %@ to conversationID %@ (key %@)", &v19, 0x20u);
+      v18 = 138412802;
+      v19 = dCopy;
+      v20 = 2112;
+      v21 = v17;
+      v22 = 2112;
+      v23 = v14;
+      _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Assigning conversationUUID %@ to conversationID %@ (key %@)", &v18, 0x20u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enableEmergencyMode
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v2 = OSLogHandleForIMFoundationCategory();
@@ -2735,28 +2687,28 @@ LABEL_15:
     }
   }
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2050000000;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2050000000;
   v3 = qword_27D8CFF98;
-  v16 = qword_27D8CFF98;
+  v15 = qword_27D8CFF98;
   if (!qword_27D8CFF98)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = sub_22B641334;
-    v18 = &unk_278703200;
-    v19 = &v13;
+    v17 = &unk_278703200;
+    v18 = &v12;
     sub_22B641334(buf);
-    v3 = v14[3];
+    v3 = v13[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v12, 8);
   sharedMonitor = [v3 sharedMonitor];
-  v12 = 0;
-  v6 = [sharedMonitor enableEmergencyModeWithError:&v12];
-  v7 = v12;
+  v11 = 0;
+  v6 = [sharedMonitor enableEmergencyModeWithError:&v11];
+  v7 = v11;
   if (v7)
   {
     v8 = 0;
@@ -2785,30 +2737,26 @@ LABEL_15:
       _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Enabling Emergency Mode reported %@ when sending message to an Emergency number with error: %@", buf, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectedServicesChanged:(int64_t)changed
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v4 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v6 = 134217984;
+      v5 = 134217984;
       changedCopy = changed;
-      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Connected services: %ld", &v6, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Connected services: %ld", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateChanged:(id)changed
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   if (IMOSLoggingEnabled())
   {
@@ -2816,41 +2764,41 @@ LABEL_15:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v20 = changedCopy;
+      v19 = changedCopy;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Stewie state changed to: %@", buf, 0xCu);
     }
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = self->_observers;
-  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
-          [v10 satelliteStateDidChange:{-[IMDChorosController isSatelliteConnectionActive](self, "isSatelliteConnectionActive", v14)}];
+          [v10 satelliteStateDidChange:{-[IMDChorosController isSatelliteConnectionActive](self, "isSatelliteConnectionActive", v13)}];
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -2869,10 +2817,8 @@ LABEL_15:
 
   else
   {
-    [(IMDChorosController *)self setWasLastStateSatelliteConnectionActive:0, v14];
+    [(IMDChorosController *)self setWasLastStateSatelliteConnectionActive:0, v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageReceived:(id)received withMetadata:(id)metadata completionBlock:(id)block
@@ -2961,7 +2907,7 @@ LABEL_15:
         v15 = IMLogHandleForCategory();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          sub_22B7D7C6C();
+          sub_22B7D7C6C(receivedCopy);
         }
       }
     }

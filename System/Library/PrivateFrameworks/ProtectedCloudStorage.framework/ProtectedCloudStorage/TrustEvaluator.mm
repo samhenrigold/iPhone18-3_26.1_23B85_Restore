@@ -6,31 +6,31 @@
 
 + (BOOL)validatePublicKey:(id)key trustRefs:(id)refs
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   refsCopy = refs;
   v7 = refsCopy;
   if (keyCopy && [refsCopy count])
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v9)
     {
-      v10 = *v25;
+      v10 = *v24;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v25 != v10)
+          if (*v24 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v24 + 1) + 8 * i);
+          v12 = *(*(&v23 + 1) + 8 * i);
           if (v12)
           {
             v13 = SecTrustCopyKey(v12);
@@ -87,7 +87,7 @@
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v9)
         {
           continue;
@@ -105,7 +105,6 @@ LABEL_25:
     LOBYTE(v9) = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

@@ -432,11 +432,11 @@ LABEL_27:
 
 - (SFUserReportRequest)initWithProtobuf:(id)protobuf
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v37.receiver = self;
-  v37.super_class = SFUserReportRequest;
-  v5 = [(SFUserReportRequest *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = SFUserReportRequest;
+  v5 = [(SFUserReportRequest *)&v36 init];
   if (v5)
   {
     affordanceText = [protobufCopy affordanceText];
@@ -474,33 +474,33 @@ LABEL_27:
       v13 = 0;
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     userReportOptions2 = [protobufCopy userReportOptions];
-    v15 = [userReportOptions2 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v15 = [userReportOptions2 countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v34;
+      v17 = *v33;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v34 != v17)
+          if (*v33 != v17)
           {
             objc_enumerationMutation(userReportOptions2);
           }
 
-          v19 = [[SFPunchout alloc] initWithProtobuf:*(*(&v33 + 1) + 8 * i)];
+          v19 = [[SFPunchout alloc] initWithProtobuf:*(*(&v32 + 1) + 8 * i)];
           if (v19)
           {
             [v13 addObject:v19];
           }
         }
 
-        v16 = [userReportOptions2 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v16 = [userReportOptions2 countByEnumeratingWithState:&v32 objects:v37 count:16];
       }
 
       while (v16);
@@ -549,7 +549,6 @@ LABEL_27:
     v30 = v5;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

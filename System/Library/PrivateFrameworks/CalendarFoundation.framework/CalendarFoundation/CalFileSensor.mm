@@ -74,9 +74,9 @@
 
 - (void)start
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1B990D000, a2, a3, "This sensor has already been started: [%@]", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_1(&dword_1B990D000, a2, a3, "This sensor has already been started: [%@]", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 uint64_t __22__CalFileSensor_start__block_invoke(uint64_t a1)
@@ -146,12 +146,11 @@ void __22__CalFileSensor_start__block_invoke_2(uint64_t a1)
 
 void __22__CalFileSensor_start__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "Unregistering a file sensor for path: [%@]", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "Unregistering a file sensor for path: [%@]", &v3, 0xCu);
 }
 
 @end

@@ -415,7 +415,7 @@ LABEL_8:
 
 - (void)operationDidStart
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   lock = [(ENAFURLConnectionOperation *)self lock];
   [lock lock];
 
@@ -432,27 +432,27 @@ LABEL_8:
     [(ENAFURLConnectionOperation *)self setConnection:v6];
 
     currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     runLoopModes = [(ENAFURLConnectionOperation *)self runLoopModes];
-    v9 = [runLoopModes countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [runLoopModes countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         v12 = 0;
         do
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(runLoopModes);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * v12);
+          v13 = *(*(&v18 + 1) + 8 * v12);
           connection = [(ENAFURLConnectionOperation *)self connection];
           [connection scheduleInRunLoop:currentRunLoop forMode:v13];
 
@@ -463,7 +463,7 @@ LABEL_8:
         }
 
         while (v10 != v12);
-        v10 = [runLoopModes countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [runLoopModes countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -475,8 +475,6 @@ LABEL_8:
 
   lock2 = [(ENAFURLConnectionOperation *)self lock];
   [lock2 unlock];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start

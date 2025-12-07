@@ -35,28 +35,27 @@
 
 - (id)valueForUndefinedKey:(id)key
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v4 = ACHLogAwardEngine();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = keyCopy;
-    _os_log_impl(&dword_221DDC000, v4, OS_LOG_TYPE_DEFAULT, "[ACHMindfulMinutesAwardingEnvironment] Mindful Minutes awarding environment asked for key it doesn't support: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = keyCopy;
+    _os_log_impl(&dword_221DDC000, v4, OS_LOG_TYPE_DEFAULT, "[ACHMindfulMinutesAwardingEnvironment] Mindful Minutes awarding environment asked for key it doesn't support: %{public}@", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (double)todayMindfulMinutesValue
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _dayDateIntervalForCurrentDate = [(ACHMindfulMinutesAwardingEnvironment *)self _dayDateIntervalForCurrentDate];
   WeakRetained = objc_loadWeakRetained(&self->_workoutClient);
-  v14 = 0;
-  v5 = [WeakRetained mindfulMinutesForForDateInterval:_dayDateIntervalForCurrentDate error:&v14];
-  v6 = v14;
+  v13 = 0;
+  v5 = [WeakRetained mindfulMinutesForForDateInterval:_dayDateIntervalForCurrentDate error:&v13];
+  v6 = v13;
 
   if (v6)
   {
@@ -65,7 +64,7 @@
     {
       v8 = [v6 description];
       *buf = 138412290;
-      v16 = v8;
+      v15 = v8;
       _os_log_impl(&dword_221DDC000, v7, OS_LOG_TYPE_DEFAULT, "[ACHMindfulMinutesAwardingEnvironment] Failed to compute todayMindfulMinutesValue: %@", buf, 0xCu);
     }
   }
@@ -74,18 +73,17 @@
   [v5 doubleValueForUnit:minuteUnit];
   v11 = v10;
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (double)numberOfMindfulMinutesInCurrentMonth
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _monthDateIntervalForCurrentDate = [(ACHMindfulMinutesAwardingEnvironment *)self _monthDateIntervalForCurrentDate];
   WeakRetained = objc_loadWeakRetained(&self->_workoutClient);
-  v14 = 0;
-  v5 = [WeakRetained mindfulMinutesForForDateInterval:_monthDateIntervalForCurrentDate error:&v14];
-  v6 = v14;
+  v13 = 0;
+  v5 = [WeakRetained mindfulMinutesForForDateInterval:_monthDateIntervalForCurrentDate error:&v13];
+  v6 = v13;
 
   if (v6)
   {
@@ -94,7 +92,7 @@
     {
       v8 = [v6 description];
       *buf = 138412290;
-      v16 = v8;
+      v15 = v8;
       _os_log_impl(&dword_221DDC000, v7, OS_LOG_TYPE_DEFAULT, "[ACHMindfulMinutesAwardingEnvironment] Failed to compute numberOfMindfulMinutesInCurrentMonth: %@", buf, 0xCu);
     }
   }
@@ -103,13 +101,12 @@
   [v5 doubleValueForUnit:minuteUnit];
   v11 = v10;
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)logValues
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = ACHLogAwardEngine();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -117,16 +114,14 @@
     [(ACHMindfulMinutesAwardingEnvironment *)self todayMindfulMinutesValue];
     v6 = v5;
     [(ACHMindfulMinutesAwardingEnvironment *)self numberOfMindfulMinutesInCurrentMonth];
-    v9 = 138412802;
-    v10 = currentDate;
-    v11 = 2048;
-    v12 = v6;
-    v13 = 2048;
-    v14 = v7;
-    _os_log_impl(&dword_221DDC000, v3, OS_LOG_TYPE_DEFAULT, "[ACHMindfulMinutesAwardingEnvironment] currentDate: %@, todayMindfulMinutesValue: %f, numberOfMindfulMinutesInCurrentMonth: %f", &v9, 0x20u);
+    v8 = 138412802;
+    v9 = currentDate;
+    v10 = 2048;
+    v11 = v6;
+    v12 = 2048;
+    v13 = v7;
+    _os_log_impl(&dword_221DDC000, v3, OS_LOG_TYPE_DEFAULT, "[ACHMindfulMinutesAwardingEnvironment] currentDate: %@, todayMindfulMinutesValue: %f, numberOfMindfulMinutesInCurrentMonth: %f", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dayDateIntervalForCurrentDate

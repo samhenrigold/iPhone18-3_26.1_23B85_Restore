@@ -29,10 +29,10 @@ uint64_t __48__DATransactionMonitor_sharedTransactionMonitor__block_invoke()
 
 - (DATransactionMonitor)init
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = DATransactionMonitor;
-  v2 = [(DATransactionMonitor *)&v9 init];
+  v11 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = DATransactionMonitor;
+  v2 = [(DATransactionMonitor *)&v8 init];
   v3 = v2;
   if (v2)
   {
@@ -43,12 +43,11 @@ uint64_t __48__DATransactionMonitor_sharedTransactionMonitor__block_invoke()
     {
       transactionCount = v3->_transactionCount;
       *buf = 67109120;
-      v11 = transactionCount;
+      v10 = transactionCount;
       _os_log_impl(&dword_24844D000, v4, v5, "Transaction count is initialized to %d", buf, 8u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -80,7 +79,7 @@ uint64_t __64__DATransactionMonitor_incrementTransactionCountForTransaction___bl
 
 void __64__DATransactionMonitor_incrementTransactionCountForTransaction___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setTransactionCount:{objc_msgSend(*(a1 + 32), "transactionCount") + 1}];
   v2 = [*(a1 + 32) transactions];
 
@@ -98,12 +97,10 @@ void __64__DATransactionMonitor_incrementTransactionCountForTransaction___block_
   if (os_log_type_enabled(v5, v6))
   {
     v7 = [*(a1 + 32) transactionCount];
-    v9[0] = 67109120;
-    v9[1] = v7;
-    _os_log_impl(&dword_24844D000, v5, v6, "Transaction count is incremented to %d", v9, 8u);
+    v8[0] = 67109120;
+    v8[1] = v7;
+    _os_log_impl(&dword_24844D000, v5, v6, "Transaction count is incremented to %d", v8, 8u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)decrementTransactionCountForTransaction:(id)transaction
@@ -123,7 +120,7 @@ void __64__DATransactionMonitor_incrementTransactionCountForTransaction___block_
 
 void __64__DATransactionMonitor_decrementTransactionCountForTransaction___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   if ([*(a1 + 32) transactionCount] == 1)
   {
@@ -145,12 +142,10 @@ void __64__DATransactionMonitor_decrementTransactionCountForTransaction___block_
   if (os_log_type_enabled(v5, v6))
   {
     v7 = [*v2 transactionCount];
-    v9[0] = 67109120;
-    v9[1] = v7;
-    _os_log_impl(&dword_24844D000, v5, v6, "Transaction count is decremented to %d", v9, 8u);
+    v8[0] = 67109120;
+    v8[1] = v7;
+    _os_log_impl(&dword_24844D000, v5, v6, "Transaction count is decremented to %d", v8, 8u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (DATransactionMonitorDelegate)transactionMonitorDelegate

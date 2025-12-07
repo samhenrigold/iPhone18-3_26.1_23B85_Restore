@@ -71,7 +71,7 @@
     v11 = v10;
     if (v10)
     {
-      [v10 indexPath];
+      objc_msgSend_indexPath(v10);
       if ([selectionSnapshot isIndexPathSelected:&v15])
       {
         interaction = [(PXPhotosViewUIInteractionHelper *)self interaction];
@@ -111,7 +111,7 @@ LABEL_7:
     {
       if (dataSource)
       {
-        [dataSource indexPathForAssetReference:navigatedAssetReference];
+        objc_msgSend_indexPathForAssetReference_(dataSource);
       }
     }
 

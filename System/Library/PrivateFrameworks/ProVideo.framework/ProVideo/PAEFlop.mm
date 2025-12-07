@@ -44,8 +44,8 @@
 - (BOOL)canThrowRenderOutput:(id)output withInput:(id)input withInfo:(id *)info
 {
   v9 = [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735E258];
-  [(PAESharedDefaultBase *)self getPixelTransformForImage:output];
-  [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
+  objc_msgSend_getPixelTransformForImage_(self);
+  objc_msgSend_getInversePixelTransformForImage_(self);
   if (!v9)
   {
     goto LABEL_12;
@@ -102,7 +102,7 @@ LABEL_12:
 
   if (input)
   {
-    [input heliumRef];
+    objc_msgSend_heliumRef(input);
   }
 
   else

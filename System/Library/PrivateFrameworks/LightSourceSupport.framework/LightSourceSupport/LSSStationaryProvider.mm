@@ -103,7 +103,6 @@ LABEL_8:
 
 void __48__LSSStationaryProvider_initWithQueue_delegate___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -111,18 +110,15 @@ void __48__LSSStationaryProvider_initWithQueue_delegate___block_invoke(uint64_t 
     v4 = [(LSSSettings *)*(v2 + 16) doubleForKey:?];
     OUTLINED_FUNCTION_3_0(v4, 3.14159265, v3 * 3.14159265, 180.0);
     v5.f64[0] = OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_0_6(v5, v14, xmmword_255E9C9F0, v15, v16, v17, v18, v19, v6, v7, v8, v9, v10, v11, v12, v13, v29, v32, v34, *&v35);
-    OUTLINED_FUNCTION_1_5();
+    OUTLINED_FUNCTION_0_6(v5, v14, xmmword_255E9C9F0, v15, v16, v17, v18, v19, v6, v7, v8, v9, v10, v11, v12, v13, v34, v37, v39, *&v40);
+    OUTLINED_FUNCTION_1_5(v20, v21, v22, v23, v24, v25);
     WeakRetained = objc_loadWeakRetained((v2 + 24));
-    OUTLINED_FUNCTION_2_1(WeakRetained, v21, v22, v23, v24, v25, v26, v27, v30, v31, v33, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44);
+    OUTLINED_FUNCTION_2_1(WeakRetained, v27, v28, v29, v30, v31, v32, v33, v35, v36, v38, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __72__LSSStationaryProvider_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -130,13 +126,11 @@ void __72__LSSStationaryProvider_observeValueForKeyPath_ofObject_change_context_
     v4 = [(LSSSettings *)*(v2 + 16) doubleForKey:?];
     OUTLINED_FUNCTION_3_0(v4, 3.14159265, v3 * 3.14159265, 180.0);
     v5.f64[0] = OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_0_6(v5, v14, xmmword_255E9C9F0, v15, v16, v17, v18, v19, v6, v7, v8, v9, v10, v11, v12, v13, v29, v32, v34, *&v35);
-    OUTLINED_FUNCTION_1_5();
+    OUTLINED_FUNCTION_0_6(v5, v14, xmmword_255E9C9F0, v15, v16, v17, v18, v19, v6, v7, v8, v9, v10, v11, v12, v13, v34, v37, v39, *&v40);
+    OUTLINED_FUNCTION_1_5(v20, v21, v22, v23, v24, v25);
     WeakRetained = objc_loadWeakRetained((v2 + 24));
-    OUTLINED_FUNCTION_2_1(WeakRetained, v21, v22, v23, v24, v25, v26, v27, v30, v31, v33, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44);
+    OUTLINED_FUNCTION_2_1(WeakRetained, v27, v28, v29, v30, v31, v32, v33, v35, v36, v38, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

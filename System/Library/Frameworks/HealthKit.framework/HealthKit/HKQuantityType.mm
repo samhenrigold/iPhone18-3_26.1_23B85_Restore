@@ -39,16 +39,16 @@
     switch(code)
     {
       case 2:
-        v9 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
-        bOOLValue = [v9 BOOLValue];
+        v10 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
+        bOOLValue = [v10 BOOLValue];
         if (bOOLValue && ([localeCopy localeIdentifier], v4 = objc_claimAutoreleasedReturnValue(), (objc_msgSend(v4, "isEqual:", @"en_GB") & 1) == 0))
         {
-          v14 = [HKUnit meterUnitWithMetricPrefix:5];
+          v15 = [HKUnit meterUnitWithMetricPrefix:5];
         }
 
         else
         {
-          v14 = +[HKUnit footUnit];
+          v15 = +[HKUnit footUnit];
           if (!bOOLValue)
           {
             goto LABEL_41;
@@ -58,14 +58,14 @@
         break;
       case 3:
       case 4:
-        v9 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
-        bOOLValue2 = [v9 BOOLValue];
-        v11 = @"lb";
-        v12 = @"kg";
+        v10 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
+        bOOLValue2 = [v10 BOOLValue];
+        v12 = @"lb";
+        v13 = @"kg";
         goto LABEL_37;
       case 5:
       case 61:
-        v8 = @"count/min";
+        v9 = @"count/min";
         goto LABEL_9;
       case 6:
       case 7:
@@ -141,7 +141,7 @@
       case 9:
       case 10:
       case 29:
-        canonicalUnit = _HKEnergyUnitForLocale(localeCopy);
+        canonicalUnit = _HKEnergyUnitForLocale(localeCopy, version);
         goto LABEL_10;
       case 15:
         canonicalUnit = _HKBloodGlucoseUnitForLocale(localeCopy);
@@ -165,7 +165,7 @@
       case 55:
       case 56:
       case 78:
-        v8 = @"mg";
+        v9 = @"mg";
         goto LABEL_9;
       case 31:
       case 33:
@@ -177,21 +177,21 @@
       case 50:
       case 53:
       case 54:
-        v8 = @"mcg";
+        v9 = @"mcg";
         goto LABEL_9;
       case 58:
-        v8 = @"mcS";
+        v9 = @"mcS";
         goto LABEL_9;
       case 62:
       case 90:
         goto LABEL_27;
       case 89:
-        v8 = @"count";
+        v9 = @"count";
         goto LABEL_9;
       case 110:
-        v9 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
-        bOOLValue2 = [v9 BOOLValue];
-        v11 = @"yd";
+        v10 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
+        bOOLValue2 = [v10 BOOLValue];
+        v12 = @"yd";
         goto LABEL_36;
       case 114:
         goto LABEL_32;
@@ -214,27 +214,27 @@
 
   if (code > 273)
   {
-    v15 = code - 25;
+    v16 = code - 25;
     if ((code - 281) <= 0x16)
     {
-      if (((1 << v15) & 0x700001) != 0)
+      if (((1 << v16) & 0x700001) != 0)
       {
         goto LABEL_28;
       }
 
-      if (((1 << v15) & 0x1A000) != 0)
+      if (((1 << v16) & 0x1A000) != 0)
       {
 LABEL_24:
-        v9 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
-        bOOLValue2 = [v9 BOOLValue];
-        v11 = @"mi";
-        v12 = @"km";
+        v10 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
+        bOOLValue2 = [v10 BOOLValue];
+        v12 = @"mi";
+        v13 = @"km";
         goto LABEL_37;
       }
 
       if (code == 295)
       {
-        v8 = @"km";
+        v9 = @"km";
         goto LABEL_9;
       }
     }
@@ -249,18 +249,18 @@ LABEL_34:
       }
 
 LABEL_27:
-      v9 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
-      bOOLValue2 = [v9 BOOLValue];
-      v11 = @"degF";
-      v12 = @"degC";
+      v10 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
+      bOOLValue2 = [v10 BOOLValue];
+      v12 = @"degF";
+      v13 = @"degC";
       goto LABEL_37;
     }
 
 LABEL_28:
-    v9 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
-    bOOLValue2 = [v9 BOOLValue];
-    v11 = @"mi/hr";
-    v12 = @"km/hr";
+    v10 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
+    bOOLValue2 = [v10 BOOLValue];
+    v12 = @"mi/hr";
+    v13 = @"km/hr";
     goto LABEL_37;
   }
 
@@ -272,11 +272,11 @@ LABEL_28:
       {
         if (code == 269)
         {
-          v9 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
-          bOOLValue2 = [v9 BOOLValue];
-          v11 = @"ft";
+          v10 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
+          bOOLValue2 = [v10 BOOLValue];
+          v12 = @"ft";
 LABEL_36:
-          v12 = @"m";
+          v13 = @"m";
           goto LABEL_37;
         }
 
@@ -286,11 +286,11 @@ LABEL_36:
       goto LABEL_27;
     }
 
-    v8 = @"hr";
+    v9 = @"hr";
 LABEL_9:
-    canonicalUnit = [HKUnit unitFromString:v8];
+    canonicalUnit = [HKUnit unitFromString:v9];
 LABEL_10:
-    v14 = canonicalUnit;
+    v15 = canonicalUnit;
     goto LABEL_42;
   }
 
@@ -299,37 +299,37 @@ LABEL_10:
     if (code == 188)
     {
 LABEL_32:
-      v9 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
-      bOOLValue2 = [v9 BOOLValue];
-      v11 = @"in";
-      v12 = @"cm";
+      v10 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
+      bOOLValue2 = [v10 BOOLValue];
+      v12 = @"in";
+      v13 = @"cm";
       goto LABEL_37;
     }
 
     goto LABEL_34;
   }
 
-  v9 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
-  bOOLValue2 = [v9 BOOLValue];
-  v11 = @"ft/s";
-  v12 = @"m/s";
+  v10 = [localeCopy objectForKey:*MEMORY[0x1E695DA08]];
+  bOOLValue2 = [v10 BOOLValue];
+  v12 = @"ft/s";
+  v13 = @"m/s";
 LABEL_37:
   if (bOOLValue2)
   {
-    v16 = v12;
+    v17 = v13;
   }
 
   else
   {
-    v16 = v11;
+    v17 = v12;
   }
 
-  v14 = [HKUnit unitFromString:v16];
+  v15 = [HKUnit unitFromString:v17];
 LABEL_41:
 
 LABEL_42:
 
-  return v14;
+  return v15;
 }
 
 - (BOOL)supportsStatisticOptions:(unint64_t)options

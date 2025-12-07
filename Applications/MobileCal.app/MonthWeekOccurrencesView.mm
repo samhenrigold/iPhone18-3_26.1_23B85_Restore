@@ -2027,20 +2027,25 @@ LABEL_11:
 - (void)deselectOccurrence:(id)occurrence
 {
   occurrenceCopy = occurrence;
+  v5 = occurrenceCopy;
   if (occurrenceCopy)
   {
-    v6 = occurrenceCopy;
-    if ([(NSMutableArray *)self->_selectedOccurrences containsObject:occurrenceCopy])
+    v7 = occurrenceCopy;
+    occurrenceCopy = [(NSMutableArray *)self->_selectedOccurrences containsObject:occurrenceCopy];
+    v5 = v7;
+    if (occurrenceCopy)
     {
-      v5 = [(MonthWeekOccurrencesView *)self _occurrenceViewForEventOccurrence:v6];
-      [v5 setSelected:0];
-      [(NSMutableArray *)self->_selectedOccurrences removeObject:v6];
+      v6 = [(MonthWeekOccurrencesView *)self _occurrenceViewForEventOccurrence:v7];
+      [v6 setSelected:0];
+      [(NSMutableArray *)self->_selectedOccurrences removeObject:v7];
       [(MonthWeekOccurrencesView *)self setNeedsDisplay];
       [(UIPointerInteraction *)self->_interaction invalidate];
+
+      v5 = v7;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(occurrenceCopy, v5);
 }
 
 + (double)maxNarrowOccurrenceHeight
@@ -2179,7 +2184,7 @@ LABEL_11:
 - (void)_updateOccurrencesBounds
 {
   [(MonthWeekOccurrencesView *)self frame];
-  if (!CGRectIsEmpty(v212) && ![(MonthWeekOccurrencesView *)self layoutOccurrencesIfNeeded])
+  if (!CGRectIsEmpty(v214) && ![(MonthWeekOccurrencesView *)self layoutOccurrencesIfNeeded])
   {
     dayCount = [(MonthWeekOccurrencesView *)self dayCount];
     v4 = [NSMutableArray arrayWithCapacity:dayCount];
@@ -2246,12 +2251,12 @@ LABEL_11:
     {
       traitCollection = [(MonthWeekOccurrencesView *)selfCopy traitCollection];
       preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
-      v176 = 264;
-      v156 = moreEventsViews;
-      v174 = p_thirdOccurrencesForEachDay;
+      v178 = 264;
+      v158 = moreEventsViews;
+      v176 = p_thirdOccurrencesForEachDay;
       if (preferredContentSizeCategory >= UIContentSizeCategoryAccessibilityMedium)
       {
-        v173 = 0;
+        v175 = 0;
       }
 
       else
@@ -2259,251 +2264,251 @@ LABEL_11:
         EKUICurrentWindowWidthWithViewHierarchy();
         v28 = v27;
         EKUIWidthForWindowSizeParadigm();
-        v173 = v28 > v29;
+        v175 = v28 > v29;
       }
 
-      v155[1] = v155;
-      __chkstk_darwin();
-      v175 = v155 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-      bzero(v175, v30);
-      v160 = dayCount;
+      v157[1] = v157;
+      __chkstk_darwin(v30);
+      v177 = v157 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+      bzero(v177, v31);
+      v162 = dayCount;
       if (dayCount)
       {
-        v31 = 0;
+        v33 = 0;
         do
         {
+          v207 = 0u;
+          v208 = 0u;
           v205 = 0u;
           v206 = 0u;
-          v203 = 0u;
-          v204 = 0u;
-          v32 = v24->_layedOutRows;
-          v33 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v203 objects:v211 count:16];
-          if (v33)
+          v34 = v24->_layedOutRows;
+          v35 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v205 objects:v213 count:16];
+          if (v35)
           {
-            v34 = v33;
-            v35 = *v204;
+            v36 = v35;
+            v37 = *v206;
             do
             {
-              for (i = 0; i != v34; i = i + 1)
+              for (i = 0; i != v36; i = i + 1)
               {
-                if (*v204 != v35)
+                if (*v206 != v37)
                 {
-                  objc_enumerationMutation(v32);
+                  objc_enumerationMutation(v34);
                 }
 
-                if ([*(*(&v203 + 1) + 8 * i) isFilledForDay:v31])
+                if ([*(*(&v205 + 1) + 8 * i) isFilledForDay:v33])
                 {
-                  ++*&v175[8 * v31];
+                  ++*&v177[8 * v33];
                 }
               }
 
-              v34 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v203 objects:v211 count:16];
+              v36 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v205 objects:v213 count:16];
             }
 
-            while (v34);
+            while (v36);
           }
 
           v24 = selfCopy;
-          v37 = [(NSMutableArray *)selfCopy->_singleDayEventBuckets objectAtIndexedSubscript:v31];
-          v38 = [v37 count];
-          *&v175[8 * v31] += v38;
+          v39 = [(NSMutableArray *)selfCopy->_singleDayEventBuckets objectAtIndexedSubscript:v33];
+          v40 = [v39 count];
+          *&v177[8 * v33] += v40;
 
-          ++v31;
+          ++v33;
         }
 
-        while (v31 != v160);
+        while (v33 != v162);
       }
 
-      v39 = v24;
-      v40 = v160;
-      __chkstk_darwin();
-      v42 = v155 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-      bzero(v42, v41);
-      v43 = 248;
-      v44 = [(NSMutableArray *)v39->_layedOutRows count];
-      v166 = v42;
-      if (v44)
+      v41 = v24;
+      v42 = v162;
+      __chkstk_darwin(v32);
+      v44 = v157 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
+      bzero(v44, v43);
+      v45 = 248;
+      v46 = [(NSMutableArray *)v41->_layedOutRows count];
+      v168 = v44;
+      if (v46)
       {
-        v45 = 0;
-        v46 = v42;
-        v167 = 248;
+        v47 = 0;
+        v48 = v44;
+        v169 = 248;
         do
         {
-          v168 = v46;
-          v47 = v39;
-          v48 = [*(&v39->super.super.super.isa + v43) objectAtIndexedSubscript:v45];
-          v199 = 0u;
-          v200 = 0u;
+          v170 = v48;
+          v49 = v41;
+          v50 = [*(&v41->super.super.super.isa + v45) objectAtIndexedSubscript:v47];
           v201 = 0u;
           v202 = 0u;
-          v169 = v48;
-          occurrenceBlocks = [v48 occurrenceBlocks];
-          v172 = [occurrenceBlocks countByEnumeratingWithState:&v199 objects:v210 count:16];
-          if (v172)
+          v203 = 0u;
+          v204 = 0u;
+          v171 = v50;
+          occurrenceBlocks = [v50 occurrenceBlocks];
+          v174 = [occurrenceBlocks countByEnumeratingWithState:&v201 objects:v212 count:16];
+          if (v174)
           {
-            v171 = *v200;
+            v173 = *v202;
             do
             {
-              for (j = 0; j != v172; ++j)
+              for (j = 0; j != v174; ++j)
               {
-                if (*v200 != v171)
+                if (*v202 != v173)
                 {
                   objc_enumerationMutation(occurrenceBlocks);
                 }
 
-                v50 = *(*(&v199 + 1) + 8 * j);
-                v51 = v176;
-                v52 = v47;
-                v53 = v45 < *(&v47->super.super.super.isa + v176);
-                startRange = [v50 startRange];
-                v55 = [v50 length];
-                if (startRange < (startRange + v55))
+                v52 = *(*(&v201 + 1) + 8 * j);
+                v53 = v178;
+                v54 = v49;
+                v55 = v47 < *(&v49->super.super.super.isa + v178);
+                startRange = [v52 startRange];
+                v57 = [v52 length];
+                if (startRange < (startRange + v57))
                 {
-                  v56 = v55;
-                  v57 = *(&v52->super.super.super.isa + v51) - 1;
+                  v58 = v57;
+                  v59 = *(&v54->super.super.super.isa + v53) - 1;
                   do
                   {
-                    if (v53 && v45 == v57)
+                    if (v55 && v47 == v59)
                     {
-                      v53 = *&v175[8 * startRange] <= *(&selfCopy->super.super.super.isa + v176);
+                      v55 = *&v177[8 * startRange] <= *(&selfCopy->super.super.super.isa + v178);
                     }
 
-                    v58 = p_secondOccurrencesForEachDay;
-                    if (v45 == 1 || v45 == 2 && (v58 = v174, v53))
+                    v60 = p_secondOccurrencesForEachDay;
+                    if (v47 == 1 || v47 == 2 && (v60 = v176, v55))
                     {
-                      [*v58 setObject:v50 atIndexedSubscript:startRange];
+                      [*v60 setObject:v52 atIndexedSubscript:startRange];
                     }
 
                     startRange = startRange + 1;
-                    --v56;
+                    --v58;
                   }
 
-                  while (v56);
+                  while (v58);
                 }
 
-                v47 = selfCopy;
-                [(MonthWeekOccurrencesView *)selfCopy show:v53 occurrenceView:v50 atRow:v173 numRows:v45 drawTimeString:1.0];
+                v49 = selfCopy;
+                [(MonthWeekOccurrencesView *)selfCopy show:v55 occurrenceView:v52 atRow:v175 numRows:v47 drawTimeString:1.0];
               }
 
-              v172 = [occurrenceBlocks countByEnumeratingWithState:&v199 objects:v210 count:16];
+              v174 = [occurrenceBlocks countByEnumeratingWithState:&v201 objects:v212 count:16];
             }
 
-            while (v172);
+            while (v174);
           }
 
-          v40 = v160;
-          v42 = v166;
-          v59 = v168;
-          if (v160)
+          v42 = v162;
+          v44 = v168;
+          v61 = v170;
+          if (v162)
           {
-            v60 = 0;
-            v61 = v168;
+            v62 = 0;
+            v63 = v170;
             do
             {
-              if ([v169 isFilledForDay:v60] && v45 <= 0x13)
+              if ([v171 isFilledForDay:v62] && v47 <= 0x13)
               {
-                *v61 = 1;
+                *v63 = 1;
               }
 
-              ++v60;
-              v61 += 20;
+              ++v62;
+              v63 += 20;
             }
 
-            while (v40 != v60);
+            while (v42 != v62);
           }
 
-          ++v45;
-          v39 = selfCopy;
-          v43 = v167;
-          v46 = v59 + 1;
+          ++v47;
+          v41 = selfCopy;
+          v45 = v169;
+          v48 = v61 + 1;
         }
 
-        while (v45 < [*(&selfCopy->super.super.super.isa + v167) count]);
+        while (v47 < [*(&selfCopy->super.super.super.isa + v169) count]);
       }
 
-      v62 = [CalPreferences alloc];
-      v63 = [v62 initWithDomain:kPreferenceDomain];
-      v159 = [v63 getBooleanPreference:kCompactMonthEventUseAllSpace defaultValue:1];
-      v155[0] = v63;
-      v158 = [v63 getBooleanPreference:kCompactMonthEventIntegerBased defaultValue:0];
-      if (v158)
+      v64 = [CalPreferences alloc];
+      v65 = [v64 initWithDomain:kPreferenceDomain];
+      v161 = [v65 getBooleanPreference:kCompactMonthEventUseAllSpace defaultValue:1];
+      v157[0] = v65;
+      v160 = [v65 getBooleanPreference:kCompactMonthEventIntegerBased defaultValue:0];
+      if (v160)
       {
-        v64 = 2.0;
+        v66 = 2.0;
       }
 
       else
       {
-        v64 = 2.5;
+        v66 = 2.5;
       }
 
-      v65 = v176;
-      if (v40)
+      v67 = v178;
+      if (v42)
       {
-        v66 = 0;
-        v157 = 256;
-        v164 = v186;
-        v162 = v42;
+        v68 = 0;
+        v159 = 256;
+        v166 = v188;
+        v164 = v44;
         while (1)
         {
-          v67 = [*(&v39->super.super.super.isa + v157) objectAtIndexedSubscript:v66];
-          v68 = *(&v39->super.super.super.isa + v65);
-          v168 = v67;
-          v169 = v66;
-          v69 = *&v175[8 * v66];
-          v123 = v68 >= v69;
-          v70 = v68 - v69;
-          if (!v123)
+          v69 = [*(&v41->super.super.super.isa + v159) objectAtIndexedSubscript:v68];
+          v70 = *(&v41->super.super.super.isa + v67);
+          v170 = v69;
+          v171 = v68;
+          v71 = *&v177[8 * v68];
+          v125 = v70 >= v71;
+          v72 = v70 - v71;
+          if (!v125)
           {
-            v70 = 0;
+            v72 = 0;
           }
 
-          v171 = v70;
-          v195 = 0u;
-          v196 = 0u;
+          v173 = v72;
           v197 = 0u;
           v198 = 0u;
-          v71 = [v67 countByEnumeratingWithState:&v195 objects:v209 count:16];
-          if (v71)
+          v199 = 0u;
+          v200 = 0u;
+          v73 = [v69 countByEnumeratingWithState:&v197 objects:v211 count:16];
+          if (v73)
           {
-            v72 = v71;
-            v73 = 0;
-            v74 = *v196;
+            v74 = v73;
+            v75 = 0;
+            v76 = *v198;
             do
             {
-              for (k = 0; k != v72; k = k + 1)
+              for (k = 0; k != v74; k = k + 1)
               {
-                if (*v196 != v74)
+                if (*v198 != v76)
                 {
-                  objc_enumerationMutation(v168);
+                  objc_enumerationMutation(v170);
                 }
 
-                v76 = *(*(&v195 + 1) + 8 * k);
-                if ([v76 isSingleDay] && (objc_msgSend(v76, "isAllDay") & 1) == 0 && (objc_msgSend(v76, "isMultiDay") & 1) == 0)
+                v78 = *(*(&v197 + 1) + 8 * k);
+                if ([v78 isSingleDay] && (objc_msgSend(v78, "isAllDay") & 1) == 0 && (objc_msgSend(v78, "isMultiDay") & 1) == 0)
                 {
-                  occurrence = [v76 occurrence];
-                  v78 = ~[occurrence isReminderIntegrationEvent];
+                  occurrence = [v78 occurrence];
+                  v80 = ~[occurrence isReminderIntegrationEvent];
 
-                  v39 = selfCopy;
-                  v73 += v78 & 1;
+                  v41 = selfCopy;
+                  v75 += v80 & 1;
                 }
               }
 
-              v72 = [v168 countByEnumeratingWithState:&v195 objects:v209 count:16];
+              v74 = [v170 countByEnumeratingWithState:&v197 objects:v211 count:16];
             }
 
-            while (v72);
+            while (v74);
           }
 
           else
           {
-            v73 = 0;
+            v75 = 0;
           }
 
-          v79 = v159;
-          v80 = v73;
-          if ((v159 & 1) != 0 || (v64 + -1.0) * v73 <= v171)
+          v81 = v161;
+          v82 = v75;
+          if ((v161 & 1) != 0 || (v66 + -1.0) * v75 <= v173)
           {
-            LODWORD(occurrenceBlocks) = [(MonthWeekOccurrencesView *)v39 isCompact];
+            LODWORD(occurrenceBlocks) = [(MonthWeekOccurrencesView *)v41 isCompact];
           }
 
           else
@@ -2511,291 +2516,291 @@ LABEL_11:
             LODWORD(occurrenceBlocks) = 0;
           }
 
-          v81 = v171 - v73;
-          if (v171 < v73)
+          v83 = v173 - v75;
+          if (v173 < v75)
           {
-            v81 = 0;
+            v83 = 0;
           }
 
-          if (v81 >= v73)
+          if (v83 >= v75)
           {
-            v82 = v81;
+            v84 = v83;
           }
 
           else
           {
-            v82 = 0;
+            v84 = 0;
           }
 
-          v83 = *&v175[8 * v169];
-          if (!v79)
+          v85 = *&v177[8 * v171];
+          if (!v81)
           {
-            v81 = v82;
+            v83 = v84;
           }
 
-          v163 = v81;
-          v84 = *(&v39->super.super.super.isa + v176);
-          v85 = -2;
-          if (v83 <= v84)
+          v165 = v83;
+          v86 = *(&v41->super.super.super.isa + v178);
+          v87 = -2;
+          if (v85 <= v86)
           {
-            v85 = -1;
+            v87 = -1;
           }
 
-          v172 = (v85 + v84);
-          if (v158)
+          v174 = (v87 + v86);
+          if (v160)
           {
+            v195 = 0u;
+            v196 = 0u;
             v193 = 0u;
             v194 = 0u;
-            v191 = 0u;
-            v192 = 0u;
-            v165 = v168;
-            v86 = [v165 countByEnumeratingWithState:&v191 objects:v208 count:16];
-            if (!v86)
+            v167 = v170;
+            v88 = [v167 countByEnumeratingWithState:&v193 objects:v210 count:16];
+            if (!v88)
             {
               goto LABEL_175;
             }
 
-            v87 = v86;
-            v88 = 0;
-            v167 = *v192;
-            v161 = v172 - 1;
+            v89 = v88;
+            v90 = 0;
+            v169 = *v194;
+            v163 = v174 - 1;
             while (1)
             {
-              v89 = 0;
-              v90 = v162;
+              v91 = 0;
+              v92 = v164;
               do
               {
-                if (*v192 != v167)
+                if (*v194 != v169)
                 {
-                  objc_enumerationMutation(v165);
+                  objc_enumerationMutation(v167);
                 }
 
-                v91 = *(*(&v191 + 1) + 8 * v89);
-                if (v88 > 0x13)
+                v93 = *(*(&v193 + 1) + 8 * v91);
+                if (v90 > 0x13)
                 {
-                  v92 = selfCopy;
+                  v94 = selfCopy;
                 }
 
                 else
                 {
-                  v92 = selfCopy;
+                  v94 = selfCopy;
                   do
                   {
-                    if (v90[v88] != 1)
+                    if (v92[v90] != 1)
                     {
                       break;
                     }
 
-                    ++v88;
+                    ++v90;
                   }
 
-                  while (v88 != 20);
+                  while (v90 != 20);
                 }
 
-                v93 = ((v88 <= v172) & occurrenceBlocks) != 1 || v171 == 0;
-                if (v93)
+                v95 = ((v90 <= v174) & occurrenceBlocks) != 1 || v173 == 0;
+                if (v95)
                 {
-                  v94 = 1;
+                  v96 = 1;
                 }
 
                 else
                 {
-                  isNarrow = [(MonthWeekOccurrencesView *)v92 isNarrow];
-                  if (isNarrow & 1) != 0 || ![v91 isSingleDay] || (objc_msgSend(v91, "isAllDay") & 1) != 0 || (objc_msgSend(v91, "isMultiDay"))
+                  isNarrow = [(MonthWeekOccurrencesView *)v94 isNarrow];
+                  if (isNarrow & 1) != 0 || ![v93 isSingleDay] || (objc_msgSend(v93, "isAllDay") & 1) != 0 || (objc_msgSend(v93, "isMultiDay"))
                   {
                     goto LABEL_117;
                   }
 
-                  occurrence2 = [v91 occurrence];
-                  if (([occurrence2 isReminderIntegrationEvent] & 1) != 0 || v88 >= v172)
+                  occurrence2 = [v93 occurrence];
+                  if (([occurrence2 isReminderIntegrationEvent] & 1) != 0 || v90 >= v174)
                   {
 
 LABEL_117:
-                    v94 = 1;
+                    v96 = 1;
 LABEL_118:
-                    v92 = selfCopy;
+                    v94 = selfCopy;
                     goto LABEL_119;
                   }
 
-                  v97 = v42[20 * v169 + 1 + v88];
+                  v99 = v44[20 * v171 + 1 + v90];
 
-                  if (v97)
+                  if (v99)
                   {
                     goto LABEL_117;
                   }
 
-                  if (!v163)
+                  if (!v165)
                   {
-                    v163 = 0;
-                    v94 = 2;
-                    --v171;
+                    v165 = 0;
+                    v96 = 2;
+                    --v173;
                     goto LABEL_118;
                   }
 
-                  v92 = selfCopy;
-                  if (v88 >= v161 || (v42[20 * v169 + 2 + v88] & 1) != 0)
+                  v94 = selfCopy;
+                  if (v90 >= v163 || (v44[20 * v171 + 2 + v90] & 1) != 0)
                   {
-                    v94 = 2;
-                    --v171;
+                    v96 = 2;
+                    --v173;
                   }
 
                   else
                   {
-                    v171 -= 2;
-                    --v163;
-                    v94 = 3;
+                    v173 -= 2;
+                    --v165;
+                    v96 = 3;
                   }
                 }
 
 LABEL_119:
-                v98 = v172;
-                [(MonthWeekOccurrencesView *)v92 show:v88 <= v172 occurrenceView:v91 atRow:v173 numRows:v88 drawTimeString:v94];
-                if (v88 - 1 < v98)
+                v100 = v174;
+                [(MonthWeekOccurrencesView *)v94 show:v90 <= v174 occurrenceView:v93 atRow:v175 numRows:v90 drawTimeString:v96];
+                if (v90 - 1 < v100)
                 {
-                  v99 = [*p_secondOccurrencesForEachDay objectAtIndexedSubscript:v169];
-                  v100 = +[NSNull null];
+                  v101 = [*p_secondOccurrencesForEachDay objectAtIndexedSubscript:v171];
+                  v102 = +[NSNull null];
 
-                  v101 = p_secondOccurrencesForEachDay;
-                  v93 = v99 == v100;
-                  v90 = v162;
-                  if (v93 || (v102 = v174, [*v174 objectAtIndexedSubscript:v169], v103 = objc_claimAutoreleasedReturnValue(), +[NSNull null](NSNull, "null"), v104 = objc_claimAutoreleasedReturnValue(), v104, v103, v101 = v102, v93 = v103 == v104, v90 = v162, v93))
+                  v103 = p_secondOccurrencesForEachDay;
+                  v95 = v101 == v102;
+                  v92 = v164;
+                  if (v95 || (v104 = v176, [*v176 objectAtIndexedSubscript:v171], v105 = objc_claimAutoreleasedReturnValue(), +[NSNull null](NSNull, "null"), v106 = objc_claimAutoreleasedReturnValue(), v106, v105, v103 = v104, v95 = v105 == v106, v92 = v164, v95))
                   {
-                    [*v101 setObject:v91 atIndexedSubscript:v169];
+                    [*v103 setObject:v93 atIndexedSubscript:v171];
                   }
                 }
 
-                v88 += v94;
-                v89 = v89 + 1;
-                v42 = v166;
+                v90 += v96;
+                v91 = v91 + 1;
+                v44 = v168;
               }
 
-              while (v89 != v87);
-              v105 = [v165 countByEnumeratingWithState:&v191 objects:v208 count:16];
-              v87 = v105;
-              if (!v105)
+              while (v91 != v89);
+              v107 = [v167 countByEnumeratingWithState:&v193 objects:v210 count:16];
+              v89 = v107;
+              if (!v107)
               {
                 goto LABEL_175;
               }
             }
           }
 
-          if (v79)
+          if (v81)
           {
-            v80 = (v171 / 1.5);
+            v82 = (v173 / 1.5);
           }
 
-          v189 = 0u;
+          v191 = 0u;
+          v192 = 0u;
           v190 = 0u;
-          v188 = 0u;
-          v187 = 0u;
-          v161 = v168;
-          v167 = [v161 countByEnumeratingWithState:&v187 objects:v207 count:16];
-          if (v167)
+          v189 = 0u;
+          v163 = v170;
+          v169 = [v163 countByEnumeratingWithState:&v189 objects:v209 count:16];
+          if (v169)
           {
             break;
           }
 
 LABEL_175:
-          v39 = selfCopy;
-          v139 = v168;
+          v41 = selfCopy;
+          v141 = v170;
 
-          v66 = v169 + 1;
-          v162 += 20;
-          v65 = v176;
-          if (v169 + 1 == v160)
+          v68 = v171 + 1;
+          v164 += 20;
+          v67 = v178;
+          if (v171 + 1 == v162)
           {
             goto LABEL_176;
           }
         }
 
-        v165 = *v188;
-        v106 = 0.0;
+        v167 = *v190;
+        v108 = 0.0;
 LABEL_134:
-        v107 = 0;
-        v108 = v169;
+        v109 = 0;
+        v110 = v171;
         while (1)
         {
-          if (*v188 != v165)
+          if (*v190 != v167)
           {
-            objc_enumerationMutation(v161);
+            objc_enumerationMutation(v163);
           }
 
-          v109 = *(*(&v187 + 1) + 8 * v107);
-          v110 = ceil(v106);
-          if (v80)
+          v111 = *(*(&v189 + 1) + 8 * v109);
+          v112 = ceil(v108);
+          if (v82)
           {
-            v111 = occurrenceBlocks;
-          }
-
-          else
-          {
-            v111 = 0;
-          }
-
-          if (v111 != 1 || -[MonthWeekOccurrencesView isNarrow](selfCopy, "isNarrow") || ![v109 isSingleDay] || (objc_msgSend(v109, "isAllDay") & 1) != 0 || (objc_msgSend(v109, "isMultiDay") & 1) != 0 || (objc_msgSend(v109, "occurrence"), v112 = objc_claimAutoreleasedReturnValue(), v113 = objc_msgSend(v112, "isReminderIntegrationEvent"), v112, (v113 & 1) != 0))
-          {
-            v114 = 0;
-            v115 = v110;
+            v113 = occurrenceBlocks;
           }
 
           else
           {
-            v115 = ceil(v64 + v106);
-            v114 = 1;
+            v113 = 0;
           }
 
-          v171 = v109;
-          v116 = floor(v106);
-          v185[0] = _NSConcreteStackBlock;
-          v185[1] = 3221225472;
-          v186[0] = sub_10005DC54;
-          v186[1] = &unk_10020F830;
-          v186[2] = v108;
-          v117 = objc_retainBlock(v185);
-          v118 = v115;
-          if (v115 > 0x13)
+          if (v113 != 1 || -[MonthWeekOccurrencesView isNarrow](selfCopy, "isNarrow") || ![v111 isSingleDay] || (objc_msgSend(v111, "isAllDay") & 1) != 0 || (objc_msgSend(v111, "isMultiDay") & 1) != 0 || (objc_msgSend(v111, "occurrence"), v114 = objc_claimAutoreleasedReturnValue(), v115 = objc_msgSend(v114, "isReminderIntegrationEvent"), v114, (v115 & 1) != 0))
           {
-            v120 = v106;
+            v116 = 0;
+            v117 = v112;
           }
 
           else
           {
-            v119 = v116;
-            v120 = v106;
+            v117 = ceil(v66 + v108);
+            v116 = 1;
+          }
+
+          v173 = v111;
+          v118 = floor(v108);
+          v187[0] = _NSConcreteStackBlock;
+          v187[1] = 3221225472;
+          v188[0] = sub_10005DC54;
+          v188[1] = &unk_10020F830;
+          v188[2] = v110;
+          v119 = objc_retainBlock(v187);
+          v120 = v117;
+          if (v117 > 0x13)
+          {
+            v122 = v108;
+          }
+
+          else
+          {
+            v121 = v118;
+            v122 = v108;
             do
             {
-              if (!(v117[2])(v117, v119, v118, v42))
+              if (!(v119[2])(v119, v121, v120, v44))
               {
                 break;
               }
 
-              v120 = v120 + 1.0;
-              v119 = floor(v120);
-              v121 = ceil(v64 + v120);
-              v122 = ceil(v120);
-              if (!v114)
+              v122 = v122 + 1.0;
+              v121 = floor(v122);
+              v123 = ceil(v66 + v122);
+              v124 = ceil(v122);
+              if (!v116)
               {
-                v121 = v122;
+                v123 = v124;
               }
 
-              v118 = v121;
+              v120 = v123;
             }
 
-            while (v121 < 0x14);
+            while (v123 < 0x14);
           }
 
-          v123 = v172 >= v118;
-          v124 = v172 >= v118;
-          if (v114)
+          v125 = v174 >= v120;
+          v126 = v174 >= v120;
+          if (v116)
           {
-            v125 = v171;
-            if (v123)
+            v127 = v173;
+            if (v125)
             {
-              --v80;
-              [(MonthWeekOccurrencesView *)selfCopy show:1 occurrenceView:v171 atRow:v173 numRows:v120 drawTimeString:v64];
-              v126 = v64;
-              v127 = &_s19RemindersAppIntents0A40InCalendarReminderEditingModuleInterfaceP036requiresUserConfirmationForCancelingG0SbvgTj_ptr;
-              if (v120 > 0.0)
+              --v82;
+              [(MonthWeekOccurrencesView *)selfCopy show:1 occurrenceView:v173 atRow:v175 numRows:v122 drawTimeString:v66];
+              v128 = v66;
+              v129 = &_s19RemindersAppIntents0A40InCalendarReminderEditingModuleInterfaceP036requiresUserConfirmationForCancelingG0SbvgTj_ptr;
+              if (v122 > 0.0)
               {
                 goto LABEL_167;
               }
@@ -2803,66 +2808,66 @@ LABEL_134:
               goto LABEL_171;
             }
 
-            v129 = v110;
-            v127 = &_s19RemindersAppIntents0A40InCalendarReminderEditingModuleInterfaceP036requiresUserConfirmationForCancelingG0SbvgTj_ptr;
-            if (v110 <= 0x13)
+            v131 = v112;
+            v129 = &_s19RemindersAppIntents0A40InCalendarReminderEditingModuleInterfaceP036requiresUserConfirmationForCancelingG0SbvgTj_ptr;
+            if (v112 <= 0x13)
             {
               do
               {
-                if (!(v117[2])(v117, v116, v129, v42))
+                if (!(v119[2])(v119, v118, v131, v44))
                 {
                   break;
                 }
 
-                v106 = v106 + 1.0;
-                v116 = floor(v106);
-                v129 = vcvtpd_u64_f64(v106);
+                v108 = v108 + 1.0;
+                v118 = floor(v108);
+                v131 = vcvtpd_u64_f64(v108);
               }
 
-              while (v129 < 0x14);
+              while (v131 < 0x14);
             }
 
-            v124 = v172 >= v129;
-            v120 = v106;
-            v128 = selfCopy;
+            v126 = v174 >= v131;
+            v122 = v108;
+            v130 = selfCopy;
           }
 
           else
           {
-            v128 = selfCopy;
-            v127 = &_s19RemindersAppIntents0A40InCalendarReminderEditingModuleInterfaceP036requiresUserConfirmationForCancelingG0SbvgTj_ptr;
+            v130 = selfCopy;
+            v129 = &_s19RemindersAppIntents0A40InCalendarReminderEditingModuleInterfaceP036requiresUserConfirmationForCancelingG0SbvgTj_ptr;
           }
 
-          v125 = v171;
-          v126 = 1.0;
-          [(MonthWeekOccurrencesView *)v128 show:v124 occurrenceView:v171 atRow:v173 numRows:v120 drawTimeString:1.0];
-          if (v120 > 0.0 && v124)
+          v127 = v173;
+          v128 = 1.0;
+          [(MonthWeekOccurrencesView *)v130 show:v126 occurrenceView:v173 atRow:v175 numRows:v122 drawTimeString:1.0];
+          if (v122 > 0.0 && v126)
           {
 LABEL_167:
-            v163 = v80;
-            v130 = [*p_secondOccurrencesForEachDay objectAtIndexedSubscript:v108];
-            [v127[267] null];
-            v131 = v127;
-            v133 = v132 = v108;
+            v165 = v82;
+            v132 = [*p_secondOccurrencesForEachDay objectAtIndexedSubscript:v110];
+            [v129[267] null];
+            v133 = v129;
+            v135 = v134 = v110;
 
-            v134 = p_secondOccurrencesForEachDay;
-            if (v130 == v133 || (v135 = v174, [*v174 objectAtIndexedSubscript:v132], v136 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v131[267], "null"), v137 = objc_claimAutoreleasedReturnValue(), v137, v136, v134 = v135, v125 = v171, v136 == v137))
+            v136 = p_secondOccurrencesForEachDay;
+            if (v132 == v135 || (v137 = v176, [*v176 objectAtIndexedSubscript:v134], v138 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v133[267], "null"), v139 = objc_claimAutoreleasedReturnValue(), v139, v138, v136 = v137, v127 = v173, v138 == v139))
             {
-              [*v134 setObject:v125 atIndexedSubscript:v132];
+              [*v136 setObject:v127 atIndexedSubscript:v134];
             }
 
-            v108 = v132;
-            v80 = v163;
+            v110 = v134;
+            v82 = v165;
           }
 
 LABEL_171:
-          v106 = v126 + v120;
+          v108 = v128 + v122;
 
-          if (++v107 == v167)
+          if (++v109 == v169)
           {
-            v138 = [v161 countByEnumeratingWithState:&v187 objects:v207 count:16];
-            v167 = v138;
-            if (!v138)
+            v140 = [v163 countByEnumeratingWithState:&v189 objects:v209 count:16];
+            v169 = v140;
+            if (!v140)
             {
               goto LABEL_175;
             }
@@ -2874,15 +2879,15 @@ LABEL_171:
 
 LABEL_176:
       IsLeftToRight = CalInterfaceIsLeftToRight();
-      v141 = v156;
+      v143 = v158;
       if (IsLeftToRight)
       {
         CalRoundToScreenScale();
       }
 
-      if ([(MonthWeekOccurrencesView *)v39 isNarrow])
+      if ([(MonthWeekOccurrencesView *)v41 isNarrow])
       {
-        v142 = 6.0;
+        v144 = 6.0;
       }
 
       else
@@ -2890,52 +2895,52 @@ LABEL_176:
         +[MonthViewOccurrence occurrenceHeight];
       }
 
-      [EKUILargeTextUtilities contentSizeCategoryScaledValueForDefaultValue:0 shouldScaleForSmallerSizes:v142];
-      v143 = 0;
-      v145 = v144 + 1.0;
+      [EKUILargeTextUtilities contentSizeCategoryScaledValueForDefaultValue:0 shouldScaleForSmallerSizes:v144];
+      v145 = 0;
+      v147 = v146 + 1.0;
       do
       {
-        v146 = v141[v143];
-        [(MonthWeekOccurrencesView *)v39 _frameForStartColumn:v143 endColumn:v143 dayRow:0 occurrenceRow:(*(&v39->super.super.super.isa + v65) - 1) numRows:1.0];
-        v148 = v147;
+        v148 = v143[v145];
+        [(MonthWeekOccurrencesView *)v41 _frameForStartColumn:v145 endColumn:v145 dayRow:0 occurrenceRow:(*(&v41->super.super.super.isa + v67) - 1) numRows:1.0];
         v150 = v149;
         v152 = v151;
-        if ([(_MoreEventsView *)v141[v143] numberOfEvents]<= 0)
+        v154 = v153;
+        if ([(_MoreEventsView *)v143[v145] numberOfEvents]<= 0)
         {
-          v153 = 0.0;
+          v155 = 0.0;
         }
 
         else
         {
-          v153 = 1.0;
+          v155 = 1.0;
         }
 
-        if ([(MonthWeekOccurrencesView *)v39 drawWithViews]&& ([(_MoreEventsView *)v146 frame], v154 > 0.0))
+        if ([(MonthWeekOccurrencesView *)v41 drawWithViews]&& ([(_MoreEventsView *)v148 frame], v156 > 0.0))
         {
-          v178[0] = _NSConcreteStackBlock;
-          v178[1] = 3221225472;
-          v178[2] = sub_10005DCB0;
-          v178[3] = &unk_10020F1A0;
-          v179 = v146;
-          v180 = v153;
+          v180[0] = _NSConcreteStackBlock;
+          v180[1] = 3221225472;
+          v180[2] = sub_10005DCB0;
+          v180[3] = &unk_10020F1A0;
           v181 = v148;
-          v182 = v150;
-          v183 = v152;
-          v184 = v145;
-          [(MonthWeekOccurrencesView *)v39 animateBlock:v178];
+          v182 = v155;
+          v183 = v150;
+          v184 = v152;
+          v185 = v154;
+          v186 = v147;
+          [(MonthWeekOccurrencesView *)v41 animateBlock:v180];
         }
 
         else
         {
-          [(_MoreEventsView *)v146 setFrame:v148, v150, v152, v145];
-          [(_MoreEventsView *)v146 setAlpha:v153];
-          [(_MoreEventsView *)v146 update];
+          [(_MoreEventsView *)v148 setFrame:v150, v152, v154, v147];
+          [(_MoreEventsView *)v148 setAlpha:v155];
+          [(_MoreEventsView *)v148 update];
         }
 
-        ++v143;
+        ++v145;
       }
 
-      while (v143 != 7);
+      while (v145 != 7);
     }
   }
 }

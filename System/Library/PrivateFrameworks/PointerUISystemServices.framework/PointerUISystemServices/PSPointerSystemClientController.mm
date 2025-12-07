@@ -32,28 +32,26 @@
 
 - (void)prepareScenesForPointerForDisplayConfiguration:(id)configuration
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v5 = PSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     hardwareIdentifier = [configurationCopy hardwareIdentifier];
-    v8 = 138543618;
-    v9 = hardwareIdentifier;
-    v10 = 2112;
-    v11 = configurationCopy;
-    _os_log_impl(&dword_25EA35000, v5, OS_LOG_TYPE_DEFAULT, "Preparing scenes for display with hardware identifier: %{public}@ displayConfiguration: %@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = hardwareIdentifier;
+    v9 = 2112;
+    v10 = configurationCopy;
+    _os_log_impl(&dword_25EA35000, v5, OS_LOG_TYPE_DEFAULT, "Preparing scenes for display with hardware identifier: %{public}@ displayConfiguration: %@", &v7, 0x16u);
   }
 
   [(PSPointerSystemClientController *)self _prepareSceneForIdentifierPrefix:@"com.apple.PointerUI.pointeruid.pointerRenderingScene" displayConfiguration:configurationCopy];
   [(PSPointerSystemClientController *)self _prepareSceneForIdentifierPrefix:@"com.apple.PointerUI.pointeruid.systemPointerScene" displayConfiguration:configurationCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_prepareSceneForIdentifierPrefix:(id)prefix displayConfiguration:(id)configuration
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   prefixCopy = prefix;
   configurationCopy = configuration;
   if (!self->_sceneWorkspace)
@@ -74,23 +72,23 @@
     if (v13)
     {
       *buf = 138543362;
-      v38 = v10;
+      v37 = v10;
       _os_log_impl(&dword_25EA35000, v12, OS_LOG_TYPE_DEFAULT, "Activating existing scene with identifier: %{public}@", buf, 0xCu);
     }
 
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __89__PSPointerSystemClientController__prepareSceneForIdentifierPrefix_displayConfiguration___block_invoke_14;
-    v27[3] = &unk_279A47238;
-    v28 = configurationCopy;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __89__PSPointerSystemClientController__prepareSceneForIdentifierPrefix_displayConfiguration___block_invoke_14;
+    v26[3] = &unk_279A47238;
+    v27 = configurationCopy;
     settings = configurationCopy;
-    [v11 updateSettingsWithBlock:v27];
+    [v11 updateSettingsWithBlock:v26];
     [v11 activateWithTransitionContext:0];
     [v11 setDelegate:self];
     delegate = [(PSPointerSystemClientController *)self delegate];
     [delegate pointerClientController:self sceneDidActivate:v11];
 
-    v16 = v28;
+    v16 = v27;
   }
 
   else
@@ -98,7 +96,7 @@
     if (v13)
     {
       *buf = 138543362;
-      v38 = v10;
+      v37 = v10;
       _os_log_impl(&dword_25EA35000, v12, OS_LOG_TYPE_DEFAULT, "Creating new scene with identifier: %{public}@", buf, 0xCu);
     }
 
@@ -130,30 +128,28 @@
     [v16 setClientSettings:v17];
     v21 = self->_pointerUIDProcessIdentity;
     v22 = self->_sceneWorkspace;
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __89__PSPointerSystemClientController__prepareSceneForIdentifierPrefix_displayConfiguration___block_invoke;
-    v34[3] = &unk_279A471C0;
-    v35 = v10;
-    v36 = v21;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __89__PSPointerSystemClientController__prepareSceneForIdentifierPrefix_displayConfiguration___block_invoke;
+    v33[3] = &unk_279A471C0;
+    v34 = v10;
+    v35 = v21;
     v23 = v21;
-    v11 = [(FBSceneWorkspace *)v22 createScene:v34];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __89__PSPointerSystemClientController__prepareSceneForIdentifierPrefix_displayConfiguration___block_invoke_2;
-    v29[3] = &unk_279A47210;
-    v30 = v17;
-    v31 = configurationCopy;
-    v32 = v18;
-    v33 = 1;
+    v11 = [(FBSceneWorkspace *)v22 createScene:v33];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __89__PSPointerSystemClientController__prepareSceneForIdentifierPrefix_displayConfiguration___block_invoke_2;
+    v28[3] = &unk_279A47210;
+    v29 = v17;
+    v30 = configurationCopy;
+    v31 = v18;
+    v32 = 1;
     v24 = configurationCopy;
     v25 = v17;
-    [v11 configureParameters:v29];
+    [v11 configureParameters:v28];
     [v11 addExtension:objc_opt_class()];
     [v11 activateWithTransitionContext:0];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __89__PSPointerSystemClientController__prepareSceneForIdentifierPrefix_displayConfiguration___block_invoke(uint64_t a1, void *a2)
@@ -206,23 +202,21 @@ void __89__PSPointerSystemClientController__prepareSceneForIdentifierPrefix_disp
 
 - (void)invalidateScenesForPointerForDisplayConfiguration:(id)configuration
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v5 = PSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     hardwareIdentifier = [configurationCopy hardwareIdentifier];
-    v8 = 138543618;
-    v9 = hardwareIdentifier;
-    v10 = 2112;
-    v11 = configurationCopy;
-    _os_log_impl(&dword_25EA35000, v5, OS_LOG_TYPE_DEFAULT, "Invalidating scenes for display with hardware identifier: %{public}@ displayConfiguration: %@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = hardwareIdentifier;
+    v9 = 2112;
+    v10 = configurationCopy;
+    _os_log_impl(&dword_25EA35000, v5, OS_LOG_TYPE_DEFAULT, "Invalidating scenes for display with hardware identifier: %{public}@ displayConfiguration: %@", &v7, 0x16u);
   }
 
   [(PSPointerSystemClientController *)self _invalidateSceneForIdentifierPrefix:@"com.apple.PointerUI.pointeruid.pointerRenderingScene" displayConfiguration:configurationCopy];
   [(PSPointerSystemClientController *)self _invalidateSceneForIdentifierPrefix:@"com.apple.PointerUI.pointeruid.systemPointerScene" displayConfiguration:configurationCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateSceneForIdentifierPrefix:(id)prefix displayConfiguration:(id)configuration
@@ -357,7 +351,7 @@ void __105__PSPointerSystemClientController__setRootWindowTransform_sceneForIden
 
 void __75__PSPointerSystemClientController_workspace_clientDidConnectWithHandshake___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (([v2 isActive] & 1) == 0)
   {
@@ -365,15 +359,13 @@ void __75__PSPointerSystemClientController_workspace_clientDidConnectWithHandsha
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [v2 identifier];
-      v6 = 138543362;
-      v7 = v4;
-      _os_log_impl(&dword_25EA35000, v3, OS_LOG_TYPE_DEFAULT, "reactivating scene: %{public}@", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v4;
+      _os_log_impl(&dword_25EA35000, v3, OS_LOG_TYPE_DEFAULT, "reactivating scene: %{public}@", &v5, 0xCu);
     }
 
     [v2 activateWithTransitionContext:0];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sceneDidActivate:(id)activate
@@ -399,33 +391,29 @@ void __75__PSPointerSystemClientController_workspace_clientDidConnectWithHandsha
 
 - (void)_invalidateSceneForIdentifierPrefix:(uint64_t)a1 displayConfiguration:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_25EA35000, a2, OS_LOG_TYPE_ERROR, "Could not find scene with %{public}@ to invalidate", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_25EA35000, a2, OS_LOG_TYPE_ERROR, "Could not find scene with %{public}@ to invalidate", &v2, 0xCu);
 }
 
 - (void)_invalidateSceneForIdentifierPrefix:(NSObject *)a3 displayConfiguration:.cold.2(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 hardwareIdentifier];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_25EA35000, a3, OS_LOG_TYPE_ERROR, "Scene workspace is not avaialble when invalidating scene %@ for %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_25EA35000, a3, OS_LOG_TYPE_ERROR, "Scene workspace is not avaialble when invalidating scene %@ for %@", &v6, 0x16u);
 }
 
 - (void)_setRootWindowTransform:(uint64_t)a1 sceneForIdentifierPrefix:(NSObject *)a2 displayConfiguration:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_25EA35000, a2, OS_LOG_TYPE_ERROR, "Could not find scene with %{public}@ to set root window transform", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_25EA35000, a2, OS_LOG_TYPE_ERROR, "Could not find scene with %{public}@ to set root window transform", &v2, 0xCu);
 }
 
 @end

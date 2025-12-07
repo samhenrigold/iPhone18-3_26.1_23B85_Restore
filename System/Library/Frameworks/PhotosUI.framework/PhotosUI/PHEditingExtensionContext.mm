@@ -9,10 +9,21 @@
 - (void)finishContentEditing;
 - (void)queryHandlingCapabilityForAdjustmentData:(id)data withResponseHandler:(id)handler;
 - (void)queryShouldShowCancelConfirmationWithResponseHandler:(id)handler;
+- (void)setHideNavigationController:(BOOL)controller;
 - (void)setUndoManagerForBarButtons:(id)buttons;
+- (void)setupUndoProxyWithXPCListenerEndpoint:(id)endpoint attemptUndoManagerAutoSetup:(BOOL)setup;
 @end
 
 @implementation PHEditingExtensionContext
+
+- (void)setHideNavigationController:(BOOL)controller
+{
+  controllerCopy = controller;
+  _auxiliaryConnection = [(PHEditingExtensionContext *)self _auxiliaryConnection];
+  remoteObjectProxy = [_auxiliaryConnection remoteObjectProxy];
+
+  [remoteObjectProxy setHideNavigationController:controllerCopy];
+}
 
 - (void)setUndoManagerForBarButtons:(id)buttons
 {
@@ -224,7 +235,7 @@ void __70__PHEditingExtensionContext_beginContentEditingWithCompletionHandler___
     v18 = *(v17 + 40);
     *(v17 + 40) = v16;
 
-    [v5 livePhotoStillDisplayTime];
+    objc_msgSend_livePhotoStillDisplayTime(v5);
     v19 = *(*(a1 + 72) + 8);
     *(v19 + 32) = v53;
     *(v19 + 48) = v54;
@@ -330,14 +341,14 @@ void __70__PHEditingExtensionContext_beginContentEditingWithCompletionHandler___
 
 uint64_t __70__PHEditingExtensionContext_beginContentEditingWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v2 = *(*(*(a1 + 48) + 8) + 40);
   if (v2 && *(*(*(a1 + 56) + 8) + 40) && (*(*(*(a1 + 64) + 8) + 44) & 1) != 0)
   {
     v3 = MEMORY[0x1E69788C8];
-    v13[0] = *(*(*(a1 + 56) + 8) + 40);
-    v13[1] = v2;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+    v11[0] = *(*(*(a1 + 56) + 8) + 40);
+    v11[1] = v2;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
     v5 = [v3 livePhotoWithResourceFileURLs:v4 error:0];
 
     [*(*(*(a1 + 72) + 8) + 40) setLivePhoto:v5];
@@ -378,10 +389,22 @@ uint64_t __70__PHEditingExtensionContext_beginContentEditingWithCompletionHandle
     [*(a1 + 32) setUndoManagerForBarButtons:v9];
   }
 
-  v10 = *(*(*(a1 + 96) + 8) + 40);
-  result = (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
+}
+
+- (void)setupUndoProxyWithXPCListenerEndpoint:(id)endpoint attemptUndoManagerAutoSetup:(BOOL)setup
+{
+  setupCopy = setup;
+  endpointCopy = endpoint;
+  v9 = [[PUEditingExtensionUndoProxyExtensionSide alloc] initWithEndpoint:endpointCopy];
+
+  v7 = [[PUEditingExtensionUndoAdapter alloc] initWithButtonHost:v9];
+  [(PUEditingExtensionUndoProxyExtensionSide *)v9 setTarget:v7];
+  undoManagerForBarButtons = [(PHEditingExtensionContext *)self undoManagerForBarButtons];
+  [(PUEditingExtensionUndoAdapter *)v7 setUndoManager:undoManagerForBarButtons];
+
+  [(PHEditingExtensionContext *)self setUndoAdapter:v7];
+  [(PHEditingExtensionContext *)self setAttemptUndoManagerAutoSetup:setupCopy];
 }
 
 - (void)queryShouldShowCancelConfirmationWithResponseHandler:(id)handler

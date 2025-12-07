@@ -33,22 +33,22 @@
 
 - (id)getFamilyRecommendationsWithContext:(id *)context error:(id *)error
 {
-  v7 = _FASignpostLogSystem();
+  v7 = _FASignpostLogSystem(self);
   v8 = _FASignpostCreate(v7);
   v10 = v9;
 
-  v11 = _FASignpostLogSystem();
-  v12 = v11;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v12 = _FASignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v8, "MegadomeFetchRecommendation", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "MegadomeFetchRecommendation", "", buf, 2u);
   }
 
-  v13 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v15 = _FASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    [FAFamilyMegadomeSuggester getFamilyRecommendationsWithContext:v8 error:v13];
+    [FAFamilyMegadomeSuggester getFamilyRecommendationsWithContext:v8 error:v15];
   }
 
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -59,64 +59,64 @@
   aBlock[5] = v10;
   aBlock[6] = context;
   aBlock[7] = error;
-  v14 = _Block_copy(aBlock);
-  v15 = _FALogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = _Block_copy(aBlock);
+  v17 = _FALogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B70B0000, v15, OS_LOG_TYPE_DEFAULT, "Attempting to get Family suggestions from Megadome", buf, 2u);
+    _os_log_impl(&dword_1B70B0000, v17, OS_LOG_TYPE_DEFAULT, "Attempting to get Family suggestions from Megadome", buf, 2u);
   }
 
   recommendationLoader = [(FAFamilyMegadomeSuggester *)self recommendationLoader];
-  v32 = 0;
-  v17 = [recommendationLoader peopleViewWithError:&v32];
-  v18 = v32;
+  v36 = 0;
+  v19 = [recommendationLoader peopleViewWithError:&v36];
+  v20 = v36;
 
-  if (v17)
+  if (v19)
   {
     recommendationLoader2 = [(FAFamilyMegadomeSuggester *)self recommendationLoader];
-    v31 = 0;
-    v20 = [recommendationLoader2 megadomeResultsForFamilyTagWithError:&v31];
-    v21 = v31;
+    v35 = 0;
+    v23 = [recommendationLoader2 megadomeResultsForFamilyTagWithError:&v35];
+    v24 = v35;
 
-    if (v20)
+    if (v23)
     {
       recommendationLoader3 = [(FAFamilyMegadomeSuggester *)self recommendationLoader];
-      scoredEntities = [v20 scoredEntities];
-      v24 = [recommendationLoader3 megadomePeopleFromScoredEntities:scoredEntities inVisualIdentifierView:v17];
+      scoredEntities = [v23 scoredEntities];
+      v28 = [recommendationLoader3 megadomePeopleFromScoredEntities:scoredEntities inVisualIdentifierView:v19];
 
-      v25 = [(FAFamilyMegadomeSuggester *)self peopleNotAlreadyInFamilyInPersonArray:v24];
-      v26 = [(FAFamilyMegadomeSuggester *)self recommendedFamilyMembersForMegadomeResults:v25];
-      v27 = -[FAFamilySuggesterFeedbackContext initWithMegadomeFeedbackEventID:]([FAFamilySuggesterFeedbackContext alloc], "initWithMegadomeFeedbackEventID:", [v20 feedbackEventId]);
-      v14[2](v14, 0, v27);
+      v29 = [(FAFamilyMegadomeSuggester *)self peopleNotAlreadyInFamilyInPersonArray:v28];
+      v30 = [(FAFamilyMegadomeSuggester *)self recommendedFamilyMembersForMegadomeResults:v29];
+      v31 = -[FAFamilySuggesterFeedbackContext initWithMegadomeFeedbackEventID:]([FAFamilySuggesterFeedbackContext alloc], "initWithMegadomeFeedbackEventID:", [v23 feedbackEventId]);
+      v16[2](v16, 0, v31);
     }
 
     else
     {
-      v29 = _FALogSystem();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v33 = _FALogSystem(v25);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        [FAFamilyMegadomeSuggester getFamilyRecommendationsWithContext:v21 error:v29];
+        [FAFamilyMegadomeSuggester getFamilyRecommendationsWithContext:v24 error:v33];
       }
 
-      (v14)[2](v14, v21, 0);
-      v26 = MEMORY[0x1E695E0F0];
+      (v16)[2](v16, v24, 0);
+      v30 = MEMORY[0x1E695E0F0];
     }
   }
 
   else
   {
-    v28 = _FALogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v32 = _FALogSystem(v21);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      [FAFamilyMegadomeSuggester getFamilyRecommendationsWithContext:v18 error:v28];
+      [FAFamilyMegadomeSuggester getFamilyRecommendationsWithContext:v20 error:v32];
     }
 
-    (v14)[2](v14, v18, 0);
-    v26 = MEMORY[0x1E695E0F0];
+    (v16)[2](v16, v20, 0);
+    v30 = MEMORY[0x1E695E0F0];
   }
 
-  return v26;
+  return v30;
 }
 
 void __71__FAFamilyMegadomeSuggester_getFamilyRecommendationsWithContext_error___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -124,30 +124,30 @@ void __71__FAFamilyMegadomeSuggester_getFamilyRecommendationsWithContext_error__
   v5 = a2;
   v6 = a3;
   Nanoseconds = _FASignpostGetNanoseconds(*(a1 + 32), *(a1 + 40));
-  v8 = _FASignpostLogSystem();
+  v8 = _FASignpostLogSystem(Nanoseconds);
   v9 = v8;
   v10 = *(a1 + 32);
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    *v14 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v9, OS_SIGNPOST_INTERVAL_END, v10, "MegadomeFetchRecommendation", "", v14, 2u);
+    *v15 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v9, OS_SIGNPOST_INTERVAL_END, v10, "MegadomeFetchRecommendation", "", v15, 2u);
   }
 
-  v11 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = _FASignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    __71__FAFamilyMegadomeSuggester_getFamilyRecommendationsWithContext_error___block_invoke_cold_1((a1 + 32), v11, Nanoseconds / 1000000000.0);
+    __71__FAFamilyMegadomeSuggester_getFamilyRecommendationsWithContext_error___block_invoke_cold_1((a1 + 32), v12, Nanoseconds / 1000000000.0);
   }
 
   if (*(a1 + 48))
   {
-    v12 = v6;
+    v13 = v6;
     **(a1 + 48) = v6;
   }
 
   if (*(a1 + 56))
   {
-    v13 = v5;
+    v14 = v5;
     **(a1 + 56) = v5;
   }
 }
@@ -211,16 +211,17 @@ void __71__FAFamilyMegadomeSuggester_getFamilyRecommendationsWithContext_error__
                 }
 
                 v21 = *(*(&v31 + 1) + 8 * j);
-                if ([familyHandles containsObject:v21])
+                v22 = [familyHandles containsObject:v21];
+                if (v22)
                 {
-                  v22 = _FALogSystem();
-                  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+                  v23 = _FALogSystem(v22);
+                  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
                     v40 = v21;
                     v41 = 2112;
                     v42 = v10;
-                    _os_log_impl(&dword_1B70B0000, v22, OS_LOG_TYPE_DEFAULT, "Handle %@ already in Family. Removing recommendation from array: %@", buf, 0x16u);
+                    _os_log_impl(&dword_1B70B0000, v23, OS_LOG_TYPE_DEFAULT, "Handle %@ already in Family. Removing recommendation from array: %@", buf, 0x16u);
                   }
 
                   goto LABEL_19;
@@ -247,107 +248,100 @@ LABEL_19:
       while (v8);
     }
 
-    v23 = [v28 copy];
+    v24 = [v28 copy];
     arrayCopy = v27;
   }
 
   else
   {
-    v24 = _FALogSystem();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v25 = _FALogSystem(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v40 = "[FAFamilyMegadomeSuggester peopleNotAlreadyInFamilyInPersonArray:]";
-      _os_log_impl(&dword_1B70B0000, v24, OS_LOG_TYPE_DEFAULT, "No Family handles. Returning early from %s.", buf, 0xCu);
+      _os_log_impl(&dword_1B70B0000, v25, OS_LOG_TYPE_DEFAULT, "No Family handles. Returning early from %s.", buf, 0xCu);
     }
 
-    v23 = arrayCopy;
+    v24 = arrayCopy;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v24;
 }
 
 - (id)recommendedFamilyMembersForMegadomeResults:(id)results
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   array = [MEMORY[0x1E695DF70] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = resultsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [FARecommendedFamilyMember alloc];
-        v12 = [(FARecommendedFamilyMember *)v11 initWithMegadomeRecommendation:v10, v16];
+        v12 = [(FARecommendedFamilyMember *)v11 initWithMegadomeRecommendation:v10, v15];
         [array addObject:v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   v13 = [array copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (void)getFamilyRecommendationsWithContext:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: MegadomeFetchRecommendation ", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: MegadomeFetchRecommendation ", &v2, 0xCu);
 }
 
 - (void)getFamilyRecommendationsWithContext:(uint64_t)a1 error:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_ERROR, "Error initializing megadome entities for Family tag: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_ERROR, "Error initializing megadome entities for Family tag: %@", &v2, 0xCu);
 }
 
 - (void)getFamilyRecommendationsWithContext:(uint64_t)a1 error:(NSObject *)a2 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_ERROR, "Error initializing megadome visual identifier view: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_ERROR, "Error initializing megadome visual identifier view: %@", &v2, 0xCu);
 }
 
 void __71__FAFamilyMegadomeSuggester_getFamilyRecommendationsWithContext_error___block_invoke_cold_1(uint64_t *a1, NSObject *a2, double a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 134218240;
-  v6 = v3;
-  v7 = 2048;
-  v8 = a3;
-  _os_log_debug_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:MegadomeFetchRecommendation ", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134218240;
+  v5 = v3;
+  v6 = 2048;
+  v7 = a3;
+  _os_log_debug_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:MegadomeFetchRecommendation ", &v4, 0x16u);
 }
 
 @end

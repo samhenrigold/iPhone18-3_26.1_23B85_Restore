@@ -7,7 +7,7 @@
 
 - (void)isNewUserWithDataTransferMethod:(unint64_t)method deviceClass:(NSString *)class serialNumber:(NSString *)number completionHandler:(id)handler
 {
-  v11 = sub_100006410(&qword_1003A0110);
+  v11 = sub_100006410(&qword_1003A0110, &qword_100297980);
   __chkstk_darwin(v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);

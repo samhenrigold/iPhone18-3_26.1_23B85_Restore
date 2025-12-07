@@ -130,10 +130,10 @@
 + (id)applyMedianToImage:(id)image width:(int)width
 {
   v4 = *&width;
-  v22[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   if ((width & 1) == 0)
   {
-    v5 = ci_logger_api();
+    v5 = ci_logger_api(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [CIMedianProcessor applyMedianToImage:v4 width:v5];
@@ -142,11 +142,11 @@
     return 0;
   }
 
-  [MEMORY[0x1E6974600] minKernelDiameter];
+  minKernelDiameter = [MEMORY[0x1E6974600] minKernelDiameter];
   if (v4 <= 2)
   {
-    v8 = ci_logger_api();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = ci_logger_api(minKernelDiameter, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       +[CIMedianProcessor applyMedianToImage:width:];
     }
@@ -154,10 +154,11 @@
     return 0;
   }
 
-  if ([MEMORY[0x1E6974600] maxKernelDiameter] < v4)
+  maxKernelDiameter = [MEMORY[0x1E6974600] maxKernelDiameter];
+  if (maxKernelDiameter < v4)
   {
-    v9 = ci_logger_api();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = ci_logger_api(maxKernelDiameter, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       +[CIMedianProcessor applyMedianToImage:width:];
     }
@@ -166,14 +167,14 @@
   }
 
   [image extent];
-  v12 = v11;
-  v14 = v13;
   v16 = v15;
   v18 = v17;
-  v22[0] = image;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
-  v21 = [MEMORY[0x1E696AD98] numberWithInt:{v4, @"w"}];
-  return [self applyWithExtent:v19 inputs:objc_msgSend(MEMORY[0x1E695DF20] arguments:"dictionaryWithObjects:forKeys:count:" error:{&v21, &v20, 1), 0, v12, v14, v16, v18}];
+  v20 = v19;
+  v22 = v21;
+  v26[0] = image;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+  v25 = [MEMORY[0x1E696AD98] numberWithInt:{v4, @"w"}];
+  return [self applyWithExtent:v23 inputs:objc_msgSend(MEMORY[0x1E695DF20] arguments:"dictionaryWithObjects:forKeys:count:" error:{&v25, &v24, 1), 0, v16, v18, v20, v22}];
 }
 
 + (void)applyMedianToImage:(int)a1 width:(NSObject *)a2 .cold.3(int a1, NSObject *a2)

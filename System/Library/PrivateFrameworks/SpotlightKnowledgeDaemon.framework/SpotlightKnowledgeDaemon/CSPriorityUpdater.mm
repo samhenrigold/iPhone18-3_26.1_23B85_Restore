@@ -157,7 +157,7 @@ void __33__CSPriorityUpdater_feedbackLock__block_invoke()
 
 - (BOOL)handleDonation:(id)donation turboEnabled:(BOOL)enabled completionHandler:(id)handler cancelBlock:(id)block
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   donationCopy = donation;
   handlerCopy = handler;
   blockCopy = block;
@@ -166,10 +166,10 @@ void __33__CSPriorityUpdater_feedbackLock__block_invoke()
   v10 = objc_alloc_init(CSEventFeedback);
   [(CSEventFeedback *)v10 setIndexType:[(CSEventListenerManager *)donationCopy folderFd]];
   [(CSEventFeedback *)v10 start];
-  v100 = 0;
-  v101 = &v100;
-  v102 = 0x2020000000;
-  v103 = 0;
+  v99 = 0;
+  v100 = &v99;
+  v101 = 0x2020000000;
+  v102 = 0;
   [CSEventFeedback elapsedTimeSinceFlushForEvent:14];
   if (v11 > 60.0)
   {
@@ -220,7 +220,7 @@ void __33__CSPriorityUpdater_feedbackLock__block_invoke()
       }
     }
 
-    v40 = *(v101 + 24);
+    v40 = *(v100 + 24);
   }
 
   else
@@ -231,22 +231,22 @@ void __33__CSPriorityUpdater_feedbackLock__block_invoke()
 
     v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[CSEventListenerManager totalJournalSize](donationCopy)];
     *buf = 0;
-    v95 = buf;
-    v96 = 0x3032000000;
-    v97 = __Block_byref_object_copy__4;
-    v98 = __Block_byref_object_dispose__4;
-    v99 = 0;
-    v92[0] = 0;
-    v92[1] = v92;
-    v92[2] = 0x3032000000;
-    v92[3] = __Block_byref_object_copy__4;
-    v92[4] = __Block_byref_object_dispose__4;
-    v93 = 0;
+    v94 = buf;
+    v95 = 0x3032000000;
+    v96 = __Block_byref_object_copy__4;
+    v97 = __Block_byref_object_dispose__4;
+    v98 = 0;
     v91[0] = 0;
     v91[1] = v91;
-    v91[2] = 0x2020000000;
-    v91[3] = 0;
-    v90 = 0;
+    v91[2] = 0x3032000000;
+    v91[3] = __Block_byref_object_copy__4;
+    v91[4] = __Block_byref_object_dispose__4;
+    v92 = 0;
+    v90[0] = 0;
+    v90[1] = v90;
+    v90[2] = 0x2020000000;
+    v90[3] = 0;
+    v89 = 0;
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
       v25 = SKGLogEmbedInit();
@@ -255,41 +255,41 @@ void __33__CSPriorityUpdater_feedbackLock__block_invoke()
         indexTypeName = [(CSEventListenerDonation *)donationCopy indexTypeName];
         totalJournalSize = [(CSEventListenerManager *)donationCopy totalJournalSize];
         getItemCount = [donationCopy getItemCount];
-        *v104 = 138413058;
+        *v103 = 138413058;
         selfCopy3 = self;
-        v106 = 2080;
-        v107 = indexTypeName;
-        v108 = 2048;
-        v109 = totalJournalSize;
-        v110 = 1024;
-        LODWORD(v111) = getItemCount;
-        _os_log_impl(&dword_231B25000, v25, OS_LOG_TYPE_INFO, "### donation %@ %s sn:%llu total incoming %u items", v104, 0x26u);
+        v105 = 2080;
+        v106 = indexTypeName;
+        v107 = 2048;
+        v108 = totalJournalSize;
+        v109 = 1024;
+        LODWORD(v110) = getItemCount;
+        _os_log_impl(&dword_231B25000, v25, OS_LOG_TYPE_INFO, "### donation %@ %s sn:%llu total incoming %u items", v103, 0x26u);
       }
     }
 
-    v77[0] = MEMORY[0x277D85DD0];
-    v77[1] = 3221225472;
-    v77[2] = __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke;
-    v77[3] = &unk_27893D598;
+    v76[0] = MEMORY[0x277D85DD0];
+    v76[1] = 3221225472;
+    v76[2] = __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke;
+    v76[3] = &unk_27893D598;
     v29 = donationCopy;
-    v78 = v29;
+    v77 = v29;
     v30 = v19;
-    v79 = v30;
+    v78 = v30;
     selfCopy2 = self;
     v31 = blockCopy;
-    v85 = v31;
-    v86 = v91;
+    v84 = v31;
+    v85 = v90;
     v32 = v10;
-    v81 = v32;
-    v87 = v92;
-    v82 = embeddingFetchAttributes;
-    v56 = v23;
+    v80 = v32;
+    v86 = v91;
+    v81 = embeddingFetchAttributes;
+    v55 = v23;
+    v82 = v55;
+    v88 = &v89;
+    v56 = v24;
     v83 = v56;
-    v89 = &v90;
-    v57 = v24;
-    v84 = v57;
-    v88 = buf;
-    [v29 iterateItems:v77];
+    v87 = buf;
+    [v29 iterateItems:v76];
     if (v31[2](v31))
     {
       v33 = +[SKGActivityJournal sharedJournal];
@@ -305,13 +305,13 @@ void __33__CSPriorityUpdater_feedbackLock__block_invoke()
           uTF8String = [taskName UTF8String];
           indexTypeName2 = [(CSEventListenerDonation *)v29 indexTypeName];
           totalJournalSize2 = [(CSEventListenerManager *)v29 totalJournalSize];
-          *v104 = 136315650;
+          *v103 = 136315650;
           selfCopy3 = uTF8String;
-          v106 = 2080;
-          v107 = indexTypeName2;
-          v108 = 2048;
-          v109 = totalJournalSize2;
-          _os_log_impl(&dword_231B25000, v34, OS_LOG_TYPE_INFO, "### cancelling %s due to expiration request while processing type='%s' sn:'%llu'", v104, 0x20u);
+          v105 = 2080;
+          v106 = indexTypeName2;
+          v107 = 2048;
+          v108 = totalJournalSize2;
+          _os_log_impl(&dword_231B25000, v34, OS_LOG_TYPE_INFO, "### cancelling %s due to expiration request while processing type='%s' sn:'%llu'", v103, 0x20u);
         }
       }
 
@@ -322,7 +322,7 @@ void __33__CSPriorityUpdater_feedbackLock__block_invoke()
 
     else
     {
-      v41 = [*(v95 + 5) count];
+      v41 = [*(v94 + 5) count];
       if (SKGLogGetCurrentLoggingLevel() >= 5)
       {
         v42 = SKGLogEmbedInit();
@@ -330,15 +330,15 @@ void __33__CSPriorityUpdater_feedbackLock__block_invoke()
         {
           indexTypeName3 = [(CSEventListenerDonation *)v29 indexTypeName];
           totalJournalSize3 = [(CSEventListenerManager *)v29 totalJournalSize];
-          *v104 = 138413058;
+          *v103 = 138413058;
           selfCopy3 = self;
-          v106 = 2080;
-          v107 = indexTypeName3;
-          v108 = 2048;
-          v109 = totalJournalSize3;
-          v110 = 2048;
-          v111 = v41;
-          _os_log_impl(&dword_231B25000, v42, OS_LOG_TYPE_INFO, "### donation %@ %s sn:%llu found %lu items", v104, 0x2Au);
+          v105 = 2080;
+          v106 = indexTypeName3;
+          v107 = 2048;
+          v108 = totalJournalSize3;
+          v109 = 2048;
+          v110 = v41;
+          _os_log_impl(&dword_231B25000, v42, OS_LOG_TYPE_INFO, "### donation %@ %s sn:%llu found %lu items", v103, 0x2Au);
         }
       }
 
@@ -357,29 +357,29 @@ void __33__CSPriorityUpdater_feedbackLock__block_invoke()
 
       if (v41 && ([(CSPriorityUpdater *)self getProcessorForIndexType:[(CSEventListenerManager *)v29 folderFd]], (v48 = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        v54 = v47;
-        v55 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"CSPriorityUpdater-Indexing-%d", -[CSEventListenerManager folderFd](v29)];
+        v53 = v47;
+        v54 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"CSPriorityUpdater-Indexing-%d", -[CSEventListenerManager folderFd](v29)];
         v49 = +[SKGEventsProfiler sharedInstance];
-        v63[0] = MEMORY[0x277D85DD0];
-        v63[1] = 3221225472;
-        v63[2] = __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_97;
-        v63[3] = &unk_27893D5E8;
-        v71 = buf;
-        v63[4] = self;
-        v64 = v29;
-        v65 = v57;
-        v72 = &v100;
-        v73 = v41;
+        v62[0] = MEMORY[0x277D85DD0];
+        v62[1] = 3221225472;
+        v62[2] = __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_97;
+        v62[3] = &unk_27893D5E8;
+        v70 = buf;
+        v62[4] = self;
+        v63 = v29;
+        v64 = v56;
+        v71 = &v99;
+        v72 = v41;
         v50 = v48;
-        v66 = v50;
-        v67 = v56;
-        v68 = v30;
-        v74 = v54;
-        v69 = v32;
-        v75 = spid;
-        v70 = handlerCopy;
-        v76 = v90;
-        [v49 profileCodeWithType:v55 kind:2 block:v63];
+        v65 = v50;
+        v66 = v55;
+        v67 = v30;
+        v73 = v53;
+        v68 = v32;
+        v74 = spid;
+        v69 = handlerCopy;
+        v75 = v89;
+        [v49 profileCodeWithType:v54 kind:2 block:v62];
       }
 
       else
@@ -388,17 +388,16 @@ void __33__CSPriorityUpdater_feedbackLock__block_invoke()
         v50 = 0;
       }
 
-      v40 = *(v101 + 24);
+      v40 = *(v100 + 24);
     }
 
+    _Block_object_dispose(v90, 8);
     _Block_object_dispose(v91, 8);
-    _Block_object_dispose(v92, 8);
 
     _Block_object_dispose(buf, 8);
   }
 
-  _Block_object_dispose(&v100, 8);
-  v52 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v99, 8);
   return v40 & 1;
 }
 
@@ -449,60 +448,59 @@ uint64_t __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_c
 
 uint64_t __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v109 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = *MEMORY[0x277CBECE8];
   [(CSEventDonationJournalItem *)*(a1 + 32) identifier];
-  v5 = MDJournalReaderMDPlistObjectCopy();
-  v6 = [v5 mutableCopy];
+  v4 = MDJournalReaderMDPlistObjectCopy();
+  v5 = [v4 mutableCopy];
 
-  v7 = +[SKGActivityJournal sharedJournal];
-  [v7 addEventForItem:16 bundleID:*(a1 + 40) identifier:v6];
+  v6 = +[SKGActivityJournal sharedJournal];
+  [v6 addEventForItem:16 bundleID:*(a1 + 40) identifier:v5];
 
-  LODWORD(v7) = [*(a1 + 48) shouldHandleJournalItem:*(a1 + 32) bundleID:*(a1 + 40)];
-  v8 = [CSEmbeddingsUpdater alloc];
-  v9 = [(CSEmbeddingsUpdater *)v8 shouldHandleJournalItem:*(a1 + 32) bundleID:*(a1 + 40)];
+  LODWORD(v6) = [*(a1 + 48) shouldHandleJournalItem:*(a1 + 32) bundleID:*(a1 + 40)];
+  v7 = [CSEmbeddingsUpdater alloc];
+  v8 = [(CSEmbeddingsUpdater *)v7 shouldHandleJournalItem:*(a1 + 32) bundleID:*(a1 + 40)];
 
-  v10 = [MEMORY[0x277CC33D0] sharedListener];
-  v11 = [v10 onBattery];
+  v9 = [MEMORY[0x277CC33D0] sharedListener];
+  v10 = [v9 onBattery];
 
-  if (v7 || ((v11 | !v9) & 1) == 0)
+  if (v6 || ((v10 | !v8) & 1) == 0)
   {
-    v14 = [SKGUpdaterStore instanceForIndexType:[(CSEventListenerManager *)*(a1 + 56) folderFd]];
-    if (v14)
+    v13 = [SKGUpdaterStore instanceForIndexType:[(CSEventListenerManager *)*(a1 + 56) folderFd]];
+    if (v13)
     {
-      v15 = [(CSEventListenerManager *)*(a1 + 56) journalMap];
-      *(*(*(a1 + 104) + 8) + 24) = [v14 readSerialNumberFromBundleID:v15 identifier:objc_msgSend(v6 UUID:"UTF8String") listenerType:{-[CSEventListenerManager journalQueue](*(a1 + 56)), objc_msgSend(*(a1 + 48), "eventType")}];
+      v14 = [(CSEventListenerManager *)*(a1 + 56) journalMap];
+      *(*(*(a1 + 104) + 8) + 24) = [v13 readSerialNumberFromBundleID:v14 identifier:objc_msgSend(v5 UUID:"UTF8String") listenerType:{-[CSEventListenerManager journalQueue](*(a1 + 56)), objc_msgSend(*(a1 + 48), "eventType")}];
       if ([(CSEventListenerManager *)*(a1 + 56) totalJournalSize]< *(*(*(a1 + 104) + 8) + 24))
       {
-        v16 = +[SKGActivityJournal sharedJournal];
-        [v16 addEventForItem:20 bundleID:*(a1 + 40) identifier:v6];
+        v15 = +[SKGActivityJournal sharedJournal];
+        [v15 addEventForItem:20 bundleID:*(a1 + 40) identifier:v5];
 
         if (SKGLogGetCurrentLoggingLevel() >= 7)
         {
-          v17 = SKGLogInit();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          v16 = SKGLogInit();
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
           {
-            v64 = *(a1 + 48);
-            v65 = [(CSEventListenerManager *)*(a1 + 56) totalJournalSize];
-            v66 = *(*(*(a1 + 104) + 8) + 24);
-            v67 = [(CSEventListenerManager *)*(a1 + 56) journalMap];
+            v62 = *(a1 + 48);
+            v63 = [(CSEventListenerManager *)*(a1 + 56) totalJournalSize];
+            v64 = *(*(*(a1 + 104) + 8) + 24);
+            v65 = [(CSEventListenerManager *)*(a1 + 56) journalMap];
             *buf = 138413314;
-            v100 = v64;
+            v98 = v62;
+            v99 = 2048;
+            v100 = v63;
             v101 = 2048;
-            v102 = v65;
-            v103 = 2048;
-            v104 = v66;
-            v105 = 2080;
-            v106 = v67;
-            v107 = 2112;
-            v108 = v6;
-            _os_log_debug_impl(&dword_231B25000, v17, OS_LOG_TYPE_DEBUG, "%@ SKIPPING item serialNumber:%llu < latestSerialNumber:%llu | bundle:%s identifier:%@", buf, 0x34u);
+            v102 = v64;
+            v103 = 2080;
+            v104 = v65;
+            v105 = 2112;
+            v106 = v5;
+            _os_log_debug_impl(&dword_231B25000, v16, OS_LOG_TYPE_DEBUG, "%@ SKIPPING item serialNumber:%llu < latestSerialNumber:%llu | bundle:%s identifier:%@", buf, 0x34u);
           }
         }
 
         v3[2](v3, @"skipped");
-        v13 = (*(*(a1 + 96) + 16))();
+        v12 = (*(*(a1 + 96) + 16))();
 LABEL_38:
 
         goto LABEL_39;
@@ -510,38 +508,38 @@ LABEL_38:
     }
 
     [*(a1 + 64) setNumItemsInBatch:{objc_msgSend(*(a1 + 64), "numItemsInBatch") + 1}];
-    v18 = *(*(a1 + 112) + 8);
-    v19 = *(v18 + 40);
-    *(v18 + 40) = 0;
+    v17 = *(*(a1 + 112) + 8);
+    v18 = *(v17 + 40);
+    *(v17 + 40) = 0;
 
-    v20 = +[CSPriorityUpdater feedbackLock];
-    [v20 lock];
+    v19 = +[CSPriorityUpdater feedbackLock];
+    [v19 lock];
 
-    if (v11)
+    if (v10)
     {
-      v21 = &unk_2846E7860;
+      v20 = &unk_2846E7860;
     }
 
     else
     {
-      v21 = &unk_2846E7878;
+      v20 = &unk_2846E7878;
     }
 
-    v22 = [*(a1 + 64) canProcessEvent:v21];
-    v23 = [MEMORY[0x277D65798] sharedProcessor];
-    LODWORD(v24) = [v23 canProcessEvent] & v22;
+    v21 = [*(a1 + 64) canProcessEvent:v20];
+    v22 = [MEMORY[0x277D65798] sharedProcessor];
+    LODWORD(v23) = [v22 canProcessEvent] & v21;
 
-    if (v24 == 1 && ([*(a1 + 32) attributesForKeys:*(a1 + 72) bundleID:*(a1 + 40)], (v25 = objc_claimAutoreleasedReturnValue()) != 0))
+    if (v23 == 1 && ([*(a1 + 32) attributesForKeys:*(a1 + 72) bundleID:*(a1 + 40)], (v24 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      v26 = v25;
-      v27 = [MEMORY[0x277D65798] sharedProcessor];
-      v28 = [v27 canProcessEventForRecord:v26 bundleIdentifier:*(a1 + 40)];
+      v25 = v24;
+      v26 = [MEMORY[0x277D65798] sharedProcessor];
+      v27 = [v26 canProcessEventForRecord:v25 bundleIdentifier:*(a1 + 40)];
 
-      v73 = v26;
-      if (v28)
+      v71 = v25;
+      if (v27)
       {
-        v29 = [MEMORY[0x277D65798] sharedProcessor];
-        v30 = [v29 shouldGenerateEmbeddingsForRecord:v26 bundleID:*(a1 + 40)];
+        v28 = [MEMORY[0x277D65798] sharedProcessor];
+        v29 = [v28 shouldGenerateEmbeddingsForRecord:v25 bundleID:*(a1 + 40)];
 
         goto LABEL_20;
       }
@@ -549,154 +547,153 @@ LABEL_38:
 
     else
     {
-      v73 = 0;
+      v71 = 0;
     }
 
-    v30 = 0;
+    v29 = 0;
 LABEL_20:
-    v31 = [*(a1 + 40) UTF8String];
-    v32 = [v6 UTF8String];
-    v33 = [(CSEventListenerManager *)*(a1 + 56) journalQueue];
-    v34 = [v14 checkPriorityForBundleID:v31 identifier:v32 UUID:v33 serialNumber:-[CSEventListenerManager totalJournalSize](*(a1 + 56)) defaultIfNotExists:1];
-    v35 = v34;
-    if (v14 && (v34 & 1) == 0)
+    v30 = [*(a1 + 40) UTF8String];
+    v31 = [v5 UTF8String];
+    v32 = [(CSEventListenerManager *)*(a1 + 56) journalQueue];
+    v33 = [v13 checkPriorityForBundleID:v30 identifier:v31 UUID:v32 serialNumber:-[CSEventListenerManager totalJournalSize](*(a1 + 56)) defaultIfNotExists:1];
+    v34 = v33;
+    if (v13 && (v33 & 1) == 0)
     {
-      v36 = [*(a1 + 40) UTF8String];
-      v37 = [v6 UTF8String];
-      v24 = [(CSEventListenerManager *)*(a1 + 56) journalQueue];
-      [v14 removePriorityForBundleID:v36 identifier:v37 UUID:v24 serialNumber:-[CSEventListenerManager totalJournalSize](*(a1 + 56))];
-      LOBYTE(v24) = 0;
+      v35 = [*(a1 + 40) UTF8String];
+      v36 = [v5 UTF8String];
+      v23 = [(CSEventListenerManager *)*(a1 + 56) journalQueue];
+      [v13 removePriorityForBundleID:v35 identifier:v36 UUID:v23 serialNumber:-[CSEventListenerManager totalJournalSize](*(a1 + 56))];
+      LOBYTE(v23) = 0;
     }
 
-    v38 = v73;
-    if (v30)
+    v37 = v71;
+    if (v29)
     {
-      v39 = objc_alloc_init(MEMORY[0x277CC34B8]);
-      v40 = *(*(a1 + 112) + 8);
-      v41 = *(v40 + 40);
-      *(v40 + 40) = v39;
+      v38 = objc_alloc_init(MEMORY[0x277CC34B8]);
+      v39 = *(*(a1 + 112) + 8);
+      v40 = *(v39 + 40);
+      *(v39 + 40) = v38;
 
       [*(*(*(a1 + 112) + 8) + 40) setAttribute:*MEMORY[0x277CBEEE8] forKey:@"_kMDItemNeedsPriority"];
-      if (v24)
+      if (v23)
       {
-        v42 = SKGLogEventInit();
-        v43 = os_signpost_id_generate(v42);
+        v41 = SKGLogEventInit();
+        v42 = os_signpost_id_generate(v41);
 
-        v44 = SKGLogEventInit();
-        v45 = v44;
-        v72 = v43 - 1;
-        if (v43 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
+        v43 = SKGLogEventInit();
+        v44 = v43;
+        v70 = v42 - 1;
+        if (v42 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_231B25000, v45, OS_SIGNPOST_INTERVAL_BEGIN, v43, "CSPriorityUpdaterProcessSingleItem", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_231B25000, v44, OS_SIGNPOST_INTERVAL_BEGIN, v42, "CSPriorityUpdaterProcessSingleItem", "", buf, 2u);
         }
 
-        spid = v43;
+        spid = v42;
 
-        v46 = [MEMORY[0x277D65798] sharedProcessor];
-        v69 = *(a1 + 80);
-        v70 = *(a1 + 40);
-        v71 = *(a1 + 128);
-        v93[0] = MEMORY[0x277D85DD0];
-        v93[1] = 3221225472;
-        v93[2] = __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_57;
-        v93[3] = &unk_27893CBD8;
-        v97 = *(a1 + 96);
-        v94 = v14;
-        v95 = *(a1 + 56);
-        v47 = v6;
-        v48 = *(a1 + 104);
+        v45 = [MEMORY[0x277D65798] sharedProcessor];
+        v67 = *(a1 + 80);
+        v68 = *(a1 + 40);
+        v69 = *(a1 + 128);
+        v91[0] = MEMORY[0x277D85DD0];
+        v91[1] = 3221225472;
+        v91[2] = __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_57;
+        v91[3] = &unk_27893CBD8;
+        v95 = *(a1 + 96);
+        v92 = v13;
+        v93 = *(a1 + 56);
+        v46 = v5;
+        v47 = *(a1 + 104);
+        v94 = v46;
         v96 = v47;
-        v98 = v48;
-        v88[0] = MEMORY[0x277D85DD0];
-        v88[1] = 3221225472;
-        v88[2] = __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_2_59;
-        v88[3] = &unk_27893CC00;
-        v89 = v94;
-        v90 = *(a1 + 56);
-        v49 = v47;
-        v50 = *(a1 + 104);
-        v91 = v49;
-        v92 = v50;
-        v76[0] = MEMORY[0x277D85DD0];
-        v76[1] = 3221225472;
-        v76[2] = __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_3;
-        v76[3] = &unk_27893D548;
-        v85 = *(a1 + 112);
-        v77 = *(a1 + 40);
-        v78 = v49;
-        v79 = v89;
-        v86 = v35;
-        v51 = *(a1 + 56);
-        v52 = *(a1 + 48);
-        v80 = v51;
-        v81 = v52;
-        v82 = *(a1 + 64);
-        v87 = v9;
-        v83 = *(a1 + 88);
-        v84 = v3;
+        v86[0] = MEMORY[0x277D85DD0];
+        v86[1] = 3221225472;
+        v86[2] = __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_2_59;
+        v86[3] = &unk_27893CC00;
+        v87 = v92;
+        v88 = *(a1 + 56);
+        v48 = v46;
+        v49 = *(a1 + 104);
+        v89 = v48;
+        v90 = v49;
         v74[0] = MEMORY[0x277D85DD0];
         v74[1] = 3221225472;
-        v74[2] = __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_88;
-        v74[3] = &unk_27893CC50;
-        v75 = *(a1 + 96);
-        v38 = v73;
-        [v46 enumerateProcessedItemsFromRecord:v73 referenceIdentifier:v78 bundleIdentifier:v70 protectionClass:v69 processorFlags:2 workCost:v71 fetchCachedLanguageBlock:v93 cacheLanguageBlock:v88 processedItemBlock:v76 cancelBlock:v74];
+        v74[2] = __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_3;
+        v74[3] = &unk_27893D548;
+        v83 = *(a1 + 112);
+        v75 = *(a1 + 40);
+        v76 = v48;
+        v77 = v87;
+        v84 = v34;
+        v50 = *(a1 + 56);
+        v51 = *(a1 + 48);
+        v78 = v50;
+        v79 = v51;
+        v80 = *(a1 + 64);
+        v85 = v8;
+        v81 = *(a1 + 88);
+        v82 = v3;
+        v72[0] = MEMORY[0x277D85DD0];
+        v72[1] = 3221225472;
+        v72[2] = __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_88;
+        v72[3] = &unk_27893CC50;
+        v73 = *(a1 + 96);
+        v37 = v71;
+        [v45 enumerateProcessedItemsFromRecord:v71 referenceIdentifier:v76 bundleIdentifier:v68 protectionClass:v67 processorFlags:2 workCost:v69 fetchCachedLanguageBlock:v91 cacheLanguageBlock:v86 processedItemBlock:v74 cancelBlock:v72];
 
-        v53 = SKGLogEventInit();
-        v54 = v53;
-        if (v72 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v53))
+        v52 = SKGLogEventInit();
+        v53 = v52;
+        if (v70 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v52))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_231B25000, v54, OS_SIGNPOST_INTERVAL_END, spid, "CSPriorityUpdaterProcessSingleItem", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_231B25000, v53, OS_SIGNPOST_INTERVAL_END, spid, "CSPriorityUpdaterProcessSingleItem", "", buf, 2u);
         }
       }
 
       else
       {
         [*(a1 + 64) logFlag:10 message:@"ignored"];
-        v55 = +[SKGActivityJournal sharedJournal];
-        [v55 addEventForItem:20 bundleID:*(a1 + 40) identifier:v6];
+        v54 = +[SKGActivityJournal sharedJournal];
+        [v54 addEventForItem:20 bundleID:*(a1 + 40) identifier:v5];
 
         v3[2](v3, @"cannot-process-emb");
       }
 
       if (*(*(*(a1 + 112) + 8) + 40))
       {
-        v56 = [objc_alloc(MEMORY[0x277CC34B0]) initWithUniqueIdentifier:v6 domainIdentifier:0 attributeSet:*(*(*(a1 + 112) + 8) + 40)];
-        [v56 setBundleID:*(a1 + 40)];
-        [v56 setIsUpdate:1];
-        v57 = *(*(*(a1 + 120) + 8) + 40);
-        if (!v57)
+        v55 = [objc_alloc(MEMORY[0x277CC34B0]) initWithUniqueIdentifier:v5 domainIdentifier:0 attributeSet:*(*(*(a1 + 112) + 8) + 40)];
+        [v55 setBundleID:*(a1 + 40)];
+        [v55 setIsUpdate:1];
+        v56 = *(*(*(a1 + 120) + 8) + 40);
+        if (!v56)
         {
-          v58 = objc_opt_new();
-          v59 = *(*(a1 + 120) + 8);
-          v60 = *(v59 + 40);
-          *(v59 + 40) = v58;
+          v57 = objc_opt_new();
+          v58 = *(*(a1 + 120) + 8);
+          v59 = *(v58 + 40);
+          *(v58 + 40) = v57;
 
-          v57 = *(*(*(a1 + 120) + 8) + 40);
+          v56 = *(*(*(a1 + 120) + 8) + 40);
         }
 
-        [v57 addObject:v56];
+        [v56 addObject:v55];
       }
     }
 
-    v61 = +[CSPriorityUpdater feedbackLock];
-    [v61 unlock];
+    v60 = +[CSPriorityUpdater feedbackLock];
+    [v60 unlock];
 
-    v13 = (*(*(a1 + 96) + 16))();
+    v12 = (*(*(a1 + 96) + 16))();
     goto LABEL_38;
   }
 
-  v12 = +[SKGActivityJournal sharedJournal];
-  [v12 addEventForItem:20 bundleID:*(a1 + 40) identifier:v6];
+  v11 = +[SKGActivityJournal sharedJournal];
+  [v11 addEventForItem:20 bundleID:*(a1 + 40) identifier:v5];
 
   v3[2](v3, @"skipped");
-  v13 = (*(*(a1 + 96) + 16))();
+  v12 = (*(*(a1 + 96) + 16))();
 LABEL_39:
 
-  v62 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v12;
 }
 
 id __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_57(uint64_t a1)
@@ -732,7 +729,7 @@ uint64_t __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_c
 
 uint64_t __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v54[3] = *MEMORY[0x277D85DE8];
+  v53[3] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = attributeSetForProcessedItem(v3);
   v5 = *(*(a1 + 96) + 8);
@@ -781,38 +778,38 @@ uint64_t __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_c
     }
 
     v25 = +[SKGActivityJournal sharedJournal];
-    v53[0] = &unk_2846E7890;
-    v53[1] = &unk_2846E78A8;
+    v52[0] = &unk_2846E7890;
+    v52[1] = &unk_2846E78A8;
     v26 = *(a1 + 40);
-    v54[0] = *(a1 + 32);
-    v54[1] = v26;
-    v53[2] = &unk_2846E78C0;
+    v53[0] = *(a1 + 32);
+    v53[1] = v26;
+    v52[2] = &unk_2846E78C0;
     v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18];
-    v54[2] = v27;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:3];
+    v53[2] = v27;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:3];
     [v25 addEventWithType:21 params:v28];
 
     v29 = +[SKGActivityJournal sharedJournal];
-    v51[0] = &unk_2846E7890;
-    v51[1] = &unk_2846E78A8;
+    v50[0] = &unk_2846E7890;
+    v50[1] = &unk_2846E78A8;
     v30 = *(a1 + 40);
-    v52[0] = *(a1 + 32);
-    v52[1] = v30;
-    v51[2] = &unk_2846E78C0;
+    v51[0] = *(a1 + 32);
+    v51[1] = v30;
+    v50[2] = &unk_2846E78C0;
     v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v24];
-    v52[2] = v31;
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:3];
+    v51[2] = v31;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:3];
     [v29 addEventWithType:22 params:v32];
 
     [*(a1 + 64) recordEmbeddingForThroughput:*(a1 + 32) count:v18];
-    v46 = *(a1 + 72);
+    v45 = *(a1 + 72);
     v33 = [v3 bundleIdentifier];
     v34 = [v3 textContentLanguage];
     v35 = [v3 textContentSize];
-    v49[0] = &unk_2846E78D8;
+    v48[0] = &unk_2846E78D8;
     v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18];
-    v50[0] = v36;
-    v49[1] = &unk_2846E7878;
+    v49[0] = v36;
+    v48[1] = &unk_2846E7878;
     v37 = *(a1 + 105);
     if (v37 == 1)
     {
@@ -824,12 +821,12 @@ uint64_t __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_c
       v38 = &unk_2846E78F0;
     }
 
-    v50[1] = v38;
-    v49[2] = &unk_2846E7860;
+    v49[1] = v38;
+    v48[2] = &unk_2846E7860;
     v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v24];
-    v50[2] = v39;
-    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:3];
-    [v46 logProcessedItemForBundleID:v33 language:v34 textSize:v35 counts:v40];
+    v49[2] = v39;
+    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:3];
+    [v45 logProcessedItemForBundleID:v33 language:v34 textSize:v35 counts:v40];
 
     if (v37)
     {
@@ -839,9 +836,9 @@ uint64_t __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_c
     {
       v41 = *(a1 + 72);
       v42 = *(a1 + 32);
-      v47 = &unk_2846E7908;
-      v48 = &unk_2846E7920;
-      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+      v46 = &unk_2846E7908;
+      v47 = &unk_2846E7920;
+      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
       [v41 logErrorItemForBundleID:v42 counts:v43];
     }
 
@@ -868,7 +865,6 @@ uint64_t __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_c
   [*(*(*(a1 + 96) + 8) + 40) setAttribute:v22 forKey:@"_kMDItemNeedsPriority"];
   (*(*(a1 + 88) + 16))();
 
-  v44 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -985,48 +981,44 @@ void __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cance
   v16 = *(a1 + 96);
   if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
-    *v19 = 0;
-    _os_signpost_emit_with_name_impl(&dword_231B25000, v15, OS_SIGNPOST_INTERVAL_END, v16, "CSPriorityUpdaterHandleDonation", "", v19, 2u);
+    *v17 = 0;
+    _os_signpost_emit_with_name_impl(&dword_231B25000, v15, OS_SIGNPOST_INTERVAL_END, v16, "CSPriorityUpdaterHandleDonation", "", v17, 2u);
   }
 
-  v17 = *(a1 + 80);
-  v18 = *(a1 + 104);
   (*(*(a1 + 64) + 16))();
 }
 
 void __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_97_cold_1(void *a1, NSObject *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a1[4];
   v5 = [(CSEventListenerDonation *)a1[5] indexTypeName];
   v6 = a1[6];
   v7 = a1[14];
-  v9 = 138413058;
-  v10 = v4;
-  v11 = 2080;
-  v12 = v5;
-  v13 = 2112;
-  v14 = v6;
-  v15 = 2048;
-  v16 = v7;
-  _os_log_debug_impl(&dword_231B25000, a2, OS_LOG_TYPE_DEBUG, "### %@ %s sn: %@ found %lu items", &v9, 0x2Au);
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138413058;
+  v9 = v4;
+  v10 = 2080;
+  v11 = v5;
+  v12 = 2112;
+  v13 = v6;
+  v14 = 2048;
+  v15 = v7;
+  _os_log_debug_impl(&dword_231B25000, a2, OS_LOG_TYPE_DEBUG, "### %@ %s sn: %@ found %lu items", &v8, 0x2Au);
 }
 
 void __79__CSPriorityUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_98_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = [(CSEventListenerDonation *)a1[5] indexTypeName];
   v5 = a1[6];
   v6 = a1[10];
-  v8 = 136315650;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v5;
-  v12 = 2048;
-  v13 = v6;
-  _os_log_debug_impl(&dword_231B25000, a2, OS_LOG_TYPE_DEBUG, "### %s sn: %@ updated %lu items", &v8, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 136315650;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v5;
+  v11 = 2048;
+  v12 = v6;
+  _os_log_debug_impl(&dword_231B25000, a2, OS_LOG_TYPE_DEBUG, "### %s sn: %@ updated %lu items", &v7, 0x20u);
 }
 
 @end

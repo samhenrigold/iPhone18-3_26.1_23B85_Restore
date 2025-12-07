@@ -1,56 +1,3 @@
-void std::__throw_bad_array_new_length[abi:ne200100]()
-{
-  exception = __cxa_allocate_exception(8uLL);
-  v1 = std::bad_array_new_length::bad_array_new_length(exception);
-  __cxa_throw(v1, MEMORY[0x29EDC9488], MEMORY[0x29EDC9370]);
-}
-
-double std::__stable_sort_move<std::_ClassicAlgPolicy,std::greater<marisa::grimoire::trie::WeightedRange> &,marisa::grimoire::trie::WeightedRange*>(__n128 *a1, __n128 *a2, uint64_t a3, unint64_t a4, __n128 *a5, __n128 a6)
-{
-  if (a4)
-  {
-    if (a4 == 2)
-    {
-      v10 = a2 - 1;
-      if (a2[-1].n128_f32[3] <= a1->n128_f32[3])
-      {
-        *a5 = *a1;
-        a6 = *v10;
-      }
-
-      else
-      {
-        *a5 = *v10;
-        a6 = *a1;
-      }
-
-      a5[1] = a6;
-    }
-
-    else if (a4 == 1)
-    {
-      a6 = *a1;
-      *a5 = *a1;
-    }
-
-    else if (a4 > 8)
-    {
-      std::__stable_sort<std::_ClassicAlgPolicy,std::greater<marisa::grimoire::trie::WeightedRange> &,marisa::grimoire::trie::WeightedRange*>(a1, &a1[a4 >> 1], a3, a4 >> 1, a5, a4 >> 1);
-      std::__stable_sort<std::_ClassicAlgPolicy,std::greater<marisa::grimoire::trie::WeightedRange> &,marisa::grimoire::trie::WeightedRange*>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[a4 >> 1], a4 - (a4 >> 1));
-
-      a6.n128_f64[0] = std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<marisa::grimoire::trie::WeightedRange> &,marisa::grimoire::trie::WeightedRange*,marisa::grimoire::trie::WeightedRange*,marisa::grimoire::trie::WeightedRange*>(a1, &a1[a4 >> 1], &a1[a4 >> 1], a2, a5, v12);
-    }
-
-    else
-    {
-
-      a6.n128_u64[0] = std::__insertion_sort_move[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<marisa::grimoire::trie::WeightedRange> &,marisa::grimoire::trie::WeightedRange*>(a1, a2, a5).n128_u64[0];
-    }
-  }
-
-  return a6.n128_f64[0];
-}
-
 double std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<marisa::grimoire::trie::WeightedRange> &,marisa::grimoire::trie::WeightedRange*,marisa::grimoire::trie::WeightedRange*,marisa::grimoire::trie::WeightedRange*>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4, __n128 *a5, __n128 a6)
 {
   while (a1 != a2)
@@ -92,7 +39,7 @@ double std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,std::greate
   return a6.n128_f64[0];
 }
 
-__n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::greater<marisa::grimoire::trie::WeightedRange> &,marisa::grimoire::trie::WeightedRange*>(__n128 *a1, __n128 *a2, __n128 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 result)
+__n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::greater<marisa::grimoire::trie::WeightedRange> &,marisa::grimoire::trie::WeightedRange*>(__n128 *a1, __n128 *a2, __n128 *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, __n128 result)
 {
   if (a6)
   {
@@ -123,16 +70,16 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::greater<marisa::grimoire
       }
 
       v16 = -v13;
-      v39 = a3;
-      v40 = a8;
+      v40 = a3;
+      v41 = a8;
       if (-v13 >= v10)
       {
         if (v13 == -1)
         {
-          v43 = a1[v12];
+          v44 = a1[v12];
           a1[v12] = *a2;
-          result = v43;
-          *a2 = v43;
+          result = v44;
+          *a2 = v44;
           return result;
         }
 
@@ -150,9 +97,9 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::greater<marisa::grimoire
           do
           {
             v28 = v27 >> 1;
-            v29 = &v18[v27 >> 1];
-            v30 = v29->n128_f32[3];
-            v31 = v29 + 1;
+            v29 = &v18[4 * (v27 >> 1)];
+            v30 = v29[3];
+            v31 = v29 + 4;
             v27 += ~(v27 >> 1);
             if (v30 > v20->n128_f32[3])
             {
@@ -168,7 +115,7 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::greater<marisa::grimoire
           while (v27);
         }
 
-        v17 = v18 - a2;
+        v17 = (v18 - a2) >> 4;
       }
 
       else
@@ -192,7 +139,7 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::greater<marisa::grimoire
             v23 = v22->n128_f32[3];
             v24 = v22 + 1;
             v19 += ~(v19 >> 1);
-            if (v18->n128_f32[3] > v23)
+            if (v18[3] > v23)
             {
               v19 = v21;
             }
@@ -214,26 +161,26 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,std::greater<marisa::grimoire
       v32 = v10 - v17;
       v33 = v17;
       v34 = std::__rotate[abi:ne200100]<std::_ClassicAlgPolicy,marisa::grimoire::trie::WeightedRange *,marisa::grimoire::trie::WeightedRange *>(v20, a2, v18);
-      v35 = v33;
-      v36 = v34;
-      if (v26 + v35 >= v10 - (v26 + v35) - v13)
+      v36 = v33;
+      v37 = v34;
+      if (v26 + v36 >= v10 - (v26 + v36) - v13)
       {
-        v38 = v35;
-        std::__inplace_merge<std::_ClassicAlgPolicy,std::greater<marisa::grimoire::trie::WeightedRange> &,marisa::grimoire::trie::WeightedRange*>(v34, v18, v39, a4, a5, v32, a7, v40);
+        v39 = v36;
+        result = std::__inplace_merge<std::_ClassicAlgPolicy,std::greater<marisa::grimoire::trie::WeightedRange> &,marisa::grimoire::trie::WeightedRange*>(v34, v18, v40, a4, a5, v32, a7, v41, v35);
         v18 = v20;
-        v32 = v38;
+        v32 = v39;
         a5 = v26;
-        a8 = v40;
-        a3 = v36;
+        a8 = v41;
+        a3 = v37;
       }
 
       else
       {
-        v37 = v26;
-        a8 = v40;
-        std::__inplace_merge<std::_ClassicAlgPolicy,std::greater<marisa::grimoire::trie::WeightedRange> &,marisa::grimoire::trie::WeightedRange*>(v14, v20, v34, a4, v37, v35, a7, v40);
-        v14 = v36;
-        a3 = v39;
+        v38 = v26;
+        a8 = v41;
+        result = std::__inplace_merge<std::_ClassicAlgPolicy,std::greater<marisa::grimoire::trie::WeightedRange> &,marisa::grimoire::trie::WeightedRange*>(v14, v20, v34, a4, v38, v36, a7, v41, v35);
+        v14 = v37;
+        a3 = v40;
       }
 
       v10 = v32;
@@ -319,8 +266,7 @@ __n128 std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,std::g
       do
       {
         v17 = *v16++;
-        *v15 = v17;
-        v15 += 4;
+        *v15++ = v17;
         v14 -= 16;
       }
 
@@ -540,14 +486,14 @@ unsigned int *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
     if (*a3 < v4 || v4 >= v6 && a3[1] < a2[1])
     {
       *result = v6;
-      v7 = (result + 1);
+      v7 = result + 1;
     }
 
     else
     {
       *result = v4;
       *a2 = v5;
-      v7 = (a2 + 1);
+      v7 = a2 + 1;
       v13 = result[1];
       result[1] = a2[1];
       a2[1] = v13;
@@ -562,7 +508,7 @@ unsigned int *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
     }
 
     *a3 = v5;
-    v10 = (a3 + 1);
+    v10 = a3 + 1;
     goto LABEL_14;
   }
 
@@ -571,7 +517,7 @@ unsigned int *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
   {
     *a2 = v8;
     *a3 = v4;
-    v10 = (a2 + 1);
+    v10 = a2 + 1;
     v9 = a2[1];
     a2[1] = a3[1];
     a3[1] = v9;
@@ -580,7 +526,7 @@ unsigned int *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
     if (*a2 < *result || v12 >= v11 && *v10 < result[1])
     {
       *result = v11;
-      v7 = (result + 1);
+      v7 = result + 1;
       *a2 = v12;
 LABEL_14:
       v15 = *v7;
@@ -1079,9 +1025,9 @@ LABEL_20:
 LABEL_22:
       *a1 = v28;
       a1[4] = v27;
-      v29 = (a1 + 1);
+      v29 = a1 + 1;
 LABEL_64:
-      v37 = (a1 + 5);
+      v37 = a1 + 5;
       goto LABEL_65;
     }
 
@@ -1101,7 +1047,7 @@ LABEL_64:
 
     v43 = a1[1];
     a1[3] = v43;
-    v29 = (a1 + 3);
+    v29 = a1 + 3;
     *a1 = v26;
     a1[1] = v39;
     a1[2] = v27;
@@ -1122,7 +1068,7 @@ LABEL_64:
     v36 = a1[5];
 LABEL_33:
     a1[3] = v36;
-    v37 = (a1 + 3);
+    v37 = a1 + 3;
     a1[2] = v34;
     a1[4] = v26;
     a1[5] = v35;
@@ -1133,7 +1079,7 @@ LABEL_33:
 
     *a1 = v34;
     a1[2] = v27;
-    v29 = (a1 + 1);
+    v29 = a1 + 1;
 LABEL_65:
     v44 = *v29;
     *v29 = *v37;
@@ -1225,7 +1171,7 @@ LABEL_81:
   }
 }
 
-unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *,std::pair<unsigned int,unsigned int> *>(unsigned int *a1, unsigned int *a2, unsigned int *a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *,std::pair<unsigned int,unsigned int> *>(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -1234,7 +1180,7 @@ unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std:
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[2 * v9];
+      v11 = &a1[8 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *>(a1, a4, v8, v11);
@@ -1253,17 +1199,17 @@ unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std:
       {
         v13 = *v12;
         v14 = *a1;
-        if (*v12 < *a1 || v14 >= v13 && v12[1] < a1[1])
+        if (*v12 < *a1 || v14 >= v13 && *(v12 + 1) < *(a1 + 1))
         {
           *v12 = v14;
           *a1 = v13;
-          v15 = v12[1];
-          v12[1] = a1[1];
-          a1[1] = v15;
+          v15 = *(v12 + 1);
+          *(v12 + 1) = *(a1 + 1);
+          *(a1 + 1) = v15;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *>(a1, a4, v8, a1);
         }
 
-        v12 += 2;
+        v12 += 8;
       }
 
       while (v12 != a3);
@@ -1271,28 +1217,28 @@ unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std:
 
     if (v8 >= 2)
     {
-      v16 = a2 - 2;
+      v16 = a2 - 8;
       do
       {
         v18 = *a1;
-        v17 = a1[1];
+        v17 = *(a1 + 1);
         v19 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *>(a1, a4, v8);
         if (v16 == v19)
         {
           *v19 = v18;
-          v19[1] = v17;
+          *(v19 + 1) = v17;
         }
 
         else
         {
           *v19 = *v16;
-          v19[1] = v16[1];
+          *(v19 + 1) = *(v16 + 1);
           *v16 = v18;
-          v16[1] = v17;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *>(a1, (v19 + 2), a4, ((v19 + 2) - a1) >> 3);
+          *(v16 + 1) = v17;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *>(a1, (v19 + 8), a4, (v19 + 8 - a1) >> 3);
         }
 
-        v16 -= 2;
+        v16 -= 8;
       }
 
       while (v8-- > 2);
@@ -1470,17 +1416,17 @@ LABEL_10:
   return result;
 }
 
-uint64_t marisa::grimoire::vector::Vector<unsigned char>::read_(uint64_t a1, marisa::grimoire::io::Reader *this)
+uint64_t marisa::grimoire::vector::Vector<unsigned char>::read_(uint64_t *a1, marisa::grimoire::io::Reader *this)
 {
   v6 = 0;
   marisa::grimoire::io::Reader::read_data(this, &v6, 8uLL);
   v4 = v6;
   marisa::grimoire::vector::Vector<char>::resize(a1, v6);
-  marisa::grimoire::io::Reader::read<unsigned char>(this, *(a1 + 8), v4);
+  marisa::grimoire::io::Reader::read<unsigned char>(this, a1[1], v4);
   return marisa::grimoire::io::Reader::seek(this, -v6 & 7);
 }
 
-uint64_t marisa::grimoire::io::Reader::read<unsigned char>(uint64_t a1, char *a2, size_t a3)
+uint64_t marisa::grimoire::io::Reader::read<unsigned char>(marisa::grimoire::io::Reader *a1, char *a2, size_t a3)
 {
   if (!a2 && a3)
   {
@@ -1521,7 +1467,7 @@ uint64_t marisa::grimoire::vector::Vector<unsigned char>::write_(uint64_t a1, ma
   return marisa::grimoire::io::Writer::seek(this, -*(a1 + 24) & 7);
 }
 
-uint64_t marisa::grimoire::io::Writer::write<unsigned char>(uint64_t a1, char *a2, size_t a3)
+uint64_t marisa::grimoire::io::Writer::write<unsigned char>(marisa::grimoire::io::Writer *a1, char *a2, size_t a3)
 {
   if (!a2 && a3)
   {
@@ -1816,9 +1762,9 @@ void *marisa::Keyset::append_extra_block(marisa::Keyset *this, size_t __sz)
   return result;
 }
 
-void sub_2990D0A2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2990D0A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   marisa::scoped_array<marisa::scoped_array<char>>::~scoped_array(va);
   _Unwind_Resume(a1);
 }
@@ -1858,9 +1804,9 @@ marisa::grimoire::trie::LoudsTrie **marisa::Trie::map(marisa::grimoire::trie::Lo
   return marisa::scoped_ptr<marisa::grimoire::trie::LoudsTrie>::~scoped_ptr(&v13);
 }
 
-void sub_2990D0BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2990D0BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   marisa::scoped_ptr<marisa::grimoire::trie::LoudsTrie>::~scoped_ptr(va);
   _Unwind_Resume(a1);
 }
@@ -1900,9 +1846,9 @@ marisa::grimoire::trie::LoudsTrie **marisa::Trie::load(marisa::grimoire::trie::L
   return marisa::scoped_ptr<marisa::grimoire::trie::LoudsTrie>::~scoped_ptr(&v11);
 }
 
-void sub_2990D0D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2990D0D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   marisa::scoped_ptr<marisa::grimoire::trie::LoudsTrie>::~scoped_ptr(va);
   _Unwind_Resume(a1);
 }
@@ -1942,9 +1888,9 @@ marisa::grimoire::trie::LoudsTrie **marisa::Trie::read(marisa::grimoire::trie::L
   return marisa::scoped_ptr<marisa::grimoire::trie::LoudsTrie>::~scoped_ptr(&v11);
 }
 
-void sub_2990D0EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2990D0EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   marisa::scoped_ptr<marisa::grimoire::trie::LoudsTrie>::~scoped_ptr(va);
   _Unwind_Resume(a1);
 }
@@ -2007,7 +1953,7 @@ LABEL_6:
   marisa::grimoire::io::Writer::~Writer(v6);
 }
 
-marisa::grimoire::trie::LoudsTrie *marisa::Trie::lookup(marisa::grimoire::trie::LoudsTrie **this, marisa::Agent *a2)
+marisa::grimoire::trie::LoudsTrie *marisa::Trie::lookup(marisa::grimoire::trie::LoudsTrie **this, marisa::Agent *a2, uint64_t a3, unint64_t a4)
 {
   result = *this;
   if (result)
@@ -2018,13 +1964,13 @@ marisa::grimoire::trie::LoudsTrie *marisa::Trie::lookup(marisa::grimoire::trie::
       result = *this;
     }
 
-    return marisa::grimoire::trie::LoudsTrie::lookup(result, a2);
+    return marisa::grimoire::trie::LoudsTrie::lookup(result, a2, a3, a4);
   }
 
   return result;
 }
 
-marisa::grimoire::trie::LoudsTrie *marisa::Trie::common_prefix_search(marisa::grimoire::trie::LoudsTrie **this, marisa::Agent *a2)
+marisa::grimoire::trie::LoudsTrie *marisa::Trie::common_prefix_search(marisa::grimoire::trie::LoudsTrie **this, marisa::Agent *a2, uint64_t a3, unint64_t a4)
 {
   result = *this;
   if (result)
@@ -2035,7 +1981,7 @@ marisa::grimoire::trie::LoudsTrie *marisa::Trie::common_prefix_search(marisa::gr
       result = *this;
     }
 
-    return marisa::grimoire::trie::LoudsTrie::common_prefix_search(result, a2);
+    return marisa::grimoire::trie::LoudsTrie::common_prefix_search(result, a2, a3, a4);
   }
 
   return result;
@@ -2212,9 +2158,9 @@ marisa::grimoire::trie::LoudsTrie **marisa::TrieIO::fread(__sFILE *this, __sFILE
   return marisa::scoped_ptr<marisa::grimoire::trie::LoudsTrie>::~scoped_ptr(&v12);
 }
 
-void sub_2990D1614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2990D1614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   marisa::scoped_ptr<marisa::grimoire::trie::LoudsTrie>::~scoped_ptr(va);
   _Unwind_Resume(a1);
 }
@@ -2312,9 +2258,9 @@ uint64_t marisa::TrieIO::read(uint64_t a1, marisa::grimoire::trie::LoudsTrie **a
   return a1;
 }
 
-void sub_2990D19D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2990D19D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   marisa::scoped_ptr<marisa::grimoire::trie::LoudsTrie>::~scoped_ptr(va);
   _Unwind_Resume(a1);
 }
@@ -2532,7 +2478,7 @@ uint64_t marisa::grimoire::io::Reader::seek(uint64_t this, size_t __nitems)
 {
   v2 = __nitems;
   v3 = this;
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   if (!*this && *(this + 8) == -1 && !*(this + 16))
   {
     exception = __cxa_allocate_exception(0x20uLL);
@@ -2558,7 +2504,7 @@ uint64_t marisa::grimoire::io::Reader::seek(uint64_t this, size_t __nitems)
           v4 = v2;
         }
 
-        this = marisa::grimoire::io::Reader::read_data(v3, v7, v4);
+        this = marisa::grimoire::io::Reader::read_data(v3, v6, v4);
         v2 -= v4;
       }
 
@@ -2567,11 +2513,10 @@ uint64_t marisa::grimoire::io::Reader::seek(uint64_t this, size_t __nitems)
 
     else
     {
-      this = marisa::grimoire::io::Reader::read_data(this, v7, __nitems);
+      return marisa::grimoire::io::Reader::read_data(this, v6, __nitems);
     }
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return this;
 }
 
@@ -2797,41 +2742,38 @@ uint64_t marisa::grimoire::trie::Tail::match(marisa::grimoire::trie::Tail *this,
 
 uint64_t marisa::grimoire::trie::Tail::clear(marisa::grimoire::trie::Tail *this)
 {
-  memset(v6, 0, 41);
-  v9 = 0u;
-  memset(v10, 0, sizeof(v10));
-  v11 = 0u;
-  memset(v12, 0, sizeof(v12));
-  v6[3] = 0u;
-  v7 = 0u;
-  memset(v8, 0, sizeof(v8));
+  memset(v3, 0, 41);
+  v6 = 0u;
+  memset(v7, 0, sizeof(v7));
+  v8 = 0u;
+  memset(v9, 0, sizeof(v9));
+  v3[3] = 0u;
+  v4 = 0u;
+  memset(v5, 0, sizeof(v5));
   v2 = *this;
   *this = 0u;
-  v3 = *(this + 2);
   *(this + 2) = 0;
-  v4 = *(this + 24);
   *(this + 24) = 0u;
-  v5 = *(this + 40);
   *(this + 40) = 0;
-  marisa::grimoire::vector::BitVector::swap(v6, (this + 48));
-  if (v11)
+  marisa::grimoire::vector::BitVector::swap(v3, (this + 48));
+  if (v8)
   {
-    MEMORY[0x29C2979F0](v11, 0x1000C8077774924);
+    MEMORY[0x29C2979F0](v8, 0x1000C8077774924);
   }
 
-  if (v9)
+  if (v6)
   {
-    MEMORY[0x29C2979F0](v9, 0x1000C8077774924);
+    MEMORY[0x29C2979F0](v6, 0x1000C8077774924);
   }
 
-  if (v7)
+  if (v4)
   {
-    MEMORY[0x29C2979F0](v7, 0x1000C8077774924);
+    MEMORY[0x29C2979F0](v4, 0x1000C8077774924);
   }
 
-  if (*&v6[0])
+  if (*&v3[0])
   {
-    MEMORY[0x29C2979F0](*&v6[0], 0x1000C8077774924);
+    MEMORY[0x29C2979F0](*&v3[0], 0x1000C8077774924);
   }
 
   result = v2;
@@ -2868,23 +2810,23 @@ uint64_t marisa::grimoire::vector::Vector<char>::read(__int128 *a1, marisa::grim
   return result;
 }
 
-void sub_2990D2824(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_2990D2824(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    MEMORY[0x29C2979F0](a9, 0x1000C8077774924);
+    MEMORY[0x29C2979F0](a9, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t marisa::grimoire::vector::Vector<char>::read_(uint64_t a1, marisa::grimoire::io::Reader *this)
+uint64_t marisa::grimoire::vector::Vector<char>::read_(uint64_t *a1, marisa::grimoire::io::Reader *this)
 {
   v6 = 0;
   marisa::grimoire::io::Reader::read_data(this, &v6, 8uLL);
   v4 = v6;
   marisa::grimoire::vector::Vector<char>::resize(a1, v6);
-  marisa::grimoire::io::Reader::read<char>(this, *(a1 + 8), v4);
+  marisa::grimoire::io::Reader::read<char>(this, a1[1], v4);
   return marisa::grimoire::io::Reader::seek(this, -v6 & 7);
 }
 
@@ -2910,7 +2852,7 @@ uint64_t marisa::grimoire::vector::Vector<char>::write_(uint64_t a1, marisa::gri
   return marisa::grimoire::io::Writer::seek(this, -*(a1 + 24) & 7);
 }
 
-uint64_t marisa::grimoire::io::Writer::write<char>(uint64_t a1, char *a2, size_t a3)
+uint64_t marisa::grimoire::io::Writer::write<char>(marisa::grimoire::io::Writer *a1, char *a2, size_t a3)
 {
   if (!a2 && a3)
   {
@@ -3157,11 +3099,10 @@ uint64_t marisa::grimoire::io::Writer::seek(uint64_t this, size_t __nitems)
     {
       __buf[0] = 0;
       __buf[1] = 0;
-      this = marisa::grimoire::io::Writer::write_data(this, __buf, __nitems);
+      return marisa::grimoire::io::Writer::write_data(this, __buf, __nitems);
     }
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return this;
 }
 
@@ -3335,18 +3276,14 @@ uint64_t marisa::Agent::set_query(uint64_t this, uint64_t a2)
 
 void *marisa::Agent::clear(marisa::Agent *this)
 {
-  v2 = *this;
-  v3 = *(this + 8);
   *this = 0;
   *(this + 1) = 0;
-  v4 = *(this + 3);
   *(this + 2) = 0;
   *(this + 3) = 0;
-  v5 = *(this + 4);
-  v6 = *(this + 5);
+  v2 = *(this + 5);
   *(this + 4) = 0;
   *(this + 5) = 0;
-  return marisa::scoped_ptr<marisa::grimoire::trie::State>::~scoped_ptr(&v6);
+  return marisa::scoped_ptr<marisa::grimoire::trie::State>::~scoped_ptr(&v2);
 }
 
 uint64_t *marisa::Agent::swap(uint64_t *this, marisa::Agent *a2)

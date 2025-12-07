@@ -76,28 +76,28 @@
 
 - (double)cameraConfiguration
 {
-  v2 = *(self + 16);
-  if (v2)
+  v3 = *(self + 16);
+  if (v3)
   {
-    [v2 cameraConfiguration];
+    objc_msgSend_cameraConfiguration(v3, a2);
   }
 
   else
   {
     result = 0.0;
-    a2[11] = 0u;
-    a2[12] = 0u;
-    a2[9] = 0u;
-    a2[10] = 0u;
-    a2[7] = 0u;
-    a2[8] = 0u;
-    a2[5] = 0u;
-    a2[6] = 0u;
-    a2[3] = 0u;
-    a2[4] = 0u;
-    a2[1] = 0u;
-    a2[2] = 0u;
-    *a2 = 0u;
+    a3[11] = 0u;
+    a3[12] = 0u;
+    a3[9] = 0u;
+    a3[10] = 0u;
+    a3[7] = 0u;
+    a3[8] = 0u;
+    a3[5] = 0u;
+    a3[6] = 0u;
+    a3[3] = 0u;
+    a3[4] = 0u;
+    a3[1] = 0u;
+    a3[2] = 0u;
+    *a3 = 0u;
   }
 
   return result;

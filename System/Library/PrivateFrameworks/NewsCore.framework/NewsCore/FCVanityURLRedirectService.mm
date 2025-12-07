@@ -68,32 +68,31 @@
 
 - (FCVanityURLRedirectService)initWithContentContext:(id)context
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
     *buf = 136315906;
-    v13 = "[FCVanityURLRedirectService initWithContentContext:]";
-    v14 = 2080;
-    v15 = "FCVanityURLRedirectService.m";
-    v16 = 1024;
-    v17 = 42;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "[FCVanityURLRedirectService initWithContentContext:]";
+    v13 = 2080;
+    v14 = "FCVanityURLRedirectService.m";
+    v15 = 1024;
+    v16 = 42;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v11.receiver = self;
-  v11.super_class = FCVanityURLRedirectService;
-  v6 = [(FCVanityURLRedirectService *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = FCVanityURLRedirectService;
+  v6 = [(FCVanityURLRedirectService *)&v10 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_contentContext, context);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -107,20 +106,20 @@
 
 - (void)resolveURL:(id)l withQualityOfService:(int64_t)service completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   lCopy = l;
   completionCopy = completion;
   if (!lCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "URL"];
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "URL"];
     *buf = 136315906;
-    v20 = "[FCVanityURLRedirectService resolveURL:withQualityOfService:completion:]";
-    v21 = 2080;
-    v22 = "FCVanityURLRedirectService.m";
-    v23 = 1024;
-    v24 = 85;
-    v25 = 2114;
-    v26 = v14;
+    v19 = "[FCVanityURLRedirectService resolveURL:withQualityOfService:completion:]";
+    v20 = 2080;
+    v21 = "FCVanityURLRedirectService.m";
+    v22 = 1024;
+    v23 = 85;
+    v24 = 2114;
+    v25 = v13;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (completionCopy)
@@ -136,37 +135,35 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
     *buf = 136315906;
-    v20 = "[FCVanityURLRedirectService resolveURL:withQualityOfService:completion:]";
-    v21 = 2080;
-    v22 = "FCVanityURLRedirectService.m";
-    v23 = 1024;
-    v24 = 86;
-    v25 = 2114;
-    v26 = v15;
+    v19 = "[FCVanityURLRedirectService resolveURL:withQualityOfService:completion:]";
+    v20 = 2080;
+    v21 = "FCVanityURLRedirectService.m";
+    v22 = 1024;
+    v23 = 86;
+    v24 = 2114;
+    v25 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   vanityURLMappingManager = [(FCVanityURLRedirectService *)self vanityURLMappingManager];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __73__FCVanityURLRedirectService_resolveURL_withQualityOfService_completion___block_invoke;
-  v16[3] = &unk_1E7C444E0;
-  v17 = lCopy;
-  v18 = completionCopy;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __73__FCVanityURLRedirectService_resolveURL_withQualityOfService_completion___block_invoke;
+  v15[3] = &unk_1E7C444E0;
+  v16 = lCopy;
+  v17 = completionCopy;
+  v15[4] = self;
   v11 = lCopy;
   v12 = completionCopy;
-  [vanityURLMappingManager fetchValueWithCachePolicy:1 qualityOfService:service completion:v16];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [vanityURLMappingManager fetchValueWithCachePolicy:1 qualityOfService:service completion:v15];
 }
 
 void __73__FCVanityURLRedirectService_resolveURL_withQualityOfService_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = FCVanityURLLog;
   if (os_log_type_enabled(FCVanityURLLog, OS_LOG_TYPE_DEFAULT))
@@ -174,25 +171,23 @@ void __73__FCVanityURLRedirectService_resolveURL_withQualityOfService_completion
     v7 = v6;
     v8 = [a2 first];
     *buf = 138543362;
-    v20 = v8;
+    v19 = v8;
     _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "fetched vanity URL mapping %{public}@", buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __73__FCVanityURLRedirectService_resolveURL_withQualityOfService_completion___block_invoke_18;
-  v14[3] = &unk_1E7C444B8;
-  v15 = v5;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __73__FCVanityURLRedirectService_resolveURL_withQualityOfService_completion___block_invoke_18;
+  v13[3] = &unk_1E7C444B8;
+  v14 = v5;
   v9 = *(a1 + 48);
   v10 = *(a1 + 32);
   v11 = *(a1 + 40);
-  v18 = v9;
-  v16 = v10;
-  v17 = v11;
+  v17 = v9;
+  v15 = v10;
+  v16 = v11;
   v12 = v5;
-  FCPerformBlockOnMainThread(v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  FCPerformBlockOnMainThread(v13);
 }
 
 void __73__FCVanityURLRedirectService_resolveURL_withQualityOfService_completion___block_invoke_18(uint64_t a1)
@@ -244,19 +239,19 @@ uint64_t __85__FCVanityURLRedirectService_updateUnderlyingMappingWithQualityOfSe
 
 - (id)_destinationURLForURL:(id)l
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (!lCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "URL"];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "URL"];
     *buf = 136315906;
-    v14 = "[FCVanityURLRedirectService _destinationURLForURL:]";
-    v15 = 2080;
-    v16 = "FCVanityURLRedirectService.m";
-    v17 = 1024;
-    v18 = 127;
-    v19 = 2114;
-    v20 = v12;
+    v13 = "[FCVanityURLRedirectService _destinationURLForURL:]";
+    v14 = 2080;
+    v15 = "FCVanityURLRedirectService.m";
+    v16 = 1024;
+    v17 = 127;
+    v18 = 2114;
+    v19 = v11;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -274,8 +269,6 @@ uint64_t __85__FCVanityURLRedirectService_updateUnderlyingMappingWithQualityOfSe
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

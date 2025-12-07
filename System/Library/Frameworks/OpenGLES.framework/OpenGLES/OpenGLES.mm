@@ -22,42 +22,40 @@ uint64_t llvm::LLT::dump(llvm::LLT *this)
 uint64_t oglCodeGenServiceGenerateIR(uint64_t a1, int *a2, unint64_t a3)
 {
   v3 = 0;
-  v17 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   if (*a2 > 2)
   {
     if (v4 == 3)
     {
-      v7 = *MEMORY[0x277D85DE8];
 
       return glpGenerateLLVMIRModule(a2 + 1, a3 - 4, a1);
     }
 
     if (v4 == 4)
     {
-      v9 = *MEMORY[0x277D85DE8];
 
       return glpARBProgramInfoToLLVMModule(a1, a2);
     }
 
     if (v4 != 186106078)
     {
-      goto LABEL_28;
+      return v3;
     }
 
 LABEL_13:
-    v13 = 0;
+    v8 = 0;
     llvm::MemoryBuffer::getMemBuffer();
-    v15[0] = 0;
-    v15[1] = 0;
-    v16 = 0;
-    llvm::MemoryBuffer::getMemBufferRef(v12, 0);
+    v10[0] = 0;
+    v10[1] = 0;
+    v11 = 0;
+    llvm::MemoryBuffer::getMemBufferRef(v7, 0);
     llvm::parseBitcodeFile();
-    llvm::expectedToErrorOrAndEmitErrors<std::unique_ptr<llvm::Module>>(v14, v15);
-    llvm::Expected<std::unique_ptr<llvm::Module>>::~Expected(v14);
-    if (v16)
+    llvm::expectedToErrorOrAndEmitErrors<std::unique_ptr<llvm::Module>>(v9, v10);
+    llvm::Expected<std::unique_ptr<llvm::Module>>::~Expected(v9);
+    if (v11)
     {
-      if (!LODWORD(v15[0]))
+      if (!LODWORD(v10[0]))
       {
         oglCodeGenServiceGenerateIR_cold_1();
       }
@@ -67,19 +65,19 @@ LABEL_13:
 
     else
     {
-      v3 = v15[0];
-      v15[0] = 0;
-      std::unique_ptr<llvm::Module>::~unique_ptr[abi:nn200100](v15);
+      v3 = v10[0];
+      v10[0] = 0;
+      std::unique_ptr<llvm::Module>::~unique_ptr[abi:nn200100](v10);
     }
 
-    v10 = v13;
-    v13 = 0;
-    if (v10)
+    v6 = v8;
+    v8 = 0;
+    if (v6)
     {
-      (*(*v10 + 8))(v10);
+      (*(*v6 + 8))(v6);
     }
 
-    goto LABEL_28;
+    return v3;
   }
 
   if (!v4)
@@ -96,44 +94,39 @@ LABEL_13:
   {
     if (v4 == 2)
     {
-      v5 = *MEMORY[0x277D85DE8];
 
       return glpFragmentStateToLLVMModule((a2 + 1), a1);
     }
 
-LABEL_28:
-    v11 = *MEMORY[0x277D85DE8];
     return v3;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return glpVertexStateToLLVMModule((a2 + 1), a1);
 }
 
-void llvm::expectedToErrorOrAndEmitErrors<std::unique_ptr<llvm::Module>>(uint64_t *a1@<X1>, uint64_t a2@<X8>)
+void llvm::expectedToErrorOrAndEmitErrors<std::unique_ptr<llvm::Module>>(uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
-  if (a1[1])
+  if (a2[1])
   {
-    v3 = *a1;
-    *a1 = 0;
-    v7 = v3;
-    v4 = llvm::errorToErrorCodeAndEmitErrors();
-    *(a2 + 16) |= 1u;
-    *a2 = v4;
-    *(a2 + 8) = v5;
-    if (v7)
+    v4 = *a2;
+    *a2 = 0;
+    v8 = v4;
+    v5 = llvm::errorToErrorCodeAndEmitErrors();
+    *(a3 + 16) |= 1u;
+    *a3 = v5;
+    *(a3 + 8) = v6;
+    if (v8)
     {
-      (*(*v7 + 8))(v7);
+      (*(*v8 + 8))(v8);
     }
   }
 
   else
   {
-    *(a2 + 16) &= ~1u;
-    v6 = *a1;
-    *a1 = 0;
-    *a2 = v6;
+    *(a3 + 16) &= ~1u;
+    v7 = *a2;
+    *a2 = 0;
+    *a3 = v7;
   }
 }
 
@@ -157,14 +150,12 @@ void cvmsPluginServiceTerminate(uint64_t a1)
 
 uint64_t cvmsPluginElementBuild(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v1 = a1[1];
   v2 = **v1;
   if ((v2 - 20) > 4)
   {
-LABEL_6:
-    result = 540;
-    goto LABEL_15;
+    return 540;
   }
 
   v4 = v1[2];
@@ -172,55 +163,49 @@ LABEL_6:
   {
     if ((v2 - 20) <= 1)
     {
-      *v12 = a1;
+      *v8 = a1;
       if (v2 == 20)
       {
-        glpVertexStateToLLVMIR(v4);
+        glpVertexStateToLLVMIR(v4, cvmsPluginAllocate, v8);
       }
 
-      glpFragmentStateToLLVMIR(v4);
+      glpFragmentStateToLLVMIR(v4, cvmsPluginAllocate, v8);
     }
 
-    goto LABEL_6;
+    return 540;
   }
 
-  v7 = *v4;
-  v6 = v4 + 4;
-  v8 = (v7 - 4);
-  bzero(v12, 0x400uLL);
-  v9 = v2 == 22;
+  bzero(v8, 0x400uLL);
+  v6 = v2 == 22;
   if (v2 == 22)
   {
-    v10 = &cvmsPluginBuild(_cvms_plugin_element_s const*)::shaderindex;
+    v7 = &cvmsPluginBuild(_cvms_plugin_element_s const*)::shaderindex;
   }
 
   else
   {
-    v10 = &cvmsPluginBuild(_cvms_plugin_element_s const*)::shaderindex;
+    v7 = &cvmsPluginBuild(_cvms_plugin_element_s const*)::shaderindex;
   }
 
-  if (v9)
+  if (v6)
   {
-    snprintf_l(v12, 0x400uLL, 0, "/tmp/vertex_shader_llvm_ir%d.txt");
+    snprintf_l(v8, 0x400uLL, 0, "/tmp/vertex_shader_llvm_ir%d.txt");
   }
 
   else
   {
-    snprintf_l(v12, 0x400uLL, 0, "/tmp/fragment_shader_llvm_ir%d.txt");
+    snprintf_l(v8, 0x400uLL, 0, "/tmp/fragment_shader_llvm_ir%d.txt");
   }
 
-  glpDumpLLVMIR(v12, v6, v8);
-  ++*v10;
+  glpDumpLLVMIR();
+  ++*v7;
   (*(*a1 + 32))(a1, 4);
-  result = 0;
-LABEL_15:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-uint64_t llvm::Expected<std::unique_ptr<llvm::Module>>::~Expected(uint64_t a1)
+uint64_t *llvm::Expected<std::unique_ptr<llvm::Module>>::~Expected(uint64_t *a1)
 {
-  if (*(a1 + 8))
+  if (a1[1])
   {
     v2 = *a1;
     *a1 = 0;
@@ -1812,20 +1797,20 @@ void PPParserAttachString(uint64_t a1, char *__s, int a3)
   }
 }
 
-void PPParserFree(uint64_t a1)
+void PPParserFree(void **a1)
 {
   PPParserShutdown(a1);
-  free(*(a1 + 96));
-  *(a1 + 96) = 0;
-  free(*(a1 + 104));
-  *(a1 + 104) = 0;
-  PPParserLabelsFree(*(a1 + 112));
-  *(a1 + 112) = 0;
-  free(*(a1 + 136));
-  *(a1 + 136) = 0;
-  free(*(a1 + 144));
-  *(a1 + 144) = 0;
-  PPParserLabelsFree(*(a1 + 152));
+  free(a1[12]);
+  a1[12] = 0;
+  free(a1[13]);
+  a1[13] = 0;
+  PPParserLabelsFree(a1[14]);
+  a1[14] = 0;
+  free(a1[17]);
+  a1[17] = 0;
+  free(a1[18]);
+  a1[18] = 0;
+  PPParserLabelsFree(a1[19]);
 
   free(a1);
 }
@@ -1904,11 +1889,12 @@ int *glpProgram_PPStreamAddOutputBinding(uint64_t a1, uint64_t a2)
   return PPParserOutputBindingsAddOutputBinding((a1 + 136), a2);
 }
 
-char *glpProgram_PPStreamAddLabel(uint64_t a1, const void *a2, unsigned int a3)
+char *glpProgram_PPStreamAddLabel(uint64_t a1, const void *a2, uint64_t a3)
 {
+  v3 = a3;
   PPStreamAddLabel(*(a1 + 40), a2, a3);
 
-  return PPParserLabelsAddLabel((a1 + 152), a2, a3);
+  return PPParserLabelsAddLabel((a1 + 152), a2, v3);
 }
 
 void llvmir_PPStreamAddOperation(uint64_t a1, _DWORD *a2, const char *a3)
@@ -2188,15 +2174,15 @@ uint64_t PPParserReturnCharacter(uint64_t a1, _BYTE *a2)
 uint64_t PPParserGetPart(uint64_t a1, char *a2, int a3)
 {
   v6 = 0;
-  v19 = *MEMORY[0x277D85DE8];
-  v17 = *(a1 + 320);
+  v18 = *MEMORY[0x277D85DE8];
+  v16 = *(a1 + 320);
   while (!PPParserGetCharacter(a1, &a2[v6]) && a2[v6] != 32)
   {
     if (++v6 == 255)
     {
       result = 0;
       a2[255] = 0;
-      goto LABEL_12;
+      return result;
     }
   }
 
@@ -2208,34 +2194,32 @@ uint64_t PPParserGetPart(uint64_t a1, char *a2, int a3)
     {
       memset(__src, 0, sizeof(__src));
       ReplaceString = PPParserMacroGetReplaceString(Macro, v9, 0, __src);
-      v12 = ReplaceString + *(a1 + 336);
-      v13 = malloc_type_calloc(v12 - v6, 1uLL, 0x1116B6A2uLL);
-      if (!v13)
+      v11 = ReplaceString + *(a1 + 336);
+      v12 = malloc_type_calloc(v11 - v6, 1uLL, 0x1116B6A2uLL);
+      if (!v12)
       {
         abort();
       }
 
-      v14 = v13;
-      v15 = ~v6 + v12;
-      memmove(v13, *a1, v17);
-      v16 = &v14[v17];
-      memmove(v16, __src, ReplaceString);
-      memmove(&v16[ReplaceString], (*a1 + *(a1 + 320)), (*(a1 + 336) - *(a1 + 320)));
+      v13 = v12;
+      v14 = ~v6 + v11;
+      memmove(v12, *a1, v16);
+      v15 = &v13[v16];
+      memmove(v15, __src, ReplaceString);
+      memmove(&v15[ReplaceString], (*a1 + *(a1 + 320)), (*(a1 + 336) - *(a1 + 320)));
       free(*a1);
-      *(a1 + 336) = v15;
-      *a1 = v14;
-      *(a1 + 320) = v17;
-      result = PPParserGetPart(a1, a2, 0);
+      *(a1 + 336) = v14;
+      *a1 = v13;
+      *(a1 + 320) = v16;
+      return PPParserGetPart(a1, a2, 0);
     }
 
     else
     {
-      result = v6;
+      return v6;
     }
   }
 
-LABEL_12:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2273,176 +2257,160 @@ uint64_t PPParserDeclareNVAddressRegisters(uint64_t a1)
 
 uint64_t PPParserGetInteger(uint64_t a1, _DWORD *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  v23 = *MEMORY[0x277D85DE8];
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  *v8 = 0u;
+  v12 = 0u;
   v9 = 0u;
-  v7 = 0;
-  Part = PPParserGetPart(a1, v8, 1);
-  if (Part)
+  v10 = 0u;
+  *v7 = 0u;
+  v8 = 0u;
+  v6 = 0;
+  Part = PPParserGetPart(a1, v7, 1);
+  if (!Part)
   {
-    v4 = Part;
-    *a2 = strtol_l(v8, &v7, 0, 0);
-    if (v7 == &v8[v4])
-    {
-      result = 0;
-    }
+    return 46;
+  }
 
-    else
-    {
-      result = 21;
-    }
+  v4 = Part;
+  *a2 = strtol_l(v7, &v6, 0, 0);
+  if (v6 == &v7[v4])
+  {
+    return 0;
   }
 
   else
   {
-    result = 46;
+    return 21;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t PPParserGetScalars(uint64_t a1, float *a2, int a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  memset(v13, 0, sizeof(v13));
-  v12 = 0;
-  Part = PPParserGetPart(a1, v13, 1);
-  if (Part)
+  v13 = *MEMORY[0x277D85DE8];
+  memset(v12, 0, sizeof(v12));
+  v11 = 0;
+  Part = PPParserGetPart(a1, v12, 1);
+  if (!Part)
   {
-    v7 = Part;
-    v8 = (a3 - 1) + 1;
-    while (1)
+    return 46;
+  }
+
+  v7 = Part;
+  v8 = (a3 - 1) + 1;
+  while (1)
+  {
+    v9 = glp_strtod(v12, &v11);
+    *a2 = v9;
+    if (v11 != v12 + v7)
     {
-      v9 = glp_strtod(v13, &v12);
-      *a2 = v9;
-      if (v12 != (v13 + v7))
-      {
-        result = 21;
-        goto LABEL_12;
-      }
-
-      if (!--v8)
-      {
-        break;
-      }
-
-      if (!PPParserGetPart(a1, v13, 0))
-      {
-        goto LABEL_8;
-      }
-
-      if (LOBYTE(v13[0]) != 44)
-      {
-        PPParserReturnPart(a1);
-        break;
-      }
-
-      ++a2;
-      v12 = 0;
-      v7 = PPParserGetPart(a1, v13, 1);
-      if (!v7)
-      {
-        goto LABEL_8;
-      }
+      return 21;
     }
 
-    result = 0;
+    if (!--v8)
+    {
+      break;
+    }
+
+    if (!PPParserGetPart(a1, v12, 0))
+    {
+      return 46;
+    }
+
+    if (LOBYTE(v12[0]) != 44)
+    {
+      PPParserReturnPart(a1);
+      return 0;
+    }
+
+    ++a2;
+    v11 = 0;
+    v7 = PPParserGetPart(a1, v12, 1);
+    if (!v7)
+    {
+      return 46;
+    }
   }
 
-  else
-  {
-LABEL_8:
-    result = 46;
-  }
-
-LABEL_12:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t PPParserParseOptionIdentifier(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  memset(v32, 0, sizeof(v32));
-  if (!PPParserGetPart(a1, v32, 0))
+  v32 = *MEMORY[0x277D85DE8];
+  memset(v31, 0, sizeof(v31));
+  if (!PPParserGetPart(a1, v31, 0))
   {
-    result = 46;
-    goto LABEL_126;
+    return 46;
   }
 
   if ((*(a1 + 368) & 2) == 0)
   {
-    if (*&v32[0] == 0x69736F705F425241 && *(&v32[0] + 1) == 0x766E695F6E6F6974 && *(v32 + 15) == 0x746E6169726176)
+    if (*&v31[0] == 0x69736F705F425241 && *(&v31[0] + 1) == 0x766E695F6E6F6974 && *(v31 + 15) == 0x746E6169726176)
     {
       *(a1 + 380) |= 1u;
       if ((*(a1 + 376) & 1) == 0)
       {
         (*(a1 + 224))(a1, 0);
-        v31 = xmmword_23A3009B0;
-        (*(a1 + 208))(a1, &v31);
+        v30 = xmmword_23A3009B0;
+        (*(a1 + 208))(a1, &v30);
       }
 
-      goto LABEL_125;
+      return 0;
     }
 
-    if (*&v32[0] == 0x65747265765F564ELL && *(&v32[0] + 1) == 0x6172676F72705F78 && *(v32 + 11) == 0x326D6172676F72)
+    if (*&v31[0] == 0x65747265765F564ELL && *(&v31[0] + 1) == 0x6172676F72705F78 && *(v31 + 11) == 0x326D6172676F72)
     {
       *(a1 + 368) = 49;
       (*(a1 + 224))(a1, 10);
-      goto LABEL_125;
+      return 0;
     }
 
-    if (*&v32[0] == 0x65747265765F564ELL && *(&v32[0] + 1) == 0x6172676F72705F78 && *(v32 + 11) == 0x336D6172676F72)
+    if (*&v31[0] == 0x65747265765F564ELL && *(&v31[0] + 1) == 0x6172676F72705F78 && *(v31 + 11) == 0x336D6172676F72)
     {
       *(a1 + 368) = 52;
       (*(a1 + 224))(a1, 11);
-      goto LABEL_125;
+      return 0;
     }
 
-    if (*&v32[0] == 0x65765F454C505041 && *(&v32[0] + 1) == 0x696F705F78657472 && *&v32[1] == 0x657A69735F746ELL)
+    if (*&v31[0] == 0x65765F454C505041 && *(&v31[0] + 1) == 0x696F705F78657472 && *&v31[1] == 0x657A69735F746ELL)
     {
       result = 0;
       *(a1 + 379) |= 8u;
-      goto LABEL_126;
+      return result;
     }
 
     goto LABEL_31;
   }
 
-  if (*&v32[0] == 0x5F676F665F425241 && DWORD2(v32[0]) == 7370853)
+  if (*&v31[0] == 0x5F676F665F425241 && DWORD2(v31[0]) == 7370853)
   {
     v29 = *(a1 + 381) | 2;
     if (v29 != 2)
     {
-      goto LABEL_121;
+      return 39;
     }
 
     result = 0;
 LABEL_112:
     *(a1 + 381) = v29;
-    goto LABEL_126;
+    return result;
   }
 
-  if (*&v32[0] == 0x5F676F665F425241 && *(v32 + 5) == 0x327078655F676FLL)
+  if (*&v31[0] == 0x5F676F665F425241 && *(v31 + 5) == 0x327078655F676FLL)
   {
     if (*(a1 + 381) != 3 && *(a1 + 381))
     {
-      goto LABEL_121;
+      return 39;
     }
 
     result = 0;
@@ -2450,11 +2418,11 @@ LABEL_112:
     goto LABEL_112;
   }
 
-  if (*&v32[0] == 0x5F676F665F425241 && *(v32 + 7) == 0x7261656E696C5FLL)
+  if (*&v31[0] == 0x5F676F665F425241 && *(v31 + 7) == 0x7261656E696C5FLL)
   {
     if (*(a1 + 381) > 1u)
     {
-      goto LABEL_121;
+      return 39;
     }
 
     result = 0;
@@ -2462,107 +2430,96 @@ LABEL_112:
     goto LABEL_112;
   }
 
-  if (!(*&v32[0] ^ 0x6F665F454C505041 | *(&v32[0] + 1) ^ 0x64656E6769735F67 | LOBYTE(v32[1])))
+  if (!(*&v31[0] ^ 0x6F665F454C505041 | *(&v31[0] + 1) ^ 0x64656E6769735F67 | LOBYTE(v31[1])))
   {
     result = 0;
     *(a1 + 385) = 1;
-    goto LABEL_126;
+    return result;
   }
 
-  if (*&v32[0] == 0x636572705F425241 && *(&v32[0] + 1) == 0x69685F6E6F697369 && *&v32[1] == 0x65747361665F746ELL && *(&v32[1] + 3) == 0x74736574736166)
+  if (*&v31[0] == 0x636572705F425241 && *(&v31[0] + 1) == 0x69685F6E6F697369 && *&v31[1] == 0x65747361665F746ELL && *(&v31[1] + 3) == 0x74736574736166)
   {
     if ((*(a1 + 382) | 4) == 4)
     {
       *(a1 + 382) = 4;
       (*(a1 + 224))(a1, 4);
-      goto LABEL_125;
+      return 0;
     }
 
-LABEL_121:
-    result = 39;
-    goto LABEL_126;
+    return 39;
   }
 
-  if (*&v32[0] == 0x636572705F425241 && *(&v32[0] + 1) == 0x69685F6E6F697369 && *&v32[1] == 0x736563696E5F746ELL && WORD4(v32[1]) == 116)
+  if (*&v31[0] == 0x636572705F425241 && *(&v31[0] + 1) == 0x69685F6E6F697369 && *&v31[1] == 0x736563696E5F746ELL && WORD4(v31[1]) == 116)
   {
     if (*(a1 + 382) == 5 || !*(a1 + 382))
     {
       *(a1 + 382) = 5;
       (*(a1 + 224))(a1, 5);
-      goto LABEL_125;
+      return 0;
     }
 
-    goto LABEL_121;
+    return 39;
   }
 
-  if (*&v32[0] == 0x6D676172665F564ELL && *(&v32[0] + 1) == 0x676F72705F746E65 && LODWORD(v32[1]) == 7168370)
+  if (*&v31[0] == 0x6D676172665F564ELL && *(&v31[0] + 1) == 0x676F72705F746E65 && LODWORD(v31[1]) == 7168370)
   {
     *(a1 + 368) = 51;
     (*(a1 + 224))(a1, 8);
-    goto LABEL_125;
+    return 0;
   }
 
-  if (*&v32[0] == 0x6D676172665F564ELL && *(&v32[0] + 1) == 0x676F72705F746E65 && *(v32 + 13) == 0x326D6172676F72)
+  if (*&v31[0] == 0x6D676172665F564ELL && *(&v31[0] + 1) == 0x676F72705F746E65 && *(v31 + 13) == 0x326D6172676F72)
   {
     *(a1 + 368) = 54;
     (*(a1 + 224))(a1, 9);
     PPParserDeclareNVAddressRegisters(a1);
-    goto LABEL_125;
+    return 0;
   }
 
-  if (*&v32[0] == 0x676172665F425241 && *(&v32[0] + 1) == 0x6F72705F746E656DLL && *&v32[1] == 0x6168735F6D617267 && DWORD2(v32[1]) == 7827300)
+  if (*&v31[0] == 0x676172665F425241 && *(&v31[0] + 1) == 0x6F72705F746E656DLL && *&v31[1] == 0x6168735F6D617267 && DWORD2(v31[1]) == 7827300)
   {
     *(a1 + 384) = 1;
     (*(a1 + 224))(a1, 13);
-    goto LABEL_125;
+    return 0;
   }
 
-  if (!(*&v32[0] ^ 0x776172645F425241 | *(&v32[0] + 1) ^ 0x737265666675625FLL | LOBYTE(v32[1])) || !(*&v32[0] ^ 0x776172645F495441 | *(&v32[0] + 1) ^ 0x737265666675625FLL | LOBYTE(v32[1])))
+  if (!(*&v31[0] ^ 0x776172645F425241 | *(&v31[0] + 1) ^ 0x737265666675625FLL | LOBYTE(v31[1])) || !(*&v31[0] ^ 0x776172645F495441 | *(&v31[0] + 1) ^ 0x737265666675625FLL | LOBYTE(v31[1])))
   {
     *(a1 + 383) = 1;
     (*(a1 + 224))(a1, 12);
-    goto LABEL_125;
+    return 0;
   }
 
 LABEL_31:
-  if (!(*&v32[0] ^ 0x6F6E5F454C505041 | *(&v32[0] + 1) ^ 0x656D69746E75725FLL | *&v32[1] ^ 0x656C69706D6F635FLL | BYTE8(v32[1])))
+  if (!(*&v31[0] ^ 0x6F6E5F454C505041 | *(&v31[0] + 1) ^ 0x656D69746E75725FLL | *&v31[1] ^ 0x656C69706D6F635FLL | BYTE8(v31[1])))
   {
-LABEL_125:
-    result = 0;
-    goto LABEL_126;
+    return 0;
   }
 
-  if (*&v32[0] == 0x70735F454C505041 && *(&v32[0] + 1) == 0x706F5F6C61696365 && LOWORD(v32[1]) == 115)
+  if (*&v31[0] != 0x70735F454C505041 || *(&v31[0] + 1) != 0x706F5F6C61696365 || LOWORD(v31[1]) != 115)
   {
-    result = 0;
-    *(a1 + 380) |= 2u;
+    return 5;
   }
 
-  else
-  {
-    result = 5;
-  }
-
-LABEL_126:
-  v30 = *MEMORY[0x277D85DE8];
+  result = 0;
+  *(a1 + 380) |= 2u;
   return result;
 }
 
 uint64_t PPParserParseBlock(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  memset(v13, 0, sizeof(v13));
-  if (!PPParserGetPart(a1, v13, 0))
+  v13 = *MEMORY[0x277D85DE8];
+  memset(v12, 0, sizeof(v12));
+  if (!PPParserGetPart(a1, v12, 0))
   {
-    goto LABEL_22;
+    return 46;
   }
 
-  if (LODWORD(v13[0]) != 1380013139 || WORD2(v13[0]) != 84)
+  if (LODWORD(v12[0]) != 1380013139 || WORD2(v12[0]) != 84)
   {
-    if (LODWORD(v13[0]) != 4476485)
+    if (LODWORD(v12[0]) != 4476485)
     {
-      result = 7;
-      goto LABEL_23;
+      return 7;
     }
 
     goto LABEL_13;
@@ -2584,7 +2541,7 @@ uint64_t PPParserParseBlock(uint64_t a1)
   }
 
   *(a1 + 32) = v4;
-  if (LODWORD(v13[0]) == 4476485)
+  if (LODWORD(v12[0]) == 4476485)
   {
 LABEL_13:
     v8 = (a1 + 32);
@@ -2607,280 +2564,248 @@ LABEL_13:
     PPParserScopeFree(v7);
   }
 
-  if (!PPParserGetPart(a1, v13, 0))
+  if (!PPParserGetPart(a1, v12, 0))
   {
-LABEL_22:
-    result = 46;
-    goto LABEL_23;
+    return 46;
   }
 
-  if (LOBYTE(v13[0]) == 59)
+  if (LOBYTE(v12[0]) == 59)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = 30;
+    return 30;
   }
-
-LABEL_23:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t PPParserParseArray(uint64_t a1, _DWORD *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  if (!PPParserGetPart(a1, v6, 0))
+  v6 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  if (!PPParserGetPart(a1, v5, 0))
   {
-    goto LABEL_9;
+    return 46;
   }
 
-  if (LOBYTE(v6[0]) != 91)
+  if (LOBYTE(v5[0]) != 91)
   {
-    result = 11;
-    goto LABEL_11;
+    return 11;
   }
 
+  result = PPParserGetInteger(a1, a2);
+  if (result)
+  {
+    return result;
+  }
+
+  if ((*a2 & 0x80000000) != 0)
+  {
+    return 35;
+  }
+
+  if (!PPParserGetPart(a1, v5, 0))
+  {
+    return 46;
+  }
+
+  if (LOBYTE(v5[0]) == 93)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return 11;
+  }
+}
+
+uint64_t PPParserParseDefaultArray(uint64_t a1, _DWORD *a2)
+{
+  v6 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  if (!PPParserGetPart(a1, v5, 0))
+  {
+    return 46;
+  }
+
+  if (LOBYTE(v5[0]) != 91)
+  {
+    return 11;
+  }
+
+  if (!PPParserGetPart(a1, v5, 0))
+  {
+    return 46;
+  }
+
+  if (LOBYTE(v5[0]) == 93)
+  {
+    result = 0;
+    *a2 = 0;
+    return result;
+  }
+
+  PPParserReturnPart(a1);
   result = PPParserGetInteger(a1, a2);
   if (!result)
   {
     if ((*a2 & 0x80000000) != 0)
     {
-      result = 35;
-      goto LABEL_11;
+      return 35;
     }
 
-    if (PPParserGetPart(a1, v6, 0))
+    if (PPParserGetPart(a1, v5, 0))
     {
-      if (LOBYTE(v6[0]) == 93)
+      if (LOBYTE(v5[0]) == 93)
       {
-        result = 0;
+        return 0;
       }
 
       else
       {
-        result = 11;
+        return 11;
       }
-
-      goto LABEL_11;
     }
 
-LABEL_9:
-    result = 46;
+    return 46;
   }
 
-LABEL_11:
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t PPParserParseDefaultArray(uint64_t a1, _DWORD *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  if (!PPParserGetPart(a1, v6, 0))
-  {
-    goto LABEL_13;
-  }
-
-  if (LOBYTE(v6[0]) != 91)
-  {
-    result = 11;
-    goto LABEL_14;
-  }
-
-  if (!PPParserGetPart(a1, v6, 0))
-  {
-    goto LABEL_13;
-  }
-
-  if (LOBYTE(v6[0]) == 93)
-  {
-    result = 0;
-    *a2 = 0;
-    goto LABEL_14;
-  }
-
-  PPParserReturnPart(a1);
-  result = PPParserGetInteger(a1, a2);
-  if (result)
-  {
-    goto LABEL_14;
-  }
-
-  if ((*a2 & 0x80000000) != 0)
-  {
-    result = 35;
-    goto LABEL_14;
-  }
-
-  if (!PPParserGetPart(a1, v6, 0))
-  {
-LABEL_13:
-    result = 46;
-    goto LABEL_14;
-  }
-
-  if (LOBYTE(v6[0]) == 93)
-  {
-    result = 0;
-  }
-
-  else
-  {
-    result = 11;
-  }
-
-LABEL_14:
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t PPParserParseRangeArray(uint64_t a1, _DWORD *a2, _DWORD *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(v8, 0, sizeof(v8));
-  if (!PPParserGetPart(a1, v8, 0))
+  v8 = *MEMORY[0x277D85DE8];
+  memset(v7, 0, sizeof(v7));
+  if (!PPParserGetPart(a1, v7, 0))
   {
-    goto LABEL_17;
+    return 46;
   }
 
-  if (LOBYTE(v8[0]) != 91)
+  if (LOBYTE(v7[0]) != 91)
   {
-    goto LABEL_9;
+    return 11;
   }
 
   result = PPParserGetInteger(a1, a2);
-  if (!result)
+  if (result)
   {
-    if ((*a2 & 0x80000000) != 0)
-    {
-      goto LABEL_12;
-    }
-
-    if (PPParserGetPart(a1, v8, 0))
-    {
-      if (LOBYTE(v8[0]) == 93)
-      {
-        result = 0;
-        *a3 = *a2;
-        goto LABEL_18;
-      }
-
-      if (LOWORD(v8[0]) ^ 0x2E2E | BYTE2(v8[0]))
-      {
-LABEL_9:
-        result = 11;
-        goto LABEL_18;
-      }
-
-      result = PPParserGetInteger(a1, a3);
-      if (result)
-      {
-        goto LABEL_18;
-      }
-
-      if (*a3 < *a2)
-      {
-LABEL_12:
-        result = 35;
-        goto LABEL_18;
-      }
-
-      if (PPParserGetPart(a1, v8, 0))
-      {
-        if (LOBYTE(v8[0]) == 93)
-        {
-          result = 0;
-        }
-
-        else
-        {
-          result = 11;
-        }
-
-        goto LABEL_18;
-      }
-    }
-
-LABEL_17:
-    result = 46;
+    return result;
   }
 
-LABEL_18:
-  v7 = *MEMORY[0x277D85DE8];
+  if ((*a2 & 0x80000000) != 0)
+  {
+    return 35;
+  }
+
+  if (!PPParserGetPart(a1, v7, 0))
+  {
+    return 46;
+  }
+
+  if (LOBYTE(v7[0]) == 93)
+  {
+    result = 0;
+    *a3 = *a2;
+    return result;
+  }
+
+  if (LOWORD(v7[0]) ^ 0x2E2E | BYTE2(v7[0]))
+  {
+    return 11;
+  }
+
+  result = PPParserGetInteger(a1, a3);
+  if (!result)
+  {
+    if (*a3 < *a2)
+    {
+      return 35;
+    }
+
+    if (PPParserGetPart(a1, v7, 0))
+    {
+      if (LOBYTE(v7[0]) == 93)
+      {
+        return 0;
+      }
+
+      else
+      {
+        return 11;
+      }
+    }
+
+    return 46;
+  }
+
   return result;
 }
 
 uint64_t PPParserParseIndirectArray(uint64_t a1, unint64_t *a2, _DWORD *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
+  v31 = *MEMORY[0x277D85DE8];
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  *__s2 = 0u;
+  v20 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  *__s2 = 0u;
+  v16 = 0u;
   if (!PPParserGetPart(a1, __s2, 0))
   {
-    goto LABEL_24;
+    return 46;
   }
 
   if (__s2[0] != 91)
   {
-    result = 11;
-    goto LABEL_25;
+    return 11;
   }
 
   if (!PPParserGetInteger(a1, a3))
   {
     if ((*a3 & 0x80000000) != 0)
     {
-      result = 35;
-      goto LABEL_25;
+      return 35;
     }
 
     goto LABEL_10;
   }
 
-  v15 = 0;
+  v14 = 0;
   PPParserReturnPart(a1);
   if (!PPParserGetPart(a1, __s2, 0))
   {
-    goto LABEL_24;
+    return 46;
   }
 
   Identifier = PPParserScopeFindIdentifier(*(a1 + 32), __s2);
   if (!Identifier)
   {
-    result = 26;
-    goto LABEL_25;
+    return 26;
   }
 
   v7 = Identifier;
   if (*(Identifier + 16) != -1)
   {
-    result = 22;
-    goto LABEL_25;
+    return 22;
   }
 
   Part = PPParserGetPart(a1, __s2, 0);
   if (!Part)
   {
-    goto LABEL_24;
+    return 46;
   }
 
   v10 = Part;
@@ -2890,14 +2815,12 @@ uint64_t PPParserParseIndirectArray(uint64_t a1, unint64_t *a2, _DWORD *a3)
     v11 = PPParserGetPart(a1, __s2, 0);
     if (!v11)
     {
-      goto LABEL_24;
+      return 46;
     }
 
     if (v11 != 1)
     {
-LABEL_23:
-      result = 13;
-      goto LABEL_25;
+      return 13;
     }
 
     if ((*(a1 + 368) & 0x10) != 0)
@@ -2907,17 +2830,17 @@ LABEL_23:
       {
         if (__s2[0] == 121)
         {
-          v13 = *a2 & 0xFFFFFFFFFFFFFFF3 | 4;
+          v12 = *a2 & 0xFFFFFFFFFFFFFFF3 | 4;
         }
 
         else
         {
           if (__s2[0] != 122)
           {
-            goto LABEL_25;
+            return result;
           }
 
-          v13 = *a2 & 0xFFFFFFFFFFFFFFF3 | 8;
+          v12 = *a2 & 0xFFFFFFFFFFFFFFF3 | 8;
         }
 
         goto LABEL_35;
@@ -2925,106 +2848,96 @@ LABEL_23:
 
       if (__s2[0] == 119)
       {
-        v13 = *a2 | 0xC;
+        v12 = *a2 | 0xC;
         goto LABEL_35;
       }
 
       if (__s2[0] != 120)
       {
-        goto LABEL_25;
+        return result;
       }
     }
 
     else if (__s2[0] != 120)
     {
-      goto LABEL_23;
+      return 13;
     }
 
-    v13 = *a2 & 0xFFFFFFFFFFFFFFF3;
+    v12 = *a2 & 0xFFFFFFFFFFFFFFF3;
 LABEL_35:
-    *a2 = v13;
-    if (PPParserGetInteger(a1, &v15))
+    *a2 = v12;
+    if (PPParserGetInteger(a1, &v14))
     {
       PPParserReturnPart(a1);
-      v15 = 0;
+      v14 = 0;
     }
 
     if ((*(a1 + 368) & 0x10) != 0)
     {
-      if ((v15 - 256) < 0xFFFFFE00)
+      if ((v14 - 256) < 0xFFFFFE00)
       {
-        goto LABEL_39;
+        return 36;
       }
     }
 
-    else if ((v15 - 64) <= 0xFFFFFF7F)
+    else if ((v14 - 64) <= 0xFFFFFF7F)
     {
-LABEL_39:
-      result = 36;
-      goto LABEL_25;
+      return 36;
     }
 
-    v14 = *a2 & 0xFFFFFFFF00FFFFFFLL | (v15 << 24);
-    *a2 = v14;
-    *a2 = v14 & 0xFFFFFFFFFFFFFFFCLL | (2 * (*(v7 + 12) & 1)) | 1;
+    v13 = *a2 & 0xFFFFFFFF00FFFFFFLL | (v14 << 24);
+    *a2 = v13;
+    *a2 = v13 & 0xFFFFFFFFFFFFFFFCLL | (2 * (*(v7 + 12) & 1)) | 1;
 LABEL_10:
     if (PPParserGetPart(a1, __s2, 0))
     {
       if (__s2[0] == 93)
       {
-        result = 0;
+        return 0;
       }
 
       else
       {
-        result = 11;
+        return 11;
       }
-
-      goto LABEL_25;
     }
 
-LABEL_24:
-    result = 46;
+    return 46;
   }
 
-LABEL_25:
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t PPParserParseAddressDeclaration(uint64_t a1)
 {
   v2 = 0;
-  v26 = *MEMORY[0x277D85DE8];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
+  v25 = *MEMORY[0x277D85DE8];
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  *__s = 0u;
+  v14 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  *__s = 0u;
+  v10 = 0u;
   do
   {
     if (!PPParserGetPart(a1, __s, 0))
     {
-LABEL_10:
-      result = 46;
-      goto LABEL_17;
+      return 46;
     }
 
     if (PPParserValidateName(a1, __s))
     {
-      result = 18;
-      goto LABEL_17;
+      return 18;
     }
 
     v3 = PPParserIdentifierCreate();
@@ -3035,55 +2948,44 @@ LABEL_10:
     if (PPParserScopeAddIdentifier(v4, v3))
     {
       PPParserIdentifierFree(v3);
-      result = 28;
-      goto LABEL_17;
+      return 28;
     }
 
     if (!PPParserGetPart(a1, __s, 0))
     {
-      goto LABEL_10;
+      return 46;
     }
 
     ++v2;
   }
 
   while (__s[0] == 44);
-  if (__s[0] == 59)
+  if (__s[0] != 59)
   {
-    v5 = *(*(a1 + 32) + 32);
-    if ((v5 + v2) <= *(a1 + 284))
-    {
-      for (; v2; --v2)
-      {
-        v9 = v5;
-        (*(a1 + 184))(a1, &v9);
-        v7 = *(a1 + 32);
-        v5 = *(v7 + 32) + 1;
-        *(v7 + 32) = v5;
-      }
-
-      result = 0;
-    }
-
-    else
-    {
-      result = 56;
-    }
+    return 31;
   }
 
-  else
+  v5 = *(*(a1 + 32) + 32);
+  if ((v5 + v2) > *(a1 + 284))
   {
-    result = 31;
+    return 56;
   }
 
-LABEL_17:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  for (; v2; --v2)
+  {
+    v8 = v5;
+    (*(a1 + 184))(a1, &v8);
+    v7 = *(a1 + 32);
+    v5 = *(v7 + 32) + 1;
+    *(v7 + 32) = v5;
+  }
+
+  return 0;
 }
 
 uint64_t PPParserValidateName(uint64_t a1, char *__s)
 {
-  v31[4] = *MEMORY[0x277D85DE8];
+  v26[4] = *MEMORY[0x277D85DE8];
   v4 = &fpDclList;
   v5 = *(a1 + 368);
   if ((v5 & 2) == 0)
@@ -3101,12 +3003,12 @@ LABEL_7:
       result = 0;
       if (v9 > 8 || ((1 << v9) & 0x198) == 0)
       {
-        goto LABEL_65;
+        return result;
       }
     }
 
-    v11 = v31;
-    memset(v31, 0, 32);
+    v11 = v26;
+    memset(v26, 0, 32);
     if ((v5 & 2) != 0)
     {
       v12 = &OpsList_ARBfp10;
@@ -3117,15 +3019,15 @@ LABEL_7:
       v12 = &OpsList_ARBvp10;
     }
 
-    v30 = v12;
+    v25 = v12;
     v13 = &OpsList_NVvp20;
     v14 = 1;
     if (v5 > 51)
     {
-      v11 = &v31[1];
+      v11 = &v26[1];
       if (v5 == 54)
       {
-        v31[0] = &OpsList_NVfp10;
+        v26[0] = &OpsList_NVfp10;
         v14 = 3;
         v13 = &OpsList_NVfp20;
       }
@@ -3137,7 +3039,7 @@ LABEL_7:
           goto LABEL_23;
         }
 
-        v31[0] = &OpsList_NVvp20;
+        v26[0] = &OpsList_NVvp20;
         v14 = 3;
         v13 = &OpsList_NVvp30;
       }
@@ -3169,30 +3071,29 @@ LABEL_23:
         v15 = &OpsList_vpSpecial;
       }
 
-      v31[v14++ - 1] = v15;
+      v26[v14++ - 1] = v15;
     }
 
     v16 = 0;
-    v31[v14 - 1] = 0;
+    v26[v14 - 1] = 0;
     while (!*v12)
     {
 LABEL_62:
-      v12 = v31[++v16 - 1];
+      v12 = v26[++v16 - 1];
       if (!v12)
       {
-        result = 0;
-        goto LABEL_65;
+        return 0;
       }
     }
 
     while (1)
     {
       *__s2 = 0;
-      v29 = 0;
+      v24 = 0;
       v17 = *v12;
       if (!strcmp(__s, *v12))
       {
-        goto LABEL_64;
+        return 18;
       }
 
       v18 = *(a1 + 368);
@@ -3201,7 +3102,7 @@ LABEL_62:
         sprintf_l(__s2, 0, "%sC", v17);
         if (!strcmp(__s, __s2))
         {
-          goto LABEL_64;
+          return 18;
         }
 
         v18 = *(a1 + 368);
@@ -3210,37 +3111,37 @@ LABEL_62:
           sprintf_l(__s2, 0, "%sC0", *v12);
           if (!strcmp(__s, __s2))
           {
-            goto LABEL_64;
+            return 18;
           }
 
           sprintf_l(__s2, 0, "%sC1", *v12);
           if (!strcmp(__s, __s2))
           {
-            goto LABEL_64;
+            return 18;
           }
 
           sprintf_l(__s2, 0, "%s_SAT", *v12);
           if (!strcmp(__s, __s2))
           {
-            goto LABEL_64;
+            return 18;
           }
 
           sprintf_l(__s2, 0, "%sC_SAT", *v12);
           if (!strcmp(__s, __s2))
           {
-            goto LABEL_64;
+            return 18;
           }
 
           sprintf_l(__s2, 0, "%sC0_SAT", *v12);
           if (!strcmp(__s, __s2))
           {
-            goto LABEL_64;
+            return 18;
           }
 
           sprintf_l(__s2, 0, "%sC1_SAT", *v12);
           if (!strcmp(__s, __s2))
           {
-            goto LABEL_64;
+            return 18;
           }
 
           v18 = *(a1 + 368);
@@ -3252,7 +3153,7 @@ LABEL_62:
         sprintf_l(__s2, 0, "%s_SAT", *v12);
         if (!strcmp(__s, __s2))
         {
-          goto LABEL_64;
+          return 18;
         }
 
         if ((*(a1 + 368) & 0x10) != 0)
@@ -3260,7 +3161,7 @@ LABEL_62:
           sprintf_l(__s2, 0, "%sC_SAT", *v12);
           if (!strcmp(__s, __s2))
           {
-            goto LABEL_64;
+            return 18;
           }
 
           v19 = strlen(__s);
@@ -3271,21 +3172,20 @@ LABEL_62:
             sprintf_l(__s2, 0, "%sR", v20);
             if (!strcmp(__s, __s2))
             {
-              goto LABEL_64;
+              return 18;
             }
 
             sprintf_l(__s2, 0, "%sH", *v12);
             if (!strcmp(__s, __s2))
             {
-              goto LABEL_64;
+              return 18;
             }
 
-            v22 = *v12;
             sprintf_l(__s2, 0, "%sX");
 LABEL_60:
             if (!strcmp(__s, __s2))
             {
-              goto LABEL_64;
+              return 18;
             }
 
             goto LABEL_61;
@@ -3296,16 +3196,15 @@ LABEL_60:
             sprintf_l(__s2, 0, "%sRC", v20);
             if (!strcmp(__s, __s2))
             {
-              goto LABEL_64;
+              return 18;
             }
 
             sprintf_l(__s2, 0, "%sHC", *v12);
             if (!strcmp(__s, __s2))
             {
-              goto LABEL_64;
+              return 18;
             }
 
-            v23 = *v12;
             sprintf_l(__s2, 0, "%sXC");
             goto LABEL_60;
           }
@@ -3315,16 +3214,15 @@ LABEL_60:
             sprintf_l(__s2, 0, "%sR_SAT", v20);
             if (!strcmp(__s, __s2))
             {
-              goto LABEL_64;
+              return 18;
             }
 
             sprintf_l(__s2, 0, "%sH_SAT", *v12);
             if (!strcmp(__s, __s2))
             {
-              goto LABEL_64;
+              return 18;
             }
 
-            v24 = *v12;
             sprintf_l(__s2, 0, "%sX_SAT");
             goto LABEL_60;
           }
@@ -3334,16 +3232,15 @@ LABEL_60:
             sprintf_l(__s2, 0, "%sRC_SAT", v20);
             if (!strcmp(__s, __s2))
             {
-              goto LABEL_64;
+              return 18;
             }
 
             sprintf_l(__s2, 0, "%sHC_SAT", *v12);
             if (!strcmp(__s, __s2))
             {
-              goto LABEL_64;
+              return 18;
             }
 
-            v25 = *v12;
             sprintf_l(__s2, 0, "%sXC_SAT");
             goto LABEL_60;
           }
@@ -3351,9 +3248,9 @@ LABEL_60:
       }
 
 LABEL_61:
-      v26 = v12[2];
+      v22 = v12[2];
       v12 += 2;
-      if (!v26)
+      if (!v22)
       {
         goto LABEL_62;
       }
@@ -3372,50 +3269,43 @@ LABEL_61:
     }
   }
 
-LABEL_64:
-  result = 18;
-LABEL_65:
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return 18;
 }
 
 uint64_t PPParserParseTempDeclaration(uint64_t a1, int a2)
 {
   v4 = 0;
-  v35 = *MEMORY[0x277D85DE8];
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
+  v34 = *MEMORY[0x277D85DE8];
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v24 = 0u;
+  v27 = 0u;
   v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   *__s = 0u;
-  v18 = 0;
-  v16 = 0;
   v17 = 0;
+  v15 = 0;
+  v16 = 0;
   do
   {
     v5 = v4;
     if (!PPParserGetPart(a1, __s, 0))
     {
-LABEL_14:
-      result = 46;
-      goto LABEL_22;
+      return 46;
     }
 
     if (PPParserValidateName(a1, __s))
     {
-      result = 18;
-      goto LABEL_22;
+      return 18;
     }
 
     v6 = PPParserIdentifierCreate();
@@ -3427,30 +3317,29 @@ LABEL_14:
     if (PPParserScopeAddIdentifier(v7, v6))
     {
       PPParserIdentifierFree(v6);
-      result = 28;
-      goto LABEL_22;
+      return 28;
     }
 
     if (!PPParserGetPart(a1, __s, 0))
     {
-      goto LABEL_14;
+      return 46;
     }
 
     v8 = __s[0];
     if (__s[0] == 91)
     {
       PPParserReturnPart(a1);
-      result = PPParserParseArray(a1, &v18);
+      result = PPParserParseArray(a1, &v17);
       if (result)
       {
-        goto LABEL_22;
+        return result;
       }
 
       *(v6 + 20) = 1;
-      *(v6 + 2) = v18;
+      *(v6 + 2) = v17;
       if (!PPParserGetPart(a1, __s, 0))
       {
-        goto LABEL_14;
+        return 46;
       }
 
       v8 = __s[0];
@@ -3461,1428 +3350,1397 @@ LABEL_14:
   }
 
   while (v8 == 44);
-  if (v8 == 59)
+  if (v8 != 59)
   {
-    v11 = *(*(a1 + 32) + 36);
-    if (v11 + v4 <= *(a1 + 272))
-    {
-      if (v4)
-      {
-        v12 = a2 & 7 | 0xC0u;
-        v13 = v5 + v10;
-        do
-        {
-          v16 = v12;
-          v17 = v11;
-          (*(a1 + 176))(a1, &v16);
-          v14 = *(a1 + 32);
-          v11 = *(v14 + 36) + 1;
-          *(v14 + 36) = v11;
-          --v13;
-        }
-
-        while (v13);
-      }
-
-      result = 0;
-    }
-
-    else
-    {
-      result = 52;
-    }
+    return 31;
   }
 
-  else
+  v11 = *(*(a1 + 32) + 36);
+  if (v11 + v4 > *(a1 + 272))
   {
-    result = 31;
+    return 52;
   }
 
-LABEL_22:
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  if (v4)
+  {
+    v12 = a2 & 7 | 0xC0u;
+    v13 = v5 + v10;
+    do
+    {
+      v15 = v12;
+      v16 = v11;
+      (*(a1 + 176))(a1, &v15);
+      v14 = *(a1 + 32);
+      v11 = *(v14 + 36) + 1;
+      *(v14 + 36) = v11;
+      --v13;
+    }
+
+    while (v13);
+  }
+
+  return 0;
 }
 
 uint64_t PPParserParseParamBinding(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
   v4 = a2;
-  v138 = *MEMORY[0x277D85DE8];
-  memset(v137, 0, sizeof(v137));
-  v135 = 0;
-  v134 = 0uLL;
+  v137 = *MEMORY[0x277D85DE8];
+  memset(v136, 0, sizeof(v136));
+  v134 = 0;
+  v133 = 0uLL;
   v6 = *(a1 + 368);
   if (!a2)
   {
     goto LABEL_4;
   }
 
-  if (PPParserGetPart(a1, v137, 0))
+  if (!PPParserGetPart(a1, v136, 0))
   {
-    if (LOBYTE(v137[0]) == 123)
-    {
+    return 46;
+  }
+
+  if (LOBYTE(v136[0]) == 123)
+  {
 LABEL_4:
-      v7 = 0;
-      v8 = 0;
-      v9 = 0x6D6172676F7270;
-      v133 = (*(a1 + 344) << 16);
-      v10 = -1;
-      v132 = -1;
-      while (1)
+    v7 = 0;
+    v8 = 0;
+    v9 = 0x6D6172676F7270;
+    v132 = (*(a1 + 344) << 16);
+    v10 = -1;
+    v131 = -1;
+    while (1)
+    {
+      v11 = v7;
+      if (!PPParserGetPart(a1, v136, 1))
       {
-        v11 = v7;
-        if (!PPParserGetPart(a1, v137, 1))
+        return 46;
+      }
+
+      v12 = *(a1 + 344);
+      v133 = xmmword_23A3009C0;
+      DWORD2(v133) = v12;
+      if (*&v136[0] == v9)
+      {
+        Part = PPParserGetPart(a1, v136, 0);
+        if (!Part)
         {
-          goto LABEL_415;
+          return 46;
         }
 
-        v12 = *(a1 + 344);
-        v134 = xmmword_23A3009C0;
-        DWORD2(v134) = v12;
-        if (*&v137[0] == v9)
+        v17 = Part;
+        result = 10;
+        if (v17 != 1 || LOBYTE(v136[0]) != 46)
         {
-          Part = PPParserGetPart(a1, v137, 0);
-          if (!Part)
+          return result;
+        }
+
+        if (!PPParserGetPart(a1, v136, 0))
+        {
+          return 46;
+        }
+
+        if (LODWORD(v136[0]) == 7761509)
+        {
+          *&v133 = v133 & 0xFFFFFFFFFFFFE0FFLL | 0x500;
+          if (v4)
           {
-            goto LABEL_415;
-          }
-
-          v17 = Part;
-          result = 10;
-          if (v17 != 1 || LOBYTE(v137[0]) != 46)
-          {
-            goto LABEL_423;
-          }
-
-          if (!PPParserGetPart(a1, v137, 0))
-          {
-            goto LABEL_415;
-          }
-
-          if (LODWORD(v137[0]) == 7761509)
-          {
-            *&v134 = v134 & 0xFFFFFFFFFFFFE0FFLL | 0x500;
-            if (v4)
-            {
-              result = PPParserParseRangeArray(a1, &v135 + 1, &v135);
-            }
-
-            else
-            {
-              result = PPParserParseArray(a1, &v135 + 1);
-              LODWORD(v135) = HIDWORD(v135);
-            }
-
-            if (v10 == -1)
-            {
-              v10 = (v134 >> 8) & 0x1F;
-            }
-
-            if (result)
-            {
-              goto LABEL_423;
-            }
-
-            v34 = HIDWORD(v135);
-            if (HIDWORD(v135) >= *(a1 + 256))
-            {
-LABEL_417:
-              result = 47;
-              goto LABEL_423;
-            }
-
-            v35 = v4;
-            v36 = a3;
-            v37 = v6;
-            v38 = v9;
-            v8 |= v10 != ((v134 >> 8) & 0x1F);
-            v39 = v135;
-            v11 = v11 + v135 - HIDWORD(v135);
-            while (1)
-            {
-              *&v134 = v134 & 0xFFFFC000FFFFFFFFLL | ((v34 & 0x3FFF) << 32);
-              (*(a1 + 192))(a1, &v134);
-              if (v39 == v34)
-              {
-                break;
-              }
-
-              v40 = *(a1 + 344) + 1;
-              *(a1 + 344) = v40;
-              DWORD2(v134) = v40;
-              if (++v34 >= *(a1 + 256))
-              {
-                goto LABEL_417;
-              }
-            }
-
-            v9 = v38;
-            v6 = v37;
-            a3 = v36;
-            v4 = v35;
-          }
-
-          else if (LODWORD(v137[0]) == 1633906540 && WORD2(v137[0]) == 108)
-          {
-            *&v134 = v134 & 0xFFFFFFFFFFFFE0FFLL | 0x100;
-            if (v4)
-            {
-              result = PPParserParseRangeArray(a1, &v135 + 1, &v135);
-            }
-
-            else
-            {
-              result = PPParserParseArray(a1, &v135 + 1);
-              LODWORD(v135) = HIDWORD(v135);
-            }
-
-            if (v10 == -1)
-            {
-              v10 = (v134 >> 8) & 0x1F;
-            }
-
-            v8 |= v10 != ((v134 >> 8) & 0x1F);
-            if (v132 != -1)
-            {
-              v8 |= v132 + 1 != HIDWORD(v135);
-            }
-
-            if (result)
-            {
-              goto LABEL_423;
-            }
-
-            v49 = HIDWORD(v135);
-            if (HIDWORD(v135) >= *(a1 + 260))
-            {
-              goto LABEL_416;
-            }
-
-            v132 = v135;
-            v11 = v11 + v135 - HIDWORD(v135);
-            while (1)
-            {
-              *&v134 = v134 & 0xFFFFC000FFFFFFFFLL | ((v49 & 0x3FFF) << 32);
-              (*(a1 + 192))(a1, &v134);
-              if (v132 == v49)
-              {
-                break;
-              }
-
-              v50 = *(a1 + 344) + 1;
-              *(a1 + 344) = v50;
-              DWORD2(v134) = v50;
-              if (++v49 >= *(a1 + 260))
-              {
-                goto LABEL_416;
-              }
-            }
+            result = PPParserParseRangeArray(a1, &v134 + 1, &v134);
           }
 
           else
           {
-            if ((*(a1 + 380) & 2) == 0 || *&v137[0] != 0x6D726F66696E75)
+            result = PPParserParseArray(a1, &v134 + 1);
+            LODWORD(v134) = HIDWORD(v134);
+          }
+
+          if (v10 == -1)
+          {
+            v10 = (v133 >> 8) & 0x1F;
+          }
+
+          if (result)
+          {
+            return result;
+          }
+
+          v34 = HIDWORD(v134);
+          if (HIDWORD(v134) >= *(a1 + 256))
+          {
+            return 47;
+          }
+
+          v35 = v4;
+          v36 = a3;
+          v37 = v6;
+          v38 = v9;
+          v8 |= v10 != ((v133 >> 8) & 0x1F);
+          v39 = v134;
+          v11 = v11 + v134 - HIDWORD(v134);
+          while (1)
+          {
+            *&v133 = v133 & 0xFFFFC000FFFFFFFFLL | ((v34 & 0x3FFF) << 32);
+            (*(a1 + 192))(a1, &v133);
+            if (v39 == v34)
             {
               break;
             }
 
-            *&v134 = v134 & 0xFFFFFFFFFFFFE0FFLL | 0x200;
-            if (v4)
+            v40 = *(a1 + 344) + 1;
+            *(a1 + 344) = v40;
+            DWORD2(v133) = v40;
+            if (++v34 >= *(a1 + 256))
             {
-              result = PPParserParseRangeArray(a1, &v135 + 1, &v135);
-            }
-
-            else
-            {
-              result = PPParserParseArray(a1, &v135 + 1);
-              LODWORD(v135) = HIDWORD(v135);
-            }
-
-            if (v10 == -1)
-            {
-              v10 = (v134 >> 8) & 0x1F;
-            }
-
-            v8 |= v10 != ((v134 >> 8) & 0x1F);
-            if (v132 != -1)
-            {
-              v8 |= v132 + 1 != HIDWORD(v135);
-            }
-
-            if (result)
-            {
-              goto LABEL_423;
-            }
-
-            v41 = HIDWORD(v135);
-            if (HIDWORD(v135) >= *(a1 + 260))
-            {
-LABEL_416:
-              result = 48;
-              goto LABEL_423;
-            }
-
-            v132 = v135;
-            v11 = v11 + v135 - HIDWORD(v135);
-            while (1)
-            {
-              *&v134 = v134 & 0xFFFFC000FFFFFFFFLL | ((v41 & 0x3FFF) << 32);
-              (*(a1 + 192))(a1, &v134);
-              if (v132 == v41)
-              {
-                break;
-              }
-
-              v42 = *(a1 + 344) + 1;
-              *(a1 + 344) = v42;
-              DWORD2(v134) = v42;
-              if (++v41 >= *(a1 + 260))
-              {
-                goto LABEL_416;
-              }
+              return 47;
             }
           }
 
-          goto LABEL_374;
+          v9 = v38;
+          v6 = v37;
+          a3 = v36;
+          v4 = v35;
         }
 
-        if (LODWORD(v137[0]) != 1952543859 || WORD2(v137[0]) != 101)
+        else if (LODWORD(v136[0]) == 1633906540 && WORD2(v136[0]) == 108)
         {
-          if (LOBYTE(v137[0]) == 123)
+          *&v133 = v133 & 0xFFFFFFFFFFFFE0FFLL | 0x100;
+          if (v4)
           {
-            *&v134 = 1728;
-            if (v10 == -1)
-            {
-              v10 = 6;
-            }
+            result = PPParserParseRangeArray(a1, &v134 + 1, &v134);
+          }
 
-            v136 = xmmword_23A3009D0;
-            result = PPParserGetScalars(a1, &v136, 4);
-            if (result)
-            {
-              goto LABEL_423;
-            }
+          else
+          {
+            result = PPParserParseArray(a1, &v134 + 1);
+            LODWORD(v134) = HIDWORD(v134);
+          }
 
-            if (!PPParserGetPart(a1, v137, 0))
-            {
-              goto LABEL_415;
-            }
+          if (v10 == -1)
+          {
+            v10 = (v133 >> 8) & 0x1F;
+          }
 
-            if (LOBYTE(v137[0]) != 125)
+          v8 |= v10 != ((v133 >> 8) & 0x1F);
+          if (v131 != -1)
+          {
+            v8 |= v131 + 1 != HIDWORD(v134);
+          }
+
+          if (result)
+          {
+            return result;
+          }
+
+          v49 = HIDWORD(v134);
+          if (HIDWORD(v134) >= *(a1 + 260))
+          {
+            return 48;
+          }
+
+          v131 = v134;
+          v11 = v11 + v134 - HIDWORD(v134);
+          while (1)
+          {
+            *&v133 = v133 & 0xFFFFC000FFFFFFFFLL | ((v49 & 0x3FFF) << 32);
+            (*(a1 + 192))(a1, &v133);
+            if (v131 == v49)
             {
               break;
             }
 
-            v8 |= v10 != 6;
-            (*(a1 + 232))(a1, &v136);
-            v15 = *(a1 + 356);
-            *(a1 + 356) = v15 + 1;
-            WORD2(v134) = v15;
-            (*(a1 + 192))(a1, &v134);
-            goto LABEL_374;
+            v50 = *(a1 + 344) + 1;
+            *(a1 + 344) = v50;
+            DWORD2(v133) = v50;
+            if (++v49 >= *(a1 + 260))
+            {
+              return 48;
+            }
           }
+        }
 
-          v136 = 0uLL;
-          PPParserReturnPart(a1);
-          *&v134 = 1728;
-          if (PPParserGetScalars(a1, &v136, 1))
+        else
+        {
+          if ((*(a1 + 380) & 2) == 0 || *&v136[0] != 0x6D726F66696E75)
           {
-            break;
+            return 10;
           }
 
+          *&v133 = v133 & 0xFFFFFFFFFFFFE0FFLL | 0x200;
+          if (v4)
+          {
+            result = PPParserParseRangeArray(a1, &v134 + 1, &v134);
+          }
+
+          else
+          {
+            result = PPParserParseArray(a1, &v134 + 1);
+            LODWORD(v134) = HIDWORD(v134);
+          }
+
+          if (v10 == -1)
+          {
+            v10 = (v133 >> 8) & 0x1F;
+          }
+
+          v8 |= v10 != ((v133 >> 8) & 0x1F);
+          if (v131 != -1)
+          {
+            v8 |= v131 + 1 != HIDWORD(v134);
+          }
+
+          if (result)
+          {
+            return result;
+          }
+
+          v41 = HIDWORD(v134);
+          if (HIDWORD(v134) >= *(a1 + 260))
+          {
+            return 48;
+          }
+
+          v131 = v134;
+          v11 = v11 + v134 - HIDWORD(v134);
+          while (1)
+          {
+            *&v133 = v133 & 0xFFFFC000FFFFFFFFLL | ((v41 & 0x3FFF) << 32);
+            (*(a1 + 192))(a1, &v133);
+            if (v131 == v41)
+            {
+              break;
+            }
+
+            v42 = *(a1 + 344) + 1;
+            *(a1 + 344) = v42;
+            DWORD2(v133) = v42;
+            if (++v41 >= *(a1 + 260))
+            {
+              return 48;
+            }
+          }
+        }
+
+        goto LABEL_374;
+      }
+
+      if (LODWORD(v136[0]) != 1952543859 || WORD2(v136[0]) != 101)
+      {
+        if (LOBYTE(v136[0]) == 123)
+        {
+          *&v133 = 1728;
           if (v10 == -1)
           {
             v10 = 6;
           }
 
+          v135 = xmmword_23A3009D0;
+          result = PPParserGetScalars(a1, &v135, 4);
+          if (result)
+          {
+            return result;
+          }
+
+          if (!PPParserGetPart(a1, v136, 0))
+          {
+            return 46;
+          }
+
+          if (LOBYTE(v136[0]) != 125)
+          {
+            return 10;
+          }
+
           v8 |= v10 != 6;
-          DWORD1(v136) = v136;
-          DWORD2(v136) = v136;
-          HIDWORD(v136) = v136;
-          (*(a1 + 232))(a1, &v136);
-          v26 = *(a1 + 356);
-          *(a1 + 356) = v26 + 1;
-          WORD2(v134) = v26;
-          goto LABEL_373;
+          (*(a1 + 232))(a1, &v135);
+          v15 = *(a1 + 356);
+          *(a1 + 356) = v15 + 1;
+          WORD2(v133) = v15;
+          (*(a1 + 192))(a1, &v133);
+          goto LABEL_374;
+        }
+
+        v135 = 0uLL;
+        PPParserReturnPart(a1);
+        *&v133 = 1728;
+        if (PPParserGetScalars(a1, &v135, 1))
+        {
+          return 10;
         }
 
         if (v10 == -1)
         {
-          v10 = 5;
+          v10 = 6;
         }
 
-        v19 = PPParserGetPart(a1, v137, 0);
-        if (!v19)
+        v8 |= v10 != 6;
+        DWORD1(v135) = v135;
+        DWORD2(v135) = v135;
+        HIDWORD(v135) = v135;
+        (*(a1 + 232))(a1, &v135);
+        v26 = *(a1 + 356);
+        *(a1 + 356) = v26 + 1;
+        WORD2(v133) = v26;
+        goto LABEL_373;
+      }
+
+      if (v10 == -1)
+      {
+        v10 = 5;
+      }
+
+      v19 = PPParserGetPart(a1, v136, 0);
+      if (!v19)
+      {
+        return 46;
+      }
+
+      v20 = v19;
+      result = 10;
+      if (v20 != 1 || LOBYTE(v136[0]) != 46)
+      {
+        return result;
+      }
+
+      if (!PPParserGetPart(a1, v136, 0))
+      {
+        return 46;
+      }
+
+      v8 |= v10 != 5;
+      if (!(*&v136[0] ^ 0x6C6169726574616DLL | BYTE8(v136[0])))
+      {
+        *&v133 = v133 & 0xFFFFFFFEFFFFE0FFLL | 0x1200;
+        v27 = PPParserGetPart(a1, v136, 0);
+        if (!v27)
         {
-          goto LABEL_415;
+          return 46;
         }
 
-        v20 = v19;
+        v28 = v27;
         result = 10;
-        if (v20 != 1 || LOBYTE(v137[0]) != 46)
+        if (v28 != 1 || LOBYTE(v136[0]) != 46)
         {
-          goto LABEL_423;
+          return result;
         }
 
-        if (!PPParserGetPart(a1, v137, 0))
+        if (!PPParserGetPart(a1, v136, 0))
         {
-          goto LABEL_415;
+          return 46;
         }
 
-        v8 |= v10 != 5;
-        if (!(*&v137[0] ^ 0x6C6169726574616DLL | BYTE8(v137[0])))
+        if (LODWORD(v136[0]) == 1852797542 && WORD2(v136[0]) == 116)
         {
-          *&v134 = v134 & 0xFFFFFFFEFFFFE0FFLL | 0x1200;
-          v27 = PPParserGetPart(a1, v137, 0);
-          if (!v27)
-          {
-            goto LABEL_415;
-          }
-
-          v28 = v27;
-          result = 10;
-          if (v28 != 1 || LOBYTE(v137[0]) != 46)
-          {
-            goto LABEL_423;
-          }
-
-          if (!PPParserGetPart(a1, v137, 0))
-          {
-            goto LABEL_415;
-          }
-
-          if (LODWORD(v137[0]) == 1852797542 && WORD2(v137[0]) == 116)
-          {
 LABEL_81:
-            v30 = PPParserGetPart(a1, v137, 0);
-            if (!v30)
-            {
-              goto LABEL_415;
-            }
-
-            v31 = v30;
-            result = 10;
-            if (v31 != 1 || LOBYTE(v137[0]) != 46)
-            {
-              goto LABEL_423;
-            }
-
-            if (!PPParserGetPart(a1, v137, 0))
-            {
-              goto LABEL_415;
-            }
+          v30 = PPParserGetPart(a1, v136, 0);
+          if (!v30)
+          {
+            return 46;
           }
 
-          else if (!(LODWORD(v137[0]) ^ 0x6B636162 | BYTE4(v137[0])))
+          v31 = v30;
+          result = 10;
+          if (v31 != 1 || LOBYTE(v136[0]) != 46)
           {
-            *&v134 = v134 | 0x100000000;
-            goto LABEL_81;
+            return result;
           }
 
-          if (*&v137[0] == 0x746E6569626D61)
+          if (!PPParserGetPart(a1, v136, 0))
           {
-            v33 = v134 & 0xFFFFFFF1FFFFFFFFLL;
+            return 46;
           }
+        }
 
-          else if (*&v137[0] == 0x65737566666964)
-          {
-            v33 = v134 & 0xFFFFFFF1FFFFFFFFLL | 0x200000000;
-          }
+        else if (!(LODWORD(v136[0]) ^ 0x6B636162 | BYTE4(v136[0])))
+        {
+          *&v133 = v133 | 0x100000000;
+          goto LABEL_81;
+        }
 
-          else if (*&v137[0] ^ 0x72616C7563657073 | BYTE8(v137[0]))
+        if (*&v136[0] == 0x746E6569626D61)
+        {
+          v33 = v133 & 0xFFFFFFF1FFFFFFFFLL;
+        }
+
+        else if (*&v136[0] == 0x65737566666964)
+        {
+          v33 = v133 & 0xFFFFFFF1FFFFFFFFLL | 0x200000000;
+        }
+
+        else if (*&v136[0] ^ 0x72616C7563657073 | BYTE8(v136[0]))
+        {
+          if (*&v136[0] ^ 0x6E6F697373696D65 | BYTE8(v136[0]))
           {
-            if (*&v137[0] ^ 0x6E6F697373696D65 | BYTE8(v137[0]))
+            if (*&v136[0] != 0x73656E696E696873 || WORD4(v136[0]) != 115)
             {
-              if (*&v137[0] != 0x73656E696E696873 || WORD4(v137[0]) != 115)
-              {
-                break;
-              }
-
-              v33 = v134 & 0xFFFFFFF1FFFFFFFFLL | 0x800000000;
+              return 10;
             }
 
-            else
-            {
-              v33 = v134 & 0xFFFFFFF1FFFFFFFFLL | 0x600000000;
-            }
+            v33 = v133 & 0xFFFFFFF1FFFFFFFFLL | 0x800000000;
           }
 
           else
           {
-            v33 = v134 & 0xFFFFFFF1FFFFFFFFLL | 0x400000000;
+            v33 = v133 & 0xFFFFFFF1FFFFFFFFLL | 0x600000000;
           }
-
-          goto LABEL_372;
-        }
-
-        if ((*(a1 + 380) & 2) != 0 && (*&v137[0] == 0x63736C616D726F6ELL ? (v21 = DWORD2(v137[0]) == 6646881) : (v21 = 0), v21))
-        {
-          v33 = v134 | 0x1F00;
         }
 
         else
         {
-          if (LODWORD(v137[0]) == 1751607660 && WORD2(v137[0]) == 116)
+          v33 = v133 & 0xFFFFFFF1FFFFFFFFLL | 0x400000000;
+        }
+
+        goto LABEL_372;
+      }
+
+      if ((*(a1 + 380) & 2) != 0 && (*&v136[0] == 0x63736C616D726F6ELL ? (v21 = DWORD2(v136[0]) == 6646881) : (v21 = 0), v21))
+      {
+        v33 = v133 | 0x1F00;
+      }
+
+      else
+      {
+        if (LODWORD(v136[0]) == 1751607660 && WORD2(v136[0]) == 116)
+        {
+          *&v133 = v133 & 0xFFFFFFFFFFFFE0FFLL | 0x1000;
+          result = PPParserParseArray(a1, &v134 + 1);
+          if (result)
           {
-            *&v134 = v134 & 0xFFFFFFFFFFFFE0FFLL | 0x1000;
-            result = PPParserParseArray(a1, &v135 + 1);
-            if (result)
-            {
-              goto LABEL_423;
-            }
-
-            if (HIDWORD(v135) >= *(a1 + 308))
-            {
-              result = 61;
-              goto LABEL_423;
-            }
-
-            BYTE4(v134) = BYTE4(v135);
-            v43 = PPParserGetPart(a1, v137, 0);
-            if (!v43)
-            {
-              goto LABEL_415;
-            }
-
-            v44 = v43;
-            result = 10;
-            if (v44 != 1 || LOBYTE(v137[0]) != 46)
-            {
-              goto LABEL_423;
-            }
-
-            if (!PPParserGetPart(a1, v137, 0))
-            {
-              goto LABEL_415;
-            }
-
-            if (*&v137[0] == 0x746E6569626D61)
-            {
-              v33 = v134 & 0xFFFFF0FFFFFFFFFFLL;
-              goto LABEL_372;
-            }
-
-            if (*&v137[0] == 0x65737566666964)
-            {
-              v64 = v134 & 0xFFFFF0FFFFFFFFFFLL;
-LABEL_205:
-              v33 = v64 | 0x10000000000;
-              goto LABEL_372;
-            }
-
-            if (!(*&v137[0] ^ 0x72616C7563657073 | BYTE8(v137[0])))
-            {
-              v76 = v134 & 0xFFFFF0FFFFFFFFFFLL;
-LABEL_259:
-              v33 = v76 | 0x20000000000;
-              goto LABEL_372;
-            }
-
-            if (!(*&v137[0] ^ 0x6E6F697469736F70 | BYTE8(v137[0])))
-            {
-              v33 = v134 & 0xFFFFF0FFFFFFFFFFLL | 0x30000000000;
-              goto LABEL_372;
-            }
-
-            if (*&v137[0] == 0x7461756E65747461 && DWORD2(v137[0]) == 7237481)
-            {
-              v47 = v134;
-              v48 = 5;
-LABEL_326:
-              v33 = v47 & 0xFFFFF0FFFFFFFFFFLL | ((v48 & 0xF) << 40);
-              goto LABEL_372;
-            }
-
-            if (LODWORD(v137[0]) ^ 0x746F7073 | BYTE4(v137[0]))
-            {
-              if (!(LODWORD(v137[0]) ^ 0x666C6168 | BYTE4(v137[0])))
-              {
-                v33 = v134 & 0xFFFFF0FFFFFFFFFFLL | 0x60000000000;
-                goto LABEL_372;
-              }
-
-              if (*&v137[0] != 0x6F747563746F7073 || *(v137 + 3) != 0x66666F74756374)
-              {
-                break;
-              }
-
-              v47 = v134;
-              v48 = 9;
-              goto LABEL_326;
-            }
-
-            v107 = PPParserGetPart(a1, v137, 0);
-            if (!v107)
-            {
-              goto LABEL_415;
-            }
-
-            v108 = v107;
-            result = 10;
-            if (v108 != 1 || LOBYTE(v137[0]) != 46)
-            {
-              goto LABEL_423;
-            }
-
-            if (!PPParserGetPart(a1, v137, 0))
-            {
-              goto LABEL_415;
-            }
-
-            if (*&v137[0] != 0x6F69746365726964 || WORD4(v137[0]) != 110)
-            {
-              break;
-            }
-
-            v60 = v134 & 0xFFFFF0FFFFFFFFFFLL;
-            goto LABEL_182;
+            return result;
           }
 
-          if (*&v137[0] != 0x646F6D746867696CLL || *(v137 + 3) != 0x6C65646F6D7468)
+          if (HIDWORD(v134) >= *(a1 + 308))
           {
-            if (*&v137[0] != 0x6F7270746867696CLL || WORD4(v137[0]) != 100)
-            {
-              if ((v6 & 2) != 0)
-              {
-                if ((*(a1 + 380) & 2) == 0)
-                {
-                  goto LABEL_188;
-                }
+            return 61;
+          }
 
-                if (LODWORD(v137[0]) != 1735943540 || *(v137 + 3) != 7234919)
-                {
-                  goto LABEL_188;
-                }
+          BYTE4(v133) = BYTE4(v134);
+          v43 = PPParserGetPart(a1, v136, 0);
+          if (!v43)
+          {
+            return 46;
+          }
+
+          v44 = v43;
+          result = 10;
+          if (v44 != 1 || LOBYTE(v136[0]) != 46)
+          {
+            return result;
+          }
+
+          if (!PPParserGetPart(a1, v136, 0))
+          {
+            return 46;
+          }
+
+          if (*&v136[0] == 0x746E6569626D61)
+          {
+            v33 = v133 & 0xFFFFF0FFFFFFFFFFLL;
+            goto LABEL_372;
+          }
+
+          if (*&v136[0] == 0x65737566666964)
+          {
+            v64 = v133 & 0xFFFFF0FFFFFFFFFFLL;
+LABEL_205:
+            v33 = v64 | 0x10000000000;
+            goto LABEL_372;
+          }
+
+          if (!(*&v136[0] ^ 0x72616C7563657073 | BYTE8(v136[0])))
+          {
+            v76 = v133 & 0xFFFFF0FFFFFFFFFFLL;
+LABEL_259:
+            v33 = v76 | 0x20000000000;
+            goto LABEL_372;
+          }
+
+          if (!(*&v136[0] ^ 0x6E6F697469736F70 | BYTE8(v136[0])))
+          {
+            v33 = v133 & 0xFFFFF0FFFFFFFFFFLL | 0x30000000000;
+            goto LABEL_372;
+          }
+
+          if (*&v136[0] == 0x7461756E65747461 && DWORD2(v136[0]) == 7237481)
+          {
+            v47 = v133;
+            v48 = 5;
+LABEL_326:
+            v33 = v47 & 0xFFFFF0FFFFFFFFFFLL | ((v48 & 0xF) << 40);
+            goto LABEL_372;
+          }
+
+          if (LODWORD(v136[0]) ^ 0x746F7073 | BYTE4(v136[0]))
+          {
+            if (!(LODWORD(v136[0]) ^ 0x666C6168 | BYTE4(v136[0])))
+            {
+              v33 = v133 & 0xFFFFF0FFFFFFFFFFLL | 0x60000000000;
+              goto LABEL_372;
+            }
+
+            if (*&v136[0] != 0x6F747563746F7073 || *(v136 + 3) != 0x66666F74756374)
+            {
+              return 10;
+            }
+
+            v47 = v133;
+            v48 = 9;
+            goto LABEL_326;
+          }
+
+          v107 = PPParserGetPart(a1, v136, 0);
+          if (!v107)
+          {
+            return 46;
+          }
+
+          v108 = v107;
+          result = 10;
+          if (v108 != 1 || LOBYTE(v136[0]) != 46)
+          {
+            return result;
+          }
+
+          if (!PPParserGetPart(a1, v136, 0))
+          {
+            return 46;
+          }
+
+          if (*&v136[0] != 0x6F69746365726964 || WORD4(v136[0]) != 110)
+          {
+            return 10;
+          }
+
+          v60 = v133 & 0xFFFFF0FFFFFFFFFFLL;
+          goto LABEL_182;
+        }
+
+        if (*&v136[0] != 0x646F6D746867696CLL || *(v136 + 3) != 0x6C65646F6D7468)
+        {
+          if (*&v136[0] != 0x6F7270746867696CLL || WORD4(v136[0]) != 100)
+          {
+            if ((v6 & 2) != 0)
+            {
+              if ((*(a1 + 380) & 2) == 0)
+              {
+                goto LABEL_188;
               }
 
-              else if (LODWORD(v137[0]) != 1735943540 || *(v137 + 3) != 7234919)
+              if (LODWORD(v136[0]) != 1735943540 || *(v136 + 3) != 7234919)
               {
-                if ((*(a1 + 380) & 2) != 0)
-                {
+                goto LABEL_188;
+              }
+            }
+
+            else if (LODWORD(v136[0]) != 1735943540 || *(v136 + 3) != 7234919)
+            {
+              if ((*(a1 + 380) & 2) != 0)
+              {
 LABEL_188:
-                  if (LODWORD(v137[0]) == 1702389108 && *(v137 + 3) == 7761509)
+                if (LODWORD(v136[0]) == 1702389108 && *(v136 + 3) == 7761509)
+                {
+                  *&v133 = v133 & 0xFFFFFF80FFFFE0FFLL | 0x1600;
+                  v69 = PPParserGetPart(a1, v136, 0);
+                  if (!v69)
                   {
-                    *&v134 = v134 & 0xFFFFFF80FFFFE0FFLL | 0x1600;
-                    v69 = PPParserGetPart(a1, v137, 0);
-                    if (!v69)
-                    {
-                      goto LABEL_415;
-                    }
-
-                    v70 = LOBYTE(v137[0]);
-                    if (LOBYTE(v137[0]) == 91)
-                    {
-                      PPParserReturnPart(a1);
-                      result = PPParserParseArray(a1, &v135 + 1);
-                      if (result)
-                      {
-                        goto LABEL_423;
-                      }
-
-                      *&v134 = v134 & 0xFFFFFF80FFFFFFFFLL | ((BYTE4(v135) & 0x7F) << 32);
-                      if (HIDWORD(v135) >= *(a1 + 288))
-                      {
-LABEL_431:
-                        result = 57;
-                        goto LABEL_423;
-                      }
-
-                      v71 = PPParserGetPart(a1, v137, 0);
-                      if (!v71)
-                      {
-                        goto LABEL_415;
-                      }
-
-                      v72 = v71;
-                      v70 = LOBYTE(v137[0]);
-                    }
-
-                    else
-                    {
-                      v72 = v69;
-                    }
-
-                    result = 10;
-                    if (v72 != 1 || v70 != 46)
-                    {
-                      goto LABEL_423;
-                    }
-
-                    if (!PPParserGetPart(a1, v137, 0))
-                    {
-                      goto LABEL_415;
-                    }
-
-                    v93 = WORD2(v137[0]);
-                    v94 = LODWORD(v137[0]) == 1869377379;
-                    v95 = 114;
-                    goto LABEL_333;
+                    return 46;
                   }
 
-                  if (LODWORD(v137[0]) != 6778726)
+                  v70 = LOBYTE(v136[0]);
+                  if (LOBYTE(v136[0]) == 91)
                   {
-                    if ((v6 & 2) != 0)
+                    PPParserReturnPart(a1);
+                    result = PPParserParseArray(a1, &v134 + 1);
+                    if (result)
                     {
-                      if (LODWORD(v137[0]) == 1953523044 && WORD2(v137[0]) == 104)
-                      {
-LABEL_328:
-                        *&v134 = v134 & 0xFFFFFFFFFFFFE0FFLL | 0x1E00;
-                        v101 = PPParserGetPart(a1, v137, 0);
-                        if (!v101)
-                        {
-                          goto LABEL_415;
-                        }
-
-                        v102 = v101;
-                        result = 10;
-                        if (v102 != 1 || LOBYTE(v137[0]) != 46)
-                        {
-                          goto LABEL_423;
-                        }
-
-                        if (!PPParserGetPart(a1, v137, 0))
-                        {
-                          goto LABEL_415;
-                        }
-
-                        v93 = WORD2(v137[0]);
-                        v94 = LODWORD(v137[0]) == 1735287154;
-                        v95 = 101;
-LABEL_333:
-                        if (!v94 || v93 != v95)
-                        {
-                          break;
-                        }
-
-                        goto LABEL_373;
-                      }
-
-                      if ((*(a1 + 380) & 2) == 0)
-                      {
-                        goto LABEL_270;
-                      }
+                      return result;
                     }
 
-                    else if ((*(a1 + 380) & 2) != 0 && LODWORD(v137[0]) == 1953523044 && WORD2(v137[0]) == 104)
+                    *&v133 = v133 & 0xFFFFFF80FFFFFFFFLL | ((BYTE4(v134) & 0x7F) << 32);
+                    if (HIDWORD(v134) >= *(a1 + 288))
                     {
-                      goto LABEL_328;
+                      return 57;
                     }
 
-                    goto LABEL_265;
-                  }
+                    v71 = PPParserGetPart(a1, v136, 0);
+                    if (!v71)
+                    {
+                      return 46;
+                    }
 
-LABEL_231:
-                  v77 = PPParserGetPart(a1, v137, 0);
-                  if (!v77)
-                  {
-                    goto LABEL_415;
-                  }
-
-                  v78 = v77;
-                  result = 10;
-                  if (v78 != 1 || LOBYTE(v137[0]) != 46)
-                  {
-                    goto LABEL_423;
-                  }
-
-                  if (!PPParserGetPart(a1, v137, 0))
-                  {
-                    goto LABEL_415;
-                  }
-
-                  if (LODWORD(v137[0]) == 1869377379 && WORD2(v137[0]) == 114)
-                  {
-                    v81 = 6400;
+                    v72 = v71;
+                    v70 = LOBYTE(v136[0]);
                   }
 
                   else
                   {
-                    if (LODWORD(v137[0]) != 1634886000 || *(v137 + 3) != 7564641)
+                    v72 = v69;
+                  }
+
+                  result = 10;
+                  if (v72 != 1 || v70 != 46)
+                  {
+                    return result;
+                  }
+
+                  if (!PPParserGetPart(a1, v136, 0))
+                  {
+                    return 46;
+                  }
+
+                  v93 = WORD2(v136[0]);
+                  v94 = LODWORD(v136[0]) == 1869377379;
+                  v95 = 114;
+                  goto LABEL_333;
+                }
+
+                if (LODWORD(v136[0]) != 6778726)
+                {
+                  if ((v6 & 2) != 0)
+                  {
+                    if (LODWORD(v136[0]) == 1953523044 && WORD2(v136[0]) == 104)
                     {
-                      break;
+LABEL_328:
+                      *&v133 = v133 & 0xFFFFFFFFFFFFE0FFLL | 0x1E00;
+                      v101 = PPParserGetPart(a1, v136, 0);
+                      if (!v101)
+                      {
+                        return 46;
+                      }
+
+                      v102 = v101;
+                      result = 10;
+                      if (v102 != 1 || LOBYTE(v136[0]) != 46)
+                      {
+                        return result;
+                      }
+
+                      if (!PPParserGetPart(a1, v136, 0))
+                      {
+                        return 46;
+                      }
+
+                      v93 = WORD2(v136[0]);
+                      v94 = LODWORD(v136[0]) == 1735287154;
+                      v95 = 101;
+LABEL_333:
+                      if (!v94 || v93 != v95)
+                      {
+                        return 10;
+                      }
+
+                      goto LABEL_373;
                     }
 
-                    v81 = 6656;
+                    if ((*(a1 + 380) & 2) == 0)
+                    {
+                      goto LABEL_270;
+                    }
                   }
+
+                  else if ((*(a1 + 380) & 2) != 0 && LODWORD(v136[0]) == 1953523044 && WORD2(v136[0]) == 104)
+                  {
+                    goto LABEL_328;
+                  }
+
+                  goto LABEL_265;
+                }
+
+LABEL_231:
+                v77 = PPParserGetPart(a1, v136, 0);
+                if (!v77)
+                {
+                  return 46;
+                }
+
+                v78 = v77;
+                result = 10;
+                if (v78 != 1 || LOBYTE(v136[0]) != 46)
+                {
+                  return result;
+                }
+
+                if (!PPParserGetPart(a1, v136, 0))
+                {
+                  return 46;
+                }
+
+                if (LODWORD(v136[0]) == 1869377379 && WORD2(v136[0]) == 114)
+                {
+                  v81 = 6400;
                 }
 
                 else
                 {
-                  if (LODWORD(v137[0]) == 6778726)
+                  if (LODWORD(v136[0]) != 1634886000 || *(v136 + 3) != 7564641)
                   {
-                    goto LABEL_231;
+                    return 10;
                   }
+
+                  v81 = 6656;
+                }
+              }
+
+              else
+              {
+                if (LODWORD(v136[0]) == 6778726)
+                {
+                  goto LABEL_231;
+                }
 
 LABEL_265:
-                  if (!(LODWORD(v137[0]) ^ 0x70696C63 | BYTE4(v137[0])))
+                if (!(LODWORD(v136[0]) ^ 0x70696C63 | BYTE4(v136[0])))
+                {
+                  result = PPParserParseArray(a1, &v134 + 1);
+                  if (result)
                   {
-                    result = PPParserParseArray(a1, &v135 + 1);
-                    if (result)
-                    {
-                      goto LABEL_423;
-                    }
-
-                    if (HIDWORD(v135) >= *(a1 + 304))
-                    {
-                      result = 60;
-                      goto LABEL_423;
-                    }
-
-                    BYTE4(v134) = BYTE4(v135);
-                    v98 = PPParserGetPart(a1, v137, 0);
-                    if (!v98)
-                    {
-                      goto LABEL_415;
-                    }
-
-                    v99 = v98;
-                    result = 10;
-                    if (v99 != 1 || LOBYTE(v137[0]) != 46)
-                    {
-                      goto LABEL_423;
-                    }
-
-                    if (!PPParserGetPart(a1, v137, 0))
-                    {
-                      goto LABEL_415;
-                    }
-
-                    if (LODWORD(v137[0]) != 1851878512 || WORD2(v137[0]) != 101)
-                    {
-                      break;
-                    }
-
-                    v33 = v134 & 0xFFFFFFFFFFFFE0FFLL | 0x1800;
-                    goto LABEL_372;
+                    return result;
                   }
 
-                  if (LODWORD(v137[0]) != 1852403568 || WORD2(v137[0]) != 116)
+                  if (HIDWORD(v134) >= *(a1 + 304))
                   {
+                    return 60;
+                  }
+
+                  BYTE4(v133) = BYTE4(v134);
+                  v98 = PPParserGetPart(a1, v136, 0);
+                  if (!v98)
+                  {
+                    return 46;
+                  }
+
+                  v99 = v98;
+                  result = 10;
+                  if (v99 != 1 || LOBYTE(v136[0]) != 46)
+                  {
+                    return result;
+                  }
+
+                  if (!PPParserGetPart(a1, v136, 0))
+                  {
+                    return 46;
+                  }
+
+                  if (LODWORD(v136[0]) != 1851878512 || WORD2(v136[0]) != 101)
+                  {
+                    return 10;
+                  }
+
+                  v33 = v133 & 0xFFFFFFFFFFFFE0FFLL | 0x1800;
+                  goto LABEL_372;
+                }
+
+                if (LODWORD(v136[0]) != 1852403568 || WORD2(v136[0]) != 116)
+                {
 LABEL_270:
-                    if (LODWORD(v137[0]) != 1920229741 || *(v137 + 3) != 7891314)
+                  if (LODWORD(v136[0]) != 1920229741 || *(v136 + 3) != 7891314)
+                  {
+                    return 10;
+                  }
+
+                  *&v133 = v133 & 0xFFFFFCFFFFFFE0FFLL | 0xF00;
+                  v87 = PPParserGetPart(a1, v136, 0);
+                  if (!v87)
+                  {
+                    return 46;
+                  }
+
+                  v88 = v87;
+                  result = 10;
+                  if (v88 != 1 || LOBYTE(v136[0]) != 46)
+                  {
+                    return result;
+                  }
+
+                  if (!PPParserGetPart(a1, v136, 0))
+                  {
+                    return 46;
+                  }
+
+                  if (*&v136[0] != 0x6569766C65646F6DLL || WORD4(v136[0]) != 119)
+                  {
+                    if (*&v136[0] == 0x697463656A6F7270 && *(v136 + 3) == 0x6E6F697463656ALL)
                     {
-                      break;
+                      v111 = v133 & 0xFFFF8FFFFFFFFFFFLL | 0x100000000000;
                     }
 
-                    *&v134 = v134 & 0xFFFFFCFFFFFFE0FFLL | 0xF00;
-                    v87 = PPParserGetPart(a1, v137, 0);
-                    if (!v87)
+                    else if (LODWORD(v136[0]) == 7370349)
                     {
-                      goto LABEL_415;
+                      v111 = v133 & 0xFFFF8FFFFFFFFFFFLL;
                     }
 
-                    v88 = v87;
-                    result = 10;
-                    if (v88 != 1 || LOBYTE(v137[0]) != 46)
+                    else if (LODWORD(v136[0]) == 1869377379 && WORD2(v136[0]) == 114)
                     {
-                      goto LABEL_423;
+                      v111 = v133 & 0xFFFF8FFFFFFFFFFFLL | 0x200000000000;
                     }
 
-                    if (!PPParserGetPart(a1, v137, 0))
+                    else
                     {
-                      goto LABEL_415;
-                    }
-
-                    if (*&v137[0] != 0x6569766C65646F6DLL || WORD4(v137[0]) != 119)
-                    {
-                      if (*&v137[0] == 0x697463656A6F7270 && *(v137 + 3) == 0x6E6F697463656ALL)
+                      if (*&v136[0] != 0x65727574786574)
                       {
-                        v111 = v134 & 0xFFFF8FFFFFFFFFFFLL | 0x100000000000;
-                      }
-
-                      else if (LODWORD(v137[0]) == 7370349)
-                      {
-                        v111 = v134 & 0xFFFF8FFFFFFFFFFFLL;
-                      }
-
-                      else if (LODWORD(v137[0]) == 1869377379 && WORD2(v137[0]) == 114)
-                      {
-                        v111 = v134 & 0xFFFF8FFFFFFFFFFFLL | 0x200000000000;
-                      }
-
-                      else
-                      {
-                        if (*&v137[0] != 0x65727574786574)
+                        if (*&v136[0] != v9)
                         {
-                          if (*&v137[0] != v9)
-                          {
-                            break;
-                          }
+                          return 10;
+                        }
 
-                          *&v134 = v134 & 0xFFFF8FFFFFFFFFFFLL | 0x500000000000;
-                          result = PPParserParseArray(a1, &v135 + 1);
-                          if (result)
-                          {
-                            goto LABEL_423;
-                          }
+                        *&v133 = v133 & 0xFFFF8FFFFFFFFFFFLL | 0x500000000000;
+                        result = PPParserParseArray(a1, &v134 + 1);
+                        if (result)
+                        {
+                          return result;
+                        }
 
-                          v92 = BYTE4(v135);
-                          if (HIDWORD(v135) >= *(a1 + 264))
-                          {
-                            result = 49;
-                            goto LABEL_423;
-                          }
+                        v92 = BYTE4(v134);
+                        if (HIDWORD(v134) >= *(a1 + 264))
+                        {
+                          return 49;
+                        }
 
 LABEL_365:
-                          BYTE4(v134) = v92;
+                        BYTE4(v133) = v92;
 LABEL_381:
-                          v112 = PPParserGetPart(a1, v137, 0);
-                          if (!v112)
+                        v112 = PPParserGetPart(a1, v136, 0);
+                        if (!v112)
+                        {
+                          return 46;
+                        }
+
+                        v113 = LOBYTE(v136[0]);
+                        if (v112 == 1 && LOBYTE(v136[0]) == 46)
+                        {
+                          if (!PPParserGetPart(a1, v136, 0))
                           {
-                            goto LABEL_415;
+                            return 46;
                           }
 
-                          v113 = LOBYTE(v137[0]);
-                          if (v112 == 1 && LOBYTE(v137[0]) == 46)
+                          if (*&v136[0] == 0x65737265766E69)
                           {
-                            if (!PPParserGetPart(a1, v137, 0))
-                            {
-                              goto LABEL_415;
-                            }
-
-                            if (*&v137[0] == 0x65737265766E69)
-                            {
-                              v115 = v134 & 0xFFFFFCFFFFFFFFFFLL | 0x20000000000;
-                            }
-
-                            else if (*&v137[0] == 0x736F70736E617274 && WORD4(v137[0]) == 101)
-                            {
-                              v115 = v134 & 0xFFFFFCFFFFFFFFFFLL | 0x10000000000;
-                            }
-
-                            else
-                            {
-                              if (*&v137[0] ^ 0x736E617274766E69 | BYTE8(v137[0]))
-                              {
-                                PPParserReturnPart(a1);
-                                v113 = 46;
-                                LOWORD(v137[0]) = 46;
-                                v112 = 1;
-                                goto LABEL_397;
-                              }
-
-                              v115 = v134 | 0x30000000000;
-                            }
-
-                            *&v134 = v115;
-                            v112 = PPParserGetPart(a1, v137, 0);
-                            if (!v112)
-                            {
-                              goto LABEL_415;
-                            }
-
-                            v113 = LOBYTE(v137[0]);
+                            v115 = v133 & 0xFFFFFCFFFFFFFFFFLL | 0x20000000000;
                           }
 
-LABEL_397:
-                          v135 = 3;
-                          if (v112 == 1 && v113 == 46)
+                          else if (*&v136[0] == 0x736F70736E617274 && WORD4(v136[0]) == 101)
                           {
-                            if (!PPParserGetPart(a1, v137, 0))
-                            {
-                              goto LABEL_415;
-                            }
-
-                            if (LODWORD(v137[0]) != 7827314)
-                            {
-                              break;
-                            }
-
-                            if (v4)
-                            {
-                              result = PPParserParseRangeArray(a1, &v135 + 1, &v135);
-                            }
-
-                            else
-                            {
-                              result = PPParserParseArray(a1, &v135 + 1);
-                              LODWORD(v135) = HIDWORD(v135);
-                            }
-
-                            if (result)
-                            {
-                              goto LABEL_423;
-                            }
-
-                            v117 = v135;
-                            v116 = HIDWORD(v135);
+                            v115 = v133 & 0xFFFFFCFFFFFFFFFFLL | 0x10000000000;
                           }
 
                           else
                           {
-                            if (!v4)
+                            if (*&v136[0] ^ 0x736E617274766E69 | BYTE8(v136[0]))
                             {
-                              break;
+                              PPParserReturnPart(a1);
+                              v113 = 46;
+                              LOWORD(v136[0]) = 46;
+                              v112 = 1;
+                              goto LABEL_397;
                             }
 
-                            PPParserReturnPart(a1);
-                            v116 = 0;
-                            v117 = 3;
+                            v115 = v133 | 0x30000000000;
                           }
 
-                          result = 10;
-                          v131 = v116;
-                          if (v116 > 3 || v117 > 3)
+                          *&v133 = v115;
+                          v112 = PPParserGetPart(a1, v136, 0);
+                          if (!v112)
                           {
-                            goto LABEL_423;
+                            return 46;
                           }
 
-                          v118 = v117;
-                          *&v134 = v134 & 0xFFFFF3FFFFFFFFFFLL | ((v116 & 3) << 42);
-                          (*(a1 + 192))(a1, &v134);
-                          v119 = v118;
-                          v120 = v118 - v131;
-                          if (v120)
-                          {
-                            v130 = v8;
-                            v121 = v4;
-                            v122 = a3;
-                            v123 = v6;
-                            v124 = v9;
-                            v125 = v11 + v119;
-                            v126 = v131 + 1;
-                            do
-                            {
-                              v127 = *(a1 + 344) + 1;
-                              *(a1 + 344) = v127;
-                              DWORD2(v134) = v127;
-                              *&v134 = v134 & 0xFFFFF3FFFFFFFFFFLL | ((v126 & 3) << 42);
-                              (*(a1 + 192))(a1, &v134);
-                              ++v126;
-                              --v120;
-                            }
-
-                            while (v120);
-                            v11 = v125 - v131;
-                            v9 = v124;
-                            v6 = v123;
-                            a3 = v122;
-                            v4 = v121;
-                            v8 = v130;
-                          }
-
-                          goto LABEL_374;
+                          v113 = LOBYTE(v136[0]);
                         }
 
-                        v110 = v134 & 0xFFFF8FFFFFFFFFFFLL | 0x400000000000;
-LABEL_361:
-                        *&v134 = v110;
-                        if (!PPParserGetPart(a1, v137, 0))
+LABEL_397:
+                        v134 = 3;
+                        if (v112 == 1 && v113 == 46)
                         {
-                          goto LABEL_415;
-                        }
+                          if (!PPParserGetPart(a1, v136, 0))
+                          {
+                            return 46;
+                          }
 
-                        PPParserReturnPart(a1);
-                        if (LOBYTE(v137[0]) == 91)
-                        {
-                          result = PPParserParseArray(a1, &v135 + 1);
+                          if (LODWORD(v136[0]) != 7827314)
+                          {
+                            return 10;
+                          }
+
+                          if (v4)
+                          {
+                            result = PPParserParseRangeArray(a1, &v134 + 1, &v134);
+                          }
+
+                          else
+                          {
+                            result = PPParserParseArray(a1, &v134 + 1);
+                            LODWORD(v134) = HIDWORD(v134);
+                          }
+
                           if (result)
                           {
-                            goto LABEL_423;
+                            return result;
                           }
 
-                          v92 = BYTE4(v135);
-                          goto LABEL_365;
+                          v117 = v134;
+                          v116 = HIDWORD(v134);
                         }
 
-                        v111 = v134 & 0xFFFFFF00FFFFFFFFLL;
+                        else
+                        {
+                          if (!v4)
+                          {
+                            return 10;
+                          }
+
+                          PPParserReturnPart(a1);
+                          v116 = 0;
+                          v117 = 3;
+                        }
+
+                        result = 10;
+                        v130 = v116;
+                        if (v116 > 3 || v117 > 3)
+                        {
+                          return result;
+                        }
+
+                        v118 = v117;
+                        *&v133 = v133 & 0xFFFFF3FFFFFFFFFFLL | ((v116 & 3) << 42);
+                        (*(a1 + 192))(a1, &v133);
+                        v119 = v118;
+                        v120 = v118 - v130;
+                        if (v120)
+                        {
+                          v129 = v8;
+                          v121 = v4;
+                          v122 = a3;
+                          v123 = v6;
+                          v124 = v9;
+                          v125 = v11 + v119;
+                          v126 = v130 + 1;
+                          do
+                          {
+                            v127 = *(a1 + 344) + 1;
+                            *(a1 + 344) = v127;
+                            DWORD2(v133) = v127;
+                            *&v133 = v133 & 0xFFFFF3FFFFFFFFFFLL | ((v126 & 3) << 42);
+                            (*(a1 + 192))(a1, &v133);
+                            ++v126;
+                            --v120;
+                          }
+
+                          while (v120);
+                          v11 = v125 - v130;
+                          v9 = v124;
+                          v6 = v123;
+                          a3 = v122;
+                          v4 = v121;
+                          v8 = v129;
+                        }
+
+                        goto LABEL_374;
                       }
 
-                      *&v134 = v111;
-                      goto LABEL_381;
+                      v110 = v133 & 0xFFFF8FFFFFFFFFFFLL | 0x400000000000;
+LABEL_361:
+                      *&v133 = v110;
+                      if (!PPParserGetPart(a1, v136, 0))
+                      {
+                        return 46;
+                      }
+
+                      PPParserReturnPart(a1);
+                      if (LOBYTE(v136[0]) == 91)
+                      {
+                        result = PPParserParseArray(a1, &v134 + 1);
+                        if (result)
+                        {
+                          return result;
+                        }
+
+                        v92 = BYTE4(v134);
+                        goto LABEL_365;
+                      }
+
+                      v111 = v133 & 0xFFFFFF00FFFFFFFFLL;
                     }
 
-                    v110 = v134 & 0xFFFF8FFFFFFFFFFFLL | 0x300000000000;
-                    goto LABEL_361;
+                    *&v133 = v111;
+                    goto LABEL_381;
                   }
 
-                  v104 = PPParserGetPart(a1, v137, 0);
-                  if (!v104)
-                  {
-                    goto LABEL_415;
-                  }
-
-                  v105 = v104;
-                  result = 10;
-                  if (v105 != 1 || LOBYTE(v137[0]) != 46)
-                  {
-                    goto LABEL_423;
-                  }
-
-                  if (!PPParserGetPart(a1, v137, 0))
-                  {
-                    goto LABEL_415;
-                  }
-
-                  if (LODWORD(v137[0]) ^ 0x657A6973 | BYTE4(v137[0]))
-                  {
-                    if (*&v137[0] != 0x7461756E65747461 || DWORD2(v137[0]) != 7237481)
-                    {
-                      break;
-                    }
-
-                    v81 = 7424;
-                  }
-
-                  else
-                  {
-                    v81 = 7168;
-                  }
+                  v110 = v133 & 0xFFFF8FFFFFFFFFFFLL | 0x300000000000;
+                  goto LABEL_361;
                 }
 
-                v33 = v134 & 0xFFFFFFFFFFFFE0FFLL | v81;
-                goto LABEL_372;
-              }
-
-              v65 = PPParserGetPart(a1, v137, 0);
-              if (!v65)
-              {
-                goto LABEL_415;
-              }
-
-              v66 = LOBYTE(v137[0]);
-              if (LOBYTE(v137[0]) == 91)
-              {
-                PPParserReturnPart(a1);
-                result = PPParserParseArray(a1, &v135 + 1);
-                if (result)
+                v104 = PPParserGetPart(a1, v136, 0);
+                if (!v104)
                 {
-                  goto LABEL_423;
+                  return 46;
                 }
 
-                if (HIDWORD(v135) >= *(a1 + 288))
+                v105 = v104;
+                result = 10;
+                if (v105 != 1 || LOBYTE(v136[0]) != 46)
                 {
-                  goto LABEL_431;
+                  return result;
                 }
 
-                *&v134 = v134 & 0xFFFFFF80FFFFFFFFLL | ((BYTE4(v135) & 0x7F) << 32);
-                v67 = PPParserGetPart(a1, v137, 0);
-                if (!v67)
+                if (!PPParserGetPart(a1, v136, 0))
                 {
-                  goto LABEL_415;
+                  return 46;
                 }
 
-                v68 = v67;
-                v66 = LOBYTE(v137[0]);
-              }
-
-              else
-              {
-                v68 = v65;
-                *&v134 = v134 & 0xFFFFFF80FFFFFFFFLL;
-              }
-
-              result = 10;
-              if (v68 != 1 || v66 != 46)
-              {
-                goto LABEL_423;
-              }
-
-              if (!PPParserGetPart(a1, v137, 0))
-              {
-                goto LABEL_415;
-              }
-
-              if (LODWORD(v137[0]) == 6650213)
-              {
-                v83 = 5120;
-              }
-
-              else
-              {
-                if (LODWORD(v137[0]) != 1701470831 || *(v137 + 3) != 7627621)
+                if (LODWORD(v136[0]) ^ 0x657A6973 | BYTE4(v136[0]))
                 {
-                  break;
+                  if (*&v136[0] != 0x7461756E65747461 || DWORD2(v136[0]) != 7237481)
+                  {
+                    return 10;
+                  }
+
+                  v81 = 7424;
                 }
 
-                v83 = 5376;
-              }
-
-              *&v134 = v134 & 0xFFFFFFFFFFFFE0FFLL | v83;
-              v96 = PPParserGetPart(a1, v137, 0);
-              if (!v96)
-              {
-                goto LABEL_415;
-              }
-
-              v97 = v96;
-              result = 10;
-              if (v97 != 1 || LOBYTE(v137[0]) != 46)
-              {
-                goto LABEL_423;
-              }
-
-              if (!PPParserGetPart(a1, v137, 0))
-              {
-                goto LABEL_415;
-              }
-
-              if (LOWORD(v137[0]) == 115)
-              {
-                v33 = v134 & 0xFFFFFC7FFFFFFFFFLL;
-                goto LABEL_372;
-              }
-
-              if (LOWORD(v137[0]) == 116)
-              {
-                v33 = v134 & 0xFFFFFC7FFFFFFFFFLL | 0x8000000000;
-                goto LABEL_372;
-              }
-
-              if (LOWORD(v137[0]) != 114)
-              {
-                if (LOWORD(v137[0]) != 113)
+                else
                 {
-                  result = 17;
-                  goto LABEL_423;
+                  v81 = 7168;
                 }
-
-                v33 = v134 & 0xFFFFFC7FFFFFFFFFLL | 0x18000000000;
-                goto LABEL_372;
               }
 
-              v64 = v134 & 0xFFFFFC7FFFFFFFFFLL;
-              goto LABEL_205;
-            }
-
-            *&v134 = v134 & 0xFFFFFEFFFFFFE0FFLL | 0x1100;
-            result = PPParserParseArray(a1, &v135 + 1);
-            if (result)
-            {
-              goto LABEL_423;
-            }
-
-            BYTE4(v134) = BYTE4(v135);
-            v55 = PPParserGetPart(a1, v137, 0);
-            if (!v55)
-            {
-              goto LABEL_415;
-            }
-
-            v56 = v55;
-            result = 10;
-            if (v56 != 1 || LOBYTE(v137[0]) != 46)
-            {
-              goto LABEL_423;
-            }
-
-            if (!PPParserGetPart(a1, v137, 0))
-            {
-              goto LABEL_415;
-            }
-
-            if (LODWORD(v137[0]) == 1852797542 && WORD2(v137[0]) == 116)
-            {
-LABEL_174:
-              v58 = PPParserGetPart(a1, v137, 0);
-              if (!v58)
-              {
-                goto LABEL_415;
-              }
-
-              v59 = v58;
-              result = 10;
-              if (v59 != 1 || LOBYTE(v137[0]) != 46)
-              {
-                goto LABEL_423;
-              }
-
-              if (!PPParserGetPart(a1, v137, 0))
-              {
-                goto LABEL_415;
-              }
-            }
-
-            else if (!(LODWORD(v137[0]) ^ 0x6B636162 | BYTE4(v137[0])))
-            {
-              *&v134 = v134 | 0x10000000000;
-              goto LABEL_174;
-            }
-
-            if (*&v137[0] == 0x746E6569626D61)
-            {
-              v33 = v134 & 0xFFFFF9FFFFFFFFFFLL;
+              v33 = v133 & 0xFFFFFFFFFFFFE0FFLL | v81;
               goto LABEL_372;
             }
 
-            if (*&v137[0] == 0x65737566666964)
+            v65 = PPParserGetPart(a1, v136, 0);
+            if (!v65)
             {
-              v76 = v134 & 0xFFFFF9FFFFFFFFFFLL;
-              goto LABEL_259;
+              return 46;
             }
 
-            if (*&v137[0] ^ 0x72616C7563657073 | BYTE8(v137[0]))
+            v66 = LOBYTE(v136[0]);
+            if (LOBYTE(v136[0]) == 91)
             {
-              break;
+              PPParserReturnPart(a1);
+              result = PPParserParseArray(a1, &v134 + 1);
+              if (result)
+              {
+                return result;
+              }
+
+              if (HIDWORD(v134) >= *(a1 + 288))
+              {
+                return 57;
+              }
+
+              *&v133 = v133 & 0xFFFFFF80FFFFFFFFLL | ((BYTE4(v134) & 0x7F) << 32);
+              v67 = PPParserGetPart(a1, v136, 0);
+              if (!v67)
+              {
+                return 46;
+              }
+
+              v68 = v67;
+              v66 = LOBYTE(v136[0]);
             }
 
-            v60 = v134 & 0xFFFFF9FFFFFFFFFFLL;
-LABEL_182:
-            v33 = v60 | 0x40000000000;
-            goto LABEL_372;
+            else
+            {
+              v68 = v65;
+              *&v133 = v133 & 0xFFFFFF80FFFFFFFFLL;
+            }
+
+            result = 10;
+            if (v68 != 1 || v66 != 46)
+            {
+              return result;
+            }
+
+            if (!PPParserGetPart(a1, v136, 0))
+            {
+              return 46;
+            }
+
+            if (LODWORD(v136[0]) == 6650213)
+            {
+              v83 = 5120;
+            }
+
+            else
+            {
+              if (LODWORD(v136[0]) != 1701470831 || *(v136 + 3) != 7627621)
+              {
+                return 10;
+              }
+
+              v83 = 5376;
+            }
+
+            *&v133 = v133 & 0xFFFFFFFFFFFFE0FFLL | v83;
+            v96 = PPParserGetPart(a1, v136, 0);
+            if (!v96)
+            {
+              return 46;
+            }
+
+            v97 = v96;
+            result = 10;
+            if (v97 != 1 || LOBYTE(v136[0]) != 46)
+            {
+              return result;
+            }
+
+            if (!PPParserGetPart(a1, v136, 0))
+            {
+              return 46;
+            }
+
+            if (LOWORD(v136[0]) == 115)
+            {
+              v33 = v133 & 0xFFFFFC7FFFFFFFFFLL;
+              goto LABEL_372;
+            }
+
+            if (LOWORD(v136[0]) == 116)
+            {
+              v33 = v133 & 0xFFFFFC7FFFFFFFFFLL | 0x8000000000;
+              goto LABEL_372;
+            }
+
+            if (LOWORD(v136[0]) != 114)
+            {
+              if (LOWORD(v136[0]) != 113)
+              {
+                return 17;
+              }
+
+              v33 = v133 & 0xFFFFFC7FFFFFFFFFLL | 0x18000000000;
+              goto LABEL_372;
+            }
+
+            v64 = v133 & 0xFFFFFC7FFFFFFFFFLL;
+            goto LABEL_205;
           }
 
-          v51 = PPParserGetPart(a1, v137, 0);
-          if (!v51)
+          *&v133 = v133 & 0xFFFFFEFFFFFFE0FFLL | 0x1100;
+          result = PPParserParseArray(a1, &v134 + 1);
+          if (result)
           {
-            goto LABEL_415;
+            return result;
           }
 
-          v52 = v51;
+          BYTE4(v133) = BYTE4(v134);
+          v55 = PPParserGetPart(a1, v136, 0);
+          if (!v55)
+          {
+            return 46;
+          }
+
+          v56 = v55;
           result = 10;
-          if (v52 != 1 || LOBYTE(v137[0]) != 46)
+          if (v56 != 1 || LOBYTE(v136[0]) != 46)
           {
-            goto LABEL_423;
+            return result;
           }
 
-          if (!PPParserGetPart(a1, v137, 0))
+          if (!PPParserGetPart(a1, v136, 0))
           {
-            goto LABEL_415;
+            return 46;
           }
 
-          if (*&v137[0] != 0x746E6569626D61)
+          if (LODWORD(v136[0]) == 1852797542 && WORD2(v136[0]) == 116)
           {
-            if (LODWORD(v137[0]) == 1852797542 && WORD2(v137[0]) == 116)
+LABEL_174:
+            v58 = PPParserGetPart(a1, v136, 0);
+            if (!v58)
             {
-              v54 = v134 & 0xFFFFFFFEFFFFFFFFLL;
-LABEL_220:
-              *&v134 = v54;
-              v73 = PPParserGetPart(a1, v137, 0);
-              if (!v73)
-              {
-                goto LABEL_415;
-              }
-
-              v74 = v73;
-              result = 10;
-              if (v74 != 1 || LOBYTE(v137[0]) != 46)
-              {
-                goto LABEL_423;
-              }
-
-              if (!PPParserGetPart(a1, v137, 0))
-              {
-                goto LABEL_415;
-              }
+              return 46;
             }
 
-            else if (!(LODWORD(v137[0]) ^ 0x6B636162 | BYTE4(v137[0])))
+            v59 = v58;
+            result = 10;
+            if (v59 != 1 || LOBYTE(v136[0]) != 46)
             {
-              v54 = v134 | 0x100000000;
-              goto LABEL_220;
+              return result;
             }
 
-            if (*&v137[0] != 0x6C6F63656E656373 || *(v137 + 3) != 0x726F6C6F63656ELL)
+            if (!PPParserGetPart(a1, v136, 0))
             {
-              break;
+              return 46;
             }
+          }
 
-            v33 = v134 & 0xFFFFFFF1FFFFE0FFLL | 0xA00001200;
+          else if (!(LODWORD(v136[0]) ^ 0x6B636162 | BYTE4(v136[0])))
+          {
+            *&v133 = v133 | 0x10000000000;
+            goto LABEL_174;
+          }
+
+          if (*&v136[0] == 0x746E6569626D61)
+          {
+            v33 = v133 & 0xFFFFF9FFFFFFFFFFLL;
             goto LABEL_372;
           }
 
-          v33 = v134 & 0xFFFFFFFFFFFFE0FFLL | 0x1300;
+          if (*&v136[0] == 0x65737566666964)
+          {
+            v76 = v133 & 0xFFFFF9FFFFFFFFFFLL;
+            goto LABEL_259;
+          }
+
+          if (*&v136[0] ^ 0x72616C7563657073 | BYTE8(v136[0]))
+          {
+            return 10;
+          }
+
+          v60 = v133 & 0xFFFFF9FFFFFFFFFFLL;
+LABEL_182:
+          v33 = v60 | 0x40000000000;
+          goto LABEL_372;
         }
+
+        v51 = PPParserGetPart(a1, v136, 0);
+        if (!v51)
+        {
+          return 46;
+        }
+
+        v52 = v51;
+        result = 10;
+        if (v52 != 1 || LOBYTE(v136[0]) != 46)
+        {
+          return result;
+        }
+
+        if (!PPParserGetPart(a1, v136, 0))
+        {
+          return 46;
+        }
+
+        if (*&v136[0] != 0x746E6569626D61)
+        {
+          if (LODWORD(v136[0]) == 1852797542 && WORD2(v136[0]) == 116)
+          {
+            v54 = v133 & 0xFFFFFFFEFFFFFFFFLL;
+LABEL_220:
+            *&v133 = v54;
+            v73 = PPParserGetPart(a1, v136, 0);
+            if (!v73)
+            {
+              return 46;
+            }
+
+            v74 = v73;
+            result = 10;
+            if (v74 != 1 || LOBYTE(v136[0]) != 46)
+            {
+              return result;
+            }
+
+            if (!PPParserGetPart(a1, v136, 0))
+            {
+              return 46;
+            }
+          }
+
+          else if (!(LODWORD(v136[0]) ^ 0x6B636162 | BYTE4(v136[0])))
+          {
+            v54 = v133 | 0x100000000;
+            goto LABEL_220;
+          }
+
+          if (*&v136[0] != 0x6C6F63656E656373 || *(v136 + 3) != 0x726F6C6F63656ELL)
+          {
+            return 10;
+          }
+
+          v33 = v133 & 0xFFFFFFF1FFFFE0FFLL | 0xA00001200;
+          goto LABEL_372;
+        }
+
+        v33 = v133 & 0xFFFFFFFFFFFFE0FFLL | 0x1300;
+      }
 
 LABEL_372:
-        *&v134 = v33;
+      *&v133 = v33;
 LABEL_373:
-        (*(a1 + 192))(a1, &v134);
+      (*(a1 + 192))(a1, &v133);
 LABEL_374:
-        ++*(a1 + 344);
-        v7 = v11 + 1;
-        if (!v4)
-        {
-          goto LABEL_419;
-        }
+      ++*(a1 + 344);
+      v7 = v11 + 1;
+      if (!v4)
+      {
+        goto LABEL_419;
+      }
 
-        if (!PPParserGetPart(a1, v137, 0))
-        {
-          goto LABEL_415;
-        }
+      if (!PPParserGetPart(a1, v136, 0))
+      {
+        return 46;
+      }
 
-        if (LOBYTE(v137[0]) != 44)
+      if (LOBYTE(v136[0]) != 44)
+      {
+        if (LOBYTE(v136[0]) != 125)
         {
-          if (LOBYTE(v137[0]) != 125)
-          {
-            break;
-          }
+          return 10;
+        }
 
 LABEL_419:
-          if (*a3)
+        if (*a3)
+        {
+          if (*a3 != v7)
           {
-            if (*a3 != v7)
-            {
-              result = 37;
-              goto LABEL_423;
-            }
+            return 37;
           }
-
-          else
-          {
-            *a3 = v7;
-          }
-
-          v129 = 0x8000;
-          if ((v8 & 1) == 0)
-          {
-            v129 = 0;
-          }
-
-          v133 = v133 & 0xFFFFFFFF7FFFLL | ((*(a1 + 344) - 1) << 48) | v129;
-          if ((v11 & 0x80000000) == 0)
-          {
-            (*(a1 + 200))(a1, &v133);
-          }
-
-          result = 0;
-          goto LABEL_423;
         }
+
+        else
+        {
+          *a3 = v7;
+        }
+
+        v128 = 0x8000;
+        if ((v8 & 1) == 0)
+        {
+          v128 = 0;
+        }
+
+        v132 = v132 & 0xFFFFFFFF7FFFLL | ((*(a1 + 344) - 1) << 48) | v128;
+        if ((v11 & 0x80000000) == 0)
+        {
+          (*(a1 + 200))(a1, &v132);
+        }
+
+        return 0;
       }
     }
-
-    result = 10;
   }
 
-  else
-  {
-LABEL_415:
-    result = 46;
-  }
-
-LABEL_423:
-  v128 = *MEMORY[0x277D85DE8];
-  return result;
+  return 10;
 }
 
 uint64_t PPParserParseParameterDeclaration(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  v23 = *MEMORY[0x277D85DE8];
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  *__s = 0u;
+  v12 = 0u;
   v9 = 0u;
-  v7 = 1;
+  v10 = 0u;
+  *__s = 0u;
+  v8 = 0u;
+  v6 = 1;
   if (!PPParserGetPart(a1, __s, 0))
   {
-    goto LABEL_18;
+    return 46;
   }
 
   if (PPParserValidateName(a1, __s))
   {
-    result = 18;
-    goto LABEL_19;
+    return 18;
   }
 
   v3 = PPParserIdentifierCreate();
@@ -4891,29 +4749,28 @@ uint64_t PPParserParseParameterDeclaration(uint64_t a1)
   if (PPParserScopeAddIdentifier(*(a1 + 32), v3))
   {
     PPParserIdentifierFree(v3);
-    result = 28;
-    goto LABEL_19;
+    return 28;
   }
 
   if (!PPParserGetPart(a1, __s, 0))
   {
-    goto LABEL_18;
+    return 46;
   }
 
   v4 = __s[0];
   if (__s[0] == 91)
   {
     PPParserReturnPart(a1);
-    result = PPParserParseDefaultArray(a1, &v7);
+    result = PPParserParseDefaultArray(a1, &v6);
     if (result)
     {
-      goto LABEL_19;
+      return result;
     }
 
     *(v3 + 20) = 1;
     if (!PPParserGetPart(a1, __s, 0))
     {
-      goto LABEL_18;
+      return 46;
     }
 
     v4 = __s[0];
@@ -4927,123 +4784,115 @@ uint64_t PPParserParseParameterDeclaration(uint64_t a1)
 
   if (v4 != 61)
   {
-    result = 10;
-    goto LABEL_19;
+    return 10;
   }
 
   *(v3 + 3) = *(a1 + 344);
-  result = PPParserParseParamBinding(a1, v5, &v7);
+  result = PPParserParseParamBinding(a1, v5, &v6);
   if (!result)
   {
-    *(v3 + 2) = v7;
+    *(v3 + 2) = v6;
     if (PPParserGetPart(a1, __s, 0))
     {
       if (__s[0] == 59)
       {
-        result = 0;
+        return 0;
       }
 
       else
       {
-        result = 10;
+        return 10;
       }
-
-      goto LABEL_19;
     }
 
-LABEL_18:
-    result = 46;
+    return 46;
   }
 
-LABEL_19:
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t PPParserParseAttributeBinding(uint64_t a1, int *a2, _DWORD *a3)
 {
-  v68 = *MEMORY[0x277D85DE8];
-  memset(v67, 0, sizeof(v67));
-  v64 = 0;
+  v67 = *MEMORY[0x277D85DE8];
+  memset(v66, 0, sizeof(v66));
+  v63 = 0;
   v6 = *(a1 + 368);
-  if (!PPParserGetPart(a1, v67, 0))
+  if (!PPParserGetPart(a1, v66, 0))
   {
-    goto LABEL_184;
+    return 46;
   }
 
   *a3 = -1;
-  v66 = 0;
+  v65 = 0;
   if ((v6 & 2) != 0)
   {
-    if (*&v67[0] ^ 0x746E656D67617266 | BYTE8(v67[0]))
+    if (*&v66[0] ^ 0x746E656D67617266 | BYTE8(v66[0]))
     {
-LABEL_10:
-      result = 10;
-      goto LABEL_185;
+      return 10;
     }
   }
 
-  else if (LODWORD(v67[0]) != 1953654134 || *(v67 + 3) != 7890292)
+  else if (LODWORD(v66[0]) != 1953654134 || *(v66 + 3) != 7890292)
   {
-    goto LABEL_10;
+    return 10;
   }
 
-  v65 = 192;
-  Part = PPParserGetPart(a1, v67, 0);
+  v64 = 192;
+  Part = PPParserGetPart(a1, v66, 0);
   if (!Part)
   {
-    goto LABEL_184;
+    return 46;
   }
 
   v10 = Part;
   result = 10;
-  if (v10 != 1 || LOBYTE(v67[0]) != 46)
+  if (v10 != 1 || LOBYTE(v66[0]) != 46)
   {
-    goto LABEL_185;
+    return result;
   }
 
-  if (!PPParserGetPart(a1, v67, 0))
+  if (!PPParserGetPart(a1, v66, 0))
   {
-    goto LABEL_184;
+    return 46;
   }
 
   if ((v6 & 2) != 0)
   {
-    if (!(*&v67[0] ^ 0x6E6F697469736F70 | BYTE8(v67[0])))
+    if (!(*&v66[0] ^ 0x6E6F697469736F70 | BYTE8(v66[0])))
     {
-      v23 = v65 & 0xFFFFFFFFFFFF83FFLL | 0x400;
+      v23 = v64 & 0xFFFFFFFFFFFF83FFLL | 0x400;
       goto LABEL_77;
     }
 
-    if (LODWORD(v67[0]) != 1869377379 || WORD2(v67[0]) != 114)
+    if (LODWORD(v66[0]) != 1869377379 || WORD2(v66[0]) != 114)
     {
       goto LABEL_44;
     }
 
-    v29 = v65 & 0xFFFFFFFFFFFF83FFLL | 0x800;
+    v29 = v64 & 0xFFFFFFFFFFFF83FFLL | 0x800;
 LABEL_96:
-    v65 = v29;
-    v33 = PPParserGetPart(a1, v67, 0);
+    v64 = v29;
+    v33 = PPParserGetPart(a1, v66, 0);
     if (!v33)
     {
-      goto LABEL_184;
+      return 46;
     }
 
-    if (v33 != 1 || LOBYTE(v67[0]) != 46)
+    if (v33 != 1 || LOBYTE(v66[0]) != 46)
     {
 LABEL_106:
       PPParserReturnPart(a1);
       goto LABEL_118;
     }
 
-    if (!PPParserGetPart(a1, v67, 0))
+    if (!PPParserGetPart(a1, v66, 0))
     {
-      goto LABEL_184;
+      return 46;
     }
 
-    if (*&v67[0] != 0x7261646E6F636573 || WORD4(v67[0]) != 121)
+    if (*&v66[0] != 0x7261646E6F636573 || WORD4(v66[0]) != 121)
     {
-      if (*&v67[0] == 0x7972616D697270)
+      if (*&v66[0] == 0x7972616D697270)
       {
         goto LABEL_118;
       }
@@ -5054,91 +4903,91 @@ LABEL_106:
 
     if ((v6 & 2) == 0)
     {
-      v31 = v65 & 0xFFFFFFC0FFFF83FFLL;
+      v31 = v64 & 0xFFFFFFC0FFFF83FFLL;
       v32 = 0x300007000;
       goto LABEL_88;
     }
 
-    v23 = v65 & 0xFFFFFFFFFFFF83FFLL | 0xC00;
+    v23 = v64 & 0xFFFFFFFFFFFF83FFLL | 0xC00;
 LABEL_77:
-    v65 = v23;
+    v64 = v23;
     goto LABEL_78;
   }
 
-  if (LODWORD(v67[0]) == 1920234593 && *(v67 + 3) == 6449522)
+  if (LODWORD(v66[0]) == 1920234593 && *(v66 + 3) == 6449522)
   {
-    v65 = v65 & 0xFFFFFFFFFFFF83FFLL | 0x7000;
-    result = PPParserParseArray(a1, &v64);
-    if (result)
+    v64 = v64 & 0xFFFFFFFFFFFF83FFLL | 0x7000;
+    result = PPParserParseArray(a1, &v63);
+    if (!result)
     {
-      goto LABEL_185;
+      if (v63 >= *(a1 + 312))
+      {
+        return 62;
+      }
+
+      v64 = v64 & 0xFFFFFFC0FFFFFFFFLL | (((v63 + 16) & 0x3F) << 32);
+      goto LABEL_119;
     }
 
-    if (v64 >= *(a1 + 312))
-    {
-      result = 62;
-      goto LABEL_185;
-    }
-
-    v65 = v65 & 0xFFFFFFC0FFFFFFFFLL | (((v64 + 16) & 0x3F) << 32);
-    goto LABEL_119;
+    return result;
   }
 
-  if (!(*&v67[0] ^ 0x6E6F697469736F70 | BYTE8(v67[0])))
+  if (!(*&v66[0] ^ 0x6E6F697469736F70 | BYTE8(v66[0])))
   {
-    v28 = v65 & 0xFFFFFFC0FFFF83FFLL | 0x7000;
+    v28 = v64 & 0xFFFFFFC0FFFF83FFLL | 0x7000;
 LABEL_89:
-    v65 = v28;
+    v64 = v28;
     goto LABEL_119;
   }
 
-  if (LODWORD(v67[0]) == 1836216174 && *(v67 + 3) == 7102829)
+  if (LODWORD(v66[0]) == 1836216174 && *(v66 + 3) == 7102829)
   {
-    v31 = v65;
+    v31 = v64;
     v32 = 0x100007000;
 LABEL_88:
     v28 = v31 | v32;
     goto LABEL_89;
   }
 
-  if (LODWORD(v67[0]) == 1869377379 && WORD2(v67[0]) == 114)
+  if (LODWORD(v66[0]) == 1869377379 && WORD2(v66[0]) == 114)
   {
-    v29 = v65 & 0xFFFFFFC0FFFF83FFLL | 0x200007000;
+    v29 = v64 & 0xFFFFFFC0FFFF83FFLL | 0x200007000;
     goto LABEL_96;
   }
 
-  if (LODWORD(v67[0]) == 1734960503 && *(v67 + 3) == 7628903)
+  if (LODWORD(v66[0]) == 1734960503 && *(v66 + 3) == 7628903)
   {
-    v65 = v65 & 0xFFFFFF80FFFF83FFLL | 0x4400007000;
-    if (PPParserGetPart(a1, v67, 0))
+    v64 = v64 & 0xFFFFFF80FFFF83FFLL | 0x4400007000;
+    if (PPParserGetPart(a1, v66, 0))
     {
       PPParserReturnPart(a1);
-      if (LOBYTE(v67[0]) == 91)
+      if (LOBYTE(v66[0]) != 91)
       {
-        result = PPParserParseArray(a1, &v64);
-        if (result)
-        {
-          goto LABEL_185;
-        }
-
-        if (v64 >= *(a1 + 296))
-        {
-          result = 58;
-          goto LABEL_185;
-        }
+        goto LABEL_119;
       }
 
-      goto LABEL_119;
+      result = PPParserParseArray(a1, &v63);
+      if (!result)
+      {
+        if (v63 >= *(a1 + 296))
+        {
+          return 58;
+        }
+
+        goto LABEL_119;
+      }
+
+      return result;
     }
 
-    goto LABEL_184;
+    return 46;
   }
 
 LABEL_44:
-  if (!(*&v67[0] ^ 0x64726F6F63676F66 | BYTE8(v67[0])))
+  if (!(*&v66[0] ^ 0x64726F6F63676F66 | BYTE8(v66[0])))
   {
-    v30 = v65 & 0xFFFFFFC0FFFF83FFLL | 0x500007000;
-    v65 = v30;
+    v30 = v64 & 0xFFFFFFC0FFFF83FFLL | 0x500007000;
+    v64 = v30;
     if ((v6 & 2) == 0)
     {
       goto LABEL_119;
@@ -5148,302 +4997,297 @@ LABEL_44:
     goto LABEL_77;
   }
 
-  if ((*(a1 + 379) & 8) != 0 && *&v67[0] == 0x7A6973746E696F70 && WORD4(v67[0]) == 101)
+  if ((*(a1 + 379) & 8) != 0 && *&v66[0] == 0x7A6973746E696F70 && WORD4(v66[0]) == 101)
   {
-    v36 = v65 & 0xFFFFFFC0FFFF83FFLL | 0x600007000;
-    goto LABEL_117;
+    v36 = v64 & 0xFFFFFFC0FFFF83FFLL | 0x600007000;
+LABEL_117:
+    v64 = v36;
+LABEL_118:
+    if ((v6 & 2) == 0)
+    {
+LABEL_119:
+      v37 = GLDAttribBindingForPPStreamToken(v64);
+      v38 = *(a1 + 144);
+      if (v38)
+      {
+        v39 = *v38;
+        if (v39)
+        {
+          v40 = (v38 + 2);
+          v42 = (v37 & 0x1F00) == 0x1C00 && (BYTE4(v37) & 0x30) == 16;
+          do
+          {
+            v44 = *v40++;
+            v43 = v44;
+            v45 = HIDWORD(v44);
+            v46 = BYTE4(v44) & 0x30;
+            v48 = (v44 & 0x1F00) == 0x1C00 && v46 == 16;
+            if (v42)
+            {
+              v49 = HIDWORD(v37);
+              if (v48)
+              {
+                goto LABEL_165;
+              }
+            }
+
+            else
+            {
+              LOBYTE(v49) = v45;
+              v45 = HIDWORD(v37);
+              v43 = v37;
+              if (!v48)
+              {
+                goto LABEL_165;
+              }
+            }
+
+            v50 = v49 & 0x3F;
+            if (v50 > 19)
+            {
+              if ((v50 - 22) < 2)
+              {
+                goto LABEL_165;
+              }
+
+              if (v50 == 20)
+              {
+                if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == 3)
+                {
+                  return 19;
+                }
+              }
+
+              else
+              {
+                if (v50 != 21)
+                {
+                  goto LABEL_163;
+                }
+
+                if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == 5)
+                {
+                  return 19;
+                }
+              }
+            }
+
+            else if (v50 > 17)
+            {
+              if (v50 == 18)
+              {
+                if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == 1)
+                {
+                  return 19;
+                }
+              }
+
+              else if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == 2)
+              {
+                return 19;
+              }
+            }
+
+            else
+            {
+              if (v50 != 16)
+              {
+                if (v50 == 17)
+                {
+                  if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == 4)
+                  {
+                    return 19;
+                  }
+
+                  goto LABEL_165;
+                }
+
+LABEL_163:
+                if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == v50 - 16)
+                {
+                  return 19;
+                }
+
+                goto LABEL_165;
+              }
+
+              if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == 0)
+              {
+                return 19;
+              }
+            }
+
+LABEL_165:
+            --v39;
+          }
+
+          while (v39);
+        }
+      }
+
+      (*(a1 + 208))(a1, &v64);
+      *a3 = v65;
+      goto LABEL_167;
+    }
+
+LABEL_78:
+    (*(a1 + 208))(a1, &v64);
+    *a3 = v65;
+    v24 = v64;
+    if ((v64 & 0x3F00007C00) == 0x500007000)
+    {
+      v25 = *(a1 + 372);
+      if (v25 == -1)
+      {
+        v26 = *(a1 + 32);
+        v27 = *(v26 + 36);
+        *(a1 + 372) = v27;
+        v60 = v24 & 0xF8;
+        v62 = 0;
+        *(v26 + 36) = v27 + 1;
+        v61 = v27;
+        (*(a1 + 176))(a1, &v60);
+        v59 = 0u;
+        v58 = 0u;
+        v57 = 0u;
+        v56[0] = 0x3100011042;
+        if (*(a1 + 378) == 1)
+        {
+          v56[0] = 0x3100015042;
+          *(a1 + 378) = 2;
+        }
+
+        v56[2] = (*a3 << 48) | 0x19C800;
+        v56[3] = 2307915776;
+        v56[1] = (*(a1 + 372) << 48) | 0x72679000;
+        (*(a1 + 168))(a1, v56, 0);
+        v25 = *(a1 + 372);
+      }
+
+      goto LABEL_168;
+    }
+
+LABEL_167:
+    v25 = -1;
+LABEL_168:
+    result = 0;
+    *a2 = v25;
+    return result;
   }
 
-  if (!(*&v67[0] ^ 0x64726F6F63786574 | BYTE8(v67[0])))
+  if (!(*&v66[0] ^ 0x64726F6F63786574 | BYTE8(v66[0])))
   {
-    v65 = v65 & 0xFFFFFFFFFFFF83FFLL | 0x7000;
-    if (!PPParserGetPart(a1, v67, 0))
+    v64 = v64 & 0xFFFFFFFFFFFF83FFLL | 0x7000;
+    if (!PPParserGetPart(a1, v66, 0))
     {
-      goto LABEL_184;
+      return 46;
     }
 
     PPParserReturnPart(a1);
-    if (LOBYTE(v67[0]) == 91)
+    if (LOBYTE(v66[0]) == 91)
     {
-      result = PPParserParseArray(a1, &v64);
+      result = PPParserParseArray(a1, &v63);
       if (result)
       {
-        goto LABEL_185;
+        return result;
       }
 
-      if (v64 >= *(a1 + 288))
+      if (v63 >= *(a1 + 288))
       {
-        result = 57;
-        goto LABEL_185;
+        return 57;
       }
 
-      v65 = v65 & 0xFFFFFFC0FFFFFFFFLL | (((v64 + 8) & 0x3F) << 32);
-LABEL_118:
-      if ((v6 & 2) == 0)
-      {
-LABEL_119:
-        v37 = GLDAttribBindingForPPStreamToken(v65);
-        v38 = *(a1 + 144);
-        if (v38)
-        {
-          v39 = *v38;
-          if (v39)
-          {
-            v40 = (v38 + 2);
-            v42 = (v37 & 0x1F00) == 0x1C00 && (BYTE4(v37) & 0x30) == 16;
-            do
-            {
-              v44 = *v40++;
-              v43 = v44;
-              v45 = HIDWORD(v44);
-              v46 = BYTE4(v44) & 0x30;
-              v48 = (v44 & 0x1F00) == 0x1C00 && v46 == 16;
-              if (v42)
-              {
-                v49 = HIDWORD(v37);
-                if (v48)
-                {
-                  goto LABEL_165;
-                }
-              }
-
-              else
-              {
-                LOBYTE(v49) = v45;
-                v45 = HIDWORD(v37);
-                v43 = v37;
-                if (!v48)
-                {
-                  goto LABEL_165;
-                }
-              }
-
-              v50 = v49 & 0x3F;
-              if (v50 > 19)
-              {
-                if ((v50 - 22) < 2)
-                {
-                  goto LABEL_165;
-                }
-
-                if (v50 == 20)
-                {
-                  if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == 3)
-                  {
-LABEL_169:
-                    result = 19;
-                    goto LABEL_185;
-                  }
-                }
-
-                else
-                {
-                  if (v50 != 21)
-                  {
-                    goto LABEL_163;
-                  }
-
-                  if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == 5)
-                  {
-                    goto LABEL_169;
-                  }
-                }
-              }
-
-              else if (v50 > 17)
-              {
-                if (v50 == 18)
-                {
-                  if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == 1)
-                  {
-                    goto LABEL_169;
-                  }
-                }
-
-                else if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == 2)
-                {
-                  goto LABEL_169;
-                }
-              }
-
-              else
-              {
-                if (v50 != 16)
-                {
-                  if (v50 == 17)
-                  {
-                    if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == 4)
-                    {
-                      goto LABEL_169;
-                    }
-
-                    goto LABEL_165;
-                  }
-
-LABEL_163:
-                  if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == v50 - 16)
-                  {
-                    goto LABEL_169;
-                  }
-
-                  goto LABEL_165;
-                }
-
-                if ((v43 & 0x1F00) == 0x1C00 && (v45 & 0x3F) == 0)
-                {
-                  goto LABEL_169;
-                }
-              }
-
-LABEL_165:
-              --v39;
-            }
-
-            while (v39);
-          }
-        }
-
-        (*(a1 + 208))(a1, &v65);
-        *a3 = v66;
-        goto LABEL_167;
-      }
-
-LABEL_78:
-      (*(a1 + 208))(a1, &v65);
-      *a3 = v66;
-      v24 = v65;
-      if ((v65 & 0x3F00007C00) == 0x500007000)
-      {
-        v25 = *(a1 + 372);
-        if (v25 == -1)
-        {
-          v26 = *(a1 + 32);
-          v27 = *(v26 + 36);
-          *(a1 + 372) = v27;
-          v61 = v24 & 0xF8;
-          v63 = 0;
-          *(v26 + 36) = v27 + 1;
-          v62 = v27;
-          (*(a1 + 176))(a1, &v61);
-          v60 = 0u;
-          v59 = 0u;
-          v58 = 0u;
-          v57[0] = 0x3100011042;
-          if (*(a1 + 378) == 1)
-          {
-            v57[0] = 0x3100015042;
-            *(a1 + 378) = 2;
-          }
-
-          v57[2] = (*a3 << 48) | 0x19C800;
-          v57[3] = 2307915776;
-          v57[1] = (*(a1 + 372) << 48) | 0x72679000;
-          (*(a1 + 168))(a1, v57, 0);
-          v25 = *(a1 + 372);
-        }
-
-        goto LABEL_168;
-      }
-
-LABEL_167:
-      v25 = -1;
-LABEL_168:
-      result = 0;
-      *a2 = v25;
-      goto LABEL_185;
+      v64 = v64 & 0xFFFFFFC0FFFFFFFFLL | (((v63 + 8) & 0x3F) << 32);
+      goto LABEL_118;
     }
 
-    v36 = v65 & 0xFFFFFFC0FFFFFFFFLL | 0x800000000;
-LABEL_117:
-    v65 = v36;
-    goto LABEL_118;
+    v36 = v64 & 0xFFFFFFC0FFFFFFFFLL | 0x800000000;
+    goto LABEL_117;
   }
 
   if ((v6 & 2) != 0)
   {
-    v35 = LODWORD(v67[0]) == 1768120678 && *(v67 + 3) == 6778473;
+    v35 = LODWORD(v66[0]) == 1768120678 && *(v66 + 3) == 6778473;
     if (!v35 || *(a1 + 368) != 54)
     {
-      goto LABEL_10;
+      return 10;
     }
 
-    v23 = v65 & 0xFFFFFFFFFFFF83FFLL | 0x2C00;
+    v23 = v64 & 0xFFFFFFFFFFFF83FFLL | 0x2C00;
     goto LABEL_77;
   }
 
-  if (*&v67[0] ^ 0x6C6169726574616DLL | BYTE8(v67[0]))
+  if (*&v66[0] ^ 0x6C6169726574616DLL | BYTE8(v66[0]))
   {
-    goto LABEL_10;
+    return 10;
   }
 
-  v65 = v65 & 0xFFFFFFFFFFFF83FFLL | 0x7000;
-  v17 = PPParserGetPart(a1, v67, 0);
+  v64 = v64 & 0xFFFFFFFFFFFF83FFLL | 0x7000;
+  v17 = PPParserGetPart(a1, v66, 0);
   if (!v17)
   {
-    goto LABEL_184;
+    return 46;
   }
 
   v18 = v17;
   result = 10;
-  if (v18 != 1 || LOBYTE(v67[0]) != 46)
+  if (v18 != 1 || LOBYTE(v66[0]) != 46)
   {
-    goto LABEL_185;
+    return result;
   }
 
-  if (!PPParserGetPart(a1, v67, 0))
+  if (!PPParserGetPart(a1, v66, 0))
   {
-    goto LABEL_184;
+    return 46;
   }
 
-  if (LODWORD(v67[0]) == 1852797542 && WORD2(v67[0]) == 116)
+  if (LODWORD(v66[0]) == 1852797542 && WORD2(v66[0]) == 116)
   {
-    v51 = PPParserGetPart(a1, v67, 0);
-    if (!v51)
+    v51 = PPParserGetPart(a1, v66, 0);
+    if (v51)
     {
-      goto LABEL_184;
+      v52 = v51;
+      result = 10;
+      if (v52 == 1 && LOBYTE(v66[0]) == 46)
+      {
+        if (PPParserGetPart(a1, v66, 0))
+        {
+          goto LABEL_62;
+        }
+
+        return 46;
+      }
+
+      return result;
     }
 
-    v52 = v51;
-    result = 10;
-    if (v52 != 1 || LOBYTE(v67[0]) != 46)
-    {
-      goto LABEL_185;
-    }
-
-    if (PPParserGetPart(a1, v67, 0))
-    {
-      goto LABEL_62;
-    }
-
-LABEL_184:
-    result = 46;
-    goto LABEL_185;
+    return 46;
   }
 
-  if (LODWORD(v67[0]) ^ 0x6B636162 | BYTE4(v67[0]))
+  if (LODWORD(v66[0]) ^ 0x6B636162 | BYTE4(v66[0]))
   {
 LABEL_62:
     v20 = 0;
 LABEL_63:
-    if (*&v67[0] == 0x746E6569626D61)
+    if (*&v66[0] == 0x746E6569626D61)
     {
-      v56 = v20 | 0x20u;
+      v55 = v20 | 0x20u;
     }
 
     else
     {
-      if (*&v67[0] == 0x65737566666964)
+      if (*&v66[0] == 0x65737566666964)
       {
         v22 = 34;
       }
 
-      else if (*&v67[0] ^ 0x72616C7563657073 | BYTE8(v67[0]))
+      else if (*&v66[0] ^ 0x72616C7563657073 | BYTE8(v66[0]))
       {
-        if (*&v67[0] ^ 0x6E6F697373696D65 | BYTE8(v67[0]))
+        if (*&v66[0] ^ 0x6E6F697373696D65 | BYTE8(v66[0]))
         {
-          if (*&v67[0] != 0x73656E696E696873 || WORD4(v67[0]) != 115)
+          if (*&v66[0] != 0x73656E696E696873 || WORD4(v66[0]) != 115)
           {
-            goto LABEL_10;
+            return 10;
           }
 
           v22 = 40;
@@ -5460,34 +5304,32 @@ LABEL_63:
         v22 = 36;
       }
 
-      v56 = v20 | v22;
+      v55 = v20 | v22;
     }
 
-    v28 = v65 & 0xFFFFFFC0FFFFFFFFLL | (v56 << 32);
+    v28 = v64 & 0xFFFFFFC0FFFFFFFFLL | (v55 << 32);
     goto LABEL_89;
   }
 
-  v53 = PPParserGetPart(a1, v67, 0);
+  v53 = PPParserGetPart(a1, v66, 0);
   if (!v53)
   {
-    goto LABEL_184;
+    return 46;
   }
 
   v54 = v53;
   result = 10;
-  if (v54 == 1 && LOBYTE(v67[0]) == 46)
+  if (v54 == 1 && LOBYTE(v66[0]) == 46)
   {
-    if (PPParserGetPart(a1, v67, 0))
+    if (PPParserGetPart(a1, v66, 0))
     {
       v20 = 1;
       goto LABEL_63;
     }
 
-    goto LABEL_184;
+    return 46;
   }
 
-LABEL_185:
-  v55 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5516,32 +5358,31 @@ uint64_t GLDAttribBindingForPPStreamToken(uint64_t a1)
 
 uint64_t PPParserParseAttributeDeclaration(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
+  v21 = *MEMORY[0x277D85DE8];
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  v8 = 0u;
+  v12 = 0u;
   v9 = 0u;
-  *__s = 0u;
+  v10 = 0u;
   v7 = 0u;
+  v8 = 0u;
+  *__s = 0u;
+  v6 = 0u;
   if (!PPParserGetPart(a1, __s, 0))
   {
-    goto LABEL_15;
+    return 46;
   }
 
   if (PPParserValidateName(a1, __s))
   {
-    result = 18;
-    goto LABEL_16;
+    return 18;
   }
 
   v3 = PPParserIdentifierCreate();
@@ -5549,27 +5390,25 @@ uint64_t PPParserParseAttributeDeclaration(uint64_t a1)
   if (PPParserScopeAddIdentifier(*(a1 + 32), v3))
   {
     PPParserIdentifierFree(v3);
-    result = 28;
-    goto LABEL_16;
+    return 28;
   }
 
   if (!PPParserGetPart(a1, __s, 0))
   {
-    goto LABEL_15;
+    return 46;
   }
 
   if (__s[0] != 61)
   {
-    result = 10;
-    goto LABEL_16;
+    return 10;
   }
 
-  v5 = 0;
+  v4 = 0;
   *(v3 + 4) = 0;
-  result = PPParserParseAttributeBinding(a1, &v5, v3 + 3);
+  result = PPParserParseAttributeBinding(a1, &v4, v3 + 3);
   if (!result)
   {
-    if (v5 != -1)
+    if (v4 != -1)
     {
       *(v3 + 3) = *(a1 + 372);
       *(v3 + 4) = 1;
@@ -5579,387 +5418,363 @@ uint64_t PPParserParseAttributeDeclaration(uint64_t a1)
     {
       if (__s[0] == 59)
       {
-        result = 0;
+        return 0;
       }
 
       else
       {
-        result = 10;
+        return 10;
       }
-
-      goto LABEL_16;
     }
 
-LABEL_15:
-    result = 46;
+    return 46;
   }
 
-LABEL_16:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t PPParserParseOutputBinding(uint64_t a1, char a2, _DWORD *a3, _BYTE *a4)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  memset(v36, 0, sizeof(v36));
+  v36 = *MEMORY[0x277D85DE8];
+  memset(v35, 0, sizeof(v35));
   v8 = *(a1 + 368);
-  if (!PPParserGetPart(a1, v36, 0))
+  if (!PPParserGetPart(a1, v35, 0))
   {
-    goto LABEL_95;
+    return 46;
   }
 
   *a3 = -1;
   *a4 = -1;
+  v33 = 0;
   v34 = 0;
-  v35 = 0;
-  if (LODWORD(v36[0]) != 1970496882 || *(v36 + 3) != 7629941)
+  if (LODWORD(v35[0]) != 1970496882 || *(v35 + 3) != 7629941)
   {
-    goto LABEL_6;
+    return 10;
   }
 
-  Part = PPParserGetPart(a1, v36, 0);
+  Part = PPParserGetPart(a1, v35, 0);
   if (!Part)
   {
-    goto LABEL_95;
+    return 46;
   }
 
   v12 = Part;
   result = 10;
-  if (v12 == 1 && LOBYTE(v36[0]) == 46)
+  if (v12 != 1 || LOBYTE(v35[0]) != 46)
   {
-    if (!PPParserGetPart(a1, v36, 0))
+    return result;
+  }
+
+  if (!PPParserGetPart(a1, v35, 0))
+  {
+    return 46;
+  }
+
+  v13 = a2 & 7 | 0xC0u;
+  v32 = 0;
+  if ((v8 & 2) != 0)
+  {
+    if (LODWORD(v35[0]) != 1869377379 || WORD2(v35[0]) != 114)
     {
-      goto LABEL_95;
-    }
-
-    v13 = a2 & 7 | 0xC0u;
-    v33 = 0;
-    if ((v8 & 2) == 0)
-    {
-      if (*&v36[0] ^ 0x6E6F697469736F70 | BYTE8(v36[0]))
+      if (LODWORD(v35[0]) != 1953523044 || WORD2(v35[0]) != 104)
       {
-        if ((*(a1 + 380) & 2) == 0 || (LODWORD(v36[0]) == 1684957559 ? (v14 = *(v36 + 3) == 7827300) : (v14 = 0), !v14))
-        {
-          if (LODWORD(v36[0]) != 1869377379 || WORD2(v36[0]) != 114)
-          {
-            if (*&v36[0] ^ 0x64726F6F63676F66 | BYTE8(v36[0]))
-            {
-              if (*&v36[0] != 0x7A6973746E696F70 || WORD4(v36[0]) != 101)
-              {
-                if (*&v36[0] ^ 0x64726F6F63786574 | BYTE8(v36[0]))
-                {
-                  if (!(LODWORD(v36[0]) ^ 0x70696C63 | BYTE4(v36[0])))
-                  {
-                    v17 = *(a1 + 368);
-                    if (v17 == 52 || v17 == 49)
-                    {
-                      result = PPParserParseArray(a1, &v33);
-                      if (result)
-                      {
-                        goto LABEL_96;
-                      }
-
-                      v18 = v33;
-                      if (v33 >= *(a1 + 304))
-                      {
-                        result = 60;
-                        goto LABEL_96;
-                      }
-
-                      *a4 = v33;
-                      v19 = v13 | ((v18 & 0x1F) << 32);
-                      v20 = 2560;
-                      goto LABEL_99;
-                    }
-                  }
-
-LABEL_6:
-                  result = 10;
-                  goto LABEL_96;
-                }
-
-                if (PPParserGetPart(a1, v36, 0))
-                {
-                  PPParserReturnPart(a1);
-                  if (LOBYTE(v36[0]) == 91)
-                  {
-                    result = PPParserParseArray(a1, &v33);
-                    if (result)
-                    {
-                      goto LABEL_96;
-                    }
-
-                    v24 = a2 & 7 | 0x11C0 | (((v33 + 8) & 0x3F) << 32);
-                    goto LABEL_71;
-                  }
-
-                  v30 = 0x800001100;
-                  goto LABEL_81;
-                }
-
-LABEL_95:
-                result = 46;
-                goto LABEL_96;
-              }
-
-              v23 = 768;
-            }
-
-            else
-            {
-              v23 = 0x500001100;
-            }
-
-            goto LABEL_70;
-          }
-
-          v26 = a2 & 7 | 0x4C0;
-          v34 = v26;
-          v27 = PPParserGetPart(a1, v36, 0);
-          if (!v27)
-          {
-            goto LABEL_95;
-          }
-
-          v28 = LOBYTE(v36[0]);
-          if (v27 == 1 && LOBYTE(v36[0]) == 46)
-          {
-            if (!PPParserGetPart(a1, v36, 0))
-            {
-              goto LABEL_95;
-            }
-
-            if (LODWORD(v36[0]) ^ 0x6B636162 | BYTE4(v36[0]))
-            {
-              if (LODWORD(v36[0]) != 1852797542 || WORD2(v36[0]) != 116)
-              {
-                PPParserReturnPart(a1);
-                v28 = 46;
-                LOWORD(v36[0]) = 46;
-                v27 = 1;
-                goto LABEL_85;
-              }
-            }
-
-            else
-            {
-              v26 = (a2 & 7 | 0x1000001C0) + 768;
-              v34 = v26;
-            }
-
-            v27 = PPParserGetPart(a1, v36, 0);
-            if (!v27)
-            {
-              goto LABEL_95;
-            }
-
-            v28 = LOBYTE(v36[0]);
-          }
-
-LABEL_85:
-          if (v27 == 1 && v28 == 46)
-          {
-            if (!PPParserGetPart(a1, v36, 0))
-            {
-              goto LABEL_95;
-            }
-
-            if (*&v36[0] == 0x7261646E6F636573 && WORD4(v36[0]) == 121)
-            {
-              v19 = v26 & 0xFFFFFFFFFFFFE1FFLL;
-              v20 = 1280;
-LABEL_99:
-              v24 = v19 | v20;
-              goto LABEL_71;
-            }
-
-            if (*&v36[0] == 0x7972616D697270)
-            {
-              goto LABEL_75;
-            }
-
-            PPParserReturnPart(a1);
-          }
-
-          PPParserReturnPart(a1);
-          goto LABEL_75;
-        }
-
-        if ((*(a1 + 380) & 1) == 0)
-        {
-          if ((*(a1 + 379) & 4) == 0)
-          {
-            *(a1 + 380) |= 4u;
-            v30 = 0x100000100;
-LABEL_81:
-            v24 = v13 | v30;
-            goto LABEL_71;
-          }
-
-          goto LABEL_68;
-        }
-      }
-
-      else if ((*(a1 + 380) & 1) == 0)
-      {
-        if ((*(a1 + 380) & 4) == 0)
-        {
-          *(a1 + 379) |= 4u;
-          v24 = a2 & 7 | 0x1C0;
-LABEL_71:
-          v34 = v24;
-LABEL_75:
-          (*(a1 + 216))(a1, &v34);
-          result = 0;
-          *a3 = v35;
-          goto LABEL_96;
-        }
-
-LABEL_68:
-        result = 41;
-        goto LABEL_96;
-      }
-
-      result = 34;
-      goto LABEL_96;
-    }
-
-    if (LODWORD(v36[0]) != 1869377379 || WORD2(v36[0]) != 114)
-    {
-      if (LODWORD(v36[0]) != 1953523044 || WORD2(v36[0]) != 104)
-      {
-        goto LABEL_6;
+        return 10;
       }
 
       v23 = 1792;
-LABEL_70:
-      v24 = v23 & 0xFFFFFFFFFFFFFFF8 | a2 & 7;
-      goto LABEL_71;
+      goto LABEL_70;
     }
 
-    v34 = a2 & 7 | 0x4C0;
+    v33 = a2 & 7 | 0x4C0;
     if (*(a1 + 383))
     {
-      if (!PPParserGetPart(a1, v36, 0))
+      if (!PPParserGetPart(a1, v35, 0))
       {
-        goto LABEL_95;
+        return 46;
       }
 
       PPParserReturnPart(a1);
-      if (LOBYTE(v36[0]) == 91)
+      if (LOBYTE(v35[0]) == 91)
       {
-        result = PPParserParseArray(a1, &v33);
+        result = PPParserParseArray(a1, &v32);
         if (result)
         {
-          goto LABEL_96;
+          return result;
         }
 
-        v34 = a2 & 7 | 0x4C0 | ((v33 & 7) << 33);
-        if (v33 >= *(a1 + 316))
+        v33 = a2 & 7 | 0x4C0 | ((v32 & 7) << 33);
+        if (v32 >= *(a1 + 316))
         {
-          result = 64;
-          goto LABEL_96;
+          return 64;
         }
 
-        v25 = *(a1 + 386) | (1 << v33);
-        goto LABEL_74;
+        v25 = *(a1 + 386) | (1 << v32);
+LABEL_74:
+        *(a1 + 386) = v25;
+        goto LABEL_75;
       }
 
-      v34 = a2 & 7 | 0x4C0;
+      v33 = a2 & 7 | 0x4C0;
     }
 
     LOBYTE(v25) = *(a1 + 386) | 1;
-LABEL_74:
-    *(a1 + 386) = v25;
+    goto LABEL_74;
+  }
+
+  if (!(*&v35[0] ^ 0x6E6F697469736F70 | BYTE8(v35[0])))
+  {
+    if ((*(a1 + 380) & 1) == 0)
+    {
+      if ((*(a1 + 380) & 4) == 0)
+      {
+        *(a1 + 379) |= 4u;
+        v24 = a2 & 7 | 0x1C0;
+        goto LABEL_71;
+      }
+
+      return 41;
+    }
+
+    return 34;
+  }
+
+  if ((*(a1 + 380) & 2) != 0 && LODWORD(v35[0]) == 1684957559 && *(v35 + 3) == 7827300)
+  {
+    if ((*(a1 + 380) & 1) == 0)
+    {
+      if ((*(a1 + 379) & 4) == 0)
+      {
+        *(a1 + 380) |= 4u;
+        v30 = 0x100000100;
+        goto LABEL_81;
+      }
+
+      return 41;
+    }
+
+    return 34;
+  }
+
+  if (LODWORD(v35[0]) == 1869377379 && WORD2(v35[0]) == 114)
+  {
+    v26 = a2 & 7 | 0x4C0;
+    v33 = v26;
+    v27 = PPParserGetPart(a1, v35, 0);
+    if (!v27)
+    {
+      return 46;
+    }
+
+    v28 = LOBYTE(v35[0]);
+    if (v27 == 1 && LOBYTE(v35[0]) == 46)
+    {
+      if (!PPParserGetPart(a1, v35, 0))
+      {
+        return 46;
+      }
+
+      if (LODWORD(v35[0]) ^ 0x6B636162 | BYTE4(v35[0]))
+      {
+        if (LODWORD(v35[0]) != 1852797542 || WORD2(v35[0]) != 116)
+        {
+          PPParserReturnPart(a1);
+          v28 = 46;
+          LOWORD(v35[0]) = 46;
+          v27 = 1;
+          goto LABEL_85;
+        }
+      }
+
+      else
+      {
+        v26 = (a2 & 7 | 0x1000001C0) + 768;
+        v33 = v26;
+      }
+
+      v27 = PPParserGetPart(a1, v35, 0);
+      if (!v27)
+      {
+        return 46;
+      }
+
+      v28 = LOBYTE(v35[0]);
+    }
+
+LABEL_85:
+    if (v27 == 1 && v28 == 46)
+    {
+      if (!PPParserGetPart(a1, v35, 0))
+      {
+        return 46;
+      }
+
+      if (*&v35[0] == 0x7261646E6F636573 && WORD4(v35[0]) == 121)
+      {
+        v19 = v26 & 0xFFFFFFFFFFFFE1FFLL;
+        v20 = 1280;
+        goto LABEL_99;
+      }
+
+      if (*&v35[0] == 0x7972616D697270)
+      {
+        goto LABEL_75;
+      }
+
+      PPParserReturnPart(a1);
+    }
+
+    PPParserReturnPart(a1);
     goto LABEL_75;
   }
 
-LABEL_96:
-  v32 = *MEMORY[0x277D85DE8];
+  if (!(*&v35[0] ^ 0x64726F6F63676F66 | BYTE8(v35[0])))
+  {
+    v23 = 0x500001100;
+LABEL_70:
+    v24 = v23 & 0xFFFFFFFFFFFFFFF8 | a2 & 7;
+    goto LABEL_71;
+  }
+
+  if (*&v35[0] == 0x7A6973746E696F70 && WORD4(v35[0]) == 101)
+  {
+    v23 = 768;
+    goto LABEL_70;
+  }
+
+  if (!(*&v35[0] ^ 0x64726F6F63786574 | BYTE8(v35[0])))
+  {
+    if (PPParserGetPart(a1, v35, 0))
+    {
+      PPParserReturnPart(a1);
+      if (LOBYTE(v35[0]) == 91)
+      {
+        result = PPParserParseArray(a1, &v32);
+        if (result)
+        {
+          return result;
+        }
+
+        v24 = a2 & 7 | 0x11C0 | (((v32 + 8) & 0x3F) << 32);
+LABEL_71:
+        v33 = v24;
+LABEL_75:
+        (*(a1 + 216))(a1, &v33);
+        result = 0;
+        *a3 = v34;
+        return result;
+      }
+
+      v30 = 0x800001100;
+LABEL_81:
+      v24 = v13 | v30;
+      goto LABEL_71;
+    }
+
+    return 46;
+  }
+
+  if (LODWORD(v35[0]) ^ 0x70696C63 | BYTE4(v35[0]))
+  {
+    return 10;
+  }
+
+  v17 = *(a1 + 368);
+  if (v17 != 52 && v17 != 49)
+  {
+    return 10;
+  }
+
+  result = PPParserParseArray(a1, &v32);
+  if (!result)
+  {
+    v18 = v32;
+    if (v32 < *(a1 + 304))
+    {
+      *a4 = v32;
+      v19 = v13 | ((v18 & 0x1F) << 32);
+      v20 = 2560;
+LABEL_99:
+      v24 = v19 | v20;
+      goto LABEL_71;
+    }
+
+    return 60;
+  }
+
   return result;
 }
 
 uint64_t PPParserParseOutputDeclaration(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  memset(v7, 0, sizeof(v7));
-  if (!PPParserGetPart(a1, v7, 0))
+  v7 = *MEMORY[0x277D85DE8];
+  memset(v6, 0, sizeof(v6));
+  if (!PPParserGetPart(a1, v6, 0))
   {
-    goto LABEL_13;
+    return 46;
   }
 
-  if (PPParserValidateName(a1, v7))
+  if (PPParserValidateName(a1, v6))
   {
-    result = 18;
-    goto LABEL_14;
+    return 18;
   }
 
   v5 = PPParserIdentifierCreate();
-  PPParserIdentifierSetName(v5, v7);
+  PPParserIdentifierSetName(v5, v6);
   *(v5 + 6) = a2;
   *(v5 + 4) = 3;
   if (PPParserScopeAddIdentifier(*(a1 + 32), v5))
   {
     PPParserIdentifierFree(v5);
-    result = 28;
-    goto LABEL_14;
+    return 28;
   }
 
-  if (!PPParserGetPart(a1, v7, 0))
+  if (!PPParserGetPart(a1, v6, 0))
   {
-    goto LABEL_13;
+    return 46;
   }
 
-  if (LOBYTE(v7[0]) != 61)
+  if (LOBYTE(v6[0]) != 61)
   {
-    result = 10;
-    goto LABEL_14;
+    return 10;
   }
 
   result = PPParserParseOutputBinding(a1, a2, v5 + 3, v5 + 21);
   if (!result)
   {
-    if (PPParserGetPart(a1, v7, 0))
+    if (PPParserGetPart(a1, v6, 0))
     {
-      if (LOBYTE(v7[0]) == 59)
+      if (LOBYTE(v6[0]) == 59)
       {
-        result = 0;
+        return 0;
       }
 
       else
       {
-        result = 10;
+        return 10;
       }
-
-      goto LABEL_14;
     }
 
-LABEL_13:
-    result = 46;
+    return 46;
   }
 
-LABEL_14:
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t PPParserParseDestinationMask(uint64_t a1, unint64_t *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  memset(v15, 0, sizeof(v15));
-  Part = PPParserGetPart(a1, v15, 0);
+  v15 = *MEMORY[0x277D85DE8];
+  memset(v14, 0, sizeof(v14));
+  Part = PPParserGetPart(a1, v14, 0);
   if (!Part)
   {
-    result = 46;
-    goto LABEL_41;
+    return 46;
   }
 
   v5 = 0;
   v6 = *a2 & 0xFFFFFFFFFFF87FFFLL;
   *a2 = v6;
   v7 = Part;
-  v8 = v15;
+  v8 = v14;
   result = 12;
   do
   {
@@ -5973,7 +5788,7 @@ uint64_t PPParserParseDestinationMask(uint64_t a1, unint64_t *a2)
         {
           if ((v6 & 0x8000) != 0)
           {
-            goto LABEL_38;
+            return 12;
           }
 
           v12 = 1;
@@ -5984,12 +5799,12 @@ LABEL_28:
 
         if (v10 != 120)
         {
-          goto LABEL_41;
+          return result;
         }
 
         if ((v6 & 0x40000) != 0)
         {
-          goto LABEL_38;
+          return 12;
         }
 
         v12 = 1;
@@ -6002,12 +5817,12 @@ LABEL_18:
       {
         if (v10 != 122)
         {
-          goto LABEL_41;
+          return result;
         }
 
         if ((v6 & 0x10000) != 0)
         {
-          goto LABEL_38;
+          return 12;
         }
 
         v12 = 1;
@@ -6016,7 +5831,7 @@ LABEL_18:
 
       if ((v6 & 0x20000) != 0)
       {
-        goto LABEL_38;
+        return 12;
       }
 
       v12 = 1;
@@ -6030,12 +5845,12 @@ LABEL_18:
         {
           if (v10 != 98)
           {
-            goto LABEL_41;
+            return result;
           }
 
           if ((v6 & 0x10000) != 0)
           {
-            goto LABEL_38;
+            return 12;
           }
 
           v12 = 2;
@@ -6046,7 +5861,7 @@ LABEL_23:
 
         if ((v6 & 0x8000) != 0)
         {
-          goto LABEL_38;
+          return 12;
         }
 
         v12 = 2;
@@ -6057,12 +5872,12 @@ LABEL_23:
       {
         if (v10 != 114)
         {
-          goto LABEL_41;
+          return result;
         }
 
         if ((v6 & 0x40000) != 0)
         {
-          goto LABEL_38;
+          return 12;
         }
 
         v12 = 2;
@@ -6071,7 +5886,7 @@ LABEL_23:
 
       if ((v6 & 0x20000) != 0)
       {
-        goto LABEL_38;
+        return 12;
       }
 
       v12 = 2;
@@ -6088,33 +5903,27 @@ LABEL_34:
   while (v7);
   if (v5 == 3 || v5 == 2 && (*(a1 + 368) & 2) == 0)
   {
-LABEL_38:
-    result = 12;
-    goto LABEL_41;
+    return 12;
   }
 
-  result = 0;
-LABEL_41:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-uint64_t PPParserParseSourceSwizzle(uint64_t a1, void *a2, _DWORD *a3)
+uint64_t PPParserParseSourceSwizzle(uint64_t a1, unint64_t *a2, _DWORD *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  memset(v18, 0, sizeof(v18));
-  Part = PPParserGetPart(a1, v18, 0);
+  v18 = *MEMORY[0x277D85DE8];
+  memset(v17, 0, sizeof(v17));
+  Part = PPParserGetPart(a1, v17, 0);
   if (!Part)
   {
-    result = 46;
-    goto LABEL_43;
+    return 46;
   }
 
   if (Part != 4)
   {
     if (Part != 1)
     {
-      goto LABEL_40;
+      return 13;
     }
 
     *a3 = 1;
@@ -6124,7 +5933,7 @@ uint64_t PPParserParseSourceSwizzle(uint64_t a1, void *a2, _DWORD *a3)
   v7 = 0;
   v8 = 0;
   v9 = Part != 1;
-  v10 = v18;
+  v10 = v17;
   while (1)
   {
     v11 = *v10;
@@ -6141,7 +5950,7 @@ uint64_t PPParserParseSourceSwizzle(uint64_t a1, void *a2, _DWORD *a3)
 
         if (v11 != 121)
         {
-          goto LABEL_40;
+          return 13;
         }
 
         v13 = 1;
@@ -6158,7 +5967,7 @@ LABEL_25:
 
       if (v11 != 120)
       {
-        goto LABEL_40;
+        return 13;
       }
 
       v12 = 0;
@@ -6173,7 +5982,7 @@ LABEL_25:
         {
           if (v11 != 98)
           {
-            goto LABEL_40;
+            return 13;
           }
 
           v12 = 2;
@@ -6195,7 +6004,7 @@ LABEL_23:
 
       if (v11 != 114)
       {
-        goto LABEL_40;
+        return 13;
       }
 
       v12 = 0;
@@ -6245,205 +6054,187 @@ LABEL_36:
   *a2 = *a2 & 0xFFFFFFFFFFFE7FFFLL | ((v12 & 3) << 15);
   if (v7 == 3 || v7 == 2 && (*(a1 + 368) & 2) == 0)
   {
-LABEL_40:
-    result = 13;
+    return 13;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-LABEL_43:
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t PPParserParseLabel(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  memset(v12, 0, sizeof(v12));
-  if (PPParserGetPart(a1, v12, 0))
+  v12 = *MEMORY[0x277D85DE8];
+  memset(v11, 0, sizeof(v11));
+  if (!PPParserGetPart(a1, v11, 0))
   {
-    if (LOBYTE(v12[0]) == 58)
-    {
-      v6 = *(a1 + 152);
-      if (v6)
-      {
-        v7 = *v6;
-        if (v7)
-        {
-          v8 = (v6 + 2);
-          v9 = a3;
-          while (strlen(*v8) != a3 || strncmp(a2, *v8, a3))
-          {
-            ++v8;
-            if (!--v7)
-            {
-              goto LABEL_14;
-            }
-          }
-
-          goto LABEL_17;
-        }
-      }
-
-      v9 = a3;
-LABEL_14:
-      if (!strncmp(a2, "start", v9) || !strncmp(a2, "main", v9))
-      {
-        if (*(a1 + 378))
-        {
-LABEL_17:
-          result = 29;
-          goto LABEL_12;
-        }
-
-        *(a1 + 378) = 1;
-      }
-
-      (*(a1 + 240))(a1, a2, a3);
-      result = 0;
-      goto LABEL_12;
-    }
-
-    PPParserReturnPart(a1);
+    return 3;
   }
 
-  result = 3;
-LABEL_12:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  if (LOBYTE(v11[0]) != 58)
+  {
+    PPParserReturnPart(a1);
+    return 3;
+  }
+
+  v6 = *(a1 + 152);
+  if (v6)
+  {
+    v7 = *v6;
+    if (v7)
+    {
+      v8 = (v6 + 2);
+      v9 = a3;
+      while (strlen(*v8) != a3 || strncmp(a2, *v8, a3))
+      {
+        ++v8;
+        if (!--v7)
+        {
+          goto LABEL_13;
+        }
+      }
+
+      return 29;
+    }
+  }
+
+  v9 = a3;
+LABEL_13:
+  if (!strncmp(a2, "start", v9) || !strncmp(a2, "main", v9))
+  {
+    if (*(a1 + 378))
+    {
+      return 29;
+    }
+
+    *(a1 + 378) = 1;
+  }
+
+  (*(a1 + 240))(a1, a2, a3);
+  return 0;
 }
 
 uint64_t PPParserParseAddressDestination(uint64_t a1, unint64_t *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  memset(v13, 0, sizeof(v13));
-  if (!PPParserGetPart(a1, v13, 0))
+  v13 = *MEMORY[0x277D85DE8];
+  memset(v12, 0, sizeof(v12));
+  if (!PPParserGetPart(a1, v12, 0))
   {
-    goto LABEL_15;
+    return 46;
   }
 
-  Identifier = PPParserScopeFindIdentifier(*(a1 + 32), v13);
+  Identifier = PPParserScopeFindIdentifier(*(a1 + 32), v12);
   if (!Identifier)
   {
-    result = 25;
-    goto LABEL_16;
+    return 25;
   }
 
   v5 = Identifier;
-  if (*(Identifier + 16) == -1)
+  if (*(Identifier + 16) != -1)
   {
-    v7 = *a2;
-    v8 = *a2 | 0x40000;
-    *a2 = v8;
-    v9 = v8 & 0xFFFFFFFFFFFC7FFFLL;
-    v10 = v7 | 0x78000;
-    if ((*(a1 + 368) & 0x10) == 0)
-    {
-      v10 = v9;
-    }
-
-    *a2 = v10;
-    Part = PPParserGetPart(a1, v13, 0);
-    if (Part)
-    {
-      if (Part == 1 && LOBYTE(v13[0]) == 46)
-      {
-        result = PPParserParseDestinationMask(a1, a2);
-        if (result)
-        {
-          goto LABEL_16;
-        }
-
-        if ((*(a1 + 368) & 0x10) == 0)
-        {
-          if ((*a2 & 0x78000) == 0x40000)
-          {
-            goto LABEL_21;
-          }
-
-LABEL_18:
-          result = 12;
-          goto LABEL_16;
-        }
-      }
-
-      else
-      {
-        if ((*(a1 + 368) & 0x10) == 0)
-        {
-          goto LABEL_18;
-        }
-
-        PPParserReturnPart(a1);
-        if ((*(a1 + 368) & 0x10) == 0)
-        {
-LABEL_21:
-          result = 0;
-          *a2 = *a2 & 0xFFFFFFFF8FFFLL | (*(v5 + 12) << 48) | 0x4000;
-          goto LABEL_16;
-        }
-      }
-
-      result = PPParserParseBranchCondition(a1, a2, 0);
-      if (result)
-      {
-        goto LABEL_16;
-      }
-
-      goto LABEL_21;
-    }
-
-LABEL_15:
-    result = 46;
-    goto LABEL_16;
+    return 22;
   }
 
-  result = 22;
-LABEL_16:
-  v12 = *MEMORY[0x277D85DE8];
+  v7 = *a2;
+  v8 = *a2 | 0x40000;
+  *a2 = v8;
+  v9 = v8 & 0xFFFFFFFFFFFC7FFFLL;
+  v10 = v7 | 0x78000;
+  if ((*(a1 + 368) & 0x10) == 0)
+  {
+    v10 = v9;
+  }
+
+  *a2 = v10;
+  Part = PPParserGetPart(a1, v12, 0);
+  if (!Part)
+  {
+    return 46;
+  }
+
+  if (Part == 1 && LOBYTE(v12[0]) == 46)
+  {
+    result = PPParserParseDestinationMask(a1, a2);
+    if (result)
+    {
+      return result;
+    }
+
+    if ((*(a1 + 368) & 0x10) == 0)
+    {
+      if ((*a2 & 0x78000) == 0x40000)
+      {
+        goto LABEL_21;
+      }
+
+      return 12;
+    }
+  }
+
+  else
+  {
+    if ((*(a1 + 368) & 0x10) == 0)
+    {
+      return 12;
+    }
+
+    PPParserReturnPart(a1);
+    if ((*(a1 + 368) & 0x10) == 0)
+    {
+LABEL_21:
+      result = 0;
+      *a2 = *a2 & 0xFFFFFFFF8FFFLL | (*(v5 + 12) << 48) | 0x4000;
+      return result;
+    }
+  }
+
+  result = PPParserParseBranchCondition(a1, a2, 0);
+  if (!result)
+  {
+    goto LABEL_21;
+  }
+
   return result;
 }
 
-uint64_t PPParserParseBranchCondition(uint64_t a1, void *a2, int a3)
+uint64_t PPParserParseBranchCondition(uint64_t a1, unint64_t *a2, int a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  memset(v20, 0, sizeof(v20));
+  v20 = *MEMORY[0x277D85DE8];
+  memset(v19, 0, sizeof(v19));
   if (a3 == 79 || a3 == 85)
   {
     goto LABEL_5;
   }
 
-  if (!PPParserGetPart(a1, v20, 0))
+  if (!PPParserGetPart(a1, v19, 0))
   {
-    goto LABEL_62;
+    return 46;
   }
 
-  if (LOBYTE(v20[0]) == 40)
+  if (LOBYTE(v19[0]) == 40)
   {
 LABEL_5:
-    Part = PPParserGetPart(a1, v20, 0);
+    Part = PPParserGetPart(a1, v19, 0);
     if (!Part)
     {
-      goto LABEL_62;
+      return 46;
     }
 
     if (*(a1 + 368) == 52)
     {
       if ((Part - 4) < 0xFFFFFFFE)
       {
-        goto LABEL_61;
+        return 16;
       }
     }
 
     else if (Part != 2)
     {
-      goto LABEL_61;
+      return 16;
     }
 
-    switch(LOWORD(v20[0]))
+    switch(LOWORD(v19[0]))
     {
       case 0x5254u:
         v7 = *a2 & 0xFFFFFFFFFFFFFFF1;
@@ -6467,19 +6258,19 @@ LABEL_5:
         v7 = *a2 & 0xFFFFFFFFFFFFFFF1 | 0xC;
         goto LABEL_28;
       case 0x4C46u:
-        v7 = *a2 | 0xELL;
+        v7 = *a2 | 0xE;
 LABEL_28:
         *a2 = v7;
         if (Part == 3 && *(a1 + 368) == 52)
         {
-          if (BYTE2(v20[0]) == 49)
+          if (BYTE2(v19[0]) == 49)
           {
             v9 = v7 | 1;
           }
 
           else
           {
-            if (BYTE2(v20[0]) != 48)
+            if (BYTE2(v19[0]) != 48)
             {
               goto LABEL_35;
             }
@@ -6491,10 +6282,10 @@ LABEL_28:
         }
 
 LABEL_35:
-        v10 = PPParserGetPart(a1, v20, 0);
+        v10 = PPParserGetPart(a1, v19, 0);
         if (v10)
         {
-          if (LOBYTE(v20[0]) == 41)
+          if (LOBYTE(v19[0]) == 41)
           {
             result = 16;
             if (a3 != 79 && a3 != 85)
@@ -6503,24 +6294,24 @@ LABEL_35:
               *a2 = *a2 & 0xFFFFFFFFFFFFF00FLL | 0xE40;
             }
 
-            goto LABEL_63;
+            return result;
           }
 
           v11 = v10;
           result = 16;
-          if (v11 != 1 || LOBYTE(v20[0]) != 46)
+          if (v11 != 1 || LOBYTE(v19[0]) != 46)
           {
-            goto LABEL_63;
+            return result;
           }
 
-          v12 = PPParserGetPart(a1, v20, 0);
+          v12 = PPParserGetPart(a1, v19, 0);
           if (v12)
           {
             if (v12 == 4 || v12 == 1)
             {
               v13 = 0;
               v14 = v12 == 4;
-              v15 = v20;
+              v15 = v19;
               while ((*v15 - 119) <= 3u)
               {
                 v16 = qword_23A300B88[(*v15 - 119)];
@@ -6531,20 +6322,20 @@ LABEL_35:
                     *a2 = *a2 & 0xFFFFFFFFFFFFF3FFLL | (v16 << 10);
                     if (a3 == 79 || a3 == 85)
                     {
-                      goto LABEL_20;
+                      return 0;
                     }
 
-                    if (!PPParserGetPart(a1, v20, 0))
+                    if (!PPParserGetPart(a1, v19, 0))
                     {
-                      goto LABEL_62;
+                      return 46;
                     }
 
-                    if (LOBYTE(v20[0]) == 41)
+                    if (LOBYTE(v19[0]) == 41)
                     {
-                      goto LABEL_20;
+                      return 0;
                     }
 
-                    goto LABEL_61;
+                    return 16;
                   }
 
                   v18 = -769;
@@ -6580,253 +6371,242 @@ LABEL_35:
               }
             }
 
-            break;
+            return 16;
           }
         }
 
-LABEL_62:
-        result = 46;
-        goto LABEL_63;
+        return 46;
     }
 
-LABEL_61:
-    result = 16;
-    goto LABEL_63;
+    return 16;
   }
 
   PPParserReturnPart(a1);
-LABEL_20:
-  result = 0;
-LABEL_63:
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t PPParserParseDestination(uint64_t a1, unint64_t *a2, int a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v42 = *MEMORY[0x277D85DE8];
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  *__s2 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  *__s2 = 0u;
+  v27 = 0u;
   if (!PPParserGetPart(a1, __s2, 1))
   {
-    goto LABEL_30;
+    return 46;
   }
 
   Identifier = PPParserScopeFindIdentifier(*(a1 + 32), __s2);
-  v26 = -1;
-  if (!Identifier)
+  v25 = -1;
+  if (Identifier)
+  {
+    v7 = Identifier;
+    v24 = 0;
+    if ((a3 & 0xFFFFFFFC) == 0x5C && *(Identifier + 24) == 2)
+    {
+      return 45;
+    }
+
+    if (!PPParserGetPart(a1, __s2, 0))
+    {
+      return 46;
+    }
+
+    PPParserReturnPart(a1);
+    v9 = *(v7 + 20);
+    if (__s2[0] != 91)
+    {
+      if (*(v7 + 20))
+      {
+        return 33;
+      }
+
+      goto LABEL_21;
+    }
+
+    if (!*(v7 + 20))
+    {
+      return 32;
+    }
+
+    result = PPParserParseArray(a1, &v24);
+    if (!result)
+    {
+      v9 = v24;
+      if (v24 >= *(v7 + 8))
+      {
+        PPParserReturnPart(a1);
+        return 35;
+      }
+
+LABEL_21:
+      v12 = *a2 & 0xFFFFFFFFFFFFLL | ((v9 + *(v7 + 12)) << 48);
+      *a2 = v12;
+      v13 = *(v7 + 16);
+      if (v13 != 1)
+      {
+        if (v13 != 3)
+        {
+          return 24;
+        }
+
+        v25 = *(v7 + 21);
+      }
+
+      v11 = v12 & 0xFFFFFFFFFFFF8FFFLL | ((v13 & 7) << 12);
+LABEL_25:
+      *a2 = v11 & 0xFFFFFFFF80187001 | 0x72678000;
+      Part = PPParserGetPart(a1, __s2, 0);
+      if (Part)
+      {
+        if (Part == 1 && __s2[0] == 46)
+        {
+          result = PPParserParseDestinationMask(a1, a2);
+          if (result)
+          {
+            return result;
+          }
+        }
+
+        else
+        {
+          PPParserReturnPart(a1);
+        }
+
+        v15 = *(a1 + 368);
+        if ((v15 & 0x22) == 0)
+        {
+          goto LABEL_52;
+        }
+
+        v16 = *a2;
+        if ((*a2 & 0x7000) != 0x3000)
+        {
+          goto LABEL_52;
+        }
+
+        v17 = *(*(a1 + 136) + 8 * HIWORD(v16) + 8);
+        v18 = (v17 >> 8) & 0x1F;
+        if (v18 == 4)
+        {
+          if ((v15 & 2) != 0 && *(a1 + 381))
+          {
+            v19 = v16 & 0xFFFFFFFF9FFFLL | (((v17 >> 33) & 7) << 48);
+            goto LABEL_51;
+          }
+        }
+
+        else if (v18 == 10)
+        {
+          if ((v15 & 0x20) != 0)
+          {
+            v20 = vmovl_u16(vceq_s16(vdup_n_s16(v25 & 3), 0x3000200010000));
+            v21.i64[0] = v20.u32[0];
+            v21.i64[1] = v20.u32[1];
+            v22 = vshrq_n_s64(vshlq_n_s64(v21, 0x38uLL), 0x38uLL);
+            v21.i64[0] = v20.u32[2];
+            v21.i64[1] = v20.u32[3];
+            v23 = vorrq_s8(vandq_s8(v22, xmmword_23A3009F0), vandq_s8(vshrq_n_s64(vshlq_n_s64(v21, 0x38uLL), 0x38uLL), xmmword_23A3009E0));
+            v19 = *&vorr_s8(*v23.i8, *&vextq_s8(v23, v23, 8uLL)) | v16 & 0xFFFFFFFF80783FFFLL;
+            goto LABEL_51;
+          }
+        }
+
+        else if (v18 == 7 && (v15 & 2) != 0)
+        {
+          if ((v16 & 0x10000) != 0)
+          {
+            v19 = v16 & 0xFFFFFFFF807BBFFFLL | 0x55040000;
+            goto LABEL_51;
+          }
+
+          if ((v16 & 0x40000) != 0)
+          {
+            *a2 = v16 & 0xFFFFFFFFFFFABFFFLL;
+            if ((v16 & 0x28000) == 0)
+            {
+              v19 = v16 & 0xFFFFFFFFFFF83FFFLL | 0x20000;
+LABEL_51:
+              *a2 = v19;
+            }
+          }
+        }
+
+LABEL_52:
+        if ((*(a1 + 368) & 0x10) == 0)
+        {
+          return 0;
+        }
+
+        result = PPParserParseBranchCondition(a1, a2, 0);
+        if (!result)
+        {
+          return 0;
+        }
+
+        return result;
+      }
+
+      return 46;
+    }
+  }
+
+  else
   {
     if (*__s2 != 1970496882 || *&__s2[3] != 7629941)
     {
-      result = 25;
-      goto LABEL_31;
+      return 25;
     }
 
-    v25 = 0;
+    v24 = 0;
     PPParserReturnPart(a1);
-    result = PPParserParseOutputBinding(a1, 0, &v25, &v26);
-    if (result)
+    result = PPParserParseOutputBinding(a1, 0, &v24, &v25);
+    if (!result)
     {
-      goto LABEL_31;
+      v11 = *a2 & 0xFFFFFFFF8FFFLL | (v24 << 48) | 0x3000;
+      goto LABEL_25;
     }
-
-    v11 = *a2 & 0xFFFFFFFF8FFFLL | (v25 << 48) | 0x3000;
-LABEL_25:
-    *a2 = v11 & 0xFFFFFFFF80187001 | 0x72678000;
-    Part = PPParserGetPart(a1, __s2, 0);
-    if (Part)
-    {
-      if (Part == 1 && __s2[0] == 46)
-      {
-        result = PPParserParseDestinationMask(a1, a2);
-        if (result)
-        {
-          goto LABEL_31;
-        }
-      }
-
-      else
-      {
-        PPParserReturnPart(a1);
-      }
-
-      v16 = *(a1 + 368);
-      if ((v16 & 0x22) == 0)
-      {
-        goto LABEL_52;
-      }
-
-      v17 = *a2;
-      if ((*a2 & 0x7000) != 0x3000)
-      {
-        goto LABEL_52;
-      }
-
-      v18 = *(*(a1 + 136) + 8 * HIWORD(v17) + 8);
-      v19 = (v18 >> 8) & 0x1F;
-      if (v19 == 4)
-      {
-        if ((v16 & 2) != 0 && *(a1 + 381))
-        {
-          v20 = v17 & 0xFFFFFFFF9FFFLL | (((v18 >> 33) & 7) << 48);
-          goto LABEL_51;
-        }
-      }
-
-      else if (v19 == 10)
-      {
-        if ((v16 & 0x20) != 0)
-        {
-          v21 = vmovl_u16(vceq_s16(vdup_n_s16(v26 & 3), 0x3000200010000));
-          v22.i64[0] = v21.u32[0];
-          v22.i64[1] = v21.u32[1];
-          v23 = vshrq_n_s64(vshlq_n_s64(v22, 0x38uLL), 0x38uLL);
-          v22.i64[0] = v21.u32[2];
-          v22.i64[1] = v21.u32[3];
-          v24 = vorrq_s8(vandq_s8(v23, xmmword_23A3009F0), vandq_s8(vshrq_n_s64(vshlq_n_s64(v22, 0x38uLL), 0x38uLL), xmmword_23A3009E0));
-          v20 = *&vorr_s8(*v24.i8, *&vextq_s8(v24, v24, 8uLL)) | v17 & 0xFFFFFFFF80783FFFLL;
-          goto LABEL_51;
-        }
-      }
-
-      else if (v19 == 7 && (v16 & 2) != 0)
-      {
-        if ((v17 & 0x10000) != 0)
-        {
-          v20 = v17 & 0xFFFFFFFF807BBFFFLL | 0x55040000;
-          goto LABEL_51;
-        }
-
-        if ((v17 & 0x40000) != 0)
-        {
-          *a2 = v17 & 0xFFFFFFFFFFFABFFFLL;
-          if ((v17 & 0x28000) == 0)
-          {
-            v20 = v17 & 0xFFFFFFFFFFF83FFFLL | 0x20000;
-LABEL_51:
-            *a2 = v20;
-          }
-        }
-      }
-
-LABEL_52:
-      if ((*(a1 + 368) & 0x10) == 0 || (result = PPParserParseBranchCondition(a1, a2, 0), !result))
-      {
-        result = 0;
-      }
-
-      goto LABEL_31;
-    }
-
-LABEL_30:
-    result = 46;
-    goto LABEL_31;
   }
 
-  v7 = Identifier;
-  v25 = 0;
-  if ((a3 & 0xFFFFFFFC) == 0x5C && *(Identifier + 24) == 2)
-  {
-    result = 45;
-    goto LABEL_31;
-  }
-
-  if (!PPParserGetPart(a1, __s2, 0))
-  {
-    goto LABEL_30;
-  }
-
-  PPParserReturnPart(a1);
-  v9 = *(v7 + 20);
-  if (__s2[0] != 91)
-  {
-    if (*(v7 + 20))
-    {
-      result = 33;
-      goto LABEL_31;
-    }
-
-LABEL_21:
-    v12 = *a2 & 0xFFFFFFFFFFFFLL | ((v9 + *(v7 + 12)) << 48);
-    *a2 = v12;
-    v13 = *(v7 + 16);
-    if (v13 != 1)
-    {
-      if (v13 != 3)
-      {
-        result = 24;
-        goto LABEL_31;
-      }
-
-      v26 = *(v7 + 21);
-    }
-
-    v11 = v12 & 0xFFFFFFFFFFFF8FFFLL | ((v13 & 7) << 12);
-    goto LABEL_25;
-  }
-
-  if (!*(v7 + 20))
-  {
-    result = 32;
-    goto LABEL_31;
-  }
-
-  result = PPParserParseArray(a1, &v25);
-  if (!result)
-  {
-    v9 = v25;
-    if (v25 >= *(v7 + 8))
-    {
-      PPParserReturnPart(a1);
-      result = 35;
-      goto LABEL_31;
-    }
-
-    goto LABEL_21;
-  }
-
-LABEL_31:
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t PPParserParseSourceVar(uint64_t a1, unint64_t *a2, int a3, _DWORD *a4)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
+  v40 = *MEMORY[0x277D85DE8];
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  *__s2 = 0u;
+  v29 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  *__s2 = 0u;
+  v25 = 0u;
   Part = PPParserGetPart(a1, __s2, 1);
   if (!Part)
   {
-    goto LABEL_12;
+    return 46;
   }
 
   v9 = Part;
@@ -6837,92 +6617,73 @@ uint64_t PPParserParseSourceVar(uint64_t a1, unint64_t *a2, int a3, _DWORD *a4)
     {
       if (*__s2 ^ 0x746E656D67617266 | __s2[8])
       {
-LABEL_19:
-        if (__s2[0] != 123 && *__s2 != 0x6D6172676F7270 && (*__s2 != 1952543859 || *&__s2[4] != 101))
-        {
-          v24 = 0;
-          glp_strtod(__s2, &v24);
-          v15 = v24 == &__s2[v9];
-          *a4 = v15;
-          if (!v15)
-          {
-            result = 26;
-            goto LABEL_13;
-          }
-        }
-
-        LODWORD(v24) = 1;
-        *a2 = *a2 & 0xFFFFFFFFFE3FLL | (*(a1 + 344) << 48) | 0x80;
-        PPParserReturnPart(a1);
-        result = PPParserParseParamBinding(a1, 0, &v24);
-        if (result)
-        {
-          goto LABEL_13;
-        }
-
-        goto LABEL_38;
-      }
-    }
-
-    else
-    {
-      v15 = *__s2 == 1953654134 && *&__s2[3] == 7890292;
-      if (!v15)
-      {
         goto LABEL_19;
       }
     }
 
-    v23 = 0;
-    LODWORD(v24) = 0;
-    PPParserReturnPart(a1);
-    result = PPParserParseAttributeBinding(a1, &v24, &v23);
-    if (result)
+    else
     {
-      goto LABEL_13;
+      v14 = *__s2 == 1953654134 && *&__s2[3] == 7890292;
+      if (!v14)
+      {
+LABEL_19:
+        if (__s2[0] != 123 && *__s2 != 0x6D6172676F7270 && (*__s2 != 1952543859 || *&__s2[4] != 101))
+        {
+          v23 = 0;
+          glp_strtod(__s2, &v23);
+          v14 = v23 == &__s2[v9];
+          *a4 = v14;
+          if (!v14)
+          {
+            return 26;
+          }
+        }
+
+        LODWORD(v23) = 1;
+        *a2 = *a2 & 0xFFFFFFFFFE3FLL | (*(a1 + 344) << 48) | 0x80;
+        PPParserReturnPart(a1);
+        result = PPParserParseParamBinding(a1, 0, &v23);
+        if (!result)
+        {
+          goto LABEL_38;
+        }
+
+        return result;
+      }
     }
 
-    v17 = *a2 & 0xFFFFFFFFFE3FLL | (v23 << 48);
-    *a2 = v17;
-    if (v24 == -1)
+    v22 = 0;
+    LODWORD(v23) = 0;
+    PPParserReturnPart(a1);
+    result = PPParserParseAttributeBinding(a1, &v23, &v22);
+    if (result)
+    {
+      return result;
+    }
+
+    v16 = *a2 & 0xFFFFFFFFFE3FLL | (v22 << 48);
+    *a2 = v16;
+    if (v23 == -1)
     {
       goto LABEL_38;
     }
 
-    v18 = v17 | 0x40;
-    *a2 = v18;
-    v19 = v18 & 0xFFFFFFFFFE7FLL | (*(a1 + 372) << 48);
-LABEL_37:
-    *a2 = v19;
-LABEL_38:
-    result = 0;
-    if (*a4)
-    {
-      v22 = *a2 & 0xFFFFFFFFFFE601FFLL;
-    }
-
-    else
-    {
-      v22 = *a2 & 0xFFFFFFFFFFE601FFLL | 0x19C800;
-    }
-
-    *a2 = v22;
-    goto LABEL_13;
+    v17 = v16 | 0x40;
+    *a2 = v17;
+    v18 = v17 & 0xFFFFFFFFFE7FLL | (*(a1 + 372) << 48);
+    goto LABEL_37;
   }
 
   v11 = Identifier;
-  LODWORD(v24) = 0;
+  LODWORD(v23) = 0;
   if ((a3 & 0xFFFFFFFC) == 0x64 && *(Identifier + 24) == 2)
   {
-    result = 44;
-    goto LABEL_13;
+    return 44;
   }
 
   if (!PPParserGetPart(a1, __s2, 0))
   {
-LABEL_12:
-    result = 46;
-    goto LABEL_13;
+    return 46;
   }
 
   PPParserReturnPart(a1);
@@ -6931,163 +6692,166 @@ LABEL_12:
   {
     if (*(v11 + 20))
     {
-      result = 33;
-      goto LABEL_13;
-    }
-
-LABEL_35:
-    v20 = *a2 & 0xFFFFFFFFFFFFLL | ((v13 + *(v11 + 12)) << 48);
-    *a2 = v20;
-    v21 = *(v11 + 16);
-    if (v21 >= 3)
-    {
-      result = 23;
-      goto LABEL_13;
-    }
-
-    v19 = v20 & 0xFFFFFFFFFFFFFE3FLL | (v21 << 6);
-    goto LABEL_37;
-  }
-
-  if (!*(v11 + 20))
-  {
-    result = 32;
-    goto LABEL_13;
-  }
-
-  result = PPParserParseIndirectArray(a1, a2, &v24);
-  if (!result)
-  {
-    v13 = v24;
-    if (v24 >= *(v11 + 8))
-    {
-      PPParserReturnPart(a1);
-      result = 35;
-      goto LABEL_13;
+      return 33;
     }
 
     goto LABEL_35;
   }
 
-LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
+  if (!*(v11 + 20))
+  {
+    return 32;
+  }
+
+  result = PPParserParseIndirectArray(a1, a2, &v23);
+  if (!result)
+  {
+    v13 = v23;
+    if (v23 >= *(v11 + 8))
+    {
+      PPParserReturnPart(a1);
+      return 35;
+    }
+
+LABEL_35:
+    v19 = *a2 & 0xFFFFFFFFFFFFLL | ((v13 + *(v11 + 12)) << 48);
+    *a2 = v19;
+    v20 = *(v11 + 16);
+    if (v20 >= 3)
+    {
+      return 23;
+    }
+
+    v18 = v19 & 0xFFFFFFFFFFFFFE3FLL | (v20 << 6);
+LABEL_37:
+    *a2 = v18;
+LABEL_38:
+    result = 0;
+    if (*a4)
+    {
+      v21 = *a2 & 0xFFFFFFFFFFE601FFLL;
+    }
+
+    else
+    {
+      v21 = *a2 & 0xFFFFFFFFFFE601FFLL | 0x19C800;
+    }
+
+    *a2 = v21;
+  }
+
   return result;
 }
 
 uint64_t PPParserParseSwizzleSourceVar(uint64_t a1, unint64_t *a2, int a3, _DWORD *a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  memset(v11, 0, sizeof(v11));
-  if (!PPParserGetPart(a1, v11, 0))
+  v11 = *MEMORY[0x277D85DE8];
+  memset(v10, 0, sizeof(v10));
+  if (!PPParserGetPart(a1, v10, 0))
   {
-    goto LABEL_24;
+    return 46;
   }
 
-  if (LOWORD(v11[0]) == 45)
+  if (LOWORD(v10[0]) == 45)
   {
     *a2 |= 0x10uLL;
   }
 
-  else if (LOWORD(v11[0]) != 43)
+  else if (LOWORD(v10[0]) != 43)
   {
     PPParserReturnPart(a1);
   }
 
-  if ((*(a1 + 368) & 0x20) != 0)
+  if ((*(a1 + 368) & 0x20) == 0)
   {
-    if (!PPParserGetPart(a1, v11, 0))
-    {
-      goto LABEL_24;
-    }
-
-    if (LOWORD(v11[0]) == 124)
-    {
-      *a2 |= 0x20uLL;
-    }
-
-    else
-    {
-      PPParserReturnPart(a1);
-    }
+    goto LABEL_11;
   }
 
+  if (!PPParserGetPart(a1, v10, 0))
+  {
+    return 46;
+  }
+
+  if (LOWORD(v10[0]) == 124)
+  {
+    *a2 |= 0x20uLL;
+  }
+
+  else
+  {
+    PPParserReturnPart(a1);
+  }
+
+LABEL_11:
   result = PPParserParseSourceVar(a1, a2, a3, a4);
-  if (!result)
+  if (result)
   {
-    Part = PPParserGetPart(a1, v11, 0);
-    if (!Part)
-    {
-      goto LABEL_24;
-    }
-
-    if (Part != 1 || LOBYTE(v11[0]) != 46)
-    {
-      PPParserReturnPart(a1);
-      goto LABEL_18;
-    }
-
-    result = PPParserParseSourceSwizzle(a1, a2, a4);
-    if (!result)
-    {
-LABEL_18:
-      if ((*(a1 + 368) & 0x20) == 0 || (*a2 & 0x20) == 0)
-      {
-LABEL_20:
-        result = 0;
-        goto LABEL_25;
-      }
-
-      if (PPParserGetPart(a1, v11, 0))
-      {
-        if (LOWORD(v11[0]) != 124)
-        {
-          result = 23;
-          goto LABEL_25;
-        }
-
-        goto LABEL_20;
-      }
-
-LABEL_24:
-      result = 46;
-    }
+    return result;
   }
 
-LABEL_25:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t PPParserParseSwizzleCode(uint64_t a1, void *a2)
-{
-  v16 = *MEMORY[0x277D85DE8];
-  memset(v15, 0, sizeof(v15));
-  Part = PPParserGetPart(a1, v15, 0);
+  Part = PPParserGetPart(a1, v10, 0);
   if (!Part)
   {
-LABEL_67:
-    result = 46;
-    goto LABEL_73;
+    return 46;
+  }
+
+  if (Part == 1 && LOBYTE(v10[0]) == 46)
+  {
+    result = PPParserParseSourceSwizzle(a1, a2, a4);
+    if (result)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    PPParserReturnPart(a1);
+  }
+
+  if ((*(a1 + 368) & 0x20) == 0 || (*a2 & 0x20) == 0)
+  {
+    return 0;
+  }
+
+  if (!PPParserGetPart(a1, v10, 0))
+  {
+    return 46;
+  }
+
+  if (LOWORD(v10[0]) == 124)
+  {
+    return 0;
+  }
+
+  return 23;
+}
+
+uint64_t PPParserParseSwizzleCode(uint64_t a1, unint64_t *a2)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  memset(v14, 0, sizeof(v14));
+  Part = PPParserGetPart(a1, v14, 0);
+  if (!Part)
+  {
+    return 46;
   }
 
   v5 = 0;
-  v6 = 0;
-  while (1)
+  for (i = 0; ; ++i)
   {
     if (Part > 2)
     {
-LABEL_68:
-      result = 15;
-      goto LABEL_73;
+      return 15;
     }
 
-    v7 = LOBYTE(v15[0]);
-    if (LOBYTE(v15[0]) == 43)
+    v7 = LOBYTE(v14[0]);
+    if (LOBYTE(v14[0]) == 43)
     {
       break;
     }
 
-    if (LOBYTE(v15[0]) == 45)
+    if (LOBYTE(v14[0]) == 45)
     {
       v8 = 1;
       goto LABEL_8;
@@ -7095,7 +6859,7 @@ LABEL_68:
 
     if (Part == 2)
     {
-      goto LABEL_68;
+      return 15;
     }
 
     v8 = 0;
@@ -7111,7 +6875,7 @@ LABEL_14:
           {
             if (v7 != 120)
             {
-              goto LABEL_73;
+              return result;
             }
 
             v5 |= 1u;
@@ -7136,7 +6900,7 @@ LABEL_48:
 
       if (v7 != 119)
       {
-        goto LABEL_73;
+        return result;
       }
 
       v5 |= 1u;
@@ -7151,7 +6915,7 @@ LABEL_48:
         {
           if (v7 != 103)
           {
-            goto LABEL_73;
+            return result;
           }
 
           v5 |= 2u;
@@ -7208,7 +6972,7 @@ LABEL_39:
     {
       if (v7 != 49)
       {
-        goto LABEL_73;
+        return result;
       }
 
       if (v8)
@@ -7227,22 +6991,20 @@ LABEL_49:
     {
       if ((*(a1 + 368) & 2) == 0)
       {
-LABEL_69:
-        result = 13;
-        goto LABEL_73;
+        return 13;
       }
     }
 
     else if (v5 == 3)
     {
-      goto LABEL_69;
+      return 13;
     }
 
-    if (v6 <= 1)
+    if (i <= 1)
     {
-      if (v6)
+      if (i)
       {
-        if (v6 != 1)
+        if (i != 1)
         {
           goto LABEL_61;
         }
@@ -7260,7 +7022,7 @@ LABEL_69:
       goto LABEL_60;
     }
 
-    if (v6 == 2)
+    if (i == 2)
     {
       v12 = -251658241;
       v13 = 24;
@@ -7269,29 +7031,28 @@ LABEL_60:
       goto LABEL_61;
     }
 
-    if (v6 == 3)
+    if (i == 3)
     {
       result = 0;
       *a2 = *a2 & 0xFFFFFFFF0FFFFFFFLL | (v11 << 28);
-      goto LABEL_73;
+      return result;
     }
 
 LABEL_61:
-    if (!PPParserGetPart(a1, v15, 0))
+    if (!PPParserGetPart(a1, v14, 0))
     {
-      goto LABEL_67;
+      return 46;
     }
 
-    if (LOBYTE(v15[0]) != 44)
+    if (LOBYTE(v14[0]) != 44)
     {
-      goto LABEL_68;
+      return 15;
     }
 
-    ++v6;
-    Part = PPParserGetPart(a1, v15, 0);
+    Part = PPParserGetPart(a1, v14, 0);
     if (!Part)
     {
-      goto LABEL_67;
+      return 46;
     }
   }
 
@@ -7299,123 +7060,114 @@ LABEL_61:
 LABEL_8:
   if (Part == 2)
   {
-    v7 = BYTE1(v15[0]);
-    LOBYTE(v15[0]) = BYTE1(v15[0]);
+    v7 = BYTE1(v14[0]);
+    LOBYTE(v14[0]) = BYTE1(v14[0]);
     goto LABEL_14;
   }
 
-  v9 = PPParserGetPart(a1, v15, 0);
+  v9 = PPParserGetPart(a1, v14, 0);
   if (v9 == 1)
   {
-    v7 = LOBYTE(v15[0]);
+    v7 = LOBYTE(v14[0]);
     goto LABEL_14;
   }
 
   if (v9)
   {
-    result = 15;
+    return 15;
   }
 
   else
   {
-    result = 46;
+    return 46;
   }
-
-LABEL_73:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t PPParserParseTextureSourceVar(uint64_t a1, unint64_t *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  memset(v17, 0, sizeof(v17));
-  if (!PPParserGetPart(a1, v17, 0))
+  v17 = *MEMORY[0x277D85DE8];
+  memset(v16, 0, sizeof(v16));
+  if (!PPParserGetPart(a1, v16, 0))
   {
-    goto LABEL_27;
+    return 46;
   }
 
-  if (*&v17[0] != 0x65727574786574)
+  if (*&v16[0] != 0x65727574786574)
   {
-LABEL_3:
-    result = 14;
-    goto LABEL_28;
+    return 14;
   }
 
-  if (!PPParserGetPart(a1, v17, 0))
+  if (!PPParserGetPart(a1, v16, 0))
   {
-    goto LABEL_27;
+    return 46;
   }
 
-  v5 = LOBYTE(v17[0]);
-  if (LOBYTE(v17[0]) == 91)
+  v5 = LOBYTE(v16[0]);
+  if (LOBYTE(v16[0]) == 91)
   {
-    v16 = 0;
+    v15 = 0;
     PPParserReturnPart(a1);
-    result = PPParserParseArray(a1, &v16);
+    result = PPParserParseArray(a1, &v15);
     if (result)
     {
-      goto LABEL_28;
+      return result;
     }
 
-    v6 = v16;
+    v6 = v15;
     result = 57;
-    if (v16 > 15 || v16 >= *(a1 + 292))
+    if (v15 > 15 || v15 >= *(a1 + 292))
     {
-      goto LABEL_28;
+      return result;
     }
 
-    if (PPParserGetPart(a1, v17, 0))
+    if (PPParserGetPart(a1, v16, 0))
     {
-      v5 = LOBYTE(v17[0]);
+      v5 = LOBYTE(v16[0]);
       goto LABEL_12;
     }
 
-LABEL_27:
-    result = 46;
-    goto LABEL_28;
+    return 46;
   }
 
   v6 = 0;
 LABEL_12:
   if (v5 != 44)
   {
-    result = 31;
-    goto LABEL_28;
+    return 31;
   }
 
-  if (!PPParserGetPart(a1, v17, 0))
+  if (!PPParserGetPart(a1, v16, 0))
   {
-    goto LABEL_27;
+    return 46;
   }
 
   v7 = *(a1 + 16);
-  if (LODWORD(v17[0]) ^ 0x45425543 | BYTE4(v17[0]))
+  if (LODWORD(v16[0]) ^ 0x45425543 | BYTE4(v16[0]))
   {
-    if (LOWORD(v17[0]) ^ 0x4433 | BYTE2(v17[0]))
+    if (LOWORD(v16[0]) ^ 0x4433 | BYTE2(v16[0]))
     {
-      if (LODWORD(v17[0]) ^ 0x54434552 | BYTE4(v17[0]))
+      if (LODWORD(v16[0]) ^ 0x54434552 | BYTE4(v16[0]))
       {
-        if (LOWORD(v17[0]) ^ 0x4432 | BYTE2(v17[0]))
+        if (LOWORD(v16[0]) ^ 0x4432 | BYTE2(v16[0]))
         {
-          if (LOWORD(v17[0]) ^ 0x4431 | BYTE2(v17[0]))
+          if (LOWORD(v16[0]) ^ 0x4431 | BYTE2(v16[0]))
           {
             if (!*(a1 + 384))
             {
-              goto LABEL_3;
+              return 14;
             }
 
-            if (*&v17[0] == 0x4552574F44414853 && *(v17 + 3) == 0x54434552574F44)
+            if (*&v16[0] == 0x4552574F44414853 && *(v16 + 3) == 0x54434552574F44)
             {
               v9 = 5;
               v10 = 2;
             }
 
-            else if (*&v17[0] ^ 0x4432574F44414853 | BYTE8(v17[0]))
+            else if (*&v16[0] ^ 0x4432574F44414853 | BYTE8(v16[0]))
             {
-              if (*&v17[0] ^ 0x4431574F44414853 | BYTE8(v17[0]))
+              if (*&v16[0] ^ 0x4431574F44414853 | BYTE8(v16[0]))
               {
-                goto LABEL_3;
+                return 14;
               }
 
               v9 = 7;
@@ -7462,91 +7214,75 @@ LABEL_12:
   }
 
 LABEL_36:
-  v12 = 4 * v6;
-  v13 = (v7 >> (4 * v6)) & 0xF;
-  if (v13 == 15)
+  v11 = 4 * v6;
+  v12 = (v7 >> (4 * v6)) & 0xF;
+  if (v12 == 15)
   {
-    v14 = v7 & ~(15 << v12);
-    v15 = v9;
-    *(a1 + 8) = *(a1 + 8) & ~(15 << v12) | (v10 << v12);
-    *(a1 + 16) = (v9 << v12) | v14;
+    v13 = v7 & ~(15 << v11);
+    v14 = v9;
+    *(a1 + 8) = *(a1 + 8) & ~(15 << v11) | (v10 << v11);
+    *(a1 + 16) = (v9 << v11) | v13;
+LABEL_40:
+    result = 0;
+    *a2 = *a2 & 0xFFFFFF80FFFFFFE0 | v14 | ((v6 & 0x7F) << 32);
+    return result;
   }
 
-  else
+  if (v12 == v9)
   {
-    if (v13 != v9)
-    {
-      result = 40;
-      goto LABEL_28;
-    }
-
-    v15 = v9;
+    v14 = v9;
+    goto LABEL_40;
   }
 
-  result = 0;
-  *a2 = *a2 & 0xFFFFFF80FFFFFFE0 | v15 | ((v6 & 0x7F) << 32);
-LABEL_28:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return 40;
 }
 
 uint64_t PPParserParseAddressSourceVar(uint64_t a1, unint64_t *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(v8, 0, sizeof(v8));
-  if (PPParserGetPart(a1, v8, 0))
+  v8 = *MEMORY[0x277D85DE8];
+  memset(v7, 0, sizeof(v7));
+  if (!PPParserGetPart(a1, v7, 0))
   {
-    Identifier = PPParserScopeFindIdentifier(*(a1 + 32), v8);
-    if (Identifier)
-    {
-      v5 = Identifier;
-      if (*(Identifier + 16) == -1)
-      {
-        result = 0;
-        *a2 = *a2 & 0xFFFFFFFFFE3FLL | (*(v5 + 12) << 48) | 0x100;
-      }
-
-      else
-      {
-        result = 22;
-      }
-    }
-
-    else
-    {
-      result = 26;
-    }
+    return 46;
   }
 
-  else
+  Identifier = PPParserScopeFindIdentifier(*(a1 + 32), v7);
+  if (!Identifier)
   {
-    result = 46;
+    return 26;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  v5 = Identifier;
+  if (*(Identifier + 16) != -1)
+  {
+    return 22;
+  }
+
+  result = 0;
+  *a2 = *a2 & 0xFFFFFFFFFE3FLL | (*(v5 + 12) << 48) | 0x100;
   return result;
 }
 
 uint64_t PPParserParseOperation(uint64_t a1, int a2, int a3, char a4, char a5, char a6)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v38 = 0u;
-  v39 = 0;
+  v41 = *MEMORY[0x277D85DE8];
   v37 = 0u;
+  v38 = 0;
   v36 = 0u;
   v35 = 0u;
+  v34 = 0u;
   v9 = *(a1 + 332);
-  HIDWORD(v38) = v9;
+  HIDWORD(v37) = v9;
   if ((*(a1 + 379) & 1) == 0)
   {
-    HIDWORD(v38) = *(a1 + 324) + v9;
+    HIDWORD(v37) = *(a1 + 324) + v9;
   }
 
   Part = 0;
-  memset(v41, 0, 256);
-  memset(v40, 0, sizeof(v40));
+  memset(v40, 0, 256);
+  memset(v39, 0, sizeof(v39));
   v11 = (a2 << 6) | ((a4 & 1) << 41) | ((a6 & 1) << 42) | ((a5 & 1) << 43);
-  v34 = v11;
+  v33 = v11;
   v12 = 1;
   v13 = a2;
   v14 = 0;
@@ -7699,20 +7435,20 @@ LABEL_9:
     case 73:
     case 74:
 LABEL_102:
-      v34 = v11 | ((a3 & 7) << 19) | 0x100000000;
-      result = PPParserParseAddressDestination(a1, &v35);
+      v33 = v11 | ((a3 & 7) << 19) | 0x100000000;
+      result = PPParserParseAddressDestination(a1, &v34);
       v14 = 1;
       goto LABEL_11;
     case 75:
     case 76:
-      Part = PPParserGetPart(a1, v40, 0);
+      Part = PPParserGetPart(a1, v39, 0);
       v13 = a2;
       if (Part)
       {
         goto LABEL_32;
       }
 
-      goto LABEL_94;
+      return 46;
     case 77:
     case 84:
     case 85:
@@ -7724,10 +7460,10 @@ LABEL_102:
         goto LABEL_20;
       }
 
-      v28 = PPParserGetPart(a1, v41, 0);
+      v28 = PPParserGetPart(a1, v40, 0);
       if (!v28)
       {
-        goto LABEL_94;
+        return 46;
       }
 
       v29 = v28;
@@ -7739,7 +7475,7 @@ LABEL_20:
         goto LABEL_34;
       }
 
-      if (*v41 == 21076 || *v41 == 20805 || *v41 == 17735 || *v41 == 21575 || *v41 == 17740 || *v41 == 21580 || *v41 == 17742)
+      if (*v40 == 21076 || *v40 == 20805 || *v40 == 17735 || *v40 == 21575 || *v40 == 17740 || *v40 == 21580 || *v40 == 17742)
       {
         Part = 0;
       }
@@ -7747,7 +7483,7 @@ LABEL_20:
       else
       {
         Part = 0;
-        if (*v41 != 19526)
+        if (*v40 != 19526)
         {
           goto LABEL_34;
         }
@@ -7755,16 +7491,16 @@ LABEL_20:
 
       v13 = 79;
 LABEL_32:
-      result = PPParserParseBranchCondition(a1, &v35, v13);
+      result = PPParserParseBranchCondition(a1, &v34, v13);
       if (result)
       {
-        goto LABEL_95;
+        return result;
       }
 
       v12 = 0;
-      v11 = v34;
+      v11 = v33;
 LABEL_34:
-      v34 = v11 & 0xFFFFFFCEFFC7FFFFLL | ((a3 & 7) << 19) | 0x3000000000;
+      v33 = v11 & 0xFFFFFFCEFFC7FFFFLL | ((a3 & 7) << 19) | 0x3000000000;
       if ((v12 & 1) == 0)
       {
         goto LABEL_71;
@@ -7794,19 +7530,19 @@ LABEL_5:
       v14 = 0;
       v15 = 0;
 LABEL_10:
-      v34 = v11 | ((a3 & 7) << 19) | 0x100000000;
-      result = PPParserParseDestination(a1, &v35, a2);
+      v33 = v11 | ((a3 & 7) << 19) | 0x100000000;
+      result = PPParserParseDestination(a1, &v34, a2);
       v12 = v15;
 LABEL_11:
       v17 = Part;
       if (result)
       {
-        goto LABEL_95;
+        return result;
       }
 
       if (!Part)
       {
-        v34 |= 0x3000000000uLL;
+        v33 |= 0x3000000000uLL;
         if (v14)
         {
           Part = 0;
@@ -7840,22 +7576,21 @@ LABEL_36:
       }
 
       v22 = 8 * v21;
-      v31 = a2 - 74;
-      v32 = a2 - 66;
+      v30 = a2 - 74;
+      v31 = a2 - 66;
       do
       {
-        v33 = 0;
+        v32 = 0;
         if ((v18 & 1) == 0)
         {
-          if (!PPParserGetPart(a1, v41, 0))
+          if (!PPParserGetPart(a1, v40, 0))
           {
-            goto LABEL_94;
+            return 46;
           }
 
-          if (v41[0] != 44)
+          if (v40[0] != 44)
           {
-            result = 31;
-            goto LABEL_95;
+            return 31;
           }
         }
 
@@ -7863,20 +7598,20 @@ LABEL_36:
         {
           if (v20)
           {
-            v34 |= 0x10000uLL;
-            result = PPParserParseSwizzleCode(a1, &v36);
+            v33 |= 0x10000uLL;
+            result = PPParserParseSwizzleCode(a1, &v35);
             if (result)
             {
-              goto LABEL_95;
+              return result;
             }
           }
 
           else
           {
-            result = PPParserParseSourceVar(a1, &v35 + 1, 65, &v33);
+            result = PPParserParseSourceVar(a1, &v34 + 1, 65, &v32);
             if (result)
             {
-              goto LABEL_95;
+              return result;
             }
           }
 
@@ -7885,28 +7620,28 @@ LABEL_36:
 
         if (a2 == 98 && v20 == 24)
         {
-          v34 |= 0x8000uLL;
-          v23 = &v37;
+          v33 |= 0x8000uLL;
+          v23 = &v36;
           goto LABEL_50;
         }
 
         if (v20 == 8)
         {
-          if (v32 > 0x1F)
+          if (v31 > 0x1F)
           {
             goto LABEL_64;
           }
 
-          v24 = 1 << v32;
-          if (((1 << v32) & 0x17) != 0)
+          v24 = 1 << v31;
+          if (((1 << v31) & 0x17) != 0)
           {
-            v34 |= 0x8000uLL;
-            v23 = &v36;
+            v33 |= 0x8000uLL;
+            v23 = &v35;
 LABEL_50:
             result = PPParserParseTextureSourceVar(a1, v23);
             if (result)
             {
-              goto LABEL_95;
+              return result;
             }
 
             goto LABEL_65;
@@ -7917,45 +7652,44 @@ LABEL_50:
 
         else
         {
-          if (v31 > 0x17)
+          if (v30 > 0x17)
           {
             goto LABEL_64;
           }
 
-          v24 = 1 << v31;
+          v24 = 1 << v30;
           v25 = 12582913;
         }
 
         if ((v24 & v25) != 0)
         {
-          result = PPParserParseAddressSourceVar(a1, &v35 + 1);
+          result = PPParserParseAddressSourceVar(a1, &v34 + 1);
           if (result)
           {
-            goto LABEL_95;
+            return result;
           }
 
           goto LABEL_65;
         }
 
 LABEL_64:
-        result = PPParserParseSwizzleSourceVar(a1, (&v35 + v20 + 8), a2, &v33);
+        result = PPParserParseSwizzleSourceVar(a1, (&v34 + v20 + 8), a2, &v32);
         if (result)
         {
-          goto LABEL_95;
+          return result;
         }
 
 LABEL_65:
-        if (!v33)
+        if (!v32)
         {
           if (v17 == 2)
           {
-            v34 |= 0x3000000000uLL;
+            v33 |= 0x3000000000uLL;
           }
 
           else if (v17 == 1)
           {
-            result = 20;
-            goto LABEL_95;
+            return 20;
           }
         }
 
@@ -7964,77 +7698,62 @@ LABEL_65:
 
       while (v22 != v20);
 LABEL_71:
-      if (!PPParserGetPart(a1, v41, 0))
+      if (!PPParserGetPart(a1, v40, 0))
       {
-LABEL_94:
-        result = 46;
-        goto LABEL_95;
+        return 46;
       }
 
-      if (v41[0] == 59)
+      if (v40[0] != 59)
       {
-        if (*(a1 + 120) >= *(a1 + 268))
-        {
-          result = 51;
-        }
-
-        else
-        {
-          v26 = v34 & 0xFFFFFFFFFFFFFFF8 | v12;
-          v34 = v26;
-          LODWORD(v39) = Part;
-          if (*(a1 + 378) == 1)
-          {
-            v34 = v26 | 0x4000;
-            *(a1 + 378) = 2;
-          }
-
-          (*(a1 + 168))(a1, &v34, v40);
-          result = 0;
-        }
+        return 30;
       }
 
-      else
+      if (*(a1 + 120) >= *(a1 + 268))
       {
-        result = 30;
+        return 51;
       }
 
-LABEL_95:
-      v30 = *MEMORY[0x277D85DE8];
-      return result;
+      v26 = v33 & 0xFFFFFFFFFFFFFFF8 | v12;
+      v33 = v26;
+      LODWORD(v38) = Part;
+      if (*(a1 + 378) == 1)
+      {
+        v33 = v26 | 0x4000;
+        *(a1 + 378) = 2;
+      }
+
+      (*(a1 + 168))(a1, &v33, v39);
+      return 0;
   }
 }
 
 uint64_t PPParserParseMacroDeclaration(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  memset(v18, 0, sizeof(v18));
-  if (PPParserGetPart(a1, v18, 0))
+  v18 = *MEMORY[0x277D85DE8];
+  memset(v17, 0, sizeof(v17));
+  if (!PPParserGetPart(a1, v17, 0))
   {
-    if (LOBYTE(v18[0]) != 123)
-    {
-LABEL_33:
-      result = 10;
-      goto LABEL_34;
-    }
+    return 46;
+  }
 
-    Part = PPParserGetPart(a1, v18, 0);
+  if (LOBYTE(v17[0]) == 123)
+  {
+    Part = PPParserGetPart(a1, v17, 0);
     if (Part)
     {
       v3 = Part;
       v4 = PPParserMacroCreate();
-      PPParserMacroSetSearchString(v4, v4, v18, v3);
+      PPParserMacroSetSearchString(v4, v4, v17, v3);
       LODWORD(v5) = 0;
       v6 = a1[40];
-      while (PPParserGetPart(a1, v18, 0) && PPParserGetPart(a1, v18, 0))
+      while (PPParserGetPart(a1, v17, 0) && PPParserGetPart(a1, v17, 0))
       {
         v5 = (v5 + 1);
-        if (LOBYTE(v18[0]) != 44)
+        if (LOBYTE(v17[0]) != 44)
         {
-          if (LOBYTE(v18[0]) != 125)
+          if (LOBYTE(v17[0]) != 125)
           {
-            result = 31;
-            goto LABEL_34;
+            return 31;
           }
 
           PPParserMacroSetParamStringsCount(v4, v5);
@@ -8044,11 +7763,11 @@ LABEL_33:
             v7 = 0;
             do
             {
-              PPParserGetPart(a1, v18, 0);
-              PPParserMacroSetParamString(v4, v7, v18);
+              PPParserGetPart(a1, v17, 0);
+              PPParserMacroSetParamString(v4, v7, v17);
               if (v5 - 1 != v7)
               {
-                PPParserGetPart(a1, v18, 0);
+                PPParserGetPart(a1, v17, 0);
               }
 
               ++v7;
@@ -8057,32 +7776,32 @@ LABEL_33:
             while (v5 != v7);
           }
 
-          if (PPParserGetPart(a1, v18, 0))
+          if (PPParserGetPart(a1, v17, 0))
           {
-            if (LOBYTE(v18[0]) != 125)
+            if (LOBYTE(v17[0]) != 125)
             {
-              goto LABEL_33;
+              return 10;
             }
 
-            if (PPParserGetPart(a1, v18, 0))
+            if (PPParserGetPart(a1, v17, 0))
             {
-              if (LOBYTE(v18[0]) != 61)
+              if (LOBYTE(v17[0]) != 61)
               {
-                goto LABEL_33;
+                return 10;
               }
 
-              if (PPParserGetPart(a1, v18, 0))
+              if (PPParserGetPart(a1, v17, 0))
               {
-                if (LOBYTE(v18[0]) != 123)
+                if (LOBYTE(v17[0]) != 123)
                 {
-                  goto LABEL_33;
+                  return 10;
                 }
 
                 v4[4] = a1[40];
                 v8 = *(a1 + 80);
-                while (PPParserGetPart(a1, v18, 0))
+                while (PPParserGetPart(a1, v17, 0))
                 {
-                  if (LOBYTE(v18[0]) == 125)
+                  if (LOBYTE(v17[0]) == 125)
                   {
                     v9 = *(a1 + 80) - v8;
                     v10 = (v9 - 2);
@@ -8096,105 +7815,95 @@ LABEL_33:
                     }
 
                     v4[1] = v11;
-                    if (PPParserGetPart(a1, v18, 0))
+                    if (PPParserGetPart(a1, v17, 0))
                     {
-                      if (LOBYTE(v18[0]) == 59)
+                      if (LOBYTE(v17[0]) != 59)
                       {
-                        v13 = a1[4];
-                        v15 = *(v13 + 16);
-                        v14 = *(v13 + 24);
-                        if (!v15)
-                        {
-                          v15 = v4;
-                        }
-
-                        *(v13 + 16) = v15;
-                        if (v14)
-                        {
-                          v14[6] = v4;
-                          v4[5] = v14;
-                        }
-
-                        result = 0;
-                        *(v13 + 24) = v4;
+                        return 30;
                       }
 
-                      else
+                      v13 = a1[4];
+                      v15 = *(v13 + 16);
+                      v14 = *(v13 + 24);
+                      if (!v15)
                       {
-                        result = 30;
+                        v15 = v4;
                       }
 
-                      goto LABEL_34;
+                      *(v13 + 16) = v15;
+                      if (v14)
+                      {
+                        v14[6] = v4;
+                        v4[5] = v14;
+                      }
+
+                      result = 0;
+                      *(v13 + 24) = v4;
+                      return result;
                     }
 
-                    goto LABEL_32;
+                    return 46;
                   }
                 }
               }
             }
           }
 
-          break;
+          return 46;
         }
       }
     }
+
+    return 46;
   }
 
-LABEL_32:
-  result = 46;
-LABEL_34:
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return 10;
 }
 
 uint64_t PPParserParseAliasDeclaration(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  memset(v21, 0, sizeof(v21));
-  Part = PPParserGetPart(a1, v21, 0);
+  v21 = *MEMORY[0x277D85DE8];
+  memset(v20, 0, sizeof(v20));
+  Part = PPParserGetPart(a1, v20, 0);
   if (!Part)
   {
-    goto LABEL_8;
+    return 46;
   }
 
   v3 = Part;
   v4 = PPParserMacroCreate();
-  PPParserMacroSetSearchString(v4, v4, v21, v3);
-  if (!PPParserGetPart(a1, v21, 0))
+  PPParserMacroSetSearchString(v4, v4, v20, v3);
+  if (!PPParserGetPart(a1, v20, 0))
   {
-    goto LABEL_8;
+    return 46;
   }
 
-  if (LOBYTE(v21[0]) != 61)
+  if (LOBYTE(v20[0]) != 61)
   {
-LABEL_16:
-    result = 10;
-    goto LABEL_17;
+    return 10;
   }
 
   v5 = *(a1 + 320);
-  v6 = PPParserGetPart(a1, v21, 0);
+  v6 = PPParserGetPart(a1, v20, 0);
   if (!v6)
   {
-LABEL_8:
-    result = 46;
-    goto LABEL_17;
+    return 46;
   }
 
   v7 = 0;
-  while (LOBYTE(v21[0]) != 59)
+  while (LOBYTE(v20[0]) != 59)
   {
     v7 += v6 + 1;
-    v6 = PPParserGetPart(a1, v21, 0);
+    v6 = PPParserGetPart(a1, v20, 0);
     if (!v6)
     {
-      goto LABEL_8;
+      return 46;
     }
   }
 
   if (!v7)
   {
-    goto LABEL_16;
+    return 10;
   }
 
   *(a1 + 320) = v5;
@@ -8208,7 +7917,7 @@ LABEL_8:
   v11 = PPParserGetPart(a1, v9, 0);
   if (!v11)
   {
-    goto LABEL_8;
+    return 46;
   }
 
   v12 = v11;
@@ -8224,56 +7933,53 @@ LABEL_8:
     result = 46;
     if (!v12)
     {
-      goto LABEL_17;
+      return result;
     }
   }
 
   *v14 = 0;
-  v17 = v4[1];
-  if (v17)
+  v16 = v4[1];
+  if (v16)
   {
-    free(v17);
+    free(v16);
   }
 
   v4[1] = v10;
-  v18 = *(a1 + 32);
-  v20 = *(v18 + 16);
-  v19 = *(v18 + 24);
-  if (!v20)
+  v17 = *(a1 + 32);
+  v19 = *(v17 + 16);
+  v18 = *(v17 + 24);
+  if (!v19)
   {
-    v20 = v4;
+    v19 = v4;
   }
 
-  *(v18 + 16) = v20;
-  if (v19)
+  *(v17 + 16) = v19;
+  if (v18)
   {
-    v19[6] = v4;
-    v4[5] = v19;
+    v18[6] = v4;
+    v4[5] = v18;
   }
 
   result = 0;
-  *(v18 + 24) = v4;
-LABEL_17:
-  v16 = *MEMORY[0x277D85DE8];
+  *(v17 + 24) = v4;
   return result;
 }
 
 uint64_t PPParserExpandMacro(uint64_t a1, uint64_t a2)
 {
   v4 = 0;
-  v32 = *MEMORY[0x277D85DE8];
-  memset(v31, 0, sizeof(v31));
+  v31 = *MEMORY[0x277D85DE8];
+  memset(v30, 0, sizeof(v30));
   v5 = *(a1 + 320);
   do
   {
     v6 = v4;
-    if (!PPParserGetPart(a1, v31, 0))
+    if (!PPParserGetPart(a1, v30, 0))
     {
-      result = 46;
-      goto LABEL_35;
+      return 46;
     }
 
-    if (LOBYTE(v31[0]) == 44)
+    if (LOBYTE(v30[0]) == 44)
     {
       v4 = v6 + 1;
     }
@@ -8284,160 +7990,153 @@ uint64_t PPParserExpandMacro(uint64_t a1, uint64_t a2)
     }
   }
 
-  while (LOBYTE(v31[0]) != 59);
+  while (LOBYTE(v30[0]) != 59);
   v7 = (v6 + 1);
-  if (v7 == *(a2 + 16))
+  if (v7 != *(a2 + 16))
   {
-    v8 = malloc_type_calloc(8uLL, v7, 0x1116B6A2uLL);
-    if (!v8)
-    {
-      goto LABEL_36;
-    }
+    return 38;
+  }
 
-    v10 = v8;
-    *(a1 + 320) = v5;
-    if (v7)
+  v8 = malloc_type_calloc(8uLL, v7, 0x1116B6A2uLL);
+  if (!v8)
+  {
+    goto LABEL_35;
+  }
+
+  v10 = v8;
+  *(a1 + 320) = v5;
+  if (v7)
+  {
+    v11 = 0;
+    while (1)
     {
-      v11 = 0;
-      while (1)
+      v12 = malloc_type_calloc(0x100uLL, 1uLL, 0x1116B6A2uLL);
+      if (!v12)
       {
-        v12 = malloc_type_calloc(0x100uLL, 1uLL, 0x1116B6A2uLL);
-        if (!v12)
-        {
-          break;
-        }
+        break;
+      }
 
-        v10[v11] = v12;
-        PPParserGetPart(a1, v31, 0);
-        if (LOBYTE(v31[0]) != 44 && LOBYTE(v31[0]) != 59)
+      v10[v11] = v12;
+      PPParserGetPart(a1, v30, 0);
+      if (LOBYTE(v30[0]) != 44 && LOBYTE(v30[0]) != 59)
+      {
+        while (1)
         {
-          while (1)
+          strcat(v10[v11], v30);
+          PPParserGetPart(a1, v30, 0);
+          if (LOBYTE(v30[0]) == 44 || LOBYTE(v30[0]) == 59)
           {
-            strcat(v10[v11], v31);
-            PPParserGetPart(a1, v31, 0);
-            if (LOBYTE(v31[0]) == 44 || LOBYTE(v31[0]) == 59)
-            {
-              break;
-            }
-
-            *&v10[v11][strlen(v10[v11])] = 32;
+            break;
           }
-        }
 
-        if (++v11 == v7)
-        {
-          goto LABEL_19;
+          *&v10[v11][strlen(v10[v11])] = 32;
         }
       }
 
-LABEL_36:
-      abort();
+      if (++v11 == v7)
+      {
+        goto LABEL_19;
+      }
     }
+
+LABEL_35:
+    abort();
+  }
 
 LABEL_19:
-    ReplaceString = PPParserMacroGetReplaceString(a2, v9, v10, 0);
-    v14 = malloc_type_malloc((ReplaceString + 1), 0x75808E6AuLL);
-    if (!v14)
+  ReplaceString = PPParserMacroGetReplaceString(a2, v9, v10, 0);
+  v14 = malloc_type_malloc((ReplaceString + 1), 0x75808E6AuLL);
+  if (!v14)
+  {
+    goto LABEL_35;
+  }
+
+  v16 = v14;
+  PPParserMacroGetReplaceString(a2, v15, v10, v14);
+  if (v7)
+  {
+    v17 = v10;
+    do
     {
-      goto LABEL_36;
+      v18 = *v17++;
+      free(v18);
+      --v7;
     }
 
-    v16 = v14;
-    PPParserMacroGetReplaceString(a2, v15, v10, v14);
-    if (v7)
-    {
-      v17 = v10;
-      do
-      {
-        v18 = *v17++;
-        free(v18);
-        --v7;
-      }
+    while (v7);
+  }
 
-      while (v7);
-    }
+  free(v10);
+  v19 = PPParserCreate(*(a1 + 368));
+  v20 = *(a1 + 304);
+  v22 = *(a1 + 256);
+  v21 = *(a1 + 272);
+  *(v19 + 18) = *(a1 + 288);
+  *(v19 + 19) = v20;
+  *(v19 + 16) = v22;
+  *(v19 + 17) = v21;
+  PPParserInherit(v19, a1);
+  v23 = PPParserScopeCreateFromScope(*(a1 + 32));
+  v25 = *(v19 + 3);
+  v24 = *(v19 + 4);
+  if (!v25)
+  {
+    v25 = v23;
+  }
 
-    free(v10);
-    v19 = PPParserCreate(*(a1 + 368));
-    v20 = *(a1 + 304);
-    v22 = *(a1 + 256);
-    v21 = *(a1 + 272);
-    *(v19 + 18) = *(a1 + 288);
-    *(v19 + 19) = v20;
-    *(v19 + 16) = v22;
-    *(v19 + 17) = v21;
-    PPParserInherit(v19, a1);
-    v23 = PPParserScopeCreateFromScope(*(a1 + 32));
-    v25 = *(v19 + 3);
-    v24 = *(v19 + 4);
-    if (!v25)
-    {
-      v25 = v23;
-    }
+  *(v19 + 3) = v25;
+  if (v24)
+  {
+    *(v24 + 48) = v23;
+    v23[5] = v24;
+  }
 
-    *(v19 + 3) = v25;
-    if (v24)
-    {
-      *(v24 + 48) = v23;
-      v23[5] = v24;
-    }
-
-    *(v19 + 4) = v23;
-    PPParserAttachString(v19, v16, 0);
-    if (*(a1 + 80))
-    {
-      v26 = *(a1 + 72);
-      *(v19 + 14) = *(a1 + 56);
-      *(v19 + 9) = v26;
-      v19[20] = 1;
-      *(v19 + 20) = llvmir_PPStreamSetTarget;
-      *(v19 + 21) = llvmir_PPStreamAddOperation;
-      *(v19 + 22) = llvmir_PPStreamAddTempUsage;
-      *(v19 + 23) = llvmir_PPStreamAddAddressUsage;
-      *(v19 + 24) = llvmir_PPStreamAddParamBinding;
-      *(v19 + 25) = llvmir_PPStreamAddParamBindingArray;
-      *(v19 + 26) = llvmir_PPStreamAddAttribBinding;
-      *(v19 + 27) = llvmir_PPStreamAddOutputBinding;
-      *(v19 + 28) = llvmir_PPStreamAddOption;
-      *(v19 + 29) = llvmir_PPStreamAddConstant;
-      *(v19 + 30) = llvmir_PPStreamAddLabel;
-      *(v19 + 31) = llvmir_PPStreamResolveBranches;
-    }
-
-    else
-    {
-      PPParserAttachStream(v19, *(a1 + 40));
-    }
-
-    *(v19 + 41) = *(a1 + 320);
-    *(v19 + 379) |= 3u;
-    v28 = PPParserParse(v19);
-    if (v28)
-    {
-      PPParserBuildErrorString(v19, v28, *a2);
-      v29 = strlen(v19 + 392);
-      memmove((a1 + 392), v19 + 98, v29);
-      PPParserFree(v19);
-      result = 2;
-    }
-
-    else
-    {
-      PPParserInherit(a1, v19);
-      PPParserFree(v19);
-      free(v16);
-      result = 0;
-    }
+  *(v19 + 4) = v23;
+  PPParserAttachString(v19, v16, 0);
+  if (*(a1 + 80))
+  {
+    v26 = *(a1 + 72);
+    *(v19 + 14) = *(a1 + 56);
+    *(v19 + 9) = v26;
+    v19[20] = 1;
+    *(v19 + 20) = llvmir_PPStreamSetTarget;
+    *(v19 + 21) = llvmir_PPStreamAddOperation;
+    *(v19 + 22) = llvmir_PPStreamAddTempUsage;
+    *(v19 + 23) = llvmir_PPStreamAddAddressUsage;
+    *(v19 + 24) = llvmir_PPStreamAddParamBinding;
+    *(v19 + 25) = llvmir_PPStreamAddParamBindingArray;
+    *(v19 + 26) = llvmir_PPStreamAddAttribBinding;
+    *(v19 + 27) = llvmir_PPStreamAddOutputBinding;
+    *(v19 + 28) = llvmir_PPStreamAddOption;
+    *(v19 + 29) = llvmir_PPStreamAddConstant;
+    *(v19 + 30) = llvmir_PPStreamAddLabel;
+    *(v19 + 31) = llvmir_PPStreamResolveBranches;
   }
 
   else
   {
-    result = 38;
+    PPParserAttachStream(v19, *(a1 + 40));
   }
 
-LABEL_35:
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
+  *(v19 + 41) = *(a1 + 320);
+  *(v19 + 379) |= 3u;
+  v28 = PPParserParse(v19);
+  if (v28)
+  {
+    PPParserBuildErrorString(v19, v28, *a2);
+    v29 = strlen(v19 + 392);
+    memmove((a1 + 392), v19 + 98, v29);
+    PPParserFree(v19);
+    return 2;
+  }
+
+  else
+  {
+    PPParserInherit(a1, v19);
+    PPParserFree(v19);
+    free(v16);
+    return 0;
+  }
 }
 
 uint64_t PPParserParse(uint64_t a1)
@@ -8921,33 +8620,24 @@ LABEL_39:
   return v3;
 }
 
-uint64_t PPParserBuildErrorString(uint64_t a1, int a2, uint64_t a3)
+uint64_t PPParserBuildErrorString(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if ((a2 - 4) <= 0x3C)
-  {
-    v5 = off_278B4DBA0[a2 - 4];
-  }
-
-  v9 = 0;
-  memset(v10, 0, sizeof(v10));
+  v8 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  memset(v7, 0, sizeof(v7));
   PPParserReturnPart(a1);
-  PPParserGetPart(a1, v10, 0);
-  PPParserReturnCharacter(a1, &v9);
-  v6 = (*(a1 + 324) + 1);
-  PPParserGetCharacter(a1, &v9);
+  PPParserGetPart(a1, v7, 0);
+  PPParserReturnCharacter(a1, &v6);
+  PPParserGetCharacter(a1, &v6);
   if (a3)
   {
-    result = sprintf_l((a1 + 392), 0, "Error in macro %s on line %u: %s (hint: '%s')");
+    return sprintf_l((a1 + 392), 0, "Error in macro %s on line %u: %s (hint: '%s')");
   }
 
   else
   {
-    result = sprintf_l((a1 + 392), 0, "Error on line %u: %s (hint: '%s')");
+    return sprintf_l((a1 + 392), 0, "Error on line %u: %s (hint: '%s')");
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 __n128 PPParserInherit(uint64_t a1, uint64_t a2)
@@ -8966,115 +8656,106 @@ __n128 PPParserInherit(uint64_t a1, uint64_t a2)
 
 uint64_t PPParserParseVersion(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(v8, 0, sizeof(v8));
-  if (PPParserGetPart(a1, v8, 0))
+  v8 = *MEMORY[0x277D85DE8];
+  memset(v7, 0, sizeof(v7));
+  if (!PPParserGetPart(a1, v7, 0))
   {
-    if ((*(a1 + 368) & 2) != 0)
-    {
-      if (*&v8[0] != 0x3170664252412121 || *(v8 + 3) != 0x302E3170664252)
-      {
-        goto LABEL_13;
-      }
-
-      v4 = 34820;
-      v3 = 2;
-    }
-
-    else
-    {
-      if (*&v8[0] != 0x3170764252412121 || *(v8 + 3) != 0x302E3170764252)
-      {
-        goto LABEL_13;
-      }
-
-      v3 = 0;
-      v4 = 34336;
-    }
-
-    *(a1 + 368) = v3;
-    (*(a1 + 160))(a1, v4);
-    result = 0;
-    goto LABEL_16;
+    return 4;
   }
 
-LABEL_13:
-  result = 4;
-LABEL_16:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  if ((*(a1 + 368) & 2) != 0)
+  {
+    if (*&v7[0] != 0x3170664252412121 || *(v7 + 3) != 0x302E3170664252)
+    {
+      return 4;
+    }
+
+    v4 = 34820;
+    v3 = 2;
+  }
+
+  else
+  {
+    if (*&v7[0] != 0x3170764252412121 || *(v7 + 3) != 0x302E3170764252)
+    {
+      return 4;
+    }
+
+    v3 = 0;
+    v4 = 34336;
+  }
+
+  *(a1 + 368) = v3;
+  (*(a1 + 160))(a1, v4);
+  return 0;
 }
 
 uint64_t PPParserParseOption(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  memset(v5, 0, sizeof(v5));
-  if (PPParserGetPart(a1, v5, 0))
+  v5 = *MEMORY[0x277D85DE8];
+  memset(v4, 0, sizeof(v4));
+  if (!PPParserGetPart(a1, v4, 0))
   {
-    if (LODWORD(v5[0]) == 1230262351 && *(v5 + 3) == 5132105)
-    {
-      result = PPParserParseOptionIdentifier(a1);
-      if (!result)
-      {
-        if (PPParserGetPart(a1, v5, 0))
-        {
-          if (LOBYTE(v5[0]) == 59)
-          {
-            result = 0;
-          }
+    return 1;
+  }
 
-          else
-          {
-            result = 30;
-          }
+  if (LODWORD(v4[0]) == 1230262351 && *(v4 + 3) == 5132105)
+  {
+    result = PPParserParseOptionIdentifier(a1);
+    if (!result)
+    {
+      if (PPParserGetPart(a1, v4, 0))
+      {
+        if (LOBYTE(v4[0]) == 59)
+        {
+          return 0;
         }
 
         else
         {
-          result = 46;
+          return 30;
         }
       }
-    }
 
-    else
-    {
-      PPParserReturnPart(a1);
-      result = 3;
+      else
+      {
+        return 46;
+      }
     }
   }
 
   else
   {
-    result = 1;
+    PPParserReturnPart(a1);
+    return 3;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t PPParserParseStatement(uint64_t a1)
 {
-  v63[4] = *MEMORY[0x277D85DE8];
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
+  v54[4] = *MEMORY[0x277D85DE8];
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  *__s1 = 0u;
+  v50 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  *__s1 = 0u;
+  v38 = 0u;
   Part = PPParserGetPart(a1, __s1, 0);
   if (!Part)
   {
-    goto LABEL_19;
+    return 1;
   }
 
   v3 = Part;
@@ -9103,363 +8784,352 @@ LABEL_8:
   v3 = PPParserGetPart(a1, __s1, 0);
   if (!v3)
   {
-LABEL_19:
-    result = 1;
-    goto LABEL_20;
+    return 1;
   }
 
 LABEL_12:
   if (!(*__s1 ^ 0x504D4554 | __s1[4]))
   {
-    v9 = *MEMORY[0x277D85DE8];
 
     return PPParserParseTempDeclaration(a1, v5);
   }
 
   if (*__s1 == 1347704143 && *&__s1[3] == 5526864)
   {
-    v10 = *MEMORY[0x277D85DE8];
 
     return PPParserParseOutputDeclaration(a1, v5);
   }
 
   if (v5)
   {
-    result = 43;
-    goto LABEL_20;
+    return 43;
   }
 
-  v11 = *(a1 + 368);
-  if ((v11 & 2) == 0 && *__s1 == 0x53534552444441)
+  v8 = *(a1 + 368);
+  if ((v8 & 2) == 0 && *__s1 == 0x53534552444441)
   {
-    v23 = *MEMORY[0x277D85DE8];
 
     return PPParserParseAddressDeclaration(a1);
   }
 
   if (*__s1 == 1095909712 && *&__s1[4] == 77)
   {
-    v21 = *MEMORY[0x277D85DE8];
 
     return PPParserParseParameterDeclaration(a1);
   }
 
   if (*__s1 == 1381258305 && *&__s1[3] == 4344146)
   {
-    v22 = *MEMORY[0x277D85DE8];
 
     return PPParserParseAttributeDeclaration(a1);
   }
 
   if (*__s1 == 1095322689 && *&__s1[4] == 83)
   {
-    v24 = *MEMORY[0x277D85DE8];
 
     return PPParserParseAliasDeclaration(a1);
   }
 
   if (*__s1 == 1380139341 && *&__s1[4] == 79)
   {
-    v25 = *MEMORY[0x277D85DE8];
 
     return PPParserParseMacroDeclaration(a1);
   }
 
   if (*__s1 == 1129270338 && *&__s1[4] == 75)
   {
-    v26 = *MEMORY[0x277D85DE8];
 
     return PPParserParseBlock(a1);
   }
 
-  v17 = v63;
-  memset(v63, 0, 32);
-  v18 = &OpsList_ARBfp10;
-  if ((v11 & 2) == 0)
+  v14 = v54;
+  memset(v54, 0, 32);
+  v15 = &OpsList_ARBfp10;
+  if ((v8 & 2) == 0)
   {
-    v18 = &OpsList_ARBvp10;
+    v15 = &OpsList_ARBvp10;
   }
 
-  v62 = v18;
-  v19 = &OpsList_NVvp20;
-  v20 = 1;
-  if (v11 > 51)
+  v53 = v15;
+  v16 = &OpsList_NVvp20;
+  v17 = 1;
+  if (v8 > 51)
   {
-    v17 = &v63[1];
-    if (v11 == 54)
+    v14 = &v54[1];
+    if (v8 == 54)
     {
-      v63[0] = &OpsList_NVfp10;
-      v20 = 3;
-      v19 = &OpsList_NVfp20;
+      v54[0] = &OpsList_NVfp10;
+      v17 = 3;
+      v16 = &OpsList_NVfp20;
     }
 
     else
     {
-      if (v11 != 52)
+      if (v8 != 52)
       {
         goto LABEL_79;
       }
 
-      v63[0] = &OpsList_NVvp20;
-      v20 = 3;
-      v19 = &OpsList_NVvp30;
+      v54[0] = &OpsList_NVvp20;
+      v17 = 3;
+      v16 = &OpsList_NVvp30;
     }
   }
 
-  else if (v11 == 49)
+  else if (v8 == 49)
   {
-    v20 = 2;
+    v17 = 2;
   }
 
   else
   {
-    if (v11 != 51)
+    if (v8 != 51)
     {
       goto LABEL_79;
     }
 
-    v20 = 2;
-    v19 = &OpsList_NVfp10;
+    v17 = 2;
+    v16 = &OpsList_NVfp10;
   }
 
-  *v17 = v19;
+  *v14 = v16;
 LABEL_79:
   if ((*(a1 + 380) & 2) != 0)
   {
-    if ((v11 & 2) != 0)
+    if ((v8 & 2) != 0)
     {
-      v27 = &OpsList_fpSpecial;
+      v18 = &OpsList_fpSpecial;
     }
 
     else
     {
-      v27 = &OpsList_vpSpecial;
+      v18 = &OpsList_vpSpecial;
     }
 
-    v63[v20++ - 1] = v27;
+    v54[v17++ - 1] = v18;
   }
 
-  v28 = 0;
-  v63[v20 - 1] = 0;
-  while (!*v18)
+  v19 = 0;
+  v54[v17 - 1] = 0;
+  while (!*v15)
   {
 LABEL_122:
-    v18 = v63[++v28 - 1];
-    if (!v18)
+    v15 = v54[++v19 - 1];
+    if (!v15)
     {
       if ((*(a1 + 368) & 0x10) == 0 || (result = PPParserParseLabel(a1, __s1, v3), result == 3))
       {
         Macro = PPParserScopeFindMacro(*(a1 + 32), __s1);
         if (Macro)
         {
-          result = PPParserExpandMacro(a1, Macro);
+          return PPParserExpandMacro(a1, Macro);
         }
 
         else if (*__s1 == 1230262351 && *&__s1[3] == 5132105)
         {
-          result = 8;
+          return 8;
         }
 
         else
         {
           PPParserReturnPart(a1);
-          result = 6;
+          return 6;
         }
       }
 
-      goto LABEL_20;
+      return result;
     }
   }
 
-  v29 = v18 + 1;
+  v20 = v15 + 1;
   while (1)
   {
     *__s2 = 0;
-    v45 = 0;
-    v30 = *(v29 - 1);
-    if (!strcmp(__s1, v30))
+    v36 = 0;
+    v21 = *(v20 - 1);
+    if (!strcmp(__s1, v21))
     {
-      v40 = *v29;
-      v41 = a1;
-      v42 = 0;
+      v31 = *v20;
+      v32 = a1;
+      v33 = 0;
       goto LABEL_128;
     }
 
-    v31 = *(a1 + 368);
-    if ((v31 & 0x10) != 0)
+    v22 = *(a1 + 368);
+    if ((v22 & 0x10) != 0)
     {
-      sprintf_l(__s2, 0, "%sC", v30);
+      sprintf_l(__s2, 0, "%sC", v21);
       if (!strcmp(__s1, __s2))
       {
         goto LABEL_129;
       }
 
-      v31 = *(a1 + 368);
-      if (v31 == 52)
+      v22 = *(a1 + 368);
+      if (v22 == 52)
       {
         break;
       }
     }
 
 LABEL_98:
-    if ((v31 & 2) != 0)
+    if ((v22 & 2) != 0)
     {
-      sprintf_l(__s2, 0, "%s_SAT", *(v29 - 1));
+      sprintf_l(__s2, 0, "%s_SAT", *(v20 - 1));
       if (!strcmp(__s1, __s2))
       {
 LABEL_132:
-        v40 = *v29;
-        v41 = a1;
-        v42 = 0;
+        v31 = *v20;
+        v32 = a1;
+        v33 = 0;
         goto LABEL_133;
       }
 
       if ((*(a1 + 368) & 0x10) != 0)
       {
-        sprintf_l(__s2, 0, "%sC_SAT", *(v29 - 1));
+        sprintf_l(__s2, 0, "%sC_SAT", *(v20 - 1));
         if (!strcmp(__s1, __s2))
         {
           goto LABEL_134;
         }
 
-        v32 = strlen(__s1);
-        v33 = *(v29 - 1);
-        v34 = strlen(v33);
-        if (v34 + 1 == v32)
+        v23 = strlen(__s1);
+        v24 = *(v20 - 1);
+        v25 = strlen(v24);
+        if (v25 + 1 == v23)
         {
-          sprintf_l(__s2, 0, "%sR", v33);
+          sprintf_l(__s2, 0, "%sR", v24);
           if (!strcmp(__s1, __s2))
           {
-            v40 = *v29;
-            v41 = a1;
-            v42 = 1;
+            v31 = *v20;
+            v32 = a1;
+            v33 = 1;
             goto LABEL_128;
           }
 
-          sprintf_l(__s2, 0, "%sH", *(v29 - 1));
+          sprintf_l(__s2, 0, "%sH", *(v20 - 1));
           if (!strcmp(__s1, __s2))
           {
-            v40 = *v29;
-            v41 = a1;
-            v42 = 2;
+            v31 = *v20;
+            v32 = a1;
+            v33 = 2;
             goto LABEL_128;
           }
 
-          sprintf_l(__s2, 0, "%sX", *(v29 - 1));
+          sprintf_l(__s2, 0, "%sX", *(v20 - 1));
           if (!strcmp(__s1, __s2))
           {
-            v40 = *v29;
-            v41 = a1;
-            v42 = 3;
+            v31 = *v20;
+            v32 = a1;
+            v33 = 3;
 LABEL_128:
-            v37 = 0;
+            v28 = 0;
 LABEL_131:
-            v38 = 0;
+            v29 = 0;
             goto LABEL_137;
           }
         }
 
         else
         {
-          if (v34 + 2 != v32)
+          if (v25 + 2 != v23)
           {
-            if (v34 + 5 == v32)
+            if (v25 + 5 == v23)
             {
-              sprintf_l(__s2, 0, "%sR_SAT", v33);
+              sprintf_l(__s2, 0, "%sR_SAT", v24);
               if (!strcmp(__s1, __s2))
               {
-                v40 = *v29;
-                v41 = a1;
-                v42 = 1;
+                v31 = *v20;
+                v32 = a1;
+                v33 = 1;
                 goto LABEL_133;
               }
 
-              sprintf_l(__s2, 0, "%sH_SAT", *(v29 - 1));
+              sprintf_l(__s2, 0, "%sH_SAT", *(v20 - 1));
               if (!strcmp(__s1, __s2))
               {
-                v40 = *v29;
-                v41 = a1;
-                v42 = 2;
+                v31 = *v20;
+                v32 = a1;
+                v33 = 2;
                 goto LABEL_133;
               }
 
-              sprintf_l(__s2, 0, "%sX_SAT", *(v29 - 1));
+              sprintf_l(__s2, 0, "%sX_SAT", *(v20 - 1));
               if (!strcmp(__s1, __s2))
               {
-                v40 = *v29;
-                v41 = a1;
-                v42 = 3;
+                v31 = *v20;
+                v32 = a1;
+                v33 = 3;
 LABEL_133:
-                v37 = 0;
+                v28 = 0;
                 goto LABEL_136;
               }
             }
 
-            else if (v34 + 6 == v32)
+            else if (v25 + 6 == v23)
             {
-              sprintf_l(__s2, 0, "%sRC_SAT", v33);
+              sprintf_l(__s2, 0, "%sRC_SAT", v24);
               if (!strcmp(__s1, __s2))
               {
-                v40 = *v29;
-                v41 = a1;
-                v42 = 1;
+                v31 = *v20;
+                v32 = a1;
+                v33 = 1;
                 goto LABEL_135;
               }
 
-              sprintf_l(__s2, 0, "%sHC_SAT", *(v29 - 1));
+              sprintf_l(__s2, 0, "%sHC_SAT", *(v20 - 1));
               if (!strcmp(__s1, __s2))
               {
-                v40 = *v29;
-                v41 = a1;
-                v42 = 2;
+                v31 = *v20;
+                v32 = a1;
+                v33 = 2;
                 goto LABEL_135;
               }
 
-              sprintf_l(__s2, 0, "%sXC_SAT", *(v29 - 1));
+              sprintf_l(__s2, 0, "%sXC_SAT", *(v20 - 1));
               if (!strcmp(__s1, __s2))
               {
-                v40 = *v29;
-                v41 = a1;
-                v42 = 3;
+                v31 = *v20;
+                v32 = a1;
+                v33 = 3;
 LABEL_135:
-                v37 = 1;
+                v28 = 1;
 LABEL_136:
-                v38 = 1;
+                v29 = 1;
 LABEL_137:
-                v39 = 0;
-                goto LABEL_138;
+                v30 = 0;
+                return PPParserParseOperation(v32, v31, v33, v28, v29, v30);
               }
             }
 
             goto LABEL_121;
           }
 
-          sprintf_l(__s2, 0, "%sRC", v33);
+          sprintf_l(__s2, 0, "%sRC", v24);
           if (!strcmp(__s1, __s2))
           {
-            v40 = *v29;
-            v41 = a1;
-            v42 = 1;
+            v31 = *v20;
+            v32 = a1;
+            v33 = 1;
 LABEL_130:
-            v37 = 1;
+            v28 = 1;
             goto LABEL_131;
           }
 
-          sprintf_l(__s2, 0, "%sHC", *(v29 - 1));
+          sprintf_l(__s2, 0, "%sHC", *(v20 - 1));
           if (!strcmp(__s1, __s2))
           {
-            v40 = *v29;
-            v41 = a1;
-            v42 = 2;
+            v31 = *v20;
+            v32 = a1;
+            v33 = 2;
             goto LABEL_130;
           }
 
-          sprintf_l(__s2, 0, "%sXC", *(v29 - 1));
+          sprintf_l(__s2, 0, "%sXC", *(v20 - 1));
           if (!strcmp(__s1, __s2))
           {
-            v40 = *v29;
-            v41 = a1;
-            v42 = 3;
+            v31 = *v20;
+            v32 = a1;
+            v33 = 3;
             goto LABEL_130;
           }
         }
@@ -9467,133 +9137,103 @@ LABEL_130:
     }
 
 LABEL_121:
-    v35 = v29[1];
-    v29 += 2;
-    if (!v35)
+    v26 = v20[1];
+    v20 += 2;
+    if (!v26)
     {
       goto LABEL_122;
     }
   }
 
-  sprintf_l(__s2, 0, "%sC0", *(v29 - 1));
+  sprintf_l(__s2, 0, "%sC0", *(v20 - 1));
   if (!strcmp(__s1, __s2))
   {
 LABEL_129:
-    v40 = *v29;
-    v41 = a1;
-    v42 = 0;
+    v31 = *v20;
+    v32 = a1;
+    v33 = 0;
     goto LABEL_130;
   }
 
-  sprintf_l(__s2, 0, "%sC1", *(v29 - 1));
+  sprintf_l(__s2, 0, "%sC1", *(v20 - 1));
   if (strcmp(__s1, __s2))
   {
-    sprintf_l(__s2, 0, "%s_SAT", *(v29 - 1));
+    sprintf_l(__s2, 0, "%s_SAT", *(v20 - 1));
     if (!strcmp(__s1, __s2))
     {
       goto LABEL_132;
     }
 
-    sprintf_l(__s2, 0, "%sC_SAT", *(v29 - 1));
-    if (!strcmp(__s1, __s2) || (sprintf_l(__s2, 0, "%sC0_SAT", *(v29 - 1)), !strcmp(__s1, __s2)))
+    sprintf_l(__s2, 0, "%sC_SAT", *(v20 - 1));
+    if (!strcmp(__s1, __s2) || (sprintf_l(__s2, 0, "%sC0_SAT", *(v20 - 1)), !strcmp(__s1, __s2)))
     {
 LABEL_134:
-      v40 = *v29;
-      v41 = a1;
-      v42 = 0;
+      v31 = *v20;
+      v32 = a1;
+      v33 = 0;
       goto LABEL_135;
     }
 
-    sprintf_l(__s2, 0, "%sC1_SAT", *(v29 - 1));
+    sprintf_l(__s2, 0, "%sC1_SAT", *(v20 - 1));
     if (!strcmp(__s1, __s2))
     {
-      v40 = *v29;
-      v41 = a1;
-      v42 = 0;
-      v37 = 1;
-      v38 = 1;
+      v31 = *v20;
+      v32 = a1;
+      v33 = 0;
+      v28 = 1;
+      v29 = 1;
       goto LABEL_141;
     }
 
-    v31 = *(a1 + 368);
+    v22 = *(a1 + 368);
     goto LABEL_98;
   }
 
-  v40 = *v29;
-  v41 = a1;
-  v42 = 0;
-  v37 = 1;
-  v38 = 0;
+  v31 = *v20;
+  v32 = a1;
+  v33 = 0;
+  v28 = 1;
+  v29 = 0;
 LABEL_141:
-  v39 = 1;
-LABEL_138:
-  result = PPParserParseOperation(v41, v40, v42, v37, v38, v39);
-LABEL_20:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v30 = 1;
+  return PPParserParseOperation(v32, v31, v33, v28, v29, v30);
 }
 
 uint64_t PPParserParseEnd(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  memset(v4, 0, sizeof(v4));
-  if (PPParserGetPart(a1, v4, 0))
+  v4 = *MEMORY[0x277D85DE8];
+  memset(v3, 0, sizeof(v3));
+  if (!PPParserGetPart(a1, v3, 0))
   {
-    if (LODWORD(v4[0]) == 4476485)
-    {
-      if (PPParserGetPart(a1, v4, 0))
-      {
-        result = 9;
-      }
-
-      else
-      {
-        result = 0;
-      }
-    }
-
-    else
-    {
-      result = 6;
-    }
+    return 46;
   }
 
-  else
+  if (LODWORD(v3[0]) != 4476485)
   {
-    result = 46;
+    return 6;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  if (PPParserGetPart(a1, v3, 0))
+  {
+    return 9;
+  }
+
+  return 0;
 }
 
 uint64_t glpARBProgramInfoToLLVMModule(uint64_t a1, uint64_t a2)
 {
-  v63 = a1;
-  v83 = *MEMORY[0x277D85DE8];
-  v65 = *(a2 + 4);
+  v62 = a1;
+  v82 = *MEMORY[0x277D85DE8];
+  v64 = *(a2 + 4);
   v3 = *(a2 + 8);
   v4 = *(a2 + 74);
   v5 = *(a2 + (v4 + 79));
   v6 = *(a2 + (v4 + 87));
   v7 = 8 * v6;
   v8 = malloc_type_malloc(8 * v6 + 8, 0x75808E6AuLL);
-  if (!v8)
+  if (!v8 || (v9 = v8, v10 = (v4 + 91), *v8 = v6, v11 = (v8 + 2), memcpy(v8 + 2, (a2 + v10), 8 * v6), v12 = v10 + v7, v13 = *(a2 + (v10 + v7)), (v14 = malloc_type_malloc(8 * v13 + 8, 0x75808E6AuLL)) == 0))
   {
-    goto LABEL_59;
-  }
-
-  v9 = v8;
-  v10 = (v4 + 91);
-  *v8 = v6;
-  v11 = (v8 + 2);
-  memcpy(v8 + 2, (a2 + v10), 8 * v6);
-  v12 = v10 + v7;
-  v13 = *(a2 + (v10 + v7));
-  v14 = malloc_type_malloc(8 * v13 + 8, 0x75808E6AuLL);
-  if (!v14)
-  {
-LABEL_59:
     abort();
   }
 
@@ -9602,23 +9242,23 @@ LABEL_59:
   *v14 = v13;
   v17 = (v14 + 2);
   memcpy(v14 + 2, (a2 + v16), 8 * v13);
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
   v80 = 0u;
-  v77 = 0u;
+  v81 = 0u;
   v78 = 0u;
-  v75 = 0u;
+  v79 = 0u;
   v76 = 0u;
-  v73 = 0u;
+  v77 = 0u;
   v74 = 0u;
-  v71 = 0u;
+  v75 = 0u;
   v72 = 0u;
-  v69 = 0u;
+  v73 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  v66 = 0;
   v67 = 0;
-  v68 = 0;
-  v18 = PPParserCreate(v65);
+  v18 = PPParserCreate(v64);
   *(v18 + 188) = v3;
   v19 = *(a2 + 26);
   v20 = *(a2 + 58);
@@ -9628,11 +9268,11 @@ LABEL_59:
   *(v18 + 16) = v21;
   *(v18 + 17) = v19;
   PPParserAttachString(v18, (a2 + 78), 0);
-  v61 = v58;
+  v60 = v57;
   *(v18 + 7) = 0;
-  v62 = v18 + 14;
-  *(v18 + 8) = &v68;
-  *(v18 + 9) = &v67;
+  v61 = v18 + 14;
+  *(v18 + 8) = &v67;
+  *(v18 + 9) = &v66;
   v18[20] = 1;
   *(v18 + 20) = llvmir_PPStreamSetTarget;
   *(v18 + 21) = llvmir_PPStreamAddOperation;
@@ -9648,16 +9288,16 @@ LABEL_59:
   *(v18 + 31) = llvmir_PPStreamResolveBranches;
   v22 = v18[71];
   v23 = v18[68];
-  v59 = v18[69];
+  v58 = v18[69];
   v24 = *v9;
-  MEMORY[0x28223BE20](v25);
-  v64 = &v58[-((v26 + 15) & 0x7FFFFFFF0)];
-  bzero(v64, v26);
-  v66 = v24;
+  MEMORY[0x28223BE20](v25, 4 * v24);
+  v63 = &v57[-((v26 + 15) & 0x7FFFFFFF0)];
+  bzero(v63, v26);
+  v65 = v24;
   if (v24)
   {
-    v27 = v66;
-    v28 = v64;
+    v27 = v65;
+    v28 = v63;
     while (1)
     {
       v30 = *v11;
@@ -9695,8 +9335,8 @@ LABEL_9:
 LABEL_13:
   free(v9);
   v33 = *v15;
-  MEMORY[0x28223BE20](v34);
-  v36 = &v58[-((v35 + 15) & 0x7FFFFFFF0)];
+  MEMORY[0x28223BE20](v34, 4 * v33);
+  v36 = &v57[-((v35 + 15) & 0x7FFFFFFF0)];
   bzero(v36, v35);
   if (v33)
   {
@@ -9731,21 +9371,21 @@ LABEL_19:
   }
 
 LABEL_21:
-  v60 = v36;
+  v59 = v36;
   free(v15);
-  v42 = v63;
-  v63 = v33;
-  gleLLVMInitBuildContext(&v69, v42, "ARB_Program", v22, v23, v59, v66, v33, 0, 16);
+  v42 = v62;
+  v62 = v33;
+  gleLLVMInitBuildContext(&v68, v42, "ARB_Program", v22, v23, v58, v65, v33, 0, 16);
   v43 = 0;
   v44 = 0;
   v45 = 0;
-  *(&v82 + 1) = 0x100000001;
-  LODWORD(v69) = (v65 >> 1) & 1;
-  *(&v80 + 1) = v18;
-  *&v81 = glpARBProgram_OutputToFunction;
-  *(&v81 + 1) = glpARBProgram_AttribToFunction;
-  *&v82 = glpARBProgram_ParamCountFunction;
-  *(v18 + 6) = &v69;
+  *(&v81 + 1) = 0x100000001;
+  LODWORD(v68) = (v64 >> 1) & 1;
+  *(&v79 + 1) = v18;
+  *&v80 = glpARBProgram_OutputToFunction;
+  *(&v80 + 1) = glpARBProgram_AttribToFunction;
+  *&v81 = glpARBProgram_ParamCountFunction;
+  *(v18 + 6) = &v68;
   do
   {
     v46 = (v5 >> v43) & 0xF;
@@ -9840,15 +9480,15 @@ LABEL_21:
       }
     }
 
-    ++v45;
-    gleLLVMAddTexture(&v69, v44, v47, v48, v48);
+    v45 = (v45 + 1);
+    gleLLVMAddTexture(&v68, v44, v47, v48, v48);
 LABEL_54:
     ++v44;
     v43 += 4;
   }
 
   while (v44 != 16);
-  gleLLVMBeginMain(*(v18 + 6), "#main", v64, v66, v60, v63, v45);
+  gleLLVMBeginMain(*(v18 + 6), "#main", v63, v65, v59, v62, v45);
   PPParserParse(v18);
   v52 = *(v18 + 13);
   if (v52)
@@ -9862,12 +9502,12 @@ LABEL_54:
   }
 
   glpARBProgram_GenerateMetadata(v18, v45);
-  gleLLVMFinishMain(&v69, v53, v45);
-  v54 = *(&v70 + 1);
-  *(&v70 + 1) = 0;
-  gleLLVMDestroyBuildContext(&v69);
-  v55 = v62;
-  *v62 = 0;
+  gleLLVMFinishMain(&v68, v53, v45);
+  v54 = *(&v69 + 1);
+  *(&v69 + 1) = 0;
+  gleLLVMDestroyBuildContext(&v68);
+  v55 = v61;
+  *v61 = 0;
   v55[1] = 0;
   v55[2] = 0;
   v18[20] = 1;
@@ -9884,6 +9524,491 @@ LABEL_54:
   *(v18 + 30) = llvmir_PPStreamAddLabel;
   *(v18 + 31) = llvmir_PPStreamResolveBranches;
   PPParserFree(v18);
-  v56 = *MEMORY[0x277D85DE8];
   return v54;
+}
+
+uint64_t glpARBProgram_OutputToFunction(uint64_t result, int a2, _DWORD *a3, uint64_t a4)
+{
+  v6 = *(result + 48);
+  v7 = *(*(result + 136) + 8 * a2 + 8);
+  if (!v6[20])
+  {
+    result = MEMORY[0x23EE85370](v6[21]);
+    v6[20] = result;
+  }
+
+  if ((v7 & 0xC0) == 0)
+  {
+    if (!v6[19])
+    {
+      v6[19] = LLVMInt32TypeInContext();
+    }
+
+    LLVMConstInt();
+    result = LLVMBuildExtractElement();
+    a4 = result;
+  }
+
+  if (a4)
+  {
+    result = LLVMBuildInsertValue();
+    v6[20] = result;
+    ++*a3;
+  }
+
+  return result;
+}
+
+uint64_t glpARBProgram_AttribToFunction(uint64_t a1, int a2)
+{
+  if ((*(*(a1 + 144) + 8 * a2 + 8) & 0x1F00) != 0xB00)
+  {
+    return 0;
+  }
+
+  LLVMGetParam();
+  LLVMFloatTypeInContext();
+  llvm::ConstantFP::get();
+  llvm::ConstantFP::get();
+  llvm::ConstantFP::get();
+  llvm::ConstantFP::get();
+  LLVMConstVector();
+  llvm::ConstantFP::get();
+  llvm::ConstantFP::get();
+  llvm::ConstantFP::get();
+  llvm::ConstantFP::get();
+  LLVMConstVector();
+  return LLVMBuildSelect();
+}
+
+uint64_t glpARBProgram_ParamCountFunction(uint64_t a1)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 104);
+  if (v3)
+  {
+    v4 = *v3;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return gleLLVMGetConstantInt32(v2, v4);
+}
+
+uint64_t glpARBProgram_GenerateMetadata(uint64_t a1, uint64_t a2)
+{
+  v2 = a2;
+  v20 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 144);
+  if (v4)
+  {
+    v5 = *v4;
+    MEMORY[0x28223BE20](a1, 4 * v5);
+    v7 = &v18[-v6];
+    bzero(&v18[-v6], v8);
+    if (v5)
+    {
+      v9 = 0;
+      v10 = (v4 + 2);
+      while (1)
+      {
+        v11 = *v10;
+        v10 += 2;
+        v12 = v11 >> 6;
+        if (!(v11 >> 6))
+        {
+          break;
+        }
+
+        if (v12 == 3)
+        {
+          v13 = 7;
+LABEL_8:
+          v7[v9] = v13;
+        }
+
+        if (v5 == ++v9)
+        {
+          goto LABEL_12;
+        }
+      }
+
+      v13 = 4;
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    v5 = 0;
+    v7 = &v19;
+  }
+
+LABEL_12:
+  v14 = *(a1 + 136);
+  if (v14)
+  {
+    v15 = *v14;
+    if (v15)
+    {
+      v16 = *v14;
+      do
+      {
+        --v16;
+      }
+
+      while (v16);
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  if (**(a1 + 48))
+  {
+    return glpFragProgram_GenerateMetadata(a1, v7, v5, v15, v2);
+  }
+
+  else
+  {
+    return glpVertProgram_GenerateMetadata(a1, v7, v5, v15, v2);
+  }
+}
+
+uint64_t GLDAttribBindingsAddAttribBinding(int **a1, uint64_t *a2)
+{
+  v4 = *a1;
+  if (v4)
+  {
+    v5 = *v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = malloc_type_realloc(v4, 8 * (v5 + 1) + 8, 0x7A98113FuLL);
+  if (!v6)
+  {
+    abort();
+  }
+
+  v7 = v6;
+  *a1 = v6;
+  *v6 = v5 + 1;
+  result = GLDAttribBindingForPPStreamToken(*a2);
+  *&v7[2 * v5 + 2] = result;
+  return result;
+}
+
+int *PPParserOutputBindingsAddOutputBinding(int **a1, void *a2)
+{
+  v4 = *a1;
+  if (v4)
+  {
+    v5 = *v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  result = malloc_type_realloc(v4, 8 * (v5 + 1) + 8, 0x7A98113FuLL);
+  if (!result)
+  {
+    abort();
+  }
+
+  *a1 = result;
+  *result = v5 + 1;
+  *&result[2 * v5 + 2] = *a2;
+  return result;
+}
+
+char *PPParserLabelsAddLabel(int **a1, const char *a2, unsigned int a3)
+{
+  v6 = *a1;
+  if (v6)
+  {
+    v7 = *v6;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = malloc_type_realloc(v6, 8 * (v7 + 1) + 8, 0x7A98113FuLL);
+  if (!v8)
+  {
+    abort();
+  }
+
+  v9 = v8;
+  *a1 = v8;
+  *v8 = v7 + 1;
+  result = strndup(a2, a3);
+  *&v9[2 * v7 + 2] = result;
+  return result;
+}
+
+uint64_t glpFragProgram_GenerateMetadata(void *a1, unsigned int *a2, uint64_t a3, uint64_t a4, int a5)
+{
+  v43 = a4;
+  v6 = a2;
+  v50 = *MEMORY[0x277D85DE8];
+  v8 = a1[6];
+  v41 = a5;
+  v39 = (2 * a5) | 1;
+  v40 = v39 + a3;
+  v9 = 8 * v40;
+  MEMORY[0x28223BE20](a1, a2);
+  v11 = &v38[-v10];
+  bzero(&v38[-v10], 8 * v40);
+  bzero(v11, v9);
+  v42 = a3;
+  if (a3 >= 1)
+  {
+    v12 = 0;
+    v13 = 0;
+    v14 = 8 * v42;
+    do
+    {
+      v15 = a1[18] + v12;
+      v16 = *(v15 + 8);
+      v17 = *(v15 + 12);
+      v18 = *v6++;
+      v19 = gleLLVMGetArgTypeName(v18);
+      v20 = 0;
+      v21 = (v16 >> 8) & 0x1F;
+      if (v21 > 0xA)
+      {
+        if (v21 == 11)
+        {
+          if (*(v8 + 220))
+          {
+            v44 = 0u;
+            v45 = 0u;
+            *&v44 = gleLLVMGetConstantInt32(v8, v13);
+            *(&v44 + 1) = LLVMMDStringInContext();
+            *&v45 = LLVMMDStringInContext();
+            strlen(v19);
+            *(&v45 + 1) = LLVMMDStringInContext();
+          }
+
+          else
+          {
+            v44 = 0uLL;
+            *&v44 = gleLLVMGetConstantInt32(v8, v13);
+            *(&v44 + 1) = LLVMMDStringInContext();
+          }
+
+          goto LABEL_30;
+        }
+
+        if (v21 == 28)
+        {
+LABEL_9:
+          memset(__str, 0, sizeof(__str));
+          switch(v21)
+          {
+            case 0x1Cu:
+              v22 = v17 & 0x3F;
+              if ((v17 & 0x38) == 8)
+              {
+                if (!*(v8 + 220))
+                {
+                  goto LABEL_27;
+                }
+
+                snprintf(__str, 0x1FuLL, "user(tex_coord%u)", v22 - 8);
+              }
+
+              break;
+            case 3u:
+              if (*(v8 + 220))
+              {
+                strcpy(__str, "user(sec_front_color)");
+                v22 = 3;
+                goto LABEL_23;
+              }
+
+LABEL_27:
+              v45 = 0u;
+              v46 = 0u;
+              v44 = 0u;
+              *&v44 = gleLLVMGetConstantInt32(v8, v13);
+              *(&v44 + 1) = LLVMMDStringInContext();
+              *&v45 = LLVMMDStringInContext();
+              if (!*(v8 + 152))
+              {
+                *(v8 + 152) = LLVMInt32TypeInContext();
+              }
+
+              *(&v45 + 1) = LLVMConstInt();
+              *&v46 = LLVMMDStringInContext();
+              *(&v46 + 1) = LLVMMDStringInContext();
+              goto LABEL_30;
+            case 2u:
+              if (*(v8 + 220))
+              {
+                strcpy(__str, "user(front_color)");
+                v22 = 2;
+LABEL_23:
+                if (!__str[0])
+                {
+                  snprintf(__str, 0x1FuLL, "user(slot%u)", v22);
+                }
+
+                v48 = 0;
+                v46 = 0u;
+                v47 = 0u;
+                v44 = 0u;
+                v45 = 0u;
+                *&v44 = gleLLVMGetConstantInt32(v8, v13);
+                *(&v44 + 1) = LLVMMDStringInContext();
+                strlen(__str);
+                *&v45 = LLVMMDStringInContext();
+                *(&v45 + 1) = LLVMMDStringInContext();
+                *&v46 = LLVMMDStringInContext();
+                *(&v46 + 1) = LLVMMDStringInContext();
+                strlen(v19);
+                *&v47 = LLVMMDStringInContext();
+                *(&v47 + 1) = LLVMMDStringInContext();
+                strlen(__str);
+                v48 = LLVMMDStringInContext();
+                goto LABEL_30;
+              }
+
+              goto LABEL_27;
+            default:
+              v22 = 0;
+              break;
+          }
+
+          if (*(v8 + 220))
+          {
+            goto LABEL_23;
+          }
+
+          goto LABEL_27;
+        }
+      }
+
+      else
+      {
+        if (v21 - 2 < 2)
+        {
+          goto LABEL_9;
+        }
+
+        if (v21 == 1)
+        {
+          v46 = 0u;
+          v47 = 0u;
+          v44 = 0u;
+          v45 = 0u;
+          *&v44 = gleLLVMGetConstantInt32(v8, v13);
+          *(&v44 + 1) = LLVMMDStringInContext();
+          *&v45 = LLVMMDStringInContext();
+          *(&v45 + 1) = LLVMMDStringInContext();
+          *&v46 = LLVMMDStringInContext();
+          strlen(v19);
+          *(&v46 + 1) = LLVMMDStringInContext();
+          *&v47 = LLVMMDStringInContext();
+          *(&v47 + 1) = LLVMMDStringInContext();
+LABEL_30:
+          v20 = LLVMMDNodeInContext();
+        }
+      }
+
+      *&v11[v12] = v20;
+      ++v13;
+      v12 += 8;
+    }
+
+    while (v14 != v12);
+  }
+
+  v23 = a1[13];
+  if (v23)
+  {
+    v24 = *v23;
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  gleLLVMAddCommonMetaData(v8, &v11[8 * v42], v39, v42, v24, v41);
+  v42 = LLVMMDNodeInContext();
+  v25 = v43;
+  v26 = 8 * v43;
+  MEMORY[0x28223BE20](v42, v27);
+  v29 = &v38[-v28];
+  bzero(&v38[-v28], v26);
+  bzero(v29, v26);
+  if (v25 >= 1)
+  {
+    v30 = v43;
+    v31 = 8;
+    v32 = v29;
+    do
+    {
+      v33 = (*(a1[17] + v31) >> 8) & 0x1F;
+      if (v33 == 7)
+      {
+        *&v45 = 0;
+        v44 = 0uLL;
+        *&v44 = LLVMMDStringInContext();
+        *(&v44 + 1) = LLVMMDStringInContext();
+        v34 = LLVMMDStringInContext();
+      }
+
+      else
+      {
+        if (v33 != 4)
+        {
+          v35 = 0;
+          goto LABEL_47;
+        }
+
+        *&v45 = 0;
+        v44 = 0uLL;
+        *&v44 = LLVMMDStringInContext();
+        if (!*(v8 + 152))
+        {
+          *(v8 + 152) = LLVMInt32TypeInContext();
+        }
+
+        *(&v44 + 1) = LLVMConstInt();
+        if (!*(v8 + 152))
+        {
+          *(v8 + 152) = LLVMInt32TypeInContext();
+        }
+
+        v34 = LLVMConstInt();
+      }
+
+      *&v45 = v34;
+      v35 = LLVMMDNodeInContext();
+LABEL_47:
+      *v32++ = v35;
+      v31 += 8;
+      --v30;
+    }
+
+    while (v30);
+  }
+
+  v36 = LLVMMDNodeInContext();
+  return gleLLVMCreateFunctionMetadata(v8, "air.fragment", v42, v36);
 }

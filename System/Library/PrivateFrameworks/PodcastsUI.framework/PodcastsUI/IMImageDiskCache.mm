@@ -201,19 +201,19 @@ uint64_t __96__IMImageDiskCache_addImagesWithSourceUrl_forKeys_discardTransparen
   return result;
 }
 
-void __96__IMImageDiskCache_addImagesWithSourceUrl_forKeys_discardTransparency_enforceSquare_completion___block_invoke_2_16(uint64_t a1)
+void __96__IMImageDiskCache_addImagesWithSourceUrl_forKeys_discardTransparency_enforceSquare_completion___block_invoke_2_16(id *a1)
 {
   v1 = a1;
   v43 = *MEMORY[0x277D85DE8];
-  WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v3 = [WeakRetained imageUrlForKey:*(v1 + 32)];
+  WeakRetained = objc_loadWeakRetained(a1 + 8);
+  v3 = [WeakRetained imageUrlForKey:v1[4]];
   if (!v3)
   {
     v8 = [MEMORY[0x277D3DA88] imageCache];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v23 = *(v1 + 32);
-      v24 = *(v1 + 40);
+      v23 = v1[4];
+      v24 = v1[5];
       *buf = 138412546;
       v35 = v23;
       v36 = 2112;
@@ -224,14 +224,14 @@ void __96__IMImageDiskCache_addImagesWithSourceUrl_forKeys_discardTransparency_e
     goto LABEL_19;
   }
 
-  if ([*(v1 + 40) count])
+  if ([v1[5] count])
   {
     v4 = 0x277D3D000uLL;
     v5 = [MEMORY[0x277D3DA88] imageCache];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(v1 + 40);
-      v6 = *(v1 + 48);
+      v7 = v1[5];
+      v6 = v1[6];
       *buf = 138412802;
       v35 = v6;
       v36 = 2112;
@@ -245,7 +245,7 @@ void __96__IMImageDiskCache_addImagesWithSourceUrl_forKeys_discardTransparency_e
     v33 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v8 = *(v1 + 40);
+    v8 = v1[5];
     v28 = [v8 countByEnumeratingWithState:&v30 objects:v42 count:16];
     if (v28)
     {
@@ -309,7 +309,7 @@ void __96__IMImageDiskCache_addImagesWithSourceUrl_forKeys_discardTransparency_e
 LABEL_19:
   }
 
-  (*(*(v1 + 56) + 16))();
+  (*(v1[7] + 2))();
 }
 
 - (void)addImageWithSourceUrl:(id)url forKey:(id)key enforceSquare:(BOOL)square maxDimensionInPixels:(double)pixels completion:(id)completion

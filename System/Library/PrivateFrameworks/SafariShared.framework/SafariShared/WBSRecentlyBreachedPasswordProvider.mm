@@ -69,11 +69,11 @@ void __53__WBSRecentlyBreachedPasswordProvider_sharedProvider__block_invoke()
   os_unfair_lock_unlock(&self->_lock);
 }
 
-void __73__WBSRecentlyBreachedPasswordProvider_clearRecentlyBreachedSavedAccounts__block_invoke(uint64_t a1, char a2)
+void __73__WBSRecentlyBreachedPasswordProvider_clearRecentlyBreachedSavedAccounts__block_invoke(uint64_t result, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
+    v2 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(result, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __73__WBSRecentlyBreachedPasswordProvider_clearRecentlyBreachedSavedAccounts__block_invoke_cold_1(v2);

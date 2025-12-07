@@ -35,10 +35,10 @@
 
 - (id)init:(id)init subSystem:(__CFString *)system category:(__CFString *)category logLifespanInDays:(unint64_t)days logLevel:(unint64_t)level logPrivacy:(unint64_t)privacy dispatchQueue:(id)queue
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v36.receiver = self;
-  v36.super_class = WFLoggerOsLog;
-  v15 = [(WFLoggerOsLog *)&v36 init];
+  v38 = *MEMORY[0x277D85DE8];
+  v35.receiver = self;
+  v35.super_class = WFLoggerOsLog;
+  v15 = [(WFLoggerOsLog *)&v35 init];
   v16 = v15;
   if (category && system && init && v15)
   {
@@ -101,7 +101,7 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v38 = v26;
+        v37 = v26;
         _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -111,7 +111,7 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v38 = v28;
+        v37 = v28;
         _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -126,7 +126,7 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v38 = v32;
+        v37 = v32;
         _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -141,16 +141,15 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v38 = category;
+      v37 = category;
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v29);
 
-    v16 = 0;
+    return 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -170,7 +169,7 @@
 
 - (void)WFLog:(unint64_t)log privacy:(unint64_t)privacy message:(const char *)message valist:(char *)valist
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v11 = [(WFLoggerOsLog *)self convertLogLevel:?];
   if (self->_currentLevel <= log && self->_category)
   {
@@ -183,29 +182,27 @@
     {
       if (v16)
       {
-        v19 = 138543362;
-        v20 = v14;
+        v18 = 138543362;
+        v19 = v14;
         v17 = "%{public}@";
 LABEL_8:
-        _os_log_impl(&dword_2332D7000, osLog, v12, v17, &v19, 0xCu);
+        _os_log_impl(&dword_2332D7000, osLog, v12, v17, &v18, 0xCu);
       }
     }
 
     else if (v16)
     {
-      v19 = 138477827;
-      v20 = v14;
+      v18 = 138477827;
+      v19 = v14;
       v17 = "%{private}@";
       goto LABEL_8;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)WFLog:(unint64_t)log privacy:(unint64_t)privacy cfStrMsg:(__CFString *)msg
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v9 = [(WFLoggerOsLog *)self convertLogLevel:?];
   if (self->_currentLevel <= log && self->_category)
   {
@@ -214,40 +211,42 @@ LABEL_8:
     v12 = os_log_type_enabled(osLog, v9);
     if (privacy == 2)
     {
-      if (v12)
+      if (!v12)
       {
-        v15 = 138543362;
-        msgCopy2 = msg;
-        v13 = "%{public}@";
-LABEL_8:
-        _os_log_impl(&dword_2332D7000, osLog, v10, v13, &v15, 0xCu);
+        return;
       }
+
+      v14 = 138543362;
+      msgCopy2 = msg;
+      v13 = "%{public}@";
     }
 
-    else if (v12)
+    else
     {
-      v15 = 138477827;
+      if (!v12)
+      {
+        return;
+      }
+
+      v14 = 138477827;
       msgCopy2 = msg;
       v13 = "%{private}@";
-      goto LABEL_8;
     }
-  }
 
-  v14 = *MEMORY[0x277D85DE8];
+    _os_log_impl(&dword_2332D7000, osLog, v10, v13, &v14, 0xCu);
+  }
 }
 
 + (void)WFLogOsLog:(unint64_t)log cfStrMsg:(__CFString *)msg
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = [WFLoggerOsLog convertWFLogLevelToOsLogLevel:log];
   if (os_log_type_enabled(MEMORY[0x277D86220], v5))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     msgCopy = msg;
-    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], v5, "%{public}@", &v7, 0xCu);
+    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], v5, "%{public}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (unsigned)convertWFLogLevelToOsLogLevel:(unint64_t)level
@@ -326,7 +325,7 @@ LABEL_8:
 
 - (unsigned)writeDictToFile:(id)file idStr:(id)str
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = 1;
   if (([file writeToFile:-[WFLoggerOsLog getProfileFilePath](self atomically:{"getProfileFilePath"), 1}] & 1) == 0)
   {
@@ -335,15 +334,14 @@ LABEL_8:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = v7;
+      v10 = v7;
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
-    v5 = 0;
+    return 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -453,7 +451,7 @@ LABEL_8:
 
 - (void)createOsLogProfile
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(WFLoggerBase *)self WFIsInternalInstall])
   {
     v3 = @"Debug";
@@ -473,7 +471,7 @@ LABEL_8:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v17 = v7;
+      v16 = v7;
       v8 = MEMORY[0x277D86220];
 LABEL_19:
       _os_log_impl(&dword_2332D7000, v8, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
@@ -482,7 +480,7 @@ LABEL_19:
 
   else
   {
-    v15 = 0;
+    v14 = 0;
     if (v4)
     {
       v9 = v4;
@@ -493,14 +491,14 @@ LABEL_19:
       v9 = MEMORY[0x277CBEC10];
     }
 
-    if ([objc_msgSend(MEMORY[0x277CCAC58] dataWithPropertyList:objc_msgSend(MEMORY[0x277CBEB38] format:"dictionaryWithDictionary:" options:v9) error:{200, 0, 0), "writeToFile:options:error:", getProfileFilePath, 1, &v15}])
+    if ([objc_msgSend(MEMORY[0x277CCAC58] dataWithPropertyList:objc_msgSend(MEMORY[0x277CBEB38] format:"dictionaryWithDictionary:" options:v9) error:{200, 0, 0), "writeToFile:options:error:", getProfileFilePath, 1, &v14}])
     {
       v6 = objc_autoreleasePoolPush();
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"File %s created with defaults", -[NSString UTF8String](getProfileFilePath, "UTF8String")];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v17 = v10;
+        v16 = v10;
         v8 = MEMORY[0x277D86220];
         goto LABEL_19;
       }
@@ -508,14 +506,14 @@ LABEL_19:
 
     else
     {
-      if (v15)
+      if (v14)
       {
         v11 = objc_autoreleasePoolPush();
-        v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v15];
+        v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v14];
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v17 = v12;
+          v16 = v12;
           _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
@@ -527,7 +525,7 @@ LABEL_19:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v17 = v13;
+        v16 = v13;
         v8 = MEMORY[0x277D86220];
         goto LABEL_19;
       }
@@ -535,7 +533,6 @@ LABEL_19:
   }
 
   objc_autoreleasePoolPop(v6);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)getProfileFilePath
@@ -699,34 +696,32 @@ LABEL_19:
 
 - (void)setMaxSizeInKb:(unint64_t)kb
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s not applicable", "-[WFLoggerOsLog setMaxSizeInKb:]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v7 = v4;
+    v6 = v4;
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)getMaxFileSizeInMB
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s not applicable", "-[WFLoggerOsLog getMaxFileSizeInMB]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v7 = v3;
+    v6 = v3;
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

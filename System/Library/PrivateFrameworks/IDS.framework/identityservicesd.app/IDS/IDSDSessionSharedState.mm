@@ -286,7 +286,7 @@ LABEL_25:
   }
 
   identifier3 = [service identifier];
-  if ([identifier3 isEqualToIgnoringCase:@"com.apple.private.alloy.phonecontinuity"])
+  if (objc_msgSend_isEqualToIgnoringCase_(identifier3))
   {
     v71 = +[IMLockdownManager sharedInstance];
     isInternalInstall = [v71 isInternalInstall];

@@ -36,40 +36,38 @@
 
 - (id)_fides_objectByReplacingValue:()DESExtensions withValue:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   selfCopy = self;
-  v10 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v14 = [*(*(&v17 + 1) + 8 * i) _fides_objectByReplacingValue:v6 withValue:{v7, v17}];
+        v14 = [*(*(&v16 + 1) + 8 * i) _fides_objectByReplacingValue:v6 withValue:{v7, v16}];
         [v8 addObject:v14];
       }
 
-      v11 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

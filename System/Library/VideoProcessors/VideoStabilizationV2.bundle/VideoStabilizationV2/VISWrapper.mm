@@ -21,16 +21,17 @@
         _updateConfiguration = [(VISWrapper *)self _updateConfiguration];
         if (_updateConfiguration)
         {
-          v6 = _updateConfiguration;
-          [VISWrapper enqueueBufferForProcessing:];
+          v7 = _updateConfiguration;
+          [VISWrapper enqueueBufferForProcessing:_updateConfiguration];
         }
 
         else
         {
           v6 = sbp_gvs_processSampleBuffer(self->_sbpRef, processing);
+          v7 = v6;
           if (v6)
           {
-            [VISWrapper enqueueBufferForProcessing:];
+            [VISWrapper enqueueBufferForProcessing:v6];
           }
 
           else
@@ -43,24 +44,24 @@
       else
       {
         [VISWrapper enqueueBufferForProcessing:?];
-        return v8;
+        return v9;
       }
     }
 
     else
     {
       [VISWrapper enqueueBufferForProcessing:?];
-      return v9;
+      return v10;
     }
   }
 
   else
   {
     [VISWrapper enqueueBufferForProcessing:?];
-    return v10;
+    return v11;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)didCompleteRenderingOfBuffer:(__CVBuffer *)buffer withStatus:(int)status
@@ -156,9 +157,9 @@
   if ([(VISConfiguration *)self->_configuration generatedTransformsOutputDimensionsOverride]>= 1 && ([(VISConfiguration *)self->_configuration generatedTransformsOutputDimensionsOverride]>> 32) >= 1)
   {
     generatedTransformsOutputDimensionsOverride = [(VISConfiguration *)self->_configuration generatedTransformsOutputDimensionsOverride];
-    v70.height = ([(VISConfiguration *)self->_configuration generatedTransformsOutputDimensionsOverride]>> 32);
-    v70.width = generatedTransformsOutputDimensionsOverride;
-    DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v70);
+    v78.height = ([(VISConfiguration *)self->_configuration generatedTransformsOutputDimensionsOverride]>> 32);
+    v78.width = generatedTransformsOutputDimensionsOverride;
+    DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v78);
     OUTLINED_FUNCTION_22();
     if (DictionaryRepresentation)
     {
@@ -324,17 +325,21 @@
   OUTLINED_FUNCTION_22();
 
   [(VISConfiguration *)self->_configuration livePhotoCleanOutputRect];
-  if (!CGRectIsEmpty(v71))
+  if (!CGRectIsEmpty(v79))
   {
     [(VISConfiguration *)self->_configuration livePhotoCleanOutputRect];
-    v53 = CGRectCreateDictionaryRepresentation(v72);
+    v53 = CGRectCreateDictionaryRepresentation(v80);
     [v4 setObject:CFAutorelease(v53) forKeyedSubscript:kFigVideoStabilizationSampleBufferProcessorOption_LivePhotoCleanOutputRect];
   }
 
   v54 = FigSampleBufferProcessorCreateForGyroVideoStabilization(v4, &self->_sbpRef);
   if (v54)
   {
-    goto LABEL_35;
+    v64 = v54;
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_10();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v72, "<<<< GyroVideoStabilizationV2 >>>> Fig", "err == 0 ", "bail", 0, "GVSGyroStabilizationV2.m", 10794, v64);
+    goto LABEL_31;
   }
 
   v55 = objc_alloc_init(NSMutableArray);
@@ -352,13 +357,13 @@ LABEL_32:
   if (*(DerivedStorage + 24))
   {
     fig_log_get_emitter();
-    v63 = FigSignalErrorAtGM();
+    v63 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v75, v76, v77);
     if (v63)
     {
       v64 = v63;
-      fig_log_get_emitter();
-LABEL_38:
-      FigDebugAssert3();
+      emitter = fig_log_get_emitter();
+      LODWORD(v75) = v64;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", emitter, "<<<< GyroVideoStabilizationV2 >>>> Fig", "err == 0 ", "bail", 0, "GVSGyroStabilizationV2.m", 10812, v75);
       goto LABEL_31;
     }
   }
@@ -368,34 +373,35 @@ LABEL_38:
     *DerivedStorage = _sampleBufferImagePreStabilizationCallback;
   }
 
-  v54 = sbp_gvs_setPostOutputCallback(self->_sbpRef, _sampleBufferImageReadyCallback, self);
-  if (v54)
+  v66 = sbp_gvs_setPostOutputCallback(self->_sbpRef, _sampleBufferImageReadyCallback, self);
+  if (v66)
   {
-LABEL_35:
-    v64 = v54;
+    v64 = v66;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_10();
-    goto LABEL_38;
+    LODWORD(v75) = v64;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v73, "<<<< GyroVideoStabilizationV2 >>>> Fig", "err == 0 ", "bail", 0, "GVSGyroStabilizationV2.m", 10815, v75);
   }
 
-  cameraExtrinsicMatrix = [(VISConfiguration *)self->_configuration cameraExtrinsicMatrix];
-
-  if (cameraExtrinsicMatrix)
+  else
   {
-    cameraExtrinsicMatrix2 = [(VISConfiguration *)self->_configuration cameraExtrinsicMatrix];
-    v67 = OUTLINED_FUNCTION_17();
-    v64 = sbp_gvs_setProperty(v67, v68, cameraExtrinsicMatrix2);
+    cameraExtrinsicMatrix = [(VISConfiguration *)self->_configuration cameraExtrinsicMatrix];
 
-    if (v64)
+    if (cameraExtrinsicMatrix && ([(VISConfiguration *)self->_configuration cameraExtrinsicMatrix], v68 = objc_claimAutoreleasedReturnValue(), v69 = OUTLINED_FUNCTION_17(), v64 = sbp_gvs_setProperty(v69, v70, v68), v68, v64))
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_10();
-      goto LABEL_38;
+      LODWORD(v75) = v64;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v74, "<<<< GyroVideoStabilizationV2 >>>> Fig", "err == 0 ", "bail", 0, "GVSGyroStabilizationV2.m", 10820, v75);
+    }
+
+    else
+    {
+      v64 = 0;
+      *&self->_buffersEnqueued = 0;
     }
   }
 
-  v64 = 0;
-  *&self->_buffersEnqueued = 0;
 LABEL_31:
 
   return v64;
@@ -410,15 +416,15 @@ LABEL_31:
   }
 
   self->_finishProcessing = 1;
-  v4 = sbp_gvs_finishPendingProcessing(sbpRef);
-  if (v4)
+  v5 = sbp_gvs_finishPendingProcessing(sbpRef);
+  if (v5)
   {
     OUTLINED_FUNCTION_29();
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v2, v9, v11, v12, v13, vars0, vars8);
     OUTLINED_FUNCTION_29();
     fig_log_get_emitter();
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, v8, v10);
   }
 
   else
@@ -429,7 +435,7 @@ LABEL_31:
     [(NSMutableArray *)self->_sampleBuffersProcessed removeAllObjects];
   }
 
-  return v4;
+  return v5;
 }
 
 - (int)purgeResources
@@ -619,7 +625,7 @@ LABEL_27:
       v26 = v6;
       fig_log_get_emitter();
       OUTLINED_FUNCTION_12();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       return v26;
     }
 
@@ -629,35 +635,35 @@ LABEL_27:
   return 0;
 }
 
-- (uint64_t)enqueueBufferForProcessing:.cold.1()
+- (uint64_t)enqueueBufferForProcessing:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_35();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_1();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, a1, "<<<< GyroVideoStabilizationV2 >>>>", 10853, v1);
 }
 
-- (uint64_t)enqueueBufferForProcessing:.cold.2()
+- (uint64_t)enqueueBufferForProcessing:(uint64_t)a1 .cold.2(uint64_t a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_35();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_1();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, a1, "<<<< GyroVideoStabilizationV2 >>>>", 10856, v1);
 }
 
 - (uint64_t)enqueueBufferForProcessing:(_DWORD *)a1 .cold.3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -666,9 +672,9 @@ LABEL_27:
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -677,9 +683,9 @@ LABEL_27:
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }

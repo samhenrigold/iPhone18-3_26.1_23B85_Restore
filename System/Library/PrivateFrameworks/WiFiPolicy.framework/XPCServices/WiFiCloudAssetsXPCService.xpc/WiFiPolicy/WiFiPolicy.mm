@@ -83,54 +83,52 @@ void sub_100002758(id *a1)
 
 void sub_10000288C(uint64_t a1)
 {
-  v21 = a1;
-  v20 = a1;
-  v12 = *(*(a1 + 32) + 8);
-  v13 = [*(a1 + 40) asset];
-  v14 = [v12 indexOfObject:?];
+  v19 = a1;
+  v18 = a1;
+  v10 = *(*(a1 + 32) + 8);
+  v11 = [*(a1 + 40) asset];
+  v12 = [v10 indexOfObject:?];
 
-  v19 = v14;
-  v18 = 0;
-  if (v14 != 0x7FFFFFFFFFFFFFFFLL)
+  v17 = v12;
+  v16 = 0;
+  if (v12 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v1 = [*(*(a1 + 32) + 8) objectAtIndexedSubscript:v19];
-    v2 = v18;
-    v18 = v1;
+    v1 = [*(*(a1 + 32) + 8) objectAtIndexedSubscript:v17];
+    v2 = v16;
+    v16 = v1;
   }
 
-  v17 = 0;
-  v10 = *(a1 + 40);
+  v15 = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = *(a1 + 40);
-    v8 = *(a1 + 32);
-    v9 = [v16 keys];
-    v3 = [v8 _readInstalledKeys:? ofAsset:?];
-    v4 = v17;
-    v17 = v3;
+    v14 = *(a1 + 40);
+    v7 = *(a1 + 32);
+    v8 = [v14 keys];
+    v3 = [v7 _readInstalledKeys:? ofAsset:?];
+    v4 = v15;
+    v15 = v3;
 
-    objc_storeStrong(&v16, 0);
+    objc_storeStrong(&v14, 0);
   }
 
   else
   {
-    v7 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v15 = *(a1 + 40);
-      v5 = [*(a1 + 32) _readSQLiteDataBase:v15 ofAsset:v18];
-      v6 = v17;
-      v17 = v5;
+      v13 = *(a1 + 40);
+      v5 = [*(a1 + 32) _readSQLiteDataBase:v13 ofAsset:v16];
+      v6 = v15;
+      v15 = v5;
 
-      objc_storeStrong(&v15, 0);
+      objc_storeStrong(&v13, 0);
     }
   }
 
   (*(*(a1 + 48) + 16))();
-  objc_storeStrong(&v17, 0);
-  objc_storeStrong(&v18, 0);
+  objc_storeStrong(&v15, 0);
+  objc_storeStrong(&v16, 0);
 }
 
 NSDictionary *__cdecl sub_100002FBC(id a1)
@@ -241,22 +239,21 @@ void sub_100003C88(uint64_t a1, uint64_t a2)
 
   else
   {
-    v7 = [*(a1 + 32) results];
-    v8 = [v7 count];
+    v6 = [*(a1 + 32) results];
+    v7 = [v6 count];
 
-    if (v8)
+    if (v7)
     {
-      v5 = *(a1 + 40);
-      v4 = *(a1 + 48);
-      v6 = [*(a1 + 32) results];
-      v2 = *(a1 + 56);
-      [v5 _findBestVersionOfAsset:v4 fromResults:? completion:?];
+      v4 = *(a1 + 40);
+      v3 = *(a1 + 48);
+      v5 = [*(a1 + 32) results];
+      [v4 _findBestVersionOfAsset:v3 fromResults:? completion:?];
     }
 
     else
     {
-      v3 = [*(a1 + 48) name];
-      NSLog(@"[%s][%@] Empty results for asset update query", "[WCAServer _queryAndFindBestVersionOfAsset:completion:]_block_invoke", v3);
+      v2 = [*(a1 + 48) name];
+      NSLog(@"[%s][%@] Empty results for asset update query", "[WCAServer _queryAndFindBestVersionOfAsset:completion:]_block_invoke", v2);
 
       (*(*(a1 + 56) + 16))();
     }

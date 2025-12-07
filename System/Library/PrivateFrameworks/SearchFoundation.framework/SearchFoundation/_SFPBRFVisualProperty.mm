@@ -15,7 +15,7 @@
 
 - (_SFPBRFVisualProperty)initWithFacade:(id)facade
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBRFVisualProperty *)self init];
   if (v5)
@@ -31,33 +31,33 @@
       v7 = 0;
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     visual_elements2 = [facadeCopy visual_elements];
-    v9 = [visual_elements2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [visual_elements2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(visual_elements2);
           }
 
-          v13 = [[_SFPBRFVisualElement alloc] initWithFacade:*(*(&v17 + 1) + 8 * i)];
+          v13 = [[_SFPBRFVisualElement alloc] initWithFacade:*(*(&v16 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [visual_elements2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [visual_elements2 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -72,49 +72,48 @@
     v14 = v5;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBRFVisualProperty)initWithDictionary:(id)dictionary
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v23.receiver = self;
-  v23.super_class = _SFPBRFVisualProperty;
-  v5 = [(_SFPBRFVisualProperty *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = _SFPBRFVisualProperty;
+  v5 = [(_SFPBRFVisualProperty *)&v22 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"visualElements"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v19;
         do
         {
           v11 = 0;
           do
           {
-            if (*v20 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * v11);
+            v12 = *(*(&v18 + 1) + 8 * v11);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               v13 = [_SFPBRFVisualElement alloc];
-              v14 = [(_SFPBRFVisualElement *)v13 initWithDictionary:v12, v19];
+              v14 = [(_SFPBRFVisualElement *)v13 initWithDictionary:v12, v18];
               [(_SFPBRFVisualProperty *)v5 addVisual_elements:v14];
             }
 
@@ -122,14 +121,14 @@
           }
 
           while (v9 != v11);
-          v9 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
         }
 
         while (v9);
       }
     }
 
-    v15 = [dictionaryCopy objectForKeyedSubscript:{@"isSafeForLogging", v19}];
+    v15 = [dictionaryCopy objectForKeyedSubscript:{@"isSafeForLogging", v18}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -139,7 +138,6 @@
     v16 = v5;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -179,7 +177,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_is_safe_for_logging)
   {
@@ -190,26 +188,26 @@
   if ([(NSArray *)self->_visual_elements count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = self->_visual_elements;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          dictionaryRepresentation = [*(*(&v15 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v14 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -222,7 +220,7 @@
           }
         }
 
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -230,8 +228,6 @@
 
     [dictionary setObject:array forKeyedSubscript:@"visualElements"];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -292,35 +288,34 @@ LABEL_8:
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   visual_elements = [(_SFPBRFVisualProperty *)self visual_elements];
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v6 = [visual_elements countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [visual_elements countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(visual_elements);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [visual_elements countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [visual_elements countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -330,8 +325,6 @@ LABEL_8:
   {
     PBDataWriterWriteBOOLField();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addVisual_elements:(id)visual_elements
@@ -354,9 +347,7 @@ LABEL_8:
 
 - (void)setVisual_elements:(id)visual_elements
 {
-  v4 = [visual_elements copy];
-  visual_elements = self->_visual_elements;
-  self->_visual_elements = v4;
+  self->_visual_elements = [visual_elements copy];
 
   MEMORY[0x1EEE66BB8]();
 }

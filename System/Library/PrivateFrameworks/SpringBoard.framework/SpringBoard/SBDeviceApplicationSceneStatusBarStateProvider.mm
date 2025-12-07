@@ -168,11 +168,11 @@
   return sceneIdentifier;
 }
 
-uint64_t __77__SBDeviceApplicationSceneStatusBarStateProvider_invalidateStatusBarSettings__block_invoke(uint64_t result, void *a2, char a3)
+void *__77__SBDeviceApplicationSceneStatusBarStateProvider_invalidateStatusBarSettings__block_invoke(void *result, void *a2, char a3)
 {
   if ((a3 & 0x20) != 0)
   {
-    return [a2 didInvalidateStatusBarDescriptionForSceneWithIdentifier:*(result + 32)];
+    return [a2 didInvalidateStatusBarDescriptionForSceneWithIdentifier:result[4]];
   }
 
   return result;
@@ -517,7 +517,7 @@ void __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateC
   v3 = objc_loadWeakRetained((a1 + 32));
   v4 = [v3 statusBarSceneIdentifier];
   v5 = [v3 statusBarStyle];
-  v6 = SBLogAppStatusBars();
+  v6 = SBLogAppStatusBars(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = objc_opt_class();
@@ -559,11 +559,11 @@ void __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateC
   [v2 enumerateObserversWithBlock:v5];
 }
 
-uint64_t __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_2(uint64_t result, void *a2, char a3)
+void *__86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_2(void *result, void *a2, char a3)
 {
   if (a3)
   {
-    return [a2 sceneWithIdentifier:*(result + 32) didChangeStatusBarStyleTo:*(result + 40)];
+    return [a2 sceneWithIdentifier:result[4] didChangeStatusBarStyleTo:result[5]];
   }
 
   return result;
@@ -575,7 +575,7 @@ void __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateC
   v3 = objc_loadWeakRetained((a1 + 32));
   v4 = [v3 statusBarSceneIdentifier];
   v5 = [v3 statusBarPartStyles];
-  v6 = SBLogAppStatusBars();
+  v6 = SBLogAppStatusBars(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
@@ -657,34 +657,34 @@ void __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateC
 
 void __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_3_13(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_loadWeakRetained((a1 + 32));
   v4 = [v3 statusBarSceneIdentifier];
-  [v3 statusBarAlpha];
-  v6 = v5;
-  v7 = SBLogAppStatusBars();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v5 = [v3 statusBarAlpha];
+  v7 = v6;
+  v8 = SBLogAppStatusBars(v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v13 = v4;
-    v14 = 2112;
-    v15 = objc_opt_class();
-    v16 = 2048;
-    v17 = v6;
-    v8 = v15;
-    _os_log_debug_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEBUG, "(%@) %@ statusBarAlpha scene client setting changed to %f", buf, 0x20u);
+    v14 = v4;
+    v15 = 2112;
+    v16 = objc_opt_class();
+    v17 = 2048;
+    v18 = v7;
+    v9 = v16;
+    _os_log_debug_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEBUG, "(%@) %@ statusBarAlpha scene client setting changed to %f", buf, 0x20u);
   }
 
   if ([v3 _anyObserverWants:sel_sceneWithIdentifier_didChangeStatusBarAlphaTo_])
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_16;
-    v9[3] = &unk_2783AB2A8;
-    v9[4] = v3;
-    v10 = v4;
-    v11 = v6;
-    [v3 _performUpdateWith:a2 actions:v9];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_16;
+    v10[3] = &unk_2783AB2A8;
+    v10[4] = v3;
+    v11 = v4;
+    v12 = v7;
+    [v3 _performUpdateWith:a2 actions:v10];
   }
 }
 
@@ -700,11 +700,11 @@ void __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateC
   [v2 enumerateObserversWithBlock:v3];
 }
 
-uint64_t __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_2_17(uint64_t result, void *a2, char a3)
+double *__86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_2_17(double *result, void *a2, char a3)
 {
   if ((a3 & 4) != 0)
   {
-    return [a2 sceneWithIdentifier:*(result + 32) didChangeStatusBarAlphaTo:*(result + 40)];
+    return [a2 sceneWithIdentifier:*(result + 4) didChangeStatusBarAlphaTo:result[5]];
   }
 
   return result;
@@ -712,34 +712,35 @@ uint64_t __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpd
 
 void __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_3_18(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_loadWeakRetained((a1 + 32));
   v4 = [v3 statusBarSceneIdentifier];
   v5 = [v3 statusBarHidden];
-  v6 = SBLogAppStatusBars();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v6 = v5;
+  v7 = SBLogAppStatusBars(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v13 = v4;
-    v14 = 2112;
-    v15 = objc_opt_class();
-    v16 = 1024;
-    v17 = v5;
-    v7 = v15;
-    _os_log_debug_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEBUG, "(%@) %@ statusBarHidden scene client setting changed to %{BOOL}u", buf, 0x1Cu);
+    v14 = v4;
+    v15 = 2112;
+    v16 = objc_opt_class();
+    v17 = 1024;
+    v18 = v6;
+    v8 = v16;
+    _os_log_debug_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEBUG, "(%@) %@ statusBarHidden scene client setting changed to %{BOOL}u", buf, 0x1Cu);
   }
 
   if ([v3 _anyObserverWants:sel_sceneWithIdentifier_didChangeStatusBarHiddenTo_withAnimation_])
   {
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_21;
-    v8[3] = &unk_2783AC918;
-    v10 = a2;
-    v8[4] = v3;
-    v9 = v4;
-    v11 = v5;
-    [v3 _performUpdateWith:a2 actions:v8];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_21;
+    v9[3] = &unk_2783AC918;
+    v11 = a2;
+    v9[4] = v3;
+    v10 = v4;
+    v12 = v6;
+    [v3 _performUpdateWith:a2 actions:v9];
   }
 }
 
@@ -780,11 +781,11 @@ void __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateC
   [v7 enumerateObserversWithBlock:v9];
 }
 
-uint64_t __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_2_22(uint64_t result, void *a2, char a3)
+void *__86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_2_22(void *result, void *a2, char a3)
 {
   if ((a3 & 8) != 0)
   {
-    return [a2 sceneWithIdentifier:*(result + 32) didChangeStatusBarHiddenTo:*(result + 48) withAnimation:*(result + 40)];
+    return [a2 sceneWithIdentifier:result[4] didChangeStatusBarHiddenTo:*(result + 48) withAnimation:result[5]];
   }
 
   return result;
@@ -799,7 +800,7 @@ void __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateC
   {
     v5 = [v4 statusBarSceneIdentifier];
     v6 = [v4 statusBarOrientation];
-    v7 = SBLogAppStatusBars();
+    v7 = SBLogAppStatusBars(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v8 = objc_opt_class();
@@ -842,11 +843,11 @@ void __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateC
   [v2 enumerateObserversWithBlock:v5];
 }
 
-uint64_t __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_2_27(uint64_t result, void *a2, char a3)
+void *__86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateClientSettings___block_invoke_2_27(void *result, void *a2, char a3)
 {
   if ((a3 & 0x10) != 0)
   {
-    return [a2 sceneWithIdentifier:*(result + 32) didChangeStatusBarOrientationTo:*(result + 40)];
+    return [a2 sceneWithIdentifier:result[4] didChangeStatusBarOrientationTo:result[5]];
   }
 
   return result;
@@ -899,85 +900,86 @@ void __86__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateC
 
 void __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v1 = objc_loadWeakRetained((a1 + 32));
   v2 = [v1 statusBarSceneIdentifier];
   v3 = [v1 statusBarOrientation];
   v4 = [v1 sceneWantsDeviceOrientationEventsEnabled];
-  v5 = SBLogAppStatusBars();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v5 = v4;
+  v6 = SBLogAppStatusBars(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = objc_opt_class();
-    v9 = v8;
-    v10 = BSInterfaceOrientationDescription();
+    v9 = objc_opt_class();
+    v10 = v9;
+    v11 = BSInterfaceOrientationDescription();
     *buf = 138413058;
-    v21 = v2;
-    v22 = 2112;
-    v23 = v8;
-    v24 = 2112;
-    v25 = v10;
-    v26 = 1024;
-    v27 = v4;
-    _os_log_debug_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEBUG, "(%@) %@ interfaceOrientation scene setting changed to %@ (wantsDeviceOrientationEventsEnabled: %{BOOL}u)", buf, 0x26u);
+    v22 = v2;
+    v23 = 2112;
+    v24 = v9;
+    v25 = 2112;
+    v26 = v11;
+    v27 = 1024;
+    v28 = v5;
+    _os_log_debug_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEBUG, "(%@) %@ interfaceOrientation scene setting changed to %@ (wantsDeviceOrientationEventsEnabled: %{BOOL}u)", buf, 0x26u);
   }
 
   if ([v1 _anyObserverWants:sel_sceneWithIdentifier_didChangeSceneInterfaceOrientationTo_])
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke_33;
-    v17[3] = &unk_2783AC878;
-    v18 = v2;
-    v19 = v3;
-    [v1 enumerateObserversWithBlock:v17];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke_33;
+    v18[3] = &unk_2783AC878;
+    v19 = v2;
+    v20 = v3;
+    [v1 enumerateObserversWithBlock:v18];
   }
 
   if ([v1 _statusBarAppearsOutsideOfAJailedAppCanChange])
   {
-    v6 = [v1 statusBarStyle];
-    v7 = SBLogAppStatusBars();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v7 = [v1 statusBarStyle];
+    v8 = SBLogAppStatusBars(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v11 = objc_opt_class();
-      v12 = v11;
-      v13 = _SBStringFromStatusBarStyle(v6);
+      v12 = objc_opt_class();
+      v13 = v12;
+      v14 = _SBStringFromStatusBarStyle(v7);
       *buf = 138412802;
-      v21 = v2;
-      v22 = 2112;
-      v23 = v11;
-      v24 = 2112;
-      v25 = v13;
-      _os_log_debug_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEBUG, "(%@) %@ statusBarModernStyle changed via rotation of a classic app to %@", buf, 0x20u);
+      v22 = v2;
+      v23 = 2112;
+      v24 = v12;
+      v25 = 2112;
+      v26 = v14;
+      _os_log_debug_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEBUG, "(%@) %@ statusBarModernStyle changed via rotation of a classic app to %@", buf, 0x20u);
     }
 
     if ([v1 _anyObserverWants:sel_sceneWithIdentifier_didChangeStatusBarStyleTo_])
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke_34;
-      v14[3] = &unk_2783AC878;
-      v15 = v2;
-      v16 = v6;
-      [v1 enumerateObserversWithBlock:v14];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke_34;
+      v15[3] = &unk_2783AC878;
+      v16 = v2;
+      v17 = v7;
+      [v1 enumerateObserversWithBlock:v15];
     }
   }
 }
 
-uint64_t __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke_33(uint64_t result, void *a2, __int16 a3)
+void *__105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke_33(void *result, void *a2, __int16 a3)
 {
   if ((a3 & 0x100) != 0)
   {
-    return [a2 sceneWithIdentifier:*(result + 32) didChangeSceneInterfaceOrientationTo:*(result + 40)];
+    return [a2 sceneWithIdentifier:result[4] didChangeSceneInterfaceOrientationTo:result[5]];
   }
 
   return result;
 }
 
-uint64_t __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke_34(uint64_t result, void *a2, char a3)
+void *__105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke_34(void *result, void *a2, char a3)
 {
   if (a3)
   {
-    return [a2 sceneWithIdentifier:*(result + 32) didChangeStatusBarStyleTo:*(result + 40)];
+    return [a2 sceneWithIdentifier:result[4] didChangeStatusBarStyleTo:result[5]];
   }
 
   return result;
@@ -985,53 +987,53 @@ uint64_t __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUp
 
 void __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke_2(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v1 = objc_loadWeakRetained((a1 + 32));
   v2 = [v1 statusBarSceneIdentifier];
-  [v1 statusBarAvoidanceFrame];
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v11 = SBLogAppStatusBars();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v3 = [v1 statusBarAvoidanceFrame];
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v12 = SBLogAppStatusBars(v3);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v12 = objc_opt_class();
-    v13 = v12;
-    v28.origin.x = v4;
-    v28.origin.y = v6;
-    v28.size.width = v8;
-    v28.size.height = v10;
-    v14 = NSStringFromCGRect(v28);
+    v13 = objc_opt_class();
+    v14 = v13;
+    v29.origin.x = v5;
+    v29.origin.y = v7;
+    v29.size.width = v9;
+    v29.size.height = v11;
+    v15 = NSStringFromCGRect(v29);
     *buf = 138412802;
-    v22 = v2;
-    v23 = 2112;
-    v24 = v12;
-    v25 = 2112;
-    v26 = v14;
-    _os_log_debug_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEBUG, "(%@) %@ statusBarAvoidanceFrame scene setting changed to %@", buf, 0x20u);
+    v23 = v2;
+    v24 = 2112;
+    v25 = v13;
+    v26 = 2112;
+    v27 = v15;
+    _os_log_debug_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEBUG, "(%@) %@ statusBarAvoidanceFrame scene setting changed to %@", buf, 0x20u);
   }
 
   if ([v1 _anyObserverWants:sel_sceneWithIdentifier_didChangeStatusBarAvoidanceFrameTo_])
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke_37;
-    v15[3] = &unk_2783AC940;
-    v16 = v2;
-    v17 = v4;
-    v18 = v6;
-    v19 = v8;
-    v20 = v10;
-    [v1 enumerateObserversWithBlock:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke_37;
+    v16[3] = &unk_2783AC940;
+    v17 = v2;
+    v18 = v5;
+    v19 = v7;
+    v20 = v9;
+    v21 = v11;
+    [v1 enumerateObserversWithBlock:v16];
   }
 }
 
-uint64_t __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke_37(uint64_t result, void *a2, char a3)
+double *__105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUpdateSettingsWithDiff_previousSettings___block_invoke_37(double *result, void *a2, char a3)
 {
   if (a3 < 0)
   {
-    return [a2 sceneWithIdentifier:*(result + 32) didChangeStatusBarAvoidanceFrameTo:{*(result + 40), *(result + 48), *(result + 56), *(result + 64)}];
+    return [a2 sceneWithIdentifier:*(result + 4) didChangeStatusBarAvoidanceFrameTo:{result[5], result[6], result[7], result[8]}];
   }
 
   return result;
@@ -1068,7 +1070,7 @@ uint64_t __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUp
   selfCopy = self;
   statusBarSceneIdentifier = [(SBDeviceApplicationSceneStatusBarStateProvider *)selfCopy statusBarSceneIdentifier];
   backgroundActivitiesToSuppress = [(SBDeviceApplicationSceneStatusBarStateProvider *)selfCopy backgroundActivitiesToSuppress];
-  v5 = SBLogAppStatusBars();
+  v5 = SBLogAppStatusBars(backgroundActivitiesToSuppress);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v6 = objc_opt_class();
@@ -1095,11 +1097,11 @@ uint64_t __105__SBDeviceApplicationSceneStatusBarStateProvider_sceneHandle_didUp
   }
 }
 
-uint64_t __102__SBDeviceApplicationSceneStatusBarStateProvider__handleStatusBarBackgroundActivitiesToSuppressUpdate__block_invoke(uint64_t result, void *a2, char a3)
+void *__102__SBDeviceApplicationSceneStatusBarStateProvider__handleStatusBarBackgroundActivitiesToSuppressUpdate__block_invoke(void *result, void *a2, char a3)
 {
   if ((a3 & 0x40) != 0)
   {
-    return [a2 sceneWithIdentifier:*(result + 32) didChangeBackgroundActivitiesToSuppressTo:*(result + 40)];
+    return [a2 sceneWithIdentifier:result[4] didChangeBackgroundActivitiesToSuppressTo:result[5]];
   }
 
   return result;

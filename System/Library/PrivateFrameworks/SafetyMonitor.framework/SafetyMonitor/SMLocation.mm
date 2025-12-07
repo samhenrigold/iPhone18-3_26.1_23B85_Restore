@@ -268,73 +268,10 @@
       [(SMLocation *)self latitude];
       v13 = v12;
       [(SMLocation *)v8 latitude];
-      if (v13 != v14)
+      if (v13 != v14 && ([(SMLocation *)self latitude], v16 = v15, [(SMLocation *)v8 latitude], vabdd_f64(v16, v17) >= 2.22044605e-16) || ([(SMLocation *)self longitude], v19 = v18, [(SMLocation *)v8 longitude], v19 != v20) && ([(SMLocation *)self longitude], v22 = v21, [(SMLocation *)v8 longitude], vabdd_f64(v22, v23) >= 2.22044605e-16) || ([(SMLocation *)self hunc], v25 = v24, [(SMLocation *)v8 hunc], v25 != v26) && ([(SMLocation *)self hunc], v28 = v27, [(SMLocation *)v8 hunc], vabdd_f64(v28, v29) >= 2.22044605e-16) || ([(SMLocation *)self altitude], v31 = v30, [(SMLocation *)v8 altitude], v31 != v32) && ([(SMLocation *)self altitude], v34 = v33, [(SMLocation *)v8 altitude], vabdd_f64(v34, v35) >= 2.22044605e-16) || ([(SMLocation *)self vunc], v37 = v36, [(SMLocation *)v8 vunc], v37 != v38) && ([(SMLocation *)self vunc], v40 = v39, [(SMLocation *)v8 vunc], vabdd_f64(v40, v41) >= 2.22044605e-16))
       {
-        [(SMLocation *)self latitude];
-        v16 = v15;
-        [(SMLocation *)v8 latitude];
-        if (vabdd_f64(v16, v17) >= 2.22044605e-16)
-        {
-          goto LABEL_21;
-        }
-      }
-
-      [(SMLocation *)self longitude];
-      v19 = v18;
-      [(SMLocation *)v8 longitude];
-      if (v19 != v20)
-      {
-        [(SMLocation *)self longitude];
-        v22 = v21;
-        [(SMLocation *)v8 longitude];
-        if (vabdd_f64(v22, v23) >= 2.22044605e-16)
-        {
-          goto LABEL_21;
-        }
-      }
-
-      [(SMLocation *)self hunc];
-      v25 = v24;
-      [(SMLocation *)v8 hunc];
-      if (v25 != v26)
-      {
-        [(SMLocation *)self hunc];
-        v28 = v27;
-        [(SMLocation *)v8 hunc];
-        if (vabdd_f64(v28, v29) >= 2.22044605e-16)
-        {
-          goto LABEL_21;
-        }
-      }
-
-      [(SMLocation *)self altitude];
-      v31 = v30;
-      [(SMLocation *)v8 altitude];
-      if (v31 != v32)
-      {
-        [(SMLocation *)self altitude];
-        v34 = v33;
-        [(SMLocation *)v8 altitude];
-        if (vabdd_f64(v34, v35) >= 2.22044605e-16)
-        {
-          goto LABEL_21;
-        }
-      }
-
-      [(SMLocation *)self vunc];
-      v37 = v36;
-      [(SMLocation *)v8 vunc];
-      if (v37 != v38)
-      {
-        [(SMLocation *)self vunc];
-        v40 = v39;
-        [(SMLocation *)v8 vunc];
-        if (vabdd_f64(v40, v41) >= 2.22044605e-16)
-        {
-LABEL_21:
-          v11 = 0;
-          goto LABEL_25;
-        }
+        v11 = 0;
+        goto LABEL_25;
       }
 
       date = [(SMLocation *)self date];

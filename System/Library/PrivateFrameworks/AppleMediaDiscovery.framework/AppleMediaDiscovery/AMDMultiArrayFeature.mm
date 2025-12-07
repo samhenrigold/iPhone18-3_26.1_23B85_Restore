@@ -241,7 +241,6 @@ LABEL_15:
   objc_storeStrong(&v62, 0);
 LABEL_35:
   objc_storeStrong(&_value, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v74;
 
   return v9;
@@ -333,7 +332,6 @@ LABEL_35:
 LABEL_18:
   objc_storeStrong(&v31, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v18 = v36;
 
   return v18;
@@ -464,7 +462,6 @@ LABEL_18:
 
 LABEL_23:
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v44;
 }
 
@@ -578,7 +575,6 @@ LABEL_23:
 
 LABEL_21:
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v41;
 }
 
@@ -692,7 +688,6 @@ LABEL_21:
 
 LABEL_21:
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v41;
 }
 

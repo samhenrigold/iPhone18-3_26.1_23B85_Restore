@@ -603,20 +603,20 @@ LABEL_6:
 
 - (id)refineShiftMapV3WithMainImage:(id)image shiftmap:(id)shiftmap lensModel:(id)model
 {
-  v51[9] = *MEMORY[0x1E69E9840];
-  SDOFDisparityRefinementParameterValue(&cfstr_Version.isa, self->tuningParameters);
-  v10 = *&v9;
-  if (!v10)
+  v54[9] = *MEMORY[0x1E69E9840];
+  v9 = SDOFDisparityRefinementParameterValue(&cfstr_Version.isa, self->tuningParameters);
+  v12 = *&v11;
+  if (!v12)
   {
     goto LABEL_10;
   }
 
-  if (v10 >= 5)
+  if (v12 >= 5)
   {
-    v11 = ci_logger_api();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = ci_logger_api(v9, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(CIDepthEffectMakeBlurMap *)v10 refineShiftMapV3WithMainImage:v11 shiftmap:v12 lensModel:v13, v14, v15, v16, v17];
+      [(CIDepthEffectMakeBlurMap *)v12 refineShiftMapV3WithMainImage:v13 shiftmap:v14 lensModel:v15, v16, v17, v18, v19];
     }
   }
 
@@ -630,67 +630,67 @@ LABEL_6:
     inputMatteImage = self->inputMatteImage;
     if ([CIDepthEffectMakeBlurMap refineShiftMapV3WithMainImage:shiftmap:lensModel:]::useNativeFocalPlane)
     {
-      v48[0] = @"inputMatteImage";
-      v48[1] = @"inputLensModelCalculatorImage";
-      v49[0] = inputMatteImage;
-      v49[1] = model;
-      v48[2] = @"inputAlphaThreshold";
-      LODWORD(v9) = *"fff?";
-      v49[2] = [MEMORY[0x1E696AD98] numberWithFloat:v9];
-      v48[3] = @"inputAmplitude";
-      LODWORD(v19) = 1067030938;
-      v49[3] = [MEMORY[0x1E696AD98] numberWithFloat:v19];
-      v48[4] = @"inputExponent";
-      LODWORD(v20) = 2.0;
-      v49[4] = [MEMORY[0x1E696AD98] numberWithFloat:v20];
-      v48[5] = @"inputGamma";
-      LODWORD(v21) = 1053609165;
-      v49[5] = [MEMORY[0x1E696AD98] numberWithFloat:v21];
-      v48[6] = @"inputMinFactor";
-      LODWORD(v22) = 1036831949;
-      v49[6] = [MEMORY[0x1E696AD98] numberWithFloat:v22];
-      v48[7] = @"inputMaxFactor";
-      LODWORD(v23) = 1.0;
-      v49[7] = [MEMORY[0x1E696AD98] numberWithFloat:v23];
-      v24 = [shiftmap imageByApplyingFilter:@"CIFocalPlaneNative" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v49, v48, 8)}];
+      v51[0] = @"inputMatteImage";
+      v51[1] = @"inputLensModelCalculatorImage";
+      v52[0] = inputMatteImage;
+      v52[1] = model;
+      v51[2] = @"inputAlphaThreshold";
+      LODWORD(v11) = *"fff?";
+      v52[2] = [MEMORY[0x1E696AD98] numberWithFloat:v11];
+      v51[3] = @"inputAmplitude";
+      LODWORD(v21) = 1067030938;
+      v52[3] = [MEMORY[0x1E696AD98] numberWithFloat:v21];
+      v51[4] = @"inputExponent";
+      LODWORD(v22) = 2.0;
+      v52[4] = [MEMORY[0x1E696AD98] numberWithFloat:v22];
+      v51[5] = @"inputGamma";
+      LODWORD(v23) = 1053609165;
+      v52[5] = [MEMORY[0x1E696AD98] numberWithFloat:v23];
+      v51[6] = @"inputMinFactor";
+      LODWORD(v24) = 1036831949;
+      v52[6] = [MEMORY[0x1E696AD98] numberWithFloat:v24];
+      v51[7] = @"inputMaxFactor";
+      LODWORD(v25) = 1.0;
+      v52[7] = [MEMORY[0x1E696AD98] numberWithFloat:v25];
+      v26 = [shiftmap imageByApplyingFilter:@"CIFocalPlaneNative" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v52, v51, 8)}];
     }
 
     else
     {
-      v50[0] = @"inputMatteImage";
-      v50[1] = @"inputFocusRect";
+      v53[0] = @"inputMatteImage";
+      v53[1] = @"inputFocusRect";
       inputFocusRect = self->inputFocusRect;
-      v51[0] = inputMatteImage;
-      v51[1] = inputFocusRect;
-      v50[2] = @"inputZeroShiftPercentile";
-      LODWORD(v9) = 0.75;
-      v51[2] = [MEMORY[0x1E696AD98] numberWithFloat:v9];
-      v50[3] = @"inputAlphaThreshold";
-      LODWORD(v31) = *"fff?";
-      v51[3] = [MEMORY[0x1E696AD98] numberWithFloat:v31];
-      v50[4] = @"inputAmplitude";
-      LODWORD(v32) = 1067030938;
-      v51[4] = [MEMORY[0x1E696AD98] numberWithFloat:v32];
-      v50[5] = @"inputExponent";
-      LODWORD(v33) = 2.0;
-      v51[5] = [MEMORY[0x1E696AD98] numberWithFloat:v33];
-      v50[6] = @"inputGamma";
-      LODWORD(v34) = 1053609165;
-      v51[6] = [MEMORY[0x1E696AD98] numberWithFloat:v34];
-      v50[7] = @"inputMinFactor";
-      LODWORD(v35) = 1036831949;
-      v51[7] = [MEMORY[0x1E696AD98] numberWithFloat:v35];
-      v50[8] = @"inputMaxFactor";
-      LODWORD(v36) = 1.0;
-      v51[8] = [MEMORY[0x1E696AD98] numberWithFloat:v36];
-      v24 = [shiftmap metalImageByApplyingFilter:@"CIFocalPlane" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v51, v50, 9)}];
+      v54[0] = inputMatteImage;
+      v54[1] = inputFocusRect;
+      v53[2] = @"inputZeroShiftPercentile";
+      LODWORD(v11) = 0.75;
+      v54[2] = [MEMORY[0x1E696AD98] numberWithFloat:v11];
+      v53[3] = @"inputAlphaThreshold";
+      LODWORD(v34) = *"fff?";
+      v54[3] = [MEMORY[0x1E696AD98] numberWithFloat:v34];
+      v53[4] = @"inputAmplitude";
+      LODWORD(v35) = 1067030938;
+      v54[4] = [MEMORY[0x1E696AD98] numberWithFloat:v35];
+      v53[5] = @"inputExponent";
+      LODWORD(v36) = 2.0;
+      v54[5] = [MEMORY[0x1E696AD98] numberWithFloat:v36];
+      v53[6] = @"inputGamma";
+      LODWORD(v37) = 1053609165;
+      v54[6] = [MEMORY[0x1E696AD98] numberWithFloat:v37];
+      v53[7] = @"inputMinFactor";
+      LODWORD(v38) = 1036831949;
+      v54[7] = [MEMORY[0x1E696AD98] numberWithFloat:v38];
+      v53[8] = @"inputMaxFactor";
+      LODWORD(v39) = 1.0;
+      v54[8] = [MEMORY[0x1E696AD98] numberWithFloat:v39];
+      v26 = [shiftmap metalImageByApplyingFilter:@"CIFocalPlane" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v54, v53, 9)}];
     }
 
-    shiftmapCopy = v24;
-    if (!v24)
+    shiftmapCopy = v26;
+    if (!v26)
     {
-      v38 = ci_logger_api();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v41 = ci_logger_api(0, v27);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         [CIDepthEffectMakeBlurMap refineShiftMapV3WithMainImage:shiftmap:lensModel:];
       }
@@ -698,52 +698,52 @@ LABEL_6:
       shiftmapCopy = shiftmap;
     }
 
-    v39 = 0x32u >> ([CIDepthBlurEffect getDraftMode:[(CIDepthEffectMakeBlurMap *)self inputDraftMode]]== 1);
-    v46[0] = @"inputMainImage";
-    v46[1] = @"inputPredicateImage";
-    v40 = self->inputMatteImage;
-    v47[0] = image;
-    v47[1] = v40;
-    v46[2] = @"inputRadius";
-    LODWORD(v41) = 2.0;
-    v47[2] = [MEMORY[0x1E696AD98] numberWithFloat:v41];
-    v46[3] = @"inputSubsampling";
-    LODWORD(v42) = 8.0;
-    v47[3] = [MEMORY[0x1E696AD98] numberWithFloat:v42];
-    v46[4] = @"inputEPS";
-    LODWORD(v43) = 953267991;
-    v47[4] = [MEMORY[0x1E696AD98] numberWithFloat:v43];
-    v46[5] = @"inputNumIterations";
-    v47[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v39];
-    return [shiftmapCopy metalImageByApplyingFilter:@"CIMattingSolver" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v47, v46, 6)}];
+    v42 = 0x32u >> ([CIDepthBlurEffect getDraftMode:[(CIDepthEffectMakeBlurMap *)self inputDraftMode]]== 1);
+    v49[0] = @"inputMainImage";
+    v49[1] = @"inputPredicateImage";
+    v43 = self->inputMatteImage;
+    v50[0] = image;
+    v50[1] = v43;
+    v49[2] = @"inputRadius";
+    LODWORD(v44) = 2.0;
+    v50[2] = [MEMORY[0x1E696AD98] numberWithFloat:v44];
+    v49[3] = @"inputSubsampling";
+    LODWORD(v45) = 8.0;
+    v50[3] = [MEMORY[0x1E696AD98] numberWithFloat:v45];
+    v49[4] = @"inputEPS";
+    LODWORD(v46) = 953267991;
+    v50[4] = [MEMORY[0x1E696AD98] numberWithFloat:v46];
+    v49[5] = @"inputNumIterations";
+    v50[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v42];
+    return [shiftmapCopy metalImageByApplyingFilter:@"CIMattingSolver" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v50, v49, 6)}];
   }
 
   else
   {
 LABEL_10:
-    v44[0] = @"inputScale";
-    v44[1] = @"inputMainImage";
-    v45[0] = self->inputScale;
-    v45[1] = image;
-    v44[2] = @"inputImage";
-    v44[3] = @"inputTuningParameters";
+    v47[0] = @"inputScale";
+    v47[1] = @"inputMainImage";
+    v48[0] = self->inputScale;
+    v48[1] = image;
+    v47[2] = @"inputImage";
+    v47[3] = @"inputTuningParameters";
     tuningParameters = self->tuningParameters;
     if (!tuningParameters)
     {
       tuningParameters = MEMORY[0x1E695E0F8];
     }
 
-    v45[2] = shiftmap;
-    v45[3] = tuningParameters;
-    v26 = +[CIFilter metalFilterWithName:withInputParameters:](CIFilter, "metalFilterWithName:withInputParameters:", @"CIDisparityRefinementV3", [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:4]);
-    v27 = v26;
-    v28 = self->inputMatteImage;
-    if (v28)
+    v48[2] = shiftmap;
+    v48[3] = tuningParameters;
+    v29 = +[CIFilter metalFilterWithName:withInputParameters:](CIFilter, "metalFilterWithName:withInputParameters:", @"CIDisparityRefinementV3", [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:4]);
+    v30 = v29;
+    v31 = self->inputMatteImage;
+    if (v31)
     {
-      [v26 setValue:v28 forKey:@"inputMatteImage"];
+      [v29 setValue:v31 forKey:@"inputMatteImage"];
     }
 
-    return [v27 outputImage];
+    return [v30 outputImage];
   }
 }
 
@@ -1590,6 +1590,13 @@ LABEL_32:
   }
 
   return [(CIDepthEffectMakeBlurMap *)self unifiedRenderingOutputImage:v4];
+}
+
+- (void)refineShiftMapV3WithMainImage:(uint64_t)a3 shiftmap:(uint64_t)a4 lensModel:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_3_3(&dword_19CC36000, a2, a3, "Unsupported disparity refinement configuration = %d", a5, a6, a7, a8, v8);
 }
 
 @end

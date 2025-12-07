@@ -1,5 +1,6 @@
 @interface WFBooleanSubstitutableState
 + (Class)processingValueClass;
+- (WFBooleanSubstitutableState)initWithBoolValue:(BOOL)value;
 - (WFBooleanSubstitutableState)initWithNumberSubstitutableState:(id)state;
 - (id)numberSubstitutableState;
 @end
@@ -49,6 +50,14 @@
   }
 
   return v6;
+}
+
+- (WFBooleanSubstitutableState)initWithBoolValue:(BOOL)value
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:value];
+  v5 = [(WFNumberSubstitutableState *)self initWithNumber:v4];
+
+  return v5;
 }
 
 @end

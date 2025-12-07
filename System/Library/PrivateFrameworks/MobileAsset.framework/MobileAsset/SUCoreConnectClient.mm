@@ -27,30 +27,26 @@ void __120__SUCoreConnectClient_MAAutoSyncHelpers__connectClientSendServerMessag
 
 void __120__SUCoreConnectClient_MAAutoSyncHelpers__connectClientSendServerMessage_proxyObject_replyQueue_isSynchronous_withReply___block_invoke_2(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = mach_absolute_time();
-  v3 = a1[5];
-  v4 = a1[4];
   (*(a1[6] + 16))();
-  v5 = mach_absolute_time();
-  v6 = MAConvertTicksToSeconds(v5 - a1[7]);
-  v7 = _MAClientLog(@"DEFAULT");
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v3 = mach_absolute_time();
+  v4 = MAConvertTicksToSeconds(v3 - a1[7]);
+  v5 = _MAClientLog(@"DEFAULT");
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = MAConvertTicksToSeconds(a1[8] - a1[7]);
-    v9 = MAConvertTicksToSeconds(v2 - a1[8]);
-    v11 = 134218752;
-    v12 = v6;
-    v13 = 2048;
-    v14 = v8;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2048;
-    v18 = MAConvertTicksToSeconds(v5 - v2);
-    _os_log_impl(&dword_197AD5000, v7, OS_LOG_TYPE_DEFAULT, "ma-auto-sync-helper/xpc-sync total=%.3f (xpc=%.3f, queue=%.3f, reply=%.3f)", &v11, 0x2Au);
+    v6 = MAConvertTicksToSeconds(a1[8] - a1[7]);
+    v7 = MAConvertTicksToSeconds(v2 - a1[8]);
+    v8 = 134218752;
+    v9 = v4;
+    v10 = 2048;
+    v11 = v6;
+    v12 = 2048;
+    v13 = v7;
+    v14 = 2048;
+    v15 = MAConvertTicksToSeconds(v3 - v2);
+    _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, "ma-auto-sync-helper/xpc-sync total=%.3f (xpc=%.3f, queue=%.3f, reply=%.3f)", &v8, 0x2Au);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

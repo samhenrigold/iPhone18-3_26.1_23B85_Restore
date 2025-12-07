@@ -27,18 +27,17 @@
 {
   v5 = sub_1E4AAA030();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   nameCopy = name;
   sub_1E4AAA020();
   sub_1E4AA9FF0();
-  (*(v6 + 8))(v9, v5);
-  v11 = sub_1E4AAA870();
+  (*(v6 + 8))(v8, v5);
+  v10 = sub_1E4AAA870();
 
-  v12 = [(WKWallpaperPosterLook *)self initWithIdentifier:v11 displayName:nameCopy];
+  v11 = [(WKWallpaperPosterLook *)self initWithIdentifier:v10 displayName:nameCopy];
 
-  return v12;
+  return v11;
 }
 
 - (_TtC12WallpaperKitP33_EFDDAE94C6722FEA4441550D18B5A9BD21WKWallpaperPosterLook)init

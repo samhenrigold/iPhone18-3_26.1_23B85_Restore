@@ -1656,7 +1656,7 @@ void __42__WFWidgetViewController_initWithOptions___block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __45__WFWidgetViewController_progressSubscribers__block_invoke()
+uint64_t __45__WFWidgetViewController_progressSubscribers__block_invoke(uint64_t a1, uint64_t a2)
 {
   progressSubscribers_progressSubscribers = objc_opt_new();
 

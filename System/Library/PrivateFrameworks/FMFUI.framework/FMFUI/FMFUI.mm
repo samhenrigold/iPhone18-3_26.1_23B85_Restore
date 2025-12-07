@@ -6,28 +6,38 @@ void sub_24A4F2894(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id LogCategory_Daemon()
+id LogCategory_Daemon(uint64_t a1)
 {
   if (LogCategory_Daemon_onceToken != -1)
   {
     LogCategory_Daemon_cold_1();
   }
 
-  v1 = LogCategory_Daemon_log;
+  v2 = LogCategory_Daemon_log;
 
-  return v1;
+  return v2;
 }
 
-id LogCategory_FMFMapXPC()
+id LogCategory_FMFMapXPC(uint64_t a1)
 {
   if (LogCategory_FMFMapXPC_onceToken != -1)
   {
     LogCategory_FMFMapXPC_cold_1();
   }
 
-  v1 = LogCategory_FMFMapXPC_log;
+  v2 = LogCategory_FMFMapXPC_log;
 
-  return v1;
+  return v2;
+}
+
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x2821115C8](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
 }
 
 CLLocationCoordinate2D CLLocationCoordinate2DMake(CLLocationDegrees latitude, CLLocationDegrees longitude)
@@ -35,6 +45,24 @@ CLLocationCoordinate2D CLLocationCoordinate2DMake(CLLocationDegrees latitude, CL
   MEMORY[0x282136CD0](latitude, longitude);
   result.longitude = v3;
   result.latitude = v2;
+  return result;
+}
+
+MKCoordinateRegion MKCoordinateRegionForMapRect(MKMapRect rect)
+{
+  MEMORY[0x282123640](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.span.longitudeDelta = v4;
+  result.span.latitudeDelta = v3;
+  result.center.longitude = v2;
+  result.center.latitude = v1;
+  return result;
+}
+
+MKMapPoint MKMapPointForCoordinate(CLLocationCoordinate2D coordinate)
+{
+  MEMORY[0x282123658](coordinate, *&coordinate.longitude);
+  result.y = v2;
+  result.x = v1;
   return result;
 }
 
@@ -48,7 +76,7 @@ double gotLoadHelper_x8__OBJC_CLASS___FindMyAccountOverviewViewController(double
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_FindMyUICore(double a1)
+double dlopenHelper_FindMyUICore(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/FindMyUICore.framework/FindMyUICore", 0);
   atomic_store(1u, &dlopenHelperFlag_FindMyUICore);

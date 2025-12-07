@@ -69,10 +69,15 @@
     selfCopy2 = self;
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_15;
+      v19 = @"[MPSNNDefaultPadding paddingWithMethod:]: Can not create a new object with a custom sizing policy.\n\tYou must implement your own object using the MPSNNPadding Policy.\n";
+      v20 = 2165;
+LABEL_16:
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNKernel.mm", v20, v19, v15, v16, v17, v18);
     }
 
-    goto LABEL_16;
+LABEL_17:
+
+    return 0;
   }
 
   if ((method & 0xFFFFFFFFFFFF3800) != 0)
@@ -80,13 +85,12 @@
     selfCopy2 = self;
     if (MTLReportFailureTypeEnabled())
     {
-LABEL_15:
-      MTLReportFailure();
+      v19 = @"MPSCreatePaddingPolicy(): invalid / unknown bits in MPSNNPaddingMethod.\n";
+      v20 = 2166;
+      goto LABEL_16;
     }
 
-LABEL_16:
-
-    return 0;
+    goto LABEL_17;
   }
 
   if ((~method & 3) != 0)
@@ -208,13 +212,13 @@ LABEL_16:
 {
   if (self->_mpsOwned && MTLReportFailureTypeEnabled())
   {
-    v10 = objc_msgSend_debugDescription(self, v3, v4, v5, v6, v7, v8, v9);
-    MTLReportFailure();
+    v14 = objc_msgSend_debugDescription(self, v3, v4, v5, v6, v7, v8, v9);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNKernel.mm", 0x8ED, @"Error: overrelease of MPS owned MPSNNDefaultPadding object:\n  %@", v10, v11, v12, v13);
   }
 
-  v11.receiver = self;
-  v11.super_class = MPSNNDefaultPadding;
-  [(MPSNNDefaultPadding *)&v11 dealloc];
+  v15.receiver = self;
+  v15.super_class = MPSNNDefaultPadding;
+  [(MPSNNDefaultPadding *)&v15 dealloc];
 }
 
 @end

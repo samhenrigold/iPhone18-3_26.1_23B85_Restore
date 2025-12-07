@@ -13,7 +13,7 @@
 
 - (void)mp_deepCopyLayer
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(objc_opt_class()) initWithLayer:self];
   if (v2)
   {
@@ -21,28 +21,28 @@
     v4 = sublayers;
     if (sublayers)
     {
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
-      v5 = [sublayers countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
+      v5 = [sublayers countByEnumeratingWithState:&v41 objects:v47 count:16];
       if (v5)
       {
         v6 = v5;
         v7 = 0;
-        v8 = *v43;
+        v8 = *v42;
         do
         {
           v9 = 0;
           v10 = v7;
           do
           {
-            if (*v43 != v8)
+            if (*v42 != v8)
             {
               objc_enumerationMutation(v4);
             }
 
-            v7 = *(*(&v42 + 1) + 8 * v9);
+            v7 = *(*(&v41 + 1) + 8 * v9);
 
             mp_deepCopyLayer = [v7 mp_deepCopyLayer];
             if (mp_deepCopyLayer)
@@ -55,7 +55,7 @@
           }
 
           while (v6 != v9);
-          v6 = [v4 countByEnumeratingWithState:&v42 objects:v48 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v41 objects:v47 count:16];
         }
 
         while (v6);
@@ -73,27 +73,27 @@
       }
     }
 
-    v33 = v4;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
+    v32 = v4;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     mp_propertiesToCopy = [self mp_propertiesToCopy];
-    v16 = [mp_propertiesToCopy countByEnumeratingWithState:&v38 objects:v47 count:16];
+    v16 = [mp_propertiesToCopy countByEnumeratingWithState:&v37 objects:v46 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v39;
+      v18 = *v38;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v39 != v18)
+          if (*v38 != v18)
           {
             objc_enumerationMutation(mp_propertiesToCopy);
           }
 
-          v20 = *(*(&v38 + 1) + 8 * i);
+          v20 = *(*(&v37 + 1) + 8 * i);
           if (([v20 isEqualToString:@"sublayers"] & 1) == 0 && (objc_msgSend(v20, "isEqualToString:", @"mask") & 1) == 0 && objc_msgSend(self, "shouldArchiveValueForKey:", v20))
           {
             v21 = [self valueForKey:v20];
@@ -101,7 +101,7 @@
           }
         }
 
-        v17 = [mp_propertiesToCopy countByEnumeratingWithState:&v38 objects:v47 count:16];
+        v17 = [mp_propertiesToCopy countByEnumeratingWithState:&v37 objects:v46 count:16];
       }
 
       while (v17);
@@ -117,26 +117,26 @@
       [v2 setNeedsLayout];
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     animationKeys = [self animationKeys];
-    v23 = [animationKeys countByEnumeratingWithState:&v34 objects:v46 count:16];
+    v23 = [animationKeys countByEnumeratingWithState:&v33 objects:v45 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v35;
+      v25 = *v34;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v35 != v25)
+          if (*v34 != v25)
           {
             objc_enumerationMutation(animationKeys);
           }
 
-          v27 = *(*(&v34 + 1) + 8 * j);
+          v27 = *(*(&v33 + 1) + 8 * j);
           v28 = [self animationForKey:v27];
           if (([v28 isRemovedOnCompletion] & 1) == 0)
           {
@@ -144,7 +144,7 @@
           }
         }
 
-        v24 = [animationKeys countByEnumeratingWithState:&v34 objects:v46 count:16];
+        v24 = [animationKeys countByEnumeratingWithState:&v33 objects:v45 count:16];
       }
 
       while (v24);
@@ -153,7 +153,6 @@
     v29 = v2;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -211,7 +210,7 @@ LABEL_8:
 
 - (void)mp_addLayerAndSublayersToArray:()MicaPlayerAdditions allowHiddenLayers:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if ((a4 & 1) != 0 || ([self isHidden] & 1) == 0)
   {
@@ -224,66 +223,64 @@ LABEL_8:
       [mask2 mp_addLayerAndSublayersToArray:v6 allowHiddenLayers:a4];
     }
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     sublayers = [self sublayers];
-    v10 = [sublayers countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v10 = [sublayers countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(sublayers);
           }
 
-          [*(*(&v15 + 1) + 8 * v13++) mp_addLayerAndSublayersToArray:v6 allowHiddenLayers:a4];
+          [*(*(&v14 + 1) + 8 * v13++) mp_addLayerAndSublayersToArray:v6 allowHiddenLayers:a4];
         }
 
         while (v11 != v13);
-        v11 = [sublayers countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [sublayers countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)mp_allLayersWhoseNamesContainString:()MicaPlayerAdditions
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = a3;
   mp_allLayersInTree = [self mp_allLayersInTree];
   array = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = mp_allLayersInTree;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         name = [v12 name];
         if (name)
         {
@@ -298,121 +295,115 @@ LABEL_8:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)mp_allLayersWithKindOfClass:()MicaPlayerAdditions
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   mp_allLayersInTree = [self mp_allLayersInTree];
   array = [MEMORY[0x1E695DF70] array];
-  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v3 = mp_allLayersInTree;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v4)
+  v15 = 0u;
+  v5 = mp_allLayersInTree;
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
   {
-    v5 = v4;
-    v6 = *v12;
+    v7 = v6;
+    v8 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v6)
+        if (*v13 != v8)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v5);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          [array addObject:{v8, v11}];
+          [array addObject:{v10, v12}];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v5);
+    while (v7);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)mp_allAnimationsInTree
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   mp_allLayersInTree = [self mp_allLayersInTree];
   array = [MEMORY[0x1E695DF70] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = mp_allLayersInTree;
-  v3 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v3 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v22;
+    v5 = *v21;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v21 + 1) + 8 * i);
+        v7 = *(*(&v20 + 1) + 8 * i);
+        v16 = 0u;
         v17 = 0u;
         v18 = 0u;
         v19 = 0u;
-        v20 = 0u;
         animationKeys = [v7 animationKeys];
-        v9 = [animationKeys countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v9 = [animationKeys countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v18;
+          v11 = *v17;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v18 != v11)
+              if (*v17 != v11)
               {
                 objc_enumerationMutation(animationKeys);
               }
 
-              v13 = [v7 animationForKey:*(*(&v17 + 1) + 8 * j)];
+              v13 = [v7 animationForKey:*(*(&v16 + 1) + 8 * j)];
               [array addObject:v13];
             }
 
-            v10 = [animationKeys countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v10 = [animationKeys countByEnumeratingWithState:&v16 objects:v24 count:16];
           }
 
           while (v10);
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v4 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v4);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return array;
 }

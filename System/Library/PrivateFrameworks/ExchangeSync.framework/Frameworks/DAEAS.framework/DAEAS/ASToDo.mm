@@ -222,7 +222,7 @@
 
 - (id)bestGuessTimeZoneWithLocalDate:(id)date utcDate:(id)utcDate
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   utcDateCopy = utcDate;
   v7 = utcDateCopy;
@@ -253,17 +253,17 @@
     v15 = *(MEMORY[0x277D03988] + 7);
     if (os_log_type_enabled(v14, v15))
     {
-      v18 = 138413314;
-      v19 = dateCopy;
-      v20 = 2112;
-      v21 = v7;
-      v22 = 2048;
-      v23 = v9;
-      v24 = 2048;
-      v25 = v11;
-      v26 = 2112;
-      v27 = localTimeZone2;
-      _os_log_impl(&dword_24A0AC000, v14, v15, "localDate %@ utc date %@ offset %lf myTZDiff %ld.  Returning %@", &v18, 0x34u);
+      v17 = 138413314;
+      v18 = dateCopy;
+      v19 = 2112;
+      v20 = v7;
+      v21 = 2048;
+      v22 = v9;
+      v23 = 2048;
+      v24 = v11;
+      v25 = 2112;
+      v26 = localTimeZone2;
+      _os_log_impl(&dword_24A0AC000, v14, v15, "localDate %@ utc date %@ offset %lf myTZDiff %ld.  Returning %@", &v17, 0x34u);
     }
   }
 
@@ -271,8 +271,6 @@
   {
     localTimeZone2 = [MEMORY[0x277CBEBB0] localTimeZone];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return localTimeZone2;
 }
@@ -521,7 +519,7 @@
 
 - (void)appendActiveSyncDataForTask:(id)task toWBXMLData:(id)data
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   dataCopy = data;
   taskManager = [taskCopy taskManager];
@@ -609,29 +607,29 @@
   if (v29)
   {
     [dataCopy openTag:8];
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     categories2 = [(ASToDo *)self categories];
-    v31 = [categories2 countByEnumeratingWithState:&v49 objects:v53 count:16];
+    v31 = [categories2 countByEnumeratingWithState:&v48 objects:v52 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v50;
+      v33 = *v49;
       do
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v50 != v33)
+          if (*v49 != v33)
           {
             objc_enumerationMutation(categories2);
           }
 
-          [dataCopy appendTag:9 withStringContent:*(*(&v49 + 1) + 8 * i)];
+          [dataCopy appendTag:9 withStringContent:*(*(&v48 + 1) + 8 * i)];
         }
 
-        v32 = [categories2 countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v32 = [categories2 countByEnumeratingWithState:&v48 objects:v52 count:16];
       }
 
       while (v32);
@@ -679,8 +677,6 @@
   {
     [dataCopy appendTag:27 withIntContent:{objc_msgSend(reminderIsSet, "intValue")}];
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCalTask:(void *)task
@@ -726,12 +722,15 @@
 - (void)setBody:(id)body
 {
   stringByTrimmingNotesJunk = [body stringByTrimmingNotesJunk];
+  v5 = stringByTrimmingNotesJunk;
   if (self->_body != stringByTrimmingNotesJunk)
   {
+    v6 = stringByTrimmingNotesJunk;
     objc_storeStrong(&self->_body, stringByTrimmingNotesJunk);
+    v5 = v6;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](stringByTrimmingNotesJunk, v5);
 }
 
 - (BOOL)saveWithLocalObject:(void *)object toContainer:(void *)container shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account

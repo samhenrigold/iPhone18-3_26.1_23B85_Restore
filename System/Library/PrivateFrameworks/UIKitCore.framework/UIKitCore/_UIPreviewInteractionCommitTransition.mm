@@ -104,7 +104,7 @@
   {
     memset(&v6, 0, sizeof(v6));
     viewCopy = view;
-    [viewCopy transform];
+    objc_msgSend_transform(viewCopy);
     v4 = v6;
     CGAffineTransformScale(&v5, &v4, 1.75, 1.75);
     v4 = v5;

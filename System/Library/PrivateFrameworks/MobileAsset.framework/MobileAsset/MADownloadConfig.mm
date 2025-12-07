@@ -72,16 +72,14 @@
 
 - (void)logConfig
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = [(MADownloadConfig *)self discretionary];
-    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_DEFAULT, "The config is discretionary: %d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = [(MADownloadConfig *)self discretionary];
+    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_DEFAULT, "The config is discretionary: %d", v4, 8u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)summary

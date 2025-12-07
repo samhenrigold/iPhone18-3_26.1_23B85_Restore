@@ -8,59 +8,59 @@
 - (PCNativeButtonStyle)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v11 = objc_msgSend_init(self, v5, v6, v7, v8, v9, v10);
-  if (v11)
+  v7 = objc_msgSend_init(self, v5, v6);
+  if (v7)
   {
+    v8 = objc_opt_class();
+    v10 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v9, v8, @"color");
+    v11 = *(v7 + 8);
+    *(v7 + 8) = v10;
+
     v12 = objc_opt_class();
-    v17 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v13, v12, @"color", v14, v15, v16);
-    v18 = *(v11 + 8);
-    *(v11 + 8) = v17;
+    v14 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v13, v12, @"highlightColor");
+    v15 = *(v7 + 16);
+    *(v7 + 16) = v14;
 
-    v19 = objc_opt_class();
-    v24 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v20, v19, @"highlightColor", v21, v22, v23);
-    v25 = *(v11 + 16);
-    *(v11 + 16) = v24;
+    v16 = objc_opt_class();
+    v18 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v17, v16, @"disabledColor");
+    v19 = *(v7 + 24);
+    *(v7 + 24) = v18;
 
+    v20 = objc_opt_class();
+    v22 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v21, v20, @"textColor");
+    v23 = *(v7 + 32);
+    *(v7 + 32) = v22;
+
+    objc_msgSend_decodeDoubleForKey_(coderCopy, v24, @"cornerRadius");
+    *(v7 + 40) = v25;
     v26 = objc_opt_class();
-    v31 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v27, v26, @"disabledColor", v28, v29, v30);
-    v32 = *(v11 + 24);
-    *(v11 + 24) = v31;
-
-    v33 = objc_opt_class();
-    v38 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v34, v33, @"textColor", v35, v36, v37);
-    v39 = *(v11 + 32);
-    *(v11 + 32) = v38;
-
-    objc_msgSend_decodeDoubleForKey_(coderCopy, v40, @"cornerRadius", v41, v42, v43, v44);
-    *(v11 + 40) = v45;
-    v46 = objc_opt_class();
-    v51 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v47, v46, @"borderStyle", v48, v49, v50);
-    v52 = *(v11 + 48);
-    *(v11 + 48) = v51;
+    v28 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v27, v26, @"borderStyle");
+    v29 = *(v7 + 48);
+    *(v7 + 48) = v28;
   }
 
-  return v11;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v11 = objc_msgSend_color(self, v5, v6, v7, v8, v9, v10);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v12, v11, @"color", v13, v14, v15);
+  v7 = objc_msgSend_color(self, v5, v6);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v8, v7, @"color");
 
-  v22 = objc_msgSend_highlightColor(self, v16, v17, v18, v19, v20, v21);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v23, v22, @"highlightColor", v24, v25, v26);
+  v11 = objc_msgSend_highlightColor(self, v9, v10);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v12, v11, @"highlightColor");
 
-  v33 = objc_msgSend_disabledColor(self, v27, v28, v29, v30, v31, v32);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v34, v33, @"disabledColor", v35, v36, v37);
+  v15 = objc_msgSend_disabledColor(self, v13, v14);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v16, v15, @"disabledColor");
 
-  v44 = objc_msgSend_textColor(self, v38, v39, v40, v41, v42, v43);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v45, v44, @"textColor", v46, v47, v48);
+  v19 = objc_msgSend_textColor(self, v17, v18);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v20, v19, @"textColor");
 
-  objc_msgSend_cornerRadius(self, v49, v50, v51, v52, v53, v54);
-  objc_msgSend_encodeDouble_forKey_(coderCopy, v55, @"cornerRadius", v56, v57, v58, v59);
-  v70 = objc_msgSend_borderStyle(self, v60, v61, v62, v63, v64, v65);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v66, v70, @"borderStyle", v67, v68, v69);
+  objc_msgSend_cornerRadius(self, v21, v22);
+  objc_msgSend_encodeDouble_forKey_(coderCopy, v23, @"cornerRadius");
+  v27 = objc_msgSend_borderStyle(self, v24, v25);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v26, v27, @"borderStyle");
 }
 
 @end

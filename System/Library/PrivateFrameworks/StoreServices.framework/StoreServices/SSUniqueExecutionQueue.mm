@@ -87,9 +87,8 @@ void __45__SSUniqueExecutionQueue_addCompletionBlock___block_invoke(uint64_t a1)
 
     if (v29)
     {
-      v49[0] = 0;
-      LODWORD(v38) = 2;
-      v30 = _os_log_send_and_compose_impl();
+      v48[0] = 0;
+      v30 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_1D48BA000, v28, 16, "SSUniqueExecutionQueue: self is out-of-scope.", v48, 2);
 
       if (!v30)
       {
@@ -101,7 +100,7 @@ LABEL_30:
         goto LABEL_32;
       }
 
-      v28 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:{4, v49, v38}];
+      v28 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:4];
       free(v30);
       SSFileLog(v25, @"%@", v31, v32, v33, v34, v35, v36, v28);
     }
@@ -114,24 +113,24 @@ LABEL_30:
   {
     v5 = objc_alloc_init(SSPromise);
     [v3 setPromise:v5];
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __45__SSUniqueExecutionQueue_addCompletionBlock___block_invoke_6;
-    v47[3] = &unk_1E84AD848;
-    objc_copyWeak(&v48, (a1 + 40));
-    [(SSPromise *)v5 addFinishBlock:v47];
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __45__SSUniqueExecutionQueue_addCompletionBlock___block_invoke_6;
+    v46[3] = &unk_1E84AD848;
+    objc_copyWeak(&v47, (a1 + 40));
+    [(SSPromise *)v5 addFinishBlock:v46];
     v6 = [v3 executeBlockQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __45__SSUniqueExecutionQueue_addCompletionBlock___block_invoke_2;
     block[3] = &unk_1E84AD870;
-    objc_copyWeak(&v46, (a1 + 40));
+    objc_copyWeak(&v45, (a1 + 40));
     v4 = v5;
-    v45 = v4;
+    v44 = v4;
     dispatch_async(v6, block);
 
-    objc_destroyWeak(&v46);
-    objc_destroyWeak(&v48);
+    objc_destroyWeak(&v45);
+    objc_destroyWeak(&v47);
   }
 
   if (![(SSPromise *)v4 isFinished])
@@ -173,33 +172,32 @@ LABEL_30:
     goto LABEL_16;
   }
 
-  v49[0] = 0;
-  LODWORD(v38) = 2;
-  v12 = _os_log_send_and_compose_impl();
+  v48[0] = 0;
+  v12 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, v10, 1, "SSUniqueExecutionQueue: The promise already finished. Calling the completion block directly.", v48, 2);
 
   if (v12)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, v49, v38}];
+    v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog(v7, @"%@", v13, v14, v15, v16, v17, v18, v10);
 LABEL_16:
   }
 
-  v43 = 0;
-  v19 = [(SSPromise *)v4 resultWithError:&v43];
-  v20 = v43;
+  v42 = 0;
+  v19 = [(SSPromise *)v4 resultWithError:&v42];
+  v20 = v42;
   v21 = [v3 callBlockQueue];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __45__SSUniqueExecutionQueue_addCompletionBlock___block_invoke_11;
-  v39[3] = &unk_1E84ABEC8;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __45__SSUniqueExecutionQueue_addCompletionBlock___block_invoke_11;
+  v38[3] = &unk_1E84ABEC8;
   v22 = *(a1 + 32);
-  v41 = v20;
-  v42 = v22;
-  v40 = v19;
+  v40 = v20;
+  v41 = v22;
+  v39 = v19;
   v23 = v20;
   v24 = v19;
-  dispatch_async(v21, v39);
+  dispatch_async(v21, v38);
 
 LABEL_32:
 }
@@ -240,9 +238,8 @@ void __45__SSUniqueExecutionQueue_addCompletionBlock___block_invoke_6(uint64_t a
 
     if (v9)
     {
-      v20[0] = 0;
-      LODWORD(v17) = 2;
-      v10 = _os_log_send_and_compose_impl();
+      v19[0] = 0;
+      v10 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, v8, 16, "SSUniqueExecutionQueue: self is out-of-scope.", v19, 2);
 
       if (!v10)
       {
@@ -251,7 +248,7 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      v8 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, v20, v17}];
+      v8 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
       free(v10);
       SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, v8);
     }
@@ -264,10 +261,10 @@ LABEL_15:
   block[1] = 3221225472;
   block[2] = __45__SSUniqueExecutionQueue_addCompletionBlock___block_invoke_7;
   block[3] = &unk_1E84AD820;
-  objc_copyWeak(&v19, (a1 + 32));
+  objc_copyWeak(&v18, (a1 + 32));
   dispatch_async(v4, block);
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
 LABEL_16:
 }
 
@@ -313,9 +310,8 @@ void __45__SSUniqueExecutionQueue_addCompletionBlock___block_invoke_2(uint64_t a
 
     if (v14)
     {
-      v29[0] = 0;
-      LODWORD(v23) = 2;
-      v15 = _os_log_send_and_compose_impl();
+      v28[0] = 0;
+      v15 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1D48BA000, v13, 16, "SSUniqueExecutionQueue: self is out-of-scope.", v28, 2);
 
       if (!v15)
       {
@@ -327,7 +323,7 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, v29, v23}];
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, v13);
     }
@@ -336,18 +332,18 @@ LABEL_15:
   }
 
   v4 = [WeakRetained block];
-  v28 = 0;
-  v5 = (v4)[2](v4, &v28);
-  v6 = v28;
+  v27 = 0;
+  v5 = (v4)[2](v4, &v27);
+  v6 = v27;
 
   v7 = [v3 callBlockQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __45__SSUniqueExecutionQueue_addCompletionBlock___block_invoke_10;
   block[3] = &unk_1E84AC078;
-  v25 = *(a1 + 32);
-  v26 = v5;
-  v27 = v6;
+  v24 = *(a1 + 32);
+  v25 = v5;
+  v26 = v6;
   v8 = v6;
   v9 = v5;
   dispatch_async(v7, block);

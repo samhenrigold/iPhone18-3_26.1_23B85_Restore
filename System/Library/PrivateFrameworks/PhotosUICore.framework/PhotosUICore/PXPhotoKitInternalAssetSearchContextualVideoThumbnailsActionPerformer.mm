@@ -10,7 +10,7 @@
 
 + (BOOL)canPerformOnAsset:(id)asset inAssetCollection:(id)collection person:(id)person socialGroup:(id)group
 {
-  sub_1A3C52C70(0, &qword_1EB126BB0);
+  sub_1A3C52C70(0, &qword_1EB126BB0, off_1E771F528);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   assetCopy = asset;
   objCClassFromMetadata = [ObjCClassFromMetadata sharedInstance];

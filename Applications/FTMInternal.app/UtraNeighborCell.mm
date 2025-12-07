@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)duplexModeAsString:(int)string;
 - (int)StringAsDuplexMode:(id)mode;
 - (int)duplexMode;
 - (unint64_t)hash;
@@ -168,6 +169,29 @@
   {
     return 0;
   }
+}
+
+- (id)duplexModeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"KCELLULAR_TIME_DIVISION_DUPLEX";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"KCELLULAR_FREQ_DIVISION_DUPLEX";
+  }
+
+  return v4;
 }
 
 - (int)StringAsDuplexMode:(id)mode
@@ -377,7 +401,6 @@ LABEL_27:
   has = self->_has;
   if ((has & 0x200) != 0)
   {
-    uarfcn = self->_uarfcn;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -397,7 +420,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  qRxlevMin = self->_qRxlevMin;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -412,7 +434,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  qQualMin = self->_qQualMin;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -427,7 +448,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  pMax = self->_pMax;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -442,7 +462,6 @@ LABEL_6:
   }
 
 LABEL_19:
-  threshXHighP = self->_threshXHighP;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -457,7 +476,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  threshXLowP = self->_threshXLowP;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -472,7 +490,6 @@ LABEL_8:
   }
 
 LABEL_21:
-  threshXHighQ = self->_threshXHighQ;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -487,7 +504,6 @@ LABEL_9:
   }
 
 LABEL_22:
-  threshXLowQ = self->_threshXLowQ;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -502,12 +518,10 @@ LABEL_10:
   }
 
 LABEL_23:
-  priority = self->_priority;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_11:
-    duplexMode = self->_duplexMode;
     PBDataWriterWriteInt32Field();
   }
 

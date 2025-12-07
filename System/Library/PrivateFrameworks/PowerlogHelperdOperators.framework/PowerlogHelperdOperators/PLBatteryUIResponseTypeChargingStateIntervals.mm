@@ -27,7 +27,7 @@
 
 - (void)configure:(id)configure
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   configureCopy = configure;
   v5 = [configureCopy objectForKeyedSubscript:@"start"];
   [v5 doubleValue];
@@ -43,48 +43,48 @@
   v12 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v10];
   [(PLBatteryUIResponseTypeChargingStateIntervals *)self setEnd:v12];
 
-  v13 = PLLogCommon();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = PLLogCommon(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     start = [(PLBatteryUIResponseTypeChargingStateIntervals *)self start];
-    v15 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self end];
-    v38 = 138412546;
-    v39 = start;
-    v40 = 2112;
-    v41 = v15;
-    _os_log_impl(&dword_25EE51000, v13, OS_LOG_TYPE_INFO, "start=%@, end=%@", &v38, 0x16u);
+    v16 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self end];
+    v39 = 138412546;
+    v40 = start;
+    v41 = 2112;
+    v42 = v16;
+    _os_log_impl(&dword_25EE51000, v14, OS_LOG_TYPE_INFO, "start=%@, end=%@", &v39, 0x16u);
   }
 
   start2 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self start];
-  v17 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self end];
+  v18 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self end];
   [start2 timeIntervalSince1970];
-  v19 = v18;
-  [v17 timeIntervalSince1970];
-  [(PLBatteryUIResponseTypeChargingStateIntervals *)self setRange:v19, v20 - v19];
+  v20 = v19;
+  [v18 timeIntervalSince1970];
+  [(PLBatteryUIResponseTypeChargingStateIntervals *)self setRange:v20, v21 - v20];
 
   [(PLBatteryUIResponseTypeChargingStateIntervals *)self setUseBattUIforEC:1];
-  v21 = [configureCopy objectForKeyedSubscript:@"bucket"];
-  [v21 doubleValue];
+  v22 = [configureCopy objectForKeyedSubscript:@"bucket"];
+  [v22 doubleValue];
   [(PLBatteryUIResponseTypeChargingStateIntervals *)self setBucketSize:?];
 
-  [(PLBatteryUIResponseTypeChargingStateIntervals *)self setShouldSnapInterval:_os_feature_enabled_impl()];
-  v22 = PLLogCommon();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  v23 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self setShouldSnapInterval:_os_feature_enabled_impl()];
+  v24 = PLLogCommon(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     start3 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self start];
-    v24 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self end];
-    v38 = 138412546;
-    v39 = start3;
-    v40 = 2112;
-    v41 = v24;
-    _os_log_impl(&dword_25EE51000, v22, OS_LOG_TYPE_INFO, "after system to monotonic conversion: start=%@, end=%@", &v38, 0x16u);
+    v26 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self end];
+    v39 = 138412546;
+    v40 = start3;
+    v41 = 2112;
+    v42 = v26;
+    _os_log_impl(&dword_25EE51000, v24, OS_LOG_TYPE_INFO, "after system to monotonic conversion: start=%@, end=%@", &v39, 0x16u);
   }
 
   [(PLBatteryUIResponseTypeChargingStateIntervals *)self range];
-  v26 = v25;
+  v28 = v27;
   [(PLBatteryUIResponseTypeChargingStateIntervals *)self bucketSize];
-  v28 = (v26 / v27);
-  if (v28 < 2)
+  v30 = (v28 / v29);
+  if (v30 < 2)
   {
     [(PLBatteryUIResponseTypeChargingStateIntervals *)self range];
     [(PLBatteryUIResponseTypeChargingStateIntervals *)self getChargingStateIntervalsDictWithRange:0 addToDailyArrays:?];
@@ -92,29 +92,27 @@
 
   else
   {
-    v29 = objc_opt_new();
-    [(PLBatteryUIResponseTypeChargingStateIntervals *)self setDailyChargingStateIntervalsDict:v29];
+    v31 = objc_opt_new();
+    [(PLBatteryUIResponseTypeChargingStateIntervals *)self setDailyChargingStateIntervalsDict:v31];
 
-    v30 = objc_opt_new();
-    [(PLBatteryUIResponseTypeChargingStateIntervals *)self setDailyLastBattEntry:v30];
+    v32 = objc_opt_new();
+    [(PLBatteryUIResponseTypeChargingStateIntervals *)self setDailyLastBattEntry:v32];
 
-    v31 = 0.0;
+    v33 = 0.0;
     do
     {
       [(PLBatteryUIResponseTypeChargingStateIntervals *)self range];
-      v33 = v32;
+      v35 = v34;
       [(PLBatteryUIResponseTypeChargingStateIntervals *)self bucketSize];
-      v35 = v33 + v31 * v34;
+      v37 = v35 + v33 * v36;
       [(PLBatteryUIResponseTypeChargingStateIntervals *)self bucketSize];
-      [(PLBatteryUIResponseTypeChargingStateIntervals *)self getChargingStateIntervalsDictWithRange:1 addToDailyArrays:v35, v36];
-      v31 = v31 + 1.0;
-      --v28;
+      [(PLBatteryUIResponseTypeChargingStateIntervals *)self getChargingStateIntervalsDictWithRange:1 addToDailyArrays:v37, v38];
+      v33 = v33 + 1.0;
+      --v30;
     }
 
-    while (v28);
+    while (v30);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getChargingStateIntervalsDictWithRange:(_PLTimeIntervalRange)range addToDailyArrays:(BOOL)arrays
@@ -122,8 +120,8 @@
   arraysCopy = arrays;
   length = range.length;
   location = range.location;
-  v47[2] = *MEMORY[0x277D85DE8];
-  v41 = [(PLOperator *)PLBatteryAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"BatteryUI"];
+  v49[2] = *MEMORY[0x277D85DE8];
+  v43 = [(PLOperator *)PLBatteryAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"BatteryUI"];
   if ([(PLBatteryUIResponseTypeChargingStateIntervals *)self useBattUIforEC])
   {
     v7 = objc_alloc(MEMORY[0x277D3F260]);
@@ -132,15 +130,15 @@
 
     v10 = [objc_alloc(MEMORY[0x277D3F260]) initWithKey:@"Level" withValue:&unk_287145430 withComparisonOperation:3];
     responderService = [(PLBatteryUIResponseTypeChargingStateIntervals *)self responderService];
-    storage = [responderService storage];
-    v47[0] = v9;
-    v47[1] = v10;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
-    v14 = [storage lastEntryForKey:v41 withComparisons:v13 isSingleton:0];
+    v12 = objc_msgSend_storage(responderService);
+    v49[0] = v9;
+    v49[1] = v10;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
+    v14 = [v12 lastEntryForKey:v43 withComparisons:v13 isSingleton:0];
     [(PLBatteryUIResponseTypeChargingStateIntervals *)self setLastBattEntry:v14];
   }
 
-  v40 = [(PLOperator *)PLBatteryAgent entryKeyForType:*MEMORY[0x277D3F5D8] andName:@"Charging"];
+  v42 = [(PLOperator *)PLBatteryAgent entryKeyForType:*MEMORY[0x277D3F5D8] andName:@"Charging"];
   v15 = objc_opt_new();
   [(PLBatteryUIResponseTypeChargingStateIntervals *)self setChargingStateIntervalsDict:v15];
 
@@ -150,12 +148,12 @@
     useBattUIforEC = [(PLBatteryUIResponseTypeChargingStateIntervals *)self useBattUIforEC];
     if (v16 == 1 && useBattUIforEC)
     {
-      v18 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self getBattUIEntriesWithKey:v41 inRange:location, length];
-      v19 = PLLogCommon();
+      v18 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self getBattUIEntriesWithKey:v43 inRange:location, length];
+      v19 = PLLogCommon(v18);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v46 = v18;
+        v48 = v18;
         _os_log_impl(&dword_25EE51000, v19, OS_LOG_TYPE_INFO, "getBattUIEntriesWithKey=%@", buf, 0xCu);
       }
 
@@ -169,53 +167,53 @@
     v23 = [MEMORY[0x277CCABB0] numberWithShort:v16];
     v18 = [v22 stringWithFormat:@"((timestamp BETWEEN %f AND %f) OR (%@ BETWEEN %f AND %f)) AND %@=%@", *&location, location + length, @"timestampEnd", *&location, location + length, @"intervalType", v23];
 
-    v24 = PLLogCommon();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v25 = PLLogCommon(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v46 = v18;
-      _os_log_impl(&dword_25EE51000, v24, OS_LOG_TYPE_INFO, "where=%@", buf, 0xCu);
+      v48 = v18;
+      _os_log_impl(&dword_25EE51000, v25, OS_LOG_TYPE_INFO, "where=%@", buf, 0xCu);
     }
 
     responderService2 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self responderService];
-    storage2 = [responderService2 storage];
-    v42 = v18;
-    v43[0] = @"where";
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
-    v43[1] = @"order by";
-    v44[0] = v27;
-    v44[1] = &unk_287147C08;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
-    chargingStateIntervalsDict = [storage2 entriesForKey:v40 withProperties:v28];
+    v27 = objc_msgSend_storage(responderService2);
+    v44 = v18;
+    v45[0] = @"where";
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
+    v45[1] = @"order by";
+    v46[0] = v28;
+    v46[1] = &unk_287147C08;
+    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
+    chargingStateIntervalsDict = [v27 entriesForKey:v42 withProperties:v29];
 
-    v29 = PLLogCommon();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v31 = PLLogCommon(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v46 = chargingStateIntervalsDict;
-      _os_log_impl(&dword_25EE51000, v29, OS_LOG_TYPE_INFO, "chargingStateEntries: %@", buf, 0xCu);
+      v48 = chargingStateIntervalsDict;
+      _os_log_impl(&dword_25EE51000, v31, OS_LOG_TYPE_INFO, "chargingStateEntries: %@", buf, 0xCu);
     }
 
     if (chargingStateIntervalsDict && [chargingStateIntervalsDict count])
     {
       chargingStateIntervalsDict2 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self chargingStateIntervalsDict];
-      v30 = [MEMORY[0x277CCABB0] numberWithShort:v16];
-      [chargingStateIntervalsDict2 setObject:chargingStateIntervalsDict forKeyedSubscript:v30];
+      v32 = [MEMORY[0x277CCABB0] numberWithShort:v16];
+      [chargingStateIntervalsDict2 setObject:chargingStateIntervalsDict forKeyedSubscript:v32];
 
 LABEL_16:
     }
 
-    v31 = v16++;
+    v34 = v16++;
   }
 
-  while (v31 < 0xA);
-  v32 = PLLogCommon();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+  while (v34 < 0xA);
+  v35 = PLLogCommon(v33);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
   {
     chargingStateIntervalsDict3 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self chargingStateIntervalsDict];
     *buf = 138412290;
-    v46 = chargingStateIntervalsDict3;
-    _os_log_impl(&dword_25EE51000, v32, OS_LOG_TYPE_INFO, "charging state intervals dict: %@", buf, 0xCu);
+    v48 = chargingStateIntervalsDict3;
+    _os_log_impl(&dword_25EE51000, v35, OS_LOG_TYPE_INFO, "charging state intervals dict: %@", buf, 0xCu);
   }
 
   if (arraysCopy)
@@ -226,30 +224,28 @@ LABEL_16:
     {
       dailyChargingStateIntervalsDict = [(PLBatteryUIResponseTypeChargingStateIntervals *)self dailyChargingStateIntervalsDict];
       chargingStateIntervalsDict5 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self chargingStateIntervalsDict];
-      v37 = [chargingStateIntervalsDict5 mutableCopy];
-      [dailyChargingStateIntervalsDict addObject:v37];
+      v40 = [chargingStateIntervalsDict5 mutableCopy];
+      [dailyChargingStateIntervalsDict addObject:v40];
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getBattUIEntriesWithKey:(id)key inRange:(_PLTimeIntervalRange)range
 {
   length = range.length;
   location = range.location;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   responderService = [(PLBatteryUIResponseTypeChargingStateIntervals *)self responderService];
-  storage = [responderService storage];
-  v10 = [storage entriesForKey:keyCopy inTimeRange:0 withFilters:{location, length}];
+  v9 = objc_msgSend_storage(responderService);
+  v10 = [v9 entriesForKey:keyCopy inTimeRange:0 withFilters:{location, length}];
 
   lastObject = [v10 lastObject];
-  v12 = PLLogCommon();
+  v12 = PLLogCommon(lastObject);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v41 = lastObject;
+    v40 = lastObject;
     _os_log_impl(&dword_25EE51000, v12, OS_LOG_TYPE_INFO, "earliestEntry=%@", buf, 0xCu);
   }
 
@@ -262,24 +258,24 @@ LABEL_16:
     {
       v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"timestamp < %f AND %@ = %d", *&location, @"IsCharging", 0];
       responderService2 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self responderService];
-      storage2 = [responderService2 storage];
-      v37 = v15;
-      v38[0] = @"where";
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
-      v39[0] = v18;
-      v39[1] = &unk_287147C30;
-      v38[1] = @"order by";
-      v38[2] = @"limit";
-      v39[2] = &unk_287145448;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
-      v20 = [storage2 entriesForKey:keyCopy withProperties:v19];
+      v17 = objc_msgSend_storage(responderService2);
+      v36 = v15;
+      v37[0] = @"where";
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+      v38[0] = v18;
+      v38[1] = &unk_287147C30;
+      v37[1] = @"order by";
+      v37[2] = @"limit";
+      v38[2] = &unk_287145448;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
+      v20 = [v17 entriesForKey:keyCopy withProperties:v19];
 
       firstObject = [v20 firstObject];
-      v22 = PLLogCommon();
+      v22 = PLLogCommon(firstObject);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v41 = firstObject;
+        v40 = firstObject;
         _os_log_impl(&dword_25EE51000, v22, OS_LOG_TYPE_INFO, "latestNonConnectedEntryBeforeRange=%@", buf, 0xCu);
       }
 
@@ -289,23 +285,21 @@ LABEL_16:
         [v23 doubleValue];
         v25 = v24;
 
-        v36 = v15;
+        v35 = v15;
         v26 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v25];
         responderService3 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self responderService];
-        storage3 = [responderService3 storage];
+        v28 = objc_msgSend_storage(responderService3);
         v29 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:location + length];
         [v26 timeIntervalSince1970];
         v31 = v30;
         [v29 timeIntervalSince1970];
-        v33 = [storage3 entriesForKey:keyCopy inTimeRange:0 withFilters:{v31, v32 - v31}];
+        v33 = [v28 entriesForKey:keyCopy inTimeRange:0 withFilters:{v31, v32 - v31}];
 
         v10 = v33;
-        v15 = v36;
+        v15 = v35;
       }
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -359,31 +353,31 @@ LABEL_16:
   arraysCopy = arrays;
   length = range.length;
   location = range.location;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   dictCopy = dict;
   [(PLBatteryUIResponseTypeChargingStateIntervals *)self range];
   v14 = v13;
   [(PLBatteryUIResponseTypeChargingStateIntervals *)self bucketSize];
-  v23 = MEMORY[0x277D85DD0];
-  v24 = 3221225472;
-  v25 = __136__PLBatteryUIResponseTypeChargingStateIntervals_organizeStateIntervalsWithRange_lastBattUIEntry_chargingIntervalsDict_addToDailyArrays___block_invoke;
-  v26 = &unk_279A5BAF8;
+  v22 = MEMORY[0x277D85DD0];
+  v23 = 3221225472;
+  v24 = __136__PLBatteryUIResponseTypeChargingStateIntervals_organizeStateIntervalsWithRange_lastBattUIEntry_chargingIntervalsDict_addToDailyArrays___block_invoke;
+  v25 = &unk_279A5BAF8;
   selfCopy = self;
-  v32 = (v14 / v15);
+  v31 = (v14 / v15);
   v16 = dictCopy;
-  v30 = location;
-  v31 = length;
-  v28 = v16;
-  v29 = entryCopy;
+  v29 = location;
+  v30 = length;
+  v27 = v16;
+  v28 = entryCopy;
   v17 = entryCopy;
-  [v16 enumerateKeysAndObjectsUsingBlock:&v23];
-  selfCopy = [(PLBatteryUIResponseTypeChargingStateIntervals *)self mapChargingStateIntervalsToGraphIntervals:v16, v23, v24, v25, v26, selfCopy];
-  v19 = PLLogCommon();
+  [v16 enumerateKeysAndObjectsUsingBlock:&v22];
+  selfCopy = [(PLBatteryUIResponseTypeChargingStateIntervals *)self mapChargingStateIntervalsToGraphIntervals:v16, v22, v23, v24, v25, selfCopy];
+  v19 = PLLogCommon(selfCopy);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v34 = selfCopy;
+    v33 = selfCopy;
     _os_log_impl(&dword_25EE51000, v19, OS_LOG_TYPE_INFO, "graph charging state intervals: %@", buf, 0xCu);
   }
 
@@ -398,8 +392,6 @@ LABEL_16:
   {
     [(PLBatteryUIResponseTypeChargingStateIntervals *)self setResultDict:selfCopy];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __136__PLBatteryUIResponseTypeChargingStateIntervals_organizeStateIntervalsWithRange_lastBattUIEntry_chargingIntervalsDict_addToDailyArrays___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -449,18 +441,16 @@ void __136__PLBatteryUIResponseTypeChargingStateIntervals_organizeStateIntervals
   [*(a1 + 40) setObject:v14 forKeyedSubscript:v5];
 LABEL_11:
 
-  v16 = PLLogCommon();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v17 = PLLogCommon(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v17 = [*(a1 + 40) objectForKeyedSubscript:v5];
+    v18 = [*(a1 + 40) objectForKeyedSubscript:v5];
     v19 = 138412546;
     v20 = v5;
     v21 = 2112;
-    v22 = v17;
-    _os_log_impl(&dword_25EE51000, v16, OS_LOG_TYPE_INFO, "after converting PLEntry to interval tuples for chargingIntervalType=%@, intervals=%@", &v19, 0x16u);
+    v22 = v18;
+    _os_log_impl(&dword_25EE51000, v17, OS_LOG_TYPE_INFO, "after converting PLEntry to interval tuples for chargingIntervalType=%@, intervals=%@", &v19, 0x16u);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)result
@@ -601,13 +591,13 @@ void __98__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__filt
 
 - (id)intersectionOfTwoSetsWithMergeThreshold:(int)threshold intervalSetA:(id)a intervalSetB:(id)b
 {
-  v59[2] = *MEMORY[0x277D85DE8];
+  v58[2] = *MEMORY[0x277D85DE8];
   aCopy = a;
   bCopy = b;
-  v53 = objc_opt_new();
-  v55 = [aCopy count];
-  v56 = [bCopy count];
-  if (v55 && v56)
+  v52 = objc_opt_new();
+  v54 = [aCopy count];
+  v55 = [bCopy count];
+  if (v54 && v55)
   {
     v8 = 0;
     v9 = 0;
@@ -615,8 +605,8 @@ void __98__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__filt
     v11 = 0;
     do
     {
-      v57 = v11;
-      v58 = v10;
+      v56 = v11;
+      v57 = v10;
       v12 = [aCopy objectAtIndexedSubscript:v9];
       v13 = [v12 objectAtIndexedSubscript:0];
       intValue = [v13 intValue];
@@ -678,7 +668,7 @@ void __98__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__filt
           v32 = v18;
         }
 
-        v54 = v32;
+        v53 = v32;
         v33 = [aCopy objectAtIndexedSubscript:v9];
         v34 = [v33 objectAtIndexedSubscript:1];
         intValue7 = [v34 intValue];
@@ -707,12 +697,12 @@ void __98__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__filt
           v40 = v39;
         }
 
-        v41 = [MEMORY[0x277CCABB0] numberWithInt:v54];
-        v59[0] = v41;
+        v41 = [MEMORY[0x277CCABB0] numberWithInt:v53];
+        v58[0] = v41;
         v42 = [MEMORY[0x277CCABB0] numberWithInt:v40];
-        v59[1] = v42;
-        v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
-        [v53 addObject:v43];
+        v58[1] = v42;
+        v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
+        [v52 addObject:v43];
       }
 
       v44 = [aCopy objectAtIndexedSubscript:v9];
@@ -724,25 +714,25 @@ void __98__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__filt
 
       if (intValue9 < intValue10)
       {
-        v8 = v57;
+        v8 = v56;
       }
 
       else
       {
-        v8 = v57 + 1;
+        v8 = v56 + 1;
       }
 
       if (intValue9 >= intValue10)
       {
-        v9 = v58;
+        v9 = v57;
       }
 
       else
       {
-        v9 = v58 + 1;
+        v9 = v57 + 1;
       }
 
-      if (v55 <= v9)
+      if (v54 <= v9)
       {
         break;
       }
@@ -751,17 +741,15 @@ void __98__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__filt
       v11 = v8;
     }
 
-    while (v56 > v8);
+    while (v55 > v8);
   }
 
-  v50 = *MEMORY[0x277D85DE8];
-
-  return v53;
+  return v52;
 }
 
 - (id)differenceBetweenSetAndIntersectingSet:(id)set intervalSetB:(id)b
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   setCopy = set;
   bCopy = b;
   if ([setCopy count] && objc_msgSend(bCopy, "count"))
@@ -773,32 +761,32 @@ void __98__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__filt
     v11 = [lastObject objectAtIndexedSubscript:1];
 
     v12 = objc_opt_new();
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = __Block_byref_object_copy__1;
-    v26 = __Block_byref_object_dispose__1;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = __Block_byref_object_copy__1;
+    v25 = __Block_byref_object_dispose__1;
     v13 = v9;
-    v27 = v13;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __120__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__differenceBetweenSetAndIntersectingSet_intervalSetB___block_invoke;
-    v19[3] = &unk_279A5C078;
-    v21 = &v22;
+    v26 = v13;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __120__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__differenceBetweenSetAndIntersectingSet_intervalSetB___block_invoke;
+    v18[3] = &unk_279A5C078;
+    v20 = &v21;
     v14 = v12;
-    v20 = v14;
-    [bCopy enumerateObjectsUsingBlock:v19];
-    if (([v23[5] isEqualToNumber:v11] & 1) == 0)
+    v19 = v14;
+    [bCopy enumerateObjectsUsingBlock:v18];
+    if (([v22[5] isEqualToNumber:v11] & 1) == 0)
     {
-      v28[0] = v23[5];
-      v28[1] = v11;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+      v27[0] = v22[5];
+      v27[1] = v11;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
       [v14 addObject:v15];
     }
 
     v16 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self intersectionOfTwoSets:setCopy intervalSetB:v14];
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v21, 8);
   }
 
   else
@@ -806,14 +794,12 @@ void __98__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__filt
     v16 = setCopy;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 void __120__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__differenceBetweenSetAndIntersectingSet_intervalSetB___block_invoke(uint64_t a1, void *a2)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(*(a1 + 40) + 8) + 40);
   v5 = [v3 objectAtIndexedSubscript:0];
@@ -822,10 +808,10 @@ void __120__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__dif
   if ((v4 & 1) == 0)
   {
     v6 = *(a1 + 32);
-    v13[0] = *(*(*(a1 + 40) + 8) + 40);
+    v12[0] = *(*(*(a1 + 40) + 8) + 40);
     v7 = [v3 objectAtIndexedSubscript:0];
-    v13[1] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[1] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
     [v6 addObject:v8];
   }
 
@@ -833,13 +819,11 @@ void __120__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__dif
   v10 = *(*(a1 + 40) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)unionBetweenSetAndIntersectingSet:(id)set intervalSetB:(id)b
 {
-  v45[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   setCopy = set;
   bCopy = b;
   v7 = [bCopy count];
@@ -848,30 +832,30 @@ void __120__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__dif
   {
     v10 = objc_opt_new();
     v11 = [setCopy count];
-    v42 = [bCopy count];
-    if (v11 | v42)
+    v41 = [bCopy count];
+    if (v11 | v41)
     {
       v12 = 0;
       v13 = 0;
+      v42 = 0;
       v43 = 0;
-      v44 = 0;
-      v40 = v11;
-      v41 = setCopy;
+      v39 = v11;
+      v40 = setCopy;
       do
       {
         if (v11 == v13)
         {
           v14 = [bCopy objectAtIndexedSubscript:v12];
-          ++v44;
+          ++v43;
         }
 
         else
         {
           v15 = [setCopy objectAtIndexedSubscript:v13];
           v14 = v15;
-          if (v42 == v12)
+          if (v41 == v12)
           {
-            ++v43;
+            ++v42;
           }
 
           else
@@ -885,75 +869,63 @@ void __120__PLBatteryUIResponseTypeChargingStateIntervals_IntervalOperation__dif
             if (intValue >= intValue2)
             {
               v14 = [bCopy objectAtIndexedSubscript:v12];
-              ++v44;
-              setCopy = v41;
+              ++v43;
+              setCopy = v40;
             }
 
             else
             {
-              setCopy = v41;
-              v14 = [v41 objectAtIndexedSubscript:v13];
-              ++v43;
+              setCopy = v40;
+              v14 = [v40 objectAtIndexedSubscript:v13];
+              ++v42;
             }
 
-            v11 = v40;
+            v11 = v39;
           }
         }
 
-        if (![v10 count])
-        {
-          goto LABEL_15;
-        }
-
-        lastObject = [v10 lastObject];
-        v22 = [lastObject objectAtIndexedSubscript:1];
-        intValue3 = [v22 intValue];
-        v24 = [v14 objectAtIndexedSubscript:0];
-        intValue4 = [v24 intValue];
-
-        if (intValue3 >= intValue4)
+        if ([v10 count] && (objc_msgSend(v10, "lastObject"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "objectAtIndexedSubscript:", 1), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "intValue"), objc_msgSend(v14, "objectAtIndexedSubscript:", 0), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "intValue"), v24, v22, v21, v23 >= v25))
         {
           v26 = [v14 objectAtIndexedSubscript:1];
-          intValue5 = [v26 intValue];
+          intValue3 = [v26 intValue];
 
-          lastObject2 = [v10 lastObject];
-          v29 = [lastObject2 objectAtIndexedSubscript:1];
-          intValue6 = [v29 intValue];
+          lastObject = [v10 lastObject];
+          v29 = [lastObject objectAtIndexedSubscript:1];
+          intValue4 = [v29 intValue];
 
-          if (intValue5 <= intValue6)
+          if (intValue3 <= intValue4)
           {
-            v31 = intValue6;
+            v31 = intValue4;
           }
 
           else
           {
-            v31 = intValue5;
+            v31 = intValue3;
           }
 
-          lastObject3 = [v10 lastObject];
-          v33 = [lastObject3 objectAtIndexedSubscript:0];
-          intValue7 = [v33 intValue];
+          lastObject2 = [v10 lastObject];
+          v33 = [lastObject2 objectAtIndexedSubscript:0];
+          intValue5 = [v33 intValue];
 
           [v10 removeLastObject];
-          v35 = [MEMORY[0x277CCABB0] numberWithInt:intValue7];
-          v45[0] = v35;
+          v35 = [MEMORY[0x277CCABB0] numberWithInt:intValue5];
+          v44[0] = v35;
           v36 = [MEMORY[0x277CCABB0] numberWithInt:v31];
-          v45[1] = v36;
-          v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+          v44[1] = v36;
+          v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
           [v10 addObject:v37];
         }
 
         else
         {
-LABEL_15:
           [v10 addObject:v14];
         }
 
-        v13 = v43;
-        v12 = v44;
+        v13 = v42;
+        v12 = v43;
       }
 
-      while (v11 > v43 || v42 > v44);
+      while (v11 > v42 || v41 > v43);
     }
   }
 
@@ -961,8 +933,6 @@ LABEL_15:
   {
     v10 = v8;
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1008,194 +978,193 @@ void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__constructIn
 
   if (v7)
   {
-    v8 = PLLogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = PLLogCommon(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__constructIntervalTuplesFromEntries_startOfRange_endOfRange_allowOverflow___block_invoke_cold_1(v3);
     }
 
-    v9 = [v3 objectForKeyedSubscript:@"timestampEnd"];
-    v10 = MEMORY[0x277CCABB0];
-    [v9 timeIntervalSinceDate:*(a1 + 32)];
-    v11 = [v10 numberWithDouble:?];
+    v10 = [v3 objectForKeyedSubscript:@"timestampEnd"];
+    v11 = MEMORY[0x277CCABB0];
+    [v10 timeIntervalSinceDate:*(a1 + 32)];
+    v12 = [v11 numberWithDouble:?];
   }
 
   else
   {
-    v12 = MEMORY[0x277CCABB0];
+    v13 = MEMORY[0x277CCABB0];
     [*(a1 + 40) timeIntervalSinceDate:*(a1 + 32)];
-    v11 = [v12 numberWithDouble:?];
+    v12 = [v13 numberWithDouble:?];
   }
 
   if ((*(a1 + 64) & 1) == 0)
   {
-    v13 = MEMORY[0x277CCABB0];
-    v14 = [v6 intValue];
+    v14 = MEMORY[0x277CCABB0];
+    v15 = [v6 intValue];
     [*(a1 + 32) timeIntervalSinceDate:*(a1 + 32)];
-    if (v15 <= v14)
+    if (v16 <= v15)
     {
-      v15 = v14;
+      v16 = v15;
     }
 
-    v16 = [v13 numberWithDouble:v15];
+    v17 = [v14 numberWithDouble:v16];
 
-    v6 = v16;
+    v6 = v17;
   }
 
-  v17 = MEMORY[0x277CCABB0];
-  v18 = [v6 intValue];
-  v19 = [v11 intValue];
-  if (v18 <= v19)
+  v18 = MEMORY[0x277CCABB0];
+  v19 = [v6 intValue];
+  v20 = [v12 intValue];
+  if (v19 <= v20)
   {
-    v18 = v19;
+    v19 = v20;
   }
 
   [*(a1 + 48) timeIntervalSinceDate:*(a1 + 32)];
-  if (v20 > v18)
+  if (v21 > v19)
   {
-    v20 = v18;
+    v21 = v19;
   }
 
-  v21 = [v17 numberWithDouble:v20];
+  v22 = [v18 numberWithDouble:v21];
 
   v25[0] = v6;
-  v25[1] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
-  v23 = PLLogCommon();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v25[1] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  v24 = PLLogCommon(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__constructIntervalTuplesFromEntries_startOfRange_endOfRange_allowOverflow___block_invoke_cold_2(v22, v3, v23);
+    __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__constructIntervalTuplesFromEntries_startOfRange_endOfRange_allowOverflow___block_invoke_cold_2(v23, v3, v24);
   }
 
-  [*(a1 + 56) addObject:v22];
-  v24 = *MEMORY[0x277D85DE8];
+  [*(a1 + 56) addObject:v23];
 }
 
 - (id)constructIntervalTuplesFromBattEntries:(id)entries lastBattEntry:(id)entry startOfRange:(id)range endOfRange:(id)ofRange
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   entryCopy = entry;
   rangeCopy = range;
-  v10 = PLLogCommon();
+  v10 = PLLogCommon(rangeCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
     _os_log_impl(&dword_25EE51000, v10, OS_LOG_TYPE_INFO, "Creating charging intervals", buf, 2u);
   }
 
-  v49 = objc_opt_new();
+  v11 = objc_opt_new();
+  v53 = v11;
   if (entryCopy)
   {
-    v11 = [entryCopy objectForKeyedSubscript:@"IsCharging"];
-    LODWORD(v12) = [v11 BOOLValue];
+    v12 = [entryCopy objectForKeyedSubscript:@"IsCharging"];
+    LODWORD(v13) = [v12 BOOLValue];
 
-    v13 = PLLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v15 = PLLogCommon(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      [(PLBatteryUIResponseTypeChargingIntervals *)v12 run];
+      [(PLBatteryUIResponseTypeChargingIntervals *)v13 run];
     }
   }
 
   else
   {
-    LODWORD(v12) = 0;
+    LODWORD(v13) = 0;
   }
 
-  v14 = PLLogCommon();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = PLLogCommon(v11);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [PLBatteryUIResponseTypeChargingStateIntervals(Utilities) constructIntervalTuplesFromBattEntries:entriesCopy lastBattEntry:? startOfRange:? endOfRange:?];
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   reverseObjectEnumerator = [entriesCopy reverseObjectEnumerator];
-  v16 = [reverseObjectEnumerator countByEnumeratingWithState:&v51 objects:v63 count:16];
-  if (v16)
+  v18 = [reverseObjectEnumerator countByEnumeratingWithState:&v55 objects:v67 count:16];
+  if (v18)
   {
-    v17 = v16;
-    v47 = entryCopy;
-    v48 = entriesCopy;
-    v18 = *v52;
-    v19 = 0.0;
+    v19 = v18;
+    v51 = entryCopy;
+    v52 = entriesCopy;
+    v20 = *v56;
+    v21 = 0.0;
     while (1)
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v52 != v18)
+        if (*v56 != v20)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v21 = *(*(&v51 + 1) + 8 * i);
-        v22 = [v21 objectForKeyedSubscript:{@"Level", v47, v48}];
-        intValue = [v22 intValue];
+        v23 = *(*(&v55 + 1) + 8 * i);
+        v24 = [v23 objectForKeyedSubscript:{@"Level", v51, v52}];
+        intValue = [v24 intValue];
 
         if (intValue < 0)
         {
-          v29 = PLLogCommon();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+          v32 = PLLogCommon(v26);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
           {
-            [(PLBatteryUIResponseTypeChargingIntervals *)v61 run:v21];
+            [(PLBatteryUIResponseTypeChargingIntervals *)v65 run:v23];
           }
         }
 
         else
         {
-          v24 = [v21 objectForKeyedSubscript:@"IsCharging"];
-          bOOLValue = [v24 BOOLValue];
+          v27 = [v23 objectForKeyedSubscript:@"IsCharging"];
+          bOOLValue = [v27 BOOLValue];
 
-          if ((v12 & 1) == bOOLValue)
+          if ((v13 & 1) == bOOLValue)
           {
             continue;
           }
 
-          entryDate = [v21 entryDate];
+          entryDate = [v23 entryDate];
           [entryDate timeIntervalSinceDate:rangeCopy];
-          v28 = v27;
+          v31 = v30;
 
           if (bOOLValue)
           {
-            LOBYTE(v12) = 1;
-            v19 = v28;
+            LOBYTE(v13) = 1;
+            v21 = v31;
             continue;
           }
 
-          v30 = [MEMORY[0x277CCABB0] numberWithInt:v19];
-          v60[0] = v30;
-          v31 = [MEMORY[0x277CCABB0] numberWithInt:v28];
-          v60[1] = v31;
-          v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
+          v33 = [MEMORY[0x277CCABB0] numberWithInt:v21];
+          v64[0] = v33;
+          v34 = [MEMORY[0x277CCABB0] numberWithInt:v31];
+          v64[1] = v34;
+          v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
 
-          [v49 addObject:v29];
-          v12 = PLLogCommon();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v13 = PLLogCommon([v53 addObject:v32]);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            v32 = [v29 objectAtIndexedSubscript:0];
-            v33 = [v29 objectAtIndexedSubscript:1];
+            v35 = [v32 objectAtIndexedSubscript:0];
+            v36 = [v32 objectAtIndexedSubscript:1];
             *buf = 138412546;
-            v57 = v32;
-            v58 = 2112;
-            v59 = v33;
-            _os_log_debug_impl(&dword_25EE51000, v12, OS_LOG_TYPE_DEBUG, "Created charging interval: [%@ %@]", buf, 0x16u);
+            v61 = v35;
+            v62 = 2112;
+            v63 = v36;
+            _os_log_debug_impl(&dword_25EE51000, v13, OS_LOG_TYPE_DEBUG, "Created charging interval: [%@ %@]", buf, 0x16u);
           }
 
-          LOBYTE(v12) = 0;
+          LOBYTE(v13) = 0;
         }
       }
 
-      v17 = [reverseObjectEnumerator countByEnumeratingWithState:&v51 objects:v63 count:16];
-      if (!v17)
+      v19 = [reverseObjectEnumerator countByEnumeratingWithState:&v55 objects:v67 count:16];
+      if (!v19)
       {
 
-        entryCopy = v47;
-        entriesCopy = v48;
-        if (v12)
+        entryCopy = v51;
+        entriesCopy = v52;
+        if (v13)
         {
-          v34 = v19;
+          v38 = v21;
           goto LABEL_31;
         }
 
@@ -1204,50 +1173,48 @@ void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__constructIn
     }
   }
 
-  if (v12)
+  if (v13)
   {
-    v34 = 0;
+    v38 = 0;
 LABEL_31:
     firstObject = [entriesCopy firstObject];
+    v40 = firstObject;
     if (firstObject)
     {
-      v36 = PLLogCommon();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+      v41 = PLLogCommon(firstObject);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
-        [(PLBatteryUIResponseTypeChargingIntervals *)v36 run];
+        [(PLBatteryUIResponseTypeChargingIntervals *)v41 run];
       }
 
-      entryDate2 = [firstObject entryDate];
+      entryDate2 = [v40 entryDate];
       [entryDate2 timeIntervalSinceDate:rangeCopy];
-      v39 = v38;
+      v44 = v43;
 
-      v40 = [MEMORY[0x277CCABB0] numberWithInt:v34];
-      v55[0] = v40;
-      v41 = [MEMORY[0x277CCABB0] numberWithInt:v39];
-      v55[1] = v41;
-      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
+      v45 = [MEMORY[0x277CCABB0] numberWithInt:v38];
+      v59[0] = v45;
+      v46 = [MEMORY[0x277CCABB0] numberWithInt:v44];
+      v59[1] = v46;
+      v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
 
-      [v49 addObject:v42];
-      v43 = PLLogCommon();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+      v48 = PLLogCommon([v53 addObject:v47]);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
       {
-        [PLBatteryUIService batteryLevelsAndChargingIntervalsInRange:v42 withDataRange:?];
+        [PLBatteryUIService batteryLevelsAndChargingIntervalsInRange:v47 withDataRange:?];
       }
     }
   }
 
 LABEL_38:
-  v44 = PLLogCommon();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+  v49 = PLLogCommon(v37);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v57 = v49;
-    _os_log_impl(&dword_25EE51000, v44, OS_LOG_TYPE_INFO, "Charging intervals: %@", buf, 0xCu);
+    v61 = v53;
+    _os_log_impl(&dword_25EE51000, v49, OS_LOG_TYPE_INFO, "Charging intervals: %@", buf, 0xCu);
   }
 
-  v45 = *MEMORY[0x277D85DE8];
-
-  return v49;
+  return v53;
 }
 
 - (id)getApplicableSlowChargingIntervalsGivenECIntervals:(id)intervals slowChargingIntervals:(id)chargingIntervals
@@ -1361,7 +1328,7 @@ LABEL_20:
 
 void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getApplicableSlowChargingIntervalsGivenECIntervals_slowChargingIntervals___block_invoke(uint64_t a1, void *a2)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectAtIndexedSubscript:1];
   v5 = [v4 intValue];
@@ -1390,42 +1357,41 @@ void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getApplicab
 
   v15 = v14;
   v16 = [MEMORY[0x277CCABB0] numberWithInt:v9];
-  v20[0] = v16;
+  v19[0] = v16;
   v17 = [MEMORY[0x277CCABB0] numberWithInt:v15];
-  v20[1] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[1] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
 
   [*(*(*(a1 + 32) + 8) + 40) addObject:v18];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)constructSlowChargingIntervals:(id)intervals
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   intervalsCopy = intervals;
-  v5 = PLLogCommon();
+  v5 = PLLogCommon(intervalsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v29 = intervalsCopy;
+    v30 = intervalsCopy;
     _os_log_impl(&dword_25EE51000, v5, OS_LOG_TYPE_INFO, "chargingStateIntervals=%@", buf, 0xCu);
   }
 
   v6 = [intervalsCopy objectForKeyedSubscript:&unk_287146D80];
-  v7 = PLLogCommon();
+  v7 = PLLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v29 = v6;
+    v30 = v6;
     _os_log_impl(&dword_25EE51000, v7, OS_LOG_TYPE_INFO, "externalConnectedIntervals=%@", buf, 0xCu);
   }
 
   v8 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self getChargingStateIntervals:intervalsCopy forGraphIntervalType:2];
-  v9 = PLLogCommon();
+  v9 = PLLogCommon(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v29 = v8;
+    v30 = v8;
     _os_log_impl(&dword_25EE51000, v9, OS_LOG_TYPE_INFO, "allSlowChargingIntervals=%@", buf, 0xCu);
   }
 
@@ -1437,11 +1403,11 @@ void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getApplicab
   }
 
   v12 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self mergeIntervals:v8 withTolerance:v11];
-  v13 = PLLogCommon();
+  v13 = PLLogCommon(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v29 = v12;
+    v30 = v12;
     _os_log_impl(&dword_25EE51000, v13, OS_LOG_TYPE_INFO, "allSlowChargingIntervalsMerged=%@", buf, 0xCu);
   }
 
@@ -1450,12 +1416,12 @@ void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getApplicab
   {
     v15 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self getApplicableSlowChargingIntervalsGivenECIntervals:v6 slowChargingIntervals:v12];
 
-    v16 = PLLogCommon();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = PLLogCommon(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v29 = v15;
-      _os_log_impl(&dword_25EE51000, v16, OS_LOG_TYPE_INFO, "sortedAndFilteredSlowChargingIntervals=%@", buf, 0xCu);
+      v30 = v15;
+      _os_log_impl(&dword_25EE51000, v17, OS_LOG_TYPE_INFO, "sortedAndFilteredSlowChargingIntervals=%@", buf, 0xCu);
     }
   }
 
@@ -1464,66 +1430,64 @@ void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getApplicab
     v15 = array;
   }
 
-  v17 = objc_opt_new();
+  v18 = objc_opt_new();
   if ([v15 count])
   {
-    v18 = MEMORY[0x277CCABB0];
+    v19 = MEMORY[0x277CCABB0];
     [(PLBatteryUIResponseTypeChargingStateIntervals *)self bucketSize];
-    v19 = [v18 numberWithDouble:?];
-    v26[0] = &unk_287146D98;
-    v26[1] = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
-    v27 = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+    v20 = [v19 numberWithDouble:?];
+    v27[0] = &unk_287146D98;
+    v27[1] = v20;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+    v28 = v21;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
 
-    v22 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self intersectionOfTwoSets:v21 intervalSetB:v15];
+    v23 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self intersectionOfTwoSets:v22 intervalSetB:v15];
 
-    v23 = PLLogCommon();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v25 = PLLogCommon(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v29 = v22;
-      _os_log_impl(&dword_25EE51000, v23, OS_LOG_TYPE_INFO, "Found slow charging intervals=%@", buf, 0xCu);
+      v30 = v23;
+      _os_log_impl(&dword_25EE51000, v25, OS_LOG_TYPE_INFO, "Found slow charging intervals=%@", buf, 0xCu);
     }
 
-    [v17 setObject:v22 forKeyedSubscript:&unk_287146DB0];
+    [v18 setObject:v23 forKeyedSubscript:&unk_287146DB0];
   }
 
   else
   {
-    v22 = v15;
+    v23 = v15;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v18;
 }
 
 - (id)snapIntervals:(id)intervals
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   intervalsCopy = intervals;
-  v38 = objc_opt_new();
+  v37 = objc_opt_new();
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = intervalsCopy;
-  v4 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v4 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v4)
   {
     v5 = v4;
-    v37 = *v40;
+    v36 = *v39;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v40 != v37)
+        if (*v39 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v39 + 1) + 8 * i);
+        v7 = *(*(&v38 + 1) + 8 * i);
         v8 = MEMORY[0x277CBEAA8];
         v9 = [v7 objectAtIndexedSubscript:0];
         [v9 doubleValue];
@@ -1563,288 +1527,290 @@ void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getApplicab
         v30 = v29;
 
         v31 = [MEMORY[0x277CCABB0] numberWithDouble:v26];
-        v43[0] = v31;
+        v42[0] = v31;
         v32 = [MEMORY[0x277CCABB0] numberWithDouble:v30];
-        v43[1] = v32;
-        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
-        [v38 addObject:v33];
+        v42[1] = v32;
+        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+        [v37 addObject:v33];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v5 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v5);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-
-  return v38;
+  return v37;
 }
 
 - (id)mergeAllChargingIntervals:(id)intervals
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   intervalsCopy = intervals;
   v4 = objc_opt_new();
   v5 = [intervalsCopy objectForKeyedSubscript:&unk_287146D80];
   v6 = [intervalsCopy objectForKeyedSubscript:&unk_287146DC8];
-  if ([v6 count])
+  v7 = [v6 count];
+  if (v7)
   {
-    v7 = PLLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = PLLogCommon(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v20 = 138412290;
-      v21 = v6;
-      _os_log_impl(&dword_25EE51000, v7, OS_LOG_TYPE_INFO, "adding paused charging intervals =%@", &v20, 0xCu);
+      v25 = 138412290;
+      v26 = v6;
+      _os_log_impl(&dword_25EE51000, v8, OS_LOG_TYPE_INFO, "adding paused charging intervals =%@", &v25, 0xCu);
     }
 
     [v4 setObject:v6 forKeyedSubscript:@"PLBatteryUIPausedChargingIntervalsKey"];
   }
 
-  v8 = [intervalsCopy objectForKeyedSubscript:&unk_287146DB0];
-  if ([v8 count])
+  v9 = [intervalsCopy objectForKeyedSubscript:&unk_287146DB0];
+  v10 = [v9 count];
+  if (v10)
   {
-    v9 = PLLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-    {
-      v20 = 138412290;
-      v21 = v8;
-      _os_log_impl(&dword_25EE51000, v9, OS_LOG_TYPE_INFO, "adding slow charging intervals =%@", &v20, 0xCu);
-    }
-
-    [v4 setObject:v8 forKeyedSubscript:@"PLBatteryUIChargingSpeedIntervalsKey"];
-  }
-
-  v10 = [intervalsCopy objectForKeyedSubscript:&unk_287146DE0];
-  if ([v10 count])
-  {
-    v11 = PLLogCommon();
+    v11 = PLLogCommon(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v20 = 138412290;
-      v21 = v10;
-      _os_log_impl(&dword_25EE51000, v11, OS_LOG_TYPE_INFO, "adding paused slow charging intervals =%@", &v20, 0xCu);
+      v25 = 138412290;
+      v26 = v9;
+      _os_log_impl(&dword_25EE51000, v11, OS_LOG_TYPE_INFO, "adding slow charging intervals =%@", &v25, 0xCu);
     }
 
-    [v4 setObject:v10 forKeyedSubscript:@"PLBatteryUIPausedSlowChargingIntervalsKey"];
+    [v4 setObject:v9 forKeyedSubscript:@"PLBatteryUIChargingSpeedIntervalsKey"];
   }
 
-  v12 = [intervalsCopy objectForKeyedSubscript:&unk_287146DF8];
-  if ([v12 count])
+  v12 = [intervalsCopy objectForKeyedSubscript:&unk_287146DE0];
+  v13 = [v12 count];
+  if (v13)
   {
-    v13 = PLLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = PLLogCommon(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v20 = 138412290;
-      v21 = v12;
-      _os_log_impl(&dword_25EE51000, v13, OS_LOG_TYPE_INFO, "adding stopped charging intervals =%@", &v20, 0xCu);
+      v25 = 138412290;
+      v26 = v12;
+      _os_log_impl(&dword_25EE51000, v14, OS_LOG_TYPE_INFO, "adding paused slow charging intervals =%@", &v25, 0xCu);
     }
 
-    [v4 setObject:v12 forKeyedSubscript:@"PLBatteryUIStoppedChargingIntervalsKey"];
+    [v4 setObject:v12 forKeyedSubscript:@"PLBatteryUIPausedSlowChargingIntervalsKey"];
   }
 
-  v14 = [intervalsCopy objectForKeyedSubscript:&unk_287146E10];
-  if ([v14 count])
+  v15 = [intervalsCopy objectForKeyedSubscript:&unk_287146DF8];
+  v16 = [v15 count];
+  if (v16)
   {
-    v15 = PLLogCommon();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v17 = PLLogCommon(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v20 = 138412290;
-      v21 = v14;
-      _os_log_impl(&dword_25EE51000, v15, OS_LOG_TYPE_INFO, "adding stopped slow charging intervals =%@", &v20, 0xCu);
+      v25 = 138412290;
+      v26 = v15;
+      _os_log_impl(&dword_25EE51000, v17, OS_LOG_TYPE_INFO, "adding stopped charging intervals =%@", &v25, 0xCu);
     }
 
-    [v4 setObject:v14 forKeyedSubscript:@"PLBatteryUIStoppedSlowChargingIntervalsKey"];
+    [v4 setObject:v15 forKeyedSubscript:@"PLBatteryUIStoppedChargingIntervalsKey"];
   }
 
-  if ([v5 count])
+  v18 = [intervalsCopy objectForKeyedSubscript:&unk_287146E10];
+  v19 = [v18 count];
+  if (v19)
   {
-    v16 = PLLogCommon();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v20 = PLLogCommon(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v20 = 138412290;
-      v21 = v5;
-      _os_log_impl(&dword_25EE51000, v16, OS_LOG_TYPE_INFO, "adding edited charging intervals =%@", &v20, 0xCu);
+      v25 = 138412290;
+      v26 = v18;
+      _os_log_impl(&dword_25EE51000, v20, OS_LOG_TYPE_INFO, "adding stopped slow charging intervals =%@", &v25, 0xCu);
     }
 
-    [v4 setObject:v5 forKeyedSubscript:@"PLBatteryUIChargingIntervalsKey"];
+    [v4 setObject:v18 forKeyedSubscript:@"PLBatteryUIStoppedSlowChargingIntervalsKey"];
   }
 
-  v17 = PLLogCommon();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v21 = [v5 count];
+  if (v21)
   {
-    v20 = 138412290;
-    v21 = v4;
-    _os_log_impl(&dword_25EE51000, v17, OS_LOG_TYPE_INFO, "charging intervals result =%@", &v20, 0xCu);
+    v22 = PLLogCommon(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      v25 = 138412290;
+      v26 = v5;
+      _os_log_impl(&dword_25EE51000, v22, OS_LOG_TYPE_INFO, "adding edited charging intervals =%@", &v25, 0xCu);
+    }
+
+    v21 = [v4 setObject:v5 forKeyedSubscript:@"PLBatteryUIChargingIntervalsKey"];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
+  v23 = PLLogCommon(v21);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  {
+    v25 = 138412290;
+    v26 = v4;
+    _os_log_impl(&dword_25EE51000, v23, OS_LOG_TYPE_INFO, "charging intervals result =%@", &v25, 0xCu);
+  }
 
   return v4;
 }
 
 - (id)enforceGraphIntervalPrecedence:(id)precedence
 {
-  *&v47[5] = *MEMORY[0x277D85DE8];
+  *&v51[5] = *MEMORY[0x277D85DE8];
   v4 = [precedence mutableCopy];
-  v5 = 1;
-  v6 = 0x277CCA000uLL;
+  v5 = v4;
+  v6 = 1;
+  v7 = 0x277CCA000uLL;
   do
   {
-    v7 = (v5 + 1);
-    v45 = v5;
-    v43 = v5;
-    v42 = v5 + 1;
+    v8 = (v6 + 1);
+    v49 = v6;
+    v47 = v6;
+    v46 = v6 + 1;
     do
     {
-      v8 = PLLogCommon();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = PLLogCommon(v4);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 67109376;
-        v47[0] = v45;
-        LOWORD(v47[1]) = 1024;
-        *(&v47[1] + 2) = v7;
-        _os_log_impl(&dword_25EE51000, v8, OS_LOG_TYPE_INFO, "precedence lower=%d higher=%d", buf, 0xEu);
+        v51[0] = v49;
+        LOWORD(v51[1]) = 1024;
+        *(&v51[1] + 2) = v8;
+        _os_log_impl(&dword_25EE51000, v9, OS_LOG_TYPE_INFO, "precedence lower=%d higher=%d", buf, 0xEu);
       }
 
-      v9 = [*(v6 + 2992) numberWithInt:v45];
-      v10 = [v4 objectForKeyedSubscript:v9];
+      v10 = [*(v7 + 2992) numberWithInt:v49];
+      v11 = [v5 objectForKeyedSubscript:v10];
 
-      v11 = PLLogCommon();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v13 = PLLogCommon(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *v47 = v10;
-        _os_log_impl(&dword_25EE51000, v11, OS_LOG_TYPE_INFO, "lowerPrecedenceIntervals from constructGraphIntervalsWithPrecedence %@=", buf, 0xCu);
+        *v51 = v11;
+        _os_log_impl(&dword_25EE51000, v13, OS_LOG_TYPE_INFO, "lowerPrecedenceIntervals from constructGraphIntervalsWithPrecedence %@=", buf, 0xCu);
       }
 
-      v12 = [*(v6 + 2992) numberWithInt:v7];
-      v13 = [v4 objectForKeyedSubscript:v12];
+      v14 = [*(v7 + 2992) numberWithInt:v8];
+      v15 = [v5 objectForKeyedSubscript:v14];
 
-      v14 = PLLogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v17 = PLLogCommon(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *v47 = v13;
-        _os_log_impl(&dword_25EE51000, v14, OS_LOG_TYPE_INFO, "higherPrecedenceIntervals from constructGraphIntervalsWithPrecedence %@=", buf, 0xCu);
+        *v51 = v15;
+        _os_log_impl(&dword_25EE51000, v17, OS_LOG_TYPE_INFO, "higherPrecedenceIntervals from constructGraphIntervalsWithPrecedence %@=", buf, 0xCu);
       }
 
-      v15 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self intersectionOfTwoSetsWithMergeThreshold:[(PLBatteryUIResponseTypeChargingStateIntervals *)self filterThreshold:v43] intervalSetA:v10 intervalSetB:v13];
-      if ([v15 count])
+      v18 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self intersectionOfTwoSetsWithMergeThreshold:[(PLBatteryUIResponseTypeChargingStateIntervals *)self filterThreshold:v47] intervalSetA:v11 intervalSetB:v15];
+      v19 = [v18 count];
+      if (v19)
       {
-        v16 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self unionBetweenSetAndIntersectingSet:v15 intervalSetB:v13];
-        v17 = [*(v6 + 2992) numberWithInt:v7];
-        [v4 setObject:v16 forKeyedSubscript:v17];
+        v20 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self unionBetweenSetAndIntersectingSet:v18 intervalSetB:v15];
+        v21 = [*(v7 + 2992) numberWithInt:v8];
+        [v5 setObject:v20 forKeyedSubscript:v21];
 
-        v18 = PLLogCommon();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v23 = PLLogCommon(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v19 = [*(v6 + 2992) numberWithInt:v7];
-          v20 = [v4 objectForKeyedSubscript:v19];
+          v24 = [*(v7 + 2992) numberWithInt:v8];
+          v25 = [v5 objectForKeyedSubscript:v24];
           *buf = 138412290;
-          *v47 = v20;
-          _os_log_impl(&dword_25EE51000, v18, OS_LOG_TYPE_INFO, "higher precedence after merging=%@", buf, 0xCu);
+          *v51 = v25;
+          _os_log_impl(&dword_25EE51000, v23, OS_LOG_TYPE_INFO, "higher precedence after merging=%@", buf, 0xCu);
         }
       }
 
-      v21 = PLLogCommon();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v26 = PLLogCommon(v19);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *v47 = v15;
-        _os_log_impl(&dword_25EE51000, v21, OS_LOG_TYPE_INFO, "lowerIntersectsHigher from constructGraphIntervalsWithPrecedence %@=", buf, 0xCu);
+        *v51 = v18;
+        _os_log_impl(&dword_25EE51000, v26, OS_LOG_TYPE_INFO, "lowerIntersectsHigher from constructGraphIntervalsWithPrecedence %@=", buf, 0xCu);
       }
 
-      v22 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self differenceBetweenSetAndIntersectingSet:v10 intervalSetB:v15];
-      v23 = PLLogCommon();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v27 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self differenceBetweenSetAndIntersectingSet:v11 intervalSetB:v18];
+      v28 = PLLogCommon(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *v47 = v22;
-        _os_log_impl(&dword_25EE51000, v23, OS_LOG_TYPE_INFO, "lowerWithoutHigher from constructGraphIntervalsWithPrecedence %@=", buf, 0xCu);
+        *v51 = v27;
+        _os_log_impl(&dword_25EE51000, v28, OS_LOG_TYPE_INFO, "lowerWithoutHigher from constructGraphIntervalsWithPrecedence %@=", buf, 0xCu);
       }
 
-      if ([v22 count])
+      if ([v27 count])
       {
-        v24 = [*(v6 + 2992) numberWithInt:v45];
-        [v4 objectForKeyedSubscript:v24];
-        v44 = v15;
-        v25 = v10;
-        v26 = v4;
+        v29 = [*(v7 + 2992) numberWithInt:v49];
+        [v5 objectForKeyedSubscript:v29];
+        v48 = v18;
+        v30 = v11;
+        v31 = v5;
         selfCopy = self;
-        v29 = v28 = v6;
-        v30 = [(PLBatteryUIResponseTypeChargingStateIntervals *)selfCopy intersectionOfTwoSets:v29 intervalSetB:v22];
+        v34 = v33 = v7;
+        v35 = [(PLBatteryUIResponseTypeChargingStateIntervals *)selfCopy intersectionOfTwoSets:v34 intervalSetB:v27];
 
-        v31 = [*(v28 + 2992) numberWithInt:v45];
-        v32 = [v26 objectForKeyedSubscript:v31];
+        v36 = [*(v33 + 2992) numberWithInt:v49];
+        v37 = [v31 objectForKeyedSubscript:v36];
 
-        v33 = [*(v28 + 2992) numberWithInt:v45];
-        v34 = v32 == 0;
-        v6 = v28;
+        v38 = [*(v33 + 2992) numberWithInt:v49];
+        v39 = v37 == 0;
+        v7 = v33;
         self = selfCopy;
-        v4 = v26;
-        v10 = v25;
-        v15 = v44;
-        if (v34)
+        v5 = v31;
+        v11 = v30;
+        v18 = v48;
+        if (v39)
         {
-          v35 = v22;
+          v40 = v27;
         }
 
         else
         {
-          v35 = v30;
+          v40 = v35;
         }
 
-        v36 = v4;
+        v41 = v5;
       }
 
       else
       {
-        v30 = objc_opt_new();
-        v33 = [*(v6 + 2992) numberWithInt:v45];
-        v36 = v4;
-        v35 = v30;
+        v35 = objc_opt_new();
+        v38 = [*(v7 + 2992) numberWithInt:v49];
+        v41 = v5;
+        v40 = v35;
       }
 
-      [v36 setObject:v35 forKeyedSubscript:v33];
+      [v41 setObject:v40 forKeyedSubscript:v38];
 
-      v7 = (v7 + 1);
+      v8 = (v8 + 1);
     }
 
-    while (v7 != 7);
-    v5 = v42;
+    while (v8 != 7);
+    v6 = v46;
   }
 
-  while (v42 != 6);
-  v37 = [*(v6 + 2992) numberWithInt:6];
-  v38 = [v4 objectForKeyedSubscript:v37];
+  while (v46 != 6);
+  v42 = [*(v7 + 2992) numberWithInt:6];
+  v43 = [v5 objectForKeyedSubscript:v42];
 
-  v39 = [*(v6 + 2992) numberWithInt:6];
-  [v4 setObject:v38 forKeyedSubscript:v39];
+  v44 = [*(v7 + 2992) numberWithInt:6];
+  [v5 setObject:v43 forKeyedSubscript:v44];
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v4;
+  return v5;
 }
 
 - (id)mapChargingStateIntervalsToGraphIntervals:(id)intervals
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   intervalsCopy = intervals;
-  v5 = PLLogCommon();
+  v5 = PLLogCommon(intervalsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v54 = intervalsCopy;
+    v53 = intervalsCopy;
     _os_log_impl(&dword_25EE51000, v5, OS_LOG_TYPE_INFO, "chargingStateIntervals=%@", buf, 0xCu);
   }
 
   v6 = [intervalsCopy objectForKeyedSubscript:&unk_287146D80];
-  v7 = PLLogCommon();
+  v7 = PLLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v54 = v6;
+    v53 = v6;
     _os_log_impl(&dword_25EE51000, v7, OS_LOG_TYPE_INFO, "externalConnectedIntervals=%@", buf, 0xCu);
   }
 
@@ -1856,17 +1822,17 @@ void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getApplicab
   }
 
   v10 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self mergeIntervals:v6 withTolerance:v9];
-  v11 = PLLogCommon();
+  v11 = PLLogCommon(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v54 = v10;
+    v53 = v10;
     _os_log_impl(&dword_25EE51000, v11, OS_LOG_TYPE_INFO, "allExternalConnectedIntervalsMerged=%@", buf, 0xCu);
   }
 
   v12 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self filterIntervals:v10 withThreshold:60.0];
-  v47 = v10;
-  v48 = v6;
+  v46 = v10;
+  v47 = v6;
   if ([(PLBatteryUIResponseTypeChargingStateIntervals *)self shouldSnapInterval])
   {
     v13 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self snapIntervals:v12];
@@ -1891,31 +1857,30 @@ void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getApplicab
   v17 = MEMORY[0x277CCABB0];
   [(PLBatteryUIResponseTypeChargingStateIntervals *)self bucketSize];
   [v17 numberWithDouble:?];
-  v51 = v50 = &unk_287146D98;
-  v46 = v51;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:2];
-  v52 = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
+  v50 = v49 = &unk_287146D98;
+  v45 = v50;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:2];
+  v51 = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
 
-  v45 = v19;
+  v44 = v19;
   v20 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self intersectionOfTwoSets:v19 intervalSetB:v12];
 
-  [v16 setObject:v20 forKeyedSubscript:&unk_287146D80];
-  v21 = PLLogCommon();
+  v21 = PLLogCommon([v16 setObject:v20 forKeyedSubscript:&unk_287146D80]);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v54 = v16;
+    v53 = v16;
     _os_log_impl(&dword_25EE51000, v21, OS_LOG_TYPE_INFO, "chargingEntries after slow charging determination is %@=", buf, 0xCu);
   }
 
   v22 = v20;
   v23 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self getChargingStateIntervals:intervalsCopy forGraphIntervalType:3];
-  v49 = intervalsCopy;
+  v48 = intervalsCopy;
   v24 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self getChargingStateIntervals:intervalsCopy forGraphIntervalType:4];
-  v44 = v23;
+  v43 = v23;
   v25 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self filterIntervals:v23 withThreshold:900.0];
-  v43 = v24;
+  v42 = v24;
   v26 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self filterIntervals:v24 withThreshold:900.0];
   if (_os_feature_enabled_impl())
   {
@@ -1927,7 +1892,7 @@ void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getApplicab
     v27 = 60.0;
   }
 
-  v42 = v25;
+  v41 = v25;
   v28 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self mergeIntervals:v25 withTolerance:v27];
   if (_os_feature_enabled_impl())
   {
@@ -1939,9 +1904,9 @@ void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getApplicab
     v29 = 60.0;
   }
 
-  v41 = v26;
+  v40 = v26;
   v30 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self mergeIntervals:v26 withTolerance:v29];
-  v40 = v28;
+  v39 = v28;
   v31 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self intersectionOfTwoSets:v22 intervalSetB:v28];
   [v16 setObject:v31 forKeyedSubscript:&unk_287146DC8];
   v32 = [v16 objectForKeyedSubscript:&unk_287146DB0];
@@ -1962,8 +1927,6 @@ void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getApplicab
   v36 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self enforceGraphIntervalPrecedence:v16];
 
   v37 = [(PLBatteryUIResponseTypeChargingStateIntervals *)self mergeAllChargingIntervals:v36];
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v37;
 }
@@ -1992,11 +1955,12 @@ void __107__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getCharging
 {
   v5 = a2;
   v6 = a3;
-  v8 = (a1 + 48);
-  v7 = *(a1 + 48);
-  if (v7 > 2)
+  v7 = v6;
+  v9 = (a1 + 48);
+  v8 = *(a1 + 48);
+  if (v8 > 2)
   {
-    if (v7 == 4)
+    if (v8 == 4)
     {
       if (![*(a1 + 32) isStoppedChargingIntervalType:{objc_msgSend(v5, "intValue")}])
       {
@@ -2006,7 +1970,7 @@ void __107__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getCharging
       goto LABEL_17;
     }
 
-    if (v7 == 3)
+    if (v8 == 3)
     {
       if (![*(a1 + 32) isPausedChargingIntervalType:{objc_msgSend(v5, "intValue")}])
       {
@@ -2019,7 +1983,7 @@ void __107__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getCharging
 
   else
   {
-    if (v7 == 1)
+    if (v8 == 1)
     {
       if ([v5 intValue] != 1)
       {
@@ -2029,7 +1993,7 @@ void __107__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getCharging
       goto LABEL_17;
     }
 
-    if (v7 == 2)
+    if (v8 == 2)
     {
       if (![MEMORY[0x277D3F058] supportsSlowCharging] || !objc_msgSend(*(a1 + 32), "isChargingSpeedIntervalType:", objc_msgSend(v5, "intValue")))
       {
@@ -2037,15 +2001,15 @@ void __107__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getCharging
       }
 
 LABEL_17:
-      [*(a1 + 40) addObjectsFromArray:v6];
+      [*(a1 + 40) addObjectsFromArray:v7];
       goto LABEL_18;
     }
   }
 
-  v9 = PLLogCommon();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = PLLogCommon(v6);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    __107__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getChargingStateIntervals_forGraphIntervalType___block_invoke_cold_1(v8, v9);
+    __107__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getChargingStateIntervals_forGraphIntervalType___block_invoke_cold_1(v9, v10);
   }
 
 LABEL_18:
@@ -2066,33 +2030,28 @@ LABEL_18:
 
 void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__constructIntervalTuplesFromEntries_startOfRange_endOfRange_allowOverflow___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 objectForKeyedSubscript:@"timestampEnd"];
+  v6 = [a1 objectForKeyedSubscript:@"timestampEnd"];
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __133__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__constructIntervalTuplesFromEntries_startOfRange_endOfRange_allowOverflow___block_invoke_cold_2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_25EE51000, log, OS_LOG_TYPE_DEBUG, "adding interval=%@ for entry=%@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_25EE51000, log, OS_LOG_TYPE_DEBUG, "adding interval=%@ for entry=%@", &v3, 0x16u);
 }
 
 void __107__PLBatteryUIResponseTypeChargingStateIntervals_Utilities__getChargingStateIntervals_forGraphIntervalType___block_invoke_cold_1(__int16 *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_25EE51000, a2, OS_LOG_TYPE_ERROR, "Unrecognized graphIntervalType=%d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_25EE51000, a2, OS_LOG_TYPE_ERROR, "Unrecognized graphIntervalType=%d", v3, 8u);
 }
 
 @end

@@ -167,7 +167,7 @@ void __64__SFPasswordPickerServiceViewController_initWithNibName_bundle___block_
     v6 = objc_alloc_init(MEMORY[0x1E696EE50]);
     v20 = 0u;
     v21 = 0u;
-    [(SFPasswordPickerServiceViewController *)self _hostAuditToken];
+    objc_msgSend__hostAuditToken(self);
     v18 = 0u;
     v19 = 0u;
     if (WBSAuditTokenHasEntitlement())
@@ -225,12 +225,12 @@ void __89__SFPasswordPickerServiceViewController__authenticateToViewOtherPasswor
   dispatch_async(MEMORY[0x1E69E96A0], v7);
 }
 
-uint64_t __89__SFPasswordPickerServiceViewController__authenticateToViewOtherPasswordsWithCompletion___block_invoke_2(uint64_t a1)
+uint64_t __89__SFPasswordPickerServiceViewController__authenticateToViewOtherPasswordsWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32))
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [*(a1 + 32) safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
@@ -243,9 +243,9 @@ uint64_t __89__SFPasswordPickerServiceViewController__authenticateToViewOtherPas
 
   else
   {
-    v4 = *(*(a1 + 56) + 16);
+    v5 = *(*(a1 + 56) + 16);
 
-    return v4();
+    return v5();
   }
 }
 
@@ -296,7 +296,7 @@ void __86__SFPasswordPickerServiceViewController__actionForPresentingPasswordMan
   v6 = _Block_copy(aBlock);
   v23 = 0u;
   v24 = 0u;
-  [(SFPasswordPickerServiceViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   v21 = 0u;
   v22 = 0u;
   HasEntitlement = WBSAuditTokenHasEntitlement();
@@ -577,59 +577,59 @@ void __77__SFPasswordPickerServiceViewController__fillCredential_needsAuthentica
   }
 }
 
-uint64_t __85__SFPasswordPickerServiceViewController__sendCredentialToClient_needsAuthentication___block_invoke(uint64_t a1)
+uint64_t __85__SFPasswordPickerServiceViewController__sendCredentialToClient_needsAuthentication___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v23 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) user];
-    if ([v3 length])
+    v4 = [*(a1 + 32) user];
+    if ([v4 length])
     {
-      v4 = @"YES";
+      v5 = @"YES";
     }
 
     else
     {
-      v4 = @"NO";
+      v5 = @"NO";
     }
 
-    v5 = v4;
-    v6 = [*(a1 + 32) password];
-    if ([v6 length])
+    v6 = v5;
+    v7 = [*(a1 + 32) password];
+    if ([v7 length])
     {
-      v7 = @"YES";
+      v8 = @"YES";
     }
 
     else
     {
-      v7 = @"NO";
+      v8 = @"NO";
     }
 
-    v8 = v7;
-    v9 = [*(a1 + 32) site];
-    if ([v9 length])
+    v9 = v8;
+    v10 = [*(a1 + 32) site];
+    if ([v10 length])
     {
-      v10 = @"YES";
+      v11 = @"YES";
     }
 
     else
     {
-      v10 = @"NO";
+      v11 = @"NO";
     }
 
-    v14 = 138543874;
-    v15 = v5;
-    v16 = 2114;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v10;
-    v11 = v10;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_DEFAULT, "Sending credential with non-empty username: %{public}@, non-empty password: %{public}@, non-empty site: %{public}@", &v14, 0x20u);
+    v17 = 138543874;
+    v18 = v6;
+    v19 = 2114;
+    v20 = v9;
+    v21 = 2114;
+    v22 = v11;
+    v12 = v11;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_DEFAULT, "Sending credential with non-empty username: %{public}@, non-empty password: %{public}@, non-empty site: %{public}@", &v17, 0x20u);
   }
 
-  v12 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [*(a1 + 32) user];
     objc_claimAutoreleasedReturnValue();
@@ -643,15 +643,16 @@ uint64_t __85__SFPasswordPickerServiceViewController__sendCredentialToClient_nee
 
 void __85__SFPasswordPickerServiceViewController__sendCredentialToClient_needsAuthentication___block_invoke_126(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v7 = v5;
   if (a2)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXAutoFillAuthentication();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = WBS_LOG_CHANNEL_PREFIXAutoFillAuthentication(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_DEFAULT, "Successfully authenticated App AutoFill", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "Successfully authenticated App AutoFill", v10, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -659,10 +660,10 @@ void __85__SFPasswordPickerServiceViewController__sendCredentialToClient_needsAu
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v5, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [v5 safari_privacyPreservingDescription];
+      [v7 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __85__SFPasswordPickerServiceViewController__sendCredentialToClient_needsAuthentication___block_invoke_126_cold_1();
     }
@@ -675,9 +676,9 @@ void __85__SFPasswordPickerServiceViewController__sendCredentialToClient_needsAu
 {
   contextCopy = context;
   handlerCopy = handler;
-  objc_initWeak(location, self);
-  v8 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  inited = objc_initWeak(location, self);
+  v10 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(inited, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [SFPasswordPickerServiceViewController _authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext:completionHandler:];
   }
@@ -690,24 +691,25 @@ void __85__SFPasswordPickerServiceViewController__sendCredentialToClient_needsAu
     goto LABEL_27;
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v29 = contextCopy;
-  [(SFPasswordPickerServiceViewController *)self _hostAuditToken];
-  v41 = 0u;
-  v42 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v36 = contextCopy;
+  objc_msgSend__hostAuditToken(self);
+  v48 = 0u;
+  v49 = 0u;
   HasEntitlement = WBSAuditTokenHasEntitlement();
-  v11 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v13 = HasEntitlement;
+  v15 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(HasEntitlement, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [SFPasswordPickerServiceViewController _authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext:completionHandler:];
-    if (!HasEntitlement)
+    if (!v13)
     {
       goto LABEL_10;
     }
   }
 
-  else if (!HasEntitlement)
+  else if (!v13)
   {
     goto LABEL_10;
   }
@@ -722,19 +724,20 @@ void __85__SFPasswordPickerServiceViewController__sendCredentialToClient_needsAu
 LABEL_10:
   applicationIdentifier = [(SFPasswordServiceViewController *)self applicationIdentifier];
 LABEL_11:
-  v14 = applicationIdentifier;
-  v28 = applicationIdentifier;
-  v15 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v19 = applicationIdentifier;
+  v35 = applicationIdentifier;
+  v20 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(applicationIdentifier, v18);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     [SFPasswordPickerServiceViewController _authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext:completionHandler:];
   }
 
   _isConfiguredForSystemAutoFill = [(SFPasswordPickerServiceViewController *)self _isConfiguredForSystemAutoFill];
-  v17 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v22 = _isConfiguredForSystemAutoFill;
+  v24 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(_isConfiguredForSystemAutoFill, v23);
+  if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    if (_isConfiguredForSystemAutoFill)
+    if (v22)
     {
       goto LABEL_15;
     }
@@ -745,7 +748,7 @@ LABEL_19:
   }
 
   [SFPasswordPickerServiceViewController _authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext:completionHandler:];
-  if (!_isConfiguredForSystemAutoFill)
+  if (!v22)
   {
     goto LABEL_19;
   }
@@ -766,141 +769,141 @@ LABEL_20:
   aBlock[1] = 3221225472;
   aBlock[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke;
   aBlock[3] = &unk_1E8492868;
-  v36 = handlerCopy;
+  v43 = handlerCopy;
   aBlock[4] = self;
-  v38 = HasEntitlement;
-  v19 = v14;
-  v34 = v19;
-  v39 = _isConfiguredForSystemAutoFill;
-  v35 = contextCopy;
-  v40 = isExplicitAutoFillMode;
-  objc_copyWeak(&v37, location);
-  v20 = _Block_copy(aBlock);
-  if (HasEntitlement)
+  v45 = v13;
+  v26 = v19;
+  v41 = v26;
+  v46 = v22;
+  v42 = contextCopy;
+  v47 = isExplicitAutoFillMode;
+  objc_copyWeak(&v44, location);
+  v27 = _Block_copy(aBlock);
+  if (v13)
   {
-    v21 = self->_externallyVerifiedAssociatedDomains;
+    v28 = self->_externallyVerifiedAssociatedDomains;
   }
 
   else
   {
-    v21 = 0;
+    v28 = 0;
   }
 
-  v22 = MEMORY[0x1E69C8E18];
-  if (v19)
+  v29 = MEMORY[0x1E69C8E18];
+  if (v26)
   {
-    v23 = v19;
+    v30 = v26;
   }
 
   else
   {
-    v23 = &stru_1F4FE9E38;
+    v30 = &stru_1F4FE9E38;
   }
 
   webFrameIdentifier = self->_webFrameIdentifier;
   webViewURL = self->_webViewURL;
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_9;
-  v30[3] = &unk_1E84928E0;
-  v26 = v19;
-  v31 = v26;
-  v32 = v20;
-  v27 = v20;
-  [v22 getCredentialsForAppWithAppID:v23 frameIdentifier:webFrameIdentifier externallyVerifiedAndApprovedSharedWebCredentialDomains:v21 websiteURL:webViewURL completionHandler:v30];
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_9;
+  v37[3] = &unk_1E84928E0;
+  v33 = v26;
+  v38 = v33;
+  v39 = v27;
+  v34 = v27;
+  [v29 getCredentialsForAppWithAppID:v30 frameIdentifier:webFrameIdentifier externallyVerifiedAndApprovedSharedWebCredentialDomains:v28 websiteURL:webViewURL completionHandler:v37];
 
-  objc_destroyWeak(&v37);
-  contextCopy = v29;
+  objc_destroyWeak(&v44);
+  contextCopy = v36;
 LABEL_27:
   objc_destroyWeak(location);
 }
 
 void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v150 = *MEMORY[0x1E69E9840];
-  v99 = a2;
-  v100 = a3;
-  v101 = a4;
+  v153 = *MEMORY[0x1E69E9840];
+  v102 = a2;
+  v103 = a3;
+  v104 = a4;
   v7 = [MEMORY[0x1E69C8DB8] sharedFeatureManager];
-  v102 = [v7 shouldAutoFillPasswordsFromKeychain];
+  v105 = [v7 shouldAutoFillPasswordsFromKeychain];
 
   v8 = [MEMORY[0x1E69C8DE0] sharedManager];
-  v103 = [v8 enabledExtensions];
+  v106 = [v8 enabledExtensions];
 
-  if ((v102 & 1) == 0 && ![v103 count])
+  if ((v105 & 1) == 0 && ![v106 count])
   {
-    v25 = [v103 safari_mapObjectsUsingBlock:&__block_literal_global_131];
-    v26 = [v103 count];
+    v25 = [v106 safari_mapObjectsUsingBlock:&__block_literal_global_131];
+    v26 = [v106 count];
     if (v26 <= 1)
     {
       if (!v26)
       {
-        v31 = _WBSLocalizedString();
-        v32 = 0;
-        v77 = 1;
+        v32 = _WBSLocalizedString();
+        v33 = 0;
+        v78 = 1;
 LABEL_76:
-        v79 = MEMORY[0x1E69DC650];
-        v80 = _WBSLocalizedString();
-        v81 = [v79 alertControllerWithTitle:v80 message:v31 imageNamed:@"alert-passwords" preferredStyle:1];
+        v80 = MEMORY[0x1E69DC650];
+        v81 = _WBSLocalizedString();
+        v82 = [v80 alertControllerWithTitle:v81 message:v32 imageNamed:@"alert-passwords" preferredStyle:1];
 
-        if (v77)
+        if (v78)
         {
-          v82 = MEMORY[0x1E69DC648];
-          v83 = _WBSLocalizedString();
-          v146[0] = MEMORY[0x1E69E9820];
-          v146[1] = 3221225472;
-          v146[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_152;
-          v146[3] = &unk_1E84926A0;
-          v146[4] = *(a1 + 32);
-          v84 = [v82 actionWithTitle:v83 style:0 handler:v146];
-          [v81 addAction:v84];
+          v83 = MEMORY[0x1E69DC648];
+          v84 = _WBSLocalizedString();
+          v149[0] = MEMORY[0x1E69E9820];
+          v149[1] = 3221225472;
+          v149[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_152;
+          v149[3] = &unk_1E84926A0;
+          v149[4] = *(a1 + 32);
+          v85 = [v83 actionWithTitle:v84 style:0 handler:v149];
+          [v82 addAction:v85];
 
-          v85 = MEMORY[0x1E69DC648];
-          v86 = _WBSLocalizedString();
-          v145[0] = MEMORY[0x1E69E9820];
-          v145[1] = 3221225472;
-          v145[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_3;
-          v145[3] = &unk_1E84926A0;
-          v145[4] = *(a1 + 32);
-          v87 = [v85 actionWithTitle:v86 style:0 handler:v145];
-          [v81 addAction:v87];
+          v86 = MEMORY[0x1E69DC648];
+          v87 = _WBSLocalizedString();
+          v148[0] = MEMORY[0x1E69E9820];
+          v148[1] = 3221225472;
+          v148[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_3;
+          v148[3] = &unk_1E84926A0;
+          v148[4] = *(a1 + 32);
+          v88 = [v86 actionWithTitle:v87 style:0 handler:v148];
+          [v82 addAction:v88];
         }
 
         else
         {
-          if (v32)
+          if (v33)
           {
-            v88 = MEMORY[0x1E69DC648];
-            v89 = MEMORY[0x1E696AEC0];
-            v90 = _WBSLocalizedString();
-            v91 = [v25 objectAtIndexedSubscript:0];
-            v92 = [v89 stringWithFormat:v90, v91];
-            v143[0] = MEMORY[0x1E69E9820];
-            v143[1] = 3221225472;
-            v143[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_4;
-            v143[3] = &unk_1E84926A0;
-            v144 = v103;
-            v93 = [v88 actionWithTitle:v92 style:0 handler:v143];
-            [v81 addAction:v93];
+            v89 = MEMORY[0x1E69DC648];
+            v90 = MEMORY[0x1E696AEC0];
+            v91 = _WBSLocalizedString();
+            v92 = [v25 objectAtIndexedSubscript:0];
+            v93 = [v90 stringWithFormat:v91, v92];
+            v146[0] = MEMORY[0x1E69E9820];
+            v146[1] = 3221225472;
+            v146[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_4;
+            v146[3] = &unk_1E84926A0;
+            v147 = v106;
+            v94 = [v89 actionWithTitle:v93 style:0 handler:v146];
+            [v82 addAction:v94];
           }
 
-          v94 = MEMORY[0x1E69DC648];
-          v95 = _WBSLocalizedString();
-          v142[0] = MEMORY[0x1E69E9820];
-          v142[1] = 3221225472;
-          v142[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_164;
-          v142[3] = &unk_1E84926A0;
-          v142[4] = *(a1 + 32);
-          v96 = [v94 actionWithTitle:v95 style:0 handler:v142];
-          [v81 addAction:v96];
+          v95 = MEMORY[0x1E69DC648];
+          v96 = _WBSLocalizedString();
+          v145[0] = MEMORY[0x1E69E9820];
+          v145[1] = 3221225472;
+          v145[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_164;
+          v145[3] = &unk_1E84926A0;
+          v145[4] = *(a1 + 32);
+          v97 = [v95 actionWithTitle:v96 style:0 handler:v145];
+          [v82 addAction:v97];
         }
 
-        [*(a1 + 32) presentViewController:v81 animated:1 completion:0];
-        v97 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-        if (os_log_type_enabled(v97, OS_LOG_TYPE_INFO))
+        v98 = [*(a1 + 32) presentViewController:v82 animated:1 completion:0];
+        v100 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v98, v99);
+        if (os_log_type_enabled(v100, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1D4644000, v97, OS_LOG_TYPE_INFO, "There is no available CPE that supports explicit AutoFill.", buf, 2u);
+          _os_log_impl(&dword_1D4644000, v100, OS_LOG_TYPE_INFO, "There is no available CPE that supports explicit AutoFill.", buf, 2u);
         }
 
         (*(*(a1 + 56) + 16))();
@@ -911,21 +914,21 @@ LABEL_84:
 
       if (v26 == 1)
       {
-        v27 = MEMORY[0x1E696AEC0];
-        v28 = _WBSLocalizedString();
-        v29 = [v25 objectAtIndexedSubscript:0];
+        v28 = MEMORY[0x1E696AEC0];
+        v29 = _WBSLocalizedString();
         v30 = [v25 objectAtIndexedSubscript:0];
-        v31 = [v27 stringWithFormat:v28, v29, v30];
-        v32 = 1;
+        v31 = [v25 objectAtIndexedSubscript:0];
+        v32 = [v28 stringWithFormat:v29, v30, v31];
+        v33 = 1;
 LABEL_75:
 
-        v77 = 0;
+        v78 = 0;
         goto LABEL_76;
       }
 
 LABEL_69:
-      v76 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_FAULT))
+      v77 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v26, v27);
+      if (os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
       {
         __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_cold_1();
       }
@@ -936,11 +939,11 @@ LABEL_69:
 
     if (v26 == 2)
     {
-      v78 = MEMORY[0x1E696AEC0];
-      v28 = _WBSLocalizedString();
-      v29 = [v25 objectAtIndexedSubscript:0];
-      v30 = [v25 objectAtIndexedSubscript:1];
-      v31 = [v78 stringWithFormat:v28, v29, v30];
+      v79 = MEMORY[0x1E696AEC0];
+      v29 = _WBSLocalizedString();
+      v30 = [v25 objectAtIndexedSubscript:0];
+      v31 = [v25 objectAtIndexedSubscript:1];
+      v32 = [v79 stringWithFormat:v29, v30, v31];
     }
 
     else
@@ -950,15 +953,15 @@ LABEL_69:
         goto LABEL_69;
       }
 
-      v36 = MEMORY[0x1E696AEC0];
-      v28 = _WBSLocalizedString();
-      v29 = [v25 objectAtIndexedSubscript:0];
-      v30 = [v25 objectAtIndexedSubscript:1];
-      v37 = [v25 objectAtIndexedSubscript:2];
-      v31 = [v36 stringWithFormat:v28, v29, v30, v37];
+      v37 = MEMORY[0x1E696AEC0];
+      v29 = _WBSLocalizedString();
+      v30 = [v25 objectAtIndexedSubscript:0];
+      v31 = [v25 objectAtIndexedSubscript:1];
+      v38 = [v25 objectAtIndexedSubscript:2];
+      v32 = [v37 stringWithFormat:v29, v30, v31, v38];
     }
 
-    v32 = 0;
+    v33 = 0;
     goto LABEL_75;
   }
 
@@ -966,25 +969,25 @@ LABEL_69:
   aBlock[1] = 3221225472;
   aBlock[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_165;
   aBlock[3] = &unk_1E8492788;
-  v139 = *(a1 + 72);
+  v142 = *(a1 + 72);
   aBlock[4] = *(a1 + 32);
-  v9 = v99;
-  v134 = v9;
-  v135 = *(a1 + 40);
-  v140 = *(a1 + 73);
-  v136 = v101;
-  v10 = v100;
-  v137 = v10;
-  v138 = *(a1 + 48);
-  v98 = _Block_copy(aBlock);
-  v11 = (([v103 count] != 0) & v102) == 0 && objc_msgSend(v103, "count") < 2;
+  v9 = v102;
+  v137 = v9;
+  v138 = *(a1 + 40);
+  v143 = *(a1 + 73);
+  v139 = v104;
+  v10 = v103;
+  v140 = v10;
+  v141 = *(a1 + 48);
+  v101 = _Block_copy(aBlock);
+  v11 = (([v106 count] != 0) & v105) == 0 && objc_msgSend(v106, "count") < 2;
   if (*(a1 + 74) == 1)
   {
-    v12 = [v103 safari_filterObjectsUsingBlock:&__block_literal_global_217];
+    v12 = [v106 safari_filterObjectsUsingBlock:&__block_literal_global_217];
     v13 = [v12 count];
 
     v14 = v13 != 0;
-    v11 = v13 + v102 == 1;
+    v11 = v13 + v105 == 1;
   }
 
   else
@@ -994,7 +997,7 @@ LABEL_69:
 
   if (*(*(a1 + 32) + 1040) == 1)
   {
-    if ([v103 count] != 0 && !v11)
+    if ([v106 count] != 0 && !v11)
     {
 LABEL_12:
       if (*(a1 + 74) == 1)
@@ -1021,183 +1024,183 @@ LABEL_12:
         }
       }
 
-      v106 = [v17 alertControllerWithTitle:v16 message:0 imageNamed:@"alert-passwords" preferredStyle:_SFDeviceAlertStyle()];
+      v109 = [v17 alertControllerWithTitle:v16 message:0 imageNamed:@"alert-passwords" preferredStyle:_SFDeviceAlertStyle()];
       if (v15)
       {
 
-        v125 = 0u;
+        v128 = 0u;
+        v129 = 0u;
         v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
+        v127 = 0u;
         obj = v9;
-        v38 = [obj countByEnumeratingWithState:&v123 objects:v149 count:16];
-        if (v38)
+        v39 = [obj countByEnumeratingWithState:&v126 objects:v152 count:16];
+        if (v39)
         {
-          v105 = *v124;
+          v108 = *v127;
           do
           {
-            for (i = 0; i != v38; ++i)
+            for (i = 0; i != v39; ++i)
             {
-              if (*v124 != v105)
+              if (*v127 != v108)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v40 = *(*(&v123 + 1) + 8 * i);
-              v41 = MEMORY[0x1E696AEC0];
-              v42 = _WBSLocalizedString();
-              v43 = [v40 site];
-              v44 = [v41 stringWithFormat:v42, v43];
+              v41 = *(*(&v126 + 1) + 8 * i);
+              v42 = MEMORY[0x1E696AEC0];
+              v43 = _WBSLocalizedString();
+              v44 = [v41 site];
+              v45 = [v42 stringWithFormat:v43, v44];
 
-              if ([v40 isExternal])
+              if ([v41 isExternal])
               {
-                v45 = [v40 externalCredential];
-                v46 = [MEMORY[0x1E69C8E18] titleForCredentialIdentity:v45 formURL:0];
+                v46 = [v41 externalCredential];
+                v47 = [MEMORY[0x1E69C8E18] titleForCredentialIdentity:v46 formURL:0];
 
-                v44 = v46;
+                v45 = v47;
               }
 
-              v47 = [v40 user];
-              v48 = [v40 creationDate];
-              v49 = [SFCredentialDisplayData descriptionForPasswordWithUser:v47 creationDate:v48];
+              v48 = [v41 user];
+              v49 = [v41 creationDate];
+              v50 = [SFCredentialDisplayData descriptionForPasswordWithUser:v48 creationDate:v49];
 
-              v50 = v10;
+              v51 = v10;
               if (!v10)
               {
                 v4 = [*(*(a1 + 32) + 1048) host];
-                v50 = v4;
+                v51 = v4;
               }
 
-              [v40 setRequestedHost:v50];
+              [v41 setRequestedHost:v51];
               if (!v10)
               {
               }
 
-              v122[0] = MEMORY[0x1E69E9820];
-              v122[1] = 3221225472;
-              v122[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_4_228;
-              v122[3] = &unk_1E84927F8;
-              v122[4] = *(a1 + 32);
-              v122[5] = v40;
-              v51 = [SFMultipleLineAlertAction actionWithTitle:v49 detail:v44 handler:v122];
-              [v106 addAction:v51];
+              v125[0] = MEMORY[0x1E69E9820];
+              v125[1] = 3221225472;
+              v125[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_4_228;
+              v125[3] = &unk_1E84927F8;
+              v125[4] = *(a1 + 32);
+              v125[5] = v41;
+              v52 = [SFMultipleLineAlertAction actionWithTitle:v50 detail:v45 handler:v125];
+              [v109 addAction:v52];
             }
 
-            v38 = [obj countByEnumeratingWithState:&v123 objects:v149 count:16];
+            v39 = [obj countByEnumeratingWithState:&v126 objects:v152 count:16];
           }
 
-          while (v38);
+          while (v39);
         }
       }
 
-      v52 = [MEMORY[0x1E695DF70] array];
-      v53 = _WBSLocalizedString();
-      if ([v103 count])
+      v53 = [MEMORY[0x1E695DF70] array];
+      v54 = _WBSLocalizedString();
+      if ([v106 count])
       {
-        v120 = 0u;
+        v123 = 0u;
+        v124 = 0u;
         v121 = 0u;
-        v118 = 0u;
-        v119 = 0u;
-        v54 = v103;
-        v55 = [v54 countByEnumeratingWithState:&v118 objects:v148 count:16];
-        if (v55)
+        v122 = 0u;
+        v55 = v106;
+        v56 = [v55 countByEnumeratingWithState:&v121 objects:v151 count:16];
+        if (v56)
         {
-          v56 = *v119;
+          v57 = *v122;
           do
           {
-            for (j = 0; j != v55; ++j)
+            for (j = 0; j != v56; ++j)
             {
-              if (*v119 != v56)
+              if (*v122 != v57)
               {
-                objc_enumerationMutation(v54);
+                objc_enumerationMutation(v55);
               }
 
-              v58 = *(*(&v118 + 1) + 8 * j);
-              v59 = [MEMORY[0x1E69C8DE0] sharedManager];
-              v60 = [v59 extensionSupportsTextInsertion:v58];
+              v59 = *(*(&v121 + 1) + 8 * j);
+              v60 = [MEMORY[0x1E69C8DE0] sharedManager];
+              v61 = [v60 extensionSupportsTextInsertion:v59];
 
-              if (v60 & 1 | ((*(a1 + 74) & 1) == 0))
+              if (v61 & 1 | ((*(a1 + 74) & 1) == 0))
               {
-                v61 = [*(a1 + 32) _actionForPresentingPasswordManagerExtension:v58];
-                [v52 addObject:v61];
+                v62 = [*(a1 + 32) _actionForPresentingPasswordManagerExtension:v59];
+                [v53 addObject:v62];
               }
             }
 
-            v55 = [v54 countByEnumeratingWithState:&v118 objects:v148 count:16];
+            v56 = [v55 countByEnumeratingWithState:&v121 objects:v151 count:16];
           }
 
-          while (v55);
+          while (v56);
         }
 
-        v62 = _WBSLocalizedString();
+        v63 = _WBSLocalizedString();
 
-        v53 = v62;
+        v54 = v63;
       }
 
-      if (v102)
+      if (v105)
       {
-        v63 = MEMORY[0x1E69DC648];
-        v116[0] = MEMORY[0x1E69E9820];
-        v116[1] = 3221225472;
-        v116[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_5_239;
-        v116[3] = &unk_1E8492820;
-        v117 = v98;
-        v64 = [v63 actionWithTitle:v53 style:0 handler:v116];
-        [v52 addObject:v64];
+        v64 = MEMORY[0x1E69DC648];
+        v119[0] = MEMORY[0x1E69E9820];
+        v119[1] = 3221225472;
+        v119[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_5_239;
+        v119[3] = &unk_1E8492820;
+        v120 = v101;
+        v65 = [v64 actionWithTitle:v54 style:0 handler:v119];
+        [v53 addObject:v65];
       }
 
-      [v52 sortUsingComparator:&__block_literal_global_242];
+      [v53 sortUsingComparator:&__block_literal_global_242];
+      v118 = 0u;
+      v116 = 0u;
+      v117 = 0u;
       v115 = 0u;
-      v113 = 0u;
-      v114 = 0u;
-      v112 = 0u;
-      v65 = v52;
-      v66 = [v65 countByEnumeratingWithState:&v112 objects:v147 count:16];
-      if (v66)
+      v66 = v53;
+      v67 = [v66 countByEnumeratingWithState:&v115 objects:v150 count:16];
+      if (v67)
       {
-        v67 = *v113;
+        v68 = *v116;
         do
         {
-          for (k = 0; k != v66; ++k)
+          for (k = 0; k != v67; ++k)
           {
-            if (*v113 != v67)
+            if (*v116 != v68)
             {
-              objc_enumerationMutation(v65);
+              objc_enumerationMutation(v66);
             }
 
-            [v106 addAction:*(*(&v112 + 1) + 8 * k)];
+            [v109 addAction:*(*(&v115 + 1) + 8 * k)];
           }
 
-          v66 = [v65 countByEnumeratingWithState:&v112 objects:v147 count:16];
+          v67 = [v66 countByEnumeratingWithState:&v115 objects:v150 count:16];
         }
 
-        while (v66);
+        while (v67);
       }
 
-      v69 = MEMORY[0x1E69DC648];
-      v70 = _WBSLocalizedString();
+      v70 = MEMORY[0x1E69DC648];
+      v71 = _WBSLocalizedString();
+      v114[0] = MEMORY[0x1E69E9820];
+      v114[1] = 3221225472;
+      v114[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_7;
+      v114[3] = &unk_1E84926A0;
+      v114[4] = *(a1 + 32);
+      v72 = [v70 actionWithTitle:v71 style:1 handler:v114];
+      [v109 addAction:v72];
+
       v111[0] = MEMORY[0x1E69E9820];
       v111[1] = 3221225472;
-      v111[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_7;
-      v111[3] = &unk_1E84926A0;
-      v111[4] = *(a1 + 32);
-      v71 = [v69 actionWithTitle:v70 style:1 handler:v111];
-      [v106 addAction:v71];
-
-      v108[0] = MEMORY[0x1E69E9820];
-      v108[1] = 3221225472;
-      v108[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_8;
-      v108[3] = &unk_1E84927D0;
-      objc_copyWeak(&v110, (a1 + 64));
-      v72 = v106;
-      v109 = v72;
-      v73 = _Block_copy(v108);
-      v74 = *(a1 + 32);
-      v75 = *(v74 + 1120);
-      *(v74 + 1120) = v73;
+      v111[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_8;
+      v111[3] = &unk_1E84927D0;
+      objc_copyWeak(&v113, (a1 + 64));
+      v73 = v109;
+      v112 = v73;
+      v74 = _Block_copy(v111);
+      v75 = *(a1 + 32);
+      v76 = *(v75 + 1120);
+      *(v75 + 1120) = v74;
 
       (*(*(a1 + 56) + 16))();
-      objc_destroyWeak(&v110);
+      objc_destroyWeak(&v113);
 
       goto LABEL_67;
     }
@@ -1210,29 +1213,29 @@ LABEL_12:
 
   if (*(a1 + 74) != 1)
   {
-    if ([v103 count])
+    if ([v106 count])
     {
-      v127[0] = MEMORY[0x1E69E9820];
-      v127[1] = 3221225472;
-      v127[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_3_219;
-      v127[3] = &unk_1E84927D0;
-      objc_copyWeak(&v129, (a1 + 64));
-      v128 = v103;
-      v22 = _Block_copy(v127);
+      v130[0] = MEMORY[0x1E69E9820];
+      v130[1] = 3221225472;
+      v130[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_3_219;
+      v130[3] = &unk_1E84927D0;
+      objc_copyWeak(&v132, (a1 + 64));
+      v131 = v106;
+      v22 = _Block_copy(v130);
       v23 = *(a1 + 32);
       v24 = *(v23 + 1120);
       *(v23 + 1120) = v22;
 
       (*(*(a1 + 56) + 16))();
-      objc_destroyWeak(&v129);
+      objc_destroyWeak(&v132);
       goto LABEL_67;
     }
 
 LABEL_26:
-    v33 = _Block_copy(v98);
-    v34 = *(a1 + 32);
-    v35 = *(v34 + 1120);
-    *(v34 + 1120) = v33;
+    v34 = _Block_copy(v101);
+    v35 = *(a1 + 32);
+    v36 = *(v35 + 1120);
+    *(v35 + 1120) = v34;
 
     (*(*(a1 + 56) + 16))();
     goto LABEL_67;
@@ -1243,19 +1246,19 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v130[0] = MEMORY[0x1E69E9820];
-  v130[1] = 3221225472;
-  v130[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_2_218;
-  v130[3] = &unk_1E84927D0;
-  objc_copyWeak(&v132, (a1 + 64));
-  v131 = v103;
-  v18 = _Block_copy(v130);
+  v133[0] = MEMORY[0x1E69E9820];
+  v133[1] = 3221225472;
+  v133[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_2_218;
+  v133[3] = &unk_1E84927D0;
+  objc_copyWeak(&v135, (a1 + 64));
+  v134 = v106;
+  v18 = _Block_copy(v133);
   v19 = *(a1 + 32);
   v20 = *(v19 + 1120);
   *(v19 + 1120) = v18;
 
   (*(*(a1 + 56) + 16))();
-  objc_destroyWeak(&v132);
+  objc_destroyWeak(&v135);
 LABEL_67:
 
 LABEL_68:
@@ -1298,34 +1301,35 @@ void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCred
   [v3 openApplicationWithBundleIdentifier:v5 configuration:v4 completionHandler:v6];
 }
 
-void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3)
+void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_5(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
+    v4 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(result, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_5_cold_1(a1, v4);
+      __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_5_cold_1(result, v4);
     }
   }
 }
 
 void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_165(uint64_t a1)
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   v3 = (a1 + 32);
   v2 = *(a1 + 32);
   if (v3[48] == 1 && (v4 = v2[133]) != 0)
   {
-    v83 = 0;
-    v66 = [v4 safari_bundleIdentifierFromApplicationIdentifier:&v83];
-    v5 = v83;
-    if (!v66)
+    v90 = 0;
+    v73 = [v4 safari_bundleIdentifierFromApplicationIdentifier:&v90];
+    v5 = v90;
+    v7 = v5;
+    if (!v73)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v5, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [v5 safari_privacyPreservingDescription];
+        [v7 safari_privacyPreservingDescription];
         objc_claimAutoreleasedReturnValue();
         __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_165_cold_1();
       }
@@ -1334,134 +1338,134 @@ void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCred
 
   else
   {
-    v66 = [v2 _hostApplicationBundleIdentifier];
+    v73 = [v2 _hostApplicationBundleIdentifier];
   }
 
-  v7 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:v66];
-  v65 = [v7 localizedNameForContext:0];
+  v9 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:v73];
+  v72 = [v9 localizedNameForContext:0];
 
-  if (![v65 length])
+  if (![v72 length])
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(0, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_165_cold_2();
     }
   }
 
-  v61 = [*(*v3 + 1048) safari_originalDataAsString];
-  v62 = [*(a1 + 40) safari_mapObjectsUsingBlock:&__block_literal_global_170_0];
-  v67 = [MEMORY[0x1E695DF70] array];
+  v68 = [*(*v3 + 1048) safari_originalDataAsString];
+  v69 = [*(a1 + 40) safari_mapObjectsUsingBlock:&__block_literal_global_170_0];
+  v74 = [MEMORY[0x1E695DF70] array];
   if (*(a1 + 80) != 1)
   {
     goto LABEL_19;
   }
 
-  v9 = *(*v3 + 1080);
-  v10 = *(*v3 + 1072);
-  if (!v9)
+  v12 = *(*v3 + 1080);
+  v13 = *(*v3 + 1072);
+  if (!v12)
   {
-    if (v10)
+    if (v13)
     {
       goto LABEL_17;
     }
 
 LABEL_19:
-    v9 = v65;
-    if (!v65)
+    v12 = v72;
+    if (!v72)
     {
 LABEL_21:
-      v11 = *v3;
+      v14 = *v3;
       goto LABEL_22;
     }
 
 LABEL_20:
-    [v67 addObject:v9];
+    [v74 addObject:v12];
     goto LABEL_21;
   }
 
-  if (!v10)
+  if (!v13)
   {
     goto LABEL_20;
   }
 
 LABEL_17:
-  [v67 addObject:*(*v3 + 1072)];
-  v11 = *v3;
-  v9 = *(*v3 + 1080);
-  if (v9)
+  [v74 addObject:*(*v3 + 1072)];
+  v14 = *v3;
+  v12 = *(*v3 + 1080);
+  if (v12)
   {
     goto LABEL_20;
   }
 
 LABEL_22:
-  if (v11)
+  if (v14)
   {
-    [v11 _hostAuditToken];
+    objc_msgSend__hostAuditToken(v14);
   }
 
   else
   {
-    v81 = 0u;
-    v82 = 0u;
+    v88 = 0u;
+    v89 = 0u;
   }
 
-  v12 = *(a1 + 48);
-  *buf = v81;
-  *&buf[16] = v82;
+  v15 = *(a1 + 48);
+  *buf = v88;
+  *&buf[16] = v89;
   if (WBSAuditTokenHasEntitlement())
   {
 
 LABEL_27:
-    v13 = 1;
+    v16 = 1;
 LABEL_37:
-    v20 = *(a1 + 48);
-    v79 = 0;
-    v80 = 0;
-    [MEMORY[0x1E69C8990] getHintStringsForAppID:v20 appNames:v67 matchedSites:v62 urlString:v61 outServiceNameHintStrings:&v80 outDomainHintStrings:&v79];
-    v63 = v80;
-    v64 = v79;
-    v21 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v24 = *(a1 + 48);
+    v86 = 0;
+    v87 = 0;
+    [MEMORY[0x1E69C8990] getHintStringsForAppID:v24 appNames:v74 matchedSites:v69 urlString:v68 outServiceNameHintStrings:&v87 outDomainHintStrings:&v86];
+    v70 = v87;
+    v71 = v86;
+    v26 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v71, v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
-      v57 = *(a1 + 32);
-      v58 = *(a1 + 48);
-      v59 = [v62 count];
+      v64 = *(a1 + 32);
+      v65 = *(a1 + 48);
+      v66 = [v69 count];
       *buf = 134219522;
-      *&buf[4] = v57;
+      *&buf[4] = v64;
       *&buf[12] = 2112;
-      *&buf[14] = v58;
+      *&buf[14] = v65;
       *&buf[22] = 2112;
-      *&buf[24] = v67;
-      v86 = 2048;
-      v87 = v59;
-      v88 = 2112;
-      v89 = v61;
-      v90 = 2112;
-      v91 = v63;
-      v92 = 2112;
-      v93 = v64;
-      _os_log_debug_impl(&dword_1D4644000, v21, OS_LOG_TYPE_DEBUG, "Password view controller %p requested hint strings for app ID %@, appNames %@, number of matchedSites %lu, urlString %@; got service name hint strings: %@ and domain hint strings: %@", buf, 0x48u);
+      *&buf[24] = v74;
+      v93 = 2048;
+      v94 = v66;
+      v95 = 2112;
+      v96 = v68;
+      v97 = 2112;
+      v98 = v70;
+      v99 = 2112;
+      v100 = v71;
+      _os_log_debug_impl(&dword_1D4644000, v26, OS_LOG_TYPE_DEBUG, "Password view controller %p requested hint strings for app ID %@, appNames %@, number of matchedSites %lu, urlString %@; got service name hint strings: %@ and domain hint strings: %@", buf, 0x48u);
     }
 
     goto LABEL_40;
   }
 
-  *buf = v81;
-  *&buf[16] = v82;
+  *buf = v88;
+  *&buf[16] = v89;
   if (WBSAuditTokenHasEntitlement())
   {
-    v84 = 0;
-    v14 = [MEMORY[0x1E6963620] bundleRecordWithApplicationIdentifier:v12 error:&v84];
-    v15 = v84;
-    v16 = v15;
-    if (v14)
+    v91 = 0;
+    v17 = [MEMORY[0x1E6963620] bundleRecordWithApplicationIdentifier:v15 error:&v91];
+    v18 = v91;
+    v19 = v18;
+    if (v17)
     {
-      v17 = [v14 entitlements];
-      v18 = [v17 objectForKey:@"com.apple.developer.web-browser" ofClass:objc_opt_class()];
-      v19 = [v18 BOOLValue];
+      v20 = [v17 entitlements];
+      v21 = [v20 objectForKey:@"com.apple.developer.web-browser" ofClass:objc_opt_class()];
+      v22 = [v21 BOOLValue];
 
-      if (v19)
+      if (v22)
       {
         goto LABEL_27;
       }
@@ -1478,130 +1482,130 @@ LABEL_37:
 
   if (!*(*v3 + 1048) || [*(a1 + 40) count])
   {
-    v13 = 0;
+    v16 = 0;
     goto LABEL_37;
   }
 
-  v56 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+  v63 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(0, v23);
+  if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
   {
     __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_165_cold_3();
   }
 
-  v13 = 0;
-  v63 = 0;
-  v64 = 0;
+  v16 = 0;
+  v70 = 0;
+  v71 = 0;
 LABEL_40:
-  v22 = objc_alloc_init(SFAccountPickerConfiguration);
-  [(SFAccountPickerConfiguration *)v22 setMinimumNumberOfCredentialsToShowLikelyMatchesSection:10];
-  [(SFAccountPickerConfiguration *)v22 setServiceNameHintStrings:v63];
-  [(SFAccountPickerConfiguration *)v22 setDomainHintStrings:v64];
-  if (v13)
+  v27 = objc_alloc_init(SFAccountPickerConfiguration);
+  [(SFAccountPickerConfiguration *)v27 setMinimumNumberOfCredentialsToShowLikelyMatchesSection:10];
+  [(SFAccountPickerConfiguration *)v27 setServiceNameHintStrings:v70];
+  [(SFAccountPickerConfiguration *)v27 setDomainHintStrings:v71];
+  if (v16)
   {
-    [(SFAccountPickerConfiguration *)v22 setCurrentWebFrameIdentifierForAutoFillPasskeys:*(*v3 + 1104)];
+    [(SFAccountPickerConfiguration *)v27 setCurrentWebFrameIdentifierForAutoFillPasskeys:*(*v3 + 1104)];
   }
 
-  v60 = [v67 firstObject];
-  [(SFAccountPickerConfiguration *)v22 setAddPasswordSuggestedLabel:?];
+  v67 = [v74 firstObject];
+  [(SFAccountPickerConfiguration *)v27 setAddPasswordSuggestedLabel:?];
   if (*(a1 + 81) == 1 && [*(*v3 + 1136) isExplicitAutoFillMode])
   {
     goto LABEL_44;
   }
 
-  v25 = *(*v3 + 1048);
-  if (v25)
+  v30 = *(*v3 + 1048);
+  if (v30)
   {
-    v26 = [v25 safari_userVisibleString];
-    v24 = [v26 safari_simplifiedUserVisibleURLStringWithSimplifications:511 forDisplayOnly:1 simplifiedStringOffset:0];
+    v31 = [v30 safari_userVisibleString];
+    v29 = [v31 safari_simplifiedUserVisibleURLStringWithSimplifications:511 forDisplayOnly:1 simplifiedStringOffset:0];
 
-    v27 = MEMORY[0x1E696AEC0];
-    v28 = _WBSLocalizedString();
-    v29 = [v27 stringWithFormat:v28, v24];
-    [(SFAccountPickerConfiguration *)v22 setPrompt:v29];
+    v32 = MEMORY[0x1E696AEC0];
+    v33 = _WBSLocalizedString();
+    v34 = [v32 stringWithFormat:v33, v29];
+    [(SFAccountPickerConfiguration *)v27 setPrompt:v34];
 
-    v30 = MEMORY[0x1E696AEC0];
-    v31 = _WBSLocalizedString();
-    v32 = [v30 stringWithFormat:v31, v24];
-    [(SFAccountPickerConfiguration *)v22 setPromptWhenPasskeysAreAvailable:v32];
+    v35 = MEMORY[0x1E696AEC0];
+    v36 = _WBSLocalizedString();
+    v37 = [v35 stringWithFormat:v36, v29];
+    [(SFAccountPickerConfiguration *)v27 setPromptWhenPasskeysAreAvailable:v37];
   }
 
   else
   {
-    if (![v60 length])
+    if (![v67 length])
     {
 LABEL_44:
-      v23 = _WBSLocalizedString();
-      [(SFAccountPickerConfiguration *)v22 setPrompt:v23];
+      v28 = _WBSLocalizedString();
+      [(SFAccountPickerConfiguration *)v27 setPrompt:v28];
 
-      v24 = _WBSLocalizedString();
-      [(SFAccountPickerConfiguration *)v22 setPromptWhenPasskeysAreAvailable:v24];
+      v29 = _WBSLocalizedString();
+      [(SFAccountPickerConfiguration *)v27 setPromptWhenPasskeysAreAvailable:v29];
       goto LABEL_50;
     }
 
-    v33 = MEMORY[0x1E696AEC0];
-    v34 = _WBSLocalizedString();
-    v35 = [v33 stringWithFormat:v34, v60];
-    [(SFAccountPickerConfiguration *)v22 setPrompt:v35];
+    v38 = MEMORY[0x1E696AEC0];
+    v39 = _WBSLocalizedString();
+    v40 = [v38 stringWithFormat:v39, v67];
+    [(SFAccountPickerConfiguration *)v27 setPrompt:v40];
 
-    v36 = MEMORY[0x1E696AEC0];
-    v24 = _WBSLocalizedString();
-    v31 = [v36 stringWithFormat:v24, v60];
-    [(SFAccountPickerConfiguration *)v22 setPromptWhenPasskeysAreAvailable:v31];
+    v41 = MEMORY[0x1E696AEC0];
+    v29 = _WBSLocalizedString();
+    v36 = [v41 stringWithFormat:v29, v67];
+    [(SFAccountPickerConfiguration *)v27 setPromptWhenPasskeysAreAvailable:v36];
   }
 
 LABEL_50:
-  [(SFAccountPickerConfiguration *)v22 setShouldEnableAddingNewPasswordsIfPossible:1];
-  [(SFAccountPickerConfiguration *)v22 setShouldShowAutoFillPasskeys:1];
-  v37 = *v3;
-  v38 = v13 ^ 1;
+  [(SFAccountPickerConfiguration *)v27 setShouldEnableAddingNewPasswordsIfPossible:1];
+  [(SFAccountPickerConfiguration *)v27 setShouldShowAutoFillPasskeys:1];
+  v42 = *v3;
+  v43 = v16 ^ 1;
   if (!*(*v3 + 1104))
   {
-    v38 = 1;
+    v43 = 1;
   }
 
-  if ((v38 & 1) != 0 || ([(SFAccountPickerConfiguration *)v22 setShouldShowPasskeysInAccountPicker:1], (v37 = *v3) != 0))
+  if ((v43 & 1) != 0 || ([(SFAccountPickerConfiguration *)v27 setShouldShowPasskeysInAccountPicker:1], (v42 = *v3) != 0))
   {
-    [v37 _hostAuditToken];
+    objc_msgSend__hostAuditToken(v42);
   }
 
   else
   {
-    v77 = 0u;
-    v78 = 0u;
+    v84 = 0u;
+    v85 = 0u;
   }
 
-  *buf = v77;
-  *&buf[16] = v78;
-  [(SFAccountPickerConfiguration *)v22 setConnectedAppAuditToken:buf];
-  v39 = [&unk_1F5023E60 containsObject:*(a1 + 48)];
+  *buf = v84;
+  *&buf[16] = v85;
+  [(SFAccountPickerConfiguration *)v27 setConnectedAppAuditToken:buf];
+  v44 = [&unk_1F5023E60 containsObject:*(a1 + 48)];
   if (*(*v3 + 1048))
   {
-    v40 = [*(*v3 + 1048) host];
-    v41 = [*(*v3 + 1048) safari_userVisibleString];
-    v42 = [v41 safari_simplifiedUserVisibleURLStringWithSimplifications:511 forDisplayOnly:1 simplifiedStringOffset:0];
+    v45 = [*(*v3 + 1048) host];
+    v46 = [*(*v3 + 1048) safari_userVisibleString];
+    v47 = [v46 safari_simplifiedUserVisibleURLStringWithSimplifications:511 forDisplayOnly:1 simplifiedStringOffset:0];
 
-    [(SFAccountPickerConfiguration *)v22 setAddPasswordSuggestedDomain:v42];
-    v43 = *(a1 + 56);
-    v74[0] = MEMORY[0x1E69E9820];
-    v74[1] = 3221225472;
-    v74[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_207;
-    v74[3] = &unk_1E8492710;
-    v44 = v40;
-    v75 = v44;
-    v45 = v42;
-    v76 = v45;
-    if ([v43 safari_containsObjectPassingTest:v74])
+    [(SFAccountPickerConfiguration *)v27 setAddPasswordSuggestedDomain:v47];
+    v48 = *(a1 + 56);
+    v81[0] = MEMORY[0x1E69E9820];
+    v81[1] = 3221225472;
+    v81[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_207;
+    v81[3] = &unk_1E8492710;
+    v49 = v45;
+    v82 = v49;
+    v50 = v47;
+    v83 = v50;
+    if ([v48 safari_containsObjectPassingTest:v81])
     {
-      [(SFAccountPickerConfiguration *)v22 setBundleIDForFallbackIcon:v66];
+      [(SFAccountPickerConfiguration *)v27 setBundleIDForFallbackIcon:v73];
     }
   }
 
-  else if ((v39 & 1) == 0)
+  else if ((v44 & 1) == 0)
   {
-    [(SFAccountPickerConfiguration *)v22 setBundleIDForFallbackIcon:v66];
+    [(SFAccountPickerConfiguration *)v27 setBundleIDForFallbackIcon:v73];
     if ([*(a1 + 64) length])
     {
-      [(SFAccountPickerConfiguration *)v22 setAddPasswordSuggestedDomain:*(a1 + 64)];
+      [(SFAccountPickerConfiguration *)v27 setAddPasswordSuggestedDomain:*(a1 + 64)];
     }
   }
 
@@ -1609,22 +1613,22 @@ LABEL_50:
   {
     if ([*(*(a1 + 32) + 1136) autofillMode] == 1)
     {
-      v46 = [*(*v3 + 1136) isExplicitAutoFillMode];
+      v51 = [*(*v3 + 1136) isExplicitAutoFillMode];
     }
 
     else
     {
-      v46 = 1;
+      v51 = 1;
     }
 
-    [(SFAccountPickerConfiguration *)v22 setIsForFillingIndividualAccountFields:v46];
-    [(SFAccountPickerConfiguration *)v22 setShouldShowReceivedVerificationCodes:1];
-    [(SFAccountPickerConfiguration *)v22 setWebsiteURLForReceivedVerificationCodes:*(*v3 + 1048)];
+    [(SFAccountPickerConfiguration *)v27 setIsForFillingIndividualAccountFields:v51];
+    [(SFAccountPickerConfiguration *)v27 setShouldShowReceivedVerificationCodes:1];
+    [(SFAccountPickerConfiguration *)v27 setWebsiteURLForReceivedVerificationCodes:*(*v3 + 1048)];
   }
 
   if ([objc_opt_class() _shouldRestoreStateForAutoFillForAppID:*(a1 + 48)])
   {
-    [objc_opt_class() _restoreStateForAutoFillToAccountPickerConfiguration:v22 isForFillingIndividualAccountFields:{-[SFAccountPickerConfiguration isForFillingIndividualAccountFields](v22, "isForFillingIndividualAccountFields")}];
+    [objc_opt_class() _restoreStateForAutoFillToAccountPickerConfiguration:v27 isForFillingIndividualAccountFields:{-[SFAccountPickerConfiguration isForFillingIndividualAccountFields](v27, "isForFillingIndividualAccountFields")}];
   }
 
   else
@@ -1632,43 +1636,43 @@ LABEL_50:
     [objc_opt_class() _rememberStateForAutoFillWithSearchQuery:0 savedAccount:0];
   }
 
-  [(SFAccountPickerConfiguration *)v22 setAppID:*(a1 + 48)];
-  [(SFAccountPickerConfiguration *)v22 setIsConnectedAppAWebBrowser:v13];
-  [(SFAccountPickerConfiguration *)v22 setSavedAccountContext:*(a1 + 72)];
-  v47 = [SFAccountPickerViewController alloc];
-  v70[0] = MEMORY[0x1E69E9820];
-  v70[1] = 3221225472;
-  v70[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_2_210;
-  v70[3] = &unk_1E8492738;
-  v48 = v22;
-  v49 = *(a1 + 32);
-  v71 = v48;
-  v72 = v49;
-  v73 = *(a1 + 64);
-  v50 = [(SFAccountPickerViewController *)v47 initWithConfiguration:v48 completionHandler:v70];
-  v51 = *(*v3 + 1032);
-  *(*v3 + 1032) = v50;
+  [(SFAccountPickerConfiguration *)v27 setAppID:*(a1 + 48)];
+  [(SFAccountPickerConfiguration *)v27 setIsConnectedAppAWebBrowser:v16];
+  [(SFAccountPickerConfiguration *)v27 setSavedAccountContext:*(a1 + 72)];
+  v52 = [SFAccountPickerViewController alloc];
+  v77[0] = MEMORY[0x1E69E9820];
+  v77[1] = 3221225472;
+  v77[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_2_210;
+  v77[3] = &unk_1E8492738;
+  v53 = v27;
+  v54 = *(a1 + 32);
+  v78 = v53;
+  v79 = v54;
+  v80 = *(a1 + 64);
+  v55 = [(SFAccountPickerViewController *)v52 initWithConfiguration:v53 completionHandler:v77];
+  v56 = *(*v3 + 1032);
+  *(*v3 + 1032) = v55;
 
   [*(*v3 + 1032) setModalPresentationStyle:2];
-  v52 = *v3;
-  v53 = [*(*v3 + 1032) presentationController];
-  [v53 setDelegate:v52];
+  v57 = *v3;
+  v58 = [*(*v3 + 1032) presentationController];
+  [v58 setDelegate:v57];
 
-  [*(*v3 + 1032) setSystemAutoFillDelegate:?];
-  v54 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+  v59 = [*(*v3 + 1032) setSystemAutoFillDelegate:?];
+  v61 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v59, v60);
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
   {
     __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_165_cold_4();
   }
 
-  v55 = *(a1 + 32);
-  v68[0] = MEMORY[0x1E69E9820];
-  v68[1] = 3221225472;
-  v68[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_212;
-  v68[3] = &unk_1E8492760;
-  v68[4] = v55;
-  v69 = *(a1 + 48);
-  [v55 _authenticateToViewOtherPasswordsWithCompletion:v68];
+  v62 = *(a1 + 32);
+  v75[0] = MEMORY[0x1E69E9820];
+  v75[1] = 3221225472;
+  v75[2] = __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_212;
+  v75[3] = &unk_1E8492760;
+  v75[4] = v62;
+  v76 = *(a1 + 48);
+  [v62 _authenticateToViewOtherPasswordsWithCompletion:v75];
 }
 
 id __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_167(uint64_t a1, void *a2)
@@ -1696,65 +1700,53 @@ uint64_t __127__SFPasswordPickerServiceViewController__authenticateAndSetPresent
 
 void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_2_210(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v35 = a3;
+  v40 = a3;
   if (([*(a1 + 32) isForFillingIndividualAccountFields] & 1) == 0)
   {
     v6 = [v5 firstObject];
-    v7 = v6;
+    v8 = v6;
     if (v6)
     {
-      if (v35)
+      if (v40)
       {
-        v33 = v35;
+        v38 = v40;
       }
 
       else
       {
-        v33 = [v6 password];
+        v38 = [v6 password];
       }
 
-      v32 = v5;
-      v34 = v7;
-      v9 = objc_alloc(MEMORY[0x1E69C8E10]);
-      v10 = [v7 user];
-      v11 = [v7 userVisibleDomain];
-      v12 = [v11 safari_simplifiedSiteNameForCredentialLookup];
-      v13 = [v34 creationDate];
-      v14 = [v34 customTitle];
-      v15 = [v34 sharedGroupName];
-      v16 = *(a1 + 48);
-      v17 = v16;
-      if (!v16)
+      v37 = v5;
+      v39 = v8;
+      v10 = objc_alloc(MEMORY[0x1E69C8E10]);
+      v11 = [v8 user];
+      v12 = [v8 userVisibleDomain];
+      v13 = [v12 safari_simplifiedSiteNameForCredentialLookup];
+      v14 = [v39 creationDate];
+      v15 = [v39 customTitle];
+      v16 = [v39 sharedGroupName];
+      v17 = *(a1 + 48);
+      v18 = v17;
+      if (!v17)
       {
-        v17 = [*(*(a1 + 40) + 1048) host];
+        v18 = [*(*(a1 + 40) + 1048) host];
       }
 
-      v18 = [v9 initWithUser:v10 password:v33 site:v12 creationDate:v13 customTitle:v14 groupName:v15 requestedHost:v17];
-      if (!v16)
+      v19 = [v10 initWithUser:v11 password:v38 site:v13 creationDate:v14 customTitle:v15 groupName:v16 requestedHost:v18];
+      if (!v17)
       {
       }
 
-      v19 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-      v5 = v32;
-      v7 = v34;
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v22 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v20, v21);
+      v5 = v37;
+      v8 = v39;
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = [v18 user];
-        if ([v31 length])
-        {
-          v20 = @"YES";
-        }
-
-        else
-        {
-          v20 = @"NO";
-        }
-
-        v21 = v20;
-        v22 = [v18 password];
-        if ([v22 length])
+        v36 = [v19 user];
+        if ([v36 length])
         {
           v23 = @"YES";
         }
@@ -1765,7 +1757,7 @@ void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCred
         }
 
         v24 = v23;
-        v25 = [v18 site];
+        v25 = [v19 password];
         if ([v25 length])
         {
           v26 = @"YES";
@@ -1776,42 +1768,54 @@ void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCred
           v26 = @"NO";
         }
 
-        *buf = 138543874;
-        v37 = v21;
-        v38 = 2114;
-        v39 = v24;
-        v40 = 2114;
-        v41 = v26;
         v27 = v26;
-        _os_log_impl(&dword_1D4644000, v19, OS_LOG_TYPE_DEFAULT, "Sending credential with non-empty username: %{public}@, non-empty password: %{public}@, non-empty site: %{public}@", buf, 0x20u);
+        v28 = [v19 site];
+        if ([v28 length])
+        {
+          v29 = @"YES";
+        }
 
-        v7 = v34;
+        else
+        {
+          v29 = @"NO";
+        }
+
+        *buf = 138543874;
+        v42 = v24;
+        v43 = 2114;
+        v44 = v27;
+        v45 = 2114;
+        v46 = v29;
+        v30 = v29;
+        _os_log_impl(&dword_1D4644000, v22, OS_LOG_TYPE_DEFAULT, "Sending credential with non-empty username: %{public}@, non-empty password: %{public}@, non-empty site: %{public}@", buf, 0x20u);
+
+        v8 = v39;
       }
 
-      v28 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+      v33 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v31, v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
       {
-        [v18 user];
+        [v19 user];
         objc_claimAutoreleasedReturnValue();
-        [v18 site];
+        [v19 site];
         objc_claimAutoreleasedReturnValue();
         __85__SFPasswordPickerServiceViewController__sendCredentialToClient_needsAuthentication___block_invoke_cold_1();
       }
 
-      v29 = objc_opt_class();
-      v30 = [*(*(a1 + 40) + 1032) searchQuery];
-      [v29 _rememberStateForAutoFillWithSearchQuery:v30 savedAccount:v7];
+      v34 = objc_opt_class();
+      v35 = [*(*(a1 + 40) + 1032) searchQuery];
+      [v34 _rememberStateForAutoFillWithSearchQuery:v35 savedAccount:v8];
 
-      [*(a1 + 40) _sendCredentialToClientAndDismiss:v18 providerBundleIdentifier:*MEMORY[0x1E69C8CC0]];
+      [*(a1 + 40) _sendCredentialToClientAndDismiss:v19 providerBundleIdentifier:*MEMORY[0x1E69C8CC0]];
     }
 
     else
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(0, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "Not sending a credential because we didn't receive one from the password picker", buf, 2u);
+        _os_log_impl(&dword_1D4644000, v9, OS_LOG_TYPE_DEFAULT, "Not sending a credential because we didn't receive one from the password picker", buf, 2u);
       }
 
       [objc_opt_class() _rememberStateForAutoFillWithSearchQuery:0 savedAccount:0];
@@ -1820,31 +1824,33 @@ void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCred
   }
 }
 
-void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_212(uint64_t a1, int a2, void *a3)
+void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_212(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+  if (v8)
   {
     __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCredentialsHandlerWithSavedAccountContext_completionHandler___block_invoke_212_cold_1();
   }
 
-  if (a2)
+  if (v3)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v10 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = *(*(a1 + 32) + 1032);
-      v11 = 134218498;
-      v12 = v8;
-      v13 = 2114;
-      v14 = v9;
-      v15 = 2048;
-      v16 = v10;
-      _os_log_debug_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEBUG, "View controller %p presenting password view controller %{public}@ <%p>", &v11, 0x20u);
+      v11 = *(a1 + 32);
+      v12 = objc_opt_class();
+      v13 = *(*(a1 + 32) + 1032);
+      v14 = 134218498;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v12;
+      v18 = 2048;
+      v19 = v13;
+      _os_log_debug_impl(&dword_1D4644000, v10, OS_LOG_TYPE_DEBUG, "View controller %p presenting password view controller %{public}@ <%p>", &v14, 0x20u);
     }
 
     [*(*(a1 + 32) + 1032) setAuthenticatedContext:v5];
@@ -1940,13 +1946,13 @@ void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCred
 
 - (void)_sendCredentialToClientAndDismiss:(id)dismiss providerBundleIdentifier:(id)identifier
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v26[4] = *MEMORY[0x1E69E9840];
   dismissCopy = dismiss;
   identifierCopy = identifier;
   applicationIdentifier = [(SFPasswordServiceViewController *)self applicationIdentifier];
-  v20[0] = 0;
-  v9 = [applicationIdentifier safari_bundleIdentifierFromApplicationIdentifier:v20];
-  v10 = v20[0];
+  v26[0] = 0;
+  v9 = [applicationIdentifier safari_bundleIdentifierFromApplicationIdentifier:v26];
+  v10 = v26[0];
 
   if (v9)
   {
@@ -1958,7 +1964,7 @@ void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCred
 
   else
   {
-    user = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
+    user = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v11, v12);
     if (os_log_type_enabled(user, OS_LOG_TYPE_ERROR))
     {
       [(SFPasswordServiceViewController *)self applicationIdentifier];
@@ -1969,21 +1975,23 @@ void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCred
     }
   }
 
-  [(SFPasswordPickerServiceViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   HasEntitlement = WBSAuditTokenHasEntitlement();
-  v15 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v17 = HasEntitlement;
+  v19 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(HasEntitlement, v18);
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
+  if (v20)
   {
     [SFPasswordPickerServiceViewController _sendCredentialToClientAndDismiss:providerBundleIdentifier:];
   }
 
-  if (HasEntitlement)
+  if (v17)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v22 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D4644000, v16, OS_LOG_TYPE_INFO, "Dismissing password picker service view controller after sending credential directly", buf, 2u);
+      _os_log_impl(&dword_1D4644000, v22, OS_LOG_TYPE_INFO, "Dismissing password picker service view controller after sending credential directly", buf, 2u);
     }
 
     _remoteViewControllerProxy = [(SFPasswordPickerServiceViewController *)self _remoteViewControllerProxy];
@@ -1994,12 +2002,12 @@ void __127__SFPasswordPickerServiceViewController__authenticateAndSetPresentCred
 
   else
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __100__SFPasswordPickerServiceViewController__sendCredentialToClientAndDismiss_providerBundleIdentifier___block_invoke;
-    v18[3] = &unk_1E8490658;
-    v18[4] = self;
-    [MEMORY[0x1E69D9578] sendAutofillCredentialCandidate:dismissCopy completionHandler:v18];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __100__SFPasswordPickerServiceViewController__sendCredentialToClientAndDismiss_providerBundleIdentifier___block_invoke;
+    v24[3] = &unk_1E8490658;
+    v24[4] = self;
+    [MEMORY[0x1E69D9578] sendAutofillCredentialCandidate:dismissCopy completionHandler:v24];
   }
 }
 
@@ -2013,13 +2021,13 @@ void __100__SFPasswordPickerServiceViewController__sendCredentialToClientAndDism
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __100__SFPasswordPickerServiceViewController__sendCredentialToClientAndDismiss_providerBundleIdentifier___block_invoke_2(uint64_t a1)
+uint64_t __100__SFPasswordPickerServiceViewController__sendCredentialToClientAndDismiss_providerBundleIdentifier___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_INFO, "Dismissing password picker service view controller after sending credential via TextInput", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_INFO, "Dismissing password picker service view controller after sending credential via TextInput", v5, 2u);
   }
 
   return [*(a1 + 32) _dismiss];
@@ -2028,8 +2036,8 @@ uint64_t __100__SFPasswordPickerServiceViewController__sendCredentialToClientAnd
 - (void)setWebViewURL:(id)l
 {
   lCopy = l;
-  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(lCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [SFPasswordPickerServiceViewController setWebViewURL:];
   }
@@ -2037,8 +2045,8 @@ uint64_t __100__SFPasswordPickerServiceViewController__sendCredentialToClientAnd
   scheme = [lCopy scheme];
   lowercaseString = [scheme lowercaseString];
 
-  v9 = [MEMORY[0x1E695DFD8] setWithObjects:{@"http", @"https", 0}];
-  if ([lowercaseString length] && (objc_msgSend(v9, "containsObject:", lowercaseString) & 1) != 0)
+  v10 = [MEMORY[0x1E695DFD8] setWithObjects:{@"http", @"https", 0}];
+  if ([lowercaseString length] && (objc_msgSend(v10, "containsObject:", lowercaseString) & 1) != 0)
   {
     objc_storeStrong(&self->_webViewURL, l);
   }
@@ -2047,62 +2055,62 @@ uint64_t __100__SFPasswordPickerServiceViewController__sendCredentialToClientAnd
 - (void)setRemoteAppID:(id)d
 {
   dCopy = d;
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(dCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SFPasswordPickerServiceViewController setRemoteAppID:];
   }
 
-  v6 = [dCopy copy];
+  v7 = [dCopy copy];
   remoteAppID = self->_remoteAppID;
-  self->_remoteAppID = v6;
+  self->_remoteAppID = v7;
 }
 
 - (void)setRemoteLocalizedAppName:(id)name
 {
   nameCopy = name;
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(nameCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SFPasswordPickerServiceViewController setRemoteLocalizedAppName:];
   }
 
-  v6 = [nameCopy copy];
+  v7 = [nameCopy copy];
   remoteLocalizedAppName = self->_remoteLocalizedAppName;
-  self->_remoteLocalizedAppName = v6;
+  self->_remoteLocalizedAppName = v7;
 }
 
 - (void)setRemoteUnlocalizedAppName:(id)name
 {
   nameCopy = name;
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(nameCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SFPasswordPickerServiceViewController setRemoteUnlocalizedAppName:];
   }
 
-  v6 = [nameCopy copy];
+  v7 = [nameCopy copy];
   remoteUnlocalizedAppName = self->_remoteUnlocalizedAppName;
-  self->_remoteUnlocalizedAppName = v6;
+  self->_remoteUnlocalizedAppName = v7;
 }
 
 - (void)setExternallyVerifiedAndApprovedSharedWebCredentialsDomains:(id)domains
 {
   domainsCopy = domains;
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(domainsCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SFPasswordPickerServiceViewController setExternallyVerifiedAndApprovedSharedWebCredentialsDomains:];
   }
 
-  v6 = [domainsCopy copy];
+  v7 = [domainsCopy copy];
   externallyVerifiedAssociatedDomains = self->_externallyVerifiedAssociatedDomains;
-  self->_externallyVerifiedAssociatedDomains = v6;
+  self->_externallyVerifiedAssociatedDomains = v7;
 }
 
 - (void)setAuthenticationGracePeriod:(double)period
 {
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
+  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SFPasswordPickerServiceViewController setAuthenticationGracePeriod:];
@@ -2113,22 +2121,22 @@ uint64_t __100__SFPasswordPickerServiceViewController__sendCredentialToClientAnd
 
 - (void)setPageID:(id)d frameID:(id)iD credentialType:(id)type
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   typeCopy = type;
-  v11 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(typeCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 134218754;
+    v15 = 134218754;
     selfCopy = self;
-    v16 = 2112;
-    v17 = dCopy;
-    v18 = 2112;
-    v19 = iDCopy;
-    v20 = 2112;
-    v21 = typeCopy;
-    _os_log_debug_impl(&dword_1D4644000, v11, OS_LOG_TYPE_DEBUG, "View controller %p setPageID: %@ frameID: %@ credentialType: %@", &v14, 0x2Au);
+    v17 = 2112;
+    v18 = dCopy;
+    v19 = 2112;
+    v20 = iDCopy;
+    v21 = 2112;
+    v22 = typeCopy;
+    _os_log_debug_impl(&dword_1D4644000, v12, OS_LOG_TYPE_DEBUG, "View controller %p setPageID: %@ frameID: %@ credentialType: %@", &v15, 0x2Au);
     if (!dCopy)
     {
       goto LABEL_5;
@@ -2142,9 +2150,9 @@ uint64_t __100__SFPasswordPickerServiceViewController__sendCredentialToClientAnd
 
   if (iDCopy)
   {
-    v12 = [objc_alloc(MEMORY[0x1E69C88A0]) initWithPageID:dCopy frameID:iDCopy];
+    v13 = [objc_alloc(MEMORY[0x1E69C88A0]) initWithPageID:dCopy frameID:iDCopy];
     webFrameIdentifier = self->_webFrameIdentifier;
-    self->_webFrameIdentifier = v12;
+    self->_webFrameIdentifier = v13;
 
     objc_storeStrong(&self->_credentialType, type);
   }
@@ -2155,20 +2163,20 @@ LABEL_5:
 - (void)setSystemAutoFillDocumentTraits:(id)traits
 {
   traitsCopy = traits;
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(traitsCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SFPasswordPickerServiceViewController setSystemAutoFillDocumentTraits:];
   }
 
-  v6 = [traitsCopy copy];
+  v7 = [traitsCopy copy];
   systemAutoFillDocumentTraits = self->_systemAutoFillDocumentTraits;
-  self->_systemAutoFillDocumentTraits = v6;
+  self->_systemAutoFillDocumentTraits = v7;
 }
 
 - (BOOL)_isConfiguredForSystemAutoFill
 {
-  [(SFPasswordPickerServiceViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self, a2);
   HasEntitlement = WBSAuditTokenHasEntitlement();
   if (HasEntitlement)
   {
@@ -2210,7 +2218,7 @@ LABEL_5:
   }
 }
 
-uint64_t __105__SFPasswordPickerServiceViewController_credentialListViewController_didFinishWithCredential_completion___block_invoke(void *a1)
+void *__105__SFPasswordPickerServiceViewController_credentialListViewController_didFinishWithCredential_completion___block_invoke(void *a1)
 {
   result = (*(a1[6] + 16))();
   if (!a1[4])
@@ -2259,16 +2267,16 @@ uint64_t __121__SFPasswordPickerServiceViewController_credentialListViewControll
 {
   textCopy = text;
   completionCopy = completion;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __99__SFPasswordPickerServiceViewController_credentialListViewController_didFinishWithText_completion___block_invoke;
-  v14[3] = &unk_1E8492908;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __99__SFPasswordPickerServiceViewController_credentialListViewController_didFinishWithText_completion___block_invoke;
+  v15[3] = &unk_1E8492908;
   v10 = completionCopy;
-  v17 = v10;
+  v18 = v10;
   v11 = textCopy;
-  v15 = v11;
+  v16 = v11;
   selfCopy = self;
-  [controller dismissViewControllerAnimated:1 completion:v14];
+  [controller dismissViewControllerAnimated:1 completion:v15];
   if ([v11 length])
   {
     _remoteViewControllerProxy = [(SFPasswordPickerServiceViewController *)self _remoteViewControllerProxy];
@@ -2277,15 +2285,15 @@ uint64_t __121__SFPasswordPickerServiceViewController_credentialListViewControll
 
   else
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(0, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SFPasswordPickerServiceViewController credentialListViewController:didFinishWithText:completion:];
     }
   }
 }
 
-uint64_t __99__SFPasswordPickerServiceViewController_credentialListViewController_didFinishWithText_completion___block_invoke(uint64_t a1)
+void *__99__SFPasswordPickerServiceViewController_credentialListViewController_didFinishWithText_completion___block_invoke(uint64_t a1)
 {
   (*(*(a1 + 48) + 16))();
   result = [*(a1 + 32) length];
@@ -2301,7 +2309,7 @@ uint64_t __99__SFPasswordPickerServiceViewController_credentialListViewControlle
 
 - (void)credentialAuthenticationViewController:(id)controller didFinishWithCredential:(id)credential error:(id)error completion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   credentialCopy = credential;
   completionCopy = completion;
@@ -2315,12 +2323,12 @@ uint64_t __99__SFPasswordPickerServiceViewController_credentialListViewControlle
   aBlock[2] = __121__SFPasswordPickerServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke;
   aBlock[3] = &unk_1E8492908;
   v14 = completionCopy;
-  v38 = v14;
+  v40 = v14;
   v15 = credentialCopy;
-  v36 = v15;
+  v38 = v15;
   selfCopy = self;
-  v33 = _Block_copy(aBlock);
-  [controllerCopy dismissViewControllerAnimated:1 completion:v33];
+  v35 = _Block_copy(aBlock);
+  [controllerCopy dismissViewControllerAnimated:1 completion:v35];
   if (v15)
   {
     v16 = objc_alloc(MEMORY[0x1E69C8E10]);
@@ -2328,9 +2336,9 @@ uint64_t __99__SFPasswordPickerServiceViewController_credentialListViewControlle
     password = [v15 password];
     date = [MEMORY[0x1E695DF00] date];
     serviceIdentifier = [(SFCredentialIdentity *)self->_credentialIdentityToFill serviceIdentifier];
-    v32 = [v16 initWithUser:user password:password site:&stru_1F4FE9E38 creationDate:date customTitle:0 groupName:0 requestedHost:serviceIdentifier];
+    v34 = [v16 initWithUser:user password:password site:&stru_1F4FE9E38 creationDate:date customTitle:0 groupName:0 requestedHost:serviceIdentifier];
 
-    v21 = v32;
+    v21 = v34;
     if (presentingViewController)
     {
       authenticationRequiredToAutoFill = 0;
@@ -2342,19 +2350,19 @@ uint64_t __99__SFPasswordPickerServiceViewController_credentialListViewControlle
       authenticationRequiredToAutoFill = [user authenticationRequiredToAutoFill];
     }
 
-    [(SFPasswordPickerServiceViewController *)self _sendCredentialToClient:v32 needsAuthentication:authenticationRequiredToAutoFill];
+    [(SFPasswordPickerServiceViewController *)self _sendCredentialToClient:v34 needsAuthentication:authenticationRequiredToAutoFill];
     if (!presentingViewController)
     {
     }
 
     applicationIdentifier = [(SFPasswordServiceViewController *)self applicationIdentifier];
-    v34 = 0;
-    v31 = [applicationIdentifier safari_bundleIdentifierFromApplicationIdentifier:&v34];
-    v24 = v34;
+    v36 = 0;
+    v33 = [applicationIdentifier safari_bundleIdentifierFromApplicationIdentifier:&v36];
+    v24 = v36;
 
     if (v24)
     {
-      user2 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
+      user2 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v25, v26);
       if (os_log_type_enabled(user2, OS_LOG_TYPE_ERROR))
       {
         [v24 safari_privacyPreservingDescription];
@@ -2370,9 +2378,9 @@ uint64_t __99__SFPasswordPickerServiceViewController_credentialListViewControlle
       site = [(SFCredentialIdentity *)self->_credentialIdentityToFill site];
       extension = [controllerCopy extension];
       sf_bundleIdentifierForContainingApp = [extension sf_bundleIdentifierForContainingApp];
-      [(WBSAuthenticationServicesAgentProxy *)authenticationServicesAgentProxy didFillCredentialForUsername:user2 forHost:site fromProviderWithBundleIdentifier:sf_bundleIdentifierForContainingApp inAppWithBundleIdentifier:v31 externalProviderConditionalRegistrationRequester:self->_conditionalRegistrationRequester];
+      [(WBSAuthenticationServicesAgentProxy *)authenticationServicesAgentProxy didFillCredentialForUsername:user2 forHost:site fromProviderWithBundleIdentifier:sf_bundleIdentifierForContainingApp inAppWithBundleIdentifier:v33 externalProviderConditionalRegistrationRequester:self->_conditionalRegistrationRequester];
 
-      v21 = v32;
+      v21 = v34;
     }
 
     credentialIdentityToFill = self->_credentialIdentityToFill;
@@ -2380,7 +2388,7 @@ uint64_t __99__SFPasswordPickerServiceViewController_credentialListViewControlle
   }
 }
 
-uint64_t __121__SFPasswordPickerServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke(void *a1)
+void *__121__SFPasswordPickerServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke(void *a1)
 {
   result = (*(a1[6] + 16))();
   if (!a1[4])
@@ -2432,11 +2440,12 @@ uint64_t __137__SFPasswordPickerServiceViewController_credentialAuthenticationVi
 {
   controllerCopy = controller;
   accountCopy = account;
-  if ([(SFPasswordPickerServiceViewController *)self _isClientEntitledToDirectlyReceiveCredentials])
+  _isClientEntitledToDirectlyReceiveCredentials = [(SFPasswordPickerServiceViewController *)self _isClientEntitledToDirectlyReceiveCredentials];
+  if (_isClientEntitledToDirectlyReceiveCredentials)
   {
-    v8 = objc_opt_class();
+    v10 = objc_opt_class();
     searchQuery = [controllerCopy searchQuery];
-    [v8 _rememberStateForAutoFillWithSearchQuery:searchQuery savedAccount:accountCopy];
+    [v10 _rememberStateForAutoFillWithSearchQuery:searchQuery savedAccount:accountCopy];
 
     _remoteViewControllerProxy = [(SFPasswordPickerServiceViewController *)self _remoteViewControllerProxy];
     user = [accountCopy user];
@@ -2447,8 +2456,8 @@ uint64_t __137__SFPasswordPickerServiceViewController_credentialAuthenticationVi
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(_isClientEntitledToDirectlyReceiveCredentials, v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SFPasswordPickerServiceViewController accountPickerViewController:fillUsernameForSavedAccount:];
     }
@@ -2459,11 +2468,12 @@ uint64_t __137__SFPasswordPickerServiceViewController_credentialAuthenticationVi
 {
   controllerCopy = controller;
   accountCopy = account;
-  if ([(SFPasswordPickerServiceViewController *)self _isClientEntitledToDirectlyReceiveCredentials])
+  _isClientEntitledToDirectlyReceiveCredentials = [(SFPasswordPickerServiceViewController *)self _isClientEntitledToDirectlyReceiveCredentials];
+  if (_isClientEntitledToDirectlyReceiveCredentials)
   {
-    v8 = objc_opt_class();
+    v10 = objc_opt_class();
     searchQuery = [controllerCopy searchQuery];
-    [v8 _rememberStateForAutoFillWithSearchQuery:searchQuery savedAccount:accountCopy];
+    [v10 _rememberStateForAutoFillWithSearchQuery:searchQuery savedAccount:accountCopy];
 
     _remoteViewControllerProxy = [(SFPasswordPickerServiceViewController *)self _remoteViewControllerProxy];
     password = [accountCopy password];
@@ -2474,8 +2484,8 @@ uint64_t __137__SFPasswordPickerServiceViewController_credentialAuthenticationVi
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(_isClientEntitledToDirectlyReceiveCredentials, v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SFPasswordPickerServiceViewController accountPickerViewController:fillUsernameForSavedAccount:];
     }
@@ -2486,11 +2496,12 @@ uint64_t __137__SFPasswordPickerServiceViewController_credentialAuthenticationVi
 {
   controllerCopy = controller;
   accountCopy = account;
-  if ([(SFPasswordPickerServiceViewController *)self _isClientEntitledToDirectlyReceiveCredentials])
+  _isClientEntitledToDirectlyReceiveCredentials = [(SFPasswordPickerServiceViewController *)self _isClientEntitledToDirectlyReceiveCredentials];
+  if (_isClientEntitledToDirectlyReceiveCredentials)
   {
-    v8 = objc_opt_class();
+    v10 = objc_opt_class();
     searchQuery = [controllerCopy searchQuery];
-    [v8 _rememberStateForAutoFillWithSearchQuery:searchQuery savedAccount:accountCopy];
+    [v10 _rememberStateForAutoFillWithSearchQuery:searchQuery savedAccount:accountCopy];
 
     _remoteViewControllerProxy = [(SFPasswordPickerServiceViewController *)self _remoteViewControllerProxy];
     currentOneTimeCode = [accountCopy currentOneTimeCode];
@@ -2501,8 +2512,8 @@ uint64_t __137__SFPasswordPickerServiceViewController_credentialAuthenticationVi
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(_isClientEntitledToDirectlyReceiveCredentials, v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SFPasswordPickerServiceViewController accountPickerViewController:fillUsernameForSavedAccount:];
     }
@@ -2512,7 +2523,8 @@ uint64_t __137__SFPasswordPickerServiceViewController_credentialAuthenticationVi
 - (void)accountPickerViewController:(id)controller fillVerificationCode:(id)code
 {
   codeCopy = code;
-  if ([(SFPasswordPickerServiceViewController *)self _isClientEntitledToDirectlyReceiveCredentials])
+  _isClientEntitledToDirectlyReceiveCredentials = [(SFPasswordPickerServiceViewController *)self _isClientEntitledToDirectlyReceiveCredentials];
+  if (_isClientEntitledToDirectlyReceiveCredentials)
   {
     _remoteViewControllerProxy = [(SFPasswordPickerServiceViewController *)self _remoteViewControllerProxy];
     code = [codeCopy code];
@@ -2523,8 +2535,8 @@ uint64_t __137__SFPasswordPickerServiceViewController_credentialAuthenticationVi
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(_isClientEntitledToDirectlyReceiveCredentials, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [SFPasswordPickerServiceViewController accountPickerViewController:fillUsernameForSavedAccount:];
     }
@@ -2534,7 +2546,8 @@ uint64_t __137__SFPasswordPickerServiceViewController_credentialAuthenticationVi
 - (void)accountPickerViewController:(id)controller fillText:(id)text
 {
   textCopy = text;
-  if ([(SFPasswordPickerServiceViewController *)self _isClientEntitledToDirectlyReceiveCredentials])
+  _isClientEntitledToDirectlyReceiveCredentials = [(SFPasswordPickerServiceViewController *)self _isClientEntitledToDirectlyReceiveCredentials];
+  if (_isClientEntitledToDirectlyReceiveCredentials)
   {
     _remoteViewControllerProxy = [(SFPasswordPickerServiceViewController *)self _remoteViewControllerProxy];
     [_remoteViewControllerProxy fillText:textCopy];
@@ -2544,8 +2557,8 @@ uint64_t __137__SFPasswordPickerServiceViewController_credentialAuthenticationVi
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(_isClientEntitledToDirectlyReceiveCredentials, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SFPasswordPickerServiceViewController accountPickerViewController:fillUsernameForSavedAccount:];
     }
@@ -2557,11 +2570,12 @@ uint64_t __137__SFPasswordPickerServiceViewController_credentialAuthenticationVi
   controllerCopy = controller;
   textCopy = text;
   accountCopy = account;
-  if ([(SFPasswordPickerServiceViewController *)self _isClientEntitledToDirectlyReceiveCredentials])
+  _isClientEntitledToDirectlyReceiveCredentials = [(SFPasswordPickerServiceViewController *)self _isClientEntitledToDirectlyReceiveCredentials];
+  if (_isClientEntitledToDirectlyReceiveCredentials)
   {
-    v11 = objc_opt_class();
+    v13 = objc_opt_class();
     searchQuery = [controllerCopy searchQuery];
-    [v11 _rememberStateForAutoFillWithSearchQuery:searchQuery savedAccount:accountCopy];
+    [v13 _rememberStateForAutoFillWithSearchQuery:searchQuery savedAccount:accountCopy];
 
     _remoteViewControllerProxy = [(SFPasswordPickerServiceViewController *)self _remoteViewControllerProxy];
     [_remoteViewControllerProxy fillText:textCopy];
@@ -2571,8 +2585,8 @@ uint64_t __137__SFPasswordPickerServiceViewController_credentialAuthenticationVi
 
   else
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(_isClientEntitledToDirectlyReceiveCredentials, v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SFPasswordPickerServiceViewController accountPickerViewController:fillUsernameForSavedAccount:];
     }

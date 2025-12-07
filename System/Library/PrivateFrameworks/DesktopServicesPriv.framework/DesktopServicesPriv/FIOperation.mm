@@ -40,6 +40,8 @@
 - (void)setIterator:(OperationIterator *)iterator;
 - (void)setOperationMonitor:(OperationMonitorEx *)monitor;
 - (void)statusChangedHandlerPriv:(const OperationStatus *)priv;
+- (void)subOperationCompletedHandler:(unsigned int)handler targetNode:(id)node;
+- (void)subOperationStartedHandler:(unsigned int)handler;
 - (void)tearDownCallbacks;
 - (void)warningHandler:(OperationErrorRecord *)handler;
 @end
@@ -280,7 +282,7 @@
 
 - (void)statusChangedHandlerPriv:(const OperationStatus *)priv
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   dispatchQueue = [(FIOperation *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -310,50 +312,50 @@
     }
   }
 
-  v46 = [MEMORY[0x1E696AD98] numberWithLongLong:priv->fBytesTotal];
+  v45 = [MEMORY[0x1E696AD98] numberWithLongLong:priv->fBytesTotal];
   byteTotalCount = [progress byteTotalCount];
-  v13 = [byteTotalCount isEqualToNumber:v46];
+  v13 = [byteTotalCount isEqualToNumber:v45];
 
   if ((v13 & 1) == 0)
   {
-    [progress setByteTotalCount:v46];
+    [progress setByteTotalCount:v45];
   }
 
   p_fTimeEstimate = &priv->fTimeEstimate;
-  v45 = [MEMORY[0x1E696AD98] numberWithLongLong:priv->fItemsCompleted];
+  v44 = [MEMORY[0x1E696AD98] numberWithLongLong:priv->fItemsCompleted];
   fileCompletedCount = [progress fileCompletedCount];
-  v16 = [fileCompletedCount isEqualToNumber:v45];
+  v16 = [fileCompletedCount isEqualToNumber:v44];
 
   if ((v16 & 1) == 0)
   {
-    [progress setFileCompletedCount:v45];
+    [progress setFileCompletedCount:v44];
   }
 
-  v44 = [MEMORY[0x1E696AD98] numberWithLongLong:priv->fItemsTotal];
+  v43 = [MEMORY[0x1E696AD98] numberWithLongLong:priv->fItemsTotal];
   fileTotalCount = [progress fileTotalCount];
-  v18 = [fileTotalCount isEqualToNumber:v44];
+  v18 = [fileTotalCount isEqualToNumber:v43];
 
   if ((v18 & 1) == 0)
   {
-    [progress setFileTotalCount:v44];
+    [progress setFileTotalCount:v43];
   }
 
-  v43 = [MEMORY[0x1E696AD98] numberWithLongLong:priv->fFSItemsCompleted];
+  v42 = [MEMORY[0x1E696AD98] numberWithLongLong:priv->fFSItemsCompleted];
   v19 = [userInfo objectForKeyedSubscript:@"FileSystemItemsCompleted"];
-  v20 = [v19 isEqualToNumber:v43];
+  v20 = [v19 isEqualToNumber:v42];
 
   if ((v20 & 1) == 0)
   {
-    [progress setUserInfoObject:v43 forKey:@"FileSystemItemsCompleted"];
+    [progress setUserInfoObject:v42 forKey:@"FileSystemItemsCompleted"];
   }
 
-  v42 = [MEMORY[0x1E696AD98] numberWithLongLong:priv->fFSItemsTotal];
+  v41 = [MEMORY[0x1E696AD98] numberWithLongLong:priv->fFSItemsTotal];
   v21 = [userInfo objectForKeyedSubscript:@"FileSystemItemsTotal"];
-  v22 = [v21 isEqualToNumber:v42];
+  v22 = [v21 isEqualToNumber:v41];
 
   if ((v22 & 1) == 0)
   {
-    [progress setUserInfoObject:v42 forKey:@"FileSystemItemsTotal"];
+    [progress setUserInfoObject:v41 forKey:@"FileSystemItemsTotal"];
   }
 
   v23 = *p_fTimeEstimate;
@@ -375,9 +377,9 @@
     [progress setEstimatedTimeRemaining:v28];
   }
 
-  TString::TString(v48, priv->fCurrentName);
-  v29 = v48[0];
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(v48);
+  TString::TString(v47, priv->fCurrentName);
+  v29 = v47[0];
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(v47);
   v30 = *MEMORY[0x1E696A818];
   v31 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696A818]];
   v32 = [v31 isEqualToString:v29];
@@ -397,24 +399,22 @@
   }
 
   fStage = priv->fStage;
-  [(FIOperation *)self operationStatus];
-  v37 = v48[0];
-  LODWORD(v48[0]) = priv->fStage;
+  objc_msgSend_operationStatus(self);
+  v37 = v47[0];
+  LODWORD(v47[0]) = priv->fStage;
   v38 = *&priv->fItemsCompleted;
-  v49 = *p_fTimeEstimate;
-  v50 = v38;
-  v51 = *&priv->fBytesCompleted;
+  v48 = *p_fTimeEstimate;
+  v49 = v38;
+  v50 = *&priv->fBytesCompleted;
   fFSItemsCompleted = priv->fFSItemsCompleted;
-  strlcpy(v48 + 4, priv->fCurrentName, 0x400uLL);
-  [(FIOperation *)self setOperationStatus:v48];
+  strlcpy(v47 + 4, priv->fCurrentName, 0x400uLL);
+  [(FIOperation *)self setOperationStatus:v47];
   stageChangedHandler = [(FIOperation *)self stageChangedHandler];
   v40 = stageChangedHandler;
   if (stageChangedHandler && fStage != v37)
   {
     (*(stageChangedHandler + 16))(stageChangedHandler, self, priv->fStage);
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operationCompleted
@@ -497,7 +497,7 @@
 
 - (void)conflictHandler:(OperationErrorRecord *)handler conflictIter:(const OperationIterator *)iter
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = [(FIOperation *)self dispatchQueue:handler];
   dispatch_assert_queue_V2(v6);
 
@@ -512,25 +512,25 @@
     opRecords = [(FIOperation *)self opRecords];
     v10 = Copy<NSMutableArray<FILocalAppContainerNode *>>(opRecords);
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v12)
     {
-      v13 = *v19;
+      v13 = *v18;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v18 + 1) + 8 * i);
+          v15 = *(*(&v17 + 1) + 8 * i);
           if ([v15 conflict])
           {
             v16 = (conflictHandler)[2](conflictHandler, self, [v15 conflict], v15);
@@ -544,7 +544,7 @@
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v12)
         {
           continue;
@@ -558,7 +558,6 @@ LABEL_13:
   }
 
   [(FIOperation *)self _postReplyWithResolution:handler->var2 result:handler->var0];
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)errorHandler:(OperationErrorRecord *)handler errorIter:(const OperationIterator *)iter
@@ -703,9 +702,37 @@ LABEL_20:
   }
 }
 
+- (void)subOperationStartedHandler:(unsigned int)handler
+{
+  v3 = *&handler;
+  dispatchQueue = [(FIOperation *)self dispatchQueue];
+  dispatch_assert_queue_V2(dispatchQueue);
+
+  subOperationStartedHandler = [(FIOperation *)self subOperationStartedHandler];
+  if (subOperationStartedHandler)
+  {
+    subOperationStartedHandler[2](subOperationStartedHandler, self, v3);
+  }
+}
+
+- (void)subOperationCompletedHandler:(unsigned int)handler targetNode:(id)node
+{
+  v4 = *&handler;
+  nodeCopy = node;
+  dispatchQueue = [(FIOperation *)self dispatchQueue];
+  dispatch_assert_queue_V2(dispatchQueue);
+
+  subOperationCompletedHandler = [(FIOperation *)self subOperationCompletedHandler];
+  v8 = subOperationCompletedHandler;
+  if (subOperationCompletedHandler)
+  {
+    (*(subOperationCompletedHandler + 16))(subOperationCompletedHandler, self, v4, nodeCopy);
+  }
+}
+
 - (id)createOperationRef
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   [(FIOperation *)self initOperationStatus];
   [(FIOperation *)self initOperationMonitor];
   [(FIOperation *)self initIterator];
@@ -720,8 +747,8 @@ LABEL_20:
   else
   {
     destinationNode = [(FIOperation *)self destinationNode];
-    v48[0] = destinationNode;
-    sourceNodes2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:1];
+    v47[0] = destinationNode;
+    sourceNodes2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
   }
 
   v7 = sourceNodes2;
@@ -730,92 +757,91 @@ LABEL_20:
   {
   }
 
-  v42[0] = &self->_iterator;
-  v42[1] = &self->_operationMonitor;
+  v41[0] = &self->_iterator;
+  v41[1] = &self->_operationMonitor;
   make_nsweak<FIRenameOperation>(self, &from);
-  make_nsweak<FIRenameOperation>(self, &v40);
   make_nsweak<FIRenameOperation>(self, &v39);
   make_nsweak<FIRenameOperation>(self, &v38);
   make_nsweak<FIRenameOperation>(self, &v37);
   make_nsweak<FIRenameOperation>(self, &v36);
+  make_nsweak<FIRenameOperation>(self, &v35);
   make_nsweak<FIRenameOperation>(self, &location);
-  LODWORD(v27) = 64;
-  v43 = MEMORY[0x1E69E9820];
-  v44 = 3321888768;
-  v45 = ___ZZ33__FIOperation_createOperationRef_ENK3__6cvU13block_pointerFv15OperationStatusEEv_block_invoke;
-  v46 = &__block_descriptor_40_ea8_32c46_ZTSKZ33__FIOperation_createOperationRef_E3__6_e42_v1096__0_OperationStatus_I_1024c_qqqqqqq_8l;
-  objc_copyWeak(&v47, &from);
-  v8 = MEMORY[0x1E692D6D0](&v43);
-  objc_destroyWeak(&v47);
+  LODWORD(v26) = 64;
+  v42 = MEMORY[0x1E69E9820];
+  v43 = 3321888768;
+  v44 = ___ZZ33__FIOperation_createOperationRef_ENK3__6cvU13block_pointerFv15OperationStatusEEv_block_invoke;
+  v45 = &__block_descriptor_40_ea8_32c46_ZTSKZ33__FIOperation_createOperationRef_E3__6_e42_v1096__0_OperationStatus_I_1024c_qqqqqqq_8l;
+  objc_copyWeak(&v46, &from);
+  v8 = MEMORY[0x1E692D6D0](&v42);
+  objc_destroyWeak(&v46);
   v9 = v8;
-  v28 = MEMORY[0x1E692D6D0](v8);
-  v43 = MEMORY[0x1E69E9820];
-  v44 = 3321888768;
-  v45 = ___ZZ33__FIOperation_createOperationRef_ENK3__7cvU13block_pointerFvvEEv_block_invoke;
-  v46 = &__block_descriptor_40_ea8_32c46_ZTSKZ33__FIOperation_createOperationRef_E3__7_e5_v8__0l;
-  objc_copyWeak(&v47, &v40);
-  v10 = MEMORY[0x1E692D6D0](&v43);
-  objc_destroyWeak(&v47);
+  v27 = MEMORY[0x1E692D6D0](v8);
+  v42 = MEMORY[0x1E69E9820];
+  v43 = 3321888768;
+  v44 = ___ZZ33__FIOperation_createOperationRef_ENK3__7cvU13block_pointerFvvEEv_block_invoke;
+  v45 = &__block_descriptor_40_ea8_32c46_ZTSKZ33__FIOperation_createOperationRef_E3__7_e5_v8__0l;
+  objc_copyWeak(&v46, &v39);
+  v10 = MEMORY[0x1E692D6D0](&v42);
+  objc_destroyWeak(&v46);
   v11 = v10;
-  v29 = MEMORY[0x1E692D6D0](v10);
-  v43 = MEMORY[0x1E69E9820];
-  v44 = 3321888768;
-  v45 = ___ZZ33__FIOperation_createOperationRef_ENK4__10cvU13block_pointerFvP20OperationErrorRecordEEv_block_invoke;
-  v46 = &__block_descriptor_40_ea8_32c47_ZTSKZ33__FIOperation_createOperationRef_E4__10_e43_v16__0__OperationErrorRecord_iII_1024c_B__8l;
-  objc_copyWeak(&v47, &v37);
-  v12 = MEMORY[0x1E692D6D0](&v43);
-  objc_destroyWeak(&v47);
+  v28 = MEMORY[0x1E692D6D0](v10);
+  v42 = MEMORY[0x1E69E9820];
+  v43 = 3321888768;
+  v44 = ___ZZ33__FIOperation_createOperationRef_ENK4__10cvU13block_pointerFvP20OperationErrorRecordEEv_block_invoke;
+  v45 = &__block_descriptor_40_ea8_32c47_ZTSKZ33__FIOperation_createOperationRef_E4__10_e43_v16__0__OperationErrorRecord_iII_1024c_B__8l;
+  objc_copyWeak(&v46, &v36);
+  v12 = MEMORY[0x1E692D6D0](&v42);
+  objc_destroyWeak(&v46);
   v13 = v12;
-  v30 = MEMORY[0x1E692D6D0](v12);
-  v43 = MEMORY[0x1E69E9820];
-  v44 = 3321888768;
-  v45 = ___ZZ33__FIOperation_createOperationRef_ENK3__8cvU13block_pointerFvP20OperationErrorRecordPK17OperationIteratorEEv_block_invoke;
-  v46 = &__block_descriptor_40_ea8_32c46_ZTSKZ33__FIOperation_createOperationRef_E3__8_e93_v24__0__OperationErrorRecord_iII_1024c_B__8r__OperationIterator___OpaqueOperationData______16l;
-  objc_copyWeak(&v47, &v39);
-  v14 = MEMORY[0x1E692D6D0](&v43);
-  objc_destroyWeak(&v47);
+  v29 = MEMORY[0x1E692D6D0](v12);
+  v42 = MEMORY[0x1E69E9820];
+  v43 = 3321888768;
+  v44 = ___ZZ33__FIOperation_createOperationRef_ENK3__8cvU13block_pointerFvP20OperationErrorRecordPK17OperationIteratorEEv_block_invoke;
+  v45 = &__block_descriptor_40_ea8_32c46_ZTSKZ33__FIOperation_createOperationRef_E3__8_e93_v24__0__OperationErrorRecord_iII_1024c_B__8r__OperationIterator___OpaqueOperationData______16l;
+  objc_copyWeak(&v46, &v38);
+  v14 = MEMORY[0x1E692D6D0](&v42);
+  objc_destroyWeak(&v46);
   v15 = v14;
-  v31 = MEMORY[0x1E692D6D0](v14);
-  v43 = MEMORY[0x1E69E9820];
-  v44 = 3321888768;
-  v45 = ___ZZ33__FIOperation_createOperationRef_ENK3__9cvU13block_pointerFvP20OperationErrorRecordPK17OperationIteratorEEv_block_invoke;
-  v46 = &__block_descriptor_40_ea8_32c46_ZTSKZ33__FIOperation_createOperationRef_E3__9_e93_v24__0__OperationErrorRecord_iII_1024c_B__8r__OperationIterator___OpaqueOperationData______16l;
-  objc_copyWeak(&v47, &v38);
-  v16 = MEMORY[0x1E692D6D0](&v43);
-  objc_destroyWeak(&v47);
+  v30 = MEMORY[0x1E692D6D0](v14);
+  v42 = MEMORY[0x1E69E9820];
+  v43 = 3321888768;
+  v44 = ___ZZ33__FIOperation_createOperationRef_ENK3__9cvU13block_pointerFvP20OperationErrorRecordPK17OperationIteratorEEv_block_invoke;
+  v45 = &__block_descriptor_40_ea8_32c46_ZTSKZ33__FIOperation_createOperationRef_E3__9_e93_v24__0__OperationErrorRecord_iII_1024c_B__8r__OperationIterator___OpaqueOperationData______16l;
+  objc_copyWeak(&v46, &v37);
+  v16 = MEMORY[0x1E692D6D0](&v42);
+  objc_destroyWeak(&v46);
   v17 = v16;
-  v32 = MEMORY[0x1E692D6D0](v16);
-  v43 = MEMORY[0x1E69E9820];
-  v44 = 3321888768;
-  v45 = ___ZZ33__FIOperation_createOperationRef_ENK4__11cvU13block_pointerFv16NodeSuboperationEEv_block_invoke;
-  v46 = &__block_descriptor_40_ea8_32c47_ZTSKZ33__FIOperation_createOperationRef_E4__11_e8_v12__0I8l;
-  objc_copyWeak(&v47, &v36);
-  v18 = MEMORY[0x1E692D6D0](&v43);
-  objc_destroyWeak(&v47);
+  v31 = MEMORY[0x1E692D6D0](v16);
+  v42 = MEMORY[0x1E69E9820];
+  v43 = 3321888768;
+  v44 = ___ZZ33__FIOperation_createOperationRef_ENK4__11cvU13block_pointerFv16NodeSuboperationEEv_block_invoke;
+  v45 = &__block_descriptor_40_ea8_32c47_ZTSKZ33__FIOperation_createOperationRef_E4__11_e8_v12__0I8l;
+  objc_copyWeak(&v46, &v35);
+  v18 = MEMORY[0x1E692D6D0](&v42);
+  objc_destroyWeak(&v46);
   v19 = v18;
-  v33 = MEMORY[0x1E692D6D0](v18);
-  v43 = MEMORY[0x1E69E9820];
-  v44 = 3321888768;
-  v45 = ___ZZ33__FIOperation_createOperationRef_ENK4__12cvU13block_pointerFv16NodeSuboperationP13OpaqueNodeRefEEv_block_invoke;
-  v46 = &__block_descriptor_40_ea8_32c47_ZTSKZ33__FIOperation_createOperationRef_E4__12_e27_v20__0I8__OpaqueNodeRef__12l;
-  objc_copyWeak(&v47, &location);
-  v20 = MEMORY[0x1E692D6D0](&v43);
-  objc_destroyWeak(&v47);
+  v32 = MEMORY[0x1E692D6D0](v18);
+  v42 = MEMORY[0x1E69E9820];
+  v43 = 3321888768;
+  v44 = ___ZZ33__FIOperation_createOperationRef_ENK4__12cvU13block_pointerFv16NodeSuboperationP13OpaqueNodeRefEEv_block_invoke;
+  v45 = &__block_descriptor_40_ea8_32c47_ZTSKZ33__FIOperation_createOperationRef_E4__12_e27_v20__0I8__OpaqueNodeRef__12l;
+  objc_copyWeak(&v46, &location);
+  v20 = MEMORY[0x1E692D6D0](&v42);
+  objc_destroyWeak(&v46);
   v21 = v20;
-  v34 = MEMORY[0x1E692D6D0](v20);
+  v33 = MEMORY[0x1E692D6D0](v20);
   authorizationPrompt = [(FIOperation *)self authorizationPrompt];
-  v23 = NodeDSCreateOperation(v42, &self->_operationRef, &v27, authorizationPrompt, 0, 0);
+  v23 = NodeDSCreateOperation(v41, &self->_operationRef, &v26, authorizationPrompt, 0, 0);
 
   v24 = ErrorWithOSStatus(v23, &cfstr_FailedToCreate_1.isa);
 
   objc_destroyWeak(&location);
+  objc_destroyWeak(&v35);
   objc_destroyWeak(&v36);
   objc_destroyWeak(&v37);
   objc_destroyWeak(&v38);
   objc_destroyWeak(&v39);
-  objc_destroyWeak(&v40);
   objc_destroyWeak(&from);
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -1028,7 +1054,6 @@ LABEL_14:
     }
   }
 
-  v8 = *(self + 8);
   (*(*(self + 16) + 16))();
 }
 
@@ -1063,7 +1088,8 @@ LABEL_14:
         fiDomain = [first fiDomain];
         fiDomain2 = [first fiDomain];
         from = [fiDomain2 domainID];
-        v11 = std::__hash_table<std::__hash_value_type<NSString * {__strong},FIProviderDomain * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},FIProviderDomain * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},FIProviderDomain * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},FIProviderDomain * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(&buf, &from);
+        p_from = &from;
+        v11 = std::__hash_table<std::__hash_value_type<NSString * {__strong},FIProviderDomain * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},FIProviderDomain * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},FIProviderDomain * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},FIProviderDomain * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(&buf, &from, &std::piecewise_construct, &p_from);
         v12 = v11[3];
         v11[3] = fiDomain;
 
@@ -1077,13 +1103,11 @@ LABEL_14:
 
     operator new();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void __45__FIOperation_fetchNodesAsyncFor_completion___block_invoke(uint64_t a1)
+void __45__FIOperation_fetchNodesAsyncFor_completion___block_invoke(id *a1)
 {
-  v2 = TNSWeakPtr<FIOperation>::Lock((a1 + 80));
+  v2 = TNSWeakPtr<FIOperation>::Lock(a1 + 10);
   if (v2)
   {
     v3 = v2;
@@ -1092,27 +1116,27 @@ void __45__FIOperation_fetchNodesAsyncFor_completion___block_invoke(uint64_t a1)
     if ((v4 & 1) == 0)
     {
       Signpost();
-      SignpostID = ISignpostInterval::MakeSignpostID(&Signpost(void)::gFetchNodeAsyncSignpost, *(a1 + 40));
-      v9 = *(a1 + 32);
-      v6 = *(a1 + 40);
-      v7 = *(a1 + 72);
-      v8 = *(a1 + 48);
-      v10 = v6;
-      v11 = v8;
-      v12 = SignpostID;
-      v13 = v7;
+      SignpostID = ISignpostInterval::MakeSignpostID(&Signpost(void)::gFetchNodeAsyncSignpost, a1[5]);
+      a1[4];
+      a1[5];
+      a1[9];
       Signpost();
-      TSignpostInterval_FIOperation_FetchNodeAsync::Begin<char [25],NSString * {__strong},FPItem * {__strong}>(&Signpost(void)::gFetchNodeAsyncSignpost, SignpostID);
+      TSignpostInterval_FIOperation_FetchNodeAsync::Begin<char [25],NSString * {__strong},FPItem * {__strong}>(&Signpost(void)::gFetchNodeAsyncSignpost, SignpostID, "%{public}@ -- %{public}@", (a1 + 9), (a1 + 5));
     }
   }
 }
 
-void __45__FIOperation_fetchNodesAsyncFor_completion___block_invoke_84(uint64_t a1)
+void __45__FIOperation_fetchNodesAsyncFor_completion___block_invoke_84(void *a1)
 {
-  v2 = *(a1 + 40);
+  v2 = a1[5];
   v3 = *v2;
   v4 = v2[1];
-  if (v3 != v4)
+  if (v3 == v4)
+  {
+    v5 = 0;
+  }
+
+  else
   {
     v5 = 0;
     do
@@ -1124,9 +1148,11 @@ void __45__FIOperation_fetchNodesAsyncFor_completion___block_invoke_84(uint64_t 
     while (v3 != v4);
   }
 
+  v8 = v5;
   Signpost();
-  v6 = (*(*(a1 + 40) + 8) - **(a1 + 40)) >> 4;
-  TSignpostInterval_FIOperation_FetchNodeAsync::End<char [51],NSString * {__strong},unsigned long,int>(&Signpost(void)::gFetchNodeAsyncSignpost, *(a1 + 88));
+  v6 = a1[11];
+  v7 = (*(a1[5] + 8) - *a1[5]) >> 4;
+  TSignpostInterval_FIOperation_FetchNodeAsync::End<char [51],NSString * {__strong},unsigned long,int>(&Signpost(void)::gFetchNodeAsyncSignpost, v6, "%{public}@ -- FINISH %lu items. Received %lu nodes", (a1 + 12), &v7, &v8);
 }
 
 - (uint64_t)fetchNodesAsyncFor:(uint64_t)for completion:
@@ -1303,11 +1329,11 @@ void __45__FIOperation_fetchNodesAsyncFor_completion___block_invoke_84(uint64_t 
 
 - (void)fetchNodesAsyncFor:completion:
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v7 = a2;
-  if (v7)
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = a2;
+  if (v8)
   {
-    std::optional<FINode * {__strong}>::operator=[abi:ne200100]<FINode * {__strong}&,void>(*(self + 16), &v7);
+    std::optional<FINode * {__strong}>::operator=[abi:ne200100]<FINode * {__strong}&,void>(*(self + 16), &v8);
   }
 
   else
@@ -1318,18 +1344,17 @@ void __45__FIOperation_fetchNodesAsyncFor_completion___block_invoke_84(uint64_t 
       v4 = *(self + 32);
       v5 = *(self + 8);
       *buf = 138543618;
-      v9 = v4;
-      v10 = 2114;
-      v11 = v5;
+      v10 = v4;
+      v11 = 2114;
+      v12 = v5;
       _os_log_impl(&dword_1E5674000, v3, OS_LOG_TYPE_ERROR, "%{public}@ -- failed to get a node for item: %{public}@", buf, 0x16u);
     }
   }
 
   Signpost();
   v6 = *(self + 24);
-  [*(self + 8) itemID];
-  objc_claimAutoreleasedReturnValue();
-  TSignpostInterval_FIOperation_FetchNodeAsync::End<char [47],NSString * {__strong},FPItemID * {__strong},FINode * {__strong}>(&Signpost(void)::gFetchNodeAsyncSignpost, v6);
+  itemID = [*(self + 8) itemID];
+  TSignpostInterval_FIOperation_FetchNodeAsync::End<char [47],NSString * {__strong},FPItemID * {__strong},FINode * {__strong}>(&Signpost(void)::gFetchNodeAsyncSignpost, v6, "%{public}@ -- Item ID: %{public}@ - %{public}@", self + 32, &itemID, &v8);
 }
 
 @end

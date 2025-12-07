@@ -57,7 +57,7 @@
 
 void __84__AEAssessmentModeRestrictionEnforcementSession_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v2 = AECoreLog();
+  v2 = AECoreLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __84__AEAssessmentModeRestrictionEnforcementSession_listener_shouldAcceptNewConnection___block_invoke_cold_1(v2);

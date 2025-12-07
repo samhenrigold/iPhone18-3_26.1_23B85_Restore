@@ -51,7 +51,7 @@
   v27 = v26;
   v29 = v28;
   v31 = v30;
-  affine::inverse(&v46, v45);
+  affine::inverse(v45, &v46);
   v32 = [CIVector vectorWithX:v45[0] Y:v45[2] Z:v45[1] W:v45[3]];
   v33 = [CIVector vectorWithX:v46 Y:v48 Z:v47 W:v49];
   _kernel = [(CISixfoldRotatedTile *)self _kernel];

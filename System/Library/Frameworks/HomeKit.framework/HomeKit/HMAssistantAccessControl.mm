@@ -159,66 +159,38 @@
 
       v7 = v6;
 
-      if (!v7)
-      {
-        goto LABEL_17;
-      }
-
-      isEnabled = [(HMAssistantAccessControl *)self isEnabled];
-      if (isEnabled != [(HMAssistantAccessControl *)v7 isEnabled])
-      {
-        goto LABEL_17;
-      }
-
-      options = [(HMAssistantAccessControl *)self options];
-      if (options != [(HMAssistantAccessControl *)v7 options])
-      {
-        goto LABEL_17;
-      }
-
-      areActivityNotificationsEnabledForPersonalRequests = [(HMAssistantAccessControl *)self areActivityNotificationsEnabledForPersonalRequests];
-      if (areActivityNotificationsEnabledForPersonalRequests != [(HMAssistantAccessControl *)v7 areActivityNotificationsEnabledForPersonalRequests])
-      {
-        goto LABEL_17;
-      }
-
-      accessories = [(HMAssistantAccessControl *)self accessories];
-      v12 = [accessories count];
-      accessories2 = [(HMAssistantAccessControl *)v7 accessories];
-      v14 = [accessories2 count];
-
-      if (v12 == v14)
+      if (v7 && (v8 = -[HMAssistantAccessControl isEnabled](self, "isEnabled"), v8 == -[HMAssistantAccessControl isEnabled](v7, "isEnabled")) && (v9 = -[HMAssistantAccessControl options](self, "options"), v9 == -[HMAssistantAccessControl options](v7, "options")) && (v10 = -[HMAssistantAccessControl areActivityNotificationsEnabledForPersonalRequests](self, "areActivityNotificationsEnabledForPersonalRequests"), v10 == -[HMAssistantAccessControl areActivityNotificationsEnabledForPersonalRequests](v7, "areActivityNotificationsEnabledForPersonalRequests")) && (-[HMAssistantAccessControl accessories](self, "accessories"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 count], -[HMAssistantAccessControl accessories](v7, "accessories"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "count"), v13, v11, v12 == v14))
       {
         v15 = objc_autoreleasePoolPush();
         v16 = MEMORY[0x1E695DFA8];
-        accessories3 = [(HMAssistantAccessControl *)self accessories];
-        v18 = [v16 setWithCapacity:{objc_msgSend(accessories3, "count")}];
+        accessories = [(HMAssistantAccessControl *)self accessories];
+        v18 = [v16 setWithCapacity:{objc_msgSend(accessories, "count")}];
 
         v19 = MEMORY[0x1E695DFA8];
-        accessories4 = [(HMAssistantAccessControl *)v7 accessories];
-        v21 = [v19 setWithCapacity:{objc_msgSend(accessories4, "count")}];
+        accessories2 = [(HMAssistantAccessControl *)v7 accessories];
+        v21 = [v19 setWithCapacity:{objc_msgSend(accessories2, "count")}];
 
-        accessories5 = [(HMAssistantAccessControl *)self accessories];
-        v23 = [accessories5 count];
+        accessories3 = [(HMAssistantAccessControl *)self accessories];
+        v23 = [accessories3 count];
 
         if (v23)
         {
           v24 = 0;
           do
           {
-            accessories6 = [(HMAssistantAccessControl *)self accessories];
-            v26 = [accessories6 objectAtIndexedSubscript:v24];
+            accessories4 = [(HMAssistantAccessControl *)self accessories];
+            v26 = [accessories4 objectAtIndexedSubscript:v24];
             uuid = [v26 uuid];
             [v18 addObject:uuid];
 
-            accessories7 = [(HMAssistantAccessControl *)v7 accessories];
-            v29 = [accessories7 objectAtIndexedSubscript:v24];
+            accessories5 = [(HMAssistantAccessControl *)v7 accessories];
+            v29 = [accessories5 objectAtIndexedSubscript:v24];
             uuid2 = [v29 uuid];
             [v21 addObject:uuid2];
 
             ++v24;
-            accessories8 = [(HMAssistantAccessControl *)self accessories];
-            v32 = [accessories8 count];
+            accessories6 = [(HMAssistantAccessControl *)self accessories];
+            v32 = [accessories6 count];
           }
 
           while (v24 < v32);
@@ -231,7 +203,6 @@
 
       else
       {
-LABEL_17:
         v33 = 0;
       }
     }

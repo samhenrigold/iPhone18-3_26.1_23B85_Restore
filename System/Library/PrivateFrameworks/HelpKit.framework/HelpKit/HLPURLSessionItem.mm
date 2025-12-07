@@ -47,16 +47,14 @@
 
 - (void)cancel
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   self->_cancelled = 1;
   [(HLPURLSessionTask *)self->_sessionTask unregisterDelegate:self];
-  v6 = *MEMORY[0x277CCA450];
-  v7[0] = @"Cancelled";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x277CCA450];
+  v6[0] = @"Cancelled";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Request" code:-1 userInfo:v3];
   [(HLPURLSessionItem *)self notifyWithSessionTask:0 error:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyWithSessionTask:(id)task error:(id)error

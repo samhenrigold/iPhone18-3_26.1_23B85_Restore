@@ -1104,7 +1104,7 @@ uint64_t HgcOutlineGradientStroke::GetDOD(HgcOutlineGradientStroke *this, HGRend
   {
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v5, v4, v7);
     }
 
@@ -1125,12 +1125,12 @@ uint64_t HgcOutlineGradientStroke::GetROI(HGNode *this, HGRenderer *a2, int a3, 
 {
   if (a3 == 1)
   {
-    Input = HGRenderer::GetInput(a2, this, 1u);
+    Input = HGRenderer::GetInput(a2, this, 1);
     DOD = HGRenderer::GetDOD(a2, Input);
     v9 = v8;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v10 = HGRectMake4i(-1, -1, 1, 1);
       return HGRectGrow(DOD, v9, v10);
     }
   }
@@ -3114,7 +3114,7 @@ uint64_t HgcSatCurves::RenderTile(HgcSatCurves *this, HGTile *a2)
   return 0;
 }
 
-uint64_t HgcSatCurves::GetDOD(HGNode *this, HGRenderer *a2, signed int a3, HGRect a4)
+uint64_t HgcSatCurves::GetDOD(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
 {
   v4 = *&a4.var2;
   v5 = *&a4.var0;
@@ -3142,7 +3142,7 @@ LABEL_8:
       v14 = HGRenderer::GetInput(a2, this, 0);
       v15 = HGRenderer::GetDOD(a2, v14);
       v17 = v16;
-      v18 = HGRenderer::GetInput(a2, this, 4u);
+      v18 = HGRenderer::GetInput(a2, this, 4);
       v19 = HGRenderer::GetDOD(a2, v18);
       v21 = HGRectUnion(v19, v20, 0, 0);
       return HGRectUnion(v15, v17, v21, v22);
@@ -3164,7 +3164,7 @@ LABEL_8:
   return v5;
 }
 
-uint64_t HgcSatCurves::GetROI(HGNode *this, HGRenderer *a2, signed int a3, HGRect a4)
+uint64_t HgcSatCurves::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
 {
   if (a3 > 1)
   {
@@ -5086,7 +5086,7 @@ uint64_t HgcColorCurves::RenderTile(HgcColorCurves *this, HGTile *a2)
   return 0;
 }
 
-uint64_t HgcColorCurves::GetDOD(HGNode *this, HGRenderer *a2, signed int a3, HGRect a4)
+uint64_t HgcColorCurves::GetDOD(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
 {
   v4 = *&a4.var2;
   v5 = *&a4.var0;
@@ -5124,7 +5124,7 @@ LABEL_8:
   return v5;
 }
 
-uint64_t HgcColorCurves::GetROI(HGNode *this, HGRenderer *a2, signed int a3, HGRect a4)
+uint64_t HgcColorCurves::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
 {
   if (a3 > 1)
   {
@@ -5987,7 +5987,7 @@ uint64_t HgcEquirectToSinusoidal::GetDOD(HgcEquirectToSinusoidal *this, HGRender
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -6009,7 +6009,7 @@ uint64_t HgcEquirectToSinusoidal::GetROI(HGNode *this, HGRenderer *a2, int a3, H
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -6587,7 +6587,7 @@ uint64_t HgcSinusoidalToEquirect::GetDOD(HgcSinusoidalToEquirect *this, HGRender
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -6609,7 +6609,7 @@ uint64_t HgcSinusoidalToEquirect::GetROI(HGNode *this, HGRenderer *a2, int a3, H
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -8910,7 +8910,7 @@ uint64_t HgcCheckerboard::RenderTile(uint64_t a1, int32x2_t *a2)
     v6 = a2[2];
     *v7.f32 = vadd_f32(vcvt_f32_s32(v2), 0x3F0000003F000000);
     v7.i64[1] = 0x3F80000000000000;
-    v8 = v6 + 2;
+    v8 = (*&v6 + 32);
     v9 = 16 * a2[3].i32[0];
     do
     {
@@ -9099,7 +9099,7 @@ uint64_t HgcCheckerboard::RenderTile(uint64_t a1, int32x2_t *a2)
           v107 = vbslq_s8(v92, vmaxq_f32(v105, v100), v104);
           v108 = vaddq_f32(*(v91 + 32), vmulq_n_f32(vsubq_f32(*(v91 + 16), *(v91 + 32)), vaddq_f32(v101, vsubq_f32(vdupq_lane_s32(*v107.f32, 1), v107)).f32[0]));
           v109 = vbslq_s8(*(v91 + 224), v108, vmulq_laneq_f32(v108, v108, 3));
-          v6[v10] = vaddq_f32(vmulq_f32(*(v91 + 112), vsubq_f32(v108, v109)), v109);
+          *(*&v6 + 16 * v10) = vaddq_f32(vmulq_f32(*(v91 + 112), vsubq_f32(v108, v109)), v109);
           v13 = vaddq_f32(v13, xmmword_2603429B0);
           ++v10;
         }
@@ -9110,7 +9110,7 @@ uint64_t HgcCheckerboard::RenderTile(uint64_t a1, int32x2_t *a2)
       v7 = vaddq_f32(v7, xmmword_2603429C0);
       ++v4;
       v8 = (v8 + v9);
-      v6 = (v6 + v9);
+      *&v6 += v9;
     }
 
     while (v4 != v3);

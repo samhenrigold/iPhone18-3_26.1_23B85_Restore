@@ -6,13 +6,13 @@
 
 - (BOOL)performWithError:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
   medicalIDDataManager = [repository medicalIDDataManager];
-  v30 = 0;
-  v8 = [medicalIDDataManager fetchMedicalIDWithError:&v30];
-  v9 = v30;
+  v29 = 0;
+  v8 = [medicalIDDataManager fetchMedicalIDWithError:&v29];
+  v9 = v29;
 
   if (!v8 && v9)
   {
@@ -22,8 +22,8 @@
     {
       *buf = 138543618;
       selfCopy5 = self;
-      v34 = 2114;
-      v35 = v9;
+      v33 = 2114;
+      v34 = v9;
       _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Failed to fetch local MedicalID during cloud sync with error %{public}@", buf, 0x16u);
     }
 
@@ -93,10 +93,10 @@ LABEL_17:
     configuration2 = [(HDCloudSyncOperation *)self configuration];
     repository2 = [configuration2 repository];
     medicalIDDataManager2 = [repository2 medicalIDDataManager];
-    v31 = 0;
-    v12 = [medicalIDDataManager2 updateMedicalIDWithSyncedData:v18 provenance:0 error:&v31];
+    v30 = 0;
+    v12 = [medicalIDDataManager2 updateMedicalIDWithSyncedData:v18 provenance:0 error:&v30];
 
-    v24 = v31;
+    v24 = v30;
     if ((v12 & 1) == 0)
     {
       _HKInitializeLogging();
@@ -105,8 +105,8 @@ LABEL_17:
       {
         *buf = 138543618;
         selfCopy5 = self;
-        v34 = 2114;
-        v35 = v24;
+        v33 = 2114;
+        v34 = v24;
         _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "%{public}@ Failed to persist MedicalID to disk during cloud sync with error %{public}@", buf, 0x16u);
       }
 
@@ -129,7 +129,6 @@ LABEL_17:
 
 LABEL_29:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

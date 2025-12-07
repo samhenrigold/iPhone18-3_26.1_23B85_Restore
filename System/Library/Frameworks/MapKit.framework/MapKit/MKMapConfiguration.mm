@@ -223,7 +223,7 @@ LABEL_22:
   v8 = v10;
   if (v10)
   {
-    [v10 cartographicConfiguration];
+    objc_msgSend_cartographicConfiguration(v10);
     goto LABEL_22;
   }
 
@@ -353,7 +353,7 @@ LABEL_26:
   v17 = *&configuration->var6;
   v6 = [self _potentiallyLossy_mapConfigurationWithCartographicConfiguration:&v14];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 || (v17 = 0, v15 = 0u, v16 = 0u, v14 = 0u, [self _cartographicConfigurationForMapConfiguration:v6], _MKCartographicConfigurationEquals(&v14, configuration)))
+  if ((objc_opt_isKindOfClass() & 1) != 0 || (v17 = 0, v15 = 0u, v16 = 0u, v14 = 0u, objc_msgSend__cartographicConfigurationForMapConfiguration_(self), _MKCartographicConfigurationEquals(&v14, configuration)))
   {
     v7 = v6;
   }

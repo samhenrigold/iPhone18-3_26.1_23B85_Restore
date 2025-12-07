@@ -16,7 +16,7 @@
   }
 
   v6.receiver = self;
-  v6.super_class = type metadata accessor for iOSLinkAcceleratorViewController();
+  v6.super_class = type metadata accessor for iOSLinkAcceleratorViewController(0);
   [(iOSLinkAcceleratorViewController *)&v6 dealloc];
 }
 

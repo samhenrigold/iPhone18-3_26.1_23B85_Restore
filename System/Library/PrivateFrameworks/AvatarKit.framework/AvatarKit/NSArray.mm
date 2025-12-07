@@ -21,7 +21,7 @@ void __50__NSArray_AVTExtension__avt_mutableContainersCopy__block_invoke(uint64_
   }
 
   v8 = v6;
-  [v4 addObject:v6];
+  [v4 addObject:?];
 }
 
 @end

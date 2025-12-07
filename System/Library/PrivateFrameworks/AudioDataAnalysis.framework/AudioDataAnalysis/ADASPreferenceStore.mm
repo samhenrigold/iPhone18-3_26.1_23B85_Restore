@@ -32,12 +32,12 @@ uint64_t __37__ADASPreferenceStore_sharedInstance__block_invoke()
   v11 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   os_unfair_lock_lock(&self->_npsDomainLock);
-  v5 = ADAFLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = ADAFLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
     v10 = changedCopy;
-    _os_log_impl(&dword_241579000, v5, OS_LOG_TYPE_DEFAULT, "NPSDomainAccessor state change: %@", &v9, 0xCu);
+    _os_log_impl(&dword_241579000, v6, OS_LOG_TYPE_DEFAULT, "NPSDomainAccessor state change: %@", &v9, 0xCu);
   }
 
   coreAudioDomain = self->_coreAudioDomain;
@@ -47,7 +47,6 @@ uint64_t __37__ADASPreferenceStore_sharedInstance__block_invoke()
   self->_coreAudioDeviceDomain = 0;
 
   os_unfair_lock_unlock(&self->_npsDomainLock);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForNotifications

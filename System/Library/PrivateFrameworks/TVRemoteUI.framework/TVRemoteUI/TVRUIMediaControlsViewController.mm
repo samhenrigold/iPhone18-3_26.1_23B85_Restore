@@ -49,7 +49,7 @@
 
 - (void)_createButtons
 {
-  v186[7] = *MEMORY[0x277D85DE8];
+  v187[7] = *MEMORY[0x277D85DE8];
   v3 = [[TVRUIButton alloc] initWithType:6 hasTapAction:1 buttonLocation:1 options:2];
   [(TVRUIMediaControlsViewController *)self setSkipForwardButton:v3];
 
@@ -73,12 +73,12 @@
   v11 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel__skipForwardTapped_];
   [v11 setCancelsTouchesInView:0];
   skipForwardButton6 = [(TVRUIMediaControlsViewController *)self skipForwardButton];
-  v179 = v11;
+  v180 = v11;
   [skipForwardButton6 addGestureRecognizer:v11];
 
   v13 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:self action:sel__skipForwardLongPress_];
   skipForwardButton7 = [(TVRUIMediaControlsViewController *)self skipForwardButton];
-  v178 = v13;
+  v179 = v13;
   [skipForwardButton7 addGestureRecognizer:v13];
 
   v15 = [[TVRUICaptionsButton alloc] initWithCaptionsEnabled:0 buttonLocation:1];
@@ -104,7 +104,7 @@
   v23 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel__captionsTapped_];
   [v23 setCancelsTouchesInView:0];
   captionsButton6 = [(TVRUIMediaControlsViewController *)self captionsButton];
-  v177 = v23;
+  v178 = v23;
   [captionsButton6 addGestureRecognizer:v23];
 
   v25 = [[TVRUIButton alloc] initWithType:9992 hasTapAction:1 buttonLocation:1 options:2];
@@ -211,27 +211,28 @@
   v65 = [v64 localizedStringForKey:@"TVRemoteUIPageButtonText" value:&stru_287E6AEF8 table:@"Localizable"];
 
   maxPagingTitleLength = [(TVRUIStyleProvider *)self->_styleProvider maxPagingTitleLength];
-  v175 = v56;
-  v176 = v54;
-  if ([v65 length] > maxPagingTitleLength)
+  v67 = [v65 length];
+  v176 = v56;
+  v177 = v54;
+  if (v67 > maxPagingTitleLength)
   {
-    v67 = _TVRUIViewControllerLog();
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
+    v68 = _TVRUIViewControllerLog(v67);
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
     {
-      [TVRUIButtonPanelView initPagedPanelWithPrimaryButtonType:v65 secondaryLeftButtons:maxPagingTitleLength styleProvider:v67];
+      [TVRUIButtonPanelView initPagedPanelWithPrimaryButtonType:v65 secondaryLeftButtons:maxPagingTitleLength styleProvider:v68];
     }
 
-    v68 = [v65 substringWithRange:{0, 4}];
+    v69 = [v65 substringWithRange:{0, 4}];
 
-    v65 = v68;
+    v65 = v69;
   }
 
-  v69 = [TVRUIChannelButton alloc];
+  v70 = [TVRUIChannelButton alloc];
   styleProvider2 = [(TVRUIMediaControlsViewController *)self styleProvider];
-  v174 = v65;
-  v71 = [(TVRUIChannelButton *)v69 initWithTitle:v65 styleProvider:styleProvider2];
+  v175 = v65;
+  v72 = [(TVRUIChannelButton *)v70 initWithTitle:v65 styleProvider:styleProvider2];
   channelButton = self->_channelButton;
-  self->_channelButton = v71;
+  self->_channelButton = v72;
 
   buttonActionsDelegate = [(TVRUIMediaControlsViewController *)self buttonActionsDelegate];
   [(TVRUIChannelButton *)self->_channelButton setButtonEventDelegate:buttonActionsDelegate];
@@ -246,29 +247,29 @@
   [channelButton3 setHidden:1];
 
   guideButton6 = [(TVRUIMediaControlsViewController *)self guideButton];
-  v186[0] = guideButton6;
+  v187[0] = guideButton6;
   skipBackwardButton8 = [(TVRUIMediaControlsViewController *)self skipBackwardButton];
-  v186[1] = skipBackwardButton8;
+  v187[1] = skipBackwardButton8;
   infoButton6 = [(TVRUIMediaControlsViewController *)self infoButton];
-  v186[2] = infoButton6;
+  v187[2] = infoButton6;
   overflowButton6 = [(TVRUIMediaControlsViewController *)self overflowButton];
-  v186[3] = overflowButton6;
+  v187[3] = overflowButton6;
   captionsButton7 = [(TVRUIMediaControlsViewController *)self captionsButton];
-  v186[4] = captionsButton7;
+  v187[4] = captionsButton7;
   skipForwardButton8 = [(TVRUIMediaControlsViewController *)self skipForwardButton];
-  v186[5] = skipForwardButton8;
+  v187[5] = skipForwardButton8;
   channelButton4 = [(TVRUIMediaControlsViewController *)self channelButton];
-  v186[6] = channelButton4;
-  v84 = [MEMORY[0x277CBEA60] arrayWithObjects:v186 count:7];
+  v187[6] = channelButton4;
+  v85 = [MEMORY[0x277CBEA60] arrayWithObjects:v187 count:7];
   buttons = self->_buttons;
-  self->_buttons = v84;
+  self->_buttons = v85;
 
-  v86 = objc_alloc(MEMORY[0x277D75A68]);
+  v87 = objc_alloc(MEMORY[0x277D75A68]);
   view = [(TVRUIMediaControlsViewController *)self view];
   [view frame];
-  v88 = [v86 initWithFrame:?];
+  v89 = [v87 initWithFrame:?];
   buttonStackView = self->_buttonStackView;
-  self->_buttonStackView = v88;
+  self->_buttonStackView = v89;
 
   [(UIStackView *)self->_buttonStackView setDistribution:4];
   [(UIStackView *)self->_buttonStackView setAlignment:3];
@@ -277,139 +278,139 @@
   view2 = [(TVRUIMediaControlsViewController *)self view];
   [view2 addSubview:self->_buttonStackView];
 
-  v182 = 0u;
   v183 = 0u;
-  v180 = 0u;
+  v184 = 0u;
   v181 = 0u;
+  v182 = 0u;
   buttons = [(TVRUIMediaControlsViewController *)self buttons];
-  v92 = [buttons countByEnumeratingWithState:&v180 objects:v185 count:16];
-  if (v92)
+  v93 = [buttons countByEnumeratingWithState:&v181 objects:v186 count:16];
+  if (v93)
   {
-    v93 = v92;
-    v94 = *v181;
+    v94 = v93;
+    v95 = *v182;
     do
     {
-      v95 = 0;
+      v96 = 0;
       do
       {
-        if (*v181 != v94)
+        if (*v182 != v95)
         {
           objc_enumerationMutation(buttons);
         }
 
-        v96 = *(*(&v180 + 1) + 8 * v95);
+        v97 = *(*(&v181 + 1) + 8 * v96);
         buttonStackView = [(TVRUIMediaControlsViewController *)self buttonStackView];
-        [buttonStackView addArrangedSubview:v96];
+        [buttonStackView addArrangedSubview:v97];
 
-        ++v95;
+        ++v96;
       }
 
-      while (v93 != v95);
-      v93 = [buttons countByEnumeratingWithState:&v180 objects:v185 count:16];
+      while (v94 != v96);
+      v94 = [buttons countByEnumeratingWithState:&v181 objects:v186 count:16];
     }
 
-    while (v93);
+    while (v94);
   }
 
-  v145 = MEMORY[0x277CCAAD0];
+  v146 = MEMORY[0x277CCAAD0];
   buttonStackView2 = [(TVRUIMediaControlsViewController *)self buttonStackView];
   leadingAnchor = [buttonStackView2 leadingAnchor];
   view3 = [(TVRUIMediaControlsViewController *)self view];
   leadingAnchor2 = [view3 leadingAnchor];
-  v169 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:10.0];
-  v184[0] = v169;
+  v170 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:10.0];
+  v185[0] = v170;
   buttonStackView3 = [(TVRUIMediaControlsViewController *)self buttonStackView];
   trailingAnchor = [buttonStackView3 trailingAnchor];
   view4 = [(TVRUIMediaControlsViewController *)self view];
   trailingAnchor2 = [view4 trailingAnchor];
-  v164 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-10.0];
-  v184[1] = v164;
+  v165 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-10.0];
+  v185[1] = v165;
   buttonStackView4 = [(TVRUIMediaControlsViewController *)self buttonStackView];
   topAnchor = [buttonStackView4 topAnchor];
   view5 = [(TVRUIMediaControlsViewController *)self view];
   topAnchor2 = [view5 topAnchor];
-  v159 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v184[2] = v159;
+  v160 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v185[2] = v160;
   buttonStackView5 = [(TVRUIMediaControlsViewController *)self buttonStackView];
   bottomAnchor = [buttonStackView5 bottomAnchor];
   view6 = [(TVRUIMediaControlsViewController *)self view];
   bottomAnchor2 = [view6 bottomAnchor];
-  v154 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v184[3] = v154;
+  v155 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v185[3] = v155;
   skipBackwardButton9 = [(TVRUIMediaControlsViewController *)self skipBackwardButton];
   widthAnchor = [skipBackwardButton9 widthAnchor];
   styleProvider3 = [(TVRUIMediaControlsViewController *)self styleProvider];
   [styleProvider3 mediaControlsButtonSize];
-  v150 = [widthAnchor constraintEqualToConstant:?];
-  v184[4] = v150;
+  v151 = [widthAnchor constraintEqualToConstant:?];
+  v185[4] = v151;
   skipBackwardButton10 = [(TVRUIMediaControlsViewController *)self skipBackwardButton];
   heightAnchor = [skipBackwardButton10 heightAnchor];
   styleProvider4 = [(TVRUIMediaControlsViewController *)self styleProvider];
   [styleProvider4 mediaControlsButtonSize];
-  v146 = [heightAnchor constraintEqualToConstant:v98];
-  v184[5] = v146;
+  v147 = [heightAnchor constraintEqualToConstant:v99];
+  v185[5] = v147;
   skipForwardButton9 = [(TVRUIMediaControlsViewController *)self skipForwardButton];
   widthAnchor2 = [skipForwardButton9 widthAnchor];
   styleProvider5 = [(TVRUIMediaControlsViewController *)self styleProvider];
   [styleProvider5 mediaControlsButtonSize];
-  v141 = [widthAnchor2 constraintEqualToConstant:?];
-  v184[6] = v141;
+  v142 = [widthAnchor2 constraintEqualToConstant:?];
+  v185[6] = v142;
   skipForwardButton10 = [(TVRUIMediaControlsViewController *)self skipForwardButton];
   heightAnchor2 = [skipForwardButton10 heightAnchor];
   styleProvider6 = [(TVRUIMediaControlsViewController *)self styleProvider];
   [styleProvider6 mediaControlsButtonSize];
-  v137 = [heightAnchor2 constraintEqualToConstant:v99];
-  v184[7] = v137;
+  v138 = [heightAnchor2 constraintEqualToConstant:v100];
+  v185[7] = v138;
   captionsButton8 = [(TVRUIMediaControlsViewController *)self captionsButton];
   widthAnchor3 = [captionsButton8 widthAnchor];
   styleProvider7 = [(TVRUIMediaControlsViewController *)self styleProvider];
   [styleProvider7 captionButtonSize];
-  v133 = [widthAnchor3 constraintEqualToConstant:?];
-  v184[8] = v133;
+  v134 = [widthAnchor3 constraintEqualToConstant:?];
+  v185[8] = v134;
   captionsButton9 = [(TVRUIMediaControlsViewController *)self captionsButton];
   heightAnchor3 = [captionsButton9 heightAnchor];
   styleProvider8 = [(TVRUIMediaControlsViewController *)self styleProvider];
   [styleProvider8 captionButtonSize];
-  v129 = [heightAnchor3 constraintEqualToConstant:v100];
-  v184[9] = v129;
+  v130 = [heightAnchor3 constraintEqualToConstant:v101];
+  v185[9] = v130;
   infoButton7 = [(TVRUIMediaControlsViewController *)self infoButton];
   widthAnchor4 = [infoButton7 widthAnchor];
   styleProvider9 = [(TVRUIMediaControlsViewController *)self styleProvider];
   [styleProvider9 mediaControlsButtonSize];
-  v125 = [widthAnchor4 constraintEqualToConstant:?];
-  v184[10] = v125;
+  v126 = [widthAnchor4 constraintEqualToConstant:?];
+  v185[10] = v126;
   infoButton8 = [(TVRUIMediaControlsViewController *)self infoButton];
   heightAnchor4 = [infoButton8 heightAnchor];
   styleProvider10 = [(TVRUIMediaControlsViewController *)self styleProvider];
   [styleProvider10 mediaControlsButtonSize];
-  v121 = [heightAnchor4 constraintEqualToConstant:v101];
-  v184[11] = v121;
+  v122 = [heightAnchor4 constraintEqualToConstant:v102];
+  v185[11] = v122;
   guideButton7 = [(TVRUIMediaControlsViewController *)self guideButton];
   widthAnchor5 = [guideButton7 widthAnchor];
   styleProvider11 = [(TVRUIMediaControlsViewController *)self styleProvider];
   [styleProvider11 mediaControlsButtonSize];
-  v117 = [widthAnchor5 constraintEqualToConstant:?];
-  v184[12] = v117;
+  v118 = [widthAnchor5 constraintEqualToConstant:?];
+  v185[12] = v118;
   guideButton8 = [(TVRUIMediaControlsViewController *)self guideButton];
   heightAnchor5 = [guideButton8 heightAnchor];
   styleProvider12 = [(TVRUIMediaControlsViewController *)self styleProvider];
   [styleProvider12 mediaControlsButtonSize];
-  v103 = [heightAnchor5 constraintEqualToConstant:v102];
-  v184[13] = v103;
+  v104 = [heightAnchor5 constraintEqualToConstant:v103];
+  v185[13] = v104;
   channelButton5 = [(TVRUIMediaControlsViewController *)self channelButton];
   widthAnchor6 = [channelButton5 widthAnchor];
   styleProvider13 = [(TVRUIMediaControlsViewController *)self styleProvider];
   [styleProvider13 mediaControlsButtonSize];
-  v107 = [widthAnchor6 constraintEqualToConstant:?];
-  v184[14] = v107;
+  v108 = [widthAnchor6 constraintEqualToConstant:?];
+  v185[14] = v108;
   channelButton6 = [(TVRUIMediaControlsViewController *)self channelButton];
   heightAnchor6 = [channelButton6 heightAnchor];
   styleProvider14 = [(TVRUIMediaControlsViewController *)self styleProvider];
   [styleProvider14 mediaControlsButtonSize];
-  v112 = [heightAnchor6 constraintEqualToConstant:v111];
-  v184[15] = v112;
-  v113 = [MEMORY[0x277CBEA60] arrayWithObjects:v184 count:16];
-  [v145 activateConstraints:v113];
+  v113 = [heightAnchor6 constraintEqualToConstant:v112];
+  v185[15] = v113;
+  v114 = [MEMORY[0x277CBEA60] arrayWithObjects:v185 count:16];
+  [v146 activateConstraints:v114];
 }
 
 - (id)_overflowButtonMenu
@@ -576,23 +577,23 @@ void __55__TVRUIMediaControlsViewController__overflowButtonMenu__block_invoke_3(
 
 - (void)_setupTipsControllerIfNeeded
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   infoTipManager = [(TVRUIMediaControlsViewController *)self infoTipManager];
 
   if (!infoTipManager)
   {
-    v4 = _TVRUITipsLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _TVRUITipsLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
       bundleIdentifier = [mainBundle bundleIdentifier];
-      v8 = 138412290;
-      v9 = bundleIdentifier;
-      _os_log_impl(&dword_26CFEB000, v4, OS_LOG_TYPE_DEFAULT, "Creating Info Tip Manager for: %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = bundleIdentifier;
+      _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "Creating Info Tip Manager for: %@", &v9, 0xCu);
     }
 
-    v7 = [[TVRUITipManager alloc] initWithTipSourceViewProvider:self tipType:0];
-    [(TVRUIMediaControlsViewController *)self setInfoTipManager:v7];
+    v8 = [[TVRUITipManager alloc] initWithTipSourceViewProvider:self tipType:0];
+    [(TVRUIMediaControlsViewController *)self setInfoTipManager:v8];
   }
 }
 
@@ -633,8 +634,7 @@ void __55__TVRUIMediaControlsViewController__overflowButtonMenu__block_invoke_3(
   captionsButton = [(TVRUIMediaControlsViewController *)self captionsButton];
   [captionsButton setCaptionsEnabled:stateCopy];
 
-  [(TVRUIMediaControlsViewController *)self updateButton:2 enabled:!disabledCopy];
-  v8 = _TVRUIViewControllerLog();
+  v8 = _TVRUIViewControllerLog([(TVRUIMediaControlsViewController *)self updateButton:2 enabled:!disabledCopy]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9[0] = 67109376;
@@ -1075,7 +1075,7 @@ uint64_t __81__TVRUIMediaControlsViewController__updateButtonVisibilityWithCompl
 
 - (void)_infoButtonTapped:(id)tapped
 {
-  v4 = _TVRUIViewControllerLog();
+  v4 = _TVRUIViewControllerLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1243,7 +1243,7 @@ void __52__TVRUIMediaControlsViewController__captionsTapped___block_invoke(uint6
 {
   enabledCopy = enabled;
   v12 = *MEMORY[0x277D85DE8];
-  v5 = _TVRUIViewControllerLog();
+  v5 = _TVRUIViewControllerLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"disabled";

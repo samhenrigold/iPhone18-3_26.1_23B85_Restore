@@ -27,6 +27,28 @@ uint64_t sub_312C(uint64_t a1)
   return result;
 }
 
+void sub_42C4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int buf, __int128 a12)
+{
+  if (a2 == 1)
+  {
+    v12 = objc_begin_catch(a1);
+    v13 = DALoggingwithCategory();
+    v14 = _CPLog_to_os_log_type[3];
+    if (os_log_type_enabled(v13, v14))
+    {
+      buf = 138412546;
+      WORD2(a12) = 2112;
+      *(&a12 + 6) = v12;
+      _os_log_impl(&dword_0, v13, v14, "Parsing host string %@ led to exception %@", &buf, 0x16u);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x41E4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 id sub_4B78(uint64_t a1)
 {
   if ((*(a1 + 48) & 1) == 0)
@@ -577,14 +599,14 @@ void sub_128B4(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_13244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_13244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -645,15 +667,14 @@ void sub_147B4(uint64_t a1)
     v6 = _CPLog_to_os_log_type[6];
     if (os_log_type_enabled(v5, v6))
     {
-      LOWORD(v29) = 0;
-      _os_log_impl(&dword_0, v5, v6, "Successfuly received an OAuth identity. Creating and saving an account with the credential info", &v29, 2u);
+      LOWORD(v28) = 0;
+      _os_log_impl(&dword_0, v5, v6, "Successfuly received an OAuth identity. Creating and saving an account with the credential info", &v28, 2u);
     }
 
     [*(a1 + 56) setUsername:*(a1 + 48)];
     [*(a1 + 56) setObject:*(a1 + 48) forKeyedSubscript:kDAAccountEmailAddress];
     if (_os_feature_enabled_impl())
     {
-      v7 = *(a1 + 48);
       ACUIDescriptionFromEmailAddress();
     }
 
@@ -661,62 +682,62 @@ void sub_147B4(uint64_t a1)
     {
       [WeakRetained _defaultAccountDescription];
     }
-    v8 = ;
-    v9 = [*(a1 + 56) accountDescription];
-    v10 = v9;
-    if (v9)
+    v7 = ;
+    v8 = [*(a1 + 56) accountDescription];
+    v9 = v8;
+    if (v8)
     {
-      v11 = v9;
+      v10 = v8;
     }
 
     else
     {
-      v11 = v8;
+      v10 = v7;
     }
 
-    v12 = v11;
+    v11 = v10;
 
-    if ([v12 isEqualToString:v8])
+    if ([v11 isEqualToString:v7])
     {
-      v13 = [WeakRetained accountStore];
-      v14 = [v13 hasAccountWithDescription:v8];
+      v12 = [WeakRetained accountStore];
+      v13 = [v12 hasAccountWithDescription:v7];
 
-      if (v14)
+      if (v13)
       {
-        v15 = *(a1 + 48);
+        v14 = *(a1 + 48);
 
-        v12 = v15;
+        v11 = v14;
       }
     }
 
-    [*(a1 + 56) setAccountDescription:v12];
-    v16 = [*(a1 + 56) username];
-    v17 = [WeakRetained account];
-    [v17 setObject:v16 forKeyedSubscript:ACAccountPropertyIdentityEmailAddress];
+    [*(a1 + 56) setAccountDescription:v11];
+    v15 = [*(a1 + 56) username];
+    v16 = [WeakRetained account];
+    [v16 setObject:v15 forKeyedSubscript:ACAccountPropertyIdentityEmailAddress];
 
-    v18 = [ACAccountCredential alloc];
-    v19 = *(a1 + 32);
-    v20 = *(a1 + 64);
-    v21 = +[NSDate distantFuture];
-    v22 = [v18 initWithOAuth2Token:v19 refreshToken:v20 expiryDate:v21];
+    v17 = [ACAccountCredential alloc];
+    v18 = *(a1 + 32);
+    v19 = *(a1 + 64);
+    v20 = +[NSDate distantFuture];
+    v21 = [v17 initWithOAuth2Token:v18 refreshToken:v19 expiryDate:v20];
 
-    v23 = [WeakRetained account];
-    v24 = [v23 backingAccountInfo];
-    [v24 setCredential:v22];
+    v22 = [WeakRetained account];
+    v23 = [v22 backingAccountInfo];
+    [v23 setCredential:v21];
 
-    v25 = [*(a1 + 40) account];
-    [v25 discoverInitialPropertiesWithConsumer:*(a1 + 40)];
+    v24 = [*(a1 + 40) account];
+    [v24 discoverInitialPropertiesWithConsumer:*(a1 + 40)];
 
-    v26 = DALoggingwithCategory();
-    if (os_log_type_enabled(v26, v6))
+    v25 = DALoggingwithCategory();
+    if (os_log_type_enabled(v25, v6))
     {
-      v27 = [*(a1 + 56) username];
-      v28 = [*(a1 + 56) accountDescription];
-      v29 = 138412546;
-      v30 = v27;
-      v31 = 2112;
-      v32 = v28;
-      _os_log_impl(&dword_0, v26, v6, "OAuth Account setup successfuly with username/emailaddress : %@ and description : %@", &v29, 0x16u);
+      v26 = [*(a1 + 56) username];
+      v27 = [*(a1 + 56) accountDescription];
+      v28 = 138412546;
+      v29 = v26;
+      v30 = 2112;
+      v31 = v27;
+      _os_log_impl(&dword_0, v25, v6, "OAuth Account setup successfuly with username/emailaddress : %@ and description : %@", &v28, 0x16u);
     }
   }
 }
@@ -770,9 +791,9 @@ void sub_16A30(uint64_t a1, void *a2, void *a3)
   if (os_log_type_enabled(v7, v8))
   {
     *buf = 138412546;
-    v90 = v5;
-    v91 = 2112;
-    v92 = v6;
+    v87 = v5;
+    v88 = 2112;
+    v89 = v6;
     _os_log_impl(&dword_0, v7, v8, "Finished OAuth Token refresh with OAuthIdenity %@ and Error %@", buf, 0x16u);
   }
 
@@ -792,51 +813,48 @@ void sub_16A30(uint64_t a1, void *a2, void *a3)
     v14 = [v13 identifier];
     v15 = [v14 isEqualToString:ACAccountTypeIdentifierHotmail];
 
-    v16 = *(a1 + 32);
-    v17 = [NSBundle bundleForClass:objc_opt_class()];
-    v18 = v17;
+    v16 = [NSBundle bundleForClass:objc_opt_class()];
+    v17 = v16;
     if (v15)
     {
-      v19 = @"HOTMAIL_ACCOUNT";
+      v18 = @"HOTMAIL_ACCOUNT";
     }
 
     else
     {
-      v19 = @"EXCHANGE_ACCOUNT";
+      v18 = @"EXCHANGE_ACCOUNT";
     }
 
-    v20 = [v17 localizedStringForKey:v19 value:&stru_30C98 table:@"ASAccountSetup"];
+    v19 = [v16 localizedStringForKey:v18 value:&stru_30C98 table:@"ASAccountSetup"];
 
-    v21 = *(a1 + 32);
+    v20 = [NSBundle bundleForClass:objc_opt_class()];
+    v21 = [v20 localizedStringForKey:@"ACCOUNT_VERIFICATION_FAILED" value:&stru_30C98 table:@"ASAccountSetup"];
     v22 = [NSBundle bundleForClass:objc_opt_class()];
-    v23 = [v22 localizedStringForKey:@"ACCOUNT_VERIFICATION_FAILED" value:&stru_30C98 table:@"ASAccountSetup"];
-    v24 = *(a1 + 32);
-    v25 = [NSBundle bundleForClass:objc_opt_class()];
-    CFUserNotificationDisplayNotice(0.0, 3uLL, 0, 0, 0, v20, v23, [v25 localizedStringForKey:@"OK" value:&stru_30C98 table:@"ASAccountSetup"]);
+    CFUserNotificationDisplayNotice(0.0, 3uLL, 0, 0, 0, v19, v21, [v22 localizedStringForKey:@"OK" value:&stru_30C98 table:@"ASAccountSetup"]);
   }
 
-  v26 = [v5 accessToken];
-  v27 = [ASSettingsAccountsUIController usernameFromAccessToken:v26];
+  v23 = [v5 accessToken];
+  v24 = [ASSettingsAccountsUIController usernameFromAccessToken:v23];
 
-  v28 = [v5 username];
-  if (v28)
+  v25 = [v5 username];
+  if (v25)
   {
-    v29 = v28;
-    v30 = [WeakRetained account];
-    v31 = [v30 username];
-    v32 = [v5 username];
-    v33 = [v31 compare:v32 options:1];
+    v26 = v25;
+    v27 = [WeakRetained account];
+    v28 = [v27 username];
+    v29 = [v5 username];
+    v30 = [v28 compare:v29 options:1];
 
-    if (v33)
+    if (v30)
     {
-      v34 = DALoggingwithCategory();
-      v35 = _CPLog_to_os_log_type[3];
-      if (os_log_type_enabled(v34, v35))
+      v31 = DALoggingwithCategory();
+      v32 = _CPLog_to_os_log_type[3];
+      if (os_log_type_enabled(v31, v32))
       {
         *buf = 0;
-        v36 = "DAEASOAuthWebViewController username mismatch, did not save account";
+        v33 = "DAEASOAuthWebViewController username mismatch, did not save account";
 LABEL_19:
-        _os_log_impl(&dword_0, v34, v35, v36, buf, 2u);
+        _os_log_impl(&dword_0, v31, v32, v33, buf, 2u);
         goto LABEL_20;
       }
 
@@ -844,149 +862,149 @@ LABEL_19:
     }
   }
 
-  if (v27)
+  if (v24)
   {
-    v37 = *(a1 + 32);
-    v38 = [WeakRetained account];
-    v39 = [v38 identifier];
-    v40 = [WeakRetained account];
-    v41 = [v40 accountType];
-    LODWORD(v37) = [v37 _storeHasDuplicateForUsername:v27 withoutIdentifier:v39 withAccountType:v41];
+    v34 = *(a1 + 32);
+    v35 = [WeakRetained account];
+    v36 = [v35 identifier];
+    v37 = [WeakRetained account];
+    v38 = [v37 accountType];
+    LODWORD(v34) = [v34 _storeHasDuplicateForUsername:v24 withoutIdentifier:v36 withAccountType:v38];
 
-    if (v37)
+    if (v34)
     {
-      v34 = DALoggingwithCategory();
-      v35 = _CPLog_to_os_log_type[3];
-      if (os_log_type_enabled(v34, v35))
+      v31 = DALoggingwithCategory();
+      v32 = _CPLog_to_os_log_type[3];
+      if (os_log_type_enabled(v31, v32))
       {
         *buf = 0;
-        v36 = "DAEASOAuthWebViewController found a duplicate account with username, did not save account";
+        v33 = "DAEASOAuthWebViewController found a duplicate account with username, did not save account";
         goto LABEL_19;
       }
 
 LABEL_20:
 
       +[DAEASOAuthWebViewController presentUsernameMismatchAlert];
-      v42 = &off_23000;
+      v39 = &off_23000;
       goto LABEL_36;
     }
   }
 
-  v42 = &off_23000;
+  v39 = &off_23000;
   if (v5 && !v6)
   {
-    v43 = [v5 oauthURI];
-    if (!v43 || (v44 = v43, [v5 tokenRequestURI], v45 = objc_claimAutoreleasedReturnValue(), v45, v44, !v45))
+    v40 = [v5 oauthURI];
+    if (!v40 || (v41 = v40, [v5 tokenRequestURI], v42 = objc_claimAutoreleasedReturnValue(), v42, v41, !v42))
     {
       sub_1BFA8(a1);
     }
 
-    v46 = [WeakRetained account];
-    v47 = [v46 migrationStatus];
+    v43 = [WeakRetained account];
+    v44 = [v43 migrationStatus];
 
-    if (v47 <= 1)
+    if (v44 <= 1)
     {
+      v45 = [WeakRetained account];
+      [v45 setObject:&__kCFBooleanTrue forKeyedSubscript:kESExchangeOAuthSupportedKey];
+
+      v46 = [WeakRetained account];
+      v47 = [v46 username];
       v48 = [WeakRetained account];
-      [v48 setObject:&__kCFBooleanTrue forKeyedSubscript:kESExchangeOAuthSupportedKey];
+      [v48 setObject:v47 forKeyedSubscript:ACAccountPropertyIdentityEmailAddress];
 
       v49 = [WeakRetained account];
-      v50 = [v49 username];
-      v51 = [WeakRetained account];
-      [v51 setObject:v50 forKeyedSubscript:ACAccountPropertyIdentityEmailAddress];
-
-      v52 = [WeakRetained account];
-      [v52 setMigrationStatus:2];
+      [v49 setMigrationStatus:2];
     }
 
-    v53 = [v5 oauthURI];
-    v54 = [WeakRetained account];
-    [v54 setObject:v53 forKeyedSubscript:kESExchangeOAuthURI];
+    v50 = [v5 oauthURI];
+    v51 = [WeakRetained account];
+    [v51 setObject:v50 forKeyedSubscript:kESExchangeOAuthURI];
 
-    v55 = [v5 tokenRequestURI];
-    v56 = [WeakRetained account];
-    [v56 setObject:v55 forKeyedSubscript:kESExchangeTokenRequestURI];
+    v52 = [v5 tokenRequestURI];
+    v53 = [WeakRetained account];
+    [v53 setObject:v52 forKeyedSubscript:kESExchangeTokenRequestURI];
 
-    v57 = [v5 jwksURI];
+    v54 = [v5 jwksURI];
+
+    if (v54)
+    {
+      v55 = [v5 jwksURI];
+      v56 = [WeakRetained account];
+      [v56 setObject:v55 forKeyedSubscript:kESExchangeOAuthJWKSURI];
+    }
+
+    v57 = [v5 issuer];
 
     if (v57)
     {
-      v58 = [v5 jwksURI];
+      v58 = [v5 issuer];
       v59 = [WeakRetained account];
-      [v59 setObject:v58 forKeyedSubscript:kESExchangeOAuthJWKSURI];
+      [v59 setObject:v58 forKeyedSubscript:kESExchangeOAuthTokenIssuer];
     }
 
-    v60 = [v5 issuer];
+    v60 = [WeakRetained account];
+    [v60 setObject:@"2" forKeyedSubscript:kESExchangeOAuthVersion];
 
-    if (v60)
+    v61 = [v5 jwksData];
+
+    if (v61)
     {
-      v61 = [v5 issuer];
-      v62 = [WeakRetained account];
-      [v62 setObject:v61 forKeyedSubscript:kESExchangeOAuthTokenIssuer];
+      v62 = [v5 jwksData];
+      v63 = [WeakRetained account];
+      [v63 setObject:v62 forKeyedSubscript:kESExchangeOAuthJWKSData];
     }
 
-    v63 = [WeakRetained account];
-    [v63 setObject:@"2" forKeyedSubscript:kESExchangeOAuthVersion];
+    v64 = +[NSDate date];
+    [v64 timeIntervalSince1970];
+    v65 = [NSNumber numberWithDouble:?];
+    v66 = [WeakRetained account];
+    [v66 setObject:v65 forKeyedSubscript:kESExchangeOAuthJWKSDataCacheDate];
 
-    v64 = [v5 jwksData];
+    v67 = [WeakRetained account];
+    [v67 setObject:&stru_30C98 forKeyedSubscript:kESExchangePasswordPromptDate];
 
-    if (v64)
-    {
-      v65 = [v5 jwksData];
-      v66 = [WeakRetained account];
-      [v66 setObject:v65 forKeyedSubscript:kESExchangeOAuthJWKSData];
-    }
+    v68 = [WeakRetained account];
+    [v68 setObject:&stru_30C98 forKeyedSubscript:kESExchangePendingClaimsChallenge];
 
-    v67 = +[NSDate date];
-    [v67 timeIntervalSince1970];
-    v68 = [NSNumber numberWithDouble:?];
-    v69 = [WeakRetained account];
-    [v69 setObject:v68 forKeyedSubscript:kESExchangeOAuthJWKSDataCacheDate];
+    v69 = [ACAccountCredential alloc];
+    v70 = [v5 accessToken];
+    v71 = [v5 refreshToken];
+    v72 = [v69 initWithOAuth2Token:v70 refreshToken:v71 expiryDate:0];
 
-    v70 = [WeakRetained account];
-    [v70 setObject:&stru_30C98 forKeyedSubscript:kESExchangePasswordPromptDate];
+    v73 = [WeakRetained account];
+    [v73 setCredential:v72];
 
-    v71 = [WeakRetained account];
-    [v71 setObject:&stru_30C98 forKeyedSubscript:kESExchangePendingClaimsChallenge];
-
-    v72 = [ACAccountCredential alloc];
-    v73 = [v5 accessToken];
-    v74 = [v5 refreshToken];
-    v75 = [v72 initWithOAuth2Token:v73 refreshToken:v74 expiryDate:0];
-
-    v76 = [WeakRetained account];
-    [v76 setCredential:v75];
-
-    v77 = DALoggingwithCategory();
-    v78 = _CPLog_to_os_log_type[7];
-    if (os_log_type_enabled(v77, v78))
+    v74 = DALoggingwithCategory();
+    v75 = _CPLog_to_os_log_type[7];
+    if (os_log_type_enabled(v74, v75))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v77, v78, "DAEASOAuthWebViewController will save account with new credential", buf, 2u);
+      _os_log_impl(&dword_0, v74, v75, "DAEASOAuthWebViewController will save account with new credential", buf, 2u);
     }
 
-    v79 = dispatch_semaphore_create(0);
-    v80 = [WeakRetained accountStore];
-    v81 = [WeakRetained account];
-    v86[0] = _NSConcreteStackBlock;
-    v86[1] = 3221225472;
-    v86[2] = sub_173C8;
-    v86[3] = &unk_30AE0;
-    v87 = 0;
-    v88 = v79;
-    v82 = v79;
-    [v80 saveAccount:v81 withCompletionHandler:v86];
+    v76 = dispatch_semaphore_create(0);
+    v77 = [WeakRetained accountStore];
+    v78 = [WeakRetained account];
+    v83[0] = _NSConcreteStackBlock;
+    v83[1] = 3221225472;
+    v83[2] = sub_173C8;
+    v83[3] = &unk_30AE0;
+    v84 = 0;
+    v85 = v76;
+    v79 = v76;
+    [v77 saveAccount:v78 withCompletionHandler:v83];
 
-    dispatch_semaphore_wait(v82, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_semaphore_wait(v79, 0xFFFFFFFFFFFFFFFFLL);
   }
 
 LABEL_36:
   [WeakRetained reloadAccount];
   block[0] = _NSConcreteStackBlock;
-  block[1] = *(v42 + 122);
+  block[1] = *(v39 + 122);
   block[2] = sub_17508;
   block[3] = &unk_307D0;
-  v85 = WeakRetained;
-  v83 = WeakRetained;
+  v82 = WeakRetained;
+  v80 = WeakRetained;
   dispatch_async(&_dispatch_main_q, block);
 }
 

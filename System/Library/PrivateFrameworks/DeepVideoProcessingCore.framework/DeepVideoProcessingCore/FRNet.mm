@@ -359,7 +359,7 @@ LABEL_7:
   device = v16->_device;
   v16->_device = v19;
 
-  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_0_0(732315272);
   v21 = [FRNet getMobileAssetStatusWithPercentCompleted:0];
   if (v21 == 1)
   {
@@ -432,7 +432,7 @@ LABEL_7:
   srnet = v16->_srnet;
   v16->_srnet = v38;
 
-  if (!v16->_srnet || (OUTLINED_FUNCTION_0_0(), v40 = objc_alloc_init(OFNormalization), normalization = v16->_normalization, v16->_normalization = v40, normalization, !v16->_normalization) || (v42 = objc_alloc_init(Warper), warper = v16->_warper, v16->_warper = v42, warper, !v16->_warper) || (v44 = objc_alloc_init(Upsampler), upsampler = v16->_upsampler, v16->_upsampler = v44, upsampler, !v16->_upsampler) || (v46 = objc_alloc_init(VEScaler), scaler = v16->_scaler, v16->_scaler = v46, scaler, !v16->_scaler) || (v48 = objc_alloc_init(LoGFilter), logFilter = v16->_logFilter, v16->_logFilter = v48, logFilter, !v16->_logFilter) || [(FRNet *)v16 allocateTemporalBuffers])
+  if (!v16->_srnet || (OUTLINED_FUNCTION_0_0(732315276), v40 = objc_alloc_init(OFNormalization), normalization = v16->_normalization, v16->_normalization = v40, normalization, !v16->_normalization) || (v42 = objc_alloc_init(Warper), warper = v16->_warper, v16->_warper = v42, warper, !v16->_warper) || (v44 = objc_alloc_init(Upsampler), upsampler = v16->_upsampler, v16->_upsampler = v44, upsampler, !v16->_upsampler) || (v46 = objc_alloc_init(VEScaler), scaler = v16->_scaler, v16->_scaler = v46, scaler, !v16->_scaler) || (v48 = objc_alloc_init(LoGFilter), logFilter = v16->_logFilter, v16->_logFilter = v48, logFilter, !v16->_logFilter) || [(FRNet *)v16 allocateTemporalBuffers])
   {
 LABEL_25:
     v52 = 0;
@@ -557,7 +557,7 @@ LABEL_26:
 
 - (BOOL)upscaleFrame:(__CVBuffer *)frame previousLowResFrame:(__CVBuffer *)resFrame previousHiResFrame:(__CVBuffer *)hiResFrame opticalFlow:(__CVBuffer *)flow destinationHiResFrame:(__CVBuffer *)destinationHiResFrame
 {
-  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_0_0(732315672);
   self->_attachmentDictOfInput = CMCopyDictionaryOfAttachments(0, frame, 1u);
   PixelFormatType = CVPixelBufferGetPixelFormatType(frame);
   self->_inputPixelFormat = PixelFormatType;
@@ -660,8 +660,8 @@ LABEL_20:
       CMSetAttachments(self->_bicubicRGB, self->_attachmentRGBDict, 1u);
       CFRelease(self->_attachmentRGBDict);
       CMSetAttachments(self->_srNetHROutput, self->_attachmentDictOfInput, 1u);
-      OUTLINED_FUNCTION_0_0();
-      OUTLINED_FUNCTION_0_0();
+      OUTLINED_FUNCTION_0_0(732315676);
+      OUTLINED_FUNCTION_0_0(732315680);
       v32 = 0;
       v33 = 0;
       getInputFrameSizeForUsage(self->_usage, &v33, &v32);
@@ -669,8 +669,8 @@ LABEL_20:
       v24 = [(Upsampler *)self->_upsampler upscaleFlow:flow upscaleRatio:self->_opticalFlow destination:v26];
       if (v24)
       {
-        OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_0_0();
+        OUTLINED_FUNCTION_0_0(732315684);
+        OUTLINED_FUNCTION_0_0(732315688);
         *&v28 = self->_errorMaskThreshold;
         if (*&v28 == 0.0)
         {
@@ -690,8 +690,8 @@ LABEL_20:
           }
         }
 
-        OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_0_0();
+        OUTLINED_FUNCTION_0_0(732315692);
+        OUTLINED_FUNCTION_0_0(732315696);
         if (self->_useLaplacianMask)
         {
           if (![(LoGFilter *)self->_logFilter createMaskFrom:self->_normalizedCurrentLowResLuma to:self->_laplacianMask])
@@ -711,14 +711,14 @@ LABEL_33:
           }
         }
 
-        OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_0_0();
+        OUTLINED_FUNCTION_0_0(732315700);
+        OUTLINED_FUNCTION_0_0(732315704);
         *&v29 = self->_scaleFactor;
         v24 = [(Upsampler *)self->_upsampler upsampleRBGPackedBuffer:self->_currentLRRGB to:self->_bicubicRGB scaleFactor:v29];
         if (v24)
         {
-          OUTLINED_FUNCTION_0_0();
-          OUTLINED_FUNCTION_0_0();
+          OUTLINED_FUNCTION_0_0(732315708);
+          OUTLINED_FUNCTION_0_0(732315712);
           v30 = 272;
           if (!hiResFrame)
           {
@@ -728,13 +728,13 @@ LABEL_33:
           v24 = [(Warper *)self->_warper warpBlendBufferRGBTexture:*(&self->super.isa + v30) scaleFactor:self->_scaleFactor withLowResFlowTexture:self->_opticalFlowTexture withBicubicUpscaledTexture:self->_bicubicRGBTexture withErrorMaskTexture:self->_errorMaskTexture toHighResBufferTexture:self->_warpedHRTexture];
           if (v24)
           {
-            OUTLINED_FUNCTION_0_0();
-            OUTLINED_FUNCTION_0_0();
+            OUTLINED_FUNCTION_0_0(732315716);
+            OUTLINED_FUNCTION_0_0(732315720);
             v24 = [(VSRNet *)self->_srnet processSuperResolutionInputBuffer:self->_normalizedRGB withPrevHighResolutionFrame:self->_warpedHR outputBuffer:self->_srNetHROutput];
             if (v24)
             {
-              OUTLINED_FUNCTION_0_0();
-              OUTLINED_FUNCTION_0_0();
+              OUTLINED_FUNCTION_0_0(732315724);
+              OUTLINED_FUNCTION_0_0(732315736);
               v24 = [(FRNet *)self getColorConsistentOutputRGBVia:self->_srNetHROutput bicubicRGB:self->_bicubicRGB laplacianMask:self->_laplacianMask attachment:self->_attachmentDictOfInput destinationFrame:destinationHiResFrame];
               if (v24)
               {
@@ -743,7 +743,7 @@ LABEL_33:
                 self->_currentLRYUV = 0;
                 self->_previousLRYUV = 0;
                 CFRelease(self->_attachmentDictOfInput);
-                OUTLINED_FUNCTION_0_0();
+                OUTLINED_FUNCTION_0_0(732315740);
                 LOBYTE(v24) = 1;
               }
             }

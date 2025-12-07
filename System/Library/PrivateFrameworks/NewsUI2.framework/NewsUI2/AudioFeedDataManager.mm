@@ -18,15 +18,15 @@
 
 - (void)readingHistory:(id)history didAddArticlesWithIDs:(id)ds
 {
-  sub_219BF5924();
+  v6 = sub_219BF5924();
   historyCopy = history;
   selfCopy = self;
-  sub_2195231D0(historyCopy);
+  sub_2195231D0(historyCopy, v6);
 }
 
 - (void)readingHistory:(id)history didChangeFeaturesForArticles:(id)articles
 {
-  sub_2186C6148(0, &qword_280E8DA20);
+  sub_2186C6148(0, &qword_280E8DA20, 0x277CCABB0);
   v6 = sub_219BF5214();
   historyCopy = history;
   selfCopy = self;

@@ -31,7 +31,7 @@ void __38__NTKRelevanceEngineCache_sharedCache__block_invoke()
 
 + (id)_dataSourceLoaderForRelevanceEngineDataSourcesForKey:(id)key
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v4 = MEMORY[0x2318D9710]();
   v5 = [v4 stringByAppendingPathComponent:@"System"];
@@ -42,26 +42,26 @@ void __38__NTKRelevanceEngineCache_sharedCache__block_invoke()
   v9 = [v8 stringByAppendingPathComponent:@"NanoDataSources"];
   v10 = [v7 fileURLWithPath:v9];
 
-  if (NTKInternalBuild(v11, v12, v13, v14))
+  if (NTKInternalBuild(v11, v12))
   {
-    v15 = MEMORY[0x277CBEBC0];
-    v16 = [@"/AppleInternal/Library/RelevanceEngine" stringByAppendingPathComponent:@"NanoDataSources"];
-    v17 = [v15 fileURLWithPath:v16];
+    v13 = MEMORY[0x277CBEBC0];
+    v14 = [@"/AppleInternal/Library/RelevanceEngine" stringByAppendingPathComponent:@"NanoDataSources"];
+    v15 = [v13 fileURLWithPath:v14];
 
-    v22[0] = v10;
-    v22[1] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v20[0] = v10;
+    v20[1] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   }
 
   else
   {
-    v21 = v10;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+    v19 = v10;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
   }
 
-  v19 = [MEMORY[0x277D443E8] dataSourceLoaderWithDirectories:v18 dataSourceKey:keyCopy];
+  v17 = [MEMORY[0x277D443E8] dataSourceLoaderWithDirectories:v16 dataSourceKey:keyCopy];
 
-  return v19;
+  return v17;
 }
 
 + (id)sampleConfiguration

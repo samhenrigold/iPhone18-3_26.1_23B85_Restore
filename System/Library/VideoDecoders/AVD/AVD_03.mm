@@ -3145,7 +3145,7 @@ uint64_t CAHDec::DecodePicture(CAHDec *this)
   return 0;
 }
 
-CAHDec *createTansyAvcDecoder(uint64_t a1)
+CAHDecTansyAvc *createTansyAvcDecoder(CAVDAvcDecoder *a1)
 {
   v2 = operator new(0x2F10uLL, MEMORY[0x277D826F0]);
   v3 = v2;
@@ -3291,7 +3291,7 @@ uint64_t CAHDecTansyAvc::populateSlices(CAHDecTansyAvc *this, unsigned int a2)
   return 0;
 }
 
-uint64_t CAHDecTansyAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, signed int a3)
+uint64_t CAHDecTansyAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a3;
   v4 = 0;
@@ -3324,6 +3324,7 @@ uint64_t CAHDecTansyAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, signed
     v13 = 0;
   }
 
+  v14 = a3;
   v15 = v13 | v12;
   *(a2 + 4) = v15;
   if (*(v10 + 24) == 1)
@@ -3412,13 +3413,14 @@ LABEL_20:
       v91 = v7;
       v36 = v6;
       v37 = v9;
+      v38 = a3;
       result = CAHDec::addToPatcherList(a1, (a1 + 11648), v35 + 3128, v34, 0xFFFFFFFFLL, 8, -256, 4);
       if (result)
       {
         return result;
       }
 
-      v3 = a3;
+      v3 = v38;
       v9 = v37;
       v6 = v36;
       v7 = v91;
@@ -3446,7 +3448,7 @@ LABEL_41:
   if (v23 <= 1)
   {
     v24 = v5 + 6760;
-    v25 = v9 + 13040 * a3;
+    v25 = v9 + 13040 * v14;
     if (*(v25 + 13032))
     {
       v26 = 0;

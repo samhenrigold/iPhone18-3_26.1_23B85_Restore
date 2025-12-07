@@ -75,11 +75,11 @@
 
 - (SFTranscriptionSegment)initWithCoder:(id)coder
 {
-  v46[2] = *MEMORY[0x1E69E9840];
+  v45[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v43.receiver = self;
-  v43.super_class = SFTranscriptionSegment;
-  v5 = [(SFTranscriptionSegment *)&v43 init];
+  v42.receiver = self;
+  v42.super_class = SFTranscriptionSegment;
+  v5 = [(SFTranscriptionSegment *)&v42 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_substring"];
@@ -96,18 +96,18 @@
     *&v10 = v10;
     v5->_confidence = *&v10;
     v11 = MEMORY[0x1E695DFD8];
-    v46[0] = objc_opt_class();
-    v46[1] = objc_opt_class();
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
+    v45[0] = objc_opt_class();
+    v45[1] = objc_opt_class();
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"_alternativeSubstrings"];
     alternativeSubstrings = v5->_alternativeSubstrings;
     v5->_alternativeSubstrings = v14;
 
     v16 = MEMORY[0x1E695DFD8];
-    v45[0] = objc_opt_class();
-    v45[1] = objc_opt_class();
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
+    v44[0] = objc_opt_class();
+    v44[1] = objc_opt_class();
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
     v18 = [v16 setWithArray:v17];
     v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"_alternativeConfidences"];
     alternativeConfidences = v5->_alternativeConfidences;
@@ -117,30 +117,30 @@
     if (v21 != [(NSArray *)v5->_alternativeSubstrings count])
     {
       v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       v23 = v5->_alternativeSubstrings;
-      v24 = [(NSArray *)v23 countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v24 = [(NSArray *)v23 countByEnumeratingWithState:&v38 objects:v43 count:16];
       if (v24)
       {
         v26 = v24;
-        v27 = *v40;
+        v27 = *v39;
         while (1)
         {
-          if (*v40 != v27)
+          if (*v39 != v27)
           {
             objc_enumerationMutation(v23);
           }
 
           *&v25 = v5->_confidence;
-          v28 = [MEMORY[0x1E696AD98] numberWithFloat:{v25, v39}];
+          v28 = [MEMORY[0x1E696AD98] numberWithFloat:{v25, v38}];
           [v22 addObject:v28];
 
           if (!--v26)
           {
-            v26 = [(NSArray *)v23 countByEnumeratingWithState:&v39 objects:v44 count:16];
+            v26 = [(NSArray *)v23 countByEnumeratingWithState:&v38 objects:v43 count:16];
             if (!v26)
             {
               break;
@@ -167,7 +167,6 @@
     v5->_voiceAnalytics = v35;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -190,18 +189,17 @@
 
 - (id)description
 {
-  v12.receiver = self;
-  v12.super_class = SFTranscriptionSegment;
-  v3 = [(SFTranscriptionSegment *)&v12 description];
+  v11.receiver = self;
+  v11.super_class = SFTranscriptionSegment;
+  v3 = [(SFTranscriptionSegment *)&v11 description];
   v4 = NSStringFromRange(self->_substringRange);
   v5 = [MEMORY[0x1E696AD98] numberWithDouble:self->_timestamp];
   v6 = [MEMORY[0x1E696AD98] numberWithDouble:self->_duration];
   *&v7 = self->_confidence;
   v8 = [MEMORY[0x1E696AD98] numberWithFloat:v7];
-  ipaPhoneSequence = self->_ipaPhoneSequence;
-  v10 = [v3 stringByAppendingFormat:@", substringRange=%@, timestamp=%@, duration=%@, confidence=%@, substring=%@, alternativeSubstrings=%@, phoneSequence=%@, ipaPhoneSequence=%@, voiceAnalytics=%@", v4, v5, v6, v8, self->_substring, self->_alternativeSubstrings, self->_phoneSequence, ipaPhoneSequence, self->_voiceAnalytics];
+  v9 = [v3 stringByAppendingFormat:@", substringRange=%@, timestamp=%@, duration=%@, confidence=%@, substring=%@, alternativeSubstrings=%@, phoneSequence=%@, ipaPhoneSequence=%@, voiceAnalytics=%@", v4, v5, v6, v8, self->_substring, self->_alternativeSubstrings, self->_phoneSequence, self->_ipaPhoneSequence, self->_voiceAnalytics];
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)isEqual:(id)equal

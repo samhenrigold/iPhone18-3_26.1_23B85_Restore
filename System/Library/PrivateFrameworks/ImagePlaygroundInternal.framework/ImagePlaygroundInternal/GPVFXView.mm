@@ -14,7 +14,7 @@
   sub_1D2878568();
   v5[2] = v2;
   v3 = v2;
-  sub_1D239DDE8(sub_1D277BEE8, v5);
+  sub_1D239DDE8(sub_1D277BEE8, v5, "ImagePlaygroundInternal/VisualEffectViewRepresentable.swift", 59, 2u, 221);
 
   return v3;
 }

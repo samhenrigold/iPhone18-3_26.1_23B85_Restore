@@ -59,16 +59,16 @@
 
 - (id)preferredLocalizationsForBundle:(__CFBundle *)bundle
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   if (bundle)
   {
     os_unfair_lock_lock(&self->_lock);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __53__INStringLocalizer_preferredLocalizationsForBundle___block_invoke;
-    v18[3] = &unk_1E72882F8;
-    v18[4] = self;
-    v5 = MEMORY[0x193AD7780](v18);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __53__INStringLocalizer_preferredLocalizationsForBundle___block_invoke;
+    v17[3] = &unk_1E72882F8;
+    v17[4] = self;
+    v5 = MEMORY[0x193AD7780](v17);
     v6 = [(NSMapTable *)self->_preferredBundleLocalizations objectForKey:bundle];
     if (v6)
     {
@@ -86,8 +86,8 @@
 
         if (v11)
         {
-          v19[0] = v11;
-          v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+          v18[0] = v11;
+          v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
           preferredLanguages = [MEMORY[0x1E695DF58] preferredLanguages];
           v14 = [v12 arrayByAddingObjectsFromArray:preferredLanguages];
 
@@ -107,8 +107,6 @@
   {
     v7 = MEMORY[0x1E695E0F0];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -138,16 +136,16 @@
 
 - (__CFBundle)bundleWithIdentifier:(id)identifier fileURL:(id)l
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   lCopy = l;
   os_unfair_lock_lock(&self->_lock);
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __50__INStringLocalizer_bundleWithIdentifier_fileURL___block_invoke;
-  v27[3] = &unk_1E72882F8;
-  v27[4] = self;
-  v8 = MEMORY[0x193AD7780](v27);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __50__INStringLocalizer_bundleWithIdentifier_fileURL___block_invoke;
+  v22[3] = &unk_1E72882F8;
+  v22[4] = self;
+  v8 = MEMORY[0x193AD7780](v22);
   v9 = [(NSMapTable *)self->_bundlesByIdentifier objectForKey:identifierCopy];
   if (!v9)
   {
@@ -170,7 +168,6 @@
 
       if ((v12 & 1) == 0)
       {
-        v13 = *MEMORY[0x1E695E480];
         Unique = _CFBundleCreateUnique();
         v9 = Unique;
         if (Unique)
@@ -190,10 +187,9 @@ LABEL_31:
 
       if ([(__CFURL *)lCopy isFileURL])
       {
-        v15 = *MEMORY[0x1E695E480];
-        v16 = _CFBundleCreateUnique();
-        v9 = v16;
-        if (v16)
+        v14 = _CFBundleCreateUnique();
+        v9 = v14;
+        if (v14)
         {
           goto LABEL_13;
         }
@@ -205,11 +201,10 @@ LABEL_31:
         goto LABEL_32;
       }
 
-      v17 = [MEMORY[0x1E6963618] bundleProxyForIdentifier:identifierCopy];
-      bundleURL2 = [v17 bundleURL];
+      v15 = [MEMORY[0x1E6963618] bundleProxyForIdentifier:identifierCopy];
+      bundleURL2 = [v15 bundleURL];
       if ([(__CFURL *)bundleURL2 isFileURL])
       {
-        v19 = *MEMORY[0x1E695E480];
         v9 = _CFBundleCreateUnique();
         if (v9)
         {
@@ -219,12 +214,12 @@ LABEL_31:
         }
       }
 
-      v20 = _INVCIntentDefinitionManagerClass();
+      v17 = _INVCIntentDefinitionManagerClass();
       if (objc_opt_respondsToSelector())
       {
-        v21 = [v20 intentDefinitionBundleURLForBundleID:identifierCopy];
+        v18 = [v17 intentDefinitionBundleURLForBundleID:identifierCopy];
 
-        lCopy = v21;
+        lCopy = v18;
       }
 
       if (lCopy)
@@ -235,14 +230,13 @@ LABEL_31:
           goto LABEL_32;
         }
 
-        v22 = *MEMORY[0x1E695E480];
-        v16 = _CFBundleCreateUnique();
-        v9 = v16;
-        if (v16)
+        v14 = _CFBundleCreateUnique();
+        v9 = v14;
+        if (v14)
         {
 LABEL_13:
-          CFBundleGetIdentifier(v16);
-          identifierCopy = v17 = identifierCopy;
+          CFBundleGetIdentifier(v14);
+          identifierCopy = v15 = identifierCopy;
 LABEL_30:
 
           goto LABEL_31;
@@ -251,14 +245,14 @@ LABEL_30:
 
       if (([(__CFString *)identifierCopy isEqualToString:@"com.apple.siri.IntentsTests"]& 1) == 0)
       {
-        v23 = INSiriLogContextIntents;
+        v19 = INSiriLogContextIntents;
         if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v29 = "[INStringLocalizer bundleWithIdentifier:fileURL:]";
-          v30 = 2114;
-          v31 = identifierCopy;
-          _os_log_error_impl(&dword_18E991000, v23, OS_LOG_TYPE_ERROR, "%s This should not happen! Unable to get a bundle for %{public}@", buf, 0x16u);
+          v24 = "[INStringLocalizer bundleWithIdentifier:fileURL:]";
+          v25 = 2114;
+          v26 = identifierCopy;
+          _os_log_error_impl(&dword_18E991000, v19, OS_LOG_TYPE_ERROR, "%s This should not happen! Unable to get a bundle for %{public}@", buf, 0x16u);
         }
       }
 
@@ -267,7 +261,7 @@ LABEL_30:
       if (BundleWithIdentifier)
       {
         CFRetain(BundleWithIdentifier);
-        v17 = lCopy;
+        v15 = lCopy;
         lCopy = CFBundleCopyBundleURL(v9);
         goto LABEL_30;
       }
@@ -277,7 +271,6 @@ LABEL_30:
 LABEL_32:
   v8[2](v8);
 
-  v25 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -299,11 +292,11 @@ LABEL_32:
 
 - (INStringLocalizer)initWithLanguageCode:(id)code
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   codeCopy = code;
-  v23.receiver = self;
-  v23.super_class = INStringLocalizer;
-  v5 = [(INStringLocalizer *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = INStringLocalizer;
+  v5 = [(INStringLocalizer *)&v22 init];
   if (v5)
   {
     v6 = [codeCopy copy];
@@ -329,8 +322,8 @@ LABEL_32:
 
     if (codeCopy)
     {
-      v24[0] = codeCopy;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+      v23[0] = codeCopy;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
       preferredLanguages = [MEMORY[0x1E695DF58] preferredLanguages];
       v18 = [v16 arrayByAddingObjectsFromArray:preferredLanguages];
       preferredLanguages = v5->_preferredLanguages;
@@ -340,7 +333,6 @@ LABEL_32:
     v20 = v5;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

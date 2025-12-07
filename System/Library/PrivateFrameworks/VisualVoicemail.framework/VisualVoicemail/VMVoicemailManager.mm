@@ -18,7 +18,9 @@
 - (OS_dispatch_queue)completionQueue;
 - (VMVoicemailManagedDelegate)delegate;
 - (VMVoicemailManager)init;
+- (VMVoicemailManager)initWithClient:(id)client synchronously:(BOOL)synchronously queryState:(BOOL)state fetchMail:(BOOL)mail session:(id)session delegate:(id)delegate delegateQueue:(id)queue;
 - (VMVoicemailManager)initWithDelegate:(id)delegate delegateQueue:(id)queue;
+- (VMVoicemailManager)initWithStateSync:(BOOL)sync mailSync:(BOOL)mailSync delegate:(id)delegate delegateQueue:(id)queue;
 - (double)maximumGreetingDurationForAccountUUID:(id)d;
 - (id)asynchronousServerConnectionWithErrorHandler:(id)handler;
 - (id)createPersonalizedTranscript:(id)transcript error:(id *)error;
@@ -28,9 +30,11 @@
 - (id)fetchAccounts;
 - (id)getServiceInfoForAccountUUID:(id)d;
 - (id)initAsync:(id)async delegate:(id)delegate delegateQueue:(id)queue;
+- (id)initAsyncWithStateSync:(BOOL)sync mailSync:(BOOL)mailSync session:(id)session delegate:(id)delegate delegateQueue:(id)queue;
 - (id)markVoicemailAsRead:(id)read;
 - (id)markVoicemailsAsRead:(id)read;
 - (id)messagesForMailboxType:(int64_t)type limit:(int64_t)limit offset:(int64_t)offset error:(id *)error;
+- (id)messagesForMailboxType:(int64_t)type read:(BOOL)read limit:(int64_t)limit offset:(int64_t)offset error:(id *)error;
 - (id)removeVoicemailFromTrash:(id)trash;
 - (id)removeVoicemailsFromTrash:(id)trash;
 - (id)serverConnection:(BOOL)connection withErrorHandler:(id)handler;
@@ -42,6 +46,7 @@
 - (id)voicemailsPassingTest:(id)test;
 - (int64_t)maximumPasscodeLengthForAccountUUID:(id)d;
 - (int64_t)messageCountForMailboxType:(int64_t)type error:(id *)error;
+- (int64_t)messageCountForMailboxType:(int64_t)type read:(BOOL)read error:(id *)error;
 - (int64_t)minimumPasscodeLengthForAccountUUID:(id)d;
 - (int64_t)unreadCount;
 - (unint64_t)countOfVoicemailsPassingTest:(id)test;
@@ -65,12 +70,14 @@
 - (void)greetingForAccountUUID:(id)d completion:(id)completion;
 - (void)insertVoicemail:(id)voicemail;
 - (void)messageCountForMailboxType:(int64_t)type completion:(id)completion;
+- (void)messageCountForMailboxType:(int64_t)type read:(BOOL)read completion:(id)completion;
 - (void)obliterate;
 - (void)performAtomicAccessorBlock:(id)block;
 - (void)performSynchronousBlock:(id)block;
 - (void)remapAccount:(id)account toAccount:(id)toAccount;
 - (void)reportTranscriptionProblemForUUID:(id)d;
 - (void)reportTranscriptionProblemForVoicemail:(id)voicemail;
+- (void)reportTranscriptionRatedAccurate:(BOOL)accurate forVoicemail:(id)voicemail;
 - (void)reportTranscriptionRatedAccurateForUUID:(BOOL)d forVoicemailUUID:(id)iD;
 - (void)requestInitialStateIfNecessaryAndSendNotifications:(BOOL)notifications;
 - (void)resetNetworkSettings;
@@ -98,50 +105,48 @@
 
 - (void)_checkFirstUnlock
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_2721BA000, a2, OS_LOG_TYPE_ERROR, "MKBDeviceUnlockedSinceBoot (2) failed with %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_2721BA000, a2, OS_LOG_TYPE_ERROR, "MKBDeviceUnlockedSinceBoot (2) failed with %d", v2, 8u);
 }
 
 - (void)call_capabilitiesDidChange
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   delegate = [(VMVoicemailManager *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  if (v4)
   {
     delegate_queue = [(VMVoicemailManager *)self delegate_queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __48__VMVoicemailManager_call_capabilitiesDidChange__block_invoke;
     block[3] = &unk_279E3D1D0;
-    v10 = delegate;
+    v11 = delegate;
     dispatch_async(delegate_queue, block);
 
-    v5 = v10;
+    v7 = v11;
   }
 
   else
   {
-    v5 = vm_framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = vm_framework_log(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = delegate;
-      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector capabilitiesDidChange", buf, 0xCu);
+      v13 = delegate;
+      _os_log_impl(&dword_2721BA000, v7, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector capabilitiesDidChange", buf, 0xCu);
     }
   }
 
   completionQueue = [(VMVoicemailManager *)self completionQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __48__VMVoicemailManager_call_capabilitiesDidChange__block_invoke_41;
-  v8[3] = &unk_279E3D1D0;
-  v8[4] = self;
-  dispatch_async(completionQueue, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__VMVoicemailManager_call_capabilitiesDidChange__block_invoke_41;
+  v9[3] = &unk_279E3D1D0;
+  v9[4] = self;
+  dispatch_async(completionQueue, v9);
 }
 
 - (VMVoicemailManagedDelegate)delegate
@@ -166,214 +171,207 @@
 
 - (void)call_subscriptionStateStatusDidChange
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   delegate = [(VMVoicemailManager *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  if (v4)
   {
     delegate_queue = [(VMVoicemailManager *)self delegate_queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __59__VMVoicemailManager_call_subscriptionStateStatusDidChange__block_invoke;
     block[3] = &unk_279E3D1D0;
-    v10 = delegate;
+    v11 = delegate;
     dispatch_async(delegate_queue, block);
 
-    v5 = v10;
+    v7 = v11;
   }
 
   else
   {
-    v5 = vm_framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = vm_framework_log(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = delegate;
-      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector subscriptionStateStatusDidChange", buf, 0xCu);
+      v13 = delegate;
+      _os_log_impl(&dword_2721BA000, v7, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector subscriptionStateStatusDidChange", buf, 0xCu);
     }
   }
 
   completionQueue = [(VMVoicemailManager *)self completionQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __59__VMVoicemailManager_call_subscriptionStateStatusDidChange__block_invoke_44;
-  v8[3] = &unk_279E3D1D0;
-  v8[4] = self;
-  dispatch_async(completionQueue, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __59__VMVoicemailManager_call_subscriptionStateStatusDidChange__block_invoke_44;
+  v9[3] = &unk_279E3D1D0;
+  v9[4] = self;
+  dispatch_async(completionQueue, v9);
 }
 
 - (void)call_onlineStatusDidChange
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   delegate = [(VMVoicemailManager *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  if (v4)
   {
     delegate_queue = [(VMVoicemailManager *)self delegate_queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __48__VMVoicemailManager_call_onlineStatusDidChange__block_invoke;
     block[3] = &unk_279E3D1D0;
-    v10 = delegate;
+    v11 = delegate;
     dispatch_async(delegate_queue, block);
 
-    v5 = v10;
+    v7 = v11;
   }
 
   else
   {
-    v5 = vm_framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = vm_framework_log(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = delegate;
-      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector onlineStatusDidChange", buf, 0xCu);
+      v13 = delegate;
+      _os_log_impl(&dword_2721BA000, v7, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector onlineStatusDidChange", buf, 0xCu);
     }
   }
 
   completionQueue = [(VMVoicemailManager *)self completionQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __48__VMVoicemailManager_call_onlineStatusDidChange__block_invoke_38;
-  v8[3] = &unk_279E3D1D0;
-  v8[4] = self;
-  dispatch_async(completionQueue, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__VMVoicemailManager_call_onlineStatusDidChange__block_invoke_38;
+  v9[3] = &unk_279E3D1D0;
+  v9[4] = self;
+  dispatch_async(completionQueue, v9);
 }
 
 - (void)call_syncInProgresDidChange
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   delegate = [(VMVoicemailManager *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  if (v4)
   {
     delegate_queue = [(VMVoicemailManager *)self delegate_queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __49__VMVoicemailManager_call_syncInProgresDidChange__block_invoke;
     block[3] = &unk_279E3D1D0;
-    v10 = delegate;
+    v11 = delegate;
     dispatch_async(delegate_queue, block);
 
-    v5 = v10;
+    v7 = v11;
   }
 
   else
   {
-    v5 = vm_framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = vm_framework_log(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = delegate;
-      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector syncInProgresDidChange", buf, 0xCu);
+      v13 = delegate;
+      _os_log_impl(&dword_2721BA000, v7, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector syncInProgresDidChange", buf, 0xCu);
     }
   }
 
   completionQueue = [(VMVoicemailManager *)self completionQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __49__VMVoicemailManager_call_syncInProgresDidChange__block_invoke_47;
-  v8[3] = &unk_279E3D1D0;
-  v8[4] = self;
-  dispatch_async(completionQueue, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __49__VMVoicemailManager_call_syncInProgresDidChange__block_invoke_47;
+  v9[3] = &unk_279E3D1D0;
+  v9[4] = self;
+  dispatch_async(completionQueue, v9);
 }
 
 - (void)call_transcribingStatusDidChange
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   delegate = [(VMVoicemailManager *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  if (v4)
   {
     delegate_queue = [(VMVoicemailManager *)self delegate_queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __54__VMVoicemailManager_call_transcribingStatusDidChange__block_invoke;
     block[3] = &unk_279E3D1D0;
-    v10 = delegate;
+    v11 = delegate;
     dispatch_async(delegate_queue, block);
 
-    v5 = v10;
+    v7 = v11;
   }
 
   else
   {
-    v5 = vm_framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = vm_framework_log(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = delegate;
-      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector transcribingStatusDidChange", buf, 0xCu);
+      v13 = delegate;
+      _os_log_impl(&dword_2721BA000, v7, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector transcribingStatusDidChange", buf, 0xCu);
     }
   }
 
   completionQueue = [(VMVoicemailManager *)self completionQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __54__VMVoicemailManager_call_transcribingStatusDidChange__block_invoke_55;
-  v8[3] = &unk_279E3D1D0;
-  v8[4] = self;
-  dispatch_async(completionQueue, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __54__VMVoicemailManager_call_transcribingStatusDidChange__block_invoke_55;
+  v9[3] = &unk_279E3D1D0;
+  v9[4] = self;
+  dispatch_async(completionQueue, v9);
 }
 
 - (void)call_managerStorageUsageDidChange
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   delegate = [(VMVoicemailManager *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  if (v4)
   {
     delegate_queue = [(VMVoicemailManager *)self delegate_queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __55__VMVoicemailManager_call_managerStorageUsageDidChange__block_invoke;
     block[3] = &unk_279E3D1D0;
-    v10 = delegate;
+    v11 = delegate;
     dispatch_async(delegate_queue, block);
 
-    v5 = v10;
+    v7 = v11;
   }
 
   else
   {
-    v5 = vm_framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = vm_framework_log(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = delegate;
-      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector managerStorageUsageDidChange", buf, 0xCu);
+      v13 = delegate;
+      _os_log_impl(&dword_2721BA000, v7, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector managerStorageUsageDidChange", buf, 0xCu);
     }
   }
 
   completionQueue = [(VMVoicemailManager *)self completionQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __55__VMVoicemailManager_call_managerStorageUsageDidChange__block_invoke_50;
-  v8[3] = &unk_279E3D1D0;
-  v8[4] = self;
-  dispatch_async(completionQueue, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __55__VMVoicemailManager_call_managerStorageUsageDidChange__block_invoke_50;
+  v9[3] = &unk_279E3D1D0;
+  v9[4] = self;
+  dispatch_async(completionQueue, v9);
 }
 
-uint64_t __44__VMVoicemailManager_call_accountsDidChange__block_invoke(uint64_t a1)
+uint64_t __44__VMVoicemailManager_call_accountsDidChange__block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using accountsDidChange", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using accountsDidChange", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) accountsDidChange];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) accountsDidChange];
 }
 
 - (BOOL)isOnline
@@ -471,128 +469,117 @@ uint64_t __44__VMVoicemailManager_call_accountsDidChange__block_invoke(uint64_t 
   return v2;
 }
 
-uint64_t __48__VMVoicemailManager_call_capabilitiesDidChange__block_invoke(uint64_t a1)
+uint64_t __48__VMVoicemailManager_call_capabilitiesDidChange__block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using capabilitiesDidChange", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using capabilitiesDidChange", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) capabilitiesDidChange];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) capabilitiesDidChange];
 }
 
-uint64_t __55__VMVoicemailManager_call_managerStorageUsageDidChange__block_invoke(uint64_t a1)
+uint64_t __55__VMVoicemailManager_call_managerStorageUsageDidChange__block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using managerStorageUsageDidChange", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using managerStorageUsageDidChange", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) managerStorageUsageDidChange];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) managerStorageUsageDidChange];
 }
 
-uint64_t __54__VMVoicemailManager_call_transcribingStatusDidChange__block_invoke(uint64_t a1)
+uint64_t __54__VMVoicemailManager_call_transcribingStatusDidChange__block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using transcribingStatusDidChange", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using transcribingStatusDidChange", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) transcribingStatusDidChange];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) transcribingStatusDidChange];
 }
 
-uint64_t __49__VMVoicemailManager_call_syncInProgresDidChange__block_invoke(uint64_t a1)
+uint64_t __49__VMVoicemailManager_call_syncInProgresDidChange__block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using syncInProgresDidChange", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using syncInProgresDidChange", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) syncInProgresDidChange];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) syncInProgresDidChange];
 }
 
-uint64_t __48__VMVoicemailManager_call_onlineStatusDidChange__block_invoke(uint64_t a1)
+uint64_t __48__VMVoicemailManager_call_onlineStatusDidChange__block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using onlineStatusDidChange", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using onlineStatusDidChange", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) onlineStatusDidChange];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) onlineStatusDidChange];
 }
 
 - (void)call_accountsDidChange
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   delegate = [(VMVoicemailManager *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  if (v4)
   {
     delegate_queue = [(VMVoicemailManager *)self delegate_queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __44__VMVoicemailManager_call_accountsDidChange__block_invoke;
     block[3] = &unk_279E3D1D0;
-    v10 = delegate;
+    v11 = delegate;
     dispatch_async(delegate_queue, block);
 
-    v5 = v10;
+    v7 = v11;
   }
 
   else
   {
-    v5 = vm_framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = vm_framework_log(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = delegate;
-      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector accountsDidChange", buf, 0xCu);
+      v13 = delegate;
+      _os_log_impl(&dword_2721BA000, v7, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector accountsDidChange", buf, 0xCu);
     }
   }
 
   completionQueue = [(VMVoicemailManager *)self completionQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __44__VMVoicemailManager_call_accountsDidChange__block_invoke_60;
-  v8[3] = &unk_279E3D1D0;
-  v8[4] = self;
-  dispatch_async(completionQueue, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __44__VMVoicemailManager_call_accountsDidChange__block_invoke_60;
+  v9[3] = &unk_279E3D1D0;
+  v9[4] = self;
+  dispatch_async(completionQueue, v9);
 }
 
 - (VMVoicemailManager)init
@@ -624,26 +611,140 @@ uint64_t __48__VMVoicemailManager_call_onlineStatusDidChange__block_invoke(uint6
   return v12;
 }
 
-void __103__VMVoicemailManager_initWithClient_synchronously_queryState_fetchMail_session_delegate_delegateQueue___block_invoke(uint64_t a1)
+- (VMVoicemailManager)initWithClient:(id)client synchronously:(BOOL)synchronously queryState:(BOOL)state fetchMail:(BOOL)mail session:(id)session delegate:(id)delegate delegateQueue:(id)queue
 {
-  v9 = *MEMORY[0x277D85DE8];
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (WeakRetained)
+  mailCopy = mail;
+  stateCopy = state;
+  synchronouslyCopy = synchronously;
+  v44 = *MEMORY[0x277D85DE8];
+  clientCopy = client;
+  sessionCopy = session;
+  delegateCopy = delegate;
+  queueCopy = queue;
+  v39.receiver = self;
+  v39.super_class = VMVoicemailManager;
+  v20 = [(VMVoicemailManager *)&v39 init];
+  v21 = v20;
+  if (v20)
   {
-    v3 = vm_framework_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v20->_accessorLock._os_unfair_lock_opaque = 0;
+    objc_storeStrong(&v20->_client, client);
+    v22 = [(VMClientWrapper *)v21->_client setManager:v21];
+    v21->fMailSyncExpected = mailCopy;
+    v21->fSyncStateExpected = stateCopy || mailCopy;
+    *&v21->fMailLoadingInProgress = 0;
+    v24 = vm_framework_log(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = objc_opt_class();
-      v5 = v8;
-      _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "%@ is handling VMXPCConnectionAvailable.", &v7, 0xCu);
+      v25 = "NO";
+      if (stateCopy)
+      {
+        v26 = "YES";
+      }
+
+      else
+      {
+        v26 = "NO";
+      }
+
+      if (mailCopy)
+      {
+        v25 = "YES";
+      }
+
+      *buf = 136315394;
+      v41 = v26;
+      v42 = 2080;
+      v43 = v25;
+      _os_log_impl(&dword_2721BA000, v24, OS_LOG_TYPE_DEFAULT, "starting with statesync: %s, mailsync: %s", buf, 0x16u);
     }
 
-    [WeakRetained _fetchInitialStateIfNecessaryWithForce:1 waitStates:0 waitMails:0 waitAccounts:0 session:0];
+    v27 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
+    v28 = dispatch_queue_create("com.apple.voicemail.VMVoicemailManager.serialQueue", v27);
+    internalClientQueue = v21->_internalClientQueue;
+    v21->_internalClientQueue = v28;
+
+    dispatch_queue_set_specific(v21->_internalClientQueue, VMVoicemailManagerSerialQueueContextKey, v21, 0);
+    if (queueCopy)
+    {
+      v30 = queueCopy;
+    }
+
+    else
+    {
+      v30 = dispatch_queue_create("com.apple.voicemail.VMVoicemailManager.delegate", v27);
+    }
+
+    delegate_queue = v21->_delegate_queue;
+    v21->_delegate_queue = v30;
+
+    objc_storeWeak(&v21->_delegate, delegateCopy);
+    voicemails = v21->_voicemails;
+    v21->_voicemails = 0;
+
+    [(VMVoicemailManager *)v21 _checkFirstUnlock];
+    [(VMVoicemailManager *)v21 _fetchInitialStateIfNecessaryWithForce:0 waitStates:synchronouslyCopy waitMails:synchronouslyCopy waitAccounts:synchronouslyCopy session:sessionCopy];
+    objc_initWeak(buf, v21);
+    uTF8String = [@"com.apple.voicemail.VMXPCConnectionAvailable" UTF8String];
+    v34 = v21->_internalClientQueue;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __103__VMVoicemailManager_initWithClient_synchronously_queryState_fetchMail_session_delegate_delegateQueue___block_invoke;
+    v36[3] = &unk_279E3D158;
+    objc_copyWeak(&v38, buf);
+    v37 = v21;
+    notify_register_dispatch(uTF8String, &v21->_token, v34, v36);
+
+    objc_destroyWeak(&v38);
+    objc_destroyWeak(buf);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  return v21;
+}
+
+void __103__VMVoicemailManager_initWithClient_synchronously_queryState_fetchMail_session_delegate_delegateQueue___block_invoke(uint64_t a1)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
+  if (WeakRetained)
+  {
+    v4 = vm_framework_log(WeakRetained, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = 138412290;
+      v7 = objc_opt_class();
+      v5 = v7;
+      _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "%@ is handling VMXPCConnectionAvailable.", &v6, 0xCu);
+    }
+
+    [v3 _fetchInitialStateIfNecessaryWithForce:1 waitStates:0 waitMails:0 waitAccounts:0 session:0];
+  }
+}
+
+- (VMVoicemailManager)initWithStateSync:(BOOL)sync mailSync:(BOOL)mailSync delegate:(id)delegate delegateQueue:(id)queue
+{
+  mailSyncCopy = mailSync;
+  syncCopy = sync;
+  queueCopy = queue;
+  delegateCopy = delegate;
+  v12 = objc_alloc_init(VMClientWrapper);
+  v13 = [(VMVoicemailManager *)self initWithClient:v12 synchronously:1 queryState:syncCopy fetchMail:mailSyncCopy session:0 delegate:delegateCopy delegateQueue:queueCopy];
+
+  return v13;
+}
+
+- (id)initAsyncWithStateSync:(BOOL)sync mailSync:(BOOL)mailSync session:(id)session delegate:(id)delegate delegateQueue:(id)queue
+{
+  mailSyncCopy = mailSync;
+  syncCopy = sync;
+  queueCopy = queue;
+  delegateCopy = delegate;
+  sessionCopy = session;
+  v15 = objc_alloc_init(VMClientWrapper);
+  v16 = [(VMVoicemailManager *)self initWithClient:v15 synchronously:0 queryState:syncCopy fetchMail:mailSyncCopy session:sessionCopy delegate:delegateCopy delegateQueue:queueCopy];
+
+  return v16;
 }
 
 - (void)dealloc
@@ -654,83 +755,85 @@ void __103__VMVoicemailManager_initWithClient_synchronously_queryState_fetchMail
   [(VMVoicemailManager *)&v3 dealloc];
 }
 
-void __39__VMVoicemailManager__checkFirstUnlock__block_invoke(uint64_t a1)
+void __39__VMVoicemailManager__checkFirstUnlock__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Device became unlocked after boot", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Device became unlocked after boot", v7, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     *(WeakRetained + 12) = 1;
   }
 
   notify_cancel(*(a1 + 40));
-  v5 = objc_loadWeakRetained((a1 + 32));
-  [v5 _fetchInitialStateIfNecessaryWithForce:0 waitStates:0 waitMails:0 waitAccounts:0 session:0];
+  v6 = objc_loadWeakRetained((a1 + 32));
+  [v6 _fetchInitialStateIfNecessaryWithForce:0 waitStates:0 waitMails:0 waitAccounts:0 session:0];
 }
 
 - (id)asynchronousServerConnectionWithErrorHandler:(id)handler
 {
   fHasDeviceBeenUnlockedSinceBoot = self->fHasDeviceBeenUnlockedSinceBoot;
   handlerCopy = handler;
+  v7 = handlerCopy;
   if (fHasDeviceBeenUnlockedSinceBoot)
   {
     client = [(VMVoicemailManager *)self client];
     clientConnection = [client clientConnection];
-    v8 = [clientConnection remoteObjectProxyWithErrorHandler:handlerCopy];
+    v10 = [clientConnection remoteObjectProxyWithErrorHandler:v7];
   }
 
   else
   {
-    v9 = vm_framework_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = vm_framework_log(handlerCopy, v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_2721BA000, v9, OS_LOG_TYPE_DEFAULT, "rejected asynchronousServerConnectionWithErrorHandler", v12, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_2721BA000, v11, OS_LOG_TYPE_DEFAULT, "rejected asynchronousServerConnectionWithErrorHandler", v14, 2u);
     }
 
-    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:35 userInfo:0];
-    (*(handlerCopy + 2))(handlerCopy, v10);
+    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:35 userInfo:0];
+    (v7)[2](v7, v12);
 
-    v8 = 0;
+    v10 = 0;
   }
 
-  return v8;
+  return v10;
 }
 
 - (id)synchronousServerConnectionWithErrorHandler:(id)handler
 {
   fHasDeviceBeenUnlockedSinceBoot = self->fHasDeviceBeenUnlockedSinceBoot;
   handlerCopy = handler;
+  v7 = handlerCopy;
   if (fHasDeviceBeenUnlockedSinceBoot)
   {
     client = [(VMVoicemailManager *)self client];
     clientConnection = [client clientConnection];
-    v8 = [clientConnection synchronousRemoteObjectProxyWithErrorHandler:handlerCopy];
+    v10 = [clientConnection synchronousRemoteObjectProxyWithErrorHandler:v7];
   }
 
   else
   {
-    v9 = vm_framework_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = vm_framework_log(handlerCopy, v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_2721BA000, v9, OS_LOG_TYPE_DEFAULT, "rejected, synchronousServerConnectionWithErrorHandler", v12, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_2721BA000, v11, OS_LOG_TYPE_DEFAULT, "rejected, synchronousServerConnectionWithErrorHandler", v14, 2u);
     }
 
-    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:35 userInfo:0];
-    (*(handlerCopy + 2))(handlerCopy, v10);
+    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:35 userInfo:0];
+    (v7)[2](v7, v12);
 
-    v8 = 0;
+    v10 = 0;
   }
 
-  return v8;
+  return v10;
 }
 
 - (id)serverConnection:(BOOL)connection withErrorHandler:(id)handler
@@ -752,8 +855,8 @@ void __39__VMVoicemailManager__checkFirstUnlock__block_invoke(uint64_t a1)
 void __38__VMVoicemailManager_serverConnection__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = vm_framework_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = vm_framework_log(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __38__VMVoicemailManager_serverConnection__block_invoke_cold_1();
   }
@@ -761,7 +864,7 @@ void __38__VMVoicemailManager_serverConnection__block_invoke(uint64_t a1, void *
 
 - (void)requestInitialStateIfNecessaryAndSendNotifications:(BOOL)notifications
 {
-  v4 = vm_framework_log();
+  v4 = vm_framework_log(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -772,23 +875,23 @@ void __38__VMVoicemailManager_serverConnection__block_invoke(uint64_t a1, void *
   {
     client = [(VMVoicemailManager *)self client];
     [client setPingRetry:1];
-    v6 = [(VMVoicemailManager *)self asynchronousServerConnectionWithErrorHandler:&__block_literal_global_11];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __73__VMVoicemailManager_requestInitialStateIfNecessaryAndSendNotifications___block_invoke_12;
-    v8[3] = &unk_279E3D1A8;
+    v8 = [(VMVoicemailManager *)self asynchronousServerConnectionWithErrorHandler:&__block_literal_global_11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __73__VMVoicemailManager_requestInitialStateIfNecessaryAndSendNotifications___block_invoke_12;
+    v10[3] = &unk_279E3D1A8;
+    v11 = client;
     v9 = client;
-    v7 = client;
-    [v6 ping:v8];
+    [v8 ping:v10];
   }
 
   else
   {
-    v7 = vm_framework_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = vm_framework_log(v5, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2721BA000, v7, OS_LOG_TYPE_DEFAULT, "Cannot ping when device is locked.", buf, 2u);
+      _os_log_impl(&dword_2721BA000, v9, OS_LOG_TYPE_DEFAULT, "Cannot ping when device is locked.", buf, 2u);
     }
   }
 }
@@ -796,8 +899,8 @@ void __38__VMVoicemailManager_serverConnection__block_invoke(uint64_t a1, void *
 void __73__VMVoicemailManager_requestInitialStateIfNecessaryAndSendNotifications___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = vm_framework_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = vm_framework_log(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __73__VMVoicemailManager_requestInitialStateIfNecessaryAndSendNotifications___block_invoke_cold_1();
   }
@@ -805,23 +908,21 @@ void __73__VMVoicemailManager_requestInitialStateIfNecessaryAndSendNotifications
 
 void __73__VMVoicemailManager_requestInitialStateIfNecessaryAndSendNotifications___block_invoke_12(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [*(a1 + 32) setPingRetry:0];
-  v3 = vm_framework_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = [*(a1 + 32) setPingRetry:0];
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = "NO";
+    v6 = "NO";
     if (a2)
     {
-      v4 = "YES";
+      v6 = "YES";
     }
 
-    v6 = 136315138;
-    v7 = v4;
-    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "VMD server replied with %s", &v6, 0xCu);
+    v7 = 136315138;
+    v8 = v6;
+    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "VMD server replied with %s", &v7, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMailSyncing
@@ -835,26 +936,26 @@ void __73__VMVoicemailManager_requestInitialStateIfNecessaryAndSendNotifications
   dispatch_async(internalClientQueue, block);
 }
 
-void __38__VMVoicemailManager_startMailSyncing__block_invoke(uint64_t a1)
+void __38__VMVoicemailManager_startMailSyncing__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 9);
-  v3 = vm_framework_log();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v3 = *(*(a1 + 32) + 9);
+  v4 = vm_framework_log(a1, a2);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
-      *v5 = 0;
-      _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "requested startMailSyncing while it was already active - skipping", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "requested startMailSyncing while it was already active - skipping", v6, 2u);
     }
   }
 
   else
   {
-    if (v4)
+    if (v5)
     {
       *buf = 0;
-      _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "requested startMailSyncing - starting sync", buf, 2u);
+      _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "requested startMailSyncing - starting sync", buf, 2u);
     }
 
     *(*(a1 + 32) + 8) = 1;
@@ -888,17 +989,16 @@ void __38__VMVoicemailManager_startMailSyncing__block_invoke(uint64_t a1)
 
 void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if ((v2[9] & 1) == 0 && (v2[8] & 1) == 0)
   {
-    v3 = vm_framework_log();
+    v3 = vm_framework_log(a1, v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
       *buf = 138412290;
-      v32 = objc_opt_class();
-      v12 = v32;
+      v28 = objc_opt_class();
+      v10 = v28;
       _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "%@ client initialized without expecting mail or states sync", buf, 0xCu);
     }
 
@@ -907,36 +1007,34 @@ void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates
 
   if (v2[10] == 1)
   {
-    v3 = vm_framework_log();
+    v3 = vm_framework_log(a1, v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
       *buf = 138412290;
-      v32 = objc_opt_class();
-      v5 = v32;
+      v28 = objc_opt_class();
+      v4 = v28;
       _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "%@ mail loading is already in progress", buf, 0xCu);
     }
 
 LABEL_17:
 
-    v15 = *(a1 + 40);
-    if (v15)
+    v12 = *(a1 + 40);
+    if (v12)
     {
-      dispatch_group_leave(v15);
+      dispatch_group_leave(v12);
     }
 
-    goto LABEL_19;
+    return;
   }
 
   if (v2[11] == 1 && (*(a1 + 48) & 1) == 0)
   {
-    v3 = vm_framework_log();
+    v3 = vm_framework_log(a1, v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 32);
       *buf = 138412290;
-      v32 = objc_opt_class();
-      v14 = v32;
+      v28 = objc_opt_class();
+      v11 = v28;
       _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "%@ mail already loaded - bailing out", buf, 0xCu);
     }
 
@@ -951,96 +1049,94 @@ LABEL_17:
   }
 
   objc_initWeak(buf, v2);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_15;
-  v27[3] = &unk_279E3D270;
-  v30 = *(a1 + 49);
-  objc_copyWeak(&v29, buf);
-  v28 = *(a1 + 40);
-  v6 = [v27 copy];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_20;
-  v22[3] = &unk_279E3D2E8;
-  v26 = *(a1 + 50);
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_15;
+  v23[3] = &unk_279E3D270;
+  v26 = *(a1 + 49);
   objc_copyWeak(&v25, buf);
-  v23 = *(a1 + 40);
-  v7 = v6;
-  v24 = v7;
-  v8 = [v22 copy];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_25;
-  v17[3] = &unk_279E3D2E8;
-  v21 = *(a1 + 51);
-  objc_copyWeak(&v20, buf);
-  v18 = *(a1 + 40);
-  v9 = v8;
-  v19 = v9;
-  v10 = MEMORY[0x2743C3970](v17);
-  v10[2](v10, *(a1 + 32));
+  v24 = *(a1 + 40);
+  v5 = [v23 copy];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_20;
+  v18[3] = &unk_279E3D2E8;
+  v22 = *(a1 + 50);
+  objc_copyWeak(&v21, buf);
+  v19 = *(a1 + 40);
+  v6 = v5;
+  v20 = v6;
+  v7 = [v18 copy];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_25;
+  v13[3] = &unk_279E3D2E8;
+  v17 = *(a1 + 51);
+  objc_copyWeak(&v16, buf);
+  v14 = *(a1 + 40);
+  v8 = v7;
+  v15 = v8;
+  v9 = MEMORY[0x2743C3970](v13);
+  v9[2](v9, *(a1 + 32));
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v21);
+
   objc_destroyWeak(&v25);
-
-  objc_destroyWeak(&v29);
   objc_destroyWeak(buf);
-LABEL_19:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_15(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "Requesting initial VVM accounts", buf, 2u);
+    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Requesting initial VVM accounts", buf, 2u);
   }
 
-  v5 = *(a1 + 48);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_16;
-  v11[3] = &unk_279E3D1F8;
-  objc_copyWeak(&v13, (a1 + 40));
-  v12 = *(a1 + 32);
-  v6 = [v3 serverConnection:v5 withErrorHandler:v11];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_17;
-  v7[3] = &unk_279E3D248;
-  objc_copyWeak(&v9, (a1 + 40));
-  v8 = *(a1 + 32);
-  v10 = v5;
-  [v6 accounts:v7];
+  v6 = *(a1 + 48);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_16;
+  v12[3] = &unk_279E3D1F8;
+  objc_copyWeak(&v14, (a1 + 40));
+  v13 = *(a1 + 32);
+  v7 = [v3 serverConnection:v6 withErrorHandler:v12];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_17;
+  v8[3] = &unk_279E3D248;
+  objc_copyWeak(&v10, (a1 + 40));
+  v9 = *(a1 + 32);
+  v11 = v6;
+  [v7 accounts:v8];
 
-  objc_destroyWeak(&v9);
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v14);
 }
 
 void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_16(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_16_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v6 = WeakRetained;
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     *(WeakRetained + 10) = 0;
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    dispatch_group_leave(v7);
+    dispatch_group_leave(v8);
   }
 }
 
@@ -1102,20 +1198,20 @@ void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates
   [v2 performSynchronousBlock:v3];
 }
 
-void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_3(uint64_t a1)
+void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Requesting initial VVM accounts - replied", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Requesting initial VVM accounts - replied", v5, 2u);
   }
 
   [*(a1 + 32) setAccounts:*(a1 + 40)];
-  v3 = *(a1 + 48);
-  if (v3)
+  v4 = *(a1 + 48);
+  if (v4)
   {
-    dispatch_group_leave(v3);
+    dispatch_group_leave(v4);
   }
 }
 
@@ -1123,44 +1219,44 @@ void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates
 {
   v3 = a2;
   v4 = v3[9];
-  v5 = vm_framework_log();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = vm_framework_log(v3, v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v4 == 1)
   {
-    if (v6)
+    if (v7)
     {
       *buf = 0;
-      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Requesting initial VVM voicemails", buf, 2u);
+      _os_log_impl(&dword_2721BA000, v6, OS_LOG_TYPE_DEFAULT, "Requesting initial VVM voicemails", buf, 2u);
     }
 
-    v7 = *(a1 + 56);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_21;
-    v14[3] = &unk_279E3D1F8;
-    objc_copyWeak(&v16, (a1 + 48));
-    v15 = *(a1 + 32);
-    v8 = [v3 serverConnection:v7 withErrorHandler:v14];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_22;
-    v9[3] = &unk_279E3D2C0;
-    objc_copyWeak(&v12, (a1 + 48));
-    v11 = *(a1 + 40);
-    v13 = v7;
-    v10 = *(a1 + 32);
-    [v8 allVoicemails:v9];
+    v8 = *(a1 + 56);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_21;
+    v15[3] = &unk_279E3D1F8;
+    objc_copyWeak(&v17, (a1 + 48));
+    v16 = *(a1 + 32);
+    v9 = [v3 serverConnection:v8 withErrorHandler:v15];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_22;
+    v10[3] = &unk_279E3D2C0;
+    objc_copyWeak(&v13, (a1 + 48));
+    v12 = *(a1 + 40);
+    v14 = v8;
+    v11 = *(a1 + 32);
+    [v9 allVoicemails:v10];
 
-    objc_destroyWeak(&v12);
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v17);
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
       *buf = 0;
-      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "mail fetch is not requested - skipping to accounts", buf, 2u);
+      _os_log_impl(&dword_2721BA000, v6, OS_LOG_TYPE_DEFAULT, "mail fetch is not requested - skipping to accounts", buf, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1170,23 +1266,23 @@ void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates
 void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_21(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_21_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v6 = WeakRetained;
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     *(WeakRetained + 10) = 0;
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    dispatch_group_leave(v7);
+    dispatch_group_leave(v8);
   }
 }
 
@@ -1228,81 +1324,80 @@ void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates
   }
 }
 
-void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_2_23(uint64_t a1)
+void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_2_23(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Requesting initial VVM voicemails - replied", v9, 2u);
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Requesting initial VVM voicemails - replied", v9, 2u);
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 72);
-  v5 = *(a1 + 40);
-  v6 = *(v3 + 72);
-  *(v3 + 72) = v5;
-  v7 = v4;
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 72);
+  v6 = *(a1 + 40);
+  v7 = *(v4 + 72);
+  *(v4 + 72) = v6;
+  v8 = v5;
 
   *(*(a1 + 32) + 10) = 0;
   *(*(a1 + 32) + 11) = 1;
-  [*(a1 + 32) call_voicemailsDidChange:v7];
-  v8 = *(a1 + 32);
+  [*(a1 + 32) call_voicemailsDidChange:v8];
   (*(*(a1 + 48) + 16))();
 }
 
 void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_25(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "Requesting initial VVM states", buf, 2u);
+    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Requesting initial VVM states", buf, 2u);
   }
 
-  v5 = *(a1 + 56);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_26;
-  v12[3] = &unk_279E3D1F8;
-  objc_copyWeak(&v14, (a1 + 48));
-  v13 = *(a1 + 32);
-  v6 = [v3 serverConnection:v5 withErrorHandler:v12];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_27;
-  v7[3] = &unk_279E3D338;
-  objc_copyWeak(&v10, (a1 + 48));
-  v9 = *(a1 + 40);
-  v11 = v5;
-  v8 = *(a1 + 32);
-  [v6 requestInitialState:v7];
+  v6 = *(a1 + 56);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_26;
+  v13[3] = &unk_279E3D1F8;
+  objc_copyWeak(&v15, (a1 + 48));
+  v14 = *(a1 + 32);
+  v7 = [v3 serverConnection:v6 withErrorHandler:v13];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_27;
+  v8[3] = &unk_279E3D338;
+  objc_copyWeak(&v11, (a1 + 48));
+  v10 = *(a1 + 40);
+  v12 = v6;
+  v9 = *(a1 + 32);
+  [v7 requestInitialState:v8];
 
-  objc_destroyWeak(&v10);
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v15);
 }
 
 void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_26(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_21_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v6 = WeakRetained;
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     *(WeakRetained + 10) = 0;
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    dispatch_group_leave(v7);
+    dispatch_group_leave(v8);
   }
 }
 
@@ -1349,13 +1444,13 @@ void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates
   }
 }
 
-uint64_t __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_2_28(uint64_t a1)
+uint64_t __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_2_28(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Requesting initial VVM states - replied", v5, 2u);
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Requesting initial VVM states - replied", v5, 2u);
   }
 
   *(*(a1 + 32) + 15) = *(a1 + 56);
@@ -1371,13 +1466,12 @@ uint64_t __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitSt
   [*(a1 + 32) call_transcriptionServiceStatusDidChange];
   [*(a1 + 32) call_transcribingStatusDidChange];
   [*(a1 + 32) call_managerStorageUsageDidChange];
-  v3 = *(a1 + 32);
   return (*(*(a1 + 48) + 16))();
 }
 
 - (void)call_voicemailsDidChange:(id)change
 {
-  v30[3] = *MEMORY[0x277D85DE8];
+  v31[3] = *MEMORY[0x277D85DE8];
   changeCopy = change;
   if (changeCopy)
   {
@@ -1385,28 +1479,28 @@ uint64_t __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitSt
     v6 = [voicemails arrayBySubtractingOrderedSet:changeCopy];
     v7 = [changeCopy arrayBySubtractingOrderedSet:voicemails];
     v8 = [voicemails arrayByIntersectingWithOrderedSet:changeCopy];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __47__VMVoicemailManager_call_voicemailsDidChange___block_invoke;
-    v25[3] = &unk_279E3D388;
-    v26 = changeCopy;
-    v9 = [v8 indexesOfObjectsPassingTest:v25];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __47__VMVoicemailManager_call_voicemailsDidChange___block_invoke;
+    v26[3] = &unk_279E3D388;
+    v27 = changeCopy;
+    v9 = [v8 indexesOfObjectsPassingTest:v26];
     v10 = [v8 objectsAtIndexes:v9];
 
     if (![v6 count] && !objc_msgSend(v7, "count") && !objc_msgSend(v10, "count"))
     {
 
-      v15 = 0;
+      v17 = 0;
       goto LABEL_12;
     }
 
-    v29[0] = @"VMVoicemailVoicemailsAddedKey";
-    v29[1] = @"VMVoicemailVoicemailsDeletedKey";
-    v30[0] = v6;
-    v30[1] = v7;
-    v29[2] = @"VMVoicemailVoicemailFlagsChangedKey";
-    v30[2] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
+    v30[0] = @"VMVoicemailVoicemailsAddedKey";
+    v30[1] = @"VMVoicemailVoicemailsDeletedKey";
+    v31[0] = v6;
+    v31[1] = v7;
+    v30[2] = @"VMVoicemailVoicemailFlagsChangedKey";
+    v31[2] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
   }
 
   else
@@ -1418,46 +1512,46 @@ uint64_t __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitSt
   }
 
   voicemails = [(VMVoicemailManager *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v12 = objc_opt_respondsToSelector();
+  if (v12)
   {
     delegate_queue = [(VMVoicemailManager *)self delegate_queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __47__VMVoicemailManager_call_voicemailsDidChange___block_invoke_2;
     block[3] = &unk_279E3D3C8;
-    v20 = voicemails;
-    v21 = changeCopy;
-    v22 = v6;
-    v23 = v7;
-    v24 = v10;
+    v21 = voicemails;
+    v22 = changeCopy;
+    v23 = v6;
+    v24 = v7;
+    v25 = v10;
     dispatch_async(delegate_queue, block);
 
-    v13 = v20;
+    v15 = v21;
   }
 
   else
   {
-    v13 = vm_framework_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = vm_framework_log(v12, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v28 = voicemails;
-      _os_log_impl(&dword_2721BA000, v13, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector voicemailsDidChangeInitial", buf, 0xCu);
+      v29 = voicemails;
+      _os_log_impl(&dword_2721BA000, v15, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector voicemailsDidChangeInitial", buf, 0xCu);
     }
   }
 
   completionQueue = [(VMVoicemailManager *)self completionQueue];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __47__VMVoicemailManager_call_voicemailsDidChange___block_invoke_34;
-  v17[3] = &unk_279E3D3F8;
-  v17[4] = self;
-  v15 = v11;
-  v18 = v15;
-  dispatch_async(completionQueue, v17);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __47__VMVoicemailManager_call_voicemailsDidChange___block_invoke_34;
+  v18[3] = &unk_279E3D3F8;
+  v18[4] = self;
+  v17 = v11;
+  v19 = v17;
+  dispatch_async(completionQueue, v18);
 
 LABEL_12:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__VMVoicemailManager_call_voicemailsDidChange___block_invoke(uint64_t a1, void *a2)
@@ -1486,33 +1580,23 @@ uint64_t __47__VMVoicemailManager_call_voicemailsDidChange___block_invoke(uint64
   return v5;
 }
 
-uint64_t __47__VMVoicemailManager_call_voicemailsDidChange___block_invoke_2(void *a1)
+uint64_t __47__VMVoicemailManager_call_voicemailsDidChange___block_invoke_2(void *a1, uint64_t a2)
 {
   v13 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
+    v4 = a1[4];
     v11 = 138412290;
-    v12 = v3;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using voicemailsDidChangeInitial", &v11, 0xCu);
+    v12 = v4;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using voicemailsDidChangeInitial", &v11, 0xCu);
   }
 
-  v4 = a1[4];
-  v5 = a1[5];
+  v5 = a1[4];
+  v6 = a1[5];
   if ([a1[6] count])
   {
-    v6 = a1[6];
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if ([a1[7] count])
-  {
-    v7 = a1[7];
+    v7 = a1[6];
   }
 
   else
@@ -1520,9 +1604,9 @@ uint64_t __47__VMVoicemailManager_call_voicemailsDidChange___block_invoke_2(void
     v7 = 0;
   }
 
-  if ([a1[8] count])
+  if ([a1[7] count])
   {
-    v8 = a1[8];
+    v8 = a1[7];
   }
 
   else
@@ -1530,279 +1614,276 @@ uint64_t __47__VMVoicemailManager_call_voicemailsDidChange___block_invoke_2(void
     v8 = 0;
   }
 
-  result = [v4 voicemailsDidChangeInitial:v5 == 0 added:v6 deleted:v7 updated:v8];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void __47__VMVoicemailManager_call_voicemailsDidChange___block_invoke_34(uint64_t a1)
-{
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  if ([a1[8] count])
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client post voicemails changed notification", v4, 2u);
+    v9 = a1[8];
   }
 
-  v3 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v3 postNotificationName:@"VMVoicemailVoicemailsChangedNotification" object:*(a1 + 32) userInfo:*(a1 + 40)];
-}
-
-void __48__VMVoicemailManager_call_onlineStatusDidChange__block_invoke_38(uint64_t a1)
-{
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  else
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client post online status changed notification", v4, 2u);
+    v9 = 0;
   }
 
-  v3 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v3 postNotificationName:@"VMVoicemailOnlineStatusChangedNotification" object:*(a1 + 32)];
+  return [v5 voicemailsDidChangeInitial:v6 == 0 added:v7 deleted:v8 updated:v9];
 }
 
-void __48__VMVoicemailManager_call_capabilitiesDidChange__block_invoke_41(uint64_t a1)
+void __47__VMVoicemailManager_call_voicemailsDidChange___block_invoke_34(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client post capabilities changed notification", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client post voicemails changed notification", v5, 2u);
   }
 
-  v3 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v3 postNotificationName:@"VMVoicemailCapabilitiesChangedNotification" object:*(a1 + 32)];
+  v4 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v4 postNotificationName:@"VMVoicemailVoicemailsChangedNotification" object:*(a1 + 32) userInfo:*(a1 + 40)];
 }
 
-uint64_t __59__VMVoicemailManager_call_subscriptionStateStatusDidChange__block_invoke(uint64_t a1)
+void __48__VMVoicemailManager_call_onlineStatusDidChange__block_invoke_38(uint64_t a1, uint64_t a2)
+{
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *v5 = 0;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client post online status changed notification", v5, 2u);
+  }
+
+  v4 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v4 postNotificationName:@"VMVoicemailOnlineStatusChangedNotification" object:*(a1 + 32)];
+}
+
+void __48__VMVoicemailManager_call_capabilitiesDidChange__block_invoke_41(uint64_t a1, uint64_t a2)
+{
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *v5 = 0;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client post capabilities changed notification", v5, 2u);
+  }
+
+  v4 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v4 postNotificationName:@"VMVoicemailCapabilitiesChangedNotification" object:*(a1 + 32)];
+}
+
+uint64_t __59__VMVoicemailManager_call_subscriptionStateStatusDidChange__block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using subscriptionStateStatusDidChange", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using subscriptionStateStatusDidChange", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) subscriptionStateStatusDidChange];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) subscriptionStateStatusDidChange];
 }
 
-void __59__VMVoicemailManager_call_subscriptionStateStatusDidChange__block_invoke_44(uint64_t a1)
+void __59__VMVoicemailManager_call_subscriptionStateStatusDidChange__block_invoke_44(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client post subscription status changed notification", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client post subscription status changed notification", v5, 2u);
   }
 
-  v3 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v3 postNotificationName:@"VMVoicemailSubscriptionStateStatusChangedNotification" object:*(a1 + 32)];
+  v4 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v4 postNotificationName:@"VMVoicemailSubscriptionStateStatusChangedNotification" object:*(a1 + 32)];
 }
 
-void __49__VMVoicemailManager_call_syncInProgresDidChange__block_invoke_47(uint64_t a1)
+void __49__VMVoicemailManager_call_syncInProgresDidChange__block_invoke_47(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client post sync in progress changed notification", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client post sync in progress changed notification", v5, 2u);
   }
 
-  v3 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v3 postNotificationName:@"VMVoicemailSyncInProgressChangedNotification" object:*(a1 + 32)];
+  v4 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v4 postNotificationName:@"VMVoicemailSyncInProgressChangedNotification" object:*(a1 + 32)];
 }
 
-void __55__VMVoicemailManager_call_managerStorageUsageDidChange__block_invoke_50(uint64_t a1)
+void __55__VMVoicemailManager_call_managerStorageUsageDidChange__block_invoke_50(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client post storage usage changed notification", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client post storage usage changed notification", v5, 2u);
   }
 
-  v3 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v3 postNotificationName:@"VMVoicemailManagerStorageUsageChangedNotification" object:*(a1 + 32)];
+  v4 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v4 postNotificationName:@"VMVoicemailManagerStorageUsageChangedNotification" object:*(a1 + 32)];
 }
 
 - (void)call_accountStorageUsageChanged:(id)changed storageUsage:(unint64_t)usage
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   delegate = [(VMVoicemailManager *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v8 = objc_opt_respondsToSelector();
+  if (v8)
   {
     delegate_queue = [(VMVoicemailManager *)self delegate_queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __67__VMVoicemailManager_call_accountStorageUsageChanged_storageUsage___block_invoke;
     block[3] = &unk_279E3D448;
-    v12 = delegate;
-    v13 = changedCopy;
+    v13 = delegate;
+    v14 = changedCopy;
     usageCopy = usage;
     dispatch_async(delegate_queue, block);
 
-    v9 = v12;
+    v11 = v13;
   }
 
   else
   {
-    v9 = vm_framework_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = vm_framework_log(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = delegate;
-      _os_log_impl(&dword_2721BA000, v9, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector accountStorageUsageChanged", buf, 0xCu);
+      v17 = delegate;
+      _os_log_impl(&dword_2721BA000, v11, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector accountStorageUsageChanged", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __67__VMVoicemailManager_call_accountStorageUsageChanged_storageUsage___block_invoke(uint64_t a1)
+uint64_t __67__VMVoicemailManager_call_accountStorageUsageChanged_storageUsage___block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using accountStorageUsageChanged", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using accountStorageUsageChanged", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) accountStorageUsageChanged:*(a1 + 40) storageUsage:*(a1 + 48)];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) accountStorageUsageChanged:*(a1 + 40) storageUsage:*(a1 + 48)];
 }
 
-void __54__VMVoicemailManager_call_transcribingStatusDidChange__block_invoke_55(uint64_t a1)
+void __54__VMVoicemailManager_call_transcribingStatusDidChange__block_invoke_55(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client post transcribing status changed notification", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client post transcribing status changed notification", v5, 2u);
   }
 
-  v3 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v3 postNotificationName:@"VMVoicemailTranscriptionInProgressChangedNotification" object:*(a1 + 32)];
+  v4 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v4 postNotificationName:@"VMVoicemailTranscriptionInProgressChangedNotification" object:*(a1 + 32)];
 }
 
 - (void)call_transcriptionServiceStatusDidChange
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   delegate = [(VMVoicemailManager *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  if (v4)
   {
     delegate_queue = [(VMVoicemailManager *)self delegate_queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __62__VMVoicemailManager_call_transcriptionServiceStatusDidChange__block_invoke;
     block[3] = &unk_279E3D1D0;
-    v8 = delegate;
+    v9 = delegate;
     dispatch_async(delegate_queue, block);
 
-    v5 = v8;
+    v7 = v9;
   }
 
   else
   {
-    v5 = vm_framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = vm_framework_log(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v10 = delegate;
-      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector transcriptionServiceStatusDidChange", buf, 0xCu);
+      v11 = delegate;
+      _os_log_impl(&dword_2721BA000, v7, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector transcriptionServiceStatusDidChange", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __62__VMVoicemailManager_call_transcriptionServiceStatusDidChange__block_invoke(uint64_t a1)
+uint64_t __62__VMVoicemailManager_call_transcriptionServiceStatusDidChange__block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using transcriptionServiceStatusDidChange", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using transcriptionServiceStatusDidChange", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) transcriptionServiceStatusDidChange];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) transcriptionServiceStatusDidChange];
 }
 
-void __44__VMVoicemailManager_call_accountsDidChange__block_invoke_60(uint64_t a1)
+void __44__VMVoicemailManager_call_accountsDidChange__block_invoke_60(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client post accounts changed notification", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client post accounts changed notification", v5, 2u);
   }
 
-  v3 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v3 postNotificationName:@"VMVoicemailManagerAccountsDidChangeNotification" object:*(a1 + 32)];
+  v4 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v4 postNotificationName:@"VMVoicemailManagerAccountsDidChangeNotification" object:*(a1 + 32)];
 }
 
 - (void)call_greetingDidChangeByCarrier:(id)carrier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   carrierCopy = carrier;
   delegate = [(VMVoicemailManager *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v6 = objc_opt_respondsToSelector();
+  if (v6)
   {
     delegate_queue = [(VMVoicemailManager *)self delegate_queue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __54__VMVoicemailManager_call_greetingDidChangeByCarrier___block_invoke;
-    v9[3] = &unk_279E3D3F8;
-    v10 = delegate;
-    v11 = carrierCopy;
-    dispatch_async(delegate_queue, v9);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __54__VMVoicemailManager_call_greetingDidChangeByCarrier___block_invoke;
+    v10[3] = &unk_279E3D3F8;
+    v11 = delegate;
+    v12 = carrierCopy;
+    dispatch_async(delegate_queue, v10);
 
-    v7 = v10;
+    v9 = v11;
   }
 
   else
   {
-    v7 = vm_framework_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = vm_framework_log(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = delegate;
-      _os_log_impl(&dword_2721BA000, v7, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector greetingDidChangeByCarrier", buf, 0xCu);
+      v14 = delegate;
+      _os_log_impl(&dword_2721BA000, v9, OS_LOG_TYPE_DEFAULT, "Delegate %@ does not support selector greetingDidChangeByCarrier", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __54__VMVoicemailManager_call_greetingDidChangeByCarrier___block_invoke(uint64_t a1)
+uint64_t __54__VMVoicemailManager_call_greetingDidChangeByCarrier___block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using greetingDidChangeByCarrier", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client is notifying delegate %@ using greetingDidChangeByCarrier", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) greetingDidChangeByCarrier:*(a1 + 40)];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) greetingDidChangeByCarrier:*(a1 + 40)];
 }
 
 - (BOOL)isSyncInProgress
@@ -1978,7 +2059,7 @@ void __35__VMVoicemailManager_allVoicemails__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __33__VMVoicemailManager_unreadCount__block_invoke(uint64_t a1)
+void *__33__VMVoicemailManager_unreadCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) countOfVoicemailsPassingTest:&__block_literal_global_65];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2053,38 +2134,38 @@ void __46__VMVoicemailManager_voicemailWithIdentifier___block_invoke(uint64_t a1
 
 - (id)voicemailsPassingTest:(id)test
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   testCopy = test;
   array = [MEMORY[0x277CBEB18] array];
   if (testCopy)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     allVoicemails = [(VMVoicemailManager *)self allVoicemails];
-    v7 = [allVoicemails countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [allVoicemails countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(allVoicemails);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           if (testCopy[2](testCopy, v11))
           {
             [array addObject:v11];
           }
         }
 
-        v8 = [allVoicemails countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [allVoicemails countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -2092,8 +2173,6 @@ void __46__VMVoicemailManager_voicemailWithIdentifier___block_invoke(uint64_t a1
   }
 
   v12 = [array copy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -2142,25 +2221,23 @@ void __46__VMVoicemailManager_voicemailWithIdentifier___block_invoke(uint64_t a1
   dispatch_async(internalClientQueue, block);
 }
 
-void __45__VMVoicemailManager_remapAccount_toAccount___block_invoke(uint64_t a1)
+void __45__VMVoicemailManager_remapAccount_toAccount___block_invoke(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
     v7 = 138412546;
-    v8 = v3;
+    v8 = v4;
     v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "remap account %@ to %@", &v7, 0x16u);
+    v10 = v5;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "remap account %@ to %@", &v7, 0x16u);
   }
 
-  v5 = [*(a1 + 48) serverConnection];
-  [v5 remapAccount:*(a1 + 32) toAccount:*(a1 + 40)];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = [*(a1 + 48) serverConnection];
+  [v6 remapAccount:*(a1 + 32) toAccount:*(a1 + 40)];
 }
 
 - (void)resetNetworkSettings
@@ -2174,31 +2251,29 @@ void __45__VMVoicemailManager_remapAccount_toAccount___block_invoke(uint64_t a1)
   dispatch_async(internalClientQueue, block);
 }
 
-void __42__VMVoicemailManager_resetNetworkSettings__block_invoke(uint64_t a1)
+void __42__VMVoicemailManager_resetNetworkSettings__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "resetNetworkSettings", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "resetNetworkSettings", v5, 2u);
   }
 
-  v3 = [*(a1 + 32) serverConnection];
-  [v3 resetNetworkSettings];
+  v4 = [*(a1 + 32) serverConnection];
+  [v4 resetNetworkSettings];
 }
 
 - (id)deleteVoicemail:(id)voicemail
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   voicemailCopy = voicemail;
   v4 = MEMORY[0x277CBEA60];
   voicemailCopy2 = voicemail;
   v6 = [v4 arrayWithObjects:&voicemailCopy count:1];
 
-  v7 = [(VMVoicemailManager *)self deleteVoicemails:v6, voicemailCopy, v12];
+  v7 = [(VMVoicemailManager *)self deleteVoicemails:v6, voicemailCopy, v11];
   firstObject = [v7 firstObject];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -2207,232 +2282,12 @@ void __42__VMVoicemailManager_resetNetworkSettings__block_invoke(uint64_t a1)
 {
   v30 = *MEMORY[0x277D85DE8];
   voicemailsCopy = voicemails;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v29 = voicemailsCopy;
-    _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "Perform delete for voicemails %@", buf, 0xCu);
-  }
-
-  array = [MEMORY[0x277CBEB18] array];
-  array2 = [MEMORY[0x277CBEB18] array];
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v7 = voicemailsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v24;
-    do
-    {
-      for (i = 0; i != v9; ++i)
-      {
-        if (*v24 != v10)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        v12 = *(*(&v23 + 1) + 8 * i);
-        if (([v12 isDeleted] & 1) == 0)
-        {
-          v13 = [v12 mutableCopy];
-          [v13 setDeleted:1];
-          v14 = [v13 copy];
-          [array addObject:v14];
-
-          v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "identifier")}];
-          [array2 addObject:v15];
-        }
-      }
-
-      v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
-    }
-
-    while (v9);
-  }
-
-  if ([array2 count])
-  {
-    internalClientQueue = [(VMVoicemailManager *)self internalClientQueue];
-    block[0] = MEMORY[0x277D85DD0];
-    block[1] = 3221225472;
-    block[2] = __39__VMVoicemailManager_deleteVoicemails___block_invoke;
-    block[3] = &unk_279E3D3F8;
-    block[4] = self;
-    v22 = array2;
-    dispatch_async(internalClientQueue, block);
-  }
-
-  v17 = [array copy];
-
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v17;
-}
-
-void __39__VMVoicemailManager_deleteVoicemails___block_invoke(uint64_t a1)
-{
-  v3 = [*(a1 + 32) serverConnection];
-  v2 = [*(a1 + 40) copy];
-  [v3 setDeletedForIdentifiers:v2];
-}
-
-- (id)markVoicemailAsRead:(id)read
-{
-  v12 = *MEMORY[0x277D85DE8];
-  readCopy = read;
-  v4 = MEMORY[0x277CBEA60];
-  readCopy2 = read;
-  v6 = [v4 arrayWithObjects:&readCopy count:1];
-
-  v7 = [(VMVoicemailManager *)self markVoicemailsAsRead:v6, readCopy, v12];
-  firstObject = [v7 firstObject];
-
-  v9 = *MEMORY[0x277D85DE8];
-
-  return firstObject;
-}
-
-- (id)markVoicemailsAsRead:(id)read
-{
-  v29 = *MEMORY[0x277D85DE8];
-  readCopy = read;
-  v5 = vm_framework_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v28 = readCopy;
-    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Perform mark as read for voicemails %@", buf, 0xCu);
-  }
-
-  array = [MEMORY[0x277CBEB18] array];
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v7 = readCopy;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v23;
-    do
-    {
-      for (i = 0; i != v9; ++i)
-      {
-        if (*v23 != v10)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        v12 = *(*(&v22 + 1) + 8 * i);
-        if (([v12 isRead] & 1) == 0)
-        {
-          v13 = [v12 mutableCopy];
-          [v13 setRead:1];
-          v14 = [v13 copy];
-          [array addObject:v14];
-        }
-      }
-
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    }
-
-    while (v9);
-  }
-
-  v15 = [array copy];
-  if ([v15 count])
-  {
-    internalClientQueue = [(VMVoicemailManager *)self internalClientQueue];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __43__VMVoicemailManager_markVoicemailsAsRead___block_invoke;
-    v19[3] = &unk_279E3D3F8;
-    v20 = v15;
-    selfCopy = self;
-    dispatch_async(internalClientQueue, v19);
-  }
-
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v15;
-}
-
-void __43__VMVoicemailManager_markVoicemailsAsRead___block_invoke(uint64_t a1)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v13;
-    do
-    {
-      v7 = 0;
-      do
-      {
-        if (*v13 != v6)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(*(&v12 + 1) + 8 * v7), "identifier", v12)}];
-        [v2 addObject:v8];
-
-        ++v7;
-      }
-
-      while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    }
-
-    while (v5);
-  }
-
-  v9 = [*(a1 + 40) serverConnection];
-  v10 = [v2 copy];
-  [v9 setReadForIdentifiers:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (id)trashVoicemail:(id)voicemail
-{
-  v12 = *MEMORY[0x277D85DE8];
-  voicemailCopy = voicemail;
-  v4 = MEMORY[0x277CBEA60];
-  voicemailCopy2 = voicemail;
-  v6 = [v4 arrayWithObjects:&voicemailCopy count:1];
-
-  v7 = [(VMVoicemailManager *)self trashVoicemails:v6, voicemailCopy, v12];
-  firstObject = [v7 firstObject];
-
-  v9 = *MEMORY[0x277D85DE8];
-
-  return firstObject;
-}
-
-- (id)trashVoicemails:(id)voicemails
-{
-  v30 = *MEMORY[0x277D85DE8];
-  voicemailsCopy = voicemails;
-  v5 = vm_framework_log();
+  v5 = vm_framework_log(voicemailsCopy, v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v29 = voicemailsCopy;
-    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Perform trashed for voicemails %@", buf, 0xCu);
+    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Perform delete for voicemails %@", buf, 0xCu);
   }
 
   array = [MEMORY[0x277CBEB18] array];
@@ -2457,15 +2312,15 @@ void __43__VMVoicemailManager_markVoicemailsAsRead___block_invoke(uint64_t a1)
         }
 
         v13 = *(*(&v23 + 1) + 8 * i);
-        if (([v13 isTrashed] & 1) == 0)
+        if (([v13 isDeleted] & 1) == 0)
         {
           v14 = [v13 mutableCopy];
-          [v14 setTrashed:1];
-          v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v14, "identifier")}];
-          [array2 addObject:v15];
+          [v14 setDeleted:1];
+          v15 = [v14 copy];
+          [array addObject:v15];
 
-          v16 = [v14 copy];
-          [array addObject:v16];
+          v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v13, "identifier")}];
+          [array2 addObject:v16];
         }
       }
 
@@ -2475,7 +2330,217 @@ void __43__VMVoicemailManager_markVoicemailsAsRead___block_invoke(uint64_t a1)
     while (v10);
   }
 
-  v17 = [array copy];
+  if ([array2 count])
+  {
+    internalClientQueue = [(VMVoicemailManager *)self internalClientQueue];
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __39__VMVoicemailManager_deleteVoicemails___block_invoke;
+    block[3] = &unk_279E3D3F8;
+    block[4] = self;
+    v22 = array2;
+    dispatch_async(internalClientQueue, block);
+  }
+
+  v18 = [array copy];
+
+  return v18;
+}
+
+void __39__VMVoicemailManager_deleteVoicemails___block_invoke(uint64_t a1)
+{
+  v3 = [*(a1 + 32) serverConnection];
+  v2 = [*(a1 + 40) copy];
+  [v3 setDeletedForIdentifiers:v2];
+}
+
+- (id)markVoicemailAsRead:(id)read
+{
+  v11 = *MEMORY[0x277D85DE8];
+  readCopy = read;
+  v4 = MEMORY[0x277CBEA60];
+  readCopy2 = read;
+  v6 = [v4 arrayWithObjects:&readCopy count:1];
+
+  v7 = [(VMVoicemailManager *)self markVoicemailsAsRead:v6, readCopy, v11];
+  firstObject = [v7 firstObject];
+
+  return firstObject;
+}
+
+- (id)markVoicemailsAsRead:(id)read
+{
+  v29 = *MEMORY[0x277D85DE8];
+  readCopy = read;
+  v6 = vm_framework_log(readCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v28 = readCopy;
+    _os_log_impl(&dword_2721BA000, v6, OS_LOG_TYPE_DEFAULT, "Perform mark as read for voicemails %@", buf, 0xCu);
+  }
+
+  array = [MEMORY[0x277CBEB18] array];
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v8 = readCopy;
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v23;
+    do
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v23 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v22 + 1) + 8 * i);
+        if (([v13 isRead] & 1) == 0)
+        {
+          v14 = [v13 mutableCopy];
+          [v14 setRead:1];
+          v15 = [v14 copy];
+          [array addObject:v15];
+        }
+      }
+
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    }
+
+    while (v10);
+  }
+
+  v16 = [array copy];
+  if ([v16 count])
+  {
+    internalClientQueue = [(VMVoicemailManager *)self internalClientQueue];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __43__VMVoicemailManager_markVoicemailsAsRead___block_invoke;
+    v19[3] = &unk_279E3D3F8;
+    v20 = v16;
+    selfCopy = self;
+    dispatch_async(internalClientQueue, v19);
+  }
+
+  return v16;
+}
+
+void __43__VMVoicemailManager_markVoicemailsAsRead___block_invoke(uint64_t a1)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v3 = *(a1 + 32);
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v12;
+    do
+    {
+      v7 = 0;
+      do
+      {
+        if (*v12 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(*(&v11 + 1) + 8 * v7), "identifier", v11)}];
+        [v2 addObject:v8];
+
+        ++v7;
+      }
+
+      while (v5 != v7);
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v5);
+  }
+
+  v9 = [*(a1 + 40) serverConnection];
+  v10 = [v2 copy];
+  [v9 setReadForIdentifiers:v10];
+}
+
+- (id)trashVoicemail:(id)voicemail
+{
+  v11 = *MEMORY[0x277D85DE8];
+  voicemailCopy = voicemail;
+  v4 = MEMORY[0x277CBEA60];
+  voicemailCopy2 = voicemail;
+  v6 = [v4 arrayWithObjects:&voicemailCopy count:1];
+
+  v7 = [(VMVoicemailManager *)self trashVoicemails:v6, voicemailCopy, v11];
+  firstObject = [v7 firstObject];
+
+  return firstObject;
+}
+
+- (id)trashVoicemails:(id)voicemails
+{
+  v30 = *MEMORY[0x277D85DE8];
+  voicemailsCopy = voicemails;
+  v6 = vm_framework_log(voicemailsCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v29 = voicemailsCopy;
+    _os_log_impl(&dword_2721BA000, v6, OS_LOG_TYPE_DEFAULT, "Perform trashed for voicemails %@", buf, 0xCu);
+  }
+
+  array = [MEMORY[0x277CBEB18] array];
+  array2 = [MEMORY[0x277CBEB18] array];
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v9 = voicemailsCopy;
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v24;
+    do
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        if (*v24 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        v14 = *(*(&v23 + 1) + 8 * i);
+        if (([v14 isTrashed] & 1) == 0)
+        {
+          v15 = [v14 mutableCopy];
+          [v15 setTrashed:1];
+          v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v15, "identifier")}];
+          [array2 addObject:v16];
+
+          v17 = [v15 copy];
+          [array addObject:v17];
+        }
+      }
+
+      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    }
+
+    while (v11);
+  }
+
+  v18 = [array copy];
   if ([array2 count])
   {
     internalClientQueue = [(VMVoicemailManager *)self internalClientQueue];
@@ -2488,9 +2553,7 @@ void __43__VMVoicemailManager_markVoicemailsAsRead___block_invoke(uint64_t a1)
     dispatch_async(internalClientQueue, v21);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v18;
 }
 
 void __38__VMVoicemailManager_trashVoicemails___block_invoke(uint64_t a1)
@@ -2501,16 +2564,14 @@ void __38__VMVoicemailManager_trashVoicemails___block_invoke(uint64_t a1)
 
 - (id)removeVoicemailFromTrash:(id)trash
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   trashCopy = trash;
   v4 = MEMORY[0x277CBEA60];
   trashCopy2 = trash;
   v6 = [v4 arrayWithObjects:&trashCopy count:1];
 
-  v7 = [(VMVoicemailManager *)self removeVoicemailsFromTrash:v6, trashCopy, v12];
+  v7 = [(VMVoicemailManager *)self removeVoicemailsFromTrash:v6, trashCopy, v11];
   firstObject = [v7 firstObject];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -2519,12 +2580,12 @@ void __38__VMVoicemailManager_trashVoicemails___block_invoke(uint64_t a1)
 {
   v29 = *MEMORY[0x277D85DE8];
   trashCopy = trash;
-  v5 = vm_framework_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = vm_framework_log(trashCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v28 = trashCopy;
-    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Remove voicemails %@ from trash", buf, 0xCu);
+    _os_log_impl(&dword_2721BA000, v6, OS_LOG_TYPE_DEFAULT, "Remove voicemails %@ from trash", buf, 0xCu);
   }
 
   array = [MEMORY[0x277CBEB18] array];
@@ -2532,79 +2593,77 @@ void __38__VMVoicemailManager_trashVoicemails___block_invoke(uint64_t a1)
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v7 = trashCopy;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v8)
+  v8 = trashCopy;
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v9)
   {
-    v9 = v8;
-    v10 = *v23;
+    v10 = v9;
+    v11 = *v23;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v10)
+        if (*v23 != v11)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * i);
-        if ([v12 isTrashed])
+        v13 = *(*(&v22 + 1) + 8 * i);
+        if ([v13 isTrashed])
         {
-          v13 = [v12 mutableCopy];
-          [v13 setTrashed:0];
-          v14 = [v13 copy];
-          [array addObject:v14];
+          v14 = [v13 mutableCopy];
+          [v14 setTrashed:0];
+          v15 = [v14 copy];
+          [array addObject:v15];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
-    while (v9);
+    while (v10);
   }
 
-  v15 = [array copy];
-  if ([v15 count])
+  v16 = [array copy];
+  if ([v16 count])
   {
     internalClientQueue = [(VMVoicemailManager *)self internalClientQueue];
     v19[0] = MEMORY[0x277D85DD0];
     v19[1] = 3221225472;
     v19[2] = __48__VMVoicemailManager_removeVoicemailsFromTrash___block_invoke;
     v19[3] = &unk_279E3D3F8;
-    v20 = v15;
+    v20 = v16;
     selfCopy = self;
     dispatch_async(internalClientQueue, v19);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v16;
 }
 
 void __48__VMVoicemailManager_removeVoicemailsFromTrash___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         v8 = [*(a1 + 40) serverConnection];
         [v8 removeVoicemailFromTrashWithIdentifier:{objc_msgSend(v7, "identifier")}];
 
@@ -2612,13 +2671,11 @@ void __48__VMVoicemailManager_removeVoicemailsFromTrash___block_invoke(uint64_t 
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)voicemailsUpdated:(id)updated
@@ -2638,12 +2695,12 @@ void __48__VMVoicemailManager_removeVoicemailsFromTrash___block_invoke(uint64_t 
 void __40__VMVoicemailManager_voicemailsUpdated___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) voicemails];
-  [*(a1 + 32) setVoicemails:*(a1 + 40)];
-  v3 = vm_framework_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = [*(a1 + 32) setVoicemails:*(a1 + 40)];
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client received voicemails updated message from vmd", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Client received voicemails updated message from vmd", v6, 2u);
   }
 
   [*(a1 + 32) call_voicemailsDidChange:v2];
@@ -2661,37 +2718,35 @@ void __40__VMVoicemailManager_voicemailsUpdated___block_invoke(uint64_t a1)
   dispatch_async(internalClientQueue, v6);
 }
 
-uint64_t __32__VMVoicemailManager_setOnline___block_invoke(uint64_t a1)
+uint64_t __32__VMVoicemailManager_setOnline___block_invoke(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  if (*(v2 + 14) != v3)
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  if (*(v3 + 14) != v4)
   {
-    *(v2 + 14) = v3;
+    *(v3 + 14) = v4;
   }
 
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if (*(*(a1 + 32) + 14))
     {
-      v5 = @"ONLINE";
+      v6 = @"ONLINE";
     }
 
     else
     {
-      v5 = @"OFFLINE";
+      v6 = @"OFFLINE";
     }
 
     v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "Client received online state change message from vmd. vmd is %@", &v8, 0xCu);
+    v9 = v6;
+    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Client received online state change message from vmd. vmd is %@", &v8, 0xCu);
   }
 
-  result = [*(a1 + 32) call_onlineStatusDidChange];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) call_onlineStatusDidChange];
 }
 
 - (void)setSubscribed:(BOOL)subscribed
@@ -2706,37 +2761,35 @@ uint64_t __32__VMVoicemailManager_setOnline___block_invoke(uint64_t a1)
   dispatch_async(internalClientQueue, v6);
 }
 
-uint64_t __36__VMVoicemailManager_setSubscribed___block_invoke(uint64_t a1)
+uint64_t __36__VMVoicemailManager_setSubscribed___block_invoke(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  if (*(v2 + 15) != v3)
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  if (*(v3 + 15) != v4)
   {
-    *(v2 + 15) = v3;
+    *(v3 + 15) = v4;
   }
 
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if (*(*(a1 + 32) + 15))
     {
-      v5 = @"SUBSCRIBED";
+      v6 = @"SUBSCRIBED";
     }
 
     else
     {
-      v5 = @"UNSUBSCRIBED";
+      v6 = @"UNSUBSCRIBED";
     }
 
     v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "Client received subscription state change message from vmd. vmd is %@", &v8, 0xCu);
+    v9 = v6;
+    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Client received subscription state change message from vmd. vmd is %@", &v8, 0xCu);
   }
 
-  result = [*(a1 + 32) call_subscriptionStateStatusDidChange];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) call_subscriptionStateStatusDidChange];
 }
 
 - (void)setTranscriptionServiceAvailable:(BOOL)available
@@ -2751,38 +2804,37 @@ uint64_t __36__VMVoicemailManager_setSubscribed___block_invoke(uint64_t a1)
   dispatch_async(internalClientQueue, v6);
 }
 
-uint64_t __55__VMVoicemailManager_setTranscriptionServiceAvailable___block_invoke(uint64_t result)
+void *__55__VMVoicemailManager_setTranscriptionServiceAvailable___block_invoke(void *result, uint64_t a2)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
-  v2 = *(result + 40);
-  if (*(v1 + 17) != v2)
+  v2 = result[4];
+  v3 = *(result + 40);
+  if (*(v2 + 17) != v3)
   {
-    v3 = result;
-    *(v1 + 17) = v2;
-    v4 = vm_framework_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v4 = result;
+    *(v2 + 17) = v3;
+    v5 = vm_framework_log(result, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(v3 + 40))
+      if (*(v4 + 40))
       {
-        v5 = @"Yes";
+        v6 = @"Yes";
       }
 
       else
       {
-        v5 = @"No";
+        v6 = @"No";
       }
 
       v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "Client received transcription service availability status change message from vmd. transcription service available is %@", &v7, 0xCu);
+      v8 = v6;
+      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Client received transcription service availability status change message from vmd. transcription service available is %@", &v7, 0xCu);
     }
 
-    [*(v3 + 32) call_transcriptionServiceStatusDidChange];
-    result = [*(v3 + 32) call_capabilitiesDidChange];
+    [v4[4] call_transcriptionServiceStatusDidChange];
+    return [v4[4] call_capabilitiesDidChange];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2804,65 +2856,64 @@ uint64_t __55__VMVoicemailManager_setTranscriptionServiceAvailable___block_invok
   dispatch_async(internalClientQueue, v13);
 }
 
-uint64_t __71__VMVoicemailManager_setTranscribing_fractionCompleted_totalUnitCount___block_invoke(uint64_t result)
+void *__71__VMVoicemailManager_setTranscribing_fractionCompleted_totalUnitCount___block_invoke(void *result, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
-  v2 = *(result + 56);
-  if (*(v1 + 18) != v2)
+  v19 = *MEMORY[0x277D85DE8];
+  v2 = result[4];
+  v3 = *(result + 56);
+  if (*(v2 + 18) != v3)
   {
-    v3 = result;
-    *(v1 + 18) = v2;
-    v4 = vm_framework_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v4 = result;
+    *(v2 + 18) = v3;
+    v5 = vm_framework_log(result, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(v3 + 56))
+      if (*(v4 + 56))
       {
-        v5 = @"Yes";
+        v6 = @"Yes";
       }
 
       else
       {
-        v5 = @"No";
+        v6 = @"No";
       }
 
-      v15 = 138412290;
-      v16 = v5;
-      _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "Client received transcribing state change message from vmd. transcribing is %@", &v15, 0xCu);
+      v17 = 138412290;
+      v18 = v6;
+      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Client received transcribing state change message from vmd. transcribing is %@", &v17, 0xCu);
     }
 
-    if (*(v3 + 56) == 1)
+    if (*(v4 + 56) == 1)
     {
-      v6 = [MEMORY[0x277CCAC48] progressWithTotalUnitCount:{objc_msgSend(*(v3 + 40), "unsignedLongValue")}];
-      v7 = *(v3 + 32);
-      v8 = *(v7 + 56);
-      *(v7 + 56) = v6;
+      v7 = [MEMORY[0x277CCAC48] progressWithTotalUnitCount:{objc_msgSend(v4[5], "unsignedLongValue")}];
+      v8 = v4[4];
+      v9 = *(v8 + 56);
+      *(v8 + 56) = v7;
 
-      v9 = [*(v3 + 40) unsignedLongValue];
-      [*(v3 + 48) doubleValue];
-      [*(*(v3 + 32) + 56) setCompletedUnitCount:(v10 * v9)];
-      v11 = vm_framework_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v10 = [v4[5] unsignedLongValue];
+      [v4[6] doubleValue];
+      v12 = [*(v4[4] + 56) setCompletedUnitCount:(v11 * v10)];
+      v14 = vm_framework_log(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(*(v3 + 32) + 56);
-        v15 = 138412290;
-        v16 = v12;
-        _os_log_impl(&dword_2721BA000, v11, OS_LOG_TYPE_DEFAULT, "Received progress from server: %@", &v15, 0xCu);
+        v15 = *(v4[4] + 56);
+        v17 = 138412290;
+        v18 = v15;
+        _os_log_impl(&dword_2721BA000, v14, OS_LOG_TYPE_DEFAULT, "Received progress from server: %@", &v17, 0xCu);
       }
     }
 
     else
     {
-      [*(*(v3 + 32) + 56) setCompletedUnitCount:{objc_msgSend(*(*(v3 + 32) + 56), "totalUnitCount")}];
-      v13 = *(v3 + 32);
-      v11 = *(v13 + 56);
-      *(v13 + 56) = 0;
+      [*(v4[4] + 56) setCompletedUnitCount:{objc_msgSend(*(v4[4] + 56), "totalUnitCount")}];
+      v16 = v4[4];
+      v14 = *(v16 + 56);
+      *(v16 + 56) = 0;
     }
 
-    result = [*(v3 + 32) call_transcribingStatusDidChange];
+    return [v4[4] call_transcribingStatusDidChange];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2880,35 +2931,33 @@ uint64_t __71__VMVoicemailManager_setTranscribing_fractionCompleted_totalUnitCou
   dispatch_async(internalClientQueue, v7);
 }
 
-void __51__VMVoicemailManager_setProgressFractionCompleted___block_invoke(uint64_t a1)
+void __51__VMVoicemailManager_setProgressFractionCompleted___block_invoke(uint64_t a1, uint64_t a2)
 {
   v13 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = @"No";
-    v4 = *(a1 + 40);
+    v4 = @"No";
+    v5 = *(a1 + 40);
     if (*(*(a1 + 32) + 18))
     {
-      v3 = @"Yes";
+      v4 = @"Yes";
     }
 
     v9 = 138412546;
-    v10 = v3;
+    v10 = v4;
     v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client received transcription progress fraction completed from vmd. transcribing is %@, fractionCompleted is %@", &v9, 0x16u);
+    v12 = v5;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client received transcription progress fraction completed from vmd. transcribing is %@, fractionCompleted is %@", &v9, 0x16u);
   }
 
-  v5 = *(a1 + 32);
-  if (*(v5 + 18) == 1)
+  v6 = *(a1 + 32);
+  if (*(v6 + 18) == 1)
   {
-    v6 = [*(v5 + 56) totalUnitCount];
+    v7 = [*(v6 + 56) totalUnitCount];
     [*(a1 + 40) doubleValue];
-    [*(*(a1 + 32) + 56) setCompletedUnitCount:(v7 * v6)];
+    [*(*(a1 + 32) + 56) setCompletedUnitCount:(v8 * v7)];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setProgressTotalUnitCount:(id)count
@@ -2925,32 +2974,30 @@ void __51__VMVoicemailManager_setProgressFractionCompleted___block_invoke(uint64
   dispatch_async(internalClientQueue, v7);
 }
 
-void __48__VMVoicemailManager_setProgressTotalUnitCount___block_invoke(uint64_t a1)
+void __48__VMVoicemailManager_setProgressTotalUnitCount___block_invoke(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = @"No";
-    v4 = *(a1 + 40);
+    v4 = @"No";
+    v5 = *(a1 + 40);
     if (*(*(a1 + 32) + 18))
     {
-      v3 = @"Yes";
+      v4 = @"Yes";
     }
 
     v6 = 138412546;
-    v7 = v3;
+    v7 = v4;
     v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client received transcription progress total count from vmd. transcribing is %@, totalUnitCount is %@", &v6, 0x16u);
+    v9 = v5;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client received transcription progress total count from vmd. transcribing is %@, totalUnitCount is %@", &v6, 0x16u);
   }
 
   if (*(*(a1 + 32) + 18) == 1)
   {
     [*(*(a1 + 32) + 56) setTotalUnitCount:{objc_msgSend(*(a1 + 40), "unsignedLongValue")}];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMessageWaiting:(BOOL)waiting
@@ -2965,34 +3012,32 @@ void __48__VMVoicemailManager_setProgressTotalUnitCount___block_invoke(uint64_t 
   dispatch_async(internalClientQueue, v6);
 }
 
-void __40__VMVoicemailManager_setMessageWaiting___block_invoke(uint64_t a1)
+void __40__VMVoicemailManager_setMessageWaiting___block_invoke(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  if (*(v1 + 13) != v2)
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  if (*(v2 + 13) != v3)
   {
-    *(v1 + 13) = v2;
-    v4 = vm_framework_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    *(v2 + 13) = v3;
+    v5 = vm_framework_log(a1, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       if (*(a1 + 40))
       {
-        v5 = @"MESSAGE WAITING";
+        v6 = @"MESSAGE WAITING";
       }
 
       else
       {
-        v5 = @"NO MESSAGE WAITING";
+        v6 = @"NO MESSAGE WAITING";
       }
 
       v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "Client received message waiting change message from vmd. vmd has %@", &v7, 0xCu);
+      v8 = v6;
+      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Client received message waiting change message from vmd. vmd has %@", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSyncInProgress:(BOOL)progress
@@ -3007,37 +3052,36 @@ void __40__VMVoicemailManager_setMessageWaiting___block_invoke(uint64_t a1)
   dispatch_async(internalClientQueue, v6);
 }
 
-uint64_t __40__VMVoicemailManager_setSyncInProgress___block_invoke(uint64_t result)
+void *__40__VMVoicemailManager_setSyncInProgress___block_invoke(void *result, uint64_t a2)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
-  v2 = *(result + 40);
-  if (*(v1 + 16) != v2)
+  v2 = result[4];
+  v3 = *(result + 40);
+  if (*(v2 + 16) != v3)
   {
-    v3 = result;
-    *(v1 + 16) = v2;
-    v4 = vm_framework_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v4 = result;
+    *(v2 + 16) = v3;
+    v5 = vm_framework_log(result, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(v3 + 40))
+      if (*(v4 + 40))
       {
-        v5 = @"SYNCHRONIZING";
+        v6 = @"SYNCHRONIZING";
       }
 
       else
       {
-        v5 = @"NOT SYNCHRONIZING";
+        v6 = @"NOT SYNCHRONIZING";
       }
 
       v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "Client received sync in progress change message from vmd. vmd is %@", &v7, 0xCu);
+      v8 = v6;
+      _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Client received sync in progress change message from vmd. vmd is %@", &v7, 0xCu);
     }
 
-    result = [*(v3 + 32) call_syncInProgresDidChange];
+    return [v4[4] call_syncInProgresDidChange];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3056,46 +3100,45 @@ uint64_t __40__VMVoicemailManager_setSyncInProgress___block_invoke(uint64_t resu
   dispatch_async(internalClientQueue, block);
 }
 
-uint64_t __51__VMVoicemailManager_setStorageUsage_storageUsage___block_invoke(uint64_t a1)
+void *__51__VMVoicemailManager_setStorageUsage_storageUsage___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
-    v11 = 138412546;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v4;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "Client received storage usage changed message for account UUID %@, storage usage is %@%%", &v11, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
+    v12 = 138412546;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "Client received storage usage changed message for account UUID %@, storage usage is %@%%", &v12, 0x16u);
   }
 
   result = [*(a1 + 40) call_accountStorageUsageChanged:*(a1 + 32) storageUsage:*(a1 + 48)];
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  if (*(v6 + 48) != v7)
+  v8 = *(a1 + 40);
+  v9 = *(a1 + 48);
+  if (*(v8 + 48) != v9)
   {
-    *(v6 + 48) = v7;
-    v8 = vm_framework_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    *(v8 + 48) = v9;
+    v10 = vm_framework_log(result, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_2721BA000, v8, OS_LOG_TYPE_DEFAULT, "Client received storage usage changed message from vmd. storage usage is %@", &v11, 0xCu);
+      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_impl(&dword_2721BA000, v10, OS_LOG_TYPE_DEFAULT, "Client received storage usage changed message from vmd. storage usage is %@", &v12, 0xCu);
     }
 
-    result = [*(a1 + 40) call_managerStorageUsageDidChange];
+    return [*(a1 + 40) call_managerStorageUsageDidChange];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)obliterate
 {
-  v3 = vm_framework_log();
+  v3 = vm_framework_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -3109,8 +3152,8 @@ uint64_t __51__VMVoicemailManager_setStorageUsage_storageUsage___block_invoke(ui
 void __32__VMVoicemailManager_obliterate__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = vm_framework_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = vm_framework_log(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __32__VMVoicemailManager_obliterate__block_invoke_cold_1();
   }
@@ -3183,16 +3226,16 @@ void __38__VMVoicemailManager_insertVoicemail___block_invoke(uint64_t a1)
 void __62__VMVoicemailManager_createTranscription_transcription_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __62__VMVoicemailManager_createTranscription_transcription_error___block_invoke_cold_1(a1);
+    __62__VMVoicemailManager_createTranscription_transcription_error___block_invoke_cold_1();
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 0;
-  v5 = *(*(a1 + 48) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v3;
+  v6 = *(*(a1 + 48) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v3;
 }
 
 - (id)createPersonalizedTranscript:(id)transcript error:(id *)error
@@ -3242,35 +3285,35 @@ void __62__VMVoicemailManager_createTranscription_transcription_error___block_in
 void __57__VMVoicemailManager_createPersonalizedTranscript_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __62__VMVoicemailManager_createTranscription_transcription_error___block_invoke_cold_1(a1);
+    __62__VMVoicemailManager_createTranscription_transcription_error___block_invoke_cold_1();
   }
 
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v3;
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v3;
 }
 
 void __57__VMVoicemailManager_createPersonalizedTranscript_error___block_invoke_107(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v6 = a3;
   v7 = a4;
-  v8 = vm_framework_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = vm_framework_log(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     __57__VMVoicemailManager_createPersonalizedTranscript_error___block_invoke_107_cold_1();
   }
 
-  v9 = *(*(a1 + 32) + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v6;
-  v11 = v6;
+  v10 = *(*(a1 + 32) + 8);
+  v11 = *(v10 + 40);
+  *(v10 + 40) = v6;
+  v12 = v6;
 
-  v12 = *(*(a1 + 40) + 8);
-  v13 = *(v12 + 40);
-  *(v12 + 40) = v7;
+  v13 = *(*(a1 + 40) + 8);
+  v14 = *(v13 + 40);
+  *(v13 + 40) = v7;
 }
 
 - (void)sendStateRequestForAccountUUID:(id)d
@@ -3324,11 +3367,11 @@ void __53__VMVoicemailManager_sendStateRequestForAccountUUID___block_invoke(uint
 
 void __51__VMVoicemailManager_getServiceInfoForAccountUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = vm_framework_log();
+  v2 = a2;
+  v4 = vm_framework_log(v2, v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __51__VMVoicemailManager_getServiceInfoForAccountUUID___block_invoke_cold_1(a1);
+    __51__VMVoicemailManager_getServiceInfoForAccountUUID___block_invoke_cold_1();
   }
 }
 
@@ -3378,15 +3421,15 @@ void __51__VMVoicemailManager_getServiceInfoForAccountUUID___block_invoke(uint64
 void __60__VMVoicemailManager_setAccountProperties_properties_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __60__VMVoicemailManager_setAccountProperties_properties_error___block_invoke_cold_1(a1);
+    __60__VMVoicemailManager_setAccountProperties_properties_error___block_invoke_cold_1();
   }
 
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v3;
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v3;
 }
 
 - (void)performSynchronousBlock:(id)block
@@ -3455,8 +3498,8 @@ void __60__VMVoicemailManager_setAccountProperties_properties_error___block_invo
 void __35__VMVoicemailManager_fetchAccounts__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = vm_framework_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = vm_framework_log(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_16_cold_1();
   }
@@ -3524,11 +3567,11 @@ LABEL_7:
 
 void __42__VMVoicemailManager_isAccountSubscribed___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = vm_framework_log();
+  v2 = a2;
+  v4 = vm_framework_log(v2, v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __42__VMVoicemailManager_isAccountSubscribed___block_invoke_cold_1(a1);
+    __42__VMVoicemailManager_isAccountSubscribed___block_invoke_cold_1();
   }
 }
 
@@ -3561,11 +3604,11 @@ void __42__VMVoicemailManager_isAccountSubscribed___block_invoke(uint64_t a1, vo
 
 void __38__VMVoicemailManager_isAccountOnline___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = vm_framework_log();
+  v2 = a2;
+  v4 = vm_framework_log(v2, v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __38__VMVoicemailManager_isAccountOnline___block_invoke_cold_1(a1);
+    __38__VMVoicemailManager_isAccountOnline___block_invoke_cold_1();
   }
 }
 
@@ -3598,11 +3641,11 @@ void __38__VMVoicemailManager_isAccountOnline___block_invoke(uint64_t a1, void *
 
 void __61__VMVoicemailManager_isCallVoicemailSupportedForAccountUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = vm_framework_log();
+  v2 = a2;
+  v4 = vm_framework_log(v2, v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __61__VMVoicemailManager_isCallVoicemailSupportedForAccountUUID___block_invoke_cold_1(a1);
+    __61__VMVoicemailManager_isCallVoicemailSupportedForAccountUUID___block_invoke_cold_1();
   }
 }
 
@@ -3635,11 +3678,11 @@ void __61__VMVoicemailManager_isCallVoicemailSupportedForAccountUUID___block_inv
 
 void __62__VMVoicemailManager_isPasscodeChangeSupportedForAccountUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = vm_framework_log();
+  v2 = a2;
+  v4 = vm_framework_log(v2, v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __62__VMVoicemailManager_isPasscodeChangeSupportedForAccountUUID___block_invoke_cold_1(a1);
+    __62__VMVoicemailManager_isPasscodeChangeSupportedForAccountUUID___block_invoke_cold_1();
   }
 }
 
@@ -3672,11 +3715,11 @@ void __62__VMVoicemailManager_isPasscodeChangeSupportedForAccountUUID___block_in
 
 void __58__VMVoicemailManager_minimumPasscodeLengthForAccountUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = vm_framework_log();
+  v2 = a2;
+  v4 = vm_framework_log(v2, v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __58__VMVoicemailManager_minimumPasscodeLengthForAccountUUID___block_invoke_cold_1(a1);
+    __58__VMVoicemailManager_minimumPasscodeLengthForAccountUUID___block_invoke_cold_1();
   }
 }
 
@@ -3709,11 +3752,11 @@ void __58__VMVoicemailManager_minimumPasscodeLengthForAccountUUID___block_invoke
 
 void __58__VMVoicemailManager_maximumPasscodeLengthForAccountUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = vm_framework_log();
+  v2 = a2;
+  v4 = vm_framework_log(v2, v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __58__VMVoicemailManager_maximumPasscodeLengthForAccountUUID___block_invoke_cold_1(a1);
+    __58__VMVoicemailManager_maximumPasscodeLengthForAccountUUID___block_invoke_cold_1();
   }
 }
 
@@ -3745,10 +3788,10 @@ void __58__VMVoicemailManager_maximumPasscodeLengthForAccountUUID___block_invoke
 void __60__VMVoicemailManager_setPasscode_forAccountUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __60__VMVoicemailManager_setPasscode_forAccountUUID_completion___block_invoke_cold_1(a1);
+    __60__VMVoicemailManager_setPasscode_forAccountUUID_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -3758,17 +3801,16 @@ void __60__VMVoicemailManager_setPasscode_forAccountUUID_completion___block_invo
 {
   v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v5 = vm_framework_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = vm_framework_log(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Received reply for accountUUID: %@", &v8, 0xCu);
+    v9 = v7;
+    _os_log_impl(&dword_2721BA000, v6, OS_LOG_TYPE_DEFAULT, "Received reply for accountUUID: %@", &v8, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)storageUsageForAccountUUID:(id)d error:(id *)error
@@ -3816,31 +3858,30 @@ void __60__VMVoicemailManager_setPasscode_forAccountUUID_completion___block_invo
 void __55__VMVoicemailManager_storageUsageForAccountUUID_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __55__VMVoicemailManager_storageUsageForAccountUUID_error___block_invoke_cold_1(a1);
+    __55__VMVoicemailManager_storageUsageForAccountUUID_error___block_invoke_cold_1();
   }
 
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v3;
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v3;
 }
 
 - (void)updateAccounts:(id)accounts
 {
   v9 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
-  v5 = vm_framework_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = vm_framework_log(accountsCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
     v8 = accountsCopy;
-    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "Updating accounts: %@", &v7, 0xCu);
+    _os_log_impl(&dword_2721BA000, v6, OS_LOG_TYPE_DEFAULT, "Updating accounts: %@", &v7, 0xCu);
   }
 
   [(VMVoicemailManager *)self setAccounts:accountsCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isGreetingChangeSupportedForAccountUUID:(id)d
@@ -3872,11 +3913,11 @@ void __55__VMVoicemailManager_storageUsageForAccountUUID_error___block_invoke(ui
 
 void __62__VMVoicemailManager_isGreetingChangeSupportedForAccountUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = vm_framework_log();
+  v2 = a2;
+  v4 = vm_framework_log(v2, v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __62__VMVoicemailManager_isGreetingChangeSupportedForAccountUUID___block_invoke_cold_1(a1);
+    __62__VMVoicemailManager_isGreetingChangeSupportedForAccountUUID___block_invoke_cold_1();
   }
 }
 
@@ -3909,11 +3950,11 @@ void __62__VMVoicemailManager_isGreetingChangeSupportedForAccountUUID___block_in
 
 void __60__VMVoicemailManager_maximumGreetingDurationForAccountUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = vm_framework_log();
+  v2 = a2;
+  v4 = vm_framework_log(v2, v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __60__VMVoicemailManager_maximumGreetingDurationForAccountUUID___block_invoke_cold_1(a1);
+    __60__VMVoicemailManager_maximumGreetingDurationForAccountUUID___block_invoke_cold_1();
   }
 }
 
@@ -3942,10 +3983,10 @@ void __60__VMVoicemailManager_maximumGreetingDurationForAccountUUID___block_invo
 void __56__VMVoicemailManager_greetingForAccountUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __56__VMVoicemailManager_greetingForAccountUUID_completion___block_invoke_cold_1(a1);
+    __56__VMVoicemailManager_greetingForAccountUUID_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -3977,10 +4018,10 @@ void __56__VMVoicemailManager_greetingForAccountUUID_completion___block_invoke(u
 void __60__VMVoicemailManager_setGreeting_forAccountUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __60__VMVoicemailManager_setPasscode_forAccountUUID_completion___block_invoke_cold_1(a1);
+    __60__VMVoicemailManager_setPasscode_forAccountUUID_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -3990,12 +4031,12 @@ void __60__VMVoicemailManager_setGreeting_forAccountUUID_completion___block_invo
 {
   v13 = *MEMORY[0x277D85DE8];
   carrierCopy = carrier;
-  v5 = vm_framework_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = vm_framework_log(carrierCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v12 = carrierCopy;
-    _os_log_impl(&dword_2721BA000, v5, OS_LOG_TYPE_DEFAULT, "greetingChangedByCarrier: %@", buf, 0xCu);
+    _os_log_impl(&dword_2721BA000, v6, OS_LOG_TYPE_DEFAULT, "greetingChangedByCarrier: %@", buf, 0xCu);
   }
 
   internalClientQueue = [(VMVoicemailManager *)self internalClientQueue];
@@ -4005,10 +4046,8 @@ void __60__VMVoicemailManager_setGreeting_forAccountUUID_completion___block_invo
   v9[3] = &unk_279E3D3F8;
   v9[4] = self;
   v10 = carrierCopy;
-  v7 = carrierCopy;
+  v8 = carrierCopy;
   dispatch_async(internalClientQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)messageCountForMailboxType:(int64_t)type error:(id *)error
@@ -4056,16 +4095,16 @@ void __60__VMVoicemailManager_setGreeting_forAccountUUID_completion___block_invo
 void __55__VMVoicemailManager_messageCountForMailboxType_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __55__VMVoicemailManager_messageCountForMailboxType_error___block_invoke_cold_1();
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 0x7FFFFFFFFFFFFFFFLL;
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v3;
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v3;
 }
 
 - (void)messageCountForMailboxType:(int64_t)type completion:(id)completion
@@ -4090,8 +4129,8 @@ void __55__VMVoicemailManager_messageCountForMailboxType_error___block_invoke(ui
 void __60__VMVoicemailManager_messageCountForMailboxType_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __55__VMVoicemailManager_messageCountForMailboxType_error___block_invoke_cold_1();
   }
@@ -4099,26 +4138,89 @@ void __60__VMVoicemailManager_messageCountForMailboxType_completion___block_invo
   (*(*(a1 + 32) + 16))();
 }
 
+- (int64_t)messageCountForMailboxType:(int64_t)type read:(BOOL)read error:(id *)error
+{
+  readCopy = read;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__0;
+  v18 = __Block_byref_object_dispose__0;
+  v19 = 0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __60__VMVoicemailManager_messageCountForMailboxType_read_error___block_invoke;
+  v13[3] = &unk_279E3D798;
+  v13[4] = &v20;
+  v13[5] = &v14;
+  v8 = [(VMVoicemailManager *)self synchronousServerConnectionWithErrorHandler:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __60__VMVoicemailManager_messageCountForMailboxType_read_error___block_invoke_143;
+  v12[3] = &unk_279E3D680;
+  v12[4] = &v20;
+  [v8 messageCountForMailboxType:type read:readCopy reply:v12];
+
+  if (error)
+  {
+    v9 = v15[5];
+    if (v9)
+    {
+      *error = v9;
+    }
+  }
+
+  v10 = v21[3];
+  _Block_object_dispose(&v14, 8);
+
+  _Block_object_dispose(&v20, 8);
+  return v10;
+}
+
 void __60__VMVoicemailManager_messageCountForMailboxType_read_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __55__VMVoicemailManager_messageCountForMailboxType_error___block_invoke_cold_1();
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 0x7FFFFFFFFFFFFFFFLL;
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v3;
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v3;
+}
+
+- (void)messageCountForMailboxType:(int64_t)type read:(BOOL)read completion:(id)completion
+{
+  readCopy = read;
+  completionCopy = completion;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __65__VMVoicemailManager_messageCountForMailboxType_read_completion___block_invoke;
+  v14[3] = &unk_279E3D078;
+  v9 = completionCopy;
+  v15 = v9;
+  v10 = [(VMVoicemailManager *)self asynchronousServerConnectionWithErrorHandler:v14];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __65__VMVoicemailManager_messageCountForMailboxType_read_completion___block_invoke_144;
+  v12[3] = &unk_279E3D7C0;
+  v13 = v9;
+  v11 = v9;
+  [v10 messageCountForMailboxType:type read:readCopy reply:v12];
 }
 
 void __65__VMVoicemailManager_messageCountForMailboxType_read_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __55__VMVoicemailManager_messageCountForMailboxType_error___block_invoke_cold_1();
   }
@@ -4174,55 +4276,95 @@ void __65__VMVoicemailManager_messageCountForMailboxType_read_completion___block
 void __64__VMVoicemailManager_messagesForMailboxType_limit_offset_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __64__VMVoicemailManager_messagesForMailboxType_limit_offset_error___block_invoke_cold_1();
   }
 
-  v5 = *(*(a1 + 32) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = 0;
+  v6 = *(*(a1 + 32) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = 0;
 
-  v7 = *(*(a1 + 40) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v3;
+  v8 = *(*(a1 + 40) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v3;
 }
 
 uint64_t __64__VMVoicemailManager_messagesForMailboxType_limit_offset_error___block_invoke_145(uint64_t a1, void *a2)
 {
-  v3 = [a2 copy];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 copy];
 
   return MEMORY[0x2821F96F8]();
+}
+
+- (id)messagesForMailboxType:(int64_t)type read:(BOOL)read limit:(int64_t)limit offset:(int64_t)offset error:(id *)error
+{
+  readCopy = read;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__0;
+  v28 = __Block_byref_object_dispose__0;
+  v29 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__0;
+  v22 = __Block_byref_object_dispose__0;
+  v23 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __69__VMVoicemailManager_messagesForMailboxType_read_limit_offset_error___block_invoke;
+  v17[3] = &unk_279E3D798;
+  v17[4] = &v24;
+  v17[5] = &v18;
+  v12 = [(VMVoicemailManager *)self synchronousServerConnectionWithErrorHandler:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __69__VMVoicemailManager_messagesForMailboxType_read_limit_offset_error___block_invoke_146;
+  v16[3] = &unk_279E3D630;
+  v16[4] = &v24;
+  [v12 messagesForMailboxType:type read:readCopy limit:limit offset:offset reply:v16];
+
+  if (error)
+  {
+    v13 = v19[5];
+    if (v13)
+    {
+      *error = v13;
+    }
+  }
+
+  v14 = v25[5];
+  _Block_object_dispose(&v18, 8);
+
+  _Block_object_dispose(&v24, 8);
+
+  return v14;
 }
 
 void __69__VMVoicemailManager_messagesForMailboxType_read_limit_offset_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __64__VMVoicemailManager_messagesForMailboxType_limit_offset_error___block_invoke_cold_1();
   }
 
-  v5 = *(*(a1 + 32) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = 0;
+  v6 = *(*(a1 + 32) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = 0;
 
-  v7 = *(*(a1 + 40) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v3;
+  v8 = *(*(a1 + 40) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v3;
 }
 
 uint64_t __69__VMVoicemailManager_messagesForMailboxType_read_limit_offset_error___block_invoke_146(uint64_t a1, void *a2)
 {
-  v3 = [a2 copy];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -4241,6 +4383,16 @@ uint64_t __69__VMVoicemailManager_messagesForMailboxType_read_limit_offset_error
   dCopy = d;
   serverConnection = [(VMVoicemailManager *)self serverConnection];
   [serverConnection reportTranscriptionProblemForUUID:dCopy];
+}
+
+- (void)reportTranscriptionRatedAccurate:(BOOL)accurate forVoicemail:(id)voicemail
+{
+  accurateCopy = accurate;
+  voicemailCopy = voicemail;
+  serverConnection = [(VMVoicemailManager *)self serverConnection];
+  identifier = [voicemailCopy identifier];
+
+  [serverConnection reportTranscriptionRatedAccurate:accurateCopy forIdentifier:identifier];
 }
 
 - (void)reportTranscriptionRatedAccurateForUUID:(BOOL)d forVoicemailUUID:(id)iD
@@ -4264,76 +4416,25 @@ void __79__VMVoicemailManager_reportTranscriptionRatedAccurateForUUID_forVoicema
   [v2 reportTranscriptionRatedAccurateForUUID:*(a1 + 48) forVoicemailUUID:*(a1 + 40)];
 }
 
-void __38__VMVoicemailManager_serverConnection__block_invoke_cold_1()
+void __62__VMVoicemailManager_createTranscription_transcription_error___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_2721BA000, v0, v1, "Received error while communicating with vmd: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __73__VMVoicemailManager_requestInitialStateIfNecessaryAndSendNotifications___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_2721BA000, v0, v1, "Cannot ping due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_16_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_2721BA000, v0, v1, "Could not retrieve accounts due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __103__VMVoicemailManager__fetchInitialStateIfNecessaryWithForce_waitStates_waitMails_waitAccounts_session___block_invoke_21_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_2721BA000, v0, v1, "Could not retrieve states due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __32__VMVoicemailManager_obliterate__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_2721BA000, v0, v1, "Error resetting VVM: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __62__VMVoicemailManager_createTranscription_transcription_error___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not create transcription for %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not create transcription for %@ due to error %@");
 }
 
-void __57__VMVoicemailManager_createPersonalizedTranscript_error___block_invoke_107_cold_1()
+void __51__VMVoicemailManager_getServiceInfoForAccountUUID___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_2721BA000, v0, v1, "createPersonalizedTranscript: Results %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __51__VMVoicemailManager_getServiceInfoForAccountUUID___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not retrieve service state for account UUID %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not retrieve service state for account UUID %@ due to error %@");
 }
 
-void __60__VMVoicemailManager_setAccountProperties_properties_error___block_invoke_cold_1(uint64_t a1)
+void __60__VMVoicemailManager_setAccountProperties_properties_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not set properties for account UUID %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not set properties for account UUID %@ due to error %@");
 }
 
 - (void)performAtomicAccessorBlock:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
@@ -4342,108 +4443,81 @@ void __60__VMVoicemailManager_setAccountProperties_properties_error___block_invo
   [v4 handleFailureInMethod:a1 object:a2 file:@"VMVoicemailManager.m" lineNumber:1230 description:{@"Invalid parameter not satisfying: %@", @"block"}];
 }
 
-void __42__VMVoicemailManager_isAccountSubscribed___block_invoke_cold_1(uint64_t a1)
+void __42__VMVoicemailManager_isAccountSubscribed___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not retrieve subscribed status for account UUID %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not retrieve subscribed status for account UUID %@ due to error %@");
 }
 
-void __38__VMVoicemailManager_isAccountOnline___block_invoke_cold_1(uint64_t a1)
+void __38__VMVoicemailManager_isAccountOnline___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not retrieve online status for account UUID %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not retrieve online status for account UUID %@ due to error %@");
 }
 
-void __61__VMVoicemailManager_isCallVoicemailSupportedForAccountUUID___block_invoke_cold_1(uint64_t a1)
+void __61__VMVoicemailManager_isCallVoicemailSupportedForAccountUUID___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not retrieve call voicemail status for account UUID %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not retrieve call voicemail status for account UUID %@ due to error %@");
 }
 
-void __62__VMVoicemailManager_isPasscodeChangeSupportedForAccountUUID___block_invoke_cold_1(uint64_t a1)
+void __62__VMVoicemailManager_isPasscodeChangeSupportedForAccountUUID___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not determine whether passcode change is supported for account UUID %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not determine whether passcode change is supported for account UUID %@ due to error %@");
 }
 
-void __58__VMVoicemailManager_minimumPasscodeLengthForAccountUUID___block_invoke_cold_1(uint64_t a1)
+void __58__VMVoicemailManager_minimumPasscodeLengthForAccountUUID___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not retrieve minimum passcode length for account UUID %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not retrieve minimum passcode length for account UUID %@ due to error %@");
 }
 
-void __58__VMVoicemailManager_maximumPasscodeLengthForAccountUUID___block_invoke_cold_1(uint64_t a1)
+void __58__VMVoicemailManager_maximumPasscodeLengthForAccountUUID___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not retrieve maximum password length for account UUID %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not retrieve maximum password length for account UUID %@ due to error %@");
 }
 
-void __60__VMVoicemailManager_setPasscode_forAccountUUID_completion___block_invoke_cold_1(uint64_t a1)
+void __60__VMVoicemailManager_setPasscode_forAccountUUID_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not set passcode for account UUID %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not set passcode for account UUID %@ due to error %@");
 }
 
-void __55__VMVoicemailManager_storageUsageForAccountUUID_error___block_invoke_cold_1(uint64_t a1)
+void __55__VMVoicemailManager_storageUsageForAccountUUID_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not retrieve storage usage for account UUID %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not retrieve storage usage for account UUID %@ due to error %@");
 }
 
-void __62__VMVoicemailManager_isGreetingChangeSupportedForAccountUUID___block_invoke_cold_1(uint64_t a1)
+void __62__VMVoicemailManager_isGreetingChangeSupportedForAccountUUID___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not whether greeting change is supported for account UUID %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not whether greeting change is supported for account UUID %@ due to error %@");
 }
 
-void __60__VMVoicemailManager_maximumGreetingDurationForAccountUUID___block_invoke_cold_1(uint64_t a1)
+void __60__VMVoicemailManager_maximumGreetingDurationForAccountUUID___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not retrieve maximum greeting duration for account UUID %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not retrieve maximum greeting duration for account UUID %@ due to error %@");
 }
 
-void __56__VMVoicemailManager_greetingForAccountUUID_completion___block_invoke_cold_1(uint64_t a1)
+void __56__VMVoicemailManager_greetingForAccountUUID_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2721BA000, v1, v2, "Could not retrieve greeting for account UUID %@ due to error %@");
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __55__VMVoicemailManager_messageCountForMailboxType_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_2721BA000, v0, v1, "Could not retrieve message count due to error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __64__VMVoicemailManager_messagesForMailboxType_limit_offset_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_2721BA000, v0, v1, "Could not retrieve messages due to error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2721BA000, v0, v1, "Could not retrieve greeting for account UUID %@ due to error %@");
 }
 
 @end

@@ -486,7 +486,6 @@ LABEL_17:
   has = self->_has;
   if ((has & 0x200) != 0)
   {
-    rttMinVal = self->_rttMinVal;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x100) == 0)
@@ -506,7 +505,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rttMaxVal = self->_rttMaxVal;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -521,7 +519,6 @@ LABEL_4:
   }
 
 LABEL_21:
-  rttAvgVal = self->_rttAvgVal;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -536,7 +533,6 @@ LABEL_5:
   }
 
 LABEL_22:
-  rtt90perc = self->_rtt90perc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -551,7 +547,6 @@ LABEL_6:
   }
 
 LABEL_23:
-  retryIntervalMin = self->_retryIntervalMin;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -566,7 +561,6 @@ LABEL_7:
   }
 
 LABEL_24:
-  retryIntervalMax = self->_retryIntervalMax;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -581,7 +575,6 @@ LABEL_8:
   }
 
 LABEL_25:
-  retryIntervalAvg = self->_retryIntervalAvg;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -596,7 +589,6 @@ LABEL_9:
   }
 
 LABEL_26:
-  retryInterval90perc = self->_retryInterval90perc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -611,7 +603,6 @@ LABEL_10:
   }
 
 LABEL_27:
-  txDelayMin = self->_txDelayMin;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -626,7 +617,6 @@ LABEL_11:
   }
 
 LABEL_28:
-  txDelayMax = self->_txDelayMax;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -641,7 +631,6 @@ LABEL_12:
   }
 
 LABEL_29:
-  txDelayAvg = self->_txDelayAvg;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -656,7 +645,6 @@ LABEL_13:
   }
 
 LABEL_30:
-  txDelay90perc = self->_txDelay90perc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -671,7 +659,6 @@ LABEL_14:
   }
 
 LABEL_31:
-  listeningTime = self->_listeningTime;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -686,7 +673,6 @@ LABEL_15:
   }
 
 LABEL_32:
-  receivingTime = self->_receivingTime;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x400) == 0)
   {
@@ -697,7 +683,6 @@ LABEL_16:
   }
 
 LABEL_33:
-  transmittingTime = self->_transmittingTime;
   PBDataWriterWriteUint32Field();
   v5 = toCopy;
 

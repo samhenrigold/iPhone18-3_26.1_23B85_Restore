@@ -2,6 +2,7 @@
 + (BOOL)writePixelBufferTo:(id)to from:(__CVBuffer *)from fileType:(id)type error:(id *)error;
 + (__CVBuffer)createPixelBufferFrom:(id)from format:(unsigned int)format;
 + (__CVBuffer)createPixelBufferFrom:(id)from size:(CGSize)size format:(unsigned int)format;
++ (__CVBuffer)createPixelBufferRotatedUpFrom:(__CVBuffer *)from fromOrientation:(unsigned int)orientation;
 + (__CVBuffer)createPixelBufferWithSize:(CGSize)size format:(unsigned int)format;
 + (id)reduceFormatTo:(id)to;
 - (_TtC19MicroLocationDaemon17ULVisionUtilities)init;
@@ -33,40 +34,46 @@
   return v9;
 }
 
++ (__CVBuffer)createPixelBufferRotatedUpFrom:(__CVBuffer *)from fromOrientation:(unsigned int)orientation
+{
+  v4 = *&orientation;
+  fromCopy = from;
+  v6 = _s19MicroLocationDaemon17ULVisionUtilitiesC26createPixelBufferRotatedUp4from0K11OrientationSo11CVBufferRefaSgAH_So015CGImagePropertyL0VtFZ_0(fromCopy, v4);
+
+  return v6;
+}
+
 + (__CVBuffer)createPixelBufferFrom:(id)from format:(unsigned int)format
 {
   v5 = sub_2592120B0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_259212080();
-  v10 = _s19MicroLocationDaemon17ULVisionUtilitiesC17createPixelBuffer4from6formatSo11CVBufferRefaSg10Foundation3URLV_s6UInt32VtFZ_0(v9, format);
-  (*(v6 + 8))(v9, v5);
+  v9 = _s19MicroLocationDaemon17ULVisionUtilitiesC17createPixelBuffer4from6formatSo11CVBufferRefaSg10Foundation3URLV_s6UInt32VtFZ_0(v8, format);
+  (*(v6 + 8))(v8, v5);
 
-  return v10;
+  return v9;
 }
 
 + (BOOL)writePixelBufferTo:(id)to from:(__CVBuffer *)from fileType:(id)type error:(id *)error
 {
   v8 = sub_2592124F0();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v8);
-  v12 = &v21[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v13 = sub_2592120B0();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
-  v17 = &v21[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v11 = &v19[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v12 = sub_2592120B0();
+  v13 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12);
+  v15 = &v19[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_259212080();
   fromCopy = from;
   typeCopy = type;
   sub_2592124E0();
 
-  sub_2591F7C54(v17, fromCopy);
-  (*(v9 + 8))(v12, v8);
-  (*(v14 + 8))(v17, v13);
+  sub_2591F7C54(v15, fromCopy);
+  (*(v9 + 8))(v11, v8);
+  (*(v13 + 8))(v15, v12);
   return 1;
 }
 

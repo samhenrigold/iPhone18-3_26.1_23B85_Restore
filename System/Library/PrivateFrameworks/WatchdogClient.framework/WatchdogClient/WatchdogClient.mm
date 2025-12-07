@@ -1,6 +1,5 @@
-void wd_server_handler(uint64_t a1, uint64_t a2)
+void wd_server_handler(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
   if (a2 != 1)
   {
     if (a2 != 2)
@@ -14,8 +13,6 @@ void wd_server_handler(uint64_t a1, uint64_t a2)
       mach_msg_destroy(msg);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _WDOGClient_PollIsAlive()
@@ -24,14 +21,14 @@ uint64_t _WDOGClient_PollIsAlive()
   v1 = v0;
   v3 = v2;
   v5 = v4;
-  v49 = *MEMORY[0x277D85DE8];
-  bzero(v48, 0x400uLL);
-  bzero(v47, 0x400uLL);
-  bzero(v46, 0x400uLL);
+  v45 = *MEMORY[0x277D85DE8];
+  bzero(v44, 0x400uLL);
+  bzero(v43, 0x400uLL);
+  bzero(v42, 0x400uLL);
   bzero(__str, 0x400uLL);
-  memset(v44, 0, sizeof(v44));
-  *v32 = 0;
-  v33 = 0;
+  memset(v40, 0, sizeof(v40));
+  *v28 = 0;
+  v29 = 0;
   os_unfair_lock_lock(&dword_280B22788);
   v6 = qword_280B22AD8;
   if (!qword_280B22AD8)
@@ -39,8 +36,8 @@ uint64_t _WDOGClient_PollIsAlive()
     _WDOGClient_PollIsAlive_cold_1();
   }
 
-  v29 = v1;
-  v30 = v5;
+  v25 = v1;
+  v26 = v5;
   if (dword_280B22AE0 > 9)
   {
     _WDOGClient_PollIsAlive_cold_1();
@@ -56,29 +53,28 @@ uint64_t _WDOGClient_PollIsAlive()
   {
     v8 = 0;
     v9 = 1;
-    v10 = v44;
+    v10 = v40;
     v11 = &qword_280B22840;
     do
     {
       v12 = atomic_load(v11 + 1);
       if (v12 == v6)
       {
-        if (v48[0])
+        if (v44[0])
         {
           __strlcat_chk();
         }
 
         dispatch_queue_get_label(*v11);
         __strlcat_chk();
-        v13 = *v11;
         dispatch_queue_get_threadid_4wdt();
         if (*v10)
         {
-          asprintf(&v33, "(tid:%llu)", *v10);
+          asprintf(&v29, "(tid:%llu)", *v10);
           __strlcat_chk();
-          free(v33);
+          free(v29);
           v9 = 0;
-          v33 = 0;
+          v29 = 0;
         }
 
         else
@@ -93,152 +89,149 @@ uint64_t _WDOGClient_PollIsAlive()
     }
 
     while (v8 < dword_280B22AE0);
-    if (v48[0])
+    if (v44[0])
     {
-      snprintf(__str, 0x400uLL, "unresponsive dispatch queue(s): %s ", v48);
+      snprintf(__str, 0x400uLL, "unresponsive dispatch queue(s): %s ", v44);
     }
   }
 
   if (dword_280B22AE4 >= 1)
   {
-    v14 = 0;
-    v15 = &unk_280B228F8;
+    v13 = 0;
+    v14 = &unk_280B228F8;
     do
     {
-      v16 = atomic_load(v15);
-      if (v16 == v6)
+      v15 = atomic_load(v14);
+      if (v15 == v6)
       {
-        if (v47[0])
+        if (v43[0])
         {
           __strlcat_chk();
         }
 
-        v17 = *(v15 - 1);
         __strlcat_chk();
         v9 = 0;
       }
 
-      ++v14;
-      v15 += 3;
+      ++v13;
+      v14 += 3;
     }
 
-    while (v14 < dword_280B22AE4);
+    while (v13 < dword_280B22AE4);
   }
 
-  if (v47[0])
+  if (v43[0])
   {
-    v34[0] = 0;
-    asprintf(v34, "unresponsive work processor(s): %s ", v47);
+    v30[0] = 0;
+    asprintf(v30, "unresponsive work processor(s): %s ", v43);
     __strlcat_chk();
-    free(v34[0]);
+    free(v30[0]);
   }
 
   if (dword_280B22AE8 >= 1)
   {
-    v18 = 0;
-    v19 = &unk_280B229F0;
+    v16 = 0;
+    v17 = &unk_280B229F0;
     do
     {
-      v20 = atomic_load(v19);
-      if (v20 == v6)
+      v18 = atomic_load(v17);
+      if (v18 == v6)
       {
-        if (v46[0])
+        if (v42[0])
         {
           __strlcat_chk();
         }
 
-        v21 = *(v19 - 1);
         __strlcat_chk();
         v9 = 0;
       }
 
-      ++v18;
-      v19 += 3;
+      ++v16;
+      v17 += 3;
     }
 
-    while (v18 < dword_280B22AE8);
+    while (v16 < dword_280B22AE8);
   }
 
-  if (v46[0])
+  if (v42[0])
   {
-    v34[0] = 0;
-    asprintf(v34, "unresponsive work processor block(s): %s ", v46);
+    v30[0] = 0;
+    asprintf(v30, "unresponsive work processor block(s): %s ", v42);
     __strlcat_chk();
-    free(v34[0]);
+    free(v30[0]);
   }
 
   if (qword_280B22AD0)
   {
-    v34[0] = 0;
+    v30[0] = 0;
     if (((*(qword_280B22AD0 + 16))() & 1) == 0)
     {
-      v31 = 0;
-      if (v34[0])
+      v27 = 0;
+      if (v30[0])
       {
-        asprintf(&v31, "is_alive_func returned unhealthy : %s", v34[0]);
-        free(v34[0]);
+        asprintf(&v27, "is_alive_func returned unhealthy : %s", v30[0]);
+        free(v30[0]);
       }
 
       else
       {
-        asprintf(&v31, "is_alive_func returned unhealthy");
+        asprintf(&v27, "is_alive_func returned unhealthy");
       }
 
       __strlcat_chk();
-      free(v31);
+      free(v27);
       v9 = 0;
     }
   }
 
   wd_kickoff_ping();
-  v22 = dword_280B22790;
+  v19 = dword_280B22790;
   if (byte_280B2278C != 1 || dword_280B22790 == 0)
   {
-    _WDOGClient_ReplyIsAlive(v29, v30, v7, v9, __str, *v32, v44, 0, 0);
+    _WDOGClient_ReplyIsAlive(v25, v26, v7, v9, __str, *v28, v40, 0, 0);
   }
 
   else
   {
-    v42 = 0u;
-    v43 = 0u;
-    v41 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v37 = 0u;
     v35 = 0u;
     v36 = 0u;
-    *v34 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    *v30 = 0u;
     if (dword_280B22790 < 1)
     {
-      v25 = 0;
+      v22 = 0;
     }
 
     else
     {
-      v24 = 0;
-      v25 = 0;
-      v26 = &unk_280B22794;
+      v21 = 0;
+      v22 = 0;
+      v23 = &unk_280B22794;
       do
       {
-        if (v26[32] == 1)
+        if (v23[32] == 1)
         {
-          strlcpy(&v34[4 * v25++], v26, 0x20uLL);
-          v22 = dword_280B22790;
+          strlcpy(&v30[4 * v22++], v23, 0x20uLL);
+          v19 = dword_280B22790;
         }
 
-        ++v24;
-        v26 += 33;
+        ++v21;
+        v23 += 33;
       }
 
-      while (v24 < v22);
+      while (v21 < v19);
     }
 
-    _WDOGClient_ReplyIsAlive(v29, v30, v7, v9, __str, *v32, v44, v34, v25);
+    _WDOGClient_ReplyIsAlive(v25, v26, v7, v9, __str, *v28, v40, v30, v22);
   }
 
   os_unfair_lock_unlock(&dword_280B22788);
-  v27 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -248,24 +241,20 @@ uint64_t _XPollIsAlive(uint64_t result, uint64_t a2)
   {
     if (*(result + 38) << 16 == 1179648)
     {
-      v3 = *(result + 12);
-      v4 = *(result + 48);
-      v5 = *(result + 56);
-      v6 = *(result + 28);
       result = _WDOGClient_PollIsAlive();
       *(a2 + 32) = result;
       return result;
     }
 
-    v7 = -300;
+    v3 = -300;
   }
 
   else
   {
-    v7 = -304;
+    v3 = -304;
   }
 
-  *(a2 + 32) = v7;
+  *(a2 + 32) = v3;
   *(a2 + 24) = *MEMORY[0x277D85EF8];
   return result;
 }
@@ -275,7 +264,7 @@ void wd_kickoff_ping()
   os_unfair_lock_assert_owner(&dword_280B22788);
   if ((byte_280B22AEC & 1) == 0)
   {
-    wd_kickoff_ping_cold_1();
+    wd_kickoff_ping_cold_1(byte_280B22AEC);
   }
 
   v4 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
@@ -357,29 +346,29 @@ void wd_kickoff_ping()
 
 uint64_t _WDOGClient_ReplyIsAlive(unsigned int a1, uint64_t a2, uint64_t a3, int a4, char *src, uint64_t a6, _OWORD *a7, const void *a8, unsigned int a9)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v24 = 0u;
-  memset(v25, 0, 464);
-  v22 = 0u;
+  v25 = *MEMORY[0x277D85DE8];
   v23 = 0u;
-  *(&v23 + 1) = *MEMORY[0x277D85EF8];
-  *&v24 = a2;
-  *(&v24 + 1) = a3;
-  LODWORD(v25[0]) = a4;
+  memset(v24, 0, 464);
+  v21 = 0u;
+  v22 = 0u;
+  *(&v22 + 1) = *MEMORY[0x277D85EF8];
+  *&v23 = a2;
+  *(&v23 + 1) = a3;
+  LODWORD(v24[0]) = a4;
   if (MEMORY[0x28223BE50])
   {
-    v13 = mig_strncpy_zerofill(v25 + 12, src, 1024);
+    v13 = mig_strncpy_zerofill(v24 + 12, src, 1024);
   }
 
   else
   {
-    v13 = mig_strncpy(v25 + 12, src, 1024);
+    v13 = mig_strncpy(v24 + 12, src, 1024);
   }
 
-  DWORD1(v25[0]) = 0;
-  DWORD2(v25[0]) = v13;
+  DWORD1(v24[0]) = 0;
+  DWORD2(v24[0]) = v13;
   v14 = (v13 + 3) & 0xFFFFFFFC;
-  v15 = &v22 + v14;
+  v15 = &v21 + v14;
   *(v15 + 60) = a6;
   v16 = a7[1];
   v17 = a7[2];
@@ -389,29 +378,23 @@ uint64_t _WDOGClient_ReplyIsAlive(unsigned int a1, uint64_t a2, uint64_t a3, int
   *(v15 + 100) = v17;
   *(v15 + 84) = v16;
   *(v15 + 68) = *a7;
-  if (a9 <= 5)
+  if (a9 > 5)
   {
-    v20 = v15 - 1024;
-    memcpy(v15 + 152, a8, 32 * a9);
-    *(v20 + 293) = a9;
-    LODWORD(v22) = 18;
-    *(&v22 + 1) = a1;
-    *&v23 = 0x5BB0A800000000;
-    if (MEMORY[0x28223BE58])
-    {
-      voucher_mach_msg_set(&v22);
-    }
-
-    result = mach_msg(&v22, 1, v14 + 32 * a9 + 152, 0, 0, 0, 0);
+    return 4294966989;
   }
 
-  else
+  v20 = v15 - 1024;
+  memcpy(v15 + 152, a8, 32 * a9);
+  *(v20 + 293) = a9;
+  LODWORD(v21) = 18;
+  *(&v21 + 1) = a1;
+  *&v22 = 0x5BB0A800000000;
+  if (MEMORY[0x28223BE58])
   {
-    result = 4294966989;
+    voucher_mach_msg_set(&v21);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return mach_msg(&v21, 1, v14 + 32 * a9 + 152, 0, 0, 0, 0);
 }
 
 void __wd_kickoff_ping_block_invoke(uint64_t a1)
@@ -435,13 +418,13 @@ char *wd_endpoint_register(const char *a1)
     _WDOGClient_PollIsAlive_cold_1();
   }
 
-  if (wd_endpoint)
+  if (wd_endpoint[0])
   {
     _WDOGClient_PollIsAlive_cold_1();
   }
 
   result = strdup(a1);
-  wd_endpoint = result;
+  wd_endpoint[0] = result;
   if (!result)
   {
     _WDOGClient_PollIsAlive_cold_1();
@@ -679,7 +662,7 @@ void wd_endpoint_begin_watchdog_monitoring_for_service(const char *a1)
   os_unfair_lock_lock(&dword_280B22788);
   if (byte_280B2278C != 1)
   {
-    wd_kickoff_ping_cold_1();
+    wd_kickoff_ping_cold_1(byte_280B2278C);
   }
 
   v3 = dword_280B22790;
@@ -731,7 +714,7 @@ void wd_endpoint_disable_monitoring_for_service(const char *a1)
   os_unfair_lock_lock(&dword_280B22788);
   if (byte_280B2278C != 1)
   {
-    wd_kickoff_ping_cold_1();
+    wd_kickoff_ping_cold_1(byte_280B2278C);
   }
 
   v2 = dword_280B22790;
@@ -778,13 +761,13 @@ uint64_t (*WatchdogServicePing_server_routine(uint64_t a1))(uint64_t result, uin
 
 uint64_t WatchdogServicePing_server(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
+  v2 = *(a1 + 8);
   *a2 = *a1 & 0x1F;
   *(a2 + 4) = 36;
-  v4 = *(a1 + 20) + 100;
-  *(a2 + 8) = v3;
+  v3 = *(a1 + 20) + 100;
+  *(a2 + 8) = v2;
   *(a2 + 16) = 0;
-  *(a2 + 20) = v4;
+  *(a2 + 20) = v3;
   if (*(a1 + 20) != 6010000)
   {
     result = 0;
@@ -795,23 +778,19 @@ uint64_t WatchdogServicePing_server(uint64_t a1, uint64_t a2)
 
   if ((*a1 & 0x80000000) == 0 || *(a1 + 24) != 1 || *(a1 + 4) != 64)
   {
-    v10 = -304;
+    v5 = -304;
 LABEL_9:
-    *(a2 + 32) = v10;
+    *(a2 + 32) = v5;
     *(a2 + 24) = *MEMORY[0x277D85EF8];
     return 1;
   }
 
   if (*(a1 + 38) << 16 != 1179648)
   {
-    v10 = -300;
+    v5 = -300;
     goto LABEL_9;
   }
 
-  v5 = *(a1 + 12);
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 28);
   *(a2 + 32) = _WDOGClient_PollIsAlive();
   return 1;
 }
@@ -823,7 +802,7 @@ void _WDOGClient_PollIsAlive_cold_1()
   __break(1u);
 }
 
-void wd_kickoff_ping_cold_1()
+void wd_kickoff_ping_cold_1(unsigned __int8 a1)
 {
   _os_assert_log();
   _os_crash();

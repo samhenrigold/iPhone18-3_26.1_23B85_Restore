@@ -22,12 +22,16 @@
 {
   pathCopy = path;
   v6 = open_dprotected_np([pathCopy UTF8String], 514, class, 0, 384);
-  if (v6 < 0 && *__error() != 1)
+  if (v6 < 0)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v7 = __error();
+    if (*v7 != 1)
     {
-      [ATXLocationManagerStateStoreOnDiskEnv openFileAtPath:dataProtectionClass:];
+      v8 = __atxlog_handle_default(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      {
+        [ATXLocationManagerStateStoreOnDiskEnv openFileAtPath:dataProtectionClass:];
+      }
     }
   }
 
@@ -88,18 +92,17 @@ void __58__ATXLocationManagerStateStoreOnDiskEnv_callOnNextUnlock___block_invoke
 - (void)openFileAtPath:dataProtectionClass:.cold.1()
 {
   OUTLINED_FUNCTION_0_4();
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *__error();
   v3 = __error();
   v4 = strerror(*v3);
-  v6 = 138412802;
-  v7 = v1;
-  v8 = 1024;
-  v9 = v2;
-  v10 = 2080;
-  v11 = v4;
-  _os_log_fault_impl(&dword_260C9F000, v0, OS_LOG_TYPE_FAULT, "failed to open '%@': [%i] %s", &v6, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412802;
+  v6 = v1;
+  v7 = 1024;
+  v8 = v2;
+  v9 = 2080;
+  v10 = v4;
+  _os_log_fault_impl(&dword_260C9F000, v0, OS_LOG_TYPE_FAULT, "failed to open '%@': [%i] %s", &v5, 0x1Cu);
 }
 
 - (void)callOnNextUnlock:.cold.1()

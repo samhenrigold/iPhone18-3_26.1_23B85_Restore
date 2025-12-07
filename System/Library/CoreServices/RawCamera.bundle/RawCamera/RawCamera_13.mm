@@ -664,7 +664,7 @@ LABEL_36:
   return result;
 }
 
-double sub_233827CA4(unsigned int a1, _WORD *a2, double result, double a4, double a5, double a6, double a7, float a8, float a9)
+double sub_233827CA4(int a1, _WORD *a2, double result, double a4, double a5, double a6, double a7, float a8, float a9)
 {
   if (*&result < 0.0)
   {
@@ -1202,7 +1202,7 @@ char *sub_233828460(_DWORD *a1, void *a2)
       *(v15 + 3) = *(v14 + 3);
       *&v15[2 * v18] = *&v14[2 * v18];
       v22 = (v20 & 1) != 0 ? 3 : 4;
-      v23 = *(&unk_280C04D58 + (v22 & 3 | (4 * (v20 & 3))) + 48);
+      v23 = *(&stru_280C04D58 + (v22 & 3 | (4 * (v20 & 3))) + 48);
       v24 = v23 == 1 ? 1 : v23 ^ 2;
       if (v18 > v22)
       {
@@ -1223,11 +1223,11 @@ LABEL_6:
       }
     }
 
-    v25 = v64[*(&unk_280C04D58 + (v22 & 3 | (4 * (v20 & 3))) + 48)];
+    v25 = v64[*(&stru_280C04D58 + (v22 & 3 | (4 * (v20 & 3))) + 48)];
     v26 = v64[v24];
-    v27 = v62[*(&unk_280C04D58 + (v22 & 3 | (4 * (v20 & 3))) + 48)];
+    v27 = v62[*(&stru_280C04D58 + (v22 & 3 | (4 * (v20 & 3))) + 48)];
     v28 = v62[v24];
-    v29 = *&v61[4 * *(&unk_280C04D58 + (v22 & 3 | (4 * (v20 & 3))) + 48)];
+    v29 = *&v61[4 * *(&stru_280C04D58 + (v22 & 3 | (4 * (v20 & 3))) + 48)];
     v30 = (2 * v23) | 1;
     v31 = &v15[2 * v22];
     v32 = (v19 + 2 * v22);

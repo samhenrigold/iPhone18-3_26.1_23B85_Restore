@@ -16,8 +16,7 @@
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
+  v6 = __chkstk_darwin(v3, v5);
   v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v4 + 16))(v8, self + OBJC_IVAR___RDAccountPersonIDSaltObserver_uuid, v3, v6);
   v9.super.isa = UUID._bridgeToObjectiveC()().super.isa;
@@ -28,10 +27,9 @@
 
 - (_TtP7remindd20ObservingAccountInfo_)account
 {
-  v2 = *(self + OBJC_IVAR___RDAccountPersonIDSaltObserver_account);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (RDAccountPersonIDSaltObserver)initWithAccountObjectID:(id)d accountType:(int64_t)type initialSaltValue:(id)value callbackQueue:(id)queue successHandler:(id)handler errorHandler:(id)errorHandler
@@ -49,21 +47,23 @@
 
 - (NSString)propertyName
 {
-  v2 = *(self + OBJC_IVAR___RDAccountPersonIDSaltObserver_propertyName);
-  v3 = *(self + OBJC_IVAR___RDAccountPersonIDSaltObserver_propertyName + 8);
+  v2 = *(self + OBJC_IVAR___RDAccountPersonIDSaltObserver_propertyName + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
+  v2, v4, v5, v6, v7, v8, v9, v10;
 
-  return v4;
+  return v3;
 }
 
 - (void)setPropertyName:(id)name
 {
   v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = (self + OBJC_IVAR___RDAccountPersonIDSaltObserver_propertyName);
-  v6 = *(self + OBJC_IVAR___RDAccountPersonIDSaltObserver_propertyName + 8);
-  *v5 = v4;
-  v5[1] = v7;
+  v12 = (self + OBJC_IVAR___RDAccountPersonIDSaltObserver_propertyName);
+  v13 = *(self + OBJC_IVAR___RDAccountPersonIDSaltObserver_propertyName + 8);
+  *v12 = v4;
+  v12[1] = v5;
+
+  v13, v5, v6, v7, v8, v9, v10, v11;
 }
 
 - (void)notify:(id)notify
@@ -91,24 +91,25 @@
 {
   selfCopy = self;
   sub_10059DEAC();
+  v4 = v3;
 
-  v3 = String._bridgeToObjectiveC()();
+  v5 = String._bridgeToObjectiveC()();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v3;
+  return v5;
 }
 
 - (void)dealloc
 {
   ObjectType = swift_getObjectType();
-  v4 = *(self + OBJC_IVAR___RDAccountPersonIDSaltObserver_currentValueSubject);
-  v7 = 1;
+  v6 = 1;
   selfCopy = self;
 
   CurrentValueSubject.send(completion:)();
 
-  v6.receiver = selfCopy;
-  v6.super_class = ObjectType;
-  [(RDAccountPersonIDSaltObserver *)&v6 dealloc];
+  v5.receiver = selfCopy;
+  v5.super_class = ObjectType;
+  [(RDAccountPersonIDSaltObserver *)&v5 dealloc];
 }
 
 - (RDAccountPersonIDSaltObserver)init

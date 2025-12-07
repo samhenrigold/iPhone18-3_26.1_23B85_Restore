@@ -8,7 +8,7 @@
 
 - (OrgApacheLuceneIndexPostingsEnum)init
 {
-  OrgApacheLuceneSearchDocIdSetIterator_init(self, a2);
+  OrgApacheLuceneSearchDocIdSetIterator_init();
   JreStrongAssign(&self->atts_, 0);
   return self;
 }

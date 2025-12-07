@@ -11,11 +11,11 @@
 
 + (void)queryChatWithGroupID:(id)d queue:(id)queue handler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   queueCopy = queue;
   handlerCopy = handler;
-  if (IMCoreLibraryCore() && getIMSPIQueryChatWithGroupIDSymbolLoc())
+  if (IMCoreLibraryCore(0) && getIMSPIQueryChatWithGroupIDSymbolLoc())
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
@@ -23,24 +23,24 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v19 = "+[SMMessagingUtilities queryChatWithGroupID:queue:handler:]";
+        v20 = "+[SMMessagingUtilities queryChatWithGroupID:queue:handler:]";
         _os_log_debug_impl(&dword_2304B3000, v10, OS_LOG_TYPE_DEBUG, "%s, IMCoreIMSPIQueryChatWithGroupID available", buf, 0xCu);
       }
     }
 
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __59__SMMessagingUtilities_queryChatWithGroupID_queue_handler___block_invoke;
-    v16[3] = &unk_2788CC768;
-    v17 = handlerCopy;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __59__SMMessagingUtilities_queryChatWithGroupID_queue_handler___block_invoke;
+    v17[3] = &unk_2788CC768;
+    v18 = handlerCopy;
     v11 = dCopy;
     v12 = queueCopy;
-    v13 = v16;
+    v13 = v17;
     IMSPIQueryChatWithGroupIDSymbolLoc = getIMSPIQueryChatWithGroupIDSymbolLoc();
     if (!IMSPIQueryChatWithGroupIDSymbolLoc)
     {
-      dlerror();
-      abort_report_np();
+      v16 = dlerror();
+      abort_report_np("%s", v16);
     }
 
     IMSPIQueryChatWithGroupIDSymbolLoc(v11, 25, v12, v13);
@@ -54,7 +54,7 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v19 = "+[SMMessagingUtilities queryChatWithGroupID:queue:handler:]";
+        v20 = "+[SMMessagingUtilities queryChatWithGroupID:queue:handler:]";
         _os_log_impl(&dword_2304B3000, v15, OS_LOG_TYPE_INFO, "%s, IMCoreIMSPIQueryChatWithGroupID not available", buf, 0xCu);
       }
     }

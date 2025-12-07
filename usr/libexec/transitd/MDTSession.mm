@@ -1,5 +1,6 @@
 @interface MDTSession
 + (id)lookupSessionForPort:(unsigned int)port;
++ (id)sessionWithServerPort:(unsigned int)port clientPort:(unsigned int)clientPort pid:(int)pid;
 + (void)removeSession:(id)session;
 - (MDTSession)initWithServerPort:(unsigned int)port clientPort:(unsigned int)clientPort pid:(int)pid;
 - (void)dealloc;
@@ -17,6 +18,18 @@
   Value = CFDictionaryGetValue(qword_10000C6E8, port);
   objc_sync_exit(v4);
   return Value;
+}
+
++ (id)sessionWithServerPort:(unsigned int)port clientPort:(unsigned int)clientPort pid:(int)pid
+{
+  v6 = [[MDTSession alloc] initWithServerPort:*&port clientPort:*&clientPort pid:*&pid];
+  v7 = qword_10000C6E0;
+  objc_sync_enter(qword_10000C6E0);
+  CFDictionarySetValue(qword_10000C6E8, port, v6);
+  ++qword_10000C6F0;
+  objc_sync_exit(v7);
+
+  return v6;
 }
 
 + (void)removeSession:(id)session

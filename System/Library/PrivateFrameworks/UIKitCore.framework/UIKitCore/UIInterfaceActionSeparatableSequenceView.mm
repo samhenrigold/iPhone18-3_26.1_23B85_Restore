@@ -26,7 +26,7 @@ void __72___UIInterfaceActionSeparatableSequenceView__reloadStackViewArrangement
     v6 = [*(a1 + 40) objectAtIndexedSubscript:a3 + 1];
     v7 = [v6 sectionID];
 
-    v8 = [v7 isEqualToString:v5] ^ 1;
+    v8 = objc_msgSend_isEqualToString_(v7) ^ 1;
     [*(a1 + 32) _addSeparatorToStackAndMutableArray:*(a1 + 48) preferSectionStyle:v8];
     if (v8)
     {

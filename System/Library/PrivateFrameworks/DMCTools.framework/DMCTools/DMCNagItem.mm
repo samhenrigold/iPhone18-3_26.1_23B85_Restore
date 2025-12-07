@@ -26,14 +26,13 @@
 
 - (NSDictionary)schedule
 {
-  v2 = *(self + OBJC_IVAR___DMCNagItem_schedule);
   sub_247F08408(0, &qword_27EE7ED00, 0x277CCABB0);
   sub_247F23DEC();
   sub_247F12BF4();
 
-  v3 = sub_247F23E9C();
+  v2 = sub_247F23E9C();
 
-  return v3;
+  return v2;
 }
 
 - (void)setSchedule:(id)schedule
@@ -41,9 +40,7 @@
   sub_247F08408(0, &qword_27EE7ED00, 0x277CCABB0);
   sub_247F23DEC();
   sub_247F12BF4();
-  v4 = sub_247F23EAC();
-  v5 = *(self + OBJC_IVAR___DMCNagItem_schedule);
-  *(self + OBJC_IVAR___DMCNagItem_schedule) = v4;
+  *(self + OBJC_IVAR___DMCNagItem_schedule) = sub_247F23EAC();
 }
 
 - (void)setLastNagString:(id)string
@@ -60,7 +57,6 @@
   }
 
   v6 = (self + OBJC_IVAR___DMCNagItem_lastNagString);
-  v7 = *(self + OBJC_IVAR___DMCNagItem_lastNagString + 8);
   *v6 = v4;
   v6[1] = v5;
 }
@@ -69,16 +65,15 @@
 {
   v3 = sub_247F23DEC();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_247F11C98(v7);
+  sub_247F11C98(v6);
 
-  v9 = sub_247F23D8C();
-  (*(v4 + 8))(v7, v3);
+  v8 = sub_247F23D8C();
+  (*(v4 + 8))(v6, v3);
 
-  return v9;
+  return v8;
 }
 
 - (NSNumber)shortestInterval
@@ -117,50 +112,34 @@
   lCopy = l;
   actionTitleCopy = actionTitle;
   v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE7ED30, &qword_247F25660);
-  v16 = *(*(v15 - 8) + 64);
   MEMORY[0x28223BE20](v15 - 8);
-  v18 = &v46 - v17;
-  v62 = sub_247F23D3C();
-  v19 = *(v62 - 8);
-  v20 = *(v19 + 64);
-  MEMORY[0x28223BE20](v62);
-  v61 = &v46 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v22);
-  v24 = &v46 - v23;
+  v17 = &v44 - v16;
+  v60 = sub_247F23D3C();
+  v18 = *(v60 - 8);
+  MEMORY[0x28223BE20](v60);
+  v59 = &v44 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v22 = &v44 - v21;
+  v23 = sub_247F23F3C();
+  v57 = v24;
+  v58 = v23;
   v25 = sub_247F23F3C();
-  v59 = v26;
-  v60 = v25;
-  v27 = sub_247F23F3C();
-  v57 = v28;
-  v58 = v27;
+  v55 = v26;
+  v56 = v25;
   sub_247F08408(0, &qword_27EE7ED00, 0x277CCABB0);
   sub_247F23DEC();
   sub_247F12BF4();
-  v56 = sub_247F23EAC();
-  v29 = sub_247F23F3C();
-  v54 = v30;
-  v55 = v29;
-  v53 = sub_247F23F3C();
-  v51 = v31;
+  v54 = sub_247F23EAC();
+  v27 = sub_247F23F3C();
+  v52 = v28;
+  v53 = v27;
+  v51 = sub_247F23F3C();
+  v49 = v29;
   if (notificationTitle)
   {
-    v32 = sub_247F23F3C();
-    v48 = v33;
-    v49 = v32;
-  }
-
-  else
-  {
-    v48 = 0;
-    v49 = 0;
-  }
-
-  dismissTitleCopy = dismissTitle;
-  if (notificationMessage)
-  {
-    v35 = sub_247F23F3C();
-    v46 = v36;
-    v47 = v35;
+    v30 = sub_247F23F3C();
+    v46 = v31;
+    v47 = v30;
   }
 
   else
@@ -169,18 +148,32 @@
     v47 = 0;
   }
 
-  actionTitleCopy = sub_247F23F3C();
-  v38 = v37;
-  sub_247F23CFC();
-  if (dismissTitle)
+  dismissTitleCopy = dismissTitle;
+  if (notificationMessage)
   {
-    v39 = sub_247F23F3C();
-    dismissTitleCopy = v40;
+    v33 = sub_247F23F3C();
+    v44 = v34;
+    v45 = v33;
   }
 
   else
   {
-    v39 = 0;
+    v44 = 0;
+    v45 = 0;
+  }
+
+  actionTitleCopy = sub_247F23F3C();
+  v36 = v35;
+  sub_247F23CFC();
+  if (dismissTitle)
+  {
+    v37 = sub_247F23F3C();
+    dismissTitleCopy = v38;
+  }
+
+  else
+  {
+    v37 = 0;
   }
 
   rLCopy = rL;
@@ -189,19 +182,19 @@
   {
     sub_247F23CFC();
 
-    v43 = 0;
+    v41 = 0;
   }
 
   else
   {
-    v43 = 1;
+    v41 = 1;
   }
 
-  (*(v19 + 56))(v18, v43, 1, v62);
-  v44 = v61;
+  (*(v18 + 56))(v17, v41, 1, v60);
+  v42 = v59;
   sub_247F23CFC();
 
-  return DMCNagItem.init(style:identifier:clientID:schedule:title:message:notificationTitle:notificationMessage:actionTitle:actionURL:dismissTitle:dismiss:deadlineURL:)(styleCopy, v60, v59, v58, v57, v56, v55, v54, v53, v51, v49, v48, v47, v46, actionTitleCopy, v38, v24, v39, dismissTitleCopy, v18, v44);
+  return DMCNagItem.init(style:identifier:clientID:schedule:title:message:notificationTitle:notificationMessage:actionTitle:actionURL:dismissTitle:dismiss:deadlineURL:)(styleCopy, v58, v57, v56, v55, v54, v53, v52, v51, v49, v47, v46, v45, v44, actionTitleCopy, v36, v22, v37, dismissTitleCopy, v17, v42);
 }
 
 + (NSString)migrationNagItemID
@@ -228,30 +221,28 @@
 
 + (id)migrationNagItemWithDeadline:(id)deadline actionURL:(id)l deadlineURL:(id)rL
 {
-  v21[1] = self;
+  v19[1] = self;
   v5 = sub_247F23D3C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v12 = v21 - v11;
-  v13 = sub_247F23DEC();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
-  v17 = v21 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v11 = v19 - v10;
+  v12 = sub_247F23DEC();
+  v13 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12);
+  v15 = v19 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_247F23DCC();
   sub_247F23CFC();
   sub_247F23CFC();
   swift_getObjCClassMetadata();
-  v18 = static DMCNagItem.migrationNagItem(withDeadline:actionURL:deadlineURL:)(v17, v12, v9);
-  v19 = *(v6 + 8);
-  v19(v9, v5);
-  v19(v12, v5);
-  (*(v14 + 8))(v17, v13);
+  v16 = static DMCNagItem.migrationNagItem(withDeadline:actionURL:deadlineURL:)(v15, v11, v8);
+  v17 = *(v6 + 8);
+  v17(v8, v5);
+  v17(v11, v5);
+  (*(v13 + 8))(v15, v12);
 
-  return v18;
+  return v16;
 }
 
 - (id)followUpAndReturnError:(id *)error
@@ -271,70 +262,67 @@
 - (id)nextNag
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE7EC68, &unk_247F25BC0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  sub_247F153A0(v6);
+  sub_247F153A0(v5);
 
-  v8 = sub_247F23DEC();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_247F23DEC();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_247F23D8C();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_247F23D8C();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setDeadline:(id)deadline
 {
   v4 = sub_247F23DEC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_247F23DCC();
   selfCopy = self;
-  DMCNagItem.setDeadline(_:)(v8);
+  DMCNagItem.setDeadline(_:)(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (id)iOSFilesystemURL
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE7ED30, &qword_247F25660);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v23 - v5;
-  type metadata accessor for DMCNagItem(v7);
+  v5 = &v22 - v4;
+  type metadata accessor for DMCNagItem(v6);
   selfCopy = self;
   identifier = [(DMCNagItem *)selfCopy identifier];
-  v10 = sub_247F23F3C();
-  v12 = v11;
+  v9 = sub_247F23F3C();
+  v11 = v10;
 
   clientID = [(DMCNagItem *)selfCopy clientID];
-  v14 = sub_247F23F3C();
-  v16 = v15;
+  v13 = sub_247F23F3C();
+  v15 = v14;
 
-  sub_247F16464(v10, v12, v14, v16, v6);
+  sub_247F16464(v9, v11, v13, v15, v5);
 
-  v17 = sub_247F23D3C();
-  v18 = *(v17 - 8);
-  v19 = (*(v18 + 48))(v6, 1, v17);
-  v20 = 0;
-  if (v19 != 1)
+  v16 = sub_247F23D3C();
+  v17 = *(v16 - 8);
+  v18 = (*(v17 + 48))(v5, 1, v16);
+  v19 = 0;
+  if (v18 != 1)
   {
-    v21 = sub_247F23CDC();
-    (*(v18 + 8))(v6, v17);
-    v20 = v21;
+    v20 = sub_247F23CDC();
+    (*(v17 + 8))(v5, v16);
+    v19 = v20;
   }
 
-  return v20;
+  return v19;
 }
 
 - (id)localized:(id)localized

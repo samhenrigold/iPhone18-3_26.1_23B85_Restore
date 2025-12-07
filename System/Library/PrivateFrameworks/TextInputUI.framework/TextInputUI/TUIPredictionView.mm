@@ -104,7 +104,7 @@
   return allVisibleCells;
 }
 
-void __49__TUIPredictionView__updateVisibleCellAppearance__block_invoke_2(uint64_t a1, void *a2, unint64_t a3)
+void __49__TUIPredictionView__updateVisibleCellAppearance__block_invoke_2(uint64_t a1, void *a2, char *a3)
 {
   v12 = a2;
   v5 = [*(a1 + 32) allVisibleCells];
@@ -143,7 +143,7 @@ LABEL_8:
 
   if (a3)
   {
-    if (*(a1 + 48) - 1 != a3)
+    if ((*(a1 + 48) - 1) != a3)
     {
       v11 = 0;
       goto LABEL_18;

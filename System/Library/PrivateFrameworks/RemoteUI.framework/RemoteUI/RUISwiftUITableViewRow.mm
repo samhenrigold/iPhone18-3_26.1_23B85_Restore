@@ -36,7 +36,7 @@
 - (void)setSelected:(BOOL)selected
 {
   selectedCopy = selected;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9ECA8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9ECA8, &qword_21BA996F0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = (&v14 - v6);
   v8 = type metadata accessor for RUISwiftUITableViewRow();

@@ -16,12 +16,12 @@
 
 - (MTAlarmKitAdoptionCoordinator)initWithStorage:(id)storage alarmStorage:(id)alarmStorage
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   alarmStorageCopy = alarmStorage;
-  v21.receiver = self;
-  v21.super_class = MTAlarmKitAdoptionCoordinator;
-  v9 = [(MTAlarmKitAdoptionCoordinator *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = MTAlarmKitAdoptionCoordinator;
+  v9 = [(MTAlarmKitAdoptionCoordinator *)&v20 init];
   if (v9)
   {
     v10 = MTLogForCategory(10);
@@ -32,7 +32,7 @@
       *&buf[12] = 2114;
       *&buf[14] = storageCopy;
       *&buf[22] = 2114;
-      v27 = alarmStorageCopy;
+      v26 = alarmStorageCopy;
       _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_INFO, "Initializing %{public}@ with timerStorage:%{public}@ alarmStorage:%{public}@", buf, 0x20u);
     }
 
@@ -44,24 +44,24 @@
       [(MTAlarmStorage *)v9->_alarmStorage registerObserver:v9];
     }
 
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2050000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2050000000;
     v11 = getMTAlarmKitAdoptionManagerClass_softClass;
-    v25 = getMTAlarmKitAdoptionManagerClass_softClass;
+    v24 = getMTAlarmKitAdoptionManagerClass_softClass;
     if (!getMTAlarmKitAdoptionManagerClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getMTAlarmKitAdoptionManagerClass_block_invoke;
-      v27 = &unk_1E7B0C600;
-      v28 = &v22;
+      v26 = &unk_1E7B0C600;
+      v27 = &v21;
       __getMTAlarmKitAdoptionManagerClass_block_invoke(buf);
-      v11 = v23[3];
+      v11 = v22[3];
     }
 
     v12 = v11;
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v21, 8);
     v13 = objc_opt_new();
     alarmKitManagerProxy = v9->_alarmKitManagerProxy;
     v9->_alarmKitManagerProxy = v13;
@@ -74,50 +74,19 @@
     v9->_serializer = v17;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)handleSystemReady
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (_os_feature_enabled_impl())
+  v12 = *MEMORY[0x1E69E9840];
+  if (!_os_feature_enabled_impl())
   {
-    v3 = MTLogForCategory(10);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
-    {
-      *buf = 138543362;
-      selfCopy3 = self;
-      _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_INFO, "%{public}@ Feature flag enabled. All alarms and timers routed to ⏰ AlarmKit", buf, 0xCu);
-    }
-
     if (![(MTAlarmStorage *)self->_alarmStorage isAlarmKitSchedulingEnabled])
     {
-      v4 = MTLogForCategory(10);
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-      {
-        *buf = 138543362;
-        selfCopy3 = self;
-        _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_INFO, "%{public}@ Scheduling existing alarms", buf, 0xCu);
-      }
-
-      alarms = [(MTAlarmStorage *)self->_alarmStorage alarms];
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __50__MTAlarmKitAdoptionCoordinator_handleSystemReady__block_invoke;
-      v10[3] = &unk_1E7B0CD98;
-      v10[4] = self;
-      [alarms na_each:v10];
-
-      alarmStorage = self->_alarmStorage;
-      v7 = 1;
-LABEL_12:
-      [(MTAlarmStorage *)alarmStorage persistAlarmKitSchedulingState:v7];
+      return;
     }
-  }
 
-  else if ([(MTAlarmStorage *)self->_alarmStorage isAlarmKitSchedulingEnabled])
-  {
     v8 = MTLogForCategory(10);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
@@ -132,7 +101,37 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
+  v3 = MTLogForCategory(10);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138543362;
+    selfCopy3 = self;
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_INFO, "%{public}@ Feature flag enabled. All alarms and timers routed to ⏰ AlarmKit", buf, 0xCu);
+  }
+
+  if (![(MTAlarmStorage *)self->_alarmStorage isAlarmKitSchedulingEnabled])
+  {
+    v4 = MTLogForCategory(10);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138543362;
+      selfCopy3 = self;
+      _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_INFO, "%{public}@ Scheduling existing alarms", buf, 0xCu);
+    }
+
+    alarms = [(MTAlarmStorage *)self->_alarmStorage alarms];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __50__MTAlarmKitAdoptionCoordinator_handleSystemReady__block_invoke;
+    v9[3] = &unk_1E7B0CD98;
+    v9[4] = self;
+    [alarms na_each:v9];
+
+    alarmStorage = self->_alarmStorage;
+    v7 = 1;
+LABEL_12:
+    [(MTAlarmStorage *)alarmStorage persistAlarmKitSchedulingState:v7];
+  }
 }
 
 void __50__MTAlarmKitAdoptionCoordinator_handleSystemReady__block_invoke(uint64_t a1, void *a2)
@@ -255,26 +254,26 @@ void __67__MTAlarmKitAdoptionCoordinator_source_didUpdateTimers_fromTimers___blo
 
 void __67__MTAlarmKitAdoptionCoordinator_source_didUpdateTimers_fromTimers___block_invoke_2(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __67__MTAlarmKitAdoptionCoordinator_source_didUpdateTimers_fromTimers___block_invoke_3;
-  v28[3] = &unk_1E7B0CC00;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __67__MTAlarmKitAdoptionCoordinator_source_didUpdateTimers_fromTimers___block_invoke_3;
+  v27[3] = &unk_1E7B0CC00;
   v5 = v3;
-  v29 = v5;
-  v6 = [v4 na_firstObjectPassingTest:v28];
+  v28 = v5;
+  v6 = [v4 na_firstObjectPassingTest:v27];
   v7 = MTLogForCategory(10);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = *(a1 + 40);
     *buf = 138543874;
-    v31 = v8;
-    v32 = 2114;
-    v33 = v6;
-    v34 = 2114;
-    v35 = v5;
+    v30 = v8;
+    v31 = 2114;
+    v32 = v6;
+    v33 = 2114;
+    v34 = v5;
     _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_INFO, "%{public}@ Timer updated from %{public}@ to %{public}@", buf, 0x20u);
   }
 
@@ -293,9 +292,9 @@ void __67__MTAlarmKitAdoptionCoordinator_source_didUpdateTimers_fromTimers___blo
             v20 = *(a1 + 40);
             v21 = [v5 timerIDString];
             *buf = 138543618;
-            v31 = v20;
-            v32 = 2114;
-            v33 = v21;
+            v30 = v20;
+            v31 = 2114;
+            v32 = v21;
             _os_log_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_INFO, "%{public}@ Resuming timer: %{public}@", buf, 0x16u);
           }
 
@@ -313,9 +312,9 @@ void __67__MTAlarmKitAdoptionCoordinator_source_didUpdateTimers_fromTimers___blo
             v24 = *(a1 + 40);
             v25 = [v5 timerIDString];
             *buf = 138543618;
-            v31 = v24;
-            v32 = 2114;
-            v33 = v25;
+            v30 = v24;
+            v31 = 2114;
+            v32 = v25;
             _os_log_impl(&dword_1B1F9F000, v23, OS_LOG_TYPE_INFO, "%{public}@ Repeating timer: %{public}@", buf, 0x16u);
           }
 
@@ -335,9 +334,9 @@ void __67__MTAlarmKitAdoptionCoordinator_source_didUpdateTimers_fromTimers___blo
             v16 = *(a1 + 40);
             v17 = [v5 timerIDString];
             *buf = 138543618;
-            v31 = v16;
-            v32 = 2114;
-            v33 = v17;
+            v30 = v16;
+            v31 = 2114;
+            v32 = v17;
             _os_log_impl(&dword_1B1F9F000, v15, OS_LOG_TYPE_INFO, "%{public}@ Pausing timer: %{public}@", buf, 0x16u);
           }
 
@@ -368,8 +367,6 @@ LABEL_24:
         goto LABEL_24;
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __67__MTAlarmKitAdoptionCoordinator_source_didUpdateTimers_fromTimers___block_invoke_3(uint64_t a1, void *a2)
@@ -536,16 +533,16 @@ void __71__MTAlarmKitAdoptionCoordinator_source_didUpdateAlarms_previousAlarms__
 
 void __71__MTAlarmKitAdoptionCoordinator_source_didUpdateAlarms_previousAlarms___block_invoke_3(uint64_t a1, void *a2)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __71__MTAlarmKitAdoptionCoordinator_source_didUpdateAlarms_previousAlarms___block_invoke_4;
-  v36[3] = &unk_1E7B0C6B0;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __71__MTAlarmKitAdoptionCoordinator_source_didUpdateAlarms_previousAlarms___block_invoke_4;
+  v35[3] = &unk_1E7B0C6B0;
   v5 = v3;
-  v37 = v5;
-  v6 = [v4 na_firstObjectPassingTest:v36];
+  v36 = v5;
+  v6 = [v4 na_firstObjectPassingTest:v35];
   v7 = [v6 hour];
   if (v7 != [v5 hour])
   {
@@ -584,9 +581,9 @@ LABEL_16:
       v27 = *(a1 + 40);
       v28 = [v5 alarmIDString];
       *buf = 138543618;
-      v39 = v27;
-      v40 = 2114;
-      v41 = v28;
+      v38 = v27;
+      v39 = 2114;
+      v40 = v28;
       _os_log_impl(&dword_1B1F9F000, v26, OS_LOG_TYPE_INFO, "%{public}@ Unscheduling existing alarm and rescheduling for %{public}@", buf, 0x16u);
     }
 
@@ -608,13 +605,13 @@ LABEL_16:
       v19 = [v6 isEnabled];
       v20 = [v5 isEnabled];
       *buf = 138544130;
-      v39 = v17;
-      v40 = 2114;
-      v41 = v18;
-      v42 = 1026;
-      v43 = v19;
-      v44 = 1026;
-      v45 = v20;
+      v38 = v17;
+      v39 = 2114;
+      v40 = v18;
+      v41 = 1026;
+      v42 = v19;
+      v43 = 1026;
+      v44 = v20;
       _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_INFO, "%{public}@ State changed for %{public}@ from %{public}d to %{public}d", buf, 0x22u);
     }
 
@@ -628,9 +625,9 @@ LABEL_16:
         v24 = *(a1 + 40);
         v25 = [v5 alarmIDString];
         *buf = 138543618;
-        v39 = v24;
-        v40 = 2114;
-        v41 = v25;
+        v38 = v24;
+        v39 = 2114;
+        v40 = v25;
         _os_log_impl(&dword_1B1F9F000, v22, OS_LOG_TYPE_INFO, "%{public}@ Alarm is enabled, scheduling %{public}@", buf, 0x16u);
       }
 
@@ -641,23 +638,21 @@ LABEL_19:
 
     if (v23)
     {
-      v32 = *(a1 + 40);
-      v33 = [v5 alarmIDString];
+      v31 = *(a1 + 40);
+      v32 = [v5 alarmIDString];
       *buf = 138543618;
-      v39 = v32;
-      v40 = 2114;
-      v41 = v33;
+      v38 = v31;
+      v39 = 2114;
+      v40 = v32;
       _os_log_impl(&dword_1B1F9F000, v22, OS_LOG_TYPE_INFO, "%{public}@ Alarm is disabled, unscheduling %{public}@", buf, 0x16u);
     }
 
-    v34 = *(*(a1 + 40) + 32);
-    v35 = [v5 alarmIDString];
-    [v34 cancelAlarm:v35];
+    v33 = *(*(a1 + 40) + 32);
+    v34 = [v5 alarmIDString];
+    [v33 cancelAlarm:v34];
   }
 
 LABEL_20:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71__MTAlarmKitAdoptionCoordinator_source_didUpdateAlarms_previousAlarms___block_invoke_4(uint64_t a1, void *a2)
@@ -673,14 +668,13 @@ uint64_t __71__MTAlarmKitAdoptionCoordinator_source_didUpdateAlarms_previousAlar
 
 void __67__MTAlarmKitAdoptionCoordinator_source_didUpdateTimers_fromTimers___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 40);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ Unknown timer state encountered for %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ Unknown timer state encountered for %{public}@", &v4, 0x16u);
 }
 
 @end

@@ -7,31 +7,31 @@
 
 - (id)subsetForKeys:(id)keys
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(keysCopy, "count")}];
   v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(keysCopy, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = keysCopy;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
-        v13 = [(NSArray *)self->_keys indexOfObject:v12, v19];
+        v12 = *(*(&v18 + 1) + 8 * i);
+        v13 = [(NSArray *)self->_keys indexOfObject:v12, v18];
         if (v13 != 0x7FFFFFFFFFFFFFFFLL)
         {
           v14 = v13;
@@ -41,14 +41,13 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
 
   v16 = [[PETStringPairs alloc] initWithKeys:v6 values:v5];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

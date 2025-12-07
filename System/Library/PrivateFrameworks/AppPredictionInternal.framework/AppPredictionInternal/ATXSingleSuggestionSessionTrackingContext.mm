@@ -146,45 +146,44 @@
               uuid = [updateCopy uuid];
               [associatedClientModelCacheUUIDs addObject:uuid];
 
-              v19 = __atxlog_handle_metrics();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+              v20 = __atxlog_handle_metrics(v19);
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
               {
-                v20 = objc_opt_class();
-                v21 = NSStringFromClass(v20);
+                v21 = objc_opt_class();
+                v22 = NSStringFromClass(v21);
                 *buf = v33;
-                v42 = v21;
+                v42 = v22;
                 v43 = 2112;
                 v44 = v34;
                 v45 = 2112;
                 v46 = v16;
-                _os_log_debug_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEBUG, "%@ - updated existing suggestion session with new clientModelId: %@, %@", buf, 0x20u);
+                _os_log_debug_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEBUG, "%@ - updated existing suggestion session with new clientModelId: %@, %@", buf, 0x20u);
               }
             }
 
             else
             {
-              v22 = v11;
-              v23 = [ATXSingleSuggestionSession alloc];
+              v23 = v11;
+              v24 = [ATXSingleSuggestionSession alloc];
               uuid2 = [updateCopy uuid];
               feedbackMetadata = [updateCopy feedbackMetadata];
-              v19 = [(ATXSingleSuggestionSession *)v23 initWithTrackedProactiveSuggestion:v13 clientModelCacheUUID:uuid2 feedbackMetadata:feedbackMetadata];
+              v20 = [(ATXSingleSuggestionSession *)v24 initWithTrackedProactiveSuggestion:v13 clientModelCacheUUID:uuid2 feedbackMetadata:feedbackMetadata];
 
-              [(NSMutableDictionary *)self->_currentlyTrackedSessions setObject:v19 forKey:v14];
-              v26 = __atxlog_handle_metrics();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+              v27 = __atxlog_handle_metrics([(NSMutableDictionary *)self->_currentlyTrackedSessions setObject:v20 forKey:v14]);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
               {
-                v27 = objc_opt_class();
-                v28 = NSStringFromClass(v27);
+                v28 = objc_opt_class();
+                v29 = NSStringFromClass(v28);
                 *buf = v33;
-                v42 = v28;
+                v42 = v29;
                 v43 = 2112;
                 v44 = v34;
                 v45 = 2112;
-                v46 = v19;
-                _os_log_debug_impl(&dword_2263AA000, v26, OS_LOG_TYPE_DEBUG, "%@ - starting suggestion session for clientModelId: %@, %@", buf, 0x20u);
+                v46 = v20;
+                _os_log_debug_impl(&dword_2263AA000, v27, OS_LOG_TYPE_DEBUG, "%@ - starting suggestion session for clientModelId: %@, %@", buf, 0x20u);
               }
 
-              v11 = v22;
+              v11 = v23;
               v10 = v35;
             }
 
@@ -200,18 +199,16 @@
 
       mostRecentClientCacheUpdateUUIDByClientModelId = self->_mostRecentClientCacheUpdateUUIDByClientModelId;
       uuid3 = [updateCopy uuid];
-      v31 = mostRecentClientCacheUpdateUUIDByClientModelId;
+      v32 = mostRecentClientCacheUpdateUUIDByClientModelId;
       clientModelId = v34;
-      [(NSMutableDictionary *)v31 setObject:uuid3 forKey:v34];
+      [(NSMutableDictionary *)v32 setObject:uuid3 forKey:v34];
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithBlendingUICacheUpdate:(id)update
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   consumerSubType = [updateCopy consumerSubType];
   switch(consumerSubType)
@@ -235,77 +232,77 @@
 
 LABEL_8:
   v9 = objc_alloc(MEMORY[0x277CBEB98]);
-  v70 = updateCopy;
+  v71 = updateCopy;
   clientModelCacheUpdateUUIDs = [updateCopy clientModelCacheUpdateUUIDs];
   allValues = [clientModelCacheUpdateUUIDs allValues];
-  v72 = [v9 initWithArray:allValues];
+  v73 = [v9 initWithArray:allValues];
 
-  v83 = 0u;
   v84 = 0u;
-  v81 = 0u;
+  v85 = 0u;
   v82 = 0u;
+  v83 = 0u;
   selfCopy = self;
   allValues2 = [(NSMutableDictionary *)self->_currentlyTrackedSessions allValues];
-  v13 = [allValues2 countByEnumeratingWithState:&v81 objects:v93 count:16];
+  v13 = [allValues2 countByEnumeratingWithState:&v82 objects:v94 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v82;
+    v15 = *v83;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v82 != v15)
+        if (*v83 != v15)
         {
           objc_enumerationMutation(allValues2);
         }
 
-        v17 = *(*(&v81 + 1) + 8 * i);
+        v17 = *(*(&v82 + 1) + 8 * i);
         associatedClientModelCacheUUIDs = [v17 associatedClientModelCacheUUIDs];
-        v19 = [associatedClientModelCacheUUIDs intersectsSet:v72];
+        v19 = [associatedClientModelCacheUUIDs intersectsSet:v73];
 
         if (v19)
         {
           associatedBlendingCacheUUIDs = [v17 associatedBlendingCacheUUIDs];
-          uuid2 = [v70 uuid];
+          uuid2 = [v71 uuid];
           v22 = [associatedBlendingCacheUUIDs containsObject:uuid2];
 
           if ((v22 & 1) == 0)
           {
             associatedBlendingCacheUUIDs2 = [v17 associatedBlendingCacheUUIDs];
-            uuid3 = [v70 uuid];
+            uuid3 = [v71 uuid];
             [associatedBlendingCacheUUIDs2 addObject:uuid3];
 
-            v25 = __atxlog_handle_metrics();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+            v26 = __atxlog_handle_metrics(v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
             {
-              v26 = objc_opt_class();
-              v27 = NSStringFromClass(v26);
-              uuid4 = [v70 uuid];
+              v27 = objc_opt_class();
+              v28 = NSStringFromClass(v27);
+              uuid4 = [v71 uuid];
               *buf = 138412802;
-              v88 = v27;
-              v89 = 2112;
-              v90 = uuid4;
-              v91 = 2112;
-              v92 = v17;
-              _os_log_debug_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEBUG, "%@ - updated blending uuids with %@ for session: %@", buf, 0x20u);
+              v89 = v28;
+              v90 = 2112;
+              v91 = uuid4;
+              v92 = 2112;
+              v93 = v17;
+              _os_log_debug_impl(&dword_2263AA000, v26, OS_LOG_TYPE_DEBUG, "%@ - updated blending uuids with %@ for session: %@", buf, 0x20u);
             }
           }
         }
       }
 
-      v14 = [allValues2 countByEnumeratingWithState:&v81 objects:v93 count:16];
+      v14 = [allValues2 countByEnumeratingWithState:&v82 objects:v94 count:16];
     }
 
     while (v14);
   }
 
-  v29 = v70;
-  uiCache = [v70 uiCache];
+  v30 = v71;
+  uiCache = [v71 uiCache];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
-  uiCache2 = [v70 uiCache];
+  uiCache2 = [v71 uiCache];
   uiCache3 = uiCache2;
   if (isKindOfClass)
   {
@@ -316,15 +313,15 @@ LABEL_8:
   else
   {
     objc_opt_class();
-    v36 = objc_opt_isKindOfClass();
+    v37 = objc_opt_isKindOfClass();
 
     p_isa = &selfCopy->super.isa;
-    if ((v36 & 1) == 0)
+    if ((v37 & 1) == 0)
     {
       goto LABEL_49;
     }
 
-    uiCache3 = [v70 uiCache];
+    uiCache3 = [v71 uiCache];
     allSuggestionsInLayout = [uiCache3 allSuggestionsInCachedSuggestions];
     cachedSuggestionWidgetLayouts = [uiCache3 cachedSuggestionWidgetLayouts];
     allKeys = [cachedSuggestionWidgetLayouts allKeys];
@@ -347,111 +344,109 @@ LABEL_8:
 
   if (allSuggestionsInLayout)
   {
-    v79 = 0u;
     v80 = 0u;
-    v77 = 0u;
+    v81 = 0u;
     v78 = 0u;
+    v79 = 0u;
     obj = [p_isa[7] allValues];
-    v69 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
-    if (v69)
+    v70 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
+    if (v70)
     {
-      v67 = *v78;
-      v68 = allSuggestionsInLayout;
+      v68 = *v79;
+      v69 = allSuggestionsInLayout;
       do
       {
-        v41 = 0;
+        v42 = 0;
         do
         {
-          if (*v78 != v67)
+          if (*v79 != v68)
           {
             objc_enumerationMutation(obj);
           }
 
-          v71 = v41;
-          v42 = *(*(&v77 + 1) + 8 * v41);
-          suggestion = [v42 suggestion];
+          v72 = v42;
+          v43 = *(*(&v78 + 1) + 8 * v42);
+          suggestion = [v43 suggestion];
           executableSpecification = [suggestion executableSpecification];
           executableObjectHash = [executableSpecification executableObjectHash];
 
-          v75 = 0u;
           v76 = 0u;
-          v73 = 0u;
+          v77 = 0u;
           v74 = 0u;
-          v46 = allSuggestionsInLayout;
-          v47 = [v46 countByEnumeratingWithState:&v73 objects:v85 count:16];
-          if (v47)
+          v75 = 0u;
+          v47 = allSuggestionsInLayout;
+          v48 = [v47 countByEnumeratingWithState:&v74 objects:v86 count:16];
+          if (v48)
           {
-            v48 = v47;
-            v49 = *v74;
+            v49 = v48;
+            v50 = *v75;
             do
             {
-              for (j = 0; j != v48; ++j)
+              for (j = 0; j != v49; ++j)
               {
-                if (*v74 != v49)
+                if (*v75 != v50)
                 {
-                  objc_enumerationMutation(v46);
+                  objc_enumerationMutation(v47);
                 }
 
-                v51 = *(*(&v73 + 1) + 8 * j);
-                executableSpecification2 = [v51 executableSpecification];
+                v52 = *(*(&v74 + 1) + 8 * j);
+                executableSpecification2 = [v52 executableSpecification];
                 executableObjectHash2 = [executableSpecification2 executableObjectHash];
 
                 if (executableObjectHash == executableObjectHash2)
                 {
-                  matchingSuggestionUUIDs = [v42 matchingSuggestionUUIDs];
-                  uuid5 = [v51 uuid];
-                  v56 = [matchingSuggestionUUIDs containsObject:uuid5];
+                  matchingSuggestionUUIDs = [v43 matchingSuggestionUUIDs];
+                  uuid5 = [v52 uuid];
+                  v57 = [matchingSuggestionUUIDs containsObject:uuid5];
 
-                  if ((v56 & 1) == 0)
+                  if ((v57 & 1) == 0)
                   {
-                    matchingSuggestionUUIDs2 = [v42 matchingSuggestionUUIDs];
-                    uuid6 = [v51 uuid];
+                    matchingSuggestionUUIDs2 = [v43 matchingSuggestionUUIDs];
+                    uuid6 = [v52 uuid];
                     [matchingSuggestionUUIDs2 addObject:uuid6];
 
-                    v59 = __atxlog_handle_metrics();
-                    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+                    v61 = __atxlog_handle_metrics(v60);
+                    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
                     {
-                      v60 = objc_opt_class();
-                      v61 = NSStringFromClass(v60);
-                      uuid7 = [v51 uuid];
+                      v62 = objc_opt_class();
+                      v63 = NSStringFromClass(v62);
+                      uuid7 = [v52 uuid];
                       *buf = 138412802;
-                      v88 = v61;
-                      v89 = 2112;
-                      v90 = uuid7;
-                      v91 = 2112;
-                      v92 = v42;
-                      _os_log_debug_impl(&dword_2263AA000, v59, OS_LOG_TYPE_DEBUG, "%@ - updated matching suggestion with %@ for session: %@", buf, 0x20u);
+                      v89 = v63;
+                      v90 = 2112;
+                      v91 = uuid7;
+                      v92 = 2112;
+                      v93 = v43;
+                      _os_log_debug_impl(&dword_2263AA000, v61, OS_LOG_TYPE_DEBUG, "%@ - updated matching suggestion with %@ for session: %@", buf, 0x20u);
                     }
                   }
                 }
               }
 
-              v48 = [v46 countByEnumeratingWithState:&v73 objects:v85 count:16];
+              v49 = [v47 countByEnumeratingWithState:&v74 objects:v86 count:16];
             }
 
-            while (v48);
+            while (v49);
           }
 
-          v41 = v71 + 1;
-          allSuggestionsInLayout = v68;
+          v42 = v72 + 1;
+          allSuggestionsInLayout = v69;
         }
 
-        while (v71 + 1 != v69);
-        v69 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
+        while (v72 + 1 != v70);
+        v70 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
       }
 
-      while (v69);
+      while (v70);
     }
 
-    v29 = v70;
+    v30 = v71;
     p_isa = &selfCopy->super.isa;
   }
 
 LABEL_49:
-  cacheCreationDate = [v29 cacheCreationDate];
+  cacheCreationDate = [v30 cacheCreationDate];
   [p_isa _tryMarkCurrentlyTrackedSessionsAsCompleteWithEventDate:cacheCreationDate];
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithUIEvent:(id)event
@@ -485,14 +480,11 @@ LABEL_49:
 
 - (void)_tryPruneSingleSuggestionSessionsIfOverMaxNum
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   [*a2 count];
   OUTLINED_FUNCTION_0_27();
-  OUTLINED_FUNCTION_1_13(&dword_2263AA000, v5, v6, "%@ - _completedSessions has length of: %lu", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_13(&dword_2263AA000, v5, v6, "%@ - _completedSessions has length of: %lu", v7, v8, v9, v10);
 }
 
 - (void)_updateSingleSuggestionSessionsWithSpotlightUIEvent:(id)event
@@ -671,25 +663,29 @@ LABEL_21:
                       v23 = 1;
                     }
 
-                    if (!v23 && [v18 tryUpdateSessionStatus:status consumerSubType:typeCopy])
+                    if (!v23)
                     {
-                      v24 = __atxlog_handle_metrics();
-                      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+                      v24 = [v18 tryUpdateSessionStatus:status consumerSubType:typeCopy];
+                      if (v24)
                       {
-                        v25 = objc_opt_class();
-                        v37 = NSStringFromClass(v25);
-                        v26 = [ATXSingleSuggestionSession stringForSuggestionSessionStatus:status];
-                        v27 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:typeCopy];
-                        *buf = 138413058;
-                        v49 = v37;
-                        v50 = 2112;
-                        v51 = v26;
-                        v52 = 2112;
-                        v53 = v27;
-                        v28 = v27;
-                        v54 = 2112;
-                        v55 = v18;
-                        _os_log_debug_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEBUG, "%@ - updated status with %@ for consumerSubType: %@, session: %@", buf, 0x2Au);
+                        v25 = __atxlog_handle_metrics(v24);
+                        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+                        {
+                          v26 = objc_opt_class();
+                          v37 = NSStringFromClass(v26);
+                          v27 = [ATXSingleSuggestionSession stringForSuggestionSessionStatus:status];
+                          v28 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:typeCopy];
+                          *buf = 138413058;
+                          v49 = v37;
+                          v50 = 2112;
+                          v51 = v27;
+                          v52 = 2112;
+                          v53 = v28;
+                          v29 = v28;
+                          v54 = 2112;
+                          v55 = v18;
+                          _os_log_debug_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEBUG, "%@ - updated status with %@ for consumerSubType: %@, session: %@", buf, 0x2Au);
+                        }
                       }
                     }
                   }
@@ -715,8 +711,6 @@ LABEL_21:
 
     dsCopy = v31;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tryMarkCurrentlyTrackedSessionsAsCompleteWithEventDate:(id)date
@@ -830,8 +824,7 @@ void __101__ATXSingleSuggestionSessionTrackingContext__tryMarkCurrentlyTrackedSe
   if (((v12 | v15 | v32 | v18) & 1) == 0 && !v28)
   {
     v29 = v5;
-    [v6 setCompleted:1];
-    v30 = __atxlog_handle_metrics();
+    v30 = __atxlog_handle_metrics([v6 setCompleted:1]);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       __101__ATXSingleSuggestionSessionTrackingContext__tryMarkCurrentlyTrackedSessionsAsCompleteWithEventDate___block_invoke_cold_1(v6, v30);
@@ -857,7 +850,7 @@ LABEL_23:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -874,11 +867,11 @@ LABEL_23:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = *MEMORY[0x277CCA450];
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x277CCA450];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -889,7 +882,6 @@ LABEL_23:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -912,18 +904,18 @@ LABEL_7:
   coderCopy = coder;
   v4 = MEMORY[0x277D42620];
   v5 = objc_opt_class();
-  v6 = __atxlog_handle_metrics();
-  v56 = [v4 robustDecodeObjectOfClass:v5 forKey:@"codingKeyForRecentHomeScreenBlendingCacheUUID" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v6];
+  v6 = __atxlog_handle_metrics(v5);
+  v61 = [v4 robustDecodeObjectOfClass:v5 forKey:@"codingKeyForRecentHomeScreenBlendingCacheUUID" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v6];
 
   v7 = MEMORY[0x277D42620];
   v8 = objc_opt_class();
-  v9 = __atxlog_handle_metrics();
-  v59 = [v7 robustDecodeObjectOfClass:v8 forKey:@"codingKeyForRecentActionSpotlightBlendingCacheUUID" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v9];
+  v9 = __atxlog_handle_metrics(v8);
+  v64 = [v7 robustDecodeObjectOfClass:v8 forKey:@"codingKeyForRecentActionSpotlightBlendingCacheUUID" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v9];
 
   v10 = MEMORY[0x277D42620];
   v11 = objc_opt_class();
-  v12 = __atxlog_handle_metrics();
-  v58 = [v10 robustDecodeObjectOfClass:v11 forKey:@"codingKeyForRecentAppSpotlightBlendingCacheUUID" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v12];
+  v12 = __atxlog_handle_metrics(v11);
+  v63 = [v10 robustDecodeObjectOfClass:v11 forKey:@"codingKeyForRecentAppSpotlightBlendingCacheUUID" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v12];
 
   v13 = MEMORY[0x277D42620];
   v14 = objc_autoreleasePoolPush();
@@ -931,107 +923,107 @@ LABEL_7:
   v16 = objc_opt_class();
   v17 = [v15 initWithObjects:{v16, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v14);
-  v18 = __atxlog_handle_metrics();
-  v19 = [v13 robustDecodeObjectOfClasses:v17 forKey:@"codingKeyForSuggestionsWidgetIds" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v18];
+  v19 = __atxlog_handle_metrics(v18);
+  v20 = [v13 robustDecodeObjectOfClasses:v17 forKey:@"codingKeyForSuggestionsWidgetIds" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v19];
 
-  if (v19)
+  if (v20)
   {
-    v20 = MEMORY[0x277D42620];
-    v21 = objc_autoreleasePoolPush();
-    v22 = objc_alloc(MEMORY[0x277CBEB98]);
-    v23 = objc_opt_class();
-    v24 = [v22 initWithObjects:{v23, objc_opt_class(), 0}];
-    objc_autoreleasePoolPop(v21);
-    v25 = __atxlog_handle_metrics();
-    v26 = [v20 robustDecodeObjectOfClasses:v24 forKey:@"codingKeyForAppPredictionPanelIds" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v25];
+    v21 = MEMORY[0x277D42620];
+    v22 = objc_autoreleasePoolPush();
+    v23 = objc_alloc(MEMORY[0x277CBEB98]);
+    v24 = objc_opt_class();
+    v25 = [v23 initWithObjects:{v24, objc_opt_class(), 0}];
+    objc_autoreleasePoolPop(v22);
+    v27 = __atxlog_handle_metrics(v26);
+    v28 = [v21 robustDecodeObjectOfClasses:v25 forKey:@"codingKeyForAppPredictionPanelIds" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v27];
 
-    if (v26)
+    if (v28)
     {
-      v27 = objc_autoreleasePoolPush();
-      v28 = objc_alloc(MEMORY[0x277CBEB98]);
-      v29 = objc_opt_class();
-      v30 = objc_opt_class();
-      v31 = [v28 initWithObjects:{v29, v30, objc_opt_class(), 0}];
-      objc_autoreleasePoolPop(v27);
-      v32 = MEMORY[0x277D42620];
-      v33 = __atxlog_handle_metrics();
-      v34 = [v32 robustDecodeObjectOfClasses:v31 forKey:@"codingKeyForRecentClientCacheUpdatesByClientModelId" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v33];
+      v29 = objc_autoreleasePoolPush();
+      v30 = objc_alloc(MEMORY[0x277CBEB98]);
+      v31 = objc_opt_class();
+      v32 = objc_opt_class();
+      v33 = [v30 initWithObjects:{v31, v32, objc_opt_class(), 0}];
+      objc_autoreleasePoolPop(v29);
+      v34 = MEMORY[0x277D42620];
+      v36 = __atxlog_handle_metrics(v35);
+      v37 = [v34 robustDecodeObjectOfClasses:v33 forKey:@"codingKeyForRecentClientCacheUpdatesByClientModelId" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v36];
 
-      if (v34)
+      if (v37)
       {
-        v55 = v31;
-        v35 = objc_autoreleasePoolPush();
-        v36 = objc_alloc(MEMORY[0x277CBEB98]);
-        v37 = objc_opt_class();
-        v38 = objc_opt_class();
-        v39 = [v36 initWithObjects:{v37, v38, objc_opt_class(), 0}];
-        objc_autoreleasePoolPop(v35);
-        v40 = MEMORY[0x277D42620];
-        v41 = __atxlog_handle_metrics();
-        v42 = [v40 robustDecodeObjectOfClasses:v39 forKey:@"codingKeyForCurrentlyTrackedSessions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v41];
+        v60 = v33;
+        v38 = objc_autoreleasePoolPush();
+        v39 = objc_alloc(MEMORY[0x277CBEB98]);
+        v40 = objc_opt_class();
+        v41 = objc_opt_class();
+        v42 = [v39 initWithObjects:{v40, v41, objc_opt_class(), 0}];
+        objc_autoreleasePoolPop(v38);
+        v43 = MEMORY[0x277D42620];
+        v45 = __atxlog_handle_metrics(v44);
+        v46 = [v43 robustDecodeObjectOfClasses:v42 forKey:@"codingKeyForCurrentlyTrackedSessions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v45];
 
-        if (v42)
+        if (v46)
         {
-          v54 = v39;
-          v43 = objc_autoreleasePoolPush();
-          v44 = objc_alloc(MEMORY[0x277CBEB98]);
-          v45 = objc_opt_class();
-          v46 = [v44 initWithObjects:{v45, objc_opt_class(), 0}];
-          objc_autoreleasePoolPop(v43);
-          v47 = MEMORY[0x277D42620];
-          v48 = __atxlog_handle_metrics();
-          v49 = [v47 robustDecodeObjectOfClasses:v46 forKey:@"codingKeyForCompletedSessions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v48];
+          v59 = v42;
+          v47 = objc_autoreleasePoolPush();
+          v48 = objc_alloc(MEMORY[0x277CBEB98]);
+          v49 = objc_opt_class();
+          v50 = [v48 initWithObjects:{v49, objc_opt_class(), 0}];
+          objc_autoreleasePoolPop(v47);
+          v51 = MEMORY[0x277D42620];
+          v53 = __atxlog_handle_metrics(v52);
+          v54 = [v51 robustDecodeObjectOfClasses:v50 forKey:@"codingKeyForCompletedSessions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSingleSuggestionSessionTrackingContext" errorCode:-1 logHandle:v53];
 
-          v50 = v56;
-          if (v49)
+          v55 = v61;
+          if (v54)
           {
-            selfCopy5 = [(ATXSingleSuggestionSessionTrackingContext *)self initWithMostRecentlySeenHomescreenBlendingCacheUUID:v56 mostRecentAppSpotlightBlendingCacheUUID:v58 mostRecentActionSpotlightBlendingCacheUUID:v59 suggestionsWidgetIds:v19 appPredictionPanelIds:v26 mostRecentClientCacheUpdateUUIDByClientModelId:v34 currentlyTrackedSessions:v42 completedSessions:v49];
-            v52 = selfCopy5;
+            selfCopy5 = [(ATXSingleSuggestionSessionTrackingContext *)self initWithMostRecentlySeenHomescreenBlendingCacheUUID:v61 mostRecentAppSpotlightBlendingCacheUUID:v63 mostRecentActionSpotlightBlendingCacheUUID:v64 suggestionsWidgetIds:v20 appPredictionPanelIds:v28 mostRecentClientCacheUpdateUUIDByClientModelId:v37 currentlyTrackedSessions:v46 completedSessions:v54];
+            v57 = selfCopy5;
           }
 
           else
           {
-            v52 = 0;
+            v57 = 0;
             selfCopy5 = self;
           }
 
-          v39 = v54;
+          v42 = v59;
         }
 
         else
         {
-          v52 = 0;
-          v50 = v56;
+          v57 = 0;
+          v55 = v61;
           selfCopy5 = self;
         }
 
-        v31 = v55;
+        v33 = v60;
       }
 
       else
       {
-        v52 = 0;
-        v50 = v56;
+        v57 = 0;
+        v55 = v61;
         selfCopy5 = self;
       }
     }
 
     else
     {
-      v52 = 0;
-      v50 = v56;
+      v57 = 0;
+      v55 = v61;
       selfCopy5 = self;
     }
   }
 
   else
   {
-    v52 = 0;
-    v50 = v56;
+    v57 = 0;
+    v55 = v61;
     selfCopy5 = self;
   }
 
-  return v52;
+  return v57;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -1198,16 +1190,14 @@ LABEL_28:
 
 void __101__ATXSingleSuggestionSessionTrackingContext__tryMarkCurrentlyTrackedSessionsAsCompleteWithEventDate___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "%@ - marked session as completed: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "%@ - marked session as completed: %@", &v6, 0x16u);
 }
 
 @end

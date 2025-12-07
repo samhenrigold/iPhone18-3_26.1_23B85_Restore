@@ -24,7 +24,7 @@
 
 - (BOOL)validatePose:(id)pose
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   poseCopy = pose;
   previousPose = [(PRDevicePoseValidator *)self previousPose];
 
@@ -45,12 +45,12 @@
     if (v10 >= 1.0)
     {
       [poseCopy pose];
-      v25 = v11;
+      v24 = v11;
       previousPose3 = [(PRDevicePoseValidator *)self previousPose];
       [previousPose3 pose];
-      v24 = v13;
+      v23 = v13;
 
-      v14 = vsubq_f32(v25, v24);
+      v14 = vsubq_f32(v24, v23);
       v15 = vmulq_f32(v14, v14);
       v16 = sqrtf(v15.f32[2] + vaddv_f32(*v15.f32)) / v10;
       [(PRDevicePoseValidator *)self setPreviousPose:poseCopy];
@@ -63,9 +63,9 @@
           v19 = logger;
           [(PRDevicePoseValidator *)self maximumSpeed];
           *buf = 134218240;
-          v27 = v16;
-          v28 = 2048;
-          v29 = v20;
+          v26 = v16;
+          v27 = 2048;
+          v28 = v20;
           _os_log_impl(&dword_2613DF000, v19, OS_LOG_TYPE_DEFAULT, "PoseValidator found invalid pose. speed = %f m/s, threshold = %f m/s", buf, 0x16u);
         }
 
@@ -82,7 +82,6 @@ LABEL_7:
   v21 = 0;
 LABEL_10:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

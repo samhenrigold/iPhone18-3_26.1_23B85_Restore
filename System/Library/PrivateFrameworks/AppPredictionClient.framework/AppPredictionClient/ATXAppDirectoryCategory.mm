@@ -198,7 +198,7 @@
 {
   if (d - 1000 >= 0xD)
   {
-    v5 = __atxlog_handle_app_library();
+    v5 = __atxlog_handle_app_library(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXAppDirectoryCategory *)d categoryIdentifierForScreenTimeCategoryID:v5];
@@ -276,16 +276,17 @@
         goto LABEL_22;
       }
 
-      if ([identifierCopy isEqualToString:*MEMORY[0x1E6993B58]])
+      v6 = [identifierCopy isEqualToString:*MEMORY[0x1E6993B58]];
+      if (v6)
       {
         v4 = 1012;
         goto LABEL_22;
       }
 
-      v6 = __atxlog_handle_app_library();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+      v7 = __atxlog_handle_app_library(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        [(ATXAppDirectoryCategory *)identifierCopy screenTimeCategoryIDForCategoryIdentifier:v6];
+        [(ATXAppDirectoryCategory *)identifierCopy screenTimeCategoryIDForCategoryIdentifier:v7];
       }
     }
 
@@ -447,7 +448,7 @@ LABEL_22:
 {
   if (self->_categoryID != d)
   {
-    v5 = __atxlog_handle_app_library();
+    v5 = __atxlog_handle_app_library(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -521,7 +522,7 @@ LABEL_22:
         if (d != 2)
         {
 LABEL_19:
-          v8 = __atxlog_handle_app_library();
+          v8 = __atxlog_handle_app_library(v5);
           if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
           {
             [ATXAppDirectoryCategory localizedStringForNonScreenTimeCategoryID:v8];

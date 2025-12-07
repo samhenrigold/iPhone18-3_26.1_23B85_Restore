@@ -190,51 +190,48 @@
   v3[172] = @"_HKPrivateWorkoutHeartRateZonesConfigurationType";
   v3[173] = @"_HKPrivateWorkoutHeartRateZones";
   v3[174] = @"_HKPrivateWorkoutElapsedTimeInHeartRateZones";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:175];
-  v1 = *MEMORY[0x1E69E9840];
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:175];
 
-  return v0;
+  return v1;
 }
 
 + (id)_buildDefaultDictionary
 {
   v15 = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v0 = +[HKStringCache _initialStrings];
-  v1 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v0, "count")}];
+  v1 = +[HKStringCache _initialStrings];
+  v2 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v1, "count")}];
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v2 = v0;
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v3)
+  v3 = v1;
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
   {
-    v4 = v3;
-    v5 = *v11;
+    v5 = v4;
+    v6 = *v11;
     do
     {
-      for (i = 0; i != v4; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v5)
+        if (*v11 != v6)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v3);
         }
 
-        [v1 setObject:*(*(&v10 + 1) + 8 * i) forKeyedSubscript:{*(*(&v10 + 1) + 8 * i), v10}];
+        [v2 setObject:*(*(&v10 + 1) + 8 * i) forKeyedSubscript:{*(*(&v10 + 1) + 8 * i), v10}];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v4);
+    while (v5);
   }
 
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v1];
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v2];
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v8;
 }
 
 + (id)sharedCache
@@ -315,36 +312,36 @@ void __55__HKStringCache_dictionaryReplacingKeysFromDictionary___block_invoke(ui
 
 - (void)updateCacheWithStrings:(id)strings
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
   os_unfair_lock_lock(&self->_lock);
   v5 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:self->_cacheDictionary];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = stringsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v5 setObject:*(*(&v14 + 1) + 8 * v10) forKeyedSubscript:{*(*(&v14 + 1) + 8 * v10), v14}];
+        [v5 setObject:*(*(&v13 + 1) + 8 * v10) forKeyedSubscript:{*(*(&v13 + 1) + 8 * v10), v13}];
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -355,7 +352,6 @@ void __55__HKStringCache_dictionaryReplacingKeysFromDictionary___block_invoke(ui
   self->_cacheDictionary = v11;
 
   os_unfair_lock_unlock(&self->_lock);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unittest_resetCache

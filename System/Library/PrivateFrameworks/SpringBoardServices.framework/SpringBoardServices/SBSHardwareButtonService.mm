@@ -43,9 +43,10 @@
 
 uint64_t __42__SBSHardwareButtonService_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance_instance = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  sharedInstance_instance = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1);
 }
 
 - (void)acquireHomeHardwareButtonHintSuppressionAssertionForReason:(id)reason completion:(id)completion
@@ -98,7 +99,7 @@ void __98__SBSHardwareButtonService_acquireHomeHardwareButtonHintSuppressionAsse
 
 - (void)_resetEventMaskForButtonKind:(int64_t)kind
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   buttonConfigurationsPerKind = self->_buttonConfigurationsPerKind;
   if (!buttonConfigurationsPerKind)
   {
@@ -113,27 +114,27 @@ void __98__SBSHardwareButtonService_acquireHomeHardwareButtonHintSuppressionAsse
   eventMask = [v8 eventMask];
   maximumPriority = [v8 maximumPriority];
   [(BSMutableIntegerMap *)self->_consumersPerKind objectForKey:kind];
-  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v9 = v29 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v29 = 0u;
+  v9 = v30 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
     v13 = 0;
-    v14 = *v27;
+    v14 = *v28;
 LABEL_5:
     v15 = 0;
     while (1)
     {
-      if (*v27 != v14)
+      if (*v28 != v14)
       {
         objc_enumerationMutation(v9);
       }
 
-      v16 = *(*(&v26 + 1) + 8 * v15);
+      v16 = *(*(&v27 + 1) + 8 * v15);
       if ([v16 buttonKind] == kind)
       {
         v13 |= [v16 eventMask];
@@ -151,7 +152,7 @@ LABEL_5:
 
       if (v11 == ++v15)
       {
-        v11 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v11)
         {
           goto LABEL_5;
@@ -170,7 +171,7 @@ LABEL_5:
 
   if (eventMask == v13)
   {
-    v18 = maximumPriority;
+    v19 = maximumPriority;
     if (maximumPriority == v12)
     {
       goto LABEL_26;
@@ -179,18 +180,18 @@ LABEL_5:
 
   else
   {
-    v19 = SBLogCommon();
-    v18 = maximumPriority;
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = SBLogCommon(v18);
+    v19 = maximumPriority;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = NSStringFromSBSHardwareButtonKind(kind);
+      v21 = NSStringFromSBSHardwareButtonKind(kind);
       *buf = 134218498;
-      *v31 = eventMask;
-      *&v31[8] = 2048;
-      *v32 = v13;
-      *&v32[8] = 2114;
-      v33 = v20;
-      _os_log_impl(&dword_19169D000, v19, OS_LOG_TYPE_DEFAULT, "changing event mask from:%lX to:%lX for buttonKind %{public}@", buf, 0x20u);
+      *v32 = eventMask;
+      *&v32[8] = 2048;
+      *v33 = v13;
+      *&v33[8] = 2114;
+      v34 = v21;
+      _os_log_impl(&dword_19169D000, v20, OS_LOG_TYPE_DEFAULT, "changing event mask from:%lX to:%lX for buttonKind %{public}@", buf, 0x20u);
     }
 
     if (maximumPriority == v12)
@@ -199,24 +200,24 @@ LABEL_5:
     }
   }
 
-  v21 = SBLogCommon();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = SBLogCommon(v18);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = NSStringFromSBSHardwareButtonKind(kind);
+    v23 = NSStringFromSBSHardwareButtonKind(kind);
     *buf = 67109634;
-    *v31 = v18;
-    *&v31[4] = 1024;
-    *&v31[6] = v12;
-    *v32 = 2114;
-    *&v32[2] = v22;
-    _os_log_impl(&dword_19169D000, v21, OS_LOG_TYPE_DEFAULT, "changing priority from:%d to:%d for buttonKind %{public}@", buf, 0x18u);
+    *v32 = v19;
+    *&v32[4] = 1024;
+    *&v32[6] = v12;
+    *v33 = 2114;
+    *&v33[2] = v23;
+    _os_log_impl(&dword_19169D000, v22, OS_LOG_TYPE_DEFAULT, "changing priority from:%d to:%d for buttonKind %{public}@", buf, 0x18u);
   }
 
 LABEL_25:
-  v23 = objc_alloc_init(_SBSHardwareButtonEventConfiguration);
-  [(_SBSHardwareButtonEventConfiguration *)v23 setEventMask:v13];
-  [(_SBSHardwareButtonEventConfiguration *)v23 setMaximumPriority:v12];
-  [(BSMutableIntegerMap *)self->_buttonConfigurationsPerKind setObject:v23 forKey:kind];
+  v24 = objc_alloc_init(_SBSHardwareButtonEventConfiguration);
+  [(_SBSHardwareButtonEventConfiguration *)v24 setEventMask:v13];
+  [(_SBSHardwareButtonEventConfiguration *)v24 setMaximumPriority:v12];
+  [(BSMutableIntegerMap *)self->_buttonConfigurationsPerKind setObject:v24 forKey:kind];
   [(SBSHardwareButtonService *)self _setApplicationClientEventMask:v13 buttonKind:kind priority:v12];
 
 LABEL_26:
@@ -299,18 +300,18 @@ LABEL_12:
 
 - (void)_mainQueue_handleButtonPressMessage:(int64_t)message forButtonKind:(int64_t)kind priority:(int64_t)priority
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   v10 = [(SBSHardwareButtonService *)self _viableConsumerForButtonKind:kind event:message priority:priority];
-  v11 = SBLogCommon();
+  v11 = SBLogCommon(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 67109634;
-    *v21 = message;
-    *&v21[4] = 2114;
-    *&v21[6] = v10;
-    v22 = 1024;
-    LODWORD(v23) = priority;
+    *v23 = message;
+    *&v23[4] = 2114;
+    *&v23[6] = v10;
+    v24 = 1024;
+    LODWORD(v25) = priority;
     _os_log_impl(&dword_19169D000, v11, OS_LOG_TYPE_INFO, "dispatch eventType:%d to consumer:%{public}@ at priority:%d", buf, 0x18u);
   }
 
@@ -318,6 +319,7 @@ LABEL_12:
   {
     eventMask = [v10 eventMask];
     consumer = [v10 consumer];
+    v15 = consumer;
     if (((eventMask >> message) & 1) == 0)
     {
       if ((eventMask & 0x10000) != 0)
@@ -335,12 +337,12 @@ LABEL_12:
       {
         if (message == 4)
         {
-          [consumer consumeTriplePressUpForButtonKind:kind];
+          [v15 consumeTriplePressUpForButtonKind:kind];
         }
 
         else
         {
-          [consumer consumeLongPressForButtonKind:kind];
+          [v15 consumeLongPressForButtonKind:kind];
         }
 
         goto LABEL_32;
@@ -349,21 +351,21 @@ LABEL_12:
       switch(message)
       {
         case 8:
-          v17 = consumer;
-          v18 = 0;
+          v19 = v15;
+          v20 = 0;
           break;
         case 7:
-          v17 = consumer;
-          v18 = 1;
+          v19 = v15;
+          v20 = 1;
           break;
         case 6:
-          [consumer consumeSinglePressDownForButtonKind:kind];
+          [v15 consumeSinglePressDownForButtonKind:kind];
           goto LABEL_32;
         default:
           goto LABEL_29;
       }
 
-      [v17 consumeStateChange:v18 forButtonKind:kind];
+      [v19 consumeStateChange:v20 forButtonKind:kind];
       goto LABEL_32;
     }
 
@@ -371,12 +373,12 @@ LABEL_12:
     {
       if (message == 2)
       {
-        [consumer consumeDoublePressDownForButtonKind:kind];
+        [v15 consumeDoublePressDownForButtonKind:kind];
       }
 
       else
       {
-        [consumer consumeDoublePressUpForButtonKind:kind];
+        [v15 consumeDoublePressUpForButtonKind:kind];
       }
 
       goto LABEL_32;
@@ -386,37 +388,37 @@ LABEL_12:
     {
       if (message == 1)
       {
-        [consumer consumeSinglePressUpForButtonKind:kind];
+        [v15 consumeSinglePressUpForButtonKind:kind];
         goto LABEL_32;
       }
 
 LABEL_29:
-      v19 = SBLogCommon();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = SBLogCommon(consumer);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [SBSHardwareButtonService _mainQueue_handleButtonPressMessage:message forButtonKind:v19 priority:?];
+        [SBSHardwareButtonService _mainQueue_handleButtonPressMessage:message forButtonKind:v21 priority:?];
       }
 
       goto LABEL_32;
     }
 
 LABEL_19:
-    [consumer consumeAnyPressEventForButtonKind:kind];
+    [v15 consumeAnyPressEventForButtonKind:kind];
     goto LABEL_32;
   }
 
-  consumer = SBLogCommon();
-  if (os_log_type_enabled(consumer, OS_LOG_TYPE_ERROR))
+  v15 = SBLogCommon(v12);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v15 = NSStringFromSBSHardwareButtonKind(kind);
-    v16 = [(BSMutableIntegerMap *)self->_consumersPerKind objectForKey:kind];
+    v17 = NSStringFromSBSHardwareButtonKind(kind);
+    v18 = [(BSMutableIntegerMap *)self->_consumersPerKind objectForKey:kind];
     *buf = 138543874;
-    *v21 = v15;
-    *&v21[8] = 1024;
-    *&v21[10] = message;
-    v22 = 2114;
-    v23 = v16;
-    _os_log_error_impl(&dword_19169D000, consumer, OS_LOG_TYPE_ERROR, "no viable consumer for button:%{public}@ eventType:%d -- consumers:%{public}@", buf, 0x1Cu);
+    *v23 = v17;
+    *&v23[8] = 1024;
+    *&v23[10] = message;
+    v24 = 2114;
+    v25 = v18;
+    _os_log_error_impl(&dword_19169D000, v15, OS_LOG_TYPE_ERROR, "no viable consumer for button:%{public}@ eventType:%d -- consumers:%{public}@", buf, 0x1Cu);
   }
 
 LABEL_32:

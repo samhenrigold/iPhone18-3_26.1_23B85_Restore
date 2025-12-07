@@ -16,12 +16,10 @@
 
 + (id)columns
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"starting" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:12 convertedType:0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -63,11 +61,11 @@
 
 - (id)jsonDictionary
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if ([(BMAccessibilityContrast *)self hasStarting])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMAccessibilityContrast starting](self, "starting")}];
-    v10 = @"starting";
+    v9 = @"starting";
     if (v3)
     {
       v4 = v3;
@@ -79,27 +77,25 @@
 
   else
   {
-    v10 = @"starting";
+    v9 = @"starting";
   }
 
   null = [MEMORY[0x1E695DFB0] null];
   v4 = 0;
   v5 = 1;
 LABEL_6:
-  v11[0] = null;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = null;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   if (v5)
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (BMAccessibilityContrast)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v6 = [dictionary objectForKeyedSubscript:@"starting"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -119,13 +115,13 @@ LABEL_4:
 
   if (error)
   {
-    v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v11 = *MEMORY[0x1E698F240];
-    v14 = *MEMORY[0x1E696A578];
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"starting"];
-    v15[0] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-    *error = [v10 initWithDomain:v11 code:2 userInfo:v13];
+    v9 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v10 = *MEMORY[0x1E698F240];
+    v13 = *MEMORY[0x1E696A578];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"starting"];
+    v14[0] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    *error = [v9 initWithDomain:v10 code:2 userInfo:v12];
 
     error = 0;
   }
@@ -133,7 +129,6 @@ LABEL_4:
   selfCopy = 0;
 LABEL_5:
 
-  v8 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -150,7 +145,6 @@ LABEL_5:
 {
   if (self->_hasStarting)
   {
-    starting = self->_starting;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -323,12 +317,10 @@ LABEL_35:
 
 + (id)protoFields
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"starting" number:1 type:12 subMessageClass:0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }

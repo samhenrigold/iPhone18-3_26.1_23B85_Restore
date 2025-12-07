@@ -43,7 +43,7 @@
 
 + ($A5A652246548B43F8BC05201A1C72A70)_acquireLockOnDir:(id)dir withLockingMode:(int)mode andRunBlock:(id)block
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   blockCopy = block;
   v9 = objc_autoreleasePoolPush();
@@ -53,16 +53,16 @@
     v13 = TRILogCategory_Server();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v19 = __error();
-      v20 = strerror(*v19);
-      v21 = *__error();
-      v28 = 138543874;
-      v29 = dirCopy;
-      v30 = 2080;
-      v31 = v20;
-      v32 = 1024;
-      v33 = v21;
-      _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Failed to open lock dir %{public}@: %s (%d)", &v28, 0x1Cu);
+      v18 = __error();
+      v19 = strerror(*v18);
+      v20 = *__error();
+      v27 = 138543874;
+      v28 = dirCopy;
+      v29 = 2080;
+      v30 = v19;
+      v31 = 1024;
+      v32 = v20;
+      _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Failed to open lock dir %{public}@: %s (%d)", &v27, 0x1Cu);
     }
 
     v12.var0 = 2;
@@ -83,16 +83,16 @@
         v16 = TRILogCategory_Server();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v22 = __error();
-          v23 = strerror(*v22);
-          v24 = *__error();
-          v28 = 138543874;
-          v29 = dirCopy;
-          v30 = 2080;
-          v31 = v23;
-          v32 = 1024;
-          v33 = v24;
-          _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Failed to acquire lock dir %{public}@: %s (%d)", &v28, 0x1Cu);
+          v21 = __error();
+          v22 = strerror(*v21);
+          v23 = *__error();
+          v27 = 138543874;
+          v28 = dirCopy;
+          v29 = 2080;
+          v30 = v22;
+          v31 = 1024;
+          v32 = v23;
+          _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Failed to acquire lock dir %{public}@: %s (%d)", &v27, 0x1Cu);
         }
 
         v12.var0 = 2;
@@ -102,24 +102,24 @@
     else
     {
       v14 = objc_autoreleasePoolPush();
-      v28 = v11;
-      blockCopy[2](blockCopy, &v28);
+      v27 = v11;
+      blockCopy[2](blockCopy, &v27);
       objc_autoreleasePoolPop(v14);
       if (flock(v11, 8))
       {
         v15 = TRILogCategory_Server();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          v25 = __error();
-          v26 = strerror(*v25);
-          v27 = *__error();
-          v28 = 138543874;
-          v29 = dirCopy;
-          v30 = 2080;
-          v31 = v26;
-          v32 = 1024;
-          v33 = v27;
-          _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "Failed to unlock lock dir %{public}@: %s (%d)", &v28, 0x1Cu);
+          v24 = __error();
+          v25 = strerror(*v24);
+          v26 = *__error();
+          v27 = 138543874;
+          v28 = dirCopy;
+          v29 = 2080;
+          v30 = v25;
+          v31 = 1024;
+          v32 = v26;
+          _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "Failed to unlock lock dir %{public}@: %s (%d)", &v27, 0x1Cu);
         }
       }
 
@@ -131,16 +131,15 @@
 
   objc_autoreleasePoolPop(v9);
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 + (id)_containingManagedDirForPath:(id)path resolvedAbsPath:(id *)absPath
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  bzero(v38, 0x400uLL);
-  v7 = realpath_DARWIN_EXTSN([pathCopy fileSystemRepresentation], v38);
+  bzero(v37, 0x400uLL);
+  v7 = realpath_DARWIN_EXTSN([pathCopy fileSystemRepresentation], v37);
   if (v7)
   {
     v8 = v7;
@@ -154,11 +153,11 @@
     while (1)
     {
       v11 = stringForUTF8Path(v8);
-      v25 = 0;
+      v24 = 0;
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       v13 = [self _metadataDirForManagedDir:v11];
-      v14 = [defaultManager fileExistsAtPath:v13 isDirectory:&v25];
-      v15 = v25;
+      v14 = [defaultManager fileExistsAtPath:v13 isDirectory:&v24];
+      v15 = v24;
 
       if (v14)
       {
@@ -173,25 +172,25 @@
         v19 = TRILogCategory_Server();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v22 = __error();
-          v23 = strerror(*v22);
-          v24 = *__error();
-          *v26 = 138543874;
-          v27 = pathCopy;
-          v28 = 2080;
-          v29 = v23;
-          v30 = 1024;
-          v31 = v24;
-          _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, "dirname_r() failure on upward-traversal of path %{public}@: %s (%d)", v26, 0x1Cu);
+          v21 = __error();
+          v22 = strerror(*v21);
+          v23 = *__error();
+          *v25 = 138543874;
+          v26 = pathCopy;
+          v27 = 2080;
+          v28 = v22;
+          v29 = 1024;
+          v30 = v23;
+          _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, "dirname_r() failure on upward-traversal of path %{public}@: %s (%d)", v25, 0x1Cu);
         }
 
         goto LABEL_14;
       }
 
-      v8 = v38;
+      v8 = v37;
       __strlcpy_chk();
 
-      if (v38[0] == 47)
+      if (v37[0] == 47)
       {
         goto LABEL_15;
       }
@@ -207,11 +206,11 @@
       v17 = strerror(*v16);
       v18 = *__error();
       *buf = 138543874;
-      v33 = pathCopy;
-      v34 = 2080;
-      v35 = v17;
-      v36 = 1024;
-      v37 = v18;
+      v32 = pathCopy;
+      v33 = 2080;
+      v34 = v17;
+      v35 = 1024;
+      v36 = v18;
       _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "Failed to resolve absolute path for possibly-managed path %{public}@: %s (%d)", buf, 0x1Cu);
     }
 
@@ -221,21 +220,19 @@ LABEL_15:
     v11 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (BOOL)createFromDir:(id)dir
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
-  v16 = 0;
-  v5 = [self _containingManagedDirForPath:dirCopy resolvedAbsPath:&v16];
+  v15 = 0;
+  v5 = [self _containingManagedDirForPath:dirCopy resolvedAbsPath:&v15];
   if (v5)
   {
     v6 = v5;
-    LODWORD(self) = [v5 isEqualToString:v16];
+    LODWORD(self) = [v5 isEqualToString:v15];
     v7 = TRILogCategory_Server();
     v8 = v7;
     if (self)
@@ -243,7 +240,7 @@ LABEL_15:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v18 = v6;
+        v17 = v6;
         _os_log_impl(&dword_26F567000, v8, OS_LOG_TYPE_DEFAULT, "Reference-managed directory already exists at %{public}@", buf, 0xCu);
       }
     }
@@ -251,9 +248,9 @@ LABEL_15:
     else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v18 = dirCopy;
-      v19 = 2114;
-      v20 = v6;
+      v17 = dirCopy;
+      v18 = 2114;
+      v19 = v6;
       _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Cannot create reference-managed directory %{public}@ because it is nested in reference-managed directory: %{public}@", buf, 0x16u);
     }
   }
@@ -263,9 +260,9 @@ LABEL_15:
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v10 = [self _metadataDirForManagedDir:dirCopy];
-    v15 = 0;
-    LOBYTE(self) = [defaultManager createDirectoryAtPath:v10 withIntermediateDirectories:0 attributes:0 error:&v15];
-    v11 = v15;
+    v14 = 0;
+    LOBYTE(self) = [defaultManager createDirectoryAtPath:v10 withIntermediateDirectories:0 attributes:0 error:&v14];
+    v11 = v14;
 
     if ((self & 1) == 0)
     {
@@ -273,21 +270,20 @@ LABEL_15:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v18 = dirCopy;
-        v19 = 2114;
-        v20 = v11;
+        v17 = dirCopy;
+        v18 = 2114;
+        v19 = v11;
         _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Failed to create reference-managed directory from %{public}@: %{public}@", buf, 0x16u);
       }
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return self;
 }
 
 + (BOOL)symlinkFromCurrentPath:(id)path withFuturePath:(id)futurePath toManagedPath:(id)managedPath
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   futurePathCopy = futurePath;
   managedPathCopy = managedPath;
@@ -335,7 +331,7 @@ LABEL_4:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v55 = "+[TRIReferenceManagedDir symlinkFromCurrentPath:withFuturePath:toManagedPath:]";
+      v54 = "+[TRIReferenceManagedDir symlinkFromCurrentPath:withFuturePath:toManagedPath:]";
       _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "%s has empty path arg: symlinkCurrentPath", buf, 0xCu);
     }
 
@@ -348,7 +344,7 @@ LABEL_4:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v55 = "+[TRIReferenceManagedDir symlinkFromCurrentPath:withFuturePath:toManagedPath:]";
+      v54 = "+[TRIReferenceManagedDir symlinkFromCurrentPath:withFuturePath:toManagedPath:]";
       _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "%s has empty path arg: symlinkFuturePath", buf, 0xCu);
     }
 
@@ -361,7 +357,7 @@ LABEL_4:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v55 = "+[TRIReferenceManagedDir symlinkFromCurrentPath:withFuturePath:toManagedPath:]";
+      v54 = "+[TRIReferenceManagedDir symlinkFromCurrentPath:withFuturePath:toManagedPath:]";
       _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "%s has empty path arg: managedPath", buf, 0xCu);
     }
 
@@ -374,7 +370,7 @@ LABEL_4:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v55 = futurePathCopy;
+      v54 = futurePathCopy;
       _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "symlinkFuturePath %{public}@ is not absolute.", buf, 0xCu);
     }
 
@@ -390,7 +386,7 @@ LABEL_4:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v55 = pathCopy;
+      v54 = pathCopy;
       _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Unable to create symlink at %{public}@: file already exists", buf, 0xCu);
     }
 
@@ -403,91 +399,91 @@ LABEL_24:
 
   bzero(buf, 0x400uLL);
   stringByDeletingLastPathComponent = [pathCopy stringByDeletingLastPathComponent];
-  v19 = realpath_DARWIN_EXTSN([stringByDeletingLastPathComponent fileSystemRepresentation], buf);
+  v18 = realpath_DARWIN_EXTSN([stringByDeletingLastPathComponent fileSystemRepresentation], buf);
 
-  if (!v19)
+  if (!v18)
   {
-    v30 = TRILogCategory_Server();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v29 = TRILogCategory_Server();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v33 = __error();
-      v34 = strerror(*v33);
-      v35 = *__error();
-      *v52 = 138543874;
-      *&v52[4] = pathCopy;
-      *&v52[12] = 2080;
-      *&v52[14] = v34;
-      *&v52[22] = 1024;
-      v53 = v35;
-      _os_log_error_impl(&dword_26F567000, v30, OS_LOG_TYPE_ERROR, "Unable to resolve parent dir for %{public}@: %s (%d)", v52, 0x1Cu);
+      v32 = __error();
+      v33 = strerror(*v32);
+      v34 = *__error();
+      *v51 = 138543874;
+      *&v51[4] = pathCopy;
+      *&v51[12] = 2080;
+      *&v51[14] = v33;
+      *&v51[22] = 1024;
+      v52 = v34;
+      _os_log_error_impl(&dword_26F567000, v29, OS_LOG_TYPE_ERROR, "Unable to resolve parent dir for %{public}@: %s (%d)", v51, 0x1Cu);
     }
 
     goto LABEL_24;
   }
 
-  v20 = stringForUTF8Path(v19);
+  v19 = stringForUTF8Path(v18);
   lastPathComponent = [pathCopy lastPathComponent];
-  v22 = [v20 stringByAppendingPathComponent:lastPathComponent];
+  v21 = [v19 stringByAppendingPathComponent:lastPathComponent];
 
-  if (!v22)
+  if (!v21)
   {
     currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler4 handleFailureInMethod:a2 object:self file:@"TRIReferenceManagedDir.m" lineNumber:209 description:{@"Invalid parameter not satisfying: %@", @"absSymlinkCurrentPath"}];
   }
 
-  v51 = 0;
-  v23 = [self _containingManagedDirForPath:managedPathCopy resolvedAbsPath:&v51];
-  if (v23)
+  v50 = 0;
+  v22 = [self _containingManagedDirForPath:managedPathCopy resolvedAbsPath:&v50];
+  if (v22)
   {
-    if (!v51)
+    if (!v50)
     {
       currentHandler5 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler5 handleFailureInMethod:a2 object:self file:@"TRIReferenceManagedDir.m" lineNumber:217 description:{@"Invalid parameter not satisfying: %@", @"absLinkTarget"}];
     }
 
-    *v52 = 0;
-    *&v52[8] = v52;
-    *&v52[16] = 0x2020000000;
-    LOBYTE(v53) = 1;
-    v24 = [self _metadataDirForManagedDir:v23];
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __78__TRIReferenceManagedDir_symlinkFromCurrentPath_withFuturePath_toManagedPath___block_invoke;
-    v46[3] = &unk_279DE2770;
+    *v51 = 0;
+    *&v51[8] = v51;
+    *&v51[16] = 0x2020000000;
+    LOBYTE(v52) = 1;
+    v23 = [self _metadataDirForManagedDir:v22];
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __78__TRIReferenceManagedDir_symlinkFromCurrentPath_withFuturePath_toManagedPath___block_invoke;
+    v45[3] = &unk_279DE2770;
     selfCopy = self;
-    v25 = v23;
-    v47 = v25;
-    v48 = futurePathCopy;
-    v49 = v52;
-    v26 = [self _acquireLockOnDir:v24 withLockingMode:2 andRunBlock:v46];
+    v24 = v22;
+    v46 = v24;
+    v47 = futurePathCopy;
+    v48 = v51;
+    v25 = [self _acquireLockOnDir:v23 withLockingMode:2 andRunBlock:v45];
 
-    if (v26 || (*(*&v52[8] + 24) & 1) == 0)
+    if (v25 || (*(*&v51[8] + 24) & 1) == 0)
     {
       v15 = 0;
     }
 
     else
     {
-      fileSystemRepresentation = [v51 fileSystemRepresentation];
-      v28 = v22;
-      if (symlink(fileSystemRepresentation, [v22 fileSystemRepresentation]))
+      fileSystemRepresentation = [v50 fileSystemRepresentation];
+      v27 = v21;
+      if (symlink(fileSystemRepresentation, [v21 fileSystemRepresentation]))
       {
-        v29 = TRILogCategory_Server();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v28 = TRILogCategory_Server();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          v40 = v51;
-          v41 = __error();
-          v42 = strerror(*v41);
-          v43 = *__error();
+          v39 = v50;
+          v40 = __error();
+          v41 = strerror(*v40);
+          v42 = *__error();
           *buf = 138544130;
-          v55 = v22;
-          v56 = 2114;
-          v57 = v40;
-          v58 = 2080;
-          v59 = v42;
-          v60 = 1024;
-          v61 = v43;
-          _os_log_error_impl(&dword_26F567000, v29, OS_LOG_TYPE_ERROR, "Failed to create symlink %{public}@ --> %{public}@: %s (%d)", buf, 0x26u);
+          v54 = v21;
+          v55 = 2114;
+          v56 = v39;
+          v57 = 2080;
+          v58 = v41;
+          v59 = 1024;
+          v60 = v42;
+          _os_log_error_impl(&dword_26F567000, v28, OS_LOG_TYPE_ERROR, "Failed to create symlink %{public}@ --> %{public}@: %s (%d)", buf, 0x26u);
         }
 
         v15 = 0;
@@ -496,50 +492,49 @@ LABEL_24:
       else
       {
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-        v29 = [defaultManager2 triPath:managedPathCopy relativeToParentPath:v25];
+        v28 = [defaultManager2 triPath:managedPathCopy relativeToParentPath:v24];
 
-        if (([v29 isEqualToString:@"."]& 1) != 0)
+        if (([v28 isEqualToString:@"."]& 1) != 0)
         {
           v15 = 1;
         }
 
         else
         {
-          v36 = [[TRIDeferredDeleter alloc] initForRootDir:v25];
-          v15 = [v36 unmarkItemAtRelativePath:v29];
+          v35 = [[TRIDeferredDeleter alloc] initForRootDir:v24];
+          v15 = [v35 unmarkItemAtRelativePath:v28];
         }
       }
     }
 
-    _Block_object_dispose(v52, 8);
+    _Block_object_dispose(v51, 8);
   }
 
   else
   {
-    v31 = TRILogCategory_Server();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v30 = TRILogCategory_Server();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v55 = managedPathCopy;
-      _os_log_error_impl(&dword_26F567000, v31, OS_LOG_TYPE_ERROR, "Attempting to symlink to a non-managed path: %{public}@", buf, 0xCu);
+      v54 = managedPathCopy;
+      _os_log_error_impl(&dword_26F567000, v30, OS_LOG_TYPE_ERROR, "Attempting to symlink to a non-managed path: %{public}@", buf, 0xCu);
     }
 
     v15 = 0;
   }
 
 LABEL_25:
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 void __78__TRIReferenceManagedDir_symlinkFromCurrentPath_withFuturePath_toManagedPath___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [*(a1 + 56) _reverseLinksDirForManagedDir:*(a1 + 32)];
-  v20 = 0;
-  v4 = [v2 createDirectoryAtPath:v3 withIntermediateDirectories:1 attributes:0 error:&v20];
-  v5 = v20;
+  v19 = 0;
+  v4 = [v2 createDirectoryAtPath:v3 withIntermediateDirectories:1 attributes:0 error:&v19];
+  v5 = v19;
 
   if ((v4 & 1) == 0)
   {
@@ -547,7 +542,7 @@ void __78__TRIReferenceManagedDir_symlinkFromCurrentPath_withFuturePath_toManage
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v22 = v5;
+      v21 = v5;
       _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Failed to create reverse link dir: %{public}@", buf, 0xCu);
     }
   }
@@ -566,30 +561,28 @@ void __78__TRIReferenceManagedDir_symlinkFromCurrentPath_withFuturePath_toManage
     v14 = TRILogCategory_Server();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 40);
-      v17 = __error();
-      v18 = strerror(*v17);
-      v19 = *__error();
+      v15 = *(a1 + 40);
+      v16 = __error();
+      v17 = strerror(*v16);
+      v18 = *__error();
       *buf = 138544130;
-      v22 = v13;
-      v23 = 2114;
-      v24 = v16;
-      v25 = 2080;
-      v26 = v18;
-      v27 = 1024;
-      v28 = v19;
+      v21 = v13;
+      v22 = 2114;
+      v23 = v15;
+      v24 = 2080;
+      v25 = v17;
+      v26 = 1024;
+      v27 = v18;
       _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Failed to create symlink %{public}@ --> %{public}@: %s (%d)", buf, 0x26u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_isTargetOfSymlink:(id)symlink containedInManagedDir:(id)dir
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   symlinkCopy = symlink;
   dirCopy = dir;
   if ([symlinkCopy length])
@@ -617,15 +610,15 @@ LABEL_25:
         goto LABEL_20;
       }
 
-      v24 = __error();
-      v25 = strerror(*v24);
-      v26 = *__error();
-      *v32 = 138543874;
-      v33 = symlinkCopy;
-      v34 = 2080;
-      v35 = v25;
-      v36 = 1024;
-      v37 = v26;
+      v23 = __error();
+      v24 = strerror(*v23);
+      v25 = *__error();
+      *v31 = 138543874;
+      v32 = symlinkCopy;
+      v33 = 2080;
+      v34 = v24;
+      v35 = 1024;
+      v36 = v25;
       v12 = "Failed to resolve symlink %{public}@: %s (%d)";
       v13 = v11;
       v14 = 28;
@@ -663,28 +656,28 @@ LABEL_25:
 
             else
             {
-              v23 = [v19 stringByAppendingString:@"/"];
+              v22 = [v19 stringByAppendingString:@"/"];
 
-              v16 = [v17 hasPrefix:v23];
-              v19 = v23;
+              v16 = [v17 hasPrefix:v22];
+              v19 = v22;
             }
           }
 
           else
           {
-            v22 = TRILogCategory_Server();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v21 = TRILogCategory_Server();
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
-              v27 = __error();
-              v28 = strerror(*v27);
-              v29 = *__error();
-              *v32 = 138543874;
-              v33 = dirCopy;
-              v34 = 2080;
-              v35 = v28;
-              v36 = 1024;
-              v37 = v29;
-              _os_log_error_impl(&dword_26F567000, v22, OS_LOG_TYPE_ERROR, "Failed to canonicalize reference-managed directory %{public}@: %s (%d)", v32, 0x1Cu);
+              v26 = __error();
+              v27 = strerror(*v26);
+              v28 = *__error();
+              *v31 = 138543874;
+              v32 = dirCopy;
+              v33 = 2080;
+              v34 = v27;
+              v35 = 1024;
+              v36 = v28;
+              _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "Failed to canonicalize reference-managed directory %{public}@: %s (%d)", v31, 0x1Cu);
             }
 
             v19 = 0;
@@ -697,11 +690,11 @@ LABEL_25:
         v11 = TRILogCategory_Server();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          *v32 = 138543618;
-          v33 = symlinkCopy;
-          v34 = 2114;
-          v35 = v17;
-          _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "Symlink into managed directory is expected to be absolute: %{public}@ --> %{public}@", v32, 0x16u);
+          *v31 = 138543618;
+          v32 = symlinkCopy;
+          v33 = 2114;
+          v34 = v17;
+          _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "Symlink into managed directory is expected to be absolute: %{public}@ --> %{public}@", v31, 0x16u);
         }
 
         goto LABEL_23;
@@ -717,14 +710,14 @@ LABEL_23:
         goto LABEL_24;
       }
 
-      *v32 = 138543362;
-      v33 = symlinkCopy;
+      *v31 = 138543362;
+      v32 = symlinkCopy;
       v12 = "Target of symlink %{public}@ exceeds maximum length.";
       v13 = v11;
       v14 = 12;
     }
 
-    _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, v12, v32, v14);
+    _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, v12, v31, v14);
     goto LABEL_20;
   }
 
@@ -732,22 +725,21 @@ LABEL_23:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543618;
-    v39 = symlinkCopy;
-    v40 = 2114;
-    v41 = dirCopy;
+    v38 = symlinkCopy;
+    v39 = 2114;
+    v40 = dirCopy;
     _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "Failed to derive file system encoding of symlin: %{public}@ in managed directory: %{public}@", buf, 0x16u);
   }
 
   v16 = 0;
 LABEL_26:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 + (id)_collectDeadSymlinksForManagedDir:(id)dir withLockWitness:(TRIFlockWitness_ *)witness liveSymlinkCount:(unsigned int *)count
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   v9 = objc_autoreleasePoolPush();
   *count = 0;
@@ -758,7 +750,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v37 = a2;
+  v36 = a2;
   v11 = MEMORY[0x277CBEBC0];
   selfCopy = self;
   v12 = [self _reverseLinksDirForManagedDir:dirCopy];
@@ -785,11 +777,11 @@ LABEL_23:
     if (!path)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      [currentHandler handleFailureInMethod:v37 object:selfCopy file:@"TRIReferenceManagedDir.m" lineNumber:360 description:{@"Invalid parameter not satisfying: %@", @"reverseLinkPath"}];
+      [currentHandler handleFailureInMethod:v36 object:selfCopy file:@"TRIReferenceManagedDir.m" lineNumber:360 description:{@"Invalid parameter not satisfying: %@", @"reverseLinkPath"}];
     }
 
-    bzero(v45, 0x400uLL);
-    v20 = readlink([path fileSystemRepresentation], v45, 0x400uLL);
+    bzero(v44, 0x400uLL);
+    v20 = readlink([path fileSystemRepresentation], v44, 0x400uLL);
     if ((v20 & 0x8000000000000000) == 0)
     {
       break;
@@ -799,22 +791,22 @@ LABEL_23:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v24 = __error();
-      v36 = v10;
+      v35 = v10;
       v25 = dirCopy;
       v26 = v13;
       v27 = v9;
       v28 = strerror(*v24);
       v29 = *__error();
       *buf = 138543874;
-      v40 = path;
-      v41 = 2080;
-      v42 = v28;
+      v39 = path;
+      v40 = 2080;
+      v41 = v28;
       v9 = v27;
       v13 = v26;
       dirCopy = v25;
-      v10 = v36;
-      v43 = 1024;
-      v44 = v29;
+      v10 = v35;
+      v42 = 1024;
+      v43 = v29;
       v22 = v21;
       v23 = "Failed to resolve reverse-link %{public}@: %s (%d)";
       v30 = 28;
@@ -841,7 +833,7 @@ LABEL_15:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v40 = path;
+      v39 = path;
       v22 = v21;
       v23 = "Target of reverse-link %{public}@ resolves to an empty string.";
 LABEL_21:
@@ -860,7 +852,7 @@ LABEL_22:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v40 = path;
+      v39 = path;
       v22 = v21;
       v23 = "Target of reverse-link %{public}@ exceeds max path length.";
       goto LABEL_21;
@@ -869,8 +861,8 @@ LABEL_22:
     goto LABEL_14;
   }
 
-  v45[v20] = 0;
-  v31 = stringForUTF8Path(v45);
+  v44[v20] = 0;
+  v31 = stringForUTF8Path(v44);
   if ([selfCopy _isTargetOfSymlink:v31 containedInManagedDir:dirCopy])
   {
     goto LABEL_15;
@@ -888,8 +880,6 @@ LABEL_24:
 
 LABEL_26:
   objc_autoreleasePoolPop(v9);
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
@@ -930,7 +920,7 @@ LABEL_26:
 
 void __66__TRIReferenceManagedDir__removePaths_withLockWitness_numRemoved___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 length])
   {
@@ -939,16 +929,16 @@ void __66__TRIReferenceManagedDir__removePaths_withLockWitness_numRemoved___bloc
       v4 = TRILogCategory_Server();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v7 = __error();
-        v8 = strerror(*v7);
-        v9 = *__error();
-        v10 = 138543874;
-        v11 = v3;
-        v12 = 2080;
-        v13 = v8;
-        v14 = 1024;
-        v15 = v9;
-        _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "Failed to unlink %{public}@: %s (%d)", &v10, 0x1Cu);
+        v6 = __error();
+        v7 = strerror(*v6);
+        v8 = *__error();
+        v9 = 138543874;
+        v10 = v3;
+        v11 = 2080;
+        v12 = v7;
+        v13 = 1024;
+        v14 = v8;
+        _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "Failed to unlink %{public}@: %s (%d)", &v9, 0x1Cu);
       }
 
       *(*(*(a1 + 32) + 8) + 24) = 0;
@@ -963,13 +953,11 @@ void __66__TRIReferenceManagedDir__removePaths_withLockWitness_numRemoved___bloc
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_deleteReferenceManagedDirectory:(id)directory usingTempDir:(id)dir managedDirWasDeleted:(BOOL *)deleted
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   dirCopy = dir;
   v9 = objc_autoreleasePoolPush();
@@ -977,34 +965,34 @@ void __66__TRIReferenceManagedDir__removePaths_withLockWitness_numRemoved___bloc
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v49 = directoryCopy;
+    v48 = directoryCopy;
     _os_log_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEFAULT, "GC is deleting reference-managed directory: %{public}@", buf, 0xCu);
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v47 = 0;
-  v12 = [defaultManager triRemoveCachedANEBinariesForModelsFromPath:directoryCopy error:&v47];
-  v13 = v47;
+  v46 = 0;
+  v12 = [defaultManager triRemoveCachedANEBinariesForModelsFromPath:directoryCopy error:&v46];
+  v13 = v46;
   if ((v12 & 1) == 0)
   {
     v14 = TRILogCategory_Server();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v49 = v13;
+      v48 = v13;
       _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Failed to purge ANE cache during GC: %{public}@", buf, 0xCu);
     }
   }
 
-  v44 = dirCopy;
+  v43 = dirCopy;
   if (dirCopy)
   {
     v15 = defaultManager;
     deletedCopy = deleted;
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v46 = 0;
-    v18 = [defaultManager2 createDirectoryAtPath:dirCopy withIntermediateDirectories:1 attributes:0 error:&v46];
-    v19 = v46;
+    v45 = 0;
+    v18 = [defaultManager2 createDirectoryAtPath:dirCopy withIntermediateDirectories:1 attributes:0 error:&v45];
+    v19 = v45;
 
     if ((v18 & 1) == 0)
     {
@@ -1012,7 +1000,7 @@ void __66__TRIReferenceManagedDir__removePaths_withLockWitness_numRemoved___bloc
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v49 = v19;
+        v48 = v19;
         _os_log_error_impl(&dword_26F567000, v20, OS_LOG_TYPE_ERROR, "Failed to create local temp directory: %{public}@", buf, 0xCu);
       }
     }
@@ -1023,7 +1011,7 @@ void __66__TRIReferenceManagedDir__removePaths_withLockWitness_numRemoved___bloc
     v23 = v13;
     v25 = v24 = v9;
     v26 = [v21 initWithFormat:@"delete-%@", v25];
-    v27 = [v44 stringByAppendingPathComponent:v26];
+    v27 = [v43 stringByAppendingPathComponent:v26];
 
     v9 = v24;
     v13 = v23;
@@ -1047,17 +1035,17 @@ void __66__TRIReferenceManagedDir__removePaths_withLockWitness_numRemoved___bloc
     v33 = TRILogCategory_Server();
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      v41 = __error();
-      v42 = strerror(*v41);
-      v43 = *__error();
+      v40 = __error();
+      v41 = strerror(*v40);
+      v42 = *__error();
       *buf = 138544130;
-      v49 = directoryCopy;
-      v50 = 2114;
-      v51 = v27;
-      v52 = 2080;
-      v53 = v42;
-      v54 = 1024;
-      v55 = v43;
+      v48 = directoryCopy;
+      v49 = 2114;
+      v50 = v27;
+      v51 = 2080;
+      v52 = v41;
+      v53 = 1024;
+      v54 = v42;
       _os_log_error_impl(&dword_26F567000, v33, OS_LOG_TYPE_ERROR, "Failed to rename %{public}@ --> %{public}@: %s (%d)", buf, 0x26u);
     }
 
@@ -1071,63 +1059,62 @@ void __66__TRIReferenceManagedDir__removePaths_withLockWitness_numRemoved___bloc
   }
 
   defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-  v45 = 0;
-  v36 = [defaultManager3 triForceRemoveItemAtPath:v27 error:&v45];
-  v33 = v45;
+  v44 = 0;
+  v36 = [defaultManager3 triForceRemoveItemAtPath:v27 error:&v44];
+  v33 = v44;
 
   if (v36)
   {
     v34 = 1;
 LABEL_22:
-    v37 = v44;
+    v37 = v43;
     goto LABEL_23;
   }
 
-  v40 = TRILogCategory_Server();
-  v37 = v44;
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+  v39 = TRILogCategory_Server();
+  v37 = v43;
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v49 = v33;
-    _os_log_error_impl(&dword_26F567000, v40, OS_LOG_TYPE_ERROR, "Failed to remove GC'd reference-managed directory: %{public}@", buf, 0xCu);
+    v48 = v33;
+    _os_log_error_impl(&dword_26F567000, v39, OS_LOG_TYPE_ERROR, "Failed to remove GC'd reference-managed directory: %{public}@", buf, 0xCu);
   }
 
   v34 = 0;
 LABEL_23:
 
   objc_autoreleasePoolPop(v9);
-  v38 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
 + (BOOL)_testDeletionEligibilityForManagedDir:(id)dir withExternalReferenceStore:(id)store flockWitness:(TRIFlockWitness_ *)witness logPrefix:(id)prefix isEligible:(BOOL *)eligible
 {
-  *&v34[13] = *MEMORY[0x277D85DE8];
+  *&v33[13] = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   storeCopy = store;
   prefixCopy = prefix;
-  LOBYTE(v30) = 0;
+  LOBYTE(v29) = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v16 = [self _metadataDirForManagedDir:dirCopy];
-  v17 = [defaultManager fileExistsAtPath:v16 isDirectory:&v30];
+  v17 = [defaultManager fileExistsAtPath:v16 isDirectory:&v29];
 
-  if (!v17 || (v30 & 1) == 0)
+  if (!v17 || (v29 & 1) == 0)
   {
     v24 = TRILogCategory_Server();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v32 = prefixCopy;
-      v33 = 2114;
-      *v34 = dirCopy;
+      v31 = prefixCopy;
+      v32 = 2114;
+      *v33 = dirCopy;
       _os_log_error_impl(&dword_26F567000, v24, OS_LOG_TYPE_ERROR, "%{public}@Attempted to garbage-collect directory which is not reference-managed: %{public}@", buf, 0x16u);
     }
 
     goto LABEL_17;
   }
 
-  v30 = 0;
-  v18 = [self _collectDeadSymlinksForManagedDir:dirCopy withLockWitness:witness liveSymlinkCount:&v30];
+  v29 = 0;
+  v18 = [self _collectDeadSymlinksForManagedDir:dirCopy withLockWitness:witness liveSymlinkCount:&v29];
   if (!v18)
   {
 LABEL_17:
@@ -1140,16 +1127,16 @@ LABEL_17:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v32 = prefixCopy;
-    v33 = 1024;
-    *v34 = v30;
-    v34[2] = 2114;
-    *&v34[3] = dirCopy;
+    v31 = prefixCopy;
+    v32 = 1024;
+    *v33 = v29;
+    v33[2] = 2114;
+    *&v33[3] = dirCopy;
     _os_log_impl(&dword_26F567000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@GC scan found %u live symlinks into reference-managed directory: %{public}@", buf, 0x1Cu);
   }
 
-  v29 = 0;
-  if (![self _removePaths:v19 withLockWitness:witness numRemoved:&v29])
+  v28 = 0;
+  if (![self _removePaths:v19 withLockWitness:witness numRemoved:&v28])
   {
 
     goto LABEL_17;
@@ -1159,11 +1146,11 @@ LABEL_17:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v32 = prefixCopy;
-    v33 = 1024;
-    *v34 = v29;
-    v34[2] = 2114;
-    *&v34[3] = dirCopy;
+    v31 = prefixCopy;
+    v32 = 1024;
+    *v33 = v28;
+    v33[2] = 2114;
+    *&v33[3] = dirCopy;
     _os_log_impl(&dword_26F567000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Removed %u dead symlinks from reference-managed directory: %{public}@", buf, 0x1Cu);
   }
 
@@ -1173,9 +1160,9 @@ LABEL_17:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v32 = prefixCopy;
-      v33 = 2114;
-      *v34 = dirCopy;
+      v31 = prefixCopy;
+      v32 = 2114;
+      *v33 = dirCopy;
       _os_log_impl(&dword_26F567000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@GC scan found a nonzero external reference count for reference-managed directory: %{public}@", buf, 0x16u);
     }
 
@@ -1188,36 +1175,35 @@ LABEL_17:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v32 = prefixCopy;
-      v33 = 2114;
-      *v34 = dirCopy;
+      v31 = prefixCopy;
+      v32 = 2114;
+      *v33 = dirCopy;
       _os_log_impl(&dword_26F567000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@GC scan found no external references for reference-managed directory: %{public}@", buf, 0x16u);
     }
 
     v23 = 1;
   }
 
-  if (v30)
+  if (v29)
   {
-    v28 = 0;
+    v27 = 0;
   }
 
   else
   {
-    v28 = v23;
+    v27 = v23;
   }
 
-  *eligible = v28;
+  *eligible = v27;
   v25 = 1;
 LABEL_18:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 + (BOOL)collectGarbageForManagedDir:(id)dir withExternalReferenceStore:(id)store usingTempDir:(id)tempDir managedDirWasDeleted:(BOOL *)deleted
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   storeCopy = store;
   tempDirCopy = tempDir;
@@ -1232,9 +1218,9 @@ LABEL_18:
     v21 = TRILogCategory_Server();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v46) = 136315138;
-      *(&v46 + 4) = "+[TRIReferenceManagedDir collectGarbageForManagedDir:withExternalReferenceStore:usingTempDir:managedDirWasDeleted:]";
-      _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "%s has empty path arg: managedDir", &v46, 0xCu);
+      LODWORD(v45) = 136315138;
+      *(&v45 + 4) = "+[TRIReferenceManagedDir collectGarbageForManagedDir:withExternalReferenceStore:usingTempDir:managedDirWasDeleted:]";
+      _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "%s has empty path arg: managedDir", &v45, 0xCu);
     }
 
     goto LABEL_29;
@@ -1245,9 +1231,9 @@ LABEL_18:
     v21 = TRILogCategory_Server();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v46) = 136315138;
-      *(&v46 + 4) = "+[TRIReferenceManagedDir collectGarbageForManagedDir:withExternalReferenceStore:usingTempDir:managedDirWasDeleted:]";
-      _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "%s has empty path arg: tempDir", &v46, 0xCu);
+      LODWORD(v45) = 136315138;
+      *(&v45 + 4) = "+[TRIReferenceManagedDir collectGarbageForManagedDir:withExternalReferenceStore:usingTempDir:managedDirWasDeleted:]";
+      _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "%s has empty path arg: tempDir", &v45, 0xCu);
     }
 
 LABEL_29:
@@ -1256,38 +1242,38 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  *&v46 = 0;
-  *(&v46 + 1) = &v46;
-  v47 = 0x2020000000;
-  v48 = 1;
+  *&v45 = 0;
+  *(&v45 + 1) = &v45;
+  v46 = 0x2020000000;
+  v47 = 1;
   if (deleted)
   {
     *deleted = 0;
   }
 
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = 0;
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __115__TRIReferenceManagedDir_collectGarbageForManagedDir_withExternalReferenceStore_usingTempDir_managedDirWasDeleted___block_invoke;
-  v34[3] = &unk_279DE3230;
-  v37 = &v46;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __115__TRIReferenceManagedDir_collectGarbageForManagedDir_withExternalReferenceStore_usingTempDir_managedDirWasDeleted___block_invoke;
+  v33[3] = &unk_279DE3230;
+  v36 = &v45;
   selfCopy = self;
   v14 = dirCopy;
-  v35 = v14;
+  v34 = v14;
   v15 = storeCopy;
-  v36 = v15;
-  v38 = &v40;
-  v16 = [self _acquireLockOnDir:v14 withLockingMode:5 andRunBlock:v34];
+  v35 = v15;
+  v37 = &v39;
+  v16 = [self _acquireLockOnDir:v14 withLockingMode:5 andRunBlock:v33];
   if (v16 == 1)
   {
     v22 = TRILogCategory_Server();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v45 = v14;
+      v44 = v14;
       _os_log_impl(&dword_26F567000, v22, OS_LOG_TYPE_DEFAULT, "[LOCK_SH] GC scan found active usage of reference-managed directory: %{public}@", buf, 0xCu);
     }
 
@@ -1297,27 +1283,27 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  if (v16 != 2 && *(*(&v46 + 1) + 24) == 1)
+  if (v16 != 2 && *(*(&v45 + 1) + 24) == 1)
   {
-    if (*(v41 + 24) != 1)
+    if (*(v40 + 24) != 1)
     {
       v20 = 1;
       goto LABEL_26;
     }
 
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __115__TRIReferenceManagedDir_collectGarbageForManagedDir_withExternalReferenceStore_usingTempDir_managedDirWasDeleted___block_invoke_67;
-    v26[3] = &unk_279DE3258;
-    v30 = &v40;
-    v31 = &v46;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __115__TRIReferenceManagedDir_collectGarbageForManagedDir_withExternalReferenceStore_usingTempDir_managedDirWasDeleted___block_invoke_67;
+    v25[3] = &unk_279DE3258;
+    v29 = &v39;
+    v30 = &v45;
     selfCopy2 = self;
     v17 = v14;
-    v27 = v17;
-    v28 = v15;
-    v29 = tempDirCopy;
+    v26 = v17;
+    v27 = v15;
+    v28 = tempDirCopy;
     deletedCopy = deleted;
-    v18 = [self _acquireLockOnDir:v17 withLockingMode:6 andRunBlock:v26];
+    v18 = [self _acquireLockOnDir:v17 withLockingMode:6 andRunBlock:v25];
     if (v18 == 2)
     {
       v20 = 0;
@@ -1331,26 +1317,25 @@ LABEL_25:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v45 = v17;
+          v44 = v17;
           _os_log_impl(&dword_26F567000, v19, OS_LOG_TYPE_DEFAULT, "[LOCK_EX] GC scan found active usage of reference-managed directory: %{public}@", buf, 0xCu);
         }
       }
 
-      v20 = *(*(&v46 + 1) + 24);
+      v20 = *(*(&v45 + 1) + 24);
     }
 
-    v22 = v27;
+    v22 = v26;
     goto LABEL_25;
   }
 
   v20 = 0;
 LABEL_26:
 
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v45, 8);
 LABEL_30:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v20 & 1;
 }
 
@@ -1364,7 +1349,7 @@ void __115__TRIReferenceManagedDir_collectGarbageForManagedDir_withExternalRefer
   }
 }
 
-uint64_t __115__TRIReferenceManagedDir_collectGarbageForManagedDir_withExternalReferenceStore_usingTempDir_managedDirWasDeleted___block_invoke_67(uint64_t a1, uint64_t a2)
+void *__115__TRIReferenceManagedDir_collectGarbageForManagedDir_withExternalReferenceStore_usingTempDir_managedDirWasDeleted___block_invoke_67(uint64_t a1, uint64_t a2)
 {
   *(*(*(a1 + 56) + 8) + 24) = 0;
   result = [*(a1 + 72) _testDeletionEligibilityForManagedDir:*(a1 + 32) withExternalReferenceStore:*(a1 + 40) flockWitness:a2 logPrefix:@"[LOCK_EX] " isEligible:*(*(a1 + 56) + 8) + 24];
@@ -1380,7 +1365,7 @@ uint64_t __115__TRIReferenceManagedDir_collectGarbageForManagedDir_withExternalR
 
 + (BOOL)collectDeferredDeletionItemsWithManagedDir:(id)dir
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   if (!dirCopy)
   {
@@ -1388,25 +1373,25 @@ uint64_t __115__TRIReferenceManagedDir_collectGarbageForManagedDir_withExternalR
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRIReferenceManagedDir.m" lineNumber:619 description:{@"Invalid parameter not satisfying: %@", @"managedDir"}];
   }
 
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 1;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __69__TRIReferenceManagedDir_collectDeferredDeletionItemsWithManagedDir___block_invoke;
-  v13[3] = &unk_279DE3280;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 1;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __69__TRIReferenceManagedDir_collectDeferredDeletionItemsWithManagedDir___block_invoke;
+  v12[3] = &unk_279DE3280;
   v6 = dirCopy;
-  v14 = v6;
-  v15 = &v16;
-  v7 = [self _acquireLockOnDir:v6 withLockingMode:5 andRunBlock:v13];
+  v13 = v6;
+  v14 = &v15;
+  v7 = [self _acquireLockOnDir:v6 withLockingMode:5 andRunBlock:v12];
   if (v7 == 1)
   {
     v9 = TRILogCategory_Server();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v21 = v6;
+      v20 = v6;
       _os_log_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEFAULT, "[LOCK_SH] GC scan found active usage of reference-managed directory: %{public}@", buf, 0xCu);
     }
 
@@ -1420,11 +1405,10 @@ uint64_t __115__TRIReferenceManagedDir_collectGarbageForManagedDir_withExternalR
 
   else
   {
-    v8 = *(v17 + 24);
+    v8 = *(v16 + 24);
   }
 
-  _Block_object_dispose(&v16, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
   return v8 & 1;
 }
 
@@ -1445,7 +1429,7 @@ void __69__TRIReferenceManagedDir_collectDeferredDeletionItemsWithManagedDir___b
 + (BOOL)removeFileInManagedDirWithPath:(id)path inUseDeletionBehavior:(unsigned __int8)behavior wasDeleted:(BOOL *)deleted
 {
   behaviorCopy = behavior;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v10 = objc_autoreleasePoolPush();
   *deleted = 0;
@@ -1457,10 +1441,10 @@ void __69__TRIReferenceManagedDir_collectDeferredDeletionItemsWithManagedDir___b
 
   if ([pathCopy length])
   {
-    *&v38 = 0;
-    *(&v38 + 1) = &v38;
-    v39 = 0x2020000000;
-    v40 = 0;
+    *&v37 = 0;
+    *(&v37 + 1) = &v37;
+    v38 = 0x2020000000;
+    v39 = 0;
     v11 = [objc_opt_class() _containingManagedDirForPath:pathCopy resolvedAbsPath:0];
     if (v11)
     {
@@ -1470,26 +1454,26 @@ void __69__TRIReferenceManagedDir_collectDeferredDeletionItemsWithManagedDir___b
       if (![v13 isEqualToString:@"."])
       {
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-        v20 = [defaultManager2 fileExistsAtPath:pathCopy];
+        v19 = [defaultManager2 fileExistsAtPath:pathCopy];
 
-        if (v20)
+        if (v19)
         {
           if (behaviorCopy == 3)
           {
             defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-            v35 = 0;
-            v16 = [defaultManager3 triForceRemoveItemAtPath:pathCopy error:&v35];
-            v22 = v35;
+            v34 = 0;
+            v16 = [defaultManager3 triForceRemoveItemAtPath:pathCopy error:&v34];
+            v21 = v34;
 
-            v23 = TRILogCategory_Server();
-            v24 = v23;
+            v22 = TRILogCategory_Server();
+            v23 = v22;
             if (v16)
             {
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v37 = pathCopy;
-                _os_log_impl(&dword_26F567000, v24, OS_LOG_TYPE_DEFAULT, "Successfully removed asset immediately: %@", buf, 0xCu);
+                v36 = pathCopy;
+                _os_log_impl(&dword_26F567000, v23, OS_LOG_TYPE_DEFAULT, "Successfully removed asset immediately: %@", buf, 0xCu);
               }
 
               *deleted = 1;
@@ -1497,57 +1481,57 @@ void __69__TRIReferenceManagedDir_collectDeferredDeletionItemsWithManagedDir___b
 
             else
             {
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v37 = v22;
-                _os_log_error_impl(&dword_26F567000, v24, OS_LOG_TYPE_ERROR, "Failed to remove path: %@", buf, 0xCu);
+                v36 = v21;
+                _os_log_error_impl(&dword_26F567000, v23, OS_LOG_TYPE_ERROR, "Failed to remove path: %@", buf, 0xCu);
               }
             }
           }
 
           else
           {
-            v31[0] = MEMORY[0x277D85DD0];
-            v31[1] = 3221225472;
-            v31[2] = __90__TRIReferenceManagedDir_removeFileInManagedDirWithPath_inUseDeletionBehavior_wasDeleted___block_invoke;
-            v31[3] = &unk_279DE32A8;
-            v25 = pathCopy;
-            v32 = v25;
-            v33 = &v38;
+            v30[0] = MEMORY[0x277D85DD0];
+            v30[1] = 3221225472;
+            v30[2] = __90__TRIReferenceManagedDir_removeFileInManagedDirWithPath_inUseDeletionBehavior_wasDeleted___block_invoke;
+            v30[3] = &unk_279DE32A8;
+            v24 = pathCopy;
+            v31 = v24;
+            v32 = &v37;
             deletedCopy = deleted;
-            if ([self _acquireLockOnDir:v11 withLockingMode:6 andRunBlock:v31] == 1)
+            if ([self _acquireLockOnDir:v11 withLockingMode:6 andRunBlock:v30] == 1)
             {
-              v26 = TRILogCategory_Server();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+              v25 = TRILogCategory_Server();
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v37 = v11;
-                _os_log_impl(&dword_26F567000, v26, OS_LOG_TYPE_DEFAULT, "File removal attempt found active usage of reference-managed directory: %{public}@", buf, 0xCu);
+                v36 = v11;
+                _os_log_impl(&dword_26F567000, v25, OS_LOG_TYPE_DEFAULT, "File removal attempt found active usage of reference-managed directory: %{public}@", buf, 0xCu);
               }
 
               if (behaviorCopy == 1)
               {
-                v27 = TRILogCategory_Server();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+                v26 = TRILogCategory_Server();
+                if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  v37 = v25;
-                  _os_log_impl(&dword_26F567000, v27, OS_LOG_TYPE_DEFAULT, "Marking file %{public}@ for deferred deletion", buf, 0xCu);
+                  v36 = v24;
+                  _os_log_impl(&dword_26F567000, v26, OS_LOG_TYPE_DEFAULT, "Marking file %{public}@ for deferred deletion", buf, 0xCu);
                 }
 
-                v28 = [[TRIDeferredDeleter alloc] initForRootDir:v11];
-                v29 = [v28 markItemAtRelativePath:v13];
-                *(*(&v38 + 1) + 24) = v29;
+                v27 = [[TRIDeferredDeleter alloc] initForRootDir:v11];
+                v28 = [v27 markItemAtRelativePath:v13];
+                *(*(&v37 + 1) + 24) = v28;
               }
 
               else
               {
-                *(*(&v38 + 1) + 24) = 1;
+                *(*(&v37 + 1) + 24) = 1;
               }
             }
 
-            v16 = *(*(&v38 + 1) + 24);
+            v16 = *(*(&v37 + 1) + 24);
           }
         }
 
@@ -1564,7 +1548,7 @@ void __69__TRIReferenceManagedDir_collectDeferredDeletionItemsWithManagedDir___b
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v37 = v11;
+        v36 = v11;
         _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Managed directory file found to be same as root managed directory: %{public}@", buf, 0xCu);
       }
     }
@@ -1575,7 +1559,7 @@ void __69__TRIReferenceManagedDir_collectDeferredDeletionItemsWithManagedDir___b
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v37 = pathCopy;
+        v36 = pathCopy;
         _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Managed directory file at path %{public}@ was not found inside a valid managed directory", buf, 0xCu);
       }
     }
@@ -1583,34 +1567,33 @@ void __69__TRIReferenceManagedDir_collectDeferredDeletionItemsWithManagedDir___b
     v16 = 0;
 LABEL_15:
 
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
     goto LABEL_16;
   }
 
   v15 = TRILogCategory_Server();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    LODWORD(v38) = 136315138;
-    *(&v38 + 4) = "+[TRIReferenceManagedDir removeFileInManagedDirWithPath:inUseDeletionBehavior:wasDeleted:]";
-    _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "%s has empty path arg: pathToRemove", &v38, 0xCu);
+    LODWORD(v37) = 136315138;
+    *(&v37 + 4) = "+[TRIReferenceManagedDir removeFileInManagedDirWithPath:inUseDeletionBehavior:wasDeleted:]";
+    _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "%s has empty path arg: pathToRemove", &v37, 0xCu);
   }
 
   v16 = 0;
 LABEL_16:
   objc_autoreleasePoolPop(v10);
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16 & 1;
 }
 
 void __90__TRIReferenceManagedDir_removeFileInManagedDirWithPath_inUseDeletionBehavior_wasDeleted___block_invoke(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = a1[4];
-  v9 = 0;
-  v4 = [v2 triForceRemoveItemAtPath:v3 error:&v9];
-  v5 = v9;
+  v8 = 0;
+  v4 = [v2 triForceRemoveItemAtPath:v3 error:&v8];
+  v5 = v8;
 
   if (v4)
   {
@@ -1625,17 +1608,15 @@ void __90__TRIReferenceManagedDir_removeFileInManagedDirWithPath_inUseDeletionBe
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = v5;
+      v10 = v5;
       _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Failed to remove path: %{public}@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)saveFromGarbageCollectionItemWithPath:(id)path
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v4 = [objc_opt_class() _containingManagedDirForPath:pathCopy resolvedAbsPath:0];
   if (v4)
@@ -1652,15 +1633,14 @@ void __90__TRIReferenceManagedDir_removeFileInManagedDirWithPath_inUseDeletionBe
     v9 = TRILogCategory_Server();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138543362;
-      v13 = pathCopy;
-      _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Managed directory file at path %{public}@ was not found inside a valid managed directory", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = pathCopy;
+      _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Managed directory file at path %{public}@ was not found inside a valid managed directory", &v11, 0xCu);
     }
 
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

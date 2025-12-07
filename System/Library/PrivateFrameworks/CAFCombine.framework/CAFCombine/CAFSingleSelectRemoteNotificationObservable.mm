@@ -41,9 +41,10 @@
 
 - (void)singleSelectRemoteNotificationService:(id)service didUpdateTrailingButtonState:(unsigned __int8)state
 {
+  stateCopy = state;
   serviceCopy = service;
   selfCopy = self;
-  CAFSingleSelectRemoteNotificationObservable.singleSelectRemoteNotificationService(_:didUpdateTrailingButtonState:)(selfCopy, state);
+  CAFSingleSelectRemoteNotificationObservable.singleSelectRemoteNotificationService(_:didUpdateTrailingButtonState:)(selfCopy, stateCopy);
 }
 
 - (void)singleSelectRemoteNotificationService:(id)service didUpdateSelectableNotificationEntries:(id)entries
@@ -56,9 +57,10 @@
 
 - (void)singleSelectRemoteNotificationService:(id)service didUpdateSelectedEntryIndex:(unsigned __int8)index
 {
+  indexCopy = index;
   serviceCopy = service;
   selfCopy = self;
-  CAFSingleSelectRemoteNotificationObservable.singleSelectRemoteNotificationService(_:didUpdateSelectedEntryIndex:)(selfCopy, index);
+  CAFSingleSelectRemoteNotificationObservable.singleSelectRemoteNotificationService(_:didUpdateSelectedEntryIndex:)(selfCopy, indexCopy);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

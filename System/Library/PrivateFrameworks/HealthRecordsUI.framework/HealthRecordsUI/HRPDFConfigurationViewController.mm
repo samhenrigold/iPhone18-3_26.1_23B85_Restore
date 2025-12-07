@@ -53,7 +53,7 @@
   swift_unknownObjectRelease();
   [(HRPDFConfigurationViewController *)selfCopy dismissViewControllerAnimated:1 completion:0];
 
-  __swift_destroy_boxed_opaque_existential_1Tm(&v5);
+  __swift_destroy_boxed_opaque_existential_1Tm(v5);
 }
 
 - (void)didTapSave:(id)save
@@ -79,7 +79,7 @@
   sub_1D138D7EC();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_1D11B3DC0(viewCopy);
+  v12 = sub_1D11B3DC0(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 
@@ -91,15 +91,15 @@
   v6 = sub_1D138D82C();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D138D7EC();
   viewCopy = view;
   selfCopy = self;
   v12 = sub_1D138D7DC();
   [viewCopy deselectRowAtIndexPath:v12 animated:1];
 
-  v13 = sub_1D12A5CF4(v9, selfCopy);
-  sub_1D11B4324(v13);
+  v14 = sub_1D12A5CF4(v13, v9, selfCopy);
+  sub_1D11B4324(v14);
 
   (*(v7 + 8))(v9, v6);
 }

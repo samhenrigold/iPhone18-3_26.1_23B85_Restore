@@ -3,7 +3,7 @@
 
 @implementation UIDatePickerOverlayPresentation
 
-uint64_t __64___UIDatePickerOverlayPresentation_presentDatePicker_onDismiss___block_invoke(uint64_t a1, char a2)
+void *__64___UIDatePickerOverlayPresentation_presentDatePicker_onDismiss___block_invoke(uint64_t a1, char a2)
 {
   if (a2)
   {
@@ -51,7 +51,7 @@ uint64_t __64___UIDatePickerOverlayPresentation_presentDatePicker_onDismiss___bl
     result = *(a1 + 48);
     if (result)
     {
-      v7 = *(result + 16);
+      v7 = result[2];
 
       return v7();
     }
@@ -99,11 +99,11 @@ uint64_t __64___UIDatePickerOverlayPresentation_dismissPresentationAnimated___bl
   return [*(*(*(a1 + 40) + 8) + 40) layoutIfNeeded];
 }
 
-uint64_t __64___UIDatePickerOverlayPresentation_dismissPresentationAnimated___block_invoke_2(uint64_t result, int a2)
+void *__64___UIDatePickerOverlayPresentation_dismissPresentationAnimated___block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(*(result + 32) + 8) + 40) removeFromSuperview];
+    return [*(*(result[4] + 8) + 40) removeFromSuperview];
   }
 
   return result;
@@ -159,11 +159,11 @@ uint64_t __60___UIDatePickerOverlayPresentation__transitionToDatePicker___block_
   return [*(*(*(a1 + 40) + 8) + 40) layoutIfNeeded];
 }
 
-uint64_t __60___UIDatePickerOverlayPresentation__transitionToDatePicker___block_invoke_2(uint64_t result, int a2)
+void *__60___UIDatePickerOverlayPresentation__transitionToDatePicker___block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(*(result + 32) + 8) + 40) datePickerTransitionCompletion];
+    return [*(*(result[4] + 8) + 40) datePickerTransitionCompletion];
   }
 
   return result;

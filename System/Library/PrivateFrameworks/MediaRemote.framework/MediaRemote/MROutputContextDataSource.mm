@@ -127,33 +127,33 @@ void __53__MROutputContextDataSource_notifyDataSourceReloaded__block_invoke(uint
 
 - (BOOL)isAirPlaying
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   outputDevices = [(MROutputContextDataSource *)self outputDevices];
-  v3 = [outputDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [outputDevices countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(outputDevices);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) deviceType] == 1)
+        if ([*(*(&v7 + 1) + 8 * i) deviceType] == 1)
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [outputDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [outputDevices countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -165,7 +165,6 @@ void __53__MROutputContextDataSource_notifyDataSourceReloaded__block_invoke(uint
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -441,41 +440,35 @@ LABEL_12:
 
 void __53__MROutputContextDataSource_notifyOutputDeviceAdded___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v6 = @"MROutputContextDataSourceOutputDeviceUserInfoKey";
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = @"MROutputContextDataSourceOutputDeviceUserInfoKey";
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [MEMORY[0x1E696AD88] defaultCenter];
   [v4 postNotificationName:@"MROutputContextDataSourceDidAddOutputDeviceNotification" object:*(a1 + 40) userInfo:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __55__MROutputContextDataSource_notifyOutputDeviceChanged___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v6 = @"MROutputContextDataSourceOutputDeviceUserInfoKey";
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = @"MROutputContextDataSourceOutputDeviceUserInfoKey";
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [MEMORY[0x1E696AD88] defaultCenter];
   [v4 postNotificationName:@"MROutputContextDataSourceDidChangeOutputDeviceNotification" object:*(a1 + 40) userInfo:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __55__MROutputContextDataSource_notifyOutputDeviceRemoved___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v6 = @"MROutputContextDataSourceOutputDeviceUserInfoKey";
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = @"MROutputContextDataSourceOutputDeviceUserInfoKey";
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [MEMORY[0x1E696AD88] defaultCenter];
   [v4 postNotificationName:@"MROutputContextDataSourceDidRemoveOutputDeviceNotification" object:*(a1 + 40) userInfo:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __64__MROutputContextDataSource_notifyVolumeDidChange_outputDevice___block_invoke(uint64_t a1)
@@ -498,7 +491,7 @@ void __69__MROutputContextDataSource_notifyVolumeMutedDidChange_outputDevice___b
 
 - (id)descriptionForOutputDevice:(uint64_t)device
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (device)
   {
@@ -525,25 +518,25 @@ void __69__MROutputContextDataSource_notifyVolumeMutedDidChange_outputDevice___b
     [v3 volume];
     v14 = v13;
     v15 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription([v3 volumeCapabilities]);
-    v25 = v10;
+    v24 = v10;
     v16 = [clusterComposition2 initWithFormat:@"%@%@, volume = %lf, volume capabilities = %@", debugName, v10, *&v14, v15];
 
     [v4 appendString:v16];
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     activatedClusterMembersOutputDevices = [v3 activatedClusterMembersOutputDevices];
-    v18 = [activatedClusterMembersOutputDevices countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v18 = [activatedClusterMembersOutputDevices countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v27;
+      v20 = *v26;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v27 != v20)
+          if (*v26 != v20)
           {
             objc_enumerationMutation(activatedClusterMembersOutputDevices);
           }
@@ -552,7 +545,7 @@ void __69__MROutputContextDataSource_notifyVolumeMutedDidChange_outputDevice___b
           [v4 appendFormat:@"\n  %@", v22];
         }
 
-        v19 = [activatedClusterMembersOutputDevices countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v19 = [activatedClusterMembersOutputDevices countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v19);
@@ -564,14 +557,11 @@ void __69__MROutputContextDataSource_notifyVolumeMutedDidChange_outputDevice___b
     v4 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)notifyOutputDeviceAdded:(void *)added
 {
-  v56 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = v6;
   if (added)
@@ -580,7 +570,7 @@ void __69__MROutputContextDataSource_notifyVolumeMutedDidChange_outputDevice___b
     {
       v2 = sel_notifyOutputDeviceAdded_;
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v50 = @"outputDevice";
+      v49 = @"outputDevice";
       [currentHandler handleFailureInMethod:sel_notifyOutputDeviceAdded_ object:added file:@"MROutputContextDataSource.m" lineNumber:263 description:@"Invalid parameter not satisfying: %@"];
     }
 
@@ -602,7 +592,7 @@ LABEL_16:
             objc_claimAutoreleasedReturnValue();
             OUTLINED_FUNCTION_6_1();
             v28 = v7;
-            OUTLINED_FUNCTION_33(v28, v29, v30, v31, v32, v33, v34, v35, v50, v51, v52, 3221225472, __53__MROutputContextDataSource_notifyOutputDeviceAdded___block_invoke, &unk_1E769A4A0, v53, v55);
+            OUTLINED_FUNCTION_33(v28, v29, v30, v31, v32, v33, v34, v35, v49, v50, v51, 3221225472, __53__MROutputContextDataSource_notifyOutputDeviceAdded___block_invoke, &unk_1E769A4A0, v52, v54);
 
             goto LABEL_17;
           }
@@ -624,9 +614,9 @@ LABEL_16:
 
           objc_opt_class();
           OUTLINED_FUNCTION_1_8();
-          v21 = v43;
+          v21 = v42;
           OUTLINED_FUNCTION_9_0();
-          _os_log_debug_impl(v44, v45, v46, v47, v48, 0x20u);
+          _os_log_debug_impl(v43, v44, v45, v46, v47, 0x20u);
         }
 
         goto LABEL_16;
@@ -649,26 +639,23 @@ LABEL_16:
         goto LABEL_10;
       }
 
-      v37 = objc_opt_class();
+      v36 = objc_opt_class();
       [OUTLINED_FUNCTION_20() debugName];
       objc_claimAutoreleasedReturnValue();
       uniqueIdentifier = [OUTLINED_FUNCTION_21() uniqueIdentifier];
       OUTLINED_FUNCTION_0_10();
       OUTLINED_FUNCTION_9_0();
-      _os_log_debug_impl(v38, v39, v40, v41, v42, 0x2Au);
+      _os_log_debug_impl(v37, v38, v39, v40, v41, 0x2Au);
     }
 
     goto LABEL_10;
   }
 
 LABEL_17:
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyOutputDeviceChanged:(void *)changed
 {
-  v56 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = v6;
   if (changed)
@@ -677,7 +664,7 @@ LABEL_17:
     {
       v2 = sel_notifyOutputDeviceChanged_;
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v50 = @"outputDevice";
+      v49 = @"outputDevice";
       [currentHandler handleFailureInMethod:sel_notifyOutputDeviceChanged_ object:changed file:@"MROutputContextDataSource.m" lineNumber:278 description:@"Invalid parameter not satisfying: %@"];
     }
 
@@ -699,7 +686,7 @@ LABEL_16:
             objc_claimAutoreleasedReturnValue();
             OUTLINED_FUNCTION_6_1();
             v28 = v7;
-            OUTLINED_FUNCTION_33(v28, v29, v30, v31, v32, v33, v34, v35, v50, v51, v52, 3221225472, __55__MROutputContextDataSource_notifyOutputDeviceChanged___block_invoke, &unk_1E769A4A0, v53, v55);
+            OUTLINED_FUNCTION_33(v28, v29, v30, v31, v32, v33, v34, v35, v49, v50, v51, 3221225472, __55__MROutputContextDataSource_notifyOutputDeviceChanged___block_invoke, &unk_1E769A4A0, v52, v54);
 
             goto LABEL_17;
           }
@@ -721,9 +708,9 @@ LABEL_16:
 
           objc_opt_class();
           OUTLINED_FUNCTION_1_8();
-          v21 = v43;
+          v21 = v42;
           OUTLINED_FUNCTION_9_0();
-          _os_log_debug_impl(v44, v45, v46, v47, v48, 0x20u);
+          _os_log_debug_impl(v43, v44, v45, v46, v47, 0x20u);
         }
 
         goto LABEL_16;
@@ -746,26 +733,23 @@ LABEL_16:
         goto LABEL_10;
       }
 
-      v37 = objc_opt_class();
+      v36 = objc_opt_class();
       [OUTLINED_FUNCTION_20() debugName];
       objc_claimAutoreleasedReturnValue();
       uniqueIdentifier = [OUTLINED_FUNCTION_21() uniqueIdentifier];
       OUTLINED_FUNCTION_0_10();
       OUTLINED_FUNCTION_9_0();
-      _os_log_debug_impl(v38, v39, v40, v41, v42, 0x2Au);
+      _os_log_debug_impl(v37, v38, v39, v40, v41, 0x2Au);
     }
 
     goto LABEL_10;
   }
 
 LABEL_17:
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyOutputDeviceRemoved:(void *)removed
 {
-  v56 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = v6;
   if (removed)
@@ -774,7 +758,7 @@ LABEL_17:
     {
       v2 = sel_notifyOutputDeviceRemoved_;
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v50 = @"outputDevice";
+      v49 = @"outputDevice";
       [currentHandler handleFailureInMethod:sel_notifyOutputDeviceRemoved_ object:removed file:@"MROutputContextDataSource.m" lineNumber:293 description:@"Invalid parameter not satisfying: %@"];
     }
 
@@ -796,7 +780,7 @@ LABEL_16:
             objc_claimAutoreleasedReturnValue();
             OUTLINED_FUNCTION_6_1();
             v28 = v7;
-            OUTLINED_FUNCTION_33(v28, v29, v30, v31, v32, v33, v34, v35, v50, v51, v52, 3221225472, __55__MROutputContextDataSource_notifyOutputDeviceRemoved___block_invoke, &unk_1E769A4A0, v53, v55);
+            OUTLINED_FUNCTION_33(v28, v29, v30, v31, v32, v33, v34, v35, v49, v50, v51, 3221225472, __55__MROutputContextDataSource_notifyOutputDeviceRemoved___block_invoke, &unk_1E769A4A0, v52, v54);
 
             goto LABEL_17;
           }
@@ -818,9 +802,9 @@ LABEL_16:
 
           objc_opt_class();
           OUTLINED_FUNCTION_1_8();
-          v21 = v43;
+          v21 = v42;
           OUTLINED_FUNCTION_9_0();
-          _os_log_debug_impl(v44, v45, v46, v47, v48, 0x20u);
+          _os_log_debug_impl(v43, v44, v45, v46, v47, 0x20u);
         }
 
         goto LABEL_16;
@@ -843,26 +827,24 @@ LABEL_16:
         goto LABEL_10;
       }
 
-      v37 = objc_opt_class();
+      v36 = objc_opt_class();
       [OUTLINED_FUNCTION_20() debugName];
       objc_claimAutoreleasedReturnValue();
       uniqueIdentifier = [OUTLINED_FUNCTION_21() uniqueIdentifier];
       OUTLINED_FUNCTION_0_10();
       OUTLINED_FUNCTION_9_0();
-      _os_log_debug_impl(v38, v39, v40, v41, v42, 0x2Au);
+      _os_log_debug_impl(v37, v38, v39, v40, v41, 0x2Au);
     }
 
     goto LABEL_10;
   }
 
 LABEL_17:
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyVolumeDidChange:(float)change outputDevice:
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (!self)
   {
@@ -883,7 +865,7 @@ LABEL_17:
       v20 = objc_opt_class();
       uniqueIdentifier = [self uniqueIdentifier];
       OUTLINED_FUNCTION_3_5();
-      v52 = v22;
+      v51 = v22;
       changeCopy2 = change;
       OUTLINED_FUNCTION_19();
       OUTLINED_FUNCTION_8_1();
@@ -901,11 +883,11 @@ LABEL_17:
       v20 = objc_opt_class();
       uniqueIdentifier = [self uniqueIdentifier];
       OUTLINED_FUNCTION_3_5();
-      v52 = v42;
+      v51 = v41;
       changeCopy2 = change;
       OUTLINED_FUNCTION_19();
       OUTLINED_FUNCTION_9_0();
-      _os_log_debug_impl(v43, v44, v45, v46, v47, 0x2Au);
+      _os_log_debug_impl(v42, v43, v44, v45, v46, 0x2Au);
     }
 
     goto LABEL_16;
@@ -948,9 +930,9 @@ LABEL_7:
 
 LABEL_16:
 
-  v50 = @"MROutputContextDataSourceVolumeUserInfoKey";
+  v49 = @"MROutputContextDataSourceVolumeUserInfoKey";
   *&v35 = change;
-  v51 = [MEMORY[0x1E696AD98] numberWithFloat:v35];
+  v50 = [MEMORY[0x1E696AD98] numberWithFloat:v35];
   OUTLINED_FUNCTION_28();
   v37 = [v36 dictionaryWithObjects:? forKeys:? count:?];
   v38 = [v37 mutableCopy];
@@ -962,21 +944,20 @@ LABEL_16:
 
   notificationQueue = [self notificationQueue];
   OUTLINED_FUNCTION_1_0();
-  v48[1] = 3221225472;
-  v48[2] = __64__MROutputContextDataSource_notifyVolumeDidChange_outputDevice___block_invoke;
-  v48[3] = &unk_1E769A4A0;
-  v48[4] = self;
-  v49 = v38;
+  v47[1] = 3221225472;
+  v47[2] = __64__MROutputContextDataSource_notifyVolumeDidChange_outputDevice___block_invoke;
+  v47[3] = &unk_1E769A4A0;
+  v47[4] = self;
+  v48 = v38;
   v40 = v38;
-  dispatch_async(notificationQueue, v48);
+  dispatch_async(notificationQueue, v47);
 
 LABEL_19:
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyVolumeCapabilitiesDidChange:(void *)change outputDevice:
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   if (!self)
   {
@@ -998,8 +979,8 @@ LABEL_19:
       v21 = objc_opt_class();
       v22 = v21;
       uniqueIdentifier = [self uniqueIdentifier];
-      v62 = 138544130;
-      v63 = v21;
+      v61 = 138544130;
+      v62 = v21;
       OUTLINED_FUNCTION_5_3();
       selfCopy2 = v6;
       OUTLINED_FUNCTION_19();
@@ -1015,16 +996,16 @@ LABEL_19:
         goto LABEL_16;
       }
 
-      v53 = objc_opt_class();
-      v22 = v53;
+      v52 = objc_opt_class();
+      v22 = v52;
       uniqueIdentifier = [self uniqueIdentifier];
-      v62 = 138544130;
-      v63 = v53;
+      v61 = 138544130;
+      v62 = v52;
       OUTLINED_FUNCTION_5_3();
       selfCopy2 = v6;
       OUTLINED_FUNCTION_19();
       OUTLINED_FUNCTION_26();
-      _os_log_debug_impl(v54, v55, OS_LOG_TYPE_DEBUG, v56, v57, 0x2Au);
+      _os_log_debug_impl(v53, v54, OS_LOG_TYPE_DEBUG, v55, v56, 0x2Au);
     }
 
     goto LABEL_16;
@@ -1047,8 +1028,8 @@ LABEL_19:
       v12 = v28;
       debugName = [changeCopy debugName];
       uniqueIdentifier2 = [self uniqueIdentifier];
-      v62 = 138544386;
-      v63 = v28;
+      v61 = 138544386;
+      v62 = v28;
       OUTLINED_FUNCTION_5_3();
       OUTLINED_FUNCTION_27();
       OUTLINED_FUNCTION_26();
@@ -1064,8 +1045,8 @@ LABEL_19:
     v12 = v11;
     debugName = [changeCopy debugName];
     uniqueIdentifier2 = [self uniqueIdentifier];
-    v62 = 138544386;
-    v63 = v11;
+    v61 = 138544386;
+    v62 = v11;
     OUTLINED_FUNCTION_5_3();
     OUTLINED_FUNCTION_27();
     OUTLINED_FUNCTION_26();
@@ -1088,13 +1069,13 @@ LABEL_16:
         goto LABEL_22;
       }
 
-      v62 = 138543874;
-      v63 = objc_opt_class();
+      v61 = 138543874;
+      v62 = objc_opt_class();
       OUTLINED_FUNCTION_5_3();
       selfCopy2 = self;
-      v37 = v48;
+      v37 = v47;
       OUTLINED_FUNCTION_26();
-      _os_log_debug_impl(v49, v50, OS_LOG_TYPE_DEBUG, v51, v52, 0x20u);
+      _os_log_debug_impl(v48, v49, OS_LOG_TYPE_DEBUG, v50, v51, 0x20u);
       goto LABEL_20;
     }
   }
@@ -1102,8 +1083,8 @@ LABEL_16:
   v35 = _MRLogForCategory(0);
   if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
-    v62 = 138543874;
-    v63 = objc_opt_class();
+    v61 = 138543874;
+    v62 = objc_opt_class();
     OUTLINED_FUNCTION_5_3();
     selfCopy2 = self;
     v37 = v36;
@@ -1114,8 +1095,8 @@ LABEL_20:
 
 LABEL_22:
 
-  v60 = @"MROutputContextDataSourceVolumeCapabilitiesUserInfoKey";
-  v61 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
+  v59 = @"MROutputContextDataSourceVolumeCapabilitiesUserInfoKey";
+  v60 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
   OUTLINED_FUNCTION_28();
   v43 = [v42 dictionaryWithObjects:? forKeys:? count:?];
   v44 = [v43 mutableCopy];
@@ -1127,21 +1108,20 @@ LABEL_22:
 
   notificationQueue = [self notificationQueue];
   OUTLINED_FUNCTION_1_0();
-  v58[1] = 3221225472;
-  v58[2] = __76__MROutputContextDataSource_notifyVolumeCapabilitiesDidChange_outputDevice___block_invoke;
-  v58[3] = &unk_1E769A4A0;
-  v58[4] = self;
-  v59 = v44;
+  v57[1] = 3221225472;
+  v57[2] = __76__MROutputContextDataSource_notifyVolumeCapabilitiesDidChange_outputDevice___block_invoke;
+  v57[3] = &unk_1E769A4A0;
+  v57[4] = self;
+  v58 = v44;
   v46 = v44;
-  dispatch_async(notificationQueue, v58);
+  dispatch_async(notificationQueue, v57);
 
 LABEL_25:
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyVolumeMutedDidChange:(void *)change outputDevice:
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   if (!self)
   {
@@ -1161,7 +1141,7 @@ LABEL_25:
 
       v21 = objc_opt_class();
       uniqueIdentifier = [OUTLINED_FUNCTION_21() uniqueIdentifier];
-      v48 = 138544130;
+      v47 = 138544130;
       OUTLINED_FUNCTION_15_1();
       OUTLINED_FUNCTION_38();
       _os_log_impl(v23, v24, OS_LOG_TYPE_DEFAULT, v25, v26, 0x2Au);
@@ -1175,12 +1155,12 @@ LABEL_25:
         goto LABEL_16;
       }
 
-      v39 = objc_opt_class();
+      v38 = objc_opt_class();
       uniqueIdentifier = [OUTLINED_FUNCTION_21() uniqueIdentifier];
-      v48 = 138544130;
+      v47 = 138544130;
       OUTLINED_FUNCTION_15_1();
       OUTLINED_FUNCTION_38();
-      _os_log_debug_impl(v40, v41, OS_LOG_TYPE_DEBUG, v42, v43, 0x2Au);
+      _os_log_debug_impl(v39, v40, OS_LOG_TYPE_DEBUG, v41, v42, 0x2Au);
     }
 
     goto LABEL_16;
@@ -1203,8 +1183,8 @@ LABEL_25:
       v28 = v27;
       debugName = [OUTLINED_FUNCTION_20() debugName];
       uniqueIdentifier2 = [self uniqueIdentifier];
-      v48 = 138544386;
-      v49 = v27;
+      v47 = 138544386;
+      v48 = v27;
       OUTLINED_FUNCTION_1_8();
       OUTLINED_FUNCTION_25();
       OUTLINED_FUNCTION_38();
@@ -1220,8 +1200,8 @@ LABEL_25:
     v12 = v11;
     debugName = [OUTLINED_FUNCTION_20() debugName];
     uniqueIdentifier2 = [self uniqueIdentifier];
-    v48 = 138544386;
-    v49 = v11;
+    v47 = 138544386;
+    v48 = v11;
     OUTLINED_FUNCTION_1_8();
     OUTLINED_FUNCTION_25();
     OUTLINED_FUNCTION_38();
@@ -1231,8 +1211,8 @@ LABEL_7:
 
 LABEL_16:
 
-  v46 = @"MROutputContextDataSourceVolumeMutedUserInfoKey";
-  v47 = [MEMORY[0x1E696AD98] numberWithBool:a2];
+  v45 = @"MROutputContextDataSourceVolumeMutedUserInfoKey";
+  v46 = [MEMORY[0x1E696AD98] numberWithBool:a2];
   OUTLINED_FUNCTION_28();
   v34 = [v33 dictionaryWithObjects:? forKeys:? count:?];
   v35 = [v34 mutableCopy];
@@ -1244,16 +1224,15 @@ LABEL_16:
 
   notificationQueue = [self notificationQueue];
   OUTLINED_FUNCTION_1_0();
-  v44[1] = 3221225472;
-  v44[2] = __69__MROutputContextDataSource_notifyVolumeMutedDidChange_outputDevice___block_invoke;
-  v44[3] = &unk_1E769A4A0;
-  v44[4] = self;
-  v45 = v35;
+  v43[1] = 3221225472;
+  v43[2] = __69__MROutputContextDataSource_notifyVolumeMutedDidChange_outputDevice___block_invoke;
+  v43[3] = &unk_1E769A4A0;
+  v43[4] = self;
+  v44 = v35;
   v37 = v35;
-  dispatch_async(notificationQueue, v44);
+  dispatch_async(notificationQueue, v43);
 
 LABEL_19:
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 @end

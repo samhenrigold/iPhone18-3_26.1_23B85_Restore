@@ -75,8 +75,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [objc_opt_class() allocWithZone:zone];
-  home = [(HFMediaAccessoryItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
@@ -92,8 +92,8 @@
 
   else
   {
-    home = [(HFMediaAccessoryItemProvider *)self home];
-    overrideValueSource2 = [home hf_characteristicValueManager];
+    v5 = objc_msgSend_home(self);
+    overrideValueSource2 = [v5 hf_characteristicValueManager];
   }
 
   return overrideValueSource2;
@@ -109,14 +109,14 @@
   objc_copyWeak(&v30, &location);
   v3 = _Block_copy(aBlock);
   v4 = objc_alloc(MEMORY[0x277CBEB58]);
-  home = [(HFMediaAccessoryItemProvider *)self home];
-  hf_allUniqueMediaProfileContainers = [home hf_allUniqueMediaProfileContainers];
+  v5 = objc_msgSend_home(self);
+  hf_allUniqueMediaProfileContainers = [v5 hf_allUniqueMediaProfileContainers];
   v7 = [v4 initWithArray:hf_allUniqueMediaProfileContainers];
 
   if (![(HFMediaAccessoryItemProvider *)self includeMediaSystems])
   {
-    home2 = [(HFMediaAccessoryItemProvider *)self home];
-    mediaSystems = [home2 mediaSystems];
+    v8 = objc_msgSend_home(self);
+    mediaSystems = [v8 mediaSystems];
     v10 = [mediaSystems count];
 
     if (v10)
@@ -125,8 +125,8 @@
       v12 = [v11 mutableCopy];
 
       v13 = MEMORY[0x277CBEB58];
-      home3 = [(HFMediaAccessoryItemProvider *)self home];
-      hf_allUniqueMediaProfileContainers2 = [home3 hf_allUniqueMediaProfileContainers];
+      v14 = objc_msgSend_home(self);
+      hf_allUniqueMediaProfileContainers2 = [v14 hf_allUniqueMediaProfileContainers];
       v16 = [v13 setWithArray:hf_allUniqueMediaProfileContainers2];
 
       [v16 minusSet:v12];
@@ -297,44 +297,41 @@ id __43__HFMediaAccessoryItemProvider_reloadItems__block_invoke_4(uint64_t a1, v
 
 - (id)invalidationReasons
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = HFMediaAccessoryItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v7 invalidationReasons];
-  v8[0] = @"accessory";
-  v8[1] = @"softwareUpdate";
-  v8[2] = @"mediaSystem";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v7[3] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFMediaAccessoryItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v6 invalidationReasons];
+  v7[0] = @"accessory";
+  v7[1] = @"softwareUpdate";
+  v7[2] = @"mediaSystem";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
   v4 = [invalidationReasons setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)mediaProfileContainer:(id)container didUpdateSettingKeypath:(id)keypath value:(id)value
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   keypathCopy = keypath;
   valueCopy = value;
   v9 = HFLogForCategory(0x28uLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = keypathCopy;
-    v14 = 2112;
-    v15 = valueCopy;
-    _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Received update for setting keypath %@ value = %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = keypathCopy;
+    v13 = 2112;
+    v14 = valueCopy;
+    _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Received update for setting keypath %@ value = %@", &v11, 0x16u);
   }
 
   reloadItems = [(HFMediaAccessoryItemProvider *)self reloadItems];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_siriEndpoints
 {
-  home = [(HFMediaAccessoryItemProvider *)self home];
-  accessories = [home accessories];
+  v2 = objc_msgSend_home(self, a2);
+  accessories = [v2 accessories];
   v4 = [accessories na_map:&__block_literal_global_289];
 
   v5 = [MEMORY[0x277CBEB98] setWithArray:v4];

@@ -32,7 +32,7 @@
     v4->_compressionVersion = [UCAppClipCodeEnDecUtility compressionVersionFromPayloadVersion:version];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      [(UCAppClipCodeURLDecoder *)&v5->_codingVersion initWithCodingVersion:?];
+      [UCAppClipCodeURLDecoder initWithCodingVersion:];
     }
 
     v6 = v5;
@@ -79,7 +79,7 @@
   dataCopy = data;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    [UCAppClipCodeURLDecoder decodeURLWithData:dataCopy error:self];
+    [UCAppClipCodeURLDecoder decodeURLWithData:error:];
   }
 
   compressionVersion = self->_compressionVersion;
@@ -155,7 +155,7 @@ LABEL_9:
     }
   }
 
-  [(UCAppClipCodeURLDecoder *)self _bitVectorFromData:v0Copy];
+  objc_msgSend__bitVectorFromData_(self);
   v12 = v25[0];
   v13 = operator new(0x30uLL);
   UC::UCBitStream::UCBitStream(v13, v12);
@@ -213,7 +213,7 @@ LABEL_9:
   v1Copy = v1;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    [UCAppClipCodeURLDecoder _decodeURLWithDataV1:v1Copy error:self];
+    [UCAppClipCodeURLDecoder _decodeURLWithDataV1:error:];
   }
 
   v6 = [UCAppClipCodeEnDecUtility perepareData:v1Copy withCodingVersion:self->_codingVersion forCompressionVersion:self->_compressionVersion];
@@ -223,7 +223,7 @@ LABEL_9:
     [UCAppClipCodeURLDecoder _decodeURLWithDataV1:error:];
   }
 
-  [(UCAppClipCodeURLDecoder *)self _bitVectorFromData:v6];
+  objc_msgSend__bitVectorFromData_(self);
   v7 = operator new(0x30uLL);
   UC::UCBitStream::UCBitStream(v7, v20);
   v19 = v7;
@@ -239,7 +239,7 @@ LABEL_9:
     v7 = v19;
   }
 
-  UC::SUE::PrefixedURLDecoderImpl::decodeURL(ptr, v7, __p);
+  UC::SUE::PrefixedURLDecoderImpl::decodeURL(__p, ptr, v7);
   if (v18 >= 0)
   {
     v10 = __p;
@@ -302,62 +302,39 @@ LABEL_9:
   return self;
 }
 
-- (void)initWithCodingVersion:(uint64_t *)a1 .cold.1(uint64_t *a1, uint64_t *a2)
+- (void)decodeURLWithData:error:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *a1;
-  v9 = *a2;
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)decodeURLWithData:(uint64_t)a1 error:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 32);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-- (void)_decodeURLWithDataV1:(uint64_t)a1 error:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
+- (void)_decodeURLWithDataV1:error:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 24);
-  v3 = *(a2 + 32);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 - (void)_decodeURLWithDataV1:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_decodeURLWithDataV1:error:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_decodeURLWithDataV1:error:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

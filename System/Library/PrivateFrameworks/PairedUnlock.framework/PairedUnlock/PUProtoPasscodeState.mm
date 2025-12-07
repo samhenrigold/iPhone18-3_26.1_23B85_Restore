@@ -53,23 +53,19 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  hasPasscode = self->_hasPasscode;
   PBDataWriterWriteBOOLField();
-  isLocked = self->_isLocked;
   PBDataWriterWriteBOOLField();
-  isUnlockOnly = self->_isUnlockOnly;
   PBDataWriterWriteBOOLField();
   if (*&self->_has)
   {
-    isWristDetectionEnabled = self->_isWristDetectionEnabled;
     PBDataWriterWriteBOOLField();
   }
 
-  v8 = toCopy;
+  v4 = toCopy;
   if (self->_policy)
   {
     PBDataWriterWriteSubmessage();
-    v8 = toCopy;
+    v4 = toCopy;
   }
 }
 
@@ -121,7 +117,6 @@
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 16);
   if (self->_hasPasscode)
   {
     if ((*(equalCopy + 16) & 1) == 0)
@@ -135,7 +130,6 @@
     goto LABEL_19;
   }
 
-  v6 = *(equalCopy + 17);
   if (self->_isLocked)
   {
     if ((*(equalCopy + 17) & 1) == 0)
@@ -149,7 +143,6 @@
     goto LABEL_19;
   }
 
-  v7 = *(equalCopy + 18);
   if (self->_isUnlockOnly)
   {
     if ((*(equalCopy + 18) & 1) == 0)
@@ -163,7 +156,7 @@
     goto LABEL_19;
   }
 
-  v8 = *(equalCopy + 20);
+  v5 = *(equalCopy + 20);
   if ((*&self->_has & 1) == 0)
   {
     goto LABEL_15;
@@ -174,17 +167,17 @@
     goto LABEL_19;
   }
 
-  v8 = *(equalCopy + 19);
+  v5 = *(equalCopy + 19);
   if (!self->_isWristDetectionEnabled)
   {
 LABEL_15:
-    if ((v8 & 1) == 0)
+    if ((v5 & 1) == 0)
     {
       goto LABEL_16;
     }
 
 LABEL_19:
-    v10 = 0;
+    v7 = 0;
     goto LABEL_20;
   }
 
@@ -197,17 +190,17 @@ LABEL_16:
   policy = self->_policy;
   if (policy | *(equalCopy + 1))
   {
-    v10 = [(PUProtoPasscodePolicy *)policy isEqual:?];
+    v7 = [(PUProtoPasscodePolicy *)policy isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v7 = 1;
   }
 
 LABEL_20:
 
-  return v10;
+  return v7;
 }
 
 - (unint64_t)hash

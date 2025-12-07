@@ -673,11 +673,11 @@ uint64_t CTParserXPCData::describe(CTParserXPCData *this)
   return MEMORY[0x2383CA260](v27);
 }
 
-void sub_2372E8DC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, xpc_object_t a5, void *__p, uint64_t a7, int a8, __int16 a9, char a10, char a11, uint64_t a12, uint64_t a13, xpc_object_t object, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+void sub_2372E8DC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, xpc_object_t a5, void *__p, uint64_t a7, int a8, __int16 a9, char a10, char a11, uint64_t a12, uint64_t a13, xpc_object_t object, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, xpc_object_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  va_start(va, a30);
-  xpc_release(object);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a15, MEMORY[0x277D82818]);
+  va_start(va, a36);
+  xpc_release(a20);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a21, MEMORY[0x277D82818]);
   MEMORY[0x2383CA260](va);
   _Unwind_Resume(a1);
 }
@@ -1002,16 +1002,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (LOBYTE(v13[0]) == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -1034,9 +1034,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_2372E997C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_2372E997C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x2383CA170](&a10);
+  MEMORY[0x2383CA170](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -1206,7 +1206,7 @@ void CTParserClient::init(uint64_t a1, dispatch_object_t *a2)
 
 void CTParserClient::sendXPCMessage(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   std::mutex::lock((a1 + 72));
   v6 = *(a1 + 48);
   v7 = *(a1 + 56);
@@ -1279,7 +1279,7 @@ LABEL_15:
       xpc_release(v15);
       xpc_release(v14);
       v16 = *(a1 + 144);
-      v31 = v16;
+      v30 = v16;
       if (v16)
       {
         xpc_retain(v16);
@@ -1287,7 +1287,7 @@ LABEL_15:
 
       else
       {
-        v31 = xpc_null_create();
+        v30 = xpc_null_create();
       }
 
       v25 = *(a1 + 32);
@@ -1298,17 +1298,17 @@ LABEL_15:
       }
 
       v26 = *(a1 + 16);
-      v28 = *(a1 + 8);
-      v29 = v26;
+      v27 = *(a1 + 8);
+      v28 = v26;
       if (v26)
       {
         atomic_fetch_add_explicit(&v26->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       }
 
-      ctu::XpcClientHelper::setServer<CTParserClient>((a1 + 152), &v31, &object, &v28);
-      if (v29)
+      ctu::XpcClientHelper::setServer<CTParserClient>((a1 + 152), &v30, &object, &v27);
+      if (v28)
       {
-        std::__shared_weak_count::__release_weak(v29);
+        std::__shared_weak_count::__release_weak(v28);
       }
 
       if (object)
@@ -1316,8 +1316,8 @@ LABEL_15:
         dispatch_release(object);
       }
 
-      xpc_release(v31);
-      v31 = 0;
+      xpc_release(v30);
+      v30 = 0;
     }
 
     CTParserXPCData::prepareForSend(*a2, *(a1 + 40), *(a1 + 136) | 0x100);
@@ -1331,7 +1331,6 @@ LABEL_15:
   }
 
   std::mutex::unlock((a1 + 72));
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2372EA23C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, dispatch_object_t object, xpc_object_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
@@ -1344,7 +1343,7 @@ void sub_2372EA23C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::shared_ptr<CTParserClient::CallbackContext>>::erase(uint64_t a1, uint64_t a2, __int128 *a3)
+__int128 *std::vector<std::shared_ptr<CTParserClient::CallbackContext>>::erase(uint64_t a1, __int128 *a2, __int128 *a3)
 {
   if (a3 != a2)
   {
@@ -1427,9 +1426,9 @@ void sub_2372EA46C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CTParserClient::processResponse(uint64_t a1, uint64_t *a2)
+void CTParserClient::processResponse(uint64_t a1, CTParserXPCResponse **a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v4 = CTParserXPCData::get<unsigned char>(*a2, CTParser::kTransactionId);
   if ((v4 & 0x100) == 0)
   {
@@ -1439,7 +1438,7 @@ void CTParserClient::processResponse(uint64_t a1, uint64_t *a2)
       CTParserClient::processResponse(v5, v6, v7, v8, v9, v10, v11, v12);
     }
 
-    goto LABEL_33;
+    return;
   }
 
   v13 = v4;
@@ -1449,15 +1448,11 @@ void CTParserClient::processResponse(uint64_t a1, uint64_t *a2)
     v15 = *(a1 + 24);
     if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_33;
+      return;
     }
 
     v16 = "(unknown)";
-LABEL_13:
-    *buf = 136315138;
-    *&buf[4] = v16;
-    _os_log_error_impl(&dword_2372E7000, v15, OS_LOG_TYPE_ERROR, "Invalid XPC service: %s", buf, 0xCu);
-    goto LABEL_33;
+    goto LABEL_13;
   }
 
   v17 = v14;
@@ -1466,11 +1461,15 @@ LABEL_13:
     v15 = *(a1 + 24);
     if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_33;
+      return;
     }
 
     v16 = CTParser::asString(v17);
-    goto LABEL_13;
+LABEL_13:
+    *buf = 136315138;
+    *&buf[4] = v16;
+    _os_log_error_impl(&dword_2372E7000, v15, OS_LOG_TYPE_ERROR, "Invalid XPC service: %s", buf, 0xCu);
+    return;
   }
 
   if (CTParserXPCResponse::hasError(*a2))
@@ -1485,7 +1484,7 @@ LABEL_13:
   {
     std::mutex::lock((a1 + 72));
     *buf = 0u;
-    v34 = 0u;
+    v33 = 0u;
     v19 = *(a1 + 48);
     v18 = *(a1 + 56);
     if (v19 >= v18)
@@ -1514,29 +1513,29 @@ LABEL_13:
     }
 
     std::function<void ()(std::shared_ptr<CTParserXPCResponse>)>::operator=(buf, (v21 + 8));
-    v23 = *(&v34 + 1);
-    if (*(&v34 + 1))
+    v23 = *(&v33 + 1);
+    if (*(&v33 + 1))
     {
       v24 = a2[1];
-      v30 = *a2;
-      v31 = v24;
+      v29 = *a2;
+      v30 = v24;
       if (v24)
       {
         atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
-        v23 = *(&v34 + 1);
-        if (!*(&v34 + 1))
+        v23 = *(&v33 + 1);
+        if (!*(&v33 + 1))
         {
           std::__throw_bad_function_call[abi:ne200100]();
         }
       }
 
-      (*(*v23 + 48))(v23, &v30);
-      if (v31)
+      (*(*v23 + 48))(v23, &v29);
+      if (v30)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v30);
       }
 
-      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<CTParserClient::CallbackContext> *,std::shared_ptr<CTParserClient::CallbackContext> *,std::shared_ptr<CTParserClient::CallbackContext> *>(&v32, (v19 + 16), *(a1 + 56), v19);
+      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<CTParserClient::CallbackContext> *,std::shared_ptr<CTParserClient::CallbackContext> *,std::shared_ptr<CTParserClient::CallbackContext> *>(&v31, (v19 + 16), *(a1 + 56), v19);
       v26 = v25;
       for (i = *(a1 + 56); i != v26; i -= 16)
       {
@@ -1563,21 +1562,18 @@ LABEL_19:
     std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::~__value_func[abi:ne200100](buf);
     std::mutex::unlock((a1 + 72));
   }
-
-LABEL_33:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2372EA734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, ...)
+void sub_2372EA734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, uint64_t a7, std::__shared_weak_count *a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  if (a4)
+  va_start(va, a9);
+  if (a8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a8);
   }
 
   std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::~__value_func[abi:ne200100](va);
-  std::mutex::unlock((v5 + 72));
+  std::mutex::unlock((v9 + 72));
   _Unwind_Resume(a1);
 }
 
@@ -1622,19 +1618,18 @@ xpc_object_t CTParserXPCData::get<CTParser::RemoteServiceType>(uint64_t a1, cons
 
 void *std::function<void ()(std::shared_ptr<CTParserXPCResponse>)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
-void CTParserClient::handleMessage()
+void CTParserClient::handleMessage(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v3 = *MEMORY[0x277D85DE8];
   v1 = 0;
+  v2 = 0;
   std::allocate_shared[abi:ne200100]<CTParserXPCResponse,std::allocator<CTParserXPCResponse>,xpc::dict const&,0>();
 }
 
@@ -1648,7 +1643,7 @@ void sub_2372EAA10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CTParserClient::handleServerError(os_log_t *a1, void *a2)
+void CTParserClient::handleServerError(void *a1, void *a2)
 {
   v4 = MEMORY[0x2383CA450](*a2);
   v5 = *a2;
@@ -1703,7 +1698,7 @@ void CTParserClient::handleServerError(os_log_t *a1, void *a2)
       __p[0] = xpc_null_create();
     }
 
-    ((*a1)[4].isa)(a1, __p);
+    (*(*a1 + 32))(a1, __p);
     xpc_release(__p[0]);
   }
 }
@@ -1739,7 +1734,7 @@ void CTParserClient::~CTParserClient(CTParserClient *this)
   CTParserInterface::~CTParserInterface(this);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1753,13 +1748,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -1994,18 +1989,16 @@ void std::__shared_ptr_emplace<CTParserClient::CallbackContext>::~__shared_ptr_e
 
 uint64_t std::allocator<CTParserClient::CallbackContext>::construct[abi:ne200100]<CTParserClient::CallbackContext,unsigned char &,std::function<void ()(std::shared_ptr<CTParserXPCResponse>)> &>(uint64_t a1, uint64_t a2, char *a3, uint64_t a4)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = *a3;
-  std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::__value_func[abi:ne200100](v8, a4);
-  CTParserClient::CallbackContext::CallbackContext(a2, v5, v8);
-  result = std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::~__value_func[abi:ne200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::__value_func[abi:ne200100](v7, a4);
+  CTParserClient::CallbackContext::CallbackContext(a2, v5, v7);
+  return std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::~__value_func[abi:ne200100](v7);
 }
 
-void sub_2372EB49C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2372EB49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2054,7 +2047,7 @@ void std::__split_buffer<std::shared_ptr<CTParserClient::CallbackContext>>::clea
 
 void *std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -2064,16 +2057,16 @@ void *std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>
     {
       if (v4 == a2)
       {
-        memset(v6, 0, 24);
-        (*(*result + 24))(result, v6);
+        memset(v5, 0, 24);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -2101,7 +2094,6 @@ void *std::__function::__value_func<void ()(std::shared_ptr<CTParserXPCResponse>
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2128,7 +2120,7 @@ void *std::__shared_ptr_emplace<CTParserXPCResponse>::__shared_ptr_emplace[abi:n
   a1[2] = 0;
   *a1 = &unk_284A54500;
   v4 = 0;
-  std::allocator<CTParserXPCResponse>::construct[abi:ne200100]<CTParserXPCResponse,xpc::dict const&>(&v4, (a1 + 3), a2);
+  std::allocator<CTParserXPCResponse>::construct[abi:ne200100]<CTParserXPCResponse,xpc::dict const&>(&v4, a1 + 3, a2);
   return a1;
 }
 
@@ -2140,7 +2132,7 @@ void std::__shared_ptr_emplace<CTParserXPCResponse>::~__shared_ptr_emplace(std::
   JUMPOUT(0x2383CA2A0);
 }
 
-void std::allocator<CTParserXPCResponse>::construct[abi:ne200100]<CTParserXPCResponse,xpc::dict const&>(uint64_t a1, uint64_t a2, void **a3)
+void std::allocator<CTParserXPCResponse>::construct[abi:ne200100]<CTParserXPCResponse,xpc::dict const&>(uint64_t a1, void *a2, void **a3)
 {
   v4 = *a3;
   object = v4;
@@ -2167,22 +2159,24 @@ void *_ZNSt3__120__shared_ptr_emplaceI19CTParserXPCResponseNS_9allocatorIS1_EEEC
   return a1;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_error_impl(a1, v13, OS_LOG_TYPE_ERROR, a4, &buf, 0xCu);
+  _os_log_error_impl(a1, v12, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-_BYTE *OUTLINED_FUNCTION_3(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void *OUTLINED_FUNCTION_3(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
 
   return std::string::basic_string[abi:ne200100]<0>(&a10, v10);
 }
 
-void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void C2KSmsPduDecoderSerialized::C2KSmsPduDecoderSerialized(C2KSmsPduDecoderSerialized *this)
@@ -2766,26 +2760,22 @@ void std::__shared_ptr_emplace<sms::MTSmsDetails>::~__shared_ptr_emplace(std::__
 
 void CTParserClient::processResponse(unsigned __int8 a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_2372E7000, a2, OS_LOG_TYPE_ERROR, "Failed to find callback for transaction ID: %u", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_2372E7000, a2, OS_LOG_TYPE_ERROR, "Failed to find callback for transaction ID: %u", v2, 8u);
 }
 
 void CTParserClient::processResponse(CTParserXPCResponse **a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
   CTParserXPCResponse::getError(*a1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0(&dword_2372E7000, v1, v2, "XPC error: %s", v3, v4, v5, v6, v8, __p, v11, v12, v14);
-  if (v13 < 0)
+  OUTLINED_FUNCTION_0(&dword_2372E7000, v1, v2, "XPC error: %s", v3, v4, v5, v6, v7, __p, v10, v11);
+  if (v12 < 0)
   {
     operator delete(__pa);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void CTParserClient::handleMessage(char *a1, uint8_t *buf, os_log_t log)
@@ -2811,55 +2801,46 @@ void CTParserClient::handleMessage(char *a1, uint8_t *buf, os_log_t log)
 
 void CTParserClient::handleServerError(void *a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
   MEMORY[0x2383CA410](*a1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(v2, v3, v4, v5, v6, v7, v8, v9, v17, __p);
+  OUTLINED_FUNCTION_3(v2, v3, v4, v5, v6, v7, v8, v9, v16, __p);
   free(v1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0(&dword_2372E7000, v10, v11, "XPC send failed: [%s]", v12, v13, v14, v15, v18, __pb, v22, v23, v25);
-  if (v24 < 0)
+  OUTLINED_FUNCTION_0(&dword_2372E7000, v10, v11, "XPC send failed: [%s]", v12, v13, v14, v15, v17, __pb, v21, v22);
+  if (v23 < 0)
   {
     operator delete(__pa);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void CTParserClient::handleServerError()
 {
-  v25 = *MEMORY[0x277D85DE8];
   MEMORY[0x2383CA410]();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(v1, v2, v3, v4, v5, v6, v7, v8, v16, __p);
+  OUTLINED_FUNCTION_3(v1, v2, v3, v4, v5, v6, v7, v8, v15, __p);
   free(v0);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0(&dword_2372E7000, v9, v10, "XPC connection closed...: %s", v11, v12, v13, v14, v17, __pb, v21, v22, v24);
-  if (v23 < 0)
+  OUTLINED_FUNCTION_0(&dword_2372E7000, v9, v10, "XPC connection closed...: %s", v11, v12, v13, v14, v16, __pb, v20, v21);
+  if (v22 < 0)
   {
     operator delete(__pa);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v25 = *MEMORY[0x277D85DE8];
   MEMORY[0x2383CA410]();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(v1, v2, v3, v4, v5, v6, v7, v8, v16, __p);
+  OUTLINED_FUNCTION_3(v1, v2, v3, v4, v5, v6, v7, v8, v15, __p);
   free(v0);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0(&dword_2372E7000, v9, v10, "XPC connection interrupted...: %s", v11, v12, v13, v14, v17, __pb, v21, v22, v24);
-  if (v23 < 0)
+  OUTLINED_FUNCTION_0(&dword_2372E7000, v9, v10, "XPC connection interrupted...: %s", v11, v12, v13, v14, v16, __pb, v20, v21);
+  if (v22 < 0)
   {
     operator delete(__pa);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t xpc::dyn_cast_or_default()

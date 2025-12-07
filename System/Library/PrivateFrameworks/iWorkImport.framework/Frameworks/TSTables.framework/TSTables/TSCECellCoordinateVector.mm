@@ -33,7 +33,7 @@
   v5 = self->var0.var1.var0;
   while (var0 != v5)
   {
-    self = sub_2210CE644(retstr, var0);
+    self = sub_2210CE644(retstr, var0, var0);
     var0 += 2;
   }
 
@@ -107,26 +107,26 @@
 
 - (TSCECellCoordinateVector)initWithArchive:(const void *)archive
 {
-  v6 = objc_msgSend_init(self, a2, archive, v3, v4);
-  if (v6)
+  v5 = objc_msgSend_init(self, a2, archive, v3);
+  if (v5)
   {
-    v7 = *(archive + 6);
-    if (v7 >= 1)
+    v6 = *(archive + 6);
+    if (v6 >= 1)
     {
-      v8 = 8;
+      v7 = 8;
       do
       {
-        v9 = sub_2212697C0(*(*(archive + 4) + v8));
-        objc_msgSend_addCellCoordinate_(v6, v10, v9, v11, v12);
-        v8 += 8;
-        --v7;
+        v8 = sub_2212697C0(*(*(archive + 4) + v7));
+        objc_msgSend_addCellCoordinate_(v5, v9, v8, v10);
+        v7 += 8;
+        --v6;
       }
 
-      while (v7);
+      while (v6);
     }
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)saveToArchive:(void *)archive

@@ -493,4 +493,25 @@ void __63__SUICVoiceSelectionPresenter_selectRandomVoiceWithCompletion___block_i
   _os_log_error_impl(&dword_1C432B000, v2, OS_LOG_TYPE_ERROR, "%s Failed to process randomly selected voice:%@ error:%@", v3, 0x20u);
 }
 
+void __65__SUICVoiceSelectionPresenter__processVoiceSelection_completion___block_invoke_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_0_1(&dword_1C432B000, v0, v1, "%s Error changing Siri voice: %@", v2, v3, v4, v5, v6);
+}
+
+- (void)_previewVoice:completion:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_0_1(&dword_1C432B000, v0, v1, "%s Voice reselected while previewing %@", v2, v3, v4, v5, v6);
+}
+
+void __56__SUICVoiceSelectionPresenter__previewVoice_completion___block_invoke_2_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_0_1(&dword_1C432B000, v0, v1, "%s Error previewing voice: %@", v2, v3, v4, v5, v6);
+}
+
 @end

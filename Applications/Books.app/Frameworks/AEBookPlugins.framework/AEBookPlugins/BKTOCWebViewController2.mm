@@ -94,7 +94,7 @@
       goto LABEL_6;
     }
 
-    v9 = AEBundle();
+    v9 = AEBundle(0);
     v8 = [v9 localizedStringForKey:@"…" value:&stru_1E7188 table:0];
 
     v6 = v9;
@@ -324,8 +324,7 @@ LABEL_6:
   v86 = v65;
   v66 = v28;
   v87 = v66;
-  [fetchedObjects enumerateObjectsUsingBlock:v85];
-  v67 = AEBundle();
+  v67 = AEBundle([fetchedObjects enumerateObjectsUsingBlock:v85]);
   v68 = [v67 URLForResource:@"BEVerticalTOC.xhtml" withExtension:@"tmpl"];
 
   v84 = 0;
@@ -1073,31 +1072,30 @@ LABEL_22:
 
 - (void)updatePageStylesheet
 {
-  htmlMarkup = [(BKTOCWebViewController2 *)self htmlMarkup];
-  v4 = AEBundle();
-  v5 = [v4 URLForResource:@"BEVerticalTOC.xhtml" withExtension:@"tmpl"];
+  v3 = AEBundle([(BKTOCWebViewController2 *)self htmlMarkup]);
+  v4 = [v3 URLForResource:@"BEVerticalTOC.xhtml" withExtension:@"tmpl"];
 
   tocData = [(BKTOCWebViewController2 *)self tocData];
-  v21 = 0;
-  v7 = [AEMinimalTemplate evaluateTemplateWithURL:v5 data:tocData error:&v21];
-  v8 = v21;
-
-  v9 = [v7 rangeOfString:@"<style"];
-  v10 = [v7 rangeOfString:@">" options:0 range:{v9, objc_msgSend(v7, "length") - v9}];
-  v12 = [v7 substringWithRange:{&v10[v11], objc_msgSend(v7, "rangeOfString:options:range:", @"</style>", 0, &v10[v11], objc_msgSend(v7, "length") - &v10[v11]) - &v10[v11]}];
-  v22 = v12;
-  v13 = [NSArray arrayWithObjects:&v22 count:1];
   v20 = 0;
-  v14 = [NSJSONSerialization dataWithJSONObject:v13 options:1 error:&v20];
-  v15 = v20;
+  v6 = [AEMinimalTemplate evaluateTemplateWithURL:v4 data:tocData error:&v20];
+  v7 = v20;
 
-  v16 = [[NSString alloc] initWithData:v14 encoding:4];
+  v8 = [v6 rangeOfString:@"<style"];
+  v9 = [v6 rangeOfString:@">" options:0 range:{v8, objc_msgSend(v6, "length") - v8}];
+  v11 = [v6 substringWithRange:{&v9[v10], objc_msgSend(v6, "rangeOfString:options:range:", @"</style>", 0, &v9[v10], objc_msgSend(v6, "length") - &v9[v10]) - &v9[v10]}];
+  v21 = v11;
+  v12 = [NSArray arrayWithObjects:&v21 count:1];
+  v19 = 0;
+  v13 = [NSJSONSerialization dataWithJSONObject:v12 options:1 error:&v19];
+  v14 = v19;
+
+  v15 = [[NSString alloc] initWithData:v13 encoding:4];
   elementIdForCurrentNode = [(BKTOCWebViewController2 *)self elementIdForCurrentNode];
-  v18 = [NSString stringWithFormat:@"updatePageStylesheet(%@) clearSelectedLink(); scrollToItemWithId(%@)", v16, elementIdForCurrentNode];;
+  v17 = [NSString stringWithFormat:@"updatePageStylesheet(%@) clearSelectedLink(); scrollToItemWithId(%@)", v15, elementIdForCurrentNode];;
   activityIndicator = self->_activityIndicator;
   if (activityIndicator)
   {
-    [(BKActivityIndicatorOverlayView *)activityIndicator evaluateJavaScript:v18 completionHandler:&stru_1E3D90];
+    [(BKActivityIndicatorOverlayView *)activityIndicator evaluateJavaScript:v17 completionHandler:&stru_1E3D90];
   }
 }
 

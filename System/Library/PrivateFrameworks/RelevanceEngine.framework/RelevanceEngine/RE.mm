@@ -5,7 +5,7 @@
 
 void ____RE_Cached_Get__ShowAllElements_block_invoke(uint64_t a1)
 {
-  if (RelevanceEngineLibraryCore_0())
+  if (RelevanceEngineLibraryCore_0(0))
   {
     v2 = [soft__REEngineDefaults() defaultsForEngine:*(a1 + 32)];
     if (v2)
@@ -15,7 +15,7 @@ void ____RE_Cached_Get__ShowAllElements_block_invoke(uint64_t a1)
     }
   }
 
-  if (RelevanceEngineLibraryCore_0())
+  if (RelevanceEngineLibraryCore_0(0))
   {
     v4 = [soft__REEngineDefaults() globalDefaults];
     if (v4)
@@ -28,7 +28,7 @@ void ____RE_Cached_Get__ShowAllElements_block_invoke(uint64_t a1)
 
 void ____RE_Cached_Get__DisplayDebugProbabilities_block_invoke(uint64_t a1)
 {
-  if (RelevanceEngineLibraryCore_1())
+  if (RelevanceEngineLibraryCore_1(0))
   {
     v2 = [soft__REEngineDefaults_0() defaultsForEngine:*(a1 + 32)];
     if (v2)
@@ -38,7 +38,7 @@ void ____RE_Cached_Get__DisplayDebugProbabilities_block_invoke(uint64_t a1)
     }
   }
 
-  if (RelevanceEngineLibraryCore_1())
+  if (RelevanceEngineLibraryCore_1(0))
   {
     v4 = [soft__REEngineDefaults_0() globalDefaults];
     if (v4)
@@ -51,7 +51,7 @@ void ____RE_Cached_Get__DisplayDebugProbabilities_block_invoke(uint64_t a1)
 
 void ____RE_Cached_Get__ShowAllElements_block_invoke_0(uint64_t a1)
 {
-  if (RelevanceEngineLibraryCore_2())
+  if (RelevanceEngineLibraryCore_2(0))
   {
     v2 = [soft__REEngineDefaults_1() defaultsForEngine:*(a1 + 32)];
     if (v2)
@@ -61,7 +61,7 @@ void ____RE_Cached_Get__ShowAllElements_block_invoke_0(uint64_t a1)
     }
   }
 
-  if (RelevanceEngineLibraryCore_2())
+  if (RelevanceEngineLibraryCore_2(0))
   {
     v4 = [soft__REEngineDefaults_1() globalDefaults];
     if (v4)

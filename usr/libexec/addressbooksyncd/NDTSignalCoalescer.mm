@@ -1,6 +1,7 @@
 @interface NDTSignalCoalescer
 - (NDTSignalCoalescer)initWithLeadingEdgeDelay:(double)delay nextDelay:(id)nextDelay action:(id)action;
 - (void)_cancel;
+- (void)_setupTimerDelay:(double)delay pending:(BOOL)pending;
 - (void)cancel;
 - (void)fireAction;
 - (void)forceDelay:(double)delay;
@@ -99,11 +100,39 @@
 
 - (void)setAction:(id)action
 {
-  v4 = [action copy];
-  action = self->_action;
-  self->_action = v4;
+  self->_action = [action copy];
 
   _objc_release_x1();
+}
+
+- (void)_setupTimerDelay:(double)delay pending:(BOOL)pending
+{
+  pendingCopy = pending;
+  objc_initWeak(&location, self);
+  v15 = _NSConcreteStackBlock;
+  v16 = 3221225472;
+  v17 = sub_10000794C;
+  v18 = &unk_10005CE40;
+  objc_copyWeak(&v19, &location);
+  v7 = objc_retainBlock(&v15);
+  [(NDTSignalCoalescer *)self setPending:pendingCopy, v15, v16, v17, v18];
+  accessQueue = [(NDTSignalCoalescer *)self accessQueue];
+  v9 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, accessQueue);
+  [(NDTSignalCoalescer *)self setSource:v9];
+
+  source = [(NDTSignalCoalescer *)self source];
+  v11 = dispatch_time(0, (delay * 1000000000.0));
+  [(NDTSignalCoalescer *)self leeway];
+  dispatch_source_set_timer(source, v11, 0xFFFFFFFFFFFFFFFFLL, (v12 * 1000000000.0));
+
+  source2 = [(NDTSignalCoalescer *)self source];
+  dispatch_source_set_event_handler(source2, v7);
+
+  source3 = [(NDTSignalCoalescer *)self source];
+  dispatch_resume(source3);
+
+  objc_destroyWeak(&v19);
+  objc_destroyWeak(&location);
 }
 
 - (void)_cancel

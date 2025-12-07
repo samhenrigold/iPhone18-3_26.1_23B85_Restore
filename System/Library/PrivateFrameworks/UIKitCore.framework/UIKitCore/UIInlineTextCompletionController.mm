@@ -1048,144 +1048,111 @@ void __61__UIInlineTextCompletionController_didPerformKeyboardOutput___block_inv
 
         candidate = [v8 candidate];
         candidate2 = [inputCopy candidate];
-        v11 = candidate2;
-        if (candidate2)
-        {
-          v12 = candidate2;
-        }
-
-        else
-        {
-          v12 = &stru_1EFB14550;
-        }
-
-        if ([candidate isEqualToString:v12])
+        if (objc_msgSend_isEqualToString_(candidate))
         {
           input = [v8 input];
           input2 = [inputCopy input];
-          v15 = input2;
-          if (input2)
-          {
-            v16 = input2;
-          }
-
-          else
-          {
-            v16 = &stru_1EFB14550;
-          }
-
-          v17 = [input isEqualToString:v16];
+          isEqualToString = objc_msgSend_isEqualToString_(input);
         }
 
         else
         {
-          v17 = 0;
+          isEqualToString = 0;
         }
 
         input3 = [inputCopy input];
         candidate3 = [inputCopy candidate];
-        v20 = candidate3;
-        if (candidate3)
-        {
-          v21 = candidate3;
-        }
+        v16 = objc_msgSend_isEqualToString_(input3);
 
-        else
+        if (isEqualToString)
         {
-          v21 = &stru_1EFB14550;
-        }
-
-        v22 = [input3 isEqualToString:v21];
-
-        if (v17)
-        {
-          v23 = _UIKBInlineTextCompletionLog();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          v17 = _UIKBInlineTextCompletionLog();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_debug_impl(&dword_188A29000, v23, OS_LOG_TYPE_DEBUG, "Accepted text completion by selecting from prediction bar", buf, 2u);
+            _os_log_debug_impl(&dword_188A29000, v17, OS_LOG_TYPE_DEBUG, "Accepted text completion by selecting from prediction bar", buf, 2u);
           }
 
           [(UIInlineTextCompletionController *)self _registerLearningForInlineCompletion:v8 learningMode:*MEMORY[0x1E69D9910]];
           selfCopy2 = self;
-          v25 = 2;
+          v19 = 2;
         }
 
         else
         {
-          if ((v22 & 1) == 0)
+          if ((v16 & 1) == 0)
           {
             candidate4 = [inputCopy candidate];
-            v28 = candidate4;
+            v22 = candidate4;
             if (candidate4)
             {
-              v29 = candidate4;
+              v23 = candidate4;
             }
 
             else
             {
-              v29 = &stru_1EFB14550;
+              v23 = &stru_1EFB14550;
             }
 
-            v30 = v29;
+            v24 = v23;
 
             input4 = [v8 input];
-            v32 = [input4 stringByAppendingString:v30];
+            v26 = [input4 stringByAppendingString:v24];
             whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-            v34 = [v32 componentsSeparatedByCharactersInSet:whitespaceCharacterSet];
+            v28 = [v26 componentsSeparatedByCharactersInSet:whitespaceCharacterSet];
 
             candidate5 = [v8 candidate];
             whitespaceCharacterSet2 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
 
-            v37 = [candidate5 componentsSeparatedByCharactersInSet:whitespaceCharacterSet2];
+            v31 = [candidate5 componentsSeparatedByCharactersInSet:whitespaceCharacterSet2];
 
-            LODWORD(whitespaceCharacterSet2) = [v34 isEqual:v37];
-            v38 = _UIKBInlineTextCompletionLog();
-            v39 = os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG);
+            LODWORD(whitespaceCharacterSet2) = objc_msgSend_isEqual_(v28);
+            v32 = _UIKBInlineTextCompletionLog();
+            v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG);
             if (whitespaceCharacterSet2)
             {
-              if (v39)
+              if (v33)
               {
-                *v44 = 0;
-                _os_log_debug_impl(&dword_188A29000, v38, OS_LOG_TYPE_DEBUG, "Accepted text completion by selecting from prediction bar", v44, 2u);
+                *v38 = 0;
+                _os_log_debug_impl(&dword_188A29000, v32, OS_LOG_TYPE_DEBUG, "Accepted text completion by selecting from prediction bar", v38, 2u);
               }
 
-              v40 = MEMORY[0x1E69D9910];
-              v41 = 5;
+              v34 = MEMORY[0x1E69D9910];
+              v35 = 5;
             }
 
             else
             {
-              if (v39)
+              if (v33)
               {
-                *v43 = 0;
-                _os_log_debug_impl(&dword_188A29000, v38, OS_LOG_TYPE_DEBUG, "Rejected text completion by selecting typed string from prediction bar", v43, 2u);
+                *v37 = 0;
+                _os_log_debug_impl(&dword_188A29000, v32, OS_LOG_TYPE_DEBUG, "Rejected text completion by selecting typed string from prediction bar", v37, 2u);
               }
 
-              v40 = MEMORY[0x1E69D9938];
-              v41 = 6;
+              v34 = MEMORY[0x1E69D9938];
+              v35 = 6;
             }
 
-            [(UIInlineTextCompletionController *)self _registerLearningForInlineCompletion:v8 learningMode:*v40];
-            [(UIInlineTextCompletionController *)self _removeTextCompletionPromptForReason:v41];
+            [(UIInlineTextCompletionController *)self _registerLearningForInlineCompletion:v8 learningMode:*v34];
+            [(UIInlineTextCompletionController *)self _removeTextCompletionPromptForReason:v35];
 
-            goto LABEL_36;
+            goto LABEL_27;
           }
 
-          v26 = _UIKBInlineTextCompletionLog();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+          v20 = _UIKBInlineTextCompletionLog();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            *v42 = 0;
-            _os_log_debug_impl(&dword_188A29000, v26, OS_LOG_TYPE_DEBUG, "Rejected text completion by selecting other candidate from prediction bar", v42, 2u);
+            *v36 = 0;
+            _os_log_debug_impl(&dword_188A29000, v20, OS_LOG_TYPE_DEBUG, "Rejected text completion by selecting other candidate from prediction bar", v36, 2u);
           }
 
           [(UIInlineTextCompletionController *)self _registerLearningForInlineCompletion:v8 learningMode:*MEMORY[0x1E69D9938]];
           selfCopy2 = self;
-          v25 = 5;
+          v19 = 5;
         }
 
-        [(UIInlineTextCompletionController *)selfCopy2 _removeTextCompletionPromptForReason:v25];
-LABEL_36:
+        [(UIInlineTextCompletionController *)selfCopy2 _removeTextCompletionPromptForReason:v19];
+LABEL_27:
       }
     }
   }
@@ -1440,7 +1407,7 @@ LABEL_13:
 
   [(UIInlineTextCompletionController *)self setCandidateRemovedOnWillPerformOutput:0];
   [(UIInlineTextCompletionController *)self _clearTextCompletionPromptTimer];
-  if ([(__CFString *)v12 length]&& ![(__CFString *)v12 isEqualToString:v16])
+  if ([(__CFString *)v12 length]&& !objc_msgSend_isEqualToString_(v12))
   {
     textCompletion = self->_textCompletion;
     location = &self->_textCompletion;
@@ -1475,7 +1442,7 @@ LABEL_13:
 
       v29 = v28;
 
-      if ([(__CFString *)v25 isEqualToString:v12]&& [(__CFString *)v29 isEqualToString:v16])
+      if (objc_msgSend_isEqualToString_(v25) && objc_msgSend_isEqualToString_(v29))
       {
         contextCopy = v21;
         [v21 returnExecutionToParent];
@@ -2029,11 +1996,11 @@ LABEL_11:
     [(UIInlineTextCompletionPrompt *)self->m_textCompletionPrompt setDelegate:self];
   }
 
-  [viewCopy addSubview:{self->m_textCompletionPrompt, *v38}];
+  [viewCopy addSubview:{self->m_textCompletionPrompt, *v38, *&v38[8]}];
 LABEL_16:
   v23 = self->m_textCompletionPrompt;
-  inputDelegate = [(UIInlineTextCompletionController *)self inputDelegate];
-  textInputView = [inputDelegate textInputView];
+  v24 = [(UIInlineTextCompletionController *)self inputDelegate:*v38];
+  textInputView = [v24 textInputView];
   [textInputView _convertVisualAltitude:self->m_textCompletionPrompt toView:0.0];
   [(UIView *)v23 _setVisualAltitude:?];
 

@@ -1,7 +1,9 @@
 @interface ATXIntentSuggestionRequest
 - (ATXIntentSuggestionRequest)initWithCoder:(id)coder;
+- (ATXIntentSuggestionRequest)initWithOriginatorId:(id)id consumerSubType:(unsigned __int8)type bundleIds:(id)ids intentClassNames:(id)names limit:(id)limit;
 - (ATXIntentSuggestionRequest)initWithProto:(id)proto;
 - (ATXIntentSuggestionRequest)initWithProtoData:(id)data;
+- (ATXIntentSuggestionRequest)initWithUUID:(id)d originatorId:(id)id consumerSubType:(unsigned __int8)type bundleIds:(id)ids intentClassNames:(id)names limit:(id)limit timeout:(double)timeout;
 - (BOOL)isEqual:(id)equal;
 - (id)encodeAsProto;
 - (id)proto;
@@ -11,6 +13,46 @@
 @end
 
 @implementation ATXIntentSuggestionRequest
+
+- (ATXIntentSuggestionRequest)initWithOriginatorId:(id)id consumerSubType:(unsigned __int8)type bundleIds:(id)ids intentClassNames:(id)names limit:(id)limit
+{
+  typeCopy = type;
+  limitCopy = limit;
+  namesCopy = names;
+  idsCopy = ids;
+  idCopy = id;
+  v16 = objc_opt_new();
+  v17 = [(ATXIntentSuggestionRequest *)self initWithUUID:v16 originatorId:idCopy consumerSubType:typeCopy bundleIds:idsCopy intentClassNames:namesCopy limit:limitCopy timeout:10.0];
+
+  return v17;
+}
+
+- (ATXIntentSuggestionRequest)initWithUUID:(id)d originatorId:(id)id consumerSubType:(unsigned __int8)type bundleIds:(id)ids intentClassNames:(id)names limit:(id)limit timeout:(double)timeout
+{
+  typeCopy = type;
+  idsCopy = ids;
+  namesCopy = names;
+  limitCopy = limit;
+  v22.receiver = self;
+  v22.super_class = ATXIntentSuggestionRequest;
+  v20 = [(ATXSuggestionRequest *)&v22 initWithUUID:d originatorId:id consumerSubType:typeCopy timeout:timeout];
+  if (v20)
+  {
+    if ([idsCopy count])
+    {
+      objc_storeStrong(&v20->_bundleIds, ids);
+    }
+
+    if ([namesCopy count])
+    {
+      objc_storeStrong(&v20->_intentClassNames, names);
+    }
+
+    objc_storeStrong(&v20->_limit, limit);
+  }
+
+  return v20;
+}
 
 - (BOOL)isEqual:(id)equal
 {
@@ -154,40 +196,41 @@ LABEL_8:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v15 = __atxlog_handle_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      [ATXIntentSuggestionRequest initWithProto:];
+      [ATXIntentSuggestionRequest initWithProto:protoCopy];
     }
 
     goto LABEL_8;
   }
 
-  v5 = protoCopy;
-  v6 = [ATXSuggestionRequest alloc];
-  base = [v5 base];
-  v8 = [(ATXSuggestionRequest *)v6 initWithProto:base];
+  v6 = protoCopy;
+  v7 = [ATXSuggestionRequest alloc];
+  base = [v6 base];
+  v9 = [(ATXSuggestionRequest *)v7 initWithProto:base];
 
-  requestUUID = [(ATXSuggestionRequest *)v8 requestUUID];
-  originatorId = [(ATXSuggestionRequest *)v8 originatorId];
-  consumerSubType = [(ATXSuggestionRequest *)v8 consumerSubType];
-  bundleIds = [v5 bundleIds];
-  intentClassNames = [v5 intentClassNames];
-  hasLimit = [v5 hasLimit];
+  requestUUID = [(ATXSuggestionRequest *)v9 requestUUID];
+  originatorId = [(ATXSuggestionRequest *)v9 originatorId];
+  consumerSubType = [(ATXSuggestionRequest *)v9 consumerSubType];
+  bundleIds = [v6 bundleIds];
+  intentClassNames = [v6 intentClassNames];
+  hasLimit = [v6 hasLimit];
   if (hasLimit)
   {
-    v14 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v5, "limit")}];
+    v15 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v6, "limit")}];
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  [(ATXSuggestionRequest *)v8 timeout];
-  self = [(ATXIntentSuggestionRequest *)self initWithUUID:requestUUID originatorId:originatorId consumerSubType:consumerSubType bundleIds:bundleIds intentClassNames:intentClassNames limit:v14 timeout:?];
+  [(ATXSuggestionRequest *)v9 timeout];
+  self = [(ATXIntentSuggestionRequest *)self initWithUUID:requestUUID originatorId:originatorId consumerSubType:consumerSubType bundleIds:bundleIds intentClassNames:intentClassNames limit:v15 timeout:?];
   if (hasLimit)
   {
   }
@@ -206,63 +249,64 @@ LABEL_13:
   v27.super_class = ATXIntentSuggestionRequest;
   proto = [(ATXSuggestionRequest *)&v27 proto];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     [v3 setBase:proto];
     v25 = 0u;
     v26 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v5 = self->_bundleIds;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
-    if (v6)
+    v6 = self->_bundleIds;
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v8 = *v24;
+      v8 = v7;
+      v9 = *v24;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v8)
+          if (*v24 != v9)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v6);
           }
 
           [v3 addBundleIds:*(*(&v23 + 1) + 8 * i)];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
 
     v21 = 0u;
     v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v10 = self->_intentClassNames;
-    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v19 objects:v28 count:16];
-    if (v11)
+    v11 = self->_intentClassNames;
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v28 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v20;
+      v13 = v12;
+      v14 = *v20;
       do
       {
-        for (j = 0; j != v12; ++j)
+        for (j = 0; j != v13; ++j)
         {
-          if (*v20 != v13)
+          if (*v20 != v14)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
           [v3 addIntentClassNames:{*(*(&v19 + 1) + 8 * j), v19}];
         }
 
-        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v19 objects:v28 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v28 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
 
     if (self->_limit)
@@ -276,41 +320,37 @@ LABEL_13:
       [v3 setHasLimit:0];
     }
 
-    v16 = v3;
+    v17 = v3;
   }
 
   else
   {
-    v15 = __atxlog_handle_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      [ATXIntentSuggestionRequest proto];
+      [(ATXIntentSuggestionRequest *)proto proto];
     }
 
-    v16 = 0;
+    v17 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v17;
 }
 
-- (void)initWithProto:.cold.1()
+- (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1DEFC4000, v0, v1, "%s: Returning nil because input proto is of unexpected class %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1DEFC4000, v1, v2, "%s: Returning nil because input proto is of unexpected class %{public}@", v3, v4, v5, v6, v7);
 }
 
 - (void)proto
 {
-  v7 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1DEFC4000, v0, v1, "%s: Returning nil because [super proto] is of unexpected class %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1DEFC4000, v1, v2, "%s: Returning nil because [super proto] is of unexpected class %{public}@", v3, v4, v5, v6, v7);
 }
 
 @end

@@ -92,14 +92,15 @@
   [v5 setPredicate:v6];
 
   backgroundContext = [(BICCoreDataPersistentStoring *)self backgroundContext];
-  v14 = 0;
-  v8 = [backgroundContext executeFetchRequest:v5 error:&v14];
-  v9 = v14;
+  v15 = 0;
+  v8 = [backgroundContext executeFetchRequest:v5 error:&v15];
+  v9 = v15;
 
-  if ([v8 count] >= 2)
+  v10 = [v8 count];
+  if (v10 >= 2)
   {
-    v10 = BCImageCacheLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BCImageCacheLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1E92E0();
     }
@@ -107,8 +108,8 @@
 
   if (v9)
   {
-    v11 = BCImageCacheLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = BCImageCacheLog(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1E9348();
     }
@@ -116,15 +117,15 @@
 
   if ([v8 count])
   {
-    v12 = [v8 objectAtIndexedSubscript:0];
+    v13 = [v8 objectAtIndexedSubscript:0];
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)addNewImageSetWithIdentifier:(id)identifier
@@ -208,14 +209,14 @@
   [v3 setPredicate:v4];
 
   backgroundContext = [(BICCoreDataPersistentStoring *)self backgroundContext];
-  v10 = 0;
-  v6 = [backgroundContext executeFetchRequest:v3 error:&v10];
-  v7 = v10;
+  v11 = 0;
+  v6 = [backgroundContext executeFetchRequest:v3 error:&v11];
+  v7 = v11;
 
   if (v7)
   {
-    v8 = BCImageCacheLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = BCImageCacheLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1E93B0();
     }
@@ -236,14 +237,14 @@
 
   [v5 setPredicate:v6];
   backgroundContext = [(BICCoreDataPersistentStoring *)self backgroundContext];
-  v12 = 0;
-  v8 = [backgroundContext executeFetchRequest:v5 error:&v12];
-  v9 = v12;
+  v13 = 0;
+  v8 = [backgroundContext executeFetchRequest:v5 error:&v13];
+  v9 = v13;
 
   if (v9)
   {
-    v10 = BCImageCacheLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BCImageCacheLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1E9418();
     }
@@ -285,14 +286,14 @@
   [v5 setPredicate:v6];
 
   backgroundContext = [(BICCoreDataPersistentStoring *)self backgroundContext];
-  v12 = 0;
-  v8 = [backgroundContext executeFetchRequest:v5 error:&v12];
-  v9 = v12;
+  v13 = 0;
+  v8 = [backgroundContext executeFetchRequest:v5 error:&v13];
+  v9 = v13;
 
   if (v9)
   {
-    v10 = BCImageCacheLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BCImageCacheLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1E94E8();
     }
@@ -313,14 +314,14 @@
 
   [v5 setPredicate:v6];
   backgroundContext = [(BICCoreDataPersistentStoring *)self backgroundContext];
-  v12 = 0;
-  v8 = [backgroundContext executeFetchRequest:v5 error:&v12];
-  v9 = v12;
+  v13 = 0;
+  v8 = [backgroundContext executeFetchRequest:v5 error:&v13];
+  v9 = v13;
 
   if (v9)
   {
-    v10 = BCImageCacheLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BCImageCacheLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1E9550();
     }
@@ -340,14 +341,14 @@
 
   [v5 setPredicate:locationsCopy];
   backgroundContext = [(BICCoreDataPersistentStoring *)self backgroundContext];
-  v12 = 0;
-  v8 = [backgroundContext executeFetchRequest:v5 error:&v12];
-  v9 = v12;
+  v13 = 0;
+  v8 = [backgroundContext executeFetchRequest:v5 error:&v13];
+  v9 = v13;
 
   if (v9)
   {
-    v10 = BCImageCacheLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BCImageCacheLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1E95B8();
     }

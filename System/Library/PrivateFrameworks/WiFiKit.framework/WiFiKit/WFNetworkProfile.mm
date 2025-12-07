@@ -158,10 +158,10 @@
 
 - (WFNetworkProfile)initWithNetworkRef:(__WiFiNetwork *)ref
 {
-  v95 = *MEMORY[0x277D85DE8];
-  v88.receiver = self;
-  v88.super_class = WFNetworkProfile;
-  v4 = [(WFNetworkProfile *)&v88 init];
+  v94 = *MEMORY[0x277D85DE8];
+  v87.receiver = self;
+  v87.super_class = WFNetworkProfile;
+  v4 = [(WFNetworkProfile *)&v87 init];
   if (!v4)
   {
     v7 = 0;
@@ -170,7 +170,7 @@
 
   if (!ref)
   {
-    [(WFNetworkProfile *)&v89 initWithNetworkRef:buf];
+    [(WFNetworkProfile *)&v88 initWithNetworkRef:buf];
 LABEL_69:
     v7 = *buf;
 
@@ -200,9 +200,9 @@ LABEL_70:
     {
 LABEL_71:
 
-      v20 = 0;
-      v38 = 0;
-      v73 = 0;
+      v19 = 0;
+      v34 = 0;
+      v71 = 0;
       v4 = 0;
       goto LABEL_65;
     }
@@ -227,45 +227,43 @@ LABEL_8:
   v4->_bssid = v14;
 
   v4->_securityMode = WFSecurityModeFromScanDictionary(v7, &v4->_securityModeExt);
-  v16 = *MEMORY[0x277D29850];
-  v17 = WiFiNetworkGetProperty();
+  v16 = WiFiNetworkGetProperty();
   enterpriseProfile = v4->_enterpriseProfile;
-  v4->_enterpriseProfile = v17;
+  v4->_enterpriseProfile = v16;
 
-  v19 = [(NSDictionary *)v4->_enterpriseProfile objectForKey:@"EAPClientConfiguration"];
-  v20 = v19;
-  if (v19)
+  v18 = [(NSDictionary *)v4->_enterpriseProfile objectForKey:@"EAPClientConfiguration"];
+  v19 = v18;
+  if (v18)
   {
-    v21 = [v19 objectForKey:@"TLSUserTrustProceedCertificateChain"];
+    v20 = [v18 objectForKey:@"TLSUserTrustProceedCertificateChain"];
 
-    if (v21)
+    if (v20)
     {
-      v22 = [v20 objectForKey:@"TLSUserTrustProceedCertificateChain"];
+      v21 = [v19 objectForKey:@"TLSUserTrustProceedCertificateChain"];
       certificateChain = v4->_certificateChain;
-      v4->_certificateChain = v22;
+      v4->_certificateChain = v21;
     }
   }
 
   v4->_hidden = WiFiNetworkGetDirectedState() != 0;
   objc_storeStrong(&v4->_scanAttributes, v7);
-  v24 = WFUserNameFromEnterpriseProfile(v4->_enterpriseProfile);
+  v23 = WFUserNameFromEnterpriseProfile(v4->_enterpriseProfile);
   username = v4->_username;
-  v4->_username = v24;
+  v4->_username = v23;
 
   if (WiFiNetworkGetProperty())
   {
     v4->_managed = 1;
   }
 
-  v26 = *MEMORY[0x277CF7F30];
   Property = WiFiNetworkGetProperty();
   if (Property)
   {
-    v28 = Property;
-    v29 = CFGetTypeID(Property);
-    if (v29 == CFBooleanGetTypeID())
+    v26 = Property;
+    v27 = CFGetTypeID(Property);
+    if (v27 == CFBooleanGetTypeID())
     {
-      v4->_captive = CFBooleanGetValue(v28) != 0;
+      v4->_captive = CFBooleanGetValue(v26) != 0;
     }
   }
 
@@ -274,36 +272,35 @@ LABEL_8:
   if (IsHotspot20)
   {
     v4->_HS20NetworkProvisioned = WiFiNetworkIsProvisionedHS20Network() != 0;
-    v31 = *MEMORY[0x277D297E0];
-    v32 = WiFiNetworkGetProperty();
-    v33 = v32;
-    if (v32)
+    v29 = WiFiNetworkGetProperty();
+    v30 = v29;
+    if (v29)
     {
-      v34 = [v32 copy];
+      v31 = [v29 copy];
       HS20OperatorName = v4->_HS20OperatorName;
-      v4->_HS20OperatorName = v34;
+      v4->_HS20OperatorName = v31;
     }
   }
 
   v4->_HS20Network = IsHotspot20 != 0;
   v4->_autoJoinEnabled = WiFiNetworkIsEnabled() != 0;
-  v36 = *MEMORY[0x277D29848];
-  v37 = WiFiNetworkGetProperty();
-  v38 = v37;
-  if (!v4->_autoJoinEnabled && v37)
+  v33 = WiFiNetworkGetProperty();
+  v34 = v33;
+  if (!v4->_autoJoinEnabled && v33)
   {
-    v39 = WFLogForCategory(0);
-    v40 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v39 && os_log_type_enabled(v39, v40))
+    v35 = WFLogForCategory(0);
+    v36 = OSLogForWFLogLevel(3uLL);
+    v37 = v36;
+    if (WFCurrentLogLevel(v36, v38) >= 3 && v35 && os_log_type_enabled(v35, v37))
     {
       ssid = v4->_ssid;
       *buf = 136315650;
       *&buf[4] = "[WFNetworkProfile initWithNetworkRef:]";
-      v91 = 2112;
-      v92 = ssid;
-      v93 = 2112;
-      v94 = v38;
-      _os_log_impl(&dword_273ECD000, v39, v40, "%s: %@ autojoin temporarily disabled until %@, overriding UI switch to show enabled", buf, 0x20u);
+      v90 = 2112;
+      v91 = ssid;
+      v92 = 2112;
+      v93 = v34;
+      _os_log_impl(&dword_273ECD000, v35, v37, "%s: %@ autojoin temporarily disabled until %@, overriding UI switch to show enabled", buf, 0x20u);
     }
 
     v4->_autoJoinEnabled = 1;
@@ -314,38 +311,38 @@ LABEL_8:
   if (IsCarPlay)
   {
     Type = WiFiNetworkGetType();
-    v44 = 1;
+    v42 = 1;
     if (Type != 1)
     {
-      v44 = 2;
+      v42 = 2;
     }
 
-    v4->_carPlayType = v44;
+    v4->_carPlayType = v42;
   }
 
-  v45 = WiFiNetworkGetProperty();
+  v43 = WiFiNetworkGetProperty();
   carPlayUUID = v4->_carPlayUUID;
-  v4->_carPlayUUID = v45;
+  v4->_carPlayUUID = v43;
+
+  v45 = WiFiNetworkGetProperty();
+  policyUUID = v4->_policyUUID;
+  v4->_policyUUID = v45;
 
   v47 = WiFiNetworkGetProperty();
-  policyUUID = v4->_policyUUID;
-  v4->_policyUUID = v47;
-
-  v49 = *MEMORY[0x277CF7F20];
-  v50 = WiFiNetworkGetProperty();
-  if (v50 && (v51 = v50, v52 = CFGetTypeID(v50), v52 == CFBooleanGetTypeID()))
+  if (v47 && (v48 = v47, v49 = CFGetTypeID(v47), v49 == CFBooleanGetTypeID()))
   {
-    Value = CFBooleanGetValue(v51);
+    Value = CFBooleanGetValue(v48);
     v4->_autoLoginEnabled = Value == 0;
     if (Value)
     {
-      v54 = WFLogForCategory(0);
-      v55 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v54 && os_log_type_enabled(v54, v55))
+      v51 = WFLogForCategory(0);
+      v52 = OSLogForWFLogLevel(3uLL);
+      v53 = v52;
+      if (WFCurrentLogLevel(v52, v54) >= 3 && v51 && os_log_type_enabled(v51, v53))
       {
         *buf = 138412290;
         *&buf[4] = ref;
-        _os_log_impl(&dword_273ECD000, v54, v55, "Autologin disabled due to captive bypass for network %@", buf, 0xCu);
+        _os_log_impl(&dword_273ECD000, v51, v53, "Autologin disabled due to captive bypass for network %@", buf, 0xCu);
       }
     }
   }
@@ -358,30 +355,29 @@ LABEL_8:
   v4->_isInSaveDataMode = WiFiNetworkIsInSaveDataMode() != 0;
   v4->_isPrivacyProxyEnabled = WiFiNetworkGetPrivacyProxyEnabled() != 0;
   WiFiNetworkGetNetworkQualityResponsiveness();
-  v4->_networkQualityResponsiveness = v56;
-  v57 = WiFiNetworkGetNetworkQualityDate();
+  v4->_networkQualityResponsiveness = v55;
+  v56 = WiFiNetworkGetNetworkQualityDate();
   networkQualityDate = v4->_networkQualityDate;
-  v4->_networkQualityDate = v57;
+  v4->_networkQualityDate = v56;
 
   v4->_carrierBased = WiFiNetworkIsCarrierBundleBased() != 0;
   v4->_lastAutoJoinDate = WiFiNetworkGetAssociationDate();
   v4->_addedDate = WiFiNetworkGetAssociationDate();
-  v59 = WiFiNetworkGetBundleIdentifier();
+  v58 = WiFiNetworkGetBundleIdentifier();
   originatorBundleIdentifier = v4->_originatorBundleIdentifier;
-  v4->_originatorBundleIdentifier = v59;
+  v4->_originatorBundleIdentifier = v58;
 
-  v61 = *MEMORY[0x277D29870];
-  v62 = WiFiNetworkGetProperty();
+  v60 = WiFiNetworkGetProperty();
   originatorName = v4->_originatorName;
-  v4->_originatorName = v62;
+  v4->_originatorName = v60;
 
-  v64 = WiFiNetworkGetProperty();
+  v62 = WiFiNetworkGetProperty();
   HS20AccountName = v4->_HS20AccountName;
-  v4->_HS20AccountName = v64;
+  v4->_HS20AccountName = v62;
 
-  v66 = WiFiNetworkGetHS2NetworkBadge();
+  v64 = WiFiNetworkGetHS2NetworkBadge();
   HS20Badge = v4->_HS20Badge;
-  v4->_HS20Badge = v66;
+  v4->_HS20Badge = v64;
 
   v4->_canExposeIMSI = WiFiNetworkCanExposeIMSI() != 0;
   v4->_requiresPassword = WiFiNetworkRequiresPassword() != 0;
@@ -389,7 +385,7 @@ LABEL_8:
   intValue = [WiFiNetworkGetProperty() intValue];
   if (intValue == 17)
   {
-    v69 = 21;
+    v67 = 21;
   }
 
   else
@@ -399,61 +395,62 @@ LABEL_8:
       goto LABEL_45;
     }
 
-    v69 = 22;
+    v67 = 22;
   }
 
-  *(&v4->super.isa + v69) = 1;
+  *(&v4->super.isa + v67) = 1;
 LABEL_45:
   Originator = WiFiNetworkGetOriginator();
   if (v4->_carrierBased)
   {
-    v71 = 2;
+    v69 = 2;
 LABEL_52:
-    v4->_originator = v71;
+    v4->_originator = v69;
     goto LABEL_53;
   }
 
   if (v4->_managed)
   {
-    v71 = 3;
+    v69 = 3;
     goto LABEL_52;
   }
 
   if (!Originator)
   {
-    v71 = 1;
+    v69 = 1;
     goto LABEL_52;
   }
 
   v4->_originator = 0;
 LABEL_53:
-  v72 = [v7 objectForKey:@"PRIVATE_MAC_ADDRESS"];
-  v73 = v72;
-  if (v72)
+  v70 = [v7 objectForKey:@"PRIVATE_MAC_ADDRESS"];
+  v71 = v70;
+  if (v70)
   {
-    v74 = [v72 objectForKey:@"PRIVATE_MAC_ADDRESS_VALUE"];
-    if (v74)
+    v72 = [v70 objectForKey:@"PRIVATE_MAC_ADDRESS_VALUE"];
+    if (v72)
     {
-      v75 = WFConvertEthernetNetworkAddressToString(v74);
+      v73 = WFConvertEthernetNetworkAddressToString(v72);
       randomMACAddress = v4->_randomMACAddress;
-      v4->_randomMACAddress = v75;
+      v4->_randomMACAddress = v73;
     }
 
-    v77 = [v73 objectForKey:@"PRIVATE_MAC_ADDRESS_TYPE"];
-    v4->_randomMACAddressEnabled = ([v77 intValue] & 0xFFFFFFFE) == 2;
-    v78 = WFLogForCategory(0);
-    v79 = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() >= 4 && v78 && os_log_type_enabled(v78, v79))
+    v75 = [v71 objectForKey:@"PRIVATE_MAC_ADDRESS_TYPE"];
+    v4->_randomMACAddressEnabled = ([v75 intValue] & 0xFFFFFFFE) == 2;
+    v76 = WFLogForCategory(0);
+    v77 = OSLogForWFLogLevel(4uLL);
+    v78 = v77;
+    if (WFCurrentLogLevel(v77, v79) >= 4 && v76 && os_log_type_enabled(v76, v78))
     {
       v80 = v4->_ssid;
       randomMACAddressEnabled = v4->_randomMACAddressEnabled;
       *buf = 136315650;
       *&buf[4] = "[WFNetworkProfile initWithNetworkRef:]";
-      v91 = 2112;
-      v92 = v80;
-      v93 = 1024;
-      LODWORD(v94) = randomMACAddressEnabled;
-      _os_log_impl(&dword_273ECD000, v78, v79, "%s: %@ _randomMACAddressEnabled: %d", buf, 0x1Cu);
+      v90 = 2112;
+      v91 = v80;
+      v92 = 1024;
+      LODWORD(v93) = randomMACAddressEnabled;
+      _os_log_impl(&dword_273ECD000, v76, v78, "%s: %@ _randomMACAddressEnabled: %d", buf, 0x1Cu);
     }
   }
 
@@ -476,7 +473,6 @@ LABEL_53:
 LABEL_65:
   v85 = v4;
 
-  v86 = *MEMORY[0x277D85DE8];
   return v85;
 }
 
@@ -869,7 +865,7 @@ LABEL_5:
 
 - (BOOL)canAttemptJoin
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   securityMode = [(WFNetworkProfile *)self securityMode];
   enterpriseProfile = [(WFNetworkProfile *)self enterpriseProfile];
   password = [(WFNetworkProfile *)self password];
@@ -912,30 +908,30 @@ LABEL_5:
   v15 = requiresUsernameAndPassword & v6;
   v16 = WFLogForCategory(0);
   v17 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v16 && os_log_type_enabled(v16, v17))
+  v18 = v17;
+  if (WFCurrentLogLevel(v17, v19) >= 4 && v16 && os_log_type_enabled(v16, v18))
   {
-    v20 = 136316418;
-    v21 = "[WFNetworkProfile canAttemptJoin]";
-    v22 = 1024;
-    v23 = v9;
-    v24 = 1024;
-    v25 = v15;
-    v26 = 1024;
-    v27 = v14;
-    v28 = 1024;
-    v29 = v12;
-    v30 = 1024;
-    v31 = isHS20NetworkProvisioned;
-    _os_log_impl(&dword_273ECD000, v16, v17, "%s: tlsProfileCanJoin %d, automaticProfileCanJoin %d, passwordOnlyCanJoin %d, isEAPSimOrAKA %d, isHS20Provisioned %d", &v20, 0x2Au);
+    v21 = 136316418;
+    v22 = "[WFNetworkProfile canAttemptJoin]";
+    v23 = 1024;
+    v24 = v9;
+    v25 = 1024;
+    v26 = v15;
+    v27 = 1024;
+    v28 = v14;
+    v29 = 1024;
+    v30 = v12;
+    v31 = 1024;
+    v32 = isHS20NetworkProvisioned;
+    _os_log_impl(&dword_273ECD000, v16, v18, "%s: tlsProfileCanJoin %d, automaticProfileCanJoin %d, passwordOnlyCanJoin %d, isEAPSimOrAKA %d, isHS20Provisioned %d", &v21, 0x2Au);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return (securityMode == 0) | v14 & 1 | (v15 | v9) & 1 | (v12 || isHS20NetworkProvisioned);
 }
 
 - (NSString)password
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (self->_fetchedPassword)
   {
     goto LABEL_25;
@@ -952,50 +948,52 @@ LABEL_25:
 
   if (![(WFNetworkProfile *)self userProvidedPassword]|| (p_password = &self->_password, !self->_password))
   {
-    v6 = WFLogForCategory(0);
-    v7 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v6)
+    v8 = WFLogForCategory(0);
+    v9 = OSLogForWFLogLevel(3uLL);
+    v10 = v9;
+    if (WFCurrentLogLevel(v9, v11) >= 3 && v8)
     {
-      v8 = v6;
-      if (os_log_type_enabled(v8, v7))
+      v12 = v8;
+      if (os_log_type_enabled(v12, v10))
       {
         ssid = [(WFNetworkProfile *)self ssid];
-        v20 = 136315394;
-        v21 = "[WFNetworkProfile password]";
-        v22 = 2112;
-        v23 = ssid;
-        _os_log_impl(&dword_273ECD000, v8, v7, "%s: fetching password from keychain for %@", &v20, 0x16u);
+        v25 = 136315394;
+        v26 = "[WFNetworkProfile password]";
+        v27 = 2112;
+        v28 = ssid;
+        _os_log_impl(&dword_273ECD000, v12, v10, "%s: fetching password from keychain for %@", &v25, 0x16u);
       }
     }
 
     [(WFNetworkProfile *)self scanAttributes];
-    v10 = WiFiNetworkCreate();
-    v11 = WiFiNetworkCopyPassword();
+    v14 = WiFiNetworkCreate();
+    v15 = WiFiNetworkCopyPassword();
     password = self->_password;
-    self->_password = v11;
+    self->_password = v15;
 
     if (!self->_password)
     {
-      v13 = WFLogForCategory(0);
-      v14 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v13)
+      v17 = WFLogForCategory(0);
+      v18 = OSLogForWFLogLevel(1uLL);
+      v19 = v18;
+      if (WFCurrentLogLevel(v18, v20) && v17)
       {
-        v15 = v13;
-        if (os_log_type_enabled(v15, v14))
+        v21 = v17;
+        if (os_log_type_enabled(v21, v19))
         {
           ssid2 = [(WFNetworkProfile *)self ssid];
-          v20 = 136315394;
-          v21 = "[WFNetworkProfile password]";
-          v22 = 2114;
-          v23 = ssid2;
-          _os_log_impl(&dword_273ECD000, v15, v14, "%s: password is nil for %{public}@", &v20, 0x16u);
+          v25 = 136315394;
+          v26 = "[WFNetworkProfile password]";
+          v27 = 2114;
+          v28 = ssid2;
+          _os_log_impl(&dword_273ECD000, v21, v19, "%s: password is nil for %{public}@", &v25, 0x16u);
         }
       }
     }
 
-    if (v10)
+    if (v14)
     {
-      CFRelease(v10);
+      CFRelease(v14);
     }
 
     goto LABEL_24;
@@ -1003,19 +1001,19 @@ LABEL_25:
 
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) >= 3 && v4 && os_log_type_enabled(v4, v6))
   {
-    v20 = 136315138;
-    v21 = "[WFNetworkProfile password]";
-    _os_log_impl(&dword_273ECD000, v4, v5, "%s: user provided password marking password as fetched", &v20, 0xCu);
+    v25 = 136315138;
+    v26 = "[WFNetworkProfile password]";
+    _os_log_impl(&dword_273ECD000, v4, v6, "%s: user provided password marking password as fetched", &v25, 0xCu);
   }
 
   self->_fetchedPassword = 1;
 LABEL_26:
-  v17 = *p_password;
-  v18 = *MEMORY[0x277D85DE8];
+  v23 = *p_password;
 
-  return v17;
+  return v23;
 }
 
 - (id)description
@@ -1201,37 +1199,7 @@ LABEL_8:
 
   ssid = [(WFNetworkProfile *)self ssid];
   ssid2 = [equalCopy ssid];
-  if (![ssid isEqualToString:ssid2])
-  {
-    goto LABEL_20;
-  }
-
-  securityMode = [(WFNetworkProfile *)self securityMode];
-  if (securityMode != [equalCopy securityMode])
-  {
-    goto LABEL_20;
-  }
-
-  isAutoJoinEnabled = [(WFNetworkProfile *)self isAutoJoinEnabled];
-  if (isAutoJoinEnabled != [equalCopy isAutoJoinEnabled])
-  {
-    goto LABEL_20;
-  }
-
-  isAutoLoginEnabled = [(WFNetworkProfile *)self isAutoLoginEnabled];
-  if (isAutoLoginEnabled != [equalCopy isAutoLoginEnabled])
-  {
-    goto LABEL_20;
-  }
-
-  isInSaveDataMode = [(WFNetworkProfile *)self isInSaveDataMode];
-  if (isInSaveDataMode != [equalCopy isInSaveDataMode])
-  {
-    goto LABEL_20;
-  }
-
-  isPrivacyProxyEnabled = [(WFNetworkProfile *)self isPrivacyProxyEnabled];
-  if (isPrivacyProxyEnabled == [equalCopy isPrivacyProxyEnabled] && (v17 = -[WFNetworkProfile isHidden](self, "isHidden"), v17 == objc_msgSend(equalCopy, "isHidden")) && (v18 = -[WFNetworkProfile carPlayType](self, "carPlayType"), v18 == objc_msgSend(equalCopy, "carPlayType")) && (v19 = -[WFNetworkProfile isManaged](self, "isManaged"), v19 == objc_msgSend(equalCopy, "isManaged")) && (v20 = -[WFNetworkProfile isHS20Network](self, "isHS20Network"), v20 == objc_msgSend(equalCopy, "isHS20Network")) && (v21 = -[WFNetworkProfile isCaptive](self, "isCaptive"), v21 == objc_msgSend(equalCopy, "isCaptive")) && (v22 = -[WFNetworkProfile isRandomMACAddressEnabled](self, "isRandomMACAddressEnabled"), v22 == objc_msgSend(equalCopy, "isRandomMACAddressEnabled")))
+  if ([ssid isEqualToString:ssid2] && (v12 = -[WFNetworkProfile securityMode](self, "securityMode"), v12 == objc_msgSend(equalCopy, "securityMode")) && (v13 = -[WFNetworkProfile isAutoJoinEnabled](self, "isAutoJoinEnabled"), v13 == objc_msgSend(equalCopy, "isAutoJoinEnabled")) && (v14 = -[WFNetworkProfile isAutoLoginEnabled](self, "isAutoLoginEnabled"), v14 == objc_msgSend(equalCopy, "isAutoLoginEnabled")) && (v15 = -[WFNetworkProfile isInSaveDataMode](self, "isInSaveDataMode"), v15 == objc_msgSend(equalCopy, "isInSaveDataMode")) && (v16 = -[WFNetworkProfile isPrivacyProxyEnabled](self, "isPrivacyProxyEnabled"), v16 == objc_msgSend(equalCopy, "isPrivacyProxyEnabled")) && (v17 = -[WFNetworkProfile isHidden](self, "isHidden"), v17 == objc_msgSend(equalCopy, "isHidden")) && (v18 = -[WFNetworkProfile carPlayType](self, "carPlayType"), v18 == objc_msgSend(equalCopy, "carPlayType")) && (v19 = -[WFNetworkProfile isManaged](self, "isManaged"), v19 == objc_msgSend(equalCopy, "isManaged")) && (v20 = -[WFNetworkProfile isHS20Network](self, "isHS20Network"), v20 == objc_msgSend(equalCopy, "isHS20Network")) && (v21 = -[WFNetworkProfile isCaptive](self, "isCaptive"), v21 == objc_msgSend(equalCopy, "isCaptive")) && (v22 = -[WFNetworkProfile isRandomMACAddressEnabled](self, "isRandomMACAddressEnabled"), v22 == objc_msgSend(equalCopy, "isRandomMACAddressEnabled")))
   {
 
     if (v9)
@@ -1243,7 +1211,6 @@ LABEL_8:
 
   else
   {
-LABEL_20:
   }
 
 LABEL_21:
@@ -1303,7 +1270,7 @@ LABEL_22:
 
 - (__SecIdentity)TLSIdentity
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   TLSIdentity = self->_TLSIdentity;
   if (TLSIdentity)
   {
@@ -1322,17 +1289,18 @@ LABEL_22:
       if (v6 && [v6 objectForKey:@"TLSIdentityHandle"])
       {
         SecIdentity = EAPSecIdentityHandleCreateSecIdentity();
-        v11 = WFLogForCategory(0);
-        v12 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && v11 && os_log_type_enabled(v11, v12))
+        v10 = WFLogForCategory(0);
+        v11 = OSLogForWFLogLevel(1uLL);
+        v12 = v11;
+        if (WFCurrentLogLevel(v11, v13) && v10 && os_log_type_enabled(v10, v12))
         {
           *buf = 136315650;
-          v14 = "[WFNetworkProfile TLSIdentity]";
-          v15 = 1024;
-          v16 = SecIdentity;
-          v17 = 2112;
+          v15 = "[WFNetworkProfile TLSIdentity]";
+          v16 = 1024;
+          v17 = SecIdentity;
+          v18 = 2112;
           selfCopy = self;
-          _os_log_impl(&dword_273ECD000, v11, v12, "%s: failed to create TLS identity (err %d) %@", buf, 0x1Cu);
+          _os_log_impl(&dword_273ECD000, v10, v12, "%s: failed to create TLS identity (err %d) %@", buf, 0x1Cu);
         }
 
         TLSIdentity = 0;
@@ -1351,7 +1319,6 @@ LABEL_22:
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return TLSIdentity;
 }
 
@@ -1359,10 +1326,11 @@ LABEL_22:
 {
   v6 = WFLogForCategory(0);
   v7 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v6 && os_log_type_enabled(v6, v7))
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) && v6 && os_log_type_enabled(v6, v8))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_273ECD000, v6, v7, "Missing ssid for network profile", v8, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_273ECD000, v6, v8, "Missing ssid for network profile", v10, 2u);
   }
 
   *a3 = a1;
@@ -1373,10 +1341,11 @@ LABEL_22:
 {
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) && v4 && os_log_type_enabled(v4, v6))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_273ECD000, v4, v5, "nil networkRef for network profile", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_273ECD000, v4, v6, "nil networkRef for network profile", v8, 2u);
   }
 
   *a2 = 0;
@@ -1385,12 +1354,12 @@ LABEL_22:
 
 - (BOOL)shouldBeRemovedIfApplicationIsNoLongerInstalled
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   originatorBundleIdentifier = [(WFNetworkProfile *)self originatorBundleIdentifier];
 
   if (!originatorBundleIdentifier)
   {
-    goto LABEL_16;
+    return 0;
   }
 
   originatorBundleIdentifier2 = [(WFNetworkProfile *)self originatorBundleIdentifier];
@@ -1398,13 +1367,14 @@ LABEL_22:
 
   if (!v5)
   {
-    v11 = WFLogForCategory(0);
-    v12 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v11 && os_log_type_enabled(v11, v12))
+    v10 = WFLogForCategory(0);
+    v11 = OSLogForWFLogLevel(3uLL);
+    v12 = v11;
+    if (WFCurrentLogLevel(v11, v13) >= 3 && v10 && os_log_type_enabled(v10, v12))
     {
-      *v17 = 136315394;
+      *v20 = 136315394;
       OUTLINED_FUNCTION_0_9();
-      _os_log_impl(&dword_273ECD000, v11, v12, "%s: application based network (%@) is configured by first party app", v17, 0x16u);
+      _os_log_impl(&dword_273ECD000, v10, v12, "%s: application based network (%@) is configured by first party app", v20, 0x16u);
     }
 
     goto LABEL_15;
@@ -1416,33 +1386,29 @@ LABEL_22:
 
   if (v8)
   {
-    v11 = WFLogForCategory(0);
-    v13 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v11)
+    v10 = WFLogForCategory(0);
+    v14 = OSLogForWFLogLevel(3uLL);
+    v15 = v14;
+    if (WFCurrentLogLevel(v14, v16) >= 3 && v10)
     {
-      v11 = v11;
-      if (os_log_type_enabled(v11, v13))
+      v10 = v10;
+      if (os_log_type_enabled(v10, v15))
       {
         originatorBundleIdentifier4 = [(WFNetworkProfile *)self originatorBundleIdentifier];
-        *v17 = 136315650;
+        *v20 = 136315650;
         OUTLINED_FUNCTION_0_9();
-        v18 = v15;
-        v19 = v16;
-        _os_log_impl(&dword_273ECD000, v11, v13, "%s: application based network (%@) with identifier %@ is not installed", v17, 0x20u);
+        v21 = v18;
+        v22 = v19;
+        _os_log_impl(&dword_273ECD000, v10, v15, "%s: application based network (%@) with identifier %@ is not installed", v20, 0x20u);
       }
     }
 
 LABEL_15:
 
-LABEL_16:
-    result = 0;
-    goto LABEL_5;
+    return 0;
   }
 
-  result = 1;
-LABEL_5:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 @end

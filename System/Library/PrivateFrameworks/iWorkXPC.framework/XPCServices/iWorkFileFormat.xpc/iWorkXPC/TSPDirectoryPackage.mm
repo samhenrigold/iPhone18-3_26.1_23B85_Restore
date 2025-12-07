@@ -10,6 +10,7 @@
 - (id)newRawReadChannelForComponentLocator:(id)locator isStoredOutsideObjectArchive:(BOOL)archive error:(id *)error;
 - (id)packageEntryInfoAtRelativePath:(id)path error:(id *)error;
 - (id)packageEntryInfoForComponentLocator:(id)locator isStoredOutsideObjectArchive:(BOOL)archive;
+- (void)copyComponent:(id)component toPackageURL:(id)l packageLocator:(id)locator zipFileWriter:(id)writer encryptionKey:(id)key canLink:(BOOL)link completion:(id)completion;
 - (void)prepareForDocumentReplacementWithSuccess:(BOOL)success forSafeSave:(BOOL)save originalURL:(id)l;
 @end
 
@@ -181,6 +182,81 @@
 
   _Block_object_dispose(&v30, 8);
   return v16;
+}
+
+- (void)copyComponent:(id)component toPackageURL:(id)l packageLocator:(id)locator zipFileWriter:(id)writer encryptionKey:(id)key canLink:(BOOL)link completion:(id)completion
+{
+  linkCopy = link;
+  componentCopy = component;
+  lCopy = l;
+  locatorCopy = locator;
+  writerCopy = writer;
+  keyCopy = key;
+  completionCopy = completion;
+  if ([componentCopy isStoredOutsideObjectArchive])
+  {
+    v27 = writerCopy;
+    locator = [componentCopy locator];
+    if (!locator)
+    {
+      +[TSUAssertionHandler _atomicIncrementAssertCount];
+      if (TSUAssertCat_init_token != -1)
+      {
+        sub_100150990();
+      }
+
+      if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+      {
+        sub_1001509A4();
+      }
+
+      v21 = [NSString stringWithUTF8String:"[TSPDirectoryPackage copyComponent:toPackageURL:packageLocator:zipFileWriter:encryptionKey:canLink:completion:]"];
+      v22 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDirectoryPackage.mm"];
+      [TSUAssertionHandler handleFailureInFunction:v21 file:v22 lineNumber:111 isFatal:0 description:"invalid nil value for '%{public}s'", "packageLocator"];
+
+      +[TSUAssertionHandler logBacktraceThrottled];
+    }
+
+    fileCoordinatorDelegate = [(TSPPackage *)self fileCoordinatorDelegate];
+    v39[0] = _NSConcreteStackBlock;
+    v39[1] = 3221225472;
+    v39[2] = sub_10000AC4C;
+    v39[3] = &unk_1001C58E0;
+    v24 = completionCopy;
+    v40 = v24;
+    v25 = objc_retainBlock(v39);
+    v26 = v25;
+    if (fileCoordinatorDelegate)
+    {
+      v30[0] = _NSConcreteStackBlock;
+      v30[1] = 3221225472;
+      v30[2] = sub_10000ADB8;
+      v30[3] = &unk_1001C5948;
+      v31 = locator;
+      v32 = lCopy;
+      v33 = locatorCopy;
+      selfCopy = self;
+      v35 = keyCopy;
+      v38 = linkCopy;
+      v36 = v24;
+      v37 = v26;
+      [fileCoordinatorDelegate performReadUsingAccessor:v30];
+    }
+
+    else
+    {
+      (v25[2])(v25);
+    }
+
+    writerCopy = v27;
+  }
+
+  else
+  {
+    v29.receiver = self;
+    v29.super_class = TSPDirectoryPackage;
+    [(TSPPackage *)&v29 copyComponent:componentCopy toPackageURL:lCopy packageLocator:locatorCopy zipFileWriter:writerCopy encryptionKey:keyCopy canLink:linkCopy completion:completionCopy];
+  }
 }
 
 - (id)packageEntryInfoAtRelativePath:(id)path error:(id *)error

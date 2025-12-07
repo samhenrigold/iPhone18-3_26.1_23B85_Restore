@@ -267,24 +267,25 @@
   v4 = IsPad;
   if (self->_trailingContainerConstraint)
   {
-    v16 = IsPad;
+    v18 = IsPad;
     IsPad = SiriSharedUIDeviceIsPad();
-    v4 = v16;
+    v4 = v18;
     if (IsPad)
     {
-      if (v16)
+      if (v18)
       {
-        [v16 bounds];
+        [v18 bounds];
         v6 = v5;
         v8 = v7;
         v10 = v9;
         v12 = v11;
-        windowScene = [v16 windowScene];
-        SiriSharedUICompactSlideOverContentSpacingOnPad([windowScene interfaceOrientation], v6, v8, v10, v12);
-        v15 = v14;
+        windowScene = [v18 windowScene];
+        interfaceOrientation = [windowScene interfaceOrientation];
+        SiriSharedUICompactSlideOverContentSpacingOnPad(interfaceOrientation, v15, v6, v8, v10, v12);
+        v17 = v16;
 
-        IsPad = [(NSLayoutConstraint *)self->_trailingContainerConstraint setConstant:-v15];
-        v4 = v16;
+        IsPad = [(NSLayoutConstraint *)self->_trailingContainerConstraint setConstant:-v17];
+        v4 = v18;
       }
     }
   }

@@ -21,38 +21,30 @@ uint64_t ___HDMigrateAndDeleteProtectedOnboardingCompletionTable_block_invoke(ui
 
 uint64_t ___HDMigrateAndDeleteProtectedOnboardingCompletionTable_block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
-  v5 = HDSQLiteColumnWithNameAsUUID();
+  v4 = HDSQLiteColumnWithNameAsUUID();
   HDSQLiteBindFoundationValueToStatement();
 
-  v6 = *(a1 + 32);
-  v7 = HDSQLiteColumnWithNameAsString();
+  v5 = HDSQLiteColumnWithNameAsString();
   HDSQLiteBindFoundationValueToStatement();
 
-  v8 = *(a1 + 32);
-  v9 = HDSQLiteColumnWithNameAsInt64();
-  sqlite3_bind_int64(a2, 3, v9);
-  v10 = *(a1 + 32);
-  v11 = HDSQLiteColumnWithNameAsDate();
+  v6 = HDSQLiteColumnWithNameAsInt64();
+  sqlite3_bind_int64(a2, 3, v6);
+  v7 = HDSQLiteColumnWithNameAsDate();
   HDSQLiteBindFoundationValueToStatement();
 
-  v12 = *(a1 + 32);
-  v13 = HDSQLiteColumnWithNameAsString();
+  v8 = HDSQLiteColumnWithNameAsString();
   HDSQLiteBindFoundationValueToStatement();
 
-  v14 = *(a1 + 32);
-  v15 = HDSQLiteColumnWithNameAsDate();
+  v9 = HDSQLiteColumnWithNameAsDate();
   HDSQLiteBindFoundationValueToStatement();
 
-  v16 = *(a1 + 32);
-  v17 = HDSQLiteColumnWithNameAsBoolean();
-  sqlite3_bind_int(a2, 7, v17);
-  v18 = *(a1 + 32);
-  v19 = HDSQLiteColumnWithNameAsInt64();
-  sqlite3_bind_int64(a2, 8, v19);
-  v20 = *(a1 + 40);
+  v10 = HDSQLiteColumnWithNameAsBoolean();
+  sqlite3_bind_int(a2, 7, v10);
+  v11 = HDSQLiteColumnWithNameAsInt64();
+  sqlite3_bind_int64(a2, 8, v11);
+  v12 = *(a1 + 40);
 
-  return sqlite3_bind_int64(a2, 9, v20);
+  return sqlite3_bind_int64(a2, 9, v12);
 }
 
 @end

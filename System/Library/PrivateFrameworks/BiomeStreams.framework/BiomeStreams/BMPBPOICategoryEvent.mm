@@ -70,27 +70,25 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_poiCategory)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    rank = self->_rank;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    timeIntervalSince1970 = self->_timeIntervalSince1970;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

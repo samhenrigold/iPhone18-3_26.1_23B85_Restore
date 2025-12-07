@@ -50,20 +50,20 @@ void __39__DEDFBKFeedbackUpload_cleanUpIfNeeded__block_invoke_2(uint64_t a1)
   v8 = objc_alloc_init(MEMORY[0x277CBEAA8]);
   v9 = [currentCalendar dateByAddingComponents:v6 toDate:v8 options:0];
 
-  v10 = Log_1();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = Log_1(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_INFO, "Will cleanup FBK Feedback uploads ", buf, 2u);
+    _os_log_impl(&dword_248AD7000, v11, OS_LOG_TYPE_INFO, "Will cleanup FBK Feedback uploads ", buf, 2u);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __52__DEDFBKFeedbackUpload_cleanUpIfNeededWithDefaults___block_invoke;
-  v12[3] = &unk_278F66278;
-  v13 = v9;
-  v11 = v9;
-  [self compactMapOnFeedbackUploadsWithUserDefaults:defaultsCopy block:v12];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __52__DEDFBKFeedbackUpload_cleanUpIfNeededWithDefaults___block_invoke;
+  v13[3] = &unk_278F66278;
+  v14 = v9;
+  v12 = v9;
+  [self compactMapOnFeedbackUploadsWithUserDefaults:defaultsCopy block:v13];
 }
 
 id __52__DEDFBKFeedbackUpload_cleanUpIfNeededWithDefaults___block_invoke(uint64_t a1, void *a2)
@@ -71,38 +71,39 @@ id __52__DEDFBKFeedbackUpload_cleanUpIfNeededWithDefaults___block_invoke(uint64_
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:@"dateCreated"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v7 = Log_1();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = Log_1(isKindOfClass);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __52__DEDFBKFeedbackUpload_cleanUpIfNeededWithDefaults___block_invoke_cold_1(v7);
+      __52__DEDFBKFeedbackUpload_cleanUpIfNeededWithDefaults___block_invoke_cold_1(v9);
     }
 
     goto LABEL_7;
   }
 
-  v5 = [MEMORY[0x277CBEA80] currentCalendar];
-  v6 = [v5 compareDate:*(a1 + 32) toDate:v4 toUnitGranularity:128];
+  v6 = [MEMORY[0x277CBEA80] currentCalendar];
+  v7 = [v6 compareDate:*(a1 + 32) toDate:v4 toUnitGranularity:128];
 
-  if (v6 == 1)
+  if (v7 == 1)
   {
-    v7 = Log_1();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = Log_1(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __52__DEDFBKFeedbackUpload_cleanUpIfNeededWithDefaults___block_invoke_cold_2(v4, v7);
+      __52__DEDFBKFeedbackUpload_cleanUpIfNeededWithDefaults___block_invoke_cold_2(v4, v9);
     }
 
 LABEL_7:
 
-    v8 = 0;
+    v10 = 0;
     goto LABEL_9;
   }
 
-  v8 = v3;
+  v10 = v3;
 LABEL_9:
 
-  return v8;
+  return v10;
 }
 
 + (void)didFinishUploadOnBugSessionIdentifier:(id)identifier
@@ -115,54 +116,52 @@ LABEL_9:
 
 + (void)didFinishUploadOnBugSessionIdentifier:(id)identifier withDefaults:(id)defaults
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   defaultsCopy = defaults;
-  v8 = Log_1();
+  v8 = Log_1(defaultsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v14 = identifierCopy;
+    v13 = identifierCopy;
     _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "didFinishUploadOnBugSessionIdentifier: [%{public}@] ", buf, 0xCu);
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __75__DEDFBKFeedbackUpload_didFinishUploadOnBugSessionIdentifier_withDefaults___block_invoke;
-  v11[3] = &unk_278F66278;
-  v12 = identifierCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __75__DEDFBKFeedbackUpload_didFinishUploadOnBugSessionIdentifier_withDefaults___block_invoke;
+  v10[3] = &unk_278F66278;
+  v11 = identifierCopy;
   v9 = identifierCopy;
-  [self compactMapOnFeedbackUploadsWithUserDefaults:defaultsCopy block:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [self compactMapOnFeedbackUploadsWithUserDefaults:defaultsCopy block:v10];
 }
 
 id __75__DEDFBKFeedbackUpload_didFinishUploadOnBugSessionIdentifier_withDefaults___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:@"bugSessions"];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v18 = v3;
-    v7 = *v20;
+    v17 = v3;
+    v7 = *v19;
     v8 = 0x7FFFFFFFFFFFFFFFLL;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [v10 objectForKeyedSubscript:@"sessionIdentifier"];
         v12 = [v11 isEqualToString:*(a1 + 32)];
 
@@ -172,19 +171,19 @@ id __75__DEDFBKFeedbackUpload_didFinishUploadOnBugSessionIdentifier_withDefaults
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v6);
-    v3 = v18;
+    v3 = v17;
     if (v8 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v13 = Log_1();
+      v13 = Log_1(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v14 = *(a1 + 32);
         *buf = 138543362;
-        v24 = v14;
+        v23 = v14;
         _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "Removing finished upload with Bug Session identifier [%{public}@] from Feedback upload", buf, 0xCu);
       }
 
@@ -201,8 +200,6 @@ id __75__DEDFBKFeedbackUpload_didFinishUploadOnBugSessionIdentifier_withDefaults
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -239,98 +236,98 @@ id __75__DEDFBKFeedbackUpload_didFinishUploadOnBugSessionIdentifier_withDefaults
         }
 
         v13 = *(*(&v53 + 1) + 8 * v12);
-        v14 = *(v11 + 3240);
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
           v15 = [v13 dataUsingEncoding:4];
           v52 = 0;
           v16 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v15 options:1 error:&v52];
           v17 = v52;
+          v18 = v17;
           if (v17)
           {
-            v18 = Log_1();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v19 = Log_1(v17);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
               v60 = v13;
-              _os_log_error_impl(&dword_248AD7000, v18, OS_LOG_TYPE_ERROR, "Failed to parse JSON data. Cannot map Feedback upload [%{public}@]", buf, 0xCu);
+              _os_log_error_impl(&dword_248AD7000, v19, OS_LOG_TYPE_ERROR, "Failed to parse JSON data. Cannot map Feedback upload [%{public}@]", buf, 0xCu);
             }
 
             goto LABEL_43;
           }
 
-          v18 = [v16 objectForKeyedSubscript:@"dateCreated"];
-          v19 = *(v11 + 3240);
+          v19 = [v16 objectForKeyedSubscript:@"dateCreated"];
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v20 = objc_opt_isKindOfClass();
+          if (v20)
           {
-            v20 = [v41 dateFromString:v18];
-            if (v20)
+            v21 = [v41 dateFromString:v19];
+            if (v21)
             {
-              [v16 setObject:v20 forKeyedSubscript:@"dateCreated"];
-              v21 = Log_1();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+              v22 = Log_1([v16 setObject:v21 forKeyedSubscript:@"dateCreated"]);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138543362;
                 v60 = v16;
-                _os_log_debug_impl(&dword_248AD7000, v21, OS_LOG_TYPE_DEBUG, "Loaded Feedback upload [%{public}@]", buf, 0xCu);
+                _os_log_debug_impl(&dword_248AD7000, v22, OS_LOG_TYPE_DEBUG, "Loaded Feedback upload [%{public}@]", buf, 0xCu);
               }
 
-              v22 = blockCopy[2](blockCopy, v16);
-              if (v22)
+              v23 = blockCopy[2](blockCopy, v16);
+              if (v23)
               {
-                v23 = [v16 objectForKeyedSubscript:@"dateCreated"];
-                v40 = v23;
-                if (v23)
+                v24 = [v16 objectForKeyedSubscript:@"dateCreated"];
+                v40 = v24;
+                if (v24)
                 {
-                  v24 = [v41 stringFromDate:v23];
-                  v39 = v24;
-                  if (v24)
+                  v25 = [v41 stringFromDate:v24];
+                  v39 = v25;
+                  if (v25)
                   {
-                    [v16 setObject:v24 forKeyedSubscript:@"dateCreated"];
+                    [v16 setObject:v25 forKeyedSubscript:@"dateCreated"];
                     v45 = 0;
-                    v35 = v22;
-                    v25 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v22 options:0 error:&v45];
-                    v26 = v45;
-                    v36 = v25;
-                    v37 = v26;
-                    if (!v25 || v26)
+                    v35 = v23;
+                    v26 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v23 options:0 error:&v45];
+                    v27 = v45;
+                    v36 = v26;
+                    v37 = v27;
+                    if (!v26 || v27)
                     {
-                      v27 = Log_1();
-                      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                      v28 = Log_1(v27);
+                      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                       {
-                        [(DEDFBKFeedbackUpload *)v57 compactMapOnFeedbackUploadsWithUserDefaults:v37 block:&v58, v27];
+                        [(DEDFBKFeedbackUpload *)v57 compactMapOnFeedbackUploadsWithUserDefaults:v37 block:&v58, v28];
                       }
 
 LABEL_36:
-                      v29 = v27;
-                      v22 = v35;
+                      v30 = v28;
+                      v23 = v35;
                     }
 
                     else
                     {
-                      v27 = [objc_alloc(*(v11 + 3240)) initWithData:v25 encoding:4];
-                      if (v27)
+                      v28 = [objc_alloc(*(v11 + 3240)) initWithData:v26 encoding:4];
+                      if (v28)
                       {
-                        [v34 addObject:v27];
+                        [v34 addObject:v28];
                         goto LABEL_36;
                       }
 
-                      v33 = Log_1();
-                      v22 = v35;
+                      v33 = Log_1(0);
+                      v23 = v35;
                       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
                       {
                         [DEDFBKFeedbackUpload compactMapOnFeedbackUploadsWithUserDefaults:v44 block:?];
                       }
 
-                      v29 = 0;
+                      v30 = 0;
                     }
                   }
 
                   else
                   {
-                    v37 = Log_1();
+                    v37 = Log_1(0);
                     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
                     {
                       [DEDFBKFeedbackUpload compactMapOnFeedbackUploadsWithUserDefaults:v47 block:?];
@@ -340,7 +337,7 @@ LABEL_36:
 
                 else
                 {
-                  v39 = Log_1();
+                  v39 = Log_1(0);
                   if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
                   {
                     [DEDFBKFeedbackUpload compactMapOnFeedbackUploadsWithUserDefaults:v49 block:?];
@@ -350,12 +347,12 @@ LABEL_36:
 
               else
               {
-                v28 = Log_1();
-                v40 = v28;
-                if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+                v29 = Log_1(0);
+                v40 = v29;
+                if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_248AD7000, v28, OS_LOG_TYPE_DEFAULT, "Will not keep this Feedback upload", buf, 2u);
+                  _os_log_impl(&dword_248AD7000, v29, OS_LOG_TYPE_DEFAULT, "Will not keep this Feedback upload", buf, 2u);
                 }
 
                 v11 = 0x277CCA000;
@@ -364,20 +361,20 @@ LABEL_36:
 
             else
             {
-              v22 = Log_1();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+              v23 = Log_1(0);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v60 = v18;
-                _os_log_error_impl(&dword_248AD7000, v22, OS_LOG_TYPE_ERROR, "Cannot create NSDate from string [%{public}@], will remove stored Feedback upload", buf, 0xCu);
+                v60 = v19;
+                _os_log_error_impl(&dword_248AD7000, v23, OS_LOG_TYPE_ERROR, "Cannot create NSDate from string [%{public}@], will remove stored Feedback upload", buf, 0xCu);
               }
             }
           }
 
           else
           {
-            v20 = Log_1();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v21 = Log_1(v20);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               [DEDFBKFeedbackUpload compactMapOnFeedbackUploadsWithUserDefaults:v51 block:?];
             }
@@ -389,12 +386,12 @@ LABEL_43:
           goto LABEL_44;
         }
 
-        v17 = Log_1();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v18 = Log_1(isKindOfClass);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
           v60 = v13;
-          _os_log_error_impl(&dword_248AD7000, v17, OS_LOG_TYPE_ERROR, "Feedback upload in defaults is not a String: [%{public}@]", buf, 0xCu);
+          _os_log_error_impl(&dword_248AD7000, v18, OS_LOG_TYPE_ERROR, "Feedback upload in defaults is not a String: [%{public}@]", buf, 0xCu);
         }
 
 LABEL_44:
@@ -403,24 +400,22 @@ LABEL_44:
       }
 
       while (v9 != v12);
-      v30 = [v7 countByEnumeratingWithState:&v53 objects:v61 count:16];
-      v9 = v30;
+      v31 = [v7 countByEnumeratingWithState:&v53 objects:v61 count:16];
+      v9 = v31;
     }
 
-    while (v30);
+    while (v31);
   }
 
   [v32 setObject:v34 forKey:@"FeedbackUploads"];
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __52__DEDFBKFeedbackUpload_cleanUpIfNeededWithDefaults___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "Feedback upload created on [%{public}@] is stale. Will delete", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "Feedback upload created on [%{public}@] is stale. Will delete", &v2, 0xCu);
 }
 
 + (void)compactMapOnFeedbackUploadsWithUserDefaults:(void *)a3 block:(NSObject *)a4 .cold.3(uint8_t *a1, void *a2, void *a3, NSObject *a4)

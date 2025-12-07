@@ -76,7 +76,7 @@ __CFString *ConvertDataToHexString(const __CFData *a1)
   return i;
 }
 
-uint64_t HxISPCaptureDeviceController::FindGroup(HxISPCaptureDeviceController *this, int a2)
+uint64_t HxISPCaptureDeviceController::FindGroup(HxISPCaptureDeviceController *this, unsigned int a2)
 {
   if (!*(this + 536))
   {
@@ -1572,7 +1572,7 @@ HxISPCaptureDeviceController *DeviceCMInterface::releaseInterface(DeviceCMInterf
   return result;
 }
 
-uint64_t DeviceCMInterface::setRgbConfiguration(uint64_t a1, uint64_t a2, uint64_t a3)
+DeviceCMInterface *DeviceCMInterface::setRgbConfiguration(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((a2 & 0x80000000) != 0 || (v3 = *(a1 + 16)) == 0)
   {
@@ -3213,13 +3213,13 @@ LABEL_17:
   return v7;
 }
 
-uint64_t DeviceCMInterface::setPearlDepthConfiguration(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t DeviceCMInterface::setPearlDepthConfiguration(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v23 = a3;
   valuePtr = a2;
   if (!*(a1 + 16))
   {
-    v19 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/DepthDiagnostics/Common/DeviceCMInterface.mm"];
+    v19 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/DepthDiagnostics/Common/DeviceCMInterface.mm", a4, a5];
     v20 = [v19 lastPathComponent];
     v21 = [NSString stringWithFormat:@"plugin CM controller is nil"];
     NSLog(@"<ERROR %@: %@:%d> %@", @"Diagnostic_FW_Status_iOS", v20, 1049, v21, v23, valuePtr);
@@ -3228,6 +3228,7 @@ uint64_t DeviceCMInterface::setPearlDepthConfiguration(uint64_t a1, uint64_t a2,
     return v14;
   }
 
+  v6 = a4;
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   v9 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
   v10 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &v23);
@@ -3236,7 +3237,7 @@ uint64_t DeviceCMInterface::setPearlDepthConfiguration(uint64_t a1, uint64_t a2,
   CFRelease(v9);
   CFRelease(v10);
   v11 = &kFigCapturePortType_FrontFacingCamera;
-  if (!a4)
+  if (!v6)
   {
     v11 = &kFigCapturePortType_FrontFacingInfraredCamera;
   }
@@ -3906,7 +3907,7 @@ uint64_t DeviceCMInterface::enableDefaultDepthStream(DeviceCMInterface *this)
   return v1;
 }
 
-DeviceCMInterface *DeviceCMInterface::setPearlMultiCam(DeviceCMInterface *this)
+uint64_t DeviceCMInterface::setPearlMultiCam(DeviceCMInterface *this)
 {
   v2 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/DepthDiagnostics/Common/DeviceCMInterface.mm"];
   v3 = [v2 lastPathComponent];
@@ -3964,7 +3965,7 @@ DeviceCMInterface *DeviceCMInterface::setPearlMultiCam(DeviceCMInterface *this)
   return v11;
 }
 
-uint64_t DeviceCMInterface::enableSyncForEnumeratedStreams(DeviceCMInterface *this, int a2)
+uint64_t DeviceCMInterface::enableSyncForEnumeratedStreams(DeviceCMInterface *this, unsigned int a2)
 {
   if (!this->var2 || this->var3.var2 < 0 || this->var3.var3 < 0)
   {
@@ -4687,7 +4688,7 @@ DeviceCMInterface *DeviceCMInterface::getJasperResistance(DeviceCMInterface *thi
   return v4;
 }
 
-DeviceCMInterface *DeviceCMInterface::getPearlFloodProjectorFault(DeviceCMInterface *this, unint64_t *a2)
+uint64_t DeviceCMInterface::getPearlFloodProjectorFault(DeviceCMInterface *this, unint64_t *a2)
 {
   number = 0;
   valuePtr = 0;
@@ -4734,7 +4735,7 @@ DeviceCMInterface *DeviceCMInterface::getPearlFloodProjectorFault(DeviceCMInterf
   return v6;
 }
 
-DeviceCMInterface *DeviceCMInterface::getStructuredProjectorFault(DeviceCMInterface *this, unint64_t *a2)
+uint64_t DeviceCMInterface::getStructuredProjectorFault(DeviceCMInterface *this, unint64_t *a2)
 {
   valuePtr = 0;
   number = 0;
@@ -4869,10 +4870,10 @@ DeviceCMInterface *DeviceCMInterface::forceSaveWideJasperCalib(DeviceCMInterface
   return v2;
 }
 
-DeviceCMInterface *DeviceCMInterface::setRgbjConfiguration(DeviceCMInterface *this, unsigned int a2, unsigned int a3, uint64_t a4)
+DeviceCMInterface *DeviceCMInterface::setRgbjConfiguration(DeviceCMInterface *this, unsigned int a2, uint64_t a3, uint64_t a4)
 {
   v16[0] = @"RgbjConfigurationFeatureVectorSize";
-  v6 = [NSNumber numberWithUnsignedInt:?];
+  v6 = [NSNumber numberWithUnsignedInt:a3];
   v16[1] = @"RgbjConfigurationDilutionRate";
   v17[0] = v6;
   v7 = [NSNumber numberWithUnsignedInt:a4];
@@ -4970,7 +4971,7 @@ void sub_10000D4E4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t DeviceCMInterface::getPearlRigelSerialNumber(uint64_t a1, void *a2)
+DeviceCMInterface *DeviceCMInterface::getPearlRigelSerialNumber(uint64_t a1, void *a2)
 {
   v15 = 0;
   v3 = *(a1 + 16);
@@ -5141,7 +5142,7 @@ LABEL_14:
   }
 }
 
-_BYTE *sub_10000E36C(_BYTE *a1, char *__s)
+void *sub_10000E36C(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -5155,13 +5156,13 @@ _BYTE *sub_10000E36C(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 

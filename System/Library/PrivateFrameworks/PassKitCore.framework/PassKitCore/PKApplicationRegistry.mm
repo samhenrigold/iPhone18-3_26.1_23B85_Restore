@@ -236,7 +236,7 @@ void __65__PKApplicationRegistry_registerApplicationWithBundleIdentifier___block
   return applicationRegistryQueue;
 }
 
-uint64_t __69__PKApplicationRegistry_applicationIsRegisteredWithBundleIdentifier___block_invoke(void *a1)
+void *__69__PKApplicationRegistry_applicationIsRegisteredWithBundleIdentifier___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;

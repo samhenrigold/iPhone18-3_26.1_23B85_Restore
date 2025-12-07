@@ -9,6 +9,7 @@
 - (void)dealloc;
 - (void)insertBridgeBulletinWithTitle:(id)title message:(id)message actionURL:(id)l delay:(double)delay;
 - (void)insertBridgeBulletinWithTitle:(id)title message:(id)message actionURL:(id)l forPass:(id)pass;
+- (void)insertBridgeBulletinWithTitle:(id)title message:(id)message actionURL:(id)l forPass:(id)pass playSound:(BOOL)sound notificationIdentifier:(id)identifier expirationDate:(id)date;
 - (void)performScheduledActivityWithIdentifier:(id)identifier activityCriteria:(id)criteria;
 - (void)removeBridgeBulletinsForPassWithUniqueID:(id)d;
 - (void)removeBridgeBulletinsWithTitle:(id)title message:(id)message actionURL:(id)l;
@@ -46,6 +47,44 @@
 {
   v7 = [(NPDBulletinManager *)self _userNotificationWithTitle:title message:message actionURL:l forPass:pass playSound:0 notificationIdentifier:0 expirationDate:0];
   [(UNUserNotificationCenter *)self->_notificationCenter addNotificationRequest:v7 withCompletionHandler:0];
+}
+
+- (void)insertBridgeBulletinWithTitle:(id)title message:(id)message actionURL:(id)l forPass:(id)pass playSound:(BOOL)sound notificationIdentifier:(id)identifier expirationDate:(id)date
+{
+  soundCopy = sound;
+  titleCopy = title;
+  messageCopy = message;
+  lCopy = l;
+  passCopy = pass;
+  identifierCopy = identifier;
+  dateCopy = date;
+  v21 = pk_General_log();
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+
+  if (v22)
+  {
+    v23 = pk_General_log();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138413570;
+      v27 = objc_opt_class();
+      v28 = 2112;
+      v29 = titleCopy;
+      v30 = 2112;
+      v31 = messageCopy;
+      v32 = 1024;
+      v33 = soundCopy;
+      v34 = 2112;
+      v35 = identifierCopy;
+      v36 = 2112;
+      v37 = dateCopy;
+      v24 = v27;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Notice: %@: requested insert notification with title:%@ message:%@ playSound:%d, notificationIdentifier:%@, expirationDate:%@", buf, 0x3Au);
+    }
+  }
+
+  v25 = [(NPDBulletinManager *)self _userNotificationWithTitle:titleCopy message:messageCopy actionURL:lCopy forPass:passCopy playSound:soundCopy notificationIdentifier:identifierCopy expirationDate:dateCopy];
+  [(UNUserNotificationCenter *)self->_notificationCenter addNotificationRequest:v25 withCompletionHandler:0];
 }
 
 - (void)insertBridgeBulletinWithTitle:(id)title message:(id)message actionURL:(id)l delay:(double)delay

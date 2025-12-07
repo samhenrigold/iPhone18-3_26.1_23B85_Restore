@@ -44,7 +44,7 @@
 
 - (void)takeAssertionIfNeeded
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   lockScreenAssertion = self->_lockScreenAssertion;
   v4 = HKSPLogForCategory();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -53,8 +53,8 @@
     if (v5)
     {
       *buf = 138543362;
-      v22 = objc_opt_class();
-      v6 = v22;
+      v21 = objc_opt_class();
+      v6 = v21;
       _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] lock screen assertion already taken", buf, 0xCu);
     }
   }
@@ -64,8 +64,8 @@
     if (v5)
     {
       *buf = 138543362;
-      v22 = objc_opt_class();
-      v7 = v22;
+      v21 = objc_opt_class();
+      v7 = v21;
       _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] taking lock screen assertion", buf, 0xCu);
     }
 
@@ -87,38 +87,35 @@
     _endpoint = [endpoint _endpoint];
     [v4 setXpcEndpoint:_endpoint];
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __60__HDSPSleepLockScreenAssertionManager_takeAssertionIfNeeded__block_invoke;
-    v20[3] = &unk_279C7BFB0;
-    v20[4] = self;
-    v17 = [MEMORY[0x277D66B28] acquireRemoteContentAssertionWithDefinition:v4 errorHandler:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __60__HDSPSleepLockScreenAssertionManager_takeAssertionIfNeeded__block_invoke;
+    v19[3] = &unk_279C7BFB0;
+    v19[4] = self;
+    v17 = [MEMORY[0x277D66B28] acquireRemoteContentAssertionWithDefinition:v4 errorHandler:v19];
     v18 = self->_lockScreenAssertion;
     self->_lockScreenAssertion = v17;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HDSPSleepLockScreenAssertionManager_takeAssertionIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = [v3 domain];
-  if ([v4 isEqual:*MEMORY[0x277CF0B18]])
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = [v2 domain];
+  if ([v3 isEqual:*MEMORY[0x277CF0B18]])
   {
-    v5 = [v3 code];
+    v4 = [v2 code];
 
-    if (v5 == 5)
+    if (v4 == 5)
     {
-      v6 = HKSPLogForCategory();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v5 = HKSPLogForCategory();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 32);
-        v11 = 138543362;
-        v12 = objc_opt_class();
-        v8 = v12;
-        _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] invalidated lock screen assertion", &v11, 0xCu);
+        v7 = 138543362;
+        v8 = objc_opt_class();
+        v6 = v8;
+        _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] invalidated lock screen assertion", &v7, 0xCu);
 LABEL_9:
 
         goto LABEL_7;
@@ -132,27 +129,24 @@ LABEL_9:
   {
   }
 
-  v6 = HKSPLogForCategory();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = HKSPLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v10 = *(a1 + 32);
-    v11 = 138543618;
-    v12 = objc_opt_class();
-    v13 = 2114;
-    v14 = v3;
-    v8 = v12;
-    _os_log_error_impl(&dword_269B11000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] error acquiring lock screen assertion: %{public}@", &v11, 0x16u);
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2114;
+    v10 = v2;
+    v6 = v8;
+    _os_log_error_impl(&dword_269B11000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] error acquiring lock screen assertion: %{public}@", &v7, 0x16u);
     goto LABEL_9;
   }
 
 LABEL_7:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendLockScreenState:(int64_t)state userInfo:(id)info
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->_lockScreenAssertion)
   {
     infoCopy = info;
@@ -162,24 +156,22 @@ LABEL_7:
       v8 = objc_opt_class();
       v9 = v8;
       v10 = NSStringFromHKSPSleepLockScreenState();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v10;
-      _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] sending state: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] sending state: %@", &v13, 0x16u);
     }
 
     connection = [(HDSPSleepLockScreenAssertionManager *)self connection];
     remoteObjectProxy = [connection remoteObjectProxy];
     [remoteObjectProxy setLockScreenState:state userInfo:infoCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateAssertion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   lockScreenAssertion = self->_lockScreenAssertion;
   WeakRetained = HKSPLogForCategory();
   v5 = os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT);
@@ -187,10 +179,10 @@ LABEL_7:
   {
     if (v5)
     {
-      v14 = 138543362;
-      v15 = objc_opt_class();
-      v6 = v15;
-      _os_log_impl(&dword_269B11000, WeakRetained, OS_LOG_TYPE_DEFAULT, "[%{public}@] invalidating lock screen assertion", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = objc_opt_class();
+      v6 = v14;
+      _os_log_impl(&dword_269B11000, WeakRetained, OS_LOG_TYPE_DEFAULT, "[%{public}@] invalidating lock screen assertion", &v13, 0xCu);
     }
 
     [(SBSLockScreenRemoteContentAssertion *)self->_lockScreenAssertion invalidate];
@@ -210,36 +202,32 @@ LABEL_7:
 
   else if (v5)
   {
-    v14 = 138543362;
-    v15 = objc_opt_class();
-    v12 = v15;
-    _os_log_impl(&dword_269B11000, WeakRetained, OS_LOG_TYPE_DEFAULT, "[%{public}@] lock screen assertion already invalidated", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = objc_opt_class();
+    v12 = v14;
+    _os_log_impl(&dword_269B11000, WeakRetained, OS_LOG_TYPE_DEFAULT, "[%{public}@] lock screen assertion already invalidated", &v13, 0xCu);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connect
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] lock screen service did connect", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v4 = v7;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] lock screen service did connect", &v6, 0xCu);
   }
 
   delegate = [(HDSPSleepLockScreenAssertionManager *)self delegate];
   [delegate lockScreenDidConnect];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didDismissWithReason:(int64_t)reason
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (reason > 4)
   {
     if (reason > 6)
@@ -252,28 +240,30 @@ LABEL_7:
           goto LABEL_28;
         }
 
-        v7 = 138543362;
-        v8 = objc_opt_class();
-        v4 = v8;
+        v6 = 138543362;
+        v7 = objc_opt_class();
+        v4 = v7;
         v5 = "[%{public}@] lock screen service did dismiss due to lock screen dismissal";
-        goto LABEL_26;
       }
 
-      if (reason != 8)
+      else
       {
-        goto LABEL_29;
-      }
+        if (reason != 8)
+        {
+          return;
+        }
 
-      v3 = HKSPLogForCategory();
-      if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_28;
-      }
+        v3 = HKSPLogForCategory();
+        if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_28;
+        }
 
-      v7 = 138543362;
-      v8 = objc_opt_class();
-      v4 = v8;
-      v5 = "[%{public}@] lock screen service did dismiss due to tap";
+        v6 = 138543362;
+        v7 = objc_opt_class();
+        v4 = v7;
+        v5 = "[%{public}@] lock screen service did dismiss due to tap";
+      }
     }
 
     else if (reason == 5)
@@ -284,9 +274,9 @@ LABEL_7:
         goto LABEL_28;
       }
 
-      v7 = 138543362;
-      v8 = objc_opt_class();
-      v4 = v8;
+      v6 = 138543362;
+      v7 = objc_opt_class();
+      v4 = v7;
       v5 = "[%{public}@] lock screen service did dismiss due to camera launch";
     }
 
@@ -298,15 +288,13 @@ LABEL_7:
         goto LABEL_28;
       }
 
-      v7 = 138543362;
-      v8 = objc_opt_class();
-      v4 = v8;
+      v6 = 138543362;
+      v7 = objc_opt_class();
+      v4 = v7;
       v5 = "[%{public}@] lock screen service did dismiss due to assertion invalidation";
     }
 
-LABEL_26:
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, v5, &v7, 0xCu);
-    goto LABEL_27;
+    goto LABEL_26;
   }
 
   if (reason > 2)
@@ -319,9 +307,9 @@ LABEL_26:
         goto LABEL_28;
       }
 
-      v7 = 138543362;
-      v8 = objc_opt_class();
-      v4 = v8;
+      v6 = 138543362;
+      v7 = objc_opt_class();
+      v4 = v7;
       v5 = "[%{public}@] lock screen service did dismiss due to home gesture";
     }
 
@@ -333,49 +321,48 @@ LABEL_26:
         goto LABEL_28;
       }
 
-      v7 = 138543362;
-      v8 = objc_opt_class();
-      v4 = v8;
+      v6 = 138543362;
+      v7 = objc_opt_class();
+      v4 = v7;
       v5 = "[%{public}@] lock screen service did dismiss due to notification";
     }
 
     goto LABEL_26;
   }
 
-  if (reason < 2)
+  if (reason >= 2)
   {
-    v3 = HKSPLogForCategory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (reason != 2)
     {
-      v7 = 138543362;
-      v8 = objc_opt_class();
-      v4 = v8;
-      _os_log_error_impl(&dword_269B11000, v3, OS_LOG_TYPE_ERROR, "[%{public}@] lock screen service did dismiss due to error", &v7, 0xCu);
-LABEL_27:
+      return;
     }
 
-LABEL_28:
-
-    goto LABEL_29;
-  }
-
-  if (reason == 2)
-  {
     v3 = HKSPLogForCategory();
     if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_28;
     }
 
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v4 = v7;
     v5 = "[%{public}@] lock screen service did dismiss due to dismiss button";
-    goto LABEL_26;
+LABEL_26:
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, v5, &v6, 0xCu);
+    goto LABEL_27;
   }
 
-LABEL_29:
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = HKSPLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v4 = v7;
+    _os_log_error_impl(&dword_269B11000, v3, OS_LOG_TYPE_ERROR, "[%{public}@] lock screen service did dismiss due to error", &v6, 0xCu);
+LABEL_27:
+  }
+
+LABEL_28:
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -411,37 +398,31 @@ LABEL_29:
 
 void __74__HDSPSleepLockScreenAssertionManager_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = HKSPLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] interruption handler", &v6, 0xCu);
-  }
-
   v5 = *MEMORY[0x277D85DE8];
+  v1 = HKSPLogForCategory();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = 138543362;
+    v4 = objc_opt_class();
+    v2 = v4;
+    _os_log_impl(&dword_269B11000, v1, OS_LOG_TYPE_DEFAULT, "[%{public}@] interruption handler", &v3, 0xCu);
+  }
 }
 
 void __74__HDSPSleepLockScreenAssertionManager_listener_shouldAcceptNewConnection___block_invoke_310(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = HKSPLogForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] invalidation handler", &v7, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v3 = v6;
+    _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] invalidation handler", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained setConnection:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setConnection:(id)connection

@@ -68,7 +68,7 @@
 
   else
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNActionRepeat repeatAction:v9 count:?];
@@ -93,7 +93,7 @@
 
   else
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNActionRepeat repeatActionForever:v6];

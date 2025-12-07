@@ -108,7 +108,7 @@ void __60__HDCloudSyncSubscriptionNotificationHandler__enableAPSPush__block_invo
 
 void __60__HDCloudSyncSubscriptionNotificationHandler__enableAPSPush__block_invoke_298(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [@"com.apple.icloud-container." stringByAppendingString:*MEMORY[0x277CCE3A8]];
   v3 = [objc_alloc(MEMORY[0x277CEEA10]) initWithEnvironmentName:*(a1 + 40) namedDelegatePort:@"com.apple.aps.healthd.cloud.subscription.push" queue:*(*(a1 + 32) + 32)];
   v4 = *(a1 + 32);
@@ -126,12 +126,12 @@ void __60__HDCloudSyncSubscriptionNotificationHandler__enableAPSPush__block_invo
     {
       v9 = *(*(a1 + 32) + 40);
       *buf = 134217984;
-      v14 = v9;
+      v13 = v9;
       _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "Created APS connection %p (#t0)", buf, 0xCu);
     }
 
-    v12 = v2;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+    v11 = v2;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
     [*(*(a1 + 32) + 40) _setEnabledTopics:v10];
   }
 
@@ -140,8 +140,6 @@ void __60__HDCloudSyncSubscriptionNotificationHandler__enableAPSPush__block_invo
     *buf = 0;
     _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Couldn't create APS push connection (#t0)", buf, 2u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_copyAPSEntitlement
@@ -192,7 +190,7 @@ void __60__HDCloudSyncSubscriptionNotificationHandler__enableAPSPush__block_invo
 
 void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironmentStringWithHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *MEMORY[0x277CEE9F0];
@@ -203,9 +201,9 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
     v9 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
-      v14 = v6;
-      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "Error getting server APS preferred push environment: %{public}@ (#t0)", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v6;
+      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "Error getting server APS preferred push environment: %{public}@ (#t0)", &v12, 0xCu);
     }
   }
 
@@ -220,19 +218,17 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
   v11 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543362;
-    v14 = v7;
-    _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "Using APS push environment: %{public}@ (#t0)", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v7;
+    _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "Using APS push environment: %{public}@ (#t0)", &v12, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleSubscriptionWithID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dispatch_assert_queue_V2(self->_queue);
   if ([dCopy isEqual:HDCloudSyncPrimaryProfileDataRequestedSubscriptionIdentifier])
@@ -276,15 +272,13 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
     v5 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543618;
+      v6 = 138543618;
       selfCopy = self;
-      v9 = 2114;
-      v10 = dCopy;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@ Unknown subscription type %{public}@", &v7, 0x16u);
+      v8 = 2114;
+      v9 = dCopy;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@ Unknown subscription type %{public}@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)daemonReady:(id)ready
@@ -298,7 +292,7 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
 
 - (void)_queue_handleIncomingCloudKitPushNotification:(id)notification
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dispatch_assert_queue_V2(self->_queue);
   subscriptionID = [notificationCopy subscriptionID];
@@ -307,9 +301,9 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
   v7 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = subscriptionID;
-    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "Recieved CloudKit push notification for subscription with id: %{public}@ (#t0)", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = subscriptionID;
+    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "Recieved CloudKit push notification for subscription with id: %{public}@ (#t0)", &v10, 0xCu);
   }
 
   alertBody = [notificationCopy alertBody];
@@ -325,17 +319,15 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
     v9 = *v6;
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "Push notification is low-priority, ignoring. (#t0)", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "Push notification is low-priority, ignoring. (#t0)", &v10, 2u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldTriggerUpload
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   v3 = CFAbsoluteTimeGetCurrent() - self->_lock_lastTinkerDataUploadTriggerTime;
   if (v3 <= 300.0)
@@ -344,13 +336,13 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
     v4 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543874;
+      v6 = 138543874;
       selfCopy = self;
-      v9 = 2048;
-      v10 = v3;
-      v11 = 2048;
-      v12 = 0x4072C00000000000;
-      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignoring data upload request; time since last request %lf is less than threshold %lf", &v7, 0x20u);
+      v8 = 2048;
+      v9 = v3;
+      v10 = 2048;
+      v11 = 0x4072C00000000000;
+      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignoring data upload request; time since last request %lf is less than threshold %lf", &v6, 0x20u);
     }
   }
 
@@ -360,13 +352,12 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v5 = *MEMORY[0x277D85DE8];
   return v3 > 300.0;
 }
 
 - (void)_queue_handleIncomingDataUploadRequest
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (([(_HKBehavior *)self->_behavior tinkerModeEnabled]& 1) != 0)
   {
@@ -379,9 +370,9 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
       v6 = [[HDCloudSyncContext alloc] initForPurpose:0 options:HDOptionsForRequest(v5) reason:16];
       [v6 setSyncRequest:v5];
       WeakRetained = objc_loadWeakRetained(&self->_coordinator);
-      v14 = 0;
-      v8 = [WeakRetained scheduleSyncForAllProfilesViaGatedBackgroundTask:1 context:v6 reason:@"Tinker data upload requested notification" error:&v14];
-      v9 = v14;
+      v13 = 0;
+      v8 = [WeakRetained scheduleSyncForAllProfilesViaGatedBackgroundTask:1 context:v6 reason:@"Tinker data upload requested notification" error:&v13];
+      v9 = v13;
 
       _HKInitializeLogging();
       v10 = *MEMORY[0x277CCC328];
@@ -400,8 +391,8 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
       {
         *buf = 138543618;
         selfCopy3 = self;
-        v17 = 2114;
-        v18 = v9;
+        v16 = 2114;
+        v17 = v9;
         _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Error triggering sync for Tinker data upload requested notification %{public}@", buf, 0x16u);
       }
     }
@@ -418,13 +409,11 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
       _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignoring data upload request on ineligible device.", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldTriggerDownload
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   v3 = CFAbsoluteTimeGetCurrent() - self->_lock_lastTinkerDataDownloadTriggerTime;
   if (v3 <= 1800.0)
@@ -433,13 +422,13 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
     v4 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543874;
+      v6 = 138543874;
       selfCopy = self;
-      v9 = 2048;
-      v10 = v3;
-      v11 = 2048;
-      v12 = 0x409C200000000000;
-      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignoring data download request; time since last request %lf is less than threshold %lf", &v7, 0x20u);
+      v8 = 2048;
+      v9 = v3;
+      v10 = 2048;
+      v11 = 0x409C200000000000;
+      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignoring data download request; time since last request %lf is less than threshold %lf", &v6, 0x20u);
     }
   }
 
@@ -449,13 +438,12 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v5 = *MEMORY[0x277D85DE8];
   return v3 > 1800.0;
 }
 
 - (void)_queue_handleIncomingDataDownloadAvailableNotificationOnTinkerDevices
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (([(_HKBehavior *)self->_behavior tinkerModeEnabled]& 1) != 0)
   {
@@ -468,9 +456,9 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
       v6 = [[HDCloudSyncContext alloc] initForPurpose:0 options:HDOptionsForRequest(v5) reason:17];
       [v6 setSyncRequest:v5];
       WeakRetained = objc_loadWeakRetained(&self->_coordinator);
-      v14 = 0;
-      v8 = [WeakRetained scheduleSyncForAllProfilesViaGatedBackgroundTask:1 context:v6 reason:@"Guardian data available for download notification" error:&v14];
-      v9 = v14;
+      v13 = 0;
+      v8 = [WeakRetained scheduleSyncForAllProfilesViaGatedBackgroundTask:1 context:v6 reason:@"Guardian data available for download notification" error:&v13];
+      v9 = v13;
 
       if ((v8 & 1) == 0)
       {
@@ -480,8 +468,8 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
         {
           *buf = 138543618;
           selfCopy3 = self;
-          v17 = 2114;
-          v18 = v9;
+          v16 = 2114;
+          v17 = v9;
           _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Error triggering sync for Guardian data available for download notification %{public}@", buf, 0x16u);
         }
       }
@@ -508,13 +496,11 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
       _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignoring data download request on ineligible device.", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleIncomingDataDownloadAvailableNotificationOnGuardianDevices
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if ([(_HKBehavior *)self->_behavior tinkerModeEnabled])
   {
@@ -541,20 +527,18 @@ void __90__HDCloudSyncSubscriptionNotificationHandler__queue_fetchAPSEnvironment
     [syncStatusProvider setDataUploadRequestStatus:3 profileType:3];
 
     v10 = objc_loadWeakRetained(&self->_coordinator);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingDataDownloadAvailableNotificationOnGuardianDevices__block_invoke;
-    v12[3] = &unk_2786130B0;
-    v12[4] = self;
-    [v10 syncAllProfilesViaGatedBackgroundTask:0 context:v7 reason:@"Tinker data available for download notification" completion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingDataDownloadAvailableNotificationOnGuardianDevices__block_invoke;
+    v11[3] = &unk_2786130B0;
+    v11[4] = self;
+    [v10 syncAllProfilesViaGatedBackgroundTask:0 context:v7 reason:@"Tinker data available for download notification" completion:v11];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingDataDownloadAvailableNotificationOnGuardianDevices__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC328];
@@ -564,9 +548,9 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v14 = 138543362;
-      v15 = v8;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Successfully completed sync for Tinker data available for download notification", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v8;
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Successfully completed sync for Tinker data available for download notification", &v13, 0xCu);
     }
 
     v9 = 4;
@@ -576,12 +560,12 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = 138543618;
-      v15 = v13;
-      v16 = 2114;
-      v17 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Error syncing Tinker data available for download notification %{public}@", &v14, 0x16u);
+      v12 = *(a1 + 32);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2114;
+      v16 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Error syncing Tinker data available for download notification %{public}@", &v13, 0x16u);
     }
 
     v9 = 5;
@@ -590,13 +574,11 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v11 = [WeakRetained syncStatusProvider];
   [v11 setDataUploadRequestStatus:v9 profileType:3];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleIncomingPrimaryMedicalIDDataAvailableForDownloadNotification
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = objc_alloc(MEMORY[0x277CCD140]);
   v4 = objc_alloc_init(MEMORY[0x277CCD5F0]);
@@ -605,9 +587,9 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
   v6 = [[HDCloudSyncContext alloc] initForPurpose:0 options:HDOptionsForRequest(v5) reason:23];
   [v6 setSyncRequest:v5];
   WeakRetained = objc_loadWeakRetained(&self->_coordinator);
-  v13 = 0;
-  v8 = [WeakRetained scheduleSyncForAllProfilesViaGatedBackgroundTask:1 context:v6 reason:@"Medical ID on data available notification" error:&v13];
-  v9 = v13;
+  v12 = 0;
+  v8 = [WeakRetained scheduleSyncForAllProfilesViaGatedBackgroundTask:1 context:v6 reason:@"Medical ID on data available notification" error:&v12];
+  v9 = v12;
 
   _HKInitializeLogging();
   v10 = *MEMORY[0x277CCC328];
@@ -626,17 +608,15 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v16 = 2114;
-    v17 = v9;
+    v15 = 2114;
+    v16 = v9;
     _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Error triggering sync for Medical ID on data available notification %{public}@", buf, 0x16u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleIncomingTinkerMedicalIDDataAvailableForDownloadNotification
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = objc_alloc(MEMORY[0x277CCD140]);
   v4 = objc_alloc_init(MEMORY[0x277CCD5F0]);
@@ -645,9 +625,9 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
   v6 = [[HDCloudSyncContext alloc] initForPurpose:0 options:HDOptionsForRequest(v5) reason:23];
   [v6 setSyncRequest:v5];
   WeakRetained = objc_loadWeakRetained(&self->_coordinator);
-  v13 = 0;
-  v8 = [WeakRetained scheduleSyncForAllProfilesViaGatedBackgroundTask:1 context:v6 reason:@"Tinker Medical ID on data available notification" error:&v13];
-  v9 = v13;
+  v12 = 0;
+  v8 = [WeakRetained scheduleSyncForAllProfilesViaGatedBackgroundTask:1 context:v6 reason:@"Tinker Medical ID on data available notification" error:&v12];
+  v9 = v12;
 
   _HKInitializeLogging();
   v10 = *MEMORY[0x277CCC328];
@@ -666,17 +646,15 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v16 = 2114;
-    v17 = v9;
+    v15 = 2114;
+    v16 = v9;
     _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Error triggering sync for Tinker Medical ID on data available notification %{public}@", buf, 0x16u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleIncomingSharedSummaryDataAvailableForDownloadNotification
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = objc_alloc(MEMORY[0x277CCD140]);
   v4 = [objc_alloc(MEMORY[0x277CCDA80]) initWithPush:0 pull:1];
@@ -685,9 +663,9 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
   v6 = [[HDCloudSyncContext alloc] initForPurpose:0 options:HDOptionsForRequest(v5) reason:25];
   [v6 setSyncRequest:v5];
   WeakRetained = objc_loadWeakRetained(&self->_coordinator);
-  v13 = 0;
-  v8 = [WeakRetained scheduleSyncForAllProfilesViaGatedBackgroundTask:1 context:v6 reason:@"Summary sharing data available notification" error:&v13];
-  v9 = v13;
+  v12 = 0;
+  v8 = [WeakRetained scheduleSyncForAllProfilesViaGatedBackgroundTask:1 context:v6 reason:@"Summary sharing data available notification" error:&v12];
+  v9 = v12;
 
   _HKInitializeLogging();
   v10 = *MEMORY[0x277CCC328];
@@ -706,17 +684,15 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v16 = 2114;
-    v17 = v9;
+    v15 = 2114;
+    v16 = v9;
     _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Error triggering sync for Summary sharing data available notification %{public}@", buf, 0x16u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleMedicationsStateUpdatedNotification
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   WeakRetained = objc_loadWeakRetained(&self->_coordinator);
   stateSyncDomainForSubscriptionIdentifier = [WeakRetained stateSyncDomainForSubscriptionIdentifier];
@@ -734,9 +710,9 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
   v12 = [[HDCloudSyncContext alloc] initForPurpose:0 options:HDOptionsForRequest(v11) reason:29];
   [v12 setSyncRequest:v11];
   v13 = objc_loadWeakRetained(&self->_coordinator);
-  v19 = 0;
-  v14 = [v13 scheduleSyncForAllProfilesViaGatedBackgroundTask:1 context:v12 reason:@"Medications subscription notification" error:&v19];
-  v15 = v19;
+  v18 = 0;
+  v14 = [v13 scheduleSyncForAllProfilesViaGatedBackgroundTask:1 context:v12 reason:@"Medications subscription notification" error:&v18];
+  v15 = v18;
 
   _HKInitializeLogging();
   v16 = *MEMORY[0x277CCC328];
@@ -755,17 +731,15 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v22 = 2114;
-    v23 = v15;
+    v21 = 2114;
+    v22 = v15;
     _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "%{public}@ Error triggering sync for medications on receiving subscription notification %{public}@", buf, 0x16u);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   tokenCopy = token;
   dispatch_assert_queue_V2(self->_queue);
@@ -773,19 +747,17 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
   v8 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_INFO))
   {
-    v10 = 138412546;
-    v11 = tokenCopy;
-    v12 = 2048;
-    v13 = connectionCopy;
-    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_INFO, "Subscription notification registration complete or updated with public token %@ on connection %p", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = tokenCopy;
+    v11 = 2048;
+    v12 = connectionCopy;
+    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_INFO, "Subscription notification registration complete or updated with public token %@ on connection %p", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveToken:(id)token forTopic:(id)topic identifier:(id)identifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   tokenCopy = token;
   topicCopy = topic;
@@ -795,23 +767,21 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
   v14 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_INFO))
   {
-    v16 = 138413058;
-    v17 = tokenCopy;
-    v18 = 2114;
-    v19 = topicCopy;
-    v20 = 2112;
-    v21 = identifierCopy;
-    v22 = 2048;
-    v23 = connectionCopy;
-    _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_INFO, "Received per-topic push token %@ for topic %{public}@ identifier %@ on connection %p", &v16, 0x2Au);
+    v15 = 138413058;
+    v16 = tokenCopy;
+    v17 = 2114;
+    v18 = topicCopy;
+    v19 = 2112;
+    v20 = identifierCopy;
+    v21 = 2048;
+    v22 = connectionCopy;
+    _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_INFO, "Received per-topic push token %@ for topic %{public}@ identifier %@ on connection %p", &v15, 0x2Au);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dispatch_assert_queue_V2(self->_queue);
   userInfo = [messageCopy userInfo];
@@ -822,16 +792,14 @@ void __117__HDCloudSyncSubscriptionNotificationHandler__queue_handleIncomingData
   {
     v9 = v8;
     topic = [messageCopy topic];
-    v12 = 138412546;
-    v13 = topic;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "APS push recieved: %@ %@ (#t0)", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = topic;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "APS push recieved: %@ %@ (#t0)", &v11, 0x16u);
   }
 
   [(HDCloudSyncSubscriptionNotificationHandler *)self _queue_handleIncomingCloudKitPushNotification:v7];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)triggerSubscription:(id)subscription

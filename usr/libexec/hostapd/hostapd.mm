@@ -400,7 +400,7 @@ uint64_t sub_10000110C(unsigned __int8 *a1, unsigned __int8 *a2)
   v4 = 4;
   while (*v2 == *v3 && !memcmp(*(v2 - 4), *(v3 - 4), *v2))
   {
-    ++v3;
+    v3 += 8;
     ++v2;
     if (!--v4)
     {
@@ -711,7 +711,7 @@ uint64_t *sub_1000014F8(uint64_t a1, void *__s2, size_t __n, int a4)
   return v4;
 }
 
-void sub_1000015A8(void **a1, int a2)
+void sub_1000015A8(void **a1, unsigned int a2)
 {
   if (a2 >= 1)
   {
@@ -1670,35 +1670,35 @@ LABEL_6:
     return 0xFFFFFFFFLL;
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  memset(v51, 0, sizeof(v51));
-  sub_100016EE4(a1, a2, 1, 2, "associated", a6, a7, a8, v49);
-  sub_10000C428(a3, a4, v51, 0, v12, v13, v14, v15);
-  if (v54)
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  memset(v50, 0, sizeof(v50));
+  sub_100016EE4(a1, a2, 1, 2, "associated");
+  sub_10000C428(a3, a4, v50, 0, v12, v13, v14, v15);
+  if (v53)
   {
-    v22 = (v54 - 2);
-    v23 = BYTE6(v59) + 2;
+    v22 = (v53 - 2);
+    v23 = BYTE6(v58) + 2;
     v24 = "STA included WPS IE in (Re)AssocReq";
   }
 
-  else if (*(&v52 + 1))
+  else if (*(&v51 + 1))
   {
-    v22 = (*(&v52 + 1) - 2);
-    v23 = BYTE3(v59) + 2;
+    v22 = (*(&v51 + 1) - 2);
+    v23 = BYTE3(v58) + 2;
     v24 = "STA included RSN IE in (Re)AssocReq";
   }
 
-  else if (v52)
+  else if (v51)
   {
-    v22 = (v52 - 2);
-    v23 = BYTE2(v59) + 2;
+    v22 = (v51 - 2);
+    v23 = BYTE2(v58) + 2;
     v24 = "STA included WPA IE in (Re)AssocReq";
   }
 
@@ -1709,7 +1709,7 @@ LABEL_6:
     v24 = "STA did not include WPS/RSN/WPA IE in (Re)AssocReq";
   }
 
-  sub_100016A20(1, v24, v16, v17, v18, v19, v20, v21, v50);
+  sub_100016A20(1, v24, v16, v17, v18, v19, v20, v21, v49);
   v28 = sub_100004A40(a1, a2);
   if (!v28)
   {
@@ -1804,61 +1804,50 @@ LABEL_42:
   return 0;
 }
 
-void sub_100002684(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_100002684(uint64_t a1, unsigned __int8 *a2)
 {
-  sub_100016EE4(a1, a2, 1, 2, "disassociated", a6, a7, a8, v24);
-  v10 = sub_100004A40(a1, a2);
-  if (v10)
+  sub_100016EE4(a1, a2, 1, 2, "disassociated");
+  v4 = sub_100004A40(a1, a2);
+  if (v4)
   {
-    v17 = v10;
-    *(v10 + 24) &= 0xFFFFFFFC;
-    v31 = *(v10 + 20);
-    v33 = *(v10 + 21);
-    v27 = *(v10 + 18);
-    v29 = *(v10 + 19);
-    v25 = *(v10 + 17);
-    sub_100016D3C(*(a1 + 2576), 2, "AP-STA-DISCONNECTED %02x:%02x:%02x:%02x:%02x:%02x", v12, v13, v14, v15, v16, *(v10 + 16));
-    sub_1000089A4(*(v17 + 168), 2);
-    *(v17 + 124) = 1;
-    sub_100020C7C(*(v17 + 88), 0);
+    v11 = v4;
+    *(v4 + 24) &= 0xFFFFFFFC;
+    sub_100016D3C(*(a1 + 2576), 2, "AP-STA-DISCONNECTED %02x:%02x:%02x:%02x:%02x:%02x", *(v11 + 16), *(v11 + 17), *(v11 + 18), *(v11 + 19), *(v11 + 20), *(v11 + 21));
+    sub_1000089A4(*(v11 + 168), 2);
+    *(v11 + 124) = 1;
+    sub_100020C7C(*(v11 + 88), 0);
 
-    sub_100004A90(a1, v17, v18, v19, v20, v21, v22, v23);
+    sub_100004A90(a1, v11, v12, v13, v14, v15, v16, v17);
   }
 
   else
   {
-    v32 = a2[4];
-    v34 = a2[5];
-    v28 = a2[2];
-    v30 = a2[3];
-    v26 = a2[1];
-    sub_100016A20(1, "Disassociation notification for unknown STA %02x:%02x:%02x:%02x:%02x:%02x", v11, v12, v13, v14, v15, v16, *a2);
+    sub_100016A20(1, "Disassociation notification for unknown STA %02x:%02x:%02x:%02x:%02x:%02x", v5, v6, v7, v8, v9, v10, *a2);
   }
 }
 
-void sub_1000027A4(void *a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_1000027A4(uint64_t *result, uint64_t a2, unsigned __int8 **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v9 = a1;
+  v9 = result;
   if (a2 <= 10)
   {
     if (a2 > 1)
     {
       if (a2 == 2)
       {
-        v21 = a3[1];
+        v20 = a3[1];
 
-        sub_100005B70(a1, v21, 1);
+        sub_100005B70(result, v20, 1);
         return;
       }
 
       if (a2 == 3)
       {
-        v15 = *a1;
-        v16 = *(*v9 + 2224);
-        if (v16)
+        v15 = *(*result + 2224);
+        if (v15)
         {
 
-          v16();
+          v15();
         }
 
         return;
@@ -1869,11 +1858,11 @@ void sub_1000027A4(void *a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5
     {
       if (!a2)
       {
-        v18 = a3[7];
-        v19 = a3[1];
-        v20 = *a3;
+        v17 = a3[7];
+        v18 = a3[1];
+        v19 = *a3;
 
-        sub_10000237C(a1, v18, v20, v19, a5, a6, a7, a8);
+        sub_10000237C(result, v17, v19, v18, a5, a6, a7, a8);
         return;
       }
 
@@ -1903,9 +1892,9 @@ LABEL_23:
 LABEL_24:
     if (a3)
     {
-      v17 = *a3;
+      v16 = *a3;
 
-      sub_100002684(a1, v17, a3, a4, a5, a6, a7, a8);
+      sub_100002684(result, v16);
     }
 
     return;
@@ -1913,31 +1902,31 @@ LABEL_24:
 
   if (a2 == 24)
   {
-    v22 = a1[343];
-    if (v22)
+    v21 = result[343];
+    if (v21)
     {
-      v23 = 0;
-      v24 = *a3;
-      v25 = a3[1];
-      v26 = -1;
-      v27 = a3[2];
+      v22 = 0;
+      v23 = *a3;
+      v24 = a3[1];
+      v25 = -1;
+      v26 = a3[2];
       do
       {
-        if (++v26 >= v9[344])
+        if (++v25 >= v9[344])
         {
           break;
         }
 
-        if ((*(v22 + v23))(*(v22 + v23 + 8), v24, v25, v27) > 0)
+        if ((*(v21 + v22))(*(v21 + v22 + 8), v23, v24, v26) > 0)
         {
           break;
         }
 
-        v23 += 16;
-        v22 = v9[343];
+        v22 += 16;
+        v21 = v9[343];
       }
 
-      while (v22);
+      while (v21);
     }
 
     return;
@@ -1945,30 +1934,20 @@ LABEL_24:
 
   if (a2 == 25)
   {
-    v28 = *a3;
-    if (!sub_100004A40(a1, *a3))
+    v27 = *a3;
+    if (!sub_100004A40(result, *a3))
     {
-      v48 = v28[4];
-      v50 = v28[5];
-      v44 = v28[2];
-      v46 = v28[3];
-      v42 = v28[1];
-      sub_100016A20(1, "Data frame from unknown STA %02x:%02x:%02x:%02x:%02x:%02x - adding a new STA", v29, v30, v31, v32, v33, v34, *v28);
-      v35 = sub_1000054E8(v9, v28);
-      if (v35)
+      sub_100016A20(1, "Data frame from unknown STA %02x:%02x:%02x:%02x:%02x:%02x - adding a new STA", v28, v29, v30, v31, v32, v33, *v27);
+      v34 = sub_1000054E8(v9, v27);
+      if (v34)
       {
 
-        sub_10000394C(v9, v35, 0);
+        sub_10000394C(v9, v34, 0);
       }
 
       else
       {
-        v49 = v28[4];
-        v51 = v28[5];
-        v45 = v28[2];
-        v47 = v28[3];
-        v43 = v28[1];
-        sub_100016A20(1, "Failed to add STA entry for %02x:%02x:%02x:%02x:%02x:%02x", v36, v37, v38, v39, v40, v41, *v28);
+        sub_100016A20(1, "Failed to add STA entry for %02x:%02x:%02x:%02x:%02x:%02x", v35, v36, v37, v38, v39, v40, *v27);
       }
     }
 
@@ -1983,8 +1962,8 @@ LABEL_24:
   v10 = *a3;
   v11 = a3[1];
   v12 = a3[2];
-  v13 = *a1;
-  if (*(*a1 + 48))
+  v13 = *result;
+  if (*(*result + 48))
   {
     v14 = 0;
     while (!sub_100004A40(*(*(v13 + 56) + 8 * v14), v10))
@@ -2037,7 +2016,7 @@ uint64_t sub_100002ABC(uint64_t a1)
   *(a1 + 40) = v12;
   if (sub_100000DD0(v15, v5, v6, v7, v8, v9, v10, v11))
   {
-    sub_100016A20(4, "Failed to re-configure WPA PSK after reloading configuration", v17, v18, v19, v20, v21, v22, v47);
+    sub_100016A20(4, "Failed to re-configure WPA PSK after reloading configuration", v17, v18, v19, v20, v21, v22, v43);
   }
 
   v23 = *(v3 + 2624);
@@ -2045,12 +2024,12 @@ uint64_t sub_100002ABC(uint64_t a1)
   {
     if (v23)
     {
-      v48 = 0;
+      v44 = 0;
       sub_10000B1A8(v3, v16, v17, v18, v19, v20, v21, v22);
-      sub_100009130(*(v3 + 2624), &v48);
+      sub_100009130(*(v3 + 2624), &v44);
       if (sub_100001DD0(v3))
       {
-        sub_100016A20(4, "Failed to configure WPA IE for the kernel driver.", v24, v25, v26, v27, v28, v29, v47);
+        sub_100016A20(4, "Failed to configure WPA IE for the kernel driver.", v24, v25, v26, v27, v28, v29, v43);
       }
     }
 
@@ -2069,25 +2048,17 @@ uint64_t sub_100002ABC(uint64_t a1)
     sub_100001DD0(v3);
   }
 
-  v31 = *(v3 + 16);
-  if (*(v31 + 200))
+  if (*(*(v3 + 16) + 200))
   {
-    v32 = *(v31 + 192);
     if (sub_100001E10(v3))
     {
-      sub_100016A20(4, "%s: Could not set SSID for kernel driver", v33, v34, v35, v36, v37, v38, "hostapd_reload_config");
+      sub_100016A20(4, "%s: Could not set SSID for kernel driver", v31, v32, v33, v34, v35, v36, "hostapd_reload_config");
     }
-  }
-
-  v39 = *(v3 + 16);
-  if (!*(v39 + 72))
-  {
-    v40 = *(v39 + 484) != 0;
   }
 
   (*(v3 + 2448))(v3);
   sub_1000011A4(v14);
-  sub_100016A20(1, "Reconfigured interface %s", v41, v42, v43, v44, v45, v46, *(v3 + 16));
+  sub_100016A20(1, "Reconfigured interface %s", v37, v38, v39, v40, v41, v42, *(v3 + 16));
   return 0;
 }
 
@@ -2124,70 +2095,65 @@ uint64_t sub_100002D48(uint64_t a1, uint64_t a2)
   v4 = *(a2 + 16);
   if (*(v4 + 336))
   {
-    v5 = v4 + 8 * *(v4 + 256);
-    v33 = *(v5 + 264);
-    v36 = *(v5 + 296);
+    v31 = *(v4 + 8 * *(v4 + 256) + 264);
     if ((*(a2 + 2416))(v4, a2, 1, 0))
     {
-      sub_100016A20(3, "Could not set WEP encryption.", v6, v7, v8, v9, v10, v11, v33);
+      sub_100016A20(3, "Could not set WEP encryption.", v5, v6, v7, v8, v9, v10, v31);
     }
   }
 
   if (*(v4 + 352))
   {
-    v12 = 0;
+    v11 = 0;
     do
     {
-      v13 = *(*(v4 + 352) + 8 * v12);
-      if (v13)
+      v12 = *(*(v4 + 352) + 8 * v11);
+      if (v12)
       {
-        v14 = sub_100001474(*(*(a2 + 16) + 720), v12);
-        if (v14)
+        v13 = sub_100001474(*(*(a2 + 16) + 720), v11);
+        if (v13)
         {
-          v15 = &v13[8 * *v13];
-          v34 = *(v15 + 1);
-          v37 = *(v15 + 5);
-          if ((*(a2 + 2416))(v14, a2, 1, 0))
+          v32 = *&v12[8 * *v12 + 8];
+          if ((*(a2 + 2416))(v13, a2, 1, 0))
           {
-            sub_100016A20(3, "Could not set dynamic VLAN WEP encryption.", v16, v17, v18, v19, v20, v21, v34);
+            sub_100016A20(3, "Could not set dynamic VLAN WEP encryption.", v14, v15, v16, v17, v18, v19, v32);
           }
         }
       }
 
-      ++v12;
+      ++v11;
     }
 
-    while (v12 <= *(v4 + 360));
+    while (v11 <= *(v4 + 360));
   }
 
   if (!*(*(a2 + 16) + 336))
   {
-    v22 = 0;
+    v20 = 0;
     while (1)
     {
-      v23 = *(a2 + 16);
-      v24 = v23 + 8 * v22;
-      if (*(v24 + 264))
+      v21 = *(a2 + 16);
+      v22 = v21 + 8 * v20;
+      if (*(v22 + 264))
       {
-        v35 = *(v24 + 264);
-        v38 = *(v24 + 296);
-        if ((*(a2 + 2416))(a1, a2, 1, 0, v22, v22 == *(v23 + 256), 0, 0))
+        v33 = *(v22 + 264);
+        if ((*(a2 + 2416))(a1, a2, 1, 0, v20, v20 == *(v21 + 256), 0, 0))
         {
-          sub_100016A20(3, "Could not set WEP encryption.", v25, v26, v27, v28, v29, v30, v35);
+          sub_100016A20(3, "Could not set WEP encryption.", v23, v24, v25, v26, v27, v28, v33);
           return 0xFFFFFFFFLL;
         }
 
-        v31 = *(a2 + 16);
-        if (*(v31 + 8 * v22 + 264))
+        v29 = *(a2 + 16);
+        if (*(v29 + 8 * v20 + 264))
         {
-          if (v22 == *(v31 + 256))
+          if (v20 == *(v29 + 256))
           {
             sub_100001DB0(a2);
           }
         }
       }
 
-      if (++v22 == 4)
+      if (++v20 == 4)
       {
         return 0;
       }
@@ -2202,13 +2168,13 @@ uint64_t sub_100002F20(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a
 {
   if (a2)
   {
-    sub_100016A20(4, "Interface initialization failed", a3, a4, a5, a6, a7, a8, v88);
+    sub_100016A20(4, "Interface initialization failed", a3, a4, a5, a6, a7, a8, v82);
     sub_1000268F0();
     return 0xFFFFFFFFLL;
   }
 
   v9 = **(a1 + 56);
-  sub_100016A20(1, "Completing interface initialization", a3, a4, a5, a6, a7, a8, v88);
+  sub_100016A20(1, "Completing interface initialization", a3, a4, a5, a6, a7, a8, v82);
   v16 = *(v9 + 8);
   if (*(v16 + 37))
   {
@@ -2253,9 +2219,9 @@ uint64_t sub_100002F20(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a
         *(v9 + 28) = *v25;
         *(v9 + 32) = v26;
         v27 = (v9 + 16);
-        v101 = *(v9 + 16);
-        v102 = v25;
-        if (sub_100000DA4((v101 + 736)))
+        v84 = *(v9 + 16);
+        v85 = v25;
+        if (sub_100000DA4((v84 + 736)))
         {
           v28 = *(v9 + 16);
           v29 = *(v28 + 740);
@@ -2263,10 +2229,10 @@ uint64_t sub_100002F20(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a
           *(v9 + 32) = v29;
           if (!sub_100000D70((v9 + 28), (**(*v9 + 56) + 28)))
           {
-            v89 = *v27;
+            v83 = *v27;
             v23 = "BSS '%s' may not have BSSID set to the MAC address of the radio";
 LABEL_75:
-            sub_100016A20(4, v23, v17, v18, v19, v20, v21, v22, v89);
+            sub_100016A20(4, v23, v17, v18, v19, v20, v21, v22, v83);
             return 0xFFFFFFFFLL;
           }
         }
@@ -2276,19 +2242,19 @@ LABEL_75:
           while (1)
           {
             sub_100015F04(v9 + 28, 6);
-            v66 = *(v9 + 8);
-            if (!v66[2])
+            v65 = *(v9 + 8);
+            if (!v65[2])
             {
               break;
             }
 
-            v64 = 0;
-            v65 = 736;
-            while (sub_100000D70((*v66 + v65), (v9 + 28)))
+            v63 = 0;
+            v64 = 736;
+            while (sub_100000D70((*v65 + v64), (v9 + 28)))
             {
-              ++v64;
-              v65 += 760;
-              if (v64 >= v66[2])
+              ++v63;
+              v64 += 760;
+              if (v63 >= v65[2])
               {
                 goto LABEL_19;
               }
@@ -2298,17 +2264,11 @@ LABEL_75:
 
 LABEL_19:
         *(v9 + 24) = 1;
-        v30 = *(v9 + 16);
-        v37 = v101;
-        v25 = v102;
+        v36 = v84;
+        v25 = v85;
         if (sub_100001E30(**(*v9 + 56)))
         {
-          v97 = *(v9 + 32);
-          v99 = *(v9 + 33);
-          v93 = *(v9 + 30);
-          v95 = *(v9 + 31);
-          v91 = *(v9 + 29);
-          sub_100016A20(4, "Failed to add BSS (BSSID=%02x:%02x:%02x:%02x:%02x:%02x)", v31, v32, v33, v34, v35, v36, *(v9 + 28));
+          sub_100016A20(4, "Failed to add BSS (BSSID=%02x:%02x:%02x:%02x:%02x:%02x)", v30, v31, v32, v33, v34, v35, *(v9 + 28));
           return 0xFFFFFFFFLL;
         }
       }
@@ -2316,75 +2276,69 @@ LABEL_19:
       else
       {
         v27 = (v9 + 16);
-        v37 = *(v9 + 16);
+        v36 = *(v9 + 16);
       }
 
       sub_100002C94(v9);
       sub_100001DB0(v9);
-      v38 = 0;
-      v39 = *(v9 + 16);
+      v37 = 0;
+      v38 = *(v9 + 16);
       do
       {
-        v89 = 0;
-        if ((*(v9 + 2416))(v39, v9, 0, 0, v38, v38 == 0, 0, 0))
+        v83 = 0;
+        if ((*(v9 + 2416))(v38, v9, 0, 0, v37, v37 == 0, 0, 0))
         {
-          sub_100016A20(1, "Failed to clear default encryption keys (ifname=%s keyidx=%d)", v40, v41, v42, v43, v44, v45, v39);
+          sub_100016A20(1, "Failed to clear default encryption keys (ifname=%s keyidx=%d)", v39, v40, v41, v42, v43, v44, v38);
         }
 
-        v38 = (v38 + 1);
+        v37 = (v37 + 1);
       }
 
-      while (v38 != 4);
-      v46 = *v27;
+      while (v37 != 4);
+      v45 = *v27;
       if (*(*v27 + 492))
       {
-        v47 = 4;
+        v46 = 4;
         do
         {
-          v89 = 0;
-          if ((*(v9 + 2416))(v39, v9, 0, 0, v47, 0, 0, 0))
+          v83 = 0;
+          if ((*(v9 + 2416))(v38, v9, 0, 0, v46, 0, 0, 0))
           {
-            sub_100016A20(1, "Failed to clear default mgmt encryption keys (ifname=%s keyidx=%d)", v48, v49, v50, v51, v52, v53, v39);
+            sub_100016A20(1, "Failed to clear default mgmt encryption keys (ifname=%s keyidx=%d)", v47, v48, v49, v50, v51, v52, v38);
           }
 
-          v47 = (v47 + 1);
+          v46 = (v46 + 1);
         }
 
-        while (v47 != 6);
-        v46 = *v27;
+        while (v46 != 6);
+        v45 = *v27;
       }
 
-      if (sub_100002D48(v46, v9))
+      if (sub_100002D48(v45, v9))
       {
         return 0xFFFFFFFFLL;
       }
 
-      v54 = sub_100001DF0(v9);
-      if ((v54 & 0x80000000) != 0)
+      v53 = sub_100001DF0(v9);
+      if ((v53 & 0x80000000) != 0)
       {
         v23 = "Could not read SSID from system";
         goto LABEL_75;
       }
 
-      if (!*(v37 + 200))
+      if (!*(v36 + 200))
       {
-        *(v37 + 192) = v54;
-        memcpy((v37 + 152), __src, v54);
-        *(v37 + 152 + *(v37 + 192)) = 0;
+        *(v36 + 192) = v53;
+        memcpy((v36 + 152), __src, v53);
+        *(v36 + 152 + *(v36 + 192)) = 0;
       }
 
       if (!sub_1000020C8(v9))
       {
-        v100 = *(v9 + 33);
-        v96 = *(v9 + 31);
-        v98 = *(v9 + 32);
-        v92 = *(v9 + 29);
-        v94 = *(v9 + 30);
-        v90 = *(v9 + 28);
-        sub_100016A20(2, "Using interface %s with hwaddr %02x:%02x:%02x:%02x:%02x:%02x and ssid '%s'", v56, v57, v58, v59, v60, v61, *(v9 + 16));
+        sub_100016A20(2, "Using interface %s with hwaddr %02x:%02x:%02x:%02x:%02x:%02x and ssid '%s'", v55, v56, v57, v58, v59, v60, *(v9 + 16));
       }
 
-      if (sub_100000DD0(v37, v55, v56, v57, v58, v59, v60, v61))
+      if (sub_100000DD0(v36, v54, v55, v56, v57, v58, v59, v60))
       {
         v23 = "WPA-PSK setup failed.";
         goto LABEL_75;
@@ -2392,7 +2346,7 @@ LABEL_19:
 
       if (!dword_100040010)
       {
-        *(*(v37 + 136) + 52) = 1;
+        *(*(v36 + 136) + 52) = 1;
       }
 
       if (sub_100003C4C())
@@ -2412,7 +2366,7 @@ LABEL_19:
         goto LABEL_75;
       }
 
-      v62 = *v27;
+      v61 = *v27;
       if (*(*v27 + 484))
       {
         if (sub_10000AAA4(v9))
@@ -2420,18 +2374,18 @@ LABEL_19:
           return 0xFFFFFFFFLL;
         }
 
-        v62 = *v27;
+        v61 = *v27;
       }
 
-      if (*(v62 + 420))
+      if (*(v61 + 420))
       {
         *(v9 + 2600) = 0;
         v23 = "IEEE 802.11F (IAPP) initialization failed.";
         goto LABEL_75;
       }
 
-      v63 = *(*v9 + 2232);
-      if (v63 && v63(v9))
+      v62 = *(*v9 + 2232);
+      if (v62 && v62(v9))
       {
         v23 = "Failed to setup control interface";
         goto LABEL_75;
@@ -2449,36 +2403,31 @@ LABEL_19:
     while (v24 < *(a1 + 48));
   }
 
+  v66 = 0;
   v67 = 0;
-  v68 = 0;
-  v69 = **(a1 + 56);
+  v68 = **(a1 + 56);
   do
   {
-    v70 = (*(a1 + 40) + v68);
-    if (v70[28])
+    if (*(*(a1 + 40) + v67 + 112))
     {
-      v71 = v70[24];
-      v72 = v70[25];
-      v73 = v70[26];
-      v74 = v70[27];
-      if (sub_100002020(v69))
+      if (sub_100002020(v68))
       {
-        sub_100016A20(1, "Failed to set TX queue parameters for queue %d.", v75, v76, v77, v78, v79, v80, v67);
+        sub_100016A20(1, "Failed to set TX queue parameters for queue %d.", v69, v70, v71, v72, v73, v74, v66);
       }
     }
 
-    v68 += 20;
-    v67 = (v67 + 1);
+    v67 += 20;
+    v66 = (v66 + 1);
   }
 
-  while (v68 != 160);
+  while (v67 != 160);
   if ((sub_100002080(v9) & 0x80000000) != 0)
   {
-    sub_100016A20(4, "%s: Failed to commit driver configuration", v81, v82, v83, v84, v85, v86, "hostapd_setup_interface_complete");
+    sub_100016A20(4, "%s: Failed to commit driver configuration", v75, v76, v77, v78, v79, v80, "hostapd_setup_interface_complete");
     return 0xFFFFFFFFLL;
   }
 
-  sub_100016A20(1, "%s: Setup of interface done.", v81, v82, v83, v84, v85, v86, *(**(a1 + 56) + 16));
+  sub_100016A20(1, "%s: Setup of interface done.", v75, v76, v77, v78, v79, v80, *(**(a1 + 56) + 16));
   return 0;
 }
 
@@ -2490,224 +2439,201 @@ uint64_t sub_1000034F8(void *a1)
   v5 = *v2;
   if (v3 >= 2)
   {
-    v6 = *(v4 + 294);
-    v7 = *(v4 + 295);
+    v6 = v4[294];
+    v7 = v4[295];
     for (i = 1; i != v3; ++i)
     {
-      *(v2[i] + 294) = v6;
-      *(v2[i] + 295) = v7;
+      *(v2[i] + 2352) = v6;
+      *(v2[i] + 2360) = v7;
     }
 
     v5 = *v2;
   }
 
-  v63 = 0;
-  v62 = 0;
+  v46 = 0;
+  v45 = 0;
   v9 = *(a1[5] + 16);
   if (sub_1000020C8(v5))
   {
     goto LABEL_6;
   }
 
-  v26 = 32 - __clz(v9 - 1);
+  v23 = 32 - __clz(v9 - 1);
   if (v9 == 1)
   {
-    LODWORD(v27) = 0;
+    LODWORD(v24) = 0;
   }
 
   else
   {
-    LODWORD(v27) = v26;
+    LODWORD(v24) = v23;
   }
 
-  v28 = a1[5];
-  if (!v28[2])
+  v25 = a1[5];
+  if (!v25[2])
   {
-    v34 = 0;
+    v31 = 0;
 LABEL_37:
-    v40 = 1;
+    v37 = 1;
     goto LABEL_38;
   }
 
-  v29 = 0;
-  v30 = 0;
-  v31 = 0;
+  v26 = 0;
+  v27 = 0;
+  v28 = 0;
   do
   {
-    if (sub_100000DA4((*v28 + 760 * v29 + 736)))
+    if (sub_100000DA4((*v25 + 760 * v26 + 736)))
     {
-      v32 = 0;
-      v28 = a1[5];
-      v33 = *v28 + 760 * v31 + 736;
+      v29 = 0;
+      v25 = a1[5];
+      v30 = *v25 + 760 * v28 + 736;
       do
       {
-        *(&v62 + v32) |= v5[v32 + 28] ^ *(v33 + v32);
-        ++v32;
+        *(&v45 + v29) |= *(v5 + 28 + v29) ^ *(v30 + v29);
+        ++v29;
       }
 
-      while (v32 != 6);
+      while (v29 != 6);
     }
 
     else
     {
-      if (v31)
+      if (v28)
       {
-        ++v30;
+        ++v27;
       }
 
-      v28 = a1[5];
+      v25 = a1[5];
     }
 
-    v34 = v28[2];
-    v29 = ++v31;
+    v31 = v25[2];
+    v26 = ++v28;
   }
 
-  while (v34 > v31);
-  if (!v30)
+  while (v31 > v28);
+  if (!v27)
   {
     goto LABEL_37;
   }
 
-  v35 = 0;
-  v36 = 40;
+  v32 = 0;
+  v33 = 40;
   while (1)
   {
-    v37 = *(&v62 + v35);
-    if (*(&v62 + v35))
+    v34 = *(&v45 + v32);
+    if (*(&v45 + v32))
     {
       break;
     }
 
-    ++v35;
-    v36 -= 8;
-    if (v35 == 6)
+    ++v32;
+    v33 -= 8;
+    if (v32 == 6)
     {
-      v36 = 0;
+      v33 = 0;
       goto LABEL_31;
     }
   }
 
   do
   {
-    v38 = v37 >> 1;
-    ++v36;
-    v39 = v37 > 1;
-    v37 >>= 1;
+    v35 = v34 >> 1;
+    ++v33;
+    v36 = v34 > 1;
+    v34 >>= 1;
   }
 
-  while (v39);
-  *(&v62 + v35) = v38;
+  while (v36);
+  *(&v45 + v32) = v35;
 LABEL_31:
-  if (v27 <= v36)
+  if (v24 <= v33)
   {
-    v27 = v36;
+    v24 = v33;
   }
 
   else
   {
-    v27 = v27;
+    v24 = v24;
   }
 
-  if (v27 >= 0x29)
+  if (v24 >= 0x29)
   {
-    sub_100016A20(4, "Too many bits in the BSSID mask (%u)", v10, v11, v12, v13, v14, v15, v27);
+    sub_100016A20(4, "Too many bits in the BSSID mask (%u)", v10, v11, v12, v13, v14, v15, v24);
     goto LABEL_55;
   }
 
-  v63 = -1;
-  v62 = -1;
-  v44 = 5;
-  if (v27 >= 8)
+  v46 = -1;
+  v45 = -1;
+  v41 = 5;
+  if (v24 >= 8)
   {
-    v44 = 5 - (v27 >> 3);
-    bzero(&v62 - (v27 >> 3) + 6, v27 >> 3);
+    v41 = 5 - (v24 >> 3);
+    bzero(&v45 - (v24 >> 3) + 6, v24 >> 3);
   }
 
-  v45 = v27 & 7;
-  if ((v27 & 7) != 0)
+  v42 = v24 & 7;
+  if ((v24 & 7) != 0)
   {
-    v46 = *(&v62 + v44);
+    v43 = *(&v45 + v41);
     do
     {
-      v46 *= 2;
-      --v45;
+      v43 *= 2;
+      --v42;
     }
 
-    while (v45);
-    v40 = 0;
-    *(&v62 + v44) = v46;
+    while (v42);
+    v37 = 0;
+    *(&v45 + v41) = v43;
   }
 
   else
   {
-    v40 = 0;
+    v37 = 0;
   }
 
 LABEL_38:
-  sub_100016A20(1, "BSS count %lu, BSSID mask %02x:%02x:%02x:%02x:%02x:%02x (%d bits)", v10, v11, v12, v13, v14, v15, v34);
-  v41 = sub_100002040(v5);
-  if (v41)
+  sub_100016A20(1, "BSS count %lu, BSSID mask %02x:%02x:%02x:%02x:%02x:%02x (%d bits)", v10, v11, v12, v13, v14, v15, v31);
+  v38 = sub_100002040(v5);
+  if (v38)
   {
-    if (v41 < 0)
+    if (v38 < 0)
     {
-      v56 = v5[32];
-      v58 = v5[33];
-      v52 = v5[30];
-      v54 = v5[31];
-      v48 = v5[28];
-      v50 = v5[29];
-      sub_100016A20(4, "Driver did not accept BSSID mask %02x:%02x:%02x:%02x:%02x:%02x for start address %02x:%02x:%02x:%02x:%02x:%02x.", v10, v11, v12, v13, v14, v15, v62);
+      sub_100016A20(4, "Driver did not accept BSSID mask %02x:%02x:%02x:%02x:%02x:%02x for start address %02x:%02x:%02x:%02x:%02x:%02x.", v10, v11, v12, v13, v14, v15, v45);
       goto LABEL_55;
     }
 
-    if ((v40 & 1) == 0)
+    if ((v37 & 1) == 0)
     {
-      v42 = 0;
-      while ((v5[v42 + 28] & ~*(&v62 + v42)) == 0)
+      v39 = 0;
+      while ((*(v5 + 28 + v39) & ~*(&v45 + v39)) == 0)
       {
-        if (++v42 == 6)
+        if (++v39 == 6)
         {
           goto LABEL_6;
         }
       }
 
-      v57 = v5[32];
-      v59 = v5[33];
-      v53 = v5[30];
-      v55 = v5[31];
-      v49 = v5[28];
-      v51 = v5[29];
-      sub_100016A20(4, "Invalid BSSID mask %02x:%02x:%02x:%02x:%02x:%02x for start address %02x:%02x:%02x:%02x:%02x:%02x.", v10, v11, v12, v13, v14, v15, v62);
-      v43 = "Start address must be the first address in the block (i.e., addr AND mask == addr).";
+      sub_100016A20(4, "Invalid BSSID mask %02x:%02x:%02x:%02x:%02x:%02x for start address %02x:%02x:%02x:%02x:%02x:%02x.", v10, v11, v12, v13, v14, v15, v45);
+      v40 = "Start address must be the first address in the block (i.e., addr AND mask == addr).";
       goto LABEL_54;
     }
   }
 
 LABEL_6:
-  v16 = *(v4 + 1);
-  v18 = *(v16 + 88);
-  v17 = (v16 + 88);
-  if (v18)
+  if (*(v4[1] + 88) && *(v4[1] + 89) && (sub_100001FA0(v4) & 0x80000000) != 0)
   {
-    if (*(*(v4 + 1) + 89))
-    {
-      v60 = *v17;
-      v61 = *(v17 + 2);
-      if ((sub_100001FA0(v4) & 0x80000000) != 0)
-      {
-        v43 = "Failed to set country code";
+    v40 = "Failed to set country code";
 LABEL_54:
-        sub_100016A20(4, v43, v10, v11, v12, v13, v14, v15, v47);
-        goto LABEL_55;
-      }
-    }
+    sub_100016A20(4, v40, v10, v11, v12, v13, v14, v15, v44);
+    goto LABEL_55;
   }
 
   result = sub_100002F20(a1, 0, v10, v11, v12, v13, v14, v15);
   if (result)
   {
 LABEL_55:
-    sub_100016A20(4, "%s: Unable to setup interface.", v20, v21, v22, v23, v24, v25, *(*a1[7] + 16));
+    sub_100016A20(4, "%s: Unable to setup interface.", v17, v18, v19, v20, v21, v22, *(*a1[7] + 16));
     return 0xFFFFFFFFLL;
   }
 
@@ -2743,23 +2669,23 @@ void sub_10000394C(uint64_t a1, uint64_t a2, int a3)
   else
   {
     sub_100005E00(a1, a2 + 16);
-    sub_100020210(a1, a2, v7, v8, v9, v10, v11, v12, v22);
+    sub_100020210(a1, a2);
     if (a3)
     {
       if (*(a2 + 70) != 2 && (*(a2 + 25) & 0x30) == 0)
       {
-        v21 = *(a2 + 168);
+        v15 = *(a2 + 168);
 
-        sub_1000089A4(v21, 4);
+        sub_1000089A4(v15, 4);
       }
     }
 
     else
     {
-      v19 = *(a1 + 2624);
-      v20 = *(a2 + 168);
+      v13 = *(a1 + 2624);
+      v14 = *(a2 + 168);
 
-      sub_10000732C(v19, v20, v13, v14, v15, v16, v17, v18);
+      sub_10000732C(v13, v14, v7, v8, v9, v10, v11, v12);
     }
   }
 }
@@ -2783,13 +2709,12 @@ void sub_100003A38(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
       *(v10 + 2600) = 0;
       sub_10000B228(v10, v11, v12, v13, v14, v15, v16, v17);
       sub_100003C54(v10);
-      nullsub_2(v10);
+      nullsub_2();
       if (*(v10 + 24))
       {
-        v19 = *(v10 + 16);
         if (sub_100001E50(v10))
         {
-          sub_100016A20(3, "Failed to remove BSS interface %s", v20, v21, v22, v23, v24, v25, *(v10 + 16));
+          sub_100016A20(3, "Failed to remove BSS interface %s", v19, v20, v21, v22, v23, v24, *(v10 + 16));
         }
       }
 
@@ -2944,7 +2869,6 @@ uint64_t sub_100003D50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return 0;
   }
 
-  v22 = *(a1 + 2216);
   sub_100016A20(1, "%s current operation mode=0x%X", a3, a4, a5, a6, a7, a8, "hostapd_ht_operation_update");
   v17 = *(a1 + 2216);
   v18 = *(a1 + 2200);
@@ -3069,53 +2993,26 @@ uint64_t sub_100003F34(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
   if ((*(a2 + 25) & 8) != 0 && (v10 = *(a2 + 208)) != 0)
   {
     v11 = *v10;
-    v32 = *(a2 + 21);
-    v24 = *(a2 + 19);
-    v28 = *(a2 + 20);
-    v16 = *(a2 + 17);
-    v20 = *(a2 + 18);
     sub_100016A20(1, "HT: STA %02x:%02x:%02x:%02x:%02x:%02x HT Capabilities Info: 0x%04x", a3, a4, a5, a6, a7, a8, *(a2 + 16));
     if ((v11 & 0x10) == 0)
     {
-      if ((*(a2 + 68) & 8) != 0)
-      {
-        v12 = *(*a1 + 2200);
-      }
-
-      else
+      if ((*(a2 + 68) & 8) == 0)
       {
         *(a2 + 68) |= 8u;
         ++*(*a1 + 2200);
       }
 
-      v37 = *(a2 + 21);
-      v30 = *(a2 + 19);
-      v34 = *(a2 + 20);
-      v22 = *(a2 + 17);
-      v26 = *(a2 + 18);
-      v18 = *(a2 + 16);
       sub_100016A20(1, "%s STA %02x:%02x:%02x:%02x:%02x:%02x - no greenfield, num of non-gf stations %d", a3, a4, a5, a6, a7, a8, "update_sta_ht");
     }
 
     if ((v11 & 2) == 0)
     {
-      if ((*(a2 + 68) & 0x20) != 0)
-      {
-        v13 = *(*a1 + 2208);
-      }
-
-      else
+      if ((*(a2 + 68) & 0x20) == 0)
       {
         *(a2 + 68) |= 0x20u;
         ++*(*a1 + 2208);
       }
 
-      v38 = *(a2 + 21);
-      v31 = *(a2 + 19);
-      v35 = *(a2 + 20);
-      v23 = *(a2 + 17);
-      v27 = *(a2 + 18);
-      v19 = *(a2 + 16);
       sub_100016A20(1, "%s STA %02x:%02x:%02x:%02x:%02x:%02x - 20 MHz HT, num of 20MHz HT STAs %d", a3, a4, a5, a6, a7, a8, "update_sta_ht");
     }
   }
@@ -3130,20 +3027,13 @@ uint64_t sub_100003F34(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
 
     if (*(a1[1] + 344))
     {
-      v36 = *(a2 + 21);
-      v39 = *(*a1 + 2204);
-      v29 = *(a2 + 19);
-      v33 = *(a2 + 20);
-      v21 = *(a2 + 17);
-      v25 = *(a2 + 18);
-      v17 = *(a2 + 16);
       sub_100016A20(1, "%s STA %02x:%02x:%02x:%02x:%02x:%02x - no HT, num of non-HT stations %d", a3, a4, a5, a6, a7, a8, "update_sta_no_ht");
     }
   }
 
-  v14 = *a1;
+  v12 = *a1;
 
-  return sub_100003D50(v14, a2, a3, a4, a5, a6, a7, a8);
+  return sub_100003D50(v12, a2, a3, a4, a5, a6, a7, a8);
 }
 
 __n128 sub_100004110(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3198,7 +3088,7 @@ uint64_t sub_100004144(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, u
   return result;
 }
 
-uint64_t sub_100004204(uint64_t a1, void *a2, size_t a3, _OWORD *a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, int a9)
+uint64_t sub_100004204(uint64_t a1, void *a2, size_t a3, _OWORD *a4, uint64_t a5, uint64_t a6, unsigned int a7, uint64_t a8, int a9)
 {
   if (a3 > 0x20)
   {
@@ -3222,9 +3112,9 @@ uint64_t sub_100004204(uint64_t a1, void *a2, size_t a3, _OWORD *a4, uint64_t a5
       sub_10000D138(a2, a3, a5, a6, (v9 + 16), v21);
     }
 
-    v41[0] = 0;
-    v41[1] = 0;
-    sub_1000162A8(v41);
+    v36[0] = 0;
+    v36[1] = 0;
+    sub_1000162A8(v36);
     if (a7 <= 0)
     {
       v22 = 43200;
@@ -3235,7 +3125,7 @@ uint64_t sub_100004204(uint64_t a1, void *a2, size_t a3, _OWORD *a4, uint64_t a5
       v22 = a7;
     }
 
-    *(v9 + 72) = v41[0] + v22;
+    *(v9 + 72) = v36[0] + v22;
     *(v9 + 80) = a9;
     v23 = *(a6 + 4);
     *(v9 + 84) = *a6;
@@ -3270,12 +3160,7 @@ uint64_t sub_100004204(uint64_t a1, void *a2, size_t a3, _OWORD *a4, uint64_t a5
       v34 = *(a1 + 1024);
       if (v34)
       {
-        v39 = v34[88];
-        v40 = v34[89];
-        v37 = v34[86];
-        v38 = v34[87];
-        v36 = v34[85];
-        sub_100016A20(1, "RSN: removed the oldest PMKSA cache entry (for %02x:%02x:%02x:%02x:%02x:%02x) to make room for new one", v28, v29, v30, v31, v32, v33, v34[84]);
+        sub_100016A20(1, "RSN: removed the oldest PMKSA cache entry (for %02x:%02x:%02x:%02x:%02x:%02x) to make room for new one", v28, v29, v30, v31, v32, v33, *(v34 + 84));
         sub_100004450(a1, *(a1 + 1024));
       }
     }
@@ -3436,11 +3321,6 @@ LABEL_8:
   *(a2 + 8) = *(a1 + 8 * v14);
   *(a1 + 8 * v14) = a2;
   ++*(a1 + 1032);
-  v19 = *(a2 + 88);
-  v20 = *(a2 + 89);
-  v17 = *(a2 + 86);
-  v18 = *(a2 + 87);
-  v16 = *(a2 + 85);
   sub_100016A20(1, "RSN: added PMKSA cache entry for %02x:%02x:%02x:%02x:%02x:%02x", a3, a4, a5, a6, a7, a8, *(a2 + 84));
 
   return sub_100016A94(1, "RSN: added PMKID", v13, 16);
@@ -3518,22 +3398,17 @@ void sub_100004770(void **a1)
 
 uint64_t sub_1000047B4(uint64_t a1)
 {
-  v16[0] = 0;
-  v16[1] = 0;
-  sub_1000162A8(v16);
+  v11[0] = 0;
+  v11[1] = 0;
+  sub_1000162A8(v11);
   for (i = *(a1 + 1024); i; i = *(a1 + 1024))
   {
-    if (*(i + 72) > v16[0])
+    if (*(i + 72) > v11[0])
     {
       break;
     }
 
     *(a1 + 1024) = *i;
-    v14 = *(i + 88);
-    v15 = *(i + 89);
-    v12 = *(i + 86);
-    v13 = *(i + 87);
-    v11 = *(i + 85);
     sub_100016A20(1, "RSN: expired PMKSA cache entry for %02x:%02x:%02x:%02x:%02x:%02x", v2, v3, v4, v5, v6, v7, *(i + 84));
     sub_100004450(a1, i);
   }
@@ -3541,10 +3416,10 @@ uint64_t sub_1000047B4(uint64_t a1)
   result = sub_10002662C(sub_1000047B4, a1, 0, v3, v4, v5, v6, v7);
   if (*(a1 + 1024))
   {
-    v17[0] = 0;
-    v17[1] = 0;
-    sub_1000162A8(v17);
-    v10 = *(*(a1 + 1024) + 72) - LODWORD(v17[0]);
+    v12[0] = 0;
+    v12[1] = 0;
+    sub_1000162A8(v12);
+    v10 = *(*(a1 + 1024) + 72) - LODWORD(v12[0]);
     return sub_100026404((v10 & ~(v10 >> 31)) + 1, 0, sub_1000047B4, a1, 0);
   }
 
@@ -3667,11 +3542,6 @@ void sub_100004A90(uint64_t a1, unsigned __int16 *a2, uint64_t a3, uint64_t a4, 
         }
       }
 
-      v42 = *(a2 + 20);
-      v44 = *(a2 + 21);
-      v38 = *(a2 + 18);
-      v40 = *(a2 + 19);
-      v36 = *(a2 + 17);
       sub_100016A20(1, "AP: could not remove STA %02x:%02x:%02x:%02x:%02x:%02x from hash table", a3, a4, a5, a6, a7, a8, *(a2 + 16));
     }
   }
@@ -3696,11 +3566,6 @@ LABEL_19:
       }
     }
 
-    v43 = *(a2 + 20);
-    v45 = *(a2 + 21);
-    v39 = *(a2 + 18);
-    v41 = *(a2 + 19);
-    v37 = *(a2 + 17);
     sub_100016A20(1, "Could not remove STA %02x:%02x:%02x:%02x:%02x:%02x from list.", a3, a4, a5, a6, a7, a8, *(a2 + 16));
   }
 
@@ -3809,7 +3674,7 @@ void sub_100004DA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v10 = *(a2 + 80);
   if (v10 == 3)
   {
-    sub_100016EE4(a1, (a2 + 16), 1, 2, "deauthenticated due to local deauth request", a6, a7, a8, v47);
+    sub_100016EE4(a1, (a2 + 16), 1, 2, "deauthenticated due to local deauth request");
 
     sub_100004A90(a1, a2, v11, v12, v13, v14, v15, v16);
     return;
@@ -3817,20 +3682,10 @@ void sub_100004DA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
   if (v10 <= 1 && (*(a2 + 24) & 2) != 0)
   {
-    v56 = *(a2 + 20);
-    v59 = *(a2 + 21);
-    v50 = *(a2 + 18);
-    v53 = *(a2 + 19);
-    v48 = *(a2 + 17);
     sub_100016A20(1, "Checking STA %02x:%02x:%02x:%02x:%02x:%02x inactivity:", a3, a4, a5, a6, a7, a8, *(a2 + 16));
     v18 = (*(a1 + 2520))(a1, a2 + 16);
     if (v18 == -1)
     {
-      v57 = *(a2 + 20);
-      v60 = *(a2 + 21);
-      v51 = *(a2 + 18);
-      v54 = *(a2 + 19);
-      v49 = *(a2 + 17);
       sub_100016A20(1, "Could not get station info from kernel driver for %02x:%02x:%02x:%02x:%02x:%02x.", a3, a4, a5, a6, a7, a8, *(a2 + 16));
     }
 
@@ -3839,7 +3694,7 @@ void sub_100004DA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
       v19 = v18;
       if (v18 < *(*(a1 + 16) + 700) && (*(a2 + 24) & 2) != 0)
       {
-        sub_100016A20(1, "  Station has been active", a3, a4, a5, a6, a7, a8, v47);
+        sub_100016A20(1, "  Station has been active", a3, a4, a5, a6, a7, a8, v33);
         *(a2 + 80) = 0;
         v20 = *(*(a1 + 16) + 700) - v19;
         goto LABEL_15;
@@ -3852,7 +3707,7 @@ LABEL_15:
   v21 = *(a2 + 24);
   if ((v21 & 2) != 0 && (v21 & 0x40) == 0 && *(a2 + 80) == 1)
   {
-    sub_100016A20(1, "  Station has ACKed data poll", a3, a4, a5, a6, a7, a8, v47);
+    sub_100016A20(1, "  Station has ACKed data poll", a3, a4, a5, a6, a7, a8, v33);
     *(a2 + 80) = 0;
     v20 = *(*(a1 + 16) + 700);
   }
@@ -3873,29 +3728,29 @@ LABEL_15:
 
     if (!v22 && (*(a2 + 24) & 2) != 0)
     {
-      sub_100016A20(1, "  Polling STA with data frame", a3, a4, a5, a6, a7, a8, v47);
+      sub_100016A20(1, "  Polling STA with data frame", a3, a4, a5, a6, a7, a8, v33);
       *(a2 + 24) |= 0x40u;
-      memset(v65, 0, sizeof(v65));
-      v64 = 0;
-      v25 = *(a1 + 2352);
-      if (v25 && !strcmp(*v25, "hostap"))
+      memset(v36, 0, sizeof(v36));
+      v35 = 0;
+      v24 = *(a1 + 2352);
+      if (v24 && !strcmp(*v24, "hostap"))
       {
-        v26 = 520;
+        v25 = 520;
       }
 
       else
       {
-        v26 = 584;
+        v25 = 584;
       }
 
-      v63 = v26;
-      *(&v64 + 2) = *(a2 + 16);
-      HIWORD(v64) = *(a2 + 20);
-      *v65 = *(a1 + 28);
-      *&v65[4] = *(a1 + 32);
-      *&v65[6] = *v65;
-      *&v65[10] = *&v65[4];
-      if (((*(a1 + 2376))(a1, &v63, 24) & 0x80000000) != 0)
+      v34 = v25;
+      *(&v35 + 2) = *(a2 + 16);
+      HIWORD(v35) = *(a2 + 20);
+      *v36 = *(a1 + 28);
+      *&v36[4] = *(a1 + 32);
+      *&v36[6] = *v36;
+      *&v36[10] = *&v36[4];
+      if (((*(a1 + 2376))(a1, &v34, 24) & 0x80000000) != 0)
       {
         perror("ap_handle_timer: send");
       }
@@ -3904,17 +3759,11 @@ LABEL_15:
     else
     {
       v23 = "disassociation";
-      v24 = *(a2 + 16);
       if (v22 == 2)
       {
         v23 = "deauthentication";
       }
 
-      v61 = *(a2 + 20);
-      v62 = *(a2 + 21);
-      v55 = *(a2 + 18);
-      v58 = *(a2 + 19);
-      v52 = *(a2 + 17);
       sub_100016A20(1, "Sending %s info to STA %02x:%02x:%02x:%02x:%02x:%02x", a3, a4, a5, a6, a7, a8, v23);
       if (v22 == 2)
       {
@@ -3927,21 +3776,21 @@ LABEL_15:
       }
     }
 
-    v27 = *(a2 + 80);
-    if ((v27 - 2) < 2)
+    v26 = *(a2 + 80);
+    if ((v26 - 2) < 2)
     {
 LABEL_41:
-      sub_100016EE4(a1, (a2 + 16), 1, 2, "deauthenticated due to inactivity", a6, a7, a8, v47);
+      sub_100016EE4(a1, (a2 + 16), 1, 2, "deauthenticated due to inactivity");
       if (!*(a2 + 124))
       {
         *(a2 + 124) = 4;
       }
 
-      sub_10001B9A0(a1, a2, 2, v28, v29, v30, v31, v32);
-      sub_100004A90(a1, a2, v33, v34, v35, v36, v37, v38);
+      sub_10001B9A0(a1, a2, 2);
+      sub_100004A90(a1, a2, v27, v28, v29, v30, v31, v32);
     }
 
-    else if (v27 == 1)
+    else if (v26 == 1)
     {
       *(a2 + 24) &= ~2u;
       sub_100020C7C(*(a2 + 88), 0);
@@ -3951,13 +3800,13 @@ LABEL_41:
       }
 
       sub_1000203E4(a2);
-      sub_100016EE4(a1, (a2 + 16), 1, 2, "disassociated due to inactivity", v39, v40, v41, v47);
+      sub_100016EE4(a1, (a2 + 16), 1, 2, "disassociated due to inactivity");
       *(a2 + 80) = 2;
       sub_100026404(1u, 0, sub_100004DA8, a1, a2);
-      sub_10001BB78(a1, a2, 4, v42, v43, v44, v45, v46);
+      sub_10001BB78(a1, a2, 4);
     }
 
-    else if (!v27)
+    else if (!v26)
     {
       *(a2 + 80) = 1;
       sub_100026404(1u, 0, sub_100004DA8, a1, a2);
@@ -3965,18 +3814,18 @@ LABEL_41:
   }
 }
 
-uint64_t sub_1000051E8(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1000051E8(uint64_t result, uint64_t a2)
 {
   if (*(a2 + 24))
   {
-    v9 = result;
-    sub_10001B9A0(result, a2, 2, a4, a5, a6, a7, a8);
-    sub_100016EE4(v9, (a2 + 16), 1, 2, "deauthenticated due to session timeout", v10, v11, v12, v13);
+    v3 = result;
+    sub_10001B9A0(result, a2, 2);
+    sub_100016EE4(v3, (a2 + 16), 1, 2, "deauthenticated due to session timeout");
     *(a2 + 124) = 5;
-    v14 = *(a2 + 16);
-    v15 = *(a2 + 20);
-    sub_100004A90(v9, a2);
-    return (*(v9 + 2528))(v9, &v14, 2);
+    v4 = *(a2 + 16);
+    v5 = *(a2 + 20);
+    sub_100004A90(v3, a2);
+    return (*(v3 + 2528))(v3, &v4, 2);
   }
 
   return result;
@@ -4010,7 +3859,7 @@ void sub_10000527C(uint64_t a1, uint64_t a2)
     *(a2 + 216) = v7 + 1;
     sub_1000164A4(&v6[2 * v7], 2uLL);
     sub_100026404(((*(*(a1 + 16) + 500) / 0x3E8u) << 10) / 0x3E8, (*(*(a1 + 16) + 500) % 0x3E8u) << 10, sub_10000527C, a1, a2);
-    sub_100016EE4(a1, (a2 + 16), 1, 1, "association SA Query attempt %d", v8, v9, v10, *(a2 + 216));
+    sub_100016EE4(a1, (a2 + 16), 1, 1, "association SA Query attempt %d", *(a2 + 216));
   }
 }
 
@@ -4023,15 +3872,10 @@ void sub_100005394(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     {
       if (v8[24])
       {
-        sub_10001B9A0(a1, v8, 1, a4, a5, a6, a7, a8);
+        sub_10001B9A0(a1, v8, 1);
       }
 
       v10 = *v8;
-      v20 = v8[20];
-      v21 = v8[21];
-      v18 = v8[18];
-      v19 = v8[19];
-      v17 = v8[17];
       sub_100016A20(1, "Removing station %02x:%02x:%02x:%02x:%02x:%02x", a3, a4, a5, a6, a7, a8, v8[16]);
       sub_100004A90(a1, v8, v11, v12, v13, v14, v15, v16);
       v8 = v10;
@@ -4041,16 +3885,16 @@ void sub_100005394(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 }
 
-uint64_t sub_100005434(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100005434(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = a3;
-  sub_100016EE4(a1, (a2 + 16), 1, 1, "setting session timeout to %d seconds", a6, a7, a8, a3);
-  sub_10002662C(sub_1000051E8, a1, a2, v11, v12, v13, v14, v15);
+  v3 = a3;
+  sub_100016EE4(a1, (a2 + 16), 1, 1, "setting session timeout to %d seconds", a3);
+  sub_10002662C(sub_1000051E8, a1, a2, v6, v7, v8, v9, v10);
 
-  return sub_100026404(v8, 0, sub_1000051E8, a1, a2);
+  return sub_100026404(v3, 0, sub_1000051E8, a1, a2);
 }
 
-_DWORD *sub_1000054E8(uint64_t a1, uint64_t a2)
+_DWORD *sub_1000054E8(uint64_t *a1, uint64_t a2)
 {
   v4 = sub_100004A40(a1, a2);
   if (v4)
@@ -4068,9 +3912,9 @@ _DWORD *sub_1000054E8(uint64_t a1, uint64_t a2)
   }
 
   sub_100016A20(1, "  New STA", v5, v6, v7, v8, v9, v10, v47);
-  if (*(a1 + 36) >= *(*(a1 + 16) + 64))
+  if (*(a1 + 9) >= *(a1[2] + 64))
   {
-    sub_100016A20(1, "no more room for new STAs (%d/%d)", v18, v19, v20, v21, v22, v23, *(a1 + 36));
+    sub_100016A20(1, "no more room for new STAs (%d/%d)", v18, v19, v20, v21, v22, v23, *(a1 + 9));
     return 0;
   }
 
@@ -4080,19 +3924,19 @@ _DWORD *sub_1000054E8(uint64_t a1, uint64_t a2)
     v31 = v24;
     if (v24)
     {
-      v32 = *(a1 + 16);
+      v32 = a1[2];
       v24[32] = *(v32 + 144);
       sub_100026404(*(v32 + 700), 0, sub_100004DA8, a1, v24);
       v33 = *(a2 + 4);
       v31[4] = *a2;
       *(v31 + 10) = v33;
-      *v31 = *(a1 + 40);
-      *(a1 + 40) = v31;
-      ++*(a1 + 36);
-      v34 = a1 + 8 * *(v31 + 21);
-      *(v31 + 1) = *(v34 + 48);
-      *(v34 + 48) = v31;
-      *(v31 + 23) = *(a1 + 16) + 152;
+      *v31 = a1[5];
+      a1[5] = v31;
+      ++*(a1 + 9);
+      v34 = &a1[*(v31 + 21)];
+      *(v31 + 1) = v34[6];
+      v34[6] = v31;
+      *(v31 + 23) = a1[2] + 152;
       v35 = *a1;
       v36 = *(*a1 + 48);
       if (v36)
@@ -4123,14 +3967,9 @@ _DWORD *sub_1000054E8(uint64_t a1, uint64_t a2)
   return v31;
 }
 
-uint64_t sub_1000056D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *sub_1000056D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v26 = *(a2 + 20);
-  v27 = *(a2 + 21);
-  v24 = *(a2 + 18);
-  v25 = *(a2 + 19);
-  v22 = *(a2 + 16);
-  v23 = *(a2 + 17);
+  v8 = a3;
   sub_100016A20(1, "%s: disassociate STA %02x:%02x:%02x:%02x:%02x:%02x", a3, a4, a5, a6, a7, a8, *(a1 + 16));
   *(a2 + 24) &= ~2u;
   sub_1000057C0(a1, a2);
@@ -4139,28 +3978,18 @@ uint64_t sub_1000056D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   sub_100026404(0x1Eu, 0, sub_100004DA8, a1, a2);
   sub_1000203E4(a2);
 
-  return sub_10001BB78(a1, a2, a3, v16, v17, v18, v19, v20);
+  return sub_10001BB78(a1, a2, v8);
 }
 
 uint64_t sub_1000057C0(uint64_t a1, uint64_t a2)
 {
   sub_100020C7C(*(a2 + 88), 0);
-  v23 = *(a2 + 20);
-  v25 = *(a2 + 21);
-  v19 = *(a2 + 18);
-  v21 = *(a2 + 19);
-  v17 = *(a2 + 17);
   sub_100016A20(1, "Removing STA %02x:%02x:%02x:%02x:%02x:%02x from kernel driver", v4, v5, v6, v7, v8, v9, *(a2 + 16));
   result = (*(a1 + 2552))(a1, a2 + 16);
   if (result)
   {
     if ((*(a2 + 24) & 2) != 0)
     {
-      v24 = *(a2 + 20);
-      v26 = *(a2 + 21);
-      v20 = *(a2 + 18);
-      v22 = *(a2 + 19);
-      v18 = *(a2 + 17);
       return sub_100016A20(1, "Could not remove station %02x:%02x:%02x:%02x:%02x:%02x from kernel driver.", v11, v12, v13, v14, v15, v16, *(a2 + 16));
     }
   }
@@ -4168,14 +3997,9 @@ uint64_t sub_1000057C0(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100005888(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *sub_100005888(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v26 = *(a2 + 20);
-  v27 = *(a2 + 21);
-  v24 = *(a2 + 18);
-  v25 = *(a2 + 19);
-  v22 = *(a2 + 16);
-  v23 = *(a2 + 17);
+  v8 = a3;
   sub_100016A20(1, "%s: deauthenticate STA %02x:%02x:%02x:%02x:%02x:%02x", a3, a4, a5, a6, a7, a8, *(a1 + 16));
   *(a2 + 24) &= 0xFFFFFFFC;
   sub_1000057C0(a1, a2);
@@ -4184,27 +4008,27 @@ uint64_t sub_100005888(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   sub_100026404(5u, 0, sub_100004DA8, a1, a2);
   sub_1000203E4(a2);
 
-  return sub_10001B9A0(a1, a2, a3, v16, v17, v18, v19, v20);
+  return sub_10001B9A0(a1, a2, v8);
 }
 
 uint64_t sub_100005978(uint64_t a1, uint64_t a2)
 {
-  v15 = 0uLL;
-  sub_1000162A8(v15.i64);
-  v7 = vsubq_s64(v15, *(a2 + 232));
-  if (*(*(a1 + 16) + 496) >= ((v7.i64[1] + (v7.i64[1] < 0 ? 0xF4240uLL : 0) + 1000000 * (v7.i64[0] + (v7.i64[1] >> 63))) / 1024))
+  v12 = 0uLL;
+  sub_1000162A8(v12.i64);
+  v4 = vsubq_s64(v12, *(a2 + 232));
+  if (*(*(a1 + 16) + 496) >= ((v4.i64[1] + (v4.i64[1] < 0 ? 0xF4240uLL : 0) + 1000000 * (v4.i64[0] + (v4.i64[1] >> 63))) / 1024))
   {
     return 0;
   }
 
-  v8 = 1;
-  sub_100016EE4(a1, (a2 + 16), 1, 1, "association SA Query timed out", v4, v5, v6, v15.i64[0]);
+  v5 = 1;
+  sub_100016EE4(a1, (a2 + 16), 1, 1, "association SA Query timed out");
   *(a2 + 220) = 1;
   free(*(a2 + 224));
   *(a2 + 224) = 0;
   *(a2 + 216) = 0;
-  sub_10002662C(sub_10000527C, a1, a2, v9, v10, v11, v12, v13);
-  return v8;
+  sub_10002662C(sub_10000527C, a1, a2, v6, v7, v8, v9, v10);
+  return v5;
 }
 
 void sub_100005A68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -4252,33 +4076,28 @@ time_t sub_100005B70(uint64_t a1, unsigned __int8 *a2, int a3)
     v5 = sub_100004A40(a1, a2);
     if (!v5)
     {
-      v36 = a2[4];
-      v37 = a2[5];
-      v34 = a2[2];
-      v35 = a2[3];
-      v33 = a2[1];
       return sub_100016A20(1, "MLME-MICHAELMICFAILURE.indication for not associated STA (%02x:%02x:%02x:%02x:%02x:%02x) ignored", v6, v7, v8, v9, v10, v11, *a2);
     }
 
     sub_10000911C(*(v5 + 168));
-    sub_100016EE4(a1, a2, 1, 2, "Michael MIC failure detected in received frame", v12, v13, v14, v32);
-    sub_10001BBF8(a1, a2, v15, v16, v17, v18, v19, v20);
+    sub_100016EE4(a1, a2, 1, 2, "Michael MIC failure detected in received frame");
+    sub_10001BBF8(a1, a2);
   }
 
-  v38 = 0;
-  result = time(&v38);
-  if (v38 <= *(a1 + 2648) + 60)
+  v20 = 0;
+  result = time(&v20);
+  if (v20 <= *(a1 + 2648) + 60)
   {
-    v25 = *(a1 + 2656);
-    *(a1 + 2656) = v25 + 1;
-    if (v25 >= 1)
+    v13 = *(a1 + 2656);
+    *(a1 + 2656) = v13 + 1;
+    if (v13 >= 1)
     {
-      sub_100016EE4(a1, 0, 1, 2, "TKIP countermeasures initiated", v22, v23, v24, v32);
+      sub_100016EE4(a1, 0, 1, 2, "TKIP countermeasures initiated");
       sub_100009098(*(a1 + 2624));
       *(a1 + 2660) = 1;
       (*(a1 + 2560))(a1, 1);
       sub_100008AD8(*(a1 + 2624));
-      sub_10002662C(sub_100005D28, a1, 0, v26, v27, v28, v29, v30);
+      sub_10002662C(sub_100005D28, a1, 0, v14, v15, v16, v17, v18);
       result = sub_100026404(0x3Cu, 0, sub_100005D28, a1, 0);
       for (i = *(a1 + 40); i; i = *i)
       {
@@ -4294,16 +4113,16 @@ time_t sub_100005B70(uint64_t a1, unsigned __int8 *a2, int a3)
     *(a1 + 2656) = 1;
   }
 
-  *(a1 + 2648) = v38;
+  *(a1 + 2648) = v20;
   return result;
 }
 
-void sub_100005D28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_100005D28(uint64_t a1)
 {
   *(a1 + 2660) = 0;
   (*(a1 + 2560))(a1, 0);
 
-  sub_100016EE4(a1, 0, 1, 2, "TKIP countermeasures ended", v10, v11, v12, a9);
+  sub_100016EE4(a1, 0, 1, 2, "TKIP countermeasures ended");
 }
 
 uint64_t sub_100005D80(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4395,9 +4214,7 @@ uint64_t sub_100005ECC(uint64_t a1, uint64_t a2)
       }
 
       *(v4 - 2) = v3 + v7;
-      v8 = *(v5 - 3);
-      v9 = *(v5 - 4) & 0xF | (16 * v8);
-      *(v4 - 1) = *(v5 - 4) & 0xF | (16 * v8);
+      *(v4 - 1) = *(v5 - 4) & 0xF | (16 * *(v5 - 3));
       *v4 = v6;
       v4 += 2;
       v3 += 32;
@@ -4417,12 +4234,6 @@ uint64_t sub_100005F7C(uint64_t a1, unsigned __int8 *a2, unint64_t a3)
   sub_100016A94(0, "WMM IE", a2, a3);
   if (a3 > 6)
   {
-    v23 = a2[5];
-    v24 = a2[6];
-    v21 = a2[3];
-    v22 = a2[4];
-    v19 = a2[1];
-    v20 = a2[2];
     sub_100016A20(1, "Validating WMM IE: OUI %02x:%02x:%02x  OUI type %d  OUI sub-type %d  version %d  QoS info 0x%x", v5, v6, v7, v8, v9, v10, *a2);
     if (!a2[4] && a2[5] == 1)
     {
@@ -4442,131 +4253,116 @@ uint64_t sub_100005F7C(uint64_t a1, unsigned __int8 *a2, unint64_t a3)
 
 uint64_t sub_100006044(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *(a1 + 8);
   sub_100016A20(1, "WMM: TS Info: UP=%d PSB=%d Direction=%d TID=%d", a3, a4, a5, a6, a7, a8, (*(a1 + 9) >> 3) & 7);
-  *(a1 + 11);
-  sub_100016A20(1, "WMM: Nominal MSDU Size: %d%s", v10, v11, v12, v13, v14, v15, *(a1 + 11) & 0x7FFF);
-  sub_100016A20(1, "WMM: Mean Data Rate: %u bps", v16, v17, v18, v19, v20, v21, *(a1 + 39));
-  sub_100016A20(1, "WMM: Minimum PHY Rate: %u bps", v22, v23, v24, v25, v26, v27, *(a1 + 55));
-  sub_100016A20(1, "WMM: Surplus Bandwidth Allowance: %u.%04u", v28, v29, v30, v31, v32, v33, *(a1 + 59) >> 13);
+  sub_100016A20(1, "WMM: Nominal MSDU Size: %d%s", v9, v10, v11, v12, v13, v14, *(a1 + 11) & 0x7FFF);
+  sub_100016A20(1, "WMM: Mean Data Rate: %u bps", v15, v16, v17, v18, v19, v20, *(a1 + 39));
+  sub_100016A20(1, "WMM: Minimum PHY Rate: %u bps", v21, v22, v23, v24, v25, v26, *(a1 + 55));
+  sub_100016A20(1, "WMM: Surplus Bandwidth Allowance: %u.%04u", v27, v28, v29, v30, v31, v32, *(a1 + 59) >> 13);
   if (*(a1 + 11))
   {
-    v40 = (*(a1 + 11) + (*(a1 + 39) >> 3) - 1) / *(a1 + 11);
-    sub_100016A20(1, "WMM: Packets-per-second estimate for TSPEC: %d", v34, v35, v36, v37, v38, v39, v40);
-    v41 = *(a1 + 55);
-    if (v41 > 0xF423F)
+    v39 = (*(a1 + 11) + (*(a1 + 39) >> 3) - 1) / *(a1 + 11);
+    sub_100016A20(1, "WMM: Packets-per-second estimate for TSPEC: %d", v33, v34, v35, v36, v37, v38, v39);
+    v40 = *(a1 + 55);
+    if (v40 > 0xF423F)
     {
-      v43 = *(a1 + 59);
-      if (v43 > 0x2000)
+      v42 = *(a1 + 59);
+      if (v42 > 0x2000)
       {
-        v46 = v40 * v43 * (8 * (*(a1 + 11) & 0x7FFFu) / (v41 / 0xF4240) + 50);
-        sub_100016A20(1, "WMM: Estimated medium time: %u", v34, v35, v36, v37, v38, v39, v46 >> 13);
-        v44 = 0;
-        *(a1 + 61) = v46 >> 18;
-        return v44;
+        v45 = v39 * v42 * (8 * (*(a1 + 11) & 0x7FFFu) / (v40 / 0xF4240) + 50);
+        sub_100016A20(1, "WMM: Estimated medium time: %u", v33, v34, v35, v36, v37, v38, v45 >> 13);
+        v43 = 0;
+        *(a1 + 61) = v45 >> 18;
+        return v43;
       }
 
-      v42 = "WMM: Surplus Bandwidth Allowance not greater than unity";
+      v41 = "WMM: Surplus Bandwidth Allowance not greater than unity";
     }
 
     else
     {
-      v42 = "WMM: Too small Minimum PHY Rate";
+      v41 = "WMM: Too small Minimum PHY Rate";
     }
   }
 
   else
   {
-    v42 = "WMM: Invalid Nominal MSDU Size (0)";
+    v41 = "WMM: Invalid Nominal MSDU Size (0)";
   }
 
-  v44 = 1;
-  sub_100016A20(1, v42, v34, v35, v36, v37, v38, v39, v47);
-  return v44;
+  v43 = 1;
+  sub_100016A20(1, v41, v33, v34, v35, v36, v37, v38, v46);
+  return v43;
 }
 
-void sub_100006208(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_100006208(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v12 = sub_100004A40(a1, (a2 + 10));
-  if (v12)
+  v6 = sub_100004A40(a1, a2 + 10);
+  if (!v6 || (v45 = 0u, v46 = 0u, v43 = 0u, v44 = 0u, v41 = 0u, v42 = 0u, v40 = 0u, memset(v39, 0, sizeof(v39)), (~*(v6 + 24) & 0x202) != 0))
   {
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
-    v58 = 0u;
-    v56 = 0u;
-    memset(v55, 0, sizeof(v55));
-    if ((~*(v12 + 24) & 0x202) == 0)
-    {
-      v17 = (a3 - 28);
-      if ((v17 & 0x80000000) != 0)
-      {
-        return;
-      }
 
-      if (sub_10000C428(a2 + 28, v17, v55, 1, v13, v14, v15, v16) == -1)
+    sub_100016EE4(a1, (a2 + 10), 1, 1, "wmm action received is not from associated wmm station");
+  }
+
+  else
+  {
+    v11 = (a3 - 28);
+    if ((v11 & 0x80000000) == 0)
+    {
+      if (sub_10000C428((a2 + 28), v11, v39, 1, v7, v8, v9, v10) == -1)
       {
-        v25 = "hostapd_wmm_action - could not parse wmm action";
+        sub_100016EE4(a1, (a2 + 10), 1, 1, "hostapd_wmm_action - could not parse wmm action");
       }
 
       else
       {
-        v24 = *(&v56 + 1);
-        if (*(&v56 + 1) && BYTE5(v62) == 61)
+        v18 = *(&v40 + 1);
+        if (*(&v40 + 1) && BYTE5(v46) == 61)
         {
-          if (a2[25])
+          if (*(a2 + 25))
           {
-            sub_100016EE4(a1, a2 + 10, 1, 1, "hostapd_wmm_action - unknown action code %d", v21, v22, v23, a2[25]);
+            sub_100016EE4(a1, (a2 + 10), 1, 1, "hostapd_wmm_action - unknown action code %d");
           }
 
-          else if (*(&v56 + 1) + 61 <= &a2[a3])
+          else if (*(&v40 + 1) + 61 <= (a2 + a3))
           {
-            v53 = a2[14];
-            v54 = a2[15];
-            v51 = a2[12];
-            v52 = a2[13];
-            v49 = a2[10];
-            v50 = a2[11];
-            sub_100016A20(1, "WMM: ADDTS Request (Dialog Token %d) for TSPEC from %02x:%02x:%02x:%02x:%02x:%02x", v18, v19, v20, v21, v22, v23, a2[26]);
-            v33 = sub_100006044(v24 - 2, v26, v27, v28, v29, v30, v31, v32);
-            sub_100016A20(1, "WMM: ADDTS processing result: %d", v34, v35, v36, v37, v38, v39, v33);
-            v40 = a2[26];
-            sub_100016EE4(a1, a2 + 10, 1, 1, "action response - reason %d", v41, v42, v43, v33);
-            memset(v73, 0, sizeof(v73));
-            v72 = 0u;
-            v71 = 0u;
-            v70 = 0u;
-            v69 = 0u;
-            v68 = 0u;
-            v67 = 0u;
-            v66 = 0u;
-            v65 = 0u;
-            *&v64[80] = 0u;
-            memset(&v64[48], 0, 25);
-            *&v64[32] = 0u;
-            *&v64[16] = 0u;
-            *v64 = 0u;
-            v63 = 208;
-            v44 = *(a2 + 10);
-            *&v64[6] = *(a2 + 7);
-            *&v64[2] = v44;
-            *&v64[8] = *(a1 + 28);
-            *&v64[12] = *(a1 + 32);
-            *&v64[14] = *&v64[8];
-            *&v64[18] = *&v64[12];
-            *&v64[22] = 273;
-            v64[24] = v40;
-            v64[25] = v33;
-            v45 = *(v24 + 14);
-            v46 = *(v24 + 30);
-            v47 = *(v24 + 45);
-            *&v64[26] = *(v24 - 2);
-            *&v64[73] = v47;
-            *&v64[58] = v46;
-            *&v64[42] = v45;
-            if (((*(a1 + 2376))(a1, &v63, 91) & 0x80000000) != 0)
+            sub_100016A20(1, "WMM: ADDTS Request (Dialog Token %d) for TSPEC from %02x:%02x:%02x:%02x:%02x:%02x", v12, v13, v14, v15, v16, v17, *(a2 + 26));
+            v26 = sub_100006044(v18 - 2, v19, v20, v21, v22, v23, v24, v25);
+            sub_100016A20(1, "WMM: ADDTS processing result: %d", v27, v28, v29, v30, v31, v32, v26);
+            v33 = *(a2 + 26);
+            sub_100016EE4(a1, (a2 + 10), 1, 1, "action response - reason %d", v26);
+            memset(v57, 0, sizeof(v57));
+            v56 = 0u;
+            v55 = 0u;
+            v54 = 0u;
+            v53 = 0u;
+            v52 = 0u;
+            v51 = 0u;
+            v50 = 0u;
+            v49 = 0u;
+            *&v48[80] = 0u;
+            memset(&v48[48], 0, 25);
+            *&v48[32] = 0u;
+            *&v48[16] = 0u;
+            *v48 = 0u;
+            v47 = 208;
+            v34 = *(a2 + 10);
+            *&v48[6] = *(a2 + 14);
+            *&v48[2] = v34;
+            *&v48[8] = *(a1 + 28);
+            *&v48[12] = *(a1 + 32);
+            *&v48[14] = *&v48[8];
+            *&v48[18] = *&v48[12];
+            *&v48[22] = 273;
+            v48[24] = v33;
+            v48[25] = v26;
+            v35 = *(v18 + 14);
+            v36 = *(v18 + 30);
+            v37 = *(v18 + 45);
+            *&v48[26] = *(v18 - 2);
+            *&v48[73] = v37;
+            *&v48[58] = v36;
+            *&v48[42] = v35;
+            if (((*(a1 + 2376))(a1, &v47, 91) & 0x80000000) != 0)
             {
               perror("wmm_send_action: send");
             }
@@ -4574,21 +4370,17 @@ void sub_100006208(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, u
 
           else
           {
-            sub_100016A20(1, "WMM: TSPEC overflow in ADDTS Request", v18, v19, v20, v21, v22, v23, v48);
+            sub_100016A20(1, "WMM: TSPEC overflow in ADDTS Request", v12, v13, v14, v15, v16, v17, v38);
           }
-
-          return;
         }
 
-        v25 = "hostapd_wmm_action - missing or wrong length tspec";
+        else
+        {
+          sub_100016EE4(a1, (a2 + 10), 1, 1, "hostapd_wmm_action - missing or wrong length tspec");
+        }
       }
-
-      sub_100016EE4(a1, a2 + 10, 1, 1, v25, v21, v22, v23, v48);
-      return;
     }
   }
-
-  sub_100016EE4(a1, a2 + 10, 1, 1, "wmm action received is not from associated wmm station", v14, v15, v16, a9);
 }
 
 void sub_100006500()
@@ -5025,12 +4817,12 @@ uint64_t sub_100006FAC(uint64_t a1)
   return result;
 }
 
-void sub_10000705C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_10000705C(void **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   sub_10002662C(sub_100006F0C, a1, 0, a4, a5, a6, a7, a8);
   sub_10002662C(sub_100006FAC, a1, 0, v9, v10, v11, v12, v13);
-  sub_1000046EC(*(a1 + 296), v14, v15, v16, v17, v18, v19, v20);
-  free(*(a1 + 272));
+  sub_1000046EC(a1[37], v14, v15, v16, v17, v18, v19, v20);
+  free(a1[34]);
   v21 = *a1;
   if (*a1)
   {
@@ -5190,59 +4982,54 @@ LABEL_10:
   return sub_1000073E8(a2, a2, a3, a4, a5, a6, a7, a8);
 }
 
-uint64_t sub_1000073E8(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1000073E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
-    if ((a1[280] & 2) != 0)
+    if ((*(a1 + 280) & 2) != 0)
     {
       sub_100016A20(4, "WPA: wpa_sm_step() called recursively", a3, a4, a5, a6, a7, a8, v23);
     }
 
     else
     {
-      v9 = a1[280] | 2;
-      if ((a1[280] & 4) == 0)
+      v9 = *(a1 + 280) | 2;
+      if ((*(a1 + 280) & 4) == 0)
       {
         while (1)
         {
-          a1[280] = v9 & 0xFA;
+          *(a1 + 280) = v9 & 0xFA;
           v10 = *a1;
           *(**a1 + 204) = 0;
-          if (a1[32])
+          if (*(a1 + 32))
           {
 LABEL_5:
             sub_100009610(a1, a2, a3, a4, a5, a6, a7, a8);
             goto LABEL_20;
           }
 
-          if (a1[36])
+          if (*(a1 + 36))
           {
             goto LABEL_7;
           }
 
-          if (a1[33])
+          if (*(a1 + 33))
           {
 LABEL_9:
             sub_100009840(a1, a2, a3, a4, a5, a6, a7, a8);
             goto LABEL_20;
           }
 
-          if (a1[34])
+          if (*(a1 + 34))
           {
-            a1[280] |= 1u;
-            v33 = a1[20];
-            v36 = a1[21];
-            v27 = a1[18];
-            v30 = a1[19];
-            v24 = a1[17];
-            sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK entering state AUTHENTICATION", a3, a4, a5, a6, a7, a8, a1[16]);
-            *(a1 + 6) = 3;
+            *(a1 + 280) |= 1u;
+            sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK entering state AUTHENTICATION", a3, a4, a5, a6, a7, a8, *(a1 + 16));
+            *(a1 + 24) = 3;
             *(a1 + 150) = 0u;
             *(a1 + 166) = 0u;
             *(a1 + 182) = 0u;
             *(a1 + 198) = 0u;
-            a1[214] = 0;
+            *(a1 + 214) = 0;
             v11 = *(*a1 + 176);
             if (v11)
             {
@@ -5254,16 +5041,16 @@ LABEL_9:
               }
             }
 
-            a1[34] = 0;
+            *(a1 + 34) = 0;
             goto LABEL_20;
           }
 
-          if (a1[35])
+          if (*(a1 + 35))
           {
             goto LABEL_16;
           }
 
-          if (a1[258])
+          if (*(a1 + 258))
           {
             if ((sub_10000994C(a1, a2, a3, a4, a5, a6, a7, a8) & 0x80000000) != 0)
             {
@@ -5273,7 +5060,7 @@ LABEL_9:
             goto LABEL_19;
           }
 
-          v15 = *(a1 + 6);
+          v15 = *(a1 + 24);
           if (v15 > 5)
           {
             if (v15 <= 7)
@@ -5291,7 +5078,7 @@ LABEL_9:
                 {
                   v18 = *a1;
 LABEL_82:
-                  sub_1000069F4(v18, a1 + 16, 1, "no PSK configured for the STA");
+                  sub_1000069F4(v18, (a1 + 16), 1, "no PSK configured for the STA");
 LABEL_83:
                   ++*(v10 + 56);
 LABEL_7:
@@ -5302,12 +5089,12 @@ LABEL_7:
                 goto LABEL_19;
               }
 
-              if (a1[49] && !a1[51] && a1[50])
+              if (*(a1 + 49) && !*(a1 + 51) && *(a1 + 50))
               {
                 goto LABEL_110;
               }
 
-              if (*(a1 + 10) >= 5)
+              if (*(a1 + 40) >= 5)
               {
                 goto LABEL_83;
               }
@@ -5317,13 +5104,13 @@ LABEL_7:
 
             if (v15 == 8)
             {
-              if (a1[52])
+              if (*(a1 + 52))
               {
                 sub_10000A05C(a1, a2, a3, a4, a5, a6, a7, a8);
                 goto LABEL_20;
               }
 
-              if (a1[49] && !a1[51] && a1[50])
+              if (*(a1 + 49) && !*(a1 + 51) && *(a1 + 50))
               {
 LABEL_110:
                 sub_100009D9C(a1, a2, a3, a4, a5, a6, a7, a8);
@@ -5331,7 +5118,7 @@ LABEL_110:
               }
 
 LABEL_98:
-              if (a1[48])
+              if (*(a1 + 48))
               {
                 goto LABEL_19;
               }
@@ -5349,19 +5136,19 @@ LABEL_98:
               goto LABEL_20;
             }
 
-            if (a1[49] && !a1[51] && a1[50] && a1[52])
+            if (*(a1 + 49) && !*(a1 + 51) && *(a1 + 50) && *(a1 + 52))
             {
               sub_10000A3C4(a1, a2, a3, a4, a5, a6, a7, a8);
             }
 
             else
             {
-              if (*(a1 + 10) >= 5)
+              if (*(a1 + 40) >= 5)
               {
                 goto LABEL_83;
               }
 
-              if (a1[48])
+              if (*(a1 + 48))
               {
 LABEL_70:
                 sub_10000A0D0(a1, a2, a3, a4, a5, a6, a7, a8);
@@ -5394,7 +5181,7 @@ LABEL_16:
             if (v15 != 4)
             {
               v16 = *(v10 + 184);
-              if ((!v16 || v16(*(v10 + 144), a1 + 16, 5) <= 0) && *(a1 + 80) != 1024)
+              if ((!v16 || v16(*(v10 + 144), a1 + 16, 5) <= 0) && *(a1 + 320) != 1024)
               {
                 goto LABEL_83;
               }
@@ -5404,7 +5191,7 @@ LABEL_19:
               goto LABEL_20;
             }
 
-            v19 = *(a1 + 80);
+            v19 = *(a1 + 320);
             if (v19 == 1 || v19 == 128 || v19 == 32)
             {
               v20 = *(v10 + 184);
@@ -5415,7 +5202,7 @@ LABEL_19:
                   goto LABEL_102;
                 }
 
-                v19 = *(a1 + 80);
+                v19 = *(a1 + 320);
               }
             }
 
@@ -5445,21 +5232,21 @@ LABEL_103:
           }
 
 LABEL_20:
-          v9 = a1[280];
+          v9 = *(a1 + 280);
           if ((v9 & 4) != 0)
           {
             break;
           }
 
-          if (a1[32] || a1[260])
+          if (*(a1 + 32) || *(a1 + 260))
           {
             sub_10000A718(a1, a2, a3, a4, a5, a6, a7, a8);
-            a1[260] = 0;
+            *(a1 + 260) = 0;
           }
 
           else
           {
-            v14 = *(a1 + 7);
+            v14 = *(a1 + 28);
             if (v14 > 1)
             {
               if (v14 == 2 || v14 == 3)
@@ -5472,7 +5259,7 @@ LABEL_20:
 
             if (!v14)
             {
-              if (!a1[53] && (*(a1 + 78) != 1 || !a1[257]))
+              if (!*(a1 + 53) && (*(a1 + 312) != 1 || !*(a1 + 257)))
               {
                 goto LABEL_24;
               }
@@ -5484,33 +5271,28 @@ LABEL_51:
 
             if (v14 == 1)
             {
-              if (a1[49] && !a1[51] && !a1[50] && a1[52])
+              if (*(a1 + 49) && !*(a1 + 51) && !*(a1 + 50) && *(a1 + 52))
               {
                 sub_10000A9C4(a1, a2, a3, a4, a5, a6, a7, a8);
                 goto LABEL_24;
               }
 
-              if (*(a1 + 11) >= 5)
+              if (*(a1 + 44) >= 5)
               {
-                a1[280] = v9 | 1;
-                v34 = a1[20];
-                v37 = a1[21];
-                v28 = a1[18];
-                v31 = a1[19];
-                v25 = a1[17];
-                sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK_GROUP entering state KEYERROR", a3, a4, a5, a6, a7, a8, a1[16]);
-                *(a1 + 7) = 3;
-                if (a1[53])
+                *(a1 + 280) = v9 | 1;
+                sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK_GROUP entering state KEYERROR", a3, a4, a5, a6, a7, a8, *(a1 + 16));
+                *(a1 + 28) = 3;
+                if (*(a1 + 53))
                 {
-                  --*(*(a1 + 1) + 16);
+                  --*(*(a1 + 8) + 16);
                 }
 
-                a1[53] = 0;
-                a1[36] = 1;
+                *(a1 + 53) = 0;
+                *(a1 + 36) = 1;
                 goto LABEL_24;
               }
 
-              if (a1[48])
+              if (*(a1 + 48))
               {
                 goto LABEL_51;
               }
@@ -5518,17 +5300,17 @@ LABEL_51:
           }
 
 LABEL_24:
-          v9 = a1[280];
+          v9 = *(a1 + 280);
           if ((v9 & 4) != 0)
           {
             break;
           }
 
-          sub_1000071B8(*a1, *(a1 + 1), a3, a4, a5, a6, a7, a8);
-          v9 = a1[280];
+          sub_1000071B8(*a1, *(a1 + 8), a3, a4, a5, a6, a7, a8);
+          v9 = *(a1 + 280);
           if (v9)
           {
-            if ((a1[280] & 4) != 0)
+            if ((*(a1 + 280) & 4) != 0)
             {
               break;
             }
@@ -5554,16 +5336,11 @@ LABEL_24:
         }
       }
 
-      a1[280] = v9 & 0xFD;
+      *(a1 + 280) = v9 & 0xFD;
       if ((v9 & 4) != 0)
       {
-        v35 = a1[20];
-        v38 = a1[21];
-        v29 = a1[18];
-        v32 = a1[19];
-        v26 = a1[17];
         v21 = 1;
-        sub_100016A20(1, "WPA: Completing pending STA state machine deinit for %02x:%02x:%02x:%02x:%02x:%02x", a3, a4, a5, a6, a7, a8, a1[16]);
+        sub_100016A20(1, "WPA: Completing pending STA state machine deinit for %02x:%02x:%02x:%02x:%02x:%02x", a3, a4, a5, a6, a7, a8, *(a1 + 16));
         sub_100007BA8(a1);
         return v21;
       }
@@ -5583,36 +5360,31 @@ uint64_t sub_10000797C(uint64_t result)
   return result;
 }
 
-void sub_100007988(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_100007988(void **result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (a1)
+  if (result)
   {
-    v9 = *a1;
-    if (*(*a1 + 92) && *(a1 + 259))
+    v9 = *result;
+    if (*(*result + 23) && *(result + 259))
     {
       sub_10002662C(sub_100006FAC, v9, 0, a4, a5, a6, a7, a8);
-      sub_100026404(0, 0x7A120u, sub_100006FAC, *a1, 0);
-      v9 = *a1;
+      sub_100026404(0, 0x7A120u, sub_100006FAC, *result, 0);
+      v9 = *result;
     }
 
-    sub_10002662C(sub_100007AC0, v9, a1, a4, a5, a6, a7, a8);
-    sub_10002662C(sub_100007B4C, a1, 0, v10, v11, v12, v13, v14);
-    sub_10002662C(sub_100007B50, *a1, a1, v15, v16, v17, v18, v19);
-    if ((*(a1 + 280) & 2) != 0)
+    sub_10002662C(sub_100007AC0, v9, result, a4, a5, a6, a7, a8);
+    sub_10002662C(sub_100007B4C, result, 0, v10, v11, v12, v13, v14);
+    sub_10002662C(sub_100007B50, *result, result, v15, v16, v17, v18, v19);
+    if ((result[35] & 2) != 0)
     {
-      v29 = *(a1 + 20);
-      v30 = *(a1 + 21);
-      v27 = *(a1 + 18);
-      v28 = *(a1 + 19);
-      v26 = *(a1 + 17);
-      sub_100016A20(1, "WPA: Registering pending STA state machine deinit for %02x:%02x:%02x:%02x:%02x:%02x", v20, v21, v22, v23, v24, v25, *(a1 + 16));
-      *(a1 + 280) |= 4u;
+      sub_100016A20(1, "WPA: Registering pending STA state machine deinit for %02x:%02x:%02x:%02x:%02x:%02x", v20, v21, v22, v23, v24, v25, *(result + 16));
+      *(result + 280) |= 4u;
     }
 
     else
     {
 
-      sub_100007BA8(a1);
+      sub_100007BA8(result);
     }
   }
 }
@@ -5631,7 +5403,7 @@ uint64_t sub_100007AC0(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a
   return sub_1000073E8(a2);
 }
 
-uint64_t sub_100007B50(uint64_t a1, _BYTE *a2)
+uint64_t sub_100007B50(uint64_t a1, unsigned __int8 *a2)
 {
   sub_1000069F4(a1, a2 + 16, 0, "rekeying PTK");
   if (a2)
@@ -5651,13 +5423,13 @@ void sub_100007BA8(void **a1)
   free(a1);
 }
 
-void sub_100007BEC(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_100007BEC(uint64_t a1, uint64_t a2, uint64_t a3, size_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   __s2 = 0;
-  v74 = 0u;
-  v75 = 0u;
-  v73 = 0u;
-  memset(v72, 0, sizeof(v72));
+  v71 = 0u;
+  v72 = 0u;
+  v70 = 0u;
+  memset(v69, 0, sizeof(v69));
   if (!a1 || a4 < 0x63 || !a2 || !*(a1 + 72))
   {
     return;
@@ -5801,28 +5573,27 @@ LABEL_41:
         {
           if ((*(a2 + 24) - 7) >= 2)
           {
-            v70 = *(a2 + 24);
             sub_100006B7C(a1, (a2 + 16), 1, "received EAPOL-Key msg 2/4 in invalid state (%d) - dropped");
             return;
           }
 
-          if ((sub_10000C160((a3 + 99), v12, v72, a4, a5, a6, a7, a8) & 0x80000000) != 0)
+          if ((sub_10000C160((a3 + 99), v12, v69, a4, a5, a6, a7, a8) & 0x80000000) != 0)
           {
             sub_100006B7C(a1, (a2 + 16), 1, "received EAPOL-Key msg 2/4 with invalid Key Data contents");
             return;
           }
 
-          v29 = &v72[1] + 1;
-          v30 = *&v72[1];
-          if (!*&v72[1])
+          v29 = &v69[1] + 1;
+          v30 = *&v69[1];
+          if (!*&v69[1])
           {
-            v30 = *&v72[0];
+            v30 = *&v69[0];
           }
 
-          v71 = v30;
-          if (!*&v72[1])
+          v68 = v30;
+          if (!*&v69[1])
           {
-            v29 = v72 + 1;
+            v29 = v69 + 1;
           }
 
           v31 = *v29;
@@ -5848,7 +5619,7 @@ LABEL_41:
             if ((*(a2 + 344) == 0) == (__s2 == 0))
             {
               v66 = *(a2 + 345);
-              if (*(&v75 + 1) == v66 && !memcmp((a2 + 344), __s2, v66 + 2))
+              if (*(&v72 + 1) == v66 && !memcmp((a2 + 344), __s2, v66 + 2))
               {
                 goto LABEL_67;
               }
@@ -5866,7 +5637,7 @@ LABEL_41:
               sub_100016A94(1, "WPA IE in AssocReq", v50, *(a2 + 304));
             }
 
-            sub_100016A94(1, "WPA IE in msg 2/4", v71, v31);
+            sub_100016A94(1, "WPA IE in msg 2/4", v68, v31);
           }
 
           v51 = *(a1 + 160);
@@ -5882,7 +5653,6 @@ LABEL_41:
         {
           if (*(a2 + 24) != 10 || !*(a2 + 214))
           {
-            v69 = *(a2 + 24);
             sub_100006B7C(a1, (a2 + 16), 1, "received EAPOL-Key msg 4/4 in invalid state (%d) - dropped");
             return;
           }
@@ -5890,7 +5660,6 @@ LABEL_41:
 
         else if (v17 == 2 && (*(a2 + 28) != 1 || !*(a2 + 214)))
         {
-          v68 = *(a2 + 28);
           sub_100006B7C(a1, (a2 + 16), 1, "received EAPOL-Key msg 2/2 in invalid state (%d) - dropped");
           return;
         }
@@ -5957,7 +5726,7 @@ LABEL_123:
         {
           if ((v14 & 8) == 0)
           {
-            if (!v12 || sub_10000C160((a3 + 99), v12, v72, v35, v36, v37, v38, v39) || !*(&v73 + 1))
+            if (!v12 || sub_10000C160((a3 + 99), v12, v69, v35, v36, v37, v38, v39) || !*(&v70 + 1))
             {
               sub_1000069F4(a1, (a2 + 16), 1, "received EAPOL-Key Request for GTK rekeying");
               sub_10002662C(sub_100006FAC, a1, 0, v61, v62, v63, v64, v65);
@@ -6261,7 +6030,7 @@ LABEL_73:
         return;
       }
 
-      sub_10000C99C((a2 + 150), v15, v27, v25 + 99, v27 + 81);
+      sub_10000C99C((a2 + 150), v15, v27, v25 + 99, (v27 + 81));
     }
 
     v41 = *(*a2 + 176);
@@ -6335,7 +6104,7 @@ LABEL_82:
   free(v49);
 }
 
-uint64_t sub_100008910(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100008910(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   *(a1 + 214) = 0;
   *(a1 + 150) = 0u;
@@ -6346,7 +6115,7 @@ uint64_t sub_100008910(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v10 = *(*a1 + 208);
   if (v10)
   {
-    v10(*(v9 + 144), 0, 0, a1 + 16, 0, &unk_10002CF03, 0);
+    v10(*(v9 + 144), 0, 0, a1 + 2, 0, &unk_10002CF03, 0);
     v9 = *a1;
   }
 
@@ -6420,7 +6189,7 @@ uint64_t sub_100008AAC(uint64_t result)
   return result;
 }
 
-uint64_t sub_100008AD8(uint64_t result)
+uint64_t *sub_100008AD8(uint64_t *result)
 {
   if (result)
   {
@@ -6449,7 +6218,7 @@ uint64_t sub_100008B54(uint64_t a1, uint64_t a2)
   *&v13[4] = *(a1 + 292);
   *&v13[6] = *(a2 + 172);
   v14 = *(a2 + 188);
-  sub_10000F628(a2 + 76, 0x20uLL, "Group key expansion", v13, 38, v5, v4);
+  sub_10000F628((a2 + 76), 0x20uLL, "Group key expansion", v13, 38, v5, v4);
   sub_100016B64(1, "GMK", (a2 + 76), 32);
   result = sub_100016B64(1, "GTK", v5, v4);
   if (*(a1 + 132))
@@ -6465,7 +6234,7 @@ uint64_t sub_100008B54(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100008CAC(uint64_t a1, char *__str, size_t __size)
+uint64_t sub_100008CAC(unsigned __int8 *a1, char *__str, size_t __size)
 {
   if (!a1)
   {
@@ -6473,7 +6242,7 @@ uint64_t sub_100008CAC(uint64_t a1, char *__str, size_t __size)
   }
 
   v6 = "TRUE";
-  if ((*(a1 + 72) & 2) != 0)
+  if ((*(a1 + 18) & 2) != 0)
   {
     v7 = "TRUE";
   }
@@ -6483,7 +6252,7 @@ uint64_t sub_100008CAC(uint64_t a1, char *__str, size_t __size)
     v7 = "FALSE";
   }
 
-  if (!*(a1 + 108))
+  if (!*(a1 + 27))
   {
     v6 = "FALSE";
   }
@@ -6500,8 +6269,8 @@ uint64_t sub_100008CAC(uint64_t a1, char *__str, size_t __size)
     return 0;
   }
 
-  sub_100015F94(__stra, 33, (a1 + 24), 16);
-  HIDWORD(v11) = *(a1 + 84) - 2;
+  sub_100015F94(__stra, 33, a1 + 24, 16);
+  HIDWORD(v11) = *(a1 + 21) - 2;
   LODWORD(v11) = HIDWORD(v11);
   v10 = v11 >> 1;
   if (v10 > 7)
@@ -6514,14 +6283,14 @@ uint64_t sub_100008CAC(uint64_t a1, char *__str, size_t __size)
     v25 = dword_10002BB20[v10];
   }
 
-  v13 = *(a1 + 12);
-  v14 = *(a1 + 16);
-  v15 = *(a1 + 20);
-  v16 = *(a1 + 40);
-  v17 = *(a1 + 44);
-  v18 = *(a1 + 48);
+  v13 = *(a1 + 3);
+  v14 = *(a1 + 4);
+  v15 = *(a1 + 5);
+  v16 = *(a1 + 10);
+  v17 = *(a1 + 11);
+  v18 = *(a1 + 12);
   v26 = __size - v9;
-  v19 = snprintf(&__str[v9], v26, "dot11RSNAConfigVersion=%u\ndot11RSNAConfigPairwiseKeysSupported=9999\ndot11RSNAConfigGroupRekeyStrict=%u\ndot11RSNAConfigGroupUpdateCount=%u\ndot11RSNAConfigPairwiseUpdateCount=%u\ndot11RSNAConfigGroupCipherSize=%u\ndot11RSNAConfigPMKLifetime=%u\ndot11RSNAConfigPMKReauthThreshold=%u\ndot11RSNAConfigNumberOfPTKSAReplayCounters=0\ndot11RSNAConfigSATimeout=%u\ndot11RSNAAuthenticationSuiteSelected=%02x-%02x-%02x-%d\ndot11RSNAPairwiseCipherSelected=%02x-%02x-%02x-%d\ndot11RSNAGroupCipherSelected=%02x-%02x-%02x-%d\ndot11RSNAPMKIDUsed=%s\ndot11RSNAAuthenticationSuiteRequested=%02x-%02x-%02x-%d\ndot11RSNAPairwiseCipherRequested=%02x-%02x-%02x-%d\ndot11RSNAGroupCipherRequested=%02x-%02x-%02x-%d\ndot11RSNATKIPCounterMeasuresInvoked=%u\ndot11RSNA4WayHandshakeFailures=%u\ndot11RSNAConfigNumberOfGTKSAReplayCounters=0\n", 1, *(a1 + 92) != 0, 4, 4, v25, 43200, 70, 60, HIBYTE(v13), BYTE2(v13), BYTE1(v13), v13, HIBYTE(v14), BYTE2(v14), BYTE1(v14), v14, HIBYTE(v15), BYTE2(v15), BYTE1(v15), v15, __stra, HIBYTE(v16), BYTE2(v16), BYTE1(v16), v16, HIBYTE(v17), BYTE2(v17), BYTE1(v17), v17, HIBYTE(v18), BYTE2(v18), BYTE1(v18), v18, *(a1 + 52), *(a1 + 56));
+  v19 = snprintf(&__str[v9], v26, "dot11RSNAConfigVersion=%u\ndot11RSNAConfigPairwiseKeysSupported=9999\ndot11RSNAConfigGroupRekeyStrict=%u\ndot11RSNAConfigGroupUpdateCount=%u\ndot11RSNAConfigPairwiseUpdateCount=%u\ndot11RSNAConfigGroupCipherSize=%u\ndot11RSNAConfigPMKLifetime=%u\ndot11RSNAConfigPMKReauthThreshold=%u\ndot11RSNAConfigNumberOfPTKSAReplayCounters=0\ndot11RSNAConfigSATimeout=%u\ndot11RSNAAuthenticationSuiteSelected=%02x-%02x-%02x-%d\ndot11RSNAPairwiseCipherSelected=%02x-%02x-%02x-%d\ndot11RSNAGroupCipherSelected=%02x-%02x-%02x-%d\ndot11RSNAPMKIDUsed=%s\ndot11RSNAAuthenticationSuiteRequested=%02x-%02x-%02x-%d\ndot11RSNAPairwiseCipherRequested=%02x-%02x-%02x-%d\ndot11RSNAGroupCipherRequested=%02x-%02x-%02x-%d\ndot11RSNATKIPCounterMeasuresInvoked=%u\ndot11RSNA4WayHandshakeFailures=%u\ndot11RSNAConfigNumberOfGTKSAReplayCounters=0\n", 1, *(a1 + 23) != 0, 4, 4, v25, 43200, 70, 60, HIBYTE(v13), BYTE2(v13), BYTE1(v13), v13, HIBYTE(v14), BYTE2(v14), BYTE1(v14), v14, HIBYTE(v15), BYTE2(v15), BYTE1(v15), v15, __stra, HIBYTE(v16), BYTE2(v16), BYTE1(v16), v16, HIBYTE(v17), BYTE2(v17), BYTE1(v17), v17, HIBYTE(v18), BYTE2(v18), BYTE1(v18), v18, *(a1 + 13), *(a1 + 14));
   if ((v19 & 0x80000000) == 0 && v26 > v19)
   {
     v20 = v19 + v9;
@@ -6605,32 +6374,31 @@ LABEL_16:
 
   v7 += 2;
 LABEL_17:
-  v9 = *(result + 336);
-  v10 = snprintf(__str, __size, "dot11RSNAStatsSTAAddress=%02x:%02x:%02x:%02x:%02x:%02x\ndot11RSNAStatsVersion=1\ndot11RSNAStatsSelectedPairwiseCipher=%02x-%02x-%02x-%d\ndot11RSNAStatsTKIPLocalMICFailures=%u\ndot11RSNAStatsTKIPRemoveMICFailures=%u\n", *(result + 16), *(result + 17), *(result + 18), *(result + 19), *(result + 20), *(result + 21), 0, HIWORD(v7), (v7 >> 8) & 0xFE, v7 & 7, *(result + 336), *(result + 340));
-  if ((v10 & 0x80000000) != 0)
+  v9 = snprintf(__str, __size, "dot11RSNAStatsSTAAddress=%02x:%02x:%02x:%02x:%02x:%02x\ndot11RSNAStatsVersion=1\ndot11RSNAStatsSelectedPairwiseCipher=%02x-%02x-%02x-%d\ndot11RSNAStatsTKIPLocalMICFailures=%u\ndot11RSNAStatsTKIPRemoveMICFailures=%u\n", *(result + 16), *(result + 17), *(result + 18), *(result + 19), *(result + 20), *(result + 21), 0, HIWORD(v7), (v7 >> 8) & 0xFE, v7 & 7, *(result + 336), *(result + 340));
+  if ((v9 & 0x80000000) != 0)
   {
     return 0;
   }
 
-  v11 = v10;
-  if (__size <= v10)
+  v10 = v9;
+  if (__size <= v9)
   {
     return 0;
   }
 
-  v12 = __size - v10;
-  v13 = snprintf(&__str[v10], v12, "hostapdWPAPTKState=%d\nhostapdWPAPTKGroupState=%d\n", *(v5 + 24), *(v5 + 28));
-  if (v12 <= v13 || v13 <= -1)
+  v11 = __size - v9;
+  v12 = snprintf(&__str[v9], v11, "hostapdWPAPTKState=%d\nhostapdWPAPTKGroupState=%d\n", *(v5 + 24), *(v5 + 28));
+  if (v11 <= v12 || v12 <= -1)
   {
-    v15 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v15 = v13;
+    v14 = v12;
   }
 
-  return v15 + v11;
+  return v14 + v10;
 }
 
 uint64_t sub_100009098(uint64_t result)
@@ -6720,7 +6488,7 @@ uint64_t sub_100009130(uint64_t result, void *a2)
   return result;
 }
 
-uint64_t sub_100009140(_DWORD *a1, void *a2, int a3, uint64_t a4)
+uint64_t sub_100009140(_DWORD *a1, void *a2, unsigned int a3, uint64_t a4)
 {
   if (!a1 || a1[78] != 2)
   {
@@ -6735,7 +6503,7 @@ uint64_t sub_100009140(_DWORD *a1, void *a2, int a3, uint64_t a4)
   return 0xFFFFFFFFLL;
 }
 
-uint64_t sub_1000091B0(uint64_t a1, void *a2, size_t a3, uint64_t a4, int a5, uint64_t a6)
+uint64_t sub_1000091B0(uint64_t a1, void *a2, size_t a3, uint64_t a4, unsigned int a5, uint64_t a6)
 {
   if (!a1)
   {
@@ -6796,11 +6564,6 @@ LABEL_10:
         return 0;
       }
 
-      v18 = *(v8 + 21);
-      v16 = *(v8 + 19);
-      v17 = *(v8 + 20);
-      v14 = *(v8 + 17);
-      v15 = *(v8 + 18);
       sub_100016A20(1, "WPA: Moving STA %02x:%02x:%02x:%02x:%02x:%02x to use group state machine for VLAN ID %d", a3, a4, a5, a6, a7, a8, *(v8 + 16));
       result = 0;
       *(v8 + 8) = v11;
@@ -6815,28 +6578,22 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_100009308(uint64_t a1, void *a2, size_t a3, _OWORD *a4, uint64_t a5, unsigned __int8 *a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100009308(uint64_t a1, void *a2, size_t a3, _OWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *(a1 + 296);
-  if (!v9)
+  v8 = *(a1 + 296);
+  if (!v8)
   {
-    v10 = 4294967294;
-    v11 = "%s: NULL PMKSA for %02X:%02X:%02X:%02X:%02X:%02X";
+    v9 = 4294967294;
+    v10 = "%s: NULL PMKSA for %02X:%02X:%02X:%02X:%02X:%02X";
 LABEL_6:
-    v17 = a6[4];
-    v18 = a6[5];
-    v15 = a6[2];
-    v16 = a6[3];
-    v13 = *a6;
-    v14 = a6[1];
-    sub_100016A20(4, v11, a3, a4, a5, a6, a7, a8, "wpa_auth_pmksa_sae_add");
-    return v10;
+    sub_100016A20(4, v10, a3, a4, a5, a6, a7, a8, "wpa_auth_pmksa_sae_add");
+    return v9;
   }
 
-  if (!sub_100004204(v9, a2, a3, a4, a5, a6, a7, 0, 1024))
+  if (!sub_100004204(v8, a2, a3, a4, a5, a6, a7, 0, 1024))
   {
-    v10 = 0xFFFFFFFFLL;
-    v11 = "%s: failed to add PMKSA for %02X:%02X:%02X:%02X:%02X:%02X";
+    v9 = 0xFFFFFFFFLL;
+    v10 = "%s: failed to add PMKSA for %02X:%02X:%02X:%02X:%02X:%02X";
     goto LABEL_6;
   }
 
@@ -6874,21 +6631,18 @@ uint64_t sub_1000093C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v14 = *(a1 + 208);
   if (v14)
   {
-    v16 = *(a2 + 24);
-    v15 = *(a2 + 28);
     result = v14(*(a1 + 144), *(a2 + 8), v13, 0);
   }
 
   if (*(a1 + 132))
   {
-    v17 = *(a1 + 208);
-    if (v17)
+    v15 = *(a1 + 208);
+    if (v15)
     {
-      v18 = *(a2 + 8);
-      v19 = *(a1 + 144);
-      v20 = a2 + 16 * *(a2 + 240) + 141;
+      v16 = *(a2 + 8);
+      v17 = *(a1 + 144);
 
-      return v17(v19, v18, 4, 0);
+      return v15(v17, v16, 4, 0);
     }
   }
 
@@ -6939,31 +6693,26 @@ uint64_t sub_100009580(uint64_t a1)
   return 0;
 }
 
-uint64_t sub_100009610(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100009610(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = a1 + 4;
+  v10 = a1 + 16;
   v9 = *(a1 + 16);
   *(a1 + 280) |= 1u;
-  v20 = *(a1 + 20);
-  v21 = *(a1 + 21);
-  v18 = *(a1 + 18);
-  v19 = *(a1 + 19);
-  v17 = *(a1 + 17);
   sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK entering state INITIALIZE", a3, a4, a5, a6, a7, a8, v9);
-  v10[2] = 0;
+  *(v10 + 8) = 0;
   if (*(v10 + 16))
   {
     *(a1 + 280) &= ~1u;
   }
 
-  a1[54] = 0;
+  *(a1 + 216) = 0;
   if (*(a1 + 53))
   {
-    --*(*(a1 + 1) + 16);
+    --*(*(a1 + 8) + 16);
   }
 
   *(a1 + 53) = 0;
-  if (a1[78] == 1)
+  if (*(a1 + 312) == 1)
   {
     *(a1 + 257) = 0;
   }
@@ -6982,8 +6731,8 @@ uint64_t sub_100009610(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
     result = v13(*(*a1 + 144), v10, 1, 0);
   }
 
-  a1[10] = 0;
-  v14 = a1[80];
+  *(a1 + 40) = 0;
+  v14 = *(a1 + 320);
   if (v14 > 255)
   {
     if (v14 != 1024 && v14 != 256)
@@ -7013,11 +6762,6 @@ uint64_t sub_100009784(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v10 = a1 + 16;
   v9 = *(a1 + 16);
   *(a1 + 280) |= 1u;
-  v17 = *(a1 + 20);
-  v18 = *(a1 + 21);
-  v15 = *(a1 + 18);
-  v16 = *(a1 + 19);
-  v14 = *(a1 + 17);
   result = sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK entering state DISCONNECT", a3, a4, a5, a6, a7, a8, v9);
   *(a1 + 24) = 1;
   *(a1 + 36) = 0;
@@ -7035,11 +6779,6 @@ uint64_t sub_100009784(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 uint64_t sub_100009840(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   *(a1 + 280) |= 1u;
-  v13 = *(a1 + 20);
-  v14 = *(a1 + 21);
-  v11 = *(a1 + 18);
-  v12 = *(a1 + 19);
-  v10 = *(a1 + 17);
   result = sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK entering state DISCONNECTED", a3, a4, a5, a6, a7, a8, *(a1 + 16));
   *(a1 + 24) = 2;
   *(a1 + 33) = 0;
@@ -7049,11 +6788,6 @@ uint64_t sub_100009840(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 uint64_t sub_1000098B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   *(a1 + 280) |= 1u;
-  v15 = *(a1 + 20);
-  v16 = *(a1 + 21);
-  v13 = *(a1 + 18);
-  v14 = *(a1 + 19);
-  v12 = *(a1 + 17);
   sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK entering state AUTHENTICATION2", a3, a4, a5, a6, a7, a8, *(a1 + 16));
   *(a1 + 24) = 4;
   v9 = *(a1 + 8);
@@ -7090,11 +6824,6 @@ uint64_t sub_1000099BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v10 = a1 + 16;
   v9 = *(a1 + 16);
   *(a1 + 280) |= 1u;
-  v24 = *(a1 + 20);
-  v25 = *(a1 + 21);
-  v22 = *(a1 + 18);
-  v23 = *(a1 + 19);
-  v21 = *(a1 + 17);
   result = sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK entering state PTKSTART", a3, a4, a5, a6, a7, a8, v9);
   *(v10 + 8) = 7;
   *(v10 + 242) = 0;
@@ -7129,20 +6858,20 @@ uint64_t sub_1000099BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
         }
       }
 
-      v26 = 251663581;
-      v27 = 1196;
+      v21 = 251663581;
+      v22 = 1196;
       v16 = *(a1 + 328);
       if (v16)
       {
-        v28 = *(v16 + 16);
-        v13 = &v26;
+        v23 = *(v16 + 16);
+        v13 = &v21;
       }
 
       else
       {
-        v13 = &v26;
+        v13 = &v21;
         v19 = v14 == 128 || v14 == 1024 || v14 == 256;
-        sub_10000D138((a1 + 118), 0x20uLL, *a1 + 288, v10, &v28, v19);
+        sub_10000D138((a1 + 118), 0x20uLL, *a1 + 288, v10, &v23, v19);
       }
 
       v15 = 22;
@@ -7162,15 +6891,10 @@ LABEL_23:
 
 uint64_t sub_100009BA0(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v29 = 64;
+  v24 = 64;
   v10 = a1 + 4;
   v9 = *(a1 + 16);
   *(a1 + 280) |= 1u;
-  v27 = *(a1 + 20);
-  v28 = *(a1 + 21);
-  v25 = *(a1 + 18);
-  v26 = *(a1 + 19);
-  v24 = *(a1 + 17);
   sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK entering state INITPMK", a3, a4, a5, a6, a7, a8, v9);
   v10[2] = 5;
   if (*(v10 + 39))
@@ -7185,11 +6909,11 @@ uint64_t sub_100009BA0(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   else
   {
     v20 = *(*a1 + 200);
-    if (v20 && !v20(*(*a1 + 144), v10, v30, &v29))
+    if (v20 && !v20(*(*a1 + 144), v10, v25, &v24))
     {
-      result = sub_100016A20(1, "WPA: PMK from EAPOL state machine (len=%lu)", v11, v12, v13, v14, v15, v16, v29);
-      v21 = v30[1];
-      *(a1 + 118) = v30[0];
+      result = sub_100016A20(1, "WPA: PMK from EAPOL state machine (len=%lu)", v11, v12, v13, v14, v15, v16, v24);
+      v21 = v25[1];
+      *(a1 + 118) = v25[0];
       *(a1 + 134) = v21;
     }
 
@@ -7214,11 +6938,6 @@ __int128 *sub_100009CF8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
   v10 = a1 + 16;
   v9 = *(a1 + 16);
   *(a1 + 280) |= 1u;
-  v17 = *(a1 + 20);
-  v18 = *(a1 + 21);
-  v15 = *(a1 + 18);
-  v16 = *(a1 + 19);
-  v14 = *(a1 + 17);
   result = sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK entering state INITPSK", a3, a4, a5, a6, a7, a8, v9);
   *(a1 + 24) = 6;
   v12 = *(*a1 + 192);
@@ -7237,28 +6956,23 @@ __int128 *sub_100009CF8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
   return result;
 }
 
-double sub_100009D9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double sub_100009D9C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v10 = a1 + 16;
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v10 = a1 + 2;
   v9 = *(a1 + 16);
   *(a1 + 280) |= 1u;
-  v34 = *(a1 + 20);
-  v35 = *(a1 + 21);
-  v32 = *(a1 + 18);
-  v33 = *(a1 + 19);
-  *v31 = *(a1 + 17);
   sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK entering state PTKCALCNEGOTIATING", a3, a4, a5, a6, a7, a8, v9);
   v11 = 0;
   v12 = 0;
-  *(v10 + 8) = 8;
+  *(v10 + 2) = 8;
   *(v10 + 33) = 0;
   do
   {
-    v13 = *(a1 + 320);
+    v13 = *(a1 + 80);
     if (v13 > 255)
     {
       if (v13 == 1024)
@@ -7302,7 +7016,7 @@ LABEL_12:
 
     v17 = 0;
 LABEL_13:
-    if (*(a1 + 316) == 16)
+    if (*(a1 + 79) == 16)
     {
       v18 = 48;
     }
@@ -7312,8 +7026,8 @@ LABEL_13:
       v18 = 64;
     }
 
-    sub_10000CAC4(v12, 0x20uLL, "Pairwise key expansion", (*a1 + 288), v10, (v10 + 38), (v10 + 70), &v36, v18, v11);
-    v19 = sub_100008338(&v36, *(a1 + 264), *(a1 + 272));
+    sub_10000CAC4(v12, 0x20uLL, "Pairwise key expansion", (*a1 + 288), v10, (v10 + 38), (v10 + 70), &v31, v18, v11);
+    v19 = sub_100008338(&v31, a1[33], a1[34]);
   }
 
   while ((v17 & 1) == 0 && v19);
@@ -7321,7 +7035,7 @@ LABEL_13:
   {
     sub_1000069F4(*a1, v10, 0, "MIC OK");
     sub_10002662C(sub_100007AC0, *a1, a1, v20, v21, v22, v23, v24);
-    v25 = *(a1 + 320);
+    v25 = *(a1 + 80);
     if (v25 > 255)
     {
       if (v25 != 1024 && v25 != 256)
@@ -7340,12 +7054,12 @@ LABEL_13:
     *(v10 + 118) = v28;
 LABEL_29:
     *(a1 + 52) = 1;
-    v29 = v37;
-    *(a1 + 150) = v36;
+    v29 = v32;
+    *(a1 + 150) = v31;
     *(a1 + 166) = v29;
-    result = *&v38;
-    v30 = v39;
-    *(a1 + 182) = v38;
+    result = *&v33;
+    v30 = v34;
+    *(a1 + 182) = v33;
     *(a1 + 198) = v30;
     *(a1 + 214) = 1;
     return result;
@@ -7365,11 +7079,6 @@ LABEL_24:
 uint64_t sub_10000A05C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   *(a1 + 280) |= 1u;
-  v13 = *(a1 + 20);
-  v14 = *(a1 + 21);
-  v11 = *(a1 + 18);
-  v12 = *(a1 + 19);
-  v10 = *(a1 + 17);
   result = sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK entering state PTKCALCNEGOTIATING2", a3, a4, a5, a6, a7, a8, *(a1 + 16));
   *(a1 + 24) = 9;
   *(a1 + 40) = 0;
@@ -7382,11 +7091,6 @@ void sub_10000A0D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v11 = (a1 + 16);
   v10 = *(a1 + 16);
   *(a1 + 280) |= 1u;
-  v41 = *(a1 + 20);
-  v42 = *(a1 + 21);
-  v39 = *(a1 + 18);
-  v40 = *(a1 + 19);
-  v38 = *(a1 + 17);
   sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK entering state PTKINITNEGOTIATING", a3, a4, a5, a6, a7, a8, v10);
   *(a1 + 24) = 10;
   v12 = *a1;
@@ -7395,12 +7099,12 @@ void sub_10000A0D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(a1 + 40) = v13 + 1;
   if (v13 <= 3)
   {
-    v45 = 0;
+    v40 = 0;
     v14 = *(v12 + 216);
     v15 = v12;
     if (v14)
     {
-      v14(*(v12 + 144), 0, *(v9 + 28), &v45);
+      v14(*(v12 + 144), 0, *(v9 + 28), &v40);
       v15 = *a1;
     }
 
@@ -7426,14 +7130,14 @@ void sub_10000A0D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
       v21 = *(v9 + 28);
       v23 = (v9 + 32 * v21 + 76);
       v24 = 1;
-      v43 = &v45;
+      v38 = &v40;
     }
 
     else
     {
       v23 = 0;
       v22 = 0;
-      v43 = 0;
+      v38 = 0;
       v21 = 0;
       v24 = 0;
     }
@@ -7498,25 +7202,20 @@ void sub_10000A0D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
         v37 = 456;
       }
 
-      sub_1000083F4(v36, a1, v37, v43, (a1 + 54), v33, v35 - v33, v21, v24, 0);
+      sub_1000083F4(v36, a1, v37, v38, (a1 + 54), v33, v35 - v33, v21, v24, 0);
       sub_100026404(1u, 0, sub_100007AC0, v36, a1);
       free(v33);
     }
   }
 }
 
-void sub_10000A3C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_10000A3C4(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = a1 + 16;
+  v10 = a1 + 2;
   v9 = *(a1 + 16);
   *(a1 + 280) |= 1u;
-  v33 = *(a1 + 20);
-  v34 = *(a1 + 21);
-  v31 = *(a1 + 18);
-  v32 = *(a1 + 19);
-  v30 = *(a1 + 17);
   sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK entering state PTKINITDONE", a3, a4, a5, a6, a7, a8, v9);
-  *(v10 + 8) = 11;
+  *(v10 + 2) = 11;
   *(v10 + 33) = 0;
   if (!*(v10 + 204))
   {
@@ -7525,7 +7224,7 @@ void sub_10000A3C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
   v11 = *a1;
   v12 = *(*a1 + 208);
-  if (!v12 || (*(a1 + 316) != 8 ? (v13 = 16) : (v13 = 32), *(a1 + 316) == 8 ? (v14 = 2) : (v14 = 3), v15 = v12(*(v11 + 144), 0, v14, v10, 0, a1 + 182, v13), v11 = *a1, v15))
+  if (!v12 || (*(a1 + 79) != 8 ? (v13 = 16) : (v13 = 32), *(a1 + 79) == 8 ? (v14 = 2) : (v14 = 3), v15 = v12(*(v11 + 144), 0, v14, v10, 0, a1 + 182, v13), v11 = *a1, v15))
   {
     v21 = *(v11 + 160);
     if (v21)
@@ -7545,7 +7244,7 @@ void sub_10000A3C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     sub_100026404(*(*a1 + 100), 0, sub_100007B50, *a1, a1);
   }
 
-  v23 = *(a1 + 320);
+  v23 = *(a1 + 80);
   if (v23 > 255)
   {
     if (v23 != 1024 && v23 != 256)
@@ -7586,7 +7285,7 @@ LABEL_24:
   }
 
   v28 = 259;
-  if (*(a1 + 312) == 1)
+  if (*(a1 + 78) == 1)
   {
     v28 = 257;
     v29 = "WPA";
@@ -7626,11 +7325,6 @@ char *sub_10000A60C(_BYTE *a1, _BYTE *a2)
 uint64_t sub_10000A718(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   *(a1 + 280) |= 1u;
-  v13 = *(a1 + 20);
-  v14 = *(a1 + 21);
-  v11 = *(a1 + 18);
-  v12 = *(a1 + 19);
-  v10 = *(a1 + 17);
   result = sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK_GROUP entering state IDLE", a3, a4, a5, a6, a7, a8, *(a1 + 16));
   *(a1 + 28) = 0;
   if (*(a1 + 32))
@@ -7648,11 +7342,6 @@ void sub_10000A79C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v11 = a1 + 16;
   v10 = *(a1 + 16);
   *(a1 + 280) |= 1u;
-  v29 = *(a1 + 20);
-  v30 = *(a1 + 21);
-  v27 = *(a1 + 18);
-  v28 = *(a1 + 19);
-  v26 = *(a1 + 17);
   sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK_GROUP entering state REKEYNEGOTIATING", a3, a4, a5, a6, a7, a8, v10);
   *(v11 + 12) = 1;
   v12 = *(v11 + 28);
@@ -7668,14 +7357,14 @@ void sub_10000A79C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   *(a1 + 48) = 0;
-  v32 = 0;
+  v27 = 0;
   v13 = *a1;
   if (*(v9 + 72) == 2)
   {
     v14 = *(v13 + 216);
     if (v14)
     {
-      v14(*(v13 + 144), 0, *(v9 + 28), &v32);
+      v14(*(v13 + 144), 0, *(v9 + 28), &v27);
       v13 = *a1;
     }
   }
@@ -7698,7 +7387,7 @@ LABEL_14:
       v25 = 960;
     }
 
-    sub_1000083F4(v24, a1, v25, &v32, (v9 + 172), v18, v19 - v18, v17, 1, 0);
+    sub_1000083F4(v24, a1, v25, &v27, (v9 + 172), v18, v19 - v18, v17, 1, 0);
     sub_100026404(1u, 0, sub_100007AC0, v24, a1);
     if (*(a1 + 312) == 2)
     {
@@ -7739,11 +7428,6 @@ void sub_10000A9C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v10 = a1 + 16;
   v9 = *(a1 + 16);
   *(a1 + 280) |= 1u;
-  v15 = *(a1 + 20);
-  v16 = *(a1 + 21);
-  v13 = *(a1 + 18);
-  v14 = *(a1 + 19);
-  v12 = *(a1 + 17);
   sub_100016A20(1, "WPA: %02x:%02x:%02x:%02x:%02x:%02x WPA_PTK_GROUP entering state REKEYESTABLISHED", a3, a4, a5, a6, a7, a8, v9);
   *(v10 + 12) = 2;
   *(v10 + 33) = 0;
@@ -7831,46 +7515,41 @@ LABEL_7:
   return 0xFFFFFFFFLL;
 }
 
-void sub_10000AC98(uint64_t a1, unsigned __int8 *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_10000AC98(uint64_t a1, unsigned __int8 *a2, int a3, const char *a4)
 {
   if (a3 == 1)
   {
-    LODWORD(v8) = 2;
+    LODWORD(v4) = 2;
   }
 
   else
   {
-    LODWORD(v8) = 1;
+    LODWORD(v4) = 1;
   }
 
   if (a3 == 2)
   {
-    v8 = 4;
+    v4 = 4;
   }
 
   else
   {
-    v8 = v8;
+    v4 = v4;
   }
 
-  sub_100016EE4(a1, a2, 8, v8, "%s", a6, a7, a8, a4);
+  sub_100016EE4(a1, a2, 8, v4, "%s", a4);
 }
 
-uint64_t sub_10000ACE4(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10000ACE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v21 = a2[5];
-  v19 = a2[3];
-  v20 = a2[4];
-  v17 = a2[1];
-  v18 = a2[2];
-  v16 = *a2;
   sub_100016A20(1, "%s: WPA authenticator requests disconnect: STA %02x:%02x:%02x:%02x:%02x:%02x reason %d", a3, a4, a5, a6, a7, a8, "hostapd_wpa_auth_disconnect");
 
   return sub_100005AB4(a1, 0, a2, a3, v11, v12, v13, v14);
 }
 
-void sub_10000AD84(uint64_t a1, uint64_t a2, int a3, int a4)
+void sub_10000AD84(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
+  v4 = a4;
   v7 = sub_100004A40(a1, a2);
   if (v7)
   {
@@ -7880,38 +7559,38 @@ void sub_10000AD84(uint64_t a1, uint64_t a2, int a3, int a4)
       {
         if (a3 == 6)
         {
-          v19 = *(v7 + 88);
-          if (v19)
+          v14 = *(v7 + 88);
+          if (v14)
           {
-            *(v19 + 25) = a4 != 0;
+            *(v14 + 25) = v4 != 0;
           }
         }
 
         else if (a3 == 7)
         {
-          v16 = *(v7 + 88);
-          if (v16)
+          v11 = *(v7 + 88);
+          if (v11)
           {
-            ++*(v16 + 176);
+            ++*(v11 + 176);
           }
         }
       }
 
       else if (a3 == 4)
       {
-        v18 = *(v7 + 88);
-        if (v18)
+        v13 = *(v7 + 88);
+        if (v13)
         {
-          *(v18 + 26) = a4 != 0;
+          *(v13 + 26) = v4 != 0;
         }
       }
 
       else
       {
-        v14 = *(v7 + 88);
-        if (v14)
+        v9 = *(v7 + 88);
+        if (v9)
         {
-          *(*(v14 + 232) + 72) = a4 != 0;
+          *(*(v9 + 232) + 72) = v4 != 0;
         }
       }
     }
@@ -7921,15 +7600,15 @@ void sub_10000AD84(uint64_t a1, uint64_t a2, int a3, int a4)
       if (a3 == 2)
       {
 
-        sub_10001F578(a1, v7, a4, v8, v9, v10, v11, v12);
+        sub_10001F578(a1, v7, v4);
       }
 
       else
       {
-        v15 = *(v7 + 88);
-        if (v15)
+        v10 = *(v7 + 88);
+        if (v10)
         {
-          *(v15 + 28) = 2;
+          *(v10 + 28) = 2;
         }
       }
     }
@@ -7938,17 +7617,17 @@ void sub_10000AD84(uint64_t a1, uint64_t a2, int a3, int a4)
     {
       if (a3 == 1)
       {
-        v13 = *(v7 + 88);
+        v8 = *(v7 + 88);
 
-        sub_100020C98(v13, a4);
+        sub_100020C98(v8, v4);
       }
     }
 
     else
     {
-      v17 = *(v7 + 88);
+      v12 = *(v7 + 88);
 
-      sub_100020C7C(v17, a4);
+      sub_100020C7C(v12, v4);
     }
   }
 }
@@ -8172,7 +7851,7 @@ LABEL_6:
   return 1;
 }
 
-uint64_t sub_10000B348(unsigned int *a1, uint64_t a2, uint64_t a3, _OWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10000B348(_DWORD *a1, uint64_t a2, uint64_t a3, _OWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   *a2 = 48;
   *(a2 + 2) = 1;
@@ -8528,7 +8207,7 @@ char *sub_10000B7FC(_BYTE *a1, int a2, void *__src, size_t __n, const void *a5, 
   return v10;
 }
 
-uint64_t sub_10000B890(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10000B890(uint64_t a1, uint64_t a2, unsigned __int8 *a3, size_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = 5;
   if (!a1)
@@ -8560,27 +8239,21 @@ uint64_t sub_10000B890(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unint64_t 
 
   if ((v14 & *(a1 + 72)) == 0)
   {
-    v82 = *(a2 + 20);
-    v87 = *(a2 + 21);
-    v72 = *(a2 + 18);
-    v77 = *(a2 + 19);
-    v63 = *(a2 + 16);
-    v67 = *(a2 + 17);
     sub_100016A20(1, "Invalid WPA proto (%d) from %02x:%02x:%02x:%02x:%02x:%02x", a3, a4, a5, a6, a7, a8, v14);
     return 10;
   }
 
-  v93 = 0u;
-  v94 = 0u;
-  v92 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v63 = 0u;
   if (v13 != 48)
   {
     v15 = 5304833;
-    v93 = 0uLL;
-    v94 = 0uLL;
-    LODWORD(v92) = 0;
-    *(&v92 + 4) = 0x800000008;
-    HIDWORD(v92) = 1;
+    v64 = 0uLL;
+    v65 = 0uLL;
+    LODWORD(v63) = 0;
+    *(&v63 + 4) = 0x800000008;
+    HIDWORD(v63) = 1;
     if (a4 < 8)
     {
       v16 = -1;
@@ -8615,7 +8288,7 @@ LABEL_39:
     {
       v18 = sub_10000C3F8(a3 + 2);
       v19 = v18;
-      DWORD2(v92) = v18;
+      DWORD2(v63) = v18;
       if ((a4 - 12) < 2)
       {
         LOBYTE(v20) = 8;
@@ -8629,7 +8302,7 @@ LABEL_39:
       else
       {
         LOBYTE(v20) = 0;
-        DWORD1(v92) = 0;
+        DWORD1(v63) = 0;
         v21 = a3[13];
         v22 = a3[12];
         v23 = v22 | (v21 << 8);
@@ -8649,10 +8322,10 @@ LABEL_39:
         }
 
         while (v25 != v24);
-        DWORD1(v92) = v20;
+        DWORD1(v63) = v20;
         if (a4 - v24 - 10 >= 6)
         {
-          HIDWORD(v92) = 0;
+          HIDWORD(v63) = 0;
           v26 = a3[v24 + 14] | (a3[v24 + 15] << 8);
           if (v26)
           {
@@ -8683,7 +8356,7 @@ LABEL_39:
               }
 
               v57 |= v61;
-              HIDWORD(v92) = v57;
+              HIDWORD(v63) = v57;
               ++v59;
               v58 -= 4;
               --v26;
@@ -8697,7 +8370,7 @@ LABEL_39:
 
             else
             {
-              LODWORD(v93) = *v59;
+              LODWORD(v64) = *v59;
             }
 
             if (v58 <= 0)
@@ -8806,23 +8479,23 @@ LABEL_148:
   }
 
   v15 = 1027076;
-  v16 = sub_10000CCDC(a3, a4, &v92, a4, a5, a6, a7, a8);
-  if ((WORD6(v92) & 0x400) != 0)
+  v16 = sub_10000CCDC(a3, a4, &v63, a4, a5, a6, a7, a8);
+  if ((WORD6(v63) & 0x400) != 0)
   {
     v17 = 1027080;
   }
 
-  else if ((BYTE12(v92) & 0x80) != 0)
+  else if ((BYTE12(v63) & 0x80) != 0)
   {
     v17 = 1027077;
   }
 
-  else if ((WORD6(v92) & 0x100) != 0)
+  else if ((WORD6(v63) & 0x100) != 0)
   {
     v17 = 1027078;
   }
 
-  else if ((BYTE12(v92) & 3) == 2)
+  else if ((BYTE12(v63) & 3) == 2)
   {
     v17 = 1027074;
   }
@@ -8834,19 +8507,19 @@ LABEL_148:
 
   *(a1 + 12) = v17;
   v29 = 1027076;
-  if ((BYTE4(v92) & 0x10) == 0)
+  if ((BYTE4(v63) & 0x10) == 0)
   {
-    if ((BYTE4(v92) & 8) != 0)
+    if ((BYTE4(v63) & 8) != 0)
     {
       v29 = 1027074;
     }
 
-    else if ((BYTE4(v92) & 4) != 0)
+    else if ((BYTE4(v63) & 4) != 0)
     {
       v29 = 1027077;
     }
 
-    else if ((BYTE4(v92) & 2) != 0)
+    else if ((BYTE4(v63) & 2) != 0)
     {
       v29 = 1027073;
     }
@@ -8854,7 +8527,7 @@ LABEL_148:
     else
     {
       v29 = 1027072;
-      if ((BYTE4(v92) & 1) == 0)
+      if ((BYTE4(v63) & 1) == 0)
       {
         v29 = 1027076;
       }
@@ -8862,22 +8535,22 @@ LABEL_148:
   }
 
   *(a1 + 16) = v29;
-  if ((BYTE8(v92) & 0x10) == 0)
+  if ((BYTE8(v63) & 0x10) == 0)
   {
-    if ((BYTE8(v92) & 8) != 0)
+    if ((BYTE8(v63) & 8) != 0)
     {
       v15 = 1027074;
       goto LABEL_78;
     }
 
-    if ((BYTE8(v92) & 4) == 0)
+    if ((BYTE8(v63) & 4) == 0)
     {
-      if ((BYTE8(v92) & 2) != 0)
+      if ((BYTE8(v63) & 2) != 0)
       {
         v15 = 1027073;
       }
 
-      else if (BYTE8(v92))
+      else if (BYTE8(v63))
       {
         v15 = 1027072;
       }
@@ -8899,38 +8572,21 @@ LABEL_78:
   sub_100016A94(1, "WPA/RSN IE", a3, a4);
   if (v16)
   {
-    v83 = *(a2 + 21);
-    v73 = *(a2 + 19);
-    v78 = *(a2 + 20);
-    v64 = *(a2 + 17);
-    v68 = *(a2 + 18);
     v8 = 1;
     sub_100016A20(1, "Failed to parse WPA/RSN IE from %02x:%02x:%02x:%02x:%02x:%02x (res=%d)", v30, v31, v32, v33, v34, v35, *(a2 + 16));
     return v8;
   }
 
-  if (DWORD2(v92) != *(a1 + 84))
+  if (DWORD2(v63) != *(a1 + 84))
   {
-    v84 = *(a2 + 20);
-    v88 = *(a2 + 21);
-    v74 = *(a2 + 18);
-    v79 = *(a2 + 19);
-    v65 = *(a2 + 16);
-    v69 = *(a2 + 17);
-    sub_100016A20(1, "Invalid WPA group cipher (0x%x) from %02x:%02x:%02x:%02x:%02x:%02x", v30, v31, v32, v33, v34, v35, DWORD2(v92));
+    sub_100016A20(1, "Invalid WPA group cipher (0x%x) from %02x:%02x:%02x:%02x:%02x:%02x", v30, v31, v32, v33, v34, v35, DWORD2(v63));
     return 2;
   }
 
-  v36 = *(a1 + 76) & HIDWORD(v92);
+  v36 = *(a1 + 76) & HIDWORD(v63);
   if (!v36)
   {
-    v85 = *(a2 + 20);
-    v89 = *(a2 + 21);
-    v75 = *(a2 + 18);
-    v80 = *(a2 + 19);
-    v66 = *(a2 + 16);
-    v70 = *(a2 + 17);
-    sub_100016A20(1, "Invalid WPA key mgmt (0x%x) from %02x:%02x:%02x:%02x:%02x:%02x", v30, v31, v32, v33, v34, v35, HIDWORD(v92));
+    sub_100016A20(1, "Invalid WPA key mgmt (0x%x) from %02x:%02x:%02x:%02x:%02x:%02x", v30, v31, v32, v33, v34, v35, HIDWORD(v63));
     return 4;
   }
 
@@ -8966,7 +8622,7 @@ LABEL_78:
     v38 = 104;
   }
 
-  v39 = *(a1 + v38) & DWORD1(v92);
+  v39 = *(a1 + v38) & DWORD1(v63);
   if (!v39)
   {
     v42 = "WPA";
@@ -8975,12 +8631,6 @@ LABEL_78:
       v42 = "RSN";
     }
 
-    v90 = *(a2 + 20);
-    v91 = *(a2 + 21);
-    v81 = *(a2 + 18);
-    v86 = *(a2 + 19);
-    v71 = *(a2 + 16);
-    v76 = *(a2 + 17);
     sub_100016A20(1, "Invalid %s pairwise cipher (0x%x) from %02x:%02x:%02x:%02x:%02x:%02x", v30, v31, v32, v33, v34, v35, v42);
     return 3;
   }
@@ -8990,7 +8640,7 @@ LABEL_78:
   {
     if (v40 == 2)
     {
-      if ((v93 & 0x80) == 0)
+      if ((v64 & 0x80) == 0)
       {
         v41 = "Management frame protection required, but client did not enable it";
 LABEL_132:
@@ -9004,16 +8654,16 @@ LABEL_132:
         goto LABEL_132;
       }
 
-      if (DWORD2(v94) != 32)
+      if (DWORD2(v65) != 32)
       {
-        sub_100016A20(1, "Unsupported management group cipher %d", v30, v31, v32, v33, v34, v35, DWORD2(v94));
+        sub_100016A20(1, "Unsupported management group cipher %d", v30, v31, v32, v33, v34, v35, DWORD2(v65));
         return 8;
       }
 
       goto LABEL_110;
     }
 
-    if ((v93 & 0x80) != 0)
+    if ((v64 & 0x80) != 0)
     {
 LABEL_110:
       v43 = *(a2 + 280) | 0x10;
@@ -9047,14 +8697,14 @@ LABEL_111:
 
   *(a2 + 312) = v45;
   *(a2 + 328) = 0;
-  if (*(&v93 + 1))
+  if (*(&v64 + 1))
   {
     v46 = 0;
     v47 = 0;
     do
     {
-      sub_100016A94(1, "RSN IE: STA PMKID", (v94 + v46), 16);
-      v48 = sub_1000043E0(*(a1 + 296), a2 + 16, v94 + v46);
+      sub_100016A94(1, "RSN IE: STA PMKID", (v65 + v46), 16);
+      v48 = sub_1000043E0(*(a1 + 296), a2 + 16, v65 + v46);
       *(a2 + 328) = v48;
       if (v48)
       {
@@ -9066,10 +8716,10 @@ LABEL_111:
       v46 += 16;
     }
 
-    while (v47 < *(&v93 + 1));
+    while (v47 < *(&v64 + 1));
     v49 = 0;
     v50 = 0;
-    while (*(a1 + 128) && v50 < *(&v93 + 1))
+    while (*(a1 + 128) && v50 < *(&v64 + 1))
     {
       sub_1000069DC(a1);
       ++v50;
@@ -9343,7 +8993,6 @@ uint64_t sub_10000C428(unsigned __int8 *a1, unint64_t a2, uint64_t a3, uint64_t 
       {
         if (v9)
         {
-          v30 = v13[1];
           sub_100016A20(1, "IEEE 802.11 element parse failed (id=%d elen=%d left=%lu)", a3, a4, a5, a6, a7, a8, v15);
           sub_100016A94(0, "IEs", a1, v8);
         }
@@ -9467,7 +9116,6 @@ uint64_t sub_10000C428(unsigned __int8 *a1, unint64_t a2, uint64_t a3, uint64_t 
             {
               if (v13[5] != 51)
               {
-                v27 = v13[1];
                 sub_100016A20(0, "Unknown Broadcom information element ignored (type=%d len=%lu)\n", a3, a4, a5, a6, a7, a8, v13[5]);
                 goto LABEL_64;
               }
@@ -9480,9 +9128,6 @@ uint64_t sub_10000C428(unsigned __int8 *a1, unint64_t a2, uint64_t a3, uint64_t 
             {
               if (v20 != 20722)
               {
-                v31 = v13[4];
-                v32 = v13[1];
-                v26 = v13[3];
                 sub_100016A20(0, "unknown vendor specific information element ignored (vendor OUI %02x:%02x:%02x len=%lu)", a3, a4, a5, a6, a7, a8, v19);
 LABEL_64:
                 ++v12;
@@ -9519,7 +9164,6 @@ LABEL_64:
                       goto LABEL_65;
                     }
 
-                    v29 = v13[1];
                     sub_100016A20(0, "unknown WMM information element ignored (subtype=%d len=%lu)", a3, a4, a5, a6, a7, a8, v13[6]);
                   }
 
@@ -9529,7 +9173,6 @@ LABEL_64:
                   *(a3 + 194) = v16;
                   break;
                 default:
-                  v28 = v13[1];
                   sub_100016A20(0, "Unknown Microsoft information element ignored (type=%d len=%lu)\n", a3, a4, a5, a6, a7, a8, v13[5]);
                   goto LABEL_64;
               }
@@ -9557,7 +9200,6 @@ LABEL_48:
             ++v12;
             if (v9)
             {
-              v25 = v13[1];
               sub_100016A20(0, "IEEE 802.11 element parse ignored unknown element (id=%d elen=%d)", a3, a4, a5, a6, a7, a8, *v13);
             }
 
@@ -9689,7 +9331,7 @@ unint64_t *sub_10000C884(unsigned __int8 *a1, uint64_t a2, int a3)
             v16 = v20 + 3;
           }
 
-          while ((v20 + 3) < v5);
+          while (v20 + 3 < v5);
         }
 
         return v8;
@@ -9699,13 +9341,13 @@ unint64_t *sub_10000C884(unsigned __int8 *a1, uint64_t a2, int a3)
       v4 = v7 + 2;
     }
 
-    while ((v7 + 3) < v5);
+    while (v7 + 3 < v5);
   }
 
   return 0;
 }
 
-uint64_t sub_10000C99C(char *a1, int a2, char *a3, uint64_t a4, _OWORD *a5)
+uint64_t sub_10000C99C(char *a1, int a2, char *a3, uint64_t a4, __int128 *a5)
 {
   v6 = 0xFFFFFFFFLL;
   if (a2 > 1)
@@ -9740,4 +9382,349 @@ uint64_t sub_10000C99C(char *a1, int a2, char *a3, uint64_t a4, _OWORD *a5)
   }
 
   return sub_100000B98(a1, a3, a4, a5);
+}
+
+uint64_t sub_10000CAC4(char *a1, unint64_t a2, char *a3, unsigned int *a4, unsigned int *a5, unint64_t *a6, unint64_t *a7, char *a8, uint64_t a9, int a10)
+{
+  v10 = bswap64(*a4 | (*(a4 + 2) << 32));
+  v11 = bswap64(*a5 | (*(a5 + 2) << 32));
+  v12 = v10 >= v11;
+  if (v10 >= v11)
+  {
+    v13 = a5;
+  }
+
+  else
+  {
+    v13 = a4;
+  }
+
+  if (v12)
+  {
+    v14 = a4;
+  }
+
+  else
+  {
+    v14 = a5;
+  }
+
+  v34 = *v13;
+  v35 = *(v13 + 2);
+  v36 = *v14;
+  v37 = *(v14 + 2);
+  v19 = bswap64(*a6);
+  v20 = bswap64(*a7);
+  if (v19 == v20 && (v19 = bswap64(a6[1]), v20 = bswap64(a7[1]), v19 == v20) && (v19 = bswap64(a6[2]), v20 = bswap64(a7[2]), v19 == v20) && (v19 = bswap64(a6[3]), v20 = bswap64(a7[3]), v19 == v20))
+  {
+    v21 = 0;
+  }
+
+  else if (v19 < v20)
+  {
+    v21 = -1;
+  }
+
+  else
+  {
+    v21 = 1;
+  }
+
+  v22 = v21 < 0;
+  if (v21 >= 0)
+  {
+    v23 = a7;
+  }
+
+  else
+  {
+    v23 = a6;
+  }
+
+  if (v22)
+  {
+    v24 = a7;
+  }
+
+  else
+  {
+    v24 = a6;
+  }
+
+  v25 = *(v23 + 1);
+  v38 = *v23;
+  v39 = v25;
+  v26 = *(v24 + 1);
+  v40 = *v24;
+  v41 = v26;
+  if (a10)
+  {
+    sub_10000F628(a1, a2, a3, &v34, 76, a8, a9);
+  }
+
+  else
+  {
+    sub_10000EE1C(a1, a2, a3, &v34, 76, a8, a9);
+  }
+
+  sub_100016A20(1, "WPA: PTK derivation - A1=%02x:%02x:%02x:%02x:%02x:%02x A2=%02x:%02x:%02x:%02x:%02x:%02x", v27, v28, v29, v30, v31, v32, *a4);
+  sub_100016B64(1, "WPA: PMK", a1, a2);
+  return sub_100016B64(1, "WPA: PTK", a8, a9);
+}
+
+uint64_t sub_10000CCDC(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *(a3 + 16) = 0u;
+  *(a3 + 32) = 0u;
+  *a3 = xmmword_10002BBE0;
+  *(a3 + 16) = 0;
+  *(a3 + 24) = 0;
+  v8 = (a3 + 24);
+  *(a3 + 32) = 0;
+  *(a3 + 40) = 32;
+  if (!a2)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v9 = a2;
+  if (a2 <= 3)
+  {
+    sub_100016A20(1, "%s: ie len too short %lu", a3, a4, a5, a6, a7, a8, "wpa_parse_wpa_ie_rsn");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (*a1 != 48 || a2 - 2 != *(a1 + 1) || *(a1 + 2) != 1)
+  {
+    sub_100016A20(1, "%s: malformed ie or unknown version", a3, a4, a5, a6, a7, a8, "wpa_parse_wpa_ie_rsn");
+    return 4294967294;
+  }
+
+  if ((a2 - 4) < 4)
+  {
+    if (a2 != 4)
+    {
+      sub_100016A20(1, "%s: ie length mismatch, %u too much", a3, a4, a5, a6, a7, a8, "wpa_parse_wpa_ie_rsn");
+      return 4294967293;
+    }
+
+    return 0;
+  }
+
+  v13 = sub_10000D108((a1 + 4));
+  *(a3 + 8) = v13;
+  if (v13 == 32)
+  {
+    sub_100016A20(1, "%s: AES-128-CMAC used as group cipher", v14, v15, v16, v17, v18, v19, "wpa_parse_wpa_ie_rsn");
+    return 0xFFFFFFFFLL;
+  }
+
+  if ((v9 - 8) < 2)
+  {
+    if (v9 == 9)
+    {
+      sub_100016A20(1, "%s: ie too short (for key mgmt)", v14, v15, v16, v17, v18, v19, "wpa_parse_wpa_ie_rsn");
+      return 4294967291;
+    }
+
+    return 0;
+  }
+
+  *(a3 + 4) = 0;
+  v20 = *(a1 + 9);
+  v21 = *(a1 + 8);
+  v22 = v21 | (v20 << 8);
+  if (!v22 || v9 - 10 < (4 * v22))
+  {
+    sub_100016A20(1, "%s: ie count botch (pairwise), count %u left %u", v14, v15, v16, v17, v18, v19, "wpa_parse_wpa_ie_rsn");
+    return 4294967292;
+  }
+
+  v23 = 0;
+  v24 = 0;
+  v25 = a1 + 10;
+  v26 = (4 * v21) | (v20 << 10);
+  do
+  {
+    v24 |= sub_10000D108((v25 + v23));
+    *(a3 + 4) = v24;
+    v23 += 4;
+  }
+
+  while (v26 != v23);
+  if ((v24 & 0x20) != 0)
+  {
+    sub_100016A20(1, "%s: AES-128-CMAC used as pairwise cipher", v27, v28, v29, v30, v31, v32, "wpa_parse_wpa_ie_rsn");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (v9 - 6 - v23 < 6)
+  {
+    if (v9 - 11 == v23)
+    {
+      sub_100016A20(1, "%s: ie too short (for capabilities)", v27, v28, v29, v30, v31, v32, "wpa_parse_wpa_ie_rsn");
+      return 4294967289;
+    }
+
+    return 0;
+  }
+
+  *(a3 + 12) = 0;
+  v33 = *(v25 + v23);
+  v34 = v9 - 12;
+  if (!*(v25 + v23) || v34 - v23 < (4 * v33))
+  {
+    sub_100016A20(1, "%s: ie count botch (key mgmt), count %u left %u", v27, v28, v29, v30, v31, v32, "wpa_parse_wpa_ie_rsn");
+    return 4294967290;
+  }
+
+  v35 = 0;
+  do
+  {
+    v36 = bswap32(*(a1 + v23 + 12)) - 1027073;
+    if (v36 > 7)
+    {
+      v37 = 0;
+    }
+
+    else
+    {
+      v37 = dword_10002BC08[v36];
+    }
+
+    v35 |= v37;
+    *(a3 + 12) = v35;
+    v23 += 4;
+    --v33;
+  }
+
+  while (v33);
+  if (v9 - 8 - v23 <= 5)
+  {
+    v38 = v34 - v23;
+    goto LABEL_44;
+  }
+
+  *(a3 + 16) = *(a1 + v23 + 12) | (*(a1 + v23 + 13) << 8);
+  v38 = v9 - 14 - v23;
+  if (v38 <= 1)
+  {
+    goto LABEL_44;
+  }
+
+  v39 = *(a1 + v23 + 15);
+  v40 = *(a1 + v23 + 14);
+  v41 = v40 | (v39 << 8);
+  *v8 = v41;
+  v42 = v9 - 16;
+  if (v9 - 16 - v23 < (16 * v41))
+  {
+    sub_100016A20(1, "%s: PMKID underflow (num_pmkid=%lu left=%d)", v27, v28, v29, v30, v31, v32, "wpa_parse_wpa_ie_rsn");
+    *v8 = 0;
+    return 4294967287;
+  }
+
+  *(a3 + 32) = a1 + v23 + 16;
+  v43 = (v39 << 12) | (16 * v40);
+  if (v42 - v43 - v23 <= 3)
+  {
+    v38 = v42 - v43 - v23;
+LABEL_44:
+    if (v38 >= 1)
+    {
+      sub_100016A20(1, "%s: ie has %u trailing bytes - ignored", v27, v28, v29, v30, v31, v32, "wpa_parse_wpa_ie_rsn");
+    }
+
+    return 0;
+  }
+
+  v44 = sub_10000D108((a1 + 16 * v41 + v23 + 16));
+  *(a3 + 40) = v44;
+  if (v44 == 32)
+  {
+    v38 = v9 - v43 - v23 - 20;
+    goto LABEL_44;
+  }
+
+  sub_100016A20(1, "%s: Unsupported management group cipher 0x%x", v27, v28, v29, v30, v31, v32, "wpa_parse_wpa_ie_rsn");
+  return 4294967286;
+}
+
+uint64_t sub_10000D108(unsigned int *a1)
+{
+  v1 = bswap32(*a1) - 1027072;
+  if (v1 > 6)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return dword_10002BC28[v1];
+  }
+}
+
+double sub_10000D138(char *a1, unint64_t a2, uint64_t a3, uint64_t a4, _OWORD *a5, int a6)
+{
+  v9 = xmmword_10002BBF0;
+  v10 = 6;
+  v11[0] = "PMK Name";
+  v11[1] = a3;
+  v11[2] = a4;
+  if (a6)
+  {
+    sub_10000F43C(a1, a2, 3uLL, v11, &v9, v8);
+  }
+
+  else
+  {
+    sub_10000EC1C(a1, a2, 3uLL, v11, &v9, v8);
+  }
+
+  result = *v8;
+  *a5 = v8[0];
+  return result;
+}
+
+const char *sub_10000D1E4(int a1)
+{
+  if (a1 > 7)
+  {
+    if (a1 == 8)
+    {
+      return "TKIP";
+    }
+
+    if (a1 != 16)
+    {
+      if (a1 == 24)
+      {
+        return "CCMP+TKIP";
+      }
+
+      return "UNKNOWN";
+    }
+
+    return "CCMP";
+  }
+
+  else
+  {
+    if (a1 == 1)
+    {
+      return "NONE";
+    }
+
+    if (a1 != 2)
+    {
+      if (a1 == 4)
+      {
+        return "WEP-104";
+      }
+
+      return "UNKNOWN";
+    }
+
+    return "WEP-40";
+  }
 }

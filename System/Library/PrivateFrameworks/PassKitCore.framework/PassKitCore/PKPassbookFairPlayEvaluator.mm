@@ -10,7 +10,7 @@
   completionCopy = completion;
   nonceCopy = nonce;
   v9 = os_log_create("com.apple.passkit", "Provisioning.Add");
-  v10 = getFairPlayPassbookProvisioningObjCClass[0]();
+  FairPlayPassbookProvisioningObjCClass = getFairPlayPassbookProvisioningObjCClass();
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
   v15[2] = __78__PKPassbookFairPlayEvaluator_getFairPlayInfoWithAuditToken_nonce_completion___block_invoke;
@@ -22,7 +22,7 @@
   v14[1] = v11;
   v12 = completionCopy;
   v13 = v9;
-  [(objc_class *)v10 getProvisioningInfoWithAuditToken:v14 nonce:nonceCopy completionHandler:v15];
+  [(objc_class *)FairPlayPassbookProvisioningObjCClass getProvisioningInfoWithAuditToken:v14 nonce:nonceCopy completionHandler:v15];
 }
 
 void __78__PKPassbookFairPlayEvaluator_getFairPlayInfoWithAuditToken_nonce_completion___block_invoke(uint64_t a1, void *a2, void *a3)

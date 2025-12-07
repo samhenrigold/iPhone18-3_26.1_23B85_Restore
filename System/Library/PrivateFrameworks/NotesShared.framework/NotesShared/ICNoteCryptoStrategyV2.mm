@@ -423,14 +423,14 @@ void __49__ICNoteCryptoStrategyV2_writeEncryptedNoteData___block_invoke_cold_2(v
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to encrypt data for note %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to encrypt data for note %@", v4, v5, v6, v7);
 }
 
 void __49__ICNoteCryptoStrategyV2_writeEncryptedNoteData___block_invoke_cold_3(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "note is not suported, but writeEncryptedNoteData is called. %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "note is not suported, but writeEncryptedNoteData is called. %@", v4, v5, v6, v7);
 }
 
 void __33__ICNoteCryptoStrategyV2_decrypt__block_invoke_2_cold_1(id *a1, NSObject *a2)
@@ -452,7 +452,7 @@ void __33__ICNoteCryptoStrategyV2_decrypt__block_invoke_2_cold_2(id *a1)
 {
   v1 = [*a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to decrypt note data for %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to decrypt note data for %@", v4, v5, v6, v7);
 }
 
 void __50__ICNoteCryptoStrategyV2_decryptNotePrimitiveData__block_invoke_cold_1(void *a1, NSObject *a2)
@@ -467,21 +467,21 @@ void __50__ICNoteCryptoStrategyV2_decryptNotePrimitiveData__block_invoke_cold_2(
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to decrypt note primitive data for %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to decrypt note primitive data for %@", v4, v5, v6, v7);
 }
 
 void __59__ICNoteCryptoStrategyV2_mergeEncryptedData_mergeConflict___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "cannot decrypt data when processing NSMergeConflict: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "cannot decrypt data when processing NSMergeConflict: %@", v4, v5, v6, v7);
 }
 
 void __86__ICNoteCryptoStrategyV2_serializeToNoteDataAndUpdateArchivedAndLastViewedTimeStamps___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to serialize encrypted object for %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Failed to serialize encrypted object for %@", v4, v5, v6, v7);
 }
 
 @end

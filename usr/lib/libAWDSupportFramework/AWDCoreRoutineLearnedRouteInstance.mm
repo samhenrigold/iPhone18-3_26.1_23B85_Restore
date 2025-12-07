@@ -182,7 +182,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   has = self->_has;
   if (has)
@@ -287,29 +287,29 @@ LABEL_10:
   if ([(NSMutableArray *)self->_roadClassHistograms count])
   {
     v5 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_roadClassHistograms, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     roadClassHistograms = self->_roadClassHistograms;
-    v7 = [(NSMutableArray *)roadClassHistograms countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v7 = [(NSMutableArray *)roadClassHistograms countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v24;
+      v9 = *v23;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(roadClassHistograms);
           }
 
-          [v5 addObject:{objc_msgSend(*(*(&v23 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v5 addObject:{objc_msgSend(*(*(&v22 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v8 = [(NSMutableArray *)roadClassHistograms countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v8 = [(NSMutableArray *)roadClassHistograms countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v8);
@@ -321,29 +321,29 @@ LABEL_10:
   if ([(NSMutableArray *)self->_locationTypeHistograms count])
   {
     v11 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_locationTypeHistograms, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     locationTypeHistograms = self->_locationTypeHistograms;
-    v13 = [(NSMutableArray *)locationTypeHistograms countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v13 = [(NSMutableArray *)locationTypeHistograms countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v20;
+      v15 = *v19;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v20 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(locationTypeHistograms);
           }
 
-          [v11 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * j), "dictionaryRepresentation")}];
+          [v11 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * j), "dictionaryRepresentation")}];
         }
 
-        v14 = [(NSMutableArray *)locationTypeHistograms countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v14 = [(NSMutableArray *)locationTypeHistograms countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v14);
@@ -353,17 +353,15 @@ LABEL_10:
   }
 
   [dictionary setObject:PBRepeatedInt32NSArray() forKey:@"majorGapLength"];
-  v17 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -383,7 +381,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  numberOfInputLocations = self->_numberOfInputLocations;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -398,7 +395,6 @@ LABEL_4:
   }
 
 LABEL_30:
-  numberOfFilteredLocations = self->_numberOfFilteredLocations;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -413,7 +409,6 @@ LABEL_5:
   }
 
 LABEL_31:
-  length = self->_length;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -428,7 +423,6 @@ LABEL_6:
   }
 
 LABEL_32:
-  recoveryTime = self->_recoveryTime;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -443,7 +437,6 @@ LABEL_7:
   }
 
 LABEL_33:
-  failureReason = self->_failureReason;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -458,89 +451,82 @@ LABEL_8:
   }
 
 LABEL_34:
-  latitudeTruncated = self->_latitudeTruncated;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_9:
-    longitudeTruncated = self->_longitudeTruncated;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_10:
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   roadClassHistograms = self->_roadClassHistograms;
-  v7 = [(NSMutableArray *)roadClassHistograms countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v7)
+  v6 = [(NSMutableArray *)roadClassHistograms countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v34;
+    v7 = v6;
+    v8 = *v22;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v34 != v9)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(roadClassHistograms);
         }
 
-        v11 = *(*(&v33 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)roadClassHistograms countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v7 = [(NSMutableArray *)roadClassHistograms countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   locationTypeHistograms = self->_locationTypeHistograms;
-  v13 = [(NSMutableArray *)locationTypeHistograms countByEnumeratingWithState:&v29 objects:v37 count:16];
-  if (v13)
+  v11 = [(NSMutableArray *)locationTypeHistograms countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v11)
   {
-    v14 = v13;
-    v15 = *v30;
+    v12 = v11;
+    v13 = *v18;
     do
     {
-      for (j = 0; j != v14; ++j)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v30 != v15)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(locationTypeHistograms);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v14 = [(NSMutableArray *)locationTypeHistograms countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v12 = [(NSMutableArray *)locationTypeHistograms countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v14);
+    while (v12);
   }
 
   p_majorGapLengths = &self->_majorGapLengths;
   if (p_majorGapLengths->count)
   {
-    v19 = 0;
+    v16 = 0;
     do
     {
-      v20 = p_majorGapLengths->list[v19];
       PBDataWriterWriteInt32Field();
-      ++v19;
+      ++v16;
     }
 
-    while (v19 < p_majorGapLengths->count);
+    while (v16 < p_majorGapLengths->count);
   }
-
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -698,7 +684,7 @@ LABEL_10:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -809,66 +795,65 @@ LABEL_9:
   }
 
 LABEL_10:
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   roadClassHistograms = self->_roadClassHistograms;
-  v9 = [(NSMutableArray *)roadClassHistograms countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v9 = [(NSMutableArray *)roadClassHistograms countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(roadClassHistograms);
         }
 
-        v13 = [*(*(&v26 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v25 + 1) + 8 * i) copyWithZone:zone];
         [v6 addRoadClassHistogram:v13];
       }
 
-      v10 = [(NSMutableArray *)roadClassHistograms countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v10 = [(NSMutableArray *)roadClassHistograms countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v10);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   locationTypeHistograms = self->_locationTypeHistograms;
-  v15 = [(NSMutableArray *)locationTypeHistograms countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v15 = [(NSMutableArray *)locationTypeHistograms countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(locationTypeHistograms);
         }
 
-        v19 = [*(*(&v22 + 1) + 8 * j) copyWithZone:zone];
+        v19 = [*(*(&v21 + 1) + 8 * j) copyWithZone:zone];
         [v6 addLocationTypeHistogram:v19];
       }
 
-      v16 = [(NSMutableArray *)locationTypeHistograms countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v16 = [(NSMutableArray *)locationTypeHistograms countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v16);
   }
 
   PBRepeatedInt32Copy();
-  v20 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -879,7 +864,6 @@ LABEL_10:
     return 0;
   }
 
-  v5 = *(equal + 88);
   if (*&self->_has)
   {
     if ((*(equal + 88) & 1) == 0 || self->_timestamp != *(equal + 4))
@@ -1117,7 +1101,7 @@ LABEL_18:
 
 - (void)mergeFrom:(id)from
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   v5 = *(from + 88);
   if (v5)
   {
@@ -1226,57 +1210,57 @@ LABEL_9:
   }
 
 LABEL_10:
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v6 = *(from + 10);
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(AWDCoreRoutineLearnedRouteInstance *)self addRoadClassHistogram:*(*(&v24 + 1) + 8 * i)];
+        [(AWDCoreRoutineLearnedRouteInstance *)self addRoadClassHistogram:*(*(&v23 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v8);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = *(from + 7);
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(AWDCoreRoutineLearnedRouteInstance *)self addLocationTypeHistogram:*(*(&v20 + 1) + 8 * j)];
+        [(AWDCoreRoutineLearnedRouteInstance *)self addLocationTypeHistogram:*(*(&v19 + 1) + 8 * j)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v13);
@@ -1291,8 +1275,6 @@ LABEL_10:
       -[AWDCoreRoutineLearnedRouteInstance addMajorGapLength:](self, "addMajorGapLength:", [from majorGapLengthAtIndex:k]);
     }
   }
-
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 @end

@@ -299,52 +299,50 @@
 
 - (id)_decodeCodableActivityStatisticsQuantityInfos:(uint64_t)infos
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (infos)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [MEMORY[0x277CCDD10] createWithCodable:{*(*(&v14 + 1) + 8 * i), v14}];
+          v10 = [MEMORY[0x277CCDD10] createWithCodable:{*(*(&v13 + 1) + 8 * i), v13}];
           if (v10)
           {
             [array addObject:v10];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
     }
 
-    v11 = [array copy];
+    v11 = objc_msgSend_copy(array);
   }
 
   else
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -747,7 +745,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   sample = self->_sample;
   if (sample)
@@ -759,8 +757,8 @@
   has = self->_has;
   if ((*&has & 0x80) != 0)
   {
-    v35 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_cacheIndex];
-    [dictionary setObject:v35 forKey:@"cacheIndex"];
+    v34 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_cacheIndex];
+    [dictionary setObject:v34 forKey:@"cacheIndex"];
 
     has = self->_has;
     if ((*&has & 0x200) == 0)
@@ -780,8 +778,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v36 = [MEMORY[0x277CCABB0] numberWithDouble:self->_energyBurned];
-  [dictionary setObject:v36 forKey:@"energyBurned"];
+  v35 = [MEMORY[0x277CCABB0] numberWithDouble:self->_energyBurned];
+  [dictionary setObject:v35 forKey:@"energyBurned"];
 
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -796,8 +794,8 @@ LABEL_6:
   }
 
 LABEL_61:
-  v37 = [MEMORY[0x277CCABB0] numberWithDouble:self->_briskMinutes];
-  [dictionary setObject:v37 forKey:@"briskMinutes"];
+  v36 = [MEMORY[0x277CCABB0] numberWithDouble:self->_briskMinutes];
+  [dictionary setObject:v36 forKey:@"briskMinutes"];
 
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -812,8 +810,8 @@ LABEL_7:
   }
 
 LABEL_62:
-  v38 = [MEMORY[0x277CCABB0] numberWithDouble:self->_activeHours];
-  [dictionary setObject:v38 forKey:@"activeHours"];
+  v37 = [MEMORY[0x277CCABB0] numberWithDouble:self->_activeHours];
+  [dictionary setObject:v37 forKey:@"activeHours"];
 
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -828,8 +826,8 @@ LABEL_8:
   }
 
 LABEL_63:
-  v39 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_stepCount];
-  [dictionary setObject:v39 forKey:@"stepCount"];
+  v38 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_stepCount];
+  [dictionary setObject:v38 forKey:@"stepCount"];
 
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -844,8 +842,8 @@ LABEL_9:
   }
 
 LABEL_64:
-  v40 = [MEMORY[0x277CCABB0] numberWithDouble:self->_energyBurnedGoal];
-  [dictionary setObject:v40 forKey:@"energyBurnedGoal"];
+  v39 = [MEMORY[0x277CCABB0] numberWithDouble:self->_energyBurnedGoal];
+  [dictionary setObject:v39 forKey:@"energyBurnedGoal"];
 
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -860,8 +858,8 @@ LABEL_10:
   }
 
 LABEL_65:
-  v41 = [MEMORY[0x277CCABB0] numberWithDouble:self->_walkingAndRunningDistance];
-  [dictionary setObject:v41 forKey:@"walkingAndRunningDistance"];
+  v40 = [MEMORY[0x277CCABB0] numberWithDouble:self->_walkingAndRunningDistance];
+  [dictionary setObject:v40 forKey:@"walkingAndRunningDistance"];
 
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -876,8 +874,8 @@ LABEL_11:
   }
 
 LABEL_66:
-  v42 = [MEMORY[0x277CCABB0] numberWithDouble:self->_energyBurnedGoalDate];
-  [dictionary setObject:v42 forKey:@"energyBurnedGoalDate"];
+  v41 = [MEMORY[0x277CCABB0] numberWithDouble:self->_energyBurnedGoalDate];
+  [dictionary setObject:v41 forKey:@"energyBurnedGoalDate"];
 
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -892,8 +890,8 @@ LABEL_12:
   }
 
 LABEL_67:
-  v43 = [MEMORY[0x277CCABB0] numberWithDouble:self->_deepBreathingDuration];
-  [dictionary setObject:v43 forKey:@"deepBreathingDuration"];
+  v42 = [MEMORY[0x277CCABB0] numberWithDouble:self->_deepBreathingDuration];
+  [dictionary setObject:v42 forKey:@"deepBreathingDuration"];
 
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -908,8 +906,8 @@ LABEL_13:
   }
 
 LABEL_68:
-  v44 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_pushCount];
-  [dictionary setObject:v44 forKey:@"pushCount"];
+  v43 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_pushCount];
+  [dictionary setObject:v43 forKey:@"pushCount"];
 
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -924,8 +922,8 @@ LABEL_14:
   }
 
 LABEL_69:
-  v45 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_flightsClimbed];
-  [dictionary setObject:v45 forKey:@"flightsClimbed"];
+  v44 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_flightsClimbed];
+  [dictionary setObject:v44 forKey:@"flightsClimbed"];
 
   if ((*&self->_has & 0x200000) != 0)
   {
@@ -938,30 +936,30 @@ LABEL_16:
   if ([(NSMutableArray *)self->_dailyEnergyBurnedStatistics count])
   {
     v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_dailyEnergyBurnedStatistics, "count")}];
+    v62 = 0u;
     v63 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v66 = 0u;
     v9 = self->_dailyEnergyBurnedStatistics;
-    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v63 objects:v69 count:16];
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v62 objects:v68 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v64;
+      v12 = *v63;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v64 != v12)
+          if (*v63 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation2 = [*(*(&v63 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v62 + 1) + 8 * i) dictionaryRepresentation];
           [v8 addObject:dictionaryRepresentation2];
         }
 
-        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v63 objects:v69 count:16];
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v62 objects:v68 count:16];
       }
 
       while (v11);
@@ -973,30 +971,30 @@ LABEL_16:
   if ([(NSMutableArray *)self->_dailyBriskMinutesStatistics count])
   {
     v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_dailyBriskMinutesStatistics, "count")}];
+    v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
     v16 = self->_dailyBriskMinutesStatistics;
-    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v59 objects:v68 count:16];
+    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v58 objects:v67 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v60;
+      v19 = *v59;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v60 != v19)
+          if (*v59 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          dictionaryRepresentation3 = [*(*(&v59 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v58 + 1) + 8 * j) dictionaryRepresentation];
           [v15 addObject:dictionaryRepresentation3];
         }
 
-        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v59 objects:v68 count:16];
+        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v58 objects:v67 count:16];
       }
 
       while (v18);
@@ -1008,8 +1006,8 @@ LABEL_16:
   v22 = self->_has;
   if ((*&v22 & 0x20000) != 0)
   {
-    v46 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_sequence];
-    [dictionary setObject:v46 forKey:@"sequence"];
+    v45 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_sequence];
+    [dictionary setObject:v45 forKey:@"sequence"];
 
     v22 = self->_has;
     if ((*&v22 & 0x20) == 0)
@@ -1029,8 +1027,8 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  v47 = [MEMORY[0x277CCABB0] numberWithDouble:self->_briskMinutesGoal];
-  [dictionary setObject:v47 forKey:@"briskMinutesGoal"];
+  v46 = [MEMORY[0x277CCABB0] numberWithDouble:self->_briskMinutesGoal];
+  [dictionary setObject:v46 forKey:@"briskMinutesGoal"];
 
   v22 = self->_has;
   if ((*&v22 & 2) == 0)
@@ -1045,8 +1043,8 @@ LABEL_37:
   }
 
 LABEL_73:
-  v48 = [MEMORY[0x277CCABB0] numberWithDouble:self->_activeHoursGoal];
-  [dictionary setObject:v48 forKey:@"activeHoursGoal"];
+  v47 = [MEMORY[0x277CCABB0] numberWithDouble:self->_activeHoursGoal];
+  [dictionary setObject:v47 forKey:@"activeHoursGoal"];
 
   v22 = self->_has;
   if ((*&v22 & 0x2000) == 0)
@@ -1061,8 +1059,8 @@ LABEL_38:
   }
 
 LABEL_74:
-  v49 = [MEMORY[0x277CCABB0] numberWithDouble:self->_moveMinutes];
-  [dictionary setObject:v49 forKey:@"moveMinutes"];
+  v48 = [MEMORY[0x277CCABB0] numberWithDouble:self->_moveMinutes];
+  [dictionary setObject:v48 forKey:@"moveMinutes"];
 
   v22 = self->_has;
   if ((*&v22 & 0x4000) == 0)
@@ -1077,8 +1075,8 @@ LABEL_39:
   }
 
 LABEL_75:
-  v50 = [MEMORY[0x277CCABB0] numberWithDouble:self->_moveMinutesGoal];
-  [dictionary setObject:v50 forKey:@"moveMinutesGoal"];
+  v49 = [MEMORY[0x277CCABB0] numberWithDouble:self->_moveMinutesGoal];
+  [dictionary setObject:v49 forKey:@"moveMinutesGoal"];
 
   if ((*&self->_has & 0x8000) != 0)
   {
@@ -1091,30 +1089,30 @@ LABEL_41:
   if ([(NSMutableArray *)self->_dailyMoveMinutesStatistics count])
   {
     v24 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_dailyMoveMinutesStatistics, "count")}];
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
     v25 = self->_dailyMoveMinutesStatistics;
-    v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v55 objects:v67 count:16];
+    v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v54 objects:v66 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v56;
+      v28 = *v55;
       do
       {
         for (k = 0; k != v27; ++k)
         {
-          if (*v56 != v28)
+          if (*v55 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          dictionaryRepresentation4 = [*(*(&v55 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v54 + 1) + 8 * k) dictionaryRepresentation];
           [v24 addObject:dictionaryRepresentation4];
         }
 
-        v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v55 objects:v67 count:16];
+        v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v54 objects:v66 count:16];
       }
 
       while (v27);
@@ -1126,8 +1124,8 @@ LABEL_41:
   v31 = self->_has;
   if ((*&v31 & 0x40) != 0)
   {
-    v51 = [MEMORY[0x277CCABB0] numberWithDouble:self->_briskMinutesGoalDate];
-    [dictionary setObject:v51 forKey:@"briskMinutesGoalDate"];
+    v50 = [MEMORY[0x277CCABB0] numberWithDouble:self->_briskMinutesGoalDate];
+    [dictionary setObject:v50 forKey:@"briskMinutesGoalDate"];
 
     v31 = self->_has;
     if ((*&v31 & 4) == 0)
@@ -1147,8 +1145,8 @@ LABEL_52:
     goto LABEL_52;
   }
 
-  v52 = [MEMORY[0x277CCABB0] numberWithDouble:{self->_activeHoursGoalDate, v55}];
-  [dictionary setObject:v52 forKey:@"activeHoursGoalDate"];
+  v51 = [MEMORY[0x277CCABB0] numberWithDouble:{self->_activeHoursGoalDate, v54}];
+  [dictionary setObject:v51 forKey:@"activeHoursGoalDate"];
 
   v31 = self->_has;
   if ((*&v31 & 8) == 0)
@@ -1163,8 +1161,8 @@ LABEL_53:
   }
 
 LABEL_79:
-  v53 = [MEMORY[0x277CCABB0] numberWithLongLong:{self->_activityMoveMode, v55}];
-  [dictionary setObject:v53 forKey:@"activityMoveMode"];
+  v52 = [MEMORY[0x277CCABB0] numberWithLongLong:{self->_activityMoveMode, v54}];
+  [dictionary setObject:v52 forKey:@"activityMoveMode"];
 
   v31 = self->_has;
   if ((*&v31 & 0x80000) == 0)
@@ -1179,25 +1177,24 @@ LABEL_54:
   }
 
 LABEL_80:
-  v54 = [MEMORY[0x277CCABB0] numberWithLongLong:{self->_version, v55}];
-  [dictionary setObject:v54 forKey:@"version"];
+  v53 = [MEMORY[0x277CCABB0] numberWithLongLong:{self->_version, v54}];
+  [dictionary setObject:v53 forKey:@"version"];
 
   if ((*&self->_has & 0x400000) != 0)
   {
 LABEL_55:
-    v32 = [MEMORY[0x277CCABB0] numberWithBool:{self->_paused, v55}];
+    v32 = [MEMORY[0x277CCABB0] numberWithBool:{self->_paused, v54}];
     [dictionary setObject:v32 forKey:@"paused"];
   }
 
 LABEL_56:
-  v33 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_sample)
   {
@@ -1207,7 +1204,6 @@ LABEL_56:
   has = self->_has;
   if ((*&has & 0x80) != 0)
   {
-    cacheIndex = self->_cacheIndex;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((*&has & 0x200) == 0)
@@ -1227,7 +1223,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  energyBurned = self->_energyBurned;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1242,7 +1237,6 @@ LABEL_6:
   }
 
 LABEL_53:
-  briskMinutes = self->_briskMinutes;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1257,7 +1251,6 @@ LABEL_7:
   }
 
 LABEL_54:
-  activeHours = self->_activeHours;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1272,7 +1265,6 @@ LABEL_8:
   }
 
 LABEL_55:
-  stepCount = self->_stepCount;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1287,7 +1279,6 @@ LABEL_9:
   }
 
 LABEL_56:
-  energyBurnedGoal = self->_energyBurnedGoal;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1302,7 +1293,6 @@ LABEL_10:
   }
 
 LABEL_57:
-  walkingAndRunningDistance = self->_walkingAndRunningDistance;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1317,7 +1307,6 @@ LABEL_11:
   }
 
 LABEL_58:
-  energyBurnedGoalDate = self->_energyBurnedGoalDate;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1332,7 +1321,6 @@ LABEL_12:
   }
 
 LABEL_59:
-  deepBreathingDuration = self->_deepBreathingDuration;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1347,7 +1335,6 @@ LABEL_13:
   }
 
 LABEL_60:
-  pushCount = self->_pushCount;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1362,90 +1349,85 @@ LABEL_14:
   }
 
 LABEL_61:
-  flightsClimbed = self->_flightsClimbed;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 0x200000) != 0)
   {
 LABEL_15:
-    wheelchairUse = self->_wheelchairUse;
     PBDataWriterWriteInt64Field();
   }
 
 LABEL_16:
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v7 = self->_dailyEnergyBurnedStatistics;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v58 objects:v64 count:16];
-  if (v8)
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v6 = self->_dailyEnergyBurnedStatistics;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v31 objects:v37 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v59;
+    v8 = v7;
+    v9 = *v32;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v59 != v10)
+        if (*v32 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v58 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
-        ++v11;
+        ++v10;
       }
 
-      while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v58 objects:v64 count:16];
+      while (v8 != v10);
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v31 objects:v37 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v13 = self->_dailyBriskMinutesStatistics;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v54 objects:v63 count:16];
-  if (v14)
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v11 = self->_dailyBriskMinutesStatistics;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v27 objects:v36 count:16];
+  if (v12)
   {
-    v15 = v14;
-    v16 = *v55;
+    v13 = v12;
+    v14 = *v28;
     do
     {
-      v17 = 0;
+      v15 = 0;
       do
       {
-        if (*v55 != v16)
+        if (*v28 != v14)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v54 + 1) + 8 * v17);
         PBDataWriterWriteSubmessage();
-        ++v17;
+        ++v15;
       }
 
-      while (v15 != v17);
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v54 objects:v63 count:16];
+      while (v13 != v15);
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v27 objects:v36 count:16];
     }
 
-    while (v15);
+    while (v13);
   }
 
-  v19 = self->_has;
-  if ((*&v19 & 0x20000) != 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x20000) != 0)
   {
-    sequence = self->_sequence;
     PBDataWriterWriteInt64Field();
-    v19 = self->_has;
-    if ((*&v19 & 0x20) == 0)
+    v16 = self->_has;
+    if ((*&v16 & 0x20) == 0)
     {
 LABEL_32:
-      if ((*&v19 & 2) == 0)
+      if ((*&v16 & 2) == 0)
       {
         goto LABEL_33;
       }
@@ -1454,18 +1436,17 @@ LABEL_32:
     }
   }
 
-  else if ((*&v19 & 0x20) == 0)
+  else if ((*&v16 & 0x20) == 0)
   {
     goto LABEL_32;
   }
 
-  briskMinutesGoal = self->_briskMinutesGoal;
   PBDataWriterWriteDoubleField();
-  v19 = self->_has;
-  if ((*&v19 & 2) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 2) == 0)
   {
 LABEL_33:
-    if ((*&v19 & 0x2000) == 0)
+    if ((*&v16 & 0x2000) == 0)
     {
       goto LABEL_34;
     }
@@ -1474,13 +1455,12 @@ LABEL_33:
   }
 
 LABEL_65:
-  activeHoursGoal = self->_activeHoursGoal;
   PBDataWriterWriteDoubleField();
-  v19 = self->_has;
-  if ((*&v19 & 0x2000) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x2000) == 0)
   {
 LABEL_34:
-    if ((*&v19 & 0x4000) == 0)
+    if ((*&v16 & 0x4000) == 0)
     {
       goto LABEL_35;
     }
@@ -1489,13 +1469,12 @@ LABEL_34:
   }
 
 LABEL_66:
-  moveMinutes = self->_moveMinutes;
   PBDataWriterWriteDoubleField();
-  v19 = self->_has;
-  if ((*&v19 & 0x4000) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x4000) == 0)
   {
 LABEL_35:
-    if ((*&v19 & 0x8000) == 0)
+    if ((*&v16 & 0x8000) == 0)
     {
       goto LABEL_37;
     }
@@ -1504,58 +1483,54 @@ LABEL_35:
   }
 
 LABEL_67:
-  moveMinutesGoal = self->_moveMinutesGoal;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x8000) != 0)
   {
 LABEL_36:
-    moveMinutesGoalDate = self->_moveMinutesGoalDate;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_37:
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v21 = self->_dailyMoveMinutesStatistics;
-  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v50 objects:v62 count:16];
-  if (v22)
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v17 = self->_dailyMoveMinutesStatistics;
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v23 objects:v35 count:16];
+  if (v18)
   {
-    v23 = v22;
-    v24 = *v51;
+    v19 = v18;
+    v20 = *v24;
     do
     {
-      v25 = 0;
+      v21 = 0;
       do
       {
-        if (*v51 != v24)
+        if (*v24 != v20)
         {
-          objc_enumerationMutation(v21);
+          objc_enumerationMutation(v17);
         }
 
-        v26 = *(*(&v50 + 1) + 8 * v25);
         PBDataWriterWriteSubmessage();
-        ++v25;
+        ++v21;
       }
 
-      while (v23 != v25);
-      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v50 objects:v62 count:16];
+      while (v19 != v21);
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v23 objects:v35 count:16];
     }
 
-    while (v23);
+    while (v19);
   }
 
-  v27 = self->_has;
-  if ((*&v27 & 0x40) != 0)
+  v22 = self->_has;
+  if ((*&v22 & 0x40) != 0)
   {
-    briskMinutesGoalDate = self->_briskMinutesGoalDate;
     PBDataWriterWriteDoubleField();
-    v27 = self->_has;
-    if ((*&v27 & 4) == 0)
+    v22 = self->_has;
+    if ((*&v22 & 4) == 0)
     {
 LABEL_46:
-      if ((*&v27 & 8) == 0)
+      if ((*&v22 & 8) == 0)
       {
         goto LABEL_47;
       }
@@ -1564,24 +1539,22 @@ LABEL_46:
     }
   }
 
-  else if ((*&v27 & 4) == 0)
+  else if ((*&v22 & 4) == 0)
   {
     goto LABEL_46;
   }
 
-  activeHoursGoalDate = self->_activeHoursGoalDate;
   PBDataWriterWriteDoubleField();
-  v27 = self->_has;
-  if ((*&v27 & 8) == 0)
+  v22 = self->_has;
+  if ((*&v22 & 8) == 0)
   {
 LABEL_47:
-    if ((*&v27 & 0x80000) == 0)
+    if ((*&v22 & 0x80000) == 0)
     {
       goto LABEL_48;
     }
 
 LABEL_72:
-    version = self->_version;
     PBDataWriterWriteInt64Field();
     if ((*&self->_has & 0x400000) == 0)
     {
@@ -1592,25 +1565,21 @@ LABEL_72:
   }
 
 LABEL_71:
-  activityMoveMode = self->_activityMoveMode;
   PBDataWriterWriteInt64Field();
-  v27 = self->_has;
-  if ((*&v27 & 0x80000) != 0)
+  v22 = self->_has;
+  if ((*&v22 & 0x80000) != 0)
   {
     goto LABEL_72;
   }
 
 LABEL_48:
-  if ((*&v27 & 0x400000) != 0)
+  if ((*&v22 & 0x400000) != 0)
   {
 LABEL_49:
-    paused = self->_paused;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_50:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -1981,7 +1950,7 @@ LABEL_41:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(HDCodableSample *)self->_sample copyWithZone:zone];
   v7 = *(v5 + 208);
@@ -2155,67 +2124,67 @@ LABEL_13:
   }
 
 LABEL_14:
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v9 = self->_dailyEnergyBurnedStatistics;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v40;
+    v12 = *v39;
     do
     {
       v13 = 0;
       do
       {
-        if (*v40 != v12)
+        if (*v39 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v39 + 1) + 8 * v13) copyWithZone:zone];
+        v14 = [*(*(&v38 + 1) + 8 * v13) copyWithZone:zone];
         [v5 addDailyEnergyBurnedStatistics:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v11);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v15 = self->_dailyBriskMinutesStatistics;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v34 objects:v43 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v36;
+    v18 = *v35;
     do
     {
       v19 = 0;
       do
       {
-        if (*v36 != v18)
+        if (*v35 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = [*(*(&v35 + 1) + 8 * v19) copyWithZone:zone];
+        v20 = [*(*(&v34 + 1) + 8 * v19) copyWithZone:zone];
         [v5 addDailyBriskMinutesStatistics:v20];
 
         ++v19;
       }
 
       while (v17 != v19);
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
     while (v17);
@@ -2299,34 +2268,34 @@ LABEL_34:
   }
 
 LABEL_35:
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v22 = self->_dailyMoveMinutesStatistics;
-  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v31 objects:v43 count:16];
+  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v30 objects:v42 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v32;
+    v25 = *v31;
     do
     {
       v26 = 0;
       do
       {
-        if (*v32 != v25)
+        if (*v31 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = [*(*(&v31 + 1) + 8 * v26) copyWithZone:{zone, v31}];
+        v27 = [*(*(&v30 + 1) + 8 * v26) copyWithZone:{zone, v30}];
         [v5 addDailyMoveMinutesStatistics:v27];
 
         ++v26;
       }
 
       while (v24 != v26);
-      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v30 objects:v42 count:16];
     }
 
     while (v24);
@@ -2371,7 +2340,7 @@ LABEL_70:
     *(v5 + 220) |= 0x80000u;
     if ((*&self->_has & 0x400000) == 0)
     {
-      goto LABEL_48;
+      return v5;
     }
 
     goto LABEL_47;
@@ -2394,8 +2363,6 @@ LABEL_47:
     *(v5 + 220) |= 0x400000u;
   }
 
-LABEL_48:
-  v29 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -3362,7 +3329,7 @@ LABEL_130:
 
 - (void)mergeFrom:(id)from
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   sample = self->_sample;
   v6 = *(fromCopy + 26);
@@ -3547,57 +3514,57 @@ LABEL_18:
   }
 
 LABEL_19:
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v8 = *(fromCopy + 24);
-  v9 = [v8 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v35;
+    v11 = *v34;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v35 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(HDCodableActivityCache *)self addDailyEnergyBurnedStatistics:*(*(&v34 + 1) + 8 * i)];
+        [(HDCodableActivityCache *)self addDailyEnergyBurnedStatistics:*(*(&v33 + 1) + 8 * i)];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v10);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v13 = *(fromCopy + 23);
-  v14 = [v13 countByEnumeratingWithState:&v30 objects:v39 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v29 objects:v38 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v31;
+    v16 = *v30;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v31 != v16)
+        if (*v30 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [(HDCodableActivityCache *)self addDailyBriskMinutesStatistics:*(*(&v30 + 1) + 8 * j)];
+        [(HDCodableActivityCache *)self addDailyBriskMinutesStatistics:*(*(&v29 + 1) + 8 * j)];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v30 objects:v39 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v29 objects:v38 count:16];
     }
 
     while (v15);
@@ -3681,29 +3648,29 @@ LABEL_39:
   }
 
 LABEL_40:
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v19 = *(fromCopy + 25);
-  v20 = [v19 countByEnumeratingWithState:&v26 objects:v38 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v25 objects:v37 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v27;
+    v22 = *v26;
     do
     {
       for (k = 0; k != v21; ++k)
       {
-        if (*v27 != v22)
+        if (*v26 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        [(HDCodableActivityCache *)self addDailyMoveMinutesStatistics:*(*(&v26 + 1) + 8 * k), v26];
+        [(HDCodableActivityCache *)self addDailyMoveMinutesStatistics:*(*(&v25 + 1) + 8 * k), v25];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v25 objects:v37 count:16];
     }
 
     while (v21);
@@ -3772,8 +3739,6 @@ LABEL_52:
   }
 
 LABEL_53:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

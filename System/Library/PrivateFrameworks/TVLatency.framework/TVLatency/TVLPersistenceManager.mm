@@ -114,35 +114,26 @@ LABEL_12:
 
 + (void)eraseAllRecordings
 {
-  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   path = [a2 path];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26CD78000, v5, v6, "Failed to remove directory at path %@ with error %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26CD78000, v5, v6, "Failed to remove directory at path %@ with error %@", v7, v8, v9, v10);
 }
 
 + (void)URLForRecording
 {
-  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   path = [a2 path];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26CD78000, v5, v6, "Failed to create recordings directory at path %@ with error %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26CD78000, v5, v6, "Failed to create recordings directory at path %@ with error %@", v7, v8, v9, v10);
 }
 
 + (void)allRecordingPaths
 {
-  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   path = [a2 path];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26CD78000, v5, v6, "Failed to retrieve contents of directory at path %@ with error %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26CD78000, v5, v6, "Failed to retrieve contents of directory at path %@ with error %@", v7, v8, v9, v10);
 }
 
 @end

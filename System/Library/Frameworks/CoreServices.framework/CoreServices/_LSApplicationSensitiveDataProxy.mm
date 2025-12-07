@@ -97,7 +97,7 @@
 {
   if (self->_redacted)
   {
-    __LS_DETECTED_ATTEMPT_TO_FETCH_DSIDS_FROM_REDACTED_RECORD__();
+    __LS_DETECTED_ATTEMPT_TO_FETCH_DSIDS_FROM_REDACTED_RECORD__(self);
   }
 }
 

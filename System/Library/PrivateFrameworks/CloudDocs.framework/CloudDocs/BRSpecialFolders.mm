@@ -11,7 +11,7 @@
 
 + (id)homeDirForCurrentPersona
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (homeDirForCurrentPersona_once != -1)
   {
     +[BRSpecialFolders homeDirForCurrentPersona];
@@ -19,12 +19,12 @@
 
   v3 = homeDirForCurrentPersona_pathByPersonaID;
   objc_sync_enter(v3);
-  v13 = 0;
-  v4 = [MEMORY[0x1E696AEC0] br_currentPersonaIDWithIsDataSeparated:&v13];
+  v12 = 0;
+  v4 = [MEMORY[0x1E696AEC0] br_currentPersonaIDWithIsDataSeparated:&v12];
   br_realpath = [homeDirForCurrentPersona_pathByPersonaID objectForKeyedSubscript:v4];
   if (!br_realpath)
   {
-    if (v13 == 1)
+    if (v12 == 1)
     {
       _br_containerPathForDataSeparatedPersona = [self _br_containerPathForDataSeparatedPersona];
       if (!_br_containerPathForDataSeparatedPersona)
@@ -57,7 +57,7 @@ LABEL_11:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v15 = v8;
+          v14 = v8;
           _os_log_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] No path for home directory%@", buf, 0xCu);
         }
 
@@ -77,11 +77,11 @@ LABEL_14:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v15 = v4;
-      v16 = 2112;
-      v17 = br_realpath;
-      v18 = 2112;
-      v19 = v8;
+      v14 = v4;
+      v15 = 2112;
+      v16 = br_realpath;
+      v17 = 2112;
+      v18 = v8;
       _os_log_debug_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] Base path for persona %@ is %@%@", buf, 0x20u);
     }
 
@@ -92,14 +92,13 @@ LABEL_15:
   v10 = br_realpath;
 
   objc_sync_exit(v3);
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)cachesDirForCurrentPersona
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (cachesDirForCurrentPersona_once != -1)
   {
     +[BRSpecialFolders cachesDirForCurrentPersona];
@@ -107,12 +106,12 @@ LABEL_15:
 
   v2 = cachesDirForCurrentPersona_pathByPersonaID;
   objc_sync_enter(v2);
-  v11 = 0;
-  v3 = [MEMORY[0x1E696AEC0] br_currentPersonaIDWithIsDataSeparated:&v11];
+  v10 = 0;
+  v3 = [MEMORY[0x1E696AEC0] br_currentPersonaIDWithIsDataSeparated:&v10];
   v4 = [cachesDirForCurrentPersona_pathByPersonaID objectForKeyedSubscript:v3];
   if (!v4)
   {
-    if (v11 == 1)
+    if (v10 == 1)
     {
       v5 = +[BRSpecialFolders homeDirForCurrentPersona];
       v4 = [v5 stringByAppendingPathComponent:@"Library/Caches/com.apple.bird"];
@@ -142,7 +141,7 @@ LABEL_11:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = br_realpath;
+      v12 = br_realpath;
       _os_log_impl(&dword_1AE2A9000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] No path for Caches directory%@", buf, 0xCu);
     }
 
@@ -153,7 +152,6 @@ LABEL_12:
   v8 = v4;
 
   objc_sync_exit(v2);
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -167,20 +165,20 @@ uint64_t __46__BRSpecialFolders_cachesDirForCurrentPersona__block_invoke()
 
 + (id)applicationSupportDirForCurrentPersona
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (applicationSupportDirForCurrentPersona_once != -1)
   {
     +[BRSpecialFolders applicationSupportDirForCurrentPersona];
   }
 
-  v16 = 0;
-  v2 = [MEMORY[0x1E696AEC0] br_currentPersonaIDWithIsDataSeparated:&v16];
+  v15 = 0;
+  v2 = [MEMORY[0x1E696AEC0] br_currentPersonaIDWithIsDataSeparated:&v15];
   v3 = applicationSupportDirForCurrentPersona_pathByPersonaID;
   objc_sync_enter(v3);
   v4 = [applicationSupportDirForCurrentPersona_pathByPersonaID objectForKeyedSubscript:v2];
   if (!v4)
   {
-    if (v16 == 1)
+    if (v15 == 1)
     {
       v5 = +[BRSpecialFolders homeDirForCurrentPersona];
       v6 = [v5 stringByAppendingPathComponent:@"Library/Application Support/CloudDocs"];
@@ -205,11 +203,11 @@ uint64_t __46__BRSpecialFolders_cachesDirForCurrentPersona__block_invoke()
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412802;
-          v18 = v4;
-          v19 = 2112;
-          v20 = v2;
-          v21 = 2112;
-          v22 = v9;
+          v17 = v4;
+          v18 = 2112;
+          v19 = v2;
+          v20 = 2112;
+          v21 = v9;
           _os_log_debug_impl(&dword_1AE2A9000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] Caching directory path %@ for persona %@%@", buf, 0x20u);
         }
 
@@ -230,7 +228,7 @@ LABEL_16:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = br_realpath;
+      v17 = br_realpath;
       _os_log_impl(&dword_1AE2A9000, v12, OS_LOG_TYPE_DEFAULT, "[WARNING] No path for support directory%@", buf, 0xCu);
     }
 
@@ -242,7 +240,6 @@ LABEL_17:
   v13 = v4;
 
   objc_sync_exit(v3);
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -256,33 +253,16 @@ uint64_t __58__BRSpecialFolders_applicationSupportDirForCurrentPersona__block_in
 
 + (id)_br_containerPathForDataSeparatedPersona
 {
-  v25 = *MEMORY[0x1E69E9840];
-  if (+[BRContainerCache hasDaemonicParts])
+  v24 = *MEMORY[0x1E69E9840];
+  if (+[BRContainerCache hasDaemonicParts](BRContainerCache, "hasDaemonicParts") || (v2 = -[BRDaemonConnection initUsingUserLocalDaemonTokenService]([BRDaemonConnection alloc], "initUsingUserLocalDaemonTokenService"), v3 = [v2 newSyncTokenProxy], v15 = MEMORY[0x1E69E9820], v16 = 3221225472, v17 = __60__BRSpecialFolders__br_containerPathForDataSeparatedPersona__block_invoke, v18 = &unk_1E7A14CF8, v19 = v3, v4 = v3, objc_msgSend(v4, "fetchContainerPathForCurrentPersonaWithReply:", &v15), objc_msgSend(v4, "result"), v5 = objc_claimAutoreleasedReturnValue(), v19, v4, v2, !v5))
   {
-    goto LABEL_3;
-  }
-
-  initUsingUserLocalDaemonTokenService = [[BRDaemonConnection alloc] initUsingUserLocalDaemonTokenService];
-  newSyncTokenProxy = [initUsingUserLocalDaemonTokenService newSyncTokenProxy];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __60__BRSpecialFolders__br_containerPathForDataSeparatedPersona__block_invoke;
-  v19 = &unk_1E7A14CF8;
-  v20 = newSyncTokenProxy;
-  v4 = newSyncTokenProxy;
-  [v4 fetchContainerPathForCurrentPersonaWithReply:&v16];
-  result = [v4 result];
-
-  if (!result)
-  {
-LABEL_3:
     v6 = container_create_or_lookup_path_for_current_user();
     if (v6)
     {
       v7 = v6;
-      result = [MEMORY[0x1E696AEC0] stringWithUTF8String:v6];
+      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v6];
       free(v7);
-      if (result)
+      if (v5)
       {
         goto LABEL_12;
       }
@@ -295,9 +275,9 @@ LABEL_3:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
-        v22 = 1;
-        v23 = 2112;
-        v24 = v8;
+        v21 = 1;
+        v22 = 2112;
+        v23 = v8;
         _os_log_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] container_create_or_lookup_path_for_current_user() failed with %llu%@", buf, 0x16u);
       }
     }
@@ -312,13 +292,12 @@ LABEL_3:
       +[(NSURL(BRCPathAdditions) *)currentPersona];
     }
 
-    result = 0;
+    v5 = 0;
   }
 
 LABEL_12:
-  v14 = *MEMORY[0x1E69E9840];
 
-  return result;
+  return v5;
 }
 
 uint64_t __44__BRSpecialFolders_homeDirForCurrentPersona__block_invoke()
@@ -375,20 +354,18 @@ void __41__BRSpecialFolders_volumeUUIDForPersona___block_invoke(uint64_t a1, uin
 
 + (void)homeDirForCurrentPersona
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] No path for home directory because we're running as root%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] No path for home directory because we're running as root%@", &v2, 0xCu);
 }
 
 void __41__BRSpecialFolders_volumeUUIDForPersona___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to adopt persona for volumeUUIDForPersona%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to adopt persona for volumeUUIDForPersona%@", &v2, 0xCu);
 }
 
 @end

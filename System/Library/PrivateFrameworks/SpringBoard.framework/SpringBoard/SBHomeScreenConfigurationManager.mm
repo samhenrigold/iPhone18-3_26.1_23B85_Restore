@@ -11,7 +11,7 @@
 - (void)configurationServer:(id)server didReceiveConfiguration:(id)configuration completion:(id)completion;
 - (void)configurationServerDidBeginConfigurationSession:(id)session completion:(id)completion;
 - (void)configurationServerDidEndConfigurationSession:(id)session completion:(id)completion;
-- (void)iconModelDidLayout:(uint64_t)layout;
+- (void)iconModelDidLayout:(uint64_t)result;
 - (void)teardownFocusMode:(void *)mode rootFolder:;
 - (void)updateHomeScreenWithConfiguration:(void *)configuration completion:;
 @end
@@ -30,7 +30,7 @@
     v2->_server = v3;
 
     [(SBHomeScreenConfigurationServer *)&v2->_server->super.isa setDelegate:v2];
-    [(SBHomeScreenConfigurationServer *)v2->_server activate];
+    [(SBHomeScreenConfigurationServer *)&v2->_server->super.isa activate];
     objc_initWeak(&location, v2);
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     mainQueue = [MEMORY[0x277CCABD8] mainQueue];
@@ -115,9 +115,9 @@ void __55__SBHomeScreenConfigurationManager_iconModelDidLayout___block_invoke(ui
   BSDispatchMain();
 }
 
-- (void)iconModelDidLayout:(uint64_t)layout
+- (void)iconModelDidLayout:(uint64_t)result
 {
-  if (layout && *(layout + 16))
+  if (result && *(result + 16))
   {
     v2 = SBLogHomeScreenConfiguration();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
@@ -126,7 +126,7 @@ void __55__SBHomeScreenConfigurationManager_iconModelDidLayout___block_invoke(ui
       _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_INFO, "Updating installed focus mode because icon model laid out", v3, 2u);
     }
 
-    [(SBHomeScreenConfigurationManager *)layout updateHomeScreenWithConfiguration:&__block_literal_global_217 completion:?];
+    [(SBHomeScreenConfigurationManager *)result updateHomeScreenWithConfiguration:&__block_literal_global_217 completion:?];
   }
 }
 

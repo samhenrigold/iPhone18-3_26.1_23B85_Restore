@@ -7,7 +7,7 @@
 - (void)updateScrubber
 {
 
-  sub_274B8A970();
+  sub_274B8A970(v2);
 }
 
 @end

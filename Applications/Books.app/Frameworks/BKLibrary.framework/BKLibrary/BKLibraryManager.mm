@@ -7,7 +7,10 @@
 + (id)_previouslyReadPredicate;
 + (id)_recentlyEngagedPredicate;
 + (id)_recentlyReadPredicate;
++ (id)adjacentSeriesBooksWithMaxCount:(unint64_t)count withSmallerSeriesSortKeys:(BOOL)keys basePredicate:(id)predicate forBook:(id)book includeAllBooksInSeries:(BOOL)series;
 + (id)defaultManager;
++ (id)fetchImageForAsset:(id)asset size:(CGSize)size includeSpine:(BOOL)spine allowGeneric:(BOOL)generic coverEffectsEnvironment:(id)environment timeout:(double)timeout;
++ (id)fetchImageForAssetID:(id)d size:(CGSize)size includeSpine:(BOOL)spine coverEffectsEnvironment:(id)environment;
 + (id)fetchRequestForContinueReading;
 + (id)fetchRequestForPreviouslyRead;
 + (id)fetchRequestForRecentlyEngaged;
@@ -25,6 +28,7 @@
 + (id)predicateForAssetsAvailableToAppIntentsWithTypes:(id)types;
 + (id)predicateForAssetsInCollectionID:(id)d allowExplicit:(BOOL)explicit includeSeriesItems:(BOOL)items;
 + (id)predicateForBooksShownInAllBooks;
++ (id)predicateForCollectionMembersInCollectionID:(id)d hideUnownedItems:(BOOL)items;
 + (id)predicateForCollectionMembersInCollectionID:(id)d hideUnownedItems:(BOOL)items allowExplicit:(BOOL)explicit;
 + (id)predicateForCollectionMembersMatchingSearchStringLibraryAssets:(id)assets;
 + (id)predicateForCollectionMembersWithLocalAssets;
@@ -54,6 +58,7 @@
 + (unsigned)processingOptionsFor:(id)for coverEffectsEnvironment:(id)environment;
 + (void)_fetchImageForAsset:(id)asset size:(CGSize)size includeSpine:(BOOL)spine includeShadow:(BOOL)shadow allowGeneric:(BOOL)generic coverEffectsEnvironment:(id)environment completion:(id)completion;
 + (void)deleteCloudDataWithCompletion:(id)completion;
++ (void)fetchImageForAsset:(id)asset size:(CGSize)size includeSpine:(BOOL)spine includeShadow:(BOOL)shadow coverEffectsEnvironment:(id)environment completion:(id)completion;
 + (void)fetchImageForAssetID:(id)d size:(CGSize)size includeSpine:(BOOL)spine includeShadow:(BOOL)shadow coverEffectsEnvironment:(id)environment completion:(id)completion;
 + (void)fetchImageShadowForAsset:(id)asset size:(CGSize)size completion:(id)completion;
 + (void)fetchImageShadowForAssetID:(id)d size:(CGSize)size completion:(id)completion;
@@ -65,6 +70,7 @@
 - (BKLibraryManager)init;
 - (BKLibraryManager)initWithPersistentStoreURL:(id)l bdsPriceTracker:(id)tracker;
 - (BOOL)_shouldPropagateNilAssetIDForDataSourceWithIdentifier:(id)identifier;
+- (BOOL)canImportURL:(id)l openInPlace:(BOOL)place options:(id)options;
 - (BOOL)examineURL:(id)l completion:(id)completion;
 - (BOOL)hasBooks;
 - (BOOL)isDownloadableFromLibraryAsset:(id)asset;
@@ -91,6 +97,7 @@
 - (id)assetIDsOfStoreBookAssets;
 - (id)bookDescriptionForAssetID:(id)d;
 - (id)cloudSyncVersionsForDataType:(id)type inContext:(id)context;
+- (id)contentPredicateForSeriesID:(id)d onlyPurchased:(BOOL)purchased forceCloud:(BOOL)cloud;
 - (id)contentPredicateForSeriesID:(id)d onlyPurchased:(BOOL)purchased forceCloud:(BOOL)cloud allowsExplicit:(BOOL)explicit;
 - (id)dataSourceConformingToProtocol:(id)protocol;
 - (id)dataSourceWithIdentifier:(id)identifier;
@@ -99,6 +106,7 @@
 - (id)dragInfoFromLibraryAsset:(id)asset;
 - (id)existingAssetIDsFromAssetIDs:(id)ds;
 - (id)fetchMigratedProperties:(id)properties deleteFoundAssets:(BOOL)assets;
+- (id)insertNewLibraryAssetWithIdentifier:(id)identifier assetID:(id)d orTemporaryAssetID:(id)iD type:(signed __int16)type inManagedObjectContext:(id)context;
 - (id)libraryAssetOnMainQueueWithAssetID:(id)d;
 - (id)libraryAssetOnMainQueueWithAssetIdentifier:(id)identifier;
 - (id)libraryAssetOnMainQueueWithEpubID:(id)d;
@@ -154,6 +162,7 @@
 - (id)validLibraryAssetIDsOnMainQueueWithAssetIDs:(id)ds;
 - (id)wq_seriesIDsToResetWithLibraryManagedObjectContext:(id)context;
 - (int64_t)_compareVersionWith:(id)with;
+- (unint64_t)countOfBooksInSeriesRelativeToBook:(id)book includeAllBooksInSeries:(BOOL)series relation:(int)relation;
 - (unint64_t)countOfPurchasedBooks;
 - (unint64_t)wq_countOfBooksInContinueReadingIncludingExplicitContent:(BOOL)content limit:(unint64_t)limit onWorkerQueue:(id)queue;
 - (void)_addBitmask:(unint64_t)bitmask toUpdate:(id)update inMethod:(SEL)method;
@@ -237,6 +246,7 @@
 - (void)fetchLibraryAssetsFromStoreIDs:(id)ds handler:(id)handler;
 - (void)finalizeAuthentication:(id)authentication;
 - (void)hiddenAssetStoreIDsWithCompletion:(id)completion;
+- (void)importURL:(id)l openInPlace:(BOOL)place options:(id)options completion:(id)completion;
 - (void)initializeMostRecentPurchaseDateCacheIfNeeded;
 - (void)isTrackedAsRecent:(id)recent completion:(id)completion;
 - (void)libraryDataSource:(id)source addedAsset:(id)asset;
@@ -354,28 +364,29 @@
     if (os_variant_has_internal_diagnostics())
     {
       v3 = getpid();
-      v9 = 0;
-      v10 = &v9;
-      v11 = 0x2020000000;
+      v10 = 0;
+      v11 = &v10;
+      v12 = 0x2020000000;
       v4 = off_EFC88;
-      v12 = off_EFC88;
+      v13 = off_EFC88;
       if (!off_EFC88)
       {
-        v8[0] = _NSConcreteStackBlock;
-        v8[1] = 3221225472;
-        v8[2] = sub_3C2B0;
-        v8[3] = &unk_D57A8;
-        v8[4] = &v9;
-        sub_3C2B0(v8);
-        v4 = v10[3];
+        v9[0] = _NSConcreteStackBlock;
+        v9[1] = 3221225472;
+        v9[2] = sub_3C2B0;
+        v9[3] = &unk_D57A8;
+        v9[4] = &v10;
+        sub_3C2B0(v9);
+        v4 = v11[3];
       }
 
-      _Block_object_dispose(&v9, 8);
+      _Block_object_dispose(&v10, 8);
       if (!v4)
       {
-        v7 = sub_8D418();
-        _Block_object_dispose(&v9, 8);
-        _Unwind_Resume(v7);
+        sub_8D418();
+        v8 = v7;
+        _Block_object_dispose(&v10, 8);
+        _Unwind_Resume(v8);
       }
 
       v4(v3, 3135106305, @"managerWithDataSources: initializer not called!");
@@ -3308,39 +3319,144 @@ LABEL_16:
   [(BKLibraryManager *)self performNamed:@"reloadDataSource" workerQueueBlock:v8];
 }
 
+- (BOOL)canImportURL:(id)l openInPlace:(BOOL)place options:(id)options
+{
+  placeCopy = place;
+  lCopy = l;
+  optionsCopy = options;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  dataSources = [(BKLibraryManager *)self dataSources];
+  v11 = [dataSources countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v18;
+    while (2)
+    {
+      for (i = 0; i != v12; i = i + 1)
+      {
+        if (*v18 != v13)
+        {
+          objc_enumerationMutation(dataSources);
+        }
+
+        if ([*(*(&v17 + 1) + 8 * i) canImportURL:lCopy openInPlace:placeCopy options:optionsCopy])
+        {
+          v15 = 1;
+          goto LABEL_11;
+        }
+      }
+
+      v12 = [dataSources countByEnumeratingWithState:&v17 objects:v21 count:16];
+      if (v12)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v15 = 0;
+LABEL_11:
+
+  return v15;
+}
+
+- (void)importURL:(id)l openInPlace:(BOOL)place options:(id)options completion:(id)completion
+{
+  placeCopy = place;
+  lCopy = l;
+  optionsCopy = options;
+  completionCopy = completion;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  dataSources = [(BKLibraryManager *)self dataSources];
+  v13 = [dataSources countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v27;
+LABEL_3:
+    v16 = 0;
+    while (1)
+    {
+      if (*v27 != v15)
+      {
+        objc_enumerationMutation(dataSources);
+      }
+
+      v17 = *(*(&v26 + 1) + 8 * v16);
+      if ([v17 canImportURL:lCopy openInPlace:placeCopy options:optionsCopy])
+      {
+        startAccessingSecurityScopedResource = [lCopy startAccessingSecurityScopedResource];
+        v22[0] = _NSConcreteStackBlock;
+        v22[1] = 3221225472;
+        v22[2] = sub_155EC;
+        v22[3] = &unk_D5BA8;
+        v22[4] = self;
+        v25 = startAccessingSecurityScopedResource;
+        v19 = lCopy;
+        v23 = v19;
+        v24 = completionCopy;
+        v20 = [v17 importURL:v19 openInPlace:placeCopy options:optionsCopy completion:v22];
+
+        if (v20)
+        {
+          break;
+        }
+      }
+
+      if (v14 == ++v16)
+      {
+        v14 = [dataSources countByEnumeratingWithState:&v26 objects:v30 count:16];
+        if (v14)
+        {
+          goto LABEL_3;
+        }
+
+        break;
+      }
+    }
+  }
+}
+
 - (void)clearAgingDocumentInbox
 {
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  dataSources = [(BKLibraryManager *)self dataSources];
-  v3 = [dataSources countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [(BKLibraryManager *)self dataSources:0];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
-      for (i = 0; i != v4; i = i + 1)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
-          objc_enumerationMutation(dataSources);
+          objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
-        v8 = BUProtocolCast();
-        if (v8)
+        v7 = BUProtocolCast();
+        if (v7)
         {
-          v9 = v8;
-          [v8 clearAgingDocumentInbox];
+          v8 = v7;
+          [v7 clearAgingDocumentInbox];
 
           goto LABEL_11;
         }
       }
 
-      v4 = [dataSources countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -3485,23 +3601,9 @@ LABEL_3:
   dataSourceIdentifier = [assetCopy dataSourceIdentifier];
   v12 = [(BKLibraryManager *)self dataSourceWithIdentifier:dataSourceIdentifier];
 
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  if ((objc_opt_respondsToSelector() & 1) == 0 || (v14 = _NSConcreteStackBlock, v15 = 3221225472, v16 = sub_16500, v17 = &unk_D5C70, v18 = self, v19 = completionCopy, v13 = [v12 updateAsset:assetCopy fromURL:lCopy completion:&v14], v19, (v13 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  v14 = _NSConcreteStackBlock;
-  v15 = 3221225472;
-  v16 = sub_16500;
-  v17 = &unk_D5C70;
-  selfCopy = self;
-  v19 = completionCopy;
-  v13 = [v12 updateAsset:assetCopy fromURL:lCopy completion:&v14];
-
-  if ((v13 & 1) == 0)
-  {
-LABEL_3:
-    [(BKLibraryManager *)self updateURL:lCopy completion:completionCopy, v14, v15, v16, v17, selfCopy];
+    [(BKLibraryManager *)self updateURL:lCopy completion:completionCopy, v14, v15, v16, v17, v18];
   }
 }
 
@@ -7431,6 +7533,18 @@ LABEL_82:
   return v7;
 }
 
++ (id)predicateForCollectionMembersInCollectionID:(id)d hideUnownedItems:(BOOL)items
+{
+  itemsCopy = items;
+  dCopy = d;
+  defaultManager = [self defaultManager];
+  isExplicitMaterialAllowed = [defaultManager isExplicitMaterialAllowed];
+
+  v9 = [self predicateForCollectionMembersInCollectionID:dCopy hideUnownedItems:itemsCopy allowExplicit:isExplicitMaterialAllowed];
+
+  return v9;
+}
+
 + (id)predicateForCollectionMembersInCollectionID:(id)d hideUnownedItems:(BOOL)items allowExplicit:(BOOL)explicit
 {
   dCopy = d;
@@ -7614,6 +7728,32 @@ LABEL_82:
       (*(v10 + 2))(v10);
     }
   }
+}
+
+- (id)insertNewLibraryAssetWithIdentifier:(id)identifier assetID:(id)d orTemporaryAssetID:(id)iD type:(signed __int16)type inManagedObjectContext:(id)context
+{
+  typeCopy = type;
+  dCopy = d;
+  contextCopy = context;
+  iDCopy = iD;
+  identifierCopy = identifier;
+  v16 = [NSEntityDescription insertNewObjectForEntityForName:@"BKLibraryAsset" inManagedObjectContext:contextCopy];
+  [v16 setAssetID:dCopy];
+  [v16 setTemporaryAssetID:iDCopy];
+
+  [v16 setDataSourceIdentifier:identifierCopy];
+  [v16 setContentType:typeCopy];
+  [v16 setCreationDateToNow];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_2836C;
+  v19[3] = &unk_D5420;
+  v19[4] = self;
+  v20 = dCopy;
+  v17 = dCopy;
+  [contextCopy performBlock:v19];
+
+  return v16;
 }
 
 - (id)sortDescriptorsForMode:(unint64_t)mode collectionID:(id)d
@@ -9086,6 +9226,147 @@ LABEL_23:
   return v14;
 }
 
++ (id)adjacentSeriesBooksWithMaxCount:(unint64_t)count withSmallerSeriesSortKeys:(BOOL)keys basePredicate:(id)predicate forBook:(id)book includeAllBooksInSeries:(BOOL)series
+{
+  seriesCopy = series;
+  keysCopy = keys;
+  predicateCopy = predicate;
+  bookCopy = book;
+  v13 = +[BKLibraryManager defaultManager];
+  seriesID = [bookCopy seriesID];
+  v15 = [v13 predicateForSeriesBooksIncludingNextForID:seriesID includeAllBooksInSeries:seriesCopy];
+
+  v32 = predicateCopy;
+  v36[0] = predicateCopy;
+  v36[1] = v15;
+  v16 = [NSArray arrayWithObjects:v36 count:2];
+  v17 = [NSCompoundPredicate andPredicateWithSubpredicates:v16];
+
+  seriesSortKey = [bookCopy seriesSortKey];
+
+  if (seriesSortKey)
+  {
+    if (keysCopy)
+    {
+      v19 = @"%K < %@";
+    }
+
+    else
+    {
+      v19 = @"%K > %@";
+    }
+
+    seriesSortKey2 = [bookCopy seriesSortKey];
+    v21 = [NSPredicate predicateWithFormat:v19, @"seriesSortKey", seriesSortKey2];
+
+    v35[0] = v17;
+    v35[1] = v21;
+    v22 = [NSArray arrayWithObjects:v35 count:2];
+    v23 = [NSCompoundPredicate andPredicateWithSubpredicates:v22];
+
+    v17 = v23;
+  }
+
+  v24 = [NSFetchRequest fetchRequestWithEntityName:@"BKLibraryAsset"];
+  [v24 setPredicate:v17];
+  [v24 setFetchLimit:count];
+  v25 = [[NSSortDescriptor alloc] initWithKey:@"seriesSortKey" ascending:!keysCopy];
+  v34 = v25;
+  v26 = [NSArray arrayWithObjects:&v34 count:1];
+  [v24 setSortDescriptors:v26];
+
+  [v24 setReturnsObjectsAsFaults:0];
+  managedObjectContext = [bookCopy managedObjectContext];
+  v33 = 0;
+  v28 = [managedObjectContext executeFetchRequest:v24 error:&v33];
+  v29 = v33;
+
+  if (v28)
+  {
+    if (!keysCopy)
+    {
+      goto LABEL_13;
+    }
+
+    bu_reversedArray = [v28 bu_reversedArray];
+  }
+
+  else
+  {
+    v28 = BKLibraryLog();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      sub_8F1F4();
+    }
+
+    bu_reversedArray = 0;
+  }
+
+  v28 = bu_reversedArray;
+LABEL_13:
+
+  return v28;
+}
+
+- (unint64_t)countOfBooksInSeriesRelativeToBook:(id)book includeAllBooksInSeries:(BOOL)series relation:(int)relation
+{
+  seriesCopy = series;
+  bookCopy = book;
+  if (!+[NSThread isMainThread])
+  {
+    sub_8F25C();
+  }
+
+  v9 = [NSFetchRequest fetchRequestWithEntityName:@"BKLibraryAsset"];
+  seriesID = [bookCopy seriesID];
+  v11 = [(BKLibraryManager *)self predicateForSeriesBooksIncludingNextForID:seriesID includeAllBooksInSeries:seriesCopy];
+
+  if (bookCopy && ([bookCopy seriesSortKey], v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
+  {
+    if (relation == 2)
+    {
+      v13 = @"%K > %@";
+    }
+
+    else
+    {
+      v13 = @"%K < %@";
+    }
+
+    seriesSortKey = [bookCopy seriesSortKey];
+    v15 = [NSPredicate predicateWithFormat:v13, @"seriesSortKey", seriesSortKey];
+
+    v24[0] = v15;
+    v24[1] = v11;
+    v16 = [NSArray arrayWithObjects:v24 count:2];
+    v17 = [NSCompoundPredicate andPredicateWithSubpredicates:v16];
+  }
+
+  else
+  {
+    v17 = v11;
+  }
+
+  [v9 setPredicate:v17];
+  uiChildContext = [(BKLibraryManager *)self uiChildContext];
+  v23 = 0;
+  v19 = [uiChildContext countForFetchRequest:v9 error:&v23];
+  v20 = v23;
+
+  if (v19 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v21 = BKLibraryLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      sub_8F298();
+    }
+
+    v19 = 0;
+  }
+
+  return v19;
+}
+
 - (id)seriesAuthorForContainerID:(id)d context:(id)context
 {
   v4 = [(BKLibraryManager *)self _rawSeriesAuthorForContainerID:d context:context];
@@ -9238,6 +9519,16 @@ LABEL_23:
   v16 = [v8 count] != 0;
 
   return v16;
+}
+
+- (id)contentPredicateForSeriesID:(id)d onlyPurchased:(BOOL)purchased forceCloud:(BOOL)cloud
+{
+  cloudCopy = cloud;
+  purchasedCopy = purchased;
+  dCopy = d;
+  v9 = [(BKLibraryManager *)self contentPredicateForSeriesID:dCopy onlyPurchased:purchasedCopy forceCloud:cloudCopy allowsExplicit:[(BKLibraryManager *)self isExplicitMaterialAllowed]];
+
+  return v9;
 }
 
 - (id)contentPredicateForSeriesID:(id)d onlyPurchased:(BOOL)purchased forceCloud:(BOOL)cloud allowsExplicit:(BOOL)explicit
@@ -11901,7 +12192,7 @@ LABEL_12:
 
 - (void)collectionManagerDidModifyWantToReadCollection:(id)collection
 {
-  v4 = BKLibraryPriceTrackingLog();
+  v4 = BKLibraryPriceTrackingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -11971,6 +12262,21 @@ LABEL_12:
   selfCopy = self;
   v13 = completionCopy;
   [defaultManager fetchLibraryAssetsFromAssetIDs:v12 handler:v14];
+}
+
++ (void)fetchImageForAsset:(id)asset size:(CGSize)size includeSpine:(BOOL)spine includeShadow:(BOOL)shadow coverEffectsEnvironment:(id)environment completion:(id)completion
+{
+  shadowCopy = shadow;
+  spineCopy = spine;
+  height = size.height;
+  width = size.width;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_5F700;
+  v16[3] = &unk_D7278;
+  completionCopy = completion;
+  v15 = completionCopy;
+  [self _fetchImageForAsset:asset size:spineCopy includeSpine:shadowCopy includeShadow:0 allowGeneric:environment coverEffectsEnvironment:v16 completion:{width, height}];
 }
 
 + (void)_fetchImageForAsset:(id)asset size:(CGSize)size includeSpine:(BOOL)spine includeShadow:(BOOL)shadow allowGeneric:(BOOL)generic coverEffectsEnvironment:(id)environment completion:(id)completion
@@ -12075,6 +12381,91 @@ LABEL_12:
   v20 = completionCopy;
   v21 = v17;
   [defaultManager fetchLibraryAssetsFromAssetIDs:v19 handler:v22];
+}
+
++ (id)fetchImageForAsset:(id)asset size:(CGSize)size includeSpine:(BOOL)spine allowGeneric:(BOOL)generic coverEffectsEnvironment:(id)environment timeout:(double)timeout
+{
+  genericCopy = generic;
+  spineCopy = spine;
+  height = size.height;
+  width = size.width;
+  assetCopy = asset;
+  environmentCopy = environment;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = sub_5FFD8;
+  v34 = sub_5FFE8;
+  v35 = 0;
+  if (assetCopy)
+  {
+    v17 = dispatch_semaphore_create(0);
+    [assetCopy assetID];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_5FFF0;
+    v18 = v26[3] = &unk_D72F0;
+    v27 = v18;
+    v29 = &v30;
+    v19 = v17;
+    v28 = v19;
+    [self _fetchImageForAsset:assetCopy size:spineCopy includeSpine:0 includeShadow:genericCopy allowGeneric:environmentCopy coverEffectsEnvironment:v26 completion:{width, height}];
+    v20 = dispatch_time(0, (timeout * 1000000000.0));
+    if (dispatch_semaphore_wait(v19, v20))
+    {
+      v21 = BCImageCacheLog();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        assetID = [assetCopy assetID];
+        sub_91454(assetID, buf, v21);
+      }
+    }
+
+    v23 = v31[5];
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  v24 = v23;
+  _Block_object_dispose(&v30, 8);
+
+  return v24;
+}
+
++ (id)fetchImageForAssetID:(id)d size:(CGSize)size includeSpine:(BOOL)spine coverEffectsEnvironment:(id)environment
+{
+  spineCopy = spine;
+  height = size.height;
+  width = size.width;
+  environmentCopy = environment;
+  dCopy = d;
+  defaultManager = [self defaultManager];
+  newManagedObjectContext = [defaultManager newManagedObjectContext];
+
+  v15 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"NewMOC 1 %s %@", "+[BKLibraryManager(BCCacheManager) fetchImageForAssetID:size:includeSpine:coverEffectsEnvironment:]", dCopy);
+  [newManagedObjectContext setName:v15];
+
+  defaultManager2 = [self defaultManager];
+  v22 = dCopy;
+  v17 = [NSArray arrayWithObjects:&v22 count:1];
+
+  v18 = [defaultManager2 libraryAssetsWithAssetIDsContainedInList:v17 tempAssetIDs:0 inManagedObjectContext:newManagedObjectContext];
+
+  if ([v18 count])
+  {
+    v19 = [v18 objectAtIndexedSubscript:0];
+    v20 = [self fetchImageForAsset:v19 size:spineCopy includeSpine:environmentCopy coverEffectsEnvironment:{width, height}];
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  return v20;
 }
 
 + (unsigned)processingOptionsFor:(id)for coverEffectsEnvironment:(id)environment

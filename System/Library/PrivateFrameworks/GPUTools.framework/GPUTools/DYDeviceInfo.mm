@@ -2,7 +2,6 @@
 - (BOOL)supportsCapabilitiesOfGraphicsAPI:(id)i allowedClass:(Class)class;
 - (DYDeviceInfo)initWithCoder:(id)coder;
 - (NSString)descriptionForBugReport;
-- (NSString)summaryForBugReport;
 - (id)debugDescription;
 - (id)descriptionWithProfileName:(id)name showingProductType:(BOOL)type showingPermanentIdentifier:(BOOL)identifier;
 - (void)dealloc;
@@ -134,16 +133,9 @@ LABEL_11:
   return [v10 componentsJoinedByString:@" "];
 }
 
-- (NSString)summaryForBugReport
-{
-  String = DYDevicePlatformGetString(self->_platform);
-  version = self->_version;
-  return [MEMORY[0x277CCACA8] stringWithFormat:@"%@ - %@ %@ (%@)", self->_productType, String, version, self->_build];
-}
-
 - (NSString)descriptionForBugReport
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   [v3 appendFormat:@"%@\n", -[DYDeviceInfo description](self, "description")];
   if (self->_hostProductType)
@@ -155,27 +147,27 @@ LABEL_11:
   if ([(NSArray *)self->_supportedGraphicsAPIInfos count])
   {
     [v3 appendString:@"Supported graphics APIs:\n"];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     supportedGraphicsAPIInfos = self->_supportedGraphicsAPIInfos;
-    v5 = [(NSArray *)supportedGraphicsAPIInfos countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [(NSArray *)supportedGraphicsAPIInfos countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         v8 = 0;
         do
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(supportedGraphicsAPIInfos);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * v8);
+          v9 = *(*(&v12 + 1) + 8 * v8);
           if (objc_opt_respondsToSelector())
           {
             descriptionForBugReport = [v9 descriptionForBugReport];
@@ -191,14 +183,13 @@ LABEL_11:
         }
 
         while (v6 != v8);
-        v6 = [(NSArray *)supportedGraphicsAPIInfos countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [(NSArray *)supportedGraphicsAPIInfos countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -232,44 +223,44 @@ LABEL_11:
 
 - (BOOL)supportsCapabilitiesOfGraphicsAPI:(id)i allowedClass:(Class)class
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!i)
   {
     [DYDeviceInfo supportsCapabilitiesOfGraphicsAPI:allowedClass:];
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   supportedGraphicsAPIInfos = [(DYDeviceInfo *)self supportedGraphicsAPIInfos];
-  v6 = [(NSArray *)supportedGraphicsAPIInfos countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSArray *)supportedGraphicsAPIInfos countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(supportedGraphicsAPIInfos);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         if (objc_opt_isKindOfClass() & 1) != 0 && ([v10 supportsCapabilitiesOfGraphicsAPI:i])
         {
           LOBYTE(v6) = 1;
-          goto LABEL_13;
+          return v6;
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v6 = [(NSArray *)supportedGraphicsAPIInfos countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)supportedGraphicsAPIInfos countByEnumeratingWithState:&v12 objects:v16 count:16];
       v7 = v6;
       if (v6)
       {
@@ -280,8 +271,6 @@ LABEL_11:
     }
   }
 
-LABEL_13:
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

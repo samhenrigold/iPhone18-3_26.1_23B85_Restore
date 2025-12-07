@@ -1,78 +1,100 @@
 void sub_D84(id a1)
 {
-  qword_116D8 = [UIColor colorWithRed:0.6118 green:0.4078 blue:0.7412 alpha:1.0];
+  v1 = [UIColor colorWithRed:0.6118 green:0.4078 blue:0.7412 alpha:1.0];
+  v2 = qword_116D8;
+  qword_116D8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_E24(id a1)
 {
-  qword_116E8 = [UIColor colorWithRed:1.0 green:0.7725 blue:0.3765 alpha:1.0];
+  v1 = [UIColor colorWithRed:1.0 green:0.7725 blue:0.3765 alpha:1.0];
+  v2 = qword_116E8;
+  qword_116E8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_EC0(id a1)
 {
-  qword_116F8 = [UIColor colorWithRed:0.9922 green:0.2941 blue:0.2549 alpha:1.0];
+  v1 = [UIColor colorWithRed:0.9922 green:0.2941 blue:0.2549 alpha:1.0];
+  v2 = qword_116F8;
+  qword_116F8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_F60(id a1)
 {
-  qword_11708 = [UIColor colorWithRed:0.9647 green:0.9216 blue:0.3137 alpha:1.0];
+  v1 = [UIColor colorWithRed:0.9647 green:0.9216 blue:0.3137 alpha:1.0];
+  v2 = qword_11708;
+  qword_11708 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000(id a1)
 {
-  qword_11718 = [UIColor colorWithRed:0.8627 green:0.9765 blue:0.2706 alpha:1.0];
+  v1 = [UIColor colorWithRed:0.8627 green:0.9765 blue:0.2706 alpha:1.0];
+  v2 = qword_11718;
+  qword_11718 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10A0(id a1)
 {
-  qword_11728 = [UIColor colorWithRed:0.8118 green:0.5137 blue:0.3216 alpha:1.0];
+  v1 = [UIColor colorWithRed:0.8118 green:0.5137 blue:0.3216 alpha:1.0];
+  v2 = qword_11728;
+  qword_11728 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1140(id a1)
 {
-  qword_11738 = +[UIColor lightGrayColor];
+  v1 = +[UIColor lightGrayColor];
+  v2 = qword_11738;
+  qword_11738 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_11C4(id a1)
 {
-  qword_11748 = [UIColor colorWithRed:0.4471 green:0.5765 blue:0.3451 alpha:1.0];
+  v1 = [UIColor colorWithRed:0.4471 green:0.5765 blue:0.3451 alpha:1.0];
+  v2 = qword_11748;
+  qword_11748 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1264(id a1)
 {
-  qword_11758 = [UIColor colorWithRed:0.8902 green:0.5608 blue:0.5137 alpha:1.0];
+  v1 = [UIColor colorWithRed:0.8902 green:0.5608 blue:0.5137 alpha:1.0];
+  v2 = qword_11758;
+  qword_11758 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1304(id a1)
 {
-  qword_11768 = [UIColor colorWithRed:0.6392 green:0.7882 blue:0.2275 alpha:1.0];
+  v1 = [UIColor colorWithRed:0.6392 green:0.7882 blue:0.2275 alpha:1.0];
+  v2 = qword_11768;
+  qword_11768 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_13A4(id a1)
 {
-  qword_11778 = [UIColor colorWithRed:0.4431 green:0.5569 blue:0.851 alpha:1.0];
+  v1 = [UIColor colorWithRed:0.4431 green:0.5569 blue:0.851 alpha:1.0];
+  v2 = qword_11778;
+  qword_11778 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 const __CFString *NSStringFromNTKInfinityCharacterType(uint64_t a1)
@@ -242,23 +264,20 @@ void sub_2D20(uint64_t a1, uint64_t a2, void *a3)
 
 void sub_2E48(void *a1)
 {
-  v2 = a1[4];
-  v1 = a1[5];
-  v3 = *(a1[6] + 56);
-  v4 = NTKInterpolateBetweenColors();
-  [v2 setForegroundColor:v4];
+  v1 = a1[4];
+  v2 = NTKInterpolateBetweenColors();
+  [v1 setForegroundColor:v2];
 }
 
 void sub_3408(uint64_t a1, uint64_t a2, void *a3)
 {
   if (NTKComplicationSlotTopRight == a2)
   {
-    v9 = [a3 display];
+    v8 = [a3 display];
     v5 = [*(*(a1 + 32) + 40) complicationColorForStyle:{objc_msgSend(*(a1 + 40), "style")}];
     v6 = [*(*(a1 + 32) + 40) complicationColorForStyle:{objc_msgSend(*(a1 + 48), "style")}];
-    v7 = *(a1 + 56);
-    v8 = NTKInterpolateBetweenColors();
-    [v9 setForegroundColor:v8];
+    v7 = NTKInterpolateBetweenColors();
+    [v8 setForegroundColor:v7];
   }
 }
 
@@ -279,16 +298,16 @@ void sub_376C(uint64_t a1)
   [v6 setHidden:1];
 }
 
-id _toyboxComplicationColor()
+id _toyboxComplicationColor(uint64_t a1)
 {
   if (qword_11790 != -1)
   {
     sub_5B3C();
   }
 
-  v1 = qword_11788;
+  v2 = qword_11788;
 
-  return v1;
+  return v2;
 }
 
 void sub_44EC(id a1)

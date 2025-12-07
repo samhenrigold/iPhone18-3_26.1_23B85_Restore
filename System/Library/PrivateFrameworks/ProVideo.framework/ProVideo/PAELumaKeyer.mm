@@ -20,56 +20,56 @@
 {
   v8 = *&input;
   p_cacheMutex = &self->super._cacheMutex;
-  v24 = &self->super._cacheMutex;
+  v23 = &self->super._cacheMutex;
   PCMutex::lock(&self->super._cacheMutex);
-  LOBYTE(v25) = 1;
+  LOBYTE(v24) = 1;
   v12 = HGObject::operator new(0x80uLL);
-  *&v13 = HGBitmap::HGBitmap(v12, *&rect->var0, *&rect->var2, 28).n128_u64[0];
-  v14 = *(v12 + 10);
-  v15 = [(PAEKeyer *)self isLutExpandedForHDR:v13];
-  v16 = 0;
-  if (v15)
+  HGBitmap::HGBitmap(v12, *&rect->var0, *&rect->var2, 28);
+  v13 = *(v12 + 10);
+  v14 = [(PAEKeyer *)self isLutExpandedForHDR:v23];
+  v15 = 0;
+  if (v14)
   {
-    v17 = 11.0;
+    v16 = 11.0;
   }
 
   else
   {
-    v17 = 1.0;
+    v16 = 1.0;
   }
 
-  if (v15)
+  if (v14)
   {
-    v18 = 2816;
+    v17 = 2816;
   }
 
   else
   {
-    v18 = 256;
+    v17 = 256;
   }
 
   do
   {
-    v19 = v16 / (v18 - 1);
-    OMKeyer2D::getAlphaLuma(keyer, v17 * v19);
-    *v14 = v20;
-    v14 += 4;
-    ++v16;
+    v18 = v15 / (v17 - 1);
+    OMKeyer2D::getAlphaLuma(keyer, v16 * v18);
+    *v13 = v19;
+    v13 += 4;
+    ++v15;
   }
 
-  while (v18 != v16);
-  v21 = HGObject::operator new(0x80uLL);
-  HGTexture::HGTexture(v21, *rect, v12);
+  while (v17 != v15);
+  v20 = HGObject::operator new(0x80uLL);
+  HGTexture::HGTexture(v20, *rect, v12);
   lutsBitmapLoaderCache = self->super._lutsBitmapLoaderCache;
   if (lutsBitmapLoaderCache)
   {
     (*(*lutsBitmapLoaderCache + 24))(lutsBitmapLoaderCache);
   }
 
-  v23 = HGObject::operator new(0x1F0uLL);
-  HGBitmapLoader::HGBitmapLoader(v23, v21);
-  self->super._lutsBitmapLoaderCache = v23;
-  (*(*v21 + 24))(v21);
+  v22 = HGObject::operator new(0x1F0uLL);
+  HGBitmapLoader::HGBitmapLoader(v22, v20);
+  self->super._lutsBitmapLoaderCache = v22;
+  (*(*v20 + 24))(v20);
   (*(*v12 + 24))(v12);
   (*(*node + 120))(node, v8, self->super._lutsBitmapLoaderCache);
   PCMutex::unlock(p_cacheMutex);

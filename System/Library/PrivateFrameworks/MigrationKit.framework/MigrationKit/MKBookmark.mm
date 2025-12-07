@@ -6,16 +6,16 @@
 
 - (MKBookmark)initWithData:(id)data
 {
-  v27[4] = *MEMORY[0x277D85DE8];
+  v26[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v23.receiver = self;
-  v23.super_class = MKBookmark;
-  v5 = [(MKBookmark *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = MKBookmark;
+  v5 = [(MKBookmark *)&v22 init];
   if (v5)
   {
-    v22 = 0;
-    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v22];
-    v7 = v22;
+    v21 = 0;
+    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v21];
+    v7 = v21;
     if (v7)
     {
       v8 = +[MKLog log];
@@ -59,22 +59,22 @@ LABEL_14:
 
     if (v5->_url)
     {
-      v27[0] = @"WebBookmarkTypeLeaf";
-      v26[0] = @"WebBookmarkType";
-      v26[1] = @"WebBookmarkUUID";
+      v26[0] = @"WebBookmarkTypeLeaf";
+      v25[0] = @"WebBookmarkType";
+      v25[1] = @"WebBookmarkUUID";
       uUID = [MEMORY[0x277CCAD78] UUID];
       uUIDString = [uUID UUIDString];
-      v27[1] = uUIDString;
-      v26[2] = @"URIDictionary";
+      v26[1] = uUIDString;
+      v25[2] = @"URIDictionary";
       title = v5->_title;
-      v24 = @"title";
-      v25 = title;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-      v26[3] = @"URLString";
+      v23 = @"title";
+      v24 = title;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v25[3] = @"URLString";
       url = v5->_url;
-      v27[2] = v16;
-      v27[3] = url;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+      v26[2] = v16;
+      v26[3] = url;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
       [(MKBookmark *)v5 setData:v18];
     }
   }
@@ -82,7 +82,6 @@ LABEL_14:
   v19 = v5;
 LABEL_15:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

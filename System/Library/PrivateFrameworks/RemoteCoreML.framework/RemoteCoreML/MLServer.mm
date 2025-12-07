@@ -47,7 +47,7 @@ uint64_t __48___MLServer_doReceive_context_isComplete_error___block_invoke(uint6
 
 void __48___MLServer_doReceive_context_isComplete_error___block_invoke_8(uint64_t a1)
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) packet];
   v3 = +[_MLNetworkHeaderEncoding isHeaderAcknowledgeSucessData:](_MLNetworkHeaderEncoding, "isHeaderAcknowledgeSucessData:", [v2 command]);
 
@@ -90,70 +90,70 @@ LABEL_10:
       goto LABEL_10;
     }
 
-    v17 = [*(a1 + 32) packet];
-    v18 = +[_MLNetworkHeaderEncoding isHeaderPredictFeature:](_MLNetworkHeaderEncoding, "isHeaderPredictFeature:", [v17 command]);
+    v16 = [*(a1 + 32) packet];
+    v17 = +[_MLNetworkHeaderEncoding isHeaderPredictFeature:](_MLNetworkHeaderEncoding, "isHeaderPredictFeature:", [v16 command]);
 
-    if (v18)
+    if (v17)
     {
-      v19 = +[_MLLog serverFramework];
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v18 = +[_MLLog serverFramework];
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         __48___MLServer_doReceive_context_isComplete_error___block_invoke_8_cold_2(a1);
       }
 
-      v20 = [*(a1 + 32) predictFunction];
-      v21 = [*(a1 + 32) packet];
-      v22 = [v21 buffer];
-      v23 = (v20)[2](v20, 0, v22);
+      v19 = [*(a1 + 32) predictFunction];
+      v20 = [*(a1 + 32) packet];
+      v21 = [v20 buffer];
+      v22 = (v19)[2](v19, 0, v21);
 
-      v24 = [_MLNetworkHeaderEncoding predictFeature:v23];
-      v25 = [*(a1 + 32) nwObj];
-      [v25 sendData:v24];
+      v23 = [_MLNetworkHeaderEncoding predictFeature:v22];
+      v24 = [*(a1 + 32) nwObj];
+      [v24 sendData:v23];
     }
 
     else
     {
-      v26 = [*(a1 + 32) packet];
-      v27 = +[_MLNetworkHeaderEncoding isHeaderText:](_MLNetworkHeaderEncoding, "isHeaderText:", [v26 command]);
+      v25 = [*(a1 + 32) packet];
+      v26 = +[_MLNetworkHeaderEncoding isHeaderText:](_MLNetworkHeaderEncoding, "isHeaderText:", [v25 command]);
 
-      if (v27)
+      if (v26)
       {
-        v28 = [*(a1 + 32) packet];
-        v29 = [v28 buffer];
-        v30 = [_MLNetworkHeaderEncoding getHeaderDataSize:v29];
+        v27 = [*(a1 + 32) packet];
+        v28 = [v27 buffer];
+        v29 = [_MLNetworkHeaderEncoding getHeaderDataSize:v28];
 
-        if (8 * v30 + 8 >= 0x200)
+        if (8 * v29 + 8 >= 0x200)
         {
-          v31 = 512;
+          v30 = 512;
         }
 
         else
         {
-          v31 = 8 * v30 + 8;
+          v30 = 8 * v29 + 8;
         }
 
-        bzero(v43 - ((8 * v30 + 23) & 0xFFFFFFFFFFFFFFF0), v31);
-        v32 = [*(a1 + 32) packet];
-        v33 = [v32 buffer];
-        strlcpy(v43 - ((8 * v30 + 23) & 0xFFFFFFFFFFFFFFF0), [_MLNetworkHeaderEncoding getHeaderDataStart:v33], v30);
+        bzero(v42 - ((8 * v29 + 23) & 0xFFFFFFFFFFFFFFF0), v30);
+        v31 = [*(a1 + 32) packet];
+        v32 = [v31 buffer];
+        strlcpy(v42 - ((8 * v29 + 23) & 0xFFFFFFFFFFFFFFF0), [_MLNetworkHeaderEncoding getHeaderDataStart:v32], v29);
 
-        v34 = [*(a1 + 32) packet];
-        v35 = [v34 buffer];
-        v36 = [_MLNetworkHeaderEncoding getHeaderDataStart:v35];
+        v33 = [*(a1 + 32) packet];
+        v34 = [v33 buffer];
+        v35 = [_MLNetworkHeaderEncoding getHeaderDataStart:v34];
 
-        v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:v36];
-        v38 = +[_MLLog serverFramework];
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+        v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:v35];
+        v37 = +[_MLLog serverFramework];
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
         {
           __48___MLServer_doReceive_context_isComplete_error___block_invoke_8_cold_1(a1);
         }
 
-        v39 = [*(a1 + 32) textFunction];
-        v40 = (v39)[2](v39, 0, v37);
+        v38 = [*(a1 + 32) textFunction];
+        v39 = (v38)[2](v38, 0, v36);
 
-        v41 = +[_MLNetworkHeaderEncoding acknowledgeSucessData];
-        v42 = [*(a1 + 32) nwObj];
-        [v42 sendData:v41];
+        v40 = +[_MLNetworkHeaderEncoding acknowledgeSucessData];
+        v41 = [*(a1 + 32) nwObj];
+        [v41 sendData:v40];
       }
     }
   }
@@ -161,91 +161,68 @@ LABEL_10:
 LABEL_11:
   v15 = [*(a1 + 32) packet];
   [v15 resetDoubleBuffer];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __29___MLServer_initWithOptions___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_2(a1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_2(a1);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void __29___MLServer_initWithOptions___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v4 = OUTLINED_FUNCTION_2(a1);
-  v5 = NSStringFromSelector(v4);
+  v3 = OUTLINED_FUNCTION_2(a1);
+  v4 = NSStringFromSelector(v3);
   OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(&dword_261D92000, a2, OS_LOG_TYPE_ERROR, "%@: connection lost", v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_261D92000, a2, OS_LOG_TYPE_ERROR, "%@: connection lost", v5, 0xCu);
 }
 
 void __48___MLServer_doReceive_context_isComplete_error___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_2(a1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_2(a1);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __48___MLServer_doReceive_context_isComplete_error___block_invoke_8_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_2(a1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_2(a1);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __48___MLServer_doReceive_context_isComplete_error___block_invoke_8_cold_2(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_2(a1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_2(a1);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void __48___MLServer_doReceive_context_isComplete_error___block_invoke_8_cold_3(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_2(a1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_2(a1);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void __48___MLServer_doReceive_context_isComplete_error___block_invoke_8_cold_4(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_2(a1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_2(a1);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 @end

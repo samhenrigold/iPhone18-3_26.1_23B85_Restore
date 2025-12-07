@@ -30,13 +30,12 @@
   bytes = [v11 bytes];
   v13 = *(bytes + 32);
   v14 = *(bytes + 8);
-  v15 = *(bytes + 16);
-  v16 = *(bytes + 24);
-  v17 = v14;
-  v18 = v13;
-  v19 = __UIAXStringForVariables();
+  v15 = *(bytes + 24);
+  v16 = v14;
+  v17 = v13;
+  v18 = __UIAXStringForVariables();
 
-  return v19;
+  return v18;
 }
 
 @end

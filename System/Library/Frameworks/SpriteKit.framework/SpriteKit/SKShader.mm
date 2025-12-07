@@ -973,7 +973,7 @@ LABEL_30:
 
 - (BOOL)isValid
 {
-  [(SKShader *)self _backingProgram];
+  objc_msgSend__backingProgram(self, a2);
   if (v4)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
@@ -991,7 +991,7 @@ LABEL_30:
   {
     if (self->_programDirty)
     {
-      [(SKShader *)self _makeBackingProgramWithImplementation:0];
+      objc_msgSend__makeBackingProgramWithImplementation_(self, a2, 0);
       v6 = selfCopy->_backingProgram.__ptr_;
       self = selfCopy->_backingProgram.__cntrl_;
       selfCopy->_backingProgram = v8;
@@ -1049,7 +1049,7 @@ LABEL_30:
   {
     if (self->_programWithTransformDirty)
     {
-      [(SKShader *)self _makeBackingProgramWithImplementation:1];
+      objc_msgSend__makeBackingProgramWithImplementation_(self, a2, 1);
       v6 = selfCopy->_backingProgramWithTransform.__ptr_;
       self = selfCopy->_backingProgramWithTransform.__cntrl_;
       selfCopy->_backingProgramWithTransform = v8;
@@ -1274,7 +1274,7 @@ LABEL_31:
 
 - (shared_ptr<jet_command_buffer>)_commands
 {
-  v2 = [(SKShader *)self _commandsForBatchOffset:0 count:0];
+  v2 = objc_msgSend__commandsForBatchOffset_count_(self, a2, 0, 0);
   result.var1 = v3;
   result.var0 = v2;
   return result;

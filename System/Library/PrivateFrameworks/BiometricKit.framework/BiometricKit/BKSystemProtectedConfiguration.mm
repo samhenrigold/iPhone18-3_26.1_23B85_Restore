@@ -111,10 +111,9 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v6 = *&self->_identificationEnabled;
-  v7 = [v3 stringWithFormat:@"<%@: %p:(biometryEnabled:%@, unlockEnabled:%@, identificationEnabled:%@, loginEnabled:%@, unlockTokenMaxLifetime:%@, bioMatchLifespan:%@, passcodeInputLifespan:%@, periocularFaceIDMatchEnabled:%@)>", v5, self, self->_biometryEnabled, self->_unlockEnabled, self->_identificationEnabled, self->_loginEnabled, self->_unlockTokenMaxLifetime, self->_bioMatchLifespan, self->_passcodeInputLifespan, self->_periocularFaceIDMatchEnabled];
+  v6 = [v3 stringWithFormat:@"<%@: %p:(biometryEnabled:%@, unlockEnabled:%@, identificationEnabled:%@, loginEnabled:%@, unlockTokenMaxLifetime:%@, bioMatchLifespan:%@, passcodeInputLifespan:%@, periocularFaceIDMatchEnabled:%@)>", v5, self, self->_biometryEnabled, self->_unlockEnabled, self->_identificationEnabled, self->_loginEnabled, self->_unlockTokenMaxLifetime, self->_bioMatchLifespan, self->_passcodeInputLifespan, self->_periocularFaceIDMatchEnabled];
 
-  return v7;
+  return v6;
 }
 
 @end

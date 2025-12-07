@@ -389,7 +389,7 @@ LABEL_10:
 {
   if (self->__pruningPolicy.shouldSort && !self->__usingIndexes)
   {
-    v17 = sub_1D9D9294C(self->__cachedTimesample);
+    v17 = sub_1D9D9294C(self->__cachedTimesample, &self->__pruningPolicy, 0.0);
     if (index >= ((v17[1] - *v17) >> 3))
     {
       sub_1D9D939A0();
@@ -421,7 +421,7 @@ LABEL_10:
 - (void)_enumerateNonBlankCandidatesInTimestep:(int64_t)timestep block:(id)block
 {
   blockCopy = block;
-  v34 = 0;
+  v35 = 0;
   v10 = objc_msgSend_blankIndexForTimestep_(self, v7, timestep, v8);
   if (v10 != -1)
   {
@@ -459,98 +459,99 @@ LABEL_10:
 LABEL_10:
     if (!self->__usingIndexes)
     {
-      v16 = sub_1D9D9294C(self->__cachedTimesample);
-      observationCount = (v16[1] - *v16) >> 3;
+      v16 = v12;
+      v17 = sub_1D9D9294C(self->__cachedTimesample, &self->__pruningPolicy, v16);
+      observationCount = (v17[1] - *v17) >> 3;
     }
   }
 
 LABEL_12:
   if (observationCount >= 1)
   {
-    v17 = 0;
     v18 = 0;
+    v19 = 0;
     strategy = self->__pruningPolicy.strategy;
     while (1)
     {
-      if (v18 >= self->__pruningPolicy.maxNumberOfCandidates || !strategy && v12 > self->__pruningPolicy.threshold)
+      if (v19 >= self->__pruningPolicy.maxNumberOfCandidates || !strategy && v12 > self->__pruningPolicy.threshold)
       {
         goto LABEL_45;
       }
 
-      if (v10 != v17 || self->__pruningPolicy.shouldSort && !self->__usingIndexes)
+      if (v10 != v18 || self->__pruningPolicy.shouldSort && !self->__usingIndexes)
       {
         break;
       }
 
 LABEL_16:
-      if (observationCount == ++v17)
+      if (observationCount == ++v18)
       {
         goto LABEL_45;
       }
     }
 
-    v33 = 0.0;
-    v21 = objc_msgSend__candidateSymbolAtIndex_forTimestep_outputScore_(self, v9, v17, timestep, &v33);
-    if (!v21)
+    v34 = 0.0;
+    v22 = objc_msgSend__candidateSymbolAtIndex_forTimestep_outputScore_(self, v9, v18, timestep, &v34);
+    if (!v22)
     {
-      v20 = v12;
+      v21 = v12;
 LABEL_15:
 
-      v12 = v20;
+      v12 = v21;
       goto LABEL_16;
     }
 
-    v23 = self->_domainType;
-    v22.n128_f64[0] = v33;
-    if (v23 == 1)
+    v24 = self->_domainType;
+    v23.n128_f64[0] = v34;
+    if (v24 == 1)
     {
-      v20 = fmax(v12, v33);
-      v25 = fmin(v12, v33);
-      if (v25 >= -1021.0)
+      v21 = fmax(v12, v34);
+      v26 = fmin(v12, v34);
+      if (v26 >= -1021.0)
       {
-        v26 = v33;
-        v27 = exp(v25 - v20);
-        v28 = log1p(v27);
-        v22.n128_f64[0] = v26;
-        v20 = v28 + v20;
+        v27 = v34;
+        v28 = exp(v26 - v21);
+        v29 = log1p(v28);
+        v23.n128_f64[0] = v27;
+        v21 = v29 + v21;
       }
     }
 
-    else if (v23)
+    else if (v24)
     {
-      v20 = v12;
+      v21 = v12;
     }
 
     else
     {
-      v20 = v33 + v12;
+      v21 = v34 + v12;
     }
 
-    if (strategy != 1 || v22.n128_f64[0] > self->__pruningPolicy.threshold)
+    if (strategy != 1 || v23.n128_f64[0] > self->__pruningPolicy.threshold)
     {
-      blockCopy[2](blockCopy, v21, &v34, v22);
-      ++v18;
+      blockCopy[2](blockCopy, v22, &v35, v23);
+      ++v19;
       if (strategy != 1)
       {
         goto LABEL_36;
       }
 
-      v23 = self->_domainType;
+      v24 = self->_domainType;
     }
 
-    if (v23 == 1)
+    if (v24 == 1)
     {
       threshold = self->__pruningPolicy.threshold;
-      v30 = fmax(v20, threshold);
-      v31 = fmin(v20, threshold);
-      if (v31 >= -1021.0)
+      v31 = fmax(v21, threshold);
+      v32 = fmin(v21, threshold);
+      if (v32 >= -1021.0)
       {
-        v32 = exp(v31 - v30);
-        v30 = log1p(v32) + v30;
+        v33 = exp(v32 - v31);
+        v31 = log1p(v33) + v31;
       }
 
-      v24 = v30 > 0.0;
-      if (v34)
+      v25 = v31 > 0.0;
+      if (v35)
       {
 LABEL_44:
 
@@ -560,10 +561,10 @@ LABEL_44:
       goto LABEL_43;
     }
 
-    if (!v23)
+    if (!v24)
     {
-      v24 = v20 + self->__pruningPolicy.threshold > 1.0;
-      if (v34)
+      v25 = v21 + self->__pruningPolicy.threshold > 1.0;
+      if (v35)
       {
         goto LABEL_44;
       }
@@ -572,14 +573,14 @@ LABEL_44:
     }
 
 LABEL_36:
-    v24 = 0;
-    if (v34)
+    v25 = 0;
+    if (v35)
     {
       goto LABEL_44;
     }
 
 LABEL_43:
-    if (v24)
+    if (v25)
     {
       goto LABEL_44;
     }

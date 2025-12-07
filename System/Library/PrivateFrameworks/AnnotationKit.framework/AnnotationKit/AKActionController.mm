@@ -26,12 +26,14 @@
 - (void)performActionForSender:(id)sender segment:(int64_t)segment
 {
   senderCopy = sender;
-  if ([(AKActionController *)self _isSenderEnabled:senderCopy segment:segment])
+  v6 = [(AKActionController *)self _isSenderEnabled:senderCopy segment:segment];
+  v7 = senderCopy;
+  if (v6)
   {
-    v6 = [senderCopy tag];
+    v8 = [senderCopy tag];
     if (objc_opt_respondsToSelector())
     {
-      v6 = [senderCopy tagForSegment:segment];
+      v8 = [senderCopy tagForSegment:segment];
     }
 
     controller = [(AKActionController *)self controller];
@@ -40,25 +42,27 @@
     toolbarViewController = [controller toolbarViewController];
     [toolbarViewController updateColorWellActivation:senderCopy];
 
-    if ((v6 - 764000) > 0x42)
+    if ((v8 - 764000) > 0x42)
     {
-      if ((v6 - 765000) <= 0x12C)
+      if ((v8 - 765000) <= 0x12C)
       {
-        v12 = [senderCopy tag];
-        AKLog(@"performing ATTRIBUTE action for sender %@ with tag %ld ");
-        [attributeController performAttributeActionForSender:senderCopy segment:{segment, senderCopy, v12}];
+        v14 = [senderCopy tag];
+        AKLog();
+        [attributeController performAttributeActionForSender:senderCopy segment:{segment, senderCopy, v14}];
       }
     }
 
     else
     {
-      v11 = [senderCopy tag];
-      AKLog(@"performing TOOL action for sender %@ with tag %ld ");
-      [toolController performToolActionForSender:{senderCopy, senderCopy, v11}];
+      v13 = [senderCopy tag];
+      AKLog();
+      [toolController performToolActionForSender:{senderCopy, senderCopy, v13}];
     }
+
+    v7 = senderCopy;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v6, v7);
 }
 
 - (BOOL)_isSenderEnabled:(id)enabled segment:(int64_t)segment

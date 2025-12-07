@@ -192,7 +192,7 @@
   v116[0] = v20;
   v37 = [(WTF::StringImpl *)v20 count];
   *&v122 = v116;
-  WTF::Vector<WebCore::ApplicationManifest::Icon,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WTF::Vector<WebCore::ApplicationManifest::Icon,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::makeVector<WebCore::ApplicationManifest::Icon>(NSArray *)::{lambda(unsigned long)#1}>(v97, v37, &v122);
+  WTF::Vector<WebCore::ApplicationManifest::Icon,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WTF::Vector<WebCore::ApplicationManifest::Icon,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::makeVector<WebCore::ApplicationManifest::Icon>(NSArray *)::{lambda(unsigned long)#1}>(&v97, v37, &v122);
   v38 = [v22 count];
   v39 = v38;
   v98 = 0;
@@ -210,7 +210,7 @@ LABEL_53:
     JUMPOUT(0x19DB4DE64);
   }
 
-  v40 = WTF::fastMalloc((v38 << 6));
+  v40 = WTF::fastMalloc(0, (v38 << 6));
   v41 = 0;
   LODWORD(v99) = v39;
   v98 = v40;
@@ -257,22 +257,22 @@ LABEL_53:
 
         if (v121)
         {
-          v49 = v98 + (HIDWORD(v99) << 6);
+          v49 = &v98[8 * HIDWORD(v99)];
           v50 = v116[0];
           v116[0] = 0;
           *v49 = v50;
-          WTF::URL::URL(v49 + 8, &v116[1]);
-          *(v49 + 48) = 0;
-          *(v49 + 56) = 0;
+          WTF::URL::URL((v49 + 1), &v116[1]);
+          v49[6] = 0;
+          v49[7] = 0;
           v52 = v119;
           v119 = 0;
-          *(v49 + 48) = v52;
+          v49[6] = v52;
           LODWORD(v52) = v120;
           LODWORD(v120) = 0;
-          *(v49 + 56) = v52;
+          *(v49 + 14) = v52;
           LODWORD(v52) = HIDWORD(v120);
           HIDWORD(v120) = 0;
-          *(v49 + 60) = v52;
+          *(v49 + 15) = v52;
           ++HIDWORD(v99);
           if (v121)
           {
@@ -671,18 +671,18 @@ LABEL_15:
 {
   if (self->_anon_38[51] == 1 && (v2 = self->_anon_38[50], v2 <= 7))
   {
-    v3 = stru_19E7035F0[v2];
+    var1 = stru_19E7035F0[v2].var1;
     v4 = 1;
   }
 
   else
   {
-    v3.var1 = 0;
+    var1 = 0;
     v4 = 0;
   }
 
   result.var1 = v4;
-  result.var0 = v3;
+  result.var0 = var1;
   return result;
 }
 

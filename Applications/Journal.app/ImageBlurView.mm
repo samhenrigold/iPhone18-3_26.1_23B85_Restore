@@ -7,7 +7,7 @@
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for ImageBlurView();
+  v5.super_class = type metadata accessor for ImageBlurView(0);
   v2 = v5.receiver;
   [(ImageBlurView *)&v5 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC7Journal13ImageBlurView_backingImageView];

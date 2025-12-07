@@ -203,7 +203,7 @@ LABEL_39:
   [v2 enumerateAdditionalRoutesToFrameUsingBlock:v14];
   std::string::basic_string[abi:nn200100]<0>(v12, "Alternate Route Count");
   gdc::DebugTreeValue::DebugTreeValue(v9, *(*(&v15 + 1) + 24));
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, v12, v9);
+  gdc::DebugTreeNode::addProperty(retstr, v12, v9);
   if (v11 < 0)
   {
     operator delete(v10);

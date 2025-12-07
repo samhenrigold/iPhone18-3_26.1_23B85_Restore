@@ -51,16 +51,16 @@
 
       v5 = v6;
       v10 = [self substringWithRange:{v7, objc_msgSend(self, "length") - v7}];
-      if ([v10 hasPrefix:@"\x1B\\toi=lhp\\""])
+      if ([v10 hasPrefix:@"\x1B\\toi=lhp\"])
       {
         [selfCopy appendString:@"<phoneme alphabet=lhp ph="];
-        v8 += [@"\x1B\\toi=lhp\\"" length];
+        v8 += [@"\x1B\\toi=lhp\" length];
         [array addObject:@"phoneme"];
       }
 
       else
       {
-        if ([v10 hasPrefix:@"\x1B\\toi=orth\\""])
+        if ([v10 hasPrefix:@"\x1B\\toi=orth\"])
         {
           lastObject = [array lastObject];
           v12 = [lastObject isEqualToString:@"phoneme"];
@@ -68,7 +68,7 @@
           if (v12)
           {
             [selfCopy appendString:@"></phoneme>"];
-            v8 += [@"\x1B\\toi=orth\\"" length];
+            v8 += [@"\x1B\\toi=orth\" length];
             [array removeLastObject];
 LABEL_24:
             v5 = v6;
@@ -80,7 +80,7 @@ LABEL_24:
           goto LABEL_23;
         }
 
-        if ([v10 hasPrefix:@"\x1B\\tn=normal\\""])
+        if ([v10 hasPrefix:@"\x1B\\tn=normal\"])
         {
           lastObject2 = [array lastObject];
           v14 = [lastObject2 isEqualToString:@"say-as"];
@@ -89,7 +89,7 @@ LABEL_24:
           {
             [selfCopy appendString:@"</say-as>"];
             [array removeLastObject];
-            v8 += [@"\x1B\\tn=normal\\"" length];
+            v8 += [@"\x1B\\tn=normal\" length];
             goto LABEL_24;
           }
 
@@ -111,7 +111,7 @@ LABEL_23:
             [array removeLastObject];
           }
 
-          v19 = [v10 rangeOfString:@"\\" options:0 range:{-[__CFString length](v6, "length"), objc_msgSend(v10, "length") - -[__CFString length](v6, "length"")}];
+          v19 = [v10 rangeOfString:@"\ options:0 range:{-[__CFString length](v6, "length"), objc_msgSend(v10, "length") - -[__CFString length](v6, "length"")}];
           if (v19 == 0x7FFFFFFFFFFFFFFFLL)
           {
             NSLog(&cfstr_ErrorInTnOverr.isa);
@@ -188,7 +188,7 @@ LABEL_34:
 
 - (id)vs_removeSpeechTags
 {
-  v2 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\x1B\\\\\\w+=.+?\\\\"" options:0 error:0];
+  v2 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\x1B\\\\\\w+=.+?\\\" options:0 error:0];
   v3 = [v2 stringByReplacingMatchesInString:self options:0 range:0 withTemplate:{objc_msgSend(self, "length"), &stru_2881D71A8}];
   v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"</?.*?>" options:0 error:0];
   v5 = [v4 stringByReplacingMatchesInString:v3 options:0 range:0 withTemplate:{objc_msgSend(v3, "length"), &stru_2881D71A8}];
@@ -198,7 +198,7 @@ LABEL_34:
 
 - (id)vs_removePhonetics
 {
-  v2 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\x1B\\\\toi=\\w+\\\\.*?\x1B\\\\toi=orth\\\\"" options:0 error:0];
+  v2 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\x1B\\\\toi=\\w+\\\\.*?\x1B\\\\toi=orth\\\" options:0 error:0];
   v3 = [v2 stringByReplacingMatchesInString:self options:0 range:0 withTemplate:{objc_msgSend(self, "length"), &stru_2881D71A8}];
   v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\x1B\\\\toi=\\w+\\\\.*" options:0 error:0];
   v5 = [v4 stringByReplacingMatchesInString:v3 options:0 range:0 withTemplate:{objc_msgSend(v3, "length"), &stru_2881D71A8}];
@@ -211,34 +211,34 @@ LABEL_34:
 
 - (uint64_t)vs_countPhoneticSyllables
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v33 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\x1B\\\\toi=lhp\\\\([^\x1B]*)" options:0 error:0];
-  v2 = [v33 matchesInString:self options:0 range:{0, objc_msgSend(self, "length")}];
+  v47 = *MEMORY[0x277D85DE8];
+  v32 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\x1B\\\\toi=lhp\\\\([^\x1B]*)" options:0 error:0];
+  v2 = [v32 matchesInString:self options:0 range:{0, objc_msgSend(self, "length")}];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v43;
+    v6 = *v42;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v43 != v6)
+        if (*v42 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = [*(*(&v42 + 1) + 8 * i) rangeAtIndex:1];
+        v8 = [*(*(&v41 + 1) + 8 * i) rangeAtIndex:1];
         v10 = [self substringWithRange:{v8, v9}];
         v5 += [MEMORY[0x277CCACA8] _vs_countPhoneticSyllables_lhp:v10];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v4);
@@ -249,37 +249,37 @@ LABEL_34:
     v5 = 0;
   }
 
-  v37 = v5;
-  v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"(?:%@|%@)", @"'(?:[^'\\\\]|\\\\.)*'", @"(?:[^\\\\]|\\\\.)*"];
-  v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"\\w+=%@", v32];
-  v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"<phoneme\\s+(%@)\\s+(%@)\\s*/>", v31, v31];
-  v29 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
-  v11 = [v29 matchesInString:self options:0 range:{0, objc_msgSend(self, "length")}];
+  v36 = v5;
+  v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"(?:%@|%@)", @"'(?:[^'\\\\]|\\\\.)*'", @"(?:[^\\\\]|\\\\.)*"];
+  v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"\\w+=%@", v31];
+  v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"<phoneme\\s+(%@)\\s+(%@)\\s*/>", v30, v30];
+  v28 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+  v11 = [v28 matchesInString:self options:0 range:{0, objc_msgSend(self, "length")}];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   obj = v11;
-  v12 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v12 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v39;
+    v14 = *v38;
     v15 = @"lhp";
-    v34 = *v39;
+    v33 = *v38;
     do
     {
       v16 = 0;
-      v35 = v13;
+      v34 = v13;
       do
       {
-        if (*v39 != v14)
+        if (*v38 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v38 + 1) + 8 * v16);
+        v17 = *(*(&v37 + 1) + 8 * v16);
         v18 = &stru_2881D71A8;
         if ([v17 numberOfRanges] >= 2)
         {
@@ -311,39 +311,38 @@ LABEL_34:
           if (v19)
           {
             v26 = [MEMORY[0x277CCACA8] _vs_countPhoneticSyllables_lhp:v18];
-            v14 = v34;
-            v13 = v35;
+            v14 = v33;
+            v13 = v34;
             goto LABEL_26;
           }
 
-          v14 = v34;
-          v13 = v35;
+          v14 = v33;
+          v13 = v34;
         }
 
         v26 = [MEMORY[0x277CCACA8] _vs_countPhoneticSyllables_xsampa:v18];
 LABEL_26:
-        v37 += v26;
+        v36 += v26;
 
         ++v16;
       }
 
       while (v16 != v13);
-      v13 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v13 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v13);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v37;
+  return v36;
 }
 
 - (double)vs_measurePauses
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\x1B\\\\pause=['\"]?([0-9]+)['\"]?\\\\"" options:0 error:0];
+  v50 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\x1B\\\\pause=[']?([0-9]+)[']?\\\" options:0 error:0];
   v3 = [self length];
-  v39 = v2;
+  v38 = v2;
   v4 = [v2 matchesInString:self options:0 range:{0, v3}];
   if ([v4 count] && v3 != 1)
   {
@@ -368,27 +367,27 @@ LABEL_26:
   }
 
 LABEL_7:
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = v4;
-  v9 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+  v9 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v46;
+    v12 = *v45;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v46 != v12)
+        if (*v45 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v45 + 1) + 8 * i);
+        v14 = *(*(&v44 + 1) + 8 * i);
         v15 = [v14 rangeAtIndex:1];
         v17 = [self substringWithRange:{v15, v16}];
         integerValue = [v17 integerValue];
@@ -426,7 +425,7 @@ LABEL_7:
         v11 += v24;
       }
 
-      v10 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v10 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
     while (v10);
@@ -440,26 +439,26 @@ LABEL_7:
   v25 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"<break time=[']([0-9]+)ms[']\\s*/>" options:0 error:0];
   v26 = [v25 matchesInString:self options:0 range:{0, objc_msgSend(self, "length")}];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v27 = v26;
-  v28 = [v27 countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v42;
+    v30 = *v41;
     do
     {
       for (j = 0; j != v29; ++j)
       {
-        if (*v42 != v30)
+        if (*v41 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = [*(*(&v41 + 1) + 8 * j) rangeAtIndex:1];
+        v32 = [*(*(&v40 + 1) + 8 * j) rangeAtIndex:1];
         v34 = [self substringWithRange:{v32, v33}];
         integerValue2 = [v34 integerValue];
         if (integerValue2 <= 10)
@@ -475,13 +474,12 @@ LABEL_7:
         v11 += v36;
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v40 objects:v48 count:16];
     }
 
     while (v29);
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v11 * 0.001;
 }
 
@@ -505,7 +503,7 @@ LABEL_7:
     v9 = 0;
     while (1)
     {
-      v10 = [v3 rangeOfString:@"\\"" options:0 range:{v7 + v8, v9 + v2 - (v7 + v8)}];
+      v10 = [v3 rangeOfString:@"\" options:0 range:{v7 + v8, v9 + v2 - (v7 + v8)}];
       if (v10 == 0x7FFFFFFFFFFFFFFFLL)
       {
         goto LABEL_2;
@@ -543,7 +541,7 @@ LABEL_7:
         goto LABEL_17;
       }
 
-      v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"\x1B\\audio=\"%@\"\\"", v15];
+      v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"\x1B\\audio=%@\", v15];
       [v3 replaceCharactersInRange:v7 withString:{v12 + 1, v18}];
 
       v19 = [v15 length];
@@ -687,54 +685,52 @@ LABEL_18:
 
 + (__CFString)vs_markerStringForContext:()VSSpeechService
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = v3;
   if (v3 && [v3 count])
   {
     string = [MEMORY[0x277CCAB68] string];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v17 = v4;
+    v16 = v4;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v19;
+      v9 = *v18;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
+          v11 = *(*(&v17 + 1) + 8 * i);
           v12 = MEMORY[0x277CCACA8];
           v13 = [v6 objectForKeyedSubscript:v11];
-          v14 = [v12 stringWithFormat:@"\x1B\\mrk=%@=%@\\"", v11, v13];
+          v14 = [v12 stringWithFormat:@"\x1B\\mrk=%@=%@\", v11, v13];
           [(__CFString *)string appendString:v14];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v8);
     }
 
-    v4 = v17;
+    v4 = v16;
   }
 
   else
   {
     string = &stru_2881D71A8;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return string;
 }

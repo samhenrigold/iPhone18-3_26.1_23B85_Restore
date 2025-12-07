@@ -143,35 +143,35 @@ LABEL_18:
   v7 = 0;
   v34 = malloc_type_malloc(0x10000uLL, 0xE55ECB08uLL);
   v33 = messageCopy;
-  while (v7 < uaps::CourierMessage::getAttributeCount(self->_courierMessage))
+  while (v7 < uaps::CourierMessage::getAttributeCount(self->_courierMessage, v8))
   {
     v44 = 0x10000;
     v43 = 0;
     uaps::CourierMessage::getAttributeId(self->_courierMessage, v7, &v43);
-    v8 = uaps::CourierMessage::describeCommandItem(1, Command, v43);
-    v9 = v8;
-    if (v8)
+    v9 = uaps::CourierMessage::describeCommandItem(1, Command, v43);
+    v10 = v9;
+    if (v9)
     {
-      v10 = *(v8 + 1);
-      if (v10)
+      v11 = *(v9 + 1);
+      if (v11)
       {
-        v11 = [NSString stringWithCString:v10 encoding:4];
-        v12 = *(v9 + 1);
-        if (v12 <= 4)
+        v12 = [NSString stringWithCString:v11 encoding:4];
+        v13 = *(v10 + 1);
+        if (v13 <= 4)
         {
-          if (v12 > 1)
+          if (v13 > 1)
           {
-            if (v12 == 2)
+            if (v13 == 2)
             {
               *v37 = 0;
               uaps::CourierMessage::getNumber(self->_courierMessage, v7, v37);
-              v13 = [NSNumber numberWithUnsignedShort:*v37];
-              [v5 setObject:v13 forKeyedSubscript:v11];
+              v14 = [NSNumber numberWithUnsignedShort:*v37];
+              [v5 setObject:v14 forKeyedSubscript:v12];
             }
 
             else
             {
-              if (v12 == 3)
+              if (v13 == 3)
               {
                 *v37 = 0;
                 uaps::CourierMessage::getNumber(self->_courierMessage, v7, v37);
@@ -184,21 +184,21 @@ LABEL_18:
                 uaps::CourierMessage::getNumber(self->_courierMessage, v7, v37);
                 [NSNumber numberWithUnsignedLongLong:*v37];
               }
-              v13 = ;
-              [v5 setObject:v13 forKeyedSubscript:v11];
+              v14 = ;
+              [v5 setObject:v14 forKeyedSubscript:v12];
             }
 
             goto LABEL_31;
           }
 
-          if (v12)
+          if (v13)
           {
-            if (v12 == 1)
+            if (v13 == 1)
             {
               v37[0] = 0;
               uaps::CourierMessage::getNumber(self->_courierMessage, v7, v37);
-              v13 = [NSNumber numberWithUnsignedChar:v37[0]];
-              [v5 setObject:v13 forKeyedSubscript:v11];
+              v14 = [NSNumber numberWithUnsignedChar:v37[0]];
+              [v5 setObject:v14 forKeyedSubscript:v12];
               goto LABEL_31;
             }
 
@@ -208,15 +208,15 @@ LABEL_18:
           goto LABEL_43;
         }
 
-        if (v12 <= 6)
+        if (v13 <= 6)
         {
-          if (v12 == 5)
+          if (v13 == 5)
           {
             *v37 = 0;
             uaps::CourierMessage::getNumber(self->_courierMessage, v7, v37);
             LODWORD(v17) = *v37;
-            v13 = [NSDate dateWithTimeIntervalSince1970:v17];
-            [v5 setObject:v13 forKeyedSubscript:v11];
+            v14 = [NSDate dateWithTimeIntervalSince1970:v17];
+            [v5 setObject:v14 forKeyedSubscript:v12];
             goto LABEL_31;
           }
 
@@ -233,12 +233,12 @@ LABEL_18:
           v36[3] = &unk_100188858;
           v36[4] = v37;
           uaps::CourierMessage::getData(courierMessage, v7, v36);
-          [v5 setObject:*(v38 + 5) forKeyedSubscript:v11];
+          [v5 setObject:*(v38 + 5) forKeyedSubscript:v12];
         }
 
         else
         {
-          switch(v12)
+          switch(v13)
           {
             case 7:
               uaps::CourierMessage::getString(self->_courierMessage, v7, v34, &v44);
@@ -247,30 +247,30 @@ LABEL_18:
                 --v44;
               }
 
-              v13 = [NSData dataWithBytes:v34 length:?];
-              v19 = [[NSString alloc] initWithData:v13 encoding:4];
-              [v5 setObject:v19 forKeyedSubscript:v11];
+              v14 = [NSData dataWithBytes:v34 length:?];
+              v19 = [[NSString alloc] initWithData:v14 encoding:4];
+              [v5 setObject:v19 forKeyedSubscript:v12];
 
 LABEL_31:
 LABEL_32:
               v20 = v43;
               if (Command == 10 && v43 == 4)
               {
-                v21 = [v5 objectForKeyedSubscript:v11];
+                v21 = [v5 objectForKeyedSubscript:v12];
                 unsignedIntValue = [v21 unsignedIntValue];
 
                 *v37 = unsignedIntValue;
                 v23 = [NSData dataWithBytes:v37 length:4];
-                [v5 setObject:v23 forKeyedSubscript:v11];
+                [v5 setObject:v23 forKeyedSubscript:v12];
 
                 v20 = v43;
               }
 
-              if (v12 == 6 && Command == 10 && v20 == 24)
+              if (v13 == 6 && Command == 10 && v20 == 24)
               {
-                v24 = [v5 objectForKeyedSubscript:v11];
+                v24 = [v5 objectForKeyedSubscript:v12];
                 v25 = [[NSString alloc] initWithData:v24 encoding:4];
-                [v5 setObject:v25 forKeyedSubscript:v11];
+                [v5 setObject:v25 forKeyedSubscript:v12];
               }
 
               else
@@ -280,10 +280,10 @@ LABEL_32:
                   goto LABEL_43;
                 }
 
-                v26 = [v5 objectForKeyedSubscript:v11];
+                v26 = [v5 objectForKeyedSubscript:v12];
                 unsignedIntValue2 = [v26 unsignedIntValue];
 
-                [v5 setObject:0 forKeyedSubscript:v11];
+                [v5 setObject:0 forKeyedSubscript:v12];
                 v24 = [NSNumber numberWithBool:unsignedIntValue2 & 1];
                 [v5 setObject:v24 forKey:@"APSProtocolDualChannelSupport"];
                 v25 = [NSNumber numberWithBool:(unsignedIntValue2 >> 1) & 1];
@@ -309,8 +309,8 @@ LABEL_43:
               v35[7] = sub_1000986A4;
               v35[8] = &unk_100188858;
               v35[9] = v37;
-              uaps::CourierMessage::getBinaryPropertyList();
-              [v5 setObject:*(v38 + 5) forKeyedSubscript:v11];
+              uaps::CourierMessage::getBinaryPropertyList(v18);
+              [v5 setObject:*(v38 + 5) forKeyedSubscript:v12];
               break;
             case 9:
               *v37 = 0;
@@ -324,14 +324,13 @@ LABEL_43:
               v35[2] = sub_1000986FC;
               v35[3] = &unk_100188858;
               v35[4] = v37;
-              v14 = objc_retainBlock(v35);
-              v15 = self->_courierMessage;
-              if (!uaps::CourierMessage::getBinaryPropertyList())
+              v15 = objc_retainBlock(v35);
+              if (!uaps::CourierMessage::getBinaryPropertyList(self->_courierMessage))
               {
-                uaps::CourierMessage::getData(self->_courierMessage, v7, v14);
+                uaps::CourierMessage::getData(self->_courierMessage, v7, v15);
               }
 
-              [v5 setObject:*(v38 + 5) forKeyedSubscript:v11];
+              [v5 setObject:*(v38 + 5) forKeyedSubscript:v12];
 
               break;
             default:

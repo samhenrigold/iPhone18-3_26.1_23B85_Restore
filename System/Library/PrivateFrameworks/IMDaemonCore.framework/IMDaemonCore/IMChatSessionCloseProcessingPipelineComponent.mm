@@ -42,7 +42,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (IMOSLoggingEnabled())
   {
@@ -51,7 +51,7 @@
     {
       gUID = [inputCopy GUID];
       *buf = 138412290;
-      *v62 = gUID;
+      *v61 = gUID;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "<IMChatSessionCloseProcessingPipelineComponent> Started processing for Message GUID: %@", buf, 0xCu);
     }
   }
@@ -65,7 +65,7 @@
       {
         gUID2 = [inputCopy GUID];
         *buf = 138412290;
-        *v62 = gUID2;
+        *v61 = gUID2;
         _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "    Ignoring chat session close for message: %@", buf, 0xCu);
       }
     }
@@ -82,7 +82,7 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *v62 = gUID3;
+        *v61 = gUID3;
         _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "    Received Fresh ChatSessionClose For Message GUID: %@", buf, 0xCu);
       }
     }
@@ -94,7 +94,7 @@
       {
         fromIdentifier = [(IMDiMessageIDSTrustedData *)self->_idsTrustedData fromIdentifier];
         *buf = 138412290;
-        *v62 = fromIdentifier;
+        *v61 = fromIdentifier;
         _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "idsTrustedData: fromIdentifier: %@", buf, 0xCu);
       }
     }
@@ -110,13 +110,13 @@
         senderName = [inputCopy senderName];
         conversationID = [inputCopy conversationID];
         *buf = 67109890;
-        *v62 = intValue;
-        *&v62[4] = 2112;
-        *&v62[6] = senderHandle;
-        v63 = 2112;
-        v64 = senderName;
-        v65 = 2112;
-        v66 = conversationID;
+        *v61 = intValue;
+        *&v61[4] = 2112;
+        *&v61[6] = senderHandle;
+        v62 = 2112;
+        v63 = senderName;
+        v64 = 2112;
+        v65 = conversationID;
         _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Eufo -> version: %d, senderHandle: %@, senderName: %@, conversationID: %@", buf, 0x26u);
       }
     }
@@ -136,7 +136,7 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *v62 = conversationID2;
+        *v61 = conversationID2;
         _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "chatIdentifier: %@", buf, 0xCu);
       }
     }
@@ -167,7 +167,7 @@
         v32 = MEMORY[0x277CBEAA8];
         timestamp = [inputCopy timestamp];
         v34 = [v32 __im_iMessageDateFromTimeStamp:timestamp];
-        v35 = [v28 initWithSender:senderID time:v34 guid:v59 type:7];
+        v35 = [v28 initWithSender:senderID time:v34 guid:v58 type:7];
 
         service = [v25 service];
         internalName = [service internalName];
@@ -220,8 +220,8 @@
         guid = [v52 guid];
         [v53 addMessageWithGUID:guid toChat:v25];
 
-        v60 = v52;
-        v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+        v59 = v52;
+        v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
         [inputCopy setMessageItems:v55];
         [inputCopy setChat:v25];
       }
@@ -244,8 +244,6 @@
       v9 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
     }
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

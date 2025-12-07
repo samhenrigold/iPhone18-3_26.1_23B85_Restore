@@ -6,7 +6,7 @@
 
 - (void)avt_buildInternalSupportForCorrectivesWithBlock:()AVTExtension
 {
-  v173 = *MEMORY[0x1E69E9840];
+  v164 = *MEMORY[0x1E69E9840];
   v4 = a3;
   correctiveDriverCounts = [self correctiveDriverCounts];
 
@@ -18,307 +18,300 @@
     selfCopy = self;
     inBetweenWeights = [self inBetweenWeights];
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v142 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v147 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v144 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v149 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v11 = [targets count];
-    v144 = targets;
-    v136 = inBetweenWeights;
-    v137 = targetsAndInBetween;
-    v146 = inBetweenCounts;
-    v155 = v10;
+    v146 = targets;
+    v138 = inBetweenWeights;
+    v139 = targetsAndInBetween;
+    v148 = inBetweenCounts;
+    v157 = v10;
     if (v11)
     {
       v12 = v11;
-      v148 = 0;
-      v149 = 0;
-      v139 = 0;
+      v150 = 0;
+      v151 = 0;
+      v141 = 0;
+      v142 = 0;
+      v155 = 0;
       v140 = 0;
-      v153 = 0;
-      v138 = 0;
-      v143 = 0;
+      v145 = 0;
       v13 = 0;
-      v135 = 0;
+      v137 = 0;
       v14 = 0;
       v15 = 0;
-      v145 = v11;
+      v147 = v11;
       while (1)
       {
-        v152 = v14;
-        v16 = [targets objectAtIndexedSubscript:v15];
+        v154 = v14;
+        v16 = [targets objectAtIndexedSubscript:?];
         name = [v16 name];
-        v18 = [name containsString:@"__"];
+        v18 = [name containsString:?];
 
         if (!v18)
         {
-          v150 = v15;
-          v23 = [inBetweenCounts objectAtIndexedSubscript:v15];
+          v152 = v15;
+          v23 = [inBetweenCounts objectAtIndexedSubscript:?];
           unsignedIntegerValue = [v23 unsignedIntegerValue];
 
           if (unsignedIntegerValue < 2)
           {
-            v14 = v152;
-            v35 = v155;
-            if (v148)
+            v14 = v154;
+            v33 = v157;
+            if (v150)
             {
-              [v148 addObject:&unk_1F39D9590];
+              [v150 addObject:?];
             }
 
             else
             {
-              v148 = 0;
+              v150 = 0;
             }
-
-            v34 = v150;
           }
 
           else
           {
-            v14 = v152;
-            if (!v148)
+            v14 = v154;
+            if (!v150)
             {
-              v148 = objc_alloc_init(MEMORY[0x1E695DF70]);
+              v150 = objc_alloc_init(MEMORY[0x1E695DF70]);
               v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
 
-              if ([v155 count])
+              if ([v157 count])
               {
                 v26 = 0;
                 do
                 {
-                  [v148 addObject:&unk_1F39D9590];
+                  [v150 addObject:?];
                   ++v26;
                 }
 
-                while (v26 < [v155 count]);
+                while (v26 < [v157 count]);
               }
 
-              v140 = v25;
-              v14 = v152;
+              v142 = v25;
+              v14 = v154;
             }
 
-            v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedIntegerValue];
-            [v148 addObject:v27];
+            v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+            [v150 addObject:?];
 
             v28 = unsignedIntegerValue - 1;
-            v29 = v149;
+            v29 = v151;
             do
             {
               v30 = v14;
-              v31 = v29++;
-              v32 = [v137 objectAtIndexedSubscript:v31];
-              [v147 addObject:v32];
+              ++v29;
+              v31 = [v139 objectAtIndexedSubscript:?];
+              [v149 addObject:?];
 
               v14 = v30 + 1;
-              v33 = [v136 objectAtIndexedSubscript:v30];
-              [v140 addObject:v33];
+              v32 = [v138 objectAtIndexedSubscript:?];
+              [v142 addObject:?];
 
               --v28;
             }
 
             while (v28);
-            v149 = v29;
-            targets = v144;
-            v12 = v145;
-            v34 = v150;
-            inBetweenCounts = v146;
-            v35 = v155;
+            v151 = v29;
+            targets = v146;
+            v12 = v147;
+            inBetweenCounts = v148;
+            v33 = v157;
           }
 
-          [v147 addObject:v16];
-          ++v149;
-          [selfCopy weightForTargetAtIndex:v34];
-          v64 = [MEMORY[0x1E696AD98] numberWithFloat:?];
-          [v142 addObject:v64];
+          [v149 addObject:?];
+          ++v151;
+          [selfCopy weightForTargetAtIndex:?];
+          v61 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+          [v144 addObject:?];
 
-          v15 = v150;
-          [v35 addObject:v16];
-          goto LABEL_61;
+          v15 = v152;
+          [v33 addObject:?];
+          goto LABEL_60;
         }
 
         name2 = [v16 name];
-        v20 = [name2 componentsSeparatedByString:@"__"];
+        v20 = [name2 componentsSeparatedByString:?];
 
         v21 = [v20 count];
         if (v21 == 1)
         {
-          v22 = avt_default_log();
+          v22 = avt_default_log(1);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v169 = v20;
+            v161 = v20;
             _os_log_error_impl(&dword_1BB472000, v22, OS_LOG_TYPE_ERROR, "Error: Failed to create corrective with only one target: %@", buf, 0xCu);
           }
         }
 
         else
         {
-          v36 = v21;
-          v151 = v15;
-          v154 = v13;
-          v165 = 0u;
-          v166 = 0u;
-          v163 = 0u;
-          v164 = 0u;
-          v37 = v20;
-          v38 = [v37 countByEnumeratingWithState:&v163 objects:v172 count:16];
-          v141 = v20;
-          if (!v38)
+          v34 = v21;
+          v153 = v15;
+          v156 = v13;
+          v35 = v20;
+          v36 = [v35 countByEnumeratingWithState:? objects:? count:?];
+          v143 = v20;
+          if (!v36)
           {
 
 LABEL_37:
-            v50 = v139;
-            if (!v153)
+            v48 = v141;
+            if (!v155)
             {
-              v153 = objc_alloc_init(MEMORY[0x1E695DF70]);
+              v155 = objc_alloc_init(MEMORY[0x1E695DF70]);
             }
 
-            v51 = [v146 objectAtIndexedSubscript:v151];
-            unsignedIntegerValue2 = [v51 unsignedIntegerValue];
+            v49 = [v148 objectAtIndexedSubscript:?];
+            unsignedIntegerValue2 = [v49 unsignedIntegerValue];
 
-            v53 = v152;
+            v51 = v154;
             if (unsignedIntegerValue2 < 2)
             {
-              if (v143)
+              if (v145)
               {
-                [v143 addObject:&unk_1F39D9590];
+                [v145 addObject:?];
               }
 
               else
               {
-                v143 = 0;
+                v145 = 0;
               }
 
-              v63 = v146;
-              v58 = v149;
+              v60 = v148;
+              v56 = v151;
             }
 
             else
             {
-              if (!v143)
+              if (!v145)
               {
-                v143 = objc_alloc_init(MEMORY[0x1E695DF70]);
-                v54 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                v145 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
 
-                if ([v138 count])
+                if ([v140 count])
                 {
-                  v55 = 0;
+                  v53 = 0;
                   do
                   {
-                    [v143 addObject:&unk_1F39D9590];
-                    ++v55;
+                    [v145 addObject:?];
+                    ++v53;
                   }
 
-                  while (v55 < [v138 count]);
+                  while (v53 < [v140 count]);
                 }
 
-                v154 = v54;
-                v53 = v152;
+                v156 = v52;
+                v51 = v154;
               }
 
-              v56 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedIntegerValue2];
-              [v143 addObject:v56];
+              v54 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+              [v145 addObject:?];
 
-              v57 = unsignedIntegerValue2 - 1;
-              v58 = v149;
+              v55 = unsignedIntegerValue2 - 1;
+              v56 = v151;
               do
               {
-                v59 = v53;
-                v60 = v58++;
-                v61 = [v137 objectAtIndexedSubscript:v60];
-                [v153 addObject:v61];
+                v57 = v51;
+                ++v56;
+                v58 = [v139 objectAtIndexedSubscript:?];
+                [v155 addObject:?];
 
-                v53 = v59 + 1;
-                v62 = [v136 objectAtIndexedSubscript:v59];
-                [v154 addObject:v62];
+                v51 = v57 + 1;
+                v59 = [v138 objectAtIndexedSubscript:?];
+                [v156 addObject:?];
 
-                --v57;
+                --v55;
               }
 
-              while (v57);
-              v152 = v53;
-              v63 = v146;
-              v50 = v139;
+              while (v55);
+              v154 = v51;
+              v60 = v148;
+              v48 = v141;
             }
 
-            [v153 addObject:v16];
-            v65 = v138;
-            if (!v138)
+            [v155 addObject:?];
+            v62 = v140;
+            if (!v140)
             {
-              v65 = objc_alloc_init(MEMORY[0x1E695DF70]);
-              v66 = objc_alloc_init(MEMORY[0x1E695DF70]);
+              v62 = objc_alloc_init(MEMORY[0x1E695DF70]);
+              v63 = objc_alloc_init(MEMORY[0x1E695DF70]);
 
-              v50 = v66;
+              v48 = v63;
             }
 
-            v149 = v58 + 1;
-            v67 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v36];
-            v138 = v65;
-            [v65 addObject:v67];
+            v151 = v56 + 1;
+            v64 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+            v140 = v62;
+            [v62 addObject:?];
 
-            v139 = v50;
-            [v50 addObjectsFromArray:v37];
-            v13 = v154;
-            v15 = v151;
-            targets = v144;
-            inBetweenCounts = v63;
-            v20 = v141;
-            goto LABEL_60;
+            v141 = v48;
+            [v48 addObjectsFromArray:?];
+            v13 = v156;
+            v15 = v153;
+            targets = v146;
+            inBetweenCounts = v60;
+            v20 = v143;
+            goto LABEL_59;
           }
 
-          v39 = v38;
-          v40 = *v164;
-          v41 = 1;
-          v42 = selfCopy;
+          v37 = v36;
+          v38 = MEMORY[0];
+          v39 = 1;
+          v40 = selfCopy;
           do
           {
-            for (i = 0; i != v39; ++i)
+            for (i = 0; i != v37; i = (i + 1))
             {
-              if (*v164 != v40)
+              if (MEMORY[0] != v38)
               {
-                objc_enumerationMutation(v37);
+                objc_enumerationMutation(v35);
               }
 
-              v44 = *(*(&v163 + 1) + 8 * i);
-              if ([v42 _weightIndexForTargetNamed:v44] == 0x7FFFFFFFFFFFFFFFLL)
+              v42 = *(8 * i);
+              if ([v40 _weightIndexForTargetNamed:?] == 0x7FFFFFFFFFFFFFFFLL)
               {
-                v45 = avt_default_log();
-                if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+                v43 = avt_default_log(0x7FFFFFFFFFFFFFFFLL);
+                if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                 {
                   name3 = [v16 name];
                   *buf = 138412546;
-                  v169 = v44;
-                  v170 = 2112;
-                  v171 = name3;
-                  _os_log_error_impl(&dword_1BB472000, v45, OS_LOG_TYPE_ERROR, "Error: Failed to find index of driving target %@ for corrective %@", buf, 0x16u);
+                  v161 = v42;
+                  v162 = 2112;
+                  v163 = name3;
+                  _os_log_error_impl(&dword_1BB472000, v43, OS_LOG_TYPE_ERROR, "Error: Failed to find index of driving target %@ for corrective %@", buf, 0x16u);
                 }
 
                 if (v4)
                 {
                   name4 = [v16 name];
-                  (v4)[2](v4, name4, v44, v36);
+                  v4[2](v4, name4, v42, v34);
                 }
 
-                v41 = 0;
-                v42 = selfCopy;
+                v39 = 0;
+                v40 = selfCopy;
               }
             }
 
-            v39 = [v37 countByEnumeratingWithState:&v163 objects:v172 count:16];
+            v37 = [v35 countByEnumeratingWithState:? objects:? count:?];
           }
 
-          while (v39);
+          while (v37);
 
-          targets = v144;
-          v20 = v141;
-          if (v41)
+          targets = v146;
+          v20 = v143;
+          if (v39)
           {
             goto LABEL_37;
           }
 
-          inBetweenCounts = v146;
-          if (v146)
+          inBetweenCounts = v148;
+          if (v148)
           {
-            v48 = [v146 objectAtIndexedSubscript:v151];
-            unsignedIntegerValue3 = [v48 unsignedIntegerValue];
+            v46 = [v148 objectAtIndexedSubscript:?];
+            unsignedIntegerValue3 = [v46 unsignedIntegerValue];
           }
 
           else
@@ -326,175 +319,171 @@ LABEL_37:
             unsignedIntegerValue3 = 1;
           }
 
-          v15 = v151;
-          v135 += unsignedIntegerValue3;
-          v13 = v154;
+          v15 = v153;
+          v137 += unsignedIntegerValue3;
+          v13 = v156;
         }
 
-LABEL_60:
+LABEL_59:
 
-        v14 = v152;
-        v12 = v145;
-LABEL_61:
+        v14 = v154;
+        v12 = v147;
+LABEL_60:
 
         if (++v15 == v12)
         {
-          goto LABEL_64;
+          goto LABEL_63;
         }
       }
     }
 
-    v135 = 0;
+    v137 = 0;
     v13 = 0;
-    v143 = 0;
-    v138 = 0;
-    v139 = 0;
-    v153 = 0;
+    v145 = 0;
     v140 = 0;
-    v148 = 0;
-LABEL_64:
-    v68 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v139, "count")}];
-    v159 = 0u;
-    v160 = 0u;
-    v161 = 0u;
-    v162 = 0u;
-    obj = v139;
-    v69 = [obj countByEnumeratingWithState:&v159 objects:v167 count:16];
-    if (v69)
+    v141 = 0;
+    v155 = 0;
+    v142 = 0;
+    v150 = 0;
+LABEL_63:
+    v65 = objc_alloc(MEMORY[0x1E695DF70]);
+    [v141 count];
+    v66 = [v65 initWithCapacity:?];
+    obj = v141;
+    v67 = [obj countByEnumeratingWithState:? objects:? count:?];
+    if (v67)
     {
-      v70 = v69;
-      v71 = *v160;
+      v68 = v67;
+      v69 = MEMORY[0];
       do
       {
-        for (j = 0; j != v70; ++j)
+        for (j = 0; j != v68; j = (j + 1))
         {
-          v73 = v68;
-          if (*v160 != v71)
+          v71 = v66;
+          if (MEMORY[0] != v69)
           {
             objc_enumerationMutation(obj);
           }
 
-          v74 = *(*(&v159 + 1) + 8 * j);
-          v158[0] = MEMORY[0x1E69E9820];
-          v158[1] = 3221225472;
-          v158[2] = __76__VFXMorpher_AVTExtension__avt_buildInternalSupportForCorrectivesWithBlock___block_invoke;
-          v158[3] = &unk_1E7F47B88;
-          v158[4] = v74;
-          v75 = [v155 indexOfObjectPassingTest:v158];
-          if (v75 == 0x7FFFFFFFFFFFFFFFLL)
+          v72 = *(8 * j);
+          if ([v157 indexOfObjectPassingTest:?] == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v76 = avt_default_log();
-            if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+            v73 = avt_default_log(0x7FFFFFFFFFFFFFFFLL);
+            if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v169 = v74;
-              _os_log_error_impl(&dword_1BB472000, v76, OS_LOG_TYPE_ERROR, "Error: Failed to find index for driving target %@", buf, 0xCu);
+              v161 = v72;
+              _os_log_error_impl(&dword_1BB472000, v73, OS_LOG_TYPE_ERROR, "Error: Failed to find index for driving target %@", buf, 0xCu);
             }
 
-            v68 = v73;
+            v66 = v71;
           }
 
           else
           {
-            v76 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v75];
-            v68 = v73;
-            [v73 addObject:v76];
+            v73 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+            v66 = v71;
+            [v71 addObject:?];
           }
         }
 
-        v70 = [obj countByEnumeratingWithState:&v159 objects:v167 count:16];
+        v68 = [obj countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v70);
+      while (v68);
     }
 
-    v77 = [v147 count];
-    if (v77 < [v148 count])
+    v74 = [v149 count];
+    v75 = [v150 count];
+    if (v74 < v75)
     {
-      v78 = avt_default_log();
-      if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+      v76 = avt_default_log(v75);
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
       {
-        [(VFXMorpher(AVTExtension) *)v78 avt_buildInternalSupportForCorrectivesWithBlock:v79, v80, v81, v82, v83, v84, v85];
+        [(VFXMorpher(AVTExtension) *)v76 avt_buildInternalSupportForCorrectivesWithBlock:v77, v78, v79, v80, v81, v82, v83];
       }
     }
 
-    v86 = [v153 count];
-    if (v86 < [v143 count])
+    v84 = [v155 count];
+    v85 = [v145 count];
+    if (v84 < v85)
     {
-      v87 = avt_default_log();
-      if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+      v86 = avt_default_log(v85);
+      if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
       {
-        [(VFXMorpher(AVTExtension) *)v87 avt_buildInternalSupportForCorrectivesWithBlock:v88, v89, v90, v91, v92, v93, v94];
+        [(VFXMorpher(AVTExtension) *)v86 avt_buildInternalSupportForCorrectivesWithBlock:v87, v88, v89, v90, v91, v92, v93];
       }
     }
 
-    v95 = [v147 count];
-    v96 = [v153 count] + v95;
-    if (v96 != [v137 count] - v135)
+    v94 = [v149 count];
+    v95 = v94 + [v155 count];
+    v96 = [v139 count];
+    if (v95 != v96 - v137)
     {
-      v97 = avt_default_log();
+      v97 = avt_default_log(v96);
       if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
       {
         [(SCNMorpher(AVTExtension) *)v97 avt_buildInternalSupportForCorrectivesWithBlock:v98, v99, v100, v101, v102, v103, v104];
       }
     }
 
-    if ([v143 count])
+    if ([v145 count])
     {
-      v105 = [v148 count];
-      v106 = [v143 count] + v105;
-      if (v106 != [v146 count])
+      v105 = [v150 count];
+      v106 = v105 + [v145 count];
+      v107 = [v148 count];
+      if (v106 != v107)
       {
-        v107 = avt_default_log();
-        if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+        v108 = avt_default_log(v107);
+        if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
         {
-          [(SCNMorpher(AVTExtension) *)v107 avt_buildInternalSupportForCorrectivesWithBlock:v108, v109, v110, v111, v112, v113, v114];
+          [(SCNMorpher(AVTExtension) *)v108 avt_buildInternalSupportForCorrectivesWithBlock:v109, v110, v111, v112, v113, v114, v115];
         }
       }
 
-      v115 = [v140 count];
-      v116 = [v13 count] + v115;
-      if (v116 != [v136 count])
+      v116 = [v142 count];
+      v117 = v116 + [v13 count];
+      v118 = [v138 count];
+      if (v117 != v118)
       {
-        v117 = avt_default_log();
-        if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+        v119 = avt_default_log(v118);
+        if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
         {
-          [(SCNMorpher(AVTExtension) *)v117 avt_buildInternalSupportForCorrectivesWithBlock:v118, v119, v120, v121, v122, v123, v124];
+          [(SCNMorpher(AVTExtension) *)v119 avt_buildInternalSupportForCorrectivesWithBlock:v120, v121, v122, v123, v124, v125, v126];
         }
       }
 
-      v125 = [v143 count];
-      if (v125 != [v138 count])
+      v127 = [v145 count];
+      v128 = [v140 count];
+      if (v127 != v128)
       {
-        v126 = avt_default_log();
-        if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
+        v129 = avt_default_log(v128);
+        if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
         {
-          [(SCNMorpher(AVTExtension) *)v126 avt_buildInternalSupportForCorrectivesWithBlock:v127, v128, v129, v130, v131, v132, v133];
+          [(SCNMorpher(AVTExtension) *)v129 avt_buildInternalSupportForCorrectivesWithBlock:v130, v131, v132, v133, v134, v135, v136];
         }
       }
     }
 
-    if (v138)
+    if (v140)
     {
-      [selfCopy setTargetsAndInBetweens:v147 inBetweenCounts:v148 inBetweenWeights:v140 correctives:v153 driverCounts:v138 driverIndices:v68 inBetweenCounts:v143 inBetweenWeights:v13];
+      [selfCopy setTargetsAndInBetweens:v145 inBetweenCounts:v13 inBetweenWeights:? correctives:? driverCounts:? driverIndices:? inBetweenCounts:? inBetweenWeights:?];
     }
   }
-
-  v134 = *MEMORY[0x1E69E9840];
 }
 
 - (void)avt_buildInternalSupportForCorrectivesWithBlock:()AVTExtension .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Failed to correctly separate correctives", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "newTargetsAndInBetweens.count >= newInBetweenCounts.count";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Failed to correctly separate correctives", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)avt_buildInternalSupportForCorrectivesWithBlock:()AVTExtension .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Failed to correctly separate correctives", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "newCorrectivesAndInBetweens.count >= newCorrectiveInBetweenCounts.count";
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a1, a3, "Error: Condition '%s' failed. Failed to correctly separate correctives", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -12,20 +12,20 @@
 {
   if (!generator)
   {
-    v11 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"invalid parameter not satisfying: %s", v3, v4, v5, v6, v7, "obtainCoordinator != nil"), 0}];
-    objc_exception_throw(v11);
+    v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"invalid parameter not satisfying: %s", v3, v4, v5, v6, v7, "obtainCoordinator != nil"), 0}];
+    objc_exception_throw(v12);
   }
 
-  v12.receiver = self;
-  v12.super_class = AVPlayerItemInterstitialEventCollector;
-  v9 = [(AVPlayerItemMediaDataCollector *)&v12 init];
-  if (v9)
+  v13.receiver = self;
+  v13.super_class = AVPlayerItemInterstitialEventCollector;
+  v10 = [(AVPlayerItemMediaDataCollector *)&v13 init];
+  if (v10)
   {
-    v9->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayeriteminterstitialeventcollector.ivars");
-    v9->_obtainCoordinator = _Block_copy(generator);
+    v10->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayeriteminterstitialeventcollector.ivars", v9);
+    v10->_obtainCoordinator = _Block_copy(generator);
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)dealloc

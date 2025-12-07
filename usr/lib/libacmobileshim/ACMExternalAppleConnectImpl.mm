@@ -333,7 +333,7 @@ LABEL_8:
   }
 }
 
-uint64_t __53__ACMExternalAppleConnectImpl_showSignInWithRequest___block_invoke(uint64_t a1)
+uint64_t __53__ACMExternalAppleConnectImpl_showSignInWithRequest___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (qword_2A1EB8ED8 && (ACFLogSettingsGetLevelMask() & 0x80) != 0)
   {
@@ -344,10 +344,10 @@ uint64_t __53__ACMExternalAppleConnectImpl_showSignInWithRequest___block_invoke(
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v3 = [*(a1 + 32) delegate];
-    v4 = [*(a1 + 32) masterObject];
+    v4 = [*(a1 + 32) delegate];
+    v5 = [*(a1 + 32) masterObject];
 
-    return [v3 appleConnectDidShowSignInDialog:v4];
+    return [v4 appleConnectDidShowSignInDialog:v5];
   }
 
   return result;
@@ -416,7 +416,7 @@ uint64_t __41__ACMExternalAppleConnectImpl_hideSignIn__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __74__ACMExternalAppleConnectImpl_authenticateRunningOnMainThreadWithRequest___block_invoke(uint64_t a1, void *a2, void *a3)
+void *__74__ACMExternalAppleConnectImpl_authenticateRunningOnMainThreadWithRequest___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   if (a2 || !a3)
   {
@@ -480,23 +480,23 @@ uint64_t __74__ACMExternalAppleConnectImpl_authenticateRunningOnMainThreadWithRe
   [(ACMExternalAuthenticationController *)authenticationController authenticateWithRequest:request password:password completion:v8];
 }
 
-uint64_t __64__ACMExternalAppleConnectImpl_authenticateWithRequest_password___block_invoke(uint64_t result, uint64_t a2, void *a3)
+id *__64__ACMExternalAppleConnectImpl_authenticateWithRequest_password___block_invoke(id *result, uint64_t a2, void *a3)
 {
   v3 = result;
   if (a2)
   {
-    v4 = *(result + 32);
+    v4 = result[4];
 
     return [v4 reportError:a2];
   }
 
   else if (a3)
   {
-    v6 = [objc_msgSend(objc_msgSend(*(result + 32) "components")];
+    v6 = [objc_msgSend(objc_msgSend(result[4] "components")];
     v7 = +[ACMAuthenticationResponseImpl authenticationResponse];
     [v7 setToken:v6];
     [v7 setUserName:{objc_msgSend(objc_msgSend(a3, "principal"), "userName")}];
-    v8 = *(v3 + 32);
+    v8 = v3[4];
 
     return [v8 returnResponse:v7 withSelector:sel_appleConnect_authenticationDidEndWithResponse_];
   }
@@ -1081,14 +1081,14 @@ LABEL_9:
   }
 }
 
-uint64_t __71__ACMExternalAppleConnectImpl_twoSVController_prepareUIWithCompletion___block_invoke(uint64_t a1)
+void *__71__ACMExternalAppleConnectImpl_twoSVController_prepareUIWithCompletion___block_invoke(uint64_t a1)
 {
   if ([objc_msgSend(*(a1 + 32) "uiController")])
   {
     result = *(a1 + 40);
     if (result)
     {
-      v3 = *(result + 16);
+      v3 = result[2];
 
       return v3();
     }

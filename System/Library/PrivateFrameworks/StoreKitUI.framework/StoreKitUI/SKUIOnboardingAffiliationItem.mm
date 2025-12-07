@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (unint64_t)hash;
+- (void)description;
+- (void)hash;
 @end
 
 @implementation SKUIOnboardingAffiliationItem
@@ -92,15 +94,39 @@
   {
     identifier = [(SKUIOnboardingAffiliationItem *)self identifier];
     identifier2 = [equalCopy identifier];
-    v14 = [identifier isEqualToString:identifier2];
+    isEqualToString = objc_msgSend_isEqualToString_(identifier);
   }
 
   else
   {
-    v14 = 0;
+    isEqualToString = 0;
   }
 
-  return v14;
+  return isEqualToString;
+}
+
+- (void)copyWithZone:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIOnboardingAffiliationItem copyWithZone:]";
+}
+
+- (void)description
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIOnboardingAffiliationItem description]";
+}
+
+- (void)hash
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIOnboardingAffiliationItem hash]";
+}
+
+- (void)isEqual:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIOnboardingAffiliationItem isEqual:]";
 }
 
 @end

@@ -44,8 +44,8 @@
 
 - (void)_axAnnotateImageViews
 {
-  v33 = *MEMORY[0x29EDCA608];
-  v31 = 0;
+  v32 = *MEMORY[0x29EDCA608];
+  v30 = 0;
   objc_opt_class();
   selfCopy = self;
   v3 = [(MKPlacePhotosViewControllerAccessibility *)self safeValueForKey:@"_mapItem"];
@@ -53,29 +53,29 @@
   v5 = [v4 safeValueForKey:@"providerName"];
   v6 = __UIAccessibilityCastAsClass();
 
-  v24 = v6;
+  v23 = v6;
   if ([v6 length])
   {
     v7 = MEMORY[0x29EDBA0F8];
     v8 = AXMapKitLocString(@"REVIEW_PHOTO_WITH_PROVIDER_FORMAT");
-    v25 = [v7 stringWithFormat:v8, v6, v6];
+    v24 = [v7 stringWithFormat:v8, v6, v6];
   }
 
   else
   {
-    v25 = AXMapKitLocString(@"REVIEW_PHOTO");
+    v24 = AXMapKitLocString(@"REVIEW_PHOTO");
   }
 
   _axPhotoViews = [(MKPlacePhotosViewControllerAccessibility *)selfCopy _axPhotoViews];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v10 = [_axPhotoViews countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v10 = [_axPhotoViews countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v28;
+    v12 = *v27;
     v13 = *MEMORY[0x29EDC7F88];
     v14 = *MEMORY[0x29EDC7F70];
     v15 = *MEMORY[0x29EDC7F98];
@@ -83,17 +83,17 @@
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v28 != v12)
+        if (*v27 != v12)
         {
           objc_enumerationMutation(_axPhotoViews);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * i);
+        v17 = *(*(&v26 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           [v17 setIsAccessibilityElement:1];
-          [v17 setAccessibilityLabel:v25];
+          [v17 setAccessibilityLabel:v24];
           if ([(MKPlacePhotosViewControllerAccessibility *)selfCopy safeBoolForKey:@"_canUseFullscreenViewer"])
           {
             v18 = v14;
@@ -108,7 +108,7 @@
         }
       }
 
-      v11 = [_axPhotoViews countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v11 = [_axPhotoViews countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v11);
@@ -125,8 +125,6 @@
 
   v22 = [(MKPlacePhotosViewControllerAccessibility *)selfCopy safeUIViewForKey:@"_photosContainer"];
   [v22 setAccessibilityElements:v21];
-
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_accessibilityLoadAccessibilityInformation

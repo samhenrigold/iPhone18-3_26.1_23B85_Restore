@@ -10,6 +10,7 @@
 - (id)cachedValueForIdentifier:(id)identifier;
 - (id)columnDefinitionWithDefaultValue:(id)value;
 - (id)redactedDescription;
+- (id)valueFromSet:(id)set atIndex:(int)index;
 - (void)discardCachedValue;
 - (void)setCachedValue:(id)value forIdentifier:(id)identifier;
 @end
@@ -196,6 +197,18 @@
   v6 = defaultValueForNull;
 
   return v6;
+}
+
+- (id)valueFromSet:(id)set atIndex:(int)index
+{
+  v4 = *&index;
+  type = self->_type;
+  setCopy = set;
+  v7 = [setCopy objectOfClass:-[CPLPrequeliteType objcClass](type atIndex:{"objcClass"), v4}];
+
+  v8 = [(CPLPrequeliteType *)type _valueForBindableValue:v7];
+
+  return v8;
 }
 
 - (id)columnDefinitionWithDefaultValue:(id)value

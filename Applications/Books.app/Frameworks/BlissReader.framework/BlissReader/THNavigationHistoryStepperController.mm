@@ -72,67 +72,70 @@
 
   prevBookspot = [(THBookspotHistoryStack *)[(THNavigationHistoryStepperController *)self bookspotHistoryStack] prevBookspot];
   nextBookspot = [(THBookspotHistoryStack *)[(THNavigationHistoryStepperController *)self bookspotHistoryStack] nextBookspot];
-  v5 = nextBookspot;
+  v6 = nextBookspot;
   if (prevBookspot)
   {
-    v6 = [(THBookPresentationPageIndexFormatter *)[(THNavigationHistoryStepperController *)self pageIndexFormatter] pageNumberStringForLocation:prevBookspot];
-    if (v5)
+    nextBookspot = [(THBookPresentationPageIndexFormatter *)[(THNavigationHistoryStepperController *)self pageIndexFormatter] pageNumberStringForLocation:prevBookspot];
+    v7 = nextBookspot;
+    if (v6)
     {
 LABEL_4:
-      v7 = [(THBookPresentationPageIndexFormatter *)[(THNavigationHistoryStepperController *)self pageIndexFormatter] pageNumberStringForLocation:v5];
+      nextBookspot = [(THBookPresentationPageIndexFormatter *)[(THNavigationHistoryStepperController *)self pageIndexFormatter] pageNumberStringForLocation:v6];
+      v8 = nextBookspot;
       goto LABEL_8;
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
     if (nextBookspot)
     {
       goto LABEL_4;
     }
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_8:
   if (prevBookspot)
   {
-    v8 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"Back to page %@" value:&stru_471858 table:0], v6);
-    if (v5)
+    nextBookspot = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(nextBookspot v5)], v7);
+    v9 = nextBookspot;
+    if (v6)
     {
 LABEL_10:
-      v9 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"Go to page %@" value:&stru_471858 table:0], v7);
+      v10 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(nextBookspot v5)], v8);
       goto LABEL_13;
     }
   }
 
   else
   {
-    v8 = &stru_471858;
-    if (v5)
+    v9 = &stru_471858;
+    if (v6)
     {
       goto LABEL_10;
     }
   }
 
-  v9 = &stru_471858;
+  v10 = &stru_471858;
 LABEL_13:
   [(THNavigationHistoryStepperController *)self chrome];
-  v10 = objc_opt_respondsToSelector();
+  v11 = objc_opt_respondsToSelector();
   chrome = [(THNavigationHistoryStepperController *)self chrome];
-  if (v10)
+  if (v11)
   {
 
-    [THNavigationHistoryStepperChrome setPrevButtonTitle:chrome andPrevButtonEnable:"setPrevButtonTitle:andPrevButtonEnable:nextButtonTitle:andNextButtonEnabled:" nextButtonTitle:v8 andNextButtonEnabled:prevBookspot != 0];
+    [THNavigationHistoryStepperChrome setPrevButtonTitle:chrome andPrevButtonEnable:"setPrevButtonTitle:andPrevButtonEnable:nextButtonTitle:andNextButtonEnabled:" nextButtonTitle:v9 andNextButtonEnabled:prevBookspot != 0];
   }
 
   else
   {
-    v12 = v5 != 0;
-    [(THNavigationHistoryStepperChrome *)chrome setPrevButtonTitle:v8 andEnable:prevBookspot != 0];
+    v13 = v6 != 0;
+    [(THNavigationHistoryStepperChrome *)chrome setPrevButtonTitle:v9 andEnable:prevBookspot != 0];
     chrome2 = [(THNavigationHistoryStepperController *)self chrome];
 
-    [(THNavigationHistoryStepperChrome *)chrome2 setNextButtonTitle:v9 andEnable:v12];
+    [(THNavigationHistoryStepperChrome *)chrome2 setNextButtonTitle:v10 andEnable:v13];
   }
 }
 

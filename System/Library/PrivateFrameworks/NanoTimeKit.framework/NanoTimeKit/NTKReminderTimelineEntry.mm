@@ -148,44 +148,61 @@ uint64_t __48__NTKReminderTimelineEntry__reminderImageCorner__block_invoke(uint6
 
 uint64_t __56__NTKReminderTimelineEntry__cornerReminderImageProvider__block_invoke(uint64_t a1, void *a2)
 {
-  v2 = a2;
+  v3 = a2;
   os_unfair_lock_lock(&_block_invoke_3_lock);
   if (_block_invoke_3___cachedDevice)
   {
-    v3 = _block_invoke_3___cachedDevice == v2;
+    v4 = _block_invoke_3___cachedDevice == v3;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  if (v3 && (v4 = [v2 version], v4 == _block_invoke_3___previousCLKDeviceVersion))
+  if (v4 && (v5 = [v3 version], v5 == _block_invoke_3___previousCLKDeviceVersion))
   {
-    v5 = _block_invoke_3_value;
+    v6 = _block_invoke_3_value;
   }
 
   else
   {
-    _block_invoke_3___cachedDevice = v2;
-    _block_invoke_3___previousCLKDeviceVersion = [v2 version];
-    __56__NTKReminderTimelineEntry__cornerReminderImageProvider__block_invoke_3();
-    v5 = 1;
+    _block_invoke_3___cachedDevice = v3;
+    _block_invoke_3___previousCLKDeviceVersion = [v3 version];
+    v8 = *(a1 + 32);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __56__NTKReminderTimelineEntry__cornerReminderImageProvider__block_invoke_3;
+    v9[3] = &__block_descriptor_40_e19_v16__0__CLKDevice_8l;
+    v9[4] = v8;
+    __56__NTKReminderTimelineEntry__cornerReminderImageProvider__block_invoke_3(v9);
+    v6 = 1;
     _block_invoke_3_value = 1;
   }
 
   os_unfair_lock_unlock(&_block_invoke_3_lock);
 
-  return v5;
+  return v6;
 }
 
-void __56__NTKReminderTimelineEntry__cornerReminderImageProvider__block_invoke_3()
+uint64_t __56__NTKReminderTimelineEntry__cornerReminderImageProvider__block_invoke_2(uint64_t a1)
 {
-  v0 = MEMORY[0x277CBBB10];
-  v3 = [objc_opt_class() _reminderImageCorner];
-  v1 = [v0 providerWithFullColorImage:v3 monochromeFilterType:1 applyScalingAndCircularMasking:0];
-  v2 = _cornerReminderImageProvider_imageProvider;
-  _cornerReminderImageProvider_imageProvider = v1;
+  v2[0] = MEMORY[0x277D85DD0];
+  v2[1] = 3221225472;
+  v2[2] = __56__NTKReminderTimelineEntry__cornerReminderImageProvider__block_invoke_3;
+  v2[3] = &__block_descriptor_40_e19_v16__0__CLKDevice_8l;
+  v2[4] = *(a1 + 32);
+  __56__NTKReminderTimelineEntry__cornerReminderImageProvider__block_invoke_3(v2);
+  return 1;
+}
+
+void __56__NTKReminderTimelineEntry__cornerReminderImageProvider__block_invoke_3(uint64_t a1)
+{
+  v1 = MEMORY[0x277CBBB10];
+  v4 = [objc_opt_class() _reminderImageCorner];
+  v2 = [v1 providerWithFullColorImage:v4 monochromeFilterType:1 applyScalingAndCircularMasking:0];
+  v3 = _cornerReminderImageProvider_imageProvider;
+  _cornerReminderImageProvider_imageProvider = v2;
 }
 
 - (id)_createSignatureCornerTemplate
@@ -337,48 +354,65 @@ void __56__NTKReminderTimelineEntry__cornerReminderImageProvider__block_invoke_3
 
 uint64_t __56__NTKReminderTimelineEntry__analogReminderImageProvider__block_invoke(uint64_t a1, void *a2)
 {
-  v2 = a2;
+  v3 = a2;
   os_unfair_lock_lock(&_block_invoke_4_lock);
   if (_block_invoke_4___cachedDevice)
   {
-    v3 = _block_invoke_4___cachedDevice == v2;
+    v4 = _block_invoke_4___cachedDevice == v3;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  if (v3 && (v4 = [v2 version], v4 == _block_invoke_4___previousCLKDeviceVersion))
+  if (v4 && (v5 = [v3 version], v5 == _block_invoke_4___previousCLKDeviceVersion))
   {
-    v5 = _block_invoke_4_value;
+    v6 = _block_invoke_4_value;
   }
 
   else
   {
-    _block_invoke_4___cachedDevice = v2;
-    _block_invoke_4___previousCLKDeviceVersion = [v2 version];
-    __56__NTKReminderTimelineEntry__analogReminderImageProvider__block_invoke_3();
-    v5 = 1;
+    _block_invoke_4___cachedDevice = v3;
+    _block_invoke_4___previousCLKDeviceVersion = [v3 version];
+    v8 = *(a1 + 32);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __56__NTKReminderTimelineEntry__analogReminderImageProvider__block_invoke_3;
+    v9[3] = &__block_descriptor_40_e19_v16__0__CLKDevice_8l;
+    v9[4] = v8;
+    __56__NTKReminderTimelineEntry__analogReminderImageProvider__block_invoke_3(v9);
+    v6 = 1;
     _block_invoke_4_value = 1;
   }
 
   os_unfair_lock_unlock(&_block_invoke_4_lock);
 
-  return v5;
+  return v6;
 }
 
-void __56__NTKReminderTimelineEntry__analogReminderImageProvider__block_invoke_3()
+uint64_t __56__NTKReminderTimelineEntry__analogReminderImageProvider__block_invoke_2(uint64_t a1)
 {
-  v0 = MEMORY[0x277CBBB40];
-  v1 = [objc_opt_class() _reminderImageAnalog];
-  v2 = [v0 imageProviderWithOnePieceImage:v1];
-  v3 = _analogReminderImageProvider_imageProvider;
-  _analogReminderImageProvider_imageProvider = v2;
+  v2[0] = MEMORY[0x277D85DD0];
+  v2[1] = 3221225472;
+  v2[2] = __56__NTKReminderTimelineEntry__analogReminderImageProvider__block_invoke_3;
+  v2[3] = &__block_descriptor_40_e19_v16__0__CLKDevice_8l;
+  v2[4] = *(a1 + 32);
+  __56__NTKReminderTimelineEntry__analogReminderImageProvider__block_invoke_3(v2);
+  return 1;
+}
 
+void __56__NTKReminderTimelineEntry__analogReminderImageProvider__block_invoke_3(uint64_t a1)
+{
+  v1 = MEMORY[0x277CBBB40];
+  v2 = [objc_opt_class() _reminderImageAnalog];
+  v3 = [v1 imageProviderWithOnePieceImage:v2];
   v4 = _analogReminderImageProvider_imageProvider;
-  v5 = [MEMORY[0x277D75348] systemBlueColor];
-  [v4 setTintColor:v5];
+  _analogReminderImageProvider_imageProvider = v3;
+
+  v5 = _analogReminderImageProvider_imageProvider;
+  v6 = [MEMORY[0x277D75348] systemBlueColor];
+  [v5 setTintColor:v6];
 }
 
 + (id)lockedEntryForFamily:(int64_t)family

@@ -7,9 +7,9 @@
 
 - (id)timeStamp
 {
-  v0 = swift_unknownObjectRetain();
+  v1 = swift_unknownObjectRetain();
 
-  return v0;
+  return v1;
 }
 
 - (uint64_t)setTimeStamp:(uint64_t)stamp

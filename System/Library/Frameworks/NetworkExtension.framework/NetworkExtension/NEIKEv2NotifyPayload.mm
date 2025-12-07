@@ -1,11 +1,12 @@
 @interface NEIKEv2NotifyPayload
-+ (NEIKEv2NotifyPayload)createNotifyPayloadType:;
++ (NEIKEv2NotifyPayload)createNotifyPayloadType:(uint64_t)type;
 + (NEIKEv2NotifyPayload)createNotifyPayloadType:(void *)type data:;
 - (BOOL)generatePayloadData;
 - (BOOL)hasRequiredFields;
 - (BOOL)parsePayloadData:(id)data;
 - (__CFString)copyError;
 - (__CFString)copyNotifyTypeDescription;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (uint64_t)copyPPKID;
 - (uint64_t)getPPKIDType;
 @end
@@ -14,35 +15,35 @@
 
 - (BOOL)parsePayloadData:(id)data
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = [dataCopy length];
   if (v5 > 3)
   {
     v6 = v5;
-    v26 = 0;
-    [dataCopy getBytes:&v26 length:4];
-    v7 = BYTE1(v26);
-    v8 = BYTE1(v26) + 4;
+    v25 = 0;
+    [dataCopy getBytes:&v25 length:4];
+    v7 = BYTE1(v25);
+    v8 = BYTE1(v25) + 4;
     if (v6 < v8)
     {
-      v21 = ne_log_obj();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v20 = ne_log_obj();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
         *&buf[4] = v6;
-        v28 = 1024;
-        v29 = v7;
-        _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, "Invalid Notify payload length %zu too small for SPI length %u", buf, 0x12u);
+        v27 = 1024;
+        v28 = v7;
+        _os_log_error_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_ERROR, "Invalid Notify payload length %zu too small for SPI length %u", buf, 0x12u);
       }
     }
 
     if (self)
     {
-      self->_notifyType = bswap32(HIWORD(v26)) >> 16;
+      self->_notifyType = bswap32(HIWORD(v25)) >> 16;
     }
 
-    if (v26 == 240)
+    if (v25 == 240)
     {
       if (v7 == 8)
       {
@@ -67,14 +68,14 @@
 
         *buf = 134218240;
         *&buf[4] = notifyType;
-        v28 = 1024;
-        v29 = v7;
-        v23 = "Invalid Notify %zu TLS SPI length %u";
+        v27 = 1024;
+        v28 = v7;
+        v22 = "Invalid Notify %zu TLS SPI length %u";
         goto LABEL_43;
       }
     }
 
-    else if (v26 == 3)
+    else if (v25 == 3)
     {
       if (v7 == 4)
       {
@@ -90,26 +91,26 @@
       {
         if (self)
         {
-          v22 = self->_notifyType;
+          v21 = self->_notifyType;
         }
 
         else
         {
-          v22 = 0;
+          v21 = 0;
         }
 
         *buf = 134218240;
-        *&buf[4] = v22;
-        v28 = 1024;
-        v29 = v7;
-        v23 = "Invalid Notify %zu ESP SPI length %u";
+        *&buf[4] = v21;
+        v27 = 1024;
+        v28 = v7;
+        v22 = "Invalid Notify %zu ESP SPI length %u";
         goto LABEL_43;
       }
     }
 
     else
     {
-      if (v26 != 1 || !v7)
+      if (v25 != 1 || !v7)
       {
         goto LABEL_19;
       }
@@ -137,21 +138,21 @@ LABEL_16:
       {
         if (self)
         {
-          v25 = self->_notifyType;
+          v24 = self->_notifyType;
         }
 
         else
         {
-          v25 = 0;
+          v24 = 0;
         }
 
         *buf = 134218240;
-        *&buf[4] = v25;
-        v28 = 1024;
-        v29 = v7;
-        v23 = "Invalid Notify %zu IKE SPI length %u";
+        *&buf[4] = v24;
+        v27 = 1024;
+        v28 = v7;
+        v22 = "Invalid Notify %zu IKE SPI length %u";
 LABEL_43:
-        _os_log_error_impl(&dword_1BA83C000, p_super, OS_LOG_TYPE_ERROR, v23, buf, 0x12u);
+        _os_log_error_impl(&dword_1BA83C000, p_super, OS_LOG_TYPE_ERROR, v22, buf, 0x12u);
       }
     }
 
@@ -171,63 +172,60 @@ LABEL_19:
     goto LABEL_24;
   }
 
-  v20 = ne_log_obj();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v19 = ne_log_obj();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
     *&buf[4] = "[NEIKEv2NotifyPayload parsePayloadData:]";
-    _os_log_error_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_ERROR, "BACKTRACE %s called with null (payloadDataLength >= sizeof(ikev2_payload_notify_hdr_t))", buf, 0xCu);
+    _os_log_error_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_ERROR, "BACKTRACE %s called with null (payloadDataLength >= sizeof(ikev2_payload_notify_hdr_t))", buf, 0xCu);
   }
 
   hasRequiredFields = 0;
 LABEL_24:
 
-  v18 = *MEMORY[0x1E69E9840];
   return hasRequiredFields;
 }
 
 - (BOOL)generatePayloadData
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     if (self->super._payloadDataVector)
     {
-LABEL_13:
-      result = 1;
-      goto LABEL_14;
+      return 1;
     }
 
     if ([(NEIKEv2NotifyPayload *)self hasRequiredFields])
     {
       notifyType = self->_notifyType;
-      LOWORD(v18[0]) = 0;
-      WORD1(v18[0]) = bswap32(notifyType) >> 16;
+      LOWORD(v17[0]) = 0;
+      WORD1(v17[0]) = bswap32(notifyType) >> 16;
       v5 = objc_getProperty(self, v3, 48, 1);
       if (v5)
       {
         v6 = v5;
         copySPIData = [v5 copySPIData];
         v8 = [copySPIData length];
-        BYTE1(v18[0]) = [copySPIData length];
-        LOBYTE(v18[0]) = [v6 protocol];
-        v9 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:{v8 + 4, v18[0]}];
-        [v9 appendBytes:v18 length:4];
+        BYTE1(v17[0]) = [copySPIData length];
+        LOBYTE(v17[0]) = [v6 protocol];
+        v9 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:{v8 + 4, v17[0]}];
+        [v9 appendBytes:v17 length:4];
         [v9 appendData:copySPIData];
 
         objc_storeStrong(&self->super._payloadSubHeader, v9);
 LABEL_9:
         if (objc_getProperty(self, v10, 40, 1))
         {
-          v19[0] = objc_getProperty(self, v11, 40, 1);
+          v18[0] = objc_getProperty(self, v11, 40, 1);
           v12 = MEMORY[0x1E695DEC8];
-          v13 = v19[0];
-          v14 = [v12 arrayWithObjects:v19 count:1];
+          v13 = v18[0];
+          v14 = [v12 arrayWithObjects:v18 count:1];
 
           [(NEIKEv2KeyExchangeHandler *)self setSharedSecret:v14];
 LABEL_12:
 
-          goto LABEL_13;
+          return 1;
         }
 
 LABEL_11:
@@ -237,11 +235,11 @@ LABEL_11:
 
       if (notifyType == 16418)
       {
-        LOBYTE(v18[0]) = 1;
+        LOBYTE(v17[0]) = 1;
       }
 
 LABEL_8:
-      v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v18 length:4];
+      v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v17 length:4];
       [(NEIKEv2Payload *)self setPayloadSubHeader:v9];
       v6 = 0;
       if (!self)
@@ -255,21 +253,18 @@ LABEL_8:
 
   else if ([0 hasRequiredFields])
   {
-    LODWORD(v18[0]) = 0;
+    LODWORD(v17[0]) = 0;
     goto LABEL_8;
   }
 
-  v17 = ne_log_obj();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v16 = ne_log_obj();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v18[0]) = 0;
-    _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "Notify payload missing required fields", v18, 2u);
+    LOWORD(v17[0]) = 0;
+    _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "Notify payload missing required fields", v17, 2u);
   }
 
-  result = 0;
-LABEL_14:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (BOOL)hasRequiredFields
@@ -280,6 +275,33 @@ LABEL_14:
   }
 
   return self;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  typeDescription = [(NEIKEv2NotifyPayload *)self typeDescription];
+  [v7 appendPrettyObject:typeDescription withName:@"Payload Type" andIndent:v5 options:options];
+
+  copyNotifyTypeDescription = [(NEIKEv2NotifyPayload *)self copyNotifyTypeDescription];
+  [v7 appendPrettyObject:copyNotifyTypeDescription withName:@"Notify Type" andIndent:v5 options:options];
+
+  if (self)
+  {
+    [v7 appendPrettyObject:objc_getProperty(self withName:v10 andIndent:40 options:{1), @"Notify Data", v5, options}];
+    Property = objc_getProperty(self, v11, 48, 1);
+  }
+
+  else
+  {
+    [v7 appendPrettyObject:0 withName:@"Notify Data" andIndent:v5 options:options];
+    Property = 0;
+  }
+
+  [v7 appendPrettyObject:Property withName:@"SPI" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (__CFString)copyNotifyTypeDescription
@@ -565,7 +587,7 @@ LABEL_14:
   return result;
 }
 
-+ (NEIKEv2NotifyPayload)createNotifyPayloadType:
++ (NEIKEv2NotifyPayload)createNotifyPayloadType:(uint64_t)type
 {
   objc_opt_self();
   result = objc_alloc_init(NEIKEv2NotifyPayload);
@@ -595,81 +617,75 @@ LABEL_14:
 - (__CFString)copyError
 {
   selfCopy = self;
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     if (self[1].isa - 1 > 0x3FFE)
     {
-      selfCopy = 0;
+      return 0;
     }
 
     else
     {
       v2 = objc_alloc(MEMORY[0x1E696ABC0]);
       isa = selfCopy[1].isa;
-      v8 = *MEMORY[0x1E696A278];
+      v7 = *MEMORY[0x1E696A278];
       copyNotifyTypeDescription = [(NEIKEv2NotifyPayload *)selfCopy copyNotifyTypeDescription];
-      v9[0] = copyNotifyTypeDescription;
-      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+      v8[0] = copyNotifyTypeDescription;
+      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
       selfCopy = [v2 initWithDomain:@"NEIKEv2ProtocolErrorDomain" code:isa userInfo:v5];
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (uint64_t)getPPKIDType
 {
-  v9 = *MEMORY[0x1E69E9840];
-  if (self[4] != 16436)
+  v8 = *MEMORY[0x1E69E9840];
+  if (*(self + 4) == 16436)
+  {
+    if ([objc_getProperty(self a2])
+    {
+      LOBYTE(v6) = 0;
+      [objc_getProperty(self v3];
+      return v6;
+    }
+
+    v5 = ne_log_obj();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      v6 = 138412290;
+      selfCopy2 = self;
+      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "Cannot get PPK ID type from too short notification %@", &v6, 0xCu);
+    }
+  }
+
+  else
   {
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v7 = 138412290;
+      v6 = 138412290;
       selfCopy2 = self;
-      _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "Cannot get PPK ID type from notification %@", &v7, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "Cannot get PPK ID type from notification %@", &v6, 0xCu);
     }
-
-    goto LABEL_8;
   }
 
-  if (![objc_getProperty(self a2])
-  {
-    v5 = ne_log_obj();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v7 = 138412290;
-      selfCopy2 = self;
-      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "Cannot get PPK ID type from too short notification %@", &v7, 0xCu);
-    }
-
-LABEL_8:
-
-    result = 0;
-    goto LABEL_9;
-  }
-
-  LOBYTE(v7) = 0;
-  [objc_getProperty(self v3];
-  result = v7;
-LABEL_9:
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (uint64_t)copyPPKID
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (self[4] != 16436)
   {
     v7 = ne_log_obj();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v10 = 138412290;
+      v9 = 138412290;
       selfCopy2 = self;
-      _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, "Cannot copy PPK ID from notification %@", &v10, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, "Cannot copy PPK ID from notification %@", &v9, 0xCu);
     }
 
     goto LABEL_8;
@@ -680,22 +696,19 @@ LABEL_9:
     v7 = ne_log_obj();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
+      v9 = 138412290;
       selfCopy2 = self;
-      _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "Cannot copy PPK ID from too short notification %@", &v10, 0xCu);
+      _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "Cannot copy PPK ID from too short notification %@", &v9, 0xCu);
     }
 
 LABEL_8:
 
-    v6 = 0;
-    goto LABEL_9;
+    return 0;
   }
 
   v4 = objc_getProperty(self, v3, 40, 1);
   v6 = [v4 subdataWithRange:{1, objc_msgSend(objc_getProperty(self, v5, 40, 1), "length") - 1}];
 
-LABEL_9:
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

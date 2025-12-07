@@ -46,14 +46,12 @@
 
 - (id)buildListener
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC7shazamd17SHServiceProvider_machServiceName);
-  v4 = *&self->machServiceName[OBJC_IVAR____TtC7shazamd17SHServiceProvider_machServiceName];
-  v5 = objc_allocWithZone(NSXPCListener);
+  v3 = objc_allocWithZone(NSXPCListener);
   selfCopy = self;
-  v7 = String._bridgeToObjectiveC()();
-  v8 = [v5 initWithMachServiceName:v7];
+  v5 = String._bridgeToObjectiveC()();
+  v6 = [v3 initWithMachServiceName:v5];
 
-  return v8;
+  return v6;
 }
 
 - (id)handleForConnection:(id)connection withClientCredentials:(id)credentials

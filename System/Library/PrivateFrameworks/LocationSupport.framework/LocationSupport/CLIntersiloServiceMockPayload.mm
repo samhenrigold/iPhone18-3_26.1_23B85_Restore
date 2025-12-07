@@ -27,56 +27,55 @@
 
 - (void)setInUse:(BOOL)use
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (self->_inUse)
   {
-    v4 = sub_1DF814218();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v3 = sub_1DF814218();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v8 = 0;
-      v9 = 2082;
-      v10 = &unk_1DF8255EF;
-      v11 = 2082;
-      v12 = "assert";
-      v13 = 2081;
-      v14 = "!_inUse";
-      _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Payloads can't be reused!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v7 = 0;
+      v8 = 2082;
+      v9 = &unk_1DF8255EF;
+      v10 = 2082;
+      v11 = "assert";
+      v12 = 2081;
+      v13 = "!_inUse";
+      _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Payloads can't be reused!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    v4 = sub_1DF814218();
+    if (os_signpost_enabled(v4))
+    {
+      *buf = 68289539;
+      v7 = 0;
+      v8 = 2082;
+      v9 = &unk_1DF8255EF;
+      v10 = 2082;
+      v11 = "assert";
+      v12 = 2081;
+      v13 = "!_inUse";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Payloads can't be reused!", "{msg%{public}.0s:Payloads can't be reused!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
     v5 = sub_1DF814218();
-    if (os_signpost_enabled(v5))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v8 = 0;
-      v9 = 2082;
-      v10 = &unk_1DF8255EF;
-      v11 = 2082;
-      v12 = "assert";
-      v13 = 2081;
-      v14 = "!_inUse";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Payloads can't be reused!", "{msg%{public}.0s:Payloads can't be reused!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v7 = 0;
+      v8 = 2082;
+      v9 = &unk_1DF8255EF;
+      v10 = 2082;
+      v11 = "assert";
+      v12 = 2081;
+      v13 = "!_inUse";
+      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Payloads can't be reused!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v6 = sub_1DF814218();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-    {
-      *buf = 68289539;
-      v8 = 0;
-      v9 = 2082;
-      v10 = &unk_1DF8255EF;
-      v11 = 2082;
-      v12 = "assert";
-      v13 = 2081;
-      v14 = "!_inUse";
-      _os_log_impl(&dword_1DF7FE000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Payloads can't be reused!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-    }
-
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloService.m", 129, "[CLIntersiloServiceMockPayload setInUse:]");
   }
 
   self->_inUse = use;
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

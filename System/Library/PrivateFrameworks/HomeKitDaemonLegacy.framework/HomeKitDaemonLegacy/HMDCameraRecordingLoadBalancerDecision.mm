@@ -9,39 +9,37 @@
 
 - (id)attributeDescriptions
 {
-  v28[7] = *MEMORY[0x277D85DE8];
+  v27[7] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   cameraUUID = [(HMDCameraRecordingLoadBalancerDecision *)self cameraUUID];
-  v26 = [v3 initWithName:@"Camera UUID" value:cameraUUID];
-  v28[0] = v26;
+  v25 = [v3 initWithName:@"Camera UUID" value:cameraUUID];
+  v27[0] = v25;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   deviceUUID = [(HMDCameraRecordingLoadBalancerDecision *)self deviceUUID];
-  v24 = [v4 initWithName:@"Device UUID" value:deviceUUID];
-  v28[1] = v24;
+  v23 = [v4 initWithName:@"Device UUID" value:deviceUUID];
+  v27[1] = v23;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
-  v23 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDCameraRecordingLoadBalancerDecision numberOfAvailableDevices](self, "numberOfAvailableDevices")}];
-  v22 = [v5 initWithName:@"Available Devices Count" value:v23];
-  v28[2] = v22;
+  v22 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDCameraRecordingLoadBalancerDecision numberOfAvailableDevices](self, "numberOfAvailableDevices")}];
+  v21 = [v5 initWithName:@"Available Devices Count" value:v22];
+  v27[2] = v21;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDCameraRecordingLoadBalancerDecision totalNumberOfJobSlots](self, "totalNumberOfJobSlots")}];
   v8 = [v6 initWithName:@"Total Job Slots Count" value:v7];
-  v28[3] = v8;
+  v27[3] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDCameraRecordingLoadBalancerDecision remainingNumberOfJobSlots](self, "remainingNumberOfJobSlots")}];
   v11 = [v9 initWithName:@"Remaining Job Slots Count" value:v10];
-  v28[4] = v11;
+  v27[4] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   decisionDate = [(HMDCameraRecordingLoadBalancerDecision *)self decisionDate];
   v14 = [v12 initWithName:@"Decision Date" value:decisionDate];
-  v28[5] = v14;
+  v27[5] = v14;
   v15 = objc_alloc(MEMORY[0x277D0F778]);
   deviceWithSessionToHandOff = [(HMDCameraRecordingLoadBalancerDecision *)self deviceWithSessionToHandOff];
   identifier = [deviceWithSessionToHandOff identifier];
   v18 = [v15 initWithName:@"HandOff Device UUID" value:identifier];
-  v28[6] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:7];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v27[6] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:7];
 
   return v19;
 }

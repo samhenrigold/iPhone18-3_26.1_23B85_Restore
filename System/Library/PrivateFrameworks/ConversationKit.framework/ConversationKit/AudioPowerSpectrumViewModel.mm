@@ -23,7 +23,7 @@
   AudioPowerSpectrumViewModel.isEqual(_:)();
   v7 = v6;
 
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v9, &_sypSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v9, &_sypSgMd, &_sypSgMR);
   return v7 & 1;
 }
 

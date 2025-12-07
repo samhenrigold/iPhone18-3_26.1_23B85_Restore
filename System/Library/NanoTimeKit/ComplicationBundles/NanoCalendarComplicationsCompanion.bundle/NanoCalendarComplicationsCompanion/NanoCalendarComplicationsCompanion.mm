@@ -48,16 +48,16 @@ id OverlayCalendarLocaleID()
   return v3;
 }
 
-id ncs_log_error()
+id ncs_log_error(uint64_t a1)
 {
   if (qword_27F48 != -1)
   {
     sub_12F48();
   }
 
-  v1 = qword_27F40;
+  v2 = qword_27F40;
 
-  return v1;
+  return v2;
 }
 
 void sub_4BC0(id a1)
@@ -74,16 +74,16 @@ void sub_4BC0(id a1)
   }
 }
 
-id ncs_log_lifecycle()
+id ncs_log_lifecycle(uint64_t a1)
 {
   if (qword_27F58 != -1)
   {
     sub_12F5C();
   }
 
-  v1 = qword_27F50;
+  v2 = qword_27F50;
 
-  return v1;
+  return v2;
 }
 
 void sub_4C88(id a1)
@@ -100,16 +100,16 @@ void sub_4C88(id a1)
   }
 }
 
-id ncs_log_snapshot()
+id ncs_log_snapshot(uint64_t a1)
 {
   if (qword_27F68 != -1)
   {
     sub_12F70();
   }
 
-  v1 = qword_27F60;
+  v2 = qword_27F60;
 
-  return v1;
+  return v2;
 }
 
 void sub_4D50(id a1)
@@ -126,16 +126,16 @@ void sub_4D50(id a1)
   }
 }
 
-id ncs_log_snapshot_creation()
+id ncs_log_snapshot_creation(uint64_t a1)
 {
   if (qword_27F78 != -1)
   {
     sub_12F84();
   }
 
-  v1 = qword_27F70;
+  v2 = qword_27F70;
 
-  return v1;
+  return v2;
 }
 
 void sub_4E18(id a1)
@@ -152,16 +152,16 @@ void sub_4E18(id a1)
   }
 }
 
-id ncs_log_snapshot_vending()
+id ncs_log_snapshot_vending(uint64_t a1)
 {
   if (qword_27F88 != -1)
   {
     sub_12F98();
   }
 
-  v1 = qword_27F80;
+  v2 = qword_27F80;
 
-  return v1;
+  return v2;
 }
 
 void sub_4EE0(id a1)
@@ -178,16 +178,16 @@ void sub_4EE0(id a1)
   }
 }
 
-id ncs_log_selected_calendars()
+id ncs_log_selected_calendars(uint64_t a1)
 {
   if (qword_27F98 != -1)
   {
     sub_12FAC();
   }
 
-  v1 = qword_27F90;
+  v2 = qword_27F90;
 
-  return v1;
+  return v2;
 }
 
 void sub_4FA8(id a1)
@@ -204,16 +204,16 @@ void sub_4FA8(id a1)
   }
 }
 
-id ncs_log_data_loading()
+id ncs_log_data_loading(uint64_t a1)
 {
   if (qword_27FA8 != -1)
   {
     sub_12FC0();
   }
 
-  v1 = qword_27FA0;
+  v2 = qword_27FA0;
 
-  return v1;
+  return v2;
 }
 
 void sub_5070(id a1)
@@ -230,16 +230,16 @@ void sub_5070(id a1)
   }
 }
 
-id ncs_log_data_loading_verbose()
+id ncs_log_data_loading_verbose(uint64_t a1)
 {
   if (qword_27FB8 != -1)
   {
     sub_12FD4();
   }
 
-  v1 = qword_27FB0;
+  v2 = qword_27FB0;
 
-  return v1;
+  return v2;
 }
 
 void sub_5138(id a1)
@@ -256,16 +256,16 @@ void sub_5138(id a1)
   }
 }
 
-id ncs_log_data_display()
+id ncs_log_data_display(uint64_t a1)
 {
   if (qword_27FC8 != -1)
   {
     sub_12FE8();
   }
 
-  v1 = qword_27FC0;
+  v2 = qword_27FC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_5200(id a1)
@@ -282,16 +282,16 @@ void sub_5200(id a1)
   }
 }
 
-id ncs_log_always_on_display()
+id ncs_log_always_on_display(uint64_t a1)
 {
   if (qword_27FD8 != -1)
   {
     sub_12FFC();
   }
 
-  v1 = qword_27FD0;
+  v2 = qword_27FD0;
 
-  return v1;
+  return v2;
 }
 
 void sub_52C8(id a1)
@@ -308,16 +308,16 @@ void sub_52C8(id a1)
   }
 }
 
-id ncs_log_user_interaction()
+id ncs_log_user_interaction(uint64_t a1)
 {
   if (qword_27FE8 != -1)
   {
     sub_13010();
   }
 
-  v1 = qword_27FE0;
+  v2 = qword_27FE0;
 
-  return v1;
+  return v2;
 }
 
 void sub_5390(id a1)
@@ -334,16 +334,16 @@ void sub_5390(id a1)
   }
 }
 
-id ncs_log_user_data_change()
+id ncs_log_user_data_change(uint64_t a1)
 {
   if (qword_27FF8 != -1)
   {
     sub_13024();
   }
 
-  v1 = qword_27FF0;
+  v2 = qword_27FF0;
 
-  return v1;
+  return v2;
 }
 
 void sub_5458(id a1)
@@ -360,16 +360,16 @@ void sub_5458(id a1)
   }
 }
 
-id ncs_log_icon_generation()
+id ncs_log_icon_generation(uint64_t a1)
 {
   if (qword_28008 != -1)
   {
     sub_13038();
   }
 
-  v1 = qword_28000;
+  v2 = qword_28000;
 
-  return v1;
+  return v2;
 }
 
 void sub_5520(id a1)
@@ -386,16 +386,16 @@ void sub_5520(id a1)
   }
 }
 
-id ncs_log_metrics()
+id ncs_log_metrics(uint64_t a1)
 {
   if (qword_28018 != -1)
   {
     sub_1304C();
   }
 
-  v1 = qword_28010;
+  v2 = qword_28010;
 
-  return v1;
+  return v2;
 }
 
 void sub_55E8(id a1)
@@ -412,16 +412,16 @@ void sub_55E8(id a1)
   }
 }
 
-id ncs_log_utility()
+id ncs_log_utility(uint64_t a1)
 {
   if (qword_28028 != -1)
   {
     sub_13060();
   }
 
-  v1 = qword_28020;
+  v2 = qword_28020;
 
-  return v1;
+  return v2;
 }
 
 void sub_56B0(id a1)
@@ -438,16 +438,16 @@ void sub_56B0(id a1)
   }
 }
 
-id ncs_log_settings()
+id ncs_log_settings(uint64_t a1)
 {
   if (qword_28038 != -1)
   {
     sub_13074();
   }
 
-  v1 = qword_28030;
+  v2 = qword_28030;
 
-  return v1;
+  return v2;
 }
 
 void sub_5778(id a1)
@@ -464,16 +464,16 @@ void sub_5778(id a1)
   }
 }
 
-id ncs_log_status_bar()
+id ncs_log_status_bar(uint64_t a1)
 {
   if (qword_28048 != -1)
   {
     sub_13088();
   }
 
-  v1 = qword_28040;
+  v2 = qword_28040;
 
-  return v1;
+  return v2;
 }
 
 void sub_5840(id a1)
@@ -490,16 +490,16 @@ void sub_5840(id a1)
   }
 }
 
-id ncs_log_complication()
+id ncs_log_complication(uint64_t a1)
 {
   if (qword_28058 != -1)
   {
     sub_1309C();
   }
 
-  v1 = qword_28050;
+  v2 = qword_28050;
 
-  return v1;
+  return v2;
 }
 
 void sub_5908(id a1)
@@ -516,16 +516,16 @@ void sub_5908(id a1)
   }
 }
 
-id ncs_log_event_creation()
+id ncs_log_event_creation(uint64_t a1)
 {
   if (qword_28068 != -1)
   {
     sub_130B0();
   }
 
-  v1 = qword_28060;
+  v2 = qword_28060;
 
-  return v1;
+  return v2;
 }
 
 void sub_59D0(id a1)
@@ -542,16 +542,16 @@ void sub_59D0(id a1)
   }
 }
 
-id ncs_log_alerts_ttl()
+id ncs_log_alerts_ttl(uint64_t a1)
 {
   if (qword_28078 != -1)
   {
     sub_130C4();
   }
 
-  v1 = qword_28070;
+  v2 = qword_28070;
 
-  return v1;
+  return v2;
 }
 
 void sub_5A98(id a1)
@@ -568,16 +568,16 @@ void sub_5A98(id a1)
   }
 }
 
-id ncs_log_bulletin_ui()
+id ncs_log_bulletin_ui(uint64_t a1)
 {
   if (qword_28088 != -1)
   {
     sub_130D8();
   }
 
-  v1 = qword_28080;
+  v2 = qword_28080;
 
-  return v1;
+  return v2;
 }
 
 void sub_5B60(id a1)
@@ -594,16 +594,16 @@ void sub_5B60(id a1)
   }
 }
 
-id ncs_log_reminders_snapshot()
+id ncs_log_reminders_snapshot(uint64_t a1)
 {
   if (qword_28098 != -1)
   {
     sub_130EC();
   }
 
-  v1 = qword_28090;
+  v2 = qword_28090;
 
-  return v1;
+  return v2;
 }
 
 void sub_5C28(id a1)
@@ -620,16 +620,16 @@ void sub_5C28(id a1)
   }
 }
 
-id ncs_log_reminders_demo()
+id ncs_log_reminders_demo(uint64_t a1)
 {
   if (qword_280A8 != -1)
   {
     sub_13100();
   }
 
-  v1 = qword_280A0;
+  v2 = qword_280A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_5CF0(id a1)
@@ -646,16 +646,16 @@ void sub_5CF0(id a1)
   }
 }
 
-id ncs_log_debugging()
+id ncs_log_debugging(uint64_t a1)
 {
   if (qword_280B8 != -1)
   {
     sub_13114();
   }
 
-  v1 = qword_280B0;
+  v2 = qword_280B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_5DB8(id a1)
@@ -672,7 +672,7 @@ void sub_5DB8(id a1)
   }
 }
 
-uint64_t _actsLikeCustomerBuild()
+uint64_t _actsLikeCustomerBuild(uint64_t a1, uint64_t a2)
 {
   if (qword_280C8 != -1)
   {
@@ -708,7 +708,7 @@ uint64_t _isInternalBuild()
   return v0 & 1;
 }
 
-uint64_t NCSLoggingConfidentionInformationAllowed()
+uint64_t NCSLoggingConfidentionInformationAllowed(uint64_t a1, uint64_t a2)
 {
   if (qword_280D0 != -1)
   {
@@ -752,32 +752,32 @@ void sub_6940(id a1)
 
 __n128 sub_6CE4@<Q0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  sub_7938(a1, a1);
+  v5 = sub_7938(a1, a1);
   if (a2 == 12)
   {
-    v6 = &xmmword_28128;
+    v7 = &xmmword_28128;
   }
 
   else
   {
     if (a2 != 10)
     {
-      v5 = ncs_log_complication();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = ncs_log_complication(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_13164(a2, v5);
+        sub_13164(a2, v6);
       }
     }
 
-    v6 = &xmmword_280F0;
+    v7 = &xmmword_280F0;
   }
 
-  v7 = v6[1];
-  *a3 = *v6;
-  *(a3 + 16) = v7;
-  result = v6[2];
+  v8 = v7[1];
+  *a3 = *v7;
+  *(a3 + 16) = v8;
+  result = v7[2];
   *(a3 + 32) = result;
-  *(a3 + 48) = *(v6 + 6);
+  *(a3 + 48) = *(v7 + 6);
   return result;
 }
 
@@ -1447,7 +1447,7 @@ void sub_F09C(uint64_t a1, void *a2)
 id NCALComplicationLocalizedString(void *a1)
 {
   v1 = a1;
-  v2 = sub_F348();
+  v2 = sub_F348(v1);
   v3 = [v2 localizedStringForKey:v1 value:&stru_20EF0 table:@"Localizable"];
 
   return v3;
@@ -1456,7 +1456,7 @@ id NCALComplicationLocalizedString(void *a1)
 id NCALComplicationLocalizedFormat(void *a1)
 {
   v1 = a1;
-  v2 = sub_F348();
+  v2 = sub_F348(v1);
   v3 = [v2 localizedStringForKey:v1 value:&stru_20EF0 table:@"Formats"];
 
   return v3;
@@ -1465,22 +1465,22 @@ id NCALComplicationLocalizedFormat(void *a1)
 id NCALComplicationImageNamed(void *a1)
 {
   v1 = a1;
-  v2 = sub_F348();
+  v2 = sub_F348(v1);
   v3 = [UIImage imageNamed:v1 inBundle:v2 compatibleWithTraitCollection:0];
 
   return v3;
 }
 
-id sub_F348()
+id sub_F348(uint64_t a1)
 {
   if (qword_28260 != -1)
   {
     sub_131F0();
   }
 
-  v1 = qword_28258;
+  v2 = qword_28258;
 
-  return v1;
+  return v2;
 }
 
 void sub_F38C(id a1)
@@ -1507,25 +1507,24 @@ void sub_100D8(uint64_t a1)
 id sub_10118(uint64_t a1)
 {
   v2 = +[CLKDate complicationDate];
-  v3 = *(a1 + 40);
-  v4 = NTKAddDaysToDate();
+  v3 = NTKAddDaysToDate();
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v6 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v7 = *(WeakRetained + 8);
-    if (!v7)
+    v6 = *(WeakRetained + 8);
+    if (!v6)
     {
-      v7 = v4;
+      v6 = v3;
     }
 
-    v8 = v7;
+    v7 = v6;
 
-    v4 = v8;
+    v3 = v7;
   }
 
-  return v4;
+  return v3;
 }
 
 void sub_10308(id a1)
@@ -1941,42 +1940,39 @@ uint64_t sub_12BD0()
   return sub_13228();
 }
 
-uint64_t sub_12C9C(void *a1, uint64_t a2)
+uint64_t sub_12C9C(void *a1, uint64_t a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v3 = sub_13238();
+  v4 = sub_13238();
 
-  return sub_11D5C(v3, a2);
+  return sub_11D5C(v4, a2);
 }
 
-uint64_t sub_12D14@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_12D14@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_13238();
-  v6 = sub_11D5C(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = sub_13238();
+  v7 = sub_11D5C(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t *sub_12DD0(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

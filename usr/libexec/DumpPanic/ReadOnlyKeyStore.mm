@@ -1,11 +1,255 @@
 @interface ReadOnlyKeyStore
+- (BOOL)hasMatchingPrivateKey:(int)key :(id)a4;
 - (BOOL)readKeyFile:(id)file :(id *)a4 :(int *)a5 :(id *)a6 :(id *)a7;
 - (ReadOnlyKeyStore)initWithKeyStorePath:(id)path :(id)a4;
 - (ccec_cp)getEccFormat:(int)format;
+- (id)getMatchingPrivateKey:(int)key :(id)a4;
 - (id)init:(id)init;
 @end
 
 @implementation ReadOnlyKeyStore
+
+- (id)getMatchingPrivateKey:(int)key :(id)a4
+{
+  v4 = *&key;
+  v6 = a4;
+  memset(__s2, 0, sizeof(__s2));
+  v7 = [(ReadOnlyKeyStore *)self getEccFormat:v4];
+  if (!v7)
+  {
+    v17 = 0;
+    goto LABEL_50;
+  }
+
+  p_var0 = &v7->var0;
+  v52 = v4;
+  __chkstk_darwin(v7);
+  v10 = &v50 - v9;
+  v11 = ccec_x963_import_pub(p_var0, [v6 length], objc_msgSend(v6, "bytes"), (&v50 - v9));
+  if (v11)
+  {
+    v12 = v11;
+    cc_clear(24 * *p_var0 + 16, v10);
+    log_handle = self->_log_handle;
+    if (!os_log_type_enabled(log_handle, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_49;
+    }
+
+    v65 = 67109120;
+    LODWORD(v66) = v12;
+    v14 = "Failed to parse the input public key with the given format. CoreCrypto error %d";
+    v15 = log_handle;
+    v16 = 8;
+LABEL_14:
+    _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, v14, &v65, v16);
+    goto LABEL_49;
+  }
+
+  v18 = ccec_validate_pub(v10);
+  cc_clear(24 * *p_var0 + 16, v10);
+  if (!v18)
+  {
+    v22 = self->_log_handle;
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_49;
+    }
+
+    LOWORD(v65) = 0;
+    v14 = "The input public key did not pass basic validation checks";
+    v15 = v22;
+    v16 = 2;
+    goto LABEL_14;
+  }
+
+  v19 = ccsha256_di();
+  ccdigest(v19, [v6 length], objc_msgSend(v6, "bytes"), __s2);
+  if (os_variant_has_internal_diagnostics() && _os_feature_enabled_impl() && self->_isDefaultKeyStorePath)
+  {
+    goto LABEL_49;
+  }
+
+  singleFileMode = self->_singleFileMode;
+  v50 = &v50;
+  v51 = v6;
+  if (singleFileMode)
+  {
+    v21 = [NSMutableArray arrayWithCapacity:1, v50];
+    [v21 addObject:self->_keyStorePath];
+  }
+
+  else
+  {
+    v23 = +[NSFileManager defaultManager];
+    v24 = [v23 contentsOfDirectoryAtPath:self->_keyStorePath error:0];
+
+    if (v24)
+    {
+      v21 = +[NSMutableArray array];
+      v61 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v64 = 0u;
+      v53 = v24;
+      v25 = v24;
+      v26 = [v25 countByEnumeratingWithState:&v61 objects:v68 count:16];
+      if (v26)
+      {
+        v27 = v26;
+        v28 = *v62;
+        do
+        {
+          for (i = 0; i != v27; i = i + 1)
+          {
+            if (*v62 != v28)
+            {
+              objc_enumerationMutation(v25);
+            }
+
+            v30 = [NSString stringWithFormat:@"%@/%@", self->_keyStorePath, *(*(&v61 + 1) + 8 * i)];
+            [v21 addObject:v30];
+          }
+
+          v27 = [v25 countByEnumeratingWithState:&v61 objects:v68 count:16];
+        }
+
+        while (v27);
+      }
+
+      v6 = v51;
+      v24 = v53;
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+  }
+
+  v31 = v52;
+  if (!v21)
+  {
+    v46 = self->_log_handle;
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    {
+      keyStorePath = self->_keyStorePath;
+      v65 = 138412290;
+      v66 = keyStorePath;
+      _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Failed to enumerate the directory at '%@'", &v65, 0xCu);
+    }
+
+    goto LABEL_48;
+  }
+
+  v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v53 = v21;
+  v32 = [v53 countByEnumeratingWithState:&v57 objects:v67 count:16];
+  if (!v32)
+  {
+    goto LABEL_45;
+  }
+
+  v33 = v32;
+  v34 = *v58;
+  while (2)
+  {
+    for (j = 0; j != v33; j = j + 1)
+    {
+      if (*v58 != v34)
+      {
+        objc_enumerationMutation(v53);
+      }
+
+      v36 = *(*(&v57 + 1) + 8 * j);
+      v65 = 0;
+      v55 = 0;
+      v56 = 0;
+      v37 = [(ReadOnlyKeyStore *)self readKeyFile:v36];
+      v38 = v56;
+      v17 = v55;
+      if (v37)
+      {
+        if (v65 != v31)
+        {
+          v44 = self->_log_handle;
+          if (!os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_43;
+          }
+
+          v54[0] = 0;
+          v42 = v44;
+          v43 = "Current key does not match input key format. Skipping";
+          goto LABEL_40;
+        }
+
+        if ([v38 length] == 32)
+        {
+          v39 = memcmp([v38 bytes], __s2, objc_msgSend(v38, "length"));
+          v40 = self->_log_handle;
+          v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
+          if (!v39)
+          {
+            if (v41)
+            {
+              v54[0] = 0;
+              _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Found a matching private key", v54, 2u);
+            }
+
+            v48 = v53;
+            v6 = v51;
+            goto LABEL_50;
+          }
+
+          v31 = v52;
+          if (v41)
+          {
+            v54[0] = 0;
+            v42 = v40;
+            v43 = "Mismatched key hashes. Skipping";
+LABEL_40:
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, v43, v54, 2u);
+          }
+        }
+
+        else
+        {
+          v45 = self->_log_handle;
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+          {
+            v54[0] = 0;
+            _os_log_error_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "Mismatched key hash lengths", v54, 2u);
+          }
+        }
+      }
+
+LABEL_43:
+    }
+
+    v33 = [v53 countByEnumeratingWithState:&v57 objects:v67 count:16];
+    if (v33)
+    {
+      continue;
+    }
+
+    break;
+  }
+
+LABEL_45:
+
+  v6 = v51;
+LABEL_48:
+
+LABEL_49:
+  v17 = 0;
+LABEL_50:
+
+  return v17;
+}
 
 - (BOOL)readKeyFile:(id)file :(id *)a4 :(int *)a5 :(id *)a6 :(id *)a7
 {
@@ -327,7 +571,7 @@ LABEL_13:
   if (format == 1)
   {
 
-    return ccec_cp_256(self, a2);
+    return ccec_cp_256();
   }
 
   else
@@ -342,6 +586,18 @@ LABEL_13:
 
     return 0;
   }
+}
+
+- (BOOL)hasMatchingPrivateKey:(int)key :(id)a4
+{
+  v4 = *&key;
+  v6 = a4;
+  v7 = objc_autoreleasePoolPush();
+  v8 = [(ReadOnlyKeyStore *)self getMatchingPrivateKey:v4];
+  LOBYTE(v4) = v8 != 0;
+
+  objc_autoreleasePoolPop(v7);
+  return v4;
 }
 
 - (id)init:(id)init

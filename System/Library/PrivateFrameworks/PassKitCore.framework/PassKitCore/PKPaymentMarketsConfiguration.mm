@@ -41,7 +41,7 @@ LABEL_13:
   }
 
 LABEL_3:
-  if ([classCopy isEqualToString:v13] && objc_msgSend(versionCopy, "isEqual:", v14))
+  if (objc_msgSend_isEqualToString_(classCopy) && [versionCopy isEqual:v14])
   {
     if (([qword_1ED6D17E0 isEqual:lCopy] & 1) == 0)
     {
@@ -109,7 +109,7 @@ void __102__PKPaymentMarketsConfiguration_paymentMarketsConfigurationWithURL_for
     {
       v12 = qword_1ED6D17F8;
       v13 = [v10 valueForHTTPHeaderField:@"Etag"];
-      if (([v12 isEqualToString:v13] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v12) & 1) == 0)
       {
 
         if (v7)
@@ -124,7 +124,7 @@ LABEL_13:
 
       v14 = qword_1ED6D17F0;
       v15 = [v11 valueForHTTPHeaderField:@"Last-Modified"];
-      LODWORD(v14) = [v14 isEqualToString:v15];
+      LODWORD(v14) = objc_msgSend_isEqualToString_(v14);
 
       if (v14)
       {

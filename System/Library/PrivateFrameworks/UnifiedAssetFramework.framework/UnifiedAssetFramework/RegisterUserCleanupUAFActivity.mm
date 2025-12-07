@@ -28,7 +28,7 @@ void ___RegisterUserCleanupUAFActivity_block_invoke_2(uint64_t a1, uint64_t a2, 
   v3 = v4;
   if (v4)
   {
-    (*(v4 + 2))(v4);
+    v4[2](v4);
     v3 = v4;
   }
 }

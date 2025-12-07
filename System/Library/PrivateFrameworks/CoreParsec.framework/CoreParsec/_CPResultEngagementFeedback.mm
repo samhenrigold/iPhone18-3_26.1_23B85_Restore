@@ -121,31 +121,26 @@ LABEL_18:
   toCopy = to;
   if ([(_CPResultEngagementFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPResultEngagementFeedback *)self actionEngaged])
   {
-    actionEngaged = self->_actionEngaged;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPResultEngagementFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPResultEngagementFeedback *)self destination])
   {
-    destination = self->_destination;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPResultEngagementFeedback *)self actionTarget])
   {
-    actionTarget = self->_actionTarget;
     PBDataWriterWriteInt32Field();
   }
 
@@ -161,13 +156,11 @@ LABEL_18:
 
   if (titleText)
   {
-    titleText = self->_titleText;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPResultEngagementFeedback *)self matchesUnengagedSuggestion])
   {
-    matchesUnengagedSuggestion = self->_matchesUnengagedSuggestion;
     PBDataWriterWriteBOOLField();
   }
 }

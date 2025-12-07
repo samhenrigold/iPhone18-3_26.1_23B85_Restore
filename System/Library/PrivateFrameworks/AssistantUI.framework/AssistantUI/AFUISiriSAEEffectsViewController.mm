@@ -48,9 +48,11 @@
 
 uint64_t __64__AFUISiriSAEEffectsViewController_sharedSiriUISettingsDefaults__block_invoke()
 {
-  sharedSiriUISettingsDefaults_defaults = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.siri.internal"];
+  v0 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.siri.internal"];
+  v1 = sharedSiriUISettingsDefaults_defaults;
+  sharedSiriUISettingsDefaults_defaults = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (CGRect)normalizedLockButtonRect
@@ -940,7 +942,7 @@ void __75__AFUISiriSAEEffectsViewController_beginAnimatingEffectsForInvocationTy
           _os_log_impl(&dword_241432000, v9, OS_LOG_TYPE_DEFAULT, "%s #effects setting up shockwave for %{public}@ invocation", v21, 0x16u);
         }
 
-        v10 = [(AFUISiriSAEEffectsViewController *)self _createShockwaveViewControllerForInvocationType:type, *v21, *&v21[16]];
+        v10 = [(AFUISiriSAEEffectsViewController *)self _createShockwaveViewControllerForInvocationType:type, *v21, *&v21[8]];
         [(AFUISiriSAEEffectsViewController *)self bs_addChildViewController:v10];
         [(AFUISiriSAEEffectsViewController *)self setShockwaveViewController:v10];
       }

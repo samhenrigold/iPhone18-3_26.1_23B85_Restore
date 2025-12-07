@@ -1,7 +1,7 @@
 @interface AVMobileGlassContentTabsViewController
 - (AVMobileGlassContentTabsViewController)init;
 - (AVMobileGlassContentTabsViewControllerDelegate)delegate;
-- (void)_activeContentTab;
+- (id)_activeContentTab;
 - (void)_didChangeContentTabTo:(id)to;
 - (void)_invalidateContentViewScrollViewAnimator;
 - (void)_setActiveCustomInfoViewControllerForContentTab:(uint64_t)tab;
@@ -114,7 +114,7 @@
   }
 }
 
-- (void)_activeContentTab
+- (id)_activeContentTab
 {
   selfCopy = self;
   if (self)

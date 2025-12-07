@@ -32,7 +32,7 @@
     dispatchQueue = v2->_dispatchQueue;
     v2->_dispatchQueue = v5;
 
-    v7 = [objc_alloc(off_1001D48F0[0]()) initWithQueue:v2->_dispatchQueue];
+    v7 = [objc_alloc(off_1001D48F0()) initWithQueue:v2->_dispatchQueue];
     reporter = v2->_reporter;
     v2->_reporter = v7;
   }

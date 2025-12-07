@@ -30,7 +30,7 @@
   *(&self->super.isa + OBJC_IVAR___APSPubSubSubscriptionStore_inMemorySubscriptions) = v5;
   *(&self->super.isa + OBJC_IVAR___APSPubSubSubscriptionStore_messageStore) = storeCopy;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for PubSubSubscriptionStore();
+  v7.super_class = type metadata accessor for PubSubSubscriptionStore(0);
   return [(APSPubSubSubscriptionStore *)&v7 init];
 }
 

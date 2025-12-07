@@ -1,7 +1,7 @@
 @interface NSValue(AMPDirectionalRangeExtensions)
 + (id)valueWithDirectionalRange:()AMPDirectionalRangeExtensions;
 + (id)valueWithRange:()AMPDirectionalRangeExtensions direction:hasMixedDirectionality:;
-- (uint64_t)directionalRangeValue;
+- (void)directionalRangeValue;
 @end
 
 @implementation NSValue(AMPDirectionalRangeExtensions)
@@ -30,7 +30,7 @@
   return v6;
 }
 
-- (uint64_t)directionalRangeValue
+- (void)directionalRangeValue
 {
   v8 = *MEMORY[0x277D85DE8];
   *(a2 + 24) = 0;

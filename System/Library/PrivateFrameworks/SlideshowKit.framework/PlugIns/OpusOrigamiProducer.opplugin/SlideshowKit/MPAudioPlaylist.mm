@@ -93,7 +93,7 @@
 - (id)description
 {
   v3 = [NSString stringWithFormat:@"================================ Audio Playlist ================================\n"];
-  [(MPAudioPlaylist *)self duration];
+  objc_msgSend_duration(self);
   v5 = [[(NSString *)v3 stringByAppendingFormat:@"\t                   Duration: %f\n" stringByAppendingFormat:"stringByAppendingFormat:", @"\t             Count of Songs: %d\n", [(NSMutableArray *)self->_songs count]];
   if (self->_audioPlaylist)
   {
@@ -128,7 +128,7 @@
   v7 = +[NSIndexSet indexSetWithIndexesInRange:](NSIndexSet, "indexSetWithIndexesInRange:", index, [songs count]);
   [(MPAudioPlaylist *)self willChange:2 valuesAtIndexes:v7 forKey:@"songs"];
   [(NSMutableArray *)self->_songs insertObjects:songs atIndexes:v7];
-  [(MPAudioPlaylist *)self duration];
+  objc_msgSend_duration(self);
   v9 = v8;
   v34 = 0u;
   v35 = 0u;
@@ -150,7 +150,7 @@
 
         v14 = *(*(&v34 + 1) + 8 * i);
         [v14 setParentPlaylist:self];
-        [v14 duration];
+        objc_msgSend_duration(v14);
         v9 = v9 + v15;
       }
 
@@ -235,7 +235,7 @@
     }
 
     v6 = [-[MPAudioPlaylist parentDocument](self "parentDocument")];
-    [(MPAudioPlaylist *)self duration];
+    objc_msgSend_duration(self);
     v8 = v7;
     lastIndex = [indices lastIndex];
     if (lastIndex != 0x7FFFFFFFFFFFFFFFLL)
@@ -243,7 +243,7 @@
       for (i = lastIndex; i != 0x7FFFFFFFFFFFFFFFLL; i = [indices indexLessThanIndex:i])
       {
         v11 = [(NSMutableArray *)self->_songs objectAtIndex:i];
-        [v11 duration];
+        objc_msgSend_duration(v11);
         v13 = v12;
         [v11 setParentPlaylist:0];
         [v11 setSong:0];
@@ -356,7 +356,7 @@
 
 - (void)copyStruct:(id)struct
 {
-  [struct duration];
+  objc_msgSend_duration(struct, a2);
   [(MPPlaylistInternal *)self->_internal setDuration:?];
   [struct fadeInDuration];
   [(MPPlaylistInternal *)self->_internal setFadeInDuration:?];
@@ -559,7 +559,7 @@
 
     if ((objc_opt_respondsToSelector() & 1) == 0 || [(MPAudioSupport *)self->_parentObject autoAdjustDuration])
     {
-      [(MPPlaylistInternal *)self->_internal duration];
+      objc_msgSend_duration(self->_internal);
       [(MCPlug *)self->_plug setLoopDuration:?];
     }
 

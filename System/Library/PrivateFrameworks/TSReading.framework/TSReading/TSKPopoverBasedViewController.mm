@@ -479,20 +479,26 @@
     {
       v15 = v14;
       popoverDelegate = [(TSKPopoverBasedViewController *)self popoverDelegate];
-      if ((objc_opt_respondsToSelector() & 1) != 0 && [(TSKPopoverBasedViewControllerDelegate *)popoverDelegate wantsCloseArrowForPopoverBasedViewController:self])
+      v17 = objc_opt_respondsToSelector();
+      if (v17)
       {
-        v17 = [(TSKPopoverBasedViewController *)self p_newCloseImageBarButtonWithTarget:self action:sel_p_dismissFullscreenModalFromCloseButton];
-        goto LABEL_13;
+        v17 = [(TSKPopoverBasedViewControllerDelegate *)popoverDelegate wantsCloseArrowForPopoverBasedViewController:self];
+        if (v17)
+        {
+          v19 = [(TSKPopoverBasedViewController *)self p_newCloseImageBarButtonWithTarget:self action:sel_p_dismissFullscreenModalFromCloseButton];
+          goto LABEL_13;
+        }
       }
 
       if (buttonCopy)
       {
-        if (TSUPhoneUI())
+        v17 = TSUPhoneUI();
+        if (v17)
         {
-          v18 = [+[TSKApplicationDelegate sharedDelegate](TSKApplicationDelegate "sharedDelegate")];
-          v17 = [objc_alloc(MEMORY[0x277D751E0]) initWithCustomView:v18];
+          v20 = [+[TSKApplicationDelegate sharedDelegate](TSKApplicationDelegate "sharedDelegate")];
+          v19 = [objc_alloc(MEMORY[0x277D751E0]) initWithCustomView:v20];
 LABEL_13:
-          v19 = v17;
+          v21 = v19;
           if (!title)
           {
             goto LABEL_19;
@@ -501,18 +507,18 @@ LABEL_13:
           goto LABEL_18;
         }
 
-        v20 = @"Done";
-        v21 = 2;
+        v22 = @"Done";
+        v23 = 2;
       }
 
       else
       {
-        v20 = @"Close";
-        v21 = 1;
+        v22 = @"Close";
+        v23 = 1;
       }
 
-      v19 = [objc_alloc(MEMORY[0x277D751E0]) initWithTitle:objc_msgSend(TSKBundle() style:"localizedStringForKey:value:table:" target:v20 action:{&stru_287D36338, @"TSKit", v21, self, sel_p_dismissFullscreenModalFromCloseButton}];
-      [(TSKPopoverBasedViewController *)self i_configureCloseItem:v19];
+      v21 = [objc_alloc(MEMORY[0x277D751E0]) initWithTitle:objc_msgSend(TSKBundle(v17 style:v18) target:"localizedStringForKey:value:table:" action:{v22, &stru_287D36338, @"TSKit", v23, self, sel_p_dismissFullscreenModalFromCloseButton}];
+      [(TSKPopoverBasedViewController *)self i_configureCloseItem:v21];
       if (!title)
       {
 LABEL_19:
@@ -542,9 +548,9 @@ uint64_t __95__TSKPopoverBasedViewController_p_showModalInViewController_withTit
 - (id)p_newCloseImageBarButtonWithTarget:(id)target action:(SEL)action
 {
   v7 = objc_alloc(MEMORY[0x277D751E0]);
-  v8 = [MEMORY[0x277D755B8] imageNamed:@"TSKInsp_Close-ArrowDown" inBundle:TSKBundle() compatibleWithTraitCollection:{-[TSKPopoverBasedViewController traitCollection](self, "traitCollection")}];
+  v9 = [MEMORY[0x277D755B8] imageNamed:@"TSKInsp_Close-ArrowDown" inBundle:TSKBundle(v7 compatibleWithTraitCollection:{v8), -[TSKPopoverBasedViewController traitCollection](self, "traitCollection")}];
 
-  return [v7 initWithImage:v8 style:1 target:target action:action];
+  return [v7 initWithImage:v9 style:1 target:target action:action];
 }
 
 - (void)presentModallyFromRect:(CGRect)rect inView:(id)view viewController:(id)controller arrowDirection:(unint64_t)direction animated:(BOOL)animated withDoneButton:(BOOL)button constrainToView:(BOOL)toView withPadding:(double)self0 fromToolbar:(BOOL)self1
@@ -696,15 +702,16 @@ uint64_t __52__TSKPopoverBasedViewController_p_dismissHalfHeight__block_invoke(u
     v27 = TSUDynamicCast();
     if ([(TSKPopoverBasedViewController *)self useDoneButton])
     {
-      v28 = [objc_alloc(MEMORY[0x277D751E0]) initWithTitle:objc_msgSend(TSKBundle() style:"localizedStringForKey:value:table:" target:@"Done" action:{&stru_287D36338, @"TSKit", 0, self, sel_p_dismissHalfHeightFromCloseButton}];
+      v28 = objc_alloc(MEMORY[0x277D751E0]);
+      v30 = [v28 initWithTitle:objc_msgSend(TSKBundle(v28 style:v29) target:"localizedStringForKey:value:table:" action:{@"Done", &stru_287D36338, @"TSKit", 0, self, sel_p_dismissHalfHeightFromCloseButton}];
     }
 
     else
     {
-      v28 = [(TSKPopoverBasedViewController *)self p_newCloseImageBarButtonWithTarget:self action:sel_p_dismissHalfHeightFromCloseButton];
+      v30 = [(TSKPopoverBasedViewController *)self p_newCloseImageBarButtonWithTarget:self action:sel_p_dismissHalfHeightFromCloseButton];
     }
 
-    v29 = v28;
+    v31 = v30;
     [objc_msgSend(objc_msgSend(v27 "topViewController")];
     [v27 setShowTopSeparator:1];
     [v27 setIsFullscreenViewController:0];
@@ -717,43 +724,43 @@ uint64_t __52__TSKPopoverBasedViewController_p_dismissHalfHeight__block_invoke(u
   self->mHalfHeightOriginalFrame.size.width = width;
   self->mHalfHeightOriginalFrame.size.height = height;
   [view bounds];
-  v31 = v30;
+  v33 = v32;
 
   self->mHalfHeightTapShield = 0;
   if (modalCopy)
   {
-    v32 = [TSKModalShieldView alloc];
+    v34 = [TSKModalShieldView alloc];
     [view bounds];
-    v33 = [(TSKModalShieldView *)v32 initWithFrame:?];
-    self->mHalfHeightTapShield = v33;
-    [(TSKModalShieldView *)v33 setDelegate:self];
+    v35 = [(TSKModalShieldView *)v34 initWithFrame:?];
+    self->mHalfHeightTapShield = v35;
+    [(TSKModalShieldView *)v35 setDelegate:self];
     [view addSubview:self->mHalfHeightTapShield];
   }
 
   view = [(UIViewController *)self->mHalfHeightViewController view];
-  v35 = view;
+  v37 = view;
   if (self->mHalfHeightAnimated)
   {
-    [(UIView *)view setFrame:x, v31, width, height];
-    [(UIView *)v35 layoutIfNeeded];
-    [view addSubview:v35];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __91__TSKPopoverBasedViewController_presentInRect_inView_animated_modal_closeBlock_animations___block_invoke;
-    v36[3] = &unk_279D47960;
-    v36[4] = v35;
-    v36[5] = animations;
-    *&v36[6] = x;
-    *&v36[7] = y;
-    *&v36[8] = width;
-    *&v36[9] = height;
-    [MEMORY[0x277D75D18] animateWithDuration:v36 animations:0.200000003];
+    [(UIView *)view setFrame:x, v33, width, height];
+    [(UIView *)v37 layoutIfNeeded];
+    [view addSubview:v37];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __91__TSKPopoverBasedViewController_presentInRect_inView_animated_modal_closeBlock_animations___block_invoke;
+    v38[3] = &unk_279D47960;
+    v38[4] = v37;
+    v38[5] = animations;
+    *&v38[6] = x;
+    *&v38[7] = y;
+    *&v38[8] = width;
+    *&v38[9] = height;
+    [MEMORY[0x277D75D18] animateWithDuration:v38 animations:0.200000003];
   }
 
   else
   {
     [(UIView *)view setFrame:x, y, width, height];
-    [view addSubview:v35];
+    [view addSubview:v37];
   }
 
   [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];

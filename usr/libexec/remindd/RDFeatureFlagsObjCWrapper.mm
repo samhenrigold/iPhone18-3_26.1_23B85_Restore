@@ -25,9 +25,11 @@
 + (id)wrappedFeatureFlagsWithRawValue:(id)value
 {
   v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = _sSo25RDFeatureFlagsObjCWrapperC7reminddE014wrappedFeatureB04withSo010REMFeaturebC9CWrapping_pSgSS_tFZ_0(v3, v4);
+  v5 = v4;
+  v6 = _sSo25RDFeatureFlagsObjCWrapperC7reminddE014wrappedFeatureB04withSo010REMFeaturebC9CWrapping_pSgSS_tFZ_0(v3, v4);
+  v5, v7, v8, v9, v10, v11, v12, v13;
 
-  return v5;
+  return v6;
 }
 
 + (id)temporaryOverrideWithEnabledFeatureFlags:(id)flags disabledFeatureFlags:(id)featureFlags
@@ -36,6 +38,8 @@
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = _sSo25RDFeatureFlagsObjCWrapperC7reminddE17temporaryOverride018withEnabledFeatureB008disabledjB0So010REMFeatureb9TemporaryG12ObjcWrapping_pSaySo0lbC9CWrapping_pG_AItFZ_0(v4, v5);
+  v4, v7, v8, v9, v10, v11, v12, v13;
+  v5, v14, v15, v16, v17, v18, v19, v20;
 
   return v6;
 }
@@ -43,8 +47,7 @@
 - (BOOL)isEnabled
 {
   v3 = sub_1000F5104(&qword_10094FF10, &unk_1007B5ED0);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
+  __chkstk_darwin(v3 - 8, v4);
   v6 = &v12 - v5;
   selfCopy = self;
   sub_1006D78EC(v6);

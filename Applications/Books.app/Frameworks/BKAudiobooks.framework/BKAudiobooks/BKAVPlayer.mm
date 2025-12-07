@@ -170,7 +170,7 @@
 - (void)setAsset:(id)asset
 {
   assetCopy = asset;
-  v6 = BKAudiobooksBKAVLog();
+  v6 = BKAudiobooksBKAVLog(assetCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -204,7 +204,7 @@
 {
   lCopy = l;
   completionCopy = completion;
-  v11 = BKAudiobooksBKAVLog();
+  v11 = BKAudiobooksBKAVLog(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -264,22 +264,23 @@ LABEL_13:
   timeCopy = time;
   completionCopy = completion;
   objc_initWeak(&location, self);
-  v27[0] = _NSConcreteStackBlock;
-  v27[1] = 3221225472;
-  v27[2] = sub_2524;
-  v27[3] = &unk_3C778;
-  objc_copyWeak(&v30, &location);
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_2524;
+  v29[3] = &unk_3C778;
+  objc_copyWeak(&v32, &location);
   v8 = timeCopy;
-  v28 = v8;
+  v30 = v8;
   v9 = completionCopy;
-  v29 = v9;
-  v10 = objc_retainBlock(v27);
+  v31 = v9;
+  v10 = objc_retainBlock(v29);
   isStreaming = [(BKAVPlayer *)self isStreaming];
-  v12 = BKAudiobooksBKAVLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v12 = isStreaming;
+  v13 = BKAudiobooksBKAVLog(isStreaming);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "_recreateCurrentAssetWithCompletion:", buf, 2u);
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "_recreateCurrentAssetWithCompletion:", buf, 2u);
   }
 
   if ([(AVAsset *)self->_asset bk_isAudible])
@@ -287,32 +288,33 @@ LABEL_13:
     [(BKAVPlayer *)self _unregisterAssetForDRMGroupIDDelegation:self->_asset];
   }
 
-  v13 = [AVURLAsset URLAssetWithURL:self->_assetURL options:0];
-  if (isStreaming)
+  v14 = [AVURLAsset URLAssetWithURL:self->_assetURL options:0];
+  v15 = v14;
+  if (v12)
   {
-    v14 = BKAudiobooksStreamingLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = BKAudiobooksStreamingLog(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       assetURL = self->_assetURL;
       *buf = 138412546;
-      v33 = assetURL;
-      v34 = 2112;
-      v35 = 0;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Setting up streaming asset %@ with options %@", buf, 0x16u);
+      v35 = assetURL;
+      v36 = 2112;
+      v37 = 0;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Setting up streaming asset %@ with options %@", buf, 0x16u);
     }
 
     if (!self->_hlsQueue)
     {
-      v16 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v17 = dispatch_queue_create("com.apple.BKAudiobooks.hlsQueue", v16);
+      v18 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+      v19 = dispatch_queue_create("com.apple.BKAudiobooks.hlsQueue", v18);
       hlsQueue = self->_hlsQueue;
-      self->_hlsQueue = v17;
+      self->_hlsQueue = v19;
     }
 
-    resourceLoader = [v13 resourceLoader];
+    resourceLoader = [v15 resourceLoader];
     [resourceLoader setPreloadsEligibleContentKeys:1];
 
-    resourceLoader2 = [v13 resourceLoader];
+    resourceLoader2 = [v15 resourceLoader];
     resourceLoader3 = [(BKAVPlayer *)self resourceLoader];
     [resourceLoader2 setDelegate:resourceLoader3 queue:self->_hlsQueue];
 
@@ -320,31 +322,31 @@ LABEL_13:
     [(BKAVPlayer *)self setIsLoadingResources:1];
   }
 
-  if ([v13 bk_isAudible])
+  if ([v15 bk_isAudible])
   {
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_27AC;
-    v24[3] = &unk_3C7A0;
-    objc_copyWeak(&v26, &location);
-    v25 = v10;
-    [(BKAVPlayer *)self _registerAssetForDRMGroupIDDelegation:v13 completion:v24];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_27AC;
+    v26[3] = &unk_3C7A0;
+    objc_copyWeak(&v28, &location);
+    v27 = v10;
+    [(BKAVPlayer *)self _registerAssetForDRMGroupIDDelegation:v15 completion:v26];
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v28);
   }
 
   else
   {
-    [(BKAVPlayer *)self setAsset:v13];
-    v22 = objc_retainBlock(v10);
-    v23 = v22;
-    if (v22)
+    [(BKAVPlayer *)self setAsset:v15];
+    v24 = objc_retainBlock(v10);
+    v25 = v24;
+    if (v24)
     {
-      (v22[2])(v22);
+      (v24[2])(v24);
     }
   }
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v32);
   objc_destroyWeak(&location);
 }
 
@@ -438,66 +440,66 @@ LABEL_13:
 
 - (void)reset
 {
-  v3 = BKAudiobooksBKAVLog();
+  v3 = BKAudiobooksBKAVLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "player reset", &v13, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "player reset", &v14, 2u);
   }
 
   [(BKAVPlayer *)self lastPosition];
   v5 = v4;
-  [(BKAVPlayer *)self lastSeekPosition];
-  v7 = v6;
+  lastSeekPosition = [(BKAVPlayer *)self lastSeekPosition];
+  v8 = v7;
   if (v5 == 9.22337204e18)
   {
-    if (v6 == 9.22337204e18)
+    if (v7 == 9.22337204e18)
     {
       goto LABEL_15;
     }
 
-    v10 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = BKAudiobooksBKAVLog(lastSeekPosition);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134217984;
-      v14 = v7;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "lastSeekPosition is %lf, using that position to reset", &v13, 0xCu);
+      v14 = 134217984;
+      v15 = v8;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "lastSeekPosition is %lf, using that position to reset", &v14, 0xCu);
     }
   }
 
   else
   {
-    v8 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = BKAudiobooksBKAVLog(lastSeekPosition);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134217984;
-      v14 = v5;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "lastPosition is %lf, using that position to reset", &v13, 0xCu);
+      v14 = 134217984;
+      v15 = v5;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "lastPosition is %lf, using that position to reset", &v14, 0xCu);
     }
 
-    [(BKAVPlayer *)self lastPosition];
-    v7 = v9;
+    lastSeekPosition = [(BKAVPlayer *)self lastPosition];
+    v8 = v10;
   }
 
-  if (v7 != 9.22337204e18)
+  if (v8 != 9.22337204e18)
   {
-    v11 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = BKAudiobooksBKAVLog(lastSeekPosition);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "resetting player", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "resetting player", &v14, 2u);
     }
 
     [(BKAVPlayer *)self setPlayer:0];
     [(BKAVPlayer *)self setContentKeySession:0];
-    v12 = [NSNumber numberWithDouble:v7];
-    [(BKAVPlayer *)self _recreateCurrentAssetWithRestoreTime:v12 completion:0];
+    v13 = [NSNumber numberWithDouble:v8];
+    [(BKAVPlayer *)self _recreateCurrentAssetWithRestoreTime:v13 completion:0];
     goto LABEL_17;
   }
 
 LABEL_15:
-  v12 = BKAudiobooksBKAVLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v13 = BKAudiobooksBKAVLog(lastSeekPosition);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     sub_20D74();
   }
@@ -698,14 +700,14 @@ LABEL_17:
         currentItem4 = [(BKAVPlayer *)self currentItem];
         asset = [currentItem4 asset];
         v19 = [NSArray arrayWithObjects:@"tracks", @"duration", 0];
-        v52[0] = _NSConcreteStackBlock;
-        v52[1] = 3221225472;
-        v52[2] = sub_3E44;
-        v52[3] = &unk_3C818;
-        objc_copyWeak(&v53, location);
-        [asset loadValuesAsynchronouslyForKeys:v19 completionHandler:v52];
+        v55[0] = _NSConcreteStackBlock;
+        v55[1] = 3221225472;
+        v55[2] = sub_3E44;
+        v55[3] = &unk_3C818;
+        objc_copyWeak(&v56, location);
+        [asset loadValuesAsynchronouslyForKeys:v19 completionHandler:v55];
 
-        objc_destroyWeak(&v53);
+        objc_destroyWeak(&v56);
         objc_destroyWeak(location);
       }
     }
@@ -726,10 +728,10 @@ LABEL_17:
           lastError = self->_lastError;
           self->_lastError = error;
 
-          v42 = BKAudiobooksBKAVLog();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+          v45 = BKAudiobooksBKAVLog(v44);
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
           {
-            sub_20DB0(&self->_lastError, self, v42);
+            sub_20DB0(&self->_lastError, self, v45);
           }
 
           [(BKAVPlayer *)self pause];
@@ -746,14 +748,14 @@ LABEL_17:
             v24 = v23;
             [(BKAVPlayer *)self playFadeInTime];
             v26 = v25;
-            v50[0] = _NSConcreteStackBlock;
-            v50[1] = 3221225472;
-            v50[2] = sub_3F30;
-            v50[3] = &unk_3C818;
-            objc_copyWeak(&v51, location);
+            v53[0] = _NSConcreteStackBlock;
+            v53[1] = 3221225472;
+            v53[2] = sub_3F30;
+            v53[3] = &unk_3C818;
+            objc_copyWeak(&v54, location);
             LODWORD(v27) = v26;
-            [(BKAVPlayer *)self _playWithSeekTime:v50 fadeIn:v24 completion:v27];
-            objc_destroyWeak(&v51);
+            [(BKAVPlayer *)self _playWithSeekTime:v53 fadeIn:v24 completion:v27];
+            objc_destroyWeak(&v54);
             objc_destroyWeak(location);
           }
 
@@ -793,11 +795,11 @@ LABEL_17:
       {
         if (timeControlStatus == &dword_0 + 1)
         {
-          v43 = BKAudiobooksBKAVLog();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+          v46 = BKAudiobooksBKAVLog(v34);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
           {
             LOWORD(location[0]) = 0;
-            _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "AVPlayerState -> AVPlayerTimeControlStatusWaitingToPlayAtSpecifiedRate", location, 2u);
+            _os_log_impl(&dword_0, v46, OS_LOG_TYPE_DEFAULT, "AVPlayerState -> AVPlayerTimeControlStatusWaitingToPlayAtSpecifiedRate", location, 2u);
           }
 
           [(BKAVPlayer *)self setIsStalling:1];
@@ -805,25 +807,25 @@ LABEL_17:
 
         else if (timeControlStatus == &dword_0 + 2)
         {
-          v34 = BKAudiobooksBKAVLog();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v35 = BKAudiobooksBKAVLog(v34);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             LOWORD(location[0]) = 0;
-            _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "AVPlayerState -> AVPlayerTimeControlStatusPlaying", location, 2u);
+            _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "AVPlayerState -> AVPlayerTimeControlStatusPlaying", location, 2u);
           }
 
           [(BKAVPlayer *)self setIsStalling:0];
           [(BKAVPlayer *)self setState:2];
-          [(BKAVPlayer *)self pendingCurrentTime];
-          if (v35 != 1.79769313e308)
+          pendingCurrentTime = [(BKAVPlayer *)self pendingCurrentTime];
+          if (v37 != 1.79769313e308)
           {
-            v36 = BKAudiobooksBKAVLog();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+            v38 = BKAudiobooksBKAVLog(pendingCurrentTime);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
             {
               [(BKAVPlayer *)self pendingCurrentTime];
               LODWORD(location[0]) = 134217984;
-              *(location + 4) = v37;
-              _os_log_impl(&dword_0, v36, OS_LOG_TYPE_DEFAULT, "handing remaining pendingCurrentTime %f", location, 0xCu);
+              *(location + 4) = v39;
+              _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "handing remaining pendingCurrentTime %f", location, 0xCu);
             }
 
             [(BKAVPlayer *)self pendingCurrentTime];
@@ -836,29 +838,29 @@ LABEL_17:
           block[1] = 3221225472;
           block[2] = sub_3F78;
           block[3] = &unk_3C818;
-          objc_copyWeak(&v49, location);
+          objc_copyWeak(&v52, location);
           dispatch_async(outputContextQueue, block);
 
-          objc_destroyWeak(&v49);
+          objc_destroyWeak(&v52);
           objc_destroyWeak(location);
         }
       }
 
       else
       {
-        v44 = BKAudiobooksBKAVLog();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        v47 = BKAudiobooksBKAVLog(v34);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
         {
           isStopping = [(BKAVPlayer *)self isStopping];
-          v46 = &stru_3D458;
+          v49 = &stru_3D458;
           if (isStopping)
           {
-            v46 = @" (Ignoring because BKAVPlayer is in the process of stopping)";
+            v49 = @" (Ignoring because BKAVPlayer is in the process of stopping)";
           }
 
           LODWORD(location[0]) = 138543362;
-          *(location + 4) = v46;
-          _os_log_impl(&dword_0, v44, OS_LOG_TYPE_DEFAULT, "AVPlayerState -> AVPlayerTimeControlStatusPaused%{public}@", location, 0xCu);
+          *(location + 4) = v49;
+          _os_log_impl(&dword_0, v47, OS_LOG_TYPE_DEFAULT, "AVPlayerState -> AVPlayerTimeControlStatusPaused%{public}@", location, 0xCu);
         }
 
         [(BKAVPlayer *)self setIsStalling:0];
@@ -872,9 +874,9 @@ LABEL_17:
 
   else
   {
-    v47.receiver = self;
-    v47.super_class = BKAVPlayer;
-    [(BKAVPlayer *)&v47 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v50.receiver = self;
+    v50.super_class = BKAVPlayer;
+    [(BKAVPlayer *)&v50 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
 }
 
@@ -919,8 +921,8 @@ LABEL_17:
 
   if (currentItem == object)
   {
-    v8 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = BKAudiobooksBKAVLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_20E78();
     }
@@ -949,10 +951,10 @@ LABEL_17:
     lastError = self->_lastError;
     self->_lastError = v9;
 
-    v11 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = BKAudiobooksBKAVLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_20EB4(&self->_lastError);
+      sub_20EB4();
     }
 
     [(BKAVPlayer *)self _playbackFailedWithError:self->_lastError];
@@ -961,8 +963,7 @@ LABEL_17:
 
 - (void)playerPlaybackWasInterrupted:(id)interrupted
 {
-  [(BKAVPlayer *)self setWasInterruptedEarly:[(BKAVPlayer *)self isPlaying]];
-  v4 = BKAudiobooksBKAVLog();
+  v4 = BKAudiobooksBKAVLog([(BKAVPlayer *)self setWasInterruptedEarly:[(BKAVPlayer *)self isPlaying]]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;
@@ -978,39 +979,40 @@ LABEL_17:
 
   if ([v5 integerValue] == &dword_0 + 2)
   {
-    if ([(BKAVPlayer *)self wasInterrupted])
+    wasInterrupted = [(BKAVPlayer *)self wasInterrupted];
+    if (wasInterrupted)
     {
-      v6 = BKAudiobooksBKAVLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = BKAudiobooksBKAVLog(wasInterrupted);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "onRouteChange: already interrupted", buf, 2u);
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "onRouteChange: already interrupted", buf, 2u);
       }
     }
 
     else
     {
-      v9[0] = _NSConcreteStackBlock;
-      v9[1] = 3221225472;
-      v9[2] = sub_4638;
-      v9[3] = &unk_3C700;
-      v9[4] = self;
-      v6 = objc_retainBlock(v9);
-      if (v6)
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_4638;
+      v10[3] = &unk_3C700;
+      v10[4] = self;
+      v7 = objc_retainBlock(v10);
+      if (v7)
       {
         if (+[NSThread isMainThread])
         {
-          (*(v6 + 16))(v6);
+          (*(v7 + 16))(v7);
         }
 
         else
         {
-          v7[0] = _NSConcreteStackBlock;
-          v7[1] = 3221225472;
-          v7[2] = sub_46AC;
-          v7[3] = &unk_3C6B0;
-          v8 = v6;
-          dispatch_async(&_dispatch_main_q, v7);
+          v8[0] = _NSConcreteStackBlock;
+          v8[1] = 3221225472;
+          v8[2] = sub_46AC;
+          v8[3] = &unk_3C6B0;
+          v9 = v7;
+          dispatch_async(&_dispatch_main_q, v8);
         }
       }
     }
@@ -1030,18 +1032,19 @@ LABEL_17:
   unsignedIntegerValue3 = [v9 unsignedIntegerValue];
 
   isPlaying = [(BKAVPlayer *)self isPlaying];
+  v12 = isPlaying;
   if (unsignedIntegerValue3 == &dword_0 + 1)
   {
-    v12 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = BKAudiobooksBKAVLog(isPlaying);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 67109632;
-      *v18 = isPlaying;
-      *&v18[4] = 1024;
-      *&v18[6] = [(BKAVPlayer *)self wasInterrupted];
-      *v19 = 1024;
-      *&v19[2] = [(BKAVPlayer *)self wasInterruptedEarly];
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "ignoring wasSuspended interruption, wasPlaying: %d, wasInterrupted: %d, wasInterruptedEarly: %d", &v17, 0x14u);
+      v18 = 67109632;
+      *v19 = v12;
+      *&v19[4] = 1024;
+      *&v19[6] = [(BKAVPlayer *)self wasInterrupted];
+      *v20 = 1024;
+      *&v20[2] = [(BKAVPlayer *)self wasInterruptedEarly];
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "ignoring wasSuspended interruption, wasPlaying: %d, wasInterrupted: %d, wasInterruptedEarly: %d", &v18, 0x14u);
     }
   }
 
@@ -1049,19 +1052,19 @@ LABEL_17:
   {
     if (unsignedIntegerValue == &dword_0 + 1)
     {
-      v13 = BKAudiobooksBKAVLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = BKAudiobooksBKAVLog(isPlaying);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 67109376;
-        *v18 = isPlaying;
-        *&v18[4] = 1024;
-        *&v18[6] = [(BKAVPlayer *)self wasInterruptedEarly];
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "handleInterruption began, wasPlaying %d, wasInterruptedEarly %d", &v17, 0xEu);
+        v18 = 67109376;
+        *v19 = v12;
+        *&v19[4] = 1024;
+        *&v19[6] = [(BKAVPlayer *)self wasInterruptedEarly];
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "handleInterruption began, wasPlaying %d, wasInterruptedEarly %d", &v18, 0xEu);
       }
 
       [(BKAVPlayer *)self _pause];
-      v14 = (isPlaying & 1) != 0 || [(BKAVPlayer *)self wasInterruptedEarly];
-      [(BKAVPlayer *)self setWasInterrupted:v14];
+      v15 = (v12 & 1) != 0 || [(BKAVPlayer *)self wasInterruptedEarly];
+      [(BKAVPlayer *)self setWasInterrupted:v15];
       if ([(BKAVPlayer *)self wasInterrupted])
       {
         delegate = [(BKAVPlayer *)self delegate];
@@ -1074,16 +1077,16 @@ LABEL_17:
 
   else
   {
-    v15 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = BKAudiobooksBKAVLog(isPlaying);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 134218496;
-      *v18 = unsignedIntegerValue2;
-      *&v18[8] = 1024;
-      *v19 = [(BKAVPlayer *)self wasInterrupted];
-      *&v19[4] = 1024;
-      v20 = unsignedIntegerValue2 & 1;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "handleInterruption ended: %lu wasInterrupted: %d resumable: %d", &v17, 0x18u);
+      v18 = 134218496;
+      *v19 = unsignedIntegerValue2;
+      *&v19[8] = 1024;
+      *v20 = [(BKAVPlayer *)self wasInterrupted];
+      *&v20[4] = 1024;
+      v21 = unsignedIntegerValue2 & 1;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "handleInterruption ended: %lu wasInterrupted: %d resumable: %d", &v18, 0x18u);
     }
 
     if ((unsignedIntegerValue2 & 1) != 0 && [(BKAVPlayer *)self wasInterrupted])
@@ -1158,7 +1161,7 @@ LABEL_17:
       v9 = player2;
       if (player2)
       {
-        [player2 currentTime];
+        objc_msgSend_currentTime(player2);
       }
 
       else
@@ -1192,21 +1195,21 @@ LABEL_17:
 
     else
     {
-      v11 = BKAudiobooksBKAVLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = BKAudiobooksBKAVLog(completionCopy);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
         timeCopy = time;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "_seekToTime: %lf (setCurrentTime)", buf, 0xCu);
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "_seekToTime: %lf (setCurrentTime)", buf, 0xCu);
       }
 
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_5168;
-      v12[3] = &unk_3C920;
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_5168;
+      v13[3] = &unk_3C920;
       timeCopy2 = time;
-      v13 = v7;
-      [(BKAVPlayer *)self _seekToTime:v12 completionHandler:time];
+      v14 = v7;
+      [(BKAVPlayer *)self _seekToTime:v13 completionHandler:time];
     }
   }
 
@@ -1219,8 +1222,8 @@ LABEL_17:
       (*(v8 + 2))(v8, 0);
     }
 
-    v10 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BKAudiobooksBKAVLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_20F68();
     }
@@ -1254,49 +1257,50 @@ LABEL_17:
 - (void)_handleScrubPlayPreviewAtTime:(double)time completion:(id)completion
 {
   completionCopy = completion;
+  v7 = completionCopy;
   if (self->_state == 2 && self->_scrubPausable)
   {
     [(BKAVPlayer *)self _pause];
     *&self->_playingPreview = 0;
-    v7 = (self->_scrubDispatchAfterGeneration + 1);
-    self->_scrubDispatchAfterGeneration = v7;
+    v8 = (self->_scrubDispatchAfterGeneration + 1);
+    self->_scrubDispatchAfterGeneration = v8;
     objc_initWeak(location, self);
-    v8 = dispatch_time(0, 400000000);
+    v9 = dispatch_time(0, 400000000);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_550C;
     block[3] = &unk_3C7C8;
-    objc_copyWeak(v16, location);
-    v16[1] = v7;
-    dispatch_after(v8, &_dispatch_main_q, block);
-    v9 = objc_retainBlock(completionCopy);
-    v10 = v9;
-    if (v9)
+    objc_copyWeak(v17, location);
+    v17[1] = v8;
+    dispatch_after(v9, &_dispatch_main_q, block);
+    v10 = objc_retainBlock(v7);
+    v11 = v10;
+    if (v10)
     {
-      (*(v9 + 2))(v9, 1);
+      (*(v10 + 2))(v10, 1);
     }
 
-    objc_destroyWeak(v16);
+    objc_destroyWeak(v17);
     objc_destroyWeak(location);
   }
 
   else
   {
-    v11 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = BKAudiobooksBKAVLog(completionCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(location[0]) = 134217984;
       *(location + 4) = *&time;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "_seekToTime: %lf (_handleScrubPlayPreviewAtTime:completion:)", location, 0xCu);
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "_seekToTime: %lf (_handleScrubPlayPreviewAtTime:completion:)", location, 0xCu);
     }
 
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_5660;
-    v12[3] = &unk_3C920;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_5660;
+    v13[3] = &unk_3C920;
     timeCopy = time;
-    v13 = completionCopy;
-    [(BKAVPlayer *)self _seekToTime:v12 completionHandler:time];
+    v14 = v7;
+    [(BKAVPlayer *)self _seekToTime:v13 completionHandler:time];
   }
 }
 
@@ -1338,14 +1342,14 @@ LABEL_17:
   [(BKAVPlayer *)self setCurrentLoadedTimeRanges:0];
   asset = [(BKAVPlayer *)self asset];
 
-  v4 = BKAudiobooksBKAVLog();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = BKAudiobooksBKAVLog(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (asset)
   {
-    if (v5)
+    if (v6)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "_updatePlayer, we have asset, about to create playerItem", buf, 2u);
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "_updatePlayer, we have asset, about to create playerItem", buf, 2u);
     }
 
     [(BKAVPlayer *)self _revalidatePlayerItem];
@@ -1354,10 +1358,10 @@ LABEL_17:
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      *v7 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "_updatePlayer, no asset, about to call replaceCurrentItemWithPlayerItem nil", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "_updatePlayer, no asset, about to call replaceCurrentItemWithPlayerItem nil", v8, 2u);
     }
 
     player = [(BKAVPlayer *)self player];
@@ -1379,14 +1383,14 @@ LABEL_17:
 
   player = [(BKAVPlayer *)self player];
 
-  v7 = BKAudiobooksBKAVLog();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = BKAudiobooksBKAVLog(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (player)
   {
-    if (v8)
+    if (v9)
     {
-      *v13 = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "_updatePlayer, we have asset and player, about to call replaceCurrentItemWithPlayerItem", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "_updatePlayer, we have asset and player, about to call replaceCurrentItemWithPlayerItem", v14, 2u);
     }
 
     player2 = [(BKAVPlayer *)self player];
@@ -1395,14 +1399,14 @@ LABEL_17:
 
   else
   {
-    if (v8)
+    if (v9)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "_updatePlayer, we have asset, no existing player, we created a player with playerItem", buf, 2u);
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "_updatePlayer, we have asset, no existing player, we created a player with playerItem", buf, 2u);
     }
 
-    v10 = [AVPlayer playerWithPlayerItem:v4];
-    [(BKAVPlayer *)self setPlayer:v10];
+    v11 = [AVPlayer playerWithPlayerItem:v4];
+    [(BKAVPlayer *)self setPlayer:v11];
 
     player3 = [(BKAVPlayer *)self player];
     [player3 setActionAtItemEnd:1];
@@ -1428,51 +1432,52 @@ LABEL_17:
 - (void)_playWithSeekTime:(double)time fadeIn:(float)in completion:(id)completion
 {
   completionCopy = completion;
+  v9 = completionCopy;
   playbackRate = self->_playbackRate;
   if (playbackRate < 0.0 || fabsf(playbackRate) < 0.01)
   {
-    v10 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BKAudiobooksBKAVLog(completionCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_20FA4(&self->_playbackRate);
+      sub_20FA4();
     }
 
     self->_playbackRate = 1.0;
   }
 
-  v11 = BKAudiobooksBKAVLog();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  v12 = BKAudiobooksBKAVLog(completionCopy);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
   if (time == 1.79769313e308)
   {
-    if (!v12)
+    if (!v13)
     {
       goto LABEL_12;
     }
 
     [(BKAVPlayer *)self playbackRate];
-    v14 = v13;
+    v15 = v14;
     player = [(BKAVPlayer *)self player];
     [player rate];
     LODWORD(buf.value) = 134218496;
     *(&buf.value + 4) = in;
     LOWORD(buf.flags) = 2048;
-    *(&buf.flags + 2) = v14;
+    *(&buf.flags + 2) = v15;
     HIWORD(buf.epoch) = 2048;
-    v51 = v16;
-    v17 = "_playWithSeekTime: BKNoPendingCurrentTime fadeInTime:%.1f playbackRate:%.1f rateBeforeCall:%.2f";
-    v18 = v11;
-    v19 = 32;
+    v55 = v17;
+    v18 = "_playWithSeekTime: BKNoPendingCurrentTime fadeInTime:%.1f playbackRate:%.1f rateBeforeCall:%.2f";
+    v19 = v12;
+    v20 = 32;
   }
 
   else
   {
-    if (!v12)
+    if (!v13)
     {
       goto LABEL_12;
     }
 
     [(BKAVPlayer *)self playbackRate];
-    v21 = v20;
+    v22 = v21;
     player = [(BKAVPlayer *)self player];
     [player rate];
     LODWORD(buf.value) = 134218752;
@@ -1480,29 +1485,29 @@ LABEL_17:
     LOWORD(buf.flags) = 2048;
     *(&buf.flags + 2) = in;
     HIWORD(buf.epoch) = 2048;
-    v51 = v21;
-    v52 = 2048;
-    v53 = v22;
-    v17 = "_playWithSeekTime: %.1f fadeInTime:%.1f playbackRate:%.1f rateBeforeCall:%.2f";
-    v18 = v11;
-    v19 = 42;
+    v55 = v22;
+    v56 = 2048;
+    v57 = v23;
+    v18 = "_playWithSeekTime: %.1f fadeInTime:%.1f playbackRate:%.1f rateBeforeCall:%.2f";
+    v19 = v12;
+    v20 = 42;
   }
 
-  _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, v17, &buf, v19);
+  _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, v18, &buf, v20);
 
 LABEL_12:
-  v49[0] = _NSConcreteStackBlock;
-  v49[1] = 3221225472;
-  v49[2] = sub_6160;
-  v49[3] = &unk_3C998;
-  v49[4] = self;
-  v23 = objc_retainBlock(v49);
-  v48[0] = _NSConcreteStackBlock;
-  v48[1] = 3221225472;
-  v48[2] = sub_6460;
-  v48[3] = &unk_3C998;
-  v48[4] = self;
-  v24 = objc_retainBlock(v48);
+  v53[0] = _NSConcreteStackBlock;
+  v53[1] = 3221225472;
+  v53[2] = sub_6160;
+  v53[3] = &unk_3C998;
+  v53[4] = self;
+  v24 = objc_retainBlock(v53);
+  v52[0] = _NSConcreteStackBlock;
+  v52[1] = 3221225472;
+  v52[2] = sub_6460;
+  v52[3] = &unk_3C998;
+  v52[4] = self;
+  v25 = objc_retainBlock(v52);
   lastError = self->_lastError;
   self->_lastError = 0;
 
@@ -1513,13 +1518,13 @@ LABEL_12:
   {
     if (status == &dword_0 + 2)
     {
-      v29 = BKAudiobooksBKAVLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v31 = BKAudiobooksBKAVLog(v29);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf.value) = 0;
-        v30 = "recover player (AVPlayerItemStatusFailed)";
+        v32 = "recover player (AVPlayerItemStatusFailed)";
 LABEL_25:
-        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, v30, &buf, 2u);
+        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, v32, &buf, 2u);
       }
     }
 
@@ -1536,18 +1541,18 @@ LABEL_25:
 
 LABEL_27:
         [(BKAVPlayer *)self pendingCurrentTime];
-        if (v35 == 1.79769313e308)
+        if (v38 == 1.79769313e308)
         {
           goto LABEL_35;
         }
 
         [(BKAVPlayer *)self pendingCurrentTime];
-        v37 = v36;
+        v40 = v39;
         player2 = [(BKAVPlayer *)self player];
-        v39 = player2;
+        v42 = player2;
         if (player2)
         {
-          [player2 currentTime];
+          objc_msgSend_currentTime(player2);
         }
 
         else
@@ -1555,36 +1560,36 @@ LABEL_27:
           memset(&buf, 0, sizeof(buf));
         }
 
-        v40 = vabdd_f64(v37, CMTimeGetSeconds(&buf));
+        v43 = vabdd_f64(v40, CMTimeGetSeconds(&buf));
 
-        if (v40 < 0.00999999978)
+        if (v43 < 0.00999999978)
         {
 LABEL_35:
           [(BKAVPlayer *)self setPendingCurrentTime:1.79769313e308];
-          (v24[2])(v24, completionCopy);
+          (v25[2])(v25, v9);
         }
 
         else
         {
-          v41 = BKAudiobooksBKAVLog();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+          v45 = BKAudiobooksBKAVLog(v44);
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
           {
             [(BKAVPlayer *)self pendingCurrentTime];
             LODWORD(buf.value) = 134217984;
-            *(&buf.value + 4) = v42;
-            _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "_seekToTime: %lf (_playWithSeekTime)", &buf, 0xCu);
+            *(&buf.value + 4) = v46;
+            _os_log_impl(&dword_0, v45, OS_LOG_TYPE_DEFAULT, "_seekToTime: %lf (_playWithSeekTime)", &buf, 0xCu);
           }
 
           [(BKAVPlayer *)self pendingCurrentTime];
-          v44 = v43;
-          v45[0] = _NSConcreteStackBlock;
-          v45[1] = 3221225472;
-          v45[2] = sub_6754;
-          v45[3] = &unk_3C9E8;
-          v45[4] = self;
-          v46 = v24;
-          v47 = completionCopy;
-          [(BKAVPlayer *)self _seekToTime:v45 completionHandler:v44];
+          v48 = v47;
+          v49[0] = _NSConcreteStackBlock;
+          v49[1] = 3221225472;
+          v49[2] = sub_6754;
+          v49[3] = &unk_3C9E8;
+          v49[4] = self;
+          v50 = v25;
+          v51 = v9;
+          [(BKAVPlayer *)self _seekToTime:v49 completionHandler:v48];
         }
 
         goto LABEL_36;
@@ -1597,28 +1602,28 @@ LABEL_35:
         goto LABEL_27;
       }
 
-      v29 = BKAudiobooksBKAVLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v31 = BKAudiobooksBKAVLog(v37);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf.value) = 0;
-        v30 = "recover player (hasUnderlyingError)";
+        v32 = "recover player (hasUnderlyingError)";
         goto LABEL_25;
       }
     }
 
-    (v23[2])(v23, completionCopy);
+    (v24[2])(v24, v9);
     goto LABEL_36;
   }
 
   [(BKAVPlayer *)self setPendingCurrentTime:time];
-  *&v31 = in;
-  [(BKAVPlayer *)self setPlayFadeInTime:v31];
+  *&v33 = in;
+  [(BKAVPlayer *)self setPlayFadeInTime:v33];
   [(BKAVPlayer *)self setState:1];
-  v32 = objc_retainBlock(completionCopy);
-  v33 = v32;
-  if (v32)
+  v34 = objc_retainBlock(v9);
+  v35 = v34;
+  if (v34)
   {
-    (*(v32 + 2))(v32);
+    (*(v34 + 2))(v34);
   }
 
 LABEL_36:
@@ -1643,7 +1648,7 @@ LABEL_36:
   if (state != state)
   {
     self->_state = state;
-    v6 = BKAudiobooksBKAVLog();
+    v6 = BKAudiobooksBKAVLog(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = NSStringFromBKAudiobookPlayerState(self->_state);
@@ -1739,26 +1744,26 @@ LABEL_10:
   errorLog = [currentItem errorLog];
   events = [errorLog events];
 
-  v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
   v5 = events;
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v29;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v28 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
         errorDomain = [v10 errorDomain];
         v12 = [errorDomain isEqualToString:@"CoreMediaErrorDomain"];
 
@@ -1784,10 +1789,10 @@ LABEL_10:
 
         if (v21)
         {
-          v31 = NSDebugDescriptionErrorKey;
+          v32 = NSDebugDescriptionErrorKey;
           errorComment2 = [v10 errorComment];
-          v32 = errorComment2;
-          v23 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+          v33 = errorComment2;
+          v23 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
         }
 
         else
@@ -1798,16 +1803,16 @@ LABEL_10:
         errorDomain4 = [v10 errorDomain];
         v19 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", errorDomain4, [v10 errorStatusCode], v23);
 
-        v25 = BKAudiobooksBKAVLog();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v26 = BKAudiobooksBKAVLog(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          sub_21098(v10, v25);
+          sub_21098(v10, v26);
         }
 
         goto LABEL_24;
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
       v19 = 0;
       if (v7)
       {
@@ -1958,30 +1963,30 @@ LABEL_24:
   if ([(BKAVPlayer *)self needsToUpdateTimeObservers])
   {
     [(BKAVPlayer *)self _removeAllTimeObserversWithClearObservedTimes:0];
+    v26 = 0u;
+    v27 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
-    v23 = 0u;
     obj = [(BKAVPlayer *)self observedTimes];
-    v3 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v3 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v3)
     {
       v4 = 0;
-      v19 = *v23;
+      v21 = *v25;
       v5 = 9.22337204e18;
       do
       {
         for (i = 0; i != v3; i = i + 1)
         {
-          if (*v23 != v19)
+          if (*v25 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v22 + 1) + 8 * i);
+          v7 = *(*(&v24 + 1) + 8 * i);
           if (v7)
           {
-            [*(*(&v22 + 1) + 8 * i) CMTimeValue];
+            objc_msgSend_CMTimeValue(*(*(&v24 + 1) + 8 * i));
           }
 
           else
@@ -1990,27 +1995,27 @@ LABEL_24:
           }
 
           Seconds = CMTimeGetSeconds(&time);
-          v9 = BKAudiobooksBKAVLog();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+          v10 = BKAudiobooksBKAVLog(v9);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(time.value) = 134217984;
             *(&time.value + 4) = Seconds;
-            _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "adding time observer: %.1f", &time, 0xCu);
+            _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "adding time observer: %.1f", &time, 0xCu);
           }
 
           objc_initWeak(&time, self);
           player = [(BKAVPlayer *)self player];
-          v11 = [NSArray arrayWithObject:v7];
-          v20[0] = _NSConcreteStackBlock;
-          v20[1] = 3221225472;
-          v20[2] = sub_79EC;
-          v20[3] = &unk_3C7C8;
-          v21[1] = *&Seconds;
-          objc_copyWeak(v21, &time);
-          v12 = [player addBoundaryTimeObserverForTimes:v11 queue:0 usingBlock:v20];
+          v12 = [NSArray arrayWithObject:v7];
+          v22[0] = _NSConcreteStackBlock;
+          v22[1] = 3221225472;
+          v22[2] = sub_79EC;
+          v22[3] = &unk_3C7C8;
+          v23[1] = *&Seconds;
+          objc_copyWeak(v23, &time);
+          v13 = [player addBoundaryTimeObserverForTimes:v12 queue:0 usingBlock:v22];
 
           timeObservers = [(BKAVPlayer *)self timeObservers];
-          [timeObservers setObject:v12 forKeyedSubscript:v7];
+          [timeObservers setObject:v13 forKeyedSubscript:v7];
 
           if ((v4 & 1) != 0 || ![(BKAVPlayer *)self isCurrentTimeValid])
           {
@@ -2019,28 +2024,28 @@ LABEL_24:
 
           else
           {
-            [(BKAVPlayer *)self currentTime];
+            objc_msgSend_currentTime(self);
             v4 = 0;
-            if (Seconds <= v14)
+            if (Seconds <= v15)
             {
               v5 = Seconds;
             }
           }
 
-          objc_destroyWeak(v21);
+          objc_destroyWeak(v23);
           objc_destroyWeak(&time);
         }
 
-        v3 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v3 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v3);
 
-      [(BKAVPlayer *)self setNeedsToUpdateTimeObservers:0];
+      v16 = [(BKAVPlayer *)self setNeedsToUpdateTimeObservers:0];
       if (v4)
       {
-        v15 = BKAudiobooksBKAVLog();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v17 = BKAudiobooksBKAVLog(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_21150();
         }
@@ -2048,12 +2053,12 @@ LABEL_24:
 
       else if (v5 != 9.22337204e18)
       {
-        v16 = BKAudiobooksBKAVLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v18 = BKAudiobooksBKAVLog(v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(time.value) = 134217984;
           *(&time.value + 4) = v5;
-          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "recently passed time: %.1f", &time, 0xCu);
+          _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "recently passed time: %.1f", &time, 0xCu);
         }
 
         delegate = [(BKAVPlayer *)self delegate];
@@ -2083,7 +2088,7 @@ LABEL_24:
 
   else
   {
-    v3 = BKAudiobooksBKAVLog();
+    v3 = BKAudiobooksBKAVLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_2118C(v3);
@@ -2104,34 +2109,34 @@ LABEL_24:
 - (void)_removeAllTimeObserversWithClearObservedTimes:(BOOL)times
 {
   timesCopy = times;
-  v5 = BKAudiobooksBKAVLog();
+  v5 = BKAudiobooksBKAVLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "remove time observers on player", buf, 2u);
   }
 
-  v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
   timeObservers = [(BKAVPlayer *)self timeObservers];
-  v7 = [timeObservers countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v7 = [timeObservers countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v20;
     do
     {
       v10 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(timeObservers);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * v10);
+        v11 = *(*(&v19 + 1) + 8 * v10);
         timeObservers2 = [(BKAVPlayer *)self timeObservers];
         v13 = [timeObservers2 objectForKeyedSubscript:v11];
 
@@ -2145,7 +2150,7 @@ LABEL_24:
       }
 
       while (v8 != v10);
-      v8 = [timeObservers countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v8 = [timeObservers countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v8);
@@ -2156,11 +2161,11 @@ LABEL_24:
 
   if (timesCopy)
   {
-    v16 = BKAudiobooksBKAVLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = BKAudiobooksBKAVLog(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "clear observed times", buf, 2u);
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "clear observed times", buf, 2u);
     }
 
     observedTimes = [(BKAVPlayer *)self observedTimes];

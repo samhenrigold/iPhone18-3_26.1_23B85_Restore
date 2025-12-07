@@ -8,54 +8,56 @@
 + (id)instanceFromCMSCoded:()CMSCoding
 {
   v3 = a3;
-  v4 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-  if (v4)
+  isKindOfClass = objc_alloc_init(MEMORY[0x277CBEAB8]);
+  v5 = isKindOfClass;
+  if (isKindOfClass)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
         goto LABEL_16;
       }
 
-      v10 = v3;
-      [v4 setEra:{objc_msgSend(v10, "cmsIntegerForKey:withDefault:", @"era", objc_msgSend(v4, "era"))}];
-      [v4 setYear:{objc_msgSend(v10, "cmsIntegerForKey:withDefault:", @"year", objc_msgSend(v4, "year"))}];
-      [v4 setMonth:{objc_msgSend(v10, "cmsIntegerForKey:withDefault:", @"month", objc_msgSend(v4, "month"))}];
-      [v4 setDay:{objc_msgSend(v10, "cmsIntegerForKey:withDefault:", @"day", objc_msgSend(v4, "day"))}];
-      [v4 setHour:{objc_msgSend(v10, "cmsIntegerForKey:withDefault:", @"hour", objc_msgSend(v4, "hour"))}];
-      [v4 setMinute:{objc_msgSend(v10, "cmsIntegerForKey:withDefault:", @"minute", objc_msgSend(v4, "minute"))}];
-      [v4 setSecond:{objc_msgSend(v10, "cmsIntegerForKey:withDefault:", @"second", objc_msgSend(v4, "second"))}];
-      v11 = MEMORY[0x277CBEBB0];
-      v5 = [v10 cmsOptionalStringForKey:@"timeZone"];
+      v12 = v3;
+      [v5 setEra:{objc_msgSend(v12, "cmsIntegerForKey:withDefault:", @"era", objc_msgSend(v5, "era"))}];
+      [v5 setYear:{objc_msgSend(v12, "cmsIntegerForKey:withDefault:", @"year", objc_msgSend(v5, "year"))}];
+      [v5 setMonth:{objc_msgSend(v12, "cmsIntegerForKey:withDefault:", @"month", objc_msgSend(v5, "month"))}];
+      [v5 setDay:{objc_msgSend(v12, "cmsIntegerForKey:withDefault:", @"day", objc_msgSend(v5, "day"))}];
+      [v5 setHour:{objc_msgSend(v12, "cmsIntegerForKey:withDefault:", @"hour", objc_msgSend(v5, "hour"))}];
+      [v5 setMinute:{objc_msgSend(v12, "cmsIntegerForKey:withDefault:", @"minute", objc_msgSend(v5, "minute"))}];
+      [v5 setSecond:{objc_msgSend(v12, "cmsIntegerForKey:withDefault:", @"second", objc_msgSend(v5, "second"))}];
+      v13 = MEMORY[0x277CBEBB0];
+      v6 = [v12 cmsOptionalStringForKey:@"timeZone"];
 
-      v7 = [v11 timeZoneWithName:v5];
-      [v4 setTimeZone:v7];
+      v8 = [v13 timeZoneWithName:v6];
+      [v5 setTimeZone:v8];
       goto LABEL_15;
     }
 
-    v5 = v3;
-    v6 = cmsDateFormatter();
-    v7 = [v6 dateFromString:v5];
+    v6 = v3;
+    v7 = cmsDateFormatter(v6);
+    v8 = [v7 dateFromString:v6];
 
-    if (v7)
+    if (v8)
     {
-      v8 = cmsDateCalender();
-      [v8 components:2130174 fromDate:v7];
-      v4 = v9 = v4;
+      v10 = cmsDateCalender(v9);
+      [v10 components:2130174 fromDate:v8];
+      v5 = v11 = v5;
     }
 
     else
     {
-      v8 = [v5 componentsSeparatedByString:@"-"];
-      v12 = [v8 count];
-      if (v12 != 1)
+      v10 = [v6 componentsSeparatedByString:@"-"];
+      v14 = [v10 count];
+      if (v14 != 1)
       {
-        if (v12 != 2)
+        if (v14 != 2)
         {
-          if (v12 != 3)
+          if (v14 != 3)
           {
 LABEL_14:
 
@@ -63,26 +65,26 @@ LABEL_15:
             goto LABEL_16;
           }
 
-          v13 = [v8 objectAtIndexedSubscript:2];
-          [v4 setDay:{objc_msgSend(v13, "integerValue")}];
+          v15 = [v10 objectAtIndexedSubscript:2];
+          [v5 setDay:{objc_msgSend(v15, "integerValue")}];
         }
 
-        v14 = [v8 objectAtIndexedSubscript:1];
-        [v4 setMonth:{objc_msgSend(v14, "integerValue")}];
+        v16 = [v10 objectAtIndexedSubscript:1];
+        [v5 setMonth:{objc_msgSend(v16, "integerValue")}];
       }
 
-      v9 = [v8 objectAtIndexedSubscript:0];
-      [v4 setYear:{objc_msgSend(v9, "integerValue")}];
+      v11 = [v10 objectAtIndexedSubscript:0];
+      [v5 setYear:{objc_msgSend(v11, "integerValue")}];
     }
 
     goto LABEL_14;
   }
 
 LABEL_16:
-  v15 = cmsDateCalender();
-  [v4 setCalendar:v15];
+  v17 = cmsDateCalender(isKindOfClass);
+  [v5 setCalendar:v17];
 
-  return v4;
+  return v5;
 }
 
 - (id)cmsCoded
@@ -113,7 +115,7 @@ LABEL_16:
 
   if ((v4 & 0xFFFFFFFFFFFF7FFFLL) == 0xFC)
   {
-    v8 = cmsDateFormatter();
+    v8 = cmsDateFormatter(nanosecond);
     date = [self date];
     v6 = [v8 stringFromDate:date];
 

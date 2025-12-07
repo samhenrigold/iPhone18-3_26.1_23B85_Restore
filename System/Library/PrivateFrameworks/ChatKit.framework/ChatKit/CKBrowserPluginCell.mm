@@ -89,13 +89,14 @@
   v9 = [identifier isEqualToString:v8];
 
   browserLabel = [(CKBrowserCell *)self browserLabel];
+  v11 = browserLabel;
   if (v9)
   {
-    browserShortDisplayName = CKFrameworkBundle();
+    browserShortDisplayName = CKFrameworkBundle(browserLabel);
     browserDisplayName = [browserShortDisplayName localizedStringForKey:@"MEMOJI_STICKERS_SHORT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 LABEL_6:
-    v13 = browserDisplayName;
-    [browserLabel setText:browserDisplayName];
+    v14 = browserDisplayName;
+    [v11 setText:browserDisplayName];
 
     goto LABEL_7;
   }
@@ -107,18 +108,18 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  [browserLabel setText:browserShortDisplayName];
+  [v11 setText:browserShortDisplayName];
 LABEL_7:
 
-  v14 = +[CKBalloonPluginManager sharedInstance];
+  v15 = +[CKBalloonPluginManager sharedInstance];
   identifier2 = [pluginCopy identifier];
-  v16 = [v14 badgeValueForPlugin:identifier2];
+  v17 = [v15 badgeValueForPlugin:identifier2];
 
   badgeView = [(CKBrowserCell *)self badgeView];
-  [badgeView setValue:v16];
+  [badgeView setValue:v17];
 
   badgeView2 = [(CKBrowserCell *)self badgeView];
-  [badgeView2 setHidden:v16 == 0];
+  [badgeView2 setHidden:v17 == 0];
 
   objc_storeStrong(&self->_plugin, plugin);
   [(CKBrowserPluginCell *)self _updateShinyStatus];
@@ -127,8 +128,8 @@ LABEL_7:
 
   if (!status && ([(CKBrowserCell *)self shinyStatus]|| [(CKBrowserCell *)self shinyStatus]!= 3))
   {
-    v20 = [[CKBrowserSelectionLabelAccessoryView alloc] initWithLabelAccessoryType:[(CKBrowserCell *)self shinyStatus]];
-    [(CKBrowserCell *)self setShinyStatusView:v20];
+    v21 = [[CKBrowserSelectionLabelAccessoryView alloc] initWithLabelAccessoryType:[(CKBrowserCell *)self shinyStatus]];
+    [(CKBrowserCell *)self setShinyStatusView:v21];
 
     contentView = [(CKBrowserPluginCell *)self contentView];
     shinyStatusView2 = [(CKBrowserCell *)self shinyStatusView];

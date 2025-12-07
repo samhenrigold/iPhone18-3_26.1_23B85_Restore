@@ -329,59 +329,55 @@ LABEL_31:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_threadIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    state = self->_state;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    reason = self->_reason;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_notificationUUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    dateOfOccurrence = self->_dateOfOccurrence;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_accessoryIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_homeIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    eventStartDate = self->_eventStartDate;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 

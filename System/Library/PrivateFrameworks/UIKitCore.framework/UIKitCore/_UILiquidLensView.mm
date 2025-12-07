@@ -5,6 +5,7 @@
 - (UIView)overridePunchoutView;
 - (UIView)restingBackgroundView;
 - (_TtC5UIKit28_UILiquidLensViewVariantSpec)spec;
+- (_UILiquidLensView)initWithRestingBackground:(id)background;
 - (_UIPortalView)liftPortal;
 - (double)alpha;
 - (int64_t)style;
@@ -212,6 +213,13 @@
   timerCopy = timer;
 }
 
+- (_UILiquidLensView)initWithRestingBackground:(id)background
+{
+  backgroundCopy = background;
+  sub_1891F1E70(background);
+  return result;
+}
+
 - (void)_visibilityDidChange
 {
   selfCopy = self;
@@ -272,8 +280,8 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_1891F343C(lifted, animated, v10, v13, v12, v14);
-  sub_188A55B8C(v12);
-  sub_188A55B8C(v10);
+  sub_188A55B8C(v12, v14);
+  sub_188A55B8C(v10, v13);
 }
 
 - (void)actuallySetLifted:(BOOL)lifted animated:(BOOL)animated alongsideAnimations:(id)animations completion:(id)completion
@@ -309,8 +317,8 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_1891F3B30(lifted, animated, v10, v13, v12, v14);
-  sub_188A55B8C(v12);
-  sub_188A55B8C(v10);
+  sub_188A55B8C(v12, v14);
+  sub_188A55B8C(v10, v13);
 }
 
 - (void)updateGlassPlacementIfNeededWithAnimated:(BOOL)animated

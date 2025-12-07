@@ -204,20 +204,20 @@ void sub_100004160(uint64_t a1)
   v1 = [*(a1 + 32) _regularCameraViewController];
   [v1 setMessagesTransitionState:2 animated:1];
 
-  v2 = sub_1000041D0();
-  dispatch_async(v2, &stru_100010560);
+  v3 = sub_1000041D0(v2);
+  dispatch_async(v3, &stru_100010560);
 }
 
-id sub_1000041D0()
+id sub_1000041D0(uint64_t a1)
 {
   if (qword_100015AD8 != -1)
   {
     sub_100007850();
   }
 
-  v1 = qword_100015AE0;
+  v2 = qword_100015AE0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100004214(id a1)
@@ -257,7 +257,7 @@ void sub_1000044DC(uint64_t a1, void *a2)
     v13 = v13 + v17 / 1.5;
   }
 
-  [PUReviewScreenUtilities orientedGeometryForFrame:*(a1 + 80) inBounds:v11 orientation:v13, v15, v17, *(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64), 0, 0, 0, 0];
+  objc_msgSend_orientedGeometryForFrame_inBounds_orientation_(PUReviewScreenUtilities, v11, v13, v15, v17, *(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64), 0, 0, 0, 0);
   [v5 setControlCenterAlignmentPoint:*(a1 + 88) forceLayout:0];
 }
 
@@ -420,28 +420,28 @@ Class sub_10000616C(uint64_t a1)
 
 uint64_t sub_1000061C4()
 {
-  CAMSignpostWithIDAndArgs();
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v7 = 0;
-  v0 = sub_1000041D0();
+  v0 = CAMSignpostWithIDAndArgs();
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v8 = 0;
+  v1 = sub_1000041D0(v0);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000062DC;
   block[3] = &unk_100010660;
-  block[4] = &v4;
-  dispatch_sync(v0, block);
+  block[4] = &v5;
+  dispatch_sync(v1, block);
 
   CAMSignpostWithIDAndArgs();
-  v1 = v5[3];
-  _Block_object_dispose(&v4, 8);
-  return v1;
+  v2 = v6[3];
+  _Block_object_dispose(&v5, 8);
+  return v2;
 }
 
-void sub_1000062C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000062C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -471,7 +471,7 @@ Class sub_100006328(uint64_t a1)
 
   else
   {
-    v3 = sub_1000079E8();
+    sub_1000079E8();
     return sub_100006380(v3);
   }
 
@@ -487,10 +487,11 @@ void *sub_100006380(uint64_t a1)
   return result;
 }
 
-void sub_1000063D0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000063D0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id sub_100006C20(uint64_t a1)
@@ -534,11 +535,11 @@ void sub_1000077B8(void *a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "CAMAssetTransportController reported an error generating AEMutableAssetPackage: %{public}@", &v4, 0xCu);
 }
 
-uint64_t sub_1000078CC()
+void sub_1000078CC()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_1000078F0(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  sub_1000078F0();
 }
 
 void sub_100007A10(uint64_t a1, int a2, os_log_t log)

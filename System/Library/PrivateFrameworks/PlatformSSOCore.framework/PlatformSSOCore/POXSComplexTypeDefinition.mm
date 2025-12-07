@@ -147,7 +147,7 @@
 - (void)addElementWithName:(id)name namespaceURI:(id)i type:(Class)type maxOccurs:(unint64_t)occurs minOccurs:(unint64_t)minOccurs flattenMultiValue:(BOOL)value
 {
   valueCopy = value;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   iCopy = i;
   v16 = [[POXSElement alloc] initWithElementName:nameCopy namespaceURI:iCopy type:type];
@@ -157,30 +157,30 @@
   if ([(objc_class *)type isSubclassOfClass:objc_opt_class()])
   {
     minOccursCopy = minOccurs;
-    v30 = v16;
-    v31 = iCopy;
-    v32 = valueCopy;
+    v29 = v16;
+    v30 = iCopy;
+    v31 = valueCopy;
     [POXSDefinitions definitionForType:type];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v28 = v36 = 0u;
-    elements = [v28 elements];
-    v18 = [elements countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v27 = v35 = 0u;
+    elements = [v27 elements];
+    v18 = [elements countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v34;
+      v20 = *v33;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v34 != v20)
+          if (*v33 != v20)
           {
             objc_enumerationMutation(elements);
           }
 
-          v22 = *(*(&v33 + 1) + 8 * i);
+          v22 = *(*(&v32 + 1) + 8 * i);
           elementName = [v22 elementName];
           [(POXSComplexTypeDefinition *)self setProperty:nameCopy forName:elementName];
 
@@ -188,15 +188,15 @@
           [(POXSDefinition *)self setType:type forName:elementName2];
         }
 
-        v19 = [elements countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v19 = [elements countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v19);
     }
 
-    valueCopy = v32;
-    v16 = v30;
-    iCopy = v31;
+    valueCopy = v31;
+    v16 = v29;
+    iCopy = v30;
     minOccurs = minOccursCopy;
   }
 
@@ -216,8 +216,6 @@
   {
     [(POXSComplexTypeDefinition *)self _setAttribute:MEMORY[0x277CBEC38] forName:@"flattenMultiValue" ofElementWithName:nameCopy];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setContentPropertyName:(id)name type:(Class)type
@@ -317,7 +315,7 @@
 
 + (id)_descriptionForValue:(id)value prefix:(id)prefix
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   prefixCopy = prefix;
   string = [MEMORY[0x277CCAB68] string];
@@ -329,38 +327,38 @@
     goto LABEL_53;
   }
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
-  v74 = 0u;
-  v52 = v8;
+  v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v48 = v8;
   attributes = [v8 attributes];
-  v10 = [attributes countByEnumeratingWithState:&v73 objects:v79 count:16];
+  v10 = [attributes countByEnumeratingWithState:&v69 objects:v75 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v74;
+    v12 = *v70;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v74 != v12)
+        if (*v70 != v12)
         {
           objc_enumerationMutation(attributes);
         }
 
-        v14 = *(*(&v73 + 1) + 8 * i);
+        v14 = *(*(&v69 + 1) + 8 * i);
         v15 = [valueCopy valueForKey:v14];
         [string appendFormat:@"%@    %@: %@;\n", prefixCopy, v14, v15];
       }
 
-      v11 = [attributes countByEnumeratingWithState:&v73 objects:v79 count:16];
+      v11 = [attributes countByEnumeratingWithState:&v69 objects:v75 count:16];
     }
 
     while (v11);
   }
 
-  elements = [v52 elements];
+  elements = [v48 elements];
   if ([valueCopy conformsToProtocol:&unk_2870B7158])
   {
     elementsNeedRedaction = [valueCopy elementsNeedRedaction];
@@ -374,101 +372,99 @@
   }
 
   v17 = 0x279A3D000uLL;
-  v18 = 0x279A3D000uLL;
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
-  v70 = 0u;
-  v19 = elements;
-  v20 = [v19 countByEnumeratingWithState:&v69 objects:v78 count:16];
-  if (!v20)
+  v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v18 = elements;
+  v19 = [v18 countByEnumeratingWithState:&v65 objects:v74 count:16];
+  if (!v19)
   {
     goto LABEL_52;
   }
 
-  v21 = v20;
+  v20 = v19;
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
-  v58 = *v70;
-  v56 = v19;
+  v54 = *v66;
+  v52 = v18;
   while (2)
   {
-    v24 = 0;
-    v61 = v23;
-    v51 = v23 + v21;
-    v53 = v21;
+    v23 = 0;
+    v57 = v22;
+    v47 = v22 + v20;
+    v49 = v20;
     do
     {
-      if (*v70 != v58)
+      if (*v66 != v54)
       {
-        v25 = v24;
-        objc_enumerationMutation(v19);
-        v24 = v25;
+        v24 = v23;
+        objc_enumerationMutation(v18);
+        v23 = v24;
       }
 
-      v60 = v24;
-      elementName = [*(*(&v69 + 1) + 8 * v24) elementName];
-      v63 = [valueCopy valueForKey:?];
-      if (v63)
+      v56 = v23;
+      elementName = [*(*(&v65 + 1) + 8 * v23) elementName];
+      v59 = [valueCopy valueForKey:?];
+      if (v59)
       {
-        v59 = [*(v17 + 1648) definitionForType:objc_opt_class()];
-        if (elementsNeedRedaction && ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (v26 = *(v18 + 1632), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0)) && ([allowedElementKeys containsObject:elementName] & 1) == 0)
+        v55 = [*(v17 + 1648) definitionForType:objc_opt_class()];
+        if (elementsNeedRedaction && ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0)) && ([allowedElementKeys containsObject:elementName] & 1) == 0)
         {
-          [string appendFormat:@"%@    %@ = <>;\n", prefixCopy, elementName, v50];
+          [string appendFormat:@"%@    %@ = <>;\n", prefixCopy, elementName, v46];
         }
 
         else
         {
-          v27 = *(v18 + 1632);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v54 = v22;
-              v31 = v63;
+              v50 = v21;
+              v28 = v59;
               [string appendFormat:@"%@    %@ = [\n", prefixCopy, elementName];
-              v67 = 0u;
-              v68 = 0u;
-              v65 = 0u;
-              v66 = 0u;
-              v32 = v31;
-              v33 = [v32 countByEnumeratingWithState:&v65 objects:v77 count:16];
-              if (v33)
+              v63 = 0u;
+              v64 = 0u;
+              v61 = 0u;
+              v62 = 0u;
+              v29 = v28;
+              v30 = [v29 countByEnumeratingWithState:&v61 objects:v73 count:16];
+              if (v30)
               {
-                v34 = v33;
-                v35 = 0;
-                v36 = *v66;
+                v31 = v30;
+                v32 = 0;
+                v33 = *v62;
                 while (2)
                 {
-                  for (j = 0; j != v34; ++j)
+                  for (j = 0; j != v31; ++j)
                   {
-                    if (*v66 != v36)
+                    if (*v62 != v33)
                     {
-                      objc_enumerationMutation(v32);
+                      objc_enumerationMutation(v29);
                     }
 
-                    v38 = *(*(&v65 + 1) + 8 * j);
-                    v39 = [prefixCopy stringByAppendingString:@"        "];
-                    v40 = [self _descriptionForValue:v38 prefix:v39];
-                    [string appendFormat:@"%@        [%lu] = %@\n", prefixCopy, v35, v40];
+                    v35 = *(*(&v61 + 1) + 8 * j);
+                    v36 = [prefixCopy stringByAppendingString:@"        "];
+                    v37 = [self _descriptionForValue:v35 prefix:v36];
+                    [string appendFormat:@"%@        [%lu] = %@\n", prefixCopy, v32, v37];
 
-                    if (v35 == 4)
+                    if (v32 == 4)
                     {
-                      v41 = [v32 count];
-                      if (v41 != 5)
+                      v38 = [v29 count];
+                      if (v38 != 5)
                       {
-                        [string appendFormat:@"%@        -- %lu remaining entries in array --\n", prefixCopy, v41 - 5];
+                        [string appendFormat:@"%@        -- %lu remaining entries in array --\n", prefixCopy, v38 - 5];
                         goto LABEL_41;
                       }
                     }
 
-                    ++v35;
+                    ++v32;
                   }
 
-                  v34 = [v32 countByEnumeratingWithState:&v65 objects:v77 count:16];
-                  if (v34)
+                  v31 = [v29 countByEnumeratingWithState:&v61 objects:v73 count:16];
+                  if (v31)
                   {
                     continue;
                   }
@@ -481,17 +477,16 @@ LABEL_41:
 
               [string appendFormat:@"%@    ]\n", prefixCopy];
               v17 = 0x279A3D000;
-              v18 = 0x279A3D000;
-              v19 = v56;
-              v21 = v53;
-              v22 = v54;
+              v18 = v52;
+              v20 = v49;
+              v21 = v50;
               goto LABEL_45;
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              if (![v63 integerValue])
+              if (![v59 integerValue])
               {
                 goto LABEL_45;
               }
@@ -502,57 +497,57 @@ LABEL_41:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v42 = v63;
-                calendar = [v42 calendar];
-                [calendar dateFromComponents:v42];
-                v45 = v44 = v22;
+                v39 = v59;
+                calendar = [v39 calendar];
+                [calendar dateFromComponents:v39];
+                v42 = v41 = v21;
 
-                [string appendFormat:@"%@    %@ = %@;\n", prefixCopy, elementName, v45];
-                v22 = v44;
-                v21 = v53;
+                [string appendFormat:@"%@    %@ = %@;\n", prefixCopy, elementName, v42];
+                v21 = v41;
+                v20 = v49;
 
                 goto LABEL_45;
               }
             }
 
-            [string appendFormat:@"%@    %@ = %@;\n", prefixCopy, elementName, v63];
+            [string appendFormat:@"%@    %@ = %@;\n", prefixCopy, elementName, v59];
             goto LABEL_45;
           }
 
           [prefixCopy stringByAppendingString:@"    "];
-          v29 = v28 = v22;
-          v30 = [self _descriptionForValue:v63 prefix:v29];
-          [string appendFormat:@"%@    %@ = %@\n", prefixCopy, elementName, v30];
+          v26 = v25 = v21;
+          v27 = [self _descriptionForValue:v59 prefix:v26];
+          [string appendFormat:@"%@    %@ = %@\n", prefixCopy, elementName, v27];
 
-          v19 = v56;
-          v22 = v28 + 1;
+          v18 = v52;
+          v21 = v25 + 1;
         }
 
 LABEL_45:
       }
 
-      v46 = v61 + 1;
-      if (v22 == 5)
+      v43 = v57 + 1;
+      if (v21 == 5)
       {
-        v47 = [v19 count];
-        v46 = v61 + 1;
-        if (v47 != v61 + 1)
+        v44 = [v18 count];
+        v43 = v57 + 1;
+        if (v44 != v57 + 1)
         {
-          [string appendFormat:@"%@    -- %lu remaining elements --\n", prefixCopy, v47 - (v61 + 1)];
+          [string appendFormat:@"%@    -- %lu remaining elements --\n", prefixCopy, v44 - (v57 + 1)];
 
           goto LABEL_52;
         }
       }
 
-      v61 = v46;
+      v57 = v43;
 
-      v24 = v60 + 1;
+      v23 = v56 + 1;
     }
 
-    while (v60 + 1 != v21);
-    v21 = [v19 countByEnumeratingWithState:&v69 objects:v78 count:16];
-    v23 = v51;
-    if (v21)
+    while (v56 + 1 != v20);
+    v20 = [v18 countByEnumeratingWithState:&v65 objects:v74 count:16];
+    v22 = v47;
+    if (v20)
     {
       continue;
     }
@@ -562,11 +557,9 @@ LABEL_45:
 
 LABEL_52:
 
-  v8 = v52;
+  v8 = v48;
 LABEL_53:
   [string appendFormat:@"%@}\n", prefixCopy];
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return string;
 }

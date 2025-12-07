@@ -471,7 +471,7 @@ LABEL_7:
 void __51__UICollectionViewTableCell_applyLayoutAttributes___block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  _MergedGlobals_9_2 = [v0 isEqualToString:@"com.apple.Music"];
+  _MergedGlobals_9_2 = objc_msgSend_isEqualToString_(v0);
 }
 
 - (void)_updateEditing

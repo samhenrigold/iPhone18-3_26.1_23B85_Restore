@@ -126,37 +126,35 @@
 
 - (id)_descriptionWithIndent:(unint64_t)indent
 {
-  v28[5] = *MEMORY[0x1E69E9840];
-  v24 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v27.receiver = self;
-  v27.super_class = AFOutputVoiceColorDescriptor;
-  v4 = [(AFOutputVoiceColorDescriptor *)&v27 description];
+  v27[5] = *MEMORY[0x1E69E9840];
+  v23 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v26.receiver = self;
+  v26.super_class = AFOutputVoiceColorDescriptor;
+  v4 = [(AFOutputVoiceColorDescriptor *)&v26 description];
   v5 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v26 = [(NSString *)self->_hexColor description];
-  v25 = [v5 initWithFormat:@"hexColor = %@", v26];
-  v28[0] = v25;
+  v25 = [(NSString *)self->_hexColor description];
+  v24 = [v5 initWithFormat:@"hexColor = %@", v25];
+  v27[0] = v24;
   v6 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v23 = [(NSString *)self->_colorName description];
-  v22 = [v6 initWithFormat:@"colorName = %@", v23];
-  v28[1] = v22;
+  v22 = [(NSString *)self->_colorName description];
+  v21 = [v6 initWithFormat:@"colorName = %@", v22];
+  v27[1] = v21;
   v7 = objc_alloc(MEMORY[0x1E696AEC0]);
   *&v8 = self->_alpha;
   v9 = [MEMORY[0x1E696AD98] numberWithFloat:v8];
   v10 = [v7 initWithFormat:@"alpha = %@", v9];
-  v28[2] = v10;
+  v27[2] = v10;
   v11 = objc_alloc(MEMORY[0x1E696AEC0]);
   v12 = [(NSString *)self->_localizedOutputVoiceColor description];
   v13 = [v11 initWithFormat:@"localizedOutputVoiceColor = %@", v12];
-  v28[3] = v13;
+  v27[3] = v13;
   v14 = objc_alloc(MEMORY[0x1E696AEC0]);
   v15 = [(NSString *)self->_localizedOutputVoice description];
   v16 = [v14 initWithFormat:@"localizedOutputVoice = %@", v15];
-  v28[4] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:5];
+  v27[4] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:5];
   v18 = [v17 componentsJoinedByString:{@", "}];
-  v19 = [v24 initWithFormat:@"%@ {%@}", v4, v18];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = [v23 initWithFormat:@"%@ {%@}", v4, v18];
 
   return v19;
 }

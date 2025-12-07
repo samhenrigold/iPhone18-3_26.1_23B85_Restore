@@ -40,9 +40,11 @@
 
 uint64_t __27__AXVoiceOverServer_server__block_invoke()
 {
-  server_Server_4 = objc_alloc_init(AXVoiceOverServer);
+  v0 = objc_alloc_init(AXVoiceOverServer);
+  v1 = server_Server_4;
+  server_Server_4 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)_connectIfNecessary

@@ -24,7 +24,7 @@
       v10 = NUScaleMultiply(1, subsampleFactor, renderScale, v9);
       v12 = v11;
       v13 = [NUImageGeometry alloc];
-      [v6 extent];
+      objc_msgSend_extent(v6);
       v14 = -[NUImageGeometry initWithExtent:renderScale:orientation:](v13, "initWithExtent:renderScale:orientation:", &v17, v10, v12, [v6 orientation]);
     }
 
@@ -61,7 +61,7 @@
         v11 = v10;
         resamplingColorSpace = [(NURenderNode *)self resamplingColorSpace];
         sampleMode = self->_sampleMode;
-        [v11 physicalScaledExtent];
+        objc_msgSend_physicalScaledExtent(v11);
         v14 = [NURenderNode resampleImage:v6 by:_additionalScale sampleMode:v9 extent:sampleMode colorSpace:&v16, resamplingColorSpace];
 
         v6 = v11;

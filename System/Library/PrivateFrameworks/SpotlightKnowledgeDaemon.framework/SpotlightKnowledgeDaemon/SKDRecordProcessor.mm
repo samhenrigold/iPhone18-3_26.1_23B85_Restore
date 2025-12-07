@@ -59,7 +59,7 @@
 
 - (BOOL)willProcessRecord:(id)record bundleID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   marker = [(SKDRecordProcessor *)self marker];
   v7 = [recordCopy objectForKeyedSubscript:marker];
@@ -75,25 +75,25 @@
     v10 = requiredAttributes;
     if (requiredAttributes)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       v11 = requiredAttributes;
-      v8 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
-        v12 = *v18;
+        v12 = *v17;
         while (2)
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v18 != v12)
+            if (*v17 != v12)
             {
               objc_enumerationMutation(v11);
             }
 
-            v14 = [recordCopy objectForKeyedSubscript:{*(*(&v17 + 1) + 8 * i), v17}];
+            v14 = [recordCopy objectForKeyedSubscript:{*(*(&v16 + 1) + 8 * i), v16}];
 
             if (v14)
             {
@@ -102,7 +102,7 @@
             }
           }
 
-          v8 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v8 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v8)
           {
             continue;
@@ -121,7 +121,6 @@ LABEL_14:
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -25,7 +25,7 @@ void *__CoreCaptureControlRelease(void *result)
   return result;
 }
 
-void *CoreCaptureControlCreate()
+void *CoreCaptureControlCreate(uint64_t a1)
 {
   if (!__kCoreCaptureControlTypeID)
   {
@@ -86,9 +86,48 @@ uint64_t CoreCaptureControlStart(uint64_t a1, const sockaddr *a2, socklen_t a3)
   return result;
 }
 
+int connect(int a1, const sockaddr *a2, socklen_t a3)
+{
+  v3 = *&a1;
+  v4 = dispatch_queue_create("com.apple.corecaptured", 0);
+  *(v3 + 24) = v4;
+  v5 = MEMORY[0x277D85E08];
+  v6 = *MEMORY[0x277D85E08];
+  if (!v4)
+  {
+    v9 = "Failed to create dispatch queue\n";
+    v10 = 32;
+LABEL_7:
+    fwrite(v9, v10, 1uLL, v6);
+    return 0;
+  }
+
+  fprintf(v6, "XPC Service is %s\n", "com.apple.corecaptured");
+  mach_service = xpc_connection_create_mach_service("com.apple.corecaptured", *(v3 + 24), 2uLL);
+  *(v3 + 16) = mach_service;
+  if (!mach_service)
+  {
+    v6 = *v5;
+    v9 = "Failed to create MACH service\n";
+    v10 = 30;
+    goto LABEL_7;
+  }
+
+  *(v3 + 32) = 1;
+  xpc_connection_set_event_handler(mach_service, &__block_literal_global);
+  if (*(v3 + 32))
+  {
+    xpc_connection_resume(*(v3 + 16));
+    return 1;
+  }
+
+  fprintf(*v5, "Failed to connect %s service\n", "com.apple.corecaptured");
+  return 0;
+}
+
 void sendXPCRequest(uint64_t a1, CFDataRef theData)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     if (theData)
@@ -111,6 +150,7 @@ void sendXPCRequest(uint64_t a1, CFDataRef theData)
               *&v11 = 0xAAAAAAAAAAAAAAAALL;
               *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
               *buffer = v11;
+              v14 = v11;
               v15 = v11;
               v16 = v11;
               v17 = v11;
@@ -125,7 +165,6 @@ void sendXPCRequest(uint64_t a1, CFDataRef theData)
               v26 = v11;
               v27 = v11;
               v28 = v11;
-              v29 = v11;
               if (!CStringPtr)
               {
                 if (CFStringGetCString(v7, buffer, 256, 0))
@@ -191,8 +230,6 @@ void sendXPCRequest(uint64_t a1, CFDataRef theData)
   {
     fprintf(*MEMORY[0x277D85E08], "%s:%06u: ERROR: Invalid client argument\n");
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __sendXPCRequest_block_invoke(uint64_t a1, void *a2)
@@ -514,10 +551,10 @@ uint64_t CoreCaptureControlConfigureStream(uint64_t a1, const sockaddr *a2, cons
   result = connect(a1, a2, a3);
   if (!result)
   {
-    goto LABEL_63;
+    return result;
   }
 
-  v39 = a1;
+  v38 = a1;
   v11 = *MEMORY[0x277CBECE8];
   v12 = MEMORY[0x277CBF138];
   v13 = MEMORY[0x277CBF150];
@@ -528,10 +565,10 @@ uint64_t CoreCaptureControlConfigureStream(uint64_t a1, const sockaddr *a2, cons
   v16 = CFStringCreateWithCString(0, a4, 0);
   if ((*a5 & 7) == 0)
   {
-    v36 = 0;
-    ArrayBySeparatingStrings = 0;
-    v38 = 0;
     v35 = 0;
+    ArrayBySeparatingStrings = 0;
+    v37 = 0;
+    v34 = 0;
     goto LABEL_16;
   }
 
@@ -539,8 +576,8 @@ uint64_t CoreCaptureControlConfigureStream(uint64_t a1, const sockaddr *a2, cons
   v18 = *a5;
   if (*a5)
   {
-    v38 = CFNumberCreate(0, kCFNumberSInt64Type, a5 + 1);
-    CFDictionaryAddValue(v17, @"LogLevel", v38);
+    v37 = CFNumberCreate(0, kCFNumberSInt64Type, a5 + 1);
+    CFDictionaryAddValue(v17, @"LogLevel", v37);
     v18 = *a5;
     if ((*a5 & 2) != 0)
     {
@@ -548,8 +585,8 @@ LABEL_5:
       valuePtr[0] = 0xAAAAAAAAAAAAAAAALL;
       if (isValidNumber(a5[2], valuePtr))
       {
-        v36 = CFNumberCreate(0, kCFNumberSInt64Type, valuePtr);
-        CFDictionaryAddValue(v17, @"LogFlags", v36);
+        v35 = CFNumberCreate(0, kCFNumberSInt64Type, valuePtr);
+        CFDictionaryAddValue(v17, @"LogFlags", v35);
         ArrayBySeparatingStrings = 0;
       }
 
@@ -559,7 +596,7 @@ LABEL_5:
         ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(0, v19, @",");
         CFDictionaryAddValue(v17, @"LogFlags", ArrayBySeparatingStrings);
         CFRelease(v19);
-        v36 = 0;
+        v35 = 0;
       }
 
       if ((*a5 & 4) == 0)
@@ -568,22 +605,22 @@ LABEL_5:
       }
 
 LABEL_10:
-      v35 = CFNumberCreate(0, kCFNumberSInt64Type, a5 + 3);
-      CFDictionaryAddValue(v17, @"LogOptions", v35);
+      v34 = CFNumberCreate(0, kCFNumberSInt64Type, a5 + 3);
+      CFDictionaryAddValue(v17, @"LogOptions", v34);
       goto LABEL_14;
     }
   }
 
   else
   {
-    v38 = 0;
+    v37 = 0;
     if ((v18 & 2) != 0)
     {
       goto LABEL_5;
     }
   }
 
-  v36 = 0;
+  v35 = 0;
   ArrayBySeparatingStrings = 0;
   if ((v18 & 4) != 0)
   {
@@ -591,7 +628,7 @@ LABEL_10:
   }
 
 LABEL_13:
-  v35 = 0;
+  v34 = 0;
 LABEL_14:
   CFDictionaryAddValue(v15, @"CoreCapture", v17);
   if (v17)
@@ -605,8 +642,8 @@ LABEL_16:
     v20 = CFDictionaryCreateMutable(v11, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     if ((*a5 & 8) != 0)
     {
-      v34 = CFNumberCreate(0, kCFNumberSInt64Type, a5 + 4);
-      CFDictionaryAddValue(v20, @"LogLevel", v34);
+      v33 = CFNumberCreate(0, kCFNumberSInt64Type, a5 + 4);
+      CFDictionaryAddValue(v20, @"LogLevel", v33);
       if ((*a5 & 0x10) != 0)
       {
         goto LABEL_19;
@@ -615,7 +652,7 @@ LABEL_16:
 
     else
     {
-      v34 = 0;
+      v33 = 0;
       if ((*a5 & 0x10) != 0)
       {
 LABEL_19:
@@ -623,8 +660,8 @@ LABEL_19:
         if (!isValidNumber(a5[5], valuePtr))
         {
           v23 = CFStringCreateWithCString(0, a5[2], 0);
-          v33 = CFStringCreateArrayBySeparatingStrings(0, v23, @",");
-          CFDictionaryAddValue(v20, @"LogFlags", v33);
+          v32 = CFStringCreateArrayBySeparatingStrings(0, v23, @",");
+          CFDictionaryAddValue(v20, @"LogFlags", v32);
           CFRelease(v23);
           v21 = 0;
 LABEL_26:
@@ -641,7 +678,7 @@ LABEL_26:
         v21 = CFNumberCreate(0, kCFNumberSInt64Type, valuePtr);
         CFDictionaryAddValue(v20, @"LogFlags", v21);
 LABEL_24:
-        v33 = 0;
+        v32 = 0;
         goto LABEL_26;
       }
     }
@@ -652,8 +689,8 @@ LABEL_24:
 
   v22 = v15;
   v21 = 0;
+  v32 = 0;
   v33 = 0;
-  v34 = 0;
 LABEL_28:
   v24 = MEMORY[0x277CBF138];
   v25 = MEMORY[0x277CBF150];
@@ -713,14 +750,14 @@ LABEL_28:
     CFRelease(v27);
   }
 
-  if (v36)
+  if (v35)
   {
-    CFRelease(v36);
+    CFRelease(v35);
   }
 
-  if (v38)
+  if (v37)
   {
-    CFRelease(v38);
+    CFRelease(v37);
   }
 
   if (ArrayBySeparatingStrings)
@@ -728,9 +765,9 @@ LABEL_28:
     CFRelease(ArrayBySeparatingStrings);
   }
 
-  if (v35)
+  if (v34)
   {
-    CFRelease(v35);
+    CFRelease(v34);
   }
 
   if (v21)
@@ -738,48 +775,52 @@ LABEL_28:
     CFRelease(v21);
   }
 
+  if (v32)
+  {
+    CFRelease(v32);
+  }
+
   if (v33)
   {
     CFRelease(v33);
   }
 
-  if (v34)
-  {
-    CFRelease(v34);
-  }
-
-  sendXPCRequest(v39, Data);
+  sendXPCRequest(v38, Data);
   if (Data)
   {
     CFRelease(Data);
   }
 
   sleep(2u);
-  result = replyResult;
-LABEL_63:
-  v32 = *MEMORY[0x277D85DE8];
-  return result;
+  return replyResult;
 }
 
 const char *isValidNumber(const char *result, unint64_t *a2)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   if (result)
   {
     v2 = result;
-    if (!*result || (v5[0] = 0xAAAAAAAAAAAAAAAALL, *__error() = 0, *a2 = strtouq(v2, v5, 0), *__error() == 34) && *a2 == -1)
+    if (!*result)
     {
-      result = 0;
+      return 0;
+    }
+
+    v4[0] = 0xAAAAAAAAAAAAAAAALL;
+    *__error() = 0;
+    *a2 = strtouq(v2, v4, 0);
+    if (*__error() == 34 && *a2 == -1)
+    {
+      return 0;
     }
 
     else
     {
       __error();
-      result = (*v5[0] == 0);
+      return (*v4[0] == 0);
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 

@@ -154,7 +154,7 @@
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       v20 = NSStringFromSelector(a2);
-      sub_100011794(v20, &v123, v19);
+      sub_100011794(v20, v123, v19);
     }
   }
 
@@ -559,7 +559,7 @@ LABEL_70:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         v23 = NSStringFromSelector(a2);
-        sub_100011794(v23, &v126, v22);
+        sub_100011794(v23, v126, v22);
       }
     }
 

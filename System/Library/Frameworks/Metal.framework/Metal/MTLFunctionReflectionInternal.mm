@@ -167,13 +167,13 @@
     switch(type)
     {
       case 1uLL:
-        ReflectionValidator<MTLVertexReflectionReader>::Validate(device, options, data);
+        ReflectionValidator<MTLVertexReflectionReader>::Validate(device, options, data, 0);
         ReflectionReaderFactory<MTLVertexReflectionReader>::Create(options, v11);
       case 2uLL:
         ReflectionValidator<MTLFragmentReflectionReader>::Validate(device, options, data);
         ReflectionReaderFactory<MTLFragmentReflectionReader>::Create(options, v11);
       case 3uLL:
-        ReflectionValidator<MTLComputeReflectionReader>::Validate(device, options, data);
+        ReflectionValidator<MTLComputeReflectionReader>::Validate(device, options, data, 0);
         ReflectionReaderFactory<MTLComputeReflectionReader>::Create(options, v11);
     }
   }
@@ -210,39 +210,39 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v29[3] = *MEMORY[0x1E69E9840];
+  v28[3] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
-  v20 = [@"\n" stringByPaddingToLength:description + 8 withString:@" " startingAtIndex:0];
+  v19 = [@"\n" stringByPaddingToLength:description + 8 withString:@" " startingAtIndex:0];
   v6 = [@"\n" stringByPaddingToLength:description + 20 withString:@" " startingAtIndex:0];
   v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:128];
-  v29[0] = v5;
-  v29[1] = @"MTL Bindings =";
-  v29[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSArray count](self->_bindings, "count")}];
-  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v29, 3)}];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
+  v28[0] = v5;
+  v28[1] = @"MTL Bindings =";
+  v28[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSArray count](self->_bindings, "count")}];
+  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v28, 3)}];
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   selfCopy = self;
   obj = self->_bindings;
-  v8 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v8 = [(NSArray *)obj countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v19 = *v23;
+    v18 = *v22;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v19)
+        if (*v22 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
-        v27[0] = v20;
-        v27[1] = [v11 formattedDescription:description + 20];
-        [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v27, 2)}];
+        v11 = *(*(&v21 + 1) + 8 * i);
+        v26[0] = v19;
+        v26[1] = [v11 formattedDescription:description + 20];
+        [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v26, 2)}];
         if ([v11 type] == 37)
         {
           dimensions = [v11 dimensions];
@@ -254,9 +254,9 @@
               v14 = 0;
               do
               {
-                v26[0] = v6;
-                v26[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Dimensions[%lu] %lu:", v14, *(objc_msgSend(v13, "extents") + 8 * v14)];
-                [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v26, 2)}];
+                v25[0] = v6;
+                v25[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Dimensions[%lu] %lu:", v14, *(objc_msgSend(v13, "extents") + 8 * v14)];
+                [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v25, 2)}];
                 ++v14;
               }
 
@@ -266,17 +266,15 @@
         }
       }
 
-      v9 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v9 = [(NSArray *)obj countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v9);
   }
 
-  v21.receiver = selfCopy;
-  v21.super_class = MTLFunctionReflectionInternal;
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLFunctionReflectionInternal description](&v21, sel_description), objc_msgSend(v7, "componentsJoinedByString:", @" "];
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  v20.receiver = selfCopy;
+  v20.super_class = MTLFunctionReflectionInternal;
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLFunctionReflectionInternal description](&v20, sel_description), objc_msgSend(v7, "componentsJoinedByString:", @" "];
 }
 
 @end

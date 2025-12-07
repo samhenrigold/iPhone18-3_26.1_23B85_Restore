@@ -676,7 +676,7 @@ void __141__CUIKOccurrenceRenderer_renderingBlockForStrings_withSize_font_edgeIn
             MinX = MaxX - v9;
           }
 
-          [(UIImage *)v7 cuik_drawAtPoint:v17, MinX, v16];
+          [(UIImage *)v7 cuik_drawAtPoint:v16, v17];
         }
 
         v4 = [v3 countByEnumeratingWithState:&v51 objects:v61 count:16];
@@ -711,7 +711,7 @@ void __141__CUIKOccurrenceRenderer_renderingBlockForStrings_withSize_font_edgeIn
     }
 
     v38[1].size.width = v38[1].size.width - v37;
-    [(UIImage *)*(a1 + 48) cuik_drawAtPoint:v34, v36, v35];
+    [(UIImage *)*(a1 + 48) cuik_drawAtPoint:v36, v35, v34];
   }
 
   v39 = [*(a1 + 56) trailingString];
@@ -749,7 +749,7 @@ void __141__CUIKOccurrenceRenderer_renderingBlockForStrings_withSize_font_edgeIn
   _Block_object_dispose(&v55, 8);
 }
 
-void __141__CUIKOccurrenceRenderer_renderingBlockForStrings_withSize_font_edgeInsets_leadingIcon_trailingIcons_outImageSize_shouldAutoHideLeadingIcon___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __141__CUIKOccurrenceRenderer_renderingBlockForStrings_withSize_font_edgeInsets_leadingIcon_trailingIcons_outImageSize_shouldAutoHideLeadingIcon___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3, _BYTE *a4)
 {
   v8 = a2;
   [v8 boundingRectWithSize:33 options:0 context:{*(*(*(a1 + 40) + 8) + 48), *(*(*(a1 + 40) + 8) + 56)}];
@@ -762,7 +762,7 @@ void __141__CUIKOccurrenceRenderer_renderingBlockForStrings_withSize_font_edgeIn
   [v8 drawWithRect:33 options:0 context:{*(*(*(a1 + 40) + 8) + 32), *(*(*(a1 + 40) + 8) + 40), *(*(*(a1 + 40) + 8) + 48), *(*(*(a1 + 40) + 8) + 56)}];
   *(*(*(a1 + 40) + 8) + 56) = *(*(*(a1 + 40) + 8) + 56) - Height;
   *(*(*(a1 + 40) + 8) + 40) = Height + *(*(*(a1 + 40) + 8) + 40);
-  if ([*(a1 + 32) count] - 1 != a3)
+  if (([*(a1 + 32) count] - 1) != a3)
   {
     *(*(*(a1 + 40) + 8) + 56) = *(*(*(a1 + 40) + 8) + 56) + -1.0;
     *(*(*(a1 + 40) + 8) + 40) = *(*(*(a1 + 40) + 8) + 40) + 1.0;

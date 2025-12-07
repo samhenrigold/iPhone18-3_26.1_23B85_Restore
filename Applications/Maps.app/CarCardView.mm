@@ -79,7 +79,7 @@
         v34 = 0;
         v32 = 0u;
         v33 = 0u;
-        [(CarCardView *)self _cornerMask];
+        objc_msgSend__cornerMask(self);
         v4 = +[CAShapeLayer layer];
         focusShapeLayer = self->_focusShapeLayer;
         self->_focusShapeLayer = v4;
@@ -343,7 +343,7 @@ LABEL_9:
     layout = [(CarCardView *)self layout];
     if (_styleProviderOrSelf)
     {
-      [_styleProviderOrSelf cornerMaskForCarCardLayout:layout];
+      objc_msgSend_cornerMaskForCarCardLayout_(_styleProviderOrSelf);
     }
 
     else
@@ -357,7 +357,7 @@ LABEL_9:
   else
   {
     _styleProviderOrSelf = [(CarCardView *)self layout];
-    [(CarCardView *)self cornerMaskForCarCardLayout:_styleProviderOrSelf];
+    objc_msgSend_cornerMaskForCarCardLayout_(self);
   }
 
   return result;
@@ -420,7 +420,7 @@ LABEL_9:
   {
     v43 = 0u;
     memset(obj, 0, sizeof(obj));
-    [(CarCardView *)self _cornerMask];
+    objc_msgSend__cornerMask(self);
     v40 = 0u;
     v4 = 0;
     v41 = v4;
@@ -538,7 +538,7 @@ LABEL_9:
 
     if (_car_hybridInstrumentClusterPresentationType)
     {
-      [(CarCardView *)self _cornerMask];
+      objc_msgSend__cornerMask(self, 0);
       [(CarCardView *)self _mapsCar_updateShadowWithCornerRadius:0.0];
     }
 
@@ -1467,7 +1467,7 @@ LABEL_15:
   }
 
 LABEL_16:
-  [(CarCardView *)self _cornerMask];
+  objc_msgSend__cornerMask(self, 0);
   v28 = v42 == self->_lastAppliedCornerMask.maskedCorners && self->_lastAppliedCornerMask.cornerRadius == 0.0 && self->_lastAppliedCornerMask.cornerCurve == 0 && !self->_lastAppliedCornerMask.automaticallyRoundCorners;
   if (!v28 || self->_lastAppliedCornerMask.automaticCornerRadiusBehaviour)
   {

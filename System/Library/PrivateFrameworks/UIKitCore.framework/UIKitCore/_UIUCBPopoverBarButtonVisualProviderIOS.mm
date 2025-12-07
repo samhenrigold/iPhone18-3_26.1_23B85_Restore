@@ -58,12 +58,12 @@
     selectionTintColor = self->_selectionTintColor;
     if (selectionTintColor == v5[11])
     {
-      v7 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v7 = [(UIColor *)selectionTintColor isEqual:?];
+      isEqual = objc_msgSend_isEqual_(selectionTintColor);
     }
 
     selectionBackgroundTintColor = self->_selectionBackgroundTintColor;
@@ -74,10 +74,10 @@
 
     else
     {
-      v10 = [(UIColor *)selectionBackgroundTintColor isEqual:?];
+      v10 = objc_msgSend_isEqual_(selectionBackgroundTintColor);
     }
 
-    v8 = v7 & v10;
+    v8 = isEqual & v10;
   }
 
   else

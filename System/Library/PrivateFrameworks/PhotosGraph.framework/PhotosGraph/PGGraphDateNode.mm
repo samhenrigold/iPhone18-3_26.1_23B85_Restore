@@ -20,6 +20,7 @@
 - (PGGraphCalendarUnitNode)weekOfMonthNode;
 - (PGGraphCalendarUnitNode)weekOfYearNode;
 - (PGGraphCalendarUnitNode)yearNode;
+- (PGGraphDateNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
 - (PGGraphDateNode)initWithName:(id)name;
 - (PGGraphDateNodeCollection)collection;
 - (PGGraphSeasonNode)seasonNode;
@@ -166,7 +167,7 @@ void __44__PGGraphDateNode_associatedNodesForRemoval__block_invoke_2()
 
 - (id)sameWeekDateNodes
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = [(MANode *)self siblingNodesThroughEdgesWithLabel:@"WEEKYEAR" domain:400];
   v4 = [MEMORY[0x277CBEB58] setWithSet:v3];
   weekOfYearNode = [(PGGraphDateNode *)self weekOfYearNode];
@@ -175,26 +176,26 @@ void __44__PGGraphDateNode_associatedNodesForRemoval__block_invoke_2()
   {
     localDate = [(PGGraphDateNode *)self localDate];
     v8 = [MEMORY[0x277CBEB58] set];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v10 = v4;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           localDate2 = [v15 localDate];
           [localDate timeIntervalSinceDate:localDate2];
           if (v17 < 0.0)
@@ -208,7 +209,7 @@ void __44__PGGraphDateNode_associatedNodesForRemoval__block_invoke_2()
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v12);
@@ -223,14 +224,12 @@ void __44__PGGraphDateNode_associatedNodesForRemoval__block_invoke_2()
     v8 = v4;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)localDate
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dayNode = [(PGGraphDateNode *)self dayNode];
   monthNode = [(PGGraphDateNode *)self monthNode];
   yearNode = [(PGGraphDateNode *)self yearNode];
@@ -251,42 +250,40 @@ void __44__PGGraphDateNode_associatedNodesForRemoval__block_invoke_2()
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v13 = [(PGGraphDateNode *)self description];
-      v14 = 138413058;
-      v15 = v13;
-      v16 = 2048;
-      v17 = dayNode;
-      v18 = 2048;
-      v19 = monthNode;
-      v20 = 2048;
-      v21 = v6;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Cannot create localDate from DateNode %@. dayNode %p, monthNode %p, yearNode %p", &v14, 0x2Au);
+      v12 = [(PGGraphDateNode *)self description];
+      v13 = 138413058;
+      v14 = v12;
+      v15 = 2048;
+      v16 = dayNode;
+      v17 = 2048;
+      v18 = monthNode;
+      v19 = 2048;
+      v20 = v6;
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Cannot create localDate from DateNode %@. dayNode %p, monthNode %p, yearNode %p", &v13, 0x2Au);
     }
 
     v8 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (PGGraphSeasonNode)seasonNode
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__48141;
-  v14 = __Block_byref_object_dispose__48142;
-  v15 = 0;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __29__PGGraphDateNode_seasonNode__block_invoke;
-  v9[3] = &unk_2788850B8;
-  v9[4] = &v10;
-  [(MANode *)self enumerateNeighborNodesThroughEdgesWithLabel:@"SEASON" domain:400 usingBlock:v9];
-  v3 = v11[5];
+  v17 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__48141;
+  v13 = __Block_byref_object_dispose__48142;
+  v14 = 0;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __29__PGGraphDateNode_seasonNode__block_invoke;
+  v8[3] = &unk_2788850B8;
+  v8[4] = &v9;
+  [(MANode *)self enumerateNeighborNodesThroughEdgesWithLabel:@"SEASON" domain:400 usingBlock:v8];
+  v3 = v10[5];
   if (!v3)
   {
     v4 = +[PGLogging sharedLogging];
@@ -299,13 +296,11 @@ void __44__PGGraphDateNode_associatedNodesForRemoval__block_invoke_2()
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Date Node %@ is not linked to any season node", buf, 0xCu);
     }
 
-    v3 = v11[5];
+    v3 = v10[5];
   }
 
   v6 = v3;
-  _Block_object_dispose(&v10, 8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v9, 8);
 
   return v6;
 }
@@ -414,7 +409,7 @@ void __44__PGGraphDateNode_associatedNodesForRemoval__block_invoke_2()
 
 - (id)propertyForKey:(id)key
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([keyCopy isEqualToString:@"name"])
   {
@@ -425,27 +420,24 @@ void __44__PGGraphDateNode_associatedNodesForRemoval__block_invoke_2()
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
-      v8 = 138412290;
-      v9 = keyCopy;
-      _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Unsupported property '%@' accessed on PGGraphDateNode.", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = keyCopy;
+      _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Unsupported property '%@' accessed on PGGraphDateNode.", &v7, 0xCu);
     }
 
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)propertyDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   name = self->_name;
-  v6 = @"name";
-  v7[0] = name;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = @"name";
+  v6[0] = name;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -467,6 +459,14 @@ void __44__PGGraphDateNode_associatedNodesForRemoval__block_invoke_2()
   }
 
   return v8;
+}
+
+- (PGGraphDateNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
+{
+  v6 = [properties objectForKeyedSubscript:{@"name", domain}];
+  v7 = [(PGGraphDateNode *)self initWithName:v6];
+
+  return v7;
 }
 
 - (PGGraphDateNode)initWithName:(id)name
@@ -494,18 +494,16 @@ void __44__PGGraphDateNode_associatedNodesForRemoval__block_invoke_2()
 
 + (MARelation)momentOfDate
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphDateEdge filter];
   inRelation = [v3 inRelation];
-  v11[0] = inRelation;
+  v10[0] = inRelation;
   v5 = +[PGGraphMomentNode filter];
   relation = [v5 relation];
-  v11[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v2 chain:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -576,16 +574,15 @@ void __44__PGGraphDateNode_associatedNodesForRemoval__block_invoke_2()
 
 + (id)filterWithDateNames:(id)names
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D22C78];
   namesCopy = names;
   v5 = [v3 alloc];
-  v10 = @"name";
-  v11[0] = namesCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"name";
+  v10[0] = namesCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [v5 initWithLabel:@"Date" domain:400 properties:v6];
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

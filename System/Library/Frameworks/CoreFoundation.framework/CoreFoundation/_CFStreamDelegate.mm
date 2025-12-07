@@ -8,10 +8,10 @@
 
 - (_CFStreamDelegate)initWithStreamEvents:(unint64_t)events callback:(void *)callback context:(id *)context
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = _CFStreamDelegate;
-  v8 = [(_CFStreamDelegate *)&v15 init];
+  v15 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = _CFStreamDelegate;
+  v8 = [(_CFStreamDelegate *)&v14 init];
   v9 = v8;
   if (v8)
   {
@@ -32,13 +32,12 @@
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   release = self->_client.release;
   if (release)
   {
@@ -49,10 +48,9 @@
     }
   }
 
-  v6.receiver = self;
-  v6.super_class = _CFStreamDelegate;
-  [(_CFStreamDelegate *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = _CFStreamDelegate;
+  [(_CFStreamDelegate *)&v5 dealloc];
 }
 
 - (void)stream:(id)stream handleEvent:(unint64_t)event

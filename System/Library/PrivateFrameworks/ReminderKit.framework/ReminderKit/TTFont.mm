@@ -124,7 +124,8 @@ LABEL_12:
   dataCopy = data;
   topotext::Font::Font(v10);
   bytes = [dataCopy bytes];
-  v6 = TTBoundedCheckedCastNSUIntegerToUInt32([dataCopy length]);
+  [dataCopy length];
+  TTBoundedCheckedCastNSUIntegerToUInt32();
   if (google::protobuf::MessageLite::ParseFromArray(v10, bytes, v6))
   {
     self = [(TTFont *)self initWithArchive:v10];
@@ -225,15 +226,17 @@ LABEL_12:
 
 - (id)serialize
 {
-  topotext::Font::Font(v7);
-  [(TTFont *)self saveToArchive:v7];
-  v3 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:topotext::Font::ByteSize(v7)];
-  mutableBytes = [v3 mutableBytes];
-  v5 = TTBoundedCheckedCastNSUIntegerToUInt32([v3 length]);
-  google::protobuf::MessageLite::SerializeToArray(v7, mutableBytes, v5);
-  topotext::Font::~Font(v7);
+  topotext::Font::Font(v9);
+  [(TTFont *)self saveToArchive:v9];
+  v3 = objc_alloc(MEMORY[0x1E695DF88]);
+  v5 = [v3 initWithLength:{topotext::Font::ByteSize(v9, v4)}];
+  mutableBytes = [v5 mutableBytes];
+  [v5 length];
+  TTBoundedCheckedCastNSUIntegerToUInt32();
+  google::protobuf::MessageLite::SerializeToArray(v9, mutableBytes, v7);
+  topotext::Font::~Font(v9);
 
-  return v3;
+  return v5;
 }
 
 - (TTFont)initWithCoder:(id)coder

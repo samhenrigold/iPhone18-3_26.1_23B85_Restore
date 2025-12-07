@@ -21,12 +21,13 @@
   port = self->_port;
   if (port)
   {
-    if (mach_port_deallocate(*MEMORY[0x1E69E9A60], port))
+    v4 = mach_port_deallocate(*MEMORY[0x1E69E9A60], port);
+    if (v4)
     {
-      v4 = rbs_general_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = rbs_general_log(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        [(RBSMachPort *)v4 invalidate:v5];
+        [(RBSMachPort *)v5 invalidate:v6];
       }
     }
 
@@ -59,24 +60,25 @@
 
 + (id)portForPort:(unsigned int)port
 {
-  if (mach_port_insert_right(*MEMORY[0x1E69E9A60], port, port, 0x13u))
+  inserted = mach_port_insert_right(*MEMORY[0x1E69E9A60], port, port, 0x13u);
+  if (inserted)
   {
-    v4 = rbs_general_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = rbs_general_log(inserted);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(RBSMachPort *)v4 portForPort:v5, v6, v7, v8, v9, v10, v11];
+      [(RBSMachPort *)v5 portForPort:v6, v7, v8, v9, v10, v11, v12];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
     [(RBSMachPort *)port portForPort:?];
-    v12 = v14;
+    v13 = v15;
   }
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)isUsable
@@ -99,11 +101,10 @@
 {
   coderCopy = coder;
   os_unfair_lock_lock(&self->_lock);
-  port = self->_port;
-  v5 = xpc_mach_send_create();
-  if (v5)
+  v4 = xpc_mach_send_create();
+  if (v4)
   {
-    [coderCopy encodeXPCObject:v5 forKey:@"_port"];
+    [coderCopy encodeXPCObject:v4 forKey:@"_port"];
   }
 
   os_unfair_lock_unlock(&self->_lock);
@@ -136,11 +137,10 @@
   port = self->_port;
   if (port - 1 <= 0xFFFFFFFD && (RBSMachPortType(port) & 0x10000) != 0)
   {
-    v5 = self->_port;
-    v6 = xpc_mach_send_create();
-    if (v6)
+    v5 = xpc_mach_send_create();
+    if (v5)
     {
-      [coderCopy encodeXPCObject:v6 forKey:@"_port"];
+      [coderCopy encodeXPCObject:v5 forKey:@"_port"];
     }
   }
 

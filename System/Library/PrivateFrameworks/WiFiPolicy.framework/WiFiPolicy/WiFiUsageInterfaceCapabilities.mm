@@ -1,4 +1,5 @@
 @interface WiFiUsageInterfaceCapabilities
+- (BOOL)deviceSupports:(int)supports;
 - (NSSet)deviceCapabilities;
 - (WiFiUsageInterfaceCapabilities)initWithInterfaceName:(id)name;
 - (id)description;
@@ -51,9 +52,9 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v13.receiver = self;
-  v13.super_class = WiFiUsageInterfaceCapabilities;
-  self = [(WiFiUsageInterfaceCapabilities *)&v13 init];
+  v11.receiver = self;
+  v11.super_class = WiFiUsageInterfaceCapabilities;
+  self = [(WiFiUsageInterfaceCapabilities *)&v11 init];
   v5 = [nameCopy copy];
   interfaceName = self->_interfaceName;
   self->_interfaceName = v5;
@@ -65,12 +66,10 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v9 = self->_interfaceName;
-  a11Ref = self->_a11Ref;
-  v10 = Apple80211BindToInterface();
-  if (v10)
+  v8 = Apple80211BindToInterface();
+  if (v8)
   {
-    NSLog(&cfstr_SApple80211bin.isa, "[WiFiUsageInterfaceCapabilities initWithInterfaceName:]", v10);
+    NSLog(&cfstr_SApple80211bin.isa, "[WiFiUsageInterfaceCapabilities initWithInterfaceName:]", v8);
     goto LABEL_6;
   }
 
@@ -89,17 +88,16 @@ LABEL_7:
   if (!result)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    a11Ref = self->_a11Ref;
-    v6 = Apple80211Get();
-    if (v6)
+    v5 = Apple80211Get();
+    if (v5)
     {
-      NSLog(&cfstr_SApple80211cop.isa, "[WiFiUsageInterfaceCapabilities supportedPhyModes]", v6);
+      NSLog(&cfstr_SApple80211cop.isa, "[WiFiUsageInterfaceCapabilities supportedPhyModes]", v5);
     }
 
     else
     {
-      v7 = [dictionary objectForKey:@"PHYMODE_SUPPORTED"];
-      self->_supportedPhyModes = [v7 unsignedIntValue];
+      v6 = [dictionary objectForKey:@"PHYMODE_SUPPORTED"];
+      self->_supportedPhyModes = [v6 unsignedIntValue];
     }
 
     return self->_supportedPhyModes;
@@ -110,11 +108,10 @@ LABEL_7:
 
 - (unint64_t)currentNumberOfSpatialStreams
 {
-  a11Ref = self->_a11Ref;
-  v3 = Apple80211CopyValue();
-  if (v3)
+  v2 = Apple80211CopyValue();
+  if (v2)
   {
-    NSLog(&cfstr_SApple80211cop.isa, "[WiFiUsageInterfaceCapabilities currentNumberOfSpatialStreams]", v3);
+    NSLog(&cfstr_SApple80211cop.isa, "[WiFiUsageInterfaceCapabilities currentNumberOfSpatialStreams]", v2);
   }
 
   return 0x7FFFFFFFFFFFFFFFLL;
@@ -125,22 +122,38 @@ LABEL_7:
   deviceCapabilities = self->_deviceCapabilities;
   if (!deviceCapabilities)
   {
-    a11Ref = self->_a11Ref;
-    v5 = Apple80211CopyValue();
-    if (v5)
+    v4 = Apple80211CopyValue();
+    if (v4)
     {
-      NSLog(&cfstr_SApple80211cop.isa, "[WiFiUsageInterfaceCapabilities deviceCapabilities]", v5);
+      NSLog(&cfstr_SApple80211cop.isa, "[WiFiUsageInterfaceCapabilities deviceCapabilities]", v4);
     }
 
     else
     {
-      v6 = [MEMORY[0x277CBEB98] setWithArray:0];
-      v7 = self->_deviceCapabilities;
-      self->_deviceCapabilities = v6;
+      v5 = [MEMORY[0x277CBEB98] setWithArray:0];
+      v6 = self->_deviceCapabilities;
+      self->_deviceCapabilities = v5;
     }
 
     deviceCapabilities = self->_deviceCapabilities;
   }
+
+  return deviceCapabilities;
+}
+
+- (BOOL)deviceSupports:(int)supports
+{
+  v3 = *&supports;
+  deviceCapabilities = [(WiFiUsageInterfaceCapabilities *)self deviceCapabilities];
+
+  if (!deviceCapabilities)
+  {
+    return 0;
+  }
+
+  deviceCapabilities = self->_deviceCapabilities;
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  LOBYTE(deviceCapabilities) = [(NSSet *)deviceCapabilities containsObject:v7];
 
   return deviceCapabilities;
 }

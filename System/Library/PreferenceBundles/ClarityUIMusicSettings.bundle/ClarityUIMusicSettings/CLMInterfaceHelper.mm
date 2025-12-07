@@ -19,27 +19,26 @@
 - (void)loadPlaylistsWithCompletionHandler:(id)handler
 {
   v5 = sub_5170(&qword_14D98, &qword_A900);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_94DC();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_94DC();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_A910;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_A910;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_A920;
-  v13[5] = v12;
+  v12[4] = &unk_A920;
+  v12[5] = v11;
   selfCopy = self;
-  sub_7D48(0, 0, v8, &unk_A930, v13);
+  sub_7D48(0, 0, v7, &unk_A930, v12);
 }
 
 + (id)makePlaylistRowCellContentForPlaylistEntry:(id)entry
@@ -48,10 +47,10 @@
   entryCopy = entry;
   v6 = [v4 init];
   v8[3] = sub_5170(&qword_14DA0, &qword_A950);
-  v8[4] = sub_6044(&qword_14DA8, &qword_14DA0, &qword_A950);
+  v8[4] = sub_6044(&qword_14DA8, &qword_14DA0, &qword_A950, &protocol conformance descriptor for UIHostingConfiguration<A, B>);
   sub_8C1C(v8);
   type metadata accessor for PlaylistRow(0);
-  sub_8C80(&qword_14DB0, type metadata accessor for PlaylistRow);
+  sub_8C80(&qword_14DB0, type metadata accessor for PlaylistRow, &unk_A6B4);
   sub_91CC();
   sub_952C();
 
@@ -97,41 +96,39 @@
 - (uint64_t)openMusicApp
 {
   v0 = sub_5170(&qword_14D80, &qword_A8E8);
-  v1 = *(*(v0 - 8) + 64);
   __chkstk_darwin(v0 - 8);
-  v3 = &v21 - v2;
-  v4 = sub_905C();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
-  v8 = &v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = &v19 - v1;
+  v3 = sub_905C();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_904C();
-  if ((*(v5 + 48))(v3, 1, v4) == 1)
+  if ((*(v4 + 48))(v2, 1, v3) == 1)
   {
-    return sub_608C(v3, &qword_14D80, &qword_A8E8);
+    return sub_608C(v2, &qword_14D80, &qword_A8E8);
   }
 
-  (*(v5 + 32))(v8, v3, v4);
-  v10 = objc_opt_self();
-  sharedApplication = [v10 sharedApplication];
-  sub_903C(v12);
-  v14 = v13;
-  v15 = [sharedApplication canOpenURL:v13];
+  (*(v4 + 32))(v6, v2, v3);
+  v8 = objc_opt_self();
+  sharedApplication = [v8 sharedApplication];
+  sub_903C(v10);
+  v12 = v11;
+  v13 = [sharedApplication canOpenURL:v11];
 
-  if (v15)
+  if (v13)
   {
-    sharedApplication2 = [v10 sharedApplication];
-    sub_903C(v17);
-    v19 = v18;
+    sharedApplication2 = [v8 sharedApplication];
+    sub_903C(v15);
+    v17 = v16;
     sub_83CC(&_swiftEmptyArrayStorage);
     type metadata accessor for OpenExternalURLOptionsKey(0);
-    sub_8C80(&qword_14CF0, type metadata accessor for OpenExternalURLOptionsKey);
+    sub_8C80(&qword_14CF0, type metadata accessor for OpenExternalURLOptionsKey, &unk_A704);
     isa = sub_940C().super.isa;
 
-    [sharedApplication2 openURL:v19 options:isa completionHandler:0];
+    [sharedApplication2 openURL:v17 options:isa completionHandler:0];
   }
 
-  return (*(v5 + 8))(v8, v4);
+  return (*(v4 + 8))(v6, v3);
 }
 
 @end

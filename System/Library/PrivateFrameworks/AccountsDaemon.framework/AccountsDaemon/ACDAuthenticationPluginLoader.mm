@@ -46,16 +46,16 @@
 
 id __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 40);
   v3 = [*(*(a1 + 32) + 16) objectForKey:*(a1 + 40)];
   if (!v3)
   {
     v4 = [ACDPluginLoader pluginForIdentifier:*v2 subpath:@"Authentication"];
-    v22 = 0;
-    [v4 loadAndReturnError:&v22];
-    v5 = v22;
-    v6 = _ACDLogSystem();
+    v24 = 0;
+    [v4 loadAndReturnError:&v24];
+    v5 = v24;
+    v6 = _ACDLogSystem(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invoke_cold_1();
@@ -63,23 +63,24 @@ id __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invok
 
     if (v4)
     {
-      v7 = [v4 principalClass];
-      v8 = _ACDLogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v8 = [v4 principalClass];
+      v9 = _ACDLogSystem(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invoke_cold_2();
       }
 
-      v3 = objc_alloc_init(v7);
-      v9 = _ACDLogSystem();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v3 = objc_alloc_init(v8);
+      v10 = _ACDLogSystem(v3);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invoke_cold_3();
       }
 
       if (v3)
       {
-        if ([v3 conformsToProtocol:&unk_28354FEE8])
+        v12 = [v3 conformsToProtocol:&unk_28354FEE8];
+        if (v12)
         {
           [*(*(a1 + 32) + 16) setObject:v3 forKey:*(a1 + 40)];
 LABEL_21:
@@ -87,10 +88,10 @@ LABEL_21:
           goto LABEL_22;
         }
 
-        v17 = _ACDLogSystem();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v20 = _ACDLogSystem(v12);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invoke_cold_4(v7, v17);
+          __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invoke_cold_4(v8, v20);
         }
 
 LABEL_20:
@@ -98,27 +99,27 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      v10 = _ACDLogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v13 = _ACDLogSystem(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v20 = NSStringFromClass(v7);
-        v21 = *v2;
+        v22 = NSStringFromClass(v8);
+        v23 = *v2;
         *buf = 138412802;
-        v24 = v20;
-        v25 = 2112;
-        v26 = v21;
+        v26 = v22;
         v27 = 2112;
-        v28 = v5;
-        _os_log_error_impl(&dword_221D2F000, v10, OS_LOG_TYPE_ERROR, "ACDAuthenticationPluginLoader: an authentication plugin of class %@ for auth type %@ could not be instantiated! Load Error: %@", buf, 0x20u);
+        v28 = v23;
+        v29 = 2112;
+        v30 = v5;
+        _os_log_error_impl(&dword_221D2F000, v13, OS_LOG_TYPE_ERROR, "ACDAuthenticationPluginLoader: an authentication plugin of class %@ for auth type %@ could not be instantiated! Load Error: %@", buf, 0x20u);
       }
     }
 
     else
     {
-      v10 = _ACDLogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = _ACDLogSystem(v7);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invoke_cold_5(v2, v10, v11, v12, v13, v14, v15, v16);
+        __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invoke_cold_5(v2, v13, v14, v15, v16, v17, v18, v19);
       }
     }
 
@@ -126,7 +127,6 @@ LABEL_20:
   }
 
 LABEL_22:
-  v18 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -150,46 +150,19 @@ LABEL_22:
   os_unfair_lock_unlock(&self->_pluginAccessLock);
 }
 
-void __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_221D2F000, v0, v1, "ACDAuthenticationPluginLoader: got pluginBundle %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_221D2F000, v0, v1, "ACDAuthenticationPluginLoader: got principalClass %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_221D2F000, v0, v1, "ACDAuthenticationPluginLoader: created plugin %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invoke_cold_4(objc_class *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromClass(a1);
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "ACDAuthenticationPluginLoader: authentication plugin of class %@ does not conform to ACDAccountAuthenticationPlugin protocol!", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "ACDAuthenticationPluginLoader: authentication plugin of class %@ does not conform to ACDAccountAuthenticationPlugin protocol!", v4, 0xCu);
 }
 
 void __61__ACDAuthenticationPluginLoader_pluginForAuthenticationType___block_invoke_cold_5(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_5(&dword_221D2F000, a2, a3, "ACDAuthenticationPluginLoader: no authentication bundle for auth type %@, nothing to do here...", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_5(&dword_221D2F000, a2, a3, "ACDAuthenticationPluginLoader: no authentication bundle for auth type %@, nothing to do here...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -117,10 +117,10 @@
 
 - (MTLTelemetryDevice)initWithBaseObject:(id)object parent:(id)parent
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = MTLTelemetryDevice;
-  v4 = [(MTLToolsDevice *)&v15 initWithBaseObject:object parent:parent];
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = MTLTelemetryDevice;
+  v4 = [(MTLToolsDevice *)&v14 initWithBaseObject:object parent:parent];
   if (v4)
   {
     NSLog(&cfstr_STelemetryDevi.isa, "[MTLTelemetryDevice initWithBaseObject:parent:]");
@@ -157,7 +157,6 @@
     dispatch_resume(*(v4 + 94));
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -188,7 +187,7 @@ uint64_t __32__MTLTelemetryDevice_setGLMode___block_invoke(uint64_t result)
 
 - (void)emitFeatureQueryUsage
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   p_supportQuery = &self->supportQuery;
   v4 = MEMORY[0x277CD7168];
   if (self->supportQuery.featureSetCount.__table_.__size_)
@@ -198,30 +197,30 @@ uint64_t __32__MTLTelemetryDevice_setGLMode___block_invoke(uint64_t result)
     {
       if (i[39] < 0)
       {
-        std::string::__init_copy_ctor_external(&v19, *(i + 2), *(i + 3));
+        std::string::__init_copy_ctor_external(&v18, *(i + 2), *(i + 3));
       }
 
       else
       {
-        v19 = *(i + 16);
+        v18 = *(i + 16);
       }
 
       v7 = *(i + 10);
-      *v20 = *(i + 10);
-      if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      *v19 = *(i + 10);
+      if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v8 = &v19;
+        v8 = &v18;
       }
 
       else
       {
-        v8 = v19.__r_.__value_.__r.__words[0];
+        v8 = v18.__r_.__value_.__r.__words[0];
       }
 
       [v5 appendFormat:@"%s=%u, ", v8, v7];
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v19.__r_.__value_.__l.__data_);
+        operator delete(v18.__r_.__value_.__l.__data_);
       }
     }
 
@@ -239,64 +238,63 @@ uint64_t __32__MTLTelemetryDevice_setGLMode___block_invoke(uint64_t result)
     if (os_log_type_enabled(telemetryLog, OS_LOG_TYPE_DEFAULT))
     {
       uTF8String = [v5 UTF8String];
-      LODWORD(v19.__r_.__value_.__l.__data_) = 136315138;
-      *(v19.__r_.__value_.__r.__words + 4) = uTF8String;
-      _os_log_impl(&dword_22E0FF000, telemetryLog, OS_LOG_TYPE_DEFAULT, "%s", &v19, 0xCu);
+      LODWORD(v18.__r_.__value_.__l.__data_) = 136315138;
+      *(v18.__r_.__value_.__r.__words + 4) = uTF8String;
+      _os_log_impl(&dword_22E0FF000, telemetryLog, OS_LOG_TYPE_DEFAULT, "%s", &v18, 0xCu);
     }
   }
 
 LABEL_17:
   count = p_supportQuery->texSampleCount.count;
-  if (count)
+  if (!count)
   {
-    if (*v4)
-    {
-      if (*v4 != 1)
-      {
-        goto LABEL_26;
-      }
-
-      printf("\n\nTextureSampleCountQueries, minSamples=%u, maxSamples=%u, avgSamples=%f, totalSamples=%llu, countSamples=%u", p_supportQuery->texSampleCount.min, p_supportQuery->texSampleCount.max, (p_supportQuery->texSampleCount.total / count), p_supportQuery->texSampleCount.total, count);
-    }
-
-    v12 = self->_telemetryLog;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      min = p_supportQuery->texSampleCount.min;
-      max = p_supportQuery->texSampleCount.max;
-      v15 = p_supportQuery->texSampleCount.count;
-      total = p_supportQuery->texSampleCount.total;
-      if (v15)
-      {
-        v17 = (total / v15);
-      }
-
-      else
-      {
-        v17 = 0.0;
-      }
-
-      LODWORD(v19.__r_.__value_.__l.__data_) = 67110144;
-      HIDWORD(v19.__r_.__value_.__r.__words[0]) = min;
-      LOWORD(v19.__r_.__value_.__r.__words[1]) = 1024;
-      *(&v19.__r_.__value_.__r.__words[1] + 2) = max;
-      HIWORD(v19.__r_.__value_.__r.__words[1]) = 2048;
-      *&v19.__r_.__value_.__r.__words[2] = v17;
-      *v20 = 2048;
-      *&v20[2] = total;
-      v21 = 1024;
-      v22 = v15;
-      _os_log_impl(&dword_22E0FF000, v12, OS_LOG_TYPE_DEFAULT, "TextureSampleCountQueries, minSamples=%u, maxSamples=%u, avgSamples=%f, totalSamples=%llu, countSamples=%u", &v19, 0x28u);
-    }
+    return;
   }
 
-LABEL_26:
-  v18 = *MEMORY[0x277D85DE8];
+  if (*v4)
+  {
+    if (*v4 != 1)
+    {
+      return;
+    }
+
+    printf("\n\nTextureSampleCountQueries, minSamples=%u, maxSamples=%u, avgSamples=%f, totalSamples=%llu, countSamples=%u", p_supportQuery->texSampleCount.min, p_supportQuery->texSampleCount.max, (p_supportQuery->texSampleCount.total / count), p_supportQuery->texSampleCount.total, count);
+  }
+
+  v12 = self->_telemetryLog;
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    min = p_supportQuery->texSampleCount.min;
+    max = p_supportQuery->texSampleCount.max;
+    v15 = p_supportQuery->texSampleCount.count;
+    total = p_supportQuery->texSampleCount.total;
+    if (v15)
+    {
+      v17 = (total / v15);
+    }
+
+    else
+    {
+      v17 = 0.0;
+    }
+
+    LODWORD(v18.__r_.__value_.__l.__data_) = 67110144;
+    HIDWORD(v18.__r_.__value_.__r.__words[0]) = min;
+    LOWORD(v18.__r_.__value_.__r.__words[1]) = 1024;
+    *(&v18.__r_.__value_.__r.__words[1] + 2) = max;
+    HIWORD(v18.__r_.__value_.__r.__words[1]) = 2048;
+    *&v18.__r_.__value_.__r.__words[2] = v17;
+    *v19 = 2048;
+    *&v19[2] = total;
+    v20 = 1024;
+    v21 = v15;
+    _os_log_impl(&dword_22E0FF000, v12, OS_LOG_TYPE_DEFAULT, "TextureSampleCountQueries, minSamples=%u, maxSamples=%u, avgSamples=%f, totalSamples=%llu, countSamples=%u", &v18, 0x28u);
+  }
 }
 
 - (void)emitTelemetry
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CD7168];
   v4 = *MEMORY[0x277CD7168];
   if (*MEMORY[0x277CD7168])
@@ -359,9 +357,9 @@ LABEL_7:
 LABEL_18:
   [(MTLTelemetryDevice *)self emitFeatureQueryUsage];
   emitBufferDistribution(self, self->bufferDistribution);
-  std::unordered_map<MTLPixelFormat,MTLTelemetryTextureDistribution>::unordered_map(v19, &self->textureMap);
-  emitTextureDistribution(self, v19);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v19);
+  std::unordered_map<MTLPixelFormat,MTLTelemetryTextureDistribution>::unordered_map(v18, &self->textureMap);
+  emitTextureDistribution(self, v18);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v18);
   emitEncoderDistribution(self, self->encoderDistribution);
   parallellRenderEncoderDistribution = self->parallellRenderEncoderDistribution;
   if (parallellRenderEncoderDistribution->count)
@@ -372,25 +370,25 @@ LABEL_18:
     emitParallellRenderEncoderDistribution(self, &buf);
   }
 
-  std::unordered_map<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>::unordered_map(v18, &self->renderTargetMap);
-  emitRenderTargetDistribution(self, v18);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v18);
-  emitDrawDistribution(self, self->drawDistribution);
-  std::unordered_map<MTLPixelFormat,MTLTelemetryBlitDistribution>::unordered_map(v17, &self->blitMap);
-  emitBlitDistribution(self, v17);
+  std::unordered_map<MTLPixelFormat,MTLTelemetryRenderTargetDistribution>::unordered_map(v17, &self->renderTargetMap);
+  emitRenderTargetDistribution(self, v17);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v17);
-  emitDispatchDistribution(self, self->dispatchDistribution);
-  std::unordered_map<unsigned int,MTLTelemetryRenderPipelineUsageRec>::unordered_map(v16, &self->renderPipeUsageMap);
-  std::unordered_map<unsigned int,MTLTelemetryRenderFuncUsageRec>::unordered_map(v15, &self->renderFuncUsageMap);
-  emitRenderPipelineUsage(self, v16, v15);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v15);
+  emitDrawDistribution(self, self->drawDistribution);
+  std::unordered_map<MTLPixelFormat,MTLTelemetryBlitDistribution>::unordered_map(v16, &self->blitMap);
+  emitBlitDistribution(self, v16);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v16);
-  emitRenderPipelineStats(self, &self->vtxStatDistributionMap, &self->fragStatDistributionMap, self->renderPipelineDistribution);
-  std::unordered_map<unsigned int,MTLTelemetryComputePipelineUsageRec>::unordered_map(v14, &self->computePipeUsageMap);
-  std::unordered_map<unsigned int,MTLTelemetryKernelUsageRec>::unordered_map(v13, &self->kernelUsageMap);
-  emitComputePipelineUsage(self, v14, v13);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v13);
+  emitDispatchDistribution(self, self->dispatchDistribution);
+  std::unordered_map<unsigned int,MTLTelemetryRenderPipelineUsageRec>::unordered_map(v15, &self->renderPipeUsageMap);
+  std::unordered_map<unsigned int,MTLTelemetryRenderFuncUsageRec>::unordered_map(v14, &self->renderFuncUsageMap);
+  emitRenderPipelineUsage(self, v15, v14);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v14);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v15);
+  emitRenderPipelineStats(self, &self->vtxStatDistributionMap, &self->fragStatDistributionMap, self->renderPipelineDistribution);
+  std::unordered_map<unsigned int,MTLTelemetryComputePipelineUsageRec>::unordered_map(v13, &self->computePipeUsageMap);
+  std::unordered_map<unsigned int,MTLTelemetryKernelUsageRec>::unordered_map(v12, &self->kernelUsageMap);
+  emitComputePipelineUsage(self, v13, v12);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v12);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v13);
   emitComputePipelineStats(self, &self->computeStatDistributionMap, &self->computePipelineDistribution->var0);
   emitSamplerDistribution(self, self->samplerDistribution);
   emitDepthStencilDistribution(self, self->depthStateDistribution, self->frontFaceStencilStateDistribution, self->backFaceStencilStateDistribution);
@@ -401,7 +399,7 @@ LABEL_18:
   {
     if (*v3 != 1)
     {
-      goto LABEL_25;
+      return;
     }
 
     printf("\n\nEndMetalTelemetry");
@@ -413,9 +411,6 @@ LABEL_18:
     LOWORD(buf.min) = 0;
     _os_log_impl(&dword_22E0FF000, telemetryLog3, OS_LOG_TYPE_DEFAULT, "EndMetalTelemetry", &buf, 2u);
   }
-
-LABEL_25:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTimerWithInterval:(double)interval
@@ -850,7 +845,7 @@ void __85__MTLTelemetryDevice__newComputePipelineStateWithFunction_options_compl
 
   std::string::basic_string[abi:ne200100]<0>(__p, v5);
   v10 = __p;
-  v6 = std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->supportQuery.featureSetCount.__table_.__bucket_list_.__ptr_, __p);
+  v6 = std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->supportQuery.featureSetCount.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v10);
   ++*(v6 + 10);
   if (v9 < 0)
   {

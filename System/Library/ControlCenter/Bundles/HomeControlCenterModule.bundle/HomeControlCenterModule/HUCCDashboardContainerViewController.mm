@@ -9,9 +9,12 @@
 - (void)_requestRemoteViewControllerForHome:(id)home;
 - (void)_stopAndRemoveRemoteViewController;
 - (void)loadView;
+- (void)quickControlsPresentationDidUpdate:(BOOL)update;
 - (void)remoteDashboard:(id)dashboard viewServiceDidTerminateWithError:(id)error;
 - (void)requestDismissal;
 - (void)requestLockAuthenticationForRemoteDashboard:(id)dashboard;
+- (void)willBeginTransition:(BOOL)transition forCompactModule:(BOOL)module;
+- (void)willFinishTransition:(BOOL)transition forCompactModule:(BOOL)module;
 @end
 
 @implementation HUCCDashboardContainerViewController
@@ -42,6 +45,32 @@
   v16 = objc_msgSend_home(v12, v13, v14);
 
   objc_msgSend__requestRemoteViewControllerForHome_(self, v15, v16);
+}
+
+- (void)willBeginTransition:(BOOL)transition forCompactModule:(BOOL)module
+{
+  moduleCopy = module;
+  transitionCopy = transition;
+  if (transition)
+  {
+    v7 = objc_msgSend_view(self, a2, transition);
+    v10 = objc_msgSend_remoteDashboardViewController(self, v8, v9);
+    v13 = objc_msgSend_view(v10, v11, v12);
+    objc_msgSend_addSubview_(v7, v14, v13);
+  }
+
+  v16 = objc_msgSend_serviceViewControllerProxy(self, a2, transition);
+  objc_msgSend_willBeginTransition_forCompactModule_(v16, v15, transitionCopy, moduleCopy);
+}
+
+- (void)willFinishTransition:(BOOL)transition forCompactModule:(BOOL)module
+{
+  if (!transition)
+  {
+    v10 = objc_msgSend_remoteDashboardViewController(self, a2, transition, module);
+    v7 = objc_msgSend_view(v10, v5, v6);
+    objc_msgSend_removeFromSuperview(v7, v8, v9);
+  }
 }
 
 - (id)serviceViewControllerProxy
@@ -268,6 +297,13 @@
   v6[3] = &unk_29F33ABD0;
   v6[4] = self;
   objc_msgSend_requestAuthenticationIfLockedWithCompletionHandler_(v4, v5, v6);
+}
+
+- (void)quickControlsPresentationDidUpdate:(BOOL)update
+{
+  updateCopy = update;
+  v5 = objc_msgSend_delegate(self, a2, update);
+  objc_msgSend_quickControlsPresentationDidUpdate_(v5, v4, updateCopy);
 }
 
 - (HUCCDashboardContainerViewControllerDelegate)delegate

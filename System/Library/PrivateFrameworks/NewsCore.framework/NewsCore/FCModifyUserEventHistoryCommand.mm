@@ -23,15 +23,14 @@
 
 - (FCModifyUserEventHistoryCommand)initWithSessionID:(id)d data:(id)data recordZoneID:(id)iD
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v6 = [(FCModifyUserEventHistoryCommand *)self ckRecordWithSessionID:d data:data recordZoneID:iD];
-  v12[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
-  v11.receiver = self;
-  v11.super_class = FCModifyUserEventHistoryCommand;
-  v8 = [(FCModifyRecordsCommand *)&v11 initWithLocalRecords:v7 merge:0];
+  v11[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10.receiver = self;
+  v10.super_class = FCModifyUserEventHistoryCommand;
+  v8 = [(FCModifyRecordsCommand *)&v10 initWithLocalRecords:v7 merge:0];
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -68,26 +67,25 @@ id __65__FCModifyUserEventHistoryCommand_initWithSessions_recordZoneID___block_i
 
 - (BOOL)mergeLocalRecord:(id)record withRemoteRecord:(id)remoteRecord
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
   {
-    v8 = MEMORY[0x1E696AEC0];
+    v7 = MEMORY[0x1E696AEC0];
     remoteRecordCopy = remoteRecord;
     recordCopy = record;
-    remoteRecordCopy = [[v8 alloc] initWithFormat:@"FCModifyUserEventHistoryCommand Asked to merge local and remote records Local Record: %@, Remote Record: %@", recordCopy, remoteRecordCopy];
+    remoteRecordCopy = [[v7 alloc] initWithFormat:@"FCModifyUserEventHistoryCommand Asked to merge local and remote records Local Record: %@, Remote Record: %@", recordCopy, remoteRecordCopy];
 
     *buf = 136315906;
-    v13 = "[FCModifyUserEventHistoryCommand mergeLocalRecord:withRemoteRecord:]";
-    v14 = 2080;
-    v15 = "FCModifyUserEventHistoryCommand.m";
-    v16 = 1024;
-    v17 = 39;
-    v18 = 2114;
-    v19 = remoteRecordCopy;
+    v12 = "[FCModifyUserEventHistoryCommand mergeLocalRecord:withRemoteRecord:]";
+    v13 = 2080;
+    v14 = "FCModifyUserEventHistoryCommand.m";
+    v15 = 1024;
+    v16 = 39;
+    v17 = 2114;
+    v18 = remoteRecordCopy;
     _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: UnexpectedUserEventHistoryMerge) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

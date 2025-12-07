@@ -1179,11 +1179,11 @@ LABEL_17:
   }
 }
 
-uint64_t __43__PDFTextInputView__setDimmingViewVisible___block_invoke_3(uint64_t result, int a2)
+void *__43__PDFTextInputView__setDimmingViewVisible___block_invoke_3(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 464) removeFromSuperview];
+    return [*(result[4] + 464) removeFromSuperview];
   }
 
   return result;

@@ -1,157 +1,3 @@
-uint64_t sub_100049D24(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 64);
-  v27 = 0;
-  v4 = [v2 mapResultRow:v3 startingAt:0 error:&v27];
-  v5 = v27;
-  if (v4)
-  {
-    v26 = v5;
-    v6 = [[KCSharingMirrorEntry alloc] initWithMirrorDatabaseItem:v4 error:&v26];
-    v7 = v26;
-
-    if (v6)
-    {
-      v8 = *(a1 + 48);
-      v9 = *(a1 + 64);
-      v10 = [*(a1 + 32) columnCount];
-      v25 = v7;
-      v11 = [v8 mapResultRow:v9 startingAt:v10 error:&v25];
-      p_super = v25;
-
-      if (v11)
-      {
-        v24 = p_super;
-        v13 = [[KCSharingLocalItem alloc] initPasswordWithInternetPasswordDatabaseItem:v11 error:&v24];
-        v14 = v24;
-
-        if (v13)
-        {
-          v23 = v14;
-          v15 = [[KCSharingOutgoingEntry alloc] initWithUpdatedLocalItem:v13 forMirrorEntry:v6 error:&v23];
-          p_super = v23;
-
-          if (v15)
-          {
-            v16 = [*(a1 + 56) insertIntoOutgoing];
-            [v16 addObject:v15];
-          }
-
-          else
-          {
-            v21 = *(*(a1 + 40) + 16);
-            v16 = KCSharingLogObject();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 138412802;
-              v29 = v13;
-              v30 = 2112;
-              v31 = v6;
-              v32 = 2112;
-              v33 = p_super;
-              _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed to create outgoing entry with localItem=%@ and mirrorEntry=%@ for outgoing changed password with error=%@", buf, 0x20u);
-            }
-          }
-        }
-
-        else
-        {
-          v20 = *(*(a1 + 40) + 16);
-          v15 = KCSharingLogObject();
-          if (os_log_type_enabled(&v15->super.super, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 138478083;
-            v29 = v11;
-            v30 = 2112;
-            v31 = v14;
-            _os_log_error_impl(&_mh_execute_header, &v15->super.super, OS_LOG_TYPE_ERROR, "Failed to create local item from databaseItem=%{private}@ for outgoing changed password with error=%@", buf, 0x16u);
-          }
-
-          p_super = &v14->super;
-        }
-      }
-
-      else
-      {
-        v19 = *(*(a1 + 40) + 16);
-        v13 = KCSharingLogObject();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138412290;
-          v29 = p_super;
-          _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to create password database item for outgoing changed password with error=%@", buf, 0xCu);
-        }
-      }
-
-      v7 = p_super;
-    }
-
-    else
-    {
-      v18 = *(*(a1 + 40) + 16);
-      v11 = KCSharingLogObject();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138478083;
-        v29 = v4;
-        v30 = 2112;
-        v31 = v7;
-        _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to create mirror entry from databaseItem=%{private}@ for outgoing changed password with error=%@", buf, 0x16u);
-      }
-    }
-
-    v5 = &v7->super;
-  }
-
-  else
-  {
-    v17 = *(*(a1 + 40) + 16);
-    v6 = KCSharingLogObject();
-    if (os_log_type_enabled(&v6->super, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138412290;
-      v29 = v5;
-      _os_log_error_impl(&_mh_execute_header, &v6->super, OS_LOG_TYPE_ERROR, "Failed to create mirror database item for outgoing changed password with error=%@", buf, 0xCu);
-    }
-  }
-
-  return 1;
-}
-
-uint64_t sub_10004A274(uint64_t a1, sqlite3_stmt *a2, void *a3)
-{
-  v6 = [*(a1 + 32) accessGroups];
-  v7 = [v6 entryAccessGroup];
-  if (!sub_100069E14(a2, 1, v7, a3) || !sub_100069E14(a2, 2, CKRecordNameZoneWideShare, a3))
-  {
-
-    return 0;
-  }
-
-  v8 = sub_100069E14(a2, 3, @"group-", a3);
-
-  if ((v8 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v9 = *(a1 + 56);
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_10004A3D4;
-  v14[3] = &unk_100333F08;
-  v18 = a2;
-  v10 = *(a1 + 40);
-  v11 = *(a1 + 32);
-  v15 = v10;
-  v16 = v11;
-  v17 = *(a1 + 48);
-  v12 = sub_100069E74(v9, a2, a3, v14);
-
-  return v12;
-}
-
 uint64_t sub_10004A3D4(uint64_t a1)
 {
   v2 = [NSString stringWithUTF8String:sqlite3_column_text(*(a1 + 56), 0)];
@@ -159,14 +5,14 @@ uint64_t sub_10004A3D4(uint64_t a1)
   v4 = [[CKRecordZoneID alloc] initWithZoneName:v3 ownerName:v2];
   v5 = *(a1 + 32);
   v6 = *(a1 + 56);
-  v17 = 0;
-  v7 = [v5 mapResultRow:v6 startingAt:2 error:&v17];
-  v8 = v17;
+  v15 = 0;
+  v7 = [v5 mapResultRow:v6 startingAt:2 error:&v15];
+  v8 = v15;
   if (v7)
   {
-    v16 = v8;
-    v9 = [[KCSharingLocalItem alloc] initPasskeyWithPrivateKeyDatabaseItem:v7 error:&v16];
-    v10 = v16;
+    v14 = v8;
+    v9 = [[KCSharingLocalItem alloc] initPasskeyWithPrivateKeyDatabaseItem:v7 error:&v14];
+    v10 = v14;
 
     if (v9)
     {
@@ -177,14 +23,13 @@ uint64_t sub_10004A3D4(uint64_t a1)
 
     else
     {
-      v14 = *(*(a1 + 40) + 16);
       v11 = KCSharingLogObject();
       if (os_log_type_enabled(&v11->super.super, OS_LOG_TYPE_ERROR))
       {
         *buf = 138478083;
-        v19 = v7;
-        v20 = 2112;
-        v21 = v10;
+        v17 = v7;
+        v18 = 2112;
+        v19 = v10;
         _os_log_error_impl(&_mh_execute_header, &v11->super.super, OS_LOG_TYPE_ERROR, "Failed to create local item from databaseItem=%{private}@ for outgoing new passkey with error=%@", buf, 0x16u);
       }
     }
@@ -192,12 +37,11 @@ uint64_t sub_10004A3D4(uint64_t a1)
 
   else
   {
-    v13 = *(*(a1 + 40) + 16);
     v9 = KCSharingLogObject();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = v8;
+      v17 = v8;
       _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to create private key database item for outgoing new passkey with error=%@", buf, 0xCu);
     }
 
@@ -243,35 +87,35 @@ uint64_t sub_10004A988(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 64);
-  v27 = 0;
-  v4 = [v2 mapResultRow:v3 startingAt:0 error:&v27];
-  v5 = v27;
+  v22 = 0;
+  v4 = [v2 mapResultRow:v3 startingAt:0 error:&v22];
+  v5 = v22;
   if (v4)
   {
-    v26 = v5;
-    v6 = [[KCSharingMirrorEntry alloc] initWithMirrorDatabaseItem:v4 error:&v26];
-    v7 = v26;
+    v21 = v5;
+    v6 = [[KCSharingMirrorEntry alloc] initWithMirrorDatabaseItem:v4 error:&v21];
+    v7 = v21;
 
     if (v6)
     {
       v8 = *(a1 + 48);
       v9 = *(a1 + 64);
       v10 = [*(a1 + 32) columnCount];
-      v25 = v7;
-      v11 = [v8 mapResultRow:v9 startingAt:v10 error:&v25];
-      p_super = v25;
+      v20 = v7;
+      v11 = [v8 mapResultRow:v9 startingAt:v10 error:&v20];
+      p_super = v20;
 
       if (v11)
       {
-        v24 = p_super;
-        v13 = [[KCSharingLocalItem alloc] initPasskeyWithPrivateKeyDatabaseItem:v11 error:&v24];
-        v14 = v24;
+        v19 = p_super;
+        v13 = [[KCSharingLocalItem alloc] initPasskeyWithPrivateKeyDatabaseItem:v11 error:&v19];
+        v14 = v19;
 
         if (v13)
         {
-          v23 = v14;
-          v15 = [[KCSharingOutgoingEntry alloc] initWithUpdatedLocalItem:v13 forMirrorEntry:v6 error:&v23];
-          p_super = v23;
+          v18 = v14;
+          v15 = [[KCSharingOutgoingEntry alloc] initWithUpdatedLocalItem:v13 forMirrorEntry:v6 error:&v18];
+          p_super = v18;
 
           if (v15)
           {
@@ -281,16 +125,15 @@ uint64_t sub_10004A988(uint64_t a1)
 
           else
           {
-            v21 = *(*(a1 + 40) + 16);
             v16 = KCSharingLogObject();
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v29 = v13;
-              v30 = 2112;
-              v31 = v6;
-              v32 = 2112;
-              v33 = p_super;
+              v24 = v13;
+              v25 = 2112;
+              v26 = v6;
+              v27 = 2112;
+              v28 = p_super;
               _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed to create outgoing entry with localItem=%@ and mirrorEntry=%@ for outgoing changed passkey with error=%@", buf, 0x20u);
             }
           }
@@ -298,14 +141,13 @@ uint64_t sub_10004A988(uint64_t a1)
 
         else
         {
-          v20 = *(*(a1 + 40) + 16);
           v15 = KCSharingLogObject();
           if (os_log_type_enabled(&v15->super.super, OS_LOG_TYPE_ERROR))
           {
             *buf = 138478083;
-            v29 = v11;
-            v30 = 2112;
-            v31 = v14;
+            v24 = v11;
+            v25 = 2112;
+            v26 = v14;
             _os_log_error_impl(&_mh_execute_header, &v15->super.super, OS_LOG_TYPE_ERROR, "Failed to create local item from databaseItem=%{private}@ for outgoing changed passkey with error=%@", buf, 0x16u);
           }
 
@@ -315,12 +157,11 @@ uint64_t sub_10004A988(uint64_t a1)
 
       else
       {
-        v19 = *(*(a1 + 40) + 16);
         v13 = KCSharingLogObject();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v29 = p_super;
+          v24 = p_super;
           _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to create private key database item for outgoing changed passkey with error=%@", buf, 0xCu);
         }
       }
@@ -330,14 +171,13 @@ uint64_t sub_10004A988(uint64_t a1)
 
     else
     {
-      v18 = *(*(a1 + 40) + 16);
       v11 = KCSharingLogObject();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138478083;
-        v29 = v4;
-        v30 = 2112;
-        v31 = v7;
+        v24 = v4;
+        v25 = 2112;
+        v26 = v7;
         _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to create mirror entry from databaseItem=%{private}@ for outgoing changed passkey with error=%@", buf, 0x16u);
       }
     }
@@ -347,12 +187,11 @@ uint64_t sub_10004A988(uint64_t a1)
 
   else
   {
-    v17 = *(*(a1 + 40) + 16);
     v6 = KCSharingLogObject();
     if (os_log_type_enabled(&v6->super, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v29 = v5;
+      v24 = v5;
       _os_log_error_impl(&_mh_execute_header, &v6->super, OS_LOG_TYPE_ERROR, "Failed to create mirror database item for outgoing changed passkey with error=%@", buf, 0xCu);
     }
   }
@@ -773,21 +612,20 @@ uint64_t sub_10004C1FC(uint64_t *a1, uint64_t a2, void *a3)
   {
     v5 = @"SELECT EXISTS(                            SELECT 1 FROM sharingOutgoingQueue o                             WHERE o.agrp = ?1 AND                                   o.ownr <> ?2                        )";
 LABEL_5:
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10004C320;
-    v12[3] = &unk_100333D40;
-    v14 = a2;
-    v13 = *(a1 + 2);
-    return sub_100069BC0(a2, v5, a3, v12);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10004C320;
+    v11[3] = &unk_100333D40;
+    v13 = a2;
+    v12 = *(a1 + 2);
+    return sub_100069BC0(a2, v5, a3, v11);
   }
 
   v7 = +[NSAssertionHandler currentHandler];
   v8 = a1[4];
-  v9 = a1[6];
-  v10 = a1[7];
-  v11 = CKDatabaseScopeString();
-  [v7 handleFailureInMethod:v10 object:v8 file:@"KCSharingStore.m" lineNumber:313 description:{@"Can't determine outgoing changes in database with %@ (%li) scope", v11, a1[6]}];
+  v9 = a1[7];
+  v10 = CKDatabaseScopeString();
+  [v7 handleFailureInMethod:v9 object:v8 file:@"KCSharingStore.m" lineNumber:313 description:{@"Can't determine outgoing changes in database with %@ (%li) scope", v10, a1[6]}];
 
   return 1;
 }
@@ -820,11 +658,11 @@ uint64_t sub_10004C320(uint64_t a1, sqlite3_stmt *a2, void *a3)
   return 0;
 }
 
-void sub_10004CD18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10004CD18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -928,11 +766,12 @@ void sub_10004E0AC(id a1)
   }
 }
 
-void sub_10004EA70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id location, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+void sub_10004EA70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id location, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
 {
-  objc_destroyWeak((v55 + 56));
+  va_start(va, a54);
+  objc_destroyWeak((v54 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a55, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -950,154 +789,149 @@ void sub_10004EAD0(uint64_t a1, void *a2, void *a3)
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
-    v37 = a1;
-    v35 = v6;
-    v36 = v5;
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
+    v32 = a1;
+    v30 = v6;
+    v31 = v5;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v39 objects:v49 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v34 objects:v44 count:16];
     if (v9)
     {
       v10 = v9;
-      v38 = *v40;
+      v33 = *v35;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v40 != v38)
+          if (*v35 != v33)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v39 + 1) + 8 * i);
-          v13 = [v8 objectForKeyedSubscript:{v12, v35}];
-          v14 = WeakRetained[4];
-          v15 = KCSharingLogObject();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+          v12 = *(*(&v34 + 1) + 8 * i);
+          v13 = [v8 objectForKeyedSubscript:{v12, v30}];
+          v14 = KCSharingLogObject();
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
-            v16 = [v13 success];
-            v17 = [v13 failure];
+            v15 = [v13 success];
+            v16 = [v13 failure];
             *buf = 138478339;
-            v44 = v12;
-            v45 = 2113;
-            v46 = v16;
-            v47 = 2114;
-            v48 = v17;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Fetchresult for lookupInfo %{private}@: participant: %{private}@ error %{public}@", buf, 0x20u);
+            v39 = v12;
+            v40 = 2113;
+            v41 = v15;
+            v42 = 2114;
+            v43 = v16;
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Fetchresult for lookupInfo %{private}@: participant: %{private}@ error %{public}@", buf, 0x20u);
           }
 
-          v18 = sub_100031428(v12);
-          if (v18)
+          v17 = sub_100031428(v12);
+          if (v17)
           {
-            v19 = [v13 success];
-            v20 = [*(v37 + 32) objectForKeyedSubscript:v18];
-            v21 = v20;
-            if (v19)
+            v18 = [v13 success];
+            v19 = [*(v32 + 32) objectForKeyedSubscript:v17];
+            v20 = v19;
+            if (v18)
             {
-              v22 = v20 == 0;
+              v21 = v19 == 0;
             }
 
             else
             {
-              v22 = 1;
+              v21 = 1;
             }
 
-            if (v22)
+            if (v21)
             {
-              v23 = WeakRetained[4];
-              v24 = KCSharingLogObject();
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+              v22 = KCSharingLogObject();
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138478083;
-                v44 = v12;
-                v45 = 2113;
-                v46 = v18;
-                _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "could not find CKShareParticipant or KCSharingParticipant for lookupinfo %{private}@ handle %{private}@", buf, 0x16u);
+                v39 = v12;
+                v40 = 2113;
+                v41 = v17;
+                _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "could not find CKShareParticipant or KCSharingParticipant for lookupinfo %{private}@ handle %{private}@", buf, 0x16u);
               }
             }
 
             else
             {
-              v26 = [v20 permissionLevel];
-              if (v26 > 2)
+              v23 = [v19 permissionLevel];
+              if (v23 > 2)
               {
-                v27 = 0;
+                v24 = 0;
               }
 
               else
               {
-                v27 = qword_100294980[v26];
+                v24 = qword_100294980[v23];
               }
 
-              v28 = [v21 permissionLevel];
-              if (v28 > 2)
+              v25 = [v20 permissionLevel];
+              if (v25 > 2)
               {
-                v29 = 0;
+                v26 = 0;
               }
 
               else
               {
-                v29 = qword_100294998[v28];
+                v26 = qword_100294998[v25];
               }
 
-              [v19 setRole:v27];
-              [v19 setPermission:v29];
-              [*(*(*(v37 + 48) + 8) + 40) setObject:v19 forKeyedSubscript:v18];
+              [v18 setRole:v24];
+              [v18 setPermission:v26];
+              [*(*(*(v32 + 48) + 8) + 40) setObject:v18 forKeyedSubscript:v17];
             }
           }
 
           else
           {
-            v25 = WeakRetained[4];
-            v19 = KCSharingLogObject();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            v18 = KCSharingLogObject();
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               *buf = 138477827;
-              v44 = v12;
-              _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Could not find handle for lookupinfo %{private}@", buf, 0xCu);
+              v39 = v12;
+              _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Could not find handle for lookupinfo %{private}@", buf, 0xCu);
             }
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v39 objects:v49 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v34 objects:v44 count:16];
       }
 
       while (v10);
     }
 
-    v6 = v35;
-    if (v35)
+    v6 = v30;
+    if (v30)
     {
-      v30 = WeakRetained[4];
-      v31 = KCSharingLogObject();
-      v5 = v36;
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v27 = KCSharingLogObject();
+      v5 = v31;
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v44 = v35;
-        _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Failed to fetch share participants: %{public}@", buf, 0xCu);
+        v39 = v30;
+        _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failed to fetch share participants: %{public}@", buf, 0xCu);
       }
 
-      (*(*(v37 + 40) + 16))();
+      (*(*(v32 + 40) + 16))();
     }
 
     else
     {
-      v34 = *(*(*(v37 + 48) + 8) + 40);
-      (*(*(v37 + 40) + 16))();
-      v5 = v36;
+      (*(*(v32 + 40) + 16))();
+      v5 = v31;
     }
   }
 
   else
   {
-    v50 = NSLocalizedDescriptionKey;
-    v51 = @"Failed to strongify self in fetchShareParticipants";
-    v32 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-    v33 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:39 userInfo:v32];
+    v45 = NSLocalizedDescriptionKey;
+    v46 = @"Failed to strongify self in fetchShareParticipants";
+    v28 = [NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+    v29 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:39 userInfo:v28];
 
     (*(*(a1 + 40) + 16))();
   }
@@ -1108,105 +942,100 @@ void sub_10004EFAC(uint64_t a1, void *a2, void *a3, void *a4)
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = *(*(a1 + 32) + 32);
-  v11 = KCSharingLogObject();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v10 = KCSharingLogObject();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v22 = 138478339;
-    v23 = v7;
-    v24 = 2113;
-    v25 = v8;
-    v26 = 2114;
-    v27 = v9;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "fetch result for lookupInfo %{private}@: participant %{private}@ error %{public}@", &v22, 0x20u);
+    v19 = 138478339;
+    v20 = v7;
+    v21 = 2113;
+    v22 = v8;
+    v23 = 2114;
+    v24 = v9;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "fetch result for lookupInfo %{private}@: participant %{private}@ error %{public}@", &v19, 0x20u);
   }
 
-  v12 = sub_100031428(v7);
-  if (v12)
+  v11 = sub_100031428(v7);
+  if (v11)
   {
-    v13 = [*(a1 + 40) objectForKeyedSubscript:v12];
-    v14 = v13;
-    if (v8 && v13)
+    v12 = [*(a1 + 40) objectForKeyedSubscript:v11];
+    v13 = v12;
+    if (v8 && v12)
     {
-      v15 = [v13 permissionLevel];
-      if (v15 > 2)
+      v14 = [v12 permissionLevel];
+      if (v14 > 2)
       {
-        v16 = 0;
+        v15 = 0;
       }
 
       else
       {
-        v16 = qword_100294980[v15];
+        v15 = qword_100294980[v14];
       }
 
-      v20 = [v14 permissionLevel];
-      if (v20 > 2)
+      v17 = [v13 permissionLevel];
+      if (v17 > 2)
       {
-        v21 = 0;
+        v18 = 0;
       }
 
       else
       {
-        v21 = qword_100294998[v20];
+        v18 = qword_100294998[v17];
       }
 
-      [v8 setRole:v16];
-      [v8 setPermission:v21];
-      [*(*(*(a1 + 48) + 8) + 40) setObject:v8 forKeyedSubscript:v12];
+      [v8 setRole:v15];
+      [v8 setPermission:v18];
+      [*(*(*(a1 + 48) + 8) + 40) setObject:v8 forKeyedSubscript:v11];
     }
 
     else
     {
-      v18 = *(*(a1 + 32) + 32);
-      v19 = KCSharingLogObject();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v16 = KCSharingLogObject();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v22 = 138478083;
-        v23 = v7;
-        v24 = 2113;
-        v25 = v12;
-        _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "could not find CKShareParticipant or KCSharingParticipant for lookupinfo %{private}@ handle %{private}@", &v22, 0x16u);
+        v19 = 138478083;
+        v20 = v7;
+        v21 = 2113;
+        v22 = v11;
+        _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "could not find CKShareParticipant or KCSharingParticipant for lookupinfo %{private}@ handle %{private}@", &v19, 0x16u);
       }
     }
   }
 
   else
   {
-    v17 = *(*(a1 + 32) + 32);
-    v14 = KCSharingLogObject();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = KCSharingLogObject();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v22 = 138477827;
-      v23 = v7;
-      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Could not find handle for lookupinfo %{private}@", &v22, 0xCu);
+      v19 = 138477827;
+      v20 = v7;
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Could not find handle for lookupinfo %{private}@", &v19, 0xCu);
     }
   }
 }
 
-void sub_10004F240(void *a1, void *a2)
+void sub_10004F240(uint64_t a1, void *a2)
 {
   v3 = a2;
   if (v3)
   {
-    v4 = *(a1[4] + 32);
-    v5 = KCSharingLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = KCSharingLogObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138543362;
-      v9 = v3;
-      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to fetch share participants: %{public}@", &v8, 0xCu);
+      v6 = 138543362;
+      v7 = v3;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to fetch share participants: %{public}@", &v6, 0xCu);
     }
 
-    v6 = *(a1[5] + 16);
+    v5 = *(*(a1 + 40) + 16);
   }
 
   else
   {
-    v7 = *(*(a1[6] + 8) + 40);
-    v6 = *(a1[5] + 16);
+    v5 = *(*(a1 + 40) + 16);
   }
 
-  v6();
+  v5();
 }
 
 void sub_10004F68C(uint64_t a1, void *a2, uint64_t a3)
@@ -1220,29 +1049,29 @@ void sub_10004F68C(uint64_t a1, void *a2, uint64_t a3)
   else
   {
     v6 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [*(a1 + 32) count]);
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v22 = a1;
+    v21 = a1;
     obj = *(a1 + 32);
-    v26 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
-    if (v26)
+    v25 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+    if (v25)
     {
-      v7 = *v28;
+      v7 = *v27;
       v8 = &swift_errorRelease_ptr;
-      v23 = v5;
-      v24 = v6;
+      v22 = v5;
+      v23 = v6;
       do
       {
-        for (i = 0; i != v26; i = i + 1)
+        for (i = 0; i != v25; i = i + 1)
         {
-          if (*v28 != v7)
+          if (*v27 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v27 + 1) + 8 * i);
+          v10 = *(*(&v26 + 1) + 8 * i);
           v11 = [v5 objectForKeyedSubscript:v10];
           v12 = [v11 userIdentity];
           if ([v12 hasiCloudAccount])
@@ -1257,8 +1086,8 @@ void sub_10004F68C(uint64_t a1, void *a2, uint64_t a3)
             v7 = v16;
             v8 = v15;
 
-            v5 = v23;
-            v6 = v24;
+            v5 = v22;
+            v6 = v23;
           }
 
           else
@@ -1270,22 +1099,21 @@ void sub_10004F68C(uint64_t a1, void *a2, uint64_t a3)
           [v6 setObject:v19 forKeyedSubscript:v10];
         }
 
-        v26 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+        v25 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
       }
 
-      while (v26);
+      while (v25);
     }
 
-    v20 = *(*(v22 + 40) + 32);
-    v21 = KCSharingLogObject();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v20 = KCSharingLogObject();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v32 = v6;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "availability results: %{private}@", buf, 0xCu);
+      v31 = v6;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "availability results: %{private}@", buf, 0xCu);
     }
 
-    (*(*(v22 + 48) + 16))();
+    (*(*(v21 + 48) + 16))();
   }
 }
 
@@ -1295,64 +1123,62 @@ void sub_10004FAC8(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (v6)
   {
-    v7 = *(*(a1 + 32) + 32);
-    v8 = KCSharingLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = KCSharingLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v35 = [*(a1 + 40) groupID];
+      v32 = [*(a1 + 40) groupID];
       *buf = 138412546;
-      *&buf[4] = v35;
+      *&buf[4] = v32;
       *&buf[12] = 2114;
       *&buf[14] = v6;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to fetch share metadata for group invite %@: %{public}@", buf, 0x16u);
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to fetch share metadata for group invite %@: %{public}@", buf, 0x16u);
     }
 
     if (CKErrorIsCode())
     {
-      v9 = [v6 userInfo];
-      v10 = [v9 objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
-      v11 = [*(a1 + 40) shareURL];
-      v12 = [v10 objectForKeyedSubscript:v11];
+      v8 = [v6 userInfo];
+      v9 = [v8 objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
+      v10 = [*(a1 + 40) shareURL];
+      v11 = [v9 objectForKeyedSubscript:v10];
 
-      LODWORD(v10) = CKErrorIsCode();
-      v13 = *(*(a1 + 32) + 32);
-      v14 = KCSharingLogObject();
-      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-      if (v10)
+      LODWORD(v9) = CKErrorIsCode();
+      v12 = KCSharingLogObject();
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      if (v9)
       {
-        if (v15)
+        if (v13)
         {
-          v16 = [*(a1 + 40) groupID];
+          v14 = [*(a1 + 40) groupID];
           *buf = 138543362;
-          *&buf[4] = v16;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Unknown item error for invite %{public}@, will consider decline a success", buf, 0xCu);
+          *&buf[4] = v14;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Unknown item error for invite %{public}@, will consider decline a success", buf, 0xCu);
         }
 
-        v17 = [KCSharingGroup alloc];
-        v18 = [*(a1 + 40) groupID];
-        v19 = [*(a1 + 40) displayName];
-        v20 = [*(a1 + 40) shareURL];
-        v21 = [v17 initWithGroupID:v18 participants:&__NSArray0__struct displayName:v19 shareURL:v20];
+        v15 = [KCSharingGroup alloc];
+        v16 = [*(a1 + 40) groupID];
+        v17 = [*(a1 + 40) displayName];
+        v18 = [*(a1 + 40) shareURL];
+        v19 = [v15 initWithGroupID:v16 participants:&__NSArray0__struct displayName:v17 shareURL:v18];
 
         (*(*(a1 + 48) + 16))();
       }
 
       else
       {
-        if (v15)
+        if (v13)
         {
-          v29 = [*(a1 + 40) groupID];
+          v26 = [*(a1 + 40) groupID];
           *buf = 138543618;
-          *&buf[4] = v29;
+          *&buf[4] = v26;
           *&buf[12] = 2114;
-          *&buf[14] = v12;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Underlying failure for metadata fetch to decline %{public}@: %{public}@", buf, 0x16u);
+          *&buf[14] = v11;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Underlying failure for metadata fetch to decline %{public}@: %{public}@", buf, 0x16u);
         }
 
         (*(*(a1 + 48) + 16))();
       }
 
-      sub_10005019C(@"decline", 0, *(a1 + 56), v12);
+      sub_10005019C(@"decline", 0, *(a1 + 56), v11);
     }
 
     else
@@ -1367,54 +1193,54 @@ void sub_10004FAC8(uint64_t a1, void *a2, void *a3)
     if (sub_10001078C())
     {
       objc_initWeak(buf, *(a1 + 32));
-      v22 = [*(a1 + 32) syncController];
-      v23 = [v22 cloudCoreUtilities];
-      v42[0] = _NSConcreteStackBlock;
-      v42[1] = 3221225472;
-      v42[2] = sub_100050358;
-      v42[3] = &unk_100334920;
-      objc_copyWeak(v45, buf);
-      v44 = *(a1 + 48);
-      v24 = *(a1 + 40);
-      v25 = *(a1 + 56);
-      v43 = v24;
-      v45[1] = v25;
-      [v23 declineCKShares:v5 completionHandler:v42];
+      v20 = [*(a1 + 32) syncController];
+      v21 = [v20 cloudCoreUtilities];
+      v39[0] = _NSConcreteStackBlock;
+      v39[1] = 3221225472;
+      v39[2] = sub_100050358;
+      v39[3] = &unk_100334920;
+      objc_copyWeak(v42, buf);
+      v41 = *(a1 + 48);
+      v22 = *(a1 + 40);
+      v23 = *(a1 + 56);
+      v40 = v22;
+      v42[1] = v23;
+      [v21 declineCKShares:v5 completionHandler:v39];
 
-      objc_destroyWeak(v45);
+      objc_destroyWeak(v42);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      v30 = objc_alloc_init(CKDeclineSharesOperation);
-      [v30 setShareMetadatas:v5];
+      v27 = objc_alloc_init(CKDeclineSharesOperation);
+      [v27 setShareMetadatas:v5];
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v47 = sub_10004EAB8;
-      v48 = sub_10004EAC8;
-      v49 = 0;
-      v41[0] = _NSConcreteStackBlock;
-      v41[1] = 3221225472;
-      v41[2] = sub_100050734;
-      v41[3] = &unk_100334948;
-      v41[4] = buf;
-      [v30 setPerShareCompletionBlock:v41];
-      v37[0] = _NSConcreteStackBlock;
-      v37[1] = 3221225472;
-      v37[2] = sub_100050748;
-      v37[3] = &unk_100334998;
-      v31 = *(a1 + 32);
-      v32 = *(a1 + 40);
-      v40 = buf;
-      v37[4] = v31;
-      v38 = v32;
-      v39 = *(a1 + 48);
-      [v30 setDeclineSharesCompletionBlock:v37];
-      v33 = [*(a1 + 32) syncController];
-      v34 = [v33 container];
-      [v34 addOperation:v30];
+      v44 = sub_10004EAB8;
+      v45 = sub_10004EAC8;
+      v46 = 0;
+      v38[0] = _NSConcreteStackBlock;
+      v38[1] = 3221225472;
+      v38[2] = sub_100050734;
+      v38[3] = &unk_100334948;
+      v38[4] = buf;
+      [v27 setPerShareCompletionBlock:v38];
+      v34[0] = _NSConcreteStackBlock;
+      v34[1] = 3221225472;
+      v34[2] = sub_100050748;
+      v34[3] = &unk_100334998;
+      v28 = *(a1 + 32);
+      v29 = *(a1 + 40);
+      v37 = buf;
+      v34[4] = v28;
+      v35 = v29;
+      v36 = *(a1 + 48);
+      [v27 setDeclineSharesCompletionBlock:v34];
+      v30 = [*(a1 + 32) syncController];
+      v31 = [v30 container];
+      [v31 addOperation:v27];
 
       _Block_object_dispose(buf, 8);
     }
@@ -1422,19 +1248,18 @@ void sub_10004FAC8(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v26 = *(*(a1 + 32) + 32);
-    v27 = KCSharingLogObject();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v24 = KCSharingLogObject();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v36 = [*(a1 + 40) groupID];
+      v33 = [*(a1 + 40) groupID];
       *buf = 138543362;
-      *&buf[4] = v36;
-      _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Expected share metadata not found for group invite %{public}@", buf, 0xCu);
+      *&buf[4] = v33;
+      _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Expected share metadata not found for group invite %{public}@", buf, 0xCu);
     }
 
-    v28 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:9 userInfo:0];
+    v25 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:9 userInfo:0];
     (*(*(a1 + 48) + 16))();
-    sub_10005019C(@"decline", 0, *(a1 + 56), v28);
+    sub_10005019C(@"decline", 0, *(a1 + 56), v25);
   }
 }
 
@@ -1489,47 +1314,46 @@ void sub_100050358(uint64_t a1, void *a2, void *a3)
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v34 = 0u;
-    v35 = 0u;
     v32 = 0u;
     v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v33;
+      v11 = *v31;
       while (2)
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v33 != v11)
+          if (*v31 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [v8 objectForKeyedSubscript:*(*(&v32 + 1) + 8 * i)];
+          v13 = [v8 objectForKeyedSubscript:*(*(&v30 + 1) + 8 * i)];
           v14 = [v13 failure];
 
           if (v14)
           {
-            v15 = WeakRetained[4];
-            v16 = KCSharingLogObject();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v15 = KCSharingLogObject();
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
-              v27 = [*(a1 + 32) groupID];
+              v25 = [*(a1 + 32) groupID];
               *buf = 138543618;
-              v37 = v27;
-              v38 = 2114;
-              v39 = v14;
-              _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed to decline shares for group invite %{public}@: %{public}@", buf, 0x16u);
+              v35 = v25;
+              v36 = 2114;
+              v37 = v14;
+              _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to decline shares for group invite %{public}@: %{public}@", buf, 0x16u);
             }
 
             goto LABEL_14;
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v30 objects:v38 count:16];
         if (v10)
         {
           continue;
@@ -1544,57 +1368,56 @@ LABEL_14:
 
     if (v14)
     {
-      v17 = v14;
+      v16 = v14;
     }
 
     else
     {
-      v17 = v6;
+      v16 = v6;
     }
 
-    v18 = v17;
-    if (v18)
+    v17 = v16;
+    if (v17)
     {
-      v19 = WeakRetained[4];
-      v20 = KCSharingLogObject();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v18 = KCSharingLogObject();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v26 = [*(a1 + 32) groupID];
+        v24 = [*(a1 + 32) groupID];
         *buf = 138543618;
-        v37 = v26;
-        v38 = 2114;
-        v39 = v18;
-        _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to decline shares for group invite %{public}@: %{public}@", buf, 0x16u);
+        v35 = v24;
+        v36 = 2114;
+        v37 = v17;
+        _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to decline shares for group invite %{public}@: %{public}@", buf, 0x16u);
       }
 
       (*(*(a1 + 40) + 16))();
-      sub_10005019C(@"decline", 0, *(a1 + 56), v18);
+      sub_10005019C(@"decline", 0, *(a1 + 56), v17);
     }
 
     else
     {
-      v22 = [WeakRetained messagingdConnection];
-      v23 = [*(a1 + 32) groupID];
-      v28[0] = _NSConcreteStackBlock;
-      v28[1] = 3221225472;
-      v28[2] = sub_100050AC4;
-      v28[3] = &unk_1003348F8;
-      v28[4] = WeakRetained;
-      v29 = *(a1 + 32);
-      v24 = *(a1 + 40);
-      v25 = *(a1 + 56);
-      v30 = v24;
-      v31 = v25;
-      [v22 didDeclineInviteForGroupID:v23 completion:v28];
+      v20 = [WeakRetained messagingdConnection];
+      v21 = [*(a1 + 32) groupID];
+      v26[0] = _NSConcreteStackBlock;
+      v26[1] = 3221225472;
+      v26[2] = sub_100050AC4;
+      v26[3] = &unk_1003348F8;
+      v26[4] = WeakRetained;
+      v27 = *(a1 + 32);
+      v22 = *(a1 + 40);
+      v23 = *(a1 + 56);
+      v28 = v22;
+      v29 = v23;
+      [v20 didDeclineInviteForGroupID:v21 completion:v26];
     }
   }
 
   else
   {
-    v41 = NSLocalizedDescriptionKey;
-    v42 = @"Failed to strongify self in declineCKShare";
-    v21 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-    v14 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:39 userInfo:v21];
+    v39 = NSLocalizedDescriptionKey;
+    v40 = @"Failed to strongify self in declineCKShare";
+    v19 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v14 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:39 userInfo:v19];
 
     (*(*(a1 + 40) + 16))();
   }
@@ -1611,19 +1434,17 @@ void sub_100050748(uint64_t a1, void *a2)
   }
 
   v6 = v5;
-  v7 = *(a1 + 32);
   if (v6)
   {
-    v8 = v7[4];
-    v9 = KCSharingLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = KCSharingLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = [*(a1 + 40) groupID];
+      v11 = [*(a1 + 40) groupID];
       *buf = 138543618;
-      v18 = v13;
-      v19 = 2114;
-      v20 = v6;
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to decline shares for group invite %{public}@: %{public}@", buf, 0x16u);
+      v16 = v11;
+      v17 = 2114;
+      v18 = v6;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to decline shares for group invite %{public}@: %{public}@", buf, 0x16u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -1631,17 +1452,17 @@ void sub_100050748(uint64_t a1, void *a2)
 
   else
   {
-    v10 = [v7 messagingdConnection];
-    v11 = [*(a1 + 40) groupID];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100050920;
-    v14[3] = &unk_100334970;
-    v12 = *(a1 + 40);
-    v14[4] = *(a1 + 32);
-    v15 = v12;
-    v16 = *(a1 + 48);
-    [v10 didDeclineInviteForGroupID:v11 completion:v14];
+    v8 = [*(a1 + 32) messagingdConnection];
+    v9 = [*(a1 + 40) groupID];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100050920;
+    v12[3] = &unk_100334970;
+    v10 = *(a1 + 40);
+    v12[4] = *(a1 + 32);
+    v13 = v10;
+    v14 = *(a1 + 48);
+    [v8 didDeclineInviteForGroupID:v9 completion:v12];
   }
 }
 
@@ -1650,16 +1471,15 @@ void sub_100050920(uint64_t a1, void *a2)
   v3 = a2;
   if (v3)
   {
-    v4 = *(*(a1 + 32) + 32);
-    v5 = KCSharingLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = KCSharingLogObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v11 = [*(a1 + 40) groupID];
-      v12 = 138543618;
-      v13 = v11;
-      v14 = 2114;
-      v15 = v3;
-      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to decline IDSInvite for %{public}@: %{public}@", &v12, 0x16u);
+      v10 = [*(a1 + 40) groupID];
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2114;
+      v14 = v3;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to decline IDSInvite for %{public}@: %{public}@", &v11, 0x16u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -1667,11 +1487,11 @@ void sub_100050920(uint64_t a1, void *a2)
 
   else
   {
-    v6 = [KCSharingGroup alloc];
-    v7 = [*(a1 + 40) groupID];
-    v8 = [*(a1 + 40) displayName];
-    v9 = [*(a1 + 40) shareURL];
-    v10 = [v6 initWithGroupID:v7 participants:&__NSArray0__struct displayName:v8 shareURL:v9];
+    v5 = [KCSharingGroup alloc];
+    v6 = [*(a1 + 40) groupID];
+    v7 = [*(a1 + 40) displayName];
+    v8 = [*(a1 + 40) shareURL];
+    v9 = [v5 initWithGroupID:v6 participants:&__NSArray0__struct displayName:v7 shareURL:v8];
 
     (*(*(a1 + 48) + 16))();
   }
@@ -1684,16 +1504,15 @@ void sub_100050AC4(uint64_t a1, void *a2)
   v3 = a2;
   if (v3)
   {
-    v4 = *(*(a1 + 32) + 32);
-    v5 = KCSharingLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = KCSharingLogObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v11 = [*(a1 + 40) groupID];
-      v12 = 138543618;
-      v13 = v11;
-      v14 = 2114;
-      v15 = v3;
-      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to decline IDSInvite for %{public}@: %{public}@", &v12, 0x16u);
+      v10 = [*(a1 + 40) groupID];
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2114;
+      v14 = v3;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to decline IDSInvite for %{public}@: %{public}@", &v11, 0x16u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -1702,11 +1521,11 @@ void sub_100050AC4(uint64_t a1, void *a2)
 
   else
   {
-    v6 = [KCSharingGroup alloc];
-    v7 = [*(a1 + 40) groupID];
-    v8 = [*(a1 + 40) displayName];
-    v9 = [*(a1 + 40) shareURL];
-    v10 = [v6 initWithGroupID:v7 participants:&__NSArray0__struct displayName:v8 shareURL:v9];
+    v5 = [KCSharingGroup alloc];
+    v6 = [*(a1 + 40) groupID];
+    v7 = [*(a1 + 40) displayName];
+    v8 = [*(a1 + 40) shareURL];
+    v9 = [v5 initWithGroupID:v6 participants:&__NSArray0__struct displayName:v7 shareURL:v8];
 
     (*(*(a1 + 48) + 16))();
     sub_10005019C(@"decline", 0, *(a1 + 56), 0);
@@ -1721,52 +1540,46 @@ void sub_100050E0C(void *a1, void *a2, void *a3)
   v6 = a3;
   if (v6)
   {
-    v7 = *(a1[4] + 32);
-    v8 = KCSharingLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = KCSharingLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v22 = v6;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to receive invite from keychainsharingmessagesd: %{public}@", buf, 0xCu);
+      v19 = v6;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to receive invite from keychainsharingmessagesd: %{public}@", buf, 0xCu);
     }
 
     (*(a1[6] + 16))();
     sub_10005019C(@"decline", 0, a1[7], v6);
   }
 
+  else if (v5)
+  {
+    [a1[4] declineGroupInvite:v5 startTime:a1[7] completion:a1[6]];
+  }
+
   else
   {
-    v9 = a1[4];
-    if (v5)
+    v8 = KCSharingLogObject();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [v9 declineGroupInvite:v5 startTime:a1[7] completion:a1[6]];
+      v15 = a1[5];
+      *buf = 138543362;
+      v19 = v15;
+      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "No error and no invite from ksmd for accepting for %{public}@. We raced the sender cancelling the invite?", buf, 0xCu);
     }
 
-    else
-    {
-      v10 = v9[4];
-      v11 = KCSharingLogObject();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        v18 = a1[5];
-        *buf = 138543362;
-        v22 = v18;
-        _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "No error and no invite from ksmd for accepting for %{public}@. We raced the sender cancelling the invite?", buf, 0xCu);
-      }
+    v9 = [KCSharingGroup alloc];
+    v10 = a1[5];
+    v11 = objc_alloc_init(NSURL);
+    v12 = [v9 initWithGroupID:v10 participants:&__NSArray0__struct displayName:@"unknown" shareURL:v11];
 
-      v12 = [KCSharingGroup alloc];
-      v13 = a1[5];
-      v14 = objc_alloc_init(NSURL);
-      v15 = [v12 initWithGroupID:v13 participants:&__NSArray0__struct displayName:@"unknown" shareURL:v14];
+    v16 = NSLocalizedDescriptionKey;
+    v17 = @"Invite couldn't be found";
+    v13 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v14 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:9 userInfo:v13];
 
-      v19 = NSLocalizedDescriptionKey;
-      v20 = @"Invite couldn't be found";
-      v16 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-      v17 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:9 userInfo:v16];
-
-      (*(a1[6] + 16))();
-      sub_10005019C(@"decline", 0, a1[7], v17);
-    }
+    (*(a1[6] + 16))();
+    sub_10005019C(@"decline", 0, a1[7], v14);
   }
 }
 
@@ -1776,30 +1589,29 @@ void sub_100051230(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (v6)
   {
-    v7 = *(*(a1 + 32) + 32);
-    v8 = KCSharingLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = KCSharingLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v25 = *(a1 + 40);
-      v26 = [v25 groupID];
+      v23 = *(a1 + 40);
+      v24 = [v23 groupID];
       *location = 138478339;
-      *&location[4] = v25;
+      *&location[4] = v23;
       *&location[12] = 2114;
-      *&location[14] = v26;
+      *&location[14] = v24;
       *&location[22] = 2114;
-      v42 = v6;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to fetch share metadata for group invite %{private}@ for group %{public}@: %{public}@", location, 0x20u);
+      v40 = v6;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to fetch share metadata for group invite %{private}@ for group %{public}@: %{public}@", location, 0x20u);
     }
 
     if (CKErrorIsCode())
     {
-      v9 = [v6 userInfo];
-      v10 = [v9 objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
-      v11 = [*(a1 + 40) shareURL];
-      v12 = [v10 objectForKeyedSubscript:v11];
+      v8 = [v6 userInfo];
+      v9 = [v8 objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
+      v10 = [*(a1 + 40) shareURL];
+      v11 = [v9 objectForKeyedSubscript:v10];
 
       (*(*(a1 + 48) + 16))();
-      sub_10005019C(@"accept", 0, *(a1 + 56), v12);
+      sub_10005019C(@"accept", 0, *(a1 + 56), v11);
     }
 
     else
@@ -1814,58 +1626,58 @@ void sub_100051230(uint64_t a1, void *a2, void *a3)
     if (sub_10001078C())
     {
       objc_initWeak(location, *(a1 + 32));
-      v13 = [*(a1 + 32) syncController];
-      v14 = [v13 cloudCoreUtilities];
-      v35[0] = _NSConcreteStackBlock;
-      v35[1] = 3221225472;
-      v35[2] = sub_1000517C4;
-      v35[3] = &unk_100334830;
-      objc_copyWeak(v40, location);
-      v15 = *(a1 + 48);
-      v16 = *(a1 + 56);
-      v39 = v15;
-      v40[1] = v16;
-      v36 = *(a1 + 40);
-      v37 = v5;
-      v38 = 0;
-      [v14 acceptCKShares:v37 completionHandler:v35];
+      v12 = [*(a1 + 32) syncController];
+      v13 = [v12 cloudCoreUtilities];
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_1000517C4;
+      v33[3] = &unk_100334830;
+      objc_copyWeak(v38, location);
+      v14 = *(a1 + 48);
+      v15 = *(a1 + 56);
+      v37 = v14;
+      v38[1] = v15;
+      v34 = *(a1 + 40);
+      v35 = v5;
+      v36 = 0;
+      [v13 acceptCKShares:v35 completionHandler:v33];
 
-      objc_destroyWeak(v40);
+      objc_destroyWeak(v38);
       objc_destroyWeak(location);
     }
 
     else
     {
-      v20 = objc_alloc_init(CKAcceptSharesOperation);
-      [v20 setShareMetadatas:v5];
+      v18 = objc_alloc_init(CKAcceptSharesOperation);
+      [v18 setShareMetadatas:v5];
       *location = 0;
       *&location[8] = location;
       *&location[16] = 0x3032000000;
-      v42 = sub_10004EAB8;
-      v43 = sub_10004EAC8;
-      v44 = 0;
-      v34[0] = _NSConcreteStackBlock;
-      v34[1] = 3221225472;
-      v34[2] = sub_100051C1C;
-      v34[3] = &unk_100334858;
-      v34[4] = location;
-      [v20 setPerShareCompletionBlock:v34];
-      v28[0] = _NSConcreteStackBlock;
-      v28[1] = 3221225472;
-      v28[2] = sub_100051C30;
-      v28[3] = &unk_1003348A8;
-      v21 = *(a1 + 32);
-      v22 = *(a1 + 40);
-      v33 = location;
-      v28[4] = v21;
-      v29 = v22;
-      v32 = *(a1 + 48);
-      v30 = v5;
-      v31 = 0;
-      [v20 setAcceptSharesCompletionBlock:v28];
-      v23 = [*(a1 + 32) syncController];
-      v24 = [v23 container];
-      [v24 addOperation:v20];
+      v40 = sub_10004EAB8;
+      v41 = sub_10004EAC8;
+      v42 = 0;
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = sub_100051C1C;
+      v32[3] = &unk_100334858;
+      v32[4] = location;
+      [v18 setPerShareCompletionBlock:v32];
+      v26[0] = _NSConcreteStackBlock;
+      v26[1] = 3221225472;
+      v26[2] = sub_100051C30;
+      v26[3] = &unk_1003348A8;
+      v19 = *(a1 + 32);
+      v20 = *(a1 + 40);
+      v31 = location;
+      v26[4] = v19;
+      v27 = v20;
+      v30 = *(a1 + 48);
+      v28 = v5;
+      v29 = 0;
+      [v18 setAcceptSharesCompletionBlock:v26];
+      v21 = [*(a1 + 32) syncController];
+      v22 = [v21 container];
+      [v22 addOperation:v18];
 
       _Block_object_dispose(location, 8);
     }
@@ -1873,19 +1685,18 @@ void sub_100051230(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v17 = *(*(a1 + 32) + 32);
-    v18 = KCSharingLogObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v16 = KCSharingLogObject();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v27 = [*(a1 + 40) groupID];
+      v25 = [*(a1 + 40) groupID];
       *location = 138412290;
-      *&location[4] = v27;
-      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Expected share metadata not found for invite for %@", location, 0xCu);
+      *&location[4] = v25;
+      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Expected share metadata not found for invite for %@", location, 0xCu);
     }
 
-    v19 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:9 userInfo:0];
+    v17 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:9 userInfo:0];
     (*(*(a1 + 48) + 16))();
-    sub_10005019C(@"accept", 0, *(a1 + 56), v19);
+    sub_10005019C(@"accept", 0, *(a1 + 56), v17);
   }
 }
 
@@ -1903,48 +1714,47 @@ void sub_1000517C4(uint64_t a1, void *a2, void *a3)
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained)
   {
-    v41 = 0u;
-    v42 = 0u;
     v39 = 0u;
     v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v37 objects:v45 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = v5;
-      v12 = *v40;
+      v12 = *v38;
       while (2)
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v40 != v12)
+          if (*v38 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          v14 = [v8 objectForKeyedSubscript:*(*(&v39 + 1) + 8 * i)];
+          v14 = [v8 objectForKeyedSubscript:*(*(&v37 + 1) + 8 * i)];
           v15 = [v14 failure];
 
           if (v15)
           {
-            v16 = WeakRetained[4];
-            v17 = KCSharingLogObject();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v16 = KCSharingLogObject();
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              v33 = [*(a1 + 32) groupID];
+              v31 = [*(a1 + 32) groupID];
               *buf = 138543618;
-              v44 = v33;
-              v45 = 2114;
-              v46 = v15;
-              _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to accept shares for invite for group %{public}@: %{public}@", buf, 0x16u);
+              v42 = v31;
+              v43 = 2114;
+              v44 = v15;
+              _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed to accept shares for invite for group %{public}@: %{public}@", buf, 0x16u);
             }
 
             goto LABEL_14;
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v37 objects:v45 count:16];
         if (v10)
         {
           continue;
@@ -1965,67 +1775,66 @@ LABEL_14:
 
     if (v15)
     {
-      v19 = v15;
+      v18 = v15;
     }
 
     else
     {
-      v19 = v6;
+      v18 = v6;
     }
 
-    v20 = v19;
-    if (v20)
+    v19 = v18;
+    if (v19)
     {
-      v21 = WeakRetained[4];
-      v22 = KCSharingLogObject();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v20 = KCSharingLogObject();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v32 = [*(a1 + 32) groupID];
+        v30 = [*(a1 + 32) groupID];
         *buf = 138543618;
-        v44 = v32;
-        v45 = 2114;
-        v46 = v20;
-        _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to accept shares for invite for group %{public}@: %{public}@", buf, 0x16u);
+        v42 = v30;
+        v43 = 2114;
+        v44 = v19;
+        _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to accept shares for invite for group %{public}@: %{public}@", buf, 0x16u);
       }
 
       (*(*(a1 + 56) + 16))();
-      sub_10005019C(@"accept", 0, *(a1 + 72), v20);
+      sub_10005019C(@"accept", 0, *(a1 + 72), v19);
     }
 
     else
     {
-      v34 = [WeakRetained messagingdConnection];
-      v23 = [*(a1 + 32) groupID];
-      v35[0] = _NSConcreteStackBlock;
-      v35[1] = 3221225472;
-      v35[2] = sub_1000521D8;
-      v35[3] = &unk_1003347E0;
-      v35[4] = WeakRetained;
-      v24 = v6;
-      v25 = v5;
-      v26 = *(a1 + 32);
-      v38 = *(a1 + 72);
-      v27 = *(a1 + 40);
-      v28 = *(a1 + 48);
-      v29 = *(a1 + 56);
-      *&v30 = v28;
-      *(&v30 + 1) = v29;
-      *&v31 = v26;
-      v5 = v25;
-      v6 = v24;
-      *(&v31 + 1) = v27;
-      v36 = v31;
-      v37 = v30;
-      [v34 didAcceptInviteForGroupID:v23 completion:v35];
+      v32 = [WeakRetained messagingdConnection];
+      v21 = [*(a1 + 32) groupID];
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_1000521D8;
+      v33[3] = &unk_1003347E0;
+      v33[4] = WeakRetained;
+      v22 = v6;
+      v23 = v5;
+      v24 = *(a1 + 32);
+      v36 = *(a1 + 72);
+      v25 = *(a1 + 40);
+      v26 = *(a1 + 48);
+      v27 = *(a1 + 56);
+      *&v28 = v26;
+      *(&v28 + 1) = v27;
+      *&v29 = v24;
+      v5 = v23;
+      v6 = v22;
+      *(&v29 + 1) = v25;
+      v34 = v29;
+      v35 = v28;
+      [v32 didAcceptInviteForGroupID:v21 completion:v33];
     }
   }
 
   else
   {
-    v48 = NSLocalizedDescriptionKey;
-    v49 = @"Failed to strongify self in acceptCKShare";
-    v18 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-    v15 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:39 userInfo:v18];
+    v46 = NSLocalizedDescriptionKey;
+    v47 = @"Failed to strongify self in acceptCKShare";
+    v17 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+    v15 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:39 userInfo:v17];
 
     (*(*(a1 + 56) + 16))();
     sub_10005019C(@"accept", 0, *(a1 + 72), v15);
@@ -2043,19 +1852,17 @@ void sub_100051C30(uint64_t a1, void *a2)
   }
 
   v6 = v5;
-  v7 = *(a1 + 32);
   if (v6)
   {
-    v8 = v7[4];
-    v9 = KCSharingLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = KCSharingLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v16 = [*(a1 + 40) groupID];
+      v14 = [*(a1 + 40) groupID];
       *buf = 138543618;
-      v23 = v16;
-      v24 = 2114;
-      v25 = v6;
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to accept shares for invite for group %{public}@: %{public}@", buf, 0x16u);
+      v21 = v14;
+      v22 = 2114;
+      v23 = v6;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to accept shares for invite for group %{public}@: %{public}@", buf, 0x16u);
     }
 
     (*(*(a1 + 64) + 16))();
@@ -2063,22 +1870,22 @@ void sub_100051C30(uint64_t a1, void *a2)
 
   else
   {
-    v10 = [v7 messagingdConnection];
-    v11 = [*(a1 + 40) groupID];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_100051E40;
-    v18[3] = &unk_100336870;
-    v17 = *(a1 + 32);
-    v12 = *(&v17 + 1);
-    v13 = *(a1 + 48);
-    v14 = *(a1 + 56);
-    *&v15 = v13;
-    *(&v15 + 1) = v14;
-    v19 = v17;
-    v20 = v15;
-    v21 = *(a1 + 64);
-    [v10 didAcceptInviteForGroupID:v11 completion:v18];
+    v8 = [*(a1 + 32) messagingdConnection];
+    v9 = [*(a1 + 40) groupID];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100051E40;
+    v16[3] = &unk_100336870;
+    v15 = *(a1 + 32);
+    v10 = *(&v15 + 1);
+    v11 = *(a1 + 48);
+    v12 = *(a1 + 56);
+    *&v13 = v11;
+    *(&v13 + 1) = v12;
+    v17 = v15;
+    v18 = v13;
+    v19 = *(a1 + 64);
+    [v8 didAcceptInviteForGroupID:v9 completion:v16];
   }
 }
 
@@ -2087,39 +1894,38 @@ void sub_100051E40(id *a1, void *a2)
   v3 = a2;
   if (v3)
   {
-    v4 = *(a1[4] + 4);
-    v5 = KCSharingLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = KCSharingLogObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v16 = [a1[5] groupID];
+      v15 = [a1[5] groupID];
       *buf = 138543618;
-      v23 = v16;
-      v24 = 2114;
-      v25 = v3;
-      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to accept IDSInvite for %{public}@: %{public}@", buf, 0x16u);
+      v22 = v15;
+      v23 = 2114;
+      v24 = v3;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to accept IDSInvite for %{public}@: %{public}@", buf, 0x16u);
     }
   }
 
-  v6 = [a1[4] syncController];
-  v7 = [a1[6] firstObject];
-  v8 = [v7 share];
-  v9 = [v8 recordID];
-  v10 = [v9 zoneID];
-  v21 = v10;
-  v11 = [NSArray arrayWithObjects:&v21 count:1];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100052068;
-  v18[3] = &unk_100334880;
-  v17 = *(a1 + 2);
-  v12 = *(&v17 + 1);
-  v13 = a1[7];
-  v14 = a1[8];
-  *&v15 = v13;
-  *(&v15 + 1) = v14;
-  v19 = v17;
-  v20 = v15;
-  [v6 fetchRemoteChangesForZoneIDs:v11 completion:v18];
+  v5 = [a1[4] syncController];
+  v6 = [a1[6] firstObject];
+  v7 = [v6 share];
+  v8 = [v7 recordID];
+  v9 = [v8 zoneID];
+  v20 = v9;
+  v10 = [NSArray arrayWithObjects:&v20 count:1];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100052068;
+  v17[3] = &unk_100334880;
+  v16 = *(a1 + 2);
+  v11 = *(&v16 + 1);
+  v12 = a1[7];
+  v13 = a1[8];
+  *&v14 = v12;
+  *(&v14 + 1) = v13;
+  v18 = v16;
+  v19 = v14;
+  [v5 fetchRemoteChangesForZoneIDs:v10 completion:v17];
 }
 
 void sub_100052068(uint64_t a1, void *a2)
@@ -2127,29 +1933,28 @@ void sub_100052068(uint64_t a1, void *a2)
   v3 = a2;
   if (v3)
   {
-    v4 = *(*(a1 + 32) + 32);
-    v5 = KCSharingLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = KCSharingLogObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v11 = [*(a1 + 40) groupID];
-      v12 = *(a1 + 48);
-      v13 = 138543618;
-      v14 = v11;
-      v15 = 2114;
-      v16 = v12;
-      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to accept group invite for %{public}@: %{public}@", &v13, 0x16u);
+      v10 = [*(a1 + 40) groupID];
+      v11 = *(a1 + 48);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2114;
+      v15 = v11;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to accept group invite for %{public}@: %{public}@", &v12, 0x16u);
     }
   }
 
-  v6 = *(a1 + 32);
-  v7 = [*(a1 + 40) groupID];
-  v8 = [v6 fetchLocalShareForGroupID:v7];
-  v9 = sub_1000314F8(v8);
+  v5 = *(a1 + 32);
+  v6 = [*(a1 + 40) groupID];
+  v7 = [v5 fetchLocalShareForGroupID:v6];
+  v8 = sub_1000314F8(v7);
 
   (*(*(a1 + 56) + 16))();
   [*(a1 + 32) sendGroupsUpdatedNotifications];
-  v10 = [*(a1 + 32) syncController];
-  [v10 setFeatureInUse];
+  v9 = [*(a1 + 32) syncController];
+  [v9 setFeatureInUse];
 }
 
 void sub_1000521D8(uint64_t a1, void *a2)
@@ -2157,42 +1962,41 @@ void sub_1000521D8(uint64_t a1, void *a2)
   v3 = a2;
   if (v3)
   {
-    v4 = *(*(a1 + 32) + 32);
-    v5 = KCSharingLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = KCSharingLogObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v16 = [*(a1 + 40) groupID];
+      v15 = [*(a1 + 40) groupID];
       *buf = 138543618;
-      v24 = v16;
-      v25 = 2114;
-      v26 = v3;
-      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to accept IDSInvite for %{public}@: %{public}@", buf, 0x16u);
+      v23 = v15;
+      v24 = 2114;
+      v25 = v3;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to accept IDSInvite for %{public}@: %{public}@", buf, 0x16u);
     }
 
     sub_10005019C(@"accept", 0, *(a1 + 72), v3);
   }
 
-  v6 = [*(a1 + 32) syncController];
-  v7 = [*(a1 + 48) firstObject];
-  v8 = [v7 share];
-  v9 = [v8 recordID];
-  v10 = [v9 zoneID];
-  v22 = v10;
-  v11 = [NSArray arrayWithObjects:&v22 count:1];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_10005241C;
-  v18[3] = &unk_1003347B8;
-  v17 = *(a1 + 32);
-  v12 = *(&v17 + 1);
-  v13 = *(a1 + 56);
-  v14 = *(a1 + 64);
-  *&v15 = v13;
-  *(&v15 + 1) = v14;
-  v19 = v17;
-  v20 = v15;
-  v21 = *(a1 + 72);
-  [v6 fetchRemoteChangesForZoneIDs:v11 completion:v18];
+  v5 = [*(a1 + 32) syncController];
+  v6 = [*(a1 + 48) firstObject];
+  v7 = [v6 share];
+  v8 = [v7 recordID];
+  v9 = [v8 zoneID];
+  v21 = v9;
+  v10 = [NSArray arrayWithObjects:&v21 count:1];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10005241C;
+  v17[3] = &unk_1003347B8;
+  v16 = *(a1 + 32);
+  v11 = *(&v16 + 1);
+  v12 = *(a1 + 56);
+  v13 = *(a1 + 64);
+  *&v14 = v12;
+  *(&v14 + 1) = v13;
+  v18 = v16;
+  v19 = v14;
+  v20 = *(a1 + 72);
+  [v5 fetchRemoteChangesForZoneIDs:v10 completion:v17];
 }
 
 void sub_10005241C(uint64_t a1, void *a2)
@@ -2200,42 +2004,41 @@ void sub_10005241C(uint64_t a1, void *a2)
   v3 = a2;
   if (v3)
   {
-    v4 = *(*(a1 + 32) + 32);
-    v5 = KCSharingLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = KCSharingLogObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v13 = [*(a1 + 40) groupID];
-      v14 = *(a1 + 48);
-      v15 = 138543618;
-      v16 = v13;
-      v17 = 2114;
-      v18 = v14;
-      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to accept group invite for %{public}@: %{public}@", &v15, 0x16u);
+      v12 = [*(a1 + 40) groupID];
+      v13 = *(a1 + 48);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2114;
+      v17 = v13;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to accept group invite for %{public}@: %{public}@", &v14, 0x16u);
     }
   }
 
-  v6 = *(a1 + 32);
-  v7 = [*(a1 + 40) groupID];
-  v8 = [v6 fetchLocalShareForGroupID:v7];
-  v9 = sub_1000314F8(v8);
+  v5 = *(a1 + 32);
+  v6 = [*(a1 + 40) groupID];
+  v7 = [v5 fetchLocalShareForGroupID:v6];
+  v8 = sub_1000314F8(v7);
 
-  if (v9)
+  if (v8)
   {
-    v10 = [v9 participants];
-    v11 = [v10 count];
+    v9 = [v8 participants];
+    v10 = [v9 count];
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   (*(*(a1 + 56) + 16))();
   [*(a1 + 32) sendGroupsUpdatedNotifications];
-  v12 = [*(a1 + 32) syncController];
-  [v12 setFeatureInUse];
+  v11 = [*(a1 + 32) syncController];
+  [v11 setFeatureInUse];
 
-  sub_10005019C(@"accept", v11, *(a1 + 64), v3);
+  sub_10005019C(@"accept", v10, *(a1 + 64), v3);
 }
 
 void sub_1000527B4(void *a1, void *a2, void *a3)
@@ -2244,43 +2047,37 @@ void sub_1000527B4(void *a1, void *a2, void *a3)
   v6 = a3;
   if (v6)
   {
-    v7 = *(a1[4] + 32);
-    v8 = KCSharingLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = KCSharingLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138543362;
-      v15 = v6;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to receive invite from keychainsharingmessagesd: %{public}@", &v14, 0xCu);
+      v11 = 138543362;
+      v12 = v6;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to receive invite from keychainsharingmessagesd: %{public}@", &v11, 0xCu);
     }
 
     (*(a1[6] + 16))();
     sub_10005019C(@"accept", 0, a1[7], v6);
   }
 
+  else if (v5)
+  {
+    [a1[4] acceptGroupInvite:v5 startTime:a1[7] completion:a1[6]];
+  }
+
   else
   {
-    v9 = a1[4];
-    if (v5)
+    v8 = KCSharingLogObject();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [v9 acceptGroupInvite:v5 startTime:a1[7] completion:a1[6]];
+      v10 = a1[5];
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "No error and no invite from ksmd for declining for %{public}@. We raced the sender cancelling the invite?", &v11, 0xCu);
     }
 
-    else
-    {
-      v10 = v9[4];
-      v11 = KCSharingLogObject();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        v13 = a1[5];
-        v14 = 138543362;
-        v15 = v13;
-        _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "No error and no invite from ksmd for declining for %{public}@. We raced the sender cancelling the invite?", &v14, 0xCu);
-      }
-
-      v12 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:9 userInfo:0];
-      (*(a1[6] + 16))();
-      sub_10005019C(@"accept", 0, a1[7], v12);
-    }
+    v9 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:9 userInfo:0];
+    (*(a1[6] + 16))();
+    sub_10005019C(@"accept", 0, a1[7], v9);
   }
 }
 
@@ -2304,16 +2101,15 @@ void sub_1000531A4(uint64_t a1, void *a2)
 
   if (v8)
   {
-    v12 = *(*(a1 + 32) + 32);
-    v13 = KCSharingLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = KCSharingLogObject();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v19 = [*(a1 + 56) groupID];
+      v16 = [*(a1 + 56) groupID];
       *buf = 138543618;
-      v25 = v19;
-      v26 = 2114;
-      v27 = v8;
-      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to save staged outgoing changes for group delete request for %{public}@: %{public}@", buf, 0x16u);
+      v22 = v16;
+      v23 = 2114;
+      v24 = v8;
+      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to save staged outgoing changes for group delete request for %{public}@: %{public}@", buf, 0x16u);
     }
 
     (*(*(a1 + 64) + 16))();
@@ -2325,31 +2121,29 @@ void sub_1000531A4(uint64_t a1, void *a2)
     (*(*(a1 + 64) + 16))();
     sub_10005019C(@"delete", v11, *(a1 + 72), 0);
     [*(a1 + 32) sendGroupsUpdatedNotifications];
-    v14 = *(a1 + 32);
     if (*(a1 + 48))
     {
-      v15 = [v14 messagingdConnection];
-      v16 = *(a1 + 48);
-      v22[0] = _NSConcreteStackBlock;
-      v22[1] = 3221225472;
-      v22[2] = sub_100053480;
-      v22[3] = &unk_100334F20;
-      v22[4] = *(a1 + 32);
-      v23 = v16;
-      [v15 cancelPendingInvitesForGroup:v23 participantHandles:0 completion:v22];
+      v13 = [*(a1 + 32) messagingdConnection];
+      v14 = *(a1 + 48);
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_100053480;
+      v19[3] = &unk_100334F20;
+      v19[4] = *(a1 + 32);
+      v20 = v14;
+      [v13 cancelPendingInvitesForGroup:v20 participantHandles:0 completion:v19];
     }
 
     else
     {
-      v17 = v14[4];
-      v18 = KCSharingLogObject();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v15 = KCSharingLogObject();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v20 = [*(a1 + 40) recordID];
-        v21 = [v20 zoneID];
+        v17 = [*(a1 + 40) recordID];
+        v18 = [v17 zoneID];
         *buf = 138543362;
-        v25 = v21;
-        _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Did not obtain group object for now-deleted group %{public}@, can't cancel pending invitations", buf, 0xCu);
+        v22 = v18;
+        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Did not obtain group object for now-deleted group %{public}@, can't cancel pending invitations", buf, 0xCu);
       }
     }
   }
@@ -2358,29 +2152,28 @@ void sub_1000531A4(uint64_t a1, void *a2)
 void sub_100053480(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(*(a1 + 32) + 32);
-  v5 = KCSharingLogObject();
-  v6 = v5;
+  v4 = KCSharingLogObject();
+  v5 = v4;
   if (v3)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = [*(a1 + 40) groupID];
-      v8 = 138543618;
-      v9 = v7;
-      v10 = 2114;
-      v11 = v3;
-      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to cancel (some) pending invitations for now-deleted group %{public}@: %{public}@", &v8, 0x16u);
+      v6 = [*(a1 + 40) groupID];
+      v7 = 138543618;
+      v8 = v6;
+      v9 = 2114;
+      v10 = v3;
+      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to cancel (some) pending invitations for now-deleted group %{public}@: %{public}@", &v7, 0x16u);
 LABEL_6:
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [*(a1 + 40) groupID];
-    v8 = 138543362;
-    v9 = v7;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Canceled pending invitations for now-deleted group %{public}@", &v8, 0xCu);
+    v6 = [*(a1 + 40) groupID];
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Canceled pending invitations for now-deleted group %{public}@", &v7, 0xCu);
     goto LABEL_6;
   }
 }
@@ -2396,22 +2189,21 @@ void sub_100053A64(uint64_t a1, void *a2)
 
   if (v8)
   {
-    v9 = *(*(a1 + 32) + 32);
-    v10 = KCSharingLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = KCSharingLogObject();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = [*(a1 + 48) groupID];
-      v13 = 138543618;
-      v14 = v12;
-      v15 = 2114;
-      v16 = v8;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to save staged outgoing changes for group leave request for %{public}@: %{public}@", &v13, 0x16u);
+      v11 = [*(a1 + 48) groupID];
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2114;
+      v15 = v8;
+      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to save staged outgoing changes for group leave request for %{public}@: %{public}@", &v12, 0x16u);
     }
   }
 
   (*(*(a1 + 56) + 16))();
-  v11 = [*(a1 + 40) participants];
-  sub_10005019C(@"leave", [v11 count], *(a1 + 64), v8);
+  v10 = [*(a1 + 40) participants];
+  sub_10005019C(@"leave", [v10 count], *(a1 + 64), v8);
 
   if (!v8)
   {
@@ -2421,224 +2213,219 @@ void sub_100053A64(uint64_t a1, void *a2)
 
 void sub_100053DBC(uint64_t a1, void *a2, void *a3)
 {
-  v93 = a2;
+  v85 = a2;
   v5 = a3;
-  v6 = *(*(a1 + 32) + 32);
-  v7 = KCSharingLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v6 = KCSharingLogObject();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [*(a1 + 40) participants];
+    v7 = [*(a1 + 40) participants];
     *buf = 138478083;
-    v124 = v8;
-    v125 = 2113;
-    v126 = v93;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Fetched share participants info for %{private}@, \n %{private}@", buf, 0x16u);
+    v116 = v7;
+    v117 = 2113;
+    v118 = v85;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Fetched share participants info for %{private}@, \n %{private}@", buf, 0x16u);
   }
 
   if (v5)
   {
-    v9 = *(*(a1 + 32) + 32);
-    v10 = KCSharingLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v8 = KCSharingLogObject();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v87 = [*(a1 + 40) groupID];
+      v79 = [*(a1 + 40) groupID];
       *buf = 138543618;
-      v124 = v87;
-      v125 = 2114;
-      v126 = v5;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to fetch share participants for group %{public}@: %{public}@", buf, 0x16u);
+      v116 = v79;
+      v117 = 2114;
+      v118 = v5;
+      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to fetch share participants for group %{public}@: %{public}@", buf, 0x16u);
     }
 
     (*(*(a1 + 56) + 16))();
     if (*(a1 + 72))
     {
-      v11 = @"create";
+      v9 = @"create";
     }
 
     else
     {
-      v11 = @"update";
+      v9 = @"update";
     }
 
-    v12 = [*(a1 + 48) participants];
-    sub_10005019C(v11, [v12 count], *(a1 + 64), v5);
+    v10 = [*(a1 + 48) participants];
+    sub_10005019C(v9, [v10 count], *(a1 + 64), v5);
   }
 
   else
   {
-    v13 = [*(a1 + 40) participants];
-    v14 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [v13 count]);
-
-    v116 = 0u;
-    v117 = 0u;
-    v114 = 0u;
-    v115 = 0u;
-    v92 = a1;
-    v15 = [*(a1 + 40) participants];
-    v16 = [v15 countByEnumeratingWithState:&v114 objects:v130 count:16];
-    if (v16)
-    {
-      v17 = v16;
-      v18 = *v115;
-      do
-      {
-        for (i = 0; i != v17; i = i + 1)
-        {
-          if (*v115 != v18)
-          {
-            objc_enumerationMutation(v15);
-          }
-
-          v20 = *(*(&v114 + 1) + 8 * i);
-          v21 = [v20 handle];
-          [v14 setObject:v20 forKeyedSubscript:v21];
-        }
-
-        v17 = [v15 countByEnumeratingWithState:&v114 objects:v130 count:16];
-      }
-
-      while (v17);
-    }
-
-    v22 = [*(v92 + 48) participants];
-    v23 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [v22 count]);
-
-    v112 = 0u;
-    v113 = 0u;
-    v110 = 0u;
-    v111 = 0u;
-    v24 = [*(v92 + 48) participants];
-    v25 = [v24 countByEnumeratingWithState:&v110 objects:v129 count:16];
-    if (v25)
-    {
-      v26 = v25;
-      v27 = *v111;
-      do
-      {
-        for (j = 0; j != v26; j = j + 1)
-        {
-          if (*v111 != v27)
-          {
-            objc_enumerationMutation(v24);
-          }
-
-          v29 = *(*(&v110 + 1) + 8 * j);
-          v30 = [v29 userIdentity];
-          v31 = [v30 lookupInfo];
-          v32 = sub_100031428(v31);
-
-          if (v32)
-          {
-            [v23 setObject:v29 forKeyedSubscript:v32];
-          }
-        }
-
-        v26 = [v24 countByEnumeratingWithState:&v110 objects:v129 count:16];
-      }
-
-      while (v26);
-    }
-
-    v33 = *(*(v92 + 32) + 32);
-    v34 = KCSharingLogObject();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138478339;
-      v124 = v14;
-      v125 = 2113;
-      v126 = v23;
-      v127 = 2113;
-      v128 = v93;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Group participants Info: %{private}@ \n Share Participants Info: %{private}@ \n fetched share participants info: %{private}@", buf, 0x20u);
-    }
+    v11 = [*(a1 + 40) participants];
+    v12 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [v11 count]);
 
     v108 = 0u;
     v109 = 0u;
     v106 = 0u;
     v107 = 0u;
-    v12 = v14;
-    v35 = [v12 countByEnumeratingWithState:&v106 objects:v122 count:16];
-    if (v35)
+    v84 = a1;
+    v13 = [*(a1 + 40) participants];
+    v14 = [v13 countByEnumeratingWithState:&v106 objects:v122 count:16];
+    if (v14)
     {
-      v36 = v35;
-      v37 = *v107;
-      while (2)
+      v15 = v14;
+      v16 = *v107;
+      do
       {
-        for (k = 0; k != v36; k = k + 1)
+        for (i = 0; i != v15; i = i + 1)
         {
-          if (*v107 != v37)
+          if (*v107 != v16)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v39 = *(*(&v106 + 1) + 8 * k);
-          v40 = [v23 objectForKeyedSubscript:v39];
+          v18 = *(*(&v106 + 1) + 8 * i);
+          v19 = [v18 handle];
+          [v12 setObject:v18 forKeyedSubscript:v19];
+        }
 
-          if (!v40)
+        v15 = [v13 countByEnumeratingWithState:&v106 objects:v122 count:16];
+      }
+
+      while (v15);
+    }
+
+    v20 = [*(v84 + 48) participants];
+    v21 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [v20 count]);
+
+    v104 = 0u;
+    v105 = 0u;
+    v102 = 0u;
+    v103 = 0u;
+    v22 = [*(v84 + 48) participants];
+    v23 = [v22 countByEnumeratingWithState:&v102 objects:v121 count:16];
+    if (v23)
+    {
+      v24 = v23;
+      v25 = *v103;
+      do
+      {
+        for (j = 0; j != v24; j = j + 1)
+        {
+          if (*v103 != v25)
           {
-            v41 = [v93 objectForKeyedSubscript:v39];
-            v42 = v41;
-            if (v41)
+            objc_enumerationMutation(v22);
+          }
+
+          v27 = *(*(&v102 + 1) + 8 * j);
+          v28 = [v27 userIdentity];
+          v29 = [v28 lookupInfo];
+          v30 = sub_100031428(v29);
+
+          if (v30)
+          {
+            [v21 setObject:v27 forKeyedSubscript:v30];
+          }
+        }
+
+        v24 = [v22 countByEnumeratingWithState:&v102 objects:v121 count:16];
+      }
+
+      while (v24);
+    }
+
+    v31 = KCSharingLogObject();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138478339;
+      v116 = v12;
+      v117 = 2113;
+      v118 = v21;
+      v119 = 2113;
+      v120 = v85;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Group participants Info: %{private}@ \n Share Participants Info: %{private}@ \n fetched share participants info: %{private}@", buf, 0x20u);
+    }
+
+    v100 = 0u;
+    v101 = 0u;
+    v98 = 0u;
+    v99 = 0u;
+    v10 = v12;
+    v32 = [v10 countByEnumeratingWithState:&v98 objects:v114 count:16];
+    if (v32)
+    {
+      v33 = v32;
+      v34 = *v99;
+      while (2)
+      {
+        for (k = 0; k != v33; k = k + 1)
+        {
+          if (*v99 != v34)
+          {
+            objc_enumerationMutation(v10);
+          }
+
+          v36 = *(*(&v98 + 1) + 8 * k);
+          v37 = [v21 objectForKeyedSubscript:v36];
+
+          if (!v37)
+          {
+            v38 = [v85 objectForKeyedSubscript:v36];
+            v39 = v38;
+            if (v38)
             {
-              if ([v41 role] == 1)
+              if ([v38 role] == 1)
               {
-                v43 = *(*(v92 + 32) + 32);
-                v44 = KCSharingLogObject();
-                if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+                v40 = KCSharingLogObject();
+                if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138478083;
-                  v124 = v39;
-                  v125 = 2113;
-                  v126 = v42;
-                  _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "Trying to add the owner: %{private}@ again %{private}@", buf, 0x16u);
+                  v116 = v36;
+                  v117 = 2113;
+                  v118 = v39;
+                  _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "Trying to add the owner: %{private}@ again %{private}@", buf, 0x16u);
                 }
               }
 
               else
               {
-                if ([v42 role] != 3 && objc_msgSend(v42, "role") != 2)
+                if ([v39 role] != 3 && objc_msgSend(v39, "role") != 2)
                 {
-                  v72 = *(*(v92 + 32) + 32);
-                  v73 = KCSharingLogObject();
-                  if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+                  v66 = KCSharingLogObject();
+                  if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138477827;
-                    v124 = v42;
-                    _os_log_error_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "Do not have proper participant role for share membership %{private}@", buf, 0xCu);
+                    v116 = v39;
+                    _os_log_error_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "Do not have proper participant role for share membership %{private}@", buf, 0xCu);
                   }
 
-                  v120 = NSLocalizedDescriptionKey;
-                  v121 = @"Do not have proper participant role for share membership";
-                  v74 = [NSDictionary dictionaryWithObjects:&v121 forKeys:&v120 count:1];
-                  v75 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:1 userInfo:v74];
+                  v112 = NSLocalizedDescriptionKey;
+                  v113 = @"Do not have proper participant role for share membership";
+                  v67 = [NSDictionary dictionaryWithObjects:&v113 forKeys:&v112 count:1];
+                  v68 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:1 userInfo:v67];
 
-                  (*(*(v92 + 56) + 16))();
-                  if (*(v92 + 72))
+                  (*(*(v84 + 56) + 16))();
+                  if (*(v84 + 72))
                   {
-                    v76 = @"create";
+                    v69 = @"create";
                   }
 
                   else
                   {
-                    v76 = @"update";
+                    v69 = @"update";
                   }
 
-                  v77 = [*(v92 + 48) participants];
-                  sub_10005019C(v76, [v77 count], *(v92 + 64), v75);
+                  v70 = [*(v84 + 48) participants];
+                  sub_10005019C(v69, [v70 count], *(v84 + 64), v68);
 
-                  v71 = v12;
+                  v65 = v10;
                   v5 = 0;
                   goto LABEL_90;
                 }
 
-                [*(v92 + 48) addParticipant:v42];
+                [*(v84 + 48) addParticipant:v39];
               }
             }
           }
         }
 
-        v36 = [v12 countByEnumeratingWithState:&v106 objects:v122 count:16];
-        if (v36)
+        v33 = [v10 countByEnumeratingWithState:&v98 objects:v114 count:16];
+        if (v33)
         {
           continue;
         }
@@ -2647,118 +2434,116 @@ void sub_100053DBC(uint64_t a1, void *a2, void *a3)
       }
     }
 
-    v91 = +[NSMutableArray array];
-    v102 = 0u;
-    v103 = 0u;
-    v104 = 0u;
-    v105 = 0u;
-    v42 = v23;
-    v45 = [v42 countByEnumeratingWithState:&v102 objects:v119 count:16];
-    v46 = v92;
-    if (v45)
+    v83 = +[NSMutableArray array];
+    v94 = 0u;
+    v95 = 0u;
+    v96 = 0u;
+    v97 = 0u;
+    v39 = v21;
+    v41 = [v39 countByEnumeratingWithState:&v94 objects:v111 count:16];
+    v42 = v84;
+    if (v41)
     {
-      v47 = v45;
-      v48 = *v103;
+      v43 = v41;
+      v44 = *v95;
       while (2)
       {
-        for (m = 0; m != v47; m = m + 1)
+        for (m = 0; m != v43; m = m + 1)
         {
-          if (*v103 != v48)
+          if (*v95 != v44)
           {
-            objc_enumerationMutation(v42);
+            objc_enumerationMutation(v39);
           }
 
-          v50 = *(*(&v102 + 1) + 8 * m);
-          v51 = [v42 objectForKeyedSubscript:v50];
-          v52 = [v12 objectForKeyedSubscript:v50];
-          v53 = v52;
-          if (v52)
+          v46 = *(*(&v94 + 1) + 8 * m);
+          v47 = [v39 objectForKeyedSubscript:v46];
+          v48 = [v10 objectForKeyedSubscript:v46];
+          v49 = v48;
+          if (v48)
           {
-            v54 = [v52 permissionLevel];
-            if (v54 > 2)
+            v50 = [v48 permissionLevel];
+            if (v50 > 2)
             {
-              v55 = 0;
+              v51 = 0;
             }
 
             else
             {
-              v55 = qword_100294980[v54];
+              v51 = qword_100294980[v50];
             }
 
-            [v51 setRole:v55];
-            v58 = [v53 permissionLevel];
-            if (v58 > 2)
+            [v47 setRole:v51];
+            v53 = [v49 permissionLevel];
+            if (v53 > 2)
             {
-              v59 = 0;
+              v54 = 0;
             }
 
             else
             {
-              v59 = qword_100294998[v58];
+              v54 = qword_100294998[v53];
             }
 
-            [v51 setPermission:v59];
+            [v47 setPermission:v54];
           }
 
-          else if ([v51 role] == 1 && objc_msgSend(v51, "isCurrentUser"))
+          else if ([v47 role] == 1 && objc_msgSend(v47, "isCurrentUser"))
           {
-            v56 = *(*(v46 + 32) + 32);
-            v57 = KCSharingLogObject();
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+            v52 = KCSharingLogObject();
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
             {
               *buf = 138478083;
-              v124 = v50;
-              v125 = 2113;
-              v126 = v51;
-              _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "Can't not remove owner: %{private}@ %{private}@; Skipping", buf, 0x16u);
+              v116 = v46;
+              v117 = 2113;
+              v118 = v47;
+              _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, "Can't not remove owner: %{private}@ %{private}@; Skipping", buf, 0x16u);
             }
 
-            v46 = v92;
+            v42 = v84;
           }
 
           else
           {
-            if ([v51 isCurrentUser])
+            if ([v47 isCurrentUser])
             {
-              v78 = *(*(v46 + 32) + 32);
-              v79 = KCSharingLogObject();
-              if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+              v71 = KCSharingLogObject();
+              if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
               {
-                v88 = [*(v46 + 40) groupID];
+                v80 = [*(v42 + 40) groupID];
                 *buf = 138543362;
-                v124 = v88;
-                _os_log_error_impl(&_mh_execute_header, v79, OS_LOG_TYPE_ERROR, "Rejected request to remove self from group %{public}@", buf, 0xCu);
+                v116 = v80;
+                _os_log_error_impl(&_mh_execute_header, v71, OS_LOG_TYPE_ERROR, "Rejected request to remove self from group %{public}@", buf, 0xCu);
 
-                v46 = v92;
+                v42 = v84;
               }
 
-              v80 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:15 userInfo:0];
-              (*(*(v46 + 56) + 16))();
-              v81 = v46;
-              if (*(v46 + 72))
+              v72 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:15 userInfo:0];
+              (*(*(v42 + 56) + 16))();
+              v73 = v42;
+              if (*(v42 + 72))
               {
-                v82 = @"create";
+                v74 = @"create";
               }
 
               else
               {
-                v82 = @"update";
+                v74 = @"update";
               }
 
-              v83 = [*(v81 + 48) participants];
-              sub_10005019C(v82, [v83 count], *(v81 + 64), v80);
+              v75 = [*(v73 + 48) participants];
+              sub_10005019C(v74, [v75 count], *(v73 + 64), v72);
 
               v5 = 0;
               goto LABEL_89;
             }
 
-            [*(v46 + 48) removeParticipant:v51];
-            [v91 addObject:v50];
+            [*(v42 + 48) removeParticipant:v47];
+            [v83 addObject:v46];
           }
         }
 
-        v47 = [v42 countByEnumeratingWithState:&v102 objects:v119 count:16];
-        if (v47)
+        v43 = [v39 countByEnumeratingWithState:&v94 objects:v111 count:16];
+        if (v43)
         {
           continue;
         }
@@ -2767,83 +2552,82 @@ void sub_100053DBC(uint64_t a1, void *a2, void *a3)
       }
     }
 
-    v60 = [*(v46 + 32) syncController];
-    v118 = *(v46 + 48);
-    v61 = [NSArray arrayWithObjects:&v118 count:1];
-    v101 = 0;
-    v62 = [v60 stageOutgoingShares:v61 deletionsForShares:0 error:&v101];
-    v42 = v101;
+    v55 = [*(v42 + 32) syncController];
+    v110 = *(v42 + 48);
+    v56 = [NSArray arrayWithObjects:&v110 count:1];
+    v93 = 0;
+    v57 = [v55 stageOutgoingShares:v56 deletionsForShares:0 error:&v93];
+    v39 = v93;
 
-    v63 = v92;
-    v64 = *(*(v92 + 32) + 32);
-    v65 = KCSharingLogObject();
-    v66 = v65;
-    if (v62)
+    v58 = v84;
+    v59 = KCSharingLogObject();
+    v60 = v59;
+    if (v57)
     {
       v5 = 0;
-      if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
       {
-        v67 = [*(v92 + 40) groupID];
+        v61 = [*(v84 + 40) groupID];
         *buf = 138543362;
-        v124 = v67;
-        _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEFAULT, "Successfully created/updated and staged CKShare for group create/update request %{public}@", buf, 0xCu);
+        v116 = v61;
+        _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "Successfully created/updated and staged CKShare for group create/update request %{public}@", buf, 0xCu);
 
-        v63 = v92;
+        v58 = v84;
       }
 
-      v68 = [*(v63 + 32) syncController];
-      v94[0] = _NSConcreteStackBlock;
-      v94[1] = 3221225472;
-      v94[2] = sub_100054AB4;
-      v94[3] = &unk_100334768;
-      v94[4] = *(v63 + 32);
-      v95 = *(v63 + 48);
-      v96 = *(v63 + 40);
-      v69 = *(v63 + 56);
-      v100 = *(v63 + 72);
-      v70 = *(v63 + 64);
-      v98 = v69;
-      v99 = v70;
-      v71 = v91;
-      v97 = v91;
-      [v68 saveStagedOutgoingChangesWithCompletion:v94];
+      v62 = [*(v58 + 32) syncController];
+      v86[0] = _NSConcreteStackBlock;
+      v86[1] = 3221225472;
+      v86[2] = sub_100054AB4;
+      v86[3] = &unk_100334768;
+      v86[4] = *(v58 + 32);
+      v87 = *(v58 + 48);
+      v88 = *(v58 + 40);
+      v63 = *(v58 + 56);
+      v92 = *(v58 + 72);
+      v64 = *(v58 + 64);
+      v90 = v63;
+      v91 = v64;
+      v65 = v83;
+      v89 = v83;
+      [v62 saveStagedOutgoingChangesWithCompletion:v86];
     }
 
     else
     {
       v5 = 0;
-      if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
-        v89 = *(v92 + 48);
-        v90 = [*(v92 + 40) groupID];
+        v81 = *(v84 + 48);
+        v82 = [*(v84 + 40) groupID];
         *buf = 138478339;
-        v124 = v89;
-        v125 = 2114;
-        v126 = v90;
-        v127 = 2114;
-        v128 = v42;
-        _os_log_error_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "Failed to stage outgoing share %{private}@ for group %{public}@: %{public}@", buf, 0x20u);
+        v116 = v81;
+        v117 = 2114;
+        v118 = v82;
+        v119 = 2114;
+        v120 = v39;
+        _os_log_error_impl(&_mh_execute_header, v60, OS_LOG_TYPE_ERROR, "Failed to stage outgoing share %{private}@ for group %{public}@: %{public}@", buf, 0x20u);
 
-        v63 = v92;
+        v58 = v84;
       }
 
-      (*(*(v63 + 56) + 16))();
-      if (*(v63 + 72))
+      (*(*(v58 + 56) + 16))();
+      if (*(v58 + 72))
       {
-        v84 = @"create";
+        v76 = @"create";
       }
 
       else
       {
-        v84 = @"update";
+        v76 = @"update";
       }
 
-      [*(v63 + 48) participants];
-      v86 = v85 = v63;
-      sub_10005019C(v84, [v86 count], *(v85 + 64), v42);
+      [*(v58 + 48) participants];
+      v78 = v77 = v58;
+      sub_10005019C(v76, [v78 count], *(v77 + 64), v39);
 
 LABEL_89:
-      v71 = v91;
+      v65 = v83;
     }
 
 LABEL_90:
@@ -2860,33 +2644,32 @@ void sub_100054AB4(uint64_t a1, void *a2)
 
   if (v7)
   {
-    v8 = *(*(a1 + 32) + 32);
-    v9 = KCSharingLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = KCSharingLogObject();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v31 = [*(a1 + 48) groupID];
+      v29 = [*(a1 + 48) groupID];
       *buf = 138543874;
-      v38 = v31;
+      v36 = v29;
+      v37 = 2114;
+      v38 = v7;
       v39 = 2114;
-      v40 = v7;
-      v41 = 2114;
-      v42 = v3;
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to save staged outgoing changes for group create/update request for %{public}@: %{public}@, %{public}@", buf, 0x20u);
+      v40 = v3;
+      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to save staged outgoing changes for group create/update request for %{public}@: %{public}@, %{public}@", buf, 0x20u);
     }
 
     (*(*(a1 + 64) + 16))();
     if (*(a1 + 80))
     {
-      v10 = @"create";
+      v9 = @"create";
     }
 
     else
     {
-      v10 = @"update";
+      v9 = @"update";
     }
 
-    v11 = [*(a1 + 40) participants];
-    sub_10005019C(v10, [v11 count], *(a1 + 72), v7);
+    v10 = [*(a1 + 40) participants];
+    sub_10005019C(v9, [v10 count], *(a1 + 72), v7);
   }
 
   else
@@ -2895,96 +2678,95 @@ void sub_100054AB4(uint64_t a1, void *a2)
     {
       if (*(a1 + 80))
       {
-        v12 = @"create";
+        v11 = @"create";
       }
 
       else
       {
-        v12 = @"update";
+        v11 = @"update";
       }
 
-      v13 = [*(a1 + 40) participants];
-      sub_10005019C(v12, [v13 count], *(a1 + 72), v3);
+      v12 = [*(a1 + 40) participants];
+      sub_10005019C(v11, [v12 count], *(a1 + 72), v3);
     }
 
-    v14 = [*(a1 + 32) syncController];
-    v15 = [v14 store];
-    v16 = [*(a1 + 48) groupID];
-    v34 = 0;
-    v17 = [v15 fetchCKShareFromMirrorForGroupID:v16 error:&v34];
-    v11 = v34;
+    v13 = [*(a1 + 32) syncController];
+    v14 = [v13 store];
+    v15 = [*(a1 + 48) groupID];
+    v32 = 0;
+    v16 = [v14 fetchCKShareFromMirrorForGroupID:v15 error:&v32];
+    v10 = v32;
 
-    v18 = sub_1000314F8(v17);
-    v19 = *(*(a1 + 32) + 32);
-    v20 = KCSharingLogObject();
-    v21 = v20;
-    if (v11 || !v18)
+    v17 = sub_1000314F8(v16);
+    v18 = KCSharingLogObject();
+    v19 = v18;
+    if (v10 || !v17)
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v38 = v11;
-        _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to fetch newly saved group from disk. This is a bug?! %{public}@", buf, 0xCu);
+        v36 = v10;
+        _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to fetch newly saved group from disk. This is a bug?! %{public}@", buf, 0xCu);
       }
 
-      v23 = sub_1000314F8(*(a1 + 40));
-      v35 = NSLocalizedDescriptionKey;
-      v36 = @"Failed to find saved group locally";
-      v24 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-      v25 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:9 userInfo:v24];
+      v21 = sub_1000314F8(*(a1 + 40));
+      v33 = NSLocalizedDescriptionKey;
+      v34 = @"Failed to find saved group locally";
+      v22 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+      v23 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:9 userInfo:v22];
 
       (*(*(a1 + 64) + 16))();
       if (*(a1 + 80))
       {
-        v26 = @"create";
+        v24 = @"create";
       }
 
       else
       {
-        v26 = @"update";
+        v24 = @"update";
       }
 
-      v27 = [v17 participants];
-      sub_10005019C(v26, [v27 count], *(a1 + 72), v25);
+      v25 = [v16 participants];
+      sub_10005019C(v24, [v25 count], *(a1 + 72), v23);
     }
 
     else
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138477827;
-        v38 = v18;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Will return successfully saved group %{private}@", buf, 0xCu);
+        v36 = v17;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Will return successfully saved group %{private}@", buf, 0xCu);
       }
 
       (*(*(a1 + 64) + 16))();
       if (*(a1 + 80))
       {
-        v22 = @"create";
+        v20 = @"create";
       }
 
       else
       {
-        v22 = @"update";
+        v20 = @"update";
       }
 
-      v23 = [v17 participants];
-      sub_10005019C(v22, [v23 count], *(a1 + 72), 0);
+      v21 = [v16 participants];
+      sub_10005019C(v20, [v21 count], *(a1 + 72), 0);
     }
 
     [*(a1 + 32) sendGroupsUpdatedNotifications];
     if ([*(a1 + 56) count])
     {
-      v28 = [*(a1 + 32) messagingdConnection];
-      v29 = *(a1 + 48);
-      v30 = *(a1 + 56);
-      v32[0] = _NSConcreteStackBlock;
-      v32[1] = 3221225472;
-      v32[2] = sub_100054FC0;
-      v32[3] = &unk_100334F20;
-      v32[4] = *(a1 + 32);
-      v33 = v29;
-      [v28 cancelPendingInvitesForGroup:v33 participantHandles:v30 completion:v32];
+      v26 = [*(a1 + 32) messagingdConnection];
+      v27 = *(a1 + 48);
+      v28 = *(a1 + 56);
+      v30[0] = _NSConcreteStackBlock;
+      v30[1] = 3221225472;
+      v30[2] = sub_100054FC0;
+      v30[3] = &unk_100334F20;
+      v30[4] = *(a1 + 32);
+      v31 = v27;
+      [v26 cancelPendingInvitesForGroup:v31 participantHandles:v28 completion:v30];
     }
   }
 }
@@ -2992,29 +2774,28 @@ void sub_100054AB4(uint64_t a1, void *a2)
 void sub_100054FC0(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(*(a1 + 32) + 32);
-  v5 = KCSharingLogObject();
-  v6 = v5;
+  v4 = KCSharingLogObject();
+  v5 = v4;
   if (v3)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = [*(a1 + 40) groupID];
-      v8 = 138543618;
-      v9 = v7;
-      v10 = 2114;
-      v11 = v3;
-      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to cancel (some) pending invitations for participants removed from %{public}@: %{public}@", &v8, 0x16u);
+      v6 = [*(a1 + 40) groupID];
+      v7 = 138543618;
+      v8 = v6;
+      v9 = 2114;
+      v10 = v3;
+      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to cancel (some) pending invitations for participants removed from %{public}@: %{public}@", &v7, 0x16u);
 LABEL_6:
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [*(a1 + 40) groupID];
-    v8 = 138543362;
-    v9 = v7;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Canceled any pending invitations for participants removed from %{public}@", &v8, 0xCu);
+    v6 = [*(a1 + 40) groupID];
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Canceled any pending invitations for participants removed from %{public}@", &v7, 0xCu);
     goto LABEL_6;
   }
 }
@@ -3033,194 +2814,183 @@ void sub_100055B60(uint64_t a1, void *a2, void *a3)
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained)
   {
-    v47 = v6;
-    v48 = v5;
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
-    v52 = 0u;
+    v39 = v6;
+    v40 = v5;
+    v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v51 objects:v63 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v43 objects:v55 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v52;
+      v11 = *v44;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v52 != v11)
+          if (*v44 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v51 + 1) + 8 * i);
-          v14 = [v8 objectForKeyedSubscript:{v13, v47}];
+          v13 = *(*(&v43 + 1) + 8 * i);
+          v14 = [v8 objectForKeyedSubscript:{v13, v39}];
           v15 = [v14 failure];
 
           if (v15)
           {
             v16 = [*(a1 + 32) objectForKeyedSubscript:v13];
-            v17 = WeakRetained[4];
-            v18 = KCSharingLogObject();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v17 = KCSharingLogObject();
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v56 = v16;
-              v57 = 2114;
-              v58 = v15;
-              _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "CK failed to fetch metadata for %{public}@: %{public}@", buf, 0x16u);
+              v48 = v16;
+              v49 = 2114;
+              v50 = v15;
+              _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "CK failed to fetch metadata for %{public}@: %{public}@", buf, 0x16u);
             }
 
             if (CKErrorIsCode())
             {
-              v19 = WeakRetained[4];
-              v20 = KCSharingLogObject();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              v18 = KCSharingLogObject();
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v56 = v16;
-                _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Metadata fetch error means the share for %{public}@ is no longer accessible to us, will attempt async to decline invitation", buf, 0xCu);
+                v48 = v16;
+                _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Metadata fetch error means the share for %{public}@ is no longer accessible to us, will attempt async to decline invitation", buf, 0xCu);
               }
 
-              v21 = [WeakRetained messagingdConnection];
-              v49[0] = _NSConcreteStackBlock;
-              v49[1] = 3221225472;
-              v49[2] = sub_10005676C;
-              v49[3] = &unk_100334F20;
-              v49[4] = WeakRetained;
+              v19 = [WeakRetained messagingdConnection];
+              v41[0] = _NSConcreteStackBlock;
+              v41[1] = 3221225472;
+              v41[2] = sub_10005676C;
+              v41[3] = &unk_100334F20;
+              v41[4] = WeakRetained;
               v16 = v16;
-              v50 = v16;
-              [v21 didDeclineInviteForGroupID:v16 completion:v49];
+              v42 = v16;
+              [v19 didDeclineInviteForGroupID:v16 completion:v41];
             }
           }
 
           else
           {
-            v22 = a1;
-            v23 = [v8 objectForKeyedSubscript:v13];
-            v16 = [v23 success];
+            v20 = a1;
+            v21 = [v8 objectForKeyedSubscript:v13];
+            v16 = [v21 success];
 
-            v24 = [v16 share];
+            v22 = [v16 share];
 
-            if (v24)
+            if (v22)
             {
-              v25 = WeakRetained[4];
-              v26 = KCSharingLogObject();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+              v23 = KCSharingLogObject();
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
               {
-                v27 = *(v22 + 40);
+                v24 = *(v20 + 40);
                 *buf = 138478339;
-                v56 = v27;
-                v57 = 2113;
-                v58 = v13;
-                v59 = 2113;
-                v60 = v16;
-                _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Fetched share metadata group invites: %{private}@ for shareURL: %{private}@ with shareMetadata: %{private}@", buf, 0x20u);
+                v48 = v24;
+                v49 = 2113;
+                v50 = v13;
+                v51 = 2113;
+                v52 = v16;
+                _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Fetched share metadata group invites: %{private}@ for shareURL: %{private}@ with shareMetadata: %{private}@", buf, 0x20u);
               }
 
-              a1 = v22;
-              [*(v22 + 48) addObject:v16];
+              a1 = v20;
+              [*(v20 + 48) addObject:v16];
             }
 
             else
             {
-              if (!v16 || ([v16 share], v28 = objc_claimAutoreleasedReturnValue(), v28, !v28))
+              if (!v16 || ([v16 share], v25 = objc_claimAutoreleasedReturnValue(), v25, !v25))
               {
-                v29 = WeakRetained[4];
-                v30 = KCSharingLogObject();
-                if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+                v26 = KCSharingLogObject();
+                if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                 {
-                  v31 = *(v22 + 40);
+                  v27 = *(v20 + 40);
                   *buf = 138478083;
-                  v56 = v31;
-                  v57 = 2113;
-                  v58 = v13;
-                  _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Failed to fetched share metadata group invites: %{private}@ for shareURL: %{private}@", buf, 0x16u);
+                  v48 = v27;
+                  v49 = 2113;
+                  v50 = v13;
+                  _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Failed to fetched share metadata group invites: %{private}@ for shareURL: %{private}@", buf, 0x16u);
                 }
               }
 
-              a1 = v22;
+              a1 = v20;
             }
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v51 objects:v63 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v43 objects:v55 count:16];
       }
 
       while (v10);
     }
 
-    v6 = v47;
-    if (v47)
+    v6 = v39;
+    if (v39)
     {
       IsCode = CKErrorIsCode();
-      v33 = WeakRetained[4];
-      v34 = KCSharingLogObject();
-      v35 = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
-      v5 = v48;
-      if (!IsCode)
+      v29 = KCSharingLogObject();
+      v30 = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
+      v5 = v40;
+      if (IsCode)
       {
-        if (v35)
+        if (v30)
         {
-          v46 = *(a1 + 40);
-          *buf = 138478083;
-          v56 = v46;
-          v57 = 2114;
-          v58 = v47;
-          _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Failed to fetch metadata for invites: %{private}@: %{public}@", buf, 0x16u);
+          v34 = *(a1 + 40);
+          v35 = [v34 count];
+          v36 = v35 - [*(a1 + 48) count];
+          v37 = [*(a1 + 40) count];
+          *buf = 138478595;
+          v48 = v34;
+          v49 = 2048;
+          v50 = v36;
+          v51 = 2048;
+          v52 = v37;
+          v53 = 2114;
+          v54 = v39;
+          _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Share metadata fetch for invites %{private}@ partly failed (%ld/%ld): %{public}@", buf, 0x2Au);
         }
-
-        v41 = *(*(a1 + 56) + 16);
-        goto LABEL_38;
       }
 
-      if (v35)
+      else if (v30)
       {
-        v42 = *(a1 + 40);
-        v43 = [v42 count];
-        v44 = v43 - [*(a1 + 48) count];
-        v45 = [*(a1 + 40) count];
-        *buf = 138478595;
-        v56 = v42;
-        v57 = 2048;
-        v58 = v44;
-        v59 = 2048;
-        v60 = v45;
-        v61 = 2114;
-        v62 = v47;
-        _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Share metadata fetch for invites %{private}@ partly failed (%ld/%ld): %{public}@", buf, 0x2Au);
+        v38 = *(a1 + 40);
+        *buf = 138478083;
+        v48 = v38;
+        v49 = 2114;
+        v50 = v39;
+        _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to fetch metadata for invites: %{private}@: %{public}@", buf, 0x16u);
       }
     }
 
     else
     {
-      v38 = WeakRetained[4];
-      v34 = KCSharingLogObject();
-      v5 = v48;
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v29 = KCSharingLogObject();
+      v5 = v40;
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v39 = *(a1 + 40);
+        v33 = *(a1 + 40);
         *buf = 138477827;
-        v56 = v39;
-        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Fetched share metadata for group invites: %{private}@", buf, 0xCu);
+        v48 = v33;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Fetched share metadata for group invites: %{private}@", buf, 0xCu);
       }
     }
 
-    v40 = *(a1 + 48);
-    v41 = *(*(a1 + 56) + 16);
-LABEL_38:
-    v41();
-    goto LABEL_39;
+    (*(*(a1 + 56) + 16))();
   }
 
-  v64 = NSLocalizedDescriptionKey;
-  v65 = @"Failed to strongify self in fetchCKShareMetadata";
-  v36 = [NSDictionary dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-  v37 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:39 userInfo:v36];
+  else
+  {
+    v56 = NSLocalizedDescriptionKey;
+    v57 = @"Failed to strongify self in fetchCKShareMetadata";
+    v31 = [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+    v32 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:39 userInfo:v31];
 
-  (*(*(a1 + 56) + 16))();
-LABEL_39:
+    (*(*(a1 + 56) + 16))();
+  }
 }
 
 void sub_1000561FC(id *a1, uint64_t a2, void *a3, void *a4)
@@ -3230,44 +3000,42 @@ void sub_1000561FC(id *a1, uint64_t a2, void *a3, void *a4)
   if (v8)
   {
     v9 = [a1[4] objectForKeyedSubscript:a2];
-    v10 = *(a1[5] + 4);
-    v11 = KCSharingLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = KCSharingLogObject();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v19 = v9;
-      v20 = 2114;
-      v21 = v8;
-      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "CK failed to fetch metadata for %{public}@: %{public}@", buf, 0x16u);
+      v17 = v9;
+      v18 = 2114;
+      v19 = v8;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "CK failed to fetch metadata for %{public}@: %{public}@", buf, 0x16u);
     }
 
     if (CKErrorIsCode())
     {
-      v12 = *(a1[5] + 4);
-      v13 = KCSharingLogObject();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v11 = KCSharingLogObject();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v19 = v9;
-        _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Metadata fetch error means the share for %{public}@ is no longer accessible to us, will attempt async to decline invitation", buf, 0xCu);
+        v17 = v9;
+        _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Metadata fetch error means the share for %{public}@ is no longer accessible to us, will attempt async to decline invitation", buf, 0xCu);
       }
 
-      v14 = [a1[5] messagingdConnection];
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_100056648;
-      v16[3] = &unk_100334F20;
-      v16[4] = a1[5];
-      v17 = v9;
-      [v14 didDeclineInviteForGroupID:v17 completion:v16];
+      v12 = [a1[5] messagingdConnection];
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_100056648;
+      v14[3] = &unk_100334F20;
+      v14[4] = a1[5];
+      v15 = v9;
+      [v12 didDeclineInviteForGroupID:v15 completion:v14];
     }
   }
 
   else
   {
-    v15 = [v7 share];
+    v13 = [v7 share];
 
-    if (v15)
+    if (v13)
     {
       [a1[6] addObject:v7];
     }
@@ -3277,119 +3045,108 @@ void sub_1000561FC(id *a1, uint64_t a2, void *a3, void *a4)
 void sub_100056428(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (!v3)
+  if (v3)
   {
-    v8 = *(*(a1 + 32) + 32);
-    v6 = KCSharingLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    IsCode = CKErrorIsCode();
+    v5 = KCSharingLogObject();
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (IsCode)
     {
-      v9 = *(a1 + 40);
-      v17 = 138477827;
-      v18 = v9;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Fetched share metadata for group invites: %{private}@", &v17, 0xCu);
+      if (v6)
+      {
+        v8 = *(a1 + 40);
+        v9 = [v8 count];
+        v10 = v9 - [*(a1 + 48) count];
+        v11 = [*(a1 + 40) count];
+        v13 = 138478595;
+        v14 = v8;
+        v15 = 2048;
+        v16 = v10;
+        v17 = 2048;
+        v18 = v11;
+        v19 = 2114;
+        v20 = v3;
+        _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Share metadata fetch for invites %{private}@ partly failed (%ld/%ld): %{public}@", &v13, 0x2Au);
+      }
     }
 
-    goto LABEL_8;
-  }
-
-  IsCode = CKErrorIsCode();
-  v5 = *(*(a1 + 32) + 32);
-  v6 = KCSharingLogObject();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
-  if (IsCode)
-  {
-    if (v7)
+    else if (v6)
     {
       v12 = *(a1 + 40);
-      v13 = [v12 count];
-      v14 = v13 - [*(a1 + 48) count];
-      v15 = [*(a1 + 40) count];
-      v17 = 138478595;
-      v18 = v12;
-      v19 = 2048;
-      v20 = v14;
-      v21 = 2048;
-      v22 = v15;
-      v23 = 2114;
-      v24 = v3;
-      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Share metadata fetch for invites %{private}@ partly failed (%ld/%ld): %{public}@", &v17, 0x2Au);
+      v13 = 138478083;
+      v14 = v12;
+      v15 = 2114;
+      v16 = v3;
+      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to fetch metadata for invites: %{private}@: %{public}@", &v13, 0x16u);
     }
-
-LABEL_8:
-
-    v10 = *(a1 + 48);
-    v11 = *(*(a1 + 56) + 16);
-    goto LABEL_12;
   }
 
-  if (v7)
+  else
   {
-    v16 = *(a1 + 40);
-    v17 = 138478083;
-    v18 = v16;
-    v19 = 2114;
-    v20 = v3;
-    _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to fetch metadata for invites: %{private}@: %{public}@", &v17, 0x16u);
+    v5 = KCSharingLogObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = *(a1 + 40);
+      v13 = 138477827;
+      v14 = v7;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Fetched share metadata for group invites: %{private}@", &v13, 0xCu);
+    }
   }
 
-  v11 = *(*(a1 + 56) + 16);
-LABEL_12:
-  v11();
+  (*(*(a1 + 56) + 16))();
 }
 
 void sub_100056648(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(*(a1 + 32) + 32);
-  v5 = KCSharingLogObject();
-  v6 = v5;
+  v4 = KCSharingLogObject();
+  v5 = v4;
   if (v3)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 40);
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v3;
-      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to decline unusable invitation for groupID %{public}@: %{public}@", &v9, 0x16u);
+      v6 = *(a1 + 40);
+      v8 = 138543618;
+      v9 = v6;
+      v10 = 2114;
+      v11 = v3;
+      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to decline unusable invitation for groupID %{public}@: %{public}@", &v8, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 40);
-    v9 = 138543362;
-    v10 = v8;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Declined invitation for groupID %{public}@ we no longer have access to.", &v9, 0xCu);
+    v7 = *(a1 + 40);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Declined invitation for groupID %{public}@ we no longer have access to.", &v8, 0xCu);
   }
 }
 
 void sub_10005676C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(*(a1 + 32) + 32);
-  v5 = KCSharingLogObject();
-  v6 = v5;
+  v4 = KCSharingLogObject();
+  v5 = v4;
   if (v3)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 40);
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v3;
-      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to decline unusable invitation for groupID %{public}@: %{public}@", &v9, 0x16u);
+      v6 = *(a1 + 40);
+      v8 = 138543618;
+      v9 = v6;
+      v10 = 2114;
+      v11 = v3;
+      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to decline unusable invitation for groupID %{public}@: %{public}@", &v8, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 40);
-    v9 = 138543362;
-    v10 = v8;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Declined invitation for groupID %{public}@ we no longer have access to.", &v9, 0xCu);
+    v7 = *(a1 + 40);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Declined invitation for groupID %{public}@ we no longer have access to.", &v8, 0xCu);
   }
 }
 
@@ -3399,13 +3156,12 @@ void sub_100056968(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (v6)
   {
-    v7 = *(*(a1 + 32) + 32);
-    v8 = KCSharingLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = KCSharingLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v28 = v6;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to fetch received group invites: %{public}@", buf, 0xCu);
+      v27 = v6;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to fetch received group invites: %{public}@", buf, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -3413,54 +3169,54 @@ void sub_100056968(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v9 = objc_alloc_init(NSMutableArray);
+    v8 = objc_alloc_init(NSMutableArray);
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v19 = v5;
-    v10 = v5;
-    v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v11)
+    v18 = v5;
+    v9 = v5;
+    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v10)
     {
-      v12 = v11;
-      v13 = *v23;
+      v11 = v10;
+      v12 = *v22;
       do
       {
-        for (i = 0; i != v12; i = i + 1)
+        for (i = 0; i != v11; i = i + 1)
         {
-          if (*v23 != v13)
+          if (*v22 != v12)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v22 + 1) + 8 * i);
-          v16 = *(a1 + 40);
-          v17 = [v15 groupID];
-          LOBYTE(v16) = [v16 containsObject:v17];
+          v14 = *(*(&v21 + 1) + 8 * i);
+          v15 = *(a1 + 40);
+          v16 = [v14 groupID];
+          LOBYTE(v15) = [v15 containsObject:v16];
 
-          if ((v16 & 1) == 0)
+          if ((v15 & 1) == 0)
           {
-            [v9 addObject:v15];
+            [v8 addObject:v14];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
-      while (v12);
+      while (v11);
     }
 
-    if ([v9 count])
+    if ([v8 count])
     {
-      v18 = *(a1 + 32);
-      v20[0] = _NSConcreteStackBlock;
-      v20[1] = 3221225472;
-      v20[2] = sub_100056BF0;
-      v20[3] = &unk_1003365F8;
-      v20[4] = v18;
-      v21 = *(a1 + 48);
-      [v18 fetchCKShareMetadataForGroupInvites:v9 completion:v20];
+      v17 = *(a1 + 32);
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_100056BF0;
+      v19[3] = &unk_1003365F8;
+      v19[4] = v17;
+      v20 = *(a1 + 48);
+      [v17 fetchCKShareMetadataForGroupInvites:v8 completion:v19];
     }
 
     else
@@ -3468,7 +3224,7 @@ void sub_100056968(uint64_t a1, void *a2, void *a3)
       (*(*(a1 + 48) + 16))();
     }
 
-    v5 = v19;
+    v5 = v18;
   }
 }
 
@@ -3478,64 +3234,62 @@ void sub_100056BF0(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (v6)
   {
-    v7 = *(*(a1 + 32) + 32);
-    v8 = KCSharingLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = KCSharingLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v28 = v6;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "(Partial) error fetching share metadata for group invites: %{public}@", buf, 0xCu);
+      v26 = v6;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "(Partial) error fetching share metadata for group invites: %{public}@", buf, 0xCu);
     }
   }
 
-  v21 = v6;
-  v9 = objc_alloc_init(NSMutableArray);
+  v19 = v6;
+  v8 = objc_alloc_init(NSMutableArray);
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v10 = v5;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v11)
+  v9 = v5;
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v23;
+    v11 = v10;
+    v12 = *v21;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      for (i = 0; i != v11; i = i + 1)
       {
-        if (*v23 != v13)
+        if (*v21 != v12)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
-        v16 = [v15 share];
-        v17 = sub_1000314F8(v16);
+        v14 = *(*(&v20 + 1) + 8 * i);
+        v15 = [v14 share];
+        v16 = sub_1000314F8(v15);
 
-        if (v17)
+        if (v16)
         {
-          [v9 addObject:v17];
+          [v8 addObject:v16];
         }
 
         else
         {
-          v18 = *(*(a1 + 32) + 32);
-          v19 = KCSharingLogObject();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v17 = KCSharingLogObject();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            v20 = [v15 share];
+            v18 = [v14 share];
             *buf = 138543362;
-            v28 = v20;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Ignoring share for non-group zone: %{public}@", buf, 0xCu);
+            v26 = v18;
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Ignoring share for non-group zone: %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
-    while (v12);
+    while (v11);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -3547,13 +3301,12 @@ void sub_10005715C(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (v6)
   {
-    v7 = *(*(a1 + 32) + 32);
-    v8 = KCSharingLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = KCSharingLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543362;
-      v16 = v6;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to fetch pending groups: %{public}@", &v15, 0xCu);
+      v12 = 138543362;
+      v13 = v6;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to fetch pending groups: %{public}@", &v12, 0xCu);
     }
   }
 
@@ -3562,23 +3315,21 @@ void sub_10005715C(uint64_t a1, void *a2, void *a3)
     [*(a1 + 40) addObjectsFromArray:v5];
   }
 
-  v9 = *(*(a1 + 32) + 32);
-  v10 = KCSharingLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v8 = KCSharingLogObject();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [*(a1 + 40) count];
-    v12 = [v5 count];
-    v13 = *(a1 + 40);
-    v15 = 134349571;
-    v16 = v11;
-    v17 = 2050;
-    v18 = v12;
-    v19 = 2113;
-    v20 = v13;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Fetched %{public}ld groups (%{public}ld of which pending): %{private}@", &v15, 0x20u);
+    v9 = [*(a1 + 40) count];
+    v10 = [v5 count];
+    v11 = *(a1 + 40);
+    v12 = 134349571;
+    v13 = v9;
+    v14 = 2050;
+    v15 = v10;
+    v16 = 2113;
+    v17 = v11;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Fetched %{public}ld groups (%{public}ld of which pending): %{private}@", &v12, 0x20u);
   }
 
-  v14 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -3595,10 +3346,11 @@ void sub_10005763C(id a1)
   objc_autoreleasePoolPop(v1);
 }
 
-void sub_10005828C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_10005828C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
+  va_start(va, a50);
   _Block_object_dispose(&a32, 8);
-  _Block_object_dispose(&a51, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3732,12 +3484,12 @@ uint64_t sub_10005D630(uint64_t a1, void *a2)
       v7 = 0;
       while (1)
       {
-        LOBYTE(v73) = 0;
+        LOBYTE(v72) = 0;
         v8 = [a2 position] + 1;
         if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
         {
           v10 = [a2 data];
-          [v10 getBytes:&v73 range:{objc_msgSend(a2, "position"), 1}];
+          [v10 getBytes:&v72 range:{objc_msgSend(a2, "position"), 1}];
 
           [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
         }
@@ -3747,8 +3499,8 @@ uint64_t sub_10005D630(uint64_t a1, void *a2)
           [a2 _setError];
         }
 
-        v7 |= (v73 & 0x7F) << v5;
-        if ((v73 & 0x80) == 0)
+        v7 |= (v72 & 0x7F) << v5;
+        if ((v72 & 0x80) == 0)
         {
           break;
         }
@@ -3781,12 +3533,12 @@ LABEL_14:
           goto LABEL_92;
         case 2u:
           *(a1 + 248) |= 0x20u;
-          v73 = 0;
+          v72 = 0;
           v41 = [a2 position] + 8;
           if (v41 >= [a2 position] && (v42 = objc_msgSend(a2, "position") + 8, v42 <= objc_msgSend(a2, "length")))
           {
-            v71 = [a2 data];
-            [v71 getBytes:&v73 range:{objc_msgSend(a2, "position"), 8}];
+            v70 = [a2 data];
+            [v70 getBytes:&v72 range:{objc_msgSend(a2, "position"), 8}];
 
             [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
           }
@@ -3796,17 +3548,17 @@ LABEL_14:
             [a2 _setError];
           }
 
-          v69 = v73;
-          v70 = 56;
+          v68 = v72;
+          v69 = 56;
           goto LABEL_144;
         case 3u:
           *(a1 + 248) |= 1u;
-          v73 = 0;
+          v72 = 0;
           v33 = [a2 position] + 8;
           if (v33 >= [a2 position] && (v34 = objc_msgSend(a2, "position") + 8, v34 <= objc_msgSend(a2, "length")))
           {
-            v68 = [a2 data];
-            [v68 getBytes:&v73 range:{objc_msgSend(a2, "position"), 8}];
+            v67 = [a2 data];
+            [v67 getBytes:&v72 range:{objc_msgSend(a2, "position"), 8}];
 
             [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
           }
@@ -3816,10 +3568,10 @@ LABEL_14:
             [a2 _setError];
           }
 
-          v69 = v73;
-          v70 = 16;
+          v68 = v72;
+          v69 = 16;
 LABEL_144:
-          *(a1 + v70) = v69;
+          *(a1 + v69) = v68;
           goto LABEL_145;
         case 4u:
           v12 = PBReaderReadString();
@@ -3840,12 +3592,12 @@ LABEL_144:
           *(a1 + 248) |= 0x100u;
           while (1)
           {
-            LOBYTE(v73) = 0;
+            LOBYTE(v72) = 0;
             v46 = [a2 position] + 1;
             if (v46 >= [a2 position] && (v47 = objc_msgSend(a2, "position") + 1, v47 <= objc_msgSend(a2, "length")))
             {
               v48 = [a2 data];
-              [v48 getBytes:&v73 range:{objc_msgSend(a2, "position"), 1}];
+              [v48 getBytes:&v72 range:{objc_msgSend(a2, "position"), 1}];
 
               [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
             }
@@ -3855,8 +3607,8 @@ LABEL_144:
               [a2 _setError];
             }
 
-            v45 |= (v73 & 0x7F) << v43;
-            if ((v73 & 0x80) == 0)
+            v45 |= (v72 & 0x7F) << v43;
+            if ((v72 & 0x80) == 0)
             {
               break;
             }
@@ -3946,12 +3698,12 @@ LABEL_130:
           *(a1 + 248) |= 2u;
           while (1)
           {
-            LOBYTE(v73) = 0;
+            LOBYTE(v72) = 0;
             v17 = [a2 position] + 1;
             if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
             {
               v19 = [a2 data];
-              [v19 getBytes:&v73 range:{objc_msgSend(a2, "position"), 1}];
+              [v19 getBytes:&v72 range:{objc_msgSend(a2, "position"), 1}];
 
               [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
             }
@@ -3961,8 +3713,8 @@ LABEL_130:
               [a2 _setError];
             }
 
-            v16 |= (v73 & 0x7F) << v14;
-            if ((v73 & 0x80) == 0)
+            v16 |= (v72 & 0x7F) << v14;
+            if ((v72 & 0x80) == 0)
             {
               break;
             }
@@ -3987,7 +3739,7 @@ LABEL_130:
           }
 
 LABEL_114:
-          v67 = 24;
+          v66 = 24;
           goto LABEL_139;
         case 0x17u:
           v27 = 0;
@@ -3996,12 +3748,12 @@ LABEL_114:
           *(a1 + 248) |= 0x80u;
           while (1)
           {
-            LOBYTE(v73) = 0;
+            LOBYTE(v72) = 0;
             v30 = [a2 position] + 1;
             if (v30 >= [a2 position] && (v31 = objc_msgSend(a2, "position") + 1, v31 <= objc_msgSend(a2, "length")))
             {
               v32 = [a2 data];
-              [v32 getBytes:&v73 range:{objc_msgSend(a2, "position"), 1}];
+              [v32 getBytes:&v72 range:{objc_msgSend(a2, "position"), 1}];
 
               [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
             }
@@ -4011,8 +3763,8 @@ LABEL_114:
               [a2 _setError];
             }
 
-            v29 |= (v73 & 0x7F) << v27;
-            if ((v73 & 0x80) == 0)
+            v29 |= (v72 & 0x7F) << v27;
+            if ((v72 & 0x80) == 0)
             {
               break;
             }
@@ -4037,7 +3789,7 @@ LABEL_114:
           }
 
 LABEL_122:
-          v67 = 72;
+          v66 = 72;
           goto LABEL_139;
         case 0x18u:
           v12 = PBReaderReadString();
@@ -4050,12 +3802,12 @@ LABEL_122:
           *(a1 + 248) |= 8u;
           while (1)
           {
-            LOBYTE(v73) = 0;
+            LOBYTE(v72) = 0;
             v38 = [a2 position] + 1;
             if (v38 >= [a2 position] && (v39 = objc_msgSend(a2, "position") + 1, v39 <= objc_msgSend(a2, "length")))
             {
               v40 = [a2 data];
-              [v40 getBytes:&v73 range:{objc_msgSend(a2, "position"), 1}];
+              [v40 getBytes:&v72 range:{objc_msgSend(a2, "position"), 1}];
 
               [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
             }
@@ -4065,8 +3817,8 @@ LABEL_122:
               [a2 _setError];
             }
 
-            v37 |= (v73 & 0x7F) << v35;
-            if ((v73 & 0x80) == 0)
+            v37 |= (v72 & 0x7F) << v35;
+            if ((v72 & 0x80) == 0)
             {
               break;
             }
@@ -4091,7 +3843,7 @@ LABEL_122:
           }
 
 LABEL_126:
-          v67 = 40;
+          v66 = 40;
           goto LABEL_139;
         case 0x1Bu:
           v21 = 0;
@@ -4100,12 +3852,12 @@ LABEL_126:
           *(a1 + 248) |= 0x10u;
           while (1)
           {
-            LOBYTE(v73) = 0;
+            LOBYTE(v72) = 0;
             v24 = [a2 position] + 1;
             if (v24 >= [a2 position] && (v25 = objc_msgSend(a2, "position") + 1, v25 <= objc_msgSend(a2, "length")))
             {
               v26 = [a2 data];
-              [v26 getBytes:&v73 range:{objc_msgSend(a2, "position"), 1}];
+              [v26 getBytes:&v72 range:{objc_msgSend(a2, "position"), 1}];
 
               [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
             }
@@ -4115,8 +3867,8 @@ LABEL_126:
               [a2 _setError];
             }
 
-            v23 |= (v73 & 0x7F) << v21;
-            if ((v73 & 0x80) == 0)
+            v23 |= (v72 & 0x7F) << v21;
+            if ((v72 & 0x80) == 0)
             {
               break;
             }
@@ -4141,21 +3893,21 @@ LABEL_126:
           }
 
 LABEL_118:
-          v67 = 48;
+          v66 = 48;
           goto LABEL_139;
         case 0x1Cu:
+          v60 = 0;
           v61 = 0;
           v62 = 0;
-          v63 = 0;
           *(a1 + 248) |= 4u;
           while (1)
           {
-            LOBYTE(v73) = 0;
-            v64 = [a2 position] + 1;
-            if (v64 >= [a2 position] && (v65 = objc_msgSend(a2, "position") + 1, v65 <= objc_msgSend(a2, "length")))
+            LOBYTE(v72) = 0;
+            v63 = [a2 position] + 1;
+            if (v63 >= [a2 position] && (v64 = objc_msgSend(a2, "position") + 1, v64 <= objc_msgSend(a2, "length")))
             {
-              v66 = [a2 data];
-              [v66 getBytes:&v73 range:{objc_msgSend(a2, "position"), 1}];
+              v65 = [a2 data];
+              [v65 getBytes:&v72 range:{objc_msgSend(a2, "position"), 1}];
 
               [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
             }
@@ -4165,14 +3917,14 @@ LABEL_118:
               [a2 _setError];
             }
 
-            v63 |= (v73 & 0x7F) << v61;
-            if ((v73 & 0x80) == 0)
+            v62 |= (v72 & 0x7F) << v60;
+            if ((v72 & 0x80) == 0)
             {
               break;
             }
 
-            v61 += 7;
-            v11 = v62++ >= 9;
+            v60 += 7;
+            v11 = v61++ >= 9;
             if (v11)
             {
               v20 = 0;
@@ -4187,23 +3939,23 @@ LABEL_118:
 
           else
           {
-            v20 = v63;
+            v20 = v62;
           }
 
 LABEL_138:
-          v67 = 32;
+          v66 = 32;
           goto LABEL_139;
         case 0x1Du:
+          v54 = 0;
           v55 = 0;
           v56 = 0;
-          v57 = 0;
           *(a1 + 248) |= 0x40u;
           break;
         case 0x1Eu:
           v12 = PBReaderReadData();
           v13 = 104;
 LABEL_92:
-          v54 = *(a1 + v13);
+          v53 = *(a1 + v13);
           *(a1 + v13) = v12;
 
           goto LABEL_145;
@@ -4213,8 +3965,6 @@ LABEL_92:
             v50 = objc_alloc_init(PBUnknownFields);
             v51 = *(a1 + 8);
             *(a1 + 8) = v50;
-
-            v52 = *(a1 + 8);
           }
 
           result = PBUnknownFieldAdd();
@@ -4228,12 +3978,12 @@ LABEL_92:
 
       while (1)
       {
-        LOBYTE(v73) = 0;
-        v58 = [a2 position] + 1;
-        if (v58 >= [a2 position] && (v59 = objc_msgSend(a2, "position") + 1, v59 <= objc_msgSend(a2, "length")))
+        LOBYTE(v72) = 0;
+        v57 = [a2 position] + 1;
+        if (v57 >= [a2 position] && (v58 = objc_msgSend(a2, "position") + 1, v58 <= objc_msgSend(a2, "length")))
         {
-          v60 = [a2 data];
-          [v60 getBytes:&v73 range:{objc_msgSend(a2, "position"), 1}];
+          v59 = [a2 data];
+          [v59 getBytes:&v72 range:{objc_msgSend(a2, "position"), 1}];
 
           [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
         }
@@ -4243,14 +3993,14 @@ LABEL_92:
           [a2 _setError];
         }
 
-        v57 |= (v73 & 0x7F) << v55;
-        if ((v73 & 0x80) == 0)
+        v56 |= (v72 & 0x7F) << v54;
+        if ((v72 & 0x80) == 0)
         {
           break;
         }
 
-        v55 += 7;
-        v11 = v56++ >= 9;
+        v54 += 7;
+        v11 = v55++ >= 9;
         if (v11)
         {
           v20 = 0;
@@ -4258,16 +4008,16 @@ LABEL_92:
         }
       }
 
-      v20 = [a2 hasError] ? 0 : v57;
+      v20 = [a2 hasError] ? 0 : v56;
 LABEL_134:
-      v67 = 64;
+      v66 = 64;
 LABEL_139:
-      *(a1 + v67) = v20;
+      *(a1 + v66) = v20;
 LABEL_145:
-      v72 = [a2 position];
+      v71 = [a2 position];
     }
 
-    while (v72 < [a2 length]);
+    while (v71 < [a2 length]);
   }
 
   return [a2 hasError] ^ 1;
@@ -4345,9 +4095,11 @@ void sub_10005F28C(id a1, NSError *a2)
 
 void sub_10005F3D4(id a1)
 {
-  qword_10039DBD8 = objc_alloc_init(KCSharingGroupNotificationConnection);
+  v1 = objc_alloc_init(KCSharingGroupNotificationConnection);
+  v2 = qword_10039DBD8;
+  qword_10039DBD8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100061044(id a1, NSError *a2)
@@ -4610,14 +4362,14 @@ LABEL_11:
   return v9;
 }
 
-void sub_100069D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100069D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4726,14 +4478,14 @@ LABEL_11:
   return v8;
 }
 
-void sub_10006A010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10006A010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4821,14 +4573,14 @@ LABEL_11:
   return v7;
 }
 
-void sub_10006A26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10006A26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5633,10 +5385,11 @@ void sub_100073234(uint64_t a1, void *a2)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_1000740D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_1000740D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 224), 8);
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 224), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5957,10 +5710,10 @@ LABEL_2:
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(*(*(a1 + 48) + 8) + 40);
-      v13 = 138543362;
-      v14 = v12;
-      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to force-fetch remote changes: %{public}@", &v13, 0xCu);
+      v11 = *(*(*(a1 + 48) + 8) + 40);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to force-fetch remote changes: %{public}@", &v12, 0xCu);
     }
 
     goto LABEL_4;
@@ -5970,31 +5723,30 @@ LABEL_2:
   {
     if (!*(*(*(a1 + 48) + 8) + 40))
     {
-      v15 = NSMultipleUnderlyingErrorsKey;
-      v6 = [*(*(*(a1 + 56) + 8) + 40) copy];
-      v16 = v6;
-      v7 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-      v8 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:14 userInfo:v7];
-      v9 = *(*(a1 + 48) + 8);
-      v10 = *(v9 + 40);
-      *(v9 + 40) = v8;
+      v14 = NSMultipleUnderlyingErrorsKey;
+      v5 = [*(*(*(a1 + 56) + 8) + 40) copy];
+      v15 = v5;
+      v6 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+      v7 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:14 userInfo:v6];
+      v8 = *(*(a1 + 48) + 8);
+      v9 = *(v8 + 40);
+      *(v8 + 40) = v7;
     }
 
     goto LABEL_2;
   }
 
-  v11 = [*(a1 + 32) loggingIdentifier];
+  v10 = [*(a1 + 32) loggingIdentifier];
   v3 = KCSharingLogObject();
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Force-fetch remote changes complete", &v13, 2u);
+    LOWORD(v12) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Force-fetch remote changes complete", &v12, 2u);
   }
 
 LABEL_4:
 
-  v4 = *(*(*(a1 + 48) + 8) + 40);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -6450,10 +6202,10 @@ void sub_100078234(_Unwind_Exception *a1)
 
 void sub_100078250(uint64_t a1, void *a2)
 {
-  v8 = a2;
+  v7 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v4 = WeakRetained;
-  if (v8)
+  if (v7)
   {
     v5 = *(*(a1 + 32) + 16);
 LABEL_3:
@@ -6465,7 +6217,6 @@ LABEL_3:
   if (!WeakRetained)
   {
     v5 = *(v6 + 16);
-    v7 = *(a1 + 32);
     goto LABEL_3;
   }
 
@@ -6678,10 +6429,10 @@ LABEL_2:
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(*(*(a1 + 48) + 8) + 40);
-      v13 = 138543362;
-      v14 = v12;
-      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to provision user: %{public}@", &v13, 0xCu);
+      v11 = *(*(*(a1 + 48) + 8) + 40);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to provision user: %{public}@", &v12, 0xCu);
     }
 
     goto LABEL_4;
@@ -6691,31 +6442,30 @@ LABEL_2:
   {
     if (!*(*(*(a1 + 48) + 8) + 40))
     {
-      v15 = NSMultipleUnderlyingErrorsKey;
-      v6 = [*(*(*(a1 + 56) + 8) + 40) copy];
-      v16 = v6;
-      v7 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-      v8 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:33 userInfo:v7];
-      v9 = *(*(a1 + 48) + 8);
-      v10 = *(v9 + 40);
-      *(v9 + 40) = v8;
+      v14 = NSMultipleUnderlyingErrorsKey;
+      v5 = [*(*(*(a1 + 56) + 8) + 40) copy];
+      v15 = v5;
+      v6 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+      v7 = [NSError errorWithDomain:@"KCSharingErrorDomain" code:33 userInfo:v6];
+      v8 = *(*(a1 + 48) + 8);
+      v9 = *(v8 + 40);
+      *(v8 + 40) = v7;
     }
 
     goto LABEL_2;
   }
 
-  v11 = [*(a1 + 32) loggingIdentifier];
+  v10 = [*(a1 + 32) loggingIdentifier];
   v3 = KCSharingLogObject();
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Provisioned user.", &v13, 2u);
+    LOWORD(v12) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Provisioned user.", &v12, 2u);
   }
 
 LABEL_4:
 
-  v4 = *(*(*(a1 + 48) + 8) + 40);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -6894,9 +6644,9 @@ void sub_100079F0C(uint64_t a1, void *a2)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v3;
-      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to provision current user with error=%@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v3;
+      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to provision current user with error=%@", &v9, 0xCu);
     }
 
     v6 = 3;
@@ -6906,27 +6656,23 @@ void sub_100079F0C(uint64_t a1, void *a2)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Successfully provisioned current user", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Successfully provisioned current user", &v9, 2u);
     }
 
     v6 = 0;
   }
 
-  if ((*(a1 + 56) & 1) == 0)
+  if ((*(a1 + 56) & 1) == 0 && (xpc_activity_set_completion_status() & 1) == 0)
   {
-    v7 = *(a1 + 48);
-    if ((xpc_activity_set_completion_status() & 1) == 0)
-    {
-      v8 = [*(a1 + 40) loggingIdentifier];
-      v9 = KCSharingLogObject();
+    v7 = [*(a1 + 40) loggingIdentifier];
+    v8 = KCSharingLogObject();
 
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-        v10 = 134217984;
-        v11 = v6;
-        _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to set completion status=%ld for provisioning activity", &v10, 0xCu);
-      }
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v9 = 134217984;
+      v10 = v6;
+      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to set completion status=%ld for provisioning activity", &v9, 0xCu);
     }
   }
 
@@ -7366,85 +7112,83 @@ void sub_10007B97C(uint64_t a1)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v20 = *(a1 + 32);
-      v21 = 138543362;
-      v22 = v20;
-      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Got session acquisition error: %{public}@", &v21, 0xCu);
+      v17 = *(a1 + 32);
+      v18 = 138543362;
+      v19 = v17;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Got session acquisition error: %{public}@", &v18, 0xCu);
     }
 
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 48) + 16);
-LABEL_5:
-    v6();
+LABEL_4:
+
+    (*(*(a1 + 48) + 16))();
     return;
   }
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v21) = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Trying reinit sync engines after acquiring a session", &v21, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Trying reinit sync engines after acquiring a session", &v18, 2u);
   }
 
-  v7 = [*(a1 + 40) privateSyncEngine];
-  if (v7)
+  v5 = [*(a1 + 40) privateSyncEngine];
+  if (v5)
   {
-    v8 = v7;
-    v9 = [*(a1 + 40) sharedSyncEngine];
+    v6 = v5;
+    v7 = [*(a1 + 40) sharedSyncEngine];
 
-    if (v9)
+    if (v7)
     {
-      v10 = [*(a1 + 40) loggingIdentifier];
-      v11 = KCSharingLogObject();
+      v8 = [*(a1 + 40) loggingIdentifier];
+      v4 = KCSharingLogObject();
 
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v21) = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Not reinitializing sync engines, they are already available, so returning early", &v21, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Not reinitializing sync engines, they are already available, so returning early", &v18, 2u);
       }
 
-      v6 = *(*(a1 + 48) + 16);
-      goto LABEL_5;
+      goto LABEL_4;
     }
   }
 
   [*(a1 + 40) CKSyncEnginesInitOperationWithDelay:0 withCompletion:*(a1 + 48)];
-  v12 = *(*(a1 + 40) + 32);
-  v13 = v12;
-  if (!v12)
+  v9 = *(*(a1 + 40) + 32);
+  v10 = v9;
+  if (!v9)
   {
-    v15 = *(a1 + 40);
-LABEL_20:
-    v18 = [v15 loggingIdentifier];
-    v19 = KCSharingLogObject();
+    v12 = *(a1 + 40);
+LABEL_19:
+    v15 = [v12 loggingIdentifier];
+    v16 = KCSharingLogObject();
 
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Not Adding CKSyncEngines init op to queue", &v21, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Not Adding CKSyncEngines init op to queue", &v18, 2u);
     }
 
-    goto LABEL_23;
+    goto LABEL_22;
   }
 
-  v14 = [v12 isPending];
-  v15 = *(a1 + 40);
-  if (!v14 || (v15[65] & 1) != 0)
+  v11 = [v9 isPending];
+  v12 = *(a1 + 40);
+  if (!v11 || (v12[65] & 1) != 0)
   {
-    goto LABEL_20;
+    goto LABEL_19;
   }
 
-  v16 = [v15 loggingIdentifier];
-  v17 = KCSharingLogObject();
+  v13 = [v12 loggingIdentifier];
+  v14 = KCSharingLogObject();
 
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v21) = 0;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Adding CKSyncEngines init op to queue", &v21, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Adding CKSyncEngines init op to queue", &v18, 2u);
   }
 
-  [*(*(a1 + 40) + 16) addOperation:v13];
+  [*(*(a1 + 40) + 16) addOperation:v10];
   *(*(a1 + 40) + 65) = 1;
-LABEL_23:
+LABEL_22:
 }
 
 void sub_10007C1A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
@@ -7803,9 +7547,11 @@ void sub_10007EB30(uint64_t a1, void *a2)
 
 void sub_10007EE54(id a1)
 {
-  qword_10039DC10 = objc_alloc_init(KCSharingSyncController);
+  v1 = objc_alloc_init(KCSharingSyncController);
+  v2 = qword_10039DC10;
+  qword_10039DC10 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 uint64_t start()
@@ -8013,9 +7759,9 @@ LABEL_11:
   return 0;
 }
 
-void sub_10007F6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10007F6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8206,11 +7952,10 @@ CFDataRef sub_10007FCBC(int a1, const UInt8 **a2, CFIndex *a3)
 
 void sub_10007FD68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(a1 + 40);
-  v6 = *(*(a1 + 32) + 8) + 24;
-  v7 = sub_100247260(a2, a3, a4);
+  v4 = *(a1 + 40);
+  v5 = sub_100247260(a2, a3, a4, *(*(a1 + 32) + 8) + 24);
 
-  xpc_dictionary_set_BOOL(v5, "status", v7);
+  xpc_dictionary_set_BOOL(v4, "status", v5);
 }
 
 void sub_10007FDC4(void *a1, uint64_t a2)
@@ -8301,7 +8046,7 @@ void sub_10007FF84(uint64_t a1, uint64_t a2, uint64_t a3, os_signpost_id_t a4)
   xpc_dictionary_set_BOOL(v4, "status", v5);
 }
 
-void sub_10007FFE0(uint64_t a1, uint64_t a2, int a3)
+void sub_10007FFE0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a1 + 40);
   v4 = sub_10024661C(a2, a3, (*(*(a1 + 32) + 8) + 24));
@@ -8365,16 +8110,16 @@ LABEL_8:
   return v3;
 }
 
-void sub_1000801BC(void *a1, const void *a2)
+void sub_1000801BC(void *a1, const void *a2, uint64_t a3)
 {
   if (a2)
   {
     XPCObjectWithArrayOfPeerInfo = CreateXPCObjectWithArrayOfPeerInfo();
     if (XPCObjectWithArrayOfPeerInfo)
     {
-      v5 = XPCObjectWithArrayOfPeerInfo;
+      v6 = XPCObjectWithArrayOfPeerInfo;
       xpc_dictionary_set_value(a1, "status", XPCObjectWithArrayOfPeerInfo);
-      xpc_release(v5);
+      xpc_release(v6);
     }
 
     CFRelease(a2);
@@ -8393,7 +8138,7 @@ void sub_100080234(void *a1, const void *a2)
   }
 }
 
-CFDataRef sub_1000802A4(void *a1)
+CFDataRef sub_1000802A4(void *a1, uint64_t a2)
 {
   length = 0;
   data = xpc_dictionary_get_data(a1, "data", &length);
@@ -8406,7 +8151,7 @@ CFDataRef sub_1000802A4(void *a1)
   return result;
 }
 
-uint64_t sub_100080324(void *a1, CFTypeRef *a2)
+uint64_t sub_100080324(void *a1, CFErrorRef *a2)
 {
   length = 0;
   data = xpc_dictionary_get_data(a1, "peer-info", &length);
@@ -8556,9 +8301,11 @@ LABEL_10:
 
 void sub_100080BB0(id a1)
 {
-  qword_10039DC28 = objc_alloc_init(KCSharingFixUpManager);
+  v1 = objc_alloc_init(KCSharingFixUpManager);
+  v2 = qword_10039DC28;
+  qword_10039DC28 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100080BEC(id a1)
@@ -8591,9 +8338,9 @@ uint64_t sub_100080C6C(uint64_t a1, CFTypeRef cf1)
   return result;
 }
 
-void sub_1000816BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000816BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8606,17 +8353,18 @@ BOOL sub_1000816E0(uint64_t a1, uint64_t a2)
   return sub_10001C958(a2, v4, (v3 + 24), @"wal_checkpoint(FULL)");
 }
 
-void sub_1000819B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000819B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100081EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_100081EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a32, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8645,20 +8393,20 @@ BOOL sub_100081F40(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-void sub_100082334(uint64_t a1, void *a2)
+void sub_100082334(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = CKXPCSuitableError();
-  (*(v2 + 16))(v2, v3, v4);
+  v3 = *(a1 + 32);
+  v4 = a2;
+  v5 = CKXPCSuitableError();
+  (*(v3 + 16))(v3, v4, v5);
 }
 
-void sub_10008273C(uint64_t a1, void *a2)
+void sub_10008273C(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = CKXPCSuitableError();
-  (*(v2 + 16))(v2, v3, v4);
+  v3 = *(a1 + 32);
+  v4 = a2;
+  v5 = CKXPCSuitableError();
+  (*(v3 + 16))(v3, v4, v5);
 }
 
 void sub_1000827B8(void *a1, void *a2, void *a3)
@@ -8708,12 +8456,12 @@ void sub_1000827B8(void *a1, void *a2, void *a3)
   }
 }
 
-void sub_100082CE0(uint64_t a1, void *a2)
+void sub_100082CE0(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = CKXPCSuitableError();
-  (*(v2 + 16))(v2, v3, v4);
+  v3 = *(a1 + 32);
+  v4 = a2;
+  v5 = CKXPCSuitableError();
+  (*(v3 + 16))(v3, v4, v5);
 }
 
 void sub_100082D5C(void *a1, void *a2, void *a3)
@@ -8763,13 +8511,13 @@ void sub_100082D5C(void *a1, void *a2, void *a3)
   }
 }
 
-void sub_10008326C(uint64_t a1, void *a2, void *a3)
+void sub_10008326C(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v4 = *(a1 + 32);
-  v5 = a3;
-  v6 = a2;
-  v7 = CKXPCSuitableError();
-  (*(v4 + 16))(v4, v6, v5, v7);
+  v5 = *(a1 + 32);
+  v6 = a3;
+  v7 = a2;
+  v8 = CKXPCSuitableError();
+  (*(v5 + 16))(v5, v7, v6, v8);
 }
 
 void sub_1000832FC(uint64_t a1, void *a2, void *a3)
@@ -8879,38 +8627,38 @@ void sub_1000835D4(void *a1, void *a2, void *a3)
   }
 }
 
-void sub_1000839B8(uint64_t a1)
+void sub_1000839B8(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = CKXPCSuitableError();
-  (*(v1 + 16))(v1, v2);
+  v2 = *(a1 + 32);
+  v3 = CKXPCSuitableError();
+  (*(v2 + 16))(v2, v3);
 }
 
-void sub_100083DD4(uint64_t a1)
+void sub_100083DD4(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = CKXPCSuitableError();
-  (*(v1 + 16))(v1, v2);
+  v2 = *(a1 + 32);
+  v3 = CKXPCSuitableError();
+  (*(v2 + 16))(v2, v3);
 }
 
-void sub_100084460(uint64_t a1, void *a2, void *a3)
+void sub_100084460(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v4 = *(a1 + 32);
-  v5 = a3;
-  v6 = a2;
-  v7 = CKXPCSuitableError();
-  (*(v4 + 16))(v4, v6, v5, v7);
+  v5 = *(a1 + 32);
+  v6 = a3;
+  v7 = a2;
+  v8 = CKXPCSuitableError();
+  (*(v5 + 16))(v5, v7, v6, v8);
 }
 
-id sub_1000844F0(uint64_t a1, uint64_t a2)
+id sub_1000844F0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a1 + 32);
-  v5 = CKXPCSuitableError();
-  [v4 callCallback:a2 error:v5];
+  v5 = *(a1 + 32);
+  v6 = CKXPCSuitableError();
+  [v5 callCallback:a2 error:v6];
 
-  v6 = *(a1 + 40);
+  v7 = *(a1 + 40);
 
-  return [v6 setTransaction:0];
+  return [v7 setTransaction:0];
 }
 
 void sub_10008455C(uint64_t a1, void *a2)
@@ -8945,4 +8693,299 @@ void sub_100084630(uint64_t a1, void *a2)
   }
 
   *(*(*(a1 + 32) + 8) + 24) = v3;
+}
+
+void sub_100084C7C(id a1)
+{
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_alloc_init(SecuritydXPCServerListener);
+  v3 = qword_10039DC40;
+  qword_10039DC40 = v2;
+
+  objc_autoreleasePoolPop(v1);
+}
+
+void sub_100084F20(uint64_t a1)
+{
+  v1 = qword_10039DC50;
+  context[0] = _NSConcreteStackBlock;
+  context[1] = 0x40000000;
+  context[2] = sub_100084FC4;
+  context[3] = &unk_1003354E0;
+  context[4] = *(a1 + 32);
+  v3.length = CFArrayGetCount(qword_10039DC50);
+  v3.location = 0;
+  CFArrayApplyFunction(v1, v3, sub_100084F08, context);
+}
+
+void sub_100084FC4(uint64_t a1, CFTypeRef cf)
+{
+  if (cf)
+  {
+    v4 = CFGetTypeID(cf);
+    if (v4 == CFSetGetTypeID())
+    {
+      v5 = sub_10008513C(cf);
+      CFArrayAppendValue(*(a1 + 32), v5);
+      if (v5)
+      {
+
+        CFRelease(v5);
+      }
+
+      return;
+    }
+
+    v6 = CFGetTypeID(cf);
+    if (v6 == CFDictionaryGetTypeID())
+    {
+      Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+      context[0] = _NSConcreteStackBlock;
+      context[1] = 0x40000000;
+      context[2] = sub_1000851EC;
+      context[3] = &unk_1003354C0;
+      context[4] = Mutable;
+      CFDictionaryApplyFunction(cf, sub_10008527C, context);
+      CFArrayAppendValue(*(a1 + 32), Mutable);
+      return;
+    }
+  }
+
+  v8 = *(a1 + 32);
+
+  CFArrayAppendValue(v8, kCFNull);
+}
+
+CFMutableArrayRef sub_10008513C(const __CFSet *a1)
+{
+  Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
+  context[0] = _NSConcreteStackBlock;
+  context[1] = 0x40000000;
+  context[2] = sub_100085298;
+  context[3] = &unk_1003355A0;
+  context[4] = Mutable;
+  CFSetApplyFunction(a1, sub_100084F08, context);
+  return Mutable;
+}
+
+void sub_1000851EC(uint64_t a1, const void *a2, CFTypeRef cf)
+{
+  if (cf)
+  {
+    v6 = CFGetTypeID(cf);
+    if (v6 == CFSetGetTypeID())
+    {
+      v7 = sub_10008513C(cf);
+      CFDictionaryAddValue(*(a1 + 32), a2, v7);
+      if (v7)
+      {
+
+        CFRelease(v7);
+      }
+    }
+  }
+}
+
+void sub_1000852A0(const __CFDictionary *a1, uint64_t a2)
+{
+  v2 = a2;
+  Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  context[0] = _NSConcreteStackBlock;
+  context[1] = 0x40000000;
+  context[2] = sub_100085388;
+  context[3] = &unk_100335520;
+  context[4] = Mutable;
+  CFDictionaryApplyFunction(a1, sub_10008527C, context);
+  if (CFDictionaryGetCount(Mutable) >= 1)
+  {
+    sub_10008557C(v2, Mutable);
+  }
+
+  if (Mutable)
+  {
+    CFRelease(Mutable);
+  }
+}
+
+void sub_100085388(uint64_t a1, const __CFNumber *cf, const __CFString *a3)
+{
+  v4 = cf;
+  if (cf)
+  {
+    v6 = CFGetTypeID(cf);
+    if (v6 == CFStringGetTypeID())
+    {
+      if (CFEqual(v4, @"Emergency"))
+      {
+        v7 = 0;
+LABEL_22:
+        valuePtr = v7;
+        v4 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
+        goto LABEL_23;
+      }
+
+      if (CFEqual(v4, @"Alert"))
+      {
+        v7 = 1;
+        goto LABEL_22;
+      }
+
+      if (CFEqual(v4, @"Critical"))
+      {
+        v7 = 2;
+        goto LABEL_22;
+      }
+
+      if (CFEqual(v4, @"Error"))
+      {
+        v7 = 3;
+        goto LABEL_22;
+      }
+
+      if (CFEqual(v4, @"Warning"))
+      {
+        v7 = 4;
+        goto LABEL_22;
+      }
+
+      if (CFEqual(v4, @"Notice"))
+      {
+        v7 = 5;
+        goto LABEL_22;
+      }
+
+      if (CFEqual(v4, @"Info"))
+      {
+        v7 = 6;
+        goto LABEL_22;
+      }
+
+      if (CFEqual(v4, @"Debug"))
+      {
+        v7 = 7;
+        goto LABEL_22;
+      }
+    }
+
+    else
+    {
+      v8 = CFGetTypeID(v4);
+      if (v8 == CFNumberGetTypeID())
+      {
+        CFRetain(v4);
+        if (a3)
+        {
+          goto LABEL_24;
+        }
+
+        goto LABEL_29;
+      }
+    }
+
+    v4 = 0;
+    if (a3)
+    {
+      goto LABEL_24;
+    }
+
+LABEL_29:
+    if (!v4)
+    {
+      return;
+    }
+
+    goto LABEL_30;
+  }
+
+LABEL_23:
+  if (!a3)
+  {
+    goto LABEL_29;
+  }
+
+LABEL_24:
+  v9 = CFGetTypeID(a3);
+  if (v9 != CFStringGetTypeID())
+  {
+    goto LABEL_29;
+  }
+
+  v10 = sub_100085724(a3);
+  v11 = v10;
+  if (v4 && v10)
+  {
+    CFDictionaryAddValue(*(a1 + 32), v4, v10);
+    CFRelease(v4);
+    v4 = v11;
+LABEL_30:
+    CFRelease(v4);
+    return;
+  }
+
+  if (v4)
+  {
+    CFRelease(v4);
+  }
+
+  v4 = v11;
+  if (v11)
+  {
+    goto LABEL_30;
+  }
+}
+
+void sub_10008557C(int a1, uint64_t a2)
+{
+  v2[0] = _NSConcreteStackBlock;
+  v2[1] = 0x40000000;
+  v2[2] = sub_10008561C;
+  v2[3] = &unk_1003355E0;
+  v3 = a1;
+  v2[4] = a2;
+  if (qword_10039DC70 != -1)
+  {
+    dispatch_once(&qword_10039DC70, &stru_100335580);
+  }
+
+  dispatch_barrier_sync(qword_10039DC68, v2);
+}
+
+void sub_10008561C(uint64_t a1)
+{
+  Mutable = qword_10039DC50;
+  if (qword_10039DC50)
+  {
+    v3 = kCFNull;
+  }
+
+  else
+  {
+    Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 4, &kCFTypeArrayCallBacks);
+    v3 = kCFNull;
+    v4 = 5;
+    do
+    {
+      CFArrayAppendValue(Mutable, kCFNull);
+      --v4;
+    }
+
+    while (v4);
+    qword_10039DC50 = Mutable;
+  }
+
+  CFArraySetValueAtIndex(Mutable, *(a1 + 40), *(a1 + 32));
+  v5 = qword_10039DC50;
+  v9.length = CFArrayGetCount(qword_10039DC50);
+  v9.location = 0;
+  CountOfValue = CFArrayGetCountOfValue(v5, v9, v3);
+  if (CountOfValue == CFArrayGetCount(v5))
+  {
+    v7 = qword_10039DC50;
+    if (qword_10039DC50)
+    {
+      qword_10039DC50 = 0;
+
+      CFRelease(v7);
+    }
+  }
 }

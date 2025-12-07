@@ -6,6 +6,7 @@
 + (id)hostFromAddress:(id)address;
 + (id)hostFromSockaddr4:(const sockaddr_in *)sockaddr4;
 + (id)hostFromSockaddr6:(const sockaddr_in6 *)sockaddr6;
++ (id)lookupHost:(id)host port:(unsigned __int16)port error:(id *)error;
 + (unsigned)portFromAddress:(id)address;
 + (void)cfstreamThread;
 + (void)scheduleCFStreams:(id)streams;
@@ -715,10 +716,10 @@
 
 - (BOOL)doAccept:(int)accept
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   socket4FD = self->socket4FD;
-  *&v23.sa_len = 0;
-  *&v23.sa_data[6] = 0;
+  *&v22.sa_len = 0;
+  *&v22.sa_data[6] = 0;
   if (socket4FD == accept)
   {
     v6 = 16;
@@ -726,31 +727,29 @@
 
   else
   {
-    v25 = 0;
     v24 = 0;
+    v23 = 0;
     v6 = 28;
   }
 
-  v22 = v6;
-  v7 = accept(accept, &v23, &v22);
+  v21 = v6;
+  v7 = accept(accept, &v22, &v21);
   if (v7 == -1)
   {
-    goto LABEL_10;
+    return 0;
   }
 
   v8 = v7;
-  v9 = [MEMORY[0x277CBEA90] dataWithBytes:&v23 length:v22];
+  v9 = [MEMORY[0x277CBEA90] dataWithBytes:&v22 length:v21];
   if (fcntl(v8, 4, 4) == -1)
   {
     close(v8);
 
-LABEL_10:
-    result = 0;
-    goto LABEL_11;
+    return 0;
   }
 
-  *&v23.sa_len = 1;
-  setsockopt(v8, 0xFFFF, 4130, &v23, 4u);
+  *&v22.sa_len = 1;
+  setsockopt(v8, 0xFFFF, 4130, &v22, 4u);
   if (self->delegateQueue)
   {
     v10 = socket4FD == accept;
@@ -760,19 +759,16 @@ LABEL_10:
     block[1] = 3221225472;
     block[2] = sub_247F9EDB0;
     block[3] = &unk_278EF2870;
-    v17 = WeakRetained;
-    v18 = v9;
+    v16 = WeakRetained;
+    v17 = v9;
     selfCopy = self;
-    v21 = v10;
-    v20 = v8;
+    v20 = v10;
+    v19 = v8;
     v13 = WeakRetained;
     dispatch_async(delegateQueue, block);
   }
 
-  result = 1;
-LABEL_11:
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (BOOL)preConnectWithInterface:(id)interface error:(id *)error
@@ -2032,21 +2028,19 @@ LABEL_8:
 
 - (id)connectedHostFromSocket4:(int)socket4
 {
-  v8 = *MEMORY[0x277D85DE8];
-  *&v7.sa_len = 0;
-  *&v7.sa_data[6] = 0;
-  v6 = 16;
-  if (getpeername(socket4, &v7, &v6) < 0)
+  v7 = *MEMORY[0x277D85DE8];
+  *&v6.sa_len = 0;
+  *&v6.sa_data[6] = 0;
+  v5 = 16;
+  if (getpeername(socket4, &v6, &v5) < 0)
   {
     v3 = 0;
   }
 
   else
   {
-    v3 = [objc_opt_class() hostFromSockaddr4:&v7];
+    v3 = [objc_opt_class() hostFromSockaddr4:&v6];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -2073,22 +2067,19 @@ LABEL_8:
 
 - (unsigned)connectedPortFromSocket4:(int)socket4
 {
-  v7 = *MEMORY[0x277D85DE8];
-  *&v6.sa_len = 0;
-  *&v6.sa_data[6] = 0;
-  v5 = 16;
-  if (getpeername(socket4, &v6, &v5) < 0)
+  v6 = *MEMORY[0x277D85DE8];
+  *&v5.sa_len = 0;
+  *&v5.sa_data[6] = 0;
+  v4 = 16;
+  if (getpeername(socket4, &v5, &v4) < 0)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = [objc_opt_class() portFromSockaddr4:&v6];
+    return [objc_opt_class() portFromSockaddr4:&v5];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (unsigned)connectedPortFromSocket6:(int)socket6
@@ -2111,21 +2102,19 @@ LABEL_8:
 
 - (id)localHostFromSocket4:(int)socket4
 {
-  v8 = *MEMORY[0x277D85DE8];
-  *&v7.sa_len = 0;
-  *&v7.sa_data[6] = 0;
-  v6 = 16;
-  if (getsockname(socket4, &v7, &v6) < 0)
+  v7 = *MEMORY[0x277D85DE8];
+  *&v6.sa_len = 0;
+  *&v6.sa_data[6] = 0;
+  v5 = 16;
+  if (getsockname(socket4, &v6, &v5) < 0)
   {
     v3 = 0;
   }
 
   else
   {
-    v3 = [objc_opt_class() hostFromSockaddr4:&v7];
+    v3 = [objc_opt_class() hostFromSockaddr4:&v6];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -2152,22 +2141,19 @@ LABEL_8:
 
 - (unsigned)localPortFromSocket4:(int)socket4
 {
-  v7 = *MEMORY[0x277D85DE8];
-  *&v6.sa_len = 0;
-  *&v6.sa_data[6] = 0;
-  v5 = 16;
-  if (getsockname(socket4, &v6, &v5) < 0)
+  v6 = *MEMORY[0x277D85DE8];
+  *&v5.sa_len = 0;
+  *&v5.sa_data[6] = 0;
+  v4 = 16;
+  if (getsockname(socket4, &v5, &v4) < 0)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = [objc_opt_class() portFromSockaddr4:&v6];
+    return [objc_opt_class() portFromSockaddr4:&v5];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (unsigned)localPortFromSocket6:(int)socket6
@@ -2340,7 +2326,7 @@ LABEL_8:
 - (void)getInterfaceAddress4:(id *)address4 address6:(id *)address6 fromDescription:(id)description port:(unsigned __int16)port
 {
   portCopy = port;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   v10 = [descriptionCopy componentsSeparatedByString:@":"];
   if ([v10 count])
@@ -2385,9 +2371,9 @@ LABEL_8:
     *__s1 = 528;
     *&__s1[2] = bswap32(portCopy) >> 16;
     *&__s1[4] = 0;
-    memset(v30 + 4, 0, 24);
-    LOWORD(v30[0]) = 7708;
-    WORD1(v30[0]) = *&__s1[2];
+    memset(v29 + 4, 0, 24);
+    LOWORD(v29[0]) = 7708;
+    WORD1(v29[0]) = *&__s1[2];
     v16 = MEMORY[0x277D85EE8];
     goto LABEL_17;
   }
@@ -2398,38 +2384,38 @@ LABEL_8:
     *__s1 = 528;
     *&__s1[2] = bswap32(portCopy) >> 16;
     *&__s1[4] = 16777343;
-    memset(v30 + 4, 0, 24);
-    LOWORD(v30[0]) = 7708;
-    WORD1(v30[0]) = *&__s1[2];
+    memset(v29 + 4, 0, 24);
+    LOWORD(v29[0]) = 7708;
+    WORD1(v29[0]) = *&__s1[2];
     v16 = MEMORY[0x277D85EF0];
 LABEL_17:
-    *(v30 + 8) = *v16;
+    *(v29 + 8) = *v16;
     v17 = [MEMORY[0x277CBEB28] dataWithBytes:__s1 length:16];
-    v18 = [MEMORY[0x277CBEB28] dataWithBytes:v30 length:28];
+    v18 = [MEMORY[0x277CBEB28] dataWithBytes:v29 length:28];
     goto LABEL_18;
   }
 
   uTF8String = [v12 UTF8String];
-  v29 = 0;
+  v28 = 0;
   v18 = 0;
   v17 = 0;
-  if (!getifaddrs(&v29))
+  if (!getifaddrs(&v28))
   {
-    v23 = v29;
-    if (v29)
+    v22 = v28;
+    if (v28)
     {
       v17 = 0;
       v18 = 0;
-      v24 = bswap32(portCopy) >> 16;
+      v23 = bswap32(portCopy) >> 16;
       do
       {
-        if (v17 || (v25 = v23->ifa_addr, v25->sa_family != 2))
+        if (v17 || (v24 = v22->ifa_addr, v24->sa_family != 2))
         {
           if (!v18)
           {
-            if (v23->ifa_addr->sa_family == 30 && ((memset(__s1, 0, 28), ifa_addr = v23->ifa_addr, v27 = *&ifa_addr->sa_data[10], *__s1 = *ifa_addr, *&__s1[12] = v27, !strcmp(v23->ifa_name, uTF8String)) || inet_ntop(30, &__s1[8], v30, 0x2Eu) && !strcmp(v30, uTF8String)))
+            if (v22->ifa_addr->sa_family == 30 && ((memset(__s1, 0, 28), ifa_addr = v22->ifa_addr, v26 = *&ifa_addr->sa_data[10], *__s1 = *ifa_addr, *&__s1[12] = v26, !strcmp(v22->ifa_name, uTF8String)) || inet_ntop(30, &__s1[8], v29, 0x2Eu) && !strcmp(v29, uTF8String)))
             {
-              *&__s1[2] = v24;
+              *&__s1[2] = v23;
               v18 = [MEMORY[0x277CBEB28] dataWithBytes:__s1 length:28];
             }
 
@@ -2442,12 +2428,12 @@ LABEL_17:
 
         else
         {
-          v30[0] = 0uLL;
-          v30[0] = *v25;
-          if (!strcmp(v23->ifa_name, uTF8String) || inet_ntop(2, v30 + 4, __s1, 0x10u) && !strcmp(__s1, uTF8String))
+          v29[0] = 0uLL;
+          v29[0] = *v24;
+          if (!strcmp(v22->ifa_name, uTF8String) || inet_ntop(2, v29 + 4, __s1, 0x10u) && !strcmp(__s1, uTF8String))
           {
-            WORD1(v30[0]) = v24;
-            v17 = [MEMORY[0x277CBEB28] dataWithBytes:v30 length:16];
+            WORD1(v29[0]) = v23;
+            v17 = [MEMORY[0x277CBEB28] dataWithBytes:v29 length:16];
           }
 
           else
@@ -2456,21 +2442,21 @@ LABEL_17:
           }
         }
 
-        v23 = v23->ifa_next;
+        v22 = v22->ifa_next;
       }
 
-      while (v23);
-      v28 = v29;
+      while (v22);
+      v27 = v28;
     }
 
     else
     {
-      v28 = 0;
+      v27 = 0;
       v18 = 0;
       v17 = 0;
     }
 
-    MEMORY[0x24C1C2F30](v28);
+    MEMORY[0x24C1C2F30](v27);
   }
 
 LABEL_18:
@@ -2485,8 +2471,6 @@ LABEL_18:
     v20 = v18;
     *address6 = v18;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupReadAndWriteSourcesForNewlyConnectedSocket:(int)socket
@@ -2685,7 +2669,6 @@ LABEL_18:
       self->currentRead = v3;
 
       [(NSMutableArray *)self->readQueue removeObjectAtIndex:0];
-      v5 = self->currentRead;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -3365,7 +3348,7 @@ LABEL_128:
 
 - (void)doReadEOF
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   flags = self->flags;
   LOWORD(v4) = flags | 0x4000;
   self->flags = flags | 0x4000;
@@ -3385,7 +3368,7 @@ LABEL_128:
 LABEL_20:
         [(_DT_GCDAsyncSocket *)self closeWithError:v5];
 
-        goto LABEL_21;
+        return;
       }
     }
 
@@ -3417,10 +3400,10 @@ LABEL_15:
       socket4FD = self->socket6FD;
     }
 
-    v18.fd = socket4FD;
-    *&v18.events = 4;
-    poll(&v18, 1u, 0);
-    if ((v18.revents & 4) == 0)
+    v17.fd = socket4FD;
+    *&v17.events = 4;
+    poll(&v17, 1u, 0);
+    if ((v17.revents & 4) == 0)
     {
       goto LABEL_15;
     }
@@ -3430,23 +3413,20 @@ LABEL_15:
     if (self->delegateQueue && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->delegateQueue;
-      v12 = MEMORY[0x277D85DD0];
-      v13 = 3221225472;
-      v14 = sub_247FA4DDC;
-      v15 = &unk_278EF1550;
-      v16 = WeakRetained;
+      v11 = MEMORY[0x277D85DD0];
+      v12 = 3221225472;
+      v13 = sub_247FA4DDC;
+      v14 = &unk_278EF1550;
+      v15 = WeakRetained;
       selfCopy = self;
-      dispatch_async(delegateQueue, &v12);
+      dispatch_async(delegateQueue, &v11);
     }
   }
 
-  if (![(_DT_GCDAsyncSocket *)self usingCFStreamForTLS:v12])
+  if (![(_DT_GCDAsyncSocket *)self usingCFStreamForTLS:v11])
   {
     [(_DT_GCDAsyncSocket *)self suspendReadSource];
   }
-
-LABEL_21:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)completeCurrentRead
@@ -3670,7 +3650,6 @@ LABEL_21:
       self->currentWrite = v3;
 
       [(NSMutableArray *)self->writeQueue removeObjectAtIndex:0];
-      v5 = self->currentWrite;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -4288,7 +4267,7 @@ LABEL_3:
 
 - (void)ssl_startTLS
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v4 = self->currentRead;
   v5 = v4;
   if (v4)
@@ -4321,8 +4300,8 @@ LABEL_9:
       goto LABEL_9;
     }
 
-    v14 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketManuallyEvaluateTrust"];
-    bOOLValue2 = [v14 BOOLValue];
+    v13 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketManuallyEvaluateTrust"];
+    bOOLValue2 = [v13 BOOLValue];
 
     if (bOOLValue2)
     {
@@ -4339,276 +4318,276 @@ LABEL_9:
       }
     }
 
-    v16 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAEC8]];
+    v15 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAEC8]];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      uTF8String = [v16 UTF8String];
-      v18 = strlen(uTF8String);
-      if (SSLSetPeerDomainName(self->sslContext, uTF8String, v18))
+      uTF8String = [v15 UTF8String];
+      v17 = strlen(uTF8String);
+      if (SSLSetPeerDomainName(self->sslContext, uTF8String, v17))
       {
-        v19 = @"Error in SSLSetPeerDomainName";
+        v18 = @"Error in SSLSetPeerDomainName";
 LABEL_21:
-        v21 = [(_DT_GCDAsyncSocket *)self otherError:v19];
-        [(_DT_GCDAsyncSocket *)self closeWithError:v21];
+        v20 = [(_DT_GCDAsyncSocket *)self otherError:v18];
+        [(_DT_GCDAsyncSocket *)self closeWithError:v20];
 
 LABEL_22:
         goto LABEL_10;
       }
     }
 
-    else if (v16)
+    else if (v15)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"GCDAsyncSocket.m" lineNumber:6251 description:@"Invalid value for kCFStreamSSLPeerName. Value must be of type NSString."];
 
-      v19 = @"Invalid value for kCFStreamSSLPeerName.";
+      v18 = @"Invalid value for kCFStreamSSLPeerName.";
       goto LABEL_21;
     }
 
-    v22 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAE98]];
+    v21 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAE98]];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if (SSLSetCertificate(self->sslContext, v22))
+      if (SSLSetCertificate(self->sslContext, v21))
       {
-        v23 = @"Error in SSLSetCertificate";
+        v22 = @"Error in SSLSetCertificate";
 LABEL_28:
-        v25 = [(_DT_GCDAsyncSocket *)self otherError:v23];
-        [(_DT_GCDAsyncSocket *)self closeWithError:v25];
+        v24 = [(_DT_GCDAsyncSocket *)self otherError:v22];
+        [(_DT_GCDAsyncSocket *)self closeWithError:v24];
 
         goto LABEL_10;
       }
     }
 
-    else if (v22)
+    else if (v21)
     {
       currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler2 handleFailureInMethod:a2 object:self file:@"GCDAsyncSocket.m" lineNumber:6273 description:@"Invalid value for kCFStreamSSLCertificates. Value must be of type NSArray."];
 
-      v23 = @"Invalid value for kCFStreamSSLCertificates.";
+      v22 = @"Invalid value for kCFStreamSSLCertificates.";
       goto LABEL_28;
     }
 
-    v26 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketSSLPeerID"];
+    v25 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketSSLPeerID"];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v16 = v26;
-      if (SSLSetPeerID(self->sslContext, [v16 bytes], objc_msgSend(v16, "length")))
+      v15 = v25;
+      if (SSLSetPeerID(self->sslContext, [v15 bytes], objc_msgSend(v15, "length")))
       {
-        v27 = [(_DT_GCDAsyncSocket *)self otherError:@"Error in SSLSetPeerID"];
-        [(_DT_GCDAsyncSocket *)self closeWithError:v27];
+        v26 = [(_DT_GCDAsyncSocket *)self otherError:@"Error in SSLSetPeerID"];
+        [(_DT_GCDAsyncSocket *)self closeWithError:v26];
 
         goto LABEL_22;
       }
     }
 
-    else if (v26)
+    else if (v25)
     {
       currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler3 handleFailureInMethod:a2 object:self file:@"GCDAsyncSocket.m" lineNumber:6297 description:@"Invalid value for GCDAsyncSocketSSLPeerID. Value must be of type NSData. (You can convert strings to data using a method like [string dataUsingEncoding:NSUTF8StringEncoding])"];
 
-      v29 = @"Invalid value for GCDAsyncSocketSSLPeerID.";
+      v28 = @"Invalid value for GCDAsyncSocketSSLPeerID.";
 LABEL_34:
-      v30 = [(_DT_GCDAsyncSocket *)self otherError:v29];
-      [(_DT_GCDAsyncSocket *)self closeWithError:v30];
+      v29 = [(_DT_GCDAsyncSocket *)self otherError:v28];
+      [(_DT_GCDAsyncSocket *)self closeWithError:v29];
 
 LABEL_35:
       goto LABEL_10;
     }
 
-    v16 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketSSLProtocolVersionMin"];
+    v15 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketSSLProtocolVersionMin"];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      intValue = [v16 intValue];
+      intValue = [v15 intValue];
       if (intValue && SSLSetProtocolVersionMin(self->sslContext, intValue))
       {
-        v19 = @"Error in SSLSetProtocolVersionMin";
+        v18 = @"Error in SSLSetProtocolVersionMin";
         goto LABEL_21;
       }
     }
 
-    else if (v16)
+    else if (v15)
     {
       currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler4 handleFailureInMethod:a2 object:self file:@"GCDAsyncSocket.m" lineNumber:6321 description:@"Invalid value for GCDAsyncSocketSSLProtocolVersionMin. Value must be of type NSNumber."];
 
-      v19 = @"Invalid value for GCDAsyncSocketSSLProtocolVersionMin.";
+      v18 = @"Invalid value for GCDAsyncSocketSSLProtocolVersionMin.";
       goto LABEL_21;
     }
 
-    v26 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketSSLProtocolVersionMax"];
+    v25 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketSSLProtocolVersionMax"];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      intValue2 = [v26 intValue];
+      intValue2 = [v25 intValue];
       if (intValue2 && SSLSetProtocolVersionMax(self->sslContext, intValue2))
       {
-        v29 = @"Error in SSLSetProtocolVersionMax";
+        v28 = @"Error in SSLSetProtocolVersionMax";
         goto LABEL_34;
       }
     }
 
-    else if (v26)
+    else if (v25)
     {
       currentHandler5 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler5 handleFailureInMethod:a2 object:self file:@"GCDAsyncSocket.m" lineNumber:6345 description:@"Invalid value for GCDAsyncSocketSSLProtocolVersionMax. Value must be of type NSNumber."];
 
-      v29 = @"Invalid value for GCDAsyncSocketSSLProtocolVersionMax.";
+      v28 = @"Invalid value for GCDAsyncSocketSSLProtocolVersionMax.";
       goto LABEL_34;
     }
 
-    v16 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketSSLSessionOptionFalseStart"];
+    v15 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketSSLSessionOptionFalseStart"];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if (SSLSetSessionOption(self->sslContext, kSSLSessionOptionFalseStart, [v16 BOOLValue]))
+      if (SSLSetSessionOption(self->sslContext, kSSLSessionOptionFalseStart, [v15 BOOLValue]))
       {
-        v19 = @"Error in SSLSetSessionOption (kSSLSessionOptionFalseStart)";
+        v18 = @"Error in SSLSetSessionOption (kSSLSessionOptionFalseStart)";
         goto LABEL_21;
       }
     }
 
-    else if (v16)
+    else if (v15)
     {
       currentHandler6 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler6 handleFailureInMethod:a2 object:self file:@"GCDAsyncSocket.m" lineNumber:6365 description:@"Invalid value for GCDAsyncSocketSSLSessionOptionFalseStart. Value must be of type NSNumber."];
 
-      v19 = @"Invalid value for GCDAsyncSocketSSLSessionOptionFalseStart.";
+      v18 = @"Invalid value for GCDAsyncSocketSSLSessionOptionFalseStart.";
       goto LABEL_21;
     }
 
-    v26 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketSSLSessionOptionSendOneByteRecord"];
+    v25 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketSSLSessionOptionSendOneByteRecord"];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if (SSLSetSessionOption(self->sslContext, kSSLSessionOptionSendOneByteRecord, [v26 BOOLValue]))
+      if (SSLSetSessionOption(self->sslContext, kSSLSessionOptionSendOneByteRecord, [v25 BOOLValue]))
       {
-        v29 = @"Error in SSLSetSessionOption (kSSLSessionOptionSendOneByteRecord)";
+        v28 = @"Error in SSLSetSessionOption (kSSLSessionOptionSendOneByteRecord)";
         goto LABEL_34;
       }
     }
 
-    else if (v26)
+    else if (v25)
     {
       currentHandler7 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler7 handleFailureInMethod:a2 object:self file:@"GCDAsyncSocket.m" lineNumber:6387 description:@"Invalid value for GCDAsyncSocketSSLSessionOptionSendOneByteRecord. Value must be of type NSNumber."];
 
-      v29 = @"Invalid value for GCDAsyncSocketSSLSessionOptionSendOneByteRecord.";
+      v28 = @"Invalid value for GCDAsyncSocketSSLSessionOptionSendOneByteRecord.";
       goto LABEL_34;
     }
 
-    v16 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketSSLCipherSuites"];
+    v15 = [(NSMutableData *)v6 objectForKey:@"GCDAsyncSocketSSLCipherSuites"];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v26 = v16;
-      v37 = [v26 count];
-      v56 = &v56;
-      v38 = (&v56 - ((2 * v37 + 15) & 0xFFFFFFFFFFFFFFF0));
-      if (v37)
+      v25 = v15;
+      v36 = [v25 count];
+      v55 = &v55;
+      v37 = (&v55 - ((2 * v36 + 15) & 0xFFFFFFFFFFFFFFF0));
+      if (v36)
       {
-        for (i = 0; i != v37; ++i)
+        for (i = 0; i != v36; ++i)
         {
-          v40 = [v26 objectAtIndex:{i, v56, v57}];
-          v38[i] = [v40 shortValue];
+          v39 = [v25 objectAtIndex:{i, v55, v56}];
+          v37[i] = [v39 shortValue];
         }
       }
 
-      if (SSLSetEnabledCiphers(self->sslContext, v38, v37))
+      if (SSLSetEnabledCiphers(self->sslContext, v37, v36))
       {
-        v41 = [(_DT_GCDAsyncSocket *)self otherError:@"Error in SSLSetEnabledCiphers"];
-        [(_DT_GCDAsyncSocket *)self closeWithError:v41];
+        v40 = [(_DT_GCDAsyncSocket *)self otherError:@"Error in SSLSetEnabledCiphers"];
+        [(_DT_GCDAsyncSocket *)self closeWithError:v40];
 
         goto LABEL_35;
       }
     }
 
-    else if (v16)
+    else if (v15)
     {
       currentHandler8 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler8 handleFailureInMethod:a2 object:self file:@"GCDAsyncSocket.m" lineNumber:6418 description:@"Invalid value for GCDAsyncSocketSSLCipherSuites. Value must be of type NSArray."];
 
-      v19 = @"Invalid value for GCDAsyncSocketSSLCipherSuites.";
+      v18 = @"Invalid value for GCDAsyncSocketSSLCipherSuites.";
       goto LABEL_21;
     }
 
-    v26 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAE80], v56];
+    v25 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAE80], v55];
 
-    if (v26)
+    if (v25)
     {
       currentHandler9 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler9 handleFailureInMethod:a2 object:self file:@"GCDAsyncSocket.m" lineNumber:6459 description:@"Security option unavailable - kCFStreamSSLAllowsAnyRoot - You must use manual trust evaluation"];
 
-      v29 = @"Security option unavailable - kCFStreamSSLAllowsAnyRoot";
+      v28 = @"Security option unavailable - kCFStreamSSLAllowsAnyRoot";
       goto LABEL_34;
     }
 
-    v44 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAE90]];
-    if (v44)
+    v43 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAE90]];
+    if (v43)
     {
-      v16 = v44;
+      v15 = v43;
       currentHandler10 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler10 handleFailureInMethod:a2 object:self file:@"GCDAsyncSocket.m" lineNumber:6474 description:@"Security option unavailable - kCFStreamSSLAllowsExpiredRoots - You must use manual trust evaluation"];
 
-      v19 = @"Security option unavailable - kCFStreamSSLAllowsExpiredRoots";
+      v18 = @"Security option unavailable - kCFStreamSSLAllowsExpiredRoots";
       goto LABEL_21;
     }
 
-    v46 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAED0]];
-    if (v46)
+    v45 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAED0]];
+    if (v45)
     {
-      v16 = v46;
+      v15 = v45;
       currentHandler11 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler11 handleFailureInMethod:a2 object:self file:@"GCDAsyncSocket.m" lineNumber:6489 description:@"Security option unavailable - kCFStreamSSLValidatesCertificateChain - You must use manual trust evaluation"];
 
-      v19 = @"Security option unavailable - kCFStreamSSLValidatesCertificateChain";
+      v18 = @"Security option unavailable - kCFStreamSSLValidatesCertificateChain";
       goto LABEL_21;
     }
 
-    v48 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAE88]];
-    if (v48)
+    v47 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAE88]];
+    if (v47)
     {
-      v16 = v48;
+      v15 = v47;
       currentHandler12 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler12 handleFailureInMethod:a2 object:self file:@"GCDAsyncSocket.m" lineNumber:6504 description:@"Security option unavailable - kCFStreamSSLAllowsExpiredCertificates - You must use manual trust evaluation"];
 
-      v19 = @"Security option unavailable - kCFStreamSSLAllowsExpiredCertificates";
+      v18 = @"Security option unavailable - kCFStreamSSLAllowsExpiredCertificates";
       goto LABEL_21;
     }
 
-    v50 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAEB0]];
-    if (v50)
+    v49 = [(NSMutableData *)v6 objectForKey:*MEMORY[0x277CBAEB0]];
+    if (v49)
     {
-      v16 = v50;
+      v15 = v49;
       currentHandler13 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler13 handleFailureInMethod:a2 object:self file:@"GCDAsyncSocket.m" lineNumber:6519 description:@"Security option unavailable - kCFStreamSSLLevel - You must use GCDAsyncSocketSSLProtocolVersionMin & GCDAsyncSocketSSLProtocolVersionMax"];
 
-      v19 = @"Security option unavailable - kCFStreamSSLLevel";
+      v18 = @"Security option unavailable - kCFStreamSSLLevel";
       goto LABEL_21;
     }
 
-    v52 = [[_DT_GCDAsyncSocketPreBuffer alloc] initWithCapacity:4096];
+    v51 = [[_DT_GCDAsyncSocketPreBuffer alloc] initWithCapacity:4096];
     sslPreBuffer = self->sslPreBuffer;
-    self->sslPreBuffer = v52;
+    self->sslPreBuffer = v51;
 
     availableBytes = [(_DT_GCDAsyncSocketPreBuffer *)self->preBuffer availableBytes];
     if (availableBytes)
     {
-      v55 = availableBytes;
+      v54 = availableBytes;
       [(_DT_GCDAsyncSocketPreBuffer *)self->sslPreBuffer ensureCapacityForWrite:availableBytes];
-      memcpy([(_DT_GCDAsyncSocketPreBuffer *)self->sslPreBuffer writeBuffer], [(_DT_GCDAsyncSocketPreBuffer *)self->preBuffer readBuffer], v55);
-      [(_DT_GCDAsyncSocketPreBuffer *)self->preBuffer didRead:v55];
-      [(_DT_GCDAsyncSocketPreBuffer *)self->sslPreBuffer didWrite:v55];
+      memcpy([(_DT_GCDAsyncSocketPreBuffer *)self->sslPreBuffer writeBuffer], [(_DT_GCDAsyncSocketPreBuffer *)self->preBuffer readBuffer], v54);
+      [(_DT_GCDAsyncSocketPreBuffer *)self->preBuffer didRead:v54];
+      [(_DT_GCDAsyncSocketPreBuffer *)self->sslPreBuffer didWrite:v54];
     }
 
     self->sslErrCode = 0;
@@ -4625,8 +4604,6 @@ LABEL_35:
   }
 
 LABEL_10:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ssl_continueSSLHandshake
@@ -4798,8 +4775,8 @@ LABEL_10:
   {
     v3 = @"Invalid TLS transition. Handshake has already been read from socket.";
 LABEL_15:
-    v11 = [(_DT_GCDAsyncSocket *)self otherError:v3];
-    [(_DT_GCDAsyncSocket *)self closeWithError:v11];
+    v9 = [(_DT_GCDAsyncSocket *)self otherError:v3];
+    [(_DT_GCDAsyncSocket *)self closeWithError:v9];
     goto LABEL_16;
   }
 
@@ -4825,41 +4802,39 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  currentRead = self->currentRead;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     sub_24802E0DC();
   }
 
-  currentWrite = self->currentWrite;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     sub_24802E148();
   }
 
-  v11 = self->currentRead;
-  buffer = v11->buffer;
-  v7 = *MEMORY[0x277CBAE68];
-  v8 = CFReadStreamSetProperty(self->readStream, *MEMORY[0x277CBAE68], buffer);
-  if (v8 | CFWriteStreamSetProperty(self->writeStream, v7, buffer))
+  v9 = self->currentRead;
+  buffer = v9->buffer;
+  v5 = *MEMORY[0x277CBAE68];
+  v6 = CFReadStreamSetProperty(self->readStream, *MEMORY[0x277CBAE68], buffer);
+  if (v6 | CFWriteStreamSetProperty(self->writeStream, v5, buffer))
   {
     if ([(_DT_GCDAsyncSocket *)self openStreams])
     {
       goto LABEL_16;
     }
 
-    v9 = @"Error in CFStreamOpen";
+    v7 = @"Error in CFStreamOpen";
   }
 
   else
   {
-    v9 = @"Error in CFStreamSetProperty";
+    v7 = @"Error in CFStreamSetProperty";
   }
 
-  v10 = [(_DT_GCDAsyncSocket *)self otherError:v9];
-  [(_DT_GCDAsyncSocket *)self closeWithError:v10];
+  v8 = [(_DT_GCDAsyncSocket *)self otherError:v7];
+  [(_DT_GCDAsyncSocket *)self closeWithError:v8];
 
 LABEL_16:
 }
@@ -5337,30 +5312,144 @@ LABEL_18:
   return result;
 }
 
-+ (id)hostFromSockaddr4:(const sockaddr_in *)sockaddr4
++ (id)lookupHost:(id)host port:(unsigned __int16)port error:(id *)error
 {
-  v7 = *MEMORY[0x277D85DE8];
-  if (!inet_ntop(2, &sockaddr4->sin_addr, v6, 0x10u))
+  portCopy = port;
+  v28[2] = *MEMORY[0x277D85DE8];
+  hostCopy = host;
+  if (([hostCopy isEqualToString:@"localhost"] & 1) != 0 || objc_msgSend(hostCopy, "isEqualToString:", @"loopback"))
   {
-    v6[0] = 0;
+    LOWORD(v28[0]) = 528;
+    WORD1(v28[0]) = __rev16(portCopy);
+    HIDWORD(v28[0]) = 16777343;
+    v28[1] = 0;
+    LOWORD(v27.ai_flags) = 7708;
+    HIWORD(v27.ai_flags) = WORD1(v28[0]);
+    v27.ai_family = 0;
+    *&v27.ai_socktype = *MEMORY[0x277D85EF0];
+    LODWORD(v27.ai_canonname) = 0;
+    v9 = [MEMORY[0x277CBEA90] dataWithBytes:v28 length:16];
+    v10 = [MEMORY[0x277CBEA90] dataWithBytes:&v27 length:28];
+    v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
+    [v11 addObject:v9];
+    [v11 addObject:v10];
+
+    v12 = 0;
+    if (!error)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_4;
   }
 
-  v3 = [MEMORY[0x277CCACA8] stringWithCString:v6 encoding:1];
-  v4 = *MEMORY[0x277D85DE8];
+  portCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%hu", portCopy];
+  v28[0] = 0;
+  *&v27.ai_flags = 0;
+  memset(&v27.ai_addrlen, 0, 32);
+  *&v27.ai_socktype = 0x600000001;
+  v16 = getaddrinfo([hostCopy UTF8String], objc_msgSend(portCopy, "UTF8String"), &v27, v28);
+  if (v16)
+  {
+    v17 = v16;
+    v11 = 0;
+LABEL_10:
+    v12 = [self gaiError:v17];
+    goto LABEL_33;
+  }
+
+  v18 = v28[0];
+  if (v28[0])
+  {
+    v19 = 0;
+    do
+    {
+      ai_family = v18->ai_family;
+      if (ai_family == 30 || ai_family == 2)
+      {
+        ++v19;
+      }
+
+      v18 = v18->ai_next;
+    }
+
+    while (v18);
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:v19];
+  v22 = v28[0];
+  if (v28[0])
+  {
+    do
+    {
+      v23 = v22->ai_family;
+      if (v23 == 30 || v23 == 2)
+      {
+        v25 = [MEMORY[0x277CBEA90] dataWithBytes:v22->ai_addr length:v22->ai_addrlen];
+        [v11 addObject:v25];
+      }
+
+      v22 = v22->ai_next;
+    }
+
+    while (v22);
+    v26 = v28[0];
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  freeaddrinfo(v26);
+  if (![v11 count])
+  {
+    v17 = 4;
+    goto LABEL_10;
+  }
+
+  v12 = 0;
+LABEL_33:
+
+  if (error)
+  {
+LABEL_4:
+    v13 = v12;
+    *error = v12;
+  }
+
+LABEL_5:
+
+  return v11;
+}
+
++ (id)hostFromSockaddr4:(const sockaddr_in *)sockaddr4
+{
+  v6 = *MEMORY[0x277D85DE8];
+  if (!inet_ntop(2, &sockaddr4->sin_addr, v5, 0x10u))
+  {
+    v5[0] = 0;
+  }
+
+  v3 = [MEMORY[0x277CCACA8] stringWithCString:v5 encoding:1];
 
   return v3;
 }
 
 + (id)hostFromSockaddr6:(const sockaddr_in6 *)sockaddr6
 {
-  v7 = *MEMORY[0x277D85DE8];
-  if (!inet_ntop(30, &sockaddr6->sin6_addr, v6, 0x2Eu))
+  v6 = *MEMORY[0x277D85DE8];
+  if (!inet_ntop(30, &sockaddr6->sin6_addr, v5, 0x2Eu))
   {
-    v6[0] = 0;
+    v5[0] = 0;
   }
 
-  v3 = [MEMORY[0x277CCACA8] stringWithCString:v6 encoding:1];
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CCACA8] stringWithCString:v5 encoding:1];
 
   return v3;
 }
@@ -5411,7 +5500,7 @@ LABEL_18:
 
 + (BOOL)getHost:(id *)host port:(unsigned __int16 *)port family:(char *)family fromAddress:(id)address
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   if ([addressCopy length] < 0x10)
   {
@@ -5425,16 +5514,16 @@ LABEL_18:
     if ([addressCopy length] >= 0x1C)
     {
       v14 = *bytes;
-      *&v18[12] = *(bytes + 12);
-      *v18 = v14;
+      *&v17[12] = *(bytes + 12);
+      *v17 = v14;
       if (host)
       {
-        *host = [self hostFromSockaddr6:v18];
+        *host = [self hostFromSockaddr6:v17];
       }
 
       if (port)
       {
-        *port = [self portFromSockaddr6:v18];
+        *port = [self portFromSockaddr6:v17];
       }
 
       if (!family)
@@ -5456,15 +5545,15 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  *v18 = *bytes;
+  *v17 = *bytes;
   if (host)
   {
-    *host = [self hostFromSockaddr4:v18];
+    *host = [self hostFromSockaddr4:v17];
   }
 
   if (port)
   {
-    *port = [self portFromSockaddr4:v18];
+    *port = [self portFromSockaddr4:v17];
   }
 
   if (!family)
@@ -5479,7 +5568,6 @@ LABEL_19:
   v15 = 1;
 LABEL_21:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

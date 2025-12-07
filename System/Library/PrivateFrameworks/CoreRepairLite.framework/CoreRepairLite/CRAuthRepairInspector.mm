@@ -8,24 +8,23 @@
 
 + (unint64_t)getStatus
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = handleForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_247864000, v2, OS_LOG_TYPE_DEFAULT, "Validating repair status", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_247864000, v2, OS_LOG_TYPE_DEFAULT, "Validating repair status", &v6, 2u);
   }
 
   v3 = +[CRAuthRepairInspector _getStatus];
   v4 = handleForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = v3;
-    _os_log_impl(&dword_247864000, v4, OS_LOG_TYPE_DEFAULT, "Repair status: %llu", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v3;
+    _os_log_impl(&dword_247864000, v4, OS_LOG_TYPE_DEFAULT, "Repair status: %llu", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

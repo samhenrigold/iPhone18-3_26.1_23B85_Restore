@@ -22,6 +22,7 @@
 - (NSString)userVisibleDescription;
 - (NSString)userVisibleLabel;
 - (id)name;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -333,6 +334,169 @@
   symbolImageWithColorValue = [symbolNameAndColorCharacteristic symbolImageWithColorValue];
 
   return symbolImageWithColorValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000019"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    identifierCharacteristic = [(CAFDynamicLocalNotification *)self identifierCharacteristic];
+    uniqueIdentifier2 = [identifierCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      identifier = [(CAFDynamicLocalNotification *)self identifier];
+      [observers dynamicLocalNotificationService:self didUpdateIdentifier:identifier];
+LABEL_4:
+
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFDynamicLocalNotification *)self name];
+      [observers2 dynamicLocalNotificationService:self didUpdateName:name];
+LABEL_29:
+
+      goto LABEL_30;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000001"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    userVisibleLabelCharacteristic = [(CAFDynamicLocalNotification *)self userVisibleLabelCharacteristic];
+    uniqueIdentifier4 = [userVisibleLabelCharacteristic uniqueIdentifier];
+    v20 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v20)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFDynamicLocalNotification *)self userVisibleLabel];
+      [observers2 dynamicLocalNotificationService:self didUpdateUserVisibleLabel:name];
+      goto LABEL_29;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000005"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    userVisibleDescriptionCharacteristic = [(CAFDynamicLocalNotification *)self userVisibleDescriptionCharacteristic];
+    uniqueIdentifier6 = [userVisibleDescriptionCharacteristic uniqueIdentifier];
+    v25 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v25)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFDynamicLocalNotification *)self userVisibleDescription];
+      [observers2 dynamicLocalNotificationService:self didUpdateUserVisibleDescription:name];
+      goto LABEL_29;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000036000063"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    userDismissibleCharacteristic = [(CAFDynamicLocalNotification *)self userDismissibleCharacteristic];
+    uniqueIdentifier8 = [userDismissibleCharacteristic uniqueIdentifier];
+    v30 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v30)
+    {
+      observers2 = [(CAFService *)self observers];
+      [observers2 dynamicLocalNotificationService:self didUpdateUserDismissible:{-[CAFDynamicLocalNotification userDismissible](self, "userDismissible")}];
+      goto LABEL_30;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x0000000037000007"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    displayPanelIdentifierCharacteristic = [(CAFDynamicLocalNotification *)self displayPanelIdentifierCharacteristic];
+    uniqueIdentifier10 = [displayPanelIdentifierCharacteristic uniqueIdentifier];
+    v35 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v35)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFDynamicLocalNotification *)self displayPanelIdentifier];
+      [observers2 dynamicLocalNotificationService:self didUpdateDisplayPanelIdentifier:name];
+      goto LABEL_29;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType6 = [updateCopy characteristicType];
+  if ([characteristicType6 isEqual:@"0x000000003700000B"])
+  {
+    uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+    displayZoneIdentifierCharacteristic = [(CAFDynamicLocalNotification *)self displayZoneIdentifierCharacteristic];
+    uniqueIdentifier12 = [displayZoneIdentifierCharacteristic uniqueIdentifier];
+    v40 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+    if (v40)
+    {
+      observers = [(CAFService *)self observers];
+      identifier = [(CAFDynamicLocalNotification *)self displayZoneIdentifier];
+      [observers dynamicLocalNotificationService:self didUpdateDisplayZoneIdentifier:identifier];
+      goto LABEL_4;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers2 = [updateCopy characteristicType];
+  if (![observers2 isEqual:@"0x0000000037000008"])
+  {
+LABEL_30:
+
+    goto LABEL_31;
+  }
+
+  uniqueIdentifier13 = [updateCopy uniqueIdentifier];
+  symbolNameAndColorCharacteristic = [(CAFDynamicLocalNotification *)self symbolNameAndColorCharacteristic];
+  uniqueIdentifier14 = [symbolNameAndColorCharacteristic uniqueIdentifier];
+  v44 = [uniqueIdentifier13 isEqual:uniqueIdentifier14];
+
+  if (v44)
+  {
+    observers2 = [(CAFService *)self observers];
+    name = [(CAFDynamicLocalNotification *)self symbolNameAndColor];
+    [observers2 dynamicLocalNotificationService:self didUpdateSymbolNameAndColor:name];
+    goto LABEL_29;
+  }
+
+LABEL_31:
+  v45.receiver = self;
+  v45.super_class = CAFDynamicLocalNotification;
+  [(CAFService *)&v45 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForIdentifier

@@ -128,24 +128,24 @@ void __32__WGCircleCheckView_setChecked___block_invoke(uint64_t a1, int a2)
   return circleView;
 }
 
-CGContext *__52__WGCircleCheckView__configureCircleViewIfNecessary__block_invoke()
+CGContext *__52__WGCircleCheckView__configureCircleViewIfNecessary__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = _WGMainScreenScale();
-  v7.width = 20.0;
-  v7.height = 20.0;
-  UIGraphicsBeginImageContextWithOptions(v7, 0, v0);
+  v2 = _WGMainScreenScale(a1, a2);
+  v9.width = 20.0;
+  v9.height = 20.0;
+  UIGraphicsBeginImageContextWithOptions(v9, 0, v2);
   CurrentContext = UIGraphicsGetCurrentContext();
   if (CurrentContext)
   {
-    v2 = CurrentContext;
+    v4 = CurrentContext;
     BSRectWithSize();
-    v3 = CGPathCreateWithEllipseInRect(v8, 0);
-    CGContextAddPath(v2, v3);
-    CGPathRelease(v3);
-    v4 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.35];
-    [v4 setFill];
+    v5 = CGPathCreateWithEllipseInRect(v10, 0);
+    CGContextAddPath(v4, v5);
+    CGPathRelease(v5);
+    v6 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.35];
+    [v6 setFill];
 
-    CGContextFillPath(v2);
+    CGContextFillPath(v4);
     CurrentContext = UIGraphicsGetImageFromCurrentImageContext();
   }
 
@@ -340,20 +340,20 @@ id __32__WGCircleCheckView__setFrozen___block_invoke(uint64_t a1)
   v2 = [WeakRetained _circleView];
   v3 = [v2 image];
 
-  [v3 size];
-  v5 = v4;
-  v7 = v6;
-  v8 = _WGMainScreenScale();
-  v14.width = v5;
-  v14.height = v7;
-  UIGraphicsBeginImageContextWithOptions(v14, 0, v8);
+  v4 = [v3 size];
+  v6 = v5;
+  v8 = v7;
+  v10 = _WGMainScreenScale(v4, v9);
+  v16.width = v6;
+  v16.height = v8;
+  UIGraphicsBeginImageContextWithOptions(v16, 0, v10);
   CurrentContext = UIGraphicsGetCurrentContext();
   if (CurrentContext)
   {
     [v3 drawAtPoint:{*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)}];
-    v10 = [WeakRetained _checkView];
-    v11 = [v10 layer];
-    [v11 renderInContext:CurrentContext];
+    v12 = [WeakRetained _checkView];
+    v13 = [v12 layer];
+    [v13 renderInContext:CurrentContext];
 
     CurrentContext = UIGraphicsGetImageFromCurrentImageContext();
   }

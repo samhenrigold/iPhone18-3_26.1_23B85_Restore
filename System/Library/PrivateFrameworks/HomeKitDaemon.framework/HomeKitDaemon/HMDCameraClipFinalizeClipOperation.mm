@@ -33,16 +33,16 @@
 
 id __42__HMDCameraClipFinalizeClipOperation_main__block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 setIsComplete:MEMORY[0x277CBEC38]];
-  v4 = [v3 duration];
+  v4 = objc_msgSend_duration(v3);
   [v4 doubleValue];
   v6 = v5;
   v7 = [*(a1 + 32) uploadOperationEvent];
   [v7 setTotalClipDuration:v6];
 
-  v8 = [v3 duration];
+  v8 = objc_msgSend_duration(v3);
   [v8 doubleValue];
   v10 = v9;
 
@@ -55,13 +55,13 @@ id __42__HMDCameraClipFinalizeClipOperation_main__block_invoke(uint64_t a1, void
     if (v14)
     {
       v17 = HMFGetLogIdentifier();
-      v18 = [v3 duration];
+      v18 = objc_msgSend_duration(v3);
       [v18 doubleValue];
-      v27 = 138543618;
-      v28 = v17;
-      v29 = 2048;
-      v30 = v19;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Finalized clip has duration %fs, deleting", &v27, 0x16u);
+      v26 = 138543618;
+      v27 = v17;
+      v28 = 2048;
+      v29 = v19;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Finalized clip has duration %fs, deleting", &v26, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -79,23 +79,21 @@ id __42__HMDCameraClipFinalizeClipOperation_main__block_invoke(uint64_t a1, void
     if (v14)
     {
       v15 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v15;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Marking clip complete", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v15;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Marking clip complete", &v26, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     v16 = [*(a1 + 32) updateClipModel:v3];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 void __42__HMDCameraClipFinalizeClipOperation_main__block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -103,20 +101,18 @@ void __42__HMDCameraClipFinalizeClipOperation_main__block_invoke_3(uint64_t a1, 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully finalized clip", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully finalized clip", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) finish];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __42__HMDCameraClipFinalizeClipOperation_main__block_invoke_5(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -124,17 +120,15 @@ void __42__HMDCameraClipFinalizeClipOperation_main__block_invoke_5(uint64_t a1, 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to update clip model: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to update clip model: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) cancelWithError:v3];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -151,10 +145,9 @@ void __42__HMDCameraClipFinalizeClipOperation_main__block_invoke_5(uint64_t a1, 
 
 void __49__HMDCameraClipFinalizeClipOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_87449;
-  logCategory__hmf_once_v5_87449 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_87449;
+  logCategory__hmf_once_v5_87449 = v0;
 }
 
 @end

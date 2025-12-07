@@ -14,9 +14,9 @@
 - (KNAnimationContext)initWithShowSize:(CGSize)size viewScale:(double)scale showLayer:(id)layer
 {
   layerCopy = layer;
-  v19.receiver = self;
-  v19.super_class = KNAnimationContext;
-  v9 = [(KNAnimationContext *)&v19 init];
+  v17.receiver = self;
+  v17.super_class = KNAnimationContext;
+  v9 = [(KNAnimationContext *)&v17 init];
   if (v9)
   {
     TSURectWithSize();
@@ -26,10 +26,10 @@
     *(v9 + 14) = v13;
     objc_storeStrong(v9 + 5, layer);
     *(v9 + 24) = xmmword_275E71130;
-    objc_msgSend_updateGeometryToFitShowLayerAtViewScale_(v9, v14, v15, scale);
-    v16 = objc_alloc_init(MEMORY[0x277D801F0]);
-    v17 = *(v9 + 1);
-    *(v9 + 1) = v16;
+    [v9 updateGeometryToFitShowLayerAtViewScale:scale];
+    v14 = objc_alloc_init(MEMORY[0x277D801F0]);
+    v15 = *(v9 + 1);
+    *(v9 + 1) = v14;
   }
 
   return v9;
@@ -38,18 +38,18 @@
 - (KNAnimationContext)init
 {
   v2 = MEMORY[0x277D81150];
-  v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNAnimationContext init]");
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationContext.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v6, v3, v5, 41, 0, "Do not call method");
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNAnimationContext init]"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationContext.m"];
+  [v2 handleFailureInFunction:v3 file:v4 lineNumber:41 isFatal:0 description:"Do not call method"];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v7, v8);
-  v9 = MEMORY[0x277CBEAD8];
-  v10 = *MEMORY[0x277CBE658];
-  v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v11, @"%s: %s", "Do not call method", "[KNAnimationContext init]");
-  v14 = objc_msgSend_exceptionWithName_reason_userInfo_(v9, v13, v10, v12, 0);
-  v15 = v14;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v5 = MEMORY[0x277CBEAD8];
+  v6 = *MEMORY[0x277CBE658];
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s", "Do not call method", "-[KNAnimationContext init]"];
+  v8 = [v5 exceptionWithName:v6 reason:v7 userInfo:0];
+  v9 = v8;
 
-  objc_exception_throw(v14);
+  objc_exception_throw(v8);
 }
 
 - (void)dealloc
@@ -61,23 +61,23 @@
 
 - (double)showScale
 {
-  v4 = objc_msgSend_showLayer(self, a2, v2);
-  if (!v4)
+  showLayer = [(KNAnimationContext *)self showLayer];
+  if (!showLayer)
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "[KNAnimationContext showScale]");
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationContext.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 49, 0, "invalid nil value for '%{public}s'", "showLayer");
+    v3 = MEMORY[0x277D81150];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNAnimationContext showScale]"];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationContext.m"];
+    [v3 handleFailureInFunction:v4 file:v5 lineNumber:49 isFatal:0 description:{"invalid nil value for '%{public}s'", "showLayer"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v12 = objc_msgSend_valueForKeyPath_(v4, v3, @"transform.scale.x");
-  v14 = objc_msgSend_valueForKeyPath_(v4, v13, @"transform.scale.y");
-  v17 = v14;
-  if (v12)
+  v6 = [showLayer valueForKeyPath:@"transform.scale.x"];
+  v7 = [showLayer valueForKeyPath:@"transform.scale.y"];
+  v8 = v7;
+  if (v6)
   {
-    if (v14)
+    if (v7)
     {
       goto LABEL_5;
     }
@@ -85,70 +85,70 @@
 
   else
   {
-    v25 = MEMORY[0x277D81150];
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[KNAnimationContext showScale]");
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationContext.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v29, v26, v28, 52, 0, "invalid nil value for '%{public}s'", "xscale");
+    v14 = MEMORY[0x277D81150];
+    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNAnimationContext showScale]"];
+    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationContext.m"];
+    [v14 handleFailureInFunction:v15 file:v16 lineNumber:52 isFatal:0 description:{"invalid nil value for '%{public}s'", "xscale"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31);
-    if (v17)
+    [MEMORY[0x277D81150] logBacktraceThrottled];
+    if (v8)
     {
       goto LABEL_5;
     }
   }
 
-  v32 = MEMORY[0x277D81150];
-  v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[KNAnimationContext showScale]");
-  v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationContext.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v36, v33, v35, 53, 0, "invalid nil value for '%{public}s'", "yscale");
+  v17 = MEMORY[0x277D81150];
+  v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNAnimationContext showScale]"];
+  v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationContext.m"];
+  [v17 handleFailureInFunction:v18 file:v19 lineNumber:53 isFatal:0 description:{"invalid nil value for '%{public}s'", "yscale"}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38);
+  [MEMORY[0x277D81150] logBacktraceThrottled];
 LABEL_5:
-  objc_msgSend_tsu_CGFloatValue(v12, v15, v16);
-  v19 = v18;
-  objc_msgSend_tsu_CGFloatValue(v17, v20, v21);
-  if (v19 >= v22)
+  [v6 tsu_CGFloatValue];
+  v10 = v9;
+  [v8 tsu_CGFloatValue];
+  if (v10 >= v11)
   {
-    v22 = v19;
+    v11 = v10;
   }
 
-  v23 = fmin(v22, 1.0);
+  v12 = fmin(v11, 1.0);
 
-  return v23;
+  return v12;
 }
 
 - (void)updateGeometryToFitShowLayerAtViewScale:(double)scale
 {
   self->_viewScale = scale;
-  objc_msgSend_bounds(self->_showLayer, a2, v3);
-  v6 = v5;
-  self->_slideRect.origin.x = v7;
-  self->_slideRect.origin.y = v8;
-  self->_slideRect.size.width = v9;
-  self->_slideRect.size.height = v5;
-  objc_msgSend_fieldOfViewInRadians(self, v10, v11);
-  v13 = tan(v12 * 0.5);
-  v14 = v6 / (v13 + v13);
-  memset(&v25, 0, sizeof(v25));
-  objc_msgSend_fieldOfViewInRadians(self, v15, v16);
+  [(CALayer *)self->_showLayer bounds];
+  v5 = v4;
+  self->_slideRect.origin.x = v6;
+  self->_slideRect.origin.y = v7;
+  self->_slideRect.size.width = v8;
+  self->_slideRect.size.height = v4;
+  [(KNAnimationContext *)self fieldOfViewInRadians];
+  v10 = tan(v9 * 0.5);
+  v11 = v5 / (v10 + v10);
+  memset(&v20, 0, sizeof(v20));
+  [(KNAnimationContext *)self fieldOfViewInRadians];
   TSDTransform3DMakeProjection();
-  memset(&v24, 0, sizeof(v24));
-  CATransform3DMakeTranslation(&v24, self->_slideRect.size.width * -0.5 - self->_slideRect.origin.x, self->_slideRect.size.height * -0.5 - self->_slideRect.origin.y, -v14);
-  a = v24;
-  v21 = v25;
-  CATransform3DConcat(&v23, &a, &v21);
-  v17 = *&v23.m33;
-  *&self->_slideProjectionMatrix.m31 = *&v23.m31;
-  *&self->_slideProjectionMatrix.m33 = v17;
-  v18 = *&v23.m43;
-  *&self->_slideProjectionMatrix.m41 = *&v23.m41;
-  *&self->_slideProjectionMatrix.m43 = v18;
-  v19 = *&v23.m13;
-  *&self->_slideProjectionMatrix.m11 = *&v23.m11;
-  *&self->_slideProjectionMatrix.m13 = v19;
-  v20 = *&v23.m23;
-  *&self->_slideProjectionMatrix.m21 = *&v23.m21;
-  *&self->_slideProjectionMatrix.m23 = v20;
+  memset(&v19, 0, sizeof(v19));
+  CATransform3DMakeTranslation(&v19, self->_slideRect.size.width * -0.5 - self->_slideRect.origin.x, self->_slideRect.size.height * -0.5 - self->_slideRect.origin.y, -v11);
+  a = v19;
+  v16 = v20;
+  CATransform3DConcat(&v18, &a, &v16);
+  v12 = *&v18.m33;
+  *&self->_slideProjectionMatrix.m31 = *&v18.m31;
+  *&self->_slideProjectionMatrix.m33 = v12;
+  v13 = *&v18.m43;
+  *&self->_slideProjectionMatrix.m41 = *&v18.m41;
+  *&self->_slideProjectionMatrix.m43 = v13;
+  v14 = *&v18.m13;
+  *&self->_slideProjectionMatrix.m11 = *&v18.m11;
+  *&self->_slideProjectionMatrix.m13 = v14;
+  v15 = *&v18.m23;
+  *&self->_slideProjectionMatrix.m21 = *&v18.m21;
+  *&self->_slideProjectionMatrix.m23 = v15;
 }
 
 - (CATransform3D)slideProjectionMatrix

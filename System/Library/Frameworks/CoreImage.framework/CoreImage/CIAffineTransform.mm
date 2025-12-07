@@ -36,15 +36,16 @@
 {
   if (self->inputImage)
   {
-    if (CGAffineTransformFromObject(self->inputTransform, &v7))
+    v3 = CGAffineTransformFromObject(self->inputTransform, &v9);
+    if (v3)
     {
       inputImage = self->inputImage;
-      v6 = v7;
-      return [(CIImage *)inputImage imageByApplyingTransform:&v6];
+      v8 = v9;
+      return [(CIImage *)inputImage imageByApplyingTransform:&v8];
     }
 
-    v5 = ci_logger_filter();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = ci_logger_filter(v3, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(CIAffineClamp *)self outputImage];
     }
@@ -61,12 +62,12 @@
     return MEMORY[0x1E695E0F0];
   }
 
-  v4[0] = metadataPropertyWithDouble(v3.a);
-  v4[1] = metadataPropertyWithDouble(v3.b);
-  v4[2] = metadataPropertyWithDouble(v3.c);
-  v4[3] = metadataPropertyWithDouble(v3.d);
-  v4[4] = metadataPropertyWithDouble(v3.tx);
-  v4[5] = metadataPropertyWithDouble(v3.ty);
+  v4[0] = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"AffineA", v3.a);
+  v4[1] = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"AffineB", v3.b);
+  v4[2] = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"AffineC", v3.c);
+  v4[3] = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"AffineD", v3.d);
+  v4[4] = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"AffineX", v3.tx);
+  v4[5] = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"AffineY", v3.ty);
   return [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:6];
 }
 

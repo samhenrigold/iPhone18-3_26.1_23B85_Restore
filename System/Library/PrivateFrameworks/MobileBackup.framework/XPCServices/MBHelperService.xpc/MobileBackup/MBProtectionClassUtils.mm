@@ -1,12 +1,68 @@
 @interface MBProtectionClassUtils
++ (BOOL)canOpenWhenLocked:(unsigned __int8)locked;
 + (BOOL)isContentUnavailableDueToCxExpiration:(id)expiration error:(id *)error;
++ (BOOL)isProtected:(unsigned __int8)protected;
++ (BOOL)setWithFD:(int)d value:(unsigned __int8)value error:(id *)error;
++ (BOOL)setWithPath:(id)path value:(unsigned __int8)value error:(id *)error;
++ (BOOL)setWithPathFSR:(const char *)r value:(unsigned __int8)value error:(id *)error;
 + (int)_openRawEncryptedWithPathFSR:(const char *)r error:(id *)error;
++ (int)sqliteOpenFlagForProtectionClass:(unsigned __int8)class;
 + (unsigned)getWithFD:(int)d error:(id *)error;
 + (unsigned)getWithPath:(id)path error:(id *)error;
 + (unsigned)getWithPathFSR:(const char *)r error:(id *)error;
 @end
 
 @implementation MBProtectionClassUtils
+
++ (BOOL)isProtected:(unsigned __int8)protected
+{
+  protectedCopy = protected;
+  if (protected < 8u && ((0x9Fu >> protected) & 1) != 0)
+  {
+    v4 = 0x8Eu >> protected;
+  }
+
+  else
+  {
+    v5 = MBGetDefaultLog(self);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 67109120;
+      v8 = protectedCopy;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_FAULT, "=pc= +isProtected: Invalid protection class: %d", buf, 8u);
+      _MBLog(@"F ", "=pc= +isProtected: Invalid protection class: %d", protectedCopy);
+    }
+
+    LOBYTE(v4) = 1;
+  }
+
+  return v4 & 1;
+}
+
++ (BOOL)canOpenWhenLocked:(unsigned __int8)locked
+{
+  lockedCopy = locked;
+  if (locked < 8u && ((0x9Fu >> locked) & 1) != 0)
+  {
+    v4 = 0xF9u >> locked;
+  }
+
+  else
+  {
+    v5 = MBGetDefaultLog(self);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 67109120;
+      v8 = lockedCopy;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_FAULT, "=pc= +canOpenWhenLocked: Invalid protection class: %d", buf, 8u);
+      _MBLog(@"F ", "=pc= +canOpenWhenLocked: Invalid protection class: %d", lockedCopy);
+    }
+
+    LOBYTE(v4) = 0;
+  }
+
+  return v4 & 1;
+}
 
 + (unsigned)getWithPath:(id)path error:(id *)error
 {
@@ -64,32 +120,84 @@ LABEL_8:
   return v7;
 }
 
++ (BOOL)setWithPath:(id)path value:(unsigned __int8)value error:(id *)error
+{
+  valueCopy = value;
+  fileSystemRepresentation = [path fileSystemRepresentation];
+
+  return [MBProtectionClassUtils setWithPathFSR:fileSystemRepresentation value:valueCopy error:error];
+}
+
++ (BOOL)setWithPathFSR:(const char *)r value:(unsigned __int8)value error:(id *)error
+{
+  valueCopy = value;
+  v8 = open(r, 256);
+  if ((v8 & 0x80000000) != 0)
+  {
+    if (error)
+    {
+      if (r)
+      {
+        v12 = [NSString mb_stringWithFileSystemRepresentation:r];
+      }
+
+      else
+      {
+        v12 = @"(null)";
+      }
+
+      if (*__error() == 1 && ![MBProtectionClassUtils canOpenWhenLocked:valueCopy])
+      {
+        v13 = [MBError errorWithCode:208 path:v12 format:@"open error setting protection class (device locked?)"];
+      }
+
+      else
+      {
+        v13 = [MBError posixErrorWithPath:v12 format:@"open error setting protection class"];
+      }
+
+      *error = v13;
+    }
+
+    return 0;
+  }
+
+  else
+  {
+    v9 = v8;
+    v10 = [MBProtectionClassUtils setWithFD:v8 value:valueCopy error:error];
+    close(v9);
+    return v10;
+  }
+}
+
 + (int)_openRawEncryptedWithPathFSR:(const char *)r error:(id *)error
 {
   result = open_dprotected_np(r, 256, 0, 1, 0);
   if (result < 0)
   {
-    v7 = *__error();
+    v7 = __error();
+    v8 = *v7;
     if (error)
     {
-      v8 = [NSString mb_stringWithFileSystemRepresentation:r];
-      *error = [MBError posixErrorWithPath:v8 format:@"open_dprotected_np error"];
+      v9 = [NSString mb_stringWithFileSystemRepresentation:r];
+      *error = [MBError posixErrorWithPath:v9 format:@"open_dprotected_np error"];
     }
 
-    v9 = MBGetDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = MBGetDefaultLog(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       buf.st_dev = 136315394;
       *&buf.st_mode = r;
       WORD2(buf.st_ino) = 1024;
-      *(&buf.st_ino + 6) = v7;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "=pc= open_dprotected_np failed at %s: %{errno}d", &buf, 0x12u);
-      _MBLog(@"E ", "=pc= open_dprotected_np failed at %s: %{errno}d", v10, v11, v12, v13, v14, v15, r);
+      *(&buf.st_ino + 6) = v8;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "=pc= open_dprotected_np failed at %s: %{errno}d", &buf, 0x12u);
+      _MBLog(@"E ", "=pc= open_dprotected_np failed at %s: %{errno}d", r, v8);
     }
 
-    if (v7 == 22)
+    if (v8 == 22)
     {
-      if (!MBIsInternalInstall())
+      if (!MBIsInternalInstall(v11, v12))
       {
         return -1;
       }
@@ -97,30 +205,30 @@ LABEL_8:
 
     else
     {
-      if (v7 != 1)
+      if (v8 != 1)
       {
         return -1;
       }
 
       memset(&buf, 0, sizeof(buf));
-      v16 = lstat(r, &buf);
-      if (v16 | buf.st_flags & 0x20)
+      v13 = lstat(r, &buf);
+      if (v13 | buf.st_flags & 0x20)
       {
         return -1;
       }
     }
 
-    v17 = [NSString mb_stringWithFileSystemRepresentation:r];
-    MBDiagnoseFile(v17, v7, "open_dprotected_np");
-    v18 = MBGetDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    v14 = [NSString mb_stringWithFileSystemRepresentation:r];
+    MBDiagnoseFile(v14, v8, "open_dprotected_np");
+    v16 = MBGetDefaultLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       buf.st_dev = 138412546;
-      *&buf.st_mode = v17;
+      *&buf.st_mode = v14;
       WORD2(buf.st_ino) = 1024;
-      *(&buf.st_ino + 6) = v7;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_FAULT, "=pc= open_dprotected_np failed at %@: %{errno}d", &buf, 0x12u);
-      _MBLog(@"F ", "=pc= open_dprotected_np failed at %@: %{errno}d", v19, v20, v21, v22, v23, v24, v17);
+      *(&buf.st_ino + 6) = v8;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "=pc= open_dprotected_np failed at %@: %{errno}d", &buf, 0x12u);
+      _MBLog(@"F ", "=pc= open_dprotected_np failed at %@: %{errno}d", v14, v8);
     }
 
     return -1;
@@ -143,6 +251,58 @@ LABEL_8:
   }
 
   return v5;
+}
+
++ (BOOL)setWithFD:(int)d value:(unsigned __int8)value error:(id *)error
+{
+  valueCopy = value;
+  v7 = fcntl(d, 64, value);
+  v8 = v7;
+  if (error && v7)
+  {
+    if (*__error() == 1 && ![MBProtectionClassUtils canOpenWhenLocked:valueCopy])
+    {
+      v9 = [MBError errorWithCode:208 format:@"fcntl permission error setting protection class (device locked?)"];
+    }
+
+    else
+    {
+      if (valueCopy == 7)
+      {
+        [MBError posixErrorWithCode:240 format:@"fcntl error setting Cx protection class"];
+      }
+
+      else
+      {
+        [MBError posixErrorWithFormat:@"fcntl error setting protection class"];
+      }
+      v9 = ;
+    }
+
+    *error = v9;
+  }
+
+  return v8 == 0;
+}
+
++ (int)sqliteOpenFlagForProtectionClass:(unsigned __int8)class
+{
+  classCopy = class;
+  if (class - 1) < 7 && ((0x4Fu >> (class - 1)))
+  {
+    return dword_100018EB8[(class - 1)];
+  }
+
+  v5 = MBGetDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v7 = classCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "=pc= No SQLite open flag known for protection class: %d", buf, 8u);
+    _MBLog(@"Df", "=pc= No SQLite open flag known for protection class: %d", classCopy);
+  }
+
+  return 0x400000;
 }
 
 @end

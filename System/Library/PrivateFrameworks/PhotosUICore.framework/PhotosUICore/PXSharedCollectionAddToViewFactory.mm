@@ -9,7 +9,7 @@
 + (id)contentHostedViewControllerWithSharedCollection:(id)collection assets:(id)assets doneCallback:(id)callback
 {
   v6 = _Block_copy(callback);
-  sub_1A3C52C70(0, &qword_1EB126660);
+  sub_1A3C52C70(0, &qword_1EB126660, 0x1E6978630);
   v7 = sub_1A524CA34();
   if (v6)
   {
@@ -29,7 +29,7 @@
 + (id)contentHostedViewControllerWithSharedCollection:(id)collection mediaSources:(id)sources doneCallback:(id)callback
 {
   v6 = _Block_copy(callback);
-  sub_1A3C52C70(0, &qword_1EB12B540);
+  sub_1A3C52C70(0, &qword_1EB12B540, 0x1E69BE820);
   v7 = sub_1A524CA34();
   if (v6)
   {
@@ -49,7 +49,7 @@
 - (_TtC12PhotosUICore34PXSharedCollectionAddToViewFactory)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PXSharedCollectionAddToViewFactory();
+  v3.super_class = type metadata accessor for PXSharedCollectionAddToViewFactory(self, a2);
   return [(PXSharedCollectionAddToViewFactory *)&v3 init];
 }
 

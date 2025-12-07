@@ -34,10 +34,10 @@
 
 - (void)viewDidLoad
 {
-  v40[4] = *MEMORY[0x277D85DE8];
-  v39.receiver = self;
-  v39.super_class = TUIReportDetailsViewController;
-  [(TUIReportDetailsViewController *)&v39 viewDidLoad];
+  v38[4] = *MEMORY[0x277D85DE8];
+  v37.receiver = self;
+  v37.super_class = TUIReportDetailsViewController;
+  [(TUIReportDetailsViewController *)&v37 viewDidLoad];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"DETAILS_TITLE" value:&stru_287F92480 table:@"Localizable"];
   [(TUIReportDetailsViewController *)self setTitle:v4];
@@ -56,46 +56,43 @@
   v10 = self->_reportDetailsTextView;
   v11 = MEMORY[0x277D74300];
   [MEMORY[0x277D74300] systemFontSize];
-  v12 = *MEMORY[0x277D74418];
-  v13 = [v11 monospacedSystemFontOfSize:? weight:?];
-  [(UITextView *)v10 setFont:v13];
+  v12 = [v11 monospacedSystemFontOfSize:? weight:?];
+  [(UITextView *)v10 setFont:v12];
 
-  v14 = self->_reportDetailsTextView;
+  v13 = self->_reportDetailsTextView;
   reportDetails = [(TUIReportManager *)self->_reportManager reportDetails];
-  [(UITextView *)v14 setText:reportDetails];
+  [(UITextView *)v13 setText:reportDetails];
 
   [(UITextView *)self->_reportDetailsTextView setTextContainerInset:0.0, 8.0, 0.0, 8.0];
   view = [(TUIReportDetailsViewController *)self view];
   [view addSubview:self->_reportDetailsTextView];
 
-  v30 = MEMORY[0x277CCAAD0];
+  v28 = MEMORY[0x277CCAAD0];
   topAnchor = [(UITextView *)self->_reportDetailsTextView topAnchor];
   view2 = [(TUIReportDetailsViewController *)self view];
   safeAreaLayoutGuide = [view2 safeAreaLayoutGuide];
   topAnchor2 = [safeAreaLayoutGuide topAnchor];
-  v34 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v40[0] = v34;
+  v32 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v38[0] = v32;
   leadingAnchor = [(UITextView *)self->_reportDetailsTextView leadingAnchor];
   view3 = [(TUIReportDetailsViewController *)self view];
   safeAreaLayoutGuide2 = [view3 safeAreaLayoutGuide];
   leadingAnchor2 = [safeAreaLayoutGuide2 leadingAnchor];
-  v28 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v40[1] = v28;
+  v26 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v38[1] = v26;
   trailingAnchor = [(UITextView *)self->_reportDetailsTextView trailingAnchor];
   view4 = [(TUIReportDetailsViewController *)self view];
   safeAreaLayoutGuide3 = [view4 safeAreaLayoutGuide];
   trailingAnchor2 = [safeAreaLayoutGuide3 trailingAnchor];
-  v21 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v40[2] = v21;
+  v20 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v38[2] = v20;
   bottomAnchor = [(UITextView *)self->_reportDetailsTextView bottomAnchor];
   view5 = [(TUIReportDetailsViewController *)self view];
   bottomAnchor2 = [view5 bottomAnchor];
-  v25 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v40[3] = v25;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:4];
-  [v30 activateConstraints:v26];
-
-  v27 = *MEMORY[0x277D85DE8];
+  v24 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v38[3] = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:4];
+  [v28 activateConstraints:v25];
 }
 
 - (void)viewDidLayoutSubviews

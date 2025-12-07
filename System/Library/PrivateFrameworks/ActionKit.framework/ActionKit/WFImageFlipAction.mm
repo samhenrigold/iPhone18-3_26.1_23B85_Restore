@@ -72,8 +72,6 @@ void __48__WFImageFlipAction_runAsynchronouslyWithInput___block_invoke_3(uint64_
   if (v3)
   {
     WFImageSizeFromFile();
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
     WFAsyncTransformedImageFromImage();
   }
 

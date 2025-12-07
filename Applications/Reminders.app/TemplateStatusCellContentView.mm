@@ -45,23 +45,24 @@
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v9, 0, sizeof(v9));
     selfCopy2 = self;
   }
 
   v6 = *&self->internalConfiguration[OBJC_IVAR____TtC9RemindersP33_4869690943FA7C97F8C5390C1CD5799A29TemplateStatusCellContentView_internalConfiguration];
   if (v6)
   {
+    v7 = *&self->internalConfiguration[OBJC_IVAR____TtC9RemindersP33_4869690943FA7C97F8C5390C1CD5799A29TemplateStatusCellContentView_internalConfiguration + 8];
 
-    v6(v7);
-    sub_1000301AC(v6);
+    v6(v8);
+    sub_1000301AC(v6, v7);
 
-    sub_10000B070(v8);
+    sub_10000B070(v9);
   }
 
   else
   {
-    sub_10000B070(v8);
+    sub_10000B070(v9);
   }
 }
 

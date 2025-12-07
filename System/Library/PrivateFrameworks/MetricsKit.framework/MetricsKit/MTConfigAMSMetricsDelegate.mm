@@ -49,7 +49,7 @@
 
 void __37__MTConfigAMSMetricsDelegate_sources__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v6 = a2;
   if (a4)
   {
@@ -62,14 +62,12 @@ void __37__MTConfigAMSMetricsDelegate_sources__block_invoke(uint64_t a1, void *a
     v8 = [v7 copy];
 
     v9 = *(a1 + 32);
-    v12[0] = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     [v9 finishWithResult:v10];
 
     v6 = v8;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

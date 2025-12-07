@@ -1,7 +1,11 @@
 @interface CAFSingleSelectImageSettingObservable
 - (NSString)description;
 - (void)automakerSettingService:(id)service didUpdateCategory:(unsigned __int8)category;
+- (void)automakerSettingService:(id)service didUpdateDisabled:(BOOL)disabled;
+- (void)automakerSettingService:(id)service didUpdateHidden:(BOOL)hidden;
+- (void)automakerSettingService:(id)service didUpdateLimitableUIElement:(BOOL)element;
 - (void)automakerSettingService:(id)service didUpdateProminenceInfo:(id)info;
+- (void)automakerSettingService:(id)service didUpdateShowAudioBrandLogo:(BOOL)logo;
 - (void)automakerSettingService:(id)service didUpdateSortOrder:(unsigned __int8)order;
 - (void)serviceDidFinishGroupUpdate:(id)update;
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate;
@@ -27,14 +31,46 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFSingleSelectImageSettingObservable.automakerSettingService(_:didUpdateSortOrder:)();
+  CAFSingleSelectImageSettingObservable.automakerSettingService(_:didUpdateSortOrder:)(selfCopy, order);
 }
 
 - (void)automakerSettingService:(id)service didUpdateCategory:(unsigned __int8)category
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFSingleSelectImageSettingObservable.automakerSettingService(_:didUpdateCategory:)();
+  CAFSingleSelectImageSettingObservable.automakerSettingService(_:didUpdateCategory:)(selfCopy, category);
+}
+
+- (void)automakerSettingService:(id)service didUpdateDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFSingleSelectImageSettingObservable.automakerSettingService(_:didUpdateDisabled:)(selfCopy, disabledCopy);
+}
+
+- (void)automakerSettingService:(id)service didUpdateLimitableUIElement:(BOOL)element
+{
+  elementCopy = element;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFSingleSelectImageSettingObservable.automakerSettingService(_:didUpdateLimitableUIElement:)(selfCopy, elementCopy);
+}
+
+- (void)automakerSettingService:(id)service didUpdateHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFSingleSelectImageSettingObservable.automakerSettingService(_:didUpdateHidden:)(selfCopy, hiddenCopy);
+}
+
+- (void)automakerSettingService:(id)service didUpdateShowAudioBrandLogo:(BOOL)logo
+{
+  logoCopy = logo;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFSingleSelectImageSettingObservable.automakerSettingService(_:didUpdateShowAudioBrandLogo:)(selfCopy, logoCopy);
 }
 
 - (void)automakerSettingService:(id)service didUpdateProminenceInfo:(id)info
@@ -49,7 +85,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFSingleSelectImageSettingObservable.singleSelectImageSettingService(_:didUpdateCurrentUserVisibleValue:)();
+  CAFSingleSelectImageSettingObservable.singleSelectImageSettingService(_:didUpdateCurrentUserVisibleValue:)(selfCopy, value);
 }
 
 - (void)singleSelectImageSettingService:(id)service didUpdateUserVisibleDetailedDescription:(id)description

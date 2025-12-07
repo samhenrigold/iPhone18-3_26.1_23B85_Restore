@@ -1004,7 +1004,7 @@ LABEL_20:
 void __53__UIKeyboardLayoutCursor_selectInitialKeyIfNecessary__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v9 = a2;
-  if ([v9 interactionType] == 4 || (objc_msgSend(v9, "name"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqualToString:", @"Monolith-Recent-Inputs-Key"), v7, v8))
+  if ([v9 interactionType] == 4 || (objc_msgSend(v9, "name"), v7 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v7), v7, isEqualToString))
   {
     [*(a1 + 32) setSelectedKeyIndex:a3];
     *a4 = 1;
@@ -1016,16 +1016,16 @@ uint64_t __53__UIKeyboardLayoutCursor_selectInitialKeyIfNecessary__block_invoke_
   v2 = a2;
   if ([v2 interactionType] == 1 || objc_msgSend(v2, "interactionType") == 2 || objc_msgSend(v2, "interactionType") == 16)
   {
-    v3 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
     v5 = [v2 name];
-    v3 = [v5 isEqualToString:@"Monolith-Recent-Inputs-Key"];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
   }
 
-  return v3;
+  return isEqualToString;
 }
 
 - (void)updateKeyplaneSwitchEdgeBiases
@@ -1461,7 +1461,7 @@ void __41__UIKeyboardLayoutCursor_alertDidDismiss__block_invoke(uint64_t a1)
 {
   stringCopy = string;
   v4 = +[UIKeyboardImpl activeInstance];
-  if ([stringCopy isEqualToString:0x1EFB6FC10])
+  if (objc_msgSend_isEqualToString_(stringCopy))
   {
     [v4 clearRecentInput];
     [(UIKeyboardLayoutCursor *)self setRecentInputs:0];
@@ -1505,7 +1505,7 @@ void __41__UIKeyboardLayoutCursor_alertDidDismiss__block_invoke(uint64_t a1)
     if (objc_opt_isKindOfClass())
     {
       selectedRecentInputString = [v5 selectedRecentInputString];
-      if (([selectedRecentInputString isEqualToString:0x1EFB6FC10] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(selectedRecentInputString) & 1) == 0)
       {
         v7 = +[UIKeyboardImpl activeInstance];
         [v7 acceptRecentInput:selectedRecentInputString];
@@ -2930,15 +2930,15 @@ LABEL_13:
         }
 
         taskQueue = [v7 taskQueue];
-        v62[0] = MEMORY[0x1E69E9820];
-        v62[1] = 3221225472;
-        v62[2] = __40__UIKeyboardLayoutCursor_takeKeyAction___block_invoke_3;
-        v62[3] = &unk_1E70FD1B8;
-        v63 = v7;
-        v64 = actionCopy;
-        [taskQueue addTask:v62 breadcrumb:qword_1ED49AF10];
+        v63[0] = MEMORY[0x1E69E9820];
+        v63[1] = 3221225472;
+        v63[2] = __40__UIKeyboardLayoutCursor_takeKeyAction___block_invoke_3;
+        v63[3] = &unk_1E70FD1B8;
+        v64 = v7;
+        v65 = actionCopy;
+        [taskQueue addTask:v63 breadcrumb:qword_1ED49AF10];
 
-        v24 = v63;
+        v24 = v64;
       }
 
       else
@@ -2949,14 +2949,14 @@ LABEL_13:
         }
 
         taskQueue2 = [v7 taskQueue];
-        v60[0] = MEMORY[0x1E69E9820];
-        v60[1] = 3221225472;
-        v60[2] = __40__UIKeyboardLayoutCursor_takeKeyAction___block_invoke_6;
-        v60[3] = &unk_1E70FD058;
-        v61 = v7;
-        [taskQueue2 addTask:v60 breadcrumb:qword_1ED49AF20];
+        v61[0] = MEMORY[0x1E69E9820];
+        v61[1] = 3221225472;
+        v61[2] = __40__UIKeyboardLayoutCursor_takeKeyAction___block_invoke_6;
+        v61[3] = &unk_1E70FD058;
+        v62 = v7;
+        [taskQueue2 addTask:v61 breadcrumb:qword_1ED49AF20];
 
-        v24 = v61;
+        v24 = v62;
       }
 
       goto LABEL_14;
@@ -2973,6 +2973,7 @@ LABEL_13:
         if (objc_opt_isKindOfClass())
         {
           selectedRecentInputString = [v27 selectedRecentInputString];
+          isEqualToString = objc_msgSend_isEqualToString_(selectedRecentInputString);
         }
 
         else
@@ -2980,22 +2981,23 @@ LABEL_13:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v48 = +[UIKeyboardImpl activeInstance];
-            candidateController = [v48 candidateController];
+            v49 = +[UIKeyboardImpl activeInstance];
+            candidateController = [v49 candidateController];
 
             if ([candidateController currentIndex] != 0x7FFFFFFFFFFFFFFFLL)
             {
               [candidateController acceptSelectedCandidate];
               [(UIKeyboardLayoutCursor *)self handleVisualDirectionalInput:2];
-              v50 = +[UIKBKeyplaneChangeContext keyplaneChangeContext];
-              [(UIKeyboardLayoutStar *)self _didChangeKeyplaneWithContext:v50];
+              v51 = +[UIKBKeyplaneChangeContext keyplaneChangeContext];
+              [(UIKeyboardLayoutStar *)self _didChangeKeyplaneWithContext:v51];
             }
           }
 
           selectedRecentInputString = 0;
+          isEqualToString = objc_msgSend_isEqualToString_(0);
         }
 
-        if ([selectedRecentInputString isEqualToString:0x1EFB6FC10])
+        if (isEqualToString)
         {
           [v7 clearRecentInput];
           [(UIKeyboardLayoutCursor *)self setRecentInputs:0];
@@ -3005,8 +3007,8 @@ LABEL_13:
         else if (selectedRecentInputString)
         {
           [v7 handleClear];
-          v51 = [(UIKeyboardLayoutStar *)self createKeyEventForStringAction:selectedRecentInputString forKey:actionCopy inputFlags:2];
-          [v7 handleKeyEvent:v51];
+          v52 = [(UIKeyboardLayoutStar *)self createKeyEventForStringAction:selectedRecentInputString forKey:actionCopy inputFlags:2];
+          [v7 handleKeyEvent:v52];
         }
       }
 
@@ -3017,24 +3019,24 @@ LABEL_13:
     {
       alternateKeyplaneName = [(UIKBTree *)actionCopy representedString];
       selectedVariantIndex3 = [(UIKBTree *)actionCopy selectedVariantIndex];
-      v39 = [(UIKeyboardLayoutCursor *)self variantCountForKey:actionCopy];
-      v40 = 0;
-      if ([(UIKBTree *)actionCopy state]== 16 && selectedVariantIndex3 != 0x7FFFFFFFFFFFFFFFLL && selectedVariantIndex3 < v39)
+      v40 = [(UIKeyboardLayoutCursor *)self variantCountForKey:actionCopy];
+      v41 = 0;
+      if ([(UIKBTree *)actionCopy state]== 16 && selectedVariantIndex3 != 0x7FFFFFFFFFFFFFFFLL && selectedVariantIndex3 < v40)
       {
         subtrees2 = [(UIKBTree *)actionCopy subtrees];
-        v42 = [subtrees2 objectAtIndex:selectedVariantIndex3];
+        v43 = [subtrees2 objectAtIndex:selectedVariantIndex3];
 
-        representedString5 = [v42 representedString];
+        representedString5 = [v43 representedString];
 
         [(UIKeyboardLayoutCursor *)self clearVariantStateForKey:actionCopy];
-        v40 = 2;
+        v41 = 2;
         alternateKeyplaneName = representedString5;
       }
 
       if ([alternateKeyplaneName length])
       {
-        v44 = [(UIKeyboardLayoutStar *)self createKeyEventForStringAction:alternateKeyplaneName forKey:actionCopy inputFlags:v40];
-        [v7 handleKeyEvent:v44];
+        v45 = [(UIKeyboardLayoutStar *)self createKeyEventForStringAction:alternateKeyplaneName forKey:actionCopy inputFlags:v41];
+        [v7 handleKeyEvent:v45];
       }
 
       goto LABEL_13;
@@ -3043,66 +3045,66 @@ LABEL_13:
     alternateKeyplaneName = [(UIKBTree *)actionCopy fullRepresentedString];
     representedString6 = [(UIKBTree *)actionCopy representedString];
     selectedVariantIndex4 = [(UIKBTree *)actionCopy selectedVariantIndex];
-    v32 = [(UIKeyboardLayoutCursor *)self variantCountForKey:actionCopy];
-    if ([(UIKBTree *)actionCopy state]!= 16 || selectedVariantIndex4 == 0x7FFFFFFFFFFFFFFFLL || selectedVariantIndex4 >= v32)
+    v33 = [(UIKeyboardLayoutCursor *)self variantCountForKey:actionCopy];
+    if ([(UIKBTree *)actionCopy state]!= 16 || selectedVariantIndex4 == 0x7FFFFFFFFFFFFFFFLL || selectedVariantIndex4 >= v33)
     {
       if (![(UIKBTree *)actionCopy forceMultitap])
       {
-        v52 = [representedString6 length];
-        if (v52 >= [alternateKeyplaneName length] || !-[UIKeyboardLayoutCursor canMultitap](self, "canMultitap"))
+        v53 = [representedString6 length];
+        if (v53 >= [alternateKeyplaneName length] || !-[UIKeyboardLayoutCursor canMultitap](self, "canMultitap"))
         {
-          v36 = 0;
           v37 = 0;
+          v38 = 0;
 LABEL_74:
           if ([representedString6 length])
           {
-            v59 = [(UIKeyboardLayoutStar *)self createKeyEventForStringAction:representedString6 forKey:actionCopy inputFlags:v37 | v36];
-            [v7 handleKeyEvent:v59];
+            v60 = [(UIKeyboardLayoutStar *)self createKeyEventForStringAction:representedString6 forKey:actionCopy inputFlags:v38 | v37];
+            [v7 handleKeyEvent:v60];
           }
 
           goto LABEL_13;
         }
       }
 
-      v45 = self->super._multitapKey;
-      if (v45 == actionCopy)
+      v46 = self->super._multitapKey;
+      if (v46 == actionCopy)
       {
-        fullRepresentedString = [(UIKBTree *)v45 fullRepresentedString];
+        fullRepresentedString = [(UIKBTree *)v46 fullRepresentedString];
         [fullRepresentedString rangeOfComposedCharacterSequenceAtIndex:self->super._multitapCount];
-        v55 = v54;
+        v56 = v55;
 
-        v56 = v55 + self->super._multitapCount;
+        v57 = v56 + self->super._multitapCount;
         fullRepresentedString2 = [(UIKBTree *)self->super._multitapKey fullRepresentedString];
-        self->super._multitapCount = v56 % [fullRepresentedString2 length];
-        v36 = 4;
+        self->super._multitapCount = v57 % [fullRepresentedString2 length];
+        v37 = 4;
       }
 
       else
       {
         self->super._multitapCount = 0;
-        v46 = actionCopy;
-        v36 = 0;
+        v47 = actionCopy;
+        v37 = 0;
         fullRepresentedString2 = self->super._multitapKey;
-        self->super._multitapKey = v46;
+        self->super._multitapKey = v47;
       }
 
       [(UIKeyboardLayoutStar *)self touchMultitapTimer];
-      v57 = [alternateKeyplaneName rangeOfComposedCharacterSequenceAtIndex:self->super._multitapCount];
-      representedString7 = [alternateKeyplaneName substringWithRange:{v57, v58}];
-      v37 = 0;
+      v58 = [alternateKeyplaneName rangeOfComposedCharacterSequenceAtIndex:self->super._multitapCount];
+      representedString7 = [alternateKeyplaneName substringWithRange:{v58, v59}];
+      v38 = 0;
     }
 
     else
     {
       subtrees3 = [(UIKBTree *)actionCopy subtrees];
-      v34 = [subtrees3 objectAtIndex:selectedVariantIndex4];
+      v35 = [subtrees3 objectAtIndex:selectedVariantIndex4];
 
-      representedString7 = [v34 representedString];
+      representedString7 = [v35 representedString];
 
       [(UIKeyboardLayoutCursor *)self clearVariantStateForKey:actionCopy];
-      v36 = 0;
-      v37 = 2;
-      representedString6 = v34;
+      v37 = 0;
+      v38 = 2;
+      representedString6 = v35;
     }
 
     representedString6 = representedString7;
@@ -3945,7 +3947,7 @@ LABEL_24:
     goto LABEL_28;
   }
 
-  if ((_UIPressesContainsPressType(beganCopy, 18) & 1) != 0 || _UIPressesContainsPressType(beganCopy, 6) && (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference__UIAllowDictationFromPlayPause, @"_UIAllowDictationFromPlayPause") & 1) == 0 && byte_1EA95E534)
+  if ((_UIPressesContainsPressType(beganCopy, 0x12) & 1) != 0 || _UIPressesContainsPressType(beganCopy, 6) && !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference__UIAllowDictationFromPlayPause, @"_UIAllowDictationFromPlayPause") && byte_1EA95E534)
   {
     v11 = +[UIKeyboardImpl activeInstance];
     shouldShowDictationKey = [v11 shouldShowDictationKey];
@@ -4054,7 +4056,7 @@ LABEL_28:
     goto LABEL_16;
   }
 
-  if ((_UIPressesContainsPressType(endedCopy, 18) & 1) == 0 && (!_UIPressesContainsPressType(endedCopy, 6) || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference__UIAllowDictationFromPlayPause, @"_UIAllowDictationFromPlayPause") & 1) != 0 || !byte_1EA95E534))
+  if ((_UIPressesContainsPressType(endedCopy, 0x12) & 1) == 0 && (!_UIPressesContainsPressType(endedCopy, 6) || _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference__UIAllowDictationFromPlayPause, @"_UIAllowDictationFromPlayPause") || !byte_1EA95E534))
   {
 LABEL_16:
     [(UIKeyboardLayoutCursor *)self _handlePresses:endedCopy withEvent:eventCopy];

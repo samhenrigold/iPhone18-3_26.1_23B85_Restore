@@ -25,7 +25,7 @@
 
   sub_1A3331A78(v10);
 
-  sub_1A3288FDC(v10, &qword_1EB0C7690);
+  sub_1A3288FDC(v10, &qword_1EB0C7690, &qword_1A34E6840);
 }
 
 - (_TtCV14ContactsUICoreP33_EA00BFAD0B6A1DB4F54018AB8FB6008727TonePickerViewRepresentable11Coordinator)init

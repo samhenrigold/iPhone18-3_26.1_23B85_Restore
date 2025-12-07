@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (BOOL)readStateFromDefaults;
 - (PMCoreSmartPowerNapPredictor)initWithQueue:(id)queue;
+- (id)CAEventForEngagedSessionWhereUserInterrupted:(BOOL)interrupted;
 - (id)CAEventForInactivityTooShortToQueryModel;
 - (id)CAEventForModelHesitancy;
 - (id)convertTimeToNumberFromDate:(id)date;
@@ -39,8 +40,11 @@
 - (void)scheduleModelRequeryWithOutputReason:(int64_t)reason;
 - (void)unregisterMotionAlarm;
 - (void)updateInactiveState:(unint64_t)state;
+- (void)updateMotionAlarmStartThreshold:(unsigned int)threshold;
+- (void)updateMotionAlarmThreshold:(unsigned int)threshold;
 - (void)updateMotionState:(BOOL)state;
 - (void)updateQueryDelta:(unsigned int)delta;
+- (void)updateRequeryDelta:(unsigned int)delta;
 - (void)updateTrialFactors;
 @end
 
@@ -1163,36 +1167,35 @@ LABEL_7:
   {
     sub_100034E58();
     alarmStream = [objc_opt_class() alarmStream];
-    sub_100034F38(alarmStream, v4, v5, v6, v7, v8, v9, v10);
-    v11 = objc_opt_class();
-    if (v11)
+    sub_100034F38();
+    if (objc_opt_class())
     {
-      v19 = objc_alloc(sub_100034F38(v11, v12, v13, v14, v15, v16, v17, v18));
+      v4 = objc_alloc(sub_100034F38());
       queue = [(PMCoreSmartPowerNapPredictor *)self queue];
-      v21 = [v19 initWithIdentifier:@"com.apple.powerd.cspn.biomeAlarm" targetQueue:queue waking:1];
+      v6 = [v4 initWithIdentifier:@"com.apple.powerd.cspn.biomeAlarm" targetQueue:queue waking:1];
 
       publisher = [alarmStream publisher];
-      v23 = [publisher filterWithKeyPath:@"eventBody.eventType" value:&off_1000A2AE0];
+      v8 = [publisher filterWithKeyPath:@"eventBody.eventType" value:&off_1000A2AE0];
 
       objc_initWeak(location, self);
-      v24 = [v23 subscribeOn:v21];
-      v27 = _NSConcreteStackBlock;
-      v28 = 3221225472;
-      v29 = sub_100035068;
-      v30 = &unk_100099410;
-      objc_copyWeak(&v32, location);
+      v9 = [v8 subscribeOn:v6];
+      v12 = _NSConcreteStackBlock;
+      v13 = 3221225472;
+      v14 = sub_100035068;
+      v15 = &unk_100099410;
+      objc_copyWeak(&v17, location);
       selfCopy = self;
-      v25 = [v24 sinkWithCompletion:&stru_100099B10 receiveInput:&v27];
+      v10 = [v9 sinkWithCompletion:&stru_100099B10 receiveInput:&v12];
 
-      [(PMCoreSmartPowerNapPredictor *)self setSink:v25, v27, v28, v29, v30];
-      objc_destroyWeak(&v32);
+      [(PMCoreSmartPowerNapPredictor *)self setSink:v10, v12, v13, v14, v15];
+      objc_destroyWeak(&v17);
       objc_destroyWeak(location);
 
-      v26 = qword_1000AB9A8;
+      v11 = qword_1000AB9A8;
       if (os_log_type_enabled(qword_1000AB9A8, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(location[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "registered for mobile timer updates", location, 2u);
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "registered for mobile timer updates", location, 2u);
       }
     }
 
@@ -1525,6 +1528,189 @@ LABEL_7:
   return v8;
 }
 
+- (id)CAEventForEngagedSessionWhereUserInterrupted:(BOOL)interrupted
+{
+  interruptedCopy = interrupted;
+  inactivity_predictor = [(PMCoreSmartPowerNapPredictor *)self inactivity_predictor];
+  modelMetadata = [inactivity_predictor modelMetadata];
+
+  full_session_end_time = [(PMCoreSmartPowerNapPredictor *)self full_session_end_time];
+  full_session_start_time = [(PMCoreSmartPowerNapPredictor *)self full_session_start_time];
+  [full_session_end_time timeIntervalSinceDate:full_session_start_time];
+  v10 = v9;
+
+  v55 = objc_opt_new();
+  v65[0] = &off_1000A2AF8;
+  v64[0] = @"eventIsSessionInt";
+  v64[1] = @"sessionDurationHrFloat";
+  v60 = [NSNumber numberWithDouble:v10 / 3600.0];
+  v65[1] = v60;
+  v64[2] = @"sessionStartTimeFloat";
+  full_session_start_time2 = [(PMCoreSmartPowerNapPredictor *)self full_session_start_time];
+  v58 = [(PMCoreSmartPowerNapPredictor *)self convertTimeToNumberFromDate:full_session_start_time2];
+  v65[2] = v58;
+  v64[3] = @"deviceUsageFrequencyStr";
+  parseDeviceUsageFrequencyFromDiagnosis = [(PMCoreSmartPowerNapPredictor *)self parseDeviceUsageFrequencyFromDiagnosis];
+  v65[3] = parseDeviceUsageFrequencyFromDiagnosis;
+  v64[4] = @"entryConfidenceLevelEnum";
+  predictor_output = [(PMCoreSmartPowerNapPredictor *)self predictor_output];
+  v54 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [predictor_output confidenceLevel]);
+  v65[4] = v54;
+  v64[5] = @"entryConfidenceValueInt";
+  predictor_output2 = [(PMCoreSmartPowerNapPredictor *)self predictor_output];
+  [predictor_output2 confidenceValue];
+  v52 = [NSNumber numberWithDouble:round(v11 * 100.0)];
+  v65[5] = v52;
+  v64[6] = @"isInterruptedBool";
+  v51 = [NSNumber numberWithBool:interruptedCopy];
+  v65[6] = v51;
+  v64[7] = @"isPPE30MinBool";
+  v12 = v10 / 60.0;
+  v50 = [NSNumber numberWithInt:v12 < 30.0];
+  v65[7] = v50;
+  v64[8] = @"isPPE60MinBool";
+  v13 = [NSNumber numberWithInt:v12 < 60.0];
+  v65[8] = v13;
+  v64[9] = @"isPPE90MinBool";
+  v14 = [NSNumber numberWithInt:v12 < 90.0];
+  v65[9] = v14;
+  v64[10] = @"predictedDurationHrFloat";
+  predictor_output3 = [(PMCoreSmartPowerNapPredictor *)self predictor_output];
+  [predictor_output3 predictedDuration];
+  v16 = [NSNumber numberWithDouble:?];
+  v65[10] = v16;
+  v64[11] = @"predictorTypeStr";
+  v61 = modelMetadata;
+  predictorType = [modelMetadata predictorType];
+  v18 = predictorType;
+  v19 = @"None";
+  if (predictorType)
+  {
+    v19 = predictorType;
+  }
+
+  v65[11] = v19;
+  v64[12] = @"sessionStartDayOfWeekBI";
+  full_session_start_time3 = [(PMCoreSmartPowerNapPredictor *)self full_session_start_time];
+  v21 = [(PMCoreSmartPowerNapPredictor *)self getCustomizedDayOfWeekFromDate:full_session_start_time3];
+  v65[12] = v21;
+  v22 = [NSDictionary dictionaryWithObjects:v65 forKeys:v64 count:13];
+  [v55 addEntriesFromDictionary:v22];
+
+  current_experiment_ids = self->_current_experiment_ids;
+  if (current_experiment_ids)
+  {
+    experimentId = [(TRIExperimentIdentifiers *)current_experiment_ids experimentId];
+    [v55 setObject:experimentId forKeyedSubscript:@"trialDeploymentId"];
+
+    v25 = [NSNumber numberWithInt:[(TRIExperimentIdentifiers *)self->_current_experiment_ids deploymentId]];
+    stringValue = [v25 stringValue];
+    [v55 setObject:stringValue forKeyedSubscript:@"trialExperimentId"];
+
+    treatmentId = [(TRIExperimentIdentifiers *)self->_current_experiment_ids treatmentId];
+    [v55 setObject:treatmentId forKeyedSubscript:@"trialTreatmentId"];
+  }
+
+  if (!v61 && os_log_type_enabled(qword_1000AB9A8, OS_LOG_TYPE_ERROR))
+  {
+    sub_10006552C();
+  }
+
+  v28 = [v55 objectForKeyedSubscript:@"sessionDurationHrFloat"];
+  [v28 doubleValue];
+  if (v29 <= 0.0)
+  {
+  }
+
+  else
+  {
+    v30 = [v55 objectForKeyedSubscript:@"sessionDurationHrFloat"];
+    [v30 doubleValue];
+    v32 = v31;
+
+    if (v32 <= 12.0)
+    {
+      goto LABEL_14;
+    }
+  }
+
+  v33 = qword_1000AB9A8;
+  if (os_log_type_enabled(qword_1000AB9A8, OS_LOG_TYPE_ERROR))
+  {
+    sub_100065560(v33, v55);
+  }
+
+LABEL_14:
+  v34 = [v55 objectForKeyedSubscript:@"predictedDurationHrFloat"];
+  [v34 doubleValue];
+  if (v35 <= 0.0)
+  {
+  }
+
+  else
+  {
+    v36 = [v55 objectForKeyedSubscript:@"predictedDurationHrFloat"];
+    [v36 doubleValue];
+    v38 = v37;
+
+    if (v38 <= 12.0)
+    {
+      goto LABEL_20;
+    }
+  }
+
+  v39 = qword_1000AB9A8;
+  if (os_log_type_enabled(qword_1000AB9A8, OS_LOG_TYPE_ERROR))
+  {
+    sub_10006560C(v39, v55);
+  }
+
+LABEL_20:
+  if (!interruptedCopy)
+  {
+    v47 = qword_1000AB9A8;
+    if (!os_log_type_enabled(qword_1000AB9A8, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_29;
+    }
+
+    *buf = 138412290;
+    v63 = v55;
+    v48 = "Session ended naturally. Reporting under-prediction event to CA: %@";
+    goto LABEL_28;
+  }
+
+  v40 = [v55 objectForKeyedSubscript:@"predictedDurationHrFloat"];
+  [v40 doubleValue];
+  v42 = v41;
+  v43 = [v55 objectForKeyedSubscript:@"sessionDurationHrFloat"];
+  [v43 doubleValue];
+  v45 = v44;
+
+  if (v42 < v45)
+  {
+    v46 = qword_1000AB9A8;
+    if (os_log_type_enabled(qword_1000AB9A8, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000656B8(v46, v55);
+    }
+  }
+
+  v47 = qword_1000AB9A8;
+  if (os_log_type_enabled(qword_1000AB9A8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v63 = v55;
+    v48 = "User interrupted session. Reporting over-prediction event to CA: %@";
+LABEL_28:
+    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, v48, buf, 0xCu);
+  }
+
+LABEL_29:
+
+  return v55;
+}
+
 - (id)CAEventForModelHesitancy
 {
   inactivity_predictor = [(PMCoreSmartPowerNapPredictor *)self inactivity_predictor];
@@ -1675,6 +1861,48 @@ LABEL_14:
   }
 
   [(PMCoreSmartPowerNapPredictor *)self setDelta_to_query:delta];
+}
+
+- (void)updateRequeryDelta:(unsigned int)delta
+{
+  v3 = *&delta;
+  v5 = qword_1000AB9A8;
+  if (os_log_type_enabled(qword_1000AB9A8, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating requery delta to %u seconds", v6, 8u);
+  }
+
+  [(PMCoreSmartPowerNapPredictor *)self setRequery_delta:v3];
+}
+
+- (void)updateMotionAlarmThreshold:(unsigned int)threshold
+{
+  v3 = *&threshold;
+  v5 = qword_1000AB9A8;
+  if (os_log_type_enabled(qword_1000AB9A8, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating motion alarm threshold to %u seconds", v6, 8u);
+  }
+
+  [(PMCoreSmartPowerNapPredictor *)self setMotion_alarm_threshold:v3];
+}
+
+- (void)updateMotionAlarmStartThreshold:(unsigned int)threshold
+{
+  v3 = *&threshold;
+  v5 = qword_1000AB9A8;
+  if (os_log_type_enabled(qword_1000AB9A8, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating motion alarm start threshold to %u seconds", v6, 8u);
+  }
+
+  [(PMCoreSmartPowerNapPredictor *)self setMotion_alarm_start_before:v3];
 }
 
 @end

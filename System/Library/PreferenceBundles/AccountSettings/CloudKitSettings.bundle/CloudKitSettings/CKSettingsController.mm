@@ -4,9 +4,31 @@
 - (id)specifiers;
 - (void)fetchAppPermissionGroupsWithCompletionHandler:(id)handler;
 - (void)setAppPermissionEnabled:(id)enabled forSpecifier:(id)specifier;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CKSettingsController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = CKSettingsController;
+  [(CKSettingsController *)&v5 viewWillAppear:appear];
+  v4 = +[CPNetworkObserver sharedNetworkObserver];
+  [v4 addNetworkReachableObserver:self selector:"networkReachabilityDidChange:"];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = +[CPNetworkObserver sharedNetworkObserver];
+  [v5 removeNetworkReachableObserver:self];
+
+  v6.receiver = self;
+  v6.super_class = CKSettingsController;
+  [(CKSettingsController *)&v6 viewDidDisappear:disappearCopy];
+}
 
 - (BOOL)_isApplicationHiddenFromSettings:(id)settings
 {

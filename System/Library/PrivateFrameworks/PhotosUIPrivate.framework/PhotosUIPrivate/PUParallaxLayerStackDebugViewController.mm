@@ -695,15 +695,15 @@ void __84__PUParallaxLayerStackDebugViewController_loadPartialSegmentationItem_l
   }
 }
 
-uint64_t __55__PUParallaxLayerStackDebugViewController_loadPHAsset___block_invoke(double a1)
+uint64_t __55__PUParallaxLayerStackDebugViewController_loadPHAsset___block_invoke(uint64_t a1, double a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = PLWallpaperGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = PLWallpaperGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v5 = a1;
-    _os_log_impl(&dword_1B36F3000, v2, OS_LOG_TYPE_DEFAULT, "Download progress: %g", buf, 0xCu);
+    v6 = a2;
+    _os_log_impl(&dword_1B36F3000, v3, OS_LOG_TYPE_DEFAULT, "Download progress: %g", buf, 0xCu);
   }
 
   return px_dispatch_on_main_queue();
@@ -745,7 +745,7 @@ void __55__PUParallaxLayerStackDebugViewController_loadPHAsset___block_invoke_27
   }
 }
 
-uint64_t __55__PUParallaxLayerStackDebugViewController_loadPHAsset___block_invoke_269(uint64_t a1)
+void *__55__PUParallaxLayerStackDebugViewController_loadPHAsset___block_invoke_269(uint64_t a1)
 {
   [*(a1 + 32) showDownloadProgressIndicator];
   result = [*(a1 + 32) updateDownloadProgressIndicator:*(a1 + 40)];

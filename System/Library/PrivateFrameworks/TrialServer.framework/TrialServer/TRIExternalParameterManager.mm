@@ -22,12 +22,12 @@
 
 - (TRIExternalParameterManager)initWithProvider:(id)provider paths:(id)paths
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   pathsCopy = paths;
-  v26.receiver = self;
-  v26.super_class = TRIExternalParameterManager;
-  v9 = [(TRIExternalParameterManager *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = TRIExternalParameterManager;
+  v9 = [(TRIExternalParameterManager *)&v25 init];
   v10 = v9;
   if (v9)
   {
@@ -46,25 +46,24 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v28 = _readParametersFromFile;
+      v27 = _readParametersFromFile;
       _os_log_debug_impl(&dword_26F567000, v17, OS_LOG_TYPE_DEBUG, "Reading params from cache: %@", buf, 0xCu);
     }
 
     v18 = v10->_lock;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __54__TRIExternalParameterManager_initWithProvider_paths___block_invoke;
-    v24[3] = &unk_279DE11C8;
-    v25 = _readParametersFromFile;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __54__TRIExternalParameterManager_initWithProvider_paths___block_invoke;
+    v23[3] = &unk_279DE11C8;
+    v24 = _readParametersFromFile;
     v19 = _readParametersFromFile;
-    [(_PASLock *)v18 runWithLockAcquired:v24];
+    [(_PASLock *)v18 runWithLockAcquired:v23];
     [(TRIExternalParameterManager *)v10 _fetchSiriDeviceAggregationIdRotationDate];
     v20 = [MEMORY[0x277D425A0] autoreleasingSerialQueueWithLabel:"com.apple.triald.ExternalParameterChangeQueue" qosClass:17];
     dispatchQueue = v10->_dispatchQueue;
     v10->_dispatchQueue = v20;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -158,22 +157,22 @@ void __41__TRIExternalParameterManager_dictionary__block_invoke(uint64_t a1, uin
 
 void __72__TRIExternalParameterManager__fetchSiriDeviceAggregationIdRotationDate__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v8 = WeakRetained;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   if (v6)
   {
     v9 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v20 = v6;
+      v19 = v6;
       _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Error reading Siri.AnalyticsIdentifiers.UserAggregationId data stream %{public}@", buf, 0xCu);
     }
   }
@@ -181,29 +180,27 @@ void __72__TRIExternalParameterManager__fetchSiriDeviceAggregationIdRotationDate
   else
   {
     v10 = *(WeakRetained + 2);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __72__TRIExternalParameterManager__fetchSiriDeviceAggregationIdRotationDate__block_invoke_33;
-    v12[3] = &unk_279DE1218;
-    v12[4] = *(a1 + 32);
-    v13 = v5;
-    v14 = &v15;
-    [v10 runWithLockAcquired:v12];
-    if (*(v16 + 24) == 1)
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __72__TRIExternalParameterManager__fetchSiriDeviceAggregationIdRotationDate__block_invoke_33;
+    v11[3] = &unk_279DE1218;
+    v11[4] = *(a1 + 32);
+    v12 = v5;
+    v13 = &v14;
+    [v10 runWithLockAcquired:v11];
+    if (*(v15 + 24) == 1)
     {
       [v8 _writeParametersToFile];
       [v8 _updateSystemInfo];
     }
   }
 
-  _Block_object_dispose(&v15, 8);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
 }
 
 void __72__TRIExternalParameterManager__fetchSiriDeviceAggregationIdRotationDate__block_invoke_33(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3[1];
   v5 = [*(a1 + 32) _readSiriDeviceAggregationIdRotationDateFromEvent:*(a1 + 40)];
@@ -219,13 +216,11 @@ void __72__TRIExternalParameterManager__fetchSiriDeviceAggregationIdRotationDate
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 40);
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "UserAggregationId rotation date is null, eventBody: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "UserAggregationId rotation date is null, eventBody: %@", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __72__TRIExternalParameterManager__fetchSiriDeviceAggregationIdRotationDate__block_invoke_35(uint64_t a1, void *a2)
@@ -276,7 +271,7 @@ LABEL_9:
 
 - (id)_readSiriDeviceAggregationIdRotationDateFromEvent:(id)event
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v4 = eventCopy;
   if (!eventCopy)
@@ -287,12 +282,12 @@ LABEL_9:
       goto LABEL_9;
     }
 
-    LOWORD(v23) = 0;
+    LOWORD(v22) = 0;
     v18 = "Invalid event body for Siri.AnalyticsIdentifiers.UserAggregationId data stream";
     v19 = v17;
     v20 = 2;
 LABEL_14:
-    _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, v18, &v23, v20);
+    _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, v18, &v22, v20);
     goto LABEL_9;
   }
 
@@ -329,8 +324,8 @@ LABEL_14:
   v17 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v23 = 138412290;
-    v24 = v4;
+    v22 = 138412290;
+    v23 = v4;
     v18 = "Invalid type for Siri.AnalyticsIdentifiers.UserAggregationId event %@";
     v19 = v17;
     v20 = 12;
@@ -342,18 +337,16 @@ LABEL_9:
   v16 = 0;
 LABEL_10:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)_readParametersFromFile
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEBC0] fileURLWithPath:self->_plistPath isDirectory:0];
-  v12 = 0;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v2 error:&v12];
-  v4 = v12;
+  v11 = 0;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v2 error:&v11];
+  v4 = v11;
   v5 = v4;
   if (!v4)
   {
@@ -370,9 +363,9 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v14 = v2;
-      v15 = 2112;
-      v16 = v5;
+      v13 = v2;
+      v14 = 2112;
+      v15 = v5;
       _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "failed to parse external parameter dictionary from file: %@ (%@)", buf, 0x16u);
     }
 
@@ -398,39 +391,36 @@ LABEL_10:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (void)_writeParametersToFile
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = MEMORY[0x277CCAC58];
   dictionary = [(TRIExternalParameterManager *)self dictionary];
   v6 = [v4 dataWithPropertyList:dictionary format:100 options:0 error:0];
 
   plistPath = self->_plistPath;
-  v13 = 0;
-  v8 = [v6 writeToFile:plistPath options:1 error:&v13];
-  v9 = v13;
+  v12 = 0;
+  v8 = [v6 writeToFile:plistPath options:1 error:&v12];
+  v9 = v12;
   if ((v8 & 1) == 0)
   {
     v10 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = self->_plistPath;
+      v11 = self->_plistPath;
       *buf = 138412546;
-      v15 = v12;
-      v16 = 2112;
-      v17 = v9;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v9;
       _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "unable to write external parameters to file %@ -- %@", buf, 0x16u);
     }
   }
 
   objc_autoreleasePoolPop(v3);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -36,33 +36,7 @@
   }
 
   v10->_root = root;
-  if (!verifyCopy)
-  {
-    goto LABEL_13;
-  }
-
-  bytes2 = [(NSData *)v10->_data bytes];
-  v13 = [(NSData *)v10->_data length];
-  root = v10->_root;
-  if (root < bytes2 || root > bytes2 + v13)
-  {
-    goto LABEL_14;
-  }
-
-  bytes3 = [(NSData *)v10->_data bytes];
-  v17 = [(NSData *)v10->_data length];
-  v21[0] = bytes3;
-  v21[1] = v17;
-  v22 = xmmword_233005E20;
-  v23 = 0;
-  v24 = 1;
-  v18 = v10->_root;
-  if (!v18)
-  {
-    goto LABEL_13;
-  }
-
-  if (!siri::speech::schema_fb::RecognitionChoice::Verify(v18, v21))
+  if (verifyCopy && ((v12 = [(NSData *)v10->_data bytes], v13 = [(NSData *)v10->_data length], root = v10->_root, root >= v12) ? (v15 = root > v12 + v13) : (v15 = 1), v15 || (v16 = [(NSData *)v10->_data bytes], v17 = [(NSData *)v10->_data length], v21[0] = v16, v21[1] = v17, v22 = xmmword_233005E20, v23 = 0, v24 = 1, (v18 = v10->_root) != 0) && !siri::speech::schema_fb::RecognitionChoice::Verify(v18, v21)))
   {
 LABEL_14:
     v19 = 0;
@@ -224,51 +198,51 @@ LABEL_8:
 
 - (Offset<siri::speech::schema_fb::AcousticFeature>)addObjectToBuffer:(void *)buffer
 {
-  v28 = *MEMORY[0x277D85DE8];
-  memset(&v26, 0, sizeof(v26));
+  v27 = *MEMORY[0x277D85DE8];
+  memset(&v25, 0, sizeof(v25));
   acoustic_feature_per_frame = [(FTAcousticFeature *)self acoustic_feature_per_frame];
-  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v26, [acoustic_feature_per_frame count]);
+  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v25, [acoustic_feature_per_frame count]);
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   acoustic_feature_per_frame2 = [(FTAcousticFeature *)self acoustic_feature_per_frame];
-  v7 = [acoustic_feature_per_frame2 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v7 = [acoustic_feature_per_frame2 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v7)
   {
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(acoustic_feature_per_frame2);
         }
 
-        [*(*(&v22 + 1) + 8 * i) floatValue];
-        v21 = v10;
-        std::vector<float>::push_back[abi:ne200100](&v26.__begin_, &v21);
+        [*(*(&v21 + 1) + 8 * i) floatValue];
+        v20 = v10;
+        std::vector<float>::push_back[abi:ne200100](&v25.__begin_, &v20);
       }
 
-      v7 = [acoustic_feature_per_frame2 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v7 = [acoustic_feature_per_frame2 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v7);
   }
 
-  if (v26.__end_ == v26.__begin_)
+  if (v25.__end_ == v25.__begin_)
   {
     begin = &apple::aiml::flatbuffers2::data<float,std::allocator<float>>(std::vector<float> const&)::t;
   }
 
   else
   {
-    begin = v26.__begin_;
+    begin = v25.__begin_;
   }
 
-  v12 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<int>(buffer, begin, v26.__end_ - v26.__begin_);
+  v12 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<int>(buffer, begin, v25.__end_ - v25.__begin_);
   [(FTAcousticFeature *)self frame_duration];
   v14 = v13;
   *(buffer + 70) = 1;
@@ -278,13 +252,12 @@ LABEL_8:
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 4, v12);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<float>(buffer, 6, v14, 0.0);
   v18.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v15 - v16 + v17);
-  if (v26.__begin_)
+  if (v25.__begin_)
   {
-    v26.__end_ = v26.__begin_;
-    operator delete(v26.__begin_);
+    v25.__end_ = v25.__begin_;
+    operator delete(v25.__begin_);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

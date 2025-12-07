@@ -3,10 +3,9 @@ uint64_t ps_buffer_resource_get_index(uint64_t a1)
   result = **(a1 + 16);
   if (result == 0x7FFFFFFF)
   {
-    v5[1] = v1;
-    v5[2] = v2;
-    index_cold_1 = ps_buffer_resource_get_index_cold_1(v5);
-    return ps_buffer_create_group_writer(index_cold_1);
+    v4[1] = v1;
+    v4[2] = v2;
+    ps_buffer_resource_get_index_cold_1(v4);
   }
 
   return result;
@@ -54,21 +53,22 @@ BOOL OUTLINED_FUNCTION_0()
 
 uint64_t OUTLINED_FUNCTION_1()
 {
-  v2 = *v0;
 
   return abort_with_reason();
 }
 
-void OUTLINED_FUNCTION_2(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_2(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_FAULT, a4, &buf, 0x1Cu);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_FAULT, a4, va, 0x1Cu);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_3(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x12u);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 uint64_t PSShbufferGroup::isLocklessSupported(PSShbufferGroup *this, const char *a2)
@@ -142,7 +142,7 @@ uint64_t PSShbufferGroup::updateResourceFactoryStatus(uint64_t a1)
   v1 = MEMORY[0x28223BE20](a1);
   v3 = v2;
   v4 = v1;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
@@ -158,21 +158,21 @@ uint64_t PSShbufferGroup::updateResourceFactoryStatus(uint64_t a1)
     PSShbufferGroup::updateResourceFactoryStatus();
   }
 
-  bzero(v12, 0x888uLL);
-  strlcpy(v13, (v4 + 16), 0x200uLL);
-  v17 = 0xD0000000CLL;
-  v14 = 20;
-  v15 = v3;
-  v16 = *(v4 + 636);
-  PSCommsClient::send_wait(*(v4 + 8), v12, 0x888u, buf, 0x898u, 0);
+  bzero(v11, 0x888uLL);
+  strlcpy(v12, (v4 + 16), 0x200uLL);
+  v16 = 0xD0000000CLL;
+  v13 = 20;
+  v14 = v3;
+  v15 = *(v4 + 636);
+  PSCommsClient::send_wait(*(v4 + 8), v11, 0x888u, buf, 2200, 0);
   if (!PSCommsClient::is_valid_simple_message(buf))
   {
-    PSShbufferGroup::updateResourceFactoryStatus(&v9, v4 + 16);
+    PSShbufferGroup::updateResourceFactoryStatus(&v8, v4 + 16);
 LABEL_11:
     PSShbufferGroup::updateResourceFactoryStatus(v4);
   }
 
-  isAck = PSCommsClient::isAck(v12, &buf[0].msgh_bits);
+  isAck = PSCommsClient::isAck(v11, &buf[0].msgh_bits);
   v4 = _ps_buffer_log;
   if (isAck)
   {
@@ -181,18 +181,17 @@ LABEL_11:
 
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136315138;
-    v10 = "SHBUFFER";
-    _os_log_impl(&dword_25EBC5000, v4, OS_LOG_TYPE_DEBUG, "%s: updateResourceFactoryStatus SUCCESS\n", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "SHBUFFER";
+    _os_log_impl(&dword_25EBC5000, v4, OS_LOG_TYPE_DEBUG, "%s: updateResourceFactoryStatus SUCCESS\n", &v8, 0xCu);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t PSShbufferGroup::setupSerialDataLines(PSShbufferGroup *this, PSSharedSerialData *a2, unsigned int a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(this + 141) <= a3)
   {
     goto LABEL_10;
@@ -208,11 +207,11 @@ uint64_t PSShbufferGroup::setupSerialDataLines(PSShbufferGroup *this, PSSharedSe
       if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
-        v14 = "SHBUFFER";
-        v15 = 1024;
-        v16 = v6;
-        v17 = 1024;
-        v18 = a3;
+        v13 = "SHBUFFER";
+        v14 = 1024;
+        v15 = v6;
+        v16 = 1024;
+        v17 = a3;
         _os_log_impl(&dword_25EBC5000, v8, OS_LOG_TYPE_DEBUG, "%s: setupSerialData at [%d][%d]\n", buf, 0x18u);
       }
 
@@ -228,7 +227,7 @@ uint64_t PSShbufferGroup::setupSerialDataLines(PSShbufferGroup *this, PSSharedSe
       *(v10 + 4) = 3;
       if (++v6 >= *(this + 159))
       {
-        goto LABEL_8;
+        return 0;
       }
     }
 
@@ -237,14 +236,12 @@ LABEL_10:
     PSShbufferGroup::setupSerialDataLines();
   }
 
-LABEL_8:
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t PSShbufferGroup::setupIOSurfaceLines(PSShbufferGroup *this, PSSharedIOSurface *a2, unsigned int a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(this + 141) <= a3)
   {
     goto LABEL_10;
@@ -260,11 +257,11 @@ uint64_t PSShbufferGroup::setupIOSurfaceLines(PSShbufferGroup *this, PSSharedIOS
       if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
-        v14 = "SHBUFFER";
-        v15 = 1024;
-        v16 = v6;
-        v17 = 1024;
-        v18 = a3;
+        v13 = "SHBUFFER";
+        v14 = 1024;
+        v15 = v6;
+        v16 = 1024;
+        v17 = a3;
         _os_log_impl(&dword_25EBC5000, v8, OS_LOG_TYPE_DEBUG, "%s: setupIOSurface at [%d][%d]\n", buf, 0x18u);
       }
 
@@ -280,7 +277,7 @@ uint64_t PSShbufferGroup::setupIOSurfaceLines(PSShbufferGroup *this, PSSharedIOS
       *(v10 + 4) = 4;
       if (++v6 >= *(this + 159))
       {
-        goto LABEL_8;
+        return 0;
       }
     }
 
@@ -289,14 +286,12 @@ LABEL_10:
     PSShbufferGroup::setupIOSurfaceLines();
   }
 
-LABEL_8:
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t PSShbufferGroup::setupCVPixelBufferLines(PSShbufferGroup *this, PSSharedCVPixelBuffer *a2, unsigned int a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(this + 141) <= a3)
   {
     goto LABEL_10;
@@ -312,11 +307,11 @@ uint64_t PSShbufferGroup::setupCVPixelBufferLines(PSShbufferGroup *this, PSShare
       if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
-        v14 = "SHBUFFER";
-        v15 = 1024;
-        v16 = v6;
-        v17 = 1024;
-        v18 = a3;
+        v13 = "SHBUFFER";
+        v14 = 1024;
+        v15 = v6;
+        v16 = 1024;
+        v17 = a3;
         _os_log_impl(&dword_25EBC5000, v8, OS_LOG_TYPE_DEBUG, "%s: setupCVPixelBuffer at [%d][%d]\n", buf, 0x18u);
       }
 
@@ -332,7 +327,7 @@ uint64_t PSShbufferGroup::setupCVPixelBufferLines(PSShbufferGroup *this, PSShare
       *(v10 + 4) = 0;
       if (++v6 >= *(this + 159))
       {
-        goto LABEL_8;
+        return 0;
       }
     }
 
@@ -341,14 +336,12 @@ LABEL_10:
     PSShbufferGroup::setupCVPixelBufferLines();
   }
 
-LABEL_8:
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t PSShbufferGroup::setupCVDataBufferLines(PSShbufferGroup *this, PSSharedCVDataBuffer *a2, unsigned int a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(this + 141) <= a3)
   {
     goto LABEL_10;
@@ -364,11 +357,11 @@ uint64_t PSShbufferGroup::setupCVDataBufferLines(PSShbufferGroup *this, PSShared
       if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
-        v14 = "SHBUFFER";
-        v15 = 1024;
-        v16 = v6;
-        v17 = 1024;
-        v18 = a3;
+        v13 = "SHBUFFER";
+        v14 = 1024;
+        v15 = v6;
+        v16 = 1024;
+        v17 = a3;
         _os_log_impl(&dword_25EBC5000, v8, OS_LOG_TYPE_DEBUG, "%s: setupCVDataBuffer at [%d][%d]\n", buf, 0x18u);
       }
 
@@ -384,7 +377,7 @@ uint64_t PSShbufferGroup::setupCVDataBufferLines(PSShbufferGroup *this, PSShared
       *(v10 + 4) = 1;
       if (++v6 >= *(this + 159))
       {
-        goto LABEL_8;
+        return 0;
       }
     }
 
@@ -393,8 +386,6 @@ LABEL_10:
     PSShbufferGroup::setupCVDataBufferLines();
   }
 
-LABEL_8:
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -404,7 +395,7 @@ uint64_t PSShbufferGroup::registerBufferGroup(PSShbufferGroup *this)
   v3 = v2;
   v5 = v4;
   v6 = v1;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
@@ -415,31 +406,31 @@ uint64_t PSShbufferGroup::registerBufferGroup(PSShbufferGroup *this)
     _os_log_impl(&dword_25EBC5000, v7, OS_LOG_TYPE_DEBUG, "%s: registerBufferGroup:%s\n", buf, 0x16u);
   }
 
-  bzero(v18, 0x888uLL);
-  strlcpy(v19, (v6 + 16), 0x200uLL);
-  v24 = 1;
-  v20 = v5;
-  v21 = v3;
+  bzero(v17, 0x888uLL);
+  strlcpy(v18, (v6 + 16), 0x200uLL);
+  v23 = 1;
+  v19 = v5;
+  v20 = v3;
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
   bzero(buf, 0x898uLL);
-  PSCommsClient::send_wait(*(v6 + 8), v18, 0x888u, buf, 0x898u, 0);
+  PSCommsClient::send_wait(*(v6 + 8), v17, 0x888u, buf, 2200, 0);
   if (!PSCommsClient::is_valid_simple_message(buf))
   {
-    PSShbufferGroup::registerBufferGroup(&v12, v6 + 16);
+    PSShbufferGroup::registerBufferGroup(&v11, v6 + 16);
   }
 
-  isAck = PSCommsClient::isAck(v18, &buf[0].msgh_bits);
+  isAck = PSCommsClient::isAck(v17, &buf[0].msgh_bits);
   v9 = _ps_buffer_log;
   if (isAck)
   {
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = (v6 + 16);
-      v14 = 1024;
-      v15 = isAck;
-      _os_log_impl(&dword_25EBC5000, v9, OS_LOG_TYPE_ERROR, "Failed to register buffer group for key: %s with Resource Factory. Err code: %d", &v12, 0x12u);
+      v11 = 136315394;
+      v12 = (v6 + 16);
+      v13 = 1024;
+      v14 = isAck;
+      _os_log_impl(&dword_25EBC5000, v9, OS_LOG_TYPE_ERROR, "Failed to register buffer group for key: %s with Resource Factory. Err code: %d", &v11, 0x12u);
     }
   }
 
@@ -447,15 +438,14 @@ uint64_t PSShbufferGroup::registerBufferGroup(PSShbufferGroup *this)
   {
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 136315138;
-      v13 = "SHBUFFER";
-      _os_log_impl(&dword_25EBC5000, v9, OS_LOG_TYPE_DEBUG, "%s: registerBufferGroup SUCCESS\n", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "SHBUFFER";
+      _os_log_impl(&dword_25EBC5000, v9, OS_LOG_TYPE_DEBUG, "%s: registerBufferGroup SUCCESS\n", &v11, 0xCu);
     }
 
-    *(v6 + 568) = v17;
+    *(v6 + 568) = v16;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return isAck;
 }
 
@@ -465,7 +455,7 @@ uint64_t PSShbufferGroup::unregisterBufferGroup(PSShbufferGroup *this)
   v3 = v2;
   v5 = v4;
   v6 = v1;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
@@ -476,30 +466,30 @@ uint64_t PSShbufferGroup::unregisterBufferGroup(PSShbufferGroup *this)
     _os_log_impl(&dword_25EBC5000, v7, OS_LOG_TYPE_DEBUG, "%s: unregisterBufferGroup:%s\n", buf, 0x16u);
   }
 
-  bzero(v15, 0x888uLL);
-  strlcpy(v16, (v6 + 16), 0x200uLL);
-  v22 = 2;
-  v17 = v5;
-  v19 = v3;
+  bzero(v14, 0x888uLL);
+  strlcpy(v15, (v6 + 16), 0x200uLL);
+  v21 = 2;
+  v16 = v5;
+  v18 = v3;
+  v19 = 0;
   v20 = 0;
-  v21 = 0;
-  v18 = *(v6 + 568);
+  v17 = *(v6 + 568);
   bzero(buf, 0x898uLL);
-  PSCommsClient::send_wait(*(v6 + 8), v15, 0x888u, buf, 0x898u, 0);
+  PSCommsClient::send_wait(*(v6 + 8), v14, 0x888u, buf, 2200, 0);
   if (!PSCommsClient::is_valid_simple_message(buf))
   {
-    PSShbufferGroup::unregisterBufferGroup(&v12, v6 + 16);
+    PSShbufferGroup::unregisterBufferGroup(&v11, v6 + 16);
   }
 
-  isAck = PSCommsClient::isAck(v15, &buf[0].msgh_bits);
+  isAck = PSCommsClient::isAck(v14, &buf[0].msgh_bits);
   v9 = _ps_buffer_log;
   if (isAck)
   {
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = (v6 + 16);
-      _os_log_impl(&dword_25EBC5000, v9, OS_LOG_TYPE_ERROR, "Failed to unregister buffer group for key: %s with Resource Factory. We have reached maximum processes allowed.", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = (v6 + 16);
+      _os_log_impl(&dword_25EBC5000, v9, OS_LOG_TYPE_ERROR, "Failed to unregister buffer group for key: %s with Resource Factory. We have reached maximum processes allowed.", &v11, 0xCu);
     }
   }
 
@@ -507,29 +497,28 @@ uint64_t PSShbufferGroup::unregisterBufferGroup(PSShbufferGroup *this)
   {
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 136315138;
-      v13 = "SHBUFFER";
-      _os_log_impl(&dword_25EBC5000, v9, OS_LOG_TYPE_DEBUG, "%s: unregisterBufferGroup SUCCESS\n", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "SHBUFFER";
+      _os_log_impl(&dword_25EBC5000, v9, OS_LOG_TYPE_DEBUG, "%s: unregisterBufferGroup SUCCESS\n", &v11, 0xCu);
     }
 
     *(v6 + 568) = 0x7FFFFFFF;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return isAck;
 }
 
 uint64_t PSShbufferGroup::deallocate(PSShbufferGroup *this)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 136315394;
-    v17 = "SHBUFFER";
-    v18 = 2080;
-    v19 = "deallocate";
-    _os_log_impl(&dword_25EBC5000, v2, OS_LOG_TYPE_DEBUG, "%s:%s Bye!\n", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "SHBUFFER";
+    v17 = 2080;
+    v18 = "deallocate";
+    _os_log_impl(&dword_25EBC5000, v2, OS_LOG_TYPE_DEBUG, "%s:%s Bye!\n", &v15, 0x16u);
   }
 
   v3 = *(this + 138);
@@ -591,30 +580,29 @@ uint64_t PSShbufferGroup::deallocate(PSShbufferGroup *this)
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       v13 = *(this + 141);
-      v16 = 136315906;
-      v17 = "SHBUFFER";
-      v18 = 2080;
-      v19 = "deallocate";
-      v20 = 1024;
-      v21 = v5;
-      v22 = 1024;
-      v23 = v13;
-      _os_log_impl(&dword_25EBC5000, v12, OS_LOG_TYPE_ERROR, "%s:%s Nothing to deallocate num_lines=%d num_client_resources=%d\n", &v16, 0x22u);
+      v15 = 136315906;
+      v16 = "SHBUFFER";
+      v17 = 2080;
+      v18 = "deallocate";
+      v19 = 1024;
+      v20 = v5;
+      v21 = 1024;
+      v22 = v13;
+      _os_log_impl(&dword_25EBC5000, v12, OS_LOG_TYPE_ERROR, "%s:%s Nothing to deallocate num_lines=%d num_client_resources=%d\n", &v15, 0x22u);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t PSShbufferGroup::finalizeSetup(PSShbufferGroup *this)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v2 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v42 = "SHBUFFER";
+    v41 = "SHBUFFER";
     _os_log_impl(&dword_25EBC5000, v2, OS_LOG_TYPE_DEBUG, "%s- --- finalizeSetup ---\n", buf, 0xCu);
   }
 
@@ -639,7 +627,7 @@ uint64_t PSShbufferGroup::finalizeSetup(PSShbufferGroup *this)
     *(*(this + 80) + 8 * v7) = malloc_type_calloc(1uLL, 32 * *(this + 141), 0x108004009D44AE3uLL);
     if (!*(*(this + 80) + 8 * v7))
     {
-      v17 = PSShbufferGroup::finalizeSetup(v7, buf, v8, v9, v10, v11, v12, v13, v39, v40, buf[0], v42, SHIDWORD(v42), v43, *(&v44 + 2), SHIWORD(v44), v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57);
+      v17 = PSShbufferGroup::finalizeSetup(v7, buf, v8, v9, v10, v11, v12, v13, v38, v39, buf[0], v41, SHIDWORD(v41), v42, *(&v43 + 2), SHIWORD(v43), v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56);
 LABEL_46:
       PSShbufferGroup::finalizeSetup(v17, v7);
     }
@@ -676,11 +664,11 @@ LABEL_46:
             if (v28)
             {
               *buf = 136315650;
-              v42 = "SHBUFFER";
-              v43 = 2080;
-              v44 = "finalizeSetup";
-              v45 = 1024;
-              LODWORD(v46) = v7;
+              v41 = "SHBUFFER";
+              v42 = 2080;
+              v43 = "finalizeSetup";
+              v44 = 1024;
+              LODWORD(v45) = v7;
               _os_log_impl(&dword_25EBC5000, v19, OS_LOG_TYPE_DEBUG, "%s- %s: finalizing CLIRESTYPE_SERIALDATA - id (%d)\n", buf, 0x1Cu);
               v29 = *(v16 + 2);
             }
@@ -696,11 +684,11 @@ LABEL_46:
             if (v24)
             {
               *buf = 136315650;
-              v42 = "SHBUFFER";
-              v43 = 2080;
-              v44 = "finalizeSetup";
-              v45 = 1024;
-              LODWORD(v46) = v7;
+              v41 = "SHBUFFER";
+              v42 = 2080;
+              v43 = "finalizeSetup";
+              v44 = 1024;
+              LODWORD(v45) = v7;
               _os_log_impl(&dword_25EBC5000, v19, OS_LOG_TYPE_DEBUG, "%s- %s: finalizing CLIRESTYPE_RAWSURFACE - id (%d)\n", buf, 0x1Cu);
               v25 = *(v16 + 2);
             }
@@ -721,11 +709,11 @@ LABEL_48:
           }
 
           *buf = 136315650;
-          v42 = "SHBUFFER";
-          v43 = 2080;
-          v44 = "finalizeSetup";
-          v45 = 1024;
-          LODWORD(v46) = v7;
+          v41 = "SHBUFFER";
+          v42 = 2080;
+          v43 = "finalizeSetup";
+          v44 = 1024;
+          LODWORD(v45) = v7;
           v20 = v19;
           v21 = "%s- %s: finalizing CLIRESTYPE_NOTBACKED - id (%d)\n";
         }
@@ -739,11 +727,11 @@ LABEL_48:
             if (v26)
             {
               *buf = 136315650;
-              v42 = "SHBUFFER";
-              v43 = 2080;
-              v44 = "finalizeSetup";
-              v45 = 1024;
-              LODWORD(v46) = v7;
+              v41 = "SHBUFFER";
+              v42 = 2080;
+              v43 = "finalizeSetup";
+              v44 = 1024;
+              LODWORD(v45) = v7;
               _os_log_impl(&dword_25EBC5000, v19, OS_LOG_TYPE_DEBUG, "%s- %s: finalizing CLIRESTYPE_CVPIXELBUFF - id (%d)\n", buf, 0x1Cu);
               v27 = *(v16 + 2);
             }
@@ -759,11 +747,11 @@ LABEL_48:
             if (v22)
             {
               *buf = 136315650;
-              v42 = "SHBUFFER";
-              v43 = 2080;
-              v44 = "finalizeSetup";
-              v45 = 1024;
-              LODWORD(v46) = v7;
+              v41 = "SHBUFFER";
+              v42 = 2080;
+              v43 = "finalizeSetup";
+              v44 = 1024;
+              LODWORD(v45) = v7;
               _os_log_impl(&dword_25EBC5000, v19, OS_LOG_TYPE_DEBUG, "%s- %s: finalizing CLIRESTYPE_CVDATABUFF - id (%d)\n", buf, 0x1Cu);
               v23 = *(v16 + 2);
             }
@@ -783,11 +771,11 @@ LABEL_48:
           }
 
           *buf = 136315650;
-          v42 = "SHBUFFER";
-          v43 = 2080;
-          v44 = "finalizeSetup";
-          v45 = 1024;
-          LODWORD(v46) = v7;
+          v41 = "SHBUFFER";
+          v42 = 2080;
+          v43 = "finalizeSetup";
+          v44 = 1024;
+          LODWORD(v45) = v7;
           v20 = v19;
           v21 = "%s- %s: finalizing CLIRESTYPE_MTLTEXTURE - id (%d)\n";
         }
@@ -798,7 +786,7 @@ LABEL_37:
         v16 = *v16;
         if (!v16)
         {
-          goto LABEL_44;
+          return 0;
         }
       }
     }
@@ -807,9 +795,9 @@ LABEL_37:
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v42 = "SHBUFFER";
-      v43 = 2080;
-      v44 = "finalizeSetup";
+      v41 = "SHBUFFER";
+      v42 = 2080;
+      v43 = "finalizeSetup";
       v32 = "%s: %s Initializing writer with no shared resources.\n";
       v33 = v36;
       v34 = OS_LOG_TYPE_ERROR;
@@ -825,11 +813,11 @@ LABEL_37:
     {
       Key = PSSharedResource::getKey(this);
       *buf = 136315650;
-      v42 = "SHBUFFER";
-      v43 = 2080;
-      v44 = "finalizeSetup";
-      v45 = 2080;
-      v46 = Key;
+      v41 = "SHBUFFER";
+      v42 = 2080;
+      v43 = "finalizeSetup";
+      v44 = 2080;
+      v45 = Key;
       v32 = "%s:%s - (Resource: %s): Finished setup without filling lines.";
       v33 = v30;
       v34 = OS_LOG_TYPE_DEFAULT;
@@ -839,14 +827,12 @@ LABEL_43:
     }
   }
 
-LABEL_44:
-  v37 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 void *PSShbufferGroup::getBufflets(PSShbufferGroup *this)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   result = malloc_type_calloc(*(this + 140), 8uLL, 0x2004093837F09uLL);
   if (result)
   {
@@ -871,7 +857,6 @@ void *PSShbufferGroup::getBufflets(PSShbufferGroup *this)
     v5 = *(this + 140);
     if (v4 == v5)
     {
-      v6 = *MEMORY[0x277D85DE8];
       return result;
     }
   }
@@ -881,40 +866,40 @@ void *PSShbufferGroup::getBufflets(PSShbufferGroup *this)
     PSShbufferGroup::getBufflets(buf);
   }
 
-  v14 = 0;
-  v7 = v4;
-  asprintf(&v14, "%s- %s: The number of shbufflets that we thought we had is different from the number we have. Expected: %d Found:%d", "SHBUFFER", "getBufflets", v5, v4);
-  v8 = _ps_buffer_log;
+  v13 = 0;
+  v6 = v4;
+  asprintf(&v13, "%s- %s: The number of shbufflets that we thought we had is different from the number we have. Expected: %d Found:%d", "SHBUFFER", "getBufflets", v5, v4);
+  v7 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
   {
-    v9 = *(this + 140);
+    v8 = *(this + 140);
     *buf = 136316418;
-    v16 = "getBufflets";
-    v17 = 1024;
-    v18 = 520;
-    v19 = 2080;
-    v20 = "SHBUFFER";
-    v21 = 2080;
-    v22 = "getBufflets";
-    v23 = 1024;
-    v24 = v9;
-    v25 = 1024;
-    v26 = v7;
-    _os_log_impl(&dword_25EBC5000, v8, OS_LOG_TYPE_FAULT, "%s:%d %s- %s: The number of shbufflets that we thought we had is different from the number we have. Expected: %d Found:%d", buf, 0x32u);
+    v15 = "getBufflets";
+    v16 = 1024;
+    v17 = 520;
+    v18 = 2080;
+    v19 = "SHBUFFER";
+    v20 = 2080;
+    v21 = "getBufflets";
+    v22 = 1024;
+    v23 = v8;
+    v24 = 1024;
+    v25 = v6;
+    _os_log_impl(&dword_25EBC5000, v7, OS_LOG_TYPE_FAULT, "%s:%d %s- %s: The number of shbufflets that we thought we had is different from the number we have. Expected: %d Found:%d", buf, 0x32u);
   }
 
-  v10 = OSLogFlushBuffers();
-  if (v10)
+  v9 = OSLogFlushBuffers();
+  if (v9)
   {
-    v11 = v10;
-    v12 = _ps_buffer_log;
+    v10 = v9;
+    v11 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v16 = "getBufflets";
-      v17 = 1024;
-      v18 = v11;
-      _os_log_impl(&dword_25EBC5000, v12, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v15 = "getBufflets";
+      v16 = 1024;
+      v17 = v10;
+      _os_log_impl(&dword_25EBC5000, v11, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -923,8 +908,8 @@ void *PSShbufferGroup::getBufflets(PSShbufferGroup *this)
     usleep(0x1E8480u);
   }
 
-  v13 = abort_with_reason();
-  return PSShbufferGroup::shareResource(v13);
+  v12 = abort_with_reason();
+  return PSShbufferGroup::shareResource(v12);
 }
 
 void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak_count *a1)
@@ -937,16 +922,18 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_5(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_5(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_FAULT, a4, &buf, 0x1Cu);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_FAULT, a4, va, 0x1Cu);
 }
 
 BOOL OUTLINED_FUNCTION_7()
@@ -975,10 +962,11 @@ BOOL OUTLINED_FUNCTION_10()
   return os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_12(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_12(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t PSShbufferGroupReader::acquireSharedLock(PSSharedSyncObject **this, int a2)
@@ -1014,21 +1002,21 @@ uint64_t PSShbufferGroupReader::requestShbufferGroupList(PSShbufferGroupReader *
   v8 = v7;
   v10 = v9;
   v11 = v4;
-  v57 = *MEMORY[0x277D85DE8];
-  v12 = v52;
-  bzero(v52, 0x888uLL);
+  v56 = *MEMORY[0x277D85DE8];
+  v12 = v51;
+  bzero(v51, 0x888uLL);
   v13 = (v11 + 16);
-  strlcpy(v53, (v11 + 16), 0x200uLL);
-  v56 = 0x1000000012;
-  v54 = 20;
-  v55 = v55 & 0xFE | *(v11 + 649);
-  PSCommsClient::send_wait(*(v11 + 8), v52, 0x888u, &v45, 0x898u, 0);
-  if (PSCommsClient::is_valid_simple_message(&v45) && PSCommsClient::isAck(v52, &v45.msgh_bits))
+  strlcpy(v52, (v11 + 16), 0x200uLL);
+  v55 = 0x1000000012;
+  v53 = 20;
+  v54 = v54 & 0xFE | *(v11 + 649);
+  PSCommsClient::send_wait(*(v11 + 8), v51, 0x888u, &v44, 2200, 0);
+  if (PSCommsClient::is_valid_simple_message(&v44) && PSCommsClient::isAck(v51, &v44.msgh_bits))
   {
-    v31 = PSShbufferGroupReader::requestShbufferGroupList(buf, v11 + 16);
+    v30 = PSShbufferGroupReader::requestShbufferGroupList(buf, v11 + 16);
 LABEL_25:
-    v28 = v31;
-    v29 = *v12;
+    v27 = v30;
+    v28 = *v12;
     if (!os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_27;
@@ -1037,49 +1025,49 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  if (!PSCommsClient::is_valid_ool_message(&v45))
+  if (!PSCommsClient::is_valid_ool_message(&v44))
   {
-    v35 = 0;
-    asprintf(&v35, "Invalid message received, complex=%d desc_count=%d type=%d, key=%s.", v45.msgh_bits & 0x80000000, v46, v48, (v11 + 16));
-    v26 = _ps_buffer_log;
+    v34 = 0;
+    asprintf(&v34, "Invalid message received, complex=%d desc_count=%d type=%d, key=%s.", v44.msgh_bits & 0x80000000, v45, v47, (v11 + 16));
+    v25 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
       *buf = 136316418;
-      v37 = "requestShbufferGroupList";
-      v38 = 1024;
-      v39 = 60;
-      v40 = 1024;
-      *v41 = v45.msgh_bits & 0x80000000;
-      *&v41[4] = 1024;
-      *&v41[6] = v46;
-      *v42 = 1024;
-      *&v42[2] = v48;
-      v43 = 2080;
-      v44 = v11 + 16;
-      _os_log_impl(&dword_25EBC5000, v26, OS_LOG_TYPE_FAULT, "%s:%d Invalid message received, complex=%d desc_count=%d type=%d, key=%s.", buf, 0x2Eu);
+      v36 = "requestShbufferGroupList";
+      v37 = 1024;
+      v38 = 60;
+      v39 = 1024;
+      *v40 = v44.msgh_bits & 0x80000000;
+      *&v40[4] = 1024;
+      *&v40[6] = v45;
+      *v41 = 1024;
+      *&v41[2] = v47;
+      v42 = 2080;
+      v43 = v11 + 16;
+      _os_log_impl(&dword_25EBC5000, v25, OS_LOG_TYPE_FAULT, "%s:%d Invalid message received, complex=%d desc_count=%d type=%d, key=%s.", buf, 0x2Eu);
     }
 
-    v27 = OSLogFlushBuffers();
-    if (!v27)
+    v26 = OSLogFlushBuffers();
+    if (!v26)
     {
       goto LABEL_23;
     }
 
-    v28 = v27;
-    v29 = _ps_buffer_log;
+    v27 = v26;
+    v28 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
 LABEL_27:
-      v32 = abort_with_reason();
-      return PSShbufferGroupReader::addSharedCVPixelBuffer(v32, v33);
+      v31 = abort_with_reason();
+      return PSShbufferGroupReader::addSharedCVPixelBuffer(v31, v32);
     }
 
 LABEL_26:
     *buf = 136315394;
-    v37 = "requestShbufferGroupList";
-    v38 = 1024;
-    v39 = v28;
-    _os_log_impl(&dword_25EBC5000, v29, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+    v36 = "requestShbufferGroupList";
+    v37 = 1024;
+    v38 = v27;
+    _os_log_impl(&dword_25EBC5000, v28, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     goto LABEL_27;
   }
 
@@ -1088,30 +1076,30 @@ LABEL_26:
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v37 = "SHBUFFERGROUPREADER";
+    v36 = "SHBUFFERGROUPREADER";
     _os_log_impl(&dword_25EBC5000, v14, OS_LOG_TYPE_DEBUG, "%s: requestShbufferGroupList SUCCESS\n", buf, 0xCu);
   }
 
-  if (v46 != 1)
+  if (v45 != 1)
   {
-    v35 = 0;
-    asprintf(&v35, "Failed requestShbufferGroupList for key %s; msgh_descriptor_count expected value of 1, actual value is %u", v13, v46);
-    v30 = _ps_buffer_log;
+    v34 = 0;
+    asprintf(&v34, "Failed requestShbufferGroupList for key %s; msgh_descriptor_count expected value of 1, actual value is %u", v13, v45);
+    v29 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v37 = "requestShbufferGroupList";
-      v38 = 1024;
-      v39 = 70;
-      v40 = 2080;
-      *v41 = v13;
-      *&v41[8] = 1024;
-      *v42 = v46;
-      _os_log_impl(&dword_25EBC5000, v30, OS_LOG_TYPE_FAULT, "%s:%d Failed requestShbufferGroupList for key %s; msgh_descriptor_count expected value of 1, actual value is %u", buf, 0x22u);
+      v36 = "requestShbufferGroupList";
+      v37 = 1024;
+      v38 = 70;
+      v39 = 2080;
+      *v40 = v13;
+      *&v40[8] = 1024;
+      *v41 = v45;
+      _os_log_impl(&dword_25EBC5000, v29, OS_LOG_TYPE_FAULT, "%s:%d Failed requestShbufferGroupList for key %s; msgh_descriptor_count expected value of 1, actual value is %u", buf, 0x22u);
     }
 
-    v31 = OSLogFlushBuffers();
-    if (!v31)
+    v30 = OSLogFlushBuffers();
+    if (!v30)
     {
 LABEL_23:
       usleep(0x1E8480u);
@@ -1121,19 +1109,19 @@ LABEL_23:
     goto LABEL_25;
   }
 
-  v34 = v47;
-  v15 = v49;
-  *v10 = v50;
-  *v8 = v51;
+  v33 = v46;
+  v15 = v48;
+  *v10 = v49;
+  *v8 = v50;
   *v6 = v15;
   v16 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
     v17 = *v10;
     *buf = 136315394;
-    v37 = "SHBUFFERGROUPREADER";
-    v38 = 1024;
-    v39 = v17;
+    v36 = "SHBUFFERGROUPREADER";
+    v37 = 1024;
+    v38 = v17;
     _os_log_impl(&dword_25EBC5000, v16, OS_LOG_TYPE_DEBUG, "%s: Found (%d) shbufflets\n", buf, 0x12u);
   }
 
@@ -1142,7 +1130,7 @@ LABEL_23:
   {
     v19 = 0;
     v20 = _ps_buffer_log;
-    v21 = (v34 + 4);
+    v21 = (v33 + 4);
     do
     {
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
@@ -1150,13 +1138,13 @@ LABEL_23:
         v22 = *(v21 - 1);
         v23 = *v21;
         *buf = 136315906;
-        v37 = "SHBUFFERGROUPREADER";
-        v38 = 1024;
-        v39 = v19;
-        v40 = 1024;
-        *v41 = v22;
-        *&v41[4] = 1024;
-        *&v41[6] = v23;
+        v36 = "SHBUFFERGROUPREADER";
+        v37 = 1024;
+        v38 = v19;
+        v39 = 1024;
+        *v40 = v22;
+        *&v40[4] = 1024;
+        *&v40[6] = v23;
         _os_log_impl(&dword_25EBC5000, v20, OS_LOG_TYPE_DEBUG, "%s: Resource (%d) type: (%d) id(%d)\n", buf, 0x1Eu);
         v20 = _ps_buffer_log;
         v18 = *v10;
@@ -1169,11 +1157,10 @@ LABEL_23:
     while (v19 < v18);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v34;
+  return v33;
 }
 
-void PSShbufferGroupReader::addSharedCVPixelBuffer(PSShbufferGroupReader *this, int a2)
+void PSShbufferGroupReader::addSharedCVPixelBuffer(PSShbufferGroupReader *this, unsigned int a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   v4 = _ps_buffer_log;
@@ -1193,7 +1180,7 @@ void PSShbufferGroupReader::addSharedCVPixelBuffer(PSShbufferGroupReader *this, 
   operator new();
 }
 
-void PSShbufferGroupReader::addSharedCVDataBuffer(PSShbufferGroupReader *this, int a2)
+void PSShbufferGroupReader::addSharedCVDataBuffer(PSShbufferGroupReader *this, unsigned int a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   v4 = _ps_buffer_log;
@@ -1213,7 +1200,7 @@ void PSShbufferGroupReader::addSharedCVDataBuffer(PSShbufferGroupReader *this, i
   operator new();
 }
 
-void PSShbufferGroupReader::addSharedIOSurface(PSShbufferGroupReader *this, int a2)
+void PSShbufferGroupReader::addSharedIOSurface(PSShbufferGroupReader *this, unsigned int a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   v4 = _ps_buffer_log;
@@ -1273,21 +1260,21 @@ void PSShbufferGroupReader::addSharedFIFOSelector(PSShbufferGroupReader *this, c
   PSBufferService::PSStreamingCodecFrameSelector::createFifoReader((this + 16), a2, 0, v5);
 }
 
-void PSShbufferGroupReader::addSharedRingSwappableView(PSShbufferGroupReader *this, int a2)
+void PSShbufferGroupReader::addSharedRingSwappableView(PSShbufferGroupReader *this, unsigned int a2, BOOL a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = _ps_buffer_log;
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315906;
-    v6 = "SHBUFFERGROUPREADER";
-    v7 = 2080;
-    v8 = "addSharedRingSwappableView";
-    v9 = 2080;
-    v10 = this + 16;
-    v11 = 1024;
-    v12 = a2;
-    _os_log_impl(&dword_25EBC5000, v4, OS_LOG_TYPE_DEBUG, "%s: %s - name (%s) (%d) \n", &v5, 0x26u);
+    v6 = 136315906;
+    v7 = "SHBUFFERGROUPREADER";
+    v8 = 2080;
+    v9 = "addSharedRingSwappableView";
+    v10 = 2080;
+    v11 = this + 16;
+    v12 = 1024;
+    v13 = a2;
+    _os_log_impl(&dword_25EBC5000, v5, OS_LOG_TYPE_DEBUG, "%s: %s - name (%s) (%d) \n", &v6, 0x26u);
   }
 
   operator new();
@@ -1295,36 +1282,36 @@ void PSShbufferGroupReader::addSharedRingSwappableView(PSShbufferGroupReader *th
 
 uint64_t PSShbufferGroupReader::addLockLessSelector(PSShbufferGroupReader *this, int a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
-    *v10 = 136315906;
-    *&v10[4] = "SHBUFFERGROUPREADER";
-    *v11 = 2080;
-    *&v11[2] = "addLockLessSelector";
-    v12 = 2080;
-    v13 = this + 16;
-    LOWORD(v14) = 1024;
-    *(&v14 + 2) = a2;
-    _os_log_impl(&dword_25EBC5000, v4, OS_LOG_TYPE_DEBUG, "%s: %s - name (%s) (%d) \n", v10, 0x26u);
+    *v9 = 136315906;
+    *&v9[4] = "SHBUFFERGROUPREADER";
+    *v10 = 2080;
+    *&v10[2] = "addLockLessSelector";
+    v11 = 2080;
+    v12 = this + 16;
+    LOWORD(v13) = 1024;
+    *(&v13 + 2) = a2;
+    _os_log_impl(&dword_25EBC5000, v4, OS_LOG_TYPE_DEBUG, "%s: %s - name (%s) (%d) \n", v9, 0x26u);
   }
 
   *(this + 592) = 1;
-  *v10 = 0x140000000FLL;
-  *v11 = 0;
-  *&v11[4] = 0;
-  v15 = 0;
-  v17 = 1;
-  *&v10[8] = a2;
-  v5 = this + 16;
+  *v9 = 0x140000000FLL;
+  *v10 = 0;
+  *&v10[4] = 0;
+  v14 = 0;
   v16 = 1;
-  v18 = 0;
+  *&v9[8] = a2;
+  v5 = this + 16;
+  v15 = 1;
+  v17 = 0;
   v6 = *(this + 1) + 44;
-  v7 = this + 600;
-  v13 = v5;
-  v14 = v6;
-  if (PSBufferService::PSLocklessBufferSelector::Create(v10))
+  v7 = (this + 600);
+  v12 = v5;
+  v13 = v6;
+  if (PSBufferService::PSLocklessBufferSelector::Create(v9, v7))
   {
     PSShbufferGroupReader::addLockLessSelector();
   }
@@ -1334,11 +1321,10 @@ uint64_t PSShbufferGroupReader::addLockLessSelector(PSShbufferGroupReader *this,
     PSShbufferGroupReader::addLockLessSelector();
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-void PSShbufferGroupReader::addSharedBufferGroupSyncObject(PSShbufferGroupReader *this, int a2)
+void PSShbufferGroupReader::addSharedBufferGroupSyncObject(PSShbufferGroupReader *this, unsigned int a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   v4 = _ps_buffer_log;
@@ -1358,7 +1344,7 @@ void PSShbufferGroupReader::addSharedBufferGroupSyncObject(PSShbufferGroupReader
   operator new();
 }
 
-void PSShbufferGroupReader::addSharedResSerialData(PSShbufferGroupReader *this, int a2)
+void PSShbufferGroupReader::addSharedResSerialData(PSShbufferGroupReader *this, unsigned int a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   v4 = _ps_buffer_log;
@@ -1381,7 +1367,7 @@ void PSShbufferGroupReader::addSharedResSerialData(PSShbufferGroupReader *this, 
   operator new();
 }
 
-uint64_t PSShbufferGroupReader::getAllReadBuffers(PSShbufferGroupReader *this)
+uint64_t PSShbufferGroupReader::getAllReadBuffers(PSShbufferGroupReader *this, uint64_t a2)
 {
   result = *(this + 80);
   if (!result)
@@ -1514,82 +1500,82 @@ LABEL_12:
 PSSharedSerialData *PSShbufferGroupReader::_getReadResourcesLastN(uint64_t a1, unint64_t a2, uint64_t a3, void *a4, uint64_t a5, unint64_t *a6, unsigned int *a7)
 {
   i = a2;
-  *&v46[5] = *MEMORY[0x277D85DE8];
+  *&v52[5] = *MEMORY[0x277D85DE8];
   v9 = *(a1 + 552);
   v10 = (v9 - 1);
   if (v9 - 1 <= 0)
   {
 LABEL_24:
-    v39 = 0;
-    asprintf(&v39, "Unsupported max last N count %d for buffer depth %d. Increase the buffer depth to resolve this. requested_buffer_count = %lld", v10, v9, i);
-    v28 = _ps_buffer_log;
+    v45 = 0;
+    asprintf(&v45, "Unsupported max last N count %d for buffer depth %d. Increase the buffer depth to resolve this. requested_buffer_count = %lld", v10, v9, i);
+    v27 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
-      v29 = *(a1 + 552);
+      v28 = *(a1 + 552);
       *buf = 136316162;
-      v41 = "_getReadResourcesLastN";
-      v42 = 1024;
-      v43 = 387;
-      v44 = 1024;
-      *v45 = v10;
-      *&v45[4] = 1024;
-      *&v45[6] = v29;
-      v46[0] = 2048;
-      *&v46[1] = i;
-      _os_log_impl(&dword_25EBC5000, v28, OS_LOG_TYPE_FAULT, "%s:%d Unsupported max last N count %d for buffer depth %d. Increase the buffer depth to resolve this. requested_buffer_count = %lld", buf, 0x28u);
+      v47 = "_getReadResourcesLastN";
+      v48 = 1024;
+      v49 = 387;
+      v50 = 1024;
+      *v51 = v10;
+      *&v51[4] = 1024;
+      *&v51[6] = v28;
+      v52[0] = 2048;
+      *&v52[1] = i;
+      _os_log_impl(&dword_25EBC5000, v27, OS_LOG_TYPE_FAULT, "%s:%d Unsupported max last N count %d for buffer depth %d. Increase the buffer depth to resolve this. requested_buffer_count = %lld", buf, 0x28u);
     }
 
-    v30 = OSLogFlushBuffers();
-    if (!v30)
+    v29 = OSLogFlushBuffers();
+    if (!v29)
     {
 LABEL_37:
       usleep(0x1E8480u);
       goto LABEL_40;
     }
 
-    v31 = v30;
-    v32 = _ps_buffer_log;
+    v30 = v29;
+    v31 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
 LABEL_39:
       *buf = 136315394;
-      v41 = "_getReadResourcesLastN";
-      v42 = 1024;
-      v43 = v31;
-      _os_log_impl(&dword_25EBC5000, v32, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v47 = "_getReadResourcesLastN";
+      v48 = 1024;
+      v49 = v30;
+      _os_log_impl(&dword_25EBC5000, v31, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
 
 LABEL_40:
-    v37 = abort_with_reason();
-    return PSShbufferGroupReader::_getReadResourcesSinceLast(v37);
+    v36 = abort_with_reason();
+    return PSShbufferGroupReader::_getReadResourcesSinceLast(v36, v37, v38, v39, v40, v41, v42, v43);
   }
 
   if (v10 < a2)
   {
-    v39 = 0;
-    asprintf(&v39, "Unsupported last N count %llu. Only upto %d supported", a2, v9 - 1);
-    v33 = _ps_buffer_log;
+    v45 = 0;
+    asprintf(&v45, "Unsupported last N count %llu. Only upto %d supported", a2, v9 - 1);
+    v32 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v41 = "_getReadResourcesLastN";
-      v42 = 1024;
-      v43 = 391;
-      v44 = 2048;
-      *v45 = i;
-      *&v45[8] = 1024;
-      *v46 = v10;
-      _os_log_impl(&dword_25EBC5000, v33, OS_LOG_TYPE_FAULT, "%s:%d Unsupported last N count %llu. Only upto %d supported", buf, 0x22u);
+      v47 = "_getReadResourcesLastN";
+      v48 = 1024;
+      v49 = 391;
+      v50 = 2048;
+      *v51 = i;
+      *&v51[8] = 1024;
+      *v52 = v10;
+      _os_log_impl(&dword_25EBC5000, v32, OS_LOG_TYPE_FAULT, "%s:%d Unsupported last N count %llu. Only upto %d supported", buf, 0x22u);
     }
 
-    v34 = OSLogFlushBuffers();
-    if (!v34)
+    v33 = OSLogFlushBuffers();
+    if (!v33)
     {
       goto LABEL_37;
     }
 
-    v31 = v34;
-    v32 = _ps_buffer_log;
+    v30 = v33;
+    v31 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_39;
@@ -1599,37 +1585,37 @@ LABEL_40:
   }
 
   MEMORY[0x28223BE20](a1);
-  v10 = &v38 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v44 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v10, v16);
   MEMORY[0x28223BE20](v17);
-  v19 = &v38 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = &v44 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v19, v18);
   if (!a4 || !a6)
   {
-    v39 = 0;
-    asprintf(&v39, "Invalid arg passed. resources=%p, read_buffer_count=%p", a4, a6);
-    v35 = _ps_buffer_log;
+    v45 = 0;
+    asprintf(&v45, "Invalid arg passed. resources=%p, read_buffer_count=%p", a4, a6);
+    v34 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v41 = "_getReadResourcesLastN";
-      v42 = 1024;
-      v43 = 401;
-      v44 = 2048;
-      *v45 = a4;
-      *&v45[8] = 2048;
-      *v46 = a6;
-      _os_log_impl(&dword_25EBC5000, v35, OS_LOG_TYPE_FAULT, "%s:%d Invalid arg passed. resources=%p, read_buffer_count=%p", buf, 0x26u);
+      v47 = "_getReadResourcesLastN";
+      v48 = 1024;
+      v49 = 401;
+      v50 = 2048;
+      *v51 = a4;
+      *&v51[8] = 2048;
+      *v52 = a6;
+      _os_log_impl(&dword_25EBC5000, v34, OS_LOG_TYPE_FAULT, "%s:%d Invalid arg passed. resources=%p, read_buffer_count=%p", buf, 0x26u);
     }
 
-    v36 = OSLogFlushBuffers();
-    if (!v36)
+    v35 = OSLogFlushBuffers();
+    if (!v35)
     {
       goto LABEL_37;
     }
 
-    v31 = v36;
-    v32 = _ps_buffer_log;
+    v30 = v35;
+    v31 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_40;
@@ -1703,39 +1689,38 @@ LABEL_40:
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-PSSharedSerialData *PSShbufferGroupReader::_getReadResourcesSinceLast(PSSharedResource *this, unint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, unint64_t *a7, unsigned int *a8)
+PSSharedSerialData *PSShbufferGroupReader::_getReadResourcesSinceLast(PSSharedResource *this, unint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, unint64_t *a7, unsigned int *a8, char a9)
 {
   i = a2;
-  v57[2] = *MEMORY[0x277D85DE8];
-  LODWORD(v10) = *(this + 138);
-  v11 = (v10 - 1);
-  if (v10 - 1 <= 0)
+  v61[2] = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = *(this + 138);
+  v12 = (v11 - 1);
+  if (v11 - 1 <= 0)
   {
 LABEL_24:
-    v49 = 0;
+    v53 = 0;
     Key = PSSharedResource::getKey(this);
-    asprintf(&v49, "Unsupported max last N count %d for buffer depth %d for %s. Increase the buffer depth to resolve this. max_buffer_count = %lld", v11, v10, Key, i);
+    asprintf(&v53, "Unsupported max last N count %d for buffer depth %d for %s. Increase the buffer depth to resolve this. max_buffer_count = %lld", v12, v11, Key, i);
     v30 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
       v31 = *(this + 138);
       v32 = PSSharedResource::getKey(this);
       *buf = 136316418;
-      v51 = "_getReadResourcesSinceLast";
-      v52 = 1024;
-      v53 = 466;
-      v54 = 1024;
-      *v55 = v11;
-      *&v55[4] = 1024;
-      *&v55[6] = v31;
-      *v56 = 2080;
-      *&v56[2] = v32;
-      LOWORD(v57[0]) = 2048;
-      *(v57 + 2) = i;
+      v55 = "_getReadResourcesSinceLast";
+      v56 = 1024;
+      v57 = 466;
+      v58 = 1024;
+      *v59 = v12;
+      *&v59[4] = 1024;
+      *&v59[6] = v31;
+      *v60 = 2080;
+      *&v60[2] = v32;
+      LOWORD(v61[0]) = 2048;
+      *(v61 + 2) = i;
       _os_log_impl(&dword_25EBC5000, v30, OS_LOG_TYPE_FAULT, "%s:%d Unsupported max last N count %d for buffer depth %d for %s. Increase the buffer depth to resolve this. max_buffer_count = %lld", buf, 0x32u);
     }
 
@@ -1753,36 +1738,36 @@ LABEL_37:
     {
 LABEL_39:
       *buf = 136315394;
-      v51 = "_getReadResourcesSinceLast";
-      v52 = 1024;
-      v53 = v34;
+      v55 = "_getReadResourcesSinceLast";
+      v56 = 1024;
+      v57 = v34;
       _os_log_impl(&dword_25EBC5000, v35, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
 
 LABEL_40:
     v44 = abort_with_reason();
-    return PSShbufferGroupReader::_getReadResources(v44, v45, v46, v47);
+    return PSShbufferGroupReader::_getReadResources(v44, v45, v46, v47, v48, v49, v50, v51, a9);
   }
 
-  if (v11 < a2)
+  if (v12 < a2)
   {
-    v49 = 0;
+    v53 = 0;
     v36 = PSSharedResource::getKey(this);
-    asprintf(&v49, "Unsupported max buffer count %llu for %s. Only upto %d supported.", i, v36, v10 - 1);
+    asprintf(&v53, "Unsupported max buffer count %llu for %s. Only upto %d supported.", i, v36, v11 - 1);
     v37 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
       v38 = PSSharedResource::getKey(this);
       *buf = 136316162;
-      v51 = "_getReadResourcesSinceLast";
-      v52 = 1024;
-      v53 = 471;
-      v54 = 2048;
-      *v55 = i;
-      *&v55[8] = 2080;
-      *v56 = v38;
-      *&v56[8] = 1024;
-      LODWORD(v57[0]) = v10 - 1;
+      v55 = "_getReadResourcesSinceLast";
+      v56 = 1024;
+      v57 = 471;
+      v58 = 2048;
+      *v59 = i;
+      *&v59[8] = 2080;
+      *v60 = v38;
+      *&v60[8] = 1024;
+      LODWORD(v61[0]) = v11 - 1;
       _os_log_impl(&dword_25EBC5000, v37, OS_LOG_TYPE_FAULT, "%s:%d Unsupported max buffer count %llu for %s. Only upto %d supported.", buf, 0x2Cu);
     }
 
@@ -1803,30 +1788,30 @@ LABEL_40:
   }
 
   MEMORY[0x28223BE20](this);
-  v11 = &v48 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  bzero(v11, v18);
-  MEMORY[0x28223BE20](v19);
-  v10 = &v48 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  bzero(v10, v20);
+  v12 = &v52 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  bzero(v12, v19);
+  MEMORY[0x28223BE20](v20);
+  v11 = &v52 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  bzero(v11, v21);
   if (!a5 || !a7)
   {
-    v49 = 0;
+    v53 = 0;
     v40 = PSSharedResource::getKey(this);
-    asprintf(&v49, "Invalid arg passed. resources=%p, read_buffer_count=%p for %s", a5, a7, v40);
+    asprintf(&v53, "Invalid arg passed. resources=%p, read_buffer_count=%p for %s", a5, a7, v40);
     v41 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
       v42 = PSSharedResource::getKey(this);
       *buf = 136316162;
-      v51 = "_getReadResourcesSinceLast";
-      v52 = 1024;
-      v53 = 481;
-      v54 = 2048;
-      *v55 = a5;
-      *&v55[8] = 2048;
-      *v56 = a7;
-      *&v56[8] = 2080;
-      v57[0] = v42;
+      v55 = "_getReadResourcesSinceLast";
+      v56 = 1024;
+      v57 = 481;
+      v58 = 2048;
+      *v59 = a5;
+      *&v59[8] = 2048;
+      *v60 = a7;
+      *&v60[8] = 2080;
+      v61[0] = v42;
       _os_log_impl(&dword_25EBC5000, v41, OS_LOG_TYPE_FAULT, "%s:%d Invalid arg passed. resources=%p, read_buffer_count=%p for %s", buf, 0x30u);
     }
 
@@ -1850,127 +1835,126 @@ LABEL_40:
   {
     if (a8)
     {
-      v21 = *a8;
+      v22 = *a8;
     }
 
     else
     {
-      v21 = 0;
+      v22 = 0;
     }
 
-    result = (*(**(this + 75) + 224))(*(this + 75), v21, v11, i, a3, a4, v10, a7);
+    result = (*(**(this + 75) + 224))(*(this + 75), v22, v12, i, a3, a4, v11, a7);
   }
 
   else
   {
-    result = (*(**(this + 73) + 64))(*(this + 73), v11, i, a4, v10, a7);
+    result = (*(**(this + 73) + 64))(*(this + 73), v12, i, a4, v11, a7);
   }
 
   if (*a7)
   {
     for (i = 0; i < *a7; ++i)
     {
-      v23 = *(v11 + 4 * i);
-      if (v23 == -1)
+      v24 = *(v12 + 4 * i);
+      if (v24 == -1)
       {
         break;
       }
 
-      if (v23 == -2)
+      if (v24 == -2)
       {
         PSShbufferGroupReader::_getReadResourcesSinceLast(this, buf);
         goto LABEL_24;
       }
 
-      v24 = v23;
-      a5[i] = *(*(this + 80) + 8 * v23);
-      v25 = *(*(*(this + 80) + 8 * v23) + 16);
-      *v25 = v23;
-      *(v25 + 8) = *&v10[8 * i];
+      v25 = v24;
+      a5[i] = *(*(this + 80) + 8 * v24);
+      v26 = *(*(*(this + 80) + 8 * v24) + 16);
+      *v26 = v24;
+      *(v26 + 8) = *&v11[8 * i];
       if (a6)
       {
-        v26 = *(a6 + 8 * i);
-        if (v26)
+        v27 = *(a6 + 8 * i);
+        if (v27)
         {
           result = *(this + 83);
           if (result)
           {
             result = PSSharedSerialData::getData(result);
-            v27 = atomic_load(result + v24);
-            v26 = *(a6 + 8 * i);
+            v28 = atomic_load(result + v25);
+            v27 = *(a6 + 8 * i);
           }
 
           else
           {
-            v27 = 0;
+            v28 = 0;
           }
 
-          atomic_store(v27, v26);
+          atomic_store(v28, v27);
         }
       }
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t PSShbufferGroupReader::_getReadResources(uint64_t a1, uint64_t a2, unint64_t *a3, unsigned int *a4)
+uint64_t PSShbufferGroupReader::_getReadResources(uint64_t a1, uint64_t a2, unint64_t *a3, unsigned int *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
 {
   if (*(a1 + 592))
   {
     if (a4)
     {
-      v6 = *a4;
+      v11 = *a4;
     }
 
     else
     {
-      v6 = 0;
+      v11 = 0;
     }
 
-    v8 = (*(**(a1 + 600) + 200))(*(a1 + 600), v6);
+    v13 = (*(**(a1 + 600) + 200))(*(a1 + 600), v11);
   }
 
   else
   {
-    v7 = **(a1 + 584);
+    v12 = **(a1 + 584);
     if (a2)
     {
-      v8 = (*(v7 + 112))();
+      v13 = (*(v12 + 112))();
     }
 
     else
     {
-      v8 = (*(v7 + 56))();
+      v13 = (*(v12 + 56))();
     }
   }
 
-  if (v8 == -1)
+  if (v13 == -1)
   {
     return 0;
   }
 
-  if (v8 != -2)
+  if (v13 != -2)
   {
-    v9 = *(*(a1 + 640) + 8 * v8);
-    **(v9 + 16) = v8;
+    v14 = *(*(a1 + 640) + 8 * v13);
+    **(v14 + 16) = v13;
     if (a3)
     {
-      v10 = *(a1 + 664);
-      if (v10)
+      v15 = *(a1 + 664);
+      if (v15)
       {
-        v10 = atomic_load((PSSharedSerialData::getData(v10) + 8 * v8));
+        v15 = atomic_load((PSSharedSerialData::getData(v15) + 8 * v13));
       }
 
-      atomic_store(v10, a3);
+      atomic_store(v15, a3);
     }
 
-    return v9;
+    return v14;
   }
 
-  Resources = PSShbufferGroupReader::_getReadResources(a1, v13);
-  return PSShbufferGroupReader::getReadBuffersLastN(Resources);
+  Resources = PSShbufferGroupReader::_getReadResources(a1, v25);
+  return PSShbufferGroupReader::getReadBuffersLastN(Resources, v18, v19, v20, v21, v22, v23, v24, a9);
 }
 
 uint64_t PSShbufferGroupReader::getReadBuffersLastN(uint64_t a1, unint64_t a2, uint64_t a3, void *a4, uint64_t a5, unint64_t *a6, unsigned int *a7, int a8, char a9)
@@ -2008,12 +1992,12 @@ uint64_t PSShbufferGroupReader::getReadBuffersSinceLast(PSSharedSyncObject **thi
 {
   if (!a2)
   {
-    PSShbufferGroupReader::getReadBuffersSinceLast(v25, this);
+    PSShbufferGroupReader::getReadBuffersSinceLast(v29, this);
 LABEL_14:
-    PSShbufferGroupReader::getReadBuffersSinceLast(v25);
+    PSShbufferGroupReader::getReadBuffersSinceLast(v29);
 LABEL_15:
-    BuffersSinceLast = PSShbufferGroupReader::getReadBuffersSinceLast(v25);
-    return PSShbufferGroupReader::getReadBuffers(BuffersSinceLast, v21, v22, v23, v24);
+    BuffersSinceLast = PSShbufferGroupReader::getReadBuffersSinceLast(v29);
+    return PSShbufferGroupReader::getReadBuffers(BuffersSinceLast, v21, v22, v23, v24, v25, v26, v27);
   }
 
   v17 = *(this + 632) != 1 || a9 == 0;
@@ -2022,7 +2006,7 @@ LABEL_15:
     goto LABEL_14;
   }
 
-  result = PSShbufferGroupReader::_getReadResourcesSinceLast(this, a2, a3, a4, a5, a6, a7, a8);
+  result = PSShbufferGroupReader::_getReadResourcesSinceLast(this, a2, a3, a4, a5, a6, a7, a8, v28);
   if (*(this + 632) == 1 && a9 != 0)
   {
     result = PSSharedSyncObject::unlock(this[82]);
@@ -2035,14 +2019,15 @@ LABEL_15:
   return result;
 }
 
-uint64_t PSShbufferGroupReader::getReadBuffers(uint64_t a1, uint64_t a2, unint64_t *a3, unsigned int *a4, int a5)
+uint64_t PSShbufferGroupReader::getReadBuffers(uint64_t a1, uint64_t a2, unint64_t *a3, unsigned int *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *(a1 + 632) != 1 || a5 == 0;
-  if (v10 || (PSSharedSyncObject::lock(*(a1 + 656)) & 1) != 0)
+  v8 = a5;
+  v13 = *(a1 + 632) != 1 || a5 == 0;
+  if (v13 || (PSSharedSyncObject::lock(*(a1 + 656)) & 1) != 0)
   {
-    Resources = PSShbufferGroupReader::_getReadResources(a1, a2, a3, a4);
-    v12 = *(a1 + 632) != 1 || a5 == 0;
-    if (v12 || (PSSharedSyncObject::unlock(*(a1 + 656)) & 1) != 0)
+    Resources = PSShbufferGroupReader::_getReadResources(a1, a2, a3, a4, a5, a6, a7, a8, v23);
+    v15 = *(a1 + 632) != 1 || v8 == 0;
+    if (v15 || (PSSharedSyncObject::unlock(*(a1 + 656)) & 1) != 0)
     {
       return Resources;
     }
@@ -2050,14 +2035,14 @@ uint64_t PSShbufferGroupReader::getReadBuffers(uint64_t a1, uint64_t a2, unint64
 
   else
   {
-    PSShbufferGroupReader::getReadBuffers(v15);
+    PSShbufferGroupReader::getReadBuffers(v24);
   }
 
-  Buffers = PSShbufferGroupReader::getReadBuffers(v15);
-  return PSShbufferGroupReader::getReadBufferswithFrameID(Buffers);
+  Buffers = PSShbufferGroupReader::getReadBuffers(v24);
+  return PSShbufferGroupReader::getReadBufferswithFrameID(Buffers, v18, v19, v20, v21, v22);
 }
 
-uint64_t PSShbufferGroupReader::getReadBufferswithFrameID(uint64_t a1, uint64_t a2, unint64_t *a3, unint64_t a4, unsigned int *a5, int a6)
+PSSharedSerialData *PSShbufferGroupReader::getReadBufferswithFrameID(uint64_t a1, uint64_t a2, unint64_t *a3, unint64_t a4, unsigned int *a5, int a6)
 {
   v11 = *(a1 + 632) != 1 || a6 == 0;
   if (v11 || (PSSharedSyncObject::lock(*(a1 + 656)) & 1) != 0)
@@ -2072,28 +2057,23 @@ uint64_t PSShbufferGroupReader::getReadBufferswithFrameID(uint64_t a1, uint64_t 
 
   else
   {
-    PSShbufferGroupReader::getReadBufferswithFrameID(v16);
+    PSShbufferGroupReader::getReadBufferswithFrameID(v17);
   }
 
-  BufferswithFrameID = PSShbufferGroupReader::getReadBufferswithFrameID(v16);
-  return PSShbufferGroupReader::releaseReadResources(BufferswithFrameID);
+  BufferswithFrameID = PSShbufferGroupReader::getReadBufferswithFrameID(v17);
+  return PSShbufferGroupReader::releaseReadResources(BufferswithFrameID, v16);
 }
 
-uint64_t PSShbufferGroupReader::releaseReadResources(uint64_t a1, uint64_t a2, unsigned int *a3)
+uint64_t PSShbufferGroupReader::releaseReadResources(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a2 + 16);
-  if (*v3 == 0x7FFFFFFF)
+  v2 = *(a2 + 16);
+  if (*v2 == 0x7FFFFFFF)
   {
     PSShbufferGroupReader::releaseReadResources();
   }
 
   if (*(a1 + 592))
   {
-    if (a3)
-    {
-      v4 = *a3;
-    }
-
     (*(**(a1 + 600) + 232))(*(a1 + 600));
   }
 
@@ -2103,18 +2083,18 @@ uint64_t PSShbufferGroupReader::releaseReadResources(uint64_t a1, uint64_t a2, u
   }
 
   result = 0;
-  *v3 = 0x7FFFFFFF;
+  *v2 = 0x7FFFFFFF;
   return result;
 }
 
-uint64_t PSShbufferGroupReader::releaseReadBuffers(uint64_t a1, uint64_t a2, unsigned int *a3, int a4)
+uint64_t PSShbufferGroupReader::releaseReadBuffers(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v8 = *(a1 + 632) != 1 || a4 == 0;
-  if (v8 || (PSSharedSyncObject::lock(*(a1 + 656)) & 1) != 0)
+  v7 = *(a1 + 632) != 1 || a4 == 0;
+  if (v7 || (PSSharedSyncObject::lock(*(a1 + 656)) & 1) != 0)
   {
-    Resources = PSShbufferGroupReader::releaseReadResources(a1, a2, a3);
-    v10 = *(a1 + 632) != 1 || a4 == 0;
-    if (v10 || (PSSharedSyncObject::unlock(*(a1 + 656)) & 1) != 0)
+    Resources = PSShbufferGroupReader::releaseReadResources(a1, a2);
+    v9 = *(a1 + 632) != 1 || a4 == 0;
+    if (v9 || (PSSharedSyncObject::unlock(*(a1 + 656)) & 1) != 0)
     {
       return Resources;
     }
@@ -2122,14 +2102,14 @@ uint64_t PSShbufferGroupReader::releaseReadBuffers(uint64_t a1, uint64_t a2, uns
 
   else
   {
-    PSShbufferGroupReader::releaseReadBuffers(v13);
+    PSShbufferGroupReader::releaseReadBuffers(v16);
   }
 
-  Buffers = PSShbufferGroupReader::releaseReadBuffers(v13);
-  return PSShbufferGroupReader::releaseReadBuffersLastN(Buffers);
+  Buffers = PSShbufferGroupReader::releaseReadBuffers(v16);
+  return PSShbufferGroupReader::releaseReadBuffersLastN(Buffers, v12, v13, v14, v15);
 }
 
-uint64_t PSShbufferGroupReader::releaseReadBuffersLastN(uint64_t result, uint64_t *a2, uint64_t a3, _DWORD *a4, unsigned int *a5)
+uint64_t PSShbufferGroupReader::releaseReadBuffersLastN(uint64_t result, uint64_t *a2, uint64_t a3, _DWORD *a4, uint64_t a5)
 {
   if (a3)
   {
@@ -2155,242 +2135,242 @@ uint64_t PSShbufferGroupReader::releaseReadBuffersLastN(uint64_t result, uint64_
   return result;
 }
 
-uint64_t PSShbufferGroupReader::initialize(PSShbufferGroupReader *this)
+_DWORD *PSShbufferGroupReader::initialize(PSShbufferGroupReader *this, unsigned int a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  *v32 = 0;
-  v31 = 0;
-  v4 = PSShbufferGroupReader::requestShbufferGroupList(this, &v32[1], v32, &v31);
-  v5 = v32[0];
-  v6 = v32[1];
-  *(this + 168) = v32[1];
-  *(this + 138) = v5;
-  *(this + 159) = v5;
+  v45 = *MEMORY[0x277D85DE8];
+  *v34 = 0;
+  v33 = 0;
+  v6 = PSShbufferGroupReader::requestShbufferGroupList(this, &v34[1], v34, &v33);
+  v7 = v34[0];
+  v8 = v34[1];
+  *(this + 168) = v34[1];
+  *(this + 138) = v7;
+  *(this + 159) = v7;
   *(this + 41) = 0u;
-  if (!v4)
+  if (!v6)
   {
     PSShbufferGroupReader::initialize(buf, this);
 LABEL_57:
-    v21 = PSShbufferGroupReader::initialize(buf, v1);
+    v24 = PSShbufferGroupReader::initialize(buf, v2);
     goto LABEL_58;
   }
 
-  v1 = v4;
-  if (v6)
+  v2 = v6;
+  if (v8)
   {
-    v7 = (v4 + 4);
+    v9 = (v6 + 4);
+    v10 = (a2 >> 7) & 1;
     do
     {
-      v8 = *(v7 - 1);
-      if (v8 <= 5)
+      v11 = *(v9 - 1);
+      if (v11 <= 5)
       {
-        if (v8 <= 1)
+        if (v11 <= 1)
         {
-          if (!v8)
+          if (!v11)
           {
-            v12 = _ps_buffer_log;
+            v15 = _ps_buffer_log;
             if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315138;
-              v34 = "SHBUFFERGROUPREADER";
-              _os_log_impl(&dword_25EBC5000, v12, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_IOSURFACE\n", buf, 0xCu);
+              v36 = "SHBUFFERGROUPREADER";
+              _os_log_impl(&dword_25EBC5000, v15, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_IOSURFACE\n", buf, 0xCu);
             }
 
-            PSShbufferGroupReader::addSharedIOSurface(this, *v7);
+            PSShbufferGroupReader::addSharedIOSurface(this, *v9);
           }
 
-          if (v8 == 1)
+          if (v11 == 1)
           {
-            v11 = _ps_buffer_log;
+            v14 = _ps_buffer_log;
             if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315138;
-              v34 = "SHBUFFERGROUPREADER";
-              _os_log_impl(&dword_25EBC5000, v11, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_IOSURFACE_CVPIXELBUFF\n", buf, 0xCu);
+              v36 = "SHBUFFERGROUPREADER";
+              _os_log_impl(&dword_25EBC5000, v14, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_IOSURFACE_CVPIXELBUFF\n", buf, 0xCu);
             }
 
-            PSShbufferGroupReader::addSharedCVPixelBuffer(this, *v7);
+            PSShbufferGroupReader::addSharedCVPixelBuffer(this, *v9);
           }
 
 LABEL_45:
-          v20 = _ps_buffer_log;
+          v23 = _ps_buffer_log;
           if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v34 = "SHBUFFERGROUPREADER";
-            v14 = v20;
-            v15 = "%s UNKNOWN SHBUFFLET TYPE\n";
+            v36 = "SHBUFFERGROUPREADER";
+            v17 = v23;
+            v18 = "%s UNKNOWN SHBUFFLET TYPE\n";
             goto LABEL_47;
           }
 
           goto LABEL_48;
         }
 
-        if (v8 == 2)
+        if (v11 == 2)
         {
-          v17 = _ps_buffer_log;
+          v20 = _ps_buffer_log;
           if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v34 = "SHBUFFERGROUPREADER";
-            _os_log_impl(&dword_25EBC5000, v17, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_IOSURFACE_CVDATABUFF\n", buf, 0xCu);
+            v36 = "SHBUFFERGROUPREADER";
+            _os_log_impl(&dword_25EBC5000, v20, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_IOSURFACE_CVDATABUFF\n", buf, 0xCu);
           }
 
-          PSShbufferGroupReader::addSharedCVDataBuffer(this, *v7);
+          PSShbufferGroupReader::addSharedCVDataBuffer(this, *v9);
         }
 
-        if (v8 != 3)
+        if (v11 != 3)
         {
-          if (v8 == 4)
+          if (v11 == 4)
           {
-            v9 = _ps_buffer_log;
+            v12 = _ps_buffer_log;
             if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315138;
-              v34 = "SHBUFFERGROUPREADER";
-              _os_log_impl(&dword_25EBC5000, v9, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_SERIALDATA\n", buf, 0xCu);
+              v36 = "SHBUFFERGROUPREADER";
+              _os_log_impl(&dword_25EBC5000, v12, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_SERIALDATA\n", buf, 0xCu);
             }
 
-            PSShbufferGroupReader::addSharedResSerialData(this, *v7);
+            PSShbufferGroupReader::addSharedResSerialData(this, *v9);
           }
 
           goto LABEL_45;
         }
 
-        v13 = _ps_buffer_log;
+        v16 = _ps_buffer_log;
         if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v34 = "SHBUFFERGROUPREADER";
-          v14 = v13;
-          v15 = "%s PLS_RES_FACT_IOSURFACE_MTLTEXT\n";
+          v36 = "SHBUFFERGROUPREADER";
+          v17 = v16;
+          v18 = "%s PLS_RES_FACT_IOSURFACE_MTLTEXT\n";
 LABEL_47:
-          _os_log_impl(&dword_25EBC5000, v14, OS_LOG_TYPE_DEBUG, v15, buf, 0xCu);
+          _os_log_impl(&dword_25EBC5000, v17, OS_LOG_TYPE_DEBUG, v18, buf, 0xCu);
         }
       }
 
       else
       {
-        if (v8 > 11)
+        if (v11 > 11)
         {
-          switch(v8)
+          switch(v11)
           {
             case 12:
+              v22 = _ps_buffer_log;
+              if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
+              {
+                *buf = 136315138;
+                v36 = "SHBUFFERGROUPREADER";
+                _os_log_impl(&dword_25EBC5000, v22, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_SERIALDATA_SO\n", buf, 0xCu);
+              }
+
+              PSShbufferGroupReader::addSharedBufferGroupSyncObject(this, *v9);
+            case 15:
               v19 = _ps_buffer_log;
               if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 136315138;
-                v34 = "SHBUFFERGROUPREADER";
-                _os_log_impl(&dword_25EBC5000, v19, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_SERIALDATA_SO\n", buf, 0xCu);
+                v36 = "SHBUFFERGROUPREADER";
+                _os_log_impl(&dword_25EBC5000, v19, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_SERIALDATA_SCFS \n", buf, 0xCu);
               }
 
-              PSShbufferGroupReader::addSharedBufferGroupSyncObject(this, *v7);
-            case 15:
-              v16 = _ps_buffer_log;
-              if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
-              {
-                *buf = 136315138;
-                v34 = "SHBUFFERGROUPREADER";
-                _os_log_impl(&dword_25EBC5000, v16, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_SERIALDATA_SCFS \n", buf, 0xCu);
-              }
-
-              PSShbufferGroupReader::addSharedStreamingCodecFrameSelector(this, *v7);
+              PSShbufferGroupReader::addSharedStreamingCodecFrameSelector(this, *v9);
             case 16:
-              v10 = _ps_buffer_log;
+              v13 = _ps_buffer_log;
               if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 136315138;
-                v34 = "SHBUFFERGROUPREADER";
-                _os_log_impl(&dword_25EBC5000, v10, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_SERIALDATA_FIFO_SELECTOR \n", buf, 0xCu);
+                v36 = "SHBUFFERGROUPREADER";
+                _os_log_impl(&dword_25EBC5000, v13, OS_LOG_TYPE_DEBUG, "%s PLS_RES_FACT_SERIALDATA_FIFO_SELECTOR \n", buf, 0xCu);
               }
 
-              PSShbufferGroupReader::addSharedFIFOSelector(this, *v7);
+              PSShbufferGroupReader::addSharedFIFOSelector(this, *v9);
           }
 
           goto LABEL_45;
         }
 
-        if (v8 != 6)
+        if (v11 != 6)
         {
-          if (v8 == 8)
+          if (v11 == 8)
           {
-            PSShbufferGroupReader::addSharedRingSwappableView(this, *v7);
+            PSShbufferGroupReader::addSharedRingSwappableView(this, *v9, v10);
           }
 
-          if (v8 == 10)
+          if (v11 == 10)
           {
-            PSShbufferGroupReader::addLockLessSelector(this, *v7);
+            PSShbufferGroupReader::addLockLessSelector(this, *v9);
             goto LABEL_48;
           }
 
           goto LABEL_45;
         }
 
-        v18 = _ps_buffer_log;
+        v21 = _ps_buffer_log;
         if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v34 = "SHBUFFERGROUPREADER";
-          v14 = v18;
-          v15 = "%s PLS_RES_FACT_MANJUSURFACE\n";
+          v36 = "SHBUFFERGROUPREADER";
+          v17 = v21;
+          v18 = "%s PLS_RES_FACT_MANJUSURFACE\n";
           goto LABEL_47;
         }
       }
 
 LABEL_48:
-      v7 += 2;
-      --v6;
+      v9 += 2;
+      --v8;
     }
 
-    while (v6);
+    while (v8);
   }
 
-  v2 = v31;
-  if (!v31)
+  v3 = v33;
+  if (!v33)
   {
     goto LABEL_57;
   }
 
-  v21 = MEMORY[0x25F8CAE70](*MEMORY[0x277D85F48], v1, v31);
-  if (!v21)
+  v24 = MEMORY[0x25F8CAE70](*MEMORY[0x277D85F48], v2, v33);
+  if (!v24)
   {
     *(this + 632) = !*(this + 75) && (*(**(this + 73) + 48))(*(this + 73)) != 3;
-    v22 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
 LABEL_58:
-  v24 = v21;
-  v30 = 0;
-  asprintf(&v30, "Failed to vm_deallocate mem. type_list=%p of size:%d ret=%#x\n", v1, v2, v21);
-  v25 = _ps_buffer_log;
+  v26 = v24;
+  v32 = 0;
+  asprintf(&v32, "Failed to vm_deallocate mem. type_list=%p of size:%d ret=%#x\n", v2, v3, v24);
+  v27 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
   {
     *buf = 136316162;
-    v34 = "initialize";
-    v35 = 1024;
-    v36 = 856;
-    v37 = 2048;
-    v38 = v1;
-    v39 = 1024;
+    v36 = "initialize";
+    v37 = 1024;
+    v38 = 856;
+    v39 = 2048;
     v40 = v2;
     v41 = 1024;
-    v42 = v24;
-    _os_log_impl(&dword_25EBC5000, v25, OS_LOG_TYPE_FAULT, "%s:%d Failed to vm_deallocate mem. type_list=%p of size:%d ret=%#x\n", buf, 0x28u);
+    v42 = v3;
+    v43 = 1024;
+    v44 = v26;
+    _os_log_impl(&dword_25EBC5000, v27, OS_LOG_TYPE_FAULT, "%s:%d Failed to vm_deallocate mem. type_list=%p of size:%d ret=%#x\n", buf, 0x28u);
   }
 
-  v26 = OSLogFlushBuffers();
-  if (v26)
+  v28 = OSLogFlushBuffers();
+  if (v28)
   {
-    v27 = v26;
-    v28 = _ps_buffer_log;
+    v29 = v28;
+    v30 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v34 = "initialize";
-      v35 = 1024;
-      v36 = v27;
-      _os_log_impl(&dword_25EBC5000, v28, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v36 = "initialize";
+      v37 = 1024;
+      v38 = v29;
+      _os_log_impl(&dword_25EBC5000, v30, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -2399,24 +2379,24 @@ LABEL_58:
     usleep(0x1E8480u);
   }
 
-  v29 = abort_with_reason();
-  return PSShbufferGroupReader::addReaderInstance(v29);
+  v31 = abort_with_reason();
+  return PSShbufferGroupReader::addReaderInstance(v31);
 }
 
-_DWORD *PSShbufferGroupReader::addReaderInstance(PSShbufferGroupReader *this)
+PSShbufferGroupReader *PSShbufferGroupReader::addReaderInstance(PSShbufferGroupReader *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
 {
-  v7 = -1;
+  v21 = -1;
   if (*(this + 592) == 1)
   {
-    v2 = *(this + 75);
-    if (v2)
+    v10 = *(this + 75);
+    if (v10)
     {
-      if (!(*(*v2 + 184))(v2, *(this + 142), &v7))
+      if (!(*(*v10 + 184))(v10, *(this + 142), &v21))
       {
-        if (v7 != -1)
+        if (v21 != -1)
         {
           result = malloc_type_calloc(4uLL, 1uLL, 0x100004052888210uLL);
-          *result = v7;
+          *result = v21;
           return result;
         }
 
@@ -2426,17 +2406,17 @@ _DWORD *PSShbufferGroupReader::addReaderInstance(PSShbufferGroupReader *this)
 
     else
     {
-      PSShbufferGroupReader::addReaderInstance(v6, this);
+      PSShbufferGroupReader::addReaderInstance(v20, this);
     }
 
-    v4 = PSShbufferGroupReader::addReaderInstance(v6, this);
-    return PSShbufferGroupReader::removeReaderInstance(v4, v5);
+    v12 = PSShbufferGroupReader::addReaderInstance(v20, this);
+    return PSShbufferGroupReader::removeReaderInstance(v12, v13, v14, v15, v16, v17, v18, v19, a9);
   }
 
   return 0;
 }
 
-uint64_t PSShbufferGroupReader::removeReaderInstance(uint64_t this, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+PSShbufferGroupReader *PSShbufferGroupReader::removeReaderInstance(PSShbufferGroupReader *this, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
 {
   if (a2)
   {
@@ -2445,7 +2425,7 @@ uint64_t PSShbufferGroupReader::removeReaderInstance(uint64_t this, unsigned int
     {
       v10 = *a2;
       free(a2);
-      this = (*(**(v9 + 600) + 192))(*(v9 + 600), *(v9 + 568), v10);
+      this = (*(**(v9 + 75) + 192))(*(v9 + 75), *(v9 + 142), v10);
       if (this)
       {
         v11 = PSShbufferGroupReader::removeReaderInstance(v19, v9);
@@ -2457,7 +2437,7 @@ uint64_t PSShbufferGroupReader::removeReaderInstance(uint64_t this, unsigned int
   return this;
 }
 
-void PSShbufferGroupReader::PSShbufferGroupReader(PSShbufferGroupReader *this, const char *a2, int (*a3)(void), int (*a4)(void *, unsigned int), int (*a5)(void), char *a6, BOOL a7, BOOL a8, int a9)
+void PSShbufferGroupReader::PSShbufferGroupReader(PSShbufferGroupReader *this, const char *a2, int (*a3)(void), int (*a4)(void *, unsigned int), int (*a5)(void), char *a6, char a7, char a8, int a9)
 {
   v9 = *MEMORY[0x277D85DE8];
   PSShbufferGroup::PSShbufferGroup(this, a2, 0, 0, a6);
@@ -2519,10 +2499,11 @@ void PSShbufferGroupReader::~PSShbufferGroupReader(PSShbufferGroupReader *this)
   JUMPOUT(0x25F8CA500);
 }
 
-void OUTLINED_FUNCTION_9_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_9_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_FAULT, a4, &buf, 0x26u);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_FAULT, a4, va, 0x26u);
 }
 
 uint64_t OUTLINED_FUNCTION_11_0(void *a1, PSSharedResource *this, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
@@ -2532,51 +2513,52 @@ uint64_t OUTLINED_FUNCTION_11_0(void *a1, PSSharedResource *this, int a3, int a4
   return PSSharedResource::getKey(this);
 }
 
-void OUTLINED_FUNCTION_13_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_13_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 uint64_t PSShbufferGroupWriter::getResourceAt(PSShbufferGroupWriter *this, unsigned int a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = *(this + 159);
   if (v2 <= a2)
   {
-    v16 = 0;
-    asprintf(&v16, "%s:%s- index(%d) >= total lines (%d)\n", "SHBUFFERGROUPWRITER", "getResourceAt", a2, v2);
-    v7 = _ps_buffer_log;
+    v15 = 0;
+    asprintf(&v15, "%s:%s- index(%d) >= total lines (%d)\n", "SHBUFFERGROUPWRITER", "getResourceAt", a2, v2);
+    v6 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
-      v8 = *(this + 159);
+      v7 = *(this + 159);
       *buf = 136316418;
-      v18 = "getResourceAt";
-      v19 = 1024;
-      v20 = 16;
-      v21 = 2080;
-      v22 = "SHBUFFERGROUPWRITER";
-      v23 = 2080;
-      v24 = "getResourceAt";
-      v25 = 1024;
-      v26 = a2;
-      v27 = 1024;
-      v28 = v8;
-      _os_log_impl(&dword_25EBC5000, v7, OS_LOG_TYPE_FAULT, "%s:%d %s:%s- index(%d) >= total lines (%d)\n", buf, 0x32u);
+      v17 = "getResourceAt";
+      v18 = 1024;
+      v19 = 16;
+      v20 = 2080;
+      v21 = "SHBUFFERGROUPWRITER";
+      v22 = 2080;
+      v23 = "getResourceAt";
+      v24 = 1024;
+      v25 = a2;
+      v26 = 1024;
+      v27 = v7;
+      _os_log_impl(&dword_25EBC5000, v6, OS_LOG_TYPE_FAULT, "%s:%d %s:%s- index(%d) >= total lines (%d)\n", buf, 0x32u);
     }
 
-    v9 = OSLogFlushBuffers();
-    if (v9)
+    v8 = OSLogFlushBuffers();
+    if (v8)
     {
-      v10 = v9;
-      v11 = _ps_buffer_log;
+      v9 = v8;
+      v10 = _ps_buffer_log;
       if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v18 = "getResourceAt";
-        v19 = 1024;
-        v20 = v10;
-        _os_log_impl(&dword_25EBC5000, v11, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v17 = "getResourceAt";
+        v18 = 1024;
+        v19 = v9;
+        _os_log_impl(&dword_25EBC5000, v10, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -2585,15 +2567,14 @@ uint64_t PSShbufferGroupWriter::getResourceAt(PSShbufferGroupWriter *this, unsig
       usleep(0x1E8480u);
     }
 
-    v12 = abort_with_reason();
-    return PSShbufferGroupWriter::addNonSharedSerialData(v12, v13, v14, v15);
+    v11 = abort_with_reason();
+    return PSShbufferGroupWriter::addNonSharedSerialData(v11, v12, v13, v14);
   }
 
   else
   {
     result = *(*(this + 80) + 8 * a2);
     **(result + 16) = a2;
-    v4 = *MEMORY[0x277D85DE8];
   }
 
   return result;
@@ -2675,7 +2656,7 @@ void PSShbufferGroupWriter::installCVPixelBuffer(PSShbufferGroupWriter *this, __
   PSShbufferGroupWriter::addNonSharedSerialData();
 }
 
-void PSShbufferGroupWriter::installCVPixelBuffer(PSShbufferGroupWriter *this, __CVBuffer **a2, int a3)
+void PSShbufferGroupWriter::installCVPixelBuffer(PSShbufferGroupWriter *this, __CVBuffer **a2, uint64_t a3, BOOL a4)
 {
   if (*(this + 140) < 0x64u)
   {
@@ -2690,7 +2671,7 @@ void PSShbufferGroupWriter::installCVPixelBuffer(PSShbufferGroupWriter *this, __
   PSShbufferGroupWriter::addNonSharedSerialData();
 }
 
-void PSShbufferGroupWriter::installCVPixelBuffer(PSShbufferGroupWriter *this, __IOSurface **a2, int a3)
+void PSShbufferGroupWriter::installCVPixelBuffer(PSShbufferGroupWriter *this, __IOSurface **a2, uint64_t a3, BOOL a4)
 {
   if (*(this + 140) < 0x64u)
   {
@@ -2748,7 +2729,7 @@ void PSShbufferGroupWriter::installCVDataBuffer(PSShbufferGroupWriter *this, __C
   PSShbufferGroupWriter::addNonSharedSerialData();
 }
 
-void PSShbufferGroupWriter::installCVDataBuffer(PSShbufferGroupWriter *this, __CVBuffer **a2, int a3)
+void PSShbufferGroupWriter::installCVDataBuffer(PSShbufferGroupWriter *this, __CVBuffer **a2, uint64_t a3)
 {
   if (*(this + 140) < 0x64u)
   {
@@ -2763,49 +2744,49 @@ void PSShbufferGroupWriter::installCVDataBuffer(PSShbufferGroupWriter *this, __C
   PSShbufferGroupWriter::addNonSharedSerialData();
 }
 
-uint64_t PSShbufferGroupWriter::installCVDataBuffer(PSShbufferGroupWriter *this, __IOSurface **a2, int a3)
+uint64_t PSShbufferGroupWriter::installCVDataBuffer(PSShbufferGroupWriter *this, __IOSurface **a2, unsigned int a3, BOOL a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (*(this + 140) >= 0x64u)
   {
     PSShbufferGroupWriter::addNonSharedSerialData();
   }
 
-  if (*(this + 593) != 1 || (v5 = *(this + 159), v5 == a3))
+  if (*(this + 593) != 1 || (v6 = *(this + 159), v6 == a3))
   {
     operator new();
   }
 
-  v11 = 0;
-  asprintf(&v11, "%s: Invalid number of CVDataBuffers to install. Expected (%d), provided (%d)\n", "SHBUFFERGROUPWRITER", v5, a3);
-  v6 = _ps_buffer_log;
+  v12 = 0;
+  asprintf(&v12, "%s: Invalid number of CVDataBuffers to install. Expected (%d), provided (%d)\n", "SHBUFFERGROUPWRITER", v6, a3);
+  v7 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
   {
-    v7 = *(this + 159);
+    v8 = *(this + 159);
     *buf = 136316162;
-    v13 = "installCVDataBuffer";
-    v14 = 1024;
-    v15 = 252;
-    v16 = 2080;
-    v17 = "SHBUFFERGROUPWRITER";
-    v18 = 1024;
-    v19 = v7;
-    v20 = 1024;
-    v21 = a3;
-    _os_log_impl(&dword_25EBC5000, v6, OS_LOG_TYPE_FAULT, "%s:%d %s: Invalid number of CVDataBuffers to install. Expected (%d), provided (%d)\n", buf, 0x28u);
+    v14 = "installCVDataBuffer";
+    v15 = 1024;
+    v16 = 252;
+    v17 = 2080;
+    v18 = "SHBUFFERGROUPWRITER";
+    v19 = 1024;
+    v20 = v8;
+    v21 = 1024;
+    v22 = a3;
+    _os_log_impl(&dword_25EBC5000, v7, OS_LOG_TYPE_FAULT, "%s:%d %s: Invalid number of CVDataBuffers to install. Expected (%d), provided (%d)\n", buf, 0x28u);
   }
 
-  v8 = OSLogFlushBuffers();
-  if (v8)
+  v9 = OSLogFlushBuffers();
+  if (v9)
   {
-    v9 = _ps_buffer_log;
+    v10 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "installCVDataBuffer";
-      v14 = 1024;
-      v15 = v8;
-      _os_log_impl(&dword_25EBC5000, v9, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v14 = "installCVDataBuffer";
+      v15 = 1024;
+      v16 = v9;
+      _os_log_impl(&dword_25EBC5000, v10, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -2871,7 +2852,7 @@ LABEL_9:
   __break(1u);
 }
 
-uint64_t PSShbufferGroupWriter::installIOSurface(PSShbufferGroupWriter *this, __IOSurface **a2, int a3)
+uint64_t PSShbufferGroupWriter::installIOSurface(PSShbufferGroupWriter *this, __IOSurface **a2, unsigned int a3)
 {
   v22 = *MEMORY[0x277D85DE8];
   if (*(this + 140) >= 0x64u)
@@ -2945,19 +2926,19 @@ void PSShbufferGroupWriter::addSharedIOSurface(PSShbufferGroupWriter *this)
 
 uint64_t PSShbufferGroupWriter::addSharedStreamingCodecFrameSelector(PSShbufferGroupWriter *this, const char *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 136315906;
-    v11 = "SHBUFFERGROUPWRITER";
+    v8 = 136315906;
+    v9 = "SHBUFFERGROUPWRITER";
+    v10 = 2080;
+    v11 = "addSharedStreamingCodecFrameSelector";
     v12 = 2080;
-    v13 = "addSharedStreamingCodecFrameSelector";
-    v14 = 2080;
-    v15 = this + 16;
-    v16 = 1024;
-    v17 = a2;
-    _os_log_impl(&dword_25EBC5000, v4, OS_LOG_TYPE_DEBUG, "%s:%s - name (%s) id (%d)\n", &v10, 0x26u);
+    v13 = this + 16;
+    v14 = 1024;
+    v15 = a2;
+    _os_log_impl(&dword_25EBC5000, v4, OS_LOG_TYPE_DEBUG, "%s:%s - name (%s) id (%d)\n", &v8, 0x26u);
   }
 
   if ((*(this + 162) & 0xE) == 4)
@@ -2967,12 +2948,11 @@ uint64_t PSShbufferGroupWriter::addSharedStreamingCodecFrameSelector(PSShbufferG
 
   if ((*(this + 162) & 0xE) == 2)
   {
-    v6 = *(this + 138);
-    PSBufferService::PSStreamingCodecFrameSelector::createWriter((this + 16), a2);
+    PSBufferService::PSStreamingCodecFrameSelector::createWriter((this + 16), a2, *(this + 138), 0);
   }
 
-  v7 = PSShbufferGroupWriter::addSharedStreamingCodecFrameSelector(&v10);
-  return PSShbufferGroupWriter::addSharedLocklessSelector(v7, v8);
+  v6 = PSShbufferGroupWriter::addSharedStreamingCodecFrameSelector(&v8);
+  return PSShbufferGroupWriter::addSharedLocklessSelector(v6);
 }
 
 uint64_t PSShbufferGroupWriter::addSharedLocklessSelector(PSShbufferGroupWriter *this)
@@ -2990,7 +2970,7 @@ uint64_t PSShbufferGroupWriter::addSharedLocklessSelector(PSShbufferGroupWriter 
   v3 = this + 600;
   v8 = this + 16;
   v9 = v2;
-  if (PSBufferService::PSLocklessBufferSelector::Create(v5))
+  if (PSBufferService::PSLocklessBufferSelector::Create(v5, this + 75))
   {
     PSShbufferGroupWriter::addSharedLocklessSelector();
   }
@@ -3015,8 +2995,8 @@ uint64_t PSShbufferGroupWriter::getWriteBuffersIndex(PSShbufferGroupWriter *this
   result = (*(**(this + v1) + 56))(*(this + v1));
   if ((result & 0x80000000) != 0)
   {
-    v3 = PSShbufferGroupWriter::getWriteBuffersIndex(&v5, result);
-    return PSShbufferGroupWriter::getWriteResourceForFrameID(v3, v4);
+    v3 = PSShbufferGroupWriter::getWriteBuffersIndex(&v4, result);
+    return PSShbufferGroupWriter::getWriteResourceForFrameID(v3);
   }
 
   return result;
@@ -3049,18 +3029,18 @@ uint64_t PSShbufferGroupWriter::getWriteBuffers(PSShbufferGroupWriter *this, int
 
   else
   {
-    PSShbufferGroupWriter::getWriteBuffers(v11);
+    PSShbufferGroupWriter::getWriteBuffers(v10);
   }
 
-  v9 = PSShbufferGroupWriter::getWriteBuffers(v11);
-  return PSShbufferGroupWriter::getWriteBuffersForFrameID(v9, v10);
+  v9 = PSShbufferGroupWriter::getWriteBuffers(v10);
+  return PSShbufferGroupWriter::getWriteBuffersForFrameID(v9);
 }
 
 uint64_t PSShbufferGroupWriter::getWriteBuffersForFrameID(PSSharedSyncObject **this)
 {
   if (*(this + 632) == 1 && (PSSharedSyncObject::lock(this[82]) & 1) == 0)
   {
-    PSShbufferGroupWriter::getWriteBuffersForFrameID(v5);
+    PSShbufferGroupWriter::getWriteBuffersForFrameID(v7);
   }
 
   else
@@ -3072,8 +3052,8 @@ uint64_t PSShbufferGroupWriter::getWriteBuffersForFrameID(PSSharedSyncObject **t
     }
   }
 
-  v4 = PSShbufferGroupWriter::getWriteBuffersForFrameID(v5);
-  return PSShbufferGroupWriter::attachSyncTagtoBuffer(v4);
+  v4 = PSShbufferGroupWriter::getWriteBuffersForFrameID(v7);
+  return PSShbufferGroupWriter::attachSyncTagtoBuffer(v4, v5, v6);
 }
 
 uint64_t PSShbufferGroupWriter::attachSyncTagtoBuffer(uint64_t a1, int a2, unint64_t *a3)
@@ -3112,15 +3092,29 @@ uint64_t PSShbufferGroupWriter::releaseWriteResource(uint64_t a1, uint64_t a2, i
   v4 = *v3;
   if (v4 == 0x7FFFFFFF)
   {
-    v9 = PSShbufferGroupWriter::releaseWriteResource(v11);
-    return PSShbufferGroupWriter::releaseWriteBuffers(v9);
+    v8 = PSShbufferGroupWriter::releaseWriteResource(v12);
+    return PSShbufferGroupWriter::releaseWriteBuffers(v8, v9, v10);
   }
 
   else
   {
-    v10 = 0;
-    v5 = *(a1 + 592);
+    v11 = 0;
     if (a3)
+    {
+      if (*(a1 + 592))
+      {
+        v5 = *(a1 + 600);
+      }
+
+      else
+      {
+        v5 = *(a1 + 584);
+      }
+
+      (*(*v5 + 80))(v5, v4, &v11);
+    }
+
+    else
     {
       if (*(a1 + 592))
       {
@@ -3132,25 +3126,10 @@ uint64_t PSShbufferGroupWriter::releaseWriteResource(uint64_t a1, uint64_t a2, i
         v6 = *(a1 + 584);
       }
 
-      (*(*v6 + 80))(v6, v4, &v10);
+      (*(*v6 + 88))(v6, v4, &v11);
     }
 
-    else
-    {
-      if (*(a1 + 592))
-      {
-        v7 = *(a1 + 600);
-      }
-
-      else
-      {
-        v7 = *(a1 + 584);
-      }
-
-      (*(*v7 + 88))(v7, v4, &v10);
-    }
-
-    if (!v10)
+    if (!v11)
     {
       *v3 = 0x7FFFFFFF;
     }
@@ -3174,14 +3153,14 @@ uint64_t PSShbufferGroupWriter::releaseWriteBuffers(uint64_t a1, uint64_t a2, in
 
   else
   {
-    PSShbufferGroupWriter::releaseWriteBuffers(v11);
+    PSShbufferGroupWriter::releaseWriteBuffers(v13);
   }
 
-  v10 = PSShbufferGroupWriter::releaseWriteBuffers(v11);
-  return PSShbufferGroupWriter::releaseWriteBuffersWithoutWriteIndexIncrement(v10);
+  v10 = PSShbufferGroupWriter::releaseWriteBuffers(v13);
+  return PSShbufferGroupWriter::releaseWriteBuffersWithoutWriteIndexIncrement(v10, v11, v12);
 }
 
-uint64_t PSShbufferGroupWriter::releaseWriteBuffersWithoutWriteIndexIncrement(uint64_t a1, uint64_t a2, int a3)
+PSSharedSyncObject *PSShbufferGroupWriter::releaseWriteBuffersWithoutWriteIndexIncrement(uint64_t a1, uint64_t a2, int a3)
 {
   v6 = *(a1 + 632) != 1 || a3 == 0;
   if (v6 || (PSSharedSyncObject::lock(*(a1 + 656)) & 1) != 0)
@@ -3203,7 +3182,7 @@ uint64_t PSShbufferGroupWriter::releaseWriteBuffersWithoutWriteIndexIncrement(ui
   return PSShbufferGroupWriter::getAllWriteBuffers(v10);
 }
 
-uint64_t PSShbufferGroupWriter::getAllWriteBuffers(PSShbufferGroupWriter *this)
+PSSharedSyncObject *PSShbufferGroupWriter::getAllWriteBuffers(PSShbufferGroupWriter *this)
 {
   result = *(this + 80);
   if (!result)
@@ -3267,7 +3246,7 @@ uint64_t PSShbufferGroupWriter::finalizeSetup(PSShbufferGroupWriter *this)
   return 0;
 }
 
-uint64_t PSShbufferGroupWriter::finalizeSetupStatus(PSShbufferGroupWriter *this)
+PSSharedSyncObject *PSShbufferGroupWriter::finalizeSetupStatus(PSShbufferGroupWriter *this)
 {
   PSShbufferGroup::updateResourceFactoryStatus(this);
   getpid();
@@ -3299,174 +3278,171 @@ PSSharedSyncObject *PSShbufferGroupWriter::broadcastBuffers(uint64_t a1, uint64_
   return result;
 }
 
-PSShbufferGroupWriter *PSShbufferGroupWriter::_requestShbufferGroupList(PSShbufferGroupWriter *this, unsigned int *a2, unsigned int *a3, unsigned int *a4)
+void PSShbufferGroupWriter::_requestShbufferGroupList(PSShbufferGroupWriter *this, unsigned int *a2, unsigned int *a3, unsigned int *a4)
 {
   v4 = MEMORY[0x28223BE20](this);
   v6 = v5;
   v8 = v7;
   v10 = v9;
   v11 = v4;
-  v60 = *MEMORY[0x277D85DE8];
-  bzero(v55, 0x888uLL);
-  strlcpy(v56, (v11 + 16), 0x200uLL);
-  v59 = 0x1000000012;
-  v57 = 20;
-  v58 &= ~1u;
-  PSCommsClient::send_wait(*(v11 + 8), v55, 0x888u, &v48, 0x898u, 0);
-  if (PSCommsClient::is_valid_simple_message(&v48) && PSCommsClient::isAck(v55, &v48.msgh_bits))
+  v58 = *MEMORY[0x277D85DE8];
+  bzero(v53, 0x888uLL);
+  strlcpy(v54, (v11 + 16), 0x200uLL);
+  v57 = 0x1000000012;
+  v55 = 20;
+  v56 &= ~1u;
+  PSCommsClient::send_wait(*(v11 + 8), v53, 0x888u, &v46, 2200, 0);
+  if (PSCommsClient::is_valid_simple_message(&v46) && PSCommsClient::isAck(v53, &v46.msgh_bits))
   {
     v12 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v40 = "SHBUFFERGROUPWRITER";
+      v38 = "SHBUFFERGROUPWRITER";
       _os_log_impl(&dword_25EBC5000, v12, OS_LOG_TYPE_DEBUG, "%s: requestShbufferGroupList Failed. This is fine because we are the writer and when noone created the key, we will have to be the one's to create it\n", buf, 0xCu);
     }
 
-    v13 = 0;
-LABEL_17:
-    v24 = *MEMORY[0x277D85DE8];
-    return v13;
+    return;
   }
 
-  if (PSCommsClient::is_valid_ool_message(&v48))
+  if (!PSCommsClient::is_valid_ool_message(&v46))
   {
-    v14 = _ps_buffer_log;
-    if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 136315138;
-      v40 = "SHBUFFERGROUPWRITER";
-      _os_log_impl(&dword_25EBC5000, v14, OS_LOG_TYPE_DEBUG, "%s: requestShbufferGroupList SUCCESS\n", buf, 0xCu);
-    }
-
-    if (v49 == 1)
-    {
-      v13 = v50;
-      v15 = v52;
-      *v10 = v53;
-      *v8 = v54;
-      *v6 = v15;
-      v16 = _ps_buffer_log;
-      if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
-      {
-        v17 = *v10;
-        *buf = 136315394;
-        v40 = "SHBUFFERGROUPWRITER";
-        v41 = 1024;
-        v42 = v17;
-        _os_log_impl(&dword_25EBC5000, v16, OS_LOG_TYPE_DEBUG, "%s: Found (%d) shbufflets\n", buf, 0x12u);
-      }
-
-      v18 = *v10;
-      if (v18)
-      {
-        v19 = 0;
-        v20 = _ps_buffer_log;
-        v21 = (v13 + 4);
-        do
-        {
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
-          {
-            v22 = *(v21 - 1);
-            v23 = *v21;
-            *buf = 136315906;
-            v40 = "SHBUFFERGROUPWRITER";
-            v41 = 1024;
-            v42 = v19;
-            v43 = 1024;
-            *v44 = v22;
-            *&v44[4] = 1024;
-            *&v44[6] = v23;
-            _os_log_impl(&dword_25EBC5000, v20, OS_LOG_TYPE_DEBUG, "%s: Resource (%d) type: (%d) id(%d)\n", buf, 0x1Eu);
-            v20 = _ps_buffer_log;
-            v18 = *v10;
-          }
-
-          ++v19;
-          v21 += 2;
-        }
-
-        while (v19 < v18);
-      }
-
-      goto LABEL_17;
-    }
-
-    v38 = 0;
-    asprintf(&v38, "Failed requestShbufferGroupList for key %s; msgh_descriptor_count expected value of 1, actual value is %u", v56, v49);
-    v30 = _ps_buffer_log;
+    v36 = 0;
+    asprintf(&v36, "Invalid message received, complex=%d desc_count=%d type=%d, key=%s.", v46.msgh_bits & 0x80000000, v47, v49, (v11 + 16));
+    v24 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
-      *buf = 136315906;
-      v40 = "_requestShbufferGroupList";
+      *buf = 136316418;
+      v38 = "_requestShbufferGroupList";
+      v39 = 1024;
+      v40 = 751;
       v41 = 1024;
-      v42 = 761;
-      v43 = 2080;
-      *v44 = v56;
-      *&v44[8] = 1024;
-      *v45 = v49;
-      _os_log_impl(&dword_25EBC5000, v30, OS_LOG_TYPE_FAULT, "%s:%d Failed requestShbufferGroupList for key %s; msgh_descriptor_count expected value of 1, actual value is %u", buf, 0x22u);
+      *v42 = v46.msgh_bits & 0x80000000;
+      *&v42[4] = 1024;
+      *&v42[6] = v47;
+      *v43 = 1024;
+      *&v43[2] = v49;
+      v44 = 2080;
+      v45 = v11 + 16;
+      _os_log_impl(&dword_25EBC5000, v24, OS_LOG_TYPE_FAULT, "%s:%d Invalid message received, complex=%d desc_count=%d type=%d, key=%s.", buf, 0x2Eu);
     }
 
-    v31 = OSLogFlushBuffers();
-    if (!v31)
+    v25 = OSLogFlushBuffers();
+    if (!v25)
     {
       goto LABEL_26;
     }
 
-    v28 = v31;
-    v29 = _ps_buffer_log;
+    v26 = v25;
+    v27 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_29;
+LABEL_29:
+      v30 = abort_with_reason();
+      PSShbufferGroupWriter::PSShbufferGroupWriter(v30, v31, v32, v33, v34, v35);
+      return;
     }
 
     goto LABEL_28;
   }
 
-  v38 = 0;
-  asprintf(&v38, "Invalid message received, complex=%d desc_count=%d type=%d, key=%s.", v48.msgh_bits & 0x80000000, v49, v51, (v11 + 16));
-  v26 = _ps_buffer_log;
-  if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
+  v13 = _ps_buffer_log;
+  if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
-    *buf = 136316418;
-    v40 = "_requestShbufferGroupList";
-    v41 = 1024;
-    v42 = 751;
-    v43 = 1024;
-    *v44 = v48.msgh_bits & 0x80000000;
-    *&v44[4] = 1024;
-    *&v44[6] = v49;
-    *v45 = 1024;
-    *&v45[2] = v51;
-    v46 = 2080;
-    v47 = v11 + 16;
-    _os_log_impl(&dword_25EBC5000, v26, OS_LOG_TYPE_FAULT, "%s:%d Invalid message received, complex=%d desc_count=%d type=%d, key=%s.", buf, 0x2Eu);
+    *buf = 136315138;
+    v38 = "SHBUFFERGROUPWRITER";
+    _os_log_impl(&dword_25EBC5000, v13, OS_LOG_TYPE_DEBUG, "%s: requestShbufferGroupList SUCCESS\n", buf, 0xCu);
   }
 
-  v27 = OSLogFlushBuffers();
-  if (!v27)
+  if (v47 != 1)
   {
+    v36 = 0;
+    asprintf(&v36, "Failed requestShbufferGroupList for key %s; msgh_descriptor_count expected value of 1, actual value is %u", v54, v47);
+    v28 = _ps_buffer_log;
+    if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 136315906;
+      v38 = "_requestShbufferGroupList";
+      v39 = 1024;
+      v40 = 761;
+      v41 = 2080;
+      *v42 = v54;
+      *&v42[8] = 1024;
+      *v43 = v47;
+      _os_log_impl(&dword_25EBC5000, v28, OS_LOG_TYPE_FAULT, "%s:%d Failed requestShbufferGroupList for key %s; msgh_descriptor_count expected value of 1, actual value is %u", buf, 0x22u);
+    }
+
+    v29 = OSLogFlushBuffers();
+    if (!v29)
+    {
 LABEL_26:
-    usleep(0x1E8480u);
+      usleep(0x1E8480u);
+      goto LABEL_29;
+    }
+
+    v26 = v29;
+    v27 = _ps_buffer_log;
+    if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_29;
+    }
+
+LABEL_28:
+    *buf = 136315394;
+    v38 = "_requestShbufferGroupList";
+    v39 = 1024;
+    v40 = v26;
+    _os_log_impl(&dword_25EBC5000, v27, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     goto LABEL_29;
   }
 
-  v28 = v27;
-  v29 = _ps_buffer_log;
-  if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
+  v14 = v48;
+  v15 = v50;
+  *v10 = v51;
+  *v8 = v52;
+  *v6 = v15;
+  v16 = _ps_buffer_log;
+  if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
-LABEL_28:
+    v17 = *v10;
     *buf = 136315394;
-    v40 = "_requestShbufferGroupList";
-    v41 = 1024;
-    v42 = v28;
-    _os_log_impl(&dword_25EBC5000, v29, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+    v38 = "SHBUFFERGROUPWRITER";
+    v39 = 1024;
+    v40 = v17;
+    _os_log_impl(&dword_25EBC5000, v16, OS_LOG_TYPE_DEBUG, "%s: Found (%d) shbufflets\n", buf, 0x12u);
   }
 
-LABEL_29:
-  v32 = abort_with_reason();
-  return PSShbufferGroupWriter::PSShbufferGroupWriter(v32, v33, v34, v35, v36, v37);
+  v18 = *v10;
+  if (v18)
+  {
+    v19 = 0;
+    v20 = _ps_buffer_log;
+    v21 = (v14 + 4);
+    do
+    {
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      {
+        v22 = *(v21 - 1);
+        v23 = *v21;
+        *buf = 136315906;
+        v38 = "SHBUFFERGROUPWRITER";
+        v39 = 1024;
+        v40 = v19;
+        v41 = 1024;
+        *v42 = v22;
+        *&v42[4] = 1024;
+        *&v42[6] = v23;
+        _os_log_impl(&dword_25EBC5000, v20, OS_LOG_TYPE_DEBUG, "%s: Resource (%d) type: (%d) id(%d)\n", buf, 0x1Eu);
+        v20 = _ps_buffer_log;
+        v18 = *v10;
+      }
+
+      ++v19;
+      v21 += 2;
+    }
+
+    while (v19 < v18);
+  }
 }
 
 uint64_t PSShbufferGroupWriter::deallocateBufferSyncContextObject(PSShbufferGroupWriter *this)
@@ -3482,16 +3458,16 @@ uint64_t PSShbufferGroupWriter::deallocateBufferSyncContextObject(PSShbufferGrou
 
 void PSShbufferGroupWriter::~PSShbufferGroupWriter(PSShbufferGroupWriter *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   *this = &unk_2870CC6D0;
   v2 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315394;
-    v7 = "SHBUFFERGROUPWRITER";
-    v8 = 2080;
-    v9 = this + 16;
-    _os_log_impl(&dword_25EBC5000, v2, OS_LOG_TYPE_DEBUG, "%s: Setting status to DEINITIALIZING... %s\n", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "SHBUFFERGROUPWRITER";
+    v7 = 2080;
+    v8 = this + 16;
+    _os_log_impl(&dword_25EBC5000, v2, OS_LOG_TYPE_DEBUG, "%s: Setting status to DEINITIALIZING... %s\n", &v5, 0x16u);
   }
 
   v3 = *(this + 82);
@@ -3512,7 +3488,6 @@ void PSShbufferGroupWriter::~PSShbufferGroupWriter(PSShbufferGroupWriter *this)
   }
 
   PSSharedResource::~PSSharedResource(this);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -3531,7 +3506,7 @@ void sub_25EBCD820(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-uint64_t OUTLINED_FUNCTION_5_0()
+uint64_t OUTLINED_FUNCTION_5_0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return abort_with_reason();
@@ -3544,19 +3519,21 @@ BOOL OUTLINED_FUNCTION_6_0()
   return os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x18u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x18u);
 }
 
-void OUTLINED_FUNCTION_15(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_15(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_FAULT, a4, &buf, 0x22u);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_FAULT, a4, va, 0x22u);
 }
 
-uint64_t PSBufferServiceManager::sharedInstance(PSBufferServiceManager *this)
+void *PSBufferServiceManager::sharedInstance(PSBufferServiceManager *this)
 {
   if (!bufferService)
   {
@@ -3610,24 +3587,31 @@ void PSBufferService::PSLocklessBufferSelector::~PSLocklessBufferSelector(PSBuff
   PSSharedResource::~PSSharedResource(this);
 }
 
-uint64_t PSBufferService::PSLocklessBufferSelector::Create(uint64_t a1)
+uint64_t PSBufferService::PSLocklessBufferSelector::Create(int *a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = ((*(a1 + 4) + *a1) << 7) + 65052;
-  v1 = *(a1 + 48);
-  switch(v1)
+  v10 = *MEMORY[0x277D85DE8];
+  v8 = 0uLL;
+  v7 = ((a1[1] + *a1) << 7) + 65052;
+  v2 = a1[12];
+  switch(v2)
   {
     case 2:
-      v4 = *(a1 + 32);
-      std::allocate_shared[abi:ne200100]<PSSharedSerialDataWriter,std::allocator<PSSharedSerialDataWriter>,char const* const&,unsigned int const&,unsigned int const&,unsigned int &,int,unsigned int const&,unsigned int const&,char *,0>();
+      v3 = *(a1 + 4);
+      v6 = 1;
+      v5 = v3;
+      std::allocate_shared[abi:ne200100]<PSSharedSerialDataWriter,std::allocator<PSSharedSerialDataWriter>,char const* const&,unsigned int const&,unsigned int const&,unsigned int &,int,unsigned int const&,unsigned int const&,char *,0>(&v9, (a1 + 6), (a1 + 2), (a1 + 10), &v7, &v6, (a1 + 4), (a1 + 3), &v5);
     case 1:
-      v5 = *(a1 + 46) ^ 1;
+      LOBYTE(v6) = *(a1 + 46) ^ 1;
       std::allocate_shared[abi:ne200100]<PSSharedSerialDataWriter,std::allocator<PSSharedSerialDataWriter>,char const* const&,unsigned int const&,BOOL &,char const* const&,0>();
     case 0:
       std::allocate_shared[abi:ne200100]<PSSharedSerialDataReader,std::allocator<PSSharedSerialDataReader>,char const* const&,unsigned int const&,BOOL const&,char const* const&,0>();
   }
 
-  v2 = *MEMORY[0x277D85DE8];
+  if (*(&v8 + 1))
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v8 + 1));
+  }
+
   return 3;
 }
 
@@ -3643,16 +3627,15 @@ void sub_25EBCE060(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t PSBufferService::PSLocklessBufferSelector::getResourcewithBufferID(PSBufferService::PSLocklessBufferSelector *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "virtual int PSBufferService::PSLocklessBufferSelector::getResourcewithBufferID(int)";
-    _os_log_impl(&dword_25EBC5000, v1, OS_LOG_TYPE_ERROR, "%s Non Implemented virtual function called", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "virtual int PSBufferService::PSLocklessBufferSelector::getResourcewithBufferID(int)";
+    _os_log_impl(&dword_25EBC5000, v1, OS_LOG_TYPE_ERROR, "%s Non Implemented virtual function called", &v3, 0xCu);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return 0xFFFFFFFFLL;
 }
 
@@ -3698,16 +3681,15 @@ uint64_t PSBufferService::PSLocklessBufferSelector::getResource(PSBufferService:
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "virtual int PSBufferService::PSLocklessBufferSelector::getResource(uint32_t)";
-    _os_log_impl(&dword_25EBC5000, v1, OS_LOG_TYPE_ERROR, "%s Non Implemented virtual function called", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "virtual int PSBufferService::PSLocklessBufferSelector::getResource(uint32_t)";
+    _os_log_impl(&dword_25EBC5000, v1, OS_LOG_TYPE_ERROR, "%s Non Implemented virtual function called", &v3, 0xCu);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return 0xFFFFFFFFLL;
 }
 
@@ -3753,16 +3735,15 @@ uint64_t PSBufferService::PSLocklessBufferSelector::relinquishResource(PSBufferS
 }
 
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315138;
-    v7 = "virtual int PSBufferService::PSLocklessBufferSelector::relinquishResource(int, uint16_t *, uint32_t)";
-    _os_log_impl(&dword_25EBC5000, v3, OS_LOG_TYPE_ERROR, "%s Non Implemented virtual function called", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "virtual int PSBufferService::PSLocklessBufferSelector::relinquishResource(int, uint16_t *, uint32_t)";
+    _os_log_impl(&dword_25EBC5000, v3, OS_LOG_TYPE_ERROR, "%s Non Implemented virtual function called", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0xFFFFFFFFLL;
 }
 
@@ -3809,18 +3790,18 @@ uint64_t PSBufferService::PSLocklessBufferSelector::relinquishResourceWithoutWri
 
 uint64_t PSBufferService::PSLocklessBufferSelector::incrementWriteIndex(PSBufferService::PSLocklessBufferSelector *this, unint64_t *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  asprintf(&v9, "%s Non Implemented virtual function called", "virtual int PSBufferService::PSLocklessBufferSelector::incrementWriteIndex(uint64_t &)");
+  v15 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  asprintf(&v8, "%s Non Implemented virtual function called", "virtual int PSBufferService::PSLocklessBufferSelector::incrementWriteIndex(uint64_t &)");
   v2 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315650;
-    v11 = "incrementWriteIndex";
-    v12 = 1024;
-    v13 = 146;
-    v14 = 2080;
-    v15 = "virtual int PSBufferService::PSLocklessBufferSelector::incrementWriteIndex(uint64_t &)";
+    v10 = "incrementWriteIndex";
+    v11 = 1024;
+    v12 = 146;
+    v13 = 2080;
+    v14 = "virtual int PSBufferService::PSLocklessBufferSelector::incrementWriteIndex(uint64_t &)";
     _os_log_impl(&dword_25EBC5000, v2, OS_LOG_TYPE_FAULT, "%s:%d %s Non Implemented virtual function called", buf, 0x1Cu);
   }
 
@@ -3832,9 +3813,9 @@ uint64_t PSBufferService::PSLocklessBufferSelector::incrementWriteIndex(PSBuffer
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "incrementWriteIndex";
-      v12 = 1024;
-      v13 = v4;
+      v10 = "incrementWriteIndex";
+      v11 = 1024;
+      v12 = v4;
       _os_log_impl(&dword_25EBC5000, v5, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
@@ -3845,21 +3826,20 @@ uint64_t PSBufferService::PSLocklessBufferSelector::incrementWriteIndex(PSBuffer
   }
 
   v6 = abort_with_reason();
-  return PSBufferService::PSLocklessBufferSelector::getResource(v6, v7);
+  return PSBufferService::PSLocklessBufferSelector::getResource(v6);
 }
 
 uint64_t PSBufferService::PSLocklessBufferSelector::getResourceWithBufferID(PSBufferService::PSLocklessBufferSelector *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "virtual int PSBufferService::PSLocklessBufferSelector::getResourceWithBufferID(int, uint32_t)";
-    _os_log_impl(&dword_25EBC5000, v1, OS_LOG_TYPE_ERROR, "%s Non Implemented virtual function called", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "virtual int PSBufferService::PSLocklessBufferSelector::getResourceWithBufferID(int, uint32_t)";
+    _os_log_impl(&dword_25EBC5000, v1, OS_LOG_TYPE_ERROR, "%s Non Implemented virtual function called", &v3, 0xCu);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return 0xFFFFFFFFLL;
 }
 
@@ -3906,18 +3886,18 @@ uint64_t PSBufferService::PSLocklessBufferSelector::getResourceLastN(PSBufferSer
 
 uint64_t PSBufferService::PSLocklessBufferSelector::getResourceSinceLast(PSBufferService::PSLocklessBufferSelector *this, unsigned int a2, int *a3, unint64_t a4, unint64_t a5, unsigned int *a6, unint64_t *a7, unint64_t *a8)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  asprintf(&v17, "%s Non Implemented virtual function called", "virtual void PSBufferService::PSLocklessBufferSelector::getResourceSinceLast(uint32_t, int *, uint64_t, uint64_t, uint32_t *, uint64_t *, uint64_t *)");
+  v23 = *MEMORY[0x277D85DE8];
+  v16 = 0;
+  asprintf(&v16, "%s Non Implemented virtual function called", "virtual void PSBufferService::PSLocklessBufferSelector::getResourceSinceLast(uint32_t, int *, uint64_t, uint64_t, uint32_t *, uint64_t *, uint64_t *)");
   v8 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315650;
-    v19 = "getResourceSinceLast";
-    v20 = 1024;
-    v21 = 182;
-    v22 = 2080;
-    v23 = "virtual void PSBufferService::PSLocklessBufferSelector::getResourceSinceLast(uint32_t, int *, uint64_t, uint64_t, uint32_t *, uint64_t *, uint64_t *)";
+    v18 = "getResourceSinceLast";
+    v19 = 1024;
+    v20 = 182;
+    v21 = 2080;
+    v22 = "virtual void PSBufferService::PSLocklessBufferSelector::getResourceSinceLast(uint32_t, int *, uint64_t, uint64_t, uint32_t *, uint64_t *, uint64_t *)";
     _os_log_impl(&dword_25EBC5000, v8, OS_LOG_TYPE_FAULT, "%s:%d %s Non Implemented virtual function called", buf, 0x1Cu);
   }
 
@@ -3929,9 +3909,9 @@ uint64_t PSBufferService::PSLocklessBufferSelector::getResourceSinceLast(PSBuffe
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "getResourceSinceLast";
-      v20 = 1024;
-      v21 = v10;
+      v18 = "getResourceSinceLast";
+      v19 = 1024;
+      v20 = v10;
       _os_log_impl(&dword_25EBC5000, v11, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
@@ -3942,36 +3922,34 @@ uint64_t PSBufferService::PSLocklessBufferSelector::getResourceSinceLast(PSBuffe
   }
 
   v12 = abort_with_reason();
-  return PSBufferService::PSLocklessBufferSelector::relinquishResource(v12, v13, v14, v15);
+  return PSBufferService::PSLocklessBufferSelector::relinquishResource(v12, v13, v14);
 }
 
 uint64_t PSBufferService::PSLocklessBufferSelector::addReader(PSBufferService::PSLocklessBufferSelector *this, unsigned int a2, unsigned int *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315138;
-    v7 = "virtual PBSResult PSBufferService::PSLocklessBufferSelector::addReader(uint32_t, uint32_t *)";
-    _os_log_impl(&dword_25EBC5000, v3, OS_LOG_TYPE_ERROR, "%s Non Implemented virtual function called", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "virtual PBSResult PSBufferService::PSLocklessBufferSelector::addReader(uint32_t, uint32_t *)";
+    _os_log_impl(&dword_25EBC5000, v3, OS_LOG_TYPE_ERROR, "%s Non Implemented virtual function called", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 2;
 }
 
 uint64_t PSBufferService::PSLocklessBufferSelector::removeReader(PSBufferService::PSLocklessBufferSelector *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "virtual PBSResult PSBufferService::PSLocklessBufferSelector::removeReader(uint32_t, uint32_t)";
-    _os_log_impl(&dword_25EBC5000, v1, OS_LOG_TYPE_ERROR, "%s Non Implemented virtual function called", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "virtual PBSResult PSBufferService::PSLocklessBufferSelector::removeReader(uint32_t, uint32_t)";
+    _os_log_impl(&dword_25EBC5000, v1, OS_LOG_TYPE_ERROR, "%s Non Implemented virtual function called", &v3, 0xCu);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return 2;
 }
 
@@ -3979,17 +3957,16 @@ uint64_t PSBufferService::PSLocklessBufferSelector::checkAVAViewCount(uint64_t a
 {
   _X2 = 0;
   _X3 = 0;
-  v4 = *(a1 + 584);
   __asm { CASPAL          X2, X3, X2, X3, [X9] }
 
-  v9 = v45;
+  v8 = v43;
   do
   {
-    _X7 = v46;
+    _X7 = v44;
     __asm { CASPAL          X6, X7, X2, X3, [X9] }
 
-    _ZF = _X6 == v9;
-    v9 = _X6;
+    _ZF = _X6 == v8;
+    v8 = _X6;
   }
 
   while (!_ZF);
@@ -3997,14 +3974,14 @@ uint64_t PSBufferService::PSLocklessBufferSelector::checkAVAViewCount(uint64_t a
   _X3 = 0;
   __asm { CASPAL          X2, X3, X2, X3, [X9] }
 
-  v15 = v43;
+  v14 = v41;
   do
   {
-    _X7 = v44;
+    _X7 = v42;
     __asm { CASPAL          X6, X7, X2, X3, [X9] }
 
-    _ZF = _X6 == v15;
-    v15 = _X6;
+    _ZF = _X6 == v14;
+    v14 = _X6;
   }
 
   while (!_ZF);
@@ -4015,76 +3992,75 @@ uint64_t PSBufferService::PSLocklessBufferSelector::checkAVAViewCount(uint64_t a
 
   while (1)
   {
-    v19 = *(a1 + 584);
-    if (*(v19 + 144))
+    v18 = *(a1 + 584);
+    if (*(v18 + 144))
     {
+      v19 = 0;
       v20 = 0;
-      v21 = 0;
       do
       {
         _X2 = 0;
-        v23 = *(a1 + 592) + (v20 << 7) + 16;
         _X3 = 0;
         __asm { CASPAL          X2, X3, X2, X3, [X15] }
 
-        v26 = v42[0];
+        v24 = v40[0];
         do
         {
-          _X7 = v42[1];
+          _X7 = v40[1];
           __asm { CASPAL          X6, X7, X2, X3, [X12] }
 
-          _ZF = _X6 == v26;
-          v26 = _X6;
+          _ZF = _X6 == v24;
+          v24 = _X6;
         }
 
         while (!_ZF);
-        _ZF = (*(v42 + a2) & 0x7C00) != 0 || (*(v42 + a2) & 7) == 1;
+        _ZF = (*(v40 + a2) & 0x7C00) != 0 || (*(v40 + a2) & 7) == 1;
         if (_ZF)
         {
-          ++v21;
+          ++v20;
         }
 
-        ++v20;
-        v19 = *(a1 + 584);
+        ++v19;
+        v18 = *(a1 + 584);
       }
 
-      while (v20 < *(v19 + 144));
+      while (v19 < *(v18 + 144));
     }
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
 
-    v30 = *(v19 + 32 + 32 * a2);
-    if (v30 <= v21)
+    v28 = *(v18 + 32 + 32 * a2);
+    if (v28 <= v20)
     {
       break;
     }
 
     _X2 = 0;
     _X3 = 0;
-    LOBYTE(v43) = v30 - v21;
+    LOBYTE(v41) = v28 - v20;
     __asm { CASPAL          X2, X3, X2, X3, [X10] }
 
-    _X5 = v46;
+    _X5 = v44;
     __asm { CASPAL          X4, X5, X2, X3, [X13] }
 
-    if (_X4 != v45)
+    if (_X4 != v43)
     {
       _X2 = 0;
-      v45 = _X4;
+      v43 = _X4;
       _X3 = 0;
       __asm { CASPAL          X2, X3, X2, X3, [X11] }
 
-      v39 = v43;
+      v37 = v41;
       do
       {
-        _X7 = v44;
+        _X7 = v42;
         __asm { CASPAL          X6, X7, X2, X3, [X10] }
 
-        _ZF = _X6 == v39;
-        v39 = _X6;
+        _ZF = _X6 == v37;
+        v37 = _X6;
       }
 
       while (!_ZF);
@@ -4100,98 +4076,96 @@ uint64_t PSBufferService::PSLocklessBufferSelector::checkAVAViewCount(uint64_t a
   return 2;
 }
 
-uint64_t PSBufferService::PSLocklessBufferSelector::getReaderResource(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, int *a5, uint64_t a6, int a7)
+uint64_t PSBufferService::PSLocklessBufferSelector::getReaderResource(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, uint64_t a6, int a7)
 {
   v9 = a2;
-  v132 = *MEMORY[0x277D85DE8];
+  v119 = *MEMORY[0x277D85DE8];
+  v106 = a3;
   if (PSBufferService::LocklessViewReaper::setState(a1 + 600, a3, 1, *(*(a1 + 592) + (a2 << 7)), *(a1 + 624)))
   {
     v11 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_5;
+      return 0xFFFFFFFFLL;
     }
 
     *buf = 136315394;
     Key = PSSharedResource::getKey(a1);
-    v126 = 1024;
-    LODWORD(v127) = a3;
+    v113 = 1024;
+    LODWORD(v114) = v106;
     v12 = " [key=%s] Failed to set state for memdesc for readerID %ul";
     v13 = v11;
     v14 = 18;
     goto LABEL_4;
   }
 
-  v116 = a5;
+  v104 = a5;
   _X0 = 0;
   _X1 = 0;
-  v19 = *(a1 + 592);
-  v119 = v9;
   __asm { CASPAL          X0, X1, X0, X1, [X8] }
 
-  v24 = v122;
+  v22 = v109;
   do
   {
-    _X5 = v123;
+    _X5 = v110;
     __asm { CASPAL          X4, X5, X0, X1, [X8] }
 
-    _ZF = _X4 == v24;
-    v24 = _X4;
+    _ZF = _X4 == v22;
+    v22 = _X4;
   }
 
   while (!_ZF);
   _X26 = 0;
   _X20 = 0;
-  v117 = v9 << 7;
+  v105 = v9 << 7;
   while (1)
   {
     _X1 = 0;
     __asm { CASPAL          X0, X1, X20, X21, [X28] }
 
-    v31 = v120;
+    v29 = v107;
     do
     {
-      _X5 = v121;
+      _X5 = v108;
       __asm { CASPAL          X4, X5, X0, X1, [X25] }
 
-      _ZF = _X4 == v31;
-      v31 = _X4;
+      _ZF = _X4 == v29;
+      v29 = _X4;
     }
 
     while (!_ZF);
-    v121 = 1 << a3;
-    v34 = *(a1 + 624);
-    v35 = v9;
+    v108 = 1 << v106;
+    v32 = v9;
     SetBit = PSBufferService::AtomicPoolAccountant::GetSetBit(*(a1 + 584), v9);
-    v37 = *(a1 + 624);
-    v38 = *(&v122 + v37) & 7;
-    if (v38 == 3)
+    v34 = *(a1 + 624);
+    v35 = *(&v109 + v34) & 7;
+    if (v35 == 3)
     {
       break;
     }
 
-    if (v38 != 1)
+    if (v35 != 1)
     {
-      v76 = _ps_buffer_log;
+      v68 = _ps_buffer_log;
       if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_5;
+        return 0xFFFFFFFFLL;
       }
 
-      v77 = PSSharedResource::getKey(a1);
-      v78 = *(&v122 + *(a1 + 624)) & 7;
+      v69 = PSSharedResource::getKey(a1);
+      v70 = *(&v109 + *(a1 + 624)) & 7;
       *buf = 136315650;
       Key = "int PSBufferService::PSLocklessBufferSelector::getReaderResource(int, uint32_t, AVACriticality, uint32_t *, uint32_t, BOOL)";
-      v126 = 2080;
-      v127 = v77;
-      v128 = 1024;
-      v129 = v78;
+      v113 = 2080;
+      v114 = v69;
+      v115 = 1024;
+      v116 = v70;
       v12 = "%s [key=%s] Buffer state invalid for Reading, state=%d";
-      v13 = v76;
+      v13 = v68;
       v14 = 28;
 LABEL_4:
       _os_log_impl(&dword_25EBC5000, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
-      goto LABEL_5;
+      return 0xFFFFFFFFLL;
     }
 
     if (!a7)
@@ -4199,12 +4173,12 @@ LABEL_4:
       goto LABEL_29;
     }
 
-    PSBufferService::LocklessViewReaper::setState(a1 + 600, a3, 3, *(*(a1 + 592) + v117), v37);
-    v39 = *(a1 + 624);
-    *(&v120 + v39) = (*(&v120 + v39) + 8) & 0x3F8 | *(&v120 + v39) & 0xFC07;
-    v40 = ((HIWORD(v120) & 0xFFC0) + 64);
-    HIWORD(v120) = ((HIWORD(v120) & 0xFFC0) + 64) & 0xFFC0 | BYTE6(v120) & 0x3F;
-    _ZF = (*(&v120 + v39) & 0x3F8) == 0 || v40 == 0;
+    PSBufferService::LocklessViewReaper::setState(a1 + 600, v106, 3, *(*(a1 + 592) + v105), v34);
+    v36 = *(a1 + 624);
+    *(&v107 + v36) = (*(&v107 + v36) + 8) & 0x3F8 | *(&v107 + v36) & 0xFC07;
+    v37 = ((HIWORD(v107) & 0xFFC0) + 64);
+    HIWORD(v107) = ((HIWORD(v107) & 0xFFC0) + 64) & 0xFFC0 | BYTE6(v107) & 0x3F;
+    _ZF = (*(&v107 + v36) & 0x3F8) == 0 || v37 == 0;
     if (_ZF)
     {
       PSBufferService::PSLocklessBufferSelector::getReaderResource(buf);
@@ -4212,50 +4186,49 @@ LABEL_72:
       PSBufferService::PSLocklessBufferSelector::getReaderResource(buf);
     }
 
-    v42 = *(a1 + 592) + (v119 << 7) + 16;
     _X3 = 0;
     __asm { CASPAL          X2, X3, X26, X27, [X25] }
 
-    _X1 = v123;
+    _X1 = v110;
     __asm { CASPAL          X0, X1, X2, X3, [X8] }
 
-    if (_X0 == v122)
+    if (_X0 == v109)
     {
-      v110 = v117;
-      v109 = a3;
-      v111 = *(*(a1 + 592) + v117);
-      v112 = *(a1 + 624);
-      v113 = a1 + 600;
-      v114 = 4;
+      v99 = v105;
+      v98 = v106;
+      v100 = *(*(a1 + 592) + v105);
+      v101 = *(a1 + 624);
+      v102 = a1 + 600;
+      v103 = 4;
 LABEL_67:
-      PSBufferService::LocklessViewReaper::setState(v113, v109, v114, v111, v112);
-      result = *(*(a1 + 592) + v110);
-      if (v116)
+      PSBufferService::LocklessViewReaper::setState(v102, v98, v103, v100, v101);
+      result = *(*(a1 + 592) + v99);
+      if (v104)
       {
-        *v116 = HIWORD(v120) >> 6;
+        *v104 = HIWORD(v107) >> 6;
       }
 
-      goto LABEL_6;
+      return result;
     }
 
 LABEL_30:
-    v122 = _X0;
-    v123 = _X1;
+    v109 = _X0;
+    v110 = _X1;
   }
 
-  v47 = SetBit;
-  PSBufferService::LocklessViewReaper::setState(a1 + 600, a3, 1, *(*(a1 + 592) + v117), v37);
-  v48 = *(a1 + 624);
-  if ((*(&v122 + v48) & 0x3C00) != 0)
+  v43 = SetBit;
+  PSBufferService::LocklessViewReaper::setState(a1 + 600, v106, 1, *(*(a1 + 592) + v105), v34);
+  v44 = *(a1 + 624);
+  if ((*(&v109 + v44) & 0x3C00) != 0)
   {
     if (!a7)
     {
       goto LABEL_29;
     }
 
-    v49 = *(&v120 + v48);
-    v50 = (v49 + 1024) & 0x3C00;
-    v51 = v49 & 0xC3FF;
+    v45 = *(&v107 + v44);
+    v46 = (v45 + 1024) & 0x3C00;
+    v47 = v45 & 0xC3FF;
   }
 
   else
@@ -4265,29 +4238,28 @@ LABEL_30:
       goto LABEL_72;
     }
 
-    v50 = *(&v120 + v48) & 0x43FF | (~v47 << 15);
-    v51 = (*(&v120 + v48) + 1024) & 0x3C00;
+    v46 = *(&v107 + v44) & 0x43FF | (~v43 << 15);
+    v47 = (*(&v107 + v44) + 1024) & 0x3C00;
   }
 
-  *(&v120 + v48) = v50 | v51;
+  *(&v107 + v44) = v46 | v47;
 LABEL_29:
-  v52 = *(a1 + 592) + (v119 << 7) + 16;
   _X3 = 0;
   __asm { CASPAL          X2, X3, X20, X21, [X25] }
 
-  _X1 = v123;
+  _X1 = v110;
   __asm { CASPAL          X0, X1, X2, X3, [X8] }
 
-  v9 = v35;
-  if (_X0 != v122)
+  v9 = v32;
+  if (_X0 != v109)
   {
     goto LABEL_30;
   }
 
-  PSBufferService::LocklessViewReaper::setState(a1 + 600, a3, 2, *(*(a1 + 592) + v117), *(a1 + 624));
-  v55 = *(&v120 + *(a1 + 624)) >> 15;
-  v56 = PSBufferService::AtomicPoolAccountant::DecrementPoolCount(*(a1 + 584), v55, v35);
-  if (v56 != 2)
+  PSBufferService::LocklessViewReaper::setState(a1 + 600, v106, 2, *(*(a1 + 592) + v105), *(a1 + 624));
+  v50 = *(&v107 + *(a1 + 624)) >> 15;
+  v51 = PSBufferService::AtomicPoolAccountant::DecrementPoolCount(*(a1 + 584), v50, v32);
+  if (v51 != 2)
   {
     goto LABEL_34;
   }
@@ -4297,26 +4269,24 @@ LABEL_29:
     goto LABEL_35;
   }
 
-  v57 = *(a1 + 624);
-  v56 = PSBufferService::AtomicPoolAccountant::DecrementPoolCount(*(a1 + 584), v55, v35);
+  v51 = PSBufferService::AtomicPoolAccountant::DecrementPoolCount(*(a1 + 584), v50, v32);
 LABEL_34:
-  if ((v56 & 0xFFFFFFFE) == 2)
+  if ((v51 & 0xFFFFFFFE) == 2)
   {
 LABEL_35:
-    PSBufferService::LocklessViewReaper::setState(a1 + 600, a3, 5, *(*(a1 + 592) + v117), *(a1 + 624));
+    PSBufferService::LocklessViewReaper::setState(a1 + 600, v106, 5, *(*(a1 + 592) + v105), *(a1 + 624));
     _X0 = 0;
     _X1 = 0;
-    v60 = *(a1 + 592);
     __asm { CASPAL          X0, X1, X0, X1, [X8] }
 
-    v62 = v122;
+    v55 = v109;
     do
     {
-      _X5 = v123;
+      _X5 = v110;
       __asm { CASPAL          X4, X5, X0, X1, [X8] }
 
-      _ZF = _X4 == v62;
-      v62 = _X4;
+      _ZF = _X4 == v55;
+      v55 = _X4;
     }
 
     while (!_ZF);
@@ -4326,67 +4296,64 @@ LABEL_35:
       _X3 = 0;
       __asm { CASPAL          X2, X3, X0, X1, [X9] }
 
-      v68 = v120;
+      v61 = v107;
       do
       {
-        _X7 = v121;
+        _X7 = v108;
         __asm { CASPAL          X6, X7, X2, X3, [X10] }
 
-        _ZF = _X6 == v68;
-        v68 = _X6;
+        _ZF = _X6 == v61;
+        v61 = _X6;
       }
 
       while (!_ZF);
-      *(&v120 + *(a1 + 624)) = (*(&v120 + *(a1 + 624)) + 15360) & 0x3C00 | *(&v120 + *(a1 + 624)) & 0xC3FF;
-      v121 &= ~(1 << a3);
-      v71 = *(a1 + 592) + (v119 << 7) + 16;
+      *(&v107 + *(a1 + 624)) = (*(&v107 + *(a1 + 624)) + 15360) & 0x3C00 | *(&v107 + *(a1 + 624)) & 0xC3FF;
+      v108 &= ~(1 << v106);
       _X5 = 0;
       __asm { CASPAL          X4, X5, X0, X1, [X10] }
 
-      _X3 = v123;
+      _X3 = v110;
       __asm { CASPAL          X2, X3, X4, X5, [X12] }
 
-      if (_X2 == v122)
+      if (_X2 == v109)
       {
         break;
       }
 
-      v122 = _X2;
+      v109 = _X2;
     }
 
-    v79 = _ps_buffer_log;
+    v71 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      v80 = PSSharedResource::getKey(a1);
+      v72 = PSSharedResource::getKey(a1);
       *buf = 136315906;
       Key = "int PSBufferService::PSLocklessBufferSelector::getReaderResource(int, uint32_t, AVACriticality, uint32_t *, uint32_t, BOOL)";
-      v126 = 2080;
-      v127 = v80;
-      v128 = 1024;
-      v129 = v35;
-      v130 = 1024;
-      v131 = a3;
-      _os_log_impl(&dword_25EBC5000, v79, OS_LOG_TYPE_ERROR, "%s [key=%s] Out of views for this reader for buff_id=%d reader_id=%d!", buf, 0x22u);
+      v113 = 2080;
+      v114 = v72;
+      v115 = 1024;
+      v116 = v32;
+      v117 = 1024;
+      v118 = v106;
+      _os_log_impl(&dword_25EBC5000, v71, OS_LOG_TYPE_ERROR, "%s [key=%s] Out of views for this reader for buff_id=%d reader_id=%d!", buf, 0x22u);
     }
 
-    result = 4294967294;
-    goto LABEL_6;
+    return 4294967294;
   }
 
-  PSBufferService::LocklessViewReaper::setState(a1 + 600, a3, 7, *(*(a1 + 592) + v117), *(a1 + 624));
+  PSBufferService::LocklessViewReaper::setState(a1 + 600, v106, 7, *(*(a1 + 592) + v105), *(a1 + 624));
   _X0 = 0;
   _X1 = 0;
-  v83 = *(a1 + 592);
   __asm { CASPAL          X0, X1, X0, X1, [X8] }
 
-  v85 = v122;
+  v76 = v109;
   do
   {
-    _X5 = v123;
+    _X5 = v110;
     __asm { CASPAL          X4, X5, X0, X1, [X8] }
 
-    _ZF = _X4 == v85;
-    v85 = _X4;
+    _ZF = _X4 == v76;
+    v76 = _X4;
   }
 
   while (!_ZF);
@@ -4397,141 +4364,133 @@ LABEL_35:
     _X1 = 0;
     __asm { CASPAL          X0, X1, X24, X25, [X23] }
 
-    v92 = v120;
+    v83 = v107;
     do
     {
-      _X5 = v121;
+      _X5 = v108;
       __asm { CASPAL          X4, X5, X0, X1, [X26] }
 
-      _ZF = _X4 == v92;
-      v92 = _X4;
+      _ZF = _X4 == v83;
+      v83 = _X4;
     }
 
     while (!_ZF);
-    v121 = 0;
-    v95 = *(a1 + 624);
-    v96 = *(&v122 + v95) & 7;
-    if (v96 > 1)
+    v108 = 0;
+    v86 = *(a1 + 624);
+    v87 = *(&v109 + v86) & 7;
+    if (v87 > 1)
     {
-      if (v96 != 2)
+      if (v87 != 2)
       {
-        if (v96 != 3)
+        if (v87 != 3)
         {
 LABEL_73:
           abort();
         }
 
-        PSBufferService::LocklessViewReaper::setState(a1 + 600, a3, 7, *(*(a1 + 592) + v117), v95);
-        v97 = *(a1 + 624);
-        v98 = *(&v120 + v97) & 0xC000 | ((*(&v120 + v97) & 0x3FF8) + 15361) & 0x3C00 | ((*(&v120 + v97) & 0x3F8) + 9) & 0x3F8 | 1;
+        PSBufferService::LocklessViewReaper::setState(a1 + 600, v106, 7, *(*(a1 + 592) + v105), v86);
+        v88 = *(a1 + 624);
+        v89 = *(&v107 + v88) & 0xC000 | ((*(&v107 + v88) & 0x3FF8) + 15361) & 0x3C00 | ((*(&v107 + v88) & 0x3F8) + 9) & 0x3F8 | 1;
         goto LABEL_63;
       }
     }
 
-    else if ((*(&v122 + v95) & 7) != 0)
+    else if ((*(&v109 + v86) & 7) != 0)
     {
-      if (v96 != 1)
+      if (v87 != 1)
       {
         goto LABEL_73;
       }
 
-      PSBufferService::LocklessViewReaper::setState(a1 + 600, a3, 7, *(*(a1 + 592) + v117), v95);
-      v97 = *(a1 + 624);
-      v98 = (*(&v120 + v97) + 15360) & 0x3C00 | *(&v120 + v97) & 0xC007 | (*(&v120 + v97) + 8) & 0x3F8;
+      PSBufferService::LocklessViewReaper::setState(a1 + 600, v106, 7, *(*(a1 + 592) + v105), v86);
+      v88 = *(a1 + 624);
+      v89 = (*(&v107 + v88) + 15360) & 0x3C00 | *(&v107 + v88) & 0xC007 | (*(&v107 + v88) + 8) & 0x3F8;
 LABEL_63:
-      *(&v120 + v97) = v98;
-      HIWORD(v120) += 64;
-      v99 = *(a1 + 592) + (v119 << 7) + 16;
+      *(&v107 + v88) = v89;
+      HIWORD(v107) += 64;
       _X3 = 0;
       __asm { CASPAL          X2, X3, X20, X21, [X26] }
 
-      _X1 = v123;
+      _X1 = v110;
       __asm { CASPAL          X0, X1, X2, X3, [X8] }
 
-      if (_X0 == v122)
+      if (_X0 == v109)
       {
-        v110 = v117;
-        v109 = a3;
-        v111 = *(*(a1 + 592) + v117);
-        v112 = *(a1 + 624);
-        v113 = a1 + 600;
-        v114 = 8;
+        v99 = v105;
+        v98 = v106;
+        v100 = *(*(a1 + 592) + v105);
+        v101 = *(a1 + 624);
+        v102 = a1 + 600;
+        v103 = 8;
         goto LABEL_67;
       }
 
 LABEL_66:
-      v122 = _X0;
-      v123 = _X1;
+      v109 = _X0;
+      v110 = _X1;
       continue;
     }
 
     break;
   }
 
-  PSBufferService::LocklessViewReaper::setState(a1 + 600, a3, 6, *(*(a1 + 592) + v117), v95);
-  v104 = *(a1 + 624);
-  v105 = *(&v120 + v104);
-  *(&v120 + v104) = (v105 + 15360) & 0x3C00 | v105 & 0xC3FF;
-  v106 = *(a1 + 592) + (v119 << 7) + 16;
+  PSBufferService::LocklessViewReaper::setState(a1 + 600, v106, 6, *(*(a1 + 592) + v105), v86);
+  v94 = *(a1 + 624);
+  v95 = *(&v107 + v94);
+  *(&v107 + v94) = (v95 + 15360) & 0x3C00 | v95 & 0xC3FF;
   _X3 = 0;
   __asm { CASPAL          X2, X3, X24, X25, [X26] }
 
-  _X1 = v123;
+  _X1 = v110;
   __asm { CASPAL          X0, X1, X2, X3, [X9] }
 
-  if (_X0 != v122)
+  if (_X0 != v109)
   {
     goto LABEL_66;
   }
 
-  if (((v105 + 15360) & 0x3C00) == 0)
+  if (((v95 + 15360) & 0x3C00) == 0)
   {
-    v115 = *(a1 + 624);
     PSBufferService::AtomicPoolAccountant::IncrementPoolCount(*(a1 + 584));
   }
 
-LABEL_5:
-  result = 0xFFFFFFFFLL;
-LABEL_6:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
-uint64_t PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(uint64_t a1, unsigned int a2, _WORD *a3, unsigned int a4, unsigned int a5)
+uint64_t PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(uint64_t a1, unsigned int a2, _WORD *a3, uint64_t a4, uint64_t a5)
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   if ((a2 & 0x80000000) != 0 || *(a1 + 552) <= a2)
   {
-    v60 = _ps_buffer_log;
+    v58 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v116 = "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)";
-      v117 = 2080;
-      *v118 = PSSharedResource::getKey(a1);
-      *&v118[8] = 1024;
-      *&v118[10] = a2;
-      _os_log_impl(&dword_25EBC5000, v60, OS_LOG_TYPE_ERROR, "%s [key=%s] Buffer Id invalid %d", buf, 0x1Cu);
+      v109 = "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)";
+      v110 = 2080;
+      *v111 = PSSharedResource::getKey(a1);
+      *&v111[8] = 1024;
+      *&v111[10] = a2;
+      _os_log_impl(&dword_25EBC5000, v58, OS_LOG_TYPE_ERROR, "%s [key=%s] Buffer Id invalid %d", buf, 0x1Cu);
     }
 
-    result = 0xFFFFFFFFLL;
-    goto LABEL_61;
+    return 0xFFFFFFFFLL;
   }
 
+  v6 = a5;
+  v7 = a4;
   _X10 = 0;
   _X11 = 0;
-  v10 = *(a1 + 592);
-  v109 = a2;
   __asm { CASPAL          X10, X11, X10, X11, [X8] }
 
-  v15 = v113;
+  v14 = v106;
   do
   {
-    _X5 = v114;
+    _X5 = v107;
     __asm { CASPAL          X4, X5, X10, X11, [X8] }
 
-    _ZF = _X4 == v15;
-    v15 = _X4;
+    _ZF = _X4 == v14;
+    v14 = _X4;
   }
 
   while (!_ZF);
@@ -4539,215 +4498,212 @@ uint64_t PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(uin
   _X11 = 0;
   __asm { CASPAL          X10, X11, X10, X11, [X8] }
 
-  v21 = v111;
+  v20 = v104;
   do
   {
-    _X5 = v112;
+    _X5 = v105;
     __asm { CASPAL          X4, X5, X10, X11, [X8] }
 
-    _ZF = _X4 == v21;
-    v21 = _X4;
+    _ZF = _X4 == v20;
+    v20 = _X4;
   }
 
   while (!_ZF);
-  v24 = *(&v113 + a5) & 7;
-  if (v24 != 1)
+  v23 = *(&v106 + v6) & 7;
+  if (v23 != 1)
   {
-    v110 = 0;
+    v103 = 0;
     Key = PSSharedResource::getKey(a1);
-    asprintf(&v110, "%s [key=%s] Trying to release a Buffer which is not in Reading %d state %d", "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)", Key, a2, v24);
-    v87 = _ps_buffer_log;
+    asprintf(&v103, "%s [key=%s] Trying to release a Buffer which is not in Reading %d state %d", "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)", Key, a2, v23);
+    v81 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
-      v88 = PSSharedResource::getKey(a1);
-      v89 = *(&v113 + a5) & 7;
+      v82 = PSSharedResource::getKey(a1);
+      v83 = *(&v106 + v6) & 7;
       *buf = 136316418;
-      v116 = "relinquishReaderResource";
-      v117 = 1024;
-      *v118 = 598;
-      *&v118[4] = 2080;
-      *&v118[6] = "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)";
-      v119 = 2080;
-      v120 = v88;
-      v121 = 1024;
-      v122 = a2;
-      v123 = 1024;
-      v124 = v89;
-      _os_log_impl(&dword_25EBC5000, v87, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Trying to release a Buffer which is not in Reading %d state %d", buf, 0x32u);
+      v109 = "relinquishReaderResource";
+      v110 = 1024;
+      *v111 = 598;
+      *&v111[4] = 2080;
+      *&v111[6] = "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)";
+      v112 = 2080;
+      v113 = v82;
+      v114 = 1024;
+      v115 = a2;
+      v116 = 1024;
+      v117 = v83;
+      _os_log_impl(&dword_25EBC5000, v81, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Trying to release a Buffer which is not in Reading %d state %d", buf, 0x32u);
     }
 
-    v90 = OSLogFlushBuffers();
-    if (!v90)
+    v84 = OSLogFlushBuffers();
+    if (!v84)
     {
-      goto LABEL_75;
+      goto LABEL_74;
     }
 
-    v91 = v90;
-    v92 = _ps_buffer_log;
+    v85 = v84;
+    v86 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_77;
+      goto LABEL_76;
     }
 
-    goto LABEL_78;
+    goto LABEL_77;
   }
 
-  v105 = (a1 + 584);
-  v107 = a2 << 7;
-  PSBufferService::LocklessViewReaper::setState(a1 + 600, a4, 9, *(*(a1 + 592) + v107), a5);
+  v99 = (a1 + 584);
+  v101 = a2 << 7;
+  PSBufferService::LocklessViewReaper::setState(a1 + 600, a4, 9, *(*(a1 + 592) + v101), v6);
   _X0 = 0;
   _X1 = 0;
   __asm { CASPAL          X0, X1, X0, X1, [X8] }
 
-  v29 = v113;
+  v28 = v106;
   do
   {
-    _X5 = v114;
+    _X5 = v107;
     __asm { CASPAL          X4, X5, X0, X1, [X20] }
 
-    _ZF = _X4 == v29;
-    v29 = _X4;
+    _ZF = _X4 == v28;
+    v28 = _X4;
   }
 
   while (!_ZF);
   _X22 = 0;
-  v33 = 1 << a4;
-  v34 = a1;
+  v32 = 1 << v7;
+  v33 = a1;
   while (1)
   {
     _X26 = 0;
     _X27 = 0;
     __asm { CASPAL          X26, X27, X26, X27, [X28] }
 
-    v38 = v111;
+    v37 = v104;
     do
     {
-      _X3 = v112;
+      _X3 = v105;
       __asm { CASPAL          X2, X3, X26, X27, [X24] }
 
-      _ZF = _X2 == v38;
-      v38 = _X2;
+      _ZF = _X2 == v37;
+      v37 = _X2;
     }
 
     while (!_ZF);
-    v112 = v33;
-    v41 = *(&v113 + a5);
-    v108 = v41 & 0x3FF8;
-    if (v108 == 8)
+    v105 = v32;
+    v40 = *(&v106 + v6);
+    v102 = v40 & 0x3FF8;
+    if (v102 == 8)
     {
-      v42 = v33;
-      v43 = (_X26 & 0x20000000000000) == 0;
-      v44 = *(*(v34 + 74) + v107);
+      v41 = v32;
+      v42 = (_X26 & 0x20000000000000) == 0;
+      v43 = *(*(v33 + 592) + v101);
       if ((_X26 & 0x20000000000000) != 0)
       {
-        PSBufferService::LocklessViewReaper::setState(a1 + 600, a4, 11, v44, a5);
-        HIWORD(v111) = HIWORD(_X26) & 0xFFDF;
-        LODWORD(v111) = _X26 & 0xFFF8FFF8;
-        v34 = a1;
-        WORD2(v111) = WORD2(_X26) & 0xFFF8;
-        v46 = *(&v111 + a5);
+        PSBufferService::LocklessViewReaper::setState(a1 + 600, v7, 11, v43, v6);
+        HIWORD(v104) = HIWORD(_X26) & 0xFFDF;
+        LODWORD(v104) = _X26 & 0xFFF8FFF8;
+        v33 = a1;
+        WORD2(v104) = WORD2(_X26) & 0xFFF8;
+        v45 = *(&v104 + v6);
       }
 
       else
       {
-        v45 = v34;
-        PSBufferService::LocklessViewReaper::setState(v34 + 600, a4, 10, v44, a5);
-        v34 = v45;
-        v46 = *(&v111 + a5) & 0xBFF8 | 0x4003;
+        v44 = v33;
+        PSBufferService::LocklessViewReaper::setState(v33 + 600, v7, 10, v43, v6);
+        v33 = v44;
+        v45 = *(&v104 + v6) & 0xBFF8 | 0x4003;
       }
 
-      LOWORD(v51) = v46 & 0xFC07;
-      v49 = (_X26 & 0x20000000000000) == 0;
-      v52 = v43;
-      v33 = v42;
+      LOWORD(v50) = v45 & 0xFC07;
+      v48 = (_X26 & 0x20000000000000) == 0;
+      v51 = v42;
+      v32 = v41;
       goto LABEL_30;
     }
 
-    _ZF = (*(&v113 + a5) & 0x3C00) != 0 && (v41 & 0x3F8) == 8;
+    _ZF = (*(&v106 + v6) & 0x3C00) != 0 && (v40 & 0x3F8) == 8;
     if (_ZF)
     {
-      v53 = v34;
-      PSBufferService::LocklessViewReaper::setState(v34 + 600, a4, 9, *(*(v34 + 74) + v107), a5);
-      v34 = v53;
-      v49 = 0;
-      LOWORD(v51) = *(&v111 + a5) & 0xFC07;
+      v52 = v33;
+      PSBufferService::LocklessViewReaper::setState(v33 + 600, v7, 9, *(*(v33 + 592) + v101), v6);
+      v33 = v52;
+      v48 = 0;
+      LOWORD(v50) = *(&v104 + v6) & 0xFC07;
       goto LABEL_29;
     }
 
-    if ((*(&v113 + a5) & 0x3F0) != 0)
+    if ((*(&v106 + v6) & 0x3F0) != 0)
     {
-      v48 = v34;
-      PSBufferService::LocklessViewReaper::setState(v34 + 600, a4, 9, *(*(v34 + 74) + v107), a5);
-      v34 = v48;
-      v49 = 0;
-      v50 = *(&v111 + a5);
-      v51 = v50 & 0xFFFFFC07 | (8 * (((v50 + 1016) >> 3) & 0x7F));
+      v47 = v33;
+      PSBufferService::LocklessViewReaper::setState(v33 + 600, v7, 9, *(*(v33 + 592) + v101), v6);
+      v33 = v47;
+      v48 = 0;
+      v49 = *(&v104 + v6);
+      v50 = v49 & 0xFFFFFC07 | (8 * (((v49 + 1016) >> 3) & 0x7F));
 LABEL_29:
-      v52 = 1;
+      v51 = 1;
 LABEL_30:
-      *(&v111 + a5) = v51;
-      HIWORD(v111) -= 64;
+      *(&v104 + v6) = v50;
+      HIWORD(v104) -= 64;
       goto LABEL_31;
     }
 
-    v49 = 0;
-    v52 = 1;
+    v48 = 0;
+    v51 = 1;
 LABEL_31:
-    v54 = *(v34 + 74) + (v109 << 7) + 16;
     _X3 = 0;
     __asm { CASPAL          X2, X3, X22, X23, [X24] }
 
-    _X1 = v114;
+    _X1 = v107;
     __asm { CASPAL          X0, X1, X2, X3, [X9] }
 
-    if (_X0 == v113)
+    if (_X0 == v106)
     {
       break;
     }
 
-    v113 = _X0;
+    v106 = _X0;
   }
 
-  if (HIWORD(v111) > 0x3Fu)
+  if (HIWORD(v104) > 0x3Fu)
   {
-    v52 = 1;
+    v51 = 1;
   }
 
-  if (v52)
+  if (v51)
   {
 LABEL_42:
-    if (v108 == 8)
+    if (v102 == 8)
     {
-      v64 = v34;
-      PSBufferService::AtomicPoolAccountant::IncrementPoolCount(*v105);
-      v34 = v64;
+      v62 = v33;
+      PSBufferService::AtomicPoolAccountant::IncrementPoolCount(*v99);
+      v33 = v62;
     }
 
-    if (v49)
+    if (v48)
     {
-      v65 = 12;
+      v63 = 12;
     }
 
     else
     {
-      v65 = 13;
+      v63 = 13;
     }
 
-    v66 = v34;
-    PSBufferService::LocklessViewReaper::setState(v34 + 600, a4, v65, *(*(v34 + 74) + v107), a5);
+    PSBufferService::LocklessViewReaper::setState(v33 + 600, v7, v63, *(*(v33 + 592) + v101), v6);
     _X0 = 0;
     _X1 = 0;
-    v69 = *(v66 + 74);
     __asm { CASPAL          X0, X1, X0, X1, [X8] }
 
-    v71 = v113;
+    v67 = v106;
     do
     {
-      _X5 = v114;
+      _X5 = v107;
       __asm { CASPAL          X4, X5, X0, X1, [X8] }
 
-      _ZF = _X4 == v71;
-      v71 = _X4;
+      _ZF = _X4 == v67;
+      v67 = _X4;
     }
 
     while (!_ZF);
@@ -4757,151 +4713,149 @@ LABEL_42:
       _X3 = 0;
       __asm { CASPAL          X2, X3, X0, X1, [X9] }
 
-      v77 = v111;
+      v73 = v104;
       do
       {
-        _X7 = v112;
+        _X7 = v105;
         __asm { CASPAL          X6, X7, X2, X3, [X10] }
 
-        _ZF = _X6 == v77;
-        v77 = _X6;
+        _ZF = _X6 == v73;
+        v73 = _X6;
       }
 
       while (!_ZF);
-      v112 = 0;
-      if (v49)
+      v105 = 0;
+      if (v48)
       {
-        *(&v111 + a5) &= ~0x4000u;
+        *(&v104 + v6) &= ~0x4000u;
       }
 
-      v80 = *(v66 + 74) + (v109 << 7) + 16;
       _X5 = 0;
       __asm { CASPAL          X4, X5, X0, X1, [X10] }
 
-      _X3 = v114;
+      _X3 = v107;
       __asm { CASPAL          X2, X3, X4, X5, [X11] }
 
-      if (_X2 == v113)
+      if (_X2 == v106)
       {
         break;
       }
 
-      v113 = _X2;
+      v106 = _X2;
     }
 
     if (a3)
     {
-      *a3 = HIWORD(v111) >> 6;
+      *a3 = HIWORD(v104) >> 6;
     }
 
-    result = 0;
-LABEL_61:
-    v85 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v62 = v34;
-  v63 = PSBufferService::MemDescPool::AddMemDescToFreePool(v105, a2);
-  if (v63 == 1)
-  {
-    v110 = 0;
-    v93 = PSSharedResource::getKey(v62);
-    asprintf(&v110, "%s [key=%s] Failed to release memdesc id: %d to free pool in function. Memdesc ID is already free!", "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)", v93, a2);
-    v94 = _ps_buffer_log;
-    if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
-    {
-      v95 = PSSharedResource::getKey(a1);
-      *buf = 136316162;
-      v116 = "relinquishReaderResource";
-      v117 = 1024;
-      *v118 = 693;
-      *&v118[4] = 2080;
-      *&v118[6] = "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)";
-      v119 = 2080;
-      v120 = v95;
-      v121 = 1024;
-      v122 = a2;
-      _os_log_impl(&dword_25EBC5000, v94, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Failed to release memdesc id: %d to free pool in function. Memdesc ID is already free!", buf, 0x2Cu);
-    }
-
-    v96 = OSLogFlushBuffers();
-    if (!v96)
-    {
-      goto LABEL_75;
-    }
-
-    v91 = v96;
-    v92 = _ps_buffer_log;
-    if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_77;
-    }
+    return 0;
   }
 
   else
   {
-    v34 = v62;
-    if (v63 != 3)
+    v60 = v33;
+    v61 = PSBufferService::MemDescPool::AddMemDescToFreePool(v99, a2);
+    if (v61 == 1)
     {
-      goto LABEL_42;
+      v103 = 0;
+      v87 = PSSharedResource::getKey(v60);
+      asprintf(&v103, "%s [key=%s] Failed to release memdesc id: %d to free pool in function. Memdesc ID is already free!", "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)", v87, a2);
+      v88 = _ps_buffer_log;
+      if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
+      {
+        v89 = PSSharedResource::getKey(a1);
+        *buf = 136316162;
+        v109 = "relinquishReaderResource";
+        v110 = 1024;
+        *v111 = 693;
+        *&v111[4] = 2080;
+        *&v111[6] = "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)";
+        v112 = 2080;
+        v113 = v89;
+        v114 = 1024;
+        v115 = a2;
+        _os_log_impl(&dword_25EBC5000, v88, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Failed to release memdesc id: %d to free pool in function. Memdesc ID is already free!", buf, 0x2Cu);
+      }
+
+      v90 = OSLogFlushBuffers();
+      if (!v90)
+      {
+        goto LABEL_74;
+      }
+
+      v85 = v90;
+      v86 = _ps_buffer_log;
+      if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_76;
+      }
     }
 
-    v110 = 0;
-    v97 = PSSharedResource::getKey(v62);
-    asprintf(&v110, "%s [key=%s] Failed to release memdesc id: %d to free pool in function. Invalid Parameters! NumMemDescNodes: %d", "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)", v97, a2, *(v62 + 138));
-    v98 = _ps_buffer_log;
-    if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
+    else
     {
-      v99 = PSSharedResource::getKey(a1);
-      v100 = *(a1 + 552);
-      *buf = 136316418;
-      v116 = "relinquishReaderResource";
-      v117 = 1024;
-      *v118 = 688;
-      *&v118[4] = 2080;
-      *&v118[6] = "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)";
-      v119 = 2080;
-      v120 = v99;
-      v121 = 1024;
-      v122 = a2;
-      v123 = 1024;
-      v124 = v100;
-      _os_log_impl(&dword_25EBC5000, v98, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Failed to release memdesc id: %d to free pool in function. Invalid Parameters! NumMemDescNodes: %d", buf, 0x32u);
+      v33 = v60;
+      if (v61 != 3)
+      {
+        goto LABEL_42;
+      }
+
+      v103 = 0;
+      v91 = PSSharedResource::getKey(v60);
+      asprintf(&v103, "%s [key=%s] Failed to release memdesc id: %d to free pool in function. Invalid Parameters! NumMemDescNodes: %d", "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)", v91, a2, *(v60 + 138));
+      v92 = _ps_buffer_log;
+      if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
+      {
+        v93 = PSSharedResource::getKey(a1);
+        v94 = *(a1 + 552);
+        *buf = 136316418;
+        v109 = "relinquishReaderResource";
+        v110 = 1024;
+        *v111 = 688;
+        *&v111[4] = 2080;
+        *&v111[6] = "int PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(int, uint16_t *, uint32_t, AVACriticality, uint32_t)";
+        v112 = 2080;
+        v113 = v93;
+        v114 = 1024;
+        v115 = a2;
+        v116 = 1024;
+        v117 = v94;
+        _os_log_impl(&dword_25EBC5000, v92, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Failed to release memdesc id: %d to free pool in function. Invalid Parameters! NumMemDescNodes: %d", buf, 0x32u);
+      }
+
+      v95 = OSLogFlushBuffers();
+      if (!v95)
+      {
+LABEL_74:
+        usleep(0x1E8480u);
+        goto LABEL_77;
+      }
+
+      v85 = v95;
+      v86 = _ps_buffer_log;
+      if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
+      {
+LABEL_76:
+        *buf = 136315394;
+        v109 = "relinquishReaderResource";
+        v110 = 1024;
+        *v111 = v85;
+        _os_log_impl(&dword_25EBC5000, v86, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      }
     }
 
-    v101 = OSLogFlushBuffers();
-    if (!v101)
-    {
-LABEL_75:
-      usleep(0x1E8480u);
-      goto LABEL_78;
-    }
-
-    v91 = v101;
-    v92 = _ps_buffer_log;
-    if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
-    {
 LABEL_77:
-      *buf = 136315394;
-      v116 = "relinquishReaderResource";
-      v117 = 1024;
-      *v118 = v91;
-      _os_log_impl(&dword_25EBC5000, v92, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
-    }
+    v96 = abort_with_reason();
+    return PSBufferService::PSLocklessBufferSelectorWriter::Initialize(v96);
   }
-
-LABEL_78:
-  v102 = abort_with_reason();
-  return PSBufferService::PSLocklessBufferSelectorWriter::Initialize(v102);
 }
 
 uint64_t PSBufferService::PSLocklessBufferSelectorWriter::Initialize(PSBufferService::PSLocklessBufferSelectorWriter *this)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*(this + 560))
   {
-    v1 = 2;
-    goto LABEL_13;
+    return 2;
   }
 
   Data = PSSharedSerialData::getData(*(this + 79));
@@ -4912,7 +4866,7 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::Initialize(PSBufferSer
     v5 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_13;
+      return v1;
     }
 
     goto LABEL_11;
@@ -4926,7 +4880,7 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::Initialize(PSBufferSer
     v5 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_13;
+      return v1;
     }
 
     *buf = 136315394;
@@ -4936,18 +4890,17 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::Initialize(PSBufferSer
     v8 = "%s [key=%s] Failed to initialize memory descriptor";
 LABEL_12:
     _os_log_impl(&dword_25EBC5000, v5, OS_LOG_TYPE_ERROR, v8, buf, 0x16u);
-    goto LABEL_13;
+    return v1;
   }
 
-  v9 = *(this + 139);
-  v10 = PSBufferService::LocklessViewReaper::InitializeIntoRawBuffer((this + 600), &v6[128 * *(this + 138) + 256]);
-  if (v10)
+  v9 = PSBufferService::LocklessViewReaper::InitializeIntoRawBuffer((this + 600), &v6[128 * *(this + 138) + 256]);
+  if (v9)
   {
-    v1 = v10;
+    v1 = v9;
     v5 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_13;
+      return v1;
     }
 
 LABEL_11:
@@ -4959,38 +4912,38 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v13 = *(this + 72);
-  v24 = 0;
+  v11 = *(this + 72);
+  v22 = 0;
   if (*(this + 139))
   {
-    v14 = 0;
-    v15 = (v13 + 24);
+    v12 = 0;
+    v13 = (v11 + 24);
     do
     {
       *buf = 0;
       *&buf[8] = 0;
-      PSBufferService::MemDescPool::GetFreeMemDescFromPool((this + 584), &v24, buf, 0);
-      v16 = v24;
-      atomic_store(v24, v15);
-      *(*(this + 74) + (v16 << 7) + 4) = v14++;
-      v17 = *(this + 139);
-      v15 += 32;
+      PSBufferService::MemDescPool::GetFreeMemDescFromPool((this + 584), &v22, buf, 0);
+      v14 = v22;
+      atomic_store(v22, v13);
+      *(*(this + 74) + (v14 << 7) + 4) = v12++;
+      v15 = *(this + 139);
+      v13 += 32;
     }
 
-    while (v14 < v17);
+    while (v12 < v15);
   }
 
   else
   {
-    LODWORD(v17) = 0;
+    LODWORD(v15) = 0;
   }
 
-  *&v23[4] = 0;
-  v18 = *(this + 138);
-  *v23 = v18 - v17;
-  if (PSBufferService::AtomicPoolAccountant::Initialize(*(this + 73), v18, v23))
+  *&v21[4] = 0;
+  v16 = *(this + 138);
+  *v21 = v16 - v15;
+  if (PSBufferService::AtomicPoolAccountant::Initialize(*(this + 73), v16, v21))
   {
-    v19 = _ps_buffer_log;
+    v17 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       Key = PSSharedResource::getKey(this);
@@ -4998,26 +4951,26 @@ LABEL_11:
       *&buf[4] = "virtual PBSResult PSBufferService::PSLocklessBufferSelectorWriter::Initialize()";
       *&buf[12] = 2080;
       *&buf[14] = Key;
-      _os_log_impl(&dword_25EBC5000, v19, OS_LOG_TYPE_ERROR, "%s [key=%s] Failed to initialize AVA structure", buf, 0x16u);
+      _os_log_impl(&dword_25EBC5000, v17, OS_LOG_TYPE_ERROR, "%s [key=%s] Failed to initialize AVA structure", buf, 0x16u);
     }
 
-    v1 = 0;
+    return 0;
   }
 
   else if ((*(**(this + 79) + 96))(*(this + 79), 10))
   {
-    v21 = _ps_buffer_log;
+    v19 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      v22 = PSSharedResource::getKey(this);
+      v20 = PSSharedResource::getKey(this);
       *buf = 136315394;
       *&buf[4] = "virtual PBSResult PSBufferService::PSLocklessBufferSelectorWriter::Initialize()";
       *&buf[12] = 2080;
-      *&buf[14] = v22;
-      _os_log_impl(&dword_25EBC5000, v21, OS_LOG_TYPE_ERROR, " [key=%s]Failed to initialize remote resource %s", buf, 0x16u);
+      *&buf[14] = v20;
+      _os_log_impl(&dword_25EBC5000, v19, OS_LOG_TYPE_ERROR, " [key=%s]Failed to initialize remote resource %s", buf, 0x16u);
     }
 
-    v1 = 4;
+    return 4;
   }
 
   else
@@ -5026,18 +4979,15 @@ LABEL_11:
     *(this + 560) = 1;
   }
 
-LABEL_13:
-  v11 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
 uint64_t PSBufferService::PSLocklessBufferSelectorWriter::InitializeFromRawBuffer(PSBufferService::PSLocklessBufferSelectorWriter *this)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*(this + 560))
   {
-    v1 = 2;
-    goto LABEL_13;
+    return 2;
   }
 
   Data = PSSharedSerialData::getData(*(this + 79));
@@ -5048,17 +4998,17 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::InitializeFromRawBuffe
     v5 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_13;
+      return v1;
     }
 
-    v13 = 136315394;
-    v14 = "virtual PBSResult PSBufferService::PSLocklessBufferSelectorWriter::InitializeFromRawBuffer()";
-    v15 = 2080;
+    v12 = 136315394;
+    v13 = "virtual PBSResult PSBufferService::PSLocklessBufferSelectorWriter::InitializeFromRawBuffer()";
+    v14 = 2080;
     Key = PSSharedResource::getKey(this);
     v6 = "%s [key=%s] Failed to initialize AtomicDeque structure";
 LABEL_12:
-    _os_log_impl(&dword_25EBC5000, v5, OS_LOG_TYPE_ERROR, v6, &v13, 0x16u);
-    goto LABEL_13;
+    _os_log_impl(&dword_25EBC5000, v5, OS_LOG_TYPE_ERROR, v6, &v12, 0x16u);
+    return v1;
   }
 
   v7 = *(*(this + 71) + 32);
@@ -5071,7 +5021,7 @@ LABEL_12:
     v5 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_13;
+      return v1;
     }
 
     goto LABEL_11;
@@ -5083,23 +5033,21 @@ LABEL_12:
   if (!v1)
   {
     *(this + 560) = 1;
-    goto LABEL_13;
+    return v1;
   }
 
   v5 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
   {
 LABEL_11:
-    v13 = 136315394;
-    v14 = "virtual PBSResult PSBufferService::PSLocklessBufferSelectorWriter::InitializeFromRawBuffer()";
-    v15 = 2080;
+    v12 = 136315394;
+    v13 = "virtual PBSResult PSBufferService::PSLocklessBufferSelectorWriter::InitializeFromRawBuffer()";
+    v14 = 2080;
     Key = PSSharedResource::getKey(this);
     v6 = "%s [key=%s] Failed to initialize memory descriptor";
     goto LABEL_12;
   }
 
-LABEL_13:
-  v11 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
@@ -5114,19 +5062,19 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::getResource(PSBufferSe
 
 uint64_t PSBufferService::PSLocklessBufferSelectorWriter::getResourceInternal(PSBufferService::PSLocklessBufferSelectorWriter *this, uint64_t a2)
 {
-  v86 = *MEMORY[0x277D85DE8];
-  v75 = 0;
+  v82 = *MEMORY[0x277D85DE8];
+  v71 = 0;
   v4 = *(this + 561);
   v5 = (this + 568);
   if (v4 == 1)
   {
-    if (PSBufferService::AtomicDeque::Dequeue(v5, &v75))
+    if (PSBufferService::AtomicDeque::Dequeue(v5, &v71))
     {
       goto LABEL_3;
     }
   }
 
-  else if (PSBufferService::AtomicDeque::GetNodeIdFromTail(v5, &v75))
+  else if (PSBufferService::AtomicDeque::GetNodeIdFromTail(v5, &v71))
   {
 LABEL_3:
     abort();
@@ -5134,20 +5082,19 @@ LABEL_3:
 
   _X0 = 0;
   _X1 = 0;
-  v8 = atomic_load((*(this + 72) + (v75 << 7) + 24));
-  v73 = 0;
-  v74 = v8;
-  v9 = *(this + 74);
+  v8 = atomic_load((*(this + 72) + (v71 << 7) + 24));
+  v69 = 0;
+  v70 = v8;
   __asm { CASPAL          X0, X1, X0, X1, [X8] }
 
-  v15 = v71;
+  v14 = v67;
   do
   {
-    _X5 = v72;
+    _X5 = v68;
     __asm { CASPAL          X4, X5, X0, X1, [X8] }
 
-    _ZF = _X4 == v15;
-    v15 = _X4;
+    _ZF = _X4 == v14;
+    v14 = _X4;
   }
 
   while (!_ZF);
@@ -5157,60 +5104,60 @@ LABEL_3:
     _X3 = 0;
     __asm { CASPAL          X2, X3, X0, X1, [X8] }
 
-    v21 = v69;
+    v20 = v65;
     do
     {
-      _X7 = v70;
+      _X7 = v66;
       __asm { CASPAL          X6, X7, X2, X3, [X9] }
 
-      _ZF = _X6 == v21;
-      v21 = _X6;
+      _ZF = _X6 == v20;
+      v20 = _X6;
     }
 
     while (!_ZF);
-    if ((_X2 & 7) == 1 || (v24 = BYTE2(_X2) & 7, v24 == 1) || (v25 = BYTE4(_X2) & 7, v25 == 1))
+    if ((_X2 & 7) == 1 || (v23 = BYTE2(_X2) & 7, v23 == 1) || (v24 = BYTE4(_X2) & 7, v24 == 1))
     {
-      HIWORD(v69) = HIWORD(_X2) | 0x20;
+      HIWORD(v65) = HIWORD(_X2) | 0x20;
     }
 
     else
     {
-      if ((_X2 & 7) == 2 || v24 == 2 || v25 == 2)
+      if ((_X2 & 7) == 2 || v23 == 2 || v24 == 2)
       {
-        *&v68 = 0;
+        *&v64 = 0;
         Key = PSSharedResource::getKey(this);
-        asprintf(&v68, "%s [key=%s] Trying to acquire memdesc already in WRITING!! %d %d", "int PSBufferService::PSLocklessBufferSelectorWriter::getResourceInternal(uint64_t)", Key, v75, v8);
-        v54 = _ps_buffer_log;
+        asprintf(&v64, "%s [key=%s] Trying to acquire memdesc already in WRITING!! %d %d", "int PSBufferService::PSLocklessBufferSelectorWriter::getResourceInternal(uint64_t)", Key, v71, v8);
+        v50 = _ps_buffer_log;
         if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
         {
-          v55 = PSSharedResource::getKey(this);
+          v51 = PSSharedResource::getKey(this);
           *buf = 136316418;
-          v77 = "getResourceInternal";
+          v73 = "getResourceInternal";
+          v74 = 1024;
+          *v75 = 944;
+          *&v75[4] = 2080;
+          *&v75[6] = "int PSBufferService::PSLocklessBufferSelectorWriter::getResourceInternal(uint64_t)";
+          v76 = 2080;
+          *v77 = v51;
+          *&v77[8] = 1024;
+          *&v77[10] = v71;
           v78 = 1024;
-          *v79 = 944;
-          *&v79[4] = 2080;
-          *&v79[6] = "int PSBufferService::PSLocklessBufferSelectorWriter::getResourceInternal(uint64_t)";
-          v80 = 2080;
-          *v81 = v55;
-          *&v81[8] = 1024;
-          *&v81[10] = v75;
-          v82 = 1024;
-          v83 = v8;
-          _os_log_impl(&dword_25EBC5000, v54, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Trying to acquire memdesc already in WRITING!! %d %d", buf, 0x32u);
+          v79 = v8;
+          _os_log_impl(&dword_25EBC5000, v50, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Trying to acquire memdesc already in WRITING!! %d %d", buf, 0x32u);
         }
 
-        v56 = OSLogFlushBuffers();
-        if (v56)
+        v52 = OSLogFlushBuffers();
+        if (v52)
         {
-          v57 = v56;
-          v58 = _ps_buffer_log;
+          v53 = v52;
+          v54 = _ps_buffer_log;
           if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v77 = "getResourceInternal";
-            v78 = 1024;
-            *v79 = v57;
-            _os_log_impl(&dword_25EBC5000, v58, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+            v73 = "getResourceInternal";
+            v74 = 1024;
+            *v75 = v53;
+            _os_log_impl(&dword_25EBC5000, v54, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
           }
         }
 
@@ -5219,159 +5166,142 @@ LABEL_3:
           usleep(0x1E8480u);
         }
 
-LABEL_45:
+LABEL_44:
         abort_with_reason();
       }
 
-      LOWORD(v69) = _X2 & 0xFFF8 | 2;
-      WORD1(v69) = WORD1(_X2) & 0xFFF8 | 2;
-      WORD2(v69) = WORD2(_X2) & 0xFFF8 | 2;
+      LOWORD(v65) = _X2 & 0xFFF8 | 2;
+      WORD1(v65) = WORD1(_X2) & 0xFFF8 | 2;
+      WORD2(v65) = WORD2(_X2) & 0xFFF8 | 2;
     }
 
-    v26 = *(this + 74) + (v8 << 7) + 16;
     _X5 = 0;
     __asm { CASPAL          X4, X5, X0, X1, [X9] }
 
-    _X3 = v72;
+    _X3 = v68;
     __asm { CASPAL          X2, X3, X4, X5, [X10] }
 
-    if (_X2 == v71)
+    if (_X2 == v67)
     {
       break;
     }
 
-    v71 = _X2;
+    v67 = _X2;
   }
 
-  if ((v69 & 0x20000000000000) != 0)
+  if ((v65 & 0x20000000000000) == 0)
   {
-    v68 = 0uLL;
-    v67 = 0uLL;
-    if (PSBufferService::MemDescPool::ReadFreeMemDescFromPool((this + 584), &v74, &v68))
-    {
-      PSBufferService::PSLocklessBufferSelectorWriter::getResourceInternal(buf, this);
-    }
+    v29 = *(this + 74);
+    v30 = v8 << 7;
+    return *(v29 + v30);
+  }
 
-    else
-    {
-      _X2 = 0;
-      _X3 = 0;
-      v36 = *(this + 74);
-      __asm { CASPAL          X2, X3, X2, X3, [X8] }
+  v64 = 0uLL;
+  v63 = 0uLL;
+  if (PSBufferService::MemDescPool::ReadFreeMemDescFromPool((this + 584), &v70, &v64))
+  {
+    PSBufferService::PSLocklessBufferSelectorWriter::getResourceInternal(buf, this);
+    goto LABEL_46;
+  }
 
-      v38 = v69;
-      do
-      {
-        _X5 = v70;
-        __asm { CASPAL          X4, X5, X2, X3, [X8] }
+  _X2 = 0;
+  _X3 = 0;
+  __asm { CASPAL          X2, X3, X2, X3, [X8] }
 
-        _ZF = _X4 == v38;
-        v38 = _X4;
-      }
+  v35 = v65;
+  do
+  {
+    _X5 = v66;
+    __asm { CASPAL          X4, X5, X2, X3, [X8] }
 
-      while (!_ZF);
-      _X0 = 0;
-      _X1 = 0;
-      LOWORD(v69) = _X2 & 0xFFF8 | 2;
-      WORD1(v69) = WORD1(_X2) & 0xFFF8 | 2;
-      WORD2(v69) = WORD2(_X2) & 0xFFF8 | 2;
-      v43 = *(this + 74) + (v74 << 7);
-      __asm { CASPAL          X0, X1, X0, X1, [X9] }
+    _ZF = _X4 == v35;
+    v35 = _X4;
+  }
 
-      v45 = *(v43 + 16);
-      do
-      {
-        _X5 = *(v43 + 24);
-        __asm { CASPAL          X4, X5, X0, X1, [X8] }
+  while (!_ZF);
+  _X0 = 0;
+  _X1 = 0;
+  LOWORD(v65) = _X2 & 0xFFF8 | 2;
+  WORD1(v65) = WORD1(_X2) & 0xFFF8 | 2;
+  WORD2(v65) = WORD2(_X2) & 0xFFF8 | 2;
+  v40 = *(this + 74) + (v70 << 7);
+  __asm { CASPAL          X0, X1, X0, X1, [X9] }
 
-        _ZF = _X4 == v45;
-        v45 = _X4;
-      }
+  v42 = *(v40 + 16);
+  do
+  {
+    _X5 = *(v40 + 24);
+    __asm { CASPAL          X4, X5, X0, X1, [X8] }
 
-      while (!_ZF);
-      if (a2 == 1)
-      {
-        goto LABEL_36;
-      }
+    _ZF = _X4 == v42;
+    v42 = _X4;
+  }
 
-      if (!PSBufferService::MemDescPool::GetFreeMemDescFromPool((this + 584), &v73, &v67, &v74) && v73 == v74)
-      {
-        if (a2 != 2)
-        {
-          v49 = *(this + 74);
-          *(v49 + (v8 << 7) + 4) = -1;
-          v50 = v75;
-          *(v49 + (v74 << 7) + 4) = v75;
-          v51 = (*(this + 72) + (v50 << 7) + 24);
-          v52 = v74;
-          atomic_store(v74, v51);
-          v31 = *(this + 74);
-          v32 = v52 << 7;
-          goto LABEL_24;
-        }
+  while (!_ZF);
+  if (a2 == 1)
+  {
+    return 0xFFFFFFFFLL;
+  }
 
-LABEL_36:
-        result = 0xFFFFFFFFLL;
-        goto LABEL_37;
-      }
-    }
-
-    v59 = _ps_buffer_log;
+  if (PSBufferService::MemDescPool::GetFreeMemDescFromPool((this + 584), &v69, &v63, &v70) || v69 != v70)
+  {
+LABEL_46:
+    v55 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      v77 = *(&v68 + 1);
-      v78 = 2048;
-      *v79 = v68;
-      _os_log_impl(&dword_25EBC5000, v59, OS_LOG_TYPE_ERROR, "free_array_on_read =%llx %llx", buf, 0x16u);
-      v59 = _ps_buffer_log;
+      v73 = *(&v64 + 1);
+      v74 = 2048;
+      *v75 = v64;
+      _os_log_impl(&dword_25EBC5000, v55, OS_LOG_TYPE_ERROR, "free_array_on_read =%llx %llx", buf, 0x16u);
+      v55 = _ps_buffer_log;
     }
 
-    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      v77 = *(&v67 + 1);
-      v78 = 2048;
-      *v79 = v67;
-      _os_log_impl(&dword_25EBC5000, v59, OS_LOG_TYPE_ERROR, "free_array_on_get =%llx %llx", buf, 0x16u);
+      v73 = *(&v63 + 1);
+      v74 = 2048;
+      *v75 = v63;
+      _os_log_impl(&dword_25EBC5000, v55, OS_LOG_TYPE_ERROR, "free_array_on_get =%llx %llx", buf, 0x16u);
     }
 
-    v66 = 0;
-    v60 = PSSharedResource::getKey(this);
-    asprintf(&v66, "%s line=%d [key=%s] Failed to get a new memDesc from pool (checkId=%u newId=%u)", "int PSBufferService::PSLocklessBufferSelectorWriter::getResourceInternal(uint64_t)", 1001, v60, v73, v74);
-    v61 = _ps_buffer_log;
+    v62 = 0;
+    v56 = PSSharedResource::getKey(this);
+    asprintf(&v62, "%s line=%d [key=%s] Failed to get a new memDesc from pool (checkId=%u newId=%u)", "int PSBufferService::PSLocklessBufferSelectorWriter::getResourceInternal(uint64_t)", 1001, v56, v69, v70);
+    v57 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
-      v62 = PSSharedResource::getKey(this);
+      v58 = PSSharedResource::getKey(this);
       *buf = 136316674;
-      v77 = "getResourceInternal";
+      v73 = "getResourceInternal";
+      v74 = 1024;
+      *v75 = 1001;
+      *&v75[4] = 2080;
+      *&v75[6] = "int PSBufferService::PSLocklessBufferSelectorWriter::getResourceInternal(uint64_t)";
+      v76 = 1024;
+      *v77 = 1001;
+      *&v77[4] = 2080;
+      *&v77[6] = v58;
       v78 = 1024;
-      *v79 = 1001;
-      *&v79[4] = 2080;
-      *&v79[6] = "int PSBufferService::PSLocklessBufferSelectorWriter::getResourceInternal(uint64_t)";
+      v79 = v69;
       v80 = 1024;
-      *v81 = 1001;
-      *&v81[4] = 2080;
-      *&v81[6] = v62;
-      v82 = 1024;
-      v83 = v73;
-      v84 = 1024;
-      v85 = v74;
-      _os_log_impl(&dword_25EBC5000, v61, OS_LOG_TYPE_FAULT, "%s:%d %s line=%d [key=%s] Failed to get a new memDesc from pool (checkId=%u newId=%u)", buf, 0x38u);
+      v81 = v70;
+      _os_log_impl(&dword_25EBC5000, v57, OS_LOG_TYPE_FAULT, "%s:%d %s line=%d [key=%s] Failed to get a new memDesc from pool (checkId=%u newId=%u)", buf, 0x38u);
     }
 
-    v63 = OSLogFlushBuffers();
-    if (v63)
+    v59 = OSLogFlushBuffers();
+    if (v59)
     {
-      v64 = v63;
-      v65 = _ps_buffer_log;
+      v60 = v59;
+      v61 = _ps_buffer_log;
       if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v77 = "getResourceInternal";
-        v78 = 1024;
-        *v79 = v64;
-        _os_log_impl(&dword_25EBC5000, v65, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v73 = "getResourceInternal";
+        v74 = 1024;
+        *v75 = v60;
+        _os_log_impl(&dword_25EBC5000, v61, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -5380,76 +5310,81 @@ LABEL_36:
       usleep(0x1E8480u);
     }
 
-    goto LABEL_45;
+    goto LABEL_44;
   }
 
-  v31 = *(this + 74);
-  v32 = v8 << 7;
-LABEL_24:
-  result = *(v31 + v32);
-LABEL_37:
-  v48 = *MEMORY[0x277D85DE8];
-  return result;
+  if (a2 != 2)
+  {
+    v45 = *(this + 74);
+    *(v45 + (v8 << 7) + 4) = -1;
+    v46 = v71;
+    *(v45 + (v70 << 7) + 4) = v71;
+    v47 = (*(this + 72) + (v46 << 7) + 24);
+    v48 = v70;
+    atomic_store(v70, v47);
+    v29 = *(this + 74);
+    v30 = v48 << 7;
+    return *(v29 + v30);
+  }
+
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t PSBufferService::PSLocklessBufferSelectorWriter::relinquishResource(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned __int16 *a3)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   if ((a2 & 0x80000000) != 0 || *(this + 138) <= a2)
   {
-    v34 = _ps_buffer_log;
+    v32 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-LABEL_22:
-      result = 0xFFFFFFFFLL;
-      goto LABEL_23;
+      return 0xFFFFFFFFLL;
     }
 
     *buf = 136315650;
-    v55 = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResource(int, uint16_t *)";
-    v56 = 2080;
-    *v57 = PSSharedResource::getKey(this);
-    *&v57[8] = 1024;
-    *&v57[10] = a2;
-    v35 = "%s [key=%s] Buffer Id invalid %d";
+    v52 = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResource(int, uint16_t *)";
+    v53 = 2080;
+    *v54 = PSSharedResource::getKey(this);
+    *&v54[8] = 1024;
+    *&v54[10] = a2;
+    v33 = "%s [key=%s] Buffer Id invalid %d";
 LABEL_21:
-    _os_log_impl(&dword_25EBC5000, v34, OS_LOG_TYPE_ERROR, v35, buf, 0x1Cu);
-    goto LABEL_22;
+    _os_log_impl(&dword_25EBC5000, v32, OS_LOG_TYPE_ERROR, v33, buf, 0x1Cu);
+    return 0xFFFFFFFFLL;
   }
 
   v5 = *(*(this + 74) + (a2 << 7) + 4);
   if (v5 >= *(this + 139))
   {
-    v34 = _ps_buffer_log;
+    v32 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_22;
+      return 0xFFFFFFFFLL;
     }
 
     *buf = 136315650;
-    v55 = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResource(int, uint16_t *)";
-    v56 = 2080;
-    *v57 = PSSharedResource::getKey(this);
-    *&v57[8] = 1024;
-    *&v57[10] = a2;
-    v35 = "%s [key=%s] NodeId not owned by buff_id %d";
+    v52 = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResource(int, uint16_t *)";
+    v53 = 2080;
+    *v54 = PSSharedResource::getKey(this);
+    *&v54[8] = 1024;
+    *&v54[10] = a2;
+    v33 = "%s [key=%s] NodeId not owned by buff_id %d";
     goto LABEL_21;
   }
 
   _X0 = 0;
   _X1 = 0;
   v9 = atomic_load((*(this + 72) + (v5 << 7) + 24));
-  v10 = *(this + 74);
   __asm { CASPAL          X0, X1, X0, X1, [X9] }
 
-  v16 = v52[1];
+  v15 = v49[1];
   do
   {
-    _X5 = v52[2];
+    _X5 = v49[2];
     __asm { CASPAL          X4, X5, X0, X1, [X9] }
 
-    _ZF = _X4 == v16;
-    v16 = _X4;
+    _ZF = _X4 == v15;
+    v15 = _X4;
   }
 
   while (!_ZF);
@@ -5457,100 +5392,95 @@ LABEL_21:
   {
     _X2 = 0;
     _X3 = 0;
-    v21 = *(this + 74);
     __asm { CASPAL          X2, X3, X2, X3, [X9] }
 
-    v23 = v53[0];
+    v21 = v50[0];
     do
     {
-      _X5 = v53[1];
+      _X5 = v50[1];
       __asm { CASPAL          X4, X5, X2, X3, [X9] }
 
-      _ZF = _X4 == v23;
-      v23 = _X4;
+      _ZF = _X4 == v21;
+      v21 = _X4;
     }
 
     while (!_ZF);
     _X0 = 0;
     _X1 = 0;
-    LOWORD(v53[0]) = _X2 & 0xFFF8 | 3;
-    WORD1(v53[0]) = WORD1(_X2) & 0xFFF8 | 3;
-    WORD2(v53[0]) = WORD2(_X2) & 0xFFF8 | 3;
-    HIWORD(v53[0]) = HIWORD(_X2) & 0xFFE0 | (HIWORD(_X2) + 1) & 0x1F;
-    v28 = *(this + 74) + (v9 << 7);
+    LOWORD(v50[0]) = _X2 & 0xFFF8 | 3;
+    WORD1(v50[0]) = WORD1(_X2) & 0xFFF8 | 3;
+    WORD2(v50[0]) = WORD2(_X2) & 0xFFF8 | 3;
+    HIWORD(v50[0]) = HIWORD(_X2) & 0xFFE0 | (HIWORD(_X2) + 1) & 0x1F;
+    v26 = *(this + 74) + (v9 << 7);
     __asm { CASPAL          X0, X1, X0, X1, [X9] }
 
-    v30 = *(v28 + 16);
+    v28 = *(v26 + 16);
     do
     {
-      _X5 = *(v28 + 24);
+      _X5 = *(v26 + 24);
       __asm { CASPAL          X4, X5, X0, X1, [X8] }
 
-      _ZF = _X4 == v30;
-      v30 = _X4;
+      _ZF = _X4 == v28;
+      v28 = _X4;
     }
 
     while (!_ZF);
-    v52[0] = 0;
+    v49[0] = 0;
     if (*(this + 561) != 1)
     {
-      (*(*this + 176))(this, v52, _X4);
+      (*(*this + 176))(this, v49, _X4);
       if (!a3)
       {
-        goto LABEL_18;
+        return 0;
       }
 
       goto LABEL_17;
     }
 
-    if (!PSBufferService::AtomicDeque::Enqueue((this + 568), v5, v52))
+    if (!PSBufferService::AtomicDeque::Enqueue((this + 568), v5, v49))
     {
       if (!a3)
       {
-LABEL_18:
-        result = 0;
-LABEL_23:
-        v36 = *MEMORY[0x277D85DE8];
-        return result;
+        return 0;
       }
 
 LABEL_17:
       *a3 = 0;
-      goto LABEL_18;
+      return 0;
     }
 
-    v51 = 0;
+    v48 = 0;
     Key = PSSharedResource::getKey(this);
-    asprintf(&v51, "%s [key=%s] Failed to Enqueue the nodeId %d", "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResource(int, uint16_t *)", Key, v5);
-    v44 = _ps_buffer_log;
+    asprintf(&v48, "%s [key=%s] Failed to Enqueue the nodeId %d", "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResource(int, uint16_t *)", Key, v5);
+    v41 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
-      v45 = PSSharedResource::getKey(this);
+      v42 = PSSharedResource::getKey(this);
       *buf = 136316162;
-      v55 = "relinquishResource";
-      v56 = 1024;
-      *v57 = 1089;
-      *&v57[4] = 2080;
-      *&v57[6] = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResource(int, uint16_t *)";
-      v58 = 2080;
-      v59 = v45;
-      v60 = 1024;
-      v61 = v5;
-      _os_log_impl(&dword_25EBC5000, v44, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Failed to Enqueue the nodeId %d", buf, 0x2Cu);
+      v52 = "relinquishResource";
+      v53 = 1024;
+      *v54 = 1089;
+      *&v54[4] = 2080;
+      *&v54[6] = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResource(int, uint16_t *)";
+      v55 = 2080;
+      v56 = v42;
+      v57 = 1024;
+      v58 = v5;
+      _os_log_impl(&dword_25EBC5000, v41, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Failed to Enqueue the nodeId %d", buf, 0x2Cu);
     }
 
-    v46 = OSLogFlushBuffers();
-    if (v46)
+    v43 = OSLogFlushBuffers();
+    if (v43)
     {
-      v47 = v46;
-      v48 = _ps_buffer_log;
+      v44 = v43;
+      v45 = _ps_buffer_log;
       if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v55 = "relinquishResource";
-        v56 = 1024;
-        *v57 = v47;
-        _os_log_impl(&dword_25EBC5000, v48, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v52 = "relinquishResource";
+        v53 = 1024;
+        *v54 = v44;
+        _os_log_impl(&dword_25EBC5000, v45, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -5562,38 +5492,38 @@ LABEL_17:
 
   else
   {
-    v53[0] = 0;
-    v37 = PSSharedResource::getKey(this);
-    asprintf(v53, "%s [key=%s] Trying to relinquish Buffer that is not in Writing %d", "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResource(int, uint16_t *)", v37, a2);
-    v38 = _ps_buffer_log;
+    v50[0] = 0;
+    v34 = PSSharedResource::getKey(this);
+    asprintf(v50, "%s [key=%s] Trying to relinquish Buffer that is not in Writing %d", "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResource(int, uint16_t *)", v34, a2);
+    v35 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
-      v39 = PSSharedResource::getKey(this);
+      v36 = PSSharedResource::getKey(this);
       *buf = 136316162;
-      v55 = "relinquishResource";
-      v56 = 1024;
-      *v57 = 1067;
-      *&v57[4] = 2080;
-      *&v57[6] = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResource(int, uint16_t *)";
-      v58 = 2080;
-      v59 = v39;
-      v60 = 1024;
-      v61 = a2;
-      _os_log_impl(&dword_25EBC5000, v38, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Trying to relinquish Buffer that is not in Writing %d", buf, 0x2Cu);
+      v52 = "relinquishResource";
+      v53 = 1024;
+      *v54 = 1067;
+      *&v54[4] = 2080;
+      *&v54[6] = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResource(int, uint16_t *)";
+      v55 = 2080;
+      v56 = v36;
+      v57 = 1024;
+      v58 = a2;
+      _os_log_impl(&dword_25EBC5000, v35, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Trying to relinquish Buffer that is not in Writing %d", buf, 0x2Cu);
     }
 
-    v40 = OSLogFlushBuffers();
-    if (v40)
+    v37 = OSLogFlushBuffers();
+    if (v37)
     {
-      v41 = v40;
-      v42 = _ps_buffer_log;
+      v38 = v37;
+      v39 = _ps_buffer_log;
       if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v55 = "relinquishResource";
-        v56 = 1024;
-        *v57 = v41;
-        _os_log_impl(&dword_25EBC5000, v42, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v52 = "relinquishResource";
+        v53 = 1024;
+        *v54 = v38;
+        _os_log_impl(&dword_25EBC5000, v39, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -5603,50 +5533,49 @@ LABEL_17:
     }
   }
 
-  v49 = abort_with_reason();
-  return PSBufferService::PSLocklessBufferSelectorWriter::incrementWriteIndex(v49, v50);
+  v46 = abort_with_reason();
+  return PSBufferService::PSLocklessBufferSelectorWriter::incrementWriteIndex(v46, v47);
 }
 
 uint64_t PSBufferService::PSLocklessBufferSelectorWriter::incrementWriteIndex(PSBufferService::PSLocklessBufferSelectorWriter *this, unint64_t *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v20 = 0;
-  if (!PSBufferService::AtomicDeque::Dequeue((this + 568), &v20))
+  v30 = *MEMORY[0x277D85DE8];
+  v19 = 0;
+  if (!PSBufferService::AtomicDeque::Dequeue((this + 568), &v19))
   {
-    if (!PSBufferService::AtomicDeque::Enqueue((this + 568), v20, a2))
+    if (!PSBufferService::AtomicDeque::Enqueue((this + 568), v19, a2))
     {
-      v4 = *MEMORY[0x277D85DE8];
       return 0;
     }
 
-    v19 = 0;
+    v18 = 0;
     Key = PSSharedResource::getKey(this);
-    asprintf(&v19, "%s [key=%s] Failed to Enqueue the nodeId %d", "virtual int PSBufferService::PSLocklessBufferSelectorWriter::incrementWriteIndex(uint64_t &)", Key, v20);
-    v13 = _ps_buffer_log;
+    asprintf(&v18, "%s [key=%s] Failed to Enqueue the nodeId %d", "virtual int PSBufferService::PSLocklessBufferSelectorWriter::incrementWriteIndex(uint64_t &)", Key, v19);
+    v12 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
-      v14 = PSSharedResource::getKey(this);
+      v13 = PSSharedResource::getKey(this);
       *buf = 136316162;
-      v22 = "incrementWriteIndex";
-      v23 = 1024;
-      v24 = 1116;
-      v25 = 2080;
-      v26 = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::incrementWriteIndex(uint64_t &)";
-      v27 = 2080;
-      v28 = v14;
-      v29 = 1024;
-      v30 = v20;
-      _os_log_impl(&dword_25EBC5000, v13, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Failed to Enqueue the nodeId %d", buf, 0x2Cu);
+      v21 = "incrementWriteIndex";
+      v22 = 1024;
+      v23 = 1116;
+      v24 = 2080;
+      v25 = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::incrementWriteIndex(uint64_t &)";
+      v26 = 2080;
+      v27 = v13;
+      v28 = 1024;
+      v29 = v19;
+      _os_log_impl(&dword_25EBC5000, v12, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Failed to Enqueue the nodeId %d", buf, 0x2Cu);
     }
 
-    v15 = OSLogFlushBuffers();
-    if (!v15)
+    v14 = OSLogFlushBuffers();
+    if (!v14)
     {
       goto LABEL_12;
     }
 
-    v10 = v15;
-    v11 = _ps_buffer_log;
+    v9 = v14;
+    v10 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_15;
@@ -5655,64 +5584,60 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::incrementWriteIndex(PS
     goto LABEL_14;
   }
 
-  v19 = 0;
-  v6 = PSSharedResource::getKey(this);
-  asprintf(&v19, "%s [key=%s] Failed to Dequeue the nodeId %d", "virtual int PSBufferService::PSLocklessBufferSelectorWriter::incrementWriteIndex(uint64_t &)", v6, v20);
-  v7 = _ps_buffer_log;
+  v18 = 0;
+  v5 = PSSharedResource::getKey(this);
+  asprintf(&v18, "%s [key=%s] Failed to Dequeue the nodeId %d", "virtual int PSBufferService::PSLocklessBufferSelectorWriter::incrementWriteIndex(uint64_t &)", v5, v19);
+  v6 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
   {
-    v8 = PSSharedResource::getKey(this);
+    v7 = PSSharedResource::getKey(this);
     *buf = 136316162;
-    v22 = "incrementWriteIndex";
-    v23 = 1024;
-    v24 = 1110;
-    v25 = 2080;
-    v26 = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::incrementWriteIndex(uint64_t &)";
-    v27 = 2080;
-    v28 = v8;
-    v29 = 1024;
-    v30 = v20;
-    _os_log_impl(&dword_25EBC5000, v7, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Failed to Dequeue the nodeId %d", buf, 0x2Cu);
+    v21 = "incrementWriteIndex";
+    v22 = 1024;
+    v23 = 1110;
+    v24 = 2080;
+    v25 = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::incrementWriteIndex(uint64_t &)";
+    v26 = 2080;
+    v27 = v7;
+    v28 = 1024;
+    v29 = v19;
+    _os_log_impl(&dword_25EBC5000, v6, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Failed to Dequeue the nodeId %d", buf, 0x2Cu);
   }
 
-  v9 = OSLogFlushBuffers();
-  if (!v9)
+  v8 = OSLogFlushBuffers();
+  if (!v8)
   {
 LABEL_12:
     usleep(0x1E8480u);
     goto LABEL_15;
   }
 
-  v10 = v9;
-  v11 = _ps_buffer_log;
+  v9 = v8;
+  v10 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
   {
 LABEL_14:
     *buf = 136315394;
-    v22 = "incrementWriteIndex";
-    v23 = 1024;
-    v24 = v10;
-    _os_log_impl(&dword_25EBC5000, v11, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+    v21 = "incrementWriteIndex";
+    v22 = 1024;
+    v23 = v9;
+    _os_log_impl(&dword_25EBC5000, v10, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
   }
 
 LABEL_15:
-  v16 = abort_with_reason();
-  return PSBufferService::PSLocklessBufferSelectorWriter::relinquishResourceWithoutWriteIndexIncrement(v16, v17, v18);
+  v15 = abort_with_reason();
+  return PSBufferService::PSLocklessBufferSelectorWriter::relinquishResourceWithoutWriteIndexIncrement(v15, v16, v17);
 }
 
 uint64_t PSBufferService::PSLocklessBufferSelectorWriter::relinquishResourceWithoutWriteIndexIncrement(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned __int16 *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if ((a2 & 0x80000000) != 0 || *(this + 138) <= a2)
   {
-    v33 = _ps_buffer_log;
+    v31 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-LABEL_20:
-      result = 0xFFFFFFFFLL;
-LABEL_21:
-      v35 = *MEMORY[0x277D85DE8];
-      return result;
+      return 0xFFFFFFFFLL;
     }
 
     *buf = 136315650;
@@ -5721,19 +5646,19 @@ LABEL_21:
     *&buf[14] = PSSharedResource::getKey(this);
     *&buf[22] = 1024;
     *&buf[24] = a2;
-    v34 = "%s [key=%s] Buffer Id invalid %d";
+    v32 = "%s [key=%s] Buffer Id invalid %d";
 LABEL_19:
-    _os_log_impl(&dword_25EBC5000, v33, OS_LOG_TYPE_ERROR, v34, buf, 0x1Cu);
-    goto LABEL_20;
+    _os_log_impl(&dword_25EBC5000, v31, OS_LOG_TYPE_ERROR, v32, buf, 0x1Cu);
+    return 0xFFFFFFFFLL;
   }
 
   v5 = *(*(this + 74) + (a2 << 7) + 4);
   if (v5 >= *(this + 139))
   {
-    v33 = _ps_buffer_log;
+    v31 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_20;
+      return 0xFFFFFFFFLL;
     }
 
     *buf = 136315650;
@@ -5742,7 +5667,7 @@ LABEL_19:
     *&buf[14] = PSSharedResource::getKey(this);
     *&buf[22] = 1024;
     *&buf[24] = a2;
-    v34 = "%s [key=%s] NodeId not owned by buff_id %d";
+    v32 = "%s [key=%s] NodeId not owned by buff_id %d";
     goto LABEL_19;
   }
 
@@ -5750,17 +5675,16 @@ LABEL_19:
   _X1 = 0;
   v8 = atomic_load((*(this + 72) + (v5 << 7) + 24));
   atomic_load((*(this + 72) + (v5 << 7) + 8));
-  v9 = *(this + 74);
   __asm { CASPAL          X0, X1, X0, X1, [X9] }
 
-  v15 = v43[1];
+  v14 = v40[1];
   do
   {
-    _X7 = v43[2];
+    _X7 = v40[2];
     __asm { CASPAL          X6, X7, X0, X1, [X9] }
 
-    _ZF = _X6 == v15;
-    v15 = _X6;
+    _ZF = _X6 == v14;
+    v14 = _X6;
   }
 
   while (!_ZF);
@@ -5768,17 +5692,16 @@ LABEL_19:
   {
     _X4 = 0;
     _X5 = 0;
-    v20 = *(this + 74);
     __asm { CASPAL          X4, X5, X4, X5, [X9] }
 
-    v22 = *buf;
+    v20 = *buf;
     do
     {
       _X7 = *&buf[8];
       __asm { CASPAL          X6, X7, X4, X5, [X9] }
 
-      _ZF = _X6 == v22;
-      v22 = _X6;
+      _ZF = _X6 == v20;
+      v20 = _X6;
     }
 
     while (!_ZF);
@@ -5788,17 +5711,17 @@ LABEL_19:
     *&buf[2] = WORD1(_X4) & 0xFFF8 | 3;
     *&buf[4] = WORD2(_X4) & 0xFFF8 | 3;
     *&buf[6] = HIWORD(_X4) & 0xFFE0 | (HIWORD(_X4) + 1) & 0x1F;
-    v27 = *(this + 74) + (v8 << 7);
+    v25 = *(this + 74) + (v8 << 7);
     __asm { CASPAL          X0, X1, X0, X1, [X9] }
 
-    v29 = *(v27 + 16);
+    v27 = *(v25 + 16);
     do
     {
-      _X7 = *(v27 + 24);
+      _X7 = *(v25 + 24);
       __asm { CASPAL          X6, X7, X0, X1, [X8] }
 
-      _ZF = _X6 == v29;
-      v29 = _X6;
+      _ZF = _X6 == v27;
+      v27 = _X6;
     }
 
     while (!_ZF);
@@ -5807,78 +5730,79 @@ LABEL_19:
       *a3 = 0;
     }
 
-    result = 0;
-    goto LABEL_21;
-  }
-
-  v43[0] = 0;
-  Key = PSSharedResource::getKey(this);
-  asprintf(v43, "%s [key=%s] Trying to relinquish Buffer that is not in Writing %d", "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResourceWithoutWriteIndexIncrement(int, uint16_t *)", Key, a2);
-  v37 = _ps_buffer_log;
-  if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
-  {
-    v38 = PSSharedResource::getKey(this);
-    *buf = 136316162;
-    *&buf[4] = "relinquishResourceWithoutWriteIndexIncrement";
-    *&buf[12] = 1024;
-    *&buf[14] = 1152;
-    *&buf[18] = 2080;
-    *&buf[20] = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResourceWithoutWriteIndexIncrement(int, uint16_t *)";
-    v45 = 2080;
-    v46 = v38;
-    v47 = 1024;
-    v48 = a2;
-    _os_log_impl(&dword_25EBC5000, v37, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Trying to relinquish Buffer that is not in Writing %d", buf, 0x2Cu);
-  }
-
-  v39 = OSLogFlushBuffers();
-  if (v39)
-  {
-    v40 = v39;
-    v41 = _ps_buffer_log;
-    if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      *&buf[4] = "relinquishResourceWithoutWriteIndexIncrement";
-      *&buf[12] = 1024;
-      *&buf[14] = v40;
-      _os_log_impl(&dword_25EBC5000, v41, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
-    }
+    return 0;
   }
 
   else
   {
-    usleep(0x1E8480u);
-  }
+    v40[0] = 0;
+    Key = PSSharedResource::getKey(this);
+    asprintf(v40, "%s [key=%s] Trying to relinquish Buffer that is not in Writing %d", "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResourceWithoutWriteIndexIncrement(int, uint16_t *)", Key, a2);
+    v34 = _ps_buffer_log;
+    if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
+    {
+      v35 = PSSharedResource::getKey(this);
+      *buf = 136316162;
+      *&buf[4] = "relinquishResourceWithoutWriteIndexIncrement";
+      *&buf[12] = 1024;
+      *&buf[14] = 1152;
+      *&buf[18] = 2080;
+      *&buf[20] = "virtual int PSBufferService::PSLocklessBufferSelectorWriter::relinquishResourceWithoutWriteIndexIncrement(int, uint16_t *)";
+      v42 = 2080;
+      v43 = v35;
+      v44 = 1024;
+      v45 = a2;
+      _os_log_impl(&dword_25EBC5000, v34, OS_LOG_TYPE_FAULT, "%s:%d %s [key=%s] Trying to relinquish Buffer that is not in Writing %d", buf, 0x2Cu);
+    }
 
-  v42 = abort_with_reason();
-  return PSBufferService::PSLocklessBufferSelectorWriter::relinquishWriterResources(v42);
+    v36 = OSLogFlushBuffers();
+    if (v36)
+    {
+      v37 = v36;
+      v38 = _ps_buffer_log;
+      if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        *&buf[4] = "relinquishResourceWithoutWriteIndexIncrement";
+        *&buf[12] = 1024;
+        *&buf[14] = v37;
+        _os_log_impl(&dword_25EBC5000, v38, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      }
+    }
+
+    else
+    {
+      usleep(0x1E8480u);
+    }
+
+    v39 = abort_with_reason();
+    return PSBufferService::PSLocklessBufferSelectorWriter::relinquishWriterResources(v39);
+  }
 }
 
 uint64_t PSBufferService::PSLocklessBufferSelectorWriter::relinquishWriterResources(PSBufferService::PSLocklessBufferSelectorWriter *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v42 = 0;
-  MissingNodeInQueue = PSBufferService::AtomicDeque::FindMissingNodeInQueue((this + 568), &v42, a3, a4, a5, a6);
-  if (MissingNodeInQueue == 2 && PSBufferService::AtomicDeque::GetNodeIdFromTail((this + 568), &v42))
+  v39 = 0;
+  MissingNodeInQueue = PSBufferService::AtomicDeque::FindMissingNodeInQueue((this + 568), &v39, a3, a4, a5, a6);
+  if (MissingNodeInQueue == 2 && PSBufferService::AtomicDeque::GetNodeIdFromTail((this + 568), &v39))
   {
     abort();
   }
 
   _X2 = 0;
   _X3 = 0;
-  v10 = atomic_load((*(this + 72) + (v42 << 7) + 24));
+  v10 = atomic_load((*(this + 72) + (v39 << 7) + 24));
   v11 = (this + 584);
-  v12 = *(this + 74);
   __asm { CASPAL          X2, X3, X2, X3, [X9] }
 
-  v18 = v40;
+  v17 = v37;
   do
   {
-    _X7 = v41;
+    _X7 = v38;
     __asm { CASPAL          X6, X7, X2, X3, [X9] }
 
-    _ZF = _X6 == v18;
-    v18 = _X6;
+    _ZF = _X6 == v17;
+    v17 = _X6;
   }
 
   while (!_ZF);
@@ -5892,35 +5816,33 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::relinquishWriterResour
 
   else if ((_X2 & 7) == 2 && (BYTE2(_X2) & 7) == 2 && (BYTE4(_X2) & 7) == 2)
   {
-    v21 = (*(this + 74) + (v10 << 7));
-    v21[8] &= 0xFFF8u;
-    v21[9] &= 0xFFF8u;
-    v21[10] &= 0xFFF8u;
+    v20 = (*(this + 74) + (v10 << 7));
+    v20[8] &= 0xFFF8u;
+    v20[9] &= 0xFFF8u;
+    v20[10] &= 0xFFF8u;
     goto LABEL_24;
   }
 
-  v37 = 0;
+  v34 = 0;
   if (!*(*v11 + 144))
   {
     return 0;
   }
 
   _X2 = 0;
-  v23 = 0;
   while (1)
   {
-    v24 = *(this + 74) + (v23 << 7) + 16;
     _X5 = 0;
     __asm { CASPAL          X4, X5, X2, X3, [X11] }
 
-    v27 = v38;
+    v24 = v35;
     do
     {
-      _X13 = v39;
+      _X13 = v36;
       __asm { CASPAL          X12, X13, X4, X5, [X9] }
 
-      _ZF = _X12 == v27;
-      v27 = _X12;
+      _ZF = _X12 == v24;
+      v24 = _X12;
     }
 
     while (!_ZF);
@@ -5929,53 +5851,49 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::relinquishWriterResour
       break;
     }
 
-    v23 = v37 + 1;
-    v37 = v23;
-    if (v23 >= *(*v11 + 144))
+    if (++v34 >= *(*v11 + 144))
     {
       return 0;
     }
   }
 
-  v30 = *(this + 74);
-  *(v30 + (v10 << 7) + 4) = -1;
-  v31 = v42;
-  v32 = v37;
-  *(v30 + (v37 << 7) + 4) = v42;
-  atomic_store(v32, (*(this + 72) + (v31 << 7) + 24));
-  v33 = (*(this + 74) + (v32 << 7));
-  v33[8] &= 0xFFF8u;
-  v33[9] &= 0xFFF8u;
-  v33[10] &= 0xFFF8u;
-  v36 = 0uLL;
-  v35 = 0;
-  PSBufferService::MemDescPool::GetFreeMemDescFromPool(v11, &v35, &v36, &v37);
+  v27 = *(this + 74);
+  *(v27 + (v10 << 7) + 4) = -1;
+  v28 = v39;
+  v29 = v34;
+  *(v27 + (v34 << 7) + 4) = v39;
+  atomic_store(v29, (*(this + 72) + (v28 << 7) + 24));
+  v30 = (*(this + 74) + (v29 << 7));
+  v30[8] &= 0xFFF8u;
+  v30[9] &= 0xFFF8u;
+  v30[10] &= 0xFFF8u;
+  v33 = 0uLL;
+  v32 = 0;
+  PSBufferService::MemDescPool::GetFreeMemDescFromPool(v11, &v32, &v33, &v34);
 LABEL_24:
   if (MissingNodeInQueue != 2)
   {
-    PSBufferService::AtomicDeque::AddNodeToTail((this + 568), v42);
+    PSBufferService::AtomicDeque::AddNodeToTail((this + 568), v39);
   }
 
   return 0;
 }
 
-uint64_t PSBufferService::PSLocklessBufferSelectorWriter::resetMemdescState(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned int a3)
+uint64_t PSBufferService::PSLocklessBufferSelectorWriter::resetMemdescState(PSBufferService::PSLocklessBufferSelectorWriter *this, uint64_t a2, uint64_t a3)
 {
-  v4 = a3;
   PSBufferService::LocklessViewReaper::setState(this + 600, a2, 0, a3, *(*(this + 77) + 880 * a2 + 8 * a3 + 2));
   _X0 = 0;
   _X1 = 0;
-  v7 = *(this + 74);
   __asm { CASPAL          X0, X1, X0, X1, [X8] }
 
-  v13 = v38;
+  v10 = v33;
   do
   {
-    _X5 = v40;
+    _X5 = v35;
     __asm { CASPAL          X4, X5, X0, X1, [X8] }
 
-    _ZF = _X4 == v13;
-    v13 = _X4;
+    _ZF = _X4 == v10;
+    v10 = _X4;
   }
 
   while (!_ZF);
@@ -5983,76 +5901,72 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::resetMemdescState(PSBu
   _X1 = 0;
   __asm { CASPAL          X0, X1, X0, X1, [X9,#0x40+var_40] }
 
-  v19 = v42;
+  v16 = v37;
   do
   {
-    _X5 = v43;
+    _X5 = v38;
     __asm { CASPAL          X4, X5, X0, X1, [X9] }
 
-    _ZF = _X4 == v19;
-    v19 = _X4;
+    _ZF = _X4 == v16;
+    v16 = _X4;
   }
 
   while (!_ZF);
   _X4 = 0;
   _X5 = 0;
-  v24 = *(this + 74) + (v4 << 7) + 16;
   __asm { CASPAL          X4, X5, X4, X5, [X9] }
 
-  _X3 = v40;
+  _X3 = v35;
   __asm { CASPAL          X2, X3, X4, X5, [X10] }
 
-  if (_X2 != v38)
+  if (_X2 != v33)
   {
     _X0 = 0;
     do
     {
-      v39 = _X2;
-      v41 = _X3;
+      v34 = _X2;
+      v36 = _X3;
       _X3 = 0;
       __asm { CASPAL          X2, X3, X0, X1, [X10] }
 
-      v31 = v42;
+      v27 = v37;
       do
       {
         _X7 = 0;
         __asm { CASPAL          X6, X7, X2, X3, [X9] }
 
-        _ZF = _X6 == v31;
-        v31 = _X6;
+        _ZF = _X6 == v27;
+        v27 = _X6;
       }
 
       while (!_ZF);
-      v34 = *(this + 74);
       _X5 = 0;
       __asm { CASPAL          X4, X5, X0, X1, [X9] }
 
-      _X3 = v41;
+      _X3 = v36;
       __asm { CASPAL          X2, X3, X4, X5, [X11] }
     }
 
-    while (_X2 != v39);
+    while (_X2 != v34);
   }
 
   return 0;
 }
 
-uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleAcquirePrepareState(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned int a3)
+uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleAcquirePrepareState(PSBufferService::PSLocklessBufferSelectorWriter *this, uint64_t a2, uint64_t a3)
 {
   _X0 = 0;
   _X1 = 0;
-  v8 = *(*(this + 77) + 880 * a2 + 8 * a3 + 2);
-  v9 = *(this + 74);
   __asm { CASPAL          X0, X1, X0, X1, [X9] }
 
-  v15 = v19;
+  v13 = v17;
   do
   {
-    _X5 = v20;
+    _X5 = v18;
     __asm { CASPAL          X4, X5, X0, X1, [X9] }
 
-    _ZF = _X4 == v15;
-    v15 = _X4;
+    _ZF = _X4 == v13;
+    v13 = _X4;
   }
 
   while (!_ZF);
@@ -6060,18 +5974,79 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleAcquirePrepareSt
   return 0;
 }
 
-void PSBufferService::PSLocklessBufferSelectorWriter::handleAcquireCommitState(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned int a3)
+void PSBufferService::PSLocklessBufferSelectorWriter::handleAcquireCommitState(PSBufferService::PSLocklessBufferSelectorWriter *this)
 {
   _X0 = 0;
   _X1 = 0;
-  v7 = *(*(this + 77) + 880 * a2 + 8 * a3 + 2);
-  v8 = *(this + 74);
   __asm { CASPAL          X0, X1, X0, X1, [X9] }
 
-  v14 = v17[1];
+  v8 = v11[1];
   do
   {
-    _X5 = v17[2];
+    _X5 = v11[2];
+    __asm { CASPAL          X4, X5, X0, X1, [X9] }
+
+    _ZF = _X4 == v8;
+    v8 = _X4;
+  }
+
+  while (!_ZF);
+  PSBufferService::PSLocklessBufferSelectorWriter::handleAcquireCommitState(v11);
+}
+
+uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleAVAOutOfViewsState(PSBufferService::PSLocklessBufferSelectorWriter *this, uint64_t a2, uint64_t a3)
+{
+  _X4 = 0;
+  _X5 = 0;
+  __asm { CASPAL          X4, X5, X4, X5, [X11] }
+
+  v10 = v14;
+  do
+  {
+    _X13 = v15;
+    __asm { CASPAL          X12, X13, X4, X5, [X11] }
+
+    _ZF = _X12 == v10;
+    v10 = _X12;
+  }
+
+  while (!_ZF);
+  PSBufferService::PSLocklessBufferSelectorWriter::resetMemdescState(this, a2, a3);
+  return 0;
+}
+
+uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleReadingFailedState(PSBufferService::PSLocklessBufferSelectorWriter *this, uint64_t a2, uint64_t a3)
+{
+  _X4 = 0;
+  _X5 = 0;
+  __asm { CASPAL          X4, X5, X4, X5, [X11] }
+
+  v10 = v14;
+  do
+  {
+    _X13 = v15;
+    __asm { CASPAL          X12, X13, X4, X5, [X11] }
+
+    _ZF = _X12 == v10;
+    v10 = _X12;
+  }
+
+  while (!_ZF);
+  PSBufferService::PSLocklessBufferSelectorWriter::resetMemdescState(this, a2, a3);
+  return 0;
+}
+
+uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleReadingPrepareState(PSBufferService::PSLocklessBufferSelectorWriter *this, uint64_t a2, uint64_t a3)
+{
+  _X0 = 0;
+  _X1 = 0;
+  v8 = *(*(this + 77) + 880 * a2 + 8 * a3 + 2);
+  __asm { CASPAL          X0, X1, X0, X1, [X9] }
+
+  v14 = v18;
+  do
+  {
+    _X5 = v19;
     __asm { CASPAL          X4, X5, X0, X1, [X9] }
 
     _ZF = _X4 == v14;
@@ -6079,102 +6054,33 @@ void PSBufferService::PSLocklessBufferSelectorWriter::handleAcquireCommitState(P
   }
 
   while (!_ZF);
-  PSBufferService::PSLocklessBufferSelectorWriter::handleAcquireCommitState(v17);
-}
-
-uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleAVAOutOfViewsState(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned int a3)
-{
-  _X4 = 0;
-  _X5 = 0;
-  v5 = *(*(this + 77) + 880 * a2 + 8 * a3 + 2);
-  v6 = *(this + 74);
-  __asm { CASPAL          X4, X5, X4, X5, [X11] }
-
-  v12 = v16;
-  do
-  {
-    _X13 = v17;
-    __asm { CASPAL          X12, X13, X4, X5, [X11] }
-
-    _ZF = _X12 == v12;
-    v12 = _X12;
-  }
-
-  while (!_ZF);
-  PSBufferService::PSLocklessBufferSelectorWriter::resetMemdescState(this, a2, a3);
-  return 0;
-}
-
-uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleReadingFailedState(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned int a3)
-{
-  _X4 = 0;
-  _X5 = 0;
-  v5 = *(*(this + 77) + 880 * a2 + 8 * a3 + 2);
-  v6 = *(this + 74);
-  __asm { CASPAL          X4, X5, X4, X5, [X11] }
-
-  v12 = v16;
-  do
-  {
-    _X13 = v17;
-    __asm { CASPAL          X12, X13, X4, X5, [X11] }
-
-    _ZF = _X12 == v12;
-    v12 = _X12;
-  }
-
-  while (!_ZF);
-  PSBufferService::PSLocklessBufferSelectorWriter::resetMemdescState(this, a2, a3);
-  return 0;
-}
-
-uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleReadingPrepareState(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned int a3)
-{
-  _X0 = 0;
-  _X1 = 0;
-  v8 = *(*(this + 77) + 880 * a2 + 8 * a3 + 2);
-  v9 = *(this + 74);
-  __asm { CASPAL          X0, X1, X0, X1, [X9] }
-
-  v15 = v19;
-  do
-  {
-    _X5 = v20;
-    __asm { CASPAL          X4, X5, X0, X1, [X9] }
-
-    _ZF = _X4 == v15;
-    v15 = _X4;
-  }
-
-  while (!_ZF);
   PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(this, a3, 0, a2, v8);
   PSBufferService::PSLocklessBufferSelectorWriter::resetMemdescState(this, a2, a3);
   return 0;
 }
 
-uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleReadingCommitState(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned int a3)
+uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleReadingCommitState(PSBufferService::PSLocklessBufferSelectorWriter *this, uint64_t a2, uint64_t a3)
 {
   PSBufferService::PSLocklessBufferSelector::relinquishReaderResource(this, a3, 0, a2, *(*(this + 77) + 880 * a2 + 8 * a3 + 2));
   PSBufferService::PSLocklessBufferSelectorWriter::resetMemdescState(this, a2, a3);
   return 0;
 }
 
-uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleRelinquishPrepareState(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned int a3)
+uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleRelinquishPrepareState(PSBufferService::PSLocklessBufferSelectorWriter *this, uint64_t a2, uint64_t a3)
 {
   _X0 = 0;
   _X1 = 0;
   v8 = *(*(this + 77) + 880 * a2 + 8 * a3 + 2);
-  v9 = *(this + 74);
   __asm { CASPAL          X0, X1, X0, X1, [X9] }
 
-  v15 = v19;
+  v14 = v18;
   do
   {
-    _X7 = v20;
+    _X7 = v19;
     __asm { CASPAL          X6, X7, X0, X1, [X9] }
 
-    _ZF = _X6 == v15;
-    v15 = _X6;
+    _ZF = _X6 == v14;
+    v14 = _X6;
   }
 
   while (!_ZF);
@@ -6183,22 +6089,21 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleRelinquishPrepar
   return 0;
 }
 
-uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleRelinquishReleaseToPoolState(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned int a3)
+uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleRelinquishReleaseToPoolState(PSBufferService::PSLocklessBufferSelectorWriter *this, uint64_t a2, uint64_t a3)
 {
   _X0 = 0;
   _X1 = 0;
   v8 = *(*(this + 77) + 880 * a2 + 8 * a3 + 2);
-  v9 = *(this + 74);
   __asm { CASPAL          X0, X1, X0, X1, [X9] }
 
-  v15 = v19;
+  v14 = v18;
   do
   {
-    _X5 = v20;
+    _X5 = v19;
     __asm { CASPAL          X4, X5, X0, X1, [X9] }
 
-    _ZF = _X4 == v15;
-    v15 = _X4;
+    _ZF = _X4 == v14;
+    v14 = _X4;
   }
 
   while (!_ZF);
@@ -6207,22 +6112,21 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleRelinquishReleas
   return 0;
 }
 
-uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleRelinquishReleaseAvaPrepareState(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned int a3)
+uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleRelinquishReleaseAvaPrepareState(PSBufferService::PSLocklessBufferSelectorWriter *this, uint64_t a2, uint64_t a3)
 {
   _X0 = 0;
   _X1 = 0;
   v8 = *(*(this + 77) + 880 * a2 + 8 * a3 + 2);
-  v9 = *(this + 74);
   __asm { CASPAL          X0, X1, X0, X1, [X10] }
 
-  v15 = v19;
+  v14 = v18;
   do
   {
-    _X7 = v20;
+    _X7 = v19;
     __asm { CASPAL          X6, X7, X0, X1, [X10] }
 
-    _ZF = _X6 == v15;
-    v15 = _X6;
+    _ZF = _X6 == v14;
+    v14 = _X6;
   }
 
   while (!_ZF);
@@ -6231,22 +6135,20 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleRelinquishReleas
   return 0;
 }
 
-uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleRelinquishReleaseAVACommitState(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned int a3)
+uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleRelinquishReleaseAVACommitState(PSBufferService::PSLocklessBufferSelectorWriter *this, uint64_t a2, uint64_t a3)
 {
   _X4 = 0;
   _X5 = 0;
-  v5 = *(*(this + 77) + 880 * a2 + 8 * a3 + 2);
-  v6 = *(this + 74);
   __asm { CASPAL          X4, X5, X4, X5, [X11] }
 
-  v12 = v16;
+  v10 = v14;
   do
   {
-    _X13 = v17;
+    _X13 = v15;
     __asm { CASPAL          X12, X13, X4, X5, [X11] }
 
-    _ZF = _X12 == v12;
-    v12 = _X12;
+    _ZF = _X12 == v10;
+    v10 = _X12;
   }
 
   while (!_ZF);
@@ -6254,22 +6156,20 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleRelinquishReleas
   return 0;
 }
 
-uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleAlreadyReadingState(PSBufferService::PSLocklessBufferSelectorWriter *this, unsigned int a2, unsigned int a3)
+uint64_t PSBufferService::PSLocklessBufferSelectorWriter::handleAlreadyReadingState(PSBufferService::PSLocklessBufferSelectorWriter *this, uint64_t a2, uint64_t a3)
 {
   _X0 = 0;
   _X1 = 0;
-  v8 = *(*(this + 77) + 880 * a2 + 8 * a3 + 2);
-  v9 = *(this + 74);
   __asm { CASPAL          X0, X1, X0, X1, [X9] }
 
-  v15 = v19;
+  v13 = v17;
   do
   {
-    _X7 = v20;
+    _X7 = v18;
     __asm { CASPAL          X6, X7, X0, X1, [X9] }
 
-    _ZF = _X6 == v15;
-    v15 = _X6;
+    _ZF = _X6 == v13;
+    v13 = _X6;
   }
 
   while (!_ZF);
@@ -6361,7 +6261,7 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::relinquishReaderResour
 
           else if (v10 == 2)
           {
-            PSBufferService::PSLocklessBufferSelectorWriter::handleAcquireCommitState(this, v7, v8);
+            PSBufferService::PSLocklessBufferSelectorWriter::handleAcquireCommitState(this);
           }
 
           PSBufferService::LocklessViewReaper::removeReader(this + 75, a2, v7);
@@ -6386,11 +6286,10 @@ uint64_t PSBufferService::PSLocklessBufferSelectorWriter::relinquishReaderResour
 
 uint64_t PSBufferService::PSLocklessBufferSelectorReader::Initialize(PSBufferService::PSLocklessBufferSelectorReader *this)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*(this + 560))
   {
-    v1 = 2;
-    goto LABEL_13;
+    return 2;
   }
 
   Data = PSSharedSerialData::getData(*(this + 79));
@@ -6401,17 +6300,17 @@ uint64_t PSBufferService::PSLocklessBufferSelectorReader::Initialize(PSBufferSer
     v5 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_13;
+      return v1;
     }
 
-    v13 = 136315394;
-    v14 = "virtual PBSResult PSBufferService::PSLocklessBufferSelectorReader::Initialize()";
-    v15 = 2080;
+    v12 = 136315394;
+    v13 = "virtual PBSResult PSBufferService::PSLocklessBufferSelectorReader::Initialize()";
+    v14 = 2080;
     Key = PSSharedResource::getKey(this);
     v6 = "%s [key=%s] Failed to initialize AtomicDeque structure";
 LABEL_12:
-    _os_log_impl(&dword_25EBC5000, v5, OS_LOG_TYPE_ERROR, v6, &v13, 0x16u);
-    goto LABEL_13;
+    _os_log_impl(&dword_25EBC5000, v5, OS_LOG_TYPE_ERROR, v6, &v12, 0x16u);
+    return v1;
   }
 
   v7 = *(*(this + 71) + 32);
@@ -6424,7 +6323,7 @@ LABEL_12:
     v5 = _ps_buffer_log;
     if (!os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_13;
+      return v1;
     }
 
     goto LABEL_11;
@@ -6436,88 +6335,83 @@ LABEL_12:
   if (!v1)
   {
     *(this + 560) = 1;
-    goto LABEL_13;
+    return v1;
   }
 
   v5 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
   {
 LABEL_11:
-    v13 = 136315394;
-    v14 = "virtual PBSResult PSBufferService::PSLocklessBufferSelectorReader::Initialize()";
-    v15 = 2080;
+    v12 = 136315394;
+    v13 = "virtual PBSResult PSBufferService::PSLocklessBufferSelectorReader::Initialize()";
+    v14 = 2080;
     Key = PSSharedResource::getKey(this);
     v6 = "%s [key=%s] Failed to initialize memory descriptor";
     goto LABEL_12;
   }
 
-LABEL_13:
-  v11 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
-uint64_t PSBufferService::PSLocklessBufferSelectorReader::getResource(PSBufferService::PSLocklessBufferSelectorReader *this, unsigned int a2)
+uint64_t PSBufferService::PSLocklessBufferSelectorReader::getResource(PSBufferService::PSLocklessBufferSelectorReader *this, uint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v12 = 0;
+  v22 = *MEMORY[0x277D85DE8];
   v11 = 0;
-  if (PSBufferService::AtomicDeque::GetNodeIdFromHead((this + 568), &v12, &v11))
+  v10 = 0;
+  if (PSBufferService::AtomicDeque::GetNodeIdFromHead((this + 568), &v11, &v10))
   {
-    ReaderResource = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  else
+  v6 = atomic_load((*(this + 72) + (v11 << 7) + 24));
+  ReaderResource = PSBufferService::PSLocklessBufferSelector::getReaderResource(this, v6, a2, 0, 0, v4, 1);
+  if (ReaderResource >= 0xFFFFFFFE)
   {
-    v6 = atomic_load((*(this + 72) + (v12 << 7) + 24));
-    ReaderResource = PSBufferService::PSLocklessBufferSelector::getReaderResource(this, v6, a2, 0, 0, v4, 1);
-    if (ReaderResource >= 0xFFFFFFFE)
+    v7 = _ps_buffer_log;
+    if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      v7 = _ps_buffer_log;
-      if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
-      {
-        Key = PSSharedResource::getKey(this);
-        *buf = 136316162;
-        v14 = "getResource";
-        v15 = 2080;
-        v16 = Key;
-        v17 = 1024;
-        v18 = v6;
-        v19 = 1024;
-        v20 = a2;
-        v21 = 1024;
-        v22 = ReaderResource;
-        _os_log_impl(&dword_25EBC5000, v7, OS_LOG_TYPE_ERROR, "%s [key=%s] id=%d reader_id=%d result=%d", buf, 0x28u);
-      }
+      Key = PSSharedResource::getKey(this);
+      *buf = 136316162;
+      v13 = "getResource";
+      v14 = 2080;
+      v15 = Key;
+      v16 = 1024;
+      v17 = v6;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 1024;
+      v21 = ReaderResource;
+      _os_log_impl(&dword_25EBC5000, v7, OS_LOG_TYPE_ERROR, "%s [key=%s] id=%d reader_id=%d result=%d", buf, 0x28u);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return ReaderResource;
 }
 
-uint64_t PSBufferService::PSLocklessBufferSelectorReader::getResourceWithBufferID(PSBufferService::PSLocklessBufferSelectorReader *this, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t PSBufferService::PSLocklessBufferSelectorReader::getResourceWithBufferID(PSBufferService::PSLocklessBufferSelectorReader *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v6 = a2;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ((a2 & 0x80000000) != 0 || *(this + 138) <= a2)
   {
     v12 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315650;
-      v15 = "virtual int PSBufferService::PSLocklessBufferSelectorReader::getResourceWithBufferID(int, uint32_t)";
-      v16 = 2080;
+      v13 = 136315650;
+      v14 = "virtual int PSBufferService::PSLocklessBufferSelectorReader::getResourceWithBufferID(int, uint32_t)";
+      v15 = 2080;
       Key = PSSharedResource::getKey(this);
-      v18 = 1024;
-      v19 = v6;
-      _os_log_impl(&dword_25EBC5000, v12, OS_LOG_TYPE_ERROR, "%s [key=%s] Buffer Id invalid %d", &v14, 0x1Cu);
+      v17 = 1024;
+      v18 = v6;
+      _os_log_impl(&dword_25EBC5000, v12, OS_LOG_TYPE_ERROR, "%s [key=%s] Buffer Id invalid %d", &v13, 0x1Cu);
     }
 
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
+    v8 = a3;
     ReaderResource = PSBufferService::PSLocklessBufferSelector::getReaderResource(this, a2, a3, 0, 0, a6, 1);
     result = 0;
     if (ReaderResource >= 0xFFFFFFFE)
@@ -6525,50 +6419,46 @@ uint64_t PSBufferService::PSLocklessBufferSelectorReader::getResourceWithBufferI
       v11 = _ps_buffer_log;
       if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
       {
-        v14 = 136316162;
-        v15 = "getResourceWithBufferID";
-        v16 = 2080;
+        v13 = 136316162;
+        v14 = "getResourceWithBufferID";
+        v15 = 2080;
         Key = PSSharedResource::getKey(this);
-        v18 = 1024;
-        v19 = v6;
-        v20 = 1024;
-        v21 = a3;
-        v22 = 1024;
-        v23 = ReaderResource;
-        _os_log_impl(&dword_25EBC5000, v11, OS_LOG_TYPE_ERROR, "%s [key=%s] id=%d reader_id=%d result=%d", &v14, 0x28u);
+        v17 = 1024;
+        v18 = v6;
+        v19 = 1024;
+        v20 = v8;
+        v21 = 1024;
+        v22 = ReaderResource;
+        _os_log_impl(&dword_25EBC5000, v11, OS_LOG_TYPE_ERROR, "%s [key=%s] id=%d reader_id=%d result=%d", &v13, 0x28u);
       }
 
-      result = ReaderResource;
+      return ReaderResource;
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void PSBufferService::PSLocklessBufferSelectorReader::getResourceLastN(PSBufferService::PSLocklessBufferSelectorReader *this, unsigned int a2, int *a3, unint64_t a4, unsigned int *a5, unint64_t *a6, unint64_t *a7)
+void PSBufferService::PSLocklessBufferSelectorReader::getResourceLastN(PSBufferService::PSLocklessBufferSelectorReader *this, uint64_t a2, int *a3, unint64_t a4, unsigned int *a5, unint64_t *a6, unint64_t *a7)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   PSBufferService::AtomicDeque::GetNodeIdsFromHeadLastN((this + 568), a4, a3, a6, a7);
   if (*a7)
   {
     v14 = 0;
-    v15 = a5;
-    while (1)
+    for (i = a5; ; ++i)
     {
       v16 = a3[v14];
-      v17 = a5 ? v15 : 0;
+      v17 = a5 ? i : 0;
       ReaderResource = PSBufferService::PSLocklessBufferSelector::getReaderResource(this, a3[v14], a2, 0, v17, v13, 1);
       if (ReaderResource >= 0xFFFFFFFE)
       {
         break;
       }
 
-      ++v14;
-      ++v15;
-      if (v14 >= *a7)
+      if (++v14 >= *a7)
       {
-        goto LABEL_11;
+        return;
       }
     }
 
@@ -6579,53 +6469,47 @@ void PSBufferService::PSLocklessBufferSelectorReader::getResourceLastN(PSBufferS
     {
       Key = PSSharedResource::getKey(this);
       v22 = *a7;
-      v24 = 136316930;
-      v25 = "virtual void PSBufferService::PSLocklessBufferSelectorReader::getResourceLastN(uint32_t, int *, uint64_t, uint32_t *, uint64_t *, uint64_t *)";
-      v26 = 2080;
-      v27 = Key;
-      v28 = 1024;
-      v29 = v16;
-      v30 = 1024;
-      v31 = a2;
-      v32 = 2048;
-      v33 = a4;
-      v34 = 2048;
-      v35 = v22;
-      v36 = 2048;
-      v37 = v14;
-      v38 = 1024;
-      v39 = v19;
-      _os_log_impl(&dword_25EBC5000, v20, OS_LOG_TYPE_ERROR, "%s [key=%s] index=%d reader_id=%d requested_buffer_count=%llu read_buffer_count=%llu i=%llu ret=%d", &v24, 0x46u);
+      v23 = 136316930;
+      v24 = "virtual void PSBufferService::PSLocklessBufferSelectorReader::getResourceLastN(uint32_t, int *, uint64_t, uint32_t *, uint64_t *, uint64_t *)";
+      v25 = 2080;
+      v26 = Key;
+      v27 = 1024;
+      v28 = v16;
+      v29 = 1024;
+      v30 = a2;
+      v31 = 2048;
+      v32 = a4;
+      v33 = 2048;
+      v34 = v22;
+      v35 = 2048;
+      v36 = v14;
+      v37 = 1024;
+      v38 = v19;
+      _os_log_impl(&dword_25EBC5000, v20, OS_LOG_TYPE_ERROR, "%s [key=%s] index=%d reader_id=%d requested_buffer_count=%llu read_buffer_count=%llu i=%llu ret=%d", &v23, 0x46u);
     }
   }
-
-LABEL_11:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void PSBufferService::PSLocklessBufferSelectorReader::getResourceSinceLast(PSBufferService::PSLocklessBufferSelectorReader *this, unsigned int a2, int *a3, unint64_t a4, unint64_t a5, unsigned int *a6, unint64_t *a7, unint64_t *a8)
+void PSBufferService::PSLocklessBufferSelectorReader::getResourceSinceLast(PSBufferService::PSLocklessBufferSelectorReader *this, uint64_t a2, int *a3, unint64_t a4, unint64_t a5, unsigned int *a6, unint64_t *a7, unint64_t *a8)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   PSBufferService::AtomicDeque::GetNodeIdsFromHeadSinceLast((this + 568), a4, a5, a3, a7, a8);
   if (*a8)
   {
     v15 = 0;
-    v16 = a6;
-    while (1)
+    for (i = a6; ; ++i)
     {
       v17 = a3[v15];
-      v18 = a6 ? v16 : 0;
+      v18 = a6 ? i : 0;
       ReaderResource = PSBufferService::PSLocklessBufferSelector::getReaderResource(this, a3[v15], a2, 0, v18, v14, 1);
       if (ReaderResource >= 0xFFFFFFFE)
       {
         break;
       }
 
-      ++v15;
-      ++v16;
-      if (v15 >= *a8)
+      if (++v15 >= *a8)
       {
-        goto LABEL_11;
+        return;
       }
     }
 
@@ -6636,74 +6520,68 @@ void PSBufferService::PSLocklessBufferSelectorReader::getResourceSinceLast(PSBuf
     {
       Key = PSSharedResource::getKey(this);
       v23 = *a8;
-      v25 = 136317186;
-      v26 = "virtual void PSBufferService::PSLocklessBufferSelectorReader::getResourceSinceLast(uint32_t, int *, uint64_t, uint64_t, uint32_t *, uint64_t *, uint64_t *)";
-      v27 = 1024;
-      v28 = 1942;
-      v29 = 2080;
-      v30 = Key;
-      v31 = 1024;
-      v32 = v17;
-      v33 = 1024;
-      v34 = a2;
-      v35 = 2048;
-      v36 = a4;
-      v37 = 2048;
-      v38 = v23;
-      v39 = 2048;
-      v40 = v15;
-      v41 = 1024;
-      v42 = v20;
-      _os_log_impl(&dword_25EBC5000, v21, OS_LOG_TYPE_ERROR, "%s:%d [key=%s] index=%d reader_id=%d max_read_count=%llu read_buffer_count=%llu i=%llu ret=%d", &v25, 0x4Cu);
+      v24 = 136317186;
+      v25 = "virtual void PSBufferService::PSLocklessBufferSelectorReader::getResourceSinceLast(uint32_t, int *, uint64_t, uint64_t, uint32_t *, uint64_t *, uint64_t *)";
+      v26 = 1024;
+      v27 = 1942;
+      v28 = 2080;
+      v29 = Key;
+      v30 = 1024;
+      v31 = v17;
+      v32 = 1024;
+      v33 = a2;
+      v34 = 2048;
+      v35 = a4;
+      v36 = 2048;
+      v37 = v23;
+      v38 = 2048;
+      v39 = v15;
+      v40 = 1024;
+      v41 = v20;
+      _os_log_impl(&dword_25EBC5000, v21, OS_LOG_TYPE_ERROR, "%s:%d [key=%s] index=%d reader_id=%d max_read_count=%llu read_buffer_count=%llu i=%llu ret=%d", &v24, 0x4Cu);
     }
   }
-
-LABEL_11:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t PSBufferService::PSLocklessBufferSelectorReader::relinquishResourceWithoutWriteIndexIncrement(PSBufferService::PSLocklessBufferSelectorReader *this, int a2, unsigned __int16 *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315138;
-    v7 = "virtual int PSBufferService::PSLocklessBufferSelectorReader::relinquishResourceWithoutWriteIndexIncrement(int, uint16_t *)";
-    _os_log_impl(&dword_25EBC5000, v3, OS_LOG_TYPE_ERROR, "%s Non Implemented function called", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "virtual int PSBufferService::PSLocklessBufferSelectorReader::relinquishResourceWithoutWriteIndexIncrement(int, uint16_t *)";
+    _os_log_impl(&dword_25EBC5000, v3, OS_LOG_TYPE_ERROR, "%s Non Implemented function called", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0xFFFFFFFFLL;
 }
 
 uint64_t PSBufferService::PSLocklessBufferSelectorReader::incrementWriteIndex(PSBufferService::PSLocklessBufferSelectorReader *this, unint64_t *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "virtual int PSBufferService::PSLocklessBufferSelectorReader::incrementWriteIndex(uint64_t &)";
-    _os_log_impl(&dword_25EBC5000, v2, OS_LOG_TYPE_ERROR, "%s Non Implemented function called", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "virtual int PSBufferService::PSLocklessBufferSelectorReader::incrementWriteIndex(uint64_t &)";
+    _os_log_impl(&dword_25EBC5000, v2, OS_LOG_TYPE_ERROR, "%s Non Implemented function called", &v4, 0xCu);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0xFFFFFFFFLL;
 }
 
 uint64_t PSBufferService::PSLocklessBufferSelectorReader::InitializeFromRawBuffer(PSBufferService::PSLocklessBufferSelectorReader *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "virtual PBSResult PSBufferService::PSLocklessBufferSelectorReader::InitializeFromRawBuffer()";
-    _os_log_impl(&dword_25EBC5000, v1, OS_LOG_TYPE_ERROR, "%s Non Implemented function called", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "virtual PBSResult PSBufferService::PSLocklessBufferSelectorReader::InitializeFromRawBuffer()";
+    _os_log_impl(&dword_25EBC5000, v1, OS_LOG_TYPE_ERROR, "%s Non Implemented function called", &v3, 0xCu);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return 2;
 }
 
@@ -6738,7 +6616,7 @@ void std::__shared_ptr_emplace<PSSharedSerialDataReader>::~__shared_ptr_emplace(
   JUMPOUT(0x25F8CA500);
 }
 
-void std::__shared_ptr_emplace<PSBufferService::PSLocklessBufferSelectorReader>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<PSSharedSerialData> &,char const* const&,unsigned int const&,char const* const&,std::allocator<PSBufferService::PSLocklessBufferSelectorReader>,0>(void *a1, int a2, char **a3, unsigned int *a4, char **a5)
+void std::__shared_ptr_emplace<PSBufferService::PSLocklessBufferSelectorReader>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<PSSharedSerialData> &,char const* const&,unsigned int const&,char const* const&,std::allocator<PSBufferService::PSLocklessBufferSelectorReader>,0>(void *a1, void *a2, char **a3, unsigned int *a4, char **a5)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -6771,7 +6649,7 @@ void std::__shared_ptr_emplace<PSSharedSerialDataWriter>::~__shared_ptr_emplace(
   JUMPOUT(0x25F8CA500);
 }
 
-void std::__shared_ptr_emplace<PSBufferService::PSLocklessBufferSelectorWriter>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<PSSharedSerialData> &,char const* const&,unsigned int const&,char const* const&,std::allocator<PSBufferService::PSLocklessBufferSelectorWriter>,0>(void *a1, int a2, char **a3, unsigned int *a4, char **a5)
+void std::__shared_ptr_emplace<PSBufferService::PSLocklessBufferSelectorWriter>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<PSSharedSerialData> &,char const* const&,unsigned int const&,char const* const&,std::allocator<PSBufferService::PSLocklessBufferSelectorWriter>,0>(void *a1, void *a2, char **a3, unsigned int *a4, char **a5)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -6802,16 +6680,18 @@ BOOL OUTLINED_FUNCTION_1_0()
   return os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x12u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x12u);
 }
 
-void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 BOOL OUTLINED_FUNCTION_4()
@@ -6900,7 +6780,7 @@ uint64_t PSBufferService::MemDescPool::GetFreeMemDescFromPool(PSBufferService::M
 {
   _X20 = 0;
   _X21 = 0;
-  v41 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v6 = *(*this + 144);
   v7 = 1 << v6;
   _ZF = (v6 & 0x40) == 0;
@@ -6919,84 +6799,80 @@ uint64_t PSBufferService::MemDescPool::GetFreeMemDescFromPool(PSBufferService::M
     v7 = 0;
   }
 
-  v10 = *this + 128;
   __asm { CASPAL          X20, X21, X20, X21, [X11] }
 
   do
   {
     if (a4)
     {
-      v15 = *a4;
+      v14 = *a4;
       if (*a4 >= *(*this + 144))
       {
-        v31 = _ps_buffer_log;
+        v29 = _ps_buffer_log;
         if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
         {
-          v33 = 136315650;
-          v34 = "GetFreeMemDescFromPool";
-          v35 = 1024;
-          v36 = 91;
-          v37 = 1024;
-          LODWORD(v38) = v15;
-          v28 = "%s line=%d invalid inMemDescId=%u";
-          v29 = v31;
-          v30 = 24;
+          v30 = 136315650;
+          v31 = "GetFreeMemDescFromPool";
+          v32 = 1024;
+          v33 = 91;
+          v34 = 1024;
+          LODWORD(v35) = v14;
+          v26 = "%s line=%d invalid inMemDescId=%u";
+          v27 = v29;
+          v28 = 24;
 LABEL_30:
-          _os_log_impl(&dword_25EBC5000, v29, OS_LOG_TYPE_ERROR, v28, &v33, v30);
+          _os_log_impl(&dword_25EBC5000, v27, OS_LOG_TYPE_ERROR, v26, &v30, v28);
         }
 
-LABEL_31:
-        result = 2;
-        goto LABEL_32;
+        return 2;
       }
 
-      v16 = 1 << v15;
-      if ((v15 & 0x40) != 0)
+      v15 = 1 << v14;
+      if ((v14 & 0x40) != 0)
       {
-        v17 = 1 << v15;
+        v16 = 1 << v14;
       }
 
       else
       {
-        v17 = 0;
+        v16 = 0;
       }
 
-      if ((v15 & 0x40) != 0)
+      if ((v14 & 0x40) != 0)
       {
-        v16 = 0;
+        v15 = 0;
       }
     }
 
     else
     {
-      v16 = _X20 & -_X20;
-      v17 = 0;
+      v15 = _X20 & -_X20;
+      v16 = 0;
     }
 
-    if (v9 == v17 && v7 == v16)
+    if (v9 == v16 && v7 == v15)
     {
-      v27 = _ps_buffer_log;
+      v25 = _ps_buffer_log;
       if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
       {
-        v33 = 136315906;
-        v34 = "GetFreeMemDescFromPool";
-        v35 = 1024;
-        v36 = 107;
-        v37 = 2048;
-        v38 = 0;
-        v39 = 2048;
-        v40 = _X20;
-        v28 = "%s line=%d free_bitarray_curr=%llx %llx";
-        v29 = v27;
-        v30 = 38;
+        v30 = 136315906;
+        v31 = "GetFreeMemDescFromPool";
+        v32 = 1024;
+        v33 = 107;
+        v34 = 2048;
+        v35 = 0;
+        v36 = 2048;
+        v37 = _X20;
+        v26 = "%s line=%d free_bitarray_curr=%llx %llx";
+        v27 = v25;
+        v28 = 38;
         goto LABEL_30;
       }
 
-      goto LABEL_31;
+      return 2;
     }
 
-    _X6 = _X20 & ~v16;
-    v20 = *this + 128;
+    _X6 = _X20 & ~v15;
     _X5 = 0;
     __asm { CASPAL          X4, X5, X6, X7, [X13] }
 
@@ -7005,28 +6881,26 @@ LABEL_31:
   }
 
   while (!_ZF);
-  v23 = v16 ^ 1 | v17;
-  if (v23)
+  v21 = v15 ^ 1 | v16;
+  if (v21)
   {
-    LODWORD(v23) = 0;
+    LODWORD(v21) = 0;
     do
     {
-      *(&v24 + 1) = v17;
-      *&v24 = v16;
-      v16 = v24 >> 1;
-      v25 = v16 ^ 1 | (v17 >> 1);
-      v17 >>= 1;
-      LODWORD(v23) = v23 + 1;
+      *(&v22 + 1) = v16;
+      *&v22 = v15;
+      v15 = v22 >> 1;
+      v23 = v15 ^ 1 | (v16 >> 1);
+      v16 >>= 1;
+      LODWORD(v21) = v21 + 1;
     }
 
-    while (v25);
+    while (v23);
   }
 
   result = 0;
-  *a2 = v23;
+  *a2 = v21;
   *a3 = _X4;
-LABEL_32:
-  v32 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7034,7 +6908,7 @@ uint64_t PSBufferService::MemDescPool::ReadFreeMemDescFromPool(PSBufferService::
 {
   _X20 = 0;
   _X21 = 0;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = *(*this + 144);
   v6 = 1 << v5;
   if ((v5 & 0x40) != 0)
@@ -7071,18 +6945,18 @@ uint64_t PSBufferService::MemDescPool::ReadFreeMemDescFromPool(PSBufferService::
     v15 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136315906;
-      v22 = "ReadFreeMemDescFromPool";
-      v23 = 1024;
-      v24 = 144;
-      v25 = 2048;
-      v26 = 0;
-      v27 = 2048;
-      v28 = _X20;
-      _os_log_impl(&dword_25EBC5000, v15, OS_LOG_TYPE_ERROR, "%s line=%d free_bitarray_curr=%llx %llx", &v21, 0x26u);
+      v20 = 136315906;
+      v21 = "ReadFreeMemDescFromPool";
+      v22 = 1024;
+      v23 = 144;
+      v24 = 2048;
+      v25 = 0;
+      v26 = 2048;
+      v27 = _X20;
+      _os_log_impl(&dword_25EBC5000, v15, OS_LOG_TYPE_ERROR, "%s line=%d free_bitarray_curr=%llx %llx", &v20, 0x26u);
     }
 
-    result = 2;
+    return 2;
   }
 
   else
@@ -7109,11 +6983,10 @@ uint64_t PSBufferService::MemDescPool::ReadFreeMemDescFromPool(PSBufferService::
     *a3 = _X20;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-unint64_t PSBufferService::MemDescPool::IsMemDescInFreePool(PSBufferService::MemDescPool *this, unsigned int a2)
+uint64_t PSBufferService::MemDescPool::IsMemDescInFreePool(PSBufferService::MemDescPool *this, unsigned int a2)
 {
   if (*(*this + 144) <= a2)
   {
@@ -7160,7 +7033,6 @@ uint64_t PSBufferService::MemDescPool::AddMemDescToFreePool(PSBufferService::Mem
     do
     {
       _X4 = _X2 | v5;
-      v12 = *this + 128;
       _X7 = 0;
       __asm { CASPAL          X6, X7, X4, X5, [X8] }
 
@@ -7308,7 +7180,6 @@ uint64_t PSBufferService::AtomicPoolAccountant::DecrementPoolCount(uint64_t a1, 
     __asm { CASPAL          X6, X7, X4, X5, [X19] }
 
     v23 = *a1 + 8;
-    *a1;
     v24 = (v23 & 0x40) != 0 ? 0 : _X6 >> (*a1 + 8);
     v25 = v24 + 1;
     v26 = (v23 & 0x40) != 0 ? 0 : v25 << v23;
@@ -7371,7 +7242,6 @@ uint64_t PSBufferService::AtomicPoolAccountant::DecrementPoolCount(uint64_t a1, 
     _X21 = 0;
     __asm { CASPAL          X20, X21, X2, X3, [X6] }
 
-    *(a1 + 24);
     _X20 = _X20 & *(a1 + 16) | v26;
     v40 = v49;
     do
@@ -7444,7 +7314,6 @@ uint64_t PSBufferService::AtomicPoolAccountant::IncrementPoolCount(uint64_t a1)
     v21 = _X6 >> (*a1 + 8);
     if ((v20 & 0x40) != 0)
     {
-      *a1;
       v21 = 0;
     }
 
@@ -7459,7 +7328,6 @@ uint64_t PSBufferService::AtomicPoolAccountant::IncrementPoolCount(uint64_t a1)
     _X7 = 0;
     __asm { CASPAL          X6, X7, X4, X5, [X10] }
 
-    *(a1 + 24);
     _X6 = v22 | _X6 & *(a1 + 16);
     v26 = v34;
     do
@@ -7783,10 +7651,10 @@ uint64_t PSBufferService::AtomicDeque::Enqueue(PSBufferService::AtomicDeque *thi
   v6 = v3 + (a2 << 7);
   __asm { CASPAL          X4, X5, X4, X5, [X8] }
 
-  v12 = v31;
+  v12 = v29;
   do
   {
-    _X11 = v32;
+    _X11 = v30;
     __asm { CASPAL          X10, X11, X4, X5, [X8] }
 
     _ZF = _X10 == v12;
@@ -7799,61 +7667,57 @@ uint64_t PSBufferService::AtomicDeque::Enqueue(PSBufferService::AtomicDeque *thi
   atomic_store(0x99u, (v6 + 20));
   atomic_store(1uLL, (v6 + 8));
   atomic_load((v6 + 8));
-  v16 = *this;
   _X15 = 0;
   __asm { CASPAL          X14, X15, X14, X15, [X12,#0x20+var_20] }
 
-  _X7 = v32;
+  _X7 = v30;
   __asm { CASPAL          X6, X7, X14, X15, [X13] }
 
-  if (_X6 != v31)
+  if (_X6 != v29)
   {
     _X4 = 0;
     do
     {
       atomic_store(_X6, (v6 + 16));
       atomic_store(0x99u, (v6 + 20));
-      atomic_store(v32 + 1, (v6 + 8));
+      atomic_store(v30 + 1, (v6 + 8));
       atomic_load((v6 + 8));
-      v22 = *this;
       _X15 = 0;
       __asm { CASPAL          X14, X15, X4, X5, [X12] }
 
-      v25 = _X6;
+      v23 = _X6;
       __asm { CASPAL          X6, X7, X14, X15, [X13] }
     }
 
-    while (_X6 != v25);
+    while (_X6 != v23);
   }
 
-  v26 = 0;
-  v27 = atomic_load((v6 + 8));
-  *a3 = v27;
-  v28 = *(this + 1);
-  v29 = atomic_load((v6 + 16));
-  atomic_store(*v6, (v28 + (v29 << 7) + 20));
+  v24 = 0;
+  v25 = atomic_load((v6 + 8));
+  *a3 = v25;
+  v26 = *(this + 1);
+  v27 = atomic_load((v6 + 16));
+  atomic_store(*v6, (v26 + (v27 << 7) + 20));
   atomic_fetch_add((*this + 40), 1uLL);
-  return v26;
+  return v24;
 }
 
 uint64_t PSBufferService::AtomicDeque::Dequeue(PSBufferService::AtomicDeque *this, unsigned int *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (!*this || !*(this + 1))
   {
-LABEL_9:
-    result = 2;
-    goto LABEL_10;
+    return 2;
   }
 
   _X2 = 0;
   _X3 = 0;
   __asm { CASPAL          X2, X3, X2, X3, [X8] }
 
-  v9 = v24;
+  v9 = v21;
   do
   {
-    _X7 = v25;
+    _X7 = v22;
     __asm { CASPAL          X6, X7, X2, X3, [X8] }
 
     _ZF = _X6 == v9;
@@ -7870,30 +7734,28 @@ LABEL_7:
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v27 = "PBSResult PSBufferService::AtomicDeque::Dequeue(uint32_t &)";
+      v24 = "PBSResult PSBufferService::AtomicDeque::Dequeue(uint32_t &)";
       _os_log_impl(&dword_25EBC5000, v14, OS_LOG_TYPE_ERROR, "%s Only one buffer left! Failed to get a buffer", buf, 0xCu);
     }
 
-    goto LABEL_9;
+    return 2;
   }
 
   while (1)
   {
-    v17 = (*(this + 1) + (v13 << 7));
-    v23 = *v17;
-    atomic_load(v17 + 1);
-    v18 = *this + 16;
+    v16 = *(this + 1) + (v13 << 7);
+    atomic_load((v16 + 8));
     __asm { CASPAL          X2, X3, X2, X3, [X10] }
 
-    _X5 = v25;
+    _X5 = v22;
     __asm { CASPAL          X4, X5, X2, X3, [X11] }
 
-    if (_X4 == v24)
+    if (_X4 == v21)
     {
       break;
     }
 
-    v24 = _X4;
+    v21 = _X4;
     v12 = *(this + 1) + (_X4 << 7);
     v13 = atomic_load((v12 + 20));
     if (v13 == 153)
@@ -7903,28 +7765,26 @@ LABEL_7:
   }
 
   result = 0;
-  v22 = *v12;
-  atomic_compare_exchange_strong(v17 + 4, &v22, 0x99u);
+  v20 = *v12;
+  atomic_compare_exchange_strong((v16 + 16), &v20, 0x99u);
   atomic_store(0xFFFFFFFFFFFFFFFFLL, (v12 + 8));
   *a2 = *v12;
-LABEL_10:
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t PSBufferService::AtomicDeque::GetNodeIdFromHead(PSBufferService::AtomicDeque *this, unsigned int *a2, unint64_t *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (*this && *(this + 1))
   {
     _X4 = 0;
     _X5 = 0;
     __asm { CASPAL          X4, X5, X4, X5, [X8] }
 
-    v10 = v16;
+    v10 = v15;
     do
     {
-      _X11 = v17;
+      _X11 = v16;
       __asm { CASPAL          X10, X11, X4, X5, [X8] }
 
       _ZF = _X10 == v10;
@@ -7937,43 +7797,38 @@ uint64_t PSBufferService::AtomicDeque::GetNodeIdFromHead(PSBufferService::Atomic
       result = 0;
       *a2 = _X4;
       *a3 = 0;
-      goto LABEL_10;
+      return result;
     }
 
     v13 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v19 = "PBSResult PSBufferService::AtomicDeque::GetNodeIdFromHead(uint32_t &, uint64_t &) const";
+      v18 = "PBSResult PSBufferService::AtomicDeque::GetNodeIdFromHead(uint32_t &, uint64_t &) const";
       _os_log_impl(&dword_25EBC5000, v13, OS_LOG_TYPE_ERROR, "%s No Nodes left", buf, 0xCu);
     }
   }
 
-  result = 2;
-LABEL_10:
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return 2;
 }
 
 uint64_t PSBufferService::AtomicDeque::GetNodeIdsFromHeadLastN(PSBufferService::AtomicDeque *this, unint64_t a2, int *a3, unint64_t *a4, unint64_t *a5)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   *a5 = 0;
   if (!*this || !*(this + 1))
   {
-LABEL_9:
-    result = 2;
-    goto LABEL_10;
+    return 2;
   }
 
   _X6 = 0;
   _X7 = 0;
   __asm { CASPAL          X6, X7, X6, X7, [X8] }
 
-  v11 = v28;
+  v11 = v27;
   do
   {
-    _X13 = v29;
+    _X13 = v28;
     __asm { CASPAL          X12, X13, X6, X7, [X10] }
 
     _ZF = _X12 == v11;
@@ -7987,90 +7842,86 @@ LABEL_9:
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v31 = "PBSResult PSBufferService::AtomicDeque::GetNodeIdsFromHeadLastN(uint64_t, int *, uint64_t *, uint64_t *) const";
+      v30 = "PBSResult PSBufferService::AtomicDeque::GetNodeIdsFromHeadLastN(uint64_t, int *, uint64_t *, uint64_t *) const";
       _os_log_impl(&dword_25EBC5000, v14, OS_LOG_TYPE_ERROR, "%s No Nodes left", buf, 0xCu);
     }
 
-    goto LABEL_9;
+    return 2;
   }
 
-  v17 = atomic_load((*this + 40));
-  if (v17 >= a2)
+  v16 = atomic_load((*this + 40));
+  if (v16 >= a2)
   {
-    v18 = a2;
+    v17 = a2;
   }
 
   else
   {
-    v18 = v17;
+    v17 = v16;
   }
 
-  v19 = *(this + 1) + (v28 << 7);
-  v20 = atomic_load((v19 + 8));
-  if (v18)
+  v18 = *(this + 1) + (v27 << 7);
+  v19 = atomic_load((v18 + 8));
+  if (v17)
   {
-    v21 = 0;
-    v22 = v18 - 1;
-    v23 = v20;
+    v20 = 0;
+    v21 = v17 - 1;
+    v22 = v19;
     while (1)
     {
-      v18 = v21;
-      v24 = atomic_load((v19 + 24));
-      a3[v18] = v24;
-      v25 = atomic_load((v19 + 8));
-      a4[v18] = v25;
-      _ZF = v25 != v23 || v25 == -1;
+      v17 = v20;
+      v23 = atomic_load((v18 + 24));
+      a3[v17] = v23;
+      v24 = atomic_load((v18 + 8));
+      a4[v17] = v24;
+      _ZF = v24 != v22 || v24 == -1;
       if (_ZF)
       {
         break;
       }
 
-      v27 = atomic_load((v19 + 16));
-      if (v27 != 153)
+      v26 = atomic_load((v18 + 16));
+      if (v26 != 153)
       {
-        v19 = *(this + 1) + (v27 << 7);
-        v23 = atomic_load((v19 + 8));
-        if (v22 != v18)
+        v18 = *(this + 1) + (v26 << 7);
+        v22 = atomic_load((v18 + 8));
+        if (v21 != v17)
         {
-          v21 = v18 + 1;
-          if (v23 < v20)
+          v20 = v17 + 1;
+          if (v22 < v19)
           {
             continue;
           }
         }
       }
 
-      ++v18;
+      ++v17;
       break;
     }
   }
 
   result = 0;
-  *a5 = v18;
-LABEL_10:
-  v16 = *MEMORY[0x277D85DE8];
+  *a5 = v17;
   return result;
 }
 
 uint64_t PSBufferService::AtomicDeque::GetNodeIdsFromHeadSinceLast(PSBufferService::AtomicDeque *this, unint64_t a2, unint64_t a3, int *a4, unint64_t *a5, unint64_t *a6)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   *a6 = 0;
   if (!*this || !*(this + 1))
   {
-LABEL_9:
-    result = 2;
-    goto LABEL_10;
+    return 2;
   }
 
   _X6 = 0;
   _X7 = 0;
   __asm { CASPAL          X6, X7, X6, X7, [X8] }
 
-  v11 = v28;
+  v11 = v27;
   do
   {
-    _X13 = v29;
+    _X13 = v28;
     __asm { CASPAL          X12, X13, X6, X7, [X10] }
 
     _ZF = _X12 == v11;
@@ -8084,86 +7935,80 @@ LABEL_9:
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v31 = "PBSResult PSBufferService::AtomicDeque::GetNodeIdsFromHeadSinceLast(uint64_t, uint64_t, int *, uint64_t *, uint64_t *) const";
+      v30 = "PBSResult PSBufferService::AtomicDeque::GetNodeIdsFromHeadSinceLast(uint64_t, uint64_t, int *, uint64_t *, uint64_t *) const";
       _os_log_impl(&dword_25EBC5000, v14, OS_LOG_TYPE_ERROR, "%s No Nodes left", buf, 0xCu);
     }
 
-    goto LABEL_9;
+    return 2;
   }
 
-  if (a3)
+  if (!a3)
   {
-    v17 = *(this + 1) + (_X6 << 7);
-    v18 = atomic_load((v17 + 8));
-    if (v18 != 0xFFFFFFFF && (v18 > a3 ? (v19 = v18 > *(*this + 32)) : (v19 = 0), v19))
+    return PSBufferService::AtomicDeque::GetNodeIdsFromHeadLastN(this, a2, a4, a5, a6);
+  }
+
+  v16 = *(this + 1) + (_X6 << 7);
+  v17 = atomic_load((v16 + 8));
+  if (v17 != 0xFFFFFFFF && (v17 > a3 ? (v18 = v17 > *(*this + 32)) : (v18 = 0), v18))
+  {
+    v19 = 0;
+    v20 = v17;
+    while (1)
     {
-      v20 = 0;
-      v21 = v18;
-      while (1)
+      v21 = v19;
+      v22 = atomic_load((v16 + 24));
+      a4[v21] = v22;
+      v23 = atomic_load((v16 + 8));
+      a5[v21] = v23;
+      _ZF = v23 != v20 || v23 == -1;
+      if (_ZF)
       {
-        v22 = v20;
-        v23 = atomic_load((v17 + 24));
-        a4[v22] = v23;
-        v24 = atomic_load((v17 + 8));
-        a5[v22] = v24;
-        _ZF = v24 != v21 || v24 == -1;
-        if (_ZF)
-        {
-          break;
-        }
-
-        v26 = atomic_load((v17 + 16));
-        if (v26 != 153)
-        {
-          v17 = *(this + 1) + (v26 << 7);
-          v21 = atomic_load((v17 + 8));
-          if (v22 + 1 < a2)
-          {
-            v20 = v22 + 1;
-            if (v21 > a3 && v21 < v18)
-            {
-              continue;
-            }
-          }
-        }
-
-        ++v22;
         break;
       }
-    }
 
-    else
-    {
-      v22 = 0;
-    }
+      v25 = atomic_load((v16 + 16));
+      if (v25 != 153)
+      {
+        v16 = *(this + 1) + (v25 << 7);
+        v20 = atomic_load((v16 + 8));
+        if (v21 + 1 < a2)
+        {
+          v19 = v21 + 1;
+          if (v20 > a3 && v20 < v17)
+          {
+            continue;
+          }
+        }
+      }
 
-    result = 0;
-    *a6 = v22;
+      ++v21;
+      break;
+    }
   }
 
   else
   {
-    result = PSBufferService::AtomicDeque::GetNodeIdsFromHeadLastN(this, a2, a4, a5, a6);
+    v21 = 0;
   }
 
-LABEL_10:
-  v16 = *MEMORY[0x277D85DE8];
+  result = 0;
+  *a6 = v21;
   return result;
 }
 
 uint64_t PSBufferService::AtomicDeque::GetNodeIdFromTail(PSBufferService::AtomicDeque *this, unsigned int *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*this && *(this + 1))
   {
     _X2 = 0;
     _X3 = 0;
     __asm { CASPAL          X2, X3, X2, X3, [X8] }
 
-    v9 = v15;
+    v9 = v14;
     do
     {
-      _X7 = v16;
+      _X7 = v15;
       __asm { CASPAL          X6, X7, X2, X3, [X8] }
 
       _ZF = _X6 == v9;
@@ -8175,32 +8020,27 @@ uint64_t PSBufferService::AtomicDeque::GetNodeIdFromTail(PSBufferService::Atomic
     {
       result = 0;
       *a2 = _X2;
-      goto LABEL_10;
+      return result;
     }
 
     v12 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v18 = "PBSResult PSBufferService::AtomicDeque::GetNodeIdFromTail(uint32_t &)";
+      v17 = "PBSResult PSBufferService::AtomicDeque::GetNodeIdFromTail(uint32_t &)";
       _os_log_impl(&dword_25EBC5000, v12, OS_LOG_TYPE_ERROR, "%s No Nodes left", buf, 0xCu);
     }
   }
 
-  result = 2;
-LABEL_10:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 2;
 }
 
 uint64_t PSBufferService::AtomicDeque::GetMemDescIdsFromTailLastN(PSBufferService::AtomicDeque *this, unint64_t a2, unsigned int *a3, unint64_t *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (!*this || !*(this + 1))
   {
-LABEL_13:
-    result = 2;
-    goto LABEL_14;
+    return 2;
   }
 
   v5 = *(*this + 32);
@@ -8213,13 +8053,12 @@ LABEL_13:
       *&buf[4] = "PBSResult PSBufferService::AtomicDeque::GetMemDescIdsFromTailLastN(uint64_t, uint32_t *, uint64_t *) const";
       *&buf[12] = 2048;
       *&buf[14] = a2;
-      v29 = 1024;
-      v30 = v5;
+      v28 = 1024;
+      v29 = v5;
       _os_log_impl(&dword_25EBC5000, v6, OS_LOG_TYPE_ERROR, "%s Invalid params. lastNCount=%llu deque_->numNodes=%d", buf, 0x1Cu);
     }
 
-    result = 3;
-    goto LABEL_14;
+    return 3;
   }
 
   _X4 = 0;
@@ -8242,45 +8081,43 @@ LABEL_13:
     v18 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
-      v26 = 136315138;
-      v27 = "PBSResult PSBufferService::AtomicDeque::GetMemDescIdsFromTailLastN(uint64_t, uint32_t *, uint64_t *) const";
-      _os_log_impl(&dword_25EBC5000, v18, OS_LOG_TYPE_ERROR, "%s No Nodes left", &v26, 0xCu);
+      v25 = 136315138;
+      v26 = "PBSResult PSBufferService::AtomicDeque::GetMemDescIdsFromTailLastN(uint64_t, uint32_t *, uint64_t *) const";
+      _os_log_impl(&dword_25EBC5000, v18, OS_LOG_TYPE_ERROR, "%s No Nodes left", &v25, 0xCu);
     }
 
-    goto LABEL_13;
+    return 2;
   }
 
-  v20 = 0;
+  v19 = 0;
   if (a2)
   {
-    v21 = _X4;
-    v22 = a2 - 1;
+    v20 = _X4;
+    v21 = a2 - 1;
     do
     {
-      v23 = *(this + 1) + (v21 << 7);
-      v24 = atomic_load((v23 + 8));
-      if (v24 != 0xFFFFFFFF && v24 > *(*this + 32))
+      v22 = *(this + 1) + (v20 << 7);
+      v23 = atomic_load((v22 + 8));
+      if (v23 != 0xFFFFFFFF && v23 > *(*this + 32))
       {
-        v25 = atomic_load((v23 + 24));
-        a3[v20++] = v25;
+        v24 = atomic_load((v22 + 24));
+        a3[v19++] = v24;
       }
 
-      v21 = atomic_load((v23 + 20));
-      if (!v22)
+      v20 = atomic_load((v22 + 20));
+      if (!v21)
       {
         break;
       }
 
-      --v22;
+      --v21;
     }
 
-    while (v21 != 153);
+    while (v20 != 153);
   }
 
   result = 0;
-  *a4 = v20;
-LABEL_14:
-  v19 = *MEMORY[0x277D85DE8];
+  *a4 = v19;
   return result;
 }
 
@@ -8468,7 +8305,7 @@ uint64_t PSRingSwappableViewReader::_release_view(uint64_t a1, uint64_t a2, uint
 
 uint64_t PSRingSwappableViewReader::initialize(PSSharedSerialData **this)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   Data = PSSharedSerialData::getData(this[75]);
   this[70] = Data;
   v3 = *(Data + 260);
@@ -8482,11 +8319,11 @@ uint64_t PSRingSwappableViewReader::initialize(PSSharedSerialData **this)
   {
     v6 = *(Data + 306);
     *buf = 67109632;
-    v23 = v3;
-    v24 = 1024;
-    v25 = v4;
-    v26 = 1024;
-    v27 = v6;
+    v22 = v3;
+    v23 = 1024;
+    v24 = v4;
+    v25 = 1024;
+    v26 = v6;
     _os_log_impl(&dword_25EBC5000, v5, OS_LOG_TYPE_DEBUG, "PSSwappableViewReader mmaped: shared memory numBuffers (%d) numViews (%d) freeViews (%d)\n", buf, 0x14u);
     v3 = *(this + 138);
   }
@@ -8505,11 +8342,11 @@ uint64_t PSRingSwappableViewReader::initialize(PSSharedSerialData **this)
         v12 = v10[1];
         LODWORD(v10) = v10[2];
         *buf = 67109632;
-        v23 = v11;
-        v24 = 1024;
-        v25 = v12;
-        v26 = 1024;
-        v27 = v10;
+        v22 = v11;
+        v23 = 1024;
+        v24 = v12;
+        v25 = 1024;
+        v26 = v10;
         _os_log_impl(&dword_25EBC5000, v9, OS_LOG_TYPE_DEBUG, "PSSwappableViewReader: memdec_id (%d) view_memdec_id (%d) id (%d) \n", buf, 0x14u);
         v9 = _ps_buffer_log;
         v3 = *(this + 138);
@@ -8537,11 +8374,11 @@ uint64_t PSRingSwappableViewReader::initialize(PSSharedSerialData **this)
         v19 = *v17;
         LODWORD(v17) = v17[2];
         *buf = 67109632;
-        v23 = v18;
-        v24 = 1024;
-        v25 = v19;
-        v26 = 1024;
-        v27 = v17;
+        v22 = v18;
+        v23 = 1024;
+        v24 = v19;
+        v25 = 1024;
+        v26 = v17;
         _os_log_impl(&dword_25EBC5000, v15, OS_LOG_TYPE_DEBUG, "PSSwappableViewReader: view buff_id (%d) view id (%d) view owner id (%d) \n", buf, 0x14u);
         v15 = _ps_buffer_log;
       }
@@ -8552,7 +8389,6 @@ uint64_t PSRingSwappableViewReader::initialize(PSSharedSerialData **this)
     while (v16 != v14);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -8635,47 +8471,47 @@ LABEL_19:
 
 __int16 *PSRingSwappableViewReader::_getResourceLastN(PSRingSwappableViewReader *this, int *a2, __int16 **a3, unint64_t a4, uint64_t *a5)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v6 = *(this + 70);
   v7 = *(v6 + 260);
   v8 = (v7 - 1);
   if (v8 < a4)
   {
-    v34 = 0;
-    v23 = a4;
+    v33 = 0;
+    v22 = a4;
     Key = PSSharedResource::getKey(this);
-    v25 = v23;
-    asprintf(&v34, "requested_buffer_count=%llu is greater than depth-1=%d for key=%s", v23, v8, Key);
-    v26 = _ps_buffer_log;
+    v24 = v22;
+    asprintf(&v33, "requested_buffer_count=%llu is greater than depth-1=%d for key=%s", v22, v8, Key);
+    v25 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
-      v27 = *(*(this + 70) + 260) - 1;
-      v28 = PSSharedResource::getKey(this);
+      v26 = *(*(this + 70) + 260) - 1;
+      v27 = PSSharedResource::getKey(this);
       *buf = 136316162;
-      v36 = "_getResourceLastN";
-      v37 = 1024;
-      v38 = 168;
-      v39 = 2048;
-      v40 = v25;
-      v41 = 1024;
-      v42 = v27;
-      v43 = 2080;
-      v44 = v28;
-      _os_log_impl(&dword_25EBC5000, v26, OS_LOG_TYPE_FAULT, "%s:%d requested_buffer_count=%llu is greater than depth-1=%d for key=%s", buf, 0x2Cu);
+      v35 = "_getResourceLastN";
+      v36 = 1024;
+      v37 = 168;
+      v38 = 2048;
+      v39 = v24;
+      v40 = 1024;
+      v41 = v26;
+      v42 = 2080;
+      v43 = v27;
+      _os_log_impl(&dword_25EBC5000, v25, OS_LOG_TYPE_FAULT, "%s:%d requested_buffer_count=%llu is greater than depth-1=%d for key=%s", buf, 0x2Cu);
     }
 
-    v29 = OSLogFlushBuffers();
-    if (v29)
+    v28 = OSLogFlushBuffers();
+    if (v28)
     {
-      v30 = v29;
-      v31 = _ps_buffer_log;
+      v29 = v28;
+      v30 = _ps_buffer_log;
       if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v36 = "_getResourceLastN";
-        v37 = 1024;
-        v38 = v30;
-        _os_log_impl(&dword_25EBC5000, v31, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v35 = "_getResourceLastN";
+        v36 = 1024;
+        v37 = v29;
+        _os_log_impl(&dword_25EBC5000, v30, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -8684,8 +8520,8 @@ __int16 *PSRingSwappableViewReader::_getResourceLastN(PSRingSwappableViewReader 
       usleep(0x1E8480u);
     }
 
-    v32 = abort_with_reason();
-    return PSRingSwappableViewReader::getResourcewithBufferID(v32, v33);
+    v31 = abort_with_reason();
+    return PSRingSwappableViewReader::getResourcewithBufferID(v31, v32);
   }
 
   else
@@ -8748,7 +8584,6 @@ __int16 *PSRingSwappableViewReader::_getResourceLastN(PSRingSwappableViewReader 
     }
 
     *a5 = v21;
-    v22 = *MEMORY[0x277D85DE8];
   }
 
   return result;
@@ -8758,7 +8593,7 @@ uint64_t PSRingSwappableViewReader::getResourcewithBufferID(PSRingSwappableViewR
 {
   if ((a2 & 0x80000000) != 0)
   {
-    PSRingSwappableViewReader::getResourcewithBufferID(&v15);
+    PSRingSwappableViewReader::getResourcewithBufferID(&v13);
   }
 
   v2 = *(this + 73) + 336 * a2;
@@ -8847,15 +8682,14 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  if (v5 == a2 && v6 == 0xFFFF)
+  if (v5 != a2 || v6 != 0xFFFF)
   {
-    LODWORD(v15) = 0;
-    PSRingSwappableViewReader::_getResourcewithViewIndex(this, &v15, v4[2]);
-    return v15;
+    PSRingSwappableViewReader::getResourcewithBufferID(&v13);
   }
 
-  ResourcewithBufferID = PSRingSwappableViewReader::getResourcewithBufferID(&v15);
-  return PSRingSwappableViewReader::getResource(ResourcewithBufferID, v14);
+  LODWORD(v13) = 0;
+  PSRingSwappableViewReader::_getResourcewithViewIndex(this, &v13, v4[2]);
+  return v13;
 }
 
 uint64_t PSRingSwappableViewReader::getResource(PSRingSwappableViewReader *this, unsigned int *a2)
@@ -8888,39 +8722,39 @@ uint64_t PSRingSwappableViewReader::getResource(PSRingSwappableViewReader *this)
 
 __int16 *PSRingSwappableViewReader::getResourceLastN(PSRingSwappableViewReader *this, int *a2, unint64_t a3, unsigned int *a4, unint64_t *a5, unint64_t *a6)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v8 = *(this + 138);
   if (v8 < a3)
   {
-    v29 = 0;
-    asprintf(&v29, "Unsupported last N count %llu. Only upto %d supported", a3, v8);
-    v20 = _ps_buffer_log;
+    v28 = 0;
+    asprintf(&v28, "Unsupported last N count %llu. Only upto %d supported", a3, v8);
+    v19 = _ps_buffer_log;
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
     {
-      v21 = *(this + 138);
+      v20 = *(this + 138);
       *buf = 136315906;
-      v31 = "getResourceLastN";
-      v32 = 1024;
-      v33 = 324;
-      v34 = 2048;
-      v35 = a3;
-      v36 = 1024;
-      v37 = v21;
-      _os_log_impl(&dword_25EBC5000, v20, OS_LOG_TYPE_FAULT, "%s:%d Unsupported last N count %llu. Only upto %d supported", buf, 0x22u);
+      v30 = "getResourceLastN";
+      v31 = 1024;
+      v32 = 324;
+      v33 = 2048;
+      v34 = a3;
+      v35 = 1024;
+      v36 = v20;
+      _os_log_impl(&dword_25EBC5000, v19, OS_LOG_TYPE_FAULT, "%s:%d Unsupported last N count %llu. Only upto %d supported", buf, 0x22u);
     }
 
-    v22 = OSLogFlushBuffers();
-    if (v22)
+    v21 = OSLogFlushBuffers();
+    if (v21)
     {
-      v23 = v22;
-      v24 = _ps_buffer_log;
+      v22 = v21;
+      v23 = _ps_buffer_log;
       if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v31 = "getResourceLastN";
-        v32 = 1024;
-        v33 = v23;
-        _os_log_impl(&dword_25EBC5000, v24, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v30 = "getResourceLastN";
+        v31 = 1024;
+        v32 = v22;
+        _os_log_impl(&dword_25EBC5000, v23, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -8929,14 +8763,14 @@ __int16 *PSRingSwappableViewReader::getResourceLastN(PSRingSwappableViewReader *
       usleep(0x1E8480u);
     }
 
-    v25 = abort_with_reason();
-    return PSRingSwappableViewReader::relinquishResource(v25, v26, v27);
+    v24 = abort_with_reason();
+    return PSRingSwappableViewReader::relinquishResource(v24, v25, v26);
   }
 
   else
   {
     MEMORY[0x28223BE20](this);
-    v13 = (&v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v13 = (&v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
     if (v12 >= 0x200)
     {
       v14 = 512;
@@ -8947,7 +8781,7 @@ __int16 *PSRingSwappableViewReader::getResourceLastN(PSRingSwappableViewReader *
       v14 = v12;
     }
 
-    bzero(&v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), v14);
+    bzero(&v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), v14);
     result = PSRingSwappableViewReader::_getResourceLastN(this, buf, v13, a3, a6);
     v16 = *a6;
     if (*a6)
@@ -8974,8 +8808,6 @@ __int16 *PSRingSwappableViewReader::getResourceLastN(PSRingSwappableViewReader *
 
       while (v16);
     }
-
-    v19 = *MEMORY[0x277D85DE8];
   }
 
   return result;
@@ -9080,7 +8912,7 @@ LABEL_19:
   return 0;
 }
 
-uint64_t PSRingSwappableViewReader::relinquishResourceWithoutWriteIndexIncrement(PSRingSwappableViewReader *this, int a2, unsigned __int16 *a3)
+PSRingSwappableViewReader *PSRingSwappableViewReader::relinquishResourceWithoutWriteIndexIncrement(PSRingSwappableViewReader *this, int a2, unsigned __int16 *a3)
 {
   v18 = *MEMORY[0x277D85DE8];
   v9 = 0;
@@ -9123,22 +8955,22 @@ uint64_t PSRingSwappableViewReader::relinquishResourceWithoutWriteIndexIncrement
   return PSRingSwappableViewReader::incrementWriteIndex(v7);
 }
 
-PSRingSwappableViewReader *PSRingSwappableViewReader::incrementWriteIndex(PSRingSwappableViewReader *this)
+void PSRingSwappableViewReader::incrementWriteIndex(PSRingSwappableViewReader *this)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v11 = 0;
-  asprintf(&v11, "%s: %s Cannot increment the write index for a reader. Something is wrong.\n", "PSRingSwappableViewReader", "incrementWriteIndex");
+  v18 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  asprintf(&v9, "%s: %s Cannot increment the write index for a reader. Something is wrong.\n", "PSRingSwappableViewReader", "incrementWriteIndex");
   v1 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315906;
-    v13 = "incrementWriteIndex";
-    v14 = 1024;
-    v15 = 428;
+    v11 = "incrementWriteIndex";
+    v12 = 1024;
+    v13 = 428;
+    v14 = 2080;
+    v15 = "PSRingSwappableViewReader";
     v16 = 2080;
-    v17 = "PSRingSwappableViewReader";
-    v18 = 2080;
-    v19 = "incrementWriteIndex";
+    v17 = "incrementWriteIndex";
     _os_log_impl(&dword_25EBC5000, v1, OS_LOG_TYPE_FAULT, "%s:%d %s: %s Cannot increment the write index for a reader. Something is wrong.\n", buf, 0x26u);
   }
 
@@ -9150,9 +8982,9 @@ PSRingSwappableViewReader *PSRingSwappableViewReader::incrementWriteIndex(PSRing
     if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "incrementWriteIndex";
-      v14 = 1024;
-      v15 = v3;
+      v11 = "incrementWriteIndex";
+      v12 = 1024;
+      v13 = v3;
       _os_log_impl(&dword_25EBC5000, v4, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
@@ -9163,7 +8995,7 @@ PSRingSwappableViewReader *PSRingSwappableViewReader::incrementWriteIndex(PSRing
   }
 
   v5 = abort_with_reason();
-  return PSRingSwappableViewReader::PSRingSwappableViewReader(v5, v6, v7, v8, v9);
+  PSRingSwappableViewReader::PSRingSwappableViewReader(v5, v6, v7, v8);
 }
 
 uint64_t PSRingSwappableViewReader::relinquishAllPreviouslyHeldViews(uint64_t this)
@@ -9228,10 +9060,11 @@ void PSRingSwappableViewReader::~PSRingSwappableViewReader(PSRingSwappableViewRe
   JUMPOUT(0x25F8CA500);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
 void OUTLINED_FUNCTION_3_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -9240,10 +9073,11 @@ void OUTLINED_FUNCTION_3_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, u
   _os_log_impl(a1, v5, OS_LOG_TYPE_ERROR, a4, a5, 0x12u);
 }
 
-void OUTLINED_FUNCTION_4_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_4_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_FAULT, a4, &buf, 0x2Cu);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_FAULT, a4, va, 0x2Cu);
 }
 
 uint64_t std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::~__hash_table(uint64_t a1)
@@ -9305,33 +9139,33 @@ void *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsig
   return result;
 }
 
-uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(float *a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -9339,44 +9173,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void std::__throw_bad_array_new_length[abi:ne200100]()
@@ -9386,7 +9220,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -9402,7 +9236,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -9410,7 +9244,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -9434,7 +9268,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
     {
 LABEL_6:
 
-      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -9463,8 +9297,8 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
 
 void PSRingSwappableViewWriter::setupMemdesc(PSRingSwappableViewWriter *this)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v10 = *(this + 70);
+  v16 = *MEMORY[0x277D85DE8];
+  v9 = *(this + 70);
   v1 = *(this + 138);
   v2 = *(this + 139);
   v3 = (v2 + v1);
@@ -9482,11 +9316,11 @@ void PSRingSwappableViewWriter::setupMemdesc(PSRingSwappableViewWriter *this)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109632;
-        v12 = v5;
-        v13 = 1024;
-        v14 = v5;
-        v15 = 1024;
-        v16 = -1;
+        v11 = v5;
+        v12 = 1024;
+        v13 = v5;
+        v14 = 1024;
+        v15 = -1;
         _os_log_impl(&dword_25EBC5000, v6, OS_LOG_TYPE_DEBUG, "PSSwappableViewWriter: view buff_id (%d) view id (%d) view owner id (%d) \n", buf, 0x14u);
         v6 = _ps_buffer_log;
       }
@@ -9498,30 +9332,29 @@ void PSRingSwappableViewWriter::setupMemdesc(PSRingSwappableViewWriter *this)
     while (v3 != v5);
   }
 
-  v10[152] = -1;
-  v10[154] = v3;
-  v10[153] = v3;
-  v9 = *MEMORY[0x277D85DE8];
+  v9[152] = -1;
+  v9[154] = v3;
+  v9[153] = v3;
 }
 
 uint64_t PSRingSwappableViewWriter::initialize(PSSharedSerialData **this)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   Data = PSSharedSerialData::getData(this[74]);
   v3 = _ps_buffer_log;
   if (os_log_type_enabled(_ps_buffer_log, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    *v18 = Data;
+    *v17 = Data;
     _os_log_impl(&dword_25EBC5000, v3, OS_LOG_TYPE_DEBUG, "PSSwappableViewWriter: initialize [CANARY: %s]\n", buf, 0xCu);
   }
 
   this[70] = Data;
-  *(Data + 260) = *(this + 138);
+  Data[65] = *(this + 138);
   *(this[70] + 70) = -1;
   *(this[70] + 37) = 0;
-  this[72] = (Data + 312);
-  this[73] = (Data + 312 + 12 * *(this + 138));
+  this[72] = (Data + 78);
+  this[73] = &Data[3 * *(this + 138) + 78];
   PSRingSwappableViewWriter::setupMemdesc(this);
   LODWORD(v4) = *(this + 138);
   if (v4)
@@ -9563,11 +9396,11 @@ uint64_t PSRingSwappableViewWriter::initialize(PSSharedSerialData **this)
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109632;
-        *v18 = v11;
-        *&v18[4] = 1024;
-        *&v18[6] = v11;
-        v19 = 1024;
-        v20 = -1;
+        *v17 = v11;
+        *&v17[4] = 1024;
+        *&v17[6] = v11;
+        v18 = 1024;
+        v19 = -1;
         _os_log_impl(&dword_25EBC5000, v12, OS_LOG_TYPE_DEBUG, "PSSwappableViewWriter: view buff_id (%d) view id (%d) view owner id (%d) \n", buf, 0x14u);
         v12 = _ps_buffer_log;
       }
@@ -9579,7 +9412,6 @@ uint64_t PSRingSwappableViewWriter::initialize(PSSharedSerialData **this)
     while (v10 != v11);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -9695,10 +9527,11 @@ void PSRingSwappableViewWriter::~PSRingSwappableViewWriter(PSRingSwappableViewWr
   JUMPOUT(0x25F8CA500);
 }
 
-void OUTLINED_FUNCTION_6_2(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_6_2(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_ERROR, a4, &buf, 0x12u);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 PSAtomicWnRnArray *ps_buffer_destroy_atomic_array(PSAtomicWnRnArray *result)
@@ -9830,7 +9663,7 @@ uint64_t ps_buffer_atomic_array_relinquish_read_idx(PSAtomicWnRnArray *a1, unint
   }
 }
 
-uint64_t ps_buffer_atomic_array_handle_death(unint64_t *a1, int a2)
+uint64_t ps_buffer_atomic_array_handle_death(PSAtomicWnRnArray *a1, int a2)
 {
   if (!a1)
   {
@@ -9841,7 +9674,7 @@ uint64_t ps_buffer_atomic_array_handle_death(unint64_t *a1, int a2)
   return 0;
 }
 
-uint64_t ps_buffer_atomic_array_handle_death_get_updated_mask(unint64_t *a1, int a2, unint64_t *a3)
+uint64_t ps_buffer_atomic_array_handle_death_get_updated_mask(PSAtomicWnRnArray *a1, int a2, unint64_t *a3)
 {
   v3 = 3758097090;
   if (a1)
@@ -9870,4 +9703,161 @@ PSAtomicWnRnArray *ps_buffer_atomic_array_get_arr_size(PSAtomicWnRnArray *result
   }
 
   return result;
+}
+
+PSAtomicWnRnArray *ps_buffer_atomic_array_get_res_mask_size(PSAtomicWnRnArray *result)
+{
+  if (result)
+  {
+    return PSAtomicWnRnArray::getResMaskSize(result);
+  }
+
+  return result;
+}
+
+PSAtomicWnRnArray *ps_buffer_atomic_array_get_reservation_id(PSAtomicWnRnArray *result)
+{
+  if (result)
+  {
+    return PSAtomicWnRnArray::getReservationID(result);
+  }
+
+  return result;
+}
+
+uint64_t ps_buffer_atomic_array_read_reservation_id(PSAtomicWnRnArray *a1, unint64_t a2, unsigned int *a3)
+{
+  if (a1)
+  {
+    return PSAtomicWnRnArray::readReservationID(a1, a2, a3);
+  }
+
+  else
+  {
+    return 3758097090;
+  }
+}
+
+uint64_t ps_buffer_atomic_array_get_reservation_mask(PSAtomicWnRnArray *a1, unint64_t *a2)
+{
+  if (a1)
+  {
+    return PSAtomicWnRnArray::getReservationMask(a1, a2);
+  }
+
+  else
+  {
+    return 3758097090;
+  }
+}
+
+void PSAtomicWnRnArray::PSAtomicWnRnArray(PSAtomicWnRnArray *this, int a2)
+{
+  *(this + 69) = a2;
+  *(this + 280) = 0;
+  operator new();
+}
+
+void PSAtomicWnRnArray::~PSAtomicWnRnArray(PSAtomicWnRnArray *this)
+{
+  v1 = *this;
+  if (v1)
+  {
+    MEMORY[0x25F8CA500](v1, 0x80C40803F642BLL);
+  }
+}
+
+uint64_t PSAtomicWnRnArray::acquireWriteIdx(PSAtomicWnRnArray *this, unint64_t *a2, unint64_t *a3)
+{
+  v3 = 3758097084;
+  if (!a2 || (*(this + 280) & 1) == 0)
+  {
+    return v3;
+  }
+
+  if (a3 && *(this + 67) > 1u)
+  {
+    return 3758097090;
+  }
+
+  v7 = ps_reservation_start(**this, *(this + 68), *(*this + 8), 8, *(this + 36));
+  if (v7 == -1)
+  {
+    return 3758097136;
+  }
+
+  v8 = v7;
+  ps_reservation_complete_get_updated_mask(**this, *(this + 68), v7, a3);
+  if (v8 < *(this + 68))
+  {
+    v3 = 0;
+    *a2 = v8;
+    return v3;
+  }
+
+  v10 = PSAtomicWnRnArray::acquireWriteIdx(&v12);
+  return PSAtomicWnRnArray::relinquishWriteIdx(v10, v11);
+}
+
+uint64_t PSAtomicWnRnArray::relinquishWriteIdx(PSAtomicWnRnArray *this, unint64_t a2)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  v2 = 3758097084;
+  if (*(this + 280) != 1 || *(this + 68) <= a2)
+  {
+    return v2;
+  }
+
+  v3 = atomic_load((*(*this + 8) + 8 * a2));
+  if (v3 != *(this + 36))
+  {
+    PSAtomicWnRnArray::relinquishWriteIdx(buf);
+  }
+
+  v4 = v3;
+  atomic_compare_exchange_strong((*(*this + 8) + 8 * a2), &v4, *(this + 37));
+  if (v4 == v3)
+  {
+    return 0;
+  }
+
+  *(this + 36) = v4;
+  v16 = 0;
+  v6 = asprintf(&v16, "%s: Assertion failed for %s", "relinquishWriteIdx", "atomic_compare_exchange_strong(&_patomic->_token_array[idx], &_reservation_token_write_start, _reservation_token_write_end)");
+  v8 = __PSUtilitiesLogSharedInstance(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+  {
+    *buf = 136315906;
+    v18 = "relinquishWriteIdx";
+    v19 = 1024;
+    v20 = 239;
+    v21 = 2080;
+    v22 = "relinquishWriteIdx";
+    v23 = 2080;
+    v24 = "atomic_compare_exchange_strong(&_patomic->_token_array[idx], &_reservation_token_write_start, _reservation_token_write_end)";
+    _os_log_impl(&dword_25EBC5000, v8, OS_LOG_TYPE_FAULT, "%s:%d %s: Assertion failed for %s", buf, 0x26u);
+  }
+
+  v9 = OSLogFlushBuffers();
+  if (v9)
+  {
+    v11 = v9;
+    v12 = __PSUtilitiesLogSharedInstance(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v18 = "relinquishWriteIdx";
+      v19 = 1024;
+      v20 = v11;
+      _os_log_impl(&dword_25EBC5000, v12, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+    }
+  }
+
+  else
+  {
+    usleep(0x1E8480u);
+  }
+
+  v13 = abort_with_reason();
+  return PSAtomicWnRnArray::clearWriteIdx(v13, v14, v15);
 }

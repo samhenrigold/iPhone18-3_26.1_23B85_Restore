@@ -31,34 +31,32 @@
   filter = [(_CNFilteringResponsePreparer *)self filter];
   v9 = [resultsCopy _cn_filter:filter];
 
-  v10 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = CNALoggingContextDebug(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [v9 count];
-    if (v11 < 0x1F5)
+    v12 = [v9 count];
+    if (v12 < 0x1F5)
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v11, v18];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", v12, v18];
     }
 
     else
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@"first %lu of %lu", 500, v11];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"first %lu of %lu", 500, v12];
     }
-    v12 = ;
-    v13 = [v9 _cn_take:500];
+    v13 = ;
+    v14 = [v9 _cn_take:500];
     *buf = 138543619;
-    v20 = v12;
+    v20 = v13;
     v21 = 2113;
-    v22 = v13;
-    _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "Filtered results: (%{public}@): %{private}@", buf, 0x16u);
+    v22 = v14;
+    _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "Filtered results: (%{public}@): %{private}@", buf, 0x16u);
   }
 
   preparer = [(_CNAutocompleteResponsePreparerDecorator *)self preparer];
-  v15 = [preparer prepareResults:v9 forFetch:fetchCopy];
+  v16 = [preparer prepareResults:v9 forFetch:fetchCopy];
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v16;
 }
 
 @end

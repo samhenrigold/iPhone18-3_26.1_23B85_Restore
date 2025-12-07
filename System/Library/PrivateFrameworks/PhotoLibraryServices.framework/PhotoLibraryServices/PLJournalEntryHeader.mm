@@ -620,17 +620,17 @@ LABEL_14:
 - (int)StringAsEntryType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"Insert"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"Update"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"Delete"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }

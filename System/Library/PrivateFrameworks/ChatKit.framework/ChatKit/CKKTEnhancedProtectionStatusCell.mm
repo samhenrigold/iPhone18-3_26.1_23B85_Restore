@@ -169,7 +169,7 @@
     if ((enhancedProtectionStatusCellState - 6) < 2)
     {
       v8 = objc_alloc(MEMORY[0x1E696AAB0]);
-      v9 = CKFrameworkBundle();
+      v9 = CKFrameworkBundle(v8);
       v10 = v9;
       v11 = @"KT_STATE_UNAVAILABLE";
     }
@@ -180,31 +180,31 @@
       {
         if (CKIsRunningInMacCatalyst())
         {
-          v32 = objc_alloc(MEMORY[0x1E696AD40]);
-          v33 = CKFrameworkBundle();
-          v34 = [v33 localizedStringForKey:@"KT_ENHANCED_PROTECTION_STATE_WARNING" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-          v10 = [v32 initWithString:v34];
+          v33 = objc_alloc(MEMORY[0x1E696AD40]);
+          v34 = CKFrameworkBundle(v33);
+          v35 = [v34 localizedStringForKey:@"KT_ENHANCED_PROTECTION_STATE_WARNING" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+          v10 = [v33 initWithString:v35];
 
-          v35 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"chevron.down"];
-          v36 = [MEMORY[0x1E69DCAD8] configurationWithScale:1];
-          v37 = [v35 imageWithSymbolConfiguration:v36];
+          v36 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"chevron.down"];
+          v37 = [MEMORY[0x1E69DCAD8] configurationWithScale:1];
+          v38 = [v36 imageWithSymbolConfiguration:v37];
 
           redColor = [MEMORY[0x1E69DC888] redColor];
-          v39 = [v37 imageWithTintColor:redColor];
+          v40 = [v38 imageWithTintColor:redColor];
 
-          v40 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
-          [v40 setImage:v39];
-          [v40 setAdjustsImageSizeForAccessibilityContentSizeCategory:1];
           v41 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
-          v42 = +[CKUIBehavior sharedBehaviors];
-          [v42 ktStringAttachmentPadding];
-          [v41 setBounds:?];
+          [v41 setImage:v40];
+          [v41 setAdjustsImageSizeForAccessibilityContentSizeCategory:1];
+          v42 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
+          v43 = +[CKUIBehavior sharedBehaviors];
+          [v43 ktStringAttachmentPadding];
+          [v42 setBounds:?];
 
-          v43 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v41];
-          [v10 appendAttributedString:v43];
-
-          v44 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v40];
+          v44 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v42];
           [v10 appendAttributedString:v44];
+
+          v45 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v41];
+          [v10 appendAttributedString:v45];
 
           v18 = [v10 copy];
 LABEL_24:
@@ -213,7 +213,7 @@ LABEL_24:
           v22 = MEMORY[0x1E69DCAB8];
           v23 = @"exclamationmark.triangle.fill";
 LABEL_25:
-          v45 = [v22 systemImageNamed:v23];
+          v46 = [v22 systemImageNamed:v23];
           goto LABEL_29;
         }
 
@@ -224,21 +224,21 @@ LABEL_25:
       {
 LABEL_22:
         v8 = objc_alloc(MEMORY[0x1E696AAB0]);
-        v9 = CKFrameworkBundle();
+        v9 = CKFrameworkBundle(v8);
         v10 = v9;
         v11 = @"KT_ENHANCED_PROTECTION_STATE_WARNING";
         goto LABEL_23;
       }
 
       v8 = objc_alloc(MEMORY[0x1E696AAB0]);
-      v9 = CKFrameworkBundle();
+      v9 = CKFrameworkBundle(v8);
       v10 = v9;
       v11 = @"KT_ENHANCED_PROTECTION_STATE_TURNED_OFF";
     }
 
 LABEL_23:
-    v39 = [v9 localizedStringForKey:v11 value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-    v18 = [v8 initWithString:v39];
+    v40 = [v9 localizedStringForKey:v11 value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+    v18 = [v8 initWithString:v40];
     goto LABEL_24;
   }
 
@@ -246,7 +246,7 @@ LABEL_23:
   {
     handlesInChatCount = [(CKKTEnhancedProtectionStatusCell *)self handlesInChatCount];
     v13 = objc_alloc(MEMORY[0x1E696AAB0]);
-    v14 = CKFrameworkBundle();
+    v14 = CKFrameworkBundle(v13);
     v15 = v14;
     if (handlesInChatCount == 1)
     {
@@ -275,7 +275,7 @@ LABEL_23:
     if (enhancedProtectionStatusCellState == 3)
     {
       v4 = objc_alloc(MEMORY[0x1E696AAB0]);
-      v5 = CKFrameworkBundle();
+      v5 = CKFrameworkBundle(v4);
       v6 = v5;
       v7 = @"KT_ENHANCED_PROTECTION_STATE_VERIFICATION_OFF";
       goto LABEL_27;
@@ -285,58 +285,59 @@ LABEL_23:
   }
 
   handlesInChatCount = self->_handlesInChatCount;
-  v4 = objc_alloc(MEMORY[0x1E696AAB0]);
+  v25 = objc_alloc(MEMORY[0x1E696AAB0]);
+  v4 = v25;
   if (handlesInChatCount >= 2)
   {
-    v25 = MEMORY[0x1E696AEC0];
-    v26 = CKFrameworkBundle();
-    v27 = [v26 localizedStringForKey:@"N_OF_N_VERIFIED" value:&stru_1F04268F8 table:@"ChatKitFormats-Key-Transparency"];
-    v28 = [v25 localizedStringWithFormat:v27, -[CKKTEnhancedProtectionStatusCell verifiedHandlesCount](self, "verifiedHandlesCount"), -[CKKTEnhancedProtectionStatusCell handlesInChatCount](self, "handlesInChatCount")];
+    v26 = MEMORY[0x1E696AEC0];
+    v27 = CKFrameworkBundle(v25);
+    v28 = [v27 localizedStringForKey:@"N_OF_N_VERIFIED" value:&stru_1F04268F8 table:@"ChatKitFormats-Key-Transparency"];
+    v29 = [v26 localizedStringWithFormat:v28, -[CKKTEnhancedProtectionStatusCell verifiedHandlesCount](self, "verifiedHandlesCount"), -[CKKTEnhancedProtectionStatusCell handlesInChatCount](self, "handlesInChatCount")];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v31 = @"\u200F";
+      v32 = @"\u200F";
     }
 
     else
     {
-      v31 = @"\u200E";
+      v32 = @"\u200E";
     }
 
-    v6 = [(__CFString *)v31 stringByAppendingString:v28];
+    v6 = [(__CFString *)v32 stringByAppendingString:v29];
 
     v18 = [v4 initWithString:v6];
     goto LABEL_28;
   }
 
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(v25);
   v6 = v5;
   v7 = @"KT_ENHANCED_PROTECTION_STATE_NOT_VERIFIED";
 LABEL_27:
-  v46 = [v5 localizedStringForKey:v7 value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-  v18 = [v4 initWithString:v46];
+  v47 = [v5 localizedStringForKey:v7 value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+  v18 = [v4 initWithString:v47];
 
 LABEL_28:
-  v47 = +[CKUIBehavior sharedBehaviors];
-  theme2 = [v47 theme];
+  v48 = +[CKUIBehavior sharedBehaviors];
+  theme2 = [v48 theme];
   systemRedColor = [theme2 secondaryLabelColor];
 
-  v45 = 0;
+  v46 = 0;
 LABEL_29:
   plainButtonConfiguration = [MEMORY[0x1E69DC740] plainButtonConfiguration];
   [plainButtonConfiguration setContentInsets:{*MEMORY[0x1E69DC5C0], *(MEMORY[0x1E69DC5C0] + 8), *(MEMORY[0x1E69DC5C0] + 16), *(MEMORY[0x1E69DC5C0] + 24)}];
   [plainButtonConfiguration setAttributedTitle:v18];
   [plainButtonConfiguration setBaseForegroundColor:systemRedColor];
   [plainButtonConfiguration setBaseBackgroundColor:systemRedColor];
-  v50 = [MEMORY[0x1E69DCAD8] configurationWithScale:1];
-  v51 = [v45 imageWithSymbolConfiguration:v50];
+  v51 = [MEMORY[0x1E69DCAD8] configurationWithScale:1];
+  v52 = [v46 imageWithSymbolConfiguration:v51];
 
-  [plainButtonConfiguration setImage:v51];
-  v52 = +[CKUIBehavior sharedBehaviors];
-  [v52 ktStatusCellImagePadding];
+  [plainButtonConfiguration setImage:v52];
+  v53 = +[CKUIBehavior sharedBehaviors];
+  [v53 ktStatusCellImagePadding];
   [plainButtonConfiguration setImagePadding:?];
 
   [plainButtonConfiguration setImagePlacement:2];
@@ -781,22 +782,22 @@ LABEL_29:
 
 - (id)learnMoreAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x1E69DC628];
-  v3 = CKFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"KT_LEARN_MORE_ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-  v5 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"info.circle"];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __51__CKKTEnhancedProtectionStatusCell_learnMoreAction__block_invoke;
-  v8[3] = &unk_1E72EBCD8;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x1E69DC628];
+  v4 = CKFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"KT_LEARN_MORE_ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+  v6 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"info.circle"];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __51__CKKTEnhancedProtectionStatusCell_learnMoreAction__block_invoke;
+  v9[3] = &unk_1E72EBCD8;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __51__CKKTEnhancedProtectionStatusCell_learnMoreAction__block_invoke(uint64_t a1)
@@ -809,22 +810,22 @@ void __51__CKKTEnhancedProtectionStatusCell_learnMoreAction__block_invoke(uint64
 
 - (id)reportToAppleAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x1E69DC628];
-  v3 = CKFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"KT_REPORT_TO_APPLE_ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-  v5 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"exclamationmark.bubble"];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __55__CKKTEnhancedProtectionStatusCell_reportToAppleAction__block_invoke;
-  v8[3] = &unk_1E72EBCD8;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x1E69DC628];
+  v4 = CKFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"KT_REPORT_TO_APPLE_ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+  v6 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"exclamationmark.bubble"];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __55__CKKTEnhancedProtectionStatusCell_reportToAppleAction__block_invoke;
+  v9[3] = &unk_1E72EBCD8;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __55__CKKTEnhancedProtectionStatusCell_reportToAppleAction__block_invoke(uint64_t a1)
@@ -837,22 +838,22 @@ void __55__CKKTEnhancedProtectionStatusCell_reportToAppleAction__block_invoke(ui
 
 - (id)verifyConversationAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x1E69DC628];
-  v3 = CKFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"KT_VERIFY_CONVERSATION_ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-  v5 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"person.crop.circle.badge.checkmark"];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __60__CKKTEnhancedProtectionStatusCell_verifyConversationAction__block_invoke;
-  v8[3] = &unk_1E72EBCD8;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x1E69DC628];
+  v4 = CKFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"KT_VERIFY_CONVERSATION_ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+  v6 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"person.crop.circle.badge.checkmark"];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __60__CKKTEnhancedProtectionStatusCell_verifyConversationAction__block_invoke;
+  v9[3] = &unk_1E72EBCD8;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __60__CKKTEnhancedProtectionStatusCell_verifyConversationAction__block_invoke(uint64_t a1)
@@ -865,23 +866,23 @@ void __60__CKKTEnhancedProtectionStatusCell_verifyConversationAction__block_invo
 
 - (id)clearWarningAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x1E69DC628];
-  v3 = CKFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"KT_CLEAR_WARNING" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-  v5 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"xmark"];
-  v8 = MEMORY[0x1E69E9820];
-  v9 = 3221225472;
-  v10 = __54__CKKTEnhancedProtectionStatusCell_clearWarningAction__block_invoke;
-  v11 = &unk_1E72EBCD8;
-  objc_copyWeak(&v12, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:&v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x1E69DC628];
+  v4 = CKFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"KT_CLEAR_WARNING" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+  v6 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"xmark"];
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __54__CKKTEnhancedProtectionStatusCell_clearWarningAction__block_invoke;
+  v12 = &unk_1E72EBCD8;
+  objc_copyWeak(&v13, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:&v9];
 
-  [v6 setAttributes:{2, v8, v9, v10, v11}];
-  objc_destroyWeak(&v12);
+  [v7 setAttributes:{2, v9, v10, v11, v12}];
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __54__CKKTEnhancedProtectionStatusCell_clearWarningAction__block_invoke(uint64_t a1)

@@ -107,4 +107,28 @@
   (Implementation)(selfCopy, a2, v17, v18);
 }
 
+- (void)touchesBegan:(uint64_t)a3 withEvent:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICellScrollView touchesBegan:withEvent:]";
+}
+
+- (void)touchesCancelled:(uint64_t)a3 withEvent:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICellScrollView touchesCancelled:withEvent:]";
+}
+
+- (void)touchesEnded:(uint64_t)a3 withEvent:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICellScrollView touchesEnded:withEvent:]";
+}
+
+- (void)touchesMoved:(uint64_t)a3 withEvent:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICellScrollView touchesMoved:withEvent:]";
+}
+
 @end

@@ -60,51 +60,51 @@
 
 - (void)_presentViewController
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   VSRequireMainThread();
   viewServiceHostViewController = [(VSViewServiceRequestOperation *)self viewServiceHostViewController];
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(viewServiceHostViewController);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = viewServiceHostViewController;
-    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Will present view controller: %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = viewServiceHostViewController;
+    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Will present view controller: %@", &v8, 0xCu);
   }
 
   delegate = [(VSViewServiceRequestOperation *)self delegate];
   [delegate viewServiceRequestOperation:self presentViewController:viewServiceHostViewController];
 
-  v6 = VSDefaultLogObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = VSDefaultLogObject(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = viewServiceHostViewController;
-    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Did present view controller: %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = viewServiceHostViewController;
+    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Did present view controller: %@", &v8, 0xCu);
   }
 }
 
 - (void)_dismissViewController
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   VSRequireMainThread();
   viewServiceHostViewController = [(VSViewServiceRequestOperation *)self viewServiceHostViewController];
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(viewServiceHostViewController);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = viewServiceHostViewController;
-    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Will dismiss view controller: %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = viewServiceHostViewController;
+    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Will dismiss view controller: %@", &v8, 0xCu);
   }
 
   delegate = [(VSViewServiceRequestOperation *)self delegate];
   [delegate viewServiceRequestOperation:self dismissViewController:viewServiceHostViewController];
 
-  v6 = VSDefaultLogObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = VSDefaultLogObject(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = viewServiceHostViewController;
-    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Did dismiss view controller: %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = viewServiceHostViewController;
+    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Did dismiss view controller: %@", &v8, 0xCu);
   }
 }
 
@@ -118,7 +118,7 @@
 
   else
   {
-    v3 = VSDefaultLogObject();
+    v3 = VSDefaultLogObject(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -146,7 +146,7 @@
 {
   v13 = *MEMORY[0x277D85DE8];
   responseCopy = response;
-  v7 = VSDefaultLogObject();
+  v7 = VSDefaultLogObject(responseCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;
@@ -167,7 +167,7 @@
 - (void)viewServiceHostViewController:(id)controller request:(id)request didFailWithError:(id)error
 {
   errorCopy = error;
-  v7 = VSErrorLogObject();
+  v7 = VSErrorLogObject(errorCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [VSViewServiceRequestOperation viewServiceHostViewController:errorCopy request:v7 didFailWithError:?];
@@ -184,7 +184,7 @@
 
 - (void)viewServiceHostViewController:(id)controller didChooseAdditionalProvidersForRequest:(id)request
 {
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -203,7 +203,7 @@
 
 - (void)viewServiceHostViewController:(id)controller didCancelRequest:(id)request
 {
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;

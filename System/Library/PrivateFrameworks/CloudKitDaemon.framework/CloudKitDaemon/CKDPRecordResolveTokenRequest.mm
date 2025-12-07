@@ -119,7 +119,7 @@
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_routingKey)
   {
@@ -134,52 +134,47 @@
   has = self->_has;
   if (has)
   {
-    forceFetch = self->_forceFetch;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    shouldFetchRootRecord = self->_shouldFetchRootRecord;
     PBDataWriterWriteBOOLField();
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v8 = self->_rootRecordDesiredKeys;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v17, v21, 16);
-  if (v10)
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v6 = self->_rootRecordDesiredKeys;
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v13, v17, 16);
+  if (v8)
   {
-    v11 = v10;
-    v12 = *v18;
+    v9 = v8;
+    v10 = *v14;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v12)
+        if (*v14 != v10)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v15, &v17, v21, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v12, &v13, v17, 16);
     }
 
-    while (v11);
+    while (v9);
   }
 
   if (self->_participantId)
   {
     PBDataWriterWriteStringField();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -238,7 +233,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   v10 = objc_msgSend_init(v7, v8, v9);
@@ -264,30 +259,30 @@
     *(v10 + 44) |= 2u;
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v18 = self->_rootRecordDesiredKeys;
-  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v32, v36, 16);
+  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v31, v35, 16);
   if (v20)
   {
     v22 = v20;
-    v23 = *v33;
+    v23 = *v32;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v33 != v23)
+        if (*v32 != v23)
         {
           objc_enumerationMutation(v18);
         }
 
-        v25 = objc_msgSend_copyWithZone_(*(*(&v32 + 1) + 8 * i), v21, zone, v32);
+        v25 = objc_msgSend_copyWithZone_(*(*(&v31 + 1) + 8 * i), v21, zone, v31);
         objc_msgSend_addRootRecordDesiredKeys_(v10, v26, v25);
       }
 
-      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v21, &v32, v36, 16);
+      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v21, &v31, v35, 16);
     }
 
     while (v22);
@@ -297,7 +292,6 @@
   v29 = *(v10 + 8);
   *(v10 + 8) = v28;
 
-  v30 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -330,7 +324,6 @@
     }
   }
 
-  v12 = *(equalCopy + 44);
   if (*&self->_has)
   {
     if ((*(equalCopy + 44) & 1) == 0)
@@ -338,7 +331,6 @@
       goto LABEL_26;
     }
 
-    v18 = *(equalCopy + 40);
     if (self->_forceFetch)
     {
       if ((equalCopy[5] & 1) == 0)
@@ -362,7 +354,6 @@
   {
     if ((*(equalCopy + 44) & 2) != 0)
     {
-      v19 = *(equalCopy + 41);
       if (self->_shouldFetchRootRecord)
       {
         if (*(equalCopy + 41))
@@ -389,17 +380,17 @@ LABEL_26:
 
 LABEL_10:
   rootRecordDesiredKeys = self->_rootRecordDesiredKeys;
-  v14 = equalCopy[2];
-  if (rootRecordDesiredKeys | v14 && !objc_msgSend_isEqual_(rootRecordDesiredKeys, v7, v14))
+  v13 = equalCopy[2];
+  if (rootRecordDesiredKeys | v13 && !objc_msgSend_isEqual_(rootRecordDesiredKeys, v7, v13))
   {
     goto LABEL_26;
   }
 
   participantId = self->_participantId;
-  v16 = equalCopy[1];
-  if (participantId | v16)
+  v15 = equalCopy[1];
+  if (participantId | v15)
   {
-    isEqual = objc_msgSend_isEqual_(participantId, v7, v16);
+    isEqual = objc_msgSend_isEqual_(participantId, v7, v15);
   }
 
   else
@@ -444,7 +435,7 @@ LABEL_6:
 
 - (void)mergeFrom:(id)from
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v6 = *(fromCopy + 3);
   if (v6)
@@ -472,29 +463,29 @@ LABEL_6:
     *&self->_has |= 2u;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v9 = *(fromCopy + 2);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v19, v23, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v18, v22, 16);
   if (v11)
   {
     v13 = v11;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v9);
         }
 
-        objc_msgSend_addRootRecordDesiredKeys_(self, v12, *(*(&v19 + 1) + 8 * i), v19);
+        objc_msgSend_addRootRecordDesiredKeys_(self, v12, *(*(&v18 + 1) + 8 * i), v18);
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v19, v23, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v18, v22, 16);
     }
 
     while (v13);
@@ -505,8 +496,6 @@ LABEL_6:
   {
     objc_msgSend_setParticipantId_(self, v16, v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -9,6 +9,7 @@
 + (void)prefetchOnAssets:()Curation options:curationContext:;
 + (void)prefetchScenesOnAssets:()Curation;
 - (BOOL)clsFaceInformationArePrefetched;
+- (BOOL)clsIsFaceProcessed;
 - (BOOL)clsIsSceneProcessed;
 - (BOOL)clsPeopleCountIsPrefetched;
 - (BOOL)clsPersonLocalIdentifiersArePrefetched;
@@ -40,14 +41,12 @@
 - (id)clsUnprefetchedPersonLocalIdentifiers;
 - (id)curationModel;
 - (uint64_t)clsAvoidIfPossibleAsKeyItemForMemories:()Curation allowGuestAsset:reason:;
-- (uint64_t)clsHasCustomPlaybackVariation;
 - (uint64_t)clsHasInterestingAudioClassification;
 - (uint64_t)clsHasInterestingScenes;
 - (uint64_t)clsHasPoorResolution;
 - (uint64_t)clsInterestingAudioClassifications;
 - (uint64_t)clsIsAestheticallyPrettyGood;
 - (uint64_t)clsIsBlurry;
-- (uint64_t)clsIsFaceProcessed;
 - (uint64_t)clsIsInhabited;
 - (uint64_t)clsIsInterestingHDR;
 - (uint64_t)clsIsInterestingLivePhoto;
@@ -68,6 +67,7 @@
 - (void)cacheCurationScore:()Curation;
 - (void)clsCacheIconicSceneScore:()Curation;
 - (void)clsCacheIsUtility:()Curation;
+- (void)clsHasCustomPlaybackVariation;
 - (void)clsPetLocalIdentifiers;
 - (void)clsSetPersonLocalIdentifiers:()Curation;
 @end
@@ -147,12 +147,12 @@
   return v3;
 }
 
-- (uint64_t)clsHasCustomPlaybackVariation
+- (void)clsHasCustomPlaybackVariation
 {
   result = [self isSubtype:8];
   if (result)
   {
-    return [self playbackVariation] != 0;
+    return ([self playbackVariation] != 0);
   }
 
   return result;
@@ -871,7 +871,7 @@ LABEL_14:
   return v3;
 }
 
-- (uint64_t)clsIsFaceProcessed
+- (BOOL)clsIsFaceProcessed
 {
   faceAnalysisVersion = [self faceAnalysisVersion];
   if (*MEMORY[0x1E69BE9E8] != faceAnalysisVersion)
@@ -956,7 +956,7 @@ LABEL_14:
     v5 = photoIrisProperties;
     if (photoIrisProperties)
     {
-      [photoIrisProperties photoIrisVideoDuration];
+      objc_msgSend_photoIrisVideoDuration(photoIrisProperties);
     }
 
     else

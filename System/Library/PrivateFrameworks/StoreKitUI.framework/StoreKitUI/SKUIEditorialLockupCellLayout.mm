@@ -15,8 +15,15 @@
 - (id)itemOfferNoticeString;
 - (id)itemState;
 - (void)applyEditorialLayout:(id)layout withOrientation:(int64_t)orientation;
+- (void)iconImage;
+- (void)iconImageView;
+- (void)isIconImageHidden;
+- (void)itemOffer;
+- (void)itemOfferNoticeString;
+- (void)itemState;
 - (void)layoutForItemOfferChange;
 - (void)layoutSubviews;
+- (void)lockupCellLayout;
 - (void)setBackgroundColor:(id)color;
 - (void)setClientContext:(id)context;
 - (void)setColoringWithColorScheme:(id)scheme;
@@ -30,6 +37,7 @@
 - (void)setLayoutStyle:(int64_t)style;
 - (void)setRestricted:(BOOL)restricted;
 - (void)setVisibleFields:(unint64_t)fields;
+- (void)textBoxView;
 @end
 
 @implementation SKUIEditorialLockupCellLayout
@@ -131,9 +139,9 @@
     }
   }
 
-  primaryTextColor = [schemeCopy primaryTextColor];
+  v13 = objc_msgSend_primaryTextColor(schemeCopy);
   offerNoticeTextColor = self->_offerNoticeTextColor;
-  self->_offerNoticeTextColor = primaryTextColor;
+  self->_offerNoticeTextColor = v13;
 
   itemOfferNoticeLabel = [(SKUIItemCellLayout *)self itemOfferNoticeLabel];
   v16 = itemOfferNoticeLabel;
@@ -301,131 +309,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIEditorialLockupCellLayout *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  contentView = [(SKUICellLayout *)self contentView];
-  [contentView bounds];
-  v13 = v12;
-  v15 = v14;
-
-  p_contentInsets = &self->_contentInsets;
-  v17 = v15 - self->_contentInsets.bottom;
-  v18 = v13 - self->_contentInsets.right;
-  if (SKUILockupLayoutStyleIsHorizontal(self->_layoutStyle))
-  {
-    _editorialContainerView = [(SKUIEditorialLockupCellLayout *)self _editorialContainerView];
-    left = self->_contentInsets.left;
-    v21 = p_contentInsets->top + -3.0;
-    v22 = self->_editorialHeight + 17.0;
-    v23 = v18 - left;
-    [_editorialContainerView setFrame:{left, v21, v18 - left, v22}];
-    _editorialCellLayout = [(SKUIEditorialLockupCellLayout *)self _editorialCellLayout];
-    [_editorialCellLayout layoutSubviews];
-
-    v25 = self->_contentInsets.left;
-    v57.origin.x = left;
-    v57.origin.y = v21;
-    v57.size.width = v18 - left;
-    v57.size.height = v22;
-    MaxY = CGRectGetMaxY(v57);
-    v27 = v17 - self->_contentInsets.bottom - MaxY;
-    _lockupView = [(SKUIEditorialLockupCellLayout *)self _lockupView];
-    [_lockupView setFrame:{v25, MaxY, v23, v27}];
-  }
-
-  else
-  {
-    _editorialContainerView = [(SKUIEditorialLockupCellLayout *)self _lockupView];
-    lockupSize = [(SKUILockupItemCellLayout *)self->_lockupLayout lockupSize];
-    v30 = SKUILockupImageSizeForLockupSize(lockupSize, 12);
-    top = p_contentInsets->top;
-    v31 = self->_contentInsets.left;
-    v33 = v17 - p_contentInsets->top;
-    [objc_opt_class() _imagePaddingForArtworkSize:lockupSize];
-    v35 = v30 + v34;
-    [_editorialContainerView setFrame:{v31, top, v35, v33}];
-    _lockupView = [(SKUIEditorialLockupCellLayout *)self _editorialContainerView];
-    v58.origin.x = v31;
-    v58.origin.y = top;
-    v58.size.width = v35;
-    v58.size.height = v33;
-    v36 = CGRectGetMaxX(v58) + 15.0;
-    v37 = p_contentInsets->top + -3.0;
-    v38 = self->_editorialHeight + 17.0;
-    v39 = v18 - v36;
-    [_lockupView setFrame:{v36, v37, v39, v38}];
-    _editorialCellLayout2 = [(SKUIEditorialLockupCellLayout *)self _editorialCellLayout];
-    [_editorialCellLayout2 layoutSubviews];
-
-    itemOfferButton = [(SKUIItemCellLayout *)self itemOfferButton];
-    itemOfferNoticeLabel = [(SKUIItemCellLayout *)self itemOfferNoticeLabel];
-    if ([(SKUIEditorialLockupCellLayout *)self _isItemOfferButtonHidden])
-    {
-      [itemOfferButton setHidden:1];
-      [itemOfferNoticeLabel setHidden:1];
-    }
-
-    else if (itemOfferButton)
-    {
-      [itemOfferButton frame];
-      v44 = v43;
-      v46 = v45;
-      v59.origin.x = v36;
-      v59.origin.y = v37;
-      v59.size.width = v39;
-      v59.size.height = v38;
-      v47 = CGRectGetMaxY(v59) + 0.0;
-      [itemOfferButton setHidden:0];
-      text = [itemOfferNoticeLabel text];
-      v49 = [text length];
-
-      if (v49)
-      {
-        if (itemOfferNoticeLabel)
-        {
-          [itemOfferNoticeLabel sizeThatFits:{v44 + 10.0, 1.79769313e308}];
-          v51 = v50;
-          v53 = v52;
-          *&v50 = (v44 - v50) * 0.5;
-          v54 = v36 + floorf(*&v50);
-          v60.origin.x = v36;
-          v60.origin.y = v47;
-          v60.size.width = v44;
-          v60.size.height = v46;
-          v55 = CGRectGetMaxY(v60) + 3.0;
-          [itemOfferNoticeLabel setHidden:0];
-          [itemOfferNoticeLabel setFrame:{v54, v55, v51, v53}];
-          if (self->_offerNoticeTextColor)
-          {
-            [itemOfferNoticeLabel setTextColor:?];
-          }
-
-          else
-          {
-            v56 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.6];
-            [itemOfferNoticeLabel setTextColor:v56];
-          }
-        }
-      }
-
-      else
-      {
-        [itemOfferNoticeLabel setHidden:1];
-      }
-
-      [itemOfferButton setFrame:{v36, v47, v44, v46}];
-    }
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -595,38 +480,8 @@
 
 - (void)layoutForItemOfferChange
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIEditorialLockupCellLayout *)v3 layoutForItemOfferChange:v4];
-      }
-    }
-  }
-
-  itemOfferButton = [(SKUIItemCellLayout *)self itemOfferButton];
-  [itemOfferButton frame];
-  v13 = v12;
-  v15 = v14;
-  [itemOfferButton sizeThatFits:{*(MEMORY[0x277CBF390] + 16), *(MEMORY[0x277CBF390] + 24)}];
-  v17 = v16;
-  v19 = v18;
-  itemOfferNoticeLabel = [(SKUIItemCellLayout *)self itemOfferNoticeLabel];
-  v21 = itemOfferNoticeLabel;
-  if (itemOfferNoticeLabel && ([itemOfferNoticeLabel isHidden] & 1) == 0)
-  {
-    [v21 frame];
-    v23 = v22;
-    [v21 sizeThatFits:{v17 + 10.0, 1.79769313e308}];
-    v25 = v24;
-    *&v24 = (v17 - v24) * 0.5;
-    [v21 setFrame:{v13 + floorf(*&v24), v23, v25, v26}];
-  }
-
-  [itemOfferButton setFrame:{v13, v15, v17, v19}];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout layoutForItemOfferChange]";
 }
 
 - (void)setClientContext:(id)context
@@ -947,6 +802,144 @@
   result.left = left;
   result.top = top;
   return result;
+}
+
++ (void)editorialWidthForCellWidth:(uint64_t)a3 lockupStyle:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIEditorialLockupCellLayout editorialWidthForCellWidth:lockupStyle:]";
+}
+
+- (void)applyEditorialLayout:(uint64_t)a3 withOrientation:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout applyEditorialLayout:withOrientation:]";
+}
+
+- (void)lockupCellLayout
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout lockupCellLayout]";
+}
+
+- (void)setColoringWithColorScheme:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout setColoringWithColorScheme:]";
+}
+
+- (void)setContentInsets:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout setContentInsets:]";
+}
+
+- (void)setLayoutStyle:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout setLayoutStyle:]";
+}
+
+- (void)setVisibleFields:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout setVisibleFields:]";
+}
+
+- (void)textBoxView
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout textBoxView]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout setBackgroundColor:]";
+}
+
+- (void)iconImage
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout iconImage]";
+}
+
+- (void)iconImageView
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout iconImageView]";
+}
+
+- (void)isIconImageHidden
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout isIconImageHidden]";
+}
+
+- (void)itemOffer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout itemOffer]";
+}
+
+- (void)itemOfferNoticeString
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout itemOfferNoticeString]";
+}
+
+- (void)itemState
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout itemState]";
+}
+
+- (void)setClientContext:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout setClientContext:]";
+}
+
+- (void)setIconImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout setIconImage:]";
+}
+
+- (void)setIconImageHidden:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout setIconImageHidden:]";
+}
+
+- (void)setItemOffer:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout setItemOffer:]";
+}
+
+- (void)setItemOfferButtonAppearance:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout setItemOfferButtonAppearance:]";
+}
+
+- (void)setItemOfferNoticeString:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout setItemOfferNoticeString:]";
+}
+
+- (void)setItemState:(uint64_t)a3 animated:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout setItemState:animated:]";
+}
+
+- (void)setRestricted:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorialLockupCellLayout setRestricted:]";
 }
 
 @end

@@ -84,7 +84,7 @@ void __62__PFImageMetadataChangePolicySetCreationDate_processMetadata___block_in
   if ([v5 count])
   {
     v6 = [*(a1 + 32) objectForKeyedSubscript:v11];
-    v7 = [v6 mutableCopy];
+    v7 = objc_msgSend_mutableCopy(v6);
     v8 = v7;
     if (v7)
     {

@@ -48,24 +48,24 @@
 
 + (void)generateNewSession
 {
-  v0 = objc_alloc(objc_opt_self());
+  v1 = objc_alloc(objc_opt_self());
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
   lowercaseString = [uUIDString lowercaseString];
-  v4 = [MEMORY[0x1E695DF88] dataWithLength:32];
-  if (SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x20uLL, [v4 mutableBytes]))
+  v5 = [MEMORY[0x1E695DF88] dataWithLength:32];
+  if (SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x20uLL, [v5 mutableBytes]))
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v5 = [MEMORY[0x1E695DEF0] dataWithData:v4];
+    v6 = [MEMORY[0x1E695DEF0] dataWithData:v5];
   }
 
-  v6 = [(_CDCloudFamilyDataCollectionSession *)v0 initWithIdentifier:lowercaseString salt:v5 latestStartDate:0 lastCollectionDate:0 batchNumber:1];
+  v7 = [(_CDCloudFamilyDataCollectionSession *)v1 initWithIdentifier:lowercaseString salt:v6 latestStartDate:0 lastCollectionDate:0 batchNumber:1];
 
-  return v6;
+  return v7;
 }
 
 - (void)subsequentSessionWithlatestStartDate:(void *)date lastCollectionDate:
@@ -92,12 +92,10 @@
     }
 
     v10 = objc_alloc(objc_opt_class());
-    v11 = self[1];
-    v12 = self[2];
-    v13 = self[5];
-    v14 = v11;
-    v15 = OUTLINED_FUNCTION_65_0();
-    self = [(_CDCloudFamilyDataCollectionSession *)v15 initWithIdentifier:v16 salt:v12 latestStartDate:v5 lastCollectionDate:dateCopy batchNumber:v17];
+    v11 = self[2];
+    v12 = self[1];
+    v13 = OUTLINED_FUNCTION_65_0();
+    self = [(_CDCloudFamilyDataCollectionSession *)v13 initWithIdentifier:v14 salt:v11 latestStartDate:v5 lastCollectionDate:dateCopy batchNumber:v15];
   }
 
   return self;

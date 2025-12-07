@@ -6,7 +6,7 @@
 
 + (id)extractedDocumentsFromRequestHandler:(id)handler ocrDocRequest:(id)request error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   requestCopy = request;
   v9 = requestCopy;
@@ -24,11 +24,11 @@
   [v10 setMaximumCandidateCount:5];
   [v11 setUsesLanguageCorrection:1];
   [v11 setRecognitionLanguages:&unk_2863C5838];
-  v19[0] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-  v18 = 0;
-  [handlerCopy performRequests:v12 error:&v18];
-  v13 = v18;
+  v18[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17 = 0;
+  [handlerCopy performRequests:v12 error:&v17];
+  v13 = v17;
 
   if (v13)
   {
@@ -49,8 +49,6 @@
   {
     results = [v11 results];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return results;
 }

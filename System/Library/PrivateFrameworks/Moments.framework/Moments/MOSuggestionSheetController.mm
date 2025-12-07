@@ -12,6 +12,7 @@
 - (void)releaseSandboxHandles;
 - (void)requestPickerWithOptions:(id)options;
 - (void)terminate;
+- (void)updatePickerState:(unint64_t)state animated:(BOOL)animated;
 @end
 
 @implementation MOSuggestionSheetController
@@ -222,15 +223,15 @@ void __39__MOSuggestionSheetController_activate__block_invoke_177(uint64_t a1)
 
 - (id)server
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   [(MOSuggestionSheetController *)self reconnectIfNecessary];
   remoteTarget = self->_remoteTarget;
   if (!remoteTarget)
   {
     v4 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
     angelConnection = self->_angelConnection;
-    v11[0] = v4;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v4;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v7 = [(BSServiceConnectionClient *)angelConnection remoteTargetWithLaunchingAssertionAttributes:v6];
     v8 = self->_remoteTarget;
     self->_remoteTarget = v7;
@@ -238,28 +239,54 @@ void __39__MOSuggestionSheetController_activate__block_invoke_177(uint64_t a1)
     remoteTarget = self->_remoteTarget;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return remoteTarget;
 }
 
 - (void)requestPickerWithOptions:(id)options
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v5 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [optionsCopy description];
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_22D8C5000, v5, OS_LOG_TYPE_DEFAULT, "controller, requesting sheet with options. %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_22D8C5000, v5, OS_LOG_TYPE_DEFAULT, "controller, requesting sheet with options. %@", &v8, 0xCu);
   }
 
   server = [(MOSuggestionSheetController *)self server];
   [server requestPickerForSceneIdentiyToken:self->_instanceSceneIdentityToken withOptions:optionsCopy];
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)updatePickerState:(unint64_t)state animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v20 = *MEMORY[0x277D85DE8];
+  v7 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v18 = 134217984;
+    stateCopy = state;
+    _os_log_impl(&dword_22D8C5000, v7, OS_LOG_TYPE_DEFAULT, "controller, requesting sheet view transition to state=%lu", &v18, 0xCu);
+  }
+
+  if (state || self->_angelConnection)
+  {
+    server = [(MOSuggestionSheetController *)self server];
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:state];
+    v10 = [MEMORY[0x277CCABB0] numberWithBool:animatedCopy];
+    [server updatePickerState:v9 animated:v10];
+  }
+
+  else
+  {
+    server = _mo_log_facility_get_os_log(MOLogFacilityUIService);
+    if (os_log_type_enabled(server, OS_LOG_TYPE_ERROR))
+    {
+      [(MOSuggestionSheetController *)server updatePickerState:v11 animated:v12, v13, v14, v15, v16, v17];
+    }
+  }
 }
 
 - (void)terminate
@@ -270,7 +297,7 @@ void __39__MOSuggestionSheetController_activate__block_invoke_177(uint64_t a1)
 
 - (void)getAssetsForSuggestion:(id)suggestion withTypes:(id)types completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   completionCopy = completion;
   typesCopy = types;
@@ -280,7 +307,7 @@ void __39__MOSuggestionSheetController_activate__block_invoke_177(uint64_t a1)
     suggestionIdentifier = [suggestionCopy suggestionIdentifier];
     uUIDString = [suggestionIdentifier UUIDString];
     *buf = 138412290;
-    v23 = uUIDString;
+    v22 = uUIDString;
     _os_log_impl(&dword_22D8C5000, v11, OS_LOG_TYPE_DEFAULT, "(Legacy) controller, requesting assets for suggestion identifier=%@", buf, 0xCu);
   }
 
@@ -288,22 +315,20 @@ void __39__MOSuggestionSheetController_activate__block_invoke_177(uint64_t a1)
   [v14 setRequestedTypes:typesCopy];
 
   server = [(MOSuggestionSheetController *)self server];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __75__MOSuggestionSheetController_getAssetsForSuggestion_withTypes_completion___block_invoke;
-  v19[3] = &unk_2787758F8;
-  v20 = suggestionCopy;
-  v21 = completionCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __75__MOSuggestionSheetController_getAssetsForSuggestion_withTypes_completion___block_invoke;
+  v18[3] = &unk_2787758F8;
+  v19 = suggestionCopy;
+  v20 = completionCopy;
   v16 = completionCopy;
   v17 = suggestionCopy;
-  [server fetchAssets:v17 withTypes:v14 completion:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [server fetchAssets:v17 withTypes:v14 completion:v18];
 }
 
 void __75__MOSuggestionSheetController_getAssetsForSuggestion_withTypes_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
@@ -315,11 +340,11 @@ void __75__MOSuggestionSheetController_getAssetsForSuggestion_withTypes_completi
       v9 = [*(a1 + 32) suggestionIdentifier];
       v10 = [v9 UUIDString];
       v11 = [v5 debugDescription];
-      v13 = 138412546;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v11;
-      _os_log_impl(&dword_22D8C5000, v7, OS_LOG_TYPE_DEFAULT, "Received assets for suggestion ID=%@ with assets=%@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&dword_22D8C5000, v7, OS_LOG_TYPE_DEFAULT, "Received assets for suggestion ID=%@ with assets=%@", &v12, 0x16u);
 
 LABEL_6:
     }
@@ -329,19 +354,18 @@ LABEL_6:
   {
     v9 = [*(a1 + 32) suggestionIdentifier];
     v10 = [v9 UUIDString];
-    v13 = 138412290;
-    v14 = v10;
-    _os_log_impl(&dword_22D8C5000, v7, OS_LOG_TYPE_DEFAULT, "Received nil assets for suggestion ID=%@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v10;
+    _os_log_impl(&dword_22D8C5000, v7, OS_LOG_TYPE_DEFAULT, "Received nil assets for suggestion ID=%@", &v12, 0xCu);
     goto LABEL_6;
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAssetsForSuggestion:(id)suggestion withTypes:(id)types onAssetsCallback:(id)callback
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   callbackCopy = callback;
   typesCopy = types;
@@ -351,7 +375,7 @@ LABEL_6:
     suggestionIdentifier = [suggestionCopy suggestionIdentifier];
     uUIDString = [suggestionIdentifier UUIDString];
     *buf = 138412290;
-    v24 = uUIDString;
+    v23 = uUIDString;
     _os_log_impl(&dword_22D8C5000, v11, OS_LOG_TYPE_DEFAULT, "controller, requesting assets for suggestion identifier=%@", buf, 0xCu);
   }
 
@@ -359,23 +383,21 @@ LABEL_6:
   [v14 setRequestedTypes:typesCopy];
 
   server = [(MOSuggestionSheetController *)self server];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __81__MOSuggestionSheetController_getAssetsForSuggestion_withTypes_onAssetsCallback___block_invoke;
-  v19[3] = &unk_278775920;
-  v20 = suggestionCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __81__MOSuggestionSheetController_getAssetsForSuggestion_withTypes_onAssetsCallback___block_invoke;
+  v18[3] = &unk_278775920;
+  v19 = suggestionCopy;
   selfCopy = self;
-  v22 = callbackCopy;
+  v21 = callbackCopy;
   v16 = callbackCopy;
   v17 = suggestionCopy;
-  [server fetchAssets:v17 withTypes:v14 onAssetsCallback:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [server fetchAssets:v17 withTypes:v14 onAssetsCallback:v18];
 }
 
 void __81__MOSuggestionSheetController_getAssetsForSuggestion_withTypes_onAssetsCallback___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5 && ([v5 assets], v7 = objc_claimAutoreleasedReturnValue(), v7, v7))
@@ -386,11 +408,11 @@ void __81__MOSuggestionSheetController_getAssetsForSuggestion_withTypes_onAssets
       v9 = [*(a1 + 32) suggestionIdentifier];
       v10 = [v9 UUIDString];
       v11 = [v5 assets];
-      v19 = 138412546;
-      v20 = v10;
-      v21 = 2048;
-      v22 = [v11 count];
-      _os_log_impl(&dword_22D8C5000, v8, OS_LOG_TYPE_DEFAULT, "Received assets for suggestionID=%@, count=%lu", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = v10;
+      v20 = 2048;
+      v21 = [v11 count];
+      _os_log_impl(&dword_22D8C5000, v8, OS_LOG_TYPE_DEFAULT, "Received assets for suggestionID=%@, count=%lu", &v18, 0x16u);
     }
 
     if ([*(a1 + 40) disableAssetUnwrapping])
@@ -416,59 +438,57 @@ void __81__MOSuggestionSheetController_getAssetsForSuggestion_withTypes_onAssets
     {
       v15 = [*(a1 + 32) suggestionIdentifier];
       v16 = [v15 UUIDString];
-      v19 = 138412290;
-      v20 = v16;
-      _os_log_impl(&dword_22D8C5000, v14, OS_LOG_TYPE_DEFAULT, "Received nil assets for suggestion ID=%@", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v16;
+      _os_log_impl(&dword_22D8C5000, v14, OS_LOG_TYPE_DEFAULT, "Received nil assets for suggestion ID=%@", &v18, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (id)processedAssets:(id)assets
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   v4 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v51 = [assetsCopy count];
+    v50 = [assetsCopy count];
     _os_log_impl(&dword_22D8C5000, v4, OS_LOG_TYPE_DEFAULT, "Processing assets for count=%lu", buf, 0xCu);
   }
 
   v5 = objc_opt_new();
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v6 = assetsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v46;
+    v10 = *v45;
     *&v8 = 138412290;
-    v32 = v8;
+    v31 = v8;
     do
     {
       v11 = 0;
       do
       {
-        if (*v46 != v10)
+        if (*v45 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v45 + 1) + 8 * v11);
+        v12 = *(*(&v44 + 1) + 8 * v11);
         v13 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           v14 = [v12 debugDescription];
-          *buf = v32;
-          v51 = v14;
+          *buf = v31;
+          v50 = v14;
           _os_log_impl(&dword_22D8C5000, v13, OS_LOG_TYPE_DEFAULT, "--%@", buf, 0xCu);
         }
 
@@ -483,14 +503,14 @@ void __81__MOSuggestionSheetController_getAssetsForSuggestion_withTypes_onAssets
             v18 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              [(MOSuggestionSheetController *)&v43 processedAssets:v44];
+              [(MOSuggestionSheetController *)&v42 processedAssets:v43];
             }
 
             goto LABEL_38;
           }
 
 LABEL_32:
-          [v5 addObject:{v17, v32}];
+          [v5 addObject:{v17, v31}];
 LABEL_39:
 
           goto LABEL_40;
@@ -510,7 +530,7 @@ LABEL_39:
           v18 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            [(MOSuggestionSheetController *)&v41 processedAssets:v42];
+            [(MOSuggestionSheetController *)&v40 processedAssets:v41];
           }
 
 LABEL_38:
@@ -532,7 +552,7 @@ LABEL_38:
           v18 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            [(MOSuggestionSheetController *)&v39 processedAssets:v40];
+            [(MOSuggestionSheetController *)&v38 processedAssets:v39];
           }
 
           goto LABEL_38;
@@ -552,7 +572,7 @@ LABEL_38:
           v18 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            [(MOSuggestionSheetController *)&v37 processedAssets:v38];
+            [(MOSuggestionSheetController *)&v36 processedAssets:v37];
           }
 
           goto LABEL_38;
@@ -572,7 +592,7 @@ LABEL_38:
           v18 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            [(MOSuggestionSheetController *)&v35 processedAssets:v36];
+            [(MOSuggestionSheetController *)&v34 processedAssets:v35];
           }
 
           goto LABEL_38;
@@ -592,7 +612,7 @@ LABEL_38:
           v18 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            [(MOSuggestionSheetController *)&v33 processedAssets:v34];
+            [(MOSuggestionSheetController *)&v32 processedAssets:v33];
           }
 
           goto LABEL_38;
@@ -611,53 +631,49 @@ LABEL_40:
       }
 
       while (v9 != v11);
-      v9 = [v6 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v44 objects:v48 count:16];
     }
 
     while (v9);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (void)releaseSandboxHandles
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_sandboxTokenHandles;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6) intValue];
+        [*(*(&v7 + 1) + 8 * v6) intValue];
         sandbox_extension_release();
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (MOSuggestionSheetControllerDelegate)delegate

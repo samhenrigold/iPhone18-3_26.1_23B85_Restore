@@ -429,7 +429,7 @@ LABEL_3:
   {
     v21 = MEMORY[0x1E69DCAB8];
     v22 = [MEMORY[0x1E69DCEB0] mainScreen];
-    [v22 scale];
+    objc_msgSend_scale(v22);
     v23 = [v21 _applicationIconImageForBundleIdentifier:v7 format:0 scale:?];
     [v4 setIcon:v23];
   }
@@ -477,7 +477,7 @@ void __54__HKSourceListDataSource__builtinIconFetchTransformer__block_invoke_2(u
   }
 
   v7 = [MEMORY[0x1E69DCEB0] mainScreen];
-  [v7 scale];
+  objc_msgSend_scale(v7);
   v9 = v8;
 
   v10 = [MEMORY[0x1E69B36C8] sharedInstance];
@@ -875,7 +875,7 @@ uint64_t __67__HKSourceListDataSource__performTransformations_model_completion__
 
   else if (os_log_type_enabled(*MEMORY[0x1E696B940], OS_LOG_TYPE_ERROR))
   {
-    [HKSourceListDataSource _didFetchSources:v11 error:? completion:?];
+    [HKSourceListDataSource _didFetchSources:v11 error:self completion:?];
   }
 }
 
@@ -915,87 +915,87 @@ void __60__HKSourceListDataSource__didFetchSources_error_completion___block_invo
   dispatch_group_leave(*(a1 + 48));
 }
 
-void __60__HKSourceListDataSource__didFetchSources_error_completion___block_invoke_5(uint64_t a1)
+void __60__HKSourceListDataSource__didFetchSources_error_completion___block_invoke_5(uint64_t a1, uint64_t a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   _HKInitializeLogging();
-  v2 = *MEMORY[0x1E696B940];
+  v3 = *MEMORY[0x1E696B940];
   if (os_log_type_enabled(*MEMORY[0x1E696B940], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = v2;
+    v4 = v3;
     *buf = 138543362;
-    v40 = objc_opt_class();
-    v4 = v40;
-    _os_log_impl(&dword_1C3942000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: finished transforming fetched sources", buf, 0xCu);
+    v41 = objc_opt_class();
+    v5 = v41;
+    _os_log_impl(&dword_1C3942000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: finished transforming fetched sources", buf, 0xCu);
   }
 
-  v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v6 = *(a1 + 40);
-  v7 = MEMORY[0x1E696AE18];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __60__HKSourceListDataSource__didFetchSources_error_completion___block_invoke_358;
-  v36[3] = &unk_1E81BBC18;
-  v24 = v5;
-  v37 = v24;
-  v8 = [v7 predicateWithBlock:v36];
-  [v6 filterUsingPredicate:v8];
+  v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v7 = *(a1 + 40);
+  v8 = MEMORY[0x1E696AE18];
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __60__HKSourceListDataSource__didFetchSources_error_completion___block_invoke_358;
+  v37[3] = &unk_1E81BBC18;
+  v25 = v6;
+  v38 = v25;
+  v9 = [v8 predicateWithBlock:v37];
+  [v7 filterUsingPredicate:v9];
 
-  v9 = [[HKSourceListDataModel alloc] initWithSourceModels:*(a1 + 40)];
-  v10 = *(a1 + 32);
-  v11 = *(v10 + 8);
+  v10 = [[HKSourceListDataModel alloc] initWithSourceModels:*(a1 + 40)];
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 8);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __60__HKSourceListDataSource__didFetchSources_error_completion___block_invoke_2_361;
   block[3] = &unk_1E81B5A60;
-  block[4] = v10;
-  v12 = v9;
-  v34 = v12;
-  v35 = *(a1 + 48);
-  dispatch_async(v11, block);
-  v23 = v12;
-  v13 = [(HKSourceListDataModel *)v12 copy];
-  v29 = 0u;
+  block[4] = v11;
+  v13 = v10;
+  v35 = v13;
+  v36 = *(a1 + 48);
+  dispatch_async(v12, block);
+  v24 = v13;
+  v14 = [(HKSourceListDataModel *)v13 copy];
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  obj = [v13 allSources];
-  v14 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
-  if (v14)
+  v33 = 0u;
+  obj = [v14 allSources];
+  v15 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = *v30;
+    v16 = v15;
+    v17 = *v31;
     do
     {
-      v17 = 0;
+      v18 = 0;
       do
       {
-        if (*v30 != v16)
+        if (*v31 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v29 + 1) + 8 * v17);
-        v19 = objc_opt_class();
-        v20 = [*(*(a1 + 32) + 32) copy];
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __60__HKSourceListDataSource__didFetchSources_error_completion___block_invoke_3_362;
-        v26[3] = &unk_1E81BBC40;
-        v21 = v13;
-        v22 = *(a1 + 32);
-        v27 = v21;
+        v19 = *(*(&v30 + 1) + 8 * v18);
+        v20 = objc_opt_class();
+        v21 = [*(*(a1 + 32) + 32) copy];
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = __60__HKSourceListDataSource__didFetchSources_error_completion___block_invoke_3_362;
+        v27[3] = &unk_1E81BBC40;
+        v22 = v14;
+        v23 = *(a1 + 32);
         v28 = v22;
-        [v19 _performTransformations:v20 model:v18 completion:v26];
+        v29 = v23;
+        [v20 _performTransformations:v21 model:v19 completion:v27];
 
-        ++v17;
+        ++v18;
       }
 
-      while (v15 != v17);
-      v15 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
+      while (v16 != v18);
+      v16 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 }
 
@@ -1303,7 +1303,7 @@ void __81__HKSourceListDataSource_fetchFilteredSourcesWithAuthorizationRecordsFo
   dispatch_semaphore_signal(*(a1 + 48));
 }
 
-void __81__HKSourceListDataSource_fetchFilteredSourcesWithAuthorizationRecordsForSources___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void __81__HKSourceListDataSource_fetchFilteredSourcesWithAuthorizationRecordsForSources___block_invoke_2(void *a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   v11 = *MEMORY[0x1E69E9840];
   v6 = a3;
@@ -1320,7 +1320,7 @@ void __81__HKSourceListDataSource_fetchFilteredSourcesWithAuthorizationRecordsFo
       _os_log_impl(&dword_1C3942000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Added source to the list of sources", v10, 0xCu);
     }
 
-    [*(*(*(a1 + 48) + 8) + 40) addObject:{*(a1 + 40), *v10}];
+    [*(*(a1[6] + 8) + 40) addObject:{a1[5], *v10, *&v10[8]}];
     *a4 = 1;
   }
 }
@@ -1402,7 +1402,7 @@ void __54__HKSourceListDataSource__builtinIconFetchTransformer__block_invoke_col
   v3 = a1;
   v4 = [a2 source];
   OUTLINED_FUNCTION_1_10();
-  OUTLINED_FUNCTION_1_5(&dword_1C3942000, v5, v6, "Failed to fetch research study bundle for source %{public}@: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_5(&dword_1C3942000, v5, v6, "Failed to fetch research study bundle for source %{public}@: %{public}@", v7, v8, v9, v10);
 }
 
 void __64__HKSourceListDataSource__builtinPurposeStringsFetchTransformer__block_invoke_354_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
@@ -1414,13 +1414,13 @@ void __64__HKSourceListDataSource__builtinPurposeStringsFetchTransformer__block_
   OUTLINED_FUNCTION_1_3(&dword_1C3942000, a2, a3, "Unable to fetch remote watch app purpose strings for source %@: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
-- (void)_didFetchSources:(void *)a1 error:completion:.cold.1(void *a1)
+- (void)_didFetchSources:(void *)a1 error:(uint64_t)a2 completion:.cold.1(void *a1, uint64_t a2)
 {
-  v1 = a1;
+  v2 = a1;
   objc_opt_class();
   OUTLINED_FUNCTION_1_10();
-  v3 = v2;
-  OUTLINED_FUNCTION_1_5(&dword_1C3942000, v4, v5, "%{public}@: failed to fetch sources: %{public}@", v6, v7, v8, v9, v10);
+  v4 = v3;
+  OUTLINED_FUNCTION_1_5(&dword_1C3942000, v5, v6, "%{public}@: failed to fetch sources: %{public}@", v7, v8, v9, v10);
 }
 
 void __81__HKSourceListDataSource_fetchFilteredSourcesWithAuthorizationRecordsForSources___block_invoke_cold_1(uint64_t a1, void *a2)
@@ -1429,7 +1429,7 @@ void __81__HKSourceListDataSource_fetchFilteredSourcesWithAuthorizationRecordsFo
   objc_opt_class();
   OUTLINED_FUNCTION_1_10();
   v4 = v3;
-  OUTLINED_FUNCTION_1_5(&dword_1C3942000, v5, v6, "%{public}@: failed to get authorization records: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_5(&dword_1C3942000, v5, v6, "%{public}@: failed to get authorization records: %{public}@", v7, v8, v9, v10);
 }
 
 @end

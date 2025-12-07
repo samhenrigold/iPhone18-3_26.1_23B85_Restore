@@ -22,7 +22,7 @@
 {
   playerCopy = player;
   selfCopy = self;
-  sub_1E389D200(player);
+  sub_1E389D200(player, selfCopy);
 }
 
 - (NSString)description

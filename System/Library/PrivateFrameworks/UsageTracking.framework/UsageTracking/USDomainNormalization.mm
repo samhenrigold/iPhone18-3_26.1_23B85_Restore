@@ -108,57 +108,57 @@ LABEL_22:
 
 - (id)normalizeDomainNames:(id)names
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   uppercaseLetterCharacterSet = [MEMORY[0x277CCA900] uppercaseLetterCharacterSet];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v6 = namesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
+    v9 = *v27;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
         if (![v11 canBeConvertedToEncoding:1] || objc_msgSend(v11, "rangeOfCharacterFromSet:", uppercaseLetterCharacterSet) != 0x7FFFFFFFFFFFFFFFLL)
         {
 
           v12 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v6, "count")}];
+          v22 = 0u;
           v23 = 0u;
           v24 = 0u;
           v25 = 0u;
-          v26 = 0u;
           v13 = v6;
-          v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v24;
+            v16 = *v23;
             do
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v24 != v16)
+                if (*v23 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v18 = [(USDomainNormalization *)self normalizeDomainName:*(*(&v23 + 1) + 8 * j), v23];
+                v18 = [(USDomainNormalization *)self normalizeDomainName:*(*(&v22 + 1) + 8 * j), v22];
                 [v12 addObject:v18];
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
             }
 
             while (v15);
@@ -168,7 +168,7 @@ LABEL_22:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
       v12 = 0;
       if (v8)
       {
@@ -198,7 +198,6 @@ LABEL_20:
 
   v20 = v19;
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -231,17 +230,16 @@ LABEL_20:
 
 - (void)normalizeDomainName:(int *)a3 .cold.1(uint64_t a1, int *a2, int *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v4 = *a3;
-  v6 = 138412802;
-  v7 = a1;
-  v8 = 1024;
-  v9 = v3;
-  v10 = 1024;
-  v11 = v4;
-  _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to encode domain %@, %d (%u)", &v6, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412802;
+  v6 = a1;
+  v7 = 1024;
+  v8 = v3;
+  v9 = 1024;
+  v10 = v4;
+  _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to encode domain %@, %d (%u)", &v5, 0x18u);
 }
 
 - (void)normalizeDomainName:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -264,11 +262,10 @@ LABEL_20:
 
 - (void)normalizeURL:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_fault_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Failed to normalize URL: %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_fault_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Failed to normalize URL: %{public}@", &v1, 0xCu);
 }
 
 @end

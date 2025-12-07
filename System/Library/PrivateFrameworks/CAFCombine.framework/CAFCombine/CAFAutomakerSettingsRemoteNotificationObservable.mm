@@ -42,15 +42,15 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFAutomakerSettingsRemoteNotificationObservable.automakerSettingsRemoteNotificationService(_:didUpdateTrailingButtonState:)();
+  CAFAutomakerSettingsRemoteNotificationObservable.automakerSettingsRemoteNotificationService(_:didUpdateTrailingButtonState:)(selfCopy, state);
 }
 
 - (void)automakerSettingsRemoteNotificationService:(id)service didUpdateAutomakerSettingsNotificationButtons:(id)buttons
 {
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   serviceCopy = service;
   selfCopy = self;
-  CAFAutomakerSettingsRemoteNotificationObservable.automakerSettingsRemoteNotificationService(_:didUpdateAutomakerSettingsNotificationButtons:)();
+  CAFAutomakerSettingsRemoteNotificationObservable.automakerSettingsRemoteNotificationService(_:didUpdateAutomakerSettingsNotificationButtons:)(selfCopy, v6);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

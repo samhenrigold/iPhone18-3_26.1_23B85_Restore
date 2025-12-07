@@ -148,7 +148,7 @@ LABEL_14:
 
 - (BOOL)_shouldRedactSpeakableText
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   aceObject = [(AFMutableConversationItem *)self aceObject];
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -161,26 +161,26 @@ LABEL_14:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v12 = 0u;
-      v13 = 0u;
-      v10 = 0u;
       v11 = 0u;
+      v12 = 0u;
+      v9 = 0u;
+      v10 = 0u;
       views = [aceObject views];
-      v6 = [views countByEnumeratingWithState:&v10 objects:v14 count:16];
-      if (v6)
+      v5 = [views countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v5)
       {
-        v7 = v6;
-        v8 = *v11;
+        v6 = v5;
+        v7 = *v10;
         while (2)
         {
-          for (i = 0; i != v7; ++i)
+          for (i = 0; i != v6; ++i)
           {
-            if (*v11 != v8)
+            if (*v10 != v7)
             {
               objc_enumerationMutation(views);
             }
 
-            if (![*(*(&v10 + 1) + 8 * i) canUseServerTTS])
+            if (![*(*(&v9 + 1) + 8 * i) canUseServerTTS])
             {
 
               LOBYTE(views) = 1;
@@ -188,8 +188,8 @@ LABEL_14:
             }
           }
 
-          v7 = [views countByEnumeratingWithState:&v10 objects:v14 count:16];
-          if (v7)
+          v6 = [views countByEnumeratingWithState:&v9 objects:v13 count:16];
+          if (v6)
           {
             continue;
           }
@@ -204,7 +204,6 @@ LABEL_14:
 
 LABEL_5:
 
-  v4 = *MEMORY[0x1E69E9840];
   return views;
 }
 
@@ -294,7 +293,7 @@ LABEL_5:
 
 - (AFMutableConversationItem)initWithPropertyListRepresentation:(id)representation
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = objc_alloc_init(AFDictionarySchema);
   v6 = [AFCoercion typeAssertionWithClass:objc_opt_class()];
@@ -306,13 +305,13 @@ LABEL_5:
   v8 = +[AFCoercion stringToUUIDCoercion];
   [(AFDictionarySchema *)v5 setObjectCoercion:v8 forKey:@"RevisionIdentifier"];
 
-  v71[0] = MEMORY[0x1E69E9820];
-  v71[1] = 3221225472;
-  v71[2] = __64__AFMutableConversationItem_initWithPropertyListRepresentation___block_invoke;
-  v71[3] = &unk_1E7341FA0;
+  v70[0] = MEMORY[0x1E69E9820];
+  v70[1] = 3221225472;
+  v70[2] = __64__AFMutableConversationItem_initWithPropertyListRepresentation___block_invoke;
+  v70[3] = &unk_1E7341FA0;
   selfCopy = self;
-  v72 = selfCopy;
-  v10 = [AFCoercion coercionWithBlock:v71];
+  v71 = selfCopy;
+  v10 = [AFCoercion coercionWithBlock:v70];
   [(AFDictionarySchema *)v5 setObjectCoercion:v10 forKey:@"Type"];
 
   v11 = [AFCoercion typeAssertionWithClass:objc_opt_class()];
@@ -321,13 +320,13 @@ LABEL_5:
   v12 = [AFCoercion typeAssertionWithClass:objc_opt_class()];
   [(AFDictionarySchema *)v5 setObjectCoercion:v12 forKey:@"AceDialogPhase"];
 
-  v69[0] = MEMORY[0x1E69E9820];
-  v69[1] = 3221225472;
-  v69[2] = __64__AFMutableConversationItem_initWithPropertyListRepresentation___block_invoke_2;
-  v69[3] = &unk_1E7341FA0;
+  v68[0] = MEMORY[0x1E69E9820];
+  v68[1] = 3221225472;
+  v68[2] = __64__AFMutableConversationItem_initWithPropertyListRepresentation___block_invoke_2;
+  v68[3] = &unk_1E7341FA0;
   v13 = selfCopy;
-  v70 = v13;
-  v14 = [AFCoercion coercionWithBlock:v69];
+  v69 = v13;
+  v14 = [AFCoercion coercionWithBlock:v68];
   [(AFDictionarySchema *)v5 setObjectCoercion:v14 forKey:@"PresentationState"];
 
   v15 = [AFCoercion typeAssertionWithClass:objc_opt_class()];
@@ -345,9 +344,9 @@ LABEL_5:
   v19 = [AFCoercion typeAssertionWithClass:objc_opt_class()];
   [(AFDictionarySchema *)v5 setObjectCoercion:v19 forKey:@"PersistentAcrossInvocations"];
 
-  v68 = 0;
-  v20 = [(AFDictionarySchema *)v5 coerceObject:representationCopy error:&v68];
-  v21 = v68;
+  v67 = 0;
+  v20 = [(AFDictionarySchema *)v5 coerceObject:representationCopy error:&v67];
+  v21 = v67;
   if (!v20)
   {
     v31 = AFSiriLogContextConnection;
@@ -359,11 +358,11 @@ LABEL_10:
     }
 
     *buf = 136315650;
-    v74 = "[AFMutableConversationItem initWithPropertyListRepresentation:]";
-    v75 = 2114;
-    v76 = v21;
-    v77 = 2112;
-    v78 = representationCopy;
+    v73 = "[AFMutableConversationItem initWithPropertyListRepresentation:]";
+    v74 = 2114;
+    v75 = v21;
+    v76 = 2112;
+    v77 = representationCopy;
     v32 = "%s returning nil; passed invalid property list (%{public}@): %@";
     v33 = v31;
     v34 = 32;
@@ -384,24 +383,24 @@ LABEL_20:
     }
 
     *buf = 136315394;
-    v74 = "[AFMutableConversationItem initWithPropertyListRepresentation:]";
-    v75 = 2050;
-    v76 = integerValue;
+    v73 = "[AFMutableConversationItem initWithPropertyListRepresentation:]";
+    v74 = 2050;
+    v75 = integerValue;
     v32 = "%s unable to deserialize property list with version %{public}ld; returning nil";
     v33 = v35;
     v34 = 22;
     goto LABEL_20;
   }
 
-  v66 = representationCopy;
-  v64 = [v20 objectForKey:@"Identifier"];
+  v65 = representationCopy;
+  v63 = [v20 objectForKey:@"Identifier"];
   v24 = [v20 objectForKey:@"RevisionIdentifier"];
   if (!v24)
   {
     v24 = objc_alloc_init(MEMORY[0x1E696AFB0]);
   }
 
-  v63 = v24;
+  v62 = v24;
   v25 = [v20 objectForKey:@"Type"];
   integerValue2 = [v25 integerValue];
 
@@ -410,10 +409,10 @@ LABEL_20:
   v29 = [v27 aceObjectWithDictionary:v28];
 
   v30 = [v20 objectForKey:@"AceDialogPhase"];
-  v65 = v21;
-  v62 = v29;
-  v60 = v30;
-  v67 = v13;
+  v64 = v21;
+  v61 = v29;
+  v59 = v30;
+  v66 = v13;
   if (v30)
   {
     [AFDialogPhase dialogPhaseForAceDialogPhase:v30];
@@ -423,7 +422,7 @@ LABEL_20:
   {
     +[AFDialogPhase userRequestDialogPhase];
   }
-  v61 = ;
+  v60 = ;
   v37 = [v20 objectForKey:@"PresentationState"];
   integerValue3 = [v37 integerValue];
 
@@ -446,46 +445,45 @@ LABEL_20:
 
   if (v49)
   {
-    BYTE4(v58) = bOOLValue4;
-    BYTE3(v58) = bOOLValue3;
-    BYTE2(v58) = bOOLValue2;
-    BYTE1(v58) = bOOLValue;
-    LOBYTE(v58) = 0;
-    v51 = v63;
-    v50 = v64;
+    BYTE4(v57) = bOOLValue4;
+    BYTE3(v57) = bOOLValue3;
+    BYTE2(v57) = bOOLValue2;
+    BYTE1(v57) = bOOLValue;
+    LOBYTE(v57) = 0;
+    v51 = v62;
+    v50 = v63;
     v52 = integerValue2;
-    v54 = v61;
-    v53 = v62;
-    v36 = [AFMutableConversationItem initWithIdentifier:v67 revisionIdentifier:"initWithIdentifier:revisionIdentifier:type:aceObject:dialogPhase:presentationState:aceCommandIdentifier:virgin:transient:supplemental:immersiveExperience:persistentAcrossInvocations:associatedDataStore:" type:v64 aceObject:v63 dialogPhase:v52 presentationState:v62 aceCommandIdentifier:v61 virgin:integerValue3 transient:v38 supplemental:v58 immersiveExperience:v49 persistentAcrossInvocations:? associatedDataStore:?];
-    v67 = v36;
-    v21 = v65;
+    v54 = v60;
+    v53 = v61;
+    v36 = [AFMutableConversationItem initWithIdentifier:v66 revisionIdentifier:"initWithIdentifier:revisionIdentifier:type:aceObject:dialogPhase:presentationState:aceCommandIdentifier:virgin:transient:supplemental:immersiveExperience:persistentAcrossInvocations:associatedDataStore:" type:v63 aceObject:v62 dialogPhase:v52 presentationState:v61 aceCommandIdentifier:v60 virgin:integerValue3 transient:v38 supplemental:v57 immersiveExperience:v49 persistentAcrossInvocations:? associatedDataStore:?];
+    v66 = v36;
+    v21 = v64;
   }
 
   else
   {
     v55 = AFSiriLogContextConnection;
-    v21 = v65;
+    v21 = v64;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v74 = "[AFMutableConversationItem initWithPropertyListRepresentation:]";
-      v75 = 2112;
-      v76 = v66;
+      v73 = "[AFMutableConversationItem initWithPropertyListRepresentation:]";
+      v74 = 2112;
+      v75 = v65;
       _os_log_error_impl(&dword_1912FE000, v55, OS_LOG_TYPE_ERROR, "%s returning nil; unable co create associated data store from property list %@", buf, 0x16u);
     }
 
     v36 = 0;
-    v51 = v63;
-    v50 = v64;
-    v54 = v61;
-    v53 = v62;
+    v51 = v62;
+    v50 = v63;
+    v54 = v60;
+    v53 = v61;
   }
 
-  representationCopy = v66;
-  v13 = v67;
+  representationCopy = v65;
+  v13 = v66;
 LABEL_18:
 
-  v56 = *MEMORY[0x1E69E9840];
   return v36;
 }
 
@@ -530,17 +528,17 @@ id __64__AFMutableConversationItem_initWithPropertyListRepresentation___block_in
 - (int64_t)_presentationStateForPropertyListString:(id)string
 {
   stringCopy = string;
-  if ([stringCopy isEqualToString:@"Committed"])
+  if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 1;
   }
 
-  else if ([stringCopy isEqualToString:@"Provisional"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 2;
   }
 
-  else if ([stringCopy isEqualToString:@"Cancelled"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 3;
   }
@@ -556,27 +554,27 @@ id __64__AFMutableConversationItem_initWithPropertyListRepresentation___block_in
 - (int64_t)_typeForPropertyListString:(id)string
 {
   stringCopy = string;
-  if ([stringCopy isEqualToString:@"RecognizedSpeech"])
+  if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 1;
   }
 
-  else if ([stringCopy isEqualToString:@"View"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 3;
   }
 
-  else if ([stringCopy isEqualToString:@"PartialSpeechResult"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 2;
   }
 
-  else if ([stringCopy isEqualToString:@"Help"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 4;
   }
 
-  else if ([stringCopy isEqualToString:@"AcousticID Spinner"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 5;
   }

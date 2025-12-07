@@ -127,15 +127,15 @@ void __88__EMRemoteContentURLCache_storeResponseIfNeeded_withData_forDataTask_co
   [(EMRemoteContentURLCache *)self _getCachedResponseForDataTask:v9 ignoreExistingCancelation:1 completionHandler:v10];
 }
 
-void __81__EMRemoteContentURLCache_storeCancelationIfNeededForDataTask_completionHandler___block_invoke(uint64_t a1, void *a2)
+void __81__EMRemoteContentURLCache_storeCancelationIfNeededForDataTask_completionHandler___block_invoke(void *a1, void *a2)
 {
   v4 = a2;
   if (!v4)
   {
-    [(EMRemoteContentURLCache *)*(a1 + 32) _storeCancelationForDataTask:?];
+    [(EMRemoteContentURLCache *)a1[4] _storeCancelationForDataTask:?];
   }
 
-  v3 = *(a1 + 48);
+  v3 = a1[6];
   if (v3)
   {
     (*(v3 + 16))(v3, v4 == 0);
@@ -144,7 +144,7 @@ void __81__EMRemoteContentURLCache_storeCancelationIfNeededForDataTask_completio
 
 - (void)_storeCancelationForDataTask:(void *)task
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (task)
   {
@@ -160,18 +160,16 @@ void __81__EMRemoteContentURLCache_storeCancelationIfNeededForDataTask_completio
 
     v8 = objc_alloc(MEMORY[0x1E695ABF0]);
     v9 = _storeCancelationForDataTask__sEmptyData;
-    v15 = @"LastAccessed";
+    v14 = @"LastAccessed";
     date = [MEMORY[0x1E695DF00] date];
-    v16[0] = date;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v15[0] = date;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v12 = [v8 initWithResponse:v7 data:v9 userInfo:v11 storagePolicy:0];
 
-    v14.receiver = task;
-    v14.super_class = EMRemoteContentURLCache;
-    objc_msgSendSuper2(&v14, sel_storeCachedResponse_forDataTask_, v12, v3);
+    v13.receiver = task;
+    v13.super_class = EMRemoteContentURLCache;
+    objc_msgSendSuper2(&v13, sel_storeCachedResponse_forDataTask_, v12, v3);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __101__EMRemoteContentURLCache__getCachedResponseForDataTask_ignoreExistingCancelation_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -201,18 +199,16 @@ void __101__EMRemoteContentURLCache__getCachedResponseForDataTask_ignoreExisting
 
 void __56__EMRemoteContentURLCache__storeCancelationForDataTask___block_invoke()
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v0 = objc_alloc_init(MEMORY[0x1E695DEF0]);
   v1 = _storeCancelationForDataTask__sEmptyData;
   _storeCancelationForDataTask__sEmptyData = v0;
 
-  v5 = @"x-apple-canceled";
-  v6[0] = @"1";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v4 = @"x-apple-canceled";
+  v5[0] = @"1";
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   v3 = _storeCancelationForDataTask__sHeaders;
   _storeCancelationForDataTask__sHeaders = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -63,27 +63,26 @@ void __103__AEActivePolicySession_runRemainingActivations_remainingDeactivations
 {
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 80);
   [AEActivePolicySession validateProducedPersistentDeactivations:? currentEvent:?];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __103__AEActivePolicySession_runRemainingActivations_remainingDeactivations_currentEvent_errors_completion___block_invoke_4;
-  v14[3] = &unk_278BB6EE8;
-  v8 = *(a1 + 40);
-  v14[4] = *(a1 + 32);
-  v15 = *(a1 + 48);
-  v16 = v6;
-  v9 = *(a1 + 64);
-  v17 = *(a1 + 56);
-  v18 = v5;
-  v11 = *(a1 + 72);
-  v10 = *(a1 + 80);
-  v19 = v9;
-  v21 = v10;
-  v20 = v11;
-  v12 = v5;
-  v13 = v6;
-  [(AEDeactivationPool *)v8 deactivateWithCompletion:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __103__AEActivePolicySession_runRemainingActivations_remainingDeactivations_currentEvent_errors_completion___block_invoke_4;
+  v13[3] = &unk_278BB6EE8;
+  v7 = *(a1 + 40);
+  v13[4] = *(a1 + 32);
+  v14 = *(a1 + 48);
+  v15 = v6;
+  v8 = *(a1 + 64);
+  v16 = *(a1 + 56);
+  v17 = v5;
+  v10 = *(a1 + 72);
+  v9 = *(a1 + 80);
+  v18 = v8;
+  v20 = v9;
+  v19 = v10;
+  v11 = v5;
+  v12 = v6;
+  [(AEDeactivationPool *)v7 deactivateWithCompletion:v13];
 }
 
 BOOL __78__AEActivePolicySession_validateProducedPersistentDeactivations_currentEvent___block_invoke(uint64_t a1, uint64_t a2)
@@ -113,10 +112,10 @@ BOOL __78__AEActivePolicySession_validateProducedPersistentDeactivations_current
 
   if (invalidationHandler)
   {
-    v7 = AECoreLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = AECoreLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [AEActivePolicySession invalidationRouter:errorCopy didReceiveInvalidationError:v7];
+      [AEActivePolicySession invalidationRouter:errorCopy didReceiveInvalidationError:v8];
     }
 
     invalidationHandler2 = [(AEActivePolicySession *)self invalidationHandler];
@@ -203,7 +202,7 @@ void __50__AEActivePolicySession_deactivateWithCompletion___block_invoke(uint64_
 
 void __50__AEActivePolicySession_deactivateWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) endInterval];
   v4 = *(a1 + 40);
@@ -215,10 +214,11 @@ void __50__AEActivePolicySession_deactivateWithCompletion___block_invoke_2(uint6
     v5 = v6;
   }
 
-  v7 = AECoreLog();
+  v7 = AECoreLog(v4);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_1_0(&dword_23C1AA000, v8, v9, "Finished running deactivations", v10, v11, v12, v13, v35, v36, v37, v38, v39, v40, 0);
+    *buf = 0;
+    OUTLINED_FUNCTION_1_0(&dword_23C1AA000, v8, v9, "Finished running deactivations", v10, v11, v12, v13, v36, v37, v38, v39, v40, v41);
   }
 
   v14 = *(a1 + 48);
@@ -233,61 +233,63 @@ void __50__AEActivePolicySession_deactivateWithCompletion___block_invoke_2(uint6
   }
 
   v16 = [v15 hasPersistentData];
-  v17 = AECoreLog();
-  v18 = v17;
-  if (v16)
+  v17 = v16;
+  v18 = AECoreLog(v16);
+  v19 = v18;
+  if (v17)
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_fault_impl(&dword_23C1AA000, v18, OS_LOG_TYPE_FAULT, "Some scratchpads were not removed meaning some deactivations failed. Will reattempt to recover on next launch.", buf, 2u);
+      _os_log_fault_impl(&dword_23C1AA000, v19, OS_LOG_TYPE_FAULT, "Some scratchpads were not removed meaning some deactivations failed. Will reattempt to recover on next launch.", buf, 2u);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      OUTLINED_FUNCTION_1_0(&dword_23C1AA000, v19, v20, "No scratchpads are left after running deactivations. Cleaning up all state…", v21, v22, v23, v24, v35, v36, v37, v38, v39, v40, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_1_0(&dword_23C1AA000, v20, v21, "No scratchpads are left after running deactivations. Cleaning up all state…", v22, v23, v24, v25, v36, v37, v38, v39, v40, v41);
     }
 
-    v25 = *(a1 + 48);
-    if (v25)
+    v26 = *(a1 + 48);
+    if (v26)
     {
-      v25 = v25[2];
+      v26 = v26[2];
     }
 
-    v36 = 0;
-    v26 = v25;
-    v27 = [v26 cleanUpPolicyStoreWithError:&v36];
-    v18 = v36;
+    v37 = 0;
+    v27 = v26;
+    v28 = [v27 cleanUpPolicyStoreWithError:&v37];
+    v19 = v37;
 
-    if ((v27 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
-      v28 = AECoreLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v30 = AECoreLog(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v34 = [v18 ae_verboseDescription];
+        v35 = [v19 ae_verboseDescription];
         *buf = 138543362;
-        v42 = v34;
-        _os_log_error_impl(&dword_23C1AA000, v28, OS_LOG_TYPE_ERROR, "Failed to clean up policy store. Error: %{public}@", buf, 0xCu);
+        v43 = v35;
+        _os_log_error_impl(&dword_23C1AA000, v30, OS_LOG_TYPE_ERROR, "Failed to clean up policy store. Error: %{public}@", buf, 0xCu);
       }
 
-      v29 = [v5 ae_adding:v18];
+      v31 = [v5 ae_adding:v19];
 
-      v5 = v29;
+      v5 = v31;
     }
   }
 
   if ([v5 count])
   {
-    v30 = *MEMORY[0x277CCA578];
-    v37 = AEPolicySessionFailedToDeactivateSubsystemsKey;
-    v38 = v30;
-    v39 = v5;
+    v32 = *MEMORY[0x277CCA578];
+    v38 = AEPolicySessionFailedToDeactivateSubsystemsKey;
+    v39 = v32;
     v40 = v5;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v37 count:2];
-    v32 = AECoreErrorUserInfo(101, v31);
+    v41 = v5;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v38 count:2];
+    v34 = AECoreErrorUserInfo(101, v33);
     (*(*(a1 + 56) + 16))();
   }
 
@@ -295,8 +297,6 @@ void __50__AEActivePolicySession_deactivateWithCompletion___block_invoke_2(uint6
   {
     (*(*(a1 + 56) + 16))();
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runRemainingActivations:(void *)activations remainingDeactivations:(uint64_t)deactivations currentEvent:(void *)event errors:(void *)errors completion:
@@ -448,13 +448,11 @@ void __103__AEActivePolicySession_runRemainingActivations_remainingDeactivations
 
 - (void)invalidationRouter:(void *)a1 didReceiveInvalidationError:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 ae_verboseDescription];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_23C1AA000, a2, OS_LOG_TYPE_ERROR, "Active policy session encountered plugin invalidation. Reporting issue. Error: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_23C1AA000, a2, OS_LOG_TYPE_ERROR, "Active policy session encountered plugin invalidation. Reporting issue. Error: %{public}@", &v4, 0xCu);
 }
 
 @end

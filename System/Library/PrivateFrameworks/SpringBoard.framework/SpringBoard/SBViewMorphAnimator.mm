@@ -268,7 +268,7 @@ uint64_t __33__SBViewMorphAnimator_interrupt___block_invoke_3(uint64_t a1)
     superview = [(SBViewMorphAnimatorContentClippingView *)targetContentClippingView superview];
     [superview insertSubview:v7 belowSubview:self->_targetContentClippingView];
 
-    [(SBViewMorphAnimatorContentClippingView *)self->_targetContentClippingView frame];
+    objc_msgSend_frame(self->_targetContentClippingView);
     [v7 setFrame:?];
     [(SBViewMorphAnimatorContentClippingView *)self->_targetContentClippingView removeFromSuperview];
     v6 = self->_targetContentClippingView;
@@ -453,7 +453,7 @@ uint64_t __33__SBViewMorphAnimator_interrupt___block_invoke_3(uint64_t a1)
     v20 = v19;
     if (_isReversed)
     {
-      [v6 frame];
+      objc_msgSend_frame(v6);
       x = v21;
       y = v23;
       width = v25;
@@ -476,7 +476,7 @@ uint64_t __33__SBViewMorphAnimator_interrupt___block_invoke_3(uint64_t a1)
     self->_sourceContentFrame.size.height = v33;
     if (_isReversed)
     {
-      [v6 frame];
+      objc_msgSend_frame(v6);
       v35 = v34;
       v37 = v36;
       v39 = v38;
@@ -500,7 +500,7 @@ uint64_t __33__SBViewMorphAnimator_interrupt___block_invoke_3(uint64_t a1)
     self->_sourceFinalScale = v42;
     if (_isReversed)
     {
-      [v6 frame];
+      objc_msgSend_frame(v6);
     }
 
     else
@@ -591,7 +591,7 @@ uint64_t __33__SBViewMorphAnimator_interrupt___block_invoke_3(uint64_t a1)
     observers = self->_observers;
   }
 
-  if (![(NSHashTable *)observers containsObject:observerCopy])
+  if ((objc_msgSend_containsObject_(observers, observerCopy, observerCopy) & 1) == 0)
   {
     [(NSHashTable *)self->_observers addObject:v8];
   }
@@ -1192,7 +1192,7 @@ void __45__SBViewMorphAnimator_startTargetAnimations___block_invoke(id *a1, uint
     [a1[4] _startMorphAnimationTimeoutTimer];
     [a1[7] layoutIfNeeded];
     v53 = a1[4];
-    [a1[7] frame];
+    objc_msgSend_frame(a1[7]);
     v53[38] = v54;
     v53[39] = v55;
     v53[40] = v56;
@@ -1566,7 +1566,7 @@ LABEL_6:
     if (self->_direction)
     {
       v5 = objc_loadWeakRetained(&self->_sourceView);
-      [v5 frame];
+      objc_msgSend_frame(v5);
       [(SBViewMorphAnimator *)self noteWillRemoveTargeMatchMoveAnimationAtFrame:self->_targetSourcePinningFrame.origin.x withinSourceFrame:self->_targetSourcePinningFrame.origin.y, self->_targetSourcePinningFrame.size.width, self->_targetSourcePinningFrame.size.height, v6, v7, v8, v9];
 
       layer2 = [WeakRetained layer];
@@ -1759,7 +1759,7 @@ LABEL_6:
     {
       superview = [WeakRetained superview];
       superview2 = [(SBViewMorphAnimatorContentBlackCurtainView *)self->_sourceBlackCurtainView superview];
-      [(SBViewMorphAnimatorContentBlackCurtainView *)self->_sourceBlackCurtainView frame];
+      objc_msgSend_frame(self->_sourceBlackCurtainView);
       [superview2 convertRect:superview toView:?];
       v22 = v21;
       v24 = v23;
@@ -1896,22 +1896,22 @@ LABEL_57:
 LABEL_61:
 }
 
-uint64_t __52__SBViewMorphAnimator__checkAnimationsDependencies___block_invoke(uint64_t a1)
+uint64_t __52__SBViewMorphAnimator__checkAnimationsDependencies___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = SBLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v5 = 134217984;
-    v6 = v3;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "[Morph Animator][%p] Auto starting target unclip since target match move started.", &v5, 0xCu);
+    v4 = *(a1 + 32);
+    v6 = 134217984;
+    v7 = v4;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "[Morph Animator][%p] Auto starting target unclip since target match move started.", &v6, 0xCu);
   }
 
   return [*(a1 + 32) startTargetAnimations:2];
 }
 
-uint64_t __52__SBViewMorphAnimator__checkAnimationsDependencies___block_invoke_65(uint64_t a1)
+void *__52__SBViewMorphAnimator__checkAnimationsDependencies___block_invoke_65(uint64_t a1)
 {
   result = [*(a1 + 32) _removeMatchMoveAnimation];
   if (*(a1 + 40) == 1)
@@ -1924,22 +1924,22 @@ uint64_t __52__SBViewMorphAnimator__checkAnimationsDependencies___block_invoke_6
   return result;
 }
 
-uint64_t __52__SBViewMorphAnimator__checkAnimationsDependencies___block_invoke_2(uint64_t a1)
+uint64_t __52__SBViewMorphAnimator__checkAnimationsDependencies___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = SBLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v5 = 134217984;
-    v6 = v3;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "[Morph Animator][%p] Auto starting target unclip since target match move started.", &v5, 0xCu);
+    v4 = *(a1 + 32);
+    v6 = 134217984;
+    v7 = v4;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "[Morph Animator][%p] Auto starting target unclip since target match move started.", &v6, 0xCu);
   }
 
   return [*(a1 + 32) startTargetAnimations:2];
 }
 
-uint64_t __52__SBViewMorphAnimator__checkAnimationsDependencies___block_invoke_70(uint64_t a1)
+void *__52__SBViewMorphAnimator__checkAnimationsDependencies___block_invoke_70(uint64_t a1)
 {
   result = [*(a1 + 32) _removeMatchMoveAnimation];
   if (*(a1 + 40) == 1)

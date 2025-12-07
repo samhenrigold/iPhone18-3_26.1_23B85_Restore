@@ -78,7 +78,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   listener = [(SYDocumentWorkflowsService *)self listener];
@@ -100,14 +100,13 @@
   v12 = os_log_create("com.apple.synapse", "DocumentWorkflows");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v15[0] = 67109376;
-    v15[1] = [connectionCopy processIdentifier];
-    v16 = 1024;
-    v17 = listener == listenerCopy;
-    _os_log_impl(&dword_225901000, v12, OS_LOG_TYPE_DEFAULT, "Service should accept new connection from PID: %d, accepted: %d", v15, 0xEu);
+    v14[0] = 67109376;
+    v14[1] = [connectionCopy processIdentifier];
+    v15 = 1024;
+    v16 = listener == listenerCopy;
+    _os_log_impl(&dword_225901000, v12, OS_LOG_TYPE_DEFAULT, "Service should accept new connection from PID: %d, accepted: %d", v14, 0xEu);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return listener == listenerCopy;
 }
 

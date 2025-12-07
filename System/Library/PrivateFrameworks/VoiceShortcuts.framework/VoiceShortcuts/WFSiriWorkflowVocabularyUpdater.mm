@@ -7,11 +7,11 @@
 
 - (void)updateIfPossible
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   databaseProvider = [(WFSiriWorkflowVocabularyUpdater *)self databaseProvider];
-  v20 = 0;
-  v4 = [databaseProvider databaseWithError:&v20];
-  v5 = v20;
+  v19 = 0;
+  v4 = [databaseProvider databaseWithError:&v19];
+  v5 = v19;
 
   if (v4)
   {
@@ -32,7 +32,7 @@
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v22 = "[WFSiriWorkflowVocabularyUpdater updateIfPossible]";
+        v21 = "[WFSiriWorkflowVocabularyUpdater updateIfPossible]";
         _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_INFO, "%s Not syncing vocabulary to server, the shortcut names have not changed", buf, 0xCu);
       }
     }
@@ -45,7 +45,7 @@
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v22 = "[WFSiriWorkflowVocabularyUpdater updateIfPossible]";
+          v21 = "[WFSiriWorkflowVocabularyUpdater updateIfPossible]";
           _os_log_impl(&dword_23103C000, v16, OS_LOG_TYPE_INFO, "%s Shortcut count >1000, some may be dropped", buf, 0xCu);
         }
       }
@@ -54,7 +54,7 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v22 = "[WFSiriWorkflowVocabularyUpdater updateIfPossible]";
+        v21 = "[WFSiriWorkflowVocabularyUpdater updateIfPossible]";
         _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_DEFAULT, "%s Syncing vocabulary to server", buf, 0xCu);
       }
 
@@ -74,14 +74,12 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v22 = "[WFSiriWorkflowVocabularyUpdater updateIfPossible]";
-      v23 = 2114;
-      v24 = v5;
+      v21 = "[WFSiriWorkflowVocabularyUpdater updateIfPossible]";
+      v22 = 2114;
+      v23 = v5;
       _os_log_impl(&dword_23103C000, v15, OS_LOG_TYPE_DEFAULT, "%s Failed to load database, not updating vocabulary, %{public}@", buf, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 id __51__WFSiriWorkflowVocabularyUpdater_updateIfPossible__block_invoke(uint64_t a1, void *a2)

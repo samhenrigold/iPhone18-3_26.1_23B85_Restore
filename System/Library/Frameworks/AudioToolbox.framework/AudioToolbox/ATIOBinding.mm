@@ -19,9 +19,9 @@
 - (ATIOBinding)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v10.receiver = self;
-  v10.super_class = ATIOBinding;
-  if ([(ATIOBinding *)&v10 init])
+  v11.receiver = self;
+  v11.super_class = ATIOBinding;
+  if ([(ATIOBinding *)&v11 init])
   {
     v5 = coderCopy;
     v6 = [v5 decodeIntForKey:@"variant"];
@@ -32,7 +32,7 @@
       if (objc_opt_isKindOfClass())
       {
         applesauce::CF::StringRef::from_get(&cf, v7);
-        std::allocate_shared[abi:ne200100]<AT::IOBinding::Impl,std::allocator<AT::IOBinding::Impl>,applesauce::CF::StringRef,0>();
+        std::allocate_shared[abi:ne200100]<AT::IOBinding::Impl,std::allocator<AT::IOBinding::Impl>,applesauce::CF::StringRef,0>(v10, &cf);
       }
     }
 
@@ -78,21 +78,21 @@ LABEL_8:
 
 - (id)description
 {
-  AT::IOBinding::Impl::description(__p, self->mImpl.__ptr_);
-  if (v6 >= 0)
+  AT::IOBinding::Impl::description(&__p, self->mImpl.__ptr_);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v2 = __p;
+    p_p = &__p;
   }
 
   else
   {
-    v2 = __p[0];
+    p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v2];
-  if (v6 < 0)
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:p_p];
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   return v3;

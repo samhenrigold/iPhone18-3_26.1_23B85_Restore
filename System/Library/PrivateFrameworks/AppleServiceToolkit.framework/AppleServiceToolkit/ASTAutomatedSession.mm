@@ -62,46 +62,45 @@
 
 + (void)sessionExistsForSerialNumbers:(id)numbers ticketNumber:(id)number completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   numbersCopy = numbers;
   numberCopy = number;
   handlerCopy = handler;
   v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(numbersCopy, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v12 = numbersCopy;
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       v16 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [ASTIdentity identityWithSerialNumber:*(*(&v19 + 1) + 8 * v16), v19];
+        v17 = [ASTIdentity identityWithSerialNumber:*(*(&v18 + 1) + 8 * v16), v18];
         [v11 addObject:v17];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v14);
   }
 
   [self sessionExistsForIdentities:v11 ticketNumber:numberCopy completionHandler:handlerCopy];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)sessionExistsForIdentities:(id)identities ticketNumber:(id)number completionHandler:(id)handler
@@ -118,38 +117,38 @@
 
 - (void)executeWithCompletion:(id)completion
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__1;
-  v25 = __Block_byref_object_dispose__1;
-  v26 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__1;
+  v24 = __Block_byref_object_dispose__1;
+  v25 = 0;
   [(ASTAutomatedSession *)self setCompletion:completionCopy];
   v5 = dispatch_semaphore_create(0);
   v6 = objc_opt_class();
   identity = [(ASTAutomatedSession *)self identity];
-  v27[0] = identity;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __45__ASTAutomatedSession_executeWithCompletion___block_invoke;
-  v18 = &unk_278CBD4A0;
-  v20 = &v21;
+  v26[0] = identity;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __45__ASTAutomatedSession_executeWithCompletion___block_invoke;
+  v17 = &unk_278CBD4A0;
+  v19 = &v20;
   v9 = v5;
-  v19 = v9;
-  [v6 sessionExistsForIdentities:v8 ticketNumber:0 completionHandler:&v15];
+  v18 = v9;
+  [v6 sessionExistsForIdentities:v8 ticketNumber:0 completionHandler:&v14];
 
   dispatch_semaphore_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
-  if (v22[5])
+  if (v21[5])
   {
     completionCopy[2](completionCopy);
   }
 
   else
   {
-    v10 = [(ASTAutomatedSession *)self identity:v15];
+    v10 = [(ASTAutomatedSession *)self identity:v14];
     v11 = [ASTRemoteServerSession sessionWithIdentity:v10];
     [(ASTAutomatedSession *)self setSession:v11];
 
@@ -160,8 +159,7 @@
     [session2 start];
   }
 
-  _Block_object_dispose(&v21, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 }
 
 intptr_t __45__ASTAutomatedSession_executeWithCompletion___block_invoke(uint64_t a1, char a2)
@@ -282,11 +280,10 @@ void __57__ASTAutomatedSession_session_generateAuthInfoWithNonce___block_invoke(
 
 - (void)session:(uint64_t)a1 startTest:(NSObject *)a2 parameters:testResult:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "No result available for requested testId [%@]", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "No result available for requested testId [%@]", &v2, 0xCu);
 }
 
 @end

@@ -8,12 +8,12 @@
 
 - (HDMHProfileExtension)initWithProfile:(id)profile typicalDayProvider:(id)provider
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   providerCopy = provider;
-  v65.receiver = self;
-  v65.super_class = HDMHProfileExtension;
-  v8 = [(HDMHProfileExtension *)&v65 init];
+  v64.receiver = self;
+  v64.super_class = HDMHProfileExtension;
+  v8 = [(HDMHProfileExtension *)&v64 init];
   v9 = v8;
   if (v8)
   {
@@ -87,13 +87,13 @@
         v51 = v9->_settingsManager;
         v52 = objc_alloc(MEMORY[0x277D105B0]);
         v53 = *v21;
-        v63[0] = MEMORY[0x277D85DD0];
-        v63[1] = 3221225472;
-        v63[2] = __59__HDMHProfileExtension_initWithProfile_typicalDayProvider___block_invoke;
-        v63[3] = &unk_2798AACD8;
-        v64 = v51;
+        v62[0] = MEMORY[0x277D85DD0];
+        v62[1] = 3221225472;
+        v62[2] = __59__HDMHProfileExtension_initWithProfile_typicalDayProvider___block_invoke;
+        v62[3] = &unk_2798AACD8;
+        v63 = v51;
         v54 = v51;
-        v55 = [v52 initWithProfile:profileCopy eventSubmissionManager:v50 logCategory:v53 eventConstructor:v63];
+        v55 = [v52 initWithProfile:profileCopy eventSubmissionManager:v50 logCategory:v53 eventConstructor:v62];
         mentalHealthDailyEventManager = v9->_mentalHealthDailyEventManager;
         v9->_mentalHealthDailyEventManager = v55;
       }
@@ -106,13 +106,12 @@
       v58 = v57;
       v59 = objc_opt_class();
       *buf = 138543362;
-      v67 = v59;
+      v66 = v59;
       v60 = v59;
       _os_log_impl(&dword_258977000, v58, OS_LOG_TYPE_DEFAULT, "[%{public}@] Plugin loaded", buf, 0xCu);
     }
   }
 
-  v61 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

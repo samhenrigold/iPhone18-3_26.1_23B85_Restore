@@ -53,7 +53,7 @@ void __36__ACCredentialCache__clearAllCaches__block_invoke_2(uint64_t a1)
     return 1;
   }
 
-  if (ACIsAccountsd())
+  if (ACIsAccountsd(self, a2))
   {
     return 0;
   }
@@ -276,12 +276,12 @@ void __56__ACCredentialCache_clearCachedCredentialsForAccountID___block_invoke_2
 
 + (id)_credentialKeyForAccount:(id)account serviceID:(id)d
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   dCopy = d;
   identifier = [accountCopy identifier];
-  v16[0] = identifier;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v15[0] = identifier;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   v9 = [v8 mutableCopy];
 
   accountType = [accountCopy accountType];
@@ -307,8 +307,6 @@ LABEL_5:
   }
 
   v13 = [v9 componentsJoinedByString:@"."];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

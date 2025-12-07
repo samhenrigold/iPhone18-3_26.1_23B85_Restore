@@ -1,5 +1,6 @@
 @interface ServiceStorePageViewController
 - (id)_storePageViewController;
+- (void)_finishLoadWithResult:(BOOL)result error:(id)error;
 - (void)dealloc;
 - (void)loadPageWithURL:(id)l;
 - (void)loadPageWithURLBagKey:(id)key;
@@ -61,9 +62,8 @@
 
     if (v15)
     {
-      v20[0] = 0;
-      LODWORD(v17) = 2;
-      v16 = _os_log_send_and_compose_impl();
+      v19[0] = 0;
+      v16 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[StorePage]: Denying load for unentitled client", v19, 2);
 
       if (!v16)
       {
@@ -75,7 +75,7 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v16 encoding:4, v20, v17];
+      oSLogObject = [NSString stringWithCString:v16 encoding:4];
       free(v16);
       SSFileLog();
     }
@@ -92,14 +92,14 @@ LABEL_15:
 
   v7 = [SSWeakReference weakReferenceWithObject:self];
   v8 = self->_urlBag;
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_10002660C;
-  v18[3] = &unk_100051898;
-  v19 = v7;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10002660C;
+  v17[3] = &unk_100051898;
+  v18 = v7;
   _clientViewControllerProxy = v7;
-  [(SSURLBag *)v8 loadValueForKey:keyCopy completionBlock:v18];
-  v10 = v19;
+  [(SSURLBag *)v8 loadValueForKey:keyCopy completionBlock:v17];
+  v10 = v18;
 LABEL_16:
 }
 
@@ -133,9 +133,8 @@ LABEL_16:
 
     if (v13)
     {
-      v18[0] = 0;
-      LODWORD(v15) = 2;
-      v14 = _os_log_send_and_compose_impl();
+      v17[0] = 0;
+      v14 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[StorePage]: Denying load for unentitled client", v17, 2);
 
       if (!v14)
       {
@@ -147,7 +146,7 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      oSLogObject = [NSString stringWithCString:v14 encoding:4, v18, v15];
+      oSLogObject = [NSString stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog();
     }
@@ -157,15 +156,15 @@ LABEL_13:
 
   v5 = [SSWeakReference weakReferenceWithObject:self];
   _storePageViewController = [(ServiceStorePageViewController *)self _storePageViewController];
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_1000269A4;
-  v16[3] = &unk_100051E30;
-  v17 = v5;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_1000269A4;
+  v15[3] = &unk_100051E30;
+  v16 = v5;
   _clientViewControllerProxy = v5;
-  [_storePageViewController loadURL:lCopy withCompletionBlock:v16];
+  [_storePageViewController loadURL:lCopy withCompletionBlock:v15];
 
-  v8 = v17;
+  v8 = v16;
 LABEL_14:
 }
 
@@ -184,6 +183,21 @@ LABEL_14:
   lCopy = l;
   v5 = +[UIApplication sharedApplication];
   [v5 openURL:lCopy];
+}
+
+- (void)_finishLoadWithResult:(BOOL)result error:(id)error
+{
+  resultCopy = result;
+  errorCopy = error;
+  if (!errorCopy && !resultCopy)
+  {
+    errorCopy = SSError();
+  }
+
+  v9 = errorCopy;
+  _clientViewControllerProxy = [(ServiceStorePageViewController *)self _clientViewControllerProxy];
+  v8 = [NSNumber numberWithBool:resultCopy];
+  [_clientViewControllerProxy didFinishWithResult:v8 error:v9];
 }
 
 - (id)_storePageViewController

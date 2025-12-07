@@ -303,85 +303,51 @@ void sub_4B78(uint64_t a1, void *a2, unint64_t a3)
 {
   v5 = a2;
   v6 = a3 % 5;
-  v7 = (a1 + 8 * a3);
-  v8 = v7[606];
-  v9 = *(v7 + 666);
-  v10 = *(a1 + 6384);
-  v11 = *(a1 + 6392);
+  v7 = *(a1 + 8 * a3 + 4848);
+  CLKInterpolateBetweenFloatsClipped();
+  v9 = v8;
+  v10 = *(a1 + 6400);
+  v11 = *(a1 + 6408);
   CLKInterpolateBetweenFloatsClipped();
   v13 = v12;
-  v14 = *(a1 + 6400);
-  v15 = *(a1 + 6408);
-  v16 = 6288;
-  v17 = *(a1 + 6392);
-  if (!(a3 % 5))
-  {
-    v16 = 6296;
-  }
-
-  v18 = 6304;
-  if (v6)
-  {
-    v19 = 6320;
-  }
-
-  else
-  {
-    v18 = 6312;
-    v19 = 6328;
-  }
-
-  v20 = *(a1 + v16);
-  v21 = *(a1 + v18);
   CLKInterpolateBetweenFloatsClipped();
-  v23 = v22;
-  v24 = *(v7 + 726);
-  v25 = *(a1 + v19);
-  v26 = *(a1 + 6392);
-  CLKInterpolateBetweenFloatsClipped();
-  v28 = v27;
-  v29 = [*(a1 + 32) tickColorForIndex:a3 palette:*(*(a1 + 32) + 32) dial:1];
-  v30 = [*(a1 + 32) tickColorForIndex:a3 palette:*(*(a1 + 32) + 32) dial:0];
-  memset(&v44, 0, sizeof(v44));
-  CGAffineTransformMakeRotation(&v44, v8);
-  v31 = *(a1 + 32);
-  if (*(v31 + 10) == 1)
+  v15 = v14;
+  v16 = [*(a1 + 32) tickColorForIndex:a3 palette:*(*(a1 + 32) + 32) dial:1];
+  v17 = [*(a1 + 32) tickColorForIndex:a3 palette:*(*(a1 + 32) + 32) dial:0];
+  memset(&v26, 0, sizeof(v26));
+  CGAffineTransformMakeRotation(&v26, v7);
+  v18 = *(a1 + 32);
+  if (*(v18 + 10) == 1)
   {
-    v32 = [*(v31 + 96) objectAtIndexedSubscript:a3];
-    [v32 doubleValue];
-    v34 = v33 * *(*(a1 + 32) + 40);
-
-    v31 = *(a1 + 32);
+    v19 = [*(v18 + 96) objectAtIndexedSubscript:a3];
+    [v19 doubleValue];
   }
 
-  v35 = __sincos_stret(v8);
-  v36 = *(v31 + 8);
-  v37 = *&CGAffineTransformIdentity.c;
-  *&v43.a = *&CGAffineTransformIdentity.a;
-  *&v43.c = v37;
-  *&v43.tx = *&CGAffineTransformIdentity.tx;
-  [v5 setAffineTransform:&v43];
-  [v5 setFrame:{0.0, 0.0, v28, v23}];
-  [v5 setCornerRadius:v23 * 0.5];
+  v20 = __sincos_stret(v7);
+  v21 = *&CGAffineTransformIdentity.c;
+  *&v25.a = *&CGAffineTransformIdentity.a;
+  *&v25.c = v21;
+  *&v25.tx = *&CGAffineTransformIdentity.tx;
+  [v5 setAffineTransform:&v25];
+  [v5 setFrame:{0.0, 0.0, v15, v13}];
+  [v5 setCornerRadius:v13 * 0.5];
   [v5 setAnchorPoint:{1.0, 0.5}];
-  [v5 setPosition:{v14 + v13 * v35.__cosval, v15 + v13 * v35.__sinval}];
-  v43 = v44;
-  [v5 setAffineTransform:&v43];
-  v38 = *(a1 + 6392);
-  v39 = NTKInterpolateBetweenColors();
-  [v5 setBackgroundColor:{objc_msgSend(v39, "CGColor")}];
+  [v5 setPosition:{v10 + v9 * v20.__cosval, v11 + v9 * v20.__sinval}];
+  v25 = v26;
+  [v5 setAffineTransform:&v25];
+  v22 = NTKInterpolateBetweenColors();
+  [v5 setBackgroundColor:{objc_msgSend(v22, "CGColor")}];
 
-  v40 = *(a1 + 6416);
   CLKInterpolateBetweenFloatsClipped();
-  *&v41 = v41;
-  [v5 setOpacity:v41];
-  v42 = &OBJC_IVAR___NTKCaliforniaContentView__minuteTicks;
+  *&v23 = v23;
+  [v5 setOpacity:v23];
+  v24 = &OBJC_IVAR___NTKCaliforniaContentView__minuteTicks;
   if (!v6)
   {
-    v42 = &OBJC_IVAR___NTKCaliforniaContentView__hourTicks;
+    v24 = &OBJC_IVAR___NTKCaliforniaContentView__hourTicks;
   }
 
-  [*(*(a1 + 32) + *v42) addSublayer:v5];
+  [*(*(a1 + 32) + *v24) addSublayer:v5];
 }
 
 void sub_502C(uint64_t a1, void *a2, uint64_t a3)
@@ -434,11 +400,10 @@ void sub_6D44(uint64_t a1, void *a2, uint64_t a3)
   v6 = *(a1 + 40);
   v7 = v5[3];
   v8 = a2;
-  v12 = [v5 tickColorForIndex:a3 palette:v6 dial:v7];
+  v11 = [v5 tickColorForIndex:a3 palette:v6 dial:v7];
   v9 = [*(a1 + 32) tickColorForIndex:a3 palette:*(a1 + 48) dial:*(*(a1 + 32) + 24)];
-  v10 = *(a1 + 56);
-  v11 = NTKInterpolateBetweenColors();
-  [v8 setBackgroundColor:{objc_msgSend(v11, "CGColor")}];
+  v10 = NTKInterpolateBetweenColors();
+  [v8 setBackgroundColor:{objc_msgSend(v10, "CGColor")}];
 }
 
 void sub_6E24(uint64_t a1, void *a2, uint64_t a3)
@@ -447,10 +412,9 @@ void sub_6E24(uint64_t a1, void *a2, uint64_t a3)
   v6 = a2;
   v7 = [v5 colorForHourMarker:a3];
   v8 = [*(a1 + 40) colorForHourMarker:a3];
-  v9 = *(a1 + 56);
-  v10 = NTKInterpolateBetweenColors();
+  v9 = NTKInterpolateBetweenColors();
 
-  [*(a1 + 48) setColorInHourMarkerView:v6 color:v10];
+  [*(a1 + 48) setColorInHourMarkerView:v6 color:v9];
 }
 
 void sub_792C(void *a1@<X1>, void *a2@<X8>)
@@ -514,13 +478,13 @@ void sub_7A00(void *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 480) = 0u;
   *(a2 + 496) = 0u;
   *(a2 + 192) = 0u;
-  v1049 = a2 + 384;
+  v1035 = a2 + 384;
   v4 = [CLKDeviceMetrics metricsWithDevice:v3 identitySizeClass:2];
   [v4 setScale:3 forSizeClass:1.13580247];
   v5.f64[0] = 276.0;
   v6 = sub_BE68(v5, 57.0, 312.0, 67.0);
   [v4 scaledPoint:v6 withOverrides:?];
-  v1050 = a2 + 192;
+  v1036 = a2 + 192;
   *(a2 + 192) = v7;
   *(a2 + 200) = v8;
 
@@ -662,7 +626,7 @@ void sub_7A00(void *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 560) = v99;
   *(a2 + 568) = v100;
 
-  v1048 = a2 + 1152;
+  v1034 = a2 + 1152;
   [v4 scaledPoint:{42.5, -74.0}];
   *(a2 + 1152) = v101;
   *(a2 + 1160) = v102;
@@ -699,7 +663,7 @@ void sub_7A00(void *a1@<X1>, uint64_t a2@<X8>)
   [v4 scaledPoint:{0.0, -74.0}];
   *(a2 + 1328) = v123;
   *(a2 + 1336) = v124;
-  v1047 = a2 + 768;
+  v1033 = a2 + 768;
   v125 = *(a2 + 400);
   *(a2 + 768) = *(a2 + 384);
   *(a2 + 784) = v125;
@@ -724,7 +688,7 @@ void sub_7A00(void *a1@<X1>, uint64_t a2@<X8>)
   [v4 scaledPoint:{0.0, -68.5}];
   *(a2 + 944) = v135;
   *(a2 + 952) = v136;
-  v1046 = a2 + 1800;
+  v1032 = a2 + 1800;
   v137.f64[0] = 276.0;
   v138 = sub_BE68(v137, 57.0, 312.0, 67.0);
   [v4 scaledPoint:v138 withOverrides:{45.0, -73.0}];
@@ -797,7 +761,7 @@ void sub_7A00(void *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 1976) = v183;
   *(a2 + 1984) = v184;
 
-  v1045 = a2 + 1992;
+  v1031 = a2 + 1992;
   v185.f64[0] = 290.0;
   v186 = sub_BE68(v185, 58.0, 320.0, 69.0);
   [v4 scaledPoint:v186 withOverrides:{45.0, -73.0}];
@@ -870,7 +834,7 @@ void sub_7A00(void *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 2168) = v231;
   *(a2 + 2176) = v232;
 
-  v1053 = a2 + 1352;
+  v1039 = a2 + 1352;
   v233.f64[0] = 289.0;
   v234 = sub_BE68(v233, 57.0, 320.0, 63.0);
   [v4 scaledPoint:v234 withOverrides:{44.5, -72.5}];
@@ -955,7 +919,7 @@ void sub_7A00(void *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 1560) = v287;
   *(a2 + 1568) = v288;
 
-  v1044 = a2 + 2184;
+  v1030 = a2 + 2184;
   v289.f64[0] = 276.0;
   v290 = sub_BE68(v289, 57.0, 312.0, 67.0);
   [v4 scaledPoint:v290 withOverrides:{45.0, -73.0}];
@@ -1028,7 +992,7 @@ void sub_7A00(void *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 2360) = v335;
   *(a2 + 2368) = v336;
 
-  v1043 = a2 + 2376;
+  v1029 = a2 + 2376;
   v337.f64[0] = 276.0;
   v338 = sub_BE68(v337, 57.0, 312.0, 67.0);
   [v4 scaledPoint:v338 withOverrides:{45.0, -73.0}];
@@ -1101,7 +1065,7 @@ void sub_7A00(void *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 2552) = v383;
   *(a2 + 2560) = v384;
 
-  v1042 = a2 + 2568;
+  v1028 = a2 + 2568;
   v385.f64[0] = 276.0;
   v386 = sub_BE68(v385, 57.0, 312.0, 67.0);
   [v4 scaledPoint:v386 withOverrides:{45.0, -73.0}];
@@ -1174,7 +1138,7 @@ void sub_7A00(void *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 2744) = v431;
   *(a2 + 2752) = v432;
 
-  v1041 = a2 + 2760;
+  v1027 = a2 + 2760;
   v433.f64[0] = 276.0;
   v434 = sub_BE68(v433, 57.0, 312.0, 67.0);
   [v4 scaledPoint:v434 withOverrides:{45.0, -73.0}];
@@ -1247,7 +1211,7 @@ void sub_7A00(void *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 2936) = v479;
   *(a2 + 2944) = v480;
 
-  v1040 = a2 + 2952;
+  v1026 = a2 + 2952;
   v481.f64[0] = 276.0;
   v482 = sub_BE68(v481, 57.0, 312.0, 67.0);
   [v4 scaledPoint:v482 withOverrides:{45.0, -73.0}];
@@ -1320,7 +1284,7 @@ void sub_7A00(void *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 3128) = v527;
   *(a2 + 3136) = v528;
 
-  v1039 = a2 + 3144;
+  v1025 = a2 + 3144;
   v529.f64[0] = 276.0;
   v530 = sub_BE68(v529, 57.0, 312.0, 67.0);
   [v4 scaledPoint:v530 withOverrides:{45.0, -73.0}];
@@ -1827,338 +1791,324 @@ void sub_7A00(void *a1@<X1>, uint64_t a2@<X8>)
 
   v867.f64[0] = 188.0;
   v868 = sub_BE68(v867, 57.0, 210.0, 68.0);
-  v1052 = v4;
+  v1038 = v4;
   [v4 scaledPoint:v868 withOverrides:{1.0, -73.0}];
   *(a2 + 4472) = v869;
-  v1038 = a2;
+  v1024 = a2;
   *(a2 + 4480) = v870;
 
   [v3 screenBounds];
-  v1051 = v3;
+  v1037 = v3;
   [v3 screenBounds];
   for (i = 0; i != 12; ++i)
   {
     v872 = 0;
-    v1056[0] = v1050;
-    v1056[1] = v1049;
-    v1056[2] = v1048;
-    v1056[3] = v1047;
-    v1056[4] = v1046;
-    v1056[5] = v1045;
-    v1056[6] = v1053;
-    v1056[7] = v1044;
-    v1056[8] = v1043;
-    v1056[9] = v1042;
-    v1056[10] = v1041;
-    v1056[11] = v1040;
-    v1056[12] = v1039;
-    v1056[13] = v577;
-    v1056[14] = v626;
-    v1056[15] = v675;
-    v1056[16] = v724;
-    v1056[17] = v773;
-    v1056[18] = v822;
+    v1042[0] = v1036;
+    v1042[1] = v1035;
+    v1042[2] = v1034;
+    v1042[3] = v1033;
+    v1042[4] = v1032;
+    v1042[5] = v1031;
+    v1042[6] = v1039;
+    v1042[7] = v1030;
+    v1042[8] = v1029;
+    v1042[9] = v1028;
+    v1042[10] = v1027;
+    v1042[11] = v1026;
+    v1042[12] = v1025;
+    v1042[13] = v577;
+    v1042[14] = v626;
+    v1042[15] = v675;
+    v1042[16] = v724;
+    v1042[17] = v773;
+    v1042[18] = v822;
     do
     {
-      v873 = (v1056[v872] + 16 * i);
-      v874 = *v873;
-      v875 = v873[1];
+      v873 = (v1042[v872] + 16 * i);
       CLKAddPoints();
-      *v873 = v876;
-      v873[1] = v877;
+      *v873 = v874;
+      v873[1] = v875;
       ++v872;
     }
 
     while (v872 != 19);
     if (i > 9)
     {
-      v878 = v1053 + 16 * i;
-      v879 = *(v878 + 32);
-      v880 = *(v878 + 40);
+      v876 = v1039 + 16 * i;
       CLKAddPoints();
-      *(v878 + 32) = v881;
-      *(v878 + 40) = v882;
+      *(v876 + 32) = v877;
+      *(v876 + 40) = v878;
     }
   }
 
-  [v1052 scaledPoint:{31.5, -47.0}];
-  v883 = v1038;
-  *v1038 = v884;
-  *(v1038 + 8) = v885;
-  [v1052 scaledPoint:{50.0, -25.0}];
-  *(v1038 + 16) = v886;
-  *(v1038 + 24) = v887;
-  [v1052 scaledPoint:?];
-  *(v1038 + 32) = v888;
-  *(v1038 + 40) = v889;
-  [v1052 scaledPoint:{50.0, 25.5}];
-  *(v1038 + 48) = v890;
-  *(v1038 + 56) = v891;
-  [v1052 scaledPoint:{31.5, 47.0}];
-  *(v1038 + 64) = v892;
-  *(v1038 + 72) = v893;
-  [v1052 scaledPoint:-0.5];
-  *(v1038 + 80) = v894;
-  *(v1038 + 88) = v895;
-  [v1052 scaledPoint:{-31.0, 47.0}];
-  *(v1038 + 96) = v896;
-  *(v1038 + 104) = v897;
-  [v1052 scaledPoint:?];
-  *(v1038 + 112) = v898;
-  *(v1038 + 120) = v899;
-  [v1052 scaledPoint:{-59.0, 0.0}];
-  *(v1038 + 128) = v900;
-  *(v1038 + 136) = v901;
-  [v1052 scaledPoint:{-46.0, -25.0}];
-  *(v1038 + 144) = v902;
-  *(v1038 + 152) = v903;
-  [v1052 scaledPoint:{-29.5, -47.0}];
-  *(v1038 + 160) = v904;
-  *(v1038 + 168) = v905;
-  [v1052 scaledPoint:{0.0, -57.0}];
-  *(v1038 + 176) = v906;
-  *(v1038 + 184) = v907;
-  [v1052 scaledPoint:{33.0, -47.0}];
-  *(v1038 + 576) = v908;
-  *(v1038 + 584) = v909;
-  [v1052 scaledPoint:{51.0, -27.0}];
-  *(v1038 + 592) = v910;
-  *(v1038 + 600) = v911;
-  [v1052 scaledPoint:{56.5, -1.0}];
-  *(v1038 + 608) = v912;
-  *(v1038 + 616) = v913;
-  [v1052 scaledPoint:{46.0, 24.5}];
-  *(v1038 + 624) = v914;
-  *(v1038 + 632) = v915;
-  [v1052 scaledPoint:{31.0, 46.0}];
-  *(v1038 + 640) = v916;
-  *(v1038 + 648) = v917;
-  [v1052 scaledPoint:{0.5, 56.5}];
-  *(v1038 + 656) = v918;
-  *(v1038 + 664) = v919;
-  [v1052 scaledPoint:{-27.0, 46.0}];
-  *(v1038 + 672) = v920;
-  *(v1038 + 680) = v921;
-  [v1052 scaledPoint:{-42.5, 24.5}];
-  *(v1038 + 688) = v922;
-  *(v1038 + 696) = v923;
-  [v1052 scaledPoint:{-56.0, -1.0}];
-  *(v1038 + 704) = v924;
-  *(v1038 + 712) = v925;
-  [v1052 scaledPoint:{-49.5, -27.0}];
-  *(v1038 + 720) = v926;
-  *(v1038 + 728) = v927;
-  [v1052 scaledPoint:{-29.0, -47.0}];
-  *(v1038 + 736) = v928;
-  *(v1038 + 744) = v929;
-  [v1052 scaledPoint:{1.0, -57.5}];
-  *(v1038 + 752) = v930;
-  *(v1038 + 760) = v931;
-  [v1052 scaledValue:3 withOverride:55.5 forSizeClass:63.0];
-  *(v1038 + 1344) = v932;
-  v933 = *(v1038 + 592);
-  *(v1038 + 960) = *(v1038 + 576);
-  *(v1038 + 976) = v933;
-  [v1052 scaledPoint:{56.0, 0.0}];
-  *(v1038 + 992) = v934;
-  *(v1038 + 1000) = v935;
-  v936 = *(v1038 + 64);
-  *(v1038 + 1008) = *(v1038 + 48);
-  *(v1038 + 1024) = v936;
-  [v1052 scaledPoint:{0.5, 61.0}];
-  *(v1038 + 1040) = v937;
-  *(v1038 + 1048) = v938;
-  v939 = *(v1038 + 112);
-  *(v1038 + 1056) = *(v1038 + 96);
-  *(v1038 + 1072) = v939;
-  [v1052 scaledPoint:{-56.0, 0.0}];
-  *(v1038 + 1088) = v940;
-  *(v1038 + 1096) = v941;
-  v942 = *(v1038 + 736);
-  *(v1038 + 1104) = *(v1038 + 720);
-  *(v1038 + 1120) = v942;
-  [v1052 scaledPoint:{0.0, -55.5}];
-  *(v1038 + 1136) = v943;
-  *(v1038 + 1144) = v944;
-  [v1052 scaledPoint:{30.0, -48.5}];
-  *(v1038 + 1576) = v945;
-  *(v1038 + 1584) = v946;
-  [v1052 scaledPoint:{49.5, -27.0}];
-  *(v1038 + 1592) = v947;
-  *(v1038 + 1600) = v948;
-  [v1052 scaledPoint:{58.5, -0.5}];
-  *(v1038 + 1608) = v949;
-  *(v1038 + 1616) = v950;
-  [v1052 scaledPoint:{49.5, 26.5}];
-  *(v1038 + 1624) = v951;
-  *(v1038 + 1632) = v952;
-  [v1052 scaledPoint:{30.0, 47.0}];
-  *(v1038 + 1640) = v953;
-  *(v1038 + 1648) = v954;
-  [v1052 scaledPoint:{0.5, 56.5}];
-  *(v1038 + 1656) = v955;
-  *(v1038 + 1664) = v956;
-  [v1052 scaledPoint:{-30.5, 47.0}];
-  *(v1038 + 1672) = v957;
-  *(v1038 + 1680) = v958;
-  [v1052 scaledPoint:{-49.5, 26.5}];
-  *(v1038 + 1688) = v959;
-  *(v1038 + 1696) = v960;
-  [v1052 scaledPoint:{-57.5, -0.5}];
-  *(v1038 + 1704) = v961;
-  *(v1038 + 1712) = v962;
-  [v1052 scaledPoint:{-49.5, -27.0}];
-  *(v1038 + 1720) = v963;
-  *(v1038 + 1728) = v964;
-  [v1052 scaledPoint:{-30.5, -51.5}];
-  *(v1038 + 1736) = v965;
-  *(v1038 + 1744) = v966;
-  [v1052 scaledPoint:{0.5, -57.5}];
-  *(v1038 + 1752) = v967;
-  *(v1038 + 1760) = v968;
-  [v1052 scaledPoint:{-30.5, -39.0}];
-  *(v1038 + 1768) = v969;
-  *(v1038 + 1776) = v970;
-  [v1052 scaledPoint:{0.5, -41.0}];
-  v971 = 0;
-  *(v1038 + 1784) = v972;
-  *(v1038 + 1792) = v973;
+  [v1038 scaledPoint:{31.5, -47.0}];
+  v879 = v1024;
+  *v1024 = v880;
+  *(v1024 + 8) = v881;
+  [v1038 scaledPoint:{50.0, -25.0}];
+  *(v1024 + 16) = v882;
+  *(v1024 + 24) = v883;
+  [v1038 scaledPoint:?];
+  *(v1024 + 32) = v884;
+  *(v1024 + 40) = v885;
+  [v1038 scaledPoint:{50.0, 25.5}];
+  *(v1024 + 48) = v886;
+  *(v1024 + 56) = v887;
+  [v1038 scaledPoint:{31.5, 47.0}];
+  *(v1024 + 64) = v888;
+  *(v1024 + 72) = v889;
+  [v1038 scaledPoint:-0.5];
+  *(v1024 + 80) = v890;
+  *(v1024 + 88) = v891;
+  [v1038 scaledPoint:{-31.0, 47.0}];
+  *(v1024 + 96) = v892;
+  *(v1024 + 104) = v893;
+  [v1038 scaledPoint:?];
+  *(v1024 + 112) = v894;
+  *(v1024 + 120) = v895;
+  [v1038 scaledPoint:{-59.0, 0.0}];
+  *(v1024 + 128) = v896;
+  *(v1024 + 136) = v897;
+  [v1038 scaledPoint:{-46.0, -25.0}];
+  *(v1024 + 144) = v898;
+  *(v1024 + 152) = v899;
+  [v1038 scaledPoint:{-29.5, -47.0}];
+  *(v1024 + 160) = v900;
+  *(v1024 + 168) = v901;
+  [v1038 scaledPoint:{0.0, -57.0}];
+  *(v1024 + 176) = v902;
+  *(v1024 + 184) = v903;
+  [v1038 scaledPoint:{33.0, -47.0}];
+  *(v1024 + 576) = v904;
+  *(v1024 + 584) = v905;
+  [v1038 scaledPoint:{51.0, -27.0}];
+  *(v1024 + 592) = v906;
+  *(v1024 + 600) = v907;
+  [v1038 scaledPoint:{56.5, -1.0}];
+  *(v1024 + 608) = v908;
+  *(v1024 + 616) = v909;
+  [v1038 scaledPoint:{46.0, 24.5}];
+  *(v1024 + 624) = v910;
+  *(v1024 + 632) = v911;
+  [v1038 scaledPoint:{31.0, 46.0}];
+  *(v1024 + 640) = v912;
+  *(v1024 + 648) = v913;
+  [v1038 scaledPoint:{0.5, 56.5}];
+  *(v1024 + 656) = v914;
+  *(v1024 + 664) = v915;
+  [v1038 scaledPoint:{-27.0, 46.0}];
+  *(v1024 + 672) = v916;
+  *(v1024 + 680) = v917;
+  [v1038 scaledPoint:{-42.5, 24.5}];
+  *(v1024 + 688) = v918;
+  *(v1024 + 696) = v919;
+  [v1038 scaledPoint:{-56.0, -1.0}];
+  *(v1024 + 704) = v920;
+  *(v1024 + 712) = v921;
+  [v1038 scaledPoint:{-49.5, -27.0}];
+  *(v1024 + 720) = v922;
+  *(v1024 + 728) = v923;
+  [v1038 scaledPoint:{-29.0, -47.0}];
+  *(v1024 + 736) = v924;
+  *(v1024 + 744) = v925;
+  [v1038 scaledPoint:{1.0, -57.5}];
+  *(v1024 + 752) = v926;
+  *(v1024 + 760) = v927;
+  [v1038 scaledValue:3 withOverride:55.5 forSizeClass:63.0];
+  *(v1024 + 1344) = v928;
+  v929 = *(v1024 + 592);
+  *(v1024 + 960) = *(v1024 + 576);
+  *(v1024 + 976) = v929;
+  [v1038 scaledPoint:{56.0, 0.0}];
+  *(v1024 + 992) = v930;
+  *(v1024 + 1000) = v931;
+  v932 = *(v1024 + 64);
+  *(v1024 + 1008) = *(v1024 + 48);
+  *(v1024 + 1024) = v932;
+  [v1038 scaledPoint:{0.5, 61.0}];
+  *(v1024 + 1040) = v933;
+  *(v1024 + 1048) = v934;
+  v935 = *(v1024 + 112);
+  *(v1024 + 1056) = *(v1024 + 96);
+  *(v1024 + 1072) = v935;
+  [v1038 scaledPoint:{-56.0, 0.0}];
+  *(v1024 + 1088) = v936;
+  *(v1024 + 1096) = v937;
+  v938 = *(v1024 + 736);
+  *(v1024 + 1104) = *(v1024 + 720);
+  *(v1024 + 1120) = v938;
+  [v1038 scaledPoint:{0.0, -55.5}];
+  *(v1024 + 1136) = v939;
+  *(v1024 + 1144) = v940;
+  [v1038 scaledPoint:{30.0, -48.5}];
+  *(v1024 + 1576) = v941;
+  *(v1024 + 1584) = v942;
+  [v1038 scaledPoint:{49.5, -27.0}];
+  *(v1024 + 1592) = v943;
+  *(v1024 + 1600) = v944;
+  [v1038 scaledPoint:{58.5, -0.5}];
+  *(v1024 + 1608) = v945;
+  *(v1024 + 1616) = v946;
+  [v1038 scaledPoint:{49.5, 26.5}];
+  *(v1024 + 1624) = v947;
+  *(v1024 + 1632) = v948;
+  [v1038 scaledPoint:{30.0, 47.0}];
+  *(v1024 + 1640) = v949;
+  *(v1024 + 1648) = v950;
+  [v1038 scaledPoint:{0.5, 56.5}];
+  *(v1024 + 1656) = v951;
+  *(v1024 + 1664) = v952;
+  [v1038 scaledPoint:{-30.5, 47.0}];
+  *(v1024 + 1672) = v953;
+  *(v1024 + 1680) = v954;
+  [v1038 scaledPoint:{-49.5, 26.5}];
+  *(v1024 + 1688) = v955;
+  *(v1024 + 1696) = v956;
+  [v1038 scaledPoint:{-57.5, -0.5}];
+  *(v1024 + 1704) = v957;
+  *(v1024 + 1712) = v958;
+  [v1038 scaledPoint:{-49.5, -27.0}];
+  *(v1024 + 1720) = v959;
+  *(v1024 + 1728) = v960;
+  [v1038 scaledPoint:{-30.5, -51.5}];
+  *(v1024 + 1736) = v961;
+  *(v1024 + 1744) = v962;
+  [v1038 scaledPoint:{0.5, -57.5}];
+  *(v1024 + 1752) = v963;
+  *(v1024 + 1760) = v964;
+  [v1038 scaledPoint:{-30.5, -39.0}];
+  *(v1024 + 1768) = v965;
+  *(v1024 + 1776) = v966;
+  [v1038 scaledPoint:{0.5, -41.0}];
+  v967 = 0;
+  *(v1024 + 1784) = v968;
+  *(v1024 + 1792) = v969;
   do
   {
-    v974 = *v883;
-    v975 = v883[1];
     CLKAddPoints();
-    *v883 = v976;
-    v883[1] = v977;
-    v978 = v883[72];
-    v979 = v883[73];
+    *v879 = v970;
+    v879[1] = v971;
     CLKAddPoints();
-    v883[72] = v980;
-    v883[73] = v981;
-    v982 = v883[120];
-    v983 = v883[121];
+    v879[72] = v972;
+    v879[73] = v973;
     CLKAddPoints();
-    v883[120] = v984;
-    v883[121] = v985;
-    v986 = v883[197];
-    v987 = v883[198];
+    v879[120] = v974;
+    v879[121] = v975;
     CLKAddPoints();
-    v883[197] = v988;
-    v883[198] = v989;
-    if (v971 >= 0xA)
+    v879[197] = v976;
+    v879[198] = v977;
+    if (v967 >= 0xA)
     {
-      v990 = v883[201];
-      v991 = v883[202];
       CLKAddPoints();
-      v883[201] = v992;
-      v883[202] = v993;
+      v879[201] = v978;
+      v879[202] = v979;
     }
 
-    ++v971;
-    v883 += 2;
+    ++v967;
+    v879 += 2;
   }
 
-  while (v971 != 12);
-  [v1052 scaledSize:{5.0, 19.0}];
-  *(v1038 + 4752) = v994;
-  *(v1038 + 4760) = v995;
-  [v1052 scaledSize:{5.0, 20.5}];
-  *(v1038 + 4576) = v996;
-  *(v1038 + 4584) = v997;
-  [v1052 scaledSize:{5.0, 21.0}];
-  *(v1038 + 4592) = v998;
-  *(v1038 + 4600) = v999;
-  [v1052 scaledSize:{5.0, 19.0}];
-  *(v1038 + 4608) = v1000;
-  *(v1038 + 4616) = v1001;
-  v1002 = *(v1038 + 4592);
-  *(v1038 + 4624) = v1002;
-  v1003 = *(v1038 + 4576);
-  *(v1038 + 4640) = v1003;
-  *(v1038 + 4656) = *(v1038 + 4752);
-  *(v1038 + 4672) = v1003;
-  *(v1038 + 4688) = v1002;
-  *(v1038 + 4704) = *(v1038 + 4608);
-  *(v1038 + 4720) = v1002;
-  *(v1038 + 4736) = v1003;
-  [v1052 scaledValue:28.5];
-  *(v1038 + 4496) = v1004;
-  [v1052 scaledValue:3 withOverride:23.0 forSizeClass:26.0];
-  *(v1038 + 4504) = v1005;
-  [v1052 scaledValue:24.0];
-  *(v1038 + 4512) = v1006;
-  [v1052 scaledValue:21.0];
-  *(v1038 + 4520) = v1007;
-  [v1052 scaledValue:20.0];
-  *(v1038 + 4528) = v1008;
-  [v1052 scaledValue:19.0];
-  *(v1038 + 4536) = v1009;
-  *(v1038 + 4488) = 0x3FF0000000000000;
-  [v1052 scaledSize:3 withOverride:6.5 forSizeClass:{21.0, 6.5, 23.0}];
-  *(v1038 + 4544) = v1010;
-  *(v1038 + 4552) = v1011;
-  [v1052 scaledSize:3 withOverride:6.5 forSizeClass:{18.0, 6.5, 20.0}];
-  *(v1038 + 4560) = v1012;
-  *(v1038 + 4568) = v1013;
-  [v1052 scaledSize:3 withOverride:5.5 forSizeClass:{19.0, 6.0, 22.0}];
-  *(v1038 + 4768) = v1014;
-  *(v1038 + 4776) = v1015;
-  [v1052 scaledValue:18.0];
-  *(v1038 + 4784) = v1016;
-  v1017 = (v1038 + 4808);
-  v1018 = -60;
+  while (v967 != 12);
+  [v1038 scaledSize:{5.0, 19.0}];
+  *(v1024 + 4752) = v980;
+  *(v1024 + 4760) = v981;
+  [v1038 scaledSize:{5.0, 20.5}];
+  *(v1024 + 4576) = v982;
+  *(v1024 + 4584) = v983;
+  [v1038 scaledSize:{5.0, 21.0}];
+  *(v1024 + 4592) = v984;
+  *(v1024 + 4600) = v985;
+  [v1038 scaledSize:{5.0, 19.0}];
+  *(v1024 + 4608) = v986;
+  *(v1024 + 4616) = v987;
+  v988 = *(v1024 + 4592);
+  *(v1024 + 4624) = v988;
+  v989 = *(v1024 + 4576);
+  *(v1024 + 4640) = v989;
+  *(v1024 + 4656) = *(v1024 + 4752);
+  *(v1024 + 4672) = v989;
+  *(v1024 + 4688) = v988;
+  *(v1024 + 4704) = *(v1024 + 4608);
+  *(v1024 + 4720) = v988;
+  *(v1024 + 4736) = v989;
+  [v1038 scaledValue:28.5];
+  *(v1024 + 4496) = v990;
+  [v1038 scaledValue:3 withOverride:23.0 forSizeClass:26.0];
+  *(v1024 + 4504) = v991;
+  [v1038 scaledValue:24.0];
+  *(v1024 + 4512) = v992;
+  [v1038 scaledValue:21.0];
+  *(v1024 + 4520) = v993;
+  [v1038 scaledValue:20.0];
+  *(v1024 + 4528) = v994;
+  [v1038 scaledValue:19.0];
+  *(v1024 + 4536) = v995;
+  *(v1024 + 4488) = 0x3FF0000000000000;
+  [v1038 scaledSize:3 withOverride:6.5 forSizeClass:{21.0, 6.5, 23.0}];
+  *(v1024 + 4544) = v996;
+  *(v1024 + 4552) = v997;
+  [v1038 scaledSize:3 withOverride:6.5 forSizeClass:{18.0, 6.5, 20.0}];
+  *(v1024 + 4560) = v998;
+  *(v1024 + 4568) = v999;
+  [v1038 scaledSize:3 withOverride:5.5 forSizeClass:{19.0, 6.0, 22.0}];
+  *(v1024 + 4768) = v1000;
+  *(v1024 + 4776) = v1001;
+  [v1038 scaledValue:18.0];
+  *(v1024 + 4784) = v1002;
+  v1003 = (v1024 + 4808);
+  v1004 = -60;
   do
   {
-    v1054[0] = &off_1EDA8;
-    v1054[1] = &off_1EDC0;
-    v1055[0] = &off_1F8A8;
-    v1055[1] = &off_1F8A8;
-    v1019 = [NSDictionary dictionaryWithObjects:v1055 forKeys:v1054 count:2];
-    [v1052 scaledValue:v1019 withOverrides:1.5];
+    v1040[0] = &off_1EDA8;
+    v1040[1] = &off_1EDC0;
+    v1041[0] = &off_1F8A8;
+    v1041[1] = &off_1F8A8;
+    v1005 = [NSDictionary dictionaryWithObjects:v1041 forKeys:v1040 count:2];
+    [v1038 scaledValue:v1005 withOverrides:1.5];
 
-    [v1052 scaledValue:8.0];
-    if (-858993459 * (v1018 + 60) <= 0x33333333)
+    [v1038 scaledValue:8.0];
+    if (-858993459 * (v1004 + 60) <= 0x33333333)
     {
-      [v1052 scaledValue:10.5];
+      [v1038 scaledValue:10.5];
     }
 
     NTKScreenRadiusAtAngleWithInset();
-    v1021 = v1020;
+    v1007 = v1006;
     NTKScreenRadiusAtAngleWithInset();
-    v1017[60] = v1021;
-    v1017[120] = v1021 - v1022;
-    *v1017++ = ((v1018 + 60) + (v1018 + 60)) * 3.14159265 / 60.0 + -1.57079633;
+    v1003[60] = v1007;
+    v1003[120] = v1007 - v1008;
+    *v1003++ = ((v1004 + 60) + (v1004 + 60)) * 3.14159265 / 60.0 + -1.57079633;
   }
 
-  while (!__CFADD__(v1018++, 1));
-  [v1052 scaledValue:3.0];
-  *(v1038 + 6248) = v1024;
-  [v1052 scaledValue:3.5];
-  *(v1038 + 6256) = v1025;
-  [v1052 scaledValue:3 withOverride:3.0 forSizeClass:3.5];
-  *(v1038 + 6264) = v1026;
-  [v1052 scaledValue:3 withOverride:3.0 forSizeClass:3.5];
-  *(v1038 + 6272) = v1027;
-  [v1052 scaledValue:3 withOverride:5.0 forSizeClass:6.0];
-  *(v1038 + 6280) = v1028;
-  [v1052 scaledValue:3 withOverride:7.0 forSizeClass:8.0];
-  *(v1038 + 6288) = v1029;
-  [v1052 scaledValue:3 withOverride:77.5 forSizeClass:88.0];
-  *(v1038 + 4792) = v1030;
-  [v1052 scaledValue:3 withOverride:81.0526316 forSizeClass:94.7368421];
-  *(v1038 + 4800) = v1031;
-  [v1052 scaledValue:2.5];
-  *(v1038 + 6328) = v1032;
-  [v1052 scaledValue:2.5];
-  *(v1038 + 6336) = v1033;
-  [v1052 scaledSize:{21.0, 24.0}];
+  while (!__CFADD__(v1004++, 1));
+  [v1038 scaledValue:3.0];
+  *(v1024 + 6248) = v1010;
+  [v1038 scaledValue:3.5];
+  *(v1024 + 6256) = v1011;
+  [v1038 scaledValue:3 withOverride:3.0 forSizeClass:3.5];
+  *(v1024 + 6264) = v1012;
+  [v1038 scaledValue:3 withOverride:3.0 forSizeClass:3.5];
+  *(v1024 + 6272) = v1013;
+  [v1038 scaledValue:3 withOverride:5.0 forSizeClass:6.0];
+  *(v1024 + 6280) = v1014;
+  [v1038 scaledValue:3 withOverride:7.0 forSizeClass:8.0];
+  *(v1024 + 6288) = v1015;
+  [v1038 scaledValue:3 withOverride:77.5 forSizeClass:88.0];
+  *(v1024 + 4792) = v1016;
+  [v1038 scaledValue:3 withOverride:81.0526316 forSizeClass:94.7368421];
+  *(v1024 + 4800) = v1017;
+  [v1038 scaledValue:2.5];
+  *(v1024 + 6328) = v1018;
+  [v1038 scaledValue:2.5];
+  *(v1024 + 6336) = v1019;
+  [v1038 scaledSize:{21.0, 24.0}];
   UISizeRoundToScale();
-  *(v1038 + 6296) = v1034;
-  *(v1038 + 6304) = v1035;
-  [v1052 scaledSize:{19.0, 19.0}];
+  *(v1024 + 6296) = v1020;
+  *(v1024 + 6304) = v1021;
+  [v1038 scaledSize:{19.0, 19.0}];
   UISizeRoundToScale();
-  *(v1038 + 6312) = v1036;
-  *(v1038 + 6320) = v1037;
+  *(v1024 + 6312) = v1022;
+  *(v1024 + 6320) = v1023;
 }
 
 id sub_BE68(float64x2_t a1, float64_t a2, float64_t a3, float64_t a4)
@@ -2232,20 +2182,15 @@ LABEL_5:
 
 void sub_D94C(uint64_t a1, void *a2, void *a3)
 {
-  v8 = a2;
-  v5 = a3;
-  if (([v8 isEqualToString:NTKComplicationSlotBezel] & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", NTKComplicationSlotTopLeft) & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", NTKComplicationSlotTopRight) & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", NTKComplicationSlotBottomRight) & 1) != 0 || objc_msgSend(v8, "isEqualToString:", NTKComplicationSlotBottomLeft))
+  v5 = a2;
+  v4 = a3;
+  if (([v5 isEqualToString:NTKComplicationSlotBezel] & 1) == 0 && (objc_msgSend(v5, "isEqualToString:", NTKComplicationSlotTopLeft) & 1) == 0 && (objc_msgSend(v5, "isEqualToString:", NTKComplicationSlotTopRight) & 1) == 0 && (objc_msgSend(v5, "isEqualToString:", NTKComplicationSlotBottomRight) & 1) == 0)
   {
-    v6 = *(a1 + 32);
-  }
-
-  else
-  {
-    v7 = *(a1 + 40);
+    [v5 isEqualToString:NTKComplicationSlotBottomLeft];
   }
 
   CLKInterpolateBetweenFloatsClipped();
-  [v5 setAlpha:?];
+  [v4 setAlpha:?];
 }
 
 void sub_EBA8(uint64_t a1, uint64_t a2, void *a3)

@@ -2,13 +2,12 @@ uint64_t sub_100000ED0()
 {
   v0 = sub_1000010BC(&qword_100008008, &qword_1000012A8);
   v1 = *(v0 - 8);
-  v2 = (*(v1 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v4 = &v6 - v3;
+  v3 = &v5 - v2;
   WindowGroup.init(id:title:lazyContent:)();
   sub_100001104();
   static SceneBuilder.buildBlock<A>(_:)();
-  return (*(v1 + 8))(v4, v0);
+  return (*(v1 + 8))(v3, v0);
 }
 
 int main(int argc, const char **argv, const char **envp)
@@ -35,7 +34,6 @@ uint64_t sub_1000010BC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -61,7 +59,6 @@ uint64_t sub_100001168(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

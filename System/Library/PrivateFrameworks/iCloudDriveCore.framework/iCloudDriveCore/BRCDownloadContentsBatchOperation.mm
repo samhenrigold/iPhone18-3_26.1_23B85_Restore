@@ -52,42 +52,42 @@
 
 - (void)mainWithTransfers:(id)transfers
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   allObjects = [transfers allObjects];
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v5 = allObjects;
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
         desiredIndices = [v10 desiredIndices];
         v12 = desiredIndices;
         if (desiredIndices)
         {
-          v27 = @"pkgContent";
-          v28 = desiredIndices;
-          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+          v26 = @"pkgContent";
+          v27 = desiredIndices;
+          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
           recordID = [v10 recordID];
           [v4 setObject:v13 forKeyedSubscript:recordID];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v7);
@@ -117,8 +117,6 @@
   }
 
   [(_BRCOperation *)self addSubOperation:v19 overrideContext:0 allowsCellularAccess:v17];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithResult:(id)result error:(id)error

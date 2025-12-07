@@ -67,7 +67,7 @@
   animationDelayHandler = self->_animationDelayHandler;
   self->_animationDelayHandler = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, animationDelayHandler);
 }
 
 @end

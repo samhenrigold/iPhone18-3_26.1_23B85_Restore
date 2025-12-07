@@ -8,6 +8,7 @@
 - (id)_initSKUIScreenshot;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)_addURLsFromDictionary:(id)dictionary withRemoteLocalKeysMap:(id)map;
+- (void)_initSKUIScreenshot;
 - (void)setArtwork:(id)artwork forVariant:(id)variant;
 @end
 
@@ -421,6 +422,24 @@ void __64__SKUIScreenshot__addURLsFromDictionary_withRemoteLocalKeysMap___block_
   }
 
   return v3;
+}
+
+- (void)_initSKUIScreenshot
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIScreenshot _initSKUIScreenshot]";
+}
+
+- (void)initWithScreenshotDictionary:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIScreenshot initWithScreenshotDictionary:]";
+}
+
+- (void)initWithCacheRepresentation:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIScreenshot initWithCacheRepresentation:]";
 }
 
 @end

@@ -86,7 +86,7 @@ uint64_t __50__AXMobileTimerGlue_accessibilityInitializeBundle__block_invoke_2(u
   [v2 setValidationTargetName:@"MobileTimer AX Bundle"];
   [v2 setDebugBuild:0];
 
-  return MEMORY[0x2A1C5E698]();
+  return MEMORY[0x2A1C5E698](v3);
 }
 
 void __50__AXMobileTimerGlue_accessibilityInitializeBundle__block_invoke_3(uint64_t a1, void *a2)

@@ -50,7 +50,7 @@
 
 - (_TtC15RemindersUICore37TTRIRemindersListReminderCellLinkView)initWithPresentationProperties:(id)properties URL:(id)l
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5EA20);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE5EA20, &qword_21DC0D4A0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v12 - v6;
   if (l)

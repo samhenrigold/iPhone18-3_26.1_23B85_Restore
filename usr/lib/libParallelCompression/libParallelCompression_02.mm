@@ -1,893 +1,3 @@
-AAByteStream_impl *aaIntervalInputStreamOpen(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = calloc(1uLL, 0x68uLL);
-  v7 = calloc(1uLL, 0x20uLL);
-  v10 = v7;
-  if (v6 && v7)
-  {
-    if (a3 >= a2)
-    {
-      *v7 = a1;
-      v7[1] = a2;
-      v7[2] = a3 - a2;
-      v7[3] = 0;
-      AACustomByteStreamSetData(v6, v7);
-      AACustomByteStreamSetReadProc(v6, IntervalStreamRead);
-      AACustomByteStreamSetPReadProc(v6, IntervalStreamPRead);
-      AACustomByteStreamSetSeekProc(v6, IntervalStreamSeek);
-      AACustomByteStreamSetCancelProc(v6, IntervalStreamCancel);
-      AACustomByteStreamSetCloseProc(v6, IntervalStreamClose);
-      return v6;
-    }
-
-    v11 = "bad interval";
-    v12 = 703;
-    v13 = 0;
-  }
-
-  else
-  {
-    v13 = *__error();
-    v11 = "malloc";
-    v12 = 702;
-  }
-
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/ImageStreams.c", "aaIntervalInputStreamOpen", v12, 137, v13, v11, v8, v9, v15);
-  free(v6);
-  free(v10);
-  return 0;
-}
-
-ssize_t IntervalStreamPRead(uint64_t a1, void *a2, size_t a3, int64_t a4)
-{
-  if (!a3)
-  {
-    return 0;
-  }
-
-  v5 = *(a1 + 16);
-  if (v5 == a4)
-  {
-    return 0;
-  }
-
-  if (v5 < a4)
-  {
-    return -1;
-  }
-
-  if ((a4 + a3) > v5)
-  {
-    a3 = v5 - a4;
-  }
-
-  result = AAByteStreamPRead(*a1, a2, a3, *(a1 + 8) + a4);
-  if (result < 0)
-  {
-    return -1;
-  }
-
-  *(a1 + 24) += result;
-  return result;
-}
-
-uint64_t IntervalStreamSeek(uint64_t a1, uint64_t a2, int a3)
-{
-  if (a3)
-  {
-    v3 = (a1 + 24);
-    if (a3 != 1)
-    {
-      if (a3 != 2)
-      {
-        return -1;
-      }
-
-      v3 = (a1 + 16);
-    }
-
-    a2 += *v3;
-  }
-
-  if ((a2 & 0x8000000000000000) == 0 && a2 <= *(a1 + 16))
-  {
-    *(a1 + 24) = a2;
-    return a2;
-  }
-
-  return -1;
-}
-
-uint64_t SegmentStreamPRead(void **a1, uint64_t a2, unint64_t a3, unint64_t a4)
-{
-  if (!a3)
-  {
-    return 0;
-  }
-
-  v5 = a3;
-  v7 = 0;
-  v8 = a1 + 2;
-  v77 = (a1 + 4);
-  while (1)
-  {
-    v9 = segment_find(a1, a4);
-    if (!v9)
-    {
-      v69 = "no segment found";
-      v70 = 321;
-      goto LABEL_74;
-    }
-
-    v12 = v9;
-    v13 = a4 - *v9;
-    if (v5 - v7 >= *(v9 + 8) - v13)
-    {
-      v14 = *(v9 + 8) - v13;
-    }
-
-    else
-    {
-      v14 = v5 - v7;
-    }
-
-    v80 = a4 - *v9;
-    if (!*(v9 + 24))
-    {
-      v22 = v8;
-      v23 = *a1;
-      if ((*a1)[4])
-      {
-        if (!v14)
-        {
-          goto LABEL_41;
-        }
-
-        v24 = 0;
-        v25 = v14;
-        v26 = a2 + v7;
-        v27 = *(v9 + 16) + v13;
-        __na = v25;
-        while (1)
-        {
-          v28 = (*(v23 + 32))(*v23, v26, v25, v27);
-          if (v28 < 0)
-          {
-            break;
-          }
-
-          if (v28)
-          {
-            v26 += v28;
-            v24 += v28;
-            v27 += v28;
-            v25 -= v28;
-            if (v25)
-            {
-              continue;
-            }
-          }
-
-          goto LABEL_39;
-        }
-
-        v24 = v28;
-      }
-
-      else
-      {
-        __na = v14;
-        v24 = -1;
-      }
-
-LABEL_39:
-      v14 = __na;
-      v55 = __na == v24;
-      v5 = a3;
-      if (!v55)
-      {
-        v69 = "aaSegmentStreamProcess";
-        v70 = 337;
-        goto LABEL_74;
-      }
-
-LABEL_41:
-      v8 = v22;
-      if (*(a1 + 796))
-      {
-        v56 = *(v12 + 16);
-        if (v14 != aaByteStreamSimulate(*a1))
-        {
-          v69 = "aaByteStreamSimulate";
-          v70 = 340;
-          goto LABEL_74;
-        }
-      }
-
-      goto LABEL_56;
-    }
-
-    v15 = a1[1];
-    v16 = *(v9 + 28);
-    if (pthread_mutex_lock((a1 + 386)))
-    {
-      v64 = "MutexLock";
-      v65 = 169;
-      goto LABEL_61;
-    }
-
-    __n = v14;
-    v19 = *(v12 + 16);
-    v20 = &v8[3 * (((0x317E428CA9 * v19) >> 32) & 0x7F)];
-    if (v20[1] == v19)
-    {
-      v21 = a1[394] + 1;
-      a1[394] = v21;
-      v20[2] = v21;
-LABEL_26:
-      v41 = *v20 + v80;
-      v14 = __n;
-      memcpy((a2 + v7), v41, __n);
-      v42 = 0;
-      goto LABEL_53;
-    }
-
-    v29 = 0;
-    v30 = 0;
-    v31 = v77;
-    v32 = &v15[v16];
-    while (*(v31 - 1) != v19)
-    {
-      v33 = *v31;
-      v31 += 3;
-      if (v33 < v8[3 * v30 + 2])
-      {
-        v30 = v29;
-      }
-
-      if (++v29 == 128)
-      {
-        goto LABEL_25;
-      }
-    }
-
-    v30 = v29;
-LABEL_25:
-    v34 = v20[2];
-    v35 = *v20;
-    v36 = &v8[3 * v30];
-    v37 = v36[2];
-    *v20 = *v36;
-    v20[2] = v37;
-    *v36 = v35;
-    v36[2] = v34;
-    v38 = v20[1];
-    v39 = *(v12 + 16);
-    v40 = a1[394] + 1;
-    a1[394] = v40;
-    v20[2] = v40;
-    if (v38 == v39)
-    {
-      goto LABEL_26;
-    }
-
-    if (pthread_mutex_unlock((a1 + 386)))
-    {
-      v64 = "MutexUnlock";
-      v65 = 175;
-LABEL_61:
-      v66 = 0;
-LABEL_68:
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/ImageStreams.c", "segment_decode_to_buffer", v65, 137, v66, v64, v17, v18, v72);
-      v42 = 0;
-      goto LABEL_73;
-    }
-
-    v43 = *(v12 + 24);
-    v44 = *(v12 + 8) + v43;
-    if (v44 >= 0x2000000001)
-    {
-      *__error() = 12;
-LABEL_67:
-      v66 = *__error();
-      v64 = "aaMalloc";
-      v65 = 179;
-      goto LABEL_68;
-    }
-
-    v45 = malloc(v44);
-    if (!v45)
-    {
-      goto LABEL_67;
-    }
-
-    v42 = v45;
-    v76 = v32;
-    v48 = *a1;
-    if (!(*a1)[4])
-    {
-      goto LABEL_64;
-    }
-
-    v74 = v45;
-    v75 = v8;
-    v49 = v43;
-    v73 = v43;
-    v50 = 0;
-    if (v43)
-    {
-      v51 = *(v12 + 16);
-      v52 = v45;
-      v53 = v49;
-      while (1)
-      {
-        v54 = (*(v48 + 32))(*v48, v52, v53, v51);
-        if (v54 < 0)
-        {
-          break;
-        }
-
-        if (v54)
-        {
-          v52 += v54;
-          v50 += v54;
-          v51 += v54;
-          v53 -= v54;
-          if (v53)
-          {
-            continue;
-          }
-        }
-
-        goto LABEL_45;
-      }
-
-      v50 = v54;
-    }
-
-LABEL_45:
-    v42 = v74;
-    v55 = v50 == v73;
-    v5 = a3;
-    v8 = v75;
-    if (!v55)
-    {
-LABEL_64:
-      v67 = "aaByteStreamPReadExpected";
-      v68 = 183;
-      goto LABEL_72;
-    }
-
-    v57 = *(v12 + 8);
-    if (*v74 == *(v76 + 4))
-    {
-      if (v57 + 1 != *(v12 + 24))
-      {
-        v67 = "chunk error";
-        v68 = 189;
-        goto LABEL_72;
-      }
-
-      v58 = v74 + 1;
-    }
-
-    else
-    {
-      v59 = *(v12 + 24);
-      v58 = &v74[v59];
-      if (compression_decode_buffer(&v74[v59], v57, v74, v59, 0, *v76) != *(v12 + 8))
-      {
-        v67 = "compression_decode_buffer";
-        v68 = 195;
-        goto LABEL_72;
-      }
-    }
-
-    memcpy((a2 + v7), &v58[v80], __n);
-    if (pthread_mutex_lock((a1 + 386)))
-    {
-      v67 = "MutexLock";
-      v68 = 202;
-      goto LABEL_72;
-    }
-
-    memcpy(*v20, v58, *(v12 + 8));
-    v60 = *(v12 + 16);
-    v61 = a1[394] + 1;
-    a1[394] = v61;
-    v20[1] = v60;
-    v20[2] = v61;
-    v14 = __n;
-LABEL_53:
-    if (pthread_mutex_unlock((a1 + 386)))
-    {
-      break;
-    }
-
-    free(v42);
-    if (*(a1 + 796))
-    {
-      v62 = *(v12 + 24);
-      v63 = *(v12 + 16);
-      if (aaByteStreamSimulate(*a1) != v62)
-      {
-        v69 = "aaByteStreamSimulate";
-        v70 = 333;
-        goto LABEL_74;
-      }
-    }
-
-LABEL_56:
-    a4 += v14;
-    v7 += v14;
-    if (v7 >= v5)
-    {
-      return v7;
-    }
-  }
-
-  v67 = "MutexUnlock";
-  v68 = 208;
-LABEL_72:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/ImageStreams.c", "segment_decode_to_buffer", v68, 137, 0, v67, v46, v47, v72);
-LABEL_73:
-  free(v42);
-  v69 = "segment_decode_to_buffer";
-  v70 = 330;
-LABEL_74:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/ImageStreams.c", "SegmentStreamPRead", v70, 137, 0, v69, v10, v11, v72);
-  return -1;
-}
-
-uint64_t SegmentStreamPWrite(void *a1, uint64_t a2, unint64_t a3, unint64_t a4)
-{
-  if (!a3)
-  {
-    return 0;
-  }
-
-  v7 = 0;
-  while (1)
-  {
-    v8 = segment_find(a1, a4);
-    if (!v8)
-    {
-      v19 = "no segment found";
-      v20 = 363;
-      goto LABEL_23;
-    }
-
-    v11 = a4 - *v8;
-    if (a3 - v7 >= *(v8 + 8) - v11)
-    {
-      v12 = *(v8 + 8) - v11;
-    }
-
-    else
-    {
-      v12 = a3 - v7;
-    }
-
-    if (*(v8 + 24))
-    {
-      v19 = "compressed content";
-      v20 = 370;
-      goto LABEL_23;
-    }
-
-    v13 = *a1;
-    if (!*(*a1 + 40))
-    {
-      v14 = -1;
-      goto LABEL_16;
-    }
-
-    if (v12)
-    {
-      break;
-    }
-
-LABEL_17:
-    a4 += v12;
-    v7 += v12;
-    if (v7 >= a3)
-    {
-      return v7;
-    }
-  }
-
-  v14 = 0;
-  v15 = a2 + v7;
-  v16 = *(v8 + 16) + v11;
-  v17 = v12;
-  while (1)
-  {
-    v18 = (*(v13 + 40))(*v13, v15, v17, v16);
-    if (v18 < 1)
-    {
-      break;
-    }
-
-    v15 += v18;
-    v14 += v18;
-    v16 += v18;
-    v17 -= v18;
-    if (!v17)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  v14 = v18;
-LABEL_16:
-  if (v12 == v14)
-  {
-    goto LABEL_17;
-  }
-
-  v19 = "aaByteStreamPWriteExpected";
-  v20 = 374;
-LABEL_23:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/ImageStreams.c", "SegmentStreamPWrite", v20, 137, 0, v19, v9, v10, v22);
-  return -1;
-}
-
-uint64_t SegmentStreamSimulate(void *a1, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t a5)
-{
-  v8 = 0;
-  while (a4 > v8)
-  {
-    v9 = segment_find(a1, a5);
-    if (!v9)
-    {
-      v15 = "no segment found";
-      v16 = 276;
-      goto LABEL_12;
-    }
-
-    v12 = *(v9 + 8) - (a5 - *v9);
-    if (a4 - v8 < v12)
-    {
-      v12 = a4 - v8;
-    }
-
-    a5 += v12;
-    v8 += v12;
-    if (*(v9 + 24))
-    {
-      v13 = *(v9 + 24);
-    }
-
-    else
-    {
-      v13 = v12;
-    }
-
-    v14 = *(v9 + 16);
-    if (v13 != aaByteStreamSimulate(*a1))
-    {
-      v15 = "aaByteStreamSimulate";
-      v16 = 303;
-LABEL_12:
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/ImageStreams.c", "SegmentStreamSimulate", v16, 137, 0, v15, v10, v11, v18);
-      return -1;
-    }
-  }
-
-  return v8;
-}
-
-uint64_t segment_find(void *a1, unint64_t a2)
-{
-  if (a1[397] <= a2)
-  {
-    return 0;
-  }
-
-  v2 = a1[396];
-  v3 = a1[395];
-  if (v2 < 2)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = 0;
-    do
-    {
-      if (*(v3 + 29 * ((v4 + v2) >> 1)) <= a2)
-      {
-        v4 = (v4 + v2) >> 1;
-      }
-
-      else
-      {
-        v2 = (v4 + v2) >> 1;
-      }
-    }
-
-    while (v4 + 1 < v2);
-  }
-
-  return v3 + 29 * v4;
-}
-
-uint64_t createSearchThread(uint64_t a1, unsigned int a2)
-{
-  v4 = *(a1 + 152) + 2368 * a2;
-  bzero(v4, 0x940uLL);
-  *(v4 + 16) = a1;
-  *(v4 + 8) = a2;
-  *(v4 + 24) = 0;
-  if (pthread_mutex_init((v4 + 32), 0) || pthread_cond_init((v4 + 96), 0))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  *(v4 + 2336) = 0x1000000;
-  v6 = malloc(0x1000000uLL);
-  *(v4 + 2360) = v6;
-  if (!v6)
-  {
-    v7 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/Search.c", "createSearchThread", 142, 23, *v7, "malloc", v8, v9, v10);
-    return 0xFFFFFFFFLL;
-  }
-
-  if (createThread(v4, searchThreadMain, v4, 0))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t searchThreadMain(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  v46 = *(*v2 + 16);
-  Count = CFArrayGetCount(*(*v2 + 64));
-  v4 = calloc(Count, 8uLL);
-  v47 = calloc(Count, 8uLL);
-  if (Count >= 1)
-  {
-    v5 = 0;
-    do
-    {
-      ValueAtIndex = CFArrayGetValueAtIndex(*(*v2 + 64), v5);
-      if (ValueAtIndex)
-      {
-        CStringPtr = CFStringGetCStringPtr(ValueAtIndex, 0x8000100u);
-        if (CStringPtr)
-        {
-          v12 = CStringPtr;
-          v13 = strlen(CStringPtr);
-          v4[v5] = v13;
-          v14 = strdup(v12);
-          v47[v5] = v14;
-          if (*(*v2 + 24))
-          {
-            v15 = v13 == 0;
-          }
-
-          else
-          {
-            v15 = 1;
-          }
-
-          if (!v15)
-          {
-            v16 = v14;
-            do
-            {
-              *v16 = __tolower(*v16);
-              ++v16;
-              --v13;
-            }
-
-            while (v13);
-          }
-        }
-
-        else
-        {
-          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/Search.c", "searchThreadMain", 65, 23, 0, "CFStringGetCStringPtr returned 0", v10, v11, v43);
-        }
-      }
-
-      else
-      {
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/Search.c", "searchThreadMain", 63, 23, 0, "CFArrayGetValueAtIndex(%d) returned 0", v7, v8, v5);
-      }
-
-      ++v5;
-    }
-
-    while (v5 != (Count & 0x7FFFFFFF));
-  }
-
-  v17 = *(a1 + 8);
-  if (pthread_mutex_lock((v2 + 32)))
-  {
-LABEL_16:
-    v21 = "SharedArrayPush: pthread_mutex_lock failed\n";
-    v22 = 117;
-  }
-
-  else
-  {
-    v45 = Count & 0x7FFFFFFF;
-    while (1)
-    {
-      v24 = *(v2 + 16);
-      v25 = *(v2 + 20);
-      v26 = v24;
-      if (v24 < v25)
-      {
-        *(*(v2 + 24) + 4 * v24) = v17;
-        v26 = *(v2 + 16);
-      }
-
-      *(v2 + 16) = v26 + 1;
-      if (!v26)
-      {
-        if (pthread_cond_broadcast((v2 + 96)))
-        {
-          break;
-        }
-      }
-
-      if (pthread_mutex_unlock((v2 + 32)))
-      {
-        v21 = "SharedArrayPush: pthread_mutex_unlock failed\n";
-        v22 = 124;
-        goto LABEL_17;
-      }
-
-      if (v24 >= v25)
-      {
-        v21 = "SharedArrayPush: stack is full\n";
-        v22 = 125;
-        goto LABEL_17;
-      }
-
-      if (pthread_mutex_lock((a1 + 32)))
-      {
-        goto LABEL_18;
-      }
-
-      while (1)
-      {
-        v27 = *(a1 + 24);
-        if (v27 > 0)
-        {
-          break;
-        }
-
-        if (pthread_cond_wait((a1 + 96), (a1 + 32)))
-        {
-          goto LABEL_18;
-        }
-      }
-
-      *(a1 + 24) = v27 - 1;
-      if (pthread_mutex_unlock((a1 + 32)))
-      {
-        goto LABEL_18;
-      }
-
-      v28 = *(a1 + 2344);
-      if (!v28)
-      {
-        free(v4);
-        free(v47);
-        return 0;
-      }
-
-      if (*(*v2 + 24))
-      {
-        v29 = *(a1 + 2360);
-        do
-        {
-          *v29 = __tolower(*v29);
-          ++v29;
-          --v28;
-        }
-
-        while (v28);
-      }
-
-      v44 = Count;
-      if (Count >= 1)
-      {
-        v30 = 0;
-        do
-        {
-          if (v4[v30] >= 2uLL)
-          {
-            v31 = *(a1 + 2344);
-            if (v31 >= 1)
-            {
-              v32 = *(a1 + 2360);
-              v33 = &v32[*(a1 + 2352)];
-              v34 = &v32[v31];
-              v35 = v32;
-              do
-              {
-                v36 = memmem(v35, v34 - v35, v47[v30], v4[v30]);
-                if (!v36)
-                {
-                  break;
-                }
-
-                v37 = v36;
-                v38 = &v36[-v46];
-                if (&v36[-v46] < v32)
-                {
-                  v38 = v32;
-                }
-
-                v39 = &v36[v4[v30]];
-                v40 = &v39[v46];
-                if (&v39[v46] > v34)
-                {
-                  v40 = v34;
-                }
-
-                v48[2] = v38;
-                v48[3] = v40;
-                v48[4] = v36;
-                v48[5] = v39;
-                v41 = &v36[-v33];
-                if (v36 < v33)
-                {
-                  v41 = -1;
-                }
-
-                v48[0] = a1 + 288;
-                v48[1] = v41;
-                v42 = *(*v2 + 48);
-                if (v42)
-                {
-                  v42(*(*v2 + 56), v48);
-                }
-
-                v35 = v37 + 1;
-              }
-
-              while ((v37 + 1) < v34);
-            }
-          }
-
-          ++v30;
-        }
-
-        while (v30 != v45);
-      }
-
-      v17 = *(a1 + 8);
-      Count = v44;
-      if (pthread_mutex_lock((v2 + 32)))
-      {
-        goto LABEL_16;
-      }
-    }
-
-    v21 = "SharedArrayPush: pthread_cond_broadcast failed\n";
-    v22 = 122;
-  }
-
-LABEL_17:
-  pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayPush", v22, 0, v21, v18, v19, v20, v43);
-LABEL_18:
-  *(v2 + 8) = 0;
-  return 0;
-}
-
 uint64_t joinSearchThread(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 152) + 2368 * a2;
@@ -930,205 +40,190 @@ LABEL_5:
   }
 
   v10 = __error();
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/Search.c", "appendPayload", 176, 23, *v10, "reallocf", v11, v12, v13);
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/Search.c", "appendPayload", 176, 23, *v10, "reallocf");
   *(a1 + 2336) = 0;
   return 0xFFFFFFFFLL;
 }
 
-uint64_t ParallelArchiveSearch(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ParallelArchiveSearch(uint64_t a1)
 {
-  v59 = *MEMORY[0x29EDCA608];
-  enterThreadErrorContext(a1, a2, a3, a4, a5, a6, a7, a8, v43);
-  v50 = 0u;
-  *v51 = 0u;
-  memset(v55, 0, sizeof(v55));
-  v54 = 0u;
-  v53 = 0u;
-  v52 = 0u;
-  LODWORD(v50) = 1;
-  v49 = a1;
-  v56 = *(a1 + 8);
-  v57 = -1;
-  v58 = calloc(v56, 0x940uLL);
-  if (v58)
+  v30 = *MEMORY[0x29EDCA608];
+  enterThreadErrorContext();
+  v21 = 0u;
+  *v22 = 0u;
+  memset(v26, 0, sizeof(v26));
+  v25 = 0u;
+  v24 = 0u;
+  v23 = 0u;
+  LODWORD(v21) = 1;
+  v20 = a1;
+  v27 = *(a1 + 8);
+  v28 = -1;
+  v29 = calloc(v27, 0x940uLL);
+  if (v29)
   {
-    DWORD2(v50) = 0;
-    HIDWORD(v50) = v56;
-    v51[0] = calloc(v56, 4uLL);
-    if (!v51[0])
+    DWORD2(v21) = 0;
+    HIDWORD(v21) = v27;
+    v22[0] = calloc(v27, 4uLL);
+    if (v22[0])
     {
-      v12 = "SharedArrayInit: malloc failed\n";
-      v13 = 55;
-      goto LABEL_10;
-    }
-
-    if (pthread_mutex_init(&v51[1], 0))
-    {
-      v12 = "SharedArrayInit: pthread_mutex_init failed\n";
-      v13 = 56;
-LABEL_10:
-      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayInit", v13, 0, v12, v9, v10, v11, v43);
-      goto LABEL_11;
-    }
-
-    if (pthread_cond_init(&v55[1], 0))
-    {
-      v12 = "SharedArrayInit: pthread_cond_init failed\n";
-      v13 = 57;
-      goto LABEL_10;
-    }
-
-    if (v56)
-    {
-      v40 = 0;
-      while (!createSearchThread(&v49, v40))
+      if (pthread_mutex_init(&v22[1], 0))
       {
-        if (++v40 >= v56)
+        pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayInit", 56, 0, "SharedArrayInit: pthread_mutex_init failed\n");
+      }
+
+      else if (pthread_cond_init(&v26[1], 0))
+      {
+        pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayInit", 57, 0, "SharedArrayInit: pthread_cond_init failed\n");
+      }
+
+      else if (v27)
+      {
+        v11 = 0;
+        while (!createSearchThread(&v20, v11))
         {
-          goto LABEL_50;
+          if (++v11 >= v27)
+          {
+            goto LABEL_47;
+          }
         }
       }
 
-      goto LABEL_11;
+      else
+      {
+LABEL_47:
+        v17 = 0u;
+        v18 = 0u;
+        v15 = 0u;
+        v16 = 0u;
+        v14 = 0u;
+        DefaultNThreads = *(a1 + 4);
+        if (!DefaultNThreads)
+        {
+          DefaultNThreads = getDefaultNThreads();
+        }
+
+        DWORD1(v14) = DefaultNThreads;
+        v13 = *(a1 + 40);
+        *(&v14 + 1) = *(a1 + 32);
+        *(&v15 + 1) = v13;
+        *&v16 = searchBeginProc;
+        *&v17 = searchPayloadProc;
+        *(&v17 + 1) = 0;
+        *&v18 = searchEndProc;
+        v19 = &v20;
+        if (!ParallelArchiveRead(&v14))
+        {
+          goto LABEL_10;
+        }
+
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/Search.c", "ParallelArchiveSearch", 273, 23, 0, "Search failed", v14);
+      }
     }
 
-LABEL_50:
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v43 = 0u;
-    DefaultNThreads = *(a1 + 4);
-    if (!DefaultNThreads)
+    else
     {
-      DefaultNThreads = getDefaultNThreads();
+      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayInit", 55, 0, "SharedArrayInit: malloc failed\n");
     }
-
-    DWORD1(v43) = DefaultNThreads;
-    v42 = *(a1 + 40);
-    *(&v43 + 1) = *(a1 + 32);
-    *(&v44 + 1) = v42;
-    *&v45 = searchBeginProc;
-    *&v46 = searchPayloadProc;
-    *(&v46 + 1) = 0;
-    *&v47 = searchEndProc;
-    v48 = &v49;
-    if (!ParallelArchiveRead(&v43, v19, v20, v21, v22, v9, v10, v11))
-    {
-      goto LABEL_12;
-    }
-
-    v17 = "Search failed";
-    v18 = 273;
-    v14 = 0;
   }
 
   else
   {
-    v14 = *__error();
-    v17 = "calloc";
-    v18 = 252;
+    v2 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/Search.c", "ParallelArchiveSearch", 252, 23, v2, "calloc", v14);
   }
 
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/Search.c", "ParallelArchiveSearch", v18, 23, v14, v17, v15, v16, v43);
-LABEL_11:
-  LODWORD(v50) = 0;
-LABEL_12:
-  if (!v56)
+  LODWORD(v21) = 0;
+LABEL_10:
+  if (!v27)
   {
-    goto LABEL_35;
+    goto LABEL_33;
   }
 
-  for (i = 0; i < v56; ++i)
+  for (i = 0; i < v27; ++i)
   {
-    if (pthread_mutex_lock(&v51[1]))
+    if (pthread_mutex_lock(&v22[1]))
     {
-      v27 = 91;
-      v28 = "SharedArrayPop: pthread_mutex_lock failed\n";
-LABEL_19:
-      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayPop", v27, 0, v28, v24, v25, v26, v43);
-      v30 = -1;
-      goto LABEL_20;
+      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayPop", 91, 0, "SharedArrayPop: pthread_mutex_lock failed\n", v14);
+LABEL_17:
+      v5 = -1;
+      goto LABEL_18;
     }
 
     while (1)
     {
-      v29 = DWORD2(v50);
-      if (DWORD2(v50))
+      v4 = DWORD2(v21);
+      if (DWORD2(v21))
       {
         break;
       }
 
-      if (pthread_cond_wait(&v55[1], &v51[1]))
+      if (pthread_cond_wait(&v26[1], &v22[1]))
       {
-        v27 = 94;
-        v28 = "SharedArrayPop: pthread_cond_wait failed\n";
-        goto LABEL_19;
+        pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayPop", 94, 0, "SharedArrayPop: pthread_cond_wait failed\n", v14);
+        goto LABEL_17;
       }
     }
 
-    --DWORD2(v50);
-    v30 = *(v51[0] + (v29 - 1));
-    if (pthread_mutex_unlock(&v51[1]))
+    --DWORD2(v21);
+    v5 = *(v22[0] + (v4 - 1));
+    if (pthread_mutex_unlock(&v22[1]))
     {
-      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayPop", 98, 0, "SharedArrayPop: pthread_mutex_unlock failed\n", v33, v34, v35, v43);
-LABEL_20:
-      LODWORD(v50) = 0;
+      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayPop", 98, 0, "SharedArrayPop: pthread_mutex_unlock failed\n");
+LABEL_18:
+      LODWORD(v21) = 0;
     }
 
-    v31 = &v58[2368 * v30];
-    *(v31 + 293) = 0;
-    if (pthread_mutex_lock((v31 + 32)) || (v32 = *(v31 + 6), *(v31 + 6) = v32 + 1, !v32) && pthread_cond_broadcast(v31 + 2) || pthread_mutex_unlock((v31 + 32)))
+    v6 = &v29[2368 * v5];
+    *(v6 + 293) = 0;
+    if (pthread_mutex_lock((v6 + 32)) || (v7 = *(v6 + 6), *(v6 + 6) = v7 + 1, !v7) && pthread_cond_broadcast(v6 + 2) || pthread_mutex_unlock((v6 + 32)))
     {
-      LODWORD(v50) = 0;
+      LODWORD(v21) = 0;
     }
   }
 
-  if (v56)
+  if (v27)
   {
-    for (j = 0; j < v56; ++j)
+    for (j = 0; j < v27; ++j)
     {
-      if (joinSearchThread(&v49, j))
+      if (joinSearchThread(&v20, j))
       {
-        LODWORD(v50) = 0;
+        LODWORD(v21) = 0;
       }
     }
   }
 
-LABEL_35:
-  if (pthread_mutex_destroy(&v51[1]) || pthread_cond_destroy(&v55[1]))
+LABEL_33:
+  if (pthread_mutex_destroy(&v22[1]) || pthread_cond_destroy(&v26[1]))
   {
-    LODWORD(v50) = 0;
+    LODWORD(v21) = 0;
   }
 
   else
   {
-    free(v51[0]);
+    free(v22[0]);
   }
 
   LODWORD(result) = leaveThreadErrorContext(0, 0, 0);
-  if (v50)
+  if (v21)
   {
-    v38 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v38 = -1;
+    v10 = -1;
   }
 
   if (result >= 0)
   {
-    result = v38;
+    return v10;
   }
 
   else
   {
-    result = result;
+    return result;
   }
-
-  v39 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t searchBeginProc(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, const void *a5, size_t a6)
@@ -1136,53 +231,49 @@ uint64_t searchBeginProc(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, 
   *(a1 + 148) = -1;
   if (pthread_mutex_lock((a1 + 32)))
   {
-    v13 = "SharedArrayPop: pthread_mutex_lock failed\n";
-    v14 = 91;
+    result = pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayPop", 91, 0, "SharedArrayPop: pthread_mutex_lock failed\n");
   }
 
   else
   {
     while (1)
     {
-      v15 = *(a1 + 16);
-      if (v15)
+      v11 = *(a1 + 16);
+      if (v11)
       {
         break;
       }
 
       if (pthread_cond_wait((a1 + 96), (a1 + 32)))
       {
-        v13 = "SharedArrayPop: pthread_cond_wait failed\n";
-        v14 = 94;
+        result = pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayPop", 94, 0, "SharedArrayPop: pthread_cond_wait failed\n");
         goto LABEL_8;
       }
     }
 
-    v16 = v15 - 1;
-    *(a1 + 16) = v16;
-    *(a1 + 148) = *(*(a1 + 24) + 4 * v16);
+    v12 = v11 - 1;
+    *(a1 + 16) = v12;
+    *(a1 + 148) = *(*(a1 + 24) + 4 * v12);
     result = pthread_mutex_unlock((a1 + 32));
     if (!result)
     {
       goto LABEL_9;
     }
 
-    v13 = "SharedArrayPop: pthread_mutex_unlock failed\n";
-    v14 = 98;
+    result = pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayPop", 98, 0, "SharedArrayPop: pthread_mutex_unlock failed\n");
   }
 
 LABEL_8:
-  result = pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/../ParallelCompression/../Common/SharedArray.h", "SharedArrayPop", v14, 0, v13, v10, v11, v12, v20);
   *(a1 + 8) = 0;
 LABEL_9:
-  v18 = *(a1 + 148);
-  if (v18 != -1)
+  v13 = *(a1 + 148);
+  if (v13 != -1)
   {
-    v19 = (*(a1 + 152) + 2368 * v18);
-    memcpy(v19 + 18, a2, 0x890uLL);
-    v19[293] = 0;
-    v19[294] = a6;
-    result = appendPayload(v19, a5, a6);
+    v14 = (*(a1 + 152) + 2368 * v13);
+    memcpy(v14 + 18, a2, 0x890uLL);
+    v14[293] = 0;
+    v14[294] = a6;
+    result = appendPayload(v14, a5, a6);
     if (result)
     {
       *(a1 + 8) = 0;
@@ -1232,213 +323,201 @@ uint64_t searchEndProc(uint64_t result)
 
 uint64_t apfs_scan_diskimage(const char *a1, uint64_t (*a2)(__int128 *, uint64_t), uint64_t a3, uint64_t a4)
 {
-  v72 = *MEMORY[0x29EDCA608];
-  memset(&v61, 0, sizeof(v61));
+  v38 = *MEMORY[0x29EDCA608];
+  memset(&v27, 0, sizeof(v27));
   if (snprintf(__str, 0x400uLL, "%s.json", a1) <= 0)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 110, 144, 0, "snprintf", v7, v8, v60);
-    v12 = 0;
-    v11 = 0;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 110, 144, 0, "snprintf");
+    v8 = 0;
+    v7 = 0;
     goto LABEL_71;
   }
 
-  if (stat(__str, &v61) || (v61.st_mode & 0xF000) != 0x8000)
+  if (stat(__str, &v27) || (v27.st_mode & 0xF000) != 0x8000)
   {
-    if (getenv("PC_APFS_DISKIMAGE_MAP") && (__strlcpy_chk(), !stat(__str, &v61)) && (v61.st_mode & 0xF000) == 0x8000 || (v30 = getenv("MASTERING_TOOLCHAIN_DIR")) != 0 && (snprintf(__str, 0x400uLL, "%s%s/%s", v30, "/System/Library/Filesystems/apfs.fs/Contents/Resources", "apfs_diskimage_map"), !stat(__str, &v61)) && (v61.st_mode & 0xF000) == 0x8000 || (snprintf(__str, 0x400uLL, "%s/%s", "/System/Library/Filesystems/apfs.fs/Contents/Resources", "apfs_diskimage_map"), !stat(__str, &v61)) && (v61.st_mode & 0xF000) == 0x8000)
+    if (getenv("PC_APFS_DISKIMAGE_MAP") && (__strlcpy_chk(), !stat(__str, &v27)) && (v27.st_mode & 0xF000) == 0x8000 || (v14 = getenv("MASTERING_TOOLCHAIN_DIR")) != 0 && (snprintf(__str, 0x400uLL, "%s%s/%s", v14, "/System/Library/Filesystems/apfs.fs/Contents/Resources", "apfs_diskimage_map"), !stat(__str, &v27)) && (v27.st_mode & 0xF000) == 0x8000 || (snprintf(__str, 0x400uLL, "%s/%s", "/System/Library/Filesystems/apfs.fs/Contents/Resources", "apfs_diskimage_map"), !stat(__str, &v27)) && (v27.st_mode & 0xF000) == 0x8000)
     {
-      v12 = malloc(0x40000uLL);
-      if (v12)
+      v8 = malloc(0x40000uLL);
+      if (v8)
       {
-        v11 = AATempStreamOpen(0x800000uLL);
-        if (v11)
+        v7 = AATempStreamOpen(0x800000uLL);
+        if (v7)
         {
-          snprintf(v70, 0x400uLL, "%s %s", __str, a1);
-          v35 = popen(v70, "r");
-          if (v35)
+          snprintf(v36, 0x400uLL, "%s %s", __str, a1);
+          v15 = popen(v36, "r");
+          if (v15)
           {
-            v36 = v35;
-            while (!feof(v36))
+            v16 = v15;
+            while (!feof(v16))
             {
-              v37 = fread(v12, 1uLL, 0x40000uLL, v36);
-              if (ferror(v36))
+              v17 = fread(v8, 1uLL, 0x40000uLL, v16);
+              if (ferror(v16))
               {
-                v44 = "reading from tool pipe";
-                v45 = 170;
-LABEL_86:
-                pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", v45, 144, 0, v44, v38, v39, v60);
-                AAByteStreamClose(v11);
-                pclose(v36);
+                pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 170, 144, 0, "reading from tool pipe");
+LABEL_85:
+                AAByteStreamClose(v7);
+                pclose(v16);
 LABEL_76:
-                v46 = 0xFFFFFFFFLL;
+                v22 = 0xFFFFFFFFLL;
                 goto LABEL_77;
               }
 
-              if (*(v11 + 3))
+              if (*(v7 + 3))
               {
-                v40 = 0;
-                if (v37)
+                v18 = 0;
+                if (v17)
                 {
-                  v41 = v12;
-                  v42 = v37;
+                  v19 = v8;
+                  v20 = v17;
                   while (1)
                   {
-                    v43 = (*(v11 + 3))(*v11, v41, v42);
-                    if (v43 < 1)
+                    v21 = (*(v7 + 3))(*v7, v19, v20);
+                    if (v21 < 1)
                     {
                       break;
                     }
 
-                    v41 += v43;
-                    v40 += v43;
-                    v42 -= v43;
-                    if (!v42)
+                    v19 += v21;
+                    v18 += v21;
+                    v20 -= v21;
+                    if (!v20)
                     {
                       goto LABEL_68;
                     }
                   }
 
-                  v40 = v43;
+                  v18 = v21;
                 }
               }
 
               else
               {
-                v40 = -1;
+                v18 = -1;
               }
 
 LABEL_68:
-              if (v40 != v37)
+              if (v18 != v17)
               {
-                v44 = "writing tool output";
-                v45 = 172;
-                goto LABEL_86;
+                pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 172, 144, 0, "writing tool output");
+                goto LABEL_85;
               }
             }
 
-            pclose(v36);
-            AAByteStreamSeek(v11, 0, 0);
+            pclose(v16);
+            AAByteStreamSeek(v7, 0, 0);
             goto LABEL_6;
           }
 
-          v54 = *__error();
-          v60 = v70;
-          v52 = "%s";
-          v53 = 164;
+          v26 = *__error();
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 164, 144, v26, "%s");
         }
 
         else
         {
-          v52 = "temp stream open";
-          v53 = 159;
-          v54 = 0;
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 159, 144, 0, "temp stream open");
         }
 
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", v53, 144, v54, v52, v33, v34, v60);
 LABEL_75:
-        AAByteStreamClose(v11);
+        AAByteStreamClose(v7);
         goto LABEL_76;
       }
 
-      v49 = __error();
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 156, 144, *v49, "malloc", v50, v51, v60);
+      v24 = __error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 156, 144, *v24, "malloc");
     }
 
     else
     {
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 153, 144, 0, "could not locate the apfs diskimage map tool", v31, v32, v60);
-      v12 = 0;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 153, 144, 0, "could not locate the apfs diskimage map tool");
+      v8 = 0;
     }
 
-    v11 = 0;
+    v7 = 0;
     goto LABEL_75;
   }
 
-  v11 = AAFileStreamOpenWithPath(__str, 0, 0);
-  if (!v11)
+  v7 = AAFileStreamOpenWithPath(__str, 0, 0);
+  if (!v7)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 114, 144, 0, "AAFileStreamOpenWithPath", v9, v10, v60);
-    v12 = 0;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 114, 144, 0, "AAFileStreamOpenWithPath");
+    v8 = 0;
     goto LABEL_71;
   }
 
-  v12 = 0;
+  v8 = 0;
 LABEL_6:
-  v68 = 0u;
-  *v69 = 0u;
+  v34 = 0u;
+  *v35 = 0u;
   __src = 0;
-  v67 = 0;
-  v13 = AAJSONInputStreamOpen(v11);
-  if (!v13)
+  v33 = 0;
+  v9 = AAJSONInputStreamOpen(v7);
+  if (!v9)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "parseAPFSJSON", 27, 144, 0, "AAJSONInputStreamOpen", v18, v19, v60);
-    v55 = 0;
-    goto LABEL_93;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "parseAPFSJSON", 27, 144, 0, "AAJSONInputStreamOpen");
+    v25 = 0;
+    goto LABEL_91;
   }
 
-  v20 = v13;
-  v65 = 0;
-  v63 = 0u;
-  v64 = 0u;
+  v10 = v9;
+  v31 = 0;
+  v29 = 0u;
+  v30 = 0u;
   *__s1 = 0u;
-  if ((AAJSONInputStreamRead(v13, __s1, v14, v15, v16, v17, v18, v19) & 0x80000000) != 0)
+  if ((AAJSONInputStreamRead(v9, __s1) & 0x80000000) != 0)
   {
-    goto LABEL_92;
+    goto LABEL_90;
   }
 
   while (1)
   {
-    v27 = v65;
-    if (!v65)
+    v11 = v31;
+    if (!v31)
     {
-      AAJSONInputStreamClose(v20);
-      v46 = 0;
+      AAJSONInputStreamClose(v10);
+      v22 = 0;
       goto LABEL_72;
     }
 
     if (LODWORD(__s1[0]) < 2)
     {
-      if (v65 <= 4)
+      if (v31 <= 4)
       {
-        if (v65 == 2)
+        if (v31 == 2)
         {
           if (strcmp(__s1[1], "volumes"))
           {
-            v56 = "bad map";
-            v57 = 41;
-            goto LABEL_91;
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "parseAPFSJSON", 41, 144, 0, "bad map");
+            goto LABEL_90;
           }
         }
 
-        else if (v65 == 4 && strcmp(__s1[1], "files"))
+        else if (v31 == 4 && strcmp(__s1[1], "files"))
         {
-          v56 = "bad map";
-          v57 = 42;
-          goto LABEL_91;
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "parseAPFSJSON", 42, 144, 0, "bad map");
+          goto LABEL_90;
         }
       }
 
       else
       {
-        switch(v65)
+        switch(v31)
         {
           case 5:
-            v68 = 0u;
-            *v69 = 0u;
-            *&v69[2] = pc_array_init(16);
+            v34 = 0u;
+            *v35 = 0u;
+            *&v35[2] = pc_array_init(16);
             break;
           case 6:
             if (strcmp(__s1[1], "extents"))
             {
-              v56 = "bad map";
-              v57 = 43;
-              goto LABEL_91;
+              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "parseAPFSJSON", 43, 144, 0, "bad map");
+              goto LABEL_90;
             }
 
             break;
           case 8:
-            v56 = "bad map";
-            v57 = 44;
-            goto LABEL_91;
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "parseAPFSJSON", 44, 144, 0, "bad map");
+            goto LABEL_90;
         }
       }
 
@@ -1447,29 +526,27 @@ LABEL_6:
 
     if (LODWORD(__s1[0]) == 2)
     {
-      if (v65 == 4)
+      if (v31 == 4)
       {
-        v69[1] = *(*&v69[2] - 64);
-        if ((a2(&v68, a4) & 0x80000000) != 0)
+        v35[1] = *(*&v35[2] - 64);
+        if ((a2(&v34, a4) & 0x80000000) != 0)
         {
-          v56 = "add_fork";
-          v57 = 58;
-          goto LABEL_91;
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "parseAPFSJSON", 58, 144, 0, "add_fork");
+          goto LABEL_90;
         }
 
-        pc_array_free(*&v69[2]);
-        *&v69[2] = 0;
-        v27 = v65;
+        pc_array_free(*&v35[2]);
+        *&v35[2] = 0;
+        v11 = v31;
       }
 
-      if (v27 == 6)
+      if (v11 == 6)
       {
-        *&v69[2] = pc_array_append(*&v69[2], &__src, v21, v22, v23, v24, v25, v26);
-        if (!*&v69[2])
+        *&v35[2] = pc_array_append(*&v35[2], &__src);
+        if (!*&v35[2])
         {
-          v56 = "pc_array_append";
-          v57 = 67;
-          goto LABEL_91;
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "parseAPFSJSON", 67, 144, 0, "pc_array_append");
+          goto LABEL_90;
         }
       }
 
@@ -1481,245 +558,228 @@ LABEL_6:
       goto LABEL_44;
     }
 
-    if (v65 != 7)
+    if (v31 != 7)
     {
       break;
     }
 
-    v29 = __s1[1];
+    v13 = __s1[1];
     if (!strcmp(__s1[1], "offset"))
     {
-      __src = *(&v63 + 1);
+      __src = *(&v29 + 1);
     }
 
     else
     {
-      if (strcmp(v29, "length"))
+      if (strcmp(v13, "length"))
       {
-        v56 = "bad map";
-        v57 = 83;
-        goto LABEL_91;
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "parseAPFSJSON", 83, 144, 0, "bad map");
+        goto LABEL_90;
       }
 
-      v67 = *(&v63 + 1);
+      v33 = *(&v29 + 1);
     }
 
 LABEL_44:
-    v65 = 0;
-    v63 = 0u;
-    v64 = 0u;
+    v31 = 0;
+    v29 = 0u;
+    v30 = 0u;
     *__s1 = 0u;
-    if ((AAJSONInputStreamRead(v20, __s1, v21, v22, v23, v24, v25, v26) & 0x80000000) != 0)
+    if ((AAJSONInputStreamRead(v10, __s1) & 0x80000000) != 0)
     {
-      goto LABEL_92;
+      goto LABEL_90;
     }
   }
 
-  if (v65 != 5)
+  if (v31 != 5)
   {
     goto LABEL_44;
   }
 
-  v28 = __s1[1];
+  v12 = __s1[1];
   if (!strcmp(__s1[1], "compression"))
   {
-    v69[0] = BYTE8(v63);
+    v35[0] = BYTE8(v29);
     goto LABEL_44;
   }
 
-  if (!strcmp(v28, "uncompressed_size"))
+  if (!strcmp(v12, "uncompressed_size"))
   {
-    *&v68 = *(&v63 + 1);
+    *&v34 = *(&v29 + 1);
     goto LABEL_44;
   }
 
-  if (!strcmp(v28, "size"))
+  if (!strcmp(v12, "size"))
   {
-    *(&v68 + 1) = *(&v63 + 1);
+    *(&v34 + 1) = *(&v29 + 1);
     goto LABEL_44;
   }
 
-  v56 = "bad map";
-  v57 = 77;
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "parseAPFSJSON", 77, 144, 0, "bad map");
+LABEL_90:
+  v25 = v10;
 LABEL_91:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "parseAPFSJSON", v57, 144, 0, v56, v25, v26, v60);
-LABEL_92:
-  v55 = v20;
-LABEL_93:
-  AAJSONInputStreamClose(v55);
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 181, 144, 0, "invalid image map JSON", v58, v59, v60);
+  AAJSONInputStreamClose(v25);
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/ImageDiff/APFS/APFS.c", "apfs_scan_diskimage", 181, 144, 0, "invalid image map JSON");
 LABEL_71:
-  v46 = 0xFFFFFFFFLL;
+  v22 = 0xFFFFFFFFLL;
 LABEL_72:
-  AAByteStreamClose(v11);
+  AAByteStreamClose(v7);
 LABEL_77:
-  free(v12);
-  v47 = *MEMORY[0x29EDCA608];
-  return v46;
+  free(v8);
+  return v22;
 }
 
-uint64_t archiveTreeUpdateChilds(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t archiveTreeUpdateChilds(unsigned int *a1)
 {
-  v8 = *a1;
-  if (!v8)
+  v1 = *a1;
+  if (v1)
   {
-LABEL_16:
-    v13 = 0;
-    return (v13 << 31 >> 31);
-  }
-
-  v9 = (*(a1 + 1) + 48);
-  v10 = *a1;
-  do
-  {
-    *(v9 - 11) = -1;
-    *v9 = -1;
-    v9 += 14;
-    --v10;
-  }
-
-  while (v10);
-  v11 = 0;
-  v12 = *(a1 + 1);
-  v13 = 1;
-  v14 = v12;
-  v15 = -1;
-  v16 = 0xFFFFFFFFLL;
-  while (1)
-  {
-    v18 = *v14;
-    v14 += 14;
-    v17 = v18;
-    if (v18 == -1)
+    v2 = (*(a1 + 1) + 48);
+    v3 = *a1;
+    do
     {
-      break;
+      *(v2 - 11) = -1;
+      *v2 = -1;
+      v2 += 14;
+      --v3;
     }
 
-    v19 = &v12[14 * v17];
-    v20 = v19[12];
-    if (v20 == -1)
+    while (v3);
+    v4 = 0;
+    v5 = *(a1 + 1);
+    v6 = 1;
+    v7 = v5;
+    v8 = -1;
+    v9 = 0xFFFFFFFFLL;
+    do
     {
-      if (v19[1] != -1)
+      v11 = *v7;
+      v7 += 14;
+      v10 = v11;
+      if (v11 == -1)
       {
-        v22 = "node has a first child, but no last child";
-        v23 = 1092;
-        goto LABEL_20;
+        if (v9 == 0xFFFFFFFFLL)
+        {
+          if (v8 != -1)
+          {
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeUpdateChilds", 1080, 34, 0, "tree has a first root, but no last root", NAN);
+            return (v6 << 31 >> 31);
+          }
+
+          v9 = v4;
+          v8 = v4;
+        }
+
+        else
+        {
+          v5[14 * v9 + 2] = v4;
+          v9 = v4;
+        }
       }
 
-      v19[1] = v11;
+      else
+      {
+        v12 = &v5[14 * v10];
+        v13 = v12[12];
+        if (v13 == -1)
+        {
+          if (v12[1] != -1)
+          {
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeUpdateChilds", 1092, 34, 0, "node has a first child, but no last child", NAN);
+            return (v6 << 31 >> 31);
+          }
+
+          v12[1] = v4;
+        }
+
+        else
+        {
+          v5[14 * v13 + 2] = v4;
+        }
+
+        v5[14 * v10 + 12] = v4;
+      }
+
+      v6 = ++v4 < v1;
     }
 
-    else
-    {
-      v12[14 * v20 + 2] = v11;
-    }
-
-    v12[14 * v17 + 12] = v11;
-LABEL_15:
-    v13 = ++v11 < v8;
-    if (v8 == v11)
-    {
-      goto LABEL_16;
-    }
+    while (v1 != v4);
   }
 
-  if (v16 != 0xFFFFFFFFLL)
-  {
-    v12[14 * v16 + 2] = v11;
-    v16 = v11;
-    goto LABEL_15;
-  }
-
-  if (v15 == -1)
-  {
-    v16 = v11;
-    v15 = v11;
-    goto LABEL_15;
-  }
-
-  v22 = "tree has a first root, but no last root";
-  v23 = 1080;
-LABEL_20:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeUpdateChilds", v23, 34, 0, v22, a7, a8, v24);
-  return (v13 << 31 >> 31);
+  v6 = 0;
+  return (v6 << 31 >> 31);
 }
 
 unsigned int *ArchiveTreeCreateWithRootEntry()
 {
   v0 = archiveTreeCreate();
-  v3 = v0;
+  v1 = v0;
   if (!v0)
   {
-    v9 = "archive tree creation";
-    v10 = 1134;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateWithRootEntry", 1134, 34, 0, "archive tree creation");
 LABEL_6:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateWithRootEntry", v10, 34, 0, v9, v1, v2, v12);
-    ArchiveTreeDestroy(v3);
+    ArchiveTreeDestroy(v1);
     return 0;
   }
 
   if ((archiveTreeAppend(v0, -1, "", 0, -1, -1, 68) & 0x80000000) != 0)
   {
-    v9 = "inserting root entry";
-    v10 = 1137;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateWithRootEntry", 1137, 34, 0, "inserting root entry");
     goto LABEL_6;
   }
 
-  archiveTreeUpdateChilds(v3, v4, v5, v6, v7, v8, v1, v2);
-  return v3;
+  archiveTreeUpdateChilds(v1);
+  return v1;
 }
 
 void *archiveTreeCreate()
 {
-  v2 = calloc(1uLL, 0x20uLL);
-  if (v2)
+  v0 = calloc(1uLL, 0x20uLL);
+  if (v0)
   {
-    v3 = StringTableCreate();
-    v2[2] = v3;
-    if (!v3)
+    v1 = StringTableCreate();
+    v0[2] = v1;
+    if (!v1)
     {
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeCreate", 109, 34, 0, "string table creation", v4, v5, v7);
-      free(v2);
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeCreate", 109, 34, 0, "string table creation");
+      free(v0);
       return 0;
     }
   }
 
   else
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeCreate", 108, 34, 0, "malloc", v0, v1, v7);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeCreate", 108, 34, 0, "malloc");
   }
 
-  return v2;
+  return v0;
 }
 
 uint64_t archiveTreeAppend(unsigned int *a1, int a2, const void *a3, size_t a4, uint64_t a5, uint64_t a6, int a7)
 {
   if (archiveTreeReserve(a1, *a1 + 1))
   {
-    v18 = "increasing archive tree storage";
-    v19 = 140;
-LABEL_3:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeAppend", v19, 34, 0, v18, v16, v17, v22);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeAppend", 140, 34, 0, "increasing archive tree storage");
     return 0xFFFFFFFFLL;
   }
 
-  v21 = *(a1 + 1) + 56 * *a1;
-  *(v21 + 48) = 0;
-  *(v21 + 16) = 0u;
-  *(v21 + 32) = 0u;
-  *v21 = 0u;
-  if ((StringTableAppend(*(a1 + 2), a3, a4, (v21 + 12), v14, v15, v16, v17) & 0x80000000) != 0)
+  v15 = *(a1 + 1) + 56 * *a1;
+  *(v15 + 48) = 0;
+  *(v15 + 16) = 0u;
+  *(v15 + 32) = 0u;
+  *v15 = 0u;
+  if ((StringTableAppend(*(a1 + 2), a3, a4, (v15 + 12)) & 0x80000000) != 0)
   {
-    v18 = "inserting tree node";
-    v19 = 144;
-    goto LABEL_3;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeAppend", 144, 34, 0, "inserting tree node");
+    return 0xFFFFFFFFLL;
   }
 
   result = 0;
-  *v21 = a2;
-  *(v21 + 16) = a7;
-  *(v21 + 24) = a5;
-  *(v21 + 32) = a6;
+  *v15 = a2;
+  *(v15 + 16) = a7;
+  *(v15 + 24) = a5;
+  *(v15 + 32) = a6;
   ++*a1;
   return result;
 }
@@ -1738,469 +798,447 @@ void ArchiveTreeDestroy(uint64_t a1)
 
 unsigned int *ArchiveTreeCreateFromIndex(uint64_t a1, uint64_t a2, int (*a3)(uint64_t, _BYTE *, void), uint64_t a4, int a5, int a6)
 {
-  v70 = *MEMORY[0x29EDCA608];
-  v68 = 0;
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v63 = 0u;
-  v61 = 0;
-  v62 = 0;
+  v54 = *MEMORY[0x29EDCA608];
+  v52 = 0;
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v47 = 0u;
+  v45 = 0;
+  v46 = 0;
   v12 = archiveTreeCreate();
-  v20 = v12;
+  v13 = v12;
   if (!v12)
   {
-    v26 = "archive tree creation";
-    v27 = 1164;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateFromIndex", 1164, 34, 0, "archive tree creation");
     goto LABEL_8;
   }
 
-  *&v64 = 0;
-  *(&v65 + 1) = 0;
-  v66 = 0u;
-  v67 = 0u;
-  *(&v63 + 1) = a1;
-  LODWORD(v63) = 0;
-  DWORD1(v63) = a5;
-  *(&v64 + 1) = a2;
-  *&v65 = archiveTreeFromIndexBeginProc;
-  v68 = &v61;
-  v61 = v12;
-  v62 = 0x1FFFFFFFFLL;
-  if (ParallelArchiveRead(&v63, v13, v14, v15, v16, v17, v18, v19) || !HIDWORD(v62))
+  *&v48 = 0;
+  *(&v49 + 1) = 0;
+  v50 = 0u;
+  v51 = 0u;
+  *(&v47 + 1) = a1;
+  LODWORD(v47) = 0;
+  DWORD1(v47) = a5;
+  *(&v48 + 1) = a2;
+  *&v49 = archiveTreeFromIndexBeginProc;
+  v52 = &v45;
+  v45 = v12;
+  v46 = 0x1FFFFFFFFLL;
+  if (ParallelArchiveRead(&v47) || !HIDWORD(v46))
   {
-    v26 = "parsing index";
-    v27 = 1178;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateFromIndex", 1178, 34, 0, "parsing index");
     goto LABEL_8;
   }
 
-  if (archiveTreeSort(v20))
+  if (archiveTreeSort(v13))
   {
-    v26 = "sorting tree";
-    v27 = 1181;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateFromIndex", 1181, 34, 0, "sorting tree");
     goto LABEL_8;
   }
 
   if (a6 >= 1)
   {
-    fprintf(*MEMORY[0x29EDCA610], "%12u entries in index\n", *v20);
+    fprintf(*MEMORY[0x29EDCA610], "%12u entries in index\n", *v13);
   }
 
   if (!a3)
   {
-    v45 = 0;
-LABEL_56:
-    archiveTreeUpdateChilds(v20, v21, v22, v23, v24, v25, v18, v19);
-    free(v45);
-    goto LABEL_10;
+    v29 = 0;
+LABEL_55:
+    archiveTreeUpdateChilds(v13);
+    free(v29);
+    return v13;
   }
 
-  bzero(v69, 0x800uLL);
-  v31 = *v20;
-  if (!v31)
+  bzero(v53, 0x800uLL);
+  v15 = *v13;
+  if (!v15)
   {
-    v31 = 0;
-LABEL_36:
-    v46 = calloc(v31, 4uLL);
-    if (!v46)
+    v15 = 0;
+LABEL_35:
+    v30 = calloc(v15, 4uLL);
+    if (!v30)
     {
-      v28 = *__error();
-      v26 = "malloc";
-      v27 = 1216;
-      goto LABEL_9;
+      v44 = *__error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateFromIndex", 1216, 34, v44, "malloc");
+      goto LABEL_8;
     }
 
-    v45 = v46;
-    v47 = *v20;
-    if (v47)
+    v29 = v30;
+    v31 = *v13;
+    if (v31)
     {
-      v48 = 0;
-      v49 = 0;
-      v50 = 0;
+      v32 = 0;
+      v33 = 0;
+      v34 = 0;
       do
       {
-        v51 = *(v20 + 1);
-        if (*(v51 + v48 + 48))
+        v35 = *(v13 + 1);
+        if (*(v35 + v32 + 48))
         {
-          *(v46 + v49) = v50;
-          if (v49 != v50)
+          *(v30 + v33) = v34;
+          if (v33 != v34)
           {
-            v52 = v51 + 56 * v50;
-            v53 = (v51 + v48);
-            v54 = *v53;
-            v55 = v53[1];
-            v56 = v53[2];
-            *(v52 + 48) = *(v53 + 6);
-            *(v52 + 16) = v55;
-            *(v52 + 32) = v56;
-            *v52 = v54;
+            v36 = v35 + 56 * v34;
+            v37 = (v35 + v32);
+            v38 = *v37;
+            v39 = v37[1];
+            v40 = v37[2];
+            *(v36 + 48) = *(v37 + 6);
+            *(v36 + 16) = v39;
+            *(v36 + 32) = v40;
+            *v36 = v38;
           }
 
-          ++v50;
-          v47 = *v20;
+          ++v34;
+          v31 = *v13;
         }
 
-        ++v49;
-        v48 += 56;
+        ++v33;
+        v32 += 56;
       }
 
-      while (v49 < v47);
-      *v20 = v50;
-      if (v50)
+      while (v33 < v31);
+      *v13 = v34;
+      if (v34)
       {
-        v57 = *(v20 + 1);
-        v58 = v50;
+        v41 = *(v13 + 1);
+        v42 = v34;
         do
         {
-          v59 = *v57;
-          if (v59 != -1)
+          v43 = *v41;
+          if (v43 != -1)
           {
-            LODWORD(v59) = *(v46 + v59);
+            LODWORD(v43) = *(v30 + v43);
           }
 
-          *v57 = v59;
-          v57 += 14;
-          --v58;
+          *v41 = v43;
+          v41 += 14;
+          --v42;
         }
 
-        while (v58);
+        while (v42);
       }
     }
 
     else
     {
-      v50 = 0;
+      v34 = 0;
     }
 
     if (a6 > 0)
     {
-      fprintf(*MEMORY[0x29EDCA610], "%12u entries selected\n", v50);
+      fprintf(*MEMORY[0x29EDCA610], "%12u entries selected\n", v34);
     }
 
-    goto LABEL_56;
+    goto LABEL_55;
   }
 
-  v32 = (v31 + 3) & 0x1FFFFFFFCLL;
-  v33 = vdupq_n_s64(v31 - 1);
-  v34 = xmmword_2980690D0;
-  v35 = xmmword_2980690E0;
-  v36 = (*(v20 + 1) + 160);
-  v37 = vdupq_n_s64(4uLL);
+  v16 = (v15 + 3) & 0x1FFFFFFFCLL;
+  v17 = vdupq_n_s64(v15 - 1);
+  v18 = xmmword_2980690D0;
+  v19 = xmmword_2980690E0;
+  v20 = (*(v13 + 1) + 160);
+  v21 = vdupq_n_s64(4uLL);
   do
   {
-    v38 = vmovn_s64(vcgeq_u64(v33, v35));
-    if (vuzp1_s16(v38, *v33.i8).u8[0])
+    v22 = vmovn_s64(vcgeq_u64(v17, v19));
+    if (vuzp1_s16(v22, *v17.i8).u8[0])
     {
-      *(v36 - 28) = 0;
+      *(v20 - 28) = 0;
     }
 
-    if (vuzp1_s16(v38, *&v33).i8[2])
+    if (vuzp1_s16(v22, *&v17).i8[2])
     {
-      *(v36 - 14) = 0;
+      *(v20 - 14) = 0;
     }
 
-    if (vuzp1_s16(*&v33, vmovn_s64(vcgeq_u64(v33, *&v34))).i32[1])
+    if (vuzp1_s16(*&v17, vmovn_s64(vcgeq_u64(v17, *&v18))).i32[1])
     {
-      *v36 = 0;
-      v36[14] = 0;
+      *v20 = 0;
+      v20[14] = 0;
     }
 
-    v34 = vaddq_s64(v34, v37);
-    v35 = vaddq_s64(v35, v37);
-    v36 += 56;
-    v32 -= 4;
+    v18 = vaddq_s64(v18, v21);
+    v19 = vaddq_s64(v19, v21);
+    v20 += 56;
+    v16 -= 4;
   }
 
-  while (v32);
-  v39 = 0;
-  v40 = 0;
-  v41 = *(v20 + 1);
+  while (v16);
+  v23 = 0;
+  v24 = 0;
+  v25 = *(v13 + 1);
   while (1)
   {
-    v42 = *(v41 + v39);
-    if (v42 != -1)
+    v26 = *(v25 + v23);
+    if (v26 != -1)
     {
       break;
     }
 
-LABEL_27:
-    if (ArchiveTreeNodePath(v20, v40, v69, 0x800uLL) < 0)
+LABEL_26:
+    if ((ArchiveTreeNodePath(v13, v24, v53, 0x800uLL) & 0x8000000000000000) != 0)
     {
-      v26 = "getting node path";
-      v27 = 1209;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateFromIndex", 1209, 34, 0, "getting node path");
       goto LABEL_8;
     }
 
-    if (a3(a4, v69, *(*(v20 + 1) + v39 + 16)) <= 0)
+    if (a3(a4, v53, *(*(v13 + 1) + v23 + 16)) <= 0)
     {
-      v44 = 2;
+      v28 = 2;
     }
 
     else
     {
-      v44 = 3;
+      v28 = 3;
     }
 
-    v41 = *(v20 + 1);
-    *(v41 + v39 + 48) = v44;
-    v31 = *v20;
-LABEL_32:
-    ++v40;
-    v39 += 56;
-    if (v40 >= v31)
+    v25 = *(v13 + 1);
+    *(v25 + v23 + 48) = v28;
+    v15 = *v13;
+LABEL_31:
+    ++v24;
+    v23 += 56;
+    if (v24 >= v15)
     {
-      goto LABEL_36;
+      goto LABEL_35;
     }
   }
 
-  v43 = *(v41 + 56 * v42 + 48);
-  if (v43)
+  v27 = *(v25 + 56 * v26 + 48);
+  if (v27)
   {
-    *(v41 + v39 + 48) = v43;
-    if ((v43 & 1) == 0)
+    *(v25 + v23 + 48) = v27;
+    if ((v27 & 1) == 0)
     {
-      goto LABEL_32;
+      goto LABEL_31;
     }
 
-    goto LABEL_27;
+    goto LABEL_26;
   }
 
-  v26 = "parent node was not processed first";
-  v27 = 1202;
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateFromIndex", 1202, 34, 0, "parent node was not processed first");
 LABEL_8:
-  v28 = 0;
-LABEL_9:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateFromIndex", v27, 34, v28, v26, v18, v19, v60);
-  ArchiveTreeDestroy(v20);
-  v20 = 0;
-LABEL_10:
-  v29 = *MEMORY[0x29EDCA608];
-  return v20;
+  ArchiveTreeDestroy(v13);
+  return 0;
 }
 
-size_t archiveTreeFromIndexBeginProc(size_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t archiveTreeFromIndexBeginProc(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   if (*(a2 + 4) != 77)
   {
-    v9 = result;
+    v5 = result;
     if (!a4)
     {
       goto LABEL_18;
     }
 
-    v10 = *result;
-    v11 = (a3 + 8);
-    v12 = -1;
+    v6 = *result;
+    v7 = (a3 + 8);
+    v8 = -1;
     do
     {
-      if ((*(v11 - 1) & 0xDFDFDF) == 0x584449 && *(v11 - 1) == 1)
+      if ((*(v7 - 1) & 0xDFDFDF) == 0x584449 && *(v7 - 1) == 1)
       {
-        v12 = *v11;
+        v8 = *v7;
       }
 
-      v11 += 129;
+      v7 += 129;
       --a4;
     }
 
     while (a4);
-    if (v12 == -1)
+    if (v8 == -1)
     {
 LABEL_18:
-      v32 = a2 - 112;
-      v21 = "entry is missing IDX field: %s";
-      v22 = 589;
+      result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromIndexBeginProc", 589, 34, 0, "entry is missing IDX field: %s");
     }
 
     else
     {
-      v13 = *(result + 8);
-      if (v13 != -1)
+      v9 = *(result + 8);
+      if (v9 != -1)
       {
-        v14 = *(v10 + 8) + 56 * v13;
-        v15 = v12 - *(v14 + 24);
-        if (v15 < *(v14 + 32))
+        v10 = *(v6 + 8) + 56 * v9;
+        v11 = v8 - *(v10 + 24);
+        if (v11 < *(v10 + 32))
         {
-          *(v14 + 32) = v15;
+          *(v10 + 32) = v11;
         }
       }
 
       strncpy(__dst, (a2 + 144), 0x400uLL);
-      v16 = strlen(__dst);
-      v17 = v16;
-      v35 = -1;
-      if (v16)
+      v12 = strlen(__dst);
+      v13 = v12;
+      v27 = -1;
+      if (v12)
       {
-        v18 = 0;
-        while (__dst[v16 + v18] != 47)
+        v14 = 0;
+        while (__dst[v12 + v14] != 47)
         {
-          --v18;
-          if (!(v16 + v18))
+          --v14;
+          if (!(v12 + v14))
           {
             goto LABEL_16;
           }
         }
 
-        v24 = v16 + v18;
-        v25 = &__dst[v16 + v18];
-        *v25 = 0;
-        v19 = v25 + 1;
-        if ((archiveTreeFindPath(v10, __dst, &v35) & 0x80000000) == 0)
+        v17 = v12 + v14;
+        v18 = &__dst[v12 + v14];
+        *v18 = 0;
+        v15 = v18 + 1;
+        if ((archiveTreeFindPath(v6, __dst, &v27) & 0x80000000) == 0)
         {
-          v17 = ~v18;
-          v20 = v35;
-          if (v35 == -1)
+          v13 = ~v14;
+          v16 = v27;
+          if (v27 == -1)
           {
-            v33 = v19;
-            v34 = v10;
-            v26 = *v9;
-            v27 = __dst;
+            v25 = v15;
+            v26 = v6;
+            v19 = *v5;
+            v20 = __dst;
             while (1)
             {
-              v28 = strchr(v27, 47);
-              v29 = v28;
-              v30 = v28 - v27;
-              v31 = v28 ? v28 - v27 : v24;
-              if ((archiveTreeAppend(v26, v20, v27, v31, -1, -1, 68) & 0x80000000) != 0)
+              v21 = strchr(v20, 47);
+              v22 = v21;
+              v23 = v21 - v20;
+              v24 = v21 ? v21 - v20 : v17;
+              if ((archiveTreeAppend(v19, v16, v20, v24, -1, -1, 68) & 0x80000000) != 0)
               {
                 break;
               }
 
-              v26 = *v9;
-              v20 = **v9 - 1;
-              v35 = v20;
-              if (v29)
+              v19 = *v5;
+              v16 = **v5 - 1;
+              v27 = v16;
+              if (v22)
               {
-                v27 += v30 + 1;
-                v24 -= v30 + 1;
-                if (v24)
+                v20 += v23 + 1;
+                v17 -= v23 + 1;
+                if (v17)
                 {
                   continue;
                 }
               }
 
-              v19 = v33;
-              v10 = v34;
+              v15 = v25;
+              v6 = v26;
               goto LABEL_31;
             }
 
-            v21 = "inserting tree node";
-            v22 = 640;
+            result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromIndexBeginProc", 640, 34, 0, "inserting tree node");
             goto LABEL_19;
           }
 
 LABEL_31:
-          result = archiveTreeAppend(v10, v20, v19, v17, v12, -1, *(a2 + 4));
+          result = archiveTreeAppend(v6, v16, v15, v13, v8, -1, *(a2 + 4));
           if ((result & 0x80000000) == 0)
           {
-            *(v9 + 8) = *v10 - 1;
-            goto LABEL_20;
+            *(v5 + 8) = *v6 - 1;
+            return result;
           }
 
-          v21 = "inserting tree node";
-          v22 = 650;
+          result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromIndexBeginProc", 650, 34, 0, "inserting tree node");
           goto LABEL_19;
         }
 
-        v21 = "looking up parent path failed";
-        v22 = 624;
+        result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromIndexBeginProc", 624, 34, 0, "looking up parent path failed");
       }
 
       else
       {
 LABEL_16:
-        if ((archiveTreeFindPath(v10, "", &v35) & 0x80000000) == 0)
+        if ((archiveTreeFindPath(v6, "", &v27) & 0x80000000) == 0)
         {
-          v19 = __dst;
-          v20 = v35;
+          v15 = __dst;
+          v16 = v27;
           goto LABEL_31;
         }
 
-        v21 = "looking up parent path failed";
-        v22 = 629;
+        result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromIndexBeginProc", 629, 34, 0, "looking up parent path failed");
       }
     }
 
 LABEL_19:
-    result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromIndexBeginProc", v22, 34, 0, v21, a7, a8, v32);
-    *(v9 + 12) = 0;
+    *(v5 + 12) = 0;
   }
 
-LABEL_20:
-  v23 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t archiveTreeSort(_DWORD *a1)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   if (*a1)
   {
     if ((archiveTreeSortStringTable(a1) & 0x80000000) != 0)
     {
-      v9 = "sort string table";
-      v10 = 510;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeSort", 510, 34, 0, "sort string table");
     }
 
     else
     {
       if ((archiveTreeUpdateDepth(a1) & 0x80000000) == 0)
       {
-        v4 = calloc(*a1, 4uLL);
-        v5 = v4;
-        if (v4)
+        v2 = calloc(*a1, 4uLL);
+        v3 = v2;
+        if (v2)
         {
           if (*a1)
           {
-            v6 = 0;
+            v4 = 0;
             do
             {
-              v4[v6] = v6;
-              ++v6;
-              v7 = *a1;
+              v2[v4] = v4;
+              ++v4;
+              v5 = *a1;
             }
 
-            while (v6 < v7);
+            while (v4 < v5);
           }
 
           else
           {
-            v7 = 0;
+            v5 = 0;
           }
 
-          qsort_r(v4, v7, 4uLL, a1, archiveTreeCompareNodesLexProc);
-          v16 = *a1;
-          if (v16)
+          qsort_r(v2, v5, 4uLL, a1, archiveTreeCompareNodesLexProc);
+          v8 = *a1;
+          if (v8)
           {
-            v17 = 0;
-            v18 = 0;
-            v19 = v5 - 1;
-            while (v17)
+            v9 = 0;
+            v10 = 0;
+            v11 = v3 - 1;
+            while (v9)
             {
-              v20 = v19[v17];
-              v21 = v5[v17];
-              if (v20 != v21)
+              v12 = v11[v9];
+              v13 = v3[v9];
+              if (v12 != v13)
               {
-                v22 = v5[v17];
-                while (v22 != -1)
+                v14 = v3[v9];
+                while (v14 != -1)
                 {
-                  if (v20 == -1)
+                  if (v12 == -1)
                   {
                     break;
                   }
 
-                  v23 = *(a1 + 1);
-                  v24 = (v23 + 56 * v20);
-                  v25 = (v23 + 56 * v22);
-                  if (v24[3] != v25[3])
+                  v15 = *(a1 + 1);
+                  v16 = (v15 + 56 * v12);
+                  v17 = (v15 + 56 * v14);
+                  if (v16[3] != v17[3])
                   {
                     break;
                   }
 
-                  v20 = *v24;
-                  v22 = *v25;
-                  if (v20 == v22)
+                  v12 = *v16;
+                  v14 = *v17;
+                  if (v12 == v14)
                   {
                     goto LABEL_24;
                   }
@@ -2210,117 +1248,110 @@ uint64_t archiveTreeSort(_DWORD *a1)
               }
 
 LABEL_24:
-              ArchiveTreeNodePath(a1, v21, v35, 0x400uLL);
-              ArchiveTreeNodePath(a1, v19[v17], v34, 0x400uLL);
-              *(*(a1 + 1) + 56 * v5[v17] + 48) = v18 - 1;
-              v16 = *a1;
+              ArchiveTreeNodePath(a1, v13, v27, 0x400uLL);
+              ArchiveTreeNodePath(a1, v11[v9], v26, 0x400uLL);
+              *(*(a1 + 1) + 56 * v3[v9] + 48) = v10 - 1;
+              v8 = *a1;
 LABEL_27:
-              if (++v17 >= v16)
+              if (++v9 >= v8)
               {
                 goto LABEL_30;
               }
             }
 
-            v21 = *v5;
+            v13 = *v3;
 LABEL_26:
-            *(*(a1 + 1) + 56 * v21 + 48) = v18;
-            v18 = (v18 + 1);
+            *(*(a1 + 1) + 56 * v13 + 48) = v10;
+            v10 = (v10 + 1);
             goto LABEL_27;
           }
 
-          v18 = 0;
+          v10 = 0;
 LABEL_30:
-          if ((archiveTreeRemapNodes(a1, v18) & 0x80000000) != 0)
+          if ((archiveTreeRemapNodes(a1, v10) & 0x80000000) != 0)
           {
-            v14 = "remapping nodes";
-            v15 = 544;
+            v20 = "remapping nodes";
+            v21 = 544;
           }
 
           else if ((archiveTreeUpdateDepth(a1) & 0x80000000) != 0)
           {
-            v14 = "storing depth in AUX";
-            v15 = 547;
+            v20 = "storing depth in AUX";
+            v21 = 547;
           }
 
           else
           {
             if (*a1)
             {
-              v26 = 0;
+              v18 = 0;
               do
               {
-                v5[v26] = v26;
-                ++v26;
-                v27 = *a1;
+                v3[v18] = v18;
+                ++v18;
+                v19 = *a1;
               }
 
-              while (v26 < v27);
+              while (v18 < v19);
             }
 
             else
             {
-              v27 = 0;
+              v19 = 0;
             }
 
-            qsort_r(v5, v27, 4uLL, a1, archiveTreeCompareNodesStrProc);
-            v28 = *a1;
-            if (v28)
+            qsort_r(v3, v19, 4uLL, a1, archiveTreeCompareNodesStrProc);
+            v22 = *a1;
+            if (v22)
             {
-              v29 = 0;
-              v30 = *(a1 + 1);
+              v23 = 0;
+              v24 = *(a1 + 1);
               do
               {
-                *(v30 + 56 * v5[v29] + 48) = v29;
-                ++v29;
+                *(v24 + 56 * v3[v23] + 48) = v23;
+                ++v23;
               }
 
-              while (v28 != v29);
+              while (v22 != v23);
             }
 
-            if ((archiveTreeRemapNodes(a1, v18) & 0x80000000) == 0)
+            if ((archiveTreeRemapNodes(a1, v10) & 0x80000000) == 0)
             {
-              v8 = 0;
-LABEL_48:
-              free(v5);
-              goto LABEL_49;
+              v6 = 0;
+LABEL_47:
+              free(v3);
+              return v6;
             }
 
-            v14 = "remapping nodes";
-            v15 = 559;
+            v20 = "remapping nodes";
+            v21 = 559;
           }
 
-          v11 = 0;
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeSort", v21, 34, 0, v20);
         }
 
         else
         {
-          v11 = *__error();
-          v14 = "malloc";
-          v15 = 517;
+          v7 = *__error();
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeSort", 517, 34, v7, "malloc");
         }
 
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeSort", v15, 34, v11, v14, v12, v13, v33);
-LABEL_47:
-        v8 = 0xFFFFFFFFLL;
-        goto LABEL_48;
+LABEL_46:
+        v6 = 0xFFFFFFFFLL;
+        goto LABEL_47;
       }
 
-      v9 = "store AUX in depth";
-      v10 = 513;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeSort", 513, 34, 0, "store AUX in depth");
     }
 
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeSort", v10, 34, 0, v9, v2, v3, v33);
-    v5 = 0;
-    goto LABEL_47;
+    v3 = 0;
+    goto LABEL_46;
   }
 
-  v8 = 0;
-LABEL_49:
-  v31 = *MEMORY[0x29EDCA608];
-  return v8;
+  return 0;
 }
 
-uint64_t ArchiveTreeNodePath(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t a4)
+size_t ArchiveTreeNodePath(uint64_t a1, unsigned int a2, uint64_t a3, size_t a4)
 {
   if (a2 == -1 || *a1 <= a2)
   {
@@ -2330,7 +1361,7 @@ LABEL_8:
     return result;
   }
 
-  v8 = ArchiveTreeNodePath(a1, *(*(a1 + 8) + 56 * a2), a3);
+  v8 = ArchiveTreeNodePath(a1, *(*(a1 + 8) + 56 * a2), a3, a4);
   if ((v8 & 0x8000000000000000) == 0)
   {
     v9 = *(a1 + 16);
@@ -2364,71 +1395,66 @@ LABEL_11:
 unsigned int *ArchiveTreeCreateFromArchive(uint64_t a1, uint64_t a2, int a3)
 {
   DefaultNThreads = a3;
-  v33 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   if (!a3)
   {
     DefaultNThreads = getDefaultNThreads();
   }
 
-  v31 = 0;
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v26 = 0u;
-  memset(v32, 0, 512);
+  v16 = 0;
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v11 = 0u;
+  memset(v17, 0, 512);
   v6 = archiveTreeCreate();
   if (v6)
   {
-    bzero(v32 + 8, 0x428uLL);
-    DWORD2(v32[0]) = 1;
-    *&v32[0] = v6;
-    *(&v26 + 1) = a1;
-    *&v27 = 0;
-    LODWORD(v26) = 0;
-    DWORD1(v26) = DefaultNThreads;
-    *(&v27 + 1) = a2;
-    *&v28 = archiveTreeFromArchiveBeginProc;
-    *&v30 = archiveTreeFromArchiveEndProc;
-    *(&v28 + 1) = archiveTreeFromArchiveBlobProc;
-    *&v29 = archiveTreeFromArchivePayloadProc;
-    *(&v29 + 1) = archiveTreeFromArchivePaddingProc;
-    *(&v30 + 1) = archiveTreeFromArchivePaddingProc;
-    v31 = v32;
-    if (ParallelArchiveRead(&v26, v7, v8, v9, v10, v11, v12, v13) || !DWORD2(v32[0]))
+    bzero(v17 + 8, 0x428uLL);
+    DWORD2(v17[0]) = 1;
+    *&v17[0] = v6;
+    *(&v11 + 1) = a1;
+    *&v12 = 0;
+    LODWORD(v11) = 0;
+    DWORD1(v11) = DefaultNThreads;
+    *(&v12 + 1) = a2;
+    *&v13 = archiveTreeFromArchiveBeginProc;
+    *&v15 = archiveTreeFromArchiveEndProc;
+    *(&v13 + 1) = archiveTreeFromArchiveBlobProc;
+    *&v14 = archiveTreeFromArchivePayloadProc;
+    *(&v14 + 1) = archiveTreeFromArchivePaddingProc;
+    *(&v15 + 1) = archiveTreeFromArchivePaddingProc;
+    v16 = v17;
+    if (ParallelArchiveRead(&v11) || !DWORD2(v17[0]))
     {
-      v21 = "parsing archive";
-      v22 = 1292;
+      v7 = "parsing archive";
+      v8 = 1292;
     }
 
     else
     {
       if (!archiveTreeSort(v6))
       {
-        archiveTreeUpdateChilds(v6, v16, v17, v18, v19, v20, v14, v15);
-        goto LABEL_12;
+        archiveTreeUpdateChilds(v6);
+        return v6;
       }
 
-      v21 = "sorting tree";
-      v22 = 1295;
+      v7 = "sorting tree";
+      v8 = 1295;
     }
 
-    v23 = 0;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateFromArchive", v8, 34, 0, v7, v11, v12, v13, v14, v15, v16);
   }
 
   else
   {
-    v23 = *__error();
-    v21 = "archive tree creation";
-    v22 = 1274;
+    v9 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateFromArchive", 1274, 34, v9, "archive tree creation", v11, v12, v13, v14, v15, v16);
   }
 
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateFromArchive", v22, 34, v23, v21, v14, v15, v26);
   ArchiveTreeDestroy(v6);
-  v6 = 0;
-LABEL_12:
-  v24 = *MEMORY[0x29EDCA608];
-  return v6;
+  return 0;
 }
 
 char *archiveTreeFromArchiveBeginProc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -2449,7 +1475,7 @@ char *archiveTreeFromArchiveBeginProc(uint64_t a1, uint64_t a2, uint64_t a3, uin
   return result;
 }
 
-size_t archiveTreeFromArchiveEndProc(size_t result)
+uint64_t archiveTreeFromArchiveEndProc(uint64_t result)
 {
   v1 = *(result + 24);
   v2 = *(result + 16) - v1;
@@ -2461,7 +1487,7 @@ size_t archiveTreeFromArchiveEndProc(size_t result)
     v5 = (result + 48);
     v6 = strlen((result + 48));
     v7 = v6;
-    v21 = -1;
+    v16 = -1;
     if (v6 >= 2)
     {
       if (*v5 == 12078)
@@ -2475,96 +1501,90 @@ size_t archiveTreeFromArchiveEndProc(size_t result)
       }
 
 LABEL_12:
-      v12 = strrchr(v5, 47);
-      if (v12)
+      v8 = strrchr(v5, 47);
+      if (v8)
       {
-        v13 = v12;
-        v14 = v12 + 1;
-        if (v12 == v5)
+        v9 = v8;
+        v10 = v8 + 1;
+        if (v8 == v5)
         {
           goto LABEL_17;
         }
 
-        *v12 = 0;
-        if ((archiveTreeFindPath(*v4, v5, &v21) & 0x80000000) == 0)
+        *v8 = 0;
+        if ((archiveTreeFindPath(*v4, v5, &v16) & 0x80000000) == 0)
         {
-          *v13 = 47;
+          *v9 = 47;
           goto LABEL_17;
         }
 
-        v10 = "looking up parent node";
-        v11 = 712;
+        result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromArchiveEndProc", 712, 34, 0, "looking up parent node");
       }
 
       else
       {
-        v14 = v5;
-        if ((archiveTreeFindPath(*v4, "", &v21) & 0x80000000) == 0)
+        v10 = v5;
+        if ((archiveTreeFindPath(*v4, "", &v16) & 0x80000000) == 0)
         {
 LABEL_17:
-          if (v21 == -1)
+          if (v16 == -1)
           {
-            v16 = -1;
+            v12 = -1;
             while (1)
             {
-              v17 = strchr(v5, 47);
-              v18 = *v4;
-              if (!v17)
+              v13 = strchr(v5, 47);
+              v14 = *v4;
+              if (!v13)
               {
                 break;
               }
 
-              v19 = v17 - v5;
-              result = archiveTreeAppend(v18, v16, v5, v17 - v5, -1, -1, 68);
+              v15 = v13 - v5;
+              result = archiveTreeAppend(v14, v12, v5, v13 - v5, -1, -1, 68);
               if ((result & 0x80000000) != 0)
               {
-                v10 = "inserting tree node";
-                v11 = 741;
+                result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromArchiveEndProc", 741, 34, 0, "inserting tree node");
                 goto LABEL_30;
               }
 
-              v5 += v19 + 1;
-              v16 = **v4 - 1;
-              v21 = v16;
-              v7 -= v19 + 1;
+              v5 += v15 + 1;
+              v12 = **v4 - 1;
+              v16 = v12;
+              v7 -= v15 + 1;
               if (!v7)
               {
                 return result;
               }
             }
 
-            result = archiveTreeAppend(v18, v16, v5, v7, *(v4 + 24), *(v4 + 16) - *(v4 + 24), *(v4 + 44));
+            result = archiveTreeAppend(v14, v12, v5, v7, *(v4 + 24), *(v4 + 16) - *(v4 + 24), *(v4 + 44));
             if ((result & 0x80000000) == 0)
             {
               return result;
             }
 
-            v10 = "inserting tree node";
-            v11 = 748;
+            result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromArchiveEndProc", 748, 34, 0, "inserting tree node");
           }
 
           else
           {
-            v15 = strlen(v14);
-            result = archiveTreeAppend(*v4, v21, v14, v15, *(v4 + 24), *(v4 + 32), *(v4 + 44));
+            v11 = strlen(v10);
+            result = archiveTreeAppend(*v4, v16, v10, v11, *(v4 + 24), *(v4 + 32), *(v4 + 44));
             if ((result & 0x80000000) == 0)
             {
               return result;
             }
 
-            v10 = "inserting tree node";
-            v11 = 725;
+            result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromArchiveEndProc", 725, 34, 0, "inserting tree node");
           }
 
           goto LABEL_30;
         }
 
-        v10 = "looking up parent node";
-        v11 = 719;
+        result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromArchiveEndProc", 719, 34, 0, "looking up parent node");
       }
 
 LABEL_30:
-      result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromArchiveEndProc", v11, 34, 0, v10, v8, v9, v20);
       *(v4 + 8) = 0;
       return result;
     }
@@ -2587,8 +1607,7 @@ LABEL_9:
       return result;
     }
 
-    v10 = "inserting root node";
-    v11 = 698;
+    result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromArchiveEndProc", 698, 34, 0, "inserting root node");
     goto LABEL_30;
   }
 
@@ -2618,7 +1637,7 @@ _DWORD *archiveTreeFromArchiveBlobProc(_DWORD *result, _DWORD *a2, size_t a3)
     *(*v3 + 24) = result;
     if (!result)
     {
-      result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromArchiveBlobProc", 764, 34, 0, "allocating YAF buffer", v6, v7, v8);
+      result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromArchiveBlobProc", 764, 34, 0, "allocating YAF buffer");
       v4 = 2;
 LABEL_8:
       v3[v4] = 0;
@@ -2628,7 +1647,7 @@ LABEL_8:
   return result;
 }
 
-unint64_t *archiveTreeFromArchivePayloadProc(unint64_t *result, const void *a2, size_t a3)
+void *archiveTreeFromArchivePayloadProc(void *result, const void *a2, size_t a3)
 {
   result[2] += a3;
   if (*(result + 10))
@@ -2640,7 +1659,7 @@ unint64_t *archiveTreeFromArchivePayloadProc(unint64_t *result, const void *a2, 
       result = MemBufferFillFromBuffer(result, a3, a2);
       if (result != a3)
       {
-        result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromArchivePayloadProc", 775, 34, 0, "collecting YAF buffer", v5, v6, v7);
+        result = pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFromArchivePayloadProc", 775, 34, 0, "collecting YAF buffer");
         *(v4 + 2) = 0;
       }
     }
@@ -2652,7 +1671,7 @@ unint64_t *archiveTreeFromArchivePayloadProc(unint64_t *result, const void *a2, 
 unsigned int *ArchiveTreeCreateFromDirectory(char *a1, const __CFArray *a2, uint64_t a3, uint64_t a4, int a5, int a6)
 {
   DefaultNThreads = a5;
-  v46 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   if (!a5)
   {
     DefaultNThreads = getDefaultNThreads();
@@ -2662,20 +1681,17 @@ unsigned int *ArchiveTreeCreateFromDirectory(char *a1, const __CFArray *a2, uint
   v13 = v12;
   if (!v12)
   {
-    v21 = *__error();
-    v22 = "archive tree creation";
-    v23 = 1323;
+    v19 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateFromDirectory", 1323, 34, v19, "archive tree creation");
 LABEL_31:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateFromDirectory", v23, 34, v21, v22, v18, v19, v33);
     ArchiveTreeDestroy(v13);
-    v13 = 0;
-    goto LABEL_32;
+    return 0;
   }
 
   if (a2)
   {
     bzero(buffer, 0x400uLL);
-    bzero(v35, 0x800uLL);
+    bzero(v27, 0x800uLL);
     Count = CFArrayGetCount(a2);
     if (Count)
     {
@@ -2686,29 +1702,29 @@ LABEL_31:
         ValueAtIndex = CFArrayGetValueAtIndex(a2, v16);
         if (!CFStringGetCString(ValueAtIndex, buffer, 1024, 0x8000100u))
         {
-          v22 = "getting string from includePaths";
-          v23 = 1341;
+          v20 = "getting string from includePaths";
+          v21 = 1341;
           goto LABEL_30;
         }
 
-        if ((concatPath(v35, 0x800uLL, a1, buffer) & 0x80000000) != 0)
+        if ((concatPath(v27, 0x800uLL, a1, buffer) & 0x80000000) != 0)
         {
-          v22 = "building full path from includePaths";
-          v23 = 1342;
+          v20 = "building full path from includePaths";
+          v21 = 1342;
           goto LABEL_30;
         }
 
-        memset(&v34, 0, sizeof(v34));
-        if (stat(v35, &v34) || (v34.st_mode & 0xF000) != 0x4000)
+        memset(&v26, 0, sizeof(v26));
+        if (stat(v27, &v26) || (v26.st_mode & 0xF000) != 0x4000)
         {
-          v33 = v35;
-          v22 = "include path doesn't exist, or is not a directory: %s";
-          v23 = 1346;
+          v25 = v27;
+          v20 = "include path doesn't exist, or is not a directory: %s";
+          v21 = 1346;
           goto LABEL_30;
         }
 
-        v20 = strlen(buffer);
-        if (archiveTreeAppend(v13, -1, buffer, v20, -1, -1, 68))
+        v18 = strlen(buffer);
+        if (archiveTreeAppend(v13, -1, buffer, v18, -1, -1, 68))
         {
           break;
         }
@@ -2719,90 +1735,88 @@ LABEL_31:
         }
       }
 
-      v22 = "ArchiveTree append";
-      v23 = 1351;
+      v20 = "ArchiveTree append";
+      v21 = 1351;
       goto LABEL_30;
     }
   }
 
   else if (archiveTreeAppend(v12, -1, "", 0, -1, -1, 68))
   {
-    v22 = "ArchiveTree append";
-    v23 = 1330;
+    v20 = "ArchiveTree append";
+    v21 = 1330;
 LABEL_30:
-    v21 = 0;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeCreateFromDirectory", v21, 34, 0, v20, v25);
     goto LABEL_31;
   }
 
 LABEL_17:
-  v24 = *v13;
+  v22 = *v13;
   if (*v13)
   {
-    v25 = 0;
+    v23 = 0;
     while (1)
     {
-      v41 = v25;
-      v42 = v24;
-      v25 = v24;
-      v43 = 0u;
-      v44 = 0u;
-      *v35 = a6;
-      v36 = DefaultNThreads;
-      v37 = a1;
-      v38 = a3;
-      v39 = a4;
-      v40 = v13;
-      if (expandDirRange(v35))
+      v33 = v23;
+      v34 = v22;
+      v23 = v22;
+      v35 = 0u;
+      v36 = 0u;
+      *v27 = a6;
+      v28 = DefaultNThreads;
+      v29 = a1;
+      v30 = a3;
+      v31 = a4;
+      v32 = v13;
+      if (expandDirRange(v27))
       {
         break;
       }
 
-      v24 = *v13;
-      if (v25 >= *v13)
+      v22 = *v13;
+      if (v23 >= *v13)
       {
         goto LABEL_21;
       }
     }
 
-    v22 = "expanding archive tree range";
-    v23 = 1370;
+    v20 = "expanding archive tree range";
+    v21 = 1370;
     goto LABEL_30;
   }
 
 LABEL_21:
-  v43 = 0u;
-  v44 = 0u;
-  *v35 = a6;
-  v36 = DefaultNThreads;
-  v37 = a1;
-  v38 = a3;
-  v39 = a4;
-  v40 = v13;
-  v41 = 0;
-  v42 = v24;
-  LODWORD(v43) = 1;
-  if (expandDirRange(v35))
+  v35 = 0u;
+  v36 = 0u;
+  *v27 = a6;
+  v28 = DefaultNThreads;
+  v29 = a1;
+  v30 = a3;
+  v31 = a4;
+  v32 = v13;
+  v33 = 0;
+  v34 = v22;
+  LODWORD(v35) = 1;
+  if (expandDirRange(v27))
   {
-    v22 = "expanding archive tree range";
-    v23 = 1390;
+    v20 = "expanding archive tree range";
+    v21 = 1390;
     goto LABEL_30;
   }
 
   if (archiveTreeSort(v13))
   {
-    v22 = "sorting tree";
-    v23 = 1394;
+    v20 = "sorting tree";
+    v21 = 1394;
     goto LABEL_30;
   }
 
-  archiveTreeUpdateChilds(v13, v26, v27, v28, v29, v30, v18, v19);
+  archiveTreeUpdateChilds(v13);
   if (a6 > 1)
   {
     fprintf(*MEMORY[0x29EDCA610], "%12u entries in archive tree\n", *v13);
   }
 
-LABEL_32:
-  v31 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
@@ -2853,154 +1867,146 @@ uint64_t expandDirRange(uint64_t a1)
     if (v10)
     {
       expandDirRangeThreadProc();
-      if (!*(a1 + 72))
+      if (*(a1 + 72))
       {
-        v14 = 1000;
-        v38 = 0;
-        v13 = "expandDirRange";
-        goto LABEL_50;
+        if (!archiveTreeAppendTree(*(a1 + 32), *(a1 + 56), 0))
+        {
+          v2 = 0;
+          goto LABEL_50;
+        }
+
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", 1003, 34, 0, "append expandDirRange output to main tree");
       }
 
-      if (!archiveTreeAppendTree(*(a1 + 32), *(a1 + 56), 0))
+      else
       {
-        v2 = 0;
-        goto LABEL_51;
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", 1000, 34, 0, "expandDirRange");
       }
-
-      v13 = "append expandDirRange output to main tree";
-      v14 = 1003;
     }
 
     else
     {
-      v13 = "archive tree creation";
-      v14 = 996;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", 996, 34, 0, "archive tree creation");
     }
 
-    v38 = 0;
-LABEL_50:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", v14, 34, v38, v13, v11, v12, v48);
+LABEL_49:
     v2 = 0xFFFFFFFFLL;
-    goto LABEL_51;
-  }
-
-  v15 = calloc(v8, 0x50uLL);
-  if (!v15)
-  {
-    v38 = *__error();
-    v13 = "malloc";
-    v14 = 1009;
     goto LABEL_50;
   }
 
-  v16 = v15;
-  v17 = *(a1 + 40);
-  v18 = v8;
-  v19 = v15 + 56;
-  v20 = v18;
+  v11 = calloc(v8, 0x50uLL);
+  if (!v11)
+  {
+    v28 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", 1009, 34, v28, "malloc");
+    goto LABEL_49;
+  }
+
+  v12 = v11;
+  v13 = *(a1 + 40);
+  v14 = v8;
+  v15 = v11 + 56;
+  v16 = v14;
   do
   {
-    if (v17 + v9 >= *(a1 + 44))
+    if (v13 + v9 >= *(a1 + 44))
     {
-      v21 = *(a1 + 44);
+      v17 = *(a1 + 44);
     }
 
     else
     {
-      v21 = v17 + v9;
+      v17 = v13 + v9;
     }
 
-    v22 = *(a1 + 48);
-    v23 = *(a1 + 64);
-    v24 = *(a1 + 16);
-    *(v19 - 24) = *(a1 + 32);
-    *(v19 - 56) = *a1;
-    *(v19 + 8) = v23;
-    *(v19 - 8) = v22;
-    *(v19 - 40) = v24;
-    *(v19 - 4) = v17;
-    *(v19 - 3) = v21;
-    v25 = archiveTreeCreate();
-    *v19 = v25;
-    if (!v25)
+    v18 = *(a1 + 48);
+    v19 = *(a1 + 64);
+    v20 = *(a1 + 16);
+    *(v15 - 24) = *(a1 + 32);
+    *(v15 - 56) = *a1;
+    *(v15 + 8) = v19;
+    *(v15 - 8) = v18;
+    *(v15 - 40) = v20;
+    *(v15 - 4) = v13;
+    *(v15 - 3) = v17;
+    v21 = archiveTreeCreate();
+    *v15 = v21;
+    if (!v21)
     {
-      v39 = __error();
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", 1022, 34, *v39, "malloc", v40, v41, v48);
+      v29 = __error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", 1022, 34, *v29, "malloc");
       v2 = 0xFFFFFFFFLL;
-      goto LABEL_46;
+      goto LABEL_45;
     }
 
-    v19 += 80;
-    v17 = v21;
-    --v20;
+    v15 += 80;
+    v13 = v17;
+    --v16;
   }
 
-  while (v20);
-  v26 = 1;
-  v27 = v18;
-  v28 = v16;
+  while (v16);
+  v22 = 1;
+  v23 = v14;
+  v24 = v12;
   do
   {
-    if (createThread((v28 + 64), expandDirRangeThreadProc, v28, 0))
+    if (createThread((v24 + 64), expandDirRangeThreadProc, v24, 0))
     {
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", 1030, 34, 0, "create expandDir thread", v29, v30, v48);
-      v26 = 0;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", 1030, 34, 0, "create expandDir thread");
+      v22 = 0;
     }
 
-    v28 += 80;
-    --v27;
+    v24 += 80;
+    --v23;
   }
 
-  while (v27);
-  v31 = v16 + 72;
-  v32 = v18;
+  while (v23);
+  v25 = v12 + 72;
+  v26 = v14;
   do
   {
-    v33 = *(v31 - 1);
-    if (!v33)
+    v27 = *(v25 - 1);
+    if (!v27)
     {
       goto LABEL_33;
     }
 
-    if (joinThread(v33))
+    if (joinThread(v27))
     {
-      v36 = 1037;
-      v37 = "join expandDir thread";
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", 1037, 34, 0, "join expandDir thread");
 LABEL_31:
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", v36, 34, 0, v37, v34, v35, v48);
-      v26 = 0;
+      v22 = 0;
       goto LABEL_33;
     }
 
-    if (!*v31)
+    if (!*v25)
     {
-      v36 = 1038;
-      v37 = "expandDirRange";
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", 1038, 34, 0, "expandDirRange");
       goto LABEL_31;
     }
 
 LABEL_33:
-    v31 += 20;
-    --v32;
+    v25 += 20;
+    --v26;
   }
 
-  while (v32);
-  v42 = (v16 + 56);
-  v43 = v18;
+  while (v26);
+  v30 = (v12 + 56);
+  v31 = v14;
   do
   {
-    if (archiveTreeAppendTree(*(a1 + 32), *v42, 0))
+    if (archiveTreeAppendTree(*(a1 + 32), *v30, 0))
     {
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", 1044, 34, 0, "append expandDirRange output to main tree", v44, v45, v48);
-      v26 = 0;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRange", 1044, 34, 0, "append expandDirRange output to main tree");
+      v22 = 0;
     }
 
-    v42 += 10;
-    --v43;
+    v30 += 10;
+    --v31;
   }
 
-  while (v43);
-  if (v26)
+  while (v31);
+  if (v22)
   {
     v2 = 0;
   }
@@ -3010,18 +2016,18 @@ LABEL_33:
     v2 = 0xFFFFFFFFLL;
   }
 
-LABEL_46:
-  v46 = 56;
+LABEL_45:
+  v32 = 56;
   do
   {
-    ArchiveTreeDestroy(*&v16[v46]);
-    v46 += 80;
-    --v18;
+    ArchiveTreeDestroy(*&v12[v32]);
+    v32 += 80;
+    --v14;
   }
 
-  while (v18);
-  free(v16);
-LABEL_51:
+  while (v14);
+  free(v12);
+LABEL_50:
   ArchiveTreeDestroy(*v7);
   *v7 = 0;
   return v2;
@@ -3039,10 +2045,9 @@ uint64_t ArchiveTreeMergeAndDestroy(uint64_t a1, unsigned int *a2, int a3)
   v8 = calloc((v7 + *a1), 0x38uLL);
   if (!v8)
   {
-    v42 = *__error();
-    v43 = "malloc";
-    v44 = 1435;
-    goto LABEL_44;
+    v40 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeMergeAndDestroy", 1435, 34, v40, "malloc");
+    goto LABEL_43;
   }
 
   if (v7)
@@ -3083,162 +2088,155 @@ uint64_t ArchiveTreeMergeAndDestroy(uint64_t a1, unsigned int *a2, int a3)
 
   if ((archiveTreeAppendTree(a1, a2, 1) & 0x80000000) != 0)
   {
-    v43 = "merging trees";
-    v44 = 1441;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeMergeAndDestroy", 1441, 34, 0, "merging trees");
     goto LABEL_43;
   }
 
   if ((archiveTreeSortStringTable(a1) & 0x80000000) != 0)
   {
-    v43 = "sorting string table";
-    v44 = 1444;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeMergeAndDestroy", 1444, 34, 0, "sorting string table");
     goto LABEL_43;
   }
 
   if ((archiveTreeUpdateDepth(a1) & 0x80000000) != 0)
   {
-    v43 = "storing node depth in AUX";
-    v44 = 1447;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeMergeAndDestroy", 1447, 34, 0, "storing node depth in AUX");
     goto LABEL_43;
   }
 
-  v52 = v7 + v6;
-  v18 = 0;
+  v47 = v7 + v6;
+  v16 = 0;
   if (v6 | v7)
   {
-    v19 = 0;
-    v20 = 0;
-    v21 = v7 != 0;
-    v22 = v6 != 0;
+    v17 = 0;
+    v18 = 0;
+    v19 = v7 != 0;
+    v20 = v6 != 0;
     while (1)
     {
-      if (v21)
+      if (v19)
       {
-        v23 = v19 + v6;
-        if (!v22)
+        v21 = v17 + v6;
+        if (!v20)
         {
           goto LABEL_21;
         }
 
-        v24 = archiveTreeCompareNodesStrRec(a1, v20, v19 + v6, 0, 0);
-        if ((v24 & 0x80000000) == 0)
+        v22 = archiveTreeCompareNodesStrRec(a1, v18, v17 + v6, 0, 0);
+        if ((v22 & 0x80000000) == 0)
         {
           break;
         }
       }
 
-      v30 = *(a1 + 8) + 56 * v20;
-      *(v30 + 48) = v18;
-      v31 = &v8[14 * v18];
-      v32 = *v30;
-      v33 = *(v30 + 16);
-      v34 = *(v30 + 32);
-      *(v31 + 6) = *(v30 + 48);
-      *(v31 + 1) = v33;
-      *(v31 + 2) = v34;
-      *v31 = v32;
-      ++v20;
-LABEL_24:
+      v28 = *(a1 + 8) + 56 * v18;
+      *(v28 + 48) = v16;
+      v29 = &v8[14 * v16];
+      v30 = *v28;
+      v31 = *(v28 + 16);
+      v32 = *(v28 + 32);
+      *(v29 + 6) = *(v28 + 48);
+      *(v29 + 1) = v31;
+      *(v29 + 2) = v32;
+      *v29 = v30;
       ++v18;
-      v21 = v19 < v7;
-      v22 = v20 < v6;
-      if (v20 >= v6 && v19 >= v7)
+LABEL_24:
+      ++v16;
+      v19 = v17 < v7;
+      v20 = v18 < v6;
+      if (v18 >= v6 && v17 >= v7)
       {
         goto LABEL_31;
       }
     }
 
-    if (v24)
+    if (v22)
     {
 LABEL_21:
-      v25 = *(a1 + 8) + 56 * v23;
-      *(v25 + 48) = v18;
-      v26 = &v8[14 * v18];
-      v27 = *v25;
-      v28 = *(v25 + 16);
-      v29 = *(v25 + 32);
-      *(v26 + 6) = *(v25 + 48);
-      *(v26 + 1) = v28;
-      *(v26 + 2) = v29;
-      *v26 = v27;
+      v23 = *(a1 + 8) + 56 * v21;
+      *(v23 + 48) = v16;
+      v24 = &v8[14 * v16];
+      v25 = *v23;
+      v26 = *(v23 + 16);
+      v27 = *(v23 + 32);
+      *(v24 + 6) = *(v23 + 48);
+      *(v24 + 1) = v26;
+      *(v24 + 2) = v27;
+      *v24 = v25;
     }
 
     else
     {
-      v35 = *(a1 + 8);
-      v36 = (v35 + 56 * v20);
-      *(v36 + 12) = v18;
-      *(v35 + 56 * v23 + 48) = v18;
-      v37 = &v8[14 * v18];
-      v38 = *v36;
-      v39 = v36[1];
-      v40 = v36[2];
-      *(v37 + 6) = *(v36 + 6);
-      *(v37 + 1) = v39;
-      *(v37 + 2) = v40;
-      *v37 = v38;
-      ++v20;
+      v33 = *(a1 + 8);
+      v34 = (v33 + 56 * v18);
+      *(v34 + 12) = v16;
+      *(v33 + 56 * v21 + 48) = v16;
+      v35 = &v8[14 * v16];
+      v36 = *v34;
+      v37 = v34[1];
+      v38 = v34[2];
+      *(v35 + 6) = *(v34 + 6);
+      *(v35 + 1) = v37;
+      *(v35 + 2) = v38;
+      *v35 = v36;
+      ++v18;
     }
 
-    ++v19;
+    ++v17;
     goto LABEL_24;
   }
 
 LABEL_31:
-  v45 = *(a1 + 8);
-  if (!v52)
+  v41 = *(a1 + 8);
+  if (!v47)
   {
 LABEL_39:
-    free(v45);
-    v41 = 0;
+    free(v41);
+    v39 = 0;
     *(a1 + 8) = v8;
-    *a1 = v18;
-    *(a1 + 4) = v52;
+    *a1 = v16;
+    *(a1 + 4) = v47;
     v8 = 0;
-    goto LABEL_45;
+    goto LABEL_44;
   }
 
-  v46 = v7 + v6;
-  v47 = *(a1 + 8);
+  v42 = v7 + v6;
+  v43 = *(a1 + 8);
   while (1)
   {
-    v48 = v47[12];
-    if (v48 != -1)
+    v44 = v43[12];
+    if (v44 != -1)
     {
       break;
     }
 
 LABEL_38:
-    v47 += 14;
-    if (!--v46)
+    v43 += 14;
+    if (!--v42)
     {
       goto LABEL_39;
     }
   }
 
-  if (v48 < v18)
+  if (v44 < v16)
   {
-    v49 = *v47;
-    if (*v47 != -1)
+    v45 = *v43;
+    if (*v43 != -1)
     {
-      v49 = *(v45 + 14 * v49 + 12);
+      v45 = *(v41 + 14 * v45 + 12);
     }
 
-    v8[14 * v48] = v49;
+    v8[14 * v44] = v45;
     goto LABEL_38;
   }
 
-  v43 = "invalid new index";
-  v44 = 1490;
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeMergeAndDestroy", 1490, 34, 0, "invalid new index");
 LABEL_43:
-  v42 = 0;
+  v39 = 0xFFFFFFFFLL;
 LABEL_44:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeMergeAndDestroy", v44, 34, v42, v43, v16, v17, v51);
-  v41 = 0xFFFFFFFFLL;
-LABEL_45:
   free(v8);
   ArchiveTreeDestroy(a2);
-  return v41;
+  return v39;
 }
 
 uint64_t archiveTreeAppendTree(unsigned int *a1, unsigned int *a2, int a3)
@@ -3255,50 +2253,46 @@ uint64_t archiveTreeAppendTree(unsigned int *a1, unsigned int *a2, int a3)
 
   if (archiveTreeReserve(a1, *a1 + *a2))
   {
-    v8 = "increasing archive tree storage";
-    v9 = 164;
-LABEL_5:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeAppendTree", v9, 34, 0, v8, v6, v7, v17);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeAppendTree", 164, 34, 0, "increasing archive tree storage");
     return 0xFFFFFFFFLL;
   }
 
-  v18 = 0;
-  if ((StringTableAppendTable(*(a1 + 2), *(a2 + 2), &v18) & 0x80000000) != 0)
+  v13 = 0;
+  if ((StringTableAppendTable(*(a1 + 2), *(a2 + 2), &v13) & 0x80000000) != 0)
   {
-    v8 = "merging string tables";
-    v9 = 168;
-    goto LABEL_5;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeAppendTree", 168, 34, 0, "merging string tables");
+    return 0xFFFFFFFFLL;
   }
 
   memcpy((*(a1 + 1) + 56 * *a1), *(a2 + 1), 56 * *a2);
-  v11 = *a2;
-  v12 = *a1;
+  v7 = *a2;
+  v8 = *a1;
   if (*a2)
   {
-    v13 = *(a1 + 1);
-    v14 = *a2;
-    v15 = *a1;
+    v9 = *(a1 + 1);
+    v10 = *a2;
+    v11 = *a1;
     do
     {
-      v16 = (v13 + 56 * v15);
-      v16[3] += v18;
+      v12 = (v9 + 56 * v11);
+      v12[3] += v13;
       if (a3)
       {
-        if (*v16 != -1)
+        if (*v12 != -1)
         {
-          *v16 += v12;
+          *v12 += v8;
         }
       }
 
-      ++v15;
-      --v14;
+      ++v11;
+      --v10;
     }
 
-    while (v14);
+    while (v10);
   }
 
   result = 0;
-  *a1 = v12 + v11;
+  *a1 = v8 + v7;
   return result;
 }
 
@@ -3309,34 +2303,34 @@ uint64_t archiveTreeSortStringTable(unsigned int **a1)
     return 0;
   }
 
-  v10 = 0;
-  v4 = StringTableSort(a1[2], &v10);
-  if (v4)
+  v7 = 0;
+  v2 = StringTableSort(a1[2], &v7);
+  if (v2)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeSortStringTable", 397, 34, 0, "string table sorting", v2, v3, v9);
-    v5 = v10;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeSortStringTable", 397, 34, 0, "string table sorting");
+    v3 = v7;
   }
 
   else
   {
-    v7 = *a1;
-    v5 = v10;
-    if (v7)
+    v5 = *a1;
+    v3 = v7;
+    if (v5)
     {
-      v8 = a1[1] + 3;
+      v6 = a1[1] + 3;
       do
       {
-        *v8 = v5[*v8];
-        v8 += 14;
-        --v7;
+        *v6 = v3[*v6];
+        v6 += 14;
+        --v5;
       }
 
-      while (v7);
+      while (v5);
     }
   }
 
-  free(v5);
-  if (v4)
+  free(v3);
+  if (v2)
   {
     return 0xFFFFFFFFLL;
   }
@@ -3396,7 +2390,7 @@ uint64_t archiveTreeUpdateDepth(unsigned int *a1)
     }
   }
 
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeUpdateDepth", 218, 34, 0, "update node depth", v11, v12, v14);
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeUpdateDepth", 218, 34, 0, "update node depth");
   return 0xFFFFFFFFLL;
 }
 
@@ -3409,10 +2403,7 @@ uint64_t ArchiveTreePrune(unsigned int *a1, unsigned int a2)
 
   if ((archiveTreeUpdateDepth(a1) & 0x80000000) != 0)
   {
-    v31 = "updating depth field";
-    v32 = 1520;
-LABEL_38:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreePrune", v32, 34, 0, v31, v6, v7, v33);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreePrune", 1520, 34, 0, "updating depth field");
     return 0xFFFFFFFFLL;
   }
 
@@ -3420,117 +2411,115 @@ LABEL_38:
   {
     if (*a1)
     {
-      v8 = 0;
-      v9 = 0;
-      v10 = 0;
-      v11 = *(a1 + 1);
-      v12 = -1;
+      v4 = 0;
+      v5 = 0;
+      v6 = 0;
+      v7 = *(a1 + 1);
+      v8 = -1;
       do
       {
-        v13 = *(v11 + v8 + 44);
-        if (v13 == a2)
+        v9 = *(v7 + v4 + 44);
+        if (v9 == a2)
         {
-          if (v12 != -1)
+          if (v8 != -1)
           {
-            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreePrune", 1530, 34, 0, "invalid prune operation: more than one node at depth %u", v6, v7, a2);
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreePrune", 1530, 34, 0, "invalid prune operation: more than one node at depth %u");
             return 0xFFFFFFFFLL;
           }
 
-          *(v11 + v8) = -1;
-          if ((StringTableAppend(*(a1 + 2), "", 0, (v11 + v8 + 12), v4, v5, v6, v7) & 0x80000000) != 0)
+          *(v7 + v4) = -1;
+          if ((StringTableAppend(*(a1 + 2), "", 0, (v7 + v4 + 12)) & 0x80000000) != 0)
           {
-            v31 = "inserting new root name string";
-            v32 = 1536;
-            goto LABEL_38;
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreePrune", 1536, 34, 0, "inserting new root name string");
+            return 0xFFFFFFFFLL;
           }
 
-          v11 = *(a1 + 1);
-          v13 = *(v11 + v8 + 44);
-          v12 = v9;
+          v7 = *(a1 + 1);
+          v9 = *(v7 + v4 + 44);
+          v8 = v5;
         }
 
-        v14 = v13 >= a2;
-        if (v13 < a2)
+        v10 = v9 >= a2;
+        if (v9 < a2)
         {
-          v15 = -1;
+          v11 = -1;
         }
 
         else
         {
-          v15 = v10;
+          v11 = v6;
         }
 
-        if (v14)
+        if (v10)
         {
-          ++v10;
+          ++v6;
         }
 
-        *(v11 + v8 + 48) = v15;
-        ++v9;
-        v16 = *a1;
-        v8 += 56;
+        *(v7 + v4 + 48) = v11;
+        ++v5;
+        v12 = *a1;
+        v4 += 56;
       }
 
-      while (v9 < v16);
+      while (v5 < v12);
       if (*a1)
       {
-        v17 = *(a1 + 1);
-        v18 = v17;
-        v19 = *a1;
+        v13 = *(a1 + 1);
+        v14 = v13;
+        v15 = *a1;
         do
         {
-          if (v18[12] != -1 && *v18 != -1)
+          if (v14[12] != -1 && *v14 != -1)
           {
-            *v18 = v17[14 * *v18 + 12];
+            *v14 = v13[14 * *v14 + 12];
           }
 
-          v18 += 14;
-          --v19;
+          v14 += 14;
+          --v15;
         }
 
-        while (v19);
-        v20 = 0;
-        for (i = 0; i < v16; ++i)
+        while (v15);
+        v16 = 0;
+        for (i = 0; i < v12; ++i)
         {
-          v22 = *(a1 + 1);
-          v23 = (v22 + v20);
-          v24 = *(v22 + v20 + 48);
-          if (v24 != -1)
+          v18 = *(a1 + 1);
+          v19 = (v18 + v16);
+          v20 = *(v18 + v16 + 48);
+          if (v20 != -1)
           {
-            if (v24 >= v10 || i < v24)
+            if (v20 >= v6 || i < v20)
             {
-              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreePackNodes", 424, 34, 0, "invalid new index", v6, v7, v33);
-              v31 = "remapping tree nodes";
-              v32 = 1543;
-              goto LABEL_38;
+              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreePackNodes", 424, 34, 0, "invalid new index");
+              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreePrune", 1543, 34, 0, "remapping tree nodes");
+              return 0xFFFFFFFFLL;
             }
 
-            if (i > v24)
+            if (i > v20)
             {
-              v26 = v22 + 56 * v24;
-              v27 = *v23;
-              v28 = v23[1];
-              v29 = v23[2];
-              *(v26 + 48) = *(v23 + 6);
-              *(v26 + 16) = v28;
-              *(v26 + 32) = v29;
-              *v26 = v27;
-              v16 = *a1;
+              v22 = v18 + 56 * v20;
+              v23 = *v19;
+              v24 = v19[1];
+              v25 = v19[2];
+              *(v22 + 48) = *(v19 + 6);
+              *(v22 + 16) = v24;
+              *(v22 + 32) = v25;
+              *v22 = v23;
+              v12 = *a1;
             }
           }
 
-          v20 += 56;
+          v16 += 56;
         }
       }
     }
 
     else
     {
-      v10 = 0;
+      v6 = 0;
     }
 
     result = 0;
-    *a1 = v10;
+    *a1 = v6;
   }
 
   return result;
@@ -3557,70 +2546,63 @@ size_t ArchiveTreeInsert(uint64_t a1, char *__s)
 
     if ((archiveTreeUpdateDepth(a1) & 0x80000000) != 0)
     {
-      v9 = "updating tree depth";
-      v10 = 1572;
-      goto LABEL_14;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeInsert", 1572, 34, 0, "updating tree depth");
+      return 0xFFFFFFFFLL;
     }
 
-    if (!*a1 || (v8 = *(a1 + 8), v8[11]) || *v8 != -1)
+    if (!*a1 || (v6 = *(a1 + 8), v6[11]) || *v6 != -1)
     {
-      v9 = "invalid input for ArchiveTreeInsert";
-      v10 = 1575;
-      goto LABEL_14;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeInsert", 1575, 34, 0, "invalid input for ArchiveTreeInsert");
+      return 0xFFFFFFFFLL;
     }
 
     if ((archiveTreeAppend(a1, -1, "", 0, -1, -1, 68) & 0x80000000) != 0)
     {
-      v9 = "inserting root node";
-      v10 = 1579;
-      goto LABEL_14;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeInsert", 1579, 34, 0, "inserting root node");
+      return 0xFFFFFFFFLL;
     }
 
-    v13 = 0;
-    v14 = 0;
-    v15 = *a1 - 1;
+    v7 = 0;
+    v8 = 0;
+    v9 = *a1 - 1;
     while (1)
     {
-      if (__s[v13] && __s[v13] != 47)
+      if (__s[v7] && __s[v7] != 47)
       {
-        ++v13;
+        ++v7;
       }
 
       else
       {
-        if (v13 != v14)
+        if (v7 != v8)
         {
-          if (v13 == v5)
+          if (v7 == v5)
           {
-            if ((StringTableAppend(*(a1 + 16), &__s[v14], v13 - v14, (*(a1 + 8) + 12), v11, v12, v6, v7) & 0x80000000) != 0)
+            if ((StringTableAppend(*(a1 + 16), &__s[v8], v7 - v8, (*(a1 + 8) + 12)) & 0x80000000) != 0)
             {
-              v9 = "inserting string";
-              v10 = 1596;
-              goto LABEL_14;
+              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeInsert", 1596, 34, 0, "inserting string");
+              return 0xFFFFFFFFLL;
             }
 
-            **(a1 + 8) = v15;
+            **(a1 + 8) = v9;
           }
 
           else
           {
-            if ((archiveTreeAppend(a1, v15, &__s[v14], v13 - v14, -1, -1, 68) & 0x80000000) != 0)
+            if ((archiveTreeAppend(a1, v9, &__s[v8], v7 - v8, -1, -1, 68) & 0x80000000) != 0)
             {
-              v9 = "inserting new node";
-              v10 = 1603;
-LABEL_14:
-              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeInsert", v10, 34, 0, v9, v6, v7, v16);
+              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "ArchiveTreeInsert", 1603, 34, 0, "inserting new node");
               return 0xFFFFFFFFLL;
             }
 
-            v15 = *a1 - 1;
+            v9 = *a1 - 1;
           }
         }
 
-        v14 = ++v13;
+        v8 = ++v7;
       }
 
-      if (v13 > v5)
+      if (v7 > v5)
       {
         archiveTreeSort(a1);
         return 0;
@@ -3641,7 +2623,7 @@ unsigned int *ArchiveTreeSize(unsigned int *result)
   return result;
 }
 
-size_t ArchiveTreeYAF(size_t result, _BYTE *a2, unint64_t a3)
+size_t ArchiveTreeYAF(size_t result, _BYTE *a2, size_t a3)
 {
   *a2 = 0;
   if (result)
@@ -3720,74 +2702,73 @@ uint64_t ArchiveTreeNodeSegment(uint64_t a1, unsigned int a2, void *a3, void *a4
 
 uint64_t archiveTreeReserve(uint64_t a1, unsigned int a2)
 {
-  v3 = *(a1 + 4);
-  if (v3 >= a2)
+  v2 = *(a1 + 4);
+  if (v2 >= a2)
   {
     return 0;
   }
 
-  if (v3)
+  if (v2)
   {
-    v5 = v3 + (v3 >> 1);
+    v4 = v2 + (v2 >> 1);
   }
 
   else
   {
-    v5 = 256;
+    v4 = 256;
   }
 
-  if (v5 <= a2)
+  if (v4 <= a2)
   {
-    v5 = a2;
+    v4 = a2;
   }
 
-  *(a1 + 4) = v5;
-  v6 = reallocf(*(a1 + 8), 56 * v5);
-  *(a1 + 8) = v6;
-  if (v6)
+  *(a1 + 4) = v4;
+  v5 = reallocf(*(a1 + 8), 56 * v4);
+  *(a1 + 8) = v5;
+  if (v5)
   {
     return 0;
   }
 
-  v8 = __error();
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeReserve", 122, 34, *v8, "malloc", v9, v10, v2);
+  v7 = __error();
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeReserve", 122, 34, *v7, "malloc");
   *a1 = 0;
   return 0xFFFFFFFFLL;
 }
 
 uint64_t archiveTreeFindPath(uint64_t a1, const char *a2, unsigned int *a3)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   bzero(__s1, 0x400uLL);
   if (!*a1)
   {
-    goto LABEL_17;
+    return 0;
   }
 
   v6 = *a1 - 1;
   while (1)
   {
-    if (ArchiveTreeNodePath(a1, v6, __s1, 0x400uLL) < 0)
+    if ((ArchiveTreeNodePath(a1, v6, __s1, 0x400uLL) & 0x8000000000000000) != 0)
     {
-      v15 = 243;
-      goto LABEL_19;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFindPath", 243, 34, 0, "invalid path");
+      return 0xFFFFFFFFLL;
     }
 
-    v9 = strcmp(__s1, a2);
-    if (!v9)
+    v7 = strcmp(__s1, a2);
+    if (!v7)
     {
-      v12 = v6;
+      v10 = v6;
 LABEL_21:
       if (a3)
       {
-        *a3 = v12;
+        *a3 = v10;
       }
 
-      result = 1;
-      goto LABEL_24;
+      return 1;
     }
 
-    if (v9 < 0)
+    if (v7 < 0)
     {
       break;
     }
@@ -3800,167 +2781,155 @@ LABEL_21:
     }
   }
 
-  v10 = *a1 - v6;
-  if (v10 < 2)
+  v8 = *a1 - v6;
+  if (v8 < 2)
   {
-LABEL_17:
-    result = 0;
-    goto LABEL_24;
+    return 0;
   }
 
-  v11 = v10 >> 1;
+  v9 = v8 >> 1;
   while (1)
   {
-    v12 = v6 + v11;
-    if (v6 + v11 < *a1)
+    v10 = v6 + v9;
+    if (v6 + v9 < *a1)
     {
       break;
     }
 
-    v11 >>= 1;
+    v9 >>= 1;
 LABEL_16:
-    if (!v11)
+    if (!v9)
     {
-      goto LABEL_17;
+      return 0;
     }
   }
 
-  if ((ArchiveTreeNodePath(a1, v6 + v11, __s1, 0x400uLL) & 0x8000000000000000) == 0)
+  if ((ArchiveTreeNodePath(a1, v6 + v9, __s1, 0x400uLL) & 0x8000000000000000) == 0)
   {
-    v13 = strcmp(__s1, a2);
-    if (!v13)
+    v11 = strcmp(__s1, a2);
+    if (!v11)
     {
       goto LABEL_21;
     }
 
-    v11 >>= v13 > 0;
-    if (v13 <= 0)
+    v9 >>= v11 > 0;
+    if (v11 <= 0)
     {
-      v6 = v12;
+      v6 = v10;
     }
 
     goto LABEL_16;
   }
 
-  v15 = 262;
-LABEL_19:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFindPath", v15, 34, 0, "invalid path", v7, v8, v17);
-  result = 0xFFFFFFFFLL;
-LABEL_24:
-  v16 = *MEMORY[0x29EDCA608];
-  return result;
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeFindPath", 262, 34, 0, "invalid path");
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t archiveTreeRemapNodes(unsigned int *a1, size_t __count)
 {
   v2 = __count;
-  v24 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v4 = __count;
   v5 = calloc(__count, 0x38uLL);
-  v8 = v5;
+  v6 = v5;
   if (v5)
   {
     if (v2)
     {
-      v9 = v5 + 12;
+      v7 = v5 + 12;
       do
       {
-        *(v9 - 3) = -1;
-        *v9 = -1;
-        *(v9 + 12) = -1;
-        *(v9 + 20) = -1;
-        v9 += 56;
+        *(v7 - 3) = -1;
+        *v7 = -1;
+        *(v7 + 12) = -1;
+        *(v7 + 20) = -1;
+        v7 += 56;
         --v4;
       }
 
       while (v4);
     }
 
-    v10 = *a1;
-    if (v10)
+    v8 = *a1;
+    if (v8)
     {
-      v11 = *(a1 + 1);
-      v12 = v11 + 24;
+      v9 = *(a1 + 1);
+      v10 = v9 + 24;
       do
       {
-        v13 = *(v12 + 24);
-        if (v13 > v2)
+        v11 = *(v10 + 24);
+        if (v11 > v2)
         {
-          v19 = "invalid new node index";
-          v20 = 458;
-          v18 = 0;
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeRemapNodes", 458, 34, 0, "invalid new node index");
           goto LABEL_25;
         }
 
-        v14 = &v5[56 * v13];
-        if (!*(v14 + 4))
+        v12 = &v5[56 * v11];
+        if (!*(v12 + 4))
         {
-          *(v14 + 4) = *(v12 - 8);
+          *(v12 + 4) = *(v10 - 8);
         }
 
-        if (*(v14 + 3) == -1)
+        if (*(v12 + 3) == -1)
         {
-          *(v14 + 3) = *v12;
+          *(v12 + 3) = *v10;
         }
 
-        if (*(v14 + 4) == -1)
+        if (*(v12 + 4) == -1)
         {
-          *(v14 + 4) = *(v12 + 8);
+          *(v12 + 4) = *(v10 + 8);
         }
 
-        if (*(v14 + 3) == -1)
+        if (*(v12 + 3) == -1)
         {
-          *(v14 + 3) = *(v12 - 12);
+          *(v12 + 3) = *(v10 - 12);
         }
 
-        if (*v14 == -1)
+        if (*v12 == -1)
         {
-          v15 = *(v12 - 24);
-          if (v15 != -1)
+          v13 = *(v10 - 24);
+          if (v13 != -1)
           {
-            *v14 = *(v11 + 56 * v15 + 48);
+            *v12 = *(v9 + 56 * v13 + 48);
           }
         }
 
-        v12 += 56;
-        --v10;
+        v10 += 56;
+        --v8;
       }
 
-      while (v10);
-      v16 = 0;
+      while (v8);
+      v14 = 0;
       do
       {
-        ArchiveTreeNodePath(a1, v16++, v23, 0x400uLL);
+        ArchiveTreeNodePath(a1, v14++, v17, 0x400uLL);
       }
 
-      while (v16 < *a1);
+      while (v14 < *a1);
     }
 
     free(*(a1 + 1));
     result = 0;
-    *(a1 + 1) = v8;
+    *(a1 + 1) = v6;
     *a1 = v2;
     a1[1] = v2;
   }
 
   else
   {
-    v18 = *__error();
-    v19 = "malloc";
-    v20 = 443;
+    v16 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeRemapNodes", 443, 34, v16, "malloc");
 LABEL_25:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeRemapNodes", v20, 34, v18, v19, v6, v7, v22);
-    free(v8);
-    result = 0xFFFFFFFFLL;
+    free(v6);
+    return 0xFFFFFFFFLL;
   }
 
-  v21 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t archiveTreeCompareNodesLex(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   if (a2 == a3)
   {
     v3 = 0;
@@ -4008,8 +2977,8 @@ LABEL_8:
   if (v11 <= v9)
   {
     v15 = a2;
-    ArchiveTreeNodePath(a1, a2, v22, 0x400uLL);
-    ArchiveTreeNodePath(a1, a3, v21, 0x400uLL);
+    ArchiveTreeNodePath(a1, a2, v21, 0x400uLL);
+    ArchiveTreeNodePath(a1, a3, v20, 0x400uLL);
     if (!v9 || (LODWORD(result) = archiveTreeCompareNodesLex(a1, *(*(a1 + 8) + 56 * v15), *(*(a1 + 8) + 56 * a3)), !result))
     {
       v16 = *(a1 + 8);
@@ -4031,15 +3000,13 @@ LABEL_8:
 LABEL_24:
     if (v3 <= result)
     {
-      result = result;
+      return result;
     }
 
     else
     {
-      result = v3;
+      return v3;
     }
-
-    goto LABEL_27;
   }
 
   v13 = archiveTreeCompareNodesLex(a1, a2, *v10);
@@ -4055,23 +3022,19 @@ LABEL_24:
 
   if (v3 <= v14)
   {
-    result = v14;
+    return v14;
   }
 
   else
   {
-    result = v3;
+    return v3;
   }
-
-LABEL_27:
-  v20 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t expandDirRangeThreadProc()
 {
   v0 = MEMORY[0x2A1C7C4A8]();
-  v55 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   bzero(__s, 0x400uLL);
   *(v0 + 72) = 1;
   v1 = *(v0 + 40);
@@ -4080,134 +3043,132 @@ uint64_t expandDirRangeThreadProc()
     v2 = "skip dataless dir: %s";
     while (1)
     {
-      if (ArchiveTreeNodePath(*(v0 + 32), v1, __s, 0x400uLL) < 0)
+      if ((ArchiveTreeNodePath(*(v0 + 32), v1, __s, 0x400uLL) & 0x8000000000000000) != 0)
       {
-        v32 = "path too long";
-        v33 = 960;
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRangeThreadProc", 960, 34, 0, "path too long");
         goto LABEL_73;
       }
 
-      v5 = *(v0 + 56);
-      v6 = *(v0 + 48);
-      v7 = *(v0 + 8);
-      v47 = *(v0 + 24);
-      v48 = *(v0 + 16);
-      v8 = strlen(v7);
-      v9 = strlen(__s);
+      v3 = *(v0 + 56);
+      v4 = *(v0 + 48);
+      v25 = *(v0 + 24);
+      v26 = *(v0 + 16);
+      v5 = strlen(*(v0 + 8));
+      v6 = strlen(__s);
       __memcpy_chk();
-      v54[v8] = 0;
-      if (v9)
+      v32[v5] = 0;
+      if (v6)
       {
-        if (v8 + v9 - 2047 <= 0xFFFFFFFFFFFFF7FFLL)
+        if (v5 + v6 - 2047 <= 0xFFFFFFFFFFFFF7FFLL)
         {
-          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", 812, 34, 0, "path too long: %s/%s", v10, v11, v7);
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", 812, 34, 0, "path too long: %s/%s");
           goto LABEL_72;
         }
 
-        v54[v8] = 47;
-        memcpy(&v54[v8 + 1], __s, v9);
-        v12 = v9 + v8 + 1;
-        v54[v12] = 0;
+        v32[v5] = 47;
+        memcpy(&v32[v5 + 1], __s, v6);
+        v7 = v6 + v5 + 1;
+        v32[v7] = 0;
       }
 
       else
       {
-        v12 = v8;
+        v7 = v5;
       }
 
-      memset(&v51, 0, sizeof(v51));
-      if (lstat(v54, &v51) < 0)
+      memset(&v29, 0, sizeof(v29));
+      if (lstat(v32, &v29) < 0)
       {
-        v34 = *__error();
-        v37 = "lstat %s";
-        v38 = 822;
+        v15 = *__error();
+        v16 = "lstat %s";
+        v17 = 822;
         goto LABEL_69;
       }
 
-      if (statIsDataless(v51.st_flags))
+      if (statIsDataless(v29.st_flags))
       {
-        pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", 828, 34, v2, v13, v14, v15, v54);
+        pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", 828, 34, v2, v32);
         goto LABEL_61;
       }
 
-      v45 = v6;
-      v16 = v2;
-      v17 = opendir(v54);
-      if (!v17)
+      v23 = v4;
+      v8 = v2;
+      v9 = opendir(v32);
+      if (!v9)
       {
         break;
       }
 
-      v18 = v17;
-      memset(&v53, 0, 512);
-      v50 = 0;
-      if (!readdir_r(v17, &v53, &v50))
+      v10 = v9;
+      memset(&v31, 0, 512);
+      v28 = 0;
+      if (!readdir_r(v9, &v31, &v28))
       {
-        v46 = v12 + 1;
-        v21 = &v54[v12];
+        v24 = v7 + 1;
+        v11 = &v32[v7];
         while (2)
         {
-          if (!v50)
+          if (!v28)
           {
             goto LABEL_60;
           }
 
-          d_namlen = v53.d_namlen;
-          if (v53.d_namlen == 1 && v53.d_name[0] == 46 || v53.d_namlen == 2 && v53.d_name[0] == 46 && v53.d_name[1] == 46)
+          d_namlen = v31.d_namlen;
+          if (v31.d_namlen == 1 && v31.d_name[0] == 46 || v31.d_namlen == 2 && v31.d_name[0] == 46 && v31.d_name[1] == 46)
           {
             goto LABEL_57;
           }
 
-          v23 = v46 + v53.d_namlen;
-          if (v23 >= 0x800)
+          v13 = v24 + v31.d_namlen;
+          if (v13 >= 0x800)
           {
-            v39 = "path too long";
-            v40 = 865;
+            v18 = "path too long";
+            v19 = 865;
 LABEL_67:
-            v41 = 0;
+            v20 = 0;
             goto LABEL_71;
           }
 
-          *v21 = 47;
-          memcpy(v21 + 1, v53.d_name, d_namlen);
-          v54[v23] = 0;
-          memset(&v49, 0, sizeof(v49));
-          if (lstat(v54, &v49))
+          *v11 = 47;
+          memcpy(v11 + 1, v31.d_name, d_namlen);
+          v32[v13] = 0;
+          memset(&v27, 0, sizeof(v27));
+          if (lstat(v32, &v27))
           {
-            pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", 872, 34, "stat failed: %s", v24, v25, v26, v54);
+            pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", 872, 34, "stat failed: %s", v32);
             goto LABEL_57;
           }
 
-          if ((v49.st_mode & 0xF000) == 0x4000 && v49.st_dev != v51.st_dev)
+          if ((v27.st_mode & 0xF000) == 0x4000 && v27.st_dev != v29.st_dev)
           {
-            pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", 877, 34, "skip mounted dir: %s", v24, v25, v26, v54);
+            pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", 877, 34, "skip mounted dir: %s");
 LABEL_32:
-            if (v48)
+            if (v26)
             {
-              v48(v47, &v54[v8 + 1], 0);
+              v26(v25, &v32[v5 + 1], 0);
             }
 
             goto LABEL_57;
           }
 
-          if (statIsDataless(v49.st_flags))
+          if (statIsDataless(v27.st_flags))
           {
-            pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", 888, 34, "skip dataless: %s", v27, v19, v20, v54);
+            pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", 888, 34, "skip dataless: %s");
             goto LABEL_32;
           }
 
-          if (v53.d_type > 5u)
+          if (v31.d_type > 5u)
           {
-            if (v53.d_type > 9u)
+            if (v31.d_type > 9u)
             {
-              if (v53.d_type == 10)
+              if (v31.d_type == 10)
               {
                 AAEntryType = 76;
               }
 
               else
               {
-                if (v53.d_type != 12)
+                if (v31.d_type != 12)
                 {
                   goto LABEL_75;
                 }
@@ -4216,14 +3177,14 @@ LABEL_32:
               }
             }
 
-            else if (v53.d_type == 6)
+            else if (v31.d_type == 6)
             {
               AAEntryType = 66;
             }
 
             else
             {
-              if (v53.d_type != 8)
+              if (v31.d_type != 8)
               {
                 goto LABEL_75;
               }
@@ -4234,22 +3195,22 @@ LABEL_32:
 
           else
           {
-            if (v53.d_type <= 1u)
+            if (v31.d_type <= 1u)
             {
-              if (v53.d_type)
+              if (v31.d_type)
               {
                 AAEntryType = 80;
               }
 
               else
               {
-                AAEntryType = getAAEntryType(v49.st_mode);
+                AAEntryType = getAAEntryType(v27.st_mode);
                 if (!AAEntryType)
                 {
 LABEL_75:
-                  v44 = v54;
-                  v39 = "invalid entry type: %s";
-                  v40 = 910;
+                  v22 = v32;
+                  v18 = "invalid entry type: %s";
+                  v19 = 910;
                   goto LABEL_67;
                 }
               }
@@ -4257,9 +3218,9 @@ LABEL_75:
               goto LABEL_49;
             }
 
-            if (v53.d_type != 2)
+            if (v31.d_type != 2)
             {
-              if (v53.d_type != 4)
+              if (v31.d_type != 4)
               {
                 goto LABEL_75;
               }
@@ -4272,26 +3233,26 @@ LABEL_75:
           }
 
 LABEL_49:
-          if (!v45 && AAEntryType != 68)
+          if (!v23 && AAEntryType != 68)
           {
             goto LABEL_57;
           }
 
 LABEL_51:
-          if ((v45 != 1 || AAEntryType != 68) && (!v48 || v48(v47, &v54[v8 + 1], AAEntryType) >= 1))
+          if ((v23 != 1 || AAEntryType != 68) && (!v26 || v26(v25, &v32[v5 + 1], AAEntryType) >= 1))
           {
-            if (archiveTreeAppend(v5, v1, v53.d_name, d_namlen, -1, -1, AAEntryType))
+            if (archiveTreeAppend(v3, v1, v31.d_name, d_namlen, -1, -1, AAEntryType))
             {
-              v39 = "ArchiveTree append";
-              v40 = 920;
+              v18 = "ArchiveTree append";
+              v19 = 920;
               goto LABEL_67;
             }
 
-            *v21 = 0;
+            *v11 = 0;
           }
 
 LABEL_57:
-          if (readdir_r(v18, &v53, &v50))
+          if (readdir_r(v10, &v31, &v28))
           {
             break;
           }
@@ -4302,41 +3263,37 @@ LABEL_57:
 
       if (*__error() != 11)
       {
-        v41 = *__error();
-        v39 = "readdir_r";
-        v40 = 846;
+        v20 = *__error();
+        v18 = "readdir_r";
+        v19 = 846;
 LABEL_71:
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", v40, 34, v41, v39, v19, v20, v44);
-        closedir(v18);
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", v19, 34, v20, v18, v22);
+        closedir(v10);
         goto LABEL_72;
       }
 
-      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", 845, 34, "readdir on dataless directory: %s", v29, v30, v31, v54);
+      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", 845, 34, "readdir on dataless directory: %s", v32);
 LABEL_60:
-      closedir(v18);
-      v2 = v16;
+      closedir(v10);
+      v2 = v8;
 LABEL_61:
       if (++v1 >= *(v0 + 44))
       {
-        goto LABEL_74;
+        return v0;
       }
     }
 
-    v34 = *__error();
-    v37 = "opendir %s";
-    v38 = 835;
+    v15 = *__error();
+    v16 = "opendir %s";
+    v17 = 835;
 LABEL_69:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", v38, 34, v34, v37, v35, v36, v54);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDir", v17, 34, v15, v16, v32);
 LABEL_72:
-    v32 = "expand directory";
-    v33 = 961;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRangeThreadProc", 961, 34, 0, "expand directory");
 LABEL_73:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "expandDirRangeThreadProc", v33, 34, 0, v32, v3, v4, v44);
     *(v0 + 72) = 0;
   }
 
-LABEL_74:
-  v42 = *MEMORY[0x29EDCA608];
   return v0;
 }
 
@@ -4347,39 +3304,39 @@ uint64_t archiveTreeUpdateNodeDepth(uint64_t a1, unsigned int a2)
     return 0xFFFFFFFFLL;
   }
 
-  v4 = *(a1 + 8);
-  v5 = (v4 + 56 * a2);
-  if (v5[11] != -1)
+  v3 = *(a1 + 8);
+  v4 = (v3 + 56 * a2);
+  if (v4[11] != -1)
   {
     return 0;
   }
 
-  v8 = *v5;
-  if (*v5 == -1)
+  v7 = *v4;
+  if (*v4 == -1)
   {
-    v11 = v4 + 56 * a2;
+    v8 = v3 + 56 * a2;
     result = 0;
-    if (*(*(*(a1 + 16) + 8) + 16 * v5[3] + 8))
+    if (*(*(*(a1 + 16) + 8) + 16 * v4[3] + 8))
     {
-      *(v11 + 44) = 1;
+      *(v8 + 44) = 1;
     }
 
     else
     {
-      *(v11 + 44) = 0;
+      *(v8 + 44) = 0;
     }
   }
 
-  else if ((archiveTreeUpdateNodeDepth(a1, *v5) & 0x80000000) != 0)
+  else if ((archiveTreeUpdateNodeDepth(a1, *v4) & 0x80000000) != 0)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeUpdateNodeDepth", 198, 34, 0, "update parent depth", v9, v10, v2);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelArchive/ArchiveTree.c", "archiveTreeUpdateNodeDepth", 198, 34, 0, "update parent depth");
     return 0xFFFFFFFFLL;
   }
 
   else
   {
     result = 0;
-    *(*(a1 + 8) + 56 * a2 + 44) = *(*(a1 + 8) + 56 * v8 + 44) + 1;
+    *(*(a1 + 8) + 56 * a2 + 44) = *(*(a1 + 8) + 56 * v7 + 44) + 1;
   }
 
   return result;
@@ -4605,6 +3562,20 @@ ssize_t AAByteStreamPRead(AAByteStream s, void *buf, size_t nbyte, off_t offset)
   }
 }
 
+off_t AAByteStreamSeek(AAByteStream s, off_t offset, int whence)
+{
+  v3 = *(s + 6);
+  if (v3)
+  {
+    return v3(*s, offset, *&whence);
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
 void AAByteStreamCancel(AAByteStream s)
 {
   v1 = *(s + 7);
@@ -4688,7 +3659,7 @@ AAByteStream AAFileStreamOpenWithFD(int fd, int automatic_close)
   else
   {
     v7 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "AAFileStreamOpenWithFD", 402, 17, *v7, "malloc", v8, v9, v11);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "AAFileStreamOpenWithFD", 402, 17, *v7, "malloc");
     free(v4);
     free(v6);
     return 0;
@@ -4697,7 +3668,7 @@ AAByteStream AAFileStreamOpenWithFD(int fd, int automatic_close)
   return v4;
 }
 
-uint64_t aaFileStreamRead(int *a1, void *a2, size_t a3)
+ssize_t aaFileStreamRead(int *a1, void *a2, size_t a3)
 {
   if (a1[2])
   {
@@ -4707,13 +3678,13 @@ uint64_t aaFileStreamRead(int *a1, void *a2, size_t a3)
   v3 = read(*a1, a2, a3);
   if (v3 < 0)
   {
-    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamRead", 92, 17, "aaFileStreamRead err=%zd buf=%p n=%zu", v4, v5, v6, v3);
+    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamRead", 92, 17, "aaFileStreamRead err=%zd buf=%p n=%zu", v3, a2, a3);
   }
 
   return v3;
 }
 
-uint64_t aaFileStreamWrite(int *a1, const void *a2, size_t a3)
+ssize_t aaFileStreamWrite(int *a1, const void *a2, size_t a3)
 {
   if (a1[2])
   {
@@ -4723,13 +3694,13 @@ uint64_t aaFileStreamWrite(int *a1, const void *a2, size_t a3)
   v3 = write(*a1, a2, a3);
   if (v3 < 0)
   {
-    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamWrite", 104, 17, "aaFileStreamWrite err=%zd buf=%p n=%zu", v4, v5, v6, v3);
+    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamWrite", 104, 17, "aaFileStreamWrite err=%zd buf=%p n=%zu", v3, a2, a3);
   }
 
   return v3;
 }
 
-uint64_t aaFileStreamPRead(int *a1, void *a2, size_t a3, off_t a4)
+ssize_t aaFileStreamPRead(int *a1, void *a2, size_t a3, off_t a4)
 {
   if (a1[2])
   {
@@ -4739,13 +3710,13 @@ uint64_t aaFileStreamPRead(int *a1, void *a2, size_t a3, off_t a4)
   v4 = pread(*a1, a2, a3, a4);
   if (v4 < 0)
   {
-    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamPRead", 116, 17, "aaFileStreamPRead err=%zd buf=%p n=%zu off=%llu", v5, v6, v7, v4);
+    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamPRead", 116, 17, "aaFileStreamPRead err=%zd buf=%p n=%zu off=%llu", v4, a2, a3, a4);
   }
 
   return v4;
 }
 
-uint64_t aaFileStreamPWrite(int *a1, const void *a2, size_t a3, off_t a4)
+ssize_t aaFileStreamPWrite(int *a1, const void *a2, size_t a3, off_t a4)
 {
   if (a1[2])
   {
@@ -4755,7 +3726,7 @@ uint64_t aaFileStreamPWrite(int *a1, const void *a2, size_t a3, off_t a4)
   v4 = pwrite(*a1, a2, a3, a4);
   if (v4 < 0)
   {
-    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamPWrite", 128, 17, "aaFileStreamPWrite err=%zd buf=%p n=%zu off=%llu", v5, v6, v7, v4);
+    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamPWrite", 128, 17, "aaFileStreamPWrite err=%zd buf=%p n=%zu off=%llu", v4, a2, a3, a4);
   }
 
   return v4;
@@ -4797,8 +3768,8 @@ uint64_t aaFileStreamFlush(int *a1)
   result = fsync(*a1);
   if (result)
   {
-    v3 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamFlush", 151, 17, *v3, "fsync", v4, v5, v1);
+    v4 = __error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamFlush", 151, 17, *v4, "fsync", v1, v2);
     return 0xFFFFFFFFLL;
   }
 
@@ -4807,12 +3778,11 @@ uint64_t aaFileStreamFlush(int *a1)
 
 AAByteStream AAFileStreamOpenWithPath(const char *path, int open_flags, mode_t open_mode)
 {
-  v3 = path;
   v4 = open(path, open_flags, open_mode);
   if (v4 < 0)
   {
     v7 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "AAFileStreamOpenWithPath", 428, 17, *v7, "open: %s", v8, v9, v3);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "AAFileStreamOpenWithPath", 428, 17, *v7, "open: %s", path);
   }
 
   else
@@ -4837,11 +3807,11 @@ void *AATempFileStreamOpenWithDirectory(const char *a1)
   v4 = v3;
   if (!v2 || !v3)
   {
-    v9 = *__error();
-    v7 = "malloc";
-    v8 = 447;
+    v7 = *__error();
+    v5 = "malloc";
+    v6 = 447;
 LABEL_16:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "AATempFileStreamOpenWithDirectory", v8, 17, v9, v7, v5, v6, v12);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "AATempFileStreamOpenWithDirectory", v6, 17, v7, v5, v10);
     free(v2);
     free(v4);
     return 0;
@@ -4850,40 +3820,40 @@ LABEL_16:
   memset_s(v3, 0x40CuLL, 0, 0x40CuLL);
   if (a1)
   {
-    memset(&v13, 0, sizeof(v13));
-    if (!realpath_DARWIN_EXTSN(a1, v4 + 12) || stat(v4 + 12, &v13) || (v13.st_mode & 0xF000) != 0x4000)
+    memset(&v11, 0, sizeof(v11));
+    if (!realpath_DARWIN_EXTSN(a1, v4 + 12) || stat(v4 + 12, &v11) || (v11.st_mode & 0xF000) != 0x4000)
     {
-      v12 = a1;
-      v7 = "invalid temp_dir: %s";
-      v8 = 457;
+      v10 = a1;
+      v5 = "invalid temp_dir: %s";
+      v6 = 457;
 LABEL_15:
-      v9 = 0;
+      v7 = 0;
       goto LABEL_16;
     }
   }
 
   else if ((getTempDir(v4 + 12, 0x400uLL) & 0x80000000) != 0)
   {
-    v7 = "get temp dir";
-    v8 = 462;
+    v5 = "get temp dir";
+    v6 = 462;
     goto LABEL_15;
   }
 
   if (__strlcat_chk() >= 0x400)
   {
-    v12 = v4 + 12;
-    v7 = "Invalid temp dir path: %s";
-    v8 = 464;
+    v10 = v4 + 12;
+    v5 = "Invalid temp dir path: %s";
+    v6 = 464;
     goto LABEL_15;
   }
 
-  v10 = mkostemp(v4 + 12, 0x1000000);
-  *v4 = v10;
-  if (v10 < 0)
+  v8 = mkostemp(v4 + 12, 0x1000000);
+  *v4 = v8;
+  if (v8 < 0)
   {
-    v9 = *__error();
-    v7 = "mkostemp";
-    v8 = 466;
+    v7 = *__error();
+    v5 = "mkostemp";
+    v6 = 466;
     goto LABEL_16;
   }
 
@@ -4945,7 +3915,7 @@ void *OSHA1StreamCreate(uint64_t a1, uint64_t a2, uint64_t a3)
   else
   {
     v8 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OSHA1StreamCreate", 76, 29, *v8, "malloc", v9, v10, v12);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OSHA1StreamCreate", 76, 29, *v8, "malloc");
   }
 
   return v7;
@@ -5008,7 +3978,7 @@ uint64_t *IMagicStreamCreate(uint64_t (*a1)(uint64_t, uint64_t *, uint64_t), uin
     v10 = a1(a3, v9 + 6, a4);
     if (v10 < 0)
     {
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IMagicStreamCreate", 138, 29, 0, "reading magic", v11, v12, v17);
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IMagicStreamCreate", 138, 29, 0, "reading magic");
       free(v9);
       return 0;
     }
@@ -5025,14 +3995,14 @@ uint64_t *IMagicStreamCreate(uint64_t (*a1)(uint64_t, uint64_t *, uint64_t), uin
 
   else
   {
-    v13 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IMagicStreamCreate", 133, 29, *v13, "malloc", v14, v15, v17);
+    v11 = __error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IMagicStreamCreate", 133, 29, *v11, "malloc");
   }
 
   return v9;
 }
 
-size_t IMagicStreamRead(uint64_t a1, char *__dst, size_t a3)
+uint64_t IMagicStreamRead(uint64_t a1, char *__dst, size_t a3)
 {
   if (!a1 || *(a1 + 16))
   {
@@ -5094,7 +4064,7 @@ uint64_t IMagicStreamAbort(uint64_t result)
   return result;
 }
 
-uint64_t IFileStreamCreateWithFilename(const char *a1, unint64_t a2, uint64_t a3)
+void *IFileStreamCreateWithFilename(const char *a1, unint64_t a2, uint64_t a3)
 {
   v6 = malloc(0x70uLL);
   v7 = v6;
@@ -5119,20 +4089,20 @@ uint64_t IFileStreamCreateWithFilename(const char *a1, unint64_t a2, uint64_t a3
     *(v7 + 24) = v9;
     if (pthread_mutex_init(v8, 0))
     {
-      v12 = "pthread_mutex_init";
-      v13 = 293;
+      v10 = "pthread_mutex_init";
+      v11 = 293;
     }
 
     else
     {
-      v16 = open(a1, 0);
-      *v7 = v16;
-      if (v16 < 0)
+      v14 = open(a1, 0);
+      *v7 = v14;
+      if (v14 < 0)
       {
-        v14 = *__error();
-        v17 = a1;
-        v12 = "%s";
-        v13 = 297;
+        v12 = *__error();
+        v15 = a1;
+        v10 = "%s";
+        v11 = 297;
         goto LABEL_9;
       }
 
@@ -5142,22 +4112,22 @@ uint64_t IFileStreamCreateWithFilename(const char *a1, unint64_t a2, uint64_t a3
         return v7;
       }
 
-      v12 = "seek error";
-      v13 = 303;
+      v10 = "seek error";
+      v11 = 303;
     }
 
-    v14 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v14 = *__error();
-    v12 = "malloc";
-    v13 = 282;
+    v12 = *__error();
+    v10 = "malloc";
+    v11 = 282;
   }
 
 LABEL_9:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IFileStreamCreateWithFilename", v13, 29, v14, v12, v10, v11, v17);
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IFileStreamCreateWithFilename", v11, 29, v12, v10, v15);
   IFileStreamDestroy(v7);
   return 0;
 }
@@ -5190,74 +4160,78 @@ uint64_t seekTo(uint64_t a1, unint64_t a2)
     return 0;
   }
 
-  v6 = lseek(*a1, a2, 0);
-  if ((v6 & 0x8000000000000000) == 0)
+  v22 = v5;
+  v23 = v4;
+  v24 = v3;
+  v25 = v2;
+  v13 = lseek(*a1, a2, 0);
+  if ((v13 & 0x8000000000000000) == 0)
   {
-    v9 = v6;
-    *(a1 + 32) = v6;
+    v14 = v13;
+    *(a1 + 32) = v13;
 LABEL_5:
-    if (v9 == a2)
+    if (v14 == a2)
     {
       return 0;
     }
 
-    v10 = "pos not reached";
-    v11 = 261;
+    v15 = "pos not reached";
+    v16 = 261;
     goto LABEL_11;
   }
 
   if (*__error() != 32)
   {
-    v12 = *__error();
-    v10 = "lseek failed";
-    v11 = 258;
+    v17 = *__error();
+    v15 = "lseek failed";
+    v16 = 258;
     goto LABEL_13;
   }
 
-  v9 = *(a1 + 32);
-  if (v9 <= a2)
+  v14 = *(a1 + 32);
+  if (v14 <= a2)
   {
-    v13 = valloc(0x4000uLL);
-    if (!v13)
+    v18 = valloc(0x4000uLL);
+    if (!v18)
     {
-      v12 = *__error();
-      v10 = "malloc";
-      v11 = 244;
+      v17 = *__error();
+      v15 = "malloc";
+      v16 = 244;
       goto LABEL_13;
     }
 
-    for (i = v13; v9 < a2; *(a1 + 32) = v9)
+    for (i = v18; v14 < a2; *(a1 + 32) = v14)
     {
-      if (v9 + 0x4000 <= a2)
+      if (v14 + 0x4000 <= a2)
       {
-        v15 = 0x4000;
+        v20 = 0x4000;
       }
 
       else
       {
-        v15 = a2 - v9;
+        v20 = a2 - v14;
       }
 
-      v16 = read(*a1, i, v15);
-      v9 = *(a1 + 32);
-      if (v16 < 1)
+      v21 = read(*a1, i, v20);
+      v14 = *(a1 + 32);
+      if (v21 < 1)
       {
         break;
       }
 
-      v9 += v16;
+      v14 += v21;
     }
 
     free(i);
     goto LABEL_5;
   }
 
-  v10 = "lseek failed and pos < s->pos";
-  v11 = 240;
+  v15 = "lseek failed and pos < s->pos";
+  v16 = 240;
 LABEL_11:
-  v12 = 0;
+  v17 = 0;
 LABEL_13:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "seekTo", v11, 29, v12, v10, v7, v8, v2);
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "seekTo", v16, 29, v17, v15, v7, v6, v22, v23, v24, v25, v8, v9);
   return 0xFFFFFFFFLL;
 }
 
@@ -5280,7 +4254,7 @@ void IFileStreamDestroy(char *a1)
   }
 }
 
-unint64_t IFileStreamRead(uint64_t a1, char *a2, size_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t IFileStreamRead(uint64_t a1, char *a2, size_t a3)
 {
   if (*(a1 + 8))
   {
@@ -5292,104 +4266,101 @@ unint64_t IFileStreamRead(uint64_t a1, char *a2, size_t a3, uint64_t a4, uint64_
     return 0;
   }
 
-  v11 = *(a1 + 32);
-  if (v11 < *(a1 + 16))
+  v6 = *(a1 + 32);
+  if (v6 < *(a1 + 16))
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IFileStreamRead", 358, 29, 0, "pos out of range", a7, a8, v21);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IFileStreamRead", 358, 29, 0, "pos out of range");
     return -1;
   }
 
-  if (~v11 < a3)
+  if (~v6 < a3)
   {
-    v12 = ~v11;
+    v7 = ~v6;
   }
 
   else
   {
-    v12 = a3;
+    v7 = a3;
   }
 
-  v13 = a3 + v11;
-  if (__CFADD__(a3, v11))
+  v8 = a3 + v6;
+  if (__CFADD__(a3, v6))
   {
-    v13 = -1;
+    v8 = -1;
   }
 
-  v14 = *(a1 + 24);
-  if (v13 <= v14)
+  v9 = *(a1 + 24);
+  if (v8 <= v9)
   {
-    v15 = v12;
+    v10 = v7;
   }
 
   else
   {
-    v15 = v14 - v11;
+    v10 = v9 - v6;
   }
 
-  if (v15)
+  if (v10)
   {
-    v8 = 0;
+    v3 = 0;
     while (1)
     {
-      v17 = read(*a1, a2, v15);
-      if (v17 < 0)
+      v12 = read(*a1, a2, v10);
+      if (v12 < 0)
       {
         break;
       }
 
-      if (v17)
+      if (v12)
       {
-        a2 += v17;
-        v8 += v17;
-        v15 -= v17;
-        if (v15)
+        a2 += v12;
+        v3 += v12;
+        v10 -= v12;
+        if (v10)
         {
           continue;
         }
       }
 
-      v11 = *(a1 + 32);
+      v6 = *(a1 + 32);
       goto LABEL_24;
     }
 
-    v18 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IFileStreamRead", 374, 29, *v18, "read", v19, v20, v21);
-    *(a1 + 32) += v8;
-    atomic_fetch_add((a1 + 104), v8);
+    v13 = __error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IFileStreamRead", 374, 29, *v13, "read");
+    *(a1 + 32) += v3;
+    atomic_fetch_add((a1 + 104), v3);
     return -1;
   }
 
-  v8 = 0;
+  v3 = 0;
 LABEL_24:
-  *(a1 + 32) = v11 + v8;
-  atomic_fetch_add((a1 + 104), v8);
-  return v8;
+  *(a1 + 32) = v6 + v3;
+  atomic_fetch_add((a1 + 104), v3);
+  return v3;
 }
 
-uint64_t IFileStreamSetPos(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t IFileStreamSetPos(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 8))
   {
     return -1;
   }
 
-  v11 = *(a1 + 16);
-  v12 = __CFADD__(v11, a2);
-  v13 = v11 + a2;
-  if (v12 || v13 > *(a1 + 24))
+  v11 = v2;
+  v8 = *(a1 + 16);
+  v9 = __CFADD__(v8, a2);
+  v10 = v8 + a2;
+  if (v9 || v10 > *(a1 + 24))
   {
-    v14 = "invalid pos";
-    v15 = 435;
-LABEL_6:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IFileStreamSetPos", v15, 29, 0, v14, a7, a8, v8);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IFileStreamSetPos", 435, 29, 0, "invalid pos", v3, v11, v4, v5);
     return -1;
   }
 
-  if ((seekTo(a1, v13) & 0x80000000) != 0)
+  if ((seekTo(a1, v10) & 0x80000000) != 0)
   {
-    v14 = "changing pos";
-    v15 = 436;
-    goto LABEL_6;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IFileStreamSetPos", 436, 29, 0, "changing pos", v3, v11, v4, v5);
+    return -1;
   }
 
   return *(a1 + 32) - *(a1 + 16);
@@ -5423,7 +4394,7 @@ int *OFileStreamCreateWithFilename(const char *a1, uint64_t a2)
     if (v6 < 0)
     {
       v7 = __error();
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OFileStreamCreateWithFilename", 490, 29, *v7, "%s", v8, v9, a1);
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OFileStreamCreateWithFilename", 490, 29, *v7, "%s", a1);
       free(v5);
       return 0;
     }
@@ -5431,8 +4402,8 @@ int *OFileStreamCreateWithFilename(const char *a1, uint64_t a2)
 
   else
   {
-    v10 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OFileStreamCreateWithFilename", 484, 29, *v10, "malloc", v11, v12, v14);
+    v8 = __error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OFileStreamCreateWithFilename", 484, 29, *v8, "malloc");
   }
 
   return v5;
@@ -5454,7 +4425,7 @@ void *OFileStreamCreateWithFD(int a1, uint64_t a2)
   else
   {
     v6 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OFileStreamCreateWithFD", 497, 29, *v6, "malloc", v7, v8, v10);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OFileStreamCreateWithFD", 497, 29, *v6, "malloc");
   }
 
   return v5;
@@ -5527,7 +4498,7 @@ uint64_t OFileStreamWrite(uint64_t a1, char *__buf, unint64_t a3)
     }
 
     v11 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OFileStreamWrite", 538, 29, *v11, "write", v12, v13, v14);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OFileStreamWrite", 538, 29, *v11, "write");
     return -1;
   }
 
@@ -5547,8 +4518,8 @@ off_t OFileStreamSetPos(int *a1, off_t a2)
   result = lseek(*a1, a2, 0);
   if (result < 0)
   {
-    v4 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OFileStreamSetPos", 558, 29, *v4, "lseek", v5, v6, v2);
+    v5 = __error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OFileStreamSetPos", 558, 29, *v5, "lseek", v2, v3);
     return -1;
   }
 
@@ -5565,8 +4536,8 @@ off_t OFileStreamGetPos(int *a1)
   result = lseek(*a1, 0, 1);
   if (result < 0)
   {
-    v3 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OFileStreamGetPos", 568, 29, *v3, "lseek", v4, v5, v1);
+    v4 = __error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OFileStreamGetPos", 568, 29, *v4, "lseek", v1, v2);
     return -1;
   }
 
@@ -5583,8 +4554,9 @@ uint64_t OFileStreamAbort(uint64_t result)
   return result;
 }
 
-int *OArchiveFileStreamCreate(const char *a1, unint64_t a2, unsigned int a3, int a4, int a5)
+int *OArchiveFileStreamCreate(const char *a1, unint64_t a2, unsigned int a3, int a4, uint64_t a5)
 {
+  v5 = a5;
   v10 = malloc(0x60uLL);
   v11 = v10;
   if (v10)
@@ -5631,44 +4603,44 @@ int *OArchiveFileStreamCreate(const char *a1, unint64_t a2, unsigned int a3, int
       {
         v14 = 640;
 LABEL_31:
-        v38 = __error();
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamCreate", v14, 29, *v38, "%s", v39, v40, a1);
-        ParallelCompressionAFSCStreamClose(0, v41, v42, v43, v44, v45, v46, v47);
+        v21 = __error();
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamCreate", v14, 29, *v21, "%s", a1);
+        ParallelCompressionAFSCStreamClose(0);
         goto LABEL_32;
       }
     }
 
-    v18 = v13;
+    v16 = v13;
     if ((a3 & 8) != 0 && fcntl(v13, 48, 1))
     {
-      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamCreate", 656, 29, "Warning: F_NOCACHE failed: %s\n", v19, v20, v21, a1);
+      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamCreate", 656, 29, "Warning: F_NOCACHE failed: %s\n", a1);
     }
 
-    if ((a3 & 2) != 0 && fcntl(v18, 68, 1) == -1)
+    if ((a3 & 2) != 0 && fcntl(v16, 68, 1) == -1)
     {
-      v22 = __error();
-      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamCreate", 665, 29, "Warning: F_SETSTATICCONTENT failed with error %d: %s\n", v23, v24, v25, *v22);
+      v17 = __error();
+      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamCreate", 665, 29, "Warning: F_SETSTATICCONTENT failed with error %d: %s\n", *v17, a1);
     }
 
-    if (a2 && (a3 & 4) != 0 && a5 != -1)
+    if (a2 && (a3 & 4) != 0 && v5 != -1)
     {
       if ((a3 & 0x80) != 0)
       {
-        v26 = 6;
+        v18 = 6;
       }
 
       else
       {
-        v26 = 4;
+        v18 = 4;
       }
 
-      v27 = ParallelCompressionAFSCStreamOpen(v18, a2, a5, v26);
-      *(v11 + 3) = v27;
-      if (!v27)
+      v19 = ParallelCompressionAFSCStreamOpen(v16, a2, v5, v18);
+      *(v11 + 3) = v19;
+      if (!v19)
       {
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamCreate", 677, 29, 0, "ParallelCompressionAFSCStreamOpen failed: %s", v28, v29, a1);
-        ParallelCompressionAFSCStreamClose(0, v30, v31, v32, v33, v34, v35, v36);
-        close(v18);
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamCreate", 677, 29, 0, "ParallelCompressionAFSCStreamOpen failed: %s", a1);
+        ParallelCompressionAFSCStreamClose(0);
+        close(v16);
 LABEL_32:
         free(v11);
         return 0;
@@ -5677,32 +4649,32 @@ LABEL_32:
 
     else if ((a3 & 0x40) != 0)
     {
-      v37 = fpathconf(v18, 27);
-      if (v37 >= 1)
+      v20 = fpathconf(v16, 27);
+      if (v20 >= 1)
       {
         v11[10] = 1;
-        if (v37 == 4096)
+        if (v20 == 4096)
         {
           v11[18] = 4096;
         }
 
         else
         {
-          v49 = 0x10000;
-          if (v37 < 0x10000)
+          v23 = 0x10000;
+          if (v20 < 0x10000)
           {
-            v49 = v37;
+            v23 = v20;
           }
 
-          v50 = 1024;
+          v24 = 1024;
           do
           {
-            v51 = v50;
-            v50 *= 2;
+            v25 = v24;
+            v24 *= 2;
           }
 
-          while (v51 < v49);
-          v11[18] = v51;
+          while (v25 < v23);
+          v11[18] = v25;
         }
       }
     }
@@ -5711,137 +4683,131 @@ LABEL_32:
   else
   {
     v15 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamCreate", 617, 29, *v15, "malloc", v16, v17, v52);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamCreate", 617, 29, *v15, "malloc");
   }
 
   return v11;
 }
 
-uint64_t OArchiveFileStreamDestroyEx(unsigned int *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t OArchiveFileStreamDestroyEx(unsigned int *a1, int a2, void *a3, void *a4)
 {
   if (!a1)
   {
     return 0xFFFFFFFFLL;
   }
 
-  v10 = a2;
   if (*(a1 + 2))
   {
-    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamDestroyEx", 863, 29, "OArchiveFileStream didn't receive enough data before being destroyed\n", a6, a7, a8, v27);
+    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamDestroyEx", 863, 29, "OArchiveFileStream didn't receive enough data before being destroyed\n");
   }
 
-  ParallelCompressionAFSCStreamClose(*(a1 + 3), a2, a3, a4, a5, a6, a7, a8);
+  ParallelCompressionAFSCStreamClose(*(a1 + 3));
   if ((*a1 & 0x80000000) != 0)
   {
-    v13 = 0;
-    v19 = 0xFFFFFFFFLL;
+    v9 = 0;
+    v12 = 0xFFFFFFFFLL;
   }
 
   else
   {
     if (*(a1 + 7))
     {
-      v12 = 0;
-      v13 = 0;
-      v14 = 0;
-      v15 = *(a1 + 8);
-      while (fcntl(*a1, 99, v15 + v12) != -1)
+      v8 = 0;
+      v9 = 0;
+      v10 = 0;
+      v11 = *(a1 + 8);
+      while (fcntl(*a1, 99, v11 + v8) != -1)
       {
-        v15 = *(a1 + 8);
-        v13 += *(v15 + v12 + 16);
-        ++v14;
-        v12 += 24;
-        if (v14 >= *(a1 + 7))
+        v11 = *(a1 + 8);
+        v9 += *(v11 + v8 + 16);
+        ++v10;
+        v8 += 24;
+        if (v10 >= *(a1 + 7))
         {
           goto LABEL_14;
         }
       }
 
-      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamDestroyEx", 875, 29, "F_PUNCHHOLE failed", v16, v17, v18, v27);
+      pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamDestroyEx", 875, 29, "F_PUNCHHOLE failed");
     }
 
     else
     {
-      v13 = 0;
+      v9 = 0;
     }
 
 LABEL_14:
-    if (a1[1])
+    if (a1[1] && fcntl(*a1, 51, 0) == -1)
     {
-      v27 = 0;
-      if (fcntl(*a1, 51) == -1)
-      {
-        v20 = __error();
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamDestroyEx", 883, 29, *v20, "Final FULLSYNC", v21, v22, 0);
-      }
+      v13 = __error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamDestroyEx", 883, 29, *v13, "Final FULLSYNC");
     }
 
-    v19 = *a1;
-    if (!v10)
+    v12 = *a1;
+    if (!a2)
     {
       if (close(*a1))
       {
-        v23 = __error();
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamDestroyEx", 890, 29, *v23, "close", v24, v25, v27);
+        v14 = __error();
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamDestroyEx", 890, 29, *v14, "close");
       }
 
-      v19 = 0xFFFFFFFFLL;
+      v12 = 0xFFFFFFFFLL;
       *a1 = -1;
     }
   }
 
   if (a3)
   {
-    *a3 = *(a1 + 4) - v13;
+    *a3 = *(a1 + 4) - v9;
   }
 
   if (a4)
   {
-    *a4 = v13;
+    *a4 = v9;
   }
 
   free(*(a1 + 8));
   free(a1);
-  return v19;
+  return v12;
 }
 
-uint64_t OArchiveFileStreamWrite(uint64_t a1, char *__buf, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t OArchiveFileStreamWrite(uint64_t a1, char *__buf, unint64_t a3)
 {
   if (!a1 || *(a1 + 8))
   {
     return -1;
   }
 
-  v11 = a3;
+  v6 = a3;
   if (a3)
   {
-    v9 = 0;
-    v13 = *(a1 + 16);
-    while (v13)
+    v4 = 0;
+    v8 = *(a1 + 16);
+    while (v8)
     {
-      if (v13 >= v11)
+      if (v8 >= v6)
       {
-        v13 = v11;
+        v8 = v6;
       }
 
-      if (v13 >= 0x40000000)
+      if (v8 >= 0x40000000)
       {
-        v14 = 0x40000000;
+        v9 = 0x40000000;
       }
 
       else
       {
-        v14 = v13;
+        v9 = v8;
       }
 
-      v15 = *(a1 + 24);
-      if (v15)
+      v10 = *(a1 + 24);
+      if (v10)
       {
-        v16 = ParallelCompressionAFSCStreamWrite(v15, __buf, v14, a4, a5, a6, a7, a8);
-        v17 = v16;
-        if (v16 < 0)
+        v11 = ParallelCompressionAFSCStreamWrite(v10, __buf, v9);
+        if ((v11 & 0x8000000000000000) != 0)
         {
-          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamWrite", 955, 29, 0, "ParallelCompressionAFSCStreamWrite failed with status %d", a7, a8, v16);
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamWrite", 955, 29, 0, "ParallelCompressionAFSCStreamWrite failed with status %d");
           return -1;
         }
       }
@@ -5853,43 +4819,43 @@ uint64_t OArchiveFileStreamWrite(uint64_t a1, char *__buf, unint64_t a3, uint64_
           return -1;
         }
 
-        v17 = write(*a1, __buf, v14);
-        if (v17 < 0)
+        v11 = write(*a1, __buf, v9);
+        if ((v11 & 0x8000000000000000) != 0)
         {
-          v42 = *__error();
-          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamWrite", 960, 29, v42, "write", v43, v44, v45);
+          v36 = *__error();
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamWrite", 960, 29, v36, "write");
           return -1;
         }
       }
 
       if (*(a1 + 40))
       {
-        v18 = 0;
-        LODWORD(v19) = *(a1 + 72);
-        v20 = *(a1 + 76);
+        v12 = 0;
+        LODWORD(v13) = *(a1 + 72);
+        v14 = *(a1 + 76);
         do
         {
-          v21 = (v19 - v20);
-          if (v18 + v21 <= v14)
+          v15 = (v13 - v14);
+          if (v12 + v15 <= v9)
           {
-            v22 = v21;
+            v16 = v15;
           }
 
           else
           {
-            v22 = (v14 - v18);
+            v16 = (v9 - v12);
           }
 
-          v23 = &__buf[v18];
-          v24 = &__buf[v18 + v22];
-          if ((&__buf[v18] & 7) != 0 && v22)
+          v17 = &__buf[v12];
+          v18 = &__buf[v12 + v16];
+          if ((&__buf[v12] & 7) != 0 && v16)
           {
-            v25 = &__buf[v18 + 1];
-            while (!*v23)
+            v19 = &__buf[v12 + 1];
+            while (!*v17)
             {
-              if (++v23 < v24)
+              if (++v17 < v18)
               {
-                if ((v25++ & 7))
+                if ((v19++ & 7))
                 {
                   continue;
                 }
@@ -5899,113 +4865,113 @@ uint64_t OArchiveFileStreamWrite(uint64_t a1, char *__buf, unint64_t a3, uint64_
             }
 
 LABEL_35:
-            v28 = 1;
+            v22 = 1;
           }
 
           else
           {
 LABEL_29:
-            while (v23 + 8 <= v24)
+            while (v17 + 8 <= v18)
             {
-              v27 = *v23;
-              v23 += 8;
-              if (v27)
+              v21 = *v17;
+              v17 += 8;
+              if (v21)
               {
                 goto LABEL_35;
               }
             }
 
-            while (v23 < v24)
+            while (v17 < v18)
             {
-              if (*v23)
+              if (*v17)
               {
                 goto LABEL_35;
               }
 
-              ++v23;
+              ++v17;
             }
 
-            v28 = 0;
+            v22 = 0;
           }
 
-          v29 = *(a1 + 88) | v28;
-          *(a1 + 88) = v29;
-          v20 += v22;
-          *(a1 + 76) = v20;
-          if (v20 == v19)
+          v23 = *(a1 + 88) | v22;
+          *(a1 + 88) = v23;
+          v14 += v16;
+          *(a1 + 76) = v14;
+          if (v14 == v13)
           {
-            if (!v29)
+            if (!v23)
             {
-              v30 = *(a1 + 80);
-              v31 = *(a1 + 56);
-              if (v31 && (v32 = *(a1 + 64) + 24 * v31, v33 = *(v32 - 8), v33 + *(v32 - 16) == v30))
+              v24 = *(a1 + 80);
+              v25 = *(a1 + 56);
+              if (v25 && (v26 = *(a1 + 64) + 24 * v25, v27 = *(v26 - 8), v27 + *(v26 - 16) == v24))
               {
-                *(v32 - 8) = v33 + v19;
+                *(v26 - 8) = v27 + v13;
               }
 
               else
               {
-                v34 = *(a1 + 48);
-                if (v31 >= v34)
+                v28 = *(a1 + 48);
+                if (v25 >= v28)
                 {
-                  v35 = v34 + (v34 >> 1);
-                  v36 = v34 == 0;
-                  v37 = 32;
-                  if (!v36)
+                  v29 = v28 + (v28 >> 1);
+                  v30 = v28 == 0;
+                  v31 = 32;
+                  if (!v30)
                   {
-                    v37 = v35;
+                    v31 = v29;
                   }
 
-                  *(a1 + 48) = v37;
-                  v38 = reallocf(*(a1 + 64), 24 * v37);
-                  *(a1 + 64) = v38;
-                  if (!v38)
+                  *(a1 + 48) = v31;
+                  v32 = reallocf(*(a1 + 64), 24 * v31);
+                  *(a1 + 64) = v32;
+                  if (!v32)
                   {
                     *(a1 + 48) = 0;
                     *(a1 + 56) = 0;
-                    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamWrite", 994, 29, "malloc holes failed", a6, a7, a8, v45);
+                    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OArchiveFileStreamWrite", 994, 29, "malloc holes failed");
                   }
                 }
 
-                v39 = *(a1 + 56);
-                if (v39 >= *(a1 + 48))
+                v33 = *(a1 + 56);
+                if (v33 >= *(a1 + 48))
                 {
-                  LODWORD(v19) = *(a1 + 72);
+                  LODWORD(v13) = *(a1 + 72);
                 }
 
                 else
                 {
-                  v40 = *(a1 + 64);
-                  *(a1 + 56) = v39 + 1;
-                  v41 = (v40 + 24 * v39);
-                  *v41 = 0;
-                  v41[1] = 0;
-                  v41[1] = v30;
-                  v41[2] = 0;
-                  v19 = *(a1 + 72);
-                  v41[2] = v19;
+                  v34 = *(a1 + 64);
+                  *(a1 + 56) = v33 + 1;
+                  v35 = (v34 + 24 * v33);
+                  *v35 = 0;
+                  v35[1] = 0;
+                  v35[1] = v24;
+                  v35[2] = 0;
+                  v13 = *(a1 + 72);
+                  v35[2] = v13;
                 }
               }
             }
 
-            v20 = 0;
-            *(a1 + 80) += v19;
+            v14 = 0;
+            *(a1 + 80) += v13;
             *(a1 + 76) = 0;
             *(a1 + 88) = 0;
           }
 
-          v18 += v22;
+          v12 += v16;
         }
 
-        while (v18 < v14);
+        while (v12 < v9);
       }
 
-      __buf += v17;
-      v9 += v17;
-      v13 = *(a1 + 16) - v17;
-      *(a1 + 16) = v13;
-      v11 -= v17;
-      if (!v11)
+      __buf += v11;
+      v4 += v11;
+      v8 = *(a1 + 16) - v11;
+      *(a1 + 16) = v8;
+      v6 -= v11;
+      if (!v6)
       {
         break;
       }
@@ -6014,11 +4980,11 @@ LABEL_29:
 
   else
   {
-    v9 = 0;
+    v4 = 0;
   }
 
-  *(a1 + 32) += v9;
-  return v9;
+  *(a1 + 32) += v4;
+  return v4;
 }
 
 void *OMemStreamCreate(uint64_t a1, uint64_t a2)
@@ -6036,13 +5002,13 @@ void *OMemStreamCreate(uint64_t a1, uint64_t a2)
   else
   {
     v6 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OMemStreamCreate", 1050, 29, *v6, "malloc", v7, v8, v10);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OMemStreamCreate", 1050, 29, *v6, "malloc");
   }
 
   return v5;
 }
 
-uint64_t OMemStreamWrite(uint64_t a1, const void *a2, size_t a3)
+size_t OMemStreamWrite(uint64_t a1, const void *a2, size_t a3)
 {
   if (!a1 || *(a1 + 8))
   {
@@ -6082,7 +5048,7 @@ void *IMemStreamCreate(uint64_t a1, uint64_t a2)
   else
   {
     v6 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IMemStreamCreate", 1112, 29, *v6, "malloc", v7, v8, v10);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "IMemStreamCreate", 1112, 29, *v6, "malloc");
   }
 
   return v5;
@@ -6123,7 +5089,7 @@ uint64_t IMemStreamAbort(uint64_t result)
   return result;
 }
 
-char *OBufferedStreamCreate(uint64_t a1, uint64_t a2, uint64_t a3, size_t a4)
+void ***OBufferedStreamCreate(void **a1, void **a2, void **a3, size_t a4)
 {
   v8 = malloc(0x28uLL);
   v9 = v8;
@@ -6135,40 +5101,40 @@ char *OBufferedStreamCreate(uint64_t a1, uint64_t a2, uint64_t a3, size_t a4)
     *v9 = v10;
     if (v10)
     {
-      *(v9 + 1) = a1;
-      *(v9 + 2) = a2;
-      *(v9 + 3) = a3;
+      v9[1] = a1;
+      v9[2] = a2;
+      v9[3] = a3;
     }
 
     else
     {
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OBufferedStreamCreate", 1182, 29, 0, "creating internal buffer", v11, v12, v24);
-      OBufferedStreamDestroy(v9, v16, v17, v18, v19, v20, v21, v22);
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OBufferedStreamCreate", 1182, 29, 0, "creating internal buffer");
+      OBufferedStreamDestroy(v9);
       return 0;
     }
   }
 
   else
   {
-    v13 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OBufferedStreamCreate", 1176, 29, *v13, "malloc", v14, v15, v24);
+    v11 = __error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OBufferedStreamCreate", 1176, 29, *v11, "malloc");
   }
 
   return v9;
 }
 
-void OBufferedStreamDestroy(void ***a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void OBufferedStreamDestroy(void *a1)
 {
   if (a1)
   {
-    MemBufferFlushToOStream(*a1, 0xFFFFFFFFFFFFFFFFLL, a1[1], a1[3], a5, a6, a7, a8);
+    MemBufferFlushToOStream(*a1, 0xFFFFFFFFFFFFFFFFLL, a1[1], a1[3]);
     MemBufferDestroy(*a1);
 
     free(a1);
   }
 }
 
-uint64_t OBufferedStreamWrite(unint64_t **a1, char *a2, unint64_t a3)
+uint64_t OBufferedStreamWrite(void *a1, char *a2, unint64_t a3)
 {
   if (a1 && !*(a1 + 8))
   {
@@ -6184,7 +5150,7 @@ uint64_t OBufferedStreamWrite(unint64_t **a1, char *a2, unint64_t a3)
       FreeSize = MemBufferGetFreeSize(*a1);
       if (!FreeSize)
       {
-        if (MemBufferFlushToOStream(*a1, 0xFFFFFFFFFFFFFFFFLL, a1[1], a1[3], v9, v10, v11, v12) < 0)
+        if (MemBufferFlushToOStream(*a1, 0xFFFFFFFFFFFFFFFFLL, a1[1], a1[3]) < 0)
         {
           return -1;
         }
@@ -6192,22 +5158,22 @@ uint64_t OBufferedStreamWrite(unint64_t **a1, char *a2, unint64_t a3)
         FreeSize = MemBufferGetFreeSize(*a1);
       }
 
-      v13 = v6 >= FreeSize ? FreeSize : v6;
-      if (MemBufferFillFromBuffer(*a1, v13, a2) < 0)
+      v9 = v6 >= FreeSize ? FreeSize : v6;
+      if ((MemBufferFillFromBuffer(*a1, v9, a2) & 0x8000000000000000) != 0)
       {
         break;
       }
 
-      a2 += v13;
-      v4 += v13;
-      v6 -= v13;
+      a2 += v9;
+      v4 += v9;
+      v6 -= v9;
       if (!v6)
       {
         return v4;
       }
     }
 
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OBufferedStreamWrite", 1221, 29, 0, "MemBufferFillFromBuffer failed", v14, v15, v16);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOBasicStreams.c", "OBufferedStreamWrite", 1221, 29, 0, "MemBufferFillFromBuffer failed");
   }
 
   return -1;
@@ -6234,64 +5200,64 @@ uint64_t bxdiff5Alloc(size_t a1, uint64_t *a2, uint64_t a3)
   return 0;
 }
 
-uint64_t bxdiff5Free(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t bxdiff5Free(uint64_t a1)
 {
   if (*(a1 + 16))
   {
-    v9 = 0;
-    v10 = 0;
-    v11 = 1;
+    v2 = 0;
+    v3 = 0;
+    v4 = 1;
     do
     {
-      v12 = *(a1 + 24);
-      if (*(v12 + v9))
+      v5 = *(a1 + 24);
+      if (*(v5 + v2))
       {
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5Free", 40, 54, 0, "in[%zu] is not NULL", a7, a8, v10);
-        v11 = 0;
-        v12 = *(a1 + 24);
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5Free", 40, 54, 0, "in[%zu] is not NULL", v3);
+        v4 = 0;
+        v5 = *(a1 + 24);
       }
 
-      if (*(v12 + v9 + 64))
+      if (*(v5 + v2 + 64))
       {
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5Free", 41, 54, 0, "inPatch[%zu] is not NULL", a7, a8, v10);
-        v11 = 0;
-        v12 = *(a1 + 24);
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5Free", 41, 54, 0, "inPatch[%zu] is not NULL", v3);
+        v4 = 0;
+        v5 = *(a1 + 24);
       }
 
-      if (*(v12 + v9 + 40))
+      if (*(v5 + v2 + 40))
       {
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5Free", 42, 54, 0, "inControls[%zu] is not NULL", a7, a8, v10);
-        v11 = 0;
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5Free", 42, 54, 0, "inControls[%zu] is not NULL", v3);
+        v4 = 0;
       }
 
-      ++v10;
-      v9 += 80;
+      ++v3;
+      v2 += 80;
     }
 
-    while (v10 < *(a1 + 16));
+    while (v3 < *(a1 + 16));
   }
 
   else
   {
-    v11 = 1;
+    v4 = 1;
   }
 
   if (*(a1 + 32))
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5Free", 44, 54, 0, "out is not NULL", a7, a8, v14);
-    v11 = 0;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5Free", 44, 54, 0, "out is not NULL");
+    v4 = 0;
   }
 
   if (*(a1 + 72))
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5Free", 45, 54, 0, "comboControls is not NULL", a7, a8, v14);
-    v11 = 0;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5Free", 45, 54, 0, "comboControls is not NULL");
+    v4 = 0;
   }
 
   if (*(a1 + 96))
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5Free", 46, 54, 0, "comboPatch is not NULL", a7, a8, v14);
-    v11 = 0;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5Free", 46, 54, 0, "comboPatch is not NULL");
+    v4 = 0;
   }
 
   free(*(a1 + 24));
@@ -6301,7 +5267,7 @@ uint64_t bxdiff5Free(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
   *(a1 + 64) = 0u;
   *(a1 + 16) = 0u;
   *(a1 + 32) = 0u;
-  if (v11)
+  if (v4)
   {
     result = 0;
   }
@@ -6462,70 +5428,66 @@ uint64_t bxdiff5Dump(uint64_t a1, FILE *a2)
   return 0;
 }
 
-uint64_t bxdiff5SetIn(void *a1, unint64_t a2, char *a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t bxdiff5SetIn(void *a1, unint64_t a2, char *a3, unint64_t a4)
 {
   if (a1[2] <= a2)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5SetIn", 122, 54, 0, "invalid I=%zu", a7, a8, a2);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5SetIn", 122, 54, 0, "invalid I=%zu");
     return 0xFFFFFFFFLL;
   }
 
   if (!a3 || !a4)
   {
-    v16 = "invalid in,inSize";
-    v17 = 123;
-LABEL_16:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5SetIn", v17, 54, 0, v16, a7, a8, v19);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5SetIn", 123, 54, 0, "invalid in,inSize");
     return 0xFFFFFFFFLL;
   }
 
   if (!a1[4])
   {
-    v16 = "missing out";
-    v17 = 124;
-    goto LABEL_16;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5SetIn", 124, 54, 0, "missing out");
+    return 0xFFFFFFFFLL;
   }
 
-  v10 = a1[3] + 80 * a2;
-  *v10 = a3;
-  *(v10 + 8) = a4;
-  getBufferSHA1Digest(a3, a4, (v10 + 16));
-  v11 = a1[2];
-  v12 = a1[3];
-  *(v12 + 80 * a2 + 36) = 1;
-  if (v11)
+  v6 = a1[3] + 80 * a2;
+  *v6 = a3;
+  *(v6 + 8) = a4;
+  getBufferSHA1Digest(a3, a4, (v6 + 16));
+  v7 = a1[2];
+  v8 = a1[3];
+  *(v8 + 80 * a2 + 36) = 1;
+  if (v7)
   {
-    v13 = 0;
-    v14 = 0;
+    v9 = 0;
+    v10 = 0;
     while (1)
     {
-      if (a2 != v14)
+      if (a2 != v10)
       {
-        v15 = a1[3];
-        if (*(v15 + v13))
+        v11 = a1[3];
+        if (*(v11 + v9))
         {
-          if (!sha1cmp(v15 + 80 * a2 + 16, v15 + v13 + 16))
+          if (!sha1cmp(v11 + 80 * a2 + 16, v11 + v9 + 16))
           {
-            v12 = a1[3];
-            *(v12 + 80 * a2 + 36) = 0;
+            v8 = a1[3];
+            *(v8 + 80 * a2 + 36) = 0;
             break;
           }
 
-          v11 = a1[2];
+          v7 = a1[2];
         }
       }
 
-      ++v14;
-      v13 += 80;
-      if (v14 >= v11)
+      ++v10;
+      v9 += 80;
+      if (v10 >= v7)
       {
-        v12 = a1[3];
+        v8 = a1[3];
         break;
       }
     }
   }
 
-  result = sha1cmp(v12 + 80 * a2 + 16, (a1 + 6));
+  result = sha1cmp(v8 + 80 * a2 + 16, (a1 + 6));
   if (result)
   {
     return 0;
@@ -6535,7 +5497,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t bxdiff5SetOut(uint64_t a1, char *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t bxdiff5SetOut(uint64_t a1, char *a2, unint64_t a3)
 {
   if (a2 && a3)
   {
@@ -6547,16 +5509,16 @@ uint64_t bxdiff5SetOut(uint64_t a1, char *a2, unint64_t a3, uint64_t a4, uint64_
 
   else
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5SetOut", 155, 54, 0, "invalid out,outSize", a7, a8, vars0);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5SetOut", 155, 54, 0, "invalid out,outSize");
     return 0xFFFFFFFFLL;
   }
 }
 
-uint64_t bxdiff5SetInPatch(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t bxdiff5SetInPatch(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (*(a1 + 16) <= a2)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5SetInPatch", 165, 54, 0, "invalid I=%zu", a7, a8, a2);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5SetInPatch", 165, 54, 0, "invalid I=%zu");
   }
 
   else
@@ -6564,234 +5526,212 @@ uint64_t bxdiff5SetInPatch(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, 
     if (a3 && a4)
     {
       result = 0;
-      v10 = *(a1 + 24) + 80 * a2;
-      *(v10 + 64) = a3;
-      *(v10 + 72) = a4;
+      v6 = *(a1 + 24) + 80 * a2;
+      *(v6 + 64) = a3;
+      *(v6 + 72) = a4;
       return result;
     }
 
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5SetInPatch", 166, 54, 0, "invalid inPatch,inPatchSize", a7, a8, v11);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5SetInPatch", 166, 54, 0, "invalid inPatch,inPatchSize");
   }
 
   return 0xFFFFFFFFLL;
 }
 
-uint64_t bxdiff5ReadInControlsFromInPatch(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t bxdiff5ReadInControlsFromInPatch(uint64_t a1, unint64_t a2)
 {
   if (*(a1 + 16) <= a2)
   {
-    v9 = "invalid input index";
-    v10 = 176;
-    goto LABEL_12;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 176, 54, 0, "invalid input index");
+    return 0xFFFFFFFFLL;
   }
 
-  v8 = *(a1 + 24) + 80 * a2;
-  if (!*v8)
+  v2 = *(a1 + 24) + 80 * a2;
+  if (!*v2)
   {
-    v9 = "input data is missing";
-    v10 = 177;
-    goto LABEL_12;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 177, 54, 0, "input data is missing");
+    return 0xFFFFFFFFLL;
   }
 
   if (!*(a1 + 32))
   {
-    v9 = "output data is missing";
-    v10 = 178;
-    goto LABEL_12;
-  }
-
-  if (*(v8 + 40))
-  {
-    v9 = "input controls already present";
-    v10 = 179;
-LABEL_12:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", v10, 54, 0, v9, a7, a8, v40);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 178, 54, 0, "output data is missing");
     return 0xFFFFFFFFLL;
   }
 
-  v11 = *(v8 + 64);
-  if (!v11 || (v12 = *(v8 + 72), v12 <= 0x57))
+  if (*(v2 + 40))
   {
-    v9 = "input patch is missing or invalid";
-    v10 = 180;
-    goto LABEL_12;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 179, 54, 0, "input controls already present");
+    return 0xFFFFFFFFLL;
   }
 
-  if (!*(v8 + 36))
+  v3 = *(v2 + 64);
+  if (!v3 || (v4 = *(v2 + 72), v4 <= 0x57))
   {
-    return 0;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 180, 54, 0, "input patch is missing or invalid");
+    return 0xFFFFFFFFLL;
   }
 
-  if (*v11 != 0x3035464649445842 || *(v11 + 8) != 1 || (v14 = *(v11 + 24)) == 0)
+  if (*(v2 + 36))
   {
-    v17 = "patch is not a valid 1:1 BXDIFF50";
-    v18 = 199;
-    goto LABEL_28;
-  }
-
-  if (*(v11 + 16) != *(a1 + 40))
-  {
-    v17 = "out size mismatch in patch";
-    v18 = 202;
-    goto LABEL_28;
-  }
-
-  if (*(a1 + 48) != *(v11 + 40) || *(a1 + 56) != *(v11 + 48) || *(a1 + 64) != *(v11 + 56))
-  {
-    v17 = "out digest mismatch in patch";
-    v18 = 203;
-LABEL_28:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", v18, 54, 0, v17, a7, a8, v40);
-    v19 = 0;
-    goto LABEL_29;
-  }
-
-  v21 = *(v8 + 16);
-  v22 = *(v8 + 24);
-  v23 = *(v8 + 32);
-  if (v21 != *(v11 + 68) || v22 != *(v11 + 76) || v23 != *(v11 + 84))
-  {
-    v17 = "in digest mismatch in patch";
-    v18 = 204;
-    goto LABEL_28;
-  }
-
-  v40 = a1;
-  if (v11 + 88 + v14 > v11 + v12)
-  {
-    v17 = "invalid patch payload size";
-    v18 = 212;
-    goto LABEL_28;
-  }
-
-  v26 = *(v11 + 12);
-  v19 = ILowMemoryDecoderStreamCreateWithBuffer(v11 + 88, v14, 0x10000uLL);
-  if (!v19)
-  {
-    v36 = "Control stream init";
-    v37 = 215;
-    v38 = 0;
-    goto LABEL_58;
-  }
-
-  v20 = 0;
-  v29 = 0;
-  v30 = 0;
-  v31 = v26 & 1;
-  while (1)
-  {
-    if (v29 < v30)
+    if (*v3 == 0x3035464649445842 && *(v3 + 8) == 1 && (v6 = *(v3 + 24)) != 0)
     {
-      goto LABEL_51;
-    }
+      if (*(v3 + 16) == *(a1 + 40))
+      {
+        if (*(a1 + 48) == *(v3 + 40) && *(a1 + 56) == *(v3 + 48) && *(a1 + 64) == *(v3 + 56))
+        {
+          v11 = *(v2 + 16);
+          v12 = *(v2 + 24);
+          v13 = *(v2 + 32);
+          if (v11 == *(v3 + 68) && v12 == *(v3 + 76) && v13 == *(v3 + 84))
+          {
+            if (v3 + 88 + v6 <= v3 + v4)
+            {
+              v16 = *(v3 + 12);
+              v9 = ILowMemoryDecoderStreamCreateWithBuffer(v3 + 88, v6, 0x10000uLL);
+              if (v9)
+              {
+                v10 = 0;
+                v17 = 0;
+                v18 = 0;
+                v19 = v16 & 1;
+                while (1)
+                {
+                  if (v17 >= v18)
+                  {
+                    if (v18)
+                    {
+                      v18 += v18 >> 1;
+                    }
 
-    if (v30)
-    {
-      v30 += v30 >> 1;
+                    else
+                    {
+                      v18 = 4096;
+                    }
+
+                    v20 = reallocf(v10, 24 * v18);
+                    if (!v20)
+                    {
+                      v23 = *__error();
+                      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 223, 54, v23, "malloc", a1, a2);
+                      goto LABEL_28;
+                    }
+
+                    v10 = v20;
+                  }
+
+                  v21 = ILowMemoryDecoderStreamRead(v9, v10 + 24 * v17, 24 * (v18 - v17));
+                  if ((v21 & 0x8000000000000000) != 0)
+                  {
+                    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 227, 54, 0, "ILZMAMemStreamRead");
+                    ILowMemoryDecoderStreamDestroy(v9);
+                    goto LABEL_29;
+                  }
+
+                  if (!v21)
+                  {
+                    ILowMemoryDecoderStreamDestroy(v9);
+                    result = 0;
+                    v22 = *(a1 + 24) + 80 * a2;
+                    *(v22 + 40) = v10;
+                    *(v22 + 48) = v19;
+                    *(v22 + 56) = v17;
+                    return result;
+                  }
+
+                  v17 += v21 / 0x18;
+                }
+              }
+
+              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 215, 54, 0, "Control stream init", a1, a2);
+              goto LABEL_28;
+            }
+
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 212, 54, 0, "invalid patch payload size", a1, a2);
+          }
+
+          else
+          {
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 204, 54, 0, "in digest mismatch in patch");
+          }
+        }
+
+        else
+        {
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 203, 54, 0, "out digest mismatch in patch");
+        }
+      }
+
+      else
+      {
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 202, 54, 0, "out size mismatch in patch");
+      }
     }
 
     else
     {
-      v30 = 4096;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 199, 54, 0, "patch is not a valid 1:1 BXDIFF50");
     }
 
-    v32 = reallocf(v20, 24 * v30);
-    if (!v32)
-    {
-      break;
-    }
-
-    v20 = v32;
-LABEL_51:
-    v33 = ILowMemoryDecoderStreamRead(v19, v20 + 24 * v29, 24 * (v30 - v29));
-    if ((v33 & 0x8000000000000000) != 0)
-    {
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", 227, 54, 0, "ILZMAMemStreamRead", v34, v35, v40);
-      ILowMemoryDecoderStreamDestroy(v19);
-      goto LABEL_30;
-    }
-
-    if (!v33)
-    {
-      ILowMemoryDecoderStreamDestroy(v19);
-      result = 0;
-      v39 = *(v40 + 24) + 80 * a2;
-      *(v39 + 40) = v20;
-      *(v39 + 48) = v31;
-      *(v39 + 56) = v29;
-      return result;
-    }
-
-    v29 += v33 / 0x18;
-  }
-
-  v38 = *__error();
-  v36 = "malloc";
-  v37 = 223;
-LABEL_58:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5ReadInControlsFromInPatch", v37, 54, v38, v36, v27, v28, v40);
+    v9 = 0;
+LABEL_28:
+    ILowMemoryDecoderStreamDestroy(v9);
+    v10 = 0;
 LABEL_29:
-  ILowMemoryDecoderStreamDestroy(v19);
-  v20 = 0;
-LABEL_30:
-  free(v20);
-  return 0xFFFFFFFFLL;
-}
-
-uint64_t bxdiff5CreateInControls(uint64_t a1, unint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (*(a1 + 16) <= a2)
-  {
-    v12 = "invalid input index";
-    v13 = 247;
-    goto LABEL_5;
-  }
-
-  v10 = *(a1 + 24) + 80 * a2;
-  v11 = (v10 + 40);
-  if (*(v10 + 40))
-  {
-    v12 = "input controls already present";
-    v13 = 248;
-LABEL_5:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateInControls", v13, 54, 0, v12, a7, a8, v23);
+    free(v10);
     return 0xFFFFFFFFLL;
   }
 
-  v15 = *v10;
-  if (!*v10 || (v16 = *(v10 + 8)) == 0)
+  return 0;
+}
+
+uint64_t bxdiff5CreateInControls(uint64_t a1, unint64_t a2, int a3)
+{
+  if (*(a1 + 16) <= a2)
   {
-    v12 = "input is missing or invalid";
-    v13 = 249;
-    goto LABEL_5;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateInControls", 247, 54, 0, "invalid input index");
+    return 0xFFFFFFFFLL;
   }
 
-  if (!*(v10 + 36))
+  v5 = *(a1 + 24) + 80 * a2;
+  v6 = (v5 + 40);
+  if (*(v5 + 40))
+  {
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateInControls", 248, 54, 0, "input controls already present");
+    return 0xFFFFFFFFLL;
+  }
+
+  v8 = *v5;
+  if (!*v5 || (v9 = *(v5 + 8)) == 0)
+  {
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateInControls", 249, 54, 0, "input is missing or invalid");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (!*(v5 + 36))
   {
     return 0;
   }
 
-  v18 = *(a1 + 32);
-  v19 = *(a1 + 40);
-  v20 = (v10 + 56);
-  if (!(v16 >> 28) || v19 >> 28 == 0)
+  v11 = *(a1 + 32);
+  v12 = *(a1 + 40);
+  v13 = (v5 + 56);
+  if (!(v9 >> 28) || v12 >> 28 == 0)
   {
-    if ((getBXDiffControls(v15, v16, v18, v19, v11, v20, a1, a8) & 0x80000000) != 0)
+    if ((getBXDiffControls(v8, v9, v11, v12, v6, v13, a1) & 0x80000000) != 0)
     {
-      v12 = "generic controls";
-      v13 = 270;
-      goto LABEL_5;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateInControls", 270, 54, 0, "generic controls");
+      return 0xFFFFFFFFLL;
     }
   }
 
   else
   {
-    LargeFileControls = GetLargeFileControls(v15, v16, v18, v19, v11, v20, a1, a8);
+    LargeFileControls = GetLargeFileControls(v8, v9, v11, v12, v6, v13, a1);
     if (LargeFileControls < 0)
     {
-      v12 = "largefile controls";
-      v13 = 262;
-      goto LABEL_5;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateInControls", 262, 54, 0, "largefile controls");
+      return 0xFFFFFFFFLL;
     }
   }
 
@@ -6802,9 +5742,8 @@ LABEL_5:
 
   if ((forceInPlaceControls(*(*(a1 + 24) + 80 * a2 + 8), *(a1 + 40), *(*(a1 + 24) + 80 * a2 + 40), *(*(a1 + 24) + 80 * a2 + 56), *(a1 + 4)) & 0x80000000) != 0)
   {
-    v12 = "forceInPlaceControls";
-    v13 = 278;
-    goto LABEL_5;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateInControls", 278, 54, 0, "forceInPlaceControls");
+    return 0xFFFFFFFFLL;
   }
 
   result = 0;
@@ -6812,608 +5751,591 @@ LABEL_5:
   return result;
 }
 
-uint64_t bxdiff5CreateComboControls(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t bxdiff5CreateComboControls(uint64_t a1)
 {
-  v8 = *(a1 + 16);
-  if (!v8)
+  v1 = *(a1 + 16);
+  if (!v1)
   {
     goto LABEL_7;
   }
 
-  v10 = 0;
-  v11 = (*(a1 + 24) + 36);
-  v12 = *(a1 + 16);
+  v3 = 0;
+  v4 = (*(a1 + 24) + 36);
+  v5 = *(a1 + 16);
   do
   {
-    v13 = *v11;
-    v11 += 20;
-    if (v13)
+    v6 = *v4;
+    v4 += 20;
+    if (v6)
     {
-      ++v10;
+      ++v3;
     }
 
-    --v12;
+    --v5;
   }
 
-  while (v12);
-  if (v10 <= 1)
+  while (v5);
+  if (v3 <= 1)
   {
 LABEL_7:
-    v14 = "creating combo controls requires 2 or more unique inputs";
-    v15 = 289;
-    v16 = 0;
-LABEL_8:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateComboControls", v15, 54, v16, v14, a7, a8, v36);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateComboControls", 289, 54, 0, "creating combo controls requires 2 or more unique inputs");
     return 0xFFFFFFFFLL;
   }
 
   *(a1 + 80) = 1;
-  v19 = calloc(v8, 0x18uLL);
-  if (!v19)
+  v9 = calloc(v1, 0x18uLL);
+  if (!v9)
   {
-    v16 = *__error();
-    v14 = "malloc";
-    v15 = 300;
-    goto LABEL_8;
+    v17 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateComboControls", 300, 54, v17, "malloc");
+    return 0xFFFFFFFFLL;
   }
 
-  v20 = v19;
-  v21 = v19;
-  v22 = v8;
+  v10 = v9;
+  v11 = v9;
+  v12 = v1;
   do
   {
-    initDiffSegmentVector(v21);
-    v21 += 3;
-    --v22;
+    initDiffSegmentVector(v11);
+    v11 += 3;
+    --v12;
   }
 
-  while (v22);
-  v29 = 0;
-  v30 = 0;
-  v31 = *(a1 + 24);
+  while (v12);
+  v13 = 0;
+  v14 = 0;
+  v15 = *(a1 + 24);
   do
   {
-    if (*(v31 + v29 + 36))
+    if (*(v15 + v13 + 36))
     {
-      v32 = *(v31 + v29 + 40);
-      if (!v32)
+      v16 = *(v15 + v13 + 40);
+      if (!v16)
       {
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateComboControls", 309, 54, 0, "missing controls for input %zu", v27, v28, v22);
-        goto LABEL_30;
-      }
-
-      if ((pushControls(&v20[3 * v30], v32, *(v31 + v29 + 56), 0, 0) & 0x80000000) != 0)
-      {
-        v33 = "pushControls";
-        v34 = 312;
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateComboControls", 309, 54, 0, "missing controls for input %zu");
         goto LABEL_29;
       }
 
-      v31 = *(a1 + 24);
-      if (!*(v31 + v29 + 48))
+      if ((pushControls(&v10[3 * v14], v16, *(v15 + v13 + 56), 0, 0) & 0x80000000) != 0)
+      {
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateComboControls", 312, 54, 0, "pushControls");
+        goto LABEL_29;
+      }
+
+      v15 = *(a1 + 24);
+      if (!*(v15 + v13 + 48))
       {
         *(a1 + 80) = 0;
       }
 
-      ++v30;
+      ++v14;
     }
 
-    ++v22;
-    v29 += 80;
+    ++v12;
+    v13 += 80;
   }
 
-  while (v8 != v22);
-  if ((mergeDiffSegmentVectors(v30, v20, v23, v24, v25, v26, v27, v28) & 0x80000000) != 0)
+  while (v1 != v12);
+  if ((mergeDiffSegmentVectors(v14, v10) & 0x80000000) != 0)
   {
-    v33 = "mergeDiffSegmentVectors";
-    v34 = 321;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateComboControls", 321, 54, 0, "mergeDiffSegmentVectors");
   }
 
   else
   {
-    if ((getComboControlsFromMergedDiffSegmentVectors(v30, v20, (a1 + 72), (a1 + 88)) & 0x80000000) == 0)
+    if ((getComboControlsFromMergedDiffSegmentVectors(v14, v10, (a1 + 72), (a1 + 88)) & 0x80000000) == 0)
     {
-      v17 = 0;
-      goto LABEL_31;
+      v7 = 0;
+      goto LABEL_30;
     }
 
-    v33 = "getComboControlsFromMergedDiffSegmentVectors";
-    v34 = 324;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateComboControls", 324, 54, 0, "getComboControlsFromMergedDiffSegmentVectors");
   }
 
 LABEL_29:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateComboControls", v34, 54, 0, v33, v27, v28, v36);
+  v7 = 0xFFFFFFFFLL;
 LABEL_30:
-  v17 = 0xFFFFFFFFLL;
-LABEL_31:
-  v35 = v20;
+  v18 = v10;
   do
   {
-    BlobBufferFree(v35);
-    v35 += 24;
-    --v8;
+    BlobBufferFree(v18);
+    v18 += 24;
+    --v1;
   }
 
-  while (v8);
-  free(v20);
-  return v17;
+  while (v1);
+  free(v10);
+  return v7;
 }
 
-uint64_t bxdiff5CreatePatchBackend(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int64_t __size, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, size_t *a11, int a12, int a13, unsigned int a14)
+uint64_t bxdiff5CreatePatchBackend(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int64_t __size, uint64_t a7, int64x2_t *a8, uint64_t a9, void *a10, size_t *a11, int a12, int a13, unsigned int a14)
 {
   v19 = a10;
   v18 = a11;
   v20 = malloc(__size);
-  v23 = v20;
+  v21 = v20;
   if (!v20)
   {
-    v31 = *__error();
-    v32 = "malloc";
-    v33 = 447;
+    v29 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 447, 54, v29, "malloc");
 LABEL_48:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", v33, 54, v31, v32, v21, v22, v89);
-    v38 = 0;
+    v34 = 0;
 LABEL_69:
-    free(v23);
-    free(v38);
-    v86 = 0;
-    v85 = 0;
-    v87 = 0xFFFFFFFFLL;
+    free(v21);
+    free(v34);
+    v75 = 0;
+    v74 = 0;
+    v76 = 0xFFFFFFFFLL;
     goto LABEL_70;
   }
 
-  v24 = a13;
-  v25 = a9;
-  v26 = a1 + 2;
+  v22 = a13;
+  v23 = a9;
+  v24 = a1 + 2;
   if (a9)
   {
-    v27 = 0uLL;
-    v28 = vnegq_f64(0);
-    v29 = a8;
-    v30 = a9;
+    v25 = 0uLL;
+    v26 = vnegq_f64(0);
+    v27 = a8;
+    v28 = a9;
     do
     {
-      v27 = vaddq_s64(vbslq_s8(vcltzq_s64(*v29), vsubq_s64(v28, *v29), *v29), v27);
-      v29 = (v29 + 8 * a1 + 16);
-      --v30;
+      v25 = vaddq_s64(vbslq_s8(vcltzq_s64(*v27), vsubq_s64(v26, *v27), *v27), v25);
+      v27 = (v27 + 8 * a1 + 16);
+      --v28;
     }
 
-    while (v30);
+    while (v28);
   }
 
   else
   {
-    v27 = 0uLL;
+    v25 = 0uLL;
   }
 
   __dst = v20;
   if (a13 > 1)
   {
-    v94 = v27;
-    fprintf(*MEMORY[0x29EDCA610], "BXDiff5 backend, out: %zu B, diff: %zu B, lit: %zu B, ctrl: %zu B\n", __size, v27.u64[0], v27.u64[1], 8 * (a1 + 2) * a9);
-    v27 = v94;
-    v24 = a13;
-    v26 = a1 + 2;
+    v82 = v25;
+    fprintf(*MEMORY[0x29EDCA610], "BXDiff5 backend, out: %zu B, diff: %zu B, lit: %zu B, ctrl: %zu B\n", __size, v25.u64[0], v25.u64[1], 8 * (a1 + 2) * a9);
+    v25 = v82;
+    v22 = a13;
+    v24 = a1 + 2;
     v18 = a11;
     v19 = a10;
-    v23 = __dst;
+    v21 = __dst;
   }
 
-  if (vaddvq_s64(v27) != __size)
+  if (vaddvq_s64(v25) != __size)
   {
-    v32 = "size inconsistency: diff + archive != out";
-    v33 = 458;
-    v31 = 0;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 458, 54, 0, "size inconsistency: diff + archive != out");
     goto LABEL_48;
   }
 
-  v90 = v26;
-  v95 = v19;
-  v92 = v18;
-  v34 = v24;
-  v35 = 28 * a1 + lzma_stream_buffer_bound() * a1;
-  v36 = v35 + lzma_stream_buffer_bound() + 60;
-  v93 = v34;
-  if (v34 >= 2)
+  v78 = v24;
+  v83 = v19;
+  v80 = v18;
+  v30 = v22;
+  v31 = 28 * a1 + lzma_stream_buffer_bound() * a1;
+  v32 = v31 + lzma_stream_buffer_bound() + 60;
+  v81 = v30;
+  if (v30 >= 2)
   {
-    fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch allocated: %zu B\n", v36);
+    fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch allocated: %zu B\n", v32);
   }
 
-  v37 = malloc(v36);
-  v38 = v37;
-  if (!v37)
+  v33 = malloc(v32);
+  v34 = v33;
+  if (!v33)
   {
-    v69 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 469, 54, *v69, "malloc", v70, v71, v89);
-    v18 = v92;
+    v62 = __error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 469, 54, *v62, "malloc");
+    v18 = v80;
 LABEL_50:
-    v19 = v95;
+    v19 = v83;
     goto LABEL_52;
   }
 
-  *(v37 + 44) = 0u;
-  v37[1] = 0u;
-  v37[2] = 0u;
-  *v37 = 0u;
-  v91 = v37 + 60;
-  bzero(v37 + 60, 28 * a1);
-  *v38 = 0x3035464649445842;
-  v38[2] = __size;
-  *(v38 + 5) = *a7;
-  *(v38 + 14) = *(a7 + 16);
-  *(v38 + 2) = a1;
-  *(v38 + 3) = a12 != 0;
+  *(v33 + 44) = 0u;
+  v33[1] = 0u;
+  v33[2] = 0u;
+  *v33 = 0u;
+  v79 = v33 + 60;
+  bzero(v33 + 60, 28 * a1);
+  *v34 = 0x3035464649445842;
+  v34[2] = __size;
+  *(v34 + 5) = *a7;
+  *(v34 + 14) = *(a7 + 16);
+  *(v34 + 2) = a1;
+  *(v34 + 3) = a12 != 0;
   if (a1)
   {
-    v39 = v38 + 68;
-    v40 = a1;
+    v35 = v34 + 68;
+    v36 = a1;
     do
     {
-      *v39 = *a4;
-      *(v39 + 4) = *(a4 + 16);
+      *v35 = *a4;
+      *(v35 + 4) = *(a4 + 16);
       a4 += 20;
-      v39 += 28;
-      --v40;
+      v35 += 28;
+      --v36;
     }
 
-    while (v40);
+    while (v36);
   }
 
-  v41 = v38 + v36;
-  v42 = &v91[28 * a1];
-  if (v34 > 1)
+  v37 = v34 + v32;
+  v38 = &v79[28 * a1];
+  if (v30 > 1)
   {
-    fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch headers: %zu B\n", v42 - v38);
+    fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch headers: %zu B\n", v38 - v34);
   }
 
-  v18 = v92;
-  v43 = plzmaEncodeBuffer(v42, &v41[-v42], a8, 8 * (a1 + 2) * a9, a14);
-  if (v43 < 0)
+  v18 = v80;
+  v39 = plzmaEncodeBuffer(v38, &v37[-v38], a8, 8 * (a1 + 2) * a9, a14);
+  if (v39 < 0)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 499, 54, 0, "Payload compression", v44, v45, v89);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 499, 54, 0, "Payload compression");
 LABEL_52:
-    v23 = __dst;
+    v21 = __dst;
     goto LABEL_69;
   }
 
-  v46 = v42 + v43;
-  v38[3] = v43;
-  if (v93 >= 2)
+  v40 = v38 + v39;
+  v34[3] = v39;
+  if (v81 >= 2)
   {
-    fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch control payload: %zu B\n", v43);
+    fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch control payload: %zu B\n", v39);
   }
 
-  v23 = __dst;
+  v21 = __dst;
   if (a1)
   {
-    v47 = 0;
-    v48 = a5;
+    v41 = 0;
+    v42 = a5;
     while (!a9)
     {
-      v52 = v23;
+      v46 = v21;
 LABEL_42:
-      v66 = plzmaEncodeBuffer(v46, &v41[-v46], v23, v52 - v23, a14);
-      if (v66 < 0)
+      v60 = plzmaEncodeBuffer(v40, &v37[-v40], v21, v46 - v21, a14);
+      if (v60 < 0)
       {
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 530, 54, 0, "Payload compression", v67, v45, v89);
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 530, 54, 0, "Payload compression");
         goto LABEL_50;
       }
 
-      v68 = v66;
-      *&v91[28 * v47] = v66;
-      if (v93 >= 2)
+      v61 = v60;
+      *&v79[28 * v41] = v60;
+      if (v81 >= 2)
       {
-        fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch diff[%zu] payload: %zu B\n", v47, v66);
+        fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch diff[%zu] payload: %zu B\n", v41, v60);
       }
 
-      v46 += v68;
-      ++v47;
-      v23 = __dst;
-      v48 = a5;
-      if (v47 == a1)
+      v40 += v61;
+      ++v41;
+      v21 = __dst;
+      v42 = a5;
+      if (v41 == a1)
       {
         goto LABEL_55;
       }
     }
 
-    v49 = 0;
-    v50 = 0;
-    v51 = 0;
-    v52 = v23;
+    v43 = 0;
+    v44 = 0;
+    v45 = 0;
+    v46 = v21;
     while (1)
     {
-      v53 = (a8 + 8 * v49 * v90);
-      v54 = *v53;
-      v55 = v53[1];
-      if (*v53 < 0)
+      v47 = &a8->i64[v43 * v78];
+      v48 = *v47;
+      v49 = v47[1];
+      if (*v47 < 0)
       {
-        v54 = 0x8000000000000000 - *v53;
+        v48 = 0x8000000000000000 - *v47;
       }
 
-      if (v55 < 0)
+      if (v49 < 0)
       {
-        v55 = 0x8000000000000000 - v55;
+        v49 = 0x8000000000000000 - v49;
       }
 
-      v56 = v53[v47 + 2];
-      if (v56 < 0)
-      {
-        v56 = 0x8000000000000000 - v56;
-      }
-
+      v50 = v47[v41 + 2];
       if (v50 < 0)
       {
-        break;
+        v50 = 0x8000000000000000 - v50;
       }
 
-      v57 = v54 + v50;
-      if (v54 + v50 > __size)
+      if (v44 < 0)
       {
         break;
       }
 
-      if (v51 < 0 || (v58 = v54 + v51, v54 + v51 > *(a3 + 8 * v47)))
+      v51 = v48 + v44;
+      if (v48 + v44 > __size)
       {
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 519, 54, 0, "in[%zu] access out of range", v90, v45, v47);
+        break;
+      }
+
+      if (v45 < 0 || (v52 = v48 + v45, v48 + v45 > *(a3 + 8 * v41)))
+      {
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 519, 54, 0, "in[%zu] access out of range");
         goto LABEL_68;
       }
 
-      if (v54 >= 1)
+      if (v48 >= 1)
       {
-        v59 = (v48 + v50);
-        v60 = (*(a2 + 8 * v47) + v51);
-        v61 = v52;
-        v62 = v54;
+        v53 = (v42 + v44);
+        v54 = (*(a2 + 8 * v41) + v45);
+        v55 = v46;
+        v56 = v48;
         do
         {
-          v64 = *v59++;
-          v63 = v64;
-          v65 = *v60++;
-          *v61++ = v63 - v65;
-          --v62;
+          v58 = *v53++;
+          v57 = v58;
+          v59 = *v54++;
+          *v55++ = v57 - v59;
+          --v56;
         }
 
-        while (v62);
+        while (v56);
       }
 
-      v52 += v54;
-      v50 = v57 + v55;
-      v51 = v58 + v56;
-      if (++v49 == a9)
+      v46 += v48;
+      v44 = v51 + v49;
+      v45 = v52 + v50;
+      if (++v43 == a9)
       {
         goto LABEL_42;
       }
     }
 
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 518, 54, 0, "out access out of range", v90, v45, v89);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 518, 54, 0, "out access out of range");
     goto LABEL_68;
   }
 
-  v48 = a5;
+  v42 = a5;
 LABEL_55:
   if (a9)
   {
-    v72 = 0;
-    v73 = (a8 + 8);
-    v74 = 8 * a1 + 16;
-    v23 = __dst;
+    v63 = 0;
+    v64 = &a8->i64[1];
+    v65 = 8 * a1 + 16;
+    v21 = __dst;
     do
     {
-      v75 = *(v73 - 1);
-      v76 = *v73;
-      if (v75 < 0)
+      v66 = *(v64 - 1);
+      v67 = *v64;
+      if (v66 < 0)
       {
-        v75 = 0x8000000000000000 - v75;
+        v66 = 0x8000000000000000 - v66;
       }
 
-      if (v76 >= 0)
+      if (v67 >= 0)
       {
-        v77 = *v73;
+        v68 = *v64;
       }
 
       else
       {
-        v77 = 0x8000000000000000 - v76;
+        v68 = 0x8000000000000000 - v67;
       }
 
-      v78 = v75 + v72;
-      memcpy(v23, (v48 + v75 + v72), v77);
-      v48 = a5;
-      v23 += v77;
-      v72 = v78 + v77;
-      v73 = (v73 + v74);
-      --v25;
+      v69 = v66 + v63;
+      memcpy(v21, (v42 + v66 + v63), v68);
+      v42 = a5;
+      v21 += v68;
+      v63 = v69 + v68;
+      v64 = (v64 + v65);
+      --v23;
     }
 
-    while (v25);
+    while (v23);
   }
 
-  v79 = v23 - __dst;
-  v23 = __dst;
-  v80 = plzmaEncodeBuffer(v46, &v41[-v46], __dst, v79, a14);
-  if (v80 < 0)
+  v70 = v21 - __dst;
+  v21 = __dst;
+  v71 = plzmaEncodeBuffer(v40, &v37[-v40], __dst, v70, a14);
+  if (v71 < 0)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 554, 54, 0, "Payload compression", v81, v82, v89);
-    v18 = v92;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreatePatchBackend", 554, 54, 0, "Payload compression");
+    v18 = v80;
 LABEL_68:
-    v19 = v95;
+    v19 = v83;
     goto LABEL_69;
   }
 
-  v83 = v46 + v80;
-  v38[4] = v80;
-  v18 = v92;
-  v19 = v95;
-  if (v93 <= 1)
+  v72 = v40 + v71;
+  v34[4] = v71;
+  v18 = v80;
+  v19 = v83;
+  if (v81 <= 1)
   {
-    v85 = v83 - v38;
+    v74 = v72 - v34;
   }
 
   else
   {
-    v84 = MEMORY[0x29EDCA610];
-    fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch archive payload: %zu B\n", v80);
-    v85 = v83 - v38;
-    fprintf(*v84, "BXDiff5 patch total size: %zu B\n", v83 - v38);
+    v73 = MEMORY[0x29EDCA610];
+    fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch archive payload: %zu B\n", v71);
+    v74 = v72 - v34;
+    fprintf(*v73, "BXDiff5 patch total size: %zu B\n", v72 - v34);
   }
 
   free(__dst);
-  v86 = reallocToFit(v38, v85);
-  v87 = 0;
+  v75 = reallocToFit(v34, v74);
+  v76 = 0;
 LABEL_70:
-  *v19 = v86;
-  *v18 = v85;
-  return v87;
+  *v19 = v75;
+  *v18 = v74;
+  return v76;
 }
 
-uint64_t bxdiff5CreateComboPatch(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t bxdiff5CreateComboPatch(uint64_t a1)
 {
   if (*(a1 + 72))
   {
-    v9 = *(a1 + 16);
-    if (v9)
+    v2 = *(a1 + 16);
+    if (v2)
     {
-      v10 = 0;
-      v11 = (*(a1 + 24) + 36);
+      v3 = 0;
+      v4 = (*(a1 + 24) + 36);
       do
       {
-        v12 = *v11;
-        v11 += 20;
-        if (v12)
+        v5 = *v4;
+        v4 += 20;
+        if (v5)
         {
-          ++v10;
+          ++v3;
         }
 
-        --v9;
+        --v2;
       }
 
-      while (v9);
+      while (v2);
     }
 
     else
     {
-      v10 = 0;
+      v3 = 0;
     }
 
-    v14 = calloc(v10, 8uLL);
-    v15 = calloc(v10, 8uLL);
-    v16 = calloc(v10, 0x14uLL);
-    v17 = v16;
-    if (v14)
+    v7 = calloc(v3, 8uLL);
+    v8 = calloc(v3, 8uLL);
+    v9 = calloc(v3, 0x14uLL);
+    v10 = v9;
+    if (v7)
     {
-      v18 = v15 == 0;
+      v11 = v8 == 0;
     }
 
     else
     {
-      v18 = 1;
+      v11 = 1;
     }
 
-    if (v18 || v16 == 0)
+    if (v11 || v9 == 0)
     {
-      v20 = __error();
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateComboPatch", 609, 54, *v20, "malloc", v21, v22, v32);
+      v13 = __error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateComboPatch", 609, 54, *v13, "malloc");
       PatchBackend = 0xFFFFFFFFLL;
     }
 
     else
     {
-      v23 = *(a1 + 16);
-      if (v23)
+      v14 = *(a1 + 16);
+      if (v14)
       {
-        v24 = 0;
-        v25 = 0;
-        v26 = 0;
+        v15 = 0;
+        v16 = 0;
+        v17 = 0;
         do
         {
-          v27 = *(a1 + 24);
-          if (*(v27 + v24 + 36))
+          v18 = *(a1 + 24);
+          if (*(v18 + v15 + 36))
           {
-            v14[v26] = *(v27 + v24);
-            v28 = *(a1 + 24) + v24;
-            v15[v26] = *(v28 + 8);
-            v29 = &v16[20 * v26];
-            v30 = *(v28 + 16);
-            *(v29 + 4) = *(v28 + 32);
-            *v29 = v30;
-            ++v26;
-            v23 = *(a1 + 16);
+            v7[v17] = *(v18 + v15);
+            v19 = *(a1 + 24) + v15;
+            v8[v17] = *(v19 + 8);
+            v20 = &v9[20 * v17];
+            v21 = *(v19 + 16);
+            *(v20 + 4) = *(v19 + 32);
+            *v20 = v21;
+            ++v17;
+            v14 = *(a1 + 16);
           }
 
-          ++v25;
-          v24 += 80;
+          ++v16;
+          v15 += 80;
         }
 
-        while (v25 < v23);
+        while (v16 < v14);
       }
 
-      PatchBackend = bxdiff5CreatePatchBackend(v10, v14, v15, v16, *(a1 + 32), *(a1 + 40), a1 + 48, *(a1 + 72), *(a1 + 88), (a1 + 96), (a1 + 104), *(a1 + 80), *(a1 + 4), *(a1 + 8));
+      PatchBackend = bxdiff5CreatePatchBackend(v3, v7, v8, v9, *(a1 + 32), *(a1 + 40), a1 + 48, *(a1 + 72), *(a1 + 88), (a1 + 96), (a1 + 104), *(a1 + 80), *(a1 + 4), *(a1 + 8));
     }
 
-    free(v14);
-    free(v15);
-    free(v17);
+    free(v7);
+    free(v8);
+    free(v10);
   }
 
   else
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateComboPatch", 600, 54, 0, "missing combo controls", a7, a8, v32);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateComboPatch", 600, 54, 0, "missing combo controls");
     return 0xFFFFFFFFLL;
   }
 
   return PatchBackend;
 }
 
-uint64_t BXDiff5WithIndividualPatches(uint64_t a1, void **a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BXDiff5WithIndividualPatches(uint64_t a1, void **a2, void *a3, void *a4, void *a5)
 {
-  v117 = *MEMORY[0x29EDCA608];
+  v74 = *MEMORY[0x29EDCA608];
   if (HIDWORD(*a1))
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "BXDiff5WithIndividualPatches", 645, 54, 0, "Invalid number of inputs: %zu", a7, a8, *a1);
-    result = 0xFFFFFFFFLL;
-    goto LABEL_23;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "BXDiff5WithIndividualPatches", 645, 54, 0, "Invalid number of inputs: %zu", *a1);
+    return 0xFFFFFFFFLL;
   }
 
-  v9 = a5;
-  v10 = a4;
-  v14 = *(a1 + 48);
-  enterThreadErrorContext(a1, a2, a3, a4, a5, a6, a7, a8, v103);
-  v20 = *a1;
-  v21 = *(a1 + 52);
-  if (v10)
+  v11 = *(a1 + 48);
+  enterThreadErrorContext();
+  v12 = *a1;
+  v13 = *(a1 + 52);
+  if (a4)
   {
-    v22 = v9 == 0;
+    v14 = a5 == 0;
   }
 
   else
   {
-    v22 = 1;
+    v14 = 1;
   }
 
-  v23 = !v22;
-  v24 = *(a1 + 40);
-  v25 = *(a1 + 44);
-  v112 = 0u;
-  memset(v113, 0, sizeof(v113));
-  *v114 = 0u;
-  v115 = 0u;
-  v116 = 0;
-  v111 = v20;
-  v109 = __PAIR64__(v21, v24);
-  v110 = v25;
-  if (v20)
+  v15 = !v14;
+  v16 = *(a1 + 40);
+  v17 = *(a1 + 44);
+  v69 = 0u;
+  memset(v70, 0, sizeof(v70));
+  *v71 = 0u;
+  v72 = 0u;
+  v73 = 0;
+  v68 = v12;
+  v66 = __PAIR64__(v13, v16);
+  v67 = v17;
+  if (v12)
   {
-    *&v112 = calloc(v20, 0x50uLL);
+    *&v69 = calloc(v12, 0x50uLL);
     *a2 = 0;
     *a3 = 0;
-    if (v10)
+    if (a4)
     {
-      bzero(v10, 8 * v20);
+      bzero(a4, 8 * v12);
     }
 
-    if (v9)
+    if (a5)
     {
-      bzero(v9, 8 * v20);
+      bzero(a5, 8 * v12);
     }
   }
 
@@ -7423,407 +6345,390 @@ uint64_t BXDiff5WithIndividualPatches(uint64_t a1, void **a2, void *a3, uint64_t
     *a3 = 0;
   }
 
-  if (bxdiff5SetOut(&v109, *(a1 + 24), *(a1 + 32), v15, v16, v17, v18, v19))
+  if (bxdiff5SetOut(&v66, *(a1 + 24), *(a1 + 32)))
   {
-    v33 = "bxdiff5SetOut";
-    v34 = 672;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "BXDiff5WithIndividualPatches", 672, 54, 0, "bxdiff5SetOut");
     goto LABEL_17;
   }
 
-  if (!v20)
+  if (!v12)
   {
-LABEL_28:
-    v48 = v111;
-    if (v111)
+LABEL_27:
+    v23 = v68;
+    if (v68)
     {
-      v49 = 0;
-      v50 = (v112 + 36);
+      v24 = 0;
+      v25 = (v69 + 36);
       do
       {
-        v51 = *v50;
-        v50 += 20;
-        if (v51)
+        v26 = *v25;
+        v25 += 20;
+        if (v26)
         {
-          ++v49;
+          ++v24;
         }
 
-        --v48;
+        --v23;
       }
 
-      while (v48);
-      if (!v49)
+      while (v23);
+      if (!v24)
       {
-        *(v112 + 36) = 1;
+        *(v69 + 36) = 1;
       }
     }
 
-    if (v21 >= 2)
+    if (v13 >= 2)
     {
-      bxdiff5Dump(&v109, *MEMORY[0x29EDCA610]);
+      bxdiff5Dump(&v66, *MEMORY[0x29EDCA610]);
     }
 
-    if (!v20)
+    if (!v12)
     {
-      v62 = *(&v112 + 1);
-      v63 = *&v113[0];
-      v64 = HIDWORD(v109);
-      v65 = v110;
-      v66 = lzma_stream_buffer_bound();
-      v67 = v66 + 60;
-      if (v64 >= 1)
+      v35 = *(&v69 + 1);
+      v36 = *&v70[0];
+      v37 = HIDWORD(v66);
+      v38 = v67;
+      v39 = lzma_stream_buffer_bound();
+      v40 = v39 + 60;
+      if (v37 >= 1)
       {
-        fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch capacity: %zu B\n", v67);
+        fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch capacity: %zu B\n", v40);
       }
 
-      v68 = malloc(v67);
-      v69 = v68;
-      if (v68)
+      v41 = malloc(v40);
+      v42 = v41;
+      if (v41)
       {
-        *v68 = 0u;
-        *(v68 + 1) = 0u;
-        *(v68 + 44) = 0u;
-        *(v68 + 2) = 0u;
-        *v68 = 0x3035464649445842;
-        *(v68 + 1) = 0;
-        *(v68 + 2) = v63;
-        *(v68 + 40) = *(v113 + 8);
-        *(v68 + 14) = DWORD2(v113[1]);
-        v70 = plzmaEncodeBuffer((v68 + 60), v66, v62, v63, v65);
-        if ((v70 & 0x8000000000000000) == 0)
+        *v41 = 0u;
+        *(v41 + 1) = 0u;
+        *(v41 + 44) = 0u;
+        *(v41 + 2) = 0u;
+        *v41 = 0x3035464649445842;
+        *(v41 + 1) = 0;
+        *(v41 + 2) = v36;
+        *(v41 + 40) = *(v70 + 8);
+        *(v41 + 14) = DWORD2(v70[1]);
+        v43 = plzmaEncodeBuffer((v41 + 60), v39, v35, v36, v38);
+        if ((v43 & 0x8000000000000000) == 0)
         {
-          v73 = a3;
-          v74 = v69 + v70 + 60;
-          v69[4] = v70;
-          if (v64 >= 1)
+          v44 = a3;
+          v45 = v42 + v43 + 60;
+          v42[4] = v43;
+          if (v37 >= 1)
           {
-            fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch archive payload size: %zu B\n", v70);
+            fprintf(*MEMORY[0x29EDCA610], "BXDiff5 patch archive payload size: %zu B\n", v43);
           }
 
-          v35 = 0;
-          *a2 = reallocToFit(v69, v74 - v69);
-          *v73 = v74 - v69;
+          v18 = 0;
+          *a2 = reallocToFit(v42, v45 - v42);
+          *v44 = v45 - v42;
           goto LABEL_20;
         }
 
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateFullReplacementBackend", 406, 54, 0, "Payload compression", v71, v72, v104);
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateFullReplacementBackend", 406, 54, 0, "Payload compression");
       }
 
       else
       {
-        v81 = __error();
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateFullReplacementBackend", 386, 54, *v81, "malloc patch", v82, v83, v104);
+        v52 = __error();
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "bxdiff5CreateFullReplacementBackend", 386, 54, *v52, "malloc patch");
       }
 
-      free(v69);
+      free(v42);
       *a2 = 0;
       *a3 = 0;
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "BXDiff5WithIndividualPatches", 689, 54, 0, "bxdiff5CreateFullReplacementBackend", v84, v85, v105);
-      v35 = -1;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "BXDiff5WithIndividualPatches", 689, 54, 0, "bxdiff5CreateFullReplacementBackend");
+      v18 = -1;
       goto LABEL_20;
     }
 
-    v108 = v21;
-    v52 = v111;
-    if (v111)
+    v65 = v13;
+    v27 = v68;
+    if (v68)
     {
-      v53 = 0;
-      v54 = (v112 + 36);
+      v28 = 0;
+      v29 = (v69 + 36);
       do
       {
-        v55 = *v54;
-        v54 += 20;
-        if (v55)
+        v30 = *v29;
+        v29 += 20;
+        if (v30)
         {
-          ++v53;
+          ++v28;
         }
 
-        --v52;
+        --v27;
       }
 
-      while (v52);
-      if (v53 == 1)
+      while (v27);
+      if (v28 == 1)
       {
-        v56 = 0;
+        v31 = 0;
       }
 
       else
       {
-        v56 = v23;
+        v31 = v15;
       }
 
-      if (v53 == 1)
+      if (v28 == 1)
       {
-        v57 = 0;
-        v58 = (v112 + 36);
+        v32 = 0;
+        v33 = (v69 + 36);
         while (1)
         {
-          v59 = *v58;
-          v58 += 20;
-          if (v59)
+          v34 = *v33;
+          v33 += 20;
+          if (v34)
           {
             break;
           }
 
-          if (v20 == ++v57)
+          if (v12 == ++v32)
           {
-            v60 = "could not find unique input";
-            v61 = 699;
-            goto LABEL_89;
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "BXDiff5WithIndividualPatches", 699, 54, 0, "could not find unique input");
+            goto LABEL_88;
           }
         }
 
-        v106 = a2;
-        v107 = a3;
-        v75 = 1;
-        v23 = v56;
-        v53 = 1;
-LABEL_62:
-        v76 = 0;
-        v77 = 36;
+        v63 = a2;
+        v64 = a3;
+        v46 = 1;
+        v15 = v31;
+        v28 = 1;
+LABEL_61:
+        v47 = 0;
+        v48 = 36;
         do
         {
-          if (*(v112 + v77))
+          if (*(v69 + v48))
           {
-            if (bxdiff5CreateInControls(&v109, v76, v14 & 2, v28, v29, v30, v31, v32))
+            if (bxdiff5CreateInControls(&v66, v47, v11 & 2))
             {
-              v33 = "bxdiff5CreateInControls";
-              v34 = 710;
+              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "BXDiff5WithIndividualPatches", 710, 54, 0, "bxdiff5CreateInControls");
               goto LABEL_17;
             }
 
-            v78 = v57 == v76 ? v75 : 0;
-            if ((v23 || v78) && bxdiff5CreateInPatch(&v109, v76))
+            v49 = v32 == v47 ? v46 : 0;
+            if ((v15 || v49) && bxdiff5CreateInPatch(&v66, v47))
             {
-              v33 = "bxdiff5CreateInPatch";
-              v34 = 718;
+              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "BXDiff5WithIndividualPatches", 718, 54, 0, "bxdiff5CreateInPatch");
               goto LABEL_17;
             }
           }
 
-          ++v76;
-          v77 += 80;
+          ++v47;
+          v48 += 80;
         }
 
-        while (v20 != v76);
-        if (v108 >= 2)
+        while (v12 != v47);
+        if (v65 >= 2)
         {
-          bxdiff5Dump(&v109, *MEMORY[0x29EDCA610]);
+          bxdiff5Dump(&v66, *MEMORY[0x29EDCA610]);
         }
 
-        v80 = v106;
-        v79 = v107;
-        if (v53 >= 2)
+        v51 = v63;
+        v50 = v64;
+        if (v28 >= 2)
         {
-          if (bxdiff5CreateComboControls(&v109, v26, v27, v28, v29, v30, v31, v32))
+          if (bxdiff5CreateComboControls(&v66))
           {
-            v60 = "bxdiff5CreateComboControls";
-            v61 = 730;
-            goto LABEL_89;
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "BXDiff5WithIndividualPatches", 730, 54, 0, "bxdiff5CreateComboControls");
+            goto LABEL_88;
           }
 
-          v86 = 0;
-          v87 = v112;
-          v88 = v20;
+          v53 = 0;
+          v54 = v69;
+          v55 = v12;
           do
           {
-            free(*(v87 + v86 + 40));
-            v87 = v112;
-            v96 = v112 + v86;
-            *(v96 + 40) = 0;
-            *(v96 + 56) = 0;
-            v86 += 80;
-            --v88;
+            free(*(v54 + v53 + 40));
+            v54 = v69;
+            v56 = v69 + v53;
+            *(v56 + 40) = 0;
+            *(v56 + 56) = 0;
+            v53 += 80;
+            --v55;
           }
 
-          while (v88);
-          v79 = v107;
-          if (v108 > 1)
+          while (v55);
+          v50 = v64;
+          if (v65 > 1)
           {
-            bxdiff5Dump(&v109, *MEMORY[0x29EDCA610]);
+            bxdiff5Dump(&v66, *MEMORY[0x29EDCA610]);
           }
 
-          v80 = v106;
-          if (bxdiff5CreateComboPatch(&v109, v89, v90, v91, v92, v93, v94, v95))
+          v51 = v63;
+          if (bxdiff5CreateComboPatch(&v66))
           {
-            v60 = "bxdiff5CreateComboPatch";
-            v61 = 747;
-LABEL_89:
-            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "BXDiff5WithIndividualPatches", v61, 54, 0, v60, v31, v32, v104);
-            v35 = -1;
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "BXDiff5WithIndividualPatches", 747, 54, 0, "bxdiff5CreateComboPatch");
+LABEL_88:
+            v18 = -1;
             goto LABEL_18;
           }
         }
 
-        if (v108 >= 2)
+        if (v65 >= 2)
         {
-          bxdiff5Dump(&v109, *MEMORY[0x29EDCA610]);
+          bxdiff5Dump(&v66, *MEMORY[0x29EDCA610]);
         }
 
-        if (v53 >= 2)
+        if (v28 >= 2)
         {
-          v97 = v116;
-          *v80 = *(&v115 + 1);
-          *v79 = v97;
-          *(&v115 + 1) = 0;
-          v116 = 0;
-          if (!v23)
+          v57 = v73;
+          *v51 = *(&v72 + 1);
+          *v50 = v57;
+          *(&v72 + 1) = 0;
+          v73 = 0;
+          if (!v15)
           {
-            goto LABEL_98;
+            goto LABEL_97;
           }
 
-          v98 = (v112 + 64);
-          v99 = v20;
+          v58 = (v69 + 64);
+          v59 = v12;
           do
           {
-            v100 = v98[1];
-            *v10++ = *v98;
-            *v9++ = v100;
-            *v98 = 0;
-            v98[1] = 0;
-            v98 += 10;
-            --v99;
+            v60 = v58[1];
+            *a4++ = *v58;
+            *a5++ = v60;
+            *v58 = 0;
+            v58[1] = 0;
+            v58 += 10;
+            --v59;
           }
 
-          while (v99);
+          while (v59);
         }
 
-        if (v53 == 1)
+        if (v28 == 1)
         {
-          v35 = 0;
-          v101 = v112 + 80 * v57;
-          v102 = *(v101 + 72);
-          *v80 = *(v101 + 64);
-          *v79 = v102;
-          *(v101 + 64) = 0;
-          *(v101 + 72) = 0;
+          v18 = 0;
+          v61 = v69 + 80 * v32;
+          v62 = *(v61 + 72);
+          *v51 = *(v61 + 64);
+          *v50 = v62;
+          *(v61 + 64) = 0;
+          *(v61 + 72) = 0;
           goto LABEL_18;
         }
 
-LABEL_98:
-        v35 = 0;
+LABEL_97:
+        v18 = 0;
 LABEL_18:
-        v36 = 0;
-        v37 = v112;
+        v19 = 0;
+        v20 = v69;
         do
         {
-          v38 = v37 + v36;
-          *v38 = 0;
-          free(*(v38 + 40));
-          v37 = v112;
-          *(v112 + v36 + 40) = 0;
-          v36 += 80;
-          --v20;
+          v21 = v20 + v19;
+          *v21 = 0;
+          free(*(v21 + 40));
+          v20 = v69;
+          *(v69 + v19 + 40) = 0;
+          v19 += 80;
+          --v12;
         }
 
-        while (v20);
+        while (v12);
         goto LABEL_20;
       }
 
-      v106 = a2;
-      v107 = a3;
-      v75 = 0;
+      v63 = a2;
+      v64 = a3;
+      v46 = 0;
     }
 
     else
     {
-      v106 = a2;
-      v107 = a3;
-      v75 = 0;
-      v53 = 0;
+      v63 = a2;
+      v64 = a3;
+      v46 = 0;
+      v28 = 0;
     }
 
-    v57 = -1;
-    goto LABEL_62;
+    v32 = -1;
+    goto LABEL_61;
   }
 
-  v47 = 0;
-  while (!bxdiff5SetIn(&v109, v47, *(*(a1 + 8) + 8 * v47), *(*(a1 + 16) + 8 * v47), v29, v30, v31, v32))
+  v22 = 0;
+  while (!bxdiff5SetIn(&v66, v22, *(*(a1 + 8) + 8 * v22), *(*(a1 + 16) + 8 * v22)))
   {
-    if (v20 == ++v47)
+    if (v12 == ++v22)
     {
-      goto LABEL_28;
+      goto LABEL_27;
     }
   }
 
-  v33 = "bxdiff5SetIn";
-  v34 = 675;
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "BXDiff5WithIndividualPatches", 675, 54, 0, "bxdiff5SetIn");
 LABEL_17:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "BXDiff5WithIndividualPatches", v34, 54, 0, v33, v31, v32, v104);
-  v35 = -1;
-  if (v20)
+  v18 = -1;
+  if (v12)
   {
     goto LABEL_18;
   }
 
 LABEL_20:
-  *(&v112 + 1) = 0;
-  free(v114[0]);
-  v114[0] = 0;
-  bxdiff5Free(&v109, v39, v40, v41, v42, v43, v44, v45);
+  *(&v69 + 1) = 0;
+  free(v71[0]);
+  v71[0] = 0;
+  bxdiff5Free(&v66);
   LODWORD(result) = leaveThreadErrorContext(0, 0, 0);
   if (result >= 0)
   {
-    result = v35;
+    return v18;
   }
 
   else
   {
-    result = result;
+    return result;
   }
-
-LABEL_23:
-  v46 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t plzmaEncodeBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v29 = 0;
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v10 = IMemStreamCreate(a3, a4);
-  if (!v10)
+  v18 = 0;
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v8 = IMemStreamCreate(a3, a4);
+  if (!v8)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "plzmaEncodeBuffer", 348, 54, 0, "is", v8, v9, v25);
-    v19 = 0;
-LABEL_8:
-    v22 = 1;
-    goto LABEL_9;
-  }
-
-  v11 = OMemStreamCreate(a1, a2);
-  v19 = v11;
-  if (!v11)
-  {
-    v20 = "os";
-    v21 = 349;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "plzmaEncodeBuffer", 348, 54, 0, "is", v14, v15, v16, v17, v18);
+    v10 = 0;
     goto LABEL_7;
   }
 
-  *(&v25 + 4) = a5 | 0x100000000;
-  LODWORD(v25) = 0;
-  *&v26 = 0x100000;
-  *(&v26 + 1) = IMemStreamRead;
-  *(&v27 + 1) = v10;
-  *&v28 = OMemStreamWrite;
-  v29 = v11;
-  if (ParallelCompressionEncode(&v25, v12, v13, v14, v15, v16, v17, v18))
+  v9 = OMemStreamCreate(a1, a2);
+  v10 = v9;
+  if (!v9)
   {
-    v20 = "encode";
-    v21 = 358;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "plzmaEncodeBuffer", 349, 54, 0, "os", v14, v15, v16, v17, v18);
+    goto LABEL_7;
+  }
+
+  *(&v14 + 4) = a5 | 0x100000000;
+  LODWORD(v14) = 0;
+  *&v15 = 0x100000;
+  *(&v15 + 1) = IMemStreamRead;
+  *(&v16 + 1) = v8;
+  *&v17 = OMemStreamWrite;
+  v18 = v9;
+  if (ParallelCompressionEncode(&v14))
+  {
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "plzmaEncodeBuffer", 358, 54, 0, "encode", v14, v15, v16, v17, v18);
 LABEL_7:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiff5.c", "plzmaEncodeBuffer", v21, 54, 0, v20, v17, v18, v25);
+    v11 = 1;
     goto LABEL_8;
   }
 
-  v22 = 0;
-LABEL_9:
-  NWritten = OMemStreamGetNWritten(v19);
+  v11 = 0;
+LABEL_8:
+  NWritten = OMemStreamGetNWritten(v10);
+  IMagicStreamDestroy(v8);
   IMagicStreamDestroy(v10);
-  IMagicStreamDestroy(v19);
-  if (v22)
+  if (v11)
   {
     return -1;
   }
@@ -7840,7 +6745,7 @@ void *StringTableCreate()
   if (!v0)
   {
     v1 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/StringTable.c", "StringTableCreate", 30, 35, *v1, "malloc", v2, v3, v5);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/StringTable.c", "StringTableCreate", 30, 35, *v1, "malloc");
   }
 
   return v0;
@@ -7848,37 +6753,37 @@ void *StringTableCreate()
 
 uint64_t stringTableReserve(uint64_t a1, unsigned int a2)
 {
-  v3 = *(a1 + 4);
-  if (v3 >= a2)
+  v2 = *(a1 + 4);
+  if (v2 >= a2)
   {
     return 0;
   }
 
-  if (v3)
+  if (v2)
   {
-    v5 = v3 + (v3 >> 1);
+    v4 = v2 + (v2 >> 1);
   }
 
   else
   {
-    v5 = 32;
+    v4 = 32;
   }
 
-  if (v5 <= a2)
+  if (v4 <= a2)
   {
-    v5 = a2;
+    v4 = a2;
   }
 
-  *(a1 + 4) = v5;
-  v6 = reallocf(*(a1 + 8), 16 * v5);
-  *(a1 + 8) = v6;
-  if (v6)
+  *(a1 + 4) = v4;
+  v5 = reallocf(*(a1 + 8), 16 * v4);
+  *(a1 + 8) = v5;
+  if (v5)
   {
     return 0;
   }
 
-  v8 = __error();
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/StringTable.c", "stringTableReserve", 23, 35, *v8, "malloc", v9, v10, v2);
+  v7 = __error();
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/StringTable.c", "stringTableReserve", 23, 35, *v7, "malloc");
   return 0xFFFFFFFFLL;
 }
 
@@ -7893,7 +6798,7 @@ void StringTableDestroy(void **a1)
   }
 }
 
-uint64_t StringTableAppend(unsigned int *a1, const void *a2, size_t a3, _DWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t StringTableAppend(unsigned int *a1, const void *a2, size_t a3, _DWORD *a4)
 {
   if (a4)
   {
@@ -7902,39 +6807,35 @@ uint64_t StringTableAppend(unsigned int *a1, const void *a2, size_t a3, _DWORD *
 
   if (HIDWORD(a3))
   {
-    v11 = "string too long for StringTable";
-    v12 = 74;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/StringTable.c", "StringTableAppend", 74, 35, 0, "string too long for StringTable");
   }
 
   else if (stringTableReserve(a1, *a1 + 1))
   {
-    v11 = "increasing string table capacity";
-    v12 = 77;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/StringTable.c", "StringTableAppend", 77, 35, 0, "increasing string table capacity");
   }
 
   else
   {
-    v17[0] = 0;
-    v17[1] = 0;
-    if (!BlobBufferStore((a1 + 4), 0, a3 + 1, v17))
+    v11[0] = 0;
+    v11[1] = 0;
+    if (!BlobBufferStore((a1 + 4), 0, a3 + 1, v11))
     {
-      v14 = *(a1 + 1) + 16 * *a1;
-      v15 = v17[0];
-      *v14 = v17[0];
-      *(v14 + 8) = a3;
-      v16 = (*(a1 + 4) + v15);
-      memcpy(v16, a2, a3);
+      v8 = *(a1 + 1) + 16 * *a1;
+      v9 = v11[0];
+      *v8 = v11[0];
+      *(v8 + 8) = a3;
+      v10 = (*(a1 + 4) + v9);
+      memcpy(v10, a2, a3);
       result = 0;
-      *(v16 + a3) = 0;
+      *(v10 + a3) = 0;
       ++*a1;
       return result;
     }
 
-    v11 = "insertion failed in string table";
-    v12 = 81;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/StringTable.c", "StringTableAppend", 81, 35, 0, "insertion failed in string table");
   }
 
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/StringTable.c", "StringTableAppend", v12, 35, 0, v11, a7, a8, v17[0]);
   return 0xFFFFFFFFLL;
 }
 
@@ -7952,48 +6853,44 @@ uint64_t StringTableAppendTable(uint64_t a1, unsigned int *a2, _DWORD *a3)
 
   if (stringTableReserve(a1, *a1 + *a2))
   {
-    v7 = "increasing string table capacity";
-    v8 = 152;
-LABEL_9:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/StringTable.c", "StringTableAppendTable", v8, 35, 0, v7, v5, v6, v15[0]);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/StringTable.c", "StringTableAppendTable", 152, 35, 0, "increasing string table capacity");
     return 0xFFFFFFFFLL;
   }
 
-  v15[0] = 0;
-  v15[1] = 0;
-  if (BlobBufferStore(a1 + 16, *(a2 + 4), *(a2 + 3), v15))
+  v11[0] = 0;
+  v11[1] = 0;
+  if (BlobBufferStore(a1 + 16, *(a2 + 4), *(a2 + 3), v11))
   {
-    v7 = "increasing blob capacity failed";
-    v8 = 156;
-    goto LABEL_9;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/StringTable.c", "StringTableAppendTable", 156, 35, 0, "increasing blob capacity failed");
+    return 0xFFFFFFFFLL;
   }
 
   if (*a2)
   {
-    v10 = 0;
-    v11 = 0;
-    v12 = *(a1 + 8);
+    v6 = 0;
+    v7 = 0;
+    v8 = *(a1 + 8);
     do
     {
-      v13 = v11 + *a1;
-      *(v12 + 16 * v13) = *(*(a2 + 1) + v10);
-      v12 = *(a1 + 8);
-      *(v12 + 16 * v13) += v15[0];
-      ++v11;
-      v14 = *a2;
-      v10 += 16;
+      v9 = v7 + *a1;
+      *(v8 + 16 * v9) = *(*(a2 + 1) + v6);
+      v8 = *(a1 + 8);
+      *(v8 + 16 * v9) += v11[0];
+      ++v7;
+      v10 = *a2;
+      v6 += 16;
     }
 
-    while (v11 < v14);
+    while (v7 < v10);
   }
 
   else
   {
-    LODWORD(v14) = 0;
+    LODWORD(v10) = 0;
   }
 
   result = 0;
-  *a1 += v14;
+  *a1 += v10;
   return result;
 }
 
@@ -8008,7 +6905,7 @@ size_t StringTableSort(unsigned int *a1, void *a2)
       if (!v5)
       {
         v19 = __error();
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/StringTable.c", "StringTableSort", 195, 35, *v19, "malloc", v20, v21, v22);
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/StringTable.c", "StringTableSort", 195, 35, *v19, "malloc");
         return 0xFFFFFFFFLL;
       }
 
@@ -8109,465 +7006,460 @@ size_t StringTableSort(unsigned int *a1, void *a2)
   return result;
 }
 
-uint64_t getBXDiffControls(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, void *a5, uint64_t a6, int *a7, uint64_t a8)
+uint64_t getBXDiffControls(unsigned __int8 *a1, unint64_t a2, unsigned __int8 *a3, unint64_t a4, void *a5, unint64_t *a6, unsigned int *a7)
 {
-  v8 = 0xFFFFFFFFLL;
+  v7 = 0xFFFFFFFFLL;
   if (!a2 || !a4)
   {
-    return v8;
+    return v7;
   }
 
-  v10 = a6;
   if (a2 >= a4)
   {
-    v13 = a4;
+    v12 = a4;
   }
 
   else
   {
-    v13 = a2;
+    v12 = a2;
   }
 
-  if (v13 >= 0x10000)
+  if (v12 >= 0x10000)
   {
-    v14 = a4 - a2;
-    v15 = a2 - a4;
+    v13 = a4 - a2;
+    v14 = a2 - a4;
     if (a2 < a4)
     {
-      v15 = a4 - a2;
+      v14 = a4 - a2;
     }
 
-    v16 = a1;
-    v17 = a3;
+    v15 = a1;
+    v16 = a3;
     do
     {
+      v18 = *v15++;
+      v17 = v18;
       v19 = *v16++;
-      v18 = v19;
-      v20 = *v17++;
-      if (v18 != v20)
+      if (v17 != v19)
       {
-        ++v15;
+        ++v14;
       }
 
-      --v13;
+      --v12;
     }
 
-    while (v13);
-    if (v15 <= a4 / 0x64)
+    while (v12);
+    if (v14 <= a4 / 0x64)
     {
-      v95 = calloc(1uLL, 0x18uLL);
-      if (v95)
+      v89 = calloc(1uLL, 0x18uLL);
+      if (v89)
       {
-        *a5 = v95;
-        *v10 = 1;
+        *a5 = v89;
+        *a6 = 1;
         if (a2 <= a4)
         {
-          v8 = 0;
-          v101 = 0x8000000000000000 - a2;
+          v7 = 0;
+          v93 = 0x8000000000000000 - a2;
           if ((a2 & 0x8000000000000000) == 0)
           {
-            v101 = a2;
+            v93 = a2;
           }
 
-          v102 = 0x8000000000000000 - v14;
-          if (v14 >= 0)
+          v94 = 0x8000000000000000 - v13;
+          if (v13 >= 0)
           {
-            v102 = a4 - a2;
+            v94 = a4 - a2;
           }
 
-          *v95 = v101;
-          v95[1] = v102;
-          v95[2] = 0;
+          *v89 = v93;
+          v89[1] = v94;
+          v89[2] = 0;
         }
 
         else
         {
-          v8 = 0;
-          v96 = 0x8000000000000000 - a4;
-          v95[1] = 0;
-          v95[2] = 0;
+          v7 = 0;
+          v90 = 0x8000000000000000 - a4;
+          v89[1] = 0;
+          v89[2] = 0;
           if ((a4 & 0x8000000000000000) == 0)
           {
-            v96 = a4;
+            v90 = a4;
           }
 
-          *v95 = v96;
+          *v89 = v90;
         }
 
-        return v8;
+        return v7;
       }
 
-      v97 = __error();
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiffBase.c", "bxdiffFastPathControls", 101, 24, *v97, "calloc", v98, v99, v103);
-      v93 = "building fast path controls";
-      v94 = 311;
-LABEL_122:
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiffBase.c", "getBXDiffControls", v94, 24, 0, v93, v22, v23, v103);
+      v91 = __error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiffBase.c", "bxdiffFastPathControls", 101, 24, *v91, "calloc");
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiffBase.c", "getBXDiffControls", 311, 24, 0, "building fast path controls");
       return 0xFFFFFFFFLL;
     }
   }
 
-  v21 = BXDiffMatchesCreate(a1, a2, a3, a4, a7, a6, a7, a8);
-  if (!v21)
+  v20 = BXDiffMatchesCreate(a1, a2, a3, a4, a7);
+  if (!v20)
   {
-    v93 = "creating diff match lookup object";
-    v94 = 319;
-    goto LABEL_122;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiffBase.c", "getBXDiffControls", 319, 24, 0, "creating diff match lookup object");
+    return 0xFFFFFFFFLL;
   }
 
-  v24 = v21;
-  v25 = BXDiffMatchesIBuf(v21);
-  v26 = BXDiffMatchesISize(v24);
-  NWritten = OMemStreamGetNWritten(v24);
-  v27 = BXDiffMatchesOSize(v24);
-  v113 = 0;
-  if (!v26 || (v30 = v27) == 0)
+  v21 = v20;
+  v22 = BXDiffMatchesIBuf(v20);
+  v23 = BXDiffMatchesISize(v21);
+  NWritten = OMemStreamGetNWritten(v21);
+  v24 = BXDiffMatchesOSize(v21);
+  v104 = 0;
+  if (!v23 || (v26 = v24) == 0)
   {
     *a5 = 0;
-    *v10 = 0;
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiffBase.c", "getBXDiffControls", 324, 24, 0, "building diff controls", v28, v29, v103);
+    *a6 = 0;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelDiff/BXDiffBase.c", "getBXDiffControls", 324, 24, 0, "building diff controls");
     goto LABEL_125;
   }
 
-  if (v27 < 1)
+  if (v24 < 1)
   {
-    v36 = 0;
-    v92 = 0;
+    v32 = 0;
+    v88 = 0;
     goto LABEL_124;
   }
 
-  v104 = v10;
-  v105 = a5;
+  v95 = a6;
+  v96 = a5;
+  v27 = 0;
+  v28 = 0;
+  v29 = 0;
+  v30 = 0;
   v31 = 0;
   v32 = 0;
-  v33 = 0;
-  v34 = 0;
-  v35 = 0;
-  v36 = 0;
   __ptr = 0;
-  v106 = 0;
+  v97 = 0;
   do
   {
-    v110 = v34;
-    v111 = v33;
-    v31 += v32;
-    v109 = v31 < v30;
-    if (v31 < v30)
+    v101 = v30;
+    v102 = v29;
+    v27 += v28;
+    v100 = v27 < v26;
+    if (v27 < v26)
     {
-      v107 = v36;
-      v45 = 0;
-      v37 = v31;
+      v98 = v32;
+      v41 = 0;
+      v33 = v27;
       do
       {
-        BestMatch = BXDiffMatchesGetBestMatch(v24, v31, &v113);
-        v39 = BestMatch + v31;
-        if (BestMatch + v31 <= v30)
+        BestMatch = BXDiffMatchesGetBestMatch(v21, v27, &v104, v25);
+        v35 = BestMatch + v27;
+        if (BestMatch + v27 <= v26)
         {
-          v32 = BestMatch;
+          v28 = BestMatch;
         }
 
         else
         {
-          v32 = v30 - v31;
+          v28 = v26 - v27;
         }
 
-        if (v37 < v32 + v31)
+        if (v33 < v28 + v27)
         {
-          if (v39 >= v30)
+          if (v35 >= v26)
           {
-            v39 = v30;
+            v35 = v26;
           }
 
-          v40 = (NWritten + v37);
-          v41 = v39 - v37;
-          v42 = v35 + v37;
+          v36 = (NWritten + v33);
+          v37 = v35 - v33;
+          v38 = v31 + v33;
           do
           {
-            if (v42 < v26 && *(v25 + v42) == *v40)
+            if (v38 < v23 && *(v22 + v38) == *v36)
             {
-              ++v45;
+              ++v41;
             }
 
-            ++v40;
-            ++v42;
-            --v41;
+            ++v36;
+            ++v38;
+            --v37;
           }
 
-          while (v41);
-          v37 = v39;
+          while (v37);
+          v33 = v35;
         }
 
-        if (v32 == v45 && v32 != 0 || v32 > v45 + 8)
+        if (v28 == v41 && v28 != 0 || v28 > v41 + 8)
         {
-          v36 = v107;
+          v32 = v98;
           goto LABEL_46;
         }
 
-        if (v31 + v35 < v26)
+        if (v27 + v31 < v23)
         {
-          v45 -= *(v25 + v31 + v35) == *(NWritten + v31);
+          v41 -= *(v22 + v27 + v31) == *(NWritten + v27);
         }
 
-        ++v31;
+        ++v27;
       }
 
-      while (v31 < v30);
-      v109 = 0;
-      v31 = v30;
-      v36 = v107;
+      while (v27 < v26);
+      v100 = 0;
+      v27 = v26;
+      v32 = v98;
     }
 
     else
     {
-      v45 = 0;
+      v41 = 0;
 LABEL_46:
-      if (v32 == v45 && v31 != v30)
+      if (v28 == v41 && v27 != v26)
       {
-        v32 = v45;
-        v34 = v110;
-        v33 = v111;
+        v28 = v41;
+        v30 = v101;
+        v29 = v102;
         continue;
       }
     }
 
-    v46 = v31 - v111;
-    v47 = v26 - v110;
-    if (v31 - v111 < v26 - v110)
+    v42 = v27 - v102;
+    v43 = v23 - v101;
+    if (v27 - v102 < v23 - v101)
     {
-      v47 = v31 - v111;
+      v43 = v27 - v102;
     }
 
-    if (v47 < 1)
+    if (v43 < 1)
     {
-      v52 = 0;
+      v48 = 0;
     }
 
     else
     {
+      v44 = 0;
+      v45 = 0;
+      v46 = 0;
+      v47 = 0;
       v48 = 0;
-      v49 = 0;
-      v50 = 0;
-      v51 = 0;
-      v52 = 0;
       do
       {
-        v53 = v50 | (v51 << 8);
-        v54 = *(v25 + v110 + v48) - *(NWritten + v111 + v48);
-        if ((v51 & 0xFF000000FF0000) != 0 || v53 == 0)
+        v49 = v46 | (v47 << 8);
+        v50 = *(v22 + v101 + v44) - *(NWritten + v102 + v44);
+        if ((v47 & 0xFF000000FF0000) != 0 || v49 == 0)
         {
-          v56 = 3;
+          v52 = 3;
         }
 
         else
         {
-          v56 = 4;
+          v52 = 4;
         }
 
-        v57 = __OFADD__(v56, v49);
-        v58 = v56 + v49;
-        if ((v58 < 0) ^ v57 | (v58 == 0))
+        v53 = __OFADD__(v52, v45);
+        v54 = v52 + v45;
+        if ((v54 < 0) ^ v53 | (v54 == 0))
         {
-          v59 = v52;
+          v55 = v48;
         }
 
         else
         {
-          v59 = v48 + 1;
+          v55 = v44 + 1;
         }
 
-        v60 = v58 & (v58 >> 31);
-        v49 -= 4;
-        ++v48;
-        if (!v54)
+        v56 = v54 & (v54 >> 31);
+        v45 -= 4;
+        ++v44;
+        if (!v50)
         {
-          v52 = v59;
-          v49 = v60;
+          v48 = v55;
+          v45 = v56;
         }
 
-        v51 = v53;
-        v50 = v54;
+        v47 = v49;
+        v46 = v50;
       }
 
-      while (v48 != v47);
+      while (v44 != v43);
     }
 
-    if (!v109)
+    if (!v100)
     {
       goto LABEL_85;
     }
 
-    if (v46 >= v113)
+    if (v42 >= v104)
     {
-      v46 = v113;
+      v42 = v104;
     }
 
-    if (v46 >= 1)
+    if (v42 >= 1)
     {
-      v61 = 0;
-      v62 = 0;
-      v63 = 0;
-      v64 = 0;
-      v65 = -v46;
-      v66 = (NWritten - 1 + v31);
-      v67 = (v25 - 1 + v113);
-      v68 = 1;
+      v57 = 0;
+      v58 = 0;
+      v59 = 0;
+      v60 = 0;
+      v61 = -v42;
+      v62 = (NWritten - 1 + v27);
+      v63 = (v22 - 1 + v104);
+      v64 = 1;
       do
       {
-        v69 = v62 | (v63 << 8);
-        v71 = *v67--;
-        v70 = v71;
-        v72 = *v66--;
-        v73 = v70 - v72;
-        if ((v63 & 0xFF000000FF0000) != 0 || v69 == 0)
+        v65 = v58 | (v59 << 8);
+        v67 = *v63--;
+        v66 = v67;
+        v68 = *v62--;
+        v69 = v66 - v68;
+        if ((v59 & 0xFF000000FF0000) != 0 || v65 == 0)
         {
-          v75 = 3;
+          v71 = 3;
         }
 
         else
         {
-          v75 = 4;
+          v71 = 4;
         }
 
-        v57 = __OFADD__(v75, v61);
-        v76 = v75 + v61;
-        if ((v76 < 0) ^ v57 | (v76 == 0))
+        v53 = __OFADD__(v71, v57);
+        v72 = v71 + v57;
+        if ((v72 < 0) ^ v53 | (v72 == 0))
         {
-          v77 = v64;
+          v73 = v60;
         }
 
         else
         {
-          v77 = v68;
+          v73 = v64;
         }
 
-        v78 = v76 & (v76 >> 31);
-        v61 -= 4;
-        if (!v73)
+        v74 = v72 & (v72 >> 31);
+        v57 -= 4;
+        if (!v69)
         {
-          v64 = v77;
-          v61 = v78;
+          v60 = v73;
+          v57 = v74;
         }
 
-        ++v68;
-        v63 = v69;
-        v62 = v73;
+        ++v64;
+        v59 = v65;
+        v58 = v69;
       }
 
-      while (v65 + v68 != 1);
+      while (v61 + v64 != 1);
     }
 
     else
     {
 LABEL_85:
-      v64 = 0;
+      v60 = 0;
     }
 
-    v79 = v52 + v111 - (v31 - v64);
-    if (v52 + v111 > v31 - v64)
+    v75 = v48 + v102 - (v27 - v60);
+    if (v48 + v102 > v27 - v60)
     {
-      if (v79 < 1)
+      if (v75 < 1)
       {
-        v82 = 0;
+        v78 = 0;
       }
 
       else
       {
-        v80 = 0;
-        v81 = 0;
-        v82 = 0;
+        v76 = 0;
+        v77 = 0;
+        v78 = 0;
         do
         {
-          v83 = *(NWritten + v31 - v64 + v81);
-          v80 -= v83 == *(v25 + v113 - v64 + v81);
-          v84 = *(v25 + v110 - (v111 - (v31 - v64)) + v81);
-          if (v80 >= 0)
+          v79 = *(NWritten + v27 - v60 + v77);
+          v76 -= v79 == *(v22 + v104 - v60 + v77);
+          v80 = *(v22 + v101 - (v102 - (v27 - v60)) + v77);
+          if (v76 >= 0)
           {
-            v85 = v81 + 1;
+            v81 = v77 + 1;
           }
 
           else
           {
-            v85 = v82;
+            v81 = v78;
           }
 
-          if (v80 < 0)
+          if (v76 < 0)
           {
-            v86 = v80 + 1;
+            v82 = v76 + 1;
           }
 
           else
           {
-            v86 = 0;
+            v82 = 0;
           }
 
-          ++v81;
-          if (v83 == v84)
+          ++v77;
+          if (v79 == v80)
           {
-            v82 = v85;
-            v80 = v86;
+            v78 = v81;
+            v76 = v82;
           }
         }
 
-        while (v81 < v79);
+        while (v77 < v75);
       }
 
-      v52 = v31 - v64 - v111 + v82;
-      v64 -= v82;
+      v48 = v27 - v60 - v102 + v78;
+      v60 -= v78;
     }
 
-    v87 = v106;
-    if (v36 >= v106)
+    v83 = v97;
+    if (v32 >= v97)
     {
-      v106 += 0x40000;
-      __ptr = reallocf(__ptr, 24 * (v87 + 0x40000));
+      v97 += 0x40000;
+      __ptr = reallocf(__ptr, 24 * (v83 + 0x40000));
       if (!__ptr)
       {
         getBXDiffControls_cold_1();
       }
     }
 
-    v88 = 0x8000000000000000 - v52;
-    if (v52 >= 0)
+    v84 = 0x8000000000000000 - v48;
+    if (v48 >= 0)
     {
-      v88 = v52;
+      v84 = v48;
     }
 
-    v33 = v31 - v64;
-    v89 = v31 - v64 - (v52 + v111);
-    if (v89 < 0)
+    v29 = v27 - v60;
+    v85 = v27 - v60 - (v48 + v102);
+    if (v85 < 0)
     {
-      v89 = 0x8000000000000000 - v89;
+      v85 = 0x8000000000000000 - v85;
     }
 
-    v90 = &__ptr[24 * v36];
-    *v90 = v88;
-    v90[1] = v89;
-    v91 = v113 - (v52 + v110 + v64);
-    if (v91 < 0)
+    v86 = &__ptr[24 * v32];
+    *v86 = v84;
+    v86[1] = v85;
+    v87 = v104 - (v48 + v101 + v60);
+    if (v87 < 0)
     {
-      v91 = 0x8000000000000000 - v91;
+      v87 = 0x8000000000000000 - v87;
     }
 
-    v90[2] = v91;
-    ++v36;
-    v34 = v113 - v64;
-    v35 = v113 - v31;
+    v86[2] = v87;
+    ++v32;
+    v30 = v104 - v60;
+    v31 = v104 - v27;
   }
 
-  while (v31 < v30);
-  v10 = v104;
-  a5 = v105;
-  v92 = __ptr;
+  while (v27 < v26);
+  a6 = v95;
+  a5 = v96;
+  v88 = __ptr;
   if (__ptr)
   {
-    v92 = reallocToFit(__ptr, 24 * v36);
+    v88 = reallocToFit(__ptr, 24 * v32);
   }
 
 LABEL_124:
-  *a5 = v92;
-  *v10 = v36;
+  *a5 = v88;
+  *a6 = v32;
 LABEL_125:
-  BXDiffMatchesDestroy(v24);
+  BXDiffMatchesDestroy(v21);
   if (*a5)
   {
     return 0;
@@ -8579,192 +7471,192 @@ LABEL_125:
   }
 }
 
-_DWORD *ParallelCompressionAFSCStreamOpen(int a1, unint64_t a2, int a3, int a4)
+_DWORD *ParallelCompressionAFSCStreamOpen(int a1, unint64_t a2, unsigned int a3, int a4)
 {
-  v10 = calloc(1uLL, 0x78uLL);
-  if (!v10)
+  v8 = calloc(1uLL, 0x78uLL);
+  if (!v8)
   {
-    v13 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCStreamOpen", 163, 86, *v13, "malloc", v14, v15, v33);
+    v11 = __error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCStreamOpen", 163, 86, *v11, "malloc");
 LABEL_46:
-    free(v10);
+    free(v8);
     return 0;
   }
 
   if (!a2)
   {
-    v11 = "File too small for AFSC";
-    v12 = 167;
+    v9 = "File too small for AFSC";
+    v10 = 167;
     goto LABEL_7;
   }
 
   if (a2 >= 0xFA000001)
   {
-    v11 = "File too large for AFSC";
-    v12 = 168;
+    v9 = "File too large for AFSC";
+    v10 = 168;
 LABEL_7:
-    v16 = 0;
+    v12 = 0;
 LABEL_45:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCStreamOpen", v12, 86, v16, v11, v8, v9, v33);
-    free(*(v10 + 5));
-    free(*(v10 + 8));
-    free(*(v10 + 10));
-    free(*(v10 + 11));
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCStreamOpen", v10, 86, v12, v9, v29);
+    free(*(v8 + 5));
+    free(*(v8 + 8));
+    free(*(v8 + 10));
+    free(*(v8 + 11));
     goto LABEL_46;
   }
 
   if (a3)
   {
-    v17 = a3;
+    v13 = a3;
   }
 
   else
   {
-    v17 = 4;
+    v13 = 4;
   }
 
-  v18 = a3 - 3;
-  if (a3 - 3) <= 0xA && ((0x551u >> v18))
+  v14 = a3 - 3;
+  if (a3 - 3 <= 0xA && ((0x551u >> v14) & 1) != 0)
   {
-    v17 = dword_29806915C[v18];
+    v13 = dword_29806915C[v14];
   }
 
-  if (v17 <= 9)
+  if (v13 <= 9)
   {
-    if (v17 == 4)
+    if (v13 == 4)
     {
-      v19 = 1285;
+      v15 = 1285;
       goto LABEL_25;
     }
 
-    if (v17 == 8)
+    if (v13 == 8)
     {
-      v19 = 2304;
-      v20 = 6;
+      v15 = 2304;
+      v16 = 6;
       goto LABEL_26;
     }
 
     goto LABEL_41;
   }
 
-  if (v17 == 10)
+  if (v13 == 10)
   {
-    v19 = 0;
-    v21 = 0;
-    v20 = -52;
+    v15 = 0;
+    v17 = 0;
+    v16 = -52;
     goto LABEL_28;
   }
 
-  if (v17 == 12)
+  if (v13 == 12)
   {
-    v19 = COMPRESSION_LZFSE;
+    v15 = COMPRESSION_LZFSE;
     goto LABEL_25;
   }
 
-  if (v17 != 14)
+  if (v13 != 14)
   {
 LABEL_41:
-    v33 = v17;
-    v11 = "invalid compression type %d";
-    v12 = 192;
+    v29 = v13;
+    v9 = "invalid compression type %d";
+    v10 = 192;
     goto LABEL_7;
   }
 
-  v19 = COMPRESSION_LZBITMAP;
+  v15 = COMPRESSION_LZBITMAP;
 LABEL_25:
-  v20 = -1;
+  v16 = -1;
 LABEL_26:
-  v21 = compression_encode_scratch_buffer_size(v19);
-  v22 = compression_decode_scratch_buffer_size(v19);
-  if (v21 <= v22)
+  v17 = compression_encode_scratch_buffer_size(v15);
+  v18 = compression_decode_scratch_buffer_size(v15);
+  if (v17 <= v18)
   {
-    v21 = v22;
+    v17 = v18;
   }
 
 LABEL_28:
-  *v10 = a1;
-  v23 = (a2 + 0xFFFF) >> 16;
-  *(v10 + 1) = a2;
-  v10[4] = v17;
-  v10[5] = v19;
-  *(v10 + 24) = v20;
-  v10[7] = a4;
-  v10[8] = v23;
-  v24 = calloc(v23 + 1, 4uLL);
-  *(v10 + 5) = v24;
-  if (!v24)
+  *v8 = a1;
+  v19 = (a2 + 0xFFFF) >> 16;
+  *(v8 + 1) = a2;
+  v8[4] = v13;
+  v8[5] = v15;
+  *(v8 + 24) = v16;
+  v8[7] = a4;
+  v8[8] = v19;
+  v20 = calloc(v19 + 1, 4uLL);
+  *(v8 + 5) = v20;
+  if (!v20)
   {
-    v16 = *__error();
-    v11 = "malloc";
-    v12 = 210;
+    v12 = *__error();
+    v9 = "malloc";
+    v10 = 210;
     goto LABEL_45;
   }
 
-  v25 = v24;
-  *(v10 + 3) = xmmword_298069110;
-  v26 = malloc(0x100000uLL);
-  *(v10 + 8) = v26;
-  if (!v26)
+  v21 = v20;
+  *(v8 + 3) = xmmword_298069110;
+  v22 = malloc(0x100000uLL);
+  *(v8 + 8) = v22;
+  if (!v22)
   {
-    v16 = *__error();
-    v11 = "malloc";
-    v12 = 214;
+    v12 = *__error();
+    v9 = "malloc";
+    v10 = 214;
     goto LABEL_45;
   }
 
-  *(v10 + 9) = 0;
-  v27 = malloc(0x10000uLL);
-  *(v10 + 10) = v27;
-  if (!v27)
+  *(v8 + 9) = 0;
+  v23 = malloc(0x10000uLL);
+  *(v8 + 10) = v23;
+  if (!v23)
   {
-    v16 = *__error();
-    v11 = "malloc";
-    v12 = 217;
+    v12 = *__error();
+    v9 = "malloc";
+    v10 = 217;
     goto LABEL_45;
   }
 
-  if (v21)
+  if (v17)
   {
-    v28 = malloc(v21);
-    *(v10 + 11) = v28;
-    if (!v28)
+    v24 = malloc(v17);
+    *(v8 + 11) = v24;
+    if (!v24)
     {
-      v16 = *__error();
-      v11 = "malloc";
-      v12 = 221;
+      v12 = *__error();
+      v9 = "malloc";
+      v10 = 221;
       goto LABEL_45;
     }
   }
 
-  v29 = 2;
-  if (v10[4] == 4)
+  v25 = 2;
+  if (v8[4] == 4)
   {
-    v29 = 3;
+    v25 = 3;
   }
 
-  v30 = 4;
-  if (v10[4] == 4)
+  v26 = 4;
+  if (v8[4] == 4)
   {
-    v30 = 264;
+    v26 = 264;
   }
 
-  v31 = (v10[8] << v29) + v30;
-  if (HIDWORD(v31))
+  v27 = (v8[8] << v25) + v26;
+  if (HIDWORD(v27))
   {
-    v11 = "File too large for AFSC";
-    v12 = 235;
+    v9 = "File too large for AFSC";
+    v10 = 235;
     goto LABEL_7;
   }
 
-  v10[27] = v31;
-  *v25 = v31;
-  v10[26] = 0;
-  *(v10 + 12) = 0;
-  v10[28] = 0;
-  return v10;
+  v8[27] = v27;
+  *v21 = v27;
+  v8[26] = 0;
+  *(v8 + 12) = 0;
+  v8[28] = 0;
+  return v8;
 }
 
-uint64_t ParallelCompressionAFSCStreamWrite(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t ParallelCompressionAFSCStreamWrite(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   if (*(a1 + 96) + a3 <= *(a1 + 8))
   {
@@ -8773,76 +7665,73 @@ uint64_t ParallelCompressionAFSCStreamWrite(uint64_t a1, uint64_t a2, unint64_t 
       return 0;
     }
 
-    v10 = 0;
-    v14 = *(a1 + 56);
-    while (v14 + 65537 <= *(a1 + 48) || (flushToResourceFork(a1) & 0x80000000) == 0)
+    v3 = 0;
+    v7 = *(a1 + 56);
+    while (v7 + 65537 <= *(a1 + 48) || (flushToResourceFork(a1) & 0x80000000) == 0)
     {
-      v15 = *(a1 + 72);
-      if (0x10000 - v15 + v10 <= a3)
+      v8 = *(a1 + 72);
+      if (0x10000 - v8 + v3 <= a3)
       {
-        v16 = 0x10000 - v15;
+        v9 = 0x10000 - v8;
       }
 
       else
       {
-        v16 = a3 - v10;
+        v9 = a3 - v3;
       }
 
-      if (v16 == 0x10000)
+      if (v9 == 0x10000)
       {
-        v17 = (a2 + v10);
+        v10 = (a2 + v3);
       }
 
       else
       {
-        v17 = *(a1 + 80);
-        memcpy(&v17[v15], (a2 + v10), v16);
-        v15 = *(a1 + 72);
+        v10 = *(a1 + 80);
+        memcpy(&v10[v8], (a2 + v3), v9);
+        v8 = *(a1 + 72);
       }
 
-      v18 = *(a1 + 96) + v16;
-      *(a1 + 96) = v18;
-      v10 += v16;
-      v19 = v15 + v16;
-      *(a1 + 72) = v15 + v16;
-      if ((v15 + v16) >> 16 || v18 >= *(a1 + 8))
+      v11 = *(a1 + 96) + v9;
+      *(a1 + 96) = v11;
+      v3 += v9;
+      v12 = v8 + v9;
+      *(a1 + 72) = v8 + v9;
+      if ((v8 + v9) >> 16 || v11 >= *(a1 + 8))
       {
-        v21 = *(a1 + 56);
-        v20 = *(a1 + 64);
-        v22 = (v20 + v21);
-        v23 = *(a1 + 20);
-        v24 = v19 < 0x78 || v23 == 0;
-        if (v24 || (v25 = compression_encode_buffer((v20 + v21), 0x10000uLL, v17, v19, *(a1 + 88), v23)) == 0 || (*(a1 + 28) & 1) != 0 && (v26 = v25 + (v25 >> 6), v25 = v26 + 32, v26 == -32) || v25 > *(a1 + 72) + 1)
+        v14 = *(a1 + 56);
+        v13 = *(a1 + 64);
+        v15 = (v13 + v14);
+        v16 = *(a1 + 20);
+        v17 = v12 < 0x78 || v16 == 0;
+        if (v17 || (v18 = compression_encode_buffer((v13 + v14), 0x10000uLL, v10, v12, *(a1 + 88), v16)) == 0 || (*(a1 + 28) & 1) != 0 && (v19 = v18 + (v18 >> 6), v18 = v19 + 32, v19 == -32) || v18 > *(a1 + 72) + 1)
         {
-          *v22 = *(a1 + 24);
-          memcpy(v22 + 1, v17, *(a1 + 72));
-          v25 = *(a1 + 72) + 1;
+          *v15 = *(a1 + 24);
+          memcpy(v15 + 1, v10, *(a1 + 72));
+          v18 = *(a1 + 72) + 1;
         }
 
         *(a1 + 72) = 0;
-        v14 = *(a1 + 56) + v25;
-        *(a1 + 56) = v14;
-        *(*(a1 + 40) + 4 * ++*(a1 + 104)) = *(*(a1 + 40) + 4 * *(a1 + 104)) + v25;
-        if (v10 < a3)
+        v7 = *(a1 + 56) + v18;
+        *(a1 + 56) = v7;
+        *(*(a1 + 40) + 4 * ++*(a1 + 104)) = *(*(a1 + 40) + 4 * *(a1 + 104)) + v18;
+        if (v3 < a3)
         {
           continue;
         }
       }
 
-      return v10;
+      return v3;
     }
 
-    v8 = "update resource fork";
-    v9 = 270;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCStreamWrite", 270, 86, 0, "update resource fork");
   }
 
   else
   {
-    v8 = "too many bytes received";
-    v9 = 262;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCStreamWrite", 262, 86, 0, "too many bytes received");
   }
 
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCStreamWrite", v9, 86, 0, v8, a7, a8, v28);
   return -1;
 }
 
@@ -8852,172 +7741,171 @@ uint64_t flushToResourceFork(uint64_t a1)
   if (v2 < 0)
   {
     v3 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "flushToResourceFork", 142, 86, *v3, "fsetxattr resource fork", v4, v5, v8);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "flushToResourceFork", 142, 86, *v3, "fsetxattr resource fork");
   }
 
-  v6 = *(a1 + 108) + *(a1 + 56);
+  v4 = *(a1 + 108) + *(a1 + 56);
   *(a1 + 56) = 0;
-  *(a1 + 108) = v6;
+  *(a1 + 108) = v4;
   *(a1 + 112) = 1;
   return (v2 >> 31);
 }
 
-uint64_t ParallelCompressionAFSCStreamClose(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ParallelCompressionAFSCStreamClose(uint64_t a1)
 {
-  v59 = *MEMORY[0x29EDCA608];
+  v51 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
-    v12 = 0;
-    goto LABEL_9;
+    return 0;
   }
 
-  memset(&v43, 0, sizeof(v43));
+  memset(&v35, 0, sizeof(v35));
   if (*(a1 + 96) >= *(a1 + 8) && !*(a1 + 72))
   {
-    v15 = *(a1 + 112);
-    v16 = *(a1 + 20);
-    if (v16)
+    v7 = *(a1 + 112);
+    v8 = *(a1 + 20);
+    if (v8)
     {
-      v16 = (*(a1 + 28) >> 1) & 1;
+      v8 = (*(a1 + 28) >> 1) & 1;
     }
 
     if (*(a1 + 32) > 1u)
     {
-      v16 = 1;
+      v8 = 1;
     }
 
     if ((*(a1 + 56) - 3569) < 0xFFFFFFFFFFFFF1FFLL)
     {
-      v16 = 1;
+      v8 = 1;
     }
 
-    if (v16 | v15)
+    if (v8 | v7)
     {
       if ((flushToResourceFork(a1) & 0x80000000) != 0)
       {
-        v9 = "update resource fork";
-        v10 = 341;
+        v2 = "update resource fork";
+        v3 = 341;
         goto LABEL_5;
       }
 
-      v15 = *(a1 + 112);
+      v7 = *(a1 + 112);
     }
 
-    v17 = (__PAIR64__(*(a1 + 16), v15) - 1) >> 32;
-    v18 = *(a1 + 8);
-    v19 = *(a1 + 80);
-    *v19 = 1668116582;
-    *(v19 + 4) = v17;
-    *(v19 + 8) = v18;
-    v20 = 16;
+    v9 = (__PAIR64__(*(a1 + 16), v7) - 1) >> 32;
+    v10 = *(a1 + 8);
+    v11 = *(a1 + 80);
+    *v11 = 1668116582;
+    *(v11 + 4) = v9;
+    *(v11 + 8) = v10;
+    v12 = 16;
     *(a1 + 72) = 16;
     if (!*(a1 + 112))
     {
       memcpy((*(a1 + 80) + 16), *(a1 + 64), *(a1 + 56));
-      v20 = *(a1 + 72) + *(a1 + 56);
-      *(a1 + 72) = v20;
+      v12 = *(a1 + 72) + *(a1 + 56);
+      *(a1 + 72) = v12;
       *(a1 + 56) = 0;
     }
 
-    if (fsetxattr(*a1, "com.apple.decmpfs", *(a1 + 80), v20, 0, 0) < 0)
+    if (fsetxattr(*a1, "com.apple.decmpfs", *(a1 + 80), v12, 0, 0) < 0)
     {
-      v11 = *__error();
-      v9 = "fsetxattr decmpfs";
-      v10 = 363;
+      v4 = *__error();
+      v2 = "fsetxattr decmpfs";
+      v3 = 363;
       goto LABEL_6;
     }
 
     if (!*(a1 + 112))
     {
-      v22 = 0;
+      v14 = 0;
       goto LABEL_36;
     }
 
     if (*(a1 + 16) == 4)
     {
-      v21 = *(a1 + 64);
-      *v21 = old_resource_fork_map;
-      *(v21 + 16) = unk_298069138;
-      *(v21 + 32) = xmmword_298069148;
-      *(v21 + 48) = 0;
+      v13 = *(a1 + 64);
+      *v13 = old_resource_fork_map;
+      *(v13 + 16) = unk_298069138;
+      *(v13 + 32) = xmmword_298069148;
+      *(v13 + 48) = 0;
       *(a1 + 56) = 50;
       if ((flushToResourceFork(a1) & 0x80000000) != 0)
       {
-        v9 = "update resource fork";
-        v10 = 373;
+        v2 = "update resource fork";
+        v3 = 373;
         goto LABEL_5;
       }
 
-      v22 = *(a1 + 108);
+      v14 = *(a1 + 108);
       if (*(a1 + 16) == 4)
       {
-        v23 = *(a1 + 32);
-        if ((8 * v23) + 264 > *(a1 + 48))
+        v15 = *(a1 + 32);
+        if ((8 * v15) + 264 > *(a1 + 48))
         {
-          LOBYTE(v42) = 8 * v23 + 8;
-          v9 = "File a radar to increase obuf_capacity, sz=%zu";
-          v10 = 382;
+          v34 = (8 * v15) + 264;
+          v2 = "File a radar to increase obuf_capacity, sz=%zu";
+          v3 = 382;
           goto LABEL_5;
         }
 
+        v36 = 0u;
+        v37 = 0u;
+        v40 = 0u;
+        v41 = 0u;
+        v38 = 0u;
+        v39 = 0u;
         v44 = 0u;
         v45 = 0u;
+        v42 = 0u;
+        v43 = 0u;
         v48 = 0u;
         v49 = 0u;
         v46 = 0u;
         v47 = 0u;
-        v52 = 0u;
-        v53 = 0u;
         v50 = 0u;
-        v51 = 0u;
-        v56 = 0u;
-        v57 = 0u;
-        v54 = 0u;
-        v55 = 0u;
-        v58 = 0u;
-        v33 = *(a1 + 64);
-        *v33 = 0x10000;
-        *(v33 + 4) = vrev32_s8(vadd_s32(vdup_n_s32(v22), 0xFFFFFECEFFFFFFCELL));
-        *(v33 + 12) = 838860800;
-        v34 = v45;
-        *(v33 + 16) = v44;
-        *(v33 + 32) = v34;
-        v35 = v49;
-        *(v33 + 80) = v48;
-        *(v33 + 96) = v35;
-        v36 = v47;
-        *(v33 + 48) = v46;
-        *(v33 + 64) = v36;
-        v37 = v53;
-        *(v33 + 144) = v52;
-        *(v33 + 160) = v37;
-        v38 = v51;
-        *(v33 + 112) = v50;
-        *(v33 + 128) = v38;
-        v39 = v57;
-        *(v33 + 208) = v56;
-        *(v33 + 224) = v39;
-        v40 = v55;
-        *(v33 + 176) = v54;
-        *(v33 + 192) = v40;
-        *(v33 + 240) = v58;
-        *(v33 + 256) = bswap32(v22 - 310);
-        *(v33 + 260) = v23;
-        v24 = 264;
+        v25 = *(a1 + 64);
+        *v25 = 0x10000;
+        *(v25 + 4) = vrev32_s8(vadd_s32(vdup_n_s32(v14), 0xFFFFFECEFFFFFFCELL));
+        *(v25 + 12) = 838860800;
+        v26 = v37;
+        *(v25 + 16) = v36;
+        *(v25 + 32) = v26;
+        v27 = v41;
+        *(v25 + 80) = v40;
+        *(v25 + 96) = v27;
+        v28 = v39;
+        *(v25 + 48) = v38;
+        *(v25 + 64) = v28;
+        v29 = v45;
+        *(v25 + 144) = v44;
+        *(v25 + 160) = v29;
+        v30 = v43;
+        *(v25 + 112) = v42;
+        *(v25 + 128) = v30;
+        v31 = v49;
+        *(v25 + 208) = v48;
+        *(v25 + 224) = v31;
+        v32 = v47;
+        *(v25 + 176) = v46;
+        *(v25 + 192) = v32;
+        *(v25 + 240) = v50;
+        *(v25 + 256) = bswap32(v14 - 310);
+        *(v25 + 260) = v15;
+        v16 = 264;
         *(a1 + 56) = 264;
         if (*(a1 + 32))
         {
-          v41 = 0;
-          v24 = 264;
+          v33 = 0;
+          v16 = 264;
           do
           {
-            *(*(a1 + 64) + v24) = (*(*(a1 + 40) + 4 * v41) - 260) | ((*(*(a1 + 40) + 4 * v41 + 4) - *(*(a1 + 40) + 4 * v41)) << 32);
-            ++v41;
-            v24 = *(a1 + 56) + 8;
-            *(a1 + 56) = v24;
+            *(*(a1 + 64) + v16) = (*(*(a1 + 40) + 4 * v33) - 260) | ((*(*(a1 + 40) + 4 * v33 + 4) - *(*(a1 + 40) + 4 * v33)) << 32);
+            ++v33;
+            v16 = *(a1 + 56) + 8;
+            *(a1 + 56) = v16;
           }
 
-          while (v41 < *(a1 + 32));
+          while (v33 < *(a1 + 32));
         }
 
         goto LABEL_35;
@@ -9026,53 +7914,53 @@ uint64_t ParallelCompressionAFSCStreamClose(uint64_t a1, uint64_t a2, uint64_t a
 
     else
     {
-      v22 = *(a1 + 108);
+      v14 = *(a1 + 108);
     }
 
-    v24 = (4 * *(a1 + 32) + 4);
-    if (*(a1 + 48) < v24)
+    v16 = (4 * *(a1 + 32) + 4);
+    if (*(a1 + 48) < v16)
     {
-      v42 = 4 * *(a1 + 32) + 4;
-      v9 = "File a radar to increase obuf_capacity, sz=%zu";
-      v10 = 408;
+      v34 = (4 * *(a1 + 32) + 4);
+      v2 = "File a radar to increase obuf_capacity, sz=%zu";
+      v3 = 408;
       goto LABEL_5;
     }
 
     memcpy(*(a1 + 64), *(a1 + 40), (4 * *(a1 + 32) + 4));
-    *(a1 + 56) = v24;
+    *(a1 + 56) = v16;
 LABEL_35:
-    if (fsetxattr(*a1, "com.apple.ResourceFork", *(a1 + 64), v24, 0, 0) < 0)
+    if (fsetxattr(*a1, "com.apple.ResourceFork", *(a1 + 64), v16, 0, 0) < 0)
     {
-      v11 = *__error();
-      v9 = "fsetxattr resource fork header";
-      v10 = 418;
+      v4 = *__error();
+      v2 = "fsetxattr resource fork header";
+      v3 = 418;
       goto LABEL_6;
     }
 
 LABEL_36:
     if (ftruncate(*a1, 0))
     {
-      v11 = *__error();
-      v9 = "ftruncate";
-      v10 = 422;
+      v4 = *__error();
+      v2 = "ftruncate";
+      v3 = 422;
       goto LABEL_6;
     }
 
-    if ((*(a1 + 28) & 4) != 0 || !*(a1 + 112) || 93 * *(a1 + 8) / 0x64uLL >= v22)
+    if ((*(a1 + 28) & 4) != 0 || !*(a1 + 112) || 93 * *(a1 + 8) / 0x64uLL >= v14)
     {
-      if (fstat(*a1, &v43))
+      if (fstat(*a1, &v35))
       {
-        v11 = *__error();
-        v9 = "fstat";
-        v10 = 465;
+        v4 = *__error();
+        v2 = "fstat";
+        v3 = 465;
         goto LABEL_6;
       }
 
-      if (fchflags(*a1, v43.st_flags | 0x20) < 0)
+      if (fchflags(*a1, v35.st_flags | 0x20) < 0)
       {
-        v11 = *__error();
-        v9 = "fchflags UF_COMPRESSED";
-        v10 = 466;
+        v4 = *__error();
+        v2 = "fchflags UF_COMPRESSED";
+        v3 = 466;
         goto LABEL_6;
       }
     }
@@ -9081,238 +7969,230 @@ LABEL_36:
     {
       if (*(a1 + 32))
       {
-        v25 = 0;
-        v26 = 0;
+        v17 = 0;
+        v18 = 0;
         while (1)
         {
-          v27 = (*(a1 + 40) + 4 * v25);
-          v28 = v27[1];
-          v29 = v28 - *v27;
-          if (v28 == *v27 || v29 >= 0x10002)
+          v19 = (*(a1 + 40) + 4 * v17);
+          v20 = v19[1];
+          v21 = v20 - *v19;
+          if (v20 == *v19 || v21 >= 0x10002)
           {
-            v9 = "Invalid chunk size";
-            v10 = 437;
+            v2 = "Invalid chunk size";
+            v3 = 437;
             goto LABEL_5;
           }
 
-          if (fgetxattr(*a1, "com.apple.ResourceFork", *(a1 + 64), v28 - *v27, *v27, 32) != v29)
+          if (fgetxattr(*a1, "com.apple.ResourceFork", *(a1 + 64), v20 - *v19, *v19, 32) != v21)
           {
-            v9 = "reading chunk";
-            v10 = 440;
+            v2 = "reading chunk";
+            v3 = 440;
             goto LABEL_5;
           }
 
-          v31 = *(a1 + 64);
-          if (*v31 == *(a1 + 24))
+          v23 = *(a1 + 64);
+          if (*v23 == *(a1 + 24))
           {
-            v32 = (v29 - 1);
-            memcpy(*(a1 + 80), v31 + 1, v32);
+            v24 = (v21 - 1);
+            memcpy(*(a1 + 80), v23 + 1, v24);
           }
 
           else
           {
-            v32 = compression_decode_buffer(*(a1 + 80), 0x10000uLL, v31, v29, *(a1 + 88), *(a1 + 20));
+            v24 = compression_decode_buffer(*(a1 + 80), 0x10000uLL, v23, v21, *(a1 + 88), *(a1 + 20));
           }
 
-          if (v32 != 0x10000)
+          if (v24 != 0x10000)
           {
-            if (!v32)
+            if (!v24)
             {
-              v9 = "Decompression";
-              v10 = 451;
+              v2 = "Decompression";
+              v3 = 451;
               goto LABEL_5;
             }
 
-            if (v32 + v26 != *(a1 + 8))
+            if (v24 + v18 != *(a1 + 8))
             {
               break;
             }
           }
 
-          if (pwrite(*a1, *(a1 + 80), v32, v26) != v32)
+          if (pwrite(*a1, *(a1 + 80), v24, v18) != v24)
           {
-            v9 = "writing chunk";
-            v10 = 454;
+            v2 = "writing chunk";
+            v3 = 454;
             goto LABEL_5;
           }
 
-          ++v25;
-          v26 += v32;
-          if (v25 >= *(a1 + 32))
+          ++v17;
+          v18 += v24;
+          if (v17 >= *(a1 + 32))
           {
             goto LABEL_56;
           }
         }
 
-        v9 = "Invalid uncompressed chunk size";
-        v10 = 452;
+        v2 = "Invalid uncompressed chunk size";
+        v3 = 452;
         goto LABEL_5;
       }
 
 LABEL_56:
       if (fremovexattr(*a1, "com.apple.ResourceFork", 32) < 0)
       {
-        v11 = *__error();
-        v9 = "Removing xattr";
-        v10 = 459;
+        v4 = *__error();
+        v2 = "Removing xattr";
+        v3 = 459;
         goto LABEL_6;
       }
 
       if (fremovexattr(*a1, "com.apple.decmpfs", 32) < 0)
       {
-        v11 = *__error();
-        v9 = "Removing xattr";
-        v10 = 460;
+        v4 = *__error();
+        v2 = "Removing xattr";
+        v3 = 460;
         goto LABEL_6;
       }
     }
 
-    v12 = 0;
+    v5 = 0;
     goto LABEL_7;
   }
 
-  v9 = "not enough bytes received";
-  v10 = 325;
+  v2 = "not enough bytes received";
+  v3 = 325;
 LABEL_5:
-  v11 = 0;
+  v4 = 0;
 LABEL_6:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCStreamClose", v10, 86, v11, v9, a7, a8, v42);
-  v12 = 0xFFFFFFFFLL;
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCStreamClose", v3, 86, v4, v2, v34);
+  v5 = 0xFFFFFFFFLL;
 LABEL_7:
   free(*(a1 + 40));
   free(*(a1 + 64));
   free(*(a1 + 80));
   free(*(a1 + 88));
   free(a1);
-LABEL_9:
-  v13 = *MEMORY[0x29EDCA608];
-  return v12;
+  return v5;
 }
 
 uint64_t ParallelCompressionAFSCGetMetadataFD(int a1, off_t *a2, unsigned int *a3, _DWORD *a4)
 {
-  memset(&v24, 0, sizeof(v24));
-  if (fstat(a1, &v24))
+  memset(&v20, 0, sizeof(v20));
+  if (fstat(a1, &v20))
   {
     v8 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCGetMetadataFD", 488, 86, *v8, "fstat", v9, v10, v23);
-    v11 = 0;
-LABEL_22:
-    v12 = 0xFFFFFFFFLL;
-    goto LABEL_23;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCGetMetadataFD", 488, 86, *v8, "fstat");
+    v9 = 0;
+LABEL_21:
+    v10 = 0xFFFFFFFFLL;
+    goto LABEL_22;
   }
 
-  if ((v24.st_flags & 0x20) != 0)
+  if ((v20.st_flags & 0x20) != 0)
   {
-    v11 = malloc(0x1000uLL);
-    if (v11)
+    v9 = malloc(0x1000uLL);
+    if (!v9)
     {
-      v13 = fgetxattr(a1, "com.apple.decmpfs", v11, 0x1000uLL, 0, 32);
-      if ((v13 & 0x8000000000000000) != 0)
-      {
-        v16 = "Missing decmpfs xattr";
-        v17 = 504;
-      }
+      v14 = *__error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCGetMetadataFD", 501, 86, v14, "malloc");
+      goto LABEL_21;
+    }
 
-      else if (v13 > 0xF)
+    v11 = fgetxattr(a1, "com.apple.decmpfs", v9, 0x1000uLL, 0, 32);
+    if ((v11 & 0x8000000000000000) != 0)
+    {
+      v12 = "Missing decmpfs xattr";
+      v13 = 504;
+    }
+
+    else if (v11 > 0xF)
+    {
+      if (*v9 == 1668116582)
       {
-        if (*v11 == 1668116582)
+        v15 = *(v9 + 1);
+        if (v15 > 0xE)
         {
-          v19 = *(v11 + 1);
-          if (v19 > 0xE)
+          goto LABEL_26;
+        }
+
+        v16 = v9[1];
+        if (((1 << v15) & 0x2A88) != 0)
+        {
+          v10 = 0;
+          *a2 = v16;
+          *a3 = v15;
+          goto LABEL_5;
+        }
+
+        if (((1 << v15) & 0x5510) != 0)
+        {
+          *a2 = v16;
+          *a3 = v15;
+          v17 = fgetxattr(a1, "com.apple.ResourceFork", 0, 0, 0, 32);
+          if ((v17 & 0x8000000000000000) != 0)
           {
-            goto LABEL_27;
-          }
-
-          v20 = v11[1];
-          if (((1 << v19) & 0x2A88) != 0)
-          {
-            v12 = 0;
-            *a2 = v20;
-            *a3 = v19;
-            goto LABEL_5;
-          }
-
-          if (((1 << v19) & 0x5510) != 0)
-          {
-            *a2 = v20;
-            *a3 = v19;
-            v21 = fgetxattr(a1, "com.apple.ResourceFork", 0, 0, 0, 32);
-            if ((v21 & 0x8000000000000000) != 0)
-            {
-              v16 = "Missing resource fork xattr";
-              v17 = 532;
-            }
-
-            else
-            {
-              if (!HIDWORD(v21))
-              {
-                v12 = 0;
-                *a4 = v21;
-                goto LABEL_23;
-              }
-
-              v16 = "Invalid resource fork xattr";
-              v17 = 533;
-            }
+            v12 = "Missing resource fork xattr";
+            v13 = 532;
           }
 
           else
           {
-LABEL_27:
-            v23 = *(v11 + 1);
-            v16 = "Invalid compression type %u in decmpfs xattr";
-            v17 = 524;
+            if (!HIDWORD(v17))
+            {
+              v10 = 0;
+              *a4 = v17;
+              goto LABEL_22;
+            }
+
+            v12 = "Invalid resource fork xattr";
+            v13 = 533;
           }
         }
 
         else
         {
-          v16 = "Invalid decmpfs xattr";
-          v17 = 507;
+LABEL_26:
+          v19 = *(v9 + 1);
+          v12 = "Invalid compression type %u in decmpfs xattr";
+          v13 = 524;
         }
       }
 
       else
       {
-        v16 = "Truncated decmpfs xattr";
-        v17 = 505;
+        v12 = "Invalid decmpfs xattr";
+        v13 = 507;
       }
-
-      v18 = 0;
     }
 
     else
     {
-      v18 = *__error();
-      v16 = "malloc";
-      v17 = 501;
+      v12 = "Truncated decmpfs xattr";
+      v13 = 505;
     }
 
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCGetMetadataFD", v17, 86, v18, v16, v14, v15, v23);
-    goto LABEL_22;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCGetMetadataFD", v13, 86, 0, v12, v19);
+    goto LABEL_21;
   }
 
-  v11 = 0;
-  v12 = 0;
-  *a2 = v24.st_size;
+  v9 = 0;
+  v10 = 0;
+  *a2 = v20.st_size;
   *a3 = -1;
 LABEL_5:
   *a4 = 0;
-LABEL_23:
-  free(v11);
-  return v12;
+LABEL_22:
+  free(v9);
+  return v10;
 }
 
 uint64_t ParallelCompressionAFSCGetMetadata(const char *a1, off_t *a2, unsigned int *a3, _DWORD *a4)
 {
-  v7 = a1;
   v8 = open(a1, 0);
   if (v8 < 0)
   {
-    v13 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCGetMetadata", 550, 86, *v13, "open %s", v14, v15, v7);
+    v11 = __error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCGetMetadata", 550, 86, *v11, "open %s", a1);
     return 0xFFFFFFFFLL;
   }
 
@@ -9321,855 +8201,1723 @@ uint64_t ParallelCompressionAFSCGetMetadata(const char *a1, off_t *a2, unsigned 
     v9 = v8;
     if ((ParallelCompressionAFSCGetMetadataFD(v8, a2, a3, a4) & 0x80000000) != 0)
     {
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCGetMetadata", 553, 86, 0, "retrieving AFSC metadata: %s", v10, v11, v7);
-      v12 = 0xFFFFFFFFLL;
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCGetMetadata", 553, 86, 0, "retrieving AFSC metadata: %s", a1);
+      v10 = 0xFFFFFFFFLL;
     }
 
     else
     {
-      v12 = 0;
+      v10 = 0;
     }
 
     close(v9);
   }
 
-  return v12;
+  return v10;
 }
 
-uint64_t ParallelCompressionAFSCFixupMetadata(const std::__fs::filesystem::path *a1, unsigned int a2, unsigned int a3)
+uint64_t ParallelCompressionAFSCFixupMetadata(const std::__fs::filesystem::path *a1, unsigned int a2, const std::__fs::filesystem::path *a3)
 {
-  v197 = *MEMORY[0x29EDCA608];
-  v179 = -1;
-  v178 = 0;
-  v177 = 0;
-  memset(&v176, 0, sizeof(v176));
-  v195 = 0;
-  v193 = 0u;
-  v194 = 0u;
-  v191 = 0u;
-  v192 = 0u;
-  v189 = 0u;
-  v190 = 0u;
-  v187 = 0u;
-  v188 = 0u;
-  v185 = 0u;
-  v186 = 0u;
-  v183 = 0u;
-  v184 = 0u;
-  v181 = 0u;
-  v182 = 0u;
-  v180 = 0u;
+  v160 = *MEMORY[0x29EDCA608];
+  v142 = -1;
+  v141 = 0;
+  v140 = 0;
+  memset(&v139, 0, sizeof(v139));
+  v158 = 0;
+  v156 = 0u;
+  v157 = 0u;
+  v154 = 0u;
+  v155 = 0u;
+  v152 = 0u;
+  v153 = 0u;
+  v150 = 0u;
+  v151 = 0u;
+  v148 = 0u;
+  v149 = 0u;
+  v146 = 0u;
+  v147 = 0u;
+  v144 = 0u;
+  v145 = 0u;
+  v143 = 0u;
   value[0] = 0;
   value[1] = 0;
   if (__strlcpy_chk() >= 0x400)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 581, 86, 0, "Path too long: %s", v6, v7, a1);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 581, 86, 0, "Path too long: %s");
 LABEL_5:
-    v17 = 0;
-    v18 = 0;
+    v6 = 0;
+    v7 = 0;
 LABEL_138:
-    v44 = 0;
-    v72 = 0;
-    v74 = 0;
-    v34 = -1;
+    v26 = 0;
+    v50 = 0;
+    v52 = 0;
+    v23 = -1;
     goto LABEL_139;
   }
 
   if (__strlcat_chk() >= 0x400)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 582, 86, 0, "Path too long: %s", v15, v16, a1);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 582, 86, 0, "Path too long: %s");
     goto LABEL_5;
   }
 
-  v18 = malloc(0x100000uLL);
-  if (!v18)
+  v7 = malloc(0x100000uLL);
+  if (!v7)
   {
-    v23 = *__error();
-    v21 = "malloc";
-    v22 = 586;
+    v12 = *__error();
+    v10 = "malloc";
+    v11 = 586;
 LABEL_137:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", v22, 86, v23, v21, v13, v14, v156);
-    v17 = 0;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", v11, 86, v12, v10, v115, v116, v117, v118, v119);
+    v6 = 0;
     goto LABEL_138;
   }
 
   if (a2)
   {
-    v19 = a2;
+    v8 = a2;
   }
 
   else
   {
-    v19 = 4;
+    v8 = 4;
   }
 
-  if ((v19 + 1) > 0xF)
+  if ((v8 + 1) > 0xF)
   {
     goto LABEL_135;
   }
 
-  v20 = 1 << (v19 + 1);
-  if ((v20 & 0x5511) != 0)
+  v9 = 1 << (v8 + 1);
+  if ((v9 & 0x5511) != 0)
   {
     if (a3)
     {
-      v156 = a3;
-      v21 = "Invalid resource fork size request: %u";
-      v22 = 605;
+      v115 = a3;
+      v10 = "Invalid resource fork size request: %u";
+      v11 = 605;
 LABEL_136:
-      v23 = 0;
+      v12 = 0;
       goto LABEL_137;
     }
 
     goto LABEL_16;
   }
 
-  if ((v20 & 0xAA20) == 0)
+  if ((v9 & 0xAA20) == 0)
   {
 LABEL_135:
-    v156 = v19;
-    v21 = "Invalid compression type request %d";
-    v22 = 608;
+    v115 = v8;
+    v10 = "Invalid compression type request %d";
+    v11 = 608;
     goto LABEL_136;
   }
 
 LABEL_16:
-  if ((ParallelCompressionAFSCGetMetadata(a1, &v177, &v179, &v178) & 0x80000000) != 0)
+  if ((ParallelCompressionAFSCGetMetadata(a1, &v140, &v142, &v141) & 0x80000000) != 0)
   {
 LABEL_134:
-    v156 = a1;
-    v21 = "obtain AFSC data: %s";
-    v22 = 615;
+    v115 = a1;
+    v10 = "obtain AFSC data: %s";
+    v11 = 615;
     goto LABEL_136;
   }
 
-  v24 = 0;
-  v166 = 0;
-  v25 = 0;
-  v165 = (v18 + 66);
-  v26 = vadd_s32(vdup_n_s32(a3), 0xFFFFFECEFFFFFFCELL);
-  v27 = vrev32_s8(v26);
-  position = v26.i32[0];
-  v162 = bswap32(a3 - 310);
-  v28 = (v19 - 4);
-  v169 = 0x551u >> (v19 - 4);
+  v13 = 0;
+  v129 = 0;
+  v14 = 0;
+  v128 = (v7 + 66);
+  v15 = vadd_s32(vdup_n_s32(a3), 0xFFFFFECEFFFFFFCELL);
+  v16 = vrev32_s8(v15);
+  position = v15.i32[0];
+  v125 = bswap32(a3 - 310);
+  v17 = (v8 - 4);
+  v132 = 0x551u >> (v8 - 4);
   while (1)
   {
-    v172 = v177;
-    if (v177 >= 0xFA000001)
+    v135 = v140;
+    if (v140 >= 0xFA000001)
     {
-      v21 = "Invalid AFSC data";
-      v22 = 616;
+      v10 = "Invalid AFSC data";
+      v11 = 616;
       goto LABEL_136;
     }
 
-    v171 = v24;
-    if (v179 == v19)
+    v134 = v13;
+    if (v142 == v8)
     {
-      if (!a3 || v178 == a3)
+      if (!a3 || v141 == a3)
       {
-        goto LABEL_156;
+        goto LABEL_154;
       }
 
-      if ((v19 & 0x80000000) == 0)
+      if ((v8 & 0x80000000) == 0)
       {
         goto LABEL_55;
       }
     }
 
-    else if ((v19 & 0x80000000) == 0)
+    else if ((v8 & 0x80000000) == 0)
     {
-      v159 = v28;
-      v29 = 4;
-      if (v19 > 0xE)
+      v122 = v17;
+      v18 = 4;
+      if (v8 > 0xE)
       {
-        v32 = v19;
+        v21 = v8;
       }
 
       else
       {
-        v30 = 1 << v19;
-        if (((1 << v19) & 0x5510) != 0)
+        v19 = 1 << v8;
+        if (((1 << v8) & 0x5510) != 0)
         {
-          v31 = 6;
+          v20 = 6;
         }
 
         else
         {
-          v31 = 4;
+          v20 = 4;
         }
 
-        if ((v30 & 0x2A88) != 0)
+        if ((v19 & 0x2A88) != 0)
         {
-          v29 = 4;
-        }
-
-        else
-        {
-          v29 = v31;
-        }
-
-        if ((v30 & 0x2A88) != 0)
-        {
-          v32 = v19 + 1;
+          v18 = 4;
         }
 
         else
         {
-          v32 = v19;
+          v18 = v20;
+        }
+
+        if ((v19 & 0x2A88) != 0)
+        {
+          v21 = v8 + 1;
+        }
+
+        else
+        {
+          v21 = v8;
         }
       }
 
-      v33 = open(a1, 0);
-      v34 = v33;
-      if (v33 < 0)
+      v22 = open(a1, 0);
+      v23 = v22;
+      if (v22 < 0)
       {
-        v139 = *__error();
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 660, 86, v139, "open: %s", v140, v141, a1);
+        v100 = *__error();
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 660, 86, v100, "open: %s");
       }
 
       else
       {
-        if (!fstat(v33, &v176))
+        if (!fstat(v22, &v139))
         {
-          v35 = mkstemp(&__from);
-          v36 = v35;
-          if (v35 < 0)
+          v24 = mkstemp(&__from);
+          v25 = v24;
+          if (v24 < 0)
           {
-            v148 = __error();
-            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 664, 86, *v148, "mkstemp", v149, v150, v156);
-            v17 = 0;
-            v44 = 0;
+            v104 = __error();
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 664, 86, *v104, "mkstemp");
+            v6 = 0;
+            v26 = 0;
           }
 
           else
           {
-            v163 = v25;
-            v44 = ParallelCompressionAFSCStreamOpen(v35, v172, v32, v29);
-            if (v44)
+            v126 = v14;
+            v26 = ParallelCompressionAFSCStreamOpen(v24, v135, v21, v18);
+            if (v26)
             {
-              v167 = v19;
-              v173 = v18;
-              v45 = 0;
-              v46 = 0;
-              v47 = 0x100000;
-              v48 = 0x100000;
-              v49 = v172;
+              v130 = v8;
+              v136 = v7;
+              v27 = 0;
+              v28 = 0;
+              v29 = 0x100000;
+              v30 = 0x100000;
+              v31 = v135;
               while (1)
               {
-                v50 = v49 >= v48 ? v48 : v49;
-                if (v48 - 0x100000 >= v49)
+                v32 = v31 >= v30 ? v30 : v31;
+                if (v30 - 0x100000 >= v31)
                 {
                   break;
                 }
 
-                v51 = v50 + v45;
-                v52 = read(v34, v173, v50 + v45);
-                if (v52 < 0)
+                v33 = v32 + v27;
+                v34 = read(v23, v136, v32 + v27);
+                if (v34 < 0)
                 {
-                  v124 = *__error();
-                  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 675, 86, v124, "read: %s", v125, v126, a1);
-                  goto LABEL_154;
+                  v93 = *__error();
+                  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 675, 86, v93, "read: %s");
+                  goto LABEL_152;
                 }
 
-                if (v52 < v51)
+                if (v34 < v33)
                 {
-                  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 676, 86, 0, "truncated read: %s", v56, v57, a1);
-LABEL_154:
-                  v17 = 0;
-LABEL_155:
-                  v72 = 0;
-                  v74 = 0;
-                  v18 = v173;
+                  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 676, 86, 0, "truncated read: %s");
+LABEL_152:
+                  v6 = 0;
+LABEL_153:
+                  v50 = 0;
+                  v52 = 0;
+                  v7 = v136;
                   goto LABEL_140;
                 }
 
-                v46 += 0x100000;
-                v58 = ParallelCompressionAFSCStreamWrite(v44, v173, v51, v53, v54, v55, v56, v57);
-                v48 += 0x100000;
-                v45 -= 0x100000;
-                v49 = v172;
-                if (v172 >= v46)
+                v28 += 0x100000;
+                v35 = ParallelCompressionAFSCStreamWrite(v26, v136, v33);
+                v30 += 0x100000;
+                v27 -= 0x100000;
+                v31 = v135;
+                if (v135 >= v28)
                 {
-                  v59 = v46;
+                  v36 = v28;
                 }
 
                 else
                 {
-                  v59 = v172;
+                  v36 = v135;
                 }
 
-                v47 -= 0x100000;
-                if (v58 < (v59 + v47))
+                v29 -= 0x100000;
+                if (v35 < (v36 + v29))
                 {
-                  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 678, 86, 0, "write to stream failed: %s", v42, v43, a1);
-                  goto LABEL_154;
+                  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 678, 86, 0, "write to stream failed: %s");
+                  goto LABEL_152;
                 }
               }
 
-              if ((ParallelCompressionAFSCStreamClose(v44, v37, v38, v39, v40, v41, v42, v43) & 0x80000000) != 0)
+              if ((ParallelCompressionAFSCStreamClose(v26) & 0x80000000) != 0)
               {
-                pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 683, 86, 0, "Stream close error", v89, v90, v156);
-                v17 = 0;
-                v44 = 0;
-                goto LABEL_155;
+                pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 683, 86, 0, "Stream close error");
+                v6 = 0;
+                v26 = 0;
+                goto LABEL_153;
               }
 
-              fchown(v36, v176.st_uid, v176.st_gid);
-              fchmod(v36, v176.st_mode & 0xFFF);
-              close(v34);
-              close(v36);
-              rename(&__from, a1, v91);
-              v93 = v92;
+              fchown(v25, v139.st_uid, v139.st_gid);
+              fchmod(v25, v139.st_mode & 0xFFF);
+              close(v23);
+              close(v25);
+              rename(&__from, a1, v67);
+              v69 = v68;
               unlink(&__from);
-              v18 = v173;
-              v19 = v167;
-              v28 = v159;
-              v25 = v163;
-              if ((v93 & 0x80000000) == 0)
+              v7 = v136;
+              v8 = v130;
+              v17 = v122;
+              v14 = v126;
+              if ((v69 & 0x80000000) == 0)
               {
                 goto LABEL_55;
               }
 
-              v23 = *__error();
-              v156 = a1;
-              v21 = "rename: %s";
-              v22 = 694;
+              v12 = *__error();
+              v115 = a1;
+              v10 = "rename: %s";
+              v11 = 694;
               goto LABEL_137;
             }
 
-            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 667, 86, 0, "creating compression stream %s", v42, v43, a1);
-            v17 = 0;
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 667, 86, 0, "creating compression stream %s", a1);
+            v6 = 0;
           }
 
-          v72 = 0;
-          v74 = 0;
+          v50 = 0;
+          v52 = 0;
           goto LABEL_140;
         }
 
-        v145 = *__error();
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 661, 86, v145, "stat: %s", v146, v147, a1);
+        v102 = *__error();
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 661, 86, v102, "stat: %s");
       }
 
-LABEL_151:
-      v17 = 0;
-      v44 = 0;
-      v72 = 0;
-      v74 = 0;
+LABEL_149:
+      v6 = 0;
+      v26 = 0;
+      v50 = 0;
+      v52 = 0;
       goto LABEL_139;
     }
 
-    v60 = open(a1, 9);
-    v34 = v60;
-    if (v60 < 0)
+    v37 = open(a1, 9);
+    v23 = v37;
+    if (v37 < 0)
     {
-      v133 = *__error();
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 629, 86, v133, "open %s", v134, v135, a1);
-      goto LABEL_151;
+      v96 = *__error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 629, 86, v96, "open %s");
+      goto LABEL_149;
     }
 
-    if (write(v60, 0, 0) < 0)
+    if (write(v37, 0, 0) < 0)
     {
-      v119 = *__error();
-      v122 = "write";
-      v123 = 630;
-      goto LABEL_150;
+      v98 = *__error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 630, 86, v98, "write", v115);
+      goto LABEL_149;
     }
 
-    if (close(v34) < 0)
+    if (close(v23) < 0)
     {
-      v23 = *__error();
-      v21 = "close";
-      v22 = 631;
+      v12 = *__error();
+      v10 = "close";
+      v11 = 631;
       goto LABEL_137;
     }
 
-    v179 = -1;
-    v178 = 0;
+    v142 = -1;
+    v141 = 0;
 LABEL_55:
-    if ((ParallelCompressionAFSCGetMetadata(a1, &v177, &v179, &v178) & 0x80000000) != 0)
+    if ((ParallelCompressionAFSCGetMetadata(a1, &v140, &v142, &v141) & 0x80000000) != 0)
     {
-      v156 = a1;
-      v21 = "obtain AFSC data: %s";
-      v22 = 699;
+      v115 = a1;
+      v10 = "obtain AFSC data: %s";
+      v11 = 699;
       goto LABEL_136;
     }
 
-    if (v179 != v19)
+    if (v142 != v8)
     {
-      v21 = "Couldn't convert to requested compression type";
-      v22 = 700;
+      v10 = "Couldn't convert to requested compression type";
+      v11 = 700;
       goto LABEL_136;
     }
 
     if (!a3)
     {
-      goto LABEL_156;
+      goto LABEL_154;
     }
 
-    v61 = v178;
-    v62 = a3 - v178;
-    if (a3 == v178)
+    v38 = v141;
+    v39 = a3 - v141;
+    if (a3 == v141)
     {
-      goto LABEL_156;
+      goto LABEL_154;
     }
 
-    if (a3 >= v178)
+    if (a3 >= v141)
     {
       break;
     }
 
-    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 711, 86, "Can't shrink resource fork: %s (current %u, target %u)", v12, v13, v14, a1);
+    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 711, 86, "Can't shrink resource fork: %s (current %u, target %u)", a1, v141, a3);
+    v40 = v8;
 LABEL_61:
-    if (v171)
+    if (v134)
     {
-      v21 = "Second pass fixup failed: %s, compression_type=%d (expected %d), resource_fork_size=%u (expected %u)";
-      v156 = a1;
-      v22 = 852;
+      v118 = v38;
+      v119 = a3;
+      v10 = "Second pass fixup failed: %s, compression_type=%d (expected %d), resource_fork_size=%u (expected %u)";
+      v116 = v40;
+      v117 = v8;
+      v115 = a1;
+      v11 = 852;
       goto LABEL_136;
     }
 
-    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 859, 86, "First pass fixup failed: %s, compression_type=%d (expected %d), resource_fork_size=%u (expected %u)", v12, v13, v14, a1);
-    v63 = open(a1, 9);
-    v34 = v63;
-    if (v63 < 0)
+    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 859, 86, "First pass fixup failed: %s, compression_type=%d (expected %d), resource_fork_size=%u (expected %u)", a1, v40, v8, v38, a3);
+    v41 = open(a1, 9);
+    v23 = v41;
+    if (v41 < 0)
     {
-      v136 = *__error();
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 864, 86, v136, "open %s", v137, v138, a1);
-      goto LABEL_151;
+      v97 = *__error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 864, 86, v97, "open %s");
+      goto LABEL_149;
     }
 
-    if (write(v63, 0, 0) < 0)
+    if (write(v41, 0, 0) < 0)
     {
-      v119 = *__error();
-      v122 = "write";
-      v123 = 865;
-      goto LABEL_150;
+      v99 = *__error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 865, 86, v99, "write", v115);
+      goto LABEL_149;
     }
 
-    if (close(v34) < 0)
+    if (close(v23) < 0)
     {
-      v23 = *__error();
-      v21 = "close";
-      v22 = 866;
+      v12 = *__error();
+      v10 = "close";
+      v11 = 866;
       goto LABEL_137;
     }
 
-    v179 = -1;
-    v178 = 0;
-    v64 = ParallelCompressionAFSCGetMetadata(a1, &v177, &v179, &v178);
-    v24 = 1;
-    if (v64 < 0)
+    v142 = -1;
+    v141 = 0;
+    v42 = ParallelCompressionAFSCGetMetadata(a1, &v140, &v142, &v141);
+    v13 = 1;
+    if (v42 < 0)
     {
       goto LABEL_134;
     }
   }
 
-  if (v28 > 0xA || (v169 & 1) == 0)
+  if (v17 > 0xA || (v132 & 1) == 0)
   {
-    v156 = v19;
-    v21 = "Invalid compression type %u";
-    v22 = 722;
+    v115 = v8;
+    v10 = "Invalid compression type %u";
+    v11 = 722;
     goto LABEL_136;
   }
 
-  v170 = dword_298069188[v28];
-  v65 = open(a1, 0);
-  v34 = v65;
-  if (v65 < 0)
+  v133 = dword_298069188[v17];
+  v43 = open(a1, 0);
+  v23 = v43;
+  if (v43 < 0)
   {
-    v142 = *__error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 727, 86, v142, "open: %s", v143, v144, a1);
-    goto LABEL_151;
+    v101 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 727, 86, v101, "open: %s");
+    goto LABEL_149;
   }
 
-  if (fstat(v65, &v176))
+  if (fstat(v43, &v139))
   {
-    v119 = *__error();
-    v122 = "fstat";
-    v123 = 728;
-LABEL_150:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", v123, 86, v119, v122, v120, v121, v156);
-    goto LABEL_151;
+    v103 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 728, 86, v103, "fstat", v115);
+    goto LABEL_149;
   }
 
-  if (fgetxattr(v34, "com.apple.decmpfs", value, 0x10uLL, 0, 32) != 16)
+  if (fgetxattr(v23, "com.apple.decmpfs", value, 0x10uLL, 0, 32) != 16)
   {
-    v119 = *__error();
-    v122 = "Reading decmpfs";
-    v123 = 729;
-    goto LABEL_150;
+    v105 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 729, 86, v105, "Reading decmpfs", v115);
+    goto LABEL_149;
   }
 
-  if (fchflags(v34, v176.st_flags & 0xFFFFFFDF) < 0)
+  if (fchflags(v23, v139.st_flags & 0xFFFFFFDF) < 0)
   {
-    v119 = *__error();
-    v122 = "fchflags UF_COMPRESSED";
-    v123 = 730;
-    goto LABEL_150;
+    v106 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 730, 86, v106, "fchflags UF_COMPRESSED", v115);
+    goto LABEL_149;
   }
 
-  v164 = v25;
-  v168 = v19;
-  v158 = (v172 + 0xFFFF) >> 16;
-  v160 = v28;
-  v66 = v61 + 0x100000;
-  v67 = -v61;
-  v68 = v61;
+  v127 = v14;
+  v131 = v8;
+  v121 = (v135 + 0xFFFF) >> 16;
+  v123 = v17;
+  v44 = v38 + 0x100000;
+  v45 = -v38;
+  v46 = v38;
   while (1)
   {
-    v69 = a3 >= v66 ? v66 : a3;
-    if (v68 >= a3)
+    v47 = a3 >= v44 ? v44 : a3;
+    if (v46 >= a3)
     {
       break;
     }
 
-    v70 = v69 + v67;
-    if (v68 == v61)
+    v48 = v47 + v45;
+    if (v46 == v38)
     {
       __memset_chk();
     }
 
-    v71 = fsetxattr(v34, "com.apple.ResourceFork", v18, v70, v68, 0);
-    v66 += 0x100000;
-    v67 -= 0x100000;
-    v68 += 0x100000;
-    if (v71)
+    v49 = fsetxattr(v23, "com.apple.ResourceFork", v7, v48, v46, 0);
+    v44 += 0x100000;
+    v45 -= 0x100000;
+    v46 += 0x100000;
+    if (v49)
     {
-      v119 = *__error();
-      v122 = "Expanding resource fork";
-      v123 = 738;
-      goto LABEL_150;
+      v92 = *__error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 738, 86, v92, "Expanding resource fork", v115);
+      goto LABEL_149;
     }
   }
 
-  v72 = malloc(4 * v158 + 4);
-  size = 4 * v158 + 4;
-  v73 = malloc(size);
-  v74 = v73;
-  if (!v72 || !v73)
+  v50 = malloc(4 * v121 + 4);
+  size = 4 * v121 + 4;
+  v51 = malloc(size);
+  v52 = v51;
+  if (!v50 || !v51)
   {
-    v151 = *__error();
-    v154 = "malloc";
-    v155 = 744;
-    goto LABEL_188;
+    v107 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 744, 86, v107, "malloc");
+    goto LABEL_186;
   }
 
-  if (v168 != 4)
+  if (v131 != 4)
   {
-    v83 = 4 * v158 + 4;
-    if (fgetxattr(v34, "com.apple.ResourceFork", v72, size, 0, 32) != size)
+    v61 = 4 * v121 + 4;
+    if (fgetxattr(v23, "com.apple.ResourceFork", v50, size, 0, 32) != size)
     {
-      v151 = *__error();
-      v154 = "Reading chunk sizes";
-      v155 = 763;
-      goto LABEL_188;
+      v109 = *__error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 763, 86, v109, "Reading chunk sizes");
+      goto LABEL_186;
     }
 
 LABEL_99:
-    v174 = v18;
-    memcpy(v74, v72, v83);
-    v74[v158] = v72[v158] + v62;
-    v94 = (v172 + 0xFFFF) >> 16;
-    while (v62 && v94)
+    v137 = v7;
+    memcpy(v52, v50, v61);
+    v52[v121] = v50[v121] + v39;
+    v70 = (v135 + 0xFFFF) >> 16;
+    while (v39 && v70)
     {
-      v95 = v72[v94 - 1];
-      v96 = v72[v94] - v95;
-      if (fgetxattr(v34, "com.apple.ResourceFork", v174, v96, v95, 32) != v96)
+      v71 = v50[v70 - 1];
+      v72 = v50[v70] - v71;
+      if (fgetxattr(v23, "com.apple.ResourceFork", v137, v72, v71, 32) != v72)
       {
-        v127 = __error();
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 777, 86, *v127, "Reading chunk", v128, v129, v156);
-        v17 = 0;
-        v44 = 0;
-        v36 = -1;
-        v18 = v174;
+        v94 = __error();
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 777, 86, *v94, "Reading chunk");
+        v6 = 0;
+        v26 = 0;
+        v25 = -1;
+        v7 = v137;
         goto LABEL_140;
       }
 
-      v97 = 0x10000 - v96;
-      if (v170 == *v174 || v96 > 0x10000)
+      v73 = 0x10000 - v72;
+      if (v133 == *v137 || v72 > 0x10000)
       {
-        v97 = 0;
+        v73 = 0;
       }
 
-      if (v62 >= v97)
+      if (v39 >= v73)
       {
-        v99 = v97;
+        v75 = v73;
       }
 
       else
       {
-        v99 = v62;
+        v75 = v39;
       }
 
-      if (v97)
+      if (v73)
       {
-        bzero(v174 + v96, v99);
+        bzero(v137 + v72, v75);
       }
 
-      v100 = (v99 + v96);
-      v101 = v74[v94] - v100;
-      v74[v94 - 1] = v101;
-      v62 -= v99;
-      --v94;
-      if (fsetxattr(v34, "com.apple.ResourceFork", v174, v100, v101, 0))
+      v76 = (v75 + v72);
+      v77 = v52[v70] - v76;
+      v52[v70 - 1] = v77;
+      v39 -= v75;
+      --v70;
+      if (fsetxattr(v23, "com.apple.ResourceFork", v137, v76, v77, 0))
       {
-        v130 = __error();
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 791, 86, *v130, "Writing chunk", v131, v132, v156);
-        v17 = 0;
-        v44 = 0;
-        v36 = -1;
-        v18 = v174;
+        v95 = __error();
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 791, 86, *v95, "Writing chunk");
+        v6 = 0;
+        v26 = 0;
+        v25 = -1;
+        v7 = v137;
         goto LABEL_140;
       }
     }
 
-    if (v168 == 4)
+    if (v131 == 4)
     {
-      v102 = v193;
-      v18 = v174;
-      *(v174 + 51) = v192;
-      *(v174 + 55) = v102;
-      *(v174 + 59) = v194;
-      v103 = v189;
-      *(v174 + 35) = v188;
-      *(v174 + 39) = v103;
-      v104 = v191;
-      *(v174 + 43) = v190;
-      *(v174 + 47) = v104;
-      v105 = v185;
-      *(v174 + 19) = v184;
-      *(v174 + 23) = v105;
-      v106 = v187;
-      *(v174 + 27) = v186;
-      *(v174 + 31) = v106;
-      v107 = v181;
-      *(v174 + 3) = v180;
-      *(v174 + 7) = v107;
-      v108 = v183;
-      *(v174 + 11) = v182;
-      v25 = v164;
-      *v174 = v164;
-      *(v174 + 1) = v27;
-      v109 = v195;
-      *(v174 + 15) = v108;
-      v174[63] = v109;
-      v174[64] = v162;
-      v174[65] = v166;
-      if (v172)
+      v78 = v156;
+      v7 = v137;
+      *(v137 + 51) = v155;
+      *(v137 + 55) = v78;
+      *(v137 + 59) = v157;
+      v79 = v152;
+      *(v137 + 35) = v151;
+      *(v137 + 39) = v79;
+      v80 = v154;
+      *(v137 + 43) = v153;
+      *(v137 + 47) = v80;
+      v81 = v148;
+      *(v137 + 19) = v147;
+      *(v137 + 23) = v81;
+      v82 = v150;
+      *(v137 + 27) = v149;
+      *(v137 + 31) = v82;
+      v83 = v144;
+      *(v137 + 3) = v143;
+      *(v137 + 7) = v83;
+      v84 = v146;
+      *(v137 + 11) = v145;
+      v14 = v127;
+      *v137 = v127;
+      *(v137 + 1) = v16;
+      v85 = v158;
+      *(v137 + 15) = v84;
+      v137[63] = v85;
+      v137[64] = v125;
+      v137[65] = v129;
+      if (v135)
       {
-        if (v158 <= 1)
+        if (v121 <= 1)
         {
-          v110 = 1;
+          v86 = 1;
         }
 
         else
         {
-          v110 = v158;
+          v86 = v121;
         }
 
-        v111 = v74 + 1;
-        v112 = *v74;
-        v113 = v165;
+        v87 = v52 + 1;
+        v88 = *v52;
+        v89 = v128;
         do
         {
-          v114 = *v111++;
-          *v113++ = (v112 - 260) | ((v114 - v112) << 32);
-          v112 = v114;
-          --v110;
+          v90 = *v87++;
+          *v89++ = (v88 - 260) | ((v90 - v88) << 32);
+          v88 = v90;
+          --v86;
         }
 
-        while (v110);
+        while (v86);
       }
 
-      if (fsetxattr(v34, "com.apple.ResourceFork", v174, 8 * v158 + 264, 0, 0))
+      if (fsetxattr(v23, "com.apple.ResourceFork", v137, 8 * v121 + 264, 0, 0))
       {
-        v151 = *__error();
-        v154 = "Writing resource fork header";
-        v155 = 817;
-        goto LABEL_188;
+        v112 = *__error();
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 817, 86, v112, "Writing resource fork header");
+        goto LABEL_186;
       }
 
-      if (fsetxattr(v34, "com.apple.ResourceFork", &old_resource_fork_map, 0x32uLL, position, 0))
+      if (fsetxattr(v23, "com.apple.ResourceFork", &old_resource_fork_map, 0x32uLL, position, 0))
       {
-        v151 = *__error();
-        v154 = "Writing resource map";
-        v155 = 820;
-        goto LABEL_188;
+        v114 = *__error();
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 820, 86, v114, "Writing resource map");
+        goto LABEL_186;
       }
     }
 
     else
     {
-      v18 = v174;
-      v25 = v164;
-      if (fsetxattr(v34, "com.apple.ResourceFork", v74, size, 0, 0))
+      v7 = v137;
+      v14 = v127;
+      if (fsetxattr(v23, "com.apple.ResourceFork", v52, size, 0, 0))
       {
-        v151 = *__error();
-        v154 = "Writing chunk sizes";
-        v155 = 827;
-        goto LABEL_188;
+        v113 = *__error();
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 827, 86, v113, "Writing chunk sizes");
+        goto LABEL_186;
       }
     }
 
-    if (fsetxattr(v34, "com.apple.decmpfs", value, 0x10uLL, 0, 0))
+    if (fsetxattr(v23, "com.apple.decmpfs", value, 0x10uLL, 0, 0))
     {
-      v151 = *__error();
-      v154 = "Writing decmpfs";
-      v155 = 831;
-      goto LABEL_188;
+      v110 = *__error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 831, 86, v110, "Writing decmpfs");
+      goto LABEL_186;
     }
 
-    if (fchflags(v34, v176.st_flags | 0x20) < 0)
+    if (fchflags(v23, v139.st_flags | 0x20) < 0)
     {
-      v151 = *__error();
-      v154 = "fchflags UF_COMPRESSED";
-      v155 = 832;
-      goto LABEL_188;
+      v111 = *__error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 832, 86, v111, "fchflags UF_COMPRESSED");
+      goto LABEL_186;
     }
 
-    close(v34);
-    free(v72);
-    free(v74);
-    if ((ParallelCompressionAFSCGetMetadata(a1, &v177, &v179, &v178) & 0x80000000) == 0)
+    close(v23);
+    free(v50);
+    free(v52);
+    if ((ParallelCompressionAFSCGetMetadata(a1, &v140, &v142, &v141) & 0x80000000) == 0)
     {
-      v19 = v168;
-      if (v179 != v168)
+      v40 = v142;
+      v38 = v141;
+      v8 = v131;
+      if (v142 != v131)
       {
-        v28 = v160;
+        v17 = v123;
         goto LABEL_61;
       }
 
-      v28 = v160;
-      if (v178 != a3)
+      v17 = v123;
+      if (v141 != a3)
       {
         goto LABEL_61;
       }
 
-LABEL_156:
-      if (v171)
+LABEL_154:
+      if (v134)
       {
-        pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 876, 86, "Second pass fixup succeeded: %s", v12, v13, v14, a1);
+        pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 876, 86, "Second pass fixup succeeded: %s", a1);
       }
 
-      v44 = 0;
-      v72 = 0;
-      v74 = 0;
-      v34 = -1;
-      v17 = 1;
+      v26 = 0;
+      v50 = 0;
+      v52 = 0;
+      v23 = -1;
+      v6 = 1;
       goto LABEL_139;
     }
 
-    v156 = a1;
-    v21 = "obtain AFSC data: %s";
-    v22 = 840;
+    v115 = a1;
+    v10 = "obtain AFSC data: %s";
+    v11 = 840;
     goto LABEL_136;
   }
 
-  if (fgetxattr(v34, "com.apple.ResourceFork", v18, 8 * v158 + 264, 0, 32) == 8 * v158 + 264)
+  if (fgetxattr(v23, "com.apple.ResourceFork", v7, 8 * v121 + 264, 0, 32) == 8 * v121 + 264)
   {
-    v75 = *v18;
-    v76 = *(v18 + 55);
-    v192 = *(v18 + 51);
-    v193 = v76;
-    v194 = *(v18 + 59);
-    v195 = v18[63];
-    v77 = *(v18 + 39);
-    v188 = *(v18 + 35);
-    v189 = v77;
-    v78 = *(v18 + 47);
-    v190 = *(v18 + 43);
-    v191 = v78;
-    v79 = *(v18 + 23);
-    v184 = *(v18 + 19);
-    v185 = v79;
-    v80 = *(v18 + 31);
-    v186 = *(v18 + 27);
-    v187 = v80;
-    v81 = *(v18 + 7);
-    v180 = *(v18 + 3);
-    v181 = v81;
-    v82 = *(v18 + 15);
-    v182 = *(v18 + 11);
-    v183 = v82;
-    v166 = v18[65];
-    v164 = v75;
-    if (v172)
+    v53 = *v7;
+    v54 = *(v7 + 55);
+    v155 = *(v7 + 51);
+    v156 = v54;
+    v157 = *(v7 + 59);
+    v158 = v7[63];
+    v55 = *(v7 + 39);
+    v151 = *(v7 + 35);
+    v152 = v55;
+    v56 = *(v7 + 47);
+    v153 = *(v7 + 43);
+    v154 = v56;
+    v57 = *(v7 + 23);
+    v147 = *(v7 + 19);
+    v148 = v57;
+    v58 = *(v7 + 31);
+    v149 = *(v7 + 27);
+    v150 = v58;
+    v59 = *(v7 + 7);
+    v143 = *(v7 + 3);
+    v144 = v59;
+    v60 = *(v7 + 15);
+    v145 = *(v7 + 11);
+    v146 = v60;
+    v129 = v7[65];
+    v127 = v53;
+    if (v135)
     {
-      v83 = 4 * v158 + 4;
-      if (v158 <= 1)
+      v61 = 4 * v121 + 4;
+      if (v121 <= 1)
       {
-        v84 = 1;
+        v62 = 1;
       }
 
       else
       {
-        v84 = v158;
+        v62 = v121;
       }
 
-      v85 = v72 + 1;
-      v86 = v165;
+      v63 = v50 + 1;
+      v64 = v128;
       do
       {
-        v87 = *v86;
-        v88 = *(v86++ + 1);
-        v87 += 260;
-        *(v85 - 1) = v87;
-        *v85++ = v87 + v88;
-        --v84;
+        v65 = *v64;
+        v66 = *(v64++ + 1);
+        v65 += 260;
+        *(v63 - 1) = v65;
+        *v63++ = v65 + v66;
+        --v62;
       }
 
-      while (v84);
+      while (v62);
     }
 
     else
     {
-      v83 = 4 * v158 + 4;
+      v61 = 4 * v121 + 4;
     }
 
     goto LABEL_99;
   }
 
-  v151 = *__error();
-  v154 = "Reading chunk sizes";
-  v155 = 749;
-LABEL_188:
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", v155, 86, v151, v154, v152, v153, v156);
-  v17 = 0;
-  v44 = 0;
+  v108 = *__error();
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 749, 86, v108, "Reading chunk sizes");
+LABEL_186:
+  v6 = 0;
+  v26 = 0;
 LABEL_139:
-  v36 = -1;
+  v25 = -1;
 LABEL_140:
-  if ((ParallelCompressionAFSCStreamClose(v44, v8, v9, v10, v11, v12, v13, v14) & 0x80000000) != 0)
+  if ((ParallelCompressionAFSCStreamClose(v26) & 0x80000000) != 0)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 877, 86, 0, "Stream close error", v115, v116, v156);
-    v17 = 0;
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCFixupMetadata", 877, 86, 0, "Stream close error");
+    v6 = 0;
   }
 
-  if ((v34 & 0x80000000) == 0)
+  if ((v23 & 0x80000000) == 0)
   {
-    close(v34);
+    close(v23);
   }
 
-  if ((v36 & 0x80000000) == 0)
+  if ((v25 & 0x80000000) == 0)
   {
-    close(v36);
+    close(v25);
     unlink(&__from);
   }
 
-  free(v18);
-  free(v72);
-  free(v74);
-  if (v17)
+  free(v7);
+  free(v50);
+  free(v52);
+  if (v6)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
+  }
+}
+
+ssize_t ParallelCompressionAFSCCompress(const char *a1, int a2)
+{
+  v36 = 0;
+  v35 = -1;
+  if ((ParallelCompressionAFSCGetMetadata(a1, &v36, &v35, &v34) & 0x80000000) != 0)
+  {
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCCompress", 907, 86, 0, "looking up AFSC data: %s");
+    return 0xFFFFFFFFLL;
   }
 
-  v118 = *MEMORY[0x29EDCA608];
+  v4 = v36;
+  if (!v36)
+  {
+    return 0;
+  }
+
+  if (v35 == -1)
+  {
+    if (!a2)
+    {
+      return 0;
+    }
+
+    v11 = malloc(0x10000uLL);
+    if (v11)
+    {
+      v12 = open(a1, 2);
+      if ((v12 & 0x80000000) == 0)
+      {
+        v13 = v12;
+        v14 = ParallelCompressionAFSCStreamOpen(v12, v4, 0, 0);
+        if (v14)
+        {
+          v15 = v14;
+          v16 = 0;
+          v17 = 0;
+          v18 = 0x10000;
+          v19 = 0x10000;
+          while (1)
+          {
+            if (v4 >= v19)
+            {
+              v20 = v19;
+            }
+
+            else
+            {
+              v20 = v4;
+            }
+
+            if (v19 - 0x10000 >= v4)
+            {
+              v31 = 1;
+              goto LABEL_43;
+            }
+
+            v21 = v20 + v16;
+            v22 = read(v13, v11, v20 + v16);
+            if (v22 < 0)
+            {
+              v32 = *__error();
+              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCCompress", 950, 86, v32, "read: %s");
+              goto LABEL_42;
+            }
+
+            if (v21 != v22)
+            {
+              v33 = a1;
+              v25 = "truncated read: %s";
+              v26 = 951;
+              goto LABEL_41;
+            }
+
+            v23 = ParallelCompressionAFSCStreamWrite(v15, v11, v21);
+            if ((v23 & 0x8000000000000000) != 0)
+            {
+              break;
+            }
+
+            v17 += 0x10000;
+            v19 += 0x10000;
+            v16 -= 0x10000;
+            if (v4 >= v17)
+            {
+              v24 = v17;
+            }
+
+            else
+            {
+              v24 = v4;
+            }
+
+            v18 -= 0x10000;
+            if (v24 + v18 != v23)
+            {
+              v33 = a1;
+              v25 = "truncated write: %s";
+              v26 = 954;
+              goto LABEL_41;
+            }
+          }
+
+          v33 = a1;
+          v25 = "Stream write failed: %s";
+          v26 = 953;
+LABEL_41:
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCCompress", v26, 86, 0, v25, v33);
+LABEL_42:
+          v31 = 0;
+LABEL_43:
+          if ((ParallelCompressionAFSCStreamClose(v15) & 0x80000000) == 0)
+          {
+            goto LABEL_46;
+          }
+
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCCompress", 956, 86, 0, "AFSC compression failed: %s");
+        }
+
+        else
+        {
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCCompress", 942, 86, 0, "creating AFSC stream: %s");
+        }
+
+        v31 = 0;
+LABEL_46:
+        close(v13);
+        if (v31)
+        {
+          v10 = 0;
+        }
+
+        else
+        {
+          v10 = 0xFFFFFFFFLL;
+        }
+
+        goto LABEL_49;
+      }
+
+      v30 = *__error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCCompress", 940, 86, v30, "open: %s");
+    }
+
+    else
+    {
+      v29 = *__error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCCompress", 938, 86, v29, "malloc");
+    }
+
+    v10 = 0xFFFFFFFFLL;
+LABEL_49:
+    free(v11);
+    return v10;
+  }
+
+  if (a2)
+  {
+    return 0;
+  }
+
+  v5 = open(a1, 9);
+  if (v5 < 0)
+  {
+    v28 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCCompress", 921, 86, v28, "open: %s");
+    return 0xFFFFFFFFLL;
+  }
+
+  v6 = v5;
+  v7 = write(v5, 0, 0);
+  if (v7 < 0)
+  {
+    v8 = __error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCCompress", 922, 86, *v8, "write: %s", a1);
+  }
+
+  if (close(v6) < 0)
+  {
+    v9 = __error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/ParallelCompressionAFSCStream.c", "ParallelCompressionAFSCCompress", 923, 86, *v9, "close: %s", a1);
+  }
+
+  return v7 >> 63;
+}
+
+uint64_t fullReplacementBXPatch5(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, int a5)
+{
+  v26 = *MEMORY[0x29EDCA608];
+  v23 = 0;
+  v24 = 0;
+  v25 = 0;
+  v9 = *(a1 + 32);
+  if (a5 >= 1)
+  {
+    fwrite("Full replacement patch\n", 0x17uLL, 1uLL, *MEMORY[0x29EDCA610]);
+  }
+
+  if (v9 + 60 <= a2)
+  {
+    if (v9 + 60 < a2)
+    {
+      fwrite("Extra bytes in patch (ignored)", 0x1EuLL, 1uLL, *MEMORY[0x29EDCA610]);
+    }
+
+    v11 = malloc(0x20000uLL);
+    if (v11)
+    {
+      v12 = ILowMemoryDecoderStreamCreateWithBuffer(a1 + 60, v9, 0x20000uLL);
+      if (v12)
+      {
+        v13 = OSHA1StreamCreate(a3, 0, a4);
+        if (v13)
+        {
+          v14 = v13;
+          v15 = *(a1 + 16);
+          if (v15)
+          {
+            v16 = 0;
+            while (1)
+            {
+              v17 = v15 - v16;
+              if (v17 >= 0x20000)
+              {
+                v18 = 0x20000;
+              }
+
+              else
+              {
+                v18 = v17;
+              }
+
+              if (ILowMemoryDecoderStreamRead(v12, v11, v18) != v18)
+              {
+                pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "fullReplacementBXPatch5", 62, 42, 0, "reading from payload stream", v23);
+                goto LABEL_32;
+              }
+
+              if (OSHA1StreamWrite(v14, v11, v18) != v18)
+              {
+                break;
+              }
+
+              v16 += v18;
+              v15 = *(a1 + 16);
+              if (v16 >= v15)
+              {
+                goto LABEL_18;
+              }
+            }
+
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "fullReplacementBXPatch5", 64, 42, 0, "writing to digest stream", v23);
+          }
+
+          else
+          {
+LABEL_18:
+            OSHA1StreamDestroy(v14, &v23);
+            if (v23 == *(a1 + 40) && v24 == *(a1 + 48) && v25 == *(a1 + 56))
+            {
+              v10 = 0;
+LABEL_33:
+              free(v11);
+              ILowMemoryDecoderStreamDestroy(v12);
+              return v10;
+            }
+
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "fullReplacementBXPatch5", 71, 42, 0, "Invalid output digest after patch application", v23);
+          }
+        }
+
+        else
+        {
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "fullReplacementBXPatch5", 52, 42, 0, "Digest stream init", v23);
+        }
+      }
+
+      else
+      {
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "fullReplacementBXPatch5", 51, 42, 0, "Payload stream init", v23);
+      }
+    }
+
+    else
+    {
+      v21 = __error();
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "fullReplacementBXPatch5", 50, 42, *v21, "malloc");
+      v12 = 0;
+    }
+
+LABEL_32:
+    v10 = 0xFFFFFFFFLL;
+    goto LABEL_33;
+  }
+
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "fullReplacementBXPatch5", 45, 42, 0, "Missing bytes in patch");
+  return 0xFFFFFFFFLL;
+}
+
+uint64_t BXDiff5GetPatchInfo(uint64_t a1, unint64_t a2, uint64_t a3)
+{
+  if (a2 < 8)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  result = 0xFFFFFFFFLL;
+  if (a2 >= 0x3C && *a1 == 0x3035464649445842)
+  {
+    result = 0;
+    *a3 = *(a1 + 16);
+    v5 = *(a1 + 12) & 1;
+    *(a3 + 8) = *(a1 + 8) == 0;
+    *(a3 + 12) = v5;
+  }
+
   return result;
+}
+
+uint64_t BXPatch5(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t (*a5)(uint64_t, void *, uint64_t), uint64_t a6, int a7)
+{
+  v8[0] = a1;
+  v8[1] = a2;
+  return BXPatch5StreamWithFlags(BXPatch5WithFlagsBufferStreamPRead, v8, a2, a3, a4, a5, a6, a7 > 0);
+}
+
+uint64_t BXPatch5WithFlags(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t (*a5)(uint64_t, void *, uint64_t), uint64_t a6, uint64_t a7)
+{
+  v8[0] = a1;
+  v8[1] = a2;
+  return BXPatch5StreamWithFlags(BXPatch5WithFlagsBufferStreamPRead, v8, a2, a3, a4, a5, a6, a7);
+}
+
+uint64_t BXPatch5StreamWithFlags(uint64_t (*a1)(uint64_t, void *, uint64_t, unint64_t), uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5, uint64_t (*a6)(uint64_t, void *, uint64_t), uint64_t a7, uint64_t a8)
+{
+  v110 = *MEMORY[0x29EDCA608];
+  if (a5 <= 0x3B)
+  {
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 264, 42, 0, "Invalid patch size", a7, a8);
+    return 0xFFFFFFFFLL;
+  }
+
+  if (*a4 != 0x3035464649445842)
+  {
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 265, 42, 0, "Invalid patch header", a7, a8);
+    return 0xFFFFFFFFLL;
+  }
+
+  v10 = *(a4 + 8);
+  v11 = 28 * v10 + 60;
+  if (v11 > a5)
+  {
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 269, 42, 0, "Invalid patch size", a7, a8);
+    return 0xFFFFFFFFLL;
+  }
+
+  v14 = a8 & 1;
+  v15 = *(a4 + 24);
+  v16 = __CFADD__(v11, v15);
+  v17 = v11 + v15;
+  if (v16)
+  {
+    v17 = -1;
+  }
+
+  if (!v10)
+  {
+    v36 = *(a4 + 32);
+    v16 = __CFADD__(v17, v36);
+    v37 = v17 + v36;
+    if (v16)
+    {
+      v37 = -1;
+    }
+
+    if (v37 <= a5)
+    {
+
+      return fullReplacementBXPatch5(a4, a5, a6, a7, a8 & 1);
+    }
+
+LABEL_42:
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 278, 42, 0, "Invalid patch size", a7, a8);
+    return 0xFFFFFFFFLL;
+  }
+
+  v21 = *(a4 + 8);
+  v22 = (a4 + 60);
+  do
+  {
+    v23 = *v22;
+    v22 = (v22 + 28);
+    v16 = __CFADD__(v17, v23);
+    v17 += v23;
+    if (v16)
+    {
+      v17 = -1;
+    }
+
+    --v21;
+  }
+
+  while (v21);
+  v24 = *(a4 + 32);
+  v16 = __CFADD__(v17, v24);
+  v25 = v17 + v24;
+  if (v16)
+  {
+    v25 = -1;
+  }
+
+  if (v25 > a5)
+  {
+    goto LABEL_42;
+  }
+
+  v104 = (a4 + 60);
+  *md = 0;
+  v108 = 0;
+  v109 = 0;
+  memset(&c, 0, sizeof(c));
+  v26 = malloc(0x40000uLL);
+  if (!v26)
+  {
+    v39 = *__error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "getStreamSHA1Digest", 156, 42, v39, "malloc");
+LABEL_48:
+    free(v26);
+    goto LABEL_49;
+  }
+
+  v102 = v14;
+  CC_SHA1_Deprecated_Init(&c);
+  v27 = 0;
+  if (a3)
+  {
+    while (1)
+    {
+      v28 = v27 + 0x40000 <= a3 ? 0x40000 : a3 - v27;
+      v29 = a1(a2, v26, v28, v27);
+      if (v29 <= 0)
+      {
+        break;
+      }
+
+      v30 = v29;
+      CC_SHA1_Deprecated_Update(&c, v26, v29);
+      v27 += v30;
+      if (v27 >= a3)
+      {
+        goto LABEL_27;
+      }
+    }
+
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "getStreamSHA1Digest", 165, 42, 0, "inProc read");
+    goto LABEL_48;
+  }
+
+LABEL_27:
+  CC_SHA1_Deprecated_Final(md, &c);
+  free(v26);
+  if (v27 != a3)
+  {
+LABEL_49:
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 285, 42, 0, "Input digest failed", v31, v32);
+    return 0xFFFFFFFFLL;
+  }
+
+  if (v102)
+  {
+    v40 = MEMORY[0x29EDCA610];
+    fprintf(*MEMORY[0x29EDCA610], "Input variants in patch: %u\n", *(a4 + 8));
+    v33 = a4 + 40;
+    if (*md != *(a4 + 40) || v108 != *(a4 + 48) || v109 != *(a4 + 56))
+    {
+LABEL_58:
+      v43 = *(a4 + 8);
+      if (!v43)
+      {
+LABEL_68:
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 310, 42, 0, "Input doesn't match any of the expected patch inputs", v31, v32);
+        return 0xFFFFFFFFLL;
+      }
+
+      v44 = 0;
+      v45 = *(a4 + 8);
+      v46 = a4 + 68;
+      while (1)
+      {
+        v47 = *md == *v46 && v108 == *(v46 + 8);
+        if (v47 && v109 == *(v46 + 16))
+        {
+          break;
+        }
+
+        ++v44;
+        v46 += 28;
+        if (v43 == v44)
+        {
+          goto LABEL_68;
+        }
+      }
+
+      v99 = v44;
+      if (v102)
+      {
+        fprintf(*MEMORY[0x29EDCA610], "Patch matching entry %u\n", v44);
+        v44 = v99;
+        v45 = *(a4 + 8);
+        LODWORD(v43) = *(a4 + 8);
+      }
+
+      v88 = v33;
+      v49 = v104;
+      v95 = v104 + 28 * v45;
+      v97 = *(a4 + 24);
+      v50 = v95 + v97;
+      v51 = 0;
+      if (v43)
+      {
+        v52 = v44;
+        do
+        {
+          if (!v52)
+          {
+            v51 = v50;
+          }
+
+          v53 = *v49;
+          v49 = (v49 + 28);
+          v50 += v53;
+          --v52;
+          --v45;
+        }
+
+        while (v45);
+      }
+
+      v91 = *(a4 + 32);
+      v93 = *(v46 - 8);
+      if (v50 + v91 - a4 != a5)
+      {
+        pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 331, 42, "Warning: extra bytes in patch (ignored)\n");
+        LODWORD(v43) = *(a4 + 8);
+      }
+
+      v90 = *(a4 + 16);
+      v54 = 8 * (v43 + 2);
+      v103 = malloc(0x20000uLL);
+      v55 = malloc(0x20000uLL);
+      v89 = v54;
+      v56 = v54;
+      v57 = v103;
+      v105 = malloc(v56);
+      enterThreadErrorContext();
+      v101 = v55;
+      if (v55 && v103 && v105)
+      {
+        v98 = ILowMemoryDecoderStreamCreateWithBuffer(v95, v97, 0x20000uLL);
+        if (v98)
+        {
+          v58 = ILowMemoryDecoderStreamCreateWithBuffer(v51, v93, 0x20000uLL);
+          if (v58)
+          {
+            v96 = ILowMemoryDecoderStreamCreateWithBuffer(v50, v91, 0x20000uLL);
+            if (v96)
+            {
+              v59 = OSHA1StreamCreate(a6, 0, a7);
+              if (v59)
+              {
+                v92 = v58;
+                v87 = v59;
+                v94 = OBufferedStreamCreate(OSHA1StreamWrite, OSHA1StreamAbort, v59, 0x20000uLL);
+                if (!v94)
+                {
+                  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 356, 42, 0, "OBufferedStreamCreate");
+                  v79 = 0;
+                  v80 = -1;
+                  v57 = v103;
+                  v84 = v96;
+                  v85 = v98;
+LABEL_157:
+                  v78 = v87;
+LABEL_158:
+                  free(v105);
+                  free(v57);
+                  free(v101);
+                  OBufferedStreamDestroy(v79);
+                  OSHA1StreamDestroy(v78, md);
+                  ILowMemoryDecoderStreamDestroy(v85);
+                  ILowMemoryDecoderStreamDestroy(v58);
+                  ILowMemoryDecoderStreamDestroy(v84);
+                  LODWORD(result) = leaveThreadErrorContext(0, 0, 0);
+                  if (result >= 0)
+                  {
+                    return v80;
+                  }
+
+                  else
+                  {
+                    return result;
+                  }
+                }
+
+                if (v90)
+                {
+                  v60 = 0;
+                  v61 = 0;
+                  v100 = v99 + 2;
+                  while (1)
+                  {
+                    if (ILowMemoryDecoderStreamRead(v98, v105, v89) != v89)
+                    {
+                      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 362, 42, 0, "reading from control stream");
+                      goto LABEL_155;
+                    }
+
+                    v62 = v105[1];
+                    if (*v105 >= 0)
+                    {
+                      v63 = *v105;
+                    }
+
+                    else
+                    {
+                      v63 = 0x8000000000000000 - *v105;
+                    }
+
+                    if (v62 >= 0)
+                    {
+                      v64 = v105[1];
+                    }
+
+                    else
+                    {
+                      v64 = 0x8000000000000000 - v62;
+                    }
+
+                    v65 = v105[v100];
+                    if (v65 < 0)
+                    {
+                      v65 = 0x8000000000000000 - v65;
+                    }
+
+                    v86 = v65;
+                    if ((v60 & 0x8000000000000000) != 0 || v63 + v60 > a3)
+                    {
+                      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 369, 42, 0, "Invalid in segment in patch");
+                      goto LABEL_155;
+                    }
+
+                    if (v63 + v61 + v64 > *(a4 + 16))
+                    {
+                      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 370, 42, 0, "Invalid out segment in patch");
+                      goto LABEL_155;
+                    }
+
+                    if (v63)
+                    {
+                      break;
+                    }
+
+LABEL_115:
+                    if (v64)
+                    {
+                      v72 = 0;
+                      v73 = v64;
+                      while (1)
+                      {
+                        v74 = v73 - v72;
+                        if (v74 >= 0x20000)
+                        {
+                          v75 = 0x20000;
+                        }
+
+                        else
+                        {
+                          v75 = v74;
+                        }
+
+                        v57 = v103;
+                        if (ILowMemoryDecoderStreamRead(v96, v103, v75) != v75)
+                        {
+                          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 405, 42, 0, "reading from archive stream");
+                          v80 = -1;
+                          goto LABEL_156;
+                        }
+
+                        if (OBufferedStreamWrite(v94, v103, v75) != v75)
+                        {
+                          break;
+                        }
+
+                        v72 += v75;
+                        v61 += v75;
+                        v73 = v64;
+                        if (v72 >= v64)
+                        {
+                          goto LABEL_123;
+                        }
+                      }
+
+                      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 407, 42, 0, "writing to digest stream");
+                      goto LABEL_155;
+                    }
+
+LABEL_123:
+                    v60 += v86;
+                    if (v61 >= v90)
+                    {
+                      goto LABEL_124;
+                    }
+                  }
+
+                  v66 = 0;
+                  while (1)
+                  {
+                    if (v63 - v66 >= 0x20000)
+                    {
+                      v67 = 0x20000;
+                    }
+
+                    else
+                    {
+                      v67 = v63 - v66;
+                    }
+
+                    if (ILowMemoryDecoderStreamRead(v92, v103, v67) != v67)
+                    {
+                      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 379, 42, 0, "reading from diff stream");
+                      goto LABEL_155;
+                    }
+
+                    if (a1(a2, v101, v67, v60) != v67)
+                    {
+                      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 381, 42, 0, "reading from input stream");
+                      goto LABEL_155;
+                    }
+
+                    if (v63 != v66)
+                    {
+                      if (v67 <= 1)
+                      {
+                        v68 = 1;
+                      }
+
+                      else
+                      {
+                        v68 = v67;
+                      }
+
+                      v69 = v101;
+                      v70 = v103;
+                      do
+                      {
+                        v71 = *v69++;
+                        *v70++ += v71;
+                        --v68;
+                      }
+
+                      while (v68);
+                    }
+
+                    if (OBufferedStreamWrite(v94, v103, v67) != v67)
+                    {
+                      break;
+                    }
+
+                    v66 += v67;
+                    v60 += v67;
+                    v61 += v67;
+                    if (v66 >= v63)
+                    {
+                      goto LABEL_115;
+                    }
+                  }
+
+                  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 390, 42, 0, "writing to digest stream");
+LABEL_155:
+                  v80 = -1;
+                  v57 = v103;
+LABEL_156:
+                  v84 = v96;
+                  v85 = v98;
+                  v58 = v92;
+                  v79 = v94;
+                  goto LABEL_157;
+                }
+
+LABEL_124:
+                OBufferedStreamDestroy(v94);
+                OSHA1StreamDestroy(v87, md);
+                if (*md == *v88 && v108 == *(v88 + 8) && v109 == *(v88 + 16))
+                {
+                  v80 = 0;
+                  v78 = 0;
+                  v79 = 0;
+                }
+
+                else
+                {
+                  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 421, 42, 0, "Invalid output digest after patch application");
+                  v78 = 0;
+                  v79 = 0;
+                  v80 = -1;
+                }
+
+                v57 = v103;
+                v85 = v98;
+                v58 = v92;
+              }
+
+              else
+              {
+                pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 355, 42, 0, "Digest stream init");
+                v78 = 0;
+                v79 = 0;
+                v80 = -1;
+                v85 = v98;
+              }
+
+              v84 = v96;
+              goto LABEL_158;
+            }
+
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 354, 42, 0, "Archive stream init");
+          }
+
+          else
+          {
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 353, 42, 0, "Diff stream init");
+          }
+
+          v78 = 0;
+          v79 = 0;
+          v84 = 0;
+          v80 = -1;
+          v85 = v98;
+          goto LABEL_158;
+        }
+
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 352, 42, 0, "Control stream init");
+      }
+
+      else
+      {
+        v83 = *__error();
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 351, 42, v83, "malloc");
+      }
+
+      v78 = 0;
+      v79 = 0;
+      v84 = 0;
+      v58 = 0;
+      v85 = 0;
+      v80 = -1;
+      goto LABEL_158;
+    }
+
+    fwrite("No-op patch matching, writing input\n", 0x24uLL, 1uLL, *v40);
+  }
+
+  else
+  {
+    v33 = a4 + 40;
+    if (*md != *(a4 + 40) || v108 != *(a4 + 48) || v109 != *(a4 + 56))
+    {
+      goto LABEL_58;
+    }
+  }
+
+  if ((copyStream(a1, a2, a3, a6, a7) & 0x80000000) != 0)
+  {
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelPatch/BXPatch5.c", "BXPatch5StreamWithFlags", 293, 42, 0, "Output copy failed\n", v81, v82);
+    return 0xFFFFFFFFLL;
+  }
+
+  return 0;
 }

@@ -46,19 +46,19 @@
 
 - (BOOL)updateRuntimeBlacklistsFromServer
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (+[_DPDeviceInfo isDataCollectionEnabled])
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
     context = objc_autoreleasePoolPush();
-    v36 = 0;
-    v37 = 0;
     v35 = 0;
-    v5 = [(_DPBlacklistServerStorage *)selfCopy requestLatestBlacklistsSynchronously:&v37 error:&v36 lastRecordModifiedAt:&v35];
-    v6 = v37;
-    v7 = v36;
-    v8 = v35;
+    v36 = 0;
+    v34 = 0;
+    v5 = [(_DPBlacklistServerStorage *)selfCopy requestLatestBlacklistsSynchronously:&v36 error:&v35 lastRecordModifiedAt:&v34];
+    v6 = v36;
+    v7 = v35;
+    v8 = v34;
     if (v5)
     {
       v9 = +[_DPLog framework];
@@ -68,15 +68,15 @@
         v11 = NSStringFromClass(v10);
         v12 = [v6 count];
         *buf = 138412546;
-        v41 = v11;
-        v42 = 2048;
-        v43 = v12;
+        v40 = v11;
+        v41 = 2048;
+        v42 = v12;
         _os_log_impl(&dword_22622D000, v9, OS_LOG_TYPE_INFO, "%@: request for new blacklist files is completed (updated blacklists count: %lu)", buf, 0x16u);
       }
 
-      v34 = 0;
-      v13 = [(_DPBlacklistServerStorage *)selfCopy prepareRuntimeBlacklistFolder:&v34];
-      v14 = v34;
+      v33 = 0;
+      v13 = [(_DPBlacklistServerStorage *)selfCopy prepareRuntimeBlacklistFolder:&v33];
+      v14 = v33;
       if (v13)
       {
         v15 = +[_DPLog framework];
@@ -85,7 +85,7 @@
           v16 = objc_opt_class();
           v17 = NSStringFromClass(v16);
           *buf = 138412290;
-          v41 = v17;
+          v40 = v17;
           _os_log_impl(&dword_22622D000, v15, OS_LOG_TYPE_INFO, "%@: Runtime Blacklists Folder is ready", buf, 0xCu);
         }
 
@@ -97,9 +97,9 @@
           v21 = NSStringFromClass(v20);
           v22 = [v18 count];
           *buf = 138412546;
-          v41 = v21;
-          v42 = 2048;
-          v43 = v22;
+          v40 = v21;
+          v41 = 2048;
+          v42 = v22;
           _os_log_impl(&dword_22622D000, v19, OS_LOG_TYPE_INFO, "%@: Blacklists saved to Runtime Folder, count: %lu", buf, 0x16u);
         }
 
@@ -122,9 +122,9 @@
         {
           v27 = objc_opt_class();
           v28 = NSStringFromClass(v27);
-          *v38 = 138412290;
-          v39 = v28;
-          _os_log_impl(&dword_22622D000, v26, OS_LOG_TYPE_INFO, "%@: blacklist files update from server is finished", v38, 0xCu);
+          *v37 = 138412290;
+          v38 = v28;
+          _os_log_impl(&dword_22622D000, v26, OS_LOG_TYPE_INFO, "%@: blacklist files update from server is finished", v37, 0xCu);
         }
       }
 
@@ -170,35 +170,34 @@
     v13 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)requestLatestBlacklistsSynchronously:(id *)synchronously error:(id *)error lastRecordModifiedAt:(id *)at
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy_;
-  v51 = __Block_byref_object_dispose_;
-  v52 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy_;
-  v45 = __Block_byref_object_dispose_;
+  v54 = *MEMORY[0x277D85DE8];
   v46 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy_;
-  v39 = __Block_byref_object_dispose_;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy_;
+  v50 = __Block_byref_object_dispose_;
+  v51 = 0;
   v40 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy_;
+  v44 = __Block_byref_object_dispose_;
+  v45 = 0;
   v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy_;
+  v38 = __Block_byref_object_dispose_;
+  v39 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
   v8 = dispatch_semaphore_create(0);
   v9 = +[_DPLog framework];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
@@ -206,35 +205,35 @@
     v10 = objc_opt_class();
     v11 = NSStringFromClass(v10);
     *buf = 138412290;
-    v54 = v11;
+    v53 = v11;
     _os_log_impl(&dword_22622D000, v9, OS_LOG_TYPE_INFO, "%@: requesting new blacklist files from server", buf, 0xCu);
   }
 
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __93___DPBlacklistServerStorage_requestLatestBlacklistsSynchronously_error_lastRecordModifiedAt___block_invoke;
-  v24 = &unk_27858AAC8;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __93___DPBlacklistServerStorage_requestLatestBlacklistsSynchronously_error_lastRecordModifiedAt___block_invoke;
+  v23 = &unk_27858AAC8;
   selfCopy = self;
-  v27 = &v47;
-  v28 = &v41;
-  v29 = &v35;
-  v30 = &v31;
+  v26 = &v46;
+  v27 = &v40;
+  v28 = &v34;
+  v29 = &v30;
   v12 = v8;
-  v26 = v12;
-  [(_DPBlacklistServerStorage *)self _requestLatestBlacklists:&v21];
+  v25 = v12;
+  [(_DPBlacklistServerStorage *)self _requestLatestBlacklists:&v20];
   v13 = dispatch_time(0, 600000000000);
   dispatch_semaphore_wait(v12, v13);
-  if (v32[3])
+  if (v31[3])
   {
-    if (!v48[5])
+    if (!v47[5])
     {
-      *synchronously = v42[5];
-      *at = v36[5];
+      *synchronously = v41[5];
+      *at = v35[5];
       v18 = 1;
       goto LABEL_11;
     }
 
-    v14 = [_DPLog daemon:v21];
+    v14 = [_DPLog daemon:v20];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = objc_opt_class();
@@ -246,7 +245,7 @@
 
   else
   {
-    v14 = [_DPLog daemon:v21];
+    v14 = [_DPLog daemon:v20];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v16 = objc_opt_class();
@@ -258,13 +257,12 @@
   v18 = 0;
 LABEL_11:
 
-  _Block_object_dispose(&v31, 8);
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
 
-  _Block_object_dispose(&v41, 8);
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v46, 8);
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -279,31 +277,31 @@ LABEL_11:
 
 - (id)saveBlacklistsToRuntimeFolder:(id)folder
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   folderCopy = folder;
   storePath = [(_DPBlacklistServerStorage *)self storePath];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v25 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v24 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v6 = folderCopy;
-  v7 = [v6 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v7)
   {
     v8 = v7;
-    v26 = *v30;
+    v25 = *v29;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v26)
+        if (*v29 != v25)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
         v11 = [v6 objectForKeyedSubscript:v10];
         v12 = MEMORY[0x277CBEBC0];
         v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.blacklist", v10];
@@ -311,9 +309,9 @@ LABEL_11:
         v15 = [v12 fileURLWithPath:v14 isDirectory:0];
 
         [defaultManager removeItemAtURL:v15 error:0];
-        v28 = 0;
-        LOBYTE(v14) = [defaultManager moveItemAtURL:v11 toURL:v15 error:&v28];
-        v16 = v28;
+        v27 = 0;
+        LOBYTE(v14) = [defaultManager moveItemAtURL:v11 toURL:v15 error:&v27];
+        v16 = v27;
         v17 = +[_DPLog framework];
         v18 = v17;
         if (v14)
@@ -323,13 +321,13 @@ LABEL_11:
             v19 = objc_opt_class();
             v20 = NSStringFromClass(v19);
             *buf = 138412546;
-            v34 = v20;
-            v35 = 2112;
-            v36 = v10;
+            v33 = v20;
+            v34 = 2112;
+            v35 = v10;
             _os_log_debug_impl(&dword_22622D000, v18, OS_LOG_TYPE_DEBUG, "%@: blacklist for key '%@' successfully moved to runtime directory", buf, 0x16u);
           }
 
-          [v25 addObject:v10];
+          [v24 addObject:v10];
         }
 
         else
@@ -339,9 +337,9 @@ LABEL_11:
             v21 = objc_opt_class();
             v22 = NSStringFromClass(v21);
             *buf = 138412546;
-            v34 = v22;
-            v35 = 2112;
-            v36 = v16;
+            v33 = v22;
+            v34 = 2112;
+            v35 = v16;
             _os_log_error_impl(&dword_22622D000, v18, OS_LOG_TYPE_ERROR, "%@: Unable to move new blacklist file to runtime directory: %@", buf, 0x16u);
           }
         }
@@ -349,15 +347,13 @@ LABEL_11:
         [defaultManager removeItemAtURL:v11 error:0];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v8);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v24;
 }
 
 - (void)scheduleMaintenanceWithName:(id)name database:(id)database
@@ -503,32 +499,32 @@ LABEL_11:
 
 - (id)_blacklistURLByKeyFrom:(id)from
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   fromCopy = from;
-  v22 = [MEMORY[0x277CBEC10] mutableCopy];
+  v21 = [MEMORY[0x277CBEC10] mutableCopy];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v4 = fromCopy;
-  v5 = [v4 countByEnumeratingWithState:&v23 objects:v33 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v22 objects:v32 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v24;
+    v8 = *v23;
     *&v6 = 138412802;
-    v20 = v6;
+    v19 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
-        v11 = [v10 objectForKeyedSubscript:{@"key", v20}];
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v11 = [v10 objectForKeyedSubscript:{@"key", v19}];
         v12 = [v10 objectForKeyedSubscript:@"blacklistAsset"];
         fileURL = [v12 fileURL];
         v14 = fileURL;
@@ -548,32 +544,30 @@ LABEL_11:
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             v17 = objc_opt_class();
-            v21 = NSStringFromClass(v17);
-            *buf = v20;
-            v28 = v21;
-            v29 = 2112;
-            v30 = v11;
-            v31 = 2112;
-            v32 = v12;
+            v20 = NSStringFromClass(v17);
+            *buf = v19;
+            v27 = v20;
+            v28 = 2112;
+            v29 = v11;
+            v30 = 2112;
+            v31 = v12;
             _os_log_error_impl(&dword_22622D000, v16, OS_LOG_TYPE_ERROR, "%@: Received wrong blacklist record from server: (key: %@, asset: %@)", buf, 0x20u);
           }
         }
 
         else
         {
-          [v22 setObject:fileURL forKey:v11];
+          [v21 setObject:fileURL forKey:v11];
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v23 objects:v33 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v22 objects:v32 count:16];
     }
 
     while (v7);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (id)_publicDatabaseForBlacklists

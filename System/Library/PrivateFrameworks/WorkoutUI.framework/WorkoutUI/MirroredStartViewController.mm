@@ -57,7 +57,7 @@
 
   selfCopy = self;
   MirroredStartViewController.dismiss(animated:completion:)(animated, v6, v7);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6, v7);
 }
 
 - (_TtC9WorkoutUI27MirroredStartViewController)initWithNibName:(id)name bundle:(id)bundle

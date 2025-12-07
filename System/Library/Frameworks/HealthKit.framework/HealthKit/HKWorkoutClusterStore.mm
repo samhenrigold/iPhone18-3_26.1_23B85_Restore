@@ -245,29 +245,29 @@ void __99__HKWorkoutClusterStore_fetchRouteCoordinatesForWorkoutUUID_dateInterva
 
 void __68__HKWorkoutClusterStore__coordinatesHandlerWithCallback_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = [v5 coordinates];
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         v13 = *(a1 + 32);
         [v12 latitude];
         v15 = v14;
@@ -275,7 +275,7 @@ void __68__HKWorkoutClusterStore__coordinatesHandlerWithCallback_completion___bl
         (*(v13 + 16))(v13, v15, v16);
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -294,8 +294,6 @@ void __68__HKWorkoutClusterStore__coordinatesHandlerWithCallback_completion___bl
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createWorkoutCluster:(id)cluster completion:(id)completion

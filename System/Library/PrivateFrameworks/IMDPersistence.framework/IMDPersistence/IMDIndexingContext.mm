@@ -5,6 +5,7 @@
 - (id)_initForReindexing:(BOOL)reindexing reason:(int64_t)reason runningViaBGST:(BOOL)t fullReindex:(BOOL)reindex messagesContributingToFullReindex:(int64_t)fullReindex chatsContributingToFullReindex:(int64_t)toFullReindex oldestFullReindexMessageGUID:(id)d preflight:(BOOL)self0 ignoreRejections:(BOOL)self1 ignoreThrottle:(BOOL)self2 forceDeferral:(BOOL)self3 laneOverride:(id)self4 needsPriorityCheck:(BOOL)self5 additionalReasons:(id)self6;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)initForReindexing:(BOOL)reindexing reason:(int64_t)reason runningViaBGST:(BOOL)t;
 - (id)initForReindexing:(BOOL)reindexing reason:(int64_t)reason runningViaBGST:(BOOL)t userInfo:(id)info;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -14,32 +15,32 @@
 - (IMDIndexingContext)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v39 = objc_msgSend_decodeBoolForKey_(coderCopy, v4, @"ri");
-  v38 = objc_msgSend_decodeIntegerForKey_(coderCopy, v5, @"r");
-  v37 = objc_msgSend_decodeBoolForKey_(coderCopy, v6, @"b");
-  v36 = objc_msgSend_decodeBoolForKey_(coderCopy, v7, @"f");
-  v35 = objc_msgSend_decodeIntegerForKey_(coderCopy, v8, @"m");
-  v10 = objc_msgSend_decodeIntegerForKey_(coderCopy, v9, @"c");
-  v11 = objc_opt_class();
-  v13 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v12, v11, @"o");
-  v15 = objc_msgSend_decodeBoolForKey_(coderCopy, v14, @"p");
-  v17 = objc_msgSend_decodeBoolForKey_(coderCopy, v16, @"i");
-  v19 = objc_msgSend_decodeBoolForKey_(coderCopy, v18, @"t");
-  v21 = objc_msgSend_decodeBoolForKey_(coderCopy, v20, @"d");
-  v22 = objc_opt_class();
-  v24 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v23, v22, @"l");
-  v26 = objc_msgSend_decodeBoolForKey_(coderCopy, v25, @"np");
-  v27 = objc_opt_class();
-  v29 = objc_msgSend_decodeArrayOfObjectsOfClass_forKey_(coderCopy, v28, v27, @"a");
+  v50 = objc_msgSend_decodeBoolForKey_(coderCopy, v4, @"ri", v5);
+  v49 = objc_msgSend_decodeIntegerForKey_(coderCopy, v6, @"r", v7);
+  v48 = objc_msgSend_decodeBoolForKey_(coderCopy, v8, @"b", v9);
+  v47 = objc_msgSend_decodeBoolForKey_(coderCopy, v10, @"f", v11);
+  v46 = objc_msgSend_decodeIntegerForKey_(coderCopy, v12, @"m", v13);
+  v16 = objc_msgSend_decodeIntegerForKey_(coderCopy, v14, @"c", v15);
+  v17 = objc_opt_class();
+  v19 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v18, v17, @"o");
+  v22 = objc_msgSend_decodeBoolForKey_(coderCopy, v20, @"p", v21);
+  v25 = objc_msgSend_decodeBoolForKey_(coderCopy, v23, @"i", v24);
+  v28 = objc_msgSend_decodeBoolForKey_(coderCopy, v26, @"t", v27);
+  v31 = objc_msgSend_decodeBoolForKey_(coderCopy, v29, @"d", v30);
+  v32 = objc_opt_class();
+  v34 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v33, v32, @"l");
+  v37 = objc_msgSend_decodeBoolForKey_(coderCopy, v35, @"np", v36);
+  v38 = objc_opt_class();
+  v40 = objc_msgSend_decodeArrayOfObjectsOfClass_forKey_(coderCopy, v39, v38, @"a");
 
-  v34 = v26;
-  HIBYTE(v33) = v21;
-  BYTE2(v33) = v19;
-  BYTE1(v33) = v17;
-  LOBYTE(v33) = v15;
-  v31 = objc_msgSend__initForReindexing_reason_runningViaBGST_fullReindex_messagesContributingToFullReindex_chatsContributingToFullReindex_oldestFullReindexMessageGUID_preflight_ignoreRejections_ignoreThrottle_forceDeferral_laneOverride_needsPriorityCheck_additionalReasons_(self, v30, v39, v38, v37, v36, v35, v10, v13, v33, v24, v34, v29);
+  v45 = v37;
+  HIBYTE(v44) = v31;
+  BYTE2(v44) = v28;
+  BYTE1(v44) = v25;
+  LOBYTE(v44) = v22;
+  v42 = objc_msgSend__initForReindexing_reason_runningViaBGST_fullReindex_messagesContributingToFullReindex_chatsContributingToFullReindex_oldestFullReindexMessageGUID_preflight_ignoreRejections_ignoreThrottle_forceDeferral_laneOverride_needsPriorityCheck_additionalReasons_(self, v41, v50, v49, v48, v47, v46, v16, v19, v44, v34, v45, v40);
 
-  return v31;
+  return v42;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -175,9 +176,16 @@
   return v24;
 }
 
+- (id)initForReindexing:(BOOL)reindexing reason:(int64_t)reason runningViaBGST:(BOOL)t
+{
+  v7 = 0;
+  v6 = 0;
+  return objc_msgSend__initForReindexing_reason_runningViaBGST_fullReindex_messagesContributingToFullReindex_chatsContributingToFullReindex_oldestFullReindexMessageGUID_preflight_ignoreRejections_ignoreThrottle_forceDeferral_laneOverride_needsPriorityCheck_additionalReasons_(self, a2, reindexing, reason, t, 0, 0, 0, 0, v6, 0, v7, 0);
+}
+
 - (id)initForReindexing:(BOOL)reindexing reason:(int64_t)reason runningViaBGST:(BOOL)t userInfo:(id)info
 {
-  result = objc_msgSend_initWithDictionary_(self, a2, info);
+  result = objc_msgSend_initWithDictionary_(self, a2, info, reason);
   if (result)
   {
     *(result + 8) = reindexing;
@@ -191,55 +199,55 @@
 - (IMDIndexingContext)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v5, @"f");
-  v9 = objc_msgSend_BOOLValue(v6, v7, v8);
-  v11 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v10, @"np");
-  v14 = objc_msgSend_BOOLValue(v11, v12, v13);
-  v16 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v15, @"a");
+  v7 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v5, @"f", v6);
+  v11 = objc_msgSend_BOOLValue(v7, v8, v9, v10);
+  v14 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v12, @"np", v13);
+  v18 = objc_msgSend_BOOLValue(v14, v15, v16, v17);
+  v21 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v19, @"a", v20);
 
-  v21 = v14;
-  v20 = 0;
-  v18 = objc_msgSend__initForReindexing_reason_runningViaBGST_fullReindex_messagesContributingToFullReindex_chatsContributingToFullReindex_oldestFullReindexMessageGUID_preflight_ignoreRejections_ignoreThrottle_forceDeferral_laneOverride_needsPriorityCheck_additionalReasons_(self, v17, 0, 0, 0, v9, 0, 0, 0, v20, 0, v21, v16);
+  v26 = v18;
+  v25 = 0;
+  v23 = objc_msgSend__initForReindexing_reason_runningViaBGST_fullReindex_messagesContributingToFullReindex_chatsContributingToFullReindex_oldestFullReindexMessageGUID_preflight_ignoreRejections_ignoreThrottle_forceDeferral_laneOverride_needsPriorityCheck_additionalReasons_(self, v22, 0, 0, 0, v11, 0, 0, 0, v25, 0, v26, v21);
 
-  return v18;
+  return v23;
 }
 
 - (id)dictionaryRepresentation
 {
-  v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (self->_fullReindex)
   {
-    v6 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v3, 1);
-    objc_msgSend_setObject_forKeyedSubscript_(v5, v7, v6, @"f");
+    v7 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v3, 1, v5);
+    objc_msgSend_setObject_forKeyedSubscript_(v6, v8, v7, @"f");
   }
 
   if (self->_needsPriorityCheck)
   {
-    v8 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v3, 1);
-    objc_msgSend_setObject_forKeyedSubscript_(v5, v9, v8, @"np");
+    v9 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v3, 1, v5);
+    objc_msgSend_setObject_forKeyedSubscript_(v6, v10, v9, @"np");
   }
 
-  if (objc_msgSend_count(self->_additionalReasons, v3, v4))
+  if (objc_msgSend_count(self->_additionalReasons, v3, v4, v5))
   {
-    objc_msgSend_setObject_forKeyedSubscript_(v5, v10, self->_additionalReasons, @"a");
+    objc_msgSend_setObject_forKeyedSubscript_(v6, v11, self->_additionalReasons, @"a");
   }
 
-  if (objc_msgSend_count(v5, v10, v11))
+  if (objc_msgSend_count(v6, v11, v12, v13))
   {
-    v14 = objc_msgSend_copy(v5, v12, v13);
+    v17 = objc_msgSend_copy(v6, v14, v15, v16);
   }
 
   else
   {
-    v14 = 0;
+    v17 = 0;
   }
 
-  return v14;
+  return v17;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v22 = [IMDIndexingContext alloc];
+  v23 = [IMDIndexingContext alloc];
   reindexing = self->_reindexing;
   runningViaBGST = self->_runningViaBGST;
   fullReindex = self->_fullReindex;
@@ -250,12 +258,12 @@
   v10 = *&self->_preflight;
   needsPriorityCheck = self->_needsPriorityCheck;
   laneOverride = self->_laneOverride;
-  v15 = objc_msgSend_copy(self->_additionalReasons, v13, v14);
-  v20 = needsPriorityCheck;
-  v19 = v10;
-  v17 = objc_msgSend__initForReindexing_reason_runningViaBGST_fullReindex_messagesContributingToFullReindex_chatsContributingToFullReindex_oldestFullReindexMessageGUID_preflight_ignoreRejections_ignoreThrottle_forceDeferral_laneOverride_needsPriorityCheck_additionalReasons_(v22, v16, reindexing, reason, runningViaBGST, fullReindex, messagesContributingToFullReindex, chatsContributingToFullReindex, oldestFullReindexMessageGUID, v19, laneOverride, v20, v15);
+  v16 = objc_msgSend_copy(self->_additionalReasons, v13, v14, v15);
+  v21 = needsPriorityCheck;
+  v20 = v10;
+  v18 = objc_msgSend__initForReindexing_reason_runningViaBGST_fullReindex_messagesContributingToFullReindex_chatsContributingToFullReindex_oldestFullReindexMessageGUID_preflight_ignoreRejections_ignoreThrottle_forceDeferral_laneOverride_needsPriorityCheck_additionalReasons_(v23, v17, reindexing, reason, runningViaBGST, fullReindex, messagesContributingToFullReindex, chatsContributingToFullReindex, oldestFullReindexMessageGUID, v20, laneOverride, v21, v16);
 
-  return v17;
+  return v18;
 }
 
 @end

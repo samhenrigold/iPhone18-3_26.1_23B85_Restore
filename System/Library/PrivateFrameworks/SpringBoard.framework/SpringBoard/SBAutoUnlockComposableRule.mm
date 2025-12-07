@@ -39,7 +39,7 @@
   return v4;
 }
 
-uint64_t __56__SBAutoUnlockComposableRule_shouldAutoUnlockForSource___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__56__SBAutoUnlockComposableRule_shouldAutoUnlockForSource___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 shouldAutoUnlockForSource:*(a1 + 40)];
   if (result)

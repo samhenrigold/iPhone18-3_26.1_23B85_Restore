@@ -60,24 +60,14 @@
     {
       v25 = request2;
       structuredLocation = [v15 structuredLocation];
-      if (!structuredLocation)
+      if (structuredLocation && (v20 = structuredLocation, -[NSObject structuredLocation](v15, "structuredLocation"), v21 = objc_claimAutoreleasedReturnValue(), [v21 geoLocation], v22 = objc_claimAutoreleasedReturnValue(), v22, v21, v20, v22))
       {
-        goto LABEL_14;
-      }
-
-      v20 = structuredLocation;
-      structuredLocation2 = [v15 structuredLocation];
-      geoLocation = [structuredLocation2 geoLocation];
-
-      if (geoLocation)
-      {
-        structuredLocation3 = [v15 structuredLocation];
-        [(CALNCalendarNotificationViewController *)self _configureForLocation:structuredLocation3];
+        structuredLocation2 = [v15 structuredLocation];
+        [(CALNCalendarNotificationViewController *)self _configureForLocation:structuredLocation2];
       }
 
       else
       {
-LABEL_14:
         [(CALNCalendarNotificationViewController *)self _configureWithPreviewForEvent:v15];
       }
 

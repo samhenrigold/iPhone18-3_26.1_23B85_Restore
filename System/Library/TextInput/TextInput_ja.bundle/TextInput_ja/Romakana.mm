@@ -104,41 +104,41 @@ LABEL_5:
 
 + ($9AC8AD2FEA0B9A5F24CD76D172BBF93B)splitRomaji:(id)romaji at:(unint64_t)at
 {
-  v62 = *MEMORY[0x29EDCA608];
+  v61 = *MEMORY[0x29EDCA608];
   romajiCopy = romaji;
   v6 = [MEMORY[0x29EDB8DE8] arrayWithCapacity:10];
-  v56 = romajiCopy;
+  v55 = romajiCopy;
   v7 = [Romakana hiraganaString:romajiCopy mappingArray:v6];
   v8 = [MEMORY[0x29EDB8DE8] arrayWithCapacity:{objc_msgSend(v7, "length")}];
   v9 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:0];
   [v8 addObject:v9];
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v10 = v6;
-  v11 = [v10 countByEnumeratingWithState:&v57 objects:v61 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v56 objects:v60 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v14 = *v58;
+    v14 = *v57;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v58 != v14)
+        if (*v57 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v13 += [*(*(&v57 + 1) + 8 * i) intValue];
+        v13 += [*(*(&v56 + 1) + 8 * i) intValue];
         v16 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:v13];
         [v8 addObject:v16];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v56 objects:v60 count:16];
     }
 
     while (v12);
@@ -149,7 +149,7 @@ LABEL_5:
     v17 = [v8 objectAtIndexedSubscript:at];
     unsignedIntegerValue = [v17 unsignedIntegerValue];
 
-    v19 = v56;
+    v19 = v55;
     if (!at)
     {
       goto LABEL_25;
@@ -169,7 +169,7 @@ LABEL_5:
       if (v25)
       {
         v27 = [v8 objectAtIndexedSubscript:at - 1];
-        v54 = [v56 substringToIndex:{objc_msgSend(v27, "unsignedIntValue")}];
+        v53 = [v55 substringToIndex:{objc_msgSend(v27, "unsignedIntValue")}];
 
         v28 = [v7 substringWithRange:{at - 1, 1}];
         v29 = [Romakana romajiString:v28];
@@ -178,10 +178,10 @@ LABEL_5:
         v31 = [Romakana romajiString:v30];
 
         v32 = [v8 objectAtIndexedSubscript:v26];
-        v33 = [v56 substringFromIndex:{objc_msgSend(v32, "unsignedIntValue")}];
+        v33 = [v55 substringFromIndex:{objc_msgSend(v32, "unsignedIntValue")}];
 
-        v34 = v54;
-        v35 = [v54 stringByAppendingString:v29];
+        v34 = v53;
+        v35 = [v53 stringByAppendingString:v29];
         v36 = [v31 stringByAppendingString:v33];
 
 LABEL_17:
@@ -196,12 +196,12 @@ LABEL_17:
     if (v39)
     {
       v40 = [v8 objectAtIndexedSubscript:at - 1];
-      v34 = [v56 substringToIndex:{objc_msgSend(v40, "unsignedIntValue")}];
+      v34 = [v55 substringToIndex:{objc_msgSend(v40, "unsignedIntValue")}];
 
       v41 = [v7 substringWithRange:{v37, 1}];
       v29 = [Romakana romajiString:v41];
 
-      v36 = [v56 substringFromIndex:unsignedIntegerValue];
+      v36 = [v55 substringFromIndex:unsignedIntegerValue];
       v35 = [v34 stringByAppendingString:v29];
       goto LABEL_17;
     }
@@ -211,7 +211,7 @@ LABEL_17:
 
     if (v43)
     {
-      v55 = unsignedIntegerValue;
+      v54 = unsignedIntegerValue;
       v35 = [MEMORY[0x29EDBA050] stringWithCapacity:unsignedIntegerValue];
       v44 = 0;
       do
@@ -235,15 +235,15 @@ LABEL_17:
       }
 
       while (at != v44);
-      v49 = v56;
-      v50 = v55;
+      v49 = v55;
+      v50 = v54;
     }
 
     else
     {
 LABEL_25:
-      v35 = [v56 substringToIndex:unsignedIntegerValue];
-      v49 = v56;
+      v35 = [v55 substringToIndex:unsignedIntegerValue];
+      v49 = v55;
       v50 = unsignedIntegerValue;
     }
 
@@ -251,16 +251,15 @@ LABEL_25:
     goto LABEL_27;
   }
 
-  v19 = v56;
-  v35 = v56;
+  v19 = v55;
+  v35 = v55;
   v36 = 0;
 LABEL_27:
 
-  v51 = *MEMORY[0x29EDCA608];
-  v52 = v35;
-  v53 = v36;
-  result.var1 = v53;
-  result.var0 = v52;
+  v51 = v35;
+  v52 = v36;
+  result.var1 = v52;
+  result.var0 = v51;
   return result;
 }
 

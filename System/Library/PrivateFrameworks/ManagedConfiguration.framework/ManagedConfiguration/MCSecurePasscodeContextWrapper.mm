@@ -23,16 +23,16 @@
 
 + (id)credentialSetForPasscode:(id)passcode outError:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   passcodeCopy = passcode;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__6;
-  v20 = __Block_byref_object_dispose__6;
-  v21 = 0;
   v15 = 0;
-  v6 = ACMContextCreate(&v15);
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__6;
+  v19 = __Block_byref_object_dispose__6;
+  v20 = 0;
+  v14 = 0;
+  v6 = ACMContextCreate(&v14);
   if (v6)
   {
     v7 = _MCLogObjects;
@@ -43,30 +43,30 @@
       _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "Couldn't create auth context: ACM error %d", buf, 8u);
     }
 
-    v8 = v17[5];
+    v8 = v16[5];
     v9 = 0;
   }
 
   else
   {
-    v10 = v15;
+    v10 = v14;
     *buf = MEMORY[0x1E69E9820];
-    v23 = 3221225472;
-    v24 = __credentialSetFromPasscode_block_invoke;
-    v25 = &unk_1E77D2528;
-    v26 = passcodeCopy;
-    v27 = &v16;
+    v22 = 3221225472;
+    v23 = __credentialSetFromPasscode_block_invoke;
+    v24 = &unk_1E77D2528;
+    v25 = passcodeCopy;
+    v26 = &v15;
     ACMContextGetExternalForm(v10, buf);
-    v11 = v17[5];
-    v9 = v15;
+    v11 = v16[5];
+    v9 = v14;
     if (!v11)
     {
-      if (v15)
+      if (v14)
       {
-        ACMContextDelete(v15, 1);
+        ACMContextDelete(v14, 1);
         v9 = 0;
-        v15 = 0;
-        v11 = v17[5];
+        v14 = 0;
+        v11 = v16[5];
       }
 
       else
@@ -78,7 +78,7 @@
     v8 = v11;
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
 
   if (v8)
   {
@@ -89,8 +89,6 @@
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

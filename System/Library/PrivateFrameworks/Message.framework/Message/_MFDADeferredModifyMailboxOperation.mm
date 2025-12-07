@@ -78,13 +78,12 @@
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v8.receiver = self;
-  v8.super_class = _MFDADeferredModifyMailboxOperation;
-  v4 = [(_MFDADeferredModifyMailboxOperation *)&v8 description];
-  newParentFolderID = self->_newParentFolderID;
-  v6 = [v3 stringWithFormat:@"%@ folder-id %@, new-parent-folder-id %@, new-display-name %@", v4, self->_folderID, newParentFolderID, self->_newDisplayName];
+  v7.receiver = self;
+  v7.super_class = _MFDADeferredModifyMailboxOperation;
+  v4 = [(_MFDADeferredModifyMailboxOperation *)&v7 description];
+  v5 = [v3 stringWithFormat:@"%@ folder-id %@, new-parent-folder-id %@, new-display-name %@", v4, self->_folderID, self->_newParentFolderID, self->_newDisplayName];
 
-  return v6;
+  return v5;
 }
 
 @end

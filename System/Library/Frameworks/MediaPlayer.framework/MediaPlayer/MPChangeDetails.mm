@@ -199,7 +199,7 @@ void __61__MPChangeDetails_isValidForPreviousCount_finalCount_reason___block_inv
   v16 = v12;
 }
 
-uint64_t __40__MPChangeDetails_applyUIKitWorkarounds__block_invoke(uint64_t a1, void *a2, void *a3)
+void *__40__MPChangeDetails_applyUIKitWorkarounds__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
   v6 = [a2 integerValue];

@@ -17,7 +17,7 @@
 
 + (id)airPodsDeviceInfo
 {
-  v17[14] = *MEMORY[0x277D85DE8];
+  v16[14] = *MEMORY[0x277D85DE8];
   ignoreTargetingValidator = [MEMORY[0x277D71740] ignoreTargetingValidator];
   v3 = ignoreTargetingValidator;
   if (ignoreTargetingValidator)
@@ -32,64 +32,39 @@
 
   v5 = v4;
   v6 = &unk_2848309D8;
-  if (v3)
+  if ((v3 & 1) != 0 || (v16[0] = &unk_284830A08, v16[1] = &unk_284830A20, v16[2] = &unk_284830A68, v16[3] = &unk_284830A80, v16[4] = &unk_284830A98, v16[5] = &unk_284830AB0, v16[6] = &unk_2848309D8, v16[7] = &unk_2848309F0, v16[8] = &unk_284830A38, v16[9] = &unk_284830A50, v16[10] = &unk_284830AC8, v16[11] = &unk_284830AE0, v16[12] = &unk_284830AF8, v16[13] = &unk_284830B10, [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:14], v7 = objc_claimAutoreleasedReturnValue(), +[TPSBluetoothChecker sharedInstance](TPSBluetoothChecker, "sharedInstance"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "pairedDevices"), v9 = objc_claimAutoreleasedReturnValue(), +[TPSBluetoothChecker bluetoothPairedForProductIDs:withPairedDevices:](TPSBluetoothChecker, "bluetoothPairedForProductIDs:withPairedDevices:", v7, v9), v6 = objc_claimAutoreleasedReturnValue(), v9, v8, v7, v6))
   {
-    goto LABEL_6;
-  }
-
-  v17[0] = &unk_284830A08;
-  v17[1] = &unk_284830A20;
-  v17[2] = &unk_284830A68;
-  v17[3] = &unk_284830A80;
-  v17[4] = &unk_284830A98;
-  v17[5] = &unk_284830AB0;
-  v17[6] = &unk_2848309D8;
-  v17[7] = &unk_2848309F0;
-  v17[8] = &unk_284830A38;
-  v17[9] = &unk_284830A50;
-  v17[10] = &unk_284830AC8;
-  v17[11] = &unk_284830AE0;
-  v17[12] = &unk_284830AF8;
-  v17[13] = &unk_284830B10;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:14];
-  v8 = +[TPSBluetoothChecker sharedInstance];
-  pairedDevices = [v8 pairedDevices];
-  v6 = [TPSBluetoothChecker bluetoothPairedForProductIDs:v7 withPairedDevices:pairedDevices];
-
-  if (v6)
-  {
-LABEL_6:
     v10 = [[TPSCloudDeviceInfo alloc] initWithModel:@"airpods"];
     [(TPSCloudDeviceInfo *)v10 setDisplayName:@"AirPods"];
-    v15[0] = &unk_284830A08;
-    v15[1] = &unk_284830A20;
-    v16[0] = @"711495D10BB643F6BDA3693886C0BCAF";
-    v16[1] = @"711495D10BB643F6BDA3693886C0BCAF";
-    v15[2] = &unk_284830A68;
-    v15[3] = &unk_284830A80;
-    v16[2] = @"airpods.gen4";
-    v16[3] = @"airpods.gen4";
-    v15[4] = &unk_284830AB0;
-    v15[5] = &unk_284830A98;
-    v16[4] = @"airpods.gen4";
-    v16[5] = @"airpods.gen4";
-    v15[6] = &unk_2848309D8;
-    v15[7] = &unk_2848309F0;
-    v16[6] = @"airpodsmax";
-    v16[7] = @"airpodsmax";
-    v15[8] = &unk_284830A38;
-    v15[9] = &unk_284830A50;
-    v16[8] = @"airpodspro";
-    v16[9] = @"airpodspro";
-    v15[10] = &unk_284830AC8;
-    v15[11] = &unk_284830AE0;
-    v16[10] = @"airpods.gen3";
-    v16[11] = @"airpodspro";
-    v15[12] = &unk_284830AF8;
-    v15[13] = &unk_284830B10;
-    v16[12] = @"airpods";
-    v16[13] = @"airpods";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:14];
+    v14[0] = &unk_284830A08;
+    v14[1] = &unk_284830A20;
+    v15[0] = @"711495D10BB643F6BDA3693886C0BCAF";
+    v15[1] = @"711495D10BB643F6BDA3693886C0BCAF";
+    v14[2] = &unk_284830A68;
+    v14[3] = &unk_284830A80;
+    v15[2] = @"airpods.gen4";
+    v15[3] = @"airpods.gen4";
+    v14[4] = &unk_284830AB0;
+    v14[5] = &unk_284830A98;
+    v15[4] = @"airpods.gen4";
+    v15[5] = @"airpods.gen4";
+    v14[6] = &unk_2848309D8;
+    v14[7] = &unk_2848309F0;
+    v15[6] = @"airpodsmax";
+    v15[7] = @"airpodsmax";
+    v14[8] = &unk_284830A38;
+    v14[9] = &unk_284830A50;
+    v15[8] = @"airpodspro";
+    v15[9] = @"airpodspro";
+    v14[10] = &unk_284830AC8;
+    v14[11] = &unk_284830AE0;
+    v15[10] = @"airpods.gen3";
+    v15[11] = @"airpodspro";
+    v14[12] = &unk_284830AF8;
+    v14[13] = &unk_284830B10;
+    v15[12] = @"airpods";
+    v15[13] = @"airpods";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:14];
     v12 = [v11 objectForKeyedSubscript:v6];
     [(TPSCloudDeviceInfo *)v10 setSymbolIdentifier:v12];
   }
@@ -98,8 +73,6 @@ LABEL_6:
   {
     v10 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -330,14 +303,15 @@ void __52__TPSPairedDeviceValidation_validateWithCompletion___block_invoke_3(uin
   [TPSTargetingValidator validateConditions:v4 joinType:1 context:v5 cache:0 completionQueue:v6 completionHandler:v8];
 }
 
-void __52__TPSPairedDeviceValidation_validateWithCompletion___block_invoke_5(uint64_t a1, char a2, void *a3)
+void __52__TPSPairedDeviceValidation_validateWithCompletion___block_invoke_5(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = MEMORY[0x277D71778];
   v6 = a3;
   v7 = [v5 targeting];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __52__TPSPairedDeviceValidation_validateWithCompletion___block_invoke_5_cold_1(a1, a2, v7);
+    __52__TPSPairedDeviceValidation_validateWithCompletion___block_invoke_5_cold_1(a1, v3, v7);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -518,19 +492,19 @@ void __56__TPSPairedDeviceValidation__validationForDeviceNumber___block_invoke(u
 
 void __67__TPSPairedDeviceValidation__bluetoothValidationForTag_deviceType___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = a2;
-  v6 = [v4 cachedPeers];
-  v7 = [TPSBluetoothChecker bluetoothPairedWithTag:v3 withPairedPeers:v6];
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  v4 = a2;
+  v5 = [v3 cachedPeers];
+  v6 = [TPSBluetoothChecker bluetoothPairedWithTag:v2 withPairedPeers:v5];
 
-  v8 = [MEMORY[0x277D71778] targeting];
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v7 = [MEMORY[0x277D71778] targeting];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __67__TPSPairedDeviceValidation__bluetoothValidationForTag_deviceType___block_invoke_cold_1(a1);
+    __67__TPSPairedDeviceValidation__bluetoothValidationForTag_deviceType___block_invoke_cold_1();
   }
 
-  v5[2](v5, v7, 0);
+  v4[2](v4, v6, 0);
 }
 
 - (id)_bluetoothValidationForProductID:(unsigned int)d deviceType:(int64_t)type
@@ -549,19 +523,19 @@ void __67__TPSPairedDeviceValidation__bluetoothValidationForTag_deviceType___blo
 
 void __73__TPSPairedDeviceValidation__bluetoothValidationForProductID_deviceType___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 32);
-  v5 = a2;
-  v6 = [v4 cachedDevices];
-  v7 = [TPSBluetoothChecker bluetoothPairedForProductID:v3 withPairedDevices:v6];
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 32);
+  v4 = a2;
+  v5 = [v3 cachedDevices];
+  v6 = [TPSBluetoothChecker bluetoothPairedForProductID:v2 withPairedDevices:v5];
 
-  v8 = [MEMORY[0x277D71778] targeting];
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v7 = [MEMORY[0x277D71778] targeting];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __73__TPSPairedDeviceValidation__bluetoothValidationForProductID_deviceType___block_invoke_cold_1(a1);
+    __73__TPSPairedDeviceValidation__bluetoothValidationForProductID_deviceType___block_invoke_cold_1();
   }
 
-  v5[2](v5, v7, 0);
+  v4[2](v4, v6, 0);
 }
 
 - (id)_bluetoothValidationForProductIDs:(id)ds deviceType:(int64_t)type joinType:(int64_t)joinType
@@ -616,7 +590,7 @@ LABEL_7:
   v9 = [MEMORY[0x277D71778] targeting];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    __83__TPSPairedDeviceValidation__bluetoothValidationForProductIDs_deviceType_joinType___block_invoke_cold_1(a1);
+    __83__TPSPairedDeviceValidation__bluetoothValidationForProductIDs_deviceType_joinType___block_invoke_cold_1();
   }
 
   v3[2](v3, v8, 0);
@@ -642,57 +616,27 @@ BOOL __83__TPSPairedDeviceValidation__bluetoothValidationForProductIDs_deviceTyp
 
 void __52__TPSPairedDeviceValidation_validateWithCompletion___block_invoke_5_cold_1(uint64_t a1, char a2, NSObject *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = [*(a1 + 32) name];
   v7 = [*(a1 + 32) targetDevices];
   v8 = [*(a1 + 32) excludeDevices];
-  v10 = 138413058;
-  v11 = v6;
-  v12 = 2112;
-  v13 = v7;
-  v14 = 2112;
-  v15 = v8;
-  v16 = 1024;
-  v17 = a2 & 1;
-  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - Include: %@, Exclude: %@. Valid: %d", &v10, 0x26u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138413058;
+  v10 = v6;
+  v11 = 2112;
+  v12 = v7;
+  v13 = 2112;
+  v14 = v8;
+  v15 = 1024;
+  v16 = a2 & 1;
+  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - Include: %@, Exclude: %@. Valid: %d", &v9, 0x26u);
 }
 
 - (void)_validationForDeviceNumber:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Unrecognized device number: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __67__TPSPairedDeviceValidation__bluetoothValidationForTag_deviceType___block_invoke_cold_1(uint64_t a1)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 48);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_232D6F000, v2, v3, "Checking for BT Device: %ld. Paired: %d", v5, v6);
   v4 = *MEMORY[0x277D85DE8];
-}
-
-void __73__TPSPairedDeviceValidation__bluetoothValidationForProductID_deviceType___block_invoke_cold_1(uint64_t a1)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_232D6F000, v2, v3, "Checking for BT Device: %ld. Paired: %d", v5, v6);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __83__TPSPairedDeviceValidation__bluetoothValidationForProductIDs_deviceType_joinType___block_invoke_cold_1(uint64_t a1)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_232D6F000, v2, v3, "Checking for BT Device: %ld. Paired: %d", v5, v6);
-  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Unrecognized device number: %ld", &v2, 0xCu);
 }
 
 @end

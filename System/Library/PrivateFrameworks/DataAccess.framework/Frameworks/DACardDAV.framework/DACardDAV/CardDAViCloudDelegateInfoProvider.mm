@@ -83,12 +83,12 @@ CardDAVDelegateInfo *__66__CardDAViCloudDelegateInfoProvider_delegateInfoForFami
 
 - (id)familyCircleReturningError:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   familyMembersPromise = [(CardDAViCloudDelegateInfoProvider *)self familyMembersPromise];
   future = [familyMembersPromise future];
-  v14 = 0;
-  v6 = [future resultWithTimeout:&v14 error:30.0];
-  v7 = v14;
+  v13 = 0;
+  v6 = [future resultWithTimeout:&v13 error:30.0];
+  v7 = v13;
 
   if (v6)
   {
@@ -102,7 +102,7 @@ CardDAVDelegateInfo *__66__CardDAViCloudDelegateInfoProvider_delegateInfoForFami
     if (os_log_type_enabled(v9, v10))
     {
       *buf = 138412290;
-      v16 = v7;
+      v15 = v7;
       _os_log_impl(&dword_24850D000, v9, v10, "Failed to fetch family circle data. error: %@", buf, 0xCu);
     }
 
@@ -112,8 +112,6 @@ CardDAVDelegateInfo *__66__CardDAViCloudDelegateInfoProvider_delegateInfoForFami
       *error = v7;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -137,34 +135,30 @@ CardDAVDelegateInfo *__66__CardDAViCloudDelegateInfoProvider_delegateInfoForFami
 
 void __57__CardDAViCloudDelegateInfoProvider_familyMembersPromise__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = DALoggingwithCategory();
   v4 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(v3, v4))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_24850D000, v3, v4, "Family circle: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_24850D000, v3, v4, "Family circle: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __57__CardDAViCloudDelegateInfoProvider_familyMembersPromise__block_invoke_21(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = DALoggingwithCategory();
   v4 = *(MEMORY[0x277D03988] + 3);
   if (os_log_type_enabled(v3, v4))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_24850D000, v3, v4, "Error loading family members: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_24850D000, v3, v4, "Error loading family members: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)appleIDsOfExistingDelegates:(id)delegates
@@ -217,7 +211,7 @@ BOOL __62__CardDAViCloudDelegateInfoProvider_nonParentsInFamily_error___block_in
 
 uint64_t __62__CardDAViCloudDelegateInfoProvider_nonParentsInFamily_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 dsid];
 
@@ -230,11 +224,11 @@ uint64_t __62__CardDAViCloudDelegateInfoProvider_nonParentsInFamily_error___bloc
       goto LABEL_12;
     }
 
-    v12 = 138412290;
-    v13 = v2;
+    v11 = 138412290;
+    v12 = v2;
     v9 = "Malformed family member; missing dsid: %@";
 LABEL_11:
-    _os_log_impl(&dword_24850D000, v7, v8, v9, &v12, 0xCu);
+    _os_log_impl(&dword_24850D000, v7, v8, v9, &v11, 0xCu);
     goto LABEL_12;
   }
 
@@ -249,8 +243,8 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v12 = 138412290;
-    v13 = v2;
+    v11 = 138412290;
+    v12 = v2;
     v9 = "Malformed family member; missing altDSID: %@";
     goto LABEL_11;
   }
@@ -263,8 +257,8 @@ LABEL_11:
     v8 = *(MEMORY[0x277D03988] + 3);
     if (os_log_type_enabled(v7, v8))
     {
-      v12 = 138412290;
-      v13 = v2;
+      v11 = 138412290;
+      v12 = v2;
       v9 = "Malformed family member; missing appleID: %@";
       goto LABEL_11;
     }
@@ -278,7 +272,6 @@ LABEL_12:
   v6 = 1;
 LABEL_13:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

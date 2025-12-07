@@ -23,7 +23,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (IMOSLoggingEnabled())
   {
@@ -91,7 +91,7 @@
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v67 = session;
+        v66 = session;
         _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "ServiceSession created: %@", buf, 0xCu);
       }
     }
@@ -113,11 +113,11 @@ LABEL_27:
       {
         replicationSourceServiceName2 = [inputCopy replicationSourceServiceName];
         *buf = 138412802;
-        v67 = receivingAccount;
-        v68 = 2112;
-        v69 = session2;
-        v70 = 2112;
-        v71 = replicationSourceServiceName2;
+        v66 = receivingAccount;
+        v67 = 2112;
+        v68 = session2;
+        v69 = 2112;
+        v70 = replicationSourceServiceName2;
         _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "<IMFindAccountProcessingPipelineComponent> Assigning account %@ service session %@ (replication source: %@)", buf, 0x20u);
       }
     }
@@ -144,15 +144,15 @@ LABEL_27:
       {
         v38 = objc_alloc_init(MEMORY[0x277D18E08]);
         v39 = dispatch_time(0, 1000000000 * v32);
-        v63[0] = MEMORY[0x277D85DD0];
-        v63[1] = 3221225472;
-        v63[2] = sub_22B6CCF3C;
-        v63[3] = &unk_278702FA0;
+        v62[0] = MEMORY[0x277D85DD0];
+        v62[1] = 3221225472;
+        v62[2] = sub_22B6CCF3C;
+        v62[3] = &unk_278702FA0;
         v40 = v38;
-        v64 = v40;
-        v65 = inputCopy;
-        dispatch_after(v39, MEMORY[0x277D85CD0], v63);
-        v41 = v65;
+        v63 = v40;
+        v64 = inputCopy;
+        dispatch_after(v39, MEMORY[0x277D85CD0], v62);
+        v41 = v64;
         v42 = v40;
 
         goto LABEL_66;
@@ -182,9 +182,9 @@ LABEL_27:
         replicationSourceServiceName5 = [inputCopy replicationSourceServiceName];
         receivingAccount5 = [(IMFindAccountProcessingPipelineComponent *)self receivingAccount];
         *buf = 138412546;
-        v67 = replicationSourceServiceName5;
-        v68 = 2112;
-        v69 = receivingAccount5;
+        v66 = replicationSourceServiceName5;
+        v67 = 2112;
+        v68 = receivingAccount5;
         _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "<IMFindAccountProcessingPipelineComponent> Failed to find service session for replicated message with source service %@ replicating account %@, but is SOS, permitting on received iMessage account session instead", buf, 0x16u);
       }
     }
@@ -241,16 +241,16 @@ LABEL_39:
         v58 = receivingAccount7;
         v59 = @"NO";
         *buf = 138412802;
-        v67 = replicationSourceServiceName6;
-        v68 = 2112;
+        v66 = replicationSourceServiceName6;
+        v67 = 2112;
         if (IsEmail)
         {
           v59 = @"YES";
         }
 
-        v69 = receivingAccount7;
-        v70 = 2112;
-        v71 = v59;
+        v68 = receivingAccount7;
+        v69 = 2112;
+        v70 = v59;
         _os_log_impl(&dword_22B4CC000, v55, OS_LOG_TYPE_INFO, "<IMFindAccountProcessingPipelineComponent> Failed to find service session for replicated message with source service %@ replicating account %@ (email alias: %@)", buf, 0x20u);
       }
     }
@@ -281,7 +281,7 @@ LABEL_65:
     {
       replicationSourceServiceName7 = [inputCopy replicationSourceServiceName];
       *buf = 138412290;
-      v67 = replicationSourceServiceName7;
+      v66 = replicationSourceServiceName7;
       _os_log_impl(&dword_22B4CC000, v51, OS_LOG_TYPE_INFO, "<IMFindAccountProcessingPipelineComponent> Has replication source %@ but service session rejected message, dropping", buf, 0xCu);
     }
   }
@@ -291,7 +291,6 @@ LABEL_65:
   v42 = [objc_alloc(MEMORY[0x277D18E08]) initWithError:v54];
 
 LABEL_66:
-  v61 = *MEMORY[0x277D85DE8];
 
   return v42;
 }

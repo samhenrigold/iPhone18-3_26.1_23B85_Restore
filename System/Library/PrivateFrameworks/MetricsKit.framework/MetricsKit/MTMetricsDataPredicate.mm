@@ -72,23 +72,22 @@ LABEL_7:
 
 - (MTMetricsDataPredicate)initWithFormat:(id)format
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   formatCopy = format;
-  v11.receiver = self;
-  v11.super_class = MTMetricsDataPredicate;
-  v5 = [(MTMetricsDataPredicate *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = MTMetricsDataPredicate;
+  v5 = [(MTMetricsDataPredicate *)&v10 init];
   if (v5)
   {
-    v13 = @"_";
+    v12 = @"_";
     v6 = [MEMORY[0x277CCAC30] predicateWithFormat:formatCopy];
-    v12 = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
-    v14[0] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v11 = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+    v13[0] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     [(MTMetricsDataPredicate *)v5 setFieldPredicates:v8];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -117,7 +116,7 @@ LABEL_7:
 
 void __51__MTMetricsDataPredicate_initWithConfigDictionary___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -126,13 +125,13 @@ void __51__MTMetricsDataPredicate_initWithConfigDictionary___block_invoke(uint64
     v7 = MEMORY[0x277CBEB18];
     v8 = v6;
     v9 = [v7 arrayWithCapacity:{objc_msgSend(v8, "count")}];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __51__MTMetricsDataPredicate_initWithConfigDictionary___block_invoke_2;
-    v13[3] = &unk_2798CD0B8;
-    v14 = v9;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __51__MTMetricsDataPredicate_initWithConfigDictionary___block_invoke_2;
+    v12[3] = &unk_2798CD0B8;
+    v13 = v9;
     v10 = v9;
-    [v8 enumerateKeysAndObjectsUsingBlock:v13];
+    [v8 enumerateKeysAndObjectsUsingBlock:v12];
 
     v11 = [v10 copy];
 LABEL_5:
@@ -144,8 +143,8 @@ LABEL_5:
   if (objc_opt_isKindOfClass())
   {
     v10 = [MEMORY[0x277CCAC30] predicateWithFormat:v6];
-    v15[0] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     goto LABEL_5;
   }
 
@@ -155,8 +154,6 @@ LABEL_7:
   {
     [*(a1 + 32) setObject:v11 forKeyedSubscript:v5];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__MTMetricsDataPredicate_initWithConfigDictionary___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -195,7 +192,7 @@ uint64_t __51__MTMetricsDataPredicate_initWithConfigDictionary___block_invoke_2(
 
 void __50__MTMetricsDataPredicate_evaluateWithMetricsData___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   if ([v7 isEqualToString:@"_"])
@@ -216,39 +213,37 @@ void __50__MTMetricsDataPredicate_evaluateWithMetricsData___block_invoke(uint64_
   }
 
   v10 = v9;
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = v8;
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        *(*(*(a1 + 40) + 8) + 24) &= [*(*(&v17 + 1) + 8 * i) evaluateWithObject:{v10, v17}];
+        *(*(*(a1 + 40) + 8) + 24) &= [*(*(&v16 + 1) + 8 * i) evaluateWithObject:{v10, v16}];
         if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
         {
           *a4 = 1;
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

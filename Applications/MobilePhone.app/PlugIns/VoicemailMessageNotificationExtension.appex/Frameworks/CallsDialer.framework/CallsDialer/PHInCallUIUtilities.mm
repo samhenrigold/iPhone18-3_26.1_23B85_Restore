@@ -12,7 +12,7 @@
 + (int64_t)frontboardOrientation;
 + (int64_t)interfaceOrientationForDeviceOrientation:(int64_t)orientation;
 - (PHInCallUIUtilities)init;
-- (uint64_t)init;
+- (void)init;
 - (void)layoutMonitor:(id)monitor didUpdateDisplayLayout:(id)layout withContext:(id)context;
 @end
 
@@ -44,9 +44,9 @@ uint64_t __37__PHInCallUIUtilities_sharedInstance__block_invoke(uint64_t a1)
 
 - (PHInCallUIUtilities)init
 {
-  v10.receiver = self;
-  v10.super_class = PHInCallUIUtilities;
-  v2 = [(PHInCallUIUtilities *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = PHInCallUIUtilities;
+  v2 = [(PHInCallUIUtilities *)&v11 init];
   if (v2)
   {
     v3 = [FBSDisplayLayoutMonitor sharedMonitorForDisplayType:0];
@@ -59,28 +59,29 @@ uint64_t __37__PHInCallUIUtilities_sharedInstance__block_invoke(uint64_t a1)
 
     else
     {
-      v12 = 0;
-      v13 = &v12;
-      v14 = 0x2020000000;
+      v13 = 0;
+      v14 = &v13;
+      v15 = 0x2020000000;
       v7 = getSBSGetScreenLockStatusSymbolLoc_ptr;
-      v15 = getSBSGetScreenLockStatusSymbolLoc_ptr;
+      v16 = getSBSGetScreenLockStatusSymbolLoc_ptr;
       if (!getSBSGetScreenLockStatusSymbolLoc_ptr)
       {
-        v11[0] = _NSConcreteStackBlock;
-        v11[1] = 3221225472;
-        v11[2] = __getSBSGetScreenLockStatusSymbolLoc_block_invoke;
-        v11[3] = &unk_4C860;
-        v11[4] = &v12;
-        __getSBSGetScreenLockStatusSymbolLoc_block_invoke(v11);
-        v7 = v13[3];
+        v12[0] = _NSConcreteStackBlock;
+        v12[1] = 3221225472;
+        v12[2] = __getSBSGetScreenLockStatusSymbolLoc_block_invoke;
+        v12[3] = &unk_4C860;
+        v12[4] = &v13;
+        __getSBSGetScreenLockStatusSymbolLoc_block_invoke(v12);
+        v7 = v14[3];
       }
 
-      _Block_object_dispose(&v12, 8);
+      _Block_object_dispose(&v13, 8);
       if (!v7)
       {
-        v9 = [PHInCallUIUtilities init];
-        _Block_object_dispose(&v12, 8);
-        _Unwind_Resume(v9);
+        [PHInCallUIUtilities init];
+        v10 = v9;
+        _Block_object_dispose(&v13, 8);
+        _Unwind_Resume(v10);
       }
 
       v6 = v7(0) != 0;
@@ -161,17 +162,18 @@ void __38__PHInCallUIUtilities_telephonyClient__block_invoke(id a1)
 + (BOOL)shouldRequestPasscodeUnlockForMMICode:(id)code
 {
   codeCopy = code;
-  if ([codeCopy isEqualToString:@"*#06#"])
+  v5 = [codeCopy isEqualToString:@"*#06#"];
+  if (v5)
   {
     telephonyClient = [self telephonyClient];
-    v33 = 0;
-    v6 = [telephonyClient getSubscriptionInfoWithError:&v33];
-    v7 = v33;
+    v38 = 0;
+    v7 = [telephonyClient getSubscriptionInfoWithError:&v38];
+    v8 = v38;
 
-    if (v7)
+    if (v8)
     {
-      v27 = PHDefaultLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v32 = PHDefaultLog(v9);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         +[PHInCallUIUtilities shouldRequestPasscodeUnlockForMMICode:];
       }
@@ -179,93 +181,95 @@ void __38__PHInCallUIUtilities_telephonyClient__block_invoke(id a1)
 
     else
     {
-      subscriptions = [v6 subscriptions];
-      v10 = [subscriptions count];
+      subscriptions = [v7 subscriptions];
+      v12 = [subscriptions count];
 
-      if (v10)
+      if (v12)
       {
-        v27 = [[CTBundle alloc] initWithBundleType:2];
-        v29 = 0u;
-        v30 = 0u;
-        v31 = 0u;
-        v32 = 0u;
-        subscriptions2 = [v6 subscriptions];
-        v12 = [subscriptions2 countByEnumeratingWithState:&v29 objects:v38 count:16];
-        if (v12)
+        v32 = [[CTBundle alloc] initWithBundleType:2];
+        v34 = 0u;
+        v35 = 0u;
+        v36 = 0u;
+        v37 = 0u;
+        subscriptions2 = [v7 subscriptions];
+        v15 = [subscriptions2 countByEnumeratingWithState:&v34 objects:v43 count:16];
+        if (v15)
         {
-          v13 = v12;
-          v25 = v6;
-          v26 = codeCopy;
-          v7 = 0;
-          v14 = *v30;
+          v16 = v15;
+          v30 = v7;
+          v31 = codeCopy;
+          v8 = 0;
+          v17 = *v35;
           while (2)
           {
-            for (i = 0; i != v13; i = i + 1)
+            for (i = 0; i != v16; i = i + 1)
             {
-              if (*v30 != v14)
+              if (*v35 != v17)
               {
                 objc_enumerationMutation(subscriptions2);
               }
 
-              v16 = *(*(&v29 + 1) + 8 * i);
-              if (([v16 isSimHidden] & 1) == 0)
+              v19 = *(*(&v34 + 1) + 8 * i);
+              if (([v19 isSimHidden] & 1) == 0)
               {
                 telephonyClient2 = [self telephonyClient];
-                v28 = v7;
-                v18 = [telephonyClient2 copyCarrierBundleValueWithDefault:v16 key:@"ShowIMEIsInLockScreen" bundleType:v27 error:&v28];
-                v19 = v28;
+                v33 = v8;
+                v21 = [telephonyClient2 copyCarrierBundleValueWithDefault:v19 key:@"ShowIMEIsInLockScreen" bundleType:v32 error:&v33];
+                v22 = v33;
 
-                if (v19)
+                if (v22)
                 {
-                  v20 = PHDefaultLog();
-                  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+                  v24 = PHDefaultLog(v23);
+                  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    *v35 = v19;
-                    _os_log_error_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "Received error: %@ while querying -copyCarrierBundleValueWithDefault", buf, 0xCu);
+                    *v40 = v22;
+                    _os_log_error_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "Received error: %@ while querying -copyCarrierBundleValueWithDefault", buf, 0xCu);
                   }
                 }
 
                 else
                 {
-                  if (objc_opt_respondsToSelector())
+                  bOOLValue = objc_opt_respondsToSelector();
+                  if (bOOLValue)
                   {
-                    bOOLValue = [v18 BOOLValue];
+                    bOOLValue = [v21 BOOLValue];
+                    v26 = bOOLValue;
                   }
 
                   else
                   {
-                    bOOLValue = 0;
+                    v26 = 0;
                   }
 
-                  v22 = PHDefaultLog();
-                  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+                  v27 = PHDefaultLog(bOOLValue);
+                  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
                   {
-                    uuid = [v16 uuid];
+                    uuid = [v19 uuid];
                     *buf = 67109634;
-                    *v35 = bOOLValue;
-                    *&v35[4] = 2112;
-                    *&v35[6] = v18;
-                    v36 = 2112;
-                    v37 = uuid;
-                    _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Received regionWantsPasscodeBypassForIMEI: %d from carrierBundleValue: %@ subscription: %@", buf, 0x1Cu);
+                    *v40 = v26;
+                    *&v40[4] = 2112;
+                    *&v40[6] = v21;
+                    v41 = 2112;
+                    v42 = uuid;
+                    _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Received regionWantsPasscodeBypassForIMEI: %d from carrierBundleValue: %@ subscription: %@", buf, 0x1Cu);
                   }
 
-                  if (bOOLValue)
+                  if (v26)
                   {
 
+                    v10 = 0;
                     v8 = 0;
-                    v7 = 0;
                     goto LABEL_34;
                   }
                 }
 
-                v7 = v19;
+                v8 = v22;
               }
             }
 
-            v13 = [subscriptions2 countByEnumeratingWithState:&v29 objects:v38 count:16];
-            if (v13)
+            v16 = [subscriptions2 countByEnumeratingWithState:&v34 objects:v43 count:16];
+            if (v16)
             {
               continue;
             }
@@ -273,47 +277,47 @@ void __38__PHInCallUIUtilities_telephonyClient__block_invoke(id a1)
             break;
           }
 
-          v8 = 1;
+          v10 = 1;
 LABEL_34:
-          v6 = v25;
-          codeCopy = v26;
+          v7 = v30;
+          codeCopy = v31;
         }
 
         else
         {
-          v7 = 0;
-          v8 = 1;
+          v8 = 0;
+          v10 = 1;
         }
 
         goto LABEL_37;
       }
 
-      v27 = PHDefaultLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v32 = PHDefaultLog(v13);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         +[PHInCallUIUtilities shouldRequestPasscodeUnlockForMMICode:];
       }
 
-      v7 = 0;
+      v8 = 0;
     }
 
-    v8 = 1;
+    v10 = 1;
 LABEL_37:
 
     goto LABEL_38;
   }
 
-  v7 = PHDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = PHDefaultLog(v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Code is not for IMEI, should request passcode unlock", buf, 2u);
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Code is not for IMEI, should request passcode unlock", buf, 2u);
   }
 
-  v8 = 1;
+  v10 = 1;
 LABEL_38:
 
-  return v8;
+  return v10;
 }
 
 + (BOOL)shouldHideSensitiveUI
@@ -426,14 +430,14 @@ void __45__PHInCallUIUtilities_fbsOrientationObserver__block_invoke(id a1)
 {
   identifierCopy = identifier;
   telephonyClient = [self telephonyClient];
-  v38 = 0;
-  v6 = [telephonyClient getSubscriptionInfoWithError:&v38];
-  v7 = v38;
+  v41 = 0;
+  v6 = [telephonyClient getSubscriptionInfoWithError:&v41];
+  v7 = v41;
 
   if (v7)
   {
-    v32 = PHDefaultLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v35 = PHDefaultLog(v8);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       +[PHInCallUIUtilities isExplicitTransferSupportedForSubscriptionLabelIdentifier:];
     }
@@ -442,14 +446,14 @@ void __45__PHInCallUIUtilities_fbsOrientationObserver__block_invoke(id a1)
   }
 
   subscriptions = [v6 subscriptions];
-  v9 = [subscriptions count];
+  v10 = [subscriptions count];
 
-  v10 = PHDefaultLog();
-  v11 = v10;
-  if (!v9)
+  v12 = PHDefaultLog(v11);
+  v13 = v12;
+  if (!v10)
   {
-    v32 = v10;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v35 = v12;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       +[PHInCallUIUtilities isExplicitTransferSupportedForSubscriptionLabelIdentifier:];
     }
@@ -457,105 +461,112 @@ void __45__PHInCallUIUtilities_fbsOrientationObserver__block_invoke(id a1)
     goto LABEL_29;
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     subscriptions2 = [v6 subscriptions];
     *buf = 138412290;
-    v40 = subscriptions2;
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "ShowExplicitCallTransferButton: all the subscriptions are: %@", buf, 0xCu);
+    v43 = subscriptions2;
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "ShowExplicitCallTransferButton: all the subscriptions are: %@", buf, 0xCu);
   }
 
-  v36 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
+  v38 = 0u;
   subscriptions3 = [v6 subscriptions];
-  v14 = [subscriptions3 countByEnumeratingWithState:&v34 objects:v45 count:16];
-  v32 = subscriptions3;
-  if (!v14)
+  isSimHidden = [subscriptions3 countByEnumeratingWithState:&v37 objects:v48 count:16];
+  v35 = subscriptions3;
+  if (!isSimHidden)
   {
 LABEL_29:
     v7 = 0;
 LABEL_30:
-    v28 = 0;
+    v31 = 0;
     goto LABEL_31;
   }
 
-  v15 = v14;
+  v17 = isSimHidden;
   selfCopy = self;
-  v16 = 0;
-  v17 = *v35;
-  v30 = identifierCopy;
+  v18 = 0;
+  v19 = *v38;
+  v33 = identifierCopy;
   while (2)
   {
-    for (i = 0; i != v15; i = i + 1)
+    v20 = 0;
+    do
     {
-      if (*v35 != v17)
+      if (*v38 != v19)
       {
         objc_enumerationMutation(subscriptions3);
       }
 
-      v19 = *(*(&v34 + 1) + 8 * i);
-      v20 = PHDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = *(*(&v37 + 1) + 8 * v20);
+      v22 = PHDefaultLog(isSimHidden);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v40 = v19;
-        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "ShowExplicitCallTransferButton: checking subscription: %@", buf, 0xCu);
+        v43 = v21;
+        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "ShowExplicitCallTransferButton: checking subscription: %@", buf, 0xCu);
       }
 
-      if (([v19 isSimHidden] & 1) == 0)
+      isSimHidden = [v21 isSimHidden];
+      if ((isSimHidden & 1) == 0)
       {
-        labelID = [v19 labelID];
-        v22 = [labelID isEqualToString:identifierCopy];
+        labelID = [v21 labelID];
+        v24 = [labelID isEqualToString:identifierCopy];
 
-        if (v22)
+        if (v24)
         {
-          v23 = [[CTBundle alloc] initWithBundleType:1];
+          v25 = [[CTBundle alloc] initWithBundleType:1];
           telephonyClient2 = [selfCopy telephonyClient];
-          v33 = v16;
-          v25 = [telephonyClient2 copyCarrierBundleValue:v19 keyHierarchy:&off_55E38 bundleType:v23 error:&v33];
-          v7 = v33;
+          v36 = v18;
+          v27 = [telephonyClient2 copyCarrierBundleValue:v21 keyHierarchy:&off_55E38 bundleType:v25 error:&v36];
+          v7 = v36;
 
           objc_opt_class();
-          if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+          if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
           {
-            bOOLValue = [v25 BOOLValue];
+            isKindOfClass = [v27 BOOLValue];
+            v29 = isKindOfClass;
           }
 
           else
           {
-            bOOLValue = 0;
+            v29 = 0;
           }
 
-          v27 = PHDefaultLog();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          v30 = PHDefaultLog(isKindOfClass);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v40 = v25;
-            v41 = 2112;
-            v42 = v19;
-            v43 = 2112;
-            v44 = v7;
-            _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "ShowExplicitCallTransferButton: retrieved ShowExplicitCallTransferButton value %@ for subscription %@ with error %@", buf, 0x20u);
+            v43 = v27;
+            v44 = 2112;
+            v45 = v21;
+            v46 = 2112;
+            v47 = v7;
+            _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "ShowExplicitCallTransferButton: retrieved ShowExplicitCallTransferButton value %@ for subscription %@ with error %@", buf, 0x20u);
           }
 
-          if (bOOLValue)
+          if (v29)
           {
-            v28 = 1;
-            identifierCopy = v30;
+            v31 = 1;
+            identifierCopy = v33;
             goto LABEL_31;
           }
 
-          v16 = v7;
-          identifierCopy = v30;
-          subscriptions3 = v32;
+          v18 = v7;
+          identifierCopy = v33;
+          subscriptions3 = v35;
         }
       }
+
+      ++v20;
     }
 
-    v15 = [subscriptions3 countByEnumeratingWithState:&v34 objects:v45 count:16];
-    if (v15)
+    while (v17 != v20);
+    isSimHidden = [subscriptions3 countByEnumeratingWithState:&v37 objects:v48 count:16];
+    v17 = isSimHidden;
+    if (isSimHidden)
     {
       continue;
     }
@@ -563,11 +574,11 @@ LABEL_30:
     break;
   }
 
-  v28 = 0;
-  v7 = v16;
+  v31 = 0;
+  v7 = v18;
 LABEL_31:
 
-  return v28;
+  return v31;
 }
 
 + (int64_t)frontboardOrientation
@@ -611,11 +622,11 @@ void __92__PHInCallUIUtilities_Workaround50930227__layoutMonitor_didUpdateDispla
   }
 }
 
-- (uint64_t)init
+- (void)init
 {
-  dlerror();
-  v0 = abort_report_np();
-  return +[(PHInCallUIUtilities *)v0];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  +[PHInCallUIUtilities telephonyClient];
 }
 
 @end

@@ -17,8 +17,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10047D130(appear);
+  sub_10047D130(appearCopy);
 }
 
 - (_TtC6FindMy32FMAccessoryPairingInProgressCard)initWithContentView:(id)view

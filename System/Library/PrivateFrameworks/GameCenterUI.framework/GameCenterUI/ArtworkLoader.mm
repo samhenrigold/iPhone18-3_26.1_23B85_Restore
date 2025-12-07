@@ -10,7 +10,7 @@
   requestCopy = request;
   imageCopy = image;
 
-  sub_24E2025B8(requestCopy, image);
+  sub_24E2025B8(requestCopy, image, v7);
 }
 
 - (void)imageRequest:(id)request didFailWithError:(id)error

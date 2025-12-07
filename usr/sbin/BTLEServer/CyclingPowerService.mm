@@ -7,6 +7,7 @@
 - (id)sensorLocationSideString;
 - (id)sensorLocationString;
 - (id)updateComboString:(id)string withValue:(id)value;
+- (void)collectData:(BOOL)data;
 - (void)createDistributedHKDeviceWithSecondary:(id)secondary;
 - (void)peripheral:(id)peripheral didDiscoverCharacteristicsForService:(id)service error:(id)error;
 - (void)peripheral:(id)peripheral didUpdateValueForCharacteristic:(id)characteristic error:(id)error;
@@ -121,6 +122,42 @@ LABEL_7:
 LABEL_8:
 
   return v7;
+}
+
+- (void)collectData:(BOOL)data
+{
+  dataCopy = data;
+  v5 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+  {
+    if (dataCopy)
+    {
+      v6 = @"ON";
+    }
+
+    else
+    {
+      v6 = @"OFF";
+    }
+
+    v7 = v5;
+    peripheral = [(ClientService *)self peripheral];
+    name = [peripheral name];
+    v13 = 138412546;
+    v14 = v6;
+    v15 = 2112;
+    v16 = name;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "collectData:%@ for “%@”", &v13, 0x16u);
+  }
+
+  cyclingPowerMeasurementCharacteristic = [(CyclingPowerService *)self cyclingPowerMeasurementCharacteristic];
+  [(FitnessService *)self setNotify:dataCopy forCharacteristic:cyclingPowerMeasurementCharacteristic];
+
+  cyclingPowerVectorCharacteristic = [(CyclingPowerService *)self cyclingPowerVectorCharacteristic];
+  [(FitnessService *)self setNotify:dataCopy forCharacteristic:cyclingPowerVectorCharacteristic];
+
+  cyclingPowerControlPointCharacteristic = [(CyclingPowerService *)self cyclingPowerControlPointCharacteristic];
+  [(FitnessService *)self setNotify:dataCopy forCharacteristic:cyclingPowerControlPointCharacteristic];
 }
 
 - (id)getDeviceInformationService
@@ -1035,21 +1072,8 @@ LABEL_10:
           }
 
           lastDistributedDatum = [v9 lastDistributedDatum];
-          if (!lastDistributedDatum)
+          if (!lastDistributedDatum || (v12 = lastDistributedDatum, [v9 lastDistributedDatum], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "dateInterval"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "startDate"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(stampCopy, "timeIntervalSinceDate:", v15), v17 = fabs(v16), v15, v14, v13, v12, v17 >= 1.5))
           {
-            goto LABEL_31;
-          }
-
-          v12 = lastDistributedDatum;
-          lastDistributedDatum2 = [v9 lastDistributedDatum];
-          dateInterval = [lastDistributedDatum2 dateInterval];
-          startDate = [dateInterval startDate];
-          [stampCopy timeIntervalSinceDate:startDate];
-          v17 = fabs(v16);
-
-          if (v17 >= 1.5)
-          {
-LABEL_31:
             quantity = [(HKQuantityDatum *)self->_lastDistributedDatum quantity];
             [quantity _value];
             v56 = v55 + v55;
@@ -1082,11 +1106,11 @@ LABEL_31:
 
             else
             {
+              dateInterval = [(HKQuantityDatum *)self->_lastDistributedDatum dateInterval];
+              startDate = [dateInterval startDate];
               dateInterval2 = [(HKQuantityDatum *)self->_lastDistributedDatum dateInterval];
-              startDate2 = [dateInterval2 startDate];
-              dateInterval3 = [(HKQuantityDatum *)self->_lastDistributedDatum dateInterval];
-              endDate = [dateInterval3 endDate];
-              v61 = [(FitnessService *)self createDatum:startDate2 start:endDate end:v7 quantityType:v56];
+              endDate = [dateInterval2 endDate];
+              v61 = [(FitnessService *)self createDatum:startDate start:endDate end:v7 quantityType:v56];
 
               v62 = qword_1000DDBC8;
               if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
@@ -1124,8 +1148,8 @@ LABEL_31:
           quantity5 = [(HKQuantityDatum *)self->_lastDistributedDatum quantity];
           [quantity5 _value];
           v20 = v19;
-          lastDistributedDatum3 = [v9 lastDistributedDatum];
-          quantity6 = [lastDistributedDatum3 quantity];
+          lastDistributedDatum2 = [v9 lastDistributedDatum];
+          quantity6 = [lastDistributedDatum2 quantity];
           [quantity6 _value];
           [(CyclingPowerService *)self powerBalanceForValue:v9 otherService:v20 otherValue:v23];
           v25 = v24;
@@ -1133,8 +1157,8 @@ LABEL_31:
           quantity7 = [(HKQuantityDatum *)self->_lastDistributedDatum quantity];
           [quantity7 _value];
           v28 = v27;
-          lastDistributedDatum4 = [v9 lastDistributedDatum];
-          quantity8 = [lastDistributedDatum4 quantity];
+          lastDistributedDatum3 = [v9 lastDistributedDatum];
+          quantity8 = [lastDistributedDatum3 quantity];
           [quantity8 _value];
           v32 = v28 + v31;
 
@@ -1153,8 +1177,8 @@ LABEL_31:
             [logd _value];
             v130 = v129;
             sensorLocationSideString3 = [(CyclingPowerService *)self sensorLocationSideString];
-            lastDistributedDatum5 = [v9 lastDistributedDatum];
-            quantity9 = [lastDistributedDatum5 quantity];
+            lastDistributedDatum4 = [v9 lastDistributedDatum];
+            quantity9 = [lastDistributedDatum4 quantity];
             [quantity9 _value];
             v133 = v132;
             peripheral4 = [v9 peripheral];
@@ -1182,10 +1206,10 @@ LABEL_31:
 
           else
           {
-            lastDistributedDatum6 = [v9 lastDistributedDatum];
-            dateInterval4 = [lastDistributedDatum6 dateInterval];
-            startDate3 = [dateInterval4 startDate];
-            v36 = [(FitnessService *)self createDatum:startDate3 start:stampCopy end:v7 quantityType:v32];
+            lastDistributedDatum5 = [v9 lastDistributedDatum];
+            dateInterval3 = [lastDistributedDatum5 dateInterval];
+            startDate2 = [dateInterval3 startDate];
+            v36 = [(FitnessService *)self createDatum:startDate2 start:stampCopy end:v7 quantityType:v32];
 
             [(FitnessService *)self recordDatum:v36 forType:v7];
             comboHKDevice3 = [(CyclingPowerService *)self comboHKDevice];
@@ -1201,8 +1225,8 @@ LABEL_31:
               [log _value];
               v138 = v137;
               sensorLocationSideString5 = [(CyclingPowerService *)self sensorLocationSideString];
-              lastDistributedDatum7 = [v9 lastDistributedDatum];
-              quantity10 = [lastDistributedDatum7 quantity];
+              lastDistributedDatum6 = [v9 lastDistributedDatum];
+              quantity10 = [lastDistributedDatum6 quantity];
               [quantity10 _value];
               v141 = v140;
               peripheral6 = [v9 peripheral];
@@ -1235,14 +1259,14 @@ LABEL_40:
           lastDistributedDatum = self->_lastDistributedDatum;
           self->_lastDistributedDatum = v73;
 
-          lastDistributedDatum8 = [v9 lastDistributedDatum];
+          lastDistributedDatum7 = [v9 lastDistributedDatum];
 
-          if (lastDistributedDatum8)
+          if (lastDistributedDatum7)
           {
-            lastDistributedDatum9 = [v9 lastDistributedDatum];
-            dateInterval5 = [lastDistributedDatum9 dateInterval];
-            startDate4 = [dateInterval5 startDate];
-            [stampCopy timeIntervalSinceDate:startDate4];
+            lastDistributedDatum8 = [v9 lastDistributedDatum];
+            dateInterval4 = [lastDistributedDatum8 dateInterval];
+            startDate3 = [dateInterval4 startDate];
+            [stampCopy timeIntervalSinceDate:startDate3];
             v80 = fabs(v79);
 
             if (v80 >= 1.5)
@@ -1259,8 +1283,8 @@ LABEL_40:
               quantity11 = [(HKQuantityDatum *)self->_lastDistributedDatum quantity];
               [quantity11 _value];
               v83 = v82;
-              lastDistributedDatum10 = [v9 lastDistributedDatum];
-              quantity12 = [lastDistributedDatum10 quantity];
+              lastDistributedDatum9 = [v9 lastDistributedDatum];
+              quantity12 = [lastDistributedDatum9 quantity];
               [quantity12 _value];
               [(CyclingPowerService *)self powerBalanceForValue:v9 otherService:v83 otherValue:v86];
               v88 = v87;
@@ -1268,8 +1292,8 @@ LABEL_40:
               quantity13 = [(HKQuantityDatum *)self->_lastDistributedDatum quantity];
               [quantity13 _value];
               v91 = v90;
-              lastDistributedDatum11 = [v9 lastDistributedDatum];
-              quantity14 = [lastDistributedDatum11 quantity];
+              lastDistributedDatum10 = [v9 lastDistributedDatum];
+              quantity14 = [lastDistributedDatum10 quantity];
               [quantity14 _value];
               v95 = v91 + v94;
 
@@ -1285,8 +1309,8 @@ LABEL_40:
                   [logc _value];
                   v113 = v112;
                   sensorLocationSideString7 = [(CyclingPowerService *)self sensorLocationSideString];
-                  lastDistributedDatum12 = [v9 lastDistributedDatum];
-                  quantity15 = [lastDistributedDatum12 quantity];
+                  lastDistributedDatum11 = [v9 lastDistributedDatum];
+                  quantity15 = [lastDistributedDatum11 quantity];
                   [quantity15 _value];
                   v117 = v116;
                   peripheral8 = [v9 peripheral];
@@ -1314,10 +1338,10 @@ LABEL_40:
 
               else
               {
-                lastDistributedDatum13 = [v9 lastDistributedDatum];
-                dateInterval6 = [lastDistributedDatum13 dateInterval];
-                startDate5 = [dateInterval6 startDate];
-                v99 = [(FitnessService *)self createDatum:startDate5 start:stampCopy end:v7 quantityType:v95];
+                lastDistributedDatum12 = [v9 lastDistributedDatum];
+                dateInterval5 = [lastDistributedDatum12 dateInterval];
+                startDate4 = [dateInterval5 startDate];
+                v99 = [(FitnessService *)self createDatum:startDate4 start:stampCopy end:v7 quantityType:v95];
 
                 [(FitnessService *)self recordDatum:v99 forType:v7];
                 comboHKDevice4 = [(CyclingPowerService *)self comboHKDevice];
@@ -1333,8 +1357,8 @@ LABEL_40:
                   [logb _value];
                   v122 = v121;
                   sensorLocationSideString9 = [(CyclingPowerService *)self sensorLocationSideString];
-                  lastDistributedDatum14 = [v9 lastDistributedDatum];
-                  quantity16 = [lastDistributedDatum14 quantity];
+                  lastDistributedDatum13 = [v9 lastDistributedDatum];
+                  quantity16 = [lastDistributedDatum13 quantity];
                   [quantity16 _value];
                   v125 = v124;
                   peripheral10 = [v9 peripheral];

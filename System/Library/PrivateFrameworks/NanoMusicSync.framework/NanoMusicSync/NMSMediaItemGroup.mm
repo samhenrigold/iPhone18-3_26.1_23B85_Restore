@@ -1,5 +1,13 @@
 @interface NMSMediaItemGroup
++ (NMSMediaItemGroup)itemGroupWithAudiobookIdentifier:(id)identifier downloadLimit:(unint64_t)limit manuallyAdded:(BOOL)added downloadedItemsOnly:(BOOL)only;
++ (NMSMediaItemGroup)itemGroupWithCustomPodcastFeedURL:(id)l downloadedItemsOnly:(BOOL)only;
++ (NMSMediaItemGroup)itemGroupWithPodcastStationUUID:(id)d downloadedItemsOnly:(BOOL)only;
 + (NMSMediaItemGroup)itemGroupWithQuotaRefObj:(id)obj;
++ (NMSMediaItemGroup)itemGroupWithRecommendation:(id)recommendation downloadedItemsOnly:(BOOL)only;
++ (NMSMediaItemGroup)itemGroupWithSavedEpisodesDownloadedItemsOnly:(BOOL)only;
++ (NMSMediaItemGroup)itemGroupWithSyncedAlbumID:(id)d downloadedItemsOnly:(BOOL)only;
++ (NMSMediaItemGroup)itemGroupWithSyncedPlaylistID:(id)d downloadedItemsOnly:(BOOL)only;
++ (NMSMediaItemGroup)itemGroupWithUpNextEpisodesDownloadedItemsOnly:(BOOL)only;
 + (id)_itemsForContainerClass:(Class)class containerIDs:(id)ds includingNonLibraryContent:(BOOL)content includingDownloadedContentOnly:(BOOL)only manuallyAdded:(BOOL)added;
 + (id)sharedLibraryRequestQueue;
 - (BOOL)isEqual:(id)equal;
@@ -38,6 +46,58 @@ uint64_t __46__NMSMediaItemGroup_sharedLibraryRequestQueue__block_invoke()
   v2 = sharedLibraryRequestQueue_sharedQueue;
 
   return [v2 setQualityOfService:-1];
+}
+
++ (NMSMediaItemGroup)itemGroupWithRecommendation:(id)recommendation downloadedItemsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  recommendationCopy = recommendation;
+  v6 = [(NMSMediaItemGroup *)[NMSRecommendationMediaItemGroup alloc] initWithType:6 refObj:recommendationCopy manuallyAdded:0 quotaRefObj:recommendationCopy downloadedItemsOnly:onlyCopy];
+
+  return v6;
+}
+
++ (NMSMediaItemGroup)itemGroupWithUpNextEpisodesDownloadedItemsOnly:(BOOL)only
+{
+  v3 = [(NMSMediaItemGroup *)[NMSPodcastUpNextMediaItemGroup alloc] initWithType:2 refObj:@"NMSRefObj_UpNext" manuallyAdded:0 quotaRefObj:@"NMSRefObj_UpNext" downloadedItemsOnly:only];
+
+  return v3;
+}
+
++ (NMSMediaItemGroup)itemGroupWithSavedEpisodesDownloadedItemsOnly:(BOOL)only
+{
+  v3 = [(NMSMediaItemGroup *)[NMSPodcastSavedEpisodesMediaItemGroup alloc] initWithType:4 refObj:@"NMSRefObj_SavedEpisodes" manuallyAdded:0 quotaRefObj:@"NMSRefObj_SavedEpisodes" downloadedItemsOnly:only];
+
+  return v3;
+}
+
++ (NMSMediaItemGroup)itemGroupWithCustomPodcastFeedURL:(id)l downloadedItemsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  lCopy = l;
+  v6 = [(NMSMediaItemGroup *)[NMSPodcastCustomShowMediaItemGroup alloc] initWithType:2 refObj:lCopy manuallyAdded:0 quotaRefObj:lCopy downloadedItemsOnly:onlyCopy];
+
+  return v6;
+}
+
++ (NMSMediaItemGroup)itemGroupWithPodcastStationUUID:(id)d downloadedItemsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  dCopy = d;
+  v6 = [(NMSMediaItemGroup *)[NMSPodcastStationMediaItemGroup alloc] initWithType:3 refObj:dCopy manuallyAdded:0 quotaRefObj:dCopy downloadedItemsOnly:onlyCopy];
+
+  return v6;
+}
+
++ (NMSMediaItemGroup)itemGroupWithAudiobookIdentifier:(id)identifier downloadLimit:(unint64_t)limit manuallyAdded:(BOOL)added downloadedItemsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  addedCopy = added;
+  identifierCopy = identifier;
+  v10 = [[NMSAudiobookReferenceObject alloc] initWithAudiobookIdentifier:identifierCopy downloadLimit:limit];
+  v11 = [(NMSMediaItemGroup *)[NMSAudiobooksMediaItemGroup alloc] initWithType:7 refObj:v10 manuallyAdded:addedCopy quotaRefObj:identifierCopy downloadedItemsOnly:onlyCopy];
+
+  return v11;
 }
 
 - (NMSMediaItemGroup)initWithType:(unint64_t)type refObj:(id)obj manuallyAdded:(BOOL)added quotaRefObj:(id)refObj downloadedItemsOnly:(BOOL)only
@@ -205,47 +265,47 @@ LABEL_11:
 + (id)_itemsForContainerClass:(Class)class containerIDs:(id)ds includingNonLibraryContent:(BOOL)content includingDownloadedContentOnly:(BOOL)only manuallyAdded:(BOOL)added
 {
   addedCopy = added;
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   orderedSet = [MEMORY[0x277CBEB40] orderedSet];
+  v86 = 0u;
   v87 = 0u;
   v88 = 0u;
   v89 = 0u;
-  v90 = 0u;
   v9 = dsCopy;
-  v78 = [v9 countByEnumeratingWithState:&v87 objects:v93 count:16];
-  if (v78)
+  v77 = [v9 countByEnumeratingWithState:&v86 objects:v92 count:16];
+  if (v77)
   {
-    v76 = *MEMORY[0x277D2B578];
-    v77 = *v88;
-    v75 = *MEMORY[0x277D2B500];
-    v68 = *MEMORY[0x277D2B570];
-    v74 = *MEMORY[0x277D2B510];
-    v65 = v84;
-    v66 = *MEMORY[0x277D2B528];
+    v75 = *MEMORY[0x277D2B578];
+    v76 = *v87;
+    v74 = *MEMORY[0x277D2B500];
+    v67 = *MEMORY[0x277D2B570];
+    v73 = *MEMORY[0x277D2B510];
+    v64 = v83;
+    v65 = *MEMORY[0x277D2B528];
     v10 = 0x277D2B000uLL;
-    v71 = *MEMORY[0x277D2B530];
-    v73 = *MEMORY[0x277D2B538];
-    v72 = *MEMORY[0x277D2B520];
-    v79 = *MEMORY[0x277D2B588];
-    v67 = v9;
+    v70 = *MEMORY[0x277D2B530];
+    v72 = *MEMORY[0x277D2B538];
+    v71 = *MEMORY[0x277D2B520];
+    v78 = *MEMORY[0x277D2B588];
+    v66 = v9;
     classCopy = class;
     do
     {
-      for (i = 0; i != v78; ++i)
+      for (i = 0; i != v77; ++i)
       {
-        if (*v88 != v77)
+        if (*v87 != v76)
         {
           objc_enumerationMutation(v9);
         }
 
-        v12 = *(*(&v87 + 1) + 8 * i);
+        v12 = *(*(&v86 + 1) + 8 * i);
         array = [MEMORY[0x277CBEB18] array];
-        v14 = [*(v10 + 1472) predicateWithProperty:v76 value:MEMORY[0x277CBEC28] comparison:1];
+        v14 = [*(v10 + 1472) predicateWithProperty:v75 value:MEMORY[0x277CBEC28] comparison:1];
         [array addObject:v14];
 
         v15 = MEMORY[0x277D2B608];
-        v16 = [MEMORY[0x277D2B5D8] predicateWithProperty:v75 values:&unk_286C8D400];
+        v16 = [MEMORY[0x277D2B5D8] predicateWithProperty:v74 values:&unk_286C8D400];
         v17 = [v15 predicateWithPredicate:v16];
         [array addObject:v17];
 
@@ -255,14 +315,14 @@ LABEL_11:
 
         if (status == 2)
         {
-          v21 = [*(v10 + 1472) predicateWithProperty:v68 value:MEMORY[0x277CBEC28] comparison:1];
+          v21 = [*(v10 + 1472) predicateWithProperty:v67 value:MEMORY[0x277CBEC28] comparison:1];
           [array addObject:v21];
         }
 
-        v22 = v74;
+        v22 = v73;
         v23 = objc_opt_class();
-        v24 = v73;
-        if (v23 == class || (v25 = objc_opt_class(), v24 = v71, v25 == class) || (v26 = objc_opt_class(), v24 = v66, v26 == class))
+        v24 = v72;
+        if (v23 == class || (v25 = objc_opt_class(), v24 = v70, v25 == class) || (v26 = objc_opt_class(), v24 = v65, v26 == class))
         {
           v27 = v24;
 
@@ -296,15 +356,15 @@ LABEL_11:
         }
         v36 = ;
 
-        v82 = v36;
-        v37 = [v36 valueForAggregateFunction:v72 onEntitiesForProperty:v79];
+        v81 = v36;
+        v37 = [v36 valueForAggregateFunction:v71 onEntitiesForProperty:v78];
         unsignedLongLongValue = [v37 unsignedLongLongValue];
 
         v39 = MEMORY[0x277D2B5A8];
-        v92[0] = v33;
-        v40 = [*(v10 + 1472) predicateWithProperty:v79 value:&unk_286C8D760 comparison:1];
-        v92[1] = v40;
-        v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:2];
+        v91[0] = v33;
+        v40 = [*(v10 + 1472) predicateWithProperty:v78 value:&unk_286C8D760 comparison:1];
+        v91[1] = v40;
+        v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:2];
         v42 = [v39 predicateMatchingPredicates:v41];
 
         v43 = MEMORY[0x277D2B620];
@@ -356,17 +416,17 @@ LABEL_11:
                 goto LABEL_30;
               }
 
-              v91 = v79;
-              v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v91 count:1];
-              v83[0] = MEMORY[0x277D85DD0];
-              v83[1] = 3221225472;
-              v84[0] = __130__NMSMediaItemGroup__itemsForContainerClass_containerIDs_includingNonLibraryContent_includingDownloadedContentOnly_manuallyAdded___block_invoke;
-              v84[1] = &unk_27993EBE0;
-              v85 = orderedSet;
-              v86 = addedCopy;
-              [v82 enumeratePersistentIDsAndProperties:v47 usingBlock:v83];
+              v90 = v78;
+              v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v90 count:1];
+              v82[0] = MEMORY[0x277D85DD0];
+              v82[1] = 3221225472;
+              v83[0] = __130__NMSMediaItemGroup__itemsForContainerClass_containerIDs_includingNonLibraryContent_includingDownloadedContentOnly_manuallyAdded___block_invoke;
+              v83[1] = &unk_27993EBE0;
+              v84 = orderedSet;
+              v85 = addedCopy;
+              [v81 enumeratePersistentIDsAndProperties:v47 usingBlock:v82];
 
-              library2 = v85;
+              library2 = v84;
               goto LABEL_29;
             }
 
@@ -383,7 +443,7 @@ LABEL_11:
           v60 = [(NMSDownloadableItem *)v52 initWithMediaLibraryIdentifier:v53 externalLibraryIdentifier:0 size:v54 itemType:v55 manuallyAdded:addedCopy];
           [orderedSet addObject:v60];
 
-          v9 = v67;
+          v9 = v66;
 LABEL_29:
         }
 
@@ -393,10 +453,10 @@ LABEL_30:
         v10 = 0x277D2B000;
       }
 
-      v78 = [v9 countByEnumeratingWithState:&v87 objects:v93 count:16];
+      v77 = [v9 countByEnumeratingWithState:&v86 objects:v92 count:16];
     }
 
-    while (v78);
+    while (v77);
   }
 
   v61 = NMLogForCategory(5);
@@ -406,8 +466,6 @@ LABEL_30:
   }
 
   array2 = [orderedSet array];
-
-  v63 = *MEMORY[0x277D85DE8];
 
   return array2;
 }
@@ -422,6 +480,24 @@ void __130__NMSMediaItemGroup__itemsForContainerClass_containerIDs_includingNonL
   [v6 addObject:v8];
 }
 
++ (NMSMediaItemGroup)itemGroupWithSyncedPlaylistID:(id)d downloadedItemsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  dCopy = d;
+  v6 = [(NMSMediaItemGroup *)[NMSSyncedMediaItemGroup alloc] initWithType:0 refObj:dCopy manuallyAdded:1 quotaRefObj:dCopy downloadedItemsOnly:onlyCopy];
+
+  return v6;
+}
+
++ (NMSMediaItemGroup)itemGroupWithSyncedAlbumID:(id)d downloadedItemsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  dCopy = d;
+  v6 = [(NMSMediaItemGroup *)[NMSSyncedMediaItemGroup alloc] initWithType:1 refObj:dCopy manuallyAdded:1 quotaRefObj:dCopy downloadedItemsOnly:onlyCopy];
+
+  return v6;
+}
+
 + (NMSMediaItemGroup)itemGroupWithQuotaRefObj:(id)obj
 {
   objCopy = obj;
@@ -432,53 +508,47 @@ void __130__NMSMediaItemGroup__itemsForContainerClass_containerIDs_includingNonL
 
 - (void)initWithType:refObj:manuallyAdded:quotaRefObj:downloadedItemsOnly:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)identifiersForContainerType:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4[0] = 138413058;
+  v9 = *MEMORY[0x277D85DE8];
+  v3[0] = 138413058;
   OUTLINED_FUNCTION_0_0();
-  v5 = "[NMSMediaItemGroup identifiersForContainerType:]";
-  v6 = 2048;
-  v7 = v0;
-  v8 = 2114;
-  v9 = v1;
-  _os_log_error_impl(&dword_25B27B000, v2, OS_LOG_TYPE_ERROR, "%@ %s No identifiers for type (%lu): %{public}@", v4, 0x2Au);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = "[NMSMediaItemGroup identifiersForContainerType:]";
+  v5 = 2048;
+  v6 = v0;
+  v7 = 2114;
+  v8 = v1;
+  _os_log_error_impl(&dword_25B27B000, v2, OS_LOG_TYPE_ERROR, "%@ %s No identifiers for type (%lu): %{public}@", v3, 0x2Au);
 }
 
 - (void)itemList
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_itemsForContainerClass:(NSObject *)a3 containerIDs:includingNonLibraryContent:includingDownloadedContentOnly:manuallyAdded:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [a1 count];
-  v8[0] = 138413314;
+  v7[0] = 138413314;
   OUTLINED_FUNCTION_0_0();
-  v9 = "+[NMSMediaItemGroup _itemsForContainerClass:containerIDs:includingNonLibraryContent:includingDownloadedContentOnly:manuallyAdded:]";
-  v10 = 2048;
-  v11 = v6;
-  v12 = 2114;
-  v13 = a2;
-  v14 = 2114;
-  v15 = a1;
-  _os_log_debug_impl(&dword_25B27B000, a3, OS_LOG_TYPE_DEBUG, "%@ %s NMSMediaItemGroup: Fetched %tu items %{public}@, items @ %{public}@", v8, 0x34u);
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = "+[NMSMediaItemGroup _itemsForContainerClass:containerIDs:includingNonLibraryContent:includingDownloadedContentOnly:manuallyAdded:]";
+  v9 = 2048;
+  v10 = v6;
+  v11 = 2114;
+  v12 = a2;
+  v13 = 2114;
+  v14 = a1;
+  _os_log_debug_impl(&dword_25B27B000, a3, OS_LOG_TYPE_DEBUG, "%@ %s NMSMediaItemGroup: Fetched %tu items %{public}@, items @ %{public}@", v7, 0x34u);
 }
 
 @end

@@ -33,7 +33,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1BD610550();
+  sub_1BD610550(v2);
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -45,7 +45,7 @@
 - (void)viewDidDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_1BD610B60(disappear);
+  sub_1BD610B60(disappear, v4);
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated

@@ -44,7 +44,9 @@
 - (void)intersectWithIdentifierSet:(id)set
 {
   setCopy = set;
-  degas::Bitmap::intersectWith<degas::Bitmap>(-[KGMutableElementIdentifierSet mutableBitmap](self, "mutableBitmap"), [setCopy bitmap]);
+  mutableBitmap = [(KGMutableElementIdentifierSet *)self mutableBitmap];
+  bitmap = [setCopy bitmap];
+  degas::Bitmap::intersectWith<degas::Bitmap>(mutableBitmap, bitmap, v6, v7, v8, v9);
 }
 
 - (void)unionWithIdentifierSet:(id)set

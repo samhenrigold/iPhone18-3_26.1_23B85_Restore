@@ -5,6 +5,7 @@
 - (ATXSingleSuggestionSession)initWithTrackedProactiveSuggestion:(id)suggestion feedbackMetadata:(id)metadata matchingSuggestionUUIDs:(id)ds associatedBlendingCacheUUIDs:(id)iDs associatedClientModelCacheUUIDs:(id)uIDs sessionContextStatuses:(id)statuses sessionExpirationDate:(id)date completed:(BOOL)self0;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToATXSingleSuggestionSession:(id)session;
+- (BOOL)tryUpdateSessionStatus:(unint64_t)status consumerSubType:(unsigned __int8)type;
 - (id)description;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -60,6 +61,28 @@
   return v20;
 }
 
+- (BOOL)tryUpdateSessionStatus:(unint64_t)status consumerSubType:(unsigned __int8)type
+{
+  v6 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:type];
+  unsignedIntegerValue = [(NSMutableDictionary *)self->_sessionContextStatusByConsumerSubType objectForKey:v6];
+  v8 = unsignedIntegerValue;
+  if (unsignedIntegerValue)
+  {
+    unsignedIntegerValue = [unsignedIntegerValue unsignedIntegerValue];
+  }
+
+  if (status && !unsignedIntegerValue || (v9 = 0, status >= 2) && unsignedIntegerValue == 1)
+  {
+    sessionContextStatusByConsumerSubType = self->_sessionContextStatusByConsumerSubType;
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:status];
+    [(NSMutableDictionary *)sessionContextStatusByConsumerSubType setObject:v11 forKey:v6];
+
+    v9 = 1;
+  }
+
+  return v9;
+}
+
 - (void)enumerateShownAndEngagedSessionStatusesAndConsumerSubTypesWithBlock:(id)block
 {
   blockCopy = block;
@@ -95,7 +118,7 @@ void __98__ATXSingleSuggestionSession_enumerateShownAndEngagedSessionStatusesAnd
 
     else if (status == 4)
     {
-      v5 = __atxlog_handle_feedback();
+      v5 = __atxlog_handle_feedback(@"not shown");
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
         [ATXSingleSuggestionSession stringForSuggestionSessionStatus:v5];
@@ -146,7 +169,7 @@ void __98__ATXSingleSuggestionSession_enumerateShownAndEngagedSessionStatusesAnd
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_metrics();
+  v7 = __atxlog_handle_metrics(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"suggestion" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXPushPullSessionContext" errorCode:-1 logHandle:v7];
 
   if (v8)
@@ -154,8 +177,8 @@ void __98__ATXSingleSuggestionSession_enumerateShownAndEngagedSessionStatusesAnd
     selfCopy = self;
     v9 = MEMORY[0x277D42620];
     v10 = objc_opt_class();
-    v11 = __atxlog_handle_metrics();
-    v49 = [v9 robustDecodeObjectOfClass:v10 forKey:@"feedbackMetadata" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.ATXPushPullSessionContext" errorCode:-1 logHandle:v11];
+    v11 = __atxlog_handle_metrics(v10);
+    v53 = [v9 robustDecodeObjectOfClass:v10 forKey:@"feedbackMetadata" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.ATXPushPullSessionContext" errorCode:-1 logHandle:v11];
 
     v12 = MEMORY[0x277D42620];
     v13 = objc_autoreleasePoolPush();
@@ -163,53 +186,53 @@ void __98__ATXSingleSuggestionSession_enumerateShownAndEngagedSessionStatusesAnd
     v15 = objc_opt_class();
     v16 = [v14 initWithObjects:{v15, objc_opt_class(), 0}];
     objc_autoreleasePoolPop(v13);
-    v17 = __atxlog_handle_metrics();
-    v18 = [v12 robustDecodeObjectOfClasses:v16 forKey:@"matchingSuggestionUUIDs" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXPushPullSessionContext" errorCode:-1 logHandle:v17];
+    v18 = __atxlog_handle_metrics(v17);
+    v19 = [v12 robustDecodeObjectOfClasses:v16 forKey:@"matchingSuggestionUUIDs" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXPushPullSessionContext" errorCode:-1 logHandle:v18];
 
-    if (v18)
+    if (v19)
     {
-      v19 = MEMORY[0x277D42620];
-      v20 = objc_autoreleasePoolPush();
-      v21 = objc_alloc(MEMORY[0x277CBEB98]);
-      v22 = objc_opt_class();
-      v23 = [v21 initWithObjects:{v22, objc_opt_class(), 0}];
-      objc_autoreleasePoolPop(v20);
-      v24 = __atxlog_handle_metrics();
-      v25 = [v19 robustDecodeObjectOfClasses:v23 forKey:@"blendingUUIDs" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXPushPullSessionContext" errorCode:-1 logHandle:v24];
+      v20 = MEMORY[0x277D42620];
+      v21 = objc_autoreleasePoolPush();
+      v22 = objc_alloc(MEMORY[0x277CBEB98]);
+      v23 = objc_opt_class();
+      v24 = [v22 initWithObjects:{v23, objc_opt_class(), 0}];
+      objc_autoreleasePoolPop(v21);
+      v26 = __atxlog_handle_metrics(v25);
+      v27 = [v20 robustDecodeObjectOfClasses:v24 forKey:@"blendingUUIDs" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXPushPullSessionContext" errorCode:-1 logHandle:v26];
 
-      if (v25)
+      if (v27)
       {
-        v26 = MEMORY[0x277D42620];
-        v27 = objc_autoreleasePoolPush();
-        v28 = objc_alloc(MEMORY[0x277CBEB98]);
-        v29 = objc_opt_class();
-        v30 = [v28 initWithObjects:{v29, objc_opt_class(), 0}];
-        objc_autoreleasePoolPop(v27);
-        v31 = __atxlog_handle_metrics();
-        v32 = [v26 robustDecodeObjectOfClasses:v30 forKey:@"clientUUIDs" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXPushPullSessionContext" errorCode:-1 logHandle:v31];
+        v28 = MEMORY[0x277D42620];
+        v29 = objc_autoreleasePoolPush();
+        v30 = objc_alloc(MEMORY[0x277CBEB98]);
+        v31 = objc_opt_class();
+        v32 = [v30 initWithObjects:{v31, objc_opt_class(), 0}];
+        objc_autoreleasePoolPop(v29);
+        v34 = __atxlog_handle_metrics(v33);
+        v35 = [v28 robustDecodeObjectOfClasses:v32 forKey:@"clientUUIDs" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXPushPullSessionContext" errorCode:-1 logHandle:v34];
 
-        if (v32)
+        if (v35)
         {
-          v48 = MEMORY[0x277D42620];
-          v33 = objc_autoreleasePoolPush();
-          v34 = objc_alloc(MEMORY[0x277CBEB98]);
-          v35 = objc_opt_class();
-          v36 = objc_opt_class();
-          v37 = [v34 initWithObjects:{v35, v36, objc_opt_class(), 0}];
-          objc_autoreleasePoolPop(v33);
-          v38 = __atxlog_handle_metrics();
-          v39 = [v48 robustDecodeObjectOfClasses:v37 forKey:@"sessionStatuses" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXPushPullSessionContext" errorCode:-1 logHandle:v38];
+          v52 = MEMORY[0x277D42620];
+          v36 = objc_autoreleasePoolPush();
+          v37 = objc_alloc(MEMORY[0x277CBEB98]);
+          v38 = objc_opt_class();
+          v39 = objc_opt_class();
+          v40 = [v37 initWithObjects:{v38, v39, objc_opt_class(), 0}];
+          objc_autoreleasePoolPop(v36);
+          v42 = __atxlog_handle_metrics(v41);
+          v43 = [v52 robustDecodeObjectOfClasses:v40 forKey:@"sessionStatuses" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXPushPullSessionContext" errorCode:-1 logHandle:v42];
 
-          if (v39)
+          if (v43)
           {
-            v40 = MEMORY[0x277D42620];
-            v41 = objc_opt_class();
-            v42 = __atxlog_handle_metrics();
-            v43 = [v40 robustDecodeObjectOfClass:v41 forKey:@"expirationDate" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.ATXPushPullSessionContext" errorCode:-1 logHandle:v42];
+            v44 = MEMORY[0x277D42620];
+            v45 = objc_opt_class();
+            v46 = __atxlog_handle_metrics(v45);
+            v47 = [v44 robustDecodeObjectOfClass:v45 forKey:@"expirationDate" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.ATXPushPullSessionContext" errorCode:-1 logHandle:v46];
 
-            LOBYTE(v47) = [coderCopy decodeBoolForKey:@"completed"];
-            v44 = v49;
-            self = [(ATXSingleSuggestionSession *)selfCopy initWithTrackedProactiveSuggestion:v8 feedbackMetadata:v49 matchingSuggestionUUIDs:v18 associatedBlendingCacheUUIDs:v25 associatedClientModelCacheUUIDs:v32 sessionContextStatuses:v39 sessionExpirationDate:v43 completed:v47];
+            LOBYTE(v51) = [coderCopy decodeBoolForKey:@"completed"];
+            v48 = v53;
+            self = [(ATXSingleSuggestionSession *)selfCopy initWithTrackedProactiveSuggestion:v8 feedbackMetadata:v53 matchingSuggestionUUIDs:v19 associatedBlendingCacheUUIDs:v27 associatedClientModelCacheUUIDs:v35 sessionContextStatuses:v43 sessionExpirationDate:v47 completed:v51];
 
             selfCopy2 = self;
           }
@@ -217,7 +240,7 @@ void __98__ATXSingleSuggestionSession_enumerateShownAndEngagedSessionStatusesAnd
           else
           {
             selfCopy2 = 0;
-            v44 = v49;
+            v48 = v53;
             self = selfCopy;
           }
         }
@@ -225,7 +248,7 @@ void __98__ATXSingleSuggestionSession_enumerateShownAndEngagedSessionStatusesAnd
         else
         {
           selfCopy2 = 0;
-          v44 = v49;
+          v48 = v53;
           self = selfCopy;
         }
       }
@@ -233,14 +256,14 @@ void __98__ATXSingleSuggestionSession_enumerateShownAndEngagedSessionStatusesAnd
       else
       {
         selfCopy2 = 0;
-        v44 = v49;
+        v48 = v53;
       }
     }
 
     else
     {
       selfCopy2 = 0;
-      v44 = v49;
+      v48 = v53;
     }
   }
 

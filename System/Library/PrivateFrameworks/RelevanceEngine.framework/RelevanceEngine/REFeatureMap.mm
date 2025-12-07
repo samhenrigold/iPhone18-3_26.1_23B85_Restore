@@ -378,7 +378,7 @@ void __44__REFeatureMap_enumerateFeaturesUsingBlock___block_invoke(uint64_t a1, 
   [(REFeatureMap *)self enumerateFeaturesUsingBlock:v6];
 }
 
-uint64_t __48__REFeatureMap_enumerateBoolFeaturesUsingBlock___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+uint64_t __48__REFeatureMap_enumerateBoolFeaturesUsingBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = v5;
@@ -584,7 +584,7 @@ void __29__REFeatureMap_loggingValues__block_invoke(uint64_t a1, void *a2, void 
 
 - (void)logAllValues
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = RELogForDomain(3);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
 
@@ -596,32 +596,32 @@ void __29__REFeatureMap_loggingValues__block_invoke(uint64_t a1, void *a2, void 
       [(REFeatureMap *)v5 logAllValues];
     }
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     loggingValues = [(REFeatureMap *)self loggingValues];
-    v7 = [loggingValues countByEnumeratingWithState:&v14 objects:v20 count:16];
+    v7 = [loggingValues countByEnumeratingWithState:&v13 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(loggingValues);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * v10);
+          v11 = *(*(&v13 + 1) + 8 * v10);
           v12 = RELogForDomain(3);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v19 = v11;
+            v18 = v11;
             _os_log_debug_impl(&dword_22859F000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
@@ -629,14 +629,12 @@ void __29__REFeatureMap_loggingValues__block_invoke(uint64_t a1, void *a2, void 
         }
 
         while (v8 != v10);
-        v8 = [loggingValues countByEnumeratingWithState:&v14 objects:v20 count:16];
+        v8 = [loggingValues countByEnumeratingWithState:&v13 objects:v19 count:16];
       }
 
       while (v8);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)featureNames
@@ -662,34 +660,34 @@ uint64_t __47__REFeatureMap_REFeatureProvider__featureNames__block_invoke()
 
 - (id)featureValueForName:(id)name
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   if ([name isEqualToString:@"RootFeature"])
   {
     v4 = objc_alloc(MEMORY[0x277CBFF48]);
     v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[REFeatureMap featureCount](self, "featureCount")}];
-    v19[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-    v18 = 0;
-    v7 = [v4 initWithShape:v6 dataType:131104 error:&v18];
-    v8 = v18;
+    v18[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17 = 0;
+    v7 = [v4 initWithShape:v6 dataType:131104 error:&v17];
+    v8 = v17;
 
     if (v7)
     {
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __55__REFeatureMap_REFeatureProvider__featureValueForName___block_invoke;
-      v16[3] = &unk_2785F9D28;
-      v17 = v7;
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __55__REFeatureMap_REFeatureProvider__featureValueForName___block_invoke_2;
-      v14[3] = &unk_2785F9D50;
-      v9 = v17;
-      v15 = v9;
-      [(REFeatureMap *)self enumerateInt64FeaturesUsingIndexedBlock:v16 emptyFeatureBlock:v14];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __55__REFeatureMap_REFeatureProvider__featureValueForName___block_invoke;
+      v15[3] = &unk_2785F9D28;
+      v16 = v7;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __55__REFeatureMap_REFeatureProvider__featureValueForName___block_invoke_2;
+      v13[3] = &unk_2785F9D50;
+      v9 = v16;
+      v14 = v9;
+      [(REFeatureMap *)self enumerateInt64FeaturesUsingIndexedBlock:v15 emptyFeatureBlock:v13];
       v10 = [MEMORY[0x277CBFEF8] featureValueWithMultiArray:v9];
 
-      v11 = v17;
+      v11 = v16;
     }
 
     else
@@ -708,8 +706,6 @@ uint64_t __47__REFeatureMap_REFeatureProvider__featureNames__block_invoke()
   {
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

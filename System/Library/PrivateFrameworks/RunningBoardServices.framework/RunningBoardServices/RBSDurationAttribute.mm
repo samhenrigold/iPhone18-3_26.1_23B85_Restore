@@ -2,7 +2,7 @@
 + (id)attributeWithDuration:(double)duration warningDuration:(double)warningDuration startPolicy:(unint64_t)policy endPolicy:(unint64_t)endPolicy;
 - (BOOL)isEqual:(id)equal;
 - (RBSDurationAttribute)initWithRBSXPCCoder:(id)coder;
-- (id)_initWithInvalidationDuration:(unint64_t)duration warningDuration:(double)warningDuration startPolicy:(double)policy endPolicy:;
+- (double)_initWithInvalidationDuration:(unint64_t)duration warningDuration:(double)warningDuration startPolicy:(double)policy endPolicy:;
 - (id)description;
 - (unint64_t)hash;
 - (void)encodeWithRBSXPCCoder:(id)coder;
@@ -84,7 +84,7 @@
   return v5;
 }
 
-- (id)_initWithInvalidationDuration:(unint64_t)duration warningDuration:(double)warningDuration startPolicy:(double)policy endPolicy:
+- (double)_initWithInvalidationDuration:(unint64_t)duration warningDuration:(double)warningDuration startPolicy:(double)policy endPolicy:
 {
   if (result)
   {
@@ -122,8 +122,8 @@
     result = objc_msgSendSuper2(&v19, sel__init);
     if (result)
     {
-      *(result + 1) = warningDuration;
-      *(result + 2) = policy;
+      result[1] = warningDuration;
+      result[2] = policy;
       *(result + 3) = a2;
       *(result + 4) = duration;
     }

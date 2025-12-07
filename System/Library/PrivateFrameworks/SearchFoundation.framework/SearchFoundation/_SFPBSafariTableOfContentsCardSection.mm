@@ -16,7 +16,7 @@
 
 - (_SFPBSafariTableOfContentsCardSection)initWithFacade:(id)facade
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBSafariTableOfContentsCardSection *)self init];
   if (v5)
@@ -42,33 +42,33 @@
       v7 = 0;
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     tableOfContentsItems2 = [facadeCopy tableOfContentsItems];
-    v9 = [tableOfContentsItems2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [tableOfContentsItems2 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(tableOfContentsItems2);
           }
 
-          v13 = [[_SFPBSafariTableOfContentsItem alloc] initWithFacade:*(*(&v19 + 1) + 8 * i)];
+          v13 = [[_SFPBSafariTableOfContentsItem alloc] initWithFacade:*(*(&v18 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [tableOfContentsItems2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [tableOfContentsItems2 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -86,17 +86,16 @@
     v16 = v5;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBSafariTableOfContentsCardSection)initWithDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v27.receiver = self;
-  v27.super_class = _SFPBSafariTableOfContentsCardSection;
-  v5 = [(_SFPBSafariTableOfContentsCardSection *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = _SFPBSafariTableOfContentsCardSection;
+  v5 = [(_SFPBSafariTableOfContentsCardSection *)&v26 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"tableOfContentsType"];
@@ -117,29 +116,29 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v21 = v7;
-      v22 = v6;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
+      v20 = v7;
+      v21 = v6;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v24;
+        v12 = *v23;
         do
         {
           v13 = 0;
           do
           {
-            if (*v24 != v12)
+            if (*v23 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v23 + 1) + 8 * v13);
+            v14 = *(*(&v22 + 1) + 8 * v13);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -151,17 +150,17 @@
           }
 
           while (v11 != v13);
-          v11 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
         }
 
         while (v11);
       }
 
-      v7 = v21;
-      v6 = v22;
+      v7 = v20;
+      v6 = v21;
     }
 
-    v16 = [dictionaryCopy objectForKeyedSubscript:{@"algorithmVersion", v21, v22, v23}];
+    v16 = [dictionaryCopy objectForKeyedSubscript:{@"algorithmVersion", v20, v21, v22}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -172,7 +171,6 @@
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -212,7 +210,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_algorithmVersion)
   {
@@ -224,26 +222,26 @@
   if ([(NSArray *)self->_tableOfContentsItems count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v7 = self->_tableOfContentsItems;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v21;
+      v10 = *v20;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v20 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -256,7 +254,7 @@
           }
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v9);
@@ -296,8 +294,6 @@
 
     [dictionary setObject:v17 forKeyedSubscript:@"tableOfContentsType"];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -392,7 +388,7 @@ LABEL_15:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_SFPBSafariTableOfContentsCardSection *)self tableOfContentsType])
   {
@@ -405,32 +401,31 @@ LABEL_15:
   }
 
   tableOfContentsItems = [(_SFPBSafariTableOfContentsCardSection *)self tableOfContentsItems];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v6 = [tableOfContentsItems countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [tableOfContentsItems countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(tableOfContentsItems);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [tableOfContentsItems countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [tableOfContentsItems countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -441,15 +436,11 @@ LABEL_15:
   {
     PBDataWriterWriteStringField();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAlgorithmVersion:(id)version
 {
-  v4 = [version copy];
-  algorithmVersion = self->_algorithmVersion;
-  self->_algorithmVersion = v4;
+  self->_algorithmVersion = [version copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -474,9 +465,7 @@ LABEL_15:
 
 - (void)setTableOfContentsItems:(id)items
 {
-  v4 = [items copy];
-  tableOfContentsItems = self->_tableOfContentsItems;
-  self->_tableOfContentsItems = v4;
+  self->_tableOfContentsItems = [items copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -84,7 +84,7 @@
   [submitProcessLaunchInfoTimer suspend];
 
   homeManager = [(HMDLogEventProcessLaunchAnalyzer *)self homeManager];
-  v12 = homeManager;
+  v11 = homeManager;
   if (homeManager)
   {
     areThereAnyTTSUSessionsOngoing = [homeManager areThereAnyTTSUSessionsOngoing];
@@ -96,12 +96,11 @@
   }
 
   v7 = [HMDProcessLaunchInfoLogEvent alloc];
-  numUncommittedRecords = self->_numUncommittedRecords;
-  BYTE1(v11) = areThereAnyTTSUSessionsOngoing;
-  LOBYTE(v11) = self->_configurationLoaded;
-  v9 = [(HMDProcessLaunchInfoLogEvent *)v7 initWithSubmissionState:self->_launchInfoSubmissionState dataSyncState:self->_dataSyncStateAsString timeIntervalSincePreviousProcessLaunch:self->_homeDataLoadedMilliseconds millisecondsToHomeDataLoad:self->_xpcMessageTransportReadyMilliseconds millisecondsToXPCMessageTransportReady:self->_millisecondsSinceLaunchToDataSyncStateGood millisecondsSinceLaunchToDataSyncStateGood:self->_accountResolvedMilliseconds millisecondsToAccountResolved:self->_timeIntervalSincePreviousProcessLaunch numUncommittedRecords:numUncommittedRecords numUncommittedAndPushedRecords:self->_numUncommittedAndPushedRecords processExitType:self->_processExitType processExitReason:self->_processExitReason isConfigurationLoaded:v11 isTTSUInProgress:?];
+  BYTE1(v10) = areThereAnyTTSUSessionsOngoing;
+  LOBYTE(v10) = self->_configurationLoaded;
+  v8 = [(HMDProcessLaunchInfoLogEvent *)v7 initWithSubmissionState:self->_launchInfoSubmissionState dataSyncState:self->_dataSyncStateAsString timeIntervalSincePreviousProcessLaunch:self->_homeDataLoadedMilliseconds millisecondsToHomeDataLoad:self->_xpcMessageTransportReadyMilliseconds millisecondsToXPCMessageTransportReady:self->_millisecondsSinceLaunchToDataSyncStateGood millisecondsSinceLaunchToDataSyncStateGood:self->_accountResolvedMilliseconds millisecondsToAccountResolved:self->_timeIntervalSincePreviousProcessLaunch numUncommittedRecords:self->_numUncommittedRecords numUncommittedAndPushedRecords:self->_numUncommittedAndPushedRecords processExitType:self->_processExitType processExitReason:self->_processExitReason isConfigurationLoaded:v10 isTTSUInProgress:?];
   logEventSubmitter = [(HMDLogEventProcessLaunchAnalyzer *)self logEventSubmitter];
-  [logEventSubmitter submitLogEvent:v9];
+  [logEventSubmitter submitLogEvent:v8];
 }
 
 - (BOOL)isIdleExitJetsamForExitContext:(id)context
@@ -123,7 +122,7 @@
 - (void)handleExitContextForHomed:(id)homed firstLaunchAfterBoot:(BOOL)boot
 {
   bootCopy = boot;
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   homedCopy = homed;
   logEventQueue = [(HMDLogEventProcessLaunchAnalyzer *)self logEventQueue];
   dispatch_assert_queue_V2(logEventQueue);
@@ -142,7 +141,7 @@
 
     v13 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v56 = v13;
+    v55 = v13;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Last exit context: first launch after reboot", buf, 0xCu);
     goto LABEL_21;
   }
@@ -190,7 +189,7 @@
     v13 = HMFGetLogIdentifier();
     type = [homedCopy type];
     [homedCopy timestamp];
-    v16 = v54 = homedCopy;
+    v16 = v53 = homedCopy;
     v17 = &stru_283CF9D50;
     if (!v9)
     {
@@ -201,27 +200,27 @@
     v19 = v14;
     code = [v9 code];
     [v9 error];
-    v21 = v53 = v10;
+    v21 = v52 = v10;
     *buf = 138545154;
-    v56 = v13;
-    v57 = 2048;
-    v58 = type;
-    v59 = 2114;
-    v60 = v16;
-    v61 = 2114;
-    v62 = v51;
-    v63 = 1024;
-    v64 = domain;
-    v65 = 2048;
-    v66 = code;
-    v67 = 2114;
-    v68 = v19;
-    v69 = 2112;
-    v70 = v21;
+    v55 = v13;
+    v56 = 2048;
+    v57 = type;
+    v58 = 2114;
+    v59 = v16;
+    v60 = 2114;
+    v61 = v50;
+    v62 = 1024;
+    v63 = domain;
+    v64 = 2048;
+    v65 = code;
+    v66 = 2114;
+    v67 = v19;
+    v68 = 2112;
+    v69 = v21;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Last exit context: type = %ld, timestamp = %{public}@,%{public}@ domain = %d, code = %ld, flag = %{public}@, error = %@", buf, 0x4Eu);
 
-    v10 = v53;
-    homedCopy = v54;
+    v10 = v52;
+    homedCopy = v53;
 LABEL_21:
   }
 
@@ -268,12 +267,12 @@ LABEL_22:
 
           error = [v9 error];
           userInfo = [error userInfo];
-          v48 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA470]];
+          v47 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA470]];
           processExitReason = self->_processExitReason;
-          self->_processExitReason = v48;
+          self->_processExitReason = v47;
 
-          v50 = [[HMDProcessExitInfoLogEvent alloc] initWithExitType:self->_processExitType reason:self->_processExitReason];
-          [logEventSubmitter submitLogEvent:v50];
+          v49 = [[HMDProcessExitInfoLogEvent alloc] initWithExitType:self->_processExitType reason:self->_processExitReason];
+          [logEventSubmitter submitLogEvent:v49];
 
           eventCountersManager3 = [(HMDLogEventProcessLaunchAnalyzer *)self eventCountersManager];
           v24 = eventCountersManager3;
@@ -281,17 +280,17 @@ LABEL_22:
           goto LABEL_31;
         }
 
-        v37 = self->_processExitType;
+        v36 = self->_processExitType;
         self->_processExitType = @"Jetsam";
 
         error2 = [v9 error];
         userInfo2 = [error2 userInfo];
-        v40 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x277CCA470]];
-        v41 = self->_processExitReason;
-        self->_processExitReason = v40;
+        v39 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x277CCA470]];
+        v40 = self->_processExitReason;
+        self->_processExitReason = v39;
 
-        v42 = [[HMDProcessExitInfoLogEvent alloc] initWithExitType:self->_processExitType reason:self->_processExitReason];
-        [logEventSubmitter submitLogEvent:v42];
+        v41 = [[HMDProcessExitInfoLogEvent alloc] initWithExitType:self->_processExitType reason:self->_processExitReason];
+        [logEventSubmitter submitLogEvent:v41];
 
         eventCountersManager4 = [(HMDLogEventProcessLaunchAnalyzer *)self eventCountersManager];
         [eventCountersManager4 incrementEventCounterForEventName:@"HMDLogEventProcessLaunchAnalyzerProcessJetsamCountEventCounter" requestGroup:@"HMDLogEventProcessLaunchAnalyzerRequestGroup"];
@@ -362,8 +361,6 @@ LABEL_32:
 
   eventCountersManager5 = [(HMDLogEventProcessLaunchAnalyzer *)self eventCountersManager];
   [eventCountersManager5 forceSave];
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateProcessLaunchInfoFromDisk
@@ -667,14 +664,14 @@ uint64_t __79__HMDLogEventProcessLaunchAnalyzer_homeKitConfigurationChangedWithH
 
 - (HMDLogEventProcessLaunchAnalyzer)initWithProcessLaunchInfoTimer:(id)timer dataSource:(id)source preferencesDebugManager:(id)manager lastExitContextBlock:(id)block
 {
-  v38[6] = *MEMORY[0x277D85DE8];
+  v37[6] = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   sourceCopy = source;
   managerCopy = manager;
   blockCopy = block;
-  v37.receiver = self;
-  v37.super_class = HMDLogEventProcessLaunchAnalyzer;
-  v15 = [(HMDLogEventProcessLaunchAnalyzer *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = HMDLogEventProcessLaunchAnalyzer;
+  v15 = [(HMDLogEventProcessLaunchAnalyzer *)&v36 init];
   v16 = v15;
   if (v15)
   {
@@ -704,13 +701,13 @@ uint64_t __79__HMDLogEventProcessLaunchAnalyzer_homeKitConfigurationChangedWithH
     [(HMFTimer *)v16->_submitProcessLaunchInfoTimer setDelegateQueue:v16->_logEventQueue];
     [(HMFTimer *)v16->_submitProcessLaunchInfoTimer setDelegate:v16];
     logEventDispatcher2 = [sourceCopy logEventDispatcher];
-    v38[0] = objc_opt_class();
-    v38[1] = objc_opt_class();
-    v38[2] = objc_opt_class();
-    v38[3] = objc_opt_class();
-    v38[4] = objc_opt_class();
-    v38[5] = objc_opt_class();
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:6];
+    v37[0] = objc_opt_class();
+    v37[1] = objc_opt_class();
+    v37[2] = objc_opt_class();
+    v37[3] = objc_opt_class();
+    v37[4] = objc_opt_class();
+    v37[5] = objc_opt_class();
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:6];
     [logEventDispatcher2 addObserver:v16 forEventClasses:v28];
 
     [sourceCopy addThresholdTrigger:@"homedExitCount" forEventName:@"processExit" requestGroup:@"HMDLogEventProcessLaunchAnalyzerRequestGroup" atThreshold:10];
@@ -727,7 +724,6 @@ uint64_t __79__HMDLogEventProcessLaunchAnalyzer_homeKitConfigurationChangedWithH
     }
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -753,18 +749,16 @@ id __102__HMDLogEventProcessLaunchAnalyzer_initWithProcessLaunchInfoTimer_dataSo
 
 void __47__HMDLogEventProcessLaunchAnalyzer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v8_195844;
-  logCategory__hmf_once_v8_195844 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_195844;
+  logCategory__hmf_once_v8_195844 = v0;
 }
 
 + (id)managedEventCounterRequestGroups
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"HMDLogEventProcessLaunchAnalyzerRequestGroup";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"HMDLogEventProcessLaunchAnalyzerRequestGroup";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

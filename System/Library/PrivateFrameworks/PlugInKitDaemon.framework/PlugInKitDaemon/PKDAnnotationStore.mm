@@ -198,32 +198,23 @@ LABEL_29:
       {
         identifier = [inCopy identifier];
         version = [inCopy version];
-        if ([annotations4 integerValue] == &dword_0 + 1)
-        {
-          v18 = 2;
-        }
-
-        else
-        {
-          v18 = 3;
-        }
-
-        pkdMessageTraceStateChange(identifier, version, v15, v18);
+        [annotations4 integerValue];
+        pkdMessageTraceStateChange();
       }
     }
 
     annotations2 = [(PKDAnnotationStore *)self annotations];
-    v20 = [annotations2 objectForKeyedSubscript:annotationKey];
-    v21 = [v20 mutableCopy];
+    v19 = [annotations2 objectForKeyedSubscript:annotationKey];
+    v20 = [v19 mutableCopy];
 
-    if (!v21)
+    if (!v20)
     {
-      v21 = objc_opt_new();
+      v20 = objc_opt_new();
     }
 
-    [v21 addEntriesFromDictionary:annotationCopy];
+    [v20 addEntriesFromDictionary:annotationCopy];
     annotations3 = [(PKDAnnotationStore *)self annotations];
-    [annotations3 setObject:v21 forKeyedSubscript:annotationKey];
+    [annotations3 setObject:v20 forKeyedSubscript:annotationKey];
   }
 
   else
@@ -232,20 +223,20 @@ LABEL_29:
     [annotations4 removeObjectForKey:annotationKey];
   }
 
-  v23 = objc_autoreleasePoolPush();
-  v27 = 0;
-  v24 = [(PKDAnnotationStore *)self saveDb:&v27];
-  v25 = v27;
-  if ((v24 & 1) == 0)
+  v22 = objc_autoreleasePoolPush();
+  v26 = 0;
+  v23 = [(PKDAnnotationStore *)self saveDb:&v26];
+  v24 = v26;
+  if ((v23 & 1) == 0)
   {
-    v26 = pklog_handle_for_category();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = pklog_handle_for_category();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       [PKDAnnotationStore setAnnotation:forPlugIn:];
     }
   }
 
-  objc_autoreleasePoolPop(v23);
+  objc_autoreleasePoolPop(v22);
 }
 
 - (BOOL)loadDb:(id)db error:(id *)error
@@ -309,25 +300,18 @@ LABEL_10:
   v6 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   v7 = [NSPropertyListSerialization dataWithPropertyList:v6 format:100 options:0 error:db];
-  if (!v7)
+  v12 = 0;
+  if (v7)
   {
-    goto LABEL_4;
-  }
+    external = [(PKDAnnotationStore *)self external];
+    filesystem = [external filesystem];
+    annotationsURL = [(PKDAnnotationStore *)self annotationsURL];
+    v11 = [filesystem writeToURL:annotationsURL withData:v7 options:268435457 error:db];
 
-  external = [(PKDAnnotationStore *)self external];
-  filesystem = [external filesystem];
-  annotationsURL = [(PKDAnnotationStore *)self annotationsURL];
-  v11 = [filesystem writeToURL:annotationsURL withData:v7 options:268435457 error:db];
-
-  if (v11)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_4:
-    v12 = 0;
+    if (v11)
+    {
+      v12 = 1;
+    }
   }
 
   return v12;
@@ -438,7 +422,7 @@ LABEL_4:
   OUTLINED_FUNCTION_2();
   v1 = [v0 annotationsURL];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_0, v2, v3, "unable to load annotation database at [%{public}@] error: %{public}@ (resetting)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1(&dword_0, v2, v3, "unable to load annotation database at [%{public}@] error: %{public}@ (resetting)", v4, v5, v6, v7);
 }
 
 - (void)initWithDatabase:externalProviders:.cold.2()
@@ -446,7 +430,7 @@ LABEL_4:
   OUTLINED_FUNCTION_2();
   v1 = [v0 annotationsURL];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_0, v2, v3, "unable to save migrated annotations to [%{public}@] error: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1(&dword_0, v2, v3, "unable to save migrated annotations to [%{public}@] error: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)initWithDatabase:externalProviders:.cold.3()
@@ -454,7 +438,7 @@ LABEL_4:
   OUTLINED_FUNCTION_2();
   v1 = [v0 annotationsURL];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_0, v2, v3, "unable to save migrated annotations to %{public}@ error:%{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1(&dword_0, v2, v3, "unable to save migrated annotations to %{public}@ error:%{public}@", v4, v5, v6, v7);
 }
 
 - (void)setAnnotation:forPlugIn:.cold.1()
@@ -462,7 +446,7 @@ LABEL_4:
   OUTLINED_FUNCTION_2();
   v1 = [v0 annotationsURL];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_0, v2, v3, "unable to save annotations to [%{public}@] error: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1(&dword_0, v2, v3, "unable to save annotations to [%{public}@] error: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)defaultDatabaseURL

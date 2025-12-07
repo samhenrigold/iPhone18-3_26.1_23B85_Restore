@@ -12,11 +12,11 @@
 
 - (DVTQueueBasedTimer)initWithInterval:(double)interval qos:(unsigned int)qos block:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v17.receiver = self;
-  v17.super_class = DVTQueueBasedTimer;
-  v9 = [(DVTQueueBasedTimer *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = DVTQueueBasedTimer;
+  v9 = [(DVTQueueBasedTimer *)&v16 init];
   if (v9)
   {
     snprintf(__str, 0x80uLL, "com.apple.instruments.kperf.timer.%llu", atomic_fetch_add(&qword_27EE84400, 1uLL));
@@ -33,7 +33,6 @@
     atomic_store(0, v9 + 10);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

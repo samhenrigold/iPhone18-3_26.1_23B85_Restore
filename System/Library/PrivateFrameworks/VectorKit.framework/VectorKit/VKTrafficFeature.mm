@@ -997,7 +997,7 @@ LABEL_174:
   v3 = selfCopy;
   if (selfCopy)
   {
-    [(VKTrafficFeature *)selfCopy attributes];
+    objc_msgSend_attributes(selfCopy);
   }
 
   else
@@ -1328,11 +1328,11 @@ LABEL_174:
       v24 = 0x7FEFFFFFFFFFFFFFLL;
     }
 
-    position = [noticeCopy position];
-    [position lat];
+    v25 = objc_msgSend_position(noticeCopy);
+    [v25 lat];
     v27 = v26;
-    position2 = [noticeCopy position];
-    [position2 lng];
+    v28 = objc_msgSend_position(noticeCopy);
+    [v28 lng];
     v8->_position.latitude = v27;
     v8->_position.longitude = v29;
     *&v8->_position.altitude = v24;

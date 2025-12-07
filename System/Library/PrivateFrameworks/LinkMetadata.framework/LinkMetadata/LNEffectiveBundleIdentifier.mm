@@ -163,7 +163,7 @@ LABEL_17:
 
 LNBundleMetadata *__71__LNEffectiveBundleIdentifier_StaticExtraction__bundleMetadataForURLs___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [(__CFString *)v3 path];
   v5 = [MEMORY[0x1E696AC08] defaultManager];
@@ -176,9 +176,9 @@ LNBundleMetadata *__71__LNEffectiveBundleIdentifier_StaticExtraction__bundleMeta
     {
       v8 = [LNBundleMetadata alloc];
       v9 = *(a1 + 32);
-      v19 = 0;
-      v10 = [(LNBundleMetadata *)v8 initWithBundle:v7 usingEffectiveBundleIdentifier:v9 error:&v19];
-      v11 = v19;
+      v18 = 0;
+      v10 = [(LNBundleMetadata *)v8 initWithBundle:v7 usingEffectiveBundleIdentifier:v9 error:&v18];
+      v11 = v18;
       if (v10)
       {
         v12 = v10;
@@ -198,9 +198,9 @@ LNBundleMetadata *__71__LNEffectiveBundleIdentifier_StaticExtraction__bundleMeta
           }
 
           *buf = 138543618;
-          v21 = v16;
-          v22 = 2114;
-          v23 = v3;
+          v20 = v16;
+          v21 = 2114;
+          v22 = v3;
         }
       }
     }
@@ -211,7 +211,7 @@ LNBundleMetadata *__71__LNEffectiveBundleIdentifier_StaticExtraction__bundleMeta
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v21 = v3;
+        v20 = v3;
         _os_log_impl(&dword_18EF7E000, v11, OS_LOG_TYPE_ERROR, "Unable to create bundle with URL '%{public}@'", buf, 0xCu);
       }
 
@@ -225,14 +225,12 @@ LNBundleMetadata *__71__LNEffectiveBundleIdentifier_StaticExtraction__bundleMeta
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v4;
+      v20 = v4;
       _os_log_impl(&dword_18EF7E000, v7, OS_LOG_TYPE_ERROR, "'%{public}@' is not readable or doesn't exist", buf, 0xCu);
     }
 
     v10 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

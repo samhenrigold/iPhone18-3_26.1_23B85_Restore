@@ -84,7 +84,6 @@
   objc_storeStrong(&v22, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -239,7 +238,6 @@
   v3 = MEMORY[0x277D82BE0](v33[0]);
   v29 = 1;
   objc_storeStrong(v33, 0);
-  *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -300,20 +298,7 @@
           }
 
           MEMORY[0x277D82BD8](nativePostprocessingOperations);
-          if (!v16)
-          {
-            goto LABEL_36;
-          }
-
-          v13 = selfCopy;
-          v12 = v32;
-          nativePostprocessingOperations2 = [v33 nativePostprocessingOperations];
-          v7 = [AMDOutputBuilder postProcessInferenceOutput:v13 withOperations:"postProcessInferenceOutput:withOperations:error:" error:v12];
-          v8 = v32;
-          v32 = v7;
-          MEMORY[0x277D82BD8](v8);
-          MEMORY[0x277D82BD8](nativePostprocessingOperations2);
-          if (*errorCopy)
+          if (v16 && (v13 = selfCopy, v12 = v32, v14 = [v33 nativePostprocessingOperations], v7 = -[AMDOutputBuilder postProcessInferenceOutput:withOperations:error:](v13, "postProcessInferenceOutput:withOperations:error:", v12), v8 = v32, v32 = v7, MEMORY[0x277D82BD8](v8), MEMORY[0x277D82BD8](v14), *errorCopy))
           {
             v45 = 0;
             v37 = 1;
@@ -321,7 +306,6 @@
 
           else
           {
-LABEL_36:
             if (v32 && !*errorCopy)
             {
               [v36 setObject:v32 forKey:v35];
@@ -403,7 +387,6 @@ LABEL_21:
   objc_storeStrong(&v39, 0);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v45;
 
   return v9;
@@ -619,7 +602,6 @@ LABEL_34:
 
   objc_storeStrong(&v47, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v10 = v49;
 
   return v10;
@@ -740,7 +722,6 @@ LABEL_17:
   objc_storeStrong(&v29, 0);
   objc_storeStrong(&v31, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v33;
 
   return v6;
@@ -1108,7 +1089,6 @@ LABEL_17:
   objc_storeStrong(&v49, 0);
   objc_storeStrong(&v50, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v16 = v54;
 
   return v16;
@@ -1261,7 +1241,6 @@ LABEL_14:
   objc_storeStrong(v48, 0);
   objc_storeStrong(&v49, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1491,7 +1470,6 @@ LABEL_20:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v5 = v30;
 
   return v5;

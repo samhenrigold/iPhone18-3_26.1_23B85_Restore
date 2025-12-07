@@ -7,7 +7,7 @@
 
 - (uint64_t)isValidForContext:()RBProcessState withError:
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   v6 = a3;
   if ([v6 targetIsSystem])
   {
@@ -20,13 +20,13 @@
     v7 = MEMORY[0x277CCA9B8];
     v8 = *MEMORY[0x277D47050];
     v9 = *MEMORY[0x277CCA470];
-    v25[0] = @"endowment grants cannot target the system";
+    v24[0] = @"endowment grants cannot target the system";
     v10 = *MEMORY[0x277D47048];
-    v24[0] = v9;
-    v24[1] = v10;
+    v23[0] = v9;
+    v23[1] = v10;
     originatorEntitlements = [self description];
-    v25[1] = originatorEntitlements;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v24[1] = originatorEntitlements;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
     [v7 errorWithDomain:v8 code:2 userInfo:v12];
     *a4 = v13 = 0;
   }
@@ -44,20 +44,19 @@
     v15 = MEMORY[0x277CCA9B8];
     v16 = *MEMORY[0x277D47050];
     v17 = *MEMORY[0x277CCA470];
-    v23[0] = @"Required client entitlement is missing";
+    v22[0] = @"Required client entitlement is missing";
     v18 = *MEMORY[0x277D47048];
-    v22[0] = v17;
-    v22[1] = v18;
+    v21[0] = v17;
+    v21[1] = v18;
     v12 = [self description];
-    v23[1] = v12;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v22[1] = v12;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
     *a4 = [v15 errorWithDomain:v16 code:2 userInfo:v19];
   }
 
 LABEL_8:
 LABEL_9:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

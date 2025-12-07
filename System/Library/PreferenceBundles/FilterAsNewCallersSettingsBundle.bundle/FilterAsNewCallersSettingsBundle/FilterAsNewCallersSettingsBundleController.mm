@@ -46,13 +46,13 @@
 
 - (id)specifiersWithSpecifier:(id)specifier
 {
-  v4 = PHDefaultLog();
+  v4 = PHDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     currentControllerSpecifierIdentifier = [(FilterAsNewCallersSettingsBundleController *)self currentControllerSpecifierIdentifier];
-    v13 = 138412290;
-    v14 = currentControllerSpecifierIdentifier;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Loading settings page for app %@", &v13, 0xCu);
+    v14 = 138412290;
+    v15 = currentControllerSpecifierIdentifier;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Loading settings page for app %@", &v14, 0xCu);
   }
 
   v6 = +[NSMutableArray array];
@@ -63,11 +63,11 @@
 
     if (!activeSpecifier)
     {
-      v9 = PHDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = PHDefaultLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v13) = 0;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "User device meets FF criteria, adding Filter as New Callers switch to Settings", &v13, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "User device meets FF criteria, adding Filter as New Callers switch to Settings", &v14, 2u);
       }
 
       createFilterAsNewCallersSpecifier = [(FilterAsNewCallersSettingsBundleController *)self createFilterAsNewCallersSpecifier];
@@ -84,18 +84,18 @@
   {
   }
 
-  createFilterAsNewCallersSpecifier = PHDefaultLog();
+  createFilterAsNewCallersSpecifier = PHDefaultLog(v9);
   if (os_log_type_enabled(createFilterAsNewCallersSpecifier, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&dword_0, createFilterAsNewCallersSpecifier, OS_LOG_TYPE_DEFAULT, "User device does not meet FF criteria or switch has already been added, so we are not adding Filter as New Callers switch to Settings", &v13, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&dword_0, createFilterAsNewCallersSpecifier, OS_LOG_TYPE_DEFAULT, "User device does not meet FF criteria or switch has already been added, so we are not adding Filter as New Callers switch to Settings", &v14, 2u);
   }
 
 LABEL_12:
 
-  v11 = [v6 copy];
+  v12 = [v6 copy];
 
-  return v11;
+  return v12;
 }
 
 - (id)createFilterAsNewCallersSpecifier
@@ -138,7 +138,7 @@ LABEL_12:
 - (void)setFilterAsNewCallersEnabled:(id)enabled specifier:(id)specifier
 {
   enabledCopy = enabled;
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(enabledCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     currentControllerSpecifierIdentifier = [(FilterAsNewCallersSettingsBundleController *)self currentControllerSpecifierIdentifier];

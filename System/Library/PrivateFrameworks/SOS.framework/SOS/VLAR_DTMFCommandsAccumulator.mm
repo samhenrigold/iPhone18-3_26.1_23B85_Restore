@@ -152,30 +152,30 @@ LABEL_13:
 
 - (id)analyticsDataDict
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   reportedCommands = [(VLAR_DTMFCommandsAccumulator *)self reportedCommands];
-  v24 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(reportedCommands, "count")}];
+  v23 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(reportedCommands, "count")}];
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(&unk_2875D2C98, "count") * objc_msgSend(reportedCommands, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = reportedCommands;
-  v5 = [obj countByEnumeratingWithState:&v29 objects:v36 count:16];
+  v5 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
   if (v5)
   {
     v6 = v5;
-    v23 = *v30;
+    v22 = *v29;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v23)
+        if (*v29 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        unsignedIntegerValue = [*(*(&v29 + 1) + 8 * i) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v28 + 1) + 8 * i) unsignedIntegerValue];
         v9 = unsignedIntegerValue;
         if (unsignedIntegerValue <= 199)
         {
@@ -210,55 +210,53 @@ LABEL_13:
 
         v10 = @"Unknown";
 LABEL_17:
-        [v24 addObject:v10];
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
+        [v23 addObject:v10];
         v26 = 0u;
-        v11 = [&unk_2875D2C98 countByEnumeratingWithState:&v25 objects:v35 count:16];
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
+        v11 = [&unk_2875D2C98 countByEnumeratingWithState:&v24 objects:v34 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v26;
+          v13 = *v25;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v26 != v13)
+              if (*v25 != v13)
               {
                 objc_enumerationMutation(&unk_2875D2C98);
               }
 
-              v15 = -[VLAR_DTMFCommandsAccumulator _stringFromDTMFCommand:withPlaybackState:](self, "_stringFromDTMFCommand:withPlaybackState:", v9, [*(*(&v25 + 1) + 8 * j) unsignedIntegerValue]);
+              v15 = -[VLAR_DTMFCommandsAccumulator _stringFromDTMFCommand:withPlaybackState:](self, "_stringFromDTMFCommand:withPlaybackState:", v9, [*(*(&v24 + 1) + 8 * j) unsignedIntegerValue]);
               [v4 addObject:v15];
             }
 
-            v12 = [&unk_2875D2C98 countByEnumeratingWithState:&v25 objects:v35 count:16];
+            v12 = [&unk_2875D2C98 countByEnumeratingWithState:&v24 objects:v34 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v29 objects:v36 count:16];
+      v6 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
     }
 
     while (v6);
   }
 
-  v33[0] = @"AllEventsKey";
-  v33[1] = @"KnownEventsKey";
-  v34[0] = @"nDTMFCommands_Total";
-  v34[1] = @"nDTMFCommands_Known";
-  v33[2] = @"UnknownEventsKey";
-  v34[2] = @"nDTMFCommands_Unknown";
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:3];
-  v17 = [(SOSAnalyticsEventAccumulator *)self->_commandsAccumulator analyticsDataDictForAccumulatedKeys:v24 outputKeyPrefix:@"nDTMFCommand_" summaryKeysDict:0];
+  v32[0] = @"AllEventsKey";
+  v32[1] = @"KnownEventsKey";
+  v33[0] = @"nDTMFCommands_Total";
+  v33[1] = @"nDTMFCommands_Known";
+  v32[2] = @"UnknownEventsKey";
+  v33[2] = @"nDTMFCommands_Unknown";
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
+  v17 = [(SOSAnalyticsEventAccumulator *)self->_commandsAccumulator analyticsDataDictForAccumulatedKeys:v23 outputKeyPrefix:@"nDTMFCommand_" summaryKeysDict:0];
   v18 = [(SOSAnalyticsEventAccumulator *)self->_commandsWithPlaybackStateAccumulator analyticsDataDictForAccumulatedKeys:v4 outputKeyPrefix:@"nDTMFCommand_" summaryKeysDict:v16];
   v19 = [v17 mutableCopy];
   [v19 addEntriesFromDictionary:v18];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

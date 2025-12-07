@@ -150,25 +150,24 @@
 
 - (BOOL)hasReachedCursor:(id)cursor
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   cursorCopy = cursor;
   if (!cursorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"other cursor must be non-nil"];
-    v9 = 136315906;
-    v10 = "[FCFeedCursor hasReachedCursor:]";
-    v11 = 2080;
-    v12 = "FCFeedCursor.m";
-    v13 = 1024;
-    v14 = 116;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"other cursor must be non-nil"];
+    v8 = 136315906;
+    v9 = "[FCFeedCursor hasReachedCursor:]";
+    v10 = 2080;
+    v11 = "FCFeedCursor.m";
+    v12 = 1024;
+    v13 = 116;
+    v14 = 2114;
+    v15 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
   }
 
   v5 = [(FCFeedCursor *)self compareToCursor:cursorCopy]!= 1;
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

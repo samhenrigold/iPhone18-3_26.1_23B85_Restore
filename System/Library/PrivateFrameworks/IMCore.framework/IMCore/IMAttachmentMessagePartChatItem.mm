@@ -19,48 +19,48 @@
 - (id)replyContextPreviewChatItemForReply:(id)reply chatContext:(id)context
 {
   replyCopy = reply;
-  v34 = [IMReplyContextAttachmentMessagePartChatItem alloc];
-  v8 = objc_msgSend__item(self, v6, v7);
-  v11 = objc_msgSend_guid(replyCopy, v9, v10);
-  v14 = objc_msgSend_isFromMe(replyCopy, v12, v13);
-  v17 = objc_msgSend_text(self, v15, v16);
-  v20 = objc_msgSend_index(self, v18, v19);
-  v23 = objc_msgSend_messagePartRange(self, v21, v22);
-  v25 = v24;
-  v27 = objc_msgSend_transferGUID(self, v24, v26);
-  v30 = objc_msgSend_chatContext(self, v28, v29);
-  v32 = objc_msgSend__initWithItem_parentItem_replyMessageGUID_replyIsFromMe_text_index_messagePartRange_transferGUID_chatContext_(v34, v31, v8, replyCopy, v11, v14, v17, v20, v23, v25, v27, v30);
+  v18 = [IMReplyContextAttachmentMessagePartChatItem alloc];
+  _item = [(IMChatItem *)self _item];
+  guid = [replyCopy guid];
+  isFromMe = [replyCopy isFromMe];
+  text = [(IMMessagePartChatItem *)self text];
+  index = [(IMMessagePartChatItem *)self index];
+  messagePartRange = [(IMMessagePartChatItem *)self messagePartRange];
+  v13 = v12;
+  transferGUID = [(IMAttachmentMessagePartChatItem *)self transferGUID];
+  chatContext = [(IMTranscriptChatItem *)self chatContext];
+  v16 = [(IMReplyContextAttachmentMessagePartChatItem *)v18 _initWithItem:_item parentItem:replyCopy replyMessageGUID:guid replyIsFromMe:isFromMe text:text index:index messagePartRange:messagePartRange transferGUID:v13 chatContext:transferGUID, chatContext];
 
-  return v32;
+  return v16;
 }
 
 - (BOOL)supportsSuggestedActionsMenu
 {
-  v4 = objc_msgSend_sharedInstance(IMFileTransferCenter, a2, v2);
-  v7 = objc_msgSend_transferGUID(self, v5, v6);
-  v9 = objc_msgSend_transferForGUID_(v4, v8, v7);
+  v3 = +[IMFileTransferCenter sharedInstance];
+  transferGUID = [(IMAttachmentMessagePartChatItem *)self transferGUID];
+  v5 = [v3 transferForGUID:transferGUID];
 
-  LOBYTE(v7) = objc_msgSend_isSticker(v9, v10, v11);
-  return v7 ^ 1;
+  LOBYTE(transferGUID) = [v5 isSticker];
+  return transferGUID ^ 1;
 }
 
 - (id)commSafetyMessageGUID
 {
-  v3 = objc_msgSend_message(self, a2, v2);
-  v6 = objc_msgSend_guid(v3, v4, v5);
+  message = [(IMMessageChatItem *)self message];
+  guid = [message guid];
 
-  return v6;
+  return guid;
 }
 
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v8.receiver = self;
-  v8.super_class = IMAttachmentMessagePartChatItem;
-  v4 = [(IMMessagePartChatItem *)&v8 description];
-  v6 = objc_msgSend_stringWithFormat_(v3, v5, @"[[%@] transferGUID: %@]", v4, self->_transferGUID);
+  v7.receiver = self;
+  v7.super_class = IMAttachmentMessagePartChatItem;
+  v4 = [(IMMessagePartChatItem *)&v7 description];
+  v5 = [v3 stringWithFormat:@"[[%@] transferGUID: %@]", v4, self->_transferGUID];
 
-  return v6;
+  return v5;
 }
 
 - (id)layoutGroupIdentifier
@@ -74,30 +74,30 @@
 
 - (BOOL)parentChatIsSpam
 {
-  v3 = objc_msgSend_chatContext(self, a2, v2);
-  isSpam = objc_msgSend_isSpam(v3, v4, v5);
+  chatContext = [(IMTranscriptChatItem *)self chatContext];
+  isSpam = [chatContext isSpam];
 
   return isSpam;
 }
 
 - (int64_t)syndicationBehavior
 {
-  v4 = objc_msgSend__item(self, a2, v2);
-  isFileAttachment = objc_msgSend_isFileAttachment(v4, v5, v6);
+  _item = [(IMChatItem *)self _item];
+  isFileAttachment = [_item isFileAttachment];
 
   if (!isFileAttachment)
   {
     return 0;
   }
 
-  v10 = objc_msgSend_sharedInstance(IMFileTransferCenter, v8, v9);
-  v13 = objc_msgSend_transferGUID(self, v11, v12);
-  v15 = objc_msgSend_transferForGUID_(v10, v14, v13);
+  v5 = +[IMFileTransferCenter sharedInstance];
+  transferGUID = [(IMAttachmentMessagePartChatItem *)self transferGUID];
+  v7 = [v5 transferForGUID:transferGUID];
 
-  v18 = objc_msgSend_filename(v15, v16, v17);
-  v19 = IMUTITypeForFilename();
+  filename = [v7 filename];
+  v9 = IMUTITypeForFilename();
 
-  if (objc_msgSend_isFromMomentShare(v15, v20, v21))
+  if ([v7 isFromMomentShare])
   {
     isKindOfClass = 1;
   }
@@ -108,40 +108,40 @@
     isKindOfClass = objc_opt_isKindOfClass();
   }
 
-  v23 = ((isKindOfClass | IMUTITypeIsSupportedByPhotos()) & 1) == 0;
+  v11 = ((isKindOfClass | IMUTITypeIsSupportedByPhotos()) & 1) == 0;
 
-  return v23;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend__item(self, v5, v6);
-  v10 = objc_msgSend_text(self, v8, v9);
-  v13 = objc_msgSend_index(self, v11, v12);
-  v16 = objc_msgSend_messagePartRange(self, v14, v15);
-  v18 = v17;
+  _item = [(IMChatItem *)self _item];
+  text = [(IMMessagePartChatItem *)self text];
+  index = [(IMMessagePartChatItem *)self index];
+  messagePartRange = [(IMMessagePartChatItem *)self messagePartRange];
+  v10 = v9;
   transferGUID = self->_transferGUID;
-  v21 = objc_msgSend_chatContext(self, v17, v20);
-  v24 = objc_msgSend_visibleAssociatedMessageChatItems(self, v22, v23);
-  v26 = objc_msgSend__initWithItem_text_index_messagePartRange_transferGUID_chatContext_visibleAssociatedMessageChatItems_(v4, v25, v7, v10, v13, v16, v18, transferGUID, v21, v24);
+  chatContext = [(IMTranscriptChatItem *)self chatContext];
+  visibleAssociatedMessageChatItems = [(IMMessagePartChatItem *)self visibleAssociatedMessageChatItems];
+  v14 = [v4 _initWithItem:_item text:text index:index messagePartRange:messagePartRange transferGUID:v10 chatContext:transferGUID visibleAssociatedMessageChatItems:{chatContext, visibleAssociatedMessageChatItems}];
 
-  return v26;
+  return v14;
 }
 
 - (BOOL)isAttachmentContiguousWithChatItem:(id)item
 {
   itemCopy = item;
-  if (objc_msgSend_isContiguousWithChatItem_(self, v5, itemCopy))
+  if ([(IMTranscriptChatItem *)self isContiguousWithChatItem:itemCopy])
   {
-    v8 = objc_msgSend_sharedInstance(IMFileTransferCenter, v6, v7);
-    v11 = objc_msgSend_transferGUID(self, v9, v10);
-    v13 = objc_msgSend_transferForGUID_(v8, v12, v11);
+    v5 = +[IMFileTransferCenter sharedInstance];
+    transferGUID = [(IMAttachmentMessagePartChatItem *)self transferGUID];
+    v7 = [v5 transferForGUID:transferGUID];
 
-    v16 = objc_msgSend_filename(v13, v14, v15);
-    v17 = IMUTITypeForFilename();
+    filename = [v7 filename];
+    v9 = IMUTITypeForFilename();
 
-    if (objc_msgSend_isFromMomentShare(v13, v18, v19))
+    if ([v7 isFromMomentShare])
     {
       isKindOfClass = 1;
     }
@@ -153,27 +153,27 @@
     }
 
     IsSupportedByPhotos = IMUTITypeIsSupportedByPhotos();
-    v21 = 0;
-    if ((objc_msgSend_isEqualToString_(v17, v23, @"com.apple.pkpass") & 1) == 0 && (IsSupportedByPhotos & 1) == 0 && (isKindOfClass & 1) == 0)
+    v11 = 0;
+    if (([v9 isEqualToString:@"com.apple.pkpass"] & 1) == 0 && (IsSupportedByPhotos & 1) == 0 && (isKindOfClass & 1) == 0)
     {
       if (self->_wantsAttachmentContiguous && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v21 = itemCopy[184];
+        v11 = itemCopy[184];
       }
 
       else
       {
-        v21 = 0;
+        v11 = 0;
       }
     }
   }
 
   else
   {
-    v21 = 0;
+    v11 = 0;
   }
 
-  return v21 & 1;
+  return v11 & 1;
 }
 
 - (id)_initWithItem:(id)item text:(id)text index:(int64_t)index messagePartRange:(_NSRange)range transferGUID:(id)d chatContext:(id)context visibleAssociatedMessageChatItems:(id)items
@@ -182,31 +182,31 @@
   location = range.location;
   dCopy = d;
   contextCopy = context;
-  v41.receiver = self;
-  v41.super_class = IMAttachmentMessagePartChatItem;
-  items = [(IMMessagePartChatItem *)&v41 _initWithItem:item text:text index:index messagePartRange:location visibleAssociatedMessageChatItems:length, items];
+  v27.receiver = self;
+  v27.super_class = IMAttachmentMessagePartChatItem;
+  items = [(IMMessagePartChatItem *)&v27 _initWithItem:item text:text index:index messagePartRange:location visibleAssociatedMessageChatItems:length, items];
   if (items)
   {
-    v20 = objc_msgSend_copy(dCopy, v17, v18);
-    v21 = items[24];
-    items[24] = v20;
+    v18 = [dCopy copy];
+    v19 = items[24];
+    items[24] = v18;
 
-    v24 = objc_msgSend_copy(contextCopy, v22, v23);
-    objc_msgSend_setChatContext_(items, v25, v24);
+    v20 = [contextCopy copy];
+    [items setChatContext:v20];
 
-    v28 = objc_msgSend_sharedInstance(IMFileTransferCenter, v26, v27);
-    v30 = objc_msgSend_transferForGUID_(v28, v29, dCopy);
+    v21 = +[IMFileTransferCenter sharedInstance];
+    v22 = [v21 transferForGUID:dCopy];
 
-    v33 = objc_msgSend_type(v30, v31, v32);
-    v36 = objc_msgSend_lowercaseString(v33, v34, v35);
+    type = [v22 type];
+    lowercaseString = [type lowercaseString];
 
-    *(items + 184) = objc_msgSend__wantsAttachmentContiguousForType_(items, v37, v36);
+    *(items + 184) = [items _wantsAttachmentContiguousForType:lowercaseString];
     if (!items[24])
     {
-      v38 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+      v25 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
       {
-        sub_1A84DFE9C(items, v38, v39);
+        sub_1A84DFE9C(items, v25);
       }
     }
   }
@@ -217,112 +217,112 @@
 - (BOOL)_wantsAttachmentContiguousForType:(id)type
 {
   typeCopy = type;
-  if (objc_msgSend_hasSuffix_(typeCopy, v4, @".gif"))
+  if ([typeCopy hasSuffix:@".gif"])
   {
-    LOBYTE(v6) = 0;
+    LOBYTE(v4) = 0;
   }
 
   else
   {
-    v6 = objc_msgSend_hasSuffix_(typeCopy, v5, @".apng") ^ 1;
+    v4 = [typeCopy hasSuffix:@".apng"] ^ 1;
   }
 
-  return v6;
+  return v4;
 }
 
 - (unsigned)contentType
 {
-  v4 = objc_msgSend_sharedInstance(IMFileTransferCenter, a2, v2);
-  v7 = objc_msgSend_transferGUID(self, v5, v6);
-  v9 = objc_msgSend_transferForGUID_(v4, v8, v7);
+  v3 = +[IMFileTransferCenter sharedInstance];
+  transferGUID = [(IMAttachmentMessagePartChatItem *)self transferGUID];
+  v5 = [v3 transferForGUID:transferGUID];
 
-  v12 = objc_msgSend_type(v9, v10, v11);
+  type = [v5 type];
   if (IMUTTypeIsImage() & 1) != 0 || (IMUTTypeIsSupportedAnimatedImage())
   {
-    v13 = 3;
+    v7 = 3;
   }
 
   else if (IMUTTypeIsMovie())
   {
-    v13 = 7;
+    v7 = 7;
   }
 
   else if (IMUTTypeIsVCard())
   {
-    v13 = 4;
+    v7 = 4;
   }
 
   else if (IMUTTypeIsAudio())
   {
-    v13 = 2;
+    v7 = 2;
   }
 
   else if (IMUTTypeIsMap())
   {
-    v13 = 6;
+    v7 = 6;
   }
 
   else if (IMUTTypeIsCalendar())
   {
-    v13 = 5;
+    v7 = 5;
   }
 
   else if (IMUTTypeIsPass())
   {
-    v13 = 8;
+    v7 = 8;
   }
 
   else if (IMUTTypeIsWalletOrder())
   {
-    v13 = 10;
+    v7 = 10;
   }
 
   else
   {
-    v13 = 0;
+    v7 = 0;
   }
 
-  return v13;
+  return v7;
 }
 
 - (id)messageSummaryInfo
 {
-  if (objc_msgSend_contentType(self, a2, v2))
+  if ([(IMAttachmentMessagePartChatItem *)self contentType])
   {
-    v6 = objc_msgSend_balloonBundleID(self, v4, v5);
-    v7 = *MEMORY[0x1E69A6A08];
-    v8 = IMBalloonExtensionIDWithSuffix();
-    isEqualToString = objc_msgSend_isEqualToString_(v6, v9, v8);
+    balloonBundleID = [(IMChatItem *)self balloonBundleID];
+    v4 = *MEMORY[0x1E69A6A08];
+    v5 = IMBalloonExtensionIDWithSuffix();
+    v6 = [balloonBundleID isEqualToString:v5];
 
-    if (isEqualToString)
+    if (v6)
     {
-      v13 = v7;
+      v7 = v4;
     }
 
     else
     {
-      v13 = 0;
+      v7 = 0;
     }
 
-    v16 = MEMORY[0x1E695DF20];
-    v17 = objc_msgSend_contentType(self, v11, v12);
-    v20 = objc_msgSend_messageItem(self, v18, v19);
-    v23 = objc_msgSend_expressiveSendStyleID(v20, v21, v22);
-    v15 = objc_msgSend_dictionaryWithAssociatedMessageSummary_contentType_associatedMessagePartText_pluginBundleID_pluginDisplayName_messageEffect_(v16, v24, 0, v17, 0, v13, 0, v23);
+    v10 = MEMORY[0x1E695DF20];
+    contentType = [(IMAttachmentMessagePartChatItem *)self contentType];
+    messageItem = [(IMMessageChatItem *)self messageItem];
+    expressiveSendStyleID = [messageItem expressiveSendStyleID];
+    v9 = [v10 dictionaryWithAssociatedMessageSummary:0 contentType:contentType associatedMessagePartText:0 pluginBundleID:v7 pluginDisplayName:0 messageEffect:expressiveSendStyleID];
   }
 
   else
   {
-    v14 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v8 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1A84E28E0();
     }
 
-    v15 = 0;
+    v9 = 0;
   }
 
-  return v15;
+  return v9;
 }
 
 @end

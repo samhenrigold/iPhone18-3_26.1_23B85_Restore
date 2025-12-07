@@ -89,6 +89,7 @@
 - (id)newRenderPipelineStateWithTileDescriptor:(id)descriptor options:(unint64_t)options reflection:(id *)reflection error:(id *)error;
 - (id)newResidencySetWithDescriptor:(id)descriptor error:(id *)error;
 - (id)newSharedEventWithHandle:(id)handle;
+- (id)newSharedEventWithMachPort:(unsigned int)port;
 - (id)newSharedEventWithOptions:(int64_t)options;
 - (id)newSharedTextureWithDescriptor:(id)descriptor;
 - (id)newSharedTextureWithHandle:(id)handle;
@@ -290,8 +291,8 @@
   {
 
 LABEL_14:
-    v9 = 0;
-    return v9 & 1;
+    v11 = 0;
+    return v11 & 1;
   }
 
   if (self->_kRateLimitEnabled)
@@ -299,42 +300,42 @@ LABEL_14:
     [MEMORY[0x1E696AF00] sleepUntilDate:v5];
   }
 
-  createCommandQueueRateLimitingTelemetry();
+  createCommandQueueRateLimitingTelemetry(v9, v10);
   if (self->_kRateLimitEnabled)
   {
     if (self->_kRateLimitShouldOnlyLogOnce)
     {
-      v12 = 0;
-      v13 = &v12;
-      v14 = 0x2020000000;
-      v15 = 0;
+      v14 = 0;
+      v15 = &v14;
+      v16 = 0x2020000000;
+      v17 = 0;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __37___MTLDevice__rateLimitQueueCreation__block_invoke;
       block[3] = &unk_1E6EEB598;
-      block[4] = &v12;
+      block[4] = &v14;
       if ([_MTLDevice _rateLimitQueueCreation]::onceToken != -1)
       {
         dispatch_once(&[_MTLDevice _rateLimitQueueCreation]::onceToken, block);
       }
 
-      v9 = *(v13 + 24);
-      _Block_object_dispose(&v12, 8);
+      v11 = *(v15 + 24);
+      _Block_object_dispose(&v14, 8);
     }
 
     else
     {
-      v9 = 1;
+      v11 = 1;
     }
   }
 
   else
   {
-    v9 = 0;
+    v11 = 0;
     self->_kRateLimitTimePenalty = 0.0;
   }
 
-  return v9 & 1;
+  return v11 & 1;
 }
 
 - (void)initLimits
@@ -2525,14 +2526,14 @@ LABEL_60:
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = MEMORY[0x1E696AEC0];
-  v11.receiver = self;
-  v11.super_class = _MTLDevice;
-  v6 = [(_MTLDevice *)&v11 description];
-  v12[0] = v4;
-  v12[1] = @"name =";
+  v10.receiver = self;
+  v10.super_class = _MTLDevice;
+  v6 = [(_MTLDevice *)&v10 description];
+  v11[0] = v4;
+  v11[1] = @"name =";
   name = [(_MTLDevice *)self name];
   v8 = @"<none>";
   if (name)
@@ -2540,28 +2541,22 @@ LABEL_60:
     v8 = name;
   }
 
-  v12[2] = v8;
-  result = [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v12, 3), "componentsJoinedByString:", @" "];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v11[2] = v8;
+  return [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v11, 3), "componentsJoinedByString:", @" "];
 }
 
 - (id)newFunctionWithGLIR:(void *)r functionType:(unint64_t)type
 {
-  typeCopy = type;
-  selfCopy = self;
   dyld_get_active_platform();
 
-  newFunctionWithGLIR(selfCopy, typeCopy, r);
+  newFunctionWithGLIR(self, type, r, 0, 1);
 }
 
 - (id)newFunctionWithGLIR:(void *)r inputsDescription:(id)description functionType:(unint64_t)type
 {
-  typeCopy = type;
-  selfCopy = self;
   dyld_get_active_platform();
 
-  newFunctionWithGLIR(selfCopy, typeCopy, r);
+  newFunctionWithGLIR(self, type, r, description, 1);
 }
 
 - (void)getShaderCacheKeys
@@ -2771,37 +2766,41 @@ LABEL_17:
     [(MTLSharedTextureHandle *)v5 setObject:v17 forKeyedSubscript:kMetalTextureSparseValue];
     v18 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(descriptor, "allowGPUOptimizedContents")}];
     [(MTLSharedTextureHandle *)v5 setObject:v18 forKeyedSubscript:kMetalTextureGPUOptimization];
-    -[MTLSharedTextureHandle setObject:forKeyedSubscript:](v5, "setObject:forKeyedSubscript:", [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{MTLTextureSwizzleChannelsToKey(objc_msgSend(descriptor, "swizzle"))}], kMetalTextureSwizzleKey);
-    v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(descriptor, "rotation")}];
-    [(MTLSharedTextureHandle *)v5 setObject:v19 forKeyedSubscript:kMetalTextureRotation];
-    v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(descriptor, "compressionFootprint")}];
-    [(MTLSharedTextureHandle *)v5 setObject:v20 forKeyedSubscript:kMetalTextureFootprint];
-    v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(descriptor, "resourceIndex")}];
-    [(MTLSharedTextureHandle *)v5 setObject:v21 forKeyedSubscript:kMetalTextureResourceIndex];
-    v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(descriptor, "colorSpaceConversionMatrix")}];
-    [(MTLSharedTextureHandle *)v5 setObject:v22 forKeyedSubscript:kMetalTextureCSCMatrix];
-    v23 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(descriptor, "writeAccessPattern")}];
-    [(MTLSharedTextureHandle *)v5 setObject:v23 forKeyedSubscript:kMetalTextureWriteAccessPattern];
-    v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(descriptor, "protectionOptions")}];
-    [(MTLSharedTextureHandle *)v5 setObject:v24 forKeyedSubscript:*MEMORY[0x1E696D0F0]];
-    v25 = IOSurfaceCreate(v5);
+    v19 = MEMORY[0x1E696AD98];
+    [descriptor swizzle];
+    MTLTextureSwizzleChannelsToKey();
+    v21 = [v19 numberWithUnsignedInteger:v20];
+    [(MTLSharedTextureHandle *)v5 setObject:v21 forKeyedSubscript:kMetalTextureSwizzleKey];
+    v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(descriptor, "rotation")}];
+    [(MTLSharedTextureHandle *)v5 setObject:v22 forKeyedSubscript:kMetalTextureRotation];
+    v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(descriptor, "compressionFootprint")}];
+    [(MTLSharedTextureHandle *)v5 setObject:v23 forKeyedSubscript:kMetalTextureFootprint];
+    v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(descriptor, "resourceIndex")}];
+    [(MTLSharedTextureHandle *)v5 setObject:v24 forKeyedSubscript:kMetalTextureResourceIndex];
+    v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(descriptor, "colorSpaceConversionMatrix")}];
+    [(MTLSharedTextureHandle *)v5 setObject:v25 forKeyedSubscript:kMetalTextureCSCMatrix];
+    v26 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(descriptor, "writeAccessPattern")}];
+    [(MTLSharedTextureHandle *)v5 setObject:v26 forKeyedSubscript:kMetalTextureWriteAccessPattern];
+    v27 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(descriptor, "protectionOptions")}];
+    [(MTLSharedTextureHandle *)v5 setObject:v27 forKeyedSubscript:*MEMORY[0x1E696D0F0]];
+    v28 = IOSurfaceCreate(v5);
 
-    if (!v25)
+    if (!v28)
     {
       return 0;
     }
 
-    v5 = [[MTLSharedTextureHandle alloc] initWithIOSurface:v25 label:0];
-    CFRelease(v25);
-    v26 = [(_MTLDevice *)self newSharedTextureWithHandle:v5];
+    v5 = [[MTLSharedTextureHandle alloc] initWithIOSurface:v28 label:0];
+    CFRelease(v28);
+    v29 = [(_MTLDevice *)self newSharedTextureWithHandle:v5];
   }
 
   else
   {
-    v26 = 0;
+    v29 = 0;
   }
 
-  return v26;
+  return v29;
 }
 
 - (id)_newDescriptorForSharedTexture:(__IOSurface *)texture
@@ -2820,8 +2819,9 @@ LABEL_17:
     -[MTLTextureDescriptor setArrayLength:](v6, "setArrayLength:", [objc_msgSend(v4 objectForKeyedSubscript:{kMetalTextureArrayLength), "unsignedIntegerValue"}]);
     -[MTLTextureDescriptor setResourceOptions:](v6, "setResourceOptions:", [objc_msgSend(v4 objectForKeyedSubscript:{kMetalTextureResourceOptions), "unsignedIntegerValue"}]);
     -[MTLTextureDescriptor setUsage:](v6, "setUsage:", [objc_msgSend(v4 objectForKeyedSubscript:{kMetalTextureUsage), "unsignedIntegerValue"}]);
-    v7 = [objc_msgSend(v4 objectForKeyedSubscript:{kMetalTextureSwizzleKey), "unsignedIntegerValue"}];
-    [(MTLTextureDescriptor *)v6 setSwizzle:MTLTextureSwizzleKeyToChannels(v7, v8)];
+    [objc_msgSend(v4 objectForKeyedSubscript:{kMetalTextureSwizzleKey), "unsignedIntegerValue"}];
+    MTLTextureSwizzleKeyToChannels();
+    [(MTLTextureDescriptor *)v6 setSwizzle:v7];
     -[MTLTextureDescriptor setSparseSurfaceDefaultValue:](v6, "setSparseSurfaceDefaultValue:", [objc_msgSend(v4 objectForKeyedSubscript:{kMetalTextureSparseValue), "unsignedIntegerValue"}]);
     -[MTLTextureDescriptor setAllowGPUOptimizedContents:](v6, "setAllowGPUOptimizedContents:", [objc_msgSend(v4 objectForKeyedSubscript:{kMetalTextureGPUOptimization), "BOOLValue"}]);
     -[MTLTextureDescriptor setRotation:](v6, "setRotation:", [objc_msgSend(v4 objectForKeyedSubscript:{kMetalTextureRotation), "unsignedIntegerValue"}]);
@@ -3285,8 +3285,6 @@ LABEL_17:
     operator new();
   }
 
-  v5 = self->_pipelineCollection;
-
   MTLPipelineCollection::addLibrary(pipelineCollection, library);
 }
 
@@ -3636,7 +3634,7 @@ LABEL_15:
   libraryBuilder = self->_libraryBuilder;
   v7[0] = 0;
   v7[1] = 0;
-  MTLLibraryBuilder::newLibraryWithDAG(libraryBuilder, g, functions, error, v7, 0, 0);
+  MTLLibraryBuilder::newLibraryWithDAG(libraryBuilder, g, functions, error, v7, 0, 0, 0, 0);
 }
 
 - (id)newLibraryWithStitchedDescriptor:(id)descriptor error:(id *)error
@@ -4392,6 +4390,14 @@ LABEL_3:
   return [(_MTLSharedEvent *)v4 initWithOptions:options];
 }
 
+- (id)newSharedEventWithMachPort:(unsigned int)port
+{
+  v3 = *&port;
+  v4 = [_MTLSharedEvent alloc];
+
+  return [(_MTLSharedEvent *)v4 initWithMachPort:v3];
+}
+
 - (id)newSharedEventWithHandle:(id)handle
 {
   v4 = [_MTLSharedEvent alloc];
@@ -4523,7 +4529,7 @@ LABEL_3:
   v10 = 0;
   if (descriptor)
   {
-    [descriptor screenSize];
+    objc_msgSend_screenSize(descriptor);
   }
 
   v7 = v9;
@@ -4763,7 +4769,7 @@ LABEL_10:
 {
   if (self)
   {
-    [(_MTLDevice *)self accelerationStructureSizesWithDescriptor:descriptor];
+    objc_msgSend_accelerationStructureSizesWithDescriptor_(self, a2, descriptor);
   }
 
   return [(_MTLDevice *)self newAccelerationStructureWithSize:0];
@@ -4945,7 +4951,7 @@ LABEL_10:
 {
   if (self)
   {
-    [(_MTLDevice *)self accelerationStructureSizesWithDescriptor:descriptor];
+    objc_msgSend_accelerationStructureSizesWithDescriptor_(self, a2, descriptor);
   }
 
   v4 = [(_MTLDevice *)self heapAccelerationStructureSizeAndAlignWithSize:0];
@@ -4956,16 +4962,15 @@ LABEL_10:
 
 - (id)newPerformanceStateAssertion:(int64_t)assertion error:(id *)error
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E696A578];
-  v9[0] = @"Device does not support performance state assertion feature";
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E696A578];
+  v8[0] = @"Device does not support performance state assertion feature";
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   if (error)
   {
     *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLPerformanceStateAssertionDomain" code:1 userInfo:v5];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -5001,7 +5006,7 @@ LABEL_10:
     std::string::basic_string[abi:ne200100]<0>(__p, [v6 fileSystemRepresentation]);
     [(MTLTargetDeviceArchitecture *)targetDeviceArchitecture cpuType];
     [(MTLTargetDeviceArchitecture *)targetDeviceArchitecture subType];
-    MTLArchiveMapDB::read(recompiledBinaryArchiveMap, __p, v17);
+    MTLArchiveMapDB::read(v17, recompiledBinaryArchiveMap, __p);
     if (v16 < 0)
     {
       operator delete(__p[0]);
@@ -5067,11 +5072,11 @@ LABEL_10:
       if (usage && targetDeviceArchitecture)
       {
         binaryArchiveUsage = self->_binaryArchiveUsage;
-        std::string::basic_string[abi:ne200100]<0>(__p, [v6 fileSystemRepresentation]);
-        MTLArchiveUsageDB::store(binaryArchiveUsage, __p, [(MTLTargetDeviceArchitecture *)targetDeviceArchitecture cpuType], [(MTLTargetDeviceArchitecture *)targetDeviceArchitecture subType], 0);
-        if (v10 < 0)
+        std::string::basic_string[abi:ne200100]<0>(&__p, [v6 fileSystemRepresentation]);
+        MTLArchiveUsageDB::store(binaryArchiveUsage, &__p, [(MTLTargetDeviceArchitecture *)targetDeviceArchitecture cpuType], [(MTLTargetDeviceArchitecture *)targetDeviceArchitecture subType], 0);
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(__p[0]);
+          operator delete(__p.__r_.__value_.__l.__data_);
         }
       }
     }
@@ -5256,7 +5261,7 @@ LABEL_7:
 
 - (BOOL)loadLibrariesRecursive:(id)recursive dylibs:(id *)dylibs insertLibraries:(id)libraries options:(unint64_t)options error:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -5272,86 +5277,87 @@ LABEL_7:
 
 LABEL_5:
         LOBYTE(v16) = 1;
-LABEL_23:
-        v27 = *MEMORY[0x1E69E9840];
         return v16;
       }
     }
 
     else
     {
-      v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Function %@ was not found in library", objc_msgSend(recursive, "name")];
+      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Function %@ was not found in library", objc_msgSend(recursive, "name")];
       if (error)
       {
-        v25 = [MEMORY[0x1E695DF20] dictionaryWithObject:v24 forKey:*MEMORY[0x1E696A578]];
-        v26 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"DylibLoading" code:5 userInfo:v25];
+        v24 = [MEMORY[0x1E695DF20] dictionaryWithObject:v23 forKey:*MEMORY[0x1E696A578]];
+        v25 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"DylibLoading" code:5 userInfo:v24];
         LOBYTE(v16) = 0;
-        *error = v26;
-        goto LABEL_23;
+        *error = v25;
+        return v16;
       }
-    }
-
-    goto LABEL_22;
-  }
-
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      [recursive functionGraph];
-      v29 = 0u;
-      v30 = 0u;
-      v31 = 0u;
-      v32 = 0u;
-      functionDescriptors = [recursive functionDescriptors];
-      v20 = [functionDescriptors countByEnumeratingWithState:&v29 objects:v33 count:16];
-      if (v20)
-      {
-        v21 = v20;
-        v22 = *v30;
-LABEL_13:
-        v23 = 0;
-        while (1)
-        {
-          if (*v30 != v22)
-          {
-            objc_enumerationMutation(functionDescriptors);
-          }
-
-          v16 = [(_MTLDevice *)self loadLibrariesRecursive:*(*(&v29 + 1) + 8 * v23) dylibs:dylibs insertLibraries:libraries options:options error:error];
-          if (!v16)
-          {
-            goto LABEL_23;
-          }
-
-          if (v21 == ++v23)
-          {
-            v21 = [functionDescriptors countByEnumeratingWithState:&v29 objects:v33 count:16];
-            LOBYTE(v16) = 1;
-            if (v21)
-            {
-              goto LABEL_13;
-            }
-
-            goto LABEL_23;
-          }
-        }
-      }
-
-      goto LABEL_5;
     }
 
 LABEL_22:
     LOBYTE(v16) = 0;
-    goto LABEL_23;
+    return v16;
   }
 
-  functionDescriptor = [recursive functionDescriptor];
-  v18 = *MEMORY[0x1E69E9840];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    functionDescriptor = [recursive functionDescriptor];
 
-  LOBYTE(v16) = [(_MTLDevice *)self loadLibrariesRecursive:functionDescriptor dylibs:dylibs insertLibraries:libraries options:options error:error];
+    LOBYTE(v16) = [(_MTLDevice *)self loadLibrariesRecursive:functionDescriptor dylibs:dylibs insertLibraries:libraries options:options error:error];
+  }
+
+  else
+  {
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      goto LABEL_22;
+    }
+
+    [recursive functionGraph];
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    functionDescriptors = [recursive functionDescriptors];
+    v19 = [functionDescriptors countByEnumeratingWithState:&v27 objects:v31 count:16];
+    if (!v19)
+    {
+      goto LABEL_5;
+    }
+
+    v20 = v19;
+    v21 = *v28;
+LABEL_13:
+    v22 = 0;
+    while (1)
+    {
+      if (*v28 != v21)
+      {
+        objc_enumerationMutation(functionDescriptors);
+      }
+
+      v16 = [(_MTLDevice *)self loadLibrariesRecursive:*(*(&v27 + 1) + 8 * v22) dylibs:dylibs insertLibraries:libraries options:options error:error];
+      if (!v16)
+      {
+        break;
+      }
+
+      if (v20 == ++v22)
+      {
+        v20 = [functionDescriptors countByEnumeratingWithState:&v27 objects:v31 count:16];
+        LOBYTE(v16) = 1;
+        if (v20)
+        {
+          goto LABEL_13;
+        }
+
+        return v16;
+      }
+    }
+  }
+
   return v16;
 }
 

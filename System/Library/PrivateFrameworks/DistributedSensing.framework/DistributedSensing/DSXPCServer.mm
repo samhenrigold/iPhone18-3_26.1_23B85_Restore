@@ -46,13 +46,13 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __23__DSXPCServer_activate__block_invoke(uint64_t result)
+void *__23__DSXPCServer_activate__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 8) & 1) == 0)
   {
     *(v1 + 8) = 1;
-    return [*(result + 32) _activate];
+    return [*(result + 4) _activate];
   }
 
   return result;
@@ -122,7 +122,7 @@ uint64_t __23__DSXPCServer_activate__block_invoke(uint64_t result)
 
 - (void)_invalidate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (onceTokenDSXPCServer != -1)
   {
@@ -136,29 +136,29 @@ uint64_t __23__DSXPCServer_activate__block_invoke(uint64_t result)
     _os_log_impl(&dword_249027000, v3, OS_LOG_TYPE_DEFAULT, "Invalidate", buf, 2u);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = self->_xpcConnections;
-  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v13 + 1) + 8 * i) invalidate];
+        [*(*(&v12 + 1) + 8 * i) invalidate];
       }
 
-      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v6);
@@ -181,13 +181,11 @@ uint64_t __23__DSXPCServer_activate__block_invoke(uint64_t result)
   [(NSMutableSet *)self->_xpcConnections removeAllObjects];
   xpcConnections = self->_xpcConnections;
   self->_xpcConnections = 0;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_receivedXPCObject:(id)object
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (MEMORY[0x24C1EF810]() == MEMORY[0x277D86450])
   {
@@ -204,8 +202,8 @@ uint64_t __23__DSXPCServer_activate__block_invoke(uint64_t result)
     v7 = logObjDSXPCServer;
     if (os_log_type_enabled(logObjDSXPCServer, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_249027000, v7, OS_LOG_TYPE_ERROR, "XPC Listener invalidated", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_249027000, v7, OS_LOG_TYPE_ERROR, "XPC Listener invalidated", &v8, 2u);
     }
   }
 
@@ -220,13 +218,11 @@ uint64_t __23__DSXPCServer_activate__block_invoke(uint64_t result)
     if (os_log_type_enabled(logObjDSXPCServer, OS_LOG_TYPE_ERROR))
     {
       v6 = v5;
-      v9 = 136315138;
-      v10 = MEMORY[0x24C1EF710](objectCopy);
-      _os_log_impl(&dword_249027000, v6, OS_LOG_TYPE_ERROR, "XPC Listener error, received XPC object :%s", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = MEMORY[0x24C1EF710](objectCopy);
+      _os_log_impl(&dword_249027000, v6, OS_LOG_TYPE_ERROR, "XPC Listener error, received XPC object :%s", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleXPCConnection:(id)connection
@@ -256,20 +252,20 @@ uint64_t __23__DSXPCServer_activate__block_invoke(uint64_t result)
 
 - (void)removeXPCConnection:(id)connection
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   [(NSMutableSet *)self->_xpcConnections removeObject:connectionCopy];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v5 = self->_xpcConnections;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (!v6)
   {
 
-    [(DSDeviceContext *)self->_myDeviceContext setCoordinationStatus:0, v16];
+    [(DSDeviceContext *)self->_myDeviceContext setCoordinationStatus:0, v15];
     [(DSDeviceContext *)self->_myDeviceContext setTiebreaker:0];
 LABEL_16:
     [(DSDeviceContext *)self->_myDeviceContext setVehicleState:0];
@@ -278,19 +274,19 @@ LABEL_16:
   }
 
   v7 = v6;
-  v8 = *v17;
+  v8 = *v16;
   v9 = 1;
   v10 = 1;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v17 != v8)
+      if (*v16 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v12 = *(*(&v16 + 1) + 8 * i);
+      v12 = *(*(&v15 + 1) + 8 * i);
       kappaSession = [v12 kappaSession];
 
       if (kappaSession)
@@ -306,7 +302,7 @@ LABEL_16:
       }
     }
 
-    v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   }
 
   while (v7);
@@ -325,8 +321,6 @@ LABEL_16:
 LABEL_17:
   [(DSXPCServer *)self updateScanner];
   [(DSXPCServer *)self updateAdvertiser];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAdvertiser
@@ -427,29 +421,29 @@ LABEL_17:
 
 - (void)updateScanner
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   *&self->_shouldScanDSInfo = 0;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = self->_xpcConnections;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         kappaSession = [v8 kappaSession];
 
         p_shouldScanDSAction = &self->_shouldScanDSAction;
@@ -467,7 +461,7 @@ LABEL_17:
         *p_shouldScanDSAction = 1;
       }
 
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -482,8 +476,6 @@ LABEL_17:
   {
     [(DSXPCServer *)self _ensureScannerStopped];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_ensureScannerStarted

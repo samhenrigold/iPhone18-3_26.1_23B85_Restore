@@ -18,7 +18,7 @@
 
 + (id)actionsWithURL:(id)l result:(__DDResult *)result context:(id)context
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v64[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   contextCopy = context;
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
@@ -27,39 +27,38 @@
 
   if (v11)
   {
-    v12 = [DDCopyAction actionWithURL:lCopy result:result context:contextCopy];
-    v62[0] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:1];
+    v14 = [DDCopyAction actionWithURL:lCopy result:result context:contextCopy];
+    v64[0] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:1];
 
-    if ((dd_isLSTrusted() & 1) == 0)
+    if ((dd_isLSTrusted(v16, v17) & 1) == 0)
     {
 LABEL_3:
-      v14 = v13;
+      v18 = v15;
       goto LABEL_47;
     }
   }
 
   else
   {
-    v13 = 0;
-    if ((dd_isLSTrusted() & 1) == 0)
+    v15 = 0;
+    if ((dd_isLSTrusted(v12, v13) & 1) == 0)
     {
       goto LABEL_3;
     }
   }
 
-  v15 = 0;
+  v19 = 0;
   if (!lCopy && result)
   {
-    v16 = *MEMORY[0x277D041B8];
     if (DDResultHasType())
     {
-      v15 = DDResultCopyUPIIdentifierValue();
-      if (v15)
+      v19 = DDResultCopyUPIIdentifierValue();
+      if (v19)
       {
-        v17 = MEMORY[0x277CBEBC0];
-        v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"upi://pay?pa=%@", v15];
-        lCopy = [v17 URLWithString:v18];
+        v20 = MEMORY[0x277CBEBC0];
+        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"upi://pay?pa=%@", v19];
+        lCopy = [v20 URLWithString:v21];
 
         goto LABEL_12;
       }
@@ -67,7 +66,7 @@ LABEL_3:
 
     else
     {
-      v15 = 0;
+      v19 = 0;
     }
 
     lCopy = 0;
@@ -76,121 +75,121 @@ LABEL_3:
 LABEL_12:
   scheme = [lCopy scheme];
   lowercaseString = [scheme lowercaseString];
-  v21 = [lowercaseString isEqualToString:@"upi"];
+  v24 = [lowercaseString isEqualToString:@"upi"];
 
-  if (v21)
+  if (v24)
   {
     if (qword_280B12338 == -1)
     {
       if (_MergedGlobals_13)
       {
 LABEL_15:
-        v50 = v15;
-        v22 = contextCopy;
+        v52 = v19;
+        v25 = contextCopy;
         defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-        v24 = lCopy;
-        v25 = [defaultWorkspace applicationsAvailableForOpeningURL:lCopy];
+        v27 = lCopy;
+        v28 = [defaultWorkspace applicationsAvailableForOpeningURL:lCopy];
 
-        v48 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v50 = objc_alloc_init(MEMORY[0x277CBEB18]);
         standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-        v47 = [standardUserDefaults stringForKey:@"DDUIUPILastUsed"];
+        v49 = [standardUserDefaults stringForKey:@"DDUIUPILastUsed"];
 
+        v60 = 0u;
+        v61 = 0u;
         v58 = 0u;
         v59 = 0u;
-        v56 = 0u;
-        v57 = 0u;
-        obj = v25;
-        v27 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
-        if (v27)
+        obj = v28;
+        v30 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
+        if (v30)
         {
-          v28 = v27;
-          v29 = *v57;
+          v31 = v30;
+          v32 = *v59;
           do
           {
-            for (i = 0; i != v28; ++i)
+            for (i = 0; i != v31; ++i)
             {
-              if (*v57 != v29)
+              if (*v59 != v32)
               {
                 objc_enumerationMutation(obj);
               }
 
-              bundleIdentifier2 = [*(*(&v56 + 1) + 8 * i) bundleIdentifier];
-              v32 = objc_alloc(MEMORY[0x277CC1E70]);
-              v55 = 0;
-              v33 = [v32 initWithBundleIdentifier:bundleIdentifier2 allowPlaceholder:1 error:&v55];
-              v34 = v33;
-              if (!v55 && v33 && bundleIdentifier2 != 0)
+              bundleIdentifier2 = [*(*(&v58 + 1) + 8 * i) bundleIdentifier];
+              v35 = objc_alloc(MEMORY[0x277CC1E70]);
+              v57 = 0;
+              v36 = [v35 initWithBundleIdentifier:bundleIdentifier2 allowPlaceholder:1 error:&v57];
+              v37 = v36;
+              if (!v57 && v36 && bundleIdentifier2 != 0)
               {
-                if ([v47 isEqualToString:bundleIdentifier2])
+                if ([v49 isEqualToString:bundleIdentifier2])
                 {
-                  [v48 insertObject:v34 atIndex:0];
+                  [v50 insertObject:v37 atIndex:0];
                 }
 
                 else
                 {
-                  [v48 addObject:v34];
+                  [v50 addObject:v37];
                 }
               }
             }
 
-            v28 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
+            v31 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
           }
 
-          while (v28);
+          while (v31);
         }
 
-        v36 = v48;
-        if ([v48 count])
+        v39 = v50;
+        if ([v50 count])
         {
-          v46 = v13;
-          v14 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v48, "count")}];
-          v51 = 0u;
-          v52 = 0u;
+          v48 = v15;
+          v18 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v50, "count")}];
           v53 = 0u;
           v54 = 0u;
-          v37 = v48;
-          v38 = [v37 countByEnumeratingWithState:&v51 objects:v60 count:16];
-          if (v38)
+          v55 = 0u;
+          v56 = 0u;
+          v40 = v50;
+          v41 = [v40 countByEnumeratingWithState:&v53 objects:v62 count:16];
+          if (v41)
           {
-            v39 = v38;
-            v40 = *v52;
+            v42 = v41;
+            v43 = *v54;
             do
             {
-              for (j = 0; j != v39; ++j)
+              for (j = 0; j != v42; ++j)
               {
-                if (*v52 != v40)
+                if (*v54 != v43)
                 {
-                  objc_enumerationMutation(v37);
+                  objc_enumerationMutation(v40);
                 }
 
-                v42 = [[DDUPIAction alloc] initWithURL:v24 result:result context:v22 appRecord:*(*(&v51 + 1) + 8 * j) upiIdentifier:v50];
-                [v14 addObject:v42];
+                v45 = [[DDUPIAction alloc] initWithURL:v27 result:result context:v25 appRecord:*(*(&v53 + 1) + 8 * j) upiIdentifier:v52];
+                [v18 addObject:v45];
               }
 
-              v39 = [v37 countByEnumeratingWithState:&v51 objects:v60 count:16];
+              v42 = [v40 countByEnumeratingWithState:&v53 objects:v62 count:16];
             }
 
-            while (v39);
+            while (v42);
           }
 
-          lCopy = v24;
-          contextCopy = v22;
-          v43 = [DDCopyAction actionWithURL:v24 result:result context:v22];
-          if (v43)
+          lCopy = v27;
+          contextCopy = v25;
+          v46 = [DDCopyAction actionWithURL:v27 result:result context:v25];
+          if (v46)
           {
-            [v14 addObject:v43];
+            [v18 addObject:v46];
           }
 
-          v13 = v46;
-          v15 = v50;
-          v36 = v48;
+          v15 = v48;
+          v19 = v52;
+          v39 = v50;
         }
 
         else
         {
-          v14 = v13;
-          contextCopy = v22;
-          v15 = v50;
+          v18 = v15;
+          contextCopy = v25;
+          v19 = v52;
         }
 
         goto LABEL_46;
@@ -206,20 +205,19 @@ LABEL_15:
       }
     }
 
-    v14 = v13;
+    v18 = v15;
   }
 
   else
   {
-    v14 = 0;
+    v18 = 0;
   }
 
 LABEL_46:
 
 LABEL_47:
-  v44 = *MEMORY[0x277D85DE8];
 
-  return v14;
+  return v18;
 }
 
 uint64_t __45__DDUPIAction_actionsWithURL_result_context___block_invoke()

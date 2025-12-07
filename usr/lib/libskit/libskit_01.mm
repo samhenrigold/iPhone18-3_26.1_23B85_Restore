@@ -17,11 +17,11 @@ uint64_t std::__fs::filesystem::operator<[abi:ne200100](const std::__fs::filesys
 
 uint64_t skit::IndexWriter::end_txn(skit::IndexWriter *this)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v1 = *this;
   if (!*this)
   {
-    goto LABEL_46;
+    return 0xFFFFFFFFLL;
   }
 
   if ((*(v1 + 528) & 1) == 0)
@@ -30,17 +30,17 @@ uint64_t skit::IndexWriter::end_txn(skit::IndexWriter *this)
     {
     }
 
-    v20 = skit::internal::get_logging_context(void)::logger;
+    v19 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_FAULT))
     {
-      v29 = 68289026;
-      *v30 = 16;
-      *&v30[4] = 2098;
-      *&v30[6] = v1;
-      _os_log_fault_impl(&dword_2998C6000, v20, OS_LOG_TYPE_FAULT, "IndexWriterImpl::end_txn : transaction %{public,uuid_t}.16P is not active", &v29, 0x12u);
+      v28 = 68289026;
+      *v29 = 16;
+      *&v29[4] = 2098;
+      *&v29[6] = v1;
+      _os_log_fault_impl(&dword_2998C6000, v19, OS_LOG_TYPE_FAULT, "IndexWriterImpl::end_txn : transaction %{public,uuid_t}.16P is not active", &v28, 0x12u);
     }
 
-    goto LABEL_46;
+    return 0xFFFFFFFFLL;
   }
 
   v2 = (v1 + 208);
@@ -50,9 +50,7 @@ uint64_t skit::IndexWriter::end_txn(skit::IndexWriter *this)
   {
 LABEL_45:
     skit::internal::IndexWriterImpl::abort_txn(v1);
-LABEL_46:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_28;
+    return 0xFFFFFFFFLL;
   }
 
   if (*(v1 + 529) == 1)
@@ -76,7 +74,7 @@ LABEL_46:
       {
       }
 
-      v23 = skit::internal::get_logging_context(void)::logger;
+      v22 = skit::internal::get_logging_context(void)::logger;
       if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
       {
         if (*(v1 + 231) < 0)
@@ -89,14 +87,14 @@ LABEL_46:
           v5 = *v5;
         }
 
-        v27 = *__error();
-        v29 = 136446722;
-        *v30 = v2;
-        *&v30[8] = 2082;
-        *&v30[10] = v5;
-        *&v30[18] = 1024;
-        *&v30[20] = v27;
-        _os_log_error_impl(&dword_2998C6000, v23, OS_LOG_TYPE_ERROR, "IndexWriterImpl::end_txn : failed to move transaction directory @ %{public}s ->  %{public}s : %{darwin.errno}d", &v29, 0x1Cu);
+        v26 = *__error();
+        v28 = 136446722;
+        *v29 = v2;
+        *&v29[8] = 2082;
+        *&v29[10] = v5;
+        *&v29[18] = 1024;
+        *&v29[20] = v26;
+        _os_log_error_impl(&dword_2998C6000, v22, OS_LOG_TYPE_ERROR, "IndexWriterImpl::end_txn : failed to move transaction directory @ %{public}s ->  %{public}s : %{darwin.errno}d", &v28, 0x1Cu);
       }
 
       goto LABEL_45;
@@ -115,7 +113,7 @@ LABEL_46:
     {
     }
 
-    v21 = skit::internal::get_logging_context(void)::logger;
+    v20 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
       if (*(v1 + 231) < 0)
@@ -123,12 +121,12 @@ LABEL_46:
         v2 = *v2;
       }
 
-      v22 = *__error();
-      v29 = 136446466;
-      *v30 = v2;
-      *&v30[8] = 1024;
-      *&v30[10] = v22;
-      _os_log_error_impl(&dword_2998C6000, v21, OS_LOG_TYPE_ERROR, "IndexWriterImpl::end_txn : failed to remove transaction directory @ %{public}s : %{darwin.errno}d", &v29, 0x12u);
+      v21 = *__error();
+      v28 = 136446466;
+      *v29 = v2;
+      *&v29[8] = 1024;
+      *&v29[10] = v21;
+      _os_log_error_impl(&dword_2998C6000, v20, OS_LOG_TYPE_ERROR, "IndexWriterImpl::end_txn : failed to remove transaction directory @ %{public}s : %{darwin.errno}d", &v28, 0x12u);
     }
   }
 
@@ -151,7 +149,7 @@ LABEL_46:
     {
     }
 
-    v24 = skit::internal::get_logging_context(void)::logger;
+    v23 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_56;
@@ -162,14 +160,14 @@ LABEL_46:
       v8 = *v8;
     }
 
-    v25 = *__error();
-    v29 = 136315394;
-    *v30 = v8;
-    *&v30[8] = 1024;
-    *&v30[10] = v25;
-    v26 = "IndexWriterImpl::end_txn : failed to open index directory @ %s : %{darwin.errno}d";
+    v24 = *__error();
+    v28 = 136315394;
+    *v29 = v8;
+    *&v29[8] = 1024;
+    *&v29[10] = v24;
+    v25 = "IndexWriterImpl::end_txn : failed to open index directory @ %s : %{darwin.errno}d";
 LABEL_65:
-    _os_log_error_impl(&dword_2998C6000, v24, OS_LOG_TYPE_ERROR, v26, &v29, 0x12u);
+    _os_log_error_impl(&dword_2998C6000, v23, OS_LOG_TYPE_ERROR, v25, &v28, 0x12u);
 LABEL_22:
     v13 = skit::internal::get_logging_context(void)::once;
     *(v1 + 528) = 0;
@@ -190,18 +188,18 @@ LABEL_22:
     v12 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      v18 = (v1 + 16);
+      v17 = (v1 + 16);
       if (*(v1 + 39) < 0)
       {
-        v18 = *v8;
+        v17 = *v8;
       }
 
-      v19 = *__error();
-      v29 = 136315394;
-      *v30 = v18;
-      *&v30[8] = 1024;
-      *&v30[10] = v19;
-      _os_log_error_impl(&dword_2998C6000, v12, OS_LOG_TYPE_ERROR, "IndexWriterImpl::end_txn : failed fcntl barrier @ %s : %{darwin.errno}d", &v29, 0x12u);
+      v18 = *__error();
+      v28 = 136315394;
+      *v29 = v17;
+      *&v29[8] = 1024;
+      *&v29[10] = v18;
+      _os_log_error_impl(&dword_2998C6000, v12, OS_LOG_TYPE_ERROR, "IndexWriterImpl::end_txn : failed fcntl barrier @ %s : %{darwin.errno}d", &v28, 0x12u);
     }
   }
 
@@ -214,7 +212,7 @@ LABEL_22:
   {
   }
 
-  v24 = skit::internal::get_logging_context(void)::logger;
+  v23 = skit::internal::get_logging_context(void)::logger;
   if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
   {
     if (*(v1 + 39) < 0)
@@ -222,12 +220,12 @@ LABEL_22:
       v8 = *v8;
     }
 
-    v28 = *__error();
-    v29 = 136315394;
-    *v30 = v8;
-    *&v30[8] = 1024;
-    *&v30[10] = v28;
-    v26 = "IndexWriterImpl::end_txn : failed to close index directory @ %s : %{darwin.errno}d";
+    v27 = *__error();
+    v28 = 136315394;
+    *v29 = v8;
+    *&v29[8] = 1024;
+    *&v29[10] = v27;
+    v25 = "IndexWriterImpl::end_txn : failed to close index directory @ %s : %{darwin.errno}d";
     goto LABEL_65;
   }
 
@@ -244,18 +242,16 @@ LABEL_24:
       v16 = *v16;
     }
 
-    v29 = 68158210;
-    *v30 = 16;
-    *&v30[4] = 2096;
-    *&v30[6] = v1;
-    *&v30[14] = 2082;
-    *&v30[16] = v16;
-    _os_log_impl(&dword_2998C6000, v14, OS_LOG_TYPE_INFO, "IndexWriterImpl::end_txn : completed transaction %{uuid_t}.16P @ %{public}s", &v29, 0x1Cu);
-    result = 0;
+    v28 = 68158210;
+    *v29 = 16;
+    *&v29[4] = 2096;
+    *&v29[6] = v1;
+    *&v29[14] = 2082;
+    *&v29[16] = v16;
+    _os_log_impl(&dword_2998C6000, v14, OS_LOG_TYPE_INFO, "IndexWriterImpl::end_txn : completed transaction %{uuid_t}.16P @ %{public}s", &v28, 0x1Cu);
+    return 0;
   }
 
-LABEL_28:
-  v17 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -287,24 +283,23 @@ void sub_2998D2FF8(_Unwind_Exception *exception_object)
 
 void skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::set_dp_class(uint64_t a1, int a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   if ((a2 - 8) <= 0xFFFFFFF6)
   {
     if (skit::internal::get_logging_context(void)::once != -1)
     {
     }
 
-    v5 = skit::internal::get_logging_context(void)::logger;
+    v4 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_FAULT))
     {
-      v6[0] = 67109120;
-      v6[1] = a2;
-      _os_log_fault_impl(&dword_2998C6000, v5, OS_LOG_TYPE_FAULT, "KvStore : invalid protection class %d", v6, 8u);
+      v5[0] = 67109120;
+      v5[1] = a2;
+      _os_log_fault_impl(&dword_2998C6000, v4, OS_LOG_TYPE_FAULT, "KvStore : invalid protection class %d", v5, 8u);
     }
   }
 
   *(a1 + 156) = a2;
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::calculate_checksums(uint64_t result)
@@ -566,73 +561,58 @@ void sub_2998D3498(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::put(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v3 = *(a1 + 24);
-  if (!v3)
+  if (v3)
   {
-    goto LABEL_12;
-  }
-
-  v7 = *(v3 + 16) << 6;
-  if (!v7 || (*(v3 + 28) * v7) < (*(v3 + 20) + 1))
-  {
-    if (skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::rehash(a1, (v7 + (v7 >> 1)) | 1))
+    if ((v6 = a1, (v7 = *(v3 + 16) << 6) != 0) && (*(v3 + 28) * v7) >= (*(v3 + 20) + 1) || (a1 = skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::rehash(a1, (v7 + (v7 >> 1)) | 1), !a1))
     {
-      goto LABEL_12;
+      v8 = *(a2 + 8);
+      v9 = (2 * v8 + 8);
+      MEMORY[0x2A1C7C4A8](a1, a2);
+      v10 = &v19[-((v9 + 15) & 0x1FFFFFFF0)];
+      bzero(v10, v9);
+      v12 = *a2;
+      v10[2] = v8;
+      *v10 = *(a3 + 8) + *(a3 + 24) + *(a3 + 40) + 2 * v8 + 8;
+      if (v8)
+      {
+        v11 = memmove(v10 + 3, v12, 2 * v8);
+      }
+
+      v10[v8 + 3] = 0;
+      if (*(v6 + 72) + *v10 <= *(v6 + 80))
+      {
+        MEMORY[0x2A1C7C4A8](v11, v12);
+        *&v19[-64] = v10;
+        *&v19[-56] = v9;
+        v13 = *(a3 + 16);
+        *&v19[-48] = *a3;
+        *&v19[-32] = v13;
+        *&v19[-16] = *(a3 + 32);
+        skit::internal::BlobFile::append(v19, (v6 + 40), &v19[-64], 4);
+        if (!v21)
+        {
+          v14 = *(v6 + 24);
+          v15 = skit::internal::murmur3_32(*a2, 2 * *(a2 + 8), *(v14 + 12));
+          v16 = v20;
+          if (skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::KvTableImpl::insert_offset(v14, v15 & 0x7FFFFFFF, *(v14 + 24)))
+          {
+            result = 0;
+            v18.i32[0] = 1;
+            v18.i32[1] = v16;
+            *(v14 + 20) = vadd_s32(*(v14 + 20), v18);
+            *(v6 + 162) = 1;
+            return result;
+          }
+
+          skit::internal::BlobFile::resize((v6 + 40), *(v6 + 72) - v16);
+        }
+      }
     }
   }
 
-  v8 = *(a2 + 8);
-  v9 = (2 * v8 + 8);
-  (MEMORY[0x2A1C7C4A8])();
-  v10 = &v20[-((v9 + 15) & 0x1FFFFFFF0)];
-  bzero(v10, v9);
-  v12 = *a2;
-  v10[2] = v8;
-  *v10 = *(a3 + 8) + *(a3 + 24) + *(a3 + 40) + 2 * v8 + 8;
-  if (v8)
-  {
-    v11 = memmove(v10 + 3, v12, 2 * v8);
-  }
-
-  v10[v8 + 3] = 0;
-  if (*(a1 + 72) + *v10 > *(a1 + 80))
-  {
-    goto LABEL_12;
-  }
-
-  MEMORY[0x2A1C7C4A8](v11, v12);
-  *&v20[-64] = v10;
-  *&v20[-56] = v9;
-  v13 = *(a3 + 16);
-  *&v20[-48] = *a3;
-  *&v20[-32] = v13;
-  *&v20[-16] = *(a3 + 32);
-  skit::internal::BlobFile::append(v20, (a1 + 40), &v20[-64], 4u);
-  if (v22)
-  {
-    goto LABEL_12;
-  }
-
-  v14 = *(a1 + 24);
-  v15 = skit::internal::murmur3_32(*a2, 2 * *(a2 + 8), *(v14 + 12));
-  v16 = v21;
-  if ((skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::KvTableImpl::insert_offset(v14, v15 & 0x7FFFFFFF, *(v14 + 24)) & 1) == 0)
-  {
-    skit::internal::BlobFile::resize((a1 + 40), *(a1 + 72) - v16);
-LABEL_12:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_13;
-  }
-
-  result = 0;
-  v18.i32[0] = 1;
-  v18.i32[1] = v16;
-  *(v14 + 20) = vadd_s32(*(v14 + 20), v18);
-  *(a1 + 162) = 1;
-LABEL_13:
-  v19 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::KvTableImpl::insert_offset(uint64_t a1, unsigned int a2, unsigned int a3)
@@ -687,14 +667,14 @@ LABEL_11:
 uint64_t skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::flush(uint64_t a1, char a2)
 {
   v3 = a1;
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if (*(a1 + 24) && (skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::calculate_checksums(a1), msync(*(v3 + 24), *(v3 + 32), 1)))
   {
     if (skit::internal::get_logging_context(void)::once != -1)
     {
     }
 
-    v6 = skit::internal::get_logging_context(void)::logger;
+    v5 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
       if (*(v3 + 23) < 0)
@@ -702,40 +682,37 @@ uint64_t skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>
         v3 = *v3;
       }
 
-      v7 = *__error();
-      v8 = 136446466;
-      v9 = v3;
-      v10 = 1024;
-      v11 = v7;
-      _os_log_error_impl(&dword_2998C6000, v6, OS_LOG_TYPE_ERROR, "BlobFile::resize : msync for kv table file failed @ %{public}s : %{darwin.errno}d", &v8, 0x12u);
+      v6 = *__error();
+      v7 = 136446466;
+      v8 = v3;
+      v9 = 1024;
+      v10 = v6;
+      _os_log_error_impl(&dword_2998C6000, v5, OS_LOG_TYPE_ERROR, "BlobFile::resize : msync for kv table file failed @ %{public}s : %{darwin.errno}d", &v7, 0x12u);
     }
 
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else if (skit::internal::BlobFile::flush((v3 + 40), a2))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t skit::internal::MemMetaStore::write(skit::internal::MemMetaStore *this, std::__fs::filesystem::path *a2, int a3, uint64_t a4)
 {
   v6 = a2;
-  v55 = *MEMORY[0x29EDCA608];
-  v52.iov_base = this;
-  v52.iov_len = 48;
+  v54 = *MEMORY[0x29EDCA608];
+  v51.iov_base = this;
+  v51.iov_len = 48;
   v8 = *(this + 7) - *(this + 6);
-  v53 = *(this + 6);
-  v54 = v8;
+  v52 = *(this + 6);
+  v53 = v8;
   std::string::append(&a2->__pn_, ".ms", 3uLL);
   if (SHIBYTE(v6->__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -747,20 +724,20 @@ uint64_t skit::internal::MemMetaStore::write(skit::internal::MemMetaStore *this,
     pn = v6->__pn_;
   }
 
-  v44 = *&pn.__r_.__value_.__l.__data_;
-  v45 = pn.__r_.__value_.__r.__words[2];
-  v46 = -1;
-  v47 = xmmword_2998EB7E0;
-  v49 = 0;
-  v50 = 0;
+  v43 = *&pn.__r_.__value_.__l.__data_;
+  v44 = pn.__r_.__value_.__r.__words[2];
+  v45 = -1;
+  v46 = xmmword_2998EB7E0;
   v48 = 0;
-  if ((skit::internal::BlobFile::open(&v44, 1538, a3, a4) & 0x80000000) != 0)
+  v49 = 0;
+  v47 = 0;
+  if ((skit::internal::BlobFile::open(&v43, 1538, a3, a4) & 0x80000000) != 0)
   {
     goto LABEL_48;
   }
 
-  skit::internal::BlobFile::append(&__replacement, &v44, &v52, 2u);
-  if ((__replacement.__pn_.__r_.__value_.__r.__words[2] & 0x80000000) != 0 || (skit::internal::BlobFile::flush(&v44, 0) & 0x80000000) != 0 || (skit::internal::BlobFile::close(&v44) & 0x80000000) != 0)
+  skit::internal::BlobFile::append(&__replacement, &v43, &v51, 2);
+  if ((__replacement.__pn_.__r_.__value_.__r.__words[2] & 0x80000000) != 0 || (skit::internal::BlobFile::flush(&v43, 0) & 0x80000000) != 0 || (skit::internal::BlobFile::close(&v43) & 0x80000000) != 0)
   {
     goto LABEL_48;
   }
@@ -772,9 +749,9 @@ LABEL_18:
     goto LABEL_53;
   }
 
-  v41 = ".xid";
-  v42 = 4;
-  std::__fs::filesystem::path::path[abi:ne200100]<std::string_view,void>(&__replacement.__pn_, &v41);
+  v40 = ".xid";
+  v41 = 4;
+  std::__fs::filesystem::path::path[abi:ne200100]<std::string_view,void>(&__replacement.__pn_, &v40);
   std::__fs::filesystem::path::replace_extension(v6, &__replacement);
   if (SHIBYTE(__replacement.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -933,10 +910,10 @@ LABEL_47:
   }
 
 LABEL_48:
-  skit::internal::BlobFile::clear(&v44, v9);
-  v41 = ".xid";
-  v42 = 4;
-  std::__fs::filesystem::path::path[abi:ne200100]<std::string_view,void>(&__replacement.__pn_, &v41);
+  skit::internal::BlobFile::clear(&v43, v9);
+  v40 = ".xid";
+  v41 = 4;
+  std::__fs::filesystem::path::path[abi:ne200100]<std::string_view,void>(&__replacement.__pn_, &v40);
   std::__fs::filesystem::path::replace_extension(v6, &__replacement);
   if (SHIBYTE(__replacement.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -951,17 +928,16 @@ LABEL_48:
   remove(v6, v38);
   v15 = 0xFFFFFFFFLL;
 LABEL_53:
-  skit::internal::BlobFile::~BlobFile(&v44);
-  v39 = *MEMORY[0x29EDCA608];
+  skit::internal::BlobFile::~BlobFile(&v43);
   return v15;
 }
 
-void sub_2998D3D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2998D3D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  if (*(v9 - 89) < 0)
+  va_start(va, a16);
+  if (*(v16 - 89) < 0)
   {
-    operator delete(*(v9 - 112));
+    operator delete(*(v16 - 112));
   }
 
   skit::internal::BlobFile::~BlobFile(va);
@@ -970,8 +946,7 @@ void sub_2998D3D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string_view,void>(std::string *a1, uint64_t a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   std::string::append[abi:ne200100]<char const*,0>(a1, *a2, (*a2 + *(a2 + 8)));
   return a1;
@@ -1002,7 +977,7 @@ void ***std::unique_ptr<skit::internal::IndexDiskImplV2>::~unique_ptr[abi:ne2001
 
 void skit::internal::IndexDiskImplV2::~IndexDiskImplV2(void **this)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   if (skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::close(this))
   {
     v2 = "term index";
@@ -1025,9 +1000,9 @@ void skit::internal::IndexDiskImplV2::~IndexDiskImplV2(void **this)
   v3 = skit::internal::get_logging_context(void)::logger;
   if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136446210;
-    v6 = v2;
-    _os_log_error_impl(&dword_2998C6000, v3, OS_LOG_TYPE_ERROR, "IndexDiskImplV2::close : %{public}s failed", &v5, 0xCu);
+    v4 = 136446210;
+    v5 = v2;
+    _os_log_error_impl(&dword_2998C6000, v3, OS_LOG_TYPE_ERROR, "IndexDiskImplV2::close : %{public}s failed", &v4, 0xCu);
   }
 
 LABEL_9:
@@ -1044,8 +1019,6 @@ LABEL_9:
   {
     operator delete(this[21]);
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 
   skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::~KvStore(this);
 }
@@ -1120,7 +1093,7 @@ uint64_t skit::internal::remove_all(const std::__fs::filesystem::path *this, con
 
 uint64_t skit::internal::anonymous namespace::remove_cb(skit::internal::_anonymous_namespace_ *this, const char *a2, const stat *a3, int a4, FTW *a5)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   if ((*(a2 + 2) & 0x92) == 0)
   {
     if (skit::internal::get_logging_context(void)::once != -1)
@@ -1130,13 +1103,13 @@ uint64_t skit::internal::anonymous namespace::remove_cb(skit::internal::_anonymo
     v6 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315138;
-      v16 = this;
+      v14 = 136315138;
+      v15 = this;
       v7 = "remove_all : file does not have write permission : %s";
       goto LABEL_17;
     }
 
-    goto LABEL_27;
+    return 0;
   }
 
   if (a3 <= 2)
@@ -1152,9 +1125,9 @@ uint64_t skit::internal::anonymous namespace::remove_cb(skit::internal::_anonymo
         v10 = skit::internal::get_logging_context(void)::logger;
         if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_FAULT))
         {
-          v15 = 136446210;
-          v16 = this;
-          _os_log_fault_impl(&dword_2998C6000, v10, OS_LOG_TYPE_FAULT, "remove_all : visiting directory in pre-order traversal : %{public}s", &v15, 0xCu);
+          v14 = 136446210;
+          v15 = this;
+          _os_log_fault_impl(&dword_2998C6000, v10, OS_LOG_TYPE_FAULT, "remove_all : visiting directory in pre-order traversal : %{public}s", &v14, 0xCu);
         }
       }
 
@@ -1167,19 +1140,19 @@ uint64_t skit::internal::anonymous namespace::remove_cb(skit::internal::_anonymo
         v6 = skit::internal::get_logging_context(void)::logger;
         if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
         {
-          v15 = 136446210;
-          v16 = this;
+          v14 = 136446210;
+          v15 = this;
           v7 = "remove_all : directory cannot be read, skipping removal : %{public}s";
 LABEL_17:
           v8 = v6;
           v9 = 12;
 LABEL_18:
-          _os_log_error_impl(&dword_2998C6000, v8, OS_LOG_TYPE_ERROR, v7, &v15, v9);
-          goto LABEL_27;
+          _os_log_error_impl(&dword_2998C6000, v8, OS_LOG_TYPE_ERROR, v7, &v14, v9);
+          return 0;
         }
       }
 
-      goto LABEL_27;
+      return 0;
     }
 
     goto LABEL_19;
@@ -1190,7 +1163,7 @@ LABEL_18:
 LABEL_19:
     if (!unlink(this))
     {
-      goto LABEL_27;
+      return 0;
     }
 
     goto LABEL_26;
@@ -1200,7 +1173,7 @@ LABEL_19:
   {
     if (!rmdir(this))
     {
-      goto LABEL_27;
+      return 0;
     }
 
 LABEL_26:
@@ -1210,22 +1183,22 @@ LABEL_26:
       {
       }
 
-      v13 = skit::internal::get_logging_context(void)::logger;
+      v12 = skit::internal::get_logging_context(void)::logger;
       if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
       {
-        v14 = *__error();
-        v15 = 136446466;
-        v16 = this;
-        v17 = 1024;
-        v18 = v14;
+        v13 = *__error();
+        v14 = 136446466;
+        v15 = this;
+        v16 = 1024;
+        v17 = v13;
         v7 = "remove_all : directory cannot be read, skipping removal : %{public}s : %{darwin.errno}d";
-        v8 = v13;
+        v8 = v12;
         v9 = 18;
         goto LABEL_18;
       }
     }
 
-    goto LABEL_27;
+    return 0;
   }
 
   if (a3 == 4)
@@ -1237,19 +1210,17 @@ LABEL_26:
     v6 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136446210;
-      v16 = this;
+      v14 = 136446210;
+      v15 = this;
       v7 = "remove_all : directory cannot be read, skipping removal : %{public}s";
       goto LABEL_17;
     }
   }
 
-LABEL_27:
-  v11 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
-__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *,0>(__int128 *a1, std::__fs::filesystem::path::__string_view a2, std::__fs::filesystem::path *a3)
+__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *,0>(std::string_view::value_type *a1, std::__fs::filesystem::path::__string_view a2, std::__fs::filesystem::path *a3)
 {
   size = a2.__size_;
   data = a2.__data_;
@@ -1364,20 +1335,22 @@ float skit::entity_token_wgt(skit *this)
   }
 }
 
-void skit::FieldSpanMatcherV3::FieldSpanMatcherV3()
+void skit::FieldSpanMatcherV3::FieldSpanMatcherV3(uint64_t **a1, uint64_t a2, __int128 **a3, char a4)
 {
-  std::allocate_shared[abi:ne200100]<skit::internal::FieldSpanMatcherImpl,std::allocator<skit::internal::FieldSpanMatcherImpl>,std::basic_string<char16_t> &,skit::TokenStream &,BOOL &,0>();
+  v4 = a4;
+  std::allocate_shared[abi:ne200100]<skit::internal::FieldSpanMatcherImpl,std::allocator<skit::internal::FieldSpanMatcherImpl>,std::basic_string<char16_t> &,skit::TokenStream &,BOOL &,0>(a1, a2, a3, &v4);
 }
 
 {
-  std::allocate_shared[abi:ne200100]<skit::internal::FieldSpanMatcherImpl,std::allocator<skit::internal::FieldSpanMatcherImpl>,std::basic_string<char16_t> &,skit::TokenStream &,BOOL &,0>();
+  v4 = a4;
+  std::allocate_shared[abi:ne200100]<skit::internal::FieldSpanMatcherImpl,std::allocator<skit::internal::FieldSpanMatcherImpl>,std::basic_string<char16_t> &,skit::TokenStream &,BOOL &,0>(a1, a2, a3, &v4);
 }
 
 void sub_2998D4AEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, uint64_t a12, char *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, char a25, uint64_t a26, char *a27)
 {
-  skit::SmallVector<skit::AliasSpanMatch,4u,true>::~SmallVector((v28 + 142));
+  skit::SmallVector<skit::AliasSpanMatch,4u,true>::~SmallVector(v28 + 142);
   skit::SmallVector<skit::internal::AliasSpanMatchImpl<skit::AliasMatch,skit::SpanMatchV3>,4u,true>::~SmallVector((v28 + 88));
-  skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector((v28 + 76));
+  skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(v28 + 76);
   v31 = *(v27 + 672);
   if (v31)
   {
@@ -1442,7 +1415,7 @@ void std::basic_string<char16_t>::__init_copy_ctor_external(std::basic_string<ch
   memmove(this, __s, v4);
 }
 
-void std::vector<skit::Token>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<skit::Token>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -1525,9 +1498,9 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
 
 void std::__shared_ptr_emplace<skit::internal::FieldSpanMatcherImpl>::__on_zero_shared(uint64_t a1)
 {
-  skit::SmallVector<skit::AliasSpanMatch,4u,true>::~SmallVector(a1 + 1208);
+  skit::SmallVector<skit::AliasSpanMatch,4u,true>::~SmallVector((a1 + 1208));
   skit::SmallVector<skit::internal::AliasSpanMatchImpl<skit::AliasMatch,skit::SpanMatchV3>,4u,true>::~SmallVector(a1 + 776);
-  skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(a1 + 680);
+  skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector((a1 + 680));
   v2 = *(a1 + 672);
   if (v2)
   {
@@ -1560,10 +1533,10 @@ void std::__shared_ptr_emplace<skit::internal::FieldSpanMatcherImpl>::__on_zero_
   std::vector<skit::Token>::__destroy_vector::operator()[abi:ne200100](&v5);
 }
 
-uint64_t skit::SmallVector<skit::AliasSpanMatch,4u,true>::~SmallVector(uint64_t a1)
+void **skit::SmallVector<skit::AliasSpanMatch,4u,true>::~SmallVector(void **a1)
 {
-  skit::SmallVector<skit::AliasSpanMatch,4u,true>::_destroy(*a1, *(a1 + 8));
-  if (*a1 != a1 + 16)
+  skit::SmallVector<skit::AliasSpanMatch,4u,true>::_destroy(*a1, *(a1 + 2));
+  if (*a1 != a1 + 2)
   {
     free(*a1);
   }
@@ -1596,10 +1569,10 @@ uint64_t skit::SmallVector<skit::internal::AliasSpanMatchImpl<skit::AliasMatch,s
   return a1;
 }
 
-uint64_t skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(uint64_t a1)
+void **skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(void **a1)
 {
-  skit::SmallVector<skit::AliasMatch,2u,true>::_destroy(*a1, *(a1 + 8));
-  if (*a1 != a1 + 16)
+  skit::SmallVector<skit::AliasMatch,2u,true>::_destroy(*a1, *(a1 + 2));
+  if (*a1 != a1 + 2)
   {
     free(*a1);
   }
@@ -1721,38 +1694,36 @@ uint64_t skit::FieldSpanMatcherV3::query_token_stream_end(skit::FieldSpanMatcher
   }
 }
 
-uint64_t skit::FieldSpanMatcherV3::alias_span_matcher(uint64_t *a1, uint64_t a2, char a3, uint64_t a4)
+uint64_t skit::FieldSpanMatcherV3::alias_span_matcher(uint64_t *a1, __int128 *a2, uint64_t a3, uint64_t a4)
 {
-  v9[10] = *MEMORY[0x29EDCA608];
-  v8[0] = v9;
-  v8[1] = 0x200000000;
-  v7 = *a2;
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  v4 = skit::FieldSpanMatcherV3::alias_span_matcher(a1, &v7, a3, a4, v8, 0);
-  if (*(&v7 + 1))
+  v8[10] = *MEMORY[0x29EDCA608];
+  v7[0] = v8;
+  v7[1] = 0x200000000;
+  v6 = *a2;
+  *a2 = 0uLL;
+  v4 = skit::FieldSpanMatcherV3::alias_span_matcher(a1, &v6, a3, a4, v7, 0);
+  if (*(&v6 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v7 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v6 + 1));
   }
 
-  skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(v8);
-  v5 = *MEMORY[0x29EDCA608];
+  skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(v7);
   return v4;
 }
 
-void sub_2998D52F4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, ...)
+void sub_2998D52F4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, std::__shared_weak_count *a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (a3)
+  va_start(va, a7);
+  if (a6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a6);
   }
 
   skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t skit::FieldSpanMatcherV3::alias_span_matcher(uint64_t *a1, __int128 *a2, char a3, uint64_t a4, uint64_t *a5, int a6)
+uint64_t skit::FieldSpanMatcherV3::alias_span_matcher(uint64_t *a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t *a5, int a6)
 {
   v6 = *a1;
   if (!v6)
@@ -1761,8 +1732,7 @@ uint64_t skit::FieldSpanMatcherV3::alias_span_matcher(uint64_t *a1, __int128 *a2
   }
 
   v9 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v7 = skit::internal::FieldSpanMatcherImpl::alias_span_matcher(v6, &v9, a3, a4, a5, a6);
   if (*(&v9 + 1))
   {
@@ -1826,43 +1796,38 @@ uint64_t skit::FieldSpanMatcherV3::query_alias_matches_end(skit::FieldSpanMatche
   }
 }
 
-uint64_t skit::FieldSpanMatcherV3::match(uint64_t *a1, uint64_t a2, uint64_t *a3)
+void **skit::FieldSpanMatcherV3::match(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
-  v7[10] = *MEMORY[0x29EDCA608];
-  v6[0] = v7;
-  v6[1] = 0x200000000;
-  v3 = *a1;
-  if (v3)
+  v8[10] = *MEMORY[0x29EDCA608];
+  v7[0] = v8;
+  v7[1] = 0x200000000;
+  v5 = *a1;
+  if (v5)
   {
-    skit::internal::FieldSpanMatcherImpl::match(v3, a2, a3, v6, 0);
+    skit::internal::FieldSpanMatcherImpl::match(v5, a2, a3, v7, 0, a4, a5);
   }
 
-  result = skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(v6);
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  return skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(v7);
 }
 
-void sub_2998D5470(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2998D5470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t skit::FieldSpanMatcherV3::match(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, int a5)
+void skit::FieldSpanMatcherV3::match(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  result = *a1;
-  if (result)
+  v7 = *a1;
+  if (v7)
   {
-    return skit::internal::FieldSpanMatcherImpl::match(result, a2, a3, a4, a5);
+    skit::internal::FieldSpanMatcherImpl::match(v7, a2, a3, a4, a5, a6, a7);
   }
-
-  return result;
 }
 
-uint64_t skit::FieldSpanMatcherV3::merge_field(uint64_t *a1, uint64_t a2, int32x4_t *a3, char a4)
+uint64_t skit::FieldSpanMatcherV3::merge_field(uint64_t *a1, int32x4_t *a2, int32x4_t *a3, char a4)
 {
-  v4 = *a1;
   if (*a1)
   {
     if ((a4 & 1) == 0)
@@ -1872,27 +1837,12 @@ uint64_t skit::FieldSpanMatcherV3::merge_field(uint64_t *a1, uint64_t a2, int32x
 
     if (a3[3].i32[2])
     {
-      v6 = 48;
-      if (*(v4 + 602))
+      v4 = a2[1].u32[2];
+      if (v4 == a2[1].i32[3])
       {
-        v6 = 24;
+        skit::SmallVector<skit::internal::MergedFieldMatchImpl<skit::internal::FieldMatchImpl<skit::internal::FieldMatchesImpl<skit::SpanMatchV3>>>,8u,true>::_reserve_more(&a2[1], v4 + (v4 >> 1) + 1);
       }
 
-      if ((*(v4 + v6 + 23) & 0x8000000000000000) != 0)
-      {
-        v7 = *(v4 + v6);
-        v8 = *(v4 + v6 + 8);
-      }
-
-      v9 = a3[3].i64[0];
-      v10 = *(a2 + 24);
-      if (v10 == *(a2 + 28))
-      {
-        skit::SmallVector<skit::internal::MergedFieldMatchImpl<skit::internal::FieldMatchImpl<skit::internal::FieldMatchesImpl<skit::SpanMatchV3>>>,8u,true>::_reserve_more((a2 + 16), v10 + (v10 >> 1) + 1);
-        v12 = *(a2 + 24);
-      }
-
-      v11 = *(a2 + 16);
       skit::internal::MergedFieldMatchImpl<skit::internal::FieldMatchImpl<skit::internal::FieldMatchesImpl<skit::SpanMatchV3>>>::MergedFieldMatchImpl();
     }
   }
@@ -1900,10 +1850,10 @@ uint64_t skit::FieldSpanMatcherV3::merge_field(uint64_t *a1, uint64_t a2, int32x
   return 0;
 }
 
-void skit::FieldSpanMatcherV3::finalize(uint64_t *a1, uint64_t a2)
+void skit::FieldSpanMatcherV3::finalize(uint64_t **result, uint64_t a2)
 {
-  v2 = *a1;
-  if (*a1 && *(a2 + 44))
+  v2 = *result;
+  if (*result && *(a2 + 44))
   {
     v4 = *v2;
     v5 = *(v2 + 8);
@@ -1983,8 +1933,8 @@ void skit::FieldSpanMatcherV3::finalize(uint64_t *a1, uint64_t a2)
 }
 
 {
-  v2 = *a1;
-  if (*a1)
+  v2 = *result;
+  if (*result)
   {
     v4 = *v2;
     v5 = *(v2 + 8);
@@ -2164,17 +2114,17 @@ size_t skit::SmallVector<std::tuple<std::basic_string<char16_t>,skit::GroupId>,2
     do
     {
       v9 = *v8;
-      *(v7 + 2) = *(v8 + 2);
+      *(v7 + 2) = *(v8 + 16);
       *v7 = v9;
-      *(v8 + 1) = 0;
-      *(v8 + 2) = 0;
+      *(v8 + 8) = 0;
+      *(v8 + 16) = 0;
       *v8 = 0;
-      *(v7 + 12) = *(v8 + 12);
+      *(v7 + 12) = *(v8 + 24);
       v7 += 2;
-      v8 += 2;
+      v8 += 32;
     }
 
-    while (v8 != &v5[2 * v6]);
+    while (v8 != v5 + 32 * v6);
     v10 = 32 * v6;
     do
     {
@@ -2183,7 +2133,7 @@ size_t skit::SmallVector<std::tuple<std::basic_string<char16_t>,skit::GroupId>,2
         operator delete(*v5);
       }
 
-      v5 += 2;
+      v5 += 32;
       v10 -= 32;
     }
 
@@ -2191,7 +2141,7 @@ size_t skit::SmallVector<std::tuple<std::basic_string<char16_t>,skit::GroupId>,2
     v5 = *a1;
   }
 
-  if (v5 != (a1 + 2))
+  if (v5 != a1 + 2)
   {
     free(v5);
   }
@@ -2204,29 +2154,29 @@ size_t skit::SmallVector<std::tuple<std::basic_string<char16_t>,skit::GroupId>,2
 
 void skit::internal::BlobFile::resize(skit::internal::BlobFile *this, off_t a2)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if (!skit::internal::BlobFile::flush_internal_cache(this))
   {
     if (ftruncate(*(this + 6), a2))
     {
-      v5 = *__error();
-      if (fcntl(*(this + 6), 50, v11) == -1)
+      v4 = *__error();
+      if (fcntl(*(this + 6), 50, v10) == -1)
       {
-        v11[0] = 0;
+        v10[0] = 0;
       }
 
       if (skit::internal::get_logging_context(void)::once != -1)
       {
       }
 
-      v6 = skit::internal::get_logging_context(void)::logger;
+      v5 = skit::internal::get_logging_context(void)::logger;
       if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446466;
-        v8 = v11;
-        v9 = 1024;
-        v10 = v5;
-        _os_log_error_impl(&dword_2998C6000, v6, OS_LOG_TYPE_ERROR, "BlobFile::resize : file truncate failed @ %{public}s : %{darwin.errno}d", buf, 0x12u);
+        v7 = v10;
+        v8 = 1024;
+        v9 = v4;
+        _os_log_error_impl(&dword_2998C6000, v5, OS_LOG_TYPE_ERROR, "BlobFile::resize : file truncate failed @ %{public}s : %{darwin.errno}d", buf, 0x12u);
       }
     }
 
@@ -2235,8 +2185,6 @@ void skit::internal::BlobFile::resize(skit::internal::BlobFile *this, off_t a2)
       *(this + 4) = a2;
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 size_t skit::SpanMatchV3::append_alias_id(size_t result, unsigned __int16 a2, int a3)
@@ -2511,42 +2459,41 @@ BOOL skit::operator<(uint64_t a1, uint64_t a2)
   return *(a1 + 20) > *(a2 + 20);
 }
 
-void *skit::operator<<(void *a1, unsigned int *a2)
+void *skit::operator<<(void *a1, float *a2)
 {
   v4 = MEMORY[0x29C2A30A0](a1, *a2);
-  v24 = 58;
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, &v24, 1);
-  v6 = MEMORY[0x29C2A30A0](v5, a2[1]);
+  v23 = 58;
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, &v23, 1);
+  v6 = MEMORY[0x29C2A30A0](v5, *(a2 + 1));
   v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, " (", 2);
-  v8 = MEMORY[0x29C2A30A0](v7, a2[2]);
+  v8 = MEMORY[0x29C2A30A0](v7, *(a2 + 2));
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ") score=", 8);
-  v9 = a2[3];
-  v10 = std::ostream::operator<<();
-  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, " token_cnt=", 11);
-  v12 = MEMORY[0x29C2A30A0](v11, a2[4]);
-  v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, " stop_word_cnt=", 15);
-  v14 = MEMORY[0x29C2A30A0](v13, a2[5]);
-  v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " alias_token_cnt=", 17);
-  v16 = MEMORY[0x29C2A30A0](v15, a2[6]);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " group_ids={ ", 13);
-  v17 = a2[10];
-  if (v17)
+  v9 = std::ostream::operator<<();
+  v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " token_cnt=", 11);
+  v11 = MEMORY[0x29C2A30A0](v10, *(a2 + 4));
+  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, " stop_word_cnt=", 15);
+  v13 = MEMORY[0x29C2A30A0](v12, *(a2 + 5));
+  v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, " alias_token_cnt=", 17);
+  v15 = MEMORY[0x29C2A30A0](v14, *(a2 + 6));
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, " group_ids={ ", 13);
+  v16 = *(a2 + 10);
+  if (v16)
   {
-    v18 = *(a2 + 4);
-    v19 = 2 * v17;
+    v17 = *(a2 + 4);
+    v18 = 2 * v16;
     do
     {
-      v20 = *v18++;
-      v21 = MEMORY[0x29C2A30B0](a1, v20);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, ", ", 2);
-      v19 -= 2;
+      v19 = *v17++;
+      v20 = MEMORY[0x29C2A30B0](a1, v19);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, ", ", 2);
+      v18 -= 2;
     }
 
-    while (v19);
+    while (v18);
   }
 
-  v23 = 125;
-  return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, &v23, 1);
+  v22 = 125;
+  return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, &v22, 1);
 }
 
 void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(void *a1, uint64_t a2, uint64_t a3)
@@ -2645,14 +2592,14 @@ LABEL_27:
   return a1;
 }
 
-void sub_2998D64C8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_2998D64C8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x29C2A3080](&a10);
+  MEMORY[0x29C2A3080](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v17 + *(*v17 - 24)));
   __cxa_end_catch();
@@ -2661,8 +2608,7 @@ void sub_2998D64C8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 
 void skit::to_string(std::string *a1, uint64_t a2, std::string::size_type a3)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   skit::to_string(a1, a2, a3);
 }
@@ -2767,12 +2713,12 @@ size_t skit::SmallVector<skit::internal::MergedFieldMatchImpl<skit::internal::Fi
       v7 += 552;
     }
 
-    while (v8 != &v5[552 * v6]);
+    while (v8 != &v5[69 * v6]);
     v11 = 552 * v6;
     do
     {
       skit::SmallVector<skit::internal::MergedFieldMatchImpl<skit::internal::FieldMatchImpl<skit::internal::FieldMatchesImpl<skit::SpanMatchV3>>>,8u,true>::_destroy<skit::internal::MergedFieldMatchImpl<skit::internal::FieldMatchImpl<skit::internal::FieldMatchesImpl<skit::SpanMatchV3>>>,(void *)0>(v5);
-      v5 += 552;
+      v5 += 69;
       v11 -= 552;
     }
 
@@ -2780,7 +2726,7 @@ size_t skit::SmallVector<skit::internal::MergedFieldMatchImpl<skit::internal::Fi
     v5 = *a1;
   }
 
-  if (v5 != (a1 + 2))
+  if (v5 != a1 + 2)
   {
     free(v5);
   }
@@ -3092,59 +3038,6 @@ void std::basic_string<char16_t>::__grow_by_and_replace(std::basic_string<char16
 {
   if (0x7FFFFFFFFFFFFFF6 - __old_cap >= __delta_cap)
   {
-    if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
-    {
-      v8 = this->__r_.__value_.__r.__words[0];
-    }
-
-    v9 = __delta_cap + __old_cap;
-    if (__delta_cap + __old_cap <= 2 * __old_cap)
-    {
-      v9 = 2 * __old_cap;
-    }
-
-    if ((v9 | 3) == 0xB)
-    {
-      v10 = 13;
-    }
-
-    else
-    {
-      v10 = (v9 | 3) + 1;
-    }
-
-    v11 = v9 >= 0xB;
-    v12 = 11;
-    if (v11)
-    {
-      v12 = v10;
-    }
-
-    if (__old_cap > 0x3FFFFFFFFFFFFFF2)
-    {
-      v13 = 0x7FFFFFFFFFFFFFF7;
-    }
-
-    else
-    {
-      v13 = v12;
-    }
-
-    std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(v13);
-  }
-
-  std::basic_string<char16_t>::__throw_length_error[abi:ne200100]();
-}
-
-void std::basic_string<char16_t>::__grow_by(std::basic_string<char16_t> *this, std::basic_string<char16_t>::size_type __old_cap, std::basic_string<char16_t>::size_type __delta_cap, std::basic_string<char16_t>::size_type __old_sz, std::basic_string<char16_t>::size_type __n_copy, std::basic_string<char16_t>::size_type __n_del, std::basic_string<char16_t>::size_type __n_add)
-{
-  if (0x7FFFFFFFFFFFFFF7 - __old_cap >= __delta_cap)
-  {
-    if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
-    {
-      v7 = this->__r_.__value_.__r.__words[0];
-    }
-
     v8 = __delta_cap + __old_cap;
     if (__delta_cap + __old_cap <= 2 * __old_cap)
     {
@@ -3168,17 +3061,60 @@ void std::basic_string<char16_t>::__grow_by(std::basic_string<char16_t> *this, s
       v11 = v9;
     }
 
-    if (__old_cap <= 0x3FFFFFFFFFFFFFF2)
-    {
-      v12 = v11;
-    }
-
-    else
+    if (__old_cap > 0x3FFFFFFFFFFFFFF2)
     {
       v12 = 0x7FFFFFFFFFFFFFF7;
     }
 
+    else
+    {
+      v12 = v11;
+    }
+
     std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(v12);
+  }
+
+  std::basic_string<char16_t>::__throw_length_error[abi:ne200100]();
+}
+
+void std::basic_string<char16_t>::__grow_by(std::basic_string<char16_t> *this, std::basic_string<char16_t>::size_type __old_cap, std::basic_string<char16_t>::size_type __delta_cap, std::basic_string<char16_t>::size_type __old_sz, std::basic_string<char16_t>::size_type __n_copy, std::basic_string<char16_t>::size_type __n_del, std::basic_string<char16_t>::size_type __n_add)
+{
+  if (0x7FFFFFFFFFFFFFF7 - __old_cap >= __delta_cap)
+  {
+    v7 = __delta_cap + __old_cap;
+    if (__delta_cap + __old_cap <= 2 * __old_cap)
+    {
+      v7 = 2 * __old_cap;
+    }
+
+    if ((v7 | 3) == 0xB)
+    {
+      v8 = 13;
+    }
+
+    else
+    {
+      v8 = (v7 | 3) + 1;
+    }
+
+    v9 = v7 >= 0xB;
+    v10 = 11;
+    if (v9)
+    {
+      v10 = v8;
+    }
+
+    if (__old_cap <= 0x3FFFFFFFFFFFFFF2)
+    {
+      v11 = v10;
+    }
+
+    else
+    {
+      v11 = 0x7FFFFFFFFFFFFFF7;
+    }
+
+    std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(v11);
   }
 
   std::basic_string<char16_t>::__throw_length_error[abi:ne200100]();
@@ -3251,24 +3187,24 @@ size_t skit::SmallVector<skit::MergedFieldMatchV2,8u,true>::_reserve_more(char *
     {
       skit::SmallVector<skit::FieldMatchV2,4u,true>::move(v7, v8);
       v9 = *(v8 + 21);
-      *(v7 + 352) = *(v8 + 44);
+      *(v7 + 352) = v8[44];
       *(v7 + 336) = v9;
-      *(v8 + 42) = 0;
-      *(v8 + 43) = 0;
-      *(v8 + 44) = 0;
-      v10 = *(v8 + 376);
-      *(v7 + 360) = *(v8 + 360);
+      v8[42] = 0;
+      v8[43] = 0;
+      v8[44] = 0;
+      v10 = *(v8 + 47);
+      *(v7 + 360) = *(v8 + 45);
       *(v7 + 376) = v10;
       v7 += 392;
-      v8 += 392;
+      v8 += 49;
     }
 
-    while (v8 != &v5[392 * v6]);
+    while (v8 != &v5[49 * v6]);
     v11 = 392 * v6;
     do
     {
       skit::SmallVector<skit::MergedFieldMatchV2,8u,true>::_destroy<skit::MergedFieldMatchV2,(void *)0>(v5);
-      v5 += 392;
+      v5 += 49;
       v11 -= 392;
     }
 
@@ -3276,7 +3212,7 @@ size_t skit::SmallVector<skit::MergedFieldMatchV2,8u,true>::_reserve_more(char *
     v5 = *a1;
   }
 
-  if (v5 != (a1 + 2))
+  if (v5 != a1 + 2)
   {
     free(v5);
   }
@@ -3287,10 +3223,10 @@ size_t skit::SmallVector<skit::MergedFieldMatchV2,8u,true>::_reserve_more(char *
   return result;
 }
 
-uint64_t skit::SmallVector<skit::FieldMatchV2,4u,true>::~SmallVector(uint64_t a1)
+void **skit::SmallVector<skit::FieldMatchV2,4u,true>::~SmallVector(void **a1)
 {
-  skit::SmallVector<skit::FieldMatchV2,4u,true>::_destroy(*a1, *(a1 + 8));
-  if (*a1 != a1 + 16)
+  skit::SmallVector<skit::FieldMatchV2,4u,true>::_destroy(*a1, *(a1 + 2));
+  if (*a1 != a1 + 2)
   {
     free(*a1);
   }
@@ -3356,7 +3292,7 @@ __n128 std::uninitialized_copy[abi:ne200100]<skit::FieldMatchV2 const*,skit::Fie
   return result;
 }
 
-uint64_t skit::SmallVector<skit::MergedFieldMatchV2,8u,true>::_destroy<skit::MergedFieldMatchV2,(void *)0>(uint64_t a1)
+void **skit::SmallVector<skit::MergedFieldMatchV2,8u,true>::_destroy<skit::MergedFieldMatchV2,(void *)0>(uint64_t a1)
 {
   if (*(a1 + 359) < 0)
   {
@@ -3565,9 +3501,9 @@ BOOL skit::internal::anonymous namespace::is_possessive_token(uint64_t a1, uint6
   return *(v3 - 4) == 7536679 || *(v3 - 4) == 7544857;
 }
 
-void skit::internal::anonymous namespace::merge_token_spans(uint64_t a1, unint64_t a2, int a3, uint64_t a4, unsigned int a5)
+void skit::internal::anonymous namespace::merge_token_spans(uint64_t a1, unint64_t a2, int a3, uint64_t *a4, unsigned int a5)
 {
-  v6 = *(a4 + 8);
+  v6 = *(a4 + 2);
   if (a5)
   {
     v7 = a5;
@@ -3659,7 +3595,7 @@ LABEL_19:
     }
 
     while (v11 < v7);
-    v6 = *(a4 + 8);
+    v6 = *(a4 + 2);
   }
 
   v22 = *a4;
@@ -3678,14 +3614,14 @@ LABEL_19:
   _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Lb0EEEvT1_SM_SG_NS_15iterator_traitsISM_E15difference_typeEb(v22, v23, v25, 1);
 }
 
-char **skit::SmallVector<skit::SpanMatchV3,8u,true>::~SmallVector(char **a1)
+char ***skit::SmallVector<skit::SpanMatchV3,8u,true>::~SmallVector(char ***a1)
 {
   v2 = *a1;
   v3 = *(a1 + 2);
   if (v3)
   {
     v4 = v3 << 6;
-    v5 = v2 + 48;
+    v5 = (v2 + 6);
     do
     {
       v6 = *(v5 - 2);
@@ -3710,12 +3646,12 @@ char **skit::SmallVector<skit::SpanMatchV3,8u,true>::~SmallVector(char **a1)
   return a1;
 }
 
-void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Lb0EEEvT1_SM_SG_NS_15iterator_traitsISM_E15difference_typeEb(uint64_t a1, unsigned int *a2, uint64_t a3, char a4)
+void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Lb0EEEvT1_SM_SG_NS_15iterator_traitsISM_E15difference_typeEb(void **a1, void **a2, uint64_t a3, char a4)
 {
-  v193 = *MEMORY[0x29EDCA608];
+  v192 = *MEMORY[0x29EDCA608];
   while (2)
   {
-    v8 = a2 - 16;
+    v8 = a2 - 8;
     k = a1;
     while (1)
     {
@@ -3730,68 +3666,68 @@ void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N
           {
             case 3:
               _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_(k, k + 16, a2 - 16);
-              goto LABEL_300;
+              return;
             case 4:
               _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_(k, k + 16, k + 32);
               v65 = *(a2 - 16);
-              v66 = k[32];
+              v66 = *(k + 32);
               if (v65 >= v66)
               {
                 if (v65 > v66)
                 {
-                  goto LABEL_300;
+                  return;
                 }
 
                 v157 = *(a2 - 15);
-                v158 = k[33];
-                if (v157 <= v158 && (v157 < v158 || *(a2 - 10) >= k[38]))
+                v158 = *(k + 33);
+                if (v157 <= v158 && (v157 < v158 || *(a2 - 10) >= *(k + 38)))
                 {
-                  goto LABEL_300;
+                  return;
                 }
               }
 
-              std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::SpanMatchV3 *&,skit::SpanMatchV3 *&>((k + 32), (a2 - 16));
-              v67 = k[32];
-              v68 = k[16];
+              std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::SpanMatchV3 *&,skit::SpanMatchV3 *&>((k + 16), (a2 - 8));
+              v67 = *(k + 32);
+              v68 = *(k + 16);
               if (v67 >= v68)
               {
                 if (v67 > v68)
                 {
-                  goto LABEL_300;
+                  return;
                 }
 
-                v176 = k[33];
-                v177 = k[17];
-                if (v176 <= v177 && (v176 < v177 || k[38] >= k[22]))
+                v176 = *(k + 33);
+                v177 = *(k + 17);
+                if (v176 <= v177 && (v176 < v177 || *(k + 38) >= *(k + 22)))
                 {
-                  goto LABEL_300;
+                  return;
                 }
               }
 
-              std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::SpanMatchV3 *&,skit::SpanMatchV3 *&>((k + 16), (k + 32));
-              v69 = k[16];
+              std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::SpanMatchV3 *&,skit::SpanMatchV3 *&>((k + 8), (k + 16));
+              v69 = *(k + 16);
               if (v69 >= *k)
               {
                 if (v69 > *k)
                 {
-                  goto LABEL_300;
+                  return;
                 }
 
-                v179 = k[17];
-                v180 = k[1];
-                if (v179 <= v180 && (v179 < v180 || k[22] >= k[6]))
+                v178 = *(k + 17);
+                v179 = *(k + 1);
+                if (v178 <= v179 && (v178 < v179 || *(k + 22) >= *(k + 6)))
                 {
-                  goto LABEL_300;
+                  return;
                 }
               }
 
-              v61 = (k + 16);
+              v61 = k + 8;
 LABEL_142:
               std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::SpanMatchV3 *&,skit::SpanMatchV3 *&>(k, v61);
-              goto LABEL_300;
+              return;
             case 5:
               _ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEvT1_SM_SM_SM_SM_SG_(k, k + 16, k + 32, k + 48, a2 - 16);
-              goto LABEL_300;
+              return;
           }
         }
 
@@ -3799,25 +3735,25 @@ LABEL_142:
         {
           if (v10 < 2)
           {
-            goto LABEL_300;
+            return;
           }
 
           if (v10 == 2)
           {
-            v61 = (a2 - 16);
+            v61 = a2 - 8;
             v62 = *(a2 - 16);
             if (v62 >= *k)
             {
               if (v62 > *k)
               {
-                goto LABEL_300;
+                return;
               }
 
               v63 = *(a2 - 15);
-              v64 = k[1];
-              if (v63 <= v64 && (v63 < v64 || *(a2 - 10) >= k[6]))
+              v64 = *(k + 1);
+              if (v63 <= v64 && (v63 < v64 || *(a2 - 10) >= *(k + 6)))
               {
-                goto LABEL_300;
+                return;
               }
             }
 
@@ -3832,8 +3768,8 @@ LABEL_142:
           {
             if (a1 != a2)
             {
-              v71 = a1 + 64;
-              if ((a1 + 64) != a2)
+              v71 = a1 + 8;
+              if (a1 + 8 != a2)
               {
                 v72 = 0;
                 v73 = a1;
@@ -3841,22 +3777,22 @@ LABEL_142:
                 {
                   v74 = v73;
                   v73 = v71;
-                  v75 = v74[16];
-                  if (v75 < *v74 || v75 <= *v74 && ((v78 = *(v73 + 4), v79 = v74[1], v78 > v79) || v78 >= v79 && *(v73 + 24) < v74[6]))
+                  v75 = *(v74 + 16);
+                  if (v75 < *v74 || v75 <= *v74 && ((v78 = *(v73 + 1), v79 = *(v74 + 1), v78 > v79) || v78 >= v79 && *(v73 + 6) < *(v74 + 6)))
                   {
                     v76 = *v73;
-                    *&v187[12] = *(v73 + 12);
-                    *v187 = v76;
-                    if (*(v73 + 32) == v73 + 48)
+                    *&v186[12] = *(v73 + 12);
+                    *v186 = v76;
+                    if (v73[4] == v73 + 6)
                     {
-                      v188 = &v191;
-                      v80 = *(v73 + 40);
-                      v77 = &v190;
+                      v187 = &v190;
+                      v80 = *(v73 + 10);
+                      v77 = &v189;
                       if (v80)
                       {
-                        v81 = *(v73 + 32);
+                        v81 = v73[4];
                         v82 = 2 * v80;
-                        v83 = &v191;
+                        v83 = &v190;
                         do
                         {
                           v84 = *v81++;
@@ -3866,84 +3802,84 @@ LABEL_142:
                         }
 
                         while (v82);
-                        v77 = &v190;
+                        v77 = &v189;
                       }
                     }
 
                     else
                     {
-                      v188 = *(v73 + 32);
-                      v77 = (v73 + 44);
-                      v190 = *(v73 + 44);
-                      *(v73 + 32) = v73 + 48;
+                      v187 = v73[4];
+                      v77 = v73 + 11;
+                      v189 = *(v73 + 11);
+                      v73[4] = v73 + 6;
                     }
 
                     *v77 = 4;
-                    v189 = *(v73 + 40);
-                    *(v73 + 40) = 0;
-                    v192 = *(v73 + 56);
+                    v188 = *(v73 + 10);
+                    *(v73 + 10) = 0;
+                    v191 = *(v73 + 14);
                     for (i = v72; ; i -= 64)
                     {
                       v86 = a1 + i;
-                      *(v86 + 64) = *(a1 + i);
+                      *(v86 + 4) = *(a1 + i);
                       *(v86 + 76) = *(a1 + i + 12);
                       v87 = (a1 + i + 32);
                       skit::SmallVector<skit::GroupId,4u,true>::operator=((a1 + i + 96), v87);
-                      *(v86 + 120) = *(v86 + 56);
+                      *(v86 + 30) = *(v86 + 14);
                       if (!i)
                       {
                         v90 = a1;
                         goto LABEL_170;
                       }
 
-                      v88 = *(v86 - 64);
-                      if (*v187 >= v88)
+                      v88 = *(v86 - 16);
+                      if (*v186 >= v88)
                       {
-                        if (*v187 > v88)
+                        if (*v186 > v88)
                         {
                           break;
                         }
 
                         v89 = *(a1 + i - 60);
-                        if (*&v187[4] <= v89 && (*&v187[4] < v89 || *&v187[24] >= *(a1 + i - 40)))
+                        if (*&v186[4] <= v89 && (*&v186[4] < v89 || *&v186[24] >= *(a1 + i - 40)))
                         {
                           break;
                         }
                       }
                     }
 
-                    v90 = a1 + i;
-                    v87 = (v90 + 32);
+                    v90 = (a1 + i);
+                    v87 = v90 + 4;
 LABEL_170:
-                    v91 = *v187;
-                    *(v90 + 12) = *&v187[12];
+                    v91 = *v186;
+                    *(v90 + 12) = *&v186[12];
                     *v90 = v91;
-                    skit::SmallVector<skit::GroupId,4u,true>::operator=(v87, &v188);
-                    *(v90 + 56) = v192;
-                    if (v188 != &v191)
+                    skit::SmallVector<skit::GroupId,4u,true>::operator=(v87, &v187);
+                    *(v90 + 14) = v191;
+                    if (v187 != &v190)
                     {
-                      free(v188);
+                      free(v187);
                     }
 
                     a2 = v70;
                   }
 
-                  v71 = v73 + 64;
+                  v71 = v73 + 8;
                   v72 += 64;
                 }
 
-                while ((v73 + 64) != a2);
+                while (v73 + 8 != a2);
               }
             }
           }
 
           else if (a1 != a2)
           {
-            for (j = a1 + 64; (a1 + 64) != a2; j = a1 + 64)
+            for (j = a1 + 8; a1 + 8 != a2; j = a1 + 8)
             {
               v160 = a1;
               a1 = j;
-              v161 = *(v160 + 64);
+              v161 = *(v160 + 16);
               if (v161 >= *v160)
               {
                 if (v161 > *v160)
@@ -3951,27 +3887,27 @@ LABEL_170:
                   continue;
                 }
 
-                v164 = *(a1 + 4);
-                v165 = *(v160 + 4);
-                if (v164 <= v165 && (v164 < v165 || *(a1 + 24) >= *(v160 + 24)))
+                v164 = *(a1 + 1);
+                v165 = *(v160 + 1);
+                if (v164 <= v165 && (v164 < v165 || *(a1 + 6) >= *(v160 + 6)))
                 {
                   continue;
                 }
               }
 
               v162 = *a1;
-              *&v187[12] = *(a1 + 12);
-              *v187 = v162;
-              if (*(a1 + 32) == a1 + 48)
+              *&v186[12] = *(a1 + 12);
+              *v186 = v162;
+              if (a1[4] == a1 + 6)
               {
-                v188 = &v191;
-                v166 = *(a1 + 40);
-                v163 = &v190;
+                v187 = &v190;
+                v166 = *(a1 + 10);
+                v163 = &v189;
                 if (v166)
                 {
-                  v167 = *(a1 + 32);
+                  v167 = a1[4];
                   v168 = 2 * v166;
-                  v169 = &v191;
+                  v169 = &v190;
                   do
                   {
                     v170 = *v167++;
@@ -3981,61 +3917,61 @@ LABEL_170:
                   }
 
                   while (v168);
-                  v163 = &v190;
+                  v163 = &v189;
                 }
               }
 
               else
               {
-                v188 = *(a1 + 32);
-                v163 = (a1 + 44);
-                v190 = *(a1 + 44);
-                *(a1 + 32) = a1 + 48;
+                v187 = a1[4];
+                v163 = a1 + 11;
+                v189 = *(a1 + 11);
+                a1[4] = a1 + 6;
               }
 
               *v163 = 4;
-              v189 = *(a1 + 40);
-              *(a1 + 40) = 0;
-              v192 = *(a1 + 56);
+              v188 = *(a1 + 10);
+              *(a1 + 10) = 0;
+              v191 = *(a1 + 14);
               do
               {
                 do
                 {
                   v171 = v160;
-                  *(v160 + 64) = *v160;
+                  *(v160 + 4) = *v160;
                   *(v160 + 76) = *(v160 + 12);
-                  skit::SmallVector<skit::GroupId,4u,true>::operator=((v160 + 96), v160 + 32);
-                  v172 = *(v160 - 64);
-                  v160 -= 64;
-                  *(v160 + 184) = *(v160 + 120);
-                  v173 = *v187 > v172;
+                  skit::SmallVector<skit::GroupId,4u,true>::operator=(v160 + 12, (v160 + 4));
+                  v172 = *(v160 - 16);
+                  v160 -= 8;
+                  *(v160 + 46) = *(v160 + 30);
+                  v173 = *v186 > v172;
                 }
 
-                while (*v187 < v172);
+                while (*v186 < v172);
                 if (v173)
                 {
                   break;
                 }
 
-                v174 = *(v171 - 60);
+                v174 = *(v171 - 15);
               }
 
-              while (*&v187[4] > v174 || *&v187[4] >= v174 && *&v187[24] < *(v171 - 40));
-              v175 = *v187;
-              *(v171 + 12) = *&v187[12];
+              while (*&v186[4] > v174 || *&v186[4] >= v174 && *&v186[24] < *(v171 - 10));
+              v175 = *v186;
+              *(v171 + 12) = *&v186[12];
               *v171 = v175;
-              skit::SmallVector<skit::GroupId,4u,true>::operator=((v171 + 32), &v188);
-              *(v171 + 56) = v192;
-              if (v188 != &v191)
+              skit::SmallVector<skit::GroupId,4u,true>::operator=(v171 + 4, &v187);
+              *(v171 + 14) = v191;
+              if (v187 != &v190)
               {
-                free(v188);
+                free(v187);
               }
 
               a2 = v70;
             }
           }
 
-          goto LABEL_300;
+          return;
         }
 
         if (!a3)
@@ -4050,35 +3986,35 @@ LABEL_170:
               if (v92 >= v93)
               {
                 v95 = (2 * v93) | 1;
-                v96 = a1 + (v95 << 6);
+                v96 = &a1[8 * v95];
                 if (2 * v94 + 2 < v10)
                 {
-                  v97 = *(v96 + 64);
-                  if (*v96 < v97 || *v96 <= v97 && ((v117 = *(v96 + 4), v118 = *(v96 + 68), v117 > v118) || v117 >= v118 && *(v96 + 24) < *(v96 + 88)))
+                  v97 = *(v96 + 16);
+                  if (*v96 < v97 || *v96 <= v97 && ((v117 = *(v96 + 1), v118 = *(v96 + 17), v117 > v118) || v117 >= v118 && *(v96 + 6) < *(v96 + 22)))
                   {
-                    v96 += 64;
+                    v96 += 8;
                     v95 = 2 * v94 + 2;
                   }
                 }
 
-                v98 = a1 + (v94 << 6);
+                v98 = &a1[8 * v94];
                 if (*v96 >= *v98)
                 {
-                  if (*v96 > *v98 || (v101 = *(v96 + 4), v102 = *(v98 + 4), v101 <= v102) && (v101 < v102 || *(v96 + 24) >= *(v98 + 24)))
+                  if (*v96 > *v98 || (v101 = *(v96 + 1), v102 = *(v98 + 1), v101 <= v102) && (v101 < v102 || *(v96 + 6) >= *(v98 + 6)))
                   {
                     v99 = *v98;
-                    *&v187[12] = *(v98 + 12);
-                    *v187 = v99;
-                    if (*(v98 + 32) == v98 + 48)
+                    *&v186[12] = *(v98 + 12);
+                    *v186 = v99;
+                    if (v98[4] == v98 + 6)
                     {
-                      v188 = &v191;
-                      v103 = *(v98 + 40);
-                      v100 = &v190;
+                      v187 = &v190;
+                      v103 = *(v98 + 10);
+                      v100 = &v189;
                       if (v103)
                       {
-                        v104 = *(v98 + 32);
+                        v104 = v98[4];
                         v105 = 2 * v103;
-                        v106 = &v191;
+                        v106 = &v190;
                         do
                         {
                           v107 = *v104++;
@@ -4088,30 +4024,30 @@ LABEL_170:
                         }
 
                         while (v105);
-                        v100 = &v190;
+                        v100 = &v189;
                       }
                     }
 
                     else
                     {
-                      v188 = *(v98 + 32);
-                      v100 = (v98 + 44);
-                      v190 = *(v98 + 44);
-                      *(v98 + 32) = v98 + 48;
+                      v187 = v98[4];
+                      v100 = v98 + 11;
+                      v189 = *(v98 + 11);
+                      v98[4] = v98 + 6;
                     }
 
                     *v100 = 4;
-                    v189 = *(v98 + 40);
-                    *(v98 + 40) = 0;
-                    v192 = *(v98 + 56);
+                    v188 = *(v98 + 10);
+                    *(v98 + 10) = 0;
+                    v191 = *(v98 + 14);
                     while (1)
                     {
                       v108 = v96;
                       v109 = *v96;
                       *(v98 + 12) = *(v96 + 12);
                       *v98 = v109;
-                      skit::SmallVector<skit::GroupId,4u,true>::operator=((v98 + 32), v96 + 32);
-                      *(v98 + 56) = *(v108 + 56);
+                      skit::SmallVector<skit::GroupId,4u,true>::operator=(v98 + 4, (v96 + 4));
+                      *(v98 + 14) = *(v108 + 14);
                       if (v92 < v95)
                       {
                         break;
@@ -4119,37 +4055,37 @@ LABEL_170:
 
                       v110 = 2 * v95;
                       v95 = (2 * v95) | 1;
-                      v96 = a1 + (v95 << 6);
+                      v96 = &a1[8 * v95];
                       v111 = v110 + 2;
                       if (v111 < v10)
                       {
-                        v112 = *(v96 + 64);
-                        if (*v96 < v112 || *v96 <= v112 && ((v114 = *(v96 + 4), v115 = *(v96 + 68), v114 > v115) || v114 >= v115 && *(v96 + 24) < *(v96 + 88)))
+                        v112 = *(v96 + 16);
+                        if (*v96 < v112 || *v96 <= v112 && ((v114 = *(v96 + 1), v115 = *(v96 + 17), v114 > v115) || v114 >= v115 && *(v96 + 6) < *(v96 + 22)))
                         {
-                          v96 += 64;
+                          v96 += 8;
                           v95 = v111;
                         }
                       }
 
-                      if (*v96 < *v187)
+                      if (*v96 < *v186)
                       {
                         break;
                       }
 
                       v98 = v108;
-                      if (*v96 <= *v187)
+                      if (*v96 <= *v186)
                       {
-                        v113 = *(v96 + 4);
-                        if (v113 > *&v187[4])
+                        v113 = *(v96 + 1);
+                        if (v113 > *&v186[4])
                         {
                           break;
                         }
 
                         v98 = v108;
-                        if (v113 >= *&v187[4])
+                        if (v113 >= *&v186[4])
                         {
                           v98 = v108;
-                          if (*(v96 + 24) < *&v187[24])
+                          if (*(v96 + 6) < *&v186[24])
                           {
                             break;
                           }
@@ -4157,14 +4093,14 @@ LABEL_170:
                       }
                     }
 
-                    v116 = *v187;
-                    *(v108 + 12) = *&v187[12];
+                    v116 = *v186;
+                    *(v108 + 12) = *&v186[12];
                     *v108 = v116;
-                    skit::SmallVector<skit::GroupId,4u,true>::operator=((v108 + 32), &v188);
-                    *(v108 + 56) = v192;
-                    if (v188 != &v191)
+                    skit::SmallVector<skit::GroupId,4u,true>::operator=(v108 + 4, &v187);
+                    *(v108 + 14) = v191;
+                    if (v187 != &v190)
                     {
-                      free(v188);
+                      free(v187);
                     }
                   }
                 }
@@ -4174,21 +4110,21 @@ LABEL_170:
             }
 
             while (v94);
-            v119 = a1 + 48;
+            v119 = a1 + 6;
             do
             {
-              *&v181[12] = *(a1 + 12);
-              *v181 = *a1;
-              if (*(a1 + 32) == v119)
+              *&v180[12] = *(a1 + 12);
+              *v180 = *a1;
+              if (a1[4] == v119)
               {
-                v182 = &v185;
-                v121 = *(a1 + 40);
-                v120 = &v184;
+                v181 = &v184;
+                v121 = *(a1 + 10);
+                v120 = &v183;
                 if (v121)
                 {
-                  v122 = *(a1 + 32);
+                  v122 = a1[4];
                   v123 = 2 * v121;
-                  v124 = &v185;
+                  v124 = &v184;
                   do
                   {
                     v125 = *v122++;
@@ -4198,94 +4134,94 @@ LABEL_170:
                   }
 
                   while (v123);
-                  v120 = &v184;
+                  v120 = &v183;
                 }
               }
 
               else
               {
-                v182 = *(a1 + 32);
-                v184 = *(a1 + 44);
-                *(a1 + 32) = v119;
-                v120 = (a1 + 44);
+                v181 = a1[4];
+                v183 = *(a1 + 11);
+                a1[4] = v119;
+                v120 = a1 + 11;
               }
 
               v126 = a2;
               v127 = 0;
               *v120 = 4;
-              v183 = *(a1 + 40);
-              *(a1 + 40) = 0;
-              v186 = *(a1 + 56);
+              v182 = *(a1 + 10);
+              *(a1 + 10) = 0;
+              v185 = *(a1 + 14);
               v128 = a1;
               do
               {
                 v129 = v128;
-                v130 = &v128[16 * v127];
-                v128 = v130 + 16;
+                v130 = &v128[8 * v127];
+                v128 = v130 + 8;
                 v131 = 2 * v127;
                 v127 = (2 * v127) | 1;
                 v132 = v131 + 2;
                 if (v132 < v10)
                 {
-                  v133 = v130[32];
-                  v134 = v130[16];
-                  if (v134 < v133 || v134 <= v133 && ((v136 = v130[17], v137 = v130[33], v136 > v137) || v136 >= v137 && v130[22] < v130[38]))
+                  v133 = *(v130 + 32);
+                  v134 = *(v130 + 16);
+                  if (v134 < v133 || v134 <= v133 && ((v136 = *(v130 + 17), v137 = *(v130 + 33), v136 > v137) || v136 >= v137 && *(v130 + 22) < *(v130 + 38)))
                   {
-                    v128 = v130 + 32;
+                    v128 = v130 + 16;
                     v127 = v132;
                   }
                 }
 
                 v135 = *v128;
-                *(v129 + 3) = *(v128 + 3);
+                *(v129 + 12) = *(v128 + 12);
                 *v129 = v135;
-                skit::SmallVector<skit::GroupId,4u,true>::operator=(v129 + 4, (v128 + 8));
-                v129[14] = v128[14];
+                skit::SmallVector<skit::GroupId,4u,true>::operator=(v129 + 4, (v128 + 4));
+                *(v129 + 14) = *(v128 + 14);
               }
 
               while (v127 <= ((v10 - 2) >> 1));
-              v138 = v126 - 16;
-              if (v128 == v126 - 16)
+              v138 = v126 - 8;
+              if (v128 == v126 - 8)
               {
-                *(v128 + 3) = *&v181[12];
-                *v128 = *v181;
-                skit::SmallVector<skit::GroupId,4u,true>::operator=(v128 + 4, &v182);
-                v128[14] = v186;
+                *(v128 + 12) = *&v180[12];
+                *v128 = *v180;
+                skit::SmallVector<skit::GroupId,4u,true>::operator=(v128 + 4, &v181);
+                *(v128 + 14) = v185;
               }
 
               else
               {
                 v139 = *v138;
-                *(v128 + 3) = *(v126 - 13);
+                *(v128 + 12) = *(v126 - 52);
                 *v128 = v139;
-                skit::SmallVector<skit::GroupId,4u,true>::operator=(v128 + 4, (v126 - 8));
-                v128[14] = *(v126 - 2);
-                *(v126 - 13) = *&v181[12];
-                *v138 = *v181;
-                skit::SmallVector<skit::GroupId,4u,true>::operator=(v126 - 4, &v182);
-                *(v126 - 2) = v186;
+                skit::SmallVector<skit::GroupId,4u,true>::operator=(v128 + 4, (v126 - 4));
+                *(v128 + 14) = *(v126 - 2);
+                *(v126 - 52) = *&v180[12];
+                *v138 = *v180;
+                skit::SmallVector<skit::GroupId,4u,true>::operator=(v126 - 4, &v181);
+                *(v126 - 2) = v185;
                 v140 = (v128 - a1 + 64) >> 6;
                 v32 = v140 < 2;
                 v141 = v140 - 2;
                 if (!v32)
                 {
                   v142 = v141 >> 1;
-                  v143 = a1 + (v141 >> 1 << 6);
-                  if (*v143 < *v128 || *v143 <= *v128 && ((v146 = *(v143 + 4), v147 = v128[1], v146 > v147) || v146 >= v147 && *(v143 + 24) < v128[6]))
+                  v143 = &a1[8 * (v141 >> 1)];
+                  if (*v143 < *v128 || *v143 <= *v128 && ((v146 = *(v143 + 1), v147 = *(v128 + 1), v146 > v147) || v146 >= v147 && *(v143 + 6) < *(v128 + 6)))
                   {
                     v144 = *v128;
-                    *&v187[12] = *(v128 + 3);
-                    *v187 = v144;
-                    if (*(v128 + 4) == v128 + 12)
+                    *&v186[12] = *(v128 + 12);
+                    *v186 = v144;
+                    if (v128[4] == v128 + 6)
                     {
-                      v145 = &v190;
-                      v188 = &v191;
-                      v148 = v128[10];
+                      v145 = &v189;
+                      v187 = &v190;
+                      v148 = *(v128 + 10);
                       if (v148)
                       {
-                        v149 = *(v128 + 4);
+                        v149 = v128[4];
                         v150 = 2 * v148;
-                        v151 = &v191;
+                        v151 = &v190;
                         do
                         {
                           v152 = *v149++;
@@ -4295,56 +4231,56 @@ LABEL_170:
                         }
 
                         while (v150);
-                        v145 = &v190;
+                        v145 = &v189;
                       }
                     }
 
                     else
                     {
-                      v188 = *(v128 + 4);
+                      v187 = v128[4];
                       v145 = v128 + 11;
-                      v190 = v128[11];
-                      *(v128 + 4) = v128 + 12;
+                      v189 = *(v128 + 11);
+                      v128[4] = v128 + 6;
                     }
 
                     *v145 = 4;
-                    v189 = v128[10];
-                    v128[10] = 0;
-                    v192 = v128[14];
+                    v188 = *(v128 + 10);
+                    *(v128 + 10) = 0;
+                    v191 = *(v128 + 14);
                     while (1)
                     {
                       v153 = v143;
                       v154 = *v143;
-                      *(v128 + 3) = *(v143 + 12);
+                      *(v128 + 12) = *(v143 + 12);
                       *v128 = v154;
-                      skit::SmallVector<skit::GroupId,4u,true>::operator=(v128 + 4, v143 + 32);
-                      v128[14] = *(v153 + 56);
+                      skit::SmallVector<skit::GroupId,4u,true>::operator=(v128 + 4, (v143 + 4));
+                      *(v128 + 14) = *(v153 + 14);
                       if (!v142)
                       {
                         break;
                       }
 
                       v142 = (v142 - 1) >> 1;
-                      v143 = a1 + (v142 << 6);
+                      v143 = &a1[8 * v142];
                       v128 = v153;
-                      if (*v143 >= *v187)
+                      if (*v143 >= *v186)
                       {
-                        if (*v143 > *v187)
+                        if (*v143 > *v186)
                         {
                           break;
                         }
 
-                        v155 = *(v143 + 4);
+                        v155 = *(v143 + 1);
                         v128 = v153;
-                        if (v155 <= *&v187[4])
+                        if (v155 <= *&v186[4])
                         {
-                          if (v155 < *&v187[4])
+                          if (v155 < *&v186[4])
                           {
                             break;
                           }
 
                           v128 = v153;
-                          if (*(v143 + 24) >= *&v187[24])
+                          if (*(v143 + 6) >= *&v186[24])
                           {
                             break;
                           }
@@ -4352,48 +4288,48 @@ LABEL_170:
                       }
                     }
 
-                    v156 = *v187;
-                    *(v153 + 12) = *&v187[12];
+                    v156 = *v186;
+                    *(v153 + 12) = *&v186[12];
                     *v153 = v156;
-                    skit::SmallVector<skit::GroupId,4u,true>::operator=((v153 + 32), &v188);
-                    *(v153 + 56) = v192;
-                    if (v188 != &v191)
+                    skit::SmallVector<skit::GroupId,4u,true>::operator=(v153 + 4, &v187);
+                    *(v153 + 14) = v191;
+                    if (v187 != &v190)
                     {
-                      free(v188);
+                      free(v187);
                     }
                   }
                 }
               }
 
-              if (v182 != &v185)
+              if (v181 != &v184)
               {
-                free(v182);
+                free(v181);
               }
 
-              a2 = v126 - 16;
+              a2 = v126 - 8;
               v32 = v10-- <= 2;
             }
 
             while (!v32);
           }
 
-          goto LABEL_300;
+          return;
         }
 
         v12 = v10 >> 1;
-        v13 = &k[16 * (v10 >> 1)];
+        v13 = &k[8 * (v10 >> 1)];
         if (v10 < 0x81)
         {
-          _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_((a1 + (v10 >> 1 << 6)), a1, a2 - 16);
+          _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_(&a1[8 * (v10 >> 1)], a1, a2 - 16);
         }
 
         else
         {
-          _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_(a1, (a1 + (v10 >> 1 << 6)), a2 - 16);
-          _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_((a1 + 64), v13 - 16, a2 - 32);
-          _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_((a1 + 128), (a1 + 64 + (v12 << 6)), a2 - 48);
-          _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_(v13 - 16, (a1 + (v10 >> 1 << 6)), (a1 + 64 + (v12 << 6)));
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::SpanMatchV3 *&,skit::SpanMatchV3 *&>(a1, a1 + (v10 >> 1 << 6));
+          _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_(a1, &a1[8 * (v10 >> 1)], a2 - 16);
+          _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_(a1 + 16, v13 - 16, a2 - 32);
+          _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_(a1 + 32, &a1[8 * v12 + 8], a2 - 48);
+          _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_(v13 - 16, &a1[8 * (v10 >> 1)], &a1[8 * v12 + 8]);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::SpanMatchV3 *&,skit::SpanMatchV3 *&>(a1, &a1[8 * (v10 >> 1)]);
         }
 
         --a3;
@@ -4402,7 +4338,7 @@ LABEL_170:
           break;
         }
 
-        v14 = *(a1 - 64);
+        v14 = *(a1 - 16);
         if (v14 < *a1)
         {
           break;
@@ -4410,27 +4346,27 @@ LABEL_170:
 
         if (v14 <= *a1)
         {
-          v15 = *(a1 - 60);
-          v16 = *(a1 + 4);
-          if (v15 > v16 || v15 >= v16 && *(a1 - 40) < *(a1 + 24))
+          v15 = *(a1 - 15);
+          v16 = *(a1 + 1);
+          if (v15 > v16 || v15 >= v16 && *(a1 - 10) < *(a1 + 6))
           {
             break;
           }
         }
 
         v38 = *a1;
-        *&v187[12] = *(a1 + 12);
-        *v187 = v38;
-        if (*(a1 + 32) == a1 + 48)
+        *&v186[12] = *(a1 + 12);
+        *v186 = v38;
+        if (a1[4] == a1 + 6)
         {
-          v39 = &v190;
-          v188 = &v191;
-          v40 = *(a1 + 40);
+          v39 = &v189;
+          v187 = &v190;
+          v40 = *(a1 + 10);
           if (v40)
           {
-            v41 = *(a1 + 32);
+            v41 = a1[4];
             v42 = 2 * v40;
-            v43 = &v191;
+            v43 = &v190;
             do
             {
               v44 = *v41++;
@@ -4440,59 +4376,59 @@ LABEL_170:
             }
 
             while (v42);
-            v39 = &v190;
+            v39 = &v189;
           }
         }
 
         else
         {
-          v188 = *(a1 + 32);
-          v39 = (a1 + 44);
-          v190 = *(a1 + 44);
-          *(a1 + 32) = a1 + 48;
+          v187 = a1[4];
+          v39 = a1 + 11;
+          v189 = *(a1 + 11);
+          a1[4] = a1 + 6;
         }
 
         *v39 = 4;
-        v189 = *(a1 + 40);
-        *(a1 + 40) = 0;
-        v192 = *(a1 + 56);
+        v188 = *(a1 + 10);
+        *(a1 + 10) = 0;
+        v191 = *(a1 + 14);
         v45 = *v8;
-        if (*v187 < *v8)
+        if (*v186 < *v8)
         {
-          v46 = *&v187[4];
+          v46 = *&v186[4];
 LABEL_82:
-          v47 = *&v187[24];
+          v47 = *&v186[24];
           goto LABEL_83;
         }
 
-        v46 = *&v187[4];
-        if (*v187 > v45)
+        v46 = *&v186[4];
+        if (*v186 > v45)
         {
           goto LABEL_91;
         }
 
         v60 = *(a2 - 15);
-        if (*&v187[4] > v60)
+        if (*&v186[4] > v60)
         {
           goto LABEL_82;
         }
 
-        if (*&v187[4] < v60)
+        if (*&v186[4] < v60)
         {
 LABEL_91:
-          v47 = *&v187[24];
+          v47 = *&v186[24];
 LABEL_92:
-          for (k = (a1 + 64); k < a2; k += 16)
+          for (k = a1 + 8; k < a2; k += 8)
           {
-            if (*v187 < *k)
+            if (*v186 < *k)
             {
               break;
             }
 
-            if (*v187 <= *k)
+            if (*v186 <= *k)
             {
-              v49 = k[1];
-              if (*&v187[4] > v49 || *&v187[4] >= v49 && v47 < k[6])
+              v49 = *(k + 1);
+              if (*&v186[4] > v49 || *&v186[4] >= v49 && v47 < *(k + 6))
               {
                 break;
               }
@@ -4502,19 +4438,19 @@ LABEL_92:
           goto LABEL_100;
         }
 
-        v47 = *&v187[24];
-        if (*&v187[24] >= *(a2 - 10))
+        v47 = *&v186[24];
+        if (*&v186[24] >= *(a2 - 10))
         {
           goto LABEL_92;
         }
 
 LABEL_83:
-        for (k = (a1 + 64); *v187 >= *k; k += 16)
+        for (k = a1 + 8; *v186 >= *k; k += 8)
         {
-          if (*v187 <= *k)
+          if (*v186 <= *k)
           {
-            v48 = k[1];
-            if (v46 > v48 || v46 >= v48 && v47 < k[6])
+            v48 = *(k + 1);
+            if (v46 > v48 || v46 >= v48 && v47 < *(k + 6))
             {
               break;
             }
@@ -4525,23 +4461,23 @@ LABEL_100:
         m = a2;
         if (k < a2)
         {
-          for (m = (a2 - 16); ; m -= 64)
+          for (m = a2 - 8; ; m -= 8)
           {
-            if (*v187 >= v45)
+            if (*v186 >= v45)
             {
-              if (*v187 > v45)
+              if (*v186 > v45)
               {
                 break;
               }
 
-              v51 = *(m + 4);
-              if (v46 <= v51 && (v46 < v51 || v47 >= *(m + 24)))
+              v51 = *(m + 1);
+              if (v46 <= v51 && (v46 < v51 || v47 >= *(m + 6)))
               {
                 break;
               }
             }
 
-            v52 = *(m - 64);
+            v52 = *(m - 16);
             v45 = v52;
           }
         }
@@ -4549,12 +4485,12 @@ LABEL_100:
         while (k < m)
         {
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::SpanMatchV3 *&,skit::SpanMatchV3 *&>(k, m);
-          for (k += 16; *v187 >= *k; k += 16)
+          for (k += 8; *v186 >= *k; k += 8)
           {
-            if (*v187 <= *k)
+            if (*v186 <= *k)
             {
-              v53 = k[1];
-              if (*&v187[4] > v53 || *&v187[4] >= v53 && *&v187[24] < k[6])
+              v53 = *(k + 1);
+              if (*&v186[4] > v53 || *&v186[4] >= v53 && *&v186[24] < *(k + 6))
               {
                 break;
               }
@@ -4565,41 +4501,41 @@ LABEL_100:
           {
             do
             {
-              v54 = *(m - 64);
-              m -= 64;
-              v55 = *v187 > v54;
+              v54 = *(m - 16);
+              m -= 8;
+              v55 = *v186 > v54;
             }
 
-            while (*v187 < v54);
+            while (*v186 < v54);
             if (v55)
             {
               break;
             }
 
-            v56 = *(m + 4);
+            v56 = *(m + 1);
           }
 
-          while (*&v187[4] > v56 || *&v187[4] >= v56 && *&v187[24] < *(m + 24));
+          while (*&v186[4] > v56 || *&v186[4] >= v56 && *&v186[24] < *(m + 6));
         }
 
-        v57 = k - 16;
-        if (k - 16 != a1)
+        v57 = k - 8;
+        if (k - 8 != a1)
         {
           v58 = *v57;
-          *(a1 + 12) = *(k - 13);
+          *(a1 + 12) = *(k - 52);
           *a1 = v58;
-          skit::SmallVector<skit::GroupId,4u,true>::operator=((a1 + 32), (k - 8));
-          *(a1 + 56) = *(k - 2);
+          skit::SmallVector<skit::GroupId,4u,true>::operator=(a1 + 4, (k - 4));
+          *(a1 + 14) = *(k - 2);
         }
 
-        v59 = *v187;
-        *(k - 13) = *&v187[12];
+        v59 = *v186;
+        *(k - 52) = *&v186[12];
         *v57 = v59;
-        skit::SmallVector<skit::GroupId,4u,true>::operator=(k - 4, &v188);
-        *(k - 2) = v192;
-        if (v188 != &v191)
+        skit::SmallVector<skit::GroupId,4u,true>::operator=(k - 4, &v187);
+        *(k - 2) = v191;
+        if (v187 != &v190)
         {
-          free(v188);
+          free(v187);
         }
 
 LABEL_73:
@@ -4607,18 +4543,18 @@ LABEL_73:
       }
 
       v17 = *a1;
-      *&v187[12] = *(a1 + 12);
-      *v187 = v17;
-      if (*(a1 + 32) == a1 + 48)
+      *&v186[12] = *(a1 + 12);
+      *v186 = v17;
+      if (a1[4] == a1 + 6)
       {
-        v18 = &v190;
-        v188 = &v191;
-        v19 = *(a1 + 40);
+        v18 = &v189;
+        v187 = &v190;
+        v19 = *(a1 + 10);
         if (v19)
         {
-          v20 = *(a1 + 32);
+          v20 = a1[4];
           v21 = 2 * v19;
-          v22 = &v191;
+          v22 = &v190;
           do
           {
             v23 = *v20++;
@@ -4628,76 +4564,76 @@ LABEL_73:
           }
 
           while (v21);
-          v18 = &v190;
+          v18 = &v189;
         }
       }
 
       else
       {
-        v188 = *(a1 + 32);
-        v18 = (a1 + 44);
-        v190 = *(a1 + 44);
-        *(a1 + 32) = a1 + 48;
+        v187 = a1[4];
+        v18 = a1 + 11;
+        v189 = *(a1 + 11);
+        a1[4] = a1 + 6;
       }
 
       *v18 = 4;
-      v189 = *(a1 + 40);
-      *(a1 + 40) = 0;
-      v192 = *(a1 + 56);
-      for (n = (a1 + 64); ; n += 16)
+      v188 = *(a1 + 10);
+      *(a1 + 10) = 0;
+      v191 = *(a1 + 14);
+      for (n = a1 + 8; ; n += 8)
       {
-        if (*n >= *v187)
+        if (*n >= *v186)
         {
-          if (*n > *v187)
+          if (*n > *v186)
           {
             break;
           }
 
-          v25 = n[1];
-          if (v25 <= *&v187[4] && (v25 < *&v187[4] || n[6] >= *&v187[24]))
+          v25 = *(n + 1);
+          if (v25 <= *&v186[4] && (v25 < *&v186[4] || *(n + 6) >= *&v186[24]))
           {
             break;
           }
         }
       }
 
-      ii = a2 - 16;
-      if (n - 16 == a1)
+      ii = a2 - 8;
+      if (n - 8 == a1)
       {
-        for (ii = a2 - 16; n < ii + 16; ii -= 16)
+        for (ii = a2 - 8; n < ii + 8; ii -= 8)
         {
-          if (*ii < *v187)
+          if (*ii < *v186)
           {
             goto LABEL_50;
           }
 
-          if (*ii <= *v187)
+          if (*ii <= *v186)
           {
-            v28 = ii[1];
-            if (v28 > *&v187[4] || v28 >= *&v187[4] && ii[6] < *&v187[24])
+            v28 = *(ii + 1);
+            if (v28 > *&v186[4] || v28 >= *&v186[4] && *(ii + 6) < *&v186[24])
             {
               goto LABEL_50;
             }
           }
         }
 
-        ii += 16;
+        ii += 8;
       }
 
       else
       {
-        while (*ii >= *v187)
+        while (*ii >= *v186)
         {
-          if (*ii <= *v187)
+          if (*ii <= *v186)
           {
-            v27 = ii[1];
-            if (v27 > *&v187[4] || v27 >= *&v187[4] && ii[6] < *&v187[24])
+            v27 = *(ii + 1);
+            if (v27 > *&v186[4] || v27 >= *&v186[4] && *(ii + 6) < *&v186[24])
             {
               break;
             }
           }
 
-          ii -= 16;
+          ii -= 8;
         }
       }
 
@@ -4710,17 +4646,17 @@ LABEL_50:
         do
         {
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::SpanMatchV3 *&,skit::SpanMatchV3 *&>(k, v29);
-          for (k += 16; ; k += 16)
+          for (k += 8; ; k += 8)
           {
-            if (*k >= *v187)
+            if (*k >= *v186)
             {
-              if (*k > *v187)
+              if (*k > *v186)
               {
                 break;
               }
 
-              v30 = k[1];
-              if (v30 <= *&v187[4] && (v30 < *&v187[4] || k[6] >= *&v187[24]))
+              v30 = *(k + 1);
+              if (v30 <= *&v186[4] && (v30 < *&v186[4] || *(k + 6) >= *&v186[24]))
               {
                 break;
               }
@@ -4731,8 +4667,8 @@ LABEL_50:
           {
             v31 = *(v29 - 64);
             v29 -= 64;
-            v32 = v31 > *v187;
-            if (v31 < *v187)
+            v32 = v31 > *v186;
+            if (v31 < *v186)
             {
               break;
             }
@@ -4740,7 +4676,7 @@ LABEL_50:
             if (!v32)
             {
               v33 = *(v29 + 4);
-              if (v33 > *&v187[4] || v33 >= *&v187[4] && *(v29 + 24) < *&v187[24])
+              if (v33 > *&v186[4] || v33 >= *&v186[4] && *(v29 + 24) < *&v186[24])
               {
                 break;
               }
@@ -4751,30 +4687,30 @@ LABEL_50:
         while (k < v29);
       }
 
-      v34 = k - 16;
-      if (k - 16 != a1)
+      v34 = k - 8;
+      if (k - 8 != a1)
       {
         v35 = *v34;
-        *(a1 + 12) = *(k - 13);
+        *(a1 + 12) = *(k - 52);
         *a1 = v35;
-        skit::SmallVector<skit::GroupId,4u,true>::operator=((a1 + 32), (k - 8));
-        *(a1 + 56) = *(k - 2);
+        skit::SmallVector<skit::GroupId,4u,true>::operator=(a1 + 4, (k - 4));
+        *(a1 + 14) = *(k - 2);
       }
 
-      v36 = *v187;
-      *(k - 13) = *&v187[12];
+      v36 = *v186;
+      *(k - 52) = *&v186[12];
       *v34 = v36;
-      skit::SmallVector<skit::GroupId,4u,true>::operator=(k - 4, &v188);
-      *(k - 2) = v192;
-      if (v188 != &v191)
+      skit::SmallVector<skit::GroupId,4u,true>::operator=(k - 4, &v187);
+      *(k - 2) = v191;
+      if (v187 != &v190)
       {
-        free(v188);
+        free(v187);
       }
 
       if (n < ii)
       {
 LABEL_72:
-        _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Lb0EEEvT1_SM_SG_NS_15iterator_traitsISM_E15difference_typeEb(a1, k - 16, a3, a4 & 1);
+        _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Lb0EEEvT1_SM_SG_NS_15iterator_traitsISM_E15difference_typeEb(a1, k - 8, a3, a4 & 1);
         goto LABEL_73;
       }
 
@@ -4790,7 +4726,7 @@ LABEL_72:
       }
     }
 
-    a2 = k - 16;
+    a2 = k - 8;
     if (!matched)
     {
       continue;
@@ -4798,23 +4734,20 @@ LABEL_72:
 
     break;
   }
-
-LABEL_300:
-  v178 = *MEMORY[0x29EDCA608];
 }
 
 void std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::SpanMatchV3 *&,skit::SpanMatchV3 *&>(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x29EDCA608];
-  *v15 = *a1;
-  *&v15[12] = *(a1 + 12);
+  v20 = *MEMORY[0x29EDCA608];
+  *v14 = *a1;
+  *&v14[12] = *(a1 + 12);
   v6 = *(a1 + 32);
   v4 = (a1 + 32);
   v5 = v6;
   if (v6 == (a1 + 48))
   {
-    v9 = &v19;
-    v16 = &v19;
+    v9 = &v18;
+    v15 = &v18;
     v8 = *(a1 + 40);
     if (v8)
     {
@@ -4830,14 +4763,14 @@ void std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::SpanMa
       while (v10);
     }
 
-    v7 = &v18;
+    v7 = &v17;
   }
 
   else
   {
-    v16 = v5;
+    v15 = v5;
     v7 = (a1 + 44);
-    v18 = *(a1 + 44);
+    v17 = *(a1 + 44);
     *(a1 + 32) = a1 + 48;
     LODWORD(v8) = *(a1 + 40);
   }
@@ -4845,23 +4778,21 @@ void std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::SpanMa
   *v7 = 4;
   *(a1 + 40) = 0;
   v12 = *(a1 + 56);
-  v17 = v8;
-  v20 = v12;
+  v16 = v8;
+  v19 = v12;
   v13 = *(a2 + 12);
   *a1 = *a2;
   *(a1 + 12) = v13;
   skit::SmallVector<skit::GroupId,4u,true>::operator=(v4, a2 + 32);
   *(a1 + 56) = *(a2 + 56);
-  *a2 = *v15;
-  *(a2 + 12) = *&v15[12];
-  skit::SmallVector<skit::GroupId,4u,true>::operator=((a2 + 32), &v16);
-  *(a2 + 56) = v20;
-  if (v16 != &v19)
+  *a2 = *v14;
+  *(a2 + 12) = *&v14[12];
+  skit::SmallVector<skit::GroupId,4u,true>::operator=((a2 + 32), &v15);
+  *(a2 + 56) = v19;
+  if (v15 != &v18)
   {
-    free(v16);
+    free(v15);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 void _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_(unsigned int *a1, unsigned int *a2, unsigned int *a3)
@@ -5030,7 +4961,7 @@ void _ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOB
 
 BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_EEbT1_SM_SG_(unsigned int *a1, unsigned int *a2)
 {
-  v48 = *MEMORY[0x29EDCA608];
+  v47 = *MEMORY[0x29EDCA608];
   v4 = (a2 - a1) >> 6;
   if (v4 <= 2)
   {
@@ -5038,20 +4969,20 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZN
     {
       if (v4 == 2)
       {
-        v5 = (a2 - 16);
+        v5 = a2 - 16;
         v6 = *(a2 - 16);
         if (v6 >= *a1)
         {
           if (v6 > *a1)
           {
-            goto LABEL_61;
+            return 1;
           }
 
           v7 = *(a2 - 15);
           v8 = a1[1];
           if (v7 <= v8 && (v7 < v8 || *(a2 - 10) >= a1[6]))
           {
-            goto LABEL_61;
+            return 1;
           }
         }
 
@@ -5061,16 +4992,14 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZN
       goto LABEL_15;
     }
 
-LABEL_61:
-    result = 1;
-    goto LABEL_62;
+    return 1;
   }
 
   switch(v4)
   {
     case 3:
       _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_(a1, a1 + 16, a2 - 16);
-      goto LABEL_61;
+      return 1;
     case 4:
       _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEbT1_SM_SM_SG_(a1, a1 + 16, a1 + 32);
       v29 = *(a2 - 16);
@@ -5079,14 +5008,14 @@ LABEL_61:
       {
         if (v29 > v30)
         {
-          goto LABEL_61;
+          return 1;
         }
 
         v34 = *(a2 - 15);
         v35 = a1[33];
         if (v34 <= v35 && (v34 < v35 || *(a2 - 10) >= a1[38]))
         {
-          goto LABEL_61;
+          return 1;
         }
       }
 
@@ -5097,14 +5026,14 @@ LABEL_61:
       {
         if (v31 > v32)
         {
-          goto LABEL_61;
+          return 1;
         }
 
         v36 = a1[33];
         v37 = a1[17];
         if (v36 <= v37 && (v36 < v37 || a1[38] >= a1[22]))
         {
-          goto LABEL_61;
+          return 1;
         }
       }
 
@@ -5114,24 +5043,24 @@ LABEL_61:
       {
         if (v33 > *a1)
         {
-          goto LABEL_61;
+          return 1;
         }
 
-        v40 = a1[17];
-        v41 = a1[1];
-        if (v40 <= v41 && (v40 < v41 || a1[22] >= a1[6]))
+        v39 = a1[17];
+        v40 = a1[1];
+        if (v39 <= v40 && (v39 < v40 || a1[22] >= a1[6]))
         {
-          goto LABEL_61;
+          return 1;
         }
       }
 
-      v5 = (a1 + 16);
+      v5 = a1 + 16;
 LABEL_48:
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::SpanMatchV3 *&,skit::SpanMatchV3 *&>(a1, v5);
-      goto LABEL_61;
+      return 1;
     case 5:
       _ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN4skit8internal12_GLOBAL__N_117merge_token_spansENS_17basic_string_viewIDsNS_11char_traitsIDsEEEEtRNS2_11SmallVectorINS2_11SpanMatchV3ELj8ELb1EEEjEUlRKT_RKT0_E_PSA_Li0EEEvT1_SM_SM_SM_SM_SG_(a1, a1 + 16, a1 + 32, a1 + 48, a2 - 16);
-      goto LABEL_61;
+      return 1;
   }
 
 LABEL_15:
@@ -5140,7 +5069,7 @@ LABEL_15:
   v10 = a1 + 48;
   if (a1 + 48 == a2)
   {
-    goto LABEL_61;
+    return 1;
   }
 
   v11 = 0;
@@ -5149,17 +5078,17 @@ LABEL_15:
   {
     if (*v10 < *v9 || *v10 <= *v9 && ((v16 = v10[1], v17 = v9[1], v16 > v17) || v16 >= v17 && v10[6] < v9[6]))
     {
-      *v42 = *v10;
-      *&v42[12] = *(v10 + 3);
+      *v41 = *v10;
+      *&v41[12] = *(v10 + 3);
       v13 = *(v10 + 4);
       if (v13 == v10 + 12)
       {
-        v43 = &v46;
+        v42 = &v45;
         v15 = v10[10];
         if (v15)
         {
           v18 = 2 * v15;
-          v19 = &v46;
+          v19 = &v45;
           do
           {
             v20 = *v13;
@@ -5172,14 +5101,14 @@ LABEL_15:
           while (v18);
         }
 
-        v14 = &v45;
+        v14 = &v44;
       }
 
       else
       {
-        v43 = *(v10 + 4);
+        v42 = *(v10 + 4);
         v14 = v10 + 11;
-        v45 = v10[11];
+        v44 = v10[11];
         *(v10 + 4) = v10 + 12;
         LODWORD(v15) = v10[10];
       }
@@ -5187,8 +5116,8 @@ LABEL_15:
       *v14 = 4;
       v10[10] = 0;
       v21 = v10[14];
-      v44 = v15;
-      v47 = v21;
+      v43 = v15;
+      v46 = v21;
       for (i = v11; ; i -= 64)
       {
         v23 = a1 + i;
@@ -5204,15 +5133,15 @@ LABEL_15:
         }
 
         v25 = *(v23 + 16);
-        if (*v42 >= v25)
+        if (*v41 >= v25)
         {
-          if (*v42 > v25)
+          if (*v41 > v25)
           {
             break;
           }
 
           v26 = *(a1 + i + 68);
-          if (*&v42[4] <= v26 && (*&v42[4] < v26 || *&v42[24] >= *(a1 + i + 88)))
+          if (*&v41[4] <= v26 && (*&v41[4] < v26 || *&v41[24] >= *(a1 + i + 88)))
           {
             break;
           }
@@ -5220,21 +5149,21 @@ LABEL_15:
       }
 
       v28 = a1 + i;
-      v27 = a1 + i + 128;
+      v27 = (a1 + i + 128);
       v24 = (v28 + 160);
 LABEL_39:
-      *v27 = *v42;
-      *(v27 + 12) = *&v42[12];
-      skit::SmallVector<skit::GroupId,4u,true>::operator=(v24, &v43);
-      *(v27 + 56) = v47;
-      if (v43 != &v46)
+      *v27 = *v41;
+      *(v27 + 3) = *&v41[12];
+      skit::SmallVector<skit::GroupId,4u,true>::operator=(v24, &v42);
+      v27[14] = v46;
+      if (v42 != &v45)
       {
-        free(v43);
+        free(v42);
       }
 
       if (++v12 == 8)
       {
-        break;
+        return v10 + 16 == a2;
       }
     }
 
@@ -5243,14 +5172,9 @@ LABEL_39:
     v10 += 16;
     if (v10 == a2)
     {
-      goto LABEL_61;
+      return 1;
     }
   }
-
-  result = v10 + 16 == a2;
-LABEL_62:
-  v39 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 size_t skit::SmallVector<skit::SpanMatchV3,8u,true>::_reserve_more(char **a1, unsigned int a2)
@@ -5275,15 +5199,15 @@ size_t skit::SmallVector<skit::SpanMatchV3,8u,true>::_reserve_more(char **a1, un
       v9 = *v8;
       *(v7 + 12) = *(v8 + 12);
       *v7 = v9;
-      skit::SmallVector<skit::GroupId,4u,true>::move((v7 + 32), (v8 + 32));
+      skit::SmallVector<skit::GroupId,4u,true>::move((v7 + 32), (v8 + 4));
       *(v7 + 14) = *(v8 + 14);
-      v8 += 64;
+      v8 += 8;
       v7 += 64;
     }
 
-    while (v8 != &v5[64 * v6]);
+    while (v8 != &v5[8 * v6]);
     v10 = v6 << 6;
-    v11 = v5 + 48;
+    v11 = (v5 + 6);
     do
     {
       v12 = *(v11 - 2);
@@ -5300,7 +5224,7 @@ size_t skit::SmallVector<skit::SpanMatchV3,8u,true>::_reserve_more(char **a1, un
     v5 = *a1;
   }
 
-  if (v5 != (a1 + 2))
+  if (v5 != a1 + 2)
   {
     free(v5);
   }
@@ -5462,40 +5386,40 @@ size_t skit::SmallVector<skit::internal::FieldSpanMatcherImpl::MapToken,128u,tru
   return result;
 }
 
-void skit::internal::FieldSpanMatcherImpl::combine_alias_matches(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, uint64_t a5, uint64_t *a6)
+void skit::internal::FieldSpanMatcherImpl::combine_alias_matches(uint64_t a1, uint64_t *a2, uint64_t *a3, int a4, __int128 **a5, uint64_t *a6)
 {
   if (!a4)
   {
     skit::Alias::match((a1 + 640), a5, a3);
   }
 
-  v9 = *(a5 + 8);
+  v9 = *(a5 + 2);
   v10 = *(a6 + 2) + v9;
   if (v10)
   {
-    if (*(a2 + 12) < v10)
+    if (*(a2 + 3) < v10)
     {
       skit::SmallVector<skit::AliasMatch const*,8u,false>::_reserve_more(a2, v10);
-      v9 = *(a5 + 8);
+      v9 = *(a5 + 2);
     }
 
     if (v9)
     {
       v11 = *a5;
       v12 = v9;
-      v13 = *(a2 + 8);
+      v13 = *(a2 + 2);
       v14 = 40 * v12;
       do
       {
-        if (v13 == *(a2 + 12))
+        if (v13 == *(a2 + 3))
         {
           skit::SmallVector<skit::AliasMatch const*,8u,false>::_reserve_more(a2, v13 + (v13 >> 1) + 1);
-          v13 = *(a2 + 8);
+          v13 = *(a2 + 2);
         }
 
         *(*a2 + 8 * v13++) = v11;
-        *(a2 + 8) = v13;
-        v11 += 40;
+        *(a2 + 2) = v13;
+        v11 = (v11 + 40);
         v14 -= 40;
       }
 
@@ -5503,21 +5427,21 @@ void skit::internal::FieldSpanMatcherImpl::combine_alias_matches(uint64_t a1, ui
     }
 
     v15 = *(a6 + 2);
-    v16 = *(a2 + 8);
+    v16 = *(a2 + 2);
     if (v15)
     {
       v17 = *a6;
       v18 = 40 * v15;
       do
       {
-        if (v16 == *(a2 + 12))
+        if (v16 == *(a2 + 3))
         {
           skit::SmallVector<skit::AliasMatch const*,8u,false>::_reserve_more(a2, v16 + (v16 >> 1) + 1);
-          v16 = *(a2 + 8);
+          v16 = *(a2 + 2);
         }
 
         *(*a2 + 8 * v16++) = v17;
-        *(a2 + 8) = v16;
+        *(a2 + 2) = v16;
         v17 += 40;
         v18 -= 40;
       }
@@ -5579,7 +5503,7 @@ size_t skit::SmallVector<skit::AliasMatch const*,8u,false>::_reserve_more(uint64
   return result;
 }
 
-unint64_t std::__introsort<std::_ClassicAlgPolicy,skit::internal::anonymous namespace::AliasMatchLess &,skit::AliasMatch const**,false>(unint64_t result, uint64_t *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,skit::internal::anonymous namespace::AliasMatchLess &,skit::AliasMatch const**,false>(uint64_t result, uint64_t *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -6212,7 +6136,7 @@ LABEL_79:
     {
       v83 = *(v82 + 24);
 LABEL_84:
-      for (i = v9 + 1; ; ++i)
+      for (i = (v9 + 1); ; i += 8)
       {
         v87 = *i;
         v88 = *(*i + 24);
@@ -6222,8 +6146,8 @@ LABEL_84:
         }
       }
 
-      v89 = i - 1;
-      if (i - 1 == v9)
+      v89 = (i - 8);
+      if ((i - 8) == v9)
       {
         v92 = a2;
         if (i < a2)
@@ -6702,7 +6626,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,skit:
     }
   }
 
-  v27 = (a1 + 2);
+  v27 = a1 + 2;
   v28 = *a1;
   v29 = a1 + 1;
   v30 = a1[1];
@@ -6780,7 +6704,7 @@ LABEL_48:
       }
 
 LABEL_55:
-      v27 -= 8;
+      --v27;
       *(a1 + v52 + 16) = v53;
       v52 -= 8;
       if (v52 == -16)
@@ -6800,7 +6724,7 @@ LABEL_55:
       goto LABEL_55;
     }
 
-    v27 = a1 + v52 + 16;
+    v27 = (a1 + v52 + 16);
 LABEL_61:
     *v27 = v48;
     if (++v47 != 8)
@@ -6820,11 +6744,12 @@ LABEL_62:
   }
 }
 
-uint64_t skit::internal::FieldSpanMatcherImpl::alias_span_matcher(uint64_t a1, void *a2, char a3, uint64_t a4, uint64_t *a5, int a6)
+uint64_t skit::internal::FieldSpanMatcherImpl::alias_span_matcher(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t *a5, int a6)
 {
-  v28[8] = *MEMORY[0x29EDCA608];
+  v27[8] = *MEMORY[0x29EDCA608];
   if (*a2 && (*(*a2 + 64) & 1) != 0)
   {
+    v9 = a3;
     v11 = *a2;
     *a2 = 0;
     a2[1] = 0;
@@ -6837,21 +6762,21 @@ uint64_t skit::internal::FieldSpanMatcherImpl::alias_span_matcher(uint64_t a1, v
 
     skit::SmallVector<skit::AliasMatch,2u,true>::_destroy(*(a1 + 656), *(a1 + 664));
     *(a1 + 664) = 0;
-    v26 = v28;
-    v27 = 0x800000000;
-    v24[0] = &v25;
-    v24[1] = 0x200000000;
-    skit::internal::FieldSpanMatcherImpl::combine_alias_matches(a1, &v26, a1, a6, v24, a5);
-    v13 = v27;
-    if (*(a1 + 668) < v27)
+    v25 = v27;
+    v26 = 0x800000000;
+    v23[0] = &v24;
+    v23[1] = 0x200000000;
+    skit::internal::FieldSpanMatcherImpl::combine_alias_matches(a1, &v25, a1, a6, v23, a5);
+    v13 = v26;
+    if (*(a1 + 668) < v26)
     {
-      skit::SmallVector<skit::AliasMatch,2u,true>::_reserve_more((a1 + 656), v27);
-      v13 = v27;
+      skit::SmallVector<skit::AliasMatch,2u,true>::_reserve_more((a1 + 656), v26);
+      v13 = v26;
     }
 
     if (v13)
     {
-      v14 = v26;
+      v14 = v25;
       v15 = *(a1 + 664);
       v16 = 8 * v13;
       do
@@ -6888,14 +6813,14 @@ uint64_t skit::internal::FieldSpanMatcherImpl::alias_span_matcher(uint64_t a1, v
       while (v16);
     }
 
-    skit::internal::FieldSpanMatcherImpl::alias_filters(a1, a3, a4);
-    skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(v24);
-    if (v26 != v28)
+    skit::internal::FieldSpanMatcherImpl::alias_filters(a1, v9, a4);
+    skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(v23);
+    if (v25 != v27)
     {
-      free(v26);
+      free(v25);
     }
 
-    result = 0;
+    return 0;
   }
 
   else
@@ -6904,18 +6829,15 @@ uint64_t skit::internal::FieldSpanMatcherImpl::alias_span_matcher(uint64_t a1, v
     {
     }
 
-    v23 = skit::internal::get_logging_context(void)::logger;
+    v22 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v24[0]) = 0;
-      _os_log_error_impl(&dword_2998C6000, v23, OS_LOG_TYPE_ERROR, "FieldSpanMatcherImpl::alias_span_matcher : Alias span matcher is not initialized", v24, 2u);
+      LOWORD(v23[0]) = 0;
+      _os_log_error_impl(&dword_2998C6000, v22, OS_LOG_TYPE_ERROR, "FieldSpanMatcherImpl::alias_span_matcher : Alias span matcher is not initialized", v23, 2u);
     }
 
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
-
-  v22 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 void sub_2998DB22C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21)
@@ -6931,7 +6853,7 @@ void sub_2998DB22C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void skit::internal::FieldSpanMatcherImpl::alias_filters(uint64_t *a1, char a2, uint64_t a3)
 {
-  v74 = *MEMORY[0x29EDCA608];
+  v71 = *MEMORY[0x29EDCA608];
   *(a1 + 608) = a2;
   if (a1 + 77 != a3)
   {
@@ -6971,8 +6893,8 @@ void skit::internal::FieldSpanMatcherImpl::alias_filters(uint64_t *a1, char a2, 
       if (!v8)
       {
         exception = __cxa_allocate_exception(8uLL);
-        v58 = std::bad_alloc::bad_alloc(exception);
-        __cxa_throw(v58, MEMORY[0x29EDC9490], MEMORY[0x29EDC9408]);
+        v55 = std::bad_alloc::bad_alloc(exception);
+        __cxa_throw(v55, MEMORY[0x29EDC9490], MEMORY[0x29EDC9408]);
       }
 
       v9 = v8;
@@ -7011,18 +6933,18 @@ void skit::internal::FieldSpanMatcherImpl::alias_filters(uint64_t *a1, char a2, 
     while (v17);
   }
 
-  v60 = (a1 + 94);
+  v57 = (a1 + 94);
   *(a1 + 190) = 0;
   v18 = *(a1 + 166);
   if (*(a1 + 191) < v18)
   {
-    skit::SmallVector<skit::internal::AliasSpanMatchImpl<skit::AliasMatch,skit::SpanMatchV3>,4u,true>::_reserve_more(v60, v18);
+    skit::SmallVector<skit::internal::AliasSpanMatchImpl<skit::AliasMatch,skit::SpanMatchV3>,4u,true>::_reserve_more(v57, v18);
   }
 
   skit::SmallVector<skit::AliasSpanMatch,4u,true>::_destroy(a1[148], *(a1 + 298));
   *(a1 + 298) = 0;
   v19 = *(a1 + 166);
-  v59 = (a1 + 148);
+  v56 = (a1 + 148);
   if (*(a1 + 299) < v19)
   {
     skit::SmallVector<skit::AliasSpanMatch,4u,true>::_reserve_more(a1 + 148, v19);
@@ -7032,23 +6954,23 @@ void skit::internal::FieldSpanMatcherImpl::alias_filters(uint64_t *a1, char a2, 
   if (v19)
   {
     v20 = a1[82];
-    v21 = (v20 + 40 * v19);
+    v21 = v20 + 40 * v19;
     do
     {
       if (skit::internal::AliasFilter::select_by_group_id(a1 + 608, *(v20 + 32), *(v20 + 33)))
       {
-        v23 = v20 + 3;
-        v22 = *(v20 + 6);
+        v23 = (v20 + 24);
+        v22 = *(v20 + 24);
         v24 = *a1;
-        v25 = *(v20 + 7);
-        *v64 = *(*a1 + 48 * v22 + 24);
-        *&v64[4] = *(*a1 + 48 * (v25 - 1) + 28);
-        *&v64[8] = 0;
-        *&v64[16] = 0;
-        *&v64[24] = 0;
-        v65 = &v67;
-        v66 = 0x400000000;
-        v68 = 0;
+        v25 = *(v20 + 28);
+        *v61 = *(*a1 + 48 * v22 + 24);
+        *&v61[4] = *(*a1 + 48 * (v25 - 1) + 28);
+        *&v61[8] = 0;
+        *&v61[16] = 0;
+        *&v61[24] = 0;
+        v62 = &v64;
+        v63 = 0x400000000;
+        v65 = 0;
         if (v22 >= v25)
         {
           v27 = 0;
@@ -7084,41 +7006,41 @@ void skit::internal::FieldSpanMatcherImpl::alias_filters(uint64_t *a1, char a2, 
           v34 = v30 * 0.85;
         }
 
-        *&v64[12] = v34;
-        *&v64[16] = v26;
-        skit::SpanMatchV3::append_alias_id(v64, *(v20 + 16), v26);
-        *&v64[20] = v27;
+        *&v61[12] = v34;
+        *&v61[16] = v26;
+        skit::SpanMatchV3::append_alias_id(v61, *(v20 + 32), v26);
+        *&v61[20] = v27;
         v35 = *(a1 + 298);
         if (v35 == *(a1 + 299))
         {
-          skit::SmallVector<skit::AliasSpanMatch,4u,true>::_reserve_more(v59, v35 + (v35 >> 1) + 1);
+          skit::SmallVector<skit::AliasSpanMatch,4u,true>::_reserve_more(v56, v35 + (v35 >> 1) + 1);
           v35 = *(a1 + 298);
         }
 
-        v36 = *v59;
+        v36 = *v56;
         if (*(v20 + 23) < 0)
         {
-          std::basic_string<char16_t>::__init_copy_ctor_external(v69, *v20, *(v20 + 1));
+          std::basic_string<char16_t>::__init_copy_ctor_external(v66, *v20, *(v20 + 8));
         }
 
         else
         {
-          *v69 = *v20;
-          *&v69[16] = *(v20 + 2);
+          *v66 = *v20;
+          *&v66[16] = *(v20 + 16);
         }
 
-        *&v69[24] = *v23;
-        v37 = *&v69[24];
-        LOWORD(v70) = *(v20 + 16);
-        v38 = v70;
-        v39 = *v64;
-        v40 = *&v64[8];
-        v41 = *&v64[12];
-        v42 = *&v64[16];
-        v43 = *&v64[24];
+        *&v66[24] = *v23;
+        v37 = *&v66[24];
+        LOWORD(v67) = *(v20 + 32);
+        v38 = v67;
+        v39 = *v61;
+        v40 = *&v61[8];
+        v41 = *&v61[12];
+        v42 = *&v61[16];
+        v43 = *&v61[24];
         v44 = v36 + 72 * v35;
-        *v44 = *v69;
-        *(v44 + 2) = *&v69[16];
+        *v44 = *v66;
+        *(v44 + 2) = *&v66[16];
         *(v44 + 3) = v37;
         *(v44 + 16) = v38;
         *(v44 + 5) = v39;
@@ -7130,73 +7052,69 @@ void skit::internal::FieldSpanMatcherImpl::alias_filters(uint64_t *a1, char a2, 
         v45 = *(a1 + 190);
         if (v45 == *(a1 + 191))
         {
-          skit::SmallVector<skit::internal::AliasSpanMatchImpl<skit::AliasMatch,skit::SpanMatchV3>,4u,true>::_reserve_more(v60, v45 + (v45 >> 1) + 1);
-          v55 = *(a1 + 190);
+          skit::SmallVector<skit::internal::AliasSpanMatchImpl<skit::AliasMatch,skit::SpanMatchV3>,4u,true>::_reserve_more(v57, v45 + (v45 >> 1) + 1);
         }
 
-        v46 = *v60;
         if (*(v20 + 23) < 0)
         {
-          std::basic_string<char16_t>::__init_copy_ctor_external(&v61, *v20, *(v20 + 1));
+          std::basic_string<char16_t>::__init_copy_ctor_external(&v58, *v20, *(v20 + 8));
         }
 
         else
         {
-          v47 = *v20;
-          v61.__r_.__value_.__r.__words[2] = *(v20 + 2);
-          *&v61.__r_.__value_.__l.__data_ = v47;
+          v46 = *v20;
+          v58.__r_.__value_.__r.__words[2] = *(v20 + 16);
+          *&v58.__r_.__value_.__l.__data_ = v46;
         }
 
-        v48 = *v23;
-        v63 = *(v20 + 16);
-        v62 = v48;
-        *v69 = *v64;
-        *&v69[12] = *&v64[12];
-        v49 = v65;
-        if (v65 == &v67)
+        v47 = *v23;
+        v60 = *(v20 + 32);
+        v59 = v47;
+        *v66 = *v61;
+        *&v66[12] = *&v61[12];
+        v48 = v62;
+        if (v62 == &v64)
         {
-          v70 = v73;
-          v50 = v66;
-          if (v66)
+          v67 = v70;
+          v49 = v63;
+          if (v63)
           {
-            v52 = 2 * v66;
-            v53 = v73;
+            v51 = 2 * v63;
+            v52 = v70;
             do
             {
-              v54 = *v49++;
-              *v53++ = v54;
-              v52 -= 2;
+              v53 = *v48++;
+              *v52++ = v53;
+              v51 -= 2;
             }
 
-            while (v52);
+            while (v51);
           }
 
-          v51 = &v72;
+          v50 = &v69;
         }
 
         else
         {
-          v70 = v65;
-          v50 = v66;
-          v72 = HIDWORD(v66);
-          v65 = &v67;
-          v51 = &v66 + 1;
+          v67 = v62;
+          v49 = v63;
+          v69 = HIDWORD(v63);
+          v62 = &v64;
+          v50 = &v63 + 1;
         }
 
-        *v51 = 4;
-        LODWORD(v66) = 0;
-        v71 = v50;
-        v73[2] = v68;
+        *v50 = 4;
+        LODWORD(v63) = 0;
+        v68 = v49;
+        v70[2] = v65;
         skit::internal::AliasSpanMatchImpl<skit::AliasMatch,skit::SpanMatchV3>::AliasSpanMatchImpl();
       }
 
-      v20 = (v20 + 40);
+      v20 += 40;
     }
 
     while (v20 != v21);
   }
-
-  v56 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2998DB740(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34)
@@ -7239,29 +7157,29 @@ size_t skit::SmallVector<skit::internal::AliasSpanMatchImpl<skit::AliasMatch,ski
     do
     {
       v9 = *v8;
-      *(v7 + 2) = *(v8 + 2);
+      *(v7 + 2) = v8[2];
       *v7 = v9;
-      *(v8 + 1) = 0;
-      *(v8 + 2) = 0;
+      v8[1] = 0;
+      v8[2] = 0;
       *v8 = 0;
-      v10 = *(v8 + 3);
+      v10 = v8[3];
       *(v7 + 16) = *(v8 + 16);
       *(v7 + 3) = v10;
-      v11 = *(v8 + 40);
+      v11 = *(v8 + 5);
       *(v7 + 52) = *(v8 + 52);
       *(v7 + 40) = v11;
-      skit::SmallVector<skit::GroupId,4u,true>::move((v7 + 72), (v8 + 72));
+      skit::SmallVector<skit::GroupId,4u,true>::move((v7 + 72), (v8 + 9));
       *(v7 + 24) = *(v8 + 24);
-      v8 += 104;
+      v8 += 13;
       v7 += 104;
     }
 
-    while (v8 != &v5[104 * v6]);
+    while (v8 != &v5[13 * v6]);
     v12 = 104 * v6;
     do
     {
       skit::internal::AliasSpanMatchImpl<skit::AliasMatch,skit::SpanMatchV3>::~AliasSpanMatchImpl(v5);
-      v5 += 104;
+      v5 += 13;
       v12 -= 104;
     }
 
@@ -7269,7 +7187,7 @@ size_t skit::SmallVector<skit::internal::AliasSpanMatchImpl<skit::AliasMatch,ski
     v5 = *a1;
   }
 
-  if (v5 != (a1 + 2))
+  if (v5 != a1 + 2)
   {
     free(v5);
   }
@@ -7300,22 +7218,22 @@ size_t skit::SmallVector<skit::AliasSpanMatch,4u,true>::_reserve_more(__int128 *
     do
     {
       v9 = *v8;
-      *(v7 + 2) = *(v8 + 2);
+      *(v7 + 2) = *(v8 + 16);
       *v7 = v9;
-      *(v8 + 1) = 0;
-      *(v8 + 2) = 0;
+      *(v8 + 8) = 0;
+      *(v8 + 16) = 0;
       *v8 = 0;
-      v10 = *(v8 + 3);
-      *(v7 + 16) = *(v8 + 16);
+      v10 = *(v8 + 24);
+      *(v7 + 16) = *(v8 + 32);
       *(v7 + 3) = v10;
       v11 = *(v8 + 40);
       *(v7 + 56) = *(v8 + 56);
       *(v7 + 40) = v11;
-      v7 += 72;
-      v8 = (v8 + 72);
+      v7 = (v7 + 72);
+      v8 += 72;
     }
 
-    while (v8 != (v5 + 72 * v6));
+    while (v8 != v5 + 72 * v6);
     v12 = 72 * v6;
     do
     {
@@ -7324,7 +7242,7 @@ size_t skit::SmallVector<skit::AliasSpanMatch,4u,true>::_reserve_more(__int128 *
         operator delete(*v5);
       }
 
-      v5 = (v5 + 72);
+      v5 += 72;
       v12 -= 72;
     }
 
@@ -7332,7 +7250,7 @@ size_t skit::SmallVector<skit::AliasSpanMatch,4u,true>::_reserve_more(__int128 *
     v5 = *a1;
   }
 
-  if (v5 != (a1 + 2))
+  if (v5 != a1 + 2)
   {
     free(v5);
   }
@@ -7375,34 +7293,31 @@ void skit::internal::FieldSpanMatcherImpl::clear_alias_span_matcher(skit::intern
   *(this + 298) = 0;
 }
 
-uint64_t skit::internal::FieldSpanMatcherImpl::match(uint64_t result, uint64_t a2, uint64_t *a3, uint64_t *a4, int a5)
+void skit::internal::FieldSpanMatcherImpl::match(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, int a5, __int16 a6, unsigned int a7)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if (*a3 != a3[1])
   {
-    v8[0] = &v9;
-    v8[1] = 0x800000000;
-    v6[0] = &v7;
-    v6[1] = 0x200000000;
-    if (*(result + 760))
+    v9[0] = &v10;
+    v9[1] = 0x800000000;
+    v7[0] = &v8;
+    v7[1] = 0x200000000;
+    if (*(a1 + 760))
     {
-      skit::internal::FieldSpanMatcherImpl::combine_alias_matches(result, v8, a3, a5, v6, a4);
+      skit::internal::FieldSpanMatcherImpl::combine_alias_matches(a1, v9, a3, a5, v7, a4);
     }
 
     skit::internal::FieldMatchesImpl<skit::SpanMatchV3>::clear();
   }
-
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-void sub_2998DCE18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_2998DCE18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   skit::SmallVector<skit::SpanMatchV3,8u,true>::~SmallVector(&STACK[0x220]);
   skit::SmallVector<skit::SpanMatchV3,8u,true>::~SmallVector(&STACK[0x430]);
-  if (a67 != a10)
+  if (a65 != a10)
   {
-    free(a67);
+    free(a65);
   }
 
   skit::SmallVector<skit::AliasMatch,2u,true>::~SmallVector(&a45);
@@ -7593,7 +7508,7 @@ void sub_2998DD1B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void skit::internal::IndexWriterImpl::abort_txn(skit::internal::IndexWriterImpl *this)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   if (*(this + 528) == 1)
   {
     if (skit::internal::get_logging_context(void)::once != -1)
@@ -7609,21 +7524,19 @@ void skit::internal::IndexWriterImpl::abort_txn(skit::internal::IndexWriterImpl 
         v3 = *v3;
       }
 
-      v5[0] = 68289282;
-      v5[1] = 16;
-      v6 = 2098;
-      v7 = this;
-      v8 = 2082;
-      v9 = v3;
-      _os_log_impl(&dword_2998C6000, v2, OS_LOG_TYPE_INFO, "IndexWriterImpl::abort_txn : aborting transaction %{public,uuid_t}.16P @ %{public}s", v5, 0x1Cu);
+      v4[0] = 68289282;
+      v4[1] = 16;
+      v5 = 2098;
+      v6 = this;
+      v7 = 2082;
+      v8 = v3;
+      _os_log_impl(&dword_2998C6000, v2, OS_LOG_TYPE_INFO, "IndexWriterImpl::abort_txn : aborting transaction %{public,uuid_t}.16P @ %{public}s", v4, 0x1Cu);
     }
 
     skit::internal::MultiIndexV2::clear((this + 208));
     skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::clear(this + 40);
     *(this + 264) = 0;
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t skit::internal::get_logging_context(skit::internal *this)
@@ -7642,14 +7555,14 @@ os_log_t skit::internal::anonymous namespace::initialize_logging_context(skit::i
   return result;
 }
 
-uint64_t skit::internal::MmapFile::create(skit::internal::MmapFile *this, const char *a2, size_t a3, off_t a4, int a5, int a6, int a7, uint64_t a8, int a9, int a10, int a11)
+uint64_t skit::internal::MmapFile::create(size_t *this, const char *a2, size_t a3, off_t a4, int a5, int a6, int a7, uint64_t a8, int a9, int a10, int a11)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   if (!a2)
   {
     v16 = -1;
-    v19 = 10;
-    v20 = "path check";
+    v18 = 10;
+    v19 = "path check";
     goto LABEL_13;
   }
 
@@ -7657,66 +7570,65 @@ uint64_t skit::internal::MmapFile::create(skit::internal::MmapFile *this, const 
   v16 = v15;
   if (v15 < 0)
   {
-    v19 = 4;
-    v20 = "open";
+    v18 = 4;
+    v19 = "open";
     goto LABEL_13;
   }
 
   if (ftruncate(v15, a4 + a3))
   {
-    v19 = 9;
-    v20 = "ftruncate";
+    v18 = 9;
+    v19 = "ftruncate";
     goto LABEL_13;
   }
 
-  if (!skit::internal::MmapFile::open(this, v16, a9, a10, a11, a3, a4))
+  if (skit::internal::MmapFile::open(this, v16, a9, a10, a11, a3, a4))
   {
-    result = close(v16);
-    if (!result)
-    {
-      goto LABEL_8;
-    }
+LABEL_5:
+    close(v16);
+    return 0xFFFFFFFFLL;
+  }
 
-    v19 = 5;
-    v20 = "close";
+  result = close(v16);
+  if (result)
+  {
+    v18 = 5;
+    v19 = "close";
 LABEL_13:
     if (skit::internal::get_logging_context(void)::once != -1)
     {
     }
 
-    v21 = skit::internal::get_logging_context(void)::logger;
+    v20 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      v22 = *__error();
+      v21 = *__error();
       *buf = 68158466;
-      v24 = v19;
-      v25 = 2082;
-      v26 = v20;
-      v27 = 2082;
-      v28 = a2;
-      v29 = 1024;
-      v30 = v22;
-      _os_log_error_impl(&dword_2998C6000, v21, OS_LOG_TYPE_ERROR, "MmapFile::create : %{public}.*s failed @ %{public}s : %{darwin.errno}d", buf, 0x22u);
+      v23 = v18;
+      v24 = 2082;
+      v25 = v19;
+      v26 = 2082;
+      v27 = a2;
+      v28 = 1024;
+      v29 = v21;
+      _os_log_error_impl(&dword_2998C6000, v20, OS_LOG_TYPE_ERROR, "MmapFile::create : %{public}.*s failed @ %{public}s : %{darwin.errno}d", buf, 0x22u);
     }
 
     if (*this)
     {
-      munmap(*this, *(this + 1));
+      munmap(*this, this[1]);
     }
 
     *this = 0;
-    *(this + 1) = 0;
+    this[1] = 0;
     if (v16 == -1)
     {
-      goto LABEL_6;
+      return 0xFFFFFFFFLL;
     }
+
+    goto LABEL_5;
   }
 
-  close(v16);
-LABEL_6:
-  result = 0xFFFFFFFFLL;
-LABEL_8:
-  v18 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -7889,61 +7801,61 @@ LABEL_10:
 
 unint64_t skit::internal::StringRegistry::put_str(uint64_t a1, unsigned __int16 *a2, unsigned __int16 *a3)
 {
-  v25[2] = *MEMORY[0x29EDCA608];
-  v25[0] = a2;
-  v25[1] = a3;
+  v24[2] = *MEMORY[0x29EDCA608];
+  v24[0] = a2;
+  v24[1] = a3;
   if (*(a1 + 24) && !skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::mmap_data_file(a1))
   {
-    v10 = 2 * a3;
+    v9 = 2 * a3;
     for (i = skit::internal::murmur3_32(a2, 2 * a3, *(*(a1 + 24) + 12)) & 0x7FFFFFFF; ; ++i)
     {
-      v11 = skit::internal::StringRegistry::lookup(a1, i, v25);
-      if (v11)
+      v10 = skit::internal::StringRegistry::lookup(a1, i, v24);
+      if (v10)
       {
         v6 = 0;
-        goto LABEL_4;
+        return v6 | i;
       }
 
-      if ((v12 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         break;
       }
     }
 
-    if ((v13 = *(a1 + 24), (v14 = *(v13 + 16) << 6) != 0) && (*(v13 + 28) * v14) >= (*(v13 + 20) + 1) || (v11 = skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::rehash(a1, (v14 + (v14 >> 1)) | 1), !v11))
+    if ((v12 = *(a1 + 24), (v13 = *(v12 + 16) << 6) != 0) && (*(v12 + 28) * v13) >= (*(v12 + 20) + 1) || (v10 = skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::rehash(a1, (v13 + (v13 >> 1)) | 1), !v10))
     {
-      MEMORY[0x2A1C7C4A8](v11, v12);
-      v16 = &v22[-v15];
-      bzero(&v22[-v15], (v10 + 8) & 0xFFFFFFFE);
-      *(v16 + 2) = a3;
-      *v16 = v10 + 8;
+      MEMORY[0x2A1C7C4A8](v10, v11);
+      v15 = &v21[-v14];
+      bzero(&v21[-v14], (v9 + 8) & 0xFFFFFFFE);
+      *(v15 + 2) = a3;
+      *v15 = v9 + 8;
       if (a3)
       {
-        v17 = memmove(v16 + 6, a2, 2 * a3);
+        v16 = memmove(v15 + 6, a2, 2 * a3);
       }
 
-      *(v16 + a3 + 3) = 0;
-      if (*(a1 + 72) + *v16 <= *(a1 + 80))
+      *(v15 + a3 + 3) = 0;
+      if (*(a1 + 72) + *v15 <= *(a1 + 80))
       {
-        MEMORY[0x2A1C7C4A8](v17, v18);
-        *&v22[-16] = v16;
-        *&v22[-8] = (v10 + 8) & 0xFFFFFFFE;
-        skit::internal::BlobFile::append(v22, (a1 + 40), &v22[-16], 1u);
-        if (!v24)
+        MEMORY[0x2A1C7C4A8](v16, v17);
+        *&v21[-16] = v15;
+        *&v21[-8] = (v9 + 8) & 0xFFFFFFFE;
+        skit::internal::BlobFile::append(v21, (a1 + 40), &v21[-16], 1);
+        if (!v23)
         {
-          v19 = *(a1 + 24);
-          v20 = v23;
-          if (skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::KvTableImpl::insert_offset(v19, i, *(v19 + 24)))
+          v18 = *(a1 + 24);
+          v19 = v22;
+          if (skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::KvTableImpl::insert_offset(v18, i, *(v18 + 24)))
           {
             v6 = 0;
-            v21.i32[0] = 1;
-            v21.i32[1] = v20;
-            *(v19 + 20) = vadd_s32(*(v19 + 20), v21);
+            v20.i32[0] = 1;
+            v20.i32[1] = v19;
+            *(v18 + 20) = vadd_s32(*(v18 + 20), v20);
             *(a1 + 162) = 1;
-            goto LABEL_4;
+            return v6 | i;
           }
 
-          skit::internal::BlobFile::resize((a1 + 40), *(a1 + 72) - v20);
+          skit::internal::BlobFile::resize((a1 + 40), *(a1 + 72) - v19);
         }
       }
     }
@@ -7951,8 +7863,6 @@ unint64_t skit::internal::StringRegistry::put_str(uint64_t a1, unsigned __int16 
 
   v6 = 0xFFFFFFFF00000000;
   i = -1;
-LABEL_4:
-  v8 = *MEMORY[0x29EDCA608];
   return v6 | i;
 }
 
@@ -8020,7 +7930,6 @@ LABEL_14:
     }
 
     result = v14 + v12 + 6;
-    v16 = *(v14 + v12 + 4);
     if (v9)
     {
       return result;
@@ -8074,7 +7983,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<skit::internal::Compr
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<skit::internal::CompressedMetaRecord>::resize(uint64_t *a1, unint64_t a2)
+void std::vector<skit::internal::CompressedMetaRecord>::resize(const void **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -8087,7 +7996,7 @@ void std::vector<skit::internal::CompressedMetaRecord>::resize(uint64_t *a1, uni
       return;
     }
 
-    v11 = v3 + 10 * a2;
+    v11 = &v3[10 * a2];
   }
 
   else
@@ -8122,7 +8031,7 @@ void std::vector<skit::internal::CompressedMetaRecord>::resize(uint64_t *a1, uni
 
     v12 = 10 * ((10 * v6 - 10) / 0xA) + 10;
     bzero(a1[1], v12);
-    v11 = v4 + v12;
+    v11 = &v4[v12];
   }
 
   a1[1] = v11;
@@ -8130,117 +8039,112 @@ void std::vector<skit::internal::CompressedMetaRecord>::resize(uint64_t *a1, uni
 
 uint64_t skit::FlatSet<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::rehash(uint64_t a1, unsigned int a2)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   if (*(*(a1 + 16) + 4) > a2)
   {
-    result = 0;
-    goto LABEL_3;
+    return 0;
   }
 
-  v6 = *(a1 + 8);
-  if (((v6 - 16) / 0x150uLL) < a2)
+  v5 = *(a1 + 8);
+  if (((v5 - 16) / 0x150uLL) < a2)
   {
     if (skit::internal::get_logging_context(void)::once != -1)
     {
     }
 
-    v21 = skit::internal::get_logging_context(void)::logger;
+    v20 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      v22 = *(*(a1 + 16) + 4);
+      v21 = *(*(a1 + 16) + 4);
       *buf = 67109376;
-      v27 = a2;
-      v28 = 1024;
-      v29 = v22;
-      _os_log_error_impl(&dword_2998C6000, v21, OS_LOG_TYPE_ERROR, "FlatSet::rehash : bucket count too large, %u > %u", buf, 0xEu);
+      v26 = a2;
+      v27 = 1024;
+      v28 = v21;
+      _os_log_error_impl(&dword_2998C6000, v20, OS_LOG_TYPE_ERROR, "FlatSet::rehash : bucket count too large, %u > %u", buf, 0xEu);
     }
 
-    goto LABEL_24;
+    return 0xFFFFFFFFLL;
   }
 
-  skit::FlatSet<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::allocate_pimpl<>(&v24, v6, a2);
-  v7 = v24;
-  if (!v24)
+  skit::FlatSet<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::allocate_pimpl<>(&v23, v5, a2);
+  v6 = v23;
+  if (!v23)
   {
-LABEL_24:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_3;
+    return 0xFFFFFFFFLL;
   }
 
-  v8 = *(a1 + 16);
-  v9 = v8 + 16;
-  LODWORD(v10) = -1;
+  v7 = *(a1 + 16);
+  v8 = v7 + 16;
+  LODWORD(v9) = -1;
   do
   {
-    v10 = (v10 + 1);
+    v9 = (v9 + 1);
   }
 
-  while (*(v9 + v10) < -1);
-  v11 = 16 * *(v8 + 4);
-  v12 = v11 - 1;
-  if (v10 == v12)
+  while (*(v8 + v9) < -1);
+  v10 = 16 * *(v7 + 4);
+  v11 = v10 - 1;
+  if (v9 == v11)
   {
-    *(a1 + 16) = v24;
+    *(a1 + 16) = v23;
   }
 
   else
   {
-    v13 = v9 + v10;
-    v14 = v9 + v12;
-    v15 = (v9 + v11 + 20 * v10);
+    v12 = v8 + v9;
+    v13 = v8 + v11;
+    v14 = (v8 + v10 + 20 * v9);
     do
     {
-      v16 = skit::internal::murmur3_32(v15, 0x10uLL, 0);
-      skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>::emplace<false,skit::FlatSet<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::rehash::{lambda(std::pair<skit::Uuid,unsigned int> const&)#1},std::pair<skit::Uuid,unsigned int>>(buf, v7, v16, v15, v15);
-      if (v30 <= 0)
+      v15 = skit::internal::murmur3_32(v14, 0x10uLL, 0);
+      skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>::emplace<false,skit::FlatSet<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::rehash::{lambda(std::pair<skit::Uuid,unsigned int> const&)#1},std::pair<skit::Uuid,unsigned int>>(buf, v6, v15, v14, v14);
+      if (v29 <= 0)
       {
         if (skit::internal::get_logging_context(void)::once != -1)
         {
         }
 
-        v20 = skit::internal::get_logging_context(void)::logger;
+        v19 = skit::internal::get_logging_context(void)::logger;
         if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
         {
-          *v23 = 0;
-          _os_log_error_impl(&dword_2998C6000, v20, OS_LOG_TYPE_ERROR, "FlatSet::rehash : failed to insert item into new hash table", v23, 2u);
+          *v22 = 0;
+          _os_log_error_impl(&dword_2998C6000, v19, OS_LOG_TYPE_ERROR, "FlatSet::rehash : failed to insert item into new hash table", v22, 2u);
         }
 
-        v24 = 0;
-        if (v7)
+        v23 = 0;
+        if (v6)
         {
-          v25(v7);
+          v24(v6);
         }
 
-        goto LABEL_24;
+        return 0xFFFFFFFFLL;
       }
 
-      v17 = v13;
+      v16 = v12;
       do
       {
-        v18 = *++v17;
+        v17 = *++v16;
       }
 
-      while (v18 < -1);
-      v15 = (v15 + 20 * (v17 - v13));
-      v13 = v17;
+      while (v17 < -1);
+      v14 = (v14 + 20 * (v16 - v12));
+      v12 = v16;
     }
 
-    while (v17 != v14);
-    v19 = *(a1 + 16);
-    *(a1 + 16) = v7;
-    if (!v19)
+    while (v16 != v13);
+    v18 = *(a1 + 16);
+    *(a1 + 16) = v6;
+    if (!v18)
     {
-      goto LABEL_17;
+      goto LABEL_16;
     }
   }
 
   (*(a1 + 24))();
-LABEL_17:
+LABEL_16:
   result = 0;
-  *(a1 + 24) = v25;
-  v24 = 0;
-LABEL_3:
-  v3 = *MEMORY[0x29EDCA608];
+  *(a1 + 24) = v24;
+  v23 = 0;
   return result;
 }
 
@@ -8379,47 +8283,44 @@ BOOL skit::internal::MemMetaStore::set_doc_wgt(uint64_t a1, skit::internal *this
 
 unint64_t skit::internal::DiskMetaStore::get_doc_internal(skit::internal::DiskMetaStore *this, unsigned int a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v2 = *(this + 5) + 10 * a2;
   _H0 = *v2;
   __asm { FCVT            S0, H0 }
 
-  if (_S0 < 0.00000011921 || (v9 = *(v2 + 2), v9 == -1))
+  if (_S0 >= 0.00000011921)
   {
-LABEL_11:
-    result = 0;
-    goto LABEL_6;
+    v9 = *(v2 + 2);
+    if (v9 != -1)
+    {
+      v11 = *(this + 16);
+      if (v11 > v9 && v11 >= (*(v2 + 6) + v9))
+      {
+        return *(this + 15) + v9;
+      }
+
+      if (skit::internal::get_logging_context(void)::once != -1)
+      {
+      }
+
+      v13 = skit::internal::get_logging_context(void)::logger;
+      if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_FAULT))
+      {
+        v14 = *(v2 + 2);
+        v15 = *(v2 + 6);
+        v16 = *(this + 16);
+        v17[0] = 67109632;
+        v17[1] = v14;
+        v18 = 1024;
+        v19 = v15;
+        v20 = 2048;
+        v21 = v16;
+        _os_log_fault_impl(&dword_2998C6000, v13, OS_LOG_TYPE_FAULT, "DiskMetaStore::populate_doc : Invalid record offset/size : record=(%u, %u), doc_store_file_size=%lu", v17, 0x18u);
+      }
+    }
   }
 
-  v11 = *(this + 16);
-  if (v11 <= v9 || v11 < (*(v2 + 6) + v9))
-  {
-    if (skit::internal::get_logging_context(void)::once != -1)
-    {
-    }
-
-    v14 = skit::internal::get_logging_context(void)::logger;
-    if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_FAULT))
-    {
-      v15 = *(v2 + 2);
-      v16 = *(v2 + 6);
-      v17 = *(this + 16);
-      v18[0] = 67109632;
-      v18[1] = v15;
-      v19 = 1024;
-      v20 = v16;
-      v21 = 2048;
-      v22 = v17;
-      _os_log_fault_impl(&dword_2998C6000, v14, OS_LOG_TYPE_FAULT, "DiskMetaStore::populate_doc : Invalid record offset/size : record=(%u, %u), doc_store_file_size=%lu", v18, 0x18u);
-    }
-
-    goto LABEL_11;
-  }
-
-  result = *(this + 15) + v9;
-LABEL_6:
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 void skit::internal::DiskMetaStore::clear(std::string::size_type *this)
@@ -8583,15 +8484,15 @@ void sub_2998DE580(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t skit::internal::DiskMetaStore::populate_doc(unint64_t this, uint64_t a2, uint64_t a3)
+skit::internal::DiskMetaStore *skit::internal::DiskMetaStore::populate_doc(skit::internal::DiskMetaStore *this, uint64_t a2, uint64_t a3)
 {
-  if (*(this + 120))
+  if (*(this + 15))
   {
     v4 = a2;
     if (a2 != a3)
     {
       v5 = this;
-      v6 = *(*(this + 24) + 32);
+      v6 = *(*(this + 3) + 32);
       do
       {
         v7 = *(v5 + 3);
@@ -8762,7 +8663,7 @@ LABEL_16:
   }
 
 LABEL_17:
-  v23 = &a1[2];
+  v23 = a1 + 2;
   a2.__data_ = a1;
   v24 = std::__fs::filesystem::operator<[abi:ne200100](a1 + 1, a2);
   v55.__data_ = &a1[1];
@@ -8773,7 +8674,7 @@ LABEL_17:
     {
       v27 = a1->__pn_.__r_.__value_.__r.__words[2];
       v28 = *&a1->__pn_.__r_.__value_.__l.__data_;
-      *&a1->__pn_.__r_.__value_.__l.__data_ = *v23;
+      *&a1->__pn_.__r_.__value_.__l.__data_ = *&v23->__pn_.__r_.__value_.__l.__data_;
       a1->__pn_.__r_.__value_.__r.__words[2] = a1[2].__pn_.__r_.__value_.__r.__words[2];
     }
 
@@ -8793,11 +8694,11 @@ LABEL_17:
 
       v27 = a1[1].__pn_.__r_.__value_.__r.__words[2];
       v28 = *&a1[1].__pn_.__r_.__value_.__l.__data_;
-      *&a1[1].__pn_.__r_.__value_.__l.__data_ = *v23;
+      *&a1[1].__pn_.__r_.__value_.__l.__data_ = *&v23->__pn_.__r_.__value_.__l.__data_;
       a1[1].__pn_.__r_.__value_.__r.__words[2] = a1[2].__pn_.__r_.__value_.__r.__words[2];
     }
 
-    *v23 = v28;
+    *&v23->__pn_.__r_.__value_.__l.__data_ = v28;
     a1[2].__pn_.__r_.__value_.__r.__words[2] = v27;
   }
 
@@ -8805,9 +8706,9 @@ LABEL_17:
   {
     v35 = a1[1].__pn_.__r_.__value_.__r.__words[2];
     v36 = *&a1[1].__pn_.__r_.__value_.__l.__data_;
-    *&a1[1].__pn_.__r_.__value_.__l.__data_ = *v23;
+    *&a1[1].__pn_.__r_.__value_.__l.__data_ = *&v23->__pn_.__r_.__value_.__l.__data_;
     a1[1].__pn_.__r_.__value_.__r.__words[2] = a1[2].__pn_.__r_.__value_.__r.__words[2];
-    *v23 = v36;
+    *&v23->__pn_.__r_.__value_.__l.__data_ = v36;
     a1[2].__pn_.__r_.__value_.__r.__words[2] = v35;
     v26.__data_ = a1;
     if (std::__fs::filesystem::operator<[abi:ne200100](a1 + 1, v26))
@@ -8863,10 +8764,10 @@ LABEL_33:
       }
 
       while ((std::__fs::filesystem::operator<[abi:ne200100](&v51, v26) & 1) != 0);
-      v49 = &a1[3] + v47;
-      if (*(v49 + 23) < 0)
+      v49 = (a1 + v47 + 72);
+      if (SHIBYTE(v49->__pn_.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(*v49);
+        operator delete(v49->__pn_.__r_.__value_.__l.__data_);
       }
 
 LABEL_44:
@@ -8886,9 +8787,9 @@ LABEL_44:
   }
 }
 
-uint64_t skit::internal::MultiIndexV2::clear(skit::internal::MultiIndexV2 *this)
+uint64_t *skit::internal::MultiIndexV2::clear(skit::internal::MultiIndexV2 *this)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   skit::internal::IndexMemImplV2::clear((this + 48));
   v4 = *(this + 3);
     ;
@@ -8911,34 +8812,33 @@ uint64_t skit::internal::MultiIndexV2::clear(skit::internal::MultiIndexV2 *this)
     {
     }
 
-    v8 = skit::internal::get_logging_context(void)::logger;
+    v7 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      v9 = this;
+      v8 = this;
       if (*(this + 23) < 0)
       {
-        v9 = *this;
+        v8 = *this;
       }
 
-      v10 = *__error();
-      v11 = 136446466;
-      v12 = v9;
-      v13 = 1024;
-      v14 = v10;
-      _os_log_error_impl(&dword_2998C6000, v8, OS_LOG_TYPE_ERROR, "MultiIndexV2::clear : failed to remove transaction directory @ %{public}s : %{darwin.errno}d", &v11, 0x12u);
+      v9 = *__error();
+      v10 = 136446466;
+      v11 = v8;
+      v12 = 1024;
+      v13 = v9;
+      _os_log_error_impl(&dword_2998C6000, v7, OS_LOG_TYPE_ERROR, "MultiIndexV2::clear : failed to remove transaction directory @ %{public}s : %{darwin.errno}d", &v10, 0x12u);
     }
   }
 
-  result = std::vector<std::unique_ptr<skit::internal::IndexDiskImplV2>>::shrink_to_fit(this + 24);
+  result = std::vector<std::unique_ptr<skit::internal::IndexDiskImplV2>>::shrink_to_fit(this + 3);
   *(this + 68) = 0;
   *(this + 288) = 0;
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t skit::internal::MultiIndexV2::get_doc_freq(void *a1, uint64_t a2)
 {
-  v14[6] = *MEMORY[0x29EDCA608];
+  v13[6] = *MEMORY[0x29EDCA608];
   v4 = a1[3];
   v5 = a1[4];
   if (v4 == v5)
@@ -8953,13 +8853,13 @@ uint64_t skit::internal::MultiIndexV2::get_doc_freq(void *a1, uint64_t a2)
     {
       v7 = *v4;
       v8 = *(a2 + 8) >> 1;
-      v12[0] = *a2;
-      v12[1] = v8;
-      v9 = skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::get(v7, v12);
-      skit::internal::IndexDiskImplV2::to_posting_list(v13, v9);
-      if (v14[2])
+      v11[0] = *a2;
+      v11[1] = v8;
+      v9 = skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::get(v7, v11);
+      skit::internal::IndexDiskImplV2::to_posting_list(v12, v9);
+      if (v13[2])
       {
-        v6 += *(v14[0] + 12);
+        v6 += *(v13[0] + 12);
       }
 
       ++v4;
@@ -8968,18 +8868,17 @@ uint64_t skit::internal::MultiIndexV2::get_doc_freq(void *a1, uint64_t a2)
     while (v4 != v5);
   }
 
-  skit::internal::IndexMemImplV2::get(v13, a1 + 6, a2);
-  if (v14[5])
+  skit::internal::IndexMemImplV2::get(v12, a1 + 6, a2);
+  if (v13[5])
   {
-    v6 += *(v14[3] + 12);
+    v6 += *(v13[3] + 12);
   }
 
-  if (v13[0] != v14)
+  if (v12[0] != v13)
   {
-    free(v13[0]);
+    free(v12[0]);
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -9075,7 +8974,7 @@ LABEL_18:
 
 void skit::internal::IndexMemImplV2::get(uint64_t a1, void *a2, uint64_t a3)
 {
-  v34[3] = *MEMORY[0x29EDCA608];
+  v33[3] = *MEMORY[0x29EDCA608];
   v5 = *a3;
   v6 = *(a3 + 8);
   v7 = std::__string_view_hash<char16_t>::operator()[abi:ne200100](*a3, v6 >> 1);
@@ -9107,14 +9006,14 @@ void skit::internal::IndexMemImplV2::get(uint64_t a1, void *a2, uint64_t a3)
   if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
-    v32 = v34;
-    v33 = 0x1800000000;
-    v30 = 0uLL;
-    v31 = 0;
+    v31 = v33;
+    v32 = 0x1800000000;
+    v29 = 0uLL;
+    v30 = 0;
 LABEL_19:
     *a1 = a1 + 16;
     *(a1 + 8) = 0x1800000000;
-    LODWORD(v33) = 0;
+    LODWORD(v32) = 0;
     goto LABEL_20;
   }
 
@@ -9157,95 +9056,93 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v32 = v34;
-  v33 = 0x1800000000;
-  if (&v32 == (v14 + 2))
+  v31 = v33;
+  v32 = 0x1800000000;
+  if (&v31 == (v14 + 2))
   {
-    v30 = *(v14 + 7);
-    v31 = v14[9];
+    v29 = *(v14 + 7);
+    v30 = v14[9];
     goto LABEL_19;
   }
 
-  v17 = v14[2];
-  v18 = *(v14 + 6);
-  if (v18 < 0x19)
+  v16 = v14[2];
+  v17 = *(v14 + 6);
+  if (v17 < 0x19)
   {
-    if (v18)
+    if (v17)
     {
-      v22 = *(v14 + 6);
-      v23 = v34;
+      v21 = *(v14 + 6);
+      v22 = v33;
       do
       {
-        v24 = *v17++;
-        *v23++ = v24;
-        --v22;
+        v23 = *v16++;
+        *v22++ = v23;
+        --v21;
       }
 
-      while (v22);
+      while (v21);
     }
   }
 
   else
   {
-    v19 = skit::SmallVector<std::byte,24u,false>::allocate(*(v14 + 6));
-    v20 = v19;
-    for (i = 0; i != v18; ++i)
+    v18 = skit::SmallVector<std::byte,24u,false>::allocate(*(v14 + 6));
+    v19 = v18;
+    for (i = 0; i != v17; ++i)
     {
-      *(v19 + i) = v17[i];
+      *(v18 + i) = v16[i];
     }
 
-    if (v32 != v34)
+    if (v31 != v33)
     {
-      free(v32);
+      free(v31);
     }
 
-    v32 = v20;
-    HIDWORD(v33) = malloc_size(v20);
+    v31 = v19;
+    HIDWORD(v32) = malloc_size(v19);
   }
 
-  LODWORD(v33) = v18;
-  v25 = v32;
-  v30 = *(v14 + 7);
-  v31 = v14[9];
-  if (v32 == v34)
+  LODWORD(v32) = v17;
+  v24 = v31;
+  v29 = *(v14 + 7);
+  v30 = v14[9];
+  if (v31 == v33)
   {
-    v26 = (a1 + 16);
+    v25 = (a1 + 16);
     *a1 = a1 + 16;
-    if (v18)
+    if (v17)
     {
-      v27 = v18;
-      v28 = v25;
+      v26 = v17;
+      v27 = v24;
       do
       {
-        v29 = *v28++;
-        *v26++ = v29;
-        --v27;
+        v28 = *v27++;
+        *v25++ = v28;
+        --v26;
       }
 
-      while (v27);
+      while (v26);
     }
 
-    *(a1 + 8) = v18;
+    *(a1 + 8) = v17;
     *(a1 + 12) = 24;
-    LODWORD(v33) = 0;
-    *(a1 + 40) = v30;
-    *(a1 + 56) = v31;
-    if (v25 != v34)
+    LODWORD(v32) = 0;
+    *(a1 + 40) = v29;
+    *(a1 + 56) = v30;
+    if (v24 != v33)
     {
-      free(v25);
+      free(v24);
     }
   }
 
   else
   {
-    *a1 = v32;
-    *(a1 + 8) = v33;
+    *a1 = v31;
+    *(a1 + 8) = v32;
 LABEL_20:
-    *(a1 + 40) = v30;
-    *(a1 + 56) = v31;
+    *(a1 + 40) = v29;
+    *(a1 + 56) = v30;
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2998DF128(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
@@ -9258,7 +9155,7 @@ void sub_2998DF128(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t skit::internal::MultiIndexV2::disk_index_size(skit::internal::IndexDiskImplV2 **this, skit::internal::MultiIndexV2 *a2)
+uint64_t skit::internal::MultiIndexV2::disk_index_size(skit::internal::IndexDiskImplV2 **this, skit::internal::IndexDiskImplV2 **a2)
 {
   if (this == a2)
   {
@@ -9309,7 +9206,7 @@ uint64_t skit::internal::IndexDiskImplV2::mem_size(skit::internal::IndexDiskImpl
   return v4 + v1 + v3 + *(this + 37);
 }
 
-uint64_t skit::internal::MultiIndexV2::index_count_threshold(skit::internal::IndexDiskImplV2 **this, skit::internal::MultiIndexV2 *a2, unint64_t a3)
+uint64_t skit::internal::MultiIndexV2::index_count_threshold(skit::internal::IndexDiskImplV2 **this, skit::internal::IndexDiskImplV2 **a2, unint64_t a3)
 {
   if (this == a2)
   {
@@ -9385,65 +9282,62 @@ uint64_t skit::internal::IndexMemImplV2::open_doc_store(skit::internal::IndexMem
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
-uint64_t skit::internal::MultiIndexV2::search(void *a1, void *a2, uint64_t *a3, int a4, int a5, unsigned int a6, unsigned int a7, int a8, float a9)
+uint64_t skit::internal::MultiIndexV2::search(void *a1, float *a2, uint64_t *a3, int a4, int a5, unsigned int a6, unsigned int a7, int a8, float a9)
 {
-  v442 = a5;
-  v448 = a1;
-  v470 = *MEMORY[0x29EDCA608];
-  v461 = a9;
+  v418 = a5;
+  v424 = a1;
+  v446 = *MEMORY[0x29EDCA608];
+  v437 = a9;
   v13 = a6 + 1;
-  v14 = a2[2];
-  v451 = a2;
-  v15 = *a2;
+  v14 = *(a2 + 2);
+  v427 = a2;
   _CF = 0xCCCCCCCCCCCCCCCDLL * ((v14 - *a2) >> 3) >= v13;
-  v452 = a3;
+  v428 = a3;
   if (!_CF)
   {
-    v17 = v451[1] - v15;
     std::__allocate_at_least[abi:ne200100]<std::allocator<skit::Hit>>(v13);
   }
 
-  v441 = v442 - 2;
-  if (v442 == 2)
+  v417 = v418 - 2;
+  if (v418 == 2)
   {
     a7 = 1;
   }
 
-  else if (v442 == 3)
+  else if (v418 == 3)
   {
     a7 = -1431655765 * ((a3[1] - *a3) >> 4);
   }
 
-  v449 = a7;
-  v18 = *a3;
-  v447 = a3[1];
-  v446 = v18;
-  v19 = 0xAAAAAAAAAAAAAAABLL * ((v447 - v18) >> 4);
-  v20 = (v447 - v18) >> 1;
-  if (v19 > 0x3F)
+  v425 = a7;
+  v16 = *a3;
+  v423 = a3[1];
+  v422 = v16;
+  v17 = 0xAAAAAAAAAAAAAAABLL * ((v423 - v16) >> 4);
+  v18 = (v423 - v16) >> 1;
+  if (v17 > 0x3F)
   {
     operator new[]();
   }
 
-  v21 = 0xAAAAAAAAAAAAAAACLL * ((v447 - v18) >> 4);
+  v19 = 0xAAAAAAAAAAAAAAACLL * ((v423 - v16) >> 4);
   MEMORY[0x2A1C7C4A8](v13, 0x1000C8077774924);
-  v22 = (v20 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v457 = &v437[-v22];
-  bzero(&v437[-v22], v20);
-  MEMORY[0x2A1C7C4A8](v23, v24);
-  v25 = &v437[-v22];
-  v26 = v452;
-  bzero(v25, v20);
-  MEMORY[0x2A1C7C4A8](v27, v28);
-  v444 = &v437[-((v21 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  bzero(v444, 4 * v19);
-  v450 = a6;
-  v438 = a8;
-  v440 = v19;
+  v20 = (v18 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v433 = &v413[-v20];
+  bzero(&v413[-v20], v18);
+  MEMORY[0x2A1C7C4A8](v21, v22);
+  v23 = &v413[-v20];
+  v24 = v428;
+  bzero(v23, v18);
+  MEMORY[0x2A1C7C4A8](v25, v26);
+  v420 = &v413[-((v19 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  bzero(v420, 4 * v17);
+  v426 = a6;
+  v414 = a8;
+  v416 = v17;
   if (a4 <= 1)
   {
     if (a4)
@@ -9455,66 +9349,66 @@ LABEL_46:
         {
         }
 
-        v64 = skit::internal::get_logging_context(void)::logger;
+        v63 = skit::internal::get_logging_context(void)::logger;
         if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_FAULT))
         {
           *buf = 0;
-          _os_log_fault_impl(&dword_2998C6000, v64, OS_LOG_TYPE_FAULT, "MultiIndexV2::token_wgts : Unknown token weight method", buf, 2u);
+          _os_log_fault_impl(&dword_2998C6000, v63, OS_LOG_TYPE_FAULT, "MultiIndexV2::token_wgts : Unknown token weight method", buf, 2u);
         }
 
         goto LABEL_78;
       }
 
-      v35 = *v26;
-      v34 = v26[1];
-      v36 = v448[3];
-      v37 = v448[4];
-      if (v36 == v37)
+      v34 = *v24;
+      v33 = v24[1];
+      v35 = v424[3];
+      v36 = v424[4];
+      if (v35 == v36)
       {
-        v38 = 0;
+        v37 = 0;
       }
 
       else
       {
-        v38 = 0;
+        v37 = 0;
         do
         {
-          v39 = *v36++;
-          v38 += *(*(v39 + 192) + 12);
+          v38 = *v35++;
+          v37 += *(*(v38 + 192) + 12);
         }
 
-        while (v36 != v37);
+        while (v35 != v36);
       }
 
-      v76 = v444;
-      if (v34 != v35)
+      v75 = v420;
+      if (v33 != v34)
       {
-        v77 = 0;
-        v78 = 0xAAAAAAAAAAAAAAABLL * ((v34 - v35) >> 4);
-        v79 = (v38 + *(v448 + 27));
+        v76 = 0;
+        v77 = 0xAAAAAAAAAAAAAAABLL * ((v33 - v34) >> 4);
+        v78 = (v37 + *(v424 + 27));
         do
         {
-          v80 = *v452;
-          v81 = *v452 + v77;
-          if (*(v81 + 40))
+          v79 = *v428;
+          v80 = *v428 + v76;
+          if (*(v80 + 40))
           {
-            v82 = *(v81 + 23);
-            if (v82 < 0)
+            v81 = *(v80 + 23);
+            if (v81 < 0)
             {
-              v84 = v80 + v77;
-              v83 = *v84;
-              v82 = *(v84 + 8);
+              v83 = v79 + v76;
+              v82 = *v83;
+              v81 = *(v83 + 8);
             }
 
             else
             {
-              v83 = (v80 + v77);
+              v82 = (v79 + v76);
             }
 
-            skit::internal::Term::Term(buf, *(v81 + 36), v83, v82);
-            doc_freq = skit::internal::MultiIndexV2::get_doc_freq(v448, buf);
-            *v76 = log10f((v79 / doc_freq) + 1.0);
-            if (*buf != v464)
+            skit::internal::Term::Term(buf, *(v80 + 36), v82, v81);
+            doc_freq = skit::internal::MultiIndexV2::get_doc_freq(v424, buf);
+            *v75 = log10f((v78 / doc_freq) + 1.0);
+            if (*buf != v440)
             {
               free(*buf);
             }
@@ -9522,30 +9416,30 @@ LABEL_46:
 
           else
           {
-            *v76 = 0.0;
+            *v75 = 0.0;
           }
 
-          ++v76;
-          v77 += 48;
-          --v78;
+          ++v75;
+          v76 += 48;
+          --v77;
         }
 
-        while (v78);
+        while (v77);
       }
     }
 
     else
     {
-      v62 = v26[1] - *v26;
-      if (v62)
+      v61 = v24[1] - *v24;
+      if (v61)
       {
-        v63 = 0xAAAAAAAAAAAAAAABLL * (v62 >> 4);
-        if (v63 <= 1)
+        v62 = 0xAAAAAAAAAAAAAAABLL * (v61 >> 4);
+        if (v62 <= 1)
         {
-          v63 = 1;
+          v62 = 1;
         }
 
-        memset_pattern16(v444, &unk_2998EB820, 4 * v63);
+        memset_pattern16(v420, &unk_2998EB820, 4 * v62);
       }
     }
   }
@@ -9555,56 +9449,56 @@ LABEL_46:
     switch(a4)
     {
       case 2:
-        v41 = *v26;
-        v40 = v26[1];
-        v42 = v448[3];
-        v43 = v448[4];
-        if (v42 == v43)
+        v40 = *v24;
+        v39 = v24[1];
+        v41 = v424[3];
+        v42 = v424[4];
+        if (v41 == v42)
         {
-          v44 = 0;
+          v43 = 0;
         }
 
         else
         {
-          v44 = 0;
+          v43 = 0;
           do
           {
-            v45 = *v42++;
-            v44 += *(*(v45 + 192) + 12);
+            v44 = *v41++;
+            v43 += *(*(v44 + 192) + 12);
           }
 
-          while (v42 != v43);
+          while (v41 != v42);
         }
 
-        v65 = v444;
-        if (v40 != v41)
+        v64 = v420;
+        if (v39 != v40)
         {
-          v66 = 0;
-          v67 = (v44 + *(v448 + 27));
-          v68 = 0xAAAAAAAAAAAAAAABLL * ((v40 - v41) >> 4);
+          v65 = 0;
+          v66 = (v43 + *(v424 + 27));
+          v67 = 0xAAAAAAAAAAAAAAABLL * ((v39 - v40) >> 4);
           do
           {
-            v69 = *v452;
-            v70 = *v452 + v66;
-            if (*(v70 + 40))
+            v68 = *v428;
+            v69 = *v428 + v65;
+            if (*(v69 + 40))
             {
-              v71 = *(v70 + 23);
-              if (v71 < 0)
+              v70 = *(v69 + 23);
+              if (v70 < 0)
               {
-                v73 = v69 + v66;
-                v72 = *v73;
-                v71 = *(v73 + 8);
+                v72 = v68 + v65;
+                v71 = *v72;
+                v70 = *(v72 + 8);
               }
 
               else
               {
-                v72 = (v69 + v66);
+                v71 = (v68 + v65);
               }
 
-              skit::internal::Term::Term(buf, *(v70 + 36), v72, v71);
-              v74 = skit::internal::MultiIndexV2::get_doc_freq(v448, buf);
-              *v65 = logf((((v67 - v74) + 0.5) / (v74 + 0.5)) + 1.0);
-              if (*buf != v464)
+              skit::internal::Term::Term(buf, *(v69 + 36), v71, v70);
+              v73 = skit::internal::MultiIndexV2::get_doc_freq(v424, buf);
+              *v64 = logf((((v66 - v73) + 0.5) / (v73 + 0.5)) + 1.0);
+              if (*buf != v440)
               {
                 free(*buf);
               }
@@ -9612,116 +9506,116 @@ LABEL_46:
 
             else
             {
-              *v65 = 0.0;
+              *v64 = 0.0;
             }
 
-            ++v65;
-            v66 += 48;
-            --v68;
+            ++v64;
+            v65 += 48;
+            --v67;
           }
 
-          while (v68);
+          while (v67);
         }
 
         break;
       case 3:
-        v46 = v26;
-        v47 = v26[1];
-        v48 = *v46;
-        v49 = v47 - *v46;
-        v50 = 0xAAAAAAAAAAAAAAABLL * (v49 >> 4);
-        if (v49)
+        v45 = v24;
+        v46 = v24[1];
+        v47 = *v45;
+        v48 = v46 - *v45;
+        v49 = 0xAAAAAAAAAAAAAAABLL * (v48 >> 4);
+        if (v48)
         {
-          v51 = 0;
-          v52 = 0.0;
-          v53 = 0xAAAAAAAAAAAAAAABLL * (v49 >> 4);
-          v54 = v444;
-          v55 = 0.0;
+          v50 = 0;
+          v51 = 0.0;
+          v52 = 0xAAAAAAAAAAAAAAABLL * (v48 >> 4);
+          v53 = v420;
+          v54 = 0.0;
           do
           {
-            v56 = *v452;
-            v57 = *v452 + v51;
-            if (*(v57 + 40))
+            v55 = *v428;
+            v56 = *v428 + v50;
+            if (*(v56 + 40))
             {
-              v58 = *(v57 + 23);
-              if (v58 < 0)
+              v57 = *(v56 + 23);
+              if (v57 < 0)
               {
-                v60 = v56 + v51;
-                v59 = *v60;
-                v58 = *(v60 + 8);
+                v59 = v55 + v50;
+                v58 = *v59;
+                v57 = *(v59 + 8);
               }
 
               else
               {
-                v59 = (v56 + v51);
+                v58 = (v55 + v50);
               }
 
-              skit::internal::Term::Term(buf, *(v57 + 36), v59, v58);
-              v61 = skit::internal::MultiIndexV2::get_doc_freq(v448, buf);
-              *v54 = v61;
-              if (*buf != v464)
+              skit::internal::Term::Term(buf, *(v56 + 36), v58, v57);
+              v60 = skit::internal::MultiIndexV2::get_doc_freq(v424, buf);
+              *v53 = v60;
+              if (*buf != v440)
               {
                 free(*buf);
               }
 
-              v52 = v52 + 1.0;
-              v55 = v55 + v61;
+              v51 = v51 + 1.0;
+              v54 = v54 + v60;
             }
 
             else
             {
-              *v54 = 0.0;
+              *v53 = 0.0;
             }
 
-            ++v54;
-            v51 += 48;
-            --v53;
+            ++v53;
+            v50 += 48;
+            --v52;
           }
 
-          while (v53);
+          while (v52);
         }
 
         else
         {
-          v55 = 0.0;
-          v52 = 0.0;
+          v54 = 0.0;
+          v51 = 0.0;
         }
 
-        v75 = v444;
-        if (v47 != v48)
+        v74 = v420;
+        if (v46 != v47)
         {
           do
           {
-            *v75 = 1.0 - (*v75 * (((((v52 * (v52 * v52)) + (v52 * -2.0)) + 1.0) * 0.5) / (v55 * (v52 * (v52 * v52)))));
-            ++v75;
-            --v50;
+            *v74 = 1.0 - (*v74 * (((((v51 * (v51 * v51)) + (v51 * -2.0)) + 1.0) * 0.5) / (v54 * (v51 * (v51 * v51)))));
+            ++v74;
+            --v49;
           }
 
-          while (v50);
+          while (v49);
         }
 
         break;
       case 4:
-        v29 = v26[1] - *v26;
-        if (v29)
+        v28 = v24[1] - *v24;
+        if (v28)
         {
-          v30 = 0xAAAAAAAAAAAAAAABLL * (v29 >> 4);
-          if (v30 <= 1)
+          v29 = 0xAAAAAAAAAAAAAAABLL * (v28 >> 4);
+          if (v29 <= 1)
           {
-            v30 = 1;
+            v29 = 1;
           }
 
-          v31 = (*v26 + 32);
-          v32 = v444;
+          v30 = (*v24 + 32);
+          v31 = v420;
           do
           {
-            v33 = *v31;
-            v31 += 12;
-            *v32++ = v33;
-            --v30;
+            v32 = *v30;
+            v30 += 12;
+            *v31++ = v32;
+            --v29;
           }
 
-          while (v30);
+          while (v29);
         }
 
         break;
@@ -9731,746 +9625,753 @@ LABEL_46:
   }
 
 LABEL_78:
-  v439 = 0;
-  v86 = v448[4];
-  v454 = v448[3];
-  v445 = v86;
-  v87 = v451;
-  if (v454 != v86)
+  v415 = 0;
+  v85 = v424[4];
+  v430 = v424[3];
+  v421 = v85;
+  v86 = v427;
+  if (v430 != v85)
   {
-    v459 = v464;
-    v458 = (v25 + 8);
-    v88 = v440;
-    if (v440 <= 1)
+    v435 = v440;
+    v434 = (v23 + 8);
+    v87 = v416;
+    if (v416 <= 1)
     {
-      v88 = 1;
+      v87 = 1;
     }
 
-    v443 = v88;
-    v455 = (v25 + 24);
-    v453 = (v25 + 16);
+    v419 = v87;
+    v431 = (v23 + 24);
+    v429 = (v23 + 16);
     do
     {
-      if (v447 != v446)
+      if (v423 != v422)
       {
+        v88 = 0;
         v89 = 0;
-        v90 = 0;
-        v460 = *v454;
-        v91 = v444;
-        v92 = v443;
-        v93 = v452;
+        v436 = *v430;
+        v90 = v420;
+        v91 = v419;
+        v92 = v428;
         do
         {
-          v94 = *v93 + v89;
-          if (*(v94 + 40))
+          v93 = *v92 + v88;
+          if (*(v93 + 40))
           {
-            v95 = *(v94 + 23);
-            if (v95 < 0)
+            v94 = *(v93 + 23);
+            if (v94 < 0)
             {
-              v97 = *v93 + v89;
-              v96 = *v97;
-              v95 = *(v97 + 8);
+              v96 = *v92 + v88;
+              v95 = *v96;
+              v94 = *(v96 + 8);
             }
 
             else
             {
-              v96 = (*v93 + v89);
+              v95 = (*v92 + v88);
             }
 
-            skit::internal::Term::Term(buf, *(v94 + 36), v96, v95);
-            v462[0] = *buf;
-            v462[1] = *&buf[8] >> 1;
-            v98 = skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::get(v460, v462);
-            skit::internal::IndexDiskImplV2::to_posting_list(&v467, v98);
-            if (v469)
+            skit::internal::Term::Term(buf, *(v93 + 36), v95, v94);
+            v438[0] = *buf;
+            v438[1] = *&buf[8] >> 1;
+            v97 = skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::get(v436, v438);
+            skit::internal::IndexDiskImplV2::to_posting_list(&v443, v97);
+            if (v445)
             {
-              v99 = &v457[6 * v90];
-              *v99 = v468;
-              v100 = v469;
-              *(v99 + 2) = v469;
-              v101 = &v25[24 * v90];
-              v102 = *v91;
-              *v101 = v99;
-              *(v101 + 1) = v100;
-              *(v101 + 4) = v102;
-              ++v90;
+              v98 = &v433[6 * v89];
+              _Q0 = v444;
+              *v98 = v444;
+              v99 = v445;
+              *(v98 + 2) = v445;
+              v100 = &v23[24 * v89];
+              _Q0.n128_u32[0] = *v90;
+              *v100 = v98;
+              *(v100 + 1) = v99;
+              *(v100 + 4) = _Q0.n128_u32[0];
+              ++v89;
             }
 
-            if (*buf != v459)
+            if (*buf != v435)
             {
               free(*buf);
             }
           }
 
-          ++v91;
-          v89 += 48;
-          --v92;
+          ++v90;
+          v88 += 48;
+          --v91;
         }
 
-        while (v92);
-        v103 = v449;
-        v104 = v450;
-        v105 = v453;
-        if (v90 >= v449)
+        while (v91);
+        v101 = v425;
+        v102 = v426;
+        v103 = v429;
+        if (v89 >= v425)
         {
-          v456 = *(v460[24] + 32);
-          if (v90 < 2)
+          v432 = *(v436[24] + 32);
+          if (v89 < 2)
           {
-            if (v90 == 1)
+            if (v89 == 1)
             {
-              v133 = *(v25 + 1);
-              if (v133 < *(*v25 + 16) + 6 * *(**v25 + 12))
+              v128 = *(v23 + 1);
+              if (v128 < *(*v23 + 16) + 6 * *(**v23 + 12))
               {
                 do
                 {
-                  v134 = v456 + *v133;
-                  _H0 = *(v133 + 2);
+                  v129 = v432 + *v128;
+                  _Q0.n128_u16[0] = *(v128 + 2);
                   __asm { FCVT            S0, H0 }
 
-                  _H1 = *(v460[26] + 10 * (v134 - *(v460[24] + 32)));
+                  _H1 = *(v436[26] + 10 * (v129 - *(v436[24] + 32)));
                   __asm { FCVT            S1, H1 }
 
-                  v139 = *v25;
-                  v133 = (*(v25 + 1) + 6);
-                  *(v25 + 1) = v133;
+                  _Q0.n128_f32[0] = (*v103 * _Q0.n128_f32[0]) * _S1;
+                  v132 = *v23;
+                  v128 = (*(v23 + 1) + 6);
+                  *(v23 + 1) = v128;
                 }
 
-                while (v133 < v139[2] + 6 * *(*v139 + 12));
+                while (v128 < v132[2] + 6 * *(*v132 + 12));
               }
             }
           }
 
-          else if (v442 <= 1)
+          else if (v418 <= 1)
           {
-            if (!v442)
+            if (!v418)
             {
               while (1)
               {
 LABEL_235:
-                v236 = v90 - 1;
-                if (v90 != 1)
+                v225 = v89 - 1;
+                if (v89 != 1)
                 {
-                  if (!v90)
+                  if (!v89)
                   {
                     goto LABEL_94;
                   }
 
-                  v220 = -1;
-                  v221 = v455;
-                  for (i = 1; i != v90; ++i)
+                  v210 = -1;
+                  v211 = v431;
+                  for (i = 1; i != v89; ++i)
                   {
-                    v223 = v221;
-                    v224 = v220;
+                    v213 = v211;
+                    v214 = v210;
                     do
                     {
-                      if (**(v223 + 1) >= **(v223 - 2))
+                      if (**(v213 + 1) >= **(v213 - 2))
                       {
                         break;
                       }
 
-                      v225 = v223 - 24;
-                      v226 = *v223;
-                      v464[0] = *(v223 + 2);
-                      *buf = v226;
-                      *v223 = *(v223 - 24);
-                      *(v223 + 4) = *(v223 - 2);
-                      v227 = *buf;
-                      *(v225 + 16) = v464[0];
-                      *v225 = v227;
-                      v223 = (v223 - 24);
-                      _CF = __CFADD__(v224++, 1);
+                      v215 = (v213 - 24);
+                      v216 = *v213;
+                      v440[0] = *(v213 + 2);
+                      *buf = v216;
+                      *v213 = *(v213 - 24);
+                      *(v213 + 4) = *(v213 - 2);
+                      _Q0 = *buf;
+                      v215[1].n128_u32[0] = v440[0];
+                      *v215 = _Q0;
+                      v213 = (v213 - 24);
+                      _CF = __CFADD__(v214++, 1);
                     }
 
                     while (!_CF);
-                    --v220;
-                    v221 = (v221 + 24);
+                    --v210;
+                    v211 = (v211 + 24);
                   }
                 }
 
-                v228 = 0.0;
-                v229 = -1;
-                v230 = v105;
-                while (v229 - v236 != -1)
+                v217 = 0.0;
+                v218 = -1;
+                v219 = v103;
+                while (v218 - v225 != -1)
                 {
-                  v231 = **(v230 - 2);
-                  _H2 = *(v231 + 4);
+                  v220 = **(v219 - 2);
+                  _H2 = *(v220 + 4);
                   __asm { FCVT            S2, H2 }
 
-                  v234 = *v230;
-                  v230 += 6;
-                  v228 = v228 + (v234 * _S2);
-                  LOWORD(_S2) = *(v231 + 6);
+                  v223 = *v219;
+                  v219 += 6;
+                  v217 = v217 + (v223 * _S2);
+                  LOWORD(_S2) = *(v220 + 6);
                   __asm { FCVT            S2, H2 }
 
-                  ++v229;
-                  if ((v228 * _S2) > v461)
+                  ++v218;
+                  if ((v217 * _S2) > v437)
                   {
-                    v236 = v229;
+                    v225 = v218;
                     goto LABEL_212;
                   }
                 }
 
-                LODWORD(v229) = v90 - 1;
+                LODWORD(v218) = v89 - 1;
 LABEL_212:
-                v237 = **&v25[24 * v236 + 8];
-                if (**(v25 + 1) == v237)
+                v226 = **&v23[24 * v225 + 8];
+                if (**(v23 + 1) == v226)
                 {
-                  v238 = 0;
-                  v239 = v456 + v237;
-                  _H0 = *(v460[26] + 10 * (v456 + v237 - *(v460[24] + 32)));
+                  v227 = 0;
+                  v228 = v432 + v226;
+                  _H0 = *(v436[26] + 10 * (v432 + v226 - *(v436[24] + 32)));
                   __asm { FCVT            S0, H0 }
 
-                  v242 = 0.0;
-                  v243 = v458;
+                  v230 = 0.0;
+                  v231 = v434;
                   while (1)
                   {
-                    v244 = *v243;
-                    if (**v243 != v237)
+                    v232 = *v231;
+                    if (**v231 != v226)
                     {
                       break;
                     }
 
-                    _H2 = *(v244 + 2);
+                    _H2 = *(v232 + 2);
                     __asm { FCVT            S2, H2 }
 
-                    v242 = v242 + (v243[2] * _S2);
-                    *v243 = v244 + 6;
-                    v243 += 6;
-                    if (v90 == ++v238)
+                    v230 = v230 + (v231[2] * _S2);
+                    *v231 = v232 + 6;
+                    v231 += 6;
+                    if (v89 == ++v227)
                     {
-                      LODWORD(v238) = v90;
+                      LODWORD(v227) = v89;
                       break;
                     }
                   }
+
+                  _Q0.n128_f32[0] = v230 * _Q0.n128_f32[0];
                 }
 
-                else if (v229)
+                else if (v218)
                 {
-                  v247 = 0;
+                  v235 = 0;
                   do
                   {
-                    v248 = &v25[24 * v247];
-                    v249 = v248[1];
-                    v250 = *(*v248 + 16) + 6 * *(**v248 + 12) - v249;
-                    if (v250)
+                    v236 = &v23[24 * v235];
+                    v237 = v236[1];
+                    v238 = *(*v236 + 16) + 6 * *(**v236 + 12) - v237;
+                    if (v238)
                     {
-                      v251 = 0xAAAAAAAAAAAAAAABLL * (v250 >> 1);
+                      v239 = 0xAAAAAAAAAAAAAAABLL * (v238 >> 1);
                       do
                       {
-                        v252 = v251 >> 1;
-                        v253 = &v249[6 * (v251 >> 1)];
-                        v255 = *v253;
-                        v254 = v253 + 6;
-                        v251 += ~(v251 >> 1);
-                        if (v255 < v237)
+                        v240 = v239 >> 1;
+                        v241 = &v237[6 * (v239 >> 1)];
+                        v243 = *v241;
+                        v242 = v241 + 6;
+                        v239 += ~(v239 >> 1);
+                        if (v243 < v226)
                         {
-                          v249 = v254;
+                          v237 = v242;
                         }
 
                         else
                         {
-                          v251 = v252;
+                          v239 = v240;
                         }
                       }
 
-                      while (v251);
+                      while (v239);
                     }
 
-                    v248[1] = v249;
-                    ++v247;
+                    v236[1] = v237;
+                    ++v235;
                   }
 
-                  while (v247 != v236);
+                  while (v235 != v225);
                 }
 
-                v256 = 0;
+                v244 = 0;
                 do
                 {
-                  v257 = v256 + 1;
-                  if (*&v25[24 * v256 + 8] >= *(*&v25[24 * v256] + 16) + 6 * *(**&v25[24 * v256] + 12))
+                  v245 = v244 + 1;
+                  if (*&v23[24 * v244 + 8] >= *(*&v23[24 * v244] + 16) + 6 * *(**&v23[24 * v244] + 12))
                   {
-                    if (v257 < v90)
+                    if (v245 < v89)
                     {
-                      v258 = &v25[24 * v257];
-                      v259 = v256;
+                      v246 = &v23[24 * v245];
+                      v247 = v244;
                       do
                       {
-                        v260 = &v25[24 * v259];
-                        v261 = *v258;
-                        *(v260 + 4) = *(v258 + 4);
-                        *v260 = v261;
-                        ++v257;
-                        ++v259;
-                        v258 += 24;
+                        v248 = &v23[24 * v247];
+                        _Q0 = *v246;
+                        v248[1].n128_u32[0] = v246[1].n128_u32[0];
+                        *v248 = _Q0;
+                        ++v245;
+                        ++v247;
+                        v246 = (v246 + 24);
                       }
 
-                      while (v257 < v90);
+                      while (v245 < v89);
                     }
 
-                    --v90;
+                    --v89;
                   }
 
                   else
                   {
-                    ++v256;
+                    ++v244;
                   }
                 }
 
-                while (v256 < v90);
+                while (v244 < v89);
               }
             }
 
-            if (v442 == 1)
+            if (v418 == 1)
             {
               while (1)
               {
-                if (v90 == 1)
+                if (v89 == 1)
                 {
-                  LODWORD(v148) = 0;
+                  LODWORD(v141) = 0;
                 }
 
                 else
                 {
-                  if (!v90)
+                  if (!v89)
                   {
                     break;
                   }
 
-                  v140 = -1;
-                  v141 = v455;
-                  for (j = 1; j != v90; ++j)
+                  v133 = -1;
+                  v134 = v431;
+                  for (j = 1; j != v89; ++j)
                   {
-                    v143 = v141;
-                    v144 = v140;
+                    v136 = v134;
+                    v137 = v133;
                     do
                     {
-                      if (**(v143 + 1) >= **(v143 - 2))
+                      if (**(v136 + 1) >= **(v136 - 2))
                       {
                         break;
                       }
 
-                      v145 = v143 - 24;
-                      v146 = *v143;
-                      v464[0] = *(v143 + 2);
-                      *buf = v146;
-                      *v143 = *(v143 - 24);
-                      *(v143 + 4) = *(v143 - 2);
-                      v147 = *buf;
-                      *(v145 + 16) = v464[0];
-                      *v145 = v147;
-                      v143 = (v143 - 24);
-                      _CF = __CFADD__(v144++, 1);
+                      v138 = v136 - 24;
+                      v139 = *v136;
+                      v440[0] = *(v136 + 2);
+                      *buf = v139;
+                      *v136 = *(v136 - 24);
+                      *(v136 + 4) = *(v136 - 2);
+                      v140 = *buf;
+                      *(v138 + 16) = v440[0];
+                      *v138 = v140;
+                      v136 = (v136 - 24);
+                      _CF = __CFADD__(v137++, 1);
                     }
 
                     while (!_CF);
-                    --v140;
-                    v141 = (v141 + 24);
+                    --v133;
+                    v134 = (v134 + 24);
                   }
 
-                  v148 = v90 - 1;
-                  v149 = 0;
-                  v150 = 0.0;
-                  v151 = v105;
-                  v152 = 0.0;
+                  v141 = v89 - 1;
+                  v142 = 0;
+                  v143 = 0.0;
+                  v144 = v103;
+                  v145 = 0.0;
                   while (1)
                   {
-                    v153 = **(v151 - 2);
-                    _H3 = *(v153 + 4);
+                    v146 = **(v144 - 2);
+                    _H3 = *(v146 + 4);
                     __asm { FCVT            S3, H3 }
 
-                    v150 = v150 + (*v151 * _S3);
-                    LOWORD(_S3) = *(v153 + 6);
+                    v143 = v143 + (*v144 * _S3);
+                    LOWORD(_S3) = *(v146 + 6);
                     __asm { FCVT            S3, H3 }
 
-                    if (v152 < _S3)
+                    if (v145 < _S3)
                     {
-                      v152 = _S3;
+                      v145 = _S3;
                     }
 
-                    if ((v150 * v152) > v461)
+                    if ((v143 * v145) > v437)
                     {
                       break;
                     }
 
-                    ++v149;
-                    v151 += 6;
-                    if (v148 == v149)
+                    ++v142;
+                    v144 += 6;
+                    if (v141 == v142)
                     {
                       goto LABEL_143;
                     }
                   }
 
-                  LODWORD(v148) = v149;
+                  LODWORD(v141) = v142;
                 }
 
 LABEL_143:
-                v157 = 0;
-                v158 = **&v25[24 * v148 + 8];
-                if ((v148 + 1) > 1)
+                v150 = 0;
+                v151 = **&v23[24 * v141 + 8];
+                if ((v141 + 1) > 1)
                 {
-                  v159 = (v148 + 1);
+                  v152 = (v141 + 1);
                 }
 
                 else
                 {
-                  v159 = 1;
+                  v152 = 1;
                 }
 
-                v160 = 0.0;
-                v161 = v458;
-                v162 = 0.0;
+                v153 = 0.0;
+                v154 = v434;
+                v155 = 0.0;
                 do
                 {
-                  v163 = *(v161 - 1);
-                  v164 = skit::internal::PostingListV2::seek_to_block(v163, *v161, v158);
-                  *v161 = v164;
-                  v165 = v163[2];
-                  if (v164 < v165 + 6 * *(*v163 + 12))
+                  v156 = *(v154 - 1);
+                  v157 = skit::internal::PostingListV2::seek_to_block(v156, *v154, v151);
+                  *v154 = v157;
+                  v158 = v156[2];
+                  if (v157 < v158 + 6 * *(*v156 + 12))
                   {
-                    v166 = ((v164 - v165) * 0x2AAAAAAAAAAAAAABLL) >> 64;
-                    v167 = v163[1] + 8 * ((v166 >> 6) + (v166 >> 63));
-                    _H0 = *(v167 + 4);
+                    v159 = ((v157 - v158) * 0x2AAAAAAAAAAAAAABLL) >> 64;
+                    v160 = v156[1] + 8 * ((v159 >> 6) + (v159 >> 63));
+                    _H0 = *(v160 + 4);
                     __asm { FCVT            S0, H0 }
 
-                    v160 = v160 + _S0;
-                    LOWORD(_S0) = *(v167 + 6);
+                    v153 = v153 + _S0;
+                    LOWORD(_S0) = *(v160 + 6);
                     __asm { FCVT            S0, H0 }
 
-                    if (v162 < _S0)
+                    if (v155 < _S0)
                     {
-                      v162 = _S0;
+                      v155 = _S0;
                     }
                   }
 
-                  ++v157;
-                  v161 += 3;
+                  ++v150;
+                  v154 += 3;
                 }
 
-                while (v159 != v157);
-                if (v90 > v157)
+                while (v152 != v150);
+                if (v89 > v150)
                 {
-                  v171 = v90 - v159;
-                  v172 = &v458[3 * v159];
-                  while (**v172 == v158)
+                  v164 = v89 - v152;
+                  v165 = &v434[3 * v152];
+                  while (**v165 == v151)
                   {
-                    v173 = *(v172 - 1);
-                    v174 = skit::internal::PostingListV2::seek_to_block(v173, *v172, v158);
-                    *v172 = v174;
-                    v175 = v173[2];
-                    if (v174 < v175 + 6 * *(*v173 + 12))
+                    v166 = *(v165 - 1);
+                    v167 = skit::internal::PostingListV2::seek_to_block(v166, *v165, v151);
+                    *v165 = v167;
+                    v168 = v166[2];
+                    if (v167 < v168 + 6 * *(*v166 + 12))
                     {
-                      v176 = ((v174 - v175) * 0x2AAAAAAAAAAAAAABLL) >> 64;
-                      v177 = v173[1] + 8 * ((v176 >> 6) + (v176 >> 63));
-                      _H0 = *(v177 + 4);
+                      v169 = ((v167 - v168) * 0x2AAAAAAAAAAAAAABLL) >> 64;
+                      v170 = v166[1] + 8 * ((v169 >> 6) + (v169 >> 63));
+                      _H0 = *(v170 + 4);
                       __asm { FCVT            S0, H0 }
 
-                      v160 = v160 + _S0;
-                      LOWORD(_S0) = *(v177 + 6);
+                      v153 = v153 + _S0;
+                      LOWORD(_S0) = *(v170 + 6);
                       __asm { FCVT            S0, H0 }
 
-                      if (v162 < _S0)
+                      if (v155 < _S0)
                       {
-                        v162 = _S0;
+                        v155 = _S0;
                       }
                     }
 
-                    LODWORD(v159) = v159 + 1;
-                    v172 += 3;
-                    if (!--v171)
+                    LODWORD(v152) = v152 + 1;
+                    v165 += 3;
+                    if (!--v164)
                     {
-                      LODWORD(v157) = v90;
+                      LODWORD(v150) = v89;
                       goto LABEL_160;
                     }
                   }
 
-                  LODWORD(v157) = v159;
+                  LODWORD(v150) = v152;
                 }
 
 LABEL_160:
-                v87 = v451;
-                if ((v162 * v160) <= v461)
+                v86 = v427;
+                if ((v155 * v153) <= v437)
                 {
-                  v198 = 0;
-                  if (v157 <= 1)
+                  v189 = 0;
+                  if (v150 <= 1)
                   {
-                    v199 = 1;
+                    v190 = 1;
                   }
 
                   else
                   {
-                    v199 = v157;
+                    v190 = v150;
                   }
 
-                  v200 = v458;
-                  v201 = v199;
-                  v105 = v453;
+                  v191 = v434;
+                  v192 = v190;
+                  v103 = v429;
                   do
                   {
-                    v202 = *(v200 - 1);
-                    v203 = v202[2];
-                    if (*v200 < v203 + 6 * *(*v202 + 12) && v198 <= *(v202[1] + 8 * ((*v200 - v203) / 384)))
+                    v193 = *(v191 - 1);
+                    v194 = v193[2];
+                    if (*v191 < v194 + 6 * *(*v193 + 12) && v189 <= *(v193[1] + 8 * ((*v191 - v194) / 384)))
                     {
-                      v198 = *(v202[1] + 8 * ((*v200 - v203) / 384));
+                      v189 = *(v193[1] + 8 * ((*v191 - v194) / 384));
                     }
 
-                    v200 += 3;
-                    --v201;
+                    v191 += 3;
+                    --v192;
                   }
 
-                  while (v201);
-                  v204 = 0;
-                  v205 = v198 + 1;
+                  while (v192);
+                  v195 = 0;
+                  v196 = v189 + 1;
                   do
                   {
-                    v206 = &v25[24 * v204];
-                    v207 = v206[1];
-                    v208 = *(*v206 + 16) + 6 * *(**v206 + 12) - v207;
-                    if (v208)
+                    v197 = &v23[24 * v195];
+                    v198 = v197[1];
+                    v199 = *(*v197 + 16) + 6 * *(**v197 + 12) - v198;
+                    if (v199)
                     {
-                      v209 = 0xAAAAAAAAAAAAAAABLL * (v208 >> 1);
+                      v200 = 0xAAAAAAAAAAAAAAABLL * (v199 >> 1);
                       do
                       {
-                        v210 = v209 >> 1;
-                        v211 = &v207[6 * (v209 >> 1)];
-                        v213 = *v211;
-                        v212 = v211 + 6;
-                        v209 += ~(v209 >> 1);
-                        if (v213 < v205)
+                        v201 = v200 >> 1;
+                        v202 = &v198[6 * (v200 >> 1)];
+                        v204 = *v202;
+                        v203 = v202 + 6;
+                        v200 += ~(v200 >> 1);
+                        if (v204 < v196)
                         {
-                          v207 = v212;
+                          v198 = v203;
                         }
 
                         else
                         {
-                          v209 = v210;
+                          v200 = v201;
                         }
                       }
 
-                      while (v209);
+                      while (v200);
                     }
 
-                    v206[1] = v207;
-                    ++v204;
+                    v197[1] = v198;
+                    ++v195;
                   }
 
-                  while (v204 != v199);
+                  while (v195 != v190);
                 }
 
                 else
                 {
-                  v181 = 0;
-                  v182 = v456 + v158;
-                  _H0 = *(v460[26] + 10 * (v456 + v158 - *(v460[24] + 32)));
-                  if (v157 <= 1)
+                  v174 = 0;
+                  v175 = v432 + v151;
+                  _Q0.n128_u16[0] = *(v436[26] + 10 * (v432 + v151 - *(v436[24] + 32)));
+                  if (v150 <= 1)
                   {
-                    v184 = 1;
+                    v176 = 1;
                   }
 
                   else
                   {
-                    v184 = v157;
+                    v176 = v150;
                   }
 
-                  v185 = 0.0;
-                  v186 = v450;
-                  v105 = v453;
+                  v177 = 0.0;
+                  v178 = v426;
+                  v103 = v429;
                   do
                   {
-                    v187 = &v25[24 * v181];
-                    v188 = *(v187 + 1);
-                    v189 = *(*v187 + 16) + 6 * *(**v187 + 12);
-                    if (v189 != v188)
+                    v179 = &v23[24 * v174];
+                    v180 = *(v179 + 1);
+                    v181 = *(*v179 + 16) + 6 * *(**v179 + 12);
+                    if (v181 != v180)
                     {
-                      v190 = 0xAAAAAAAAAAAAAAABLL * ((v189 - v188) >> 1);
+                      v182 = 0xAAAAAAAAAAAAAAABLL * ((v181 - v180) >> 1);
                       do
                       {
-                        v191 = v190 >> 1;
-                        v192 = (v188 + 6 * (v190 >> 1));
-                        v194 = *v192;
-                        v193 = v192 + 6;
-                        v190 += ~(v190 >> 1);
-                        if (v194 < v158)
+                        v183 = v182 >> 1;
+                        v184 = (v180 + 6 * (v182 >> 1));
+                        v186 = *v184;
+                        v185 = v184 + 6;
+                        v182 += ~(v182 >> 1);
+                        if (v186 < v151)
                         {
-                          v188 = v193;
+                          v180 = v185;
                         }
 
                         else
                         {
-                          v190 = v191;
+                          v182 = v183;
                         }
                       }
 
-                      while (v190);
+                      while (v182);
                     }
 
-                    *(v187 + 1) = v188;
-                    if (v188 < v189 && *v188 == v158)
+                    *(v179 + 1) = v180;
+                    if (v180 < v181 && *v180 == v151)
                     {
-                      _H2 = *(v188 + 4);
+                      _H2 = *(v180 + 4);
                       __asm { FCVT            S2, H2 }
 
-                      v185 = v185 + (v187[4] * _S2);
-                      *(v187 + 1) = v188 + 6;
+                      v177 = v177 + (v179[4] * _S2);
+                      *(v179 + 1) = v180 + 6;
                     }
 
-                    ++v181;
+                    ++v174;
                   }
 
-                  while (v181 != v184);
+                  while (v174 != v176);
                   __asm { FCVT            S0, H0 }
+
+                  _Q0.n128_f32[0] = v177 * _Q0.n128_f32[0];
                 }
 
-                v214 = 0;
+                v205 = 0;
                 do
                 {
-                  v215 = v214 + 1;
-                  if (*&v25[24 * v214 + 8] >= *(*&v25[24 * v214] + 16) + 6 * *(**&v25[24 * v214] + 12))
+                  v206 = v205 + 1;
+                  if (*&v23[24 * v205 + 8] >= *(*&v23[24 * v205] + 16) + 6 * *(**&v23[24 * v205] + 12))
                   {
-                    if (v215 < v90)
+                    if (v206 < v89)
                     {
-                      v216 = &v25[24 * v215];
-                      v217 = v214;
+                      v207 = &v23[24 * v206];
+                      v208 = v205;
                       do
                       {
-                        v218 = &v25[24 * v217];
-                        v219 = *v216;
-                        *(v218 + 4) = *(v216 + 4);
-                        *v218 = v219;
-                        ++v215;
-                        ++v217;
-                        v216 += 24;
+                        v209 = &v23[24 * v208];
+                        _Q0 = *v207;
+                        v209[1].n128_u32[0] = v207[1].n128_u32[0];
+                        *v209 = _Q0;
+                        ++v206;
+                        ++v208;
+                        v207 = (v207 + 24);
                       }
 
-                      while (v215 < v90);
+                      while (v206 < v89);
                     }
 
-                    --v90;
+                    --v89;
                   }
 
                   else
                   {
-                    ++v214;
+                    ++v205;
                   }
                 }
 
-                while (v214 < v90);
+                while (v205 < v89);
               }
             }
           }
 
           else
           {
-            if (v441 < 2)
+            if (v417 < 2)
             {
               goto LABEL_235;
             }
 
-            if (v442 == 4)
+            if (v418 == 4)
             {
               while (1)
               {
-                if (v90 != 1)
+                if (v89 != 1)
                 {
-                  if (!v90)
+                  if (!v89)
                   {
                     break;
                   }
 
-                  v106 = -1;
-                  v107 = v455;
-                  for (k = 1; k != v90; ++k)
+                  v104 = -1;
+                  v105 = v431;
+                  for (k = 1; k != v89; ++k)
                   {
-                    v109 = v107;
-                    v110 = v106;
+                    v107 = v105;
+                    v108 = v104;
                     do
                     {
-                      if (**(v109 + 1) >= **(v109 - 2))
+                      if (**(v107 + 1) >= **(v107 - 2))
                       {
                         break;
                       }
 
-                      v111 = v109 - 24;
-                      v112 = *v109;
-                      v464[0] = *(v109 + 2);
-                      *buf = v112;
-                      *v109 = *(v109 - 24);
-                      *(v109 + 4) = *(v109 - 2);
-                      v113 = *buf;
-                      *(v111 + 16) = v464[0];
-                      *v111 = v113;
-                      v109 = (v109 - 24);
-                      _CF = __CFADD__(v110++, 1);
+                      v109 = (v107 - 24);
+                      v110 = *v107;
+                      v440[0] = *(v107 + 2);
+                      *buf = v110;
+                      *v107 = *(v107 - 24);
+                      *(v107 + 4) = *(v107 - 2);
+                      _Q0 = *buf;
+                      v109[1].n128_u32[0] = v440[0];
+                      *v109 = _Q0;
+                      v107 = (v107 - 24);
+                      _CF = __CFADD__(v108++, 1);
                     }
 
                     while (!_CF);
-                    --v106;
-                    v107 = (v107 + 24);
+                    --v104;
+                    v105 = (v105 + 24);
                   }
                 }
 
-                v114 = 0;
-                v115 = **v458;
-                v116 = v456 + v115;
-                _H0 = *(v460[26] + 10 * (v456 + v115 - *(v460[24] + 32)));
+                v111 = 0;
+                v112 = **v434;
+                v113 = v432 + v112;
+                _H0 = *(v436[26] + 10 * (v432 + v112 - *(v436[24] + 32)));
                 __asm { FCVT            S0, H0 }
 
-                v122 = 0.0;
-                v123 = v458;
+                v118 = 0.0;
+                v119 = v434;
                 while (1)
                 {
-                  v124 = *v123;
-                  if (**v123 != v115)
+                  v120 = *v119;
+                  if (**v119 != v112)
                   {
                     break;
                   }
 
-                  _H2 = *(v124 + 2);
+                  _H2 = *(v120 + 2);
                   __asm { FCVT            S2, H2 }
 
-                  v122 = v122 + (v123[2] * _S2);
-                  *v123 = v124 + 6;
-                  v123 += 6;
-                  if (v90 == ++v114)
+                  v118 = v118 + (v119[2] * _S2);
+                  *v119 = v120 + 6;
+                  v119 += 6;
+                  if (v89 == ++v111)
                   {
-                    LODWORD(v114) = v90;
+                    LODWORD(v111) = v89;
                     break;
                   }
                 }
 
-                v127 = 0;
+                _Q0.n128_f32[0] = v118 * _Q0.n128_f32[0];
+                v123 = 0;
                 do
                 {
-                  v128 = v127 + 1;
-                  if (*&v25[24 * v127 + 8] >= *(*&v25[24 * v127] + 16) + 6 * *(**&v25[24 * v127] + 12))
+                  v124 = v123 + 1;
+                  if (*&v23[24 * v123 + 8] >= *(*&v23[24 * v123] + 16) + 6 * *(**&v23[24 * v123] + 12))
                   {
-                    if (v128 < v90)
+                    if (v124 < v89)
                     {
-                      v129 = &v25[24 * v128];
-                      v130 = v127;
+                      v125 = &v23[24 * v124];
+                      v126 = v123;
                       do
                       {
-                        v131 = &v25[24 * v130];
-                        v132 = *v129;
-                        *(v131 + 4) = *(v129 + 4);
-                        *v131 = v132;
-                        ++v128;
-                        ++v130;
-                        v129 += 24;
+                        v127 = &v23[24 * v126];
+                        _Q0 = *v125;
+                        v127[1].n128_u32[0] = v125[1].n128_u32[0];
+                        *v127 = _Q0;
+                        ++v124;
+                        ++v126;
+                        v125 = (v125 + 24);
                       }
 
-                      while (v128 < v90);
+                      while (v124 < v89);
                     }
 
-                    --v90;
+                    --v89;
                   }
 
                   else
                   {
-                    ++v127;
+                    ++v123;
                   }
                 }
 
-                while (v127 < v90);
+                while (v123 < v89);
               }
             }
           }
@@ -10478,736 +10379,743 @@ LABEL_160:
       }
 
 LABEL_94:
-      ++v454;
+      ++v430;
     }
 
-    while (v454 != v445);
+    while (v430 != v421);
   }
 
-  if (v447 != v446)
+  if (v423 != v422)
   {
-    v262 = 0;
-    v263 = 0;
-    v264 = v440 <= 1 ? 1 : v440;
-    v265 = v449;
-    v266 = v444;
+    v249 = 0;
+    v250 = 0;
+    v251 = v416 <= 1 ? 1 : v416;
+    v252 = v425;
+    v253 = v420;
     do
     {
-      v267 = *v452;
-      v268 = *v452 + v262;
-      if (*(v268 + 40))
+      v254 = *v428;
+      v255 = *v428 + v249;
+      if (*(v255 + 40))
       {
-        v269 = *(v268 + 23);
-        if (v269 < 0)
+        v256 = *(v255 + 23);
+        if (v256 < 0)
         {
-          v271 = v267 + v262;
-          v270 = *v271;
-          v269 = *(v271 + 8);
+          v258 = v254 + v249;
+          v257 = *v258;
+          v256 = *(v258 + 8);
         }
 
         else
         {
-          v270 = (v267 + v262);
+          v257 = (v254 + v249);
         }
 
-        skit::internal::Term::Term(&v467, *(v268 + 36), v270, v269);
-        skit::internal::IndexMemImplV2::get(buf, v448 + 6, &v467);
-        if (v466)
+        skit::internal::Term::Term(&v443, *(v255 + 36), v257, v256);
+        skit::internal::IndexMemImplV2::get(buf, v424 + 6, &v443);
+        if (v442)
         {
-          v272 = &v457[6 * v263];
-          *v272 = v465;
-          v273 = v466;
-          *(v272 + 2) = v466;
-          v274 = &v25[24 * v263];
-          v275 = *v266;
-          *v274 = v272;
-          *(v274 + 1) = v273;
-          *(v274 + 4) = v275;
-          ++v263;
+          v259 = &v433[6 * v250];
+          _Q0 = v441;
+          *v259 = v441;
+          v260 = v442;
+          *(v259 + 2) = v442;
+          v261 = &v23[24 * v250];
+          _Q0.n128_u32[0] = *v253;
+          *v261 = v259;
+          *(v261 + 1) = v260;
+          *(v261 + 4) = _Q0.n128_u32[0];
+          ++v250;
         }
 
-        if (*buf != v464)
+        if (*buf != v440)
         {
           free(*buf);
         }
 
-        if (v467 != &v468)
+        if (v443 != &v444)
         {
-          free(v467);
+          free(v443);
         }
       }
 
-      ++v266;
-      v262 += 48;
-      --v264;
+      ++v253;
+      v249 += 48;
+      --v251;
     }
 
-    while (v264);
-    if (v263 >= v265)
+    while (v251);
+    if (v250 >= v252)
     {
-      v460 = v448[16];
-      if (v263 < 2)
+      v436 = v424[16];
+      if (v250 < 2)
       {
-        if (v263 == 1)
+        if (v250 == 1)
         {
-          v308 = *(v25 + 1);
-          if (v308 < *(*v25 + 16) + 6 * *(**v25 + 12))
+          v290 = *(v23 + 1);
+          if (v290 < *(*v23 + 16) + 6 * *(**v23 + 12))
           {
             do
             {
-              v309 = v460 + *v308;
-              _H0 = *(v308 + 2);
+              v291 = v436 + *v290;
+              _Q0.n128_u16[0] = *(v290 + 2);
               __asm { FCVT            S0, H0 }
 
-              _H1 = *(v448[18] + 10 * (v309 - *(v448 + 32)));
+              _H1 = *(v424[18] + 10 * (v291 - *(v424 + 32)));
               __asm { FCVT            S1, H1 }
 
-              v314 = *v25;
-              v308 = (*(v25 + 1) + 6);
-              *(v25 + 1) = v308;
+              _Q0.n128_f32[0] = (*(v23 + 4) * _Q0.n128_f32[0]) * _S1;
+              v294 = *v23;
+              v290 = (*(v23 + 1) + 6);
+              *(v23 + 1) = v290;
             }
 
-            while (v308 < v314[2] + 6 * *(*v314 + 12));
+            while (v290 < v294[2] + 6 * *(*v294 + 12));
           }
         }
       }
 
-      else if (v442 <= 1)
+      else if (v418 <= 1)
       {
-        if (!v442)
+        if (!v418)
         {
           while (1)
           {
 LABEL_370:
-            v395 = v263 - 1;
-            if (v263 != 1)
+            v374 = v250 - 1;
+            if (v250 != 1)
             {
-              if (!v263)
+              if (!v250)
               {
                 goto LABEL_255;
               }
 
-              v396 = -1;
-              v397 = v25 + 24;
-              for (m = 1; m != v263; ++m)
+              v375 = -1;
+              v376 = v23 + 24;
+              for (m = 1; m != v250; ++m)
               {
-                v399 = v396;
-                v400 = v397;
+                v378 = v375;
+                v379 = v376;
                 do
                 {
-                  if (**(v400 + 1) >= **(v400 - 2))
+                  if (**(v379 + 1) >= **(v379 - 2))
                   {
                     break;
                   }
 
-                  v401 = v400 - 24;
-                  v402 = *v400;
-                  v464[0] = *(v400 + 2);
-                  *buf = v402;
-                  *v400 = *(v400 - 24);
-                  *(v400 + 4) = *(v400 - 2);
-                  v403 = *buf;
-                  *(v401 + 4) = v464[0];
-                  *v401 = v403;
-                  v400 -= 24;
-                  _CF = __CFADD__(v399++, 1);
+                  v380 = (v379 - 24);
+                  v381 = *v379;
+                  v440[0] = *(v379 + 2);
+                  *buf = v381;
+                  *v379 = *(v379 - 24);
+                  *(v379 + 4) = *(v379 - 2);
+                  _Q0 = *buf;
+                  v380[1].n128_u32[0] = v440[0];
+                  *v380 = _Q0;
+                  v379 -= 24;
+                  _CF = __CFADD__(v378++, 1);
                 }
 
                 while (!_CF);
-                v397 += 24;
-                --v396;
+                v376 += 24;
+                --v375;
               }
             }
 
-            v404 = 0.0;
-            v405 = -1;
-            v406 = (v25 + 16);
-            while (v405 - v395 != -1)
+            v382 = 0.0;
+            v383 = -1;
+            v384 = (v23 + 16);
+            while (v383 - v374 != -1)
             {
-              v407 = **(v406 - 2);
-              _H2 = *(v407 + 4);
+              v385 = **(v384 - 2);
+              _H2 = *(v385 + 4);
               __asm { FCVT            S2, H2 }
 
-              v410 = *v406;
-              v406 += 6;
-              v404 = v404 + (v410 * _S2);
-              LOWORD(_S2) = *(v407 + 6);
+              v388 = *v384;
+              v384 += 6;
+              v382 = v382 + (v388 * _S2);
+              LOWORD(_S2) = *(v385 + 6);
               __asm { FCVT            S2, H2 }
 
-              ++v405;
-              if ((v404 * _S2) > v461)
+              ++v383;
+              if ((v382 * _S2) > v437)
               {
-                v395 = v405;
+                v374 = v383;
                 goto LABEL_383;
               }
             }
 
-            LODWORD(v405) = v263 - 1;
+            LODWORD(v383) = v250 - 1;
 LABEL_383:
-            v412 = **&v25[24 * v395 + 8];
-            if (**(v25 + 1) == v412)
+            v390 = **&v23[24 * v374 + 8];
+            if (**(v23 + 1) == v390)
             {
-              v413 = 0;
-              v414 = v460 + v412;
-              _H0 = *(v448[18] + 10 * (v460 + v412 - *(v448 + 32)));
+              v391 = 0;
+              v392 = v436 + v390;
+              _H0 = *(v424[18] + 10 * (v436 + v390 - *(v424 + 32)));
               __asm { FCVT            S0, H0 }
 
-              v417 = 0.0;
-              v418 = (v25 + 8);
+              v394 = 0.0;
+              v395 = (v23 + 8);
               while (1)
               {
-                v419 = *v418;
-                if (**v418 != v412)
+                v396 = *v395;
+                if (**v395 != v390)
                 {
                   break;
                 }
 
-                _H2 = *(v419 + 2);
+                _H2 = *(v396 + 2);
                 __asm { FCVT            S2, H2 }
 
-                v417 = v417 + (v418[2] * _S2);
-                *v418 = v419 + 6;
-                v418 += 6;
-                if (v263 == ++v413)
+                v394 = v394 + (v395[2] * _S2);
+                *v395 = v396 + 6;
+                v395 += 6;
+                if (v250 == ++v391)
                 {
-                  LODWORD(v413) = v263;
+                  LODWORD(v391) = v250;
                   break;
                 }
               }
+
+              _Q0.n128_f32[0] = v394 * _Q0.n128_f32[0];
             }
 
-            else if (v405)
+            else if (v383)
             {
-              v422 = 0;
+              v399 = 0;
               do
               {
-                v423 = &v25[24 * v422];
-                v424 = v423[1];
-                v425 = *(*v423 + 16) + 6 * *(**v423 + 12) - v424;
-                if (v425)
+                v400 = &v23[24 * v399];
+                v401 = v400[1];
+                v402 = *(*v400 + 16) + 6 * *(**v400 + 12) - v401;
+                if (v402)
                 {
-                  v426 = 0xAAAAAAAAAAAAAAABLL * (v425 >> 1);
+                  v403 = 0xAAAAAAAAAAAAAAABLL * (v402 >> 1);
                   do
                   {
-                    v427 = v426 >> 1;
-                    v428 = &v424[6 * (v426 >> 1)];
-                    v430 = *v428;
-                    v429 = v428 + 6;
-                    v426 += ~(v426 >> 1);
-                    if (v430 < v412)
+                    v404 = v403 >> 1;
+                    v405 = &v401[6 * (v403 >> 1)];
+                    v407 = *v405;
+                    v406 = v405 + 6;
+                    v403 += ~(v403 >> 1);
+                    if (v407 < v390)
                     {
-                      v424 = v429;
+                      v401 = v406;
                     }
 
                     else
                     {
-                      v426 = v427;
+                      v403 = v404;
                     }
                   }
 
-                  while (v426);
+                  while (v403);
                 }
 
-                v423[1] = v424;
-                ++v422;
+                v400[1] = v401;
+                ++v399;
               }
 
-              while (v422 != v395);
+              while (v399 != v374);
             }
 
-            v431 = 0;
+            v408 = 0;
             do
             {
-              v432 = v431 + 1;
-              if (*&v25[24 * v431 + 8] >= *(*&v25[24 * v431] + 16) + 6 * *(**&v25[24 * v431] + 12))
+              v409 = v408 + 1;
+              if (*&v23[24 * v408 + 8] >= *(*&v23[24 * v408] + 16) + 6 * *(**&v23[24 * v408] + 12))
               {
-                if (v432 < v263)
+                if (v409 < v250)
                 {
-                  v433 = &v25[24 * v432];
-                  v434 = v431;
+                  v410 = &v23[24 * v409];
+                  v411 = v408;
                   do
                   {
-                    v435 = &v25[24 * v434];
-                    v436 = *v433;
-                    *(v435 + 4) = *(v433 + 4);
-                    *v435 = v436;
-                    ++v432;
-                    ++v434;
-                    v433 += 24;
+                    v412 = &v23[24 * v411];
+                    _Q0 = *v410;
+                    v412[1].n128_u32[0] = v410[1].n128_u32[0];
+                    *v412 = _Q0;
+                    ++v409;
+                    ++v411;
+                    v410 = (v410 + 24);
                   }
 
-                  while (v432 < v263);
+                  while (v409 < v250);
                 }
 
-                --v263;
+                --v250;
               }
 
               else
               {
-                ++v431;
+                ++v408;
               }
             }
 
-            while (v431 < v263);
+            while (v408 < v250);
           }
         }
 
-        if (v442 == 1)
+        if (v418 == 1)
         {
-          v458 = (v25 + 24);
-          v457 = (v25 + 16);
-          v459 = (v25 + 8);
+          v434 = (v23 + 24);
+          v433 = (v23 + 16);
+          v435 = (v23 + 8);
           while (1)
           {
-            if (v263 == 1)
+            if (v250 == 1)
             {
-              LODWORD(v323) = 0;
+              LODWORD(v303) = 0;
             }
 
             else
             {
-              if (!v263)
+              if (!v250)
               {
                 break;
               }
 
-              v315 = -1;
-              v316 = v458;
-              for (n = 1; n != v263; ++n)
+              v295 = -1;
+              v296 = v434;
+              for (n = 1; n != v250; ++n)
               {
-                v318 = v316;
-                v319 = v315;
+                v298 = v296;
+                v299 = v295;
                 do
                 {
-                  if (*v318[1] >= **(v318 - 2))
+                  if (*v298[1] >= **(v298 - 2))
                   {
                     break;
                   }
 
-                  v320 = v318 - 3;
-                  v321 = *v318;
-                  v464[0] = v318[2];
-                  *buf = v321;
-                  *v318 = *(v318 - 3);
-                  *(v318 + 4) = *(v318 - 2);
-                  v322 = *buf;
-                  *(v320 + 4) = v464[0];
-                  *v320 = v322;
-                  v318 -= 3;
-                  _CF = __CFADD__(v319++, 1);
+                  v300 = v298 - 3;
+                  v301 = *v298;
+                  v440[0] = v298[2];
+                  *buf = v301;
+                  *v298 = *(v298 - 3);
+                  *(v298 + 4) = *(v298 - 2);
+                  v302 = *buf;
+                  *(v300 + 4) = v440[0];
+                  *v300 = v302;
+                  v298 -= 3;
+                  _CF = __CFADD__(v299++, 1);
                 }
 
                 while (!_CF);
-                --v315;
-                v316 += 3;
+                --v295;
+                v296 += 3;
               }
 
-              v323 = v263 - 1;
-              v324 = 0;
-              v325 = 0.0;
-              v326 = v457;
-              v327 = 0.0;
+              v303 = v250 - 1;
+              v304 = 0;
+              v305 = 0.0;
+              v306 = v433;
+              v307 = 0.0;
               while (1)
               {
-                v328 = **(v326 - 2);
-                _H3 = *(v328 + 4);
+                v308 = **(v306 - 2);
+                _H3 = *(v308 + 4);
                 __asm { FCVT            S3, H3 }
 
-                v325 = v325 + (*v326 * _S3);
-                LOWORD(_S3) = *(v328 + 6);
+                v305 = v305 + (*v306 * _S3);
+                LOWORD(_S3) = *(v308 + 6);
                 __asm { FCVT            S3, H3 }
 
-                if (v327 < _S3)
+                if (v307 < _S3)
                 {
-                  v327 = _S3;
+                  v307 = _S3;
                 }
 
-                if ((v325 * v327) > v461)
+                if ((v305 * v307) > v437)
                 {
                   break;
                 }
 
-                ++v324;
-                v326 += 6;
-                if (v323 == v324)
+                ++v304;
+                v306 += 6;
+                if (v303 == v304)
                 {
                   goto LABEL_312;
                 }
               }
 
-              LODWORD(v323) = v324;
+              LODWORD(v303) = v304;
             }
 
 LABEL_312:
-            v332 = 0;
-            v333 = **&v25[24 * v323 + 8];
-            if ((v323 + 1) > 1)
+            v312 = 0;
+            v313 = **&v23[24 * v303 + 8];
+            if ((v303 + 1) > 1)
             {
-              v334 = (v323 + 1);
+              v314 = (v303 + 1);
             }
 
             else
             {
-              v334 = 1;
+              v314 = 1;
             }
 
-            v335 = 0.0;
-            v336 = v459;
-            v337 = 0.0;
+            v315 = 0.0;
+            v316 = v435;
+            v317 = 0.0;
             do
             {
-              v338 = *(v336 - 1);
-              v339 = skit::internal::PostingListV2::seek_to_block(v338, *v336, v333);
-              *v336 = v339;
-              v340 = v338[2];
-              if (v339 < v340 + 6 * *(*v338 + 12))
+              v318 = *(v316 - 1);
+              v319 = skit::internal::PostingListV2::seek_to_block(v318, *v316, v313);
+              *v316 = v319;
+              v321 = v318[2];
+              if (v319 < v321 + 6 * *(*v318 + 12))
               {
-                v341 = ((v339 - v340) * 0x2AAAAAAAAAAAAAABLL) >> 64;
-                v342 = v338[1] + 8 * ((v341 >> 6) + (v341 >> 63));
-                _H0 = *(v342 + 4);
+                v322 = ((v319 - v321) * 0x2AAAAAAAAAAAAAABLL) >> 64;
+                v323 = v318[1] + 8 * ((v322 >> 6) + (v322 >> 63));
+                _H0 = *(v323 + 4);
                 __asm { FCVT            S0, H0 }
 
-                v335 = v335 + _S0;
-                LOWORD(_S0) = *(v342 + 6);
+                v315 = v315 + _S0;
+                LOWORD(_S0) = *(v323 + 6);
                 __asm { FCVT            S0, H0 }
 
-                if (v337 < _S0)
+                if (v317 < _S0)
                 {
-                  v337 = _S0;
+                  v317 = _S0;
                 }
               }
 
-              ++v332;
-              v336 += 3;
+              ++v312;
+              v316 += 3;
             }
 
-            while (v334 != v332);
-            if (v263 > v332)
+            while (v314 != v312);
+            if (v250 > v312)
             {
-              v346 = v263 - v334;
-              v347 = &v459[3 * v334];
-              while (**v347 == v333)
+              v327 = v250 - v314;
+              v328 = &v435[3 * v314];
+              while (**v328 == v313)
               {
-                v348 = *(v347 - 1);
-                v349 = skit::internal::PostingListV2::seek_to_block(v348, *v347, v333);
-                *v347 = v349;
-                v350 = v348[2];
-                if (v349 < v350 + 6 * *(*v348 + 12))
+                v329 = *(v328 - 1);
+                v330 = skit::internal::PostingListV2::seek_to_block(v329, *v328, v313);
+                *v328 = v330;
+                v331 = v329[2];
+                if (v330 < v331 + 6 * *(*v329 + 12))
                 {
-                  v351 = ((v349 - v350) * 0x2AAAAAAAAAAAAAABLL) >> 64;
-                  v352 = v348[1] + 8 * ((v351 >> 6) + (v351 >> 63));
-                  _H0 = *(v352 + 4);
+                  v332 = ((v330 - v331) * 0x2AAAAAAAAAAAAAABLL) >> 64;
+                  v333 = v329[1] + 8 * ((v332 >> 6) + (v332 >> 63));
+                  _H0 = *(v333 + 4);
                   __asm { FCVT            S0, H0 }
 
-                  v335 = v335 + _S0;
-                  LOWORD(_S0) = *(v352 + 6);
+                  v315 = v315 + _S0;
+                  LOWORD(_S0) = *(v333 + 6);
                   __asm { FCVT            S0, H0 }
 
-                  if (v337 < _S0)
+                  if (v317 < _S0)
                   {
-                    v337 = _S0;
+                    v317 = _S0;
                   }
                 }
 
-                LODWORD(v334) = v334 + 1;
-                v347 += 3;
-                if (!--v346)
+                LODWORD(v314) = v314 + 1;
+                v328 += 3;
+                if (!--v327)
                 {
-                  LODWORD(v332) = v263;
+                  LODWORD(v312) = v250;
                   goto LABEL_329;
                 }
               }
 
-              LODWORD(v332) = v334;
+              LODWORD(v312) = v314;
             }
 
 LABEL_329:
-            if ((v337 * v335) <= v461)
+            if ((v317 * v315) <= v437)
             {
-              v373 = 0;
-              if (v332 <= 1)
+              v352 = 0;
+              if (v312 <= 1)
               {
-                v374 = 1;
+                v353 = 1;
               }
 
               else
               {
-                v374 = v332;
+                v353 = v312;
               }
 
-              v375 = v459;
-              v376 = v374;
+              v354 = v435;
+              v355 = v353;
               do
               {
-                v377 = *(v375 - 1);
-                v378 = v377[2];
-                if (*v375 < v378 + 6 * *(*v377 + 12) && v373 <= *(v377[1] + 8 * ((*v375 - v378) / 384)))
+                v356 = *(v354 - 1);
+                v357 = v356[2];
+                if (*v354 < v357 + 6 * *(*v356 + 12) && v352 <= *(v356[1] + 8 * ((*v354 - v357) / 384)))
                 {
-                  v373 = *(v377[1] + 8 * ((*v375 - v378) / 384));
+                  v352 = *(v356[1] + 8 * ((*v354 - v357) / 384));
                 }
 
-                v375 += 3;
-                --v376;
+                v354 += 3;
+                --v355;
               }
 
-              while (v376);
-              v379 = 0;
-              v380 = v373 + 1;
+              while (v355);
+              v358 = 0;
+              v359 = v352 + 1;
               do
               {
-                v381 = &v25[24 * v379];
-                v382 = v381[1];
-                v383 = *(*v381 + 16) + 6 * *(**v381 + 12) - v382;
-                if (v383)
+                v360 = &v23[24 * v358];
+                v361 = v360[1];
+                v362 = *(*v360 + 16) + 6 * *(**v360 + 12) - v361;
+                if (v362)
                 {
-                  v384 = 0xAAAAAAAAAAAAAAABLL * (v383 >> 1);
+                  v363 = 0xAAAAAAAAAAAAAAABLL * (v362 >> 1);
                   do
                   {
-                    v385 = v384 >> 1;
-                    v386 = &v382[6 * (v384 >> 1)];
-                    v388 = *v386;
-                    v387 = v386 + 6;
-                    v384 += ~(v384 >> 1);
-                    if (v388 < v380)
+                    v364 = v363 >> 1;
+                    v365 = &v361[6 * (v363 >> 1)];
+                    v367 = *v365;
+                    v366 = v365 + 6;
+                    v363 += ~(v363 >> 1);
+                    if (v367 < v359)
                     {
-                      v382 = v387;
+                      v361 = v366;
                     }
 
                     else
                     {
-                      v384 = v385;
+                      v363 = v364;
                     }
                   }
 
-                  while (v384);
+                  while (v363);
                 }
 
-                v381[1] = v382;
-                ++v379;
+                v360[1] = v361;
+                ++v358;
               }
 
-              while (v379 != v374);
+              while (v358 != v353);
             }
 
             else
             {
-              v356 = 0;
-              v357 = v460 + v333;
-              _H0 = *(v448[18] + 10 * (v460 + v333 - *(v448 + 32)));
-              if (v332 <= 1)
+              v337 = 0;
+              v338 = v436 + v313;
+              _Q0.n128_u16[0] = *(v424[18] + 10 * (v436 + v313 - *(v424 + 32)));
+              if (v312 <= 1)
               {
-                v359 = 1;
+                v339 = 1;
               }
 
               else
               {
-                v359 = v332;
+                v339 = v312;
               }
 
-              v360 = 0.0;
-              v361 = v450;
+              v340 = 0.0;
+              v341 = v426;
               do
               {
-                v362 = &v25[24 * v356];
-                v363 = *(v362 + 1);
-                v364 = *(*v362 + 16) + 6 * *(**v362 + 12);
-                if (v364 != v363)
+                v342 = &v23[24 * v337];
+                v343 = *(v342 + 1);
+                v344 = *(*v342 + 16) + 6 * *(**v342 + 12);
+                if (v344 != v343)
                 {
-                  v365 = 0xAAAAAAAAAAAAAAABLL * ((v364 - v363) >> 1);
+                  v345 = 0xAAAAAAAAAAAAAAABLL * ((v344 - v343) >> 1);
                   do
                   {
-                    v366 = v365 >> 1;
-                    v367 = (v363 + 6 * (v365 >> 1));
-                    v369 = *v367;
-                    v368 = v367 + 6;
-                    v365 += ~(v365 >> 1);
-                    if (v369 < v333)
+                    v346 = v345 >> 1;
+                    v347 = (v343 + 6 * (v345 >> 1));
+                    v349 = *v347;
+                    v348 = v347 + 6;
+                    v345 += ~(v345 >> 1);
+                    if (v349 < v313)
                     {
-                      v363 = v368;
+                      v343 = v348;
                     }
 
                     else
                     {
-                      v365 = v366;
+                      v345 = v346;
                     }
                   }
 
-                  while (v365);
+                  while (v345);
                 }
 
-                *(v362 + 1) = v363;
-                if (v363 < v364 && *v363 == v333)
+                *(v342 + 1) = v343;
+                if (v343 < v344 && *v343 == v313)
                 {
-                  _H2 = *(v363 + 4);
+                  _H2 = *(v343 + 4);
                   __asm { FCVT            S2, H2 }
 
-                  v360 = v360 + (v362[4] * _S2);
-                  *(v362 + 1) = v363 + 6;
+                  v340 = v340 + (v342[4] * _S2);
+                  *(v342 + 1) = v343 + 6;
                 }
 
-                ++v356;
+                ++v337;
               }
 
-              while (v356 != v359);
+              while (v337 != v339);
               __asm { FCVT            S0, H0 }
+
+              _Q0.n128_f32[0] = v340 * _Q0.n128_f32[0];
             }
 
-            v389 = 0;
+            v368 = 0;
             do
             {
-              v390 = v389 + 1;
-              if (*&v25[24 * v389 + 8] >= *(*&v25[24 * v389] + 16) + 6 * *(**&v25[24 * v389] + 12))
+              v369 = v368 + 1;
+              if (*&v23[24 * v368 + 8] >= *(*&v23[24 * v368] + 16) + 6 * *(**&v23[24 * v368] + 12))
               {
-                if (v390 < v263)
+                if (v369 < v250)
                 {
-                  v391 = &v25[24 * v390];
-                  v392 = v389;
+                  v370 = &v23[24 * v369];
+                  v371 = v368;
                   do
                   {
-                    v393 = &v25[24 * v392];
-                    v394 = *v391;
-                    *(v393 + 4) = *(v391 + 4);
-                    *v393 = v394;
-                    ++v390;
-                    ++v392;
-                    v391 += 24;
+                    v372 = &v23[24 * v371];
+                    v373 = *v370;
+                    *(v372 + 4) = *(v370 + 4);
+                    *v372 = v373;
+                    ++v369;
+                    ++v371;
+                    v370 += 24;
                   }
 
-                  while (v390 < v263);
+                  while (v369 < v250);
                 }
 
-                --v263;
+                --v250;
               }
 
               else
               {
-                ++v389;
+                ++v368;
               }
             }
 
-            while (v389 < v263);
+            while (v368 < v250);
           }
         }
       }
 
       else
       {
-        if (v441 < 2)
+        if (v417 < 2)
         {
           goto LABEL_370;
         }
 
-        if (v442 == 4)
+        if (v418 == 4)
         {
-          v282 = v450;
-          v283 = v449;
+          v267 = v426;
+          v268 = v425;
           while (1)
           {
-            if (v263 != 1)
+            if (v250 != 1)
             {
-              if (!v263)
+              if (!v250)
               {
                 break;
               }
 
-              v284 = -1;
-              v285 = v25 + 24;
-              for (ii = 1; ii != v263; ++ii)
+              v269 = -1;
+              v270 = v23 + 24;
+              for (ii = 1; ii != v250; ++ii)
               {
-                v287 = v285;
-                v288 = v284;
+                v272 = v270;
+                v273 = v269;
                 do
                 {
-                  if (**(v287 + 1) >= **(v287 - 2))
+                  if (**(v272 + 1) >= **(v272 - 2))
                   {
                     break;
                   }
 
-                  v289 = v287 - 24;
-                  v290 = *v287;
-                  v464[0] = *(v287 + 2);
-                  *buf = v290;
-                  *v287 = *(v287 - 24);
-                  *(v287 + 4) = *(v287 - 2);
-                  v291 = *buf;
-                  *(v289 + 4) = v464[0];
-                  *v289 = v291;
-                  v287 -= 24;
-                  _CF = __CFADD__(v288++, 1);
+                  v274 = (v272 - 24);
+                  v275 = *v272;
+                  v440[0] = *(v272 + 2);
+                  *buf = v275;
+                  *v272 = *(v272 - 24);
+                  *(v272 + 4) = *(v272 - 2);
+                  _Q0 = *buf;
+                  v274[1].n128_u32[0] = v440[0];
+                  *v274 = _Q0;
+                  v272 -= 24;
+                  _CF = __CFADD__(v273++, 1);
                 }
 
                 while (!_CF);
-                --v284;
-                v285 += 24;
+                --v269;
+                v270 += 24;
               }
 
-              v282 = v450;
-              v283 = v449;
+              v267 = v426;
+              v268 = v425;
             }
 
-            v292 = 0;
-            v293 = **(v25 + 1);
-            v294 = v460 + v293;
-            _H0 = *(v448[18] + 10 * (v460 + v293 - *(v448 + 32)));
+            v276 = 0;
+            v277 = **(v23 + 1);
+            v278 = v436 + v277;
+            _H0 = *(v424[18] + 10 * (v436 + v277 - *(v424 + 32)));
             __asm { FCVT            S0, H0 }
 
-            v297 = 0.0;
-            v298 = (v25 + 8);
+            v280 = 0.0;
+            v281 = (v23 + 8);
             while (1)
             {
-              v299 = *v298;
-              if (**v298 != v293)
+              v282 = *v281;
+              if (**v281 != v277)
               {
                 break;
               }
 
-              _H2 = *(v299 + 2);
+              _H2 = *(v282 + 2);
               __asm { FCVT            S2, H2 }
 
-              v297 = v297 + (v298[2] * _S2);
-              *v298 = v299 + 6;
-              v298 += 6;
-              if (v263 == ++v292)
+              v280 = v280 + (v281[2] * _S2);
+              *v281 = v282 + 6;
+              v281 += 6;
+              if (v250 == ++v276)
               {
-                LODWORD(v292) = v263;
+                LODWORD(v276) = v250;
                 break;
               }
             }
 
-            v302 = 0;
+            _Q0.n128_f32[0] = v280 * _Q0.n128_f32[0];
+            v285 = 0;
             do
             {
-              v303 = v302 + 1;
-              if (*&v25[24 * v302 + 8] >= *(*&v25[24 * v302] + 16) + 6 * *(**&v25[24 * v302] + 12))
+              v286 = v285 + 1;
+              if (*&v23[24 * v285 + 8] >= *(*&v23[24 * v285] + 16) + 6 * *(**&v23[24 * v285] + 12))
               {
-                if (v303 < v263)
+                if (v286 < v250)
                 {
-                  v304 = &v25[24 * v303];
-                  v305 = v302;
+                  v287 = &v23[24 * v286];
+                  v288 = v285;
                   do
                   {
-                    v306 = &v25[24 * v305];
-                    v307 = *v304;
-                    *(v306 + 4) = *(v304 + 4);
-                    *v306 = v307;
-                    ++v303;
-                    ++v305;
-                    v304 += 24;
+                    v289 = &v23[24 * v288];
+                    _Q0 = *v287;
+                    v289[1].n128_u32[0] = v287[1].n128_u32[0];
+                    *v289 = _Q0;
+                    ++v286;
+                    ++v288;
+                    v287 = (v287 + 24);
                   }
 
-                  while (v303 < v263);
+                  while (v286 < v250);
                 }
 
-                --v263;
+                --v250;
               }
 
               else
               {
-                ++v302;
+                ++v285;
               }
             }
 
-            while (v302 < v263);
+            while (v285 < v250);
           }
         }
       }
@@ -11215,24 +11123,23 @@ LABEL_329:
   }
 
 LABEL_255:
-  v276 = v451;
-  if (v438)
+  v262 = v427;
+  if (v414)
   {
-    v277 = v448[3];
-    v278 = v448[4];
-    while (v277 != v278)
+    v263 = v424[3];
+    v264 = v424[4];
+    while (v263 != v264)
     {
-      v279 = *v277++;
-      skit::internal::DiskMetaStore::populate_doc(v279 + 168, *v276, v276[1]);
+      v265 = *v263++;
+      skit::internal::DiskMetaStore::populate_doc((v265 + 168), *v262, v262[1]);
     }
   }
 
-  result = v439;
-  if (v439)
+  result = v415;
+  if (v415)
   {
-    result = MEMORY[0x29C2A31E0](v439, 0x1000C8077774924);
+    return MEMORY[0x29C2A31E0](v415, 0x1000C8077774924);
   }
 
-  v281 = *MEMORY[0x29EDCA608];
   return result;
 }

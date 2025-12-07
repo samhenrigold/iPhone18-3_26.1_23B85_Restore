@@ -83,7 +83,7 @@
   return _filenameRegex_sFilenameRegex;
 }
 
-uint64_t __25__TDAsset__filenameRegex__block_invoke()
+void *__25__TDAsset__filenameRegex__block_invoke()
 {
   result = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"(Template)?((-568h)|(-163r))?(@[[:digit:]]+x)?(~[[:alnum:]]+)?.(\\w+)$" options:1 error:0];
   _filenameRegex_sFilenameRegex = result;

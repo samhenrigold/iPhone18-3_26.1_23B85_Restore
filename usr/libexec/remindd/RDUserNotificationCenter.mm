@@ -63,6 +63,10 @@
   selfCopy = self;
   sub_100526B38(v11, v13, v14, v16, contentCopy, bannerCopy, v10, v17);
   sub_1000FDA80(v10, v17);
+
+  v13, v20, v21, v22, v23, v24, v25, v26;
+
+  v16, v27, v28, v29, v30, v31, v32, v33;
 }
 
 - (void)releaseNotificationWithIdentifier:(id)identifier reference:(id)reference completion:(id)completion
@@ -87,6 +91,10 @@
   selfCopy = self;
   RDUserNotificationCenter.releaseNotification(identifier:reference:completion:)(v7, v9, v10, v12, v6, v13);
   sub_1000FDA80(v6, v13);
+
+  v9, v15, v16, v17, v18, v19, v20, v21;
+
+  v12, v22, v23, v24, v25, v26, v27, v28;
 }
 
 - (void)userNotificationCenter:(id)center willPresentNotification:(id)notification withCompletionHandler:(id)handler
@@ -147,14 +155,15 @@ LABEL_6:
   RDUserNotificationCenter.showNotification(withIdentifier:content:completion:)(v10, identifier, content, v9, v12);
   sub_1000FDA80(v9, v12);
   swift_unknownObjectRelease();
+
+  identifier, v14, v15, v16, v17, v18, v19, v20;
 }
 
 - (id)calDAVSharedListNotificationContentWithList:(id)list
 {
   v4 = type metadata accessor for RDUserNotificationType();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
+  __chkstk_darwin(v4, v6);
   v8 = (&v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   listCopy = list;
   *v8 = [listCopy objectID];

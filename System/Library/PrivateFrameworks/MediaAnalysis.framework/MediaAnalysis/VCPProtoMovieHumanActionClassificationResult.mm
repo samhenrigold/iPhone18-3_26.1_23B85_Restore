@@ -128,11 +128,11 @@ void __93__VCPProtoMovieHumanActionClassificationResult_LegacyConversion__result
     [dictionary setObject:torsoprint forKeyedSubscript:@"torsoPrint"];
   }
 
-  timeRange = [(VCPProtoMovieHumanActionClassificationResult *)self timeRange];
-  v17 = timeRange;
-  if (timeRange)
+  v16 = objc_msgSend_timeRange(self);
+  v17 = v16;
+  if (v16)
   {
-    [timeRange timeRangeValue];
+    objc_msgSend_timeRangeValue(v16);
   }
 
   else

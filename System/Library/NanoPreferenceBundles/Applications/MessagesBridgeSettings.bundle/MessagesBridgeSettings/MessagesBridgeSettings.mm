@@ -1,13 +1,13 @@
-id CKBSFrameworkBundle()
+id CKBSFrameworkBundle(uint64_t a1)
 {
   if (qword_8548 != -1)
   {
     sub_24C8();
   }
 
-  v1 = qword_8540;
+  v2 = qword_8540;
 
-  return v1;
+  return v2;
 }
 
 void sub_1108(id a1)

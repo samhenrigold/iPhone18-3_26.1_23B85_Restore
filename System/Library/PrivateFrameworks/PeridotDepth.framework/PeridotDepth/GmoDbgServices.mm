@@ -2410,7 +2410,7 @@
   self->_numOfHomogCylce = v8;
 }
 
-uint64_t __33__GmoDbgServices_endOfHomogCycle__block_invoke(uint64_t a1)
+void *__33__GmoDbgServices_endOfHomogCycle__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) recStart];
   [*(a1 + 32) dumpMetaDataAsXML:*(*(a1 + 32) + 16)];

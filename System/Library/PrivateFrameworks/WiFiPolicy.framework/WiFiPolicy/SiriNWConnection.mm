@@ -54,7 +54,7 @@
 
 - (void)runSiriProbeWithDepth:(int64_t)depth trafficClass:(unsigned int)class
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   self->_network_traffic_class = class;
   if (depth == 2)
   {
@@ -100,42 +100,39 @@ LABEL_9:
 LABEL_10:
   v13 = [MEMORY[0x277CBEAA8] now];
   [v13 timeIntervalSinceDate:self->_dateToDisable];
-  dateToDisable = self->_dateToDisable;
-  if (v15 <= 0.0)
+  if (v14 <= 0.0)
   {
     NSLog(&cfstr_SProbingOkToRu.isa, "[SiriNWConnection runSiriProbeWithDepth:trafficClass:]", self->_dateToDisable, v13);
     NSLog(&cfstr_SStartingNwcon.isa, "[SiriNWConnection runSiriProbeWithDepth:trafficClass:]", self->_network_traffic_class, depth);
-    v23 = self->_url;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __55__SiriNWConnection_runSiriProbeWithDepth_trafficClass___block_invoke;
-    v25[3] = &unk_2789C73D0;
-    v25[4] = self;
-    [(SiriNWConnection *)self openConnectionForURL:v23 withConnectionId:0 initialPayload:0 completion:v25];
+    v22 = self->_url;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __55__SiriNWConnection_runSiriProbeWithDepth_trafficClass___block_invoke;
+    v23[3] = &unk_2789C73D0;
+    v23[4] = self;
+    [(SiriNWConnection *)self openConnectionForURL:v22 withConnectionId:0 initialPayload:0 completion:v23];
   }
 
   else
   {
     NSLog(&cfstr_SProbingHasBee.isa, "[SiriNWConnection runSiriProbeWithDepth:trafficClass:]", self->_dateToDisable, v13);
-    v16 = MEMORY[0x277CCA9B8];
-    v26 = *MEMORY[0x277CCA450];
+    v15 = MEMORY[0x277CCA9B8];
+    v24 = *MEMORY[0x277CCA450];
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
-    v18 = [mainBundle localizedStringForKey:@"Past Siri Probe Functional Date" value:&stru_28487EF20 table:0];
-    v27[0] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-    v20 = [v16 errorWithDomain:@"com.apple.wifi.policy" code:1 userInfo:v19];
+    v17 = [mainBundle localizedStringForKey:@"Past Siri Probe Functional Date" value:&stru_28487EF20 table:0];
+    v25[0] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v19 = [v15 errorWithDomain:@"com.apple.wifi.policy" code:1 userInfo:v18];
 
     if (self->_wfcompletion)
     {
-      v21 = MEMORY[0x23839E400]();
+      v20 = MEMORY[0x23839E400]();
       wfcompletion = self->_wfcompletion;
       self->_wfcompletion = 0;
 
-      (v21)[2](v21, 0, v20);
+      (v20)[2](v20, 0, v19);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __55__SiriNWConnection_runSiriProbeWithDepth_trafficClass___block_invoke(uint64_t a1, void *a2)
@@ -320,7 +317,7 @@ void __84__SiriNWConnection_openConnectionForURL_withConnectionId_initialPayload
 
 void __41__SiriNWConnection__configureConnection___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (!v5)
@@ -356,32 +353,32 @@ LABEL_8:
       switch(a2)
       {
         case 3:
-          v16 = nw_connection_get_id();
-          NSLog(&cfstr_SStateNwConnec_1.isa, "[SiriNWConnection _configureConnection:]_block_invoke", v16);
+          v15 = nw_connection_get_id();
+          NSLog(&cfstr_SStateNwConnec_1.isa, "[SiriNWConnection _configureConnection:]_block_invoke", v15);
           [*(a1 + 40) _invokeOpenCompletionWithError:0];
           break;
         case 4:
-          v21 = nw_connection_get_id();
-          NSLog(&cfstr_SStateNwConnec_3.isa, "[SiriNWConnection _configureConnection:]_block_invoke", v21);
+          v20 = nw_connection_get_id();
+          NSLog(&cfstr_SStateNwConnec_3.isa, "[SiriNWConnection _configureConnection:]_block_invoke", v20);
           break;
         case 5:
-          v13 = nw_connection_get_id();
-          NSLog(&cfstr_SStateNwConnec_4.isa, "[SiriNWConnection _configureConnection:]_block_invoke", v13);
-          v14 = MEMORY[0x277CCA9B8];
+          v12 = nw_connection_get_id();
+          NSLog(&cfstr_SStateNwConnec_4.isa, "[SiriNWConnection _configureConnection:]_block_invoke", v12);
+          v13 = MEMORY[0x277CCA9B8];
           if (v9)
           {
-            v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifi.policy.siri" code:16 userInfo:0];
+            v14 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifi.policy.siri" code:16 userInfo:0];
           }
 
           else
           {
-            v22 = *MEMORY[0x277CCA7E8];
-            v23[0] = v7;
-            v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-            v15 = [v14 errorWithDomain:@"com.apple.wifi.policy.siri" code:16 userInfo:v17];
+            v21 = *MEMORY[0x277CCA7E8];
+            v22[0] = v7;
+            v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+            v14 = [v13 errorWithDomain:@"com.apple.wifi.policy.siri" code:16 userInfo:v16];
           }
 
-          [*(a1 + 40) _closeWithError:v15];
+          [*(a1 + 40) _closeWithError:v14];
 
           break;
       }
@@ -391,21 +388,21 @@ LABEL_8:
     {
       if (a2 == 1)
       {
-        v20 = nw_connection_get_id();
-        NSLog(&cfstr_SStateNwConnec.isa, "[SiriNWConnection _configureConnection:]_block_invoke", v20);
+        v19 = nw_connection_get_id();
+        NSLog(&cfstr_SStateNwConnec.isa, "[SiriNWConnection _configureConnection:]_block_invoke", v19);
       }
 
       else if (a2 == 2)
       {
-        v18 = nw_connection_get_id();
-        NSLog(&cfstr_SStateNwConnec_0.isa, "[SiriNWConnection _configureConnection:]_block_invoke", v18);
+        v17 = nw_connection_get_id();
+        NSLog(&cfstr_SStateNwConnec_0.isa, "[SiriNWConnection _configureConnection:]_block_invoke", v17);
       }
     }
 
     else
     {
-      v19 = nw_connection_get_id();
-      NSLog(&cfstr_SStateNwConnec_2.isa, "[SiriNWConnection _configureConnection:]_block_invoke", v19);
+      v18 = nw_connection_get_id();
+      NSLog(&cfstr_SStateNwConnec_2.isa, "[SiriNWConnection _configureConnection:]_block_invoke", v18);
     }
   }
 
@@ -413,8 +410,6 @@ LABEL_8:
   {
     NSLog(&cfstr_SGotNwConnecti.isa, "[SiriNWConnection _configureConnection:]_block_invoke", v11);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __41__SiriNWConnection__configureConnection___block_invoke_2(uint64_t a1)
@@ -454,7 +449,7 @@ uint64_t __41__SiriNWConnection__configureConnection___block_invoke_3(uint64_t a
 
 void __35__SiriNWConnection__setupOpenTimer__block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   NSLog(&cfstr_SOpenTimerFiri.isa, "[SiriNWConnection _setupOpenTimer]_block_invoke");
   dispatch_source_cancel(*(a1 + 32));
   v2 = *(a1 + 40);
@@ -469,9 +464,9 @@ void __35__SiriNWConnection__setupOpenTimer__block_invoke(uint64_t a1)
   v6 = *(*(a1 + 40) + 168);
   if (v6)
   {
-    v10 = *MEMORY[0x277CCA7E8];
-    v11[0] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x277CCA7E8];
+    v10[0] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v8 = [v5 initWithDomain:@"com.apple.wifi.policy.siri" code:4 userInfo:v7];
   }
 
@@ -481,8 +476,6 @@ void __35__SiriNWConnection__setupOpenTimer__block_invoke(uint64_t a1)
   }
 
   [*(a1 + 40) _closeWithError:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelOpenTimer
@@ -616,14 +609,12 @@ void __36__SiriNWConnection__closeWithError___block_invoke(uint64_t a1)
 uint64_t __36__SiriNWConnection__closeWithError___block_invoke_3(uint64_t a1)
 {
   nw_connection_send(*(a1 + 32), 0, *(a1 + 40), 1, &__block_literal_global_7);
-  v2 = *(a1 + 32);
   nw_connection_set_read_close_handler();
-  v3 = *(a1 + 32);
   nw_connection_set_write_close_handler();
   nw_connection_cancel(*(a1 + 32));
-  v4 = *(*(a1 + 48) + 16);
+  v2 = *(*(a1 + 48) + 16);
 
-  return v4();
+  return v2();
 }
 
 void __36__SiriNWConnection__closeWithError___block_invoke_4(uint64_t a1, void *a2)
@@ -661,12 +652,12 @@ void __36__SiriNWConnection__closeWithError___block_invoke_4(uint64_t a1, void *
   v9 = MEMORY[0x23839E400](*MEMORY[0x277CD9238]);
   if (sCopy)
   {
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __64__SiriNWConnection__setParametersForHost_useTLS_initialPayload___block_invoke;
-    v20[3] = &__block_descriptor_33_e42_v16__0__NSObject_OS_nw_protocol_options__8l;
-    v21 = 1;
-    v10 = MEMORY[0x23839E400](v20);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __64__SiriNWConnection__setParametersForHost_useTLS_initialPayload___block_invoke;
+    v19[3] = &__block_descriptor_33_e42_v16__0__NSObject_OS_nw_protocol_options__8l;
+    v20 = 1;
+    v10 = MEMORY[0x23839E400](v19);
 
     v9 = v10;
   }
@@ -687,7 +678,6 @@ void __36__SiriNWConnection__closeWithError___block_invoke_4(uint64_t a1, void *
   nw_parameters_set_context();
   nw_parameters_set_data_mode();
   NSLog(&cfstr_SNetworkTraffi.isa, "[SiriNWConnection _setParametersForHost:useTLS:initialPayload:]", self->_network_traffic_class);
-  network_traffic_class = self->_network_traffic_class;
   nw_parameters_set_traffic_class();
   nw_parameters_set_indefinite();
   nw_parameters_set_tfo();
@@ -699,7 +689,7 @@ void __36__SiriNWConnection__closeWithError___block_invoke_4(uint64_t a1, void *
   NSLog(&cfstr_SOptimisticdns.isa, "[SiriNWConnection _setParametersForHost:useTLS:initialPayload:]");
   nw_parameters_set_expired_dns_behavior(secure_tcp, nw_parameters_expired_dns_behavior_allow);
   *task_info_out = 0u;
-  v19 = 0u;
+  v18 = 0u;
   task_info_outCnt = 8;
   if (task_info(*MEMORY[0x277D85F48], 0xFu, task_info_out, &task_info_outCnt))
   {

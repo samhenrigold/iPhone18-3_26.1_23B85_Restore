@@ -15,70 +15,68 @@ void __29___DKSync2Policy_policyCache__block_invoke()
 
 void __77___DKSync2Policy_possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays___block_invoke(void *a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v2 = a1[5];
-  v3 = +[_DKSync2Policy productVersion];
-  v4 = possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays__productVersion;
-  possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays__productVersion = v3;
+  v33 = *MEMORY[0x1E69E9840];
+  v2 = +[(_DKSync2Policy *)a1[5]];
+  v3 = possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays__productVersion;
+  possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays__productVersion = v2;
 
-  v5 = +[_CDLogging syncChannel];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v4 = +[_CDLogging syncChannel];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = a1[5];
-    v7 = [objc_opt_class() description];
+    v5 = [objc_opt_class() description];
     *buf = 138543618;
-    *&buf[4] = v7;
+    *&buf[4] = v5;
     *&buf[12] = 2114;
     *&buf[14] = possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays__productVersion;
-    _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_INFO, "%{public}@: Using productVersion %{public}@ for sync policy downloads", buf, 0x16u);
+    _os_log_impl(&dword_191750000, v4, OS_LOG_TYPE_INFO, "%{public}@: Using productVersion %{public}@ for sync policy downloads", buf, 0x16u);
   }
 
   if (possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays__productVersion && !+[_DKCloudUtilities isUnitTesting])
   {
-    v9 = a1[4];
-    v10 = dispatch_get_global_queue(-32768, 0);
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __77___DKSync2Policy_possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays___block_invoke_146;
-    v27[3] = &__block_descriptor_40_e5_v8__0l;
-    v27[4] = a1[5];
-    v8 = [_CDPeriodicSchedulerJob jobWithInterval:v9 schedulerJobName:v10 queue:0 asynchronousHandler:v27 handler:0.0];
+    v7 = a1[4];
+    v8 = dispatch_get_global_queue(-32768, 0);
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __77___DKSync2Policy_possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays___block_invoke_146;
+    v24[3] = &__block_descriptor_40_e5_v8__0l;
+    v24[4] = a1[5];
+    v6 = [_CDPeriodicSchedulerJob jobWithInterval:v7 schedulerJobName:v8 queue:0 asynchronousHandler:v24 handler:0.0];
 
-    v11 = *MEMORY[0x1E69E9D88];
+    v9 = *MEMORY[0x1E69E9D88];
     *buf = *MEMORY[0x1E69E9CB0];
-    *&buf[8] = v11;
-    v12 = *MEMORY[0x1E69E9D58];
+    *&buf[8] = v9;
+    v10 = *MEMORY[0x1E69E9D58];
     *&buf[16] = *MEMORY[0x1E69E9D68];
-    v30 = v12;
-    v13 = *MEMORY[0x1E69E9DB0];
-    v31 = *MEMORY[0x1E69E9C40];
-    v32 = v13;
-    v14 = *MEMORY[0x1E69E9D40];
-    v33 = *MEMORY[0x1E69E9D18];
-    v34 = v14;
-    v15 = 86400 * a1[6];
-    v35 = *MEMORY[0x1E69E9DA8];
-    values[0] = xpc_int64_create(v15);
-    v16 = MEMORY[0x1E69E9E10];
-    v17 = MEMORY[0x1E69E9E10];
-    values[1] = v16;
+    v27 = v10;
+    v11 = *MEMORY[0x1E69E9DB0];
+    v28 = *MEMORY[0x1E69E9C40];
+    v29 = v11;
+    v12 = *MEMORY[0x1E69E9D40];
+    v30 = *MEMORY[0x1E69E9D18];
+    v31 = v12;
+    v13 = 86400 * a1[6];
+    v32 = *MEMORY[0x1E69E9DA8];
+    values[0] = xpc_int64_create(v13);
+    v14 = MEMORY[0x1E69E9E10];
+    v15 = MEMORY[0x1E69E9E10];
+    values[1] = v14;
     values[2] = xpc_string_create(*MEMORY[0x1E69E9D70]);
-    v18 = v16;
-    values[3] = v16;
-    v19 = MEMORY[0x1E69E9E08];
-    v20 = MEMORY[0x1E69E9E08];
-    values[4] = v19;
-    v21 = v16;
-    values[5] = v16;
+    v16 = v14;
+    values[3] = v14;
+    v17 = MEMORY[0x1E69E9E08];
+    v18 = MEMORY[0x1E69E9E08];
+    values[4] = v17;
+    v19 = v14;
+    values[5] = v14;
     values[6] = xpc_string_create(*MEMORY[0x1E69E9D20]);
     values[7] = xpc_int64_create(5000);
-    v22 = v16;
-    values[8] = v16;
-    v23 = xpc_dictionary_create(buf, values, 9uLL);
-    [v8 setExecutionCriteria:v23];
+    v20 = v14;
+    values[8] = v14;
+    v21 = xpc_dictionary_create(buf, values, 9uLL);
+    [v6 setExecutionCriteria:v21];
 
-    v24 = +[_CDPeriodicScheduler sharedInstance];
-    [v24 registerJob:v8];
+    v22 = +[_CDPeriodicScheduler sharedInstance];
+    [v22 registerJob:v6];
 
     for (i = 8; i != -1; --i)
     {
@@ -87,11 +85,9 @@ void __77___DKSync2Policy_possiblyDownloadSyncPolicyWithPolicyDownloadIntervalIn
 
   else
   {
-    v8 = +[_CDPeriodicScheduler sharedInstance];
-    [v8 unregisterJob:a1[4]];
+    v6 = +[_CDPeriodicScheduler sharedInstance];
+    [v6 unregisterJob:a1[4]];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __77___DKSync2Policy_possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays___block_invoke_146(uint64_t a1)
@@ -110,7 +106,7 @@ void __77___DKSync2Policy_possiblyDownloadSyncPolicyWithPolicyDownloadIntervalIn
     v9 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __77___DKSync2Policy_possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays___block_invoke_146_cold_1(a1);
+      __77___DKSync2Policy_possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays___block_invoke_146_cold_1(a1, v9);
     }
 
     v8 = @"https://configuration.apple.com/configurations/internetservices/cloudkit/knowledgestore/com.apple.coreduet.knowledge.syncPolicies2.ios.plist";
@@ -130,29 +126,21 @@ void __77___DKSync2Policy_possiblyDownloadSyncPolicyWithPolicyDownloadIntervalIn
   }
 }
 
-void __77___DKSync2Policy_possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays___block_invoke_146_cold_1(uint64_t a1)
+void __77___DKSync2Policy_possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays___block_invoke_146_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __77___DKSync2Policy_possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays___block_invoke_146_cold_2()
 {
   OUTLINED_FUNCTION_16();
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(v0 + 32);
-  v2 = [objc_opt_class() description];
+  v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 @end

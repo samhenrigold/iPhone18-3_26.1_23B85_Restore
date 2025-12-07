@@ -259,7 +259,7 @@ uint64_t __37__PFParallaxLayerStack_hasMainLayers__block_invoke(uint64_t a1, voi
   identifiersCopy = identifiers;
   if ([identifiersCopy count])
   {
-    v5 = [(NSDictionary *)self->_layerMap mutableCopy];
+    v5 = objc_msgSend_mutableCopy(self->_layerMap);
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
@@ -453,7 +453,7 @@ LABEL_35:
   {
     v8 = PFMap(layersCopy, &__block_literal_global_133_13295);
     layerMap = [(PFParallaxLayerStack *)self layerMap];
-    v10 = [layerMap mutableCopy];
+    v10 = objc_msgSend_mutableCopy(layerMap);
 
     v36 = v8;
     [v10 removeObjectsForKeys:v8];

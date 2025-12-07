@@ -38,7 +38,7 @@
     v14 = getResourcesManager;
     if (getResourcesManager)
     {
-      [getResourcesManager protobufLogger];
+      objc_msgSend_protobufLogger(getResourcesManager);
       v15 = v19;
     }
 
@@ -407,11 +407,12 @@ LABEL_27:
 
 - (void)_grSessionInvalidatedWithReason:(int)reason
 {
+  v3 = *&reason;
   v5 = qword_1009F9820;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    sub_100342FC8(reason, v7);
-    sub_1004ABFC4(v7);
+    sub_100342FC8(v3, v7);
+    sub_1004ABFC4();
   }
 
   dispatch_assert_queue_V2(self->_clientQueue);
@@ -430,7 +431,7 @@ LABEL_27:
   getResourcesManager = [WeakRetained getResourcesManager];
   if (getResourcesManager)
   {
-    [getResourcesManager protobufLogger];
+    objc_msgSend_protobufLogger(getResourcesManager);
   }
 
   operator new();
@@ -674,28 +675,28 @@ LABEL_48:
     if (self->_grSession.__ptr_)
     {
 LABEL_11:
-      v11 = +[NSUserDefaults standardUserDefaults];
-      [v11 doubleForKey:@"PeerRangingTriggerScanBurstDurationSecondsOverride"];
-      v13 = v12;
+      v10 = +[NSUserDefaults standardUserDefaults];
+      [v10 doubleForKey:@"PeerRangingTriggerScanBurstDurationSecondsOverride"];
+      v12 = v11;
 
-      if (v13 <= 0.0)
+      if (v12 <= 0.0)
       {
-        v13 = 60.0;
+        v12 = 60.0;
       }
 
       else
       {
-        v14 = qword_1009F9820;
+        v13 = qword_1009F9820;
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          *&buf[4] = v13;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#peer-gr,Scan burst duration [ranging trigger] set from defaults write: %0.2f seconds", buf, 0xCu);
+          *&buf[4] = v12;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#peer-gr,Scan burst duration [ranging trigger] set from defaults write: %0.2f seconds", buf, 0xCu);
         }
       }
 
       btResource = [getResourcesManager btResource];
-      [btResource startScanningWithBurstPeriod:v13];
+      [btResource startScanningWithBurstPeriod:v12];
 
       if (sub_10033BEE8(self->_grSession.__ptr_))
       {
@@ -703,59 +704,59 @@ LABEL_11:
         if ([v6 isLongRangeEnabled])
         {
           btAdvertisingAddress = [rangingCopy btAdvertisingAddress];
-          v25 = btAdvertisingAddress;
-          v26 = WORD2(btAdvertisingAddress);
+          v24 = btAdvertisingAddress;
+          v25 = WORD2(btAdvertisingAddress);
           *buf = 2;
           buf[4] = 0;
+          v22 = 0;
           v23 = 0;
-          v24 = 0;
+          v26 = 1;
           v27 = 1;
-          v28 = 1;
         }
 
         else
         {
           buf[0] = 0;
-          v28 = 0;
+          v27 = 0;
         }
 
+        v28 = 0;
         v29 = 0;
-        v30 = 0;
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
-        v33 = 0u;
-        v34 = 0;
-        v17 = sub_10034024C(self->_grSession.__ptr_, buf);
+        v33 = 0;
+        v16 = sub_10034024C(self->_grSession.__ptr_, buf);
       }
 
       else
       {
         btAdvertisingAddress2 = [rangingCopy btAdvertisingAddress];
-        v25 = btAdvertisingAddress2;
-        v26 = WORD2(btAdvertisingAddress2);
+        v24 = btAdvertisingAddress2;
+        v25 = WORD2(btAdvertisingAddress2);
         *buf = 2;
         buf[4] = 0;
+        v22 = 0;
         v23 = 0;
-        v24 = 0;
+        v26 = 1;
         v27 = 1;
-        v28 = 1;
+        v28 = 0;
         v29 = 0;
-        v30 = 0;
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
-        v33 = 0u;
-        v34 = 0;
-        v17 = sub_10034024C(self->_grSession.__ptr_, buf);
+        v33 = 0;
+        v16 = sub_10034024C(self->_grSession.__ptr_, buf);
       }
 
-      v19 = v17;
-      if (v17)
+      v18 = v16;
+      if (v16)
       {
-        v20 = qword_1009F9820;
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v19 = qword_1009F9820;
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          sub_100342F8C(v19, buf);
-          sub_1004AC150(buf);
+          sub_100342F8C(v18, buf);
+          sub_1004AC150();
         }
       }
 
@@ -769,33 +770,33 @@ LABEL_25:
       sub_1004AC11C();
     }
 
-    [(NIServerNearbyPeerGrSession *)self _prepareServiceRequest];
-    if (v35 == 1)
+    objc_msgSend__prepareServiceRequest(self);
+    if (v34 == 1)
     {
-      [(NIServerNearbyPeerGrSession *)self _buildRoseSession:buf];
-      v8 = v21;
-      v21 = 0;
+      objc_msgSend__buildRoseSession_(self);
+      v8 = v20;
+      v20 = 0;
       cntrl = self->_grSession.__cntrl_;
       self->_grSession = v8;
-      if (cntrl)
+      if (!cntrl)
       {
-        sub_10000AD84(cntrl);
+        goto LABEL_10;
       }
     }
 
     else
     {
-      v10 = self->_grSession.__cntrl_;
+      cntrl = self->_grSession.__cntrl_;
       self->_grSession.__ptr_ = 0;
       self->_grSession.__cntrl_ = 0;
-      if (!v10)
+      if (!cntrl)
       {
         goto LABEL_27;
       }
-
-      sub_10000AD84(v10);
     }
 
+    sub_10000AD84(cntrl);
+LABEL_10:
     if (self->_grSession.__ptr_)
     {
       goto LABEL_11;

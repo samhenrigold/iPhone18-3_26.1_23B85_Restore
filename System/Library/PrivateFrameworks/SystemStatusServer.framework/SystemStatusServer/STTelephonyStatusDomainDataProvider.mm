@@ -6,7 +6,7 @@
 - (STTelephonyStatusDomainDataProvider)initWithServerHandle:(id)handle stateProvider:(id)provider;
 - (STTelephonyStatusDomainDataProvider)initWithStateProvider:(id)provider;
 - (id)_SIMInfoForStateProvider:(void *)provider subscriptionInfo:(void *)info carrierBundleInfo:(uint64_t)bundleInfo slot:(void *)slot otherSlotSubscriptionInfo:;
-- (uint64_t)_serviceStateForStateProvider:(void *)provider registrationStatus:(uint64_t)status bootstrap:(int)bootstrap hidden:(char)hidden carrierBundleInfo:(void *)info;
+- (uint64_t)_serviceStateForStateProvider:(void *)provider registrationStatus:(uint64_t)status bootstrap:(uint64_t)bootstrap hidden:(uint64_t)hidden carrierBundleInfo:(void *)info;
 - (void)_updateDataForSlot:(uint64_t)slot;
 - (void)dealloc;
 - (void)invalidate;
@@ -213,45 +213,45 @@ LABEL_15:
 
   [v15 setSignalStrengthBars:{objc_msgSend(providerCopy, "signalStrengthBars")}];
   [v15 setMaxSignalStrengthBars:{objc_msgSend(providerCopy, "maxSignalStrengthBars")}];
-  LODWORD(shortSIMLabel) = [providerCopy isBootstrap];
-  [v15 setServiceState:{-[STTelephonyStatusDomainDataProvider _serviceStateForStateProvider:registrationStatus:bootstrap:hidden:carrierBundleInfo:](v14, objc_msgSend(providerCopy, "registrationStatus"), shortSIMLabel, v16, infoCopy)}];
-  [v15 setCellularServiceState:{-[STTelephonyStatusDomainDataProvider _serviceStateForStateProvider:registrationStatus:bootstrap:hidden:carrierBundleInfo:](v14, objc_msgSend(providerCopy, "cellularRegistrationStatus"), shortSIMLabel, v16, infoCopy)}];
-  v20 = v14;
-  v21 = providerCopy;
-  v22 = infoCopy;
-  if (![v20 isUsingStewieForSOS] || !objc_msgSend(v20, "isUsingStewieConnection"))
+  isBootstrap = [providerCopy isBootstrap];
+  [v15 setServiceState:{-[STTelephonyStatusDomainDataProvider _serviceStateForStateProvider:registrationStatus:bootstrap:hidden:carrierBundleInfo:](v14, objc_msgSend(providerCopy, "registrationStatus"), isBootstrap, v16, infoCopy)}];
+  [v15 setCellularServiceState:{-[STTelephonyStatusDomainDataProvider _serviceStateForStateProvider:registrationStatus:bootstrap:hidden:carrierBundleInfo:](v14, objc_msgSend(providerCopy, "cellularRegistrationStatus"), isBootstrap, v16, infoCopy)}];
+  v21 = v14;
+  v22 = providerCopy;
+  v23 = infoCopy;
+  if (![v21 isUsingStewieForSOS] || !objc_msgSend(v21, "isUsingStewieConnection"))
   {
-    if ([v20 isRadioModuleDead])
+    if ([v21 isRadioModuleDead])
     {
       registrationStatus = 3;
     }
 
     else
     {
-      registrationStatus = [v21 registrationStatus];
+      registrationStatus = [v22 registrationStatus];
     }
 
-    isBootstrap = [v21 isBootstrap];
-    if (providerCopy && [v21 isHiddenSIM])
+    isBootstrap2 = [v22 isBootstrap];
+    if (providerCopy && [v22 isHiddenSIM])
     {
-      v27 = [v21 isBootstrap] ^ 1;
+      v28 = [v22 isBootstrap] ^ 1;
     }
 
     else
     {
-      v27 = 0;
+      v28 = 0;
     }
 
-    v28 = [STTelephonyStatusDomainDataProvider _shouldShowEmergencyOnlyStatusForStateProvider:v20 registrationStatus:registrationStatus bootstrap:isBootstrap hidden:v27 carrierBundleInfo:v22];
-    if (!v28 && registrationStatus == 2)
+    v29 = [STTelephonyStatusDomainDataProvider _shouldShowEmergencyOnlyStatusForStateProvider:v21 registrationStatus:registrationStatus bootstrap:isBootstrap2 hidden:v28 carrierBundleInfo:v23];
+    if (!v29 && registrationStatus == 2)
     {
-      operatorName = [v21 operatorName];
+      operatorName = [v22 operatorName];
       goto LABEL_18;
     }
 
-    sIMStatus = [v21 SIMStatus];
-    v31 = sIMStatus;
-    v48 = v17;
+    sIMStatus = [v22 SIMStatus];
+    v32 = sIMStatus;
+    v49 = v17;
     if (!sIMStatus)
     {
       goto LABEL_20;
@@ -259,105 +259,105 @@ LABEL_15:
 
     if ([sIMStatus compare:*MEMORY[0x277CC3ED8]])
     {
-      if ([v31 compare:*MEMORY[0x277CC3ED0]] && objc_msgSend(v31, "compare:", *MEMORY[0x277CC3EF8]))
+      if ([v32 compare:*MEMORY[0x277CC3ED0]] && objc_msgSend(v32, "compare:", *MEMORY[0x277CC3EF8]))
       {
-        if (![STTelephonyStatusDomainDataProvider _simStatusMeansLocked:v31])
+        if (![STTelephonyStatusDomainDataProvider _simStatusMeansLocked:v32])
         {
 LABEL_20:
-          v32 = 0;
+          v33 = 0;
           goto LABEL_29;
         }
 
-        v33 = @"LOCKED_SIM";
+        v34 = @"LOCKED_SIM";
       }
 
       else
       {
-        v33 = @"BAD_SIM";
+        v34 = @"BAD_SIM";
       }
     }
 
     else
     {
-      v33 = @"NO_SIM";
+      v34 = @"NO_SIM";
     }
 
-    v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v32 = [v34 localizedStringForKey:v33 value:&stru_287CFDAC8 table:@"SystemStatusServer-Telephony"];
+    v35 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v33 = [v35 localizedStringForKey:v34 value:&stru_287CFDAC8 table:@"SystemStatusServer-Telephony"];
 
 LABEL_29:
     if (registrationStatus - 3 >= 2)
     {
       if (registrationStatus > 1)
       {
-        v37 = 0;
-        if (v28)
+        v38 = 0;
+        if (v29)
         {
 LABEL_34:
-          v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-          v39 = [v38 localizedStringForKey:@"SOS_ONLY" value:&stru_287CFDAC8 table:@"SystemStatusServer-Telephony"];
+          v39 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+          v40 = [v39 localizedStringForKey:@"SOS_ONLY" value:&stru_287CFDAC8 table:@"SystemStatusServer-Telephony"];
 
-          if (v32)
+          if (v33)
           {
-            [v20 needsUserIdentificationModule];
-            v40 = v32;
-            v29 = v32;
+            [v21 needsUserIdentificationModule];
+            v41 = v33;
+            v30 = v33;
           }
 
           else
           {
-            v40 = 0;
-            v29 = 0;
+            v41 = 0;
+            v30 = 0;
           }
 
 LABEL_45:
-          v41 = v40;
-          v42 = v29;
-          operatorName = v39;
+          v42 = v41;
+          v43 = v30;
+          operatorName = v40;
 
-          v17 = v48;
+          v17 = v49;
           goto LABEL_46;
         }
 
 LABEL_37:
-        if (-[STTelephonyStatusDomainDataProvider _simStatusMeansLocked:](v31) || [v20 needsUserIdentificationModule])
+        if (-[STTelephonyStatusDomainDataProvider _simStatusMeansLocked:](v32) || [v21 needsUserIdentificationModule])
         {
-          v29 = 0;
-          if (v32)
+          v30 = 0;
+          if (v33)
           {
-            v40 = v32;
+            v41 = v33;
           }
 
           else
           {
-            v40 = v37;
+            v41 = v38;
           }
 
-          v39 = v40;
+          v40 = v41;
         }
 
         else
         {
-          v29 = 0;
-          v40 = v37;
-          v39 = v37;
+          v30 = 0;
+          v41 = v38;
+          v40 = v38;
         }
 
         goto LABEL_45;
       }
 
-      v35 = @"SEARCHING";
+      v36 = @"SEARCHING";
     }
 
     else
     {
-      v35 = @"NO_SERVICE";
+      v36 = @"NO_SERVICE";
     }
 
-    v36 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v37 = [v36 localizedStringForKey:v35 value:&stru_287CFDAC8 table:@"SystemStatusServer-Telephony"];
+    v37 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v38 = [v37 localizedStringForKey:v36 value:&stru_287CFDAC8 table:@"SystemStatusServer-Telephony"];
 
-    if (v28)
+    if (v29)
     {
       goto LABEL_34;
     }
@@ -365,44 +365,44 @@ LABEL_37:
     goto LABEL_37;
   }
 
-  v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  operatorName = [v23 localizedStringForKey:@"SATELLITE" value:&stru_287CFDAC8 table:@"SystemStatusServer-Telephony"];
+  v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  operatorName = [v24 localizedStringForKey:@"SATELLITE" value:&stru_287CFDAC8 table:@"SystemStatusServer-Telephony"];
 
 LABEL_18:
-  v29 = 0;
+  v30 = 0;
 LABEL_46:
 
-  v43 = v29;
+  v44 = v30;
   [v15 setServiceDescription:operatorName];
-  [v15 setSecondaryServiceDescription:v43];
+  [v15 setSecondaryServiceDescription:v44];
 
-  dataConnectionType = [v21 dataConnectionType];
+  dataConnectionType = [v22 dataConnectionType];
   if (slotCopy && [slotCopy isHiddenSIM] && (objc_msgSend(slotCopy, "isBootstrap") & 1) == 0 && objc_msgSend(slotCopy, "isProvidingDataConnection"))
   {
     dataConnectionType = [slotCopy dataConnectionType];
-    v45 = 1;
+    v46 = 1;
   }
 
   else
-  {
-    v45 = 0;
-  }
-
-  if ((dataConnectionType - 1) >= 0x10)
   {
     v46 = 0;
   }
 
-  else
+  if ((dataConnectionType - 1) >= 0x10)
   {
-    v46 = dataConnectionType;
+    v47 = 0;
   }
 
-  [v15 setDataNetworkType:v46];
-  [v15 setProvidingDataConnection:{(v45 | objc_msgSend(v21, "isProvidingDataConnection")) & v17}];
-  [v15 setPreferredForDataConnections:{objc_msgSend(v21, "isPreferredForDataConnections")}];
-  [v15 setRegisteredWithoutCellular:{objc_msgSend(v21, "isRegisteredWithoutCellular")}];
-  [v15 setCallForwardingEnabled:{objc_msgSend(v21, "callForwardingIndicator") == 1}];
+  else
+  {
+    v47 = dataConnectionType;
+  }
+
+  [v15 setDataNetworkType:v47];
+  [v15 setProvidingDataConnection:{(v46 | objc_msgSend(v22, "isProvidingDataConnection")) & v17}];
+  [v15 setPreferredForDataConnections:{objc_msgSend(v22, "isPreferredForDataConnections")}];
+  [v15 setRegisteredWithoutCellular:{objc_msgSend(v22, "isRegisteredWithoutCellular")}];
+  [v15 setCallForwardingEnabled:{objc_msgSend(v22, "callForwardingIndicator") == 1}];
 
   return v15;
 }
@@ -429,12 +429,14 @@ void __58__STTelephonyStatusDomainDataProvider__updateDataForSlot___block_invoke
   [v3 setUsingStewieConnectionOverInternet:*(a1 + 56)];
 }
 
-- (uint64_t)_serviceStateForStateProvider:(void *)provider registrationStatus:(uint64_t)status bootstrap:(int)bootstrap hidden:(char)hidden carrierBundleInfo:(void *)info
+- (uint64_t)_serviceStateForStateProvider:(void *)provider registrationStatus:(uint64_t)status bootstrap:(uint64_t)bootstrap hidden:(uint64_t)hidden carrierBundleInfo:(void *)info
 {
+  hiddenCopy = hidden;
+  bootstrapCopy = bootstrap;
   v9 = status == 2;
   providerCopy = provider;
   infoCopy = info;
-  v12 = [STTelephonyStatusDomainDataProvider _shouldShowEmergencyOnlyStatusForStateProvider:providerCopy registrationStatus:status bootstrap:bootstrap hidden:hidden carrierBundleInfo:infoCopy];
+  v12 = [STTelephonyStatusDomainDataProvider _shouldShowEmergencyOnlyStatusForStateProvider:providerCopy registrationStatus:status bootstrap:bootstrapCopy hidden:hiddenCopy carrierBundleInfo:infoCopy];
   v13 = 2 * v9;
   if (status == 1)
   {

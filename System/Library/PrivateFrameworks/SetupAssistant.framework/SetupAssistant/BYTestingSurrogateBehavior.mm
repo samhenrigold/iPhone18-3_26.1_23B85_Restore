@@ -4,6 +4,7 @@
 - (id)alternateUpdate;
 - (id)preferredUpdate;
 - (id)scanResults;
+- (void)setResultsAsBasicBoolean:(BOOL)boolean;
 @end
 
 @implementation BYTestingSurrogateBehavior
@@ -15,6 +16,16 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setResultsAsBasicBoolean:(BOOL)boolean
+{
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"BOOLean";
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:boolean];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  [(BYTestingSurrogateBehavior *)self setResults:v5];
 }
 
 + (id)updateWithDictionary:(id)dictionary

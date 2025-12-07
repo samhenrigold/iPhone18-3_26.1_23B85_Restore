@@ -9,7 +9,7 @@ uint64_t __105__VisionCoreNamedObjects_VNInternalAdditions__VNEnumerateFloatValu
   v7 = [a2 bytes];
   v8 = *(a1 + 56);
   src.data = 0;
-  std::vector<unsigned long>::vector[abi:ne200100](__p, v8);
+  std::vector<unsigned long>::vector[abi:ne200100](__p, v8, &src);
   v18 = 0;
   v9 = [*(a1 + 32) firstIndex];
   v16 = vdupq_n_s64(1uLL);

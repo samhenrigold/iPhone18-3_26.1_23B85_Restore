@@ -7,6 +7,10 @@
 - (void)keyboardWillShow:(id)show;
 - (void)suspend;
 - (void)textDidChange:(id)change;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation BTDeviceNameEditingController
@@ -84,6 +88,38 @@
   v4.receiver = self;
   v4.super_class = BTDeviceNameEditingController;
   [(BTDeviceNameEditingController *)&v4 suspend];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = BTDeviceNameEditingController;
+  [(BTDeviceNameEditingController *)&v3 viewWillAppear:appear];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = BTDeviceNameEditingController;
+  [(BTDeviceNameEditingController *)&v3 viewDidAppear:appear];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  firstResponder = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC60]) firstResponder];
+  [firstResponder resignFirstResponder];
+
+  v6.receiver = self;
+  v6.super_class = BTDeviceNameEditingController;
+  [(BTDeviceNameEditingController *)&v6 viewWillDisappear:disappearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = BTDeviceNameEditingController;
+  [(BTDeviceNameEditingController *)&v3 viewDidDisappear:disappear];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
@@ -188,7 +224,7 @@
 
   if (![v7 length])
   {
-    v8 = sharedBluetoothSettingsLogComponent();
+    v8 = sharedBluetoothSettingsLogComponent(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       placeholder = [returnCopy placeholder];
@@ -203,12 +239,13 @@
   }
 
   connected = [(BluetoothDeviceProtocol *)self->_currentDevice connected];
+  v12 = connected;
   if (connected)
   {
     name = [(BluetoothDeviceProtocol *)self->_currentDevice name];
-    v13 = [v7 isEqualToString:name];
+    v14 = [v7 isEqualToString:name];
 
-    if ((v13 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
       WeakRetained = objc_loadWeakRetained((&self->super.super.super.super.super.isa + *MEMORY[0x277D3FD08]));
       [WeakRetained setTitle:v7];
@@ -230,19 +267,18 @@
 
   else
   {
-    v17 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = sharedBluetoothSettingsLogComponent(connected);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v21) = 0;
-      _os_log_impl(&dword_251143000, v17, OS_LOG_TYPE_DEFAULT, "Cannot rename when device is disconnected", &v21, 2u);
+      _os_log_impl(&dword_251143000, v18, OS_LOG_TYPE_DEFAULT, "Cannot rename when device is disconnected", &v21, 2u);
     }
 
     activeKeyboard = [MEMORY[0x277D75658] activeKeyboard];
     [activeKeyboard setReturnKeyEnabled:0];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return connected;
+  return v12;
 }
 
 @end

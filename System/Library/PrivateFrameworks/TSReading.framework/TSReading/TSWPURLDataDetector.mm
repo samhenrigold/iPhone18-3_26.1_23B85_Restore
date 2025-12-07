@@ -60,7 +60,7 @@
   for (; length; --length)
   {
     v8 = [string characterAtIndex:location];
-    if (([objc_msgSend(MEMORY[0x277CCA900] "whitespaceAndNewlineCharacterSet")] & 1) == 0 && (IsParagraphBreakingCharacter(v8) & 1) == 0 && !IsSpecialCharacter(v8))
+    if (([objc_msgSend(MEMORY[0x277CCA900] "whitespaceAndNewlineCharacterSet")] & 1) == 0 && (IsParagraphBreakingCharacter(v8, v9) & 1) == 0 && !IsSpecialCharacter(v8))
     {
       break;
     }
@@ -68,10 +68,10 @@
     ++location;
   }
 
-  v9 = location;
-  v10 = length;
-  result.length = v10;
-  result.location = v9;
+  v10 = location;
+  v11 = length;
+  result.length = v11;
+  result.location = v10;
   return result;
 }
 

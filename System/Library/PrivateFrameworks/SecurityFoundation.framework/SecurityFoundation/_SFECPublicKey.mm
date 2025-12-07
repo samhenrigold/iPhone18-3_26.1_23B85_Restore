@@ -29,32 +29,30 @@
   error[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   keySpecifier = [(_SFKey *)self keySpecifier];
-  v6 = (24 * *CCCurveParameters([keySpecifier curve]) + 31) & 0xFFFFFFFFFFFFFFF0;
+  CCCurveParameters([keySpecifier curve]);
   MEMORY[0x28223BE20]();
-  v8 = error - v7;
+  v7 = error - v6;
   error[0] = 0;
-  v9 = SecKeyCopyExternalRepresentation(*(self->super._publicKeyInternal + 1), error);
-  v10 = error[0];
-  if (-[__CFData length](v9, "length") && ccec_x963_import_pub_size() && (-[_SFKey keySpecifier](self, "keySpecifier"), v11 = objc_claimAutoreleasedReturnValue(), CCCurveParameters([v11 curve]), -[__CFData length](v9, "length"), -[__CFData bytes](v9, "bytes"), v12 = ccec_x963_import_pub(), v11, !v12))
+  v8 = SecKeyCopyExternalRepresentation(*(self->super._publicKeyInternal + 1), error);
+  v9 = error[0];
+  if (-[__CFData length](v8, "length") && ccec_x963_import_pub_size() && (-[_SFKey keySpecifier](self, "keySpecifier"), v10 = objc_claimAutoreleasedReturnValue(), CCCurveParameters([v10 curve]), -[__CFData length](v8, "length"), -[__CFData bytes](v8, "bytes"), v11 = ccec_x963_import_pub(), v10, !v11))
   {
-    v13 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v13 = v10;
-    if (!v10)
+    v12 = v9;
+    if (!v9)
     {
-      v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SFKeychainErrorDomain" code:2 userInfo:0];
-      v10 = v13;
+      v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SFKeychainErrorDomain" code:2 userInfo:0];
+      v9 = v12;
     }
   }
 
-  v14 = keyCopy[2](keyCopy, v8, v13);
+  v13 = keyCopy[2](keyCopy, v7, v12);
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v13;
 }
 
 - (id)encodeSubjectPublicKeyInfo

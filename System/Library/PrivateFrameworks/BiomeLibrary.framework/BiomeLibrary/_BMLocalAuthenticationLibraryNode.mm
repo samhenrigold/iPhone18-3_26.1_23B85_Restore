@@ -7,14 +7,12 @@
 
 + (id)sublibraries
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   interactive = [self Interactive];
-  v8[0] = interactive;
+  v7[0] = interactive;
   v4 = [self UI];
-  v8[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
 
   return v5;
 }

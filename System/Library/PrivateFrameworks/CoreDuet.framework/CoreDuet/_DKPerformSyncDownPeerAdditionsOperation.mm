@@ -8,8 +8,10 @@
 - (void)endOperation;
 - (void)handleFetchedEvents:(void *)events completedWindows:(void *)windows missingWindows:;
 - (void)main;
+- (void)performSyncDownPeerAdditions;
 - (void)performSyncDownPeerAdditionsWithCompletedWindows:(uint64_t)windows;
 - (void)performSyncDownPeerAdditionsWithDidPrewarm:(void *)prewarm orError:;
+- (void)performSyncDownPeerAdditionsWithHighWaterMark:(uint64_t)mark orError:(uint64_t)error;
 - (void)updateEvents:(void *)events withSourceDeviceID:;
 @end
 
@@ -27,7 +29,7 @@
   else
   {
 
-    [(_DKPerformSyncDownPeerAdditionsOperation *)self performSyncDownPeerAdditions];
+    [(_DKPerformSyncDownPeerAdditionsOperation *)self performSyncDownPeerAdditions:v4];
   }
 }
 
@@ -122,7 +124,7 @@
 
 + (void)_updateEventStatsWithTotal:(void *)total streamNameCounts:(uint64_t)counts transportType:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   totalCopy = total;
   objc_opt_self();
   if (_updateEventStatsWithTotal_streamNameCounts_transportType__syncDownAdditionsCounterInitialized != -1)
@@ -142,26 +144,26 @@
   }
 
   [(_DKEventTypeStatsCounter *)_updateEventStatsWithTotal_streamNameCounts_transportType__syncDownAdditionsTotalByTransportCounter incrementCountByNumber:a2 typeValue:v7];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = totalCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = [_updateEventStatsWithTotal_streamNameCounts_transportType__syncDownAdditionsCountersByStreamName objectForKeyedSubscript:v13];
         if (!v14)
         {
@@ -176,13 +178,11 @@
         -[_DKEventStatsCounter incrementCountByNumber:](v14, [v8 countForObject:v13]);
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endOperation
@@ -223,9 +223,113 @@
   return v18;
 }
 
+- (void)performSyncDownPeerAdditions
+{
+  OUTLINED_FUNCTION_28_3();
+  a34 = v35;
+  a35 = v37;
+  a23 = *MEMORY[0x1E69E9840];
+  if (v36)
+  {
+    v38 = v36;
+    v39 = +[_DKSyncSerializer underlyingQueue];
+    dispatch_assert_queue_V2(v39);
+
+    v40 = [*(v38 + 320) streamNamesToSyncWithSyncType:*(v38 + 328) transportType:{objc_msgSend(OUTLINED_FUNCTION_16_5(), "transportType")}];
+    v41 = *(v38 + 336);
+    *(v38 + 336) = v40;
+
+    if ([*(v38 + 336) count])
+    {
+      v42 = *(v38 + 296);
+      v43 = *(v38 + 312);
+      name = [OUTLINED_FUNCTION_16_5() name];
+      v45 = [v42 additionsSyncHistoryForPeer:v43 transportName:name error:0];
+      v46 = *(v38 + 352);
+      *(v38 + 352) = v45;
+
+      v47 = objc_opt_class();
+      if ([_DKSync2Coordinator canPerformSyncOperationWithClass:v47 syncType:*(v38 + 328) history:*(v38 + 352) transport:*(v38 + 304) peer:*(v38 + 312) policy:*(v38 + 320)])
+      {
+        v48 = OUTLINED_FUNCTION_16_5();
+        a10 = MEMORY[0x1E69E9820];
+        a11 = 3221225472;
+        a12 = __72___DKPerformSyncDownPeerAdditionsOperation_performSyncDownPeerAdditions__block_invoke;
+        a13 = &unk_1E73675F8;
+        a14 = v38;
+        [v48 prewarmFetchWithCompletion:&a10];
+        goto LABEL_8;
+      }
+    }
+
+    else
+    {
+      v49 = +[_CDLogging syncChannel];
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+      {
+        v50 = [objc_opt_class() description];
+        if ([OUTLINED_FUNCTION_16_5() transportType] == 8)
+        {
+          v51 = "up to";
+        }
+
+        else
+        {
+          v51 = "down from";
+        }
+
+        model2 = &OBJC_IVAR____DKSync2Coordinator__periodicJobInterval;
+        v53 = &stru_1F05B9908;
+        if ([OUTLINED_FUNCTION_20_7() me])
+        {
+          v54 = @"pseudo ";
+        }
+
+        else
+        {
+          v54 = &stru_1F05B9908;
+        }
+
+        identifier = [OUTLINED_FUNCTION_20_7() identifier];
+        model = [OUTLINED_FUNCTION_20_7() model];
+        if (model)
+        {
+          v57 = MEMORY[0x1E696AEC0];
+          model2 = [OUTLINED_FUNCTION_20_7() model];
+          v53 = [v57 stringWithFormat:@" (%@)"];
+        }
+
+        name2 = [OUTLINED_FUNCTION_16_5() name];
+        LODWORD(a15) = 138544642;
+        *(&a15 + 4) = v50;
+        WORD6(a15) = 2082;
+        *(&a15 + 14) = v51;
+        a18 = 2114;
+        a19 = v54;
+        LOWORD(a20) = 2114;
+        *(&a20 + 2) = identifier;
+        WORD5(a20) = 2114;
+        *(&a20 + 12) = v53;
+        WORD2(a21) = 2114;
+        *(&a21 + 6) = name2;
+        OUTLINED_FUNCTION_15_0(&dword_191750000, v49, v59, "%{public}@: Skipped fetching additions sync %{public}s %{public}@peer %{public}@%{public}@ on transport %{public}@ due to no streams to sync", &a15);
+
+        if (model)
+        {
+        }
+      }
+    }
+
+    [v38 endOperation];
+  }
+
+LABEL_8:
+  OUTLINED_FUNCTION_29_2();
+}
+
 - (void)performSyncDownPeerAdditionsWithDidPrewarm:(void *)prewarm orError:
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   prewarmCopy = prewarm;
   if (self)
   {
@@ -248,51 +352,51 @@ LABEL_9:
       errors = +[_CDLogging syncChannel];
       if (os_log_type_enabled(errors, OS_LOG_TYPE_DEBUG))
       {
-        v29 = [objc_opt_class() description];
+        v28 = [objc_opt_class() description];
         if ([OUTLINED_FUNCTION_7_9() transportType] == 8)
         {
-          v14 = "up to";
+          v13 = "up to";
         }
 
         else
         {
-          v14 = "down from";
+          v13 = "down from";
         }
 
-        v15 = &stru_1F05B9908;
+        v14 = &stru_1F05B9908;
         if ([OUTLINED_FUNCTION_0_26() me])
         {
-          v16 = @"pseudo ";
+          v15 = @"pseudo ";
         }
 
         else
         {
-          v16 = &stru_1F05B9908;
+          v15 = &stru_1F05B9908;
         }
 
         identifier = [OUTLINED_FUNCTION_0_26() identifier];
         model = [OUTLINED_FUNCTION_0_26() model];
         if (model)
         {
-          v18 = MEMORY[0x1E696AEC0];
+          v17 = MEMORY[0x1E696AEC0];
           model2 = [OUTLINED_FUNCTION_0_26() model];
-          v15 = [v18 stringWithFormat:@" (%@)", model2];
+          v14 = [v17 stringWithFormat:@" (%@)", model2];
         }
 
         name = [OUTLINED_FUNCTION_7_9() name];
         *buf = 138544642;
-        v33 = v29;
-        v34 = 2082;
-        v35 = v14;
-        v36 = 2114;
-        v37 = v16;
-        v38 = 2114;
-        v39 = identifier;
-        v40 = 2114;
-        v41 = v15;
-        v42 = 2114;
-        v43 = name;
-        OUTLINED_FUNCTION_15_0(&dword_191750000, errors, v20, "%{public}@: Skipping fetching additions sync %{public}s %{public}@peer %{public}@%{public}@ on transport %{public}@ due to no changes to sync", buf);
+        v32 = v28;
+        v33 = 2082;
+        v34 = v13;
+        v35 = 2114;
+        v36 = v15;
+        v37 = 2114;
+        v38 = identifier;
+        v39 = 2114;
+        v40 = v14;
+        v41 = 2114;
+        v42 = name;
+        OUTLINED_FUNCTION_15_0(&dword_191750000, errors, v19, "%{public}@: Skipping fetching additions sync %{public}s %{public}@peer %{public}@%{public}@ on transport %{public}@ due to no changes to sync", buf);
 
         if (model)
         {
@@ -305,38 +409,38 @@ LABEL_9:
     v9 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v30 = [objc_opt_class() description];
-      v21 = &stru_1F05B9908;
+      v29 = [objc_opt_class() description];
+      v20 = &stru_1F05B9908;
       if ([OUTLINED_FUNCTION_0_26() me])
       {
-        v22 = @"pseudo ";
+        v21 = @"pseudo ";
       }
 
       else
       {
-        v22 = &stru_1F05B9908;
+        v21 = &stru_1F05B9908;
       }
 
       identifier2 = [OUTLINED_FUNCTION_0_26() identifier];
       model3 = [OUTLINED_FUNCTION_0_26() model];
       if (model3)
       {
-        v25 = MEMORY[0x1E696AEC0];
+        v24 = MEMORY[0x1E696AEC0];
         model4 = [OUTLINED_FUNCTION_0_26() model];
-        v21 = [v25 stringWithFormat:@" (%@)", model4];
+        v20 = [v24 stringWithFormat:@" (%@)", model4];
       }
 
       name2 = [OUTLINED_FUNCTION_7_9() name];
       *buf = 138544386;
-      v33 = v30;
-      v34 = 2114;
-      v35 = v22;
-      v36 = 2114;
-      v37 = identifier2;
-      v38 = 2114;
-      v39 = v21;
-      v40 = 2114;
-      v41 = name2;
+      v32 = v29;
+      v33 = 2114;
+      v34 = v21;
+      v35 = 2114;
+      v36 = identifier2;
+      v37 = 2114;
+      v38 = v20;
+      v39 = 2114;
+      v40 = name2;
       _os_log_debug_impl(&dword_191750000, v9, OS_LOG_TYPE_DEBUG, "%{public}@: Performing sync down of additions from %{public}@peer %{public}@%{public}@ on transport %{public}@", buf, 0x34u);
 
       if (model3)
@@ -347,22 +451,118 @@ LABEL_9:
     v10 = OUTLINED_FUNCTION_7_9();
     v11 = *(self + 312);
     v12 = *(self + 344);
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __95___DKPerformSyncDownPeerAdditionsOperation_performSyncDownPeerAdditionsWithDidPrewarm_orError___block_invoke;
-    v31[3] = &unk_1E7369B88;
-    v31[4] = self;
-    [v10 fetchAdditionsHighWaterMarkWithPeer:v11 highPriority:v12 completion:v31];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __95___DKPerformSyncDownPeerAdditionsOperation_performSyncDownPeerAdditionsWithDidPrewarm_orError___block_invoke;
+    v30[3] = &unk_1E7369B88;
+    v30[4] = self;
+    [v10 fetchAdditionsHighWaterMarkWithPeer:v11 highPriority:v12 completion:v30];
   }
 
 LABEL_10:
+}
 
-  v13 = *MEMORY[0x1E69E9840];
+- (void)performSyncDownPeerAdditionsWithHighWaterMark:(uint64_t)mark orError:(uint64_t)error
+{
+  OUTLINED_FUNCTION_28_3();
+  a34 = v35;
+  a35 = v36;
+  v38 = v37;
+  v40 = v39;
+  v42 = v41;
+  a23 = *MEMORY[0x1E69E9840];
+  v43 = v39;
+  v44 = v38;
+  v45 = v44;
+  if (v42)
+  {
+    if (v44)
+    {
+      errors = [v42 errors];
+      [errors addObject:v45];
+    }
+
+    else
+    {
+      if (v43)
+      {
+        distantPast = [MEMORY[0x1E695DF00] distantPast];
+        v48 = [v43 isEqualToDate:distantPast];
+
+        if ((v48 & 1) == 0)
+        {
+          objc_storeStrong((v42 + 376), v40);
+          [(_DKPerformSyncDownPeerAdditionsOperation *)v42 performSyncDownPeerAdditionsWithCompletedWindows:?];
+          goto LABEL_9;
+        }
+      }
+
+      v49 = +[_CDLogging syncChannel];
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+      {
+        v62 = [objc_opt_class() description];
+        transportType = [*(v42 + 304) transportType];
+        v51 = "down from";
+        if (transportType == 8)
+        {
+          v51 = "up to";
+        }
+
+        v61 = v51;
+        v52 = [OUTLINED_FUNCTION_27_3() me];
+        v53 = &stru_1F05B9908;
+        v54 = @"pseudo ";
+        if (!v52)
+        {
+          v54 = &stru_1F05B9908;
+        }
+
+        v60 = v54;
+        identifier = [OUTLINED_FUNCTION_27_3() identifier];
+        model = [OUTLINED_FUNCTION_27_3() model];
+        if (model)
+        {
+          v57 = MEMORY[0x1E696AEC0];
+          [OUTLINED_FUNCTION_27_3() model];
+          objc_claimAutoreleasedReturnValue();
+          OUTLINED_FUNCTION_21_7();
+          v53 = [v57 stringWithFormat:@" (%@)"];
+        }
+
+        name = [*(v42 + 304) name];
+        LODWORD(a15) = 138544642;
+        *(&a15 + 4) = v62;
+        WORD6(a15) = 2082;
+        *(&a15 + 14) = v61;
+        a18 = 2114;
+        a19 = v60;
+        LOWORD(a20) = 2114;
+        *(&a20 + 2) = identifier;
+        WORD5(a20) = 2114;
+        *(&a20 + 12) = v53;
+        WORD2(a21) = 2114;
+        *(&a21 + 6) = name;
+        OUTLINED_FUNCTION_15_0(&dword_191750000, v49, v59, "%{public}@: Will not attempt additions sync %{public}s %{public}@peer %{public}@%{public}@ on transport %{public}@ because peer has not yet synced", &a15);
+
+        if (model)
+        {
+        }
+      }
+
+      [*(v42 + 304) setHasAdditionsFlag:0 forPeer:*(v42 + 312)];
+    }
+
+    [v42 endOperation];
+  }
+
+LABEL_9:
+
+  OUTLINED_FUNCTION_29_2();
 }
 
 - (void)performSyncDownPeerAdditionsWithCompletedWindows:(uint64_t)windows
 {
-  v166 = *MEMORY[0x1E69E9840];
+  v165 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (windows)
   {
@@ -376,24 +576,24 @@ LABEL_10:
         goto LABEL_7;
       }
 
-      v145 = v3;
+      v144 = v3;
       v7 = [objc_opt_class() description];
       [*(windows + 304) transportType];
-      v143 = &stru_1F05B9908;
+      v142 = &stru_1F05B9908;
       [OUTLINED_FUNCTION_9_9() me];
       identifier = [OUTLINED_FUNCTION_9_9() identifier];
       model = [OUTLINED_FUNCTION_9_9() model];
       if (model)
       {
-        v66 = MEMORY[0x1E696AEC0];
+        v65 = MEMORY[0x1E696AEC0];
         model2 = [*(windows + 312) model];
-        v143 = [v66 stringWithFormat:@" (%@)", model2];
+        v142 = [v65 stringWithFormat:@" (%@)", model2];
       }
 
       name = [*(windows + 304) name];
       dk_localtimeString = [(NSDate *)*(windows + 376) dk_localtimeString];
       OUTLINED_FUNCTION_1_21();
-      v69 = "%{public}@: Will attempt another additions sync %{public}s %{public}@peer %{public}@%{public}@ on transport %{public}@ with high water mark %{public}@";
+      v68 = "%{public}@: Will attempt another additions sync %{public}s %{public}@peer %{public}@%{public}@ on transport %{public}@ with high water mark %{public}@";
     }
 
     else
@@ -403,33 +603,33 @@ LABEL_10:
         goto LABEL_7;
       }
 
-      v145 = 0;
+      v144 = 0;
       v7 = [objc_opt_class() description];
       [*(windows + 304) transportType];
-      v143 = &stru_1F05B9908;
+      v142 = &stru_1F05B9908;
       [OUTLINED_FUNCTION_9_9() me];
       identifier = [OUTLINED_FUNCTION_9_9() identifier];
       model = [OUTLINED_FUNCTION_9_9() model];
       if (model)
       {
-        v85 = MEMORY[0x1E696AEC0];
+        v84 = MEMORY[0x1E696AEC0];
         model2 = [*(windows + 312) model];
-        v143 = [v85 stringWithFormat:@" (%@)", model2];
+        v142 = [v84 stringWithFormat:@" (%@)", model2];
       }
 
       name = [*(windows + 304) name];
       dk_localtimeString = [(NSDate *)*(windows + 376) dk_localtimeString];
       OUTLINED_FUNCTION_1_21();
-      v69 = "%{public}@: Will attempt additions sync %{public}s %{public}@peer %{public}@%{public}@ on transport %{public}@ with high water mark %{public}@";
+      v68 = "%{public}@: Will attempt additions sync %{public}s %{public}@peer %{public}@%{public}@ on transport %{public}@ with high water mark %{public}@";
     }
 
-    _os_log_debug_impl(&dword_191750000, v4, OS_LOG_TYPE_DEBUG, v69, buf, 0x48u);
+    _os_log_debug_impl(&dword_191750000, v4, OS_LOG_TYPE_DEBUG, v68, buf, 0x48u);
 
     if (model)
     {
     }
 
-    v3 = v145;
+    v3 = v144;
     v6 = &OBJC_IVAR____DKSync2Coordinator__periodicJobInterval;
 LABEL_7:
 
@@ -446,53 +646,53 @@ LABEL_7:
     [v15 timeIntervalSinceReferenceDate];
     v17 = v16;
     [v14 timeIntervalSinceReferenceDate];
-    v144 = v15;
-    v146 = v14;
+    v143 = v15;
+    v145 = v14;
     if (v17 - v18 < [*(windows + 320) minSyncWindowInSeconds])
     {
       v19 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        v142 = [objc_opt_class() description];
-        dk_localtimeString2 = [(NSDate *)v146 dk_localtimeString];
+        v141 = [objc_opt_class() description];
+        dk_localtimeString2 = [(NSDate *)v145 dk_localtimeString];
         dk_localtimeString3 = [(NSDate *)v15 dk_localtimeString];
-        v61 = [OUTLINED_FUNCTION_0_26() me];
-        v126 = &stru_1F05B9908;
-        v63 = @"pseudo ";
-        if (!v61)
+        v60 = [OUTLINED_FUNCTION_0_26() me];
+        v125 = &stru_1F05B9908;
+        v62 = @"pseudo ";
+        if (!v60)
         {
-          v63 = &stru_1F05B9908;
+          v62 = &stru_1F05B9908;
         }
 
-        dk_localtimeString4 = v63;
+        dk_localtimeString4 = v62;
         identifier2 = [OUTLINED_FUNCTION_0_26() identifier];
         model3 = [OUTLINED_FUNCTION_0_26() model];
         if (model3)
         {
-          v80 = MEMORY[0x1E696AEC0];
+          v79 = MEMORY[0x1E696AEC0];
           model4 = [OUTLINED_FUNCTION_0_26() model];
-          v126 = [v80 stringWithFormat:@" (%@)", model4];
+          v125 = [v79 stringWithFormat:@" (%@)", model4];
         }
 
         *buf = 138544642;
         OUTLINED_FUNCTION_12_5();
-        v153 = dk_localtimeString2;
+        v152 = dk_localtimeString2;
+        v153 = v80;
         v154 = v81;
-        v155 = v82;
-        v156 = v81;
+        v155 = v80;
         OUTLINED_FUNCTION_22_5();
-        v159 = identifier2;
-        v160 = v83;
-        v161 = v126;
-        OUTLINED_FUNCTION_15_0(&dword_191750000, v19, v84, "%{public}@: No more missing additions windows found between %{public}@ and %{public}@ for %{public}@peer %{public}@%{public}@", buf);
+        v158 = identifier2;
+        v159 = v82;
+        v160 = v125;
+        OUTLINED_FUNCTION_15_0(&dword_191750000, v19, v83, "%{public}@: No more missing additions windows found between %{public}@ and %{public}@ for %{public}@peer %{public}@%{public}@", buf);
         if (model3)
         {
         }
       }
 
-      v141 = 0;
+      v140 = 0;
       v20 = 0;
-      v14 = v146;
+      v14 = v145;
       if (![0 count])
       {
         goto LABEL_39;
@@ -505,7 +705,7 @@ LABEL_7:
     if (v21)
     {
       v22 = [_DKSyncWindow sortedUnionOfSortedWindows:v21 andSortedWindows:v3];
-      v141 = 0;
+      v140 = 0;
       v23 = *(windows + 392);
       *(windows + 392) = v22;
     }
@@ -514,16 +714,16 @@ LABEL_7:
     {
       v24 = *(windows + 296);
       v25 = *(windows + v6[959]);
-      v149 = 0;
-      v26 = [v24 sortedSyncDownWindowsOverlappingBetweenDate:v14 andDate:v15 peer:v25 error:&v149];
-      v27 = v149;
+      v148 = 0;
+      v26 = [v24 sortedSyncDownWindowsOverlappingBetweenDate:v14 andDate:v15 peer:v25 error:&v148];
+      v27 = v148;
       v28 = *(windows + 392);
       *(windows + 392) = v26;
 
-      v141 = v27;
+      v140 = v27;
       if (!v27)
       {
-        v141 = 0;
+        v140 = 0;
 LABEL_18:
         v29 = *(windows + 392);
         if (!v29)
@@ -540,11 +740,11 @@ LABEL_18:
         {
           if (v32)
           {
-            v136 = [objc_opt_class() description];
+            v135 = [objc_opt_class() description];
             [v20 count];
-            v131 = [OUTLINED_FUNCTION_5_1() numberWithUnsignedInteger:?];
+            v130 = [OUTLINED_FUNCTION_5_1() numberWithUnsignedInteger:?];
             [OUTLINED_FUNCTION_23_4() count];
-            v127 = [OUTLINED_FUNCTION_5_1() numberWithUnsignedInteger:?];
+            v126 = [OUTLINED_FUNCTION_5_1() numberWithUnsignedInteger:?];
             dk_localtimeString4 = [(NSDate *)v14 dk_localtimeString];
             dk_localtimeString5 = [(NSDate *)v15 dk_localtimeString];
             v33 = [OUTLINED_FUNCTION_3_18() me];
@@ -555,96 +755,96 @@ LABEL_18:
               v35 = &stru_1F05B9908;
             }
 
-            v120 = v35;
+            v119 = v35;
             identifier3 = [OUTLINED_FUNCTION_3_18() identifier];
             model5 = [OUTLINED_FUNCTION_3_18() model];
             if (model5)
             {
-              v96 = MEMORY[0x1E696AEC0];
+              v95 = MEMORY[0x1E696AEC0];
               [OUTLINED_FUNCTION_3_18() model];
               objc_claimAutoreleasedReturnValue();
               OUTLINED_FUNCTION_21_7();
-              v34 = [v96 stringWithFormat:@" (%@)"];
+              v34 = [v95 stringWithFormat:@" (%@)"];
             }
 
             OUTLINED_FUNCTION_17_8();
+            v152 = v96;
             v153 = v97;
-            v154 = v98;
-            v155 = v127;
-            v156 = 2114;
+            v154 = v126;
+            v155 = 2114;
             OUTLINED_FUNCTION_22_5();
-            v159 = dk_localtimeString5;
-            v160 = v99;
-            v161 = v120;
-            v162 = v99;
-            v163 = identifier3;
-            v164 = v99;
-            v165 = v34;
+            v158 = dk_localtimeString5;
+            v159 = v98;
+            v160 = v119;
+            v161 = v98;
+            v162 = identifier3;
+            v163 = v98;
+            v164 = v34;
             OUTLINED_FUNCTION_11_8();
-            _os_log_debug_impl(v100, v101, v102, v103, v104, 0x52u);
+            _os_log_debug_impl(v99, v100, v101, v102, v103, 0x52u);
             if (model5)
             {
             }
 
-            v105 = dk_localtimeString4;
+            v104 = dk_localtimeString4;
 LABEL_98:
           }
         }
 
         else if (v32)
         {
-          v140 = [objc_opt_class() description];
+          v139 = [objc_opt_class() description];
           [OUTLINED_FUNCTION_23_4() count];
           dk_localtimeString4 = [OUTLINED_FUNCTION_5_1() numberWithUnsignedInteger:?];
           dk_localtimeString6 = [(NSDate *)v14 dk_localtimeString];
           dk_localtimeString7 = [(NSDate *)v15 dk_localtimeString];
-          v89 = [OUTLINED_FUNCTION_3_18() me];
-          v119 = &stru_1F05B9908;
-          v91 = @"pseudo ";
-          if (!v89)
+          v88 = [OUTLINED_FUNCTION_3_18() me];
+          v118 = &stru_1F05B9908;
+          v90 = @"pseudo ";
+          if (!v88)
           {
-            v91 = &stru_1F05B9908;
+            v90 = &stru_1F05B9908;
           }
 
-          v122 = v91;
+          v121 = v90;
           identifier4 = [OUTLINED_FUNCTION_3_18() identifier];
           model6 = [OUTLINED_FUNCTION_3_18() model];
           if (model6)
           {
-            v110 = MEMORY[0x1E696AEC0];
+            v109 = MEMORY[0x1E696AEC0];
             model7 = [OUTLINED_FUNCTION_3_18() model];
-            v119 = [v110 stringWithFormat:@" (%@)", model7];
+            v118 = [v109 stringWithFormat:@" (%@)", model7];
           }
 
           OUTLINED_FUNCTION_17_8();
-          v153 = dk_localtimeString4;
-          v154 = 2114;
-          v155 = v111;
-          v156 = 2114;
+          v152 = dk_localtimeString4;
+          v153 = 2114;
+          v154 = v110;
+          v155 = 2114;
           OUTLINED_FUNCTION_22_5();
-          v159 = v122;
-          v160 = v112;
-          v161 = identifier4;
-          v162 = v112;
-          v163 = v119;
+          v158 = v121;
+          v159 = v111;
+          v160 = identifier4;
+          v161 = v111;
+          v162 = v118;
           OUTLINED_FUNCTION_11_8();
-          _os_log_debug_impl(v113, v114, v115, v116, v117, 0x48u);
+          _os_log_debug_impl(v112, v113, v114, v115, v116, 0x48u);
           if (model6)
           {
           }
 
-          v105 = dk_localtimeString6;
+          v104 = dk_localtimeString6;
           goto LABEL_98;
         }
 
 LABEL_28:
         if (![v20 count])
         {
-          v53 = v141;
-          if (v141)
+          v53 = v140;
+          if (v140)
           {
             errors = [windows errors];
-            [errors addObject:v141];
+            [errors addObject:v140];
 
 LABEL_43:
             if ([*(windows + 304) transportType] != 1)
@@ -667,16 +867,16 @@ LABEL_39:
               v56 = [v55 count];
               if (v56 > [*(windows + 352) lastDaySyncCount] + *(windows + 384) + 100)
               {
-                v93 = +[_CDLogging syncChannel];
-                if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
+                v92 = +[_CDLogging syncChannel];
+                if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
                 {
-                  v94 = [objc_opt_class() description];
-                  v95 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(OUTLINED_FUNCTION_23_4(), "count")}];
+                  v93 = [objc_opt_class() description];
+                  v94 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(OUTLINED_FUNCTION_23_4(), "count")}];
                   *buf = 138543618;
-                  v151 = v94;
-                  v152 = 2112;
-                  v153 = v95;
-                  _os_log_debug_impl(&dword_191750000, v93, OS_LOG_TYPE_DEBUG, "%{public}@: Coalescing (%@) redundant overlapping windows", buf, 0x16u);
+                  v150 = v93;
+                  v151 = 2112;
+                  v152 = v94;
+                  _os_log_debug_impl(&dword_191750000, v92, OS_LOG_TYPE_DEBUG, "%{public}@: Coalescing (%@) redundant overlapping windows", buf, 0x16u);
                 }
 
                 [(_DKPerformSyncDownPeerAdditionsOperation *)windows coalesceRedundantOverlappingWindows];
@@ -716,47 +916,47 @@ LABEL_29:
         v45 = +[_CDLogging syncChannel];
         if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
         {
-          v137 = [objc_opt_class() description];
+          v136 = [objc_opt_class() description];
           if ([OUTLINED_FUNCTION_25_3() me])
           {
-            v58 = @"pseudo ";
+            v57 = @"pseudo ";
           }
 
           else
           {
-            v58 = &stru_1F05B9908;
+            v57 = &stru_1F05B9908;
           }
 
           identifier5 = [OUTLINED_FUNCTION_25_3() identifier];
           model8 = [OUTLINED_FUNCTION_25_3() model];
           if (model8)
           {
-            v70 = MEMORY[0x1E696AEC0];
+            v69 = MEMORY[0x1E696AEC0];
             dk_localtimeString4 = [OUTLINED_FUNCTION_25_3() model];
-            v130 = [v70 stringWithFormat:@" (%@)", dk_localtimeString4];
+            v129 = [v69 stringWithFormat:@" (%@)", dk_localtimeString4];
           }
 
           else
           {
-            v130 = &stru_1F05B9908;
+            v129 = &stru_1F05B9908;
           }
 
           [v20 count];
-          v71 = [OUTLINED_FUNCTION_5_1() numberWithUnsignedInteger:?];
-          v72 = _DKSyncLoggingWindowsDescription(v20);
+          v70 = [OUTLINED_FUNCTION_5_1() numberWithUnsignedInteger:?];
+          v71 = _DKSyncLoggingWindowsDescription(v20);
           *buf = 138544642;
           OUTLINED_FUNCTION_12_5();
-          v153 = v58;
-          v154 = v73;
-          v155 = identifier5;
-          v156 = v73;
-          v157 = v130;
-          v158 = 2112;
-          v159 = v71;
+          v152 = v57;
+          v153 = v72;
+          v154 = identifier5;
+          v155 = v72;
+          v156 = v129;
+          v157 = 2112;
+          v158 = v70;
+          v159 = v72;
           v160 = v73;
-          v161 = v74;
           OUTLINED_FUNCTION_11_8();
-          _os_log_debug_impl(v75, v76, v77, v78, v79, 0x3Eu);
+          _os_log_debug_impl(v74, v75, v76, v77, v78, 0x3Eu);
 
           if (model8)
           {
@@ -781,40 +981,40 @@ LABEL_29:
 
         v51 = *(windows + 336);
         v52 = *(windows + 344);
-        v147[0] = MEMORY[0x1E69E9820];
-        v147[1] = 3221225472;
-        v147[2] = &__93___DKPerformSyncDownPeerAdditionsOperation_performSyncDownPeerAdditionsWithCompletedWindows___block_invoke;
-        v147[3] = &unk_1E7369EC0;
-        v147[4] = windows;
+        v146[0] = MEMORY[0x1E69E9820];
+        v146[1] = 3221225472;
+        v146[2] = &__93___DKPerformSyncDownPeerAdditionsOperation_performSyncDownPeerAdditionsWithCompletedWindows___block_invoke;
+        v146[3] = &unk_1E7369EC0;
+        v146[4] = windows;
         v20 = v20;
-        v148 = v20;
-        [v48 fetchEventsFromPeer:v49 windows:v20 streamNames:v51 limit:syncBatchSizeInEvents fetchOrder:v50 highPriority:v52 completion:v147];
+        v147 = v20;
+        [v48 fetchEventsFromPeer:v49 windows:v20 streamNames:v51 limit:syncBatchSizeInEvents fetchOrder:v50 highPriority:v52 completion:v146];
 
         v3 = v42;
-        v14 = v146;
-        v53 = v141;
+        v14 = v145;
+        v53 = v140;
         goto LABEL_46;
       }
 
       v23 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v139 = [objc_opt_class() description];
-        v86 = [OUTLINED_FUNCTION_3_18() me];
-        v87 = @"pseudo ";
-        if (!v86)
+        v138 = [objc_opt_class() description];
+        v85 = [OUTLINED_FUNCTION_3_18() me];
+        v86 = @"pseudo ";
+        if (!v85)
         {
-          v87 = &stru_1F05B9908;
+          v86 = &stru_1F05B9908;
         }
 
-        v128 = v87;
+        v127 = v86;
         identifier6 = [OUTLINED_FUNCTION_3_18() identifier];
         model9 = [OUTLINED_FUNCTION_3_18() model];
         if (model9)
         {
-          v106 = MEMORY[0x1E696AEC0];
+          v105 = MEMORY[0x1E696AEC0];
           model10 = [OUTLINED_FUNCTION_3_18() model];
-          dk_localtimeString4 = [v106 stringWithFormat:@" (%@)", model10];
+          dk_localtimeString4 = [v105 stringWithFormat:@" (%@)", model10];
         }
 
         else
@@ -822,27 +1022,27 @@ LABEL_29:
           dk_localtimeString4 = &stru_1F05B9908;
         }
 
-        domain = [(__CFString *)v141 domain];
-        [(__CFString *)v141 code];
+        domain = [(__CFString *)v140 domain];
+        [(__CFString *)v140 code];
         *buf = 138544898;
         OUTLINED_FUNCTION_12_5();
-        v153 = v128;
-        v154 = v108;
-        v155 = identifier6;
-        v156 = v108;
+        v152 = v127;
+        v153 = v107;
+        v154 = identifier6;
+        v155 = v107;
         OUTLINED_FUNCTION_22_5();
-        v159 = domain;
-        v160 = 2048;
-        v161 = v109;
-        v162 = 2112;
-        v163 = v141;
+        v158 = domain;
+        v159 = 2048;
+        v160 = v108;
+        v161 = 2112;
+        v162 = v140;
         _os_log_error_impl(&dword_191750000, v23, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch overlapping additions windows for %{public}@peer %{public}@%{public}@: %{public}@:%lld (%@)", buf, 0x48u);
 
         if (model9)
         {
         }
 
-        v15 = v144;
+        v15 = v143;
       }
     }
 
@@ -850,13 +1050,11 @@ LABEL_29:
   }
 
 LABEL_47:
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleFetchedEvents:(void *)events completedWindows:(void *)windows missingWindows:
 {
-  v137 = *MEMORY[0x1E69E9840];
+  v136 = *MEMORY[0x1E69E9840];
   v7 = a2;
   eventsCopy = events;
   windowsCopy = windows;
@@ -877,7 +1075,7 @@ LABEL_47:
   v15 = v14;
   v16 = &OBJC_IVAR____DKSync2Coordinator__periodicJobInterval;
   v17 = "down from";
-  v116 = v12;
+  v115 = v12;
   if (v13)
   {
     if (!os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
@@ -885,12 +1083,12 @@ LABEL_47:
       goto LABEL_24;
     }
 
-    v101 = eventsCopy;
-    v111 = [objc_opt_class() description];
+    v100 = eventsCopy;
+    v110 = [objc_opt_class() description];
     [v12 count];
     v18 = [OUTLINED_FUNCTION_8_4() numberWithUnsignedInteger:?];
-    v96 = windowsCopy;
-    v106 = _DKSyncLoggingWindowsDescription(windowsCopy);
+    v95 = windowsCopy;
+    v105 = _DKSyncLoggingWindowsDescription(windowsCopy);
     if ([*(self + 304) transportType] == 8)
     {
       v19 = "up to";
@@ -925,11 +1123,11 @@ LABEL_47:
     name = [*(self + 304) name];
     OUTLINED_FUNCTION_13_6();
     OUTLINED_FUNCTION_2_17();
-    v126 = v32;
-    v127 = 2082;
-    v128 = v19;
-    v129 = v33;
-    v130 = v22;
+    v125 = v32;
+    v126 = 2082;
+    v127 = v19;
+    v128 = v33;
+    v129 = v22;
     OUTLINED_FUNCTION_8_10();
     _os_log_impl(&dword_191750000, v15, OS_LOG_TYPE_INFO, "%{public}@: Fetched %@ events in windows %{public}@ doing sync %{public}s %{public}@peer %{public}@%{public}@ on transport %{public}@", buf, 0x52u);
 
@@ -937,7 +1135,7 @@ LABEL_47:
     {
     }
 
-    v34 = v106;
+    v34 = v105;
   }
 
   else
@@ -947,12 +1145,12 @@ LABEL_47:
       goto LABEL_24;
     }
 
-    v101 = eventsCopy;
-    v107 = [objc_opt_class() description];
+    v100 = eventsCopy;
+    v106 = [objc_opt_class() description];
     [v12 count];
     v26 = [OUTLINED_FUNCTION_8_4() numberWithUnsignedInteger:?];
-    v96 = windowsCopy;
-    v112 = _DKSyncLoggingWindowsDescription(windowsCopy);
+    v95 = windowsCopy;
+    v111 = _DKSyncLoggingWindowsDescription(windowsCopy);
     if ([*(self + 304) transportType] == 8)
     {
       v17 = "up to";
@@ -973,22 +1171,22 @@ LABEL_47:
     model3 = [OUTLINED_FUNCTION_10_10() model];
     if (model3)
     {
-      v75 = MEMORY[0x1E696AEC0];
+      v74 = MEMORY[0x1E696AEC0];
       [OUTLINED_FUNCTION_10_10() model];
       objc_claimAutoreleasedReturnValue();
       OUTLINED_FUNCTION_21_7();
-      v27 = [v75 stringWithFormat:@" (%@)"];
+      v27 = [v74 stringWithFormat:@" (%@)"];
     }
 
     name2 = [*(self + 304) name];
     *buf = 138545154;
-    v122 = v107;
+    v121 = v106;
     OUTLINED_FUNCTION_2_17();
-    v126 = v77;
-    v127 = 2082;
-    v128 = v17;
-    v129 = v78;
-    v130 = v28;
+    v125 = v76;
+    v126 = 2082;
+    v127 = v17;
+    v128 = v77;
+    v129 = v28;
     OUTLINED_FUNCTION_8_10();
     _os_log_debug_impl(&dword_191750000, v15, OS_LOG_TYPE_DEBUG, "%{public}@: Fetched %@ events in windows %{public}@ doing sync %{public}s %{public}@peer %{public}@%{public}@ on transport %{public}@", buf, 0x52u);
 
@@ -996,12 +1194,12 @@ LABEL_47:
     {
     }
 
-    v34 = v112;
+    v34 = v111;
   }
 
-  windowsCopy = v96;
-  eventsCopy = v101;
-  v12 = v116;
+  windowsCopy = v95;
+  eventsCopy = v100;
+  v12 = v115;
   v16 = &OBJC_IVAR____DKSync2Coordinator__periodicJobInterval;
 LABEL_24:
 
@@ -1011,29 +1209,29 @@ LABEL_24:
     v46 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      v98 = windowsCopy;
-      v103 = eventsCopy;
-      v65 = [objc_opt_class() description];
+      v97 = windowsCopy;
+      v102 = eventsCopy;
+      v64 = [objc_opt_class() description];
       [v12 count];
-      v66 = [OUTLINED_FUNCTION_8_4() numberWithUnsignedInteger:?];
+      v65 = [OUTLINED_FUNCTION_8_4() numberWithUnsignedInteger:?];
       model5 = &OBJC_IVAR____DKSync2Coordinator__periodicJobInterval;
       [OUTLINED_FUNCTION_6_16() me];
       identifier3 = [OUTLINED_FUNCTION_6_16() identifier];
       model4 = [OUTLINED_FUNCTION_6_16() model];
       if (model4)
       {
-        v79 = MEMORY[0x1E696AEC0];
+        v78 = MEMORY[0x1E696AEC0];
         model5 = [OUTLINED_FUNCTION_6_16() model];
-        v70 = [v79 stringWithFormat:@" (%@)", model5];
+        v69 = [v78 stringWithFormat:@" (%@)", model5];
       }
 
       else
       {
-        v70 = &stru_1F05B9908;
+        v69 = &stru_1F05B9908;
       }
 
       *buf = 138544386;
-      v122 = v65;
+      v121 = v64;
       OUTLINED_FUNCTION_2_17();
       OUTLINED_FUNCTION_18_6();
       _os_log_error_impl(&dword_191750000, v46, OS_LOG_TYPE_ERROR, "%{public}@: Unable to save %@ events, missing device id in peer %{public}@peer %{public}@%{public}@", buf, 0x34u);
@@ -1041,9 +1239,9 @@ LABEL_24:
       {
       }
 
-      windowsCopy = v98;
-      eventsCopy = v103;
-      v12 = v116;
+      windowsCopy = v97;
+      eventsCopy = v102;
+      v12 = v115;
     }
 
     errors = [self errors];
@@ -1061,123 +1259,123 @@ LABEL_24:
   if ([v12 count])
   {
     *(self + 400) = 1;
-    [(_DKPerformSyncDownPeerAdditionsOperation *)self updateEvents:v116 withSourceDeviceID:sourceDeviceID];
-    v50 = *(self + 296);
-    v120 = 0;
-    v51 = [v50 saveEvents:v116 error:&v120];
-    v52 = v120;
-    v53 = +[_CDLogging syncChannel];
-    errors2 = v53;
-    if (v51)
+    [(_DKPerformSyncDownPeerAdditionsOperation *)self updateEvents:v115 withSourceDeviceID:sourceDeviceID];
+    v49 = *(self + 296);
+    v119 = 0;
+    v50 = [v49 saveEvents:v115 error:&v119];
+    v51 = v119;
+    v52 = +[_CDLogging syncChannel];
+    errors2 = v52;
+    if (v50)
     {
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
       {
-        v97 = windowsCopy;
-        v102 = eventsCopy;
-        v113 = [objc_opt_class() description];
-        [v116 count];
-        v108 = [OUTLINED_FUNCTION_8_4() numberWithUnsignedInteger:?];
-        v55 = [OUTLINED_FUNCTION_4_16() me];
-        v56 = &stru_1F05B9908;
-        v57 = @"pseudo ";
-        if (!v55)
+        v96 = windowsCopy;
+        v101 = eventsCopy;
+        v112 = [objc_opt_class() description];
+        [v115 count];
+        v107 = [OUTLINED_FUNCTION_8_4() numberWithUnsignedInteger:?];
+        v54 = [OUTLINED_FUNCTION_4_16() me];
+        v55 = &stru_1F05B9908;
+        v56 = @"pseudo ";
+        if (!v54)
         {
-          v57 = &stru_1F05B9908;
+          v56 = &stru_1F05B9908;
         }
 
-        v94 = v57;
+        v93 = v56;
         identifier4 = [OUTLINED_FUNCTION_4_16() identifier];
         model6 = [OUTLINED_FUNCTION_4_16() model];
         if (model6)
         {
-          v60 = MEMORY[0x1E696AEC0];
+          v59 = MEMORY[0x1E696AEC0];
           model7 = [OUTLINED_FUNCTION_4_16() model];
-          v56 = [v60 stringWithFormat:@" (%@)", model7];
+          v55 = [v59 stringWithFormat:@" (%@)", model7];
         }
 
-        v82 = _DKSyncLoggingWindowsDescription(v102);
+        v81 = _DKSyncLoggingWindowsDescription(v101);
         *buf = 138544642;
-        v122 = v113;
-        v123 = 2112;
-        v124 = v108;
-        v125 = 2114;
-        v126 = v94;
-        v127 = 2114;
-        v128 = identifier4;
-        v129 = 2114;
-        v130 = v56;
-        v131 = 2114;
-        v132 = v82;
+        v121 = v112;
+        v122 = 2112;
+        v123 = v107;
+        v124 = 2114;
+        v125 = v93;
+        v126 = 2114;
+        v127 = identifier4;
+        v128 = 2114;
+        v129 = v55;
+        v130 = 2114;
+        v131 = v81;
         _os_log_impl(&dword_191750000, errors2, OS_LOG_TYPE_INFO, "%{public}@: Saved %@ events from %{public}@peer %{public}@%{public}@ in windows %{public}@", buf, 0x3Eu);
         if (model6)
         {
         }
 
-        windowsCopy = v97;
-        eventsCopy = v102;
+        windowsCopy = v96;
+        eventsCopy = v101;
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
-        v100 = windowsCopy;
-        v105 = eventsCopy;
-        v115 = [objc_opt_class() description];
-        [v116 count];
-        v110 = [OUTLINED_FUNCTION_8_4() numberWithUnsignedInteger:?];
-        v83 = [OUTLINED_FUNCTION_4_16() me];
-        v84 = @"pseudo ";
-        if (!v83)
+        v99 = windowsCopy;
+        v104 = eventsCopy;
+        v114 = [objc_opt_class() description];
+        [v115 count];
+        v109 = [OUTLINED_FUNCTION_8_4() numberWithUnsignedInteger:?];
+        v82 = [OUTLINED_FUNCTION_4_16() me];
+        v83 = @"pseudo ";
+        if (!v82)
         {
-          v84 = &stru_1F05B9908;
+          v83 = &stru_1F05B9908;
         }
 
-        v95 = v84;
+        v94 = v83;
         identifier5 = [OUTLINED_FUNCTION_4_16() identifier];
         model8 = [OUTLINED_FUNCTION_4_16() model];
         if (model8)
         {
-          v88 = MEMORY[0x1E696AEC0];
+          v87 = MEMORY[0x1E696AEC0];
           model7 = [OUTLINED_FUNCTION_4_16() model];
-          v87 = [v88 stringWithFormat:@" (%@)", model7];
+          v86 = [v87 stringWithFormat:@" (%@)", model7];
         }
 
         else
         {
-          v87 = &stru_1F05B9908;
+          v86 = &stru_1F05B9908;
         }
 
-        domain = [v52 domain];
-        [v52 code];
+        domain = [v51 domain];
+        [v51 code];
         OUTLINED_FUNCTION_13_6();
-        v123 = 2112;
-        v124 = v90;
-        v125 = 2114;
-        v126 = v95;
-        v127 = 2114;
-        v128 = identifier5;
-        v129 = 2114;
-        v130 = v87;
-        v131 = 2114;
-        v132 = domain;
-        v133 = 2048;
-        v134 = v91;
-        v135 = 2112;
-        v136 = v52;
+        v122 = 2112;
+        v123 = v89;
+        v124 = 2114;
+        v125 = v94;
+        v126 = 2114;
+        v127 = identifier5;
+        v128 = 2114;
+        v129 = v86;
+        v130 = 2114;
+        v131 = domain;
+        v132 = 2048;
+        v133 = v90;
+        v134 = 2112;
+        v135 = v51;
         _os_log_error_impl(&dword_191750000, errors2, OS_LOG_TYPE_ERROR, "%{public}@: Failed while saving %@ events from %{public}@peer %{public}@%{public}@: %{public}@:%lld (%@)", buf, 0x52u);
 
         if (model8)
         {
         }
 
-        windowsCopy = v100;
-        eventsCopy = v105;
+        windowsCopy = v99;
+        eventsCopy = v104;
       }
 
       errors2 = [self errors];
-      [errors2 addObject:v52];
+      [errors2 addObject:v51];
     }
 
     v16 = &OBJC_IVAR____DKSync2Coordinator__periodicJobInterval;
@@ -1187,9 +1385,9 @@ LABEL_24:
   v39 = *(self + 296);
   v40 = *(self + v16[959]);
   name3 = [*(self + v38[958]) name];
-  v119 = 0;
-  [v39 saveSyncedDownWindows:eventsCopy peer:v40 transportName:name3 error:&v119];
-  v42 = v119;
+  v118 = 0;
+  [v39 saveSyncedDownWindows:eventsCopy peer:v40 transportName:name3 error:&v118];
+  v42 = v118;
 
   v43 = +[_CDLogging syncChannel];
   v44 = v43;
@@ -1197,26 +1395,26 @@ LABEL_24:
   {
     if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      v61 = [objc_opt_class() description];
-      v62 = _DKSyncLoggingWindowsDescription(eventsCopy);
+      v60 = [objc_opt_class() description];
+      v61 = _DKSyncLoggingWindowsDescription(eventsCopy);
       domain2 = [(__CFString *)v42 domain];
       code = [(__CFString *)v42 code];
       *buf = 138544386;
-      v122 = v61;
-      v123 = 2114;
-      v124 = v62;
-      v125 = 2114;
-      v126 = domain2;
-      v127 = 2048;
-      v128 = code;
-      v129 = 2112;
-      v130 = v42;
+      v121 = v60;
+      v122 = 2114;
+      v123 = v61;
+      v124 = 2114;
+      v125 = domain2;
+      v126 = 2048;
+      v127 = code;
+      v128 = 2112;
+      v129 = v42;
       _os_log_error_impl(&dword_191750000, v44, OS_LOG_TYPE_ERROR, "%{public}@: Failed while saving synced down windows %{public}@: %{public}@:%lld (%@)", buf, 0x34u);
     }
 
     errors3 = [self errors];
     [errors3 addObject:v42];
-    v12 = v116;
+    v12 = v115;
 LABEL_32:
 
     v47 = errors;
@@ -1234,67 +1432,66 @@ LABEL_33:
 
   if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
   {
-    v99 = windowsCopy;
-    v114 = [objc_opt_class() description];
-    v104 = eventsCopy;
-    v109 = _DKSyncLoggingWindowsDescription(eventsCopy);
+    v98 = windowsCopy;
+    v113 = [objc_opt_class() description];
+    v103 = eventsCopy;
+    v108 = _DKSyncLoggingWindowsDescription(eventsCopy);
     model10 = &OBJC_IVAR____DKSync2Coordinator__periodicJobInterval;
     [OUTLINED_FUNCTION_6_16() me];
     identifier6 = [OUTLINED_FUNCTION_6_16() identifier];
     model9 = [OUTLINED_FUNCTION_6_16() model];
     if (model9)
     {
-      v80 = MEMORY[0x1E696AEC0];
+      v79 = MEMORY[0x1E696AEC0];
       model10 = [OUTLINED_FUNCTION_6_16() model];
-      v74 = [v80 stringWithFormat:@" (%@)", model10];
+      v73 = [v79 stringWithFormat:@" (%@)", model10];
     }
 
     else
     {
-      v74 = &stru_1F05B9908;
+      v73 = &stru_1F05B9908;
     }
 
     OUTLINED_FUNCTION_13_6();
-    v123 = 2114;
-    v124 = v81;
-    v125 = 2114;
+    v122 = 2114;
+    v123 = v80;
+    v124 = 2114;
     OUTLINED_FUNCTION_18_6();
     _os_log_debug_impl(&dword_191750000, v44, OS_LOG_TYPE_DEBUG, "%{public}@: Successfully saved completed windows %{public}@ from %{public}@peer %{public}@%{public}@", buf, 0x34u);
     if (model9)
     {
     }
 
-    windowsCopy = v99;
-    eventsCopy = v104;
+    windowsCopy = v98;
+    eventsCopy = v103;
   }
 
-  v49 = *(self + 384);
-  if (v49 >= [*(self + 320) maxBatchesPerSync])
+  v48 = *(self + 384);
+  if (v48 >= [*(self + 320) maxBatchesPerSync])
   {
     v47 = errors;
     errors = 0;
-    v12 = v116;
+    v12 = v115;
     goto LABEL_33;
   }
 
-  v117[0] = MEMORY[0x1E69E9820];
-  v117[1] = 3221225472;
-  v117[2] = __96___DKPerformSyncDownPeerAdditionsOperation_handleFetchedEvents_completedWindows_missingWindows___block_invoke;
-  v117[3] = &unk_1E7367710;
-  v117[4] = self;
-  v118 = eventsCopy;
-  [_DKSyncSerializer performAsyncBlock:v117];
+  v116[0] = MEMORY[0x1E69E9820];
+  v116[1] = 3221225472;
+  v116[2] = __96___DKPerformSyncDownPeerAdditionsOperation_handleFetchedEvents_completedWindows_missingWindows___block_invoke;
+  v116[3] = &unk_1E7367710;
+  v116[4] = self;
+  v117 = eventsCopy;
+  [_DKSyncSerializer performAsyncBlock:v116];
 
-  v12 = v116;
+  v12 = v115;
 LABEL_36:
 
 LABEL_37:
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (void)coalesceRedundantOverlappingWindows
 {
-  v81[1] = *MEMORY[0x1E69E9840];
+  v79[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = +[_DKSyncSerializer underlyingQueue];
@@ -1316,26 +1513,26 @@ LABEL_37:
 
       if (event)
       {
-        v63 = v5;
+        v61 = v5;
         stream = [event stream];
         name = [stream name];
 
-        v61 = name;
+        v59 = name;
         v15 = [_DKSyncMetadataStorage eventFromFetchedWindow:v10 windowStreamName:name transportName:0];
         v16 = *(self + 296);
-        v60 = v15;
-        v81[0] = v15;
-        v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:1];
-        v65 = 0;
-        LODWORD(name) = [v16 saveEvents:v17 error:&v65];
-        v18 = v65;
+        v58 = v15;
+        v79[0] = v15;
+        v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v79 count:1];
+        v63 = 0;
+        LODWORD(name) = [v16 saveEvents:v17 error:&v63];
+        v18 = v63;
 
         if (name)
         {
           v19 = *(self + 296);
-          v64 = v18;
-          v20 = [v19 deleteEventsWithEventIDs:v63 error:&v64];
-          v62 = v64;
+          v62 = v18;
+          v20 = [v19 deleteEventsWithEventIDs:v61 error:&v62];
+          v60 = v62;
 
           v21 = +[_CDLogging syncChannel];
           v22 = v21;
@@ -1343,8 +1540,8 @@ LABEL_37:
           {
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
             {
-              v54 = [objc_opt_class() description];
-              v58 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v4, "count")}];
+              v52 = [objc_opt_class() description];
+              v56 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v4, "count")}];
               v23 = [OUTLINED_FUNCTION_0_26() me];
               v24 = &stru_1F05B9908;
               v25 = @"pseudo ";
@@ -1353,30 +1550,30 @@ LABEL_37:
                 v25 = &stru_1F05B9908;
               }
 
-              v51 = v25;
+              v49 = v25;
               identifier = [OUTLINED_FUNCTION_0_26() identifier];
               model = [OUTLINED_FUNCTION_0_26() model];
               if (model)
               {
-                v43 = MEMORY[0x1E696AEC0];
+                v41 = MEMORY[0x1E696AEC0];
                 model2 = [OUTLINED_FUNCTION_0_26() model];
-                v24 = [v43 stringWithFormat:@" (%@)", model2];
+                v24 = [v41 stringWithFormat:@" (%@)", model2];
               }
 
-              v44 = [v10 debugDescription];
+              v42 = [v10 debugDescription];
               *buf = 138544642;
-              v68 = v54;
-              v69 = 2112;
-              v70 = v58;
+              v66 = v52;
+              v67 = 2112;
+              v68 = v56;
+              v69 = 2114;
+              v70 = v49;
               v71 = 2114;
-              v72 = v51;
+              v72 = identifier;
               v73 = 2114;
-              v74 = identifier;
+              v74 = v24;
               v75 = 2114;
-              v76 = v24;
-              v77 = 2114;
-              v78 = v44;
-              OUTLINED_FUNCTION_15_0(&dword_191750000, v22, v45, "%{public}@: Coalesced %@ windows for %{public}@peer %{public}@%{public}@ into window %{public}@", buf);
+              v76 = v42;
+              OUTLINED_FUNCTION_15_0(&dword_191750000, v22, v43, "%{public}@: Coalesced %@ windows for %{public}@peer %{public}@%{public}@ into window %{public}@", buf);
 
               if (model)
               {
@@ -1386,43 +1583,43 @@ LABEL_37:
 
           else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            v59 = [objc_opt_class() description];
-            v40 = [OUTLINED_FUNCTION_0_26() me];
-            v41 = &stru_1F05B9908;
-            v42 = @"pseudo ";
-            if (!v40)
+            v57 = [objc_opt_class() description];
+            v38 = [OUTLINED_FUNCTION_0_26() me];
+            v39 = &stru_1F05B9908;
+            v40 = @"pseudo ";
+            if (!v38)
             {
-              v42 = &stru_1F05B9908;
+              v40 = &stru_1F05B9908;
             }
 
-            v53 = v42;
+            v51 = v40;
             identifier2 = [OUTLINED_FUNCTION_0_26() identifier];
             model3 = [OUTLINED_FUNCTION_0_26() model];
             if (model3)
             {
-              v46 = MEMORY[0x1E696AEC0];
+              v44 = MEMORY[0x1E696AEC0];
               [OUTLINED_FUNCTION_0_26() model];
               objc_claimAutoreleasedReturnValue();
               OUTLINED_FUNCTION_21_7();
-              v41 = [v46 stringWithFormat:@" (%@)"];
+              v39 = [v44 stringWithFormat:@" (%@)"];
             }
 
-            domain = [(__CFString *)v62 domain];
-            code = [(__CFString *)v62 code];
+            domain = [(__CFString *)v60 domain];
+            code = [(__CFString *)v60 code];
             *buf = 138544898;
-            v68 = v59;
+            v66 = v57;
+            v67 = 2114;
+            v68 = v51;
             v69 = 2114;
-            v70 = v53;
+            v70 = identifier2;
             v71 = 2114;
-            v72 = identifier2;
+            v72 = v39;
             v73 = 2114;
-            v74 = v41;
-            v75 = 2114;
-            v76 = domain;
-            v77 = 2048;
-            v78 = code;
-            v79 = 2112;
-            v80 = v62;
+            v74 = domain;
+            v75 = 2048;
+            v76 = code;
+            v77 = 2112;
+            v78 = v60;
             _os_log_error_impl(&dword_191750000, v22, OS_LOG_TYPE_ERROR, "%{public}@: Failed while deleting coalesced events for %{public}@peer %{public}@%{public}@: %{public}@:%lld (%@)", buf, 0x48u);
 
             if (model3)
@@ -1436,60 +1633,57 @@ LABEL_37:
           v22 = +[_CDLogging syncChannel];
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            v37 = [objc_opt_class() description];
+            v35 = [objc_opt_class() description];
             domain2 = [(__CFString *)v18 domain];
             code2 = [(__CFString *)v18 code];
             *buf = 138544130;
-            v68 = v37;
-            v69 = 2114;
-            v70 = domain2;
-            v71 = 2048;
-            v72 = code2;
-            v73 = 2112;
-            v74 = v18;
+            v66 = v35;
+            v67 = 2114;
+            v68 = domain2;
+            v69 = 2048;
+            v70 = code2;
+            v71 = 2112;
+            v72 = v18;
             _os_log_error_impl(&dword_191750000, v22, OS_LOG_TYPE_ERROR, "%{public}@: Failed while saving coalesced event: %{public}@:%lld (%@)", buf, 0x2Au);
           }
 
-          v62 = v18;
+          v60 = v18;
         }
 
-        v26 = *(self + 392);
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
-        v28 = *(self + 392);
+        v27 = *(self + 392);
         if (isKindOfClass)
         {
-          v29 = v28;
+          v28 = v27;
         }
 
         else
         {
-          v29 = [v28 mutableCopy];
+          v28 = [v27 mutableCopy];
         }
 
-        v30 = v29;
+        v29 = v28;
         firstObject3 = [v4 firstObject];
-        v32 = [v30 indexOfObject:firstObject3];
+        v31 = [v29 indexOfObject:firstObject3];
 
-        v33 = [v4 count];
-        v66 = v10;
-        v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
-        [v30 replaceObjectsInRange:v32 withObjectsFromArray:{v33, v34}];
+        v32 = [v4 count];
+        v64 = v10;
+        v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
+        [v29 replaceObjectsInRange:v31 withObjectsFromArray:{v32, v33}];
 
-        v35 = *(self + 392);
-        *(self + 392) = v30;
+        v34 = *(self + 392);
+        *(self + 392) = v29;
 
-        v5 = v63;
+        v5 = v61;
       }
     }
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateEvents:(void *)events withSourceDeviceID:
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   eventsCopy = events;
   if (self)
@@ -1497,32 +1691,32 @@ LABEL_37:
     v7 = +[_DKSyncSerializer underlyingQueue];
     dispatch_assert_queue_V2(v7);
 
-    v24 = objc_opt_new();
-    v22 = eventsCopy;
     v23 = objc_opt_new();
-    [v23 setDeviceID:eventsCopy];
+    v21 = eventsCopy;
+    v22 = objc_opt_new();
+    [v22 setDeviceID:eventsCopy];
     date = [MEMORY[0x1E695DF00] date];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v21 = v5;
+    v20 = v5;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * i);
+          v14 = *(*(&v24 + 1) + 8 * i);
           source = [v14 source];
           v16 = source;
           if (source)
@@ -1531,13 +1725,13 @@ LABEL_37:
 
             if (!deviceID)
             {
-              [v16 setDeviceID:v22];
+              [v16 setDeviceID:v21];
             }
           }
 
           else
           {
-            [v14 setSource:v23];
+            [v14 setSource:v22];
           }
 
           stream = [v14 stream];
@@ -1545,24 +1739,22 @@ LABEL_37:
 
           if (name)
           {
-            [v24 addObject:name];
+            [v23 addObject:name];
           }
 
           +[_DKPerformSyncDownPeerAdditionsOperation _updateEventStatsWithSyncLatencyOfEvent:ingressDate:transportType:](_DKPerformSyncDownPeerAdditionsOperation, v14, date, [*(self + 304) transportType]);
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v11);
     }
 
-    +[_DKPerformSyncDownPeerAdditionsOperation _updateEventStatsWithTotal:streamNameCounts:transportType:](_DKPerformSyncDownPeerAdditionsOperation, [v9 count], v24, objc_msgSend(*(self + 304), "transportType"));
-    v5 = v21;
-    eventsCopy = v22;
+    +[_DKPerformSyncDownPeerAdditionsOperation _updateEventStatsWithTotal:streamNameCounts:transportType:](_DKPerformSyncDownPeerAdditionsOperation, [v9 count], v23, objc_msgSend(*(self + 304), "transportType"));
+    v5 = v20;
+    eventsCopy = v21;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

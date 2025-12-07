@@ -56,7 +56,7 @@
   lastObject = [items2 lastObject];
   pl_endDate = [lastObject pl_endDate];
   typeDescription = [(PLTrip *)self typeDescription];
-  v12 = [v3 stringWithFormat:@"%@ %@ - %@, %@, %lu moments", v4, pl_startDate, pl_endDate, typeDescription, -[NSArray count](self->_items, "count")];
+  v12 = [v3 stringWithFormat:@"%@ %@ - %@, %@, %lu moments", v4, pl_startDate, pl_endDate, typeDescription, objc_msgSend_count(self->_items)];
 
   return v12;
 }

@@ -8,8 +8,8 @@
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
-  v4 = (*(*(sub_1C70(&qword_19388, &qword_ECC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v4 = sub_1C70(&qword_19388, &qword_ECC0);
+  __chkstk_darwin(v4 - 8);
   v6 = &v15 - v5;
   v7 = *(&stru_20.maxprot + (swift_isaMask & self->super.isa));
   selfCopy = self;
@@ -39,8 +39,8 @@
 
 - (void)remoteAlertHandle:(id)handle didInvalidateWithError:(id)error
 {
-  v6 = (*(*(sub_1C70(&qword_19388, &qword_ECC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v6 = sub_1C70(&qword_19388, &qword_ECC0);
+  __chkstk_darwin(v6 - 8);
   v8 = &v19 - v7;
   v9 = *(&stru_20.maxprot + (swift_isaMask & self->super.isa));
   selfCopy = self;

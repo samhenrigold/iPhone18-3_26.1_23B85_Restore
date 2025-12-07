@@ -12,9 +12,9 @@ uint64_t __76__NSUserDefaults_NSUserDefaults_NSURLExtras___web_addDefaultsChange
   return [(NSNotificationCenter *)v0 addObserver:v1 selector:sel__web_defaultsDidChange name:@"NSUserDefaultsDidChangeNotification" object:v2];
 }
 
-void ___NSUserDefaults_Log_Nonsensical_Suites_block_invoke(uint64_t a1)
+void ___NSUserDefaults_Log_Nonsensical_Suites_block_invoke(uint64_t a1, uint64_t a2)
 {
-  if ([*(a1 + 32) isEqualToString:@"NSGlobalDomain"])
+  if (objc_msgSend_isEqualToString_(*(a1 + 32), a2, @"NSGlobalDomain"))
   {
     NSLog(@"Using NSGlobalDomain as an NSUserDefaults suite name does not make sense and will not work. Break on _NSUserDefaults_Log_Nonsensical_Suites to find this");
   }

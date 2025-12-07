@@ -15,32 +15,50 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  [(NSDate *)[(CLBackgroundInertialOdometrySample *)self cfAbsTimestamp] timeIntervalSinceReferenceDate];
-  v31 = v6;
-  [(CLBackgroundInertialOdometrySample *)self machContinuousTimestamp_s];
-  v30 = v7;
-  [(CLBackgroundInertialOdometrySample *)self sampleInterval_s];
-  v29 = v8;
-  [(CLBIO_DeltaPosition *)[(CLBackgroundInertialOdometrySample *)self deltaPosition_m] X];
-  v28 = v9;
-  [(CLBIO_DeltaPosition *)[(CLBackgroundInertialOdometrySample *)self deltaPosition_m] Y];
-  v27 = v10;
-  [(CLBIO_DeltaPosition *)[(CLBackgroundInertialOdometrySample *)self deltaPosition_m] Z];
-  v12 = v11;
-  [(CLBIO_DeltaVelocity *)[(CLBackgroundInertialOdometrySample *)self deltaVelocity_mps] X];
-  v14 = v13;
-  [(CLBIO_DeltaVelocity *)[(CLBackgroundInertialOdometrySample *)self deltaVelocity_mps] Y];
-  v16 = v15;
-  [(CLBIO_DeltaVelocity *)[(CLBackgroundInertialOdometrySample *)self deltaVelocity_mps] Z];
-  v18 = v17;
-  [(CLBIO_Quaternion *)[(CLBackgroundInertialOdometrySample *)self quaternion] X];
-  v20 = v19;
-  [(CLBIO_Quaternion *)[(CLBackgroundInertialOdometrySample *)self quaternion] Y];
-  v22 = v21;
-  [(CLBIO_Quaternion *)[(CLBackgroundInertialOdometrySample *)self quaternion] Z];
-  v24 = v23;
-  [(CLBIO_Quaternion *)[(CLBackgroundInertialOdometrySample *)self quaternion] W];
-  return [v3 stringWithFormat:@"%@, cfAbsTimestamp, %.3f, machContinuousTimestamp_s, %.3f, sampleInterval_s, %.3f, deltaPosition_m.X, %.3f, deltaPosition_m.Y, %.3f, deltaPosition_m.Z, %.3f, deltaVelocity_mps.X, %.3f, deltaVelocity_mps.Y, %.3f, deltaVelocity_mps.Z, %.3f, quaternion.X, %.3f, quaternion.Y, %.3f, quaternion.Z, %.3f, quaternion.W, %.3f, referenceFrameContinuity, %zu, sessionReferenceFrame, %zu, staticFlag, %zu, mountState, %zu, zupt, %zu, dotBiasChange, %zu", v5, v31, v30, v29, v28, v27, v12, v14, v16, v18, v20, v22, v24, v25, -[CLBackgroundInertialOdometrySample referenceFrameContinuity](self, "referenceFrameContinuity"), -[CLBackgroundInertialOdometrySample sessionReferenceFrame](self, "sessionReferenceFrame"), -[CLBackgroundInertialOdometrySample staticFlag](self, "staticFlag"), -[CLBackgroundInertialOdometrySample mountState](self, "mountState"), -[CLBackgroundInertialOdometrySample zupt](self, "zupt"), -[CLBackgroundInertialOdometrySample dotBiasChange](self, "dotBiasChange")];
+  v9 = objc_msgSend_cfAbsTimestamp(self, v6, v7, v8);
+  objc_msgSend_timeIntervalSinceReferenceDate(v9, v10, v11, v12);
+  v141 = v13;
+  objc_msgSend_machContinuousTimestamp_s(self, v14, v15, v16);
+  v140 = v17;
+  objc_msgSend_sampleInterval_s(self, v18, v19, v20);
+  v139 = v21;
+  v25 = objc_msgSend_deltaPosition_m(self, v22, v23, v24);
+  objc_msgSend_X(v25, v26, v27, v28);
+  v138 = v29;
+  v33 = objc_msgSend_deltaPosition_m(self, v30, v31, v32);
+  objc_msgSend_Y(v33, v34, v35, v36);
+  v137 = v37;
+  v41 = objc_msgSend_deltaPosition_m(self, v38, v39, v40);
+  objc_msgSend_Z(v41, v42, v43, v44);
+  v46 = v45;
+  v50 = objc_msgSend_deltaVelocity_mps(self, v47, v48, v49);
+  objc_msgSend_X(v50, v51, v52, v53);
+  v55 = v54;
+  v59 = objc_msgSend_deltaVelocity_mps(self, v56, v57, v58);
+  objc_msgSend_Y(v59, v60, v61, v62);
+  v64 = v63;
+  v68 = objc_msgSend_deltaVelocity_mps(self, v65, v66, v67);
+  objc_msgSend_Z(v68, v69, v70, v71);
+  v73 = v72;
+  v77 = objc_msgSend_quaternion(self, v74, v75, v76);
+  objc_msgSend_X(v77, v78, v79, v80);
+  v82 = v81;
+  v86 = objc_msgSend_quaternion(self, v83, v84, v85);
+  objc_msgSend_Y(v86, v87, v88, v89);
+  v91 = v90;
+  v95 = objc_msgSend_quaternion(self, v92, v93, v94);
+  objc_msgSend_Z(v95, v96, v97, v98);
+  v100 = v99;
+  v104 = objc_msgSend_quaternion(self, v101, v102, v103);
+  objc_msgSend_W(v104, v105, v106, v107);
+  v109 = v108;
+  v113 = objc_msgSend_referenceFrameContinuity(self, v110, v111, v112);
+  v117 = objc_msgSend_sessionReferenceFrame(self, v114, v115, v116);
+  v121 = objc_msgSend_staticFlag(self, v118, v119, v120);
+  v125 = objc_msgSend_mountState(self, v122, v123, v124);
+  v129 = objc_msgSend_zupt(self, v126, v127, v128);
+  v133 = objc_msgSend_dotBiasChange(self, v130, v131, v132);
+  return objc_msgSend_stringWithFormat_(v3, v134, @"%@,cfAbsTimestamp, %.3f, machContinuousTimestamp_s, %.3f, sampleInterval_s, %.3f, deltaPosition_m.X, %.3f, deltaPosition_m.Y, %.3f, deltaPosition_m.Z, %.3f, deltaVelocity_mps.X, %.3f, deltaVelocity_mps.Y, %.3f, deltaVelocity_mps.Z, %.3f, quaternion.X, %.3f, quaternion.Y, %.3f, quaternion.Z, %.3f, quaternion.W, %.3f, referenceFrameContinuity, %zu, sessionReferenceFrame, %zu, staticFlag, %zu, mountState, %zu, zupt, %zu, dotBiasChange, %zu", v135, v5, v141, v140, v139, v138, v137, v46, v55, v64, v73, v82, v91, v100, v109, v113, v117, v121, v125, v129, v133);
 }
 
 - (void)dealloc
@@ -77,57 +95,84 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v9 = [objc_opt_class() allocWithZone:zone];
-  cfAbsTimestamp = [(CLBackgroundInertialOdometrySample *)self cfAbsTimestamp];
-  [(CLBackgroundInertialOdometrySample *)self machContinuousTimestamp_s];
-  v5 = v4;
-  [(CLBackgroundInertialOdometrySample *)self sampleInterval_s];
-  return [v9 initWithTimestamp:cfAbsTimestamp machContinuousTimestamp:-[CLBackgroundInertialOdometrySample deltaPosition_m](self sampleInterval:"deltaPosition_m") deltaPosition:-[CLBackgroundInertialOdometrySample deltaVelocity_mps](self deltaVelocity:"deltaVelocity_mps") quaternion:-[CLBackgroundInertialOdometrySample quaternion](self referenceFrameContinuity:"quaternion") referenceFrame:-[CLBackgroundInertialOdometrySample referenceFrameContinuity](self staticFlag:"referenceFrameContinuity") mountState:-[CLBackgroundInertialOdometrySample sessionReferenceFrame](self zupt:"sessionReferenceFrame") dotBiasChange:v5 calibration:{v6, -[CLBackgroundInertialOdometrySample staticFlag](self, "staticFlag"), -[CLBackgroundInertialOdometrySample mountState](self, "mountState"), -[CLBackgroundInertialOdometrySample zupt](self, "zupt"), -[CLBackgroundInertialOdometrySample dotBiasChange](self, "dotBiasChange"), -[CLBackgroundInertialOdometrySample calibration](self, "calibration")}];
+  v5 = objc_opt_class();
+  v64 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  v63 = objc_msgSend_cfAbsTimestamp(self, v8, v9, v10);
+  objc_msgSend_machContinuousTimestamp_s(self, v11, v12, v13);
+  v15 = v14;
+  objc_msgSend_sampleInterval_s(self, v16, v17, v18);
+  v20 = v19;
+  v24 = objc_msgSend_deltaPosition_m(self, v21, v22, v23);
+  v28 = objc_msgSend_deltaVelocity_mps(self, v25, v26, v27);
+  v32 = objc_msgSend_quaternion(self, v29, v30, v31);
+  v36 = objc_msgSend_referenceFrameContinuity(self, v33, v34, v35);
+  v40 = objc_msgSend_sessionReferenceFrame(self, v37, v38, v39);
+  v44 = objc_msgSend_staticFlag(self, v41, v42, v43);
+  v48 = objc_msgSend_mountState(self, v45, v46, v47);
+  v52 = objc_msgSend_zupt(self, v49, v50, v51);
+  v56 = objc_msgSend_dotBiasChange(self, v53, v54, v55);
+  v60 = objc_msgSend_calibration(self, v57, v58, v59);
+  return objc_msgSend_initWithTimestamp_machContinuousTimestamp_sampleInterval_deltaPosition_deltaVelocity_quaternion_referenceFrameContinuity_referenceFrame_staticFlag_mountState_zupt_dotBiasChange_calibration_(v64, v61, v63, v24, v28, v32, v36, v40, v15, v20, v44, v48, v52, v56, v60);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeObject:-[CLBackgroundInertialOdometrySample cfAbsTimestamp](self forKey:{"cfAbsTimestamp"), @"timestamp"}];
-  [(CLBackgroundInertialOdometrySample *)self machContinuousTimestamp_s];
-  [coder encodeDouble:@"machContinuousTimestamp" forKey:?];
-  [(CLBackgroundInertialOdometrySample *)self sampleInterval_s];
-  [coder encodeDouble:@"sampleInterval" forKey:?];
-  [coder encodeObject:-[CLBackgroundInertialOdometrySample deltaPosition_m](self forKey:{"deltaPosition_m"), @"deltaPosition"}];
-  [coder encodeObject:-[CLBackgroundInertialOdometrySample deltaVelocity_mps](self forKey:{"deltaVelocity_mps"), @"deltaVelocity"}];
-  [coder encodeObject:-[CLBackgroundInertialOdometrySample quaternion](self forKey:{"quaternion"), @"quaternion"}];
-  [coder encodeBool:-[CLBackgroundInertialOdometrySample referenceFrameContinuity](self forKey:{"referenceFrameContinuity") != 0, @"referenceFrameContinuity"}];
-  [coder encodeInteger:-[CLBackgroundInertialOdometrySample sessionReferenceFrame](self forKey:{"sessionReferenceFrame"), @"referenceFrame"}];
-  [coder encodeInteger:-[CLBackgroundInertialOdometrySample staticFlag](self forKey:{"staticFlag"), @"staticFlag"}];
-  [coder encodeInteger:-[CLBackgroundInertialOdometrySample mountState](self forKey:{"mountState"), @"mountState"}];
-  [coder encodeInteger:-[CLBackgroundInertialOdometrySample zupt](self forKey:{"zupt"), @"zupt"}];
-  [coder encodeInteger:-[CLBackgroundInertialOdometrySample dotBiasChange](self forKey:{"dotBiasChange"), @"dotBiasChange"}];
-  calibration = [(CLBackgroundInertialOdometrySample *)self calibration];
+  v6 = objc_msgSend_cfAbsTimestamp(self, a2, coder, v3);
+  objc_msgSend_encodeObject_forKey_(coder, v7, v6, @"timestamp");
+  objc_msgSend_machContinuousTimestamp_s(self, v8, v9, v10);
+  objc_msgSend_encodeDouble_forKey_(coder, v11, @"machContinuousTimestamp", v12);
+  objc_msgSend_sampleInterval_s(self, v13, v14, v15);
+  objc_msgSend_encodeDouble_forKey_(coder, v16, @"sampleInterval", v17);
+  v21 = objc_msgSend_deltaPosition_m(self, v18, v19, v20);
+  objc_msgSend_encodeObject_forKey_(coder, v22, v21, @"deltaPosition");
+  v26 = objc_msgSend_deltaVelocity_mps(self, v23, v24, v25);
+  objc_msgSend_encodeObject_forKey_(coder, v27, v26, @"deltaVelocity");
+  v31 = objc_msgSend_quaternion(self, v28, v29, v30);
+  objc_msgSend_encodeObject_forKey_(coder, v32, v31, @"quaternion");
+  v36 = objc_msgSend_referenceFrameContinuity(self, v33, v34, v35) != 0;
+  objc_msgSend_encodeBool_forKey_(coder, v37, v36, @"referenceFrameContinuity");
+  v41 = objc_msgSend_sessionReferenceFrame(self, v38, v39, v40);
+  objc_msgSend_encodeInteger_forKey_(coder, v42, v41, @"referenceFrame");
+  v46 = objc_msgSend_staticFlag(self, v43, v44, v45);
+  objc_msgSend_encodeInteger_forKey_(coder, v47, v46, @"staticFlag");
+  v51 = objc_msgSend_mountState(self, v48, v49, v50);
+  objc_msgSend_encodeInteger_forKey_(coder, v52, v51, @"mountState");
+  v56 = objc_msgSend_zupt(self, v53, v54, v55);
+  objc_msgSend_encodeInteger_forKey_(coder, v57, v56, @"zupt");
+  v61 = objc_msgSend_dotBiasChange(self, v58, v59, v60);
+  objc_msgSend_encodeInteger_forKey_(coder, v62, v61, @"dotBiasChange");
+  v67 = objc_msgSend_calibration(self, v63, v64, v65);
 
-  [coder encodeObject:calibration forKey:@"calibration"];
+  objc_msgSend_encodeObject_forKey_(coder, v66, v67, @"calibration");
 }
 
 - (CLBackgroundInertialOdometrySample)initWithCoder:(id)coder
 {
-  v8.receiver = self;
-  v8.super_class = CLBackgroundInertialOdometrySample;
-  v4 = [(CLBackgroundInertialOdometrySample *)&v8 init];
+  v34.receiver = self;
+  v34.super_class = CLBackgroundInertialOdometrySample;
+  v4 = [(CLBackgroundInertialOdometrySample *)&v34 init];
   if (v4)
   {
-    v4->_cfAbsTimestamp = [coder decodeObjectOfClass:objc_opt_class() forKey:@"timestamp"];
-    [coder decodeDoubleForKey:@"machContinuousTimestamp"];
-    v4->_machContinuousTimestamp_s = v5;
-    [coder decodeDoubleForKey:@"sampleInterval"];
-    v4->_sampleInterval_s = v6;
-    v4->_deltaPosition_m = [coder decodeObjectOfClass:objc_opt_class() forKey:@"deltaPosition"];
-    v4->_deltaVelocity_mps = [coder decodeObjectOfClass:objc_opt_class() forKey:@"deltaVelocity"];
-    v4->_quaternion = [coder decodeObjectOfClass:objc_opt_class() forKey:@"quaternion"];
-    v4->_referenceFrameContinuity = [coder decodeBoolForKey:@"referenceFrameContinuity"];
-    v4->_sessionReferenceFrame = [coder decodeIntegerForKey:@"referenceFrame"];
-    v4->_staticFlag = [coder decodeIntegerForKey:@"staticFlag"];
-    v4->_mountState = [coder decodeIntegerForKey:@"mountState"];
-    v4->_zupt = [coder decodeIntegerForKey:@"zupt"];
-    v4->_dotBiasChange = [coder decodeIntegerForKey:@"dotBiasChange"];
-    v4->_calibration = [coder decodeObjectOfClass:objc_opt_class() forKey:@"calibration"];
+    v5 = objc_opt_class();
+    v4->_cfAbsTimestamp = objc_msgSend_decodeObjectOfClass_forKey_(coder, v6, v5, @"timestamp");
+    objc_msgSend_decodeDoubleForKey_(coder, v7, @"machContinuousTimestamp", v8);
+    v4->_machContinuousTimestamp_s = v9;
+    objc_msgSend_decodeDoubleForKey_(coder, v10, @"sampleInterval", v11);
+    v4->_sampleInterval_s = v12;
+    v13 = objc_opt_class();
+    v4->_deltaPosition_m = objc_msgSend_decodeObjectOfClass_forKey_(coder, v14, v13, @"deltaPosition");
+    v15 = objc_opt_class();
+    v4->_deltaVelocity_mps = objc_msgSend_decodeObjectOfClass_forKey_(coder, v16, v15, @"deltaVelocity");
+    v17 = objc_opt_class();
+    v4->_quaternion = objc_msgSend_decodeObjectOfClass_forKey_(coder, v18, v17, @"quaternion");
+    v4->_referenceFrameContinuity = objc_msgSend_decodeBoolForKey_(coder, v19, @"referenceFrameContinuity", v20);
+    v4->_sessionReferenceFrame = objc_msgSend_decodeIntegerForKey_(coder, v21, @"referenceFrame", v22);
+    v4->_staticFlag = objc_msgSend_decodeIntegerForKey_(coder, v23, @"staticFlag", v24);
+    v4->_mountState = objc_msgSend_decodeIntegerForKey_(coder, v25, @"mountState", v26);
+    v4->_zupt = objc_msgSend_decodeIntegerForKey_(coder, v27, @"zupt", v28);
+    v4->_dotBiasChange = objc_msgSend_decodeIntegerForKey_(coder, v29, @"dotBiasChange", v30);
+    v31 = objc_opt_class();
+    v4->_calibration = objc_msgSend_decodeObjectOfClass_forKey_(coder, v32, v31, @"calibration");
   }
 
   return v4;
@@ -135,62 +180,71 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v31 = [equal isMemberOfClass:objc_opt_class()];
-  v30 = -[NSDate isEqual:](-[CLBackgroundInertialOdometrySample cfAbsTimestamp](self, "cfAbsTimestamp"), "isEqual:", [equal cfAbsTimestamp]);
-  [(CLBackgroundInertialOdometrySample *)self machContinuousTimestamp_s];
-  v6 = v5;
-  [equal machContinuousTimestamp_s];
-  v8 = v7;
-  [(CLBackgroundInertialOdometrySample *)self sampleInterval_s];
-  v10 = v9;
-  [equal sampleInterval_s];
-  v12 = v11;
-  if (-[CLBackgroundInertialOdometrySample deltaPosition_m](self, "deltaPosition_m") || [equal deltaPosition_m])
+  v5 = objc_opt_class();
+  isMemberOfClass = objc_msgSend_isMemberOfClass_(equal, v6, v5, v7);
+  v11 = objc_msgSend_cfAbsTimestamp(self, v8, v9, v10);
+  v15 = objc_msgSend_cfAbsTimestamp(equal, v12, v13, v14);
+  isEqual = objc_msgSend_isEqual_(v11, v16, v15, v17);
+  objc_msgSend_machContinuousTimestamp_s(self, v18, v19, v20);
+  v22 = v21;
+  objc_msgSend_machContinuousTimestamp_s(equal, v23, v24, v25);
+  v27 = v26;
+  objc_msgSend_sampleInterval_s(self, v28, v29, v30);
+  v32 = v31;
+  objc_msgSend_sampleInterval_s(equal, v33, v34, v35);
+  v37 = v36;
+  if (objc_msgSend_deltaPosition_m(self, v38, v39, v40) || objc_msgSend_deltaPosition_m(equal, v41, v42, v43))
   {
-    v29 = !-[CLBIO_DeltaPosition isEqual:](-[CLBackgroundInertialOdometrySample deltaPosition_m](self, "deltaPosition_m"), "isEqual:", [equal deltaPosition_m]);
+    v44 = objc_msgSend_deltaPosition_m(self, v41, v42, v43);
+    v48 = objc_msgSend_deltaPosition_m(equal, v45, v46, v47);
+    v120 = objc_msgSend_isEqual_(v44, v49, v48, v50) ^ 1;
   }
 
   else
   {
-    v29 = 0;
+    v120 = 0;
   }
 
-  if (-[CLBackgroundInertialOdometrySample deltaVelocity_mps](self, "deltaVelocity_mps") || [equal deltaVelocity_mps])
+  if (objc_msgSend_deltaVelocity_mps(self, v41, v42, v43) || objc_msgSend_deltaVelocity_mps(equal, v51, v52, v53))
   {
-    v28 = !-[CLBIO_DeltaVelocity isEqual:](-[CLBackgroundInertialOdometrySample deltaVelocity_mps](self, "deltaVelocity_mps"), "isEqual:", [equal deltaVelocity_mps]);
+    v54 = objc_msgSend_deltaVelocity_mps(self, v51, v52, v53);
+    v58 = objc_msgSend_deltaVelocity_mps(equal, v55, v56, v57);
+    v119 = objc_msgSend_isEqual_(v54, v59, v58, v60) ^ 1;
   }
 
   else
   {
-    v28 = 0;
+    v119 = 0;
   }
 
-  if (-[CLBackgroundInertialOdometrySample quaternion](self, "quaternion") || [equal quaternion])
+  if (objc_msgSend_quaternion(self, v51, v52, v53) || objc_msgSend_quaternion(equal, v61, v62, v63))
   {
-    v27 = !-[CLBIO_Quaternion isEqual:](-[CLBackgroundInertialOdometrySample quaternion](self, "quaternion"), "isEqual:", [equal quaternion]);
+    v64 = objc_msgSend_quaternion(self, v61, v62, v63);
+    v68 = objc_msgSend_quaternion(equal, v65, v66, v67);
+    v118 = objc_msgSend_isEqual_(v64, v69, v68, v70) ^ 1;
   }
 
   else
   {
-    LOBYTE(v27) = 0;
+    LOBYTE(v118) = 0;
   }
 
-  referenceFrameContinuity = [(CLBackgroundInertialOdometrySample *)self referenceFrameContinuity];
-  referenceFrameContinuity2 = [equal referenceFrameContinuity];
-  sessionReferenceFrame = [(CLBackgroundInertialOdometrySample *)self sessionReferenceFrame];
-  sessionReferenceFrame2 = [equal sessionReferenceFrame];
-  staticFlag = [(CLBackgroundInertialOdometrySample *)self staticFlag];
-  staticFlag2 = [equal staticFlag];
-  mountState = [(CLBackgroundInertialOdometrySample *)self mountState];
-  mountState2 = [equal mountState];
-  zupt = [(CLBackgroundInertialOdometrySample *)self zupt];
-  zupt2 = [equal zupt];
-  dotBiasChange = [(CLBackgroundInertialOdometrySample *)self dotBiasChange];
-  dotBiasChange2 = [equal dotBiasChange];
+  v117 = objc_msgSend_referenceFrameContinuity(self, v61, v62, v63);
+  v116 = objc_msgSend_referenceFrameContinuity(equal, v71, v72, v73);
+  v77 = objc_msgSend_sessionReferenceFrame(self, v74, v75, v76);
+  v81 = objc_msgSend_sessionReferenceFrame(equal, v78, v79, v80);
+  v85 = objc_msgSend_staticFlag(self, v82, v83, v84);
+  v89 = objc_msgSend_staticFlag(equal, v86, v87, v88);
+  v93 = objc_msgSend_mountState(self, v90, v91, v92);
+  v97 = objc_msgSend_mountState(equal, v94, v95, v96);
+  v115 = objc_msgSend_zupt(self, v98, v99, v100);
+  v104 = objc_msgSend_zupt(equal, v101, v102, v103);
+  v108 = objc_msgSend_dotBiasChange(self, v105, v106, v107);
+  v112 = objc_msgSend_dotBiasChange(equal, v109, v110, v111);
   result = 0;
-  if (!((v6 != v8 || (v31 & v30 & 1) == 0) | (v10 != v12) | v29 & 1 | v28 & 1) && (v27 & 1) == 0 && referenceFrameContinuity == referenceFrameContinuity2 && sessionReferenceFrame == sessionReferenceFrame2 && staticFlag == staticFlag2 && mountState == mountState2)
+  if (!((v22 != v27 || (isMemberOfClass & isEqual & 1) == 0) | (v32 != v37) | v120 & 1 | v119 & 1) && (v118 & 1) == 0 && v117 == v116 && v77 == v81 && v85 == v89 && v93 == v97)
   {
-    return zupt == zupt2 && dotBiasChange == dotBiasChange2;
+    return v115 == v104 && v108 == v112;
   }
 
   return result;

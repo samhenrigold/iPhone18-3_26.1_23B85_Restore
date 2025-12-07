@@ -1,43 +1,15 @@
 @interface MCMCommandSetTestLock
 + (Class)incomingMessageClass;
-+ (unint64_t)command;
-- (BOOL)enable;
 - (BOOL)preflightClientAllowed;
 - (MCMCommandSetTestLock)initWithMessage:(id)message context:(id)context reply:(id)reply;
-- (MCMXPCMessage)message;
-- (unint64_t)requestedLocks;
 - (void)execute;
 @end
 
 @implementation MCMCommandSetTestLock
 
-- (MCMXPCMessage)message
-{
-  result = self->_message;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)enable
-{
-  result = self->_enable;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unint64_t)requestedLocks
-{
-  result = self->_requestedLocks;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (void)execute
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   v4 = containermanager_copy_global_configuration();
   isInternalImage = [v4 isInternalImage];
@@ -136,8 +108,8 @@ LABEL_6:
   v16 = container_log_handle_for_category();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
   {
-    LOWORD(v33) = 0;
-    _os_log_fault_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_FAULT, "Unsupported call to set lock!", &v33, 2u);
+    LOWORD(v32) = 0;
+    _os_log_fault_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_FAULT, "Unsupported call to set lock!", &v32, 2u);
   }
 
   v14 = +[MCMError unsupported];
@@ -147,9 +119,9 @@ LABEL_27:
   v28 = container_log_handle_for_category();
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
-    v33 = 138412290;
-    v34 = v14;
-    _os_log_debug_impl(&dword_1DF2C3000, v28, OS_LOG_TYPE_DEBUG, "Set test locks; error = %@", &v33, 0xCu);
+    v32 = 138412290;
+    v33 = v14;
+    _os_log_debug_impl(&dword_1DF2C3000, v28, OS_LOG_TYPE_DEBUG, "Set test locks; error = %@", &v32, 0xCu);
   }
 
   if (v17)
@@ -175,27 +147,24 @@ LABEL_27:
   [resultPromise completeWithResult:v30];
 
   objc_autoreleasePoolPop(v3);
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)preflightClientAllowed
 {
-  v7 = *MEMORY[0x1E69E9840];
   context = [(MCMCommand *)self context];
   clientIdentity = [context clientIdentity];
   isAllowedToTest = [clientIdentity isAllowedToTest];
 
-  v5 = *MEMORY[0x1E69E9840];
   return isAllowedToTest;
 }
 
 - (MCMCommandSetTestLock)initWithMessage:(id)message context:(id)context reply:(id)reply
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v13.receiver = self;
-  v13.super_class = MCMCommandSetTestLock;
-  v10 = [(MCMCommand *)&v13 initWithMessage:messageCopy context:context reply:reply];
+  v12.receiver = self;
+  v12.super_class = MCMCommandSetTestLock;
+  v10 = [(MCMCommand *)&v12 initWithMessage:messageCopy context:context reply:reply];
   if (v10)
   {
     v10->_requestedLocks = [messageCopy requestedLocks];
@@ -203,23 +172,13 @@ LABEL_27:
     objc_storeStrong(&v10->_message, message);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (Class)incomingMessageClass
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return objc_opt_class();
-}
-
-+ (unint64_t)command
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return 31;
 }
 
 @end

@@ -47,16 +47,22 @@ void __44__SBContinuitySessionManager_sharedInstance__block_invoke()
 {
   if (__sb__runningInSpringBoard())
   {
-    if (!SBFEffectiveDeviceClass() || SBFEffectiveDeviceClass() == 1)
+    if (!SBFEffectiveDeviceClass())
+    {
+      goto LABEL_4;
+    }
+
+    v2 = SBFEffectiveDeviceClass();
+    if (v2 == 1)
     {
       goto LABEL_4;
     }
 
 LABEL_7:
-    v5 = SBLogContinuitySession();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = SBLogContinuitySession(v2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      +[(SBContinuitySessionManager *)v5];
+      +[(SBContinuitySessionManager *)v7];
     }
 
     goto LABEL_11;
@@ -71,15 +77,16 @@ LABEL_7:
   }
 
 LABEL_4:
-  if (SBFIsOnenessAvailable())
+  v3 = SBFIsOnenessAvailable();
+  if (v3)
   {
     return 1;
   }
 
-  v5 = SBLogContinuitySession();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v7 = SBLogContinuitySession(v3);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    +[(SBContinuitySessionManager *)v5];
+    +[(SBContinuitySessionManager *)v7];
   }
 
 LABEL_11:
@@ -165,7 +172,7 @@ id __141__SBContinuitySessionManager__initWithService_userInterfaceStyleProvider
 
 - (id)registerWindowScene:(id)scene
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   delegate = [sceneCopy delegate];
@@ -185,13 +192,13 @@ id __141__SBContinuitySessionManager__initWithService_userInterfaceStyleProvider
   _FBSScene = [sceneCopy _FBSScene];
   hostHandle = [_FBSScene hostHandle];
 
-  auditToken = [hostHandle auditToken];
-  v12 = [auditToken hasEntitlement:*MEMORY[0x277D67F48]];
+  v11 = objc_msgSend_auditToken(hostHandle);
+  v12 = [v11 hasEntitlement:*MEMORY[0x277D67F48]];
 
   if ((v12 & 1) == 0)
   {
-    v18 = SBLogContinuitySession();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = SBLogContinuitySession(v13);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [SBContinuitySessionManager registerWindowScene:v8];
     }
@@ -201,47 +208,47 @@ id __141__SBContinuitySessionManager__initWithService_userInterfaceStyleProvider
 
   if (!delegate2)
   {
-    v18 = SBLogContinuitySession();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = SBLogContinuitySession(v13);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [(SBContinuitySessionManager *)v8 registerWindowScene:sceneCopy];
     }
 
 LABEL_14:
 
-    v16 = 0;
+    v17 = 0;
     goto LABEL_15;
   }
 
   objc_initWeak(&location, self);
-  v13 = objc_alloc(MEMORY[0x277CF0CE8]);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __50__SBContinuitySessionManager_registerWindowScene___block_invoke;
-  v20[3] = &unk_2783BA4E0;
-  objc_copyWeak(&v24, &location);
-  v14 = sceneCopy;
-  v21 = v14;
-  v22 = delegate2;
-  v15 = v8;
-  v23 = v15;
-  v16 = [v13 initWithIdentifier:v15 forReason:@"SBContinuitySessionManager registerWindowScene:" invalidationBlock:v20];
-  v17 = SBLogContinuitySession();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v14 = objc_alloc(MEMORY[0x277CF0CE8]);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __50__SBContinuitySessionManager_registerWindowScene___block_invoke;
+  v21[3] = &unk_2783BA4E0;
+  objc_copyWeak(&v25, &location);
+  v15 = sceneCopy;
+  v22 = v15;
+  v23 = delegate2;
+  v16 = v8;
+  v24 = v16;
+  v17 = [v14 initWithIdentifier:v16 forReason:@"SBContinuitySessionManager registerWindowScene:" invalidationBlock:v21];
+  v18 = SBLogContinuitySession(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v27 = v15;
-    _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "[SessionManager] Added waiting scene: %{public}@", buf, 0xCu);
+    v28 = v16;
+    _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "[SessionManager] Added waiting scene: %{public}@", buf, 0xCu);
   }
 
-  [(NSMutableArray *)self->_waitingWindowScenes insertObject:v14 atIndex:0];
+  [(NSMutableArray *)self->_waitingWindowScenes insertObject:v15 atIndex:0];
   [(SBContinuitySessionManager *)self _noteSceneOrSessionIsWaiting];
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(&location);
 LABEL_15:
 
-  return v16;
+  return v17;
 }
 
 void __50__SBContinuitySessionManager_registerWindowScene___block_invoke(uint64_t a1)
@@ -262,7 +269,7 @@ void __50__SBContinuitySessionManager_registerWindowScene___block_invoke(uint64_
 
     else
     {
-      v6 = SBLogContinuitySession();
+      v6 = SBLogContinuitySession(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(a1 + 48);
@@ -314,13 +321,13 @@ void __71__SBContinuitySessionManager_registerSystemApertureCurtainWindowScene__
   _FBSScene = [sceneCopy _FBSScene];
   hostHandle = [_FBSScene hostHandle];
 
-  auditToken = [hostHandle auditToken];
-  v18 = [auditToken hasEntitlement:*MEMORY[0x277D67F48]];
+  v17 = objc_msgSend_auditToken(hostHandle);
+  v18 = [v17 hasEntitlement:*MEMORY[0x277D67F48]];
 
   if ((v18 & 1) == 0)
   {
-    v25 = SBLogContinuitySession();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = SBLogContinuitySession(v19);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       [SBContinuitySessionManager registerWindowScene:v14];
     }
@@ -330,8 +337,8 @@ void __71__SBContinuitySessionManager_registerSystemApertureCurtainWindowScene__
 
   if (!delegate2)
   {
-    v25 = SBLogContinuitySession();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = SBLogContinuitySession(v19);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       [SBContinuitySessionManager _registerSystemApertureScene:v14 sessionConnectionCallout:sceneCopy sessionDisconnectionCallout:?];
     }
@@ -349,51 +356,51 @@ LABEL_11:
     if (mainWindowScene)
     {
       objc_initWeak(location, self);
-      v21 = objc_alloc(MEMORY[0x277CF0CE8]);
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __112__SBContinuitySessionManager__registerSystemApertureScene_sessionConnectionCallout_sessionDisconnectionCallout___block_invoke;
-      v28[3] = &unk_2783BA528;
-      objc_copyWeak(&v33, location);
-      v22 = delegate2;
-      v29 = v22;
-      v32 = disconnectionCalloutCopy;
-      v23 = sceneCopy;
-      v30 = v23;
-      v31 = v14;
-      v24 = [v21 initWithIdentifier:v31 forReason:@"SBContinuitySessionManager registerSystemApertureWindowScene:" invalidationBlock:v28];
-      calloutCopy[2](calloutCopy, self->_currentSession, v23, v22);
+      v23 = objc_alloc(MEMORY[0x277CF0CE8]);
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __112__SBContinuitySessionManager__registerSystemApertureScene_sessionConnectionCallout_sessionDisconnectionCallout___block_invoke;
+      v30[3] = &unk_2783BA528;
+      objc_copyWeak(&v35, location);
+      v24 = delegate2;
+      v31 = v24;
+      v34 = disconnectionCalloutCopy;
+      v25 = sceneCopy;
+      v32 = v25;
+      v33 = v14;
+      v26 = [v23 initWithIdentifier:v33 forReason:@"SBContinuitySessionManager registerSystemApertureWindowScene:" invalidationBlock:v30];
+      calloutCopy[2](calloutCopy, self->_currentSession, v25, v24);
 
-      objc_destroyWeak(&v33);
+      objc_destroyWeak(&v35);
       objc_destroyWeak(location);
       goto LABEL_22;
     }
 
-    v26 = SBLogContinuitySession();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v28 = SBLogContinuitySession(v22);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(location[0]) = 138543362;
       *(location + 4) = v14;
-      _os_log_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_DEFAULT, "Attempted to register a scene %{public}@ the current session doesn't have a main window scene", location, 0xCu);
+      _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "Attempted to register a scene %{public}@ the current session doesn't have a main window scene", location, 0xCu);
     }
   }
 
   else
   {
-    v26 = SBLogContinuitySession();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v28 = SBLogContinuitySession(0);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(location[0]) = 138543362;
       *(location + 4) = v14;
-      _os_log_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_DEFAULT, "Attempted to register a scene %{public}@ but we don't have an active session", location, 0xCu);
+      _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "Attempted to register a scene %{public}@ but we don't have an active session", location, 0xCu);
     }
   }
 
 LABEL_21:
-  v24 = 0;
+  v26 = 0;
 LABEL_22:
 
-  return v24;
+  return v26;
 }
 
 void __112__SBContinuitySessionManager__registerSystemApertureScene_sessionConnectionCallout_sessionDisconnectionCallout___block_invoke(uint64_t a1)
@@ -412,7 +419,7 @@ void __112__SBContinuitySessionManager__registerSystemApertureScene_sessionConne
 
     else
     {
-      v5 = SBLogContinuitySession();
+      v5 = SBLogContinuitySession(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = *(a1 + 48);
@@ -457,13 +464,13 @@ id __56__SBContinuitySessionManager_appendDescriptionToStream___block_invoke(uin
 
 - (id)newContinuitySession
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v3 = SBLogContinuitySession();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = SBLogContinuitySession(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "[SessionManager] Creating new session...", &v16, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "[SessionManager] Creating new session...", &v17, 2u);
   }
 
   sessionFactory = self->_sessionFactory;
@@ -477,38 +484,37 @@ id __56__SBContinuitySessionManager_appendDescriptionToStream___block_invoke(uin
     newContinuitySession = objc_alloc_init(SBContinuitySession);
   }
 
-  v6 = newContinuitySession;
+  v7 = newContinuitySession;
   currentSession = self->_currentSession;
   if (currentSession)
   {
-    v8 = SBLogContinuitySession();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SBLogContinuitySession(newContinuitySession);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(SBContinuitySessionManager *)&self->_currentSession newContinuitySession];
     }
 
     [(SBContinuitySession *)self->_currentSession removeStateObserver:self];
-    v9 = self->_currentSession;
-    v10 = [MEMORY[0x277CBEB98] setWithObject:@"terminal.new-session-created"];
-    [(SBContinuitySession *)v9 invalidateForReasons:v10];
+    v10 = self->_currentSession;
+    v11 = [MEMORY[0x277CBEB98] setWithObject:@"terminal.new-session-created"];
+    [(SBContinuitySession *)v10 invalidateForReasons:v11];
 
-    v11 = self->_currentSession;
+    v12 = self->_currentSession;
     self->_currentSession = 0;
   }
 
-  v12 = [[SBContinuityDisplayLayoutPublisher alloc] initWithCoordinator:self->_displayLayoutCoordinator];
-  [(SBContinuitySession *)v6 setDisplayLayoutPublisher:v12];
-  v13 = SBLogContinuitySession();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v13 = [[SBContinuityDisplayLayoutPublisher alloc] initWithCoordinator:self->_displayLayoutCoordinator];
+  v14 = SBLogContinuitySession([(SBContinuitySession *)v7 setDisplayLayoutPublisher:v13]);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    succinctDescription = [(SBContinuitySession *)v6 succinctDescription];
-    v16 = 138543362;
-    v17 = succinctDescription;
-    _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "[SessionManager] Created new session: %{public}@", &v16, 0xCu);
+    succinctDescription = [(SBContinuitySession *)v7 succinctDescription];
+    v17 = 138543362;
+    v18 = succinctDescription;
+    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "[SessionManager] Created new session: %{public}@", &v17, 0xCu);
   }
 
-  objc_storeStrong(&self->_currentSession, v6);
-  [(SBContinuitySession *)v6 addStateObserver:self];
+  objc_storeStrong(&self->_currentSession, v7);
+  [(SBContinuitySession *)v7 addStateObserver:self];
   if (!currentSession)
   {
     [(SBContinuitySessionManagerExternalDependencyProviding *)self->_externalDependencyProvider noteContinuitySessionNegotiationStarted];
@@ -516,7 +522,7 @@ id __56__SBContinuitySessionManager_appendDescriptionToStream___block_invoke(uin
 
   [(SBContinuitySessionManager *)self _noteSceneOrSessionIsWaiting];
 
-  return v6;
+  return v7;
 }
 
 - (void)continuitySessionDidUpdateState:(id)state
@@ -529,7 +535,7 @@ id __56__SBContinuitySessionManager_appendDescriptionToStream___block_invoke(uin
     state = [(SBContinuitySession *)stateCopy state];
     if (state == 12)
     {
-      v7 = SBLogContinuitySession();
+      v7 = SBLogContinuitySession(12);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         succinctDescription = [(SBContinuitySession *)v5 succinctDescription];
@@ -566,7 +572,7 @@ id __56__SBContinuitySessionManager_appendDescriptionToStream___block_invoke(uin
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_2_23();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v5, v6, "Attempted to register a scene %{public}@ who's delegate doesn't conform to SBContinuitySessionSceneDelegate: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v5, v6, "Attempted to register a scene %{public}@ who's delegate doesn't conform to SBContinuitySessionSceneDelegate: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_registerSystemApertureScene:(uint64_t)a1 sessionConnectionCallout:(void *)a2 sessionDisconnectionCallout:.cold.2(uint64_t a1, void *a2)
@@ -575,7 +581,7 @@ id __56__SBContinuitySessionManager_appendDescriptionToStream___block_invoke(uin
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_2_23();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v5, v6, "Attempted to register a scene %{public}@ who's delegate doesn't conform to SBContinuitySessionSceneDelegate: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v5, v6, "Attempted to register a scene %{public}@ who's delegate doesn't conform to SBContinuitySessionSceneDelegate: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)newContinuitySession

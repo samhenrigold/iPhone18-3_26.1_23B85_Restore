@@ -87,14 +87,14 @@ void sub_1000E5CDC(const void *a1, uint64_t a2, __CFDictionary **a3)
             CFStringGetTypeID();
             if (VSCFDictionaryGetValueIfType())
             {
-              v6 = sub_1000E4DB0();
-              if (v6)
+              v7 = sub_1000E4DB0(a2);
+              if (v7)
               {
-                v7 = v6;
+                v8 = v7;
                 String = VSRecognitionPluginInfoCreateString();
                 if (String)
                 {
-                  v9 = String;
+                  v10 = String;
                   Mutable = *a3;
                   if (!*a3)
                   {
@@ -102,11 +102,11 @@ void sub_1000E5CDC(const void *a1, uint64_t a2, __CFDictionary **a3)
                     *a3 = Mutable;
                   }
 
-                  CFDictionarySetValue(Mutable, a1, v9);
-                  CFRelease(v9);
+                  CFDictionarySetValue(Mutable, a1, v10);
+                  CFRelease(v10);
                 }
 
-                CFRelease(v7);
+                CFRelease(v8);
               }
             }
           }
@@ -809,7 +809,7 @@ NSString *sub_1000E69EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_1000E6C48(uint64_t a1, uint64_t a2, uint64_t a3)
+const __CFDictionary *sub_1000E6C48(uint64_t a1, const __CFDictionary *a2, uint64_t a3)
 {
   v3 = *(a1 + 16);
   if (!v3)
@@ -985,7 +985,7 @@ LABEL_16:
   }
 }
 
-uint64_t sub_1000E6FBC(CFTypeRef *a1, const void **a2, uint64_t a3, uint64_t a4)
+BOOL sub_1000E6FBC(CFTypeRef *a1, const void **a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
@@ -3047,7 +3047,7 @@ LABEL_11:
   return 0;
 }
 
-uint64_t sub_1000E9568()
+uint64_t sub_1000E9568(uint64_t a1, uint64_t a2)
 {
   CPSqliteConnectionPerformSQL();
   CPSqliteConnectionPerformSQL();
@@ -3140,39 +3140,39 @@ LABEL_13:
   return 0;
 }
 
-void sub_1000E9790()
+void sub_1000E9790(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = *CPRecordGetClass();
+  v3 = *CPRecordGetClass();
   PropertyDescriptor = CPRecordGetPropertyDescriptor();
-  v2 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"UPDATE %s SET %s = ? WHERE ROWID = ?", v0, *PropertyDescriptor);
-  v3 = CPSqliteConnectionStatementForSQL();
-  if (v3)
+  v5 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"UPDATE %s SET %s = ? WHERE ROWID = ?", v3, *PropertyDescriptor);
+  v6 = CPSqliteConnectionStatementForSQL();
+  if (v6)
   {
-    v4 = v3;
+    v7 = v6;
     Property = CPRecordGetProperty();
-    if (Property && (v6 = Property, Length = CFDataGetLength(Property), Length >= 1))
+    if (Property && (v9 = Property, Length = CFDataGetLength(Property), Length >= 1))
     {
-      v8 = Length;
-      BytePtr = CFDataGetBytePtr(v6);
-      sqlite3_bind_blob(*(v4 + 8), 1, BytePtr, v8, 0);
+      v11 = Length;
+      BytePtr = CFDataGetBytePtr(v9);
+      sqlite3_bind_blob(*(v7 + 8), 1, BytePtr, v11, 0);
     }
 
     else
     {
-      sqlite3_bind_null(*(v4 + 8), 1);
+      sqlite3_bind_null(*(v7 + 8), 1);
     }
 
-    v10 = *(v4 + 8);
+    v13 = *(v7 + 8);
     ID = CPRecordGetID();
-    sqlite3_bind_int(v10, 2, ID);
+    sqlite3_bind_int(v13, 2, ID);
     CPSqliteStatementPerform();
     CPSqliteStatementReset();
   }
 
-  if (v2)
+  if (v5)
   {
 
-    CFRelease(v2);
+    CFRelease(v5);
   }
 }
 
@@ -3231,7 +3231,7 @@ void sub_1000E98D4(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_1000E9A38(uint64_t a1, uint64_t a2, int a3, CFStringRef theString, const __CFString *a5, const __CFString *a6, const __CFString *a7)
+void sub_1000E9A38(uint64_t a1, uint64_t a2, uint64_t a3, CFStringRef theString, const __CFString *a5, const __CFString *a6, const __CFString *a7)
 {
   Length = CFStringGetLength(theString);
   MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
@@ -3756,34 +3756,34 @@ void sub_1000EA778(OpaqueAudioQueue *a1)
   }
 }
 
-id sub_1000EB058(uint64_t a1)
+id sub_1000EB058(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = VSGetLogDefault();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v9 = VSGetLogDefault();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    *v5 = 0;
-    _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "#AudioSession mediaserverd died\n", v5, 2u);
+    *v12 = 0;
+    _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "#AudioSession mediaserverd died\n", v12, 2u);
   }
 
-  v3 = *(a1 + 32);
-  *(v3 + 40) = 0;
-  *(v3 + 48) = 0;
+  v10 = *(a1 + 32);
+  *(v10 + 40) = 0;
+  *(v10 + 48) = 0;
   *(*(a1 + 32) + 16) = 0;
   result = [*(a1 + 32) _setupAudioSession];
   ++*(*(a1 + 32) + 72);
   return result;
 }
 
-uint64_t sub_1000EB1B4(uint64_t a1)
+uint64_t sub_1000EB1B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(a1 + 32);
-  *(v1 + 40) = 0;
-  *(v1 + 48) = 0;
-  v2 = VSGetLogDefault();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v8 = *(a1 + 32);
+  *(v8 + 40) = 0;
+  *(v8 + 48) = 0;
+  v9 = VSGetLogDefault();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    *v4 = 0;
-    _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "#AudioSession session interrupted\n", v4, 2u);
+    *v11 = 0;
+    _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "#AudioSession session interrupted\n", v11, 2u);
   }
 
   return sub_1000EA71C();
@@ -4111,15 +4111,15 @@ id sub_1000EC084(uint64_t a1)
   return result;
 }
 
-id sub_1000EC628(uint64_t a1)
+id sub_1000EC628(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = VSGetLogDefault();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v9 = VSGetLogDefault();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) connectionIdentifier];
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "XPC connection invalidated, identifier: %{public}@", &v5, 0xCu);
+    v10 = [*(a1 + 32) connectionIdentifier];
+    v12 = 138543362;
+    v13 = v10;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "XPC connection invalidated, identifier: %{public}@", &v12, 0xCu);
   }
 
   if ([*(a1 + 32) isSpeaking])
@@ -4437,7 +4437,7 @@ void sub_1000ED26C(id a1, NSError *a2)
   }
 }
 
-void sub_1000ED424(uint64_t a1, uint64_t a2)
+void sub_1000ED424(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if ((*a1 & 0x80000000) != 0 || *(a1 + 4) != 36)
   {
@@ -4449,15 +4449,15 @@ void sub_1000ED424(uint64_t a1, uint64_t a2)
   {
     if (*(a1 + 32))
     {
-      v3 = VSGetLogDefault();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      v9 = VSGetLogDefault();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "beginning plugin registry rebuild...", buf, 2u);
+        _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "beginning plugin registry rebuild...", buf, 2u);
       }
 
-      v4 = sub_1000E447C();
-      v5 = sub_1000E44EC();
+      v10 = sub_1000E447C();
+      v11 = sub_1000E44EC();
       pthread_mutex_lock(&stru_1001012E0);
       if (qword_1001064D0)
       {
@@ -4471,28 +4471,28 @@ void sub_1000ED424(uint64_t a1, uint64_t a2)
         qword_1001064D8 = 0;
       }
 
-      sub_1000E46BC(v4, v5);
-      CFRelease(v4);
-      if (v5)
+      sub_1000E46BC(v10, v11);
+      CFRelease(v10);
+      if (v11)
       {
-        CFRelease(v5);
+        CFRelease(v11);
       }
 
       pthread_mutex_unlock(&stru_1001012E0);
-      v6 = VSGetLogDefault();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v12 = VSGetLogDefault();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        *v8 = 0;
-        _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "finished.\n", v8, 2u);
+        *v14 = 0;
+        _os_log_debug_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "finished.\n", v14, 2u);
       }
     }
 
     else
     {
-      v7 = sub_1000E4150();
-      if (v7)
+      v13 = sub_1000E4150();
+      if (v13)
       {
-        CFRelease(v7);
+        CFRelease(v13);
       }
     }
 

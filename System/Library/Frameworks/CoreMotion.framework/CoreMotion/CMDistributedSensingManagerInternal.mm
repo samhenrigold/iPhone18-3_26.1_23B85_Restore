@@ -39,18 +39,17 @@
 - (void)_teardown
 {
   objc_msgSend__unregisterForVehicleStateUpdates(self, a2, v2);
-  locationdConnection = self->_locationdConnection;
   sub_19B428B50(&__p, "DistributedSensing/kCLConnectionMessageDistributedSensingVehicleStateUpdate");
   CLConnectionClient::setHandlerForMessage();
-  if (v7 < 0)
+  if (v6 < 0)
   {
     operator delete(__p);
   }
 
   if (self->_locationdConnection)
   {
-    v5 = MEMORY[0x19EAE71C0]();
-    MEMORY[0x19EAE76F0](v5, 0xB0C40BC2CC919);
+    v4 = MEMORY[0x19EAE71C0]();
+    MEMORY[0x19EAE76F0](v4, 0xB0C40BC2CC919);
   }
 
   self->_locationdConnection = 0;
@@ -58,10 +57,10 @@
 
 - (void)_handleDaemonMessage:(id)message data:(id)data
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (!objc_loadWeak(&self->_delegate))
   {
-    goto LABEL_39;
+    return;
   }
 
   if (data)
@@ -82,7 +81,7 @@
         if (os_log_type_enabled(qword_1EAFE2A40, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v37 = v15;
+          v38 = v15;
           _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_ERROR, "Vehicle State, error, %@", buf, 0xCu);
         }
 
@@ -95,13 +94,14 @@
             dispatch_once(&qword_1EAFE2A38, &unk_1F0E29040);
           }
 
-          v34 = 138412290;
-          v35 = v15;
-          v18 = _os_log_send_and_compose_impl();
+          v35 = 138412290;
+          v36 = v15;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A40, 16, "Vehicle State, error, %@", &v35, 12);
+          v19 = v18;
           sub_19B6BB7CC("Generic", 1, 0, 0, "[CMDistributedSensingManagerInternal _handleDaemonMessage:data:]", "CoreLocation: %s\n", v18);
-          if (v18 != buf)
+          if (v19 != buf)
           {
-            free(v18);
+            free(v19);
           }
         }
 
@@ -117,19 +117,19 @@
 
       else if (objc_msgSend_objectForKeyedSubscript_(data, v9, @"CMDistributedSensingVehicleStateUpdateKey"))
       {
-        v27 = objc_msgSend_objectForKeyedSubscript_(data, v26, @"CMDistributedSensingVehicleStateUpdateKey");
-        v30 = objc_msgSend_copy(v27, v28, v29);
-        v31 = self->_clientQueue;
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = sub_19B5FF1A8;
-        v32[3] = &unk_1E7532A00;
-        v32[4] = self;
-        v32[5] = v30;
-        dispatch_async(v31, v32);
+        v28 = objc_msgSend_objectForKeyedSubscript_(data, v27, @"CMDistributedSensingVehicleStateUpdateKey");
+        v31 = objc_msgSend_copy(v28, v29, v30);
+        v32 = self->_clientQueue;
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = sub_19B5FF1A8;
+        v33[3] = &unk_1E7532A00;
+        v33[4] = self;
+        v33[5] = v31;
+        dispatch_async(v32, v33);
       }
 
-      goto LABEL_39;
+      return;
     }
 
     if (qword_1EAFE2A38 != -1)
@@ -137,15 +137,15 @@
       dispatch_once(&qword_1EAFE2A38, &unk_1F0E29040);
     }
 
-    v22 = qword_1EAFE2A40;
+    v24 = qword_1EAFE2A40;
     if (os_log_type_enabled(qword_1EAFE2A40, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_FAULT, "Unrecognizable dictionary", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_FAULT, "Unrecognizable dictionary", buf, 2u);
     }
 
-    v23 = sub_19B420058();
-    if ((*(v23 + 160) & 0x80000000) == 0 || (*(v23 + 164) & 0x80000000) == 0 || (*(v23 + 168) & 0x80000000) == 0 || *(v23 + 152))
+    v25 = sub_19B420058();
+    if ((*(v25 + 160) & 0x80000000) == 0 || (*(v25 + 164) & 0x80000000) == 0 || (*(v25 + 168) & 0x80000000) == 0 || *(v25 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2A38 != -1)
@@ -153,13 +153,14 @@
         dispatch_once(&qword_1EAFE2A38, &unk_1F0E29040);
       }
 
-      LOWORD(v34) = 0;
+      LOWORD(v35) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A40, 17, "Unrecognizable dictionary", &v35, 2);
 LABEL_37:
-      v24 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMDistributedSensingManagerInternal _handleDaemonMessage:data:]", "CoreLocation: %s\n", v24);
-      if (v24 != buf)
+      v26 = v23;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMDistributedSensingManagerInternal _handleDaemonMessage:data:]", "CoreLocation: %s\n", v23);
+      if (v26 != buf)
       {
-        free(v24);
+        free(v26);
       }
     }
   }
@@ -171,15 +172,15 @@ LABEL_37:
       dispatch_once(&qword_1EAFE2A38, &unk_1F0E29040);
     }
 
-    v20 = qword_1EAFE2A40;
+    v21 = qword_1EAFE2A40;
     if (os_log_type_enabled(qword_1EAFE2A40, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_FAULT, "nil dictionary", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v21, OS_LOG_TYPE_FAULT, "nil dictionary", buf, 2u);
     }
 
-    v21 = sub_19B420058();
-    if ((*(v21 + 160) & 0x80000000) == 0 || (*(v21 + 164) & 0x80000000) == 0 || (*(v21 + 168) & 0x80000000) == 0 || *(v21 + 152))
+    v22 = sub_19B420058();
+    if ((*(v22 + 160) & 0x80000000) == 0 || (*(v22 + 164) & 0x80000000) == 0 || (*(v22 + 168) & 0x80000000) == 0 || *(v22 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2A38 != -1)
@@ -187,13 +188,11 @@ LABEL_37:
         dispatch_once(&qword_1EAFE2A38, &unk_1F0E29040);
       }
 
-      LOWORD(v34) = 0;
+      LOWORD(v35) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A40, 17, "nil dictionary", &v35, 2);
       goto LABEL_37;
     }
   }
-
-LABEL_39:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerForVehicleStateUpdates

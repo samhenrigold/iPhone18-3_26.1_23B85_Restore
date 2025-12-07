@@ -146,7 +146,7 @@ void __93__UIViewKeyframeAnimationState_addKeyframeWithRelativeStartTime_relativ
         v15 = [v12 valueForKeyPath:v4];
         if (!v15)
         {
-          if ([(__CFString *)v10 isEqualToString:v4])
+          if (objc_msgSend_isEqualToString_(v10))
           {
             +[UIColor clearColor];
             v16 = v8;

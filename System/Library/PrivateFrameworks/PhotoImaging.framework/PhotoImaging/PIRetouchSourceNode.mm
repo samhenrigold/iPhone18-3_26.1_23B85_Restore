@@ -224,7 +224,7 @@ uint64_t __53__PIRetouchSourceNode_intermediateCacheForSubsample___block_invoke(
   [v21 enumerateRects:v31];
 }
 
-uint64_t __75__PIRetouchSourceNode_provideImageData_bytesPerRow_origin::size::userInfo___block_invoke(uint64_t a1, __int128 *a2)
+uint64_t __75__PIRetouchSourceNode_provideImageData_bytesPerRow_origin::size::userInfo___block_invoke(void *a1, __int128 *a2)
 {
   v9 = 0u;
   v10 = 0u;
@@ -232,8 +232,8 @@ uint64_t __75__PIRetouchSourceNode_provideImageData_bytesPerRow_origin::size::us
   v7 = *a2;
   v8 = v3;
   NUPixelRectOffset();
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 72);
+  v4 = a1[4];
+  v5 = a1[9];
   v7 = 0u;
   v8 = 0u;
   return [MEMORY[0x1E69B3B38] fillPixelsInBuffer:v4 rect:&v7 srcPixel:v5];

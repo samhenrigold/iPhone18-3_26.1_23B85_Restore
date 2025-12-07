@@ -1,7 +1,7 @@
 @interface TISupplementalPersonItem(TextInputCore)
+- (BOOL)core_isEqualToMecabraCandidate:()TextInputCore;
 - (id)core_nameReadingPairsWithGenerationMode:()TextInputCore mecabraEnvironment:;
 - (id)core_nonPhoneticRangesInString:()TextInputCore options:locale:;
-- (uint64_t)core_isEqualToMecabraCandidate:()TextInputCore;
 - (void)core_appendEntitiesToArray:()TextInputCore;
 @end
 
@@ -122,109 +122,22 @@
   return v10;
 }
 
-- (uint64_t)core_isEqualToMecabraCandidate:()TextInputCore
+- (BOOL)core_isEqualToMecabraCandidate:()TextInputCore
 {
   v4 = a3;
   input = [v4 input];
   v6 = [input length];
 
-  if (v6)
+  v39 = 1;
+  if (!v6 || ([self phoneticGivenName], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "input"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend_isEqualToString_(v7), v8, v7, (v9 & 1) == 0) && (objc_msgSend(self, "phoneticMiddleName"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "input"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend_isEqualToString_(v10), v11, v10, (v12 & 1) == 0) && (objc_msgSend(self, "phoneticFamilyName"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "input"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend_isEqualToString_(v13), v14, v13, (v15 & 1) == 0) && (objc_msgSend(self, "nickname"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "input"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend_isEqualToString_(v16), v17, v16, (v18 & 1) == 0) && (objc_msgSend(self, "previousFamilyName"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "input"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend_isEqualToString_(v19), v20, v19, (v21 & 1) == 0))
   {
-    phoneticGivenName = [self phoneticGivenName];
-    input2 = [v4 input];
-    v9 = [phoneticGivenName isEqualToString:input2];
+    candidate = [v4 candidate];
+    v23 = [candidate length];
 
-    if (v9)
+    if (!v23 || ([self givenName], v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "candidate"), v25 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v24), v25, v24, (isEqualToString & 1) == 0) && (objc_msgSend(self, "middleName"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "candidate"), v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend_isEqualToString_(v27), v28, v27, (v29 & 1) == 0) && (objc_msgSend(self, "familyName"), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "candidate"), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend_isEqualToString_(v30), v31, v30, (v32 & 1) == 0) && (objc_msgSend(self, "nickname"), v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "candidate"), v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend_isEqualToString_(v33), v34, v33, (v35 & 1) == 0) && (objc_msgSend(self, "previousFamilyName"), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "candidate"), v37 = objc_claimAutoreleasedReturnValue(), v38 = objc_msgSend_isEqualToString_(v36), v37, v36, (v38 & 1) == 0))
     {
-      goto LABEL_13;
+      v39 = 0;
     }
-
-    phoneticMiddleName = [self phoneticMiddleName];
-    input3 = [v4 input];
-    v12 = [phoneticMiddleName isEqualToString:input3];
-
-    if (v12)
-    {
-      goto LABEL_13;
-    }
-
-    phoneticFamilyName = [self phoneticFamilyName];
-    input4 = [v4 input];
-    v15 = [phoneticFamilyName isEqualToString:input4];
-
-    if (v15)
-    {
-      goto LABEL_13;
-    }
-
-    nickname = [self nickname];
-    input5 = [v4 input];
-    v18 = [nickname isEqualToString:input5];
-
-    if (v18)
-    {
-      goto LABEL_13;
-    }
-
-    previousFamilyName = [self previousFamilyName];
-    input6 = [v4 input];
-    v21 = [previousFamilyName isEqualToString:input6];
-
-    if (v21)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  candidate = [v4 candidate];
-  v23 = [candidate length];
-
-  if (!v23)
-  {
-    goto LABEL_15;
-  }
-
-  givenName = [self givenName];
-  candidate2 = [v4 candidate];
-  v26 = [givenName isEqualToString:candidate2];
-
-  if (v26)
-  {
-    goto LABEL_13;
-  }
-
-  middleName = [self middleName];
-  candidate3 = [v4 candidate];
-  v29 = [middleName isEqualToString:candidate3];
-
-  if (v29)
-  {
-    goto LABEL_13;
-  }
-
-  familyName = [self familyName];
-  candidate4 = [v4 candidate];
-  v32 = [familyName isEqualToString:candidate4];
-
-  if (v32)
-  {
-    goto LABEL_13;
-  }
-
-  nickname2 = [self nickname];
-  candidate5 = [v4 candidate];
-  v35 = [nickname2 isEqualToString:candidate5];
-
-  if (v35 & 1) != 0 || ([self previousFamilyName], v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "candidate"), v37 = objc_claimAutoreleasedReturnValue(), v38 = objc_msgSend(v36, "isEqualToString:", v37), v37, v36, (v38))
-  {
-LABEL_13:
-    v39 = 1;
-  }
-
-  else
-  {
-LABEL_15:
-    v39 = 0;
   }
 
   return v39;

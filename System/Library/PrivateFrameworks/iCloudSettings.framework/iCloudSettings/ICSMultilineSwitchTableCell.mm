@@ -8,8 +8,11 @@
 - (void)dealloc;
 - (void)prepareForReuse;
 - (void)refreshCellContentsWithSpecifier:(id)specifier;
+- (void)reloadWithSpecifier:(id)specifier animated:(BOOL)animated;
+- (void)setCellEnabled:(BOOL)enabled;
 - (void)setControl:(id)control;
 - (void)setLoading:(BOOL)loading;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 - (void)setValue:(id)value;
 @end
 
@@ -184,6 +187,16 @@ LABEL_14:
   }
 }
 
+- (void)setCellEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v6.receiver = self;
+  v6.super_class = ICSMultilineSwitchTableCell;
+  [(PSTableCell *)&v6 setCellEnabled:?];
+  control = [(ICSMultilineSwitchTableCell *)self control];
+  [control setEnabled:enabledCopy];
+}
+
 - (void)prepareForReuse
 {
   [(ICSMultilineSwitchTableCell *)self setLoading:0];
@@ -309,6 +322,24 @@ LABEL_17:
   return v4;
 }
 
+- (void)reloadWithSpecifier:(id)specifier animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v11.receiver = self;
+  v11.super_class = ICSMultilineSwitchTableCell;
+  [(PSTableCell *)&v11 reloadWithSpecifier:specifier animated:?];
+  v6 = *MEMORY[0x277D3FCE8];
+  bOOLValue = [*(&self->super.super.super.super.super.super.isa + v6) BOOLValue];
+  control = [(ICSMultilineSwitchTableCell *)self control];
+  isOn = [control isOn];
+
+  if (bOOLValue != isOn)
+  {
+    control2 = [(ICSMultilineSwitchTableCell *)self control];
+    [control2 setOn:objc_msgSend(*(&self->super.super.super.super.super.super.isa + v6) animated:{"BOOLValue"), animatedCopy}];
+  }
+}
+
 - (void)setValue:(id)value
 {
   valueCopy = value;
@@ -322,6 +353,13 @@ LABEL_17:
 
     valueCopy = v8;
   }
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  v6 = [(ICSMultilineSwitchTableCell *)self backgroundColor:selected];
+  selectedBackgroundView = [(ICSMultilineSwitchTableCell *)self selectedBackgroundView];
+  [selectedBackgroundView setBackgroundColor:v6];
 }
 
 @end

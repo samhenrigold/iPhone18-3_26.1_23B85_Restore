@@ -185,7 +185,7 @@ void AHTUserEventAgentInit()
   }
 }
 
-uint64_t isDataInRCHL(const char *a1, unint64_t a2, size_t a3)
+uint64_t isDataInRCHL(const char *a1, const char *a2, size_t a3)
 {
   v16 = 0;
   v17 = 0;
@@ -289,7 +289,7 @@ LABEL_24:
   return result;
 }
 
-uint64_t CRWasComponentRepaired(const char *a1, unint64_t a2, size_t a3)
+uint64_t CRWasComponentRepaired(const char *a1, const char *a2, size_t a3)
 {
   if (a1 && a2 && a3)
   {
@@ -754,7 +754,7 @@ unint64_t *DERParseBitString(unint64_t *result, unint64_t *a2, _BYTE *a3)
   v3 = **result;
   *a3 = v3;
   v4 = result[1];
-  if (v4 != &dword_0 + 1)
+  if (v4 != 1)
   {
     if (v3 <= 7)
     {
@@ -767,8 +767,8 @@ LABEL_20:
       }
 
       v6 = *result;
-      v7 = &v4[*result];
-      v8 = &v5[*result];
+      v7 = *result + v4;
+      v8 = (*result + v5);
       if (v8 >= v7 || v8 < v6)
       {
 LABEL_19:
@@ -899,9 +899,9 @@ char **DERParseInteger64(char **result, unint64_t *a2)
     goto LABEL_7;
   }
 
-  if (v2 != 1)
+  if (v2 != &dword_0 + 1)
   {
-    if (v3 + 1 >= &v3[v2])
+    if ((v3 + 1) >= &v2[v3])
     {
       __break(0x5519u);
       return result;
@@ -976,7 +976,7 @@ unsigned __int8 **DERParseInteger64Signed(unsigned __int8 **result, uint64_t *a2
 
     if (v2 != 1)
     {
-      if ((v3 + 1) < v4)
+      if (v3 + 1 < v4)
       {
         if ((v3[1] & 0x80000000) == 0)
         {
@@ -1000,7 +1000,7 @@ LABEL_21:
 
   else if (v2 != 1)
   {
-    if ((v3 + 1) >= v4)
+    if (v3 + 1 >= v4)
     {
       goto LABEL_21;
     }

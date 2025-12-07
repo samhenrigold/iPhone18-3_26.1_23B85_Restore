@@ -1,6 +1,7 @@
 @interface CoreAnalyticsReportOutlet
 - (BOOL)publishReportForCase:(id)case options:(id)options;
 - (id)buildDiagnosticIncidentEventForCase:(id)case;
+- (id)closureTypeForClosure:(signed __int16)closure;
 - (id)dampeningResultForDampeningType:(signed __int16)type;
 - (id)handledResultForDampeningType:(signed __int16)type;
 @end
@@ -30,16 +31,16 @@
 
 - (id)dampeningResultForDampeningType:(signed __int16)type
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ((type + 2) >= 0xB)
   {
     typeCopy = type;
-    v5 = analyticsLogHandle();
+    v5 = analyticsLogHandle(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9[0] = 67109120;
-      v9[1] = typeCopy;
-      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_ERROR, "Found unexpected dampening type %d", v9, 8u);
+      v8[0] = 67109120;
+      v8[1] = typeCopy;
+      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_ERROR, "Found unexpected dampening type %d", v8, 8u);
     }
 
     v3 = 0;
@@ -51,7 +52,33 @@
   }
 
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v3];
-  v7 = *MEMORY[0x277D85DE8];
+
+  return v6;
+}
+
+- (id)closureTypeForClosure:(signed __int16)closure
+{
+  closureCopy = closure;
+  v9 = *MEMORY[0x277D85DE8];
+  if (closure >= 6)
+  {
+    v5 = analyticsLogHandle(self);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      v8[0] = 67109120;
+      v8[1] = closureCopy;
+      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_ERROR, "Found unexpected closure type %d", v8, 8u);
+    }
+
+    *&closure = 0;
+  }
+
+  else
+  {
+    closureCopy2 = closure;
+  }
+
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:closure];
 
   return v6;
 }
@@ -167,21 +194,19 @@ LABEL_12:
 
 id __58__CoreAnalyticsReportOutlet_publishReportForCase_options___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = casemanagementLogHandle();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = casemanagementLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) caseId];
     v4 = [v3 UUIDString];
-    v9 = 138543362;
-    v10 = v4;
-    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_INFO, "Submitting analytics for case id %{public}@ to CoreAnalytics", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v4;
+    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_INFO, "Submitting analytics for case id %{public}@ to CoreAnalytics", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v6 = [WeakRetained buildDiagnosticIncidentEventForCase:*(a1 + 32)];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

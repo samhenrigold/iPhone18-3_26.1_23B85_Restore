@@ -55,28 +55,28 @@
     frontDarkening = v4->_frontDarkening;
     v4->_frontDarkening = layer4;
 
-    v22 = +[UIColor blackColor];
+    v22 = objc_msgSend_blackColor(UIColor);
     -[CALayer setBackgroundColor:](v4->_frontDarkening, "setBackgroundColor:", [v22 CGColor]);
 
     layer5 = [MEMORY[0x1E6979398] layer];
     backDarkening = v4->_backDarkening;
     v4->_backDarkening = layer5;
 
-    v25 = +[UIColor blackColor];
+    v25 = objc_msgSend_blackColor(UIColor);
     -[CALayer setBackgroundColor:](v4->_backDarkening, "setBackgroundColor:", [v25 CGColor]);
 
     layer6 = [MEMORY[0x1E6979398] layer];
     backDarkeningLeft = v4->_backDarkeningLeft;
     v4->_backDarkeningLeft = layer6;
 
-    v28 = +[UIColor blackColor];
+    v28 = objc_msgSend_blackColor(UIColor);
     -[CALayer setBackgroundColor:](v4->_backDarkeningLeft, "setBackgroundColor:", [v28 CGColor]);
 
     layer7 = [MEMORY[0x1E6979398] layer];
     backDarkeningRight = v4->_backDarkeningRight;
     v4->_backDarkeningRight = layer7;
 
-    v31 = +[UIColor blackColor];
+    v31 = objc_msgSend_blackColor(UIColor);
     -[CALayer setBackgroundColor:](v4->_backDarkeningRight, "setBackgroundColor:", [v31 CGColor]);
 
     [(CALayer *)v4->_frontFace addSublayer:v4->_frontDarkening];

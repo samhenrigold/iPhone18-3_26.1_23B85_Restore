@@ -8,22 +8,18 @@
 
 - (id)_init
 {
-  v10.receiver = self;
-  v10.super_class = SiriCoreNWContext;
-  v2 = [(SiriCoreNWContext *)&v10 init];
+  v6.receiver = self;
+  v6.super_class = SiriCoreNWContext;
+  v2 = [(SiriCoreNWContext *)&v6 init];
   if (v2)
   {
     v3 = nw_context_create();
     context = v2->_context;
     v2->_context = v3;
 
-    v5 = v2->_context;
     nw_context_set_scheduling_mode();
-    v6 = v2->_context;
     nw_context_set_isolate_protocol_stack();
-    v7 = v2->_context;
     nw_context_set_privacy_level();
-    v8 = v2->_context;
     nw_context_set_isolate_protocol_cache();
   }
 
@@ -52,9 +48,11 @@
 
 uint64_t __35__SiriCoreNWContext_sharedInstance__block_invoke()
 {
-  sharedInstance_sSharedInstance = [[SiriCoreNWContext alloc] _init];
+  v0 = [[SiriCoreNWContext alloc] _init];
+  v1 = sharedInstance_sSharedInstance;
+  sharedInstance_sSharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

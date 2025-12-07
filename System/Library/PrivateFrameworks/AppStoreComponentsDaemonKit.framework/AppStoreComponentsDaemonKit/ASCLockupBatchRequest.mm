@@ -15,9 +15,9 @@
 
 + (id)lockupBatchRequestsFromRequests:(id)requests
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
-  v54 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v53 = objc_alloc_init(MEMORY[0x277CBEB38]);
   firstObject = [requestsCopy firstObject];
   clientID = [firstObject clientID];
 
@@ -33,36 +33,36 @@
   firstObject5 = [requestsCopy firstObject];
   countryCodeOverride = [firstObject5 countryCodeOverride];
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v12 = requestsCopy;
-  v53 = [v12 countByEnumeratingWithState:&v62 objects:v66 count:16];
-  if (v53)
+  v52 = [v12 countByEnumeratingWithState:&v61 objects:v65 count:16];
+  if (v52)
   {
-    v51 = *v63;
+    v50 = *v62;
     do
     {
-      for (i = 0; i != v53; ++i)
+      for (i = 0; i != v52; ++i)
       {
-        if (*v63 != v51)
+        if (*v62 != v50)
         {
           objc_enumerationMutation(v12);
         }
 
-        v14 = *(*(&v62 + 1) + 8 * i);
+        v14 = *(*(&v61 + 1) + 8 * i);
         if ([v12 count] >= 2)
         {
           mediaQueryParams2 = [v14 mediaQueryParams];
 
           if (mediaQueryParams2)
           {
-            v47 = objc_alloc(MEMORY[0x277CBEAD8]);
-            v48 = *MEMORY[0x277CBE660];
-            v49 = @"Request specifying custom media query parameters cannot be included in batch request with more than one request";
+            v46 = objc_alloc(MEMORY[0x277CBEAD8]);
+            v47 = *MEMORY[0x277CBE660];
+            v48 = @"Request specifying custom media query parameters cannot be included in batch request with more than one request";
 LABEL_37:
-            objc_exception_throw([v47 initWithName:v48 reason:v49 userInfo:0]);
+            objc_exception_throw([v46 initWithName:v47 reason:v48 userInfo:0]);
           }
         }
 
@@ -84,9 +84,9 @@ LABEL_37:
           if (v17 != clientID)
           {
 LABEL_31:
-            v41 = MEMORY[0x277CCACA8];
+            v40 = MEMORY[0x277CCACA8];
             clientID3 = [v14 clientID];
-            v43 = [v41 stringWithFormat:@"Requests with different clientID cannot be included in batch request: %@ != %@", clientID3, clientID];
+            v42 = [v40 stringWithFormat:@"Requests with different clientID cannot be included in batch request: %@ != %@", clientID3, clientID];
 
             goto LABEL_36;
           }
@@ -94,7 +94,7 @@ LABEL_31:
 
         if (enableAppDistribution != [v14 enableAppDistribution])
         {
-          v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"Requests with different AppDistribution options cannot be included in batch request: %d != %d", objc_msgSend(v14, "enableAppDistribution"), enableAppDistribution];
+          v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"Requests with different AppDistribution options cannot be included in batch request: %d != %d", objc_msgSend(v14, "enableAppDistribution"), enableAppDistribution];
           goto LABEL_36;
         }
 
@@ -116,9 +116,9 @@ LABEL_31:
           if (v20 != platformOverride)
           {
 LABEL_32:
-            v44 = MEMORY[0x277CCACA8];
+            v43 = MEMORY[0x277CCACA8];
             platformOverride3 = [v14 platformOverride];
-            [v44 stringWithFormat:@"Requests with different platformOverride options cannot be included in batch request: %@ != %@", platformOverride3, platformOverride];
+            [v43 stringWithFormat:@"Requests with different platformOverride options cannot be included in batch request: %@ != %@", platformOverride3, platformOverride];
             goto LABEL_34;
           }
         }
@@ -141,15 +141,15 @@ LABEL_32:
           if (v23 != countryCodeOverride)
           {
 LABEL_33:
-            v46 = MEMORY[0x277CCACA8];
+            v45 = MEMORY[0x277CCACA8];
             platformOverride3 = [v14 countryCodeOverride];
-            [v46 stringWithFormat:@"Requests with different countryCodeOverride options cannot be included in batch request: %@ != %@", platformOverride3, countryCodeOverride];
-            v43 = LABEL_34:;
+            [v45 stringWithFormat:@"Requests with different countryCodeOverride options cannot be included in batch request: %@ != %@", platformOverride3, countryCodeOverride];
+            v42 = LABEL_34:;
 
 LABEL_36:
-            v47 = objc_alloc(MEMORY[0x277CBEAD8]);
-            v48 = *MEMORY[0x277CBE660];
-            v49 = v43;
+            v46 = objc_alloc(MEMORY[0x277CBEAD8]);
+            v47 = *MEMORY[0x277CBE660];
+            v48 = v42;
             goto LABEL_37;
           }
         }
@@ -159,45 +159,43 @@ LABEL_36:
         context = [v14 context];
         v28 = [(ASCPair *)v25 initWithFirst:kind second:context];
 
-        v29 = [v54 objectForKeyedSubscript:v28];
+        v29 = [v53 objectForKeyedSubscript:v28];
         if (!v29)
         {
           v29 = objc_alloc_init(MEMORY[0x277CBEB58]);
-          [v54 setObject:v29 forKeyedSubscript:v28];
+          [v53 setObject:v29 forKeyedSubscript:v28];
         }
 
         v30 = [v14 id];
         [v29 addObject:v30];
       }
 
-      v53 = [v12 countByEnumeratingWithState:&v62 objects:v66 count:16];
+      v52 = [v12 countByEnumeratingWithState:&v61 objects:v65 count:16];
     }
 
-    while (v53);
+    while (v52);
   }
 
   v31 = v12;
 
   v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __57__ASCLockupBatchRequest_lockupBatchRequestsFromRequests___block_invoke;
-  v55[3] = &unk_2784B1600;
-  v61 = enableAppDistribution;
-  v56 = clientID;
-  v57 = mediaQueryParams;
-  v58 = platformOverride;
-  v59 = countryCodeOverride;
-  v60 = v32;
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __57__ASCLockupBatchRequest_lockupBatchRequestsFromRequests___block_invoke;
+  v54[3] = &unk_2784B1600;
+  v60 = enableAppDistribution;
+  v55 = clientID;
+  v56 = mediaQueryParams;
+  v57 = platformOverride;
+  v58 = countryCodeOverride;
+  v59 = v32;
   v33 = v32;
   v34 = countryCodeOverride;
   v35 = platformOverride;
   v36 = mediaQueryParams;
   v37 = clientID;
-  [v54 enumerateKeysAndObjectsUsingBlock:v55];
+  [v53 enumerateKeysAndObjectsUsingBlock:v54];
   v38 = [v33 copy];
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
@@ -654,31 +652,31 @@ LABEL_55:
 
 - (NSArray)requests
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB18]);
   v4 = [(ASCLockupBatchRequest *)self ids];
   v5 = [v3 initWithCapacity:{objc_msgSend(v4, "count")}];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = [(ASCLockupBatchRequest *)self ids];
-  v6 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v30;
+    v8 = *v29;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
         v11 = [ASCLockupRequest alloc];
         kind = [(ASCLockupBatchRequest *)self kind];
         context = [(ASCLockupBatchRequest *)self context];
@@ -718,14 +716,13 @@ LABEL_55:
         [v5 addObject:v15];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v7);
   }
 
   v25 = [v5 copy];
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

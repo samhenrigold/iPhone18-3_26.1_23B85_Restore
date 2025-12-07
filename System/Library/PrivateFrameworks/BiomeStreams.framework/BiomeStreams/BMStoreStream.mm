@@ -14,8 +14,15 @@
 - (id)publisherForDevice:(id)device withUseCase:(id)case;
 - (id)publisherForDevice:(id)device withUseCase:(id)case options:(id)options;
 - (id)publisherFromStartTime:(double)time;
+- (id)publisherWithStartTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed;
+- (id)publisherWithStartTime:(id)time endTime:(id)endTime maxEvents:(id)events reversed:(BOOL)reversed;
+- (id)publisherWithStartTime:(id)time withEndTime:(id)endTime withMaxEvents:(id)events reversed:(BOOL)reversed;
+- (id)publishersForDevices:(id)devices startTime:(double)time includeLocal:(BOOL)local pipeline:(id)pipeline;
 - (id)publishersForDevices:(id)devices startTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed includeLocal:(BOOL)local pipeline:(id)self0;
+- (id)publishersForDevices:(id)devices withUseCase:(id)case startTime:(double)time includeLocal:(BOOL)local pipeline:(id)pipeline;
 - (id)publishersForDevices:(id)devices withUseCase:(id)case startTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed includeLocal:(BOOL)self0 pipeline:(id)self1;
+- (id)publishersForRemoteDevices:(id)devices startTime:(double)time includeLocal:(BOOL)local pipeline:(id)pipeline;
+- (id)publishersForRemoteDevices:(id)devices startTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed includeLocal:(BOOL)local pipeline:(id)self0;
 - (id)remoteDevices;
 - (id)remoteDevicesForAccount:(id)account error:(id *)error;
 - (id)remoteDevicesWithError:(id *)error;
@@ -366,6 +373,121 @@ LABEL_11:
   return v6;
 }
 
+- (id)publisherWithStartTime:(id)time withEndTime:(id)endTime withMaxEvents:(id)events reversed:(BOOL)reversed
+{
+  reversedCopy = reversed;
+  timeCopy = time;
+  endTimeCopy = endTime;
+  eventsCopy = events;
+  if (timeCopy)
+  {
+    v13 = MEMORY[0x1E695DF00];
+    [timeCopy doubleValue];
+    v14 = [v13 dateWithTimeIntervalSinceReferenceDate:?];
+    if (endTimeCopy)
+    {
+LABEL_3:
+      v15 = MEMORY[0x1E695DF00];
+      [endTimeCopy doubleValue];
+      v16 = [v15 dateWithTimeIntervalSinceReferenceDate:?];
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+    if (endTimeCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v16 = 0;
+LABEL_6:
+  v17 = -[BMPublisherOptions initWithStartDate:endDate:maxEvents:lastN:reversed:]([BMPublisherOptions alloc], "initWithStartDate:endDate:maxEvents:lastN:reversed:", v14, v16, [eventsCopy unsignedLongLongValue], 0, reversedCopy);
+  v18 = [(BMStorePublisherManager *)self->_publisherManager publisherWithOptions:v17];
+
+  return v18;
+}
+
+- (id)publisherWithStartTime:(id)time endTime:(id)endTime maxEvents:(id)events reversed:(BOOL)reversed
+{
+  reversedCopy = reversed;
+  timeCopy = time;
+  endTimeCopy = endTime;
+  eventsCopy = events;
+  if (timeCopy)
+  {
+    v13 = MEMORY[0x1E695DF00];
+    [timeCopy doubleValue];
+    v14 = [v13 dateWithTimeIntervalSinceReferenceDate:?];
+    if (endTimeCopy)
+    {
+LABEL_3:
+      v15 = MEMORY[0x1E695DF00];
+      [endTimeCopy doubleValue];
+      v16 = [v15 dateWithTimeIntervalSinceReferenceDate:?];
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+    if (endTimeCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v16 = 0;
+LABEL_6:
+  v17 = -[BMPublisherOptions initWithStartDate:endDate:maxEvents:lastN:reversed:]([BMPublisherOptions alloc], "initWithStartDate:endDate:maxEvents:lastN:reversed:", v14, v16, [eventsCopy unsignedLongLongValue], 0, reversedCopy);
+  v18 = [(BMStorePublisherManager *)self->_publisherManager publisherWithOptions:v17];
+
+  return v18;
+}
+
+- (id)publisherWithStartTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed
+{
+  reversedCopy = reversed;
+  timeCopy = time;
+  endTimeCopy = endTime;
+  eventsCopy = events;
+  nCopy = n;
+  if (timeCopy)
+  {
+    v16 = MEMORY[0x1E695DF00];
+    [timeCopy doubleValue];
+    v17 = [v16 dateWithTimeIntervalSinceReferenceDate:?];
+    if (endTimeCopy)
+    {
+LABEL_3:
+      v18 = MEMORY[0x1E695DF00];
+      [endTimeCopy doubleValue];
+      v19 = [v18 dateWithTimeIntervalSinceReferenceDate:?];
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v17 = 0;
+    if (endTimeCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v19 = 0;
+LABEL_6:
+  v20 = -[BMPublisherOptions initWithStartDate:endDate:maxEvents:lastN:reversed:]([BMPublisherOptions alloc], "initWithStartDate:endDate:maxEvents:lastN:reversed:", v17, v19, [eventsCopy unsignedLongLongValue], objc_msgSend(nCopy, "unsignedLongLongValue"), reversedCopy);
+  v21 = [(BMStorePublisherManager *)self->_publisherManager publisherWithOptions:v20];
+
+  return v21;
+}
+
 - (id)publisher
 {
   v3 = objc_opt_new();
@@ -389,6 +511,27 @@ LABEL_11:
   v7 = [v6 remoteDevicesForAccount:accountCopy error:error];
 
   return v7;
+}
+
+- (id)publishersForDevices:(id)devices startTime:(double)time includeLocal:(BOOL)local pipeline:(id)pipeline
+{
+  localCopy = local;
+  devicesCopy = devices;
+  pipelineCopy = pipeline;
+  if (time == 0.0)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v12 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:time];
+  }
+
+  v13 = [[BMPublisherOptions alloc] initWithStartDate:v12 endDate:0 maxEvents:0 lastN:0 reversed:0];
+  v14 = [(BMStorePublisherManager *)self->_publisherManager publishersForDevices:devicesCopy includeLocal:localCopy options:v13 pipeline:pipelineCopy];
+
+  return v14;
 }
 
 - (id)publishersForDevices:(id)devices startTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed includeLocal:(BOOL)local pipeline:(id)self0
@@ -433,6 +576,16 @@ LABEL_6:
   return v25;
 }
 
+- (id)publishersForRemoteDevices:(id)devices startTime:(double)time includeLocal:(BOOL)local pipeline:(id)pipeline
+{
+  localCopy = local;
+  pipelineCopy = pipeline;
+  v11 = [devices _pas_mappedArrayWithTransform:&__block_literal_global_9];
+  v12 = [(BMStoreStream *)self publishersForDevices:v11 startTime:localCopy includeLocal:pipelineCopy pipeline:time];
+
+  return v12;
+}
+
 id __76__BMStoreStream_publishersForRemoteDevices_startTime_includeLocal_pipeline___block_invoke(uint64_t a1, void *a2)
 {
   v2 = MEMORY[0x1E698F358];
@@ -440,6 +593,21 @@ id __76__BMStoreStream_publishersForRemoteDevices_startTime_includeLocal_pipelin
   v4 = [[v2 alloc] initWithDeviceIdentifier:v3 idsDeviceIdentifier:0 name:0 model:0 platform:0];
 
   return v4;
+}
+
+- (id)publishersForRemoteDevices:(id)devices startTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed includeLocal:(BOOL)local pipeline:(id)self0
+{
+  reversedCopy = reversed;
+  pipelineCopy = pipeline;
+  nCopy = n;
+  eventsCopy = events;
+  endTimeCopy = endTime;
+  timeCopy = time;
+  v22 = [devices _pas_mappedArrayWithTransform:&__block_literal_global_29];
+  LOBYTE(v25) = local;
+  v23 = [(BMStoreStream *)self publishersForDevices:v22 startTime:timeCopy endTime:endTimeCopy maxEvents:eventsCopy lastN:nCopy reversed:reversedCopy includeLocal:v25 pipeline:pipelineCopy];
+
+  return v23;
 }
 
 id __109__BMStoreStream_publishersForRemoteDevices_startTime_endTime_maxEvents_lastN_reversed_includeLocal_pipeline___block_invoke(uint64_t a1, void *a2)
@@ -531,6 +699,33 @@ LABEL_8:
   return v32;
 }
 
+- (id)publishersForDevices:(id)devices withUseCase:(id)case startTime:(double)time includeLocal:(BOOL)local pipeline:(id)pipeline
+{
+  localCopy = local;
+  useCase = self->_useCase;
+  pipelineCopy = pipeline;
+  devicesCopy = devices;
+  if (([(NSString *)useCase isEqual:case]& 1) == 0)
+  {
+    [BMStoreStream publishersForDevices:withUseCase:startTime:includeLocal:pipeline:];
+  }
+
+  if (time == 0.0)
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:time];
+  }
+
+  v16 = [[BMPublisherOptions alloc] initWithStartDate:v15 endDate:0 maxEvents:0 lastN:0 reversed:0];
+  v17 = [(BMStorePublisherManager *)self->_publisherManager publishersForDevices:devicesCopy includeLocal:localCopy options:v16 pipeline:pipelineCopy];
+
+  return v17;
+}
+
 - (id)_computeSource
 {
   source = [(BMStoreStream *)self source];
@@ -589,7 +784,7 @@ LABEL_8:
 
 - (BOOL)pruneEventsOfRemote:(id)remote withReason:(unint64_t)reason policyID:(id)d error:(id *)error predicateBlock:(id)block
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   remoteCopy = remote;
   dCopy = d;
   blockCopy = block;
@@ -631,13 +826,12 @@ LABEL_8:
   else if (error)
   {
     v22 = MEMORY[0x1E696ABC0];
-    v28 = *MEMORY[0x1E696A578];
-    v29[0] = @"Pruner does not have access to data due to lock state";
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x1E696A578];
+    v28[0] = @"Pruner does not have access to data due to lock state";
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     *error = [v22 errorWithDomain:@"com.apple.biome.BiomeStreams" code:2 userInfo:v23];
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return isDataAccessible;
 }
 
@@ -673,7 +867,7 @@ LABEL_7:
 
 - (void)pruneExpiredEventsWithBlock:(id)block
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   pruningPolicy = [(BMStoreConfig *)self->_storeConfig pruningPolicy];
   [pruningPolicy maxAge];
@@ -747,33 +941,33 @@ LABEL_7:
   objc_autoreleasePoolPop(v21);
   v22 = objc_autoreleasePoolPush();
   [(BMStoreStream *)self remoteDevices];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v23 = v37 = 0u;
-  v24 = [v23 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v23 = v36 = 0u;
+  v24 = [v23 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v35;
+    v26 = *v34;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v35 != v26)
+        if (*v34 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v34 + 1) + 8 * i);
+        v28 = *(*(&v33 + 1) + 8 * i);
         v29 = objc_autoreleasePoolPush();
-        v30 = [(BMStoreConfig *)self->_storeConfig copyWithRemoteName:v28, v34];
+        v30 = [(BMStoreConfig *)self->_storeConfig copyWithRemoteName:v28, v33];
         [(BMStoreStream *)self _pruneWithStoreConfig:v30 expirationAge:blockCopy block:v13];
 
         objc_autoreleasePoolPop(v29);
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v25);
@@ -786,7 +980,6 @@ LABEL_7:
   [_computeSource eventsPrunedForAccount:account remoteName:remoteName reason:1];
 
 LABEL_26:
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pruneStreamByPruningPolicyMaxStreamSize
@@ -809,7 +1002,7 @@ LABEL_26:
 
 - (void)pruneStreamBySize:(unint64_t)size
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (size)
   {
     sizeCopy = size;
@@ -833,26 +1026,26 @@ LABEL_26:
   objc_autoreleasePoolPop(v5);
   context = objc_autoreleasePoolPush();
   [(BMStoreStream *)self remoteDevices];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  obj = v30 = 0u;
-  v11 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  obj = v29 = 0u;
+  v11 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v28;
+    v13 = *v27;
     do
     {
       v14 = 0;
       do
       {
-        if (*v28 != v13)
+        if (*v27 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v27 + 1) + 8 * v14);
+        v15 = *(*(&v26 + 1) + 8 * v14);
         v16 = objc_autoreleasePoolPush();
         v17 = [(BMStoreConfig *)self->_storeConfig copyWithRemoteName:v15];
         v18 = [objc_alloc(MEMORY[0x1E698F140]) initWithStream:self->_streamIdentifier permission:2 config:v17 includeTombstones:{-[BMStoreConfig isManaged](self->_storeConfig, "isManaged")}];
@@ -867,7 +1060,7 @@ LABEL_26:
       }
 
       while (v12 != v14);
-      v12 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v12 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v12);
@@ -878,13 +1071,11 @@ LABEL_26:
   account = [(BMStoreConfig *)self->_storeConfig account];
   remoteName = [(BMStoreConfig *)self->_storeConfig remoteName];
   [_computeSource eventsPrunedForAccount:account remoteName:remoteName reason:1];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pruneStreamToMaxCount:(unint64_t)count
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (*MEMORY[0x1E698F108] != count)
   {
     v5 = objc_autoreleasePoolPush();
@@ -895,26 +1086,26 @@ LABEL_26:
     objc_autoreleasePoolPop(v5);
     context = objc_autoreleasePoolPush();
     [(BMStoreStream *)self remoteDevices];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v7 = v24 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v7 = v23 = 0u;
+    v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v22;
+      v10 = *v21;
       do
       {
         v11 = 0;
         do
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * v11);
+          v12 = *(*(&v20 + 1) + 8 * v11);
           v13 = objc_autoreleasePoolPush();
           v14 = [(BMStoreConfig *)self->_storeConfig copyWithRemoteName:v12];
           v15 = [objc_alloc(MEMORY[0x1E698F140]) initWithStream:self->_streamIdentifier permission:2 config:v14 includeTombstones:{-[BMStoreConfig isManaged](self->_storeConfig, "isManaged")}];
@@ -925,7 +1116,7 @@ LABEL_26:
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v9);
@@ -937,39 +1128,37 @@ LABEL_26:
     remoteName = [(BMStoreConfig *)self->_storeConfig remoteName];
     [_computeSource eventsPrunedForAccount:account remoteName:remoteName reason:4];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pruneLocalAndRemoteEventsWithReason:(unint64_t)reason usingPredicateBlock:(id)block
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v7 = objc_autoreleasePoolPush();
   [(BMStoreStream *)self pruneWithReason:reason usingPredicateBlock:blockCopy];
   objc_autoreleasePoolPop(v7);
   context = objc_autoreleasePoolPush();
   [(BMStoreStream *)self remoteDevices];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  obj = v22 = 0u;
-  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  obj = v21 = 0u;
+  v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       v11 = 0;
       do
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * v11);
+        v12 = *(*(&v18 + 1) + 8 * v11);
         v13 = objc_autoreleasePoolPush();
         v14 = [(BMStoreConfig *)self->_storeConfig copyWithRemoteName:v12];
         v15 = [[BMStoreStream alloc] initWithStreamIdentifier:self->_streamIdentifier storeConfig:v14 streamType:[(BMStoreConfig *)self->_storeConfig streamType]];
@@ -980,14 +1169,13 @@ LABEL_26:
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
 
   objc_autoreleasePoolPop(context);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)deleteStoreEvent:(id)event

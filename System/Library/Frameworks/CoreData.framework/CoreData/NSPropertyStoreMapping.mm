@@ -47,11 +47,13 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v6.receiver = self;
-  v6.super_class = NSPropertyStoreMapping;
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ -> %@", -[NSPropertyStoreMapping description](&v6, sel_description), -[NSPropertyDescription name](self->_property, "name")];
+  v4 = MEMORY[0x1E696AEC0];
+  v8.receiver = self;
+  v8.super_class = NSPropertyStoreMapping;
+  v5 = [(NSPropertyStoreMapping *)&v8 description];
+  v6 = objc_msgSend_stringWithFormat_(v4, v5, [(NSPropertyDescription *)self->_property name]);
   objc_autoreleasePoolPop(v3);
-  return v4;
+  return v6;
 }
 
 - (BOOL)isEqual:(id)equal

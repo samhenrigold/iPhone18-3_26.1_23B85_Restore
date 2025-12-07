@@ -172,7 +172,7 @@ void __49__ASCloudKitServerChangeTokenCache_copyWithZone___block_invoke(uint64_t
 
 - (BOOL)isExpired
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v3 = *MEMORY[0x277CE8FD0];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
@@ -191,22 +191,21 @@ void __49__ASCloudKitServerChangeTokenCache_copyWithZone___block_invoke(uint64_t
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v14 = 0;
+  v13 = 0;
   serialQueue = self->_serialQueue;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __45__ASCloudKitServerChangeTokenCache_isExpired__block_invoke;
-  v12[3] = &unk_278C4BA58;
-  v12[4] = self;
-  v12[5] = buf;
-  dispatch_sync(serialQueue, v12);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __45__ASCloudKitServerChangeTokenCache_isExpired__block_invoke;
+  v11[3] = &unk_278C4BA58;
+  v11[4] = self;
+  v11[5] = buf;
+  dispatch_sync(serialQueue, v11);
   v9 = *(*&buf[8] + 24);
   _Block_object_dispose(buf, 8);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-uint64_t __45__ASCloudKitServerChangeTokenCache_isExpired__block_invoke(uint64_t a1)
+void *__45__ASCloudKitServerChangeTokenCache_isExpired__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   *(*(*(a1 + 40) + 8) + 24) = v3 - *(*(a1 + 32) + 24) > *MEMORY[0x277CE91B0];
@@ -306,12 +305,12 @@ void __57__ASCloudKitServerChangeTokenCache_persistToUserDefaults__block_invoke(
   return v7;
 }
 
-void __65__ASCloudKitServerChangeTokenCache_serverChangeTokenForDatabase___block_invoke(uint64_t a1)
+void __65__ASCloudKitServerChangeTokenCache_serverChangeTokenForDatabase___block_invoke(void *a1)
 {
-  v2 = *(*(a1 + 32) + 8);
-  v6 = _DictionaryKeyForDatabase(*(a1 + 40));
+  v2 = *(a1[4] + 8);
+  v6 = _DictionaryKeyForDatabase(a1[5]);
   v3 = [v2 objectForKeyedSubscript:v6];
-  v4 = *(*(a1 + 48) + 8);
+  v4 = *(a1[6] + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 }
@@ -384,12 +383,12 @@ void __69__ASCloudKitServerChangeTokenCache_setServerChangeToken_forDatabase___b
   return v7;
 }
 
-void __69__ASCloudKitServerChangeTokenCache_serverChangeTokenForRecordZoneID___block_invoke(uint64_t a1)
+void __69__ASCloudKitServerChangeTokenCache_serverChangeTokenForRecordZoneID___block_invoke(void *a1)
 {
-  v2 = *(*(a1 + 32) + 16);
-  v6 = _DictionaryKeyForRecordZoneID(*(a1 + 40));
+  v2 = *(a1[4] + 16);
+  v6 = _DictionaryKeyForRecordZoneID(a1[5]);
   v3 = [v2 objectForKeyedSubscript:v6];
-  v4 = *(*(a1 + 48) + 8);
+  v4 = *(a1[6] + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 }

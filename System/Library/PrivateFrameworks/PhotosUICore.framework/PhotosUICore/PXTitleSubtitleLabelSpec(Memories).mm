@@ -60,7 +60,7 @@
   v15 = 0u;
   v12 = 0u;
   v13 = 0u;
-  _TitleSubtitleContextMakeGadgetSpec(a7, a8, &v12, a2, a3, a4, a5);
+  _TitleSubtitleContextMakeGadgetSpec(a3, a4, &v12, a5, a6, a7, a8);
   v11[2] = v14;
   v11[3] = v15;
   v11[4] = v16;
@@ -80,7 +80,7 @@
   v15 = 0u;
   v12 = 0u;
   v13 = 0u;
-  _TitleSubtitleContextMakeFeatureSpec(a7, a8, &v12, a2, a3, a4, a5);
+  _TitleSubtitleContextMakeFeatureSpec(a3, a4, &v12, a5, a6, a7, a8);
   v11[2] = v14;
   v11[3] = v15;
   v11[4] = v16;

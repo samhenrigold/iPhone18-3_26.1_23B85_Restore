@@ -1,9 +1,9 @@
 @interface AEFileBackedAssessmentStateReader
 - (AEFileBackedAssessmentStateReader)initWithSystemNotificationPrimitives:(id)primitives fileSystemPrimitives:(id)systemPrimitives assessmentFileURL:(id)l queue:(id)queue;
-- (uint64_t)isAssessmentStateActive;
 - (void)beginObserving;
 - (void)dealloc;
 - (void)endObserving;
+- (void)isAssessmentStateActive;
 - (void)updateForLatestAssessmentState;
 @end
 
@@ -95,12 +95,12 @@ void __51__AEFileBackedAssessmentStateReader_beginObserving__block_invoke(uint64
   [(AEFileBackedAssessmentStateReader *)WeakRetained updateForLatestAssessmentState];
 }
 
-- (uint64_t)isAssessmentStateActive
+- (void)isAssessmentStateActive
 {
   if (result)
   {
-    v1 = *(result + 16);
-    v2 = *(result + 32);
+    v1 = *(result + 2);
+    v2 = *(result + 4);
     v3 = [v2 fileExistsAtURL:v1];
 
     return v3;

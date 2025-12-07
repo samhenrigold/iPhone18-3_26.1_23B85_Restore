@@ -1,8 +1,8 @@
 @interface PKPencilStatisticsManager
 + (BOOL)isAllowedBundleID:(id)d;
 + (id)allowedBundleIDFromBundleID:(id)d;
-- (uint64_t)startAnalyticsSessionIfNecessary;
 - (void)endAnalyticsSessionIfNecessary;
+- (void)startAnalyticsSessionIfNecessary;
 @end
 
 @implementation PKPencilStatisticsManager
@@ -28,17 +28,15 @@
   return v5;
 }
 
-- (uint64_t)startAnalyticsSessionIfNecessary
+- (void)startAnalyticsSessionIfNecessary
 {
-  if (result)
+  if (self)
   {
-    if ((*(result + 16) & 1) == 0)
+    if ((*(self + 16) & 1) == 0)
     {
       operator new();
     }
   }
-
-  return result;
 }
 
 - (void)endAnalyticsSessionIfNecessary
@@ -48,49 +46,68 @@
     if (*(self + 16) == 1)
     {
       *(self + 16) = 0;
-      if (CACurrentMediaTime() - *(self + 48) > 0.0)
+      v2 = CACurrentMediaTime() - *(self + 48);
+      if (v2 > 0.0)
       {
-        v2 = *(self + 40);
-        if (!v2)
+        v3 = *(self + 96);
+        v4 = *(self + 104);
+        v5 = *(self + 120);
+        v6 = *(self + 40);
+        if (!v6)
         {
-          v2 = @"<unspecified tool>";
+          v6 = @"<unspecified tool>";
         }
 
-        v13 = v2;
-        v3 = *(self + 112);
-        if (!v3)
+        v24 = v6;
+        v7 = *(self + 112);
+        if (!v7)
         {
-          v3 = @"<unspecified bundle ID>";
+          v7 = @"<unspecified bundle ID>";
         }
 
-        v4 = v3;
-        v5 = *(self + 8);
-        if (v5)
+        v8 = v7;
+        v9 = *(self + 8);
+        if (v9)
         {
-          os_unfair_lock_lock(&v5->lock);
-          numValues = v5->numValues;
-          os_unfair_lock_unlock(&v5->lock);
-          PKRunningStat::max(v5);
-          PKRunningStat::min(v5);
-          PKRunningStat::mean(v5);
+          os_unfair_lock_lock(&v9->lock);
+          numValues = v9->numValues;
+          os_unfair_lock_unlock(&v9->lock);
+          v11 = PKRunningStat::max(v9);
+          v12 = PKRunningStat::min(v9);
+          v13 = PKRunningStat::mean(v9);
         }
 
         else
         {
           numValues = 0;
+          v12 = 0;
+          v13 = 0;
+          v11 = 0.0;
         }
 
-        v7 = +[PKHoverSettings isHoverEnabled];
-        v8 = +[PKHoverSettings allowDoubleTapOnlyWithPencilHover];
-        v9 = +[PKTextInputSettings sharedSettings];
-        isScribbleActive = [v9 isScribbleActive];
+        v14 = +[PKHoverSettings isHoverEnabled];
+        v15 = +[PKHoverSettings allowDoubleTapOnlyWithPencilHover];
+        v16 = +[PKTextInputSettings sharedSettings];
+        isScribbleActive = [v16 isScribbleActive];
 
-        IOPSDrawingUnlimitedPower();
-        v11 = +[PKStatisticsManager sharedStatisticsManager];
-        [PKStatisticsManager recordHoverDuration:v11 onScreenDuration:? hoverEdgeDuration:? hoverExteriorDuration:? sessionDuration:? showEffectsEnabled:? shadowEnabled:? scribbleEnabled:? doubleTapOnlyInHoverRangeEnabled:? doubleTapsInRange:? doubleTapsOutsideRange:? deviceIsConnectedToCharger:? intentionalHoverDuration:? intentionalToolPreviewHoverDuration:? countIntentionalHoverActions:? maxIntentionalHoverDuration:? meanIntentionalHoverDuration:? minIntentionalHoverDuration:?];
+        v18 = *(self + 72);
+        if (v18)
+        {
+          v19 = vdivq_f64(vmulq_n_f64(vcvtq_f64_u64(*(self + 56)), *(self + 24)), vdupq_lane_s64(COERCE__INT64(v18), 0));
+        }
 
-        v12 = +[PKStatisticsManager sharedStatisticsManager];
-        [PKStatisticsManager recordHoverToolType:v12 hoverDuration:v13 intentionalToolPreviewHoverDuration:numValues intentionalHoverDuration:v7 maxIntentionalHoverDuration:0 meanIntentionalHoverDuration:isScribbleActive minIntentionalHoverDuration:v8 countIntentionalHoverActions:v4 activepencilminutes:? onScreenDuration:? settingShowEffectsEnabled:? settingSystemShadowEnabled:? settingScribbleEnabled:? settingDoubleTapInRangeEnabled:? bundleID:?];
+        else
+        {
+          v19 = 0uLL;
+        }
+
+        v23 = v19;
+        v20 = IOPSDrawingUnlimitedPower();
+        v21 = +[PKStatisticsManager sharedStatisticsManager];
+        [(PKStatisticsManager *)v21 recordHoverDuration:v14 onScreenDuration:0 hoverEdgeDuration:isScribbleActive hoverExteriorDuration:v15 sessionDuration:*(self + 80) showEffectsEnabled:*(self + 88) shadowEnabled:v20 scribbleEnabled:*(self + 24) doubleTapOnlyInHoverRangeEnabled:*(self + 32) doubleTapsInRange:v23.f64[0] doubleTapsOutsideRange:v23.f64[1] deviceIsConnectedToCharger:v2 intentionalHoverDuration:v4 intentionalToolPreviewHoverDuration:v3 countIntentionalHoverActions:v11 maxIntentionalHoverDuration:numValues meanIntentionalHoverDuration:v13 minIntentionalHoverDuration:v12];
+
+        v22 = +[PKStatisticsManager sharedStatisticsManager];
+        [(PKStatisticsManager *)v22 recordHoverToolType:v24 hoverDuration:numValues intentionalToolPreviewHoverDuration:v14 intentionalHoverDuration:0 maxIntentionalHoverDuration:isScribbleActive meanIntentionalHoverDuration:v15 minIntentionalHoverDuration:v8 countIntentionalHoverActions:*(self + 24) activepencilminutes:v3 onScreenDuration:v4 settingShowEffectsEnabled:v11 settingSystemShadowEnabled:*&v13 settingScribbleEnabled:*&v12 settingDoubleTapInRangeEnabled:v5 bundleID:*(self + 32)];
       }
     }
   }

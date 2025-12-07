@@ -52,7 +52,7 @@
   MEMORY[0x1EEE9AC00](v9);
   v12 = v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17[1] = *(&self->super.isa + OBJC_IVAR___FIUIDepthFormatter_depthFormatter);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED06AC10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED06AC10, &qword_1E5DB3DB0);
   v13 = *MEMORY[0x1E6999C20];
   v14 = *(v6 + 104);
   v14(v8, v13, v5);
@@ -83,7 +83,7 @@
 {
   workoutCopy = workout;
   selfCopy = self;
-  v6 = FIUIDepthFormatter.formatMaxDepth(from:)();
+  v6 = FIUIDepthFormatter.formatMaxDepth(from:)(workoutCopy);
 
   return v6;
 }

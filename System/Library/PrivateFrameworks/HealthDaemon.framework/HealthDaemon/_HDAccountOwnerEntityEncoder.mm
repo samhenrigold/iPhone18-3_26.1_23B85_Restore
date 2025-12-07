@@ -8,15 +8,13 @@
 
 - (id)orderedProperties
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"name";
-  v9[1] = @"birth_date";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"name";
+  v8[1] = @"birth_date";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

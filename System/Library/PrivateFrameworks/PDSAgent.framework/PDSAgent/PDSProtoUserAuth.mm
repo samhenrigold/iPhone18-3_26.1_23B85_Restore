@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)userauthOneofAsString:(int)string;
 - (int)StringAsUserauthOneof:(id)oneof;
 - (int)userauthOneof;
 - (unint64_t)hash;
@@ -38,6 +39,29 @@
   }
 }
 
+- (id)userauthOneofAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"gsAuthToken";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"PBUNSET";
+  }
+
+  return v4;
+}
+
 - (int)StringAsUserauthOneof:(id)oneof
 {
   oneofCopy = oneof;
@@ -58,7 +82,6 @@
 {
   *&self->_has &= ~1u;
   self->_userauthOneof = 0;
-  gsAuthToken = self->_gsAuthToken;
   self->_gsAuthToken = 0;
   MEMORY[0x2821F96F8]();
 }
@@ -162,7 +185,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 20);
   if (*&self->_has)
   {
     if ((*(equalCopy + 20) & 1) == 0 || self->_userauthOneof != *(equalCopy + 4))
@@ -174,24 +196,24 @@
   else if (*(equalCopy + 20))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   gsAuthToken = self->_gsAuthToken;
   if (gsAuthToken | *(equalCopy + 1))
   {
-    v7 = [(PDSProtoGSTokenAuth *)gsAuthToken isEqual:?];
+    v6 = [(PDSProtoGSTokenAuth *)gsAuthToken isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

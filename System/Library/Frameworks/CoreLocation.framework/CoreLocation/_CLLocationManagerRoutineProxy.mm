@@ -14,14 +14,16 @@
 {
   if (!queue)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v14 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, routine);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v14, v15, a2, self, @"CLLocationManagerRoutine.m", 57, @"Invalid parameter not satisfying: %@", @"queue");
     if (routine)
     {
       return 0;
     }
 
 LABEL_7:
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v16 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, queue, routine);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v16, v17, a2, self, @"CLLocationManagerRoutine.m", 58, @"Invalid parameter not satisfying: %@", @"locationManagerRoutine");
     return 0;
   }
 
@@ -30,13 +32,13 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v11.receiver = self;
-  v11.super_class = _CLLocationManagerRoutineProxy;
-  v8 = [(_CLLocationManagerRoutineProxy *)&v11 init];
+  v18.receiver = self;
+  v18.super_class = _CLLocationManagerRoutineProxy;
+  v8 = [(_CLLocationManagerRoutineProxy *)&v18 init];
   if (v8)
   {
     v8->_queue = queue;
-    [(_CLLocationManagerRoutineProxy *)v8 createConnection];
+    objc_msgSend_createConnection(v8, v9, v10, v11);
     v8->_locationManagerRoutine = routine;
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterAddObserver(DarwinNotifyCenter, v8, sub_19B891FAC, @"com.apple.locationd.routine", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
@@ -49,10 +51,11 @@ LABEL_7:
 {
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveEveryObserver(DarwinNotifyCenter, self);
-  [(_CLLocationManagerRoutineProxy *)self setLocationManagerRoutine:0];
-  [(_CLLocationManagerRoutineProxy *)self setDelegate:0];
-  [(NSXPCConnection *)[(_CLLocationManagerRoutineProxy *)self connection] invalidate];
-  [(_CLLocationManagerRoutineProxy *)self setConnection:0];
+  objc_msgSend_setLocationManagerRoutine_(self, v4, 0, v5);
+  objc_msgSend_setDelegate_(self, v6, 0, v7);
+  v11 = objc_msgSend_connection(self, v8, v9, v10);
+  objc_msgSend_invalidate(v11, v12, v13, v14);
+  objc_msgSend_setConnection_(self, v15, 0, v16);
   queue = self->_queue;
   if (queue)
   {
@@ -60,14 +63,14 @@ LABEL_7:
     self->_queue = 0;
   }
 
-  v5.receiver = self;
-  v5.super_class = _CLLocationManagerRoutineProxy;
-  [(_CLLocationManagerRoutineProxy *)&v5 dealloc];
+  v18.receiver = self;
+  v18.super_class = _CLLocationManagerRoutineProxy;
+  [(_CLLocationManagerRoutineProxy *)&v18 dealloc];
 }
 
 - (void)didUpdateLocations:(id)locations
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE46C0 != -1)
   {
     dispatch_once(&qword_1EAFE46C0, &unk_1F0E6B640);
@@ -77,26 +80,25 @@ LABEL_7:
   if (os_log_type_enabled(qword_1EAFE46F8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 68289026;
-    v10 = 0;
-    v11 = 2082;
-    v12 = "";
+    v9 = 0;
+    v10 = 2082;
+    v11 = "";
     _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#location #routine sendLocations to RT, didUpdateLocations)}", buf, 0x12u);
   }
 
   queue = self->_queue;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = sub_19B8921E8;
-  v8[3] = &unk_1E753CF38;
-  v8[4] = self;
-  v8[5] = locations;
-  dispatch_async(queue, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_19B8921E8;
+  v7[3] = &unk_1E753CF38;
+  v7[4] = self;
+  v7[5] = locations;
+  dispatch_async(queue, v7);
 }
 
 - (void)didUpdateLocations:(id)locations withReply:(id)reply
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE46C0 != -1)
   {
     dispatch_once(&qword_1EAFE46C0, &unk_1F0E6B640);
@@ -106,9 +108,9 @@ LABEL_7:
   if (os_log_type_enabled(qword_1EAFE46F8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 68289026;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
+    v13 = 0;
+    v14 = 2082;
+    v15 = "";
     _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#location #routine sendLocations to RT, didUpdateLocations:withReply}", buf, 0x12u);
   }
 
@@ -127,15 +129,13 @@ LABEL_7:
 
   else
   {
-    [(_CLLocationManagerRoutineProxy *)self didUpdateLocations:locations];
+    objc_msgSend_didUpdateLocations_(self, v8, locations, v9);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didUpdateInertialData:(id)data
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE46C0 != -1)
   {
     dispatch_once(&qword_1EAFE46C0, &unk_1F0E6B640);
@@ -145,127 +145,137 @@ LABEL_7:
   if (os_log_type_enabled(qword_1EAFE46F8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 68289026;
-    v10 = 0;
-    v11 = 2082;
-    v12 = "";
+    v9 = 0;
+    v10 = 2082;
+    v11 = "";
     _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#location #routine sendInertial to RT, didUpdateInertialData}", buf, 0x12u);
   }
 
   queue = self->_queue;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = sub_19B89272C;
-  v8[3] = &unk_1E753CF38;
-  v8[4] = self;
-  v8[5] = data;
-  dispatch_async(queue, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_19B89272C;
+  v7[3] = &unk_1E753CF38;
+  v7[4] = self;
+  v7[5] = data;
+  dispatch_async(queue, v7);
 }
 
 - (void)createConnection
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   connection = self->_connection;
   if (connection)
   {
-    [(NSXPCConnection *)connection invalidate];
+    objc_msgSend_invalidate(connection, a2, v2, v3);
 
     self->_connection = 0;
   }
 
-  v4 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.locationd.routine" options:4096];
-  self->_connection = v4;
-  if (v4)
+  v6 = objc_alloc(MEMORY[0x1E696B0B8]);
+  v8 = objc_msgSend_initWithMachServiceName_options_(v6, v7, @"com.apple.locationd.routine", 4096);
+  self->_connection = v8;
+  if (v8)
   {
     if (qword_1EAFE46C0 != -1)
     {
       dispatch_once(&qword_1EAFE46C0, &unk_1F0E6B640);
     }
 
-    v5 = qword_1EAFE46F8;
+    v12 = qword_1EAFE46F8;
     if (os_log_type_enabled(qword_1EAFE46F8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 68289026;
-      v20 = 0;
-      v21 = 2082;
-      v22 = "";
-      _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#location #routine createConnection}", buf, 0x12u);
+      v97 = 0;
+      v98 = 2082;
+      v99 = "";
+      _os_log_impl(&dword_19B873000, v12, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#location #routine createConnection}", buf, 0x12u);
     }
 
-    -[NSXPCConnection setExportedInterface:](self->_connection, "setExportedInterface:", [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0E8DAD8]);
-    [(NSXPCConnection *)self->_connection setExportedObject:self];
-    v6 = MEMORY[0x1E695DFD8];
-    v7 = objc_opt_class();
-    v8 = objc_opt_class();
-    v9 = objc_opt_class();
-    v10 = objc_opt_class();
-    v11 = objc_opt_class();
-    v12 = [v6 setWithObjects:{v7, v8, v9, v10, v11, objc_opt_class(), 0}];
-    [(NSXPCInterface *)[(NSXPCConnection *)self->_connection exportedInterface] setClasses:v12 forSelector:sel_didUpdateLocations_ argumentIndex:0 ofReply:0];
-    [(NSXPCInterface *)[(NSXPCConnection *)self->_connection exportedInterface] setClasses:v12 forSelector:sel_didUpdateLocations_withReply_ argumentIndex:0 ofReply:0];
-    [(NSXPCInterface *)[(NSXPCConnection *)self->_connection exportedInterface] setClasses:v12 forSelector:sel_didUpdateInertialData_ argumentIndex:0 ofReply:0];
-    -[NSXPCConnection setRemoteObjectInterface:](self->_connection, "setRemoteObjectInterface:", [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0EAC748]);
-    [(NSXPCInterface *)[(NSXPCConnection *)self->_connection remoteObjectInterface] setClasses:v12 forSelector:sel_fetchLocationAtDate_withHandler_ argumentIndex:0 ofReply:1];
-    [(NSXPCInterface *)[(NSXPCConnection *)self->_connection remoteObjectInterface] setClasses:v12 forSelector:sel_fetchLocationAtMachContinuousTime_withHandler_ argumentIndex:0 ofReply:1];
-    [(NSXPCInterface *)[(NSXPCConnection *)self->_connection remoteObjectInterface] setClasses:v12 forSelector:sel_fetchLocationsInLastSeconds_withHandler_ argumentIndex:0 ofReply:1];
-    [(NSXPCInterface *)[(NSXPCConnection *)self->_connection remoteObjectInterface] setClasses:v12 forSelector:sel_fetchRecentLocationsWithOptions_withHandler_ argumentIndex:0 ofReply:1];
-    serviceName = [(NSXPCConnection *)self->_connection serviceName];
-    v14 = self->_connection;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = sub_19B892C28;
-    v18[3] = &unk_1E753CC90;
-    v18[4] = serviceName;
-    [(NSXPCConnection *)v14 setInterruptionHandler:v18];
-    v15 = self->_connection;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = sub_19B892C58;
-    v17[3] = &unk_1E753CC90;
-    v17[4] = serviceName;
-    [(NSXPCConnection *)v15 setInvalidationHandler:v17];
-    [(NSXPCConnection *)self->_connection resume];
+    v15 = objc_msgSend_interfaceWithProtocol_(MEMORY[0x1E696B0D0], v13, &unk_1F0E8DAD8, v14);
+    objc_msgSend_setExportedInterface_(self->_connection, v16, v15, v17);
+    objc_msgSend_setExportedObject_(self->_connection, v18, self, v19);
+    v20 = MEMORY[0x1E695DFD8];
+    v21 = objc_opt_class();
+    v22 = objc_opt_class();
+    v23 = objc_opt_class();
+    v24 = objc_opt_class();
+    v25 = objc_opt_class();
+    v26 = objc_opt_class();
+    v29 = objc_msgSend_setWithObjects_(v20, v27, v21, v28, v22, v23, v24, v25, v26, 0);
+    v33 = objc_msgSend_exportedInterface(self->_connection, v30, v31, v32);
+    objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v33, v34, v29, sel_didUpdateLocations_, 0, 0);
+    v38 = objc_msgSend_exportedInterface(self->_connection, v35, v36, v37);
+    objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v38, v39, v29, sel_didUpdateLocations_withReply_, 0, 0);
+    v43 = objc_msgSend_exportedInterface(self->_connection, v40, v41, v42);
+    objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v43, v44, v29, sel_didUpdateInertialData_, 0, 0);
+    v47 = objc_msgSend_interfaceWithProtocol_(MEMORY[0x1E696B0D0], v45, &unk_1F0EAC748, v46);
+    objc_msgSend_setRemoteObjectInterface_(self->_connection, v48, v47, v49);
+    v53 = objc_msgSend_remoteObjectInterface(self->_connection, v50, v51, v52);
+    objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v53, v54, v29, sel_fetchLocationAtDate_withHandler_, 0, 1);
+    v58 = objc_msgSend_remoteObjectInterface(self->_connection, v55, v56, v57);
+    objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v58, v59, v29, sel_fetchLocationAtMachContinuousTime_withHandler_, 0, 1);
+    v63 = objc_msgSend_remoteObjectInterface(self->_connection, v60, v61, v62);
+    objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v63, v64, v29, sel_fetchLocationsInLastSeconds_withHandler_, 0, 1);
+    v68 = objc_msgSend_remoteObjectInterface(self->_connection, v65, v66, v67);
+    objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v68, v69, v29, sel_fetchRecentLocationsWithOptions_withHandler_, 0, 1);
+    v73 = objc_msgSend_serviceName(self->_connection, v70, v71, v72);
+    v74 = self->_connection;
+    v95[0] = MEMORY[0x1E69E9820];
+    v95[1] = 3221225472;
+    v95[2] = sub_19B892C28;
+    v95[3] = &unk_1E753CC90;
+    v95[4] = v73;
+    objc_msgSend_setInterruptionHandler_(v74, v75, v95, v76);
+    v77 = self->_connection;
+    v94[0] = MEMORY[0x1E69E9820];
+    v94[1] = 3221225472;
+    v94[2] = sub_19B892C58;
+    v94[3] = &unk_1E753CC90;
+    v94[4] = v73;
+    objc_msgSend_setInvalidationHandler_(v77, v78, v94, v79);
+    objc_msgSend_resume(self->_connection, v80, v81, v82);
   }
 
-  if ([(_CLLocationManagerRoutineProxy *)self updating])
+  if (objc_msgSend_updating(self, v9, v10, v11))
   {
-    [-[NSXPCConnection remoteObjectProxy](-[_CLLocationManagerRoutineProxy connection](self "connection")];
+    v86 = objc_msgSend_connection(self, v83, v84, v85);
+    v90 = objc_msgSend_remoteObjectProxy(v86, v87, v88, v89);
+    objc_msgSend_startUpdatingLocation(v90, v91, v92, v93);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getRemoteObjectProxyWithErrorHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = sub_19B892DE4;
-  v9[3] = &unk_1E753CF88;
-  v9[4] = handler;
-  v4 = [(NSXPCConnection *)[(_CLLocationManagerRoutineProxy *)self connection] remoteObjectProxyWithErrorHandler:v9];
+  v24 = *MEMORY[0x1E69E9840];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_19B892DE4;
+  v15[3] = &unk_1E753CF88;
+  v15[4] = handler;
+  v5 = objc_msgSend_connection(self, a2, handler, v3);
+  v8 = objc_msgSend_remoteObjectProxyWithErrorHandler_(v5, v6, v15, v7);
   if (qword_1EAFE46C0 != -1)
   {
     dispatch_once(&qword_1EAFE46C0, &unk_1F0E6B640);
   }
 
-  v5 = qword_1EAFE46F8;
+  v9 = qword_1EAFE46F8;
   if (os_log_type_enabled(qword_1EAFE46F8, OS_LOG_TYPE_DEBUG))
   {
-    connection = [(_CLLocationManagerRoutineProxy *)self connection];
+    v13 = objc_msgSend_connection(self, v10, v11, v12);
     *buf = 68289538;
-    v11 = 0;
-    v12 = 2082;
-    v13 = "";
-    v14 = 2114;
-    v15 = v4;
-    v16 = 2114;
-    v17 = connection;
-    _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ADL #location #routine getRemoteObjectProxy, proxy:%{public, location:escape_only}@, connection:%{public, location:escape_only}@}", buf, 0x26u);
+    v17 = 0;
+    v18 = 2082;
+    v19 = "";
+    v20 = 2114;
+    v21 = v8;
+    v22 = 2114;
+    v23 = v13;
+    _os_log_impl(&dword_19B873000, v9, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ADL #location #routine getRemoteObjectProxy, proxy:%{public, location:escape_only}@, connection:%{public, location:escape_only}@}", buf, 0x26u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v8;
 }
 
 @end

@@ -13,7 +13,7 @@
   uuid = self->_uuid;
   v5 = [importTypeNames objectAtIndexedSubscript:self->_type];
   subtype = self->_subtype;
-  [(PHImportTimer *)self duration];
+  objc_msgSend_duration(self);
   v8 = [v3 stringWithFormat:@"uuid: %@, type: %@, sub type: %hhu, duration: %fl", uuid, v5, subtype, v7];
 
   return v8;

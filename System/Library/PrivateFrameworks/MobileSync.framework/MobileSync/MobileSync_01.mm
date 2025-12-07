@@ -1,568 +1,9 @@
-void _RemoveProcessedMainRecordIds(const void *a1, uint64_t a2)
-{
-  if (DLShouldLog())
-  {
-    _DLLog();
-  }
-
-  v4 = *(a2 + 272);
-
-  CFDictionaryRemoveValue(v4, a1);
-}
-
-void _UpdateOrganizerRemapping(const void *a1, uint64_t a2, uint64_t a3)
-{
-  RowID = CalCalendarItemGetRowID();
-  v6 = CFStringCreateWithFormat(0, 0, @"%d/%d", 8, RowID);
-  _addRemapping(a3, a1, v6);
-
-  CFRelease(v6);
-}
-
-void _UpdateTaskRemapping(const void *a1, uint64_t a2, uint64_t a3)
-{
-  RowID = CalCalendarItemGetRowID();
-  v6 = CFStringCreateWithFormat(0, 0, @"%d/%d", 3, RowID);
-  _addRemapping(a3, a1, v6);
-
-  CFRelease(v6);
-}
-
-void _UpdateAlarmRemapping(const void *a1, uint64_t a2, uint64_t a3)
-{
-  UID = CalAlarmGetUID();
-  v6 = CFStringCreateWithFormat(0, 0, @"%d/%d", 4, UID);
-  _addRemapping(a3, a1, v6);
-
-  CFRelease(v6);
-}
-
-void _UpdateRecurrenceRemapping(const void *a1, uint64_t a2, uint64_t a3)
-{
-  UID = CalRecurrenceGetUID();
-  v6 = CFStringCreateWithFormat(0, 0, @"%d/%d", 5, UID);
-  _addRemapping(a3, a1, v6);
-
-  CFRelease(v6);
-}
-
-void _UpdateAttendeeRemapping(const void *a1, uint64_t a2, uint64_t a3)
-{
-  v5 = MEMORY[0x25F84A400](a2);
-  v6 = CFStringCreateWithFormat(0, 0, @"%d/%d", 7, v5);
-  _addRemapping(a3, a1, v6);
-
-  CFRelease(v6);
-}
-
-uint64_t _deconstructRecordIdentifier(const __CFString *a1, SInt32 *a2, SInt32 *a3, SInt32 *a4, SInt32 *a5)
-{
-  if (a5)
-  {
-    *a5 = -1;
-  }
-
-  if (a4)
-  {
-    *a4 = -1;
-  }
-
-  if (a3)
-  {
-    *a3 = 0;
-  }
-
-  if (a2)
-  {
-    *a2 = 0;
-  }
-
-  if (recordIdentifierIsLocal(a1))
-  {
-    ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(0, a1, @"/");
-    if (ArrayBySeparatingStrings)
-    {
-      v11 = ArrayBySeparatingStrings;
-      Count = CFArrayGetCount(ArrayBySeparatingStrings);
-      if (Count == 4)
-      {
-        ValueAtIndex = CFArrayGetValueAtIndex(v11, 0);
-        if (a2)
-        {
-          *a2 = CFStringGetIntValue(ValueAtIndex);
-        }
-
-        v17 = CFArrayGetValueAtIndex(v11, 1);
-        if (a3)
-        {
-          *a3 = CFStringGetIntValue(v17);
-        }
-
-        v18 = CFArrayGetValueAtIndex(v11, 2);
-        if (a4)
-        {
-          *a4 = CFStringGetIntValue(v18);
-        }
-
-        v15 = CFArrayGetValueAtIndex(v11, 3);
-        if (!a5)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      else
-      {
-        if (Count != 2)
-        {
-          if (DLShouldLog())
-          {
-            _DLLog();
-          }
-
-          v14 = 0;
-          goto LABEL_32;
-        }
-
-        v13 = CFArrayGetValueAtIndex(v11, 0);
-        if (a3)
-        {
-          *a3 = CFStringGetIntValue(v13);
-        }
-
-        v14 = 1;
-        v15 = CFArrayGetValueAtIndex(v11, 1);
-        if (!a5)
-        {
-LABEL_32:
-          CFRelease(v11);
-          return v14;
-        }
-      }
-
-      *a5 = CFStringGetIntValue(v15);
-LABEL_28:
-      v14 = 1;
-      goto LABEL_32;
-    }
-
-    if (DLShouldLog())
-    {
-      _DLLog();
-    }
-  }
-
-  return 0;
-}
-
-void _HandleAddOrModifyRecurrence(void *a1, const void *a2, CFDictionaryRef theDict, int a4)
-{
-  Value = CFDictionaryGetValue(theDict, @"owner");
-  if (!Value || (v9 = Value, CFArrayGetCount(Value) < 1))
-  {
-    if (!DLShouldLog())
-    {
-LABEL_12:
-      v13 = 0;
-      goto LABEL_13;
-    }
-
-LABEL_11:
-    _DLLog();
-    goto LABEL_12;
-  }
-
-  LODWORD(valuePtr) = 0;
-  v80 = 0;
-  ValueAtIndex = CFArrayGetValueAtIndex(v9, 0);
-  v11 = a1[21];
-  if (v11)
-  {
-    v12 = CFDictionaryGetValue(v11, ValueAtIndex);
-    if (v12)
-    {
-      ValueAtIndex = v12;
-    }
-  }
-
-  v13 = 0;
-  if (_deconstructRecordIdentifier(ValueAtIndex, 0, &v80, 0, &valuePtr) && valuePtr != -1)
-  {
-    if (v80 == 2)
-    {
-      v14 = a1[23];
-      v13 = CalDatabaseCopyCalendarItemWithRowID();
-      goto LABEL_13;
-    }
-
-    if (!DLShouldLog())
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_11;
-  }
-
-LABEL_13:
-  if (DLShouldLog())
-  {
-    _DLLog();
-  }
-
-  if (a4 != -1)
-  {
-    v15 = a1[23];
-    v16 = CalDatabaseCopyRecurrenceWithUID();
-    if (v16)
-    {
-      if (v13)
-      {
-        goto LABEL_18;
-      }
-
-      goto LABEL_25;
-    }
-
-    if (DLShouldLog())
-    {
-      _DLLog();
-    }
-  }
-
-  v16 = 0;
-  if (v13)
-  {
-LABEL_18:
-    v17 = MEMORY[0x25F84A9A0](v13);
-    v18 = DLShouldLog();
-    if (v16)
-    {
-      if (v18)
-      {
-        _DLLog();
-      }
-
-      MEMORY[0x25F84AA10](v13, v16);
-    }
-
-    else if (v18)
-    {
-      _DLLog();
-    }
-
-    if (v17)
-    {
-      CFRelease(v17);
-    }
-
-    if (v16)
-    {
-      CFRelease(v16);
-    }
-
-    v19 = a1[23];
-    Recurrence = CalDatabaseCreateRecurrence();
-    if (DLShouldLog())
-    {
-      _DLLog();
-    }
-
-    v21 = a1[30];
-    if (!v21)
-    {
-      v22 = a1[17];
-      CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v21 = DLMemoryPoolAddObject();
-      a1[30] = v21;
-    }
-
-    CFDictionaryAddValue(v21, a2, Recurrence);
-    v23 = CFDictionaryGetValue(theDict, @"weekstartday");
-    _GetDayOfWeekFromString(v23);
-    CalRecurrenceSetWeekStart();
-    v24 = CFDictionaryGetValue(theDict, @"frequency");
-    if (!v24)
-    {
-      goto LABEL_52;
-    }
-
-    CharacterAtIndex = CFStringGetCharacterAtIndex(v24, 0);
-    if (CharacterAtIndex > 118)
-    {
-      if (CharacterAtIndex == 121 || CharacterAtIndex == 119)
-      {
-        goto LABEL_51;
-      }
-    }
-
-    else if (CharacterAtIndex == 100 || CharacterAtIndex == 109)
-    {
-LABEL_51:
-      CalRecurrenceSetFrequency();
-LABEL_52:
-      v26 = CFDictionaryGetValue(theDict, @"interval");
-      if (v26)
-      {
-        LODWORD(valuePtr) = 0;
-        if (CFNumberGetValue(v26, kCFNumberIntType, &valuePtr))
-        {
-          if (valuePtr)
-          {
-            CalRecurrenceSetInterval();
-          }
-        }
-      }
-
-      v27 = CFDictionaryGetValue(theDict, @"count");
-      if (v27 && (LODWORD(valuePtr) = 0, CFNumberGetValue(v27, kCFNumberIntType, &valuePtr)) && valuePtr)
-      {
-        CalRecurrenceSetCount();
-      }
-
-      else
-      {
-        v28 = *MEMORY[0x277CF78F0];
-        v29 = CFDictionaryGetValue(theDict, @"until");
-        if (v29)
-        {
-          v30 = v29;
-          v31 = CFGetTypeID(v29);
-          if (v31 == CFDateGetTypeID())
-          {
-            MEMORY[0x25F849FA0](v30);
-            if (DLShouldLog())
-            {
-              _DLLog();
-            }
-          }
-        }
-
-        CalRecurrenceSetEndDate();
-      }
-
-      v32 = CFDictionaryGetValue(theDict, @"bymonth");
-      if (v32)
-      {
-        v33 = v32;
-        Count = CFArrayGetCount(v32);
-        if (Count >= 1)
-        {
-          v35 = Count;
-          v36 = 0;
-          v37 = 0;
-          do
-          {
-            LODWORD(valuePtr) = 0;
-            v38 = CFArrayGetValueAtIndex(v33, v36);
-            v39 = CFNumberGetValue(v38, kCFNumberIntType, &valuePtr) != 0;
-            if (v39 && valuePtr != 0)
-            {
-              v40 = 1 << (valuePtr - 1);
-            }
-
-            else
-            {
-              v40 = 0;
-            }
-
-            v37 |= v40;
-            ++v36;
-          }
-
-          while (v35 != v36);
-          if (v37)
-          {
-            CalRecurrenceSetByMonthMonths();
-          }
-        }
-      }
-
-      v41 = CFDictionaryGetValue(theDict, @"byweeknumber");
-      if (v41)
-      {
-        v42 = v41;
-        v43 = CFArrayGetCount(v41);
-        if (v43 >= 1)
-        {
-          v44 = v43;
-          Mutable = CFArrayCreateMutable(0, v43, 0);
-          for (i = 0; i != v44; ++i)
-          {
-            LODWORD(valuePtr) = 0;
-            v47 = CFArrayGetValueAtIndex(v42, i);
-            if (CFNumberGetValue(v47, kCFNumberIntType, &valuePtr))
-            {
-              CFArrayAppendValue(Mutable, valuePtr);
-            }
-          }
-
-          if (CFArrayGetCount(Mutable))
-          {
-            CalRecurrenceSetByWeekWeeks();
-          }
-
-          CFRelease(Mutable);
-        }
-      }
-
-      v48 = CFDictionaryGetValue(theDict, @"byyearday");
-      if (v48)
-      {
-        v49 = v48;
-        v50 = CFArrayGetCount(v48);
-        if (v50 >= 1)
-        {
-          v51 = v50;
-          v52 = CFArrayCreateMutable(0, v50, 0);
-          for (j = 0; j != v51; ++j)
-          {
-            LODWORD(valuePtr) = 0;
-            v54 = CFArrayGetValueAtIndex(v49, j);
-            if (CFNumberGetValue(v54, kCFNumberIntType, &valuePtr))
-            {
-              CFArrayAppendValue(v52, valuePtr);
-            }
-          }
-
-          if (CFArrayGetCount(v52))
-          {
-            CalRecurrenceSetByYearDayDays();
-          }
-
-          CFRelease(v52);
-        }
-      }
-
-      v55 = CFDictionaryGetValue(theDict, @"bymonthday");
-      if (v55)
-      {
-        v56 = v55;
-        v57 = CFArrayGetCount(v55);
-        if (v57 >= 1)
-        {
-          v58 = v57;
-          v59 = CFArrayCreateMutable(0, v57, 0);
-          for (k = 0; k != v58; ++k)
-          {
-            LODWORD(valuePtr) = 0;
-            v61 = CFArrayGetValueAtIndex(v56, k);
-            if (CFNumberGetValue(v61, kCFNumberIntType, &valuePtr))
-            {
-              CFArrayAppendValue(v59, valuePtr);
-            }
-          }
-
-          if (CFArrayGetCount(v59))
-          {
-            CalRecurrenceSetByMonthDayDays();
-          }
-
-          CFRelease(v59);
-        }
-      }
-
-      v62 = CFDictionaryGetValue(theDict, @"bysetpos");
-      if (v62)
-      {
-        v63 = v62;
-        v64 = CFArrayGetCount(v62);
-        if (v64 >= 1)
-        {
-          v65 = v64;
-          v66 = CFArrayCreateMutable(0, v64, 0);
-          for (m = 0; m != v65; ++m)
-          {
-            LODWORD(valuePtr) = 0;
-            v68 = CFArrayGetValueAtIndex(v63, m);
-            if (CFNumberGetValue(v68, kCFNumberIntType, &valuePtr))
-            {
-              CFArrayAppendValue(v66, valuePtr);
-            }
-          }
-
-          if (CFArrayGetCount(v66))
-          {
-            CalRecurrenceSetBySetPos();
-          }
-
-          CFRelease(v66);
-        }
-      }
-
-      v69 = CFDictionaryGetValue(theDict, @"bydayfreq");
-      v70 = CFDictionaryGetValue(theDict, @"bydaydays");
-      if (v69)
-      {
-        v71 = v70;
-        if (v70)
-        {
-          v72 = CFArrayGetCount(v69);
-          if (v72 >= 1)
-          {
-            v73 = v72;
-            if (CFArrayGetCount(v71) == v72)
-            {
-              valuePtr = 0;
-              v74 = CFArrayCreateMutable(0, v73, MEMORY[0x277CF78F8]);
-              for (n = 0; n != v73; ++n)
-              {
-                v80 = 0;
-                v76 = CFArrayGetValueAtIndex(v69, n);
-                v77 = CFArrayGetValueAtIndex(v71, n);
-                LODWORD(v76) = CFNumberGetValue(v76, kCFNumberIntType, &v80);
-                DayOfWeekFromString = _GetDayOfWeekFromString(v77);
-                if (v76 && DayOfWeekFromString != 7)
-                {
-                  valuePtr = __PAIR64__(DayOfWeekFromString, v80);
-                  CFArrayAppendValue(v74, &valuePtr);
-                }
-              }
-
-              if (CFArrayGetCount(v74))
-              {
-                CalRecurrenceSetByDayDays();
-              }
-
-              CFRelease(v74);
-            }
-          }
-        }
-      }
-
-      MEMORY[0x25F84A920](v13, Recurrence);
-      CFRelease(Recurrence);
-LABEL_123:
-      CFRelease(v13);
-      return;
-    }
-
-    if (DLShouldLog())
-    {
-      _DLLog();
-    }
-
-    goto LABEL_52;
-  }
-
-LABEL_25:
-  if (DLShouldLog())
-  {
-    _DLLog();
-  }
-
-  v13 = v16;
-  if (v16)
-  {
-    goto LABEL_123;
-  }
-}
-
 void _HandleAddOrModifyOrganizer(void *a1, const __CFString *a2, CFDictionaryRef theDict)
 {
-  v20 = 0;
+  v16 = 0;
   Value = CFDictionaryGetValue(theDict, @"common name");
   v7 = CFDictionaryGetValue(theDict, @"email");
-  v8 = _CopyCalEntityOwner(a1, theDict, &v20);
+  v8 = _CopyCalEntityOwner(a1, theDict, &v16);
   if (DLShouldLog())
   {
     _DLLog();
@@ -570,10 +11,10 @@ void _HandleAddOrModifyOrganizer(void *a1, const __CFString *a2, CFDictionaryRef
 
   if (v8)
   {
-    v19 = -1;
-    if (_deconstructRecordIdentifier(a2, 0, 0, 0, &v19))
+    v15 = -1;
+    if (_deconstructRecordIdentifier(a2, 0, 0, 0, &v15))
     {
-      v9 = v19;
+      v9 = v15;
       if (v9 != CalCalendarItemGetRowID())
       {
         if (DLShouldLog())
@@ -581,18 +22,17 @@ void _HandleAddOrModifyOrganizer(void *a1, const __CFString *a2, CFDictionaryRef
           _DLLog();
         }
 
-        v10 = a1[23];
-        v11 = CalDatabaseCopyCalendarItemWithRowID();
-        if (v11)
+        v10 = CalDatabaseCopyCalendarItemWithRowID();
+        if (v10)
         {
-          v12 = v11;
+          v11 = v10;
           CalCalendarItemSetOrganizer();
-          CFRelease(v12);
+          CFRelease(v11);
         }
       }
     }
 
-    if (v20 == 2)
+    if (v16 == 2)
     {
       Organizer = MEMORY[0x25F84A970](v8);
       if (!Organizer)
@@ -603,7 +43,6 @@ void _HandleAddOrModifyOrganizer(void *a1, const __CFString *a2, CFDictionaryRef
           _DLLog();
         }
 
-        v14 = a1[23];
         Organizer = CalDatabaseCreateOrganizer();
         CalCalendarItemSetOrganizer();
       }
@@ -616,28 +55,26 @@ void _HandleAddOrModifyOrganizer(void *a1, const __CFString *a2, CFDictionaryRef
         _DLLog();
       }
 
-      v15 = a1[23];
       Organizer = CalDatabaseCreateOrganizer();
     }
 
-    v16 = a1[43];
-    if (v16 && CFSetContainsValue(v16, v7))
+    v13 = a1[43];
+    if (v13 && CFSetContainsValue(v13, v7))
     {
       CalOrganizerSetIsSelf();
     }
 
     MEMORY[0x25F84AB00](Organizer, v7);
     MEMORY[0x25F84AAF0](Organizer, Value);
-    v17 = a1[31];
-    if (!v17)
+    v14 = a1[31];
+    if (!v14)
     {
-      v18 = a1[17];
       CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v17 = DLMemoryPoolAddObject();
-      a1[31] = v17;
+      v14 = DLMemoryPoolAddObject();
+      a1[31] = v14;
     }
 
-    CFDictionaryAddValue(v17, a2, v8);
+    CFDictionaryAddValue(v14, a2, v8);
     CFRelease(v8);
     if (Organizer)
     {
@@ -653,7 +90,7 @@ void _HandleAddOrModifyOrganizer(void *a1, const __CFString *a2, CFDictionaryRef
 
 void _HandleAddOrModifyAttendee(void *a1, const void *a2, CFDictionaryRef theDict, uint64_t a4)
 {
-  v22 = 0;
+  v20 = 0;
   Value = CFDictionaryGetValue(theDict, @"email");
   v9 = CFDictionaryGetValue(theDict, @"role");
   v10 = CFDictionaryGetValue(theDict, @"status");
@@ -680,7 +117,7 @@ void _HandleAddOrModifyAttendee(void *a1, const void *a2, CFDictionaryRef theDic
 
   v13 = 0;
 LABEL_8:
-  v14 = _CopyCalEntityOwner(a1, theDict, &v22);
+  v14 = _CopyCalEntityOwner(a1, theDict, &v20);
   if (v14)
   {
     v15 = v14;
@@ -694,7 +131,6 @@ LABEL_8:
 
     else
     {
-      v16 = a1[23];
       Attendee = CalDatabaseCreateAttendee();
       if (!Attendee)
       {
@@ -713,11 +149,11 @@ LABEL_8:
         _DLLog();
       }
 
-      v18 = v22;
-      v19 = DLShouldLog();
-      if (v18 == 2)
+      v17 = v20;
+      v18 = DLShouldLog();
+      if (v17 == 2)
       {
-        if (v19)
+        if (v18)
         {
           _DLLog();
         }
@@ -725,21 +161,20 @@ LABEL_8:
         MEMORY[0x25F84A900](v15, v13);
       }
 
-      else if (v19)
+      else if (v18)
       {
         _DLLog();
       }
 
-      v20 = a1[32];
-      if (!v20)
+      v19 = a1[32];
+      if (!v19)
       {
-        v21 = a1[17];
         CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        v20 = DLMemoryPoolAddObject();
-        a1[32] = v20;
+        v19 = DLMemoryPoolAddObject();
+        a1[32] = v19;
       }
 
-      CFDictionaryAddValue(v20, a2, v13);
+      CFDictionaryAddValue(v19, a2, v13);
     }
 
     MEMORY[0x25F84A420](v13, Value);
@@ -833,24 +268,23 @@ uint64_t _CopyParentCalendar(uint64_t a1, CFDictionaryRef theDict)
 uint64_t _CopyCalendarForUIDString(uint64_t a1, const __CFString *key)
 {
   v2 = key;
-  v4 = *(a1 + 168);
-  if (v4)
+  v3 = *(a1 + 168);
+  if (v3)
   {
-    Value = CFDictionaryGetValue(v4, key);
+    Value = CFDictionaryGetValue(v3, key);
     if (Value)
     {
       v2 = Value;
     }
   }
 
-  v9 = 0;
-  v6 = _deconstructRecordIdentifier(v2, 0, &v9, 0, &v9 + 1);
+  v7 = 0;
+  v5 = _deconstructRecordIdentifier(v2, 0, &v7, 0, &v7 + 1);
   result = 0;
-  if (v6 && HIDWORD(v9) != -1)
+  if (v5 && HIDWORD(v7) != -1)
   {
-    if (v9 == 1)
+    if (v7 == 1)
     {
-      v8 = *(a1 + 184);
       result = CalDatabaseCopyCalendarWithUID();
       if (result)
       {
@@ -890,7 +324,7 @@ LABEL_11:
     return 0;
   }
 
-  v13 = 0;
+  v12 = 0;
   ValueAtIndex = CFArrayGetValueAtIndex(v6, 0);
   v8 = *(a1 + 168);
   if (v8)
@@ -902,13 +336,12 @@ LABEL_11:
     }
   }
 
-  v10 = _deconstructRecordIdentifier(ValueAtIndex, 0, a3, 0, &v13);
+  v10 = _deconstructRecordIdentifier(ValueAtIndex, 0, a3, 0, &v12);
   result = 0;
-  if (v10 && v13 != -1)
+  if (v10 && v12 != -1)
   {
     if ((*a3 & 0xFFFFFFFE) == 2)
     {
-      v12 = *(a1 + 184);
       return CalDatabaseCopyCalendarItemWithRowID();
     }
 
@@ -986,7 +419,6 @@ void _addRemapping(uint64_t a1, const void *a2, const void *a3)
 {
   if (!*(a1 + 160))
   {
-    v6 = *(a1 + 136);
     CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     *(a1 + 160) = DLMemoryPoolAddObject();
   }
@@ -996,9 +428,9 @@ void _addRemapping(uint64_t a1, const void *a2, const void *a3)
     _DLLog();
   }
 
-  v7 = *(a1 + 160);
+  v6 = *(a1 + 160);
 
-  CFDictionarySetValue(v7, a2, a3);
+  CFDictionarySetValue(v6, a2, a3);
 }
 
 const __CFString *dataTypeForDataClassName(const __CFString *result)
@@ -1194,28 +626,25 @@ const __CFString *CreateCleanUuid(const __CFString *a1)
 
 uint64_t recordIdentifierIsLocal(const __CFString *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (CFStringHasPrefix(a1, @"com.apple.syncservices:"))
   {
-LABEL_2:
-    result = 0;
-    goto LABEL_8;
+    return 0;
   }
 
   CStringPtr = CFStringGetCStringPtr(a1, 0x8000100u);
-  if (CStringPtr || (CStringPtr = buffer, result = CFStringGetCString(a1, buffer, 64, 0x8000100u), result))
+  if (CStringPtr)
   {
-    if (strlen(CStringPtr) < 9 || CStringPtr[8] != 45)
-    {
-      result = 1;
-      goto LABEL_8;
-    }
-
-    goto LABEL_2;
+    return strlen(CStringPtr) < 9 || CStringPtr[8] != 45;
   }
 
-LABEL_8:
-  v4 = *MEMORY[0x277D85DE8];
+  CStringPtr = buffer;
+  result = CFStringGetCString(a1, buffer, 64, 0x8000100u);
+  if (result)
+  {
+    return strlen(CStringPtr) < 9 || CStringPtr[8] != 45;
+  }
+
   return result;
 }
 
@@ -1825,11 +1254,9 @@ void _setParentUUIDAndPosition(__CFDictionary *a1, void *a2, uint64_t a3)
   {
     CFRelease(v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t _getCountOfChildrenForContainer(const __CFDictionary *a1)
+unint64_t _getCountOfChildrenForContainer(const __CFDictionary *a1)
 {
   if (!a1)
   {
@@ -2504,7 +1931,7 @@ LABEL_14:
   return 0;
 }
 
-uint64_t _bestiCloudUsernameFromEmails(void *a1, void *a2)
+void *_bestiCloudUsernameFromEmails(void *a1, void *a2)
 {
   if ([a1 rangeOfString:@"@"] != 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -2653,7 +2080,7 @@ uint64_t MailAccountsDataSourceGetCountOfRecords(uint64_t a1, _DWORD *a2)
 
 uint64_t MailAccountsDataSourceProcessChanges(uint64_t a1, CFDictionaryRef theDict, uint64_t a3, void *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (theDict && CFDictionaryGetCount(theDict) >= 1)
   {
     if (!*(a1 + 144))
@@ -2663,26 +2090,26 @@ uint64_t MailAccountsDataSourceProcessChanges(uint64_t a1, CFDictionaryRef theDi
       *(a1 + 152) = objc_alloc_init(MEMORY[0x277CBEB18]);
       if ((*(a1 + 136) & 1) == 0)
       {
-        v18 = 0u;
-        v19 = 0u;
-        v16 = 0u;
         v17 = 0u;
+        v18 = 0u;
+        v15 = 0u;
+        v16 = 0u;
         v7 = [*(a1 + 176) mailAccountsForSync];
-        v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v17;
+          v10 = *v16;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v17 != v10)
+              if (*v16 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v16 + 1) + 8 * i);
+              v12 = *(*(&v15 + 1) + 8 * i);
               v13 = [v12 syncIdentityString];
               if (v13)
               {
@@ -2690,7 +2117,7 @@ uint64_t MailAccountsDataSourceProcessChanges(uint64_t a1, CFDictionaryRef theDi
               }
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
           }
 
           while (v9);
@@ -2703,54 +2130,53 @@ uint64_t MailAccountsDataSourceProcessChanges(uint64_t a1, CFDictionaryRef theDi
   }
 
   *a4 = *(a1 + 160);
-  v14 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t MailAccountsDataSourceCommit(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (*(a1 + 137))
   {
     v2 = dispatch_group_create();
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     obj = *(a1 + 152);
-    v3 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v3 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (!v3)
     {
       goto LABEL_22;
     }
 
     v4 = v3;
-    v5 = *v35;
+    v5 = *v34;
     v6 = *MEMORY[0x277CB8BA0];
     while (1)
     {
       v7 = 0;
       do
       {
-        if (*v35 != v5)
+        if (*v34 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v34 + 1) + 8 * v7);
+        v8 = *(*(&v33 + 1) + 8 * v7);
         dispatch_group_enter(v2);
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v29 = __MailAccountsDataSourceCommit_block_invoke;
-        v30 = &unk_279916D40;
-        v32 = v2;
-        v33 = a1;
-        v31 = v8;
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v28 = __MailAccountsDataSourceCommit_block_invoke;
+        v29 = &unk_279916D40;
+        v31 = v2;
+        v32 = a1;
+        v30 = v8;
         if ([objc_msgSend(objc_msgSend(v8 "accountType")] && objc_msgSend(v8, "aa_needsRegistration"))
         {
           if (DLShouldLog())
           {
-            v24 = [v8 identifier];
+            v23 = [v8 identifier];
             _DLLog();
           }
 
@@ -2763,13 +2189,13 @@ uint64_t MailAccountsDataSourceCommit(uint64_t a1)
           if ([objc_msgSend(objc_msgSend(v8 "credential")])
           {
             v9 = *(a1 + 176);
-            v27[0] = MEMORY[0x277D85DD0];
-            v27[1] = 3221225472;
-            v27[2] = __MailAccountsDataSourceCommit_block_invoke_3;
-            v27[3] = &unk_279916D68;
-            v27[4] = v8;
-            v27[5] = v28;
-            [v9 aa_updatePropertiesForAppleAccount:v8 completion:v27];
+            v26[0] = MEMORY[0x277D85DD0];
+            v26[1] = 3221225472;
+            v26[2] = __MailAccountsDataSourceCommit_block_invoke_3;
+            v26[3] = &unk_279916D68;
+            v26[4] = v8;
+            v26[5] = v27;
+            [v9 aa_updatePropertiesForAppleAccount:v8 completion:v26];
             goto LABEL_18;
           }
 
@@ -2778,17 +2204,17 @@ uint64_t MailAccountsDataSourceCommit(uint64_t a1)
 
         else if (DLShouldLog())
         {
-          v24 = [v8 identifier];
+          v23 = [v8 identifier];
           _DLLog();
         }
 
-        v29(v28);
+        v28(v27);
 LABEL_18:
         ++v7;
       }
 
       while (v4 != v7);
-      v10 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v10 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       v4 = v10;
       if (!v10)
       {
@@ -2812,7 +2238,7 @@ LABEL_22:
             v16 = CFStringCreateWithCString(0, buffer, 0x8000100u);
             if (DLShouldLog())
             {
-              v24 = v16;
+              v23 = v16;
               _DLLog();
             }
 
@@ -2838,8 +2264,8 @@ LABEL_22:
           if (v18 < 0 && DLShouldLog())
           {
             v19 = __error();
-            v24 = buffer;
-            v25 = strerror(*v19);
+            v23 = buffer;
+            v24 = strerror(*v19);
             _DLLog();
           }
 
@@ -2848,7 +2274,7 @@ LABEL_22:
 
         else if (DLShouldLog())
         {
-          v24 = 0;
+          v23 = 0;
           _DLLog();
         }
 
@@ -2861,7 +2287,7 @@ LABEL_22:
         [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
         DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
         CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.mail.AutoLaunchSettingsChanged", 0, 0, 0);
-        goto LABEL_45;
+        return 0;
       }
     }
   }
@@ -2871,8 +2297,6 @@ LABEL_22:
     _DLLog();
   }
 
-LABEL_45:
-  v22 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2885,38 +2309,37 @@ void *___bestiCloudUsernameFromEmails_block_invoke()
 
 uint64_t ___bestiCloudUsernameFromEmails_block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = _bestiCloudUsernameFromEmails_sAppleDomains;
-  result = [_bestiCloudUsernameFromEmails_sAppleDomains countByEnumeratingWithState:&v9 objects:v13 count:16];
+  result = [_bestiCloudUsernameFromEmails_sAppleDomains countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (result)
   {
     v5 = result;
-    v6 = *v10;
+    v6 = *v9;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if ([a2 hasSuffix:*(*(&v9 + 1) + 8 * v7)])
+        if ([a2 hasSuffix:*(*(&v8 + 1) + 8 * v7)])
         {
-          result = 1;
-          goto LABEL_11;
+          return 1;
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      result = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      result = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       v5 = result;
       if (result)
       {
@@ -2927,34 +2350,29 @@ uint64_t ___bestiCloudUsernameFromEmails_block_invoke_2(uint64_t a1, void *a2)
     }
   }
 
-LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ___bestiCloudUsernameFromEmails_block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    goto LABEL_12;
+    return 1;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-LABEL_25:
-    v8 = -1;
-    goto LABEL_26;
+    return -1;
   }
 
   v6 = [a2 lowercaseString];
   v7 = [a3 lowercaseString];
   if ([v6 isEqualToString:v7])
   {
-    v8 = 0;
-    goto LABEL_26;
+    return 0;
   }
 
   if (!(*(*(a1 + 40) + 16))() || ![v6 hasPrefix:*(a1 + 32)])
@@ -2964,38 +2382,36 @@ LABEL_25:
       goto LABEL_13;
     }
 
-LABEL_12:
-    v8 = 1;
-    goto LABEL_26;
+    return 1;
   }
 
   if (!(*(*(a1 + 40) + 16))() || ([v7 hasPrefix:*(a1 + 32)] & 1) == 0)
   {
-    goto LABEL_25;
+    return -1;
   }
 
 LABEL_13:
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v9 = _bestiCloudUsernameFromEmails_sAppleDomains;
-  v10 = [_bestiCloudUsernameFromEmails_sAppleDomains countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [_bestiCloudUsernameFromEmails_sAppleDomains countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     v8 = 1;
 LABEL_15:
     v13 = 0;
     while (1)
     {
-      if (*v20 != v12)
+      if (*v19 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v19 + 1) + 8 * v13);
+      v14 = *(*(&v18 + 1) + 8 * v13);
       v15 = [v6 hasSuffix:v14];
       v16 = [v7 hasSuffix:v14];
       if (v15)
@@ -3005,37 +2421,33 @@ LABEL_15:
 
       if (v16)
       {
-        goto LABEL_26;
+        return v8;
       }
 
       if (v11 == ++v13)
       {
-        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v11)
         {
           goto LABEL_15;
         }
 
-        goto LABEL_24;
+        return [v6 compare:v7];
       }
     }
 
     if ((v16 & 1) == 0)
     {
-      goto LABEL_25;
+      return -1;
     }
   }
 
-LABEL_24:
-  v8 = [v6 compare:v7];
-LABEL_26:
-  v17 = *MEMORY[0x277D85DE8];
-  return v8;
+  return [v6 compare:v7];
 }
 
 void _processRecord_0(const __CFString *a1, void *a2, uint64_t a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   CleanUuid = CreateCleanUuid(a1);
   v6 = DLShouldLog();
   if (CleanUuid == a1)
@@ -3045,7 +2457,7 @@ void _processRecord_0(const __CFString *a1, void *a2, uint64_t a3)
       goto LABEL_7;
     }
 
-    v37 = CleanUuid;
+    v35 = CleanUuid;
   }
 
   else
@@ -3055,8 +2467,8 @@ void _processRecord_0(const __CFString *a1, void *a2, uint64_t a3)
       goto LABEL_7;
     }
 
-    v37 = a1;
-    v41 = CleanUuid;
+    v35 = a1;
+    v39 = CleanUuid;
   }
 
   _DLLog();
@@ -3067,7 +2479,7 @@ LABEL_7:
     [(__CFString *)v7 removeObjectForKey:@"__Password__"];
     if (DLShouldLog())
     {
-      v37 = v7;
+      v35 = v7;
       _DLLog();
     }
   }
@@ -3087,10 +2499,10 @@ LABEL_7:
     v11 = _bestiCloudUsernameFromEmails(v11, [a2 objectForKey:@"EmailAddresses"]);
   }
 
-  v13 = _identityStringWithInfo(v10, v11, [a2 objectForKey:{@"Hostname", v37, v41}]);
+  v13 = _identityStringWithInfo(v10, v11, [a2 objectForKey:{@"Hostname", v35, v39}]);
   if (DLShouldLog())
   {
-    v38 = v13;
+    v36 = v13;
     _DLLog();
   }
 
@@ -3102,13 +2514,13 @@ LABEL_7:
       v15 = v14;
       if (DLShouldLog())
       {
-        v38 = [v15 identifier];
+        v36 = [v15 identifier];
         _DLLog();
       }
 
       if (DLShouldLog())
       {
-        v38 = CleanUuid;
+        v36 = CleanUuid;
         _DLLog();
       }
 
@@ -3132,10 +2544,10 @@ LABEL_7:
         v18 = v9;
 LABEL_68:
         [v15 applySyncProperties:a2];
-        v35 = [a2 objectForKey:@"__Password__"];
-        if (v35)
+        v34 = [a2 objectForKey:@"__Password__"];
+        if (v34)
         {
-          [v15 setPasswordFromSync:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", objc_msgSend(v35, "bytes"))}];
+          [v15 setPasswordFromSync:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", objc_msgSend(v34, "bytes"))}];
         }
 
         [*(a3 + 152) addObject:v15];
@@ -3151,7 +2563,7 @@ LABEL_30:
   }
 
 LABEL_31:
-  v19 = [a2 objectForKey:{@"AccountType", v38}];
+  v19 = [a2 objectForKey:{@"AccountType", v36}];
   if (v19)
   {
     v20 = v19;
@@ -3172,29 +2584,29 @@ LABEL_31:
         v24 = v23;
         if (DLShouldLog())
         {
-          v39 = v22;
+          v37 = v22;
           _DLLog();
         }
 
-        if ([v22 isEqualToString:{v12, v39}])
+        if ([v22 isEqualToString:{v12, v37}])
         {
           v25 = [objc_alloc(MEMORY[0x277CB8F30]) initWithAccountType:v24];
         }
 
         else
         {
-          v47 = 0;
+          v45 = 0;
           if (_syncAccountLoader_onceToken != -1)
           {
             _processRecord_cold_1();
           }
 
-          v27 = [_syncAccountLoader_sSyncAccountLoader accountWithAccountTypeIdentifier:v22 error:&v47];
-          if (v47)
+          v26 = [_syncAccountLoader_sSyncAccountLoader accountWithAccountTypeIdentifier:v22 error:&v45];
+          if (v45)
           {
             if (DLShouldLog())
             {
-              v40 = v47;
+              v38 = v45;
               _DLLog();
             }
 
@@ -3203,39 +2615,39 @@ LABEL_57:
             if (v15)
             {
               [v15 setAccountProperty:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInt:", 0xFFFFFFFFLL), @"NumberOfDaysToKeepTrash"}];
-              v28 = [v24 supportedDataclasses];
+              v27 = [v24 supportedDataclasses];
+              v41 = 0u;
+              v42 = 0u;
               v43 = 0u;
               v44 = 0u;
-              v45 = 0u;
-              v46 = 0u;
-              v29 = [v28 countByEnumeratingWithState:&v43 objects:v48 count:16];
-              if (v29)
+              v28 = [v27 countByEnumeratingWithState:&v41 objects:v46 count:16];
+              if (v28)
               {
-                v30 = v29;
-                v31 = *v44;
+                v29 = v28;
+                v30 = *v42;
                 do
                 {
-                  for (i = 0; i != v30; ++i)
+                  for (i = 0; i != v29; ++i)
                   {
-                    if (*v44 != v31)
+                    if (*v42 != v30)
                     {
-                      objc_enumerationMutation(v28);
+                      objc_enumerationMutation(v27);
                     }
 
-                    [v15 setProvisioned:1 forDataclass:{*(*(&v43 + 1) + 8 * i), v40}];
+                    [v15 setProvisioned:1 forDataclass:{*(*(&v41 + 1) + 8 * i), v38}];
                   }
 
-                  v30 = [v28 countByEnumeratingWithState:&v43 objects:v48 count:16];
+                  v29 = [v27 countByEnumeratingWithState:&v41 objects:v46 count:16];
                 }
 
-                while (v30);
+                while (v29);
               }
 
-              v33 = [v24 supportedDataclasses];
-              v34 = *MEMORY[0x277CB9150];
-              if ([v33 containsObject:*MEMORY[0x277CB9150]])
+              v32 = [v24 supportedDataclasses];
+              v33 = *MEMORY[0x277CB9150];
+              if ([v32 containsObject:*MEMORY[0x277CB9150]])
               {
-                [v15 setEnabled:1 forDataclass:v34];
+                [v15 setEnabled:1 forDataclass:v33];
               }
 
               [v15 aa_setSyncedAccount:1];
@@ -3248,11 +2660,10 @@ LABEL_12:
             v9 = CleanUuid;
 LABEL_71:
 
-            v36 = *MEMORY[0x277D85DE8];
             return;
           }
 
-          v25 = [v27 persistentAccount];
+          v25 = [v26 persistentAccount];
         }
 
         v15 = v25;
@@ -3273,8 +2684,6 @@ LABEL_71:
   {
     _DLLog();
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _addRemapping_0(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3302,7 +2711,7 @@ uint64_t _addRemapping_0(uint64_t a1, uint64_t a2, uint64_t a3)
   return [v6 addObject:a3];
 }
 
-uint64_t _ACAccountTypeForSyncAccountType(uint64_t result)
+void *_ACAccountTypeForSyncAccountType(void *result)
 {
   if (result)
   {
@@ -3320,7 +2729,7 @@ uint64_t _ACAccountTypeForSyncAccountType(uint64_t result)
   return result;
 }
 
-objc_class *___syncAccountLoader_block_invoke()
+Class ___syncAccountLoader_block_invoke()
 {
   if (([objc_msgSend(MEMORY[0x277CCA8D8] bundleWithPath:{objc_msgSend(CPSystemRootDirectory(), "stringByAppendingPathComponent:", @"/System/Library/PrivateFrameworks/Message.framework", "load"}] & 1) == 0)
   {

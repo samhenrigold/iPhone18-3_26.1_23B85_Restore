@@ -122,10 +122,9 @@ LABEL_5:
   accountName = [(GKPlayerCredential *)self accountName];
   conciseDescription = [(GKPlayerInternal *)self->_playerInternal conciseDescription];
   scopeAsString = [(GKPlayerCredential *)self scopeAsString];
-  altDSID = self->_altDSID;
-  v9 = [v3 stringWithFormat:@"<%@ %p> account:%@ player:(%@) scope:<%@> (%@) environment:%d token:%@ altDSID:%@ DSID:%@", v4, self, accountName, conciseDescription, scopeAsString, self->_scopeModificationDate, self->_environment, self->_authenticationToken, altDSID, self->_DSID];
+  v8 = [v3 stringWithFormat:@"<%@ %p> account:%@ player:(%@) scope:<%@> (%@) environment:%d token:%@ altDSID:%@ DSID:%@", v4, self, accountName, conciseDescription, scopeAsString, self->_scopeModificationDate, self->_environment, self->_authenticationToken, self->_altDSID, self->_DSID];
 
-  return v9;
+  return v8;
 }
 
 + (id)secureCodedPropertyKeys
@@ -140,30 +139,28 @@ LABEL_5:
   return v3;
 }
 
-void __45__GKPlayerCredential_secureCodedPropertyKeys__block_invoke()
+void __45__GKPlayerCredential_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[8] = *MEMORY[0x277D85DE8];
-  v3[0] = @"accountName";
-  v4[0] = objc_opt_class();
-  v3[1] = @"authenticationToken";
-  v4[1] = objc_opt_class();
-  v3[2] = @"playerInternal";
-  v4[2] = objc_opt_class();
-  v3[3] = @"environment";
-  v4[3] = objc_opt_class();
-  v3[4] = @"scope";
-  v4[4] = objc_opt_class();
-  v3[5] = @"scopeModificationDate";
-  v4[5] = objc_opt_class();
-  v3[6] = @"altDSID";
-  v4[6] = objc_opt_class();
-  v3[7] = @"DSID";
-  v4[7] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:8];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_17;
-  secureCodedPropertyKeys_sSecureCodedKeys_17 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[8] = *MEMORY[0x277D85DE8];
+  v4[0] = @"accountName";
+  v5[0] = objc_opt_class();
+  v4[1] = @"authenticationToken";
+  v5[1] = objc_opt_class();
+  v4[2] = @"playerInternal";
+  v5[2] = objc_opt_class();
+  v4[3] = @"environment";
+  v5[3] = objc_opt_class();
+  v4[4] = @"scope";
+  v5[4] = objc_opt_class();
+  v4[5] = @"scopeModificationDate";
+  v5[5] = objc_opt_class();
+  v4[6] = @"altDSID";
+  v5[6] = objc_opt_class();
+  v4[7] = @"DSID";
+  v5[7] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:8];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_17;
+  secureCodedPropertyKeys_sSecureCodedKeys_17 = v2;
 }
 
 @end

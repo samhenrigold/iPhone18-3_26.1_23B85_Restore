@@ -332,11 +332,11 @@ void __82__VCPProtoMovieClassificationResult_LegacyConversion__resultFromLegacyD
     [v3 setObject:v7 forKey:stringValue];
   }
 
-  timeRange = [(VCPProtoMovieClassificationResult *)self timeRange];
-  v11 = timeRange;
-  if (timeRange)
+  v10 = objc_msgSend_timeRange(self);
+  v11 = v10;
+  if (v10)
   {
-    [timeRange timeRangeValue];
+    objc_msgSend_timeRangeValue(v10);
   }
 
   else

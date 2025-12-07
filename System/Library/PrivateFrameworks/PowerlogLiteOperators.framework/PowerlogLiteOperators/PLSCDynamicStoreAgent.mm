@@ -17,99 +17,97 @@
 
 + (id)entryEventForwardDefinitions
 {
-  v64[4] = *MEMORY[0x277D85DE8];
-  v63[0] = @"CellularActive";
-  v60 = *MEMORY[0x277D3F4E8];
-  v2 = v60;
+  v63[4] = *MEMORY[0x277D85DE8];
+  v62[0] = @"CellularActive";
+  v59 = *MEMORY[0x277D3F4E8];
+  v2 = v59;
   v4 = *MEMORY[0x277D3F550];
-  v58[0] = *MEMORY[0x277D3F568];
-  v3 = v58[0];
-  v58[1] = v4;
+  v57[0] = *MEMORY[0x277D3F568];
+  v3 = v57[0];
+  v57[1] = v4;
   v5 = MEMORY[0x277CBEC28];
-  v59[0] = &unk_282C1C818;
-  v59[1] = MEMORY[0x277CBEC28];
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:2];
-  v62[0] = v37;
-  v61 = *MEMORY[0x277D3F540];
-  v6 = v61;
-  v56[0] = @"Active";
+  v58[0] = &unk_282C1C818;
+  v58[1] = MEMORY[0x277CBEC28];
+  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:2];
+  v61[0] = v36;
+  v60 = *MEMORY[0x277D3F540];
+  v6 = v60;
+  v55[0] = @"Active";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v56[1] = @"LinkQuality";
-  v57[0] = commonTypeDict_BoolFormat;
+  v55[1] = @"LinkQuality";
+  v56[0] = commonTypeDict_BoolFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v57[1] = commonTypeDict_IntegerFormat;
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
-  v62[1] = v32;
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:&v60 count:2];
-  v64[0] = v31;
-  v63[1] = @"WifiActive";
-  v53[1] = v5;
-  v54[0] = v2;
-  v52[0] = v3;
-  v52[1] = v4;
-  v53[0] = &unk_282C1C818;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
-  v54[1] = v6;
-  v55[0] = v30;
-  v50[0] = @"Active";
+  v56[1] = commonTypeDict_IntegerFormat;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
+  v61[1] = v31;
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:&v59 count:2];
+  v63[0] = v30;
+  v62[1] = @"WifiActive";
+  v52[1] = v5;
+  v53[0] = v2;
+  v51[0] = v3;
+  v51[1] = v4;
+  v52[0] = &unk_282C1C818;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
+  v53[1] = v6;
+  v54[0] = v29;
+  v49[0] = @"Active";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_BoolFormat];
-  v50[1] = @"LinkQuality";
-  v51[0] = commonTypeDict_BoolFormat2;
+  v49[1] = @"LinkQuality";
+  v50[0] = commonTypeDict_BoolFormat2;
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v51[1] = commonTypeDict_IntegerFormat2;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
-  v55[1] = v25;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:2];
-  v64[1] = v24;
-  v63[2] = @"HotspotActive";
-  v47[1] = v5;
-  v48[0] = v2;
-  v46[0] = v3;
-  v46[1] = v4;
-  v47[0] = &unk_282C1C818;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
-  v48[1] = v6;
-  v49[0] = v23;
-  v44[0] = @"Active";
+  v50[1] = commonTypeDict_IntegerFormat2;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
+  v54[1] = v24;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+  v63[1] = v23;
+  v62[2] = @"HotspotActive";
+  v46[1] = v5;
+  v47[0] = v2;
+  v45[0] = v3;
+  v45[1] = v4;
+  v46[0] = &unk_282C1C818;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
+  v47[1] = v6;
+  v48[0] = v22;
+  v43[0] = @"Active";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat3 = [mEMORY[0x277D3F198]5 commonTypeDict_BoolFormat];
-  v44[1] = @"LinkQuality";
-  v45[0] = commonTypeDict_BoolFormat3;
+  v43[1] = @"LinkQuality";
+  v44[0] = commonTypeDict_BoolFormat3;
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v45[1] = commonTypeDict_IntegerFormat3;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
-  v49[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
-  v64[2] = v8;
-  v63[3] = @"BTHotspotActive";
-  v41[1] = v5;
-  v42[0] = v2;
-  v40[0] = v3;
-  v40[1] = v4;
-  v41[0] = &unk_282C1C818;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
-  v42[1] = v6;
-  v43[0] = v9;
-  v38[0] = @"Active";
+  v44[1] = commonTypeDict_IntegerFormat3;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
+  v48[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
+  v63[2] = v8;
+  v62[3] = @"BTHotspotActive";
+  v40[1] = v5;
+  v41[0] = v2;
+  v39[0] = v3;
+  v39[1] = v4;
+  v40[0] = &unk_282C1C818;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
+  v41[1] = v6;
+  v42[0] = v9;
+  v37[0] = @"Active";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_BoolFormat];
-  v38[1] = @"LinkQuality";
-  v39[0] = commonTypeDict_BoolFormat4;
+  v37[1] = @"LinkQuality";
+  v38[0] = commonTypeDict_BoolFormat4;
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v39[1] = commonTypeDict_IntegerFormat4;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
-  v43[1] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
-  v64[3] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:4];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v38[1] = commonTypeDict_IntegerFormat4;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
+  v42[1] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
+  v63[3] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:4];
 
   return v16;
 }
@@ -161,7 +159,7 @@
 
 - (void)networkLinkQualityChanged:(__SCDynamicStore *)changed withChangedKeys:(id)keys
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -189,7 +187,7 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v91 = keysCopy;
+        v90 = keysCopy;
         _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -215,19 +213,19 @@
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v21 = objc_opt_class();
-    v88[0] = MEMORY[0x277D85DD0];
-    v88[1] = 3221225472;
-    v88[2] = __67__PLSCDynamicStoreAgent_networkLinkQualityChanged_withChangedKeys___block_invoke_48;
-    v88[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v88[4] = v21;
+    v87[0] = MEMORY[0x277D85DD0];
+    v87[1] = 3221225472;
+    v87[2] = __67__PLSCDynamicStoreAgent_networkLinkQualityChanged_withChangedKeys___block_invoke_48;
+    v87[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v87[4] = v21;
     if (qword_2811F7E50 != -1)
     {
-      dispatch_once(&qword_2811F7E50, v88);
+      dispatch_once(&qword_2811F7E50, v87);
     }
 
     if (byte_2811F7E41 == 1)
     {
-      v83 = v14;
+      v82 = v14;
       selfCopy = self;
       v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"SCDS Dynamic store dictionary: %@", v20];
       v24 = MEMORY[0x277D3F178];
@@ -240,12 +238,12 @@
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v91 = v23;
+        v90 = v23;
         _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
       self = selfCopy;
-      v14 = v83;
+      v14 = v82;
     }
   }
 
@@ -264,7 +262,7 @@ LABEL_25:
 
     if (v31)
     {
-      v84 = v14;
+      v83 = v14;
       selfCopy2 = self;
       allKeys = [(PLOperator *)PLSCDynamicStoreAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"WifiActive"];
       v33 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:allKeys];
@@ -295,7 +293,7 @@ LABEL_25:
       self = selfCopy2;
       [(PLOperator *)selfCopy2 logEntry:v33];
 
-      v14 = v84;
+      v14 = v83;
       goto LABEL_25;
     }
   }
@@ -343,8 +341,8 @@ LABEL_26:
 
     if (v52)
     {
-      v85 = [(PLOperator *)PLSCDynamicStoreAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"CellularActive"];
-      v53 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v85];
+      v84 = [(PLOperator *)PLSCDynamicStoreAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"CellularActive"];
+      v53 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v84];
       v54 = [(__CFDictionary *)v20 objectForKeyedSubscript:@"State:/Network/Interface/pdp_ip0/LinkQuality"];
       [v54 objectForKeyedSubscript:@"LinkQuality"];
       v55 = v13;
@@ -393,38 +391,38 @@ LABEL_26:
         [v64 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"Active"];
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
-          v75 = objc_opt_class();
-          v87[0] = MEMORY[0x277D85DD0];
-          v87[1] = 3221225472;
-          v87[2] = __67__PLSCDynamicStoreAgent_networkLinkQualityChanged_withChangedKeys___block_invoke_77;
-          v87[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v87[4] = v75;
+          v74 = objc_opt_class();
+          v86[0] = MEMORY[0x277D85DD0];
+          v86[1] = 3221225472;
+          v86[2] = __67__PLSCDynamicStoreAgent_networkLinkQualityChanged_withChangedKeys___block_invoke_77;
+          v86[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v86[4] = v74;
           if (qword_2811F7E58 != -1)
           {
-            dispatch_once(&qword_2811F7E58, v87);
+            dispatch_once(&qword_2811F7E58, v86);
           }
 
           if (byte_2811F7E42 == 1)
           {
             selfCopy3 = self;
-            v86 = v14;
-            v76 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: Interface en2 keys exist, but active=no. Expected en2.active=yes whenever en2 interface exists"];
-            v77 = MEMORY[0x277D3F178];
-            v78 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSCDynamicStoreAgent.m"];
-            lastPathComponent3 = [v78 lastPathComponent];
-            v80 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSCDynamicStoreAgent networkLinkQualityChanged:withChangedKeys:]"];
-            [v77 logMessage:v76 fromFile:lastPathComponent3 fromFunction:v80 fromLineNumber:239];
+            v85 = v14;
+            v75 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: Interface en2 keys exist, but active=no. Expected en2.active=yes whenever en2 interface exists"];
+            v76 = MEMORY[0x277D3F178];
+            v77 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSCDynamicStoreAgent.m"];
+            lastPathComponent3 = [v77 lastPathComponent];
+            v79 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSCDynamicStoreAgent networkLinkQualityChanged:withChangedKeys:]"];
+            [v76 logMessage:v75 fromFile:lastPathComponent3 fromFunction:v79 fromLineNumber:239];
 
-            v81 = PLLogCommon();
-            if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
+            v80 = PLLogCommon();
+            if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v91 = v76;
-              _os_log_debug_impl(&dword_21A4C6000, v81, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+              v90 = v75;
+              _os_log_debug_impl(&dword_21A4C6000, v80, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
             self = selfCopy3;
-            v14 = v86;
+            v14 = v85;
           }
         }
 
@@ -454,25 +452,23 @@ LABEL_45:
   }
 
 LABEL_48:
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __67__PLSCDynamicStoreAgent_networkLinkQualityChanged_withChangedKeys___block_invoke(uint64_t a1)
+void *__67__PLSCDynamicStoreAgent_networkLinkQualityChanged_withChangedKeys___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_108 = result;
   return result;
 }
 
-uint64_t __67__PLSCDynamicStoreAgent_networkLinkQualityChanged_withChangedKeys___block_invoke_48(uint64_t a1)
+void *__67__PLSCDynamicStoreAgent_networkLinkQualityChanged_withChangedKeys___block_invoke_48(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7E41 = result;
   return result;
 }
 
-uint64_t __67__PLSCDynamicStoreAgent_networkLinkQualityChanged_withChangedKeys___block_invoke_77(uint64_t a1)
+void *__67__PLSCDynamicStoreAgent_networkLinkQualityChanged_withChangedKeys___block_invoke_77(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7E42 = result;

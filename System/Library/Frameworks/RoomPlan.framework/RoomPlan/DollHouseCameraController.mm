@@ -9,7 +9,6 @@
 
 - (void)didPanWithPanGesture:(id)gesture
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC8RoomPlan25DollHouseCameraController_camera);
   gestureCopy = gesture;
   selfCopy = self;
   sub_23A9E8A3C(gestureCopy);

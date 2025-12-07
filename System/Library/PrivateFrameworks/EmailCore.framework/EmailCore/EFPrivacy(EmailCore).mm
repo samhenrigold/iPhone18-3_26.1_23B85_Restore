@@ -124,30 +124,30 @@
 
 + (id)ec_redactedQueryStringForSearchableQueryString:()EmailCore
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = objc_msgSend(MEMORY[0x277CCAB68], "stringWithString:", CFSTR("\\(("));
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  v5 = [&unk_284050878 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v5 = [&unk_284050878 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
-    v6 = *v22;
+    v6 = *v21;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(&unk_284050878);
         }
 
-        [v4 appendFormat:@"%@|", *(*(&v21 + 1) + 8 * i)];
+        [v4 appendFormat:@"%@|", *(*(&v20 + 1) + 8 * i)];
       }
 
-      v5 = [&unk_284050878 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v5 = [&unk_284050878 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v5);
@@ -155,9 +155,9 @@
 
   [v4 deleteCharactersInRange:{objc_msgSend(v4, "length") - 1, 1}];
   [v4 appendString:@" = '([^']+)'\\]"));
-  v20 = 0;
-  v8 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v4 options:0 error:&v20];
-  v9 = v20;
+  v19 = 0;
+  v8 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v4 options:0 error:&v19];
+  v9 = v19;
   if (v9)
   {
     v10 = v3;
@@ -167,19 +167,17 @@
   {
     v11 = [v3 mutableCopy];
     v12 = [v3 length];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __71__EFPrivacy_EmailCore__ec_redactedQueryStringForSearchableQueryString___block_invoke;
-    v17[3] = &unk_27874C5B0;
-    v18 = v3;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __71__EFPrivacy_EmailCore__ec_redactedQueryStringForSearchableQueryString___block_invoke;
+    v16[3] = &unk_27874C5B0;
+    v17 = v3;
     v13 = v11;
-    v19 = v13;
-    [v8 enumerateMatchesInString:v18 options:0 range:0 usingBlock:{v12, v17}];
-    v14 = v19;
+    v18 = v13;
+    [v8 enumerateMatchesInString:v17 options:0 range:0 usingBlock:{v12, v16}];
+    v14 = v18;
     v10 = v13;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

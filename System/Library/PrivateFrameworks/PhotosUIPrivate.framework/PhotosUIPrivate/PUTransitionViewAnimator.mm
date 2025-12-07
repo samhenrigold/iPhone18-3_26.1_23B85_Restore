@@ -290,11 +290,11 @@
   }
 }
 
-uint64_t __116__PUTransitionViewAnimator__endWithTranslationVelocity_rotationVelocity_scaleVelocity_shouldBounce_finish_animated___block_invoke(uint64_t result)
+id *__116__PUTransitionViewAnimator__endWithTranslationVelocity_rotationVelocity_scaleVelocity_shouldBounce_finish_animated___block_invoke(id *result)
 {
-  if ((*(*(result + 32) + 8) & 4) != 0)
+  if ((*(result[4] + 8) & 4) != 0)
   {
-    return [*(result + 40) transitionViewAnimatorDidEnd:? finished:?];
+    return [result[5] transitionViewAnimatorDidEnd:? finished:?];
   }
 
   return result;

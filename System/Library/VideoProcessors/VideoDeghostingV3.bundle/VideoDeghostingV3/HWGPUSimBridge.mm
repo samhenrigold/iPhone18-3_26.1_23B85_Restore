@@ -7,10 +7,13 @@
 - (float)getWSpatialUsingGhostMotion_HWGPU:(id *)u ref0Meta:(id *)meta ref1Meta:(float)ref1Meta metaTPlusOrMinus1_HW:metaTPlusOrMinus2_HW:lowLight:ghostSize:;
 - (float)gradientWithInput:(id)input width:(int)width height:(int)height fixedPosition:(int)position start:(int)start end:(int)end direction:(int)direction GGCoord:(float)self0[3][16][4] GGCount:(int)self1;
 - (void)dealloc;
+- (void)getWSpatialUsingTempAlignQualityLowLight_HWGPUWithGGCoord:(float)coord[3][16][4] GGCount:(int)count GGCountRef0:(int)ref0 GGCountRef1:(int)ref1 ggIndex:(int)index input:(id)input ref0:(id)a9 ref1:(id)self0 diffMax:(int *)self1;
 - (void)getWStrongRepairInSpatialUsingBgTexturednessWithInput:(id)input curGGCoord:(float)coord[3][16][4] GGCount:(int)count dilation:(int)dilation gradMax:(int *)max curIdx:(int)idx;
-- (void)hwMitigationFromVT:(double)t homography1:(double)homography1 BBoxCur:(double)cur warpedBBox0:(double)box0 warpedMeta1:(double)meta1 inputBuf:(uint64_t)buf ref0Buf:(void *)ref0Buf ref1Buf:(uint64_t)self0 borderPixels:(uint64_t)self1 outputBuf:(__CVBuffer *)self2 boundingBoxWeights:(__CVBuffer *)self3 outputStruct:(__CVBuffer *)self4;
+- (void)hwMitigationFromVT:(double)t homography1:(double)homography1 BBoxCur:(double)cur warpedBBox0:(double)box0 warpedMeta1:(double)meta1 inputBuf:(uint64_t)buf ref0Buf:(void *)ref0Buf ref1Buf:(uint64_t)self0 borderPixels:(uint64_t)self1 outputBuf:(__CVBuffer *)self2 boundingBoxWeights:(uint64_t)self3 outputStruct:(uint64_t)self4;
 - (void)hwStatisticsFromVT:(__n128)t homography1:(__n128)homography1 BBoxCur:(__n128)cur warpedBBox0:(__n128)box0 warpedMeta1:(__n128)meta1 inputBuf:(uint64_t)buf ref0Buf:(void *)ref0Buf ref1Buf:(void *)self0 borderPixels:(void *)self1 outputStruct:(uint64_t)self2;
-- (void)spatialHMERCWithInputBuf:(double)buf ref0Buf:(double)ref0Buf ref1Buf:(double)ref1Buf GGCount:(double)count GGCountRef0:(double)ref0 GGCountRef1:(uint64_t)ref1 GGCoord:(__CVBuffer *)coord hmgrphy0:(__CVBuffer *)self0 hmgrphy1:(__CVBuffer *)self1 diffMax:(unsigned int)self2;
+- (void)setWSpatialWithGGCoord:(float)coord[3][16][4] GGCount:(int)count GGCountRef0:(int)ref0 GGCountRef1:(int)ref1 downscaledInputY:(__CVBuffer *)y downscaledwarpedRef0Y:(__CVBuffer *)ref0Y downscaledwarpedRef1Y:(__CVBuffer *)ref1Y diffMax:(int *)self0;
+- (void)spatialHMERCWithInputBuf:(double)buf ref0Buf:(double)ref0Buf ref1Buf:(double)ref1Buf GGCount:(double)count GGCountRef0:(double)ref0 GGCountRef1:(uint64_t)ref1 GGCoord:(__CVBuffer *)coord hmgrphy0:(uint64_t)self0 hmgrphy1:(uint64_t)self1 diffMax:(unsigned int)self2;
+- (void)strongSpatialHMEFSWithInputBuf:(__CVBuffer *)buf GGCount:(int)count GGCoord:(float)coord[3][16][4] gradMax:(int *)max;
 @end
 
 @implementation HWGPUSimBridge
@@ -316,6 +319,29 @@
   }
 
   max[v41] = (v32 * 255.0 * 24.0);
+}
+
+- (void)strongSpatialHMEFSWithInputBuf:(__CVBuffer *)buf GGCount:(int)count GGCoord:(float)coord[3][16][4] gradMax:(int *)max
+{
+  v8 = *&count;
+  v11 = (CVPixelBufferGetWidth(buf) / 2);
+  Height = CVPixelBufferGetHeight(buf);
+  PixelBufferFromInputWithDifferentRes = createPixelBufferFromInputWithDifferentRes(buf, v11, (Height / 2));
+  VTPixelTransferSessionTransferImage(self->_pixelTransferSession, buf, PixelBufferFromInputWithDifferentRes);
+  v15 = [[PixelMemory alloc] initWithCvPixelBuffer:PixelBufferFromInputWithDifferentRes skipClamp:1 readOnly:0];
+  if (v8 >= 1)
+  {
+    v14 = 0;
+    do
+    {
+      [(HWGPUSimBridge *)self getWStrongRepairInSpatialUsingBgTexturednessWithInput:v15 curGGCoord:coord GGCount:v8 dilation:5 gradMax:max curIdx:v14];
+      v14 = (v14 + 1);
+    }
+
+    while (v8 != v14);
+  }
+
+  CVBufferRelease(PixelBufferFromInputWithDifferentRes);
 }
 
 - (float)getWSpatialUsingGhostMotion_HWGPU:(id *)u ref0Meta:(id *)meta ref1Meta:(float)ref1Meta metaTPlusOrMinus1_HW:metaTPlusOrMinus2_HW:lowLight:ghostSize:
@@ -752,36 +778,256 @@ LABEL_35:
   return v7 / v8;
 }
 
-- (void)spatialHMERCWithInputBuf:(double)buf ref0Buf:(double)ref0Buf ref1Buf:(double)ref1Buf GGCount:(double)count GGCountRef0:(double)ref0 GGCountRef1:(uint64_t)ref1 GGCoord:(__CVBuffer *)coord hmgrphy0:(__CVBuffer *)self0 hmgrphy1:(__CVBuffer *)self1 diffMax:(unsigned int)self2
+- (void)getWSpatialUsingTempAlignQualityLowLight_HWGPUWithGGCoord:(float)coord[3][16][4] GGCount:(int)count GGCountRef0:(int)ref0 GGCountRef1:(int)ref1 ggIndex:(int)index input:(id)input ref0:(id)a9 ref1:(id)self0 diffMax:(int *)self1
 {
-  CVPixelBufferGetWidth(coord);
-  CVPixelBufferGetHeight(coord);
-  PixelBufferFromInputWithDifferentRes = createPixelBufferFromInputWithDifferentRes(coord);
+  v11 = *&index;
+  v12 = *&ref1;
+  v13 = *&ref0;
+  v14 = *&count;
+  inputCopy = input;
+  v71 = a9;
+  v17 = a10;
+  height = [inputCopy height];
+  width = [inputCopy width];
+  v19 = 0;
+  v20.i64[0] = 0x3F0000003F000000;
+  v20.i64[1] = 0x3F0000003F000000;
+  coordCopy = coord;
+  do
+  {
+    for (i = 0; i != 16; ++i)
+    {
+      *&(*coordCopy)[i][0] = vmulq_f32(*&(*coordCopy)[i][0], v20);
+    }
+
+    ++v19;
+    ++coordCopy;
+  }
+
+  while (v19 != 3);
+  v23 = (*coord)[v11];
+  v24 = *v23;
+  v25 = v23[3];
+  v26 = v23[2];
+  if (v24 <= 16)
+  {
+    v24 = 16;
+  }
+
+  if (v23[1] <= 16)
+  {
+    v27 = 16;
+  }
+
+  else
+  {
+    v27 = v23[1];
+  }
+
+  v28 = v26 + 16;
+  if (width - 1 < v26 + 16)
+  {
+    v28 = width - 1;
+  }
+
+  v29 = height - 1;
+  v30 = v25 + 16;
+  if (height - 1 < v30)
+  {
+    v30 = height - 1;
+  }
+
+  v31 = v24 & 0x7FFFFFFC;
+  v32 = (v28 + (v28 < 0 ? 3 : 0)) & 0xFFFFFFFC;
+  v33 = v30 + 3;
+  if (v30 >= 0)
+  {
+    v33 = v30;
+  }
+
+  v69 = v31 - 16;
+  v61 = v32;
+  if (v31 - 16 <= v32)
+  {
+    v35 = (v27 & 0x7FFFFFFCu) - 16;
+    v36 = v33 & 0xFFFFFFFC;
+    v68 = v31 - 17;
+    v65 = 0.0;
+    v60 = v35;
+    v63 = height - 1;
+    v64 = height;
+    v62 = v33 & 0xFFFFFFFC;
+    do
+    {
+      if (v35 <= v36)
+      {
+        v37 = v35;
+        if (width - 1 >= (v69 | 3))
+        {
+          v38 = v69 | 3;
+        }
+
+        else
+        {
+          v38 = width - 1;
+        }
+
+        do
+        {
+          v39 = v37 | 3;
+          if (v29 < (v37 | 3))
+          {
+            v39 = v29;
+          }
+
+          v70 = v39;
+          if (height > v37)
+          {
+            v40 = 0.0;
+            v41 = 0.0;
+            v66 = v37;
+            v42 = v37;
+            do
+            {
+              LODWORD(v43) = v68;
+              if (width > v69)
+              {
+                do
+                {
+                  v43 = (v43 + 1);
+                  [(HWGPUSimBridge *)self getDistWithGGCoord:coord GGCount:v14 location:v11 ggIdx:?];
+                  v45 = v44;
+                  if (![(HWGPUSimBridge *)self pixelIsGhostWithDilationWithDilation:2 location:coord curGGCoord:v13 GGCount:1 posInx:COERCE_DOUBLE(__PAIR64__(v42, v43))]&& ![(HWGPUSimBridge *)self pixelIsGhostWithDilationWithDilation:2 location:coord curGGCoord:v12 GGCount:2 posInx:COERCE_DOUBLE(__PAIR64__(v42, v43))]&& v45 <= 16.0 && v45 >= 8.0)
+                  {
+                    [(HWGPUSimBridge *)self avgPixelFromPixelMemory:v71 locX:v43 locY:v42];
+                    v48 = v47 / 255.0;
+                    [(HWGPUSimBridge *)self avgPixelFromPixelMemory:v17 locX:v43 locY:v42];
+                    v50 = v49 / 255.0;
+                    [(HWGPUSimBridge *)self avgPixelFromPixelMemory:inputCopy locX:v43 locY:v42];
+                    v52 = v51 / 255.0;
+                    v53 = vabds_f32(v52, v48);
+                    v54 = vabds_f32(v52, v50);
+                    if (v53 < v54)
+                    {
+                      v54 = v53;
+                    }
+
+                    v55 = (1.0 - fminf(fmaxf(v45 * 0.03125, 0.0), 1.0)) * v54;
+                    v40 = v40 + v55;
+                    v41 = v41 + 1.0;
+                  }
+                }
+
+                while (v43 < v38);
+              }
+
+              v56 = v42 < v70;
+              v42 = (v42 + 1);
+            }
+
+            while (v56);
+            if (v41 >= 8.0)
+            {
+              v57 = v65;
+              if (v65 < (v40 / v41))
+              {
+                v57 = v40 / v41;
+              }
+
+              v65 = v57;
+            }
+
+            v29 = v63;
+            height = v64;
+            v36 = v62;
+            LODWORD(v37) = v66;
+          }
+
+          v37 = (v37 + 4);
+        }
+
+        while (v37 <= v36);
+      }
+
+      v68 += 4;
+      v69 += 4;
+      v35 = v60;
+    }
+
+    while (v69 <= v61);
+    v34 = (v65 * 1024.0 * 255.0);
+  }
+
+  else
+  {
+    v34 = 0;
+  }
+
+  for (j = 0; j != 3; ++j)
+  {
+    for (k = 0; k != 16; ++k)
+    {
+      *&(*coord)[k][0] = vaddq_f32(*&(*coord)[k][0], *&(*coord)[k][0]);
+    }
+
+    ++coord;
+  }
+
+  printf("BBox[%d]: GPU diffMax:%d\n", v11, v34);
+  max[v11] = v34;
+}
+
+- (void)setWSpatialWithGGCoord:(float)coord[3][16][4] GGCount:(int)count GGCountRef0:(int)ref0 GGCountRef1:(int)ref1 downscaledInputY:(__CVBuffer *)y downscaledwarpedRef0Y:(__CVBuffer *)ref0Y downscaledwarpedRef1Y:(__CVBuffer *)ref1Y diffMax:(int *)self0
+{
+  v11 = *&ref1;
+  v12 = *&ref0;
+  v13 = *&count;
+  v19 = [[PixelMemory alloc] initWithCvPixelBuffer:y skipClamp:1 readOnly:0];
+  v16 = [[PixelMemory alloc] initWithCvPixelBuffer:ref0Y skipClamp:1 readOnly:0];
+  v17 = [[PixelMemory alloc] initWithCvPixelBuffer:ref1Y skipClamp:1 readOnly:0];
+  if (v13 >= 1)
+  {
+    v18 = 0;
+    do
+    {
+      [(HWGPUSimBridge *)self getWSpatialUsingTempAlignQualityLowLight_HWGPUWithGGCoord:coord GGCount:v13 GGCountRef0:v12 GGCountRef1:v11 ggIndex:v18 input:v19 ref0:v16 ref1:v17 diffMax:max];
+      v18 = (v18 + 1);
+    }
+
+    while (v13 != v18);
+  }
+}
+
+- (void)spatialHMERCWithInputBuf:(double)buf ref0Buf:(double)ref0Buf ref1Buf:(double)ref1Buf GGCount:(double)count GGCountRef0:(double)ref0 GGCountRef1:(uint64_t)ref1 GGCoord:(__CVBuffer *)coord hmgrphy0:(uint64_t)self0 hmgrphy1:(uint64_t)self1 diffMax:(unsigned int)self2
+{
+  v20 = (CVPixelBufferGetWidth(coord) / 2);
+  v21 = (CVPixelBufferGetHeight(coord) / 2);
+  PixelBufferFromInputWithDifferentRes = createPixelBufferFromInputWithDifferentRes(coord, v20, v21);
   [self resizeInputBuffer:coord outputBuffer:PixelBufferFromInputWithDifferentRes];
   PixelBufferFromInput = createPixelBufferFromInput(hmgrphy0);
   [self[1] backWarpYUV:hmgrphy0 warped:PixelBufferFromInput withHomography:0 waitForComplete:{a2, buf, ref0Buf}];
-  v22 = createPixelBufferFromInputWithDifferentRes(coord);
-  [self resizeInputBuffer:PixelBufferFromInput outputBuffer:v22];
-  v23 = createPixelBufferFromInput(hmgrphy1);
-  [self[1] backWarpYUV:hmgrphy1 warped:v23 withHomography:0 waitForComplete:{ref1Buf, count, ref0}];
-  v24 = createPixelBufferFromInputWithDifferentRes(coord);
-  [self resizeInputBuffer:v23 outputBuffer:v24];
-  PixelBufferFromInputWithDifferentFormat = createPixelBufferFromInputWithDifferentFormat(PixelBufferFromInputWithDifferentRes);
-  v26 = createPixelBufferFromInputWithDifferentFormat(v22);
-  v27 = createPixelBufferFromInputWithDifferentFormat(v24);
+  v24 = createPixelBufferFromInputWithDifferentRes(coord, v20, v21);
+  [self resizeInputBuffer:PixelBufferFromInput outputBuffer:v24];
+  v25 = createPixelBufferFromInput(hmgrphy1);
+  [self[1] backWarpYUV:hmgrphy1 warped:v25 withHomography:0 waitForComplete:{ref1Buf, count, ref0}];
+  v26 = createPixelBufferFromInputWithDifferentRes(coord, v20, v21);
+  [self resizeInputBuffer:v25 outputBuffer:v26];
+  PixelBufferFromInputWithDifferentFormat = createPixelBufferFromInputWithDifferentFormat(PixelBufferFromInputWithDifferentRes, v20, v21, 1278226488);
+  v28 = createPixelBufferFromInputWithDifferentFormat(v24, v20, v21, 1278226488);
+  v29 = createPixelBufferFromInputWithDifferentFormat(v26, v20, v21, 1278226488);
   [self[1] convertYUV2Gray:PixelBufferFromInputWithDifferentRes gray:PixelBufferFromInputWithDifferentFormat waitForComplete:1];
-  [self[1] convertYUV2Gray:v22 gray:v26 waitForComplete:1];
-  [self[1] convertYUV2Gray:v24 gray:v27 waitForComplete:1];
-  [self setWSpatialWithGGCoord:a15 GGCount:max GGCountRef0:a13 GGCountRef1:a14 downscaledInputY:PixelBufferFromInputWithDifferentFormat downscaledwarpedRef0Y:v26 downscaledwarpedRef1Y:v27 diffMax:a16];
+  [self[1] convertYUV2Gray:v24 gray:v28 waitForComplete:1];
+  [self[1] convertYUV2Gray:v26 gray:v29 waitForComplete:1];
+  [self setWSpatialWithGGCoord:a15 GGCount:max GGCountRef0:a13 GGCountRef1:a14 downscaledInputY:PixelBufferFromInputWithDifferentFormat downscaledwarpedRef0Y:v28 downscaledwarpedRef1Y:v29 diffMax:a16];
   CVBufferRelease(PixelBufferFromInputWithDifferentRes);
   CVBufferRelease(PixelBufferFromInput);
-  CVBufferRelease(v22);
-  CVBufferRelease(v23);
   CVBufferRelease(v24);
-  CVBufferRelease(PixelBufferFromInputWithDifferentFormat);
+  CVBufferRelease(v25);
   CVBufferRelease(v26);
+  CVBufferRelease(PixelBufferFromInputWithDifferentFormat);
+  CVBufferRelease(v28);
 
-  CVBufferRelease(v27);
+  CVBufferRelease(v29);
 }
 
 - (void)hwStatisticsFromVT:(__n128)t homography1:(__n128)homography1 BBoxCur:(__n128)cur warpedBBox0:(__n128)box0 warpedMeta1:(__n128)meta1 inputBuf:(uint64_t)buf ref0Buf:(void *)ref0Buf ref1Buf:(void *)self0 borderPixels:(void *)self1 outputStruct:(uint64_t)self2
@@ -856,7 +1102,7 @@ LABEL_35:
   free(v40);
 }
 
-- (void)hwMitigationFromVT:(double)t homography1:(double)homography1 BBoxCur:(double)cur warpedBBox0:(double)box0 warpedMeta1:(double)meta1 inputBuf:(uint64_t)buf ref0Buf:(void *)ref0Buf ref1Buf:(uint64_t)self0 borderPixels:(uint64_t)self1 outputBuf:(__CVBuffer *)self2 boundingBoxWeights:(__CVBuffer *)self3 outputStruct:(__CVBuffer *)self4
+- (void)hwMitigationFromVT:(double)t homography1:(double)homography1 BBoxCur:(double)cur warpedBBox0:(double)box0 warpedMeta1:(double)meta1 inputBuf:(uint64_t)buf ref0Buf:(void *)ref0Buf ref1Buf:(uint64_t)self0 borderPixels:(uint64_t)self1 outputBuf:(__CVBuffer *)self2 boundingBoxWeights:(uint64_t)self3 outputStruct:(uint64_t)self4
 {
   v75 = a18;
   v22 = [NSMutableData dataWithLength:10192];

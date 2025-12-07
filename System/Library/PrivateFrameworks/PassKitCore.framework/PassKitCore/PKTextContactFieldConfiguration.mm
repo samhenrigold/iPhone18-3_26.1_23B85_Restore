@@ -61,79 +61,79 @@
             }
 
             v19 = *(*(&v35 + 1) + 8 * i);
-            if ([v19 isEqualToString:@"alphanumericCharacterSet"])
+            if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] alphanumericCharacterSet];
             }
 
-            else if ([v19 isEqualToString:@"capitalizedLetterCharacterSet"])
+            else if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] capitalizedLetterCharacterSet];
             }
 
-            else if ([v19 isEqualToString:@"controlCharacterSet"])
+            else if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] controlCharacterSet];
             }
 
-            else if ([v19 isEqualToString:@"decimalDigitCharacterSet"])
+            else if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] decimalDigitCharacterSet];
             }
 
-            else if ([v19 isEqualToString:@"decomposableCharacterSet"])
+            else if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] decomposableCharacterSet];
             }
 
-            else if ([v19 isEqualToString:@"illegalCharacterSet"])
+            else if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] illegalCharacterSet];
             }
 
-            else if ([v19 isEqualToString:@"letterCharacterSet"])
+            else if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] letterCharacterSet];
             }
 
-            else if ([v19 isEqualToString:@"lowercaseLetterCharacterSet"])
+            else if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] lowercaseLetterCharacterSet];
             }
 
-            else if ([v19 isEqualToString:@"newlineCharacterSet"])
+            else if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] newlineCharacterSet];
             }
 
-            else if ([v19 isEqualToString:@"nonBaseCharacterSet"])
+            else if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] nonBaseCharacterSet];
             }
 
-            else if ([v19 isEqualToString:@"punctuationCharacterSet"])
+            else if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] punctuationCharacterSet];
             }
 
-            else if ([v19 isEqualToString:@"symbolCharacterSet"])
+            else if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] symbolCharacterSet];
             }
 
-            else if ([v19 isEqualToString:@"uppercaseLetterCharacterSet"])
+            else if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] uppercaseLetterCharacterSet];
             }
 
-            else if ([v19 isEqualToString:@"whitespaceAndNewlineCharacterSet"])
+            else if (objc_msgSend_isEqualToString_(v19))
             {
               alphanumericCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
             }
 
             else
             {
-              if (([v19 isEqualToString:@"whitespaceCharacterSet"] & 1) == 0)
+              if ((objc_msgSend_isEqualToString_(v19) & 1) == 0)
               {
 
 LABEL_45:

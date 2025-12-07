@@ -38,12 +38,12 @@
 
 - (HDHeartProfileExtension)initWithProfile:(id)profile heartNotificationsUserDefaults:(id)defaults
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   defaultsCopy = defaults;
-  v122.receiver = self;
-  v122.super_class = HDHeartProfileExtension;
-  v8 = [(HDHeartProfileExtension *)&v122 init];
+  v121.receiver = self;
+  v121.super_class = HDHeartProfileExtension;
+  v8 = [(HDHeartProfileExtension *)&v121 init];
   v9 = v8;
   if (!v8)
   {
@@ -128,7 +128,7 @@ LABEL_7:
   v45 = [HDHRHeartRateNotificationsFeatureAvailabilityManager alloc];
   daemon3 = [profileCopy daemon];
   nanoRegistryDeviceCapabilityProvider = [daemon3 nanoRegistryDeviceCapabilityProvider];
-  v121 = v44;
+  v120 = v44;
   v48 = [(HDHRHeartRateNotificationsFeatureAvailabilityManager *)v45 initWithFeatureIdentifier:v43 notificationSettingsDefaults:defaultsCopy pairedDeviceCapabilityProvider:nanoRegistryDeviceCapabilityProvider disableAndExpiryProvider:v44];
   lowHeartRateNotificationsFeatureAvailabilityManager = v9->_lowHeartRateNotificationsFeatureAvailabilityManager;
   v9->_lowHeartRateNotificationsFeatureAvailabilityManager = v48;
@@ -257,13 +257,12 @@ LABEL_7:
   {
     v117 = objc_opt_class();
     *buf = 138543362;
-    v124 = v117;
+    v123 = v117;
     v118 = v117;
     _os_log_impl(&dword_229486000, v116, OS_LOG_TYPE_DEFAULT, "[%{public}@] Plugin loaded", buf, 0xCu);
   }
 
 LABEL_22:
-  v119 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -627,14 +626,14 @@ LABEL_7:
 - (void)settingsMigrationManagerDidCompleteMigration:(id)migration didRunMigrationSteps:(BOOL)steps
 {
   stepsCopy = steps;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v6 = HKLogHeartRateCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v20 = objc_opt_class();
-    v7 = v20;
+    v19 = objc_opt_class();
+    v7 = v19;
     _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Settings migration finished, initiating watch settings manager", buf, 0xCu);
   }
 
@@ -646,8 +645,8 @@ LABEL_7:
   heartNotificationsUserDefaults = self->_heartNotificationsUserDefaults;
   v12 = objc_alloc(MEMORY[0x277D10970]);
   v13 = [v12 initWithFeatureIdentifier:*MEMORY[0x277CCC000] defaultsEnabledKey:*MEMORY[0x277CCE440]];
-  v18 = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+  v17 = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
   v15 = [v9 initWithProfile:profile userDefaults:heartNotificationsUserDefaults managedKeys:v14 debugIdentifier:@"CardioFitness" loggingCategory:*MEMORY[0x277CCC2D0]];
   settingsReconciliationManager = self->_settingsReconciliationManager;
   self->_settingsReconciliationManager = v15;
@@ -657,8 +656,6 @@ LABEL_7:
   {
     [(HDHeartProfileExtension *)self _triggerImmediateSyncWithReason:@"HDHeartProfileExtension.settingsMigrationManagerDidRunMigrationSteps"];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)watchSettingsReconciliationManager:(id)manager didReconcileValuesForKeys:(id)keys didUpdateFeatureSetting:(BOOL)setting didUpdateUserDefault:(BOOL)default
@@ -670,10 +667,9 @@ LABEL_7:
   v11 = keysCopy;
   if (defaultCopy)
   {
-    v12 = *MEMORY[0x277CCE458];
-    v13 = MEMORY[0x277CBEB98];
+    v12 = MEMORY[0x277CBEB98];
     defaultsEnabledKey = [keysCopy defaultsEnabledKey];
-    v15 = [v13 setWithObject:defaultsEnabledKey];
+    v14 = [v12 setWithObject:defaultsEnabledKey];
     HKSynchronizeNanoPreferencesUserDefaults();
   }
 
@@ -703,7 +699,7 @@ LABEL_7:
 
 void __59__HDHeartProfileExtension__triggerImmediateSyncWithReason___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = HKLogHeartRateCategory();
@@ -712,15 +708,14 @@ void __59__HDHeartProfileExtension__triggerImmediateSyncWithReason___block_invok
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = *(a1 + 40);
-      v13 = 138543618;
+      v8 = objc_opt_class();
+      v9 = *(a1 + 40);
+      v11 = 138543618;
+      v12 = v8;
+      v13 = 2114;
       v14 = v9;
-      v15 = 2114;
-      v16 = v10;
-      v11 = v9;
-      _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cloud sync request completed for %{public}@", &v13, 0x16u);
+      v10 = v8;
+      _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cloud sync request completed for %{public}@", &v11, 0x16u);
     }
   }
 
@@ -728,8 +723,6 @@ void __59__HDHeartProfileExtension__triggerImmediateSyncWithReason___block_invok
   {
     __59__HDHeartProfileExtension__triggerImmediateSyncWithReason___block_invoke_cold_1(a1, v5, v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HDPrimaryProfile)profile
@@ -741,20 +734,17 @@ void __59__HDHeartProfileExtension__triggerImmediateSyncWithReason___block_invok
 
 void __59__HDHeartProfileExtension__triggerImmediateSyncWithReason___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v6 = *(a1 + 32);
-  v7 = objc_opt_class();
-  v8 = *(a1 + 40);
-  v11 = 138543874;
+  v15 = *MEMORY[0x277D85DE8];
+  v6 = objc_opt_class();
+  v7 = *(a1 + 40);
+  v9 = 138543874;
+  v10 = v6;
+  v11 = 2114;
   v12 = v7;
   v13 = 2114;
-  v14 = v8;
-  v15 = 2114;
-  v16 = a2;
-  v9 = v7;
-  _os_log_error_impl(&dword_229486000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Cloud sync request for %{public}@ failed: %{public}@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v14 = a2;
+  v8 = v6;
+  _os_log_error_impl(&dword_229486000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Cloud sync request for %{public}@ failed: %{public}@", &v9, 0x20u);
 }
 
 @end

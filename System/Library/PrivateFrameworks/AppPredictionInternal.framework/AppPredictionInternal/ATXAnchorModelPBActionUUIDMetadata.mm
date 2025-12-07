@@ -107,12 +107,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    actionUUID = self->_actionUUID;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -131,22 +130,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  slotHash = self->_slotHash;
   PBDataWriterWriteInt64Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    paramCount = self->_paramCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_actionUUIDLaunchHistory)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -249,7 +246,6 @@ LABEL_5:
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 36);
   if (*&self->_has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_actionUUID != *(equalCopy + 1))
@@ -261,7 +257,7 @@ LABEL_5:
   else if (*(equalCopy + 36))
   {
 LABEL_19:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_20;
   }
 
@@ -294,17 +290,17 @@ LABEL_19:
   actionUUIDLaunchHistory = self->_actionUUIDLaunchHistory;
   if (actionUUIDLaunchHistory | *(equalCopy + 3))
   {
-    v7 = [(ATXAnchorModelPBLaunchHistoryMetadata *)actionUUIDLaunchHistory isEqual:?];
+    v6 = [(ATXAnchorModelPBLaunchHistoryMetadata *)actionUUIDLaunchHistory isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_20:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

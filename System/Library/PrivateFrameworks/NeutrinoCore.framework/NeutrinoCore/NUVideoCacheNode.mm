@@ -275,7 +275,7 @@ LABEL_20:
   {
     v4 = v3;
     v5 = [NUImageGeometry alloc];
-    [v4 extent];
+    objc_msgSend_extent(v4);
     renderScale = [v4 renderScale];
     v8 = v7;
     orientation = [v4 orientation];

@@ -13,63 +13,60 @@
   managerCopy = manager;
   replyCopy = reply;
   v16 = NSRandomData();
-  bytes = [v16 bytes];
-  v18 = [v16 length];
-  v34 = [v16 length];
-  v33 = bytes;
-  v19 = pathCopy;
-  v20 = NSPrintF();
+  v17 = pathCopy;
+  v18 = NSPrintF("%.3H", [v16 bytes], objc_msgSend(v16, "length"), objc_msgSend(v16, "length"));
   targetID = self->_targetID;
-  self->_targetID = v20;
+  self->_targetID = v18;
 
-  v36.receiver = self;
-  v36.super_class = W5PeerFileRequest;
-  v22 = [(W5PeerFileRequest *)&v36 init:v33];
-  v23 = v22;
-  if (peerCopy && v22 && (objc_storeStrong(&v22->_peer, peer), replyCopy) && (v24 = objc_retainBlock(replyCopy), reply = v23->_reply, v23->_reply = v24, reply, pathCopy) && managerCopy && (objc_storeStrong(&v23->_transferManager, manager), v23->_targetID))
+  v34.receiver = self;
+  v34.super_class = W5PeerFileRequest;
+  v20 = [(W5PeerFileRequest *)&v34 init];
+  v21 = v20;
+  if (peerCopy && v20 && (objc_storeStrong(&v20->_peer, peer), replyCopy) && (v22 = objc_retainBlock(replyCopy), reply = v21->_reply, v21->_reply = v22, reply, pathCopy) && managerCopy && (objc_storeStrong(&v21->_transferManager, manager), v21->_targetID))
   {
-    identifier = v23->_identifier;
-    v23->_discoveryFlags = 1;
-    v23->_identifier = @"com.apple.wifi.peer.fileTransfer";
+    identifier = v21->_identifier;
+    v21->_discoveryFlags = 1;
+    v21->_identifier = @"com.apple.wifi.peer.fileTransfer";
 
-    v27 = objc_alloc_init(W5PeerFileTransferRequestPayload);
-    requestPayload = v23->_requestPayload;
-    v23->_requestPayload = v27;
+    v25 = objc_alloc_init(W5PeerFileTransferRequestPayload);
+    requestPayload = v21->_requestPayload;
+    v21->_requestPayload = v25;
 
-    _currentVersion = [(W5PeerFileRequest *)v23 _currentVersion];
-    [(W5PeerFileTransferRequestPayload *)v23->_requestPayload setVersion:_currentVersion];
+    _currentVersion = [(W5PeerFileRequest *)v21 _currentVersion];
+    [(W5PeerFileTransferRequestPayload *)v21->_requestPayload setVersion:_currentVersion];
 
-    [(W5PeerFileTransferRequestPayload *)v23->_requestPayload setRemotePath:pathCopy];
-    [(W5PeerFileTransferRequestPayload *)v23->_requestPayload setType:type];
+    [(W5PeerFileTransferRequestPayload *)v21->_requestPayload setRemotePath:pathCopy];
+    [(W5PeerFileTransferRequestPayload *)v21->_requestPayload setType:type];
     if (type == 1)
     {
-      [(W5PeerFileTransferRequestPayload *)v23->_requestPayload setTargetID:v23->_targetID];
-      publicKeySelf = [(W5FileTransferManager *)v23->_transferManager publicKeySelf];
-      [(W5PeerFileTransferRequestPayload *)v23->_requestPayload setPublicKey:publicKeySelf];
+      [(W5PeerFileTransferRequestPayload *)v21->_requestPayload setTargetID:v21->_targetID];
+      publicKeySelf = [(W5FileTransferManager *)v21->_transferManager publicKeySelf];
+      [(W5PeerFileTransferRequestPayload *)v21->_requestPayload setPublicKey:publicKeySelf];
 
-      [(W5FileTransferManager *)v23->_transferManager initializeReceiverWithTargetID:v23->_targetID];
+      [(W5FileTransferManager *)v21->_transferManager initializeReceiverWithTargetID:v21->_targetID];
     }
   }
 
   else
   {
 
-    v32 = sub_100098A04();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v30 = sub_100098A04();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = 136315650;
-      v38 = "[W5PeerFileRequest initWithPeer:requestType:remotePath:transferManager:reply:]";
-      v39 = 2080;
-      v40 = "W5PeerFileRequest.m";
-      v41 = 1024;
-      v42 = 69;
-      _os_log_send_and_compose_impl();
+      v35 = 136315650;
+      v36 = "[W5PeerFileRequest initWithPeer:requestType:remotePath:transferManager:reply:]";
+      v37 = 2080;
+      v38 = "W5PeerFileRequest.m";
+      v39 = 1024;
+      v40 = 69;
+      LODWORD(v31) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v30, 0, "[wifivelocity] %s (%s:%u) init error!", &v35, v31, v32);
     }
 
-    v23 = 0;
+    v21 = 0;
   }
 
-  return v23;
+  return v21;
 }
 
 - (void)handleResponse:(id)response

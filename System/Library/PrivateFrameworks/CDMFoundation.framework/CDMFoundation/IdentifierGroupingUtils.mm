@@ -1,6 +1,8 @@
 @interface IdentifierGroupingUtils
++ (id)createIdentifier:(unsigned int)identifier interpretationGroupIndex:(unsigned int)index nodeIndex:(unsigned int)nodeIndex spanIdentifier:(id)spanIdentifier;
 + (id)getInterpretationGroupMax:(id)max;
 + (id)getInterpretationGroups:(id)groups;
++ (id)getTokenIndexIdentifier:(unsigned int)identifier interpretationGroup:(unsigned int)group nodeIndex:(unsigned int)index span:(id)span spanIdentifier:(id)spanIdentifier;
 + (id)limitAlignments:(id)alignments alignmentSpanDict:(id)dict;
 + (void)createIdentifierGroups:(id)groups alignmentSpanDict:(id)dict identifiers:(id)identifiers nodeIndex:(unsigned int)index interpretationGroupCurrentMax:(id)max tagSpans:(id)spans;
 + (void)createNonOverlapping:(id)overlapping interpretationGroup:(id)group start:(unint64_t)start interpretationGroups:(id)groups;
@@ -89,17 +91,17 @@ LABEL_13:
 
 + (void)createIdentifierGroups:(id)groups alignmentSpanDict:(id)dict identifiers:(id)identifiers nodeIndex:(unsigned int)index interpretationGroupCurrentMax:(id)max tagSpans:(id)spans
 {
-  v135 = *MEMORY[0x1E69E9840];
+  v134 = *MEMORY[0x1E69E9840];
   groupsCopy = groups;
   dictCopy = dict;
   identifiersCopy = identifiers;
   maxCopy = max;
   spansCopy = spans;
   v14 = groupsCopy;
-  v75 = spansCopy;
+  v74 = spansCopy;
   if (groupsCopy && [groupsCopy count])
   {
-    v71 = groupsCopy;
+    v70 = groupsCopy;
     v15 = [groupsCopy sortedArrayUsingSelector:sel_compareStartAndSize_];
     if ([v15 count] < 0xD)
     {
@@ -112,11 +114,11 @@ LABEL_13:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v132 = "+[IdentifierGroupingUtils createIdentifierGroups:alignmentSpanDict:identifiers:nodeIndex:interpretationGroupCurrentMax:tagSpans:]";
-        v133 = 1024;
-        *v134 = 12;
-        *&v134[4] = 2112;
-        *&v134[6] = v15;
+        v131 = "+[IdentifierGroupingUtils createIdentifierGroups:alignmentSpanDict:identifiers:nodeIndex:interpretationGroupCurrentMax:tagSpans:]";
+        v132 = 1024;
+        *v133 = 12;
+        *&v133[4] = 2112;
+        *&v133[6] = v15;
         _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, "%s Limiting the number span alignments to %d when creating interpretation groups. Given %@", buf, 0x1Cu);
       }
 
@@ -126,9 +128,9 @@ LABEL_13:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v132 = "+[IdentifierGroupingUtils createIdentifierGroups:alignmentSpanDict:identifiers:nodeIndex:interpretationGroupCurrentMax:tagSpans:]";
-        v133 = 2112;
-        *v134 = v17;
+        v131 = "+[IdentifierGroupingUtils createIdentifierGroups:alignmentSpanDict:identifiers:nodeIndex:interpretationGroupCurrentMax:tagSpans:]";
+        v132 = 2112;
+        *v133 = v17;
         _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_INFO, "%s Interpretation group span alignments after limiting: %@", buf, 0x16u);
       }
 
@@ -138,60 +140,60 @@ LABEL_13:
     v20 = [self getInterpretationGroups:v19];
     if (maxCopy)
     {
-      v98 = [maxCopy unsignedIntValue] + 1;
+      v97 = [maxCopy unsignedIntValue] + 1;
     }
 
     else
     {
-      v98 = 0;
+      v97 = 0;
     }
 
-    v123 = 0u;
-    v124 = 0u;
-    v121 = 0u;
     v122 = 0u;
+    v123 = 0u;
+    v120 = 0u;
+    v121 = 0u;
     obj = v20;
     v14 = groupsCopy;
-    v73 = [obj countByEnumeratingWithState:&v121 objects:v130 count:16];
-    if (v73)
+    v72 = [obj countByEnumeratingWithState:&v120 objects:v129 count:16];
+    if (v72)
     {
-      v72 = *v122;
+      v71 = *v121;
       do
       {
         v21 = 0;
         do
         {
-          if (*v122 != v72)
+          if (*v121 != v71)
           {
             v22 = v21;
             objc_enumerationMutation(obj);
             v21 = v22;
           }
 
-          v74 = v21;
-          v23 = *(*(&v121 + 1) + 8 * v21);
+          v73 = v21;
+          v23 = *(*(&v120 + 1) + 8 * v21);
+          v116 = 0u;
           v117 = 0u;
           v118 = 0u;
           v119 = 0u;
-          v120 = 0u;
           v24 = v23;
-          v79 = [v24 countByEnumeratingWithState:&v117 objects:v129 count:16];
-          if (v79)
+          v78 = [v24 countByEnumeratingWithState:&v116 objects:v128 count:16];
+          if (v78)
           {
-            v83 = 0;
+            v82 = 0;
             v25 = 0;
-            v78 = *v118;
-            v76 = v24;
+            v77 = *v117;
+            v75 = v24;
             while (1)
             {
-              for (i = 0; i != v79; ++i)
+              for (i = 0; i != v78; ++i)
               {
-                if (*v118 != v78)
+                if (*v117 != v77)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                v27 = *(*(&v117 + 1) + 8 * i);
+                v27 = *(*(&v116 + 1) + 8 * i);
                 v28 = [MEMORY[0x1E696B098] valueWithNonretainedObject:v27];
                 v29 = [dictCopy objectForKeyedSubscript:v28];
 
@@ -201,14 +203,14 @@ LABEL_13:
                   goto LABEL_81;
                 }
 
-                v115 = 0u;
-                v116 = 0u;
-                v113 = 0u;
                 v114 = 0u;
-                v80 = usoGraph;
+                v115 = 0u;
+                v112 = 0u;
+                v113 = 0u;
+                v79 = usoGraph;
                 identifiers = [usoGraph identifiers];
-                v32 = [identifiers countByEnumeratingWithState:&v113 objects:v128 count:16];
-                v81 = i;
+                v32 = [identifiers countByEnumeratingWithState:&v112 objects:v127 count:16];
+                v80 = i;
                 if (!v32)
                 {
 
@@ -218,22 +220,22 @@ LABEL_13:
                 }
 
                 v33 = v32;
-                v93 = identifiers;
+                v92 = identifiers;
                 v34 = 0;
-                v95 = 0;
-                v91 = 0;
+                v94 = 0;
+                v90 = 0;
                 v35 = 0;
-                v36 = *v114;
+                v36 = *v113;
                 do
                 {
                   for (j = 0; j != v33; ++j)
                   {
-                    if (*v114 != v36)
+                    if (*v113 != v36)
                     {
-                      objc_enumerationMutation(v93);
+                      objc_enumerationMutation(v92);
                     }
 
-                    v38 = *(*(&v113 + 1) + 8 * j);
+                    v38 = *(*(&v112 + 1) + 8 * j);
                     nodeIndex = [v38 nodeIndex];
                     if (nodeIndex == [v27 nodeIndex])
                     {
@@ -244,7 +246,7 @@ LABEL_13:
 
                       if ([v29 hasInput])
                       {
-                        v40 = [self getTokenIndexIdentifier:v25 interpretationGroup:v98 nodeIndex:index span:v29 spanIdentifier:v38];
+                        v40 = [self getTokenIndexIdentifier:v25 interpretationGroup:v97 nodeIndex:index span:v29 spanIdentifier:v38];
                         if (v40)
                         {
                           [identifiersCopy addObject:v40];
@@ -259,7 +261,7 @@ LABEL_35:
                         v34 = 0;
                       }
 
-                      v41 = [self createIdentifier:v25 interpretationGroupIndex:v98 nodeIndex:index spanIdentifier:v38];
+                      v41 = [self createIdentifier:v25 interpretationGroupIndex:v97 nodeIndex:index spanIdentifier:v38];
                       groupIndex = [v38 groupIndex];
                       if (v35 <= groupIndex)
                       {
@@ -267,20 +269,20 @@ LABEL_35:
                       }
 
                       [identifiersCopy addObject:v41];
-                      v95 |= [v38 sourceComponent] == 1;
+                      v94 |= [v38 sourceComponent] == 1;
 
-                      v91 = 1;
-                      v83 = 1;
+                      v90 = 1;
+                      v82 = 1;
                       continue;
                     }
                   }
 
-                  v33 = [v93 countByEnumeratingWithState:&v113 objects:v128 count:16];
+                  v33 = [v92 countByEnumeratingWithState:&v112 objects:v127 count:16];
                 }
 
                 while (v33);
 
-                if (v91)
+                if (v90)
                 {
                   v43 = v35 + 1;
                 }
@@ -291,94 +293,94 @@ LABEL_35:
                 }
 
                 v25 = v43 + v25;
-                v24 = v76;
-                v44 = v95;
+                v24 = v75;
+                v44 = v94;
 LABEL_47:
-                if ((v83 & 1) != 0 && (v44 & 1) == 0)
+                if ((v82 & 1) != 0 && (v44 & 1) == 0)
                 {
-                  v111 = 0u;
-                  v112 = 0u;
-                  v109 = 0u;
                   v110 = 0u;
-                  v45 = v75;
-                  v84 = [v45 countByEnumeratingWithState:&v109 objects:v127 count:16];
-                  if (v84)
+                  v111 = 0u;
+                  v108 = 0u;
+                  v109 = 0u;
+                  v45 = v74;
+                  v83 = [v45 countByEnumeratingWithState:&v108 objects:v126 count:16];
+                  if (v83)
                   {
                     v46 = 0;
-                    v82 = *v110;
-                    v87 = v27;
-                    v88 = v29;
-                    v86 = v45;
+                    v81 = *v109;
+                    v86 = v27;
+                    v87 = v29;
+                    v85 = v45;
                     do
                     {
                       v47 = 0;
                       do
                       {
-                        if (*v110 != v82)
+                        if (*v109 != v81)
                         {
                           v48 = v47;
                           objc_enumerationMutation(v45);
                           v47 = v48;
                         }
 
-                        v85 = v47;
-                        v49 = *(*(&v109 + 1) + 8 * v47);
+                        v84 = v47;
+                        v49 = *(*(&v108 + 1) + 8 * v47);
+                        v104 = 0u;
                         v105 = 0u;
                         v106 = 0u;
                         v107 = 0u;
-                        v108 = 0u;
-                        v90 = v49;
+                        v89 = v49;
                         usoGraph2 = [v49 usoGraph];
                         alignments = [usoGraph2 alignments];
 
-                        v94 = alignments;
-                        v52 = [alignments countByEnumeratingWithState:&v105 objects:v126 count:16];
+                        v93 = alignments;
+                        v52 = [alignments countByEnumeratingWithState:&v104 objects:v125 count:16];
                         if (v52)
                         {
                           v53 = v52;
-                          v54 = *v106;
-                          v89 = *v106;
+                          v54 = *v105;
+                          v88 = *v105;
                           do
                           {
                             v55 = 0;
-                            v92 = v53;
+                            v91 = v53;
                             do
                             {
-                              if (*v106 != v54)
+                              if (*v105 != v54)
                               {
-                                objc_enumerationMutation(v94);
+                                objc_enumerationMutation(v93);
                               }
 
-                              v96 = v55;
-                              v56 = *(*(&v105 + 1) + 8 * v55);
+                              v95 = v55;
+                              v56 = *(*(&v104 + 1) + 8 * v55);
                               if ([v56 equalIndexes:v27])
                               {
-                                v103 = 0u;
-                                v104 = 0u;
-                                v101 = 0u;
                                 v102 = 0u;
-                                usoGraph3 = [v90 usoGraph];
+                                v103 = 0u;
+                                v100 = 0u;
+                                v101 = 0u;
+                                usoGraph3 = [v89 usoGraph];
                                 identifiers2 = [usoGraph3 identifiers];
 
-                                v59 = [identifiers2 countByEnumeratingWithState:&v101 objects:v125 count:16];
+                                v59 = [identifiers2 countByEnumeratingWithState:&v100 objects:v124 count:16];
                                 if (v59)
                                 {
                                   v60 = v59;
-                                  v61 = *v102;
+                                  v61 = *v101;
                                   do
                                   {
                                     for (k = 0; k != v60; ++k)
                                     {
-                                      if (*v102 != v61)
+                                      if (*v101 != v61)
                                       {
                                         objc_enumerationMutation(identifiers2);
                                       }
 
-                                      v63 = *(*(&v101 + 1) + 8 * k);
+                                      v63 = *(*(&v100 + 1) + 8 * k);
                                       nodeIndex2 = [v63 nodeIndex];
                                       if (nodeIndex2 == [v56 nodeIndex])
                                       {
-                                        v65 = [self createIdentifier:v25 interpretationGroupIndex:v98 nodeIndex:index spanIdentifier:v63];
+                                        v65 = [self createIdentifier:v25 interpretationGroupIndex:v97 nodeIndex:index spanIdentifier:v63];
                                         groupIndex2 = [v63 groupIndex];
                                         if (v35 <= groupIndex2)
                                         {
@@ -391,44 +393,44 @@ LABEL_47:
                                       }
                                     }
 
-                                    v60 = [identifiers2 countByEnumeratingWithState:&v101 objects:v125 count:16];
+                                    v60 = [identifiers2 countByEnumeratingWithState:&v100 objects:v124 count:16];
                                   }
 
                                   while (v60);
                                 }
 
-                                v27 = v87;
-                                v29 = v88;
-                                v45 = v86;
-                                v54 = v89;
-                                v53 = v92;
+                                v27 = v86;
+                                v29 = v87;
+                                v45 = v85;
+                                v54 = v88;
+                                v53 = v91;
                               }
 
-                              v55 = v96 + 1;
+                              v55 = v95 + 1;
                             }
 
-                            while (v96 + 1 != v53);
-                            v53 = [v94 countByEnumeratingWithState:&v105 objects:v126 count:16];
+                            while (v95 + 1 != v53);
+                            v53 = [v93 countByEnumeratingWithState:&v104 objects:v125 count:16];
                           }
 
                           while (v53);
                         }
 
-                        v47 = v85 + 1;
+                        v47 = v84 + 1;
                       }
 
-                      while (v85 + 1 != v84);
-                      v84 = [v45 countByEnumeratingWithState:&v109 objects:v127 count:16];
+                      while (v84 + 1 != v83);
+                      v83 = [v45 countByEnumeratingWithState:&v108 objects:v126 count:16];
                     }
 
-                    while (v84);
+                    while (v83);
 
                     if (v46)
                     {
                       v25 = v25 + v35 + 1;
                     }
 
-                    v24 = v76;
+                    v24 = v75;
                   }
 
                   else
@@ -436,85 +438,81 @@ LABEL_47:
                   }
                 }
 
-                usoGraph = v80;
-                i = v81;
+                usoGraph = v79;
+                i = v80;
 LABEL_81:
               }
 
-              v79 = [v24 countByEnumeratingWithState:&v117 objects:v129 count:16];
-              if (!v79)
+              v78 = [v24 countByEnumeratingWithState:&v116 objects:v128 count:16];
+              if (!v78)
               {
 
-                v98 += v83 & 1;
-                v14 = v71;
+                v97 += v82 & 1;
+                v14 = v70;
                 goto LABEL_85;
               }
             }
           }
 
 LABEL_85:
-          v21 = v74 + 1;
+          v21 = v73 + 1;
         }
 
-        while (v74 + 1 != v73);
-        v73 = [obj countByEnumeratingWithState:&v121 objects:v130 count:16];
+        while (v73 + 1 != v72);
+        v72 = [obj countByEnumeratingWithState:&v120 objects:v129 count:16];
       }
 
-      while (v73);
+      while (v72);
     }
   }
-
-  v67 = *MEMORY[0x1E69E9840];
 }
 
 + (void)sortAlignmentDict:(id)dict orderedIndexes:(id)indexes alignmentSpanDict:(id)spanDict
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   indexesCopy = indexes;
   spanDictCopy = spanDict;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v10 = [indexesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [indexesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       v13 = 0;
       do
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(indexesCopy);
         }
 
-        v14 = [dictCopy objectForKeyedSubscript:*(*(&v19 + 1) + 8 * v13)];
+        v14 = [dictCopy objectForKeyedSubscript:*(*(&v18 + 1) + 8 * v13)];
         v15 = v14;
         if (v14 && [v14 count] >= 2)
         {
-          v17[0] = MEMORY[0x1E69E9820];
-          v17[1] = 3221225472;
-          v17[2] = __78__IdentifierGroupingUtils_sortAlignmentDict_orderedIndexes_alignmentSpanDict___block_invoke;
-          v17[3] = &unk_1E862E7A0;
-          v18 = spanDictCopy;
-          [v15 sortUsingComparator:v17];
+          v16[0] = MEMORY[0x1E69E9820];
+          v16[1] = 3221225472;
+          v16[2] = __78__IdentifierGroupingUtils_sortAlignmentDict_orderedIndexes_alignmentSpanDict___block_invoke;
+          v16[3] = &unk_1E862E7A0;
+          v17 = spanDictCopy;
+          [v15 sortUsingComparator:v16];
         }
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [indexesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [indexesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __78__IdentifierGroupingUtils_sortAlignmentDict_orderedIndexes_alignmentSpanDict___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -567,31 +565,31 @@ LABEL_6:
 
 + (id)limitAlignments:(id)alignments alignmentSpanDict:(id)dict
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   alignmentsCopy = alignments;
   dictCopy = dict;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v32 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(alignmentsCopy, "count")}];
+  v31 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(alignmentsCopy, "count")}];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = alignmentsCopy;
-  v7 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v7 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v39;
+    v9 = *v38;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v39 != v9)
+        if (*v38 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v38 + 1) + 8 * i);
+        v11 = *(*(&v37 + 1) + 8 * i);
         v12 = MEMORY[0x1E695DEC8];
         v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v11, "getStartIndex")}];
         v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v11, "getEndIndex")}];
@@ -602,28 +600,28 @@ LABEL_6:
         {
           v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
           [dictionary setObject:v16 forKeyedSubscript:v15];
-          [v32 addObject:v15];
+          [v31 addObject:v15];
         }
 
         [v16 addObject:v11];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v8 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v8);
   }
 
-  [self sortAlignmentDict:dictionary orderedIndexes:v32 alignmentSpanDict:dictCopy];
+  [self sortAlignmentDict:dictionary orderedIndexes:v31 alignmentSpanDict:dictCopy];
   v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
   while ([v17 count] <= 0xB)
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
-    v18 = v32;
-    v19 = [v18 countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v18 = v31;
+    v19 = [v18 countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (!v19)
     {
 
@@ -632,17 +630,17 @@ LABEL_6:
 
     v20 = v19;
     v21 = 0;
-    v22 = *v35;
+    v22 = *v34;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v35 != v22)
+        if (*v34 != v22)
         {
           objc_enumerationMutation(v18);
         }
 
-        v24 = [dictionary objectForKeyedSubscript:*(*(&v34 + 1) + 8 * j)];
+        v24 = [dictionary objectForKeyedSubscript:*(*(&v33 + 1) + 8 * j)];
         v25 = v24;
         if (v24 && [v24 count])
         {
@@ -654,7 +652,7 @@ LABEL_6:
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v20);
@@ -667,36 +665,104 @@ LABEL_6:
 
   v27 = [v17 sortedArrayUsingSelector:sel_compareStartAndSize_];
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v27;
+}
+
++ (id)getTokenIndexIdentifier:(unsigned int)identifier interpretationGroup:(unsigned int)group nodeIndex:(unsigned int)index span:(id)span spanIdentifier:(id)spanIdentifier
+{
+  v8 = *&index;
+  v9 = *&group;
+  v10 = *&identifier;
+  v30[3] = *MEMORY[0x1E69E9840];
+  spanCopy = span;
+  v13 = [self createIdentifier:v10 interpretationGroupIndex:v9 nodeIndex:v8 spanIdentifier:spanIdentifier];
+  v29[0] = @"endTokenIndex";
+  v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(spanCopy, "endTokenIndex")}];
+  v30[0] = v14;
+  v29[1] = @"startTokenIndex";
+  v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(spanCopy, "startTokenIndex")}];
+  v30[1] = v15;
+  v29[2] = @"value";
+  input = [spanCopy input];
+
+  v30[2] = input;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:3];
+
+  v24 = 0;
+  v18 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v17 options:2 error:&v24];
+  v19 = v24;
+  if (v18)
+  {
+    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v18 encoding:4];
+    [v13 setValue:v20];
+
+    v21 = objc_alloc_init(MEMORY[0x1E69D1128]);
+    [v21 setValue:*MEMORY[0x1E69D2498]];
+    [v13 setNamespaceA:v21];
+    [v13 setBackingAppBundleId:*MEMORY[0x1E69D2408]];
+    [v13 setProbability:0];
+    v22 = v13;
+  }
+
+  else
+  {
+    v21 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315394;
+      v26 = "+[IdentifierGroupingUtils getTokenIndexIdentifier:interpretationGroup:nodeIndex:span:spanIdentifier:]";
+      v27 = 2112;
+      v28 = v19;
+      _os_log_impl(&dword_1DC287000, v21, OS_LOG_TYPE_INFO, "%s Unable to parse MatchingSpan token index JSON: %@", buf, 0x16u);
+    }
+
+    v22 = 0;
+  }
+
+  return v22;
+}
+
++ (id)createIdentifier:(unsigned int)identifier interpretationGroupIndex:(unsigned int)index nodeIndex:(unsigned int)nodeIndex spanIdentifier:(id)spanIdentifier
+{
+  v6 = *&nodeIndex;
+  v7 = *&index;
+  spanIdentifierCopy = spanIdentifier;
+  v10 = objc_opt_new();
+  [spanIdentifierCopy copyTo:v10];
+  [v10 setNodeIndex:v6];
+  [v10 setInterpretationGroup:v7];
+  LODWORD(v6) = [spanIdentifierCopy groupIndex];
+
+  [v10 setGroupIndex:v6 + identifier];
+
+  return v10;
 }
 
 + (id)getInterpretationGroupMax:(id)max
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   maxCopy = max;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   identifiers = [maxCopy identifiers];
-  v5 = [identifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [identifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(identifiers);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if ([v10 hasInterpretationGroup])
         {
           if (!v7 || (v11 = [v10 interpretationGroup], v11 > objc_msgSend(v7, "unsignedIntValue")))
@@ -717,7 +783,7 @@ LABEL_6:
         }
       }
 
-      v6 = [identifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [identifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -727,8 +793,6 @@ LABEL_6:
   {
     v7 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

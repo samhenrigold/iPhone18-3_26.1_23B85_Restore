@@ -17,7 +17,9 @@
 - (id)copyScoreSortedNetworksAvailableAtLocation:(id)location;
 - (id)higherBandNetworksAvailableAtLocation:(id)location;
 - (id)networksAvailableAtLocation:(id)location;
+- (id)networksAvailableAtLocation:(id)location withinDistance:(double)distance inBand:(unsigned int)band;
 - (unint64_t)countNetworksAvailableAtLocation:(id)location;
+- (unint64_t)countNetworksAvailableAtLocation:(id)location withinDistance:(double)distance inBand:(unsigned int)band;
 - (unint64_t)countNetworksInSameLanAs:(__WiFiNetwork *)as;
 - (unint64_t)isWithin:(double)within fromLocation:(id)location forNetwork:(__WiFiNetwork *)network;
 - (unsigned)getColocatedStateFromPreferenceScoreDictionary:(id)dictionary;
@@ -320,6 +322,120 @@ LABEL_12:
     v8 = paramsCopy;
     dispatch_async(v6, v7);
   }
+}
+
+- (unint64_t)countNetworksAvailableAtLocation:(id)location withinDistance:(double)distance inBand:(unsigned int)band
+{
+  v5 = *&band;
+  locationCopy = location;
+  deviceAnalyticsClient = [(WiFiAnalyticsManager *)self deviceAnalyticsClient];
+
+  if (!deviceAnalyticsClient)
+  {
+    sub_100138774();
+LABEL_7:
+    v11 = 0;
+    goto LABEL_4;
+  }
+
+  if (!locationCopy)
+  {
+    sub_100138708();
+    goto LABEL_7;
+  }
+
+  deviceAnalyticsClient2 = [(WiFiAnalyticsManager *)self deviceAnalyticsClient];
+  v11 = [deviceAnalyticsClient2 countNetworksAvailableAtLocation:locationCopy withinDistance:v5 inBand:distance];
+
+LABEL_4:
+  return v11;
+}
+
+- (id)networksAvailableAtLocation:(id)location withinDistance:(double)distance inBand:(unsigned int)band
+{
+  v5 = *&band;
+  locationCopy = location;
+  deviceAnalyticsClient = [(WiFiAnalyticsManager *)self deviceAnalyticsClient];
+
+  if (!deviceAnalyticsClient)
+  {
+    sub_10013884C();
+LABEL_21:
+    v11 = 0;
+    goto LABEL_16;
+  }
+
+  if (!locationCopy)
+  {
+    sub_1001387E0();
+    deviceAnalyticsClient = 0;
+    goto LABEL_21;
+  }
+
+  deviceAnalyticsClient2 = [(WiFiAnalyticsManager *)self deviceAnalyticsClient];
+  v11 = [deviceAnalyticsClient2 networksAvailableAtLocation:locationCopy withinDistance:v5 inBand:distance];
+
+  if ([v11 count])
+  {
+    v26 = locationCopy;
+    v27 = +[NSMutableArray array];
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v11 = v11;
+    v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    if (v12)
+    {
+      v13 = v12;
+      v14 = *v29;
+      v15 = WADeviceAnalyticsNetworkInfo[0];
+      v16 = WADeviceAnalyticsNetworkInfo[1];
+      do
+      {
+        for (i = 0; i != v13; i = i + 1)
+        {
+          if (*v29 != v14)
+          {
+            objc_enumerationMutation(v11);
+          }
+
+          v18 = *(*(&v28 + 1) + 8 * i);
+          v19 = [v18 objectForKey:v15];
+          v20 = [v18 objectForKey:v16];
+          intValue = [v20 intValue];
+
+          if (v19)
+          {
+            v22 = [(WiFiAnalyticsManager *)self _copyCreateEquivalentWiFiNetwork:v19 authFlags:intValue];
+            if (v22)
+            {
+              v23 = v22;
+              [v27 addObject:v22];
+              CFRelease(v23);
+            }
+          }
+        }
+
+        v13 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      }
+
+      while (v13);
+    }
+
+    locationCopy = v26;
+    deviceAnalyticsClient = v27;
+  }
+
+  else
+  {
+    deviceAnalyticsClient = 0;
+  }
+
+LABEL_16:
+  v24 = [NSArray arrayWithArray:deviceAnalyticsClient];
+
+  return v24;
 }
 
 - (id)higherBandNetworksAvailableAtLocation:(id)location

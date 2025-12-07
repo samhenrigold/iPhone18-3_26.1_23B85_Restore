@@ -18,25 +18,25 @@
 - (id)initAsCompressionMapForIndexes:(id)indexes
 {
   indexesCopy = indexes;
-  v16.receiver = self;
-  v16.super_class = TSCEColumnRowIndexMapper;
-  v5 = [(TSCEColumnRowIndexMapper *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = TSCEColumnRowIndexMapper;
+  v5 = [(TSCEColumnRowIndexMapper *)&v15 init];
   v6 = v5;
   if (v5)
   {
-    v14[0] = 0;
-    v14[1] = v14;
-    v14[2] = 0x2020000000;
-    v15 = 0;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = sub_22130CF08;
-    v11[3] = &unk_278462D78;
-    v13 = v14;
-    v12 = v5;
-    objc_msgSend_enumerateIndexesUsingBlock_(indexesCopy, v7, v11, v8, v9);
+    v13[0] = 0;
+    v13[1] = v13;
+    v13[2] = 0x2020000000;
+    v14 = 0;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = sub_22130CF08;
+    v10[3] = &unk_278462D78;
+    v12 = v13;
+    v11 = v5;
+    objc_msgSend_enumerateIndexesUsingBlock_(indexesCopy, v7, v10, v8);
 
-    _Block_object_dispose(v14, 8);
+    _Block_object_dispose(v13, 8);
   }
 
   return v6;

@@ -1,10 +1,10 @@
 @interface NSString(SLTwitterStringAdditions)
-- (uint64_t)SLTwitterCharacterCountWithShortenedURLLength:()SLTwitterStringAdditions;
+- (char)SLTwitterCharacterCountWithShortenedURLLength:()SLTwitterStringAdditions;
 @end
 
 @implementation NSString(SLTwitterStringAdditions)
 
-- (uint64_t)SLTwitterCharacterCountWithShortenedURLLength:()SLTwitterStringAdditions
+- (char)SLTwitterCharacterCountWithShortenedURLLength:()SLTwitterStringAdditions
 {
   v32 = *MEMORY[0x1E69E9840];
   v30 = 0;
@@ -83,7 +83,7 @@ LABEL_17:
   precomposedStringWithCanonicalMapping = [v5 precomposedStringWithCanonicalMapping];
   v19 = [precomposedStringWithCanonicalMapping length];
 
-  return v9 + v9 * v17 + v25 * v17 + v19;
+  return (v9 + v9 * v17 + v25 * v17 + v19);
 }
 
 @end

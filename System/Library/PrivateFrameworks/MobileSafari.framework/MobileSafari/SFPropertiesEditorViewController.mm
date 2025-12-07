@@ -29,7 +29,7 @@
   sub_18BC1ED88();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_18BA30E74();
+  LOBYTE(self) = sub_18BA30E74(v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -44,7 +44,7 @@
   sub_18BC1ED88();
   viewCopy = view;
   selfCopy = self;
-  sub_18BA30F48();
+  sub_18BA30F48(v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -64,7 +64,7 @@
   }
 
   bundleCopy = bundle;
-  return sub_18BA30838(v5, v7, bundle);
+  return sub_18BA30838(v5, v7, bundle, v9);
 }
 
 @end

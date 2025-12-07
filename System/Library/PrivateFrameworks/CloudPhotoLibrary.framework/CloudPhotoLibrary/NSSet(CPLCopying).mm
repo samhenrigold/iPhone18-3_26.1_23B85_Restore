@@ -6,31 +6,31 @@
 
 - (__CFString)cplFullDescription
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([self count])
   {
     v2 = objc_msgSend(objc_alloc(MEMORY[0x1E696AD60]), "initWithString:", @"{(");
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     obj = self;
-    v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v3 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v15;
+      v5 = *v14;
       v6 = @"\n  %@";
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v15 != v5)
+          if (*v14 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          cplFullDescription = [*(*(&v14 + 1) + 8 * i) cplFullDescription];
+          cplFullDescription = [*(*(&v13 + 1) + 8 * i) cplFullDescription];
           v9 = [cplFullDescription componentsSeparatedByString:@"\n"];
           v10 = [v9 componentsJoinedByString:@"\n  "];
           [(__CFString *)v2 appendFormat:v6, v10];
@@ -38,7 +38,7 @@
           v6 = @",\n  %@";
         }
 
-        v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v4 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
         v6 = @",\n  %@";
       }
 
@@ -52,8 +52,6 @@
   {
     v2 = @"{()}";
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

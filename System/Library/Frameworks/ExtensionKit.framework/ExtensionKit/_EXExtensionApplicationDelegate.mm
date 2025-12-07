@@ -12,7 +12,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_1D29EACB0(&qword_1EC700A88, type metadata accessor for LaunchOptionsKey);
+    sub_1D29EACB0(&qword_1EC700A88, type metadata accessor for LaunchOptionsKey, &unk_1D2A033E0);
     optionsCopy = sub_1D2A003A8();
   }
 
@@ -22,7 +22,7 @@
   if (optionsCopy)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_1D29EACB0(&qword_1EC700A88, type metadata accessor for LaunchOptionsKey);
+    sub_1D29EACB0(&qword_1EC700A88, type metadata accessor for LaunchOptionsKey, &unk_1D2A033E0);
     v8 = sub_1D2A00398();
   }
 

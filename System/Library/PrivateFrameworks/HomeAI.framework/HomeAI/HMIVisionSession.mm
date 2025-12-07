@@ -53,11 +53,11 @@ void __34__HMIVisionSession_sharedInstance__block_invoke(uint64_t a1)
   if (v2)
   {
     v2->_lock._os_unfair_lock_opaque = 0;
-    v4 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:8 options:30.0];
+    v4 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:? options:?];
     watchdogTimer = v3->_watchdogTimer;
     v3->_watchdogTimer = v4;
 
-    [(HMFTimer *)v3->_watchdogTimer setDelegate:v3];
+    [(HMFTimer *)v3->_watchdogTimer setDelegate:?];
   }
 
   return v3;
@@ -68,7 +68,7 @@ void __34__HMIVisionSession_sharedInstance__block_invoke(uint64_t a1)
   os_unfair_lock_lock_with_options();
   if (!self->_session)
   {
-    v3 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:@"HMIVisionSession"];
+    v3 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:?];
     transaction = self->_transaction;
     self->_transaction = v3;
 

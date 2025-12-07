@@ -48,7 +48,7 @@
       pixelHeight = [assetCopy pixelHeight];
       v7->_presentationSize.width = pixelWidth;
       v7->_presentationSize.height = pixelHeight;
-      sub_19478();
+      sub_19478(v7->_orientation, pixelWidth, pixelHeight);
       v7->_storedSize.width = v16;
       v7->_storedSize.height = v17;
       NTKCGImagePropertyOrientationToUIImageOrientation();

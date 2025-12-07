@@ -31,84 +31,76 @@
 
 - (id)inputTensorNames
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = kABPK3DLiftingLSTMInputPose2dTensorName;
-  v5[1] = kABPK3DLiftingLSTMInputHiddenStateTensorName;
-  v5[2] = kABPK3DLiftingLSTMInputCellStateTensorName;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = kABPK3DLiftingLSTMInputPose2dTensorName;
+  v4[1] = kABPK3DLiftingLSTMInputHiddenStateTensorName;
+  v4[2] = kABPK3DLiftingLSTMInputCellStateTensorName;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }
 
 - (id)outputTensorNames
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = kABPK3DLiftingLSTMOutputPose3dTensorName;
-  v5[1] = kABPK3DLiftingLSTMOutputToHiddenStateTensorName;
-  v5[2] = kABPK3DLiftingLSTMOutputToCellStateTensorName;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = kABPK3DLiftingLSTMOutputPose3dTensorName;
+  v4[1] = kABPK3DLiftingLSTMOutputToHiddenStateTensorName;
+  v4[2] = kABPK3DLiftingLSTMOutputToCellStateTensorName;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }
 
 - (id)inputPose2dTensorNames
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = kABPK3DLiftingLSTMInputPose2dTensorName;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = kABPK3DLiftingLSTMInputPose2dTensorName;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (id)inputHiddenStateTensorNames
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = kABPK3DLiftingLSTMInputHiddenStateTensorName;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = kABPK3DLiftingLSTMInputHiddenStateTensorName;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (id)inputCellStateTensorNames
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = kABPK3DLiftingLSTMInputCellStateTensorName;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = kABPK3DLiftingLSTMInputCellStateTensorName;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (id)outputPose3dTensorNames
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = kABPK3DLiftingLSTMOutputPose3dTensorName;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = kABPK3DLiftingLSTMOutputPose3dTensorName;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (id)outputToHiddenStateTensorNames
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = kABPK3DLiftingLSTMOutputToHiddenStateTensorName;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = kABPK3DLiftingLSTMOutputToHiddenStateTensorName;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (id)outputToCellStateTensorNames
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = kABPK3DLiftingLSTMOutputToCellStateTensorName;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = kABPK3DLiftingLSTMOutputToCellStateTensorName;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

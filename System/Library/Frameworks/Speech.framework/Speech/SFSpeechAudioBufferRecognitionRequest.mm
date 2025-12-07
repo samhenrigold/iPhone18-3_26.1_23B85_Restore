@@ -319,32 +319,32 @@ id __66__SFSpeechAudioBufferRecognitionRequest__convertAndFeedPCMBuffer___block_
 
 void __73__SFSpeechAudioBufferRecognitionRequest__handleAudioBuffersWithDelegate___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   objc_storeWeak((*(a1 + 32) + 104), *(a1 + 40));
   v2 = *(*(a1 + 32) + 112);
   if ([v2 count])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v14;
+      v6 = *v13;
       do
       {
         v7 = 0;
         do
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v13 + 1) + 8 * v7);
+          v8 = *(*(&v12 + 1) + 8 * v7);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -355,7 +355,7 @@ void __73__SFSpeechAudioBufferRecognitionRequest__handleAudioBuffersWithDelegate
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v5);
@@ -371,13 +371,11 @@ void __73__SFSpeechAudioBufferRecognitionRequest__handleAudioBuffersWithDelegate
   {
     [(SFSpeechAudioBufferRecognitionRequest *)v11 _endAudio];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_startedConnectionWithLanguageCode:(id)code delegate:(id)delegate taskHint:(int64_t)hint requestIdentifier:(id)identifier
 {
-  v31[5] = *MEMORY[0x1E69E9840];
+  v30[5] = *MEMORY[0x1E69E9840];
   codeCopy = code;
   delegateCopy = delegate;
   identifierCopy = identifier;
@@ -414,9 +412,9 @@ void __73__SFSpeechAudioBufferRecognitionRequest__handleAudioBuffersWithDelegate
       v18 = @"none";
     }
 
-    v31[0] = v18;
-    v30[0] = @"language";
-    v30[1] = @"task";
+    v30[0] = v18;
+    v29[0] = @"language";
+    v29[1] = @"task";
     v19 = [SFUtilities taskNameFromTaskHint:hint];
     v20 = v19;
     if (v19)
@@ -429,11 +427,11 @@ void __73__SFSpeechAudioBufferRecognitionRequest__handleAudioBuffersWithDelegate
       v21 = @"none";
     }
 
-    v31[1] = v21;
-    v30[2] = @"narrowband";
+    v30[1] = v21;
+    v29[2] = @"narrowband";
     v22 = [MEMORY[0x1E696AD98] numberWithBool:self->_narrowband];
-    v31[2] = v22;
-    v30[3] = @"appname";
+    v30[2] = v22;
+    v29[3] = @"appname";
     applicationName = [v16 applicationName];
     v24 = applicationName;
     if (applicationName)
@@ -446,10 +444,10 @@ void __73__SFSpeechAudioBufferRecognitionRequest__handleAudioBuffersWithDelegate
       v25 = @"none";
     }
 
-    v30[4] = @"ondevice";
-    v31[3] = v25;
-    v31[4] = MEMORY[0x1E695E110];
-    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:5];
+    v29[4] = @"ondevice";
+    v30[3] = v25;
+    v30[4] = MEMORY[0x1E695E110];
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:5];
 
     [SFLocalSpeechRecognitionClient logCoreAnalyticsEvent:@"com.apple.speechapi.RequestStarted" withAnalytics:v26];
     [(SFSpeechRecognitionRequest *)self _setAFDictationRequestParams:v26];
@@ -457,8 +455,6 @@ void __73__SFSpeechAudioBufferRecognitionRequest__handleAudioBuffersWithDelegate
 
   [v15 startRecordedAudioDictationWithOptions:v16 forLanguage:codeCopy];
   [(SFSpeechAudioBufferRecognitionRequest *)self _handleAudioBuffersWithDelegate:delegateCopy];
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

@@ -25,7 +25,7 @@
   selfCopy = self;
   v2();
   sub_100095820(&qword_100387898, &unk_1002DCBC0);
-  sub_1000D29A4(&qword_1003878A0, &qword_100387898, &unk_1002DCBC0);
+  sub_1000D29A4(&qword_1003878A0, &qword_100387898, &unk_1002DCBC0, &protocol conformance descriptor for [A : B].Keys);
   sub_100008D30();
   v4 = Sequence<>.joined(separator:)();
   v6 = v5;

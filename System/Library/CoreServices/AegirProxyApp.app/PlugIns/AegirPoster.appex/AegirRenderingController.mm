@@ -23,7 +23,7 @@
   swift_unknownObjectRetain();
   transitionCopy = transition;
   selfCopy = self;
-  sub_100033BE8(rendererCopy);
+  sub_100033BE8(rendererCopy, transition);
 
   swift_unknownObjectRelease();
 }

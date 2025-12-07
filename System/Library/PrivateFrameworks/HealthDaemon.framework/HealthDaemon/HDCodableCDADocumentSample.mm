@@ -4,6 +4,7 @@
 - (NSString)description;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)omittedContentAsString:(int)string;
 - (int)StringAsOmittedContent:(id)content;
 - (int)omittedContent;
 - (unint64_t)hash;
@@ -69,6 +70,21 @@
   {
     return 1;
   }
+}
+
+- (id)omittedContentAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278625260[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsOmittedContent:(id)content
@@ -171,48 +187,47 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    omittedContent = self->_omittedContent;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_documentData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_title)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_patientName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_authorName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_custodianName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -316,7 +331,6 @@
     }
   }
 
-  v6 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_omittedContent != *(equalCopy + 8))
@@ -328,7 +342,7 @@
   else if (*(equalCopy + 64))
   {
 LABEL_19:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_20;
   }
 
@@ -368,17 +382,17 @@ LABEL_19:
   custodianName = self->_custodianName;
   if (custodianName | *(equalCopy + 2))
   {
-    v12 = [(NSString *)custodianName isEqual:?];
+    v11 = [(NSString *)custodianName isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_20:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

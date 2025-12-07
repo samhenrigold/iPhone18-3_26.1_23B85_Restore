@@ -36,7 +36,7 @@
   if (!self->_frozen)
   {
     self->_frozen = 1;
-    sub_12B94(self);
+    sub_12B94(&self->super.isa);
   }
 }
 
@@ -161,8 +161,8 @@
 
     if (!self->_url)
     {
-      v7 = JSALog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = JSALog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_815C0();
       }
@@ -176,15 +176,15 @@
   v6 = methodCopy;
   if (!self->_frozen)
   {
-    if (([methodCopy isEqualToString:@"GET"] & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"HEAD") & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"POST") & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"PUT") & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"PATCH") & 1) != 0 || objc_msgSend(v6, "isEqualToString:", @"DELETE"))
+    if (([methodCopy isEqualToString:@"GET"] & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"HEAD") & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"POST") & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"PUT") & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"PATCH") & 1) != 0 || (v7 = objc_msgSend(v6, "isEqualToString:", @"DELETE"), v7))
     {
       objc_storeStrong(&self->_method, method);
     }
 
     else
     {
-      v7 = JSALog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = JSALog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_81644();
       }
@@ -207,9 +207,7 @@
 {
   if (!self->_frozen)
   {
-    jsa_stringDictionaryForRequestHeaderOrURLParam = [items jsa_stringDictionaryForRequestHeaderOrURLParam];
-    queryItems = self->_queryItems;
-    self->_queryItems = jsa_stringDictionaryForRequestHeaderOrURLParam;
+    self->_queryItems = [items jsa_stringDictionaryForRequestHeaderOrURLParam];
 
     _objc_release_x1();
   }
@@ -316,9 +314,7 @@
 {
   if (!self->_frozen)
   {
-    v5 = objc_retainBlock(completion);
-    completion = self->_completion;
-    self->_completion = v5;
+    self->_completion = objc_retainBlock(completion);
 
     _objc_release_x1();
   }

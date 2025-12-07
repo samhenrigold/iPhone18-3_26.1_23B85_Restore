@@ -32,7 +32,7 @@
 
 - (id)overrideForURL:(id)l
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:lCopy resolvingAgainstBaseURL:1];
   v6 = v5;
@@ -55,22 +55,22 @@
   if (failedHosts)
   {
     v11 = 0;
-    goto LABEL_109;
+    goto LABEL_108;
   }
 
   v12 = [(NSDictionary *)self->_propertyList objectForKeyedSubscript:@"p2-url-resolution"];
   objc_opt_class();
-  v86 = v12;
+  v82 = v12;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    goto LABEL_107;
+    goto LABEL_106;
   }
 
   context = objc_autoreleasePoolPush();
-  v82 = objc_opt_new();
-  v87 = objc_opt_new();
-  v77 = objc_opt_new();
-  v80 = objc_opt_new();
+  v78 = objc_opt_new();
+  v83 = objc_opt_new();
+  v73 = objc_opt_new();
+  v76 = objc_opt_new();
   scheme = [v8 scheme];
   v14 = scheme;
   if (scheme)
@@ -83,7 +83,7 @@
     v15 = &stru_284759D38;
   }
 
-  v88 = v15;
+  v84 = v15;
 
   host2 = [v8 host];
   v17 = host2;
@@ -97,36 +97,36 @@
     v18 = &stru_284759D38;
   }
 
-  v83 = v18;
+  v79 = v18;
 
   v19 = v8;
   location = [v19 rangeOfPath];
   length = v21;
-  v75 = v8;
+  v71 = v8;
   if (location == 0x7FFFFFFFFFFFFFFFLL)
   {
     [MEMORY[0x277CCA890] currentHandler];
     selfCopy = self;
-    v65 = v19;
-    v67 = v66 = lCopy;
-    v94.location = 0x7FFFFFFFFFFFFFFFLL;
-    v94.length = length;
-    v68 = NSStringFromRange(v94);
-    [v67 handleFailureInMethod:sel__pathAndQueryForURLComponents_ object:selfCopy file:@"PPITunesStoreURLOverrideChecker.m" lineNumber:122 description:{@"-[NSURLComponents pathRange] should never return an NSNotFound range, but got %@", v68}];
+    v61 = v19;
+    v63 = v62 = lCopy;
+    v90.location = 0x7FFFFFFFFFFFFFFFLL;
+    v90.length = length;
+    v64 = NSStringFromRange(v90);
+    [v63 handleFailureInMethod:sel__pathAndQueryForURLComponents_ object:selfCopy file:@"PPITunesStoreURLOverrideChecker.m" lineNumber:122 description:{@"-[NSURLComponents pathRange] should never return an NSNotFound range, but got %@", v64}];
 
-    lCopy = v66;
-    v19 = v65;
+    lCopy = v62;
+    v19 = v61;
     self = selfCopy;
   }
 
   rangeOfQuery = [v19 rangeOfQuery];
   if (rangeOfQuery != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v95.location = rangeOfQuery;
-    v95.length = v24;
-    v93.location = location;
-    v93.length = length;
-    v25 = NSUnionRange(v93, v95);
+    v91.location = rangeOfQuery;
+    v91.length = v24;
+    v89.location = location;
+    v89.length = length;
+    v25 = NSUnionRange(v89, v91);
     location = v25.location;
     length = v25.length;
   }
@@ -144,27 +144,40 @@
     v28 = &stru_284759D38;
   }
 
-  v76 = v28;
+  v72 = v28;
 
-  v29 = v86;
-  v30 = [v86 count];
+  v29 = v82;
+  v30 = [v82 count];
   if (!v30)
   {
-    goto LABEL_102;
+    goto LABEL_101;
   }
 
   v31 = v30;
-  v71 = v19;
+  v67 = v19;
   selfCopy2 = self;
   v32 = 0;
   v33 = 1;
-  v34 = 0x277CBE000uLL;
-  v79 = 1;
-  v85 = v30;
+  v75 = 1;
+  v81 = v30;
   while (1)
   {
-    v35 = [v29 objectAtIndexedSubscript:v32];
-    v36 = *(v34 + 2752);
+    v34 = [v29 objectAtIndexedSubscript:v32];
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      v35 = pp_default_log_handle();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+      {
+        *buf = 138412290;
+        v86 = v34;
+        _os_log_fault_impl(&dword_23224A000, v35, OS_LOG_TYPE_FAULT, "expected NSDictionary, got %@", buf, 0xCu);
+      }
+
+      goto LABEL_37;
+    }
+
+    v35 = [v34 objectForKeyedSubscript:@"scheme-mapping"];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -172,56 +185,37 @@
       if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v90 = v35;
+        v86 = v35;
         _os_log_fault_impl(&dword_23224A000, v37, OS_LOG_TYPE_FAULT, "expected NSDictionary, got %@", buf, 0xCu);
       }
 
       goto LABEL_37;
     }
 
-    v37 = [v35 objectForKeyedSubscript:@"scheme-mapping"];
-    v38 = *(v34 + 2752);
+    v36 = [v35 objectForKeyedSubscript:v84];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v40 = pp_default_log_handle();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+      if (v36)
       {
-        *buf = 138412290;
-        v90 = v37;
-        _os_log_fault_impl(&dword_23224A000, v40, OS_LOG_TYPE_FAULT, "expected NSDictionary, got %@", buf, 0xCu);
-      }
-
-      v34 = 0x277CBE000;
-      goto LABEL_37;
-    }
-
-    v39 = [v37 objectForKeyedSubscript:v88];
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      if (v39)
-      {
-        v41 = pp_default_log_handle();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
+        v38 = pp_default_log_handle();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v90 = v39;
-          _os_log_fault_impl(&dword_23224A000, v41, OS_LOG_TYPE_FAULT, "expected NSString, got %@", buf, 0xCu);
+          v86 = v36;
+          _os_log_fault_impl(&dword_23224A000, v38, OS_LOG_TYPE_FAULT, "expected NSString, got %@", buf, 0xCu);
         }
-
-        v34 = 0x277CBE000;
       }
 
       goto LABEL_36;
     }
 
-    if (([(NSMutableSet *)selfCopy2->_failedSchemes containsObject:v39]& 1) == 0)
+    if (([(NSMutableSet *)selfCopy2->_failedSchemes containsObject:v36]& 1) == 0)
     {
       break;
     }
 
-    v79 = 0;
+    v75 = 0;
 LABEL_36:
 
 LABEL_37:
@@ -229,117 +223,116 @@ LABEL_38:
     v33 = ++v32 < v31;
     if (v32 == v31)
     {
-      if ((v79 & 1) == 0)
+      if ((v75 & 1) == 0)
       {
-LABEL_105:
+LABEL_104:
         v33 = 0;
-        goto LABEL_106;
+        goto LABEL_105;
       }
 
       self = selfCopy2;
-LABEL_102:
+LABEL_101:
       if ([(NSMutableSet *)self->_failedHosts count]>= 0x40)
       {
         [(NSMutableSet *)self->_failedHosts removeAllObjects];
       }
 
-      [(NSMutableSet *)self->_failedHosts addObject:v83];
-      goto LABEL_105;
+      [(NSMutableSet *)self->_failedHosts addObject:v79];
+      goto LABEL_104;
     }
   }
 
-  v42 = [v35 objectForKeyedSubscript:@"host-patterns"];
+  v39 = [v34 objectForKeyedSubscript:@"host-patterns"];
   objc_opt_class();
-  v78 = v39;
-  v81 = v42;
+  v74 = v36;
+  v77 = v39;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v50 = pp_default_log_handle();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
+    v47 = pp_default_log_handle();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v90 = v81;
-      _os_log_fault_impl(&dword_23224A000, v50, OS_LOG_TYPE_FAULT, "expected NSArray, got %@", buf, 0xCu);
+      v86 = v77;
+      _os_log_fault_impl(&dword_23224A000, v47, OS_LOG_TYPE_FAULT, "expected NSArray, got %@", buf, 0xCu);
     }
 
-    v51 = 1;
+    v48 = 1;
+    goto LABEL_96;
+  }
+
+  v40 = [v39 count];
+  if (!v40)
+  {
+    v48 = 1;
     goto LABEL_97;
   }
 
-  v43 = [v42 count];
-  if (!v43)
-  {
-    v51 = 1;
-    goto LABEL_98;
-  }
-
-  v44 = v42;
-  v45 = v43;
-  v46 = 0;
-  v72 = lCopy;
+  v41 = v39;
+  v42 = v40;
+  v43 = 0;
+  v68 = lCopy;
   while (2)
   {
-    v47 = [v44 objectAtIndexedSubscript:v46];
+    v44 = [v41 objectAtIndexedSubscript:v43];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v48 = pp_default_log_handle();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
+      v45 = pp_default_log_handle();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v90 = v47;
-        _os_log_fault_impl(&dword_23224A000, v48, OS_LOG_TYPE_FAULT, "expected NSString, got %@", buf, 0xCu);
+        v86 = v44;
+        _os_log_fault_impl(&dword_23224A000, v45, OS_LOG_TYPE_FAULT, "expected NSString, got %@", buf, 0xCu);
       }
 
       goto LABEL_56;
     }
 
-    if (![v47 length])
+    if (![v44 length])
     {
       goto LABEL_63;
     }
 
-    if ([v87 containsObject:v47])
+    if ([v83 containsObject:v44])
     {
       goto LABEL_57;
     }
 
-    if ([v82 containsObject:v47])
+    if ([v78 containsObject:v44])
     {
       goto LABEL_63;
     }
 
-    v48 = [(PPITunesStoreURLOverrideChecker *)selfCopy2 _compiledPattern:v47];
-    if (!v48)
+    v45 = [(PPITunesStoreURLOverrideChecker *)selfCopy2 _compiledPattern:v44];
+    if (!v45)
     {
-      v49 = pp_default_log_handle();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
+      v46 = pp_default_log_handle();
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v90 = v47;
-        _os_log_fault_impl(&dword_23224A000, v49, OS_LOG_TYPE_FAULT, "failed to compile pattern: %@", buf, 0xCu);
+        v86 = v44;
+        _os_log_fault_impl(&dword_23224A000, v46, OS_LOG_TYPE_FAULT, "failed to compile pattern: %@", buf, 0xCu);
       }
 
-      lCopy = v72;
+      lCopy = v68;
       goto LABEL_55;
     }
 
-    v44 = v81;
-    if ([v48 rangeOfFirstMatchInString:v83 options:0 range:0, [(__CFString *)v83 length]]== 0x7FFFFFFFFFFFFFFFLL)
+    v41 = v77;
+    if ([v45 rangeOfFirstMatchInString:v79 options:0 range:0, [(__CFString *)v79 length]]== 0x7FFFFFFFFFFFFFFFLL)
     {
 LABEL_55:
-      [v87 addObject:v47];
+      [v83 addObject:v44];
 LABEL_56:
 
-      v31 = v85;
+      v31 = v81;
 LABEL_57:
 
-      if (v45 == ++v46)
+      if (v42 == ++v43)
       {
-        v51 = 1;
-        v29 = v86;
-        v34 = 0x277CBE000;
-        goto LABEL_98;
+        v48 = 1;
+        v29 = v82;
+        goto LABEL_97;
       }
 
       continue;
@@ -348,104 +341,104 @@ LABEL_57:
     break;
   }
 
-  [v82 addObject:v47];
+  [v78 addObject:v44];
 
-  v79 = 0;
-  v31 = v85;
+  v75 = 0;
+  v31 = v81;
 LABEL_63:
 
-  v50 = [v35 objectForKeyedSubscript:@"path-patterns"];
+  v47 = [v34 objectForKeyedSubscript:@"path-patterns"];
   objc_opt_class();
-  v29 = v86;
+  v29 = v82;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v57 = pp_default_log_handle();
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
+    v54 = pp_default_log_handle();
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v90 = v50;
-      _os_log_fault_impl(&dword_23224A000, v57, OS_LOG_TYPE_FAULT, "expected NSArray, got %@", buf, 0xCu);
+      v86 = v47;
+      _os_log_fault_impl(&dword_23224A000, v54, OS_LOG_TYPE_FAULT, "expected NSArray, got %@", buf, 0xCu);
     }
 
-    v51 = 1;
+    v48 = 1;
     goto LABEL_95;
   }
 
-  v69 = [v50 count];
-  if (!v69)
+  v65 = [v47 count];
+  if (!v65)
   {
-    v51 = 1;
+    v48 = 1;
     goto LABEL_96;
   }
 
-  v70 = 0;
-  v52 = 0;
-  v53 = v69;
+  v66 = 0;
+  v49 = 0;
+  v50 = v65;
   while (2)
   {
-    v54 = [v50 objectAtIndexedSubscript:v52];
+    v51 = [v47 objectAtIndexedSubscript:v49];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v55 = pp_default_log_handle();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+      v52 = pp_default_log_handle();
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v90 = v54;
-        _os_log_fault_impl(&dword_23224A000, v55, OS_LOG_TYPE_FAULT, "expected NSString, got %@", buf, 0xCu);
+        v86 = v51;
+        _os_log_fault_impl(&dword_23224A000, v52, OS_LOG_TYPE_FAULT, "expected NSString, got %@", buf, 0xCu);
       }
 
       goto LABEL_73;
     }
 
-    if (![v54 length])
+    if (![v51 length])
     {
       goto LABEL_70;
     }
 
-    if (([v80 containsObject:v54] & 1) == 0)
+    if (([v76 containsObject:v51] & 1) == 0)
     {
-      if ([v77 containsObject:v54])
+      if ([v73 containsObject:v51])
       {
 LABEL_70:
-        v70 = 1;
+        v66 = 1;
         goto LABEL_74;
       }
 
-      v55 = [(PPITunesStoreURLOverrideChecker *)selfCopy2 _compiledPattern:v54];
-      if (v55)
+      v52 = [(PPITunesStoreURLOverrideChecker *)selfCopy2 _compiledPattern:v51];
+      if (v52)
       {
-        v53 = v69;
-        if ([v55 rangeOfFirstMatchInString:v76 options:0 range:0, [(__CFString *)v76 length]]!= 0x7FFFFFFFFFFFFFFFLL)
+        v50 = v65;
+        if ([v52 rangeOfFirstMatchInString:v72 options:0 range:0, [(__CFString *)v72 length]]!= 0x7FFFFFFFFFFFFFFFLL)
         {
-          [v77 addObject:v54];
-          v70 = 1;
+          [v73 addObject:v51];
+          v66 = 1;
           goto LABEL_73;
         }
       }
 
       else
       {
-        v56 = pp_default_log_handle();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
+        v53 = pp_default_log_handle();
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v90 = v54;
-          _os_log_fault_impl(&dword_23224A000, v56, OS_LOG_TYPE_FAULT, "failed to compile pattern: %@", buf, 0xCu);
+          v86 = v51;
+          _os_log_fault_impl(&dword_23224A000, v53, OS_LOG_TYPE_FAULT, "failed to compile pattern: %@", buf, 0xCu);
         }
 
-        lCopy = v72;
+        lCopy = v68;
       }
 
-      [v80 addObject:v54];
+      [v76 addObject:v51];
 LABEL_73:
 
-      v29 = v86;
+      v29 = v82;
     }
 
 LABEL_74:
 
-    if (v53 != ++v52)
+    if (v50 != ++v49)
     {
       continue;
     }
@@ -453,91 +446,88 @@ LABEL_74:
     break;
   }
 
-  if (v70)
+  if (v66)
   {
-    v58 = v78;
-    if (([(NSMutableSet *)selfCopy2->_supportedSchemes containsObject:v78]& 1) != 0)
+    v55 = v74;
+    if (([(NSMutableSet *)selfCopy2->_supportedSchemes containsObject:v74]& 1) != 0)
     {
       goto LABEL_90;
     }
 
-    v57 = objc_opt_new();
-    [v57 setScheme:v78];
+    v54 = objc_opt_new();
+    [v54 setScheme:v74];
     isAppAvailableToOpenURLBlock = selfCopy2->_isAppAvailableToOpenURLBlock;
-    v60 = [v57 URL];
-    LODWORD(isAppAvailableToOpenURLBlock) = isAppAvailableToOpenURLBlock[2](isAppAvailableToOpenURLBlock, v60);
+    v57 = [v54 URL];
+    LODWORD(isAppAvailableToOpenURLBlock) = isAppAvailableToOpenURLBlock[2](isAppAvailableToOpenURLBlock, v57);
 
     if (isAppAvailableToOpenURLBlock)
     {
-      v58 = v78;
-      [(NSMutableSet *)selfCopy2->_supportedSchemes addObject:v78];
+      v55 = v74;
+      [(NSMutableSet *)selfCopy2->_supportedSchemes addObject:v74];
 
-      v29 = v86;
+      v29 = v82;
 LABEL_90:
-      v57 = [v71 copy];
-      v61 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:v58];
-      [v57 setScheme:v61];
+      v54 = [v67 copy];
+      v58 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:v55];
+      [v54 setScheme:v58];
 
-      v73 = [v57 URL];
-      v51 = 0;
+      v69 = [v54 URL];
+      v48 = 0;
     }
 
     else
     {
-      [(NSMutableSet *)selfCopy2->_failedSchemes addObject:v78];
-      v51 = 1;
-      v29 = v86;
+      [(NSMutableSet *)selfCopy2->_failedSchemes addObject:v74];
+      v48 = 1;
+      v29 = v82;
     }
 
-    v31 = v85;
+    v31 = v81;
 LABEL_95:
   }
 
   else
   {
-    v51 = 1;
-    v31 = v85;
+    v48 = 1;
+    v31 = v81;
   }
 
 LABEL_96:
-  v34 = 0x277CBE000;
-LABEL_97:
 
-LABEL_98:
-  if (v51)
+LABEL_97:
+  if (v48)
   {
     goto LABEL_38;
   }
 
-LABEL_106:
+LABEL_105:
 
   objc_autoreleasePoolPop(context);
-  v8 = v75;
-  v11 = v73;
+  v8 = v71;
+  v11 = v69;
   if (!v33)
   {
-LABEL_107:
+LABEL_106:
     v11 = 0;
   }
 
-LABEL_109:
-  v62 = *MEMORY[0x277D85DE8];
+LABEL_108:
 
   return v11;
 }
 
 - (id)_compiledPattern:(uint64_t)pattern
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (pattern)
   {
     v4 = [*(pattern + 24) objectForKeyedSubscript:v3];
     if (!v4)
     {
-      v9 = 0;
-      v4 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:v3 options:1 error:&v9];
-      v5 = v9;
+      v8 = 0;
+      v4 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:v3 options:1 error:&v8];
+      v5 = v8;
       if (v4)
       {
         if ([*(pattern + 24) count] >= 0x10)
@@ -554,9 +544,9 @@ LABEL_109:
         if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412546;
-          v11 = v3;
-          v12 = 2112;
-          v13 = v5;
+          v10 = v3;
+          v11 = 2112;
+          v12 = v5;
           _os_log_fault_impl(&dword_23224A000, v6, OS_LOG_TYPE_FAULT, "failed to compile pattern %@: %@", buf, 0x16u);
         }
 
@@ -569,8 +559,6 @@ LABEL_109:
   {
     v4 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -612,37 +600,37 @@ LABEL_109:
 
 - (PPITunesStoreURLOverrideChecker)initWithPlistPaths:(id)paths isAppAvailableToOpenURLBlock:(id)block
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   blockCopy = block;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = pathsCopy;
-  v6 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v6 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v31;
     v9 = 0x277D42000uLL;
 LABEL_3:
     v10 = 0;
-    v28 = v7;
+    v27 = v7;
     while (1)
     {
-      if (*v32 != v8)
+      if (*v31 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v31 + 1) + 8 * v10);
+      v11 = *(*(&v30 + 1) + 8 * v10);
       v12 = objc_autoreleasePoolPush();
       stringByExpandingTildeInPath = [v11 stringByExpandingTildeInPath];
       v14 = *(v9 + 1504);
-      v30 = 0;
-      v15 = [v14 dictionaryWithPath:stringByExpandingTildeInPath error:&v30];
-      v16 = v30;
+      v29 = 0;
+      v15 = [v14 dictionaryWithPath:stringByExpandingTildeInPath error:&v29];
+      v16 = v29;
       if (!v15)
       {
         v17 = v8;
@@ -652,9 +640,9 @@ LABEL_3:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v36 = v16;
-          v37 = 2112;
-          v38 = stringByExpandingTildeInPath;
+          v35 = v16;
+          v36 = 2112;
+          v37 = stringByExpandingTildeInPath;
           _os_log_error_impl(&dword_23224A000, v20, OS_LOG_TYPE_ERROR, "got error %@ while creating lazy plist context for path %@", buf, 0x16u);
         }
 
@@ -666,7 +654,7 @@ LABEL_3:
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v36 = stringByExpandingTildeInPath;
+            v35 = stringByExpandingTildeInPath;
             _os_log_error_impl(&dword_23224A000, v22, OS_LOG_TYPE_ERROR, "failed to load plist at path %@ using Foundation fallback", buf, 0xCu);
           }
 
@@ -676,7 +664,7 @@ LABEL_3:
         objc_autoreleasePoolPop(v19);
         v9 = v18;
         v8 = v17;
-        v7 = v28;
+        v7 = v27;
       }
 
       objc_autoreleasePoolPop(v12);
@@ -687,7 +675,7 @@ LABEL_3:
 
       if (v7 == ++v10)
       {
-        v7 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v7 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -705,7 +693,6 @@ LABEL_17:
   }
 
   v23 = [(PPITunesStoreURLOverrideChecker *)self initWithPropertyList:v15 isAppAvailableToOpenURLBlock:blockCopy];
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 

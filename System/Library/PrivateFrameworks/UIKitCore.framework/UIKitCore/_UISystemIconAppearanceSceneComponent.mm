@@ -185,9 +185,9 @@ LABEL_10:
     goto LABEL_8;
   }
 
-  v6 = [(_UISystemIconAppearance *)v4 isEqual:v5];
+  isEqual = objc_msgSend_isEqual_(v4, v5, v5);
 
-  if (!v6)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_appearance, _getCurrentIconAppearance);

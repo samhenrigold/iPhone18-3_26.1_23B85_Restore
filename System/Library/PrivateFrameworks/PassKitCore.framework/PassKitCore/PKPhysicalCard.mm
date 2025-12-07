@@ -238,7 +238,7 @@ PKPhysicalCardOrderActivityEvent *__37__PKPhysicalCard_initWithDictionary___bloc
         LOBYTE(v9) = 0;
         if (v15 && v16)
         {
-          LOBYTE(v9) = [v15 isEqualToString:v16];
+          LOBYTE(v9) = objc_msgSend_isEqualToString_(v15);
         }
       }
     }

@@ -155,7 +155,7 @@
     sub_100073738();
   }
 
-  [qword_1000D2948[5 * sub_100020CB8(width)] size];
+  [qword_1000D2948[5 * sub_100020CB8(self a2];
   v5 = v4;
   v6 = MTUIShouldUseLargePadLayout();
   v7 = 10.0;
@@ -368,7 +368,7 @@
 {
   height = fits.height;
   width = fits.width;
-  sub_10001F290(fits.width);
+  sub_10001F290(self, a2, fits.width, fits.height);
   v7 = v5 / v6;
   v8 = width / (v5 / v6);
   if (width / height >= v7)
@@ -413,23 +413,23 @@
   [(MTAWorldClockMapView *)self updateTerminator];
   [(UIImageView *)self->_mapWithTerminator setImage:self->_terminatorImages[0]];
   mapWithTerminator = self->_mapWithTerminator;
-  v46 = v8;
-  v47 = v10;
+  v48 = v8;
+  v49 = v10;
   [(UIImageView *)mapWithTerminator setFrame:v4, v6, v8, v10];
   allValues = [(NSMutableDictionary *)self->_cityViews allValues];
   v13 = [allValues count];
   v14 = __chkstk_darwin(v13);
-  v15 = &v44 - 2 * v14;
+  v15 = &v46 - 2 * v14;
   if (v14)
   {
-    v44.f64[0] = v4;
-    v44.f64[1] = v6;
-    v45 = &v44;
+    v46.f64[0] = v4;
+    v46.f64[1] = v6;
+    v47 = &v46;
     v16 = 0;
     f64 = v15[1].f64;
     do
     {
-      v18 = [allValues objectAtIndex:{v16, *&v44, v45}];
+      v18 = [allValues objectAtIndex:{v16, *&v46, v47}];
       [v18 setIconPlacement:1];
       v19 = v18;
       city = [v19 city];
@@ -437,85 +437,85 @@
       [alCity latitude];
       alCity2 = [city alCity];
       [alCity2 longitude];
-      MTUILocationCoordinate2DMake();
-      sub_100020B64(v23, v24, v46);
+      v23 = MTUILocationCoordinate2DMake();
+      sub_100020B64(v23, v24, v25, v26, v48, v49);
 
       [v19 frame];
-      v26 = v25;
       v28 = v27;
+      v30 = v29;
       [v19 hotspotOffset];
 
       MTUIRoundToPixel();
       MTUIRoundToPixel();
 
       MTUIRoundToPixel();
-      v30 = v29;
+      v32 = v31;
       MTUIRoundToPixel();
-      *(f64 - 2) = v30;
-      *(f64 - 1) = v31;
-      *f64 = v26;
-      f64[1] = v28;
+      *(f64 - 2) = v32;
+      *(f64 - 1) = v33;
+      *f64 = v28;
+      f64[1] = v30;
       f64 += 4;
 
       ++v16;
     }
 
     while (v13 != v16);
-    sub_10001F750(v15, v13, allValues, v44.f64[0], v44.f64[1], v46, v47);
-    v32 = 0;
-    v33 = v15[1].f64;
+    sub_10001F750(v15, v13, allValues, v46.f64[0], v46.f64[1], v48, v49);
+    v34 = 0;
+    v35 = v15[1].f64;
     do
     {
-      v34 = [allValues objectAtIndexedSubscript:v32];
-      v36 = *v33;
-      v35 = v33[1];
-      MTUIRoundToPixel();
-      v38 = v37;
+      v36 = [allValues objectAtIndexedSubscript:v34];
+      v38 = *v35;
+      v37 = v35[1];
       MTUIRoundToPixel();
       v40 = v39;
+      MTUIRoundToPixel();
+      v42 = v41;
       addedCityView = self->_addedCityView;
       if (addedCityView)
       {
-        v42 = v34 == addedCityView;
+        v44 = v36 == addedCityView;
       }
 
       else
       {
-        v42 = 1;
+        v44 = 1;
       }
 
-      if (v42)
+      if (v44)
       {
-        [(MTAWorldClockMapCityView *)v34 setFrame:v38, v39, v36, v35];
+        [(MTAWorldClockMapCityView *)v36 setFrame:v40, v41, v38, v37];
       }
 
       else
       {
-        v48[0] = _NSConcreteStackBlock;
-        v48[1] = 3221225472;
-        v48[2] = sub_10001FF44;
-        v48[3] = &unk_1000ADCC0;
-        v49 = v34;
-        v50 = v38;
-        v51 = v40;
-        v52 = v36;
-        v53 = v35;
-        [UIView animateWithDuration:v48 animations:0.3];
+        v50[0] = _NSConcreteStackBlock;
+        v50[1] = 3221225472;
+        v50[2] = sub_10001FF44;
+        v50[3] = &unk_1000ADCC0;
+        v51 = v36;
+        v52 = v40;
+        v53 = v42;
+        v54 = v38;
+        v55 = v37;
+        [UIView animateWithDuration:v50 animations:0.3];
       }
 
-      ++v32;
-      v33 += 4;
+      ++v34;
+      v35 += 4;
     }
 
-    while (v13 != v32);
+    while (v13 != v34);
   }
 
   else
   {
-    sub_10001F750(&v44, v13, allValues, v4, v6, v46, v47);
+    sub_10001F750(&v46, v13, allValues, v4, v6, v48, v49);
   }
 
-  v43 = self->_addedCityView;
+  v45 = self->_addedCityView;
   self->_addedCityView = 0;
 }
 
@@ -571,18 +571,18 @@
 - (void)updateTerminator
 {
   [(MTAWorldClockMapView *)self bounds];
-  if (!CGRectIsEmpty(v64))
+  if (!CGRectIsEmpty(v69))
   {
     obj = +[NSDate date];
     [(MTAWorldClockMapView *)self bounds];
-    v3 = CGRectEqualToRect(v65, self->_lastTerminatorUpdateBounds);
+    v3 = CGRectEqualToRect(v70, self->_lastTerminatorUpdateBounds);
     if (!v3 || ([(MTAWorldClockMapView *)self terminatorUpdateInterval], v5 = v4, [(NSDate *)self->_terminatorTimestamp timeIntervalSinceDate:obj], v5 - fabs(v6) < 1.0))
     {
       window = [(MTAWorldClockMapView *)self window];
 
       if (window)
       {
-        v61 = v3;
+        v66 = v3;
         [(MTAWorldClockMapView *)self bounds];
         v9 = v8;
         v11 = v10;
@@ -596,13 +596,13 @@
         v19 = v14;
         v20 = v16;
         size = 4 * v15 * v17;
-        v60 = malloc_type_malloc(size, 0x5AE69908uLL);
-        v21 = CGBitmapContextCreate(v60, v15, v17, 8uLL, 4 * v15, DeviceRGB, 0x2002u);
-        v66.origin.x = 0.0;
-        v66.origin.y = 0.0;
-        v66.size.width = v19;
-        v66.size.height = v20;
-        CGContextClearRect(v21, v66);
+        v65 = malloc_type_malloc(size, 0x5AE69908uLL);
+        v21 = CGBitmapContextCreate(v65, v15, v17, 8uLL, 4 * v15, DeviceRGB, 0x2002u);
+        v71.origin.x = 0.0;
+        v71.origin.y = 0.0;
+        v71.size.width = v19;
+        v71.size.height = v20;
+        CGContextClearRect(v21, v71);
         CGContextTranslateCTM(v21, 0.0, v20);
         CGContextScaleCTM(v21, v13, -v13);
         CGContextSetAlpha(v21, 0.6);
@@ -630,109 +630,109 @@
         v31 = +[UIColor mtui_backgroundColor];
         CGContextSetFillColorWithColor(v30, [v31 CGColor]);
 
-        v67.origin.x = 0.0;
-        v67.origin.y = 0.0;
-        v67.size.width = v19;
-        v67.size.height = v20;
-        CGContextFillRect(v30, v67);
-        cGImage = [sub_100020C18(v9)[1] CGImage];
-        sub_10001F290(v9);
+        v72.origin.x = 0.0;
+        v72.origin.y = 0.0;
+        v72.size.width = v19;
+        v72.size.height = v20;
+        CGContextFillRect(v30, v72);
+        v34 = [sub_100020C18(v32 v33];
+        sub_10001F290(v34, v35, v9, v11);
         if (v13 == 1.0)
         {
-          v37 = v36;
+          v40 = v39;
         }
 
         else
         {
-          v37 = v13 * v36;
+          v40 = v13 * v39;
         }
 
         if (v13 == 1.0)
         {
-          v38 = v35;
+          v41 = v38;
         }
 
         else
         {
-          v38 = v13 * v35;
+          v41 = v13 * v38;
         }
 
         if (v13 == 1.0)
         {
-          v39 = v33;
+          v42 = v36;
         }
 
         else
         {
-          v34 = v13 * v34;
-          v39 = v13 * v33;
+          v37 = v13 * v37;
+          v42 = v13 * v36;
         }
 
-        v40 = v39;
-        v41 = v38;
-        v42 = v37;
-        v68.origin.y = v20 - CGRectGetMaxY(*(&v34 - 1));
-        v68.origin.x = v39;
-        v68.size.width = v38;
-        v68.size.height = v37;
-        CGContextDrawImage(v30, v68, cGImage);
+        v43 = v42;
+        v44 = v41;
+        v45 = v40;
+        v73.origin.y = v20 - CGRectGetMaxY(*(&v37 - 1));
+        v73.origin.x = v42;
+        v73.size.width = v41;
+        v73.size.height = v40;
+        CGContextDrawImage(v30, v73, v34);
         Image = CGBitmapContextCreateImage(v21);
-        v69.origin.x = 0.0;
-        v69.origin.y = 0.0;
-        v69.size.width = v19;
-        v69.size.height = v20;
-        CGContextDrawImage(v30, v69, Image);
+        v74.origin.x = 0.0;
+        v74.origin.y = 0.0;
+        v74.size.width = v19;
+        v74.size.height = v20;
+        CGContextDrawImage(v30, v74, Image);
         CGImageRelease(Image);
-        v44 = -180;
+        v47 = -180;
         Mutable = CGPathCreateMutable();
         do
         {
-          v44 += 30;
-          MTUILocationCoordinate2DMake();
-          v48 = sub_100020B64(v46, v47, v9);
-          v49 = v13 * (floorf(v48) + 0.5);
-          CGPathMoveToPoint(Mutable, 0, v49, 0.0);
-          CGPathAddLineToPoint(Mutable, 0, v49, v20);
+          v47 += 30;
+          v49 = MTUILocationCoordinate2DMake();
+          v53 = sub_100020B64(v49, v50, v51, v52, v9, v11);
+          v54 = v13 * (floorf(v53) + 0.5);
+          CGPathMoveToPoint(Mutable, 0, v54, 0.0);
+          CGPathAddLineToPoint(Mutable, 0, v54, v20);
         }
 
-        while (v44 < 150);
-        v50 = +[UIColor whiteColor];
-        CGContextSetStrokeColorWithColor(v30, [v50 CGColor]);
+        while (v47 < 150);
+        v55 = +[UIColor whiteColor];
+        CGContextSetStrokeColorWithColor(v30, [v55 CGColor]);
 
         CGContextSetAlpha(v30, 0.100000001);
         CGContextSetLineWidth(v30, v13);
         CGContextAddPath(v30, Mutable);
         CGContextStrokePath(v30);
-        v51 = CGBitmapContextCreateImage(v30);
-        v52 = [[UIImage alloc] initWithCGImage:v51 scale:0 orientation:v13];
-        CGImageRelease(v51);
+        v56 = CGBitmapContextCreateImage(v30);
+        v57 = [[UIImage alloc] initWithCGImage:v56 scale:0 orientation:v13];
+        CGImageRelease(v56);
         CGColorSpaceRelease(v28);
         CGContextRelease(v30);
         CGContextRelease(v21);
         CGPathRelease(Mutable);
-        free(v60);
+        free(v65);
         free(v29);
-        v53 = self->_terminatorImages[0];
-        self->_terminatorImages[0] = v52;
+        v58 = self->_terminatorImages[0];
+        self->_terminatorImages[0] = v57;
 
         objc_storeStrong(&self->_terminatorTimestamp, obj);
         [(MTAWorldClockMapView *)self bounds];
-        self->_lastTerminatorUpdateBounds.origin.x = v54;
-        self->_lastTerminatorUpdateBounds.origin.y = v55;
-        self->_lastTerminatorUpdateBounds.size.width = v56;
-        self->_lastTerminatorUpdateBounds.size.height = v57;
+        self->_lastTerminatorUpdateBounds.origin.x = v59;
+        self->_lastTerminatorUpdateBounds.origin.y = v60;
+        self->_lastTerminatorUpdateBounds.size.width = v61;
+        self->_lastTerminatorUpdateBounds.size.height = v62;
         self->_needsUpdateTerminator = 0;
         if (self->_terminatorTimer)
         {
-          v58 = v61;
+          v63 = v66;
         }
 
         else
         {
-          v58 = 1;
+          v63 = 1;
         }
 
-        if ((v58 & 1) == 0)
+        if ((v63 & 1) == 0)
         {
           [(MTAWorldClockMapView *)self scheduleTerminatorUpdate];
         }

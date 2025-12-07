@@ -8,56 +8,47 @@
 
 - (MTTintingMaterialSettings)initWithTintingDescription:(id)description andDescendantDescriptions:(id)descriptions
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   descriptionsCopy = descriptions;
-  v23.receiver = self;
-  v23.super_class = MTTintingMaterialSettings;
-  v8 = [(MTTintingMaterialSettings *)&v23 init];
+  v18.receiver = self;
+  v18.super_class = MTTintingMaterialSettings;
+  v8 = [(MTTintingMaterialSettings *)&v18 init];
   v9 = v8;
   if (v8)
   {
-    [(MTTintingMaterialSettings *)v8 _processTintingDescription:descriptionCopy defaultingToIdentity:1];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
+    [MTTintingMaterialSettings _processTintingDescription:v8 defaultingToIdentity:"_processTintingDescription:defaultingToIdentity:"];
     v10 = descriptionsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:0 objects:? count:?];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = MEMORY[0];
       do
       {
-        v14 = 0;
-        do
+        for (i = 0; i != v12; i = (i + 1))
         {
-          if (*v20 != v13)
+          if (MEMORY[0] != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * v14);
+          v15 = *(8 * i);
           null = [MEMORY[0x1E695DFB0] null];
 
           if (v15 != null)
           {
-            [(MTTintingMaterialSettings *)v9 _processTintingDescription:v15 defaultingToIdentity:0];
+            [MTTintingMaterialSettings _processTintingDescription:v9 defaultingToIdentity:"_processTintingDescription:defaultingToIdentity:"];
           }
-
-          ++v14;
         }
 
-        while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v12);
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -77,7 +68,7 @@
 - (void)_processTintingDescription:(id)description defaultingToIdentity:(BOOL)identity
 {
   descriptionCopy = description;
-  v6 = [descriptionCopy objectForKey:@"tintColor"];
+  v6 = [descriptionCopy objectForKey:?];
   tintColorDescription = self->_tintColorDescription;
   self->_tintColorDescription = v6;
 
@@ -127,7 +118,7 @@ LABEL_9:
   }
 
 LABEL_13:
-  v12 = [descriptionCopy objectForKey:@"tintAlpha"];
+  v12 = [descriptionCopy objectForKey:?];
   v13 = v12;
   if (v12)
   {
@@ -145,7 +136,7 @@ LABEL_13:
   }
 
   self->_tintAlpha = tintAlpha;
-  v16 = [descriptionCopy objectForKey:@"tintColorName"];
+  v16 = [descriptionCopy objectForKey:?];
   tintColorName = v16;
   if (!v16)
   {
@@ -158,7 +149,7 @@ LABEL_13:
 
   objc_storeStrong(&self->_tintColorName, tintColorName);
 
-  v18 = [descriptionCopy objectForKey:@"tintColorUIStyle"];
+  v18 = [descriptionCopy objectForKey:?];
   v19 = v18;
   if (v18)
   {

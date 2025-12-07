@@ -336,7 +336,7 @@ LABEL_12:
 
 - (void)printWithLogFile:(void *)file
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"Audio Settings: SSRC=%x sbr=%d audioSwitching=%d audioRecording=%d", self->_rtpSSRC, self->_useSBR, self->_supportFlags & 1, (self->_supportFlags >> 1) & 1];
   if ([(VCMediaNegotiationBlobAudioSettings *)self hasAudioUnitModel])
   {
@@ -352,343 +352,342 @@ LABEL_12:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v45 = v8;
-      v46 = 2080;
-      v47 = "[VCMediaNegotiationBlobAudioSettings(AudioRules) printWithLogFile:]";
-      v48 = 1024;
-      v49 = 1005;
-      v50 = 2080;
+      v26 = v8;
+      v27 = 2080;
+      v28 = "[VCMediaNegotiationBlobAudioSettings(AudioRules) printWithLogFile:]";
+      v29 = 1024;
+      v30 = 1005;
+      v31 = 2080;
       uTF8String = [v5 UTF8String];
       _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob - %s", buf, 0x26u);
     }
   }
 
-  uTF8String2 = [v5 UTF8String];
-  VRLogfilePrintWithTimestamp(file, "Media Blob - %s\n", v11, v12, v13, v14, v15, v16, uTF8String2);
-  v17 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"Primary payloads:"];
-  v18 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"Secondary payloads:"];
-  v19 = 1;
+  VRLogfilePrintWithTimestamp(file, "Media Blob - %s\n", [v5 UTF8String]);
+  v10 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"Primary payloads:"];
+  v11 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"Secondary payloads:"];
+  v12 = 1;
   do
   {
-    if ((self->_payloadFlags & v19) != 0 && (self->_secondaryFlags & v19) == 0)
+    if ((self->_payloadFlags & v12) != 0 && (self->_secondaryFlags & v12) == 0)
     {
-      if (v19 <= 127)
+      if (v12 <= 127)
       {
-        if (v19 <= 7)
+        if (v12 <= 7)
         {
-          switch(v19)
+          switch(v12)
           {
             case 1:
-              v20 = @"G722";
+              v13 = @"G722";
               goto LABEL_46;
             case 2:
-              v20 = @"AACELD_16000";
+              v13 = @"AACELD_16000";
               goto LABEL_46;
             case 4:
-              v20 = @"AACELD_22050";
+              v13 = @"AACELD_22050";
               goto LABEL_46;
           }
         }
 
-        else if (v19 > 31)
+        else if (v12 > 31)
         {
-          if (v19 == 32)
+          if (v12 == 32)
           {
-            v20 = @"SPEEX_16K";
+            v13 = @"SPEEX_16K";
             goto LABEL_46;
           }
 
-          if (v19 == 64)
+          if (v12 == 64)
           {
-            v20 = @"OPUS";
+            v13 = @"OPUS";
             goto LABEL_46;
           }
         }
 
         else
         {
-          if (v19 == 8)
+          if (v12 == 8)
           {
-            v20 = @"AACELD_24000";
+            v13 = @"AACELD_24000";
             goto LABEL_46;
           }
 
-          if (v19 == 16)
+          if (v12 == 16)
           {
-            v20 = @"SPEEX_8K";
+            v13 = @"SPEEX_8K";
             goto LABEL_46;
           }
         }
       }
 
-      else if (v19 > 2047)
+      else if (v12 > 2047)
       {
-        if (v19 >= 0x4000)
+        if (v12 >= 0x4000)
         {
-          if (v19 == 0x4000)
+          if (v12 == 0x4000)
           {
-            v20 = @"ACC24";
+            v13 = @"ACC24";
             goto LABEL_46;
           }
 
-          if (v19 == 0x7FFF)
+          if (v12 == 0x7FFF)
           {
-            v20 = @"SUPPORTED";
+            v13 = @"SUPPORTED";
             goto LABEL_46;
           }
         }
 
         else
         {
-          if (v19 == 2048)
+          if (v12 == 2048)
           {
-            v20 = @"EVS_32000";
+            v13 = @"EVS_32000";
             goto LABEL_46;
           }
 
-          if (v19 == 4096)
+          if (v12 == 4096)
           {
-            v20 = @"AACELD_48000";
+            v13 = @"AACELD_48000";
             goto LABEL_46;
           }
         }
       }
 
-      else if (v19 > 511)
+      else if (v12 > 511)
       {
-        if (v19 == 512)
+        if (v12 == 512)
         {
-          v20 = @"CN";
+          v13 = @"CN";
           goto LABEL_46;
         }
 
-        if (v19 == 1024)
+        if (v12 == 1024)
         {
-          v20 = @"RED";
+          v13 = @"RED";
           goto LABEL_46;
         }
       }
 
       else
       {
-        if (v19 == 128)
+        if (v12 == 128)
         {
-          v20 = @"AMR_8000";
+          v13 = @"AMR_8000";
           goto LABEL_46;
         }
 
-        if (v19 == 256)
+        if (v12 == 256)
         {
-          v20 = @"AMR_16000";
+          v13 = @"AMR_16000";
 LABEL_46:
-          [v17 appendFormat:@" %@, ", v20];
+          [v10 appendFormat:@" %@, ", v13];
           goto LABEL_47;
         }
       }
 
-      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v19];
+      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v12];
       goto LABEL_46;
     }
 
 LABEL_47:
-    if ((self->_secondaryFlags & v19) == 0)
+    if ((self->_secondaryFlags & v12) == 0)
     {
       goto LABEL_89;
     }
 
-    if (v19 > 127)
+    if (v12 > 127)
     {
-      if (v19 > 2047)
+      if (v12 > 2047)
       {
-        if (v19 >= 0x4000)
+        if (v12 >= 0x4000)
         {
-          if (v19 == 0x4000)
+          if (v12 == 0x4000)
           {
-            v21 = @"ACC24";
+            v14 = @"ACC24";
           }
 
           else
           {
-            if (v19 != 0x7FFF)
+            if (v12 != 0x7FFF)
             {
 LABEL_87:
-              v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v19];
+              v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v12];
               goto LABEL_88;
             }
 
-            v21 = @"SUPPORTED";
+            v14 = @"SUPPORTED";
           }
         }
 
-        else if (v19 == 2048)
+        else if (v12 == 2048)
         {
-          v21 = @"EVS_32000";
+          v14 = @"EVS_32000";
         }
 
         else
         {
-          if (v19 != 4096)
+          if (v12 != 4096)
           {
             goto LABEL_87;
           }
 
-          v21 = @"AACELD_48000";
+          v14 = @"AACELD_48000";
         }
       }
 
-      else if (v19 > 511)
+      else if (v12 > 511)
       {
-        if (v19 == 512)
+        if (v12 == 512)
         {
-          v21 = @"CN";
+          v14 = @"CN";
         }
 
         else
         {
-          if (v19 != 1024)
+          if (v12 != 1024)
           {
             goto LABEL_87;
           }
 
-          v21 = @"RED";
+          v14 = @"RED";
         }
       }
 
-      else if (v19 == 128)
+      else if (v12 == 128)
       {
-        v21 = @"AMR_8000";
+        v14 = @"AMR_8000";
       }
 
       else
       {
-        if (v19 != 256)
+        if (v12 != 256)
         {
           goto LABEL_87;
         }
 
-        v21 = @"AMR_16000";
+        v14 = @"AMR_16000";
       }
     }
 
-    else if (v19 > 7)
+    else if (v12 > 7)
     {
-      if (v19 > 31)
+      if (v12 > 31)
       {
-        if (v19 == 32)
+        if (v12 == 32)
         {
-          v21 = @"SPEEX_16K";
+          v14 = @"SPEEX_16K";
         }
 
         else
         {
-          if (v19 != 64)
+          if (v12 != 64)
           {
             goto LABEL_87;
           }
 
-          v21 = @"OPUS";
+          v14 = @"OPUS";
         }
       }
 
-      else if (v19 == 8)
+      else if (v12 == 8)
       {
-        v21 = @"AACELD_24000";
+        v14 = @"AACELD_24000";
       }
 
       else
       {
-        if (v19 != 16)
+        if (v12 != 16)
         {
           goto LABEL_87;
         }
 
-        v21 = @"SPEEX_8K";
+        v14 = @"SPEEX_8K";
       }
     }
 
-    else if (v19 > 1)
+    else if (v12 > 1)
     {
-      if (v19 == 2)
+      if (v12 == 2)
       {
-        v21 = @"AACELD_16000";
+        v14 = @"AACELD_16000";
       }
 
       else
       {
-        if (v19 != 4)
+        if (v12 != 4)
         {
           goto LABEL_87;
         }
 
-        v21 = @"AACELD_22050";
+        v14 = @"AACELD_22050";
       }
     }
 
-    else if (v19 == -1)
+    else if (v12 == -1)
     {
-      v21 = @"INVALID";
+      v14 = @"INVALID";
     }
 
     else
     {
-      v21 = @"G722";
-      if (v19 != 1)
+      v14 = @"G722";
+      if (v12 != 1)
       {
         goto LABEL_87;
       }
     }
 
 LABEL_88:
-    [v18 appendFormat:@" %@, ", v21];
+    [v11 appendFormat:@" %@, ", v14];
 LABEL_89:
-    v22 = (v19 & 0x3FFF) == 0;
-    v19 = (2 * v19);
+    v15 = (v12 & 0x3FFF) == 0;
+    v12 = (2 * v12);
   }
 
-  while (!v22);
-  v23 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:{@", "}];
-  v24 = [objc_msgSend(v17 stringByTrimmingCharactersInSet:{v23), "UTF8String"}];
-  v25 = [objc_msgSend(v18 stringByTrimmingCharactersInSet:{v23), "UTF8String"}];
-  v26 = VRTraceGetErrorLogLevelForModule();
-  v27 = MEMORY[0x1E6986650];
-  if (v26 > 6)
+  while (!v15);
+  v16 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:{@", "}];
+  v17 = [objc_msgSend(v10 stringByTrimmingCharactersInSet:{v16), "UTF8String"}];
+  v18 = [objc_msgSend(v11 stringByTrimmingCharactersInSet:{v16), "UTF8String"}];
+  v19 = VRTraceGetErrorLogLevelForModule();
+  v20 = MEMORY[0x1E6986650];
+  if (v19 > 6)
   {
-    v28 = VRTraceErrorLogLevelToCSTR();
-    v29 = *v27;
-    if (os_log_type_enabled(*v27, OS_LOG_TYPE_DEFAULT))
+    v21 = VRTraceErrorLogLevelToCSTR();
+    v22 = *v20;
+    if (os_log_type_enabled(*v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v45 = v28;
-      v46 = 2080;
-      v47 = "[VCMediaNegotiationBlobAudioSettings(AudioRules) printWithLogFile:]";
-      v48 = 1024;
-      v49 = 1021;
-      v50 = 2080;
-      uTF8String = v24;
-      _os_log_impl(&dword_1DB56E000, v29, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s", buf, 0x26u);
+      v26 = v21;
+      v27 = 2080;
+      v28 = "[VCMediaNegotiationBlobAudioSettings(AudioRules) printWithLogFile:]";
+      v29 = 1024;
+      v30 = 1021;
+      v31 = 2080;
+      uTF8String = v17;
+      _os_log_impl(&dword_1DB56E000, v22, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s", buf, 0x26u);
     }
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v36 = VRTraceErrorLogLevelToCSTR();
-    v37 = *v27;
-    if (os_log_type_enabled(*v27, OS_LOG_TYPE_DEFAULT))
+    v23 = VRTraceErrorLogLevelToCSTR();
+    v24 = *v20;
+    if (os_log_type_enabled(*v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v45 = v36;
-      v46 = 2080;
-      v47 = "[VCMediaNegotiationBlobAudioSettings(AudioRules) printWithLogFile:]";
-      v48 = 1024;
-      v49 = 1022;
-      v50 = 2080;
-      uTF8String = v25;
-      _os_log_impl(&dword_1DB56E000, v37, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s", buf, 0x26u);
+      v26 = v23;
+      v27 = 2080;
+      v28 = "[VCMediaNegotiationBlobAudioSettings(AudioRules) printWithLogFile:]";
+      v29 = 1024;
+      v30 = 1022;
+      v31 = 2080;
+      uTF8String = v18;
+      _os_log_impl(&dword_1DB56E000, v24, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s", buf, 0x26u);
     }
   }
 
-  VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v30, v31, v32, v33, v34, v35, v24);
-  VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v38, v39, v40, v41, v42, v43, v25);
+  VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v17);
+  VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v18);
 }
 
 @end

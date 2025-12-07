@@ -38,7 +38,7 @@
   swift_unknownObjectRetain();
   containerCopy = container;
   selfCopy = self;
-  v19 = TTRIMenuButtonAttachmentProvider.attachmentBounds(for:location:textContainer:proposedLineFragment:position:)(v12, v11, width, height, x, y, v16, location, container);
+  v19 = TTRIMenuButtonAttachmentProvider.attachmentBounds(for:location:textContainer:proposedLineFragment:position:)(v16, location, container, v12, v11, width, height, x, y);
   v21 = v20;
   v23 = v22;
   v25 = v24;

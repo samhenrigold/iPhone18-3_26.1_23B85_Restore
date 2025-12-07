@@ -3,6 +3,7 @@
 - (_INPBHomeUserTaskResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)taskOutcomeAsString:(int)string;
 - (int)StringAsTaskOutcome:(id)outcome;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -144,19 +145,18 @@ LABEL_12:
   toCopy = to;
   if ([(_INPBHomeUserTaskResponse *)self hasTaskOutcome])
   {
-    taskOutcome = self->_taskOutcome;
     PBDataWriterWriteInt32Field();
   }
 
   userTask = [(_INPBHomeUserTaskResponse *)self userTask];
 
-  v6 = toCopy;
+  v5 = toCopy;
   if (userTask)
   {
     userTask2 = [(_INPBHomeUserTaskResponse *)self userTask];
     PBDataWriterWriteSubmessage();
 
-    v6 = toCopy;
+    v5 = toCopy;
   }
 }
 
@@ -281,6 +281,21 @@ LABEL_12:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)taskOutcomeAsString:(int)string
+{
+  if ((string - 1) >= 0x17)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72869F0[string - 1];
   }
 
   return v4;

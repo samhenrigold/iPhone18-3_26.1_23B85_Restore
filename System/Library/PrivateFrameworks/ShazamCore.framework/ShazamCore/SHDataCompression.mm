@@ -69,13 +69,13 @@
 
 - (BOOL)performOperation:(int)operation withData:(id)data algorithm:(int)algorithm flags:(int)flags error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   self->_stream.src_ptr = [dataCopy bytes];
   self->_stream.src_size = [dataCopy length];
   while (1)
   {
-    self->_stream.dst_ptr = v29;
+    self->_stream.dst_ptr = v28;
     self->_stream.dst_size = 2048;
     v11 = compression_stream_process(&self->_stream, flags);
     v12 = v11;
@@ -111,7 +111,7 @@ LABEL_15:
     v16 = MEMORY[0x277CBEA90];
     v17 = 2048;
 LABEL_11:
-    v19 = [v16 dataWithBytes:v29 length:v17];
+    v19 = [v16 dataWithBytes:v28 length:v17];
     v20 = [next2 processData:v19 error:error];
 
     if ((v20 & 1) == 0)
@@ -130,7 +130,7 @@ LABEL_12:
   if (self->_stream.src_size)
   {
 LABEL_6:
-    if (self->_stream.dst_ptr <= v29)
+    if (self->_stream.dst_ptr <= v28)
     {
       goto LABEL_12;
     }
@@ -144,35 +144,17 @@ LABEL_6:
     v14 = next3;
     next2 = [(SHDataCompression *)self next];
     v16 = MEMORY[0x277CBEA90];
-    v17 = self->_stream.dst_ptr - v29;
+    v17 = self->_stream.dst_ptr - v28;
     goto LABEL_11;
   }
 
-  if (self->_stream.dst_ptr <= v29)
+  if (self->_stream.dst_ptr <= v28 || (-[SHDataCompression next](self, "next"), (v24 = objc_claimAutoreleasedReturnValue()) == 0) || (v25 = v24, -[SHDataCompression next](self, "next"), v26 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x277CBEA90] dataWithBytes:v28 length:self->_stream.dst_ptr - v28], v27 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v26, "processData:error:", v27, error), v27, v26, v25, v21))
   {
-    goto LABEL_20;
-  }
-
-  next4 = [(SHDataCompression *)self next];
-  if (!next4)
-  {
-    goto LABEL_20;
-  }
-
-  v26 = next4;
-  next5 = [(SHDataCompression *)self next];
-  v28 = [MEMORY[0x277CBEA90] dataWithBytes:v29 length:self->_stream.dst_ptr - v29];
-  v21 = [next5 processData:v28 error:error];
-
-  if (v21)
-  {
-LABEL_20:
     LOBYTE(v21) = 1;
   }
 
 LABEL_16:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

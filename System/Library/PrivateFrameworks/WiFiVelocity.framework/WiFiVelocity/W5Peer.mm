@@ -29,7 +29,7 @@
     *&v4->_discoveryFlags = xmmword_27424F1F0;
     if (device)
     {
-      [device operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(device);
     }
 
     else

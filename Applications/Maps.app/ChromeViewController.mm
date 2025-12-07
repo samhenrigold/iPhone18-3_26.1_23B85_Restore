@@ -4930,7 +4930,7 @@ LABEL_20:
     v7 = mapView;
     if (mapView)
     {
-      [mapView _cartographicConfiguration];
+      objc_msgSend__cartographicConfiguration(mapView);
     }
 
     else
@@ -5428,7 +5428,7 @@ LABEL_17:
 
 LABEL_32:
 LABEL_33:
-    [animationCopy setOptions:{objc_msgSend(animationCopy, "options", *&v51, *&v52, *&v53, *&v54) | 0x50006}];
+    [animationCopy setOptions:{objc_msgSend_options(animationCopy, *&v51, *&v52, *&v53, *&v54) | 0x50006}];
     [(ChromeViewController *)self mapInsetsUpdateAnimationDuration];
     [animationCopy setDuration:?];
     isAnimated = [animationCopy isAnimated];

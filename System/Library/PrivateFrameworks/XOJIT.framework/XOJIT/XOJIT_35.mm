@@ -1,282 +1,3 @@
-unint64_t llvm::MDNodeKeyImpl<llvm::DIImportedEntity>::getHashValue(int *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 10);
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v5);
-  v5 = *a1;
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,unsigned int,llvm::MDString *,llvm::Metadata *>(&v5, 0, v6, v7, a1 + 1, a1 + 2, a1 + 3, a1 + 8, v2, a1 + 6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,unsigned int,llvm::MDString *,llvm::Metadata *>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, void *a3, char *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, int *a8, uint64_t *a9, uint64_t *a10)
-{
-  v18 = a2;
-  v15 = llvm::hashing::detail::hash_combine_recursive_helper::combine_data<unsigned long>(a1, &v18, a3, a4, *a5);
-  v19 = v18;
-  v16 = llvm::hashing::detail::hash_combine_recursive_helper::combine_data<unsigned long>(a1, &v19, v15, a4, *a6);
-  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,int,llvm::MDString *,llvm::MDString *>(a1, v19, v16, a4, a7, a8, a9, a10);
-}
-
-BOOL llvm::MDNodeKeyImpl<llvm::DIImportedEntity>::isKeyOf(uint64_t a1, uint64_t a2)
-{
-  if (*a1 == *(a2 + 2) && ((v2 = a2 - 16, v3 = *(a2 - 16), (v3 & 2) != 0) ? (v4 = *(a2 - 32)) : (v4 = (v2 - 8 * ((v3 >> 2) & 0xF))), *(a1 + 8) == *v4 && *(a1 + 16) == v4[1] && *(a1 + 24) == v4[3] && *(a1 + 32) == *(a2 + 16) && ((v3 & 2) != 0 ? (v5 = *(a2 - 32)) : (v5 = v2 - 8 * ((v3 >> 2) & 0xF)), *(a1 + 40) == *(v5 + 16))))
-  {
-    return *(a1 + 48) == *(v5 + 32);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::try_emplace<llvm::detail::DenseSetEmpty&>@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
-{
-  v10 = 0;
-  result = llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::LookupBucketFor<llvm::DIImportedEntity *>(a1, a2, &v10);
-  v7 = v10;
-  if (result)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    result = llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::InsertIntoBucketImpl<llvm::DIImportedEntity *>(a1, a2, a2, v10);
-    v7 = result;
-    *result = *a2;
-    v8 = 1;
-  }
-
-  v9 = *a1 + 8 * *(a1 + 16);
-  *a3 = v7;
-  *(a3 + 8) = v9;
-  *(a3 + 16) = v8;
-  return result;
-}
-
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::LookupBucketFor<llvm::DIImportedEntity *>(uint64_t *a1, uint64_t *a2, void *a3)
-{
-  v4 = *(a1 + 4);
-  if (v4)
-  {
-    v6 = *a1;
-    llvm::MDNodeKeyImpl<llvm::DIImportedEntity>::MDNodeKeyImpl(v17, *a2);
-    HashValue = llvm::MDNodeKeyImpl<llvm::DIImportedEntity>::getHashValue(v17);
-    v8 = v4 - 1;
-    v9 = HashValue & (v4 - 1);
-    v10 = (v6 + 8 * v9);
-    v11 = *v10;
-    if (*a2 == *v10)
-    {
-      result = 1;
-    }
-
-    else
-    {
-      v13 = 0;
-      v14 = 1;
-      result = 1;
-      while (v11 != -4096)
-      {
-        if (v13)
-        {
-          v15 = 0;
-        }
-
-        else
-        {
-          v15 = v11 == -8192;
-        }
-
-        if (v15)
-        {
-          v13 = v10;
-        }
-
-        v16 = v9 + v14++;
-        v9 = v16 & v8;
-        v10 = (v6 + 8 * (v16 & v8));
-        v11 = *v10;
-        if (*a2 == *v10)
-        {
-          goto LABEL_5;
-        }
-      }
-
-      result = 0;
-      if (v13)
-      {
-        v10 = v13;
-      }
-    }
-  }
-
-  else
-  {
-    v10 = 0;
-    result = 0;
-  }
-
-LABEL_5:
-  *a3 = v10;
-  return result;
-}
-
-uint64_t llvm::MDNodeKeyImpl<llvm::DIImportedEntity>::MDNodeKeyImpl(uint64_t result, uint64_t a2)
-{
-  *result = *(a2 + 2);
-  v2 = (a2 - 16);
-  v3 = *(a2 - 16);
-  if ((v3 & 2) != 0)
-  {
-    v4 = *(a2 - 32);
-  }
-
-  else
-  {
-    v4 = &v2[-((v3 >> 2) & 0xF)];
-  }
-
-  *(result + 8) = *v4;
-  if ((*v2 & 2) != 0)
-  {
-    v5 = *(a2 - 32);
-  }
-
-  else
-  {
-    v5 = &v2[-((*v2 >> 2) & 0xFLL)];
-  }
-
-  *(result + 16) = v5[1];
-  if ((*v2 & 2) != 0)
-  {
-    v6 = *(a2 - 32);
-  }
-
-  else
-  {
-    v6 = &v2[-((*v2 >> 2) & 0xFLL)];
-  }
-
-  *(result + 24) = v6[3];
-  *(result + 32) = *(a2 + 16);
-  v7 = *(a2 - 16);
-  if ((v7 & 2) != 0)
-  {
-    v8 = *(a2 - 32);
-  }
-
-  else
-  {
-    v8 = &v2[-((v7 >> 2) & 0xF)];
-  }
-
-  *(result + 40) = v8[2];
-  if ((*v2 & 2) != 0)
-  {
-    v9 = *(a2 - 32);
-  }
-
-  else
-  {
-    v9 = &v2[-((*v2 >> 2) & 0xFLL)];
-  }
-
-  *(result + 48) = v9[4];
-  return result;
-}
-
-void *llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::InsertIntoBucketImpl<llvm::DIImportedEntity *>(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
-{
-  v6 = *(a1 + 8);
-  v7 = *(a1 + 16);
-  if (4 * v6 + 4 >= 3 * v7)
-  {
-    v7 *= 2;
-  }
-
-  else if (v7 + ~v6 - *(a1 + 12) > v7 >> 3)
-  {
-    goto LABEL_3;
-  }
-
-  llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::grow(a1, v7);
-  v9 = 0;
-  llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::LookupBucketFor<llvm::DIImportedEntity *>(a1, a3, &v9);
-  a4 = v9;
-LABEL_3:
-  ++*(a1 + 8);
-  if (*a4 != -4096)
-  {
-    --*(a1 + 12);
-  }
-
-  return a4;
-}
-
-char *llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::grow(uint64_t a1, int a2)
-{
-  v3 = *(a1 + 16);
-  v4 = *a1;
-  v5 = (a2 - 1) | ((a2 - 1) >> 1);
-  v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
-  v7 = ((v6 | (v6 >> 8)) >> 16) | v6 | (v6 >> 8);
-  if ((v7 + 1) > 0x40)
-  {
-    v8 = v7 + 1;
-  }
-
-  else
-  {
-    v8 = 64;
-  }
-
-  *(a1 + 16) = v8;
-  result = operator new(8 * v8, 8uLL);
-  *a1 = result;
-  if (v4)
-  {
-    llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::moveFromOldBuckets(a1, v4, &v4[v3]);
-
-    JUMPOUT(0x277C69E30);
-  }
-
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
-  if (v10)
-  {
-    v11 = 0;
-    v12 = v10 + 0x1FFFFFFFFFFFFFFFLL;
-    v13 = v12 & 0x1FFFFFFFFFFFFFFFLL;
-    v14 = (v12 & 0x1FFFFFFFFFFFFFFFLL) - (v12 & 1) + 2;
-    v15 = vdupq_n_s64(v13);
-    v16 = result + 8;
-    do
-    {
-      v17 = vmovn_s64(vcgeq_u64(v15, vorrq_s8(vdupq_n_s64(v11), xmmword_2750C1210)));
-      if (v17.i8[0])
-      {
-        *(v16 - 1) = -4096;
-      }
-
-      if (v17.i8[4])
-      {
-        *v16 = -4096;
-      }
-
-      v11 += 2;
-      v16 += 2;
-    }
-
-    while (v14 != v11);
-  }
-
-  return result;
-}
-
 uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::moveFromOldBuckets(uint64_t result, uint64_t *a2, uint64_t *a3)
 {
   v5 = result;
@@ -394,11 +115,9 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DIMacro>::getHashValue(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v4);
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<unsigned int,unsigned int,llvm::MDString *,llvm::MDString *>(v4, 0, v4, v5, a1, (a1 + 4), (a1 + 8), (a1 + 16));
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = *MEMORY[0x277D85DE8];
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v3);
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<unsigned int,unsigned int,llvm::MDString *,llvm::MDString *>(v3, 0, v3, v4, a1, (a1 + 4), (a1 + 8), (a1 + 16));
 }
 
 unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<unsigned int,unsigned int,llvm::MDString *,llvm::MDString *>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, _DWORD *a3, char *a4, int *a5, int *a6, uint64_t *a7, uint64_t *a8)
@@ -576,9 +295,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DIMacro *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIMacro>,llvm::detail::DenseSetPair<llvm::DIMacro *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DIMacro *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIMacro>,llvm::detail::DenseSetPair<llvm::DIMacro *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -593,7 +312,7 @@ char *llvm::DenseMap<llvm::DIMacro *,llvm::detail::DenseSetEmpty,llvm::MDNodeInf
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -603,8 +322,8 @@ char *llvm::DenseMap<llvm::DIMacro *,llvm::detail::DenseSetEmpty,llvm::MDNodeInf
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -627,7 +346,7 @@ char *llvm::DenseMap<llvm::DIMacro *,llvm::detail::DenseSetEmpty,llvm::MDNodeInf
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -757,10 +476,10 @@ LABEL_18:
   return result;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>,llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>::try_emplace<llvm::detail::DenseSetEmpty&>@<X0>(uint64_t a1@<X0>, void *a2@<X1>, unint64_t *a3@<X3>, uint64_t a4@<X8>)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>,llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>::try_emplace<llvm::detail::DenseSetEmpty&>@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>, unint64_t *a4@<X3>)
 {
   v11 = 0;
-  result = llvm::DenseMapBase<llvm::DenseMap<llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>,llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>::LookupBucketFor<llvm::DIArgList *>(a1, a2, &v11, a3);
+  result = llvm::DenseMapBase<llvm::DenseMap<llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>,llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>::LookupBucketFor<llvm::DIArgList *>(a1, a2, &v11, a4);
   v8 = v11;
   if (result)
   {
@@ -776,9 +495,9 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIArgList *,llvm::detail::Dense
   }
 
   v10 = *a1 + 8 * *(a1 + 16);
-  *a4 = v8;
-  *(a4 + 8) = v10;
-  *(a4 + 16) = v9;
+  *a3 = v8;
+  *(a3 + 8) = v10;
+  *(a3 + 16) = v9;
   return result;
 }
 
@@ -877,9 +596,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>::grow(uint64_t *a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -894,7 +613,7 @@ char *llvm::DenseMap<llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeI
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -904,8 +623,8 @@ char *llvm::DenseMap<llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeI
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v11 = *(a1 + 16);
+  a1[1] = 0;
+  v11 = *(a1 + 4);
   if (v11)
   {
     v12 = 0;
@@ -928,7 +647,7 @@ char *llvm::DenseMap<llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeI
       }
 
       v12 += 2;
-      v17 += 2;
+      v17 += 16;
     }
 
     while (v15 != v12);
@@ -1000,7 +719,7 @@ double _GLOBAL__sub_I_DebugInfoMetadata_cpp()
   word_2815AC24A = word_2815AC24A & 0xFF9F | 0x20;
   qword_2815AC260 = "Enable adding flow sensitive discriminators";
   unk_2815AC268 = 43;
-  llvm::cl::Option::addArgument(&llvm::EnableFSDiscriminator);
+  llvm::cl::Option::addArgument(&llvm::EnableFSDiscriminator, v1);
   __cxa_atexit(llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>::~opt, &llvm::EnableFSDiscriminator, &dword_274E5C000);
   result = NAN;
   llvm::DebugVariable::DefaultFragment = xmmword_2750C1220;
@@ -1065,46 +784,45 @@ void llvm::cl::opt<anonymous namespace::PassRemarksOpt,true,llvm::cl::parser<std
 uint64_t llvm::cl::opt<anonymous namespace::PassRemarksOpt,true,llvm::cl::parser<std::string>>::handleOccurrence(uint64_t a1, __int16 a2, int a3, int a4, void *a5, size_t a6)
 {
   __p = 0;
+  v15 = 0;
   v16 = 0;
-  v17 = 0;
   v9 = llvm::cl::parser<std::string>::parse(a1 + 144, a1, a3, a4, a5, a6, &__p);
   if ((v9 & 1) == 0)
   {
-    v10 = HIBYTE(v17);
-    if (v17 < 0)
+    v10 = HIBYTE(v16);
+    if (v16 < 0)
     {
-      v10 = v16;
+      v10 = v15;
     }
 
     if (v10)
     {
-      v11 = *(a1 + 128);
       operator new();
     }
 
     *(a1 + 12) = a2;
-    v12 = *(a1 + 176);
-    if (!v12)
+    v11 = *(a1 + 176);
+    if (!v11)
     {
-      v14 = std::__throw_bad_function_call[abi:nn200100]();
-      v24 = "Invalid regular expression '";
-      v25 = 259;
-      v23 = 260;
+      v13 = std::__throw_bad_function_call[abi:nn200100]();
+      v23 = "Invalid regular expression '";
+      v24 = 259;
+      v22 = 260;
       p_p = &__p;
-      llvm::operator+(&v24, &p_p, v26);
-      v20 = "' in -pass-remarks: ";
-      v21 = 259;
-      llvm::operator+(v26, &v20, v27);
-      v19 = 260;
-      v18[0] = &v29;
-      llvm::operator+(v27, v18, v28);
-      llvm::report_fatal_error(v28, 0);
+      llvm::operator+(&v23, &p_p, v25);
+      v19 = "' in -pass-remarks: ";
+      v20 = 259;
+      llvm::operator+(v25, &v19, v26);
+      v18 = 260;
+      v17 = &v28;
+      llvm::operator+(v26, &v17, v27);
+      llvm::report_fatal_error(v27, 0);
     }
 
-    (*(*v12 + 48))(v12, &__p);
+    (*(*v11 + 48))(v11, &__p);
   }
 
-  if (SHIBYTE(v17) < 0)
+  if (SHIBYTE(v16) < 0)
   {
     operator delete(__p);
   }
@@ -1170,64 +888,61 @@ uint64_t llvm::cl::apply<llvm::cl::opt<anonymous namespace::PassRemarksOpt,true,
 
 uint64_t _GLOBAL__sub_I_DiagnosticHandler_cpp()
 {
-  *&v6 = "Enable optimization remarks from passes whose name match the given regular expression";
-  *(&v6 + 1) = 85;
-  v5 = &_MergedGlobals_44;
-  v4 = 2;
-  v0 = llvm::cl::Option::Option(qword_2815AAA10, 0, 0);
+  *&v9 = "Enable optimization remarks from passes whose name match the given regular expression";
+  *(&v9 + 1) = 85;
+  v8 = &_MergedGlobals_44;
+  v7 = 2;
+  v0 = llvm::cl::Option::Option(&qword_2815AAA10, 0, 0);
   qword_2815AAA90 = 0;
   unk_2815AAA98 = &unk_2883F1230;
-  qword_2815AAA10[0] = &unk_2883F1190;
+  qword_2815AAA10 = &unk_2883F1190;
   qword_2815AAAA0 = &unk_2883EA998;
   qword_2815AAAA8 = &unk_2883F1250;
   qword_2815AAAC0 = &qword_2815AAAA8;
   llvm::cl::Option::setArgStr(v0, "pass-remarks", 0xCuLL);
-  llvm::cl::Option::addArgument(qword_2815AAA10);
-  *&v6 = "Enable missed optimization remarks from passes whose name match the given regular expression";
-  *(&v6 + 1) = 92;
-  v5 = &unk_2815AA9F0;
-  v4 = 2;
-  v1 = llvm::cl::Option::Option(qword_2815AAAC8, 0, 0);
+  llvm::cl::Option::addArgument(&qword_2815AAA10, v1);
+  *&v9 = "Enable missed optimization remarks from passes whose name match the given regular expression";
+  *(&v9 + 1) = 92;
+  v8 = &unk_2815AA9F0;
+  v7 = 2;
+  v2 = llvm::cl::Option::Option(&qword_2815AAAC8, 0, 0);
   qword_2815AAB48 = 0;
   unk_2815AAB50 = &unk_2883F1230;
-  qword_2815AAAC8[0] = &unk_2883F1190;
+  qword_2815AAAC8 = &unk_2883F1190;
   qword_2815AAB58 = &unk_2883EA998;
   qword_2815AAB60 = &unk_2883F1250;
   qword_2815AAB78 = &qword_2815AAB60;
-  llvm::cl::Option::setArgStr(v1, "pass-remarks-missed", 0x13uLL);
-  llvm::cl::Option::addArgument(qword_2815AAAC8);
-  *&v6 = "Enable optimization analysis remarks from passes whose name match the given regular expression";
-  *(&v6 + 1) = 94;
-  v5 = &unk_2815AAA00;
-  v4 = 2;
-  v2 = llvm::cl::Option::Option(&qword_2815AAB80, 0, 0);
+  llvm::cl::Option::setArgStr(v2, "pass-remarks-missed", 0x13uLL);
+  llvm::cl::Option::addArgument(&qword_2815AAAC8, v3);
+  *&v9 = "Enable optimization analysis remarks from passes whose name match the given regular expression";
+  *(&v9 + 1) = 94;
+  v8 = &unk_2815AAA00;
+  v7 = 2;
+  v4 = llvm::cl::Option::Option(&qword_2815AAB80, 0, 0);
   qword_2815AAC00 = 0;
   qword_2815AAC08 = &unk_2883F1230;
   qword_2815AAB80 = &unk_2883F1190;
   qword_2815AAC10 = &unk_2883EA998;
   qword_2815AAC18 = &unk_2883F1250;
   qword_2815AAC30 = &qword_2815AAC18;
-  llvm::cl::Option::setArgStr(v2, "pass-remarks-analysis", 0x15uLL);
-  llvm::cl::Option::addArgument(&qword_2815AAB80);
+  llvm::cl::Option::setArgStr(v4, "pass-remarks-analysis", 0x15uLL);
+  llvm::cl::Option::addArgument(&qword_2815AAB80, v5);
 }
 
 uint64_t llvm::DiagnosticInfoDebugMetadataVersion::print(uint64_t a1, uint64_t a2)
 {
   v3 = (*(*a2 + 48))(a2, "ignoring debug info with an invalid version (");
   v4 = (*(*v3 + 104))(v3, *(a1 + 24));
-  v5 = (*(*v4 + 48))(v4, ") in ");
-  v6 = *(a1 + 16);
-  v7 = *(*v5 + 144);
+  v5 = *(*(*(*v4 + 48))(v4, ") in ") + 144);
 
-  return v7();
+  return v5();
 }
 
 uint64_t llvm::DiagnosticInfoIgnoringInvalidDebugMetadata::print(uint64_t a1, uint64_t a2)
 {
-  v3 = *(*(*(*a2 + 48))(a2, "ignoring invalid debug info in ") + 56);
-  v4 = *(a1 + 16) + 160;
+  v2 = *(*(*(*a2 + 48))(a2, "ignoring invalid debug info in ") + 56);
 
-  return v3();
+  return v2();
 }
 
 uint64_t llvm::DiagnosticPrinterRawOStream::operator<<(uint64_t a1, char a2)
@@ -1308,22 +1023,23 @@ uint64_t llvm::DiagnosticPrinterRawOStream::operator<<(uint64_t a1, unint64_t a2
 }
 
 {
-  llvm::write_integer(*(a1 + 8), a2, 0, 0);
-  return a1;
-}
-
-{
   write_unsigned<unsigned long>(*(a1 + 8), a2, 0, 0, 0);
   return a1;
 }
 
 {
+  llvm::write_hex(*(a1 + 8), a2, 3, 0, 0);
+  return a1;
+}
+
+uint64_t llvm::DiagnosticPrinterRawOStream::operator<<(uint64_t a1, int64_t a2)
+{
   llvm::write_integer(*(a1 + 8), a2, 0, 0);
   return a1;
 }
 
 {
-  llvm::write_hex(*(a1 + 8), a2, 3, 0, 0);
+  llvm::write_integer(*(a1 + 8), a2, 0, 0);
   return a1;
 }
 
@@ -1369,7 +1085,7 @@ uint64_t llvm::DiagnosticPrinterRawOStream::operator<<(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t llvm::DominatorTreeBase<llvm::BasicBlock,false>::dominates(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL llvm::DominatorTreeBase<llvm::BasicBlock,false>::dominates(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = 1;
   if (a3 != a2)
@@ -1464,7 +1180,7 @@ LABEL_10:
 
 void llvm::DominatorTreeBase<llvm::BasicBlock,false>::updateDFSNumbers(uint64_t a1)
 {
-  v12[64] = *MEMORY[0x277D85DE8];
+  v11[64] = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     *(a1 + 68) = 0;
@@ -1472,35 +1188,35 @@ void llvm::DominatorTreeBase<llvm::BasicBlock,false>::updateDFSNumbers(uint64_t 
 
   else
   {
-    v10 = v12;
-    v11 = 0x2000000000;
+    v9 = v11;
+    v10 = 0x2000000000;
     v2 = *(a1 + 48);
     if (v2)
     {
-      llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back(&v10, *(a1 + 48), *(v2 + 24));
+      llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back(&v9, *(a1 + 48), *(v2 + 24));
       *(v2 + 72) = 0;
-      v3 = v11;
-      if (v11)
+      v3 = v10;
+      if (v10)
       {
         v4 = 1;
         do
         {
-          v5 = v10 + 16 * v3;
+          v5 = v9 + 16 * v3;
           v7 = *(v5 - 2);
           v6 = *(v5 - 1);
           if (v6 == (*(v7 + 24) + 8 * *(v7 + 32)))
           {
             *(v7 + 76) = v4;
-            LODWORD(v11) = --v3;
+            LODWORD(v10) = --v3;
           }
 
           else
           {
             v8 = *v6;
             *(v5 - 1) = v6 + 1;
-            llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back(&v10, v8, *(v8 + 24));
+            llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back(&v9, v8, *(v8 + 24));
             *(v8 + 72) = v4;
-            v3 = v11;
+            v3 = v10;
           }
 
           ++v4;
@@ -1511,26 +1227,24 @@ void llvm::DominatorTreeBase<llvm::BasicBlock,false>::updateDFSNumbers(uint64_t 
 
       *(a1 + 68) = 0;
       *(a1 + 64) = 1;
-      if (v10 != v12)
+      if (v9 != v11)
       {
-        free(v10);
+        free(v9);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::CalculateFromScratch(uint64_t a1, uint64_t a2)
+void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::CalculateFromScratch(void ***a1, uint64_t a2)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 56);
-  llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>>>,llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>>>::clear((a1 + 24));
-  *(a1 + 8) = 0;
-  *(a1 + 68) = 0;
+  v19[1] = *MEMORY[0x277D85DE8];
+  v4 = a1[7];
+  llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>>>,llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>>>::clear(a1 + 6);
+  *(a1 + 2) = 0;
+  *(a1 + 17) = 0;
   *(a1 + 64) = 0;
-  *(a1 + 48) = 0;
-  *(a1 + 56) = v4;
+  a1[6] = 0;
+  a1[7] = v4;
   if (a2)
   {
     v5 = *(a2 + 16);
@@ -1540,7 +1254,7 @@ void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,
       if (v5 != v6)
       {
         llvm::SmallDenseMap<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts,4u,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts>>::copyFrom(*(a2 + 8), *(a2 + 16));
-        llvm::SmallDenseMap<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts,4u,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts>>::copyFrom(v6 + 296, (v5 + 296));
+        llvm::SmallDenseMap<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts,4u,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts>>::copyFrom((v6 + 296), (v5 + 296));
       }
 
       *(v6 + 592) = *(v5 + 592);
@@ -1553,15 +1267,15 @@ void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,
       v7 = 0;
     }
 
-    v18 = 0;
-    std::vector<llvm::BasicBlock *>::vector[abi:nn200100](__p, &v18, 1uLL);
+    v17 = 0;
+    std::vector<llvm::BasicBlock *>::vector[abi:nn200100](__p, &v17, 1uLL);
+    v13 = 0;
     v14 = 0;
     v15 = 0;
-    v16 = 0;
-    v17 = v7;
-    v18 = v20;
-    v19 = 0x100000000;
-    v10 = *(*(a1 + 56) + 80);
+    v16 = v7;
+    v17 = v19;
+    v18 = 0x100000000;
+    v10 = a1[7][10];
     if (v10)
     {
       v11 = v10 - 24;
@@ -1572,11 +1286,11 @@ void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,
       v11 = 0;
     }
 
-    llvm::SmallVectorTemplateBase<void *,true>::push_back(&v18, v11);
-    llvm::SmallVectorImpl<llvm::orc::JITDylib *>::operator=(a1, &v18);
-    if (v18 != v20)
+    llvm::SmallVectorTemplateBase<void *,true>::push_back(&v17, v11);
+    llvm::SmallVectorImpl<llvm::orc::JITDylib *>::operator=(a1, &v17);
+    if (v17 != v19)
     {
-      free(v18);
+      free(v17);
     }
 
     llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::runDFS<false,BOOL (*)(llvm::BasicBlock*,llvm::BasicBlock*)>(__p, **a1);
@@ -1586,15 +1300,15 @@ void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,
 
   else
   {
-    v18 = 0;
-    std::vector<llvm::BasicBlock *>::vector[abi:nn200100](__p, &v18, 1uLL);
+    v17 = 0;
+    std::vector<llvm::BasicBlock *>::vector[abi:nn200100](__p, &v17, 1uLL);
+    v13 = 0;
     v14 = 0;
     v15 = 0;
     v16 = 0;
-    v17 = 0;
-    v18 = v20;
-    v19 = 0x100000000;
-    v8 = *(*(a1 + 56) + 80);
+    v17 = v19;
+    v18 = 0x100000000;
+    v8 = a1[7][10];
     if (v8)
     {
       v9 = v8 - 24;
@@ -1605,34 +1319,32 @@ void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,
       v9 = 0;
     }
 
-    llvm::SmallVectorTemplateBase<void *,true>::push_back(&v18, v9);
-    llvm::SmallVectorImpl<llvm::orc::JITDylib *>::operator=(a1, &v18);
-    if (v18 != v20)
+    llvm::SmallVectorTemplateBase<void *,true>::push_back(&v17, v9);
+    llvm::SmallVectorImpl<llvm::orc::JITDylib *>::operator=(a1, &v17);
+    if (v17 != v19)
     {
-      free(v18);
+      free(v17);
     }
 
     llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::runDFS<false,BOOL (*)(llvm::BasicBlock*,llvm::BasicBlock*)>(__p, **a1);
     llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::runSemiNCA(__p, a1, 0);
   }
 
-  if (*(a1 + 8))
+  if (*(a1 + 2))
   {
     llvm::DominatorTreeBase<llvm::BasicBlock,false>::createNode(a1, **a1);
   }
 
-  llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::destroyAll(&v14);
-  MEMORY[0x277C69E30](v14, 8);
+  llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::destroyAll(&v13);
+  MEMORY[0x277C69E30](v13, 8);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t llvm::DominatorTree::dominates(llvm::DominatorTree *this, const llvm::Value *a2, const llvm::Instruction *a3)
+BOOL llvm::DominatorTree::dominates(llvm::DominatorTree *this, const llvm::Value *a2, const llvm::Instruction *a3)
 {
   result = 1;
   if (a2 && *(a2 + 16) >= 0x1Cu)
@@ -1685,7 +1397,7 @@ uint64_t llvm::DominatorTree::dominates(llvm::DominatorTree *this, const llvm::V
   return result;
 }
 
-uint64_t llvm::DominatorTree::dominates(llvm::DominatorTree *this, const llvm::Instruction *a2, const llvm::BasicBlock *a3)
+BOOL llvm::DominatorTree::dominates(llvm::DominatorTree *this, const llvm::Instruction *a2, const llvm::BasicBlock *a3)
 {
   v6 = *(a2 + 5);
   v7 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>>>,llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>>>::find(this + 24, a3);
@@ -1720,7 +1432,7 @@ uint64_t llvm::DominatorTree::dominates(llvm::DominatorTree *this, const llvm::I
   }
 }
 
-uint64_t llvm::DominatorTree::dominates(uint64_t a1, uint64_t *a2, uint64_t a3)
+BOOL llvm::DominatorTree::dominates(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v5 = *a2;
   v4 = a2[1];
@@ -1834,7 +1546,7 @@ LABEL_21:
   return 1;
 }
 
-uint64_t llvm::DominatorTree::dominates(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL llvm::DominatorTree::dominates(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = 1;
   if (!a2 || *(a2 + 16) < 0x1Cu)
@@ -1928,7 +1640,7 @@ void llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::
 
 void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::runSemiNCA(uint64_t *a1, uint64_t a2, unsigned int a3)
 {
-  v45[32] = *MEMORY[0x277D85DE8];
+  v44[32] = *MEMORY[0x277D85DE8];
   v5 = *a1;
   v6 = a1[1] - *a1;
   if ((v6 >> 3) >= 2)
@@ -1936,8 +1648,8 @@ void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,
     v7 = 1;
     do
     {
-      v43 = *(v5 + 8 * v7);
-      v8 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), &v43);
+      v42 = *(v5 + 8 * v7);
+      v8 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), &v42);
       v5 = *a1;
       v8[4] = *(*a1 + 8 * *(v8 + 3));
       ++v7;
@@ -1946,19 +1658,19 @@ void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,
     while ((v6 >> 3) != v7);
   }
 
-  v43 = v45;
-  v44 = 0x2000000000;
+  v42 = v44;
+  v43 = 0x2000000000;
   v9 = (v6 >> 3) - 1;
   if (v9 >= 2)
   {
-    v36 = v6 >> 3;
-    v37 = v6;
+    v35 = v6 >> 3;
+    v36 = v6;
     v10 = v6 >> 3;
     do
     {
-      v38 = v9;
-      v41 = *(*a1 + 8 * v9);
-      v11 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), &v41);
+      v37 = v9;
+      v40 = *(*a1 + 8 * v9);
+      v11 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), &v40);
       *(v11 + 4) = *(v11 + 3);
       v12 = *(v11 + 12);
       if (v12)
@@ -1968,38 +1680,38 @@ void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,
         v15 = &v14[v12];
         do
         {
-          if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(a1[3], *(a1 + 10), *v14, &v42))
+          if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(a1[3], *(a1 + 10), *v14, &v41))
           {
             v16 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>>>,llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>>>::find(a2 + 24, *v14);
             if (*(a2 + 24) + 16 * *(a2 + 40) == v16 || (v17 = *(v16 + 8)) == 0 || *(v17 + 16) >= a3)
             {
-              v42 = *v14;
-              v18 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), &v42);
+              v41 = *v14;
+              v18 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), &v41);
               if (*(v18 + 3) >= v10)
               {
                 v20 = v18 + 1;
                 do
                 {
-                  v21 = v44;
-                  if (v44 >= HIDWORD(v44))
+                  v21 = v43;
+                  if (v43 >= HIDWORD(v43))
                   {
-                    llvm::SmallVectorBase<unsigned int>::grow_pod(&v43, v45, v44 + 1, 8);
-                    v21 = v44;
+                    llvm::SmallVectorBase<unsigned int>::grow_pod(&v42, v44, v43 + 1, 8);
+                    v21 = v43;
                   }
 
-                  *(v43 + v21) = v20;
-                  LODWORD(v44) = v44 + 1;
+                  *(v42 + v21) = v20;
+                  LODWORD(v43) = v43 + 1;
                   v22 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), (*a1 + 8 * *(v20 + 1)));
                   v20 = v22 + 1;
                 }
 
                 while (*(v22 + 3) >= v10);
                 v23 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), v22 + 3) + 1;
-                v24 = v44;
+                v24 = v43;
                 do
                 {
-                  v25 = *(v43 + v24 - 1);
-                  LODWORD(v44) = v24 - 1;
+                  v25 = *(v42 + v24 - 1);
+                  LODWORD(v43) = v24 - 1;
                   *(v25 + 4) = *(v20 + 1);
                   v19 = (v25 + 16);
                   v26 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), (v25 + 16));
@@ -2013,11 +1725,11 @@ void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,
                     *v19 = v20[2];
                   }
 
-                  v24 = v44;
+                  v24 = v43;
                   v20 = v25;
                 }
 
-                while (v44);
+                while (v43);
               }
 
               else
@@ -2026,13 +1738,13 @@ void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,
               }
 
               v27 = *v19;
-              v40 = v27;
-              v42 = 0;
-              v28 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(a1[3], *(a1 + 10), v27, &v42);
-              v29 = v42;
+              v39 = v27;
+              v41 = 0;
+              v28 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(a1[3], *(a1 + 10), v27, &v41);
+              v29 = v41;
               if ((v28 & 1) == 0)
               {
-                v29 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::InsertIntoBucketImpl<llvm::BasicBlock *>((a1 + 3), &v40, v42);
+                v29 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::InsertIntoBucketImpl<llvm::BasicBlock *>((a1 + 3), &v39, v41);
                 *v29 = v27;
                 *(v29 + 5) = 0u;
                 *(v29 + 1) = 0u;
@@ -2056,23 +1768,23 @@ void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,
         while (v14 != v15);
       }
 
-      LODWORD(v10) = v38;
-      v9 = v38 - 1;
+      LODWORD(v10) = v37;
+      v9 = v37 - 1;
     }
 
-    while (((v38 - 1) & 0xFFFFFFFELL) != 0);
-    if (v36 >= 3)
+    while (((v37 - 1) & 0xFFFFFFFELL) != 0);
+    if (v35 >= 3)
     {
       v31 = 2;
       do
       {
-        v42 = *(*a1 + 8 * v31);
-        v32 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), &v42);
+        v41 = *(*a1 + 8 * v31);
+        v32 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), &v41);
         v33 = *(llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), (*a1 + 8 * *(v32 + 4))) + 2);
-        for (i = v32[4]; ; i = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), &v41)[4])
+        for (i = v32[4]; ; i = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), &v40)[4])
         {
-          v41 = i;
-          if (*(llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), &v41) + 2) <= v33)
+          v40 = i;
+          if (*(llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct((a1 + 3), &v40) + 2) <= v33)
           {
             break;
           }
@@ -2082,16 +1794,14 @@ void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,
         ++v31;
       }
 
-      while (v31 != (v37 >> 3));
+      while (v31 != (v36 >> 3));
     }
   }
 
-  if (v43 != v45)
+  if (v42 != v44)
   {
-    free(v43);
+    free(v42);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void *llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::attachNewSubtree(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2105,11 +1815,11 @@ void *llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock
     v9 = 1;
     do
     {
-      v12 = *(*a1 + 8 * v9);
-      result = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>>>,llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>>>::FindAndConstruct((a2 + 24), &v12);
+      v13 = *(*a1 + 8 * v9);
+      result = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>>>,llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,std::unique_ptr<llvm::DomTreeNodeBase<llvm::BasicBlock>>>>::FindAndConstruct((a2 + 24), &v13);
       if (!result[1])
       {
-        v10 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::find(a1 + 24, v12);
+        v10 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::find(a1 + 24, v13);
         if (*(a1 + 24) + 72 * *(a1 + 40) == v10)
         {
           v11 = 0;
@@ -2120,8 +1830,8 @@ void *llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock
           v11 = *(v10 + 32);
         }
 
-        llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::getNodeForBlock(a1, v11, a2);
-        llvm::DominatorTreeBase<llvm::BasicBlock,false>::createChild(a2, v12);
+        NodeForBlock = llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::getNodeForBlock(a1, v11, a2);
+        llvm::DominatorTreeBase<llvm::BasicBlock,false>::createChild(a2, v13, NodeForBlock);
       }
 
       ++v9;
@@ -2133,13 +1843,13 @@ void *llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock
   return result;
 }
 
-void llvm::SmallDenseMap<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts,4u,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts>>::copyFrom(uint64_t a1, int *a2)
+void llvm::SmallDenseMap<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts,4u,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts>>::copyFrom(int *a1, int *a2)
 {
   llvm::DenseMapBase<llvm::SmallDenseMap<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts,4u,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts>>,llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,false>::DeletesInserts>>::destroyAll(a1);
   v4 = *a1;
   if ((*a1 & 1) == 0)
   {
-    MEMORY[0x277C69E30](*(a1 + 8), 8);
+    MEMORY[0x277C69E30](*(a1 + 1), 8);
     v4 = *a1;
   }
 
@@ -2159,8 +1869,8 @@ void llvm::SmallDenseMap<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,f
       v7 = a2[4];
     }
 
-    *(a1 + 8) = operator new(8 * (v7 + 8 * v7), 8uLL);
-    *(a1 + 16) = v7;
+    *(a1 + 1) = operator new(8 * (v7 + 8 * v7), 8uLL);
+    *(a1 + 2) = v7;
     v5 = *a2;
     v6 = *a1 & 1;
   }
@@ -2168,14 +1878,14 @@ void llvm::SmallDenseMap<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,f
   v8 = 0;
   v9 = v6 | v5 & 0xFFFFFFFE;
   *a1 = v9;
-  *(a1 + 4) = a2[1];
-  v10 = (a1 + 8);
+  a1[1] = a2[1];
+  v10 = (a1 + 2);
   if (v9)
   {
     goto LABEL_12;
   }
 
-  while (v8 < *(a1 + 16))
+  while (v8 < a1[4])
   {
     v11 = *v10;
     while (1)
@@ -2190,12 +1900,12 @@ void llvm::SmallDenseMap<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,f
         v12 = *(a2 + 1);
       }
 
-      *(v11 + 72 * v8) = *&v12[18 * v8];
+      *&v11[18 * v8] = *&v12[18 * v8];
       v13 = *a1;
       if (*a1)
       {
         v15 = v10[9 * v8] | 0x1000;
-        v14 = a1 + 8;
+        v14 = a1 + 2;
       }
 
       else
@@ -2208,7 +1918,7 @@ void llvm::SmallDenseMap<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,f
       {
         v16 = 0;
         v17 = 0;
-        v18 = v14 + 72 * v8 + 8;
+        v18 = &v14[18 * v8 + 2];
         v19 = *(a2 + 1);
         if (*a2)
         {
@@ -2243,7 +1953,7 @@ void llvm::SmallDenseMap<llvm::BasicBlock *,llvm::GraphDiff<llvm::BasicBlock *,f
       }
 
 LABEL_12:
-      v11 = a1 + 8;
+      v11 = a1 + 2;
       if (v8 >= 4)
       {
         return;
@@ -2254,53 +1964,53 @@ LABEL_12:
 
 void llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::runDFS<false,BOOL (*)(llvm::BasicBlock*,llvm::BasicBlock*)>(uint64_t a1, void *a2)
 {
-  v25[64] = *MEMORY[0x277D85DE8];
-  v18 = a2;
+  v24[64] = *MEMORY[0x277D85DE8];
+  v17 = a2;
   __src = a2;
-  v23 = v25;
-  v24 = 0x4000000000;
-  llvm::SmallVectorImpl<char const*>::append<char const* const*,void>(&v23, &__src, &v21);
+  v22 = v24;
+  v23 = 0x4000000000;
+  llvm::SmallVectorImpl<char const*>::append<char const* const*,void>(&v22, &__src, &v20);
   if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(*(a1 + 24), *(a1 + 40), a2, &__src))
   {
-    *(llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct(a1 + 24, &v18) + 3) = 0;
+    *(llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct(a1 + 24, &v17) + 3) = 0;
   }
 
-  v4 = v24;
-  if (v24)
+  v4 = v23;
+  if (v23)
   {
     v5 = 0;
     do
     {
-      v6 = *(v23 + v4 - 1);
-      LODWORD(v24) = v4 - 1;
-      v17 = v6;
-      v7 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct(a1 + 24, &v17);
+      v6 = *(v22 + v4 - 1);
+      LODWORD(v23) = v4 - 1;
+      v16 = v6;
+      v7 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct(a1 + 24, &v16);
       if (!*(v7 + 2))
       {
         *(v7 + 4) = ++v5;
         *(v7 + 2) = v5;
-        v7[3] = v17;
-        std::vector<llvm::jitlink::Symbol *>::push_back[abi:nn200100](a1, &v17);
-        llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::getChildren<false>(&__src, v17, *(a1 + 48));
+        v7[3] = v16;
+        std::vector<llvm::jitlink::Symbol *>::push_back[abi:nn200100](a1, &v16);
+        llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::getChildren<false>(&__src, v16, *(a1 + 48));
         v8 = __src;
-        if (v21)
+        if (v20)
         {
-          v9 = 8 * v21;
+          v9 = 8 * v20;
           while (1)
           {
             v10 = *v8;
-            v16 = v10;
-            v19 = 0;
-            v11 = !llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(*(a1 + 24), *(a1 + 40), v10, &v19) || v19 == *(a1 + 24) + 72 * *(a1 + 40);
-            if (v11 || !*(v19 + 8))
+            v15 = v10;
+            v18 = 0;
+            v11 = !llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(*(a1 + 24), *(a1 + 40), v10, &v18) || v18 == *(a1 + 24) + 72 * *(a1 + 40);
+            if (v11 || !*(v18 + 8))
             {
               break;
             }
 
-            v12 = v17;
-            if (v10 != v17)
+            v12 = v16;
+            if (v10 != v16)
             {
-              v13 = (v19 + 40);
+              v13 = (v18 + 40);
 LABEL_16:
               llvm::SmallVectorTemplateBase<void *,true>::push_back(v13, v12);
             }
@@ -2314,33 +2024,31 @@ LABEL_16:
             }
           }
 
-          v14 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct(a1 + 24, &v16);
-          llvm::SmallVectorTemplateBase<void *,true>::push_back(&v23, v10);
+          v14 = llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>,llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::InfoRec>>::FindAndConstruct(a1 + 24, &v15);
+          llvm::SmallVectorTemplateBase<void *,true>::push_back(&v22, v10);
           *(v14 + 3) = v5;
-          v12 = v17;
+          v12 = v16;
           v13 = (v14 + 5);
           goto LABEL_16;
         }
 
 LABEL_19:
-        if (v8 != &v22)
+        if (v8 != &v21)
         {
           free(v8);
         }
       }
 
-      v4 = v24;
+      v4 = v23;
     }
 
-    while (v24);
+    while (v23);
   }
 
-  if (v23 != v25)
+  if (v22 != v24)
   {
-    free(v23);
+    free(v22);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 char *llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::getChildren<false>(void **a1, uint64_t a2, uint64_t a3)
@@ -2590,9 +2298,9 @@ uint64_t llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBl
       v9 = *(v8 + 32);
     }
 
-    llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::getNodeForBlock(a1, v9, a3);
+    NodeForBlock = llvm::DomTreeBuilder::SemiNCAInfo<llvm::DominatorTreeBase<llvm::BasicBlock,false>>::getNodeForBlock(a1, v9, a3);
 
-    llvm::DominatorTreeBase<llvm::BasicBlock,false>::createChild(a3, a2);
+    llvm::DominatorTreeBase<llvm::BasicBlock,false>::createChild(a3, a2, NodeForBlock);
   }
 
   return result;
@@ -2612,17 +2320,17 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::BasicBlock *,llvm::DomTreeBuild
   }
 }
 
-void *std::vector<llvm::BasicBlock *>::vector[abi:nn200100](void *result, uint64_t a2, unint64_t a3)
+uint64_t *std::vector<llvm::BasicBlock *>::vector[abi:nn200100](uint64_t *a1, uint64_t *a2, unint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
-    std::vector<llvm::jitlink::Block *>::__vallocate[abi:nn200100](result, a3);
+    std::vector<llvm::jitlink::Block *>::__vallocate[abi:nn200100](a1, a3);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t _GLOBAL__sub_I_Dominators_cpp()
@@ -2640,7 +2348,7 @@ uint64_t _GLOBAL__sub_I_Dominators_cpp()
   word_2815AAC4A = word_2815AAC4A & 0xFF9F | 0x20;
   qword_2815AAC60 = "Verify dominator info (time consuming)";
   unk_2815AAC68 = 38;
-  llvm::cl::Option::addArgument(&qword_2815AAC40);
+  llvm::cl::Option::addArgument(&qword_2815AAC40, v1);
 
   return __cxa_atexit(llvm::cl::opt<BOOL,true,llvm::cl::parser<BOOL>>::~opt, &qword_2815AAC40, &dword_274E5C000);
 }
@@ -2790,233 +2498,231 @@ uint64_t llvm::classifyEHPersonality(uint64_t this, const llvm::Value *a2)
 
 void llvm::colorEHFunclets(llvm *this@<X0>, uint64_t a2@<X8>)
 {
-  v47[32] = *MEMORY[0x277D85DE8];
-  v45 = v47;
-  v46 = 0x1000000000;
-  v4 = *(this + 10);
-  if (v4)
+  v45[32] = *MEMORY[0x277D85DE8];
+  v43 = v45;
+  v44 = 0x1000000000;
+  v3 = *(this + 10);
+  if (v3)
   {
-    v5 = v4 - 24;
+    v4 = v3 - 24;
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
-  llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back(&v45, v5, v5);
-  v6 = v46;
-  if (v46)
+  llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back(&v43, v4, v4);
+  v5 = v44;
+  if (v44)
   {
     while (1)
     {
-      v7 = v45 + 16 * v6;
-      v9 = *(v7 - 2);
-      v8 = *(v7 - 1);
-      LODWORD(v46) = v6 - 1;
-      for (i = *(v9 + 48); ; i = *(i + 8))
+      v6 = v43 + 16 * v5;
+      v8 = *(v6 - 2);
+      v7 = *(v6 - 1);
+      LODWORD(v44) = v5 - 1;
+      for (i = *(v8 + 48); ; i = *(i + 8))
       {
-        v11 = i - 24;
+        v10 = i - 24;
         if (!i)
         {
-          v11 = 0;
+          v10 = 0;
         }
 
-        if (*(v11 + 16) != 83)
+        if (*(v10 + 16) != 83)
         {
           break;
         }
       }
 
-      v12 = *(i - 8) - 38;
-      v13 = v12 > 0x38;
-      v14 = (1 << v12) & 0x100060000000001;
-      v15 = v13 || v14 == 0;
-      v16 = v15 ? v8 : v9;
-      v44 = 0;
-      v17 = *(a2 + 16);
-      v18 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>,llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::LookupBucketFor<llvm::jitlink::Block *>(*a2, v17, v9, &v44);
-      v19 = v44;
-      if ((v18 & 1) == 0)
+      v11 = *(i - 8) - 38;
+      v12 = v11 > 0x38;
+      v13 = (1 << v11) & 0x100060000000001;
+      v14 = v12 || v13 == 0;
+      v15 = v14 ? v7 : v8;
+      v42 = 0;
+      v16 = *(a2 + 16);
+      v17 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>,llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::LookupBucketFor<llvm::jitlink::Block *>(*a2, v16, v8, &v42);
+      v18 = v42;
+      if ((v17 & 1) == 0)
       {
         break;
       }
 
-      v21 = v44 + 1;
-      v20 = v44[1];
-      if ((v20 & 4) != 0)
+      v20 = v42 + 1;
+      v19 = v42[1];
+      if ((v19 & 4) != 0)
       {
-        v22 = 0;
-        v23 = *(v20 & 0xFFFFFFFFFFFFFFF8);
-        v24 = &v23[*((v20 & 0xFFFFFFFFFFFFFFF8) + 8)];
+        v21 = 0;
+        v22 = *(v19 & 0xFFFFFFFFFFFFFFF8);
+        v23 = &v22[*((v19 & 0xFFFFFFFFFFFFFFF8) + 8)];
         goto LABEL_25;
       }
 
 LABEL_24:
-      v24 = &v21[v20 > 7];
-      v22 = 1;
-      v23 = v21;
+      v23 = &v20[v19 > 7];
+      v21 = 1;
+      v22 = v20;
 LABEL_25:
-      if (v23 != v24)
+      if (v22 != v23)
       {
-        while (*v23 != v16)
+        while (*v22 != v15)
         {
-          if (++v23 == v24)
+          if (++v22 == v23)
           {
-            v23 = v24;
+            v22 = v23;
             break;
           }
         }
       }
 
-      if (v22)
+      if (v21)
       {
-        v26 = &v21[v20 > 7];
+        v25 = &v20[v19 > 7];
       }
 
       else
       {
-        v26 = *(v20 & 0xFFFFFFFFFFFFFFF8) + 8 * *((v20 & 0xFFFFFFFFFFFFFFF8) + 8);
+        v25 = *(v19 & 0xFFFFFFFFFFFFFFF8) + 8 * *((v19 & 0xFFFFFFFFFFFFFFF8) + 8);
       }
 
-      if (v23 != v26)
+      if (v22 != v25)
       {
         goto LABEL_58;
       }
 
-      if (v20 > 7)
+      if (v19 > 7)
       {
-        if (v22)
+        if (v21)
         {
           operator new();
         }
 
-        llvm::SmallVectorTemplateBase<void *,true>::push_back((v20 & 0xFFFFFFFFFFFFFFF8), v16);
+        llvm::SmallVectorTemplateBase<void *,true>::push_back((v19 & 0xFFFFFFFFFFFFFFF8), v15);
       }
 
       else
       {
-        *v21 = v16 & 0xFFFFFFFFFFFFFFFBLL;
+        *v20 = v15 & 0xFFFFFFFFFFFFFFFBLL;
       }
 
-      v27 = *(v9 + 40);
-      v28 = (v27 - 24);
-      if (v27)
+      v26 = *(v8 + 40);
+      v27 = (v26 - 24);
+      if (v26)
       {
-        v29 = v27 - 24;
-      }
-
-      else
-      {
-        v29 = 0;
-      }
-
-      v30 = *(v29 + 16);
-      if ((v30 - 40) >= 0xFFFFFFF5)
-      {
-        v31 = v27 - 24;
+        v28 = v26 - 24;
       }
 
       else
       {
-        v31 = 0;
+        v28 = 0;
       }
 
-      if (*(v31 + 16) == 37 && (v30 - 40) >= 0xFFFFFFF5)
+      v29 = *(v28 + 16);
+      if ((v29 - 40) >= 0xFFFFFFF5)
       {
-        v33 = *(*(v27 - 88) - 32);
-        v34 = *(v33 + 20);
-        if ((v34 & 0x40000000) != 0)
+        v30 = v26 - 24;
+      }
+
+      else
+      {
+        v30 = 0;
+      }
+
+      if (*(v30 + 16) == 37 && (v29 - 40) >= 0xFFFFFFF5)
+      {
+        v32 = *(*(v26 - 88) - 32);
+        v33 = *(v32 + 20);
+        if ((v33 & 0x40000000) != 0)
         {
-          v35 = *(v33 - 8);
+          v34 = *(v32 - 8);
         }
 
         else
         {
-          v35 = (v33 - 32 * (v34 & 0x7FFFFFF));
+          v34 = (v32 - 32 * (v33 & 0x7FFFFFF));
         }
 
-        v36 = *v35;
-        v16 = v5;
-        if (*(v36 + 16) != 20)
+        v35 = *v34;
+        v15 = v4;
+        if (*(v35 + 16) != 20)
         {
-          v16 = *(v36 + 40);
+          v15 = *(v35 + 40);
         }
 
 LABEL_55:
-        NumSuccessors = llvm::Instruction::getNumSuccessors(v28);
+        NumSuccessors = llvm::Instruction::getNumSuccessors(v27);
         if (NumSuccessors)
         {
-          v38 = NumSuccessors;
-          for (j = 0; j != v38; ++j)
+          v37 = NumSuccessors;
+          for (j = 0; j != v37; ++j)
           {
-            Successor = llvm::Instruction::getSuccessor(v28, j);
-            llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back(&v45, Successor, v16);
+            Successor = llvm::Instruction::getSuccessor(v27, j);
+            llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back(&v43, Successor, v15);
           }
         }
 
         goto LABEL_58;
       }
 
-      if ((v30 - 29) <= 0xA)
+      if ((v29 - 29) <= 0xA)
       {
         goto LABEL_55;
       }
 
 LABEL_58:
-      v6 = v46;
-      if (!v46)
+      v5 = v44;
+      if (!v44)
       {
         goto LABEL_63;
       }
     }
 
-    v25 = *(a2 + 8);
-    if (4 * v25 + 4 >= 3 * v17)
+    v24 = *(a2 + 8);
+    if (4 * v24 + 4 >= 3 * v16)
     {
-      v41 = 2 * v17;
-      v42 = a2;
+      v40 = 2 * v16;
+      v41 = a2;
     }
 
     else
     {
-      if (v17 + ~v25 - *(a2 + 12) > v17 >> 3)
+      if (v16 + ~v24 - *(a2 + 12) > v16 >> 3)
       {
 LABEL_21:
         ++*(a2 + 8);
-        if (*v19 != -4096)
+        if (*v18 != -4096)
         {
           --*(a2 + 12);
         }
 
-        v20 = 0;
-        *v19 = v9;
-        v19[1] = 0;
-        v21 = (v19 + 1);
+        v19 = 0;
+        *v18 = v8;
+        v18[1] = 0;
+        v20 = (v18 + 1);
         goto LABEL_24;
       }
 
-      v42 = a2;
-      v41 = v17;
+      v41 = a2;
+      v40 = v16;
     }
 
-    llvm::DenseMap<llvm::BasicBlock *,llvm::TinyPtrVector<llvm::BasicBlock *>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::TinyPtrVector<llvm::BasicBlock *>>>::grow(v42, v41);
-    v44 = 0;
-    llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>,llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::LookupBucketFor<llvm::jitlink::Block *>(*a2, *(a2 + 16), v9, &v44);
-    v19 = v44;
+    llvm::DenseMap<llvm::BasicBlock *,llvm::TinyPtrVector<llvm::BasicBlock *>,llvm::DenseMapInfo<llvm::BasicBlock *,void>,llvm::detail::DenseMapPair<llvm::BasicBlock *,llvm::TinyPtrVector<llvm::BasicBlock *>>>::grow(v41, v40);
+    v42 = 0;
+    llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>,llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::LookupBucketFor<llvm::jitlink::Block *>(*a2, *(a2 + 16), v8, &v42);
+    v18 = v42;
     goto LABEL_21;
   }
 
 LABEL_63:
-  if (v45 != v47)
+  if (v43 != v45)
   {
-    free(v45);
+    free(v43);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t *llvm::TinyPtrVector<llvm::BasicBlock *>::~TinyPtrVector(uint64_t *a1)
@@ -3085,7 +2791,7 @@ char *llvm::DenseMap<llvm::BasicBlock *,llvm::TinyPtrVector<llvm::BasicBlock *>,
         }
 
         v11 += 2;
-        v16 += 4;
+        v16 += 32;
       }
 
       while (v14 != v11);
@@ -3144,7 +2850,7 @@ char *llvm::DenseMap<llvm::BasicBlock *,llvm::TinyPtrVector<llvm::BasicBlock *>,
       }
 
       v23 += 2;
-      v28 += 4;
+      v28 += 32;
     }
 
     while (v26 != v23);
@@ -3339,12 +3045,12 @@ LABEL_8:
   return std::optional<llvm::StringRef>::operator=[abi:nn200100]<char const(&)[14],void>(v3, v2);
 }
 
-void llvm::SymbolTableListTraits<llvm::BasicBlock>::transferNodesFromList(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void llvm::SymbolTableListTraits<llvm::BasicBlock>::transferNodesFromList(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  if (a1 != a2)
+  if (result != a2)
   {
-    v6 = a1 - 72;
-    v7 = *(a1 + 32);
+    v6 = result - 72;
+    v7 = *(result + 32);
     v8 = *(a2 + 32);
     if (v7 == v8)
     {
@@ -3433,7 +3139,7 @@ uint64_t llvm::Argument::hasPassPointeeByValueCopyAttr(llvm::Argument *this)
   return 1;
 }
 
-unint64_t llvm::Argument::getPassPointeeByValueCopySize(llvm::Argument *this, const llvm::DataLayout *a2)
+uint64_t llvm::Argument::getPassPointeeByValueCopySize(llvm::Argument *this, const llvm::DataLayout *a2)
 {
   v3 = *(*(this + 3) + 112);
   if (v3 && (v4 = *(this + 8) + 2, v4 < *(v3 + 8)))
@@ -3534,7 +3240,7 @@ uint64_t llvm::iplist_impl<llvm::simple_ilist<llvm::Function>,llvm::SymbolTableL
   return v2;
 }
 
-uint64_t llvm::Function::Function(uint64_t a1, uint64_t a2, int a3, llvm::Type *a4, const llvm::Twine *a5, uint64_t a6)
+uint64_t llvm::Function::Function(uint64_t a1, uint64_t a2, uint64_t a3, llvm::Type *a4, const char **a5, uint64_t a6)
 {
   v10 = *(a1 + 20);
   if ((v10 & 0x40000000) != 0)
@@ -3612,14 +3318,14 @@ uint64_t llvm::Function::Function(uint64_t a1, uint64_t a2, int a3, llvm::Type *
   return a1;
 }
 
-uint64_t *llvm::Intrinsic::getAttributes(uint64_t *a1, int a2)
+uint64_t *llvm::Intrinsic::getAttributes(llvm::LLVMContext *a1, int a2)
 {
   v3 = 0;
-  v471[25] = *MEMORY[0x277D85DE8];
-  v4 = &v457;
+  v470[25] = *MEMORY[0x277D85DE8];
+  v4 = &v456;
   do
   {
-    v5 = &v456[v3];
+    v5 = &v455[v3];
     *v5 = 0;
     *(v5 + 1) = 0;
     v3 += 4;
@@ -7937,7 +7643,7 @@ uint64_t *llvm::Intrinsic::getAttributes(uint64_t *a1, int a2)
       case 11576:
         v8 = 1;
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(a1, 1);
-        v456[0] = -1;
+        v455[0] = -1;
         break;
       case 3:
       case 174:
@@ -8572,8 +8278,8 @@ uint64_t *llvm::Intrinsic::getAttributes(uint64_t *a1, int a2)
       case 11647:
       case 11655:
         v439 = getIntrinsicArgAttributeSet(a1, 1);
-        v456[0] = 1;
-        v457 = v439;
+        v455[0] = 1;
+        v456 = v439;
         v148 = a1;
         v149 = 3;
         goto LABEL_427;
@@ -11516,8 +11222,8 @@ uint64_t *llvm::Intrinsic::getAttributes(uint64_t *a1, int a2)
         v8 = 2;
         IntrinsicArgAttributeSet = getIntrinsicArgAttributeSet(a1, 2);
 LABEL_370:
-        v456[0] = 2;
-        v457 = IntrinsicArgAttributeSet;
+        v455[0] = 2;
+        v456 = IntrinsicArgAttributeSet;
         v62 = a1;
         v63 = 4;
         goto LABEL_410;
@@ -11526,7 +11232,7 @@ LABEL_370:
       case 120:
       case 128:
       case 129:
-        goto LABEL_435;
+        return result;
       case 32:
         v220 = a1;
         v221 = 3;
@@ -11537,8 +11243,8 @@ LABEL_370:
         goto LABEL_247;
       case 37:
         v77 = getIntrinsicArgAttributeSet(a1, 4);
-        v456[0] = 2;
-        v457 = v77;
+        v455[0] = 2;
+        v456 = v77;
         v8 = 3;
         v78 = getIntrinsicArgAttributeSet(a1, 3);
         goto LABEL_243;
@@ -11834,14 +11540,14 @@ LABEL_425:
         goto LABEL_55;
       case 125:
         v11 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v11;
+        v455[0] = 1;
+        v456 = v11;
         v12 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v12;
+        v457 = 2;
+        v458 = v12;
         v13 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 4;
-        v461 = v13;
+        v459 = 4;
+        v460 = v13;
         IntrinsicFnAttributeSet = getIntrinsicArgAttributeSet(a1, 0);
         v15 = 5;
         goto LABEL_363;
@@ -11856,8 +11562,8 @@ LABEL_425:
         v51 = 5;
 LABEL_150:
         v257 = getIntrinsicArgAttributeSet(v50, v51);
-        v456[0] = 1;
-        v457 = v257;
+        v455[0] = 1;
+        v456 = v257;
         v8 = 2;
         goto LABEL_266;
       case 138:
@@ -11877,15 +11583,15 @@ LABEL_150:
       case 4085:
         v437 = getIntrinsicArgAttributeSet(a1, 5);
         v8 = 2;
-        v456[0] = 2;
-        v457 = v437;
+        v455[0] = 2;
+        v456 = v437;
         v62 = a1;
         v63 = 14;
         goto LABEL_410;
       case 139:
         v32 = getIntrinsicArgAttributeSet(a1, 1);
-        v456[0] = 0;
-        v457 = v32;
+        v455[0] = 0;
+        v456 = v32;
         v25 = a1;
         v26 = 15;
         goto LABEL_419;
@@ -11925,12 +11631,12 @@ LABEL_150:
         goto LABEL_432;
       case 152:
         v357 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 2;
-        v457 = v357;
+        v455[0] = 2;
+        v456 = v357;
         v358 = getIntrinsicArgAttributeSet(a1, 5);
         v8 = 3;
-        v458 = 3;
-        v459 = v358;
+        v457 = 3;
+        v458 = v358;
         v316 = a1;
         v317 = 10;
         goto LABEL_421;
@@ -11954,35 +11660,35 @@ LABEL_150:
         goto LABEL_192;
       case 159:
         v332 = getIntrinsicArgAttributeSet(a1, 7);
-        v456[0] = 1;
-        v457 = v332;
+        v455[0] = 1;
+        v456 = v332;
         v8 = 4;
         v333 = getIntrinsicArgAttributeSet(a1, 4);
-        v458 = 2;
-        v459 = v333;
+        v457 = 2;
+        v458 = v333;
         v334 = getIntrinsicArgAttributeSet(a1, 4);
-        v460 = 3;
-        v461 = v334;
+        v459 = 3;
+        v460 = v334;
         v30 = a1;
         v31 = 16;
         goto LABEL_413;
       case 165:
         v429 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 2;
-        v457 = v429;
+        v455[0] = 2;
+        v456 = v429;
         v231 = getIntrinsicArgAttributeSet(a1, 5);
         v8 = 3;
-        v458 = 3;
+        v457 = 3;
         goto LABEL_372;
       case 166:
       case 170:
       case 171:
         v453 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v453;
+        v455[0] = 1;
+        v456 = v453;
         v454 = getIntrinsicArgAttributeSet(a1, 5);
-        v458 = 2;
-        v459 = v454;
+        v457 = 2;
+        v458 = v454;
         v182 = a1;
         v183 = 16;
         goto LABEL_392;
@@ -12023,11 +11729,11 @@ LABEL_150:
         goto LABEL_409;
       case 188:
         v420 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v420;
+        v455[0] = 1;
+        v456 = v420;
         v421 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v421;
+        v457 = 2;
+        v458 = v421;
         v182 = a1;
         v183 = 2;
         goto LABEL_392;
@@ -12061,181 +11767,181 @@ LABEL_150:
       case 4082:
       case 4083:
         v451 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 2;
-        v457 = v451;
+        v455[0] = 2;
+        v456 = v451;
         v452 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 3;
-        v458 = 3;
-        v459 = v452;
+        v457 = 3;
+        v458 = v452;
         v316 = a1;
         v317 = 14;
         goto LABEL_421;
       case 191:
         v8 = 5;
         v266 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v266;
+        v455[0] = 1;
+        v456 = v266;
         v267 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 3;
-        v459 = v267;
+        v457 = 3;
+        v458 = v267;
         v268 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 4;
-        v461 = v268;
+        v459 = 4;
+        v460 = v268;
         v269 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 5;
-        v463 = v269;
+        v461 = 5;
+        v462 = v269;
         v46 = a1;
         v47 = 2;
         goto LABEL_384;
       case 192:
         v431 = getIntrinsicArgAttributeSet(a1, 7);
-        v456[0] = 2;
-        v457 = v431;
+        v455[0] = 2;
+        v456 = v431;
         v432 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 4;
-        v459 = v432;
+        v457 = 4;
+        v458 = v432;
         v433 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 5;
-        v460 = 5;
-        v461 = v433;
+        v459 = 5;
+        v460 = v433;
         v434 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 6;
-        v463 = v434;
+        v461 = 6;
+        v462 = v434;
         v46 = a1;
         v47 = 14;
         goto LABEL_384;
       case 193:
       case 2340:
         v18 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 3;
-        v457 = v18;
+        v455[0] = 3;
+        v456 = v18;
         v19 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 4;
-        v459 = v19;
+        v457 = 4;
+        v458 = v19;
         v20 = getIntrinsicArgAttributeSet(a1, 0);
         v21 = 5;
         goto LABEL_360;
       case 194:
       case 2337:
         v142 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 2;
-        v457 = v142;
+        v455[0] = 2;
+        v456 = v142;
         v80 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 3;
+        v457 = 3;
         goto LABEL_326;
       case 197:
         v440 = getIntrinsicArgAttributeSet(a1, 8);
-        v456[0] = 1;
-        v457 = v440;
+        v455[0] = 1;
+        v456 = v440;
         v441 = a1;
         v442 = 9;
         goto LABEL_412;
       case 198:
       case 201:
         v27 = getIntrinsicArgAttributeSet(a1, 7);
-        v456[0] = 1;
-        v457 = v27;
+        v455[0] = 1;
+        v456 = v27;
         v28 = getIntrinsicArgAttributeSet(a1, 3);
-        v458 = 2;
-        v459 = v28;
+        v457 = 2;
+        v458 = v28;
         v29 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 4;
-        v460 = 4;
-        v461 = v29;
+        v459 = 4;
+        v460 = v29;
         v30 = a1;
         v31 = 22;
         goto LABEL_413;
       case 199:
         v447 = getIntrinsicArgAttributeSet(a1, 8);
-        v456[0] = 1;
-        v457 = v447;
+        v455[0] = 1;
+        v456 = v447;
         v448 = getIntrinsicArgAttributeSet(a1, 9);
-        v458 = 2;
-        v459 = v448;
+        v457 = 2;
+        v458 = v448;
         v449 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 3;
-        v461 = v449;
+        v459 = 3;
+        v460 = v449;
         v450 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 4;
-        v463 = v450;
+        v461 = 4;
+        v462 = v450;
         v195 = a1;
         v196 = 21;
         goto LABEL_357;
       case 200:
         v444 = getIntrinsicArgAttributeSet(a1, 7);
-        v456[0] = 1;
-        v457 = v444;
+        v455[0] = 1;
+        v456 = v444;
         v441 = a1;
         v442 = 3;
 LABEL_412:
         v445 = getIntrinsicArgAttributeSet(v441, v442);
-        v458 = 2;
-        v459 = v445;
+        v457 = 2;
+        v458 = v445;
         v446 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 4;
-        v460 = 4;
-        v461 = v446;
+        v459 = 4;
+        v460 = v446;
         v30 = a1;
         v31 = 21;
         goto LABEL_413;
       case 202:
         v180 = getIntrinsicArgAttributeSet(a1, 7);
-        v456[0] = 1;
-        v457 = v180;
+        v455[0] = 1;
+        v456 = v180;
         v181 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 4;
-        v459 = v181;
+        v457 = 4;
+        v458 = v181;
         v182 = a1;
         v183 = 23;
         goto LABEL_392;
       case 203:
         v379 = getIntrinsicArgAttributeSet(a1, 7);
-        v456[0] = 1;
-        v457 = v379;
+        v455[0] = 1;
+        v456 = v379;
         v380 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 4;
-        v459 = v380;
+        v457 = 4;
+        v458 = v380;
         v182 = a1;
         v183 = 24;
         goto LABEL_392;
       case 204:
         v35 = getIntrinsicArgAttributeSet(a1, 7);
-        v456[0] = 1;
-        v457 = v35;
+        v455[0] = 1;
+        v456 = v35;
         v36 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 3;
-        v459 = v36;
+        v457 = 3;
+        v458 = v36;
         v37 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 4;
-        v460 = 4;
-        v461 = v37;
+        v459 = 4;
+        v460 = v37;
         v30 = a1;
         v31 = 23;
         goto LABEL_413;
       case 240:
       case 2338:
         v64 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 2;
-        v457 = v64;
+        v455[0] = 2;
+        v456 = v64;
         v65 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 3;
-        v459 = v65;
+        v457 = 3;
+        v458 = v65;
         v20 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 4;
+        v459 = 4;
         goto LABEL_361;
       case 244:
         v191 = getIntrinsicArgAttributeSet(a1, 3);
-        v456[0] = 1;
-        v457 = v191;
+        v455[0] = 1;
+        v456 = v191;
         v192 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v192;
+        v457 = 2;
+        v458 = v192;
         v193 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 3;
-        v461 = v193;
+        v459 = 3;
+        v460 = v193;
         v194 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 4;
-        v463 = v194;
+        v461 = 4;
+        v462 = v194;
         v195 = a1;
         v196 = 25;
         goto LABEL_357;
@@ -12421,7 +12127,7 @@ LABEL_412:
       case 11505:
       case 11506:
         v108 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 2;
+        v455[0] = 2;
         goto LABEL_331;
       case 250:
       case 3045:
@@ -12533,15 +12239,15 @@ LABEL_412:
       case 8700:
         v166 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 2;
-        v456[0] = 2;
-        v457 = v166;
+        v455[0] = 2;
+        v456 = v166;
         v62 = a1;
         v63 = 8;
         goto LABEL_410;
       case 252:
         v88 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 2;
-        v457 = v88;
+        v455[0] = 2;
+        v456 = v88;
         v89 = getIntrinsicArgAttributeSet(a1, 0);
         v90 = 4;
         goto LABEL_237;
@@ -12606,16 +12312,16 @@ LABEL_329:
         v108 = getIntrinsicArgAttributeSet(v59, v60);
         v289 = 1;
 LABEL_330:
-        v456[0] = v289;
+        v455[0] = v289;
 LABEL_331:
-        v457 = v108;
+        v456 = v108;
         v25 = a1;
         v26 = 1;
         goto LABEL_419;
       case 298:
         v325 = getIntrinsicArgAttributeSet(a1, 11);
-        v456[0] = 0;
-        v457 = v325;
+        v455[0] = 0;
+        v456 = v325;
         v80 = getIntrinsicArgAttributeSet(a1, 11);
         v81 = 1;
         goto LABEL_325;
@@ -12625,8 +12331,8 @@ LABEL_331:
         goto LABEL_432;
       case 305:
         v262 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v262;
+        v455[0] = 1;
+        v456 = v262;
         v25 = a1;
         v26 = 28;
         goto LABEL_419;
@@ -12639,23 +12345,23 @@ LABEL_331:
         goto LABEL_432;
       case 414:
         v327 = getIntrinsicArgAttributeSet(a1, 3);
-        v456[0] = 1;
-        v457 = v327;
+        v455[0] = 1;
+        v456 = v327;
         v148 = a1;
         v149 = 30;
         goto LABEL_427;
       case 415:
         v61 = getIntrinsicArgAttributeSet(a1, 3);
         v8 = 2;
-        v456[0] = 2;
-        v457 = v61;
+        v455[0] = 2;
+        v456 = v61;
         v62 = a1;
         v63 = 30;
         goto LABEL_410;
       case 417:
         v24 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v24;
+        v455[0] = 1;
+        v456 = v24;
         v25 = a1;
         v26 = 31;
         goto LABEL_419;
@@ -12752,8 +12458,8 @@ LABEL_331:
       case 670:
       case 951:
         v416 = getIntrinsicArgAttributeSet(a1, 7);
-        v456[0] = 1;
-        v457 = v416;
+        v455[0] = 1;
+        v456 = v416;
         v148 = a1;
         v149 = 14;
         goto LABEL_427;
@@ -12798,7 +12504,7 @@ LABEL_331:
       case 3883:
       case 3886:
         v167 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 5;
+        v455[0] = 5;
         goto LABEL_404;
       case 607:
       case 1511:
@@ -12807,20 +12513,20 @@ LABEL_331:
         goto LABEL_403;
       case 664:
         v411 = getIntrinsicArgAttributeSet(a1, 12);
-        v456[0] = 1;
-        v457 = v411;
+        v455[0] = 1;
+        v456 = v411;
         v412 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v412;
+        v457 = 2;
+        v458 = v412;
         v413 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 3;
-        v461 = v413;
+        v459 = 3;
+        v460 = v413;
         v414 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 4;
-        v463 = v414;
+        v461 = 4;
+        v462 = v414;
         v415 = getIntrinsicArgAttributeSet(a1, 0);
-        v464 = 5;
-        v465 = v415;
+        v463 = 5;
+        v464 = v415;
         v106 = a1;
         v107 = 34;
         goto LABEL_340;
@@ -13317,11 +13023,11 @@ LABEL_221:
       case 1285:
       case 1286:
         v287 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 2;
-        v457 = v287;
+        v455[0] = 2;
+        v456 = v287;
         v288 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 4;
-        v459 = v288;
+        v457 = 4;
+        v458 = v288;
         v182 = a1;
         v183 = 25;
         goto LABEL_392;
@@ -13330,8 +13036,8 @@ LABEL_221:
       case 1280:
       case 1284:
         v438 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 4;
-        v457 = v438;
+        v455[0] = 4;
+        v456 = v438;
         v148 = a1;
         v149 = 25;
         goto LABEL_427;
@@ -13367,8 +13073,8 @@ LABEL_221:
         goto LABEL_432;
       case 1741:
         v326 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v326;
+        v455[0] = 1;
+        v456 = v326;
         v148 = a1;
         v149 = 37;
         goto LABEL_427;
@@ -13390,17 +13096,17 @@ LABEL_221:
       case 1803:
         v8 = 5;
         v42 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v42;
+        v455[0] = 1;
+        v456 = v42;
         v43 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 3;
-        v459 = v43;
+        v457 = 3;
+        v458 = v43;
         v44 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 4;
-        v461 = v44;
+        v459 = 4;
+        v460 = v44;
         v45 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 5;
-        v463 = v45;
+        v461 = 5;
+        v462 = v45;
         v46 = a1;
         v47 = 21;
         goto LABEL_384;
@@ -13474,8 +13180,8 @@ LABEL_221:
       case 1764:
       case 2432:
         v435 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 4;
-        v457 = v435;
+        v455[0] = 4;
+        v456 = v435;
         v234 = getIntrinsicArgAttributeSet(a1, 0);
         v235 = 5;
         goto LABEL_390;
@@ -13483,8 +13189,8 @@ LABEL_221:
       case 1766:
       case 2433:
         v436 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 5;
-        v457 = v436;
+        v455[0] = 5;
+        v456 = v436;
         v386 = getIntrinsicArgAttributeSet(a1, 0);
         v387 = 6;
         goto LABEL_394;
@@ -13500,19 +13206,19 @@ LABEL_221:
       case 1813:
         v213 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 2;
-        v456[0] = 2;
-        v457 = v213;
+        v455[0] = 2;
+        v456 = v213;
         v62 = a1;
         v63 = 41;
         goto LABEL_410;
       case 1796:
       case 1799:
         v328 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v328;
+        v455[0] = 1;
+        v456 = v328;
         v329 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v329;
+        v457 = 2;
+        v458 = v329;
         v182 = a1;
         v183 = 42;
         goto LABEL_392;
@@ -13542,37 +13248,37 @@ LABEL_221:
       case 1810:
       case 1811:
         v70 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v70;
+        v455[0] = 1;
+        v456 = v70;
         v71 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 3;
-        v459 = v71;
+        v457 = 3;
+        v458 = v71;
         v72 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 4;
-        v461 = v72;
+        v459 = 4;
+        v460 = v72;
         v73 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 5;
-        v463 = v73;
+        v461 = 5;
+        v462 = v73;
         v74 = getIntrinsicArgAttributeSet(a1, 0);
-        v464 = 6;
-        v465 = v74;
+        v463 = 6;
+        v464 = v74;
         v75 = getIntrinsicArgAttributeSet(a1, 0);
-        v466 = 7;
-        v467 = v75;
+        v465 = 7;
+        v466 = v75;
         v76 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 8;
-        v468 = 8;
-        v469 = v76;
+        v467 = 8;
+        v468 = v76;
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(a1, 40);
-        v470 = -1;
-        v4 = v471;
+        v469 = -1;
+        v4 = v470;
         break;
       case 1814:
       case 2396:
         v430 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 2;
-        v456[0] = 2;
-        v457 = v430;
+        v455[0] = 2;
+        v456 = v430;
         v62 = a1;
         v63 = 39;
         goto LABEL_410;
@@ -13589,47 +13295,47 @@ LABEL_221:
         goto LABEL_432;
       case 1818:
         v207 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v207;
+        v455[0] = 1;
+        v456 = v207;
         v208 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v208;
+        v457 = 2;
+        v458 = v208;
         v209 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 7;
-        v461 = v209;
+        v459 = 7;
+        v460 = v209;
         v210 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 8;
-        v463 = v210;
+        v461 = 8;
+        v462 = v210;
         v195 = a1;
         v196 = 36;
         goto LABEL_357;
       case 1819:
         v258 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v258;
+        v455[0] = 1;
+        v456 = v258;
         v259 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v259;
+        v457 = 2;
+        v458 = v259;
         v260 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 5;
-        v460 = 5;
-        v461 = v260;
+        v459 = 5;
+        v460 = v260;
         v261 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 6;
-        v463 = v261;
+        v461 = 6;
+        v462 = v261;
         v46 = a1;
         v47 = 36;
         goto LABEL_384;
       case 1820:
         v82 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v82;
+        v455[0] = 1;
+        v456 = v82;
         v83 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v83;
+        v457 = 2;
+        v458 = v83;
         v84 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 7;
-        v461 = v84;
+        v459 = 7;
+        v460 = v84;
         v85 = a1;
         v86 = 36;
         goto LABEL_323;
@@ -13661,27 +13367,27 @@ LABEL_221:
       case 1841:
       case 1842:
         v399 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v399;
+        v455[0] = 1;
+        v456 = v399;
         v148 = a1;
         v149 = 21;
         goto LABEL_427;
       case 1843:
         v391 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v391;
+        v455[0] = 1;
+        v456 = v391;
         v392 = getIntrinsicArgAttributeSet(a1, 5);
-        v458 = 2;
-        v459 = v392;
+        v457 = 2;
+        v458 = v392;
         v393 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 3;
-        v461 = v393;
+        v459 = 3;
+        v460 = v393;
         v394 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 4;
-        v463 = v394;
+        v461 = 4;
+        v462 = v394;
         v395 = getIntrinsicArgAttributeSet(a1, 0);
-        v464 = 5;
-        v465 = v395;
+        v463 = 5;
+        v464 = v395;
         v106 = a1;
         v107 = 40;
         goto LABEL_340;
@@ -13689,8 +13395,8 @@ LABEL_221:
       case 2330:
       case 2468:
         v364 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v364;
+        v455[0] = 1;
+        v456 = v364;
         v148 = a1;
         v149 = 47;
         goto LABEL_427;
@@ -13709,8 +13415,8 @@ LABEL_221:
       case 1953:
       case 1961:
         v290 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 4;
-        v457 = v290;
+        v455[0] = 4;
+        v456 = v290;
         v236 = getIntrinsicArgAttributeSet(a1, 0);
         v237 = 5;
         goto LABEL_346;
@@ -13744,8 +13450,8 @@ LABEL_221:
       case 1962:
       case 1963:
         v388 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 5;
-        v457 = v388;
+        v455[0] = 5;
+        v456 = v388;
         v236 = getIntrinsicArgAttributeSet(a1, 0);
         v237 = 6;
         goto LABEL_346;
@@ -13829,7 +13535,7 @@ LABEL_221:
       case 1957:
       case 1965:
         v87 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 7;
+        v455[0] = 7;
         goto LABEL_132;
       case 1869:
         v252 = getIntrinsicArgAttributeSet(a1, 0);
@@ -13849,14 +13555,14 @@ LABEL_221:
       case 2302:
       case 2308:
         v401 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v401;
+        v455[0] = 1;
+        v456 = v401;
         v402 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 6;
-        v459 = v402;
+        v457 = 6;
+        v458 = v402;
         v403 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 7;
-        v461 = v403;
+        v459 = 7;
+        v460 = v403;
         v57 = getIntrinsicArgAttributeSet(a1, 0);
         v58 = 8;
         goto LABEL_356;
@@ -13903,14 +13609,14 @@ LABEL_221:
       case 2309:
       case 2310:
         v91 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v91;
+        v455[0] = 1;
+        v456 = v91;
         v92 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 7;
-        v459 = v92;
+        v457 = 7;
+        v458 = v92;
         v93 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 8;
-        v461 = v93;
+        v459 = 8;
+        v460 = v93;
         v57 = getIntrinsicArgAttributeSet(a1, 0);
         v58 = 9;
         goto LABEL_356;
@@ -13990,14 +13696,14 @@ LABEL_221:
       case 2312:
       case 2313:
         v199 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v199;
+        v455[0] = 1;
+        v456 = v199;
         v200 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 8;
-        v459 = v200;
+        v457 = 8;
+        v458 = v200;
         v201 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 9;
-        v461 = v201;
+        v459 = 9;
+        v460 = v201;
         v57 = getIntrinsicArgAttributeSet(a1, 0);
         v58 = 10;
         goto LABEL_356;
@@ -14075,14 +13781,14 @@ LABEL_221:
       case 2294:
       case 2295:
         v54 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v54;
+        v455[0] = 1;
+        v456 = v54;
         v55 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 9;
-        v459 = v55;
+        v457 = 9;
+        v458 = v55;
         v56 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 10;
-        v461 = v56;
+        v459 = 10;
+        v460 = v56;
         v57 = getIntrinsicArgAttributeSet(a1, 0);
         v58 = 11;
         goto LABEL_356;
@@ -14125,14 +13831,14 @@ LABEL_221:
       case 2262:
       case 2272:
         v417 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v417;
+        v455[0] = 1;
+        v456 = v417;
         v418 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 10;
-        v459 = v418;
+        v457 = 10;
+        v458 = v418;
         v419 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 11;
-        v461 = v419;
+        v459 = 11;
+        v460 = v419;
         v57 = getIntrinsicArgAttributeSet(a1, 0);
         v58 = 12;
         goto LABEL_356;
@@ -14154,41 +13860,41 @@ LABEL_221:
       case 2277:
       case 2280:
         v422 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v422;
+        v455[0] = 1;
+        v456 = v422;
         v423 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 11;
-        v459 = v423;
+        v457 = 11;
+        v458 = v423;
         v424 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 12;
-        v461 = v424;
+        v459 = 12;
+        v460 = v424;
         v57 = getIntrinsicArgAttributeSet(a1, 0);
         v58 = 13;
         goto LABEL_356;
       case 2042:
         v135 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v135;
+        v455[0] = 1;
+        v456 = v135;
         v136 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 5;
-        v459 = v136;
+        v457 = 5;
+        v458 = v136;
         v137 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 6;
-        v461 = v137;
+        v459 = 6;
+        v460 = v137;
         v121 = getIntrinsicArgAttributeSet(a1, 0);
         v122 = 7;
         goto LABEL_171;
       case 2043:
       case 2044:
         v284 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v284;
+        v455[0] = 1;
+        v456 = v284;
         v285 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 6;
-        v459 = v285;
+        v457 = 6;
+        v458 = v285;
         v286 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 7;
-        v461 = v286;
+        v459 = 7;
+        v460 = v286;
         v121 = getIntrinsicArgAttributeSet(a1, 0);
         v122 = 8;
         goto LABEL_171;
@@ -14196,22 +13902,22 @@ LABEL_221:
       case 2046:
       case 2047:
         v118 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v118;
+        v455[0] = 1;
+        v456 = v118;
         v119 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 7;
-        v459 = v119;
+        v457 = 7;
+        v458 = v119;
         v120 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 8;
-        v461 = v120;
+        v459 = 8;
+        v460 = v120;
         v121 = getIntrinsicArgAttributeSet(a1, 0);
         v122 = 9;
 LABEL_171:
-        v462 = v122;
-        v463 = v121;
+        v461 = v122;
+        v462 = v121;
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(a1, 1);
-        v464 = -1;
-        v4 = &v465;
+        v463 = -1;
+        v4 = &v464;
         v8 = 5;
         break;
       case 2048:
@@ -14223,28 +13929,28 @@ LABEL_171:
       case 2054:
       case 2055:
         v150 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v150;
+        v455[0] = 1;
+        v456 = v150;
         v151 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 4;
-        v459 = v151;
+        v457 = 4;
+        v458 = v151;
         v152 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 5;
-        v461 = v152;
+        v459 = 5;
+        v460 = v152;
         v153 = a1;
         v154 = 1;
         goto LABEL_362;
       case 2056:
         v404 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v404;
+        v455[0] = 1;
+        v456 = v404;
         v405 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 4;
-        v458 = 4;
-        v459 = v405;
+        v457 = 4;
+        v458 = v405;
         v406 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 5;
-        v461 = v406;
+        v459 = 5;
+        v460 = v406;
         v30 = a1;
         v31 = 19;
         goto LABEL_413;
@@ -14252,11 +13958,11 @@ LABEL_171:
       case 2058:
       case 2064:
         v109 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v109;
+        v455[0] = 1;
+        v456 = v109;
         v110 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 5;
-        v459 = v110;
+        v457 = 5;
+        v458 = v110;
         v68 = getIntrinsicArgAttributeSet(a1, 0);
         v69 = 6;
         goto LABEL_59;
@@ -14269,11 +13975,11 @@ LABEL_171:
       case 2071:
       case 2073:
         v66 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v66;
+        v455[0] = 1;
+        v456 = v66;
         v67 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 6;
-        v459 = v67;
+        v457 = 6;
+        v458 = v67;
         v68 = getIntrinsicArgAttributeSet(a1, 0);
         v69 = 7;
         goto LABEL_59;
@@ -14284,34 +13990,34 @@ LABEL_171:
       case 2070:
       case 2072:
         v123 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v123;
+        v455[0] = 1;
+        v456 = v123;
         v124 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 7;
-        v459 = v124;
+        v457 = 7;
+        v458 = v124;
         v68 = getIntrinsicArgAttributeSet(a1, 0);
         v69 = 8;
 LABEL_59:
-        v460 = v69;
-        v461 = v68;
+        v459 = v69;
+        v460 = v68;
         v85 = a1;
         v86 = 19;
         goto LABEL_323;
       case 2074:
       case 2296:
         v407 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v407;
+        v455[0] = 1;
+        v456 = v407;
         v408 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 5;
-        v458 = 5;
-        v459 = v408;
+        v457 = 5;
+        v458 = v408;
         v409 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 6;
-        v461 = v409;
+        v459 = 6;
+        v460 = v409;
         v410 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 7;
-        v463 = v410;
+        v461 = 7;
+        v462 = v410;
         v46 = a1;
         v47 = 19;
         goto LABEL_384;
@@ -14334,14 +14040,14 @@ LABEL_59:
       case 2281:
       case 2283:
         v202 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v202;
+        v455[0] = 1;
+        v456 = v202;
         v203 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 12;
-        v459 = v203;
+        v457 = 12;
+        v458 = v203;
         v204 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 13;
-        v461 = v204;
+        v459 = 13;
+        v460 = v204;
         v57 = getIntrinsicArgAttributeSet(a1, 0);
         v58 = 14;
         goto LABEL_356;
@@ -14356,14 +14062,14 @@ LABEL_59:
       case 2269:
       case 2282:
         v254 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v254;
+        v455[0] = 1;
+        v456 = v254;
         v255 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 14;
-        v459 = v255;
+        v457 = 14;
+        v458 = v255;
         v256 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 15;
-        v461 = v256;
+        v459 = 15;
+        v460 = v256;
         v57 = getIntrinsicArgAttributeSet(a1, 0);
         v58 = 16;
         goto LABEL_356;
@@ -14384,14 +14090,14 @@ LABEL_59:
       case 2274:
       case 2276:
         v96 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v96;
+        v455[0] = 1;
+        v456 = v96;
         v97 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 13;
-        v459 = v97;
+        v457 = 13;
+        v458 = v97;
         v98 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 14;
-        v461 = v98;
+        v459 = 14;
+        v460 = v98;
         v57 = getIntrinsicArgAttributeSet(a1, 0);
         v58 = 15;
         goto LABEL_356;
@@ -14402,47 +14108,47 @@ LABEL_59:
       case 2238:
       case 2275:
         v365 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v365;
+        v455[0] = 1;
+        v456 = v365;
         v366 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 15;
-        v459 = v366;
+        v457 = 15;
+        v458 = v366;
         v367 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 16;
-        v461 = v367;
+        v459 = 16;
+        v460 = v367;
         v57 = getIntrinsicArgAttributeSet(a1, 0);
         v58 = 17;
         goto LABEL_356;
       case 2147:
       case 2184:
         v336 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v336;
+        v455[0] = 1;
+        v456 = v336;
         v337 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 16;
-        v459 = v337;
+        v457 = 16;
+        v458 = v337;
         v338 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 17;
-        v461 = v338;
+        v459 = 17;
+        v460 = v338;
         v57 = getIntrinsicArgAttributeSet(a1, 0);
         v58 = 18;
 LABEL_356:
-        v462 = v58;
-        v463 = v57;
+        v461 = v58;
+        v462 = v57;
         v195 = a1;
         v196 = 19;
 LABEL_357:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v195, v196);
-        v464 = -1;
+        v463 = -1;
         v8 = 5;
         goto LABEL_385;
       case 2314:
         v396 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 2;
-        v457 = v396;
+        v455[0] = 2;
+        v456 = v396;
         v397 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 5;
-        v459 = v397;
+        v457 = 5;
+        v458 = v397;
         v145 = getIntrinsicArgAttributeSet(a1, 0);
         v146 = 6;
         goto LABEL_322;
@@ -14450,11 +14156,11 @@ LABEL_357:
       case 2316:
       case 2322:
         v330 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 2;
-        v457 = v330;
+        v455[0] = 2;
+        v456 = v330;
         v331 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 6;
-        v459 = v331;
+        v457 = 6;
+        v458 = v331;
         v145 = getIntrinsicArgAttributeSet(a1, 0);
         v146 = 7;
         goto LABEL_322;
@@ -14465,11 +14171,11 @@ LABEL_357:
       case 2323:
       case 2324:
         v217 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 2;
-        v457 = v217;
+        v455[0] = 2;
+        v456 = v217;
         v218 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 7;
-        v459 = v218;
+        v457 = 7;
+        v458 = v218;
         v145 = getIntrinsicArgAttributeSet(a1, 0);
         v146 = 8;
         goto LABEL_322;
@@ -14478,41 +14184,41 @@ LABEL_357:
       case 2326:
       case 2327:
         v143 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 2;
-        v457 = v143;
+        v455[0] = 2;
+        v456 = v143;
         v144 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 8;
-        v459 = v144;
+        v457 = 8;
+        v458 = v144;
         v145 = getIntrinsicArgAttributeSet(a1, 0);
         v146 = 9;
 LABEL_322:
-        v460 = v146;
-        v461 = v145;
+        v459 = v146;
+        v460 = v145;
         v85 = a1;
         v86 = 20;
         goto LABEL_323;
       case 2331:
         v188 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 2;
-        v456[0] = 2;
-        v457 = v188;
+        v455[0] = 2;
+        v456 = v188;
         v62 = a1;
         v63 = 47;
         goto LABEL_410;
       case 2336:
         v161 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v161;
+        v455[0] = 1;
+        v456 = v161;
         v162 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v162;
+        v457 = 2;
+        v458 = v162;
         v20 = getIntrinsicArgAttributeSet(a1, 0);
         v21 = 3;
         goto LABEL_360;
       case 2339:
         v79 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 3;
-        v457 = v79;
+        v455[0] = 3;
+        v456 = v79;
         v80 = getIntrinsicArgAttributeSet(a1, 0);
         v81 = 4;
         goto LABEL_325;
@@ -14525,7 +14231,7 @@ LABEL_322:
         v7 = getIntrinsicArgAttributeSet(a1, 5);
         v377 = 1;
 LABEL_417:
-        v456[0] = v377;
+        v455[0] = v377;
         goto LABEL_418;
       case 2345:
         v16 = a1;
@@ -14537,14 +14243,14 @@ LABEL_417:
         goto LABEL_432;
       case 2349:
         v398 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v398;
+        v455[0] = 1;
+        v456 = v398;
         v80 = getIntrinsicArgAttributeSet(a1, 0);
         v81 = 2;
 LABEL_325:
-        v458 = v81;
+        v457 = v81;
 LABEL_326:
-        v459 = v80;
+        v458 = v80;
         v227 = a1;
         v228 = 0;
         goto LABEL_354;
@@ -14588,30 +14294,30 @@ LABEL_326:
       case 2393:
       case 2394:
         v214 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 4;
-        v457 = v214;
+        v455[0] = 4;
+        v456 = v214;
         v215 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 5;
-        v459 = v215;
+        v457 = 5;
+        v458 = v215;
         v216 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 6;
-        v461 = v216;
+        v459 = 6;
+        v460 = v216;
         v153 = a1;
         v154 = 17;
         goto LABEL_362;
       case 2395:
         v155 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 2;
-        v457 = v155;
+        v455[0] = 2;
+        v456 = v155;
         v156 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 3;
-        v459 = v156;
+        v457 = 3;
+        v458 = v156;
         v157 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 4;
-        v461 = v157;
+        v459 = 4;
+        v460 = v157;
         v158 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 5;
-        v462 = 5;
+        v461 = 5;
         goto LABEL_268;
       case 2404:
       case 2490:
@@ -14622,11 +14328,11 @@ LABEL_326:
       case 2405:
       case 2407:
         v427 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 5;
-        v457 = v427;
+        v455[0] = 5;
+        v456 = v427;
         v428 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 6;
-        v459 = v428;
+        v457 = 6;
+        v458 = v428;
         v182 = a1;
         v183 = 39;
         goto LABEL_392;
@@ -14638,14 +14344,14 @@ LABEL_326:
       case 2429:
         v8 = 5;
         v169 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 2;
-        v457 = v169;
+        v455[0] = 2;
+        v456 = v169;
         v170 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 3;
-        v459 = v170;
+        v457 = 3;
+        v458 = v170;
         v171 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 6;
-        v461 = v171;
+        v459 = 6;
+        v460 = v171;
         v172 = getIntrinsicArgAttributeSet(a1, 0);
         v173 = 7;
         goto LABEL_228;
@@ -14683,28 +14389,28 @@ LABEL_326:
       case 2456:
       case 2457:
         v219 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v219;
+        v455[0] = 1;
+        v456 = v219;
         v148 = a1;
         v149 = 52;
         goto LABEL_427;
       case 2463:
         v292 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v292;
+        v455[0] = 1;
+        v456 = v292;
         v148 = a1;
         v149 = 51;
         goto LABEL_427;
       case 2469:
         v125 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v125;
+        v455[0] = 1;
+        v456 = v125;
         v126 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v126;
+        v457 = 2;
+        v458 = v126;
         v127 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 3;
-        v461 = v127;
+        v459 = 3;
+        v460 = v127;
         v85 = a1;
         v86 = 47;
         goto LABEL_323;
@@ -14723,11 +14429,11 @@ LABEL_326:
       case 2488:
       case 2489:
         v243 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 5;
-        v457 = v243;
+        v455[0] = 5;
+        v456 = v243;
         v244 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 6;
-        v459 = v244;
+        v457 = 6;
+        v458 = v244;
         v227 = a1;
         v228 = 17;
         goto LABEL_354;
@@ -14741,8 +14447,8 @@ LABEL_326:
         v52 = getIntrinsicArgAttributeSet(a1, 0);
         v53 = 7;
 LABEL_365:
-        v456[0] = v53;
-        v457 = v52;
+        v455[0] = v53;
+        v456 = v52;
         v148 = a1;
         v149 = 40;
         goto LABEL_427;
@@ -14818,19 +14524,19 @@ LABEL_365:
       case 2512:
         v8 = 5;
         v339 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 2;
-        v457 = v339;
+        v455[0] = 2;
+        v456 = v339;
         v340 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 3;
-        v459 = v340;
+        v457 = 3;
+        v458 = v340;
         v341 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 7;
-        v461 = v341;
+        v459 = 7;
+        v460 = v341;
         v172 = getIntrinsicArgAttributeSet(a1, 0);
         v173 = 8;
 LABEL_228:
-        v462 = v173;
-        v463 = v172;
+        v461 = v173;
+        v462 = v172;
         v46 = a1;
         v47 = 40;
         goto LABEL_384;
@@ -14845,77 +14551,77 @@ LABEL_228:
         goto LABEL_281;
       case 2516:
         v385 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 6;
-        v457 = v385;
+        v455[0] = 6;
+        v456 = v385;
         v386 = getIntrinsicArgAttributeSet(a1, 0);
         v387 = 7;
 LABEL_394:
-        v458 = v387;
-        v459 = v386;
+        v457 = v387;
+        v458 = v386;
         v182 = a1;
         v183 = 20;
         goto LABEL_392;
       case 2517:
       case 2518:
         v425 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v425;
+        v455[0] = 1;
+        v456 = v425;
         v426 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 3;
-        v459 = v426;
+        v457 = 3;
+        v458 = v426;
         v20 = getIntrinsicArgAttributeSet(a1, 0);
         v21 = 6;
 LABEL_360:
-        v460 = v21;
+        v459 = v21;
 LABEL_361:
-        v461 = v20;
+        v460 = v20;
         v153 = a1;
         v154 = 0;
 LABEL_362:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v153, v154);
         v15 = -1;
 LABEL_363:
-        v462 = v15;
-        v4 = &v463;
+        v461 = v15;
+        v4 = &v462;
         v8 = 4;
         break;
       case 2519:
         v238 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 5;
-        v457 = v238;
+        v455[0] = 5;
+        v456 = v238;
         v239 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 6;
-        v458 = 6;
-        v459 = v239;
+        v457 = 6;
+        v458 = v239;
         v240 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 7;
-        v461 = v240;
+        v459 = 7;
+        v460 = v240;
         v241 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 8;
-        v463 = v241;
+        v461 = 8;
+        v462 = v241;
         v242 = getIntrinsicArgAttributeSet(a1, 0);
-        v464 = 9;
-        v465 = v242;
+        v463 = 9;
+        v464 = v242;
         v133 = a1;
         v134 = 19;
         goto LABEL_185;
       case 2520:
         v128 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 6;
-        v456[0] = 6;
-        v457 = v128;
+        v455[0] = 6;
+        v456 = v128;
         v129 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 7;
-        v459 = v129;
+        v457 = 7;
+        v458 = v129;
         v130 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 8;
-        v461 = v130;
+        v459 = 8;
+        v460 = v130;
         v131 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 9;
-        v463 = v131;
+        v461 = 9;
+        v462 = v131;
         v132 = getIntrinsicArgAttributeSet(a1, 0);
-        v464 = 10;
-        v465 = v132;
+        v463 = 10;
+        v464 = v132;
         v133 = a1;
         v134 = 20;
         goto LABEL_185;
@@ -14925,53 +14631,53 @@ LABEL_363:
         goto LABEL_432;
       case 2527:
         v360 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 3;
-        v457 = v360;
+        v455[0] = 3;
+        v456 = v360;
         v361 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 4;
-        v459 = v361;
+        v457 = 4;
+        v458 = v361;
         v362 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 5;
-        v460 = 5;
-        v461 = v362;
+        v459 = 5;
+        v460 = v362;
         v158 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 6;
+        v461 = 6;
 LABEL_268:
-        v463 = v158;
+        v462 = v158;
         v46 = a1;
         v47 = 39;
 LABEL_384:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v46, v47);
-        v464 = -1;
+        v463 = -1;
 LABEL_385:
-        v4 = &v465;
+        v4 = &v464;
         break;
       case 2530:
       case 2531:
         v246 = getIntrinsicArgAttributeSet(a1, 0);
         v247 = 4;
 LABEL_306:
-        v456[0] = v247;
-        v457 = v246;
+        v455[0] = v247;
+        v456 = v246;
         v148 = a1;
         v149 = 39;
         goto LABEL_427;
       case 2534:
       case 2535:
         v381 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v381;
+        v455[0] = 1;
+        v456 = v381;
         v382 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 3;
-        v459 = v382;
+        v457 = 3;
+        v458 = v382;
         v383 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 6;
-        v461 = v383;
+        v459 = 6;
+        v460 = v383;
         v85 = a1;
         v86 = 39;
 LABEL_323:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v85, v86);
-        v462 = -1;
+        v461 = -1;
         v8 = 4;
         goto LABEL_414;
       case 2543:
@@ -14985,8 +14691,8 @@ LABEL_323:
       case 3083:
       case 3864:
         v113 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v113;
+        v455[0] = 1;
+        v456 = v113;
         v114 = getIntrinsicArgAttributeSet(a1, 0);
         v115 = 2;
         goto LABEL_352;
@@ -15011,10 +14717,10 @@ LABEL_323:
         v99 = getIntrinsicArgAttributeSet(a1, 0);
         v100 = 1;
 LABEL_55:
-        v456[0] = v100;
-        v457 = v99;
+        v455[0] = v100;
+        v456 = v99;
         v114 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 3;
+        v457 = 3;
         goto LABEL_353;
       case 2550:
       case 2552:
@@ -15027,7 +14733,7 @@ LABEL_55:
       case 2571:
       case 2573:
         v224 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
+        v455[0] = 1;
         goto LABEL_141;
       case 2554:
       case 2556:
@@ -15045,27 +14751,27 @@ LABEL_55:
       case 2577:
       case 2578:
         v277 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v277;
+        v455[0] = 1;
+        v456 = v277;
         v278 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v278;
+        v457 = 2;
+        v458 = v278;
         v279 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 3;
-        v461 = v279;
+        v459 = 3;
+        v460 = v279;
         v280 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 4;
-        v463 = v280;
+        v461 = 4;
+        v462 = v280;
         v281 = getIntrinsicArgAttributeSet(a1, 0);
-        v464 = 5;
-        v465 = v281;
+        v463 = 5;
+        v464 = v281;
         v282 = getIntrinsicArgAttributeSet(a1, 0);
-        v466 = 6;
-        v467 = v282;
+        v465 = 6;
+        v466 = v282;
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(a1, 4);
-        v468 = -1;
+        v467 = -1;
         v8 = 7;
-        v4 = &v469;
+        v4 = &v468;
         break;
       case 2601:
       case 2602:
@@ -15076,71 +14782,71 @@ LABEL_55:
       case 3003:
       case 3004:
         v342 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v342;
+        v455[0] = 1;
+        v456 = v342;
         v302 = a1;
         v303 = 0;
         goto LABEL_230;
       case 2607:
       case 2608:
         v294 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v294;
+        v455[0] = 1;
+        v456 = v294;
         v295 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v295;
+        v457 = 2;
+        v458 = v295;
         v296 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 4;
-        v461 = v296;
+        v459 = 4;
+        v460 = v296;
         v297 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 5;
-        v463 = v297;
+        v461 = 5;
+        v462 = v297;
         v298 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 6;
-        v464 = 6;
-        v465 = v298;
+        v463 = 6;
+        v464 = v298;
         v133 = a1;
         v134 = 4;
 LABEL_185:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v133, v134);
-        v466 = -1;
+        v465 = -1;
         goto LABEL_341;
       case 2609:
       case 2610:
         v368 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v368;
+        v455[0] = 1;
+        v456 = v368;
         v369 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v369;
+        v457 = 2;
+        v458 = v369;
         v140 = getIntrinsicArgAttributeSet(a1, 0);
         v141 = 5;
         goto LABEL_276;
       case 2611:
       case 2612:
         v101 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v101;
+        v455[0] = 1;
+        v456 = v101;
         v102 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v102;
+        v457 = 2;
+        v458 = v102;
         v103 = getIntrinsicArgAttributeSet(a1, 0);
-        v460 = 3;
-        v461 = v103;
+        v459 = 3;
+        v460 = v103;
         v104 = getIntrinsicArgAttributeSet(a1, 0);
-        v462 = 4;
-        v463 = v104;
+        v461 = 4;
+        v462 = v104;
         v105 = getIntrinsicArgAttributeSet(a1, 0);
-        v464 = 5;
-        v465 = v105;
+        v463 = 5;
+        v464 = v105;
         v106 = a1;
         v107 = 4;
 LABEL_340:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v106, v107);
-        v466 = -1;
+        v465 = -1;
         v8 = 6;
 LABEL_341:
-        v4 = &v467;
+        v4 = &v466;
         break;
       case 2613:
       case 2614:
@@ -15153,24 +14859,24 @@ LABEL_341:
       case 11474:
       case 11476:
         v138 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v138;
+        v455[0] = 1;
+        v456 = v138;
         v139 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v139;
+        v457 = 2;
+        v458 = v139;
         v140 = getIntrinsicArgAttributeSet(a1, 0);
         v141 = 3;
 LABEL_276:
-        v460 = v141;
-        v461 = v140;
+        v459 = v141;
+        v460 = v140;
         v8 = 4;
         v30 = a1;
         v31 = 4;
 LABEL_413:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v30, v31);
-        v462 = -1;
+        v461 = -1;
 LABEL_414:
-        v4 = &v463;
+        v4 = &v462;
         break;
       case 2934:
       case 2938:
@@ -15391,16 +15097,16 @@ LABEL_414:
       case 3347:
       case 3362:
         v344 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 2;
+        v455[0] = 2;
         goto LABEL_257;
       case 3352:
       case 3353:
       case 3375:
       case 3376:
         v344 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
+        v455[0] = 1;
 LABEL_257:
-        v457 = v344;
+        v456 = v344;
         v25 = a1;
         v26 = 58;
         goto LABEL_419;
@@ -15437,9 +15143,9 @@ LABEL_380:
       case 11104:
       case 11428:
         v224 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 3;
+        v455[0] = 3;
 LABEL_141:
-        v457 = v224;
+        v456 = v224;
         v114 = getIntrinsicArgAttributeSet(a1, 0);
         v115 = 4;
         goto LABEL_352;
@@ -15460,13 +15166,13 @@ LABEL_141:
       case 4040:
       case 4041:
         v345 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 2;
-        v457 = v345;
+        v455[0] = 2;
+        v456 = v345;
         v78 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 3;
 LABEL_243:
-        v458 = 3;
-        v459 = v78;
+        v457 = 3;
+        v458 = v78;
         v316 = a1;
         v317 = 2;
         goto LABEL_421;
@@ -15480,8 +15186,8 @@ LABEL_243:
       case 4043:
         v359 = getIntrinsicArgAttributeSet(a1, 5);
         v8 = 2;
-        v456[0] = 2;
-        v457 = v359;
+        v455[0] = 2;
+        v456 = v359;
 LABEL_266:
         v62 = a1;
         v63 = 2;
@@ -15517,13 +15223,13 @@ LABEL_375:
         goto LABEL_116;
       case 5060:
         v230 = getIntrinsicArgAttributeSet(a1, 7);
-        v456[0] = 1;
-        v457 = v230;
+        v455[0] = 1;
+        v456 = v230;
         v8 = 3;
         v231 = getIntrinsicArgAttributeSet(a1, 3);
-        v458 = 2;
+        v457 = 2;
 LABEL_372:
-        v459 = v231;
+        v458 = v231;
         v316 = a1;
         v317 = 16;
         goto LABEL_421;
@@ -15534,9 +15240,9 @@ LABEL_84:
         v167 = getIntrinsicArgAttributeSet(v164, v165);
         v168 = 1;
 LABEL_403:
-        v456[0] = v168;
+        v455[0] = v168;
 LABEL_404:
-        v457 = v167;
+        v456 = v167;
         v148 = a1;
         v149 = 16;
         goto LABEL_427;
@@ -15570,8 +15276,8 @@ LABEL_404:
       case 8051:
       case 8052:
         v373 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v373;
+        v455[0] = 1;
+        v456 = v373;
         v271 = getIntrinsicArgAttributeSet(a1, 0);
         v272 = 4;
         goto LABEL_285;
@@ -15585,10 +15291,10 @@ LABEL_404:
       case 8053:
       case 8054:
         v374 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v374;
+        v455[0] = 1;
+        v456 = v374;
         v271 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 5;
+        v457 = 5;
         goto LABEL_289;
       case 5156:
       case 5181:
@@ -15634,15 +15340,15 @@ LABEL_404:
         v94 = getIntrinsicArgAttributeSet(a1, 0);
         v95 = 3;
 LABEL_426:
-        v456[0] = v95;
-        v457 = v94;
+        v455[0] = v95;
+        v456 = v94;
         v148 = a1;
         v149 = 8;
         goto LABEL_427;
       case 5651:
         v375 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v375;
+        v455[0] = 1;
+        v456 = v375;
         v148 = a1;
         v149 = 56;
         goto LABEL_427;
@@ -15701,8 +15407,8 @@ LABEL_426:
       case 5819:
       case 5820:
         v400 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v400;
+        v455[0] = 1;
+        v456 = v400;
         v148 = a1;
         v149 = 60;
         goto LABEL_427;
@@ -15740,11 +15446,11 @@ LABEL_426:
       case 5844:
       case 5845:
         v389 = getIntrinsicArgAttributeSet(a1, 14);
-        v456[0] = 1;
-        v457 = v389;
+        v455[0] = 1;
+        v456 = v389;
         v390 = getIntrinsicArgAttributeSet(a1, 15);
-        v458 = 2;
-        v459 = v390;
+        v457 = 2;
+        v458 = v390;
         v182 = a1;
         v183 = 60;
         goto LABEL_392;
@@ -16221,8 +15927,8 @@ LABEL_426:
         v308 = 3;
 LABEL_299:
         v376 = getIntrinsicArgAttributeSet(v307, v308);
-        v456[0] = 1;
-        v457 = v376;
+        v455[0] = 1;
+        v456 = v376;
         v148 = a1;
         v149 = 63;
         goto LABEL_427;
@@ -16284,8 +15990,8 @@ LABEL_299:
       case 6099:
       case 6100:
         v304 = getIntrinsicArgAttributeSet(a1, 7);
-        v456[0] = 1;
-        v457 = v304;
+        v455[0] = 1;
+        v456 = v304;
         v148 = a1;
         v149 = 65;
         goto LABEL_427;
@@ -16304,8 +16010,8 @@ LABEL_299:
       case 6291:
       case 6292:
         v384 = getIntrinsicArgAttributeSet(a1, 1);
-        v456[0] = 0;
-        v457 = v384;
+        v455[0] = 0;
+        v456 = v384;
         v148 = a1;
         v149 = 68;
         goto LABEL_427;
@@ -16373,7 +16079,7 @@ LABEL_299:
         v206 = 1;
 LABEL_176:
         v7 = getIntrinsicArgAttributeSet(v205, v206);
-        v456[0] = 0;
+        v455[0] = 0;
         goto LABEL_418;
       case 7055:
       case 7056:
@@ -16428,8 +16134,8 @@ LABEL_176:
       case 7371:
       case 7372:
         v372 = getIntrinsicArgAttributeSet(a1, 7);
-        v456[0] = 1;
-        v457 = v372;
+        v455[0] = 1;
+        v456 = v372;
         v148 = a1;
         v149 = 69;
         goto LABEL_427;
@@ -16453,15 +16159,15 @@ LABEL_176:
         goto LABEL_432;
       case 7681:
         v147 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v147;
+        v455[0] = 1;
+        v456 = v147;
         v148 = a1;
         v149 = 11;
         goto LABEL_427;
       case 7682:
         v163 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 3;
-        v457 = v163;
+        v455[0] = 3;
+        v456 = v163;
         v148 = a1;
         v149 = 70;
         goto LABEL_427;
@@ -16475,24 +16181,24 @@ LABEL_176:
       case 7721:
       case 7723:
         v270 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v270;
+        v455[0] = 1;
+        v456 = v270;
         v271 = getIntrinsicArgAttributeSet(a1, 0);
         v272 = 2;
 LABEL_285:
-        v458 = v272;
+        v457 = v272;
 LABEL_289:
-        v459 = v271;
+        v458 = v271;
         v182 = a1;
         v183 = 10;
         goto LABEL_392;
       case 7850:
         v225 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v225;
+        v455[0] = 1;
+        v456 = v225;
         v226 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 2;
-        v459 = v226;
+        v457 = 2;
+        v458 = v226;
         v227 = a1;
         v228 = 33;
         goto LABEL_354;
@@ -16619,8 +16325,8 @@ LABEL_289:
 LABEL_409:
         v443 = getIntrinsicArgAttributeSet(v370, v371);
         v8 = 2;
-        v456[0] = 2;
-        v457 = v443;
+        v455[0] = 2;
+        v456 = v443;
         v62 = a1;
         v63 = 19;
         goto LABEL_410;
@@ -16636,8 +16342,8 @@ LABEL_409:
       case 8536:
         v363 = getIntrinsicArgAttributeSet(a1, 5);
         v8 = 2;
-        v456[0] = 2;
-        v457 = v363;
+        v455[0] = 2;
+        v456 = v363;
         v62 = a1;
         v63 = 20;
         goto LABEL_410;
@@ -16681,7 +16387,7 @@ LABEL_116:
       case 8541:
       case 8542:
         v186 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 5;
+        v455[0] = 5;
         goto LABEL_296;
       case 8065:
       case 8483:
@@ -16734,9 +16440,9 @@ LABEL_294:
         v186 = getIntrinsicArgAttributeSet(a1, 5);
         v187 = 9;
 LABEL_295:
-        v456[0] = v187;
+        v455[0] = v187;
 LABEL_296:
-        v457 = v186;
+        v456 = v186;
         v148 = a1;
         v149 = 20;
         goto LABEL_427;
@@ -16826,8 +16532,8 @@ LABEL_296:
         v48 = getIntrinsicArgAttributeSet(a1, 0);
         v49 = 6;
 LABEL_168:
-        v456[0] = v49;
-        v457 = v48;
+        v455[0] = v49;
+        v456 = v48;
         v148 = a1;
         v149 = 1;
         goto LABEL_427;
@@ -16847,32 +16553,32 @@ LABEL_168:
         v189 = getIntrinsicArgAttributeSet(a1, 0);
         v190 = 6;
 LABEL_239:
-        v456[0] = v190;
-        v457 = v189;
+        v455[0] = v190;
+        v456 = v189;
         v25 = a1;
         v26 = 33;
         goto LABEL_419;
       case 8252:
         v313 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 2;
-        v457 = v313;
+        v455[0] = 2;
+        v456 = v313;
         v234 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 5;
+        v457 = 5;
         goto LABEL_391;
       case 8253:
         v310 = getIntrinsicArgAttributeSet(a1, 5);
         v8 = 2;
-        v456[0] = 2;
-        v457 = v310;
+        v455[0] = 2;
+        v456 = v310;
         v62 = a1;
         v63 = 5;
         goto LABEL_410;
       case 8254:
         v283 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 2;
-        v457 = v283;
+        v455[0] = 2;
+        v456 = v283;
         v236 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 5;
+        v457 = 5;
         goto LABEL_347;
       case 8257:
       case 8273:
@@ -16880,8 +16586,8 @@ LABEL_239:
         v352 = getIntrinsicArgAttributeSet(a1, 5);
         v353 = 2;
 LABEL_281:
-        v456[0] = v353;
-        v457 = v352;
+        v455[0] = v353;
+        v456 = v352;
         v234 = getIntrinsicArgAttributeSet(a1, 0);
         v235 = 6;
         goto LABEL_390;
@@ -16897,8 +16603,8 @@ LABEL_281:
       case 8319:
         v349 = getIntrinsicArgAttributeSet(a1, 5);
         v8 = 3;
-        v456[0] = 3;
-        v457 = v349;
+        v455[0] = 3;
+        v456 = v349;
         v249 = getIntrinsicArgAttributeSet(a1, 0);
         v250 = 7;
         goto LABEL_249;
@@ -16916,20 +16622,20 @@ LABEL_127:
       case 8305:
       case 8321:
         v356 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 4;
+        v455[0] = 4;
         goto LABEL_271;
       case 8262:
       case 8282:
       case 8306:
       case 8322:
         v197 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 5;
+        v455[0] = 5;
         goto LABEL_310;
       case 8263:
       case 8307:
       case 8323:
         v229 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 5;
+        v455[0] = 5;
         goto LABEL_130;
       case 8264:
       case 8286:
@@ -16977,9 +16683,9 @@ LABEL_127:
         v197 = getIntrinsicArgAttributeSet(a1, 5);
         v198 = 9;
 LABEL_309:
-        v456[0] = v198;
+        v455[0] = v198;
 LABEL_310:
-        v457 = v197;
+        v456 = v197;
         v148 = a1;
         v149 = 19;
         goto LABEL_427;
@@ -16987,21 +16693,21 @@ LABEL_310:
       case 8315:
       case 8331:
         v335 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 9;
-        v457 = v335;
+        v455[0] = 9;
+        v456 = v335;
         v234 = getIntrinsicArgAttributeSet(a1, 0);
         v235 = 13;
         goto LABEL_390;
       case 8275:
         v248 = getIntrinsicArgAttributeSet(a1, 5);
         v8 = 3;
-        v456[0] = 3;
-        v457 = v248;
+        v455[0] = 3;
+        v456 = v248;
         v249 = getIntrinsicArgAttributeSet(a1, 0);
         v250 = 6;
 LABEL_249:
-        v458 = v250;
-        v459 = v249;
+        v457 = v250;
+        v458 = v249;
         v316 = a1;
         v317 = 19;
         goto LABEL_421;
@@ -17015,18 +16721,18 @@ LABEL_105:
       case 8277:
         v350 = getIntrinsicArgAttributeSet(a1, 5);
         v8 = 3;
-        v456[0] = 3;
-        v457 = v350;
+        v455[0] = 3;
+        v456 = v350;
         v351 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 6;
-        v459 = v351;
+        v457 = 6;
+        v458 = v351;
         v316 = a1;
         v317 = 5;
         goto LABEL_421;
       case 8279:
         v309 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 4;
-        v457 = v309;
+        v455[0] = 4;
+        v456 = v309;
         v234 = getIntrinsicArgAttributeSet(a1, 0);
         v235 = 7;
         goto LABEL_390;
@@ -17041,36 +16747,36 @@ LABEL_336:
         v346 = getIntrinsicArgAttributeSet(a1, 5);
         v347 = 4;
 LABEL_315:
-        v456[0] = v347;
-        v457 = v346;
+        v455[0] = v347;
+        v456 = v346;
         v236 = getIntrinsicArgAttributeSet(a1, 0);
         v237 = 7;
         goto LABEL_346;
       case 8283:
         v356 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 5;
+        v455[0] = 5;
 LABEL_271:
-        v457 = v356;
+        v456 = v356;
         v234 = getIntrinsicArgAttributeSet(a1, 0);
         v235 = 8;
         goto LABEL_390;
       case 8284:
         v33 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 5;
+        v455[0] = 5;
         goto LABEL_388;
       case 8285:
         v87 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 5;
+        v455[0] = 5;
 LABEL_132:
-        v457 = v87;
+        v456 = v87;
         v236 = getIntrinsicArgAttributeSet(a1, 0);
         v237 = 8;
         goto LABEL_346;
       case 8287:
         v229 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 6;
+        v455[0] = 6;
 LABEL_130:
-        v457 = v229;
+        v456 = v229;
         v234 = getIntrinsicArgAttributeSet(a1, 0);
         v235 = 9;
         goto LABEL_390;
@@ -17082,8 +16788,8 @@ LABEL_130:
         v252 = getIntrinsicArgAttributeSet(a1, 5);
         v253 = 6;
 LABEL_345:
-        v456[0] = v253;
-        v457 = v252;
+        v455[0] = v253;
+        v456 = v252;
         v236 = getIntrinsicArgAttributeSet(a1, 0);
         v237 = 9;
         goto LABEL_346;
@@ -17091,8 +16797,8 @@ LABEL_345:
         v323 = getIntrinsicArgAttributeSet(a1, 5);
         v324 = 7;
 LABEL_287:
-        v456[0] = v324;
-        v457 = v323;
+        v455[0] = v324;
+        v456 = v323;
         v234 = getIntrinsicArgAttributeSet(a1, 0);
         v235 = 10;
         goto LABEL_390;
@@ -17105,8 +16811,8 @@ LABEL_197:
         goto LABEL_387;
       case 8293:
         v322 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 7;
-        v457 = v322;
+        v455[0] = 7;
+        v456 = v322;
         v236 = getIntrinsicArgAttributeSet(a1, 0);
         v237 = 10;
         goto LABEL_346;
@@ -17114,8 +16820,8 @@ LABEL_197:
         v273 = getIntrinsicArgAttributeSet(a1, 5);
         v274 = 8;
 LABEL_255:
-        v456[0] = v274;
-        v457 = v273;
+        v455[0] = v274;
+        v456 = v273;
         v234 = getIntrinsicArgAttributeSet(a1, 0);
         v235 = 11;
         goto LABEL_390;
@@ -17125,8 +16831,8 @@ LABEL_255:
         goto LABEL_387;
       case 8297:
         v245 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 8;
-        v457 = v245;
+        v455[0] = 8;
+        v456 = v245;
         v236 = getIntrinsicArgAttributeSet(a1, 0);
         v237 = 11;
         goto LABEL_346;
@@ -17134,14 +16840,14 @@ LABEL_255:
         v232 = getIntrinsicArgAttributeSet(a1, 5);
         v233 = 9;
 LABEL_260:
-        v456[0] = v233;
-        v457 = v232;
+        v455[0] = v233;
+        v456 = v232;
         v234 = getIntrinsicArgAttributeSet(a1, 0);
         v235 = 12;
 LABEL_390:
-        v458 = v235;
+        v457 = v235;
 LABEL_391:
-        v459 = v234;
+        v458 = v234;
         v182 = a1;
         v183 = 19;
         goto LABEL_392;
@@ -17149,22 +16855,22 @@ LABEL_391:
         v33 = getIntrinsicArgAttributeSet(a1, 5);
         v34 = 9;
 LABEL_387:
-        v456[0] = v34;
+        v455[0] = v34;
 LABEL_388:
-        v457 = v33;
+        v456 = v33;
         v148 = a1;
         v149 = 5;
         goto LABEL_427;
       case 8301:
         v291 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 9;
-        v457 = v291;
+        v455[0] = 9;
+        v456 = v291;
         v236 = getIntrinsicArgAttributeSet(a1, 0);
         v237 = 12;
 LABEL_346:
-        v458 = v237;
+        v457 = v237;
 LABEL_347:
-        v459 = v236;
+        v458 = v236;
         v182 = a1;
         v183 = 5;
         goto LABEL_392;
@@ -17172,24 +16878,24 @@ LABEL_347:
       case 8693:
       case 8694:
         v354 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 2;
-        v457 = v354;
+        v455[0] = 2;
+        v456 = v354;
         v355 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 3;
-        v458 = 3;
-        v459 = v355;
+        v457 = 3;
+        v458 = v355;
         v316 = a1;
         v317 = 8;
         goto LABEL_421;
       case 8459:
         v343 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v343;
+        v455[0] = 1;
+        v456 = v343;
         v89 = getIntrinsicArgAttributeSet(a1, 0);
         v90 = 2;
 LABEL_237:
-        v458 = v90;
-        v459 = v89;
+        v457 = v90;
+        v458 = v89;
         v182 = a1;
         v183 = 8;
         goto LABEL_392;
@@ -17209,38 +16915,38 @@ LABEL_237:
 LABEL_247:
         v348 = getIntrinsicArgAttributeSet(v9, v10);
         v8 = 2;
-        v456[0] = 2;
-        v457 = v348;
+        v455[0] = 2;
+        v456 = v348;
         v62 = a1;
         v63 = 11;
 LABEL_410:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v62, v63);
-        v458 = -1;
+        v457 = -1;
         goto LABEL_428;
       case 8837:
         v178 = getIntrinsicArgAttributeSet(a1, 0);
         v179 = 2;
 LABEL_211:
-        v456[0] = v179;
-        v457 = v178;
+        v455[0] = v179;
+        v456 = v178;
         v306 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 3;
-        v458 = 3;
+        v457 = 3;
         goto LABEL_212;
       case 8838:
         v305 = getIntrinsicArgAttributeSet(a1, 0);
         v8 = 3;
-        v456[0] = 3;
-        v457 = v305;
+        v455[0] = 3;
+        v456 = v305;
         v306 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 4;
+        v457 = 4;
 LABEL_212:
-        v459 = v306;
+        v458 = v306;
         v316 = a1;
         v317 = 4;
 LABEL_421:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v316, v317);
-        v460 = -1;
+        v459 = -1;
         goto LABEL_422;
       case 8873:
       case 8874:
@@ -17249,23 +16955,23 @@ LABEL_421:
         goto LABEL_432;
       case 10112:
         v293 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v293;
+        v455[0] = 1;
+        v456 = v293;
         v25 = a1;
         v26 = 72;
         goto LABEL_419;
       case 10120:
         v251 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v251;
+        v455[0] = 1;
+        v456 = v251;
         v148 = a1;
         v149 = 78;
         goto LABEL_427;
       case 10121:
       case 10122:
         v314 = getIntrinsicArgAttributeSet(a1, 3);
-        v456[0] = 1;
-        v457 = v314;
+        v455[0] = 1;
+        v456 = v314;
         v148 = a1;
         v149 = 79;
         goto LABEL_427;
@@ -17275,8 +16981,8 @@ LABEL_421:
         goto LABEL_432;
       case 10163:
         v265 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 1;
-        v457 = v265;
+        v455[0] = 1;
+        v456 = v265;
         v25 = a1;
         v26 = 80;
         goto LABEL_419;
@@ -17289,8 +16995,8 @@ LABEL_421:
       case 10880:
       case 10881:
         v318 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 4;
-        v457 = v318;
+        v455[0] = 4;
+        v456 = v318;
         v319 = getIntrinsicArgAttributeSet(a1, 0);
         v320 = 5;
         goto LABEL_231;
@@ -17301,7 +17007,7 @@ LABEL_421:
       case 10976:
       case 10977:
         v263 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 3;
+        v455[0] = 3;
         goto LABEL_351;
       case 10529:
       case 10532:
@@ -17314,7 +17020,7 @@ LABEL_421:
         v315 = getIntrinsicArgAttributeSet(a1, 0);
         v321 = 4;
 LABEL_233:
-        v456[0] = v321;
+        v455[0] = v321;
         goto LABEL_234;
       case 10571:
       case 10574:
@@ -17328,9 +17034,9 @@ LABEL_233:
         v263 = getIntrinsicArgAttributeSet(a1, 0);
         v264 = 2;
 LABEL_350:
-        v456[0] = v264;
+        v455[0] = v264;
 LABEL_351:
-        v457 = v263;
+        v456 = v263;
         v114 = getIntrinsicArgAttributeSet(a1, 0);
         v115 = 5;
         goto LABEL_352;
@@ -17340,21 +17046,21 @@ LABEL_351:
       case 10692:
       case 10987:
         v315 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 3;
+        v455[0] = 3;
 LABEL_234:
-        v457 = v315;
+        v456 = v315;
         v114 = getIntrinsicArgAttributeSet(a1, 0);
         v115 = 6;
 LABEL_352:
-        v458 = v115;
+        v457 = v115;
 LABEL_353:
-        v459 = v114;
+        v458 = v114;
         v227 = a1;
         v228 = 1;
 LABEL_354:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v227, v228);
-        v460 = -1;
-        v4 = &v461;
+        v459 = -1;
+        v4 = &v460;
         v8 = 3;
         break;
       case 10693:
@@ -17366,11 +17072,11 @@ LABEL_354:
       case 10998:
       case 11002:
         v311 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 5;
-        v457 = v311;
+        v455[0] = 5;
+        v456 = v311;
         v312 = getIntrinsicArgAttributeSet(a1, 0);
-        v458 = 6;
-        v459 = v312;
+        v457 = 6;
+        v458 = v312;
         v182 = a1;
         v183 = 1;
         goto LABEL_392;
@@ -17430,8 +17136,8 @@ LABEL_354:
         v299 = getIntrinsicArgAttributeSet(a1, 0);
         v300 = 4;
 LABEL_381:
-        v456[0] = v300;
-        v457 = v299;
+        v455[0] = v300;
+        v456 = v299;
         v148 = a1;
         v149 = 10;
         goto LABEL_427;
@@ -17440,7 +17146,7 @@ LABEL_381:
         v17 = 81;
 LABEL_432:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v16, v17);
-        v456[0] = -1;
+        v455[0] = -1;
         v8 = 1;
         break;
       case 11595:
@@ -17483,50 +17189,50 @@ LABEL_191:
         v174 = getIntrinsicArgAttributeSet(v176, v177);
         v175 = 1;
 LABEL_192:
-        v456[0] = v175;
-        v457 = v174;
+        v455[0] = v175;
+        v456 = v174;
         v148 = a1;
         v149 = 4;
 LABEL_427:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v148, v149);
-        v458 = -1;
+        v457 = -1;
         v8 = 2;
 LABEL_428:
-        v4 = &v459;
+        v4 = &v458;
         break;
       case 11629:
       case 11635:
         v301 = getIntrinsicArgAttributeSet(a1, 5);
-        v456[0] = 1;
-        v457 = v301;
+        v455[0] = 1;
+        v456 = v301;
         v302 = a1;
         v303 = 5;
 LABEL_230:
         v319 = getIntrinsicArgAttributeSet(v302, v303);
         v320 = 2;
 LABEL_231:
-        v458 = v320;
-        v459 = v319;
+        v457 = v320;
+        v458 = v319;
         v182 = a1;
         v183 = 4;
 LABEL_392:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v182, v183);
-        v460 = -1;
+        v459 = -1;
         v8 = 3;
 LABEL_422:
-        v4 = &v461;
+        v4 = &v460;
         break;
       default:
         v7 = getIntrinsicArgAttributeSet(a1, 0);
-        v456[0] = 2;
+        v455[0] = 2;
 LABEL_418:
-        v457 = v7;
+        v456 = v7;
         v25 = a1;
         v26 = 0;
 LABEL_419:
         IntrinsicFnAttributeSet = getIntrinsicFnAttributeSet(v25, v26);
-        v458 = -1;
-        v4 = &v459;
+        v457 = -1;
+        v4 = &v458;
         v8 = 2;
         break;
     }
@@ -17539,8 +17245,5 @@ LABEL_419:
     v8 = 0;
   }
 
-  result = llvm::AttributeList::get(a1, v456, v8);
-LABEL_435:
-  v455 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::AttributeList::get(a1, v455, v8);
 }

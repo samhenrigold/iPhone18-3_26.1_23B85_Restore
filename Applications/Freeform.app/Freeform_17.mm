@@ -68,12 +68,13 @@ void sub_100352600(id a1)
   off_1019EDA68 = v1;
 }
 
-id sub_100352644(void *a1, void *a2, unint64_t a3, unsigned int a4, int a5)
+id sub_100352644(void *a1, void *a2, unint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
   v9 = a1;
   v10 = a2;
   v11 = sub_100361E00(v9, a4);
-  v12 = sub_100362478(v11, v9, v10, a5, a3);
+  v12 = sub_100362478(v11, v9, v10, v5, a3);
   CFRelease(v11);
 
   return v12;
@@ -172,20 +173,20 @@ void sub_100352988(uint64_t a1, unint64_t a2, uint64_t a3)
       sub_101358E8C();
     }
 
-    v59 = off_1019EDA68;
-    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+    v52 = off_1019EDA68;
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
       +[CRLAssertionHandler packedBacktraceString];
       objc_claimAutoreleasedReturnValue();
       sub_10130E89C();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Must have at least one style run", v46, v47, v48, v49, v50, v51, v52, "void CRLWPCoreTextTypesetter::pChangeToSmallCapsForRange(const NSRange)");
-    v60 = [NSString stringWithUTF8String:"void CRLWPCoreTextTypesetter::pChangeToSmallCapsForRange(const NSRange)"];
-    v53 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPCoreTextTypesetter.mm"];
-    [CRLAssertionHandler handleFailureInFunction:v60 file:v53 lineNumber:4119 isFatal:1 description:"Must have at least one style run"];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Must have at least one style run", "void CRLWPCoreTextTypesetter::pChangeToSmallCapsForRange(const NSRange)", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPCoreTextTypesetter.mm", 4119);
+    v53 = [NSString stringWithUTF8String:"void CRLWPCoreTextTypesetter::pChangeToSmallCapsForRange(const NSRange)"];
+    v46 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPCoreTextTypesetter.mm"];
+    [CRLAssertionHandler handleFailureInFunction:v53 file:v46 lineNumber:4119 isFatal:1 description:"Must have at least one style run"];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v54, v55);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v47, v48);
     abort();
   }
 
@@ -207,22 +208,22 @@ void sub_100352988(uint64_t a1, unint64_t a2, uint64_t a3)
       sub_101358CA0();
     }
 
-    v56 = off_1019EDA68;
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    v49 = off_1019EDA68;
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       +[CRLAssertionHandler packedBacktraceString];
       objc_claimAutoreleasedReturnValue();
       sub_10130E89C();
     }
 
-    v57 = [NSString stringWithUTF8String:"void CRLWPCoreTextTypesetter::pChangeToSmallCapsForRange(const NSRange)"];
+    v50 = [NSString stringWithUTF8String:"void CRLWPCoreTextTypesetter::pChangeToSmallCapsForRange(const NSRange)"];
     v6 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPCoreTextTypesetter.mm"];
-    [CRLAssertionHandler handleFailureInFunction:v57 file:v6 lineNumber:4120 isFatal:0 description:"localRange.length must be >= 1"];
+    [CRLAssertionHandler handleFailureInFunction:v50 file:v6 lineNumber:4120 isFatal:0 description:"localRange.length must be >= 1"];
   }
 
   v7 = [*(a1 + 112) count] - 1;
-  v58 = [*(a1 + 112) objectAtIndexedSubscript:v7];
-  v8 = [v58 range];
+  v51 = [*(a1 + 112) objectAtIndexedSubscript:v7];
+  v8 = [v51 range];
   v10 = a2 + a3;
   if (v8 > a2 || v8 + v9 < v10)
   {
@@ -274,7 +275,7 @@ void sub_100352988(uint64_t a1, unint64_t a2, uint64_t a3)
         }
 
         v19 = [v15 characterIsMember:*(*(a1 + 64) + 2 * v17)];
-        v17 = (v18 + 1);
+        v17 = v18 + 1;
       }
 
       while (v16 == v19);
@@ -298,17 +299,17 @@ void sub_100352988(uint64_t a1, unint64_t a2, uint64_t a3)
         v21 = a2;
       }
 
-      v62 = v21;
-      v22 = v58;
+      v55 = v21;
+      v22 = v51;
       v23 = v22;
       if (v7 + 1 == [*(a1 + 112) count])
       {
         v23 = [*(a1 + 112) objectAtIndexedSubscript:v7];
       }
 
-      v63 = v23;
-      v24 = v20 - v62;
-      if (v7 == [*(a1 + 112) count] || v62 != objc_msgSend(v63, "range") || v24 != v34)
+      v56 = v23;
+      v24 = v20 - v55;
+      if (v7 == [*(a1 + 112) count] || v55 != objc_msgSend(v56, "range") || v24 != v34)
       {
         v25 = *(a1 + 104);
         if (!v25)
@@ -358,23 +359,23 @@ void sub_100352988(uint64_t a1, unint64_t a2, uint64_t a3)
           v25 = *(a1 + 104);
         }
 
-        v31 = [v63 copy];
+        v31 = [v56 copy];
         [v25 addObject:v31];
 
         v7 = [*(a1 + 112) count] - 1;
-        if (v63)
+        if (v56)
         {
-          v32 = [v63 range];
-          if (v62 < &v32[v33])
+          v32 = [v56 range];
+          if (v55 < &v32[v33])
           {
-            [v63 setRunLength:v62 - v32];
+            [v56 setRunLength:v55 - v32];
           }
         }
       }
 
       v35 = [*(a1 + 112) objectAtIndexedSubscript:v7];
       [v35 setRunLength:v24];
-      [v35 setCharIndex:v62];
+      [v35 setCharIndex:v55];
       v36 = [v22 characterStyle];
       [v35 setCharacterStyle:v36];
 
@@ -388,7 +389,7 @@ void sub_100352988(uint64_t a1, unint64_t a2, uint64_t a3)
       [v35 setFlags:v37 | v38];
       if (v16)
       {
-        sub_100353450(a1, v62, v24);
+        sub_100353450(a1, v55, v24);
         if (cf || (Size = CTFontGetSize([v22 ctFont]), v43 = CTFontCopyFontDescriptor(objc_msgSend(v22, "ctFont")), (v44 = v43) != 0) && (cf = CTFontCreateWithFontDescriptor(v43, Size * 0.800000012, 0), CFRelease(v44), cf))
         {
           v39 = [v22 attributes];
@@ -397,13 +398,13 @@ void sub_100352988(uint64_t a1, unint64_t a2, uint64_t a3)
           [v40 setObject:cf forKeyedSubscript:kCTFontAttributeName];
           [v35 setAttributes:v40];
           [v35 setCtFont:cf];
-          sub_10028234C(cf, v64);
-          *&buf[32] = v64[2];
-          v72 = v64[3];
-          v73 = v64[4];
-          v74 = v64[5];
-          *buf = v64[0];
-          *&buf[16] = v64[1];
+          sub_10028234C(cf, v57);
+          *&buf[32] = v57[2];
+          v65 = v57[3];
+          v66 = v57[4];
+          v67 = v57[5];
+          *buf = v57[0];
+          *&buf[16] = v57[1];
           [v35 setFontHeightInfo:buf];
         }
 
@@ -419,27 +420,27 @@ void sub_100352988(uint64_t a1, unint64_t a2, uint64_t a3)
         [v35 setAttributes:v41];
 
         [v35 setCtFont:{objc_msgSend(v22, "ctFont")}];
-        if (v58)
+        if (v51)
         {
-          [v22 fontHeightInfo];
+          objc_msgSend_fontHeightInfo(v22);
         }
 
         else
         {
-          v69 = 0u;
-          v70 = 0u;
-          v67 = 0u;
-          v68 = 0u;
-          v65 = 0u;
-          v66 = 0u;
+          v62 = 0u;
+          v63 = 0u;
+          v60 = 0u;
+          v61 = 0u;
+          v58 = 0u;
+          v59 = 0u;
         }
 
-        *&buf[32] = v67;
-        v72 = v68;
-        v73 = v69;
-        v74 = v70;
-        *buf = v65;
-        *&buf[16] = v66;
+        *&buf[32] = v60;
+        v65 = v61;
+        v66 = v62;
+        v67 = v63;
+        *buf = v58;
+        *&buf[16] = v59;
         [v35 setFontHeightInfo:buf];
       }
 
@@ -2510,9 +2511,9 @@ void sub_100357614(uint64_t a1, double *a2, double *a3, double *a4)
   v14 = a2[3];
   if ((v9 & 0x1000) != 0)
   {
-    if ((*(*&v7 + 348) & 1) == 0 && *(*&v7 + 456) == 1 && (*(*&v7 + 457) & 1) == 0)
+    if ((*(v7 + 348) & 1) == 0 && *(v7 + 456) == 1 && (*(v7 + 457) & 1) == 0)
     {
-      *a4 = v14 - *(*&v7 + 232);
+      *a4 = v14 - *(v7 + 232);
     }
 
     v15 = *(a2 + 170);
@@ -2534,9 +2535,9 @@ LABEL_15:
 
   else
   {
-    if ((*(*&v7 + 348) & 1) == 0 && *(*&v7 + 456) == 1 && (*(*&v7 + 457) & 1) == 0)
+    if ((*(v7 + 348) & 1) == 0 && *(v7 + 456) == 1 && (*(v7 + 457) & 1) == 0)
     {
-      *a3 = *(*&v7 + 232);
+      *a3 = *(v7 + 232);
     }
 
     v15 = *(a2 + 170);
@@ -2558,8 +2559,8 @@ LABEL_15:
 LABEL_17:
   v18 = v11 - v10;
   v19 = MaxX - v13;
-  v20 = *(*&v7 + 240);
-  if (*(*&v7 + 350) == 1)
+  v20 = *(v7 + 240);
+  if (*(v7 + 350) == 1)
   {
     v21 = *a4 - v20;
     *a4 = v21;
@@ -3059,11 +3060,12 @@ LABEL_71:
 LABEL_98:
 }
 
-void sub_10035891C(double a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+void sub_10035891C(double a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v6 = a5;
   v9 = sub_1002152C8(a4);
   v10 = sub_10035F72C(a1, v9, a3, a4);
-  if (a5)
+  if (v6)
   {
     v11 = [[NSMutableDictionary alloc] initWithCapacity:2];
     v12 = CTFontCreateWithName(@"Helvetica", 25.1950798, 0);
@@ -3093,7 +3095,7 @@ void sub_10035891C(double a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
     if (*(v17 + 1))
     {
       *(a4 + 24) = v16 | 0x800;
-      sub_100360524(0.0, v15, a3, a4, a5, 0);
+      sub_100360524(0.0, v15, a3, a4, v6, 0);
     }
 
     v18 = *(a4 + 24);
@@ -3117,9 +3119,9 @@ void sub_10035891C(double a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
   *(a4 + 24) = v18 | 0x4000;
 }
 
-void sub_100358B10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100358B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_10026EC38(va);
   _Unwind_Resume(a1);
 }
@@ -3157,7 +3159,7 @@ uint64_t sub_100358BE8(uint64_t a1, char **a2, __int128 *a3)
       v13 = v12;
       v14 = v13;
       v15 = v35;
-      if (v7 + 1 == *(&v35 + 1) + v35)
+      if (v7 + 1 == (*(&v35 + 1) + v35))
       {
         v7 = sub_100358B54(a1, v7);
         v16 = objc_opt_class();
@@ -3360,7 +3362,7 @@ uint64_t sub_10035912C(CFIndex *a1, uint64_t a2, uint64_t a3)
     [CRLAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:2396 isFatal:0 description:"Bad localMaxCharIndex"];
   }
 
-  v10 = sub_10035E418();
+  v10 = sub_10035E418(a1);
   if ([v10 characterIsMember:*(a1[8] + 2 * v6 - 2)])
   {
     v11 = 1;
@@ -3384,7 +3386,7 @@ uint64_t sub_10035912C(CFIndex *a1, uint64_t a2, uint64_t a3)
 
       CFRelease(v15);
       v18 = a1[27];
-      v17 = (a1 + 27);
+      v17 = a1 + 27;
       *v17 = v13;
 
       v12 = *v17;
@@ -3507,8 +3509,8 @@ uint64_t sub_1003597B4(uint64_t a1, NSRange *a2, uint64_t a3, uint64_t a4, doubl
     {
       length = a2->length;
       v50 = NAN;
-      v9 = &length[location];
-      if (&length[location] > location)
+      v9 = (length + location);
+      if ((length + location) > location)
       {
         v14 = 0;
         while (1)
@@ -3761,7 +3763,7 @@ void sub_10035A18C(id a1)
   off_1019EDA68 = v1;
 }
 
-id sub_10035A1D0(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+id sub_10035A1D0(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
   result = sub_10020BC74(a2);
   if (result)
@@ -3788,18 +3790,18 @@ id sub_10035A1D0(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 
   if (sub_10021168C(a2))
   {
-    *buf = 0;
-    v10 = sub_100216390(a2, buf);
-    if ((*buf - 0x10000) >> 20)
+    LODWORD(buf) = 0;
+    v10 = sub_100216390(a2, &buf);
+    if ((buf - 0x10000) >> 20)
     {
       v12 = 1;
-      LOWORD(v11) = *buf;
+      LOWORD(v11) = buf;
     }
 
     else
     {
-      v11 = ((*buf - 0x10000) >> 10) | 0xFFFFD800;
-      *&translations[2] = *buf & 0x3FF | 0xDC00;
+      v11 = ((buf - 0x10000) >> 10) | 0xFFFFD800;
+      *&translations[2] = buf & 0x3FF | 0xDC00;
       v12 = 2;
     }
 
@@ -3956,9 +3958,9 @@ id sub_10035A1D0(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   }
 
   v38 = sub_1003507D0(a1);
-  v298.location = v22;
-  v298.length = v24;
-  LineWithOffset = CTTypesetterCreateLineWithOffset(v38, v298, v280);
+  v297.location = v22;
+  v297.length = v24;
+  LineWithOffset = CTTypesetterCreateLineWithOffset(v38, v297, v280);
   if (!LineWithOffset)
   {
     +[CRLAssertionHandler _atomicIncrementAssertCount];
@@ -4012,21 +4014,21 @@ id sub_10035A1D0(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
         v224 = *(*(a1 + 64) + 2 * v22);
       }
 
-      *buf = 67110658;
-      v286 = v46;
-      *v287 = 2082;
-      *&v287[2] = "void CRLWPCoreTextTypesetter::createLineVectorForLineFragment(CRLWPLineFragment *, const CRLWPLayoutState *, BOOL, CRLWPLayoutFlags) const";
-      v288 = 2082;
-      v289 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPCoreTextTypesetter.mm";
-      v290 = 1024;
-      v291 = 2935;
-      v292 = 2048;
-      v293 = v22;
-      v294 = 2048;
-      v295 = v24;
-      v296 = 1024;
-      v297 = v224;
-      _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad lineGlyphCount 0 for line range {%ld, %ld} 0x%X", buf, 0x3Cu);
+      LODWORD(buf) = 67110658;
+      HIDWORD(buf) = v46;
+      *v286 = 2082;
+      *&v286[2] = "void CRLWPCoreTextTypesetter::createLineVectorForLineFragment(CRLWPLineFragment *, const CRLWPLayoutState *, BOOL, CRLWPLayoutFlags) const";
+      v287 = 2082;
+      v288 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPCoreTextTypesetter.mm";
+      v289 = 1024;
+      v290 = 2935;
+      v291 = 2048;
+      v292 = v22;
+      v293 = 2048;
+      v294 = v24;
+      v295 = 1024;
+      v296 = v224;
+      _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad lineGlyphCount 0 for line range {%ld, %ld} 0x%X", &buf, 0x3Cu);
     }
 
     if (qword_101AD5A10 != -1)
@@ -4167,11 +4169,11 @@ LABEL_91:
     v228 = [v67 string];
 
     sub_1002152C0(v247, v228);
-    sub_10026EB3C(buf, line, 0x7FFFFFFFFFFFFFFFLL, 0, 0, v59, 0.0);
-    sub_10020B844(v247, buf);
+    sub_10026EB3C(&buf, line, 0x7FFFFFFFFFFFFFFFLL, 0, 0, v59, 0.0);
+    sub_10020B844(v247, &buf);
     v226 = CTLineGetGlyphRuns(line);
     v68 = [v226 count];
-    v69 = sub_10026ECB4(buf);
+    v69 = sub_10026ECB4(&buf);
     TrailingWhitespaceWidth = CTLineGetTrailingWhitespaceWidth(v69);
     v278 = 0u;
     v277 = 0u;
@@ -4354,17 +4356,17 @@ LABEL_91:
         if (v74)
         {
           sub_1000E7C60(buffer, v74);
+          v298.location = 0;
+          v298.length = v74;
+          CTRunGetStringIndices(v72, v298, buffer[0]);
+          sub_1000E7D5C(v270, v74);
           v299.location = 0;
           v299.length = v74;
-          CTRunGetStringIndices(v72, v299, buffer[0]);
-          sub_1000E7D5C(v270, v74);
+          CTRunGetPositions(v72, v299, v270[0]);
+          sub_100363A24(v269, v74);
           v300.location = 0;
           v300.length = v74;
-          CTRunGetPositions(v72, v300, v270[0]);
-          sub_100363A24(v269, v74);
-          v301.location = 0;
-          v301.length = v74;
-          CTRunGetAdvances(v72, v301, v269[0]);
+          CTRunGetAdvances(v72, v300, v269[0]);
           v95 = *(v263 + 232);
           if (v95 && *(*(v263 + 64) + 2 * *buffer[0]) == -4)
           {
@@ -4692,7 +4694,7 @@ LABEL_211:
                       v253 = [*(v263 + 56) characterStyleAtCharIndex:v172 effectiveRange:0];
                       v255 = [*(v263 + 56) paragraphStyleAtCharIndex:v172 effectiveRange:0];
                       v187 = sub_10011C2B4(v239);
-                      v188 = sub_100352644(v255, v253, [v187 scaleTextPercent], 1u, 1);
+                      v188 = sub_100352644(v255, v253, [v187 scaleTextPercent], 1, 1);
                       v259 = [v188 mutableCopy];
 
                       if (v259)
@@ -4780,7 +4782,7 @@ LABEL_280:
 
                           if (v207)
                           {
-                            sub_10026EB3C(translations, v207, v172, 1, 0, width + x + *v287 - v208, 0.0);
+                            sub_10026EB3C(translations, v207, v172, 1, 0, width + x + *v286 - v208, 0.0);
                             sub_10020BC18(v247, translations);
                             CFRelease(v207);
                             sub_10026EC38(translations);
@@ -4852,9 +4854,9 @@ LABEL_242:
                       if (v249)
                       {
                         *translations = 0;
-                        v303.location = v168;
-                        v303.length = 1;
-                        CTRunGetGlyphs(v176, v303, translations);
+                        v302.location = v168;
+                        v302.length = 1;
+                        CTRunGetGlyphs(v176, v302, translations);
                         BoundingRectsForGlyphs = CTFontGetBoundingRectsForGlyphs(v170, kCTFontOrientationVertical, translations, 0, 1);
                         v177 = -BoundingRectsForGlyphs.size.width;
                       }
@@ -4952,9 +4954,9 @@ LABEL_239:
             leading = 0.0;
           }
 
-          v302.location = 0;
-          v302.length = v74;
-          v98 = CTRunGetTypographicBounds(v72, v302, &ascent, &descent, &leading);
+          v301.location = 0;
+          v301.length = v74;
+          v98 = CTRunGetTypographicBounds(v72, v301, &ascent, &descent, &leading);
           v99 = 0;
           goto LABEL_150;
         }
@@ -4983,7 +4985,7 @@ LABEL_309:
         if (sub_10021168C(v247))
         {
           OffsetForStringIndex = CTLineGetOffsetForStringIndex(line, charIndex, 0);
-          v220 = *v287;
+          v220 = *v286;
           v221 = sub_10011C2B4(v239);
           v222 = sub_10011C2B4(v239);
           [v222 scaleTextPercent];
@@ -5001,7 +5003,7 @@ LABEL_309:
 
         CFRelease(line);
 
-        sub_10026EC38(buf);
+        sub_10026EC38(&buf);
         return sub_1002163F0(v247);
       }
     }
@@ -5057,10 +5059,10 @@ void sub_10035CD00(id a1)
   off_1019EDA60 = v1;
 }
 
-void sub_10035CD44(uint64_t a1, uint64_t a2, char *a3, uint64_t a4)
+void sub_10035CD44(uint64_t a1, double *a2, char *a3, uint64_t a4)
 {
   v8 = *a2;
-  v9 = *(a2 + 224);
+  v9 = *(a2 + 28);
   v10 = [*(a1 + 112) count];
   if ([*(a1 + 112) count] >= 2)
   {
@@ -5109,7 +5111,7 @@ LABEL_7:
   v24 = v20;
   v25 = v21;
   v26 = v22;
-  *(a1 + 160) = *(a2 + 216) - fmax(*(a1 + 136), *(a1 + 128));
+  *(a1 + 160) = a2[27] - fmax(*(a1 + 136), *(a1 + 128));
   v27 = +[CRLWPFontMetricsCache sharedCache];
   [v27 validateFontHeightInfo:a1 + 120 description:@"calcHeightInfo"];
 
@@ -5879,16 +5881,16 @@ void sub_10035E3D4(id a1)
   off_1019EDA68 = v1;
 }
 
-id sub_10035E418()
+id sub_10035E418(uint64_t a1)
 {
   if (qword_101A34CE0 != -1)
   {
     sub_10135ABB0();
   }
 
-  v1 = qword_101A34CD8;
+  v2 = qword_101A34CD8;
 
-  return v1;
+  return v2;
 }
 
 void sub_10035E45C(id a1)
@@ -5923,7 +5925,7 @@ void sub_10035E5B4(id a1)
   off_1019EDA68 = v1;
 }
 
-double sub_10035E5F8(uint64_t a1, uint64_t *a2, unint64_t a3, char *a4, uint64_t a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9)
+double sub_10035E5F8(uint64_t a1, uint64_t *a2, char *a3, char *a4, uint64_t a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9)
 {
   v71 = *a2;
   v73 = a2[28];
@@ -6210,8 +6212,9 @@ void sub_10035EF48(id a1)
   off_1019EDA68 = v1;
 }
 
-void sub_10035EF8C(uint64_t a1, uint64_t *a2, void *a3, const __CTFont *a4, char a5)
+void sub_10035EF8C(uint64_t a1, uint64_t *a2, void *a3, const __CTFont *a4, uint64_t a5)
 {
+  v5 = a5;
   v9 = a3;
   v10 = v9;
   v11 = *a2;
@@ -6328,7 +6331,7 @@ LABEL_23:
     *(a2[28] + 24) |= 0x400uLL;
   }
 
-  sub_10035F268(a1, &v27, &v24, a2, a5);
+  sub_10035F268(a1, &v27, &v24, a2, v5);
 }
 
 uint64_t sub_10035F268(uint64_t result, double *a2, uint64_t a3, uint64_t a4, char a5)
@@ -7635,14 +7638,15 @@ void sub_100361DBC(id a1)
   off_1019EDA68 = v1;
 }
 
-CTParagraphStyleRef sub_100361E00(void *a1, unsigned int a2)
+CTParagraphStyleRef sub_100361E00(void *a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = a1;
   v52 = v3;
   v4 = [v3 intValueForProperty:28];
   if (v4 == -1)
   {
-    v5 = a2;
+    v5 = v2;
   }
 
   else
@@ -7691,7 +7695,7 @@ CTParagraphStyleRef sub_100361E00(void *a1, unsigned int a2)
     }
   }
 
-  v54 = sub_100363474(v5, a2);
+  v54 = sub_100363474(v5, v2);
   v60 = v54;
   [v52 floatValueForProperty:31];
   v8 = v7;
@@ -7824,7 +7828,7 @@ CTParagraphStyleRef sub_100361E00(void *a1, unsigned int a2)
   return v41;
 }
 
-void *sub_100362478(uint64_t a1, void *a2, void *a3, int a4, unint64_t a5)
+NSMutableDictionary *sub_100362478(uint64_t a1, void *a2, void *a3, int a4, unint64_t a5)
 {
   v9 = a2;
   v10 = a3;
@@ -8350,9 +8354,9 @@ void sub_100363888(void *a1, uint64_t a2)
   operator new();
 }
 
-void sub_100363908(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100363908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_10036391C(va);
   _Unwind_Resume(a1);
 }
@@ -8363,7 +8367,7 @@ uint64_t *sub_10036391C(uint64_t *a1)
   *a1 = 0;
   if (v2)
   {
-    sub_1005B64E8();
+    sub_1005B64E8(v2);
     operator delete();
   }
 
@@ -8382,7 +8386,7 @@ uint64_t sub_1003639A0(uint64_t a1)
   result = *(a1 + 24);
   if (result)
   {
-    sub_1005B64E8();
+    sub_1005B64E8(result);
 
     operator delete();
   }
@@ -8402,17 +8406,17 @@ uint64_t sub_1003639E4(uint64_t a1, uint64_t a2)
   }
 }
 
-void *sub_100363A24(void *result, unint64_t a2)
+uint64_t *sub_100363A24(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_1000DB64C(result, a2);
+    sub_1000DB64C(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_100363A80(_Unwind_Exception *exception_object)
@@ -8960,13 +8964,6 @@ void sub_10036FB4C(id a1)
 }
 
 void sub_10036FB90(id a1)
-{
-  v1 = sub_1004BD804("CRLAssertCat");
-  v2 = off_1019EDA68;
-  off_1019EDA68 = v1;
-}
-
-void sub_10036FBD4(id a1)
 {
   v1 = sub_1004BD804("CRLAssertCat");
   v2 = off_1019EDA68;

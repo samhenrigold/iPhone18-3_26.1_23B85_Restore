@@ -1,6 +1,7 @@
 @interface NEIKEv2DeleteIKEContext
 - (id)description;
 - (id)initDeleteIKEWithResponse:(void *)response callbackQueue:(void *)queue callback:;
+- (void)sendCallbackSuccess:(BOOL)success session:(id)session;
 @end
 
 @implementation NEIKEv2DeleteIKEContext
@@ -36,6 +37,36 @@
   }
 
   return self;
+}
+
+- (void)sendCallbackSuccess:(BOOL)success session:(id)session
+{
+  v15.receiver = self;
+  v15.super_class = NEIKEv2DeleteIKEContext;
+  [(NEIKEv2RequestContext *)&v15 sendCallbackSuccess:success session:session];
+  if (self)
+  {
+    v6 = self->_callback;
+    if (v6)
+    {
+      callbackQueue = self->_callbackQueue;
+
+      if (callbackQueue)
+      {
+        v8 = self->_callback;
+        objc_setProperty_nonatomic_copy(self, v9, 0, 40);
+        v10 = self->_callbackQueue;
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __55__NEIKEv2DeleteIKEContext_sendCallbackSuccess_session___block_invoke;
+        v12[3] = &unk_1E7F0AB40;
+        v13 = v8;
+        successCopy = success;
+        v11 = v8;
+        dispatch_async(v10, v12);
+      }
+    }
+  }
 }
 
 - (id)description

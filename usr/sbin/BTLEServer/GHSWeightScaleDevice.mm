@@ -293,7 +293,7 @@ LABEL_18:
       v11 = qword_1000DDBC8;
       if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
       {
-        sub_10007BE1C(v11, self, &v17);
+        sub_10007BE1C(v11);
       }
 
       v10 = 0;
@@ -370,7 +370,7 @@ LABEL_17:
       v11 = qword_1000DDBC8;
       if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
       {
-        sub_10007BE1C(v11, self, &v17);
+        sub_10007BE1C(v11);
       }
 
       v10 = 0;
@@ -444,7 +444,7 @@ LABEL_17:
     v11 = qword_1000DDBC8;
     if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
     {
-      sub_10007BE1C(v11, self, &v16);
+      sub_10007BE1C(v11);
     }
   }
 

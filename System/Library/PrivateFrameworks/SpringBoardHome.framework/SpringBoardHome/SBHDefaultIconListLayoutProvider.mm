@@ -35,9 +35,11 @@
 
 uint64_t __61__SBHDefaultIconListLayoutProvider_frameworkFallbackInstance__block_invoke()
 {
-  frameworkFallbackInstance_instance = objc_alloc_init(SBHDefaultIconListLayoutProvider);
+  v0 = objc_alloc_init(SBHDefaultIconListLayoutProvider);
+  v1 = frameworkFallbackInstance_instance;
+  frameworkFallbackInstance_instance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (SBHDefaultIconListLayoutProvider)frameworkFallbackInstance
@@ -313,7 +315,7 @@ LABEL_25:
     v45 = v44;
     v47 = v46;
     v49 = v48;
-    [v10 iconImageInfoForGridSizeClass:v212];
+    objc_msgSend_iconImageInfoForGridSizeClass_(v10);
     v51 = v50;
     v53 = v52;
     SBHGetScreenSpecification(screenType, v222);
@@ -514,12 +516,12 @@ LABEL_25:
       else
       {
         v118 = _SBHDefaultIconGridSizeClassIconImageInfos(v113, v6);
-        [v118 iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassSmall"];
+        objc_msgSend_iconImageInfoForGridSizeClass_(v118);
         v120 = v119;
         v122 = v121;
         v200 = v15;
         v124 = v123;
-        [v10 iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassSmall"];
+        objc_msgSend_iconImageInfoForGridSizeClass_(v10);
         v125 = v16;
         v126 = v13;
         v128 = v127;
@@ -587,7 +589,7 @@ LABEL_25:
       v131 = _SBHDefaultCategoryPodIconInset(screenType);
       v132 = _SBHEquivalentPhoneScreenTypeForScreenType(screenType);
       v133 = _SBHDefaultIconGridSizeClassIconImageInfos(v132, v6);
-      [v133 iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassSmall"];
+      objc_msgSend_iconImageInfoForGridSizeClass_(v133);
       v177 = v135;
       v178 = v134;
 
@@ -733,7 +735,7 @@ LABEL_25:
 
       else if ([locationCopy isEqualToString:@"SBIconLocationAppLibrarySearch"])
       {
-        [v10 iconImageInfoForGridSizeClass:v212];
+        objc_msgSend_iconImageInfoForGridSizeClass_(v10);
         [(SBIconListGridLayoutConfiguration *)v11 setIconImageInfo:v212 forGridSizeClass:48.0, 48.0, v141, SBHDefaultIconImageContinuousCornerRadius(48.0)];
         v20 = 0;
         v38 = 0;
@@ -807,10 +809,10 @@ LABEL_25:
           if (IsPad)
           {
             v161 = _SBHDefaultIconGridSizeClassIconImageInfos(screenType, v6);
-            [v161 iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassSmall"];
+            objc_msgSend_iconImageInfoForGridSizeClass_(v161);
             v163 = v162;
             v165 = v164;
-            [v10 iconImageInfoForGridSizeClass:v212];
+            objc_msgSend_iconImageInfoForGridSizeClass_(v10);
             [(SBIconListGridLayoutConfiguration *)v11 setIconImageInfo:v212 forGridSizeClass:v163, v165];
 
             v20 = 0;
@@ -955,7 +957,7 @@ void __62__SBHDefaultIconListLayoutProvider_makeLayoutForIconLocation___block_in
 {
   v3 = *(a1 + 32);
   v4 = a2;
-  [v3 iconImageInfoForGridSizeClass:v4];
+  objc_msgSend_iconImageInfoForGridSizeClass_(v3);
   [*(a1 + 40) setIconImageInfo:v4 forGridSizeClass:?];
 }
 
@@ -1522,7 +1524,6 @@ LABEL_18:
 
 - (void)configureFolderIconConfiguration:(id)configuration forScreenType:(unint64_t)type numberOfRows:(unint64_t)rows layoutOptions:(unint64_t)options
 {
-  optionsCopy = options;
   configurationCopy = configuration;
   if (rows > 2)
   {
@@ -1530,7 +1531,7 @@ LABEL_18:
     {
       v11 = 13.0;
       v12 = 3.0;
-      if ((optionsCopy & 8) == 0)
+      if ((options & 8) == 0)
       {
         goto LABEL_33;
       }
@@ -1538,7 +1539,7 @@ LABEL_18:
 
     else
     {
-      v13 = SBHDefaultIconSizeBucket(type, optionsCopy);
+      v13 = SBHDefaultIconSizeBucket(type, options);
       v12 = 0.0;
       if (v13 > 67)
       {
@@ -1583,7 +1584,7 @@ LABEL_18:
       {
         v11 = 9.5;
         v12 = 2.5;
-        if ((optionsCopy & 8) == 0)
+        if ((options & 8) == 0)
         {
           goto LABEL_33;
         }
@@ -1599,7 +1600,7 @@ LABEL_18:
 
         v12 = 2.75;
         v11 = 10.25;
-        if ((optionsCopy & 8) == 0)
+        if ((options & 8) == 0)
         {
           goto LABEL_33;
         }
@@ -1610,11 +1611,11 @@ LABEL_18:
   else
   {
     v10 = SBHDefaultScreenSizeBucket(type);
-    v11 = round(SBHDefaultIconImageSize(type, optionsCopy) * 0.4);
+    v11 = round(SBHDefaultIconImageSize(type, options) * 0.4);
     if (v10 == 2)
     {
       v12 = 7.0;
-      if ((optionsCopy & 8) == 0)
+      if ((options & 8) == 0)
       {
         goto LABEL_33;
       }
@@ -1628,7 +1629,7 @@ LABEL_18:
         if (!v10)
         {
           v12 = 5.0;
-          if ((optionsCopy & 8) == 0)
+          if ((options & 8) == 0)
           {
             goto LABEL_33;
           }
@@ -1637,7 +1638,7 @@ LABEL_18:
         }
 
 LABEL_30:
-        if ((optionsCopy & 8) == 0)
+        if ((options & 8) == 0)
         {
           goto LABEL_33;
         }
@@ -1646,7 +1647,7 @@ LABEL_30:
       }
 
       v12 = 6.0;
-      if ((optionsCopy & 8) == 0)
+      if ((options & 8) == 0)
       {
         goto LABEL_33;
       }
@@ -1656,8 +1657,8 @@ LABEL_30:
 LABEL_31:
   if (SBHScreenTypeIsPhone(type))
   {
-    SBHDefaultIconImageSize(type, optionsCopy);
-    SBHDefaultIconImageSize(type, optionsCopy & 0xE7);
+    SBHDefaultIconImageSize(type, options);
+    SBHDefaultIconImageSize(type, options & 0xFFFFFFFFFFFFFFE7);
     SBHGetScreenSpecification(type, v18);
     UIRoundToScale();
     v11 = v16;
@@ -2377,7 +2378,7 @@ LABEL_82:
 {
   if ((options & 0x18) != 0)
   {
-    v6 = SBHDefaultIconImageSize(type, options & 0xE7);
+    v6 = SBHDefaultIconImageSize(type, options & 0xFFFFFFFFFFFFFFE7);
   }
 
   else

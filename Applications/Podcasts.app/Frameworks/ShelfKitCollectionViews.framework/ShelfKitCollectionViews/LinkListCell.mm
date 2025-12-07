@@ -17,7 +17,7 @@
 
 - (void)_bridgedUpdateConfigurationUsingState:(id)state
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_402EA8);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_402EA8, qword_3250C0);
   __chkstk_darwin(v4 - 8);
   v6 = &v18 - v5;
   v7 = sub_304618();

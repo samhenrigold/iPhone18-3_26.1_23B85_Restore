@@ -6,8 +6,8 @@
 + (id)newWithContentsOf:()NSDictionary immutable:error:;
 - (id)descriptionInStringsFileFormat;
 - (id)initWithContentsOfURL:()NSDictionary error:;
+- (objc_class)initWithCoder:()NSDictionary;
 - (uint64_t)_stringToWrite;
-- (uint64_t)initWithCoder:()NSDictionary;
 - (uint64_t)initWithContentsOfFile:()NSDictionary;
 - (uint64_t)initWithContentsOfURL:()NSDictionary;
 - (uint64_t)writeToFile:()NSDictionary atomically:;
@@ -184,7 +184,7 @@
   }
 }
 
-- (uint64_t)initWithCoder:()NSDictionary
+- (objc_class)initWithCoder:()NSDictionary
 {
   v50[1] = *MEMORY[0x1E69E9840];
   if (([a3 allowsKeyedCoding] & 1) == 0)

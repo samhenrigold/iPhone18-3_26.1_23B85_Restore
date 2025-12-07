@@ -6,6 +6,7 @@
 - (id)fetchStatusReportsWithError:(id *)error;
 - (int64_t)_getIntegerForKey:(id)key withDefaultValue:(int64_t)value;
 - (void)_crashDaemonWithMessage:(id)message;
+- (void)_setBoolValue:(BOOL)value forBehaviorKey:(id)key;
 - (void)_setIntegerValue:(int64_t)value forBehaviorKey:(id)key;
 - (void)applyChangeTrackingBehavior:(int64_t)behavior;
 - (void)disableBabySitter;
@@ -160,6 +161,29 @@ void __60__REMDataAccessBehaviorManager_fetchStatusReportsWithError___block_invo
   notify_post("com.apple.dataaccess.BehaviorOptionsChanged");
 }
 
+- (void)_setBoolValue:(BOOL)value forBehaviorKey:(id)key
+{
+  valueCopy = value;
+  keyCopy = key;
+  v6 = CFPreferencesCopyAppValue(@"BehaviorOptions", @"com.apple.DataAccess.BehaviorOptions");
+  v10 = v6;
+  if (v6)
+  {
+    v7 = [v6 mutableCopy];
+  }
+
+  else
+  {
+    v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  }
+
+  v8 = v7;
+  v9 = [MEMORY[0x1E696AD98] numberWithBool:valueCopy];
+  [v8 setObject:v9 forKeyedSubscript:keyCopy];
+
+  CFPreferencesSetAppValue(@"BehaviorOptions", v8, @"com.apple.DataAccess.BehaviorOptions");
+}
+
 - (BOOL)_getBoolForKey:(id)key withDefaultValue:(BOOL)value
 {
   keyCopy = key;
@@ -263,38 +287,6 @@ void __71__REMDataAccessBehaviorManager__debugPerformerWithReason_errorHandler__
   {
     (*(v5 + 16))(v5, v3);
   }
-}
-
-void __60__REMDataAccessBehaviorManager_fetchStatusReportsWithError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "XPC error while fetching status reports {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __60__REMDataAccessBehaviorManager_fetchStatusReportsWithError___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "Error getting DataAccess status reports {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__REMDataAccessBehaviorManager__crashDaemonWithMessage___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "xpc error while trying to carsh daemon {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __71__REMDataAccessBehaviorManager__debugPerformerWithReason_errorHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "xpc error while using xpcPerformer {error: %{public}@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -559,7 +559,7 @@ LABEL_9:
 
 - (id)buttonTitleString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ONBOARDING_CONTINUE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
 
   return v3;
@@ -567,7 +567,7 @@ LABEL_9:
 
 - (id)locationFeatureIneligiblePromptBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ECG_ONBOARDING_1_LOCATION_INELIGIBLE_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -575,7 +575,7 @@ LABEL_9:
 
 - (id)locationNotFoundPromptTitleString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ECG_ONBOARDING_1_LOCATION_NOT_FOUND_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -583,7 +583,7 @@ LABEL_9:
 
 - (id)locationNotFoundPromptBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ECG_ONBOARDING_1_LOCATION_NOT_FOUND_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -591,7 +591,7 @@ LABEL_9:
 
 - (id)featureDisabledBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ECG_ONBOARDING_1_FEATURE_DISABLED_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -599,7 +599,7 @@ LABEL_9:
 
 - (id)deviceNotSupportedBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ECG_ONBOARDING_1_DEVICE_NOT_SUPPORTED_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -607,7 +607,7 @@ LABEL_9:
 
 - (id)watchOSVersionTooLowBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ECG_ONBOARDING_1_OS_VERSION_TOO_LOW" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;

@@ -49,7 +49,6 @@
 
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v18;
 
   return v6;
@@ -184,7 +183,6 @@
   CC_MD5(data, [location[0] length], md);
   v7 = [MEMORY[0x277CBEA90] dataWithBytes:md length:16];
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -315,7 +313,6 @@
   objc_storeStrong(&v44, 0);
   objc_storeStrong(&v45, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v48;
 
   return v7;
@@ -404,7 +401,6 @@
   objc_storeStrong(&v28, 0);
   objc_storeStrong(&v29, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_uploadPackage:(id)package bucket:(id)bucket prefix:(id)prefix withCompletion:(id)completion
@@ -476,7 +472,6 @@
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __71__AXPhoenixBlobbyUploader__uploadPackage_bucket_prefix_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -539,7 +534,6 @@ void __71__AXPhoenixBlobbyUploader__uploadPackage_bucket_prefix_withCompletion__
   objc_storeStrong(&v24, 0);
   objc_storeStrong(&v25, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __75__AXPhoenixBlobbyUploader__uploadPackagePath_bucket_prefix_withCompletion___block_invoke(uint64_t a1)
@@ -590,7 +584,6 @@ void __75__AXPhoenixBlobbyUploader__uploadPackagePath_bucket_prefix_withCompleti
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&v13, 0);
   objc_storeStrong(v22, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __75__AXPhoenixBlobbyUploader__uploadPackagePath_bucket_prefix_withCompletion___block_invoke_85(uint64_t a1, char a2, id obj)
@@ -638,7 +631,6 @@ void __75__AXPhoenixBlobbyUploader__uploadPackagePath_bucket_prefix_withCompleti
   dispatch_semaphore_signal(*(*(a1 + 56) + 16));
   (*(*(a1 + 64) + 16))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_prefixFromPackageFilePath:(id)path
@@ -790,9 +782,7 @@ uint64_t __66__AXPhoenixBlobbyUploader_uploadPackages_toBucket_withCompletion___
     }
   }
 
-  result = MEMORY[0x277D82BD8](obj);
-  *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277D82BD8](obj);
 }
 
 void __66__AXPhoenixBlobbyUploader_uploadPackages_toBucket_withCompletion___block_invoke_91(uint64_t a1, char a2, id obj)
@@ -870,7 +860,6 @@ void __66__AXPhoenixBlobbyUploader_uploadPackages_toBucket_withCompletion___bloc
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (AXPhoenixBlobbyUploader)init
@@ -918,7 +907,6 @@ void __66__AXPhoenixBlobbyUploader_uploadPackages_toBucket_withCompletion___bloc
 
   v11 = MEMORY[0x277D82BE0](v16);
   objc_storeStrong(&v16, 0);
-  *MEMORY[0x277D85DE8];
   return v11;
 }
 

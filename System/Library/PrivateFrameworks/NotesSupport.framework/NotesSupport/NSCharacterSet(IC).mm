@@ -14,9 +14,9 @@
     +[NSCharacterSet(IC) ic_uriIdentifierAllowedCharacterSet];
   }
 
-  v1 = ic_uriIdentifierAllowedCharacterSet_characterSet;
+  v2 = ic_uriIdentifierAllowedCharacterSet_characterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)ic_attachmentCharacterSet
@@ -52,9 +52,9 @@
     +[NSCharacterSet(IC) ic_animatableTokenCharacterSet];
   }
 
-  v1 = ic_animatableTokenCharacterSet_characterSet;
+  v2 = ic_animatableTokenCharacterSet_characterSet;
 
-  return v1;
+  return v2;
 }
 
 @end

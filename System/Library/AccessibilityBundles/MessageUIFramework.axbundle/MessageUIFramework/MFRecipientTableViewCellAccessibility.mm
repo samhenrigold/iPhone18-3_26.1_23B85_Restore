@@ -48,15 +48,14 @@
 void __59__MFRecipientTableViewCellAccessibility_accessibilityLabel__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = [*(a1 + 32) string];
-  v12 = [v7 substringWithRange:{a3, a4}];
+  v11 = [v7 substringWithRange:{a3, a4}];
 
-  if ([v12 length])
+  if ([v11 length])
   {
-    v8 = *(*(*(a1 + 40) + 8) + 40);
-    v9 = __UIAXStringForVariables();
-    v10 = *(*(a1 + 40) + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
+    v8 = __UIAXStringForVariables();
+    v9 = *(*(a1 + 40) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
   }
 }
 

@@ -46,7 +46,7 @@
     v9 = [(HMDBackingStoreModelObject *)v6 initWithObjectChangeType:type uuid:uuid parentUUID:parentUUID];
 
     uuid = [(HMDApplicationData *)self appDataDictionary];
-    parentUUID = [uuid copy];
+    parentUUID = objc_msgSend_copy(uuid);
     [(HMDApplicationDataModel *)v9 setAppDataDictionary:parentUUID];
   }
 
@@ -149,7 +149,7 @@
 
 - (void)updateWithModel:(id)model
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   appDataDictionary = [modelCopy appDataDictionary];
 
@@ -167,13 +167,13 @@
       v11 = HMFGetLogIdentifier();
       appDataDictionary3 = [(HMDApplicationData *)selfCopy appDataDictionary];
       parentUUID = [(HMDApplicationData *)selfCopy parentUUID];
-      v18 = 138543874;
-      v19 = v11;
-      v20 = 2112;
-      v21 = appDataDictionary3;
-      v22 = 2112;
-      v23 = parentUUID;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Updating the application data from transaction: %@ / %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v11;
+      v19 = 2112;
+      v20 = appDataDictionary3;
+      v21 = 2112;
+      v22 = parentUUID;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Updating the application data from transaction: %@ / %@", &v17, 0x20u);
 
 LABEL_6:
     }
@@ -191,71 +191,70 @@ LABEL_6:
     {
       v11 = HMFGetLogIdentifier();
       parentUUID2 = [(HMDApplicationData *)selfCopy2 parentUUID];
-      v18 = 138543618;
-      v19 = v11;
-      v20 = 2112;
-      v21 = parentUUID2;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Removing entire app data for container: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v11;
+      v19 = 2112;
+      v20 = parentUUID2;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Removing entire app data for container: %@", &v17, 0x16u);
 
       goto LABEL_6;
     }
   }
 
   objc_autoreleasePoolPop(v8);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dumpStateWithPrivacyLevel:(unint64_t)level
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
-  v22 = v21 = self;
+  v21 = v20 = self;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = [(HMDApplicationData *)self appDataDictionary];
-  v23 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v23)
+  v22 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v22)
   {
-    v20 = *v31;
+    v19 = *v30;
     do
     {
       v4 = 0;
       do
       {
-        if (*v31 != v20)
+        if (*v30 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = v4;
-        v5 = *(*(&v30 + 1) + 8 * v4);
-        appDataDictionary = [(HMDApplicationData *)v21 appDataDictionary];
-        v24 = v5;
+        v24 = v4;
+        v5 = *(*(&v29 + 1) + 8 * v4);
+        appDataDictionary = [(HMDApplicationData *)v20 appDataDictionary];
+        v23 = v5;
         v7 = [appDataDictionary hmf_dictionaryForKey:v5];
 
         dictionary = [MEMORY[0x277CBEB38] dictionary];
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         v9 = v7;
-        v10 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v27;
+          v12 = *v26;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v27 != v12)
+              if (*v26 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v26 + 1) + 8 * i);
+              v14 = *(*(&v25 + 1) + 8 * i);
               v15 = [v9 objectForKeyedSubscript:v14];
               if (objc_opt_respondsToSelector())
               {
@@ -269,32 +268,30 @@ LABEL_6:
               }
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
           }
 
           while (v11);
         }
 
-        [v22 setObject:dictionary forKeyedSubscript:v24];
-        v4 = v25 + 1;
+        [v21 setObject:dictionary forKeyedSubscript:v23];
+        v4 = v24 + 1;
       }
 
-      while (v25 + 1 != v23);
-      v23 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      while (v24 + 1 != v22);
+      v22 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v23);
+    while (v22);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (id)dictionary
 {
   appDataDictionary = [(HMDApplicationData *)self appDataDictionary];
-  v3 = [appDataDictionary copy];
+  v3 = objc_msgSend_copy(appDataDictionary);
 
   return v3;
 }
@@ -382,7 +379,7 @@ LABEL_6:
     appDataDictionary = v5->_appDataDictionary;
     v5->_appDataDictionary = dictionary;
 
-    v8 = [dCopy copy];
+    v8 = objc_msgSend_copy(dCopy);
     parentUUID = v5->_parentUUID;
     v5->_parentUUID = v8;
   }
@@ -404,10 +401,9 @@ LABEL_6:
 
 void __33__HMDApplicationData_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_16071;
-  logCategory__hmf_once_v5_16071 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_16071;
+  logCategory__hmf_once_v5_16071 = v0;
 }
 
 + (unint64_t)sizeLimit

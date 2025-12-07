@@ -23,7 +23,7 @@
   v19(&self->_TtC8Freeform22CRLCommandReplaceImage_opaque[OBJC_IVAR____TtC8Freeform22CRLCommandReplaceImage_id], v15, v12);
   *&self->_TtC8Freeform22CRLCommandReplaceImage_opaque[OBJC_IVAR____TtC8Freeform22CRLCommandReplaceImage_imageData] = data;
   *&self->_TtC8Freeform22CRLCommandReplaceImage_opaque[OBJC_IVAR____TtC8Freeform22CRLCommandReplaceImage_thumbnailData] = thumbnailData;
-  v20 = type metadata accessor for CRLCommandReplaceImage();
+  v20 = type metadata accessor for CRLCommandReplaceImage(0);
   v26.receiver = self;
   v26.super_class = v20;
   dataCopy = data;

@@ -15,7 +15,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v8.receiver = self;
-  v8.super_class = type metadata accessor for FMNotifyWhenDetachedViewController();
+  v8.super_class = type metadata accessor for FMNotifyWhenDetachedViewController(0);
   v4 = v8.receiver;
   changeCopy = change;
   [(FMNotifyWhenDetachedViewController *)&v8 traitCollectionDidChange:changeCopy];

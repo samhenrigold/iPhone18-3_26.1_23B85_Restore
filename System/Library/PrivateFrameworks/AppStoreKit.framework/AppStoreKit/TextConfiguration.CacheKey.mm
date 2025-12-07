@@ -10,7 +10,7 @@
 {
   sub_1E1AF762C();
   selfCopy = self;
-  FontSource.hash(into:)();
+  FontSource.hash(into:)(v9);
   v4 = sub_1E1AF767C();
   v5 = MEMORY[0x1E68FED70](*(&selfCopy->super.isa + OBJC_IVAR____TtCV11AppStoreKit17TextConfigurationP33_4797A6AB10DD0F1B6476104D5B5EB22B8CacheKey_text), *&selfCopy->_anon_0[OBJC_IVAR____TtCV11AppStoreKit17TextConfigurationP33_4797A6AB10DD0F1B6476104D5B5EB22B8CacheKey_text]) ^ v4;
   v6 = sub_1E1AF5DFC();
@@ -37,7 +37,7 @@
 
   v6 = sub_1E19D7F74(v8);
 
-  sub_1E1308058(v8, &qword_1ECEB2DF0);
+  sub_1E1308058(v8, &qword_1ECEB2DF0, &unk_1E1B02CE0);
   return v6 & 1;
 }
 

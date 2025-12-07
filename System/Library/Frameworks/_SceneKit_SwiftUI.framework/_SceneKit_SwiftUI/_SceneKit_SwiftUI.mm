@@ -322,7 +322,7 @@ uint64_t sub_23B959C0C(uint64_t a1, uint64_t a2, uint64_t a3)
   return MEMORY[0x28212E358](a1, a2, a3, v6);
 }
 
-void sub_23B959C8C()
+void sub_23B959C8C(uint64_t a1)
 {
   sub_23B959CB4();
   sub_23B95A0F4();
@@ -346,7 +346,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

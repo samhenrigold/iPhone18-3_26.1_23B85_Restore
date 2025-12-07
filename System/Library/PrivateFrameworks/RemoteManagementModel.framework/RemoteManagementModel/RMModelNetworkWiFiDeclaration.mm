@@ -13,26 +13,24 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[14] = *MEMORY[0x277D85DE8];
+  v6[14] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"AutoJoin";
-  v7[1] = @"SSID";
-  v7[2] = @"IsHiddenNetwork";
-  v7[3] = @"EncryptionType";
-  v7[4] = @"PasswordAssetReference";
-  v7[5] = @"CertificateIdentityAssetReference";
-  v7[6] = @"HotSpot";
-  v7[7] = @"CaptiveBypass";
-  v7[8] = @"QoSMarkingPolicy";
-  v7[9] = @"SetupModes";
-  v7[10] = @"TLSCertificateRequired";
-  v7[11] = @"Proxy";
-  v7[12] = @"DisableAssociationMACRandomization";
-  v7[13] = @"EAPClientConfigurationUUID";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:14];
+  v6[0] = @"AutoJoin";
+  v6[1] = @"SSID";
+  v6[2] = @"IsHiddenNetwork";
+  v6[3] = @"EncryptionType";
+  v6[4] = @"PasswordAssetReference";
+  v6[5] = @"CertificateIdentityAssetReference";
+  v6[6] = @"HotSpot";
+  v6[7] = @"CaptiveBypass";
+  v6[8] = @"QoSMarkingPolicy";
+  v6[9] = @"SetupModes";
+  v6[10] = @"TLSCertificateRequired";
+  v6[11] = @"Proxy";
+  v6[12] = @"DisableAssociationMACRandomization";
+  v6[13] = @"EAPClientConfigurationUUID";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:14];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -51,17 +49,15 @@
 
 void __48__RMModelNetworkWiFiDeclaration_assetReferences__block_invoke()
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   v0 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287467640 keyPath:@"$.payloadPasswordAssetReference"];
   v1 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287467658 keyPath:@"$.payloadCertificateIdentityAssetReference", v0];
-  v6[1] = v1;
+  v5[1] = v1;
   v2 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287467670 keyPath:@"$.payloadProxy.payloadProxyAuthenticationCredentialsAssetReference"];
-  v6[2] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
+  v5[2] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
   v4 = assetReferences_assetPaths_9;
   assetReferences_assetPaths_9 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)buildWithIdentifier:(id)identifier autoJoin:(id)join SSID:(id)d isHiddenNetwork:(id)network encryptionType:(id)type passwordAssetReference:(id)reference certificateIdentityAssetReference:(id)assetReference hotSpot:(id)self0 captiveBypass:(id)self1 qoSMarkingPolicy:(id)self2 setupModes:(id)self3 tlsCertificateRequired:(id)self4 proxy:(id)self5 disableAssociationMACRandomization:(id)self6 eapClientConfigurationUUID:(id)self7
@@ -209,66 +205,64 @@ void __48__RMModelNetworkWiFiDeclaration_assetReferences__block_invoke()
 
 + (id)supportedOS
 {
-  v36[6] = *MEMORY[0x277D85DE8];
-  v35[0] = &unk_28746B6C0;
-  v28 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467688];
-  v34[0] = v28;
-  v27 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874676A0];
-  v34[1] = v27;
-  v26 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874676B8];
-  v34[2] = v26;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
-  v36[0] = v25;
-  v35[1] = &unk_28746B6D8;
-  v24 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874676D0];
-  v33[0] = v24;
-  v23 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874676E8];
-  v33[1] = v23;
-  v22 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467700];
-  v33[2] = v22;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
-  v36[1] = v21;
-  v35[2] = &unk_28746B6F0;
-  v20 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467718];
-  v32[0] = v20;
-  v19 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467730];
-  v32[1] = v19;
-  v18 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467748];
-  v32[2] = v18;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
-  v36[2] = v17;
-  v35[3] = &unk_28746B708;
-  v16 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467760];
-  v31[0] = v16;
-  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467778];
-  v31[1] = v15;
+  v35[6] = *MEMORY[0x277D85DE8];
+  v34[0] = &unk_28746B6C0;
+  v27 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467688];
+  v33[0] = v27;
+  v26 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874676A0];
+  v33[1] = v26;
+  v25 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874676B8];
+  v33[2] = v25;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
+  v35[0] = v24;
+  v34[1] = &unk_28746B6D8;
+  v23 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874676D0];
+  v32[0] = v23;
+  v22 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874676E8];
+  v32[1] = v22;
+  v21 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467700];
+  v32[2] = v21;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
+  v35[1] = v20;
+  v34[2] = &unk_28746B6F0;
+  v19 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467718];
+  v31[0] = v19;
+  v18 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467730];
+  v31[1] = v18;
+  v17 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467748];
+  v31[2] = v17;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
+  v35[2] = v16;
+  v34[3] = &unk_28746B708;
+  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467760];
+  v30[0] = v15;
+  v14 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467778];
+  v30[1] = v14;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467790];
-  v31[2] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
-  v36[3] = v3;
-  v35[4] = &unk_28746B720;
+  v30[2] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:3];
+  v35[3] = v3;
+  v34[4] = &unk_28746B720;
   v4 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874677A8];
-  v30[0] = v4;
+  v29[0] = v4;
   v5 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874677C0];
-  v30[1] = v5;
+  v29[1] = v5;
   v6 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874677D8];
-  v30[2] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:3];
-  v36[4] = v7;
-  v35[5] = &unk_28746B738;
+  v29[2] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
+  v35[4] = v7;
+  v34[5] = &unk_28746B738;
   v8 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874677F0];
-  v29[0] = v8;
+  v28[0] = v8;
   v9 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467808];
-  v29[1] = v9;
+  v28[1] = v9;
   v10 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467820];
-  v29[2] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
-  v36[5] = v11;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:6];
+  v28[2] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
+  v35[5] = v11;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:6];
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v13;
 }
 
 - (BOOL)loadPayloadFromDictionary:(id)dictionary serializationType:(signed __int16)type error:(id *)error
@@ -284,7 +278,21 @@ void __48__RMModelNetworkWiFiDeclaration_assetReferences__block_invoke()
   v13 = [v11 copy];
   [(RMModelPayloadBase *)self setUnknownPayloadKeys:v13];
 
-  v14 = [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"AutoJoin" forKeyPath:@"payloadAutoJoin" isRequired:0 defaultValue:MEMORY[0x277CBEC38] error:error]&& [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"SSID" forKeyPath:@"payloadSSID" isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"IsHiddenNetwork" forKeyPath:@"payloadIsHiddenNetwork" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]&& [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"EncryptionType" forKeyPath:@"payloadEncryptionType" isRequired:0 defaultValue:@"Any" error:error]&& [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"PasswordAssetReference" forKeyPath:@"payloadPasswordAssetReference" isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"CertificateIdentityAssetReference" forKeyPath:@"payloadCertificateIdentityAssetReference" isRequired:0 defaultValue:0 error:error]&& (LOWORD(v16) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"HotSpot" forKeyPath:@"payloadHotSpot" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v16 error:error]) && [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"CaptiveBypass" forKeyPath:@"payloadCaptiveBypass" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]&& (LOWORD(v17) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"QoSMarkingPolicy" forKeyPath:@"payloadQoSMarkingPolicy" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v17 error:error]) && [(RMModelPayloadBase *)self loadArrayFromDictionary:dictionaryCopy usingKey:@"SetupModes" forKeyPath:@"payloadSetupModes" validator:&__block_literal_global_194 isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"TLSCertificateRequired" forKeyPath:@"payloadTLSCertificateRequired" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]&& (LOWORD(v18) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"Proxy" forKeyPath:@"payloadProxy" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v18 error:error]) && [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"DisableAssociationMACRandomization" forKeyPath:@"payloadDisableAssociationMACRandomization" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]&& [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"EAPClientConfigurationUUID" forKeyPath:@"payloadEAPClientConfigurationUUID" isRequired:0 defaultValue:0 error:error];
+  v14 = [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"AutoJoin" forKeyPath:@"payloadAutoJoin" isRequired:0 defaultValue:MEMORY[0x277CBEC38] error:error]
+     && [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"SSID" forKeyPath:@"payloadSSID" isRequired:0 defaultValue:0 error:error]
+     && [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"IsHiddenNetwork" forKeyPath:@"payloadIsHiddenNetwork" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]
+     && [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"EncryptionType" forKeyPath:@"payloadEncryptionType" isRequired:0 defaultValue:@"Any" error:error]
+     && [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"PasswordAssetReference" forKeyPath:@"payloadPasswordAssetReference" isRequired:0 defaultValue:0 error:error]
+     && [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"CertificateIdentityAssetReference" forKeyPath:@"payloadCertificateIdentityAssetReference" isRequired:0 defaultValue:0 error:error]
+     && (LOWORD(v16) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"HotSpot" forKeyPath:@"payloadHotSpot" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v16 error:error])
+     && [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"CaptiveBypass" forKeyPath:@"payloadCaptiveBypass" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]
+     && (LOWORD(v17) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"QoSMarkingPolicy" forKeyPath:@"payloadQoSMarkingPolicy" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v17 error:error])
+     && [(RMModelPayloadBase *)self loadArrayFromDictionary:dictionaryCopy usingKey:@"SetupModes" forKeyPath:@"payloadSetupModes" validator:&__block_literal_global_194 isRequired:0 defaultValue:0 error:error]
+     && [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"TLSCertificateRequired" forKeyPath:@"payloadTLSCertificateRequired" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]
+     && (LOWORD(v18) = type, [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"Proxy" forKeyPath:@"payloadProxy" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v18 error:error])
+     && [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"DisableAssociationMACRandomization" forKeyPath:@"payloadDisableAssociationMACRandomization" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]
+     && [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"EAPClientConfigurationUUID" forKeyPath:@"payloadEAPClientConfigurationUUID" isRequired:0 defaultValue:0 error:error];
+
   return v14;
 }
 

@@ -28,13 +28,13 @@
 
 - (id)initScheduleWithHour:(id)hour minute:(id)minute weekdays:(id)weekdays
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   hourCopy = hour;
   minuteCopy = minute;
   weekdaysCopy = weekdays;
-  v26.receiver = self;
-  v26.super_class = MONotificationScheduleItem;
-  v12 = [(MONotificationScheduleItem *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = MONotificationScheduleItem;
+  v12 = [(MONotificationScheduleItem *)&v25 init];
   p_isa = &v12->super.isa;
   if (v12)
   {
@@ -48,27 +48,27 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v14 = weekdaysCopy;
-    v15 = [v14 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v23;
+      v17 = *v22;
       while (2)
       {
         v18 = 0;
         do
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          if ([*(*(&v22 + 1) + 8 * v18) intValue] - 8 < 0xFFFFFFF9)
+          if ([*(*(&v21 + 1) + 8 * v18) intValue] - 8 < 0xFFFFFFF9)
           {
 
             goto LABEL_15;
@@ -78,7 +78,7 @@ LABEL_15:
         }
 
         while (v16 != v18);
-        v16 = [v14 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v21 objects:v26 count:16];
         if (v16)
         {
           continue;
@@ -92,7 +92,6 @@ LABEL_15:
   v19 = p_isa;
 LABEL_16:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -137,30 +136,30 @@ LABEL_16:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   [coderCopy encodeObject:self->_hour forKey:@"hour"];
   [coderCopy encodeObject:self->_minute forKey:@"minute"];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = self->_weekdays;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = 0;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        intValue = [*(*(&v13 + 1) + 8 * i) intValue];
+        intValue = [*(*(&v12 + 1) + 8 * i) intValue];
         v11 = 1 << ((intValue & 7) - 1);
         if ((intValue & 7) == 0)
         {
@@ -170,7 +169,7 @@ LABEL_16:
         v7 |= v11;
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -178,7 +177,6 @@ LABEL_16:
   }
 
   [coderCopy encodeInt:v6 forKey:@"weekdays"];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -19,11 +19,12 @@
 
 - (id)saveMessage:(id)message backend:(unsigned __int8)backend messageIdentifier:(id)identifier
 {
+  backendCopy = backend;
   v7 = sub_231CA7C68();
   v8 = sub_231CA7CC8();
   v10 = v9;
   selfCopy = self;
-  MetricStore.saveMessage(_:backend:messageIdentifier:)(v7, backend, v8, v10);
+  MetricStore.saveMessage(_:backend:messageIdentifier:)(v7, backendCopy, v8, v10);
 
   v12 = sub_231CA7C58();
 
@@ -44,7 +45,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  MetricStore.registerEnrichmentProvider(_:)();
+  MetricStore.registerEnrichmentProvider(_:)(provider);
   swift_unknownObjectRelease();
 }
 
@@ -62,10 +63,11 @@
 {
   v4 = _Block_copy(continue);
   OUTLINED_FUNCTION_0();
-  *(swift_allocObject() + 16) = v4;
+  v5 = swift_allocObject();
+  *(v5 + 16) = v4;
   selfCopy = self;
-  MetricStore.sendMessages(shouldContinue:)();
-  LOBYTE(self) = v6;
+  MetricStore.sendMessages(shouldContinue:)(sub_231CA4EB4, v5);
+  LOBYTE(self) = v7;
 
   return self & 1;
 }

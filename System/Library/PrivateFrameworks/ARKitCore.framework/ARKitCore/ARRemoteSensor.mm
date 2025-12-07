@@ -61,7 +61,7 @@
 - (void)dealloc
 {
   v11 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogSensor_12();
+  v3 = _ARLogSensor_12(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = objc_opt_class();
@@ -157,7 +157,7 @@ void __35__ARRemoteSensor_providedDataTypes__block_invoke(uint64_t a1, void *a2)
 {
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _ARLogSensor_12();
+  v4 = _ARLogSensor_12(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
@@ -193,7 +193,7 @@ void __23__ARRemoteSensor_start__block_invoke(uint64_t a1, void *a2)
 {
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _ARLogSensor_12();
+  v4 = _ARLogSensor_12(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
@@ -229,7 +229,7 @@ void __22__ARRemoteSensor_stop__block_invoke(uint64_t a1, void *a2)
 {
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _ARLogSensor_12();
+  v4 = _ARLogSensor_12(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();

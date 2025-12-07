@@ -73,9 +73,7 @@ uint64_t __54__INUISearchFoundationImageAdapter__sharedImageLoader__block_invoke
   sizeValue = self->_sizeValue;
   if (!sizeValue || (([(NSValue *)sizeValue CGSizeValue], v8 == width) ? (v9 = v7 == height) : (v9 = 0), !v9))
   {
-    v10 = [MEMORY[0x277CCAE60] valueWithCGSize:{width, height}];
-    v11 = self->_sizeValue;
-    self->_sizeValue = v10;
+    self->_sizeValue = [MEMORY[0x277CCAE60] valueWithCGSize:{width, height}];
 
     MEMORY[0x2821F96F8]();
   }
@@ -83,13 +81,12 @@ uint64_t __54__INUISearchFoundationImageAdapter__sharedImageLoader__block_invoke
 
 - (id)payloadImage
 {
-  v3 = [(INUISearchFoundationImageAdapter *)self copy];
-  intentsImage = self->_intentsImage;
-  v5 = INIntentSlotValueTransformToImageValue();
-  data = [v5 data];
-  [v3 setImageData:data];
+  v2 = [(INUISearchFoundationImageAdapter *)self copy];
+  v3 = INIntentSlotValueTransformToImageValue();
+  data = [v3 data];
+  [v2 setImageData:data];
 
-  return v3;
+  return v2;
 }
 
 - (BOOL)isEqual:(id)equal

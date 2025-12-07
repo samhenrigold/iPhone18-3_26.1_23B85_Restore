@@ -13,7 +13,7 @@
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_26804BE2C();
   selfCopy = self;
-  sub_26803E6E0();
+  sub_26803E6E0(v7);
 
   (*(v5 + 8))(v7, v4);
 }
@@ -29,7 +29,7 @@
   sub_26804BE2C();
   sub_26804BE2C();
   selfCopy = self;
-  sub_26803E920();
+  sub_26803E920(v11, v9);
 
   v13 = *(v6 + 8);
   v13(v9, v5);

@@ -1800,7 +1800,7 @@ LABEL_59:
   v4 = viewCopy;
   if (viewCopy)
   {
-    [viewCopy transform];
+    objc_msgSend_transform(viewCopy);
   }
 
   else
@@ -1833,24 +1833,24 @@ LABEL_59:
   }
 }
 
-uint64_t __60__HUQuickControlRingSliderView__animateToEnlargeHandleView___block_invoke(uint64_t a1)
+uint64_t __60__HUQuickControlRingSliderView__animateToEnlargeHandleView___block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 transform];
-    v3 = *(a1 + 32);
+    objc_msgSend_transform(v3, a2);
+    v4 = *(a1 + 32);
   }
 
   else
   {
-    v3 = 0;
-    memset(&v5, 0, sizeof(v5));
+    v4 = 0;
+    memset(&v6, 0, sizeof(v6));
   }
 
-  CGAffineTransformScale(&v6, &v5, 1.3, 1.3);
-  v5 = v6;
-  return [v3 setTransform:&v5];
+  CGAffineTransformScale(&v7, &v6, 1.3, 1.3);
+  v6 = v7;
+  return [v4 setTransform:&v6];
 }
 
 - (CGSize)_getEdgeRectSize
@@ -2275,7 +2275,7 @@ uint64_t __60__HUQuickControlRingSliderView__animateToEnlargeHandleView___block_
     v4 = primaryHandleView;
     if (primaryHandleView)
     {
-      [primaryHandleView transform];
+      objc_msgSend_transform(primaryHandleView);
     }
 
     else
@@ -2305,7 +2305,7 @@ LABEL_16:
     v8 = secondaryHandleView;
     if (secondaryHandleView)
     {
-      [secondaryHandleView transform];
+      objc_msgSend_transform(secondaryHandleView);
     }
 
     else
@@ -2339,7 +2339,7 @@ LABEL_17:
     {
       [primaryHandleView2 frame];
       v16 = v15 * 0.3 * 0.5;
-      [primaryHandleView2 transform];
+      objc_msgSend_transform(primaryHandleView2);
       CGAffineTransformTranslate(&v23, &t1, v16, v16);
       t1 = v23;
       [primaryHandleView2 setTransform:&t1];
@@ -2384,7 +2384,7 @@ uint64_t __43__HUQuickControlRingSliderView__touchEnded__block_invoke(uint64_t a
   return [v1 setTransform:v4];
 }
 
-uint64_t __43__HUQuickControlRingSliderView__touchEnded__block_invoke_2(uint64_t a1)
+void *__43__HUQuickControlRingSliderView__touchEnded__block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) setIsDraggingPrimaryHandleView:0];
   result = [*(a1 + 32) setIsDraggingSecondaryHandleView:0];

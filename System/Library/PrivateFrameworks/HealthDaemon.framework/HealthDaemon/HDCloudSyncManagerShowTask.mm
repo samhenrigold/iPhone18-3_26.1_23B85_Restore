@@ -126,7 +126,7 @@ void __52__HDCloudSyncManagerShowTask_pipelineForRepository___block_invoke(uint6
 - (void)didFinishWithSuccess
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = [(HDCloudSyncPipelineStageDescription *)self->_intermediateRepositoryDescription copy];
+  v3 = objc_msgSend_copy(self->_intermediateRepositoryDescription);
   objc_setProperty_atomic_copy(self, v4, v3, 160);
 
   intermediateRepositoryDescription = self->_intermediateRepositoryDescription;
@@ -138,7 +138,7 @@ void __52__HDCloudSyncManagerShowTask_pipelineForRepository___block_invoke(uint6
 - (void)didFailWithErrors:(id)errors
 {
   os_unfair_lock_lock(&self->_lock);
-  v4 = [(HDCloudSyncPipelineStageDescription *)self->_intermediateRepositoryDescription copy];
+  v4 = objc_msgSend_copy(self->_intermediateRepositoryDescription);
   objc_setProperty_atomic_copy(self, v5, v4, 160);
 
   intermediateRepositoryDescription = self->_intermediateRepositoryDescription;

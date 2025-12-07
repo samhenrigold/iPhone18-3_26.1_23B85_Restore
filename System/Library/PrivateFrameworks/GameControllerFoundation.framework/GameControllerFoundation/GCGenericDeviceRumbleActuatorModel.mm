@@ -89,12 +89,12 @@ LABEL_8:
 
 + (id)modelWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v7 = objc_opt_new();
-  v17[0] = 0;
-  v8 = [representationCopy gc_requiredObjectForKey:@"Name" ofClass:objc_opt_class() error:v17];
-  v9 = v17[0];
+  v16[0] = 0;
+  v8 = [representationCopy gc_requiredObjectForKey:@"Name" ofClass:objc_opt_class() error:v16];
+  v9 = v16[0];
   if (v8)
   {
     [v7 setName:v8];
@@ -106,21 +106,19 @@ LABEL_8:
   {
     if (error)
     {
-      v13 = MEMORY[0x1E696ABC0];
-      v18[0] = *MEMORY[0x1E696A578];
-      v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
-      v19[0] = v14;
-      v18[1] = *MEMORY[0x1E696A588];
+      v12 = MEMORY[0x1E696ABC0];
+      v17[0] = *MEMORY[0x1E696A578];
+      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
+      v18[0] = v13;
+      v17[1] = *MEMORY[0x1E696A588];
       localizedFailureReason = [v9 localizedFailureReason];
-      v19[1] = localizedFailureReason;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
-      *error = [(NSError *)v13 gc_modelError:v16 userInfo:?];
+      v18[1] = localizedFailureReason;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+      *error = [(NSError *)v12 gc_modelError:v15 userInfo:?];
     }
 
     build = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return build;
 }

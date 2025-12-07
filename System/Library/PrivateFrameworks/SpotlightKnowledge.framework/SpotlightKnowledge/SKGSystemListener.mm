@@ -1,6 +1,7 @@
 @interface SKGSystemListener
 + (id)sharedClientListener;
 + (id)sharedProcessorListener;
++ (void)loadDefaultsForLocale:(id)locale force:(BOOL)force;
 - (BOOL)enableEmbeddingsHigherQoS;
 - (BOOL)enableV2LanguageID;
 - (BOOL)hasDiskCapacity;
@@ -25,6 +26,7 @@
 - (unint64_t)currentFirstWeekDay;
 - (void)dealloc;
 - (void)setAutoUpdatingLocale:(BOOL)locale;
+- (void)setAutoUpdatingTimezone:(BOOL)timezone;
 - (void)updateLocale;
 - (void)updateLocaleWithLocale:(id)locale preferredLanguages:(id)languages force:(BOOL)force;
 - (void)updateResources;
@@ -80,6 +82,41 @@ uint64_t __44__SKGSystemListener_sharedProcessorListener__block_invoke()
   v2 = sharedProcessorListener___DefaultListener;
 
   return [v2 setAutoUpdatingLocale:1];
+}
+
++ (void)loadDefaultsForLocale:(id)locale force:(BOOL)force
+{
+  forceCopy = force;
+  v11[1] = *MEMORY[0x1E69E9840];
+  localeCopy = locale;
+  v6 = localeKeyForLocale(localeCopy);
+  os_unfair_lock_lock(&loadDefaultsForLocale_force__loadDefaultsLock);
+  if (forceCopy)
+  {
+    if (![loadDefaultsForLocale_force__lastForceLoadedLocaleID isEqualToString:v6])
+    {
+      objc_storeStrong(&loadDefaultsForLocale_force__lastForceLoadedLocaleID, v6);
+LABEL_6:
+      objc_storeStrong(&loadDefaultsForLocale_force__lastLoadedLocaleID, v6);
+      os_unfair_lock_unlock(&loadDefaultsForLocale_force__loadDefaultsLock);
+      mEMORY[0x1E69D3E28] = [MEMORY[0x1E69D3E28] sharedResourcesManager];
+      v10 = @"forceLoad";
+      v8 = [MEMORY[0x1E696AD98] numberWithBool:forceCopy];
+      v11[0] = v8;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      [mEMORY[0x1E69D3E28] loadAllParametersForClient:@"SpotlightKnowledge" locale:localeCopy options:v9];
+
+      goto LABEL_7;
+    }
+  }
+
+  else if (![loadDefaultsForLocale_force__lastLoadedLocaleID isEqualToString:v6])
+  {
+    goto LABEL_6;
+  }
+
+  os_unfair_lock_unlock(&loadDefaultsForLocale_force__loadDefaultsLock);
+LABEL_7:
 }
 
 - (SKGSystemListener)init
@@ -196,6 +233,12 @@ uint64_t __44__SKGSystemListener_sharedProcessorListener__block_invoke()
   }
 
   self->_autoUpdatingLocale = localeCopy;
+}
+
+- (void)setAutoUpdatingTimezone:(BOOL)timezone
+{
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter addObserver:self selector:sel_updateTimezone name:*MEMORY[0x1E695DA68] object:0];
 }
 
 - (BOOL)hasDiskCapacity
@@ -395,10 +438,7 @@ void __40__SKGSystemListener_hasUpdatedResources__block_invoke(uint64_t a1)
 
 uint64_t __34__SKGSystemListener_currentLocale__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -427,10 +467,7 @@ uint64_t __34__SKGSystemListener_currentLocale__block_invoke(uint64_t a1)
 
 uint64_t __36__SKGSystemListener_currentLanguage__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 40) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 40) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -459,10 +496,7 @@ uint64_t __36__SKGSystemListener_currentLanguage__block_invoke(uint64_t a1)
 
 uint64_t __34__SKGSystemListener_currentRegion__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 48) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 48) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -510,10 +544,7 @@ uint64_t __34__SKGSystemListener_currentRegion__block_invoke(uint64_t a1)
 
 uint64_t __44__SKGSystemListener_currentPreferredLocales__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 72) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -542,10 +573,7 @@ uint64_t __44__SKGSystemListener_currentPreferredLocales__block_invoke(uint64_t 
 
 uint64_t __54__SKGSystemListener_currentPreferredLocaleIdentifiers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 80) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 80) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -574,10 +602,7 @@ uint64_t __54__SKGSystemListener_currentPreferredLocaleIdentifiers__block_invoke
 
 uint64_t __46__SKGSystemListener_currentPreferredLanguages__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 88) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 88) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -606,10 +631,7 @@ uint64_t __46__SKGSystemListener_currentPreferredLanguages__block_invoke(uint64_
 
 uint64_t __41__SKGSystemListener_geoIndexResourcesURL__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 120) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 120) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -638,10 +660,7 @@ uint64_t __41__SKGSystemListener_geoIndexResourcesURL__block_invoke(uint64_t a1)
 
 uint64_t __44__SKGSystemListener_geoPatternsResourcesURL__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 120) URLByAppendingPathComponent:@"geo.cache"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 120) URLByAppendingPathComponent:@"geo.cache"];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -670,10 +689,7 @@ uint64_t __44__SKGSystemListener_geoPatternsResourcesURL__block_invoke(uint64_t 
 
 uint64_t __36__SKGSystemListener_doNotUpdateList__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 112) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 112) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -702,10 +718,7 @@ uint64_t __36__SKGSystemListener_doNotUpdateList__block_invoke(uint64_t a1)
 
 uint64_t __47__SKGSystemListener_supportedSemanticLanguages__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 104) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 104) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -872,69 +885,47 @@ LABEL_6:
 
 - (void)updateLocaleWithLocale:(id)locale preferredLanguages:(id)languages force:(BOOL)force
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   languagesCopy = languages;
   if (localeCopy)
   {
-    if ([(SKGSystemListener *)self force])
+    if (-[SKGSystemListener force](self, "force") || force || (-[SKGSystemListener currentLocale](self, "currentLocale"), (v10 = objc_claimAutoreleasedReturnValue()) == 0) || (v11 = v10, [localeCopy localeIdentifier], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "localeIdentifier"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqualToString:", v13), v13, v12, v11, (v14 & 1) == 0))
     {
-      goto LABEL_6;
-    }
-
-    if (force)
-    {
-      goto LABEL_6;
-    }
-
-    currentLocale = [(SKGSystemListener *)self currentLocale];
-    if (!currentLocale)
-    {
-      goto LABEL_6;
-    }
-
-    v11 = currentLocale;
-    localeIdentifier = [localeCopy localeIdentifier];
-    localeIdentifier2 = [v11 localeIdentifier];
-    v14 = [localeIdentifier isEqualToString:localeIdentifier2];
-
-    if ((v14 & 1) == 0)
-    {
-LABEL_6:
       selfCopy = self;
       v15 = copyNormalizedLanguagesForIdentifiers(languagesCopy);
       v16 = objc_alloc(MEMORY[0x1E695DF58]);
-      v40 = localeCopy;
-      localeIdentifier3 = [localeCopy localeIdentifier];
-      v18 = [v16 initWithLocaleIdentifier:localeIdentifier3];
+      v39 = localeCopy;
+      localeIdentifier = [localeCopy localeIdentifier];
+      v18 = [v16 initWithLocaleIdentifier:localeIdentifier];
 
       v19 = objc_alloc_init(MEMORY[0x1E695DFA8]);
       v20 = objc_alloc_init(MEMORY[0x1E695DFA8]);
       v21 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      v38 = v18;
+      v37 = v18;
       SILanguagesGetLanguageID();
-      v37 = SILanguagesGetLanguage();
-      IsCJK = languageIsCJK(v37);
+      v36 = SILanguagesGetLanguage();
+      IsCJK = languageIsCJK(v36);
+      v47 = 0u;
       v48 = 0u;
       v49 = 0u;
       v50 = 0u;
-      v51 = 0u;
       v22 = v15;
-      v23 = [(__CFArray *)v22 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v23 = [(__CFArray *)v22 countByEnumeratingWithState:&v47 objects:v51 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v49;
+        v25 = *v48;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v49 != v25)
+            if (*v48 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = *(*(&v48 + 1) + 8 * i);
+            v27 = *(*(&v47 + 1) + 8 * i);
             v28 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v27];
             if (SILanguagesGetLanguageID() - 2 <= 0x38)
             {
@@ -944,7 +935,7 @@ LABEL_6:
             }
           }
 
-          v24 = [(__CFArray *)v22 countByEnumeratingWithState:&v48 objects:v52 count:16];
+          v24 = [(__CFArray *)v22 countByEnumeratingWithState:&v47 objects:v51 count:16];
         }
 
         while (v24);
@@ -955,25 +946,23 @@ LABEL_6:
       block[1] = 3221225472;
       block[2] = __69__SKGSystemListener_updateLocaleWithLocale_preferredLanguages_force___block_invoke;
       block[3] = &unk_1E74B8138;
-      v47 = IsCJK;
+      v46 = IsCJK;
       block[4] = selfCopy;
-      v42 = v38;
-      v43 = v37;
-      v44 = v19;
-      v45 = v20;
-      v46 = v21;
+      v41 = v37;
+      v42 = v36;
+      v43 = v19;
+      v44 = v20;
+      v45 = v21;
       v30 = v21;
       v31 = v20;
       v32 = v19;
-      v33 = v37;
-      v34 = v38;
+      v33 = v36;
+      v34 = v37;
       dispatch_sync(queue, block);
 
-      localeCopy = v40;
+      localeCopy = v39;
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69__SKGSystemListener_updateLocaleWithLocale_preferredLanguages_force___block_invoke(uint64_t a1)
@@ -1021,7 +1010,7 @@ uint64_t __69__SKGSystemListener_updateLocaleWithLocale_preferredLanguages_force
 
 - (void)updateResources
 {
-  v83[2] = *MEMORY[0x1E69E9840];
+  v82[2] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v3 = self->_locked_currentLocale;
   v4 = localeKeyForLocale(v3);
@@ -1037,12 +1026,12 @@ uint64_t __69__SKGSystemListener_updateLocaleWithLocale_preferredLanguages_force
 LABEL_6:
     mEMORY[0x1E69D3E28] = [MEMORY[0x1E69D3E28] sharedResourcesManager];
     locked_currentLocale = self->_locked_currentLocale;
-    v82[0] = @"SRResourcesOwner";
-    v82[1] = @"forceLoad";
-    v83[0] = @"SpotlightKnowledge";
+    v81[0] = @"SRResourcesOwner";
+    v81[1] = @"forceLoad";
+    v82[0] = @"SpotlightKnowledge";
     v9 = [MEMORY[0x1E696AD98] numberWithBool:{-[SKGSystemListener force](self, "force")}];
-    v83[1] = v9;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:v82 count:2];
+    v82[1] = v9;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:v81 count:2];
     v6 = [mEMORY[0x1E69D3E28] resourcesForClient:@"SpotlightKnowledge" locale:locked_currentLocale options:v10];
 
     [(NSMutableDictionary *)self->_locked_currentResources setObject:v6 forKey:v4];
@@ -1052,13 +1041,13 @@ LABEL_6:
     }
   }
 
-  v65 = v3;
+  v64 = v3;
   [v6 filePathArrayForKey:@"Embedding"];
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
-  obj = v78 = 0u;
-  v11 = [obj countByEnumeratingWithState:&v75 objects:v81 count:16];
+  obj = v77 = 0u;
+  v11 = [obj countByEnumeratingWithState:&v74 objects:v80 count:16];
   v12 = v6;
   if (!v11)
   {
@@ -1066,17 +1055,17 @@ LABEL_6:
   }
 
   v13 = v11;
-  v14 = *v76;
+  v14 = *v75;
   while (2)
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v76 != v14)
+      if (*v75 != v14)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(*(&v75 + 1) + 8 * i)];
+      v16 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(*(&v74 + 1) + 8 * i)];
       lastPathComponent = [v16 lastPathComponent];
       v18 = [lastPathComponent isEqualToString:@"defaults.plist"];
 
@@ -1156,7 +1145,7 @@ LABEL_30:
       }
     }
 
-    v13 = [obj countByEnumeratingWithState:&v75 objects:v81 count:16];
+    v13 = [obj countByEnumeratingWithState:&v74 objects:v80 count:16];
     if (v13)
     {
       continue;
@@ -1166,30 +1155,30 @@ LABEL_30:
   }
 
 LABEL_31:
-  v64 = v4;
+  v63 = v4;
 
-  v63 = v12;
+  v62 = v12;
   v35 = [v12 filePathArrayForKey:@"Processor"];
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
-  v36 = [v35 countByEnumeratingWithState:&v71 objects:v80 count:16];
+  v36 = [v35 countByEnumeratingWithState:&v70 objects:v79 count:16];
   v37 = 0x1E695D000uLL;
   if (v36)
   {
     v38 = v36;
-    v39 = *v72;
+    v39 = *v71;
     do
     {
       for (j = 0; j != v38; ++j)
       {
-        if (*v72 != v39)
+        if (*v71 != v39)
         {
           objc_enumerationMutation(v35);
         }
 
-        v41 = [*(v37 + 3872) dictionaryWithContentsOfFile:*(*(&v71 + 1) + 8 * j)];
+        v41 = [*(v37 + 3872) dictionaryWithContentsOfFile:*(*(&v70 + 1) + 8 * j)];
         v42 = v41;
         if (v41)
         {
@@ -1213,32 +1202,32 @@ LABEL_31:
         }
       }
 
-      v38 = [v35 countByEnumeratingWithState:&v71 objects:v80 count:16];
+      v38 = [v35 countByEnumeratingWithState:&v70 objects:v79 count:16];
     }
 
     while (v38);
   }
 
-  [v63 filePathArrayForKey:@"Geo"];
+  [v62 filePathArrayForKey:@"Geo"];
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
-  v49 = v70 = 0u;
-  v50 = [v49 countByEnumeratingWithState:&v67 objects:v79 count:16];
+  v49 = v69 = 0u;
+  v50 = [v49 countByEnumeratingWithState:&v66 objects:v78 count:16];
   if (v50)
   {
     v51 = v50;
-    v52 = *v68;
+    v52 = *v67;
     while (2)
     {
       for (k = 0; k != v51; ++k)
       {
-        if (*v68 != v52)
+        if (*v67 != v52)
         {
           objc_enumerationMutation(v49);
         }
 
-        v54 = *(*(&v67 + 1) + 8 * k);
+        v54 = *(*(&v66 + 1) + 8 * k);
         if ([v54 hasSuffix:@"config.plist"])
         {
           v55 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:v54];
@@ -1262,7 +1251,7 @@ LABEL_31:
         }
       }
 
-      v51 = [v49 countByEnumeratingWithState:&v67 objects:v79 count:16];
+      v51 = [v49 countByEnumeratingWithState:&v66 objects:v78 count:16];
       if (v51)
       {
         continue;
@@ -1274,11 +1263,9 @@ LABEL_31:
 
 LABEL_57:
 
-  v4 = v64;
-  v3 = v65;
+  v4 = v63;
+  v3 = v64;
 LABEL_58:
-
-  v62 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateLocale
@@ -1302,10 +1289,7 @@ LABEL_58:
 
 uint64_t __35__SKGSystemListener_updateTimezone__block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x1E695DFE8] systemTimeZone];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 64);
-  *(v3 + 64) = v2;
+  *(*(a1 + 32) + 64) = [MEMORY[0x1E695DFE8] systemTimeZone];
 
   return MEMORY[0x1EEE66BB8]();
 }

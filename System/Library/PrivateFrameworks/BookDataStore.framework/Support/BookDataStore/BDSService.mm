@@ -8,6 +8,7 @@
 - (id)_stateForLog;
 - (id)makeOSStateHandler;
 - (id)updateReadingNowWithCompletion:(id)completion;
+- (id)updateWantToReadAndReadingNowWithJaliscoUpdateSuccessful:(BOOL)successful completion:(id)completion;
 - (id)updateWantToReadWithCompletion:(id)completion;
 - (void)_BCCloudCollectionMemberManagerChanged:(id)changed;
 - (void)_BCCloudReadingNowDetailManagerChanged:(id)changed;
@@ -50,13 +51,21 @@
 - (void)deleteUserDatumForKey:(id)key completion:(id)completion;
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion;
 - (void)engagementDataForKey:(id)key completion:(id)completion;
+- (void)engagementDataIncludingDeleted:(BOOL)deleted forKey:(id)key completion:(id)completion;
 - (void)fetchAllHiddenItemStoreIDsWithCompletion:(id)completion;
 - (void)fetchAssetDetailsForUnsyncedTastes:(id)tastes;
+- (void)fetchAssetDetailsIncludingDeleted:(BOOL)deleted completion:(id)completion;
+- (void)fetchAssetReviewsForUserID:(id)d includingDeleted:(BOOL)deleted completion:(id)completion;
+- (void)fetchCollectionDetailsIncludingDeleted:(BOOL)deleted completion:(id)completion;
 - (void)fetchCollectionMembersInCollectionID:(id)d completion:(id)completion;
+- (void)fetchCollectionMembersIncludingDeleted:(BOOL)deleted completion:(id)completion;
+- (void)fetchEngagementDatasIncludingDeleted:(BOOL)deleted completion:(id)completion;
 - (void)fetchFinishedAssetCountByYearWithCompletion:(id)completion;
 - (void)fetchFinishedDatesByAssetIDForYear:(int64_t)year completion:(id)completion;
 - (void)fetchMaxSortOrderInCollectionID:(id)d completion:(id)completion;
 - (void)fetchMostRecentAudiobookWithCompletion:(id)completion;
+- (void)fetchStoreItemsIncludingDeleted:(BOOL)deleted completion:(id)completion;
+- (void)fetchUserDataIncludingDeleted:(BOOL)deleted completion:(id)completion;
 - (void)forceFetchRemoteChanges:(id)changes;
 - (void)getAssetDetailChangesSince:(id)since completion:(id)completion;
 - (void)getAssetReviewChangesSince:(id)since completion:(id)completion;
@@ -105,12 +114,17 @@
 - (void)setAssetReview:(id)review completion:(id)completion;
 - (void)setAssetReviews:(id)reviews completion:(id)completion;
 - (void)setBookWidgetInfo:(id)info completion:(id)completion;
+- (void)setCloudSyncPaused:(BOOL)paused;
 - (void)setCollectionDetail:(id)detail completion:(id)completion;
 - (void)setCollectionDetails:(id)details completion:(id)completion;
 - (void)setCollectionMember:(id)member completion:(id)completion;
 - (void)setCollectionMembers:(id)members completion:(id)completion;
+- (void)setEnableCloudSync:(BOOL)sync enableReadingNowSync:(BOOL)nowSync;
+- (void)setEnableCollectionSync:(BOOL)sync;
+- (void)setEnableSecureCloudSync:(BOOL)sync;
 - (void)setEngagementData:(id)data completion:(id)completion;
 - (void)setEngagementDatas:(id)datas completion:(id)completion;
+- (void)setItemHidden:(BOOL)hidden forStoreID:(id)d completion:(id)completion;
 - (void)setReadingNowDetails:(id)details completion:(id)completion;
 - (void)setUserData:(id)data completion:(id)completion;
 - (void)setUserDataValue:(id)value forKey:(id)key completion:(id)completion;
@@ -118,8 +132,15 @@
 - (void)signalFetchChangesTransaction:(id)transaction;
 - (void)storeItemForStoreID:(id)d completion:(id)completion;
 - (void)updateBitrateForItemWithAdamID:(id)d completion:(id)completion;
+- (void)updateFamilyPolitely:(BOOL)politely reason:(int64_t)reason completion:(id)completion;
+- (void)updateFamilyPolitely:(BOOL)politely reason:(int64_t)reason completionWithError:(id)error;
+- (void)updatePolitely:(BOOL)politely reason:(int64_t)reason completion:(id)completion;
+- (void)updatePolitely:(BOOL)politely reason:(int64_t)reason completionWithError:(id)error;
+- (void)updatePolitelyAfterSignIn:(BOOL)in reason:(int64_t)reason completion:(id)completion;
+- (void)updatePolitelyAfterSignOut:(BOOL)out reason:(int64_t)reason completion:(id)completion;
 - (void)userDataValueForKey:(id)key completion:(id)completion;
 - (void)userDatumForKey:(id)key completion:(id)completion;
+- (void)userDatumIncludingDeleted:(BOOL)deleted forKey:(id)key completion:(id)completion;
 @end
 
 @implementation BDSService
@@ -134,9 +155,9 @@
 - (BDSService)initWithClientConnectionService:(id)service
 {
   serviceCopy = service;
-  v45.receiver = self;
-  v45.super_class = BDSService;
-  v6 = [(BDSService *)&v45 init];
+  v46.receiver = self;
+  v46.super_class = BDSService;
+  v6 = [(BDSService *)&v46 init];
   v7 = v6;
   if (v6)
   {
@@ -171,59 +192,59 @@
 
     if (!jaliscoDAAPService)
     {
-      v22 = sub_1000023E8();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = sub_1000023E8(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         sub_1001BFE9C();
       }
     }
 
     [(BDSService *)v7 _setupWidget];
-    v23 = objc_alloc_init(BDSOSTransactionProvider);
+    v24 = objc_alloc_init(BDSOSTransactionProvider);
     if (!v7->_widgetDataUpdater)
     {
       _newWidgetMOC = [(BDSService *)v7 _newWidgetMOC];
       [(BDSService *)v7 _setupWidgetDataUpdater:_newWidgetMOC];
     }
 
-    v25 = [[BDSBookWidgetReadingHistoryManager alloc] initWithBookWidgetDataUpdater:v7->_widgetDataUpdater transactionProvider:v23];
-    v26 = objc_alloc_init(BDSNotificationForwarder);
+    v26 = [[BDSBookWidgetReadingHistoryManager alloc] initWithBookWidgetDataUpdater:v7->_widgetDataUpdater transactionProvider:v24];
+    v27 = objc_alloc_init(BDSNotificationForwarder);
     notificationForwarder = v7->_notificationForwarder;
-    v7->_notificationForwarder = v26;
+    v7->_notificationForwarder = v27;
 
-    v28 = objc_alloc_init(BDSReadingGoalsService);
+    v29 = objc_alloc_init(BDSReadingGoalsService);
     readingGoalsService = v7->_readingGoalsService;
-    v7->_readingGoalsService = v28;
+    v7->_readingGoalsService = v29;
 
-    v30 = [[BDSReadingHistoryServiceManager alloc] initWithReadingGoalsService:v7->_readingGoalsService transactionProvider:v23 viewStateChangeHandler:v25];
-    objc_storeStrong(&v7->_readingHistoryCommandLineService, v30);
+    v31 = [[BDSReadingHistoryServiceManager alloc] initWithReadingGoalsService:v7->_readingGoalsService transactionProvider:v24 viewStateChangeHandler:v26];
+    objc_storeStrong(&v7->_readingHistoryCommandLineService, v31);
     readingHistoryService = v7->_readingHistoryService;
-    v7->_readingHistoryService = v30;
+    v7->_readingHistoryService = v31;
 
-    v32 = +[BDSAppGroupContainer documentsURL];
-    v33 = [v32 URLByAppendingPathComponent:@"BDSService-PriceTracking" isDirectory:1];
+    v33 = +[BDSAppGroupContainer documentsURL];
+    v34 = [v33 URLByAppendingPathComponent:@"BDSService-PriceTracking" isDirectory:1];
 
-    v34 = [v33 URLByAppendingPathComponent:@"data.json" isDirectory:0];
-    v35 = [[BDSPriceTracker alloc] initWithPersistenceURL:v34];
+    v35 = [v34 URLByAppendingPathComponent:@"data.json" isDirectory:0];
+    v36 = [[BDSPriceTracker alloc] initWithPersistenceURL:v35];
     priceTracker = v7->_priceTracker;
-    v7->_priceTracker = v35;
+    v7->_priceTracker = v36;
 
     +[BDSXPCEventRelay start];
-    v37 = +[NSNotificationCenter defaultCenter];
-    [v37 addObserver:v7 selector:"tccAccessChanged:" name:@"BDSTCCAccessChangedNotification" object:0];
+    v38 = +[NSNotificationCenter defaultCenter];
+    [v38 addObserver:v7 selector:"tccAccessChanged:" name:@"BDSTCCAccessChangedNotification" object:0];
 
-    v38 = +[NSDistributedNotificationCenter defaultCenter];
-    [v38 addObserver:v7 selector:"enableSyncChanged:" name:@"BKUbiquitousFinishedOptInFlow" object:0];
+    v39 = +[NSDistributedNotificationCenter defaultCenter];
+    [v39 addObserver:v7 selector:"enableSyncChanged:" name:@"BKUbiquitousFinishedOptInFlow" object:0];
 
     [(BDSService *)v7 _updateEnableSync];
-    v39 = +[MCProfileConnection sharedConnection];
-    [v39 addObserver:v7];
-
-    v40 = +[NSDistributedNotificationCenter defaultCenter];
-    [v40 addObserver:v7 selector:"_BCCloudReadingNowDetailManagerChanged:" name:@"BCCloudReadingNowDetailManagerChanged" object:0];
+    v40 = +[MCProfileConnection sharedConnection];
+    [v40 addObserver:v7];
 
     v41 = +[NSDistributedNotificationCenter defaultCenter];
-    [v41 addObserver:v7 selector:"_BCCloudCollectionMemberManagerChanged:" name:@"BCCloudCollectionMemberManagerChanged" object:0];
+    [v41 addObserver:v7 selector:"_BCCloudReadingNowDetailManagerChanged:" name:@"BCCloudReadingNowDetailManagerChanged" object:0];
+
+    v42 = +[NSDistributedNotificationCenter defaultCenter];
+    [v42 addObserver:v7 selector:"_BCCloudCollectionMemberManagerChanged:" name:@"BCCloudCollectionMemberManagerChanged" object:0];
 
     makeOSStateHandler = [(BDSService *)v7 makeOSStateHandler];
     syncServiceStateHandler = v7->_syncServiceStateHandler;
@@ -251,7 +272,7 @@
 
 - (void)_BCCloudReadingNowDetailManagerChanged:(id)changed
 {
-  v3 = sub_10000DC90();
+  v3 = sub_10000DC90(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -268,7 +289,7 @@
 
 - (void)_BCCloudCollectionMemberManagerChanged:(id)changed
 {
-  v3 = sub_10000DC90();
+  v3 = sub_10000DC90(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -285,7 +306,7 @@
 
 - (void)profileConnectionDidReceiveRestrictionChangedNotification:(id)notification userInfo:(id)info
 {
-  v4 = sub_10000DC90();
+  v4 = sub_10000DC90(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -301,21 +322,12 @@
   v3 = +[BDSSyncUserDefaults isSignedIntoICloud];
   v4 = +[BDSSyncUserDefaults isGlobalICloudDriveSyncOptedIn];
   v5 = +[BDSSyncUserDefaults isCloudKitSyncOptedIn];
-  v6 = ![(BDSService *)self paused]& v3 & v5;
-  v7 = sub_100002660();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  paused = [(BDSService *)self paused];
+  v7 = (paused ^ 1) & v3 & v5;
+  v8 = sub_100002660(paused);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     if ([(BDSService *)self paused])
-    {
-      v8 = @"YES";
-    }
-
-    else
-    {
-      v8 = @"NO";
-    }
-
-    if (v3)
     {
       v9 = @"YES";
     }
@@ -325,9 +337,7 @@
       v9 = @"NO";
     }
 
-    *v27 = 138544386;
-    *&v27[4] = v8;
-    if (v4)
+    if (v3)
     {
       v10 = @"YES";
     }
@@ -337,9 +347,9 @@
       v10 = @"NO";
     }
 
-    *&v27[12] = 2114;
-    *&v27[14] = v9;
-    if (v5)
+    *v29 = 138544386;
+    *&v29[4] = v9;
+    if (v4)
     {
       v11 = @"YES";
     }
@@ -349,8 +359,9 @@
       v11 = @"NO";
     }
 
-    *&v27[22] = 2114;
-    if (v6)
+    *&v29[12] = 2114;
+    *&v29[14] = v10;
+    if (v5)
     {
       v12 = @"YES";
     }
@@ -360,26 +371,37 @@
       v12 = @"NO";
     }
 
-    v28 = v10;
-    v29 = 2114;
+    *&v29[22] = 2114;
+    if (v7)
+    {
+      v13 = @"YES";
+    }
+
+    else
+    {
+      v13 = @"NO";
+    }
+
     v30 = v11;
     v31 = 2114;
     v32 = v12;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "BDSService Paused=%{public}@ SignedIn=%{public}@ GlobalICloudDrive=%{public}@ CloudKit=%{public}@  isCloudKitEnabled=%{public}@", v27, 0x34u);
+    v33 = 2114;
+    v34 = v13;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "BDSService Paused=%{public}@ SignedIn=%{public}@ GlobalICloudDrive=%{public}@ CloudKit=%{public}@  isCloudKitEnabled=%{public}@", v29, 0x34u);
   }
 
   objc_opt_class();
-  v13 = [BDSUserPreferencesSync objectFromGroupPreferencesForKey:@"BKLibrary.ReadingNow"];
-  v14 = BUDynamicCast();
+  v14 = [BDSUserPreferencesSync objectFromGroupPreferencesForKey:@"BKLibrary.ReadingNow"];
+  v15 = BUDynamicCast();
 
-  if (v14)
+  if (v15)
   {
-    bOOLValue = [v14 BOOLValue];
-    if (v6)
+    bOOLValue = [v15 BOOLValue];
+    if (v7)
     {
 LABEL_20:
-      v16 = [BUAccountsProvider sharedProvider:*v27];
-      v17 = [v16 isPrimaryAccountManagedAppleID] | bOOLValue;
+      v17 = [BUAccountsProvider sharedProvider:*v29];
+      v18 = [v17 isPrimaryAccountManagedAppleID] | bOOLValue;
 
       goto LABEL_23;
     }
@@ -388,59 +410,104 @@ LABEL_20:
   else
   {
     bOOLValue = 1;
-    if (v6)
+    if (v7)
     {
       goto LABEL_20;
     }
   }
 
-  v17 = 0;
+  v18 = 0;
 LABEL_23:
-  v18 = [(BDSService *)self assetManager:*v27];
-  [v18 setEnableCloudSync:v6 enableReadingNowSync:v17 & 1];
+  v19 = [(BDSService *)self assetManager:*v29];
+  [v19 setEnableCloudSync:v7 enableReadingNowSync:v18 & 1];
 
-  v19 = sub_100002660();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  v21 = sub_100002660(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    if (v6)
+    if (v7)
     {
-      v20 = @"YES";
+      v22 = @"YES";
     }
 
     else
     {
-      v20 = @"NO";
+      v22 = @"NO";
     }
 
-    if (v17)
+    if (v18)
     {
-      v21 = @"YES";
+      v23 = @"YES";
     }
 
     else
     {
-      v21 = @"NO";
+      v23 = @"NO";
     }
 
-    *v27 = 138543618;
-    *&v27[4] = v20;
-    *&v27[12] = 2114;
-    *&v27[14] = v21;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "BDSService enabling assetSync: %{public}@ readingNow Sync: %{public}@", v27, 0x16u);
+    *v29 = 138543618;
+    *&v29[4] = v22;
+    *&v29[12] = 2114;
+    *&v29[14] = v23;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "BDSService enabling assetSync: %{public}@ readingNow Sync: %{public}@", v29, 0x16u);
   }
 
-  v22 = +[BDSSyncUserDefaults isICloudDriveSyncOptedIn];
+  v24 = +[BDSSyncUserDefaults isICloudDriveSyncOptedIn];
   ubiquityManager = [(BDSService *)self ubiquityManager];
-  [ubiquityManager setEnableUbiquityObserving:v22 & v4];
+  [ubiquityManager setEnableUbiquityObserving:v24 & v4];
 
   readingHistoryService = [(BDSService *)self readingHistoryService];
-  [readingHistoryService setEnableCloudSync:v6];
+  [readingHistoryService setEnableCloudSync:v7];
 
-  v25 = +[BCCloudKitController sharedInstance];
-  [v25 setEnableCloudSync:v6 serviceMode:1];
+  v27 = +[BCCloudKitController sharedInstance];
+  [v27 setEnableCloudSync:v7 serviceMode:1];
 
-  v26 = +[BCCloudKitController secureSharedInstance];
-  [v26 setEnableCloudSync:v6 serviceMode:1];
+  v28 = +[BCCloudKitController secureSharedInstance];
+  [v28 setEnableCloudSync:v7 serviceMode:1];
+}
+
+- (void)setEnableCollectionSync:(BOOL)sync
+{
+  syncCopy = sync;
+  cloudCollectionsManager = [(BDSService *)self cloudCollectionsManager];
+  [cloudCollectionsManager setEnableCloudSync:syncCopy];
+}
+
+- (void)setEnableCloudSync:(BOOL)sync enableReadingNowSync:(BOOL)nowSync
+{
+  nowSyncCopy = nowSync;
+  syncCopy = sync;
+  assetManager = [(BDSService *)self assetManager];
+  [assetManager setEnableCloudSync:syncCopy enableReadingNowSync:nowSyncCopy];
+}
+
+- (void)setEnableSecureCloudSync:(BOOL)sync
+{
+  syncCopy = sync;
+  secureManager = [(BDSService *)self secureManager];
+  [secureManager setEnableCloudSync:syncCopy];
+}
+
+- (void)setCloudSyncPaused:(BOOL)paused
+{
+  pausedCopy = paused;
+  if ([(BDSService *)self paused]!= paused)
+  {
+    v5 = sub_100002660([(BDSService *)self setPaused:pausedCopy]);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      v6 = @"NO";
+      if (pausedCopy)
+      {
+        v6 = @"YES";
+      }
+
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "setCloudSyncPaused: %@", &v7, 0xCu);
+    }
+
+    [(BDSService *)self _updateEnableSync];
+  }
 }
 
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion
@@ -505,6 +572,15 @@ LABEL_23:
   assetManager = [(BDSService *)self assetManager];
   assetDetailManager = [assetManager assetDetailManager];
   [assetDetailManager deleteAssetDetailForAssetID:dCopy completion:completionCopy];
+}
+
+- (void)fetchAssetDetailsIncludingDeleted:(BOOL)deleted completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  assetManager = [(BDSService *)self assetManager];
+  assetDetailManager = [assetManager assetDetailManager];
+  [assetDetailManager fetchAssetDetailsIncludingDeleted:deletedCopy completion:completionCopy];
 }
 
 - (void)getAssetDetailChangesSince:(id)since completion:(id)completion
@@ -646,6 +722,16 @@ LABEL_23:
   [assetReviewManager deleteAssetReviewForAssetReviewIDs:dsCopy completion:completionCopy];
 }
 
+- (void)fetchAssetReviewsForUserID:(id)d includingDeleted:(BOOL)deleted completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  dCopy = d;
+  assetManager = [(BDSService *)self assetManager];
+  assetReviewManager = [assetManager assetReviewManager];
+  [assetReviewManager fetchAssetReviewsForUserID:dCopy includingDeleted:deletedCopy completion:completionCopy];
+}
+
 - (void)getAssetReviewChangesSince:(id)since completion:(id)completion
 {
   completionCopy = completion;
@@ -709,6 +795,15 @@ LABEL_23:
   [storeAssetManager deleteStoreItemsWithStoreIDs:dsCopy completion:completionCopy];
 }
 
+- (void)fetchStoreItemsIncludingDeleted:(BOOL)deleted completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  assetManager = [(BDSService *)self assetManager];
+  storeAssetManager = [assetManager storeAssetManager];
+  [storeAssetManager fetchStoreItemsIncludingDeleted:deletedCopy completion:completionCopy];
+}
+
 - (void)getStoreItemChangesSince:(id)since completion:(id)completion
 {
   completionCopy = completion;
@@ -769,6 +864,15 @@ LABEL_23:
   cloudCollectionsManager = [(BDSService *)self cloudCollectionsManager];
   collectionDetailManager = [cloudCollectionsManager collectionDetailManager];
   [collectionDetailManager deleteCollectionDetailForCollectionIDs:dsCopy completion:completionCopy];
+}
+
+- (void)fetchCollectionDetailsIncludingDeleted:(BOOL)deleted completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  cloudCollectionsManager = [(BDSService *)self cloudCollectionsManager];
+  collectionDetailManager = [cloudCollectionsManager collectionDetailManager];
+  [collectionDetailManager fetchCollectionDetailsIncludingDeleted:deletedCopy completion:completionCopy];
 }
 
 - (void)getCollectionDetailChangesSince:(id)since completion:(id)completion
@@ -839,6 +943,15 @@ LABEL_23:
   [collectionMemberManager deleteCollectionMemberForCollectionMemberIDs:dsCopy completion:completionCopy];
 }
 
+- (void)fetchCollectionMembersIncludingDeleted:(BOOL)deleted completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  cloudCollectionsManager = [(BDSService *)self cloudCollectionsManager];
+  collectionMemberManager = [cloudCollectionsManager collectionMemberManager];
+  [collectionMemberManager fetchCollectionMembersIncludingDeleted:deletedCopy completion:completionCopy];
+}
+
 - (void)fetchCollectionMembersInCollectionID:(id)d completion:(id)completion
 {
   completionCopy = completion;
@@ -889,6 +1002,16 @@ LABEL_23:
   completionCopy = completion;
   v4 = +[BDSNBPinningManager sharedManager];
   [v4 fetchMostRecentAudiobookWithCompletion:completionCopy];
+}
+
+- (id)updateWantToReadAndReadingNowWithJaliscoUpdateSuccessful:(BOOL)successful completion:(id)completion
+{
+  successfulCopy = successful;
+  completionCopy = completion;
+  v6 = +[BDSNBPinningManager sharedManager];
+  v7 = [v6 updateWantToReadAndReadingNowWithJaliscoUpdateSuccessful:successfulCopy completion:completionCopy];
+
+  return v7;
 }
 
 - (id)updateWantToReadWithCompletion:(id)completion
@@ -981,6 +1104,25 @@ LABEL_23:
   [userDataManager userDatumForKey:keyCopy completion:completionCopy];
 }
 
+- (void)userDatumIncludingDeleted:(BOOL)deleted forKey:(id)key completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  keyCopy = key;
+  secureManager = [(BDSService *)self secureManager];
+  userDataManager = [secureManager userDataManager];
+  [userDataManager userDatumIncludingDeleted:deletedCopy forKey:keyCopy completion:completionCopy];
+}
+
+- (void)fetchUserDataIncludingDeleted:(BOOL)deleted completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  secureManager = [(BDSService *)self secureManager];
+  userDataManager = [secureManager userDataManager];
+  [userDataManager fetchUserDataIncludingDeleted:deletedCopy completion:completionCopy];
+}
+
 - (void)getUserDataChangesSince:(id)since completion:(id)completion
 {
   completionCopy = completion;
@@ -1034,6 +1176,25 @@ LABEL_23:
   secureManager = [(BDSService *)self secureManager];
   engagementManager = [secureManager engagementManager];
   [engagementManager engagementDataForKey:keyCopy completion:completionCopy];
+}
+
+- (void)engagementDataIncludingDeleted:(BOOL)deleted forKey:(id)key completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  keyCopy = key;
+  secureManager = [(BDSService *)self secureManager];
+  engagementManager = [secureManager engagementManager];
+  [engagementManager engagementDataIncludingDeleted:deletedCopy forKey:keyCopy completion:completionCopy];
+}
+
+- (void)fetchEngagementDatasIncludingDeleted:(BOOL)deleted completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  secureManager = [(BDSService *)self secureManager];
+  engagementManager = [secureManager engagementManager];
+  [engagementManager fetchEngagementDatasIncludingDeleted:deletedCopy completion:completionCopy];
 }
 
 - (void)getEngagementDataChangesSince:(id)since completion:(id)completion
@@ -1142,6 +1303,155 @@ LABEL_23:
   [cloudSyncDiagnosticService diagnosticInfoWithCompletionHandler:handlerCopy];
 }
 
+- (void)updatePolitely:(BOOL)politely reason:(int64_t)reason completionWithError:(id)error
+{
+  politelyCopy = politely;
+  errorCopy = error;
+  jaliscoDAAPService = [(BDSService *)self jaliscoDAAPService];
+
+  if (jaliscoDAAPService)
+  {
+    jaliscoDAAPService2 = [(BDSService *)self jaliscoDAAPService];
+    [jaliscoDAAPService2 updatePolitely:politelyCopy reason:reason completionWithError:errorCopy];
+  }
+
+  else
+  {
+    v11 = sub_1000023E8(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      sub_1001BFED0();
+    }
+
+    v12 = objc_retainBlock(errorCopy);
+    if (v12)
+    {
+      v16 = NSLocalizedDescriptionKey;
+      v17 = @"BDSService has no jalisco client";
+      v13 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+      v14 = [NSError errorWithDomain:@"BDSErrorDomain" code:1000 userInfo:v13];
+      v12[2](v12, 0, v14);
+    }
+  }
+}
+
+- (void)updatePolitely:(BOOL)politely reason:(int64_t)reason completion:(id)completion
+{
+  politelyCopy = politely;
+  completionCopy = completion;
+  jaliscoDAAPService = [(BDSService *)self jaliscoDAAPService];
+
+  if (jaliscoDAAPService)
+  {
+    jaliscoDAAPService2 = [(BDSService *)self jaliscoDAAPService];
+    [jaliscoDAAPService2 updatePolitely:politelyCopy reason:reason completion:completionCopy];
+  }
+
+  else
+  {
+    v11 = sub_1000023E8(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      sub_1001BFED0();
+    }
+
+    v12 = objc_retainBlock(completionCopy);
+    if (v12)
+    {
+      v12[2](v12, 0);
+    }
+  }
+}
+
+- (void)updateFamilyPolitely:(BOOL)politely reason:(int64_t)reason completion:(id)completion
+{
+  politelyCopy = politely;
+  completionCopy = completion;
+  jaliscoDAAPService = [(BDSService *)self jaliscoDAAPService];
+
+  if (jaliscoDAAPService)
+  {
+    jaliscoDAAPService2 = [(BDSService *)self jaliscoDAAPService];
+    [jaliscoDAAPService2 updateFamilyPolitely:politelyCopy reason:reason completion:completionCopy];
+  }
+
+  else
+  {
+    v11 = sub_1000023E8(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      sub_1001BFF04();
+    }
+
+    v12 = objc_retainBlock(completionCopy);
+    if (v12)
+    {
+      v12[2](v12, 0);
+    }
+  }
+}
+
+- (void)updateFamilyPolitely:(BOOL)politely reason:(int64_t)reason completionWithError:(id)error
+{
+  politelyCopy = politely;
+  errorCopy = error;
+  jaliscoDAAPService = [(BDSService *)self jaliscoDAAPService];
+
+  if (jaliscoDAAPService)
+  {
+    jaliscoDAAPService2 = [(BDSService *)self jaliscoDAAPService];
+    [jaliscoDAAPService2 updateFamilyPolitely:politelyCopy reason:reason completionWithError:errorCopy];
+  }
+
+  else
+  {
+    v11 = sub_1000023E8(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      sub_1001BFF04();
+    }
+
+    v12 = objc_retainBlock(errorCopy);
+    if (v12)
+    {
+      v16 = NSLocalizedDescriptionKey;
+      v17 = @"BDSService has no jalisco client";
+      v13 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+      v14 = [NSError errorWithDomain:@"BDSErrorDomain" code:1000 userInfo:v13];
+      v12[2](v12, 0, v14);
+    }
+  }
+}
+
+- (void)setItemHidden:(BOOL)hidden forStoreID:(id)d completion:(id)completion
+{
+  hiddenCopy = hidden;
+  dCopy = d;
+  completionCopy = completion;
+  jaliscoDAAPService = [(BDSService *)self jaliscoDAAPService];
+
+  if (jaliscoDAAPService)
+  {
+    jaliscoDAAPService2 = [(BDSService *)self jaliscoDAAPService];
+    [jaliscoDAAPService2 setItemHidden:hiddenCopy forStoreID:dCopy completion:completionCopy];
+  }
+
+  else
+  {
+    v13 = sub_1000023E8(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      sub_1001BFF38();
+    }
+
+    v14 = objc_retainBlock(completionCopy);
+    if (v14)
+    {
+      v14[2](v14, 0);
+    }
+  }
+}
+
 - (void)hideItemsWithStoreIDs:(id)ds completion:(id)completion
 {
   dsCopy = ds;
@@ -1156,8 +1466,8 @@ LABEL_23:
 
   else
   {
-    v10 = sub_1000023E8();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_1000023E8(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1001BFF6C();
     }
@@ -1183,20 +1493,20 @@ LABEL_23:
 
   else
   {
-    v6 = sub_1000023E8();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000023E8(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001BFFA0();
     }
 
-    v7 = objc_retainBlock(completionCopy);
-    if (v7)
+    v8 = objc_retainBlock(completionCopy);
+    if (v8)
     {
-      v11 = NSLocalizedDescriptionKey;
-      v12 = @"BDSService has no jalisco client";
-      v8 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-      v9 = [NSError errorWithDomain:@"BDSErrorDomain" code:1000 userInfo:v8];
-      v7[2](v7, 0, v9);
+      v12 = NSLocalizedDescriptionKey;
+      v13 = @"BDSService has no jalisco client";
+      v9 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+      v10 = [NSError errorWithDomain:@"BDSErrorDomain" code:1000 userInfo:v9];
+      v8[2](v8, 0, v10);
     }
   }
 }
@@ -1215,8 +1525,8 @@ LABEL_23:
 
   else
   {
-    v10 = sub_1000023E8();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_1000023E8(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1001BFFD4();
     }
@@ -1250,20 +1560,76 @@ LABEL_23:
 
   else
   {
-    v6 = sub_1000023E8();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000023E8(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001C0008();
     }
 
-    v7 = objc_retainBlock(completionCopy);
-    if (v7)
+    v8 = objc_retainBlock(completionCopy);
+    if (v8)
     {
-      v11 = NSLocalizedDescriptionKey;
-      v12 = @"BDSService has no jalisco client";
-      v8 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-      v9 = [NSError errorWithDomain:@"BDSErrorDomain" code:1000 userInfo:v8];
-      v7[2](v7, v9);
+      v12 = NSLocalizedDescriptionKey;
+      v13 = @"BDSService has no jalisco client";
+      v9 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+      v10 = [NSError errorWithDomain:@"BDSErrorDomain" code:1000 userInfo:v9];
+      v8[2](v8, v10);
+    }
+  }
+}
+
+- (void)updatePolitelyAfterSignIn:(BOOL)in reason:(int64_t)reason completion:(id)completion
+{
+  inCopy = in;
+  completionCopy = completion;
+  jaliscoDAAPService = [(BDSService *)self jaliscoDAAPService];
+
+  if (jaliscoDAAPService)
+  {
+    jaliscoDAAPService2 = [(BDSService *)self jaliscoDAAPService];
+    [jaliscoDAAPService2 updatePolitelyAfterSignIn:inCopy reason:reason completion:completionCopy];
+  }
+
+  else
+  {
+    v11 = sub_1000023E8(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      sub_1001C003C();
+    }
+
+    v12 = objc_retainBlock(completionCopy);
+    if (v12)
+    {
+      v12[2](v12, 0);
+    }
+  }
+}
+
+- (void)updatePolitelyAfterSignOut:(BOOL)out reason:(int64_t)reason completion:(id)completion
+{
+  outCopy = out;
+  completionCopy = completion;
+  jaliscoDAAPService = [(BDSService *)self jaliscoDAAPService];
+
+  if (jaliscoDAAPService)
+  {
+    jaliscoDAAPService2 = [(BDSService *)self jaliscoDAAPService];
+    [jaliscoDAAPService2 updatePolitelyAfterSignOut:outCopy reason:reason completion:completionCopy];
+  }
+
+  else
+  {
+    v11 = sub_1000023E8(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      sub_1001C0070();
+    }
+
+    v12 = objc_retainBlock(completionCopy);
+    if (v12)
+    {
+      v12[2](v12, 0);
     }
   }
 }
@@ -1301,7 +1667,7 @@ LABEL_23:
   }
 
   v11 = [currentWidgetDatas subarrayWithRange:{0, limitCopy}];
-  v12 = sub_1000023E8();
+  v12 = sub_1000023E8(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138412290;
@@ -1525,7 +1891,7 @@ LABEL_23:
 
 - (void)hasSaltChangedWithCompletion:(id)completion
 {
-  v3 = sub_100002660();
+  v3 = sub_100002660(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     *v4 = 0;
@@ -1544,26 +1910,26 @@ LABEL_23:
 
   if (managedObjectContext)
   {
-    v7 = objc_loadWeakRetained(&self->_assetManager);
-    assetDataSource2 = [v7 assetDataSource];
+    v8 = objc_loadWeakRetained(&self->_assetManager);
+    assetDataSource2 = [v8 assetDataSource];
     managedObjectContext2 = [assetDataSource2 managedObjectContext];
     [v3 setParentContext:managedObjectContext2];
 
-    v10 = v3;
+    v11 = v3;
   }
 
   else
   {
-    v11 = sub_10000DE28();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_10000DE28(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1001C00A4();
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)_setupWidgetDataUpdater:(id)updater
@@ -1585,7 +1951,7 @@ LABEL_23:
 
 - (void)_setupWidget
 {
-  v3 = sub_10000DE28();
+  v3 = sub_10000DE28(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v21) = 0;
@@ -1609,15 +1975,14 @@ LABEL_23:
     widgetInfoManager = self->_widgetInfoManager;
     self->_widgetInfoManager = v12;
 
-    v14 = self->_widgetInfoManager;
-    v15 = BUProtocolCast();
+    v14 = BUProtocolCast();
     objc_opt_class();
-    v16 = objc_loadWeakRetained(&self->_assetManager);
-    readingNowDetailManager2 = [v16 readingNowDetailManager];
-    v18 = BUDynamicCast();
-    [v18 setDataMonitor:v15];
+    v15 = objc_loadWeakRetained(&self->_assetManager);
+    readingNowDetailManager2 = [v15 readingNowDetailManager];
+    v17 = BUDynamicCast();
+    [v17 setDataMonitor:v14];
 
-    v19 = sub_10000DE28();
+    v19 = sub_10000DE28(v18);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       widgetInfoManager = [(BDSService *)self widgetInfoManager];

@@ -19,7 +19,7 @@
   v2 = v12.receiver;
   [(LinkableHeaderCollectionViewCell *)&v12 layoutSubviews];
   contentView = [v2 contentView];
-  sub_BE70(0, &qword_93E550);
+  sub_BE70(0, &qword_93E550, UIView_ptr);
   sub_75D650();
   v5 = v4;
   v7 = v6;

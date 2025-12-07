@@ -51,7 +51,7 @@
   v3 = objc_alloc(MEMORY[0x1E696AB80]);
   startDate = [dateInterval startDate];
   v5 = [startDate dateByAddingTimeInterval:-0.2];
-  [dateInterval duration];
+  objc_msgSend_duration(dateInterval);
   v7 = [v3 initWithStartDate:v5 duration:v6 + 0.4];
 
   return v7;

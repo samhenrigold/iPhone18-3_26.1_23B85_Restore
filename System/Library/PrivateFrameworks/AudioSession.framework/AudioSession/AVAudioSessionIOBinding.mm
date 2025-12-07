@@ -32,7 +32,7 @@
 
 - (AVAudioSessionIOBinding)initWithSession:(id)session streams:(id)streams error:(id *)error
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   streamsCopy = streams;
   if (streamsCopy)
@@ -40,9 +40,9 @@
     if (error)
     {
       v10 = MEMORY[0x1E696ABC0];
-      v14 = *MEMORY[0x1E696A578];
-      v15[0] = @"Bad parameter";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v13 = *MEMORY[0x1E696A578];
+      v14[0] = @"Bad parameter";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
       *error = [v10 errorWithDomain:@"AVAudioSession Error" code:-50 userInfo:v11];
 
       error = 0;
@@ -54,7 +54,6 @@
     error = [[AVAudioSessionIOBinding alloc] initWithSession:sessionCopy];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return error;
 }
 

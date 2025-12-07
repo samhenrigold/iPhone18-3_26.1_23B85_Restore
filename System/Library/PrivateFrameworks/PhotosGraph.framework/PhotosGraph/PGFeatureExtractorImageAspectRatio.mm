@@ -8,16 +8,14 @@
 
 - (id)_generateErrorWithErrorCode:(int64_t)code andMessage:(id)message
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
-  v12 = @"message";
-  v13[0] = message;
+  v11 = @"message";
+  v12[0] = message;
   v6 = MEMORY[0x277CBEAC0];
   messageCopy = message;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v5 errorWithDomain:@"com.apple.PhotosGraph.PGFeatureExtractorPHAssetAttributes" code:code userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -53,10 +51,9 @@
 
 - (id)featureNames
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"ImageAspectRatio";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"ImageAspectRatio";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

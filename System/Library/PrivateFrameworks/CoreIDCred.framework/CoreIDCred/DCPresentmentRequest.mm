@@ -88,11 +88,11 @@
     v9 = 0xF000000000000000;
   }
 
-  v12 = *(&self->super.isa + OBJC_IVAR___DCPresentmentRequest_state);
-  MEMORY[0x28223BE20](selfCopy2, v11);
-  os_unfair_lock_lock(v12 + 24);
-  sub_24563ADC0(&v12[4]);
-  os_unfair_lock_unlock(v12 + 24);
+  v11 = *(&self->super.isa + OBJC_IVAR___DCPresentmentRequest_state);
+  MEMORY[0x28223BE20](selfCopy2);
+  os_unfair_lock_lock(v11 + 24);
+  sub_24563ADC0(&v11[4]);
+  os_unfair_lock_unlock(v11 + 24);
   sub_245637BC8(v7, v9);
 }
 
@@ -136,11 +136,11 @@
     v9 = 0xF000000000000000;
   }
 
-  v12 = *(&self->super.isa + OBJC_IVAR___DCPresentmentRequest_state);
-  MEMORY[0x28223BE20](selfCopy2, v11);
-  os_unfair_lock_lock(v12 + 24);
-  sub_24563ADA8(&v12[4]);
-  os_unfair_lock_unlock(v12 + 24);
+  v11 = *(&self->super.isa + OBJC_IVAR___DCPresentmentRequest_state);
+  MEMORY[0x28223BE20](selfCopy2);
+  os_unfair_lock_lock(v11 + 24);
+  sub_24563ADA8(&v11[4]);
+  os_unfair_lock_unlock(v11 + 24);
   sub_245637BC8(v7, v9);
 }
 
@@ -184,11 +184,11 @@
     v9 = 0xF000000000000000;
   }
 
-  v12 = *(&self->super.isa + OBJC_IVAR___DCPresentmentRequest_state);
-  MEMORY[0x28223BE20](selfCopy2, v11);
-  os_unfair_lock_lock(v12 + 24);
-  sub_24563AD90(&v12[4]);
-  os_unfair_lock_unlock(v12 + 24);
+  v11 = *(&self->super.isa + OBJC_IVAR___DCPresentmentRequest_state);
+  MEMORY[0x28223BE20](selfCopy2);
+  os_unfair_lock_lock(v11 + 24);
+  sub_24563AD90(&v11[4]);
+  os_unfair_lock_unlock(v11 + 24);
   sub_245637BC8(v7, v9);
 }
 
@@ -253,9 +253,9 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = DCPresentmentRequest.hash.getter();
+  v4 = DCPresentmentRequest.hash.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -205,63 +205,53 @@
 
 - (void)_configureSOSGestureBehaviors
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   deviceSupportsSOS = [MEMORY[0x277D495A0] deviceSupportsSOS];
   v4 = +[SBDefaults localDefaults];
   sosDefaults = [v4 sosDefaults];
 
   clawCanTriggerSOS = [sosDefaults clawCanTriggerSOS];
   lockButtonSOSTriggerCount = [sosDefaults lockButtonSOSTriggerCount];
-  v8 = SBLogButtonsCombo();
+  v8 = SBLogButtonsCombo(lockButtonSOSTriggerCount);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v15[0] = 67109632;
-    v15[1] = deviceSupportsSOS;
-    v16 = 1024;
-    v17 = clawCanTriggerSOS;
-    v18 = 1024;
-    v19 = lockButtonSOSTriggerCount;
-    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Configuring SOS Gestures for SOS supported device: %{BOOL}u, clawShouldTriggerSOS: %{BOOL}u, lockButtonSOSTriggerCount: %d", v15, 0x14u);
+    v16[0] = 67109632;
+    v16[1] = deviceSupportsSOS;
+    v17 = 1024;
+    v18 = clawCanTriggerSOS;
+    v19 = 1024;
+    v20 = lockButtonSOSTriggerCount;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Configuring SOS Gestures for SOS supported device: %{BOOL}u, clawShouldTriggerSOS: %{BOOL}u, lockButtonSOSTriggerCount: %d", v16, 0x14u);
   }
 
   sosClawGestureObserver = self->_sosClawGestureObserver;
   if (deviceSupportsSOS)
   {
-    [(SBSOSClawGestureObserver *)sosClawGestureObserver setSOSEnabled:clawCanTriggerSOS];
+    v10 = [(SBSOSClawGestureObserver *)sosClawGestureObserver setSOSEnabled:clawCanTriggerSOS];
     if (lockButtonSOSTriggerCount == -1)
     {
-      v14 = SBLogButtonsCombo();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = SBLogButtonsCombo(v10);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(SBCombinationHardwareButton *)v14 _configureSOSGestureBehaviors];
+        [(SBCombinationHardwareButton *)v15 _configureSOSGestureBehaviors];
       }
 
-      v13 = 0;
-      v12 = 1;
+      v14 = 0;
+      v13 = 1;
     }
 
     else
     {
-      v10 = 1;
+      v11 = 1;
       if (lockButtonSOSTriggerCount == 3)
       {
-        v10 = 2;
-        v11 = 1;
-      }
-
-      else
-      {
-        v11 = 0;
-      }
-
-      if (lockButtonSOSTriggerCount == 5)
-      {
+        v11 = 2;
         v12 = 1;
       }
 
       else
       {
-        v12 = v10;
+        v12 = 0;
       }
 
       if (lockButtonSOSTriggerCount == 5)
@@ -273,10 +263,20 @@
       {
         v13 = v11;
       }
+
+      if (lockButtonSOSTriggerCount == 5)
+      {
+        v14 = 1;
+      }
+
+      else
+      {
+        v14 = v12;
+      }
     }
 
-    [(SBSOSLockGestureObserver *)self->_sosLockGestureObserver setSOSEnabled:v13];
-    [(SBSOSLockGestureObserver *)self->_sosLockGestureObserver resetWithNewConfiguration:v12];
+    [(SBSOSLockGestureObserver *)self->_sosLockGestureObserver setSOSEnabled:v14];
+    [(SBSOSLockGestureObserver *)self->_sosLockGestureObserver resetWithNewConfiguration:v13];
   }
 
   else
@@ -307,7 +307,7 @@
 {
   v7 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
-  v5 = SBLogButtonsCombo();
+  v5 = SBLogButtonsCombo(gestureCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109120;
@@ -323,35 +323,36 @@
 
 - (void)sosGesture:(id)gesture
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
   latestPressType = [gestureCopy latestPressType];
   latestPressPhase = [gestureCopy latestPressPhase];
   state = [gestureCopy state];
-  v8 = SBLogButtonsCombo();
+  v8 = SBLogButtonsCombo(state);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 67109632;
-    v15 = latestPressType;
-    v16 = 1024;
-    v17 = latestPressPhase;
-    v18 = 1024;
-    v19 = state;
-    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "SOS button gesture: press type=%d, press phase=%d, recognizer state=%d", &v14, 0x14u);
+    v13 = 67109632;
+    v14 = latestPressType;
+    v15 = 1024;
+    v16 = latestPressPhase;
+    v17 = 1024;
+    v18 = state;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "SOS button gesture: press type=%d, press phase=%d, recognizer state=%d", &v13, 0x14u);
   }
 
   [gestureCopy latestPressTimestamp];
   v10 = v9;
-  if ((BSFloatIsZero() & 1) == 0)
+  IsZero = BSFloatIsZero();
+  if ((IsZero & 1) == 0)
   {
     if (latestPressType == 104)
     {
       if (state == 3)
       {
-        sosLockGestureObserver = self->_sosLockGestureObserver;
-        if (sosLockGestureObserver)
+        IsZero = self->_sosLockGestureObserver;
+        if (IsZero)
         {
-          [(SBSOSLockGestureObserver *)sosLockGestureObserver registerPressUpWithTimestamp:v10];
+          IsZero = [IsZero registerPressUpWithTimestamp:v10];
         }
 
         goto LABEL_10;
@@ -359,10 +360,10 @@
 
       if (state == 1)
       {
-        v11 = self->_sosLockGestureObserver;
-        if (v11)
+        IsZero = self->_sosLockGestureObserver;
+        if (IsZero)
         {
-          [(SBSOSLockGestureObserver *)v11 registerPressDownWithTimestamp:v10];
+          IsZero = [IsZero registerPressDownWithTimestamp:v10];
         }
 
 LABEL_10:
@@ -378,12 +379,12 @@ LABEL_10:
 
         else
         {
-          v12 = SBLogButtonsCombo();
+          v12 = SBLogButtonsCombo(IsZero);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            v14 = 67109120;
-            v15 = latestPressPhase;
-            _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Unhandled claw gesture button press phase: %d.", &v14, 8u);
+            v13 = 67109120;
+            v14 = latestPressPhase;
+            _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Unhandled claw gesture button press phase: %d.", &v13, 8u);
           }
         }
 
@@ -436,52 +437,52 @@ LABEL_16:
 - (void)_setScreenshotDisabled:(BOOL)disabled forReason:(id)reason
 {
   disabledCopy = disabled;
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  BSDispatchQueueAssertMain();
+  v8 = BSDispatchQueueAssertMain();
   if (!reasonCopy)
   {
     [SBCombinationHardwareButton _setScreenshotDisabled:a2 forReason:self];
   }
 
-  v8 = SBLogButtonsCombo();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SBLogButtonsCombo(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     allKeys = [(NSMutableDictionary *)self->_screenshotDisableAssertions allKeys];
     *buf = 67109634;
-    *v29 = disabledCopy;
-    *&v29[4] = 2114;
-    *&v29[6] = reasonCopy;
-    v30 = 2114;
-    v31 = allKeys;
-    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Setting SS disabled: %{BOOL}u, reason: %{public}@, current assertions: %{public}@", buf, 0x1Cu);
+    *v31 = disabledCopy;
+    *&v31[4] = 2114;
+    *&v31[6] = reasonCopy;
+    v32 = 2114;
+    v33 = allKeys;
+    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Setting SS disabled: %{BOOL}u, reason: %{public}@, current assertions: %{public}@", buf, 0x1Cu);
   }
 
   screenshotDisableAssertions = self->_screenshotDisableAssertions;
   if (!disabledCopy)
   {
-    v15 = [(NSMutableDictionary *)screenshotDisableAssertions objectForKeyedSubscript:reasonCopy];
-    v16 = SBLogButtonsCombo();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-    if (v15)
+    v17 = [(NSMutableDictionary *)screenshotDisableAssertions objectForKeyedSubscript:reasonCopy];
+    v18 = SBLogButtonsCombo(v17);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    if (v17)
     {
-      if (v17)
+      if (v19)
       {
         *buf = 138543362;
-        *v29 = reasonCopy;
-        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Invalidating SS, reason: %{public}@", buf, 0xCu);
+        *v31 = reasonCopy;
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Invalidating SS, reason: %{public}@", buf, 0xCu);
       }
 
-      [v15 invalidate];
+      [v17 invalidate];
     }
 
     else
     {
-      if (v17)
+      if (v19)
       {
         *buf = 138543362;
-        *v29 = reasonCopy;
-        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "No SS disable assertion found, reason: %{public}@", buf, 0xCu);
+        *v31 = reasonCopy;
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "No SS disable assertion found, reason: %{public}@", buf, 0xCu);
       }
     }
 
@@ -490,24 +491,24 @@ LABEL_16:
 
   if (!screenshotDisableAssertions)
   {
-    v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v12 = self->_screenshotDisableAssertions;
-    self->_screenshotDisableAssertions = v11;
+    v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v13 = self->_screenshotDisableAssertions;
+    self->_screenshotDisableAssertions = v12;
 
     screenshotDisableAssertions = self->_screenshotDisableAssertions;
   }
 
-  v13 = [(NSMutableDictionary *)screenshotDisableAssertions objectForKeyedSubscript:reasonCopy];
-  v14 = v13 == 0;
+  v14 = [(NSMutableDictionary *)screenshotDisableAssertions objectForKeyedSubscript:reasonCopy];
+  v15 = v14 == 0;
 
-  if (!v14)
+  if (!v15)
   {
-    v15 = SBLogButtonsCombo();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = SBLogButtonsCombo(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      *v29 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "SS gesture already disabled, reason: %{public}@", buf, 0xCu);
+      *v31 = reasonCopy;
+      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "SS gesture already disabled, reason: %{public}@", buf, 0xCu);
     }
 
 LABEL_11:
@@ -516,26 +517,25 @@ LABEL_11:
   }
 
   objc_initWeak(&location, self);
-  v18 = objc_alloc(MEMORY[0x277CF0CE8]);
-  v19 = MEMORY[0x277D85CD0];
-  v22 = MEMORY[0x277D85DD0];
-  v23 = 3221225472;
-  v24 = __64__SBCombinationHardwareButton__setScreenshotDisabled_forReason___block_invoke;
-  v25 = &unk_2783A9070;
-  objc_copyWeak(&v26, &location);
-  v20 = [v18 initWithIdentifier:@"ScreenshotDisable" forReason:reasonCopy queue:MEMORY[0x277D85CD0] invalidationBlock:&v22];
+  v20 = objc_alloc(MEMORY[0x277CF0CE8]);
+  v21 = MEMORY[0x277D85CD0];
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 3221225472;
+  v26 = __64__SBCombinationHardwareButton__setScreenshotDisabled_forReason___block_invoke;
+  v27 = &unk_2783A9070;
+  objc_copyWeak(&v28, &location);
+  v22 = [v20 initWithIdentifier:@"ScreenshotDisable" forReason:reasonCopy queue:MEMORY[0x277D85CD0] invalidationBlock:&v24];
 
-  [(NSMutableDictionary *)self->_screenshotDisableAssertions setObject:v20 forKeyedSubscript:reasonCopy, v22, v23, v24, v25];
-  v21 = SBLogButtonsCombo();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v23 = SBLogButtonsCombo([(NSMutableDictionary *)self->_screenshotDisableAssertions setObject:v22 forKeyedSubscript:reasonCopy, v24, v25, v26, v27]);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    *v29 = reasonCopy;
-    _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "Disabling SS gesture recognizer, reason: %{public}@", buf, 0xCu);
+    *v31 = reasonCopy;
+    _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "Disabling SS gesture recognizer, reason: %{public}@", buf, 0xCu);
   }
 
   [(SBClickGestureRecognizer *)self->_screenshotGestureRecognizer setEnabled:0];
-  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&location);
 LABEL_22:
 }
@@ -545,7 +545,7 @@ void __64__SBCombinationHardwareButton__setScreenshotDisabled_forReason___block_
   v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = SBLogButtonsCombo();
+  v5 = SBLogButtonsCombo(WeakRetained);
   v6 = v5;
   if (WeakRetained)
   {
@@ -562,7 +562,7 @@ void __64__SBCombinationHardwareButton__setScreenshotDisabled_forReason___block_
     [v8 removeObjectForKey:v9];
 
     v10 = [WeakRetained[1] count];
-    v6 = SBLogButtonsCombo();
+    v6 = SBLogButtonsCombo(v10);
     v11 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     if (v10)
     {
@@ -604,52 +604,52 @@ void __64__SBCombinationHardwareButton__setScreenshotDisabled_forReason___block_
 
 void __49__SBCombinationHardwareButton__backlightChanged___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKey:*MEMORY[0x277D67A28]];
 
   if (v3)
   {
-    [v3 floatValue];
-    v5 = v4 <= 0.0;
+    v4 = [v3 floatValue];
+    v6 = v5 <= 0.0;
   }
 
   else
   {
     __49__SBCombinationHardwareButton__backlightChanged___block_invoke_cold_1(a1);
-    v5 = 0;
+    v6 = 0;
   }
 
-  v6 = SBLogButtonsCombo();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogButtonsCombo(v4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 1024;
-    v10 = v5;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Backlight changed: newBacklightFactor=%@, disable SS=%{BOOL}u", &v7, 0x12u);
+    v8 = 138412546;
+    v9 = v3;
+    v10 = 1024;
+    v11 = v6;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Backlight changed: newBacklightFactor=%@, disable SS=%{BOOL}u", &v8, 0x12u);
   }
 
-  [*(a1 + 40) _setScreenshotDisabled:v5 forReason:@"Backlight"];
+  [*(a1 + 40) _setScreenshotDisabled:v6 forReason:@"Backlight"];
 }
 
 - (void)sosLockDidTriggerSOS:(id)s completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCAD78];
   completionCopy = completion;
   sCopy = s;
   uUID = [v6 UUID];
   triggerMechanism = [sCopy triggerMechanism];
 
-  v11 = SBLogButtonsCombo();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = SBLogButtonsCombo(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = uUID;
-    v16 = 1024;
-    v17 = triggerMechanism;
-    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "SOS Lock Gesture triggered SOS with UUID: %@ and trigger mechanism: %d", &v14, 0x12u);
+    v15 = 138412546;
+    v16 = uUID;
+    v17 = 1024;
+    v18 = triggerMechanism;
+    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "SOS Lock Gesture triggered SOS with UUID: %@ and trigger mechanism: %d", &v15, 0x12u);
   }
 
   if (self)
@@ -698,7 +698,7 @@ void __49__SBCombinationHardwareButton__backlightChanged___block_invoke(uint64_t
   completionCopy = completion;
   [(SBCombinationHardwareButton *)self _setScreenshotDisabled:1 forReason:@"SOSTriggered"];
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v7 = SBLogButtonsCombo();
+  v7 = SBLogButtonsCombo(uUID);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -853,7 +853,7 @@ void __49__SBCombinationHardwareButton__backlightChanged___block_invoke(uint64_t
 - (uint64_t)sosGesture:(uint64_t)a1 .cold.3(uint64_t a1, int a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v4 = SBLogButtonsCombo();
+  v4 = SBLogButtonsCombo(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109120;
@@ -894,11 +894,11 @@ void __49__SBCombinationHardwareButton__backlightChanged___block_invoke_cold_1(u
   v2 = [MEMORY[0x277CCA890] currentHandler];
   [v2 handleFailureInMethod:*(a1 + 48) object:*(a1 + 40) file:@"SBCombinationHardwareButton.m" lineNumber:445 description:@"Backlight notification received with nil newBacklightFactor"];
 
-  v3 = SBLogButtonsCombo();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = SBLogButtonsCombo(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_error_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_ERROR, "Backlight notification received with nil newBacklightFactor", v4, 2u);
+    *v5 = 0;
+    _os_log_error_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_ERROR, "Backlight notification received with nil newBacklightFactor", v5, 2u);
   }
 }
 

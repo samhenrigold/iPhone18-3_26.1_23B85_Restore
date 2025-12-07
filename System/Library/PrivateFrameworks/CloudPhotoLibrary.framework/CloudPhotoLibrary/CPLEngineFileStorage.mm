@@ -1,12 +1,15 @@
 @interface CPLEngineFileStorage
 + (id)platformImplementationProtocol;
+- (BOOL)_compactStorageIncludeOriginals:(BOOL)originals desiredFreeSpace:(unint64_t *)space error:(id *)error;
 - (BOOL)_fixupIdentity:(id)identity fileURL:(id)l data:(id)data error:(id *)error;
 - (BOOL)_recoverFromCrashWithRecoveryHandler:(id)handler error:(id *)error;
 - (BOOL)addDeleteFlagToFileAtURL:(id)l error:(id *)error;
 - (BOOL)checkIsEmpty;
 - (BOOL)closeWithError:(id *)error;
 - (BOOL)commitFileWithIdentifier:(id)identifier error:(id *)error;
+- (BOOL)compactStorageIncludeOriginals:(BOOL)originals error:(id *)error;
 - (BOOL)deleteFileWithIdentifier:(id)identifier error:(id *)error;
+- (BOOL)deleteFileWithIdentity:(id)identity includingOriginal:(BOOL)original error:(id *)error;
 - (BOOL)discardAllRetainedFileURLsWithError:(id *)error;
 - (BOOL)discardUncommittedFileWithIdentifier:(id)identifier error:(id *)error;
 - (BOOL)discardUncommittedFileWithIdentity:(id)identity error:(id *)error;
@@ -19,9 +22,15 @@
 - (BOOL)releaseFileURL:(id)l error:(id *)error;
 - (BOOL)resetWithError:(id *)error;
 - (BOOL)storeData:(id)data identifier:(id)identifier needsCommit:(BOOL *)commit error:(id *)error;
+- (BOOL)storeData:(id)data identity:(id)identity isOriginal:(BOOL)original needsCommit:(BOOL *)commit error:(id *)error;
+- (BOOL)storeFileAtURL:(id)l identifier:(id)identifier moveIfPossible:(BOOL)possible needsCommit:(BOOL *)commit error:(id *)error;
+- (BOOL)storeFileAtURL:(id)l identity:(id)identity isOriginal:(BOOL)original moveIfPossible:(BOOL)possible needsCommit:(BOOL *)commit error:(id *)error;
 - (BOOL)storeUnretainedData:(id)data identifier:(id)identifier error:(id *)error;
+- (BOOL)storeUnretainedData:(id)data identity:(id)identity isOriginal:(BOOL)original error:(id *)error;
 - (BOOL)storeUnretainedFileAtURL:(id)l identifier:(id)identifier error:(id *)error;
+- (BOOL)storeUnretainedFileAtURL:(id)l identity:(id)identity isOriginal:(BOOL)original error:(id *)error;
 - (BOOL)trackAllStoresAndDeletes;
+- (BOOL)tryToFreeDiskSpace:(unint64_t)space actuallyFreedSpace:(unint64_t *)freedSpace includeOriginals:(BOOL)originals error:(id *)error;
 - (CPLEngineFileStorage)initWithBaseURL:(id)l;
 - (id)_identityForIdentifier:(id)identifier;
 - (id)fileEnumeratorIncludingPropertiesForKeys:(id)keys errorHandler:(id)handler;
@@ -31,6 +40,7 @@
 - (void)_removeIdentityFromUncommittedFiles:(id)files;
 - (void)checkFileSizeForIdentity:(id)identity;
 - (void)doRead:(id)read;
+- (void)setTrackAllStoresAndDeletes:(BOOL)deletes;
 - (void)setTrackAllStoresAndDeletesUntilEndOfTransaction:(BOOL)transaction;
 - (void)writeTransactionDidFail;
 - (void)writeTransactionDidSucceed;
@@ -112,6 +122,16 @@
   return error;
 }
 
+- (BOOL)storeFileAtURL:(id)l identifier:(id)identifier moveIfPossible:(BOOL)possible needsCommit:(BOOL *)commit error:(id *)error
+{
+  possibleCopy = possible;
+  lCopy = l;
+  v13 = [(CPLEngineFileStorage *)self _identityForIdentifier:identifier];
+  LOBYTE(error) = [(CPLEngineFileStorage *)self storeFileAtURL:lCopy identity:v13 isOriginal:0 moveIfPossible:possibleCopy needsCommit:commit error:error];
+
+  return error;
+}
+
 - (id)_identityForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
@@ -163,23 +183,22 @@ uint64_t __58__CPLEngineFileStorage_openWithFileRecoveryHandler_error___block_in
 
 - (BOOL)checkIsEmpty
 {
-  v12 = *MEMORY[0x1E69E9840];
-  memset(v8, 0, sizeof(v8));
+  v11 = *MEMORY[0x1E69E9840];
+  memset(v7, 0, sizeof(v7));
   fileEnumerator = [(CPLEngineFileStorage *)self fileEnumerator];
-  v3 = [fileEnumerator countByEnumeratingWithState:v8 objects:v11 count:16];
+  v3 = [fileEnumerator countByEnumeratingWithState:v7 objects:v10 count:16];
   if (v3 && (_CPLSilentLogging & 1) == 0)
   {
-    v4 = **(&v8[0] + 1);
+    v4 = **(&v7[0] + 1);
     v5 = __CPLStorageOSLogDomain_2026();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v10 = v4;
+      v9 = v4;
       _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Resource cache contains at least one item: %@", buf, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3 == 0;
 }
 
@@ -193,9 +212,260 @@ uint64_t __58__CPLEngineFileStorage_openWithFileRecoveryHandler_error___block_in
   return v9;
 }
 
+- (BOOL)tryToFreeDiskSpace:(unint64_t)space actuallyFreedSpace:(unint64_t *)freedSpace includeOriginals:(BOOL)originals error:(id *)error
+{
+  originalsCopy = originals;
+  v27 = *MEMORY[0x1E69E9840];
+  spaceCopy = space;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v12 = __CPLStorageOSLogDomain_2026();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 134217984;
+      spaceCopy2 = space;
+      _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEBUG, "Trying to free %llu bytes on disk", buf, 0xCu);
+    }
+  }
+
+  v13 = [(CPLEngineFileStorage *)self _compactStorageIncludeOriginals:originalsCopy desiredFreeSpace:&spaceCopy error:error];
+  if (v13)
+  {
+    if (space < spaceCopy)
+    {
+      if ((_CPLSilentLogging & 1) == 0)
+      {
+        v21 = __CPLStorageOSLogDomain_2026();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "We should not have less space on disk after compaction", buf, 2u);
+        }
+      }
+
+      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+      v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineFileStorage.m"];
+      [currentHandler handleFailureInMethod:a2 object:self file:v23 lineNumber:563 description:@"We should not have less space on disk after compaction"];
+
+      abort();
+    }
+
+    *freedSpace = space - spaceCopy;
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v14 = __CPLStorageOSLogDomain_2026();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      {
+        v15 = *freedSpace;
+        *buf = 134217984;
+        spaceCopy2 = v15;
+        v16 = "Actually freed %llu bytes";
+        v17 = v14;
+        v18 = OS_LOG_TYPE_DEBUG;
+LABEL_13:
+        _os_log_impl(&dword_1DC05A000, v17, v18, v16, buf, 0xCu);
+        goto LABEL_14;
+      }
+
+      goto LABEL_14;
+    }
+  }
+
+  else if ((_CPLSilentLogging & 1) == 0)
+  {
+    v14 = __CPLStorageOSLogDomain_2026();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      v19 = *error;
+      *buf = 138412290;
+      spaceCopy2 = v19;
+      v16 = "Unable to free space on disk: %@";
+      v17 = v14;
+      v18 = OS_LOG_TYPE_ERROR;
+      goto LABEL_13;
+    }
+
+LABEL_14:
+  }
+
+  return v13;
+}
+
+- (BOOL)compactStorageIncludeOriginals:(BOOL)originals error:(id *)error
+{
+  originalsCopy = originals;
+  v14 = *MEMORY[0x1E69E9840];
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v7 = __CPLStorageOSLogDomain_2026();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "Compacting", &v12, 2u);
+    }
+  }
+
+  v8 = [(CPLEngineFileStorage *)self _compactStorageIncludeOriginals:originalsCopy desiredFreeSpace:0 error:error];
+  if (!v8 && (_CPLSilentLogging & 1) == 0)
+  {
+    v9 = __CPLStorageOSLogDomain_2026();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = *error;
+      v12 = 138412290;
+      v13 = v10;
+      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Error compacting: %@", &v12, 0xCu);
+    }
+  }
+
+  return v8;
+}
+
+- (BOOL)_compactStorageIncludeOriginals:(BOOL)originals desiredFreeSpace:(unint64_t *)space error:(id *)error
+{
+  originalsCopy = originals;
+  v45[1] = *MEMORY[0x1E69E9840];
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 1;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__2046;
+  v38 = __Block_byref_object_dispose__2047;
+  v39 = 0;
+  platformObject = [(CPLEngineFileStorage *)self platformObject];
+  v25 = *MEMORY[0x1E695DB50];
+  v45[0] = *MEMORY[0x1E695DB50];
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __79__CPLEngineFileStorage__compactStorageIncludeOriginals_desiredFreeSpace_error___block_invoke;
+  v33[3] = &unk_1E861BE10;
+  v33[4] = &v34;
+  v33[5] = &v40;
+  v9 = [platformObject fileEnumeratorIncludingPropertiesForKeys:v8 errorHandler:v33];
+
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v10 = v9;
+  v11 = [v10 countByEnumeratingWithState:&v29 objects:v44 count:16];
+  if (v11)
+  {
+    v12 = *v30;
+    while (2)
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        if (*v30 != v12)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        v14 = *(*(&v29 + 1) + 8 * i);
+        if (originalsCopy || ([*(*(&v29 + 1) + 8 * i) isOriginal] & 1) == 0)
+        {
+          if ([v14 isMarkedForDelete])
+          {
+            if (space)
+            {
+              v28 = 0;
+              v15 = [v14 getResourceValue:&v28 forKey:v25 error:error];
+              v16 = v28;
+              v17 = v16;
+              *(v41 + 24) = v15;
+              if (v15)
+              {
+                unsignedLongLongValue = [v16 unsignedLongLongValue];
+              }
+
+              else
+              {
+                unsignedLongLongValue = 0;
+              }
+            }
+
+            else
+            {
+              unsignedLongLongValue = 0;
+            }
+
+            if (*(v41 + 24) != 1)
+            {
+              goto LABEL_26;
+            }
+
+            platformObject2 = [(CPLEngineFileStorage *)self platformObject];
+            identity = [v14 identity];
+            v21 = [platformObject2 deleteFileWithIdentity:identity includingOriginal:originalsCopy error:error];
+            *(v41 + 24) = v21;
+
+            if (((space != 0) & v41[3]) == 1)
+            {
+              if (*space <= unsignedLongLongValue)
+              {
+                *space = 0;
+                goto LABEL_26;
+              }
+
+              *space -= unsignedLongLongValue;
+            }
+
+            else if (!*(v41 + 24))
+            {
+              goto LABEL_26;
+            }
+          }
+
+          else if ((v41[3] & 1) == 0)
+          {
+            goto LABEL_26;
+          }
+        }
+      }
+
+      v11 = [v10 countByEnumeratingWithState:&v29 objects:v44 count:16];
+      if (v11)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_26:
+
+  if (v41[3])
+  {
+    v22 = 1;
+  }
+
+  else
+  {
+    v22 = 0;
+    if (error)
+    {
+      v23 = v35[5];
+      if (v23)
+      {
+        *error = v23;
+        v22 = *(v41 + 24);
+      }
+    }
+  }
+
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v40, 8);
+  return v22 & 1;
+}
+
 uint64_t __79__CPLEngineFileStorage__compactStorageIncludeOriginals_desiredFreeSpace_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -205,11 +475,11 @@ uint64_t __79__CPLEngineFileStorage__compactStorageIncludeOriginals_desiredFreeS
       v7 = __CPLStorageOSLogDomain_2026();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v11 = 138412546;
-        v12 = v5;
-        v13 = 2112;
-        v14 = v6;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Error accessing %@ file: %@", &v11, 0x16u);
+        v10 = 138412546;
+        v11 = v5;
+        v12 = 2112;
+        v13 = v6;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Error accessing %@ file: %@", &v10, 0x16u);
       }
     }
 
@@ -219,7 +489,6 @@ uint64_t __79__CPLEngineFileStorage__compactStorageIncludeOriginals_desiredFreeS
 
   v8 = *(*(*(a1 + 40) + 8) + 24);
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -233,14 +502,14 @@ uint64_t __79__CPLEngineFileStorage__compactStorageIncludeOriginals_desiredFreeS
 
 - (BOOL)discardAllRetainedFileURLsWithError:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v5 = __CPLStorageOSLogDomain_2026();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Discarding all URLs for upload", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Discarding all URLs for upload", &v15, 2u);
     }
   }
 
@@ -254,13 +523,13 @@ uint64_t __79__CPLEngineFileStorage__compactStorageIncludeOriginals_desiredFreeS
       v8 = __CPLStorageOSLogDomain_2026();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v16) = 0;
+        LOWORD(v15) = 0;
         v9 = "All URLs were discarded successfully";
         v10 = v8;
         v11 = OS_LOG_TYPE_DEBUG;
         v12 = 2;
 LABEL_12:
-        _os_log_impl(&dword_1DC05A000, v10, v11, v9, &v16, v12);
+        _os_log_impl(&dword_1DC05A000, v10, v11, v9, &v15, v12);
         goto LABEL_13;
       }
 
@@ -274,8 +543,8 @@ LABEL_12:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v13 = *error;
-      v16 = 138412290;
-      v17 = v13;
+      v15 = 138412290;
+      v16 = v13;
       v9 = "Unable to discard all URLs: %@";
       v10 = v8;
       v11 = OS_LOG_TYPE_ERROR;
@@ -286,13 +555,12 @@ LABEL_12:
 LABEL_13:
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)releaseFileURL:(id)l error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -300,9 +568,9 @@ LABEL_13:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       path = [lCopy path];
-      v19 = 138412290;
-      v20 = path;
-      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "Releasing %@", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = path;
+      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "Releasing %@", &v18, 0xCu);
     }
   }
 
@@ -316,13 +584,13 @@ LABEL_13:
       v11 = __CPLStorageOSLogDomain_2026();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v19) = 0;
+        LOWORD(v18) = 0;
         v12 = "URL was released successfully";
         v13 = v11;
         v14 = OS_LOG_TYPE_DEBUG;
         v15 = 2;
 LABEL_12:
-        _os_log_impl(&dword_1DC05A000, v13, v14, v12, &v19, v15);
+        _os_log_impl(&dword_1DC05A000, v13, v14, v12, &v18, v15);
         goto LABEL_13;
       }
 
@@ -336,8 +604,8 @@ LABEL_12:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v16 = *error;
-      v19 = 138412290;
-      v20 = v16;
+      v18 = 138412290;
+      v19 = v16;
       v12 = "Unable to release URL: %@";
       v13 = v11;
       v14 = OS_LOG_TYPE_ERROR;
@@ -348,13 +616,12 @@ LABEL_12:
 LABEL_13:
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)retainFileURLForIdentity:(id)identity resourceType:(unint64_t)type error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -362,11 +629,11 @@ LABEL_13:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v10 = [CPLResource shortDescriptionForResourceType:type];
-      v17 = 138412546;
-      v18 = identityCopy;
-      v19 = 2112;
-      v20 = v10;
-      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "Retaining URL for %@ (%@)", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = identityCopy;
+      v18 = 2112;
+      v19 = v10;
+      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "Retaining URL for %@ (%@)", &v16, 0x16u);
     }
   }
 
@@ -379,13 +646,11 @@ LABEL_13:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       path = [v12 path];
-      v17 = 138412290;
-      v18 = path;
-      _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEBUG, "Retained URL: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = path;
+      _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEBUG, "Retained URL: %@", &v16, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -406,6 +671,117 @@ LABEL_13:
   return v6;
 }
 
+- (BOOL)storeUnretainedData:(id)data identity:(id)identity isOriginal:(BOOL)original error:(id *)error
+{
+  originalCopy = original;
+  identityCopy = identity;
+  dataCopy = data;
+  platformObject = [(CPLEngineFileStorage *)self platformObject];
+  LOBYTE(error) = [platformObject storeUnretainedData:dataCopy identity:identityCopy isOriginal:originalCopy error:error];
+
+  return error;
+}
+
+- (BOOL)storeUnretainedFileAtURL:(id)l identity:(id)identity isOriginal:(BOOL)original error:(id *)error
+{
+  originalCopy = original;
+  identityCopy = identity;
+  lCopy = l;
+  platformObject = [(CPLEngineFileStorage *)self platformObject];
+  LOBYTE(error) = [platformObject storeUnretainedFileAtURL:lCopy identity:identityCopy isOriginal:originalCopy error:error];
+
+  return error;
+}
+
+- (BOOL)deleteFileWithIdentity:(id)identity includingOriginal:(BOOL)original error:(id *)error
+{
+  originalCopy = original;
+  v23 = *MEMORY[0x1E69E9840];
+  identityCopy = identity;
+  if (self->_deleteImmediately)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v9 = __CPLStorageOSLogDomain_2026();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      {
+        v21 = 138412290;
+        v22 = identityCopy;
+        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "Deleting %@", &v21, 0xCu);
+      }
+    }
+
+    platformObject = [(CPLEngineFileStorage *)self platformObject];
+    v11 = [platformObject deleteFileWithIdentity:identityCopy includingOriginal:originalCopy error:error];
+
+    if ((v11 & 1) == 0)
+    {
+      if ((_CPLSilentLogging & 1) == 0)
+      {
+        v12 = __CPLStorageOSLogDomain_2026();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        {
+          v13 = *error;
+          v21 = 138412290;
+          v22 = v13;
+          v14 = "Unable to delete: %@";
+LABEL_19:
+          _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, v14, &v21, 0xCu);
+          goto LABEL_20;
+        }
+
+        goto LABEL_20;
+      }
+
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v15 = __CPLStorageOSLogDomain_2026();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        v21 = 138412290;
+        v22 = identityCopy;
+        _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_DEBUG, "Marking %@ for deletion", &v21, 0xCu);
+      }
+    }
+
+    platformObject2 = [(CPLEngineFileStorage *)self platformObject];
+    v17 = [platformObject2 markForDeleteFileWithIdentity:identityCopy error:error];
+
+    if ((v17 & 1) == 0)
+    {
+      if ((_CPLSilentLogging & 1) == 0)
+      {
+        v12 = __CPLStorageOSLogDomain_2026();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        {
+          v19 = *error;
+          v21 = 138412290;
+          v22 = v19;
+          v14 = "Unable to mark for delete: %@";
+          goto LABEL_19;
+        }
+
+LABEL_20:
+      }
+
+LABEL_21:
+      v18 = 0;
+      goto LABEL_22;
+    }
+  }
+
+  v18 = 1;
+LABEL_22:
+
+  return v18;
+}
+
 - (BOOL)discardUncommittedFileWithIdentity:(id)identity error:(id *)error
 {
   identityCopy = identity;
@@ -418,11 +794,166 @@ LABEL_13:
   return v7;
 }
 
+- (BOOL)storeData:(id)data identity:(id)identity isOriginal:(BOOL)original needsCommit:(BOOL *)commit error:(id *)error
+{
+  originalCopy = original;
+  v27 = *MEMORY[0x1E69E9840];
+  dataCopy = data;
+  identityCopy = identity;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v14 = __CPLStorageOSLogDomain_2026();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 134218242;
+      *&buf[4] = [dataCopy length];
+      *&buf[12] = 2112;
+      *&buf[14] = identityCopy;
+      _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEBUG, "Storing %lu bytes with identity %@", buf, 0x16u);
+    }
+  }
+
+  if (![(CPLEngineFileStorage *)self _fixupIdentity:identityCopy fileURL:0 data:dataCopy error:error])
+  {
+    goto LABEL_12;
+  }
+
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x2020000000;
+  v26 = 0;
+  platformObject = [(CPLEngineFileStorage *)self platformObject];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __72__CPLEngineFileStorage_storeData_identity_isOriginal_needsCommit_error___block_invoke;
+  v22[3] = &unk_1E8620A38;
+  v24 = buf;
+  v22[4] = self;
+  v16 = identityCopy;
+  v23 = v16;
+  v17 = [platformObject storeData:dataCopy identity:v16 isOriginal:originalCopy needsCommit:commit onNewFile:v22 error:error];
+
+  if (v17)
+  {
+    [v16 setAvailable:1];
+    [v16 setFileURL:0];
+  }
+
+  else if (*(*&buf[8] + 24) == 1)
+  {
+    [(CPLEngineFileStorage *)self _removeIdentityFromUncommittedFiles:v16];
+  }
+
+  _Block_object_dispose(buf, 8);
+  if (v17)
+  {
+    v18 = 1;
+  }
+
+  else
+  {
+LABEL_12:
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v19 = __CPLStorageOSLogDomain_2026();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        v20 = *error;
+        *buf = 138412290;
+        *&buf[4] = v20;
+        _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_ERROR, "Error storing data: %@", buf, 0xCu);
+      }
+    }
+
+    v18 = 0;
+  }
+
+  return v18;
+}
+
 uint64_t __72__CPLEngineFileStorage_storeData_identity_isOriginal_needsCommit_error___block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 48) + 8) + 24) = 1;
   [*(a1 + 32) _addIdentityToUncommittedFiles:*(a1 + 40)];
   return 1;
+}
+
+- (BOOL)storeFileAtURL:(id)l identity:(id)identity isOriginal:(BOOL)original moveIfPossible:(BOOL)possible needsCommit:(BOOL *)commit error:(id *)error
+{
+  possibleCopy = possible;
+  originalCopy = original;
+  v29 = *MEMORY[0x1E69E9840];
+  lCopy = l;
+  identityCopy = identity;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v16 = __CPLStorageOSLogDomain_2026();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138412546;
+      *&buf[4] = lCopy;
+      *&buf[12] = 2112;
+      *&buf[14] = identityCopy;
+      _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_DEBUG, "Storing %@ with identity %@", buf, 0x16u);
+    }
+  }
+
+  if (![(CPLEngineFileStorage *)self _fixupIdentity:identityCopy fileURL:lCopy data:0 error:error])
+  {
+    goto LABEL_12;
+  }
+
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x2020000000;
+  v28 = 0;
+  platformObject = [(CPLEngineFileStorage *)self platformObject];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __92__CPLEngineFileStorage_storeFileAtURL_identity_isOriginal_moveIfPossible_needsCommit_error___block_invoke;
+  v24[3] = &unk_1E8620A38;
+  v26 = buf;
+  v24[4] = self;
+  v18 = identityCopy;
+  v25 = v18;
+  v19 = [platformObject storeFileAtURL:lCopy identity:v18 isOriginal:originalCopy moveIfPossible:possibleCopy needsCommit:commit onNewFile:v24 error:error];
+
+  if (v19)
+  {
+    [v18 setAvailable:1];
+    [v18 setFileURL:0];
+  }
+
+  else if (*(*&buf[8] + 24) == 1)
+  {
+    [(CPLEngineFileStorage *)self _removeIdentityFromUncommittedFiles:v18];
+  }
+
+  _Block_object_dispose(buf, 8);
+  if (v19)
+  {
+    v20 = 1;
+  }
+
+  else
+  {
+LABEL_12:
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v21 = __CPLStorageOSLogDomain_2026();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        v22 = *error;
+        *buf = 138412290;
+        *&buf[4] = v22;
+        _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Error storing file: %@", buf, 0xCu);
+      }
+    }
+
+    v20 = 0;
+  }
+
+  return v20;
 }
 
 uint64_t __92__CPLEngineFileStorage_storeFileAtURL_identity_isOriginal_moveIfPossible_needsCommit_error___block_invoke(uint64_t a1)
@@ -468,7 +999,7 @@ uint64_t __92__CPLEngineFileStorage_storeFileAtURL_identity_isOriginal_moveIfPos
 
 - (void)_removeIdentityFromUncommittedFiles:(id)files
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   filesCopy = files;
   identityForStorage = [filesCopy identityForStorage];
   v6 = [(NSMutableArray *)self->_uncommittedFiles indexOfObject:identityForStorage];
@@ -481,7 +1012,7 @@ uint64_t __92__CPLEngineFileStorage_storeFileAtURL_identity_isOriginal_moveIfPos
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v19 = filesCopy;
+        v18 = filesCopy;
         _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Removing %@ from the list of uncommitted files", buf, 0xCu);
       }
     }
@@ -491,9 +1022,9 @@ uint64_t __92__CPLEngineFileStorage_storeFileAtURL_identity_isOriginal_moveIfPos
     {
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
       crashMarkerURL = self->_crashMarkerURL;
-      v17 = 0;
-      v15 = [defaultManager removeItemAtURL:crashMarkerURL error:&v17];
-      v9 = v17;
+      v16 = 0;
+      v15 = [defaultManager removeItemAtURL:crashMarkerURL error:&v16];
+      v9 = v16;
 
       if (v15 & 1) != 0 || (_CPLSilentLogging)
       {
@@ -507,7 +1038,7 @@ uint64_t __92__CPLEngineFileStorage_storeFileAtURL_identity_isOriginal_moveIfPos
       }
 
       *buf = 138412290;
-      v19 = v9;
+      v18 = v9;
       v11 = "Unable to remove crash recovery file: %@";
       v12 = path;
 LABEL_15:
@@ -529,7 +1060,7 @@ LABEL_17:
 
       path = [(NSURL *)self->_crashMarkerURL path];
       *buf = 138412290;
-      v19 = path;
+      v18 = path;
       v11 = "Unable to store the crash recovery file to %@";
       v12 = v9;
       goto LABEL_15;
@@ -537,13 +1068,11 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addIdentityToUncommittedFiles:(id)files
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   filesCopy = files;
   identityForStorage = [filesCopy identityForStorage];
   if ((_CPLSilentLogging & 1) == 0)
@@ -551,9 +1080,9 @@ LABEL_18:
     v6 = __CPLStorageOSLogDomain_2026();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138412290;
-      v11 = filesCopy;
-      _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEBUG, "Adding %@ to the list of uncommitted files", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = filesCopy;
+      _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEBUG, "Adding %@ to the list of uncommitted files", &v9, 0xCu);
     }
   }
 
@@ -564,13 +1093,11 @@ LABEL_18:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       path = [(NSURL *)self->_crashMarkerURL path];
-      v10 = 138412290;
-      v11 = path;
-      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Unable to store the crash recovery file to %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = path;
+      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Unable to store the crash recovery file to %@", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasCrashMarker
@@ -584,14 +1111,14 @@ LABEL_18:
 
 - (BOOL)closeWithError:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v5 = __CPLStorageOSLogDomain_2026();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Opening", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Opening", &v14, 2u);
     }
   }
 
@@ -606,9 +1133,9 @@ LABEL_18:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         v9 = [(NSMutableArray *)self->_uncommittedFiles count];
-        v15 = 134217984;
-        v16 = v9;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Storage still has %lu uncommitted files", &v15, 0xCu);
+        v14 = 134217984;
+        v15 = v9;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Storage still has %lu uncommitted files", &v14, 0xCu);
       }
     }
 
@@ -619,9 +1146,9 @@ LABEL_18:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         path = [(NSURL *)self->_baseURL path];
-        v15 = 138412290;
-        v16 = path;
-        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, "Closed storage at %@", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = path;
+        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, "Closed storage at %@", &v14, 0xCu);
       }
 
 LABEL_17:
@@ -634,29 +1161,28 @@ LABEL_17:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v12 = *error;
-      v15 = 138412290;
-      v16 = v12;
-      _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Error closing: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v12;
+      _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Error closing: %@", &v14, 0xCu);
     }
 
     goto LABEL_17;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)openWithRecoveryHandler:(id)handler error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if ((_CPLSilentLogging & 1) == 0)
   {
     v7 = __CPLStorageOSLogDomain_2026();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "Opening", &v20, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "Opening", &v19, 2u);
     }
   }
 
@@ -682,9 +1208,9 @@ LABEL_17:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           path = [(NSURL *)self->_baseURL path];
-          v20 = 138412290;
-          v21 = path;
-          _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEBUG, "Opened storage at %@", &v20, 0xCu);
+          v19 = 138412290;
+          v20 = path;
+          _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEBUG, "Opened storage at %@", &v19, 0xCu);
         }
 
         v14 = 1;
@@ -706,11 +1232,11 @@ LABEL_21:
     {
       platformObject2 = [(CPLEngineFileStorage *)self platformObject];
       v17 = *error;
-      v20 = 138412546;
-      v21 = platformObject2;
-      v22 = 2112;
-      v23 = v17;
-      _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "%@ failed to open: %@", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = platformObject2;
+      v21 = 2112;
+      v22 = v17;
+      _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "%@ failed to open: %@", &v19, 0x16u);
     }
   }
 
@@ -725,9 +1251,9 @@ LABEL_21:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       baseURL = self->_baseURL;
-      v20 = 138412290;
-      v21 = baseURL;
-      _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Unable to create folder %@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = baseURL;
+      _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Unable to create folder %@", &v19, 0xCu);
     }
   }
 
@@ -735,13 +1261,12 @@ LABEL_21:
 LABEL_19:
 
 LABEL_20:
-  v18 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)_recoverFromCrashWithRecoveryHandler:(id)handler error:(id *)error
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = [MEMORY[0x1E695DF70] arrayWithContentsOfURL:self->_crashMarkerURL];
   if (v7)
@@ -753,34 +1278,34 @@ LABEL_20:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v49 = [v7 count];
+        v48 = [v7 count];
         _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Found %lu uncommitted files in storage", buf, 0xCu);
       }
     }
 
     errorCopy = error;
-    v40 = v7;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
+    v39 = v7;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     obj = v7;
-    v10 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+    v10 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v45;
+      v12 = *v44;
       v13 = off_1E861A000;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v45 != v12)
+          if (*v44 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          errorCopy = [(__objc2_class *)v13[94] identityFromStoredIdentity:*(*(&v44 + 1) + 8 * i), errorCopy];
+          errorCopy = [(__objc2_class *)v13[94] identityFromStoredIdentity:*(*(&v43 + 1) + 8 * i), errorCopy];
           if (handlerCopy)
           {
             if (!handlerCopy[2](handlerCopy, errorCopy))
@@ -794,15 +1319,15 @@ LABEL_20:
               if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v49 = errorCopy;
+                v48 = errorCopy;
                 _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_DEBUG, "Will keep %@", buf, 0xCu);
               }
             }
           }
 
-          v43 = 0;
-          v17 = [(CPLEngineFileStorage *)self deleteFileWithIdentity:errorCopy error:&v43];
-          v18 = v43;
+          v42 = 0;
+          v17 = [(CPLEngineFileStorage *)self deleteFileWithIdentity:errorCopy error:&v42];
+          v18 = v42;
           if (v17)
           {
             if ((v8[51] & 1) == 0)
@@ -811,7 +1336,7 @@ LABEL_20:
               if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v49 = errorCopy;
+                v48 = errorCopy;
                 v20 = v19;
                 v21 = OS_LOG_TYPE_DEBUG;
                 v22 = "Cleaned up %@";
@@ -826,7 +1351,7 @@ LABEL_20:
           {
             uncommittedFiles = self->_uncommittedFiles;
             [errorCopy identityForStorage];
-            v42 = v18;
+            v41 = v18;
             v24 = handlerCopy;
             v25 = v11;
             v26 = v12;
@@ -841,14 +1366,14 @@ LABEL_20:
             v12 = v26;
             v11 = v25;
             handlerCopy = v24;
-            v18 = v42;
+            v18 = v41;
             if ((v8[51] & 1) == 0)
             {
               v19 = __CPLStorageOSLogDomain_2026();
               if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v49 = errorCopy;
+                v48 = errorCopy;
                 v20 = v19;
                 v21 = OS_LOG_TYPE_ERROR;
                 v22 = "Unable to clean up %@";
@@ -863,7 +1388,7 @@ LABEL_25:
 LABEL_27:
         }
 
-        v11 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+        v11 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
       }
 
       while (v11);
@@ -895,9 +1420,9 @@ LABEL_27:
             path = [(NSURL *)self->_crashMarkerURL path];
             v36 = *errorCopy;
             *buf = 138412546;
-            v49 = path;
-            v50 = 2112;
-            v51 = v36;
+            v48 = path;
+            v49 = 2112;
+            v50 = v36;
             _os_log_impl(&dword_1DC05A000, v34, OS_LOG_TYPE_ERROR, "Unable to delete crash marker at %@. Can't open the database: %@", buf, 0x16u);
           }
         }
@@ -906,7 +1431,7 @@ LABEL_27:
       }
     }
 
-    v7 = v40;
+    v7 = v39;
   }
 
   else
@@ -914,7 +1439,6 @@ LABEL_27:
     v31 = 1;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
@@ -987,11 +1511,11 @@ void __31__CPLEngineFileStorage_doRead___block_invoke(uint64_t a1)
 
 - (CPLEngineFileStorage)initWithBaseURL:(id)l
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v31.receiver = self;
-  v31.super_class = CPLEngineFileStorage;
-  v6 = [(CPLEngineFileStorage *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = CPLEngineFileStorage;
+  v6 = [(CPLEngineFileStorage *)&v30 init];
   if (v6)
   {
     v7 = [lCopy copy];
@@ -1023,20 +1547,20 @@ void __31__CPLEngineFileStorage_doRead___block_invoke(uint64_t a1)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v26 = __CPLStorageOSLogDomain_2026();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v25 = __CPLStorageOSLogDomain_2026();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          v27 = objc_opt_class();
+          v26 = objc_opt_class();
           *buf = 138412290;
-          v33 = v27;
-          v28 = v27;
-          _os_log_impl(&dword_1DC05A000, v26, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
+          v32 = v26;
+          v27 = v26;
+          _os_log_impl(&dword_1DC05A000, v25, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineFileStorage.m"];
-      [currentHandler handleFailureInMethod:a2 object:v6 file:v30 lineNumber:120 description:{@"No platform object specified for %@", objc_opt_class()}];
+      v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineFileStorage.m"];
+      [currentHandler handleFailureInMethod:a2 object:v6 file:v29 lineNumber:120 description:{@"No platform object specified for %@", objc_opt_class()}];
 
       abort();
     }
@@ -1053,7 +1577,6 @@ void __31__CPLEngineFileStorage_doRead___block_invoke(uint64_t a1)
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1099,6 +1622,37 @@ void __31__CPLEngineFileStorage_doRead___block_invoke(uint64_t a1)
   trackAllStoresAndDeletes = [platformObject trackAllStoresAndDeletes];
 
   return trackAllStoresAndDeletes;
+}
+
+- (void)setTrackAllStoresAndDeletes:(BOOL)deletes
+{
+  deletesCopy = deletes;
+  _markerURLForTrackAllStoresAndDeletes = [(CPLEngineFileStorage *)self _markerURLForTrackAllStoresAndDeletes];
+  defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  date = defaultManager;
+  if (deletesCopy)
+  {
+    path = [_markerURLForTrackAllStoresAndDeletes path];
+    v8 = [date fileExistsAtPath:path];
+
+    if (v8)
+    {
+      goto LABEL_6;
+    }
+
+    date = [MEMORY[0x1E695DF00] date];
+    v9 = [CPLDateFormatter stringFromDate:date];
+    [v9 writeToURL:_markerURLForTrackAllStoresAndDeletes atomically:1 encoding:4 error:0];
+  }
+
+  else
+  {
+    [defaultManager removeItemAtURL:_markerURLForTrackAllStoresAndDeletes error:0];
+  }
+
+LABEL_6:
+  platformObject = [(CPLEngineFileStorage *)self platformObject];
+  [platformObject setTrackAllStoresAndDeletes:deletesCopy];
 }
 
 + (id)platformImplementationProtocol

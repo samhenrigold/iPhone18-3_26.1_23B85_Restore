@@ -1,77 +1,3 @@
-const void **CA::DSP::ReferenceCounted<__CADSPJackModel *>::~ReferenceCounted(const void **a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    CFRelease(v2);
-    *a1 = 0;
-  }
-
-  return a1;
-}
-
-const void **CA::DSP::LanguageV1InterpreterCommandHandler::addWire(uint64_t a1, const UInt8 *a2, uint64_t a3, const UInt8 *a4, uint64_t a5, uint64_t a6, int a7)
-{
-  CA::DSP::MutableWireModel::Create(&v28, *MEMORY[0x1E695E480]);
-  v14 = v28;
-  v27 = v28;
-  if (v28)
-  {
-    CFRetain(v28);
-  }
-
-  CA::DSP::CreateUTF8StringNoCopy(v19, a2);
-  [v14 setBoxName:*&v19[0] ofEndpoint:0];
-  CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(v19);
-  CA::DSP::ReferenceCounted<__CADSPWireModel *>::~ReferenceCounted(&v27);
-  v26 = v14;
-  if (v14)
-  {
-    CFRetain(v14);
-  }
-
-  [v14 setPortIndex:a3 ofEndpoint:0];
-  CA::DSP::ReferenceCounted<__CADSPWireModel *>::~ReferenceCounted(&v26);
-  v25 = v14;
-  if (v14)
-  {
-    CFRetain(v14);
-  }
-
-  CA::DSP::CreateUTF8StringNoCopy(v19, a4);
-  [v14 setBoxName:*&v19[0] ofEndpoint:1];
-  CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(v19);
-  CA::DSP::ReferenceCounted<__CADSPWireModel *>::~ReferenceCounted(&v25);
-  v24 = v14;
-  if (v14)
-  {
-    CFRetain(v14);
-  }
-
-  [v14 setPortIndex:a5 ofEndpoint:1];
-  CA::DSP::ReferenceCounted<__CADSPWireModel *>::~ReferenceCounted(&v24);
-  v23 = v14;
-  if (v14)
-  {
-    CFRetain(v14);
-  }
-
-  v15 = *(a6 + 16);
-  v19[0] = *a6;
-  v19[1] = v15;
-  v20 = *(a6 + 32);
-  v21 = a7;
-  v22 = 1;
-  [v14 setAudioStreamConfiguration:v19];
-  CA::DSP::ReferenceCounted<__CADSPWireModel *>::~ReferenceCounted(&v23);
-  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::ReferenceCounted(&v18, *(a1 + 8));
-  v28 = 0;
-  [v18 addWire:{v14, v14}];
-  CA::DSP::ReferenceCounted<__CADSPWireModel const*>::~ReferenceCounted(&v17);
-  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&v18);
-  return CA::DSP::ReferenceCounted<__CADSPWireModel *>::~ReferenceCounted(&v28);
-}
-
 const void **CA::DSP::MutableWireModel::Create(CA::DSP::MutableWireModel *this, const __CFAllocator *a2)
 {
   v3 = 0;
@@ -312,15 +238,15 @@ const void **CA::DSP::LanguageV1InterpreterCommandHandler::addBox(uint64_t a1, c
   return CA::DSP::ReferenceCounted<__CADSPBoxModel *>::~ReferenceCounted(&cf);
 }
 
-void sub_1C91F470C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C91F470C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va2, a7);
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, const void *);
+  va_start(va2, a13);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v10 = va_arg(va2, const void *);
-  v12 = va_arg(va2, void);
+  v16 = va_arg(va2, const void *);
+  v18 = va_arg(va2, void);
   CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(va1);
   CA::DSP::ReferenceCounted<__CADSPBoxModel *>::~ReferenceCounted(va);
   CA::DSP::ReferenceCounted<__CADSPBoxModel *>::~ReferenceCounted(va2);
@@ -365,12 +291,12 @@ const void **CA::DSP::LanguageV1InterpreterCommandHandler::setPerformADryRun(CFT
   return CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(&cf);
 }
 
-void sub_1C91F48D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C91F48D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
+  v6 = va_arg(va1, void);
   CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(va);
   CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(va1);
   _Unwind_Resume(a1);
@@ -415,7 +341,7 @@ void CA::DSP::LanguageV1InterpreterCommandHandler::~LanguageV1InterpreterCommand
   CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(this + 1);
 }
 
-uint64_t CADSPLanguageV1InterpreterCreate(uint64_t a1)
+CADSPLanguageV1Interpreter *CADSPLanguageV1InterpreterCreate(uint64_t a1)
 {
   v1 = [CADSPLanguageV1Interpreter allocWithZone:a1];
 
@@ -491,56 +417,56 @@ uint64_t CADSPLanguageV1InterpreterInterpretContentsOfFile(void *a1, uint64_t a2
   return v8;
 }
 
-uint64_t CADSPParameterModelCreate(uint64_t a1)
+CADSPParameterModel *CADSPParameterModelCreate(uint64_t a1)
 {
   v1 = [CADSPParameterModel allocWithZone:a1];
 
   return [(CADSPParameterModel *)v1 init];
 }
 
-uint64_t CADSPParameterModelCreateMutable(uint64_t a1)
+CADSPMutableParameterModel *CADSPParameterModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutableParameterModel allocWithZone:a1];
 
   return [(CADSPMutableParameterModel *)v1 init];
 }
 
-uint64_t CADSPParameterConnectionModelCreate(uint64_t a1)
+CADSPParameterConnectionModel *CADSPParameterConnectionModelCreate(uint64_t a1)
 {
   v1 = [CADSPParameterConnectionModel allocWithZone:a1];
 
   return [(CADSPParameterConnectionModel *)v1 init];
 }
 
-uint64_t CADSPParameterConnectionModelCreateMutable(uint64_t a1)
+CADSPMutableParameterConnectionModel *CADSPParameterConnectionModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutableParameterConnectionModel allocWithZone:a1];
 
   return [(CADSPMutableParameterConnectionModel *)v1 init];
 }
 
-uint64_t CADSPParameterWireModelCreate(uint64_t a1)
+CADSPParameterWireModel *CADSPParameterWireModelCreate(uint64_t a1)
 {
   v1 = [CADSPParameterWireModel allocWithZone:a1];
 
   return [(CADSPParameterWireModel *)v1 init];
 }
 
-uint64_t CADSPParameterWireModelCreateMutable(uint64_t a1)
+CADSPMutableParameterWireModel *CADSPParameterWireModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutableParameterWireModel allocWithZone:a1];
 
   return [(CADSPMutableParameterWireModel *)v1 init];
 }
 
-uint64_t CADSPPortModelCreate(uint64_t a1)
+CADSPPortModel *CADSPPortModelCreate(uint64_t a1)
 {
   v1 = [CADSPPortModel allocWithZone:a1];
 
   return [(CADSPPortModel *)v1 init];
 }
 
-uint64_t CADSPPortModelCreateMutable(uint64_t a1)
+CADSPMutablePortModel *CADSPPortModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutablePortModel allocWithZone:a1];
 
@@ -559,14 +485,14 @@ void sub_1C91F5D80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CADSPPropertyModelCreate(uint64_t a1)
+CADSPPropertyModel *CADSPPropertyModelCreate(uint64_t a1)
 {
   v1 = [CADSPPropertyModel allocWithZone:a1];
 
   return [(CADSPPropertyModel *)v1 init];
 }
 
-uint64_t CADSPPropertyModelCreateMutable(uint64_t a1)
+CADSPMutablePropertyModel *CADSPPropertyModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutablePropertyModel allocWithZone:a1];
 
@@ -586,28 +512,28 @@ uint64_t CADSPPropertyModelGetDefaultValueBytePointer(uint64_t a1)
   }
 }
 
-uint64_t CADSPPropertyConnectionModelCreate(uint64_t a1)
+CADSPPropertyConnectionModel *CADSPPropertyConnectionModelCreate(uint64_t a1)
 {
   v1 = [CADSPPropertyConnectionModel allocWithZone:a1];
 
   return [(CADSPPropertyConnectionModel *)v1 init];
 }
 
-uint64_t CADSPPropertyConnectionModelCreateMutable(uint64_t a1)
+CADSPMutablePropertyConnectionModel *CADSPPropertyConnectionModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutablePropertyConnectionModel allocWithZone:a1];
 
   return [(CADSPMutablePropertyConnectionModel *)v1 init];
 }
 
-uint64_t CADSPPropertyWireModelCreate(uint64_t a1)
+CADSPPropertyWireModel *CADSPPropertyWireModelCreate(uint64_t a1)
 {
   v1 = [CADSPPropertyWireModel allocWithZone:a1];
 
   return [(CADSPPropertyWireModel *)v1 init];
 }
 
-uint64_t CADSPPropertyWireModelCreateMutable(uint64_t a1)
+CADSPMutablePropertyWireModel *CADSPPropertyWireModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutablePropertyWireModel allocWithZone:a1];
 
@@ -641,14 +567,14 @@ uint64_t CADSPSubsetSaveStrip(void *a1, uint64_t a2, void *a3)
   return v4;
 }
 
-uint64_t CADSPSubsetModelCreate(uint64_t a1)
+CADSPSubsetModel *CADSPSubsetModelCreate(uint64_t a1)
 {
   v1 = [CADSPSubsetModel allocWithZone:a1];
 
   return [(CADSPSubsetModel *)v1 init];
 }
 
-uint64_t CADSPSubsetModelCreateMutable(uint64_t a1)
+CADSPMutableSubsetModel *CADSPSubsetModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutableSubsetModel allocWithZone:a1];
 
@@ -796,39 +722,39 @@ void sub_1C91F75B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CADSPInjectorTapPointModelCreate(uint64_t a1)
+CADSPInjectorTapPointModel *CADSPInjectorTapPointModelCreate(uint64_t a1)
 {
   v1 = [CADSPInjectorTapPointModel allocWithZone:a1];
 
   return [(CADSPInjectorTapPointModel *)v1 init];
 }
 
-uint64_t CADSPInjectorTapPointModelCreateMutable(uint64_t a1)
+CADSPMutableInjectorTapPointModel *CADSPInjectorTapPointModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutableInjectorTapPointModel allocWithZone:a1];
 
   return [(CADSPMutableInjectorTapPointModel *)v1 init];
 }
 
-uint64_t CADSPRecorderTapPointModelCreate(uint64_t a1)
+CADSPRecorderTapPointModel *CADSPRecorderTapPointModelCreate(uint64_t a1)
 {
   v1 = [CADSPRecorderTapPointModel allocWithZone:a1];
 
   return [(CADSPRecorderTapPointModel *)v1 init];
 }
 
-uint64_t CADSPRecorderTapPointModelCreateMutable(uint64_t a1)
+CADSPMutableRecorderTapPointModel *CADSPRecorderTapPointModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutableRecorderTapPointModel allocWithZone:a1];
 
   return [(CADSPMutableRecorderTapPointModel *)v1 init];
 }
 
-void sub_1C91F7E9C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, const void *a26)
+void sub_1C91F7E9C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, const void *a26)
 {
   std::__split_buffer<applesauce::CF::TypeRefPair>::~__split_buffer(v26 - 104);
   applesauce::CF::DictionaryRef::~DictionaryRef(&a26);
-  a12 = (v26 - 128);
+  a12 = v26 - 128;
   std::vector<applesauce::CF::TypeRefPair>::__destroy_vector::operator()[abi:ne200100](&a12);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
@@ -857,7 +783,7 @@ void sub_1C91F85D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t CADSPThreadCounterProfilerCreate(uint64_t a1, uint64_t a2, double a3)
+CADSPThreadCounterProfiler *CADSPThreadCounterProfilerCreate(uint64_t a1, uint64_t a2, double a3)
 {
   v5 = [CADSPThreadCounterProfiler allocWithZone:a1];
 
@@ -897,10 +823,10 @@ uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<std
   return result;
 }
 
-__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEN13AudioDSPGraph2IR17WireConfigurationENSA_22WireConfigurationAliasEEEEE16__generic_assignB8ne200100INS0_17__move_assignmentISD_LNS0_6_TraitE1EEEEEvOT_EUlRSJ_OT0_E_JRNS0_6__baseILSH_1EJS8_SB_SC_EEEOSR_EEEDcSJ_DpT0_(uint64_t *a1, uint64_t a2, __n128 *a3)
+__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEN13AudioDSPGraph2IR17WireConfigurationENSA_22WireConfigurationAliasEEEEE16__generic_assignB8ne200100INS0_17__move_assignmentISD_LNS0_6_TraitE1EEEEEvOT_EUlRSJ_OT0_E_JRNS0_6__baseILSH_1EJS8_SB_SC_EEEOSR_EEEDcSJ_DpT0_(__n128 **a1, uint64_t a2, __n128 *a3)
 {
   v4 = *a1;
-  if (*(*a1 + 48) == 2)
+  if ((*a1)[3].n128_u32[0] == 2)
   {
     if (*(a2 + 23) < 0)
     {
@@ -977,21 +903,21 @@ void sub_1C91F8E84(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CADSPWireModelCreate(uint64_t a1)
+CADSPWireModel *CADSPWireModelCreate(uint64_t a1)
 {
   v1 = [CADSPWireModel allocWithZone:a1];
 
   return [(CADSPWireModel *)v1 init];
 }
 
-uint64_t CADSPWireModelCreateMutable(uint64_t a1)
+CADSPMutableWireModel *CADSPWireModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutableWireModel allocWithZone:a1];
 
   return [(CADSPMutableWireModel *)v1 init];
 }
 
-uint64_t ausdk::AUBase::ProcessForScheduledParams(ausdk::AUBase *a1, unint64_t *a2, uint64_t a3, uint64_t a4, __n128 a5)
+uint64_t ausdk::AUBase::ProcessForScheduledParams(ausdk::AUBase *a1, __n128 **a2, uint64_t a3, uint64_t a4, __n128 a5)
 {
   v9 = *a2;
   v10 = a2[1];
@@ -1052,15 +978,15 @@ LABEL_34:
 
     while (1)
     {
-      v20 = v19[4];
+      v20 = v19[1].n128_i32[0];
       if (v20 > v14 && v20 < v18)
       {
         break;
       }
 
-      if (v19[3] == 2)
+      if (v19->n128_u32[3] == 2)
       {
-        v22 = v19[5] + v20;
+        v22 = v19[1].n128_u32[1] + v20;
         if (v22 >= v18)
         {
           v23 = v18;
@@ -1082,14 +1008,14 @@ LABEL_34:
         }
       }
 
-      v19 += 8;
+      v19 += 2;
       if (v19 == v17)
       {
         goto LABEL_22;
       }
     }
 
-    v18 = v19[4];
+    v18 = v19[1].n128_u32[0];
 LABEL_22:
     v24 = (v18 - v14);
     while (1)
@@ -1124,22 +1050,22 @@ LABEL_31:
   return 0;
 }
 
-double std::__introsort<std::_RangeAlgPolicy,ausdk::RTSafeFP<BOOL ()(AudioUnitParameterEvent const&,AudioUnitParameterEvent const&)> &,AudioUnitParameterEvent*,false>(unint64_t a1, __n128 *a2, uint64_t (**a3)(__n128 *, __n128 *), uint64_t a4, char a5, __n128 a6)
+double std::__introsort<std::_RangeAlgPolicy,ausdk::RTSafeFP<BOOL ()(AudioUnitParameterEvent const&,AudioUnitParameterEvent const&)> &,AudioUnitParameterEvent*,false>(__n128 *a1, __n128 *a2, uint64_t (**a3)(__n128 *, __n128 *), uint64_t a4, char a5, __n128 a6)
 {
   while (2)
   {
     v10 = a2 - 2;
     v218 = a2 - 6;
     v219 = a2 - 4;
-    n128_u64 = a1;
+    v11 = a1;
     while (1)
     {
       while (1)
       {
         while (1)
         {
-          a1 = n128_u64;
-          v12 = (a2 - n128_u64) >> 5;
+          a1 = v11;
+          v12 = (a2 - v11) >> 5;
           v13 = v12 - 2;
           if (v12 <= 2)
           {
@@ -1150,18 +1076,18 @@ double std::__introsort<std::_RangeAlgPolicy,ausdk::RTSafeFP<BOOL ()(AudioUnitPa
 
             if (v12 == 2)
             {
-              if (!(*a3)(a2 - 2, n128_u64))
+              if (!(*a3)(&a2[-2], v11, a6))
               {
                 return a6.n128_f64[0];
               }
 
 LABEL_107:
-              v127 = *(n128_u64 + 16);
-              v224 = *n128_u64;
+              v127 = v11[1];
+              v224 = *v11;
               v225 = v127;
               v128 = a2[-1];
-              *n128_u64 = *v10;
-              *(n128_u64 + 16) = v128;
+              *v11 = *v10;
+              v11[1] = v128;
               a6 = v224;
               v129 = v225;
               goto LABEL_108;
@@ -1173,8 +1099,8 @@ LABEL_107:
           switch(v12)
           {
             case 3uLL:
-              v125 = (*a3)((n128_u64 + 32), n128_u64);
-              v126 = (*a3)(a2 - 2, (n128_u64 + 32));
+              v125 = (*a3)(&v11[2], v11, a6);
+              v126 = (*a3)(a2 - 2, v11 + 2);
               if (v125)
               {
                 if (v126)
@@ -1182,27 +1108,27 @@ LABEL_107:
                   goto LABEL_107;
                 }
 
-                v198 = *(n128_u64 + 16);
-                v224 = *n128_u64;
+                v198 = v11[1];
+                v224 = *v11;
                 v225 = v198;
-                v199 = *(n128_u64 + 48);
-                *n128_u64 = *(n128_u64 + 32);
-                *(n128_u64 + 16) = v199;
+                v199 = v11[3];
+                *v11 = v11[2];
+                v11[1] = v199;
                 v200 = v225;
-                *(n128_u64 + 32) = v224;
-                *(n128_u64 + 48) = v200;
-                if (!(*a3)(a2 - 2, (n128_u64 + 32)))
+                v11[2] = v224;
+                v11[3] = v200;
+                if (!(*a3)(a2 - 2, v11 + 2))
                 {
                   return a6.n128_f64[0];
                 }
 
-                a6 = *(n128_u64 + 32);
-                v129 = *(n128_u64 + 48);
+                a6 = v11[2];
+                v129 = v11[3];
                 v224 = a6;
                 v225 = v129;
                 v201 = a2[-1];
-                *(n128_u64 + 32) = *v10;
-                *(n128_u64 + 48) = v201;
+                v11[2] = *v10;
+                v11[3] = v201;
 LABEL_108:
                 *v10 = a6;
                 a2[-1] = v129;
@@ -1214,145 +1140,145 @@ LABEL_108:
                 return a6.n128_f64[0];
               }
 
-              v183 = *(n128_u64 + 48);
-              v224 = *(n128_u64 + 32);
+              v183 = v11[3];
+              v224 = v11[2];
               v182 = v224;
               v225 = v183;
               v184 = a2[-1];
-              *(n128_u64 + 32) = *v10;
-              *(n128_u64 + 48) = v184;
+              v11[2] = *v10;
+              v11[3] = v184;
               *v10 = v182;
               a2[-1] = v183;
               goto LABEL_181;
             case 4uLL:
-              v130 = (*a3)((n128_u64 + 32), n128_u64);
-              v131 = (*a3)((n128_u64 + 64), (n128_u64 + 32));
+              v130 = (*a3)(&v11[2], v11, a6);
+              v131 = (*a3)(v11 + 4, v11 + 2);
               if (v130)
               {
                 if (v131)
                 {
-                  v132 = *(n128_u64 + 16);
-                  v224 = *n128_u64;
+                  v132 = v11[1];
+                  v224 = *v11;
                   v225 = v132;
-                  v133 = *(n128_u64 + 80);
-                  *n128_u64 = *(n128_u64 + 64);
-                  *(n128_u64 + 16) = v133;
+                  v133 = v11[5];
+                  *v11 = v11[4];
+                  v11[1] = v133;
                   v134 = v225;
-                  *(n128_u64 + 64) = v224;
-                  *(n128_u64 + 80) = v134;
+                  v11[4] = v224;
+                  v11[5] = v134;
                 }
 
                 else
                 {
-                  v202 = *(n128_u64 + 16);
-                  v224 = *n128_u64;
+                  v202 = v11[1];
+                  v224 = *v11;
                   v225 = v202;
-                  v203 = *(n128_u64 + 48);
-                  *n128_u64 = *(n128_u64 + 32);
-                  *(n128_u64 + 16) = v203;
+                  v203 = v11[3];
+                  *v11 = v11[2];
+                  v11[1] = v203;
                   v204 = v225;
-                  *(n128_u64 + 32) = v224;
-                  *(n128_u64 + 48) = v204;
-                  if ((*a3)((n128_u64 + 64), (n128_u64 + 32)))
+                  v11[2] = v224;
+                  v11[3] = v204;
+                  if ((*a3)(v11 + 4, v11 + 2))
                   {
-                    v206 = *(n128_u64 + 32);
-                    v205 = *(n128_u64 + 48);
-                    v207 = *(n128_u64 + 80);
-                    *(n128_u64 + 32) = *(n128_u64 + 64);
-                    *(n128_u64 + 48) = v207;
-                    *(n128_u64 + 64) = v206;
-                    *(n128_u64 + 80) = v205;
+                    v206 = v11[2];
+                    v205 = v11[3];
+                    v207 = v11[5];
+                    v11[2] = v11[4];
+                    v11[3] = v207;
+                    v11[4] = v206;
+                    v11[5] = v205;
                   }
                 }
               }
 
               else if (v131)
               {
-                v186 = *(n128_u64 + 32);
-                v185 = *(n128_u64 + 48);
-                v187 = *(n128_u64 + 80);
-                *(n128_u64 + 32) = *(n128_u64 + 64);
-                *(n128_u64 + 48) = v187;
-                *(n128_u64 + 64) = v186;
-                *(n128_u64 + 80) = v185;
-                if ((*a3)((n128_u64 + 32), n128_u64))
+                v186 = v11[2];
+                v185 = v11[3];
+                v187 = v11[5];
+                v11[2] = v11[4];
+                v11[3] = v187;
+                v11[4] = v186;
+                v11[5] = v185;
+                if ((*a3)(v11 + 2, v11))
                 {
-                  v188 = *(n128_u64 + 16);
-                  v224 = *n128_u64;
+                  v188 = v11[1];
+                  v224 = *v11;
                   v225 = v188;
-                  v189 = *(n128_u64 + 48);
-                  *n128_u64 = *(n128_u64 + 32);
-                  *(n128_u64 + 16) = v189;
+                  v189 = v11[3];
+                  *v11 = v11[2];
+                  v11[1] = v189;
                   v190 = v225;
-                  *(n128_u64 + 32) = v224;
-                  *(n128_u64 + 48) = v190;
+                  v11[2] = v224;
+                  v11[3] = v190;
                 }
               }
 
-              if (!(*a3)(a2 - 2, (n128_u64 + 64)))
+              if (!(*a3)(a2 - 2, v11 + 4))
               {
                 return a6.n128_f64[0];
               }
 
-              v209 = *(n128_u64 + 80);
-              v224 = *(n128_u64 + 64);
+              v209 = v11[5];
+              v224 = v11[4];
               v208 = v224;
               v225 = v209;
               v210 = a2[-1];
-              *(n128_u64 + 64) = *v10;
-              *(n128_u64 + 80) = v210;
+              v11[4] = *v10;
+              v11[5] = v210;
               *v10 = v208;
               a2[-1] = v209;
-              if (!(*a3)((n128_u64 + 64), (n128_u64 + 32)))
+              if (!(*a3)(v11 + 4, v11 + 2))
               {
                 return a6.n128_f64[0];
               }
 
-              v212 = *(n128_u64 + 32);
-              v211 = *(n128_u64 + 48);
-              v213 = *(n128_u64 + 80);
-              *(n128_u64 + 32) = *(n128_u64 + 64);
-              *(n128_u64 + 48) = v213;
-              *(n128_u64 + 64) = v212;
-              *(n128_u64 + 80) = v211;
+              v212 = v11[2];
+              v211 = v11[3];
+              v213 = v11[5];
+              v11[2] = v11[4];
+              v11[3] = v213;
+              v11[4] = v212;
+              v11[5] = v211;
 LABEL_181:
-              if ((*a3)((n128_u64 + 32), n128_u64))
+              if ((*a3)(v11 + 2, v11))
               {
-                v214 = *(n128_u64 + 16);
-                v224 = *n128_u64;
+                v214 = v11[1];
+                v224 = *v11;
                 v225 = v214;
-                v215 = *(n128_u64 + 48);
-                *n128_u64 = *(n128_u64 + 32);
-                *(n128_u64 + 16) = v215;
+                v215 = v11[3];
+                *v11 = v11[2];
+                v11[1] = v215;
                 a6.n128_u64[0] = v224.n128_u64[0];
                 v216 = v225;
-                *(n128_u64 + 32) = v224;
-                *(n128_u64 + 48) = v216;
+                v11[2] = v224;
+                v11[3] = v216;
               }
 
               return a6.n128_f64[0];
             case 5uLL:
 
-              a6.n128_u64[0] = std::__sort5[abi:ne200100]<std::_RangeAlgPolicy,ausdk::RTSafeFP<BOOL ()(AudioUnitParameterEvent const&,AudioUnitParameterEvent const&)> &,AudioUnitParameterEvent*,0>(n128_u64, (n128_u64 + 32), (n128_u64 + 64), (n128_u64 + 96), a2 - 2, a3).n128_u64[0];
+              a6.n128_u64[0] = std::__sort5[abi:ne200100]<std::_RangeAlgPolicy,ausdk::RTSafeFP<BOOL ()(AudioUnitParameterEvent const&,AudioUnitParameterEvent const&)> &,AudioUnitParameterEvent*,0>(v11, v11 + 2, v11 + 4, v11 + 6, a2 - 2, a3).n128_u64[0];
               return a6.n128_f64[0];
           }
 
 LABEL_9:
           if (v12 <= 23)
           {
-            v135 = (n128_u64 + 32);
-            v137 = n128_u64 == a2 || v135 == a2;
+            v135 = v11 + 2;
+            v137 = v11 == a2 || v135 == a2;
             if (a5)
             {
               if (!v137)
               {
                 v138 = 0;
-                v139 = n128_u64;
+                v139 = v11;
                 do
                 {
                   v140 = v139;
                   v139 = v135;
-                  if ((*a3)(v135, v140))
+                  if ((*a3)(v135, v140, a6))
                   {
                     v141 = v139[1];
                     v224 = *v139;
@@ -1360,26 +1286,26 @@ LABEL_9:
                     v142 = v138;
                     while (1)
                     {
-                      v143 = n128_u64 + v142;
-                      v144 = *(n128_u64 + v142 + 16);
-                      *(v143 + 32) = *(n128_u64 + v142);
-                      *(v143 + 48) = v144;
+                      v143 = (v11 + v142);
+                      v144 = *(v11 + v142 + 16);
+                      v143[2] = *(v11 + v142);
+                      v143[3] = v144;
                       if (!v142)
                       {
                         break;
                       }
 
                       v142 -= 32;
-                      if (((*a3)(&v224, (v142 + n128_u64)) & 1) == 0)
+                      if (((*a3)(&v224, (v11 + v142)) & 1) == 0)
                       {
-                        v145 = (n128_u64 + v142 + 32);
+                        v145 = (v11 + v142 + 32);
                         goto LABEL_127;
                       }
                     }
 
-                    v145 = n128_u64;
+                    v145 = v11;
 LABEL_127:
-                    a6.n128_u64[0] = v224.n128_u64[0];
+                    a6 = v224;
                     v146 = v225;
                     *v145 = v224;
                     v145[1] = v146;
@@ -1399,9 +1325,9 @@ LABEL_127:
               {
                 v191 = a1;
                 a1 = v135;
-                if ((*a3)(v135, v191))
+                if ((*a3)(v135, v191, a6))
                 {
-                  v192 = *(a1 + 16);
+                  v192 = a1[1];
                   v224 = *a1;
                   v225 = v192;
                   v193 = a1;
@@ -1416,16 +1342,16 @@ LABEL_127:
                   }
 
                   while ((v196 & 1) != 0);
-                  a6.n128_u64[0] = v224.n128_u64[0];
+                  a6 = v224;
                   v197 = v225;
                   *v194 = v224;
                   v194[1] = v197;
                 }
 
-                v135 = (a1 + 32);
+                v135 = a1 + 2;
               }
 
-              while ((a1 + 32) != a2);
+              while (&a1[2] != a2);
             }
 
             return a6.n128_f64[0];
@@ -1433,7 +1359,7 @@ LABEL_127:
 
           if (!a4)
           {
-            if (n128_u64 != a2)
+            if (v11 != a2)
             {
               v221 = a2;
               v147 = v13 >> 1;
@@ -1444,14 +1370,14 @@ LABEL_127:
                 if (v147 >= v148)
                 {
                   v150 = (2 * v148) | 1;
-                  v151 = (a1 + 32 * v150);
-                  if (2 * v148 + 2 < v12 && (*a3)((a1 + 32 * v150), v151 + 2))
+                  v151 = &a1[2 * v150];
+                  if (2 * v148 + 2 < v12 && (*a3)(&a1[2 * v150], &v151[2], a6))
                   {
                     v151 += 2;
                     v150 = 2 * v149 + 2;
                   }
 
-                  v152 = (a1 + 32 * v149);
+                  v152 = &a1[2 * v149];
                   if (((*a3)(v151, v152) & 1) == 0)
                   {
                     v153 = v152[1];
@@ -1469,9 +1395,9 @@ LABEL_127:
                       }
 
                       v156 = (2 * v150) | 1;
-                      v151 = (a1 + 32 * v156);
+                      v151 = &a1[2 * v156];
                       v157 = 2 * v150 + 2;
-                      if (v157 < v12 && (*a3)((a1 + 32 * v156), v151 + 2))
+                      if (v157 < v12 && (*a3)(&a1[2 * v156], v151 + 2))
                       {
                         v151 += 2;
                         v156 = v157;
@@ -1482,6 +1408,7 @@ LABEL_127:
                     }
 
                     while (!(*a3)(v151, &v224));
+                    a6 = v224;
                     v158 = v225;
                     *v154 = v224;
                     v154[1] = v158;
@@ -1497,7 +1424,7 @@ LABEL_127:
               {
                 v160 = v159;
                 v161 = 0;
-                v162 = *(a1 + 16);
+                v162 = a1[1];
                 v222 = *a1;
                 v223 = v162;
                 v163 = a1;
@@ -1543,13 +1470,13 @@ LABEL_127:
                   v171 = v223;
                   *v159 = v222;
                   v160[-1] = v171;
-                  v172 = (&v165[2] - a1) >> 5;
+                  v172 = (v165 - a1 + 32) >> 5;
                   v173 = v172 < 2;
                   v174 = v172 - 2;
                   if (!v173)
                   {
                     v175 = v174 >> 1;
-                    v176 = (a1 + 32 * (v174 >> 1));
+                    v176 = &a1[2 * (v174 >> 1)];
                     if ((*a3)(v176, v165))
                     {
                       v177 = v165[1];
@@ -1567,7 +1494,7 @@ LABEL_127:
                         }
 
                         v175 = (v175 - 1) >> 1;
-                        v176 = (a1 + 32 * v175);
+                        v176 = &a1[2 * v175];
                         v165 = v178;
                       }
 
@@ -1589,35 +1516,35 @@ LABEL_127:
             return a6.n128_f64[0];
           }
 
-          v14 = (n128_u64 + 32 * (v12 >> 1));
+          v14 = &v11[2 * (v12 >> 1)];
           v15 = *a3;
           if (v12 >= 0x81)
           {
-            v16 = v15((n128_u64 + 32 * (v12 >> 1)), n128_u64);
-            v17 = (*a3)(a2 - 2, (n128_u64 + 32 * (v12 >> 1)));
+            v16 = (v15)(&v11[2 * (v12 >> 1)], v11, a6);
+            v17 = (*a3)(a2 - 2, &v11[2 * (v12 >> 1)]);
             if (v16)
             {
               if (v17)
               {
-                v18 = *(n128_u64 + 16);
-                v224 = *n128_u64;
+                v18 = v11[1];
+                v224 = *v11;
                 v225 = v18;
                 v19 = a2[-1];
-                *n128_u64 = *v10;
-                *(n128_u64 + 16) = v19;
+                *v11 = *v10;
+                v11[1] = v19;
                 goto LABEL_26;
               }
 
-              v36 = *(n128_u64 + 16);
-              v224 = *n128_u64;
+              v36 = v11[1];
+              v224 = *v11;
               v225 = v36;
               v37 = v14[1];
-              *n128_u64 = *v14;
-              *(n128_u64 + 16) = v37;
+              *v11 = *v14;
+              v11[1] = v37;
               v38 = v225;
               *v14 = v224;
               v14[1] = v38;
-              if ((*a3)(a2 - 2, (n128_u64 + 32 * (v12 >> 1))))
+              if ((*a3)(a2 - 2, &v11[2 * (v12 >> 1)]))
               {
                 v39 = v14[1];
                 v224 = *v14;
@@ -1643,14 +1570,14 @@ LABEL_26:
               v26 = v225;
               *v10 = v224;
               a2[-1] = v26;
-              if ((*a3)((n128_u64 + 32 * (v12 >> 1)), n128_u64))
+              if ((*a3)(&v11[2 * (v12 >> 1)], v11))
               {
-                v27 = *(n128_u64 + 16);
-                v224 = *n128_u64;
+                v27 = v11[1];
+                v224 = *v11;
                 v225 = v27;
                 v28 = v14[1];
-                *n128_u64 = *v14;
-                *(n128_u64 + 16) = v28;
+                *v11 = *v14;
+                v11[1] = v28;
                 v29 = v225;
                 *v14 = v224;
                 v14[1] = v29;
@@ -1658,30 +1585,30 @@ LABEL_26:
             }
 
             v42 = v14 - 2;
-            v43 = (*a3)(v14 - 2, (a1 + 32));
+            v43 = (*a3)(v14 - 2, a1 + 2);
             v44 = (*a3)(v219, v14 - 2);
             if (v43)
             {
               if (v44)
               {
-                v45 = *(a1 + 32);
-                v46 = *(a1 + 48);
+                v45 = a1[2];
+                v46 = a1[3];
                 v224 = v45;
                 v225 = v46;
                 v47 = a2 - 4;
                 v48 = a2[-3];
-                *(a1 + 32) = *v219;
-                *(a1 + 48) = v48;
+                a1[2] = *v219;
+                a1[3] = v48;
                 goto LABEL_38;
               }
 
-              v62 = *(a1 + 48);
-              v224 = *(a1 + 32);
+              v62 = a1[3];
+              v224 = a1[2];
               v61 = v224;
               v225 = v62;
               v63 = v14[-1];
-              *(a1 + 32) = *v42;
-              *(a1 + 48) = v63;
+              a1[2] = *v42;
+              a1[3] = v63;
               *v42 = v61;
               v14[-1] = v62;
               if ((*a3)(v219, v14 - 2))
@@ -1712,44 +1639,44 @@ LABEL_38:
               v51 = v225;
               *v219 = v224;
               a2[-3] = v51;
-              if ((*a3)(v14 - 2, (a1 + 32)))
+              if ((*a3)(v14 - 2, a1 + 2))
               {
-                v53 = *(a1 + 48);
-                v224 = *(a1 + 32);
+                v53 = a1[3];
+                v224 = a1[2];
                 v52 = v224;
                 v225 = v53;
                 v54 = v14[-1];
-                *(a1 + 32) = *v42;
-                *(a1 + 48) = v54;
+                a1[2] = *v42;
+                a1[3] = v54;
                 *v42 = v52;
                 v14[-1] = v53;
               }
             }
 
-            v66 = (*a3)(v14 + 2, (a1 + 64));
+            v66 = (*a3)(v14 + 2, a1 + 4);
             v67 = (*a3)(v218, v14 + 2);
             if (v66)
             {
               if (v67)
               {
-                v68 = *(a1 + 64);
-                v69 = *(a1 + 80);
+                v68 = a1[4];
+                v69 = a1[5];
                 v224 = v68;
                 v225 = v69;
                 v70 = a2 - 6;
                 v71 = a2[-5];
-                *(a1 + 64) = *v218;
-                *(a1 + 80) = v71;
+                a1[4] = *v218;
+                a1[5] = v71;
                 goto LABEL_47;
               }
 
-              v79 = *(a1 + 80);
-              v224 = *(a1 + 64);
+              v79 = a1[5];
+              v224 = a1[4];
               v78 = v224;
               v225 = v79;
               v80 = v14[3];
-              *(a1 + 64) = v14[2];
-              *(a1 + 80) = v80;
+              a1[4] = v14[2];
+              a1[5] = v80;
               v14[2] = v78;
               v14[3] = v79;
               if ((*a3)(v218, v14 + 2))
@@ -1780,22 +1707,22 @@ LABEL_47:
               v74 = v225;
               *v218 = v224;
               a2[-5] = v74;
-              if ((*a3)(v14 + 2, (a1 + 64)))
+              if ((*a3)(v14 + 2, a1 + 4))
               {
-                v76 = *(a1 + 80);
-                v224 = *(a1 + 64);
+                v76 = a1[5];
+                v224 = a1[4];
                 v75 = v224;
                 v225 = v76;
                 v77 = v14[3];
-                *(a1 + 64) = v14[2];
-                *(a1 + 80) = v77;
+                a1[4] = v14[2];
+                a1[5] = v77;
                 v14[2] = v75;
                 v14[3] = v76;
               }
             }
 
-            v83 = (*a3)((a1 + 32 * (v12 >> 1)), v14 - 2);
-            v84 = (*a3)(v14 + 2, (a1 + 32 * (v12 >> 1)));
+            v83 = (*a3)(&a1[2 * (v12 >> 1)], v14 - 2);
+            v84 = (*a3)(v14 + 2, &a1[2 * (v12 >> 1)]);
             if (v83)
             {
               if (v84)
@@ -1818,7 +1745,7 @@ LABEL_47:
               v95 = v225;
               *v14 = v224;
               v14[1] = v95;
-              if ((*a3)(v14 + 2, (a1 + 32 * (v12 >> 1))))
+              if ((*a3)(v14 + 2, &a1[2 * (v12 >> 1)]))
               {
                 v96 = v14[1];
                 v224 = *v14;
@@ -1844,7 +1771,7 @@ LABEL_56:
               v89 = v225;
               v14[2] = v224;
               v14[3] = v89;
-              if ((*a3)((a1 + 32 * (v12 >> 1)), v14 - 2))
+              if ((*a3)(&a1[2 * (v12 >> 1)], v14 - 2))
               {
                 v90 = v14[-1];
                 v224 = *v42;
@@ -1858,20 +1785,20 @@ LABEL_56:
               }
             }
 
-            v99 = *(a1 + 16);
+            v99 = a1[1];
             v224 = *a1;
             v225 = v99;
             v100 = v14[1];
             *a1 = *v14;
-            *(a1 + 16) = v100;
+            a1[1] = v100;
             v101 = v225;
             *v14 = v224;
             v14[1] = v101;
             goto LABEL_58;
           }
 
-          v20 = v15(n128_u64, (n128_u64 + 32 * (v12 >> 1)));
-          v21 = (*a3)(a2 - 2, n128_u64);
+          v20 = (v15)(v11, &v11[2 * (v12 >> 1)], a6);
+          v21 = (*a3)(a2 - 2, v11);
           if (v20)
           {
             if (v21)
@@ -1892,90 +1819,90 @@ LABEL_35:
             v55 = v14[1];
             v224 = *v14;
             v225 = v55;
-            v56 = *(n128_u64 + 16);
-            *v14 = *n128_u64;
+            v56 = v11[1];
+            *v14 = *v11;
             v14[1] = v56;
             v57 = v225;
-            *n128_u64 = v224;
-            *(n128_u64 + 16) = v57;
-            if ((*a3)(a2 - 2, n128_u64))
+            *v11 = v224;
+            v11[1] = v57;
+            if ((*a3)(a2 - 2, v11))
             {
-              v58 = *(n128_u64 + 16);
-              v224 = *n128_u64;
+              v58 = v11[1];
+              v224 = *v11;
               v225 = v58;
               v59 = a2[-1];
-              *n128_u64 = *v10;
-              *(n128_u64 + 16) = v59;
+              *v11 = *v10;
+              v11[1] = v59;
               goto LABEL_35;
             }
           }
 
           else if (v21)
           {
-            v30 = *(n128_u64 + 16);
-            v224 = *n128_u64;
+            v30 = v11[1];
+            v224 = *v11;
             v225 = v30;
             v31 = a2[-1];
-            *n128_u64 = *v10;
-            *(n128_u64 + 16) = v31;
+            *v11 = *v10;
+            v11[1] = v31;
             v32 = v225;
             *v10 = v224;
             a2[-1] = v32;
-            if ((*a3)(n128_u64, (n128_u64 + 32 * (v12 >> 1))))
+            if ((*a3)(v11, &v11[2 * (v12 >> 1)]))
             {
               v33 = v14[1];
               v224 = *v14;
               v225 = v33;
-              v34 = *(n128_u64 + 16);
-              *v14 = *n128_u64;
+              v34 = v11[1];
+              *v14 = *v11;
               v14[1] = v34;
               v35 = v225;
-              *n128_u64 = v224;
-              *(n128_u64 + 16) = v35;
+              *v11 = v224;
+              v11[1] = v35;
             }
           }
 
 LABEL_58:
           --a4;
-          if (a5 & 1) != 0 || ((*a3)((a1 - 32), a1))
+          if (a5 & 1) != 0 || ((*a3)(a1 - 2, a1))
           {
             break;
           }
 
-          v114 = *(a1 + 16);
+          v114 = a1[1];
           v222 = *a1;
           v223 = v114;
           if ((*a3)(&v222, a2 - 2))
           {
-            n128_u64 = a1;
+            v11 = a1;
             do
             {
-              n128_u64 += 32;
+              v11 += 2;
             }
 
-            while (((*a3)(&v222, n128_u64) & 1) == 0);
+            while (((*a3)(&v222, v11) & 1) == 0);
           }
 
           else
           {
-            v115 = (a1 + 32);
+            v115 = a1 + 2;
             do
             {
-              n128_u64 = v115;
+              v11 = v115;
               if (v115 >= a2)
               {
                 break;
               }
 
               v116 = (*a3)(&v222, v115);
-              v115 = (n128_u64 + 32);
+              v115 = v11 + 2;
             }
 
             while (!v116);
           }
 
           v117 = a2;
-          if (n128_u64 < a2)
+          if (v11 < a2)
           {
             v117 = a2;
             do
@@ -1986,23 +1913,23 @@ LABEL_58:
             while (((*a3)(&v222, v117) & 1) != 0);
           }
 
-          while (n128_u64 < v117)
+          while (v11 < v117)
           {
-            v118 = *(n128_u64 + 16);
-            v224 = *n128_u64;
+            v118 = v11[1];
+            v224 = *v11;
             v225 = v118;
             v119 = v117[1];
-            *n128_u64 = *v117;
-            *(n128_u64 + 16) = v119;
+            *v11 = *v117;
+            v11[1] = v119;
             v120 = v225;
             *v117 = v224;
             v117[1] = v120;
             do
             {
-              n128_u64 += 32;
+              v11 += 2;
             }
 
-            while (!(*a3)(&v222, n128_u64));
+            while (!(*a3)(&v222, v11));
             do
             {
               v117 -= 2;
@@ -2011,22 +1938,22 @@ LABEL_58:
             while (((*a3)(&v222, v117) & 1) != 0);
           }
 
-          v121 = (n128_u64 - 32);
-          if (n128_u64 - 32 != a1)
+          v121 = v11 - 2;
+          if (&v11[-2] != a1)
           {
-            v122 = *(n128_u64 - 16);
+            v122 = v11[-1];
             *a1 = *v121;
-            *(a1 + 16) = v122;
+            a1[1] = v122;
           }
 
           a5 = 0;
-          a6.n128_u64[0] = v222.n128_u64[0];
+          a6 = v222;
           v123 = v223;
           *v121 = v222;
-          *(n128_u64 - 16) = v123;
+          v11[-1] = v123;
         }
 
-        v102 = *(a1 + 16);
+        v102 = a1[1];
         v222 = *a1;
         v223 = v102;
         v103 = a1;
@@ -2101,9 +2028,10 @@ LABEL_58:
         {
           v111 = v104[1];
           *a1 = *v104;
-          *(a1 + 16) = v111;
+          a1[1] = v111;
         }
 
+        a6 = v222;
         v112 = v223;
         *v104 = v222;
         v104[1] = v112;
@@ -2113,13 +2041,13 @@ LABEL_58:
         }
 
 LABEL_79:
-        std::__introsort<std::_RangeAlgPolicy,ausdk::RTSafeFP<BOOL ()(AudioUnitParameterEvent const&,AudioUnitParameterEvent const&)> &,AudioUnitParameterEvent*,false>(a1, v104, a3, a4, a5 & 1);
+        a6.n128_f64[0] = std::__introsort<std::_RangeAlgPolicy,ausdk::RTSafeFP<BOOL ()(AudioUnitParameterEvent const&,AudioUnitParameterEvent const&)> &,AudioUnitParameterEvent*,false>(a1, v104, a3, a4, a5 & 1, a6);
         a5 = 0;
-        n128_u64 = v104[2].n128_u64;
+        v11 = v104 + 2;
       }
 
       v113 = std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,ausdk::RTSafeFP<BOOL ()(AudioUnitParameterEvent const&,AudioUnitParameterEvent const&)> &,AudioUnitParameterEvent*>(a1, v104, a3);
-      n128_u64 = v104[2].n128_u64;
+      v11 = v104 + 2;
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,ausdk::RTSafeFP<BOOL ()(AudioUnitParameterEvent const&,AudioUnitParameterEvent const&)> &,AudioUnitParameterEvent*>(v104 + 2, a2, a3))
       {
         break;
@@ -2141,7 +2069,7 @@ LABEL_79:
   }
 }
 
-unint64_t ausdk::AUBase::GetElementOrError(ausdk::AUBase *this, unsigned int a2, unsigned int a3)
+unint64_t ausdk::AUBase::GetElementOrError(ausdk::AUBase *this, unsigned int a2, uint64_t a3)
 {
   if (a2 <= 3)
   {
@@ -2570,17 +2498,17 @@ LABEL_33:
       v52 = v49;
       while (1)
       {
-        v53 = a1 + v52;
-        v54 = *(&a1[5] + v52);
-        *(v53 + 96) = *(a1 + v52 + 64);
-        *(v53 + 112) = v54;
+        v53 = (a1 + v52);
+        v54 = *(a1 + v52 + 80);
+        v53[6] = *(a1 + v52 + 64);
+        v53[7] = v54;
         if (v52 == -64)
         {
           break;
         }
 
         v52 -= 32;
-        if (((*a3)(&v71, (v53 + 32)) & 1) == 0)
+        if (((*a3)(&v71, v53 + 2) & 1) == 0)
         {
           v55 = (a1 + v52 + 96);
           goto LABEL_41;
@@ -2608,7 +2536,7 @@ LABEL_41:
   }
 }
 
-uint64_t ausdk::AUBase::GetChannelLayoutTags(ausdk::AUBase *this, unsigned int a2, unsigned int a3)
+uint64_t ausdk::AUBase::GetChannelLayoutTags(ausdk::AUBase *this, unsigned int a2, uint64_t a3)
 {
   Scope = ausdk::AUBase::GetScope(this, a2);
   v5 = *(*ausdk::AUScope::GetIOElement(Scope, a3) + 80);
@@ -2616,7 +2544,7 @@ uint64_t ausdk::AUBase::GetChannelLayoutTags(ausdk::AUBase *this, unsigned int a
   return v5();
 }
 
-uint64_t ausdk::AUScope::GetIOElement(ausdk::AUScope *this, unsigned int a2)
+uint64_t ausdk::AUScope::GetIOElement(ausdk::AUScope *this, uint64_t a2)
 {
   Element = ausdk::AUScope::GetElement(this, a2);
   if (!Element || (result = (*(*Element + 48))(Element)) == 0)
@@ -2627,7 +2555,7 @@ uint64_t ausdk::AUScope::GetIOElement(ausdk::AUScope *this, unsigned int a2)
   return result;
 }
 
-uint64_t ausdk::AUBase::RemoveAudioChannelLayout(ausdk::AUBase *this, unsigned int a2, unsigned int a3)
+uint64_t ausdk::AUBase::RemoveAudioChannelLayout(ausdk::AUBase *this, unsigned int a2, uint64_t a3)
 {
   Scope = ausdk::AUBase::GetScope(this, a2);
   IOElement = ausdk::AUScope::GetIOElement(Scope, a3);
@@ -2716,7 +2644,7 @@ void sub_1C91FA774(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ausdk::AUBase::GetAudioChannelLayout(ausdk::AUBase *this, unsigned int a2, unsigned int a3, AudioChannelLayout *a4, BOOL *a5)
+uint64_t ausdk::AUBase::GetAudioChannelLayout(ausdk::AUBase *this, unsigned int a2, uint64_t a3, AudioChannelLayout *a4, BOOL *a5)
 {
   Scope = ausdk::AUBase::GetScope(this, a2);
   v7 = *(*ausdk::AUScope::GetIOElement(Scope, a3) + 96);
@@ -2792,7 +2720,8 @@ uint64_t ausdk::AUBase::DeallocateIOBuffers(uint64_t this)
 
         *(v6 + 160) = 0;
         *(v6 + 144) = 0;
-        if (v3 == ++v4)
+        v4 = (v4 + 1);
+        if (v3 == v4)
         {
           goto LABEL_11;
         }
@@ -2843,7 +2772,8 @@ LABEL_20:
 
       *(v9 + 160) = 0;
       *(v9 + 144) = 0;
-      if (v7 == ++v8)
+      v8 = (v8 + 1);
+      if (v7 == v8)
       {
         goto LABEL_20;
       }
@@ -2876,7 +2806,8 @@ LABEL_5:
       }
 
       (*(*Element + 64))(Element, 0);
-      if (v3 == ++v4)
+      v4 = (v4 + 1);
+      if (v3 == v4)
       {
         goto LABEL_8;
       }
@@ -2920,9 +2851,10 @@ LABEL_12:
       }
 
       result = (*(*v9 + 64))(v9, 0);
+      v8 = (v8 + 1);
     }
 
-    while (v7 != ++v8);
+    while (v7 != v8);
   }
 
 LABEL_15:
@@ -3057,7 +2989,7 @@ uint64_t ausdk::AUBase::ChangeStreamFormat(ausdk::AUBase *this, uint64_t a2, uin
   return 0;
 }
 
-__n128 ausdk::AUBase::GetStreamFormat@<Q0>(ausdk::AUBase *this@<X0>, int a2@<W1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
+__n128 ausdk::AUBase::GetStreamFormat@<Q0>(ausdk::AUBase *this@<X0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   if (!a2)
   {
@@ -3452,20 +3384,20 @@ LABEL_95:
         v21 = *__s2;
         v20 = __s2[1];
         __s1 = *__s2;
-        v37 = v20;
-        v38 = __s2[2].n128_u32[0];
+        v34 = v20;
+        v35 = __s2[2].n128_u32[0];
         v21.n128_u64[0] = __s1.n128_u64[0];
-        if (__s1.n128_f64[0] >= 0.0 && __s1.n128_f64[0] < 3000000.0 && v37.n128_u32[0] < 0xF4240 && v37.n128_u32[1] < 0xF4240 && v37.n128_u32[2] < 0xF4240 && v37.n128_u32[3] - 1 <= 0x3FF && v38 <= 0x400 && __s1.n128_u32[2] && (__s1.n128_u32[2] != 1819304813 || v37.n128_u64[0] == (v37.n128_u32[2] | 0x100000000)) && (*(*this + 48))(this, a3, a4, &__s1, v21))
+        if (__s1.n128_f64[0] >= 0.0 && __s1.n128_f64[0] < 3000000.0 && v34.n128_u32[0] < 0xF4240 && v34.n128_u32[1] < 0xF4240 && v34.n128_u32[2] < 0xF4240 && v34.n128_u32[3] - 1 <= 0x3FF && v35 <= 0x400 && __s1.n128_u32[2] && (__s1.n128_u32[2] != 1819304813 || v34.n128_u64[0] == (v34.n128_u32[2] | 0x100000000)) && (*(*this + 48))(this, a3, a4, &__s1, v21))
         {
-          v35 = 0;
-          v33 = 0u;
-          v34 = 0u;
-          (*(*this + 49))(&v33, this, a3, a4);
-          if (memcmp(&v33, &__s1, 0x28uLL))
+          v32 = 0;
+          v30 = 0u;
+          v31 = 0u;
+          (*(*this + 49))(&v30, this, a3, a4);
+          if (memcmp(&v30, &__s1, 0x28uLL))
           {
             if (ausdk::AUBase::IsStreamFormatWritable(this, a3, a4))
             {
-              return (*(*this + 50))(this, a3, a4, &v33, &__s1);
+              return (*(*this + 50))(this, a3, a4, &v30, &__s1);
             }
 
             return 4294956431;
@@ -3509,20 +3441,20 @@ LABEL_95:
         return 4294956419;
       }
 
-      v38 = 0;
+      v35 = 0;
       __s1 = 0u;
-      v37 = 0u;
+      v34 = 0u;
       (*(*this + 49))(&__s1, this, a3, a4);
-      v35 = v38;
-      v33 = __s1;
-      v34 = v37;
-      v33.n128_u64[0] = __s2->n128_u64[0];
-      if (!(*(*this + 48))(this, a3, a4, &v33))
+      v32 = v35;
+      v30 = __s1;
+      v31 = v34;
+      v30.n128_u64[0] = __s2->n128_u64[0];
+      if (!(*(*this + 48))(this, a3, a4, &v30))
       {
         return 4294956428;
       }
 
-      if (!memcmp(&__s1, &v33, 0x28uLL))
+      if (!memcmp(&__s1, &v30, 0x28uLL))
       {
         return 0;
       }
@@ -3532,7 +3464,7 @@ LABEL_95:
         return 4294956431;
       }
 
-      return (*(*this + 50))(this, a3, a4, &__s1, &v33);
+      return (*(*this + 50))(this, a3, a4, &__s1, &v30);
     }
 
     if (a6 != 8)
@@ -3542,10 +3474,9 @@ LABEL_95:
 
     if (!a3)
     {
-      v26 = __s2->n128_u64[0];
-      v27 = *(*this + 36);
+      v26 = *(*this + 36);
 
-      return v27();
+      return v26();
     }
 
     return 4294956430;
@@ -3569,9 +3500,9 @@ LABEL_95:
                 return 4294956447;
               }
 
-              v32 = ausdk::AUBase::GetScope(this, a3);
+              v29 = ausdk::AUBase::GetScope(this, a3);
               v12 = 0;
-              *(ausdk::AUScope::GetIOElement(v32, a4) + 168) = __s2->n128_u32[0] != 0;
+              *(ausdk::AUScope::GetIOElement(v29, a4) + 168) = __s2->n128_u32[0] != 0;
               return v12;
             }
 
@@ -3730,11 +3661,9 @@ LABEL_95:
     return 4294956445;
   }
 
-  v29 = __s2->n128_u64[0];
-  v30 = __s2->n128_u64[1];
-  v31 = *(*this + 30);
+  v28 = *(*this + 30);
 
-  return v31();
+  return v28();
 }
 
 void sub_1C91FBF3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16)
@@ -3787,17 +3716,17 @@ uint64_t ausdk::AUBase::IsStreamFormatWritable(ausdk::AUBase *this, uint64_t a2,
   return v8(this, v9, v10);
 }
 
-void *std::vector<AudioChannelLayout>::vector[abi:ne200100](void *result, uint64_t a2)
+void *std::vector<AudioChannelLayout>::vector[abi:ne200100](void *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C91FC0C0(_Unwind_Exception *exception_object)
@@ -3843,26 +3772,26 @@ CFTypeRef ausdk::Owned<__CFString const*>::retainRef(CFTypeRef result)
   return result;
 }
 
-uint64_t ausdk::AUBase::SaveState(ausdk::AUBase *this, ausdk **a2)
+uint64_t ausdk::AUBase::SaveState(const void **this, ausdk **a2)
 {
-  v58 = *MEMORY[0x1E69E9840];
-  *&v43[1] = 0;
+  v57 = *MEMORY[0x1E69E9840];
+  *&v42[1] = 0;
+  v43 = 0;
   v44 = 0;
-  v45 = 0;
-  ausdk::ComponentBase::GetComponentDescription(&v43[1], *(this + 1));
+  ausdk::ComponentBase::GetComponentDescription(&v42[1], this[1]);
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   ausdk::AddNumToDictionary(Mutable, @"version", 0);
-  ausdk::AddNumToDictionary(Mutable, @"type", v43[1]);
-  ausdk::AddNumToDictionary(Mutable, @"subtype", v43[2]);
-  v43[0] = v44;
-  ausdk::AddNumToDictionary(Mutable, @"manufacturer", v44);
+  ausdk::AddNumToDictionary(Mutable, @"type", v42[1]);
+  ausdk::AddNumToDictionary(Mutable, @"subtype", v42[2]);
+  v42[0] = v43;
+  ausdk::AddNumToDictionary(Mutable, @"manufacturer", v43);
   v3 = CFDataCreateMutable(0, 0);
   v4 = 0;
   do
   {
     Scope = ausdk::AUBase::GetScope(this, v4);
     v6 = *(Scope + 40);
-    v41 = v4;
+    v40 = v4;
     if (v6)
     {
       LODWORD(v7) = (*(*v6 + 24))(v6);
@@ -3894,24 +3823,24 @@ uint64_t ausdk::AUBase::SaveState(ausdk::AUBase *this, ausdk **a2)
           CFDataAppendBytes(v3, bytes, 4);
           *bytes = bswap32(v8);
           CFDataAppendBytes(v3, bytes, 4);
-          v50 = *(Scope + 8);
+          v49 = *(Scope + 8);
           theData = v3;
-          v57 = 0;
-          v55 = 0u;
-          v56 = 0u;
+          v56 = 0;
           v54 = 0u;
-          v52 = 0u;
+          v55 = 0u;
           v53 = 0u;
+          v51 = 0u;
+          v52 = 0u;
           *bytes = 0u;
           Length = CFDataGetLength(v3);
-          v48 = 0;
-          v47[0] = v11;
-          v47[1] = &v50;
-          v47[2] = bytes;
-          v47[3] = &theData;
-          v47[4] = &v48;
-          *v46 = 0;
-          CFDataAppendBytes(v3, v46, 4);
+          v47 = 0;
+          v46[0] = v11;
+          v46[1] = &v49;
+          v46[2] = bytes;
+          v46[3] = &theData;
+          v46[4] = &v47;
+          *v45 = 0;
+          CFDataAppendBytes(v3, v45, 4);
           v13 = Mutable;
           if (*(v11 + 40) == 1)
           {
@@ -3923,7 +3852,7 @@ uint64_t ausdk::AUBase::SaveState(ausdk::AUBase *this, ausdk **a2)
               do
               {
                 v17 = COERCE_FLOAT(atomic_load((*(v11 + 48) + 4 * v15)));
-                ausdk::AUElement::SaveState(unsigned int,__CFData *)::$_0::operator()(v47, v15++, v17);
+                ausdk::AUElement::SaveState(unsigned int,__CFData *)::$_0::operator()(v46, v15++, v17);
               }
 
               while (v16 != v15);
@@ -3938,36 +3867,36 @@ uint64_t ausdk::AUBase::SaveState(ausdk::AUBase *this, ausdk **a2)
             {
               v20 = *v18;
               v21 = COERCE_FLOAT(atomic_load(v18 + 1));
-              ausdk::AUElement::SaveState(unsigned int,__CFData *)::$_0::operator()(v47, v20, v21);
+              ausdk::AUElement::SaveState(unsigned int,__CFData *)::$_0::operator()(v46, v20, v21);
               v18 += 2;
             }
           }
 
           Mutable = v13;
-          *&CFDataGetMutableBytePtr(theData)[Length] = bswap32(v48);
+          *&CFDataGetMutableBytePtr(theData)[Length] = bswap32(v47);
         }
       }
 
-      ++v8;
+      v8 = (v8 + 1);
     }
 
     while (v8 != v7);
 LABEL_19:
-    v4 = v41 + 1;
+    v4 = v40 + 1;
   }
 
-  while (v41 != 2);
-  (*(*this + 280))(this, v3);
+  while (v40 != 2);
+  (*(*this + 35))(this, v3);
   CFDictionarySetValue(Mutable, @"data", v3);
   if (v3)
   {
     ausdk::Owned<__CFData *>::releaseRef(v3);
   }
 
-  CFDictionarySetValue(Mutable, @"name", *(this + 46));
-  if (!(*(*this + 88))(this, 26, 0, 0, v43))
+  CFDictionarySetValue(Mutable, @"name", this[46]);
+  if (!(*(*this + 11))(this, 26, 0, 0, v42))
   {
-    ausdk::AddNumToDictionary(Mutable, @"render-quality", v43[0]);
+    ausdk::AddNumToDictionary(Mutable, @"render-quality", v42[0]);
   }
 
   v22 = 0;
@@ -4044,7 +3973,6 @@ LABEL_42:
   *a2 = Mutable;
   ausdk::Owned<__CFData *>::releaseRef(0);
   ausdk::Owned<__CFDictionary *>::releaseRef(0);
-  v38 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -4117,7 +4045,7 @@ LABEL_3:
       v9 = Element;
     }
 
-    ++v11;
+    v11 = (v11 + 1);
   }
 
   while (v8 != v11);
@@ -4325,7 +4253,7 @@ void std::allocator<AudioUnitParameterEvent>::allocate_at_least[abi:ne200100](un
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-unint64_t ausdk::AUBase::SetParameter(ausdk::AUBase *this, unsigned int a2, unsigned int a3, unsigned int a4, float a5)
+unint64_t ausdk::AUBase::SetParameter(ausdk::AUBase *this, unsigned int a2, unsigned int a3, uint64_t a4, float a5)
 {
   ElementOrError = ausdk::AUBase::GetElementOrError(this, a3, a4);
   if (v8)
@@ -4341,7 +4269,7 @@ unint64_t ausdk::AUBase::SetParameter(ausdk::AUBase *this, unsigned int a2, unsi
   return ElementOrError;
 }
 
-unint64_t ausdk::AUBase::GetParameter(ausdk::AUBase *this, unsigned int a2, unsigned int a3, unsigned int a4, float *a5)
+unint64_t ausdk::AUBase::GetParameter(ausdk::AUBase *this, unsigned int a2, unsigned int a3, uint64_t a4, float *a5)
 {
   result = ausdk::AUBase::GetElementOrError(this, a3, a4);
   if (v8)
@@ -4371,7 +4299,7 @@ LABEL_16:
           v14 = v13 >> 1;
           v15 = &v12[8 * (v13 >> 1)];
           v17 = *v15;
-          v16 = v15 + 8;
+          v16 = (v15 + 2);
           v13 += ~(v13 >> 1);
           if (v17 < a2)
           {
@@ -4407,12 +4335,12 @@ LABEL_16:
   return result;
 }
 
-uint64_t ausdk::AUBase::RemoveRenderNotification(ausdk::AUBase *this, int (*a2)(void *, unsigned int *, const AudioTimeStamp *, unsigned int, unsigned int, AudioBufferList *), unint64_t a3)
+uint64_t ausdk::AUBase::RemoveRenderNotification(ausdk::AUBase *this, int (*a2)(void *, unsigned int *, const AudioTimeStamp *, unsigned int, unsigned int, AudioBufferList *), void *a3)
 {
-  v6 = ausdk::AUThreadSafeList<ausdk::AUBase::RenderCallback>::AllocNode(this + 224);
-  *(v6 + 2) = 2;
-  v6[2] = a2;
-  v6[3] = a3;
+  ausdk::AUThreadSafeList<ausdk::AUBase::RenderCallback>::AllocNode(this + 224);
+  *(v6 + 8) = 2;
+  *(v6 + 16) = a2;
+  *(v6 + 24) = a3;
   do
   {
     v7 = atomic_load(this + 29);
@@ -4425,7 +4353,7 @@ uint64_t ausdk::AUBase::RemoveRenderNotification(ausdk::AUBase *this, int (*a2)(
   return 0;
 }
 
-unint64_t *ausdk::AUThreadSafeList<ausdk::AUBase::RenderCallback>::AllocNode(uint64_t a1)
+void ausdk::AUThreadSafeList<ausdk::AUBase::RenderCallback>::AllocNode(uint64_t a1)
 {
   do
   {
@@ -4461,11 +4389,9 @@ unint64_t *ausdk::AUThreadSafeList<ausdk::AUBase::RenderCallback>::AllocNode(uin
 
     while (v7 != v6);
   }
-
-  return v1;
 }
 
-uint64_t ausdk::AUBase::SetRenderNotification(ausdk::AUBase *this, int (*a2)(void *, unsigned int *, const AudioTimeStamp *, unsigned int, unsigned int, AudioBufferList *), unint64_t a3)
+uint64_t ausdk::AUBase::SetRenderNotification(ausdk::AUBase *this, int (*a2)(void *, unsigned int *, const AudioTimeStamp *, unsigned int, unsigned int, AudioBufferList *), void *a3)
 {
   if (!a2)
   {
@@ -4473,10 +4399,10 @@ uint64_t ausdk::AUBase::SetRenderNotification(ausdk::AUBase *this, int (*a2)(voi
   }
 
   *(this + 248) = 1;
-  v6 = ausdk::AUThreadSafeList<ausdk::AUBase::RenderCallback>::AllocNode(this + 224);
-  *(v6 + 2) = 1;
-  v6[2] = a2;
-  v6[3] = a3;
+  ausdk::AUThreadSafeList<ausdk::AUBase::RenderCallback>::AllocNode(this + 224);
+  *(v6 + 8) = 1;
+  *(v6 + 16) = a2;
+  *(v6 + 24) = a3;
   do
   {
     v7 = atomic_load(this + 29);
@@ -4996,17 +4922,17 @@ LABEL_42:
   }
 }
 
-void *std::vector<unsigned int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C91FDC74(_Unwind_Exception *exception_object)
@@ -5021,7 +4947,7 @@ void sub_1C91FDC74(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -5043,28 +4969,28 @@ void std::allocator<unsigned int>::allocate_at_least[abi:ne200100](unint64_t a1)
 
 uint64_t ausdk::AUBase::DoRender(unsigned int &,AudioTimeStamp const&,unsigned int,unsigned int,AudioBufferList &)::$_0::operator()(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     if (!a2)
     {
-      goto LABEL_5;
+      return a2;
     }
 
     goto LABEL_3;
   }
 
-  v6 = (a1 + 440);
+  v5 = (a1 + 440);
   if (*(a1 + 463) < 0)
   {
-    v6 = *v6;
+    v5 = *v5;
   }
 
-  v7 = 136315394;
-  v8 = v6;
-  v9 = 1024;
-  v10 = a2;
-  _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, render err: %d", &v7, 0x12u);
+  v6 = 136315394;
+  v7 = v5;
+  v8 = 1024;
+  v9 = a2;
+  _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, render err: %d", &v6, 0x12u);
   if (a2)
   {
 LABEL_3:
@@ -5075,35 +5001,33 @@ LABEL_3:
     }
   }
 
-LABEL_5:
-  v4 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
 uint64_t ausdk::AUBase::DoProcessMultiple(unsigned int &,AudioTimeStamp const&,unsigned int,unsigned int,AudioBufferList const**,unsigned int,AudioBufferList**)::$_0::operator()(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     if (!a2)
     {
-      goto LABEL_5;
+      return a2;
     }
 
     goto LABEL_3;
   }
 
-  v6 = (a1 + 440);
+  v5 = (a1 + 440);
   if (*(a1 + 463) < 0)
   {
-    v6 = *v6;
+    v5 = *v5;
   }
 
-  v7 = 136315394;
-  v8 = v6;
-  v9 = 1024;
-  v10 = a2;
-  _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, processmultiple err: %d", &v7, 0x12u);
+  v6 = 136315394;
+  v7 = v5;
+  v8 = 1024;
+  v9 = a2;
+  _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, processmultiple err: %d", &v6, 0x12u);
   if (a2)
   {
 LABEL_3:
@@ -5114,8 +5038,6 @@ LABEL_3:
     }
   }
 
-LABEL_5:
-  v4 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
@@ -5200,59 +5122,58 @@ unint64_t ausdk::AUBufferList::PrepareBufferOrError(ausdk::AUBufferList *this, c
   if (*(this + 5) >= a3)
   {
     mFormatFlags = a2->mFormatFlags;
-    mChannelsPerFrame = a2->mChannelsPerFrame;
     if ((mFormatFlags & 0x20) != 0)
     {
-      v7 = a2->mChannelsPerFrame;
+      mChannelsPerFrame = a2->mChannelsPerFrame;
     }
 
     else
     {
-      v7 = 1;
+      mChannelsPerFrame = 1;
     }
 
-    if (v7 <= *(this + 4))
+    if (mChannelsPerFrame <= *(this + 4))
     {
       if ((mFormatFlags & 0x20) != 0)
       {
-        v8 = 1;
+        v7 = 1;
       }
 
       else
       {
-        v8 = a2->mChannelsPerFrame;
+        v7 = a2->mChannelsPerFrame;
       }
 
-      v9 = *(this + 1);
-      v3 = v9 + 48;
-      v10 = *(v9 + 48);
-      if (*(v9 + 48) <= *v9 && (v11 = a2->mBytesPerFrame * a3, v12 = *(v9 + 4), v12 >= v11))
+      v8 = *(this + 1);
+      v3 = v8 + 48;
+      v9 = *(v8 + 48);
+      if (*(v8 + 48) <= *v8 && (v10 = a2->mBytesPerFrame * a3, v11 = *(v8 + 4), v11 >= v10))
       {
-        v14 = *(v9 + 32);
-        v15 = v14 + *(v9 + 20);
-        if (v10)
+        v13 = *(v8 + 32);
+        v14 = v13 + *(v8 + 20);
+        if (v9)
         {
-          v16 = (v9 + 64);
+          v15 = (v8 + 64);
           do
           {
-            *v16 = v14;
-            v14 += v12;
-            *(v16 - 2) = v8;
-            *(v16 - 1) = v11;
-            v16 += 2;
-            --v10;
+            *v15 = v13;
+            v13 += v11;
+            *(v15 - 2) = v7;
+            *(v15 - 1) = v10;
+            v15 += 2;
+            --v9;
           }
 
-          while (v10);
+          while (v9);
         }
 
-        if (v14 > v15)
+        if (v13 > v14)
         {
           v3 = 0xFFFFFFFFLL;
         }
 
         v4 = HIDWORD(v3);
-        if (v14 <= v15)
+        if (v13 <= v14)
         {
           *this = 1;
         }
@@ -5467,34 +5388,10 @@ uint64_t ausdk::AUMethodRemovePropertyListenerWithUserData(ausdk *this, void *a2
   return v10;
 }
 
-void sub_1C91FE7A4(void *a1, int a2)
+void sub_1C91FE7A4(void *a1)
 {
-  switch(a2)
-  {
-    case 5:
-      v3 = __cxa_begin_catch(a1);
-      break;
-    case 4:
-      __cxa_begin_catch(a1);
-      __cxa_end_catch();
-      goto LABEL_10;
-    case 3:
-      v5 = *__cxa_begin_catch(a1);
-      goto LABEL_9;
-    default:
-      v3 = __cxa_begin_catch(a1);
-      if (a2 != 2)
-      {
-        goto LABEL_9;
-      }
-
-      break;
-  }
-
-  v4 = v3[4];
-LABEL_9:
+  __cxa_begin_catch(a1);
   __cxa_end_catch();
-LABEL_10:
   JUMPOUT(0x1C91FE78CLL);
 }
 
@@ -5506,7 +5403,7 @@ uint64_t ausdk::AUMethodScheduleParameters(ausdk *this, char *a2, const AudioUni
   }
 
   v3 = a3;
-  for (i = (a2 + 28); ; i += 8)
+  for (i = a2 + 28; ; i += 32)
   {
     v5 = *(i - 4);
     if (v5 == 2)
@@ -5559,34 +5456,10 @@ uint64_t ausdk::AUMethodRemoveRenderNotify(ausdk *this, void *a2, int (*a3)(void
   return v8;
 }
 
-void sub_1C91FEA14(void *a1, int a2)
+void sub_1C91FEA14(void *a1)
 {
-  switch(a2)
-  {
-    case 5:
-      v3 = __cxa_begin_catch(a1);
-      break;
-    case 4:
-      __cxa_begin_catch(a1);
-      __cxa_end_catch();
-      goto LABEL_10;
-    case 3:
-      v5 = *__cxa_begin_catch(a1);
-      goto LABEL_9;
-    default:
-      v3 = __cxa_begin_catch(a1);
-      if (a2 != 2)
-      {
-        goto LABEL_9;
-      }
-
-      break;
-  }
-
-  v4 = v3[4];
-LABEL_9:
+  __cxa_begin_catch(a1);
   __cxa_end_catch();
-LABEL_10:
   JUMPOUT(0x1C91FEA00);
 }
 
@@ -5607,45 +5480,21 @@ uint64_t ausdk::AUMethodAddRenderNotify(ausdk *this, void *a2, int (*a3)(void *,
   return v8;
 }
 
-void sub_1C91FEB78(void *a1, int a2)
+void sub_1C91FEB78(void *a1)
 {
-  switch(a2)
-  {
-    case 5:
-      v3 = __cxa_begin_catch(a1);
-      break;
-    case 4:
-      __cxa_begin_catch(a1);
-      __cxa_end_catch();
-      goto LABEL_10;
-    case 3:
-      v5 = *__cxa_begin_catch(a1);
-      goto LABEL_9;
-    default:
-      v3 = __cxa_begin_catch(a1);
-      if (a2 != 2)
-      {
-        goto LABEL_9;
-      }
-
-      break;
-  }
-
-  v4 = v3[4];
-LABEL_9:
+  __cxa_begin_catch(a1);
   __cxa_end_catch();
-LABEL_10:
   JUMPOUT(0x1C91FEB64);
 }
 
 uint64_t ausdk::AUMethodRender(ausdk *this, int *a2, unsigned int *a3, const AudioTimeStamp *a4, uint64_t a5, unsigned int *a6, AudioBufferList *a7)
 {
-  v96 = *MEMORY[0x1E69E9840];
-  v88 = 0;
+  v95 = *MEMORY[0x1E69E9840];
+  v87 = 0;
   v7 = 4294967246;
   if (!a3 || !a6)
   {
-    goto LABEL_118;
+    return v7;
   }
 
   if (a2)
@@ -5655,7 +5504,7 @@ uint64_t ausdk::AUMethodRender(ausdk *this, int *a2, unsigned int *a3, const Aud
 
   else
   {
-    v10 = &v88;
+    v10 = &v87;
   }
 
   v11 = this + 64;
@@ -5672,9 +5521,9 @@ uint64_t ausdk::AUMethodRender(ausdk *this, int *a2, unsigned int *a3, const Aud
         {
           v63 = *(this + 100);
           *buf = 67109376;
-          *v90 = a5;
-          *&v90[4] = 1024;
-          *&v90[6] = v63;
+          *v89 = a5;
+          *&v89[4] = 1024;
+          *&v89[6] = v63;
           _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "kAudioUnitErr_TooManyFramesToProcess : inFramesToProcess=%u, mMaxFramesPerSlice=%u", buf, 0xEu);
         }
       }
@@ -5688,9 +5537,9 @@ uint64_t ausdk::AUMethodRender(ausdk *this, int *a2, unsigned int *a3, const Aud
         }
 
         *buf = 136315394;
-        *v90 = v61;
-        *&v90[8] = 1024;
-        *v91 = -10874;
+        *v89 = v61;
+        *&v89[8] = 1024;
+        *v90 = -10874;
         _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, render err: %d", buf, 0x12u);
       }
 
@@ -5701,7 +5550,7 @@ uint64_t ausdk::AUMethodRender(ausdk *this, int *a2, unsigned int *a3, const Aud
         (*(*(this + 8) + 432))(v11, 22, 0, 0);
       }
 
-      goto LABEL_118;
+      return v7;
     }
 
     if (v13 != a5 && (*(this + 440) & 1) != 0)
@@ -5715,29 +5564,28 @@ uint64_t ausdk::AUMethodRender(ausdk *this, int *a2, unsigned int *a3, const Aud
         }
 
         *buf = 136315394;
-        *v90 = v62;
-        *&v90[8] = 1024;
-        *v91 = -50;
+        *v89 = v62;
+        *&v89[8] = 1024;
+        *v90 = -50;
         _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, render err: %d", buf, 0x12u);
       }
 
       v7 = 4294967246;
       if (*(this + 101))
       {
-        goto LABEL_118;
+        return v7;
       }
 
 LABEL_21:
       *(this + 101) = -50;
       (*(*(this + 8) + 432))(v11, 22, 0, 0);
-      goto LABEL_118;
+      return v7;
     }
 
     v17 = ausdk::AUScope::GetElementOrError<ausdk::AUInputElement>(this + 192, a4);
     if ((v18 & 1) == 0)
     {
-      v7 = v17;
-      goto LABEL_118;
+      return v17;
     }
 
     if ((*(v17 + 92) & 0x20) != 0)
@@ -5753,8 +5601,8 @@ LABEL_21:
     v20 = *a6;
     if (v19 == *a6)
     {
-      v86 = v11;
-      v87 = v17;
+      v85 = v11;
+      v86 = v17;
       if (v19)
       {
         v21 = 0;
@@ -5772,30 +5620,30 @@ LABEL_21:
               if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
               {
                 *buf = 67110144;
-                *v90 = a5;
-                *&v90[4] = 1024;
-                *&v90[6] = v60;
-                *v91 = 1024;
-                *&v91[2] = v23;
-                v92 = 1024;
-                v93 = v21;
-                v94 = 1024;
-                v95 = v25;
+                *v89 = a5;
+                *&v89[4] = 1024;
+                *&v89[6] = v60;
+                *v90 = 1024;
+                *&v90[2] = v23;
+                v91 = 1024;
+                v92 = v21;
+                v93 = 1024;
+                v94 = v25;
                 _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%u frames, %u bytes/frame, expected %u-byte buffer; ioData.mBuffers[%u].mDataByteSize=%u; kAudio_ParamError", buf, 0x20u);
               }
 
               if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
               {
-                v84 = (this + 504);
+                v83 = (this + 504);
                 if (*(this + 527) < 0)
                 {
-                  v84 = *v84;
+                  v83 = *v83;
                 }
 
                 *buf = 136315394;
-                *v90 = v84;
-                *&v90[8] = 1024;
-                *v91 = -50;
+                *v89 = v83;
+                *&v89[8] = 1024;
+                *v90 = -50;
                 _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, render err: %d", buf, 0x12u);
               }
 
@@ -5803,10 +5651,10 @@ LABEL_21:
               if (!*(this + 101))
               {
                 *(this + 101) = -50;
-                (*(*(this + 8) + 432))(v86, 22, 0, 0);
+                (*(*(this + 8) + 432))(v85, 22, 0, 0);
               }
 
-              goto LABEL_118;
+              return v7;
             }
 
             *v24 = v23;
@@ -5819,7 +5667,7 @@ LABEL_21:
         while (v19 != v21);
       }
 
-      v26 = v86;
+      v26 = v85;
       i = v17;
       if (*(this + 328) == 1)
       {
@@ -6014,7 +5862,7 @@ LABEL_72:
 LABEL_82:
         *buf = *v10 | 4;
         v57 = atomic_load(this + 36);
-        for (i = v87; v57; v57 = *v57)
+        for (i = v86; v57; v57 = *v57)
         {
           (*(v57 + 16))(*(v57 + 24), buf, a3, a4, a5, a6);
         }
@@ -6063,74 +5911,74 @@ LABEL_110:
         }
       }
 
-      v7 = (*(*v86 + 200))(v86, v10, a3, a4, a5);
+      v7 = (*(*v85 + 200))(v85, v10, a3, a4, a5);
       if (v7)
       {
         goto LABEL_110;
       }
 
-      v72 = *(i + 144);
+      v71 = *(i + 144);
       if (*(a6 + 2))
       {
-        if (v72)
+        if (v71)
         {
-          v73 = *a6;
+          v72 = *a6;
           if (!*a6)
           {
 LABEL_133:
             v7 = 0;
-            *(v87 + 144) = 0;
+            *(v86 + 144) = 0;
 LABEL_134:
             v67 = 8;
             goto LABEL_113;
           }
 
-          v74 = 0;
-          v85 = *(v87 + 152);
-          v75 = v85 + 56;
-          v76 = (a6 + 4);
+          v73 = 0;
+          v84 = *(v86 + 152);
+          v74 = v84 + 56;
+          v75 = (a6 + 4);
           while (1)
           {
-            v77 = -16;
-            if (v74 < *(v85 + 48))
+            v76 = -16;
+            if (v73 < *(v84 + 48))
             {
-              v77 = 0;
+              v76 = 0;
             }
 
-            v78 = v75 + v77;
-            v79 = *(v75 + v77 + 4);
-            v80 = *(v75 + v77 + 8);
-            v81 = *v76;
-            if (v79)
+            v77 = v74 + v76;
+            v78 = *(v74 + v76 + 4);
+            v79 = *(v74 + v76 + 8);
+            v80 = *v75;
+            if (v78)
             {
-              if (!v80 || v81 == 0)
+              if (!v79 || v80 == 0)
               {
                 break;
               }
             }
 
-            if (v81 != v80)
+            if (v80 != v79)
             {
-              memmove(v81, v80, *(v75 + v77 + 4));
-              v73 = *a6;
+              memmove(v80, v79, *(v74 + v76 + 4));
+              v72 = *a6;
             }
 
-            *(v76 - 1) = v79;
-            ++v74;
-            v75 = v78 + 16;
-            v76 += 2;
-            if (v74 >= v73)
+            *(v75 - 1) = v78;
+            ++v73;
+            v74 = v77 + 16;
+            v75 += 2;
+            if (v73 >= v72)
             {
               goto LABEL_133;
             }
           }
         }
 
-        v26 = v86;
-        *(v87 + 144) = 0;
+        v26 = v85;
+        *(v86 + 144) = 0;
       }
 
-      else if (v72)
+      else if (v71)
       {
         v67 = 8;
         memcpy(a6, (*(i + 152) + 48), (16 * *a6) | 8);
@@ -6151,7 +5999,7 @@ LABEL_113:
           *(this + 57) = v69;
         }
 
-        goto LABEL_118;
+        return v7;
       }
 
       goto LABEL_106;
@@ -6160,24 +6008,24 @@ LABEL_113:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
-      *v90 = v20;
-      *&v90[4] = 1024;
-      *&v90[6] = v19;
+      *v89 = v20;
+      *&v89[4] = 1024;
+      *&v89[6] = v19;
       _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ioData.mNumberBuffers=%u, ASBD::NumberChannelStreams(output.GetStreamFormat())=%u; kAudio_ParamError", buf, 0xEu);
     }
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v83 = (this + 504);
+      v82 = (this + 504);
       if (*(this + 527) < 0)
       {
-        v83 = *v83;
+        v82 = *v82;
       }
 
       *buf = 136315394;
-      *v90 = v83;
-      *&v90[8] = 1024;
-      *v91 = -50;
+      *v89 = v82;
+      *&v89[8] = 1024;
+      *v90 = -50;
       _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, render err: %d", buf, 0x12u);
     }
 
@@ -6199,9 +6047,9 @@ LABEL_113:
       }
 
       *buf = 136315394;
-      *v90 = v56;
-      *&v90[8] = 1024;
-      *v91 = -10867;
+      *v89 = v56;
+      *&v89[8] = 1024;
+      *v90 = -10867;
       _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, render err: %d", buf, 0x12u);
     }
 
@@ -6213,8 +6061,6 @@ LABEL_113:
     }
   }
 
-LABEL_118:
-  v70 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -6257,34 +6103,10 @@ uint64_t ausdk::AUMethodRemovePropertyListener(ausdk *this, void *a2, uint64_t a
   return v8;
 }
 
-void sub_1C91FF8C0(void *a1, int a2)
+void sub_1C91FF8C0(void *a1)
 {
-  switch(a2)
-  {
-    case 5:
-      v3 = __cxa_begin_catch(a1);
-      break;
-    case 4:
-      __cxa_begin_catch(a1);
-      __cxa_end_catch();
-      goto LABEL_10;
-    case 3:
-      v5 = *__cxa_begin_catch(a1);
-      goto LABEL_9;
-    default:
-      v3 = __cxa_begin_catch(a1);
-      if (a2 != 2)
-      {
-        goto LABEL_9;
-      }
-
-      break;
-  }
-
-  v4 = v3[4];
-LABEL_9:
+  __cxa_begin_catch(a1);
   __cxa_end_catch();
-LABEL_10:
   JUMPOUT(0x1C91FF8ACLL);
 }
 
@@ -6305,34 +6127,10 @@ uint64_t ausdk::AUMethodAddPropertyListener(ausdk *this, void *a2, uint64_t a3, 
   return v10;
 }
 
-void sub_1C91FFA34(void *a1, int a2)
+void sub_1C91FFA34(void *a1)
 {
-  switch(a2)
-  {
-    case 5:
-      v3 = __cxa_begin_catch(a1);
-      break;
-    case 4:
-      __cxa_begin_catch(a1);
-      __cxa_end_catch();
-      goto LABEL_10;
-    case 3:
-      v5 = *__cxa_begin_catch(a1);
-      goto LABEL_9;
-    default:
-      v3 = __cxa_begin_catch(a1);
-      if (a2 != 2)
-      {
-        goto LABEL_9;
-      }
-
-      break;
-  }
-
-  v4 = v3[4];
-LABEL_9:
+  __cxa_begin_catch(a1);
   __cxa_end_catch();
-LABEL_10:
   JUMPOUT(0x1C91FFA1CLL);
 }
 
@@ -6360,34 +6158,10 @@ uint64_t ausdk::AUMethodReset(ausdk *this, void *a2, uint64_t a3)
   return v9;
 }
 
-void sub_1C91FFBB4(void *a1, int a2)
+void sub_1C91FFBB4(void *a1)
 {
-  switch(a2)
-  {
-    case 5:
-      v3 = __cxa_begin_catch(a1);
-      break;
-    case 4:
-      __cxa_begin_catch(a1);
-      __cxa_end_catch();
-      goto LABEL_10;
-    case 3:
-      v5 = *__cxa_begin_catch(a1);
-      goto LABEL_9;
-    default:
-      v3 = __cxa_begin_catch(a1);
-      if (a2 != 2)
-      {
-        goto LABEL_9;
-      }
-
-      break;
-  }
-
-  v4 = v3[4];
-LABEL_9:
+  __cxa_begin_catch(a1);
   __cxa_end_catch();
-LABEL_10:
   JUMPOUT(0x1C91FFBA0);
 }
 
@@ -6553,41 +6327,17 @@ LABEL_34:
   return v14;
 }
 
-void sub_1C92000D8(void *a1, int a2)
+void sub_1C92000D8(void *a1)
 {
-  switch(a2)
-  {
-    case 5:
-      v3 = __cxa_begin_catch(a1);
-      break;
-    case 4:
-      __cxa_begin_catch(a1);
-      __cxa_end_catch();
-      goto LABEL_10;
-    case 3:
-      v5 = *__cxa_begin_catch(a1);
-      goto LABEL_9;
-    default:
-      v3 = __cxa_begin_catch(a1);
-      if (a2 != 2)
-      {
-        goto LABEL_9;
-      }
-
-      break;
-  }
-
-  v4 = v3[4];
-LABEL_9:
+  __cxa_begin_catch(a1);
   __cxa_end_catch();
-LABEL_10:
   JUMPOUT(0x1C9200088);
 }
 
-uint64_t ausdk::AUMethodGetProperty(ausdk *this, void *a2, uint64_t a3, uint64_t a4, _OWORD *a5, unsigned int *a6, unsigned int *a7)
+uint64_t ausdk::AUMethodGetProperty(ausdk *this, void *a2, uint64_t a3, uint64_t a4, char *a5, unsigned int *a6, unsigned int *a7)
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v45 = 0;
+  v53 = *MEMORY[0x1E69E9840];
+  v44 = 0;
   v13 = *(this + 67);
   if (v13)
   {
@@ -6616,7 +6366,7 @@ LABEL_23:
   if (!a5)
   {
     *buf = 0;
-    PropertyInfo = ausdk::AUBase::DispatchGetPropertyInfo((this + 64), a2, a3, a4, buf, &v45);
+    PropertyInfo = ausdk::AUBase::DispatchGetPropertyInfo((this + 64), a2, a3, a4, buf, &v44);
     v15 = 0;
     *a6 = *buf;
     v14 = PropertyInfo;
@@ -6637,8 +6387,8 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v44 = 0;
-  v14 = ausdk::AUBase::DispatchGetPropertyInfo((this + 64), a2, a3, a4, &v44, &v45);
+  v43 = 0;
+  v14 = ausdk::AUBase::DispatchGetPropertyInfo((this + 64), a2, a3, a4, &v43, &v44);
   v15 = v14 == 0;
   if (v14)
   {
@@ -6646,8 +6396,8 @@ LABEL_23:
     goto LABEL_13;
   }
 
-  v42 = (this + 64);
-  if (__n < v44)
+  v41 = (this + 64);
+  if (__n < v43)
   {
     operator new();
   }
@@ -6656,7 +6406,7 @@ LABEL_23:
   {
     case 0:
       *buf = 0;
-      v21 = (*(*v42 + 272))(v42, buf);
+      v20 = (*(*v41 + 272))(v41, buf);
       goto LABEL_47;
     case 1:
     case 5:
@@ -6692,108 +6442,108 @@ LABEL_23:
     case 52:
       goto LABEL_26;
     case 2:
-      (*(*v42 + 392))(buf);
-      v22 = *buf;
+      (*(*v41 + 392))(buf);
+      v21 = *buf;
       goto LABEL_51;
     case 3:
-      v46 = 0;
-      PropertyInfo = (*(*v42 + 248))(v42, a3, 0, &v46);
+      v45 = 0;
+      PropertyInfo = (*(*v41 + 248))(v41, a3, 0, &v45);
       if (!PropertyInfo)
       {
-        std::vector<unsigned int>::vector[abi:ne200100](buf, v46);
-        PropertyInfo = (*(*v42 + 248))(v42, a3, *buf, &v46);
-        v38 = *buf;
+        std::vector<unsigned int>::vector[abi:ne200100](buf, v45);
+        PropertyInfo = (*(*v41 + 248))(v41, a3, *buf, &v45);
+        v37 = *buf;
         if (!PropertyInfo)
         {
           memcpy(a5, *buf, *&buf[8] - *buf);
         }
 
-        if (v38)
+        if (v37)
         {
-          *&buf[8] = v38;
-          operator delete(v38);
+          *&buf[8] = v37;
+          operator delete(v37);
         }
       }
 
       goto LABEL_48;
     case 4:
-      v53 = 0;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
+      v52 = 0;
       v50 = 0u;
-      *buf = 0u;
+      v51 = 0u;
       v48 = 0u;
-      PropertyInfo = (*(*v42 + 256))(v42, a3, a4, buf);
-      v32 = v52;
-      a5[4] = v51;
-      a5[5] = v32;
-      *(a5 + 12) = v53;
-      v33 = v48;
+      v49 = 0u;
+      *buf = 0u;
+      v47 = 0u;
+      PropertyInfo = (*(*v41 + 256))(v41, a3, a4, buf);
+      v31 = v51;
+      *(a5 + 4) = v50;
+      *(a5 + 5) = v31;
+      *(a5 + 12) = v52;
+      v32 = v47;
       *a5 = *buf;
-      a5[1] = v33;
-      v34 = v50;
-      a5[2] = v49;
-      a5[3] = v34;
+      *(a5 + 1) = v32;
+      v33 = v49;
+      *(a5 + 2) = v48;
+      *(a5 + 3) = v33;
       goto LABEL_48;
     case 8:
-      (*(*v42 + 392))(buf);
-      v36 = v48;
+      (*(*v41 + 392))(buf);
+      v35 = v47;
       *a5 = *buf;
-      a5[1] = v36;
-      *(a5 + 4) = v49;
+      *(a5 + 1) = v35;
+      *(a5 + 4) = v48;
       goto LABEL_76;
     case 11:
-      Scope = ausdk::AUBase::GetScope(v42, a3);
-      v29 = Scope[5];
-      if (v29)
+      Scope = ausdk::AUBase::GetScope(v41, a3);
+      v28 = Scope[5];
+      if (v28)
       {
-        LODWORD(v30) = (*(*v29 + 24))(v29);
+        LODWORD(v29) = (*(*v28 + 24))(v28);
       }
 
       else
       {
-        v30 = (Scope[3] - Scope[2]) >> 3;
+        v29 = (Scope[3] - Scope[2]) >> 3;
       }
 
-      *a5 = v30;
+      *a5 = v29;
       goto LABEL_76;
     case 12:
-      (*(*v42 + 344))(v42);
+      (*(*v41 + 344))(v41);
       goto LABEL_68;
     case 13:
       *buf = 0;
-      v39 = (*(*v42 + 376))(v42, buf);
-      if (v39 && *buf)
+      v38 = (*(*v41 + 376))(v41, buf);
+      if (v38 && *buf)
       {
-        memcpy(a5, *buf, 4 * v39);
+        memcpy(a5, *buf, 4 * v38);
       }
 
       goto LABEL_76;
     case 14:
-      v35 = *(this + 100);
+      v34 = *(this + 100);
       goto LABEL_70;
     case 16:
       *buf = 0;
-      v21 = (*(*v42 + 296))(v42, a3, a4, buf);
+      v20 = (*(*v41 + 296))(v41, a3, a4, buf);
       goto LABEL_47;
     case 19:
       buf[0] = 0;
-      if (!(*(*v42 + 528))(v42, a3, a4, a5, buf))
+      if (!(*(*v41 + 528))(v41, a3, a4, a5, buf))
       {
         goto LABEL_79;
       }
 
       goto LABEL_76;
     case 20:
-      if (!(*(*v42 + 360))(v42))
+      if (!(*(*v41 + 360))(v41))
       {
         goto LABEL_79;
       }
 
-      v40 = (*(*v42 + 352))(v42);
+      v39 = (*(*v41 + 352))(v41);
 LABEL_68:
-      *a5 = v40;
+      *a5 = v39;
       goto LABEL_76;
     case 22:
       *a5 = *(this + 101);
@@ -6801,33 +6551,33 @@ LABEL_68:
       goto LABEL_76;
     case 24:
       *buf = 0;
-      v21 = (*(*v42 + 312))(v42, buf);
+      v20 = (*(*v41 + 312))(v41, buf);
       goto LABEL_47;
     case 25:
-      v31 = *(this + 73);
-      *a5 = v31;
-      if (!v31)
+      v30 = *(this + 73);
+      *a5 = v30;
+      if (!v30)
       {
         goto LABEL_40;
       }
 
       goto LABEL_72;
     case 27:
-      v26 = *(this + 34);
-      v27 = *(this + 35);
+      v25 = *(this + 34);
+      v26 = *(this + 35);
       *(a5 + 4) = *(this + 72);
-      *a5 = v26;
-      a5[1] = v27;
+      *a5 = v25;
+      *(a5 + 1) = v26;
       goto LABEL_76;
     case 30:
-      v24 = ausdk::AUBase::GetScope(v42, a3);
-      v25 = *(ausdk::AUScope::GetElement(v24, a4) + 72);
-      ausdk::Owned<__CFString const*>::retainRef(v25);
-      ausdk::Owned<__CFString const*>::releaseRef(v25);
-      if (v25)
+      v23 = ausdk::AUBase::GetScope(v41, a3);
+      v24 = *(ausdk::AUScope::GetElement(v23, a4) + 72);
+      ausdk::Owned<__CFString const*>::retainRef(v24);
+      ausdk::Owned<__CFString const*>::releaseRef(v24);
+      if (v24)
       {
-        CFRetain(v25);
-        *a5 = v25;
+        CFRetain(v24);
+        *a5 = v24;
         goto LABEL_76;
       }
 
@@ -6835,15 +6585,15 @@ LABEL_40:
       PropertyInfo = 4294956446;
       goto LABEL_80;
     case 32:
-      (*(*v42 + 552))(buf);
-      v37 = *buf;
+      (*(*v41 + 552))(buf);
+      v36 = *buf;
       if (*buf != *&buf[8])
       {
         memcpy(a5, *buf, *&buf[8] - *buf);
-        if (v37)
+        if (v36)
         {
-          *&buf[8] = v37;
-          operator delete(v37);
+          *&buf[8] = v36;
+          operator delete(v36);
         }
 
         goto LABEL_76;
@@ -6866,63 +6616,63 @@ LABEL_79:
         goto LABEL_80;
       }
 
-      PropertyInfo = (*(*v42 + 304))(v42, a3);
+      PropertyInfo = (*(*v41 + 304))(v41, a3);
       *a5 = *buf;
       if (PropertyInfo != -10879)
       {
         goto LABEL_48;
       }
 
-      v23 = (*(*v42 + 88))(v42, 35, a3, a4, a5);
+      v22 = (*(*v41 + 88))(v41, 35, a3, a4, a5);
       goto LABEL_32;
     case 36:
       *a5 = *(this + 424);
-      v31 = *(this + 54);
-      if (!v31)
+      v30 = *(this + 54);
+      if (!v30)
       {
         goto LABEL_76;
       }
 
       goto LABEL_72;
     case 51:
-      v41 = ausdk::AUBase::GetScope(v42, a3);
-      v35 = *(ausdk::AUScope::GetIOElement(v41, a4) + 168);
+      v40 = ausdk::AUBase::GetScope(v41, a3);
+      v34 = *(ausdk::AUScope::GetIOElement(v40, a4) + 168);
 LABEL_70:
-      *a5 = v35;
+      *a5 = v34;
       goto LABEL_76;
     case 53:
       *buf = 0;
-      v21 = (*(*v42 + 264))(v42, a3, a4, buf, &buf[4]);
+      v20 = (*(*v41 + 264))(v41, a3, a4, buf, &buf[4]);
 LABEL_47:
-      PropertyInfo = v21;
+      PropertyInfo = v20;
       *a5 = *buf;
       goto LABEL_48;
     case 54:
-      v31 = *(this + 66);
-      *a5 = v31;
-      if (v31)
+      v30 = *(this + 66);
+      *a5 = v30;
+      if (v30)
       {
 LABEL_72:
-        CFRetain(v31);
+        CFRetain(v30);
       }
 
       goto LABEL_76;
     default:
       if (a2 == 61)
       {
-        v22 = *(this + 42);
+        v21 = *(this + 42);
 LABEL_51:
-        *a5 = v22;
+        *a5 = v21;
 LABEL_76:
         PropertyInfo = 0;
-        *a6 = v44;
+        *a6 = v43;
         break;
       }
 
 LABEL_26:
-      v23 = (*(*v42 + 88))(v42, a2, a3, a4, a5);
+      v22 = (*(*v41 + 88))(v41, a2, a3, a4, a5);
 LABEL_32:
-      PropertyInfo = v23;
+      PropertyInfo = v22;
 LABEL_48:
       if (!PropertyInfo)
       {
@@ -6942,10 +6692,9 @@ LABEL_13:
 
   if (v15)
   {
-    v14 = PropertyInfo;
+    return PropertyInfo;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -6968,31 +6717,8 @@ void sub_1C9200B14(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
       (*(*v16 + 24))(v16);
     }
 
-    switch(a2)
-    {
-      case 5:
-        v19 = *(__cxa_begin_catch(exception_object) + 4);
-        __cxa_end_catch();
-        break;
-      case 4:
-        __cxa_begin_catch(exception_object);
-        __cxa_end_catch();
-        break;
-      case 3:
-        v20 = *__cxa_begin_catch(exception_object);
-        __cxa_end_catch();
-        break;
-      default:
-        v21 = __cxa_begin_catch(exception_object);
-        if (a2 == 2)
-        {
-          v22 = v21[4];
-        }
-
-        __cxa_end_catch();
-        break;
-    }
-
+    __cxa_begin_catch(exception_object);
+    __cxa_end_catch();
     JUMPOUT(0x1C9200304);
   }
 
@@ -7029,34 +6755,10 @@ uint64_t ausdk::AUMethodGetPropertyInfo(ausdk *this, void *a2, uint64_t a3, uint
   return PropertyInfo;
 }
 
-void sub_1C9200D10(void *a1, int a2)
+void sub_1C9200D10(void *a1)
 {
-  switch(a2)
-  {
-    case 5:
-      v3 = __cxa_begin_catch(a1);
-      break;
-    case 4:
-      __cxa_begin_catch(a1);
-      __cxa_end_catch();
-      goto LABEL_10;
-    case 3:
-      v5 = *__cxa_begin_catch(a1);
-      goto LABEL_9;
-    default:
-      v3 = __cxa_begin_catch(a1);
-      if (a2 != 2)
-      {
-        goto LABEL_9;
-      }
-
-      break;
-  }
-
-  v4 = v3[4];
-LABEL_9:
+  __cxa_begin_catch(a1);
   __cxa_end_catch();
-LABEL_10:
   JUMPOUT(0x1C9200CF0);
 }
 
@@ -7078,34 +6780,10 @@ uint64_t ausdk::AUMethodUninitialize(ausdk *this, void *a2)
   return v3;
 }
 
-void sub_1C9200E3C(void *a1, int a2)
+void sub_1C9200E3C(void *a1)
 {
-  switch(a2)
-  {
-    case 5:
-      v3 = __cxa_begin_catch(a1);
-      break;
-    case 4:
-      __cxa_begin_catch(a1);
-      __cxa_end_catch();
-      goto LABEL_10;
-    case 3:
-      v5 = *__cxa_begin_catch(a1);
-      goto LABEL_9;
-    default:
-      v3 = __cxa_begin_catch(a1);
-      if (a2 != 2)
-      {
-        goto LABEL_9;
-      }
-
-      break;
-  }
-
-  v4 = v3[4];
-LABEL_9:
+  __cxa_begin_catch(a1);
   __cxa_end_catch();
-LABEL_10:
   JUMPOUT(0x1C9200E2CLL);
 }
 
@@ -7129,7 +6807,6 @@ uint64_t ausdk::AUMethodInitialize(ausdk *this, void *a2)
     {
       if ((*(*(this + 8) + 160))(this + 64) && *(this + 58) - *(this + 56) <= 0x2FFuLL)
       {
-        v5 = *(this + 57);
         operator new();
       }
 
@@ -7149,34 +6826,10 @@ uint64_t ausdk::AUMethodInitialize(ausdk *this, void *a2)
   return v4;
 }
 
-void sub_1C9201094(void *a1, int a2)
+void sub_1C9201094(void *a1)
 {
-  switch(a2)
-  {
-    case 5:
-      v3 = __cxa_begin_catch(a1);
-      break;
-    case 4:
-      __cxa_begin_catch(a1);
-      __cxa_end_catch();
-      goto LABEL_10;
-    case 3:
-      v5 = *__cxa_begin_catch(a1);
-      goto LABEL_9;
-    default:
-      v3 = __cxa_begin_catch(a1);
-      if (a2 != 2)
-      {
-        goto LABEL_9;
-      }
-
-      break;
-  }
-
-  v4 = v3[4];
-LABEL_9:
+  __cxa_begin_catch(a1);
   __cxa_end_catch();
-LABEL_10:
   JUMPOUT(0x1C9201078);
 }
 
@@ -7218,8 +6871,8 @@ uint64_t ausdk::AUMethodProcessMultiple(ausdk *this, int *a2, unsigned int *a3, 
   v10 = a7;
   v12 = a5;
   v13 = a4;
-  v73 = *MEMORY[0x1E69E9840];
-  v63 = 0;
+  v72 = *MEMORY[0x1E69E9840];
+  v62 = 0;
   if (a2)
   {
     v16 = a2;
@@ -7233,13 +6886,13 @@ uint64_t ausdk::AUMethodProcessMultiple(ausdk *this, int *a2, unsigned int *a3, 
   else
   {
     LOWORD(v17) = 0;
-    v16 = &v63;
+    v16 = &v62;
   }
 
   v18 = 4294967246;
   if (!a3 || !a6 || !a8)
   {
-    goto LABEL_56;
+    return v18;
   }
 
 LABEL_8:
@@ -7253,16 +6906,16 @@ LABEL_8:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v48 = (this + 504);
+      v47 = (this + 504);
       if (*(this + 527) < 0)
       {
-        v48 = *v48;
+        v47 = *v47;
       }
 
       *buf = 136315394;
-      *v65 = v48;
-      *&v65[8] = 1024;
-      *v66 = -10867;
+      *v64 = v47;
+      *&v64[8] = 1024;
+      *v65 = -10867;
       _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, processmultiple err: %d", buf, 0x12u);
     }
 
@@ -7273,7 +6926,7 @@ LABEL_8:
       (*(*(this + 8) + 432))(this + 64, 22, 0, 0);
     }
 
-    goto LABEL_56;
+    return v18;
   }
 
   v20 = *(this + 100);
@@ -7281,16 +6934,16 @@ LABEL_8:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v50 = (this + 504);
+      v49 = (this + 504);
       if (*(this + 527) < 0)
       {
-        v50 = *v50;
+        v49 = *v49;
       }
 
       *buf = 136315394;
-      *v65 = v50;
-      *&v65[8] = 1024;
-      *v66 = -10874;
+      *v64 = v49;
+      *&v64[8] = 1024;
+      *v65 = -10874;
       _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, processmultiple err: %d", buf, 0x12u);
     }
 
@@ -7301,23 +6954,23 @@ LABEL_8:
       (*(*(this + 8) + 432))(this + 64, 22, 0, 0);
     }
 
-    goto LABEL_56;
+    return v18;
   }
 
   if (v20 != a4 && (*(this + 440) & 1) != 0)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v51 = (this + 504);
+      v50 = (this + 504);
       if (*(this + 527) < 0)
       {
-        v51 = *v51;
+        v50 = *v50;
       }
 
       *buf = 136315394;
-      *v65 = v51;
-      *&v65[8] = 1024;
-      *v66 = -50;
+      *v64 = v50;
+      *&v64[8] = 1024;
+      *v65 = -50;
       _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, processmultiple err: %d", buf, 0x12u);
     }
 
@@ -7328,13 +6981,13 @@ LABEL_8:
       (*(*(this + 8) + 432))(this + 64, 22, 0, 0);
     }
 
-    goto LABEL_56;
+    return v18;
   }
 
-  v60 = a7;
-  v61 = a5;
-  v62 = a4;
-  v58 = this + 64;
+  v59 = a7;
+  v60 = a5;
+  v61 = a4;
+  v57 = this + 64;
   if (a5)
   {
     v21 = 0;
@@ -7345,8 +6998,7 @@ LABEL_8:
         v22 = ausdk::AUScope::GetElementOrError<ausdk::AUInputElement>(this + 144, v21);
         if ((v23 & 1) == 0)
         {
-          v18 = v22;
-          goto LABEL_56;
+          return v22;
         }
 
         if ((*(v22 + 92) & 0x20) != 0)
@@ -7366,46 +7018,46 @@ LABEL_8:
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             *buf = 67109632;
-            *v65 = v21;
-            *&v65[4] = 1024;
-            *&v65[6] = v26;
-            *v66 = 1024;
-            *&v66[2] = v24;
+            *v64 = v21;
+            *&v64[4] = 1024;
+            *&v64[6] = v26;
+            *v65 = 1024;
+            *&v65[2] = v24;
             _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "inInputBufferLists[%u]->mNumberBuffers=%u, ASBD::NumberChannelStreams(input.GetStreamFormat())=%u; kAudio_ParamError", buf, 0x14u);
           }
 
-          v52 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v53 = v58;
-          if (v52)
+          v51 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v52 = v57;
+          if (v51)
           {
-            v56 = (this + 504);
+            v55 = (this + 504);
             if (*(this + 527) < 0)
             {
-              v56 = *v56;
+              v55 = *v55;
             }
 
             *buf = 136315394;
-            *v65 = v56;
-            *&v65[8] = 1024;
-            *v66 = -50;
+            *v64 = v55;
+            *&v64[8] = 1024;
+            *v65 = -50;
             _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, processmultiple err: %d", buf, 0x12u);
-            v53 = v58;
+            v52 = v57;
           }
 
           v18 = 4294967246;
           if (!*(this + 101))
           {
             *(this + 101) = -50;
-            (*(*(this + 8) + 432))(v53, 22, 0, 0);
+            (*(*(this + 8) + 432))(v52, 22, 0, 0);
           }
 
-          goto LABEL_56;
+          return v18;
         }
 
         if (v24)
         {
           v27 = 0;
-          v28 = *(v22 + 104) * v62;
+          v28 = *(v22 + 104) * v61;
           v29 = v25 + 4;
           while (1)
           {
@@ -7428,37 +7080,37 @@ LABEL_8:
             }
           }
 
-          v47 = *(v22 + 104);
+          v46 = *(v22 + 104);
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             *buf = 67110400;
-            *v65 = v62;
-            *&v65[4] = 1024;
-            *&v65[6] = v47;
-            *v66 = 1024;
-            *&v66[2] = v28;
-            v67 = 1024;
-            v68 = v21;
-            v69 = 1024;
-            v70 = v27;
-            v71 = 1024;
-            v72 = v30;
+            *v64 = v61;
+            *&v64[4] = 1024;
+            *&v64[6] = v46;
+            *v65 = 1024;
+            *&v65[2] = v28;
+            v66 = 1024;
+            v67 = v21;
+            v68 = 1024;
+            v69 = v27;
+            v70 = 1024;
+            v71 = v30;
             _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%u frames, %u bytes/frame, expected %u-byte buffer; inInputBufferLists[%u].mBuffers[%u].mDataByteSize=%u; kAudio_ParamError", buf, 0x26u);
           }
 
 LABEL_59:
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v54 = (this + 504);
+            v53 = (this + 504);
             if (*(this + 527) < 0)
             {
-              v54 = *v54;
+              v53 = *v53;
             }
 
             *buf = 136315394;
-            *v65 = v54;
-            *&v65[8] = 1024;
-            *v66 = -50;
+            *v64 = v53;
+            *&v64[8] = 1024;
+            *v65 = -50;
             _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, processmultiple err: %d", buf, 0x12u);
           }
 
@@ -7466,10 +7118,10 @@ LABEL_59:
           if (!*(this + 101))
           {
             *(this + 101) = -50;
-            (*(*v58 + 432))(v58, 22, 0, 0);
+            (*(*v57 + 432))(v57, 22, 0, 0);
           }
 
-          goto LABEL_56;
+          return v18;
         }
       }
 
@@ -7477,14 +7129,14 @@ LABEL_35:
       ++v21;
     }
 
-    while (v21 != v61);
+    while (v21 != v60);
   }
 
-  v19 = v58;
-  v12 = v61;
-  v13 = v62;
-  v10 = v60;
-  if (!v60)
+  v19 = v57;
+  v12 = v60;
+  v13 = v61;
+  v10 = v59;
+  if (!v59)
   {
 LABEL_51:
     if (*(this + 328) == 1)
@@ -7494,22 +7146,17 @@ LABEL_51:
 
     if (*a3 == *(this + 42))
     {
-      v18 = 0;
+      return 0;
     }
 
-    else
-    {
-      v42 = *a3;
-      v43 = *(a3 + 1);
-      v44 = *(a3 + 3);
-      *(this + 23) = *(a3 + 2);
-      *(this + 24) = v44;
-      *(this + 21) = v42;
-      *(this + 22) = v43;
-      v18 = (*(*v19 + 184))(v19, v16, v13, v12, a6, v10, a8);
-    }
-
-    goto LABEL_56;
+    v42 = *a3;
+    v43 = *(a3 + 1);
+    v44 = *(a3 + 3);
+    *(this + 23) = *(a3 + 2);
+    *(this + 24) = v44;
+    *(this + 21) = v42;
+    *(this + 22) = v43;
+    return (*(*v19 + 184))(v19, v16, v13, v12, a6, v10, a8);
   }
 
   v31 = 0;
@@ -7517,21 +7164,21 @@ LABEL_51:
   {
 LABEL_50:
     ++v31;
-    v12 = v61;
-    v13 = v62;
-    v10 = v60;
-    if (v31 == v60)
+    v12 = v60;
+    v13 = v61;
+    v10 = v59;
+    if (v31 == v59)
     {
       goto LABEL_51;
     }
   }
 
-  v59 = v31;
+  v58 = v31;
   v32 = ausdk::AUScope::GetElementOrError<ausdk::AUInputElement>(this + 192, v31);
   v18 = v32;
   if ((v33 & 1) == 0)
   {
-    goto LABEL_56;
+    return v18;
   }
 
   if ((*(v32 + 92) & 0x20) != 0)
@@ -7544,8 +7191,8 @@ LABEL_50:
     v34 = 1;
   }
 
-  v31 = v59;
-  v35 = *(a8 + 8 * v59);
+  v31 = v58;
+  v35 = *(a8 + 8 * v58);
   v36 = *v35;
   if (v34 == *v35)
   {
@@ -7553,7 +7200,7 @@ LABEL_50:
     {
       v37 = 0;
       v38 = *(v32 + 104);
-      v39 = v38 * v62;
+      v39 = v38 * v61;
       v40 = v35 + 3;
       while (1)
       {
@@ -7562,36 +7209,36 @@ LABEL_50:
           v41 = *v40;
           if (*v40 < v39)
           {
-            v49 = v38;
+            v48 = v38;
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
               *buf = 67110400;
-              *v65 = v62;
-              *&v65[4] = 1024;
-              *&v65[6] = v49;
-              *v66 = 1024;
-              *&v66[2] = v39;
-              v67 = 1024;
-              v68 = v59;
-              v69 = 1024;
-              v70 = v37;
-              v71 = 1024;
-              v72 = v41;
+              *v64 = v61;
+              *&v64[4] = 1024;
+              *&v64[6] = v48;
+              *v65 = 1024;
+              *&v65[2] = v39;
+              v66 = 1024;
+              v67 = v58;
+              v68 = 1024;
+              v69 = v37;
+              v70 = 1024;
+              v71 = v41;
               _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%u frames, %u bytes/frame, expected %u-byte buffer; ioOutputBufferLists[%u]->mBuffers[%u].mDataByteSize=%u; kAudio_ParamError", buf, 0x26u);
             }
 
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              v55 = (this + 504);
+              v54 = (this + 504);
               if (*(this + 527) < 0)
               {
-                v55 = *v55;
+                v54 = *v54;
               }
 
               *buf = 136315394;
-              *v65 = v55;
-              *&v65[8] = 1024;
-              *v66 = -50;
+              *v64 = v54;
+              *&v64[8] = 1024;
+              *v65 = -50;
               _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, processmultiple err: %d", buf, 0x12u);
             }
 
@@ -7601,7 +7248,7 @@ LABEL_50:
               goto LABEL_69;
             }
 
-            goto LABEL_56;
+            return v18;
           }
 
           *v40 = v39;
@@ -7622,28 +7269,28 @@ LABEL_50:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     *buf = 67109632;
-    *v65 = v59;
-    *&v65[4] = 1024;
-    *&v65[6] = v36;
-    *v66 = 1024;
-    *&v66[2] = v34;
+    *v64 = v58;
+    *&v64[4] = 1024;
+    *&v64[6] = v36;
+    *v65 = 1024;
+    *&v65[2] = v34;
     _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ioOutputBufferLists[%u]->mNumberBuffers=%u, ASBD::NumberChannelStreams(output.GetStreamFormat())=%u; kAudio_ParamError", buf, 0x14u);
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v57 = (this + 504);
+    v56 = (this + 504);
     if (*(this + 527) < 0)
     {
-      v57 = *v57;
+      v56 = *v56;
     }
 
     *buf = 136315394;
-    *v65 = v57;
-    *&v65[8] = 1024;
-    *v66 = -50;
+    *v64 = v56;
+    *&v64[8] = 1024;
+    *v65 = -50;
     _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  from %s, processmultiple err: %d", buf, 0x12u);
-    v19 = v58;
+    v19 = v57;
   }
 
   v18 = 4294967246;
@@ -7654,8 +7301,6 @@ LABEL_69:
     (*(*(this + 8) + 432))(v19, 22, 0, 0);
   }
 
-LABEL_56:
-  v45 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -7958,20 +7603,20 @@ LABEL_13:
   *(this + 40) = 1;
 }
 
-uint64_t ausdk::AUElement::SetScheduledEvent(ausdk::AUElement *this, unsigned int a2, const AudioUnitParameterEvent *a3, unsigned int a4, unsigned int a5, char a6)
+uint64_t ausdk::AUElement::SetScheduledEvent(ausdk::AUElement *this, BOOL a2, const AudioUnitParameterEvent *a3, uint64_t a4, uint64_t a5, char a6)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (a3->eventType == kParameterEvent_Immediate)
   {
-    ausdk::AUElement::SetParameterOrError(&v11, this, a3->eventValues.immediate.value, a2, a6);
-    if (v12)
+    ausdk::AUElement::SetParameterOrError(&v10, this, a3->eventValues.immediate.value, a2, a6);
+    if (v11)
     {
-      result = 0;
+      return 0;
     }
 
     else
     {
-      result = v11;
+      return v10;
     }
   }
 
@@ -7979,28 +7624,25 @@ uint64_t ausdk::AUElement::SetScheduledEvent(ausdk::AUElement *this, unsigned in
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = *(this + 1);
-      v10 = (v9 + 440);
-      if (*(v9 + 463) < 0)
+      v8 = *(this + 1);
+      v9 = (v8 + 440);
+      if (*(v8 + 463) < 0)
       {
-        v10 = *v10;
+        v9 = *v9;
       }
 
-      v11 = 136315138;
-      v12 = v10;
-      _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Warning: %s was passed a ramped parameter event but does not implement them. Ignoring.", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = v9;
+      _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Warning: %s was passed a ramped parameter event but does not implement them. Ignoring.", &v10, 0xCu);
     }
 
-    result = 4294967294;
+    return 4294967294;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void ausdk::AUElement::SetParameterOrError(ausdk::AUElement *this, uint64_t a2, float a3, unsigned int a4, char a5)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   if (*(a2 + 40) == 1)
   {
     v7 = *(a2 + 48);
@@ -8071,7 +7713,7 @@ void ausdk::AUElement::SetParameterOrError(ausdk::AUElement *this, uint64_t a2, 
           v22 = v20 >> 1;
           v23 = &v21[8 * (v20 >> 1)];
           v25 = *v23;
-          v24 = v23 + 8;
+          v24 = (v23 + 2);
           v20 += ~(v20 >> 1);
           if (v25 < a4)
           {
@@ -8089,117 +7731,117 @@ void ausdk::AUElement::SetParameterOrError(ausdk::AUElement *this, uint64_t a2, 
 
       if (v9 == v21 || *v21 != a4)
       {
-        v27 = *(a2 + 32);
-        if (v9 >= v27)
+        v26 = *(a2 + 32);
+        if (v9 >= v26)
         {
-          v31 = (v19 >> 3) + 1;
-          if (v31 >> 61)
+          v30 = (v19 >> 3) + 1;
+          if (v30 >> 61)
           {
             std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
           }
 
-          v32 = v21 - v10;
-          v33 = v27 - v10;
-          v34 = (v27 - v10) >> 2;
-          if (v34 > v31)
+          v31 = v21 - v10;
+          v32 = v26 - v10;
+          v33 = (v26 - v10) >> 2;
+          if (v33 > v30)
           {
-            v31 = v34;
+            v30 = v33;
           }
 
-          if (v33 >= 0x7FFFFFFFFFFFFFF8)
+          if (v32 >= 0x7FFFFFFFFFFFFFF8)
           {
-            v35 = 0x1FFFFFFFFFFFFFFFLL;
+            v34 = 0x1FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v35 = v31;
+            v34 = v30;
           }
 
-          v36 = v32 >> 3;
-          if (v35)
+          v35 = v31 >> 3;
+          if (v34)
           {
-            std::allocator<std::pair<unsigned int,ausdk::AtomicValue<float>>>::allocate_at_least[abi:ne200100](v35);
+            std::allocator<std::pair<unsigned int,ausdk::AtomicValue<float>>>::allocate_at_least[abi:ne200100](v34);
           }
 
-          v37 = 8 * v36;
-          if (!v36)
+          v36 = 8 * v35;
+          if (!v35)
           {
-            if (v32 < 1)
+            if (v31 < 1)
             {
               if (v21 == v10)
               {
-                v43 = 1;
+                v42 = 1;
               }
 
               else
               {
-                v43 = v32 >> 2;
+                v42 = v31 >> 2;
               }
 
-              std::allocator<std::pair<unsigned int,ausdk::AtomicValue<float>>>::allocate_at_least[abi:ne200100](v43);
+              std::allocator<std::pair<unsigned int,ausdk::AtomicValue<float>>>::allocate_at_least[abi:ne200100](v42);
             }
 
-            v37 -= ((v32 >> 1) + 4) & 0xFFFFFFFFFFFFFFF8;
+            v36 -= ((v31 >> 1) + 4) & 0xFFFFFFFFFFFFFFF8;
           }
 
-          *v37 = a4;
-          *(v37 + 4) = a3;
-          v44 = *(a2 + 24);
-          v45 = v21;
-          if (v44 != v21)
+          *v36 = a4;
+          *(v36 + 4) = a3;
+          v43 = *(a2 + 24);
+          v44 = v21;
+          if (v43 != v21)
           {
-            v46 = v21;
-            v47 = (v37 + 8);
+            v45 = v21;
+            v46 = (v36 + 8);
             do
             {
-              v48 = (v46 + 4);
-              v49 = *v46;
-              v46 += 8;
-              *v47 = v49;
-              LODWORD(v48) = atomic_load(v48);
-              v47[1] = v48;
-              v47 += 2;
+              v47 = (v45 + 4);
+              v48 = *v45;
+              v45 += 8;
+              *v46 = v48;
+              LODWORD(v47) = atomic_load(v47);
+              v46[1] = v47;
+              v46 += 2;
             }
 
-            while (v46 != v44);
-            v45 = *(a2 + 24);
+            while (v45 != v43);
+            v44 = *(a2 + 24);
           }
 
-          v50 = v37 + 8 + v45 - v21;
+          v49 = v36 + 8 + v44 - v21;
           *(a2 + 24) = v21;
-          v51 = *(a2 + 16);
-          v52 = v37 + v51 - v21;
-          if (v51 != v21)
+          v50 = *(a2 + 16);
+          v51 = v36 + v50 - v21;
+          if (v50 != v21)
           {
-            v53 = (v37 + v51 - v21);
+            v52 = (v36 + v50 - v21);
             do
             {
-              v54 = (v51 + 4);
-              v55 = *v51;
-              v51 += 8;
-              *v53 = v55;
-              LODWORD(v54) = atomic_load(v54);
-              v53[1] = v54;
-              v53 += 2;
+              v53 = (v50 + 4);
+              v54 = *v50;
+              v50 += 8;
+              *v52 = v54;
+              LODWORD(v53) = atomic_load(v53);
+              v52[1] = v53;
+              v52 += 2;
             }
 
-            while (v51 != v21);
-            v51 = *(a2 + 16);
+            while (v50 != v21);
+            v50 = *(a2 + 16);
           }
 
-          *(a2 + 16) = v52;
-          *(a2 + 24) = v50;
+          *(a2 + 16) = v51;
+          *(a2 + 24) = v49;
           *(a2 + 32) = 0;
-          if (v51)
+          if (v50)
           {
-            operator delete(v51);
+            operator delete(v50);
           }
         }
 
         else
         {
-          v28 = &v21[-v9];
+          v27 = &v21[-v9];
           if (v21 == v9)
           {
             *v9 = a4;
@@ -8211,36 +7853,36 @@ void ausdk::AUElement::SetParameterOrError(ausdk::AUElement *this, uint64_t a2, 
           {
             if (v9 < 8)
             {
-              v29 = *(a2 + 24);
+              v28 = *(a2 + 24);
             }
 
             else
             {
-              v29 = v9 + 8;
+              v28 = v9 + 8;
               *v9 = *(v9 - 8);
-              v30 = atomic_load((v9 - 4));
-              *(v9 + 4) = v30;
+              v29 = atomic_load((v9 - 4));
+              *(v9 + 4) = v29;
             }
 
-            *(a2 + 24) = v29;
+            *(a2 + 24) = v28;
             if (v9 != v21 + 8)
             {
-              v38 = (v9 - 16);
-              v39 = (v9 - 4);
-              v40 = v28 + 8;
+              v37 = (v9 - 16);
+              v38 = (v9 - 4);
+              v39 = v27 + 8;
               do
               {
-                v41 = v38 + 1;
-                v42 = *v38;
+                v40 = v37 + 1;
+                v41 = *v37;
+                v37 -= 2;
+                *(v38 - 1) = v41;
+                LODWORD(v40) = atomic_load(v40);
+                atomic_store(v40, v38);
                 v38 -= 2;
-                *(v39 - 1) = v42;
-                LODWORD(v41) = atomic_load(v41);
-                atomic_store(v41, v39);
-                v39 -= 2;
-                v40 += 8;
+                v39 += 8;
               }
 
-              while (v40);
+              while (v39);
             }
 
             *v21 = a4;
@@ -8261,17 +7903,17 @@ LABEL_31:
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v56 = (v17 + 440);
+      v55 = (v17 + 440);
       if (*(v17 + 463) < 0)
       {
-        v56 = *v56;
+        v55 = *v55;
       }
 
-      v57 = 136315394;
-      v58 = v56;
-      v59 = 1024;
-      v60 = a4;
-      _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Warning: %s SetParameter for undefined param ID %u while initialized. Ignoring.", &v57, 0x12u);
+      v56 = 136315394;
+      v57 = v55;
+      v58 = 1024;
+      v59 = a4;
+      _os_log_error_impl(&dword_1C91AE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Warning: %s SetParameter for undefined param ID %u while initialized. Ignoring.", &v56, 0x12u);
     }
   }
 
@@ -8279,7 +7921,6 @@ LABEL_31:
   *this = -10878;
 LABEL_32:
   *(this + 4) = v18;
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C92025EC(_Unwind_Exception *exception_object)
@@ -8447,25 +8088,25 @@ uint64_t ausdk::AUScope::SetNumberOfElements(ausdk::AUScope *this, unsigned int 
     {
       if (v9 > a2)
       {
-        v24 = (v7 - 8);
-        v25 = v7 - 8;
+        v23 = (v7 - 8);
+        v24 = v7 - 8;
         do
         {
-          result = *v24;
-          *v24 = 0;
+          result = *v23;
+          *v23 = 0;
           if (result)
           {
             result = (*(*result + 8))(result);
             v6 = *v8;
           }
 
-          *(this + 3) = v24;
-          v26 = v25 - v6;
-          v25 -= 8;
-          --v24;
+          *(this + 3) = v23;
+          v25 = v24 - v6;
+          v24 -= 8;
+          --v23;
         }
 
-        while (v5 < v26 >> 3);
+        while (v5 < v25 >> 3);
       }
     }
 
@@ -8473,7 +8114,7 @@ uint64_t ausdk::AUScope::SetNumberOfElements(ausdk::AUScope *this, unsigned int 
     {
       if (a2 > ((*(this + 4) - v6) >> 3))
       {
-        v29 = this + 16;
+        v28 = this + 16;
         std::allocator<std::unique_ptr<ausdk::AUElement>>::allocate_at_least[abi:ne200100](a2);
       }
 
@@ -8481,79 +8122,78 @@ uint64_t ausdk::AUScope::SetNumberOfElements(ausdk::AUScope *this, unsigned int 
       {
         do
         {
-          v10 = *(this + 2);
-          (*(**this + 416))(&v27);
-          v12 = *(this + 3);
-          v11 = *(this + 4);
-          if (v12 >= v11)
+          (*(**this + 416))(&v26);
+          v11 = *(this + 3);
+          v10 = *(this + 4);
+          if (v11 >= v10)
           {
-            v15 = *v8;
-            v16 = v12 - *v8;
-            v17 = v16 >> 3;
-            v18 = (v16 >> 3) + 1;
-            if (v18 >> 61)
+            v14 = *v8;
+            v15 = v11 - *v8;
+            v16 = v15 >> 3;
+            v17 = (v15 >> 3) + 1;
+            if (v17 >> 61)
             {
               std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
             }
 
-            v19 = v11 - v15;
-            if (v19 >> 2 > v18)
+            v18 = v10 - v14;
+            if (v18 >> 2 > v17)
             {
-              v18 = v19 >> 2;
+              v17 = v18 >> 2;
             }
 
-            if (v19 >= 0x7FFFFFFFFFFFFFF8)
+            if (v18 >= 0x7FFFFFFFFFFFFFF8)
             {
-              v20 = 0x1FFFFFFFFFFFFFFFLL;
+              v19 = 0x1FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v20 = v18;
+              v19 = v17;
             }
 
-            v29 = this + 16;
-            if (v20)
+            v28 = this + 16;
+            if (v19)
             {
-              std::allocator<std::unique_ptr<ausdk::AUElement>>::allocate_at_least[abi:ne200100](v20);
+              std::allocator<std::unique_ptr<ausdk::AUElement>>::allocate_at_least[abi:ne200100](v19);
             }
 
-            v21 = v27;
-            v27 = 0;
-            *(8 * v17) = v21;
-            v14 = 8 * v17 + 8;
-            memcpy(0, v15, v16);
-            v22 = *(this + 2);
+            v20 = v26;
+            v26 = 0;
+            *(8 * v16) = v20;
+            v13 = 8 * v16 + 8;
+            memcpy(0, v14, v15);
+            v21 = *(this + 2);
             *(this + 2) = 0;
-            *(this + 3) = v14;
-            v23 = *(this + 4);
+            *(this + 3) = v13;
+            v22 = *(this + 4);
             *(this + 4) = 0;
-            v28[2] = v22;
-            v28[3] = v23;
-            v28[0] = v22;
-            v28[1] = v22;
-            std::__split_buffer<std::unique_ptr<ausdk::AUElement>>::~__split_buffer(v28);
+            v27[2] = v21;
+            v27[3] = v22;
+            v27[0] = v21;
+            v27[1] = v21;
+            std::__split_buffer<std::unique_ptr<ausdk::AUElement>>::~__split_buffer(v27);
           }
 
           else
           {
-            v13 = v27;
-            v27 = 0;
-            *v12 = v13;
-            v14 = (v12 + 1);
+            v12 = v26;
+            v26 = 0;
+            *v11 = v12;
+            v13 = (v11 + 1);
           }
 
-          *(this + 3) = v14;
-          result = v27;
-          v27 = 0;
+          *(this + 3) = v13;
+          result = v26;
+          v26 = 0;
           if (result)
           {
             result = (*(*result + 8))(result);
-            v14 = *(this + 3);
+            v13 = *(this + 3);
           }
         }
 
-        while ((v14 - *v8) >> 3 < v5);
+        while ((v13 - *v8) >> 3 < v5);
       }
     }
   }
@@ -8561,11 +8201,11 @@ uint64_t ausdk::AUScope::SetNumberOfElements(ausdk::AUScope *this, unsigned int 
   return result;
 }
 
-void sub_1C9202C04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_1C9202C04(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8608,7 +8248,7 @@ uint64_t std::__split_buffer<std::unique_ptr<ausdk::AUElement>>::~__split_buffer
 
 BOOL ausdk::AUScope::HasElementWithName(ausdk::AUScope *this)
 {
-  for (i = 0; ; ++i)
+  for (i = 0; ; i = (i + 1))
   {
     v3 = *(this + 5);
     if (v3)
@@ -8641,7 +8281,7 @@ BOOL ausdk::AUScope::HasElementWithName(ausdk::AUScope *this)
 
 void ausdk::AUScope::RestoreElementNames(ausdk::AUScope *this, const __CFDictionary *a2, const __CFDictionary *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   *this = 0;
   *(this + 1) = 0;
   *(this + 2) = 0;
@@ -8649,11 +8289,6 @@ void ausdk::AUScope::RestoreElementNames(ausdk::AUScope *this, const __CFDiction
   if (v3)
   {
     (*(*v3 + 24))(v3);
-  }
-
-  else
-  {
-    v4 = (*(a2 + 3) - *(a2 + 2)) >> 3;
   }
 
   Count = CFDictionaryGetCount(a3);
@@ -8668,7 +8303,6 @@ void ausdk::AUScope::RestoreElementNames(ausdk::AUScope *this, const __CFDiction
   }
 
   CFDictionaryGetKeysAndValues(a3, 0, 0);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C9203054(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -8683,7 +8317,7 @@ void sub_1C9203054(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const unsigned __int8 *ausdk::AUScope::RestoreState(ausdk::AUScope *this, const unsigned __int8 *a2)
+unsigned int *ausdk::AUScope::RestoreState(ausdk::AUScope *this, const unsigned __int8 *a2)
 {
   v3 = ausdk::AUScope::GetElementOrError<ausdk::AUInputElement>(this, bswap32(*a2));
   if ((v4 & 1) == 0)
@@ -8824,77 +8458,77 @@ uint64_t ausdk::ComponentBase::AP_Close(ausdk::ComponentBase *this, void *a2)
 uint64_t AudioDSPGraph::Boxes::Arithmetic::Unary::AbsBox::initialize(AudioDSPGraph::Boxes::Arithmetic::Unary::AbsBox *this)
 {
   result = AudioDSPGraph::Box::initialize(this);
-  v3 = *(this + 9);
-  v4 = *(this + 10);
-  v5 = v4 - v3;
-  v6 = (v4 - v3) >> 5;
-  if (v6 != 1)
+  v4 = *(this + 9);
+  v5 = *(this + 10);
+  v6 = v5 - v4;
+  v7 = (v5 - v4) >> 5;
+  if (v7 != 1)
   {
-    v9 = *(this + 13) - *(this + 12);
+    v10 = *(this + 13) - *(this + 12);
     goto LABEL_10;
   }
 
-  v7 = *(this + 12);
-  v8 = *(this + 13);
-  v9 = v8 - v7;
-  if (((v8 - v7) & 0x1FFFFFFFE0) != 0x20)
+  v8 = *(this + 12);
+  v9 = *(this + 13);
+  v10 = v9 - v8;
+  if (((v9 - v8) & 0x1FFFFFFFE0) != 0x20)
   {
-    v6 = 1;
+    v7 = 1;
 LABEL_10:
-    caulk::make_string("There must be one input and one output, instead of %u and %u.", v20, v6, v9 >> 5);
-    AudioDSPGraph::ThrowException(1701602593, v20, off_1E8334788);
+    caulk::make_string(&v23, "There must be one input and one output, instead of %u and %u.", v3, v7, v10 >> 5);
+    AudioDSPGraph::ThrowException(1701602593, &v23, off_1E8334788);
   }
 
-  if (v4 == v3)
+  if (v5 == v4)
   {
-    v12 = (this + 40);
+    v13 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v12 = *v12;
+      v13 = *v13;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", &v21, v12, v5 >> 5, 0);
-    AudioDSPGraph::ThrowException(1919837985, &v21, off_1E8337C60);
+    caulk::make_string(&v24, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v3, v13, v6 >> 5, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v24, off_1E8337C60);
   }
 
-  if (v8 == v7)
+  if (v9 == v8)
   {
-    v13 = v9 >> 5;
-    v14 = (this + 40);
+    v14 = v10 >> 5;
+    v15 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v14 = *v14;
+      v15 = *v15;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", &v21, v14, v13, 0);
-    AudioDSPGraph::ThrowException(1919837985, &v21, off_1E8337C78);
+    caulk::make_string(&v24, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v3, v15, v14, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v24, off_1E8337C78);
   }
 
-  v10 = *(*(v7 + 16) + 120);
-  if (*(*(*(v3 + 16) + 120) + 28) != *(v10 + 28))
+  v11 = *(*(v8 + 16) + 120);
+  if (*(*(*(v4 + 16) + 120) + 28) != *(v11 + 28))
   {
-    v15 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
-    v16 = AudioDSPGraph::Box::out(this, 0);
-    caulk::make_string("The input and output must have the same channel count, but have %u and %u.", v19, v15, *(*(*(v16 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v19, off_1E83347A0);
+    v16 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
+    v17 = AudioDSPGraph::Box::out(this, 0);
+    caulk::make_string(&v22, "The input and output must have the same channel count, but have %u and %u.", v18, v16, *(*(*(v17 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v22, off_1E83347A0);
   }
 
-  v11 = *(v10 + 8);
-  if (v11 != 1819304813)
+  v12 = *(v11 + 8);
+  if (v12 != 1819304813)
   {
-    caulk::string_from_4cc(&v21, v11);
-    if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    caulk::string_from_4cc(&v24, v12);
+    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v17 = &v21;
+      v20 = &v24;
     }
 
     else
     {
-      v17 = v21.__r_.__value_.__r.__words[0];
+      v20 = v24.__r_.__value_.__r.__words[0];
     }
 
-    caulk::make_string("The output must have 'lpcm' format, but has %s instead.", v18, v17);
-    AudioDSPGraph::ThrowException(1667788321, v18, off_1E83347B8);
+    caulk::make_string(&v21, "The output must have 'lpcm' format, but has %s instead.", v19, v20);
+    AudioDSPGraph::ThrowException(1667788321, &v21, off_1E83347B8);
   }
 
   return result;
@@ -8915,7 +8549,7 @@ void sub_1C9203670(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AudioDSPGraph::Box::in(AudioDSPGraph::Box *this, unint64_t a2)
+uint64_t AudioDSPGraph::Box::in(AudioDSPGraph::Box *this, const char *a2)
 {
   v2 = *(this + 9);
   v3 = (*(this + 10) - v2) >> 5;
@@ -8927,8 +8561,8 @@ uint64_t AudioDSPGraph::Box::in(AudioDSPGraph::Box *this, unint64_t a2)
       v5 = *v5;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v6, v5, v3, a2);
-    AudioDSPGraph::ThrowException(1919837985, v6, off_1E8337C60);
+    caulk::make_string(&v6, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v5, v3, a2);
+    AudioDSPGraph::ThrowException(1919837985, &v6, off_1E8337C60);
   }
 
   return v2 + 32 * a2;
@@ -8944,7 +8578,7 @@ void sub_1C9203750(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AudioDSPGraph::Box::out(AudioDSPGraph::Box *this, unint64_t a2)
+uint64_t AudioDSPGraph::Box::out(AudioDSPGraph::Box *this, const char *a2)
 {
   v2 = *(this + 12);
   v3 = (*(this + 13) - v2) >> 5;
@@ -8956,8 +8590,8 @@ uint64_t AudioDSPGraph::Box::out(AudioDSPGraph::Box *this, unint64_t a2)
       v5 = *v5;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v6, v5, v3, a2);
-    AudioDSPGraph::ThrowException(1919837985, v6, off_1E8337C78);
+    caulk::make_string(&v6, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v5, v3, a2);
+    AudioDSPGraph::ThrowException(1919837985, &v6, off_1E8337C78);
   }
 
   return v2 + 32 * a2;
@@ -8984,7 +8618,7 @@ __n128 AudioDSPGraph::Boxes::Arithmetic::Unary::AbsBox::process(AudioDSPGraph::B
       v33 = *v33;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", &__A, v33, 0, 0);
+    caulk::make_string(&__A, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", __N, v33, 0, 0);
     AudioDSPGraph::ThrowException(1919837985, &__A, off_1E8337C60);
   }
 
@@ -8997,7 +8631,7 @@ __n128 AudioDSPGraph::Boxes::Arithmetic::Unary::AbsBox::process(AudioDSPGraph::B
       v34 = *v34;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", &__A, v34, 0, 0);
+    caulk::make_string(&__A, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", __N, v34, 0, 0);
     AudioDSPGraph::ThrowException(1919837985, &__A, off_1E8337C78);
   }
 
@@ -9009,8 +8643,8 @@ __n128 AudioDSPGraph::Boxes::Arithmetic::Unary::AbsBox::process(AudioDSPGraph::B
   {
     v35 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
     v36 = AudioDSPGraph::Box::out(this, 0);
-    caulk::make_string("The input and output must have the same channel count, but have %u and %u.", v40, v35, *(*(*(v36 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v40, off_1E83347D0);
+    caulk::make_string(&v41, "The input and output must have the same channel count, but have %u and %u.", v37, v35, *(*(*(v36 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v41, off_1E83347D0);
   }
 
   v9 = *(*(v5 + 120) + 8);
@@ -9025,16 +8659,16 @@ __n128 AudioDSPGraph::Boxes::Arithmetic::Unary::AbsBox::process(AudioDSPGraph::B
   v13 = __N << v12;
   if (v13 > v10)
   {
-    caulk::make_string("The buffer passed for input 0 should be at least %u bytes, but is %u.", v39, v13, v10);
-    AudioDSPGraph::ThrowException(1718449215, v39, off_1E83347E8);
+    caulk::make_string(&v40, "The buffer passed for input 0 should be at least %u bytes, but is %u.", __N, v13, v10);
+    AudioDSPGraph::ThrowException(1718449215, &v40, off_1E83347E8);
   }
 
   v14 = v7[3];
   v15 = 4 * __N;
   if (4 * __N > v14)
   {
-    caulk::make_string("The buffer passed for output 0 should be at least %u bytes, but is %u.", v38, 4 * __N, v14);
-    AudioDSPGraph::ThrowException(1718449215, v38, off_1E8334800);
+    caulk::make_string(&v39, "The buffer passed for output 0 should be at least %u bytes, but is %u.", __N, 4 * __N, v14);
+    AudioDSPGraph::ThrowException(1718449215, &v39, off_1E8334800);
   }
 
   if (v9 == 1718773105)
@@ -9048,8 +8682,8 @@ __n128 AudioDSPGraph::Boxes::Arithmetic::Unary::AbsBox::process(AudioDSPGraph::B
       {
         v19 = *v18;
         v18 += 2;
-        __A.realp = v19;
-        __A.imagp = &v19[v11];
+        __A.__r_.__value_.__r.__words[0] = v19;
+        __A.__r_.__value_.__l.__size_ = v19 + 4 * v11;
         vDSP_zvabs(&__A, 1, *v17, 1, v11);
         *(v17 - 1) = v15;
         ++v16;
@@ -9081,13 +8715,13 @@ __n128 AudioDSPGraph::Boxes::Arithmetic::Unary::AbsBox::process(AudioDSPGraph::B
   v25 = *(this + 9);
   if (*(this + 10) == v25)
   {
-    v37 = (this + 40);
+    v38 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v37 = *v37;
+      v38 = *v38;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", &__A, v37, 0, 0);
+    caulk::make_string(&__A, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", __N, v38, 0, 0);
     AudioDSPGraph::ThrowException(1919837985, &__A, off_1E8337C60);
   }
 
@@ -9177,8 +8811,7 @@ uint64_t AudioDSPGraph::Analyzer::print(uint64_t result, void *a2, int a3, uint6
     v4 = a4;
     v6 = result;
     (*(*result + 32))(result, a2, a4, 1);
-    v7 = *(v6 + 8);
-    AudioDSPGraph::printi(a2, v4 + 4, "analysis %p\n");
+    AudioDSPGraph::printi(a2, v4 + 4, "analysis %p\n", *(v6 + 8));
   }
 
   return result;
@@ -9250,22 +8883,22 @@ __n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<c
 
 AudioDSPGraph *AudioDSPGraph::AUAnalyzer::setFormatOnUnit(AudioUnit *this, const AudioStreamBasicDescription *inData, AudioUnitScope a3, AudioUnitElement a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   result = AudioUnitSetProperty(this[13], 8u, a3, a4, inData, 0x28u);
   if (result)
   {
-    v13 = result;
+    v12 = result;
     Log = AudioDSPGraph::getLog(result);
     if (os_log_type_enabled(Log, OS_LOG_TYPE_DEBUG))
     {
-      v9 = *&inData->mBytesPerPacket;
+      v8 = *&inData->mBytesPerPacket;
       *buf = *&inData->mSampleRate;
-      v18 = v9;
-      v19 = *&inData->mBitsPerChannel;
-      CA::StreamDescription::AsString(&__p, buf, *buf, *&v9);
-      v10 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
+      v17 = v8;
+      v18 = *&inData->mBitsPerChannel;
+      CA::StreamDescription::AsString(&__p, buf, *buf, *&v8);
+      v9 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
       *buf = 136315138;
-      *&buf[4] = v10;
+      *&buf[4] = v9;
       _os_log_debug_impl(&dword_1C91AE000, Log, OS_LOG_TYPE_DEBUG, "AudioStreamBasicDescription: %s", buf, 0xCu);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -9273,21 +8906,20 @@ AudioDSPGraph *AudioDSPGraph::AUAnalyzer::setFormatOnUnit(AudioUnit *this, const
       }
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v14, "AUAnalyzer::setFormatOnUnit ");
-    v11 = (*(*this + 2))(this);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &v14, v11);
+    std::string::basic_string[abi:ne200100]<0>(&v13, "AUAnalyzer::setFormatOnUnit ");
+    v10 = (*(*this + 2))(this);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &v13, v10);
     std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(buf, &__p, " ");
-    v12 = (this + 7);
+    v11 = (this + 7);
     if (*(this + 79) < 0)
     {
-      v12 = *v12;
+      v11 = *v11;
     }
 
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v15, buf, v12);
-    AudioDSPGraph::ThrowException(v13, &v15, off_1E8334908);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v14, buf, v11);
+    AudioDSPGraph::ThrowException(v12, &v14, off_1E8334908);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9342,22 +8974,22 @@ void AudioDSPGraph::AUAnalyzer::open(AudioDSPGraph::AUAnalyzer *this)
   Next = AudioComponentFindNext(0, (this + 32));
   if (!Next)
   {
-    std::string::basic_string[abi:ne200100]<0>(v23, "AudioComponentFindNext");
-    AudioDSPGraph::ThrowException(1633906209, v23, off_1E8334890);
+    std::string::basic_string[abi:ne200100]<0>(v24, "AudioComponentFindNext");
+    AudioDSPGraph::ThrowException(1633906209, v24, off_1E8334890);
   }
 
   v4 = AudioComponentInstanceNew(Next, v1);
   if (v4)
   {
-    v14 = v4;
-    std::string::basic_string[abi:ne200100]<0>(v22, "AudioComponentInstanceNew");
-    AudioDSPGraph::ThrowException(v14, v22, off_1E83348A8);
+    v15 = v4;
+    std::string::basic_string[abi:ne200100]<0>(v23, "AudioComponentInstanceNew");
+    AudioDSPGraph::ThrowException(v15, v23, off_1E83348A8);
   }
 
   if (!*v1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v21, "AudioComponentInstanceNew");
-    AudioDSPGraph::ThrowException(1633906209, v21, off_1E83348C0);
+    std::string::basic_string[abi:ne200100]<0>(v22, "AudioComponentInstanceNew");
+    AudioDSPGraph::ThrowException(1633906209, v22, off_1E83348C0);
   }
 
   v5 = (this + 56);
@@ -9388,8 +9020,8 @@ LABEL_9:
   v9 = 0;
   cf = 0;
 LABEL_10:
-  v19 = v9;
-  (*(*this + 112))(this, 54, 0, 0, 8, &v19);
+  v20 = v9;
+  (*(*this + 112))(this, 54, 0, 0, 8, &v20);
   if (*v1)
   {
     (*(*this + 136))(this, *(*(this + 1) + 120), 2, 0);
@@ -9397,8 +9029,8 @@ LABEL_10:
     v10 = *(this + 2);
     if (!v10)
     {
-      std::string::basic_string[abi:ne200100]<0>(v17, "DSPGraph::AUAnalyzer Box is null");
-      AudioDSPGraph::ThrowException(0, v17, off_1E83348D8);
+      std::string::basic_string[abi:ne200100]<0>(v18, "DSPGraph::AUAnalyzer Box is null");
+      AudioDSPGraph::ThrowException(0, v18, off_1E83348D8);
     }
 
     v11 = *(v10 + 24);
@@ -9410,16 +9042,16 @@ LABEL_10:
 
     inData = v12;
     AudioUnitSetProperty(*v1, 0xEu, 0, 0, &inData, 4u);
-    v13 = AudioUnitInitialize(*v1);
-    if (v13)
+    v14 = AudioUnitInitialize(*v1);
+    if (v14)
     {
       if (*(this + 79) < 0)
       {
         v5 = *v5;
       }
 
-      caulk::make_string("AudioUnitInitialize %s", v16, v5);
-      AudioDSPGraph::ThrowException(v13, v16, off_1E83348F0);
+      caulk::make_string(&v17, "AudioUnitInitialize %s", v13, v5);
+      AudioDSPGraph::ThrowException(v14, &v17, off_1E83348F0);
     }
   }
 
@@ -9429,7 +9061,7 @@ LABEL_10:
   }
 }
 
-void sub_1C920457C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, const void *a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
+void sub_1C920457C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
   if (a22 < 0)
   {
@@ -9553,16 +9185,16 @@ void sub_1C9204920(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t AudioDSPGraph::AUAnalyzer::getParameterInfo@<X0>(AudioDSPGraph::AUAnalyzer *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
+  v18 = *MEMORY[0x1E69E9840];
+  v17 = 0;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v11 = 104;
-  result = (*(*this + 96))(this, 4, a2, a3, &v11, &v12);
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v10 = 104;
+  result = (*(*this + 96))(this, 4, a2, a3, &v10, &v11);
   if (result)
   {
     v6 = 0;
@@ -9571,21 +9203,20 @@ uint64_t AudioDSPGraph::AUAnalyzer::getParameterInfo@<X0>(AudioDSPGraph::AUAnaly
 
   else
   {
-    v7 = v17;
-    *(a4 + 64) = v16;
+    v7 = v16;
+    *(a4 + 64) = v15;
     *(a4 + 80) = v7;
-    *(a4 + 96) = v18;
-    v8 = v13;
-    *a4 = v12;
+    *(a4 + 96) = v17;
+    v8 = v12;
+    *a4 = v11;
     *(a4 + 16) = v8;
-    v9 = v15;
+    v9 = v14;
     v6 = 1;
-    *(a4 + 32) = v14;
+    *(a4 + 32) = v13;
     *(a4 + 48) = v9;
   }
 
   *(a4 + 104) = v6;
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9743,46 +9374,43 @@ uint64_t AudioDSPGraph::AnalyzerBuilder::print(uint64_t result, void *a2, uint64
   v4 = *(result + 24);
   if (v4)
   {
-    v14 = *(MEMORY[0x1E69E54D8] + 72);
-    v15 = *(MEMORY[0x1E69E54D8] + 64);
-    v21 = *(MEMORY[0x1E69E54D8] + 24);
-    v19 = *(MEMORY[0x1E69E54D8] + 32);
-    v20 = *(MEMORY[0x1E69E54D8] + 16);
-    v11 = *MEMORY[0x1E69E54D8];
-    v17 = *(MEMORY[0x1E69E54D8] + 8);
-    v18 = *(MEMORY[0x1E69E54D8] + 40);
-    v16 = *(MEMORY[0x1E69E54D8] + 48);
+    v19 = *(MEMORY[0x1E69E54D8] + 24);
+    v17 = *(MEMORY[0x1E69E54D8] + 32);
+    v18 = *(MEMORY[0x1E69E54D8] + 16);
+    v15 = *(MEMORY[0x1E69E54D8] + 8);
+    v16 = *(MEMORY[0x1E69E54D8] + 40);
+    v14 = *(MEMORY[0x1E69E54D8] + 48);
     v13 = MEMORY[0x1E69E5560] + 104;
     v12 = MEMORY[0x1E69E5560] + 64;
-    v38 = 0;
-    v37 = MEMORY[0x1E69E5560] + 104;
-    v27 = MEMORY[0x1E69E5560] + 64;
-    v26[0] = v20;
-    *(v26 + *(v20 - 24)) = v21;
-    v26[1] = 0;
-    v5 = (v26 + *(v26[0] - 24));
-    std::ios_base::init(v5, &v28);
+    v36 = 0;
+    v35 = MEMORY[0x1E69E5560] + 104;
+    v25 = MEMORY[0x1E69E5560] + 64;
+    v24[0] = v18;
+    *(v24 + *(v18 - 24)) = v19;
+    v24[1] = 0;
+    v5 = (v24 + *(v24[0] - 24));
+    std::ios_base::init(v5, &v26);
     v6 = MEMORY[0x1E69E5560] + 24;
     v5[1].__vftable = 0;
     v5[1].__fmtflags_ = -1;
-    v27 = v19;
-    *(&v27 + *(v19 - 24)) = v18;
-    v26[0] = v17;
-    *(v26 + *(v17 - 24)) = v16;
-    v37 = v13;
-    v26[0] = v6;
-    v27 = v12;
-    v28 = MEMORY[0x1E69E5538] + 16;
-    MEMORY[0x1CCA848F0](&v29);
-    v33 = 0u;
-    v32 = 0u;
+    v25 = v17;
+    *(&v25 + *(v17 - 24)) = v16;
+    v24[0] = v15;
+    *(v24 + *(v15 - 24)) = v14;
+    v35 = v13;
+    v24[0] = v6;
+    v25 = v12;
+    v26 = MEMORY[0x1E69E5538] + 16;
+    MEMORY[0x1CCA848F0](&v27);
+    v31 = 0u;
+    v30 = 0u;
     memset(&__p, 0, sizeof(__p));
-    v36 = 24;
+    v34 = 24;
     p_p = &__p;
-    v28 = MEMORY[0x1E69E5548] + 16;
-    v30 = &__p;
-    v31 = &__p;
-    *&v32 = &__p;
+    v26 = MEMORY[0x1E69E5548] + 16;
+    v28 = &__p;
+    v29 = &__p;
+    *&v30 = &__p;
     std::string::resize(&__p, 0x16uLL, 0);
     size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -9790,33 +9418,33 @@ uint64_t AudioDSPGraph::AnalyzerBuilder::print(uint64_t result, void *a2, uint64
       size = __p.__r_.__value_.__l.__size_;
     }
 
-    *(&v32 + 1) = &__p;
-    *&v33 = &__p;
-    *(&v33 + 1) = &__p + size;
-    AudioDSPGraph::print4cc(&v27, *(v4 + 52));
-    if ((v36 & 0x10) != 0)
+    *(&v30 + 1) = &__p;
+    *&v31 = &__p;
+    *(&v31 + 1) = &__p + size;
+    AudioDSPGraph::print4cc(&v25, *(v4 + 52));
+    if ((v34 & 0x10) != 0)
     {
       v9 = p_p;
-      if (p_p < v33)
+      if (p_p < v31)
       {
-        p_p = v33;
-        v9 = v33;
+        p_p = v31;
+        v9 = v31;
       }
 
-      v10 = *(&v32 + 1);
+      v10 = *(&v30 + 1);
     }
 
     else
     {
-      if ((v36 & 8) == 0)
+      if ((v34 & 8) == 0)
       {
         v8 = 0;
-        v25 = 0;
+        v23 = 0;
         goto LABEL_17;
       }
 
-      v10 = v30;
-      v9 = v32;
+      v10 = v28;
+      v9 = v30;
     }
 
     v8 = v9 - v10;
@@ -9830,7 +9458,7 @@ uint64_t AudioDSPGraph::AnalyzerBuilder::print(uint64_t result, void *a2, uint64
       operator new();
     }
 
-    v25 = v9 - v10;
+    v23 = v9 - v10;
     if (v8)
     {
       memmove(&__dst, v10, v8);
@@ -9838,8 +9466,738 @@ uint64_t AudioDSPGraph::AnalyzerBuilder::print(uint64_t result, void *a2, uint64
 
 LABEL_17:
     *(&__dst + v8) = 0;
-    AudioDSPGraph::printi(a2, a4 + 4, "%s\n");
+    p_dst = &__dst;
+    if (v23 < 0)
+    {
+      p_dst = __dst;
+    }
+
+    AudioDSPGraph::printi(a2, a4 + 4, "%s\n", p_dst);
   }
 
   return result;
+}
+
+void sub_1C920538C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50)
+{
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a34);
+  MEMORY[0x1CCA849E0](a10);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(uint64_t a1)
+{
+  v2 = MEMORY[0x1E69E54D8];
+  v3 = *MEMORY[0x1E69E54D8];
+  *a1 = *MEMORY[0x1E69E54D8];
+  v4 = *(v2 + 72);
+  *(a1 + *(v3 - 24)) = *(v2 + 64);
+  *(a1 + 16) = v4;
+  *(a1 + 24) = MEMORY[0x1E69E5548] + 16;
+  if (*(a1 + 111) < 0)
+  {
+    operator delete(*(a1 + 88));
+  }
+
+  *(a1 + 24) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale((a1 + 32));
+
+  return std::iostream::~basic_iostream();
+}
+
+void AudioDSPGraph::AnalyzerBuilder::~AnalyzerBuilder(AudioDSPGraph::AnalyzerBuilder *this)
+{
+  *this = &unk_1F48D0D00;
+  std::__hash_table<std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>>>::~__hash_table(this + 8);
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+{
+  *this = &unk_1F48D0D00;
+  std::__hash_table<std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>>>::~__hash_table(this + 8);
+}
+
+uint64_t std::__hash_table<std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>>>::~__hash_table(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    do
+    {
+      v3 = *v2;
+      std::__destroy_at[abi:ne200100]<std::pair<unsigned int const,AudioDSPGraph::AnalyzerBuilder::Info>,0>((v2 + 2));
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+
+  v4 = *a1;
+  *a1 = 0;
+  if (v4)
+  {
+    operator delete(v4);
+  }
+
+  return a1;
+}
+
+void std::__destroy_at[abi:ne200100]<std::pair<unsigned int const,AudioDSPGraph::AnalyzerBuilder::Info>,0>(uint64_t a1)
+{
+  std::__function::__value_func<std::unique_ptr<AudioDSPGraph::Analyzer> ()(void)>::~__value_func[abi:ne200100](a1 + 56);
+  if (*(a1 + 31) < 0)
+  {
+    v2 = *(a1 + 8);
+
+    operator delete(v2);
+  }
+}
+
+uint64_t std::__function::__value_func<std::unique_ptr<AudioDSPGraph::Analyzer> ()(void)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t AudioDSPGraph::Analyzer::Analyzer(uint64_t a1, int a2, __int128 *a3, __int128 *a4)
+{
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = &unk_1F48CC1E8;
+  *(a1 + 24) = a2;
+  *(a1 + 28) = 0;
+  v5 = *a3;
+  *(a1 + 48) = *(a3 + 4);
+  *(a1 + 32) = v5;
+  if (*(a4 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external((a1 + 56), *a4, *(a4 + 1));
+  }
+
+  else
+  {
+    v6 = *a4;
+    *(a1 + 72) = *(a4 + 2);
+    *(a1 + 56) = v6;
+  }
+
+  *(a1 + 80) = 0;
+  *(a1 + 88) = 0;
+  return a1;
+}
+
+void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(void *a1, uint64_t a2, uint64_t a3)
+{
+  MEMORY[0x1CCA84720](v20, a1);
+  if (v20[0] == 1)
+  {
+    v6 = a1 + *(*a1 - 24);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
+    if (v9 == -1)
+    {
+      std::ios_base::getloc((a1 + *(*a1 - 24)));
+      v10 = std::locale::use_facet(&__b, MEMORY[0x1E69E5318]);
+      v9 = (v10->__vftable[2].~facet_0)(v10, 32);
+      std::locale::~locale(&__b);
+      *(v6 + 36) = v9;
+    }
+
+    v11 = a2 + a3;
+    if ((v8 & 0xB0) == 0x20)
+    {
+      v12 = a2 + a3;
+    }
+
+    else
+    {
+      v12 = a2;
+    }
+
+    if (!v7)
+    {
+      goto LABEL_27;
+    }
+
+    v13 = *(v6 + 3);
+    v14 = v13 <= a3;
+    v15 = v13 - a3;
+    v16 = v14 ? 0 : v15;
+    if (v12 - a2 >= 1 && (*(*v7 + 96))(v7, a2, v12 - a2) != v12 - a2)
+    {
+      goto LABEL_27;
+    }
+
+    if (v16 >= 1)
+    {
+      if (v16 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        std::string::__throw_length_error[abi:ne200100]();
+      }
+
+      if (v16 >= 0x17)
+      {
+        operator new();
+      }
+
+      v22 = v16;
+      memset(&__b, v9, v16);
+      *(&__b.__locale_ + v16) = 0;
+      if (v22 >= 0)
+      {
+        p_b = &__b;
+      }
+
+      else
+      {
+        p_b = __b.__locale_;
+      }
+
+      v18 = (*(*v7 + 96))(v7, p_b, v16);
+      if (v22 < 0)
+      {
+        operator delete(__b.__locale_);
+      }
+
+      if (v18 != v16)
+      {
+        goto LABEL_27;
+      }
+    }
+
+    if (v11 - v12 < 1 || (*(*v7 + 96))(v7, v12, v11 - v12) == v11 - v12)
+    {
+      *(v6 + 3) = 0;
+    }
+
+    else
+    {
+LABEL_27:
+      std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 5);
+    }
+  }
+
+  MEMORY[0x1CCA84730](v20);
+  return a1;
+}
+
+void sub_1C9205A74(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  MEMORY[0x1CCA84730](&a10, a2, a3, a4, a5, a6, a7, a8);
+  __cxa_begin_catch(a1);
+  std::ios_base::__set_badbit_and_consider_rethrow((v17 + *(*v17 - 24)));
+  __cxa_end_catch();
+  JUMPOUT(0x1C9205A48);
+}
+
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
+{
+  if (a2 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  if (a2 > 0x16)
+  {
+    operator new();
+  }
+
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
+}
+
+std::string *AudioDSPGraph::stringFromFourCharCode<int>(std::string *retstr, unsigned int __val)
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = bswap32(__val);
+  v5 = v2;
+  if ((v2 - 32) > 0x5E || ((v2 >> 8) - 32) > 0x5E || ((v2 << 8 >> 24) - 32) > 0x5E || ((v2 >> 24) - 32) > 0x5E)
+  {
+    return std::to_string(retstr, __val);
+  }
+
+  v6 = 39;
+  v4 = 39;
+  return std::string::basic_string[abi:ne200100]<0>(retstr, &v4);
+}
+
+void sub_1C9205C34(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void *std::__format::__create_packed_storage[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>,char const*,std::string,std::string const>(void *result, void *a2, uint64_t a3, uint64_t **a4, uint64_t **a5)
+{
+  *result = 12;
+  *a2 = a3;
+  v5 = *(a4 + 23);
+  v6 = v5;
+  v7 = *a4;
+  v8 = a4[1];
+  *result |= 0x1A0uLL;
+  if ((v5 & 0x80u) != 0)
+  {
+    v5 = v8;
+  }
+
+  if (v6 >= 0)
+  {
+    v9 = a4;
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  a2[2] = v9;
+  a2[3] = v5;
+  v10 = *(a5 + 23);
+  v11 = v10;
+  v12 = *a5;
+  v13 = a5[1];
+  *result |= 0x3400uLL;
+  if ((v10 & 0x80u) != 0)
+  {
+    v10 = v13;
+  }
+
+  if (v11 >= 0)
+  {
+    v14 = a5;
+  }
+
+  else
+  {
+    v14 = v12;
+  }
+
+  a2[4] = v14;
+  a2[5] = v10;
+  return result;
+}
+
+uint64_t AudioDSPGraph::Boxes::AUBox::uninitialize(AudioUnit *this)
+{
+  AudioDSPGraph::Box::uninitialize(this);
+  this[97] = this[96];
+  this[100] = this[99];
+  v2 = AudioUnitUninitialize(this[105]);
+
+  return AudioDSPGraph::Boxes::Detail::throwOnError(v2, "AudioUnitUninitialize", this + 5, off_1E8334A40);
+}
+
+uint64_t AudioDSPGraph::Boxes::AUBox::initialize(AudioUnit *this)
+{
+  AudioDSPGraph::Box::initialize(this);
+  v2 = this[96];
+  v4 = this[9];
+  v3 = this[10];
+  v76 = 0;
+  v5 = v3 - v4;
+  if (v3 == v4)
+  {
+    goto LABEL_47;
+  }
+
+  v6 = v5 >> 5;
+  v7 = this[98];
+  v8 = this[97];
+  v9 = (v8 - v2) >> 3;
+  if (v5 >> 5 <= ((v7 - v8) >> 3))
+  {
+    if (v6 <= v9)
+    {
+      v17 = this[97];
+      v9 = v5 >> 5;
+    }
+
+    else
+    {
+      v13 = 0;
+      v14 = ((v5 >> 2) - (v8 - v2) - 8) >> 3;
+      v15 = vdupq_n_s64(v14);
+      do
+      {
+        v16 = vmovn_s64(vcgeq_u64(v15, vorrq_s8(vdupq_n_s64(v13), xmmword_1C925F100)));
+        if (v16.i8[0])
+        {
+          *(v8 + v13) = 0;
+        }
+
+        if (v16.i8[4])
+        {
+          *(v8 + v13 + 1) = 0;
+        }
+
+        v13 += 2;
+      }
+
+      while (((v14 + 2) & 0x3FFFFFFFFFFFFFFELL) != v13);
+      v17 = (v8 + 8 * (v6 - v9));
+      this[97] = v17;
+      if (v8 == v2)
+      {
+        goto LABEL_47;
+      }
+    }
+
+    v18 = (v2 + 8 * v6);
+    v19 = (v17 - 8 * v6);
+    v20 = v17;
+    if (v19 < v8)
+    {
+      v20 = v17;
+      do
+      {
+        v21 = *v19++;
+        *v20 = v21;
+        v20 = (v20 + 8);
+      }
+
+      while (v19 < v8);
+    }
+
+    this[97] = v20;
+    if (v17 != v18)
+    {
+      memmove(v2 + 8 * v6, v2, v17 - v18);
+    }
+
+    v22 = &v76;
+    if (v2 <= &v76)
+    {
+      if (this[97] <= &v76)
+      {
+        v23 = 0;
+      }
+
+      else
+      {
+        v23 = v6;
+      }
+
+      v22 = &v76 + v23;
+    }
+
+    v24 = 0;
+    v25 = *v22;
+    v26 = vdupq_n_s64(v9 - 1);
+    do
+    {
+      v27 = vmovn_s64(vcgeq_u64(v26, vorrq_s8(vdupq_n_s64(v24), xmmword_1C925F100)));
+      if (v27.i8[0])
+      {
+        *(v2 + v24) = v25;
+      }
+
+      if (v27.i8[4])
+      {
+        *(v2 + v24 + 1) = v25;
+      }
+
+      v24 += 2;
+    }
+
+    while (((v9 + 1) & 0xFFFFFFFFFFFFFFFELL) != v24);
+    goto LABEL_47;
+  }
+
+  v10 = v9 + v6;
+  if ((v9 + v6) >> 61)
+  {
+    std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+  }
+
+  v11 = v7 - v2;
+  if (v11 >> 2 > v10)
+  {
+    v10 = v11 >> 2;
+  }
+
+  if (v11 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    v12 = 0x1FFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v12 = v10;
+  }
+
+  if (v12)
+  {
+    if (!(v12 >> 61))
+    {
+      operator new();
+    }
+
+    goto LABEL_97;
+  }
+
+  v28 = 0;
+  v29 = (v6 + 0x1FFFFFFFFFFFFFFFLL) & 0x1FFFFFFFFFFFFFFFLL;
+  v30 = vdupq_n_s64(v29);
+  do
+  {
+    v31 = vmovn_s64(vcgeq_u64(v30, vorrq_s8(vdupq_n_s64(v28), xmmword_1C925F100)));
+    if (v31.i8[0])
+    {
+      *(8 * v28) = 0;
+    }
+
+    if (v31.i8[4])
+    {
+      *(8 * v28 + 8) = 0;
+    }
+
+    v28 += 2;
+  }
+
+  while (v29 - ((v6 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2 != v28);
+  v32 = 8 * v6;
+  v33 = (this[97] - v2);
+  memcpy(v32, v2, v33);
+  v34 = &v33[v32];
+  this[97] = v2;
+  v35 = this[96];
+  v36 = v2 - v35;
+  v37 = (v35 - v2);
+  memcpy(v37, v35, v36);
+  this[96] = v37;
+  this[97] = v34;
+  this[98] = 0;
+  if (v35)
+  {
+    operator delete(v35);
+  }
+
+LABEL_47:
+  v38 = this[99];
+  v40 = this[12];
+  v39 = this[13];
+  v76 = 0;
+  v41 = v39 - v40;
+  if (v39 == v40)
+  {
+    goto LABEL_90;
+  }
+
+  v42 = v41 >> 5;
+  v43 = this[101];
+  v44 = this[100];
+  v45 = (v44 - v38) >> 3;
+  if (v41 >> 5 <= ((v43 - v44) >> 3))
+  {
+    if (v42 <= v45)
+    {
+      v53 = this[100];
+      v45 = v41 >> 5;
+    }
+
+    else
+    {
+      v49 = 0;
+      v50 = ((v41 >> 2) - (v44 - v38) - 8) >> 3;
+      v51 = vdupq_n_s64(v50);
+      do
+      {
+        v52 = vmovn_s64(vcgeq_u64(v51, vorrq_s8(vdupq_n_s64(v49), xmmword_1C925F100)));
+        if (v52.i8[0])
+        {
+          *(v44 + v49) = 0;
+        }
+
+        if (v52.i8[4])
+        {
+          *(v44 + v49 + 1) = 0;
+        }
+
+        v49 += 2;
+      }
+
+      while (((v50 + 2) & 0x3FFFFFFFFFFFFFFELL) != v49);
+      v53 = (v44 + 8 * (v42 - v45));
+      this[100] = v53;
+      if (v44 == v38)
+      {
+        goto LABEL_90;
+      }
+    }
+
+    v54 = (v38 + 8 * v42);
+    v55 = (v53 - 8 * v42);
+    v56 = v53;
+    if (v55 < v44)
+    {
+      v56 = v53;
+      do
+      {
+        v57 = *v55++;
+        *v56 = v57;
+        v56 = (v56 + 8);
+      }
+
+      while (v55 < v44);
+    }
+
+    this[100] = v56;
+    if (v53 != v54)
+    {
+      memmove(v38 + 8 * v42, v38, v53 - v54);
+    }
+
+    v58 = 0;
+    v59 = v76;
+    if (v38 > &v76)
+    {
+      v59 = 0;
+    }
+
+    v60 = vdupq_n_s64(v45 - 1);
+    do
+    {
+      v61 = vmovn_s64(vcgeq_u64(v60, vorrq_s8(vdupq_n_s64(v58), xmmword_1C925F100)));
+      if (v61.i8[0])
+      {
+        *(v38 + v58) = v59;
+      }
+
+      if (v61.i8[4])
+      {
+        *(v38 + v58 + 1) = v59;
+      }
+
+      v58 += 2;
+    }
+
+    while (((v45 + 1) & 0xFFFFFFFFFFFFFFFELL) != v58);
+    goto LABEL_90;
+  }
+
+  v46 = v45 + v42;
+  if ((v45 + v42) >> 61)
+  {
+    std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+  }
+
+  v47 = v43 - v38;
+  if (v47 >> 2 > v46)
+  {
+    v46 = v47 >> 2;
+  }
+
+  if (v47 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    v48 = 0x1FFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v48 = v46;
+  }
+
+  if (v48)
+  {
+    if (!(v48 >> 61))
+    {
+      operator new();
+    }
+
+LABEL_97:
+    std::__throw_bad_array_new_length[abi:ne200100]();
+  }
+
+  v62 = 0;
+  v63 = (v42 + 0x1FFFFFFFFFFFFFFFLL) & 0x1FFFFFFFFFFFFFFFLL;
+  v64 = vdupq_n_s64(v63);
+  do
+  {
+    v65 = vmovn_s64(vcgeq_u64(v64, vorrq_s8(vdupq_n_s64(v62), xmmword_1C925F100)));
+    if (v65.i8[0])
+    {
+      *(8 * v62) = 0;
+    }
+
+    if (v65.i8[4])
+    {
+      *(8 * v62 + 8) = 0;
+    }
+
+    v62 += 2;
+  }
+
+  while (v63 - ((v42 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2 != v62);
+  v66 = 8 * v42;
+  v67 = (this[100] - v38);
+  memcpy(v66, v38, v67);
+  v68 = &v67[v66];
+  this[100] = v38;
+  v69 = this[99];
+  v70 = v38 - v69;
+  v71 = (v69 - v38);
+  memcpy(v71, v69, v70);
+  this[99] = v71;
+  this[100] = v68;
+  this[101] = 0;
+  if (v69)
+  {
+    operator delete(v69);
+  }
+
+LABEL_90:
+  if (((this[10] - this[9]) & 0x1FFFFFFFE0) != 0)
+  {
+    v72 = 0;
+    do
+    {
+      LODWORD(v76) = 0;
+      (*(*this + 39))(this, 51, 1, v72, 4, &v76);
+      v72 = (v72 + 1);
+    }
+
+    while (v72 < ((this[10] - this[9]) >> 5));
+  }
+
+  if (((this[13] - this[12]) & 0x1FFFFFFFE0) != 0)
+  {
+    v73 = 0;
+    do
+    {
+      LODWORD(v76) = 0;
+      (*(*this + 39))(this, 51, 2, v73, 4, &v76);
+      v73 = (v73 + 1);
+    }
+
+    while (v73 < ((this[13] - this[12]) >> 5));
+  }
+
+  v74 = AudioUnitInitialize(this[105]);
+  return AudioDSPGraph::Boxes::Detail::throwOnError(v74, "AudioUnitInitialize", this + 5, off_1E8334A28);
 }

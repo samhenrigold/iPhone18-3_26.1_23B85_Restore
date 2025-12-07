@@ -173,7 +173,7 @@ LABEL_6:
 
 + (id)_encryptData:(id)data withKey:(id)key
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   memset(key, 0, sizeof(key));
   keyCopy = key;
   dataCopy = data;
@@ -183,10 +183,10 @@ LABEL_6:
   __memcpy_chk();
   v7 = [dataCopy length];
   dataOut = malloc_type_malloc(v7 + 16, 0x238D3D26uLL);
-  v13 = 0;
+  v12 = 0;
   bytes = [dataCopy bytes];
 
-  if (CCCrypt(0, 0, 3u, key, 0x10uLL, 0, bytes, v7, dataOut, v7 + 16, &v13))
+  if (CCCrypt(0, 0, 3u, key, 0x10uLL, 0, bytes, v7, dataOut, v7 + 16, &v12))
   {
     free(dataOut);
     v10 = 0;
@@ -194,17 +194,15 @@ LABEL_6:
 
   else
   {
-    v10 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:dataOut length:v13];
+    v10 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:dataOut length:v12];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (id)_decryptData:(id)data withKey:(id)key
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   memset(key, 0, sizeof(key));
   keyCopy = key;
   dataCopy = data;
@@ -214,10 +212,10 @@ LABEL_6:
   __memcpy_chk();
   v7 = [dataCopy length];
   dataOut = malloc_type_malloc(v7 + 16, 0x3B692598uLL);
-  v13 = 0;
+  v12 = 0;
   bytes = [dataCopy bytes];
 
-  if (CCCrypt(1u, 0, 3u, key, 0x10uLL, 0, bytes, v7, dataOut, v7 + 16, &v13))
+  if (CCCrypt(1u, 0, 3u, key, 0x10uLL, 0, bytes, v7, dataOut, v7 + 16, &v12))
   {
     free(dataOut);
     v10 = 0;
@@ -225,10 +223,8 @@ LABEL_6:
 
   else
   {
-    v10 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:dataOut length:v13];
+    v10 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:dataOut length:v12];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

@@ -603,7 +603,6 @@ LABEL_27:
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -614,7 +613,6 @@ LABEL_27:
 
   if ((*(&self->_has + 2) & 4) != 0)
   {
-    sessionProtocolVersionNumber = self->_sessionProtocolVersionNumber;
     PBDataWriterWriteUint32Field();
   }
 
@@ -626,7 +624,6 @@ LABEL_27:
   has = self->_has;
   if ((*&has & 2) != 0)
   {
-    clientType = self->_clientType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((*&has & 0x1000) == 0)
@@ -646,7 +643,6 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  isQREnabled = self->_isQREnabled;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -661,7 +657,6 @@ LABEL_12:
   }
 
 LABEL_30:
-  isUsingQRDirectly = self->_isUsingQRDirectly;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -676,7 +671,6 @@ LABEL_13:
   }
 
 LABEL_31:
-  isInitiator = self->_isInitiator;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -691,7 +685,6 @@ LABEL_14:
   }
 
 LABEL_32:
-  isLegacySessionType = self->_isLegacySessionType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -706,7 +699,6 @@ LABEL_15:
   }
 
 LABEL_33:
-  isWithDefaultPairedDevice = self->_isWithDefaultPairedDevice;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -721,7 +713,6 @@ LABEL_16:
   }
 
 LABEL_34:
-  transportType = self->_transportType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -736,7 +727,6 @@ LABEL_17:
   }
 
 LABEL_35:
-  linkProtocol = self->_linkProtocol;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -751,7 +741,6 @@ LABEL_18:
   }
 
 LABEL_36:
-  endedReason = self->_endedReason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -766,7 +755,6 @@ LABEL_19:
   }
 
 LABEL_37:
-  durationOfSession = self->_durationOfSession;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -781,7 +769,6 @@ LABEL_20:
   }
 
 LABEL_38:
-  durationToConnect = self->_durationToConnect;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -796,7 +783,6 @@ LABEL_21:
   }
 
 LABEL_39:
-  isNetworkEnabled = self->_isNetworkEnabled;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -811,7 +797,6 @@ LABEL_22:
   }
 
 LABEL_40:
-  isNetworkActive = self->_isNetworkActive;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -826,7 +811,6 @@ LABEL_23:
   }
 
 LABEL_41:
-  isNetworkReachable = self->_isNetworkReachable;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -841,7 +825,6 @@ LABEL_24:
   }
 
 LABEL_42:
-  isWifiInterfaceDisallowed = self->_isWifiInterfaceDisallowed;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -853,7 +836,6 @@ LABEL_25:
     }
 
 LABEL_44:
-    linkType = self->_linkType;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -864,7 +846,6 @@ LABEL_44:
   }
 
 LABEL_43:
-  isCellularInterfaceDisallowed = self->_isCellularInterfaceDisallowed;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) != 0)
@@ -879,7 +860,6 @@ LABEL_26:
   }
 
 LABEL_45:
-  destinationType = self->_destinationType;
 
   PBDataWriterWriteUint32Field();
 }

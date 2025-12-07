@@ -89,11 +89,11 @@ LABEL_15:
     [v3 addObject:v6];
   }
 
-  timeRange = [(VCPProtoMovieMovingObjectResult *)self timeRange];
-  v8 = timeRange;
-  if (timeRange)
+  v7 = objc_msgSend_timeRange(self);
+  v8 = v7;
+  if (v7)
   {
-    [timeRange timeRangeValue];
+    objc_msgSend_timeRangeValue(v7);
   }
 
   else

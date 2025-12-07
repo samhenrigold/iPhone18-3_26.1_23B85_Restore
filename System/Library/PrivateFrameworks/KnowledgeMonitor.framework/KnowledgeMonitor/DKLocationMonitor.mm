@@ -17,7 +17,7 @@ void __26___DKLocationMonitor_init__block_invoke(uint64_t a1)
 
 void __35___DKLocationMonitor__handleVisit___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4)
   {
@@ -34,26 +34,23 @@ void __35___DKLocationMonitor__handleVisit___block_invoke(uint64_t a1, void *a2,
     v6 = [MEMORY[0x277CFE0C8] knowledgeChannel];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_22595A000, v6, OS_LOG_TYPE_INFO, "_DKLocationMonitor LOIs nearby %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_22595A000, v6, OS_LOG_TYPE_INFO, "_DKLocationMonitor LOIs nearby %@", &v9, 0xCu);
     }
 
     v7 = [MEMORY[0x277CFE318] userContext];
     v8 = [MEMORY[0x277CFE338] keyPathForNearbyLOIIdentifiers];
     [v7 setObject:v5 forKeyedSubscript:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __35___DKLocationMonitor__handleVisit___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22595A000, a2, OS_LOG_TYPE_ERROR, "_DKLocationMonitor CoreRoutine Fetch LOIs error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22595A000, a2, OS_LOG_TYPE_ERROR, "_DKLocationMonitor CoreRoutine Fetch LOIs error: %@", &v2, 0xCu);
 }
 
 @end

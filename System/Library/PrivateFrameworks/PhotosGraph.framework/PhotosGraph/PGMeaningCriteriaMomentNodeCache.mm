@@ -23,7 +23,7 @@
 
 - (void)enumerateSceneEdgesAndNodesUsingBlock:(id)block
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   sceneEdges = self->_sceneEdges;
   if (!sceneEdges)
@@ -36,30 +36,30 @@
     sceneEdges = self->_sceneEdges;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = sceneEdges;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
 LABEL_5:
     v13 = 0;
     while (1)
     {
-      if (*v19 != v12)
+      if (*v18 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v18 + 1) + 8 * v13);
+      v14 = *(*(&v17 + 1) + 8 * v13);
       v15 = [v14 oppositeNode:self->_momentNode];
-      v17 = 0;
-      blockCopy[2](blockCopy, v14, v15, &v17);
-      LOBYTE(v14) = v17;
+      v16 = 0;
+      blockCopy[2](blockCopy, v14, v15, &v16);
+      LOBYTE(v14) = v16;
 
       if (v14)
       {
@@ -68,7 +68,7 @@ LABEL_5:
 
       if (v11 == ++v13)
       {
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v11)
         {
           goto LABEL_5;
@@ -78,8 +78,6 @@ LABEL_5:
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (PGGraphPublicEventCategoryNodeCollection)publicEventCategoryNodes

@@ -508,23 +508,23 @@ LABEL_37:
             goto LABEL_38;
           }
 
-          v49 = [CCToolKitToolRestrictionContextInSetValueSetLinkQuery alloc];
-          v50 = CCPBReaderReadDataNoCopy();
-          v80 = 0;
-          v51 = [(CCItemMessage *)v49 initWithData:v50 error:&v80];
-          v10 = v80;
-          v52 = self->_linkQuery;
-          self->_linkQuery = v51;
+          v48 = [CCToolKitToolRestrictionContextInSetValueSetLinkQuery alloc];
+          v49 = CCPBReaderReadDataNoCopy();
+          v78 = 0;
+          v50 = [(CCItemMessage *)v48 initWithData:v49 error:&v78];
+          v10 = v78;
+          v51 = self->_linkQuery;
+          self->_linkQuery = v50;
 
           if (v10)
           {
             goto LABEL_49;
           }
 
-          v53 = self->_dynamicEnumeration;
+          v52 = self->_dynamicEnumeration;
           self->_dynamicEnumeration = 0;
 
-          v54 = self->_contentPropertyPossibleValues;
+          v53 = self->_contentPropertyPossibleValues;
           self->_contentPropertyPossibleValues = 0;
 
           self->_kindType = 4;
@@ -533,29 +533,29 @@ LABEL_37:
 
         if (v23 == 6)
         {
-          v55 = [CCToolKitToolRestrictionContextInSetValueSetLinkQuery alloc];
-          v56 = CCPBReaderReadDataNoCopy();
-          v79 = 0;
-          v57 = [(CCItemMessage *)v55 initWithData:v56 error:&v79];
-          v10 = v79;
-          v58 = self->_linkQueryOnParameter;
-          self->_linkQueryOnParameter = v57;
+          v54 = [CCToolKitToolRestrictionContextInSetValueSetLinkQuery alloc];
+          v55 = CCPBReaderReadDataNoCopy();
+          v77 = 0;
+          v56 = [(CCItemMessage *)v54 initWithData:v55 error:&v77];
+          v10 = v77;
+          v57 = self->_linkQueryOnParameter;
+          self->_linkQueryOnParameter = v56;
 
           if (v10)
           {
             goto LABEL_49;
           }
 
-          v59 = self->_dynamicEnumeration;
+          v58 = self->_dynamicEnumeration;
           self->_dynamicEnumeration = 0;
 
-          v60 = self->_contentPropertyPossibleValues;
+          v59 = self->_contentPropertyPossibleValues;
           self->_contentPropertyPossibleValues = 0;
 
-          v61 = self->_linkQuery;
+          v60 = self->_linkQuery;
           self->_linkQuery = 0;
 
-          v62 = self->_standaloneLinkQuery;
+          v61 = self->_standaloneLinkQuery;
           self->_standaloneLinkQuery = 0;
 
           self->_kindType = 6;
@@ -566,9 +566,9 @@ LABEL_37:
         {
           v36 = [CCToolKitToolRestrictionContextInSetValueSetDynamicTriggerEnumeration alloc];
           v37 = CCPBReaderReadDataNoCopy();
-          v78 = 0;
-          v38 = [(CCItemMessage *)v36 initWithData:v37 error:&v78];
-          v10 = v78;
+          v76 = 0;
+          v38 = [(CCItemMessage *)v36 initWithData:v37 error:&v76];
+          v10 = v76;
           v39 = self->_dynamicEnumerationOnTrigger;
           self->_dynamicEnumerationOnTrigger = v38;
 
@@ -603,7 +603,6 @@ LABEL_38:
 
         v46 = objc_opt_class();
         v47 = NSStringFromClass(v46);
-        v48 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
 
 LABEL_49:
@@ -623,13 +622,13 @@ LABEL_49:
           self->_bundleIdentifier = v45;
           goto LABEL_36;
         case 2:
-          v63 = [CCToolKitToolRestrictionContextInSetValueSetDynamicEnumeration alloc];
-          v64 = CCPBReaderReadDataNoCopy();
-          v82 = 0;
-          v65 = [(CCItemMessage *)v63 initWithData:v64 error:&v82];
-          v10 = v82;
-          v66 = self->_dynamicEnumeration;
-          self->_dynamicEnumeration = v65;
+          v62 = [CCToolKitToolRestrictionContextInSetValueSetDynamicEnumeration alloc];
+          v63 = CCPBReaderReadDataNoCopy();
+          v80 = 0;
+          v64 = [(CCItemMessage *)v62 initWithData:v63 error:&v80];
+          v10 = v80;
+          v65 = self->_dynamicEnumeration;
+          self->_dynamicEnumeration = v64;
 
           if (v10)
           {
@@ -637,16 +636,16 @@ LABEL_49:
           }
 
           self->_kindType = 2;
-          v67 = self->_contentPropertyPossibleValues;
+          v66 = self->_contentPropertyPossibleValues;
           self->_contentPropertyPossibleValues = 0;
 
           break;
         case 3:
           v31 = [CCToolKitToolRestrictionContextInSetValueSetContentPropertyPossibleValues alloc];
           v32 = CCPBReaderReadDataNoCopy();
-          v81 = 0;
-          v33 = [(CCItemMessage *)v31 initWithData:v32 error:&v81];
-          v10 = v81;
+          v79 = 0;
+          v33 = [(CCItemMessage *)v31 initWithData:v32 error:&v79];
+          v10 = v79;
           v34 = self->_contentPropertyPossibleValues;
           self->_contentPropertyPossibleValues = v33;
 
@@ -664,18 +663,18 @@ LABEL_49:
           goto LABEL_38;
       }
 
-      v68 = self->_linkQuery;
+      v67 = self->_linkQuery;
       self->_linkQuery = 0;
 
 LABEL_47:
-      v69 = self->_standaloneLinkQuery;
+      v68 = self->_standaloneLinkQuery;
       self->_standaloneLinkQuery = 0;
 
-      v70 = self->_linkQueryOnParameter;
+      v69 = self->_linkQueryOnParameter;
       self->_linkQueryOnParameter = 0;
 
 LABEL_48:
-      v71 = self->_dynamicEnumerationOnTrigger;
+      v70 = self->_dynamicEnumerationOnTrigger;
       self->_dynamicEnumerationOnTrigger = 0;
 
       goto LABEL_49;
@@ -694,23 +693,22 @@ LABEL_52:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v76 = 1;
+    v74 = 1;
     goto LABEL_56;
   }
 
 LABEL_53:
-  v72 = objc_opt_class();
-  v73 = NSStringFromClass(v72);
-  v74 = *&v6[*v9];
-  v75 = CCInvalidBufferErrorForMessage();
+  v71 = objc_opt_class();
+  v72 = NSStringFromClass(v71);
+  v73 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_54:
-  v76 = 0;
+  v74 = 0;
 LABEL_56:
 
-  return v76;
+  return v74;
 }
 
 - (CCToolKitToolRestrictionContextInSetValueSet)initWithBundleIdentifier:(id)identifier kind:(id)kind kindType:(unsigned int)type error:(id *)error

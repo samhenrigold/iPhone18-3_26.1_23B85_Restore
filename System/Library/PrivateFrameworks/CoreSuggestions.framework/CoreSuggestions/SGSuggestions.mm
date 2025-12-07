@@ -67,11 +67,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v4 = *&self->_contacts;
-  v5 = [v3 initWithFormat:@"[SGSuggestions\n\t - contacts:%@\n\t- events: %@\n\t- reminders:%@\n\t- orders:%@\n\t- passes: %@\n]", self->_contacts, self->_events, self->_reminders, self->_walletOrders, self->_walletPasses];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"[SGSuggestions\n\t - contacts:%@\n\t- events: %@\n\t- reminders:%@\n\t- orders:%@\n\t- passes: %@\n]", self->_contacts, self->_events, self->_reminders, self->_walletOrders, self->_walletPasses];
 
-  return v5;
+  return v2;
 }
 
 - (SGSuggestions)initWithContacts:(id)contacts events:(id)events reminders:(id)reminders walletOrders:(id)orders walletPasses:(id)passes

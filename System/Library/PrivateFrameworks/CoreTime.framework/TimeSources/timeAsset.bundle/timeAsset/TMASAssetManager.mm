@@ -118,7 +118,7 @@
   {
     if (os_log_type_enabled(self->logs, OS_LOG_TYPE_ERROR))
     {
-      sub_1F1C(location, &v13);
+      sub_1F1C();
     }
 
     return 0;
@@ -136,7 +136,7 @@
   {
     if (os_log_type_enabled(self->logs, OS_LOG_TYPE_ERROR))
     {
-      sub_1F88(toLocation, &v13);
+      sub_1F88();
     }
 
     return 0;

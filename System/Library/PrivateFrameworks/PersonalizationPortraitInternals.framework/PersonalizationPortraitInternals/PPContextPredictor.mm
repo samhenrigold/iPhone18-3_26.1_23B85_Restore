@@ -10,7 +10,7 @@
 
 - (id)contextForSentence:(id)sentence
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   if (!self->_mlModel)
   {
     v9 = 0;
@@ -31,40 +31,40 @@
       if (!v10)
       {
 LABEL_13:
-        v42 = 0;
-        v33 = [objc_alloc(MEMORY[0x277CBFF48]) initWithDataPointer:buf shape:&unk_284785340 dataType:65568 strides:&unk_284785358 deallocator:&__block_literal_global_11574 error:&v42];
-        v8 = v42;
-        if (v33)
+        v41 = 0;
+        v32 = [objc_alloc(MEMORY[0x277CBFF48]) initWithDataPointer:buf shape:&unk_284785340 dataType:65568 strides:&unk_284785358 deallocator:&__block_literal_global_11574 error:&v41];
+        v8 = v41;
+        if (v32)
         {
           v14 = objc_alloc(MEMORY[0x277CBFED0]);
           v15 = objc_autoreleasePoolPush();
-          v49 = @"embedded_content";
-          v50 = v33;
-          v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+          v48 = @"embedded_content";
+          v49 = v32;
+          v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
           objc_autoreleasePoolPop(v15);
-          v41 = v8;
-          v17 = [v14 initWithDictionary:v16 error:&v41];
-          v31 = v41;
+          v40 = v8;
+          v17 = [v14 initWithDictionary:v16 error:&v40];
+          v30 = v40;
 
           if (v17)
           {
-            v35 = 0;
-            v36 = &v35;
-            v37 = 0x3032000000;
-            v38 = __Block_byref_object_copy__11580;
-            v39 = __Block_byref_object_dispose__11581;
-            v40 = 0;
+            v34 = 0;
+            v35 = &v34;
+            v36 = 0x3032000000;
+            v37 = __Block_byref_object_copy__11580;
+            v38 = __Block_byref_object_dispose__11581;
+            v39 = 0;
             coremlQueue = self->_coremlQueue;
             *&block = MEMORY[0x277D85DD0];
             *(&block + 1) = 3221225472;
-            v44 = __52__PPContextPredictor_contextUsingCoreMLForSentence___block_invoke_56;
-            v45 = &unk_278976388;
-            v48 = &v35;
+            v43 = __52__PPContextPredictor_contextUsingCoreMLForSentence___block_invoke_56;
+            v44 = &unk_278976388;
+            v47 = &v34;
             selfCopy = self;
             oslog = v17;
-            v47 = oslog;
+            v46 = oslog;
             dispatch_sync(coremlQueue, &block);
-            v19 = v36[5];
+            v19 = v35[5];
             if (v19)
             {
               v20 = [v19 featureValueForName:@"probabilities"];
@@ -91,8 +91,8 @@ LABEL_13:
                 v22 = pp_default_log_handle();
                 if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
                 {
-                  *v34 = 0;
-                  _os_log_error_impl(&dword_23224A000, v22, OS_LOG_TYPE_ERROR, "PPContextPredictor: unable to fetch array.", v34, 2u);
+                  *v33 = 0;
+                  _os_log_error_impl(&dword_23224A000, v22, OS_LOG_TYPE_ERROR, "PPContextPredictor: unable to fetch array.", v33, 2u);
                 }
 
                 v9 = 0;
@@ -104,7 +104,7 @@ LABEL_13:
               v9 = 0;
             }
 
-            _Block_object_dispose(&v35, 8);
+            _Block_object_dispose(&v34, 8);
           }
 
           else
@@ -113,7 +113,7 @@ LABEL_13:
             if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
             {
               LODWORD(block) = 138412290;
-              *(&block + 4) = v31;
+              *(&block + 4) = v30;
               _os_log_error_impl(&dword_23224A000, v27, OS_LOG_TYPE_ERROR, "PPContextPredictor: unable to construct feature provider: %@", &block, 0xCu);
             }
 
@@ -121,7 +121,7 @@ LABEL_13:
             v9 = 0;
           }
 
-          v8 = v31;
+          v8 = v30;
         }
 
         else
@@ -166,7 +166,7 @@ LABEL_13:
   {
     language = self->_language;
     *buf = 138412290;
-    v52 = language;
+    v51 = language;
     _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "PPContextPredictor: unsupported language %@", buf, 0xCu);
   }
 
@@ -175,19 +175,18 @@ LABEL_35:
 
   objc_autoreleasePoolPop(v5);
 LABEL_36:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 void __52__PPContextPredictor_contextUsingCoreMLForSentence___block_invoke_56(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = a1[5];
   v3 = *(a1[4] + 8);
-  v10 = 0;
-  v4 = [v3 predictionFromFeatures:v2 error:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [v3 predictionFromFeatures:v2 error:&v9];
+  v5 = v9;
   v6 = *(a1[6] + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v4;
@@ -198,12 +197,10 @@ void __52__PPContextPredictor_contextUsingCoreMLForSentence___block_invoke_56(vo
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v5;
+      v11 = v5;
       _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "PPContextPredictor: unable to invoke model: %@", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (PPContextPredictor)initWithMLModel:(id)model language:(id)language sentenceEmbeddingVersion:(unint64_t)version
@@ -240,15 +237,15 @@ void __52__PPContextPredictor_contextUsingCoreMLForSentence___block_invoke_56(vo
 
 - (PPContextPredictor)initWithLanguage:(id)language mlModelURL:(id)l
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   lCopy = l;
   v8 = objc_opt_new();
   [v8 setComputeUnits:0];
-  v15 = 0;
-  v9 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:lCopy configuration:v8 error:&v15];
+  v14 = 0;
+  v9 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:lCopy configuration:v8 error:&v14];
 
-  v10 = v15;
+  v10 = v14;
   if (v9)
   {
     self = [(PPContextPredictor *)self initWithMLModel:v9 language:languageCopy sentenceEmbeddingVersion:1];
@@ -261,14 +258,13 @@ void __52__PPContextPredictor_contextUsingCoreMLForSentence___block_invoke_56(vo
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v10;
+      v16 = v10;
       _os_log_error_impl(&dword_23224A000, v12, OS_LOG_TYPE_ERROR, "PPContextPredictor: failed to load ML model: %@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

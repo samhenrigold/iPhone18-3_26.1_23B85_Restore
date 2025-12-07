@@ -201,23 +201,7 @@ flatbuffers::DetachedBuffer *__42__QSSServiceDiscoveryRequest_flatbuffData__bloc
       v19 = v10->_root;
       if (v19)
       {
-        if (!flatbuffers::Verifier::VerifyTableStart(&v33, v11->_root->var0) || !flatbuffers::Table::VerifyOffset(v19, &v33, 4u))
-        {
-          goto LABEL_34;
-        }
-
-        v20 = (v19 - *v19);
-        if (*v20 >= 5u && (v21 = v20[2]) != 0)
-        {
-          v22 = v19 + v21 + *(v19 + v21);
-        }
-
-        else
-        {
-          v22 = 0;
-        }
-
-        if (!flatbuffers::Verifier::VerifyString(&v33, v22) || !flatbuffers::Table::VerifyOffset(v19, &v33, 6u) || ((v23 = (v19 - *v19), *v23 < 7u) || (v24 = v23[3]) == 0 ? (v25 = 0) : (v25 = v19 + v24 + *(v19 + v24)), !flatbuffers::Verifier::VerifyString(&v33, v25) || !flatbuffers::Table::VerifyOffset(v19, &v33, 8u) || ((v26 = (v19 - *v19), *v26 < 9u) || (v27 = v26[4]) == 0 ? (v28 = 0) : (v28 = v19 + v27 + *(v19 + v27)), !flatbuffers::Verifier::VerifyString(&v33, v28))))
+        if (!flatbuffers::Verifier::VerifyTableStart(&v33, v11->_root->var0) || !flatbuffers::Table::VerifyOffset(v19, &v33, 4u) || ((v20 = (v19 - *v19), *v20 < 5u) || (v21 = v20[2]) == 0 ? (v22 = 0) : (v22 = v19 + v21 + *(v19 + v21)), !flatbuffers::Verifier::VerifyString(&v33, v22) || !flatbuffers::Table::VerifyOffset(v19, &v33, 6u) || ((v23 = (v19 - *v19), *v23 < 7u) || (v24 = v23[3]) == 0 ? (v25 = 0) : (v25 = v19 + v24 + *(v19 + v24)), !flatbuffers::Verifier::VerifyString(&v33, v25) || !flatbuffers::Table::VerifyOffset(v19, &v33, 8u) || ((v26 = (v19 - *v19), *v26 < 9u) || (v27 = v26[4]) == 0 ? (v28 = 0) : (v28 = v19 + v27 + *(v19 + v27)), !flatbuffers::Verifier::VerifyString(&v33, v28)))))
         {
 LABEL_34:
           v31 = 0;

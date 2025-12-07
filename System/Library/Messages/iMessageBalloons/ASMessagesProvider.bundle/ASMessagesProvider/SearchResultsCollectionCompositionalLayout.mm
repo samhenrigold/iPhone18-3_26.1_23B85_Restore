@@ -32,22 +32,25 @@
 
 - (id)layoutAttributesForElementsInRect:(CGRect)rect
 {
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  v5 = sub_E4104(x);
+  v8 = sub_E4104(x, y, width, height);
 
-  if (v5)
+  if (v8)
   {
     sub_E59C4();
-    v6.super.isa = sub_769450().super.isa;
+    v9.super.isa = sub_769450().super.isa;
   }
 
   else
   {
-    v6.super.isa = 0;
+    v9.super.isa = 0;
   }
 
-  return v6.super.isa;
+  return v9.super.isa;
 }
 
 - (id)layoutAttributesForItemAtIndexPath:(id)path

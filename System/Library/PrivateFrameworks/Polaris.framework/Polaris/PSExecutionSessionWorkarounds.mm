@@ -132,7 +132,7 @@ uint64_t __47__PSExecutionSessionWorkarounds_sharedInstance__block_invoke()
 
 - (BOOL)shouldForceCadencedGSTforDomain:(id)domain forGraph:(id)graph systemPulseRate:(id)rate
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   graphCopy = graph;
   rateCopy = rate;
@@ -149,60 +149,64 @@ uint64_t __47__PSExecutionSessionWorkarounds_sharedInstance__block_invoke()
 
     else
     {
-      v20 = [v10 containsObject:graphCopy];
+      v21 = [v10 containsObject:graphCopy];
 
-      if ((v20 & 1) == 0)
+      if ((v21 & 1) == 0)
       {
         goto LABEL_19;
       }
     }
 
-    if ([rateCopy isEqual:&unk_2870CAC20])
+    v14 = [rateCopy isEqual:&unk_2870CAC20];
+    if (v14)
     {
 LABEL_13:
-      v16 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = __PLSLogSharedInstance(v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = [domainCopy key];
-        _os_log_unreliable_impl();
+        v18 = [domainCopy key];
+        v23 = 138412546;
+        v24 = graphCopy;
+        v25 = 2112;
+        v26 = v18;
+        _os_log_unreliable_impl(&dword_25EA3A000, v17, 0, "Not forcing cadenced GST for %@ [%@]", &v23, 22);
       }
 
       goto LABEL_16;
     }
 
-    v14 = +[PLSSettings currentSettings];
-    if (![v14 shouldUseOrchestratorV2] || (objc_msgSend(graphCopy, "containsString:", @"com.apple.reality.kind.camera.xcam.raw") & 1) != 0)
+    v15 = +[PLSSettings currentSettings];
+    if (![v15 shouldUseOrchestratorV2] || (objc_msgSend(graphCopy, "containsString:", @"com.apple.reality.kind.camera.xcam.raw") & 1) != 0)
     {
 LABEL_12:
 
       goto LABEL_13;
     }
 
-    v15 = [MEMORY[0x277D3E6C8] customDomain:@"m_p_x_cam"];
-    if (![domainCopy isEqual:v15] || objc_msgSend(graphCopy, "isEqualToString:", @"RC-graph-xcam_raw"))
+    v16 = [MEMORY[0x277D3E6C8] customDomain:@"m_p_x_cam"];
+    if (![domainCopy isEqual:v16] || objc_msgSend(graphCopy, "isEqualToString:", @"RC-graph-xcam_raw"))
     {
 
       goto LABEL_12;
     }
 
-    v21 = [v10 containsObject:graphCopy];
+    v22 = [v10 containsObject:graphCopy];
 
-    if (v21)
+    if (v22)
     {
       goto LABEL_13;
     }
 
 LABEL_19:
-    v17 = 1;
+    v19 = 1;
     goto LABEL_17;
   }
 
 LABEL_16:
-  v17 = 0;
+  v19 = 0;
 LABEL_17:
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v19;
 }
 
 - (id)shortenedNameForGraph:(id)graph procName:(id)name

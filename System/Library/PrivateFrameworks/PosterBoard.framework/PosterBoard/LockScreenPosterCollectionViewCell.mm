@@ -18,7 +18,7 @@
   selfCopy = self;
   sub_21B65F374(1);
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for LockScreenPosterCollectionViewCell();
+  v3.super_class = type metadata accessor for LockScreenPosterCollectionViewCell(0);
   [(LockScreenPosterCollectionViewCell *)&v3 dealloc];
 }
 

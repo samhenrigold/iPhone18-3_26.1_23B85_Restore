@@ -13,6 +13,7 @@
 - (void)setSyncQueue:(id)queue;
 - (void)setTargetQueue:(id)queue;
 - (void)tcpAttachSocketDescriptor:(int)descriptor;
+- (void)tcpConnectSockAddr:(const sockaddr *)addr port:(unsigned __int16)port;
 @end
 
 @implementation GKAsyncSocket
@@ -33,6 +34,13 @@
   v3.receiver = self;
   v3.super_class = GKAsyncSocket;
   [(GKAsyncSocket *)&v3 doesNotRecognizeSelector:a2];
+}
+
+- (void)tcpConnectSockAddr:(const sockaddr *)addr port:(unsigned __int16)port
+{
+  v4.receiver = self;
+  v4.super_class = GKAsyncSocket;
+  [(GKAsyncSocket *)&v4 doesNotRecognizeSelector:a2, port];
 }
 
 - (void)invalidate

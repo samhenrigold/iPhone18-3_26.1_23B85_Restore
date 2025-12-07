@@ -28,11 +28,11 @@
 {
   configurationCopy = configuration;
   listCopy = list;
-  v8 = _LTOSLogSTInstrumentation();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = _LTOSLogSTInstrumentation(listCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_26B5BC000, v8, OS_LOG_TYPE_INFO, "Register new client list for instrumentation observation", buf, 2u);
+    _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "Register new client list for instrumentation observation", buf, 2u);
   }
 
   [listCopy setDelegate:self];
@@ -43,13 +43,13 @@
   block[1] = 3221225472;
   block[2] = __57___STSELFLoggingClient_registerClientList_configuration___block_invoke;
   block[3] = &unk_279CF7BA8;
-  objc_copyWeak(&v14, buf);
-  v12 = configurationCopy;
+  objc_copyWeak(&v15, buf);
+  v13 = configurationCopy;
   selfCopy = self;
-  v10 = configurationCopy;
+  v11 = configurationCopy;
   dispatch_async(loggingQueue, block);
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
 }
 

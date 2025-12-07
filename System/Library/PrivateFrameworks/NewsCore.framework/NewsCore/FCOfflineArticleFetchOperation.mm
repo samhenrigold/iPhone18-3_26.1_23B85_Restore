@@ -36,7 +36,7 @@
 
 - (BOOL)validateOperation
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self && self->_context)
   {
     v3 = 1;
@@ -46,16 +46,16 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline article fetch operation requires a context"];
-      v11 = 136315906;
-      v12 = "[FCOfflineArticleFetchOperation validateOperation]";
-      v13 = 2080;
-      v14 = "FCOfflineArticleFetchOperation.m";
-      v15 = 1024;
-      v16 = 82;
-      v17 = 2114;
-      v18 = v8;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline article fetch operation requires a context"];
+      v10 = 136315906;
+      v11 = "[FCOfflineArticleFetchOperation validateOperation]";
+      v12 = 2080;
+      v13 = "FCOfflineArticleFetchOperation.m";
+      v14 = 1024;
+      v15 = 82;
+      v16 = 2114;
+      v17 = v7;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
     }
 
     v3 = 0;
@@ -64,16 +64,16 @@
 LABEL_9:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline article fetch operation requires a flint helper"];
-        v11 = 136315906;
-        v12 = "[FCOfflineArticleFetchOperation validateOperation]";
-        v13 = 2080;
-        v14 = "FCOfflineArticleFetchOperation.m";
-        v15 = 1024;
-        v16 = 86;
-        v17 = 2114;
-        v18 = v9;
-        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+        v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline article fetch operation requires a flint helper"];
+        v10 = 136315906;
+        v11 = "[FCOfflineArticleFetchOperation validateOperation]";
+        v12 = 2080;
+        v13 = "FCOfflineArticleFetchOperation.m";
+        v14 = 1024;
+        v15 = 86;
+        v16 = 2114;
+        v17 = v8;
+        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
       }
 
       v4 = 0;
@@ -96,27 +96,25 @@ LABEL_12:
   if (self->_articleID)
   {
     v5 = 1;
-    goto LABEL_17;
+    return v5 & v4 & v3;
   }
 
 LABEL_14:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline article fetch operation requires an article ID"];
-    v11 = 136315906;
-    v12 = "[FCOfflineArticleFetchOperation validateOperation]";
-    v13 = 2080;
-    v14 = "FCOfflineArticleFetchOperation.m";
-    v15 = 1024;
-    v16 = 90;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline article fetch operation requires an article ID"];
+    v10 = 136315906;
+    v11 = "[FCOfflineArticleFetchOperation validateOperation]";
+    v12 = 2080;
+    v13 = "FCOfflineArticleFetchOperation.m";
+    v14 = 1024;
+    v15 = 90;
+    v16 = 2114;
+    v17 = v9;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
   }
 
   v5 = 0;
-LABEL_17:
-  v6 = *MEMORY[0x1E69E9840];
   return v5 & v4 & v3;
 }
 
@@ -139,13 +137,13 @@ LABEL_17:
 
 - (void)performOperation
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v33[0] = 0;
-  v33[1] = v33;
-  v33[2] = 0x3032000000;
-  v33[3] = __Block_byref_object_copy__73;
-  v33[4] = __Block_byref_object_dispose__73;
-  v34 = 0;
+  v44 = *MEMORY[0x1E69E9840];
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
+  v32[3] = __Block_byref_object_copy__73;
+  v32[4] = __Block_byref_object_dispose__73;
+  v33 = 0;
   v3 = FCOperationLog;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -164,13 +162,13 @@ LABEL_17:
     {
       v6 = self->_articleID;
       config = self->_config;
-      v25 = v6;
+      v24 = v6;
     }
 
     else
     {
       v6 = 0;
-      v25 = 0;
+      v24 = 0;
       config = 0;
     }
 
@@ -208,65 +206,64 @@ LABEL_17:
       v13 = @"normal";
     }
 
-    v36 = shortOperationDescription;
-    v37 = 2114;
-    v38 = v5;
-    v39 = 2114;
-    v40 = v6;
-    v41 = 2114;
-    v42 = v9;
-    v43 = 2114;
-    v44 = v13;
+    v35 = shortOperationDescription;
+    v36 = 2114;
+    v37 = v5;
+    v38 = 2114;
+    v39 = v6;
+    v40 = 2114;
+    v41 = v9;
+    v42 = 2114;
+    v43 = v13;
     _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will %{public}@ article id=%{public}@, thumbnail variant=%{public}@, image variant=%{public}@", buf, 0x34u);
   }
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __50__FCOfflineArticleFetchOperation_performOperation__block_invoke;
-  v32[3] = &unk_1E7C396C0;
-  v32[4] = self;
-  v26 = [MEMORY[0x1E69B68F8] firstly:v32];
-  v14 = zalgo();
   v31[0] = MEMORY[0x1E69E9820];
   v31[1] = 3221225472;
-  v31[2] = __50__FCOfflineArticleFetchOperation_performOperation__block_invoke_2;
-  v31[3] = &unk_1E7C45510;
+  v31[2] = __50__FCOfflineArticleFetchOperation_performOperation__block_invoke;
+  v31[3] = &unk_1E7C396C0;
   v31[4] = self;
-  v31[5] = v33;
-  v15 = [v26 thenOn:v14 then:v31];
-  v16 = zalgo();
+  v25 = [MEMORY[0x1E69B68F8] firstly:v31];
+  v14 = zalgo();
   v30[0] = MEMORY[0x1E69E9820];
   v30[1] = 3221225472;
-  v30[2] = __50__FCOfflineArticleFetchOperation_performOperation__block_invoke_3;
-  v30[3] = &unk_1E7C45538;
+  v30[2] = __50__FCOfflineArticleFetchOperation_performOperation__block_invoke_2;
+  v30[3] = &unk_1E7C45510;
   v30[4] = self;
-  v30[5] = v33;
-  v17 = [v15 thenOn:v16 then:v30];
-  v18 = zalgo();
+  v30[5] = v32;
+  v15 = [v25 thenOn:v14 then:v30];
+  v16 = zalgo();
   v29[0] = MEMORY[0x1E69E9820];
   v29[1] = 3221225472;
-  v29[2] = __50__FCOfflineArticleFetchOperation_performOperation__block_invoke_4;
+  v29[2] = __50__FCOfflineArticleFetchOperation_performOperation__block_invoke_3;
   v29[3] = &unk_1E7C45538;
   v29[4] = self;
-  v29[5] = v33;
-  v19 = [v17 thenOn:v18 then:v29];
-  v20 = zalgo();
+  v29[5] = v32;
+  v17 = [v15 thenOn:v16 then:v29];
+  v18 = zalgo();
   v28[0] = MEMORY[0x1E69E9820];
   v28[1] = 3221225472;
-  v28[2] = __50__FCOfflineArticleFetchOperation_performOperation__block_invoke_5;
-  v28[3] = &unk_1E7C403D8;
+  v28[2] = __50__FCOfflineArticleFetchOperation_performOperation__block_invoke_4;
+  v28[3] = &unk_1E7C45538;
   v28[4] = self;
-  v21 = [v19 thenOn:v20 then:v28];
-  v22 = zalgo();
+  v28[5] = v32;
+  v19 = [v17 thenOn:v18 then:v28];
+  v20 = zalgo();
   v27[0] = MEMORY[0x1E69E9820];
   v27[1] = 3221225472;
-  v27[2] = __50__FCOfflineArticleFetchOperation_performOperation__block_invoke_6;
-  v27[3] = &unk_1E7C36E50;
+  v27[2] = __50__FCOfflineArticleFetchOperation_performOperation__block_invoke_5;
+  v27[3] = &unk_1E7C403D8;
   v27[4] = self;
-  v23 = [v21 errorOn:v22 error:v27];
+  v21 = [v19 thenOn:v20 then:v27];
+  v22 = zalgo();
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __50__FCOfflineArticleFetchOperation_performOperation__block_invoke_6;
+  v26[3] = &unk_1E7C36E50;
+  v26[4] = self;
+  v23 = [v21 errorOn:v22 error:v26];
 
-  _Block_object_dispose(v33, 8);
-  v24 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v32, 8);
 }
 
 id __50__FCOfflineArticleFetchOperation_performOperation__block_invoke(uint64_t a1)
@@ -293,7 +290,7 @@ id __50__FCOfflineArticleFetchOperation_performOperation__block_invoke(uint64_t 
 
 id __50__FCOfflineArticleFetchOperation_performOperation__block_invoke_2(uint64_t a1, void *a2)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   v4 = a2;
   v5 = *(a1 + 32);
@@ -304,21 +301,21 @@ id __50__FCOfflineArticleFetchOperation_performOperation__block_invoke_2(uint64_
     if ([v6 contentType] == 2)
     {
       v8 = objc_alloc(MEMORY[0x1E69B68F8]);
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __57__FCOfflineArticleFetchOperation__promiseANFForHeadline___block_invoke_2;
-      v15[3] = &unk_1E7C3B310;
-      v15[4] = v5;
-      v16 = v7;
-      v9 = [v8 initWithResolver:v15];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __57__FCOfflineArticleFetchOperation__promiseANFForHeadline___block_invoke_2;
+      v14[3] = &unk_1E7C3B310;
+      v14[4] = v5;
+      v15 = v7;
+      v9 = [v8 initWithResolver:v14];
     }
 
     else
     {
       v10 = MEMORY[0x1E696ABC0];
-      v17[0] = *MEMORY[0x1E696A578];
-      v15[0] = @"Offline downloads are only supported for ANF articles.";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v17 count:1];
+      v16[0] = *MEMORY[0x1E696A578];
+      v14[0] = @"Offline downloads are only supported for ANF articles.";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v16 count:1];
       v12 = [v10 errorWithDomain:@"FCErrorDomain" code:42 userInfo:v11];
 
       v9 = [objc_alloc(MEMORY[0x1E69B68F8]) initWithError:v12];
@@ -329,8 +326,6 @@ id __50__FCOfflineArticleFetchOperation_performOperation__block_invoke_2(uint64_
   {
     v9 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -474,7 +469,7 @@ void __63__FCOfflineArticleFetchOperation_operationWillFinishWithError___block_i
 
 void __50__FCOfflineArticleFetchOperation__promiseHeadline__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [FCArticleHeadlinesFetchOperation alloc];
@@ -490,11 +485,11 @@ void __50__FCOfflineArticleFetchOperation__promiseHeadline__block_invoke(uint64_
     v9 = 0;
   }
 
-  v27[0] = v8;
+  v26[0] = v8;
   v10 = MEMORY[0x1E695DEC8];
   v11 = v8;
   v12 = v9;
-  v13 = [v10 arrayWithObjects:v27 count:1];
+  v13 = [v10 arrayWithObjects:v26 count:1];
   v14 = [(FCArticleHeadlinesFetchOperation *)v7 initWithContext:v12 articleIDs:v13 ignoreCacheForArticleIDs:0];
 
   [(FCFetchOperation *)v14 setShouldFailOnMissingObjects:1];
@@ -510,33 +505,31 @@ void __50__FCOfflineArticleFetchOperation__promiseHeadline__block_invoke(uint64_
 
   [(FCFetchOperation *)v14 setCachePolicy:v15];
   -[FCFetchOperation setCanSendFetchCompletionSynchronously:](v14, "setCanSendFetchCompletionSynchronously:", [*(a1 + 32) cachedOnly]);
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __50__FCOfflineArticleFetchOperation__promiseHeadline__block_invoke_2;
-  v26[3] = &unk_1E7C40478;
-  v26[4] = *(a1 + 32);
-  [(FCArticleHeadlinesFetchOperation *)v14 setInterestTokenHandler:v26];
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __50__FCOfflineArticleFetchOperation__promiseHeadline__block_invoke_3;
-  v22 = &unk_1E7C3B740;
-  v23 = *(a1 + 32);
-  v24 = v6;
-  v25 = v5;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __50__FCOfflineArticleFetchOperation__promiseHeadline__block_invoke_2;
+  v25[3] = &unk_1E7C40478;
+  v25[4] = *(a1 + 32);
+  [(FCArticleHeadlinesFetchOperation *)v14 setInterestTokenHandler:v25];
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __50__FCOfflineArticleFetchOperation__promiseHeadline__block_invoke_3;
+  v21 = &unk_1E7C3B740;
+  v22 = *(a1 + 32);
+  v23 = v6;
+  v24 = v5;
   v16 = v5;
   v17 = v6;
-  [(FCFetchOperation *)v14 setFetchCompletionBlock:&v19];
-  [*(a1 + 32) associateChildOperation:{v14, v19, v20, v21, v22, v23}];
+  [(FCFetchOperation *)v14 setFetchCompletionBlock:&v18];
+  [*(a1 + 32) associateChildOperation:{v14, v18, v19, v20, v21, v22}];
   [(FCOperation *)v14 start];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __50__FCOfflineArticleFetchOperation__promiseHeadline__block_invoke_2(uint64_t result, uint64_t a2)
+void *__50__FCOfflineArticleFetchOperation__promiseHeadline__block_invoke_2(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 456) addObject:a2];
@@ -662,7 +655,7 @@ LABEL_7:
 
 void __57__FCOfflineArticleFetchOperation__promiseANFForHeadline___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [FCOfflineANFArticlesFetchOperation alloc];
@@ -680,12 +673,12 @@ void __57__FCOfflineArticleFetchOperation__promiseANFForHeadline___block_invoke_
     v9 = 0;
   }
 
-  v31[0] = *(a1 + 40);
+  v30[0] = *(a1 + 40);
   v11 = MEMORY[0x1E695DEC8];
   v12 = v8;
   v13 = v10;
   v14 = v9;
-  v15 = [v11 arrayWithObjects:v31 count:1];
+  v15 = [v11 arrayWithObjects:v30 count:1];
   v16 = [(FCOfflineANFArticlesFetchOperation *)&v7->super.super.super.isa initWithContext:v14 config:v13 ANFHelper:v12 headlines:v15];
 
   if (v16)
@@ -711,40 +704,38 @@ void __57__FCOfflineArticleFetchOperation__promiseANFForHeadline___block_invoke_
     v18 = *(a1 + 32);
   }
 
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __57__FCOfflineArticleFetchOperation__promiseANFForHeadline___block_invoke_4;
-  v29[3] = &unk_1E7C404A0;
-  v29[4] = v18;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __57__FCOfflineArticleFetchOperation__promiseANFForHeadline___block_invoke_4;
+  v28[3] = &unk_1E7C404A0;
+  v28[4] = v18;
   if (v16)
   {
-    objc_setProperty_nonatomic_copy(v16, v17, v29, 408);
+    objc_setProperty_nonatomic_copy(v16, v17, v28, 408);
   }
 
-  v23 = MEMORY[0x1E69E9820];
-  v24 = 3221225472;
-  v25 = __57__FCOfflineArticleFetchOperation__promiseANFForHeadline___block_invoke_5;
-  v26 = &unk_1E7C3F590;
-  v27 = v6;
-  v28 = v5;
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __57__FCOfflineArticleFetchOperation__promiseANFForHeadline___block_invoke_5;
+  v25 = &unk_1E7C3F590;
+  v26 = v6;
+  v27 = v5;
   v19 = v5;
   v21 = v6;
   if (v16)
   {
-    objc_setProperty_nonatomic_copy(v16, v20, &v23, 424);
+    objc_setProperty_nonatomic_copy(v16, v20, &v22, 424);
   }
 
-  [*(a1 + 32) associateChildOperation:{v16, v23, v24, v25, v26}];
+  [*(a1 + 32) associateChildOperation:{v16, v22, v23, v24, v25}];
   [v16 start];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __57__FCOfflineArticleFetchOperation__promiseANFForHeadline___block_invoke_3(uint64_t result, uint64_t a2)
+void *__57__FCOfflineArticleFetchOperation__promiseANFForHeadline___block_invoke_3(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 456) addObject:a2];
@@ -885,11 +876,11 @@ void __64__FCOfflineArticleFetchOperation__promiseIssueCoverForHeadline___block_
   [(FCOperation *)v9 start];
 }
 
-uint64_t __64__FCOfflineArticleFetchOperation__promiseIssueCoverForHeadline___block_invoke_3(uint64_t result, uint64_t a2)
+void *__64__FCOfflineArticleFetchOperation__promiseIssueCoverForHeadline___block_invoke_3(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 456) addObject:a2];

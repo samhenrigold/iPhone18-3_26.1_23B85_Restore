@@ -62,73 +62,73 @@
 - (void)showDetectionUI
 {
   selfCopy = self;
-  sub_100116B54(&MAGService.presentDetectionUI());
+  sub_100116B54(&MAGService.presentDetectionUI(), "Error occurred trying to present detection UI: %s", v2);
 }
 
 - (void)dismissDetectionUI
 {
   selfCopy = self;
-  sub_100116B54(&MAGService.dismissUI());
+  sub_100116B54(&MAGService.dismissUI(), "Error occurred trying to dismiss detection UI: %s", v2);
 }
 
 - (void)hideDetectionUI
 {
   selfCopy = self;
-  sub_100116B54(&MAGService.hideUI());
+  sub_100116B54(&MAGService.hideUI(), "Error occurred trying to hide detection UI: %s", v2);
 }
 
 - (void)toggleDetectionUI
 {
   selfCopy = self;
-  sub_100116B54(&MAGService.toggleUI());
+  sub_100116B54(&MAGService.toggleUI(), "Error occurred trying to toggle detection UI: %s", v2);
 }
 
 - (void)toggleTextDetection
 {
   selfCopy = self;
-  sub_100116B54(&MAGService.toggleTextDetection());
+  sub_100116B54(&MAGService.toggleTextDetection(), "Error occurred trying to present detection UI: %s", v2);
 }
 
 - (void)toggleFurnitureDetection
 {
   selfCopy = self;
-  sub_100116B54(&MAGService.toggleFurnitureDetection());
+  sub_100116B54(&MAGService.toggleFurnitureDetection(), "Error occurred trying to present detection UI: %s", v2);
 }
 
 - (void)togglePeopleDetection
 {
   selfCopy = self;
-  sub_100116B54(&MAGService.togglePeopleDetection());
+  sub_100116B54(&MAGService.togglePeopleDetection(), "Error occurred trying to present detection UI: %s", v2);
 }
 
 - (void)toggleDoorDetection
 {
   selfCopy = self;
-  sub_100116B54(&MAGService.toggleDoorDetection());
+  sub_100116B54(&MAGService.toggleDoorDetection(), "Error occurred trying to present detection UI: %s", v2);
 }
 
 - (void)toggleImageDescriptions
 {
   selfCopy = self;
-  sub_100116B54(&MAGService.toggleImageDescriptions());
+  sub_100116B54(&MAGService.toggleImageDescriptions(), "Error occurred trying to present detection UI: %s", v2);
 }
 
 - (void)togglePointAndSpeak
 {
   selfCopy = self;
-  sub_100116B54(&MAGService.togglePointAndSpeak());
+  sub_100116B54(&MAGService.togglePointAndSpeak(), "Error occurred trying to present detection UI: %s", v2);
 }
 
 - (void)stopSpeech
 {
   selfCopy = self;
-  sub_100116B54(&MAGService.stopSpeech());
+  sub_100116B54(&MAGService.stopSpeech(), "Error occurred trying to present detection UI: %s", v2);
 }
 
 - (void)toggleCurrentActivity
 {
   selfCopy = self;
-  sub_100116B54(&MAGService.toggleCurrentActivity());
+  sub_100116B54(&MAGService.toggleCurrentActivity(), "Error occurred trying to present detection UI: %s", v2);
 }
 
 @end

@@ -20,8 +20,8 @@
       goto LABEL_18;
     }
 
-LABEL_22:
-    ENErrorF(2);
+    ENErrorF(2, "super init failed");
+LABEL_23:
     *error = v19 = 0;
     goto LABEL_16;
   }
@@ -33,7 +33,8 @@ LABEL_22:
       goto LABEL_18;
     }
 
-    goto LABEL_22;
+    ENErrorF(2, "XPC non-dict");
+    goto LABEL_23;
   }
 
   if (!CUXPCDecodeDouble())
@@ -44,57 +45,11 @@ LABEL_18:
   }
 
   v8 = xpc_dictionary_get_dictionary(objectCopy, "siCT");
-  if (v8)
+  if (v8 && (v9 = [[ENExposureSummaryItem alloc] initWithXPCObject:v8 error:error], confirmedTestSummary = v7->_confirmedTestSummary, v7->_confirmedTestSummary = v9, confirmedTestSummary, !v7->_confirmedTestSummary) || (v8, xpc_dictionary_get_dictionary(objectCopy, "siCC"), (v8 = objc_claimAutoreleasedReturnValue()) != 0) && (v11 = [[ENExposureSummaryItem alloc] initWithXPCObject:v8 error:error], confirmedClinicalDiagnosisSummary = v7->_confirmedClinicalDiagnosisSummary, v7->_confirmedClinicalDiagnosisSummary = v11, confirmedClinicalDiagnosisSummary, !v7->_confirmedClinicalDiagnosisSummary) || (v8, xpc_dictionary_get_dictionary(objectCopy, "siRC"), (v8 = objc_claimAutoreleasedReturnValue()) != 0) && (v13 = [[ENExposureSummaryItem alloc] initWithXPCObject:v8 error:error], recursiveSummary = v7->_recursiveSummary, v7->_recursiveSummary = v13, recursiveSummary, !v7->_recursiveSummary) || (v8, xpc_dictionary_get_dictionary(objectCopy, "siSR"), (v8 = objc_claimAutoreleasedReturnValue()) != 0) && (v15 = [[ENExposureSummaryItem alloc] initWithXPCObject:v8 error:error], selfReportedSummary = v7->_selfReportedSummary, v7->_selfReportedSummary = v15, selfReportedSummary, !v7->_selfReportedSummary))
   {
-    v9 = [[ENExposureSummaryItem alloc] initWithXPCObject:v8 error:error];
-    confirmedTestSummary = v7->_confirmedTestSummary;
-    v7->_confirmedTestSummary = v9;
-
-    if (!v7->_confirmedTestSummary)
-    {
-      goto LABEL_17;
-    }
-  }
-
-  v8 = xpc_dictionary_get_dictionary(objectCopy, "siCC");
-  if (v8)
-  {
-    v11 = [[ENExposureSummaryItem alloc] initWithXPCObject:v8 error:error];
-    confirmedClinicalDiagnosisSummary = v7->_confirmedClinicalDiagnosisSummary;
-    v7->_confirmedClinicalDiagnosisSummary = v11;
-
-    if (!v7->_confirmedClinicalDiagnosisSummary)
-    {
-      goto LABEL_17;
-    }
-  }
-
-  v8 = xpc_dictionary_get_dictionary(objectCopy, "siRC");
-  if (v8)
-  {
-    v13 = [[ENExposureSummaryItem alloc] initWithXPCObject:v8 error:error];
-    recursiveSummary = v7->_recursiveSummary;
-    v7->_recursiveSummary = v13;
-
-    if (!v7->_recursiveSummary)
-    {
-      goto LABEL_17;
-    }
-  }
-
-  v8 = xpc_dictionary_get_dictionary(objectCopy, "siSR");
-  if (v8)
-  {
-    v15 = [[ENExposureSummaryItem alloc] initWithXPCObject:v8 error:error];
-    selfReportedSummary = v7->_selfReportedSummary;
-    v7->_selfReportedSummary = v15;
-
-    if (!v7->_selfReportedSummary)
-    {
 LABEL_17:
 
-      goto LABEL_18;
-    }
+    goto LABEL_18;
   }
 
   v8 = xpc_dictionary_get_dictionary(objectCopy, "siDay");
@@ -189,78 +144,94 @@ LABEL_16:
 
 - (id)description
 {
-  NSAppendPrintF_safe();
-  v21 = 0;
-  date = self->_date;
-  NSAppendPrintF_safe();
-  v3 = v21;
+  v52 = 0;
+  NSAppendPrintF_safe(&v52, "ENExposureDaySummary");
+  v3 = v52;
+  v51 = v3;
+  NSAppendPrintF_safe(&v51, ", Date %@", self->_date);
+  v4 = v51;
 
   daySummary = self->_daySummary;
   if (daySummary)
   {
-    v5 = daySummary;
-    [(ENExposureSummaryItem *)v5 maximumScore];
-    [(ENExposureSummaryItem *)v5 scoreSum];
-    [(ENExposureSummaryItem *)v5 weightedDurationSum];
-    NSAppendPrintF_safe();
-    v6 = v3;
+    v50 = v4;
+    v6 = daySummary;
+    [(ENExposureSummaryItem *)v6 maximumScore];
+    v8 = v7;
+    [(ENExposureSummaryItem *)v6 scoreSum];
+    v10 = v9;
+    [(ENExposureSummaryItem *)v6 weightedDurationSum];
+    NSAppendPrintF_safe(&v50, ", Day { M %.0f, S %.0f, D %.0f }", v8, v10, v11);
+    v12 = v50;
 
-    v3 = v6;
+    v4 = v12;
   }
 
   confirmedTestSummary = self->_confirmedTestSummary;
   if (confirmedTestSummary)
   {
-    v8 = confirmedTestSummary;
-    [(ENExposureSummaryItem *)v8 maximumScore];
-    [(ENExposureSummaryItem *)v8 scoreSum];
-    [(ENExposureSummaryItem *)v8 weightedDurationSum];
-    NSAppendPrintF_safe();
-    v9 = v3;
+    v49 = v4;
+    v14 = confirmedTestSummary;
+    [(ENExposureSummaryItem *)v14 maximumScore];
+    v16 = v15;
+    [(ENExposureSummaryItem *)v14 scoreSum];
+    v18 = v17;
+    [(ENExposureSummaryItem *)v14 weightedDurationSum];
+    NSAppendPrintF_safe(&v49, ", CTest { M %.0f, S %.0f, D %.0f }", v16, v18, v19);
+    v20 = v49;
 
-    v3 = v9;
+    v4 = v20;
   }
 
   confirmedClinicalDiagnosisSummary = self->_confirmedClinicalDiagnosisSummary;
   if (confirmedClinicalDiagnosisSummary)
   {
-    v11 = confirmedClinicalDiagnosisSummary;
-    [(ENExposureSummaryItem *)v11 maximumScore];
-    [(ENExposureSummaryItem *)v11 scoreSum];
-    [(ENExposureSummaryItem *)v11 weightedDurationSum];
-    NSAppendPrintF_safe();
-    v12 = v3;
+    v48 = v4;
+    v22 = confirmedClinicalDiagnosisSummary;
+    [(ENExposureSummaryItem *)v22 maximumScore];
+    v24 = v23;
+    [(ENExposureSummaryItem *)v22 scoreSum];
+    v26 = v25;
+    [(ENExposureSummaryItem *)v22 weightedDurationSum];
+    NSAppendPrintF_safe(&v48, ", CClin { M %.0f, S %.0f, D %.0f }", v24, v26, v27);
+    v28 = v48;
 
-    v3 = v12;
+    v4 = v28;
   }
 
   recursiveSummary = self->_recursiveSummary;
   if (recursiveSummary)
   {
-    v14 = recursiveSummary;
-    [(ENExposureSummaryItem *)v14 maximumScore];
-    [(ENExposureSummaryItem *)v14 scoreSum];
-    [(ENExposureSummaryItem *)v14 weightedDurationSum];
-    NSAppendPrintF_safe();
-    v15 = v3;
+    v47 = v4;
+    v30 = recursiveSummary;
+    [(ENExposureSummaryItem *)v30 maximumScore];
+    v32 = v31;
+    [(ENExposureSummaryItem *)v30 scoreSum];
+    v34 = v33;
+    [(ENExposureSummaryItem *)v30 weightedDurationSum];
+    NSAppendPrintF_safe(&v47, ", Recurs { M %.0f, S %.0f, D %.0f }", v32, v34, v35);
+    v36 = v47;
 
-    v3 = v15;
+    v4 = v36;
   }
 
   selfReportedSummary = self->_selfReportedSummary;
   if (selfReportedSummary)
   {
-    v17 = selfReportedSummary;
-    [(ENExposureSummaryItem *)v17 maximumScore];
-    [(ENExposureSummaryItem *)v17 scoreSum];
-    [(ENExposureSummaryItem *)v17 weightedDurationSum];
-    NSAppendPrintF_safe();
-    v18 = v3;
+    v46 = v4;
+    v38 = selfReportedSummary;
+    [(ENExposureSummaryItem *)v38 maximumScore];
+    v40 = v39;
+    [(ENExposureSummaryItem *)v38 scoreSum];
+    v42 = v41;
+    [(ENExposureSummaryItem *)v38 weightedDurationSum];
+    NSAppendPrintF_safe(&v46, ", SelfR { M %.0f, S %.0f, D %.0f }", v40, v42, v43);
+    v44 = v46;
 
-    v3 = v18;
+    v4 = v44;
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)roundDurations

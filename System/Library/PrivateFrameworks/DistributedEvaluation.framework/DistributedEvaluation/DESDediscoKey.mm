@@ -30,98 +30,88 @@
 
 - (id)resultsKeyString
 {
-  v10[5] = *MEMORY[0x277D85DE8];
+  v9[5] = *MEMORY[0x277D85DE8];
   privacyID = [(DESDediscoKey *)self privacyID];
-  v10[1] = privacyID;
-  v10[2] = @"results";
+  v9[1] = privacyID;
+  v9[2] = @"results";
   environment = [(DESDediscoKey *)self environment];
-  v10[3] = environment;
+  v9[3] = environment;
   recipeID = [(DESDediscoKey *)self recipeID];
-  v10[4] = recipeID;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:5];
+  v9[4] = recipeID;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:5];
 
   v7 = [v6 componentsJoinedByString:@":"];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)resultsKeyStringForChunk:(id)chunk
 {
-  v12[6] = *MEMORY[0x277D85DE8];
-  v12[0] = @"pfl";
+  v11[6] = *MEMORY[0x277D85DE8];
+  v11[0] = @"pfl";
   chunkCopy = chunk;
   privacyID = [(DESDediscoKey *)self privacyID];
-  v12[1] = privacyID;
-  v12[2] = @"results";
-  v12[3] = chunkCopy;
+  v11[1] = privacyID;
+  v11[2] = @"results";
+  v11[3] = chunkCopy;
   environment = [(DESDediscoKey *)self environment];
-  v12[4] = environment;
+  v11[4] = environment;
   recipeID = [(DESDediscoKey *)self recipeID];
-  v12[5] = recipeID;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:6];
+  v11[5] = recipeID;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:6];
 
   v9 = [v8 componentsJoinedByString:@":"];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)metricsKeyString
 {
-  v10[5] = *MEMORY[0x277D85DE8];
+  v9[5] = *MEMORY[0x277D85DE8];
   privacyID = [(DESDediscoKey *)self privacyID];
-  v10[1] = privacyID;
-  v10[2] = @"metrics";
+  v9[1] = privacyID;
+  v9[2] = @"metrics";
   environment = [(DESDediscoKey *)self environment];
-  v10[3] = environment;
+  v9[3] = environment;
   recipeID = [(DESDediscoKey *)self recipeID];
-  v10[4] = recipeID;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:5];
+  v9[4] = recipeID;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:5];
 
   v7 = [v6 componentsJoinedByString:@":"];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)metadataKeyString
 {
-  v10[5] = *MEMORY[0x277D85DE8];
+  v9[5] = *MEMORY[0x277D85DE8];
   privacyID = [(DESDediscoKey *)self privacyID];
-  v10[1] = privacyID;
-  v10[2] = @"metadata";
+  v9[1] = privacyID;
+  v9[2] = @"metadata";
   environment = [(DESDediscoKey *)self environment];
-  v10[3] = environment;
+  v9[3] = environment;
   recipeID = [(DESDediscoKey *)self recipeID];
-  v10[4] = recipeID;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:5];
+  v9[4] = recipeID;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:5];
 
   v7 = [v6 componentsJoinedByString:@":"];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)metadataEncodedMetricsKeyString
 {
-  v10[5] = *MEMORY[0x277D85DE8];
+  v9[5] = *MEMORY[0x277D85DE8];
   privacyID = [(DESDediscoKey *)self privacyID];
-  v10[1] = privacyID;
-  v10[2] = @"encoded-metrics";
+  v9[1] = privacyID;
+  v9[2] = @"encoded-metrics";
   environment = [(DESDediscoKey *)self environment];
-  v10[3] = environment;
+  v9[3] = environment;
   recipeID = [(DESDediscoKey *)self recipeID];
-  v10[4] = recipeID;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:5];
+  v9[4] = recipeID;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:5];
 
   v7 = [v6 componentsJoinedByString:@":"];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

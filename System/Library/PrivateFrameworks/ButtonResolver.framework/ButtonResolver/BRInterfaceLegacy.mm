@@ -151,27 +151,27 @@
 
 - (void)serviceRemovedHandler:(__IOHIDServiceClient *)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   services = self->_services;
-  v6 = [(NSMutableArray *)services countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableArray *)services countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v15 != v8)
+      if (*v14 != v8)
       {
         objc_enumerationMutation(services);
       }
 
-      v10 = *(*(&v14 + 1) + 8 * v9);
+      v10 = *(*(&v13 + 1) + 8 * v9);
       if (CFEqual(v10, handler))
       {
         break;
@@ -179,7 +179,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [(NSMutableArray *)services countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [(NSMutableArray *)services countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -224,8 +224,6 @@ LABEL_16:
       [(BRInterfaceLegacy *)handler serviceRemovedHandler:v12];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_servicesSetProperty:(void *)property forKey:(__CFString *)key
@@ -263,36 +261,36 @@ LABEL_16:
 
 void __49__BRInterfaceLegacy__servicesSetProperty_forKey___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(*(a1 + 32) + 64);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * i);
+        v7 = *(*(&v8 + 1) + 8 * i);
         *(*(*(a1 + 40) + 8) + 24) = IOHIDServiceClientSetProperty(v7, *(a1 + 48), *(a1 + 56));
         if (!*(*(*(a1 + 40) + 8) + 24))
         {
           __49__BRInterfaceLegacy__servicesSetProperty_forKey___block_invoke_cold_1(v7);
-          goto LABEL_11;
+          return;
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -301,45 +299,41 @@ void __49__BRInterfaceLegacy__servicesSetProperty_forKey___block_invoke(uint64_t
       break;
     }
   }
-
-LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_setDefaultServicePropertiesOnService:(__IOHIDServiceClient *)service
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [&unk_285468520 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v4 = [&unk_285468520 countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(&unk_285468520);
         }
 
-        if (!IOHIDServiceClientSetProperty(service, *(*(&v10 + 1) + 8 * v7), &unk_285468060))
+        if (!IOHIDServiceClientSetProperty(service, *(*(&v9 + 1) + 8 * v7), &unk_285468060))
         {
           [(BRInterfaceLegacy *)service _setDefaultServicePropertiesOnService:?];
-          result = v14;
-          goto LABEL_11;
+          return v13;
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [&unk_285468520 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v5 = [&unk_285468520 countByEnumeratingWithState:&v9 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -349,10 +343,7 @@ LABEL_11:
     }
   }
 
-  result = 1;
-LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (BOOL)setConfigs:(id)configs withAssets:(id)assets forStates:(id)states error:(id *)error
@@ -409,35 +400,35 @@ LABEL_11:
 
 - (BOOL)enableStates:(id)states error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(a2), @"start"]);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v8 = [states countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v8 = [states countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
     errorCopy = error;
-    v10 = *v19;
+    v10 = *v18;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(states);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         if ((!-[BRInterfaceLegacy tapOnly](self, "tapOnly") || +[BRInterfaceLegacy _isTapState:](BRInterfaceLegacy, "_isTapState:", [v12 unsignedIntegerValue])) && !-[BRInterfaceLegacy _enableState:](self, "_enableState:", objc_msgSend(v12, "unsignedIntegerValue")))
         {
-          v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870212 userInfo:0];
-          v13 = v16 != 0;
-          if (errorCopy && v16)
+          v15 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870212 userInfo:0];
+          v13 = v15 != 0;
+          if (errorCopy && v15)
           {
-            *errorCopy = v16;
+            *errorCopy = v15;
             v13 = 1;
           }
 
@@ -445,7 +436,7 @@ LABEL_11:
         }
       }
 
-      v9 = [states countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [states countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         continue;
@@ -458,41 +449,40 @@ LABEL_11:
   v13 = 0;
 LABEL_12:
   -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(a2), @"end"]);
-  v14 = *MEMORY[0x277D85DE8];
   return !v13;
 }
 
 - (BOOL)disableStates:(id)states clearAsset:(BOOL)asset error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(a2), @"start"]);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
-  v9 = [states countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v9 = [states countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
     errorCopy = error;
-    v11 = *v20;
+    v11 = *v19;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(states);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         if ((!-[BRInterfaceLegacy tapOnly](self, "tapOnly") || +[BRInterfaceLegacy _isTapState:](BRInterfaceLegacy, "_isTapState:", [v13 unsignedIntegerValue])) && !-[BRInterfaceLegacy _disableState:](self, "_disableState:", objc_msgSend(v13, "unsignedIntegerValue")))
         {
-          v17 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870212 userInfo:0];
-          v14 = v17 != 0;
-          if (errorCopy && v17)
+          v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870212 userInfo:0];
+          v14 = v16 != 0;
+          if (errorCopy && v16)
           {
-            *errorCopy = v17;
+            *errorCopy = v16;
             v14 = 1;
           }
 
@@ -500,7 +490,7 @@ LABEL_12:
         }
       }
 
-      v10 = [states countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [states countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v10)
       {
         continue;
@@ -513,7 +503,6 @@ LABEL_12:
   v14 = 0;
 LABEL_12:
   -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(a2), @"end"]);
-  v15 = *MEMORY[0x277D85DE8];
   return !v14;
 }
 
@@ -530,7 +519,7 @@ LABEL_12:
   [(BRInterfaceLegacy *)self _findServices];
 }
 
-uint64_t __56__BRInterfaceLegacy_scheduleReadyNotificationWithBlock___block_invoke(uint64_t a1)
+void *__56__BRInterfaceLegacy_scheduleReadyNotificationWithBlock___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 40) copy];
   *(*(a1 + 32) + 72) = result;
@@ -818,10 +807,9 @@ LABEL_22:
 
 - (void)_findServices
 {
-  v3 = *MEMORY[0x277CBECE8];
-  v4 = IOHIDEventSystemClientCreate();
-  self->_client = v4;
-  if (v4)
+  v3 = IOHIDEventSystemClientCreate();
+  self->_client = v3;
+  if (v3)
   {
     IOHIDEventSystemClientSetMatchingMultiple();
     queue = [(BRInterface *)self queue];
@@ -836,50 +824,44 @@ LABEL_22:
 
 void __34__BRInterfaceLegacy__findServices__block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = v2[7];
-  [v2 queue];
+  [*(a1 + 32) queue];
   IOHIDEventSystemClientScheduleWithDispatchQueue();
-  v4 = *(*(a1 + 32) + 56);
   IOHIDEventSystemClientRegisterDeviceMatchingCallback();
-  v5 = IOHIDEventSystemClientCopyServices(*(*(a1 + 32) + 56));
-  v13 = v5;
-  if (v5)
+  v2 = IOHIDEventSystemClientCopyServices(*(*(a1 + 32) + 56));
+  v10 = v2;
+  if (v2)
   {
-    v14 = OUTLINED_FUNCTION_3_0(v5, v6, v7, v8, v9, v10, v11, v12, 0, 0, 0, 0, 0, 0, 0, 0, v34, v36);
-    if (v14)
+    v11 = OUTLINED_FUNCTION_3_0(v2, v3, v4, v5, v6, v7, v8, v9, 0, 0, 0, 0, 0, 0, 0, 0, v30);
+    if (v11)
     {
-      v15 = v14;
-      v16 = *v28;
+      v12 = v11;
+      v13 = *v24;
       do
       {
-        v17 = 0;
+        v14 = 0;
         do
         {
-          if (*v28 != v16)
+          if (*v24 != v13)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = serviceAddedCallback(v14, *(a1 + 32), *(v27 + 8 * v17++));
+          v11 = serviceAddedCallback(v11, *(a1 + 32), *(v23 + 8 * v14++));
         }
 
-        while (v15 != v17);
-        v14 = OUTLINED_FUNCTION_3_0(v14, v18, v19, v20, v21, v22, v23, v24, v26, v27, v28, v29, v30, v31, v32, v33, v35, v37);
-        v15 = v14;
+        while (v12 != v14);
+        v11 = OUTLINED_FUNCTION_3_0(v11, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v31);
+        v12 = v11;
       }
 
-      while (v14);
+      while (v11);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)init
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = _BRLog_log_1;
   if (!_BRLog_log_1)
   {
@@ -889,20 +871,17 @@ void __34__BRInterfaceLegacy__findServices__block_invoke(uint64_t a1)
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "[BRInterfaceLegacy init]";
-    _os_log_error_impl(&dword_242149000, v2, OS_LOG_TYPE_ERROR, "%s failed!", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[BRInterfaceLegacy init]";
+    _os_log_error_impl(&dword_242149000, v2, OS_LOG_TYPE_ERROR, "%s failed!", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)propertyList
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_242149000, v0, v1, "%s %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_242149000, v0, v1, "%s %@", v2, v3, v4, v5, v6);
 }
 
 - (void)serviceAddedHandler:.cold.1()
@@ -923,37 +902,34 @@ void __34__BRInterfaceLegacy__findServices__block_invoke(uint64_t a1)
 
 - (void)serviceRemovedHandler:(__IOHIDServiceClient *)a1 .cold.1(__IOHIDServiceClient *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 138412290;
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
   RegistryID = IOHIDServiceClientGetRegistryID(a1);
-  _os_log_debug_impl(&dword_242149000, a2, OS_LOG_TYPE_DEBUG, "service removed: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_242149000, a2, OS_LOG_TYPE_DEBUG, "service removed: %@", &v3, 0xCu);
 }
 
 - (void)serviceRemovedHandler:(__IOHIDServiceClient *)a1 .cold.2(__IOHIDServiceClient *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 138412290;
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
   RegistryID = IOHIDServiceClientGetRegistryID(a1);
-  _os_log_error_impl(&dword_242149000, a2, OS_LOG_TYPE_ERROR, "No service removed for %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_242149000, a2, OS_LOG_TYPE_ERROR, "No service removed for %@", &v3, 0xCu);
 }
 
 - (void)_servicesSetProperty:forKey:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5[0] = 136315650;
+  v8 = *MEMORY[0x277D85DE8];
+  v4[0] = 136315650;
   OUTLINED_FUNCTION_0_1();
-  v6 = v0;
-  v7 = v1;
-  v8 = v2;
-  _os_log_debug_impl(&dword_242149000, v3, OS_LOG_TYPE_DEBUG, "%s property: %@ key: %@", v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = v0;
+  v6 = v1;
+  v7 = v2;
+  _os_log_debug_impl(&dword_242149000, v3, OS_LOG_TYPE_DEBUG, "%s property: %@ key: %@", v4, 0x20u);
 }
 
 void __49__BRInterfaceLegacy__servicesSetProperty_forKey___block_invoke_cold_1(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = _BRLog_log_1;
   if (!_BRLog_log_1)
   {
@@ -963,18 +939,16 @@ void __49__BRInterfaceLegacy__servicesSetProperty_forKey___block_invoke_cold_1(u
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4[0] = 136315394;
+    v3[0] = 136315394;
     OUTLINED_FUNCTION_0_1();
-    v5 = a1;
-    _os_log_error_impl(&dword_242149000, v2, OS_LOG_TYPE_ERROR, "%s error setting property on service %@", v4, 0x16u);
+    v4 = a1;
+    _os_log_error_impl(&dword_242149000, v2, OS_LOG_TYPE_ERROR, "%s error setting property on service %@", v3, 0x16u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setDefaultServicePropertiesOnService:(uint64_t)a1 .cold.1(uint64_t a1, _BYTE *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = _BRLog_log_1;
   if (!_BRLog_log_1)
   {
@@ -984,14 +958,13 @@ void __49__BRInterfaceLegacy__servicesSetProperty_forKey___block_invoke_cold_1(u
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6[0] = 136315394;
+    v5[0] = 136315394;
     OUTLINED_FUNCTION_0_1();
-    v7 = a1;
-    _os_log_error_impl(&dword_242149000, v4, OS_LOG_TYPE_ERROR, "%s error setting default property on service %@", v6, 0x16u);
+    v6 = a1;
+    _os_log_error_impl(&dword_242149000, v4, OS_LOG_TYPE_ERROR, "%s error setting default property on service %@", v5, 0x16u);
   }
 
   *a2 = 0;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -11,6 +11,7 @@
 - (void)enrollInSeedProgramNamed:(id)named withAssetAudience:(id)audience programID:(id)d;
 - (void)ensureShortLivedTokenUpgrade;
 - (void)ensureSilentLoginUpgrade;
+- (void)migrateWithStoredMigratorVersion:(unsigned int)version userDataDisposition:(unsigned int)disposition;
 - (void)observeFinishSetupTriggers;
 - (void)performSilentICDPUpgrade;
 - (void)setLockScreenMode:(unint64_t)mode;
@@ -68,40 +69,39 @@ BYBuddyDaemonGeneralClient *__37__BYBuddyDaemonGeneralClient_factory__block_invo
 
 void __54__BYBuddyDaemonGeneralClient_setupAssistantNeedsToRun__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "setupAssistantNeedsToRun: budd returned an error: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)lockScreenMode
@@ -127,40 +127,39 @@ void __54__BYBuddyDaemonGeneralClient_setupAssistantNeedsToRun__block_invoke(uin
 
 void __44__BYBuddyDaemonGeneralClient_lockScreenMode__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "lockScreenMode: budd returned an error: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLockScreenMode:(unint64_t)mode
@@ -173,40 +172,39 @@ void __44__BYBuddyDaemonGeneralClient_lockScreenMode__block_invoke(uint64_t a1, 
 
 void __48__BYBuddyDaemonGeneralClient_setLockScreenMode___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "setupAssistantNeedsToRun: budd returned an error: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ensureSilentLoginUpgrade
@@ -219,49 +217,48 @@ void __48__BYBuddyDaemonGeneralClient_setLockScreenMode___block_invoke(uint64_t 
 
 void __54__BYBuddyDaemonGeneralClient_ensureSilentLoginUpgrade__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "ensureSilentLoginUpgrade: budd returned an error: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __54__BYBuddyDaemonGeneralClient_ensureSilentLoginUpgrade__block_invoke_32()
+void __54__BYBuddyDaemonGeneralClient_ensureSilentLoginUpgrade__block_invoke_32(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B862F000, v0, OS_LOG_TYPE_DEFAULT, "ensureSilentLoginUpgrade did complete", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "ensureSilentLoginUpgrade did complete", v3, 2u);
   }
 }
 
@@ -275,49 +272,48 @@ void __54__BYBuddyDaemonGeneralClient_ensureSilentLoginUpgrade__block_invoke_32(
 
 void __58__BYBuddyDaemonGeneralClient_ensureShortLivedTokenUpgrade__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "ensureShortLivedTokenUpgrade: budd returned an error: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __58__BYBuddyDaemonGeneralClient_ensureShortLivedTokenUpgrade__block_invoke_38()
+void __58__BYBuddyDaemonGeneralClient_ensureShortLivedTokenUpgrade__block_invoke_38(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B862F000, v0, OS_LOG_TYPE_DEFAULT, "ensureShortLivedTokenUpgrade did complete", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "ensureShortLivedTokenUpgrade did complete", v3, 2u);
   }
 }
 
@@ -346,40 +342,39 @@ void __58__BYBuddyDaemonGeneralClient_ensureShortLivedTokenUpgrade__block_invoke
 
 void __44__BYBuddyDaemonGeneralClient_backupMetadata__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "backupMetadata: budd returned an error: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observeFinishSetupTriggers
@@ -392,49 +387,48 @@ void __44__BYBuddyDaemonGeneralClient_backupMetadata__block_invoke(uint64_t a1, 
 
 void __56__BYBuddyDaemonGeneralClient_observeFinishSetupTriggers__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "observeFinishSetupTriggers: budd returned an error: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __56__BYBuddyDaemonGeneralClient_observeFinishSetupTriggers__block_invoke_47()
+void __56__BYBuddyDaemonGeneralClient_observeFinishSetupTriggers__block_invoke_47(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B862F000, v0, OS_LOG_TYPE_DEFAULT, "observeFinishSetupTriggers did complete", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "observeFinishSetupTriggers did complete", v3, 2u);
   }
 }
 
@@ -448,49 +442,48 @@ void __56__BYBuddyDaemonGeneralClient_observeFinishSetupTriggers__block_invoke_4
 
 void __54__BYBuddyDaemonGeneralClient_performSilentICDPUpgrade__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "performSilentICDPUpgrade: budd returned an error: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __54__BYBuddyDaemonGeneralClient_performSilentICDPUpgrade__block_invoke_52()
+void __54__BYBuddyDaemonGeneralClient_performSilentICDPUpgrade__block_invoke_52(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B862F000, v0, OS_LOG_TYPE_DEFAULT, "performSilentICDPUpgrade did complete", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "performSilentICDPUpgrade did complete", v3, 2u);
   }
 }
 
@@ -504,49 +497,48 @@ void __54__BYBuddyDaemonGeneralClient_performSilentICDPUpgrade__block_invoke_52(
 
 void __51__BYBuddyDaemonGeneralClient_deferDataMigratorExit__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Deferring data migrator exit failed: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __51__BYBuddyDaemonGeneralClient_deferDataMigratorExit__block_invoke_57()
+void __51__BYBuddyDaemonGeneralClient_deferDataMigratorExit__block_invoke_57(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B862F000, v0, OS_LOG_TYPE_DEFAULT, "Deferring data migrator exit completed", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Deferring data migrator exit completed", v3, 2u);
   }
 }
 
@@ -560,49 +552,48 @@ void __51__BYBuddyDaemonGeneralClient_deferDataMigratorExit__block_invoke_57()
 
 void __60__BYBuddyDaemonGeneralClient_cancelDataMigratorDeferredExit__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Cancelling data migrator deferred exit failed: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __60__BYBuddyDaemonGeneralClient_cancelDataMigratorDeferredExit__block_invoke_62()
+void __60__BYBuddyDaemonGeneralClient_cancelDataMigratorDeferredExit__block_invoke_62(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B862F000, v0, OS_LOG_TYPE_DEFAULT, "Cancelling data migrator deferred exit completed", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Cancelling data migrator deferred exit completed", v3, 2u);
   }
 }
 
@@ -619,49 +610,48 @@ void __60__BYBuddyDaemonGeneralClient_cancelDataMigratorDeferredExit__block_invo
 
 void __83__BYBuddyDaemonGeneralClient_enrollInSeedProgramNamed_withAssetAudience_programID___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Enroll in seed program named failed: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __83__BYBuddyDaemonGeneralClient_enrollInSeedProgramNamed_withAssetAudience_programID___block_invoke_67()
+void __83__BYBuddyDaemonGeneralClient_enrollInSeedProgramNamed_withAssetAudience_programID___block_invoke_67(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B862F000, v0, OS_LOG_TYPE_DEFAULT, "Enroll in seed program completed", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Enroll in seed program completed", v3, 2u);
   }
 }
 
@@ -679,49 +669,48 @@ void __83__BYBuddyDaemonGeneralClient_enrollInSeedProgramNamed_withAssetAudience
 
 void __68__BYBuddyDaemonGeneralClient_storeAuthenticationContextforApplyPay___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Failed to store context for Apple Pay: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __68__BYBuddyDaemonGeneralClient_storeAuthenticationContextforApplyPay___block_invoke_72()
+void __68__BYBuddyDaemonGeneralClient_storeAuthenticationContextforApplyPay___block_invoke_72(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B862F000, v0, OS_LOG_TYPE_DEFAULT, "Successfully stored context for Apple Pay", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Successfully stored context for Apple Pay", v3, 2u);
   }
 }
 
@@ -750,40 +739,39 @@ void __68__BYBuddyDaemonGeneralClient_storeAuthenticationContextforApplyPay___bl
 
 void __67__BYBuddyDaemonGeneralClient_fetchAuthenticationContextForApplePay__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Failed to fetch Apple Pay context: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)storeAuthenticationContextforBiometric:(id)biometric
@@ -800,49 +788,48 @@ void __67__BYBuddyDaemonGeneralClient_fetchAuthenticationContextForApplePay__blo
 
 void __69__BYBuddyDaemonGeneralClient_storeAuthenticationContextforBiometric___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Failed to store context for biometric: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __69__BYBuddyDaemonGeneralClient_storeAuthenticationContextforBiometric___block_invoke_81()
+void __69__BYBuddyDaemonGeneralClient_storeAuthenticationContextforBiometric___block_invoke_81(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B862F000, v0, OS_LOG_TYPE_DEFAULT, "Successfully stored context for biometric", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Successfully stored context for biometric", v3, 2u);
   }
 }
 
@@ -871,40 +858,39 @@ void __69__BYBuddyDaemonGeneralClient_storeAuthenticationContextforBiometric___b
 
 void __68__BYBuddyDaemonGeneralClient_fetchAuthenticationContextForBiometric__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Failed to fetch biometric context: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startExpressSettingsUpload
@@ -917,78 +903,86 @@ void __68__BYBuddyDaemonGeneralClient_fetchAuthenticationContextForBiometric__bl
 
 void __56__BYBuddyDaemonGeneralClient_startExpressSettingsUpload__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Failed to start express settings upload: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
+}
 
-  v5 = *MEMORY[0x1E69E9840];
+- (void)migrateWithStoredMigratorVersion:(unsigned int)version userDataDisposition:(unsigned int)disposition
+{
+  v4 = *&disposition;
+  v5 = *&version;
+  _daemonConnection = [(BYBuddyDaemonGeneralClient *)self _daemonConnection];
+  v7 = [_daemonConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_90];
+
+  [v7 migrateWithStoredMigratorVersion:v5 userDataDisposition:v4];
 }
 
 void __83__BYBuddyDaemonGeneralClient_migrateWithStoredMigratorVersion_userDataDisposition___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Failed to migrate with stored migration version: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_daemonConnection
@@ -1033,45 +1027,45 @@ void __83__BYBuddyDaemonGeneralClient_migrateWithStoredMigratorVersion_userDataD
   return v10;
 }
 
-void __47__BYBuddyDaemonGeneralClient__daemonConnection__block_invoke(uint64_t a1)
+void __47__BYBuddyDaemonGeneralClient__daemonConnection__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _BYLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 0;
-    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Connection to budd was interrupted!", v6, 2u);
+    v7[0] = 0;
+    _os_log_impl(&dword_1B862F000, v3, OS_LOG_TYPE_DEFAULT, "Connection to budd was interrupted!", v7, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained[1] lock];
-    v5 = v4[2];
-    v4[2] = 0;
+    v6 = v5[2];
+    v5[2] = 0;
 
-    [v4[1] unlock];
+    [v5[1] unlock];
   }
 }
 
-void __47__BYBuddyDaemonGeneralClient__daemonConnection__block_invoke_167(uint64_t a1)
+void __47__BYBuddyDaemonGeneralClient__daemonConnection__block_invoke_167(uint64_t a1, uint64_t a2)
 {
-  v2 = _BYLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 0;
-    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Connection to budd was invalidated.", v6, 2u);
+    v7[0] = 0;
+    _os_log_impl(&dword_1B862F000, v3, OS_LOG_TYPE_DEFAULT, "Connection to budd was invalidated.", v7, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained[1] lock];
-    v5 = v4[2];
-    v4[2] = 0;
+    v6 = v5[2];
+    v5[2] = 0;
 
-    [v4[1] unlock];
+    [v5[1] unlock];
   }
 }
 

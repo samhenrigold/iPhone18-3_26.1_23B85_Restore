@@ -62,7 +62,7 @@
     v13 = updateCopy;
 LABEL_14:
     ioKitDescription = [v13 ioKitDescription];
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _handlePowerSourceUpdate:desc:adapterDesc:]", 0xAu, "Changed %@ %#{flags} %?@\n", v14, v15, v16, v17, updateCopy);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _handlePowerSourceUpdate:desc:adapterDesc:]", 10, "Changed %@ %#{flags} %?@\n", v14, v15, v16, v17, updateCopy);
 
 LABEL_15:
     if ([updateCopy isAggregateComponent])
@@ -112,7 +112,7 @@ LABEL_15:
     v8 = lostCopy;
 LABEL_11:
     ioKitDescription = [v8 ioKitDescription];
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _handlePowerSourceLost:sourceID:]", 0x1Eu, "Lost    %@ %?@\n", v9, v10, v11, v12, lostCopy);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _handlePowerSourceLost:sourceID:]", 30, "Lost    %@ %?@\n", v9, v10, v11, v12, lostCopy);
   }
 
 LABEL_12:
@@ -179,7 +179,7 @@ LABEL_12:
     }
 
     ioKitDescription = [(CUPowerSource *)v10 ioKitDescription];
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _handlePowerSourceFound:desc:adapterDesc:]", 0x1Eu, "Found   %@ %?@\n", v16, v17, v18, v19, v10);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _handlePowerSourceFound:desc:adapterDesc:]", 30, "Found   %@ %?@\n", v16, v17, v18, v19, v10);
   }
 
 LABEL_13:
@@ -203,7 +203,7 @@ LABEL_13:
   v45 = *MEMORY[0x1E69E9840];
   if (gLogCategory_CUPowerSourceMonitor <= 10 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0xAu)))
   {
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _updatePowerSources]", 0xAu, "Update power sources\n", v2, v3, v4, v5, v38);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _updatePowerSources]", 10, "Update power sources\n", v2, v3, v4, v5, v38);
   }
 
   [(NSMutableDictionary *)self->_powerSources enumerateKeysAndObjectsUsingBlock:&__block_literal_global_7042];
@@ -219,7 +219,7 @@ LABEL_13:
 
     if (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x3Cu))
     {
-      LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _updatePowerSources]", 0x3Cu, "### IOPSCopyPowerSourcesInfo failed\n", v8, v9, v10, v11, v38);
+      LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _updatePowerSources]", 60, "### IOPSCopyPowerSourcesInfo failed\n", v8, v9, v10, v11, v38);
     }
 
     goto LABEL_33;
@@ -231,7 +231,7 @@ LABEL_13:
 LABEL_33:
     if (gLogCategory_CUPowerSourceMonitor <= 60 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _updatePowerSources]", 0x3Cu, "### IOPSCopyPowerSourcesList failed\n", v8, v9, v10, v11, v38);
+      LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _updatePowerSources]", 60, "### IOPSCopyPowerSourcesList failed\n", v8, v9, v10, v11, v38);
     }
 
     goto LABEL_37;
@@ -266,13 +266,13 @@ LABEL_33:
 
         else if (gLogCategory_CUPowerSourceMonitor <= 60 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x3Cu)))
         {
-          LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _updatePowerSources]", 0x3Cu, "### No ID for power source %##@\n", v25, v26, v27, v28, v24);
+          LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _updatePowerSources]", 60, "### No ID for power source %##@\n", v25, v26, v27, v28, v24);
         }
       }
 
       else if (gLogCategory_CUPowerSourceMonitor <= 60 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x3Cu)))
       {
-        LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _updatePowerSources]", 0x3Cu, "### IOPSGetPowerSourceDescription %ld failed\n", v20, v21, v22, v23, i);
+        LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _updatePowerSources]", 60, "### IOPSGetPowerSourceDescription %ld failed\n", v20, v21, v22, v23, i);
       }
     }
   }
@@ -370,7 +370,7 @@ uint64_t __31__CUPowerSourceMonitor__update__block_invoke(uint64_t a1, uint64_t 
 {
   if (gLogCategory_CUPowerSourceMonitor <= 30 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _update]_block_invoke", 0x1Eu, "Power notification: AccessoryAttach\n", a5, a6, a7, a8, v11);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _update]_block_invoke", 30, "Power notification: AccessoryAttach\n", a5, a6, a7, a8, v11);
   }
 
   v9 = *(a1 + 32);
@@ -382,7 +382,7 @@ uint64_t __31__CUPowerSourceMonitor__update__block_invoke_2(uint64_t a1, uint64_
 {
   if (gLogCategory_CUPowerSourceMonitor <= 30 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _update]_block_invoke_2", 0x1Eu, "Power notification: AccessoryPowerSource\n", a5, a6, a7, a8, v11);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _update]_block_invoke_2", 30, "Power notification: AccessoryPowerSource\n", a5, a6, a7, a8, v11);
   }
 
   v9 = *(a1 + 32);
@@ -394,7 +394,7 @@ uint64_t __31__CUPowerSourceMonitor__update__block_invoke_3(uint64_t a1, uint64_
 {
   if (gLogCategory_CUPowerSourceMonitor <= 10 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0xAu)))
   {
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _update]_block_invoke_3", 0xAu, "Power notification: AccessoryTimeRemaining\n", a5, a6, a7, a8, v11);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _update]_block_invoke_3", 10, "Power notification: AccessoryTimeRemaining\n", a5, a6, a7, a8, v11);
   }
 
   v9 = *(a1 + 32);
@@ -406,7 +406,7 @@ uint64_t __31__CUPowerSourceMonitor__update__block_invoke_4(uint64_t a1, uint64_
 {
   if (gLogCategory_CUPowerSourceMonitor <= 10 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0xAu)))
   {
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _update]_block_invoke_4", 0xAu, "Power notification: AnyPowerSource\n", a5, a6, a7, a8, v11);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _update]_block_invoke_4", 10, "Power notification: AnyPowerSource\n", a5, a6, a7, a8, v11);
   }
 
   v9 = *(a1 + 32);
@@ -423,7 +423,7 @@ uint64_t __31__CUPowerSourceMonitor__update__block_invoke_4(uint64_t a1, uint64_
   {
     if (gLogCategory_CUPowerSourceMonitor != -1 || (v11 = _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x1Eu), updateCopy = v25, v11))
     {
-      LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceUpdate:changes:]", 0x1Eu, "Aggregate power source update: %@", v7, v8, v9, v10, updateCopy);
+      LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceUpdate:changes:]", 30, "Aggregate power source update: %@", v7, v8, v9, v10, updateCopy);
       updateCopy = v25;
     }
   }
@@ -470,13 +470,13 @@ uint64_t __31__CUPowerSourceMonitor__update__block_invoke_4(uint64_t a1, uint64_
 
     else if (gLogCategory_CUPowerSourceMonitor <= 60 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceUpdate:changes:]", 0x3Cu, "### No aggregate found for lost power source: %@", v19, v20, v21, v22, v25);
+      LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceUpdate:changes:]", 60, "### No aggregate found for lost power source: %@", v19, v20, v21, v22, v25);
     }
   }
 
   else if (gLogCategory_CUPowerSourceMonitor <= 60 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x3Cu)))
   {
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceUpdate:changes:]", 0x3Cu, "### No accessoryID for aggregate changed: %@", v12, v13, v14, v15, v25);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceUpdate:changes:]", 60, "### No accessoryID for aggregate changed: %@", v12, v13, v14, v15, v25);
   }
 }
 
@@ -485,7 +485,7 @@ uint64_t __31__CUPowerSourceMonitor__update__block_invoke_4(uint64_t a1, uint64_
   lostCopy = lost;
   if (gLogCategory_CUPowerSourceMonitor <= 30 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceLost:]", 0x1Eu, "Aggregate power source lost: %@", v4, v5, v6, v7, lostCopy);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceLost:]", 30, "Aggregate power source lost: %@", v4, v5, v6, v7, lostCopy);
   }
 
   accessoryID = [lostCopy accessoryID];
@@ -560,13 +560,13 @@ LABEL_25:
 
     if (gLogCategory_CUPowerSourceMonitor <= 60 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceLost:]", 0x3Cu, "### No aggregate found for lost power source: %@", v15, v16, v17, v18, lostCopy);
+      LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceLost:]", 60, "### No aggregate found for lost power source: %@", v15, v16, v17, v18, lostCopy);
     }
   }
 
   else if (gLogCategory_CUPowerSourceMonitor <= 60 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x3Cu)))
   {
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceLost:]", 0x3Cu, "### No accessoryID for aggregate lost: %@", v8, v9, v10, v11, lostCopy);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceLost:]", 60, "### No accessoryID for aggregate lost: %@", v8, v9, v10, v11, lostCopy);
   }
 
 LABEL_26:
@@ -580,7 +580,7 @@ LABEL_26:
   {
     if (gLogCategory_CUPowerSourceMonitor != -1 || (v9 = _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x1Eu), foundCopy = v29, v9))
     {
-      LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceFound:]", 0x1Eu, "Aggregate power source found: %@", v5, v6, v7, v8, foundCopy);
+      LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceFound:]", 30, "Aggregate power source found: %@", v5, v6, v7, v8, foundCopy);
       foundCopy = v29;
     }
   }
@@ -629,7 +629,7 @@ LABEL_26:
       [(NSMutableDictionary *)aggregateSources setObject:v15 forKeyedSubscript:accessoryID];
       if (gLogCategory_CUPowerSourceMonitor <= 30 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x1Eu)))
       {
-        LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceFound:]", 0x1Eu, "Aggregate complete: %@", v22, v23, v24, v25, v15);
+        LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceFound:]", 30, "Aggregate complete: %@", v22, v23, v24, v25, v15);
       }
 
       powerSourceFoundHandler = self->_powerSourceFoundHandler;
@@ -656,7 +656,7 @@ LABEL_26:
 
   else if (gLogCategory_CUPowerSourceMonitor <= 60 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x3Cu)))
   {
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceFound:]", 0x3Cu, "### No accessoryID for aggregate found: %@", v10, v11, v12, v13, v29);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor _aggregatePowerSourceFound:]", 60, "### No accessoryID for aggregate found: %@", v10, v11, v12, v13, v29);
   }
 }
 
@@ -675,7 +675,7 @@ uint64_t __34__CUPowerSourceMonitor_invalidate__block_invoke(uint64_t a1, uint64
 {
   if (gLogCategory_CUPowerSourceMonitor <= 30 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor invalidate]_block_invoke", 0x1Eu, "Invalidate\n", a5, a6, a7, a8, v12);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor invalidate]_block_invoke", 30, "Invalidate\n", a5, a6, a7, a8, v12);
   }
 
   v9 = *(a1 + 32);
@@ -712,7 +712,7 @@ uint64_t __47__CUPowerSourceMonitor_activateWithCompletion___block_invoke(uint64
 {
   if (gLogCategory_CUPowerSourceMonitor <= 30 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor activateWithCompletion:]_block_invoke", 0x1Eu, "Activate\n", a5, a6, a7, a8, v12);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSourceMonitor activateWithCompletion:]_block_invoke", 30, "Activate\n", a5, a6, a7, a8, v12);
   }
 
   [*(a1 + 32) _update];
@@ -751,14 +751,14 @@ uint64_t __47__CUPowerSourceMonitor_activateWithCompletion___block_invoke(uint64
   objc_sync_exit(selfCopy);
 }
 
-uint64_t __39__CUPowerSourceMonitor_setChangeFlags___block_invoke(uint64_t result)
+void *__39__CUPowerSourceMonitor_setChangeFlags___block_invoke(void *result)
 {
-  v1 = *(result + 40);
-  v2 = *(result + 32);
+  v1 = *(result + 10);
+  v2 = *(result + 4);
   if (v1 != *(v2 + 56))
   {
     *(v2 + 56) = v1;
-    return [*(result + 32) _update];
+    return [*(result + 4) _update];
   }
 
   return result;

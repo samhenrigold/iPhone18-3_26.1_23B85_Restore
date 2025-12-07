@@ -307,28 +307,28 @@ LABEL_19:
     oSLogObject = [v22 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v30 = shouldLog;
+      v31 = shouldLog;
     }
 
     else
     {
-      v30 = shouldLog & 2;
+      v31 = shouldLog & 2;
     }
 
-    if (v30)
+    if (v31)
     {
-      v31 = objc_opt_class();
+      v32 = objc_opt_class();
       v44 = 138412546;
-      v45 = v31;
+      v45 = v32;
       v46 = 2114;
       selfCopy = self;
-      v28 = v31;
-      LODWORD(v40) = 22;
+      v28 = v32;
+      v29 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &dword_1D48BA000, oSLogObject, 2, "[%@] Successfully sent the response. %{public}@", &v44, 22);
       goto LABEL_26;
     }
 
 LABEL_28:
-    v33 = v42;
+    v34 = v42;
     goto LABEL_29;
   }
 
@@ -372,20 +372,20 @@ LABEL_28:
   v48 = 2112;
   v49 = v20;
   v28 = v27;
-  LODWORD(v40) = 32;
+  v29 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "[%@] An error occurred writing the response. Written=%ld Error=%@", &v44, 32);
 LABEL_26:
-  v32 = _os_log_send_and_compose_impl();
+  v33 = v29;
 
-  if (!v32)
+  if (!v33)
   {
-    v33 = v42;
+    v34 = v42;
     goto LABEL_31;
   }
 
-  v33 = v42;
-  oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v32 encoding:{4, &v44, v40}];
-  free(v32);
-  SSFileLog(v22, @"%@", v34, v35, v36, v37, v38, v39, oSLogObject);
+  v34 = v42;
+  oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v33 encoding:4];
+  free(v33);
+  SSFileLog(v22, @"%@", v35, v36, v37, v38, v39, v40, oSLogObject);
 LABEL_29:
 
 LABEL_31:

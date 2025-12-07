@@ -21,21 +21,21 @@
   managedObjectContext = [v2 managedObjectContext];
   if (managedObjectContext)
   {
-    v5 = managedObjectContext;
-    MEMORY[0x28223BE20](managedObjectContext);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA43500);
+    v6 = managedObjectContext;
+    MEMORY[0x28223BE20](managedObjectContext, v5);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA43500, &qword_2150C94E0);
     sub_2150A56D0();
 
-    v6 = v8;
+    v7 = v9;
   }
 
   else
   {
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (_TtC11NotesShared21ICSystemPaperDocument)initWithPaperAttachment:(id)attachment
@@ -69,40 +69,40 @@
 {
   v3 = sub_2150A3750();
   v4 = *(v3 - 8);
-  v5 = MEMORY[0x28223BE20](v3);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v13 - v8;
+  v6 = MEMORY[0x28223BE20](v3, v5);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v9);
+  v11 = &v15 - v10;
   sub_2150A36F0();
   sub_2150A36C0();
-  v10 = *(v4 + 8);
-  v10(v7, v3);
-  v11 = sub_2150A36B0();
-  v10(v9, v3);
+  v12 = *(v4 + 8);
+  v12(v8, v3);
+  v13 = sub_2150A36B0();
+  v12(v11, v3);
 
-  return v11;
+  return v13;
 }
 
 + (id)assetsDirectoryAt:(id)at
 {
   v3 = sub_2150A3750();
   v4 = *(v3 - 8);
-  v5 = MEMORY[0x28223BE20](v3);
-  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = &v16 - v9;
-  MEMORY[0x28223BE20](v8);
-  v12 = &v16 - v11;
+  v6 = MEMORY[0x28223BE20](v3, v5);
+  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x28223BE20](v6, v9);
+  v12 = &v19 - v11;
+  MEMORY[0x28223BE20](v10, v13);
+  v15 = &v19 - v14;
   sub_2150A36F0();
   sub_2150A36C0();
   sub_2150A36D0();
-  v13 = *(v4 + 8);
-  v13(v7, v3);
-  v13(v10, v3);
-  v14 = sub_2150A36B0();
-  v13(v12, v3);
+  v16 = *(v4 + 8);
+  v16(v8, v3);
+  v16(v12, v3);
+  v17 = sub_2150A36B0();
+  v16(v15, v3);
 
-  return v14;
+  return v17;
 }
 
 - (void)updateGraphDestinationsUsingInlineAttachmentIdentifierMap:(id)map completion:(id)completion
@@ -123,7 +123,7 @@
 
   selfCopy = self;
   ICSystemPaperDocument.updateGraphDestinations(usingInlineAttachmentIdentifierMap:completion:)(v6, v5, v7);
-  sub_214D6AB7C(v5);
+  sub_214D6AB7C(v5, v7);
 }
 
 + (void)closeContextForNote:(id)note

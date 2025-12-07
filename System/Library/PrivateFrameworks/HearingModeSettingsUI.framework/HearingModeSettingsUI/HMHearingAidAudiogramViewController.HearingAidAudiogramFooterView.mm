@@ -9,7 +9,7 @@
 - (CGSize)intrinsicContentSize
 {
   v11.receiver = self;
-  v11.super_class = _s29HearingAidAudiogramFooterViewCMa();
+  v11.super_class = _s29HearingAidAudiogramFooterViewCMa(self, a2);
   v2 = v11.receiver;
   [(HMHearingAidAudiogramViewController.HearingAidAudiogramFooterView *)&v11 intrinsicContentSize];
   v4 = v3;
@@ -28,7 +28,7 @@
 - (void)layoutSubviews
 {
   v10.receiver = self;
-  v10.super_class = _s29HearingAidAudiogramFooterViewCMa();
+  v10.super_class = _s29HearingAidAudiogramFooterViewCMa(self, a2);
   v2 = v10.receiver;
   [(HMHearingAidAudiogramViewController.HearingAidAudiogramFooterView *)&v10 layoutSubviews];
   [v2 frame];

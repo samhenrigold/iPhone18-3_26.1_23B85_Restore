@@ -14,14 +14,14 @@ void ___LSSchemaTransferCache_block_invoke(uint64_t a1, uint64_t a2)
   _LSSchemaCacheWrite(v2, v3);
 }
 
-void ___LSSchemaTransferCache_block_invoke_2(uint64_t a1, uint64_t a2)
+void ___LSSchemaTransferCache_block_invoke_2(uint64_t result, uint64_t a2)
 {
-  v3 = *(a1 + 32);
+  v3 = *(result + 32);
   if (v3[4])
   {
     std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,BOOL>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,BOOL>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,BOOL>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,BOOL>>>>::__move_assign(a2 + 8, v3 + 1);
     std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,BOOL>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,BOOL>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,BOOL>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,BOOL>>>>::clear((v3 + 1));
-    v3 = *(a1 + 32);
+    v3 = *(result + 32);
   }
 
   if (v3[9])

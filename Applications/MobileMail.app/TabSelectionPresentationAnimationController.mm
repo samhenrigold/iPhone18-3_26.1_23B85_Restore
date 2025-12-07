@@ -76,7 +76,7 @@
   v31 = sourceView5;
   if (sourceView5)
   {
-    [sourceView5 transform3D];
+    objc_msgSend_transform3D(sourceView5);
   }
 
   else
@@ -109,7 +109,7 @@
   v47 = layer2;
   if (layer2)
   {
-    [layer2 sublayerTransform];
+    objc_msgSend_sublayerTransform(layer2);
   }
 
   else

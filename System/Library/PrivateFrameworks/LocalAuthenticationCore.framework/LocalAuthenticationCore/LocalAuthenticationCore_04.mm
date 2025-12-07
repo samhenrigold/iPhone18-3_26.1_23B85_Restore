@@ -1,987 +1,3 @@
-uint64_t LACPreboardController.installProfile()()
-{
-  v1[5] = v0;
-  v2 = type metadata accessor for Logger();
-  v1[6] = v2;
-  v3 = *(v2 - 8);
-  v1[7] = v3;
-  v4 = *(v3 + 64) + 15;
-  v1[8] = swift_task_alloc();
-  v1[9] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](LACPreboardController.installProfile(), 0, 0);
-}
-
-{
-  v1 = *(v0 + 40);
-  v2 = *(v1 + OBJC_IVAR____TtC23LocalAuthenticationCore21LACPreboardController_uppManager + 24);
-  v3 = *(v1 + OBJC_IVAR____TtC23LocalAuthenticationCore21LACPreboardController_uppManager + 32);
-  __swift_project_boxed_opaque_existential_0((v1 + OBJC_IVAR____TtC23LocalAuthenticationCore21LACPreboardController_uppManager), v2);
-  v4 = *(v1 + OBJC_IVAR____TtC23LocalAuthenticationCore21LACPreboardController_useCaseProvider + 24);
-  v5 = *(v1 + OBJC_IVAR____TtC23LocalAuthenticationCore21LACPreboardController_useCaseProvider + 32);
-  __swift_project_boxed_opaque_existential_0((v1 + OBJC_IVAR____TtC23LocalAuthenticationCore21LACPreboardController_useCaseProvider), v4);
-  v6 = (*(v5 + 8))(v4, v5);
-  v7 = *(v3 + 16);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v0 + 80) = v9;
-  *v9 = v0;
-  v9[1] = LACPreboardController.installProfile();
-
-  return v11(v6, v2, v3);
-}
-
-{
-  v2 = *(*v1 + 80);
-  v5 = *v1;
-  *(*v1 + 88) = v0;
-
-  if (v0)
-  {
-    v3 = LACPreboardController.installProfile();
-  }
-
-  else
-  {
-    v3 = LACPreboardController.installProfile();
-  }
-
-  return MEMORY[0x1EEE6DFA0](v3, 0, 0);
-}
-
-{
-  v1 = v0[9];
-  v2 = LACLogPreboard();
-  Logger.init(_:)();
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v3, v4))
-  {
-    v5 = swift_slowAlloc();
-    *v5 = 0;
-    _os_log_impl(&dword_1B0233000, v3, v4, "UPP install succeeded", v5, 2u);
-    MEMORY[0x1B27246A0](v5, -1, -1);
-  }
-
-  v7 = v0[8];
-  v6 = v0[9];
-  v8 = v0[6];
-  v9 = v0[7];
-
-  (*(v9 + 8))(v6, v8);
-
-  v10 = v0[1];
-
-  return v10();
-}
-
-{
-  v1 = v0[11];
-  v2 = v0[8];
-  v3 = LACLogPreboard();
-  Logger.init(_:)();
-  v4 = v1;
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v5, v6))
-  {
-    v7 = v0[11];
-    v8 = swift_slowAlloc();
-    v9 = swift_slowAlloc();
-    *v8 = 138412290;
-    v10 = v7;
-    v11 = _swift_stdlib_bridgeErrorToNSError();
-    *(v8 + 4) = v11;
-    *v9 = v11;
-    _os_log_impl(&dword_1B0233000, v5, v6, "UPP install failed with error: %@", v8, 0xCu);
-    outlined destroy of AsyncStream<()>.Continuation?(v9, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x1B27246A0](v9, -1, -1);
-    MEMORY[0x1B27246A0](v8, -1, -1);
-  }
-
-  v12 = v0[11];
-  v13 = v0[8];
-  v14 = v0[9];
-  v15 = v0[6];
-  v16 = v0[7];
-
-  (*(v16 + 8))(v13, v15);
-  _StringGuts.grow(_:)(33);
-  v0[2] = 0;
-  v0[3] = 0xE000000000000000;
-  MEMORY[0x1B2722A80](0xD00000000000001FLL, 0x80000001B03571F0);
-  v0[4] = v12;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-  _print_unlocked<A, B>(_:_:)();
-  specialized static LACPreboardErrorBuilder.error(code:message:)(3, v0[2], v0[3]);
-
-  swift_willThrow();
-
-  v17 = v0[1];
-
-  return v17();
-}
-
-uint64_t LACPreboardController.finishPreboard(success:reason:)(char a1, uint64_t a2, uint64_t a3)
-{
-  *(v4 + 24) = a3;
-  *(v4 + 32) = v3;
-  *(v4 + 16) = a2;
-  *(v4 + 152) = a1;
-  v5 = type metadata accessor for Logger();
-  *(v4 + 40) = v5;
-  v6 = *(v5 - 8);
-  *(v4 + 48) = v6;
-  v7 = *(v6 + 64) + 15;
-  *(v4 + 56) = swift_task_alloc();
-  *(v4 + 64) = swift_task_alloc();
-  *(v4 + 72) = swift_task_alloc();
-  *(v4 + 80) = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](LACPreboardController.finishPreboard(success:reason:), 0, 0);
-}
-
-uint64_t LACPreboardController.finishPreboard(success:reason:)()
-{
-  v37 = v0;
-  v1 = *(v0 + 80);
-  v2 = *(v0 + 24);
-  v3 = LACLogPreboard();
-  Logger.init(_:)();
-
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v4, v5))
-  {
-    v34 = *(v0 + 80);
-    v6 = *(v0 + 40);
-    v7 = *(v0 + 48);
-    v9 = *(v0 + 16);
-    v8 = *(v0 + 24);
-    v10 = *(v0 + 152);
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v36 = v12;
-    *v11 = 136315394;
-    *(v11 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v8, &v36);
-    *(v11 + 12) = 1024;
-    *(v11 + 14) = v10;
-    _os_log_impl(&dword_1B0233000, v4, v5, "Finishing Preboard with reason: %s success: %{BOOL}d", v11, 0x12u);
-    __swift_destroy_boxed_opaque_existential_0(v12);
-    MEMORY[0x1B27246A0](v12, -1, -1);
-    MEMORY[0x1B27246A0](v11, -1, -1);
-
-    v13 = *(v7 + 8);
-    v13(v34, v6);
-  }
-
-  else
-  {
-    v14 = *(v0 + 80);
-    v15 = *(v0 + 40);
-    v16 = *(v0 + 48);
-
-    v13 = *(v16 + 8);
-    v13(v14, v15);
-  }
-
-  v17 = *(v0 + 32);
-  v18 = *(v0 + 152);
-  *(v0 + 88) = v13;
-  *(v0 + 96) = @"com.apple.LocalAuthentication.storage.ProtectedVariableSetSuccess";
-  *(v0 + 104) = @"com.apple.LocalAuthentication.storage.ProtectedVariableSetFailure";
-  if (v18)
-  {
-    v19 = @"com.apple.LocalAuthentication.storage.ProtectedVariableSetSuccess";
-  }
-
-  else
-  {
-    v19 = @"com.apple.LocalAuthentication.storage.ProtectedVariableSetFailure";
-  }
-
-  v20 = v19;
-  v21 = [objc_opt_self() sharedInstance];
-  [v21 postNotification_];
-
-  v23 = *(v17 + OBJC_IVAR____TtC23LocalAuthenticationCore21LACPreboardController_storage);
-  v22 = *(v17 + OBJC_IVAR____TtC23LocalAuthenticationCore21LACPreboardController_storage + 8);
-  ObjectType = swift_getObjectType();
-  v25 = OBJC_IVAR____TtC23LocalAuthenticationCore21LACPreboardController_useCaseProvider;
-  *(v0 + 112) = OBJC_IVAR____TtC23LocalAuthenticationCore21LACPreboardController_useCaseProvider;
-  v26 = (v17 + v25);
-  v27 = *(v17 + v25 + 24);
-  v28 = v26[4];
-  __swift_project_boxed_opaque_existential_0(v26, v27);
-  v29 = (*(v28 + 8))(v27, v28);
-  v30 = *(v22 + 40);
-  v35 = (v30 + *v30);
-  v31 = v30[1];
-  v32 = swift_task_alloc();
-  *(v0 + 120) = v32;
-  *v32 = v0;
-  v32[1] = LACPreboardController.finishPreboard(success:reason:);
-
-  return v35(v29, ObjectType, v22);
-}
-
-{
-  v2 = *(*v1 + 120);
-  v5 = *v1;
-  *(*v1 + 128) = v0;
-
-  if (v0)
-  {
-    v3 = LACPreboardController.finishPreboard(success:reason:);
-  }
-
-  else
-  {
-    v3 = LACPreboardController.finishPreboard(success:reason:);
-  }
-
-  return MEMORY[0x1EEE6DFA0](v3, 0, 0);
-}
-
-{
-  v1 = *(v0 + 72);
-  v2 = LACLogPreboard();
-  Logger.init(_:)();
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v3, v4))
-  {
-    v5 = swift_slowAlloc();
-    *v5 = 0;
-    _os_log_impl(&dword_1B0233000, v3, v4, "Successfully cleaned storage", v5, 2u);
-    MEMORY[0x1B27246A0](v5, -1, -1);
-  }
-
-  v6 = (*(v0 + 32) + *(v0 + 112));
-  v7 = *(v0 + 48) + 8;
-  (*(v0 + 88))(*(v0 + 72), *(v0 + 40));
-  v8 = v6[3];
-  v9 = v6[4];
-  __swift_project_boxed_opaque_existential_0(v6, v8);
-  v10 = *(v9 + 16);
-  v15 = (v10 + *v10);
-  v11 = v10[1];
-  v12 = swift_task_alloc();
-  *(v0 + 136) = v12;
-  *v12 = v0;
-  v12[1] = LACPreboardController.finishPreboard(success:reason:);
-  v13 = *(v0 + 152);
-
-  return v15(v13, v8, v9);
-}
-
-{
-  v2 = *(*v1 + 136);
-  v5 = *v1;
-  *(*v1 + 144) = v0;
-
-  if (v0)
-  {
-    v3 = LACPreboardController.finishPreboard(success:reason:);
-  }
-
-  else
-  {
-    v3 = LACPreboardController.finishPreboard(success:reason:);
-  }
-
-  return MEMORY[0x1EEE6DFA0](v3, 0, 0);
-}
-
-{
-  v1 = (v0 + 104);
-  v2 = *(v0 + 72);
-  v3 = *(v0 + 80);
-  v5 = *(v0 + 56);
-  v4 = *(v0 + 64);
-  if (*(v0 + 152))
-  {
-    v1 = (v0 + 96);
-  }
-
-  v6 = *(v0 + 8);
-
-  return v6();
-}
-
-{
-  v1 = *(v0 + 128);
-  v2 = *(v0 + 64);
-  v3 = LACLogPreboard();
-  Logger.init(_:)();
-  v4 = v1;
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.error.getter();
-
-  v7 = os_log_type_enabled(v5, v6);
-  v8 = *(v0 + 128);
-  if (v7)
-  {
-    v9 = swift_slowAlloc();
-    v10 = swift_slowAlloc();
-    *v9 = 138412290;
-    v11 = v8;
-    v12 = _swift_stdlib_bridgeErrorToNSError();
-    *(v9 + 4) = v12;
-    *v10 = v12;
-    _os_log_impl(&dword_1B0233000, v5, v6, "Unable to clean storage with error: %@", v9, 0xCu);
-    outlined destroy of AsyncStream<()>.Continuation?(v10, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x1B27246A0](v10, -1, -1);
-    MEMORY[0x1B27246A0](v9, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v13 = (*(v0 + 32) + *(v0 + 112));
-  v14 = *(v0 + 48) + 8;
-  (*(v0 + 88))(*(v0 + 64), *(v0 + 40));
-  v15 = v13[3];
-  v16 = v13[4];
-  __swift_project_boxed_opaque_existential_0(v13, v15);
-  v17 = *(v16 + 16);
-  v22 = (v17 + *v17);
-  v18 = v17[1];
-  v19 = swift_task_alloc();
-  *(v0 + 136) = v19;
-  *v19 = v0;
-  v19[1] = LACPreboardController.finishPreboard(success:reason:);
-  v20 = *(v0 + 152);
-
-  return v22(v20, v15, v16);
-}
-
-{
-  v1 = *(v0 + 144);
-  v2 = *(v0 + 56);
-  v3 = LACLogPreboard();
-  Logger.init(_:)();
-  v4 = v1;
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v5, v6))
-  {
-    v7 = *(v0 + 144);
-    v8 = swift_slowAlloc();
-    v9 = swift_slowAlloc();
-    *v8 = 138412290;
-    v10 = v7;
-    v11 = _swift_stdlib_bridgeErrorToNSError();
-    *(v8 + 4) = v11;
-    *v9 = v11;
-    _os_log_impl(&dword_1B0233000, v5, v6, "Unable to complete boot mode with error: %@", v8, 0xCu);
-    outlined destroy of AsyncStream<()>.Continuation?(v9, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x1B27246A0](v9, -1, -1);
-    MEMORY[0x1B27246A0](v8, -1, -1);
-  }
-
-  v12 = *(v0 + 144);
-  v13 = (v0 + 104);
-  v14 = *(v0 + 80);
-  v15 = *(v0 + 88);
-  v17 = *(v0 + 64);
-  v16 = *(v0 + 72);
-  v19 = *(v0 + 48);
-  v18 = *(v0 + 56);
-  v20 = *(v0 + 40);
-  if (*(v0 + 152))
-  {
-    v13 = (v0 + 96);
-  }
-
-  v21 = v5;
-  v22 = *v13;
-
-  v15(v18, v20);
-  swift_willThrow();
-
-  v23 = *(v0 + 8);
-  v24 = *(v0 + 144);
-
-  return v23();
-}
-
-uint64_t @objc closure #1 in LACPreboardController.enableCurrentUseCase(withPasscode:)(int a1, void *aBlock, void *a3)
-{
-  v3[2] = a3;
-  v3[3] = _Block_copy(aBlock);
-  v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v7 = v6;
-  v3[4] = v6;
-  a3;
-  v8 = swift_task_alloc();
-  v3[5] = v8;
-  *v8 = v3;
-  v8[1] = @objc closure #1 in LACPreboardController.enableCurrentUseCase(withPasscode:);
-
-  return LACPreboardController.enableCurrentUseCase(withPasscode:)(v5, v7);
-}
-
-uint64_t @objc closure #1 in LACPreboardController.enableCurrentUseCase(withPasscode:)()
-{
-  v2 = v0;
-  v4 = *v1;
-  v3 = *v1;
-  v5 = *(*v1 + 40);
-  v6 = *(*v1 + 32);
-  v7 = *(*v1 + 16);
-  v8 = *v1;
-
-  v9 = *(v3 + 24);
-  if (v2)
-  {
-    v10 = _convertErrorToNSError(_:)();
-
-    (*(v9 + 16))(v9, v10);
-  }
-
-  else
-  {
-    (*(v9 + 16))(*(v3 + 24), 0);
-  }
-
-  _Block_release(*(v4 + 24));
-  v11 = *(v8 + 8);
-
-  return v11();
-}
-
-uint64_t @objc closure #1 in LACPreboardController.terminate()(const void *a1, void *a2)
-{
-  v2[2] = a2;
-  v2[3] = _Block_copy(a1);
-  a2;
-  v4 = swift_task_alloc();
-  v2[4] = v4;
-  *v4 = v2;
-  v4[1] = @objc closure #1 in LACPreboardController.terminate();
-
-  return LACPreboardController.terminate()();
-}
-
-id LACPreboardController.__allocating_init()()
-{
-  v1 = objc_allocWithZone(v0);
-
-  return [v1 init];
-}
-
-id LACPreboardController.__deallocating_deinit()
-{
-  v2.receiver = v0;
-  v2.super_class = swift_getObjectType();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
-}
-
-uint64_t LACPreboardController.acmContext(for:)()
-{
-  LACPreboardController.contextProvider.getter(v10);
-  v0 = v11;
-  if (v11)
-  {
-    v1 = v12;
-    v2 = __swift_project_boxed_opaque_existential_0(v10, v11);
-    v3 = *(v0 - 8);
-    v4 = *(v3 + 64);
-    MEMORY[0x1EEE9AC00](v2);
-    v6 = &v10[-1] - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v3 + 16))(v6);
-    outlined destroy of AsyncStream<()>.Continuation?(v10, &_s23LocalAuthenticationCore22LACACMContextProviding_pSgMd, &_s23LocalAuthenticationCore22LACACMContextProviding_pSgMR);
-    v7 = (*(v1 + 8))(v0, v1);
-    (*(v3 + 8))(v6, v0);
-  }
-
-  else
-  {
-    outlined destroy of AsyncStream<()>.Continuation?(v10, &_s23LocalAuthenticationCore22LACACMContextProviding_pSgMd, &_s23LocalAuthenticationCore22LACACMContextProviding_pSgMR);
-    return 0;
-  }
-
-  return v7;
-}
-
-uint64_t protocol witness for LACPreboardStorageDelegate.acmContext(for:) in conformance LACPreboardController()
-{
-  LACPreboardController.contextProvider.getter(v10);
-  v0 = v11;
-  if (v11)
-  {
-    v1 = v12;
-    v2 = __swift_project_boxed_opaque_existential_0(v10, v11);
-    v3 = *(v0 - 8);
-    v4 = *(v3 + 64);
-    MEMORY[0x1EEE9AC00](v2);
-    v6 = &v10[-1] - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v3 + 16))(v6);
-    outlined destroy of AsyncStream<()>.Continuation?(v10, &_s23LocalAuthenticationCore22LACACMContextProviding_pSgMd, &_s23LocalAuthenticationCore22LACACMContextProviding_pSgMR);
-    v7 = (*(v1 + 8))(v0, v1);
-    (*(v3 + 8))(v6, v0);
-  }
-
-  else
-  {
-    outlined destroy of AsyncStream<()>.Continuation?(v10, &_s23LocalAuthenticationCore22LACACMContextProviding_pSgMd, &_s23LocalAuthenticationCore22LACACMContextProviding_pSgMR);
-    return 0;
-  }
-
-  return v7;
-}
-
-uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(uint64_t a1, int *a2)
-{
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TQ0_;
-
-  return v7(a1);
-}
-
-uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TQ0_()
-{
-  v1 = *(*v0 + 16);
-  v4 = *v0;
-
-  v2 = *(v4 + 8);
-
-  return v2();
-}
-
-void partial apply for closure #1 in LACPreboardController.launchPreboard()(BOOL *a1@<X8>)
-{
-  v2 = *(v1 + 16) + OBJC_IVAR____TtC23LocalAuthenticationCore21LACPreboardController_launchResult;
-  v3 = *(v2 + 8);
-  if (v3 == 255)
-  {
-    *v2 = 0;
-    *(v2 + 8) = 0;
-  }
-
-  *a1 = v3 == 255;
-}
-
-uint64_t partial apply for closure #2 in LACPreboardController.launchPreboard()(uint64_t a1)
-{
-  v4 = v1[2];
-  v5 = v1[3];
-  v7 = v1[4];
-  v6 = v1[5];
-  v8 = swift_task_alloc();
-  *(v2 + 16) = v8;
-  *v8 = v2;
-  v8[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
-
-  return closure #2 in LACPreboardController.launchPreboard()(a1, v4, v5, v7, v6);
-}
-
-uint64_t partial apply for closure #3 in LACPreboardController.launchPreboard()()
-{
-  v2 = v0[2];
-  v3 = v0[3];
-  v4 = v0[4];
-  v5 = swift_task_alloc();
-  *(v1 + 16) = v5;
-  *v5 = v1;
-  v5[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
-
-  return closure #3 in LACPreboardController.launchPreboard()();
-}
-
-void outlined consume of Result<(), Error>?(void *a1, char a2)
-{
-  if (a2 != -1)
-  {
-    outlined consume of Result<(), Error>(a1, a2 & 1);
-  }
-}
-
-void outlined consume of Result<(), Error>(id a1, char a2)
-{
-  if (a2)
-  {
-  }
-}
-
-uint64_t partial apply for @objc closure #1 in LACPreboardController.terminate()()
-{
-  v2 = *(v0 + 16);
-  v3 = *(v0 + 24);
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  *v4 = v1;
-  v4[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
-
-  return @objc closure #1 in LACPreboardController.terminate()(v2, v3);
-}
-
-uint64_t partial apply for @objc closure #1 in LACPreboardController.enableCurrentUseCase(withPasscode:)()
-{
-  v2 = v0[2];
-  v3 = v0[3];
-  v4 = v0[4];
-  v5 = swift_task_alloc();
-  *(v1 + 16) = v5;
-  *v5 = v1;
-  v5[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
-
-  return @objc closure #1 in LACPreboardController.enableCurrentUseCase(withPasscode:)(v2, v3, v4);
-}
-
-uint64_t objectdestroy_25Tm()
-{
-  _Block_release(*(v0 + 16));
-
-  return MEMORY[0x1EEE6BDD0](v0, 32, 7);
-}
-
-uint64_t partial apply for @objc closure #1 in LACPreboardController.launchPreboard()()
-{
-  v2 = *(v0 + 16);
-  v3 = *(v0 + 24);
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  *v4 = v1;
-  v4[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
-
-  return @objc closure #1 in LACPreboardController.launchPreboard()(v2, v3);
-}
-
-uint64_t outlined assign with take of LACACMContextProviding??(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s23LocalAuthenticationCore22LACACMContextProviding_pSgSgMd, &_s23LocalAuthenticationCore22LACACMContextProviding_pSgSgMR);
-  (*(*(v4 - 8) + 40))(a2, a1, v4);
-  return a2;
-}
-
-id outlined copy of Result<(), Error>?(id result, char a2)
-{
-  if (a2 != -1)
-  {
-    return outlined copy of Result<(), Error>(result, a2 & 1);
-  }
-
-  return result;
-}
-
-id outlined copy of Result<(), Error>(id result, char a2)
-{
-  if (a2)
-  {
-    return result;
-  }
-
-  return result;
-}
-
-id LACEvaluationRequestCompoundProcessor.__allocating_init(processors:)(uint64_t a1)
-{
-  v3 = objc_allocWithZone(v1);
-  *&v3[OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_nextProcessor] = 0;
-  v4 = &v3[OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_currentProcessorIndex];
-  *v4 = 0;
-  v4[8] = 1;
-  *&v3[OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_involvedProcessorIndices] = MEMORY[0x1E69E7CC0];
-  *&v3[OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_processors] = a1;
-  v6.receiver = v3;
-  v6.super_class = v1;
-  return objc_msgSendSuper2(&v6, sel_init);
-}
-
-id LACEvaluationRequestCompoundProcessor.init(processors:)(uint64_t a1)
-{
-  ObjectType = swift_getObjectType();
-  *&v1[OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_nextProcessor] = 0;
-  v4 = &v1[OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_currentProcessorIndex];
-  *v4 = 0;
-  v4[8] = 1;
-  *&v1[OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_involvedProcessorIndices] = MEMORY[0x1E69E7CC0];
-  *&v1[OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_processors] = a1;
-  v6.receiver = v1;
-  v6.super_class = ObjectType;
-  return objc_msgSendSuper2(&v6, sel_init);
-}
-
-void LACEvaluationRequestCompoundProcessor.processRequest(_:configuration:completion:)(void *a1, id a2, void (*a3)(void), uint64_t a4)
-{
-  v5 = v4;
-  if (v4[OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_currentProcessorIndex + 8] == 1)
-  {
-    v9 = *&v5[OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_processors];
-    if (v9 >> 62)
-    {
-      if (v9 < 0)
-      {
-        v21 = *&v5[OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_processors];
-      }
-
-      else
-      {
-        v21 = v9 & 0xFFFFFFFFFFFFFF8;
-      }
-
-      v22 = a2;
-      v23 = MEMORY[0x1B2722F00](v21);
-      a2 = v22;
-      if (v23)
-      {
-        goto LABEL_4;
-      }
-    }
-
-    else if (*((v9 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-LABEL_4:
-      v10 = [a2 nextProcessor];
-      v11 = *&v5[OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_nextProcessor];
-      *&v5[OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_nextProcessor] = v10;
-      swift_unknownObjectRelease();
-
-      LACEvaluationRequestCompoundProcessor.processRequest(_:subProcessorIndex:completion:)(a1, 0, a3, a4);
-      return;
-    }
-
-    v24 = [objc_opt_self() resultWithNext_];
-    a3();
-  }
-
-  else
-  {
-    v12 = objc_opt_self();
-    _StringGuts.grow(_:)(17);
-
-    v13 = [v4 description];
-    v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v16 = v15;
-
-    MEMORY[0x1B2722A80](v14, v16);
-
-    MEMORY[0x1B2722A80](0x7973756220, 0xE500000000000000);
-    v17 = MEMORY[0x1B27229A0](0x6F737365636F7250, 0xEA00000000002072);
-
-    v18 = [v12 errorWithCode:-1000 debugDescription:v17];
-
-    v19 = objc_opt_self();
-    v20 = _convertErrorToNSError(_:)();
-    v24 = [v19 resultWithFailure_];
-
-    (a3)(v24);
-  }
-}
-
-uint64_t LACEvaluationRequestCompoundProcessor.postProcessRequest(_:result:completion:)(uint64_t a1, uint64_t a2, void (*a3)(uint64_t), uint64_t a4)
-{
-  if (*(v4 + OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_currentProcessorIndex + 8))
-  {
-    return (a3)(a2);
-  }
-
-  v8 = *(v4 + OBJC_IVAR____TtC23LocalAuthenticationCore37LACEvaluationRequestCompoundProcessor_currentProcessorIndex);
-  v11 = swift_allocObject();
-  swift_unknownObjectWeakInit();
-
-  specialized LACEvaluationRequestCompoundProcessor.postProcessRequest(_:result:subProcessorIndex:completion:)(a1, a2, v8, v4, v11, a3, a4);
-}
-
-id LACEvaluationRequestCompoundProcessor.__allocating_init()()
-{
-  v1 = objc_allocWithZone(v0);
-
-  return [v1 init];
-}
-
-id LACEvaluationRequestCompoundProcessor.__deallocating_deinit()
-{
-  v2.receiver = v0;
-  v2.super_class = swift_getObjectType();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
-}
-
-uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(uint64_t a1)
-{
-  v3 = *v1;
-  isUniquelyReferenced_nonNull_bridgeObject = swift_isUniquelyReferenced_nonNull_bridgeObject();
-  *v1 = v3;
-  if ((isUniquelyReferenced_nonNull_bridgeObject & 1) == 0 || (result = 0, v3 < 0) || (v3 & 0x4000000000000000) != 0 || a1 > *((v3 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-  {
-    if (v3 >> 62)
-    {
-      v7 = v3 & 0xFFFFFFFFFFFFFF8;
-      if (v3 < 0)
-      {
-        v7 = v3;
-      }
-
-      MEMORY[0x1B2722F00](v7);
-    }
-
-    else
-    {
-      v6 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    }
-
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-    *v1 = result;
-  }
-
-  return result;
-}
-
-{
-  v3 = *v1;
-  result = swift_isUniquelyReferenced_nonNull_bridgeObject();
-  *v1 = v3;
-  if (result)
-  {
-    if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
-    {
-      v5 = v3 & 0xFFFFFFFFFFFFFF8;
-      if (a1 <= *((v3 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-      {
-        return result;
-      }
-
-      goto LABEL_9;
-    }
-
-LABEL_10:
-    if (v3 < 0)
-    {
-      v7 = v3;
-    }
-
-    else
-    {
-      v7 = v3 & 0xFFFFFFFFFFFFFF8;
-    }
-
-    MEMORY[0x1B2722F00](v7);
-    goto LABEL_14;
-  }
-
-  if (v3 < 0 || (v3 & 0x4000000000000000) != 0)
-  {
-    goto LABEL_10;
-  }
-
-  v5 = v3 & 0xFFFFFFFFFFFFFF8;
-LABEL_9:
-  v6 = *(v5 + 16);
-LABEL_14:
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-  *v1 = result;
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type [LACEvaluationRequestProcessor] and conformance [A]()
-{
-  result = lazy protocol witness table cache variable for type [LACEvaluationRequestProcessor] and conformance [A];
-  if (!lazy protocol witness table cache variable for type [LACEvaluationRequestProcessor] and conformance [A])
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo29LACEvaluationRequestProcessor_pGMd, &_sSaySo29LACEvaluationRequestProcessor_pGMR);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type [LACEvaluationRequestProcessor] and conformance [A]);
-  }
-
-  return result;
-}
-
-id LACMechanismTree.init(children:isAndNode:)(uint64_t a1, char a2)
-{
-  v3 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-  type metadata accessor for LACMechanismTree(v3);
-  isa = Array._bridgeToObjectiveC()().super.isa;
-
-  v5 = [v3 initWithChildren:isa isAndNode:a2 & 1];
-
-  return v5;
-}
-
-{
-  *(v2 + OBJC_IVAR___LACMechanismTree_children) = a1;
-  *(v2 + OBJC_IVAR___LACMechanismTree_isAnd) = a2;
-  *(v2 + OBJC_IVAR___LACMechanismTree_value) = -1;
-  v4.super_class = LACMechanismTree;
-  return objc_msgSendSuper2(&v4, sel_init);
-}
-
-id LACMechanismTree.init(value:)(uint64_t a1)
-{
-  v2 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-
-  return [v2 initWithValue_];
-}
-
-{
-  *(v1 + OBJC_IVAR___LACMechanismTree_children) = MEMORY[0x1E69E7CC0];
-  *(v1 + OBJC_IVAR___LACMechanismTree_isAnd) = 0;
-  *(v1 + OBJC_IVAR___LACMechanismTree_value) = a1;
-  v3.super_class = LACMechanismTree;
-  return objc_msgSendSuper2(&v3, sel_init);
-}
-
-uint64_t LACMechanismTree.description.getter()
-{
-  v1 = v0;
-  _StringGuts.grow(_:)(38);
-  swift_getObjectType();
-  v2 = _typeName(_:qualified:)();
-
-  v15 = v2;
-  MEMORY[0x1B2722A80](0x3A65756C6176203ALL, 0xE900000000000020);
-  [v0 value];
-  v3 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x1B2722A80](v3);
-
-  MEMORY[0x1B2722A80](0x72646C696863202CLL, 0xEC000000203A6E65);
-  v4 = [v0 children];
-  v5 = type metadata accessor for LACMechanismTree(v4);
-  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-
-  v7 = MEMORY[0x1B2722B60](v6, v5);
-  v9 = v8;
-
-  MEMORY[0x1B2722A80](v7, v9);
-
-  MEMORY[0x1B2722A80](0x3A646E417369202CLL, 0xE900000000000020);
-  v10 = [v1 isAnd];
-  v11 = v10 == 0;
-  if (v10)
-  {
-    v12 = 1702195828;
-  }
-
-  else
-  {
-    v12 = 0x65736C6166;
-  }
-
-  if (v11)
-  {
-    v13 = 0xE500000000000000;
-  }
-
-  else
-  {
-    v13 = 0xE400000000000000;
-  }
-
-  MEMORY[0x1B2722A80](v12, v13);
-
-  return v15;
-}
-
 Swift::Bool __swiftcall LACMechanismTree.isSatisfiable(withValue:)(Swift::Int withValue)
 {
   v2 = &selRef_cancelAuthenticationForRequestIdentifier_;
@@ -1149,39 +165,8 @@ Swift::Bool __swiftcall LACMechanismTree.isValue(_:replaceableByValue:)(Swift::I
         break;
       }
 
-      if ([v2 v10[97]])
+      if (([v2 v10[97]] & 1) != 0 || ((v15 = i, v16 = v2, v17 = v9, v18 = v10, v19 = replaceableByValue, v20 = objc_msgSend(v13, sel_children), v21 = static Array._unconditionallyBridgeFromObjectiveC(_:)(), v20, v21 >> 62) ? (v21 < 0 ? (v23 = v21) : (v23 = v21 & 0xFFFFFFFFFFFFFF8), v22 = MEMORY[0x1B2722F00](v23)) : (v22 = *((v21 & 0xFFFFFFFFFFFFFF8) + 0x10)), , replaceableByValue = v19, v10 = v18, v9 = v17, v2 = v16, i = v15, v6 = v26, v22))
       {
-        goto LABEL_6;
-      }
-
-      v15 = i;
-      v16 = v2;
-      v17 = v9;
-      v18 = v10;
-      v19 = replaceableByValue;
-      v20 = [v13 children];
-      v21 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-
-      if (v21 >> 62)
-      {
-        v23 = v21 < 0 ? v21 : v21 & 0xFFFFFFFFFFFFFF8;
-        v22 = MEMORY[0x1B2722F00](v23);
-      }
-
-      else
-      {
-        v22 = *((v21 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      }
-
-      replaceableByValue = v19;
-      v10 = v18;
-      v9 = v17;
-      v2 = v16;
-      i = v15;
-      v6 = v26;
-      if (v22)
-      {
-LABEL_6:
         v11 = [v13 isValue:_ replaceableByValue:{replaceableByValue, v25}];
 
         if ((v11 & 1) == 0)
@@ -1342,10 +327,10 @@ LABEL_8:
   return v6;
 }
 
-uint64_t static LACMechanismTree.parse(tree:index:)(uint64_t a1, uint64_t a2, uint64_t *a3)
+id static LACMechanismTree.parse(tree:index:)(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v6 = MEMORY[0x1E69E7CC0];
-  v36 = MEMORY[0x1E69E7CC0];
+  v32 = MEMORY[0x1E69E7CC0];
   v7 = *a3;
   if (v7 < String.count.getter())
   {
@@ -1365,16 +350,15 @@ uint64_t static LACMechanismTree.parse(tree:index:)(uint64_t a1, uint64_t a2, ui
         {
           v18 = v17;
           MEMORY[0x1B2722B30]();
-          if (*((v36 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v36 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+          if (*((v32 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v32 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
           {
-            v24 = *((v36 & 0xFFFFFFFFFFFFFF8) + 0x10);
             specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
           }
 
           specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
           v19 = 0;
-          v6 = v36;
+          v6 = v32;
         }
 
         else
@@ -1400,9 +384,8 @@ uint64_t static LACMechanismTree.parse(tree:index:)(uint64_t a1, uint64_t a2, ui
 
             v10 = v9;
             MEMORY[0x1B2722B30]();
-            if (*((v36 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v36 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+            if (*((v32 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v32 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
             {
-              v26 = *((v36 & 0xFFFFFFFFFFFFFF8) + 0x10);
               specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
             }
 
@@ -1430,9 +413,8 @@ uint64_t static LACMechanismTree.parse(tree:index:)(uint64_t a1, uint64_t a2, ui
 
             v23 = v22;
             MEMORY[0x1B2722B30]();
-            if (*((v36 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v36 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+            if (*((v32 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v32 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
             {
-              v27 = *((v36 & 0xFFFFFFFFFFFFFF8) + 0x10);
               specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
             }
 
@@ -1441,7 +423,7 @@ uint64_t static LACMechanismTree.parse(tree:index:)(uint64_t a1, uint64_t a2, ui
             v8 = 1;
           }
 
-          v6 = v36;
+          v6 = v32;
 LABEL_8:
           *a3 = ++v7;
           v11 = String.count.getter();
@@ -1454,15 +436,14 @@ LABEL_8:
         {
           v21 = v20;
           MEMORY[0x1B2722B30]();
-          if (*((v36 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v36 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+          if (*((v32 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v32 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
           {
-            v25 = *((v36 & 0xFFFFFFFFFFFFFF8) + 0x10);
             specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
           }
 
           specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
-          v6 = v36;
+          v6 = v32;
         }
 
         *a3 = v7 + 1;
@@ -1502,15 +483,15 @@ LABEL_61:
 
   if (v6 < 0)
   {
-    v35 = v6;
+    v31 = v6;
   }
 
   else
   {
-    v35 = v6 & 0xFFFFFFFFFFFFFF8;
+    v31 = v6 & 0xFFFFFFFFFFFFFF8;
   }
 
-  result = MEMORY[0x1B2722F00](v35);
+  result = MEMORY[0x1B2722F00](v31);
   if (!result)
   {
     goto LABEL_61;
@@ -1519,22 +500,22 @@ LABEL_61:
 LABEL_46:
   if ((v6 & 0xC000000000000001) != 0)
   {
-    v29 = MEMORY[0x1B2722E50](0, v6);
+    v25 = MEMORY[0x1B2722E50](0, v6);
 LABEL_49:
-    v30 = v29;
+    v26 = v25;
     if (v6 >> 62)
     {
       if (v6 < 0)
       {
-        v34 = v6;
+        v30 = v6;
       }
 
       else
       {
-        v34 = v6 & 0xFFFFFFFFFFFFFF8;
+        v30 = v6 & 0xFFFFFFFFFFFFFF8;
       }
 
-      if (MEMORY[0x1B2722F00](v34) != 1)
+      if (MEMORY[0x1B2722F00](v30) != 1)
       {
         goto LABEL_51;
       }
@@ -1543,21 +524,21 @@ LABEL_49:
     else if (*((v6 & 0xFFFFFFFFFFFFFF8) + 0x10) != 1)
     {
 LABEL_51:
-      v31 = objc_allocWithZone(LACMechanismTree);
-      type metadata accessor for LACMechanismTree(v31);
+      v27 = objc_allocWithZone(LACMechanismTree);
+      type metadata accessor for LACMechanismTree(v27);
       isa = Array._bridgeToObjectiveC()().super.isa;
 
-      v33 = [v31 initWithChildren:isa isAndNode:v8 & 1];
+      v29 = [v27 initWithChildren:isa isAndNode:v8 & 1];
 
-      return v33;
+      return v29;
     }
 
-    return v30;
+    return v26;
   }
 
   if (*((v6 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    v29 = *(v6 + 32);
+    v25 = *(v6 + 32);
     goto LABEL_49;
   }
 
@@ -1622,7 +603,7 @@ id LACMechanismTree.init()()
   return [v0 init];
 }
 
-uint64_t closure #1 in static LACMechanismTree.parse(tree:index:)(uint64_t result, unint64_t a2)
+unint64_t closure #1 in static LACMechanismTree.parse(tree:index:)(unint64_t result, unint64_t a2)
 {
   v3 = HIBYTE(a2) & 0xF;
   v4 = result & 0xFFFFFFFFFFFFLL;
@@ -1979,7 +960,7 @@ unsigned __int8 *specialized _parseInteger<A, B>(ascii:radix:)(uint64_t a1, uint
   v6 = result;
   if ((v5 & 0x1000000000000000) != 0)
   {
-    v6 = static String._copying(_:)();
+    v6 = static String._copying(_:)(result, v5);
     v35 = v34;
 
     v5 = v35;
@@ -2480,22 +1461,35 @@ LABEL_132:
   return result;
 }
 
-uint64_t static String._copying(_:)()
+uint64_t static String._copying(_:)(uint64_t a1, unint64_t a2)
 {
-  v0 = String.subscript.getter();
-  v4 = static String._copying(_:)(v0, v1, v2, v3);
+  v2 = String.subscript.getter();
+  v6 = static String._copying(_:)(v2, v3, v4, v5);
 
-  return v4;
+  return v6;
 }
 
 uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
-  if ((a4 & 0x1000000000000000) == 0)
+  if ((a4 & 0x1000000000000000) != 0)
+  {
+    v9 = Substring.UTF8View.distance(from:to:)();
+    if (!v9 || (v10 = v9, v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v9, 0), v12 = specialized Sequence._copySequenceContents(initializing:)(v14, (v11 + 4), v10, a1, a2, a3, a4), , , v12 == v10))
+    {
+      v13 = static String._uncheckedFromUTF8(_:)();
+
+      return v13;
+    }
+
+    __break(1u);
+  }
+
+  else
   {
     if ((a4 & 0x2000000000000000) != 0)
     {
-      v15[0] = a3;
-      v15[1] = a4 & 0xFFFFFFFFFFFFFFLL;
+      v14[0] = a3;
+      v14[1] = a4 & 0xFFFFFFFFFFFFFFLL;
       return static String._uncheckedFromUTF8(_:)();
     }
 
@@ -2503,32 +1497,8 @@ uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, un
     {
       goto LABEL_4;
     }
-
-    goto LABEL_11;
   }
 
-  v9 = Substring.UTF8View.distance(from:to:)();
-  if (!v9)
-  {
-    v11 = MEMORY[0x1E69E7CC0];
-    goto LABEL_13;
-  }
-
-  v10 = v9;
-  v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v9, 0);
-  v12 = specialized Sequence._copySequenceContents(initializing:)(v15, (v11 + 4), v10, a1, a2, a3, a4);
-
-  if (v12 == v10)
-  {
-LABEL_13:
-    v13 = v11[2];
-    v14 = static String._uncheckedFromUTF8(_:)();
-
-    return v14;
-  }
-
-  __break(1u);
-LABEL_11:
   _StringObject.sharedUTF8.getter();
 LABEL_4:
 
@@ -2697,7 +1667,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -2776,18 +1746,10 @@ uint64_t LACMutablePasscodeVerificationRequest.policy.setter(uint64_t a1)
   return result;
 }
 
-uint64_t LACMutablePasscodeVerificationRequest.options.getter()
-{
-  v1 = OBJC_IVAR___LACMutablePasscodeVerificationRequest_options;
-  swift_beginAccess();
-  v2 = *(v0 + v1);
-}
-
 uint64_t LACMutablePasscodeVerificationRequest.options.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR___LACMutablePasscodeVerificationRequest_options;
   swift_beginAccess();
-  v4 = *(v1 + v3);
   *(v1 + v3) = a1;
 }
 
@@ -3088,53 +2050,51 @@ id specialized static LACPreboardErrorBuilder.genericError(with:)(uint64_t a1, u
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1B0342820;
-  v5 = *MEMORY[0x1E696A278];
   *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
   *(inited + 72) = MEMORY[0x1E69E6158];
-  *(inited + 40) = v6;
+  *(inited + 40) = v5;
   *(inited + 48) = a1;
   *(inited + 56) = a2;
 
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(inited);
   swift_setDeallocating();
   outlined destroy of (String, Any)(inited + 32);
-  v7 = @"LAPreboardErrorDomain";
+  v6 = @"LAPreboardErrorDomain";
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
-  v9 = [objc_allocWithZone(MEMORY[0x1E696ABC0]) initWithDomain:v7 code:2 userInfo:isa];
+  v8 = [objc_allocWithZone(MEMORY[0x1E696ABC0]) initWithDomain:v6 code:2 userInfo:isa];
 
-  return v9;
+  return v8;
 }
 
-id specialized static LACPreboardErrorBuilder.error(code:message:)(uint64_t a1, uint64_t a2, uint64_t a3)
+id specialized static LACPreboardErrorBuilder.error(code:message:)(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   if (a3)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1B0342820;
-    v7 = *MEMORY[0x1E696A278];
     *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
     *(inited + 72) = MEMORY[0x1E69E6158];
-    *(inited + 40) = v8;
+    *(inited + 40) = v7;
     *(inited + 48) = a2;
     *(inited + 56) = a3;
 
     _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(inited);
     swift_setDeallocating();
     outlined destroy of (String, Any)(inited + 32);
-    v9 = @"LAPreboardErrorDomain";
-    v10.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    v8 = @"LAPreboardErrorDomain";
+    v9.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v9 = @"LAPreboardErrorDomain";
-    v10.super.isa = 0;
+    v8 = @"LAPreboardErrorDomain";
+    v9.super.isa = 0;
   }
 
-  v11 = [objc_allocWithZone(MEMORY[0x1E696ABC0]) initWithDomain:v9 code:a1 userInfo:v10.super.isa];
+  v10 = [objc_allocWithZone(MEMORY[0x1E696ABC0]) initWithDomain:v8 code:a1 userInfo:v9.super.isa];
 
-  return v11;
+  return v10;
 }
 
 id specialized static LACPreboardErrorBuilder.notSupportedError()()
@@ -3142,20 +2102,19 @@ id specialized static LACPreboardErrorBuilder.notSupportedError()()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1B0342820;
-  v1 = *MEMORY[0x1E696A278];
   *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
   *(inited + 72) = MEMORY[0x1E69E6158];
-  *(inited + 40) = v2;
+  *(inited + 40) = v1;
   *(inited + 48) = 0xD000000000000015;
   *(inited + 56) = 0x80000001B03576D0;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(inited);
   swift_setDeallocating();
   outlined destroy of (String, Any)(inited + 32);
-  v3 = @"LAPreboardErrorDomain";
+  v2 = @"LAPreboardErrorDomain";
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
-  v5 = [objc_allocWithZone(MEMORY[0x1E696ABC0]) initWithDomain:v3 code:2 userInfo:isa];
+  v4 = [objc_allocWithZone(MEMORY[0x1E696ABC0]) initWithDomain:v2 code:2 userInfo:isa];
 
-  return v5;
+  return v4;
 }
 
 BOOL specialized static LACPreboardErrorBuilder.hasCode(_:code:)(uint64_t a1, id a2)
@@ -3185,36 +2144,35 @@ BOOL specialized static LACPreboardErrorBuilder.hasCode(_:code:)(uint64_t a1, id
   return v12 == a2;
 }
 
-id specialized static LACPreboardErrorBuilder.error(code:underlyingError:)(uint64_t a1, uint64_t a2)
+id specialized static LACPreboardErrorBuilder.error(code:underlyingError:)(uint64_t a1, unint64_t a2)
 {
   if (a2)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1B0342820;
-    v4 = *MEMORY[0x1E696AA08];
     *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    *(inited + 40) = v5;
+    *(inited + 40) = v4;
     swift_getErrorValue();
-    *(inited + 72) = v11;
+    *(inited + 72) = v10;
     boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0((inited + 48));
-    (*(*(v11 - 8) + 16))(boxed_opaque_existential_0);
+    (*(*(v10 - 8) + 16))(boxed_opaque_existential_0);
     _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(inited);
     swift_setDeallocating();
     outlined destroy of (String, Any)(inited + 32);
-    v7 = @"LAPreboardErrorDomain";
-    v8.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    v6 = @"LAPreboardErrorDomain";
+    v7.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v7 = @"LAPreboardErrorDomain";
-    v8.super.isa = 0;
+    v6 = @"LAPreboardErrorDomain";
+    v7.super.isa = 0;
   }
 
-  v9 = [objc_allocWithZone(MEMORY[0x1E696ABC0]) initWithDomain:v7 code:a1 userInfo:v8.super.isa];
+  v8 = [objc_allocWithZone(MEMORY[0x1E696ABC0]) initWithDomain:v6 code:a1 userInfo:v7.super.isa];
 
-  return v9;
+  return v8;
 }
 
 uint64_t *__swift_allocate_boxed_opaque_existential_0(uint64_t *result)
@@ -3273,15 +2231,15 @@ uint64_t protocol witness for LACPreboardLaunching.launchPreboard() in conforman
   return MEMORY[0x1EEE6DEC8](v0 + 2);
 }
 
+uint64_t protocol witness for LACPreboardLaunching.launchPreboard() in conformance LACPreboardLauncher(uint64_t a1)
 {
-  v1 = *v0;
-  if (*(*v0 + 48))
+  v2 = *v1;
+  if (*(*v1 + 48))
   {
-    v2 = *(*v0 + 48);
     swift_willThrow();
   }
 
-  v3 = *(v1 + 8);
+  v3 = *(v2 + 8);
 
   return v3();
 }
@@ -3369,7 +2327,7 @@ Swift::Bool __swiftcall LACConcurrentEvaluationHelper.isClientAllowListed(with:)
   return v10 & 1;
 }
 
-uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(void *a1)
+uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(uint64_t *a1)
 {
   v2 = *(v1 + 16);
   if (*a1 == *v2 && a1[1] == v2[1])
@@ -3381,15 +2339,6 @@ uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(voi
   {
     return _stringCompareWithSmolCheck(_:_:expecting:)() & 1;
   }
-}
-
-uint64_t LACPreboardStorage.delegate.getter()
-{
-  v1 = v0 + OBJC_IVAR____TtC23LocalAuthenticationCore18LACPreboardStorage_delegate;
-  swift_beginAccess();
-  result = swift_unknownObjectWeakLoadStrong();
-  v3 = *(v1 + 8);
-  return result;
 }
 
 uint64_t LACPreboardStorage.delegate.setter(uint64_t a1, uint64_t a2)
@@ -3430,12 +2379,10 @@ void (*LACPreboardStorage.delegate.modify(uint64_t *a1))(uint64_t a1, char a2)
 void LACPreboardStorage.delegate.modify(uint64_t a1, char a2)
 {
   v3 = *a1;
-  v4 = *(*a1 + 24);
   *(*(*a1 + 40) + *(*a1 + 48) + 8) = *(*a1 + 32);
   swift_unknownObjectWeakAssign();
   if (a2)
   {
-    v5 = v3[3];
     swift_unknownObjectRelease();
     swift_endAccess();
   }
@@ -3457,7 +2404,7 @@ char *LACPreboardStorage.init(secureStorage:sysUtility:)(uint64_t a1, uint64_t a
   *&v2[OBJC_IVAR____TtC23LocalAuthenticationCore18LACPreboardStorage_storage] = a1;
   *&v2[OBJC_IVAR____TtC23LocalAuthenticationCore18LACPreboardStorage_sysUtility] = a2;
   v9.receiver = v2;
-  v9.super_class = type metadata accessor for LACPreboardStorage();
+  v9.super_class = type metadata accessor for LACPreboardStorage(0);
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   v5 = objc_msgSendSuper2(&v9, sel_init);
@@ -3470,7 +2417,7 @@ char *LACPreboardStorage.init(secureStorage:sysUtility:)(uint64_t a1, uint64_t a
   return v7;
 }
 
-uint64_t type metadata accessor for LACPreboardStorage()
+uint64_t type metadata accessor for LACPreboardStorage(uint64_t a1)
 {
   result = type metadata singleton initialization cache for LACPreboardStorage;
   if (!type metadata singleton initialization cache for LACPreboardStorage)
@@ -3549,9 +2496,7 @@ uint64_t LACPreboardStorage.exchange(data:for:)(uint64_t a1, uint64_t a2, uint64
   v4[37] = a2;
   v5 = type metadata accessor for Logger();
   v4[40] = v5;
-  v6 = *(v5 - 8);
-  v4[41] = v6;
-  v7 = *(v6 + 64) + 15;
+  v4[41] = *(v5 - 8);
   v4[42] = swift_task_alloc();
   v4[43] = swift_task_alloc();
   v4[44] = swift_task_alloc();
@@ -3562,180 +2507,169 @@ uint64_t LACPreboardStorage.exchange(data:for:)(uint64_t a1, uint64_t a2, uint64
 uint64_t LACPreboardStorage.exchange(data:for:)()
 {
   v1 = v0[38];
-  v2 = v0[36];
-  v3 = v0[37];
-  v4 = *(v0[39] + OBJC_IVAR____TtC23LocalAuthenticationCore18LACPreboardStorage_storage);
+  v2 = *(v0[39] + OBJC_IVAR____TtC23LocalAuthenticationCore18LACPreboardStorage_storage);
   isa = Data._bridgeToObjectiveC()().super.isa;
   v0[45] = isa;
   v0[2] = v0;
   v0[7] = v0 + 22;
   v0[3] = LACPreboardStorage.exchange(data:for:);
-  v6 = swift_continuation_init();
+  v4 = swift_continuation_init();
   v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyypSgs5Error_pGMd, &_sSccyypSgs5Error_pGMR);
   v0[10] = MEMORY[0x1E69E9820];
   v0[11] = 1107296256;
   v0[12] = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned Swift.AnyObject?, @unowned NSError?) -> () with result type Any?;
   v0[13] = &block_descriptor_22;
-  v0[14] = v6;
-  [v4 setObject:isa forRequest:v1 completionHandler:v0 + 10];
+  v0[14] = v4;
+  [v2 setObject:isa forRequest:v1 completionHandler:v0 + 10];
 
   return MEMORY[0x1EEE6DEC8](v0 + 2);
 }
 
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 368) = v2;
-  if (v2)
+  v1 = *(*v0 + 48);
+  *(*v0 + 368) = v1;
+  if (v1)
   {
-    v3 = LACPreboardStorage.exchange(data:for:);
+    v2 = LACPreboardStorage.exchange(data:for:);
   }
 
   else
   {
-    v3 = LACPreboardStorage.exchange(data:for:);
+    v2 = LACPreboardStorage.exchange(data:for:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v3, 0, 0);
+  return MEMORY[0x1EEE6DFA0](v2, 0, 0);
 }
 
 {
-  v33 = v0;
-  v2 = *(v0 + 352);
+  v28 = v0;
   v1 = *(v0 + 360);
-  v3 = *(v0 + 304);
-  v4 = *(v0 + 192);
+  v2 = *(v0 + 192);
   *(v0 + 144) = *(v0 + 176);
-  *(v0 + 160) = v4;
+  *(v0 + 160) = v2;
 
-  v5 = LACLogPreboard();
+  v4 = LACLogPreboard(v3);
   Logger.init(_:)();
   outlined init with copy of (String, Any)(v0 + 144, v0 + 208, &_sypSgMd, _sypSgMR);
   swift_unknownObjectRetain_n();
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.info.getter();
-  v8 = os_log_type_enabled(v6, v7);
-  v9 = *(v0 + 352);
-  v11 = *(v0 + 320);
-  v10 = *(v0 + 328);
-  v12 = *(v0 + 304);
-  if (v8)
+  v5 = Logger.logObject.getter();
+  v6 = static os_log_type_t.info.getter();
+  v7 = os_log_type_enabled(v5, v6);
+  v8 = *(v0 + 352);
+  v10 = *(v0 + 320);
+  v9 = *(v0 + 328);
+  v11 = *(v0 + 304);
+  if (v7)
   {
+    v12 = swift_slowAlloc();
     v13 = swift_slowAlloc();
-    v14 = swift_slowAlloc();
-    v32 = v14;
-    *v13 = 136315394;
+    v27 = v13;
+    *v12 = 136315394;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, _sypSgMR);
-    v31 = v9;
-    v15 = Optional.debugDescription.getter();
-    v30 = v11;
-    v17 = v16;
+    v26 = v8;
+    v14 = Optional.debugDescription.getter();
+    v25 = v10;
+    v16 = v15;
     outlined destroy of AsyncStream<()>.Continuation?(v0 + 208, &_sypSgMd, _sypSgMR);
-    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v17, &v32);
+    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v16, &v27);
 
-    *(v13 + 4) = v18;
-    *(v13 + 12) = 2048;
-    v19 = [v12 key];
+    *(v12 + 4) = v17;
+    *(v12 + 12) = 2048;
+    v18 = [v11 key];
     swift_unknownObjectRelease();
-    *(v13 + 14) = v19;
+    *(v12 + 14) = v18;
     swift_unknownObjectRelease();
-    _os_log_impl(&dword_1B0233000, v6, v7, "Did exchange data: %s for key: %ld", v13, 0x16u);
-    __swift_destroy_boxed_opaque_existential_0(v14);
-    MEMORY[0x1B27246A0](v14, -1, -1);
+    _os_log_impl(&dword_1B0233000, v5, v6, "Did exchange data: %s for key: %ld", v12, 0x16u);
+    __swift_destroy_boxed_opaque_existential_0(v13);
     MEMORY[0x1B27246A0](v13, -1, -1);
+    MEMORY[0x1B27246A0](v12, -1, -1);
 
-    (*(v10 + 8))(v31, v30);
+    (*(v9 + 8))(v26, v25);
   }
 
   else
   {
-    v20 = *(v0 + 304);
     swift_unknownObjectRelease_n();
 
     outlined destroy of AsyncStream<()>.Continuation?(v0 + 208, &_sypSgMd, _sypSgMR);
-    (*(v10 + 8))(v9, v11);
+    (*(v9 + 8))(v8, v10);
   }
 
-  v21 = *(v0 + 160);
+  v19 = *(v0 + 160);
   *(v0 + 240) = *(v0 + 144);
-  *(v0 + 256) = v21;
+  *(v0 + 256) = v19;
   if (*(v0 + 264))
   {
-    v22 = swift_dynamicCast();
-    if (v22)
+    v20 = swift_dynamicCast();
+    if (v20)
     {
-      v23 = *(v0 + 272);
+      v21 = *(v0 + 272);
     }
 
     else
     {
-      v23 = 0;
+      v21 = 0;
     }
 
-    if (v22)
+    if (v20)
     {
-      v24 = *(v0 + 280);
+      v22 = *(v0 + 280);
     }
 
     else
     {
-      v24 = 0xF000000000000000;
+      v22 = 0xF000000000000000;
     }
   }
 
   else
   {
     outlined destroy of AsyncStream<()>.Continuation?(v0 + 240, &_sypSgMd, _sypSgMR);
-    v23 = 0;
-    v24 = 0xF000000000000000;
+    v21 = 0;
+    v22 = 0xF000000000000000;
   }
 
-  v26 = *(v0 + 344);
-  v25 = *(v0 + 352);
-  v27 = *(v0 + 336);
+  v23 = *(v0 + 8);
 
-  v28 = *(v0 + 8);
-
-  return v28(v23, v24);
+  return v23(v21, v22);
 }
 
+uint64_t LACPreboardStorage.exchange(data:for:)(uint64_t a1)
 {
-  v1 = v0[45];
-  v2 = v0[46];
-  v3 = v0[38];
+  v2 = v1[45];
+  v3 = v1[38];
   swift_willThrow();
 
-  if ([v3 key] == 13 && (v4 = v0[46], v5 = objc_opt_self(), v6 = _convertErrorToNSError(_:)(), LODWORD(v5) = objc_msgSend(v5, sel_error_hasCode_, v6, 3), v6, v5) && objc_msgSend(*(v0[39] + OBJC_IVAR____TtC23LocalAuthenticationCore18LACPreboardStorage_sysUtility), sel_hasPPL))
+  v4 = [v3 key];
+  if (v4 == 13 && (v5 = objc_opt_self(), v6 = _convertErrorToNSError(_:)(), LODWORD(v5) = [v5 error:v6 hasCode:3], v6, v5) && (v4 = objc_msgSend(*(v1[39] + OBJC_IVAR____TtC23LocalAuthenticationCore18LACPreboardStorage_sysUtility), sel_hasPPL), v4))
   {
-    v7 = v0[46];
-    v8 = v0[43];
-    v9 = v0[38];
-    v10 = LACLogPreboard();
+    v7 = v1[46];
+    v8 = LACLogPreboard(v4);
     Logger.init(_:)();
     swift_unknownObjectRetain();
-    v11 = v7;
-    v12 = Logger.logObject.getter();
-    v13 = static os_log_type_t.default.getter();
+    v9 = v7;
+    v10 = Logger.logObject.getter();
+    v11 = static os_log_type_t.default.getter();
 
-    v14 = os_log_type_enabled(v12, v13);
-    v15 = v0[46];
-    v16 = v0[38];
-    if (v14)
+    v12 = os_log_type_enabled(v10, v11);
+    v13 = v1[46];
+    v14 = v1[38];
+    if (v12)
     {
-      v17 = swift_slowAlloc();
-      v18 = swift_slowAlloc();
-      *v17 = 138412546;
-      v19 = v15;
-      v20 = _swift_stdlib_bridgeErrorToNSError();
-      *(v17 + 4) = v20;
-      *v18 = v20;
-      *(v17 + 12) = 2048;
-      *(v17 + 14) = [v16 key];
+      v15 = swift_slowAlloc();
+      v16 = swift_slowAlloc();
+      *v15 = 138412546;
+      v17 = v13;
+      v18 = _swift_stdlib_bridgeErrorToNSError();
+      *(v15 + 4) = v18;
+      *v16 = v18;
+      *(v15 + 12) = 2048;
+      *(v15 + 14) = [v14 key];
       swift_unknownObjectRelease();
-      _os_log_impl(&dword_1B0233000, v12, v13, "Data exchange returned error: %@ for key: %ld but we return nil for compatibility reasons", v17, 0x16u);
-      outlined destroy of AsyncStream<()>.Continuation?(v18, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      MEMORY[0x1B27246A0](v18, -1, -1);
-      MEMORY[0x1B27246A0](v17, -1, -1);
+      _os_log_impl(&dword_1B0233000, v10, v11, "Data exchange returned error: %@ for key: %ld but we return nil for compatibility reasons", v15, 0x16u);
+      outlined destroy of AsyncStream<()>.Continuation?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      MEMORY[0x1B27246A0](v16, -1, -1);
+      MEMORY[0x1B27246A0](v15, -1, -1);
     }
 
     else
@@ -3744,64 +2678,54 @@ uint64_t LACPreboardStorage.exchange(data:for:)()
       swift_unknownObjectRelease();
     }
 
-    (*(v0[41] + 8))(v0[43], v0[40]);
-    v42 = v0[43];
-    v41 = v0[44];
-    v43 = v0[42];
+    (*(v1[41] + 8))(v1[43], v1[40]);
 
-    v44 = v0[1];
+    v32 = v1[1];
 
-    return v44(0, 0xF000000000000000);
+    return v32(0, 0xF000000000000000);
   }
 
   else
   {
-    v21 = v0[46];
-    v22 = v0[42];
-    v23 = v0[38];
-    v24 = LACLogPreboard();
+    v19 = v1[46];
+    v20 = LACLogPreboard(v4);
     Logger.init(_:)();
     swift_unknownObjectRetain();
-    v25 = v21;
-    v26 = Logger.logObject.getter();
-    v27 = static os_log_type_t.error.getter();
+    v21 = v19;
+    v22 = Logger.logObject.getter();
+    v23 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v26, v27))
+    if (os_log_type_enabled(v22, v23))
     {
-      v28 = v0[46];
-      v29 = v0[38];
-      v30 = swift_slowAlloc();
-      v31 = swift_slowAlloc();
-      *v30 = 134218242;
-      *(v30 + 4) = [v29 key];
+      v24 = v1[46];
+      v25 = v1[38];
+      v26 = swift_slowAlloc();
+      v27 = swift_slowAlloc();
+      *v26 = 134218242;
+      *(v26 + 4) = [v25 key];
       swift_unknownObjectRelease();
-      *(v30 + 12) = 2112;
-      v32 = v28;
-      v33 = _swift_stdlib_bridgeErrorToNSError();
-      *(v30 + 14) = v33;
-      *v31 = v33;
-      _os_log_impl(&dword_1B0233000, v26, v27, "Data exchange for key: %ld failed: %@", v30, 0x16u);
-      outlined destroy of AsyncStream<()>.Continuation?(v31, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      MEMORY[0x1B27246A0](v31, -1, -1);
-      MEMORY[0x1B27246A0](v30, -1, -1);
+      *(v26 + 12) = 2112;
+      v28 = v24;
+      v29 = _swift_stdlib_bridgeErrorToNSError();
+      *(v26 + 14) = v29;
+      *v27 = v29;
+      _os_log_impl(&dword_1B0233000, v22, v23, "Data exchange for key: %ld failed: %@", v26, 0x16u);
+      outlined destroy of AsyncStream<()>.Continuation?(v27, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      MEMORY[0x1B27246A0](v27, -1, -1);
+      MEMORY[0x1B27246A0](v26, -1, -1);
     }
 
     else
     {
-      v34 = v0[38];
       swift_unknownObjectRelease();
     }
 
-    v35 = v0[46];
-    v36 = v0[43];
-    v37 = v0[44];
-    (*(v0[41] + 8))(v0[42], v0[40]);
+    (*(v1[41] + 8))(v1[42], v1[40]);
     swift_willThrow();
 
-    v38 = v0[1];
-    v39 = v0[46];
+    v30 = v1[1];
 
-    return v38();
+    return v30();
   }
 }
 
@@ -3812,48 +2736,59 @@ uint64_t LACPreboardStorage.enableVariable(for:)(uint64_t a1)
   return MEMORY[0x1EEE6DFA0](LACPreboardStorage.enableVariable(for:), 0, 0);
 }
 
+{
+  v2 = v1[27];
+  v3 = v1[25];
+  v4 = v1[26];
+  v5 = v1[24];
+  swift_willThrow();
+  outlined consume of Data._Representation(v3, v4);
+
+  v6 = v1[1];
+
+  return v6();
+}
+
 uint64_t LACPreboardStorage.enableVariable(for:)()
 {
-  v1 = v0[23];
-  v2 = specialized LACPreboardStorage.storageRequest(for:operation:)(v0[22]);
-  v0[24] = v2;
-  v3 = v2;
-  v4 = v0[23];
+  v1 = specialized LACPreboardStorage.storageRequest(for:operation:)(v0[22]);
+  v0[24] = v1;
+  v2 = v1;
+  v3 = v0[23];
   v0[25] = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(&outlined read-only object #0 of LACPreboardStorage.enableVariable(for:));
-  v0[26] = v5;
-  v6 = *(v4 + OBJC_IVAR____TtC23LocalAuthenticationCore18LACPreboardStorage_storage);
+  v0[26] = v4;
+  v5 = *(v3 + OBJC_IVAR____TtC23LocalAuthenticationCore18LACPreboardStorage_storage);
   isa = Data._bridgeToObjectiveC()().super.isa;
   v0[27] = isa;
   v0[2] = v0;
   v0[7] = v0 + 18;
   v0[3] = LACPreboardStorage.enableVariable(for:);
-  v8 = swift_continuation_init();
+  v7 = swift_continuation_init();
   v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyypSgs5Error_pGMd, &_sSccyypSgs5Error_pGMR);
   v0[10] = MEMORY[0x1E69E9820];
   v0[11] = 1107296256;
   v0[12] = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned Swift.AnyObject?, @unowned NSError?) -> () with result type Any?;
   v0[13] = &block_descriptor_18;
-  v0[14] = v8;
-  [v6 setObject:isa forRequest:v3 completionHandler:v0 + 10];
+  v0[14] = v7;
+  [v5 setObject:isa forRequest:v2 completionHandler:v0 + 10];
 
   return MEMORY[0x1EEE6DEC8](v0 + 2);
 }
 
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 224) = v2;
-  if (v2)
+  v1 = *(*v0 + 48);
+  *(*v0 + 224) = v1;
+  if (v1)
   {
-    v3 = LACPreboardStorage.enableVariable(for:);
+    v2 = LACPreboardStorage.enableVariable(for:);
   }
 
   else
   {
-    v3 = LACPreboardStorage.enableVariable(for:);
+    v2 = LACPreboardStorage.enableVariable(for:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v3, 0, 0);
+  return MEMORY[0x1EEE6DFA0](v2, 0, 0);
 }
 
 {
@@ -3865,21 +2800,6 @@ uint64_t LACPreboardStorage.enableVariable(for:)()
   v3 = v0[1];
 
   return v3();
-}
-
-{
-  v2 = v0[27];
-  v1 = v0[28];
-  v3 = v0[25];
-  v4 = v0[26];
-  v5 = v0[24];
-  swift_willThrow();
-  outlined consume of Data._Representation(v3, v4);
-
-  v6 = v0[28];
-  v7 = v0[1];
-
-  return v7();
 }
 
 uint64_t LACPreboardStorage.exchangeUPPSignature(for:useCase:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3896,43 +2816,41 @@ uint64_t LACPreboardStorage.exchangeUPPSignature(for:useCase:)()
   v1 = v0[7];
   if (v1 == 3)
   {
-    v2 = v0[8];
-    v3 = specialized LACPreboardStorage.storageRequest(for:operation:)(3);
-    v0[9] = v3;
-    v4 = v3;
-    v6 = v0[5];
-    v5 = v0[6];
-    v7 = objc_opt_self();
-    v8 = MEMORY[0x1B27229A0](v6, v5);
-    v9 = [v7 createUPPControlForTeamID_];
+    v2 = specialized LACPreboardStorage.storageRequest(for:operation:)(3);
+    v0[9] = v2;
+    v3 = v2;
+    v5 = v0[5];
+    v4 = v0[6];
+    v6 = objc_opt_self();
+    v7 = MEMORY[0x1B27229A0](v5, v4);
+    v8 = [v6 createUPPControlForTeamID_];
 
-    if (v9)
+    if (v8)
     {
-      v10 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-      v12 = v11;
+      v9 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+      v11 = v10;
 
-      v0[10] = v10;
-      v0[11] = v12;
-      v13 = v4;
-      v14 = swift_task_alloc();
-      v0[12] = v14;
-      *v14 = v0;
-      v14[1] = LACPreboardStorage.exchangeUPPSignature(for:useCase:);
-      v15 = v0[8];
+      v0[10] = v9;
+      v0[11] = v11;
+      v12 = v3;
+      v13 = swift_task_alloc();
+      v0[12] = v13;
+      *v13 = v0;
+      v13[1] = LACPreboardStorage.exchangeUPPSignature(for:useCase:);
 
-      return LACPreboardStorage.exchange(data:for:)(v10, v12, v13);
+      return LACPreboardStorage.exchange(data:for:)(v9, v11, v12);
     }
 
-    v20 = objc_opt_self();
-    v21 = MEMORY[0x1B27229A0](0xD00000000000001DLL, 0x80000001B0357850);
-    [v20 errorWithCode:-1000 debugDescription:v21];
+    v18 = objc_opt_self();
+    v19 = MEMORY[0x1B27229A0](0xD00000000000001DLL, 0x80000001B0357850);
+    [v18 errorWithCode:-1000 debugDescription:v19];
 
     swift_willThrow();
   }
 
   else
   {
-    v17 = objc_opt_self();
+    v15 = objc_opt_self();
     _StringGuts.grow(_:)(40);
     v0[2] = 0;
     v0[3] = 0xE000000000000000;
@@ -3942,16 +2860,16 @@ uint64_t LACPreboardStorage.exchangeUPPSignature(for:useCase:)()
     v0[4] = v1;
     type metadata accessor for LACPreboardUseCase(0);
     _print_unlocked<A, B>(_:_:)();
-    v18 = MEMORY[0x1B27229A0](v0[2], v0[3]);
+    v16 = MEMORY[0x1B27229A0](v0[2], v0[3]);
 
-    [v17 errorWithCode:-1000 debugDescription:v18];
+    [v15 errorWithCode:-1000 debugDescription:v16];
 
     swift_willThrow();
   }
 
-  v19 = v0[1];
+  v17 = v0[1];
 
-  return v19();
+  return v17();
 }
 
 {
@@ -3971,22 +2889,19 @@ uint64_t LACPreboardStorage.exchangeUPPSignature(for:useCase:)()
   v3 = v0[9];
 
   outlined consume of Data._Representation(v1, v2);
-  v4 = v0[13];
-  v5 = v0[1];
+  v4 = v0[1];
 
-  return v5();
+  return v4();
 }
 
 uint64_t LACPreboardStorage.exchangeUPPSignature(for:useCase:)(uint64_t a1, uint64_t a2)
 {
   v6 = *v3;
-  v7 = *(*v3 + 96);
-  v8 = *v3;
   *(*v3 + 104) = v2;
 
   if (v2)
   {
-    v9 = LACPreboardStorage.exchangeUPPSignature(for:useCase:);
+    v7 = LACPreboardStorage.exchangeUPPSignature(for:useCase:);
   }
 
   else
@@ -3994,10 +2909,10 @@ uint64_t LACPreboardStorage.exchangeUPPSignature(for:useCase:)(uint64_t a1, uint
 
     *(v6 + 112) = a2;
     *(v6 + 120) = a1;
-    v9 = LACPreboardStorage.exchangeUPPSignature(for:useCase:);
+    v7 = LACPreboardStorage.exchangeUPPSignature(for:useCase:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v9, 0, 0);
+  return MEMORY[0x1EEE6DFA0](v7, 0, 0);
 }
 
 id LACPreboardStorage.__allocating_init()()
@@ -4010,11 +2925,11 @@ id LACPreboardStorage.__allocating_init()()
 id LACPreboardStorage.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for LACPreboardStorage();
+  v2.super_class = type metadata accessor for LACPreboardStorage(0);
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-void (*protocol witness for LACPreboardStorageType.delegate.modify in conformance LACPreboardStorage(uint64_t *a1))(void *a1)
+uint64_t (*protocol witness for LACPreboardStorageType.delegate.modify in conformance LACPreboardStorage(uint64_t *a1))()
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -4042,173 +2957,164 @@ void protocol witness for LACPreboardStorageType.delegate.modify in conformance 
 uint64_t protocol witness for LACPreboardStorageType.batchOptions(for:) in conformance LACPreboardStorage(uint64_t a1)
 {
   v4 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x90);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of LACPreboardStorageType.batchOptions(for:);
+  v7 = (v4 + *v4);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of LACPreboardStorageType.batchOptions(for:);
 
-  return v8(a1);
+  return v7(a1);
 }
 
 uint64_t protocol witness for LACPreboardStorageType.clean(for:) in conformance LACPreboardStorage(uint64_t a1)
 {
   v4 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x98);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
+  v7 = (v4 + *v4);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
 
-  return v8(a1);
+  return v7(a1);
 }
 
 uint64_t protocol witness for LACPreboardStorageType.enableBatch(for:) in conformance LACPreboardStorage(uint64_t a1)
 {
   v4 = *((*MEMORY[0x1E69E7D40] & *v1) + 0xA0);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of LACPreboardStorageType.enableBatch(for:);
+  v7 = (v4 + *v4);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of LACPreboardStorageType.enableBatch(for:);
 
-  return v8(a1);
+  return v7(a1);
 }
 
 uint64_t protocol witness for LACPreboardStorageType.enableVariable(for:) in conformance LACPreboardStorage(uint64_t a1)
 {
   v4 = *((*MEMORY[0x1E69E7D40] & *v1) + 0xA8);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
+  v7 = (v4 + *v4);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
 
-  return v8(a1);
+  return v7(a1);
 }
 
 uint64_t protocol witness for LACPreboardStorageType.exchangeUPPSignature(for:useCase:) in conformance LACPreboardStorage(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = *((*MEMORY[0x1E69E7D40] & *v3) + 0xB0);
-  v12 = (v8 + *v8);
-  v9 = v8[1];
-  v10 = swift_task_alloc();
-  *(v4 + 16) = v10;
-  *v10 = v4;
-  v10[1] = protocol witness for LACPreboardStorageType.exchangeUPPSignature(for:useCase:) in conformance LACPreboardStorage;
+  v11 = (v8 + *v8);
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = protocol witness for LACPreboardStorageType.exchangeUPPSignature(for:useCase:) in conformance LACPreboardStorage;
 
-  return v12(a1, a2, a3);
+  return v11(a1, a2, a3);
 }
 
 uint64_t protocol witness for LACPreboardStorageType.exchangeUPPSignature(for:useCase:) in conformance LACPreboardStorage(uint64_t a1, uint64_t a2)
 {
-  v6 = *(*v3 + 16);
-  v11 = *v3;
+  v10 = *v3;
 
-  v9 = *(v11 + 8);
+  v8 = *(v10 + 8);
   if (!v2)
   {
-    v7 = a1;
-    v8 = a2;
+    v6 = a1;
+    v7 = a2;
   }
 
-  return v9(v7, v8);
+  return v8(v6, v7);
 }
 
 uint64_t LACPreboardStorage.acmContext(for:)(uint64_t a1)
 {
   v2 = v1;
-  v38 = a1;
+  v35 = a1;
   v3 = type metadata accessor for UUID();
-  v39 = *(v3 - 8);
-  v4 = *(v39 + 64);
+  v36 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
-  v37 = &v33 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v33 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = MEMORY[0x1EEE9AC00](v10 - 8);
-  v14 = &v33 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = MEMORY[0x1EEE9AC00](v12);
-  v17 = &v33 - v16;
-  if (!(*((*MEMORY[0x1E69E7D40] & *v1) + 0x70))(v15))
+  v34 = &v30 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v30 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  v9 = MEMORY[0x1EEE9AC00](v8 - 8);
+  v11 = &v30 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = MEMORY[0x1EEE9AC00](v9);
+  v14 = &v30 - v13;
+  if (!(*((*MEMORY[0x1E69E7D40] & *v1) + 0x70))(v12))
   {
     goto LABEL_10;
   }
 
-  v19 = v18;
+  v16 = v15;
   ObjectType = swift_getObjectType();
-  v36 = (*(v19 + 8))(v1, &protocol witness table for LACPreboardStorage, ObjectType, v19);
-  v22 = v21;
+  v33 = (*(v16 + 8))(v1, &protocol witness table for LACPreboardStorage, ObjectType, v16);
+  v19 = v18;
   swift_unknownObjectRelease();
-  if (v22 >> 60 == 15)
+  if (v19 >> 60 == 15)
   {
     goto LABEL_10;
   }
 
-  v34 = v14;
-  v23 = v39;
-  (*(v39 + 16))(v17, v2 + OBJC_IVAR____TtC23LocalAuthenticationCore18LACPreboardStorage_uuid, v3);
-  (*(v23 + 56))(v17, 0, 1, v3);
-  v24 = *(v6 + 48);
-  outlined init with copy of (String, Any)(v17, v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v35 = v24;
-  outlined init with copy of (String, Any)(v38, &v9[v24], &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v25 = *(v23 + 48);
-  if (v25(v9, 1, v3) != 1)
+  v31 = v11;
+  v20 = v36;
+  (*(v36 + 16))(v14, v2 + OBJC_IVAR____TtC23LocalAuthenticationCore18LACPreboardStorage_uuid, v3);
+  (*(v20 + 56))(v14, 0, 1, v3);
+  v21 = *(v5 + 48);
+  outlined init with copy of (String, Any)(v14, v7, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  v32 = v21;
+  outlined init with copy of (String, Any)(v35, &v7[v21], &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  v22 = *(v20 + 48);
+  if (v22(v7, 1, v3) != 1)
   {
-    v26 = v34;
-    outlined init with copy of (String, Any)(v9, v34, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    if (v25(&v9[v35], 1, v3) != 1)
+    v23 = v31;
+    outlined init with copy of (String, Any)(v7, v31, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    if (v22(&v7[v32], 1, v3) != 1)
     {
-      v30 = v39;
-      v31 = v37;
-      (*(v39 + 32))(v37, &v9[v35], v3);
+      v27 = v36;
+      v28 = v34;
+      (*(v36 + 32))(v34, &v7[v32], v3);
       lazy protocol witness table accessor for type UUID and conformance UUID();
-      LODWORD(v38) = dispatch thunk of static Equatable.== infix(_:_:)();
-      v32 = *(v30 + 8);
-      v32(v31, v3);
-      outlined destroy of AsyncStream<()>.Continuation?(v17, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-      v32(v26, v3);
-      outlined destroy of AsyncStream<()>.Continuation?(v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-      if (v38)
+      LODWORD(v35) = dispatch thunk of static Equatable.== infix(_:_:)();
+      v29 = *(v27 + 8);
+      v29(v28, v3);
+      outlined destroy of AsyncStream<()>.Continuation?(v14, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      v29(v23, v3);
+      outlined destroy of AsyncStream<()>.Continuation?(v7, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      if (v35)
       {
-        return v36;
+        return v33;
       }
 
-      outlined consume of Data?(v36, v22);
+      outlined consume of Data?(v33, v19);
 LABEL_10:
-      v27 = objc_opt_self();
-      v28 = MEMORY[0x1B27229A0](0x63204D4341206F4ELL, 0xEE00747865746E6FLL);
-      [v27 errorWithCode:-1000 debugDescription:v28];
+      v24 = objc_opt_self();
+      v25 = MEMORY[0x1B27229A0](0x63204D4341206F4ELL, 0xEE00747865746E6FLL);
+      [v24 errorWithCode:-1000 debugDescription:v25];
 
       return swift_willThrow();
     }
 
-    outlined consume of Data?(v36, v22);
-    outlined destroy of AsyncStream<()>.Continuation?(v17, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    (*(v39 + 8))(v26, v3);
+    outlined consume of Data?(v33, v19);
+    outlined destroy of AsyncStream<()>.Continuation?(v14, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    (*(v36 + 8))(v23, v3);
 LABEL_9:
-    outlined destroy of AsyncStream<()>.Continuation?(v9, &_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
+    outlined destroy of AsyncStream<()>.Continuation?(v7, &_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
     goto LABEL_10;
   }
 
-  outlined destroy of AsyncStream<()>.Continuation?(v17, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  if (v25(&v9[v35], 1, v3) != 1)
+  outlined destroy of AsyncStream<()>.Continuation?(v14, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  if (v22(&v7[v32], 1, v3) != 1)
   {
-    outlined consume of Data?(v36, v22);
+    outlined consume of Data?(v33, v19);
     goto LABEL_9;
   }
 
-  outlined destroy of AsyncStream<()>.Continuation?(v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  return v36;
+  outlined destroy of AsyncStream<()>.Continuation?(v7, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  return v33;
 }
 
 _BYTE *closure #1 in Data.init<A>(_:)@<X0>(_BYTE *result@<X0>, _BYTE *a2@<X1>, void *a3@<X8>)
@@ -4260,43 +3166,42 @@ LABEL_4:
 id specialized LACPreboardStorage.storageRequest(for:operation:)(uint64_t a1)
 {
   v3 = type metadata accessor for UUID();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a1 == 4)
   {
-    v8 = &LACStorageKeyDeveloperMode;
+    v7 = &LACStorageKeyDeveloperMode;
 LABEL_5:
-    v9 = *v8;
-    (*(v5 + 16))(v7, v1 + OBJC_IVAR____TtC23LocalAuthenticationCore18LACPreboardStorage_uuid);
-    v10 = objc_allocWithZone(type metadata accessor for LACPreboardStorageRequest());
-    return LACPreboardStorageRequest.init(for:contextID:options:)(v9, v7, 0);
+    v8 = *v7;
+    (*(v4 + 16))(v6, v1 + OBJC_IVAR____TtC23LocalAuthenticationCore18LACPreboardStorage_uuid);
+    v9 = objc_allocWithZone(type metadata accessor for LACPreboardStorageRequest(0));
+    return LACPreboardStorageRequest.init(for:contextID:options:)(v8, v6, 0);
   }
 
   if (a1 == 3)
   {
-    v8 = &LACStorageKeyUPP;
+    v7 = &LACStorageKeyUPP;
     goto LABEL_5;
   }
 
-  v12 = objc_opt_self();
-  v15 = 0;
-  v16 = 0xE000000000000000;
+  v11 = objc_opt_self();
+  v14 = 0;
+  v15 = 0xE000000000000000;
   _StringGuts.grow(_:)(31);
   MEMORY[0x1B2722A80](0xD00000000000001DLL, 0x80000001B0357910);
-  v14[1] = a1;
+  v13[1] = a1;
   type metadata accessor for LACPreboardUseCase(0);
   _print_unlocked<A, B>(_:_:)();
-  v13 = MEMORY[0x1B27229A0](v15, v16);
+  v12 = MEMORY[0x1B27229A0](v14, v15);
 
-  [v12 errorWithCode:-1000 debugDescription:v13];
+  [v11 errorWithCode:-1000 debugDescription:v12];
 
   return swift_willThrow();
 }
 
 uint64_t specialized Data.InlineData.init(_:)(_BYTE *__src, _BYTE *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = a2 - __src;
   if (__src)
   {
@@ -4322,16 +3227,18 @@ LABEL_11:
 
   result = 0;
   __dst = 0;
-  v10 = v3;
-  v9 = 0;
+  v9 = v3;
   v8 = 0;
-  if (__src && a2 != __src)
+  v7 = 0;
+  if (__src)
   {
-    memcpy(&__dst, __src, v2);
-    result = __dst;
+    if (a2 != __src)
+    {
+      memcpy(&__dst, __src, v2);
+      return __dst;
+    }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4347,9 +3254,7 @@ uint64_t specialized Data.LargeSlice.init(_:)(uint64_t a1, uint64_t a2)
     v2 = 0;
   }
 
-  v3 = type metadata accessor for __DataStorage();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  type metadata accessor for __DataStorage();
   swift_allocObject();
   result = __DataStorage.init(bytes:length:)();
   if (v2 < 0)
@@ -4380,9 +3285,7 @@ uint64_t specialized Data.InlineSlice.init(_:)(uint64_t a1, uint64_t a2)
     v2 = 0;
   }
 
-  v3 = type metadata accessor for __DataStorage();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  type metadata accessor for __DataStorage();
   swift_allocObject();
   result = __DataStorage.init(bytes:length:)();
   if (v2 < 0xFFFFFFFF80000000)
@@ -4423,12 +3326,11 @@ uint64_t _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(
   return v5;
 }
 
-uint64_t type metadata completion function for LACPreboardStorage()
+uint64_t type metadata completion function for LACPreboardStorage(uint64_t a1)
 {
   result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -4442,66 +3344,61 @@ uint64_t type metadata completion function for LACPreboardStorage()
 uint64_t dispatch thunk of LACPreboardStorage.batchOptions(for:)(uint64_t a1)
 {
   v4 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x90);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of LACPreboardStorageType.batchOptions(for:);
+  v7 = (v4 + *v4);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of LACPreboardStorageType.batchOptions(for:);
 
-  return v8(a1);
+  return v7(a1);
 }
 
 uint64_t dispatch thunk of LACPreboardStorage.clean(for:)(uint64_t a1)
 {
   v4 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x98);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
+  v7 = (v4 + *v4);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
 
-  return v8(a1);
+  return v7(a1);
 }
 
 uint64_t dispatch thunk of LACPreboardStorage.enableBatch(for:)(uint64_t a1)
 {
   v4 = *((*MEMORY[0x1E69E7D40] & *v1) + 0xA0);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of LACPreboardStorageType.enableBatch(for:);
+  v7 = (v4 + *v4);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of LACPreboardStorageType.enableBatch(for:);
 
-  return v8(a1);
+  return v7(a1);
 }
 
 uint64_t dispatch thunk of LACPreboardStorage.enableVariable(for:)(uint64_t a1)
 {
   v4 = *((*MEMORY[0x1E69E7D40] & *v1) + 0xA8);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
+  v7 = (v4 + *v4);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
 
-  return v8(a1);
+  return v7(a1);
 }
 
 uint64_t dispatch thunk of LACPreboardStorage.exchangeUPPSignature(for:useCase:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = *((*MEMORY[0x1E69E7D40] & *v3) + 0xB0);
-  v12 = (v8 + *v8);
-  v9 = v8[1];
-  v10 = swift_task_alloc();
-  *(v4 + 16) = v10;
-  *v10 = v4;
-  v10[1] = dispatch thunk of LACPreboardStorageType.exchangeUPPSignature(for:useCase:);
+  v11 = (v8 + *v8);
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = dispatch thunk of LACPreboardStorageType.exchangeUPPSignature(for:useCase:);
 
-  return v12(a1, a2, a3);
+  return v11(a1, a2, a3);
 }
 
 unint64_t lazy protocol witness table accessor for type [UInt8] and conformance <A> [A]()
@@ -4521,19 +3418,18 @@ void specialized LACPreboardPasscodeVerifier.verifyPasscode(_:in:)()
 {
   v14 = type metadata accessor for Logger();
   v0 = *(v14 - 8);
-  v1 = *(v0 + 64);
   MEMORY[0x1EEE9AC00](v14);
-  v3 = &v13 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = &v13 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCs11AnyHashableV_ypTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
+  v4 = Data._bridgeToObjectiveC()().super.isa;
   v5 = Data._bridgeToObjectiveC()().super.isa;
-  v6 = Data._bridgeToObjectiveC()().super.isa;
-  v7 = MKBVerifyPasswordWithContext();
+  v6 = MKBVerifyPasswordWithContext();
 
-  if (v7)
+  if (v6)
   {
-    v8 = LACLogPreboard();
+    v8 = LACLogPreboard(v7);
     Logger.init(_:)();
     v9 = Logger.logObject.getter();
     v10 = static os_log_type_t.default.getter();
@@ -4541,19 +3437,19 @@ void specialized LACPreboardPasscodeVerifier.verifyPasscode(_:in:)()
     {
       v11 = swift_slowAlloc();
       *v11 = 67109120;
-      *(v11 + 4) = v7;
+      *(v11 + 4) = v6;
       _os_log_impl(&dword_1B0233000, v9, v10, "Passcode verification failed with code: %d", v11, 8u);
       MEMORY[0x1B27246A0](v11, -1, -1);
     }
 
-    (*(v0 + 8))(v3, v14);
+    (*(v0 + 8))(v2, v14);
     v15 = 0;
     v16 = 0xE000000000000000;
     _StringGuts.grow(_:)(33);
 
     v15 = 0xD00000000000001FLL;
     v16 = 0x80000001B0357970;
-    v17 = v7;
+    v17 = v6;
     v12 = dispatch thunk of CustomStringConvertible.description.getter();
     MEMORY[0x1B2722A80](v12);
 
@@ -4679,202 +3575,194 @@ id LACOnenessController.init(authenticator:clientInfoProvider:environmentProvide
 
 void LACOnenessController.canAuthenticateRequest(_:availabilityError:)(void *a1, void *a2)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v5 = type metadata accessor for Logger();
-  v54 = *(v5 - 8);
-  v6 = *(v54 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v5);
-  v9 = &v53 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v53 - v10;
+  v53 = *(v5 - 8);
+  v6 = MEMORY[0x1EEE9AC00](v5);
+  v8 = &v52 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v10 = &v52 - v9;
   if (a2)
   {
-    v12 = _convertErrorToNSError(_:)();
+    v11 = _convertErrorToNSError(_:)();
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  v56.receiver = v2;
-  v56.super_class = LACOnenessController;
-  v57[0] = 0;
-  v13 = objc_msgSendSuper2(&v56, sel_canAuthenticateRequest_availabilityError_error_, a1, v12, v57);
+  v55.receiver = v2;
+  v55.super_class = LACOnenessController;
+  v56[0] = 0;
+  v12 = objc_msgSendSuper2(&v55, sel_canAuthenticateRequest_availabilityError_error_, a1, v11, v56);
 
-  if (!v13)
+  if (!v12)
   {
-    v22 = v57[0];
+    v21 = v56[0];
     _convertNSErrorToError(_:)();
 
     goto LABEL_13;
   }
 
-  v53 = v5;
-  v14 = v57[0];
-  v15 = [a1 options];
-  if (!v15)
+  v52 = v5;
+  v13 = v56[0];
+  v14 = [a1 options];
+  if (!v14)
   {
     goto LABEL_15;
   }
 
-  v16 = v15;
-  v17 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v15 = v14;
+  v16 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v55 = 1084;
+  v54 = 1084;
   type metadata accessor for LACPolicyOption(0);
   lazy protocol witness table accessor for type LACPolicyOption and conformance LACPolicyOption();
   AnyHashable.init<A>(_:)();
-  if (!*(v17 + 16) || (v18 = specialized __RawDictionaryStorage.find<A>(_:)(v57), (v19 & 1) == 0))
+  if (!*(v16 + 16) || (v17 = specialized __RawDictionaryStorage.find<A>(_:)(v56), (v18 & 1) == 0))
   {
 
-    outlined destroy of AnyHashable(v57);
+    outlined destroy of AnyHashable(v56);
 LABEL_15:
+    v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
     goto LABEL_16;
   }
 
-  outlined init with copy of Any(*(v17 + 56) + 32 * v18, &v58);
-  outlined destroy of AnyHashable(v57);
+  outlined init with copy of Any(*(v16 + 56) + 32 * v17, &v57);
+  outlined destroy of AnyHashable(v56);
 
-  if (!*(&v59 + 1))
+  if (!*(&v58 + 1))
   {
 LABEL_16:
-    outlined destroy of AsyncStream<()>.Continuation?(&v58, &_sypSgMd, _sypSgMR);
+    outlined destroy of AsyncStream<()>.Continuation?(&v57, &_sypSgMd, _sypSgMR);
     goto LABEL_17;
   }
 
-  if (swift_dynamicCast() && (v57[0] & 1) != 0)
+  if (swift_dynamicCast() && (v56[0] & 1) != 0)
   {
-    v20 = objc_opt_self();
-    v21 = MEMORY[0x1B27229A0](0xD000000000000053, 0x80000001B0357990);
-    [v20 errorWithCode:-1 subcode:33 debugDescription:v21];
+    v19 = objc_opt_self();
+    v20 = MEMORY[0x1B27229A0](0xD000000000000053, 0x80000001B0357990);
+    [v19 errorWithCode:-1 subcode:33 debugDescription:v20];
 
-    goto LABEL_13;
+LABEL_13:
+    swift_willThrow();
+    return;
   }
 
 LABEL_17:
   if (a2)
   {
-    v57[0] = a2;
-    v23 = a2;
+    v56[0] = a2;
+    v22 = a2;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     type metadata accessor for NSError(0, &lazy cache variable for type metadata for NSError, 0x1E696ABC0);
     if (swift_dynamicCast())
     {
-      v24 = v58;
-      v25 = objc_opt_self();
-      v26 = v24;
-      v27 = _convertErrorToNSError(_:)();
+      v23 = v57;
+      v24 = objc_opt_self();
+      v25 = v23;
+      v26 = _convertErrorToNSError(_:)();
 
-      LODWORD(v25) = [v25 error:v27 hasCode:-1004];
-      if (!v25)
+      LODWORD(v24) = [v24 error:v26 hasCode:-1004];
+      if (v24)
       {
-        goto LABEL_22;
-      }
-
-      if (!specialized LACOnenessController.isContinuityUnlockAvailable(nonInteractiveError:)(v26))
-      {
-        v31 = LACLogABM();
-        Logger.init(_:)();
-        swift_unknownObjectRetain_n();
-        v32 = v26;
-        v33 = v2;
-        v34 = Logger.logObject.getter();
-        v35 = static os_log_type_t.default.getter();
-
-        v36 = os_log_type_enabled(v34, v35);
-        v37 = v53;
-        if (v36)
+        v27 = specialized LACOnenessController.isContinuityUnlockAvailable(nonInteractiveError:)(v25);
+        if (!v27)
         {
-          v38 = swift_slowAlloc();
-          v39 = swift_slowAlloc();
-          *v38 = 138543874;
-          *(v38 + 4) = v33;
-          *v39 = v33;
-          *(v38 + 12) = 1026;
-          v40 = v33;
-          v41 = [a1 identifier];
-          swift_unknownObjectRelease();
-          *(v38 + 14) = v41;
-          swift_unknownObjectRelease();
-          *(v38 + 18) = 2112;
-          *(v38 + 20) = v32;
-          v39[1] = v32;
-          v42 = v32;
-          _os_log_impl(&dword_1B0233000, v34, v35, "%{public}@ Continuity unlock not available for request: %{public}u error: %@", v38, 0x1Cu);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-          swift_arrayDestroy();
-          MEMORY[0x1B27246A0](v39, -1, -1);
-          MEMORY[0x1B27246A0](v38, -1, -1);
+          v30 = LACLogABM(v27);
+          Logger.init(_:)();
+          swift_unknownObjectRetain_n();
+          v31 = v25;
+          v32 = v2;
+          v33 = Logger.logObject.getter();
+          v34 = static os_log_type_t.default.getter();
+
+          v35 = os_log_type_enabled(v33, v34);
+          v36 = v52;
+          if (v35)
+          {
+            v37 = swift_slowAlloc();
+            v38 = swift_slowAlloc();
+            *v37 = 138543874;
+            *(v37 + 4) = v32;
+            *v38 = v32;
+            *(v37 + 12) = 1026;
+            v39 = v32;
+            v40 = [a1 identifier];
+            swift_unknownObjectRelease();
+            *(v37 + 14) = v40;
+            swift_unknownObjectRelease();
+            *(v37 + 18) = 2112;
+            *(v37 + 20) = v31;
+            v38[1] = v31;
+            v41 = v31;
+            _os_log_impl(&dword_1B0233000, v33, v34, "%{public}@ Continuity unlock not available for request: %{public}u error: %@", v37, 0x1Cu);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+            swift_arrayDestroy();
+            MEMORY[0x1B27246A0](v38, -1, -1);
+            MEMORY[0x1B27246A0](v37, -1, -1);
+          }
+
+          else
+          {
+
+            swift_unknownObjectRelease_n();
+          }
+
+          (*(v53 + 8))(v8, v36);
+          goto LABEL_13;
         }
 
-        else
+        v28 = specialized LACOnenessController.isRequestSatisfiable(with:)(v25);
+        v29 = v52;
+        if ((v28 & 1) == 0)
         {
+          v42 = LACLogABM(v28);
+          Logger.init(_:)();
+          swift_unknownObjectRetain_n();
+          v43 = v25;
+          v44 = v2;
+          v45 = Logger.logObject.getter();
+          v46 = static os_log_type_t.default.getter();
 
-          swift_unknownObjectRelease_n();
+          if (os_log_type_enabled(v45, v46))
+          {
+            v47 = swift_slowAlloc();
+            v48 = swift_slowAlloc();
+            *v47 = 138543874;
+            *(v47 + 4) = v44;
+            *v48 = v44;
+            *(v47 + 12) = 1026;
+            v49 = v44;
+            v50 = [a1 identifier];
+            swift_unknownObjectRelease();
+            *(v47 + 14) = v50;
+            swift_unknownObjectRelease();
+            *(v47 + 18) = 2112;
+            *(v47 + 20) = v43;
+            v48[1] = v43;
+            v51 = v43;
+            _os_log_impl(&dword_1B0233000, v45, v46, "%{public}@ Continuity unlock not satisfiable for request: %{public}u error: %@", v47, 0x1Cu);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+            swift_arrayDestroy();
+            MEMORY[0x1B27246A0](v48, -1, -1);
+            MEMORY[0x1B27246A0](v47, -1, -1);
+          }
+
+          else
+          {
+
+            swift_unknownObjectRelease_n();
+          }
+
+          (*(v53 + 8))(v10, v29);
+          goto LABEL_13;
         }
-
-        (*(v54 + 8))(v9, v37);
-        goto LABEL_13;
       }
-
-      v28 = specialized LACOnenessController.isRequestSatisfiable(with:)(v26);
-      v29 = v53;
-      if (v28)
-      {
-LABEL_22:
-
-        goto LABEL_23;
-      }
-
-      v43 = LACLogABM();
-      Logger.init(_:)();
-      swift_unknownObjectRetain_n();
-      v44 = v26;
-      v45 = v2;
-      v46 = Logger.logObject.getter();
-      v47 = static os_log_type_t.default.getter();
-
-      if (os_log_type_enabled(v46, v47))
-      {
-        v48 = swift_slowAlloc();
-        v49 = swift_slowAlloc();
-        *v48 = 138543874;
-        *(v48 + 4) = v45;
-        *v49 = v45;
-        *(v48 + 12) = 1026;
-        v50 = v45;
-        v51 = [a1 identifier];
-        swift_unknownObjectRelease();
-        *(v48 + 14) = v51;
-        swift_unknownObjectRelease();
-        *(v48 + 18) = 2112;
-        *(v48 + 20) = v44;
-        v49[1] = v44;
-        v52 = v44;
-        _os_log_impl(&dword_1B0233000, v46, v47, "%{public}@ Continuity unlock not satisfiable for request: %{public}u error: %@", v48, 0x1Cu);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        swift_arrayDestroy();
-        MEMORY[0x1B27246A0](v49, -1, -1);
-        MEMORY[0x1B27246A0](v48, -1, -1);
-      }
-
-      else
-      {
-
-        swift_unknownObjectRelease_n();
-      }
-
-      (*(v54 + 8))(v11, v29);
-LABEL_13:
-      swift_willThrow();
     }
   }
-
-LABEL_23:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void LACOnenessController.postProcessRequest(_:result:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -4906,22 +3794,21 @@ void closure #1 in LACOnenessController.postProcessRequest(_:result:completion:)
 {
   v9 = type metadata accessor for Logger();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x1EEE9AC00](v9);
-  v13 = &v35 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = [a2 options];
-  if (!v14)
+  v12 = &v35 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = [a2 options];
+  if (!v13)
   {
     goto LABEL_10;
   }
 
   v37 = v10;
-  v15 = v14;
-  v16 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v14 = v13;
+  v15 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
   v38 = 1039;
   AnyHashable.init<A>(_:)();
-  if (!*(v16 + 16) || (v17 = specialized __RawDictionaryStorage.find<A>(_:)(aBlock), (v18 & 1) == 0))
+  if (!*(v15 + 16) || (v16 = specialized __RawDictionaryStorage.find<A>(_:)(aBlock), (v17 & 1) == 0))
   {
 
     outlined destroy of AnyHashable(aBlock);
@@ -4931,7 +3818,7 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  outlined init with copy of Any(*(v16 + 56) + 32 * v17, &v40);
+  outlined init with copy of Any(*(v15 + 56) + 32 * v16, &v40);
   outlined destroy of AnyHashable(aBlock);
 
   if (!*(&v41 + 1))
@@ -4941,9 +3828,10 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if (swift_dynamicCast() && (aBlock[0] & 1) != 0)
+  v18 = swift_dynamicCast();
+  if (v18 && (aBlock[0] & 1) != 0)
   {
-    v19 = LACLogABM();
+    v19 = LACLogABM(v18);
     Logger.init(_:)();
 
     swift_unknownObjectRetain();
@@ -4975,7 +3863,7 @@ LABEL_11:
       swift_unknownObjectRelease();
     }
 
-    (*(v37 + 8))(v13, v9);
+    (*(v37 + 8))(v12, v9);
     goto LABEL_17;
   }
 
@@ -5031,47 +3919,47 @@ LABEL_17:
   }
 }
 
-id LACOnenessController.mapError(_:)()
+id LACOnenessController.mapError(_:)(uint64_t a1)
 {
-  v1 = _convertErrorToNSError(_:)();
-  v11.receiver = v0;
-  v11.super_class = LACOnenessController;
-  v2 = objc_msgSendSuper2(&v11, sel_mapError_, v1);
+  v2 = _convertErrorToNSError(_:)();
+  v12.receiver = v1;
+  v12.super_class = LACOnenessController;
+  v3 = objc_msgSendSuper2(&v12, sel_mapError_, v2);
 
-  v3 = objc_opt_self();
-  v4 = _convertErrorToNSError(_:)();
-  v5 = [v3 error:v4 hasCode:-1004];
+  v4 = objc_opt_self();
+  v5 = _convertErrorToNSError(_:)();
+  v6 = [v4 error:v5 hasCode:-1004];
 
-  if (v5)
+  if (v6)
   {
-    v6 = _convertErrorToNSError(_:)();
-    if (specialized LACOnenessController.isRequestSatisfiable(with:)(v6))
+    v7 = _convertErrorToNSError(_:)();
+    if (specialized LACOnenessController.isRequestSatisfiable(with:)(v7))
     {
-      if (specialized LACOnenessController.isContinuityUnlockAvailable(nonInteractiveError:)(v6))
+      if (specialized LACOnenessController.isContinuityUnlockAvailable(nonInteractiveError:)(v7))
       {
 LABEL_7:
 
-        return v2;
+        return v3;
       }
 
-      v7 = MEMORY[0x1B27229A0](0xD000000000000041, 0x80000001B0357A50);
-      v8 = [v3 errorWithCode:-11 debugDescription:v7];
+      v8 = MEMORY[0x1B27229A0](0xD000000000000041, 0x80000001B0357A50);
+      v9 = [v4 errorWithCode:-11 debugDescription:v8];
     }
 
     else
     {
-      v7 = MEMORY[0x1B27229A0](0xD000000000000059, 0x80000001B03579F0);
-      v8 = [v3 errorWithCode:-1 subcode:33 debugDescription:v7];
+      v8 = MEMORY[0x1B27229A0](0xD000000000000059, 0x80000001B03579F0);
+      v9 = [v4 errorWithCode:-1 subcode:33 debugDescription:v8];
     }
 
-    v9 = v8;
+    v10 = v9;
 
-    v6 = v2;
-    v2 = v9;
+    v7 = v3;
+    v3 = v10;
     goto LABEL_7;
   }
 
-  return v2;
+  return v3;
 }
 
 id LACOnenessController.init(authenticator:clientInfoProvider:environmentProvider:sessionMonitor:reply:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
@@ -5143,21 +4031,20 @@ id specialized LACOnenessController.isRequestSatisfiable(with:)(void *a1)
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x1EEE9AC00](v2);
-  v6 = &v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = objc_opt_self();
-  v8 = _convertErrorToNSError(_:)();
-  v9 = [v7 mechanismTreeFromError_];
+  v5 = &v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = objc_opt_self();
+  v7 = _convertErrorToNSError(_:)();
+  v8 = [v6 mechanismTreeFromError_];
 
-  if (v9)
+  if (v8)
   {
-    v10 = [v9 isSatisfiableWithValue_];
+    v10 = [v8 isSatisfiableWithValue_];
   }
 
   else
   {
-    v11 = LACLogABM();
+    v11 = LACLogABM(v9);
     Logger.init(_:)();
     v12 = a1;
     v13 = Logger.logObject.getter();
@@ -5184,7 +4071,7 @@ id specialized LACOnenessController.isRequestSatisfiable(with:)(void *a1)
       MEMORY[0x1B27246A0](v15, -1, -1);
     }
 
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
     return 0;
   }
 
@@ -5206,11 +4093,7 @@ unint64_t lazy protocol witness table accessor for type LACPolicyOption and conf
 
 uint64_t objectdestroy_2Tm_2()
 {
-  v1 = v0[2];
   swift_unknownObjectRelease();
-  v2 = v0[3];
-
-  v3 = v0[5];
 
   return MEMORY[0x1EEE6BDD0](v0, 48, 7);
 }
@@ -5536,7 +4419,7 @@ void *_sSaySayxGqd__c7ElementQyd__RszSTRd__lufC23LocalAuthenticationCore36LACDTO
 
   v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC23LocalAuthenticationCore012LACCompanionI24ControllerPendingRequestC_Tt1g5Tm(*(a1 + 16), 0);
   v4 = specialized Sequence._copySequenceContents(initializing:)(&v6, v3 + 4, v2, a1);
-  outlined consume of [UUID : LACCompanionAuthenticationControllerPendingRequest].Iterator._Variant();
+  outlined consume of [UUID : LACCompanionAuthenticationControllerPendingRequest].Iterator._Variant(v6);
   if (v4 != v2)
   {
     __break(1u);
@@ -5583,9 +4466,10 @@ void *LACDTOPendingPolicyEvaluationStore.pendingEvaluations.getter()
   }
 
   v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC23LocalAuthenticationCore012LACCompanionI24ControllerPendingRequestC_Tt1g5Tm(*(v1 + 16), 0);
-  v4 = specialized Sequence._copySequenceContents(initializing:)(&v6, v3 + 4, v2, v1);
+  v4 = specialized Sequence._copySequenceContents(initializing:)(&v7, v3 + 4, v2, v1);
+  v5 = v7;
 
-  outlined consume of [UUID : LACCompanionAuthenticationControllerPendingRequest].Iterator._Variant();
+  outlined consume of [UUID : LACCompanionAuthenticationControllerPendingRequest].Iterator._Variant(v5);
   if (v4 != v2)
   {
     __break(1u);
@@ -5600,64 +4484,59 @@ id LACDTOPendingPolicyEvaluationStore.__allocating_init(persistentStore:workQueu
   v3 = v2;
   v6 = objc_allocWithZone(v2);
   v7 = OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_taskGroup;
-  v8 = type metadata accessor for SerialTask();
-  v9 = *(v8 + 48);
-  v10 = *(v8 + 52);
-  v11 = swift_allocObject();
-  v12 = OBJC_IVAR____TtC23LocalAuthenticationCore10SerialTask_continuation;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVyyyYac_GMd, &_sScS12ContinuationVyyyYac_GMR);
-  (*(*(v13 - 8) + 56))(v11 + v12, 1, 1, v13);
+  type metadata accessor for SerialTask(0);
+  v8 = swift_allocObject();
+  v9 = OBJC_IVAR____TtC23LocalAuthenticationCore10SerialTask_continuation;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVyyyYac_GMd, &_sScS12ContinuationVyyyYac_GMR);
+  (*(*(v10 - 8) + 56))(v8 + v9, 1, 1, v10);
   SerialTask.start()();
-  *&v6[v7] = v11;
-  v14 = OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_pendingEvaluationsDict;
-  *&v6[v14] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+  *&v6[v7] = v8;
+  v11 = OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_pendingEvaluationsDict;
+  *&v6[v11] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
   *&v6[OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_store] = a1;
   *&v6[OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_workQueue] = a2;
-  v16.receiver = v6;
-  v16.super_class = v3;
-  return objc_msgSendSuper2(&v16, sel_init);
+  v13.receiver = v6;
+  v13.super_class = v3;
+  return objc_msgSendSuper2(&v13, sel_init);
 }
 
 id LACDTOPendingPolicyEvaluationStore.init(persistentStore:workQueue:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_taskGroup;
-  v7 = type metadata accessor for SerialTask();
-  v8 = *(v7 + 48);
-  v9 = *(v7 + 52);
-  v10 = swift_allocObject();
-  v11 = OBJC_IVAR____TtC23LocalAuthenticationCore10SerialTask_continuation;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVyyyYac_GMd, &_sScS12ContinuationVyyyYac_GMR);
-  (*(*(v12 - 8) + 56))(v10 + v11, 1, 1, v12);
+  type metadata accessor for SerialTask(0);
+  v7 = swift_allocObject();
+  v8 = OBJC_IVAR____TtC23LocalAuthenticationCore10SerialTask_continuation;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVyyyYac_GMd, &_sScS12ContinuationVyyyYac_GMR);
+  (*(*(v9 - 8) + 56))(v7 + v8, 1, 1, v9);
   SerialTask.start()();
-  *&v3[v6] = v10;
-  v13 = OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_pendingEvaluationsDict;
-  *&v3[v13] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+  *&v3[v6] = v7;
+  v10 = OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_pendingEvaluationsDict;
+  *&v3[v10] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
   *&v3[OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_store] = a1;
   *&v3[OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_workQueue] = a2;
-  v15.receiver = v3;
-  v15.super_class = type metadata accessor for LACDTOPendingPolicyEvaluationStore();
-  return objc_msgSendSuper2(&v15, sel_init);
+  v12.receiver = v3;
+  v12.super_class = type metadata accessor for LACDTOPendingPolicyEvaluationStore();
+  return objc_msgSendSuper2(&v12, sel_init);
 }
 
 uint64_t LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:)(uint64_t a1, uint64_t a2)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v12 - v6;
-  v8 = type metadata accessor for TaskPriority();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-  v9 = swift_allocObject();
+  v6 = &v11 - v5;
+  v7 = type metadata accessor for TaskPriority();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v8 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = v9;
-  v10[5] = a1;
-  v10[6] = a2;
+  v9 = swift_allocObject();
+  v9[2] = 0;
+  v9[3] = 0;
+  v9[4] = v8;
+  v9[5] = a1;
+  v9[6] = a2;
 
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v7, &async function pointer to partial apply for closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:), v10);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v6, &async function pointer to partial apply for closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:), v9);
 }
 
 uint64_t closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -5667,15 +4546,11 @@ uint64_t closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluatio
   v6[25] = a4;
   v7 = type metadata accessor for DispatchWorkItemFlags();
   v6[28] = v7;
-  v8 = *(v7 - 8);
-  v6[29] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6[29] = *(v7 - 8);
   v6[30] = swift_task_alloc();
-  v10 = type metadata accessor for DispatchQoS();
-  v6[31] = v10;
-  v11 = *(v10 - 8);
-  v6[32] = v11;
-  v12 = *(v11 + 64) + 15;
+  v8 = type metadata accessor for DispatchQoS();
+  v6[31] = v8;
+  v6[32] = *(v8 - 8);
   v6[33] = swift_task_alloc();
 
   return MEMORY[0x1EEE6DFA0](closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:), 0, 0);
@@ -5683,169 +4558,152 @@ uint64_t closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluatio
 
 uint64_t closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:)()
 {
-  v1 = v0[25];
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   v0[34] = Strong;
   if (Strong)
   {
-    v3 = *((*MEMORY[0x1E69E7D40] & *Strong) + 0xA0);
-    v10 = (v3 + *v3);
-    v4 = v3[1];
-    v5 = swift_task_alloc();
-    v0[35] = v5;
-    *v5 = v0;
-    v5[1] = closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:);
+    v2 = *((*MEMORY[0x1E69E7D40] & *Strong) + 0xA0);
+    v6 = (v2 + *v2);
+    v3 = swift_task_alloc();
+    v0[35] = v3;
+    *v3 = v0;
+    v3[1] = closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:);
 
-    return v10();
+    return v6();
   }
 
   else
   {
-    v7 = v0[33];
-    v8 = v0[30];
 
-    v9 = v0[1];
+    v5 = v0[1];
 
-    return v9();
+    return v5();
   }
 }
 
 {
-  v1 = v0[25];
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v3 = v0[36];
-    v4 = v0[33];
-    v5 = v0[30];
-    v20 = v0[32];
-    v21 = v0[31];
-    v6 = v0[28];
-    v7 = v0[29];
-    v9 = v0[26];
-    v8 = v0[27];
-    v10 = Strong;
-    v19 = *(Strong + OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_workQueue);
+    v2 = v0[36];
+    v3 = v0[33];
+    v4 = v0[30];
+    v15 = v0[32];
+    v16 = v0[31];
+    v5 = v0[28];
+    v6 = v0[29];
+    v8 = v0[26];
+    v7 = v0[27];
+    v9 = Strong;
+    v14 = *(Strong + OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_workQueue);
 
-    v11 = swift_allocObject();
-    v11[2] = v9;
-    v11[3] = v8;
-    v11[4] = v3;
+    v10 = swift_allocObject();
+    v10[2] = v8;
+    v10[3] = v7;
+    v10[4] = v2;
     v0[12] = partial apply for closure #1 in closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:);
-    v0[13] = v11;
+    v0[13] = v10;
     v0[8] = MEMORY[0x1E69E9820];
     v0[9] = 1107296256;
     v0[10] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
     v0[11] = &block_descriptor_70;
-    v12 = _Block_copy(v0 + 8);
+    v11 = _Block_copy(v0 + 8);
 
     static DispatchQoS.unspecified.getter();
     v0[24] = MEMORY[0x1E69E7CC0];
-    lazy protocol witness table accessor for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60]);
+    lazy protocol witness table accessor for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, _sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    MEMORY[0x1B2722CF0](0, v4, v5, v12);
-    _Block_release(v12);
+    MEMORY[0x1B2722CF0](0, v3, v4, v11);
+    _Block_release(v11);
 
-    (*(v7 + 8))(v5, v6);
-    (*(v20 + 8))(v4, v21);
-    v13 = v0[13];
+    (*(v6 + 8))(v4, v5);
+    (*(v15 + 8))(v3, v16);
   }
 
   else
   {
-    v14 = v0[36];
   }
 
-  v15 = v0[33];
-  v16 = v0[30];
+  v12 = v0[1];
 
-  v17 = v0[1];
-
-  return v17();
+  return v12();
 }
 
 {
-  v1 = *(v0 + 200);
 
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v3 = *(v0 + 296);
-    v4 = *(v0 + 264);
-    v5 = *(v0 + 240);
-    v20 = *(v0 + 256);
-    v21 = *(v0 + 248);
-    v6 = *(v0 + 224);
-    v7 = *(v0 + 232);
-    v8 = *(v0 + 208);
-    v9 = *(v0 + 216);
-    v10 = Strong;
-    v19 = *(Strong + OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_workQueue);
+    v2 = *(v0 + 296);
+    v3 = *(v0 + 264);
+    v4 = *(v0 + 240);
+    v16 = *(v0 + 256);
+    v17 = *(v0 + 248);
+    v5 = *(v0 + 224);
+    v6 = *(v0 + 232);
+    v7 = *(v0 + 208);
+    v8 = *(v0 + 216);
+    v9 = Strong;
+    v15 = *(Strong + OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_workQueue);
 
-    v11 = swift_allocObject();
-    v11[2] = v8;
-    v11[3] = v9;
-    v11[4] = v3;
+    v10 = swift_allocObject();
+    v10[2] = v7;
+    v10[3] = v8;
+    v10[4] = v2;
     *(v0 + 48) = partial apply for closure #2 in closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:);
-    *(v0 + 56) = v11;
+    *(v0 + 56) = v10;
     *(v0 + 16) = MEMORY[0x1E69E9820];
     *(v0 + 24) = 1107296256;
     *(v0 + 32) = thunk for @escaping @callee_guaranteed @Sendable () -> ();
     *(v0 + 40) = &block_descriptor_20;
-    v12 = _Block_copy((v0 + 16));
+    v11 = _Block_copy((v0 + 16));
 
-    v13 = v3;
+    v12 = v2;
     static DispatchQoS.unspecified.getter();
     *(v0 + 184) = MEMORY[0x1E69E7CC0];
-    lazy protocol witness table accessor for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60]);
+    lazy protocol witness table accessor for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, _sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    MEMORY[0x1B2722D20](0, v4, v5, v12);
-    _Block_release(v12);
+    MEMORY[0x1B2722D20](0, v3, v4, v11);
+    _Block_release(v11);
 
-    (*(v7 + 8))(v5, v6);
-    (*(v20 + 8))(v4, v21);
-    v14 = *(v0 + 56);
+    (*(v6 + 8))(v4, v5);
+    (*(v16 + 8))(v3, v17);
   }
 
   else
   {
   }
 
-  v15 = *(v0 + 264);
-  v16 = *(v0 + 240);
+  v13 = *(v0 + 8);
 
-  v17 = *(v0 + 8);
-
-  return v17();
+  return v13();
 }
 
 uint64_t closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:)(uint64_t a1)
 {
   v3 = *v2;
-  v4 = *(*v2 + 280);
-  v7 = *v2;
   *(v3 + 288) = a1;
   *(v3 + 296) = v1;
 
   if (v1)
   {
-    v5 = closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:);
+    v4 = closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:);
   }
 
   else
   {
 
-    v5 = closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:);
+    v4 = closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluations(completion:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v5, 0, 0);
+  return MEMORY[0x1EEE6DFA0](v4, 0, 0);
 }
 
 void thunk for @escaping @callee_unowned @convention(block) (@unowned NSArray?, @unowned NSError?) -> ()(objc_class *a1, uint64_t a2, uint64_t a3)
@@ -5853,7 +4711,7 @@ void thunk for @escaping @callee_unowned @convention(block) (@unowned NSArray?, 
   isa = a1;
   if (a1)
   {
-    type metadata accessor for LACDTOMutablePendingPolicyEvaluation();
+    type metadata accessor for LACDTOMutablePendingPolicyEvaluation(0);
     isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -5876,9 +4734,7 @@ uint64_t LACDTOPendingPolicyEvaluationStore.load()()
   v1[3] = v0;
   v2 = type metadata accessor for Logger();
   v1[4] = v2;
-  v3 = *(v2 - 8);
-  v1[5] = v3;
-  v4 = *(v3 + 64) + 15;
+  v1[5] = *(v2 - 8);
   v1[6] = swift_task_alloc();
   v1[7] = swift_task_alloc();
 
@@ -5886,8 +4742,31 @@ uint64_t LACDTOPendingPolicyEvaluationStore.load()()
 }
 
 {
-  v1 = v0[7];
-  v2 = LACLogDTOEvaluation();
+  *(*v1 + 80) = v0;
+
+  if (v0)
+  {
+    v2 = LACDTOPendingPolicyEvaluationStore.load();
+  }
+
+  else
+  {
+    v2 = LACDTOPendingPolicyEvaluationStore.load();
+  }
+
+  return MEMORY[0x1EEE6DFA0](v2, 0, 0);
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t LACDTOPendingPolicyEvaluationStore.load()(uint64_t a1)
+{
+  v2 = LACLogDTOEvaluation(a1);
   Logger.init(_:)();
   v3 = Logger.logObject.getter();
   v4 = static os_log_type_t.debug.getter();
@@ -5899,110 +4778,75 @@ uint64_t LACDTOPendingPolicyEvaluationStore.load()()
     MEMORY[0x1B27246A0](v5, -1, -1);
   }
 
-  v6 = v0[7];
-  v7 = v0[4];
-  v8 = v0[5];
-  v9 = v0[3];
+  v6 = v1[7];
+  v7 = v1[4];
+  v8 = v1[5];
 
-  v10 = *(v8 + 8);
-  v0[8] = v10;
-  v10(v6, v7);
-  v11 = *(v9 + OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_store);
+  v9 = *(v8 + 8);
+  v1[8] = v9;
+  v9(v6, v7);
   ObjectType = swift_getObjectType();
-  v13 = swift_task_alloc();
-  v0[9] = v13;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCGMd, &_sSay23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCGMR);
-  v15 = lazy protocol witness table accessor for type [LACDTOMutablePendingPolicyEvaluation] and conformance <A> [A](&lazy protocol witness table cache variable for type [LACDTOMutablePendingPolicyEvaluation] and conformance <A> [A], &lazy protocol witness table cache variable for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation);
-  *v13 = v0;
-  v13[1] = LACDTOPendingPolicyEvaluationStore.load();
+  v11 = swift_task_alloc();
+  v1[9] = v11;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCGMd, &_sSay23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCGMR);
+  v13 = lazy protocol witness table accessor for type [LACDTOMutablePendingPolicyEvaluation] and conformance <A> [A](&lazy protocol witness table cache variable for type [LACDTOMutablePendingPolicyEvaluation] and conformance <A> [A], &lazy protocol witness table cache variable for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation, &protocol conformance descriptor for LACDTOMutablePendingPolicyEvaluation, MEMORY[0x1E69E6330]);
+  *v11 = v1;
+  v11[1] = LACDTOPendingPolicyEvaluationStore.load();
 
-  return LACPersistentStore.object<A>(forKey:)((v0 + 2), 0xD000000000000012, 0x80000001B0354A00, ObjectType, v14, v15);
+  return LACPersistentStore.object<A>(forKey:)((v1 + 2), 0xD000000000000012, 0x80000001B0354A00, ObjectType, v12, v13);
 }
 
 {
-  v2 = *(*v1 + 72);
-  v5 = *v1;
-  *(*v1 + 80) = v0;
-
-  if (v0)
+  v21 = v1;
+  v2 = v1[2];
+  if (v2)
   {
-    v3 = LACDTOPendingPolicyEvaluationStore.load();
-  }
-
-  else
-  {
-    v3 = LACDTOPendingPolicyEvaluationStore.load();
-  }
-
-  return MEMORY[0x1EEE6DFA0](v3, 0, 0);
-}
-
-{
-  v24 = v0;
-  v1 = v0[2];
-  if (v1)
-  {
-    v2 = v0[6];
-    v3 = LACLogDTOEvaluation();
+    v3 = LACLogDTOEvaluation(a1);
     Logger.init(_:)();
 
     v4 = Logger.logObject.getter();
     v5 = static os_log_type_t.debug.getter();
 
     v6 = os_log_type_enabled(v4, v5);
-    v7 = v0[8];
-    v8 = v0[5];
-    v9 = v0[6];
-    v10 = v0[4];
+    v7 = v1[8];
+    v8 = v1[6];
+    v9 = v1[4];
     if (v6)
     {
-      v22 = v0[8];
+      v19 = v1[8];
+      v10 = swift_slowAlloc();
+      v18 = v8;
       v11 = swift_slowAlloc();
-      v21 = v9;
-      v12 = swift_slowAlloc();
-      v23 = v12;
-      *v11 = 136315138;
-      v13 = type metadata accessor for LACDTOMutablePendingPolicyEvaluation();
-      v14 = MEMORY[0x1B2722B60](v1, v13);
-      v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, &v23);
+      v20 = v11;
+      *v10 = 136315138;
+      v12 = type metadata accessor for LACDTOMutablePendingPolicyEvaluation(0);
+      v13 = MEMORY[0x1B2722B60](v2, v12);
+      v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v20);
 
-      *(v11 + 4) = v16;
-      _os_log_impl(&dword_1B0233000, v4, v5, "Loaded pending evaluations %s", v11, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v12);
-      MEMORY[0x1B27246A0](v12, -1, -1);
+      *(v10 + 4) = v15;
+      _os_log_impl(&dword_1B0233000, v4, v5, "Loaded pending evaluations %s", v10, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v11);
       MEMORY[0x1B27246A0](v11, -1, -1);
+      MEMORY[0x1B27246A0](v10, -1, -1);
 
-      v22(v21, v10);
+      v19(v18, v9);
     }
 
     else
     {
 
-      v7(v9, v10);
+      v7(v8, v9);
     }
   }
 
   else
   {
-    v1 = MEMORY[0x1E69E7CC0];
+    v2 = MEMORY[0x1E69E7CC0];
   }
 
-  v18 = v0[6];
-  v17 = v0[7];
+  v16 = v1[1];
 
-  v19 = v0[1];
-
-  return v19(v1);
-}
-
-{
-  v2 = v0[6];
-  v1 = v0[7];
-
-  v3 = v0[1];
-  v4 = v0[10];
-
-  return v3();
+  return v16(v2);
 }
 
 uint64_t @objc closure #1 in LACDTOPendingPolicyEvaluationStore.load()(const void *a1, void *a2)
@@ -6018,15 +4862,14 @@ uint64_t @objc closure #1 in LACDTOPendingPolicyEvaluationStore.load()(const voi
   return LACDTOPendingPolicyEvaluationStore.load()();
 }
 
-uint64_t @objc closure #1 in LACDTOPendingPolicyEvaluationStore.load()()
+uint64_t @objc closure #1 in LACDTOPendingPolicyEvaluationStore.load()(uint64_t a1)
 {
-  v2 = v0;
-  v3 = *v1;
-  v4 = *(*v1 + 32);
-  v5 = *(*v1 + 16);
-  v6 = *v1;
+  v3 = v1;
+  v4 = *v2;
+  v5 = *(*v2 + 16);
+  v6 = *v2;
 
-  if (v2)
+  if (v3)
   {
     v7 = _convertErrorToNSError(_:)();
 
@@ -6036,7 +4879,7 @@ uint64_t @objc closure #1 in LACDTOPendingPolicyEvaluationStore.load()()
 
   else
   {
-    type metadata accessor for LACDTOMutablePendingPolicyEvaluation();
+    type metadata accessor for LACDTOMutablePendingPolicyEvaluation(0);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     v9 = isa;
@@ -6044,7 +4887,7 @@ uint64_t @objc closure #1 in LACDTOPendingPolicyEvaluationStore.load()()
     v7 = isa;
   }
 
-  v11 = *(v3 + 24);
+  v11 = *(v4 + 24);
   (v11)[2](v11, v9, v8);
 
   _Block_release(v11);
@@ -6134,9 +4977,7 @@ uint64_t closure #1 in LACDTOPendingPolicyEvaluationStore.persist()(uint64_t a1,
   v2[4] = a2;
   v3 = type metadata accessor for Logger();
   v2[5] = v3;
-  v4 = *(v3 - 8);
-  v2[6] = v4;
-  v5 = *(v4 + 64) + 15;
+  v2[6] = *(v3 - 8);
   v2[7] = swift_task_alloc();
   v2[8] = swift_task_alloc();
 
@@ -6146,89 +4987,82 @@ uint64_t closure #1 in LACDTOPendingPolicyEvaluationStore.persist()(uint64_t a1,
 uint64_t closure #1 in LACDTOPendingPolicyEvaluationStore.persist()()
 {
   v1 = v0[4];
-  v2 = *(v0[3] + OBJC_IVAR____TtC23LocalAuthenticationCore34LACDTOPendingPolicyEvaluationStore_store);
   ObjectType = swift_getObjectType();
   v0[2] = v1;
-  v4 = swift_task_alloc();
-  v0[9] = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCGMd, &_sSay23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCGMR);
-  v6 = lazy protocol witness table accessor for type [LACDTOMutablePendingPolicyEvaluation] and conformance <A> [A](&lazy protocol witness table cache variable for type [LACDTOMutablePendingPolicyEvaluation] and conformance <A> [A], &lazy protocol witness table cache variable for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation);
-  *v4 = v0;
-  v4[1] = closure #1 in LACDTOPendingPolicyEvaluationStore.persist();
+  v3 = swift_task_alloc();
+  v0[9] = v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCGMd, &_sSay23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCGMR);
+  v5 = lazy protocol witness table accessor for type [LACDTOMutablePendingPolicyEvaluation] and conformance <A> [A](&lazy protocol witness table cache variable for type [LACDTOMutablePendingPolicyEvaluation] and conformance <A> [A], &lazy protocol witness table cache variable for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation, &protocol conformance descriptor for LACDTOMutablePendingPolicyEvaluation, MEMORY[0x1E69E6300]);
+  *v3 = v0;
+  v3[1] = closure #1 in LACDTOPendingPolicyEvaluationStore.persist();
 
-  return LACPersistentStore.set<A>(object:for:)((v0 + 2), 0xD000000000000012, 0x80000001B0354A00, ObjectType, v5, v6);
+  return LACPersistentStore.set<A>(object:for:)((v0 + 2), 0xD000000000000012, 0x80000001B0354A00, ObjectType, v4, v5);
 }
 
 {
-  v2 = *(*v1 + 72);
-  v5 = *v1;
   *(*v1 + 80) = v0;
 
   if (v0)
   {
-    v3 = closure #1 in LACDTOPendingPolicyEvaluationStore.persist();
+    v2 = closure #1 in LACDTOPendingPolicyEvaluationStore.persist();
   }
 
   else
   {
-    v3 = closure #1 in LACDTOPendingPolicyEvaluationStore.persist();
+    v2 = closure #1 in LACDTOPendingPolicyEvaluationStore.persist();
   }
 
-  return MEMORY[0x1EEE6DFA0](v3, 0, 0);
+  return MEMORY[0x1EEE6DFA0](v2, 0, 0);
 }
 
+uint64_t closure #1 in LACDTOPendingPolicyEvaluationStore.persist()(uint64_t a1)
 {
-  v22 = v0;
-  v1 = v0[8];
-  v2 = v0[4];
-  v3 = LACLogDTOEvaluation();
+  v19 = v1;
+  v2 = LACLogDTOEvaluation(a1);
   Logger.init(_:)();
 
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.debug.getter();
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.debug.getter();
 
-  v6 = os_log_type_enabled(v4, v5);
-  v7 = v0[8];
-  v8 = v0[5];
-  v9 = v0[6];
-  if (v6)
+  v5 = os_log_type_enabled(v3, v4);
+  v6 = v1[8];
+  v7 = v1[5];
+  v8 = v1[6];
+  if (v5)
   {
-    v10 = v0[4];
+    v9 = v1[4];
+    v10 = swift_slowAlloc();
     v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v21 = v12;
-    *v11 = 136315138;
-    v13 = type metadata accessor for LACDTOMutablePendingPolicyEvaluation();
-    v14 = MEMORY[0x1B2722B60](v10, v13);
-    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, &v21);
+    v18 = v11;
+    *v10 = 136315138;
+    v12 = type metadata accessor for LACDTOMutablePendingPolicyEvaluation(0);
+    v13 = MEMORY[0x1B2722B60](v9, v12);
+    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v18);
 
-    *(v11 + 4) = v16;
-    _os_log_impl(&dword_1B0233000, v4, v5, "Persisted pending evaluations %s", v11, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v12);
-    MEMORY[0x1B27246A0](v12, -1, -1);
+    *(v10 + 4) = v15;
+    _os_log_impl(&dword_1B0233000, v3, v4, "Persisted pending evaluations %s", v10, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v11);
     MEMORY[0x1B27246A0](v11, -1, -1);
+    MEMORY[0x1B27246A0](v10, -1, -1);
   }
 
-  (*(v9 + 8))(v7, v8);
-  v18 = v0[7];
-  v17 = v0[8];
+  (*(v8 + 8))(v6, v7);
 
-  v19 = v0[1];
+  v16 = v1[1];
 
-  return v19();
+  return v16();
 }
 
 {
-  v1 = v0[10];
-  v2 = v0[7];
-  v3 = LACLogDTOEvaluation();
+  v2 = v1[10];
+  v3 = LACLogDTOEvaluation(a1);
   Logger.init(_:)();
-  v4 = v1;
+  v4 = v2;
   v5 = Logger.logObject.getter();
   v6 = static os_log_type_t.default.getter();
 
   v7 = os_log_type_enabled(v5, v6);
-  v8 = v0[10];
+  v8 = v1[10];
   if (v7)
   {
     v9 = swift_slowAlloc();
@@ -6248,13 +5082,11 @@ uint64_t closure #1 in LACDTOPendingPolicyEvaluationStore.persist()()
   {
   }
 
-  (*(v0[6] + 8))(v0[7], v0[5]);
-  v14 = v0[7];
-  v13 = v0[8];
+  (*(v1[6] + 8))(v1[7], v1[5]);
 
-  v15 = v0[1];
+  v13 = v1[1];
 
-  return v15();
+  return v13();
 }
 
 void _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCTt1g5(uint64_t a1, uint64_t a2)
@@ -6292,7 +5124,7 @@ LABEL_13:
         return;
       }
 
-      type metadata accessor for LACDTOMutablePendingPolicyEvaluation();
+      type metadata accessor for LACDTOMutablePendingPolicyEvaluation(0);
       v21 = *(*(a2 + 56) + 8 * v18);
       v22 = static NSObject.== infix(_:_:)();
 
@@ -6332,48 +5164,45 @@ LABEL_13:
 
 uint64_t _sIeghH_IeAgH_TR(uint64_t a1, uint64_t a2, int *a3)
 {
-  v7 = (a3 + *a3);
-  v4 = a3[1];
-  v5 = swift_task_alloc();
-  *(v3 + 16) = v5;
-  *v5 = v3;
-  v5[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
+  v6 = (a3 + *a3);
+  v4 = swift_task_alloc();
+  *(v3 + 16) = v4;
+  *v4 = v3;
+  v4[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
 
-  return v7();
+  return v6();
 }
 
 uint64_t _sIeAgH_ytIeAgHr_TR(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
-  v8 = (a4 + *a4);
-  v5 = a4[1];
-  v6 = swift_task_alloc();
-  *(v4 + 16) = v6;
-  *v6 = v4;
-  v6[1] = dispatch thunk of LACPreboardStorageType.enableBatch(for:);
+  v7 = (a4 + *a4);
+  v5 = swift_task_alloc();
+  *(v4 + 16) = v5;
+  *v5 = v4;
+  v5[1] = dispatch thunk of LACPreboardStorageType.enableBatch(for:);
 
-  return v8();
+  return v7();
 }
 
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = v25 - v11;
-  outlined init with copy of TaskPriority?(a3, v25 - v11);
-  v13 = type metadata accessor for TaskPriority();
-  v14 = *(v13 - 8);
-  if ((*(v14 + 48))(v12, 1, v13) == 1)
+  v11 = v23 - v10;
+  outlined init with copy of TaskPriority?(a3, v23 - v10);
+  v12 = type metadata accessor for TaskPriority();
+  v13 = *(v12 - 8);
+  if ((*(v13 + 48))(v11, 1, v12) == 1)
   {
-    outlined destroy of AsyncStream<()>.Continuation?(v12, &_sScPSgMd, &_sScPSgMR);
+    outlined destroy of AsyncStream<()>.Continuation?(v11, &_sScPSgMd, &_sScPSgMR);
     if (*(a5 + 16))
     {
       goto LABEL_3;
     }
 
 LABEL_7:
+    v14 = 0;
     v16 = 0;
-    v18 = 0;
     if (a2)
     {
       goto LABEL_4;
@@ -6383,68 +5212,67 @@ LABEL_7:
   }
 
   TaskPriority.rawValue.getter();
-  (*(v14 + 8))(v12, v13);
+  (*(v13 + 8))(v11, v12);
   if (!*(a5 + 16))
   {
     goto LABEL_7;
   }
 
 LABEL_3:
-  v15 = *(a5 + 24);
   swift_getObjectType();
   swift_unknownObjectRetain();
-  v16 = dispatch thunk of Actor.unownedExecutor.getter();
-  v18 = v17;
+  v14 = dispatch thunk of Actor.unownedExecutor.getter();
+  v16 = v15;
   swift_unknownObjectRelease();
   if (a2)
   {
 LABEL_4:
-    v19 = String.utf8CString.getter() + 32;
-    v20 = swift_allocObject();
-    *(v20 + 16) = a4;
-    *(v20 + 24) = a5;
+    v17 = String.utf8CString.getter() + 32;
+    v18 = swift_allocObject();
+    *(v18 + 16) = a4;
+    *(v18 + 24) = a5;
 
-    if (v18 | v16)
+    if (v16 | v14)
     {
-      v26[0] = 0;
-      v26[1] = 0;
-      v21 = v26;
-      v26[2] = v16;
-      v26[3] = v18;
+      v24[0] = 0;
+      v24[1] = 0;
+      v19 = v24;
+      v24[2] = v14;
+      v24[3] = v16;
     }
 
     else
     {
-      v21 = 0;
+      v19 = 0;
     }
 
-    v25[1] = 7;
-    v25[2] = v21;
-    v25[3] = v19;
-    v23 = swift_task_create();
+    v23[1] = 7;
+    v23[2] = v19;
+    v23[3] = v17;
+    v21 = swift_task_create();
 
     outlined destroy of AsyncStream<()>.Continuation?(a3, &_sScPSgMd, &_sScPSgMR);
 
-    return v23;
+    return v21;
   }
 
 LABEL_8:
   outlined destroy of AsyncStream<()>.Continuation?(a3, &_sScPSgMd, &_sScPSgMR);
-  v22 = swift_allocObject();
-  *(v22 + 16) = a4;
-  *(v22 + 24) = a5;
-  if (v18 | v16)
+  v20 = swift_allocObject();
+  *(v20 + 16) = a4;
+  *(v20 + 24) = a5;
+  if (v16 | v14)
   {
-    v26[4] = 0;
-    v26[5] = 0;
-    v26[6] = v16;
-    v26[7] = v18;
+    v24[4] = 0;
+    v24[5] = 0;
+    v24[6] = v14;
+    v24[7] = v16;
   }
 
   return swift_task_create();
 }
 
-uint64_t implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:)(void (*a1)(void))
+uint64_t implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:)(uint64_t (*a1)(void))
 {
   a1();
 
@@ -6488,26 +5316,22 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
 double specialized Dictionary._Variant.removeValue(forKey:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
 {
   v4 = v3;
-  v6 = *v3;
-  v7 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
-  if (v8)
+  v6 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
+  if (v7)
   {
-    v9 = v7;
-    v10 = *v4;
+    v8 = v6;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v10 = *v3;
     v12 = *v4;
-    v15 = *v4;
     if (!isUniquelyReferenced_nonNull_native)
     {
       specialized _NativeDictionary.copy()();
-      v12 = v15;
+      v10 = v12;
     }
 
-    v13 = *(*(v12 + 48) + 16 * v9 + 8);
-
-    outlined init with take of Any((*(v12 + 56) + 32 * v9), a3);
-    specialized _NativeDictionary._delete(at:)(v9, v12);
-    *v4 = v12;
+    outlined init with take of Any((*(v10 + 56) + 32 * v8), a3);
+    specialized _NativeDictionary._delete(at:)(v8, v10);
+    *v4 = v10;
   }
 
   else
@@ -6523,30 +5347,26 @@ double specialized Dictionary._Variant.removeValue(forKey:)@<D0>(uint64_t a1@<X0
 uint64_t specialized Dictionary._Variant.removeValue(forKey:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v4 = *v2;
-  v5 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
-  if ((v6 & 1) == 0)
+  v4 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
+  if ((v5 & 1) == 0)
   {
     return 0;
   }
 
-  v7 = v5;
-  v8 = *v3;
+  v6 = v4;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v10 = *v3;
-  v14 = *v3;
+  v8 = *v2;
+  v11 = *v3;
   if (!isUniquelyReferenced_nonNull_native)
   {
     specialized _NativeDictionary.copy()();
-    v10 = v14;
+    v8 = v11;
   }
 
-  v11 = *(*(v10 + 48) + 16 * v7 + 8);
-
-  v12 = *(*(v10 + 56) + 8 * v7);
-  specialized _NativeDictionary._delete(at:)(v7, v10);
-  *v3 = v10;
-  return v12;
+  v9 = *(*(v8 + 56) + 8 * v6);
+  specialized _NativeDictionary._delete(at:)(v6, v8);
+  *v3 = v8;
+  return v9;
 }
 
 void specialized _NativeDictionary._delete(at:)(int64_t a1, uint64_t a2)
@@ -6561,45 +5381,44 @@ void specialized _NativeDictionary._delete(at:)(int64_t a1, uint64_t a2)
     v8 = (_HashTable.previousHole(before:)() + 1) & ~v5;
     do
     {
-      v9 = *(a2 + 40);
-      v10 = *(*(a2 + 48) + 8 * v6);
+      v9 = *(*(a2 + 48) + 8 * v6);
       static String._unconditionallyBridgeFromObjectiveC(_:)();
       Hasher.init(_seed:)();
-      v11 = v10;
+      v10 = v9;
       String.hash(into:)();
-      v12 = Hasher._finalize()();
+      v11 = Hasher._finalize()();
 
-      v13 = v12 & v7;
+      v12 = v11 & v7;
       if (v3 >= v8)
       {
-        if (v13 < v8)
+        if (v12 < v8)
         {
           goto LABEL_4;
         }
       }
 
-      else if (v13 >= v8)
+      else if (v12 >= v8)
       {
         goto LABEL_10;
       }
 
-      if (v3 >= v13)
+      if (v3 >= v12)
       {
 LABEL_10:
-        v14 = *(a2 + 48);
-        v15 = (v14 + 8 * v3);
-        v16 = (v14 + 8 * v6);
-        if (v3 != v6 || v15 >= v16 + 1)
+        v13 = *(a2 + 48);
+        v14 = (v13 + 8 * v3);
+        v15 = (v13 + 8 * v6);
+        if (v3 != v6 || v14 >= v15 + 1)
         {
-          *v15 = *v16;
+          *v14 = *v15;
         }
 
-        v17 = *(a2 + 56);
-        v18 = (v17 + v3);
-        v19 = (v17 + v6);
-        if (v3 != v6 || v18 >= v19 + 1)
+        v16 = *(a2 + 56);
+        v17 = (v16 + v3);
+        v18 = (v16 + v6);
+        if (v3 != v6 || v17 >= v18 + 1)
         {
-          *v18 = *v19;
+          *v17 = *v18;
           v3 = v6;
         }
       }
@@ -6612,133 +5431,130 @@ LABEL_4:
   }
 
   *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v20 = *(a2 + 16);
-  v21 = __OFSUB__(v20, 1);
-  v22 = v20 - 1;
-  if (v21)
+  v19 = *(a2 + 16);
+  v20 = __OFSUB__(v19, 1);
+  v21 = v19 - 1;
+  if (v20)
   {
     __break(1u);
   }
 
   else
   {
-    *(a2 + 16) = v22;
+    *(a2 + 16) = v21;
     ++*(a2 + 36);
   }
 }
 
 unint64_t specialized _NativeDictionary._delete(at:)(int64_t a1, uint64_t a2)
 {
-  v43 = type metadata accessor for UUID();
-  v4 = *(v43 - 8);
-  v5 = *(v4 + 64);
-  result = MEMORY[0x1EEE9AC00](v43);
-  v42 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = a2 + 64;
-  v10 = -1 << *(a2 + 32);
-  v11 = (a1 + 1) & ~v10;
-  if ((*(a2 + 64 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11))
+  v40 = type metadata accessor for UUID();
+  v4 = *(v40 - 8);
+  result = MEMORY[0x1EEE9AC00](v40);
+  v39 = &v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = a2 + 64;
+  v9 = -1 << *(a2 + 32);
+  v10 = (a1 + 1) & ~v9;
+  if ((*(a2 + 64 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
   {
-    v12 = ~v10;
-    v44 = v7;
-    v13 = _HashTable.previousHole(before:)();
-    v14 = v43;
-    v7 = v44;
-    v15 = v12;
-    v41 = (v13 + 1) & v12;
-    v17 = *(v4 + 16);
-    v16 = v4 + 16;
-    v39 = a2 + 64;
-    v40 = v17;
-    v18 = *(v16 + 56);
-    v38 = (v16 - 8);
+    v11 = ~v9;
+    v41 = v6;
+    v12 = _HashTable.previousHole(before:)();
+    v13 = v40;
+    v6 = v41;
+    v14 = v11;
+    v38 = (v12 + 1) & v11;
+    v16 = *(v4 + 16);
+    v15 = v4 + 16;
+    v36 = a2 + 64;
+    v37 = v16;
+    v17 = *(v15 + 56);
+    v35 = (v15 - 8);
     do
     {
-      v19 = v18;
-      v20 = v18 * v11;
-      v21 = v42;
+      v18 = v17;
+      v19 = v17 * v10;
+      v20 = v39;
+      v21 = v14;
       v22 = v15;
-      v23 = v16;
-      v24 = v7;
-      v40(v42, *(v7 + 48) + v18 * v11, v14);
-      v25 = *(v24 + 40);
-      lazy protocol witness table accessor for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
-      v26 = dispatch thunk of Hashable._rawHashValue(seed:)();
-      result = (*v38)(v21, v14);
-      v15 = v22;
-      v27 = v26 & v22;
-      if (a1 >= v41)
+      v37(v39, *(v6 + 48) + v17 * v10, v13);
+      lazy protocol witness table accessor for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695B8]);
+      v23 = dispatch thunk of Hashable._rawHashValue(seed:)();
+      result = (*v35)(v20, v13);
+      v14 = v21;
+      v24 = v23 & v21;
+      if (a1 >= v38)
       {
-        if (v27 >= v41 && a1 >= v27)
+        if (v24 >= v38 && a1 >= v24)
         {
 LABEL_15:
-          v7 = v44;
-          v30 = *(v44 + 48);
-          result = v30 + v19 * a1;
-          v16 = v23;
-          if (v19 * a1 < v20 || (v18 = v19, result >= v30 + v20 + v19))
+          v6 = v41;
+          v27 = *(v41 + 48);
+          result = v27 + v18 * a1;
+          v15 = v22;
+          if (v18 * a1 < v19 || (v17 = v18, result >= v27 + v19 + v18))
           {
             result = swift_arrayInitWithTakeFrontToBack();
-            v7 = v44;
-            v18 = v19;
-            v15 = v22;
-            v9 = v39;
+            v6 = v41;
+            v17 = v18;
+            v14 = v21;
+            v8 = v36;
           }
 
           else
           {
-            v9 = v39;
-            if (v19 * a1 != v20)
+            v8 = v36;
+            if (v18 * a1 != v19)
             {
               result = swift_arrayInitWithTakeBackToFront();
-              v7 = v44;
-              v18 = v19;
-              v15 = v22;
+              v6 = v41;
+              v17 = v18;
+              v14 = v21;
             }
           }
 
-          v31 = *(v7 + 56);
-          v32 = (v31 + 8 * a1);
-          v33 = (v31 + 8 * v11);
-          if (a1 != v11 || v32 >= v33 + 1)
+          v28 = *(v6 + 56);
+          v29 = (v28 + 8 * a1);
+          v30 = (v28 + 8 * v10);
+          if (a1 != v10 || v29 >= v30 + 1)
           {
-            *v32 = *v33;
-            a1 = v11;
+            *v29 = *v30;
+            a1 = v10;
           }
 
           goto LABEL_4;
         }
       }
 
-      else if (v27 >= v41 || a1 >= v27)
+      else if (v24 >= v38 || a1 >= v24)
       {
         goto LABEL_15;
       }
 
-      v16 = v23;
-      v9 = v39;
-      v18 = v19;
-      v7 = v44;
+      v15 = v22;
+      v8 = v36;
+      v17 = v18;
+      v6 = v41;
 LABEL_4:
-      v11 = (v11 + 1) & v15;
+      v10 = (v10 + 1) & v14;
     }
 
-    while (((*(v9 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11) & 1) != 0);
+    while (((*(v8 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) != 0);
   }
 
-  *(v9 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
-  v34 = *(v7 + 16);
-  v35 = __OFSUB__(v34, 1);
-  v36 = v34 - 1;
-  if (v35)
+  *(v8 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
+  v31 = *(v6 + 16);
+  v32 = __OFSUB__(v31, 1);
+  v33 = v31 - 1;
+  if (v32)
   {
     __break(1u);
   }
 
   else
   {
-    *(v7 + 16) = v36;
-    ++*(v7 + 36);
+    *(v6 + 16) = v33;
+    ++*(v6 + 36);
   }
 
   return result;
@@ -6756,48 +5572,44 @@ uint64_t specialized _NativeDictionary._delete(at:)(uint64_t result, uint64_t a2
     v8 = (_HashTable.previousHole(before:)() + 1) & ~v5;
     do
     {
-      v10 = *(a2 + 40);
-      v11 = (*(a2 + 48) + 16 * v6);
-      v12 = *v11;
-      v13 = v11[1];
       Hasher.init(_seed:)();
 
       String.hash(into:)();
-      v14 = Hasher._finalize()();
+      v10 = Hasher._finalize()();
 
-      v15 = v14 & v7;
+      v11 = v10 & v7;
       if (v3 >= v8)
       {
-        if (v15 < v8)
+        if (v11 < v8)
         {
           goto LABEL_4;
         }
       }
 
-      else if (v15 >= v8)
+      else if (v11 >= v8)
       {
         goto LABEL_10;
       }
 
-      if (v3 >= v15)
+      if (v3 >= v11)
       {
 LABEL_10:
-        v16 = *(a2 + 48);
-        v17 = (v16 + 16 * v3);
-        v18 = (v16 + 16 * v6);
-        if (v3 != v6 || v17 >= v18 + 1)
+        v12 = *(a2 + 48);
+        v13 = (v12 + 16 * v3);
+        v14 = (v12 + 16 * v6);
+        if (v3 != v6 || v13 >= v14 + 1)
         {
-          *v17 = *v18;
+          *v13 = *v14;
         }
 
-        v19 = *(a2 + 56);
-        v20 = (v19 + 32 * v3);
-        v21 = (v19 + 32 * v6);
-        if (v3 != v6 || v20 >= v21 + 2)
+        v15 = *(a2 + 56);
+        v16 = (v15 + 32 * v3);
+        v17 = (v15 + 32 * v6);
+        if (v3 != v6 || v16 >= v17 + 2)
         {
-          v9 = v21[1];
-          *v20 = *v21;
-          v20[1] = v9;
+          v9 = v17[1];
+          *v16 = *v17;
+          v16[1] = v9;
           v3 = v6;
         }
       }
@@ -6810,17 +5622,17 @@ LABEL_4:
   }
 
   *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v22 = *(a2 + 16);
-  v23 = __OFSUB__(v22, 1);
-  v24 = v22 - 1;
-  if (v23)
+  v18 = *(a2 + 16);
+  v19 = __OFSUB__(v18, 1);
+  v20 = v18 - 1;
+  if (v19)
   {
     __break(1u);
   }
 
   else
   {
-    *(a2 + 16) = v24;
+    *(a2 + 16) = v20;
     ++*(a2 + 36);
   }
 
@@ -6838,46 +5650,42 @@ LABEL_4:
     v8 = (_HashTable.previousHole(before:)() + 1) & ~v5;
     do
     {
-      v9 = *(a2 + 40);
-      v10 = (*(a2 + 48) + 16 * v6);
-      v11 = *v10;
-      v12 = v10[1];
       Hasher.init(_seed:)();
 
       String.hash(into:)();
-      v13 = Hasher._finalize()();
+      v9 = Hasher._finalize()();
 
-      v14 = v13 & v7;
+      v10 = v9 & v7;
       if (v3 >= v8)
       {
-        if (v14 < v8)
+        if (v10 < v8)
         {
           goto LABEL_4;
         }
       }
 
-      else if (v14 >= v8)
+      else if (v10 >= v8)
       {
         goto LABEL_10;
       }
 
-      if (v3 >= v14)
+      if (v3 >= v10)
       {
 LABEL_10:
-        v15 = *(a2 + 48);
-        v16 = (v15 + 16 * v3);
-        v17 = (v15 + 16 * v6);
-        if (v3 != v6 || v16 >= v17 + 1)
+        v11 = *(a2 + 48);
+        v12 = (v11 + 16 * v3);
+        v13 = (v11 + 16 * v6);
+        if (v3 != v6 || v12 >= v13 + 1)
         {
-          *v16 = *v17;
+          *v12 = *v13;
         }
 
-        v18 = *(a2 + 56);
-        v19 = (v18 + 8 * v3);
-        v20 = (v18 + 8 * v6);
-        if (v3 != v6 || v19 >= v20 + 1)
+        v14 = *(a2 + 56);
+        v15 = (v14 + 8 * v3);
+        v16 = (v14 + 8 * v6);
+        if (v3 != v6 || v15 >= v16 + 1)
         {
-          *v19 = *v20;
+          *v15 = *v16;
           v3 = v6;
         }
       }
@@ -6890,17 +5698,17 @@ LABEL_4:
   }
 
   *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v21 = *(a2 + 16);
-  v22 = __OFSUB__(v21, 1);
-  v23 = v21 - 1;
-  if (v22)
+  v17 = *(a2 + 16);
+  v18 = __OFSUB__(v17, 1);
+  v19 = v17 - 1;
+  if (v18)
   {
     __break(1u);
   }
 
   else
   {
-    *(a2 + 16) = v23;
+    *(a2 + 16) = v19;
     ++*(a2 + 36);
   }
 
@@ -7432,88 +6240,87 @@ LABEL_19:
 void *specialized _NativeDictionary.copy()(uint64_t *a1, uint64_t *a2)
 {
   v5 = v2;
-  v36 = type metadata accessor for UUID();
-  v38 = *(v36 - 8);
-  v6 = *(v38 + 64);
-  MEMORY[0x1EEE9AC00](v36);
-  v35 = &v30 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = type metadata accessor for UUID();
+  v37 = *(v35 - 8);
+  MEMORY[0x1EEE9AC00](v35);
+  v34 = &v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v8 = *v2;
-  v9 = static _DictionaryStorage.copy(original:)();
-  v10 = v9;
-  if (*(v8 + 16))
+  v7 = *v2;
+  v8 = static _DictionaryStorage.copy(original:)();
+  v9 = v8;
+  if (*(v7 + 16))
   {
-    result = (v9 + 64);
-    v12 = ((1 << *(v10 + 32)) + 63) >> 6;
-    v31 = v5;
-    v32 = (v8 + 64);
-    if (v10 != v8 || result >= v8 + 64 + 8 * v12)
+    result = (v8 + 64);
+    v11 = ((1 << *(v9 + 32)) + 63) >> 6;
+    v30 = v5;
+    v31 = (v7 + 64);
+    if (v9 != v7 || result >= v7 + 64 + 8 * v11)
     {
-      result = memmove(result, v32, 8 * v12);
+      result = memmove(result, v31, 8 * v11);
     }
 
-    v14 = 0;
-    v15 = *(v8 + 16);
-    v37 = v10;
-    *(v10 + 16) = v15;
-    v16 = 1 << *(v8 + 32);
-    v17 = -1;
-    if (v16 < 64)
+    v13 = 0;
+    v14 = *(v7 + 16);
+    v36 = v9;
+    *(v9 + 16) = v14;
+    v15 = 1 << *(v7 + 32);
+    v16 = -1;
+    if (v15 < 64)
     {
-      v17 = ~(-1 << v16);
+      v16 = ~(-1 << v15);
     }
 
-    v18 = v17 & *(v8 + 64);
-    v19 = (v16 + 63) >> 6;
-    v33 = v38 + 32;
-    v34 = v38 + 16;
-    if (v18)
+    v17 = v16 & *(v7 + 64);
+    v18 = (v15 + 63) >> 6;
+    v32 = v37 + 32;
+    v33 = v37 + 16;
+    if (v17)
     {
       do
       {
-        v20 = __clz(__rbit64(v18));
-        v39 = (v18 - 1) & v18;
+        v19 = __clz(__rbit64(v17));
+        v38 = (v17 - 1) & v17;
 LABEL_17:
-        v23 = v20 | (v14 << 6);
-        v24 = v38;
-        v25 = *(v38 + 72) * v23;
-        v27 = v35;
-        v26 = v36;
-        (*(v38 + 16))(v35, *(v8 + 48) + v25, v36);
-        v28 = *(*(v8 + 56) + 8 * v23);
-        v29 = v37;
-        (*(v24 + 32))(*(v37 + 48) + v25, v27, v26);
-        *(*(v29 + 56) + 8 * v23) = v28;
+        v22 = v19 | (v13 << 6);
+        v23 = v37;
+        v24 = *(v37 + 72) * v22;
+        v26 = v34;
+        v25 = v35;
+        (*(v37 + 16))(v34, *(v7 + 48) + v24, v35);
+        v27 = *(*(v7 + 56) + 8 * v22);
+        v28 = v36;
+        (*(v23 + 32))(*(v36 + 48) + v24, v26, v25);
+        *(*(v28 + 56) + 8 * v22) = v27;
 
-        v18 = v39;
+        v17 = v38;
       }
 
-      while (v39);
+      while (v38);
     }
 
-    v21 = v14;
+    v20 = v13;
     while (1)
     {
-      v14 = v21 + 1;
-      if (__OFADD__(v21, 1))
+      v13 = v20 + 1;
+      if (__OFADD__(v20, 1))
       {
         break;
       }
 
-      if (v14 >= v19)
+      if (v13 >= v18)
       {
 
-        v5 = v31;
-        v10 = v37;
+        v5 = v30;
+        v9 = v36;
         goto LABEL_21;
       }
 
-      v22 = *(v32 + v14);
-      ++v21;
-      if (v22)
+      v21 = *(v31 + v13);
+      ++v20;
+      if (v21)
       {
-        v20 = __clz(__rbit64(v22));
-        v39 = (v22 - 1) & v22;
+        v19 = __clz(__rbit64(v21));
+        v38 = (v21 - 1) & v21;
         goto LABEL_17;
       }
     }
@@ -7525,7 +6332,7 @@ LABEL_17:
   {
 
 LABEL_21:
-    *v5 = v10;
+    *v5 = v9;
   }
 
   return result;
@@ -7770,13 +6577,12 @@ uint64_t partial apply for closure #1 in LACDTOPendingPolicyEvaluationStore.load
 
 uint64_t partial apply for closure #1 in LACDTOPendingPolicyEvaluationStore.persist()()
 {
-  v2 = v0[2];
-  v3 = v0[3];
-  v4 = v0[4];
-  v5 = swift_task_alloc();
-  *(v1 + 16) = v5;
-  *v5 = v1;
-  v5[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
+  v2 = *(v0 + 16);
+  v3 = *(v0 + 24);
+  v4 = swift_task_alloc();
+  *(v1 + 16) = v4;
+  *v4 = v1;
+  v4[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
 
   return closure #1 in LACDTOPendingPolicyEvaluationStore.persist()(v2, v3);
 }
@@ -7784,24 +6590,22 @@ uint64_t partial apply for closure #1 in LACDTOPendingPolicyEvaluationStore.pers
 uint64_t dispatch thunk of LACDTOPendingPolicyEvaluationStore.load()()
 {
   v2 = *((*MEMORY[0x1E69E7D40] & *v0) + 0xA0);
-  v6 = (v2 + *v2);
-  v3 = v2[1];
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  *v4 = v1;
-  v4[1] = dispatch thunk of LACDTOPendingPolicyEvaluationStore.load();
+  v5 = (v2 + *v2);
+  v3 = swift_task_alloc();
+  *(v1 + 16) = v3;
+  *v3 = v1;
+  v3[1] = dispatch thunk of LACDTOPendingPolicyEvaluationStore.load();
 
-  return v6();
+  return v5();
 }
 
 uint64_t dispatch thunk of LACDTOPendingPolicyEvaluationStore.load()(uint64_t a1)
 {
-  v3 = *(*v1 + 16);
-  v6 = *v1;
+  v5 = *v1;
 
-  v4 = *(v6 + 8);
+  v3 = *(v5 + 8);
 
-  return v4(a1);
+  return v3(a1);
 }
 
 uint64_t partial apply for @objc closure #1 in LACDTOPendingPolicyEvaluationStore.load()()
@@ -7818,35 +6622,29 @@ uint64_t partial apply for @objc closure #1 in LACDTOPendingPolicyEvaluationStor
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5TA(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of LACPreboardStorageType.clean(for:);
 
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v5);
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v4);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5TA_40(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of LACPreboardStorageType.enableBatch(for:);
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of LACPreboardStorageType.enableBatch(for:);
 
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v5);
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v4);
 }
 
 uint64_t objectdestroy_2Tm_3()
 {
-  v1 = v0[2];
   swift_unknownObjectRelease();
-  v2 = v0[4];
-
-  v3 = v0[6];
 
   return MEMORY[0x1EEE6BDD0](v0, 56, 7);
 }
@@ -7868,18 +6666,17 @@ uint64_t closure #1 in LACDTOPendingPolicyEvaluationStore.loadPersistedEvaluatio
 
 uint64_t objectdestroy_8Tm_1()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 40, 7);
 }
 
-uint64_t lazy protocol witness table accessor for type [LACDTOMutablePendingPolicyEvaluation] and conformance <A> [A](unint64_t *a1, unint64_t *a2)
+uint64_t lazy protocol witness table accessor for type [LACDTOMutablePendingPolicyEvaluation] and conformance <A> [A](unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCGMd, &_sSay23LocalAuthenticationCore36LACDTOMutablePendingPolicyEvaluationCGMR);
-    lazy protocol witness table accessor for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation(a2, type metadata accessor for LACDTOMutablePendingPolicyEvaluation);
+    lazy protocol witness table accessor for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation(a2, type metadata accessor for LACDTOMutablePendingPolicyEvaluation, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7889,14 +6686,13 @@ uint64_t lazy protocol witness table accessor for type [LACDTOMutablePendingPoli
 
 uint64_t objectdestroy_62Tm(void (*a1)(void))
 {
-  v3 = *(v1 + 24);
 
   a1(*(v1 + 32));
 
   return MEMORY[0x1EEE6BDD0](v1, 40, 7);
 }
 
-uint64_t lazy protocol witness table accessor for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type LACDTOMutablePendingPolicyEvaluation and conformance LACDTOMutablePendingPolicyEvaluation(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7937,16 +6733,13 @@ unint64_t LACConcurrentEvaluationAllowListBundleID.rawValue.getter()
 
   if (*v0)
   {
-    result = v1;
+    return v1;
   }
 
   else
   {
-    result = 0xD000000000000017;
+    return 0xD000000000000017;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance LACConcurrentEvaluationAllowListBundleID(_BYTE *a1, _BYTE *a2)
@@ -8039,23 +6832,19 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance LAC
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance LACConcurrentEvaluationAllowListBundleID()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance LACConcurrentEvaluationAllowListBundleID()
+uint64_t protocol witness for Hashable.hash(into:) in conformance LACConcurrentEvaluationAllowListBundleID(uint64_t a1)
 {
-  *v0;
-  *v0;
   String.hash(into:)();
 }
 
 Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LACConcurrentEvaluationAllowListBundleID()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -9028,12 +7817,12 @@ void crypto_encryptText_version1()
 {
   OUTLINED_FUNCTION_14_0();
   OUTLINED_FUNCTION_9_0();
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   ccaes_gcm_encrypt_mode();
   ccgcm_context_size();
   OUTLINED_FUNCTION_6_0();
   v6 = MEMORY[0x1EEE9AC00](v5);
-  OUTLINED_FUNCTION_3_0(v6, v7, v8, v9, v10, v11, v12, v13, v21);
+  OUTLINED_FUNCTION_3_0(v6, v7, v8, v9, v10, v11, v12, v13, v20);
   if (v4)
   {
     if (v2)
@@ -9047,32 +7836,9 @@ void crypto_encryptText_version1()
             v14 = v1 + 32;
             if (v1 != -32)
             {
-              if (v14 > *v0)
+              if (v14 > *v0 || (OUTLINED_FUNCTION_2_0(), v15 = ccgcm_init(), !checkCCError(v15, "ccgcm_init")) && !generateRandom(v3, 16) && (OUTLINED_FUNCTION_0_10(), v16 = ccgcm_set_iv(), !checkCCError(v16, "ccgcm_set_iv")) && (OUTLINED_FUNCTION_2_0(), v17 = ccgcm_update(), !checkCCError(v17, "ccgcm_update")) && (OUTLINED_FUNCTION_0_10(), v18 = ccgcm_finalize(), !checkCCError(v18, "ccgcm_finalize")))
               {
-                goto LABEL_13;
-              }
-
-              OUTLINED_FUNCTION_2_0();
-              v15 = ccgcm_init();
-              if (!checkCCError(v15, "ccgcm_init") && !generateRandom(v3, 16))
-              {
-                OUTLINED_FUNCTION_0_10();
-                v16 = ccgcm_set_iv();
-                if (!checkCCError(v16, "ccgcm_set_iv"))
-                {
-                  OUTLINED_FUNCTION_2_0();
-                  v17 = ccgcm_update();
-                  if (!checkCCError(v17, "ccgcm_update"))
-                  {
-                    OUTLINED_FUNCTION_0_10();
-                    v18 = ccgcm_finalize();
-                    if (!checkCCError(v18, "ccgcm_finalize"))
-                    {
-LABEL_13:
-                      *v0 = v14;
-                    }
-                  }
-                }
+                *v0 = v14;
               }
             }
           }
@@ -9087,10 +7853,9 @@ LABEL_13:
   if (v19)
   {
     OUTLINED_FUNCTION_12_1();
-    printf("%s: %s: returning, err = %ld.\n", v22, v23, v24);
+    printf("%s: %s: returning, err = %ld.\n", v21, v22, v23);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_15();
 }
 
@@ -9098,12 +7863,12 @@ void crypto_encryptText_version2()
 {
   OUTLINED_FUNCTION_14_0();
   OUTLINED_FUNCTION_9_0();
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   ccaes_gcm_encrypt_mode();
   ccgcm_context_size();
   OUTLINED_FUNCTION_6_0();
   v6 = MEMORY[0x1EEE9AC00](v5);
-  OUTLINED_FUNCTION_3_0(v6, v7, v8, v9, v10, v11, v12, v13, v25);
+  OUTLINED_FUNCTION_3_0(v6, v7, v8, v9, v10, v11, v12, v13, v24);
   if (v4)
   {
     if (v2)
@@ -9117,43 +7882,9 @@ void crypto_encryptText_version2()
             v14 = v1 + 33;
             if (v1 != -33)
             {
-              if (v14 > *v0)
+              if (v14 > *v0 || (OUTLINED_FUNCTION_2_0(), v15 = ccgcm_init(), !checkCCError(v15, "ccgcm_init")) && (*v3 = 2, v16 = (v3 + 1), OUTLINED_FUNCTION_13_0(), !v17) && !generateRandom(v16, 16) && (OUTLINED_FUNCTION_0_10(), v18 = ccgcm_set_iv(), !checkCCError(v18, "ccgcm_set_iv")) && (v19 = v16 + 16, OUTLINED_FUNCTION_13_0(), !v20) && (OUTLINED_FUNCTION_2_0(), v21 = ccgcm_update(), !checkCCError(v21, "ccgcm_update")) && !__CFADD__(v19, v1) && (OUTLINED_FUNCTION_0_10(), v22 = ccgcm_finalize(), !checkCCError(v22, "ccgcm_finalize")))
               {
-                goto LABEL_16;
-              }
-
-              OUTLINED_FUNCTION_2_0();
-              v15 = ccgcm_init();
-              if (!checkCCError(v15, "ccgcm_init"))
-              {
-                *v3 = 2;
-                v16 = (v3 + 1);
-                OUTLINED_FUNCTION_13_0();
-                if (!v17 && !generateRandom(v16, 16))
-                {
-                  OUTLINED_FUNCTION_0_10();
-                  v18 = ccgcm_set_iv();
-                  if (!checkCCError(v18, "ccgcm_set_iv"))
-                  {
-                    v19 = v16 + 16;
-                    OUTLINED_FUNCTION_13_0();
-                    if (!v20)
-                    {
-                      OUTLINED_FUNCTION_2_0();
-                      v21 = ccgcm_update();
-                      if (!checkCCError(v21, "ccgcm_update") && !__CFADD__(v19, v1))
-                      {
-                        OUTLINED_FUNCTION_0_10();
-                        v22 = ccgcm_finalize();
-                        if (!checkCCError(v22, "ccgcm_finalize"))
-                        {
-LABEL_16:
-                          *v0 = v14;
-                        }
-                      }
-                    }
-                  }
-                }
+                *v0 = v14;
               }
             }
           }
@@ -9168,10 +7899,9 @@ LABEL_16:
   if (v23)
   {
     OUTLINED_FUNCTION_12_1();
-    printf("%s: %s: returning, err = %ld.\n", v26, v27, v28);
+    printf("%s: %s: returning, err = %ld.\n", v25, v26, v27);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_15();
 }
 
@@ -9183,12 +7913,11 @@ void crypto_decryptText_version1()
   v5 = v4;
   v7 = v6;
   v9 = v8;
-  v28 = *MEMORY[0x1E69E9840];
   ccaes_gcm_decrypt_mode();
   ccgcm_context_size();
   OUTLINED_FUNCTION_6_0();
   v11 = MEMORY[0x1EEE9AC00](v10);
-  OUTLINED_FUNCTION_3_0(v11, v12, v13, v14, v15, v16, v17, v18, v26);
+  OUTLINED_FUNCTION_3_0(v11, v12, v13, v14, v15, v16, v17, v18, v25);
   if (v9)
   {
     if (v7)
@@ -9203,33 +7932,9 @@ void crypto_decryptText_version1()
             v20 = v5 - 32;
             if (v19)
             {
-              if (*v1 < v20)
+              if (*v1 < v20 || (OUTLINED_FUNCTION_2_0(), v21 = ccgcm_init(), !checkCCError(v21, "ccgcm_init")) && (OUTLINED_FUNCTION_0_10(), v22 = ccgcm_set_iv(), !checkCCError(v22, "ccgcm_set_iv")) && (OUTLINED_FUNCTION_2_0(), v23 = ccgcm_update(), !checkCCError(v23, "ccgcm_update")) && (OUTLINED_FUNCTION_0_10(), ccgcm_finalize(), v24 = cc_cmp_safe(), !checkCCError(v24, "cc_cmp_safe")))
               {
-                goto LABEL_13;
-              }
-
-              OUTLINED_FUNCTION_2_0();
-              v21 = ccgcm_init();
-              if (!checkCCError(v21, "ccgcm_init"))
-              {
-                OUTLINED_FUNCTION_0_10();
-                v22 = ccgcm_set_iv();
-                if (!checkCCError(v22, "ccgcm_set_iv"))
-                {
-                  OUTLINED_FUNCTION_2_0();
-                  v23 = ccgcm_update();
-                  if (!checkCCError(v23, "ccgcm_update"))
-                  {
-                    OUTLINED_FUNCTION_0_10();
-                    ccgcm_finalize();
-                    v24 = cc_cmp_safe();
-                    if (!checkCCError(v24, "cc_cmp_safe"))
-                    {
-LABEL_13:
-                      *v1 = v20;
-                    }
-                  }
-                }
+                *v1 = v20;
               }
             }
           }
@@ -9244,10 +7949,9 @@ LABEL_13:
   if (v19)
   {
     OUTLINED_FUNCTION_12_1();
-    printf("%s: %s: returning, err = %ld.\n", v27, 0, 0);
+    printf("%s: %s: returning, err = %ld.\n", v26, 0, 0);
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_15();
 }
 
@@ -9259,12 +7963,11 @@ void crypto_decryptText_version2()
   v5 = v4;
   v7 = v6;
   v9 = v8;
-  v30 = *MEMORY[0x1E69E9840];
   ccaes_gcm_decrypt_mode();
   ccgcm_context_size();
   OUTLINED_FUNCTION_6_0();
   v11 = MEMORY[0x1EEE9AC00](v10);
-  OUTLINED_FUNCTION_3_0(v11, v12, v13, v14, v15, v16, v17, v18, v28);
+  OUTLINED_FUNCTION_3_0(v11, v12, v13, v14, v15, v16, v17, v18, v27);
   if (v9)
   {
     if (v7)
@@ -9278,41 +7981,9 @@ void crypto_decryptText_version2()
             if (v5 >= 0x22)
             {
               v19 = v5 - 33;
-              if (*v1 < v19)
+              if (*v1 < v19 || (OUTLINED_FUNCTION_13_0(), !v20) && *v7 == 2 && (OUTLINED_FUNCTION_2_0(), v21 = ccgcm_init(), !checkCCError(v21, "ccgcm_init")) && (OUTLINED_FUNCTION_0_10(), v22 = ccgcm_set_iv(), !checkCCError(v22, "ccgcm_set_iv")) && (OUTLINED_FUNCTION_13_0(), !v23) && (OUTLINED_FUNCTION_2_0(), v24 = ccgcm_update(), !checkCCError(v24, "ccgcm_update")) && !__CFADD__(v7 + 17, v19) && (OUTLINED_FUNCTION_0_10(), ccgcm_finalize(), v25 = cc_cmp_safe(), !checkCCError(v25, "cc_cmp_safe")))
               {
-                goto LABEL_16;
-              }
-
-              OUTLINED_FUNCTION_13_0();
-              if (!v20 && *v7 == 2)
-              {
-                OUTLINED_FUNCTION_2_0();
-                v21 = ccgcm_init();
-                if (!checkCCError(v21, "ccgcm_init"))
-                {
-                  OUTLINED_FUNCTION_0_10();
-                  v22 = ccgcm_set_iv();
-                  if (!checkCCError(v22, "ccgcm_set_iv"))
-                  {
-                    OUTLINED_FUNCTION_13_0();
-                    if (!v23)
-                    {
-                      OUTLINED_FUNCTION_2_0();
-                      v24 = ccgcm_update();
-                      if (!checkCCError(v24, "ccgcm_update") && !__CFADD__(v7 + 17, v19))
-                      {
-                        OUTLINED_FUNCTION_0_10();
-                        ccgcm_finalize();
-                        v25 = cc_cmp_safe();
-                        if (!checkCCError(v25, "cc_cmp_safe"))
-                        {
-LABEL_16:
-                          *v1 = v19;
-                        }
-                      }
-                    }
-                  }
-                }
+                *v1 = v19;
               }
             }
           }
@@ -9327,10 +7998,9 @@ LABEL_16:
   if (v26)
   {
     OUTLINED_FUNCTION_12_1();
-    printf("%s: %s: returning, err = %ld.\n", v29, 0, 0);
+    printf("%s: %s: returning, err = %ld.\n", v28, 0, 0);
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_15();
 }
 
@@ -9343,20 +8013,20 @@ uint64_t LibCall_ACMKernelControl_Block(uint64_t a1)
   v9 = v8;
   v11 = v10;
   v12 = v1;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMKernelControl_Block");
   }
 
-  bzero(v19, 0x2000uLL);
-  v18 = 0x2000;
-  v13 = LibCall_ACMKernelControl(v12, v11, v9, v7, v5, v19, &v18);
+  bzero(v18, 0x2000uLL);
+  v17 = 0x2000;
+  v13 = LibCall_ACMKernelControl(v12, v11, v9, v7, v5, v18, &v17);
   if (v3)
   {
-    if (v18)
+    if (v17)
     {
-      v14 = v19;
+      v14 = v18;
     }
 
     else
@@ -9382,26 +8052,25 @@ uint64_t LibCall_ACMKernelControl_Block(uint64_t a1)
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMKernelControl_Block", v13);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 uint64_t LibCall_ACMSEPControl_Block(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v25[128] = *MEMORY[0x1E69E9840];
+  v24[128] = *MEMORY[0x1E69E9840];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMSEPControl_Block");
   }
 
-  bzero(v25, 0x400uLL);
-  LibCall_ACMSEPControl(a1, a2, a3, a4, a5, a6, a7, v25, &v24, v22, v23, 1024, v25[0], v25[1], v25[2], v25[3], v25[4], v25[5], v25[6], v25[7], v25[8]);
+  bzero(v24, 0x400uLL);
+  LibCall_ACMSEPControl(a1, a2, a3, a4, a5, a6, a7, v24, &v23, v21, v22, 1024, v24[0], v24[1], v24[2], v24[3], v24[4], v24[5], v24[6], v24[7], v24[8]);
   v17 = v16;
   if (a8)
   {
-    if (v24)
+    if (v23)
     {
-      v18 = v25;
+      v18 = v24;
     }
 
     else
@@ -9427,11 +8096,10 @@ uint64_t LibCall_ACMSEPControl_Block(uint64_t a1, uint64_t a2, uint64_t a3, uint
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMSEPControl_Block", v17);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
-uint64_t LibCall_ACMGlobalContextVerifyPolicy_Block(uint64_t (*a1)(void), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+int *LibCall_ACMGlobalContextVerifyPolicy_Block(uint64_t (*a1)(void), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -9469,22 +8137,22 @@ uint64_t LibCall_ACMGlobalContextVerifyPolicy_Block(uint64_t (*a1)(void), uint64
 uint64_t LibCall_ACMGetAclAuthMethod_Block(uint64_t result, uint64_t a2, __n128 *a3, uint64_t a4)
 {
   v7 = result;
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (gACMLoggingLevel <= 0xAu)
   {
     result = printf("%s: %s: called.\n", "ACM", "LibCall_ACMGetAclAuthMethod_Block");
   }
 
-  memset(v14, 0, sizeof(v14));
-  v12 = 256;
+  memset(v13, 0, sizeof(v13));
+  v11 = 256;
   if (v7 && a3 && a4)
   {
-    v13 = 0uLL;
-    v11 = 16;
-    AclAuthMethod_Serialize = LibSer_GetAclAuthMethod_Serialize(a3, &v13, &v11);
-    if (!v9 && v11 == 16)
+    v12 = 0uLL;
+    v10 = 16;
+    AclAuthMethod_Serialize = LibSer_GetAclAuthMethod_Serialize(a3, &v12, &v10);
+    if (!v9 && v10 == 16)
     {
-      v7(a2, 31, 0, &v13, 16, v14, &v12, AclAuthMethod_Serialize);
+      v7(a2, 31, 0, &v12, 16, v13, &v11, AclAuthMethod_Serialize);
     }
 
     goto LABEL_9;
@@ -9498,14 +8166,13 @@ LABEL_9:
 
   if (gACMLoggingLevel <= 0xAu)
   {
-    result = printf("%s: %s: returning.\n", "ACM", "LibCall_ACMGetAclAuthMethod_Block");
+    return printf("%s: %s: returning.\n", "ACM", "LibCall_ACMGetAclAuthMethod_Block");
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-rsize_t verifyAclConstraintForOperationCommandInternal(rsize_t result, int a2, unsigned __int8 a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, char a9, uint64_t a10, int a11, unsigned int a12, uint64_t a13)
+uint64_t verifyAclConstraintForOperationCommandInternal(uint64_t result, int a2, unsigned __int8 a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, char a9, uint64_t a10, int a11, int a12, uint64_t a13)
 {
   v20 = result;
   if (gACMLoggingLevel <= 0xAu)
@@ -9676,18 +8343,18 @@ void Util_SafeDeallocParameters(unsigned int *a1, unsigned int a2)
 
 uint64_t ACMContextCreateWithFlags(uint64_t *a1, uint64_t a2)
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v11 = "ACMLib";
-    v12 = 2080;
-    v13 = "ACMContextCreateWithFlags";
+    v10 = "ACMLib";
+    v11 = 2080;
+    v12 = "ACMContextCreateWithFlags";
     _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v9 = 0;
-  v4 = LibCall_ACMContextCreate(ioKitTransport, &v9, a1, a2, &_logLevel, 1);
+  v8 = 0;
+  v4 = LibCall_ACMContextCreate(ioKitTransport, &v8, a1, a2, &_logLevel, 1);
   if (v4)
   {
     updateLogLevelFromKext();
@@ -9708,13 +8375,13 @@ uint64_t ACMContextCreateWithFlags(uint64_t *a1, uint64_t a2)
         }
 
         *buf = 136315906;
-        v11 = "ACMLib";
-        v12 = 2080;
-        v13 = "ACMContextCreateWithFlags";
-        v14 = 1024;
-        LODWORD(v15[0]) = v6;
-        WORD2(v15[0]) = 1024;
-        *(v15 + 6) = a2;
+        v10 = "ACMLib";
+        v11 = 2080;
+        v12 = "ACMContextCreateWithFlags";
+        v13 = 1024;
+        LODWORD(v14[0]) = v6;
+        WORD2(v14[0]) = 1024;
+        *(v14 + 6) = a2;
         _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: CS[%u] created (flags=0x%x).\n", buf, 0x22u);
       }
 
@@ -9725,43 +8392,42 @@ uint64_t ACMContextCreateWithFlags(uint64_t *a1, uint64_t a2)
   if (v5 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v11 = "ACMLib";
-    v12 = 2080;
-    v13 = "ACMContextCreateWithFlags";
-    v14 = 2048;
-    v15[0] = v4;
+    v10 = "ACMLib";
+    v11 = 2080;
+    v12 = "ACMContextCreateWithFlags";
+    v13 = 2048;
+    v14[0] = v4;
     _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 uint64_t ACMContextCreateWithExternalForm(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v11 = "ACMLib";
-    v12 = 2080;
-    v13 = "ACMContextCreateWithExternalForm";
+    v10 = "ACMLib";
+    v11 = 2080;
+    v12 = "ACMContextCreateWithExternalForm";
     _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v9 = 0;
-  v4 = LibCall_ACMContextCreateWithExternalForm(ioKitTransport, &v9, a1, a2, &_logLevel, 1);
+  v8 = 0;
+  v4 = LibCall_ACMContextCreateWithExternalForm(ioKitTransport, &v8, a1, a2, &_logLevel, 1);
   if (v4)
   {
     if (_logLevel <= 0x28u && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       v5 = *(v4 + 16);
       *buf = 136315650;
-      v11 = "ACMLib";
-      v12 = 2080;
-      v13 = "ACMContextCreateWithExternalForm";
-      v14 = 1024;
-      LODWORD(v15) = v5;
+      v10 = "ACMLib";
+      v11 = 2080;
+      v12 = "ACMContextCreateWithExternalForm";
+      v13 = 1024;
+      LODWORD(v14) = v5;
       _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: CS[%u] acquired.\n", buf, 0x1Cu);
     }
 
@@ -9777,28 +8443,28 @@ uint64_t ACMContextCreateWithExternalForm(uint64_t a1, uint64_t a2)
   if (v6 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v11 = "ACMLib";
-    v12 = 2080;
-    v13 = "ACMContextCreateWithExternalForm";
-    v14 = 2048;
-    v15 = v4;
+    v10 = "ACMLib";
+    v11 = 2080;
+    v12 = "ACMContextCreateWithExternalForm";
+    v13 = 2048;
+    v14 = v4;
     _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, -> ctx = %p.\n", buf, 0x20u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
-uint64_t ACMContextDelete(_DWORD *a1, int a2)
+uint64_t ACMContextDelete(_DWORD *a1, uint64_t a2)
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v16[2] = *MEMORY[0x1E69E9840];
   v4 = _logLevel;
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v13 = "ACMLib";
-    v14 = 2080;
-    v15 = "ACMContextDelete";
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextDelete";
     _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
     v4 = _logLevel;
   }
@@ -9808,23 +8474,23 @@ uint64_t ACMContextDelete(_DWORD *a1, int a2)
     v5 = a1[4];
     v6 = "NO";
     *buf = 136315906;
-    v13 = "ACMLib";
-    v15 = "ACMContextDelete";
-    v14 = 2080;
-    if (a2)
+    v12 = "ACMLib";
+    v14 = "ACMContextDelete";
+    v13 = 2080;
+    if (v2)
     {
       v6 = "YES";
     }
 
-    v16 = 1024;
-    LODWORD(v17[0]) = v5;
-    WORD2(v17[0]) = 2080;
-    *(v17 + 6) = v6;
+    v15 = 1024;
+    LODWORD(v16[0]) = v5;
+    WORD2(v16[0]) = 2080;
+    *(v16 + 6) = v6;
     _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: CS[%u] deleted (contextDestroyed=%s).\n", buf, 0x26u);
   }
 
-  v11 = a1;
-  v7 = LibCall_ACMContextDelete(ioKitTransport, &v11, a1, a2);
+  v10 = a1;
+  v7 = LibCall_ACMContextDelete(ioKitTransport, &v10, a1, v2);
   if (v7)
   {
     v8 = 70;
@@ -9838,14 +8504,1398 @@ uint64_t ACMContextDelete(_DWORD *a1, int a2)
   if (v8 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v13 = "ACMLib";
-    v14 = 2080;
-    v15 = "ACMContextDelete";
-    v16 = 2048;
-    v17[0] = v7;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextDelete";
+    v15 = 2048;
+    v16[0] = v7;
     _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
+}
+
+void ACMContextGetExternalForm(const void *a1, uint64_t a2)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    v4 = 136315394;
+    v5 = "ACMLib";
+    v6 = 2080;
+    v7 = "ACMContextGetExternalForm";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v4, 0x16u);
+  }
+
+  if (a1 && a2)
+  {
+    if (!init() && !performCommand(a1, 19, 0, a1, 0x10uLL, 0, 0))
+    {
+      (*(a2 + 16))(a2, a1, 16);
+      goto LABEL_9;
+    }
+  }
+
+  else if (!a2)
+  {
+    goto LABEL_9;
+  }
+
+  ACMContextGetExternalForm_cold_1(a2);
+LABEL_9:
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    v4 = 136315394;
+    v5 = "ACMLib";
+    v6 = 2080;
+    v7 = "ACMContextGetExternalForm";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", &v4, 0x16u);
+  }
+}
+
+uint64_t ACMContextRemoveCredentialsByType(_OWORD *a1, uint64_t a2)
+{
+  v2 = a2;
+  v9 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    v5 = 136315394;
+    v6 = "ACMLib";
+    v7 = 2080;
+    v8 = "ACMContextRemoveCredentialsByType";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v5, 0x16u);
+  }
+
+  return ACMContextRemoveCredentialsByTypeAndScope(a1, v2, 1);
+}
+
+uint64_t ACMContextContainsCredentialType(uint64_t a1, int a2)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    v5 = 136315394;
+    v6 = "ACMLib";
+    v7 = 2080;
+    v8 = "ACMContextContainsCredentialType";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v5, 0x16u);
+  }
+
+  return ACMContextContainsCredentialTypeEx(a1, a2, 0);
+}
+
+uint64_t ACMContextVerifyPolicy(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v11 = "ACMLib";
+    v12 = 2080;
+    v13 = "ACMContextVerifyPolicy";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
+  }
+
+  v9 = a1;
+  v6 = LibCall_ACMContextVerifyPolicy_Block(ioKitTransport, &v9, a1, a2, a3);
+  if (v6)
+  {
+    v7 = 70;
+  }
+
+  else
+  {
+    v7 = 10;
+  }
+
+  if (v7 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315650;
+    v11 = "ACMLib";
+    v12 = 2080;
+    v13 = "ACMContextVerifyPolicy";
+    v14 = 2048;
+    v15 = v6;
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
+  }
+
+  return v6;
+}
+
+uint64_t ACMContextVerifyPolicyWithPreflight(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v13 = "ACMLib";
+    v14 = 2080;
+    v15 = "ACMContextVerifyPolicyWithPreflight";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
+  }
+
+  v11 = a1;
+  v8 = LibCall_ACMContextVerifyPolicyWithPreflight_Block(ioKitTransport, &v11, a1, a2, a3, a4);
+  if (v8)
+  {
+    v9 = 70;
+  }
+
+  else
+  {
+    v9 = 10;
+  }
+
+  if (v9 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315650;
+    v13 = "ACMLib";
+    v14 = 2080;
+    v15 = "ACMContextVerifyPolicyWithPreflight";
+    v16 = 2048;
+    v17 = v8;
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
+  }
+
+  return v8;
+}
+
+void ACMGlobalContextVerifyPolicy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v13 = "ACMLib";
+    v14 = 2080;
+    v15 = "ACMGlobalContextVerifyPolicy";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
+  }
+
+  v11 = 0;
+  v10 = ACMContextCreateWithFlags(&v11, 0);
+  if (v10)
+  {
+    if (a5)
+    {
+      (*(a5 + 16))(a5, v10, 0, 0);
+    }
+  }
+
+  else
+  {
+    ACMContextVerifyPolicyEx(v11, a1, a2, a3, a4, 0xFFFFFFFFLL, a5);
+  }
+
+  if (v11)
+  {
+    ACMContextDelete(v11, 1);
+  }
+
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v13 = "ACMLib";
+    v14 = 2080;
+    v15 = "ACMGlobalContextVerifyPolicy";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", buf, 0x16u);
+  }
+}
+
+uint64_t ACMParseAclAndCopyConstraintCharacteristics(const void *a1, uint64_t a2, uint64_t a3)
+{
+  v27 = *MEMORY[0x1E69E9840];
+  __n = 4096;
+  size = 0;
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v22 = "ACMLib";
+    v23 = 2080;
+    v24 = "ACMParseAclAndCopyConstraintCharacteristics";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
+  }
+
+  v6 = 4294967293;
+  if (!a1 || !a2 || !a3)
+  {
+    goto LABEL_28;
+  }
+
+  SerializedProcessAclSize = init();
+  if (SerializedProcessAclSize || (SerializedProcessAclSize = GetSerializedProcessAclSize(0, a1, a2, 0, 0, 0, 0, 0, &size), SerializedProcessAclSize))
+  {
+    v6 = SerializedProcessAclSize;
+LABEL_28:
+    (*(a3 + 16))(a3, v6, 0, 4096);
+    goto LABEL_19;
+  }
+
+  v8 = size;
+  v9 = acm_mem_alloc_data(size);
+  acm_mem_alloc_info("<data>", v9, v8, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 727, "ACMParseAclAndCopyConstraintCharacteristics");
+  if (!v9)
+  {
+    v6 = 4294967292;
+    goto LABEL_28;
+  }
+
+  v10 = SerializeProcessAcl(0, a1, a2, 0, 0, 0, 0, 0, v9, &size);
+  if (v10)
+  {
+    v6 = v10;
+    v12 = 0;
+    v14 = 0;
+    v11 = 4096;
+    goto LABEL_15;
+  }
+
+  v11 = 4096;
+  v12 = acm_mem_alloc_data(0x1000uLL);
+  acm_mem_alloc_info("<data>", v12, 4096, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 733, "ACMParseAclAndCopyConstraintCharacteristics");
+  if (!v12)
+  {
+    v14 = 0;
+LABEL_31:
+    v6 = 4294967292;
+    goto LABEL_15;
+  }
+
+  v13 = performCommand(0, 20, 0, v9, size, v12, &__n);
+  v11 = __n;
+  if (v13)
+  {
+    v6 = v13;
+    v14 = 0;
+    goto LABEL_15;
+  }
+
+  v14 = acm_mem_alloc_data(__n);
+  acm_mem_alloc_info("<data>", v14, v11, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 739, "ACMParseAclAndCopyConstraintCharacteristics");
+  v11 = __n;
+  if (!v14)
+  {
+    goto LABEL_31;
+  }
+
+  memcpy(v14, v12, __n);
+  v6 = 0;
+  v11 = __n;
+LABEL_15:
+  (*(a3 + 16))(a3, v6, v14, v11);
+  v15 = size;
+  acm_mem_free_info("<data>", v9, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 750, "ACMParseAclAndCopyConstraintCharacteristics");
+  acm_mem_free_data(v9, v15);
+  if (v12)
+  {
+    acm_mem_free_info("<data>", v12, 0x1000uLL, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 753, "ACMParseAclAndCopyConstraintCharacteristics");
+    acm_mem_free_data(v12, 0x1000uLL);
+  }
+
+  if (v14)
+  {
+    v16 = __n;
+    acm_mem_free_info("<data>", v14, __n, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 756, "ACMParseAclAndCopyConstraintCharacteristics");
+    acm_mem_free_data(v14, v16);
+  }
+
+LABEL_19:
+  if (v6)
+  {
+    v17 = 70;
+  }
+
+  else
+  {
+    v17 = 10;
+  }
+
+  if (v17 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315650;
+    v22 = "ACMLib";
+    v23 = 2080;
+    v24 = "ACMParseAclAndCopyConstraintCharacteristics";
+    v25 = 2048;
+    v26 = v6;
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
+  }
+
+  return v6;
+}
+
+void ACMGetAclAuthMethod(__n128 *a1, uint64_t a2)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v6 = "ACMLib";
+    v7 = 2080;
+    v8 = "ACMGetAclAuthMethod";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
+  }
+
+  v4 = a1;
+  LibCall_ACMGetAclAuthMethod_Block(ioKitTransport, &v4, a1, a2);
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v6 = "ACMLib";
+    v7 = 2080;
+    v8 = "ACMGetAclAuthMethod";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", buf, 0x16u);
+  }
+}
+
+uint64_t ACMSetEnvironmentVariable(int a1)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v7 = "ACMLib";
+    v8 = 2080;
+    v9 = "ACMSetEnvironmentVariable";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
+  }
+
+  LibCall_ACMSetEnvironmentVariable();
+  v3 = v2;
+  if (v2)
+  {
+    v4 = 70;
+  }
+
+  else
+  {
+    v4 = 10;
+  }
+
+  if (v4 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315906;
+    v7 = "ACMLib";
+    v8 = 2080;
+    v9 = "ACMSetEnvironmentVariable";
+    v10 = 2048;
+    v11 = v3;
+    v12 = 1024;
+    v13 = a1;
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld, var=%u.\n", buf, 0x26u);
+  }
+
+  return v3;
+}
+
+uint64_t ACMKernelControl(int a1)
+{
+  v13 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v6 = "ACMLib";
+    v7 = 2080;
+    v8 = "ACMKernelControl";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
+  }
+
+  v2 = LibCall_ACMKernelControl_Block(ioKitTransport);
+  if (v2)
+  {
+    v3 = 70;
+  }
+
+  else
+  {
+    v3 = 10;
+  }
+
+  if (v3 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315906;
+    v6 = "ACMLib";
+    v7 = 2080;
+    v8 = "ACMKernelControl";
+    v9 = 2048;
+    v10 = v2;
+    v11 = 1024;
+    v12 = a1;
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld, code=%u.\n", buf, 0x26u);
+  }
+
+  return v2;
+}
+
+void ACMGlobalContextCredentialGetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = a2;
+  v5 = a1;
+  v11 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v8 = "ACMLib";
+    v9 = 2080;
+    v10 = "ACMGlobalContextCredentialGetProperty";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
+  }
+
+  v6 = 0;
+  LibCall_ACMGlobalContextCredentialGetProperty_Block(ioKitTransport, &v6, v5, v4, a3);
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v8 = "ACMLib";
+    v9 = 2080;
+    v10 = "ACMGlobalContextCredentialGetProperty";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", buf, 0x16u);
+  }
+}
+
+void ACMContextCredentialGetProperty(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = a3;
+  v6 = a2;
+  v30 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    *&buf[4] = "ACMLib";
+    *&buf[12] = 2080;
+    *&buf[14] = "ACMContextCredentialGetProperty";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
+  }
+
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  memset(buf, 0, sizeof(buf));
+  v10 = 256;
+  if (a4)
+  {
+    v9 = a1;
+    v8 = LibCall_ACMContextCredentialGetProperty(ioKitTransport, &v9, a1, v6, v5, buf, &v10);
+    (*(a4 + 16))(a4, v8, buf, v10);
+  }
+
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *v11 = 136315394;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextCredentialGetProperty";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", v11, 0x16u);
+  }
+}
+
+uint64_t ACMContextSetData(uint64_t a1, int a2, int a3, int a4)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    v11 = 136315394;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextSetData";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v11, 0x16u);
+  }
+
+  v8 = ACMContextSetDataEx(a1, a2, 0, 0, a3, a4);
+  if (v8)
+  {
+    v9 = 70;
+  }
+
+  else
+  {
+    v9 = 10;
+  }
+
+  if (v9 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    v11 = 136315650;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextSetData";
+    v15 = 2048;
+    v16 = v8;
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", &v11, 0x20u);
+  }
+
+  return v8;
+}
+
+uint64_t ACMContextSetDataEx(uint64_t a1, int a2, int a3, int a4, int a5, int a6)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    *&buf[4] = "ACMLib";
+    *&buf[12] = 2080;
+    *&buf[14] = "ACMContextSetDataEx";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
+  }
+
+  v12 = LibCall_ACMContextSetData(ioKitTransport, &v16, a1, a2, a3, a4, a5, a6, v15, a1, *buf, *&buf[8], *&buf[16], v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28);
+  if (v12)
+  {
+    v13 = 70;
+  }
+
+  else
+  {
+    v13 = 10;
+  }
+
+  if (v13 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315650;
+    *&buf[4] = "ACMLib";
+    *&buf[12] = 2080;
+    *&buf[14] = "ACMContextSetDataEx";
+    *&buf[22] = 2048;
+    v18 = v12;
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
+  }
+
+  return v12;
+}
+
+uint64_t ACMContextGetData(uint64_t a1, int a2, uint64_t a3)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    v9 = 136315394;
+    v10 = "ACMLib";
+    v11 = 2080;
+    v12 = "ACMContextGetData";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v9, 0x16u);
+  }
+
+  Data = ACMContextGetDataEx(a1, a2, 0, 0, a3);
+  if (Data)
+  {
+    v7 = 70;
+  }
+
+  else
+  {
+    v7 = 10;
+  }
+
+  if (v7 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    v9 = 136315650;
+    v10 = "ACMLib";
+    v11 = 2080;
+    v12 = "ACMContextGetData";
+    v13 = 2048;
+    v14 = Data;
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", &v9, 0x20u);
+  }
+
+  return Data;
+}
+
+uint64_t ACMContextGetDataProperty(uint64_t a1, unsigned __int16 a2, unsigned __int16 a3, uint64_t a4)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    v11 = 136315394;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextGetDataProperty";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v11, 0x16u);
+  }
+
+  Data = ACMContextGetData(a1, a2 | (a3 << 16), a4);
+  if (Data)
+  {
+    v9 = 70;
+  }
+
+  else
+  {
+    v9 = 10;
+  }
+
+  if (v9 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    v11 = 136315650;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextGetDataProperty";
+    v15 = 2048;
+    v16 = Data;
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", &v11, 0x20u);
+  }
+
+  return Data;
+}
+
+uint64_t ACMContextCopyData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v15 = "ACMLib";
+    v16 = 2080;
+    v17 = "ACMContextCopyData";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
+  }
+
+  v13 = 0;
+  v10 = LibCall_ACMContextCopyData(ioKitTransport, &v13, a1, a2, a3, a4);
+  if (v10)
+  {
+    v11 = 70;
+  }
+
+  else
+  {
+    v11 = 10;
+  }
+
+  if (v11 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315650;
+    v15 = "ACMLib";
+    v16 = 2080;
+    v17 = "ACMContextCopyData";
+    v18 = 2048;
+    v19 = v10;
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
+  }
+
+  return v10;
+}
+
+uint64_t ACMContextGetInfo(__int128 *a1, uint64_t a2, void *a3)
+{
+  v4 = a2;
+  v16 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v11 = "ACMLib";
+    v12 = 2080;
+    v13 = "ACMContextGetInfo";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
+  }
+
+  v9 = a1;
+  v6 = LibCall_ACMContextGetInfo(ioKitTransport, &v9, a1, v4, a3);
+  if (v6)
+  {
+    v7 = 70;
+  }
+
+  else
+  {
+    v7 = 10;
+  }
+
+  if (v7 >= _logLevel && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315650;
+    v11 = "ACMLib";
+    v12 = 2080;
+    v13 = "ACMContextGetInfo";
+    v14 = 2048;
+    v15 = v6;
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
+  }
+
+  return v6;
+}
+
+void updateLogLevelFromKext()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v4 = "ACMLib";
+    v5 = 2080;
+    v6 = "updateLogLevelFromKext";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
+  }
+
+  output = 0;
+  outputCnt = 1;
+  if (IOConnectCallScalarMethod(dword_1EB6D62A4, 2u, 0, 0, &output, &outputCnt))
+  {
+    goto LABEL_12;
+  }
+
+  v0 = output;
+  _logLevel = output;
+  if (output <= 0x1EuLL && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    updateLogLevelFromKext_cold_1();
+LABEL_12:
+    v0 = _logLevel;
+  }
+
+  if (v0 <= 0xA && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v4 = "ACMLib";
+    v5 = 2080;
+    v6 = "updateLogLevelFromKext";
+    _os_log_impl(&dword_1B0233000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", buf, 0x16u);
+  }
+}
+
+void updateLogLevelFromKext_cold_1()
+{
+  OUTLINED_FUNCTION_19_0();
+  OUTLINED_FUNCTION_8_1();
+  _os_log_impl(v0, v1, v2, v3, v4, 0x1Cu);
+}
+
+uint64_t LibCall_ACMContextDelete(void (*a1)(uint64_t, uint64_t, void, void *, uint64_t, void, void), uint64_t a2, void *a3, int a4)
+{
+  if (gACMLoggingLevel <= 0xAu)
+  {
+    printf("%s: %s: called.\n", "ACM", "LibCall_ACMContextDelete");
+  }
+
+  if (a1 && a3)
+  {
+    if (a4)
+    {
+      a1(a2, 2, 0, a3, 16, 0, 0);
+    }
+
+    goto LABEL_7;
+  }
+
+  if (a3)
+  {
+LABEL_7:
+    acm_mem_free_info("ACMHandleWithPayload", a3, 0x14uLL, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/common/LibCall.c", 172, "LibCall_ACMContextDelete");
+    acm_mem_free(a3, 0x14uLL);
+    v8 = 0;
+    v9 = 10;
+    goto LABEL_8;
+  }
+
+  v9 = 70;
+  v8 = 4294967293;
+LABEL_8:
+  if (v9 >= gACMLoggingLevel)
+  {
+    printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMContextDelete", v8);
+  }
+
+  return v8;
+}
+
+uint64_t LibCall_ACMKernelControl(uint64_t (*a1)(uint64_t, uint64_t, void, char *, size_t, uint64_t, uint64_t), uint64_t a2, int a3, const void *a4, size_t a5, uint64_t a6, uint64_t a7)
+{
+  v13 = a1;
+  v20[1] = *MEMORY[0x1E69E9840];
+  if (gACMLoggingLevel <= 0xAu)
+  {
+    a1 = printf("%s: %s: called.\n", "ACM", "LibCall_ACMKernelControl");
+  }
+
+  if (!v13)
+  {
+    goto LABEL_16;
+  }
+
+  v14 = a5 != 0;
+  if (a4)
+  {
+    v14 = a5 - 4097 < 0xFFFFFFFFFFFFF000;
+  }
+
+  if (v14)
+  {
+LABEL_16:
+    v18 = 70;
+    v17 = 4294967293;
+  }
+
+  else
+  {
+    v20[0] = v20;
+    MEMORY[0x1EEE9AC00](a1);
+    v15 = (v20 - ((a5 + 19) & 0xFFFFFFFFFFFFFFF0));
+    bzero(v15, a5 + 4);
+    *v15 = a3;
+    v16 = v15 + 1;
+    if (a5)
+    {
+      memcpy(v15 + 1, a4, a5);
+      v16 = (v16 + a5);
+    }
+
+    if (v16 != (v15 + a5 + 4))
+    {
+      LibCall_ACMKernelControl_cold_1();
+    }
+
+    v17 = v13(a2, 26, 0, v20 - ((a5 + 19) & 0xFFFFFFFFFFFFFFF0), a5 + 4, a6, a7);
+    if (v17)
+    {
+      v18 = 70;
+    }
+
+    else
+    {
+      v18 = 10;
+    }
+  }
+
+  if (v18 >= gACMLoggingLevel)
+  {
+    printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMKernelControl", v17);
+  }
+
+  return v17;
+}
+
+void OUTLINED_FUNCTION_37()
+{
+
+  LibCall_ACMSetEnvironmentVariable();
+}
+
+uint64_t processAclCommandInternal(uint64_t (*a1)(uint64_t, void, void, void *, size_t, _DWORD *, unint64_t *), uint64_t a2, int a3, _OWORD *a4, unsigned __int8 *a5, uint64_t a6, unsigned __int8 *a7, uint64_t a8, const void *a9, unsigned int a10, unsigned int a11, _DWORD *a12, BOOL *a13, void *a14, unint64_t *a15)
+{
+  v19 = gACMLoggingLevel;
+  v20 = "processAclCommandInternal";
+  if (gACMLoggingLevel <= 0xAu)
+  {
+    printf("%s: %s: called.\n", "ACM", "processAclCommandInternal");
+    v19 = gACMLoggingLevel;
+  }
+
+  if (v19 <= 0x14)
+  {
+    printf("%s: %s: command = %u.\n", "ACM", "processAclCommandInternal", a3);
+    OUTLINED_FUNCTION_10_2();
+    if (!(!v28 & v21))
+    {
+      printf("%s: %s: context = %p.\n", "ACM", "processAclCommandInternal", a4);
+      OUTLINED_FUNCTION_10_2();
+      if (!(!v28 & v21))
+      {
+        printf("%s: %s: acl = %p, aclLength = %zu.\n", "ACM", "processAclCommandInternal", a5, a6);
+        OUTLINED_FUNCTION_10_2();
+        if (!(!v28 & v21))
+        {
+          printf("%s: %s (len=%u): acl:", "ACM", "processAclCommandInternal", a6);
+          v19 = gACMLoggingLevel;
+        }
+      }
+    }
+  }
+
+  if (a6)
+  {
+    v22 = a6;
+    v23 = a5;
+    do
+    {
+      if (v19 <= 0x14)
+      {
+        printf("%02x ", *v23);
+        v19 = gACMLoggingLevel;
+      }
+
+      ++v23;
+      --v22;
+    }
+
+    while (v22);
+  }
+
+  if (v19 < 0x15)
+  {
+    putchar(10);
+    OUTLINED_FUNCTION_10_2();
+    if (!(!v28 & v21))
+    {
+      printf("%s: %s: operation = %p, operationLength = %zu.\n", "ACM", "processAclCommandInternal", a7, a8);
+      OUTLINED_FUNCTION_10_2();
+      if (!(!v28 & v21))
+      {
+        printf("%s: %s (len=%u): operation:", "ACM", "processAclCommandInternal", a8);
+        v19 = gACMLoggingLevel;
+      }
+    }
+  }
+
+  v42 = a3;
+  if (a8)
+  {
+    v24 = a8;
+    v25 = a7;
+    do
+    {
+      if (v19 <= 0x14)
+      {
+        printf("%02x ", *v25);
+        v19 = gACMLoggingLevel;
+      }
+
+      ++v25;
+      --v24;
+    }
+
+    while (v24);
+  }
+
+  if (v19 < 0x15)
+  {
+    putchar(10);
+    OUTLINED_FUNCTION_10_2();
+    if (!(!v28 & v21))
+    {
+      printf("%s: %s: parameters = %p, parameterCount = %u.\n", "ACM", "processAclCommandInternal", a9, a10);
+      OUTLINED_FUNCTION_10_2();
+      if (!(!v28 & v21))
+      {
+        printf("%s: %s: maxGlobalCredentialAge = %u.\n", "ACM", "processAclCommandInternal", a11);
+        OUTLINED_FUNCTION_10_2();
+        if (!(!v28 & v21))
+        {
+          printf("%s: %s: constraintState = %p.\n", "ACM", "processAclCommandInternal", a12);
+          OUTLINED_FUNCTION_10_2();
+          if (!(!v28 & v21))
+          {
+            printf("%s: %s: requirePasscode = %p.\n", "ACM", "processAclCommandInternal", a13);
+          }
+        }
+      }
+    }
+  }
+
+  if (a7 || a9 || a12)
+  {
+    if (a5)
+    {
+      v28 = a6 == 0;
+    }
+
+    else
+    {
+      v28 = 1;
+    }
+
+    v29 = v28;
+    OUTLINED_FUNCTION_31_0();
+    if (!a7)
+    {
+      goto LABEL_79;
+    }
+
+    if (!a8)
+    {
+      goto LABEL_79;
+    }
+
+    if (v29)
+    {
+      goto LABEL_79;
+    }
+
+    v20 = 4294967293;
+    if ((a9 != 0) == (a10 == 0) || !a12)
+    {
+      goto LABEL_79;
+    }
+
+    v48 = 0;
+    v47 = 4096;
+    if (gACMLoggingLevel <= 0xAu)
+    {
+      printf("%s: %s: called.\n", "ACM", "processAclInternal");
+    }
+
+    SerializedProcessAclSize = GetSerializedProcessAclSize(a4, a5, a6, a7, a8, a11, a9, a10, &v48);
+    if (SerializedProcessAclSize)
+    {
+      v20 = SerializedProcessAclSize;
+      v40 = 70;
+      goto LABEL_74;
+    }
+
+    v31 = v48;
+    v32 = acm_mem_alloc_data(v48);
+    acm_mem_alloc_info("<data>", v32, v31, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/common/LibCall.c", 1841, "processAclInternal");
+    if (!v32)
+    {
+      v40 = 70;
+      v20 = 4294967292;
+      goto LABEL_74;
+    }
+
+    v47 = 4096;
+    v33 = acm_mem_alloc_data(0x1000uLL);
+    acm_mem_alloc_info("<data>", v33, 4096, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/common/LibCall.c", 1845, "processAclInternal");
+    if (!v33)
+    {
+      v37 = 0;
+      v36 = 0;
+      v20 = 4294967292;
+      goto LABEL_68;
+    }
+
+    v34 = SerializeProcessAcl(a4, a5, a6, a7, a8, a11, a9, a10, v32, &v48);
+    if (v34 || (v34 = a1(a2, v42, 0, v32, v48, v33, &v47), v34))
+    {
+      v20 = v34;
+      v36 = 0;
+      v37 = 0;
+      goto LABEL_67;
+    }
+
+    v35 = v47;
+    if (v47 >= 8)
+    {
+      *a12 = *v33;
+      if (a13)
+      {
+        *a13 = v33[1] != 0;
+      }
+
+      v20 = 0;
+      v36 = 0;
+      if (v42 != 30 || !a14)
+      {
+        v37 = 0;
+        goto LABEL_67;
+      }
+
+      v37 = 0;
+      if (!a15)
+      {
+LABEL_67:
+        acm_mem_free_info("<data>", v33, 0x1000uLL, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/common/LibCall.c", 1882, "processAclInternal");
+        acm_mem_free_data(v33, 0x1000uLL);
+LABEL_68:
+        acm_mem_free_info("<data>", v32, v48, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/common/LibCall.c", 1886, "processAclInternal");
+        v38 = OUTLINED_FUNCTION_18_1();
+        acm_mem_free_data(v38, v39);
+        if (v20 && v37)
+        {
+          acm_mem_free_info("<data>", v37, v36, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/common/LibCall.c", 1890, "processAclInternal");
+          acm_mem_free_data(v37, v36);
+          v40 = 70;
+        }
+
+        else if (v20)
+        {
+          v40 = 70;
+        }
+
+        else
+        {
+          v40 = 10;
+        }
+
+LABEL_74:
+        if (v40 >= gACMLoggingLevel)
+        {
+          printf("%s: %s: returning, err = %ld.\n", "ACM", "processAclInternal", v20);
+        }
+
+        goto LABEL_76;
+      }
+
+      if (v35 >= 0xC)
+      {
+        v36 = v33[2];
+        if (v36)
+        {
+          if (v35 >= v36 + 12)
+          {
+            v37 = acm_mem_alloc_data(v33[2]);
+            acm_mem_alloc_info("<data>", v37, v36, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/common/LibCall.c", 1870, "processAclInternal");
+            if (v37)
+            {
+              memcpy(v37, v33 + 3, v36);
+              v20 = 0;
+              *a14 = v37;
+              *a15 = v36;
+            }
+
+            else
+            {
+              v20 = 4294967292;
+            }
+
+            goto LABEL_67;
+          }
+
+          goto LABEL_84;
+        }
+
+        v36 = 0;
+        v37 = 0;
+        v20 = 0;
+        goto LABEL_67;
+      }
+    }
+
+    v36 = 0;
+LABEL_84:
+    v37 = 0;
+    v20 = 4294967291;
+    goto LABEL_67;
+  }
+
+  if (a4)
+  {
+    OUTLINED_FUNCTION_31_0();
+    goto LABEL_79;
+  }
+
+  OUTLINED_FUNCTION_31_0();
+  if (a5 && a13 && a6)
+  {
+    aclRequiresPasscodeInternal();
+    v20 = v27;
+LABEL_76:
+    if (v20)
+    {
+      v26 = 70;
+    }
+
+    else
+    {
+      v26 = 10;
+    }
+  }
+
+LABEL_79:
+  if (v26 >= gACMLoggingLevel)
+  {
+    printf("%s: %s: returning, err = %ld.\n", "ACM", "processAclCommandInternal", v20);
+  }
+
+  return v20;
+}
+
+void aclRequiresPasscodeInternal()
+{
+  OUTLINED_FUNCTION_14_0();
+  v1 = v0;
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v18 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  v16 = 4;
+  v10 = v2;
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = (&v15 - ((v10 + 19) & 0x1FFFFFFF0));
+  if (gACMLoggingLevel <= 0xAu)
+  {
+    printf("%s: %s: called.\n", "ACM", "aclRequiresPasscodeInternal");
+  }
+
+  bzero(&v15 - ((v10 + 19) & 0x1FFFFFFF0), v10 + 4);
+  v12 = -3;
+  if (v5 && v1)
+  {
+    *v11 = v3;
+    memcpy(v11 + 1, v5, v10);
+    v13 = v9(v7, 17, 0, &v15 - ((v10 + 19) & 0x1FFFFFFF0), v10 + 4, &v17, &v16);
+    if (v13)
+    {
+      v12 = v13;
+    }
+
+    else if (v16 == 4)
+    {
+      v12 = 0;
+      *v1 = 1;
+    }
+
+    else
+    {
+      v12 = -5;
+    }
+  }
+
+  OUTLINED_FUNCTION_1_10();
+  if (v14)
+  {
+    printf("%s: %s: returning, err = %ld.\n", "ACM", "aclRequiresPasscodeInternal", v12);
+  }
+
+  OUTLINED_FUNCTION_15();
+}
+
+uint64_t lib_platform_rng()
+{
+  v0 = ccrng();
+  REQUIRE_func(v0 != 0, 22, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform_lib.c");
+  REQUIRE_func(0, 23, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform_lib.c");
+  return v0;
+}
+
+uint64_t lib_platform_read_random(uint64_t a1, unsigned int a2)
+{
+  v4 = platform_rng();
+  v5 = (*v4)(v4, a2, a1) == 0;
+
+  return REQUIRE_func(v5, 31, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform_lib.c");
+}
+
+uint64_t rfc3394_wrap(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, void *, uint64_t *, uint64_t *, uint64_t), uint64_t *a5, unint64_t a6, void *a7, void *a8)
+{
+  v43 = a1;
+  v44 = a3;
+  v47 = *MEMORY[0x1E69E9840];
+  memset(__s, 0, sizeof(__s));
+  v14 = ccaes_cbc_encrypt_mode();
+  MEMORY[0x1EEE9AC00](v14);
+  v45 = &v36 - v15;
+  bzero(&v36 - v15, v15);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v36 - v17;
+  bzero(&v36 - v17, v17);
+  v19 = 0xFFFFFFFFLL;
+  if (HIDWORD(a6) || (a6 - 40) < 0xFFFFFFE0)
+  {
+    goto LABEL_31;
+  }
+
+  v38 = &v36;
+  v39 = a8;
+  v40 = a6;
+  v37 = a7;
+  if (!a4)
+  {
+    v20 = (a2 & 0xFFFFFFFFFFFFFFF7) == 0x10 || a2 == 32;
+    if (!v20 || !a8 || *a8 < a6 + 8)
+    {
+      rfc3394_wrap_cold_1(__s);
+      goto LABEL_32;
+    }
+
+    cccbc_init();
+    goto LABEL_15;
+  }
+
+  if (a8 && *v39 >= v40 + 8)
+  {
+LABEL_15:
+    v21 = v40 >> 3;
+    if (v40 >> 3 <= 1)
+    {
+      v22 = 1;
+    }
+
+    else
+    {
+      v22 = v21;
+    }
+
+    v23 = 8;
+    v24 = v22;
+    do
+    {
+      v25 = *a5++;
+      *(__s + v23) = v25;
+      v23 += 16;
+      --v24;
+    }
+
+    while (v24);
+    v26 = 0;
+    *&__s[0] = v44;
+    v27 = 1;
+    v41 = v21;
+    v42 = v22;
+    do
+    {
+      v43 = v27;
+      v44 = v26;
+      v28 = __s;
+      v29 = 1;
+      do
+      {
+        if (a4)
+        {
+          if ((a4(1, &firebloom_null_iv, v28, v28, 16) & 1) == 0)
+          {
+            goto LABEL_6;
+          }
+        }
+
+        else
+        {
+          cccbc_clear_iv();
+          firebloom_cbc_update_f(v14, v45, v18, 0x10uLL);
+        }
+
+        v30 = *v28;
+        v28 += 2;
+        *&__s[v29 % v21] = v30 ^ bswap64(v27++);
+        ++v29;
+        --v22;
+      }
+
+      while (v22);
+      v26 = v44 + 1;
+      v22 = v42;
+      v27 = v43 + v41;
+    }
+
+    while (v44 != 5);
+    v31 = v37;
+    *v37 = *&__s[0];
+    v32 = v31 + 1;
+    v33 = __s + 1;
+    do
+    {
+      v34 = *v33;
+      v33 += 2;
+      *v32++ = v34;
+      --v22;
+    }
+
+    while (v22);
+    v19 = 0;
+    *v39 = (v40 & 0x38) + 8;
+LABEL_31:
+    memset_s(__s, 0x40uLL, 0, 0x40uLL);
+    if (a4)
+    {
+      return v19;
+    }
+
+LABEL_32:
+    cc_clear();
+    return v19;
+  }
+
+LABEL_6:
+  rfc3394_wrap_cold_1(__s);
+  return 0xFFFFFFFFLL;
 }

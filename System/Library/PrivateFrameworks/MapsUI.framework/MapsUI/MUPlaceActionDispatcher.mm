@@ -71,7 +71,7 @@
   selfCopy = self;
   sub_1C5643490(forCopy, environmentCopy, v8, v9);
 
-  sub_1C5632FA8(v8);
+  sub_1C5632FA8(v8, v9);
 }
 
 @end

@@ -72,48 +72,45 @@ void __48__HKUserDomainConceptStore_initWithHealthStore___block_invoke(uint64_t 
 
 - (void)saveOrUpdateUserDomainConcept:(id)concept completion:(id)completion
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   conceptCopy = concept;
   v6 = MEMORY[0x1E695DEC8];
   completionCopy = completion;
   conceptCopy2 = concept;
   v9 = [v6 arrayWithObjects:&conceptCopy count:1];
 
-  [(HKUserDomainConceptStore *)self saveOrUpdateUserDomainConcepts:v9 completion:completionCopy, conceptCopy, v12];
-  v10 = *MEMORY[0x1E69E9840];
+  [(HKUserDomainConceptStore *)self saveOrUpdateUserDomainConcepts:v9 completion:completionCopy, conceptCopy, v11];
 }
 
 - (void)deleteUserDomainConcept:(id)concept completion:(id)completion
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   conceptCopy = concept;
   v6 = MEMORY[0x1E695DEC8];
   completionCopy = completion;
   conceptCopy2 = concept;
   v9 = [v6 arrayWithObjects:&conceptCopy count:1];
 
-  [(HKUserDomainConceptStore *)self _storeUserDomainConcepts:v9 method:3 completion:completionCopy, conceptCopy, v12];
-  v10 = *MEMORY[0x1E69E9840];
+  [(HKUserDomainConceptStore *)self _storeUserDomainConcepts:v9 method:3 completion:completionCopy, conceptCopy, v11];
 }
 
 - (void)deleteUserDomainConcepts:(id)concepts completion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   conceptsCopy = concepts;
   completionCopy = completion;
-  _HKInitializeLogging();
-  v8 = HKLogHealthOntology();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(completionCopy, v8);
+  v11 = HKLogHealthOntology(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
+    v12 = 138543618;
     selfCopy = self;
-    v12 = 2114;
-    v13 = conceptsCopy;
-    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: deleteUserDomainConcepts: %{public}@", &v10, 0x16u);
+    v14 = 2114;
+    v15 = conceptsCopy;
+    _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: deleteUserDomainConcepts: %{public}@", &v12, 0x16u);
   }
 
   [(HKUserDomainConceptStore *)self _storeUserDomainConcepts:conceptsCopy method:3 completion:completionCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDelegate:(id)delegate
@@ -130,27 +127,26 @@ void __48__HKUserDomainConceptStore_initWithHealthStore___block_invoke(uint64_t 
 
 void __40__HKUserDomainConceptStore_setDelegate___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
-    v6 = HKLogHealthOntology();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(v5, v6);
+    v10 = HKLogHealthOntology(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_opt_class();
-      v8 = HKStringFromBool(*(a1 + 32) != 0);
-      v10 = 138543874;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Error changing shouldObserve to '%@': %@", &v10, 0x20u);
+      v11 = objc_opt_class();
+      v12 = HKStringFromBool(*(a1 + 32) != 0);
+      v13 = 138543874;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v7;
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Error changing shouldObserve to '%@': %@", &v13, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (HKUserDomainConceptStoreDelegate)delegate
@@ -232,13 +228,12 @@ void __40__HKUserDomainConceptStore_setDelegate___block_invoke(uint64_t a1, char
 
 - (void)_handleAutomaticProxyReconnection
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
   selfCopy = self;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to resume observation on server reconnection: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to resume observation on server reconnection: %{public}@", &v3, 0x16u);
 }
 
 - (void)_storeUserDomainConcepts:(id)concepts method:(int64_t)method completion:(id)completion
@@ -266,33 +261,31 @@ void __40__HKUserDomainConceptStore_setDelegate___block_invoke(uint64_t a1, char
 
 void __71__HKUserDomainConceptStore__storeUserDomainConcepts_method_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogHealthOntology();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogHealthOntology(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
 
-  if (v5)
+  if (v8)
   {
-    v6 = HKLogHealthOntology();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v11 = HKLogHealthOntology(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 32);
-      v8 = [*(a1 + 40) count];
-      v9 = HKStringFromUserDomainConceptStoreMethod(*(a1 + 56));
-      v11 = 138543874;
-      v12 = v7;
-      v13 = 2048;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_INFO, "%{public}@: Store %ld concepts with method '%@'", &v11, 0x20u);
+      v12 = *(a1 + 32);
+      v13 = [*(a1 + 40) count];
+      v14 = HKStringFromUserDomainConceptStoreMethod(*(a1 + 56));
+      v15 = 138543874;
+      v16 = v12;
+      v17 = 2048;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v14;
+      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_INFO, "%{public}@: Store %ld concepts with method '%@'", &v15, 0x20u);
     }
   }
 
   [v3 remote_storeUserDomainConcepts:*(a1 + 40) method:*(a1 + 56) completion:*(a1 + 48)];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_observeUserDomainConceptChanges:(BOOL)changes completion:(id)completion
@@ -374,30 +367,30 @@ uint64_t __74__HKUserDomainConceptStore__synchronouslyObserveUserDomainConceptCh
 
 - (void)_clientQueue_notifyForChangesToUserDomainConcepts:(id)concepts changeType:(int64_t)type
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   conceptsCopy = concepts;
   clientQueue = [(HKProxyProvider *)self->_proxyProvider clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
   delegate = [(HKUserDomainConceptStore *)self delegate];
-  _HKInitializeLogging();
-  v9 = HKLogHealthOntology();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+  _HKInitializeLogging(delegate, v9);
+  v12 = HKLogHealthOntology(v10, v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
 
-  if (v10)
+  if (v13)
   {
-    v11 = HKLogHealthOntology();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v16 = HKLogHealthOntology(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v12 = [conceptsCopy count];
-      v13 = HKStringFromUserDomainConceptStoreChangeType(type);
-      v15 = 138543874;
+      v17 = [conceptsCopy count];
+      v18 = HKStringFromUserDomainConceptStoreChangeType(type);
+      v19 = 138543874;
       selfCopy = self;
-      v17 = 2048;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v13;
-      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_INFO, "%{public}@: Received %ld changes of type %@", &v15, 0x20u);
+      v21 = 2048;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v18;
+      _os_log_impl(&dword_19197B000, v16, OS_LOG_TYPE_INFO, "%{public}@: Received %ld changes of type %@", &v19, 0x20u);
     }
   }
 
@@ -413,8 +406,6 @@ uint64_t __74__HKUserDomainConceptStore__synchronouslyObserveUserDomainConceptCh
       [delegate userDomainConceptStore:self didAddUserDomainConcepts:conceptsCopy];
       break;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createAndStoreUserDomainConceptBackedByOntologyConceptWithIdentifier:(id)identifier supplementaryProperties:(id)properties userDomainConceptTypeIdentifier:(id)typeIdentifier completion:(id)completion
@@ -449,30 +440,28 @@ uint64_t __74__HKUserDomainConceptStore__synchronouslyObserveUserDomainConceptCh
 
 void __165__HKUserDomainConceptStore__createAndStoreUserDomainConceptBackedByOntologyConceptWithIdentifier_supplementaryProperties_userDomainConceptTypeIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogHealthOntology();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogHealthOntology(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
 
-  if (v5)
+  if (v8)
   {
-    v6 = HKLogHealthOntology();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v11 = HKLogHealthOntology(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 32);
-      v8 = [*(a1 + 40) rawIdentifier];
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2048;
-      v13 = v8;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_INFO, "%{public}@: creating and storing user domain concept with identifier %lld", &v10, 0x16u);
+      v12 = *(a1 + 32);
+      v13 = [*(a1 + 40) rawIdentifier];
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2048;
+      v17 = v13;
+      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_INFO, "%{public}@: creating and storing user domain concept with identifier %lld", &v14, 0x16u);
     }
   }
 
   [v3 remote_createAndStoreUserDomainConceptWithConceptIdentifier:*(a1 + 40) additionalProperties:*(a1 + 48) userDomainConceptTypeIdentifier:*(a1 + 56) completion:*(a1 + 64)];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

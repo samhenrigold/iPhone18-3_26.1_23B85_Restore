@@ -712,7 +712,7 @@ LABEL_15:
     memset(&transform, 0, sizeof(transform));
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     CGAffineTransformMakeScale(&t2, v13, v13);

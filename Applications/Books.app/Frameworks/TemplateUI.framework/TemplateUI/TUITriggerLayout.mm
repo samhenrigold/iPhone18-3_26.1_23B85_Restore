@@ -9,7 +9,7 @@
   rootCopy = root;
   setCopy = set;
   axis = [setCopy axis];
-  [(TUILayout *)self computedTransformInAncestorLayout:rootCopy];
+  objc_msgSend_computedTransformInAncestorLayout_(self);
 
   y = CGPointZero.y;
   v10 = y * 0.0 + 0.0 * CGPointZero.x;
@@ -27,22 +27,22 @@
 
   if (axis == &dword_0 + 1 && [(TUILayout *)self computedLayoutDirection]== &dword_0 + 2)
   {
-    v14 = [(TUILayout *)self box];
+    v14 = objc_msgSend_box(self);
     [v14 anchorOffset];
     v16 = v11 - v15;
   }
 
   else
   {
-    v14 = [(TUILayout *)self box];
+    v14 = objc_msgSend_box(self);
     [v14 anchorOffset];
     v16 = v13 + v17;
   }
 
   v18 = [TUITrigger alloc];
-  v19 = [(TUILayout *)self box];
+  v19 = objc_msgSend_box(self);
   name = [v19 name];
-  v21 = [(TUILayout *)self box];
+  v21 = objc_msgSend_box(self);
   v22 = -[TUITrigger initWithName:observationMode:](v18, "initWithName:observationMode:", name, [v21 observationMode]);
 
   [setCopy appendTriggerAnchorWithOffset:v22 trigger:objc_msgSend(setCopy axis:{"axis"), v16}];

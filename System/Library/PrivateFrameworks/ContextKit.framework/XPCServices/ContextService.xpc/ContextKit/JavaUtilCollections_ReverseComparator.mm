@@ -7,7 +7,7 @@
 
 - (int)compareWithId:(id)id withId:(id)withId
 {
-  v6 = JavaLangComparable_class_();
+  v6 = JavaLangComparable_class_(self, a2);
   if (!withId)
   {
     JreThrowNullPointerException();

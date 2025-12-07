@@ -20,23 +20,23 @@
     swift_once();
   }
 
-  sub_185ADF8F0(&qword_1ED6F5148, v11);
-  v3 = __swift_project_boxed_opaque_existential_1(v11, v11[3]);
+  sub_185ADF8F0(&qword_1ED6F5148, v10);
+  v3 = __swift_project_boxed_opaque_existential_1(v10, v10[3]);
   v4 = *v3;
-  v10[3] = &type metadata for ServerBackedClientArena;
-  v10[4] = &off_1EF46CD08;
-  v10[0] = swift_allocObject();
-  v5 = sub_185AC36A8(v3, v10[0] + 16);
-  MEMORY[0x1EEE9AC00](v5, v6);
+  v9[3] = &type metadata for ServerBackedClientArena;
+  v9[4] = &off_1EF46CD08;
+  v9[0] = swift_allocObject();
+  v5 = sub_185AC36A8(v3, v9[0] + 16);
+  MEMORY[0x1EEE9AC00](v5);
   os_unfair_lock_lock((v4 + 24));
-  sub_185AC3704((v4 + 16), &v9);
+  sub_185AC3704((v4 + 16), &v8);
   os_unfair_lock_unlock((v4 + 24));
-  v7 = v9;
+  v6 = v8;
+  __swift_destroy_boxed_opaque_existential_0Tm(v9);
+
   __swift_destroy_boxed_opaque_existential_0Tm(v10);
 
-  __swift_destroy_boxed_opaque_existential_0Tm(v11);
-
-  return v7;
+  return v6;
 }
 
 - (BOOL)isHidden

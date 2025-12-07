@@ -8,7 +8,7 @@
 {
   ObjectType = swift_getObjectType();
   *(&self->super.isa + OBJC_IVAR____TtC7Network7NWArray_deque) = *sub_182AD2388();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA839FA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA839FA0, &unk_182AF22E0);
   v4 = swift_allocObject();
   *(v4 + 16) = 0;
   *(&self->super.isa + OBJC_IVAR____TtC7Network7NWArray_applyCount) = v4;

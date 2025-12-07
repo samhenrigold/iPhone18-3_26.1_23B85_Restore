@@ -51,18 +51,17 @@
 
 - (void)startObservingNotifications
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = ANLogHandleSystemNotificationObserver();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = ANLogHandleSystemNotificationObserver(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%@SystemNotificationObserver start observing System Notifications.", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%@SystemNotificationObserver start observing System Notifications.", &v5, 0xCu);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(DarwinNotifyCenter, self, _LanguageChanged, @"AppleLanguagePreferencesChangedNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeNotificationObservers
@@ -74,20 +73,17 @@
 
 - (void)_languageDidChange
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [(ANSystemNotificationObserver *)self removeNotificationObservers];
-  v3 = ANLogHandleSystemNotificationObserver();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = ANLogHandleSystemNotificationObserver([(ANSystemNotificationObserver *)self removeNotificationObservers]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%@SystemNotificationObserver language did change.", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%@SystemNotificationObserver language did change.", &v5, 0xCu);
   }
 
   observerHandler = [(ANSystemNotificationObserver *)self observerHandler];
   observerHandler[2](observerHandler, 1);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

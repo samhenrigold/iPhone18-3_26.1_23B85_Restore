@@ -27,28 +27,44 @@
 void __74__AirPlayReceiverContext_handleMRCommand_translatedAPCommand_withOptions___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (*(v2 + 8))
+  v3 = *(v2 + 8);
+  if (!v3)
   {
-    if (gLogCategory_AirPlayReceiverPlatform <= 50)
+    goto LABEL_8;
+  }
+
+  if (gLogCategory_AirPlayReceiverPlatform <= 50)
+  {
+    if (gLogCategory_AirPlayReceiverPlatform != -1)
     {
-      if (gLogCategory_AirPlayReceiverPlatform != -1 || (v3 = _LogCategory_Initialize(), v2 = *(a1 + 32), v3))
-      {
-        LogPrintF();
-        v2 = *(a1 + 32);
-      }
+LABEL_4:
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverContext handleMRCommand:translatedAPCommand:withOptions:]_block_invoke", 33554482, "[%{ptr}] Handle MR command '%d', AP command '%C'\n", v3, *(a1 + 48), *(a1 + 52));
+      v2 = *(a1 + 32);
+      goto LABEL_6;
     }
 
-    if (AirPlayReceiverSessionSendMediaRemoteCommand(*(v2 + 8), *(a1 + 48), *(a1 + 52), *(a1 + 40)))
+    v4 = _LogCategory_Initialize();
+    v2 = *(a1 + 32);
+    if (v4)
     {
-      APSLogErrorAt();
+      v3 = *(v2 + 8);
+      goto LABEL_4;
     }
   }
 
-  v4 = *(a1 + 40);
-  if (v4)
+LABEL_6:
+  if (AirPlayReceiverSessionSendMediaRemoteCommand(*(v2 + 8), *(a1 + 48), *(a1 + 52), *(a1 + 40)))
+  {
+    APSLogErrorAt();
+  }
+
+LABEL_8:
+
+  v5 = *(a1 + 40);
+  if (v5)
   {
 
-    CFRelease(v4);
+    CFRelease(v5);
   }
 }
 

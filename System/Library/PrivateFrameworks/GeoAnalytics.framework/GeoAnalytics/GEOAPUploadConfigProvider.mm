@@ -11,7 +11,6 @@
   internalInstall = [(GEOAPUploadConfigProvider *)self internalInstall];
   if (internalInstall)
   {
-    v3 = GeoAnalyticsConfig__debug_simulateFileWriteError[1];
 
     LOBYTE(internalInstall) = GEOConfigGetBOOL();
   }
@@ -24,7 +23,6 @@
   internalInstall = [(GEOAPUploadConfigProvider *)self internalInstall];
   if (internalInstall)
   {
-    v3 = GeoAnalyticsConfig__debug_simulateNoURLs[1];
 
     LOBYTE(internalInstall) = GEOConfigGetBOOL();
   }

@@ -82,7 +82,7 @@
   deduplicationCopy = deduplication;
   libraryCopy = library;
   transactionCopy = transaction;
-  if (PLIsAssetsd() && [deduplicationCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(deduplicationCopy))
   {
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
@@ -197,7 +197,7 @@ void *__94__PLDelayedSaveActionsProcessor__processSocialGroupsNeedingDeduplicati
   deduplicationCopy = deduplication;
   libraryCopy = library;
   transactionCopy = transaction;
-  if (PLIsAssetsd() && [deduplicationCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(deduplicationCopy))
   {
     v16[0] = MEMORY[0x1E69E9820];
     v16[1] = 3221225472;
@@ -239,7 +239,7 @@ void __145__PLDelayedSaveActionsProcessor__processMembersOfSocialGroupsNeedingDe
   [*(a1 + 32) _processSocialGroupsNeedingDeduplication:v5 library:*(a1 + 48) transaction:0];
 }
 
-uint64_t __145__PLDelayedSaveActionsProcessor__processMembersOfSocialGroupsNeedingDeduplication_pendingSocialGroupIDsNeedingDeduplication_library_transaction___block_invoke_170(uint64_t a1)
+void *__145__PLDelayedSaveActionsProcessor__processMembersOfSocialGroupsNeedingDeduplication_pendingSocialGroupIDsNeedingDeduplication_library_transaction___block_invoke_170(uint64_t a1)
 {
   result = [*(a1 + 32) stillAlive];
   if ((*(a1 + 40) & 1) == 0)
@@ -257,7 +257,7 @@ uint64_t __145__PLDelayedSaveActionsProcessor__processMembersOfSocialGroupsNeedi
   updatesCopy = updates;
   libraryCopy = library;
   transactionCopy = transaction;
-  if (PLIsAssetsd() && [updatesCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(updatesCopy))
   {
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
@@ -309,7 +309,7 @@ uint64_t __97__PLDelayedSaveActionsProcessor__processAssetsNeedingAssetPersonEdg
   containmentUpdatesCopy = containmentUpdates;
   libraryCopy = library;
   transactionCopy = transaction;
-  if (PLIsAssetsd() && ([updatesCopy count] || objc_msgSend(containmentUpdatesCopy, "count")))
+  if (PLIsAssetsd() && (objc_msgSend_count(updatesCopy) || objc_msgSend_count(containmentUpdatesCopy)))
   {
     v16 = objc_autoreleasePoolPush();
     v17 = objc_alloc_init(MEMORY[0x1E695DFA8]);
@@ -374,7 +374,7 @@ void __197__PLDelayedSaveActionsProcessor__processAssetIDsByPersonUUIDNeedingCon
   [v9 enumerateObjectsUsingBlock:v13];
 }
 
-uint64_t __197__PLDelayedSaveActionsProcessor__processAssetIDsByPersonUUIDNeedingContainmentUpdates_assetIDsNeedingContainmentUpdates_pendingMemberIDsOfSocialGroupsNeedingContainmentUpdates_library_transaction___block_invoke_2(uint64_t a1)
+void *__197__PLDelayedSaveActionsProcessor__processAssetIDsByPersonUUIDNeedingContainmentUpdates_assetIDsNeedingContainmentUpdates_pendingMemberIDsOfSocialGroupsNeedingContainmentUpdates_library_transaction___block_invoke_2(uint64_t a1)
 {
   [PLSocialGroup updateKeyAssetOfSocialGroupsWithUUIDs:*(a1 + 32) inLibrary:*(a1 + 40)];
   result = [*(a1 + 48) stillAlive];
@@ -815,7 +815,7 @@ LABEL_20:
   dsCopy = ds;
   libraryCopy = library;
   transactionCopy = transaction;
-  if (PLIsAssetsd() && [dsCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(dsCopy))
   {
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
@@ -1121,7 +1121,7 @@ LABEL_13:
   v23 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   libraryCopy = library;
-  if (PLIsAssetsd() && [updateCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(updateCopy))
   {
     v18 = 0u;
     v19 = 0u;
@@ -1167,7 +1167,7 @@ LABEL_13:
 {
   updateCopy = update;
   libraryCopy = library;
-  if (PLIsAssetsd() && [updateCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(updateCopy))
   {
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
@@ -1226,7 +1226,7 @@ void __88__PLDelayedSaveActionsProcessor__processDelayedMemoriesAssetUpdate_libr
   knowledgeStore = [MEMORY[0x1E69979A0] knowledgeStore];
   v26 = dsCopy;
   allObjects = [dsCopy allObjects];
-  v9 = [allObjects count];
+  v9 = objc_msgSend_count(allObjects);
   if (v9)
   {
     v10 = v9;
@@ -1339,7 +1339,7 @@ void __78__PLDelayedSaveActionsProcessor__deleteUUIDs_fromCoreDuetStreams_transa
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLDelayedSaveActionsProcessor.m" lineNumber:446 description:@"Must be in assetsd"];
   }
 
-  v9 = [deleteCopy count];
+  v9 = objc_msgSend_count(deleteCopy);
   if (v9)
   {
     v10 = v9;
@@ -1366,7 +1366,7 @@ void __78__PLDelayedSaveActionsProcessor__deleteUUIDs_fromCoreDuetStreams_transa
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLDelayedSaveActionsProcessor.m" lineNumber:399 description:@"Must be in assetsd"];
   }
 
-  v9 = [deleteCopy count];
+  v9 = objc_msgSend_count(deleteCopy);
   if (v9)
   {
     v10 = v9;
@@ -1487,7 +1487,7 @@ void __78__PLDelayedSaveActionsProcessor__deleteUUIDs_fromCoreDuetStreams_transa
   v12 = *MEMORY[0x1E69E9840];
   reloadCopy = reload;
   libraryCopy = library;
-  if (PLIsAssetsd() && [reloadCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(reloadCopy))
   {
     photoAnalysisClient = [libraryCopy photoAnalysisClient];
     [photoAnalysisClient reloadWallpaperSuggestions:reloadCopy reply:0];
@@ -1495,7 +1495,7 @@ void __78__PLDelayedSaveActionsProcessor__deleteUUIDs_fromCoreDuetStreams_transa
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = 134217984;
-      v11 = [reloadCopy count];
+      v11 = objc_msgSend_count(reloadCopy);
       _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_INFO, "Delayed save actions processor: reloading wallpaper suggestions. suggestion count %lu", &v10, 0xCu);
     }
   }
@@ -1506,7 +1506,7 @@ void __78__PLDelayedSaveActionsProcessor__deleteUUIDs_fromCoreDuetStreams_transa
   removalCopy = removal;
   libraryCopy = library;
   transactionCopy = transaction;
-  if (PLIsAssetsd() && [removalCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(removalCopy))
   {
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
@@ -1526,11 +1526,11 @@ void __107__PLDelayedSaveActionsProcessor__processDelayedAssetsForWallpaperFavor
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == %d && %K == %d && %K == %d && ANY %K IN %@", @"featuredState", 1, @"type", 6, @"subtype", 682, @"keyAssets", *(a1 + 40)];
   v4 = [PLSuggestion suggestionsMatchingPredicate:v3 sortDescriptors:0 limit:0 inManagedObjectContext:v2];
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     v16 = v3;
     v17 = a1;
-    v5 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v4, "count")}];
+    v5 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(v4)];
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
@@ -1583,7 +1583,7 @@ void __107__PLDelayedSaveActionsProcessor__processDelayedAssetsForWallpaperFavor
   removalCopy = removal;
   libraryCopy = library;
   transactionCopy = transaction;
-  if (PLIsAssetsd() && [removalCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(removalCopy))
   {
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
@@ -1629,7 +1629,7 @@ void __103__PLDelayedSaveActionsProcessor__processDelayedAssetsForWallpaperUserA
         v9 = [v7 predicateWithFormat:@"%K == %d && %K == %d && %K == %d && ANY %K IN %@ && ANY %K IN %@", @"featuredState", 1, @"type", 6, @"subtype", 681, @"suggestionContext", v6, @"keyAssets", v8];
 
         v10 = [PLSuggestion suggestionsMatchingPredicate:v9 sortDescriptors:0 limit:0 inManagedObjectContext:v2];
-        if ([v10 count])
+        if (objc_msgSend_count(v10))
         {
           v25 = v9;
           v26 = v6;
@@ -1688,7 +1688,7 @@ void __103__PLDelayedSaveActionsProcessor__processDelayedAssetsForWallpaperUserA
     while (v23);
   }
 
-  if ([v3 count])
+  if (objc_msgSend_count(v3))
   {
     [*(v22 + 48) _processDelayedWallpaperSuggestionReload:v3 library:*(v22 + 32) transaction:*(v22 + 56)];
   }
@@ -1699,7 +1699,7 @@ void __103__PLDelayedSaveActionsProcessor__processDelayedAssetsForWallpaperUserA
   removalCopy = removal;
   libraryCopy = library;
   transactionCopy = transaction;
-  if (PLIsAssetsd() && [removalCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(removalCopy))
   {
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
@@ -1719,7 +1719,7 @@ void __104__PLDelayedSaveActionsProcessor__processDelayedAssetsForWidgetFavorite
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == %d && %K == %d && %K == %d && ANY %K IN %@", @"featuredState", 1, @"type", 7, @"subtype", 702, @"keyAssets", *(a1 + 40)];
   v4 = [PLSuggestion suggestionsMatchingPredicate:v3 sortDescriptors:0 limit:0 inManagedObjectContext:v2];
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     v13 = v4;
     v14 = v3;
@@ -1771,7 +1771,7 @@ void __104__PLDelayedSaveActionsProcessor__processDelayedAssetsForWidgetFavorite
   removalCopy = removal;
   libraryCopy = library;
   transactionCopy = transaction;
-  if (PLIsAssetsd() && [removalCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(removalCopy))
   {
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
@@ -1818,7 +1818,7 @@ void __100__PLDelayedSaveActionsProcessor__processDelayedAssetsForWidgetUserAlbu
         v10 = [*(a1 + 40) managedObjectContext];
         v11 = [PLSuggestion suggestionsMatchingPredicate:v9 sortDescriptors:0 limit:0 inManagedObjectContext:v10];
 
-        if ([v11 count])
+        if (objc_msgSend_count(v11))
         {
           v25 = v9;
           v26 = v6;
@@ -1978,7 +1978,7 @@ void __156__PLDelayedSaveActionsProcessor__processDelayedFeaturedContentUpdateAn
 {
   updatesCopy = updates;
   libraryCopy = library;
-  if (PLIsAssetsd() && [updatesCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(updatesCopy))
   {
     libraryServicesManager = [libraryCopy libraryServicesManager];
     if (!libraryServicesManager)
@@ -1996,7 +1996,7 @@ void __156__PLDelayedSaveActionsProcessor__processDelayedFeaturedContentUpdateAn
   updatesCopy = updates;
   libraryCopy = library;
   transactionCopy = transaction;
-  if (PLIsAssetsd() && [updatesCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(updatesCopy))
   {
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
@@ -2026,7 +2026,7 @@ uint64_t __86__PLDelayedSaveActionsProcessor__processDelayedAlbumTrashUpdates_li
   updatesCopy = updates;
   libraryCopy = library;
   transactionCopy = transaction;
-  if (PLIsAssetsd() && [updatesCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(updatesCopy))
   {
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
@@ -2055,7 +2055,7 @@ uint64_t __90__PLDelayedSaveActionsProcessor__processDelayedAlbumKeyAssetsUpdate
 {
   updatesCopy = updates;
   libraryCopy = library;
-  if (PLIsAssetsd() && [updatesCopy count])
+  if (PLIsAssetsd() && objc_msgSend_count(updatesCopy))
   {
     libraryServicesManager = [libraryCopy libraryServicesManager];
     if (!libraryServicesManager)
@@ -2116,7 +2116,7 @@ uint64_t __77__PLDelayedSaveActionsProcessor__processDelayedMomentChangesWithTra
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLDelayedSaveActionsProcessor.m" lineNumber:144 description:@"Must be in assetsd"];
   }
 
-  if ([updatesCopy count] || (v25 = shareUpdatesCopy, objc_msgSend(shareUpdatesCopy, "count")) || objc_msgSend(deletesCopy, "count") || objc_msgSend(insertsCopy, "count") || objc_msgSend(assetUpdatesCopy, "count") || objc_msgSend(commentInsertsCopy, "count") || objc_msgSend(recordUpdatesCopy, "count") || objc_msgSend(participantUpdatesCopy, "count") || objc_msgSend(participantDeletesCopy, "count") || objc_msgSend(entriesCopy, "count"))
+  if (objc_msgSend_count(updatesCopy) || (v25 = shareUpdatesCopy, objc_msgSend_count(shareUpdatesCopy)) || objc_msgSend_count(deletesCopy) || objc_msgSend_count(insertsCopy) || objc_msgSend_count(assetUpdatesCopy) || objc_msgSend_count(commentInsertsCopy) || objc_msgSend_count(recordUpdatesCopy) || objc_msgSend_count(participantUpdatesCopy) || objc_msgSend_count(participantDeletesCopy) || objc_msgSend_count(entriesCopy))
   {
     databaseContext = [(PLLibraryServicesManager *)self->_libraryServicesManager databaseContext];
     v27 = [databaseContext newShortLivedLibraryWithName:"delayedSaveActions_cloudFeed_processAlbumUpdates"];
@@ -2217,7 +2217,7 @@ uint64_t __257__PLDelayedSaveActionsProcessor__processDelayedCloudFeedAlbumUpdat
 
   -[PLDelayedSaveActionsProcessor _processDelayedLibraryScopeRulesUpdate:library:transaction:](self, "_processDelayedLibraryScopeRulesUpdate:library:transaction:", [detailCopy libraryScopeRulesUpdated], libraryCopy, transactionCopy);
   socialGroupNodeIDsNeedingDeduplication = [detailCopy socialGroupNodeIDsNeedingDeduplication];
-  v34 = [socialGroupNodeIDsNeedingDeduplication count] != 0;
+  v34 = objc_msgSend_count(socialGroupNodeIDsNeedingDeduplication) != 0;
 
   memberIDsOfSocialGroupsNeedingDeduplication = [detailCopy memberIDsOfSocialGroupsNeedingDeduplication];
   [(PLDelayedSaveActionsProcessor *)self _processMembersOfSocialGroupsNeedingDeduplication:memberIDsOfSocialGroupsNeedingDeduplication pendingSocialGroupIDsNeedingDeduplication:v34 library:libraryCopy transaction:transactionCopy];
@@ -2229,7 +2229,7 @@ uint64_t __257__PLDelayedSaveActionsProcessor__processDelayedCloudFeedAlbumUpdat
   [(PLDelayedSaveActionsProcessor *)self _processAssetsNeedingAssetPersonEdgeUpdates:assetIDsNeedingAssetPersonEdgeUpdates library:libraryCopy transaction:transactionCopy];
 
   memberIDsOfSocialGroupsNeedingContainmentUpdates = [detailCopy memberIDsOfSocialGroupsNeedingContainmentUpdates];
-  v39 = [memberIDsOfSocialGroupsNeedingContainmentUpdates count] != 0;
+  v39 = objc_msgSend_count(memberIDsOfSocialGroupsNeedingContainmentUpdates) != 0;
 
   assetIDsByPersonUUIDNeedingContainmentUpdates = [detailCopy assetIDsByPersonUUIDNeedingContainmentUpdates];
   assetIDsNeedingContainmentUpdates = [detailCopy assetIDsNeedingContainmentUpdates];

@@ -45,29 +45,27 @@ void __32__HIDEventSystemClient_activate__block_invoke(uint64_t a1)
   os_unfair_recursive_lock_lock_with_options();
   self->_activated = 1;
   os_unfair_recursive_lock_unlock();
-  client = self->_client;
   IOHIDEventSystemClientSetCancelHandler();
-  v4 = self->_client;
   IOHIDEventSystemClientActivate();
 }
 
 - (HIDEventSystemClient)initWithType:(int64_t)type andAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  v11.receiver = self;
-  v11.super_class = HIDEventSystemClient;
-  v6 = [(HIDEventSystemClient *)&v11 init];
-  if (v6 && (v7 = *MEMORY[0x277CBECE8], v8 = IOHIDEventSystemClientCreateWithType(), (v6->_client = v8) != 0))
+  v10.receiver = self;
+  v10.super_class = HIDEventSystemClient;
+  v6 = [(HIDEventSystemClient *)&v10 init];
+  if (v6 && (v7 = IOHIDEventSystemClientCreateWithType(), (v6->_client = v7) != 0))
   {
-    v9 = v6;
+    v8 = v6;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)propertyForKey:(id)key
@@ -79,7 +77,7 @@ void __32__HIDEventSystemClient_activate__block_invoke(uint64_t a1)
 
 - (void)setMatching:(id)matching
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -87,7 +85,7 @@ void __32__HIDEventSystemClient_activate__block_invoke(uint64_t a1)
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [(HIDManager *)&v8 setInputElementMatching:v9];
+      [(HIDManager *)&v4 setInputElementMatching:v5];
     }
   }
 
@@ -95,7 +93,6 @@ void __32__HIDEventSystemClient_activate__block_invoke(uint64_t a1)
   if (objc_opt_isKindOfClass())
   {
     [matchingCopy count];
-    client = self->_client;
     IOHIDEventSystemClientSetMatching();
   }
 
@@ -105,12 +102,9 @@ void __32__HIDEventSystemClient_activate__block_invoke(uint64_t a1)
     if (objc_opt_isKindOfClass())
     {
       [matchingCopy count];
-      v5 = self->_client;
       IOHIDEventSystemClientSetMatchingMultiple();
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)services
@@ -150,7 +144,6 @@ void __32__HIDEventSystemClient_activate__block_invoke(uint64_t a1)
   self->_eventHandler = v4;
 
   os_unfair_recursive_lock_unlock();
-  client = self->_client;
   IOHIDEventSystemClientRegisterEventCallback();
 }
 
@@ -168,7 +161,6 @@ void __32__HIDEventSystemClient_activate__block_invoke(uint64_t a1)
   self->_resetHandler = v4;
 
   os_unfair_recursive_lock_unlock();
-  client = self->_client;
   IOHIDEventSystemClientRegisterResetCallback();
 }
 
@@ -186,7 +178,6 @@ void __32__HIDEventSystemClient_activate__block_invoke(uint64_t a1)
   self->_filterHandler = v4;
 
   os_unfair_recursive_lock_unlock();
-  client = self->_client;
   IOHIDEventSystemClientRegisterEventFilterCallback();
 }
 
@@ -204,13 +195,12 @@ void __32__HIDEventSystemClient_activate__block_invoke(uint64_t a1)
   self->_serviceHandler = v4;
 
   os_unfair_recursive_lock_unlock();
-  client = self->_client;
   IOHIDEventSystemClientRegisterDeviceMatchingCallback();
 }
 
 - (void)setPropertyChangedHandler:(id)handler matching:(id)matching
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   matchingCopy = matching;
   objc_opt_class();
@@ -219,7 +209,7 @@ void __32__HIDEventSystemClient_activate__block_invoke(uint64_t a1)
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [(HIDManager *)&v23 setInputElementMatching:v25];
+      [(HIDManager *)&v19 setInputElementMatching:v21];
     }
   }
 
@@ -237,7 +227,6 @@ void __32__HIDEventSystemClient_activate__block_invoke(uint64_t a1)
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    client = self->_client;
     IOHIDEventSystemClientRegisterPropertyChangedCallback();
   }
 
@@ -246,42 +235,38 @@ void __32__HIDEventSystemClient_activate__block_invoke(uint64_t a1)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
-      v20 = 0u;
-      v11 = matchingCopy;
-      v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
-      if (v12)
+      v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
+      v10 = matchingCopy;
+      v11 = [v10 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      if (v11)
       {
-        v13 = v12;
-        v14 = *v20;
+        v12 = v11;
+        v13 = *v16;
         do
         {
-          v15 = 0;
+          v14 = 0;
           do
           {
-            if (*v20 != v14)
+            if (*v16 != v13)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v10);
             }
 
-            v16 = *(*(&v19 + 1) + 8 * v15);
-            v17 = self->_client;
             IOHIDEventSystemClientRegisterPropertyChangedCallback();
-            ++v15;
+            ++v14;
           }
 
-          while (v13 != v15);
-          v13 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
+          while (v12 != v14);
+          v12 = [v10 countByEnumeratingWithState:&v15 objects:v20 count:16];
         }
 
-        while (v13);
+        while (v12);
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

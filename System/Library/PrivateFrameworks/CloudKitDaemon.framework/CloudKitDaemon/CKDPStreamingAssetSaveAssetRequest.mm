@@ -70,26 +70,24 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    requestedSize = self->_requestedSize;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    uploadedSize = self->_uploadedSize;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_uploadReceipt)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -155,7 +153,6 @@
     goto LABEL_14;
   }
 
-  v8 = *(equalCopy + 32);
   if (*&self->_has)
   {
     if ((equalCopy[4] & 1) == 0 || self->_requestedSize != equalCopy[1])
@@ -185,10 +182,10 @@ LABEL_14:
   }
 
   uploadReceipt = self->_uploadReceipt;
-  v10 = equalCopy[3];
-  if (uploadReceipt | v10)
+  v9 = equalCopy[3];
+  if (uploadReceipt | v9)
   {
-    isEqual = objc_msgSend_isEqual_(uploadReceipt, v7, v10);
+    isEqual = objc_msgSend_isEqual_(uploadReceipt, v7, v9);
   }
 
   else

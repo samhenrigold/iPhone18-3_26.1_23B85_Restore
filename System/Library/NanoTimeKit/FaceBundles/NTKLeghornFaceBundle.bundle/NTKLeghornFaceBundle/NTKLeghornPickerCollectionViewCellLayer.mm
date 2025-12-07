@@ -7,25 +7,25 @@
 
 - (void)setTransform:(CATransform3D *)transform
 {
-  v14.receiver = self;
-  v14.super_class = NTKLeghornPickerCollectionViewCellLayer;
+  v15.receiver = self;
+  v15.super_class = NTKLeghornPickerCollectionViewCellLayer;
   v5 = *(MEMORY[0x277CD9DE8] + 80);
-  *&v13.m31 = *(MEMORY[0x277CD9DE8] + 64);
-  *&v13.m33 = v5;
+  *&v14.m31 = *(MEMORY[0x277CD9DE8] + 64);
+  *&v14.m33 = v5;
   v6 = *(MEMORY[0x277CD9DE8] + 112);
-  *&v13.m41 = *(MEMORY[0x277CD9DE8] + 96);
-  *&v13.m43 = v6;
+  *&v14.m41 = *(MEMORY[0x277CD9DE8] + 96);
+  *&v14.m43 = v6;
   v7 = *(MEMORY[0x277CD9DE8] + 16);
-  *&v13.m11 = *MEMORY[0x277CD9DE8];
-  *&v13.m13 = v7;
+  *&v14.m11 = *MEMORY[0x277CD9DE8];
+  *&v14.m13 = v7;
   v8 = *(MEMORY[0x277CD9DE8] + 48);
-  *&v13.m21 = *(MEMORY[0x277CD9DE8] + 32);
-  *&v13.m23 = v8;
-  [(NTKLeghornPickerCollectionViewCellLayer *)&v14 setTransform:&v13];
-  v12 = *transform;
-  v10 = objc_msgSend_labelLayer(self, v9, transform->m21);
-  v13 = v12;
-  objc_msgSend_setTransform_(v10, v11, v12.m21, &v13);
+  *&v14.m21 = *(MEMORY[0x277CD9DE8] + 32);
+  *&v14.m23 = v8;
+  [(NTKLeghornPickerCollectionViewCellLayer *)&v15 setTransform:&v14];
+  v13 = *transform;
+  v11 = objc_msgSend_labelLayer(self, v9, v10);
+  v14 = v13;
+  objc_msgSend_setTransform_(v11, v12, &v14);
 }
 
 - (CALayer)labelLayer

@@ -43,37 +43,37 @@
         [v9 desiredAccuracy];
         v18 = v17;
 
-        v19 = sub_100002830();
-        v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
+        v20 = sub_100002830(v19);
+        v21 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
         if (v16 <= v18)
         {
-          if (v20)
+          if (v21)
           {
             standardLocator4 = [provider standardLocator];
             [standardLocator4 desiredAccuracy];
-            v35 = v34;
+            v36 = v35;
             [v9 desiredAccuracy];
             *buf = 134218240;
-            v45 = v35;
-            v46 = 2048;
-            v47 = v36;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Current locate command is already looking for the same/better accuracy. Ignoring new locate - current=%fm,new=%fm", buf, 0x16u);
+            v46 = v36;
+            v47 = 2048;
+            v48 = v37;
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Current locate command is already looking for the same/better accuracy. Ignoring new locate - current=%fm,new=%fm", buf, 0x16u);
           }
 
           goto LABEL_15;
         }
 
-        if (v20)
+        if (v21)
         {
           standardLocator5 = [provider standardLocator];
           [standardLocator5 desiredAccuracy];
-          v23 = v22;
+          v24 = v23;
           [v9 desiredAccuracy];
           *buf = 134218240;
-          v45 = v23;
-          v46 = 2048;
-          v47 = v24;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "New locate command asks for a better accuracy than the current locate. Stopping current locate - current=%fm,new=%fm", buf, 0x16u);
+          v46 = v24;
+          v47 = 2048;
+          v48 = v25;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "New locate command asks for a better accuracy than the current locate. Stopping current locate - current=%fm,new=%fm", buf, 0x16u);
         }
       }
     }
@@ -88,28 +88,28 @@
       [provider setStandardLocator:0];
     }
 
-    v42 = @"id";
+    v43 = @"id";
     commandID = [(CommandHandler *)self commandID];
-    v43 = commandID;
-    v28 = [NSDictionary dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    v44 = commandID;
+    v29 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
 
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = sub_1000143DC;
-    v39[3] = &unk_10005D770;
-    v29 = provider;
-    v40 = v29;
-    v41 = v28;
-    v19 = v28;
-    [v9 setReceivedLocationBlock:v39];
-    v37[0] = _NSConcreteStackBlock;
-    v37[1] = 3221225472;
-    v37[2] = sub_1000143FC;
-    v37[3] = &unk_10005D2B0;
-    v30 = v29;
-    v38 = v30;
-    [v9 setStoppedLocatorBlock:v37];
-    [v30 setStandardLocator:v9];
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = sub_1000143DC;
+    v40[3] = &unk_10005D770;
+    v30 = provider;
+    v41 = v30;
+    v42 = v29;
+    v20 = v29;
+    [v9 setReceivedLocationBlock:v40];
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_1000143FC;
+    v38[3] = &unk_10005D2B0;
+    v31 = v30;
+    v39 = v31;
+    [v9 setStoppedLocatorBlock:v38];
+    [v31 setStandardLocator:v9];
     [v9 startLocator];
 
 LABEL_15:
@@ -117,12 +117,12 @@ LABEL_15:
     v7 = 200;
   }
 
-  v31 = +[NSMutableDictionary dictionary];
-  v32 = [NSNumber numberWithInt:v7];
-  [v31 setObject:v32 forKeyedSubscript:@"status"];
+  v32 = +[NSMutableDictionary dictionary];
+  v33 = [NSNumber numberWithInt:v7];
+  [v32 setObject:v33 forKeyedSubscript:@"status"];
 
-  [v31 setObject:v6 forKeyedSubscript:@"message"];
-  [(CommandHandler *)self didHandleCommandWithAckData:v31];
+  [v32 setObject:v6 forKeyedSubscript:@"message"];
+  [(CommandHandler *)self didHandleCommandWithAckData:v32];
 }
 
 - (void)sendAckWithCompletion:(id)completion
@@ -151,43 +151,43 @@ LABEL_15:
     v5 = overridesCopy;
     if (v7)
     {
-      v8 = sub_100002830();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = sub_100002830(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000372BC(v8);
+        sub_1000372BC(v9);
       }
 
-      v9 = +[NSFileManager defaultManager];
-      v10 = [v9 contentsAtPath:stringByExpandingTildeInPath];
+      v10 = +[NSFileManager defaultManager];
+      v11 = [v10 contentsAtPath:stringByExpandingTildeInPath];
 
-      v22 = 0;
-      v11 = [NSJSONSerialization JSONObjectWithData:v10 options:1 error:&v22];
-      v12 = v22;
+      v23 = 0;
+      v12 = [NSJSONSerialization JSONObjectWithData:v11 options:1 error:&v23];
+      v13 = v23;
       v5 = [overridesCopy mutableCopy];
-      keyEnumerator = [v11 keyEnumerator];
+      keyEnumerator = [v12 keyEnumerator];
       nextObject = [keyEnumerator nextObject];
       if (nextObject)
       {
-        v16 = nextObject;
-        *&v15 = 138412546;
-        v21 = v15;
+        v17 = nextObject;
+        *&v16 = 138412546;
+        v22 = v16;
         do
         {
-          v17 = [v11 objectForKeyedSubscript:{v16, v21}];
-          v18 = sub_100002830();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+          v18 = [v12 objectForKeyedSubscript:{v17, v22}];
+          v19 = sub_100002830(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v21;
-            v24 = v16;
-            v25 = 2112;
-            v26 = v17;
-            _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Locate Param Overridden: %@=%@", buf, 0x16u);
+            *buf = v22;
+            v25 = v17;
+            v26 = 2112;
+            v27 = v18;
+            _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Locate Param Overridden: %@=%@", buf, 0x16u);
           }
 
-          [v5 setValue:v17 forKey:v16];
+          [v5 setValue:v18 forKey:v17];
           nextObject2 = [keyEnumerator nextObject];
 
-          v16 = nextObject2;
+          v17 = nextObject2;
         }
 
         while (nextObject2);
@@ -206,72 +206,72 @@ LABEL_15:
   newLocationManager = [provider newLocationManager];
   v8 = [(Locator *)v6 initWithLocationManager:newLocationManager];
 
-  v9 = sub_100002830();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = sub_100002830(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     fm_logID = [(CommandHandlerLocate *)self fm_logID];
     serviceName = [provider serviceName];
-    v23 = 138412546;
-    v24 = fm_logID;
-    v25 = 2112;
-    v26 = serviceName;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Created %@ for service %@", &v23, 0x16u);
+    v24 = 138412546;
+    v25 = fm_logID;
+    v26 = 2112;
+    v27 = serviceName;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Created %@ for service %@", &v24, 0x16u);
   }
 
-  v12 = objc_autoreleasePoolPush();
-  v13 = [(CommandHandlerLocate *)self _checkForLocateParamOverrides:paramsCopy];
-  v14 = [v13 objectForKeyedSubscript:@"locationTimeout"];
-  v15 = v14;
-  if (v14)
+  v13 = objc_autoreleasePoolPush();
+  v14 = [(CommandHandlerLocate *)self _checkForLocateParamOverrides:paramsCopy];
+  v15 = [v14 objectForKeyedSubscript:@"locationTimeout"];
+  v16 = v15;
+  if (v15)
   {
-    [v14 doubleValue];
+    [v15 doubleValue];
     [(Locator *)v8 setDuration:?];
   }
 
-  v16 = [v13 objectForKeyedSubscript:@"startThreshold"];
-
-  if (v16)
-  {
-    [v16 doubleValue];
-    [(Locator *)v8 setStartThreshold:?];
-  }
-
-  v17 = [v13 objectForKeyedSubscript:@"endThreshold"];
+  v17 = [v14 objectForKeyedSubscript:@"startThreshold"];
 
   if (v17)
   {
     [v17 doubleValue];
-    [(Locator *)v8 setEndThreshold:?];
+    [(Locator *)v8 setStartThreshold:?];
   }
 
-  v18 = [v13 objectForKeyedSubscript:@"decayFactor"];
+  v18 = [v14 objectForKeyedSubscript:@"endThreshold"];
 
   if (v18)
   {
     [v18 doubleValue];
-    [(Locator *)v8 setDecayFactor:?];
+    [(Locator *)v8 setEndThreshold:?];
   }
 
-  v19 = [v13 objectForKeyedSubscript:@"desiredAccuracy"];
+  v19 = [v14 objectForKeyedSubscript:@"decayFactor"];
 
   if (v19)
   {
     [v19 doubleValue];
-    [(Locator *)v8 setDesiredAccuracy:?];
+    [(Locator *)v8 setDecayFactor:?];
   }
 
-  v20 = [v13 objectForKeyedSubscript:@"locationValidityDuration"];
+  v20 = [v14 objectForKeyedSubscript:@"desiredAccuracy"];
 
   if (v20)
   {
     [v20 doubleValue];
+    [(Locator *)v8 setDesiredAccuracy:?];
+  }
+
+  v21 = [v14 objectForKeyedSubscript:@"locationValidityDuration"];
+
+  if (v21)
+  {
+    [v21 doubleValue];
     [(Locator *)v8 setCachedLocValidityDuration:?];
   }
 
-  v21 = v8;
-  objc_autoreleasePoolPop(v12);
+  v22 = v8;
+  objc_autoreleasePoolPop(v13);
 
-  return v21;
+  return v22;
 }
 
 @end

@@ -51,26 +51,15 @@
 - (GEOComposedRouteLeg)targetLeg
 {
   currentRouteInfo = self->_currentRouteInfo;
-  if (!currentRouteInfo)
+  if (currentRouteInfo && (targetLegIndex = self->_targetLegIndex, -[MNActiveRouteInfo route](currentRouteInfo, "route"), v5 = objc_claimAutoreleasedReturnValue(), [v5 legs], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "count"), v6, v5, targetLegIndex < v7))
   {
-    goto LABEL_7;
-  }
-
-  targetLegIndex = self->_targetLegIndex;
-  route = [(MNActiveRouteInfo *)currentRouteInfo route];
-  legs = [route legs];
-  v7 = [legs count];
-
-  if (targetLegIndex < v7)
-  {
-    route2 = [(MNActiveRouteInfo *)self->_currentRouteInfo route];
-    legs2 = [route2 legs];
-    v10 = [legs2 objectAtIndexedSubscript:self->_targetLegIndex];
+    route = [(MNActiveRouteInfo *)self->_currentRouteInfo route];
+    legs = [route legs];
+    v10 = [legs objectAtIndexedSubscript:self->_targetLegIndex];
   }
 
   else
   {
-LABEL_7:
     v10 = 0;
   }
 
@@ -158,7 +147,7 @@ LABEL_7:
 
 - (id)description
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:4];
   navigationState = self->_navigationState;
   v5 = 0x1E696A000uLL;
@@ -188,55 +177,55 @@ LABEL_7:
   name = [route name];
   routeID = [(MNActiveRouteInfo *)self->_currentRouteInfo routeID];
   v18 = [v14 stringWithFormat:@"Current route: %@ (%@)", name, routeID];
-  v43 = v3;
+  v42 = v3;
   [v3 addObject:v18];
 
-  v44 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](self->_alternateRouteInfos, "count")}];
+  v43 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](self->_alternateRouteInfos, "count")}];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   selfCopy = self;
   v19 = self->_alternateRouteInfos;
-  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v46;
+    v22 = *v45;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v46 != v22)
+        if (*v45 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v45 + 1) + 8 * i);
+        v24 = *(*(&v44 + 1) + 8 * i);
         v25 = v5;
         v26 = *(v5 + 3776);
         route2 = [v24 route];
         name2 = [route2 name];
         routeID2 = [v24 routeID];
         v30 = [v26 stringWithFormat:@"%@ (%@)", name2, routeID2];
-        [v44 addObject:v30];
+        [v43 addObject:v30];
 
         v5 = v25;
       }
 
-      v21 = [(NSArray *)v19 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v21 = [(NSArray *)v19 countByEnumeratingWithState:&v44 objects:v48 count:16];
     }
 
     while (v21);
   }
 
   v31 = *(v5 + 3776);
-  v32 = [v44 componentsJoinedByString:@" | "];
+  v32 = [v43 componentsJoinedByString:@" | "];
   v33 = [v31 stringWithFormat:@"Alternate routes: %@", v32];
-  [v43 addObject:v33];
+  [v42 addObject:v33];
 
   v34 = [*(v5 + 3776) stringWithFormat:@"Target leg index: %d", selfCopy->_targetLegIndex];
-  [v43 addObject:v34];
+  [v42 addObject:v34];
 
   arrivalState = selfCopy->_arrivalState;
   if (arrivalState > 6)
@@ -250,14 +239,12 @@ LABEL_7:
   }
 
   v37 = [*(v5 + 3776) stringWithFormat:@"Arrival state: %@", v36];
-  [v43 addObject:v37];
+  [v42 addObject:v37];
 
   v38 = [*(v5 + 3776) stringWithFormat:@"Displaying nav tray: %d", selfCopy->_isDisplayingNavigationTray];
-  [v43 addObject:v38];
+  [v42 addObject:v38];
 
-  v39 = [v43 componentsJoinedByString:@"\n"];
-
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = [v42 componentsJoinedByString:@"\n"];
 
   return v39;
 }
@@ -282,12 +269,11 @@ LABEL_7:
   v4->_hasBeenOnRouteOnce = self->_hasBeenOnRouteOnce;
   v4->_arrivalState = self->_arrivalState;
   v4->_isDisplayingNavigationTray = self->_isDisplayingNavigationTray;
-  userIncidentReportsIsolater = self->_userIncidentReportsIsolater;
-  v10 = v4;
+  v9 = v4;
   geo_isolate_sync_data();
-  v8 = v10;
+  v7 = v9;
 
-  return v8;
+  return v7;
 }
 
 - (void)addUserIncidentReport:(id)report

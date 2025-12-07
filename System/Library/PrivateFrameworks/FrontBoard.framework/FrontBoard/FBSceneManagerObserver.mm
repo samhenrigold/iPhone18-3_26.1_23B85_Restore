@@ -137,36 +137,36 @@
 
 - (void)workspace:(id)workspace clientDidConnectWithHandshake:(id)handshake
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   workspaceCopy = workspace;
   handshakeCopy = handshake;
   delegate = [(FBSceneManagerObserver *)self delegate];
   v9 = delegate;
   if (!delegate)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     remnants = [handshakeCopy remnants];
-    v11 = [remnants countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v11 = [remnants countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(remnants);
           }
 
-          [*(*(&v20 + 1) + 8 * i) invalidate];
+          [*(*(&v19 + 1) + 8 * i) invalidate];
         }
 
-        v12 = [remnants countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v12 = [remnants countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v12);
@@ -185,29 +185,29 @@
 
     else
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       remnants = [handshakeCopy remnants];
-      v15 = [remnants countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v15 = [remnants countByEnumeratingWithState:&v23 objects:v28 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v25;
+        v17 = *v24;
         do
         {
           for (j = 0; j != v16; ++j)
           {
-            if (*v25 != v17)
+            if (*v24 != v17)
             {
               objc_enumerationMutation(remnants);
             }
 
-            [*(*(&v24 + 1) + 8 * j) invalidate];
+            [*(*(&v23 + 1) + 8 * j) invalidate];
           }
 
-          v16 = [remnants countByEnumeratingWithState:&v24 objects:v29 count:16];
+          v16 = [remnants countByEnumeratingWithState:&v23 objects:v28 count:16];
         }
 
         while (v16);
@@ -221,8 +221,6 @@ LABEL_21:
 
   [delegate workspace:workspaceCopy clientDidConnectWithHandshake:handshakeCopy];
 LABEL_22:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)workspace:(id)workspace didReceiveSceneRequestWithOptions:(id)options fromProcess:(id)process completion:(id)completion
@@ -500,26 +498,24 @@ LABEL_9:
 
 - (void)sceneManager:(id)manager interceptUpdateForScene:(id)scene withNewSettings:(id)settings
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   if (self->_interceptSceneUpdatesLEGACY)
   {
     settingsCopy = settings;
     managerCopy = manager;
-    v11 = FBLogScene();
+    v11 = FBLogScene(managerCopy);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       identifier = [sceneCopy identifier];
-      v15 = 138543362;
-      v16 = identifier;
-      _os_log_impl(&dword_1A89DD000, v11, OS_LOG_TYPE_INFO, "Client intercepting scene update for scene: %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = identifier;
+      _os_log_impl(&dword_1A89DD000, v11, OS_LOG_TYPE_INFO, "Client intercepting scene update for scene: %{public}@", &v14, 0xCu);
     }
 
     _privateDelegate = [(FBSceneManagerObserver *)self _privateDelegate];
     [_privateDelegate sceneManager:managerCopy interceptUpdateForScene:sceneCopy withNewSettings:settingsCopy];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)succinctDescription

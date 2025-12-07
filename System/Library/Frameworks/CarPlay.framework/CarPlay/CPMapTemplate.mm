@@ -45,7 +45,9 @@
 - (void)hideTripPreviews;
 - (void)presentNavigationAlert:(CPNavigationAlert *)navigationAlert animated:(BOOL)animated;
 - (void)previewTripIdentifier:(id)identifier usingRouteIdentifier:(id)routeIdentifier;
+- (void)setAutomaticallyHidesNavigationBar:(BOOL)automaticallyHidesNavigationBar;
 - (void)setGuidanceBackgroundColor:(UIColor *)guidanceBackgroundColor;
+- (void)setHidesButtonsWithNavigationBar:(BOOL)hidesButtonsWithNavigationBar;
 - (void)setMapButtons:(NSArray *)mapButtons;
 - (void)setNavigationSessionProvider:(id)provider;
 - (void)setTripEstimateStyle:(CPTripEstimateStyle)tripEstimateStyle;
@@ -167,6 +169,58 @@
   }
 }
 
+- (void)setAutomaticallyHidesNavigationBar:(BOOL)automaticallyHidesNavigationBar
+{
+  v3 = automaticallyHidesNavigationBar;
+  v15 = *MEMORY[0x277D85DE8];
+  v5 = CarPlayFrameworkGeneralLogging(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:v3];
+    *buf = 138412546;
+    selfCopy = self;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "%@: Set automatically hides navigation bar: %@", buf, 0x16u);
+  }
+
+  templateProviderFuture = [(CPTemplate *)self templateProviderFuture];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __52__CPMapTemplate_setAutomaticallyHidesNavigationBar___block_invoke;
+  v9[3] = &__block_descriptor_33_e34_v16__0___CPMapTemplateProviding__8l;
+  v10 = v3;
+  v8 = [templateProviderFuture addSuccessBlock:v9];
+
+  self->_automaticallyHidesNavigationBar = v3;
+}
+
+- (void)setHidesButtonsWithNavigationBar:(BOOL)hidesButtonsWithNavigationBar
+{
+  v3 = hidesButtonsWithNavigationBar;
+  v15 = *MEMORY[0x277D85DE8];
+  v5 = CarPlayFrameworkGeneralLogging(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:v3];
+    *buf = 138412546;
+    selfCopy = self;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "%@: Set hides buttons with navigation bar: %@", buf, 0x16u);
+  }
+
+  templateProviderFuture = [(CPTemplate *)self templateProviderFuture];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __50__CPMapTemplate_setHidesButtonsWithNavigationBar___block_invoke;
+  v9[3] = &__block_descriptor_33_e34_v16__0___CPMapTemplateProviding__8l;
+  v10 = v3;
+  v8 = [templateProviderFuture addSuccessBlock:v9];
+
+  self->_hidesButtonsWithNavigationBar = v3;
+}
+
 - (void)showTripPreviews:(NSArray *)tripPreviews selectedTrip:(CPTrip *)selectedTrip textConfiguration:(CPTripPreviewTextConfiguration *)textConfiguration
 {
   v9 = tripPreviews;
@@ -211,7 +265,7 @@ LABEL_6:
 
 - (void)showRouteChoicesPreviewForTrip:(CPTrip *)tripPreview textConfiguration:(CPTripPreviewTextConfiguration *)textConfiguration
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v7 = tripPreview;
   v8 = textConfiguration;
   v9 = objc_opt_class();
@@ -223,34 +277,30 @@ LABEL_6:
   }
 
   templateProviderFuture = [(CPTemplate *)self templateProviderFuture];
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __66__CPMapTemplate_showRouteChoicesPreviewForTrip_textConfiguration___block_invoke;
-  v21 = &unk_278A11428;
-  v22 = v7;
-  v23 = v8;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __66__CPMapTemplate_showRouteChoicesPreviewForTrip_textConfiguration___block_invoke;
+  v20 = &unk_278A11428;
+  v21 = v7;
+  v22 = v8;
   v12 = v8;
   v13 = v7;
-  v14 = [templateProviderFuture addSuccessBlock:&v18];
+  v14 = [templateProviderFuture addSuccessBlock:&v17];
 
-  v24[0] = v13;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:{1, v18, v19, v20, v21}];
+  v23[0] = v13;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:{1, v17, v18, v19, v20}];
   tripPreviews = self->_tripPreviews;
   self->_tripPreviews = v15;
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __66__CPMapTemplate_showRouteChoicesPreviewForTrip_textConfiguration___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
+  v7 = *MEMORY[0x277D85DE8];
+  v6 = *(a1 + 32);
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:&v7 count:1];
-  [v4 setHostTripPreviews:v5 textConfiguration:*(a1 + 40) previewOnlyRouteChoices:1 selectedIndex:{0, v7, v8}];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = [v3 arrayWithObjects:&v6 count:1];
+  [v4 setHostTripPreviews:v5 textConfiguration:*(a1 + 40) previewOnlyRouteChoices:1 selectedIndex:{0, v6, v7}];
 }
 
 - (void)hideTripPreviews
@@ -292,7 +342,7 @@ void __70__CPMapTemplate_updateTravelEstimates_forTrip_withTimeRemainingColor___
 {
   v31 = *MEMORY[0x277D85DE8];
   v4 = trip;
-  v5 = CarPlayFrameworkGeneralLogging();
+  v5 = CarPlayFrameworkGeneralLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -323,23 +373,23 @@ void __70__CPMapTemplate_updateTravelEstimates_forTrip_withTimeRemainingColor___
   navigationSessionProviderFuture = [(CPMapTemplate *)self navigationSessionProviderFuture];
   isFinished = [navigationSessionProviderFuture isFinished];
 
-  v14 = CarPlayFrameworkGeneralLogging();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  v15 = CarPlayFrameworkGeneralLogging(v14);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
   if (isFinished)
   {
-    if (v15)
+    if (v16)
     {
       *buf = 0;
-      v16 = "Navigation session provider already connected";
+      v17 = "Navigation session provider already connected";
 LABEL_11:
-      _os_log_impl(&dword_236ED4000, v14, OS_LOG_TYPE_DEFAULT, v16, buf, 2u);
+      _os_log_impl(&dword_236ED4000, v15, OS_LOG_TYPE_DEFAULT, v17, buf, 2u);
     }
   }
 
-  else if (v15)
+  else if (v16)
   {
     *buf = 0;
-    v16 = "Navigation session provider not connected";
+    v17 = "Navigation session provider not connected";
     goto LABEL_11;
   }
 
@@ -350,22 +400,21 @@ LABEL_11:
   v25[3] = &unk_278A11470;
   v26 = v4;
   selfCopy = self;
-  v18 = v6;
-  v28 = v18;
-  v19 = v4;
-  v20 = [navigationSessionProviderFuture2 addSuccessBlock:v25];
+  v19 = v6;
+  v28 = v19;
+  v20 = v4;
+  v21 = [navigationSessionProviderFuture2 addSuccessBlock:v25];
 
-  v21 = v28;
-  v22 = v18;
+  v22 = v28;
+  v23 = v19;
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v19;
 }
 
 void __47__CPMapTemplate_startNavigationSessionForTrip___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarPlayFrameworkGeneralLogging();
+  v4 = CarPlayFrameworkGeneralLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -387,32 +436,31 @@ void __47__CPMapTemplate_startNavigationSessionForTrip___block_invoke_30(uint64_
 {
   v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CarPlayFrameworkGeneralLogging();
+  v4 = CarPlayFrameworkGeneralLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v10) = 0;
     _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "Navigation session started", &v10, 2u);
   }
 
-  if ([*(*(a1 + 32) + 184) count])
+  v5 = [*(*(a1 + 32) + 184) count];
+  if (v5)
   {
-    v5 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CarPlayFrameworkGeneralLogging(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
+      v7 = *(a1 + 40);
       v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Hiding trip previews card for trip %@.", &v10, 0xCu);
+      v11 = v7;
+      _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "Hiding trip previews card for trip %@.", &v10, 0xCu);
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 184);
-    *(v7 + 184) = MEMORY[0x277CBEBF8];
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 184);
+    *(v8 + 184) = MEMORY[0x277CBEBF8];
   }
 
   [*(a1 + 48) setManager:v3];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNavigationSessionProvider:(id)provider
@@ -505,14 +553,14 @@ void __43__CPMapTemplate_mapButton_setFocusedImage___block_invoke(uint64_t a1, v
   v7 = navigationAlert;
   [(CPNavigationAlert *)v7 setNavigationAlertUpdateTarget:self];
   objc_storeStrong(&self->_currentNavigationAlert, navigationAlert);
-  v8 = CarPlayFrameworkGeneralLogging();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = CarPlayFrameworkGeneralLogging(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
     selfCopy = self;
     v21 = 2112;
     v22 = v7;
-    _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_INFO, "%@: Presenting navigation alert: %@", buf, 0x16u);
+    _os_log_impl(&dword_236ED4000, v9, OS_LOG_TYPE_INFO, "%@: Presenting navigation alert: %@", buf, 0x16u);
   }
 
   templateProviderFuture = [(CPTemplate *)self templateProviderFuture];
@@ -522,11 +570,10 @@ void __43__CPMapTemplate_mapButton_setFocusedImage___block_invoke(uint64_t a1, v
   v16 = &unk_278A11498;
   v17 = v7;
   v18 = animated;
-  v10 = v7;
-  v11 = [templateProviderFuture addSuccessBlock:&v13];
+  v11 = v7;
+  v12 = [templateProviderFuture addSuccessBlock:&v13];
 
-  [(CPMapTemplate *)self _postBannerIfNecessaryForNavigationAlert:v10, v13, v14, v15, v16];
-  v12 = *MEMORY[0x277D85DE8];
+  [(CPMapTemplate *)self _postBannerIfNecessaryForNavigationAlert:v11, v13, v14, v15, v16];
 }
 
 - (void)dismissNavigationAlertAnimated:(BOOL)animated completion:(void *)completion
@@ -578,15 +625,15 @@ uint64_t __59__CPMapTemplate_dismissNavigationAlertAnimated_completion___block_i
 
 - (void)_updateNavigationAlert:(id)alert
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   alertCopy = alert;
-  v5 = CarPlayFrameworkGeneralLogging();
+  v5 = CarPlayFrameworkGeneralLogging(alertCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
     selfCopy = self;
-    v17 = 2112;
-    v18 = alertCopy;
+    v16 = 2112;
+    v17 = alertCopy;
     _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_INFO, "%@: Updating navigation alert: %@", buf, 0x16u);
   }
 
@@ -598,15 +645,13 @@ uint64_t __59__CPMapTemplate_dismissNavigationAlertAnimated_completion___block_i
   if (v9)
   {
     templateProviderFuture = [(CPTemplate *)self templateProviderFuture];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __40__CPMapTemplate__updateNavigationAlert___block_invoke;
-    v13[3] = &unk_278A10A90;
-    v14 = alertCopy;
-    v11 = [templateProviderFuture addSuccessBlock:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __40__CPMapTemplate__updateNavigationAlert___block_invoke;
+    v12[3] = &unk_278A10A90;
+    v13 = alertCopy;
+    v11 = [templateProviderFuture addSuccessBlock:v12];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMapButtons:(NSArray *)mapButtons
@@ -682,7 +727,7 @@ void __31__CPMapTemplate_setMapButtons___block_invoke_2(uint64_t a1, void *a2, u
 
 void __50__CPMapTemplate_handleActionForControlIdentifier___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) currentNavigationAlert];
 
   if (v2)
@@ -695,49 +740,49 @@ void __50__CPMapTemplate_handleActionForControlIdentifier___block_invoke(uint64_
 
     if (v3)
     {
-      v7 = CarPlayFrameworkGeneralLogging();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = CarPlayFrameworkGeneralLogging(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v8 = *(a1 + 32);
-        v9 = *(a1 + 40);
+        v9 = *(a1 + 32);
+        v10 = *(a1 + 40);
         *buf = 138412546;
-        *&buf[4] = v8;
+        *&buf[4] = v9;
         *&buf[12] = 2112;
-        *&buf[14] = v9;
-        _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_INFO, "%@: Activated navigation alert primary action with control identifier: %@", buf, 0x16u);
+        *&buf[14] = v10;
+        _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_INFO, "%@: Activated navigation alert primary action with control identifier: %@", buf, 0x16u);
       }
 
-      v10 = [*(a1 + 32) currentNavigationAlert];
-      v11 = [v10 primaryAction];
+      v11 = [*(a1 + 32) currentNavigationAlert];
+      v12 = [v11 primaryAction];
 LABEL_10:
-      v19 = v11;
-      __50__CPMapTemplate_handleActionForControlIdentifier___block_invoke_2(v11, v11);
+      v21 = v12;
+      __50__CPMapTemplate_handleActionForControlIdentifier___block_invoke_2(v12, v12);
 
-      goto LABEL_17;
+      return;
     }
 
-    v12 = *(a1 + 40);
-    v13 = [*(a1 + 32) currentNavigationAlert];
-    v14 = [v13 secondaryAction];
-    v15 = [v14 identifier];
-    LODWORD(v12) = [v12 isEqual:v15];
+    v13 = *(a1 + 40);
+    v14 = [*(a1 + 32) currentNavigationAlert];
+    v15 = [v14 secondaryAction];
+    v16 = [v15 identifier];
+    LODWORD(v13) = [v13 isEqual:v16];
 
-    if (v12)
+    if (v13)
     {
-      v16 = CarPlayFrameworkGeneralLogging();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v18 = CarPlayFrameworkGeneralLogging(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v17 = *(a1 + 32);
-        v18 = *(a1 + 40);
+        v19 = *(a1 + 32);
+        v20 = *(a1 + 40);
         *buf = 138412546;
-        *&buf[4] = v17;
+        *&buf[4] = v19;
         *&buf[12] = 2112;
-        *&buf[14] = v18;
-        _os_log_impl(&dword_236ED4000, v16, OS_LOG_TYPE_INFO, "%@: Activated navigation alert secondary action with control identifier: %@", buf, 0x16u);
+        *&buf[14] = v20;
+        _os_log_impl(&dword_236ED4000, v18, OS_LOG_TYPE_INFO, "%@: Activated navigation alert secondary action with control identifier: %@", buf, 0x16u);
       }
 
-      v10 = [*(a1 + 32) currentNavigationAlert];
-      v11 = [v10 secondaryAction];
+      v11 = [*(a1 + 32) currentNavigationAlert];
+      v12 = [v11 secondaryAction];
       goto LABEL_10;
     }
   }
@@ -745,33 +790,33 @@ LABEL_10:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v38 = __Block_byref_object_copy__5;
-  v39 = __Block_byref_object_dispose__5;
-  v40 = 0;
-  v20 = [*(a1 + 32) mapButtons];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __50__CPMapTemplate_handleActionForControlIdentifier___block_invoke_43;
-  v28[3] = &unk_278A11580;
-  v29 = *(a1 + 40);
-  v30 = buf;
-  [v20 enumerateObjectsUsingBlock:v28];
+  v40 = __Block_byref_object_copy__5;
+  v41 = __Block_byref_object_dispose__5;
+  v42 = 0;
+  v22 = [*(a1 + 32) mapButtons];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __50__CPMapTemplate_handleActionForControlIdentifier___block_invoke_43;
+  v30[3] = &unk_278A11580;
+  v31 = *(a1 + 40);
+  v32 = buf;
+  [v22 enumerateObjectsUsingBlock:v30];
 
   if (*(*&buf[8] + 40))
   {
-    v21 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v24 = CarPlayFrameworkGeneralLogging(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      v22 = *(*&buf[8] + 40);
-      v23 = *(a1 + 32);
-      v24 = *(a1 + 40);
-      *v31 = 138412802;
-      v32 = v23;
-      v33 = 2112;
-      v34 = v22;
+      v25 = *(*&buf[8] + 40);
+      v26 = *(a1 + 32);
+      v27 = *(a1 + 40);
+      *v33 = 138412802;
+      v34 = v26;
       v35 = 2112;
-      v36 = v24;
-      _os_log_impl(&dword_236ED4000, v21, OS_LOG_TYPE_INFO, "%@: Activated button: %@ for control identifier: %@", v31, 0x20u);
+      v36 = v25;
+      v37 = 2112;
+      v38 = v27;
+      _os_log_impl(&dword_236ED4000, v24, OS_LOG_TYPE_INFO, "%@: Activated button: %@ for control identifier: %@", v33, 0x20u);
     }
 
     [*(*&buf[8] + 40) handlePrimaryAction];
@@ -779,15 +824,13 @@ LABEL_10:
 
   else
   {
-    v25 = *(a1 + 40);
-    v27.receiver = *(a1 + 32);
-    v27.super_class = CPMapTemplate;
-    objc_msgSendSuper2(&v27, sel_handleActionForControlIdentifier_, v25);
+    v28 = *(a1 + 40);
+    v29.receiver = *(a1 + 32);
+    v29.super_class = CPMapTemplate;
+    objc_msgSendSuper2(&v29, sel_handleActionForControlIdentifier_, v28);
   }
 
   _Block_object_dispose(buf, 8);
-LABEL_17:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __50__CPMapTemplate_handleActionForControlIdentifier___block_invoke_2(uint64_t a1, void *a2)
@@ -832,26 +875,26 @@ void __50__CPMapTemplate_handleActionForControlIdentifier___block_invoke_43(uint
   completionCopy = completion;
   tripPreviews = [(CPMapTemplate *)self tripPreviews];
   v12 = MEMORY[0x277CCAC30];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __53__CPMapTemplate__resolveTrip_routeChoice_completion___block_invoke;
-  v29[3] = &unk_278A115A8;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __53__CPMapTemplate__resolveTrip_routeChoice_completion___block_invoke;
+  v30[3] = &unk_278A115A8;
   v13 = tripCopy;
-  v30 = v13;
-  v14 = [v12 predicateWithBlock:v29];
+  v31 = v13;
+  v14 = [v12 predicateWithBlock:v30];
   v15 = [tripPreviews filteredArrayUsingPredicate:v14];
   firstObject = [v15 firstObject];
 
   routeChoices = [firstObject routeChoices];
   v18 = MEMORY[0x277CCAC30];
-  v24 = MEMORY[0x277D85DD0];
-  v25 = 3221225472;
-  v26 = __53__CPMapTemplate__resolveTrip_routeChoice_completion___block_invoke_2;
-  v27 = &unk_278A115D0;
+  v25 = MEMORY[0x277D85DD0];
+  v26 = 3221225472;
+  v27 = __53__CPMapTemplate__resolveTrip_routeChoice_completion___block_invoke_2;
+  v28 = &unk_278A115D0;
   v19 = choiceCopy;
-  v28 = v19;
-  v20 = [v18 predicateWithBlock:&v24];
-  v21 = [routeChoices filteredArrayUsingPredicate:{v20, v24, v25, v26, v27}];
+  v29 = v19;
+  v20 = [v18 predicateWithBlock:&v25];
+  v21 = [routeChoices filteredArrayUsingPredicate:{v20, v25, v26, v27, v28}];
   firstObject2 = [v21 firstObject];
 
   if (firstObject && firstObject2)
@@ -864,10 +907,10 @@ void __50__CPMapTemplate_handleActionForControlIdentifier___block_invoke_43(uint
 
   else
   {
-    v23 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = CarPlayFrameworkGeneralLogging(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [CPMapTemplate _resolveTrip:v13 routeChoice:v19 completion:v23];
+      [CPMapTemplate _resolveTrip:v13 routeChoice:v19 completion:v24];
     }
   }
 }
@@ -926,15 +969,15 @@ void __60__CPMapTemplate_previewTripIdentifier_usingRouteIdentifier___block_invo
 {
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 32);
-  if (objc_opt_respondsToSelector())
+  v7 = objc_opt_respondsToSelector();
+  if (v7)
   {
     [*(a1 + 32) mapTemplate:*(a1 + 40) selectedPreviewForTrip:v5 usingRouteChoice:v6];
   }
 
   else
   {
-    v8 = CarPlayFrameworkGeneralLogging();
+    v8 = CarPlayFrameworkGeneralLogging(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __60__CPMapTemplate_previewTripIdentifier_usingRouteIdentifier___block_invoke_2_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
@@ -978,15 +1021,15 @@ void __58__CPMapTemplate_startTripIdentifier_usingRouteIdentifier___block_invoke
 {
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 32);
-  if (objc_opt_respondsToSelector())
+  v7 = objc_opt_respondsToSelector();
+  if (v7)
   {
     [*(a1 + 32) mapTemplate:*(a1 + 40) startedTrip:v5 usingRouteChoice:v6];
   }
 
   else
   {
-    v8 = CarPlayFrameworkGeneralLogging();
+    v8 = CarPlayFrameworkGeneralLogging(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __58__CPMapTemplate_startTripIdentifier_usingRouteIdentifier___block_invoke_2_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
@@ -1459,28 +1502,26 @@ void __40__CPMapTemplate_clientPanWithDirection___block_invoke(uint64_t a1)
   v2 = [*(a1 + 32) mapDelegate];
   v3 = objc_opt_respondsToSelector();
 
-  v4 = CarPlayFrameworkGeneralLogging();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = CarPlayFrameworkGeneralLogging(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-    v7 = [MEMORY[0x277CCABB0] numberWithBool:v3 & 1];
+    v6 = *(a1 + 32);
+    v7 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:v3 & 1];
     v10 = 138412802;
-    v11 = v5;
+    v11 = v6;
     v12 = 2112;
-    v13 = v6;
+    v13 = v7;
     v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "%@: Pan button pressed with direction: %@. Delegate responds to panWithDirection: %@", &v10, 0x20u);
+    v15 = v8;
+    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "%@: Pan button pressed with direction: %@. Delegate responds to panWithDirection: %@", &v10, 0x20u);
   }
 
   if (v3)
   {
-    v8 = [*(a1 + 32) mapDelegate];
-    [v8 mapTemplate:*(a1 + 32) panWithDirection:*(a1 + 40)];
+    v9 = [*(a1 + 32) mapDelegate];
+    [v9 mapTemplate:*(a1 + 32) panWithDirection:*(a1 + 40)];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientNavigationAlertWillAppear:(id)appear
@@ -1624,17 +1665,17 @@ void __59__CPMapTemplate_clientNavigationAlertDidDisappear_context___block_invok
 
   if (v10)
   {
-    v20 = [*(a1 + 32) postedBannerObjects];
-    v11 = [*(a1 + 40) identifier];
-    [v20 removeObjectForKey:v11];
+    v21 = [*(a1 + 32) postedBannerObjects];
+    v12 = [*(a1 + 40) identifier];
+    [v21 removeObjectForKey:v12];
   }
 
   else
   {
-    v12 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = CarPlayFrameworkGeneralLogging(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __59__CPMapTemplate_clientNavigationAlertDidDisappear_context___block_invoke_cold_1(v12, v13, v14, v15, v16, v17, v18, v19);
+      __59__CPMapTemplate_clientNavigationAlertDidDisappear_context___block_invoke_cold_1(v13, v14, v15, v16, v17, v18, v19, v20);
     }
   }
 }
@@ -1845,13 +1886,12 @@ LABEL_14:
 
 - (void)_resolveTrip:(uint64_t)a1 routeChoice:(uint64_t)a2 completion:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_236ED4000, log, OS_LOG_TYPE_ERROR, "failed to find matching objects for trip %@ and route %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_236ED4000, log, OS_LOG_TYPE_ERROR, "failed to find matching objects for trip %@ and route %@", &v3, 0x16u);
 }
 
 @end

@@ -97,7 +97,7 @@ void __41__EFXPCAlarmScheduler_initGlobalInstance__block_invoke(uint64_t a1, voi
 
 - (void)_queue_handleXPCEvent:(id)event
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   dispatch_assert_queue_V2(self->_queue);
   string = xpc_dictionary_get_string(eventCopy, *MEMORY[0x1E69E9E40]);
@@ -107,13 +107,13 @@ void __41__EFXPCAlarmScheduler_initGlobalInstance__block_invoke(uint64_t a1, voi
   {
     v8 = objc_opt_class();
     [date timeIntervalSince1970];
-    v14 = 138543874;
-    v15 = v8;
-    v16 = 2082;
-    v17 = string;
-    v18 = 2048;
-    v19 = v9;
-    _os_log_impl(&dword_1C6152000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received XPC alarm event with name: %{public}s date: %{time_t}ld", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v8;
+    v15 = 2082;
+    v16 = string;
+    v17 = 2048;
+    v18 = v9;
+    _os_log_impl(&dword_1C6152000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received XPC alarm event with name: %{public}s date: %{time_t}ld", &v13, 0x20u);
   }
 
   if (string)
@@ -132,8 +132,6 @@ void __41__EFXPCAlarmScheduler_initGlobalInstance__block_invoke(uint64_t a1, voi
       [(EFXPCAlarmScheduler *)v12 _queue_handleXPCEvent:v10];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_scheduleEvent:(id)event
@@ -186,30 +184,30 @@ void __41__EFXPCAlarmScheduler_initGlobalInstance__block_invoke(uint64_t a1, voi
 
 - (void)_queue_notifyAlarmsOfPendingEvents
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
-  v20 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v19 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = self->_pendingEvents;
-  v3 = [(NSMutableSet *)obj countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v3 = [(NSMutableSet *)obj countByEnumeratingWithState:&v21 objects:v31 count:16];
   if (v3)
   {
-    v5 = *v23;
+    v5 = *v22;
     *&v4 = 138543618;
-    v19 = v4;
+    v18 = v4;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v23 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v22 + 1) + 8 * i);
+        v7 = *(*(&v21 + 1) + 8 * i);
         alarms = self->_alarms;
         name = [v7 name];
         v10 = [(NSMapTable *)alarms objectForKey:name];
@@ -221,11 +219,11 @@ void __41__EFXPCAlarmScheduler_initGlobalInstance__block_invoke(uint64_t a1, voi
           {
             v12 = objc_opt_class();
             *buf = 138543874;
-            v27 = v12;
-            v28 = 2114;
-            v29 = v10;
-            v30 = 2114;
-            v31 = v7;
+            v26 = v12;
+            v27 = 2114;
+            v28 = v10;
+            v29 = 2114;
+            v30 = v7;
             v13 = v12;
             _os_log_impl(&dword_1C6152000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] notifying alarm %{public}@ of event: %{public}@", buf, 0x20u);
           }
@@ -239,28 +237,26 @@ void __41__EFXPCAlarmScheduler_initGlobalInstance__block_invoke(uint64_t a1, voi
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             v15 = objc_opt_class();
-            *buf = v19;
-            v27 = v15;
-            v28 = 2114;
-            v29 = v7;
+            *buf = v18;
+            v26 = v15;
+            v27 = 2114;
+            v28 = v7;
             v16 = v15;
             _os_log_impl(&dword_1C6152000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] no registered alarm for event: %{public}@", buf, 0x16u);
           }
 
-          [(NSMutableSet *)v20 addObject:v7];
+          [(NSMutableSet *)v19 addObject:v7];
         }
       }
 
-      v3 = [(NSMutableSet *)obj countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v3 = [(NSMutableSet *)obj countByEnumeratingWithState:&v21 objects:v31 count:16];
     }
 
     while (v3);
   }
 
   pendingEvents = self->_pendingEvents;
-  self->_pendingEvents = v20;
-
-  v18 = *MEMORY[0x1E69E9840];
+  self->_pendingEvents = v19;
 }
 
 - (void)addAlarm:(id)alarm
@@ -279,29 +275,26 @@ void __41__EFXPCAlarmScheduler_initGlobalInstance__block_invoke(uint64_t a1, voi
 
 uint64_t __32__EFXPCAlarmScheduler_addAlarm___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = +[EFXPCAlarmScheduler log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = *(a1 + 40);
-    v12 = 138543618;
+    v3 = objc_opt_class();
+    v4 = *(a1 + 40);
+    v10 = 138543618;
+    v11 = v3;
+    v12 = 2114;
     v13 = v4;
-    v14 = 2114;
-    v15 = v5;
-    v6 = v4;
-    _os_log_impl(&dword_1C6152000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] adding alarm %{public}@", &v12, 0x16u);
+    v5 = v3;
+    _os_log_impl(&dword_1C6152000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] adding alarm %{public}@", &v10, 0x16u);
   }
 
-  v7 = *(a1 + 40);
-  v8 = *(*(a1 + 32) + 8);
-  v9 = [v7 eventName];
-  [v8 setObject:v7 forKey:v9];
+  v6 = *(a1 + 40);
+  v7 = *(*(a1 + 32) + 8);
+  v8 = [v6 eventName];
+  [v7 setObject:v6 forKey:v8];
 
-  result = [*(a1 + 32) _queue_notifyAlarmsOfPendingEvents];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _queue_notifyAlarmsOfPendingEvents];
 }
 
 - (void)removeAlarm:(id)alarm
@@ -320,27 +313,24 @@ uint64_t __32__EFXPCAlarmScheduler_addAlarm___block_invoke(uint64_t a1)
 
 void __35__EFXPCAlarmScheduler_removeAlarm___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = +[EFXPCAlarmScheduler log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = *(a1 + 40);
-    v11 = 138543618;
+    v3 = objc_opt_class();
+    v4 = *(a1 + 40);
+    v9 = 138543618;
+    v10 = v3;
+    v11 = 2114;
     v12 = v4;
-    v13 = 2114;
-    v14 = v5;
-    v6 = v4;
-    _os_log_impl(&dword_1C6152000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing alarm %{public}@", &v11, 0x16u);
+    v5 = v3;
+    _os_log_impl(&dword_1C6152000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing alarm %{public}@", &v9, 0x16u);
   }
 
-  v7 = *(a1 + 40);
-  v8 = *(*(a1 + 32) + 8);
-  v9 = [v7 eventName];
-  [v8 removeObjectForKey:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v6 = *(a1 + 40);
+  v7 = *(*(a1 + 32) + 8);
+  v8 = [v6 eventName];
+  [v7 removeObjectForKey:v8];
 }
 
 - (void)scheduleEvent:(id)event
@@ -359,24 +349,21 @@ void __35__EFXPCAlarmScheduler_removeAlarm___block_invoke(uint64_t a1)
 
 uint64_t __37__EFXPCAlarmScheduler_scheduleEvent___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = +[EFXPCAlarmScheduler log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = *(a1 + 40);
-    v9 = 138543618;
+    v3 = objc_opt_class();
+    v4 = *(a1 + 40);
+    v7 = 138543618;
+    v8 = v3;
+    v9 = 2114;
     v10 = v4;
-    v11 = 2114;
-    v12 = v5;
-    v6 = v4;
-    _os_log_impl(&dword_1C6152000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] scheduling event: %{public}@", &v9, 0x16u);
+    v5 = v3;
+    _os_log_impl(&dword_1C6152000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] scheduling event: %{public}@", &v7, 0x16u);
   }
 
-  result = [*(a1 + 32) _queue_scheduleEvent:*(a1 + 40)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _queue_scheduleEvent:*(a1 + 40)];
 }
 
 - (void)unscheduleEventWithName:(id)name
@@ -395,24 +382,21 @@ uint64_t __37__EFXPCAlarmScheduler_scheduleEvent___block_invoke(uint64_t a1)
 
 uint64_t __47__EFXPCAlarmScheduler_unscheduleEventWithName___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = +[EFXPCAlarmScheduler log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = *(a1 + 40);
-    v9 = 138543618;
+    v3 = objc_opt_class();
+    v4 = *(a1 + 40);
+    v7 = 138543618;
+    v8 = v3;
+    v9 = 2114;
     v10 = v4;
-    v11 = 2114;
-    v12 = v5;
-    v6 = v4;
-    _os_log_impl(&dword_1C6152000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] unscheduling event: %{public}@", &v9, 0x16u);
+    v5 = v3;
+    _os_log_impl(&dword_1C6152000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] unscheduling event: %{public}@", &v7, 0x16u);
   }
 
-  result = [*(a1 + 32) _queue_unscheduleEventWithName:*(a1 + 40)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _queue_unscheduleEventWithName:*(a1 + 40)];
 }
 
 - (id)debugDescription
@@ -438,30 +422,30 @@ uint64_t __47__EFXPCAlarmScheduler_unscheduleEventWithName___block_invoke(uint64
 
 void __39__EFXPCAlarmScheduler_debugDescription__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) addObject:@"\tAlarms"];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v2 = *(*(a1 + 40) + 8);
-  v3 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v3)
   {
-    v4 = *v22;
+    v4 = *v21;
     do
     {
       v5 = 0;
       do
       {
-        if (*v22 != v4)
+        if (*v21 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
         v6 = MEMORY[0x1E696AEC0];
         v7 = *(a1 + 32);
-        v8 = [*(*(a1 + 40) + 8) objectForKey:*(*(&v21 + 1) + 8 * v5)];
+        v8 = [*(*(a1 + 40) + 8) objectForKey:*(*(&v20 + 1) + 8 * v5)];
         v9 = [v6 stringWithFormat:@"\t\t%@", v8];
         [v7 addObject:v9];
 
@@ -469,47 +453,45 @@ void __39__EFXPCAlarmScheduler_debugDescription__block_invoke(uint64_t a1)
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v3);
   }
 
   [*(a1 + 32) addObject:@"\tPending Events"];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = *(*(a1 + 40) + 16);
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v11)
   {
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
         v14 = *(a1 + 32);
-        v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\t\t%@", *(*(&v17 + 1) + 8 * v13)];
+        v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\t\t%@", *(*(&v16 + 1) + 8 * v13)];
         [v14 addObject:v15];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)ef_publicDescription

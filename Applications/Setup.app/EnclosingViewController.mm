@@ -33,7 +33,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000681BC();
+  sub_1000681BC(selfCopy);
 }
 
 - (BOOL)hasBlackBackground
@@ -74,8 +74,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1000687BC(appear);
+  sub_1000687BC(appearCopy);
 }
 
 - (id)customDescription

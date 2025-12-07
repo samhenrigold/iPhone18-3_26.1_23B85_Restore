@@ -113,7 +113,7 @@
   if (self->_playerView == change)
   {
     v4 = PBUIIrisWallpaperPlaybackStateForISPlaybackState([change playbackState]);
-    v5 = PBUILogCommon();
+    v5 = PBUILogCommon(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = PBUIIrisWallpaperPlaybackStateDescription(self->_playbackState);

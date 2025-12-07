@@ -352,76 +352,74 @@ LABEL_9:
       valid = [NSString stringWithFormat:@"Host timestamp jump detected (%llu:%llu -> %llu:%llu). Discard this BTSync packet.", lastHostTimestampCount, self->_lastHostTimestampUs, timestamp, valid];
       [(HIDTimestampSyncErrorHandler *)btSyncErrorHandler reportFailure:valid];
 
-      lastHostTimestampUs = self->_lastHostTimestampUs;
-      v12 = self->_lastHostTimestampCount;
       kdebug_trace();
       return 0;
     }
 
     if (timestamp < 2)
     {
-      v21 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v19 = self->_lastHostTimestampUs;
-      v20 = [(HIDTimestampSync *)self calculateTimestampDifference:self->_lastBTSyncTimestampUs current:us threshold:2000 * self->_periodMs compensation:self->_btSyncCompensation errorHandler:self->_btSyncErrorHandler];
-      v21 = valid - v19 - v20;
+      lastHostTimestampUs = self->_lastHostTimestampUs;
+      v18 = [(HIDTimestampSync *)self calculateTimestampDifference:self->_lastBTSyncTimestampUs current:us threshold:2000 * self->_periodMs compensation:self->_btSyncCompensation errorHandler:self->_btSyncErrorHandler];
+      v19 = valid - lastHostTimestampUs - v18;
       if (self->_lastHostTimestampUs && self->_lastBTSyncTimestampUs)
       {
         kdebug_trace();
       }
 
-      if (v20 || self->_lastBTSyncTimestampUs == us)
+      if (v18 || self->_lastBTSyncTimestampUs == us)
       {
         [(HIDTimestampSyncErrorHandler *)self->_btSyncErrorHandler reportSuccess];
       }
     }
 
-    v22 = qword_1000DDBC8;
+    v20 = qword_1000DDBC8;
     if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = self->_lastHostTimestampUs;
-      v23 = self->_lastHostTimestampCount;
+      v22 = self->_lastHostTimestampUs;
+      v21 = self->_lastHostTimestampCount;
       lastBTSyncTimestampUs = self->_lastBTSyncTimestampUs;
       *buf = 134219520;
-      timestampCopy2 = v23;
+      timestampCopy2 = v21;
+      v26 = 2048;
+      validCopy2 = v22;
       v28 = 2048;
-      validCopy2 = v24;
-      v30 = 2048;
       usCopy2 = timestamp;
-      v32 = 2048;
+      v30 = 2048;
       validCopy = valid;
+      v32 = 2048;
+      v33 = lastBTSyncTimestampUs;
       v34 = 2048;
-      v35 = lastBTSyncTimestampUs;
-      v36 = 2048;
       usCopy = us;
-      v38 = 2048;
-      v39 = v21;
-      v16 = "New timestamp sync (Host=%llu:%llu->%llu:%llu, BT=%llu->%llu, drift=%lld)";
-      v17 = v22;
-      v18 = 72;
+      v36 = 2048;
+      v37 = v19;
+      v14 = "New timestamp sync (Host=%llu:%llu->%llu:%llu, BT=%llu->%llu, drift=%lld)";
+      v15 = v20;
+      v16 = 72;
       goto LABEL_17;
     }
   }
 
   else
   {
-    v15 = qword_1000DDBC8;
+    v13 = qword_1000DDBC8;
     if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
       timestampCopy2 = timestamp;
-      v28 = 2048;
+      v26 = 2048;
       validCopy2 = valid;
-      v30 = 2048;
+      v28 = 2048;
       usCopy2 = us;
-      v16 = "First timestamp sync (Host=%llu:%llu, BT=%llu)";
-      v17 = v15;
-      v18 = 32;
+      v14 = "First timestamp sync (Host=%llu:%llu, BT=%llu)";
+      v15 = v13;
+      v16 = 32;
 LABEL_17:
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v16, buf, v18);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v14, buf, v16);
     }
   }
 

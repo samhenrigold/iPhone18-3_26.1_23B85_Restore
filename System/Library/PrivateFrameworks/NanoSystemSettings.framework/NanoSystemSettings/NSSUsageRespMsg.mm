@@ -325,7 +325,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_usedStorageInBytes];
   [dictionary setObject:v4 forKey:@"usedStorageInBytes"];
@@ -350,30 +350,30 @@
   if ([(NSMutableArray *)self->_appUsages count])
   {
     v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_appUsages, "count")}];
+    v72 = 0u;
     v73 = 0u;
     v74 = 0u;
     v75 = 0u;
-    v76 = 0u;
     v13 = self->_appUsages;
-    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v73 objects:v80 count:16];
+    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v72 objects:v79 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v74;
+      v16 = *v73;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v74 != v16)
+          if (*v73 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation = [*(*(&v73 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v72 + 1) + 8 * i) dictionaryRepresentation];
           [v12 addObject:dictionaryRepresentation];
         }
 
-        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v73 objects:v80 count:16];
+        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v72 objects:v79 count:16];
       }
 
       while (v15);
@@ -385,8 +385,8 @@
   has = self->_has;
   if ((has & 0x80) != 0)
   {
-    v48 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_moviesUsage];
-    [dictionary setObject:v48 forKey:@"moviesUsage"];
+    v47 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_moviesUsage];
+    [dictionary setObject:v47 forKey:@"moviesUsage"];
 
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -406,8 +406,8 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_movieRentalsUsage];
-  [dictionary setObject:v49 forKey:@"movieRentalsUsage"];
+  v48 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_movieRentalsUsage];
+  [dictionary setObject:v48 forKey:@"movieRentalsUsage"];
 
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -422,8 +422,8 @@ LABEL_13:
   }
 
 LABEL_65:
-  v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_tvShowsUsage];
-  [dictionary setObject:v50 forKey:@"tvShowsUsage"];
+  v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_tvShowsUsage];
+  [dictionary setObject:v49 forKey:@"tvShowsUsage"];
 
   has = self->_has;
   if ((has & 1) == 0)
@@ -438,8 +438,8 @@ LABEL_14:
   }
 
 LABEL_66:
-  v51 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_audioCoursesUsage];
-  [dictionary setObject:v51 forKey:@"audioCoursesUsage"];
+  v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_audioCoursesUsage];
+  [dictionary setObject:v50 forKey:@"audioCoursesUsage"];
 
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -454,8 +454,8 @@ LABEL_15:
   }
 
 LABEL_67:
-  v52 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_videoCoursesUsage];
-  [dictionary setObject:v52 forKey:@"videoCoursesUsage"];
+  v51 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_videoCoursesUsage];
+  [dictionary setObject:v51 forKey:@"videoCoursesUsage"];
 
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -470,8 +470,8 @@ LABEL_16:
   }
 
 LABEL_68:
-  v53 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_musicVideosUsage];
-  [dictionary setObject:v53 forKey:@"musicVideosUsage"];
+  v52 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_musicVideosUsage];
+  [dictionary setObject:v52 forKey:@"musicVideosUsage"];
 
   has = self->_has;
   if ((has & 2) == 0)
@@ -486,8 +486,8 @@ LABEL_17:
   }
 
 LABEL_69:
-  v54 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_audioPodcastsUsage];
-  [dictionary setObject:v54 forKey:@"audioPodcastsUsage"];
+  v53 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_audioPodcastsUsage];
+  [dictionary setObject:v53 forKey:@"audioPodcastsUsage"];
 
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -502,8 +502,8 @@ LABEL_18:
   }
 
 LABEL_70:
-  v55 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_videoPodcastsUsage];
-  [dictionary setObject:v55 forKey:@"videoPodcastsUsage"];
+  v54 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_videoPodcastsUsage];
+  [dictionary setObject:v54 forKey:@"videoPodcastsUsage"];
 
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -518,8 +518,8 @@ LABEL_19:
   }
 
 LABEL_71:
-  v56 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_songsUsage];
-  [dictionary setObject:v56 forKey:@"songsUsage"];
+  v55 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_songsUsage];
+  [dictionary setObject:v55 forKey:@"songsUsage"];
 
   has = self->_has;
   if ((has & 4) == 0)
@@ -534,8 +534,8 @@ LABEL_20:
   }
 
 LABEL_72:
-  v57 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_audiobooksUsage];
-  [dictionary setObject:v57 forKey:@"audiobooksUsage"];
+  v56 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_audiobooksUsage];
+  [dictionary setObject:v56 forKey:@"audiobooksUsage"];
 
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -550,8 +550,8 @@ LABEL_21:
   }
 
 LABEL_73:
-  v58 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_homeVideosUsage];
-  [dictionary setObject:v58 forKey:@"homeVideosUsage"];
+  v57 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_homeVideosUsage];
+  [dictionary setObject:v57 forKey:@"homeVideosUsage"];
 
   has = self->_has;
   if ((has & 8) == 0)
@@ -566,8 +566,8 @@ LABEL_22:
   }
 
 LABEL_74:
-  v59 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_cameralRollUsage];
-  [dictionary setObject:v59 forKey:@"cameralRollUsage"];
+  v58 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_cameralRollUsage];
+  [dictionary setObject:v58 forKey:@"cameralRollUsage"];
 
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -582,8 +582,8 @@ LABEL_23:
   }
 
 LABEL_75:
-  v60 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_photoLibraryUsage];
-  [dictionary setObject:v60 forKey:@"photoLibraryUsage"];
+  v59 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_photoLibraryUsage];
+  [dictionary setObject:v59 forKey:@"photoLibraryUsage"];
 
   if ((*&self->_has & 0x400) != 0)
   {
@@ -596,30 +596,30 @@ LABEL_25:
   if ([(NSMutableArray *)self->_bundleUsages count])
   {
     v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_bundleUsages, "count")}];
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
     v71 = 0u;
-    v72 = 0u;
     v22 = self->_bundleUsages;
-    v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v69 objects:v79 count:16];
+    v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v68 objects:v78 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v70;
+      v25 = *v69;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v70 != v25)
+          if (*v69 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          dictionaryRepresentation2 = [*(*(&v69 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v68 + 1) + 8 * j) dictionaryRepresentation];
           [v21 addObject:dictionaryRepresentation2];
         }
 
-        v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v69 objects:v79 count:16];
+        v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v68 objects:v78 count:16];
       }
 
       while (v24);
@@ -649,30 +649,30 @@ LABEL_25:
   if ([(NSMutableArray *)self->_appBundleUsages count])
   {
     v31 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_appBundleUsages, "count")}];
+    v64 = 0u;
     v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
     v32 = self->_appBundleUsages;
-    v33 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v65 objects:v78 count:16];
+    v33 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v64 objects:v77 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v66;
+      v35 = *v65;
       do
       {
         for (k = 0; k != v34; ++k)
         {
-          if (*v66 != v35)
+          if (*v65 != v35)
           {
             objc_enumerationMutation(v32);
           }
 
-          dictionaryRepresentation3 = [*(*(&v65 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v64 + 1) + 8 * k) dictionaryRepresentation];
           [v31 addObject:dictionaryRepresentation3];
         }
 
-        v34 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v65 objects:v78 count:16];
+        v34 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v64 objects:v77 count:16];
       }
 
       while (v34);
@@ -684,30 +684,30 @@ LABEL_25:
   if ([(NSMutableArray *)self->_categories count])
   {
     v38 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_categories, "count")}];
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
     v39 = self->_categories;
-    v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v61 objects:v77 count:16];
+    v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v60 objects:v76 count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v62;
+      v42 = *v61;
       do
       {
         for (m = 0; m != v41; ++m)
         {
-          if (*v62 != v42)
+          if (*v61 != v42)
           {
             objc_enumerationMutation(v39);
           }
 
-          dictionaryRepresentation4 = [*(*(&v61 + 1) + 8 * m) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v60 + 1) + 8 * m) dictionaryRepresentation];
           [v38 addObject:dictionaryRepresentation4];
         }
 
-        v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v61 objects:v77 count:16];
+        v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v60 objects:v76 count:16];
       }
 
       while (v41);
@@ -722,60 +722,50 @@ LABEL_25:
     [dictionary setObject:v45 forKey:@"capacityInBytes"];
   }
 
-  v46 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   toCopy = to;
-  usedStorageInBytes = self->_usedStorageInBytes;
   PBDataWriterWriteUint64Field();
-  availableStorageInBytes = self->_availableStorageInBytes;
   PBDataWriterWriteUint64Field();
-  usageTimeInSeconds = self->_usageTimeInSeconds;
   PBDataWriterWriteFloatField();
-  standbyTimeInSeconds = self->_standbyTimeInSeconds;
   PBDataWriterWriteFloatField();
-  trusted = self->_trusted;
   PBDataWriterWriteBOOLField();
-  partiallyCharged = self->_partiallyCharged;
   PBDataWriterWriteBOOLField();
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v11 = self->_appUsages;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v64 objects:v71 count:16];
-  if (v12)
+  v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v5 = self->_appUsages;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v38 objects:v45 count:16];
+  if (v6)
   {
-    v13 = v12;
-    v14 = *v65;
+    v7 = v6;
+    v8 = *v39;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v65 != v14)
+        if (*v39 != v8)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v5);
         }
 
-        v16 = *(*(&v64 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v64 objects:v71 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v38 objects:v45 count:16];
     }
 
-    while (v13);
+    while (v7);
   }
 
   has = self->_has;
   if ((has & 0x80) != 0)
   {
-    moviesUsage = self->_moviesUsage;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -795,7 +785,6 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  movieRentalsUsage = self->_movieRentalsUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -810,7 +799,6 @@ LABEL_11:
   }
 
 LABEL_55:
-  tvShowsUsage = self->_tvShowsUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -825,7 +813,6 @@ LABEL_12:
   }
 
 LABEL_56:
-  audioCoursesUsage = self->_audioCoursesUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -840,7 +827,6 @@ LABEL_13:
   }
 
 LABEL_57:
-  videoCoursesUsage = self->_videoCoursesUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -855,7 +841,6 @@ LABEL_14:
   }
 
 LABEL_58:
-  musicVideosUsage = self->_musicVideosUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -870,7 +855,6 @@ LABEL_15:
   }
 
 LABEL_59:
-  audioPodcastsUsage = self->_audioPodcastsUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -885,7 +869,6 @@ LABEL_16:
   }
 
 LABEL_60:
-  videoPodcastsUsage = self->_videoPodcastsUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -900,7 +883,6 @@ LABEL_17:
   }
 
 LABEL_61:
-  songsUsage = self->_songsUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -915,7 +897,6 @@ LABEL_18:
   }
 
 LABEL_62:
-  audiobooksUsage = self->_audiobooksUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -930,7 +911,6 @@ LABEL_19:
   }
 
 LABEL_63:
-  homeVideosUsage = self->_homeVideosUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -945,7 +925,6 @@ LABEL_20:
   }
 
 LABEL_64:
-  cameralRollUsage = self->_cameralRollUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -960,43 +939,40 @@ LABEL_21:
   }
 
 LABEL_65:
-  photoLibraryUsage = self->_photoLibraryUsage;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_22:
-    photoStreamUsage = self->_photoStreamUsage;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_23:
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v19 = self->_bundleUsages;
-  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v60 objects:v70 count:16];
-  if (v20)
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v11 = self->_bundleUsages;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v34 objects:v44 count:16];
+  if (v12)
   {
-    v21 = v20;
-    v22 = *v61;
+    v13 = v12;
+    v14 = *v35;
     do
     {
-      for (j = 0; j != v21; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v61 != v22)
+        if (*v35 != v14)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v11);
         }
 
-        v24 = *(*(&v60 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v60 objects:v70 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v34 objects:v44 count:16];
     }
 
-    while (v21);
+    while (v13);
   }
 
   if (self->_musicBundleIdentifier)
@@ -1014,71 +990,66 @@ LABEL_23:
     PBDataWriterWriteStringField();
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v25 = self->_appBundleUsages;
-  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v56 objects:v69 count:16];
-  if (v26)
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v16 = self->_appBundleUsages;
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v30 objects:v43 count:16];
+  if (v17)
   {
-    v27 = v26;
-    v28 = *v57;
+    v18 = v17;
+    v19 = *v31;
     do
     {
-      for (k = 0; k != v27; ++k)
+      for (k = 0; k != v18; ++k)
       {
-        if (*v57 != v28)
+        if (*v31 != v19)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v16);
         }
 
-        v30 = *(*(&v56 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v56 objects:v69 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v30 objects:v43 count:16];
     }
 
-    while (v27);
+    while (v18);
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v31 = self->_categories;
-  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v52 objects:v68 count:16];
-  if (v32)
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v21 = self->_categories;
+  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v26 objects:v42 count:16];
+  if (v22)
   {
-    v33 = v32;
-    v34 = *v53;
+    v23 = v22;
+    v24 = *v27;
     do
     {
-      for (m = 0; m != v33; ++m)
+      for (m = 0; m != v23; ++m)
       {
-        if (*v53 != v34)
+        if (*v27 != v24)
         {
-          objc_enumerationMutation(v31);
+          objc_enumerationMutation(v21);
         }
 
-        v36 = *(*(&v52 + 1) + 8 * m);
         PBDataWriterWriteSubmessage();
       }
 
-      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v52 objects:v68 count:16];
+      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v26 objects:v42 count:16];
     }
 
-    while (v33);
+    while (v23);
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    capacityInBytes = self->_capacityInBytes;
     PBDataWriterWriteUint64Field();
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -1373,7 +1344,7 @@ LABEL_20:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   *(v5 + 120) = self->_usedStorageInBytes;
   *(v5 + 32) = self->_availableStorageInBytes;
@@ -1381,30 +1352,30 @@ LABEL_20:
   *(v5 + 200) = self->_standbyTimeInSeconds;
   *(v5 + 209) = self->_trusted;
   *(v5 + 208) = self->_partiallyCharged;
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v6 = self->_appUsages;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v51 objects:v58 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v50 objects:v57 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v52;
+    v9 = *v51;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v52 != v9)
+        if (*v51 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v51 + 1) + 8 * i) copyWithZone:zone];
+        v11 = [*(*(&v50 + 1) + 8 * i) copyWithZone:zone];
         [v5 addAppUsages:v11];
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v51 objects:v58 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v50 objects:v57 count:16];
     }
 
     while (v8);
@@ -1608,30 +1579,30 @@ LABEL_22:
   }
 
 LABEL_23:
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v13 = self->_bundleUsages;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v47 objects:v57 count:16];
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v46 objects:v56 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v48;
+    v16 = *v47;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v48 != v16)
+        if (*v47 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [*(*(&v47 + 1) + 8 * j) copyWithZone:zone];
+        v18 = [*(*(&v46 + 1) + 8 * j) copyWithZone:zone];
         [v5 addBundleUsage:v18];
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v47 objects:v57 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v46 objects:v56 count:16];
     }
 
     while (v15);
@@ -1649,59 +1620,59 @@ LABEL_23:
   v24 = *(v5 + 192);
   *(v5 + 192) = v23;
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v25 = self->_appBundleUsages;
-  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v43 objects:v56 count:16];
+  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v42 objects:v55 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v44;
+    v28 = *v43;
     do
     {
       for (k = 0; k != v27; ++k)
       {
-        if (*v44 != v28)
+        if (*v43 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = [*(*(&v43 + 1) + 8 * k) copyWithZone:zone];
+        v30 = [*(*(&v42 + 1) + 8 * k) copyWithZone:zone];
         [v5 addAppBundleUsage:v30];
       }
 
-      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v43 objects:v56 count:16];
+      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v42 objects:v55 count:16];
     }
 
     while (v27);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v31 = self->_categories;
-  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v39 objects:v55 count:16];
+  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v38 objects:v54 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v40;
+    v34 = *v39;
     do
     {
       for (m = 0; m != v33; ++m)
       {
-        if (*v40 != v34)
+        if (*v39 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = [*(*(&v39 + 1) + 8 * m) copyWithZone:{zone, v39}];
+        v36 = [*(*(&v38 + 1) + 8 * m) copyWithZone:{zone, v38}];
         [v5 addCategories:v36];
       }
 
-      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v39 objects:v55 count:16];
+      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v38 objects:v54 count:16];
     }
 
     while (v33);
@@ -1713,7 +1684,6 @@ LABEL_23:
     *(v5 + 212) |= 0x10u;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1725,7 +1695,6 @@ LABEL_23:
     goto LABEL_103;
   }
 
-  v5 = *(equalCopy + 209);
   if (self->_trusted)
   {
     if ((*(equalCopy + 209) & 1) == 0)
@@ -1739,7 +1708,6 @@ LABEL_23:
     goto LABEL_103;
   }
 
-  v6 = *(equalCopy + 208);
   if (!self->_partiallyCharged)
   {
     if ((*(equalCopy + 208) & 1) == 0)
@@ -1748,7 +1716,7 @@ LABEL_23:
     }
 
 LABEL_103:
-    v17 = 0;
+    v15 = 0;
     goto LABEL_104;
   }
 
@@ -1765,29 +1733,29 @@ LABEL_14:
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 106);
+  v7 = *(equalCopy + 106);
   if ((has & 0x80) != 0)
   {
-    if ((v9 & 0x80) == 0 || self->_moviesUsage != *(equalCopy + 9))
+    if ((v7 & 0x80) == 0 || self->_moviesUsage != *(equalCopy + 9))
     {
       goto LABEL_103;
     }
   }
 
-  else if ((v9 & 0x80) != 0)
+  else if ((v7 & 0x80) != 0)
   {
     goto LABEL_103;
   }
 
   if ((has & 0x40) != 0)
   {
-    if ((v9 & 0x40) == 0 || self->_movieRentalsUsage != *(equalCopy + 8))
+    if ((v7 & 0x40) == 0 || self->_movieRentalsUsage != *(equalCopy + 8))
     {
       goto LABEL_103;
     }
   }
 
-  else if ((v9 & 0x40) != 0)
+  else if ((v7 & 0x40) != 0)
   {
     goto LABEL_103;
   }
@@ -1807,13 +1775,13 @@ LABEL_14:
 
   if (has)
   {
-    if ((v9 & 1) == 0 || self->_audioCoursesUsage != *(equalCopy + 1))
+    if ((v7 & 1) == 0 || self->_audioCoursesUsage != *(equalCopy + 1))
     {
       goto LABEL_103;
     }
   }
 
-  else if (v9)
+  else if (v7)
   {
     goto LABEL_103;
   }
@@ -1846,13 +1814,13 @@ LABEL_14:
 
   if ((has & 2) != 0)
   {
-    if ((v9 & 2) == 0 || self->_audioPodcastsUsage != *(equalCopy + 2))
+    if ((v7 & 2) == 0 || self->_audioPodcastsUsage != *(equalCopy + 2))
     {
       goto LABEL_103;
     }
   }
 
-  else if ((v9 & 2) != 0)
+  else if ((v7 & 2) != 0)
   {
     goto LABEL_103;
   }
@@ -1885,39 +1853,39 @@ LABEL_14:
 
   if ((has & 4) != 0)
   {
-    if ((v9 & 4) == 0 || self->_audiobooksUsage != *(equalCopy + 3))
+    if ((v7 & 4) == 0 || self->_audiobooksUsage != *(equalCopy + 3))
     {
       goto LABEL_103;
     }
   }
 
-  else if ((v9 & 4) != 0)
+  else if ((v7 & 4) != 0)
   {
     goto LABEL_103;
   }
 
   if ((has & 0x20) != 0)
   {
-    if ((v9 & 0x20) == 0 || self->_homeVideosUsage != *(equalCopy + 7))
+    if ((v7 & 0x20) == 0 || self->_homeVideosUsage != *(equalCopy + 7))
     {
       goto LABEL_103;
     }
   }
 
-  else if ((v9 & 0x20) != 0)
+  else if ((v7 & 0x20) != 0)
   {
     goto LABEL_103;
   }
 
   if ((has & 8) != 0)
   {
-    if ((v9 & 8) == 0 || self->_cameralRollUsage != *(equalCopy + 5))
+    if ((v7 & 8) == 0 || self->_cameralRollUsage != *(equalCopy + 5))
     {
       goto LABEL_103;
     }
   }
 
-  else if ((v9 & 8) != 0)
+  else if ((v7 & 8) != 0)
   {
     goto LABEL_103;
   }
@@ -1999,25 +1967,25 @@ LABEL_14:
     }
   }
 
-  v16 = *(equalCopy + 106);
+  v14 = *(equalCopy + 106);
   if ((*&self->_has & 0x10) != 0)
   {
-    if ((v16 & 0x10) == 0 || self->_capacityInBytes != *(equalCopy + 6))
+    if ((v14 & 0x10) == 0 || self->_capacityInBytes != *(equalCopy + 6))
     {
       goto LABEL_103;
     }
 
-    v17 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v17 = (v16 & 0x10) == 0;
+    v15 = (v14 & 0x10) == 0;
   }
 
 LABEL_104:
 
-  return v17;
+  return v15;
 }
 
 - (unint64_t)hash
@@ -2295,7 +2263,7 @@ LABEL_43:
 
 - (void)mergeFrom:(id)from
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   self->_usedStorageInBytes = *(fromCopy + 15);
   self->_availableStorageInBytes = *(fromCopy + 4);
@@ -2303,29 +2271,29 @@ LABEL_43:
   self->_standbyTimeInSeconds = *(fromCopy + 50);
   self->_trusted = *(fromCopy + 209);
   self->_partiallyCharged = *(fromCopy + 208);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v5 = *(fromCopy + 19);
-  v6 = [v5 countByEnumeratingWithState:&v39 objects:v46 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v38 objects:v45 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v40;
+    v8 = *v39;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v40 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(NSSUsageRespMsg *)self addAppUsages:*(*(&v39 + 1) + 8 * i)];
+        [(NSSUsageRespMsg *)self addAppUsages:*(*(&v38 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v39 objects:v46 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v38 objects:v45 count:16];
     }
 
     while (v7);
@@ -2529,29 +2497,29 @@ LABEL_22:
   }
 
 LABEL_23:
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v11 = *(fromCopy + 20);
-  v12 = [v11 countByEnumeratingWithState:&v35 objects:v45 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v34 objects:v44 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v36;
+    v14 = *v35;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v36 != v14)
+        if (*v35 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(NSSUsageRespMsg *)self addBundleUsage:*(*(&v35 + 1) + 8 * j)];
+        [(NSSUsageRespMsg *)self addBundleUsage:*(*(&v34 + 1) + 8 * j)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v34 objects:v44 count:16];
     }
 
     while (v13);
@@ -2572,57 +2540,57 @@ LABEL_23:
     [(NSSUsageRespMsg *)self setPodcastsBundleIdentifier:?];
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v16 = *(fromCopy + 18);
-  v17 = [v16 countByEnumeratingWithState:&v31 objects:v44 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v30 objects:v43 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v32;
+    v19 = *v31;
     do
     {
       for (k = 0; k != v18; ++k)
       {
-        if (*v32 != v19)
+        if (*v31 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        [(NSSUsageRespMsg *)self addAppBundleUsage:*(*(&v31 + 1) + 8 * k)];
+        [(NSSUsageRespMsg *)self addAppBundleUsage:*(*(&v30 + 1) + 8 * k)];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v31 objects:v44 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v30 objects:v43 count:16];
     }
 
     while (v18);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v21 = *(fromCopy + 21);
-  v22 = [v21 countByEnumeratingWithState:&v27 objects:v43 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v26 objects:v42 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v28;
+    v24 = *v27;
     do
     {
       for (m = 0; m != v23; ++m)
       {
-        if (*v28 != v24)
+        if (*v27 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        [(NSSUsageRespMsg *)self addCategories:*(*(&v27 + 1) + 8 * m), v27];
+        [(NSSUsageRespMsg *)self addCategories:*(*(&v26 + 1) + 8 * m), v26];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v27 objects:v43 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v26 objects:v42 count:16];
     }
 
     while (v23);
@@ -2633,8 +2601,6 @@ LABEL_23:
     self->_capacityInBytes = *(fromCopy + 6);
     *&self->_has |= 0x10u;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 @end

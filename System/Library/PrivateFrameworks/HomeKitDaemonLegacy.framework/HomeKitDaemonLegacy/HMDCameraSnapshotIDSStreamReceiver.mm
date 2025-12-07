@@ -20,7 +20,7 @@
 
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   lCopy = l;
@@ -40,30 +40,30 @@
     v24 = [HMDDeviceHandle deviceHandleForDestination:dCopy];
     if (v24)
     {
-      v53 = serviceCopy;
-      v54 = accountCopy;
-      v59 = 0u;
-      v60 = 0u;
-      v57 = 0u;
+      v52 = serviceCopy;
+      v53 = accountCopy;
       v58 = 0u;
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
       remoteDevice = [(HMDCameraSnapshotIDSStreamReceiver *)self remoteDevice];
       handles = [remoteDevice handles];
 
-      v27 = [handles countByEnumeratingWithState:&v57 objects:v67 count:16];
+      v27 = [handles countByEnumeratingWithState:&v56 objects:v66 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v58;
+        v29 = *v57;
         while (2)
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v58 != v29)
+            if (*v57 != v29)
             {
               objc_enumerationMutation(handles);
             }
 
-            if ([*(*(&v57 + 1) + 8 * i) isEqual:v24])
+            if ([*(*(&v56 + 1) + 8 * i) isEqual:v24])
             {
 
               v40 = [metadataCopy hmf_dateForKey:*MEMORY[0x277CD26B0]];
@@ -74,8 +74,8 @@
 
                 v39 = lCopy;
                 [(HMDCameraSnapshotIDSStreamReceiver *)self _callFileReceivedAtURL:lCopy dateCaptured:v40 error:0];
-                serviceCopy = v53;
-                accountCopy = v54;
+                serviceCopy = v52;
+                accountCopy = v53;
               }
 
               else
@@ -83,23 +83,23 @@
                 v46 = objc_autoreleasePoolPush();
                 selfCopy = self;
                 v48 = HMFGetOSLogHandle();
-                serviceCopy = v53;
+                serviceCopy = v52;
                 if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
                 {
                   HMFGetLogIdentifier();
-                  v49 = v52 = v46;
+                  v49 = v51 = v46;
                   *buf = 138543362;
-                  v62 = v49;
+                  v61 = v49;
                   _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_ERROR, "%{public}@Could not find the snapshot capture date in the IDS delegate callback metadata", buf, 0xCu);
 
-                  v46 = v52;
+                  v46 = v51;
                 }
 
                 objc_autoreleasePoolPop(v46);
                 v50 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1035];
                 [(HMDCameraSnapshotIDSStreamReceiver *)selfCopy _callFileReceivedAtURL:0 dateCaptured:0 error:v50];
 
-                accountCopy = v54;
+                accountCopy = v53;
                 v39 = lCopy;
               }
 
@@ -107,7 +107,7 @@
             }
           }
 
-          v28 = [handles countByEnumeratingWithState:&v57 objects:v67 count:16];
+          v28 = [handles countByEnumeratingWithState:&v56 objects:v66 count:16];
           if (v28)
           {
             continue;
@@ -124,17 +124,17 @@
       {
         v34 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v62 = v34;
-        v63 = 2112;
-        v64 = v24;
-        v65 = 2112;
-        v66 = dCopy;
+        v61 = v34;
+        v62 = 2112;
+        v63 = v24;
+        v64 = 2112;
+        v65 = dCopy;
         _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Ignoring incoming snapshot resource from unexpected device handle: %@ fromID: %@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v31);
-      serviceCopy = v53;
-      accountCopy = v54;
+      serviceCopy = v52;
+      accountCopy = v53;
     }
 
     else
@@ -145,14 +145,14 @@
       if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v45 = v55 = accountCopy;
+        v45 = v54 = accountCopy;
         *buf = 138543618;
-        v62 = v45;
-        v63 = 2112;
-        v64 = dCopy;
+        v61 = v45;
+        v62 = 2112;
+        v63 = dCopy;
         _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@Could not determine device handle for fromID: %@", buf, 0x16u);
 
-        accountCopy = v55;
+        accountCopy = v54;
       }
 
       objc_autoreleasePoolPop(v42);
@@ -171,17 +171,15 @@ LABEL_27:
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v62 = v38;
-      v63 = 2112;
-      v64 = v20;
+      v61 = v38;
+      v62 = 2112;
+      v63 = v20;
       _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring incoming snapshot resource with unexpected request identifier: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v35);
     v39 = lCopy;
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -209,7 +207,7 @@ LABEL_27:
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -217,15 +215,14 @@ LABEL_27:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Resetting the HMDCameraSnapshotIDSStreamReceiver", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8.receiver = selfCopy;
-  v8.super_class = HMDCameraSnapshotIDSStreamReceiver;
-  [(HMDCameraSnapshotIDSStream *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDCameraSnapshotIDSStreamReceiver;
+  [(HMDCameraSnapshotIDSStream *)&v7 dealloc];
 }
 
 - (HMDCameraSnapshotIDSStreamReceiver)initWithSessionID:(id)d workQueue:(id)queue proxyService:(id)service delegate:(id)delegate remoteDevice:(id)device
@@ -324,12 +321,11 @@ LABEL_7:
 
 uint64_t __49__HMDCameraSnapshotIDSStreamReceiver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_144840;
-  logCategory__hmf_once_v2_144840 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_144840;
+  logCategory__hmf_once_v2_144840 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

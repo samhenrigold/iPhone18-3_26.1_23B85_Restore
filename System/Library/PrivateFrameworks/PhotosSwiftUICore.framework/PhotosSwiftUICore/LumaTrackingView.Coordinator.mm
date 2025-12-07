@@ -8,7 +8,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  sub_1C1013CFC();
+  sub_1C1013CFC(viewCopy, level);
 }
 
 @end

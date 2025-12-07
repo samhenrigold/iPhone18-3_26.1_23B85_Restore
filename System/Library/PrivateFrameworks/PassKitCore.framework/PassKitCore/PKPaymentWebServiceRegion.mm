@@ -83,7 +83,7 @@
       v7->_hasPeerPaymentAccount = [v35 BOOLValue];
     }
 
-    else if ([(NSString *)v7->_regionCode isEqualToString:@"US"])
+    else if (objc_msgSend_isEqualToString_(v7->_regionCode))
     {
       v7->_hasPeerPaymentAccount = account;
     }

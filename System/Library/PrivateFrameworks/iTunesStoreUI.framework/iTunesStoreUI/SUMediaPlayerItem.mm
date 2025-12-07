@@ -131,15 +131,21 @@
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -148,54 +154,50 @@
     {
       if (v9)
       {
-        v15 = objc_opt_class();
+        v16 = objc_opt_class();
         bookmarkIdentifier = self->_bookmarkIdentifier;
         v22 = 138412802;
-        v23 = v15;
+        v23 = v16;
         v24 = 2048;
         timeCopy = time;
         v26 = 2112;
         v27 = bookmarkIdentifier;
-        LODWORD(v21) = 32;
-        v20 = &v22;
-        v17 = _os_log_send_and_compose_impl();
-        if (v17)
+        v18 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Saved start time %.2f for key %@", &v22, 32);
+        if (v18)
         {
-          v18 = v17;
-          v19 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v22, v21}];
-          free(v18);
-          v20 = v19;
+          v19 = v18;
+          v20 = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
+          free(v19);
+          v21 = v20;
           SSFileLog();
         }
       }
 
-      [v6 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithDouble:", time, v20), self->_bookmarkIdentifier}];
+      [v6 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithDouble:", time, v21), self->_bookmarkIdentifier}];
     }
 
     else
     {
       if (v9)
       {
-        v10 = objc_opt_class();
-        v11 = self->_bookmarkIdentifier;
+        v11 = objc_opt_class();
+        v12 = self->_bookmarkIdentifier;
         v22 = 138412546;
-        v23 = v10;
+        v23 = v11;
         v24 = 2112;
-        timeCopy = *&v11;
-        LODWORD(v21) = 22;
-        v20 = &v22;
-        v12 = _os_log_send_and_compose_impl();
-        if (v12)
+        timeCopy = *&v12;
+        v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Reset start time for key %@", &v22, 22);
+        if (v13)
         {
-          v13 = v12;
-          v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v22, v21}];
-          free(v13);
-          v20 = v14;
+          v14 = v13;
+          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+          free(v14);
+          v21 = v15;
           SSFileLog();
         }
       }
 
-      [v6 removeObjectForKey:{self->_bookmarkIdentifier, v20}];
+      [v6 removeObjectForKey:{self->_bookmarkIdentifier, v21}];
     }
 
     [standardUserDefaults setObject:v6 forKey:@"MSStreamStartTimes"];

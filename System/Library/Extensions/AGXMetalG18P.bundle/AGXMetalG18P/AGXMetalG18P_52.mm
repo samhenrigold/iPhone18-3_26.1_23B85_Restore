@@ -1,3 +1,33 @@
+void sub_29CCDB980(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+{
+  dispatch_release(object);
+  _Block_object_dispose(&a17, 8);
+  os_unfair_lock_unlock(v26 + 20);
+  _Unwind_Resume(a1);
+}
+
+void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBVHBuilderPipelineERNS_20BVHBuilderProgramKeyE_block_invoke(void *a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  if (!a3)
+  {
+    operator new();
+  }
+
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE28findOrCreateUberBlitPipelineERNS_18UberBlitProgramKeyEEUb_ENKUlvE_clB57_AGX__Failed_assertion__error____MTLCompilerErrorNoError_Ev(a4);
+}
+
+uint64_t ___ZN3AGX8Compiler14compileProgramINS_20BVHBuilderProgramKeyEEEvRKT_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectEU13block_pointerFvRK20AGCDeserializedReply16MTLCompilerErrorP8NSStringEb_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (a5)
+  {
+    AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::alertCommandBufferActivityStart(void)::{lambda(void)#1}::operator()[abi:[AGX] Failed assertion _previousValue _ 2147483647_]();
+  }
+
+  v5 = *(*(a1 + 32) + 16);
+
+  return v5();
+}
+
 void ___ZN3AGX8Compiler14compileProgramINS_20BVHBuilderProgramKeyE20AGCDeserializedReplyEEvRKT_P29MTLCompileFunctionRequestDataPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvRKT0_PU27objcproto16OS_dispatch_data8NSObjectSG_SG_SG_SG_16MTLCompilerErrorP8NSStringyE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v14[0] = MEMORY[0x29EDCA5F8];
@@ -66,9 +96,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_20BVHBuilderProgramKeyE20AGCDeseriali
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCDBEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCDBEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -242,7 +272,7 @@ unint64_t AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::Ob
   return result;
 }
 
-void sub_29CCDC434(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_29CCDC434(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   dispatch_release(object);
   _Block_object_dispose(&a17, 8);
@@ -250,7 +280,7 @@ void sub_29CCDC434(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateTensorBlitPipelineERNS_20TensorBlitProgramKeyE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateTensorBlitPipelineERNS_20TensorBlitProgramKeyE_block_invoke(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   if (!a3)
   {
@@ -340,9 +370,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_20TensorBlitProgramKeyE20AGCDeseriali
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCDC978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCDC978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -519,26 +549,26 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE47creat
     v6 = v4;
   }
 
-  v12 = 0;
-  v13 = 0;
-  ProgramKey<(_AGCStreamToken)41,(AGX::DriverShaderCompilationMode)1>::serialize(a1 + 48, &v13, &v12);
-  v8 = a4;
-  v9 = v6;
-  v10 = v12;
-  v11 = v13;
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v9 = 0;
+  v10 = 0;
+  ProgramKey<(_AGCStreamToken)41,(AGX::DriverShaderCompilationMode)1>::serialize(a1 + 48, &v10, &v9);
+  v8[0] = a4;
+  v8[1] = v6;
+  v8[2] = v9;
+  v8[3] = v10;
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v8);
 }
 
-void sub_29CCDD728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29CCDD728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (*(v6 - 49) < 0)
+  va_start(va, a7);
+  if (*(v9 - 49) < 0)
   {
-    operator delete(*(v6 - 72));
+    operator delete(*(v9 - 72));
   }
 
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v4, v5);
+  MEMORY[0x29ED520D0](v7, v8);
   _Unwind_Resume(a1);
 }
 
@@ -622,9 +652,9 @@ void ___ZN3AGX8Compiler14compileProgramI10ProgramKeyIL15_AGCStreamToken41ELNS_27
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCDDA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCDDA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -640,13 +670,13 @@ void __destroy_helper_block_e8_48c77_ZTS10ProgramKeyIL15_AGCStreamToken41ELN3AGX
   }
 }
 
-uint64_t __copy_helper_block_e8_48c77_ZTS10ProgramKeyIL15_AGCStreamToken41ELN3AGX27DriverShaderCompilationModeE1EE(uint64_t result, uint64_t a2)
+void *__copy_helper_block_e8_48c77_ZTS10ProgramKeyIL15_AGCStreamToken41ELN3AGX27DriverShaderCompilationModeE1EE(void *result, uint64_t a2)
 {
-  *(result + 48) = &unk_2A23F57A8;
-  *(result + 56) = *(a2 + 56);
-  *(result + 72) = 0;
-  *(result + 80) = 0;
-  *(result + 64) = 0;
+  result[6] = &unk_2A23F57A8;
+  *(result + 14) = *(a2 + 56);
+  result[9] = 0;
+  result[10] = 0;
+  result[8] = 0;
   v3 = *(a2 + 64);
   v2 = *(a2 + 72);
   if (v2 != v3)
@@ -871,11 +901,11 @@ LABEL_28:
   os_unfair_lock_unlock((v6 + 16928));
 }
 
-void sub_29CCDDF5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29CCDDF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<AGX::StatelessPSODynamicLibraryKey,std::tuple<AGXG18PFamilyDynamicLibrary *,unsigned int,unsigned int>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<AGX::StatelessPSODynamicLibraryKey,std::tuple<AGXG18PFamilyDynamicLibrary *,unsigned int,unsigned int>>,void *>>>>::~unique_ptr[abi:nn200100](va);
-  os_unfair_lock_unlock((v2 + v3));
+  os_unfair_lock_unlock((v3 + v4));
   _Unwind_Resume(a1);
 }
 
@@ -959,9 +989,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_29StatelessPSODynamicLibraryKeyE20AGC
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCDE25C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCDE25C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -1109,9 +1139,9 @@ void *___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10
   return result;
 }
 
-void sub_29CCDEC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_29CCDEC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1275,12 +1305,12 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
   }
 }
 
-void sub_29CCDF38C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_29CCDF38C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v14 - 128), 8);
+  _Block_object_dispose((v21 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1551,17 +1581,17 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
   }
 }
 
-void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyBufferToBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyBufferToBuffer(uint64_t result, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
 {
   v7 = *MEMORY[0x29EDC5638];
-  v8 = *(a2 + v7 + 72) + a3;
-  v9 = *(a4 + v7 + 72) + a5;
-  v10 = v9 + a6;
+  v8 = *&a2[v7 + 72] + a3;
+  v9 = (*(a4 + v7 + 72) + a5);
+  v10 = &v9[a6];
   v11 = v8 + a6;
   if (v9 >= v8 + a6 || v8 >= v10)
   {
 
-    AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, a2, v8, a4, v9, a6, 0, 1uLL);
+    AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, a2, v8, a4, v9, a6, 0, 1uLL);
   }
 
   else
@@ -1576,7 +1606,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
 
       else
       {
-        v14 = v9 - v8;
+        v14 = &v9[-v8];
       }
 
       if (v14 >= 0x8000)
@@ -1615,19 +1645,19 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
         }
 
         v19 = (a6 - v18) & (v13 - 1);
-        BlitBounceBuffer = *(a1 + 5000);
+        BlitBounceBuffer = *(result + 5000);
         v17 = a4;
       }
 
       else
       {
-        BlitBounceBuffer = *(a1 + 5000);
+        BlitBounceBuffer = *(result + 5000);
         v17 = a4;
         if (!BlitBounceBuffer)
         {
-          BlitBounceBuffer = AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::getBlitBounceBuffer(a1);
+          BlitBounceBuffer = AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::getBlitBounceBuffer(result);
           v9 = v101;
-          *(a1 + 5000) = BlitBounceBuffer;
+          *(result + 5000) = BlitBounceBuffer;
         }
 
         if ((-v8 & 0xFuLL) >= a6)
@@ -1644,9 +1674,9 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
       }
 
       v94 = v11 - v19;
-      v20 = v10 - v19;
+      v20 = &v10[-v19];
       v108 = v18 + v8;
-      v107 = v18 + v9;
+      v107 = &v9[v18];
       v104 = v19;
       v105 = a6 - v18 - v19;
       v21 = v15 - 1;
@@ -1677,7 +1707,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
                 v51 = v50;
               }
 
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, a2, v49 + v94, v17, v49 + v20, v51, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, a2, v49 + v94, v17, &v20[v49], v51, 0, 1uLL);
               v19 = v104;
               ++v48;
             }
@@ -1703,10 +1733,10 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
               }
 
               v35 = *(v22 + *MEMORY[0x29EDC5638]);
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, v32, v35, a4, v33 + v20, v34, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, v32, v35, a4, &v20[v33], v34, 0, 1uLL);
               v36 = v33 + v94;
               v17 = a4;
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, a2, v36, v32, v35, v34, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, a2, v36, v32, v35, v34, 0, 1uLL);
               v22 = v97;
               v19 = v104;
               ++v31;
@@ -1739,7 +1769,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
                 v75 = v105 - v74;
               }
 
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, a2, v74 + v108, v17, v74 + v107, v75, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, a2, v74 + v108, v17, &v107[v74], v75, 0, 1uLL);
               ++v73;
             }
 
@@ -1749,8 +1779,8 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
           else
           {
             v55 = 0;
-            v98 = *(a1 + 5000) + 72;
-            v56 = *(a1 + 5000);
+            v98 = *(result + 5000) + 72;
+            v56 = *(result + 5000);
             v53 = a2;
             do
             {
@@ -1766,10 +1796,10 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
               }
 
               v59 = *(v98 + *MEMORY[0x29EDC5638]);
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, v56, v59, a4, v57 + v107, v58, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, v56, v59, a4, &v107[v57], v58, 0, 1uLL);
               v60 = v59;
               v17 = a4;
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, a2, v57 + v108, v56, v60, v58, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, a2, v57 + v108, v56, v60, v58, 0, 1uLL);
               v52 = v105;
               ++v55;
             }
@@ -1799,7 +1829,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
                 v90 = v89;
               }
 
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, v53, v88 + v96, v17, v88 + v101, v90, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, v53, v88 + v96, v17, &v101[v88], v90, 0, 1uLL);
               v76 = v99;
               ++v87;
             }
@@ -1810,7 +1840,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
           else
           {
             v78 = 0;
-            v79 = *(a1 + 5000);
+            v79 = *(result + 5000);
             do
             {
               v80 = (v77 + ~v78) * v15;
@@ -1824,9 +1854,9 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
                 v81 = v76 - v80;
               }
 
-              v82 = *(v79 + 72 + *MEMORY[0x29EDC5638]);
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, v79, v82, a4, v80 + v101, v81, 0, 1uLL);
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, v53, v80 + v96, v79, v82, v81, 0, 1uLL);
+              v82 = *&v79[*MEMORY[0x29EDC5638] + 72];
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, v79, v82, a4, &v101[v80], v81, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, v53, v80 + v96, v79, v82, v81, 0, 1uLL);
               v76 = v99;
               ++v78;
             }
@@ -1838,7 +1868,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
 
       else
       {
-        v91 = v10 - v19;
+        v91 = &v10[-v19];
         v23 = v18 + v21;
         if (v23 >= v15)
         {
@@ -1860,9 +1890,9 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
               }
 
               v40 = v9;
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, a2, v8, a4, v9, v39, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, a2, v8, a4, v9, v39, 0, 1uLL);
               ++v37;
-              v9 = v40 + v15;
+              v9 = &v40[v15];
               v8 += v15;
               v18 = v38;
             }
@@ -1889,11 +1919,11 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
 
               v27 = *(v22 + *MEMORY[0x29EDC5638]);
               v28 = v9;
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, v95, v27, a4, v9, v26, 0, 1uLL);
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, a2, v8, v95, v27, v26, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, v95, v27, a4, v9, v26, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, a2, v8, v95, v27, v26, 0, 1uLL);
               v22 = v97;
               ++v24;
-              v9 = v28 + v15;
+              v9 = &v28[v15];
               v8 += v15;
               v18 = v25;
             }
@@ -1924,7 +1954,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
                 v63 = v41;
               }
 
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, a2, v108, a4, v107, v63, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, a2, v108, a4, v107, v63, 0, 1uLL);
               ++v61;
               v107 += v15;
               v108 += v15;
@@ -1937,7 +1967,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
           else
           {
             v44 = 0;
-            v100 = *(a1 + 5000);
+            v100 = *(result + 5000);
             do
             {
               v45 = v41 - v15;
@@ -1951,9 +1981,9 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
                 v46 = v41;
               }
 
-              v47 = *(v100 + 72 + *v42);
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, v100, v47, a4, v107, v46, 0, 1uLL);
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, a2, v108, v100, v47, v46, 0, 1uLL);
+              v47 = *&v100[*v42 + 72];
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, v100, v47, a4, v107, v46, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, a2, v108, v100, v47, v46, 0, 1uLL);
               ++v44;
               v107 += v15;
               v108 += v15;
@@ -1986,7 +2016,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
               }
 
               v86 = v64;
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, a2, v64, a4, v43, v85, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, a2, v64, a4, v43, v85, 0, 1uLL);
               ++v83;
               v43 += v15;
               v64 = v86 + v15;
@@ -1999,7 +2029,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
           else
           {
             v67 = 0;
-            v68 = *(a1 + 5000);
+            v68 = *(result + 5000);
             do
             {
               v69 = v65 - v15;
@@ -2013,10 +2043,10 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
                 v70 = v65;
               }
 
-              v71 = *(v68 + 72 + *MEMORY[0x29EDC5638]);
+              v71 = *&v68[*MEMORY[0x29EDC5638] + 72];
               v72 = v64;
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, v68, v71, a4, v43, v70, 0, 1uLL);
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(a1, a2, v72, v68, v71, v70, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, v68, v71, a4, v43, v70, 0, 1uLL);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMBuffer(result, a2, v72, v68, v71, v70, 0, 1uLL);
               ++v67;
               v43 += v15;
               v64 = v72 + v15;
@@ -2670,7 +2700,7 @@ void sub_29CCE2244(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t switchContextIfNeededImpl(uint64_t result, char *a2, uint64_t a3, void *a4, void *a5)
+uint64_t switchContextIfNeededImpl(uint64_t result, char *a2, _WORD *a3, void *a4, void *a5)
 {
   if (*a2 == result)
   {
@@ -2679,8 +2709,8 @@ uint64_t switchContextIfNeededImpl(uint64_t result, char *a2, uint64_t a3, void 
       AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::getProxyResourceForRestart(a5);
       IOGPUResourceListAddResource();
       AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::endComputePass(*a3, 0, 22);
-      *(a3 + 2384) = 0;
-      *(a3 + 4696) = 0;
+      a3[1192] = 0;
+      a3[2348] = 0;
       AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::getProxyResourceForRestart(a5);
       v23 = 1;
 LABEL_19:
@@ -2730,7 +2760,7 @@ LABEL_11:
     v10 = a5[85];
     if (!v10)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(a5 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((a5 + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -2744,7 +2774,7 @@ LABEL_11:
       goto LABEL_9;
     }
 
-    v24 = AGX::DataBufferAllocator<44ul>::growNoInline(a5 + 3, 19, 0);
+    v24 = AGX::DataBufferAllocator<44ul>::growNoInline((a5 + 3), 19, 0);
     v10 = a5[85];
     if (!v24)
     {
@@ -2971,62 +3001,62 @@ LABEL_23:
 
 LABEL_21:
   v14 = &v13;
-  result = std::__hash_table<std::__hash_value_type<unsigned int,_ResourceTrackerBinding>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,_ResourceTrackerBinding>,ResourceTrackerBindingsHash,ResourceTrackerBindingsEqual,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,_ResourceTrackerBinding>,ResourceTrackerBindingsEqual,ResourceTrackerBindingsHash,true>,std::allocator<std::__hash_value_type<unsigned int,_ResourceTrackerBinding>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(result, a3);
+  result = std::__hash_table<std::__hash_value_type<unsigned int,_ResourceTrackerBinding>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,_ResourceTrackerBinding>,ResourceTrackerBindingsHash,ResourceTrackerBindingsEqual,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,_ResourceTrackerBinding>,ResourceTrackerBindingsEqual,ResourceTrackerBindingsHash,true>,std::allocator<std::__hash_value_type<unsigned int,_ResourceTrackerBinding>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(result, a3, &v14);
   *(result + 5) = *a2;
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,_ResourceTrackerBinding>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,_ResourceTrackerBinding>,ResourceTrackerBindingsHash,ResourceTrackerBindingsEqual,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,_ResourceTrackerBinding>,ResourceTrackerBindingsEqual,ResourceTrackerBindingsHash,true>,std::allocator<std::__hash_value_type<unsigned int,_ResourceTrackerBinding>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,_ResourceTrackerBinding>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,_ResourceTrackerBinding>,ResourceTrackerBindingsHash,ResourceTrackerBindingsEqual,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,_ResourceTrackerBinding>,ResourceTrackerBindingsEqual,ResourceTrackerBindingsHash,true>,std::allocator<std::__hash_value_type<unsigned int,_ResourceTrackerBinding>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(float *a1, unsigned int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_22;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_22:
     operator new();
   }
 
-  if (v3.u32[0] < 2uLL)
+  if (v4.u32[0] < 2uLL)
   {
     while (1)
     {
-      v7 = v6[1];
-      if (v7 == a2)
+      v8 = v7[1];
+      if (v8 == a2)
       {
-        if (*(v6 + 4) == a2)
+        if (*(v7 + 4) == a2)
         {
-          return v6;
+          return v7;
         }
       }
 
-      else if ((v7 & (v2 - 1)) != v4)
+      else if ((v8 & (v3 - 1)) != v5)
       {
         goto LABEL_22;
       }
 
-      v6 = *v6;
-      if (!v6)
+      v7 = *v7;
+      if (!v7)
       {
         goto LABEL_22;
       }
@@ -3035,36 +3065,36 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v6[1];
-    if (v8 == a2)
+    v9 = v7[1];
+    if (v9 == a2)
     {
       break;
     }
 
-    if (v8 >= v2)
+    if (v9 >= v3)
     {
-      v8 %= v2;
+      v9 %= v3;
     }
 
-    if (v8 != v4)
+    if (v9 != v5)
     {
       goto LABEL_22;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::setBuffer_impl<AGXBuffer>(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4, int a5)
@@ -3354,7 +3384,7 @@ uint64_t std::function<void ()(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL30
   return a1;
 }
 
-void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToTexture(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, int a6, int a7, int a8, __n128 a9, int a10)
+void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToTexture(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, int a6, int a7, int a8, __n128 q0_0, int a9)
 {
   v12 = *(a5 + 592);
   v13 = *(a2 + 592);
@@ -3387,7 +3417,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
     v101 = *(v12 + 584);
     v177 = 0;
     v178 = &v177;
-    a9.n128_u64[0] = 0x2020000000;
+    q0_0.n128_u64[0] = 0x2020000000;
     v179 = 0x2020000000;
     v180 = 0;
     v172[0] = MEMORY[0x29EDCA5F8];
@@ -3398,7 +3428,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
     v176 = 1;
     if (v105)
     {
-      v23 = a10 == 0;
+      v23 = a9 == 0;
     }
 
     else
@@ -3413,7 +3443,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
       {
         v25 = a4;
         v26 = a7;
-        v27 = a10;
+        v27 = a9;
         do
         {
           v159 = a2;
@@ -3446,13 +3476,13 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
       v171 = &v177;
       if (v105)
       {
-        if (a10)
+        if (a9)
         {
           for (i = 0; i != v105; ++i)
           {
             v29 = a4;
             v30 = a7;
-            v31 = a10;
+            v31 = a9;
             do
             {
               v159 = a2;
@@ -3498,7 +3528,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
     v158 = 1;
     v156 = &__block_literal_global_256;
     v157 = &v159;
-    if (v105 && a8 && a10)
+    if (v105 && a8 && a9)
     {
       v33 = 0;
       do
@@ -3514,7 +3544,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
           v38 = v34 + a6;
           v39 = a4;
           v40 = a7;
-          v41 = a10;
+          v41 = a9;
           do
           {
             v138 = a2;
@@ -3551,7 +3581,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
       v150 = &__block_literal_global_256;
       if (v105)
       {
-        if (a8 && a10)
+        if (a8 && a9)
         {
           v42 = 0;
           do
@@ -3567,7 +3597,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
               v47 = v43 + a6;
               v48 = a4;
               v49 = a7;
-              v50 = a10;
+              v50 = a9;
               do
               {
                 v138 = a2;
@@ -3608,7 +3638,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
       v54 = v53;
     }
 
-    v55 = std::__introsort<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange*,false>(v51, v52, v54, 1, a9);
+    v55 = std::__introsort<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange*,false>(v51, v52, v54, 1, q0_0);
     v57 = v160[6];
     v56 = v160[7];
     if (v57 == v56)
@@ -3677,7 +3707,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
     v133 = &v159;
     v129 = a2;
     v130 = a5;
-    if (v105 && a8 && a10)
+    if (v105 && a8 && a9)
     {
       v74 = 0;
       do
@@ -3693,7 +3723,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
           v79 = v75 + a6;
           v80 = a4;
           v81 = a7;
-          v82 = a10;
+          v82 = a9;
           do
           {
             *&v191 = a2;
@@ -3746,30 +3776,30 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
     do
     {
       v91 = *v88;
-      v90[2] = *(v88 + 2);
+      *(v90 + 16) = *(v88 + 16);
       *v90 = v91;
-      v88 = (v88 + 24);
+      v88 += 24;
       if (v88 != v89)
       {
         v92 = *v90;
-        v93 = v90[1];
-        v94 = v90[2];
+        v93 = *(v90 + 8);
+        v94 = *(v90 + 16);
         do
         {
-          if (v94 + v92 != *v88 || v94 + v93 != *(v88 + 1))
+          if (v94 + v92 != *v88 || v94 + v93 != *(v88 + 8))
           {
             break;
           }
 
-          v94 += *(v88 + 2);
-          v90[2] = v94;
-          v88 = (v88 + 24);
+          v94 += *(v88 + 16);
+          *(v90 + 16) = v94;
+          v88 += 24;
         }
 
         while (v88 != v89);
       }
 
-      v90 += 3;
+      v90 += 24;
     }
 
     while (v88 != v89);
@@ -3790,17 +3820,17 @@ LABEL_113:
         v125 = a1;
         v123 = a2;
         v96 = v87[6];
-        if (*(v96 + 1) <= *v96)
+        if (*(v96 + 8) <= *v96)
         {
           if (v89 != v96)
           {
             do
             {
               v98 = *(v89 - 24);
-              v192 = *(v89 - 1);
+              v192 = *(v89 - 8);
               v191 = v98;
               v121(v120, &v191);
-              v89 = (v89 - 24);
+              v89 -= 24;
             }
 
             while (v89 != v139[6]);
@@ -3812,10 +3842,10 @@ LABEL_113:
           do
           {
             v97 = *v96;
-            v192 = *(v96 + 2);
+            v192 = *(v96 + 16);
             v191 = v97;
             v121(v120, &v191);
-            v96 = (v96 + 24);
+            v96 += 24;
           }
 
           while (v96 != v139[7]);
@@ -3868,7 +3898,7 @@ LABEL_113:
     v63 = 1;
   }
 
-  if (!v63 && a10 != 0)
+  if (!v63 && a9 != 0)
   {
     v65 = 0;
     do
@@ -3884,7 +3914,7 @@ LABEL_113:
         v70 = v66 + a6;
         v71 = a4;
         v72 = a7;
-        v73 = a10;
+        v73 = a9;
         do
         {
           v159 = a2;
@@ -3911,7 +3941,7 @@ LABEL_113:
   }
 }
 
-void sub_29CCE59AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *__p, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_29CCE59AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *__p, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a40, 8);
   if (__p)
@@ -3921,17 +3951,17 @@ void sub_29CCE59AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   _Block_object_dispose(&a63, 8);
-  if (a69)
+  if (a65)
   {
-    a70 = a69;
-    operator delete(a69);
+    a66 = a65;
+    operator delete(a65);
   }
 
-  _Block_object_dispose((v70 - 240), 8);
+  _Block_object_dispose((v66 - 240), 8);
   _Unwind_Resume(a1);
 }
 
-double ___ZN3AGX17LegacyBlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE20copyTextureToTextureEP20AGXG18PFamilyTexturejjS7_jjjj_block_invoke_2(void *a1, _DWORD *a2, _DWORD *a3)
+double ___ZN3AGX17LegacyBlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE20copyTextureToTextureEP20AGXG18PFamilyTexturejjS7_jjjj_block_invoke_2(void *a1, unsigned int *a2, _DWORD *a3)
 {
   v4 = a1[6];
   v5 = *(*a3 + 592);
@@ -4025,14 +4055,12 @@ uint64_t ___ZN3AGX17LegacyBlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10Obj
 
 __n128 __Block_byref_object_copy__259(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -4120,7 +4148,7 @@ void ___ZN3AGX17LegacyBlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
   }
 }
 
-void ___ZN3AGX17LegacyBlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE20copyTextureToTextureEP20AGXG18PFamilyTexturejjS7_jjjj_block_invoke_2_263(uint64_t a1, uint64_t a2, unsigned int *a3)
+void ___ZN3AGX17LegacyBlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE20copyTextureToTextureEP20AGXG18PFamilyTexturejjS7_jjjj_block_invoke_2_263(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v3 = *(*a3 + 592);
   v4 = *(v3 + 584);
@@ -4129,7 +4157,7 @@ void ___ZN3AGX17LegacyBlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
     v6 = *(v3 + 144) + a3[4];
     if (*(v4 + 1304) > v6)
     {
-      if (*(a1 + 48) == 1)
+      if (*(result + 48) == 1)
       {
         v8 = *(v3 + 136) >> v6;
         if (v8 <= 1)
@@ -4176,13 +4204,13 @@ void ___ZN3AGX17LegacyBlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
       for (i = 0; i != v9; ++i)
       {
         GPUVirtualAddress = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(*(*(*a3 + 592) + 584) + 648 * a3[2], a3[3], *(*(*a3 + 592) + 144) + a3[4], i, 0);
-        v20 = *(*(a1 + 40) + 8);
+        v20 = *(*(result + 40) + 8);
         v22 = *(v20 + 48);
         v21 = *(v20 + 56);
         v23 = v20 + 48;
         if (v22 == v21 || *(v21 - 8) != GPUVirtualAddress)
         {
-          *&v24 = (*(*(a1 + 32) + 16))();
+          *&v24 = (*(*(result + 32) + 16))();
           *(&v24 + 1) = v18;
           std::vector<AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange,std::allocator<AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange>>::push_back[abi:nn200100](v23, &v24);
         }
@@ -4198,14 +4226,12 @@ void ___ZN3AGX17LegacyBlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
 
 __n128 __Block_byref_object_copy__264(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -4313,13 +4339,13 @@ void ___ZN3AGX17LegacyBlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         v55 = v54 + 1;
         if (v54 + 1 < *(v50 + 140) || v55 == *(v50 + 64))
         {
-          v56 = *(v49 + 584) + 648 * a2[2];
+          v56 = (*(v49 + 584) + 648 * a2[2]);
           v57 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getLevelOffset<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(v50, v55, 0);
         }
 
         else
         {
-          v56 = *(v49 + 584) + 648 * a2[2];
+          v56 = (*(v49 + 584) + 648 * a2[2]);
           v57 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(v50, 0);
         }
 
@@ -4397,13 +4423,13 @@ LABEL_29:
         v67 = v66 + 1;
         if (v66 + 1 < *(v64 + 140) || v67 == *(v64 + 64))
         {
-          v68 = *(v63 + 584) + 648 * a2[2];
+          v68 = (*(v63 + 584) + 648 * a2[2]);
           v69 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getLevelOffset<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(v64, v67, 0);
         }
 
         else
         {
-          v68 = *(v63 + 584) + 648 * a2[2];
+          v68 = (*(v63 + 584) + 648 * a2[2]);
           v69 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(v64, 0);
         }
 
@@ -4427,7 +4453,7 @@ LABEL_26:
   while (v14 != v22);
 }
 
-void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToTextureImpl(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int a5, __int128 *a6, uint64_t a7, unsigned int a8, unsigned int a9, unsigned int a10, __int128 *a11, void *a12)
+void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToTextureImpl(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, __int128 *a6, uint64_t a7, unsigned int a8, unsigned int a9, unsigned int a10, __int128 *a11, __int128 *a12)
 {
   v13 = a3;
   v88 = *MEMORY[0x29EDCA608];
@@ -4484,14 +4510,15 @@ LABEL_9:
 
   {
     v68 = v19;
-    v13 = a3;
+    v58 = a3;
+    v13 = v58;
     v19 = v68;
     if (v59)
     {
       LOBYTE(v74) = 0;
       findEnvVarNum<BOOL>("AGX_DISABLE_PBE_COMPRESSION", &v74);
       AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::disablePBECompressionOnUICC(void)::disablePBECompression = v74;
-      v13 = a3;
+      v13 = v58;
       v19 = v68;
     }
   }
@@ -4530,13 +4557,13 @@ LABEL_21:
     if (((1 << v28) & 0x17C) != 0)
     {
 LABEL_27:
-      a12[2] = 1;
+      *(a12 + 2) = 1;
       goto LABEL_28;
     }
 
     if (((1 << v28) & 3) != 0)
     {
-      a12[1] = 1;
+      *(a12 + 1) = 1;
       goto LABEL_27;
     }
 
@@ -4548,7 +4575,7 @@ LABEL_27:
       v74 = *a6;
       v75 = *(a6 + 2);
       v72 = *a12;
-      v73 = a12[2];
+      v73 = *(a12 + 2);
       AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyBufferToTexture(a1, a2, a4, a5, &v74, &v72, a7, v48, v49, v49, 0);
       return;
     }
@@ -4561,13 +4588,13 @@ LABEL_28:
     if (((1 << v29) & 0x17C) != 0)
     {
 LABEL_32:
-      a12[2] = 1;
+      *(a12 + 2) = 1;
       goto LABEL_33;
     }
 
     if (((1 << v29) & 3) != 0)
     {
-      a12[1] = 1;
+      *(a12 + 1) = 1;
       goto LABEL_32;
     }
 
@@ -4579,7 +4606,7 @@ LABEL_32:
       v74 = *a11;
       v75 = *(a11 + 2);
       v72 = *a12;
-      v73 = a12[2];
+      v73 = *(a12 + 2);
       AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToBuffer(a1, a2, v51, v52, v52, a7, a9, a10, &v74, &v72, 0);
       return;
     }
@@ -4620,7 +4647,7 @@ LABEL_33:
     v40 = HIDWORD(v26);
     AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::createTextureViewForBlit(&v74, v15, v64, TextureViewFormat, *(v15 + 40), *(v15 + 56), *(v15 + 324), a9, a10, a8, v40, *(v15 + 152), *(v15 + 160), *(v15 + 168), *(v15 + 176), *(v15 + 180), *(v15 + 184), *(v15 + 236) != 0, 0);
     AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::createTextureViewForBlit(&v72, v16, v62, TextureViewFormat, *(v16 + 40), *(v16 + 56), *(v15 + 324), a4, a5, v61, v40, *(v16 + 152), *(v16 + 160), *(v16 + 168), *(v16 + 176), *(v16 + 180), *(v16 + 184), *(v16 + 236) != 0, 0);
-    if (a12[2])
+    if (*(a12 + 2))
     {
       v41 = v82 & 0xE;
       v42 = 1;
@@ -4657,7 +4684,7 @@ LABEL_33:
         }
 
         ++v81;
-        v43 = a12[2] > v42++;
+        v43 = *(a12 + 2) > v42++;
       }
 
       while (v43);
@@ -4672,7 +4699,7 @@ LABEL_33:
     AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMSparseASTCLowMips(a1, &v86, v16, a4, a5, &v84, v15, a9, a10);
   }
 
-  else if (a12[2])
+  else if (*(a12 + 2))
   {
     v63 = *(*(v15 + 208) + a8 + 88);
     v53 = 1;
@@ -4686,7 +4713,7 @@ LABEL_33:
       AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyBufferToBuffer(a1, a2, v57, a7, v55 - *(a7 + 72 + v56), v63);
       ++v35;
       ++v34;
-      v43 = a12[2] > v53++;
+      v43 = *(a12 + 2) > v53++;
     }
 
     while (v43);
@@ -4944,7 +4971,7 @@ LABEL_53:
 
 void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyBufferToTexture(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int *a5, int *a6, uint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10, unsigned int a11)
 {
-  v133 = *MEMORY[0x29EDCA608];
+  v131 = *MEMORY[0x29EDCA608];
   v15 = *(a2 + 592);
   v16 = *(v15 + 208);
   if (*(v16 + 24) < 2u)
@@ -4988,13 +5015,13 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
     v24 = 0;
   }
 
-  v84 = v18[9];
-  v85 = v21 * v20;
+  v82 = v18[9];
+  v83 = v21 * v20;
   v26 = v18[18];
   v25 = v18[19];
   TextureViewFormat = AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::getTextureViewFormat(v20, v21, *(v15 + 32), v17, v24, 0);
   v29 = TextureViewFormat;
-  v88 = v28;
+  v86 = v28;
   if (v28 >> 33)
   {
     v30 = 4;
@@ -5032,26 +5059,26 @@ LABEL_21:
       v31 = v30;
     }
 
-    v82 = v31;
+    v80 = v31;
     v32 = *a6;
     v33 = a6[2];
     v34 = *a5;
     v35 = a5[2];
-    v102 = 0;
+    v100 = 0;
     v36 = a5[4];
     v37 = *(v15 + 216);
     v38 = *(v15 + 220);
     v39 = (v32 + v37 - 1) / v37;
     v40 = (v33 + v38 - 1) / v38;
-    v99 = __PAIR64__(v40, v39);
-    LODWORD(v100) = v34 / v37;
-    HIDWORD(v100) = v35 / v38;
-    v101 = 0;
-    v130[2] = 0;
-    v130[1] = 0;
-    v131 = a2;
-    v130[0] = a7;
-    v132 = *(v15 + 592);
+    v97 = __PAIR64__(v40, v39);
+    LODWORD(v98) = v34 / v37;
+    HIDWORD(v98) = v35 / v38;
+    v99 = 0;
+    v128[2] = 0;
+    v128[1] = 0;
+    v129 = a2;
+    v128[0] = a7;
+    v130 = *(v15 + 592);
     if ((TextureViewFormat - 1) > 0x289)
     {
       v41 = &texFormatUnsupported;
@@ -5062,18 +5089,18 @@ LABEL_21:
       v41 = *(&off_29F342380 + (TextureViewFormat - 1));
     }
 
-    v83 = HIDWORD(v28);
-    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v96, *(*(a1 + 4992) + 848), 0, 2, v30, v41, TextureViewFormat, 0, 0.0, v26, 2, 0, 0, 84148994, v39, v40, 1u, 1u, SHIDWORD(v28), 1, a9, 0, 0, v25, 0, 0, 0, 0, 0, 1, 1, 0, 1, v80, 0);
-    v42 = v84 + a8;
-    v96[0] = off_2A23FA3D8;
+    v81 = HIDWORD(v28);
+    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v94, *(*(a1 + 4992) + 848), 0, 2, v30, v41, TextureViewFormat, 0, 0.0, v26, 2, 0, 0, 84148994, v39, v40, 1u, 1u, SHIDWORD(v28), 1, a9, 0, 0, v25, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0);
+    v42 = v82 + a8;
+    v94[0] = off_2A23FA3D8;
     if (!AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::blitTextureViewAllowed(v15, a4))
     {
       if (*(v15 + 236))
       {
-        v98 = 0;
-        v97 = v84 + a8;
-        AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(v96);
-        AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMSparseASTCLowMips(a1, &v131, v15, a3, a4, v130, v96, 0, 0);
+        v96 = 0;
+        v95 = v82 + a8;
+        AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(v94);
+        AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMSparseASTCLowMips(a1, &v129, v15, a3, a4, v128, v94, 0, 0);
       }
 
       else if (*(a6 + 2))
@@ -5095,13 +5122,13 @@ LABEL_21:
       goto LABEL_93;
     }
 
-    AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::createTextureViewForBlit(v92, v15, v82, v29, *(v15 + 40), *(v15 + 56), *(v15 + 324), a3, a4, v19, v83, *(v15 + 152), *(v15 + 160), *(v15 + 168), *(v15 + 176), *(v15 + 180), *(v15 + 184), *(v15 + 236) != 0, 0);
-    v43 = *(v95 + 88);
-    v91 = 0;
+    AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::createTextureViewForBlit(v90, v15, v80, v29, *(v15 + 40), *(v15 + 56), *(v15 + 324), a3, a4, v19, v81, *(v15 + 152), *(v15 + 160), *(v15 + 168), *(v15 + 176), *(v15 + 180), *(v15 + 184), *(v15 + 236) != 0, 0);
+    v43 = *(v93 + 88);
+    v89 = 0;
     {
-      LOBYTE(v103) = 0;
-      findEnvVarNum<BOOL>("AGX_DISABLE_PBE_COMPRESSION", &v103);
-      AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::disablePBECompressionOnUICC(void)::disablePBECompression = v103;
+      LOBYTE(v101) = 0;
+      findEnvVarNum<BOOL>("AGX_DISABLE_PBE_COMPRESSION", &v101);
+      AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::disablePBECompressionOnUICC(void)::disablePBECompression = v101;
     }
 
     if (AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::disablePBECompressionOnUICC(void)::disablePBECompression == 1)
@@ -5111,48 +5138,48 @@ LABEL_21:
       {
         if (*(v44 + 1304))
         {
-          v91 |= 8u;
+          v89 |= 8u;
         }
       }
     }
 
-    if (v83 == 1)
+    if (v81 == 1)
     {
       if (*(a6 + 2))
       {
         v45 = 0;
-        v46 = v91 & 0xE;
+        v46 = v89 & 0xE;
         v47 = 1;
         do
         {
           v49 = v36 + v47 - 1;
           v50 = (v45 * a10 + v42);
-          if ((v99.i32[1] | v99.i32[0]) >> 15 || (((a9 / v85 * v85) | v50) & 0xF) != 0)
+          if ((v97.i32[1] | v97.i32[0]) >> 15 || (((a9 / v83 * v83) | v50) & 0xF) != 0)
           {
             if (v15 && *(v15 + 112) > 1u)
             {
-              *v115 = 0;
-              LODWORD(v103) = 1;
-              HIDWORD(v103) = v94;
-              v48 = 32 - __clz(v94 - 1);
-              if (v94 < 2)
+              *v113 = 0;
+              LODWORD(v101) = 1;
+              HIDWORD(v101) = v92;
+              v48 = 32 - __clz(v92 - 1);
+              if (v92 < 2)
               {
                 LOBYTE(v48) = 0;
               }
 
-              v105 = v88;
-              v106 = v99;
-              v107 = a9 / v43 / v94;
-              v108 = v99.i32[0] << v48;
-              v109 = v99.i32[1];
-              v111 = a9;
-              v110 = a9 / v43;
-              v104 = v100;
-              v112 = v100;
-              v113 = v36 + v47 - 1;
-              v114 = v99;
-              v115[7] = v100 != 0;
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::render3D(a1, &v131, v92, v130, 0, v50, 0, 0, &v103, &v91);
+              v103 = v86;
+              v104 = v97;
+              v105 = a9 / v43 / v92;
+              v106 = v97.i32[0] << v48;
+              v107 = v97.i32[1];
+              v109 = a9;
+              v108 = a9 / v43;
+              v102 = v98;
+              v110 = v98;
+              v111 = v36 + v47 - 1;
+              v112 = v97;
+              v113[7] = v98 != 0;
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::render3D(a1, &v129, v90, v128, 0, v50, 0, 0, &v101, &v89);
             }
 
             else
@@ -5163,8 +5190,8 @@ LABEL_21:
                 if (*(a1 + 4880))
                 {
                   v52 = *(a1 + 8);
-                  LODWORD(v103) = 0;
-                  AGX::BlitUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::barrier(v52 + 24, &v103);
+                  LODWORD(v101) = 0;
+                  AGX::BlitUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::barrier(v52 + 24, &v101);
                   v51 = a1;
                   *(a1 + 2568) = 0;
                   *(a1 + 4880) = 0;
@@ -5179,18 +5206,18 @@ LABEL_21:
                 v51 = a1;
               }
 
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDM(v51, &v131, v92, 0, v130, 0, v50, &v91, v49, &v99, v88, v43, a9, 0, v53);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDM(v51, &v129, v90, 0, v128, 0, v50, &v89, v49, &v97, v86, v43, a9, 0, v53);
             }
           }
 
           else
           {
-            v98 = 0;
-            v97 = v45 * a10 + v42;
-            (*(*v96 + 16))(v96);
+            v96 = 0;
+            v95 = v45 * a10 + v42;
+            (*(*v94 + 16))(v94);
             if (v15 && *(v15 + 112) > 1u)
             {
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::renderTexture(a1, &v131, v92, v130, v96, &v91, v36 + v47 - 1, &v99, 0);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::renderTexture(a1, &v129, v90, v128, v94, &v89, v36 + v47 - 1, &v97, 0);
             }
 
             else
@@ -5201,8 +5228,8 @@ LABEL_21:
                 if (*(a1 + 4880))
                 {
                   v55 = *(a1 + 8);
-                  LODWORD(v103) = 0;
-                  AGX::BlitUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::barrier(v55 + 24, &v103);
+                  LODWORD(v101) = 0;
+                  AGX::BlitUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::barrier(v55 + 24, &v101);
                   v54 = a1;
                   *(a1 + 2568) = 0;
                   *(a1 + 4880) = 0;
@@ -5216,7 +5243,7 @@ LABEL_21:
                 v56 = 2;
               }
 
-              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDM(v54, &v131, v92, 0, v130, v96, 0, &v91, v49, &v99, 0, 0, 0, 0, v56);
+              AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDM(v54, &v129, v90, 0, v128, v94, 0, &v89, v49, &v97, 0, 0, 0, 0, v56);
             }
           }
 
@@ -5229,13 +5256,13 @@ LABEL_21:
       goto LABEL_92;
     }
 
-    v57 = 32 - __clz(v94 - 1);
-    v58 = a9 / v43 / v94;
-    v128 = 0uLL;
-    v129 = 0;
-    v117 = 4;
-    v118 = v94;
-    if (v94 >= 2)
+    v57 = 32 - __clz(v92 - 1);
+    v58 = a9 / v43 / v92;
+    v126 = 0uLL;
+    v127 = 0;
+    v115 = 4;
+    v116 = v92;
+    if (v92 >= 2)
     {
       v59 = v57;
     }
@@ -5245,39 +5272,39 @@ LABEL_21:
       v59 = 0;
     }
 
-    v120 = v88;
-    v121 = v99;
-    v60 = v99.i32[0] << v59;
-    v122 = a9 / v43 / v94;
-    v123 = v99.i32[0] << v59;
-    v124 = v99.i32[1];
-    v125 = a9 / v43;
-    v126 = a9;
-    if (((v99.i32[0] << v59) | v99.i32[1]) >> 15 || (((a9 / v43 * v43) | v42) & 0xF) != 0)
+    v118 = v86;
+    v119 = v97;
+    v60 = v97.i32[0] << v59;
+    v120 = a9 / v43 / v92;
+    v121 = v97.i32[0] << v59;
+    v122 = v97.i32[1];
+    v123 = a9 / v43;
+    v124 = a9;
+    if (((v97.i32[0] << v59) | v97.i32[1]) >> 15 || (((a9 / v43 * v43) | v42) & 0xF) != 0)
     {
-      if (v94 < 2)
+      if (v92 < 2)
       {
 LABEL_86:
-        *v115 = 0;
-        LODWORD(v103) = 1;
-        HIDWORD(v103) = v94;
-        v105 = v88;
-        v106 = v99;
-        v107 = a9 / v43 / v94;
-        v108 = v99.i32[0] << v59;
-        v109 = v99.i32[1];
-        v111 = a9;
-        v110 = a9 / v43;
-        v104 = v100;
-        v112 = v100;
-        v113 = 0;
-        v114 = v99;
-        v115[7] = v100 != 0;
-        AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::render3D(a1, &v131, v92, v130, 0, v42, 0, 0, &v103, &v91);
+        *v113 = 0;
+        LODWORD(v101) = 1;
+        HIDWORD(v101) = v92;
+        v103 = v86;
+        v104 = v97;
+        v105 = a9 / v43 / v92;
+        v106 = v97.i32[0] << v59;
+        v107 = v97.i32[1];
+        v109 = a9;
+        v108 = a9 / v43;
+        v102 = v98;
+        v110 = v98;
+        v111 = 0;
+        v112 = v97;
+        v113[7] = v98 != 0;
+        AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::render3D(a1, &v129, v90, v128, 0, v42, 0, 0, &v101, &v89);
 LABEL_92:
-        AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v92);
+        AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v90);
 LABEL_93:
-        AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v96);
+        AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v94);
         return;
       }
 
@@ -5292,18 +5319,18 @@ LABEL_93:
         v62 = v59;
       }
 
-      v120 = v88;
-      v121 = v99;
-      v122 = a9 / v43 / v94;
+      v118 = v86;
+      v119 = v97;
+      v120 = a9 / v43 / v92;
       v63 = 1;
       while (1)
       {
         v60 = v58 << v61;
-        v64 = v99.i32[1] << v63;
+        v64 = v97.i32[1] << v63;
         v65 = (v58 << v61) * v43;
-        v129 = 1;
-        v128 = 0uLL;
-        if (!(((v58 << v61) | (v99.i32[1] << v63)) >> 15) && (((v60 * v43) | v42) & 0xF) == 0)
+        v127 = 1;
+        v126 = 0uLL;
+        if (!(((v58 << v61) | (v97.i32[1] << v63)) >> 15) && (((v60 * v43) | v42) & 0xF) == 0)
         {
           break;
         }
@@ -5312,27 +5339,27 @@ LABEL_93:
         --v61;
         if (!--v62)
         {
+          v121 = v60;
+          v122 = v64;
           v123 = v60;
-          v124 = v64;
-          v125 = v60;
-          v126 = v65;
+          v124 = v65;
           goto LABEL_86;
         }
       }
 
+      v121 = v58 << v61;
+      v122 = v97.i32[1] << v63;
       v123 = v58 << v61;
-      v124 = v99.i32[1] << v63;
-      v125 = v58 << v61;
-      v126 = (v58 << v61) * v43;
-      v119 = v100;
-      v127 = v100;
-      v66.i32[1] = v99.i32[1];
-      *(&v128 + 4) = v99;
+      v124 = (v58 << v61) * v43;
+      v117 = v98;
+      v125 = v98;
+      v66.i32[1] = v97.i32[1];
+      *(&v126 + 4) = v97;
       v66.i32[0] = v58 << v61;
       v67 = vcnt_s8(v66);
       v67.i16[0] = vaddlv_u8(v67);
       v68 = v58 << v61;
-      BYTE1(v129) = v67.i32[0] == 1;
+      BYTE1(v127) = v67.i32[0] == 1;
       v69 = 0x2A179C000;
       if (v67.i32[0] == 1)
       {
@@ -5347,48 +5374,48 @@ LABEL_93:
         }
       }
 
-      HIDWORD(v128) = v68;
-      HIBYTE(v129) = v100 != 0;
-      v117 = 4;
-      v118 = v94;
+      HIDWORD(v126) = v68;
+      HIBYTE(v127) = v98 != 0;
+      v115 = 4;
+      v116 = v92;
     }
 
     else
     {
-      v119 = v100;
-      v127 = v100;
-      *(&v128 + 4) = v99;
-      HIBYTE(v129) = v100 != 0;
+      v117 = v98;
+      v125 = v98;
+      *(&v126 + 4) = v97;
+      HIBYTE(v127) = v98 != 0;
       v65 = a9;
-      v64 = v99.u32[1];
+      v64 = v97.u32[1];
       v69 = 0x2A179C000uLL;
     }
 
-    v76 = v131 + *MEMORY[0x29EDC5638];
-    v77 = *(v76 + 144);
-    v78 = *(v76 + 152);
-    if ((v93 - 1) > 0x289)
+    v76 = &v129[*MEMORY[0x29EDC5638]];
+    v77 = *(v76 + 18);
+    v78 = *(v76 + 19);
+    if ((v91 - 1) > 0x289)
     {
       v79 = &texFormatUnsupported;
     }
 
     else
     {
-      v79 = *(&off_29F342380 + (v93 - 1));
+      v79 = *(&off_29F342380 + (v91 - 1));
     }
 
-    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(&v103, *(*(*(a1 + 8) + 1872) + *(v69 + 1260)), 0, 2, 2, v79, v93, 0, 0.0, v77, 2, 0, 0, 84148994, v60, v64, 1u, 1u, 1, 1, v65, 0, 0, v78, 0, 0, 0, 0, 0, 1, 1, 0, 1, v81, 0);
-    v103 = off_2A23FA3D8;
-    v116 = 0;
-    *&v115[4] = v84 + a8;
-    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(&v103);
-    AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::render3D(a1, &v131, v92, v130, &v103, v42, 0, 0, &v117, &v91);
-    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(&v103);
+    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(&v101, *(*(*(a1 + 8) + 1872) + *(v69 + 1260)), 0, 2, 2, v79, v91, 0, 0.0, v77, 2, 0, 0, 84148994, v60, v64, 1u, 1u, 1, 1, v65, 0, 0, v78, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0);
+    v101 = off_2A23FA3D8;
+    v114 = 0;
+    *&v113[4] = v82 + a8;
+    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(&v101);
+    AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::render3D(a1, &v129, v90, v128, &v101, v42, 0, 0, &v115, &v89);
+    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(&v101);
     goto LABEL_92;
   }
 
-  v74 = *a5 * v85;
-  v75 = *a6 * v85;
+  v74 = *a5 * v83;
+  v75 = *a6 * v83;
 
   AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyBufferToBuffer(a1, a2, v74, a7, a8, v75);
 }
@@ -5401,9 +5428,10 @@ void sub_29CCE86E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToBuffer(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7, unsigned int a8, unsigned int *a9, int *a10, unsigned int a11)
+void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToBuffer(void *a1, char *a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7, uint64_t a8, unsigned int *a9, int *a10, unsigned int a11)
 {
-  v127[3] = *MEMORY[0x29EDCA608];
+  v11 = a8;
+  v125[3] = *MEMORY[0x29EDCA608];
   v12 = *(a6 + 592);
   v13 = *(v12 + 208);
   if (*(v13 + 24) < 2u)
@@ -5420,7 +5448,7 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
     }
   }
 
-  v15 = (a2 + *MEMORY[0x29EDC5638]);
+  v15 = &a2[*MEMORY[0x29EDC5638]];
   v16 = v14;
   v17 = *(v13 + v14 + 88);
   v18 = *(v12 + 112);
@@ -5447,13 +5475,13 @@ void AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
     v21 = 0;
   }
 
-  v22 = v15[9];
-  v23 = v15[18];
-  v24 = v15[19];
+  v22 = *(v15 + 9);
+  v23 = *(v15 + 18);
+  v24 = *(v15 + 19);
   v25 = v18 * v17;
   TextureViewFormat = AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::getTextureViewFormat(v17, v18, *(v12 + 32), v14, v21, 0);
   v28 = TextureViewFormat;
-  v86 = v27;
+  v84 = v27;
   if (v27 >> 33)
   {
     v29 = 4;
@@ -5487,37 +5515,37 @@ LABEL_20:
   {
 LABEL_21:
     v31 = v24;
-    v92 = v22;
-    v32 = a8;
+    v90 = v22;
+    v32 = v11;
     if (v30 != 7)
     {
       v30 = v29;
     }
 
-    v85 = v30;
+    v83 = v30;
     v33 = *a10;
     v34 = a10[2];
     v35 = *a9;
     v36 = a9[2];
     v37 = a9[4];
-    v107 = v37;
+    v105 = v37;
     v39 = *(v12 + 216);
     v38 = *(v12 + 220);
-    v104[0].i32[0] = (v33 + v39 - 1) / v39;
-    v104[0].i32[1] = (v34 + v38 - 1) / v38;
-    v104[1] = 0;
-    v82 = v35;
-    v83 = v36;
-    v81 = v38;
-    v79 = v36 / v38;
-    v80 = v35 / v39;
-    v105 = v35 / v39;
-    v106 = v36 / v38;
-    v127[1] = 0;
-    v127[2] = 0;
-    v127[0] = a2;
-    v125 = a6;
-    v126 = *(v12 + 592);
+    v102[0].i32[0] = (v33 + v39 - 1) / v39;
+    v102[0].i32[1] = (v34 + v38 - 1) / v38;
+    v102[1] = 0;
+    v80 = v35;
+    v81 = v36;
+    v79 = v38;
+    v77 = v36 / v38;
+    v78 = v35 / v39;
+    v103 = v35 / v39;
+    v104 = v36 / v38;
+    v125[1] = 0;
+    v125[2] = 0;
+    v125[0] = a2;
+    v123 = a6;
+    v124 = *(v12 + 592);
     v40 = v23;
     if ((TextureViewFormat - 1) > 0x289)
     {
@@ -5529,19 +5557,19 @@ LABEL_21:
       v41 = *(&off_29F342380 + (TextureViewFormat - 1));
     }
 
-    v84 = (v34 + v38 - 1) / v38;
+    v82 = (v34 + v38 - 1) / v38;
     v42 = (v33 + v39 - 1) / v39;
-    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v101, *(*(a1 + 4992) + 848), 0, 2, v29, v41, TextureViewFormat, 0, 0.0, v40, 2, 0, 0, 84148994, v42, v84, 1u, 1u, SHIDWORD(v27), 1, a4, 0, 0, v31, 0, 0, 0, 0, 0, 1, 1, 0, 1, v77, 0);
-    v93 = v92 + a3;
-    v101[0] = off_2A23FA3D8;
-    if (!AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::blitTextureViewAllowed(v12, a8))
+    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v99, *(a1[624] + 848), 0, 2, v29, v41, TextureViewFormat, 0, 0.0, v40, 2, 0, 0, 84148994, v42, v82, 1u, 1u, SHIDWORD(v27), 1, a4, 0, 0, v31, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0);
+    v91 = v90 + a3;
+    v99[0] = off_2A23FA3D8;
+    if (!AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::blitTextureViewAllowed(v12, v11))
     {
       if (*(v12 + 236))
       {
-        v103 = 0;
-        v102 = v93;
-        AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(v101);
-        AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMSparseASTCLowMips(a1, v127, v101, 0, 0, &v125, v12, a7, a8);
+        v101 = 0;
+        v100 = v91;
+        AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(v99);
+        AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDMSparseASTCLowMips(a1, v125, v99, 0, 0, &v123, v12, a7, v11);
       }
 
       else if (*(a10 + 2))
@@ -5553,7 +5581,7 @@ LABEL_21:
         {
           GPUVirtualAddress = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v12, a7, *(v12 + 144) + v32, v37, v16);
           AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyBufferToBuffer(a1, a2, a3 + v62 * a5, a6, GPUVirtualAddress - *(a6 + 72 + *MEMORY[0x29EDC5638]), v63);
-          v107 = ++v37;
+          v105 = ++v37;
           v62 = v64++;
         }
 
@@ -5563,10 +5591,10 @@ LABEL_21:
       goto LABEL_82;
     }
 
-    AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::createTextureViewForBlit(v96, v12, v85, v28, *(v12 + 40), *(v12 + 56), *(v12 + 324), a7, a8, v16, SHIDWORD(v86), *(v12 + 152), *(v12 + 160), *(v12 + 168), *(v12 + 176), *(v12 + 180), *(v12 + 184), *(v12 + 236) != 0, 0);
-    v44 = *(v100 + 88);
-    v45 = v84;
-    if (HIDWORD(v86) == 1)
+    AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::createTextureViewForBlit(v94, v12, v83, v28, *(v12 + 40), *(v12 + 56), *(v12 + 324), a7, v11, v16, SHIDWORD(v84), *(v12 + 152), *(v12 + 160), *(v12 + 168), *(v12 + 176), *(v12 + 180), *(v12 + 184), *(v12 + 236) != 0, 0);
+    v44 = *(v98 + 88);
+    v45 = v82;
+    if (HIDWORD(v84) == 1)
     {
       if (*(a10 + 2))
       {
@@ -5574,8 +5602,8 @@ LABEL_21:
         v47 = 1;
         do
         {
-          v48 = v46 * a5 + v93;
-          if ((v104[0].i32[1] | v104[0].i32[0]) >> 15)
+          v48 = v46 * a5 + v91;
+          if ((v102[0].i32[1] | v102[0].i32[0]) >> 15)
           {
             v49 = 0;
           }
@@ -5587,20 +5615,20 @@ LABEL_21:
 
           if (v49 && (v48 & 0xF) == 0)
           {
-            v103 = 0;
-            v102 = v46 * a5 + v93;
-            (*(v101[0] + 16))(v101);
-            LODWORD(v109[0]) = 0;
-            AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDM(a1, v127, v101, 0, &v125, v96, 0, v109, 0, v104, 0, 0, 0, 0, 2);
+            v101 = 0;
+            v100 = v46 * a5 + v91;
+            (*(v99[0] + 16))(v99);
+            LODWORD(v107[0]) = 0;
+            AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDM(a1, v125, v99, 0, &v123, v94, 0, v107, 0, v102, 0, 0, 0, 0, 2);
           }
 
           else
           {
-            LODWORD(v109[0]) = 0;
-            AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDM(a1, v127, 0, v48, &v125, v96, 0, v109, 0, v104, v86, v44, a4, 0, 2);
+            LODWORD(v107[0]) = 0;
+            AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitCDM(a1, v125, 0, v48, &v123, v94, 0, v107, 0, v102, v84, v44, a4, 0, 2);
           }
 
-          ++v107;
+          ++v105;
           v46 = v47++;
         }
 
@@ -5610,9 +5638,9 @@ LABEL_21:
       goto LABEL_81;
     }
 
-    v51 = a4 / v44 / v99;
-    v52 = 32 - __clz(v99 - 1);
-    if (v99 >= 2)
+    v51 = a4 / v44 / v97;
+    v52 = 32 - __clz(v97 - 1);
+    if (v97 >= 2)
     {
       v53 = v52;
     }
@@ -5622,36 +5650,36 @@ LABEL_21:
       v53 = 0;
     }
 
-    v43.i32[0] = a4 / v44 / v99;
-    *&v122[1] = 0;
+    v43.i32[0] = a4 / v44 / v97;
+    *&v120[1] = 0;
     v54 = vcnt_s8(v43);
-    v124 = 0;
-    v123 = 0;
-    v110 = 3;
-    v111 = v99;
-    v114 = v86;
-    v115 = v42;
+    v122 = 0;
+    v121 = 0;
+    v108 = 3;
+    v109 = v97;
+    v112 = v84;
+    v113 = v42;
     v54.i16[0] = vaddlv_u8(v54);
-    v116 = v84;
-    v117 = a4 / v44 / v99;
+    v114 = v82;
+    v115 = a4 / v44 / v97;
     v55 = v42 << v53;
-    v118 = v42 << v53;
-    v119 = v84;
-    v120 = a4 / v44;
-    v121 = a4;
-    if ((v93 & 0xF) == 0 && ((a4 / v44) & 0xF) == 0 && !((v55 | v84) >> 15))
+    v116 = v42 << v53;
+    v117 = v82;
+    v118 = a4 / v44;
+    v119 = a4;
+    if ((v91 & 0xF) == 0 && ((a4 / v44) & 0xF) == 0 && !((v55 | v82) >> 15))
     {
-      v112 = v80;
-      v113 = v79;
-      v122[0] = 0;
-      LODWORD(v123) = v42 << v53;
-      HIDWORD(v123) = v84;
-      v57 = v39 <= v82 || v81 <= v83;
-      HIBYTE(v124) = v57;
+      v110 = v78;
+      v111 = v77;
+      v120[0] = 0;
+      LODWORD(v121) = v42 << v53;
+      HIDWORD(v121) = v82;
+      v57 = v39 <= v80 || v79 <= v81;
+      HIBYTE(v122) = v57;
       goto LABEL_55;
     }
 
-    if (v99 >= 2)
+    if (v97 >= 2)
     {
       v68 = 32 - __clz(v51 - 1);
       if (v51 < 2)
@@ -5659,58 +5687,58 @@ LABEL_21:
         v68 = 0;
       }
 
-      v69 = v54.i32[0] == 1 ? v68 : a4 / v44 / v99;
-      v70 = v39 > v82 && v81 > v83;
+      v69 = v54.i32[0] == 1 ? v68 : a4 / v44 / v97;
+      v70 = v39 > v80 && v79 > v81;
       v71 = !v70;
-      if ((v93 & 0xF) == 0)
+      if ((v91 & 0xF) == 0)
       {
         v55 = v51 << (v53 - 1);
-        v72 = 2 * v84;
-        memset(v122, 0, sizeof(v122));
-        if (!((v55 | (2 * v84)) >> 15) && (v55 & 0xF) == 0)
+        v72 = 2 * v82;
+        memset(v120, 0, sizeof(v120));
+        if (!((v55 | (2 * v82)) >> 15) && (v55 & 0xF) == 0)
         {
 LABEL_92:
-          v115 = v42;
-          v116 = v84;
-          v117 = a4 / v44 / v99;
+          v113 = v42;
+          v114 = v82;
+          v115 = a4 / v44 / v97;
+          v116 = v55;
+          v117 = v72;
           v118 = v55;
-          v119 = v72;
-          v120 = v55;
-          BYTE4(v124) = 1;
-          v111 = v99;
-          v112 = v80;
-          v113 = v79;
-          BYTE6(v124) = v51 != v42;
+          BYTE4(v122) = 1;
+          v109 = v97;
+          v110 = v78;
+          v111 = v77;
+          BYTE6(v122) = v51 != v42;
           LODWORD(a4) = v55 * v44;
-          v121 = v55 * v44;
-          v123 = __PAIR64__(v72, v55);
-          BYTE5(v124) = v54.i32[0] == 1;
-          LODWORD(v124) = v69;
-          HIBYTE(v124) = v71;
+          v119 = v55 * v44;
+          v121 = __PAIR64__(v72, v55);
+          BYTE5(v122) = v54.i32[0] == 1;
+          LODWORD(v122) = v69;
+          HIBYTE(v122) = v71;
           v45 = v72;
-          v110 = 3;
+          v108 = 3;
 LABEL_55:
-          v58 = a2 + *MEMORY[0x29EDC5638];
-          v59 = *(v58 + 144);
-          v60 = *(v58 + 152);
-          if ((v97 - 1) > 0x289)
+          v58 = &a2[*MEMORY[0x29EDC5638]];
+          v59 = *(v58 + 18);
+          v60 = *(v58 + 19);
+          if ((v95 - 1) > 0x289)
           {
             v61 = &texFormatUnsupported;
           }
 
           else
           {
-            v61 = *(&off_29F342380 + (v97 - 1));
+            v61 = *(&off_29F342380 + (v95 - 1));
           }
 
-          AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v109, *(*(*(a1 + 8) + 1872) + 848), 0, 2, 2, v61, v97, 0, 0.0, v59, 2, 0, 0, 84148994, v55, v45, 1u, 1u, 1, 1, a4, 0, 0, v60, 0, 0, 0, 0, 0, 1, 1, 0, 1, v78, 0);
-          v109[39] = 0;
-          v109[0] = off_2A23FA3D8;
-          v109[9] = v93;
-          AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(v109);
-          v108 = 0;
-          AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::render3D(a1, v127, v109, &v125, v96, v98, 0, 0, &v110, &v108);
-          AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v109);
+          AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v107, *(*(a1[1] + 1872) + 848), 0, 2, 2, v61, v95, 0, 0.0, v59, 2, 0, 0, 84148994, v55, v45, 1u, 1u, 1, 1, a4, 0, 0, v60, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0);
+          v107[39] = 0;
+          v107[0] = off_2A23FA3D8;
+          v107[9] = v91;
+          AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(v107);
+          v106 = 0;
+          AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::render3D(a1, v125, v107, &v123, v94, v96, 0, 0, &v108, &v106);
+          AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v107);
           goto LABEL_81;
         }
 
@@ -5730,8 +5758,8 @@ LABEL_55:
         while (v74)
         {
           v55 = v51 << v75;
-          v72 = v84 << v76;
-          memset(v122, 0, sizeof(v122));
+          v72 = v82 << v76;
+          memset(v120, 0, sizeof(v120));
           --v74;
           ++v76;
           --v75;
@@ -5743,11 +5771,11 @@ LABEL_55:
       }
     }
 
-    AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitTextureToBufferWithTA(a1, v127, v93, &v125, v96, v104, v44, a4, v86);
+    AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::blitTextureToBufferWithTA(a1, v125, v91, &v123, v94, v102, v44, a4, v84);
 LABEL_81:
-    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v96);
+    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v94);
 LABEL_82:
-    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v101);
+    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v99);
     return;
   }
 
@@ -5797,7 +5825,7 @@ BOOL ___ZN3AGX17LegacyBlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
   return v4 != v5 && *v4 < a4;
 }
 
-void sub_29CCE9DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *__p, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_29CCE9DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *__p, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a40, 8);
   if (__p)
@@ -5807,17 +5835,17 @@ void sub_29CCE9DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   _Block_object_dispose(&a63, 8);
-  if (a69)
+  if (a65)
   {
-    a70 = a69;
-    operator delete(a69);
+    a66 = a65;
+    operator delete(a65);
   }
 
-  _Block_object_dispose((v70 - 160), 8);
+  _Block_object_dispose((v66 - 160), 8);
   _Unwind_Resume(a1);
 }
 
-double ___ZN3AGX11BlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE20copyTextureToTextureEP20AGXG18PFamilyTexturejjS8_jjjj_block_invoke_2(void *a1, _DWORD *a2, _DWORD *a3)
+double ___ZN3AGX11BlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE20copyTextureToTextureEP20AGXG18PFamilyTexturejjS8_jjjj_block_invoke_2(void *a1, unsigned int *a2, _DWORD *a3)
 {
   v4 = a1[6];
   v5 = *(*a3 + 592);
@@ -5911,14 +5939,12 @@ uint64_t ___ZN3AGX11BlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClasse
 
 __n128 __Block_byref_object_copy__3082(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -6006,7 +6032,7 @@ void ___ZN3AGX11BlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS
   }
 }
 
-void ___ZN3AGX11BlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE20copyTextureToTextureEP20AGXG18PFamilyTexturejjS8_jjjj_block_invoke_2_242(uint64_t a1, uint64_t a2, unsigned int *a3)
+void ___ZN3AGX11BlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE20copyTextureToTextureEP20AGXG18PFamilyTexturejjS8_jjjj_block_invoke_2_242(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v3 = *(*a3 + 592);
   v4 = *(v3 + 584);
@@ -6015,7 +6041,7 @@ void ___ZN3AGX11BlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS
     v6 = *(v3 + 144) + a3[4];
     if (*(v4 + 1304) > v6)
     {
-      if (*(a1 + 48) == 1)
+      if (*(result + 48) == 1)
       {
         v8 = *(v3 + 136) >> v6;
         if (v8 <= 1)
@@ -6062,13 +6088,13 @@ void ___ZN3AGX11BlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS
       for (i = 0; i != v9; ++i)
       {
         GPUVirtualAddress = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(*(*(*a3 + 592) + 584) + 648 * a3[2], a3[3], *(*(*a3 + 592) + 144) + a3[4], i, 0);
-        v20 = *(*(a1 + 40) + 8);
+        v20 = *(*(result + 40) + 8);
         v22 = *(v20 + 48);
         v21 = *(v20 + 56);
         v23 = v20 + 48;
         if (v22 == v21 || *(v21 - 8) != GPUVirtualAddress)
         {
-          *&v24 = (*(*(a1 + 32) + 16))();
+          *&v24 = (*(*(result + 32) + 16))();
           *(&v24 + 1) = v18;
           std::vector<AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange,std::allocator<AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange>>::push_back[abi:nn200100](v23, &v24);
         }
@@ -6092,7 +6118,7 @@ LABEL_1:
   while (1)
   {
     a1 = v12;
-    v13 = (a2 - v12) >> 4;
+    v13 = a2 - v12;
     if (v13 <= 2)
     {
       if (v13 < 2)
@@ -6102,7 +6128,7 @@ LABEL_1:
 
       if (v13 == 2)
       {
-        if (v9->n128_u64[0] >= *v12)
+        if (v9->n128_u64[0] >= v12->n128_u64[0])
         {
           return result;
         }
@@ -6120,18 +6146,18 @@ LABEL_1:
 
     if (v13 == 4)
     {
-      v57 = (v12 + 16);
-      v60 = *(v12 + 16);
-      v61 = (v12 + 32);
-      v62 = *(v12 + 32);
-      if (v60 >= *v12)
+      v57 = v12 + 1;
+      v60 = v12[1].n128_u64[0];
+      v61 = v12 + 2;
+      v62 = v12[2].n128_u64[0];
+      if (v60 >= v12->n128_u64[0])
       {
         if (v62 < v60)
         {
           result = *v57;
           *v57 = *v61;
           *v61 = result;
-          if (*(v12 + 16) < *v12)
+          if (v12[1].n128_u64[0] < v12->n128_u64[0])
           {
             v130 = *v12;
             *v12 = *v57;
@@ -6155,7 +6181,7 @@ LABEL_1:
         *v12 = *v57;
         result = v132;
         *v57 = v132;
-        if (v62 < *(v12 + 16))
+        if (v62 < v12[1].n128_u64[0])
         {
           result = *v57;
           *v57 = *v61;
@@ -6181,7 +6207,7 @@ LABEL_181:
       *v57 = *v61;
       *v61 = result;
 LABEL_185:
-      if (*(v12 + 16) < *v12)
+      if (v12[1].n128_u64[0] < v12->n128_u64[0])
       {
         v133 = *v12;
         *v12 = *v57;
@@ -6195,14 +6221,14 @@ LABEL_185:
     if (v13 == 5)
     {
 
-      result.n128_u64[0] = std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange*,0>(v12, (v12 + 16), (v12 + 32), (v12 + 48), a2[-1].n128_u64, result).n128_u64[0];
+      result.n128_u64[0] = std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange*,0>(v12, v12 + 1, v12[2].n128_u64, v12[3].n128_u64, a2[-1].n128_u64, result).n128_u64[0];
       return result;
     }
 
 LABEL_9:
     if (v13 <= 23)
     {
-      v63 = (v12 + 16);
+      v63 = v12 + 1;
       v65 = v12 == a2 || v63 == a2;
       if (a4)
       {
@@ -6213,10 +6239,10 @@ LABEL_9:
           do
           {
             v69 = v63;
-            v70 = v67[2];
-            if (v70 < *v67)
+            v70 = v67[1].n128_u64[0];
+            if (v70 < v67->n128_u64[0])
             {
-              v71 = v67[3];
+              v71 = v67[1].n128_u64[1];
               v72 = v66;
               do
               {
@@ -6228,15 +6254,15 @@ LABEL_9:
                   goto LABEL_121;
                 }
 
-                v73 = *(v12 + v72 - 16);
+                v73 = *(v12[-1].n128_u64 + v72);
                 v72 -= 16;
               }
 
               while (v70 < v73);
               v68 = (v12 + v72 + 16);
 LABEL_121:
-              *v68 = v70;
-              v68[1] = v71;
+              v68->n128_u64[0] = v70;
+              v68->n128_u64[1] = v71;
             }
 
             v63 = v69 + 1;
@@ -6292,28 +6318,28 @@ LABEL_121:
           if (v74 >= v75)
           {
             v77 = (2 * (v75 & 0xFFFFFFFFFFFFFFFLL)) | 1;
-            v78 = (v12 + 16 * v77);
-            v79 = *v78;
+            v78 = &v12[v77];
+            v79 = v78->n128_u64[0];
             if (2 * (v75 & 0xFFFFFFFFFFFFFFFLL) + 2 < v13)
             {
-              v80 = v78[2];
+              v80 = v78[1].n128_u64[0];
               v81 = v79 >= v80;
               if (v79 <= v80)
               {
-                v79 = v78[2];
+                v79 = v78[1].n128_u64[0];
               }
 
               if (!v81)
               {
-                v78 += 2;
+                ++v78;
                 v77 = 2 * (v75 & 0xFFFFFFFFFFFFFFFLL) + 2;
               }
             }
 
-            v82 = (v12 + 16 * v75);
+            v82 = &v12[v75];
             v83 = *v82;
-            v84 = *v82;
-            if (v79 >= *v82)
+            v84 = v82->n128_u64[0];
+            if (v79 >= v82->n128_u64[0])
             {
               do
               {
@@ -6325,16 +6351,16 @@ LABEL_121:
                 }
 
                 v89 = (2 * (v77 & 0x3FFFFFFFFFFFFFFFLL)) | 1;
-                v78 = (v12 + 16 * v89);
+                v78 = &v12[v89];
                 v77 = 2 * v77 + 2;
-                v87 = *v78;
+                v87 = v78->n128_u64[0];
                 if (v77 < v13)
                 {
-                  v85 = v78[2];
+                  v85 = v78[1].n128_u64[0];
                   v86 = v87 >= v85;
                   if (v87 <= v85)
                   {
-                    v87 = v78[2];
+                    v87 = v78[1].n128_u64[0];
                   }
 
                   if (v86)
@@ -6344,7 +6370,7 @@ LABEL_121:
 
                   else
                   {
-                    v78 += 2;
+                    ++v78;
                   }
                 }
 
@@ -6412,13 +6438,13 @@ LABEL_121:
             *v94 = *a2;
             result = v129;
             *a2 = v129;
-            v97 = (&v94[1] - v12) >> 4;
+            v97 = (v94 - v12 + 16) >> 4;
             v76 = v97 < 2;
             v98 = v97 - 2;
             if (!v76)
             {
               v99 = v98 >> 1;
-              v100 = (v12 + 16 * v99);
+              v100 = &v12[v99];
               v101 = v94->n128_u64[0];
               if (v100->n128_u64[0] < v94->n128_u64[0])
               {
@@ -6434,7 +6460,7 @@ LABEL_121:
                   }
 
                   v99 = (v99 - 1) >> 1;
-                  v100 = (v12 + 16 * v99);
+                  v100 = &v12[v99];
                   v94 = v103;
                 }
 
@@ -6454,20 +6480,20 @@ LABEL_121:
       return result;
     }
 
-    v14 = (v12 + 16 * (v13 >> 1));
+    v14 = &v12[v13 >> 1];
     v15 = v14;
     v16 = v9->n128_u64[0];
     if (v13 >= 0x81)
     {
       v17 = v14->n128_u64[0];
-      if (v14->n128_u64[0] >= *v12)
+      if (v14->n128_u64[0] >= v12->n128_u64[0])
       {
         if (v16 < v17)
         {
           v111 = *v14;
           *v14 = *v9;
           *v9 = v111;
-          if (v14->n128_u64[0] < *v12)
+          if (v14->n128_u64[0] < v12->n128_u64[0])
           {
             v112 = *v12;
             *v12 = *v14;
@@ -6497,11 +6523,11 @@ LABEL_26:
         }
       }
 
-      v19 = (v12 + 16);
+      v19 = v12 + 1;
       v20 = v14 - 1;
       v21 = v14[-1].n128_u64[0];
       v22 = v10->n128_u64[0];
-      if (v21 >= *(v12 + 16))
+      if (v21 >= v12[1].n128_u64[0])
       {
         if (v22 < v21)
         {
@@ -6539,12 +6565,12 @@ LABEL_38:
         }
       }
 
-      v26 = (v12 + 32);
+      v26 = v12 + 2;
       v29 = v14[1].n128_u64[0];
       v27 = v14 + 1;
       v28 = v29;
       v30 = v11->n128_u64[0];
-      if (v29 >= *(v12 + 32))
+      if (v29 >= v12[2].n128_u64[0])
       {
         if (v30 < v28)
         {
@@ -6628,8 +6654,8 @@ LABEL_56:
       goto LABEL_58;
     }
 
-    v18 = *v12;
-    if (*v12 >= v14->n128_u64[0])
+    v18 = v12->n128_u64[0];
+    if (v12->n128_u64[0] >= v14->n128_u64[0])
     {
       if (v16 < v18)
       {
@@ -6637,7 +6663,7 @@ LABEL_56:
         *v12 = *v9;
         result = v113;
         *v9 = v113;
-        if (*v12 < v14->n128_u64[0])
+        if (v12->n128_u64[0] < v14->n128_u64[0])
         {
           v114 = *v14;
           *v14 = *v12;
@@ -6663,7 +6689,7 @@ LABEL_35:
     *v14 = *v12;
     result = v117;
     *v12 = v117;
-    if (v9->n128_u64[0] < *v12)
+    if (v9->n128_u64[0] < v12->n128_u64[0])
     {
       v110 = *v12;
       *v12 = *v9;
@@ -6672,17 +6698,17 @@ LABEL_35:
 
 LABEL_58:
     --a3;
-    v36 = *v12;
+    v36 = v12->n128_u64[0];
     if (a4)
     {
-      v37 = *(v12 + 8);
+      v37 = v12->n128_u64[1];
 LABEL_61:
       v38 = v12;
       do
       {
         v39 = v38;
-        v40 = *(v38 + 16);
-        v38 += 16;
+        v40 = v38[1].n128_u64[0];
+        ++v38;
       }
 
       while (v40 < v36);
@@ -6726,8 +6752,8 @@ LABEL_61:
           *v44 = result;
           do
           {
-            v45 = *(v12 + 16);
-            v12 += 16;
+            v45 = v12[1].n128_u64[0];
+            ++v12;
           }
 
           while (v45 < v36);
@@ -6743,24 +6769,24 @@ LABEL_61:
         while (v12 < v44);
       }
 
-      v47 = (v12 - 16);
-      if ((v12 - 16) != a1)
+      v47 = v12 - 1;
+      if (&v12[-1] != a1)
       {
         result = *v47;
         *a1 = *v47;
       }
 
-      *(v12 - 16) = v36;
-      *(v12 - 8) = v37;
+      v12[-1].n128_u64[0] = v36;
+      v12[-1].n128_u64[1] = v37;
       if (v38 < v41)
       {
         goto LABEL_80;
       }
 
-      v48 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange*>(a1, (v12 - 16), result);
+      v48 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange*>(a1, v12 - 1, result);
       if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange*>(v12, a2, v49))
       {
-        a2 = (v12 - 16);
+        a2 = v12 - 1;
         if (!v48)
         {
           goto LABEL_1;
@@ -6772,42 +6798,42 @@ LABEL_61:
       if (!v48)
       {
 LABEL_80:
-        std::__introsort<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange*,false>(a1, v12 - 16, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::MemRange*,false>(a1, v12 - 1, a3, a4 & 1, result);
         a4 = 0;
       }
     }
 
     else
     {
-      v37 = *(v12 + 8);
-      if (*(v12 - 16) < v36)
+      v37 = v12->n128_u64[1];
+      if (v12[-1].n128_u64[0] < v36)
       {
         goto LABEL_61;
       }
 
       if (v36 >= v9->n128_u64[0])
       {
-        v51 = v12 + 16;
+        n128_u64 = v12[1].n128_u64;
         do
         {
-          v12 = v51;
-          if (v51 >= a2)
+          v12 = n128_u64;
+          if (n128_u64 >= a2)
           {
             break;
           }
 
-          v51 += 16;
+          n128_u64 += 16;
         }
 
-        while (v36 >= *v12);
+        while (v36 >= v12->n128_u64[0]);
       }
 
       else
       {
         do
         {
-          v50 = *(v12 + 16);
-          v12 += 16;
+          v50 = v12[1].n128_u64[0];
+          ++v12;
         }
 
         while (v36 >= v50);
@@ -6834,8 +6860,8 @@ LABEL_80:
         *v52 = v126;
         do
         {
-          v54 = *(v12 + 16);
-          v12 += 16;
+          v54 = v12[1].n128_u64[0];
+          ++v12;
         }
 
         while (v36 >= v54);
@@ -6848,23 +6874,23 @@ LABEL_80:
         while (v36 < v55);
       }
 
-      v56 = (v12 - 16);
-      if ((v12 - 16) != a1)
+      v56 = v12 - 1;
+      if (&v12[-1] != a1)
       {
         result = *v56;
         *a1 = *v56;
       }
 
       a4 = 0;
-      *(v12 - 16) = v36;
-      *(v12 - 8) = v37;
+      v12[-1].n128_u64[0] = v36;
+      v12[-1].n128_u64[1] = v37;
     }
   }
 
-  v57 = (v12 + 16);
-  v58 = *(v12 + 16);
+  v57 = v12 + 1;
+  v58 = v12[1].n128_u64[0];
   v59 = v9->n128_u64[0];
-  if (v58 >= *v12)
+  if (v58 >= v12->n128_u64[0])
   {
     if (v59 >= v58)
     {
@@ -6891,7 +6917,7 @@ LABEL_107:
   *v12 = *v57;
   result = v131;
   *v57 = v131;
-  if (v9->n128_u64[0] < *(v12 + 16))
+  if (v9->n128_u64[0] < v12[1].n128_u64[0])
   {
     result = *v57;
     *v57 = *v9;
@@ -6903,14 +6929,12 @@ LABEL_107:
 
 __n128 __Block_byref_object_copy__243(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -7018,13 +7042,13 @@ void ___ZN3AGX11BlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS
         v55 = v54 + 1;
         if (v54 + 1 < *(v50 + 140) || v55 == *(v50 + 64))
         {
-          v56 = *(v49 + 584) + 648 * a2[2];
+          v56 = (*(v49 + 584) + 648 * a2[2]);
           v57 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getLevelOffset<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(v50, v55, 0);
         }
 
         else
         {
-          v56 = *(v49 + 584) + 648 * a2[2];
+          v56 = (*(v49 + 584) + 648 * a2[2]);
           v57 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(v50, 0);
         }
 
@@ -7102,13 +7126,13 @@ LABEL_29:
         v67 = v66 + 1;
         if (v66 + 1 < *(v64 + 140) || v67 == *(v64 + 64))
         {
-          v68 = *(v63 + 584) + 648 * a2[2];
+          v68 = (*(v63 + 584) + 648 * a2[2]);
           v69 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getLevelOffset<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(v64, v67, 0);
         }
 
         else
         {
-          v68 = *(v63 + 584) + 648 * a2[2];
+          v68 = (*(v63 + 584) + 648 * a2[2]);
           v69 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(v64, 0);
         }
 
@@ -7132,12 +7156,12 @@ LABEL_26:
   while (v14 != v22);
 }
 
-__n128 std::__introsort<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange*,false>(uint64_t a1, unint64_t a2, uint64_t a3, char a4, __n128 result)
+__n128 std::__introsort<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange*,false>(__n128 *a1, __n128 *a2, uint64_t a3, char a4, __n128 result)
 {
 LABEL_1:
-  v9 = (a2 - 24);
-  v10 = (a2 - 48);
-  v11 = (a2 - 72);
+  v9 = &a2[-2].n128_u64[1];
+  v10 = a2 - 3;
+  v11 = &a2[-5].n128_u64[1];
   v12 = a1;
   while (1)
   {
@@ -7153,7 +7177,7 @@ LABEL_1:
 
       if (v14 == 2)
       {
-        if (v9->n128_u64[0] >= *v12)
+        if (*v9 >= v12->n128_u64[0])
         {
           return result;
         }
@@ -7172,28 +7196,28 @@ LABEL_1:
     if (v14 == 4)
     {
       v91 = (v12 + 24);
-      v95 = *(v12 + 24);
-      v96 = (v12 + 48);
-      v97 = *(v12 + 48);
-      if (v95 >= *v12)
+      v95 = v12[1].n128_u64[1];
+      v96 = v12 + 3;
+      v97 = v12[3].n128_u64[0];
+      if (v95 >= v12->n128_u64[0])
       {
         if (v97 < v95)
         {
-          v143 = *(v12 + 40);
+          v143 = v12[2].n128_u64[1];
           result = *v91;
           *v91 = *v96;
-          *(v12 + 40) = *(v12 + 64);
+          v12[2].n128_u64[1] = v12[4].n128_u64[0];
           *v96 = result;
-          *(v12 + 64) = v143;
-          if (*(v12 + 24) < *v12)
+          v12[4].n128_u64[0] = v143;
+          if (v12[1].n128_u64[1] < v12->n128_u64[0])
           {
-            v201 = *(v12 + 16);
+            v201 = v12[1].n128_u64[0];
             v175 = *v12;
             *v12 = *v91;
-            *(v12 + 16) = *(v12 + 40);
+            v12[1].n128_u64[0] = v12[2].n128_u64[1];
             result = v175;
             *v91 = v175;
-            *(v12 + 40) = v201;
+            v12[2].n128_u64[1] = v201;
           }
         }
       }
@@ -7202,65 +7226,65 @@ LABEL_1:
       {
         if (v97 < v95)
         {
-          v199 = *(v12 + 16);
+          v199 = v12[1].n128_u64[0];
           v171 = *v12;
           *v12 = *v96;
-          *(v12 + 16) = *(v12 + 64);
+          v12[1].n128_u64[0] = v12[4].n128_u64[0];
           result = v171;
           *v96 = v171;
           v98 = v199;
           goto LABEL_182;
         }
 
-        v203 = *(v12 + 16);
+        v203 = v12[1].n128_u64[0];
         v178 = *v12;
         *v12 = *v91;
-        *(v12 + 16) = *(v12 + 40);
+        v12[1].n128_u64[0] = v12[2].n128_u64[1];
         result = v178;
         *v91 = v178;
-        *(v12 + 40) = v203;
-        if (v97 < *(v12 + 24))
+        v12[2].n128_u64[1] = v203;
+        if (v97 < v12[1].n128_u64[1])
         {
-          v98 = *(v12 + 40);
+          v98 = v12[2].n128_u64[1];
           result = *v91;
           *v91 = *v96;
-          *(v12 + 40) = *(v12 + 64);
+          v12[2].n128_u64[1] = v12[4].n128_u64[0];
           *v96 = result;
 LABEL_182:
-          *(v12 + 64) = v98;
+          v12[4].n128_u64[0] = v98;
         }
       }
 
-      if (v9->n128_u64[0] >= v96->n128_u64[0])
+      if (*v9 >= v96->n128_u64[0])
       {
         return result;
       }
 
       result = *v96;
-      v149 = *(v12 + 64);
-      v150 = *(a2 - 8);
+      v149 = v12[4].n128_u64[0];
+      v150 = a2[-1].n128_u64[1];
       *v96 = *v9;
-      *(v12 + 64) = v150;
-      *(a2 - 8) = v149;
+      v12[4].n128_u64[0] = v150;
+      a2[-1].n128_u64[1] = v149;
       *v9 = result;
       if (v96->n128_u64[0] >= v91->n128_u64[0])
       {
         return result;
       }
 
-      v151 = *(v12 + 40);
+      v151 = v12[2].n128_u64[1];
       result = *v91;
       *v91 = *v96;
-      *(v12 + 40) = *(v12 + 64);
+      v12[2].n128_u64[1] = v12[4].n128_u64[0];
       *v96 = result;
-      *(v12 + 64) = v151;
+      v12[4].n128_u64[0] = v151;
 LABEL_186:
-      if (*(v12 + 24) < *v12)
+      if (v12[1].n128_u64[1] < v12->n128_u64[0])
       {
-        v204 = *(v12 + 16);
+        v204 = v12[1].n128_u64[0];
         v179 = *v12;
         *v12 = *v91;
-        *(v12 + 16) = v91[1].n128_u64[0];
+        v12[1].n128_u64[0] = v91[1].n128_u64[0];
         result = v179;
         *v91 = v179;
         v91[1].n128_u64[0] = v204;
@@ -7272,14 +7296,14 @@ LABEL_186:
     if (v14 == 5)
     {
 
-      result.n128_u64[0] = std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange*,0>(v12, (v12 + 24), (v12 + 48), v12 + 72, a2 - 24, result).n128_u64[0];
+      result.n128_u64[0] = std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange*,0>(v12, (v12 + 24), v12[3].n128_u64, &v12[4].n128_i64[1], &a2[-2].n128_i64[1], result).n128_u64[0];
       return result;
     }
 
 LABEL_9:
     if (v13 <= 575)
     {
-      v99 = v12 + 24;
+      v99 = (v12 + 24);
       v101 = v12 == a2 || v99 == a2;
       if (a4)
       {
@@ -7299,7 +7323,7 @@ LABEL_9:
               {
                 v108 = v12 + v107;
                 *(v108 + 24) = *(v12 + v107);
-                *(v108 + 40) = *(v12 + v107 + 16);
+                *(v108 + 5) = *(v12[1].n128_u64 + v107);
                 if (!v107)
                 {
                   v104 = v12;
@@ -7309,15 +7333,15 @@ LABEL_9:
                 v107 -= 24;
               }
 
-              while (v106 < *(v108 - 24));
-              v104 = v12 + v107 + 24;
+              while (v106 < *(v108 - 3));
+              v104 = &v12[1].n128_i64[1] + v107;
 LABEL_120:
               *v104 = v106;
               result = v172;
               *(v104 + 8) = v172;
             }
 
-            v99 = &v105[1].n128_u64[1];
+            v99 = (v105 + 24);
             v102 += 24;
             v103 = v105;
           }
@@ -7331,29 +7355,29 @@ LABEL_120:
         do
         {
           v144 = v99;
-          v145 = *(a1 + 24);
-          if (v145 < *a1)
+          v145 = a1[1].n128_u64[1];
+          if (v145 < a1->n128_u64[0])
           {
-            v176 = *(a1 + 32);
+            v176 = a1[2];
             do
             {
               *v99 = *(v99 - 24);
-              *(v99 + 16) = *(v99 - 8);
-              v146 = *(v99 - 48);
-              v99 -= 24;
+              v99[1].n128_u64[0] = v99[-1].n128_u64[1];
+              v146 = v99[-3].n128_u64[0];
+              v99 = (v99 - 24);
             }
 
             while (v145 < v146);
-            *v99 = v145;
+            v99->n128_u64[0] = v145;
             result = v176;
             *(v99 + 8) = v176;
           }
 
-          v99 = v144 + 24;
+          v99 = (v144 + 24);
           a1 = v144;
         }
 
-        while (v144 + 24 != a2);
+        while (&v144[1].n128_i8[8] != a2);
       }
 
       return result;
@@ -7370,7 +7394,7 @@ LABEL_120:
           if (v109 >= v110)
           {
             v112 = (2 * (v110 & 0x3FFFFFFFFFFFFFFFLL)) | 1;
-            v113 = (v12 + 24 * v112);
+            v113 = &v12->n128_u64[3 * v112];
             v114 = *v113;
             if (2 * v110 + 2 < v14)
             {
@@ -7388,7 +7412,7 @@ LABEL_120:
               }
             }
 
-            v117 = (v12 + 24 * v110);
+            v117 = &v12->n128_u64[3 * v110];
             v118 = *v117;
             if (v114 >= *v117)
             {
@@ -7406,7 +7430,7 @@ LABEL_120:
                 }
 
                 v124 = (2 * v112) | 1;
-                v113 = (v12 + 24 * v124);
+                v113 = &v12->n128_u64[3 * v124];
                 v112 = 2 * v112 + 2;
                 v121 = *v113;
                 if (v112 < v14)
@@ -7457,20 +7481,20 @@ LABEL_120:
         do
         {
           v126 = 0;
-          v200 = *(v12 + 16);
+          v200 = v12[1].n128_u64[0];
           v174 = *v12;
           v127 = v12;
           do
           {
             v132 = v127 + 24 * v126;
-            v130 = v132 + 24;
+            v130 = (v132 + 24);
             v133 = (2 * v126) | 1;
             v126 = 2 * v126 + 2;
             if (v126 < v125)
             {
-              v129 = *(v132 + 48);
+              v129 = *(v132 + 6);
               v128 = v132 + 48;
-              if (*(v128 - 24) >= v129)
+              if (*(v128 - 3) >= v129)
               {
                 v126 = v133;
               }
@@ -7487,35 +7511,35 @@ LABEL_120:
             }
 
             v131 = *v130;
-            *(v127 + 16) = *(v130 + 16);
+            v127[1].n128_u64[0] = v130[1].n128_u64[0];
             *v127 = v131;
             v127 = v130;
           }
 
           while (v126 <= ((v125 - 2) >> 1));
-          a2 -= 24;
+          a2 = (a2 - 24);
           if (v130 == a2)
           {
             result = v174;
-            *(v130 + 16) = v200;
+            v130[1].n128_u64[0] = v200;
             *v130 = v174;
           }
 
           else
           {
             v134 = *a2;
-            *(v130 + 16) = *(a2 + 16);
+            v130[1].n128_u64[0] = a2[1].n128_u64[0];
             *v130 = v134;
             result = v174;
-            *(a2 + 16) = v200;
+            a2[1].n128_u64[0] = v200;
             *a2 = v174;
             v135 = v130 - v12 + 24;
             if (v135 >= 25)
             {
               v136 = (-2 - 0x5555555555555555 * (v135 >> 3)) >> 1;
-              v137 = v12 + 24 * v136;
-              v138 = *v130;
-              if (*v137 < *v130)
+              v137 = (v12 + 24 * v136);
+              v138 = v130->n128_u64[0];
+              if (v137->n128_u64[0] < v130->n128_u64[0])
               {
                 v207 = *(v130 + 8);
                 do
@@ -7523,7 +7547,7 @@ LABEL_120:
                   v139 = v130;
                   v130 = v137;
                   v140 = *v137;
-                  *(v139 + 16) = *(v137 + 16);
+                  v139[1].n128_u64[0] = v137[1].n128_u64[0];
                   *v139 = v140;
                   if (!v136)
                   {
@@ -7531,11 +7555,11 @@ LABEL_120:
                   }
 
                   v136 = (v136 - 1) >> 1;
-                  v137 = v12 + 24 * v136;
+                  v137 = (v12 + 24 * v136);
                 }
 
-                while (*v137 < v138);
-                *v130 = v138;
+                while (v137->n128_u64[0] < v138);
+                v130->n128_u64[0] = v138;
                 result = v207;
                 *(v130 + 8) = v207;
               }
@@ -7552,28 +7576,28 @@ LABEL_120:
     }
 
     v15 = v14 >> 1;
-    v16 = (v12 + 24 * (v14 >> 1));
-    v17 = v9->n128_u64[0];
+    v16 = &v12->n128_u64[3 * (v14 >> 1)];
+    v17 = *v9;
     if (v13 >= 0xC01)
     {
       v18 = *v16;
-      if (*v16 >= *v12)
+      if (*v16 >= v12->n128_u64[0])
       {
         if (v17 < v18)
         {
           v182 = v16[2];
           v154 = *v16;
           v22 = *v9;
-          v16[2] = *(a2 - 8);
+          v16[2] = a2[-1].n128_u64[1];
           *v16 = v22;
-          *(a2 - 8) = v182;
+          a2[-1].n128_u64[1] = v182;
           *v9 = v154;
-          if (*v16 < *v12)
+          if (*v16 < v12->n128_u64[0])
           {
-            v183 = *(v12 + 16);
+            v183 = v12[1].n128_u64[0];
             v155 = *v12;
             v23 = *v16;
-            *(v12 + 16) = v16[2];
+            v12[1].n128_u64[0] = v16[2];
             *v12 = v23;
             v16[2] = v183;
             *v16 = v155;
@@ -7585,59 +7609,59 @@ LABEL_120:
       {
         if (v17 < v18)
         {
-          v180 = *(v12 + 16);
+          v180 = v12[1].n128_u64[0];
           v152 = *v12;
           v19 = *v9;
-          *(v12 + 16) = *(a2 - 8);
+          v12[1].n128_u64[0] = a2[-1].n128_u64[1];
           *v12 = v19;
           goto LABEL_26;
         }
 
-        v186 = *(v12 + 16);
+        v186 = v12[1].n128_u64[0];
         v158 = *v12;
         v26 = *v16;
-        *(v12 + 16) = v16[2];
+        v12[1].n128_u64[0] = v16[2];
         *v12 = v26;
         v16[2] = v186;
         *v16 = v158;
-        if (v9->n128_u64[0] < *v16)
+        if (*v9 < *v16)
         {
           v180 = v16[2];
           v152 = *v16;
           v27 = *v9;
-          v16[2] = *(a2 - 8);
+          v16[2] = a2[-1].n128_u64[1];
           *v16 = v27;
 LABEL_26:
-          *(a2 - 8) = v180;
+          a2[-1].n128_u64[1] = v180;
           *v9 = v152;
         }
       }
 
       v28 = (v12 + 24);
       v29 = v12 + 24 * v15;
-      v32 = *(v29 - 24);
-      v30 = v29 - 24;
+      v32 = *(v29 - 3);
+      v30 = (v29 - 24);
       v31 = v32;
-      v33 = *v10;
-      if (v32 >= *(v12 + 24))
+      v33 = v10->n128_u64[0];
+      if (v32 >= v12[1].n128_u64[1])
       {
         if (v33 < v31)
         {
-          v187 = *(v30 + 16);
+          v187 = v30[1].n128_u64[0];
           v159 = *v30;
           v37 = *v10;
-          *(v30 + 16) = *(a2 - 32);
+          v30[1].n128_u64[0] = a2[-2].n128_u64[0];
           *v30 = v37;
-          *(a2 - 32) = v187;
+          a2[-2].n128_u64[0] = v187;
           *v10 = v159;
-          if (*v30 < *v28)
+          if (v30->n128_u64[0] < v28->n128_u64[0])
           {
             v38 = *v28;
-            v39 = *(v12 + 40);
-            v40 = *(v30 + 16);
+            v39 = v12[2].n128_u64[1];
+            v40 = v30[1].n128_u64[0];
             *v28 = *v30;
-            *(v12 + 40) = v40;
-            *(v30 + 16) = v39;
+            v12[2].n128_u64[1] = v40;
+            v30[1].n128_u64[0] = v39;
             *v30 = v38;
           }
         }
@@ -7648,60 +7672,60 @@ LABEL_26:
         if (v33 < v31)
         {
           v34 = *v28;
-          v35 = *(v12 + 40);
-          v36 = *(a2 - 32);
+          v35 = v12[2].n128_u64[1];
+          v36 = a2[-2].n128_u64[0];
           *v28 = *v10;
-          *(v12 + 40) = v36;
-          *(a2 - 32) = v35;
+          v12[2].n128_u64[1] = v36;
+          a2[-2].n128_u64[0] = v35;
           goto LABEL_38;
         }
 
         v43 = *v28;
-        v44 = *(v12 + 40);
-        v45 = *(v30 + 16);
+        v44 = v12[2].n128_u64[1];
+        v45 = v30[1].n128_u64[0];
         *v28 = *v30;
-        *(v12 + 40) = v45;
-        *(v30 + 16) = v44;
+        v12[2].n128_u64[1] = v45;
+        v30[1].n128_u64[0] = v44;
         *v30 = v43;
-        if (*v10 < *v30)
+        if (v10->n128_u64[0] < v30->n128_u64[0])
         {
-          v189 = *(v30 + 16);
+          v189 = v30[1].n128_u64[0];
           v161 = *v30;
           v46 = *v10;
-          *(v30 + 16) = *(a2 - 32);
+          v30[1].n128_u64[0] = a2[-2].n128_u64[0];
           *v30 = v46;
           v34 = v161;
-          *(a2 - 32) = v189;
+          a2[-2].n128_u64[0] = v189;
 LABEL_38:
           *v10 = v34;
         }
       }
 
-      v47 = (v12 + 48);
+      v47 = v12 + 3;
       v48 = v12 + 24 * v15;
-      v51 = *(v48 + 24);
-      v49 = v48 + 24;
+      v51 = *(v48 + 3);
+      v49 = (v48 + 24);
       v50 = v51;
       v52 = *v11;
-      if (v51 >= *(v12 + 48))
+      if (v51 >= v12[3].n128_u64[0])
       {
         if (v52 < v50)
         {
-          v190 = *(v49 + 16);
+          v190 = v49[1].n128_u64[0];
           v162 = *v49;
           v56 = *v11;
-          *(v49 + 16) = *(a2 - 56);
+          v49[1].n128_u64[0] = a2[-4].n128_u64[1];
           *v49 = v56;
-          *(a2 - 56) = v190;
+          a2[-4].n128_u64[1] = v190;
           *v11 = v162;
-          if (*v49 < *v47)
+          if (v49->n128_u64[0] < v47->n128_u64[0])
           {
             v57 = *v47;
-            v58 = *(v12 + 64);
-            v59 = *(v49 + 16);
+            v58 = v12[4].n128_u64[0];
+            v59 = v49[1].n128_u64[0];
             *v47 = *v49;
-            *(v12 + 64) = v59;
-            *(v49 + 16) = v58;
+            v12[4].n128_u64[0] = v59;
+            v49[1].n128_u64[0] = v58;
             *v49 = v57;
           }
         }
@@ -7712,53 +7736,53 @@ LABEL_38:
         if (v52 < v50)
         {
           v53 = *v47;
-          v54 = *(v12 + 64);
-          v55 = *(a2 - 56);
+          v54 = v12[4].n128_u64[0];
+          v55 = a2[-4].n128_u64[1];
           *v47 = *v11;
-          *(v12 + 64) = v55;
-          *(a2 - 56) = v54;
+          v12[4].n128_u64[0] = v55;
+          a2[-4].n128_u64[1] = v54;
           goto LABEL_47;
         }
 
         v60 = *v47;
-        v61 = *(v12 + 64);
-        v62 = *(v49 + 16);
+        v61 = v12[4].n128_u64[0];
+        v62 = v49[1].n128_u64[0];
         *v47 = *v49;
-        *(v12 + 64) = v62;
-        *(v49 + 16) = v61;
+        v12[4].n128_u64[0] = v62;
+        v49[1].n128_u64[0] = v61;
         *v49 = v60;
-        if (*v11 < *v49)
+        if (*v11 < v49->n128_u64[0])
         {
-          v191 = *(v49 + 16);
+          v191 = v49[1].n128_u64[0];
           v163 = *v49;
           v63 = *v11;
-          *(v49 + 16) = *(a2 - 56);
+          v49[1].n128_u64[0] = a2[-4].n128_u64[1];
           *v49 = v63;
           v53 = v163;
-          *(a2 - 56) = v191;
+          a2[-4].n128_u64[1] = v191;
 LABEL_47:
           *v11 = v53;
         }
       }
 
       v64 = *v16;
-      v65 = *v49;
-      if (*v16 >= *v30)
+      v65 = v49->n128_u64[0];
+      if (*v16 >= v30->n128_u64[0])
       {
         if (v65 < v64)
         {
           v193 = v16[2];
           v165 = *v16;
           *v16 = *v49;
-          v16[2] = *(v49 + 16);
-          *(v49 + 16) = v193;
+          v16[2] = v49[1].n128_u64[0];
+          v49[1].n128_u64[0] = v193;
           *v49 = v165;
-          if (*v16 < *v30)
+          if (*v16 < v30->n128_u64[0])
           {
-            v194 = *(v30 + 16);
+            v194 = v30[1].n128_u64[0];
             v166 = *v30;
             *v30 = *v16;
-            *(v30 + 16) = v16[2];
+            v30[1].n128_u64[0] = v16[2];
             v16[2] = v194;
             *v16 = v166;
           }
@@ -7769,61 +7793,61 @@ LABEL_47:
       {
         if (v65 < v64)
         {
-          v192 = *(v30 + 16);
+          v192 = v30[1].n128_u64[0];
           v164 = *v30;
           *v30 = *v49;
-          *(v30 + 16) = *(v49 + 16);
+          v30[1].n128_u64[0] = v49[1].n128_u64[0];
           goto LABEL_56;
         }
 
-        v195 = *(v30 + 16);
+        v195 = v30[1].n128_u64[0];
         v167 = *v30;
         *v30 = *v16;
-        *(v30 + 16) = v16[2];
+        v30[1].n128_u64[0] = v16[2];
         v16[2] = v195;
         *v16 = v167;
-        if (*v49 < *v16)
+        if (v49->n128_u64[0] < *v16)
         {
           v192 = v16[2];
           v164 = *v16;
           *v16 = *v49;
-          v16[2] = *(v49 + 16);
+          v16[2] = v49[1].n128_u64[0];
 LABEL_56:
-          *(v49 + 16) = v192;
+          v49[1].n128_u64[0] = v192;
           *v49 = v164;
         }
       }
 
-      v196 = *(v12 + 16);
+      v196 = v12[1].n128_u64[0];
       v168 = *v12;
       v66 = *v16;
-      *(v12 + 16) = v16[2];
+      v12[1].n128_u64[0] = v16[2];
       *v12 = v66;
       v16[2] = v196;
       *v16 = v168;
       goto LABEL_58;
     }
 
-    v20 = *v12;
-    if (*v12 >= *v16)
+    v20 = v12->n128_u64[0];
+    if (v12->n128_u64[0] >= *v16)
     {
       if (v17 < v20)
       {
-        v184 = *(v12 + 16);
+        v184 = v12[1].n128_u64[0];
         v156 = *v12;
         v24 = *v9;
-        *(v12 + 16) = *(a2 - 8);
+        v12[1].n128_u64[0] = a2[-1].n128_u64[1];
         *v12 = v24;
-        *(a2 - 8) = v184;
+        a2[-1].n128_u64[1] = v184;
         *v9 = v156;
-        if (*v12 < *v16)
+        if (v12->n128_u64[0] < *v16)
         {
           v185 = v16[2];
           v157 = *v16;
           v25 = *v12;
-          v16[2] = *(v12 + 16);
+          v16[2] = v12[1].n128_u64[0];
           *v16 = v25;
-          *(v12 + 16) = v185;
+          v12[1].n128_u64[0] = v185;
           *v12 = v157;
         }
       }
@@ -7836,19 +7860,19 @@ LABEL_56:
       v188 = v16[2];
       v160 = *v16;
       v41 = *v12;
-      v16[2] = *(v12 + 16);
+      v16[2] = v12[1].n128_u64[0];
       *v16 = v41;
-      *(v12 + 16) = v188;
+      v12[1].n128_u64[0] = v188;
       *v12 = v160;
-      if (v9->n128_u64[0] >= *v12)
+      if (*v9 >= v12->n128_u64[0])
       {
         goto LABEL_58;
       }
 
-      v181 = *(v12 + 16);
+      v181 = v12[1].n128_u64[0];
       v153 = *v12;
       v42 = *v9;
-      *(v12 + 16) = *(a2 - 8);
+      v12[1].n128_u64[0] = a2[-1].n128_u64[1];
       *v12 = v42;
     }
 
@@ -7857,24 +7881,24 @@ LABEL_56:
       v181 = v16[2];
       v153 = *v16;
       v21 = *v9;
-      v16[2] = *(a2 - 8);
+      v16[2] = a2[-1].n128_u64[1];
       *v16 = v21;
     }
 
-    *(a2 - 8) = v181;
+    a2[-1].n128_u64[1] = v181;
     *v9 = v153;
 LABEL_58:
     --a3;
-    v67 = *v12;
-    if ((a4 & 1) != 0 || *(v12 - 24) < v67)
+    v67 = v12->n128_u64[0];
+    if ((a4 & 1) != 0 || v12[-2].n128_u64[1] < v67)
     {
       v205 = *(v12 + 8);
       v68 = v12;
       do
       {
         v69 = v68;
-        v70 = *(v68 + 24);
-        v68 += 24;
+        v70 = v68[1].n128_u64[1];
+        v68 = (v68 + 24);
       }
 
       while (v70 < v67);
@@ -7889,8 +7913,8 @@ LABEL_58:
             break;
           }
 
-          v73 = *(v71 - 24);
-          v71 -= 24;
+          v73 = v71[-2].n128_u64[1];
+          v71 = (v71 - 24);
         }
 
         while (v73 >= v67);
@@ -7900,8 +7924,8 @@ LABEL_58:
       {
         do
         {
-          v72 = *(v71 - 24);
-          v71 -= 24;
+          v72 = v71[-2].n128_u64[1];
+          v71 = (v71 - 24);
         }
 
         while (v72 >= v67);
@@ -7914,23 +7938,23 @@ LABEL_58:
         do
         {
           v75 = *v12;
-          v76 = *(v12 + 16);
-          v77 = *(v74 + 16);
+          v76 = v12[1].n128_u64[0];
+          v77 = v74[1].n128_u64[0];
           *v12 = *v74;
-          *(v12 + 16) = v77;
-          *(v74 + 16) = v76;
+          v12[1].n128_u64[0] = v77;
+          v74[1].n128_u64[0] = v76;
           *v74 = v75;
           do
           {
-            v78 = *(v12 + 24);
-            v12 += 24;
+            v78 = v12[1].n128_u64[1];
+            v12 = (v12 + 24);
           }
 
           while (v78 < v67);
           do
           {
-            v79 = *(v74 - 24);
-            v74 -= 24;
+            v79 = v74[-2].n128_u64[1];
+            v74 = (v74 - 24);
           }
 
           while (v79 >= v67);
@@ -7939,24 +7963,25 @@ LABEL_58:
         while (v12 < v74);
       }
 
-      if (v12 - 24 != a1)
+      if (&v12[-2].n128_i8[8] != a1)
       {
         v80 = *(v12 - 24);
-        *(a1 + 16) = *(v12 - 8);
+        a1[1].n128_u64[0] = v12[-1].n128_u64[1];
         *a1 = v80;
       }
 
-      *(v12 - 24) = v67;
-      *(v12 - 16) = v205;
+      v12[-2].n128_u64[1] = v67;
+      result = v205;
+      v12[-1] = v205;
       if (v68 < v71)
       {
         goto LABEL_79;
       }
 
-      v81 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange*>(a1, (v12 - 24), v205);
+      v81 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange*>(a1, &v12[-2].n128_i8[8], v205);
       if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange*>(v12, a2, v82))
       {
-        a2 = v12 - 24;
+        a2 = (v12 - 24);
         if (!v81)
         {
           goto LABEL_1;
@@ -7968,7 +7993,7 @@ LABEL_58:
       if (!v81)
       {
 LABEL_79:
-        std::__introsort<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange*,false>(a1, v12 - 24, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTexture(AGXG18PFamilyTexture *,unsigned int,unsigned int,AGXG18PFamilyTexture *,unsigned int,unsigned int,unsigned int,unsigned int)::{lambda(AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange)#1} &,AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::CopyRange*,false>(a1, (v12 - 24), a3, a4 & 1, result);
         a4 = 0;
       }
     }
@@ -7976,9 +8001,9 @@ LABEL_79:
     else
     {
       v206 = *(v12 + 8);
-      if (v67 >= v9->n128_u64[0])
+      if (v67 >= *v9)
       {
-        v84 = v12 + 24;
+        v84 = &v12[1].n128_u64[1];
         do
         {
           v12 = v84;
@@ -7990,15 +8015,15 @@ LABEL_79:
           v84 += 24;
         }
 
-        while (v67 >= *v12);
+        while (v67 >= v12->n128_u64[0]);
       }
 
       else
       {
         do
         {
-          v83 = *(v12 + 24);
-          v12 += 24;
+          v83 = v12[1].n128_u64[1];
+          v12 = (v12 + 24);
         }
 
         while (v67 >= v83);
@@ -8010,8 +8035,8 @@ LABEL_79:
         v85 = a2;
         do
         {
-          v86 = *(v85 - 24);
-          v85 -= 24;
+          v86 = v85[-2].n128_u64[1];
+          v85 = (v85 - 24);
         }
 
         while (v67 < v86);
@@ -8019,47 +8044,47 @@ LABEL_79:
 
       while (v12 < v85)
       {
-        v197 = *(v12 + 16);
+        v197 = v12[1].n128_u64[0];
         v169 = *v12;
         v87 = *v85;
-        *(v12 + 16) = *(v85 + 16);
+        v12[1].n128_u64[0] = v85[1].n128_u64[0];
         *v12 = v87;
-        *(v85 + 16) = v197;
+        v85[1].n128_u64[0] = v197;
         *v85 = v169;
         do
         {
-          v88 = *(v12 + 24);
-          v12 += 24;
+          v88 = v12[1].n128_u64[1];
+          v12 = (v12 + 24);
         }
 
         while (v67 >= v88);
         do
         {
-          v89 = *(v85 - 24);
-          v85 -= 24;
+          v89 = v85[-2].n128_u64[1];
+          v85 = (v85 - 24);
         }
 
         while (v67 < v89);
       }
 
-      if (v12 - 24 != a1)
+      if (&v12[-2].n128_i8[8] != a1)
       {
         v90 = *(v12 - 24);
-        *(a1 + 16) = *(v12 - 8);
+        a1[1].n128_u64[0] = v12[-1].n128_u64[1];
         *a1 = v90;
       }
 
       a4 = 0;
-      *(v12 - 24) = v67;
+      v12[-2].n128_u64[1] = v67;
       result = v206;
-      *(v12 - 16) = v206;
+      v12[-1] = v206;
     }
   }
 
   v91 = (v12 + 24);
-  v92 = *(v12 + 24);
-  v93 = v9->n128_u64[0];
-  if (v92 >= *v12)
+  v92 = v12[1].n128_u64[1];
+  v93 = *v9;
+  if (v92 >= v12->n128_u64[0])
   {
     if (v93 >= v92)
     {
@@ -8067,11 +8092,11 @@ LABEL_79:
     }
 
     result = *v91;
-    v141 = *(v12 + 40);
-    v142 = *(a2 - 8);
+    v141 = v12[2].n128_u64[1];
+    v142 = a2[-1].n128_u64[1];
     *v91 = *v9;
-    *(v12 + 40) = v142;
-    *(a2 - 8) = v141;
+    v12[2].n128_u64[1] = v142;
+    a2[-1].n128_u64[1] = v141;
     *v9 = result;
     goto LABEL_186;
   }
@@ -8079,45 +8104,45 @@ LABEL_79:
   if (v93 < v92)
   {
 LABEL_106:
-    v198 = *(v12 + 16);
+    v198 = v12[1].n128_u64[0];
     v170 = *v12;
     v94 = *v9;
-    *(v12 + 16) = *(a2 - 8);
+    v12[1].n128_u64[0] = a2[-1].n128_u64[1];
     *v12 = v94;
     result = v170;
-    *(a2 - 8) = v198;
+    a2[-1].n128_u64[1] = v198;
     *v9 = v170;
     return result;
   }
 
-  v202 = *(v12 + 16);
+  v202 = v12[1].n128_u64[0];
   v177 = *v12;
   *v12 = *v91;
-  *(v12 + 16) = *(v12 + 40);
+  v12[1].n128_u64[0] = v12[2].n128_u64[1];
   result = v177;
   *v91 = v177;
-  *(v12 + 40) = v202;
-  if (v9->n128_u64[0] < *(v12 + 24))
+  v12[2].n128_u64[1] = v202;
+  if (*v9 < v12[1].n128_u64[1])
   {
     result = *v91;
-    v147 = *(v12 + 40);
-    v148 = *(a2 - 8);
+    v147 = v12[2].n128_u64[1];
+    v148 = a2[-1].n128_u64[1];
     *v91 = *v9;
-    *(v12 + 40) = v148;
-    *(a2 - 8) = v147;
+    v12[2].n128_u64[1] = v148;
+    a2[-1].n128_u64[1] = v147;
     *v9 = result;
   }
 
   return result;
 }
 
-void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyBufferToBufferImpl(void *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t *a5, unint64_t a6)
+void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyBufferToBufferImpl(void *result, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t *a5, unint64_t a6)
 {
   v6 = a5 + a6;
-  v7 = a6 + a3;
+  v7 = (a6 + a3);
   if (a5 + a6 <= a3 || v7 <= a5)
   {
-    v9 = (a1 + 1);
+    v9 = result + 1;
 
     AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer(v9, a2, a3, a4, a5, a6, 0, 0);
     return;
@@ -8154,8 +8179,8 @@ void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::Ob
   if (!(v11 >> 15))
   {
     v13 = a2;
-    v14 = a1;
-    v15 = a1[8];
+    v14 = result;
+    v15 = result[8];
     v16 = a3;
     if (v15)
     {
@@ -8174,18 +8199,18 @@ LABEL_17:
       goto LABEL_28;
     }
 
-    v105 = *a1;
-    v106 = *(*a1 + 648);
+    v105 = *result;
+    v106 = *(*result + 648);
     if (!v106)
     {
       v109 = a6;
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v105 + 3, 18, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v105 + 3), 18, 0))
       {
         goto LABEL_117;
       }
 
       v106 = v105[81];
-      v14 = a1;
+      v14 = result;
       a5 = v123;
       v16 = a3;
       a6 = v109;
@@ -8198,7 +8223,7 @@ LABEL_17:
     }
 
     v110 = a6;
-    v111 = AGX::DataBufferAllocator<44ul>::growNoInline(v105 + 3, 18, 0);
+    v111 = AGX::DataBufferAllocator<44ul>::growNoInline((v105 + 3), 18, 0);
     a6 = v110;
     a5 = v123;
     if (!v111)
@@ -8248,12 +8273,12 @@ LABEL_117:
 
   v18 = (a6 - v17) & (v10 - 1);
   v13 = a2;
-  v14 = a1;
-  v15 = a1[8];
+  v14 = result;
+  v15 = result[8];
 LABEL_28:
   v19 = v7 - v18;
   v20 = &v6[-v18];
-  v21 = v17 + v16;
+  v21 = v16 + v17;
   v130 = (a5 + v17);
   v126 = v18;
   v128 = a6 - v17 - v18;
@@ -8264,7 +8289,7 @@ LABEL_28:
   v115 = v12 - 1;
   if (v16 >= a5)
   {
-    v112 = v17 + v16;
+    v112 = v16 + v17;
     v121 = v17;
     v35 = v18 + v22;
     v36 = a4;
@@ -8289,7 +8314,7 @@ LABEL_28:
           }
 
           v65 = v36;
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), v13, v63 + v19, v36, (v20 + v63), v64, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), v13, &v19[v63], v36, (v20 + v63), v64, 0, 0);
           v36 = v65;
           ++v62;
         }
@@ -8321,10 +8346,10 @@ LABEL_28:
           v44 = v20;
           v45 = v19;
           v46 = v36;
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), v39, v42, v36, v43, v41, 0, 0);
-          v47 = v40 + v45;
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), v39, v42, v36, v43, v41, 0, 0);
+          v47 = &v45[v40];
           v13 = a2;
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), a2, v47, v39, v42, v41, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), a2, v47, v39, v42, v41, 0, 0);
           v24 = v119;
           v36 = v46;
           v19 = v45;
@@ -8360,7 +8385,7 @@ LABEL_28:
           }
 
           v88 = v36;
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), v13, v86 + v112, v36, (v130 + v86), v87, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), v13, &v112[v86], v36, (v130 + v86), v87, 0, 0);
           v36 = v88;
           ++v85;
         }
@@ -8371,7 +8396,7 @@ LABEL_28:
       else
       {
         v68 = 0;
-        v127 = a1[8];
+        v127 = result[8];
         v69 = MEMORY[0x29EDC5638];
         v36 = a4;
         do
@@ -8389,9 +8414,9 @@ LABEL_28:
 
           v72 = *(v127 + 72 + *v69);
           v73 = v36;
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), v127, v72, v36, (v130 + v70), v71, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), v127, v72, v36, (v130 + v70), v71, 0, 0);
           v67 = (v128 + v115) / v12;
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), a2, v70 + v112, v127, v72, v71, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), a2, &v112[v70], v127, v72, v71, 0, 0);
           v36 = v73;
           v66 = v128;
           ++v68;
@@ -8423,7 +8448,7 @@ LABEL_28:
             v104 = v103;
           }
 
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), a2, v102 + a3, v90, (v123 + v102), v104, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), a2, v102 + a3, v90, (v123 + v102), v104, 0, 0);
           v89 = v121;
           ++v101;
         }
@@ -8434,7 +8459,7 @@ LABEL_28:
       else
       {
         v92 = 0;
-        v93 = a1[8];
+        v93 = result[8];
         do
         {
           v94 = (v91 + ~v92) * v12;
@@ -8449,8 +8474,8 @@ LABEL_28:
           }
 
           v96 = *(v93 + 72 + *MEMORY[0x29EDC5638]);
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), v93, v96, v90, (v123 + v94), v95, 0, 0);
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), a2, v94 + a3, v93, v96, v95, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), v93, v96, v90, (v123 + v94), v95, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), a2, v94 + a3, v93, v96, v95, 0, 0);
           v89 = v121;
           ++v92;
         }
@@ -8523,15 +8548,15 @@ LABEL_28:
           v32 = *(v24 + *MEMORY[0x29EDC5638]);
           v33 = v26;
           v34 = a5;
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), v30, v32, v26, a5, v31, 0, 0);
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), a2, v29, v30, v32, v31, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), v30, v32, v26, a5, v31, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), a2, v29, v30, v32, v31, 0, 0);
           v24 = v119;
           v17 = v120;
           v26 = v33;
           ++v28;
           a5 = (v34 + v12);
           v29 += v12;
-          v27 = a1;
+          v27 = result;
         }
 
         while (v28 < v124);
@@ -8593,8 +8618,8 @@ LABEL_28:
 
           v60 = *(v122 + 72 + *MEMORY[0x29EDC5638]);
           v61 = v26;
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), v122, v60, v26, v130, v59, 0, 0);
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), a2, v21, v122, v60, v59, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), v122, v60, v26, v130, v59, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), a2, v21, v122, v60, v59, 0, 0);
           v26 = v61;
           ++v58;
           v130 = (v130 + v12);
@@ -8627,7 +8652,7 @@ LABEL_28:
             v100 = v78;
           }
 
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), a2, v57, v97, v20, v100, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), a2, v57, v97, v20, v100, 0, 0);
           ++v98;
           v20 = (v20 + v12);
           v57 += v12;
@@ -8640,7 +8665,7 @@ LABEL_28:
       else
       {
         v80 = 0;
-        v81 = a1[8];
+        v81 = result[8];
         do
         {
           v82 = v78 - v12;
@@ -8655,8 +8680,8 @@ LABEL_28:
           }
 
           v84 = *(v81 + 72 + *MEMORY[0x29EDC5638]);
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), v81, v84, a4, v20, v83, 0, 0);
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((a1 + 1), a2, v57, v81, v84, v83, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), v81, v84, a4, v20, v83, 0, 0);
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer((result + 1), a2, v57, v81, v84, v83, 0, 0);
           ++v80;
           v20 = (v20 + v12);
           v57 += v12;
@@ -8677,7 +8702,7 @@ __n128 std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,AGX::BlitContext<AGX::H
   {
     if (v7 < v6)
     {
-      v10 = a2[1].n128_i64[0];
+      v10 = a2[1].n128_u64[0];
       result = *a2;
       v11 = a3[2];
       *a2 = *a3;
@@ -8742,7 +8767,7 @@ LABEL_10:
     *(a4 + 16) = v17;
     if (*a3 < a2->n128_u64[0])
     {
-      v19 = a2[1].n128_i64[0];
+      v19 = a2[1].n128_u64[0];
       result = *a2;
       v20 = a3[2];
       *a2 = *a3;
@@ -8782,7 +8807,7 @@ LABEL_10:
       *(a4 + 16) = v25;
       if (*a3 < a2->n128_u64[0])
       {
-        v27 = a2[1].n128_i64[0];
+        v27 = a2[1].n128_u64[0];
         result = *a2;
         v28 = a3[2];
         *a2 = *a3;
@@ -8816,7 +8841,7 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,AGX::
       v6 = (a1 + 24);
       v7 = *(a1 + 24);
       v9 = *(a2 - 3);
-      v4 = (a2 - 24);
+      v4 = a2 - 24;
       v8 = v9;
       if (v7 < *a1)
       {
@@ -8828,15 +8853,15 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,AGX::
           *(a1 + 16) = *(a1 + 40);
           *v6 = v39;
           *(a1 + 40) = v38;
-          if (v4->n128_u64[0] < *(a1 + 24))
+          if (*v4 < *(a1 + 24))
           {
             v40 = *(a1 + 40);
             v41 = *v6;
-            v42 = v4[1].n128_i64[0];
+            v42 = *(v4 + 2);
             *v6 = *v4;
             *(a1 + 40) = v42;
             *v4 = v41;
-            v4[1].n128_u64[0] = v40;
+            *(v4 + 2) = v40;
           }
 
           return 1;
@@ -8845,11 +8870,11 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,AGX::
 LABEL_12:
         v10 = *(a1 + 16);
         v11 = *a1;
-        v12 = v4[1].n128_i64[0];
+        v12 = *(v4 + 2);
         *a1 = *v4;
         *(a1 + 16) = v12;
         *v4 = v11;
-        v4[1].n128_u64[0] = v10;
+        *(v4 + 2) = v10;
         return 1;
       }
 
@@ -8860,11 +8885,11 @@ LABEL_12:
 
       v27 = *(a1 + 40);
       v28 = *v6;
-      v29 = v4[1].n128_i64[0];
+      v29 = *(v4 + 2);
       *v6 = *v4;
       *(a1 + 40) = v29;
       *v4 = v28;
-      v4[1].n128_u64[0] = v27;
+      *(v4 + 2) = v27;
 LABEL_47:
       if (*(a1 + 24) < *a1)
       {
@@ -8984,7 +9009,7 @@ LABEL_44:
   if (v3 == 2)
   {
     v5 = *(a2 - 3);
-    v4 = (a2 - 24);
+    v4 = a2 - 24;
     if (v5 >= *a1)
     {
       return 1;
@@ -9166,7 +9191,7 @@ void std::vector<AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX
   *(a1 + 8) = v6;
 }
 
-void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTextureImpl(void *a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int a5, __int128 *a6, uint64_t a7, unsigned int a8, unsigned int a9, unsigned int a10, __int128 *a11, void *a12)
+void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTextureImpl(void *a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, __int128 *a6, uint64_t a7, unsigned int a8, unsigned int a9, unsigned int a10, __int128 *a11, void *a12)
 {
   v15 = a3;
   v17 = *(a7 + 592);
@@ -9222,14 +9247,15 @@ LABEL_9:
 
   {
     v69 = v21;
-    v15 = a3;
+    v58 = a3;
+    v15 = v58;
     v21 = v69;
     if (v59)
     {
       LOBYTE(v73) = 0;
       findEnvVarNum<BOOL>("AGX_DISABLE_PBE_COMPRESSION", &v73);
       AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::disablePBECompressionOnUICC(void)::disablePBECompression = v73;
-      v15 = a3;
+      v15 = v58;
       v21 = v69;
     }
   }
@@ -9398,7 +9424,7 @@ LABEL_33:
       do
       {
         v54 = v41;
-        GPUVirtualAddress = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v18, a4, *(v18 + 144) + v41, v37, v60);
+        GPUVirtualAddress = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v18, a4, (*(v18 + 144) + v41), v37, v60);
         v56 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v17, a9, *(v17 + 144) + a10, v36, a8);
         v57 = GPUVirtualAddress;
         v41 = v54;
@@ -9660,8 +9686,9 @@ LABEL_52:
   return result;
 }
 
-void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyBufferToTexture(void *a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int *a5, int *a6, uint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10, unsigned int a11)
+void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyBufferToTexture(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned int *a5, int *a6, uint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10, unsigned int a11)
 {
+  v14 = a4;
   v17 = *MEMORY[0x29EDC5638];
   v18 = a7 + v17;
   v19 = *(a2 + 592);
@@ -9680,8 +9707,8 @@ void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::Ob
     }
   }
 
-  v67 = (*(a7 + v17 + 72) + a8);
-  v68 = v21;
+  v66 = (*(a7 + v17 + 72) + a8);
+  v67 = v21;
   v22 = *(v19 + 112);
   v23 = *(v19 + 584);
   if (v23 && (v24 = *(v23 + 1304)) != 0)
@@ -9706,11 +9733,11 @@ void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::Ob
     v25 = 0;
   }
 
-  v62 = v22 * *(v20 + v21 + 88);
+  v61 = v22 * *(v20 + v21 + 88);
   v27 = *(v18 + 144);
   v26 = *(v18 + 152);
   TextureViewFormat = AGX::BlitUtil::getTextureViewFormat(*(v20 + v21 + 88), v22, *(v19 + 32), v21, v25, 0);
-  v64 = v29;
+  v63 = v29;
   if (v29 >> 33)
   {
     v30 = 4;
@@ -9753,18 +9780,18 @@ LABEL_21:
     v35 = a6[2];
     v36 = *a5;
     v37 = a5[2];
-    v80 = 0;
+    v79 = 0;
     v38 = a5[4];
     v39 = *(v19 + 216);
     v40 = *(v19 + 220);
     v41 = (v34 + v39 - 1) / v39;
     v42 = (v35 + v40 - 1) / v40;
-    v75 = v41;
-    v76 = v42;
-    v77 = v36 / v39;
-    v78 = v37 / v40;
-    v79 = 0;
-    v61 = v33;
+    v74 = v41;
+    v75 = v42;
+    v76 = v36 / v39;
+    v77 = v37 / v40;
+    v78 = 0;
+    v60 = v33;
     if ((TextureViewFormat - 1) > 0x289)
     {
       v43 = &texFormatUnsupported;
@@ -9777,17 +9804,17 @@ LABEL_21:
 
     v59 = v27;
     v44 = TextureViewFormat;
-    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v72, *(a1[7] + 848), 0, 2, v30, v43, TextureViewFormat, 0, 0.0, v59, 2, 0, 0, 84148994, v41, v42, 1u, 1u, SHIDWORD(v29), 1, a9, 0, 0, v26, 0, 0, 0, 0, 0, 1, 1, 0, 1, v60, 0);
-    v72[0] = off_2A23FA3D8;
-    if (AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::blitTextureViewAllowed(v19, a4))
+    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v71, *(a1[7] + 848), 0, 2, v30, v43, TextureViewFormat, 0, 0.0, v59, 2, 0, 0, 84148994, v41, v42, 1u, 1u, SHIDWORD(v29), 1, a9, 0, 0, v26, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0);
+    v71[0] = off_2A23FA3D8;
+    if (AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::blitTextureViewAllowed(v19, v14))
     {
-      AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::createTextureViewForBlit(v70, v19, v61, v44, *(v19 + 40), *(v19 + 56), *(v19 + 324), a3, a4, v68, v32, *(v19 + 152), *(v19 + 160), *(v19 + 168), *(v19 + 176), *(v19 + 180), *(v19 + 184), *(v19 + 236) != 0, 0);
-      v45 = *(v71 + 88);
-      v69 = 0;
+      AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::createTextureViewForBlit(v69, v19, v60, v44, *(v19 + 40), *(v19 + 56), *(v19 + 324), a3, v14, v67, v32, *(v19 + 152), *(v19 + 160), *(v19 + 168), *(v19 + 176), *(v19 + 180), *(v19 + 184), *(v19 + 236) != 0, 0);
+      v45 = *(v70 + 88);
+      v68 = 0;
       {
-        v81[0] = 0;
-        findEnvVarNum<BOOL>("AGX_DISABLE_PBE_COMPRESSION", v81);
-        AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::disablePBECompressionOnUICC(void)::disablePBECompression = v81[0];
+        v80[0] = 0;
+        findEnvVarNum<BOOL>("AGX_DISABLE_PBE_COMPRESSION", v80);
+        AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::disablePBECompressionOnUICC(void)::disablePBECompression = v80[0];
       }
 
       if (AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::disablePBECompressionOnUICC(void)::disablePBECompression == 1)
@@ -9797,7 +9824,7 @@ LABEL_21:
         {
           if (*(v46 + 1304))
           {
-            v69 |= 8u;
+            v68 |= 8u;
           }
         }
       }
@@ -9808,22 +9835,22 @@ LABEL_21:
         {
           v47 = 0;
           v48 = 1;
-          v49 = (v76 | v75) >> 15;
+          v49 = (v75 | v74) >> 15;
           do
           {
             v50 = v38 + v48 - 1;
-            v51 = v67 + v47 * a10;
-            if (v49 || (((a9 / v62 * v62) | v51) & 0xF) != 0)
+            v51 = v66 + v47 * a10;
+            if (v49 || (((a9 / v61 * v61) | v51) & 0xF) != 0)
             {
-              AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBufferToTexture(a1 + 1, a2, v70, a7, v51, 0, &v75, v64, v45, a9, v50, &v69);
+              AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBufferToTexture(a1 + 1, a2, v69, a7, v51, 0, &v74, v63, v45, a9, v50, &v68);
             }
 
             else
             {
-              v74 = 0;
-              v73 = (v67 + v47 * a10);
-              (*(v72[0] + 16))(v72);
-              AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMTextureToTexture(a1 + 1, a2, a2, v70, 0, a7, v72, &v69, v50, &v75);
+              v73 = 0;
+              v72 = (v66 + v47 * a10);
+              (*(v71[0] + 16))(v71);
+              AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMTextureToTexture(a1 + 1, a2, a2, v69, 0, a7, v71, &v68, v50, &v74);
             }
 
             v47 = v48++;
@@ -9838,29 +9865,29 @@ LABEL_21:
         fwrite("AGX: copyBufferToTexture: blit format is multi sampled\n", 0x37uLL, 1uLL, *MEMORY[0x29EDCA610]);
       }
 
-      AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v70);
+      AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v69);
     }
 
     else
     {
-      v66 = a4;
+      v65 = v14;
       v52 = a7;
       if (*(v19 + 236))
       {
-        v74 = 0;
-        v73 = v67;
-        AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(v72);
-        AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMSparseMiptail((a1 + 1), a2, v19, a3, v66, a7, v72, 0, 0);
+        v73 = 0;
+        v72 = v66;
+        AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(v71);
+        AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMSparseMiptail((a1 + 1), a2, v19, a3, v65, a7, v71, 0, 0);
       }
 
       else if (*(a6 + 2))
       {
         v53 = 0;
-        v54 = *(*(v19 + 208) + v68 + 88);
+        v54 = *(*(v19 + 208) + v67 + 88);
         v55 = 1;
         do
         {
-          GPUVirtualAddress = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v19, a3, *(v19 + 144) + v66, v38, v68);
+          GPUVirtualAddress = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v19, a3, *(v19 + 144) + v65, v38, v67);
           AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyBufferToBufferImpl(a1, a2, GPUVirtualAddress, v52, (a8 + v53 * a10 + *(v52 + 72 + *MEMORY[0x29EDC5638])), v54);
           ++v38;
           v53 = v55++;
@@ -9870,7 +9897,7 @@ LABEL_21:
       }
     }
 
-    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v72);
+    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v71);
     return;
   }
 
@@ -9879,8 +9906,8 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v57 = *a6 * v62;
-  v58 = *(a2 + v17 + 72) + *a5 * v62;
+  v57 = *a6 * v61;
+  v58 = *(a2 + v17 + 72) + *a5 * v61;
 
-  AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyBufferToBufferImpl(a1, a2, v58, a7, v67, v57);
+  AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyBufferToBufferImpl(a1, a2, v58, a7, v66, v57);
 }

@@ -192,7 +192,7 @@ void __46__MPCSamplesRecorder_dictionaryRepresentation__block_invoke(uint64_t a1
 
     v21 = MEMORY[0x1E696AD98];
     v23 = [*(*(a1 + 32) + 112) multiSamplesFailure];
-    [v23 duration];
+    objc_msgSend_duration(v23);
     v22 = [v21 numberWithDouble:?];
     [*(*(*(a1 + 40) + 8) + 40) setObject:v22 forKeyedSubscript:@"DFMF"];
   }
@@ -247,7 +247,7 @@ uint64_t __33__MPCSamplesRecorder_description__block_invoke(uint64_t a1)
   dispatch_async(accessQueue, v7);
 }
 
-uint64_t __35__MPCSamplesRecorder_recordSample___block_invoke(uint64_t a1)
+void *__35__MPCSamplesRecorder_recordSample___block_invoke(uint64_t a1)
 {
   v27 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isStoringSamples])

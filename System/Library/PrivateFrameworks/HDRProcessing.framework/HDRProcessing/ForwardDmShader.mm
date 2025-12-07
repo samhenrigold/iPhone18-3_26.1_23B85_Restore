@@ -1,5 +1,6 @@
 @interface ForwardDmShader
 - (id)getComputePipeLineStateForDevice:(id)device Library:(id)library;
+- (id)getComputePipeLineStateForDevice:(id)device Library:(id)library Constants:(BOOL *)constants ConstantNumber:(unsigned int)number;
 - (id)getComputePipeLineStateForDevice:(id)device Library:(id)library Constants:(BOOL *)constants ConstantNumber:(unsigned int)number input:(char)input output:(char)output;
 - (id)initShaderWithName:(id)name;
 @end
@@ -32,9 +33,16 @@
   return v4;
 }
 
+- (id)getComputePipeLineStateForDevice:(id)device Library:(id)library Constants:(BOOL *)constants ConstantNumber:(unsigned int)number
+{
+  v6 = [(ForwardDmShader *)self getComputePipeLineStateForDevice:device Library:library Constants:constants ConstantNumber:*&number input:38 output:6];
+
+  return v6;
+}
+
 - (id)getComputePipeLineStateForDevice:(id)device Library:(id)library Constants:(BOOL *)constants ConstantNumber:(unsigned int)number input:(char)input output:(char)output
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   libraryCopy = library;
   inputCopy = input;
@@ -67,9 +75,9 @@
     }
 
     computeKernelName = self->_computeKernelName;
-    v42 = 0;
-    v22 = [libraryCopy newFunctionWithName:computeKernelName constantValues:v18 error:&v42];
-    v23 = v42;
+    v41 = 0;
+    v22 = [libraryCopy newFunctionWithName:computeKernelName constantValues:v18 error:&v41];
+    v23 = v41;
     v24 = v23;
     if (!v22 || v23)
     {
@@ -90,13 +98,13 @@
           v28 = self->_computeKernelName;
           localizedDescription = [v24 localizedDescription];
           *buf = 134218754;
-          v46 = WORD1(v27);
-          v47 = 2080;
-          v48 = "[ForwardDmShader getComputePipeLineStateForDevice:Library:Constants:ConstantNumber:input:output:]";
-          v49 = 2112;
-          v50 = v28;
-          v51 = 2112;
-          v52 = localizedDescription;
+          v45 = WORD1(v27);
+          v46 = 2080;
+          v47 = "[ForwardDmShader getComputePipeLineStateForDevice:Library:Constants:ConstantNumber:input:output:]";
+          v48 = 2112;
+          v49 = v28;
+          v50 = 2112;
+          v51 = localizedDescription;
           _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : ERROR: Failed creating a new function: %@ with error: %@", buf, 0x2Au);
         }
 
@@ -108,11 +116,11 @@
         v34 = self->_computeKernelName;
         localizedDescription2 = [v24 localizedDescription];
         *buf = 136315650;
-        v46 = "[ForwardDmShader getComputePipeLineStateForDevice:Library:Constants:ConstantNumber:input:output:]";
-        v47 = 2112;
-        v48 = v34;
-        v49 = 2112;
-        v50 = localizedDescription2;
+        v45 = "[ForwardDmShader getComputePipeLineStateForDevice:Library:Constants:ConstantNumber:input:output:]";
+        v46 = 2112;
+        v47 = v34;
+        v48 = 2112;
+        v49 = localizedDescription2;
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : ERROR: Failed creating a new function: %@ with error: %@", buf, 0x20u);
       }
 
@@ -131,11 +139,11 @@
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v40 = self->_computeKernelName;
+          v39 = self->_computeKernelName;
           *buf = 136315394;
-          v46 = "[ForwardDmShader getComputePipeLineStateForDevice:Library:Constants:ConstantNumber:input:output:]";
-          v47 = 2112;
-          v48 = v40;
+          v45 = "[ForwardDmShader getComputePipeLineStateForDevice:Library:Constants:ConstantNumber:input:output:]";
+          v46 = 2112;
+          v47 = v39;
           _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : ERROR: Failed creating a new function: %@", buf, 0x16u);
         }
 
@@ -159,11 +167,11 @@
       {
         v33 = self->_computeKernelName;
         *buf = 134218498;
-        v46 = WORD1(v30);
-        v47 = 2080;
-        v48 = "[ForwardDmShader getComputePipeLineStateForDevice:Library:Constants:ConstantNumber:input:output:]";
-        v49 = 2112;
-        v50 = v33;
+        v45 = WORD1(v30);
+        v46 = 2080;
+        v47 = "[ForwardDmShader getComputePipeLineStateForDevice:Library:Constants:ConstantNumber:input:output:]";
+        v48 = 2112;
+        v49 = v33;
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : ERROR: Failed creating a new function: %@", buf, 0x20u);
       }
 
@@ -180,9 +188,9 @@ LABEL_42:
   v25 = objc_alloc_init(MEMORY[0x277CD6D30]);
   [v25 setThreadGroupSizeIsMultipleOfThreadExecutionWidth:1];
   [v25 setComputeFunction:v22];
-  v41 = 0;
-  v17 = [deviceCopy newComputePipelineStateWithDescriptor:v25 error:&v41];
-  v26 = v41;
+  v40 = 0;
+  v17 = [deviceCopy newComputePipelineStateWithDescriptor:v25 error:&v40];
+  v26 = v40;
   v24 = v26;
   if (!v17 || v26)
   {
@@ -190,14 +198,14 @@ LABEL_42:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v38 = self->_computeKernelName;
+        v37 = self->_computeKernelName;
         localizedDescription3 = [v24 localizedDescription];
         *buf = 136315650;
-        v46 = "[ForwardDmShader getComputePipeLineStateForDevice:Library:Constants:ConstantNumber:input:output:]";
-        v47 = 2112;
-        v48 = v38;
-        v49 = 2112;
-        v50 = localizedDescription3;
+        v45 = "[ForwardDmShader getComputePipeLineStateForDevice:Library:Constants:ConstantNumber:input:output:]";
+        v46 = 2112;
+        v47 = v37;
+        v48 = 2112;
+        v49 = localizedDescription3;
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : ERROR: Failed to create forward DM Kernel: %@ with error: %@", buf, 0x20u);
       }
 
@@ -219,13 +227,13 @@ LABEL_42:
       v31 = self->_computeKernelName;
       localizedDescription4 = [v24 localizedDescription];
       *buf = 134218754;
-      v46 = WORD1(v30);
-      v47 = 2080;
-      v48 = "[ForwardDmShader getComputePipeLineStateForDevice:Library:Constants:ConstantNumber:input:output:]";
-      v49 = 2112;
-      v50 = v31;
-      v51 = 2112;
-      v52 = localizedDescription4;
+      v45 = WORD1(v30);
+      v46 = 2080;
+      v47 = "[ForwardDmShader getComputePipeLineStateForDevice:Library:Constants:ConstantNumber:input:output:]";
+      v48 = 2112;
+      v49 = v31;
+      v50 = 2112;
+      v51 = localizedDescription4;
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : ERROR: Failed to create forward DM Kernel: %@ with error: %@", buf, 0x2Au);
     }
 
@@ -238,7 +246,6 @@ LABEL_21:
 LABEL_46:
 
 LABEL_47:
-  v36 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

@@ -26,19 +26,16 @@
   v4 = sub_21DD8C148();
   v5 = OBJC_IVAR___ObjCDiagnosticsReporterLaunchOptions_files_to_attach;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
 - (NSArray)files_to_attach
 {
-  v3 = OBJC_IVAR___ObjCDiagnosticsReporterLaunchOptions_files_to_attach;
   swift_beginAccess();
-  v4 = *(self + v3);
 
-  v5 = sub_21DD8C138();
+  v2 = sub_21DD8C138();
 
-  return v5;
+  return v2;
 }
 
 @end

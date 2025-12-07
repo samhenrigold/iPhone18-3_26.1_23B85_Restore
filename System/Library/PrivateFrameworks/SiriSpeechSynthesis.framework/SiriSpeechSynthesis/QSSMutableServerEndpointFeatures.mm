@@ -7,10 +7,13 @@
 - (int)processed_audio_duration_ms;
 - (int)trailing_silence_duration;
 - (void)setEos_likelihood:(double)eos_likelihood;
+- (void)setNum_of_words:(int)num_of_words;
 - (void)setPause_counts:(id)pause_counts;
+- (void)setProcessed_audio_duration_ms:(int)processed_audio_duration_ms;
 - (void)setSilence_posterior:(double)silence_posterior;
 - (void)setSpeech_id:(id)speech_id;
 - (void)setTask_name:(id)task_name;
+- (void)setTrailing_silence_duration:(int)trailing_silence_duration;
 @end
 
 @implementation QSSMutableServerEndpointFeatures
@@ -63,6 +66,12 @@
   return v4;
 }
 
+- (void)setTrailing_silence_duration:(int)trailing_silence_duration
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&trailing_silence_duration];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)trailing_silence_duration
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"trailing_silence_duration"];
@@ -71,12 +80,24 @@
   return intValue;
 }
 
+- (void)setNum_of_words:(int)num_of_words
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&num_of_words];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)num_of_words
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"num_of_words"];
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setProcessed_audio_duration_ms:(int)processed_audio_duration_ms
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&processed_audio_duration_ms];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int)processed_audio_duration_ms

@@ -51,16 +51,16 @@
   traitCollection = [v7 traitCollection];
   layoutDirection = [traitCollection layoutDirection];
 
-  v164.origin.x = v9;
-  v164.origin.y = v11;
-  v164.size.width = v13;
-  v164.size.height = v15;
-  MinX = CGRectGetMinX(v164);
-  v165.origin.x = v9;
-  v165.origin.y = v11;
-  v165.size.width = v13;
-  v165.size.height = v15;
-  Width = CGRectGetWidth(v165);
+  v162.origin.x = v9;
+  v162.origin.y = v11;
+  v162.size.width = v13;
+  v162.size.height = v15;
+  MinX = CGRectGetMinX(v162);
+  v163.origin.x = v9;
+  v163.origin.y = v11;
+  v163.size.width = v13;
+  v163.size.height = v15;
+  Width = CGRectGetWidth(v163);
   v20 = MinX - Width + -1.0;
   v21 = MinX + Width + 1.0;
   v142 = layoutDirection;
@@ -74,21 +74,21 @@
     v22 = v21;
   }
 
+  v164.origin.x = v9;
+  v164.origin.y = v11;
+  v164.size.width = v13;
+  v164.size.height = v15;
+  MinY = CGRectGetMinY(v164);
+  v165.origin.x = v9;
+  v165.origin.y = v11;
+  v165.size.width = v13;
+  v165.size.height = v15;
+  v24 = CGRectGetWidth(v165);
   v166.origin.x = v9;
   v166.origin.y = v11;
   v166.size.width = v13;
   v166.size.height = v15;
-  MinY = CGRectGetMinY(v166);
-  v167.origin.x = v9;
-  v167.origin.y = v11;
-  v167.size.width = v13;
-  v167.size.height = v15;
-  v24 = CGRectGetWidth(v167);
-  v168.origin.x = v9;
-  v168.origin.y = v11;
-  v168.size.width = v13;
-  v168.size.height = v15;
-  [(BCCardSetCustomNavigationTransition *)self setOffScreen:v22, MinY, v24, CGRectGetHeight(v168)];
+  [(BCCardSetCustomNavigationTransition *)self setOffScreen:v22, MinY, v24, CGRectGetHeight(v166)];
   [(BCCardSetCustomNavigationTransition *)self setSnapshotFrame:v9, v11, v13, v15];
   v25 = [[UIView alloc] initWithFrame:{v9, v11, v13, v15}];
   [(BCCardSetCustomNavigationTransition *)self setSnapshotContainerView:v25];
@@ -167,10 +167,10 @@
   v141 = viewToSlide;
   [v68 addSubview:viewToSlide];
   v69 = *&CGAffineTransformIdentity.c;
-  v161 = *&CGAffineTransformIdentity.a;
-  v162 = v69;
-  v163 = *&CGAffineTransformIdentity.tx;
-  [v54 setTransform:&v161];
+  v159 = *&CGAffineTransformIdentity.a;
+  v160 = v69;
+  v161 = *&CGAffineTransformIdentity.tx;
+  [v54 setTransform:&v159];
   [(BCCardSetCustomNavigationTransition *)self snapshotAnchorPoint];
   if (v71 != CGPointZero.x || v70 != y)
   {
@@ -188,12 +188,12 @@
   [v54 bc_applyCornerRadiusFromView:cardView];
 
   [v54 setClipsToBounds:1];
-  [(BCCardSetCustomNavigationTransition *)self startingTransform];
+  objc_msgSend_startingTransform(self);
   snapshotContainerView = [(BCCardSetCustomNavigationTransition *)self snapshotContainerView];
-  v161 = v158;
-  v162 = v159;
-  v163 = v160;
-  [snapshotContainerView setTransform:&v161];
+  v159 = v158[0];
+  v160 = v158[1];
+  v161 = v158[2];
+  [snapshotContainerView setTransform:&v159];
 
   snapshotContainerView2 = [(BCCardSetCustomNavigationTransition *)self snapshotContainerView];
   [snapshotContainerView2 addSubview:v54];
@@ -306,10 +306,10 @@
   [delegate cardSetViewController:v130 prepareForNavigationTransitionWithContext:transitioningContext];
 
   [(BCCardSetCustomNavigationTransition *)self updateAnimator];
-  v163 = 0u;
-  v162 = 0u;
   v161 = 0u;
-  [(BCCardSetCustomNavigationTransition *)self targetTransform];
+  v160 = 0u;
+  v159 = 0u;
+  objc_msgSend_targetTransform(self);
   animator = [(BCCardSetCustomNavigationTransition *)self animator];
   v151[0] = _NSConcreteStackBlock;
   v151[1] = 3221225472;
@@ -318,9 +318,9 @@
   v132 = v140;
   v152 = v132;
   selfCopy = self;
-  v155 = v161;
-  v156 = v162;
-  v157 = v163;
+  v155 = v159;
+  v156 = v160;
+  v157 = v161;
   v154 = auxiliaryNavigationBarViewForAnimation;
   v133 = auxiliaryNavigationBarViewForAnimation;
   [animator addAnimations:v151];
@@ -396,7 +396,7 @@
   }
 
   animator2 = [(BCCardSetCustomNavigationTransition *)self animator];
-  [animator2 duration];
+  objc_msgSend_duration(animator2);
   v8 = v7;
 
   return v8;

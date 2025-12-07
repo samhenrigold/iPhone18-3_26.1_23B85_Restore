@@ -51,7 +51,7 @@
   configurationCopy = configuration;
   selfCopy = self;
   sub_1B0144E44(configuration, v6, v7);
-  sub_1B0145C7C(v6);
+  sub_1B0145C7C(v6, v7);
 }
 
 - (FBKSDraftLauncher_FrameworkPrivateName)init

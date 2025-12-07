@@ -1,3 +1,157 @@
+FilterResult *std::allocator_traits<std::allocator<std::unique_ptr<FilterResult>>>::destroy[abi:ne200100]<std::unique_ptr<FilterResult>,0>(uint64_t a1, FilterResult **a2)
+{
+  result = *a2;
+  *a2 = 0;
+  if (result)
+  {
+    FilterResult::~FilterResult(result);
+
+    JUMPOUT(0x1E12CE5D0);
+  }
+
+  return result;
+}
+
+void **std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::~__hash_table(void **a1)
+{
+  std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::__deallocate_node(a1, a1[2]);
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::__deallocate_node(int a1, void **__p)
+{
+  if (__p)
+  {
+    v2 = __p;
+    do
+    {
+      v3 = *v2;
+      if (*(v2 + 39) < 0)
+      {
+        operator delete(v2[2]);
+      }
+
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
+{
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
+  {
+    goto LABEL_18;
+  }
+
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
+  {
+    v11 = v6;
+    if (v6 >= *&v8)
+    {
+      v11 = v6 % *&v8;
+    }
+  }
+
+  else
+  {
+    v11 = (*&v8 - 1) & v6;
+  }
+
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v14 = v13[1];
+    if (v14 == v7)
+    {
+      break;
+    }
+
+    if (v10 > 1)
+    {
+      if (v14 >= *&v8)
+      {
+        v14 %= *&v8;
+      }
+    }
+
+    else
+    {
+      v14 &= *&v8 - 1;
+    }
+
+    if (v14 != v11)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v13 = *v13;
+    if (!v13)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v13;
+}
+
+uint64_t *std::__split_buffer<std::unique_ptr<FilterResult>>::~__split_buffer(uint64_t *a1)
+{
+  std::__split_buffer<std::unique_ptr<FilterResult>>::__destruct_at_end[abi:ne200100](a1, a1[1]);
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+FilterResult *std::__split_buffer<std::unique_ptr<FilterResult>>::__destruct_at_end[abi:ne200100](FilterResult *result, uint64_t a2)
+{
+  v3 = result;
+  while (1)
+  {
+    v4 = *(v3 + 2);
+    if (v4 == a2)
+    {
+      break;
+    }
+
+    v5 = *(v3 + 4);
+    *(v3 + 2) = v4 - 8;
+    result = std::allocator_traits<std::allocator<std::unique_ptr<FilterResult>>>::destroy[abi:ne200100]<std::unique_ptr<FilterResult>,0>(v5, (v4 - 8));
+  }
+
+  return result;
+}
+
 BOOL SVGViewBoxNode::ParseAspectRatio(uint64_t a1, uint64_t a2)
 {
   *(a1 + 272) = 5;
@@ -365,7 +519,7 @@ _OWORD *SVGShapeNode::createSVGPath(SVGShapeNode *this)
     v2 = SVGShapeNode::path(this);
     if (v2)
     {
-      SVGNode::transform(this, &v10);
+      SVGNode::transform(&v10, this);
       v3 = v11;
       v2[5] = v10;
       v2[6] = v3;
@@ -382,7 +536,7 @@ _OWORD *SVGShapeNode::createSVGPath(SVGShapeNode *this)
     {
       v6 = CGSVGPathCreateWithCGPath(CGPath);
       v2 = CFRetained::getObject<SVGPath>(v6, v7);
-      SVGNode::transform(this, &v10);
+      SVGNode::transform(&v10, this);
       v8 = v11;
       v2[5] = v10;
       v2[6] = v8;
@@ -540,7 +694,7 @@ LABEL_27:
   return result;
 }
 
-uint64_t SVGShapeNode::print(SVGShapeNode *this)
+uint64_t SVGShapeNode::print(SVGAttributeMap **this)
 {
   SVGNode::print(this);
   SVGUtilities::indent(v2);
@@ -548,13 +702,13 @@ uint64_t SVGShapeNode::print(SVGShapeNode *this)
   v5 = SVGUtilities::print("Shape: %s ", v4, v3);
   if (*(this + 74) == 10001)
   {
-    v7 = *(this + 24);
+    v7 = this[24];
     if (v7)
     {
       if ((*(v7 + 23) & 0x80000000) == 0 || *v7)
       {
         SVGUtilities::printIgnoringIndentation(" ", v6);
-        v9 = *(this + 24);
+        v9 = this[24];
         if (v9 && *(v9 + 23) < 0)
         {
           v9 = *v9;
@@ -597,13 +751,13 @@ BOOL SVGShapeNode::standardizeShape(SVGShapeNode *this, const SVGAttributeMap *a
   return v2 == 49;
 }
 
-double *CGSVGRootNodeSetSize(uint64_t a1, const char *a2, double a3, double a4)
+double *CGSVGRootNodeSetSize(double a1, double a2, uint64_t a3, const char *a4)
 {
-  result = CFRetained::getObject<SVGRootNode>(a1, a2);
+  result = CFRetained::getObject<SVGRootNode>(a3, a4);
   if (result)
   {
-    result[28] = a3;
-    result[29] = a4;
+    result[28] = a1;
+    result[29] = a2;
   }
 
   return result;
@@ -723,7 +877,7 @@ uint64_t SVGUtilities::shared(SVGUtilities *this)
   return SVGUtilities::shared(void)::utilities;
 }
 
-void SVGUtilities::indent(SVGUtilities *this)
+void SVGUtilities::indent(uint64_t this)
 {
   if (SVGUtilities::shared(void)::onceToken != -1)
   {
@@ -733,7 +887,7 @@ void SVGUtilities::indent(SVGUtilities *this)
   ++*SVGUtilities::shared(void)::utilities;
 }
 
-void SVGUtilities::unindent(SVGUtilities *this)
+void SVGUtilities::unindent(uint64_t this)
 {
   if (SVGUtilities::shared(void)::onceToken != -1)
   {
@@ -758,7 +912,7 @@ uint64_t SVGUtilities::print(SVGUtilities *this, const char *a2, ...)
   return vprintf(this, va);
 }
 
-void SVGUtilities::log(SVGUtilities *this, const char *a2, ...)
+void SVGUtilities::log(const char *this, const char *a2, ...)
 {
   va_start(va, a2);
   v4 = *MEMORY[0x1E69E9840];
@@ -774,7 +928,7 @@ void SVGUtilities::log(SVGUtilities *this, const char *a2, ...)
   }
 }
 
-void SVGUtilities::error(SVGUtilities *this, const char *a2, ...)
+void SVGUtilities::error(const char *this, const char *a2, ...)
 {
   va_start(va, a2);
   v4 = *MEMORY[0x1E69E9840];
@@ -1224,7 +1378,8 @@ char *std::vector<double>::__insert_with_size[abi:ne200100]<double const*,double
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
@@ -1363,17 +1518,17 @@ uint64_t CGSVGNodeCreate(const __CFString *a1)
 {
   if (a1)
   {
-    SVGUtilities::StringWithCFString(a1, &__p);
+    SVGUtilities::StringWithCFString(&__p, a1);
     operator new();
   }
 
   return 0;
 }
 
-void sub_1DF13FF6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_1DF13FF6C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   v16 = v15;
-  MEMORY[0x1E12CE5D0](v16, 0x10B3C4060DEF9A3);
+  MEMORY[0x1E12CE5D0](v16, 0x10B3C4060DEF9A3, a3, a4, a5, a6, a7, a8);
   if (a15 < 0)
   {
     operator delete(__p);
@@ -1490,7 +1645,7 @@ void CGSVGNodeSetStringIdentifier(uint64_t a1, const __CFString *this)
 {
   if (this)
   {
-    SVGUtilities::StringWithCFString(this, __p);
+    SVGUtilities::StringWithCFString(__p, this);
     v4 = CFRetained::getObject<SVGNode>(a1, v3);
     if (v4)
     {
@@ -1578,7 +1733,7 @@ double CGSVGNodeGetBoundingBoxWithOptions(uint64_t a1, const char *a2, uint64_t 
   return SVGNode::getBoundingBox(v5, v8, a3);
 }
 
-void CGSVGNodeSetCStringComment(uint64_t a1, const char *a2)
+void CGSVGNodeSetCStringComment(uint64_t a1, char *a2)
 {
   v3 = CFRetained::getObject<SVGNode>(a1, a2);
   if (a2 && v3)
@@ -1592,7 +1747,7 @@ void CGSVGNodeSetStringComment(uint64_t a1, const __CFString *this)
 {
   if (this)
   {
-    SVGUtilities::StringWithCFString(this, __p);
+    SVGUtilities::StringWithCFString(__p, this);
     if (v5 >= 0)
     {
       v3 = __p;
@@ -1621,7 +1776,7 @@ void sub_1DF140518(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CGSVGNodeSetCStringText(uint64_t a1, const char *a2)
+void CGSVGNodeSetCStringText(uint64_t a1, char *a2)
 {
   v3 = CFRetained::getObject<SVGNode>(a1, a2);
   if (a2 && v3)
@@ -1631,19 +1786,18 @@ void CGSVGNodeSetCStringText(uint64_t a1, const char *a2)
   }
 }
 
-void *CGSVGNodeSetStringText(uint64_t a1, const char *a2)
+void CGSVGNodeSetStringText(uint64_t a1, const char *a2)
 {
-  result = CFRetained::getObject<SVGNode>(a1, a2);
+  v3 = CFRetained::getObject<SVGNode>(a1, a2);
   if (a2)
   {
-    if (result)
+    v4 = v3;
+    if (v3)
     {
-      SVGUtilities::StringWithCFString(a2, &__p);
-      SVGNode::setText();
+      SVGUtilities::StringWithCFString(__p, a2);
+      SVGNode::setText(v4, __p);
     }
   }
-
-  return result;
 }
 
 void sub_1DF1405E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1786,7 +1940,7 @@ CGPath *CGSVGNodeCreateCompoundCGPath(uint64_t a1, const char *a2)
   return Mutable;
 }
 
-void sub_1DF1408C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36)
+void sub_1DF1408C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36)
 {
   _Block_object_dispose(&a18, 8);
   _Block_object_dispose(&a22, 8);
@@ -2112,7 +2266,7 @@ void sub_1DF140EBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CGSVGAttributeCreateWithCString(uint64_t a1, uint64_t a2)
+uint64_t CGSVGAttributeCreateWithCString(int a1, uint64_t a2)
 {
   if (a2)
   {
@@ -2126,16 +2280,16 @@ uint64_t CGSVGAttributeCreateWithString(int a1, const __CFString *this)
 {
   if (this)
   {
-    SVGUtilities::StringWithCFString(this, &__p);
+    SVGUtilities::StringWithCFString(&__p, this);
     operator new();
   }
 
   return 0;
 }
 
-void sub_1DF140FD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_1DF140FD8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
-  MEMORY[0x1E12CE5D0](v15, 0x10B3C405B4D0908);
+  MEMORY[0x1E12CE5D0](v15, 0x10B3C405B4D0908, a3, a4, a5, a6, a7, a8);
   if (a15 < 0)
   {
     operator delete(__p);
@@ -2144,7 +2298,7 @@ void sub_1DF140FD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *CGSVGAttributeCreateWithFilter(uint64_t a1, const char *a2)
+void *CGSVGAttributeCreateWithFilter(int a1, const char *a2)
 {
   result = CFRetained::getObject<SVGFilter>(a2, a2);
   if (result)
@@ -2167,9 +2321,9 @@ uint64_t CGSVGAttributeCreateWithFloats(int a1, char *__src, uint64_t a3)
   return 0;
 }
 
-void sub_1DF141214(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+void sub_1DF141214(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11)
 {
-  MEMORY[0x1E12CE5D0](v11, 0x10B3C405B4D0908);
+  MEMORY[0x1E12CE5D0](v11, 0x10B3C405B4D0908, a3, a4, a5, a6, a7, a8);
   if (__p)
   {
     operator delete(__p);
@@ -2178,7 +2332,7 @@ void sub_1DF141214(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *CGSVGAttributeCreateWithMask(uint64_t a1, const char *a2)
+void *CGSVGAttributeCreateWithMask(int a1, const char *a2)
 {
   result = CFRetained::getObject<SVGMask>(a2, a2);
   if (result)
@@ -2189,7 +2343,7 @@ void *CGSVGAttributeCreateWithMask(uint64_t a1, const char *a2)
   return result;
 }
 
-void *CGSVGAttributeCreateWithGradient(uint64_t a1, const char *a2)
+SVGGradient *CGSVGAttributeCreateWithGradient(int a1, const char *a2)
 {
   result = CFRetained::getObject<SVGGradient>(a2, a2);
   if (result)
@@ -2200,7 +2354,7 @@ void *CGSVGAttributeCreateWithGradient(uint64_t a1, const char *a2)
   return result;
 }
 
-void *CGSVGAttributeCreateWithClipPath(uint64_t a1, const char *a2)
+void *CGSVGAttributeCreateWithClipPath(int a1, const char *a2)
 {
   result = CFRetained::getObject<SVGClipPath>(a2, a2);
   if (result)
@@ -2211,7 +2365,7 @@ void *CGSVGAttributeCreateWithClipPath(uint64_t a1, const char *a2)
   return result;
 }
 
-void *CGSVGAttributeCreateWithPaint(uint64_t a1, const char *a2)
+CFRetained *CGSVGAttributeCreateWithPaint(int a1, const char *a2)
 {
   result = CFRetained::getObject<SVGPaint>(a2, a2);
   if (result)
@@ -2222,7 +2376,7 @@ void *CGSVGAttributeCreateWithPaint(uint64_t a1, const char *a2)
   return result;
 }
 
-void *CGSVGAttributeCreateWithPath(uint64_t a1, const char *a2)
+CFTypeRef *CGSVGAttributeCreateWithPath(int a1, const char *a2)
 {
   result = CFRetained::getObject<SVGPath>(a2, a2);
   if (result)
@@ -2572,9 +2726,9 @@ BOOL SVGWriter::writeStream(SVGWriter *this)
     }
 
     v6 = *(this + 4);
-    v7 = SVGAtom::ToString(0x3Du);
+    v7 = SVGAtom::ToString(61);
     xmlTextWriterStartElement(v6, v7);
-    v8 = SVGAtom::ToString(0x40u);
+    v8 = SVGAtom::ToString(64);
     xmlTextWriterWriteAttribute(*(this + 4), v8, "1.1");
     if (!*this || (*(*this + 2) & 1) == 0)
     {
@@ -2618,17 +2772,17 @@ BOOL SVGWriter::writeStream(SVGWriter *this)
       {
         if (v11 != 0.0)
         {
-          SVGWriter::writeAttribute(this, 0x42u, v13);
+          SVGWriter::writeAttribute(this, 66, v13);
         }
 
         if (v10 != 0.0)
         {
-          SVGWriter::writeAttribute(this, 0x1Eu, v12);
+          SVGWriter::writeAttribute(this, 30, v12);
         }
       }
     }
 
-    SVGWriter::writeAttribute(this, 0x41u, v16, v17, v18, v19);
+    SVGWriter::writeAttribute(this, 65, v16, v17, v18, v19);
     SVGWriter::writeDefinitions(this);
     v21 = *(this + 1);
     v22 = *(v21 + 88);
@@ -2731,7 +2885,7 @@ uint64_t SVGWriter::writeComment(uint64_t this, const SVGNode *a2)
   return this;
 }
 
-uint64_t SVGWriter::writeBeginElement(uint64_t a1, unsigned int a2)
+uint64_t SVGWriter::writeBeginElement(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
   v3 = SVGAtom::ToString(a2);
@@ -2739,7 +2893,7 @@ uint64_t SVGWriter::writeBeginElement(uint64_t a1, unsigned int a2)
   return xmlTextWriterStartElement(v2, v3);
 }
 
-uint64_t SVGWriter::writeAttribute(uint64_t a1, unsigned int a2, const xmlChar *a3)
+uint64_t SVGWriter::writeAttribute(uint64_t a1, uint64_t a2, const xmlChar *a3)
 {
   v5 = SVGAtom::ToString(a2);
   v6 = *(a1 + 32);
@@ -2747,7 +2901,7 @@ uint64_t SVGWriter::writeAttribute(uint64_t a1, unsigned int a2, const xmlChar *
   return xmlTextWriterWriteAttribute(v6, v5, a3);
 }
 
-void SVGWriter::writeAttribute(uint64_t a1, unsigned int a2, double a3)
+void SVGWriter::writeAttribute(uint64_t a1, uint64_t a2, double a3)
 {
   SVGParser::FormatString("%g", __p, *&a3);
   v5 = v10;
@@ -2780,7 +2934,7 @@ void sub_1DF1423A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SVGWriter::writeAttribute(uint64_t a1, unsigned int a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
+void SVGWriter::writeAttribute(uint64_t a1, uint64_t a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
 {
   MinX = CGRectGetMinX(*&a3);
   v22.origin.x = a3;
@@ -2829,20 +2983,20 @@ void sub_1DF1424CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *SVGWriter::writeDefinitions(void *this)
+xmlTextWriter **SVGWriter::writeDefinitions(xmlTextWriter **this)
 {
   v1 = this;
-  if (*(this[1] + 176) || this[2])
+  if (*(this[1] + 22) || this[2])
   {
     v2 = this[4];
-    v3 = SVGAtom::ToString(0xEu);
+    v3 = SVGAtom::ToString(14);
     xmlTextWriterStartElement(v2, v3);
     SVGWriter::writeGradients(v1);
     SVGWriter::writeImage(v1);
     SVGWriter::writeStyle(v1);
     SVGWriter::writePatterns(v1);
     SVGWriter::writeMask(v1);
-    v4 = *(v1 + 32);
+    v4 = *(v1 + 4);
 
     return xmlTextWriterEndElement(v4);
   }
@@ -2901,7 +3055,7 @@ uint64_t SVGWriter::writeNode(xmlTextWriterPtr *this, SVGAttributeMap **a2)
   return xmlTextWriterEndElement(v5);
 }
 
-uint64_t SVGWriter::writeAttribute(uint64_t a1, unsigned int a2, unsigned int a3)
+uint64_t SVGWriter::writeAttribute(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = SVGAtom::ToString(a3);
   v6 = SVGAtom::ToString(a2);
@@ -2910,7 +3064,7 @@ uint64_t SVGWriter::writeAttribute(uint64_t a1, unsigned int a2, unsigned int a3
   return xmlTextWriterWriteAttribute(v7, v6, v5);
 }
 
-void SVGWriter::writeAttribute(uint64_t a1, unsigned int a2, uint64_t a3, int a4, int a5)
+void SVGWriter::writeAttribute(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
 {
   if (!a5 || COERCE_DOUBLE(a3 & 0x7FFFFFFFFFFFFFFFLL) > 0.00000011920929)
   {
@@ -2946,7 +3100,7 @@ void sub_1DF142774(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SVGWriter::writeAttribute(uint64_t a1, unsigned int a2, uint64_t a3, int a4, uint64_t a5, int a6)
+void SVGWriter::writeAttribute(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, int a6)
 {
   if (!CGSVGLengthEqualToLength(a3, a4, a5, a6))
   {
@@ -2982,7 +3136,7 @@ void sub_1DF142834(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SVGWriter::writeAttribute(uint64_t a1, unsigned int a2, char *__s1, char *__s2)
+uint64_t SVGWriter::writeAttribute(uint64_t a1, uint64_t a2, char *__s1, char *__s2)
 {
   result = strcmp(__s1, __s2);
   if (result)
@@ -3010,28 +3164,26 @@ void SVGWriter::writeAttributeMap(xmlTextWriterPtr *this, SVGAttributeMap *a2)
       v3 = 0;
     }
 
-    SVGAttributeMap::sorted(a2, v3 & 1, v8);
-    v4 = v8[0];
-    v5 = v8[1];
-    while (v4 != v5)
+    SVGAttributeMap::sorted(a2, v3 & 1, &v8);
+    size = v8.__r_.__value_.__l.__size_;
+    for (i = v8.__r_.__value_.__r.__words[0]; i != size; i += 48)
     {
-      v6 = v4;
-      if (*(v4 + 23) < 0)
+      v6 = i;
+      if (*(i + 23) < 0)
       {
-        v6 = *v4;
+        v6 = *i;
       }
 
-      v7 = (v4 + 24);
-      if (*(v4 + 47) < 0)
+      v7 = (i + 24);
+      if (*(i + 47) < 0)
       {
         v7 = *v7;
       }
 
       xmlTextWriterWriteAttribute(this[4], v6, v7);
-      v4 += 48;
     }
 
-    v9 = v8;
+    v9 = &v8;
     std::vector<AttributeInfo>::__destroy_vector::operator()[abi:ne200100](&v9);
   }
 }
@@ -3163,7 +3315,7 @@ uint64_t SVGWriter::writeGradients(uint64_t this)
           v8 = SVGAtom::ToString(v6);
           xmlTextWriterStartElement(v7, v8);
           v9 = SVGNode::identifier(v5);
-          v10 = SVGAtom::ToString(0x1Fu);
+          v10 = SVGAtom::ToString(31);
           xmlTextWriterWriteAttribute(*(v4 + 32), v10, v9);
           if (*(v5 + 208))
           {
@@ -3180,11 +3332,11 @@ uint64_t SVGWriter::writeGradients(uint64_t this)
             CGSVGLengthMakeWithType();
             v16 = v15;
             v18 = v17;
-            SVGWriter::writeAttribute(v4, 9u, v11, v12, v15, v17);
-            SVGWriter::writeAttribute(v4, 0xAu, v13, v14, v16, v18);
-            SVGWriter::writeAttribute(v4, 0x1Au, v46, v45, v11, v12);
-            SVGWriter::writeAttribute(v4, 0x1Bu, v48, v47, v13, v14);
-            SVGWriter::writeAttribute(v4, 0x2Fu, v50, v49, v16, v18);
+            SVGWriter::writeAttribute(v4, 9, v11, v12, v15, v17);
+            SVGWriter::writeAttribute(v4, 10, v13, v14, v16, v18);
+            SVGWriter::writeAttribute(v4, 26, v46, v45, v11, v12);
+            SVGWriter::writeAttribute(v4, 27, v48, v47, v13, v14);
+            SVGWriter::writeAttribute(v4, 47, v50, v49, v16, v18);
           }
 
           else
@@ -3195,10 +3347,10 @@ uint64_t SVGWriter::writeGradients(uint64_t this)
             v22 = *(v5 + 280);
             v23 = *(v5 + 288);
             v24 = *(v5 + 296);
-            SVGWriter::writeAttribute(v4, 0x44u, *(v5 + 240), *(v5 + 248), 1);
-            SVGWriter::writeAttribute(v4, 0x47u, v19, v20, 1);
-            SVGWriter::writeAttribute(v4, 0x45u, v21, v22, 1);
-            SVGWriter::writeAttribute(v4, 0x48u, v23, v24, 1);
+            SVGWriter::writeAttribute(v4, 68, *(v5 + 240), *(v5 + 248), 1);
+            SVGWriter::writeAttribute(v4, 71, v19, v20, 1);
+            SVGWriter::writeAttribute(v4, 69, v21, v22, 1);
+            SVGWriter::writeAttribute(v4, 72, v23, v24, 1);
           }
 
           v25 = SVGAttributeMap::attribute(*(v5 + 56), 0x1Cu);
@@ -3215,7 +3367,7 @@ uint64_t SVGWriter::writeGradients(uint64_t this)
               v27 = *v26;
             }
 
-            v28 = SVGAtom::ToString(0x1Cu);
+            v28 = SVGAtom::ToString(28);
             xmlTextWriterWriteAttribute(*(v4 + 32), v28, v27);
           }
 
@@ -3233,7 +3385,7 @@ uint64_t SVGWriter::writeGradients(uint64_t this)
               v31 = *v30;
             }
 
-            v32 = SVGAtom::ToString(0x4Eu);
+            v32 = SVGAtom::ToString(78);
             xmlTextWriterWriteAttribute(*(v4 + 32), v32, v31);
           }
 
@@ -3243,14 +3395,14 @@ uint64_t SVGWriter::writeGradients(uint64_t this)
           {
             v35 = *v33;
             v36 = *(v4 + 32);
-            v37 = SVGAtom::ToString(0x37u);
+            v37 = SVGAtom::ToString(55);
             xmlTextWriterStartElement(v36, v37);
-            SVGWriter::writeAttribute(v4, 0x28u, *(v35 + 96), *(v35 + 104), 0);
+            SVGWriter::writeAttribute(v4, 40, *(v35 + 96), *(v35 + 104), 0);
             SVGColor::SVGColor(v51, v35 + 48);
             SVGColor::GetStringForColor(v51, __p);
             LODWORD(v36) = v53;
             v38 = __p[0];
-            v39 = SVGAtom::ToString(0x38u);
+            v39 = SVGAtom::ToString(56);
             if (v36 >= 0)
             {
               v40 = __p;
@@ -3262,7 +3414,7 @@ uint64_t SVGWriter::writeGradients(uint64_t this)
             }
 
             xmlTextWriterWriteAttribute(*(v4 + 32), v39, v40);
-            SVGWriter::writeAttribute(v4, 0x53u, *(v35 + 88));
+            SVGWriter::writeAttribute(v4, 83, *(v35 + 88));
             xmlTextWriterEndElement(*(v4 + 32));
             if (v53 < 0)
             {
@@ -3378,7 +3530,7 @@ void SVGWriter::writeStyle(SVGWriter *this)
   if (v1 && *(v1 + 16))
   {
     v3 = *(this + 4);
-    v4 = SVGAtom::ToString(0x3Cu);
+    v4 = SVGAtom::ToString(60);
     xmlTextWriterStartElement(v3, v4);
     std::map<std::string,SVGAttributeMap *,CaseInsensitiveStringLess,std::allocator<std::pair<std::string const,SVGAttributeMap *>>>::map[abi:ne200100](&v31, *(this + 2));
     memset(&v30, 0, sizeof(v30));
@@ -3422,19 +3574,18 @@ void SVGWriter::writeStyle(SVGWriter *this)
         }
 
         SVGParser::FormatString("%s{", &v26, v7);
-        SVGAttributeMap::sorted(v6, 0, v25);
-        v8 = v25[0];
-        v9 = v25[1];
-        while (v8 != v9)
+        SVGAttributeMap::sorted(v6, 0, &v25);
+        size = v25.__r_.__value_.__l.__size_;
+        for (i = v25.__r_.__value_.__r.__words[0]; i != size; i += 48)
         {
-          v10 = v8;
-          if (*(v8 + 23) < 0)
+          v10 = i;
+          if (*(i + 23) < 0)
           {
-            v10 = *v8;
+            v10 = *i;
           }
 
-          v11 = v8 + 3;
-          if (*(v8 + 47) < 0)
+          v11 = (i + 24);
+          if (*(i + 47) < 0)
           {
             v11 = *v11;
           }
@@ -3466,8 +3617,6 @@ void SVGWriter::writeStyle(SVGWriter *this)
           {
             operator delete(__p[0]);
           }
-
-          v8 += 6;
         }
 
         v15 = std::string::append(&v26, "}");
@@ -3484,17 +3633,17 @@ void SVGWriter::writeStyle(SVGWriter *this)
 
         if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          size = HIBYTE(v26.__r_.__value_.__r.__words[2]);
+          v17 = HIBYTE(v26.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          size = v26.__r_.__value_.__l.__size_;
+          v17 = v26.__r_.__value_.__l.__size_;
         }
 
-        v18 = std::string::append(&v30, v16, size);
+        v18 = std::string::append(&v30, v16, v17);
         std::string::operator=(&v30, v18);
-        __p[0] = v25;
+        __p[0] = &v25;
         std::vector<AttributeInfo>::__destroy_vector::operator()[abi:ne200100](__p);
         if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -3733,11 +3882,11 @@ void *CGSVGClipPathGetPath(uint64_t a1, const char *a2)
 
 void CreateCFDataWithContentsOfURL()
 {
-  if (__cxa_guard_acquire(&qword_1ECDFEEC8))
+  if (__cxa_guard_acquire(byte_1ECDFEEC8))
   {
     _MergedGlobals = *MEMORY[0x1E69E9AC8];
 
-    __cxa_guard_release(&qword_1ECDFEEC8);
+    __cxa_guard_release(byte_1ECDFEEC8);
   }
 }
 

@@ -143,7 +143,7 @@ uint64_t __86__WDRemoteFeatureAvailabilityInternalSettingsViewController_reloadU
 
 - (id)evaluateRulesForCondition:(id)condition
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   conditionCopy = condition;
   v5 = NSClassFromString(&cfstr_Hkactivewatchr.isa);
   if (v5)
@@ -155,8 +155,8 @@ uint64_t __86__WDRemoteFeatureAvailabilityInternalSettingsViewController_reloadU
     v8 = objc_alloc(MEMORY[0x277CCD8A0]);
     userDefaultsContent = [(WDRemoteFeatureAvailabilityInternalSettingsViewController *)self userDefaultsContent];
     v10 = MEMORY[0x277CBEB98];
-    v20[0] = conditionCopy;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = conditionCopy;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     v12 = [v10 setWithArray:v11];
     v13 = [v8 initWithRawValue:userDefaultsContent dataSource:v6 supportedConditions:v12];
 
@@ -171,8 +171,6 @@ uint64_t __86__WDRemoteFeatureAvailabilityInternalSettingsViewController_reloadU
   {
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

@@ -7,6 +7,7 @@
 - (_SWCollaborationButtonViewImpl)initWithItemProvider:(id)provider;
 - (unint64_t)activeParticipantCount;
 - (void)buttonTapped:(id)tapped;
+- (void)dismissPopoverAnimated:(BOOL)animated completion:(id)completion;
 - (void)layoutSubviews;
 - (void)prepareForPopoverPresentation:(id)presentation;
 - (void)presentationControllerDidDismiss:(id)dismiss;
@@ -39,7 +40,7 @@
   swift_beginAccess();
   *(self + v5) = count;
   selfCopy = self;
-  sub_1BBC2B848(count);
+  sub_1BBC2B848(count, v7);
 }
 
 - (UIImage)headerImage
@@ -92,9 +93,43 @@
 
 - (void)updatePlaceHolderSymbolScale:(int64_t)scale weight:(int64_t)weight pointSize:(double)size
 {
-  v5 = *(self + OBJC_IVAR____SWCollaborationButtonViewImpl_attributionView);
   selfCopy = self;
   sub_1BBC4094C();
+}
+
+- (void)dismissPopoverAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  v6 = _Block_copy(completion);
+  if (v6)
+  {
+    v7 = v6;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
+    v9 = *(self + OBJC_IVAR____SWCollaborationButtonViewImpl_detailViewController);
+    v10 = sub_1BBC30F6C;
+    v14[4] = sub_1BBC30F6C;
+    v14[5] = v8;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 1107296256;
+    v14[2] = sub_1BBC2B520;
+    v14[3] = &block_descriptor_67;
+    v11 = _Block_copy(v14);
+    selfCopy = self;
+  }
+
+  else
+  {
+    v9 = *(self + OBJC_IVAR____SWCollaborationButtonViewImpl_detailViewController);
+    selfCopy2 = self;
+    v11 = 0;
+    v10 = 0;
+    v8 = 0;
+  }
+
+  [v9 dismissViewControllerAnimated:animatedCopy completion:v11];
+  sub_1BBC30F5C(v10, v8);
+  _Block_release(v11);
 }
 
 - (_SWCollaborationButtonViewImpl)initWithFrame:(CGRect)frame
@@ -190,11 +225,12 @@
   providerCopy = provider;
   v7 = [v5 initWithItemProvider:providerCopy impl:?];
   v8 = objc_allocWithZone(ObjectType);
-  v9 = sub_1BBC2C860(v7);
+  sub_1BBC2C860(v7);
+  v10 = v9;
 
   swift_getObjectType();
   swift_deallocPartialClassInstance();
-  return v9;
+  return v10;
 }
 
 @end

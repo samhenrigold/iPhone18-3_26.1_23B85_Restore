@@ -224,21 +224,20 @@
 
 - (void)setCullMode:(unint64_t)mode
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 14593;
-  v9 = 100;
+  v8 = 100;
   modeCopy = mode;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDepthBias:(float)bias slopeScale:(float)scale clamp:(float)clamp
@@ -251,40 +250,38 @@
 
 - (void)setDepthClipMode:(unint64_t)mode
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 15105;
-  v9 = 100;
+  v8 = 100;
   modeCopy = mode;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDepthStencilState:(id)state
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 15361;
-  v9 = 109;
+  v8 = 109;
   stateCopy = state;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFragmentBuffer:(id)buffer offset:(unint64_t)offset atIndex:(unint64_t)index
@@ -379,40 +376,38 @@
 
 - (void)setFrontFacingWinding:(unint64_t)winding
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 18433;
-  v9 = 100;
+  v8 = 100;
   windingCopy = winding;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRenderPipelineState:(id)state
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 18689;
-  v9 = 109;
+  v8 = 109;
   stateCopy = state;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue
@@ -424,40 +419,38 @@
 
 - (void)setStencilReferenceValue:(unsigned int)value
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 19713;
-  v9 = 99;
+  v8 = 99;
   valueCopy = value;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x11uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTriangleFillMode:(unint64_t)mode
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 20737;
-  v9 = 100;
+  v8 = 100;
   modeCopy = mode;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setVertexBuffer:(id)buffer offset:(unint64_t)offset atIndex:(unint64_t)index
@@ -567,21 +560,20 @@
 
 - (void)setTessellationFactorScale:(float)scale
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 20481;
-  v9 = 106;
+  v8 = 106;
   scaleCopy = scale;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x11uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setViewports:(id *)viewports count:(unint64_t)count
@@ -613,40 +605,38 @@
 
 - (void)setDepthStoreAction:(unint64_t)action
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 15617;
-  v9 = 100;
+  v8 = 100;
   actionCopy = action;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setStencilStoreAction:(unint64_t)action
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 19969;
-  v9 = 100;
+  v8 = 100;
   actionCopy = action;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateFence:(id)fence afterStages:(unint64_t)stages
@@ -665,21 +655,20 @@
 
 - (void)useHeap:(id)heap
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 30209;
-  v9 = 109;
+  v8 = 109;
   heapCopy = heap;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)useHeap:(id)heap stages:(unint64_t)stages
@@ -901,19 +890,18 @@
 
 - (void)dispatchThreadsPerTile:(id *)tile
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v13[1] = v13;
+  v12[1] = v12;
   __src = 13825;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v9 = -108;
-  v10 = timer * numer / denom;
-  v11 = 16;
-  v13[0] = &v12;
+  v8 = -108;
+  v9 = timer * numer / denom;
+  v10 = 16;
+  v12[0] = &v11;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0xCuLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

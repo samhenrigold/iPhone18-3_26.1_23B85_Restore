@@ -27,11 +27,11 @@
 
 - (MRScreenMirroringObserver)initWithStateChangeCallback:(id)callback
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
-  v15.receiver = self;
-  v15.super_class = MRScreenMirroringObserver;
-  v5 = [(MRScreenMirroringObserver *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = MRScreenMirroringObserver;
+  v5 = [(MRScreenMirroringObserver *)&v14 init];
   v6 = v5;
   if (v5)
   {
@@ -50,18 +50,17 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v17 = v6;
+      v16 = v6;
       _os_log_impl(&dword_1A2860000, v12, OS_LOG_TYPE_DEFAULT, "[MRScreenMirroringObserver] <%p> Initialized.", buf, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -70,10 +69,9 @@
     _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRScreenMirroringObserver] <%p> Deallocating.", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = MRScreenMirroringObserver;
-  [(MRScreenMirroringObserver *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = MRScreenMirroringObserver;
+  [(MRScreenMirroringObserver *)&v4 dealloc];
 }
 
 - (void)_init
@@ -115,27 +113,25 @@ void __34__MRScreenMirroringObserver__init__block_invoke(uint64_t a1)
 
 uint64_t __56__MRScreenMirroringObserver__contextChangeNotification___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = _MRLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) name];
-    v7 = 134218242;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRScreenMirroringObserver] <%p> Received %@.", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRScreenMirroringObserver] <%p> Received %@.", &v6, 0x16u);
   }
 
-  result = [*(a1 + 32) _notifyIfNeeded];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _notifyIfNeeded];
 }
 
 - (void)_notifyIfNeeded
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   deviceCount = [(MRScreenMirroringObserver *)self deviceCount];
   v4 = +[MRAVOutputContext sharedSystemScreenContext];
   outputDevices = [v4 outputDevices];
@@ -145,15 +141,15 @@ uint64_t __56__MRScreenMirroringObserver__contextChangeNotification___block_invo
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = +[MRAVOutputContext sharedSystemScreenContext];
-    v14 = 134218752;
+    v13 = 134218752;
     selfCopy3 = self;
-    v16 = 2048;
-    v17 = v7;
-    v18 = 2048;
-    v19 = deviceCount;
-    v20 = 2048;
+    v15 = 2048;
+    v16 = v7;
+    v17 = 2048;
+    v18 = deviceCount;
+    v19 = 2048;
     deviceCount2 = [(MRScreenMirroringObserver *)self deviceCount];
-    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRScreenMirroringObserver] <%p> Re-evaluate for context: %p. Old count: %ld, new: %ld.", &v14, 0x2Au);
+    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRScreenMirroringObserver] <%p> Re-evaluate for context: %p. Old count: %ld, new: %ld.", &v13, 0x2Au);
   }
 
   if (deviceCount)
@@ -167,11 +163,11 @@ uint64_t __56__MRScreenMirroringObserver__contextChangeNotification___block_invo
         v9 = _MRLogForCategory(0);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = 134217984;
+          v13 = 134217984;
           selfCopy3 = self;
           v10 = "[MRScreenMirroringObserver] <%p> Notify mirroring OFF.";
 LABEL_13:
-          _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, v10, &v14, 0xCu);
+          _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, v10, &v13, 0xCu);
           goto LABEL_14;
         }
 
@@ -189,7 +185,7 @@ LABEL_13:
       v9 = _MRLogForCategory(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 134217984;
+        v13 = 134217984;
         selfCopy3 = self;
         v10 = "[MRScreenMirroringObserver] <%p> Notify mirroring ON.";
         goto LABEL_13;
@@ -201,8 +197,6 @@ LABEL_14:
       (callback3)[2](callback3, deviceCount == 0);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

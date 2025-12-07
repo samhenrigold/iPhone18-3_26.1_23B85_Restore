@@ -20,7 +20,7 @@ CFTypeRef copy_nvram_variable_with_system_nvram_check(const __CFString *a1)
     v7 = @"Could not get options entry from the device tree\n";
   }
 
-  logfunction("", 1, v7, v2, v3, v4, v5, v6, v12);
+  logfunction("", 1, v7, v2, v3, v4, v5, v6);
   return 0;
 }
 
@@ -30,14 +30,14 @@ BOOL set_nvram_object_with_system_nvram_check(const __CFString *a1, _BOOL8 a2, u
   {
     v18 = @"Can't insert nil key into registry\n";
 LABEL_10:
-    logfunction("", 1, v18, a4, a5, a6, a7, a8, v20);
+    logfunction("", 1, v18, a4, a5, a6, a7, a8);
     return 0;
   }
 
   v8 = a2;
   if (!a2)
   {
-    logfunction("", 1, @"Can't insert nil object into registry\n", a4, a5, a6, a7, a8, v20);
+    logfunction("", 1, @"Can't insert nil object into registry\n", a4, a5, a6, a7, a8);
     return v8;
   }
 
@@ -53,7 +53,7 @@ LABEL_10:
   v8 = v12 == 0;
   if (v12)
   {
-    logfunction("", 1, @"Failed to set key %@ in IO registry: %d\n", v13, v14, v15, v16, v17, a1);
+    logfunction("", 1, @"Failed to set key %@ in IO registry: %d\n", v13, v14, v15, v16, v17, a1, v12);
   }
 
   IOObjectRelease(v11);
@@ -109,7 +109,7 @@ uint64_t msu_delete_nvram_variable_if_exists(const __CFString *a1, _BYTE *a2)
     v12 = @"%s: Deleted value %s\n\n";
 LABEL_5:
     v11 = 1;
-    logfunction("", 1, v12, v5, v6, v7, v8, v9, "msu_delete_nvram_variable_if_exists");
+    logfunction("", 1, v12, v5, v6, v7, v8, v9, "msu_delete_nvram_variable_if_exists", buffer);
   }
 
   *a2 = v4;
@@ -134,14 +134,14 @@ BOOL set_nvram_variable(char *cStr, _BOOL8 a2, uint64_t a3, uint64_t a4, uint64_
   {
     v23 = @"Can't set null key name into NVRAM\n";
 LABEL_11:
-    logfunction("", 1, v23, a4, a5, a6, a7, a8, v25);
+    logfunction("", 1, v23, a4, a5, a6, a7, a8);
     return 0;
   }
 
   v8 = a2;
   if (!a2)
   {
-    logfunction("", 1, @"Can't set NULL value into NVRAM\n", a4, a5, a6, a7, a8, v25);
+    logfunction("", 1, @"Can't set NULL value into NVRAM\n", a4, a5, a6, a7, a8);
     return v8;
   }
 
@@ -156,7 +156,7 @@ LABEL_11:
   v11 = CFStringCreateWithCString(kCFAllocatorDefault, v8, 0x8000100u);
   if (!v11)
   {
-    logfunction("", 1, @"Failed to allocate string for value\n", v12, v13, v14, v15, v16, v25);
+    logfunction("", 1, @"Failed to allocate string for value\n", v12, v13, v14, v15, v16);
     CFRelease(v10);
     return 0;
   }
@@ -165,7 +165,7 @@ LABEL_11:
   v8 = set_nvram_object_with_system_nvram_check(v10, v11, 0, v12, v13, v14, v15, v16);
   if (!v8)
   {
-    logfunction("", 1, @"Failed to set value into NVRAM\n", v18, v19, v20, v21, v22, v25);
+    logfunction("", 1, @"Failed to set value into NVRAM\n", v18, v19, v20, v21, v22);
   }
 
   CFRelease(v10);
@@ -276,7 +276,7 @@ void __logfunctionv_block_invoke(id a1)
   }
 }
 
-uint64_t msuSharedLogger()
+uint64_t msuSharedLogger(uint64_t a1, uint64_t a2)
 {
   if (msuSharedLogger_pred != -1)
   {
@@ -302,47 +302,45 @@ uint64_t openRestoreLogFileWithPath(const char *a1, int a2)
       __error();
       v4 = __error();
       strerror(*v4);
-      v5 = @"Could not create path %s: %s\n";
+      logfunction("", 0, @"Could not create path %s: %s\n", v5, v6, v7, v8, v9, a1);
     }
 
     else
     {
-      v7 = open_dprotected_np(a1, 536871434, 4, 0, 420);
-      if ((v7 & 0x80000000) == 0)
+      v11 = open_dprotected_np(a1, 536871434, 4, 0, 420);
+      if ((v11 & 0x80000000) == 0)
       {
-        goto LABEL_10;
+        goto LABEL_9;
       }
 
       if (*__error() == 13 || *__error() == 1)
       {
         if (unlink(a1) == -1 && *__error() != 2)
         {
-          v9 = __error();
-          strerror(*v9);
-          v5 = @"Failed to unlink '%s': %s\n";
-          goto LABEL_6;
+          v18 = __error();
+          strerror(*v18);
+          logfunction("", 0, @"Failed to unlink '%s': %s\n", v19, v20, v21, v22, v23, a1);
+          return 0xFFFFFFFFLL;
         }
 
-        v7 = open_dprotected_np(a1, 536871434, 4, 0, 420);
-        if ((v7 & 0x80000000) == 0)
+        v11 = open_dprotected_np(a1, 536871434, 4, 0, 420);
+        if ((v11 & 0x80000000) == 0)
         {
-LABEL_10:
-          v2 = v7;
+LABEL_9:
+          v2 = v11;
           atomic_store(0, &_restoreLogGrowth);
-          _restoreLogFD = v7;
-          _rotateRestoreLogFD(v7);
+          _restoreLogFD = v11;
+          _rotateRestoreLogFD(v11);
           return v2;
         }
       }
 
       __error();
-      v8 = __error();
-      strerror(*v8);
-      v5 = @"Could not open '%s': %s\n";
+      v12 = __error();
+      strerror(*v12);
+      logfunction("", 0, @"Could not open '%s': %s\n", v13, v14, v15, v16, v17, a1);
     }
 
-LABEL_6:
-    logfunction("", 0, v5);
     return 0xFFFFFFFFLL;
   }
 
@@ -446,7 +444,7 @@ LABEL_21:
       v73 = 0u;
       *__str = 0u;
       v71 = 0u;
-      logfunction("", 0, @"restore log is suspiciously large - truncating\n", v15, v16, v17, v18, v19, v65);
+      logfunction("", 0, @"restore log is suspiciously large - truncating\n", v15, v16, v17, v18, v19);
       v20 = malloc_type_malloc(0x300000uLL, 0xE206B481uLL);
       if (v20)
       {
@@ -579,10 +577,10 @@ size_t writeToRestoreLogFile(void *__buf, size_t __nbyte)
   return v2;
 }
 
-uint64_t submitRestoreLogFileToLogDir(__CFError *a1, uint64_t a2, const char *a3, const char *a4, const __CFString *a5)
+uint64_t submitRestoreLogFileToLogDir(__CFError *a1, time_t a2, const char *a3, const char *a4, const __CFString *a5)
 {
-  v122 = 0;
-  bzero(v136, 0x400uLL);
+  v124 = 0;
+  bzero(v138, 0x400uLL);
   v10 = os_transaction_create();
   if (a3)
   {
@@ -599,19 +597,20 @@ uint64_t submitRestoreLogFileToLogDir(__CFError *a1, uint64_t a2, const char *a3
   if (v12 == -1)
   {
     v42 = __error();
-    strerror(*v42);
-    logfunction("", 1, @"unable to open restore log (%s): %s (%d)\n", v43, v44, v45, v46, v47, v11);
+    v43 = *v42;
+    v44 = strerror(*v42);
+    logfunction("", 1, @"unable to open restore log (%s): %s (%d)\n", v45, v46, v47, v48, v49, v11, v44, v43);
     v26 = 0;
 LABEL_16:
     v33 = 0;
     goto LABEL_40;
   }
 
-  v20 = checkForRestoreLogFD(v12, &v122, v13, v14, v15, v16, v17, v18);
-  v26 = v122;
-  if (v20 || !v122)
+  v20 = checkForRestoreLogFD(v12, &v124, v13, v14, v15, v16, v17, v18);
+  v26 = v124;
+  if (v20 || !v124)
   {
-    logfunction("", 1, @"unable to read from restore log file\n", v21, v22, v23, v24, v25, v112);
+    logfunction("", 1, @"unable to read from restore log file\n", v21, v22, v23, v24, v25);
     goto LABEL_16;
   }
 
@@ -620,14 +619,14 @@ LABEL_16:
   v33 = v27;
   if (!v27)
   {
-    v48 = @"failed to query device serial number\n";
+    v50 = @"failed to query device serial number\n";
 LABEL_39:
-    logfunction("", 1, v48, v28, v29, v30, v31, v32, v112);
+    logfunction("", 1, v50, v28, v29, v30, v31, v32);
 LABEL_40:
     free(v26);
-    v50 = 0;
-    v51 = 0;
-    v52 = 0xFFFFFFFFLL;
+    v52 = 0;
+    v53 = 0;
+    v54 = 0xFFFFFFFFLL;
     if (!v33)
     {
       goto LABEL_42;
@@ -638,17 +637,17 @@ LABEL_40:
 
   if (CFStringGetLength(v27) < 1)
   {
-    v49 = @"device has no serial number for scrubbing\n";
+    v51 = @"device has no serial number for scrubbing\n";
 LABEL_20:
-    logfunction("", 1, v49, v34, v35, v36, v37, v38, v112);
+    logfunction("", 1, v51, v34, v35, v36, v37, v38);
     goto LABEL_21;
   }
 
   *buffer = 0u;
-  v138 = 0u;
+  v140 = 0u;
   if (CFStringGetCString(v33, buffer, 32, 0x8000100u) != 1)
   {
-    v49 = @"unable to get c string for device serial number\n";
+    v51 = @"unable to get c string for device serial number\n";
     goto LABEL_20;
   }
 
@@ -669,7 +668,7 @@ LABEL_20:
 LABEL_21:
   if (_AMRRegexSubstitution(v26, "'[^\n]*' has been added", "'<<File name>>' has been added ") || _AMRRegexSubstitution(v26, "verify_callback: '[^\n]*' did not verify and is not on the exception list.", "verify_callback: '<<File name>>' did not verify and is not on the exception list.") || _AMRRegexSubstitution(v26, "'[^\n]*' is on the exception list", "'<<File name>>' is on the exception list") || _AMRRegexSubstitution(v26, "[:-][0-9a-fA-F]{8}", "XXXX") || _AMRRegexSubstitution(v26, "[:-] [0-9a-fA-F]{8}", "XXXX") || _AMRRegexSubstitution(v26, "[:-] [a-zA-Z0-9]{18}[[:>:]]", "XXXX") || _AMRRegexSubstitution(v26, "[:-][a-zA-Z0-9]{8}[:-][a-zA-Z0-9]{16}", "XXXX") || _AMRRegexSubstitution(v26, "[0-9a-fA-F]{40}", "<<<<<<<<<<<<<<<<<<UDID>>>>>>>>>>>>>>>>>>") || _AMRRegexSubstitution(v26, "[0-9a-fA-F]{20}", "<<<<<<<<ICCID>>>>>>>") || _AMRRegexSubstitution(v26, "[0-9a-fA-F]{19}", "<<<<<<<ICCID>>>>>>>") || _AMRRegexSubstitution(v26, "[0-9]{15}", "<<<<<IMEI>>>>>>") || _AMRRegexSubstitution(v26, "ecid=0x[0-9a-fA-F]*,", "ecid=0xXXXXXXXXXXX") || _AMRRegexSubstitution(v26, "ApECID[^\n]*value = [+-][0-9<>IMEI]*", "ApECID} = X {X") || _AMRRegexSubstitution(v26, "[0-9a-fA-F]{14}", "<<<<<MEID>>>>>") || _AMRRegexSubstitution(v26, "ChipSerialNo[^\n]*bytes = 0x[0-9a-fA-F]*}", "ChipSerialNo ") || _AMRRegexSubstitution(v26, "snum=0x[0-9a-fA-F]*,", "snum=0xXXXXXXXX") || _AMRRegexSubstitution(v26, "BbSNUM[^\n]*", "BbSNUM} = 0xXXXXXXXX }"))
   {
-    v48 = @"failed to scrub log\n";
+    v50 = @"failed to scrub log\n";
     goto LABEL_39;
   }
 
@@ -677,30 +676,30 @@ LABEL_21:
   theDict = strlen(v26);
   if (theDict)
   {
-    v54 = v26;
+    v56 = v26;
     do
     {
-      v55 = *v54;
-      if (v55 < 0)
+      v57 = *v56;
+      if (v57 < 0)
       {
-        if (!__maskrune(*v54, 0x40000uLL))
+        if (!__maskrune(*v56, 0x40000uLL))
         {
-          v56 = __maskrune(v55, 0x4000uLL);
+          v58 = __maskrune(v57, 0x4000uLL);
 LABEL_57:
-          if (!v56)
+          if (!v58)
           {
-            *v54 = 46;
+            *v56 = 46;
           }
         }
       }
 
-      else if ((_DefaultRuneLocale.__runetype[v55] & 0x40000) == 0)
+      else if ((_DefaultRuneLocale.__runetype[v57] & 0x40000) == 0)
       {
-        v56 = _DefaultRuneLocale.__runetype[v55] & 0x4000;
+        v58 = _DefaultRuneLocale.__runetype[v57] & 0x4000;
         goto LABEL_57;
       }
 
-      ++v54;
+      ++v56;
       theDict = (theDict - 1);
     }
 
@@ -710,19 +709,19 @@ LABEL_57:
   theDicta = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!theDicta)
   {
-    v48 = @"failed to create crashReporterDictionary\n";
+    v50 = @"failed to create crashReporterDictionary\n";
     goto LABEL_39;
   }
 
   if (err)
   {
-    v57 = CFErrorCopyUserInfo(err);
-    if (v57)
+    v59 = CFErrorCopyUserInfo(err);
+    if (v59)
     {
-      v58 = v57;
-      Value = CFDictionaryGetValue(v57, @"target_update");
+      v60 = v59;
+      Value = CFDictionaryGetValue(v59, @"target_update");
       Code = CFErrorGetCode(err);
-      CFRelease(v58);
+      CFRelease(v60);
     }
 
     else
@@ -740,19 +739,7 @@ LABEL_57:
 
   if (Value)
   {
-    v60 = Value;
-  }
-
-  else
-  {
-    v60 = @"Unknown";
-  }
-
-  erra = v60;
-  v61 = MGCopyAnswer();
-  if (v61)
-  {
-    v62 = v61;
+    v62 = Value;
   }
 
   else
@@ -760,23 +747,35 @@ LABEL_57:
     v62 = @"Unknown";
   }
 
-  CFDictionarySetValue(theDicta, @"itunes_version", v62);
+  erra = v62;
+  v63 = MGCopyAnswer();
+  if (v63)
+  {
+    v64 = v63;
+  }
+
+  else
+  {
+    v64 = @"Unknown";
+  }
+
+  CFDictionarySetValue(theDicta, @"itunes_version", v64);
   CFDictionarySetValue(theDicta, @"restore_payload_version", erra);
   CFDictionarySetValue(theDicta, @"restore_type", @"OTAUpdate");
   CFDictionarySetValue(theDicta, @"name", @"iPhoneRestore");
-  v114 = v62;
-  CFDictionarySetValue(theDicta, @"os_version", v62);
+  v116 = v64;
+  CFDictionarySetValue(theDicta, @"os_version", v64);
   CFDictionarySetValue(theDicta, @"bug_type", @"183");
-  errb = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%ld");
+  errb = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%ld", Code);
   if (!errb)
   {
-    logfunction("", 1, @"failed to create CFString from %ld\n", v63, v64, v65, v66, v67, Code);
+    logfunction("", 1, @"failed to create CFString from %ld\n", v65, v66, v67, v68, v69, Code);
 LABEL_94:
-    v76 = 0;
+    v78 = 0;
 LABEL_95:
-    v83 = 0;
+    v85 = 0;
 LABEL_100:
-    v98 = 0;
+    v100 = 0;
     goto LABEL_101;
   }
 
@@ -784,50 +783,52 @@ LABEL_100:
   if (!a4)
   {
     Default = CFAllocatorGetDefault();
-    v83 = CFURLCreateWithFileSystemPath(Default, @"/private/var/mobile/Library/Logs/CrashReporter", kCFURLPOSIXPathStyle, 0);
+    v85 = CFURLCreateWithFileSystemPath(Default, @"/private/var/mobile/Library/Logs/CrashReporter", kCFURLPOSIXPathStyle, 0);
     goto LABEL_84;
   }
 
-  v68 = CFStringCreateWithCString(0, a4, 0x8000100u);
-  if (!v68)
+  v70 = CFStringCreateWithCString(0, a4, 0x8000100u);
+  if (!v70)
   {
-    logfunction("", 1, @"failed to create dataPartitionMountPointStr\n", v69, v70, v71, v72, v73, Code);
+    logfunction("", 1, @"failed to create dataPartitionMountPointStr\n", v71, v72, v73, v74, v75, v114);
     goto LABEL_94;
   }
 
-  v74 = v68;
-  v75 = CFAllocatorGetDefault();
-  v76 = CFURLCreateWithFileSystemPath(v75, v74, kCFURLPOSIXPathStyle, 0);
-  CFRelease(v74);
-  if (!v76)
+  v76 = v70;
+  v77 = CFAllocatorGetDefault();
+  v78 = CFURLCreateWithFileSystemPath(v77, v76, kCFURLPOSIXPathStyle, 0);
+  CFRelease(v76);
+  if (!v78)
   {
-    logfunction("", 1, @"failed to create mountPointURL\n", v77, v78, v79, v80, v81, Code);
+    logfunction("", 1, @"failed to create mountPointURL\n", v79, v80, v81, v82, v83);
     goto LABEL_95;
   }
 
   if (a5)
   {
-    v82 = a5;
+    v84 = a5;
   }
 
   else
   {
-    v82 = @"/mobile/Library/Logs/CrashReporter";
+    v84 = @"/mobile/Library/Logs/CrashReporter";
   }
 
-  v83 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, v76, v82, 1u);
-  CFRelease(v76);
-  if (!v83)
+  v85 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, v78, v84, 1u);
+  CFRelease(v78);
+  if (!v85)
   {
-    v89 = @"mountPointURL CFURLCreateCopyAppendingPathComponent failed\n";
+    v91 = @"mountPointURL CFURLCreateCopyAppendingPathComponent failed\n";
 LABEL_99:
-    logfunction("", 1, v89, v84, v85, v86, v87, v88, Code);
-    v76 = 0;
+    logfunction("", 1, v91, v86, v87, v88, v89, v90);
+    v78 = 0;
     goto LABEL_100;
   }
 
 LABEL_84:
-  v135 = 0;
+  v137 = 0;
+  v135 = 0u;
+  v136 = 0u;
   v133 = 0u;
   v134 = 0u;
   v131 = 0u;
@@ -836,51 +837,48 @@ LABEL_84:
   v130 = 0u;
   v127 = 0u;
   v128 = 0u;
-  v125 = 0u;
+  *v125 = 0u;
   v126 = 0u;
-  *v123 = 0u;
-  v124 = 0u;
   if (a2 <= 0)
   {
     a2 = time(0);
   }
 
-  v121 = a2;
-  v91 = localtime(&v121);
-  if (!v91)
+  v123 = a2;
+  v93 = localtime(&v123);
+  if (!v93)
   {
-    v89 = @"localtime failed\n";
+    v91 = @"localtime failed\n";
     goto LABEL_99;
   }
 
-  if (!strftime(v123, 0xC8uLL, "%F-%H-%M-%S", v91))
+  if (!strftime(v125, 0xC8uLL, "%F-%H-%M-%S", v93))
   {
-    v89 = @"strftime failed\n";
+    v91 = @"strftime failed\n";
     goto LABEL_99;
   }
 
-  v92 = CFAllocatorGetDefault();
-  v113 = v123;
-  v98 = CFStringCreateWithFormat(v92, 0, @"OTAUpdate-%s.ips");
-  if (!v98)
+  v94 = CFAllocatorGetDefault();
+  v100 = CFStringCreateWithFormat(v94, 0, @"OTAUpdate-%s.ips", v125);
+  if (!v100)
   {
-    logfunction("", 1, @"failed to create crashReporterFileName\n", v93, v94, v95, v96, v97, v123);
-    v76 = 0;
+    logfunction("", 1, @"failed to create crashReporterFileName\n", v95, v96, v97, v98, v99);
+    v78 = 0;
     goto LABEL_101;
   }
 
-  v99 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, v83, v98, 0);
-  v76 = v99;
-  if (!v99)
+  v101 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, v85, v100, 0);
+  v78 = v101;
+  if (!v101)
   {
-    v110 = @"failed to create log file name\n";
+    v112 = @"failed to create log file name\n";
 LABEL_112:
-    logfunction("", 1, v110, v100, v101, v102, v103, v104, v113);
+    logfunction("", 1, v112, v102, v103, v104, v105, v106, v115);
 LABEL_101:
     free(v26);
     CFRelease(theDicta);
-    v52 = 0xFFFFFFFFLL;
-    if (!v76)
+    v54 = 0xFFFFFFFFLL;
+    if (!v78)
     {
       goto LABEL_103;
     }
@@ -888,44 +886,44 @@ LABEL_101:
     goto LABEL_102;
   }
 
-  if (!CFURLGetFileSystemRepresentation(v99, 1u, v136, 1024))
+  if (!CFURLGetFileSystemRepresentation(v101, 1u, v138, 1024))
   {
-    LOBYTE(v113) = v76;
-    v110 = @"Could not get file path from %@\n";
+    v115 = v78;
+    v112 = @"Could not get file path from %@\n";
     goto LABEL_112;
   }
 
-  logfunction("", 1, @"Trying to write crashreporter log file %s\n", v100, v101, v102, v103, v104, v136);
-  if (_storeIpsWithMode(theDicta, v26, v136))
+  logfunction("", 1, @"Trying to write crashreporter log file %s\n", v102, v103, v104, v105, v106, v138);
+  if (_storeIpsWithMode(theDicta, v26, v138))
   {
-    logfunction("", 1, @"failed to create %s\n", v105, v106, v107, v108, v109, v136);
+    logfunction("", 1, @"failed to create %s\n", v107, v108, v109, v110, v111, v138);
     goto LABEL_101;
   }
 
-  v111 = ftruncate(v19, 0);
-  if (a4 || v111)
+  v113 = ftruncate(v19, 0);
+  if (a4 || v113)
   {
     unlink(v11);
   }
 
   free(v26);
   CFRelease(theDicta);
-  v52 = 0;
+  v54 = 0;
 LABEL_102:
-  CFRelease(v76);
+  CFRelease(v78);
 LABEL_103:
-  if (v83)
+  if (v85)
   {
-    CFRelease(v83);
+    CFRelease(v85);
   }
 
-  if (v98)
+  if (v100)
   {
-    CFRelease(v98);
+    CFRelease(v100);
   }
 
-  v51 = v114;
-  v50 = errb;
+  v53 = v116;
+  v52 = errb;
   if (v33)
   {
 LABEL_41:
@@ -933,14 +931,14 @@ LABEL_41:
   }
 
 LABEL_42:
-  if (v51)
+  if (v53)
   {
-    CFRelease(v51);
+    CFRelease(v53);
   }
 
-  if (v50)
+  if (v52)
   {
-    CFRelease(v50);
+    CFRelease(v52);
   }
 
   os_release(v10);
@@ -949,13 +947,13 @@ LABEL_42:
     submitRestoreLogFileToLogDir_cold_1();
   }
 
-  return v52;
+  return v54;
 }
 
 uint64_t _storeIpsWithMode(const __CFDictionary *a1, const char *a2, const char *a3)
 {
   Mutable = CFStringCreateMutable(0, 0);
-  v7 = open(a3, 1537);
+  v7 = open(a3, 1537, 420);
   if (v7 != -1)
   {
     v13 = v7;
@@ -993,8 +991,8 @@ LABEL_18:
             }
 
             v30 = __error();
-            strerror(*v30);
-            logfunction("", 1, @"unable to chown file '%s': %s\n\n", v31, v32, v33, v34, v35, a3);
+            v41 = strerror(*v30);
+            logfunction("", 1, @"unable to chown file '%s': %s\n\n", v31, v32, v33, v34, v35, a3, v41);
             goto LABEL_16;
           }
 
@@ -1006,7 +1004,7 @@ LABEL_18:
           v38 = @"write payload\n";
         }
 
-        logfunction("", 1, v38, v24, v25, v26, v27, v28, 164);
+        logfunction("", 1, v38, v24, v25, v26, v27, v28, v40);
 LABEL_16:
         v20 = 0;
         goto LABEL_17;
@@ -1020,13 +1018,13 @@ LABEL_16:
       v37 = @"CFStringCreateExternalRepresentation\n";
     }
 
-    logfunction("", 1, v37, v15, v16, v17, v18, v19, 164);
+    logfunction("", 1, v37, v15, v16, v17, v18, v19);
 LABEL_17:
     v36 = 0xFFFFFFFFLL;
     goto LABEL_18;
   }
 
-  logfunction("", 1, @"open\n", v8, v9, v10, v11, v12, 164);
+  logfunction("", 1, @"open\n", v8, v9, v10, v11, v12);
   v20 = 0;
   v36 = 0xFFFFFFFFLL;
   if (Mutable)
@@ -1047,25 +1045,25 @@ LABEL_20:
 int *fixCrashReporterDir(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   logfunction("", 1, @"%s - starting\n", a4, a5, a6, a7, a8, "fixCrashReporterDir");
-  memset(&v50, 0, sizeof(v50));
-  if (lstat("/private/var/mobile/Library/Logs/CrashReporter", &v50))
+  memset(&v53, 0, sizeof(v53));
+  if (lstat("/private/var/mobile/Library/Logs/CrashReporter", &v53))
   {
     if (*__error() != 2)
     {
-      return logfunction("", 1, @"%s failed to stat %s\n", v13, v14, v15, v16, v17, "fixCrashReporterDir");
+      return logfunction("", 1, @"%s failed to stat %s\n", v13, v14, v15, v16, v17, "fixCrashReporterDir", "/private/var/mobile/Library/Logs/CrashReporter");
     }
 
-    logfunction("", 1, @"%s could not find %s, continue\n", v13, v14, v15, v16, v17, "fixCrashReporterDir");
+    logfunction("", 1, @"%s could not find %s, continue\n", v13, v14, v15, v16, v17, "fixCrashReporterDir", "/private/var/mobile/Library/Logs/CrashReporter");
   }
 
-  else if ((v50.st_mode & 0xF000) == 0xA000)
+  else if ((v53.st_mode & 0xF000) == 0xA000)
   {
     return logfunction("", 1, @"%s - already fixed\n", v8, v9, v10, v11, v12, "fixCrashReporterDir");
   }
 
-  if (!lstat("/private/var/mobile/Library/Logs/CrashReporterTmp", &v50))
+  if (!lstat("/private/var/mobile/Library/Logs/CrashReporterTmp", &v53))
   {
-    if ((v50.st_mode & 0xF000) == 0xA000)
+    if ((v53.st_mode & 0xF000) == 0xA000)
     {
       logfunction("", 1, @"%s - tmp dir exist as link, unlink\n", v19, v20, v21, v22, v23, "fixCrashReporterDir");
       unlink("/private/var/mobile/Library/Logs/CrashReporterTmp");
@@ -1078,45 +1076,46 @@ int *fixCrashReporterDir(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
     }
   }
 
-  logfunction("", 1, @"%s create directory %s\n", v19, v20, v21, v22, v23, "fixCrashReporterDir");
+  logfunction("", 1, @"%s create directory %s\n", v19, v20, v21, v22, v23, "fixCrashReporterDir", "/private/var/MobileSoftwareUpdate//mobile/Library/Logs");
   v24 = mkpath_np("/private/var/MobileSoftwareUpdate//mobile/Library/Logs", 0x1C0u);
   if (v24 && v24 != 17)
   {
-    return logfunction("", 1, @"%s unable to create directory %s: %d\n", v25, v26, v27, v28, v29, "fixCrashReporterDir");
+    return logfunction("", 1, @"%s unable to create directory %s: %d\n", v25, v26, v27, v28, v29, "fixCrashReporterDir", "/private/var/MobileSoftwareUpdate//mobile/Library/Logs", v24);
   }
 
-  logfunction("", 1, @"%s symlink %s to %s\n", v25, v26, v27, v28, v29, "fixCrashReporterDir");
+  logfunction("", 1, @"%s symlink %s to %s\n", v25, v26, v27, v28, v29, "fixCrashReporterDir", "/private/var/MobileSoftwareUpdate//mobile/Library/Logs/CrashReporter", "/private/var/mobile/Library/Logs/CrashReporterTmp");
   if (symlink("/private/var/MobileSoftwareUpdate//mobile/Library/Logs/CrashReporter", "/private/var/mobile/Library/Logs/CrashReporterTmp"))
   {
-    return logfunction("", 1, @"%s failed to symlink %s to %s\n", v30, v31, v32, v33, v34, "fixCrashReporterDir");
+    return logfunction("", 1, @"%s failed to symlink %s to %s\n", v30, v31, v32, v33, v34, "fixCrashReporterDir", "/private/var/MobileSoftwareUpdate//mobile/Library/Logs/CrashReporter", "/private/var/mobile/Library/Logs/CrashReporterTmp");
   }
 
-  logfunction("", 1, @"%s swap %s with %s\n", v30, v31, v32, v33, v34, "fixCrashReporterDir");
-  if (renamex_np("/private/var/mobile/Library/Logs/CrashReporterTmp", "/private/var/mobile/Library/Logs/CrashReporter", 2u))
+  logfunction("", 1, @"%s swap %s with %s\n", v30, v31, v32, v33, v34, "fixCrashReporterDir", "/private/var/mobile/Library/Logs/CrashReporterTmp", "/private/var/mobile/Library/Logs/CrashReporter");
+  v35 = renamex_np("/private/var/mobile/Library/Logs/CrashReporterTmp", "/private/var/mobile/Library/Logs/CrashReporter", 2u);
+  if (v35)
   {
-    logfunction("", 1, @"%s swap %s with %s failed with result:%d\n", v35, v36, v37, v38, v39, "fixCrashReporterDir");
+    logfunction("", 1, @"%s swap %s with %s failed with result:%d\n", v36, v37, v38, v39, v40, "fixCrashReporterDir", "/private/var/mobile/Library/Logs/CrashReporterTmp", "/private/var/mobile/Library/Logs/CrashReporter", v35);
     return unlink("/private/var/mobile/Library/Logs/CrashReporterTmp");
   }
 
   else
   {
-    logfunction("", 1, @"%s copy from %s to %s\n", v35, v36, v37, v38, v39, "fixCrashReporterDir");
+    logfunction("", 1, @"%s copy from %s to %s\n", v36, v37, v38, v39, v40, "fixCrashReporterDir", "/private/var/mobile/Library/Logs/CrashReporterTmp", "/private/var/MobileSoftwareUpdate//mobile/Library/Logs");
     if (copyfile("/private/var/mobile/Library/Logs/CrashReporterTmp", "/private/var/MobileSoftwareUpdate//mobile/Library/Logs/", 0, 0xC800Fu))
     {
-      return logfunction("", 1, @"%s failed to copy from %s to %s\n", v40, v41, v42, v43, v44, "fixCrashReporterDir");
+      return logfunction("", 1, @"%s failed to copy from %s to %s\n", v41, v42, v43, v44, v45, "fixCrashReporterDir", "/private/var/mobile/Library/Logs/CrashReporterTmp", "/private/var/MobileSoftwareUpdate//mobile/Library/Logs/");
     }
 
     else
     {
-      logfunction("", 1, @"%s removing %s\n", v40, v41, v42, v43, v44, "fixCrashReporterDir");
+      logfunction("", 1, @"%s removing %s\n", v41, v42, v43, v44, v45, "fixCrashReporterDir", "/private/var/mobile/Library/Logs/CrashReporterTmp");
       if (removefile("/private/var/mobile/Library/Logs/CrashReporterTmp", 0, 1u))
       {
-        return logfunction("", 1, @"%s failed to remove %s\n", v45, v46, v47, v48, v49, "fixCrashReporterDir");
+        return logfunction("", 1, @"%s failed to remove %s\n", v46, v47, v48, v49, v50, "fixCrashReporterDir", "/private/var/mobile/Library/Logs/CrashReporterTmp", v52);
       }
 
       else
       {
-        return logfunction("", 1, @"%s is done\n", v45, v46, v47, v48, v49, "fixCrashReporterDir");
+        return logfunction("", 1, @"%s is done\n", v46, v47, v48, v49, v50, "fixCrashReporterDir", v51, v52);
       }
     }
   }
@@ -1124,11 +1123,11 @@ int *fixCrashReporterDir(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
 
 uint64_t _AMRRegexSubstitution(const char *a1, const char *a2, const char *a3)
 {
-  v4 = a2;
-  memset(&v24, 0, sizeof(v24));
-  if (regcomp(&v24, a2, 1))
+  memset(&v25, 0, sizeof(v25));
+  v6 = regcomp(&v25, a2, 1);
+  if (v6)
   {
-    logfunction("", 1, @"unable to compile regex '%s': %d\n", v6, v7, v8, v9, v10, v4);
+    logfunction("", 1, @"unable to compile regex '%s': %d\n", v7, v8, v9, v10, v11, a2, v6);
     return 0xFFFFFFFFLL;
   }
 
@@ -1137,56 +1136,56 @@ uint64_t _AMRRegexSubstitution(const char *a1, const char *a2, const char *a3)
     __pmatch.rm_so = 0;
     for (__pmatch.rm_eo = 0; ; a1 += __pmatch.rm_eo)
     {
-      v12 = regexec(&v24, a1, 1uLL, &__pmatch, 0);
-      if (v12)
+      v13 = regexec(&v25, a1, 1uLL, &__pmatch, 0);
+      if (v13)
       {
         break;
       }
 
-      v18 = __pmatch.rm_eo - __pmatch.rm_so;
-      v19 = strlen(a3);
-      v20 = LODWORD(__pmatch.rm_eo) - LODWORD(__pmatch.rm_so) - v19;
-      if (v19 < __pmatch.rm_eo - __pmatch.rm_so)
+      v19 = __pmatch.rm_eo - __pmatch.rm_so;
+      v20 = strlen(a3);
+      v21 = LODWORD(__pmatch.rm_eo) - LODWORD(__pmatch.rm_so) - v20;
+      if (v20 < __pmatch.rm_eo - __pmatch.rm_so)
       {
-        v18 = v19;
+        v19 = v20;
       }
 
-      memcpy(&a1[__pmatch.rm_so], a3, v18);
-      if (v20 >= 1)
+      memcpy(&a1[__pmatch.rm_so], a3, v19);
+      if (v21 >= 1)
       {
-        v21 = v20 & 0x7FFFFFFF;
-        memset(&a1[__pmatch.rm_so + v18], 62, v21);
-        a1 += v21;
+        v22 = v21 & 0x7FFFFFFF;
+        memset(&a1[__pmatch.rm_so + v19], 62, v22);
+        a1 += v22;
       }
     }
 
-    if (v12 == 1)
+    if (v13 == 1)
     {
-      v11 = 0;
+      v12 = 0;
     }
 
     else
     {
-      logfunction("", 1, @"regex matching failed for '%s': %d\n", v13, v14, v15, v16, v17, v4);
-      v11 = 0xFFFFFFFFLL;
+      logfunction("", 1, @"regex matching failed for '%s': %d\n", v14, v15, v16, v17, v18, a2, v13);
+      v12 = 0xFFFFFFFFLL;
     }
 
-    regfree(&v24);
+    regfree(&v25);
   }
 
-  return v11;
+  return v12;
 }
 
 uint64_t MSUDemotionCleanup(CFErrorRef *a1)
 {
-  v44 = 0;
-  v2 = [NSData dataWithContentsOfFile:@"/private/var/MobileSoftwareUpdate/DemotionRecord.plist" options:0 error:&v44];
+  v43 = 0;
+  v2 = [NSData dataWithContentsOfFile:@"/private/var/MobileSoftwareUpdate/DemotionRecord.plist" options:0 error:&v43];
   if (v2)
   {
-    v6 = [NSPropertyListSerialization propertyListWithData:v2 options:2 format:0 error:&v44];
+    v6 = [NSPropertyListSerialization propertyListWithData:v2 options:2 format:0 error:&v43];
     if (!v6)
     {
-      error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 23, v44, 0, @"failed to deserialize demotion record", v3, v4, v5, v34);
+      error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 23, v43, 0, @"failed to deserialize demotion record", v3, v4, v5);
       if (!a1)
       {
         goto LABEL_13;
@@ -1200,9 +1199,9 @@ LABEL_12:
 
   else
   {
-    if ([v44 code] != 260)
+    if ([v43 code] != 260)
     {
-      error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 23, v44, 0, @"failed to read demotion record", v8, v9, v10, v34);
+      error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 23, v43, 0, @"failed to read demotion record", v8, v9, v10);
       if (!a1)
       {
 LABEL_13:
@@ -1227,51 +1226,51 @@ LABEL_13:
 
   if (([objc_msgSend(v6 objectForKeyedSubscript:{@"iTunesStoreAutoUpdatesEnabled", "BOOLValue"}] & 1) != 0 || ((CFPreferencesSetValue(@"AutoUpdatesEnabled", 0, @"com.apple.itunesstored", @"mobile", kCFPreferencesAnyHost), CFPreferencesSynchronize(@"com.apple.itunesstored", @"mobile", kCFPreferencesAnyHost), (v11 = getpwnam("mobile")) == 0) ? (pw_gid = 501, pw_uid = 501) : (pw_uid = v11->pw_uid, pw_gid = v11->pw_gid), !chown("/private/var/mobile/Library/Preferences/com.apple.itunesstored.plist", pw_uid, pw_gid)))
   {
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2020000000;
-    v47 = 0;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x2020000000;
+    v46 = 0;
     object = dispatch_queue_create("com.apple.MobileSoftwareUpdate.ApplicationRestore", 0);
     v21 = dispatch_group_create();
-    v36 = objc_alloc_init(SSSoftwareLibrary);
-    v35 = a1;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
+    v35 = objc_alloc_init(SSSoftwareLibrary);
+    v34 = a1;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v22 = [v6 allKeys];
-    v23 = [v22 countByEnumeratingWithState:&v40 objects:v48 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v39 objects:v47 count:16];
     if (v23)
     {
-      v24 = *v41;
+      v24 = *v40;
       do
       {
         for (i = 0; i != v23; i = i + 1)
         {
-          if (*v41 != v24)
+          if (*v40 != v24)
           {
             objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v40 + 1) + 8 * i);
+          v26 = *(*(&v39 + 1) + 8 * i);
           v27 = [v6 objectForKeyedSubscript:v26];
           objc_opt_class();
           if (objc_opt_isKindOfClass() & 1) != 0 && ([v27 isEqualToArray:&off_100058840])
           {
-            v39[0] = _NSConcreteStackBlock;
-            v39[1] = 3221225472;
-            v39[2] = __MSUDemotionCleanup_block_invoke;
-            v39[3] = &unk_10004CF08;
-            v39[4] = object;
-            v39[5] = v26;
-            v39[6] = v21;
-            v39[7] = &v44;
-            [v36 restoreDemotedApplicationWithBundleIdentifier:v26 options:0 completionBlock:v39];
+            v38[0] = _NSConcreteStackBlock;
+            v38[1] = 3221225472;
+            v38[2] = __MSUDemotionCleanup_block_invoke;
+            v38[3] = &unk_10004CF08;
+            v38[4] = object;
+            v38[5] = v26;
+            v38[6] = v21;
+            v38[7] = &v43;
+            [v35 restoreDemotedApplicationWithBundleIdentifier:v26 options:0 completionBlock:v38];
             dispatch_group_enter(v21);
           }
         }
 
-        v23 = [v22 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v39 objects:v47 count:16];
       }
 
       while (v23);
@@ -1280,33 +1279,33 @@ LABEL_13:
     dispatch_group_wait(v21, 0xFFFFFFFFFFFFFFFFLL);
     dispatch_release(v21);
     dispatch_release(object);
-    v28 = v45[3];
+    v28 = v44[3];
     if (v28)
     {
-      if (v35)
+      if (v34)
       {
         v14 = 0;
-        *v35 = v28;
+        *v34 = v28;
 LABEL_40:
-        _Block_object_dispose(&v44, 8);
+        _Block_object_dispose(&v43, 8);
         return v14;
       }
     }
 
     else
     {
-      v38 = 0;
-      if (-[NSFileManager removeItemAtPath:error:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "removeItemAtPath:error:", @"/private/var/MobileSoftwareUpdate/DemotionRecord.plist", &v38) || [v38 code] == 4)
+      v37 = 0;
+      if (-[NSFileManager removeItemAtPath:error:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "removeItemAtPath:error:", @"/private/var/MobileSoftwareUpdate/DemotionRecord.plist", &v37) || [v37 code] == 4)
       {
         v14 = 1;
         goto LABEL_40;
       }
 
-      v32 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 23, v38, 0, @"failed to remove demotion record", v29, v30, v31, v34);
-      if (v35)
+      v32 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 23, v37, 0, @"failed to remove demotion record", v29, v30, v31);
+      if (v34)
       {
         v14 = 0;
-        *v35 = v32;
+        *v34 = v32;
         goto LABEL_40;
       }
 
@@ -1333,6 +1332,13 @@ LABEL_40:
   }
 
   return v14;
+}
+
+void sub_100003760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void __MSUDemotionCleanup_block_invoke(uint64_t a1, char a2, uint64_t a3)
@@ -1363,12 +1369,12 @@ CFErrorRef __MSUDemotionCleanup_block_invoke_2(uint64_t a1, uint64_t a2, uint64_
     CFRelease(v9);
   }
 
-  result = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 23, *(a1 + 32), 0, @"failed to enqueue restore of application '%@': %@", a6, a7, a8, *(a1 + 40));
+  result = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 23, *(a1 + 32), 0, @"failed to enqueue restore of application '%@': %@", a6, a7, a8, *(a1 + 40), *(a1 + 32));
   *(*(*(a1 + 48) + 8) + 24) = result;
   return result;
 }
 
-uint64_t msu_get_os_env()
+uint64_t msu_get_os_env(uint64_t a1, uint64_t a2)
 {
   if (msu_get_os_env_onceToken != -1)
   {
@@ -1384,8 +1390,8 @@ void __msu_get_os_env_block_invoke(id a1)
   if (sysctlbyname("hw.osenvironment", 0, &count, 0, 0) == -1)
   {
     v29 = __error();
-    strerror(*v29);
-    logfunction("", 1, @"Unable to determine size of %s variable(%s)\n", v30, v31, v32, v33, v34, "hw.osenvironment");
+    v42 = strerror(*v29);
+    logfunction("", 1, @"Unable to determine size of %s variable(%s)\n", v30, v31, v32, v33, v34, "hw.osenvironment", v42);
   }
 
   else
@@ -1397,24 +1403,24 @@ void __msu_get_os_env_block_invoke(id a1)
       if (sysctlbyname("hw.osenvironment", v1, &count, 0, 0) == -1)
       {
         v35 = __error();
-        strerror(*v35);
-        logfunction("", 1, @"Failed to read %s sysctl: %s\n", v36, v37, v38, v39, v40, "hw.osenvironment");
+        v36 = strerror(*v35);
+        logfunction("", 1, @"Failed to read %s sysctl: %s\n", v37, v38, v39, v40, v41, "hw.osenvironment", v36);
       }
 
       else
       {
-        logfunction("", 1, @"%s = '%s'\n", v8, v9, v10, v11, v12, "hw.osenvironment");
+        logfunction("", 1, @"%s = '%s'\n", v8, v9, v10, v11, v12, "hw.osenvironment", v7);
         if (*v7)
         {
           if (!strcmp(v7, "device-recovery"))
           {
-            logfunction("", 1, @"Detected DRE environment (%s=%s)\n", v18, v19, v20, v21, v22, "hw.osenvironment");
+            logfunction("", 1, @"Detected DRE environment (%s=%s)\n", v18, v19, v20, v21, v22, "hw.osenvironment", v7);
             v28 = 16;
           }
 
           else if (!strcmp(v7, "recovery"))
           {
-            logfunction("", 1, @"Detected NeRD environment (%s=%s)\n", v23, v24, v25, v26, v27, "hw.osenvironment");
+            logfunction("", 1, @"Detected NeRD environment (%s=%s)\n", v23, v24, v25, v26, v27, "hw.osenvironment", v7);
             v28 = 8;
           }
 
@@ -1559,20 +1565,20 @@ uint64_t size_directory(char *a1)
   return i;
 }
 
-uint64_t msu_execute_command_with_callback(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t msu_execute_command_with_callback(const char **a1, uint64_t a2, uint64_t a3)
 {
   ramrod_execute_config_alloc();
   v7 = v6;
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = __msu_execute_command_with_callback_block_invoke;
-  v16[3] = &__block_descriptor_48_e13_v24__0r_v8Q16l;
-  v16[4] = a2;
-  v16[5] = a3;
-  ramrod_execute_config_set_output_block(v6, v16);
-  v14 = ramrod_execute_command_with_config(a1, v7, v8, v9, v10, v11, v12, v13);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = __msu_execute_command_with_callback_block_invoke;
+  v10[3] = &__block_descriptor_48_e13_v24__0r_v8Q16l;
+  v10[4] = a2;
+  v10[5] = a3;
+  ramrod_execute_config_set_output_block(v6, v10);
+  v8 = ramrod_execute_command_with_config(a1, v7);
   ramrod_execute_config_free(v7);
-  return v14;
+  return v8;
 }
 
 uint64_t mkparentdir(uint64_t a1, mode_t a2)
@@ -1644,7 +1650,7 @@ CFErrorRef _vcreate_error_internal_with_userinfo_cf(const __CFString *a1, CFInde
     if (v17)
     {
       v23 = v17;
-      logfunction("", 1, @"%@ error %ld - %@\n", v18, v19, v20, v21, v22, a1);
+      logfunction("", 1, @"%@ error %ld - %@\n", v18, v19, v20, v21, v22, a1, a2, v17);
       CFDictionaryAddValue(v16, kCFErrorLocalizedDescriptionKey, v23);
       CFRelease(v23);
     }
@@ -1680,7 +1686,7 @@ CFDictionaryRef cferror_to_dictionary_embedded(__CFError *a1, int a2)
   v6 = CFNumberCreate(kCFAllocatorDefault, kCFNumberCFIndexType, &valuePtr);
   if (!v6)
   {
-    logfunction("", 1, @"could not create cfnumber\n", v7, v8, v9, v10, v11, v29);
+    logfunction("", 1, @"could not create cfnumber\n", v7, v8, v9, v10, v11);
     v22 = 0;
     if (!v5)
     {
@@ -1692,11 +1698,11 @@ CFDictionaryRef cferror_to_dictionary_embedded(__CFError *a1, int a2)
 
   v12 = v6;
   *keys = *off_10004CF68;
-  v35 = *&off_10004CF78;
+  v34 = *&off_10004CF78;
   values[0] = v6;
   values[1] = Domain;
-  v32 = v5;
-  v33 = 0;
+  v31 = v5;
+  v32 = 0;
   if (v5)
   {
     Value = CFDictionaryGetValue(v5, kCFErrorUnderlyingErrorKey);
@@ -1723,7 +1729,7 @@ LABEL_17:
       if (MutableCopy)
       {
         CFDictionarySetValue(MutableCopy, kCFErrorUnderlyingErrorKey, v17);
-        v32 = v14;
+        v31 = v14;
       }
 
       CFRelease(v17);
@@ -1732,8 +1738,8 @@ LABEL_17:
     if (a2)
     {
 LABEL_10:
-      v19 = (&v35 + 8);
-      v20 = &v33;
+      v19 = (&v34 + 8);
+      v20 = &v32;
       v21 = 4;
 LABEL_15:
       *v19 = @"_MSU_Embedded_Error";
@@ -1747,8 +1753,8 @@ LABEL_15:
   v14 = 0;
   if (a2)
   {
-    v19 = &v35;
-    v20 = &v32;
+    v19 = &v34;
+    v20 = &v31;
     v21 = 3;
     goto LABEL_15;
   }
@@ -1758,7 +1764,7 @@ LABEL_19:
   v22 = CFDictionaryCreate(kCFAllocatorDefault, keys, values, v21, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!v22)
   {
-    logfunction("", 1, @"could not create cfdictionary\n", v23, v24, v25, v26, v27, v29);
+    logfunction("", 1, @"could not create cfdictionary\n", v23, v24, v25, v26, v27);
   }
 
   if (v14)
@@ -1789,7 +1795,7 @@ const __CFString *copy_dictionary_to_cferror(const void *a1)
   {
     v21 = @"marshalled cferror is not a dictionary.\n";
 LABEL_17:
-    logfunction("", 1, v21, v3, v4, v5, v6, v7, v23);
+    logfunction("", 1, v21, v3, v4, v5, v6, v7);
     return 0;
   }
 
@@ -1809,7 +1815,7 @@ LABEL_17:
   v14 = CFDictionaryGetValue(a1, @"Domain");
   if (!v14)
   {
-    logfunction("", 1, @"marshalled cferror is incomplete. missing domain.\n", v9, v10, v11, v12, v13, v23);
+    logfunction("", 1, @"marshalled cferror is incomplete. missing domain.\n", v9, v10, v11, v12, v13);
     return v14;
   }
 
@@ -1842,11 +1848,11 @@ LABEL_17:
   return v14;
 }
 
-BOOL write_SMC_key(char a1)
+BOOL write_SMC_key(uint64_t a1, uint64_t a2)
 {
-  v2 = IOServiceMatching("AppleSMC");
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v2);
-  v9 = MatchingService;
+  v4 = IOServiceMatching("AppleSMC");
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v4);
+  v11 = MatchingService;
   if (&_SMCOpenConnection)
   {
     if (MatchingService)
@@ -1854,67 +1860,68 @@ BOOL write_SMC_key(char a1)
       if (SMCOpenConnection())
       {
         SMCMakeUInt32Key();
-        if (SMCGetKeyInfo())
+        v17 = SMCGetKeyInfo();
+        if (v17)
         {
-          logfunction("", 1, @"Couldn't retrieve SMC Key %s. Got SMC error: %d\n\n", v15, v16, v17, v18, v19, a1);
-          v20 = 0;
+          logfunction("", 1, @"Couldn't retrieve SMC Key %s. Got SMC error: %d\n\n", v18, v19, v20, v21, v22, a1, v17);
+          v23 = 0;
         }
 
         else
         {
-          v21 = SMCWriteKeyWithKnownSize();
-          v20 = v21 == 0;
-          if (v21)
+          v24 = SMCWriteKeyWithKnownSize();
+          v23 = v24 == 0;
+          if (v24)
           {
-            logfunction("", 1, @"Writing SMC key %s as value %s failed with error %d\n\n", v22, v23, v24, v25, v26, a1);
+            logfunction("", 1, @"Writing SMC key %s as value %s failed with error %d\n\n", v25, v26, v27, v28, v29, a1, a2, v24);
           }
 
-          v27 = SMCReadKeyAsNumeric();
-          if (v27)
+          v30 = SMCReadKeyAsNumeric();
+          if (v30)
           {
-            logfunction("", 1, @"SMCReadKeyAsNumeric() returned %d\n", v28, v29, v30, v31, v32, v27);
+            logfunction("", 1, @"SMCReadKeyAsNumeric() returned %d\n", v31, v32, v33, v34, v35, v30, v37);
           }
 
           else
           {
-            logfunction("", 1, @"Read (0x%jX) for key %s\n\n", v28, v29, v30, v31, v32, 0);
+            logfunction("", 1, @"Read (0x%jX) for key %s\n\n", v31, v32, v33, v34, v35, 0, a1);
           }
         }
 
-        IOObjectRelease(v9);
+        IOObjectRelease(v11);
         SMCCloseConnection();
-        return v20;
+        return v23;
       }
 
-      logfunction("", 1, @"Failed to open SMC connection. Bailing.\n\n", v10, v11, v12, v13, v14, v34);
-      IOObjectRelease(v9);
+      logfunction("", 1, @"Failed to open SMC connection. Bailing.\n\n", v12, v13, v14, v15, v16);
+      IOObjectRelease(v11);
     }
 
     else
     {
-      logfunction("", 1, @"Couldn't find matching SMC service. Bailing.\n\n", v4, v5, v6, v7, v8, v34);
+      logfunction("", 1, @"Couldn't find matching SMC service. Bailing.\n\n", v6, v7, v8, v9, v10);
     }
 
     return 0;
   }
 
-  v20 = 1;
-  logfunction("", 1, @"No SMC dylib. Bailing with success.\n", v4, v5, v6, v7, v8, v34);
-  if (v9)
+  v23 = 1;
+  logfunction("", 1, @"No SMC dylib. Bailing with success.\n", v6, v7, v8, v9, v10);
+  if (v11)
   {
-    IOObjectRelease(v9);
+    IOObjectRelease(v11);
   }
 
-  return v20;
+  return v23;
 }
 
 void cleanup_boot_environment(char *a1)
 {
-  v30 = "mobile";
-  v32[0] = a1;
-  v32[1] = 0;
+  v34 = "mobile";
+  v36[0] = a1;
+  v36[1] = 0;
   bzero(__str, 0x401uLL);
-  v2 = fts_open(v32, 85, 0);
+  v2 = fts_open(v36, 85, 0);
   if (v2)
   {
     v3 = v2;
@@ -1950,12 +1957,13 @@ void cleanup_boot_environment(char *a1)
           {
             v19 = *__error();
             v20 = __error();
-            strerror(*v20);
-            LOBYTE(fts_path) = v19;
+            v32 = strerror(*v20);
+            v33 = __str;
+            fts_path = v19;
 LABEL_14:
             v21 = @"Error %d (%s) deleting %s\n";
 LABEL_16:
-            logfunction("", 1, v21, v7, v8, v9, v10, v11, fts_path);
+            logfunction("", 1, v21, v7, v8, v9, v10, v11, fts_path, v32, v33);
             goto LABEL_17;
           }
 
@@ -1973,9 +1981,9 @@ LABEL_16:
         {
           v12 = *__error();
           v13 = __error();
-          strerror(*v13);
-          v29 = v5->fts_path;
-          LOBYTE(fts_path) = v12;
+          v32 = strerror(*v13);
+          v33 = v5->fts_path;
+          fts_path = v12;
           goto LABEL_14;
         }
 
@@ -1992,14 +2000,14 @@ LABEL_17:
   else
   {
     v22 = __error();
-    strerror(*v22);
-    logfunction("", 1, @"Could not fts_open(3) path %s: %s\n", v23, v24, v25, v26, v27, a1);
+    v23 = strerror(*v22);
+    logfunction("", 1, @"Could not fts_open(3) path %s: %s\n", v24, v25, v26, v27, v28, a1, v23);
   }
 
   _cleanup_boot_environment_with_list(a1, &off_10004CF88, 20);
-  if ((booted_from_recoveryos() & 1) == 0)
+  if ((booted_from_recoveryos(v29, v30) & 1) == 0)
   {
-    _cleanup_boot_environment_with_list(a1, &v30, 1);
+    _cleanup_boot_environment_with_list(a1, &v34, 1);
   }
 }
 
@@ -2015,27 +2023,28 @@ void _cleanup_boot_environment_with_list(const char *a1, const char **a2, uint64
       {
         v11 = *__error();
         v12 = __error();
-        strerror(*v12);
-        logfunction("", 1, @"Error %d (%s) deleting %s\n", v13, v14, v15, v16, v17, v11);
+        v19 = strerror(*v12);
+        logfunction("", 1, @"Error %d (%s) deleting %s\n", v13, v14, v15, v16, v17, v11, v19, __str);
       }
     }
 
     else
     {
-      logfunction("", 1, @"Deleted %s\n", v6, v7, v8, v9, v10, __str);
+      logfunction("", 1, @"Deleted %s\n", v6, v7, v8, v9, v10, __str, v18, v20);
     }
 
     ++a2;
   }
 }
 
-uint64_t mount_preboot_volume(int a1, _BYTE *a2)
+uint64_t mount_preboot_volume(uint64_t a1, _BYTE *a2)
 {
+  v3 = a1;
   memset(v18, 0, sizeof(v18));
   bzero(v17, 0x400uLL);
   if (!ramrod_get_preboot_partition_device_node(v18, 0x20uLL))
   {
-    logfunction("", 1, @"unable to find preboot volume\n\n", v4, v5, v6, v7, v8, v17[0]);
+    logfunction("", 1, @"unable to find preboot volume\n\n", v4, v5, v6, v7, v8);
     return 6;
   }
 
@@ -2052,8 +2061,8 @@ uint64_t mount_preboot_volume(int a1, _BYTE *a2)
   }
 
   __strlcpy_chk();
-  ramrod_create_directory(v17, 0x1EDu, 0, 0);
-  v9 = ramrod_mount_filesystem_no_fsck_opt_err(v18, v17, a1, 0);
+  ramrod_create_directory(v17, 493, 0, 0);
+  v9 = ramrod_mount_filesystem_no_fsck_opt_err(v18, v17, v3, 0);
   if (!v9)
   {
     if (a2)
@@ -2067,7 +2076,7 @@ uint64_t mount_preboot_volume(int a1, _BYTE *a2)
   }
 
   v15 = v9;
-  logfunction("", 1, @"unable to mount preboot volume\n\n", v10, v11, v12, v13, v14, v17[0]);
+  logfunction("", 1, @"unable to mount preboot volume\n\n", v10, v11, v12, v13, v14);
   return v15;
 }
 
@@ -2092,38 +2101,40 @@ uint64_t unmount_preboot_volume()
 
     v6 = @"unable to unmount preboot volume\n\n";
 LABEL_7:
-    logfunction("", 1, v6, v0, v1, v2, v3, v4, v8[0]);
+    logfunction("", 1, v6, v0, v1, v2, v3, v4);
     return v5;
   }
 
   return 0;
 }
 
-void sub_1000054C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_1000054C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a26, 8);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a35, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void perform_block_with_ct_server_connection(uint64_t a1)
 {
-  if (is_baseband_device() && !booted_from_recoveryos() && &__CTServerConnectionCreate)
+  v2 = is_baseband_device();
+  if (v2 && !booted_from_recoveryos(v2, v3) && &__CTServerConnectionCreate)
   {
-    v2 = _CTServerConnectionCreate();
-    (*(a1 + 16))(a1, v2, 1);
-    if (v2)
+    v4 = _CTServerConnectionCreate();
+    (*(a1 + 16))(a1, v4, 1);
+    if (v4)
     {
-      CFRelease(v2);
+      CFRelease(v4);
     }
   }
 
   else
   {
-    v3 = *(a1 + 16);
+    v5 = *(a1 + 16);
 
-    v3(a1, 0, 0);
+    v5(a1, 0, 0);
   }
 }
 
@@ -2145,9 +2156,9 @@ uint64_t release_baseband_ticket_lock(uint64_t a1)
   return v1;
 }
 
-void sub_1000061E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000061E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2156,7 +2167,7 @@ void __release_baseband_ticket_lock_block_invoke(uint64_t a1, uint64_t a2, int a
 {
   if (a2 || !a3)
   {
-    if (!a2 || (v10 = _CTServerConnectionUnlockPostponementTicket()) == 0)
+    if (!a2 || (v10 = _CTServerConnectionUnlockPostponementTicket(), !v10))
     {
       *(*(*(a1 + 32) + 8) + 24) = 1;
       return;
@@ -2164,6 +2175,7 @@ void __release_baseband_ticket_lock_block_invoke(uint64_t a1, uint64_t a2, int a
 
     v9 = @"Failed to release postponement ticket lock: %ld.%ld";
     v13 = v10;
+    v14 = v10 >> 32;
   }
 
   else
@@ -2171,7 +2183,7 @@ void __release_baseband_ticket_lock_block_invoke(uint64_t a1, uint64_t a2, int a
     v9 = @"Failed to create CT server connection";
   }
 
-  error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v9, a6, a7, a8, v13);
+  error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v9, a6, a7, a8, v13, v14);
   v12 = *(a1 + 40);
   if (v12)
   {
@@ -2195,14 +2207,15 @@ int *clear_apply_state()
     v0 = [(NSMutableDictionary *)v8 writeToFile:@"/private/var/MobileSoftwareUpdate/last_update_result.plist" atomically:1];
   }
 
-  if (msu_running_in_limited_environment(v0, v1, v2, v3, v4, v5, v6, v7))
+  v9 = msu_running_in_limited_environment(v0, v1, v2, v3, v4, v5, v6, v7);
+  if (v9)
   {
-    return logfunction("", 1, @"%s: Running in recoveryOS..skipping cleanup of BootedOSState plist file\n", v9, v10, v11, v12, v13, "clear_apply_state");
+    return logfunction("", 1, @"%s: Running in recoveryOS..skipping cleanup of BootedOSState plist file\n", v11, v12, v13, v14, v15, "clear_apply_state");
   }
 
-  if (!msu_should_save_env_info_for_recovery())
+  if (!msu_should_save_env_info_for_recovery(v9, v10))
   {
-    return logfunction("", 1, @"%s: Not attempting to cleanup recoveryOS info since save_env_info is not set\n", v15, v16, v17, v18, v19, "clear_apply_state");
+    return logfunction("", 1, @"%s: Not attempting to cleanup recoveryOS info since save_env_info is not set\n", v17, v18, v19, v20, v21, "clear_apply_state");
   }
 
   return saveCurrentBootedOSStateForRecoveryModes(0);
@@ -2302,13 +2315,19 @@ void record_firmware_failures(void *a1)
 BOOL is_first_boot_cleanup_done()
 {
   v0 = objc_autoreleasePoolPush();
-  v1 = [+[NSFileManager defaultManager](NSFileManager fileExistsAtPath:"fileExistsAtPath:", @"/var/run/FirstBootCleanupHandled"];
-  logfunction("", 1, @"%s: is first boot cleanup done: %@\n", v2, v3, v4, v5, v6, "is_first_boot_cleanup_done");
+  v6 = [+[NSFileManager defaultManager](NSFileManager fileExistsAtPath:"fileExistsAtPath:", @"/var/run/FirstBootCleanupHandled"];
+  v7 = @"NO";
+  if (v6)
+  {
+    v7 = @"YES";
+  }
+
+  logfunction("", 1, @"%s: is first boot cleanup done: %@\n", v1, v2, v3, v4, v5, "is_first_boot_cleanup_done", v7);
   objc_autoreleasePoolPop(v0);
-  return v1;
+  return v6;
 }
 
-void msu_process_dictionary_values_for_xpc_serialization(const void *a1, uint64_t a2, __CFDictionary **a3)
+void msu_process_dictionary_values_for_xpc_serialization(const void *a1, void *a2, __CFDictionary **a3)
 {
   v5 = msu_process_cf_object_for_xpc_serialization(a2);
   if (v5)
@@ -2398,35 +2417,35 @@ void msu_serialize_cf_object_into_xpc_dict(void *a1, const char *a2, void *a3, u
     return;
   }
 
-  v10 = msu_process_cf_object_for_xpc_serialization(a3);
-  if (!v10)
+  v11 = msu_process_cf_object_for_xpc_serialization(a3);
+  if (!v11)
   {
-    v12 = _CFXPCCreateXPCObjectFromCFObject();
-    if (v12)
+    v13 = _CFXPCCreateXPCObjectFromCFObject();
+    if (v13)
     {
       goto LABEL_4;
     }
 
 LABEL_9:
-    logfunction("", 1, @"could not create object for key %s:%@\n", v13, v14, v15, v16, v17, a2);
+    logfunction("", 1, @"could not create object for key %s:%@\n", v14, v15, v16, v17, v18, a2, a3);
     return;
   }
 
-  v11 = v10;
-  v12 = _CFXPCCreateXPCObjectFromCFObject();
-  CFRelease(v11);
-  if (!v12)
+  v12 = v11;
+  v13 = _CFXPCCreateXPCObjectFromCFObject();
+  CFRelease(v12);
+  if (!v13)
   {
     goto LABEL_9;
   }
 
 LABEL_4:
-  xpc_dictionary_set_value(a1, a2, v12);
+  xpc_dictionary_set_value(a1, a2, v13);
 
-  xpc_release(v12);
+  xpc_release(v13);
 }
 
-void msu_process_dictionary_values_from_xpc_deserialization(const void *a1, uint64_t a2, __CFDictionary **a3)
+void msu_process_dictionary_values_from_xpc_deserialization(const void *a1, const void *a2, __CFDictionary **a3)
 {
   v5 = msu_process_cf_object_from_xpc_deserialization(a2);
   if (v5)
@@ -2593,7 +2612,7 @@ LABEL_16:
     goto LABEL_18;
   }
 
-  logfunction("", 1, @"No command in request\n", v14, v15, v16, v17, v18, a9);
+  logfunction("", 1, @"No command in request\n", v14, v15, v16, v17, v18);
 }
 
 uint64_t msu_client_is_entitled(_xpc_connection_s *a1, uint64_t a2)
@@ -2603,7 +2622,6 @@ uint64_t msu_client_is_entitled(_xpc_connection_s *a1, uint64_t a2)
     return 1;
   }
 
-  v2 = a2;
   v4 = xpc_connection_copy_entitlement_value();
   if (v4)
   {
@@ -2626,7 +2644,7 @@ LABEL_17:
       v11 = @"Entitlement '%s' is not a BOOLean\n";
     }
 
-    logfunction("", 1, v11, v6, v7, v8, v9, v10, v2);
+    logfunction("", 1, v11, v6, v7, v8, v9, v10, a2);
     v12 = 0;
     goto LABEL_17;
   }
@@ -2652,7 +2670,7 @@ LABEL_17:
     v14 = strrchr(buffer, 47);
     if (v14)
     {
-      LOBYTE(v20) = v14 + 1;
+      v20 = v14 + 1;
     }
 
     else
@@ -2661,7 +2679,7 @@ LABEL_17:
     }
   }
 
-  logfunction("", 1, @"Client %s[%d] does not have the '%s' entitlement\n", v15, v16, v17, v18, v19, v20);
+  logfunction("", 1, @"Client %s[%d] does not have the '%s' entitlement\n", v15, v16, v17, v18, v19, v20, pid, a2);
   return 0;
 }
 
@@ -2835,8 +2853,8 @@ void ___getManagedPreferencesDict_block_invoke(id a1)
 
 int main(int argc, const char **argv, const char **envp)
 {
-  v191 = 0;
-  logfunction("", 1, @"CleanupPreparePath main() started\n", v3, v4, v5, v6, v7, v177);
+  v173 = 0;
+  logfunction("", 1, @"CleanupPreparePath main() started\n", v3, v4, v5, v6, v7);
   set_partition_logging_function(msu_partition_logger);
   set_partition_execution_function(msu_execute_command_with_callback);
   set_partition_execution_logging_function(msu_partition_execution_logger);
@@ -2848,7 +2866,7 @@ int main(int argc, const char **argv, const char **envp)
 
   if ((openRestoreLogFile(1) & 0x80000000) != 0)
   {
-    logfunction("", 1, @"Could not open log file\n", v16, v17, v18, v19, v20, v178);
+    logfunction("", 1, @"Could not open log file\n", v16, v17, v18, v19, v20);
   }
 
   if (atexit(closeRestoreLogFile))
@@ -2860,53 +2878,53 @@ int main(int argc, const char **argv, const char **envp)
 
   v28 = ramrod_log_set_handler(_ramrod_log_handler);
   partition_probe_media(v28, v29, v30, v31, v32, v33, v34, v35);
-  ramrod_probe_unique_media(0, v36, v37, v38, v39, v40, v41, v42);
-  logfunction("", 1, @"Enabling vnode rapid aging\n", v43, v44, v45, v46, v47, v178);
-  *v200 = 0x4400000001;
-  v190 = 1;
-  if (sysctl(v200, 2u, 0, 0, &v190, 0))
+  ramrod_probe_unique_media(0);
+  logfunction("", 1, @"Enabling vnode rapid aging\n", v36, v37, v38, v39, v40);
+  *v182 = 0x4400000001;
+  v172 = 1;
+  if (sysctl(v182, 2u, 0, 0, &v172, 0))
   {
-    v53 = @"Failed to enable vnode rapid aging\n";
+    v46 = @"Failed to enable vnode rapid aging\n";
   }
 
   else
   {
-    v53 = @"Successfully enabled rapid vnode aging\n\n";
+    v46 = @"Successfully enabled rapid vnode aging\n\n";
   }
 
-  logfunction("", 1, v53, v48, v49, v50, v51, v52, v179);
-  process_update_result_state(&v191 + 1, &v191);
+  logfunction("", 1, v46, v41, v42, v43, v44, v45);
+  process_update_result_state(&v173 + 1, &v173);
   if (os_variant_has_internal_content())
   {
     AppBooleanValue = CFPreferencesGetAppBooleanValue(@"FakeUpdateAttemptedOnReboot", @"com.apple.MobileSoftwareUpdate", 0);
-    v60 = CFPreferencesGetAppBooleanValue(@"FakeOSVersionChangedOnReboot", @"com.apple.MobileSoftwareUpdate", 0);
-    if (AppBooleanValue && (v191 & 0x100) == 0)
+    v53 = CFPreferencesGetAppBooleanValue(@"FakeOSVersionChangedOnReboot", @"com.apple.MobileSoftwareUpdate", 0);
+    if (AppBooleanValue && (v173 & 0x100) == 0)
     {
-      logfunction("", 1, @"Forcing update attempted to true due to override\n", v54, v55, v56, v57, v58, v180);
-      HIBYTE(v191) = 1;
+      logfunction("", 1, @"Forcing update attempted to true due to override\n", v47, v48, v49, v50, v51);
+      HIBYTE(v173) = 1;
     }
 
-    if (v60 && (v191 & 1) == 0)
+    if (v53 && (v173 & 1) == 0)
     {
-      logfunction("", 1, @"Forcing OSVersion changed to true due to override\n", v54, v55, v56, v57, v58, v180);
-      LOBYTE(v191) = 1;
+      logfunction("", 1, @"Forcing OSVersion changed to true due to override\n", v47, v48, v49, v50, v51);
+      LOBYTE(v173) = 1;
     }
   }
 
-  if (HIBYTE(v191) != 1)
+  if (HIBYTE(v173) != 1)
   {
 LABEL_83:
-    if (v191 == 1)
+    if (v173 == 1)
     {
-      logfunction("", 1, @"OSVersion changed. Notifying clients\n", v54, v55, v56, v57, v58, v180);
+      logfunction("", 1, @"OSVersion changed. Notifying clients\n", v47, v48, v49, v50, v51);
       notify_post("com.apple.MobileSoftwareUpdate.OSVersionChanged");
-      v161 = _CFCopySupplementalVersionDictionary();
-      if (v161)
+      v154 = _CFCopySupplementalVersionDictionary();
+      if (v154)
       {
-        v162 = v161;
-        CFDictionaryGetValue(v161, _kCFSystemVersionProductVersionExtraKey);
-        logfunction("", 1, @"%s: %i\n", v163, v164, v165, v166, v167, "splat_installed");
-        CFRelease(v162);
+        v155 = v154;
+        v156 = CFDictionaryGetValue(v154, _kCFSystemVersionProductVersionExtraKey) != 0;
+        logfunction("", 1, @"%s: %i\n", v157, v158, v159, v160, v161, "splat_installed", v156);
+        CFRelease(v155);
       }
     }
 
@@ -2917,65 +2935,65 @@ LABEL_83:
   if (is_first_boot_cleanup_done())
   {
 LABEL_75:
-    v155 = copy_nvram_variable(@"usbcfw.version");
-    if (!v155)
+    v148 = copy_nvram_variable(@"usbcfw.version");
+    if (!v148)
     {
       goto LABEL_83;
     }
 
-    v156 = v155;
-    if (CFDataGetLength(v155) < 1)
+    v149 = v148;
+    if (CFDataGetLength(v148) < 1)
     {
       goto LABEL_82;
     }
 
-    v157 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, v156, 0x8000100u);
+    v150 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, v149, 0x8000100u);
     Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    v159 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    CFDictionarySetValue(v159, @"IOClass", @"AppleUSBCController");
-    CFDictionarySetValue(Mutable, @"IOPropertyMatch", v159);
+    v152 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    CFDictionarySetValue(v152, @"IOClass", @"AppleUSBCController");
+    CFDictionarySetValue(Mutable, @"IOPropertyMatch", v152);
     MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, Mutable);
     if (MatchingService)
     {
-      v168 = MatchingService;
+      v162 = MatchingService;
       CFProperty = IORegistryEntryCreateCFProperty(MatchingService, @"Firmware Version", kCFAllocatorDefault, 0);
       if (CFProperty)
       {
-        v170 = CFProperty;
-        if (CFStringGetLength(CFProperty) >= 1 && CFStringCompare(v170, v157, 0x40uLL))
+        v164 = CFProperty;
+        if (CFStringGetLength(CFProperty) >= 1 && CFStringCompare(v164, v150, 0x40uLL))
         {
-          logfunction("", 1, @"USBC FW version in IORegistry (%@) != USBC FW version in nvram (%@)\n", v171, v172, v173, v174, v175, v170);
+          logfunction("", 1, @"USBC FW version in IORegistry (%@) != USBC FW version in nvram (%@)\n", v165, v166, v167, v168, v169, v164, v150);
         }
 
-        CFRelease(v170);
+        CFRelease(v164);
       }
 
-      IOObjectRelease(v168);
-      if (!v159)
+      IOObjectRelease(v162);
+      if (!v152)
       {
 LABEL_79:
-        if (!v157)
+        if (!v150)
         {
 LABEL_81:
           delete_nvram_variable(@"usbcfw.version");
 LABEL_82:
-          CFRelease(v156);
+          CFRelease(v149);
           goto LABEL_83;
         }
 
 LABEL_80:
-        CFRelease(v157);
+        CFRelease(v150);
         goto LABEL_81;
       }
     }
 
-    else if (!v159)
+    else if (!v152)
     {
       goto LABEL_79;
     }
 
-    CFRelease(v159);
-    if (!v157)
+    CFRelease(v152);
+    if (!v150)
     {
       goto LABEL_81;
     }
@@ -2985,225 +3003,225 @@ LABEL_80:
 
   CFPreferencesAppSynchronize(@"com.apple.MobileAsset");
   CFPreferencesAppSynchronize(@"com.apple.MobileSoftwareUpdate");
-  v61 = CFPreferencesGetAppBooleanValue(@"PreserveDefaultsOnUpdate", @"com.apple.MobileAsset", 0);
-  v62 = v61;
-  v70 = msu_running_in_limited_environment(v61, v63, v64, v65, v66, v67, v68, v69);
-  v76 = @"First boot after update: Clearing out old preference overrides\n";
-  if (v62)
+  v54 = CFPreferencesGetAppBooleanValue(@"PreserveDefaultsOnUpdate", @"com.apple.MobileAsset", 0);
+  v55 = v54;
+  v63 = msu_running_in_limited_environment(v54, v56, v57, v58, v59, v60, v61, v62);
+  v69 = @"First boot after update: Clearing out old preference overrides\n";
+  if (v55)
   {
-    v76 = @"First boot after update: Not clearing MobileAsset preference overrides due to default\n";
-    v77 = 1;
+    v69 = @"First boot after update: Not clearing MobileAsset preference overrides due to default\n";
+    v70 = 1;
   }
 
   else
   {
-    v77 = v70;
+    v70 = v63;
   }
 
-  v189 = v77;
-  if (v70)
+  v171 = v70;
+  if (v63)
   {
-    v78 = @"First boot after update: Not clearing MobileAsset preference overrides since running in recovery OS\n";
-  }
-
-  else
-  {
-    v78 = v76;
-  }
-
-  logfunction("", 1, v78, v71, v72, v73, v74, v75, v180);
-  v79 = objc_alloc_init(NSMutableArray);
-  v202[0] = @"MobileAssetServerURL-com.apple.MobileAsset.SoftwareUpdate";
-  v202[1] = @"default-MobileAssetServerURL-com.apple.MobileAsset.SoftwareUpdate";
-  v202[2] = @"MobileAssetServerURL-com.apple.MobileAsset.WatchSoftwareUpdateDocumentation";
-  v202[3] = @"default-MobileAssetServerURL-com.apple.MobileAsset.WatchSoftwareUpdateDocumentation";
-  v202[4] = @"MobileAssetServerURL-com.apple.MobileAsset.SoftwareUpdateDocumentation";
-  v202[5] = @"default-MobileAssetServerURL-com.apple.MobileAsset.SoftwareUpdateDocumentation";
-  v202[6] = @"MobileAssetServerURL-com.apple.MobileAsset.MobileSoftwareUpdate.UpdateBrain";
-  v202[7] = @"default-MobileAssetServerURL-com.apple.MobileAsset.MobileSoftwareUpdate.UpdateBrain";
-  v202[8] = @"EnableLiveAssetServerV2";
-  v202[9] = @"MobileAssetAssetAudienceGeneric";
-  v202[10] = @"PallasUrlOverride";
-  v202[11] = @"PallasUrlOverrideV2";
-  [v79 addObjectsFromArray:{+[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v202, 12)}];
-  v80 = +[NSMutableArray array];
-  v81 = CFPreferencesCopyKeyList(@"com.apple.MobileAsset", @"mobile", kCFPreferencesAnyHost);
-  if (v81)
-  {
-    v82 = v81;
+    v71 = @"First boot after update: Not clearing MobileAsset preference overrides since running in recovery OS\n";
   }
 
   else
   {
-    v82 = &__NSArray0__struct;
+    v71 = v69;
   }
 
-  [v80 addObjectsFromArray:v82];
-  v83 = CFPreferencesCopyKeyList(@"com.apple.MobileAsset", @"root", kCFPreferencesAnyHost);
-  if (v83)
+  logfunction("", 1, v71, v64, v65, v66, v67, v68);
+  v72 = objc_alloc_init(NSMutableArray);
+  v184[0] = @"MobileAssetServerURL-com.apple.MobileAsset.SoftwareUpdate";
+  v184[1] = @"default-MobileAssetServerURL-com.apple.MobileAsset.SoftwareUpdate";
+  v184[2] = @"MobileAssetServerURL-com.apple.MobileAsset.WatchSoftwareUpdateDocumentation";
+  v184[3] = @"default-MobileAssetServerURL-com.apple.MobileAsset.WatchSoftwareUpdateDocumentation";
+  v184[4] = @"MobileAssetServerURL-com.apple.MobileAsset.SoftwareUpdateDocumentation";
+  v184[5] = @"default-MobileAssetServerURL-com.apple.MobileAsset.SoftwareUpdateDocumentation";
+  v184[6] = @"MobileAssetServerURL-com.apple.MobileAsset.MobileSoftwareUpdate.UpdateBrain";
+  v184[7] = @"default-MobileAssetServerURL-com.apple.MobileAsset.MobileSoftwareUpdate.UpdateBrain";
+  v184[8] = @"EnableLiveAssetServerV2";
+  v184[9] = @"MobileAssetAssetAudienceGeneric";
+  v184[10] = @"PallasUrlOverride";
+  v184[11] = @"PallasUrlOverrideV2";
+  [v72 addObjectsFromArray:{+[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v184, 12)}];
+  v73 = +[NSMutableArray array];
+  v74 = CFPreferencesCopyKeyList(@"com.apple.MobileAsset", @"mobile", kCFPreferencesAnyHost);
+  if (v74)
   {
-    v84 = v83;
+    v75 = v74;
   }
 
   else
   {
-    v84 = &__NSArray0__struct;
+    v75 = &__NSArray0__struct;
   }
 
-  [v80 addObjectsFromArray:v84];
-  v194 = 0u;
-  v195 = 0u;
-  v192 = 0u;
-  v193 = 0u;
-  v85 = [v80 countByEnumeratingWithState:&v192 objects:v201 count:16];
-  if (v85)
+  [v73 addObjectsFromArray:v75];
+  v76 = CFPreferencesCopyKeyList(@"com.apple.MobileAsset", @"root", kCFPreferencesAnyHost);
+  if (v76)
   {
-    v86 = v85;
-    v87 = *v193;
+    v77 = v76;
+  }
+
+  else
+  {
+    v77 = &__NSArray0__struct;
+  }
+
+  [v73 addObjectsFromArray:v77];
+  v176 = 0u;
+  v177 = 0u;
+  v174 = 0u;
+  v175 = 0u;
+  v78 = [v73 countByEnumeratingWithState:&v174 objects:v183 count:16];
+  if (v78)
+  {
+    v79 = v78;
+    v80 = *v175;
     do
     {
-      for (i = 0; i != v86; i = i + 1)
+      for (i = 0; i != v79; i = i + 1)
       {
-        if (*v193 != v87)
+        if (*v175 != v80)
         {
-          objc_enumerationMutation(v80);
+          objc_enumerationMutation(v73);
         }
 
-        v89 = *(*(&v192 + 1) + 8 * i);
-        if (([v89 hasPrefix:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@-", @"EnableLiveAssetServerV2"}] & 1) != 0 || (objc_msgSend(v89, "hasPrefix:", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@-", @"MobileAssetAssetAudience")) & 1) != 0 || (objc_msgSend(v89, "hasPrefix:", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@-", @"MobileAssetAssetAudienceGeneric")) & 1) != 0 || (objc_msgSend(v89, "hasPrefix:", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@-", @"PallasUrlOverride")) & 1) != 0 || objc_msgSend(v89, "hasPrefix:", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@-", @"PallasUrlOverrideV2")))
+        v82 = *(*(&v174 + 1) + 8 * i);
+        if (([v82 hasPrefix:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@-", @"EnableLiveAssetServerV2"}] & 1) != 0 || (objc_msgSend(v82, "hasPrefix:", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@-", @"MobileAssetAssetAudience")) & 1) != 0 || (objc_msgSend(v82, "hasPrefix:", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@-", @"MobileAssetAssetAudienceGeneric")) & 1) != 0 || (objc_msgSend(v82, "hasPrefix:", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@-", @"PallasUrlOverride")) & 1) != 0 || objc_msgSend(v82, "hasPrefix:", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@-", @"PallasUrlOverrideV2")))
         {
-          [v79 addObject:v89];
+          [v72 addObject:v82];
         }
 
-        if ([v89 hasPrefix:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@-", @"MobileAssetServerURL"}])
+        if ([v82 hasPrefix:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@-", @"MobileAssetServerURL"}])
         {
-          [v79 addObject:v89];
+          [v72 addObject:v82];
         }
       }
 
-      v86 = [v80 countByEnumeratingWithState:&v192 objects:v201 count:16];
+      v79 = [v73 countByEnumeratingWithState:&v174 objects:v183 count:16];
     }
 
-    while (v86);
+    while (v79);
   }
 
   if (objc_opt_class())
   {
-    v96 = kCFPreferencesAnyHost;
+    v89 = kCFPreferencesAnyHost;
     if (objc_opt_respondsToSelector())
     {
       if (+[SDBetaManager _isEnrolledInBetaProgram])
       {
-        logfunction("", 1, @"Device is enrolled in a seeding program via +[SDBetaManager _isEnrolledInBetaProgram]; not resetting MobileAssetAssetAudience\n", v90, v91, v92, v93, v94, v181);
+        logfunction("", 1, @"Device is enrolled in a seeding program via +[SDBetaManager _isEnrolledInBetaProgram]; not resetting MobileAssetAssetAudience\n", v83, v84, v85, v86, v87);
 LABEL_54:
-        if (v189)
+        if (v171)
         {
-          logfunction("", 1, @"First boot after update: Not clearing out MobileAsset preferences\n", v97, v98, v99, v100, v101, v182);
+          logfunction("", 1, @"First boot after update: Not clearing out MobileAsset preferences\n", v90, v91, v92, v93, v94);
         }
 
         else
         {
-          logfunction("", 1, @"First boot after update: Attempting to clear out MobileAsset preferences\n", v97, v98, v99, v100, v101, v182);
-          logfunction("", 1, @"Clearing out MobileAsset preference overrides: %@\n", v107, v108, v109, v110, v111, v79);
-          if (v79)
+          logfunction("", 1, @"First boot after update: Attempting to clear out MobileAsset preferences\n", v90, v91, v92, v93, v94);
+          logfunction("", 1, @"Clearing out MobileAsset preference overrides: %@\n", v100, v101, v102, v103, v104, v72);
+          if (v72)
           {
-            v198 = 0u;
-            v199 = 0u;
-            v196 = 0u;
-            v197 = 0u;
-            v112 = [v79 countByEnumeratingWithState:&v196 objects:v203 count:16];
-            if (v112)
+            v180 = 0u;
+            v181 = 0u;
+            v178 = 0u;
+            v179 = 0u;
+            v105 = [v72 countByEnumeratingWithState:&v178 objects:v185 count:16];
+            if (v105)
             {
-              v113 = v112;
-              v114 = *v197;
+              v106 = v105;
+              v107 = *v179;
               do
               {
-                for (j = 0; j != v113; j = j + 1)
+                for (j = 0; j != v106; j = j + 1)
                 {
-                  if (*v197 != v114)
+                  if (*v179 != v107)
                   {
-                    objc_enumerationMutation(v79);
+                    objc_enumerationMutation(v72);
                   }
 
-                  v116 = *(*(&v196 + 1) + 8 * j);
-                  CFPreferencesSetValue(v116, 0, @"com.apple.MobileAsset", @"mobile", v96);
-                  CFPreferencesSetValue(v116, 0, @"com.apple.MobileAsset", @"root", v96);
+                  v109 = *(*(&v178 + 1) + 8 * j);
+                  CFPreferencesSetValue(v109, 0, @"com.apple.MobileAsset", @"mobile", v89);
+                  CFPreferencesSetValue(v109, 0, @"com.apple.MobileAsset", @"root", v89);
                 }
 
-                v113 = [v79 countByEnumeratingWithState:&v196 objects:v203 count:16];
+                v106 = [v72 countByEnumeratingWithState:&v178 objects:v185 count:16];
               }
 
-              while (v113);
+              while (v106);
             }
           }
         }
 
-        logfunction("", 1, @"Clearing out MobileSoftwareUpdate preference overrides\n", v102, v103, v104, v105, v106, v183);
-        CFPreferencesSetValue(@"DisableSnapshotUpdate", 0, @"com.apple.MobileSoftwareUpdate", @"mobile", v96);
-        CFPreferencesSetValue(@"DisableSnapshotUpdate", 0, @"com.apple.MobileSoftwareUpdate", @"root", v96);
+        logfunction("", 1, @"Clearing out MobileSoftwareUpdate preference overrides\n", v95, v96, v97, v98, v99);
+        CFPreferencesSetValue(@"DisableSnapshotUpdate", 0, @"com.apple.MobileSoftwareUpdate", @"mobile", v89);
+        CFPreferencesSetValue(@"DisableSnapshotUpdate", 0, @"com.apple.MobileSoftwareUpdate", @"root", v89);
         CFPreferencesAppSynchronize(@"com.apple.MobileAsset");
         CFPreferencesAppSynchronize(@"com.apple.MobileSoftwareUpdate");
-        logfunction("", 1, @"First boot after update: Finished clearing preference overrides\n", v117, v118, v119, v120, v121, v184);
-        logfunction("", 1, @"First boot after update: Deleting V1 asset path\n", v122, v123, v124, v125, v126, v185);
-        logfunction("", 1, @"in deleteV1AssetPath\n", v127, v128, v129, v130, v131, v186);
-        v203[0] = 0;
-        v132 = +[NSFileManager defaultManager];
-        if ([(NSFileManager *)v132 fileExistsAtPath:@"/var/MobileAsset/Assets/com_apple_MobileAsset_MobileSoftwareUpdate_UpdateBrain"]&& [(NSFileManager *)v132 removeItemAtPath:@"/var/MobileAsset/Assets/com_apple_MobileAsset_MobileSoftwareUpdate_UpdateBrain" error:v203])
+        logfunction("", 1, @"First boot after update: Finished clearing preference overrides\n", v110, v111, v112, v113, v114);
+        logfunction("", 1, @"First boot after update: Deleting V1 asset path\n", v115, v116, v117, v118, v119);
+        logfunction("", 1, @"in deleteV1AssetPath\n", v120, v121, v122, v123, v124);
+        v185[0] = 0;
+        v125 = +[NSFileManager defaultManager];
+        if ([(NSFileManager *)v125 fileExistsAtPath:@"/var/MobileAsset/Assets/com_apple_MobileAsset_MobileSoftwareUpdate_UpdateBrain"]&& [(NSFileManager *)v125 removeItemAtPath:@"/var/MobileAsset/Assets/com_apple_MobileAsset_MobileSoftwareUpdate_UpdateBrain" error:v185])
         {
-          logfunction("", 1, @"V1 assets folder successfully deleted\n", v133, v134, v135, v136, v137, v187);
+          logfunction("", 1, @"V1 assets folder successfully deleted\n", v126, v127, v128, v129, v130);
         }
 
-        logfunction("", 1, @"First boot after update: Done deleting V1 asset path\n", v133, v134, v135, v136, v137, v187);
+        logfunction("", 1, @"First boot after update: Done deleting V1 asset path\n", v126, v127, v128, v129, v130);
         if ([+[NSFileManager fileExistsAtPath:"fileExistsAtPath:"]
         {
-          logfunction("", 1, @"Located Pre-SoftwareUpdate Asset Staging state plist at path: %s\n", v138, v139, v140, v141, v142, "/private/var/MobileSoftwareUpdate/PreSoftwareUpdateAssetStaging.plist");
-          v203[0] = 0;
+          logfunction("", 1, @"Located Pre-SoftwareUpdate Asset Staging state plist at path: %s\n", v131, v132, v133, v134, v135, "/private/var/MobileSoftwareUpdate/PreSoftwareUpdateAssetStaging.plist");
+          v185[0] = 0;
           if ([+[NSFileManager removeItemAtPath:"removeItemAtPath:error:"]
           {
-            logfunction("", 1, @"Successfully removed Pre-SoftwareUpdate Asset Staging state plist at path: %s\n", v143, v144, v145, v146, v147, "/private/var/MobileSoftwareUpdate/PreSoftwareUpdateAssetStaging.plist");
+            logfunction("", 1, @"Successfully removed Pre-SoftwareUpdate Asset Staging state plist at path: %s\n", v136, v137, v138, v139, v140, "/private/var/MobileSoftwareUpdate/PreSoftwareUpdateAssetStaging.plist");
           }
 
           else
           {
-            logfunction("", 1, @"Failed to remove Pre-SoftwareUpdate Asset Staging state plist at path: %s, with error: %@\n", v143, v144, v145, v146, v147, "/private/var/MobileSoftwareUpdate/PreSoftwareUpdateAssetStaging.plist");
+            logfunction("", 1, @"Failed to remove Pre-SoftwareUpdate Asset Staging state plist at path: %s, with error: %@\n", v136, v137, v138, v139, v140, "/private/var/MobileSoftwareUpdate/PreSoftwareUpdateAssetStaging.plist", v185[0]);
           }
         }
 
         MSUCleanupPreboot();
         MSUCleanupDataVolume();
-        v203[0] = 0;
-        v148 = [@"SqueakyClean" writeToFile:@"/var/run/FirstBootCleanupHandled" atomically:1 encoding:4 error:v203];
-        if ((v148 & (v203[0] == 0)) != 0)
+        v185[0] = 0;
+        v141 = [@"SqueakyClean" writeToFile:@"/var/run/FirstBootCleanupHandled" atomically:1 encoding:4 error:v185];
+        if ((v141 & (v185[0] == 0)) != 0)
         {
-          v154 = @"Successfully wrote firstBootCleanupDone cookie to /var/run\n";
+          v147 = @"Successfully wrote firstBootCleanupDone cookie to /var/run\n";
         }
 
         else
         {
-          v154 = @"Failed to write firstBootCleanupDone cookie to /var/run\n";
+          v147 = @"Failed to write firstBootCleanupDone cookie to /var/run\n";
         }
 
-        logfunction("", 1, v154, v149, v150, v151, v152, v153, v188);
+        logfunction("", 1, v147, v142, v143, v144, v145, v146);
         goto LABEL_75;
       }
 
-      v95 = @"Device is not enrolled in a seeding program via +[SDBetaManager _isEnrolledInBetaProgram]\n";
+      v88 = @"Device is not enrolled in a seeding program via +[SDBetaManager _isEnrolledInBetaProgram]\n";
     }
 
     else
     {
-      v95 = @"Device does not have the seeding framework installed via check +[SDBetaManager _isEnrolledInBetaProgram]\n";
+      v88 = @"Device does not have the seeding framework installed via check +[SDBetaManager _isEnrolledInBetaProgram]\n";
     }
   }
 
   else
   {
-    v95 = @"Device does not have the seeding framework installed via check +[SDBetaManager _isEnrolledInBetaProgram]\n";
-    v96 = kCFPreferencesAnyHost;
+    v88 = @"Device does not have the seeding framework installed via check +[SDBetaManager _isEnrolledInBetaProgram]\n";
+    v89 = kCFPreferencesAnyHost;
   }
 
-  logfunction("", 1, v95, v90, v91, v92, v93, v94, v181);
-  [v79 addObject:@"MobileAssetAssetAudience"];
+  logfunction("", 1, v88, v83, v84, v85, v86, v87);
+  [v72 addObject:@"MobileAssetAssetAudience"];
   goto LABEL_54;
 }
 
@@ -3230,14 +3248,15 @@ void conditionally_boot_efi_based_on_nvram()
   if (v0)
   {
     v1 = v0;
-    if (write_SMC_key("AUPO"))
+    v7 = 1;
+    if (write_SMC_key("AUPO", &v7))
     {
       delete_nvram_variable(@"auto-boot-x86-once");
     }
 
     else
     {
-      logfunction("", 1, @"Failed to write AUPO to 1. Higher level OS will not boot.\n", v2, v3, v4, v5, v6, v7);
+      logfunction("", 1, @"Failed to write AUPO to 1. Higher level OS will not boot.\n", v2, v3, v4, v5, v6);
     }
 
     CFRelease(v1);
@@ -3263,23 +3282,23 @@ void handle_MSUCleanupPreparePath(_xpc_connection_s *a1, void *a2, CFDictionaryR
   v25 = !v17 || (v23 = v17, v24 = CFGetTypeID(v17), v24 != CFBooleanGetTypeID()) || CFBooleanGetValue(v23) != 0;
   if (v12)
   {
-    logfunction("", 1, @"CleanupPreparePathService: Purging Pre-Software Update Staged Assets\n", v18, v19, v20, v21, v22, v38);
+    logfunction("", 1, @"CleanupPreparePathService: Purging Pre-Software Update Staged Assets\n", v18, v19, v20, v21, v22);
     +[MSUAssetStager purgeStagedAssetsAsync];
   }
 
   if (v16)
   {
-    logfunction("", 1, @"CleanupPreparePathService: Disabling Pre-Software Update Asset Staging\n", v18, v19, v20, v21, v22, v38);
+    logfunction("", 1, @"CleanupPreparePathService: Disabling Pre-Software Update Asset Staging\n", v18, v19, v20, v21, v22);
     v31 = MGCopyAnswer();
     if (!v31)
     {
-      logfunction("", 1, @"Failed to get buildVersion\n", v26, v27, v28, v29, v30, v39);
+      logfunction("", 1, @"Failed to get buildVersion\n", v26, v27, v28, v29, v30);
     }
 
     v37 = MGCopyAnswer();
     if (!v37)
     {
-      logfunction("", 1, @"Failed to get productVersion\n", v32, v33, v34, v35, v36, v39);
+      logfunction("", 1, @"Failed to get productVersion\n", v32, v33, v34, v35, v36);
     }
 
     [MSUAssetStager disableStagingForReason:@"Disabling by request of Cleanup Prepare Path Service" buildVersion:v31 osVersion:v37];
@@ -3317,8 +3336,8 @@ void handle_MSUCleanupNVRAM(_xpc_connection_s *a1, void *a2)
     if (v4)
     {
       v5 = v4;
-      *v7 = off_10004D220;
-      execute_command(v7, handle_MSUCleanupLogger);
+      v7 = off_10004D220;
+      execute_command(&v7, handle_MSUCleanupLogger);
       CFRelease(v5);
     }
   }
@@ -3341,43 +3360,43 @@ void handle_MSUCleanupNVRAM(_xpc_connection_s *a1, void *a2)
 
 void handle_MSUCleanupRecoveryOSSavedState(_xpc_connection_s *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  logfunction("", 1, @"Attempting to cleanup saved RecoveryOS state.\n", a4, a5, a6, a7, a8, v63);
+  logfunction("", 1, @"Attempting to cleanup saved RecoveryOS state.\n", a4, a5, a6, a7, a8);
   v10 = +[NSFileManager defaultManager];
-  v66 = 0;
-  v11 = [[NSString alloc] initWithFormat:@"%s/%s/%@"];
+  v65 = 0;
+  v11 = [[NSString alloc] initWithFormat:@"%s/%s/%@", "/private/var/MobileSoftwareUpdate/", "Controller/NeRD", @"NeRDPersistedState.status"];
   if ([(NSFileManager *)v10 fileExistsAtPath:v11])
   {
-    logfunction("", 1, @"Deleting RecoveryOS status file\n", v12, v13, v14, v15, v16, "/private/var/MobileSoftwareUpdate/");
-    [(NSFileManager *)v10 removeItemAtPath:v11 error:&v66];
-    if (v66)
+    logfunction("", 1, @"Deleting RecoveryOS status file\n", v12, v13, v14, v15, v16);
+    [(NSFileManager *)v10 removeItemAtPath:v11 error:&v65];
+    if (v65)
     {
-      logfunction("", 1, @"Unable to delete RecoveryOS status file: %@\n", v17, v18, v19, v20, v21, v66);
+      logfunction("", 1, @"Unable to delete RecoveryOS status file: %@\n", v17, v18, v19, v20, v21, v65);
     }
   }
 
   else
   {
-    logfunction("", 1, @"RecoveryOS status file not present(not an error)\n", v12, v13, v14, v15, v16, "/private/var/MobileSoftwareUpdate/");
+    logfunction("", 1, @"RecoveryOS status file not present(not an error)\n", v12, v13, v14, v15, v16, v63);
   }
 
-  v66 = 0;
-  v22 = [[NSString alloc] initWithFormat:@"%s/%s/%s"];
+  v65 = 0;
+  v22 = [[NSString alloc] initWithFormat:@"%s/%s/%s", "/private/var/MobileSoftwareUpdate/", "Controller/NeRD", "ConnectivityData.plist"];
   if ([(NSFileManager *)v10 fileExistsAtPath:v22])
   {
-    logfunction("", 1, @"Deleting RecoveryOS connectivity data\n", v23, v24, v25, v26, v27, "/private/var/MobileSoftwareUpdate/");
-    [(NSFileManager *)v10 removeItemAtPath:v22 error:&v66];
-    if (v66)
+    logfunction("", 1, @"Deleting RecoveryOS connectivity data\n", v23, v24, v25, v26, v27);
+    [(NSFileManager *)v10 removeItemAtPath:v22 error:&v65];
+    if (v65)
     {
-      logfunction("", 1, @"Unable to delete RecoveryOS connectivity data file: %@\n", v28, v29, v30, v31, v32, v66);
+      logfunction("", 1, @"Unable to delete RecoveryOS connectivity data file: %@\n", v28, v29, v30, v31, v32, v65);
     }
   }
 
   else
   {
-    logfunction("", 1, @"RecoveryOS connectivity data file not present\n", v23, v24, v25, v26, v27, "/private/var/MobileSoftwareUpdate/");
+    logfunction("", 1, @"RecoveryOS connectivity data file not present\n", v23, v24, v25, v26, v27, v64);
   }
 
-  v38 = logfunction("", 1, @"Clearing out RecoveryOS logarchives\n", v33, v34, v35, v36, v37, v64);
+  v38 = logfunction("", 1, @"Clearing out RecoveryOS logarchives\n", v33, v34, v35, v36, v37);
   clear_recoveryos_logarchive_files(v38, v39, v40, v41, v42, v43, v44, v45);
   if (MGGetBoolAnswer() && (AppIntegerValue = CFPreferencesGetAppIntegerValue(@"NerdLogarchivePreservationTime", @"com.apple.MobileSoftwareUpdate.CleanupPreparePathService", 0)) != 0)
   {
@@ -3390,7 +3409,7 @@ void handle_MSUCleanupRecoveryOSSavedState(_xpc_connection_s *a1, void *a2, uint
 
   else
   {
-    logfunction("", 1, @"Using default RecoveryOS logarchive preservation timeout\n", v46, v47, v48, v49, v50, v65);
+    logfunction("", 1, @"Using default RecoveryOS logarchive preservation timeout\n", v46, v47, v48, v49, v50);
     v60 = 1209600000000000;
   }
 
@@ -3404,7 +3423,7 @@ void handle_MSUCleanupLogs(_xpc_connection_s *a1, void *a2, CFDictionaryRef theD
 {
   valuePtr = 0x7FFFFFFFFFFFFFFFLL;
   cf = 0;
-  v15 = 0;
+  v14 = 0;
   Value = CFDictionaryGetValue(theDict, @"LogsRetention");
   if (Value && (v11 = Value, v12 = CFGetTypeID(Value), v12 == CFNumberGetTypeID()))
   {
@@ -3414,13 +3433,13 @@ void handle_MSUCleanupLogs(_xpc_connection_s *a1, void *a2, CFDictionaryRef theD
 
   else
   {
-    logfunction("", 1, @"no valid retention\n", v6, v7, v8, v9, v10, v14);
+    logfunction("", 1, @"no valid retention\n", v6, v7, v8, v9, v10);
     v13 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  if (MSUCleanupLogs_server(v13, &v15, &cf))
+  if (MSUCleanupLogs_server(v13, &v14, &cf))
   {
-    msu_send_status(a1, a2, v15);
+    msu_send_status(a1, a2, v14);
   }
 
   else
@@ -3434,18 +3453,18 @@ void handle_MSUCleanupLogs(_xpc_connection_s *a1, void *a2, CFDictionaryRef theD
     cf = 0;
   }
 
-  if (v15)
+  if (v14)
   {
-    CFRelease(v15);
+    CFRelease(v14);
   }
 }
 
 int *handle_reboot_to_nerd(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
 {
-  logfunction("", 1, @"Rebooting into nerd\n", a4, a5, a6, a7, a8, vars0);
+  logfunction("", 1, @"Rebooting into nerd\n", a4, a5, a6, a7, a8);
   if (+[NeRDSPI setNVRAMForRebootToNerd])
   {
-    logfunction("", 1, @"Rebooting now\n", v9, v10, v11, v12, v13, vars0a);
+    logfunction("", 1, @"Rebooting now\n", v9, v10, v11, v12, v13);
     if (reboot3())
     {
       v14 = @"Failed to reboot into nerd\n";
@@ -3462,12 +3481,12 @@ int *handle_reboot_to_nerd(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
     v14 = @"Failed to set the needed NVRAM to reboot to NeRD\n";
   }
 
-  return logfunction("", 1, v14, v9, v10, v11, v12, v13, a9);
+  return logfunction("", 1, v14, v9, v10, v11, v12, v13);
 }
 
 void handle_MSUSaveBootedOSState(_xpc_connection_s *a1, void *a2, const __CFDictionary *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  logfunction("", 1, @"[MSUSaveBootedOSState]: Handling request to save BootedOSState\n", a4, a5, a6, a7, a8, v26);
+  logfunction("", 1, @"[MSUSaveBootedOSState]: Handling request to save BootedOSState\n", a4, a5, a6, a7, a8);
   Value = CFDictionaryGetValue(a3, @"AdditionalBootedOSData");
   if (Value && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -3476,20 +3495,20 @@ void handle_MSUSaveBootedOSState(_xpc_connection_s *a1, void *a2, const __CFDict
 
   else
   {
-    logfunction("", 1, @"[MSUSaveBootedOSState]: Saving only default BootedOSState info\n", v11, v12, v13, v14, v15, v27);
+    logfunction("", 1, @"[MSUSaveBootedOSState]: Saving only default BootedOSState info\n", v11, v12, v13, v14, v15);
   }
 
   if (saveBootedOSState(Value))
   {
-    logfunction("", 1, @"[MSUSaveBootedOSState]: Successfully saved BootedOSState\n", v17, v18, v19, v20, v21, v28);
+    logfunction("", 1, @"[MSUSaveBootedOSState]: Successfully saved BootedOSState\n", v17, v18, v19, v20, v21);
 
     msu_send_status(a1, a2, 0);
   }
 
   else
   {
-    logfunction("", 1, @"[MSUSaveBootedOSState]: Failed to save BootedOSState\n", v17, v18, v19, v20, v21, v28);
-    error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, 5, 0, 0, @"Failed to save BootedOSState to update volume", v22, v23, v24, v29);
+    logfunction("", 1, @"[MSUSaveBootedOSState]: Failed to save BootedOSState\n", v17, v18, v19, v20, v21);
+    error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, 5, 0, 0, @"Failed to save BootedOSState to update volume", v22, v23, v24);
     msu_send_error(a1, a2, error_internal_cf, 0);
     if (error_internal_cf)
     {
@@ -3501,7 +3520,7 @@ void handle_MSUSaveBootedOSState(_xpc_connection_s *a1, void *a2, const __CFDict
 
 void handle_MSUSaveAccessibilityDomains(_xpc_connection_s *a1, void *a2, const __CFDictionary *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  logfunction("", 1, @"[MSUSaveAccessibilityDomains]: Handling request to save Accessibility domains\n", a4, a5, a6, a7, a8, v26);
+  logfunction("", 1, @"[MSUSaveAccessibilityDomains]: Handling request to save Accessibility domains\n", a4, a5, a6, a7, a8);
   Value = CFDictionaryGetValue(a3, @"AdditionalBootedOSData");
   if (Value && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -3510,20 +3529,20 @@ void handle_MSUSaveAccessibilityDomains(_xpc_connection_s *a1, void *a2, const _
 
   else
   {
-    logfunction("", 1, @"[MSUSaveAccessibilityDomains]: Saving only default accessibility domains info\n", v11, v12, v13, v14, v15, v27);
+    logfunction("", 1, @"[MSUSaveAccessibilityDomains]: Saving only default accessibility domains info\n", v11, v12, v13, v14, v15);
   }
 
-  if (saveAccessibilityDomainsForDRE(Value))
+  if (saveAccessibilityDomainsForDRE(Value, v17))
   {
-    logfunction("", 1, @"[MSUSaveAccessibilityDomains]: Successfully saved accessibility domains\n", v17, v18, v19, v20, v21, v28);
+    logfunction("", 1, @"[MSUSaveAccessibilityDomains]: Successfully saved accessibility domains\n", v18, v19, v20, v21, v22);
 
     msu_send_status(a1, a2, 0);
   }
 
   else
   {
-    logfunction("", 1, @"[MSUSaveAccessibilityDomains]: Failed to save accessibility domains\n", v17, v18, v19, v20, v21, v28);
-    error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, 5, 0, 0, @"Failed to save accessibility domains to update volume", v22, v23, v24, v29);
+    logfunction("", 1, @"[MSUSaveAccessibilityDomains]: Failed to save accessibility domains\n", v18, v19, v20, v21, v22);
+    error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, 5, 0, 0, @"Failed to save accessibility domains to update volume", v23, v24, v25);
     msu_send_error(a1, a2, error_internal_cf, 0);
     if (error_internal_cf)
     {
@@ -3535,14 +3554,14 @@ void handle_MSUSaveAccessibilityDomains(_xpc_connection_s *a1, void *a2, const _
 
 void __clear_recoveryos_saved_files_block_invoke(id a1)
 {
-  v6 = logfunction("", 1, @"Timer fired for clearing RecoveryOS logarchive files\n", v1, v2, v3, v4, v5, vars0);
+  v6 = logfunction("", 1, @"Timer fired for clearing RecoveryOS logarchive files\n", v1, v2, v3, v4, v5);
 
   clear_recoveryos_logarchive_files(v6, v7, v8, v9, v10, v11, v12, v13);
 }
 
 void clear_recoveryos_logarchive_files(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  logfunction("", 1, @"Deleting RecoveryOS logarchive files\n", a4, a5, a6, a7, a8, v30);
+  logfunction("", 1, @"Deleting RecoveryOS logarchive files\n", a4, a5, a6, a7, a8);
   v8 = [[NSString alloc] initWithFormat:@"%s/%s", "/private/var/MobileSoftwareUpdate/", "Controller/NeRD"];
   v9 = +[NSFileManager defaultManager];
   obj = [(NSFileManager *)v9 enumeratorAtPath:v8];
@@ -3588,13 +3607,13 @@ void clear_recoveryos_logarchive_files(uint64_t a1, uint64_t a2, uint64_t a3, ui
             [(NSFileManager *)v9 removeItemAtPath:v18 error:&v32];
             if (v32)
             {
-              logfunction("", 1, @"Failed to delete %@ : %@\n", v25, v26, v27, v28, v29, v17);
+              logfunction("", 1, @"Failed to delete %@ : %@\n", v25, v26, v27, v28, v29, v17, v32);
             }
           }
 
           else
           {
-            logfunction("", 1, @"Skipping %@ since it is newer than the timeout\n", v19, v20, v21, v22, v23, v17);
+            logfunction("", 1, @"Skipping %@ since it is newer than the timeout\n", v19, v20, v21, v22, v23, v17, v30);
           }
         }
       }
@@ -3628,14 +3647,14 @@ uint64_t get_snapshot_preparation_size(void *a1, char **a2, CFErrorRef *a3)
       v13 = [v14 numberFromString:v13];
       v15 = @"update_attributes[InstallationSize-Snapshot] (string)";
 LABEL_10:
-      v46 = [v13 longLongValue];
-      [v6 add:v46 annotation:v15];
+      v45 = [v13 longLongValue];
+      [v6 add:v45 annotation:v15];
       updated = cryptex_size_requirement_for_update_type(0, a1);
-      v34 = &v46[updated];
+      v33 = &v45[updated];
       [v6 add:updated annotation:@"cryptex_size_requirement_for_update_type(msu_update_type_snapshot)"];
-      v35 = 1;
-      logfunction("", 1, @"snapshot preparation size (mastered) : %lld (%lld MB)\n", v48, v49, v50, v51, v52, v34);
-      logfunction("", 1, @"\n%s():%@\n", v53, v54, v55, v56, v57, "get_snapshot_preparation_size");
+      v34 = 1;
+      logfunction("", 1, @"snapshot preparation size (mastered) : %lld (%lld MB)\n", v47, v48, v49, v50, v51, v33, v33 >> 20);
+      logfunction("", 1, @"\n%s():%@\n", v52, v53, v54, v55, v56, "get_snapshot_preparation_size", v6);
       goto LABEL_11;
     }
 
@@ -3646,200 +3665,211 @@ LABEL_10:
       goto LABEL_10;
     }
 
-    logfunction("", 1, @"InstallationSize-Snapshot has invalid type in update attributes\n", v41, v42, v43, v44, v45, v63);
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"Invalid update attributes: invalid type InstallationSize-Snapshot", v59, v60, v61, v67);
+    logfunction("", 1, @"InstallationSize-Snapshot has invalid type in update attributes\n", v40, v41, v42, v43, v44);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"Invalid update attributes: invalid type InstallationSize-Snapshot", v58, v59, v60);
     if (a3)
     {
+      v33 = 0;
       v34 = 0;
-      v35 = 0;
       *a3 = error_internal_cf;
     }
 
     else
     {
       CFRelease(error_internal_cf);
+      v33 = 0;
       v34 = 0;
-      v35 = 0;
     }
   }
 
   else
   {
-    logfunction("", 1, @"InstallationSize-Snapshot not present in update attributes\n", v8, v9, v10, v11, v12, v63);
+    logfunction("", 1, @"InstallationSize-Snapshot not present in update attributes\n", v8, v9, v10, v11, v12);
     v16 = [a1 objectForKey:@"ActualMinimumSystemPartition"];
     if (!v16)
     {
-      logfunction("", 1, @"ActualMinimumSystemPartition not present in update attributes\n", v17, v18, v19, v20, v21, v64);
+      logfunction("", 1, @"ActualMinimumSystemPartition not present in update attributes\n", v17, v18, v19, v20, v21);
       v16 = [a1 objectForKey:@"MinimumSystemPartition"];
       if (!v16)
       {
-        logfunction("", 1, @"MinimumSystemPartition not present in update attributes. Using the default.\n", v22, v23, v24, v25, v26, v65);
-        logfunction("", 1, @"*** Warning *** This is not a normal path *** Users shouldn't get here *** Engineers can\n", v27, v28, v29, v30, v31, v66);
+        logfunction("", 1, @"MinimumSystemPartition not present in update attributes. Using the default.\n", v22, v23, v24, v25, v26);
+        logfunction("", 1, @"*** Warning *** This is not a normal path *** Users shouldn't get here *** Engineers can\n", v27, v28, v29, v30, v31);
         v16 = [NSNumber numberWithInt:2500];
       }
     }
 
     v32 = calculate_snapshot_overhead([(NSNumber *)v16 longLongValue]<< 20);
-    v33 = cryptex_size_requirement_for_update_type(0, a1);
-    v34 = (v33 + v32);
-    v35 = 1;
-    logfunction("", 1, @"snapshot preparation size (worst case) : %lld (%lld MB)\n", v36, v37, v38, v39, v40, v33 + v32);
+    v33 = (cryptex_size_requirement_for_update_type(0, a1) + v32);
+    v34 = 1;
+    logfunction("", 1, @"snapshot preparation size (worst case) : %lld (%lld MB)\n", v35, v36, v37, v38, v39, v33, v33 >> 20);
   }
 
 LABEL_11:
   if (a2)
   {
-    *a2 = v34;
+    *a2 = v33;
   }
 
-  return v35;
+  return v34;
 }
 
 uint64_t cryptex_size_requirement_for_update_type(int a1, void *a2)
 {
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0;
-  v31[1] = 3221225472;
-  v31[0] = _NSConcreteStackBlock;
-  v32 = __cryptex_size_requirement_for_update_type_block_invoke;
-  v33 = &unk_10004D298;
-  v34 = +[MSULogAnnotatedSum sum];
-  v35 = &v37;
-  v36 = a1;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v4 = +[MSULogAnnotatedSum sum];
+  v10 = v4;
+  v11 = "msu_update_type_snapshot";
+  v36[1] = 3221225472;
+  v36[0] = _NSConcreteStackBlock;
+  v37 = __cryptex_size_requirement_for_update_type_block_invoke;
+  v38 = &unk_10004D298;
+  if (a1 == 1)
+  {
+    v11 = "msu_update_type_legacy";
+  }
+
+  v35 = v11;
+  v39 = v4;
+  v40 = &v42;
+  v41 = a1;
   if (a2)
   {
-    v9 = [a2 objectForKeyedSubscript:@"CryptexSizeInfo"];
-    if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    v12 = [a2 objectForKeyedSubscript:@"CryptexSizeInfo"];
+    if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      v10 = [a2 objectForKeyedSubscript:@"ComboAsset"];
-      if (!v10)
+      v13 = [a2 objectForKeyedSubscript:@"ComboAsset"];
+      if (!v13)
       {
-        goto LABEL_31;
+        goto LABEL_33;
       }
 
-      v11 = MGCopyAnswer();
-      v44 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v41 = 0u;
-      v12 = [v10 countByEnumeratingWithState:&v41 objects:v45 count:16];
-      if (!v12)
+      v14 = MGCopyAnswer();
+      v49 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v46 = 0u;
+      v15 = [v13 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      if (!v15)
       {
-        goto LABEL_31;
+        goto LABEL_33;
       }
 
-      v13 = *v42;
-LABEL_7:
-      v14 = 0;
+      v16 = *v47;
+LABEL_9:
+      v17 = 0;
       while (1)
       {
-        if (*v42 != v13)
+        if (*v47 != v16)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v13);
         }
 
-        v15 = *(*(&v41 + 1) + 8 * v14);
-        v16 = [v15 objectForKeyedSubscript:@"PrerequisiteBuild"];
-        if (v16)
+        v18 = *(*(&v46 + 1) + 8 * v17);
+        v19 = [v18 objectForKeyedSubscript:@"PrerequisiteBuild"];
+        if (v19)
         {
-          if ([v16 isEqualToString:v11])
+          if ([v19 isEqualToString:v14])
           {
             break;
           }
         }
 
-        if (v12 == ++v14)
+        if (v15 == ++v17)
         {
-          v12 = [v10 countByEnumeratingWithState:&v41 objects:v45 count:16];
-          if (v12)
+          v15 = [v13 countByEnumeratingWithState:&v46 objects:v50 count:16];
+          if (v15)
           {
-            goto LABEL_7;
+            goto LABEL_9;
           }
 
-          goto LABEL_31;
+          goto LABEL_33;
         }
       }
 
-      v9 = [v15 objectForKeyedSubscript:@"CryptexSizeInfo"];
-      if (!v9)
+      v12 = [v18 objectForKeyedSubscript:@"CryptexSizeInfo"];
+      if (!v12)
       {
-        goto LABEL_31;
+        goto LABEL_33;
       }
 
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        goto LABEL_31;
+        goto LABEL_33;
       }
     }
 
-    v17 = [[NSArray alloc] initWithObjects:{@"cryptex-system-arm64e", @"cryptex-app", 0}];
-    if (v17)
+    v20 = [[NSArray alloc] initWithObjects:{@"cryptex-system-arm64e", @"cryptex-app", 0}];
+    if (v20)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v44 = 0u;
-        v42 = 0u;
-        v43 = 0u;
-        v41 = 0u;
-        v18 = [v9 countByEnumeratingWithState:&v41 objects:v45 count:16];
-        if (v18)
+        v49 = 0u;
+        v47 = 0u;
+        v48 = 0u;
+        v46 = 0u;
+        v21 = [v12 countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v34 = v10;
+        if (v21)
         {
-          v19 = *v42;
-          v20 = -1;
+          v22 = *v47;
+          v23 = -1;
           do
           {
-            for (i = 0; i != v18; i = i + 1)
+            for (i = 0; i != v21; i = i + 1)
             {
-              if (*v42 != v19)
+              if (*v47 != v22)
               {
-                objc_enumerationMutation(v9);
+                objc_enumerationMutation(v12);
               }
 
-              v22 = *(*(&v41 + 1) + 8 * i);
+              v25 = *(*(&v46 + 1) + 8 * i);
               objc_opt_class();
-              ++v20;
+              ++v23;
               if (objc_opt_isKindOfClass())
               {
-                v23 = [v22 objectForKey:@"CryptexTag"];
-                if (v23)
+                v26 = [v25 objectForKey:@"CryptexTag"];
+                if (v26)
                 {
-                  if ([v17 containsObject:v23])
+                  if ([v20 containsObject:v26])
                   {
-                    v32(v31, v20, v23, v22);
+                    v37(v36, v23, v26, v25);
                   }
                 }
               }
             }
 
-            v18 = [v9 countByEnumeratingWithState:&v41 objects:v45 count:16];
+            v21 = [v12 countByEnumeratingWithState:&v46 objects:v50 count:16];
           }
 
-          while (v18);
+          while (v21);
         }
+
+        v10 = v34;
       }
     }
   }
 
-LABEL_31:
-  logfunction("", 1, @"cryptex size requirement: %lld (%lld MB)\n", v4, v5, v6, v7, v8, v38[3]);
-  logfunction("", 1, @"\n%s(%s):%@\n", v24, v25, v26, v27, v28, "cryptex_size_requirement_for_update_type");
-  v29 = v38[3];
-  _Block_object_dispose(&v37, 8);
-  return v29;
+LABEL_33:
+  logfunction("", 1, @"cryptex size requirement: %lld (%lld MB)\n", v5, v6, v7, v8, v9, v43[3], v43[3] >> 20);
+  logfunction("", 1, @"\n%s(%s):%@\n", v27, v28, v29, v30, v31, "cryptex_size_requirement_for_update_type", v35, v10);
+  v32 = v43[3];
+  _Block_object_dispose(&v42, 8);
+  return v32;
 }
 
-void sub_10000ABEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10000ABEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t booted_from_recoveryos()
+uint64_t booted_from_recoveryos(uint64_t a1, uint64_t a2)
 {
   if (booted_from_recoveryos_onceToken != -1)
   {
@@ -3876,7 +3906,7 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  logfunction("", 1, @"Use of APFSIOC_GET_PREALLOCATE_MIN_SPACE is disabled by asset attributes\n", v2, v3, v4, v5, v6, v11);
+  logfunction("", 1, @"Use of APFSIOC_GET_PREALLOCATE_MIN_SPACE is disabled by asset attributes\n", v2, v3, v4, v5, v6);
   return 0;
 }
 
@@ -3889,8 +3919,8 @@ unint64_t get_apfs_preallocate_min(unint64_t a1)
     if (*__error() != 1 && *__error() != 13 || (v2 = "/tmp/.reserved", v4 = open("/tmp/.reserved", 1538, 438), v4 == -1))
     {
       v13 = __error();
-      strerror(*v13);
-      logfunction("", 1, @"open(%s) failed: (%s)\n", v14, v15, v16, v17, v18, v2);
+      v14 = strerror(*v13);
+      logfunction("", 1, @"open(%s) failed: (%s)\n", v15, v16, v17, v18, v19, v2, v14);
       return a1;
     }
   }
@@ -3900,19 +3930,19 @@ unint64_t get_apfs_preallocate_min(unint64_t a1)
     v4 = v3;
   }
 
-  v19[0] = 0;
-  v19[1] = a1;
-  v20 = 0;
-  if (ffsctl(v4, 0xC0184A68uLL, v19, 0) == -1)
+  v20[0] = 0;
+  v20[1] = a1;
+  v21 = 0;
+  if (ffsctl(v4, 0xC0184A68uLL, v20, 0) == -1)
   {
     v5 = __error();
     v6 = strerror(*v5);
     logfunction("", 1, @"ffsctl() failed: (%s)\n", v7, v8, v9, v10, v11, v6);
   }
 
-  else if (v20 > a1)
+  else if (v21 > a1)
   {
-    a1 = v20;
+    a1 = v21;
   }
 
   close(v4);
@@ -3920,13 +3950,14 @@ unint64_t get_apfs_preallocate_min(unint64_t a1)
   return a1;
 }
 
-uint64_t get_snapshot_apply_and_reserve_sizes(void *a1, void *a2, void *a3, void *a4)
+uint64_t get_snapshot_apply_and_reserve_sizes(const __CFDictionary *a1, uint64_t *a2, unint64_t *a3, unint64_t *a4)
 {
-  [+[MSULogAnnotatedSum sum](MSULogAnnotatedSum "sum")];
+  v8 = +[MSULogAnnotatedSum sum];
+  [v8 add:419430400 annotation:@"2*UPDATE_PARTITION_SIZE + UPDATE_APFS_RESERVE"];
   APFSShouldSealSystemVolume();
   get_apfs_preallocate_min_is_allowed(a1);
-  logfunction("", 1, @"snapshot application size : %lld (%lld MB)\n", v8, v9, v10, v11, v12, 0);
-  logfunction("", 1, @"\n%s():%@\n", v13, v14, v15, v16, v17, "get_snapshot_apply_and_reserve_sizes");
+  logfunction("", 1, @"snapshot application size : %lld (%lld MB)\n", v9, v10, v11, v12, v13, 419430400, 400);
+  logfunction("", 1, @"\n%s():%@\n", v14, v15, v16, v17, v18, "get_snapshot_apply_and_reserve_sizes", v8);
   if (a2)
   {
     *a2 = 419430400;
@@ -3971,18 +4002,18 @@ uint64_t saveCurrentBootedOSStateForRecoveryModes(void *a1)
 
 uint64_t saveBootedOSState(void *a1)
 {
-  v187 = 0;
+  v191 = 0;
   v2 = MGGetBoolAnswer();
   v8 = MGCopyAnswer();
   if (!v8)
   {
-    logfunction("", 1, @"Failed to get currentOSVersion\n", v3, v4, v5, v6, v7, v171);
+    logfunction("", 1, @"Failed to get currentOSVersion\n", v3, v4, v5, v6, v7);
   }
 
-  v181 = MGCopyAnswer();
-  if (!v181)
+  v185 = MGCopyAnswer();
+  if (!v185)
   {
-    logfunction("", 1, @"Failed to get currentProductVersion\n", v9, v10, v11, v12, v13, v171);
+    logfunction("", 1, @"Failed to get currentProductVersion\n", v9, v10, v11, v12, v13);
   }
 
   v19 = MGCopyAnswer();
@@ -4013,7 +4044,7 @@ uint64_t saveBootedOSState(void *a1)
   }
 
 LABEL_11:
-  v32 = [[NSDictionary alloc] initWithContentsOfFile:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s/%s/%s"}];
+  v32 = [[NSDictionary alloc] initWithContentsOfFile:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s/%s/%s", "/private/var/MobileSoftwareUpdate/", "Controller/NeRD", "BootedOSState.plist")}];
   v33 = [v32 objectForKeyedSubscript:@"BootedOSLanguage"];
   if (v33)
   {
@@ -4024,7 +4055,7 @@ LABEL_11:
   else
   {
 
-    logfunction("", 1, @"Language code was not passed in and no previously stashed language found. Using default\n", v39, v40, v41, v42, v43, "/private/var/MobileSoftwareUpdate/");
+    logfunction("", 1, @"Language code was not passed in and no previously stashed language found. Using default\n", v39, v40, v41, v42, v43);
     v26 = @"en";
   }
 
@@ -4037,7 +4068,7 @@ LABEL_14:
     if (v46 == CFBooleanGetTypeID())
     {
       Value = CFBooleanGetValue(v45);
-      v178 = Value != 0;
+      v182 = Value != 0;
       v53 = "FALSE(No effect)";
       if (Value)
       {
@@ -4049,7 +4080,7 @@ LABEL_14:
 
     else
     {
-      v178 = 0;
+      v182 = 0;
     }
 
     CFRelease(v45);
@@ -4057,14 +4088,14 @@ LABEL_14:
 
   else
   {
-    v178 = 0;
+    v182 = 0;
   }
 
   v54 = CFPreferencesCopyAppValue(@"EnableLiveAssetServerV2", @"com.apple.MobileAsset");
   if (!v54)
   {
-    v176 = 1;
-    logfunction("", 1, @"Pallas is enabled\n", v55, v56, v57, v58, v59, v172);
+    v180 = 1;
+    logfunction("", 1, @"Pallas is enabled\n", v55, v56, v57, v58, v59);
     goto LABEL_41;
   }
 
@@ -4089,7 +4120,7 @@ LABEL_14:
       if (v69 != CFBooleanGetTypeID())
       {
 LABEL_39:
-        v176 = 1;
+        v180 = 1;
         v70 = @"Pallas is enabled\n";
         goto LABEL_40;
       }
@@ -4111,22 +4142,22 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  v176 = 0;
+  v180 = 0;
   v70 = @"Pallas is disabled via default\n";
 LABEL_40:
-  logfunction("", 1, v70, v64, v65, v66, v67, v68, v172);
+  logfunction("", 1, v70, v64, v65, v66, v67, v68);
   CFRelease(v60);
 LABEL_41:
-  v184 = MAGetPallasAudience();
-  if (!v184)
+  v188 = MAGetPallasAudience();
+  if (!v188)
   {
-    logfunction("", 1, @"Failed to get asset audience for the SoftwareUpdate asset\n", v71, v72, v73, v74, v75, v173);
+    logfunction("", 1, @"Failed to get asset audience for the SoftwareUpdate asset\n", v71, v72, v73, v74, v75);
   }
 
-  v185 = MAGetPallasAudience();
-  if (!v185)
+  v189 = MAGetPallasAudience();
+  if (!v189)
   {
-    logfunction("", 1, @"Failed to get asset audience for the DeviceRecoveryBrain asset\n", v76, v77, v78, v79, v80, v173);
+    logfunction("", 1, @"Failed to get asset audience for the DeviceRecoveryBrain asset\n", v76, v77, v78, v79, v80);
   }
 
   v81 = CFPreferencesCopyAppValue(@"MobileAssetTokenFile", @"com.apple.MobileAsset");
@@ -4138,15 +4169,15 @@ LABEL_41:
     {
       if (![objc_msgSend(v82 "pathComponents")])
       {
-        v183 = [[NSString alloc] initWithFormat:@"/var/MobileSoftwareUpdate/%@", v82];
+        v187 = [[NSString alloc] initWithFormat:@"/var/MobileSoftwareUpdate/%@", v82];
         goto LABEL_50;
       }
 
-      logfunction("", 1, @"Invalid value set for TokenFile default\n", v84, v85, v86, v87, v88, v173);
+      logfunction("", 1, @"Invalid value set for TokenFile default\n", v84, v85, v86, v87, v88);
     }
   }
 
-  v183 = 0;
+  v187 = 0;
 LABEL_50:
   v89 = CFPreferencesCopyAppValue(@"MobileAssetTokenOverride", @"com.apple.MobileAsset");
   cf = v89;
@@ -4156,198 +4187,204 @@ LABEL_50:
     v91 = CFGetTypeID(v89);
     if (v91 == CFStringGetTypeID())
     {
-      v97 = v183;
-      if (!v183)
+      v97 = v187;
+      if (!v187)
       {
         v97 = [[NSString alloc] initWithString:@"/var/MobileSoftwareUpdate/MobileAsset/token.tok"];
       }
 
       logfunction("", 1, @"Using %@ for token path\n", v92, v93, v94, v95, v96, v97);
-      v186 = 0;
-      v183 = v97;
-      if ([v90 writeToFile:v97 atomically:1 encoding:4 error:&v186])
+      v190 = 0;
+      v187 = v97;
+      if ([v90 writeToFile:v97 atomically:1 encoding:4 error:&v190])
       {
-        logfunction("", 1, @"Successfully wrote token to file %@\n", v98, v99, v100, v101, v102, v97);
+        logfunction("", 1, @"Successfully wrote token to file %@\n", v98, v99, v100, v101, v102, v97, v178);
       }
 
       else
       {
-        logfunction("", 1, @"Failed to write token to file %@ : %@\n", v98, v99, v100, v101, v102, v97);
+        v103 = v190;
+        if (!v190)
+        {
+          v103 = @"Unknown error";
+        }
+
+        logfunction("", 1, @"Failed to write token to file %@ : %@\n", v98, v99, v100, v101, v102, v97, v103);
       }
     }
   }
 
-  v103 = ASServerURLForAssetType();
-  LOBYTE(v109) = v187;
-  if (v187 || (v110 = v103) == 0)
+  v104 = ASServerURLForAssetType();
+  v110 = v191;
+  if (v191 || (v111 = v104) == 0)
   {
-    if (!v187)
+    if (!v191)
     {
-      v109 = @"Unknown error";
+      v110 = @"Unknown error";
     }
 
-    logfunction("", 1, @"Failed to get update asset URL: %@\n", v104, v105, v106, v107, v108, v109);
-    v110 = 0;
-    v187 = 0;
+    logfunction("", 1, @"Failed to get update asset URL: %@\n", v105, v106, v107, v108, v109, v110);
+    v111 = 0;
+    v191 = 0;
   }
 
-  v182 = a1;
-  v111 = ASServerURLForAssetType();
-  LOBYTE(v117) = v187;
-  if (v187 || (v118 = v111) == 0)
+  v186 = a1;
+  v112 = ASServerURLForAssetType();
+  v118 = v191;
+  if (v191 || (v119 = v112) == 0)
   {
-    if (!v187)
+    if (!v191)
     {
-      v117 = @"Unknown error";
+      v118 = @"Unknown error";
     }
 
-    logfunction("", 1, @"Failed to get Brain asset URL: %@\n", v112, v113, v114, v115, v116, v117);
-    v118 = 0;
-    v187 = 0;
+    logfunction("", 1, @"Failed to get Brain asset URL: %@\n", v113, v114, v115, v116, v117, v118);
+    v119 = 0;
+    v191 = 0;
   }
 
-  v119 = ASServerURLForAssetType();
-  LOBYTE(v125) = v187;
-  if (v187 || (v126 = v119) == 0)
+  v120 = ASServerURLForAssetType();
+  v126 = v191;
+  if (v191 || (v127 = v120) == 0)
   {
-    if (!v187)
+    if (!v191)
     {
-      v125 = @"Unknown error";
+      v126 = @"Unknown error";
     }
 
-    logfunction("", 1, @"Failed to get Documentation asset URL: %@\n", v120, v121, v122, v123, v124, v125);
-    v126 = 0;
-    v187 = 0;
+    logfunction("", 1, @"Failed to get Documentation asset URL: %@\n", v121, v122, v123, v124, v125, v126);
+    v127 = 0;
+    v191 = 0;
   }
 
-  v177 = v82;
-  v180 = v19;
-  v127 = ASServerURLForAssetType();
-  LOBYTE(v133) = v187;
-  if (v187 || (v134 = v127) == 0)
+  v181 = v82;
+  v184 = v19;
+  v128 = ASServerURLForAssetType();
+  v134 = v191;
+  if (v191 || (v135 = v128) == 0)
   {
-    if (!v187)
+    if (!v191)
     {
-      v133 = @"Unknown error";
+      v134 = @"Unknown error";
     }
 
-    logfunction("", 1, @"Failed to get Watch Documentation asset URL: %@\n", v128, v129, v130, v131, v132, v133);
-    v134 = 0;
-    v187 = 0;
+    logfunction("", 1, @"Failed to get Watch Documentation asset URL: %@\n", v129, v130, v131, v132, v133, v134);
+    v135 = 0;
+    v191 = 0;
   }
 
-  v179 = v26;
-  v135 = ASServerURLForAssetType();
-  LOBYTE(v141) = v187;
-  if (v187 || (v142 = v135) == 0)
+  v183 = v26;
+  v136 = ASServerURLForAssetType();
+  v142 = v191;
+  if (v191 || (v143 = v136) == 0)
   {
-    if (!v187)
+    if (!v191)
     {
-      v141 = @"Unknown error";
+      v142 = @"Unknown error";
     }
 
-    logfunction("", 1, @"Unable to determine DeviceRecoveryBrain asset URL: %@\n", v136, v137, v138, v139, v140, v141);
-    v142 = 0;
-    v187 = 0;
+    logfunction("", 1, @"Unable to determine DeviceRecoveryBrain asset URL: %@\n", v137, v138, v139, v140, v141, v142);
+    v143 = 0;
+    v191 = 0;
   }
 
-  [v110 absoluteString];
-  [v118 absoluteString];
-  [v126 absoluteString];
-  [v134 absoluteString];
-  [v142 absoluteString];
-  logfunction("", 1, @"SU configuration:\n Asset Audience : %@\n SU Asset URL: %@\n Brain URL: %@\n Documentation URL: %@\n WatchDocumentation URL: %@\n DeviceRecoveryBrain Asset Audience: %@\n DeviceRecoveryBrain URL: %@\n", v143, v144, v145, v146, v147, v184);
-  v148 = CFPreferencesCopyAppValue(@"RetainOriginalBootedOSState", @"com.apple.MobileSoftwareUpdate");
-  v149 = v148;
-  if (v148 && (v150 = CFGetTypeID(v148), v150 == CFBooleanGetTypeID()) && CFBooleanGetValue(v149) && (logfunction("", 1, @"default set for retaining original bootedOSState plist, will not remove unchanged properties\n", v151, v152, v153, v154, v155, v174), v174 = "/private/var/MobileSoftwareUpdate/", (v156 = [[NSDictionary alloc] initWithContentsOfFile:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s/%s/%s"}]) != 0))
+  v144 = [v111 absoluteString];
+  v145 = [v119 absoluteString];
+  v146 = [v127 absoluteString];
+  v147 = [v135 absoluteString];
+  v148 = [v143 absoluteString];
+  logfunction("", 1, @"SU configuration:\n Asset Audience : %@\n SU Asset URL: %@\n Brain URL: %@\n Documentation URL: %@\n WatchDocumentation URL: %@\n DeviceRecoveryBrain Asset Audience: %@\n DeviceRecoveryBrain URL: %@\n", v149, v150, v151, v152, v153, v188, v144, v145, v146, v147, v189, v148);
+  v154 = CFPreferencesCopyAppValue(@"RetainOriginalBootedOSState", @"com.apple.MobileSoftwareUpdate");
+  v155 = v154;
+  if (v154 && (v156 = CFGetTypeID(v154), v156 == CFBooleanGetTypeID()) && CFBooleanGetValue(v155) && (logfunction("", 1, @"default set for retaining original bootedOSState plist, will not remove unchanged properties\n", v157, v158, v159, v160, v161), (v162 = [[NSDictionary alloc] initWithContentsOfFile:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s/%s/%s", "/private/var/MobileSoftwareUpdate/", "Controller/NeRD", "BootedOSState.plist")}]) != 0))
   {
-    v157 = v156;
-    v158 = [[NSMutableDictionary alloc] initWithDictionary:v156];
+    v163 = v162;
+    v164 = [[NSMutableDictionary alloc] initWithDictionary:v162];
   }
 
   else
   {
-    v158 = objc_alloc_init(NSMutableDictionary);
-    v157 = 0;
-  }
-
-  if (v178)
-  {
-    [(NSMutableDictionary *)v158 setValue:@"YES" forKey:@"RedRingDisabled"];
-  }
-
-  if (v8)
-  {
-    [(NSMutableDictionary *)v158 setValue:v8 forKey:@"BootedOSVersion"];
-  }
-
-  if (v180)
-  {
-    [(NSMutableDictionary *)v158 setValue:v180 forKey:@"BootedOSType"];
-  }
-
-  [(NSMutableDictionary *)v158 setValue:v179 forKey:@"BootedOSLanguage"];
-  if (v110)
-  {
-    -[NSMutableDictionary setValue:forKey:](v158, "setValue:forKey:", [v110 absoluteString], @"BootedOSSUAssetURL");
-  }
-
-  if (v126)
-  {
-    -[NSMutableDictionary setValue:forKey:](v158, "setValue:forKey:", [v126 absoluteString], @"BootedOSDocumentationURL");
-  }
-
-  if (v134)
-  {
-    -[NSMutableDictionary setValue:forKey:](v158, "setValue:forKey:", [v134 absoluteString], @"BootedOSWatchDocumentationURL");
-  }
-
-  if (v118)
-  {
-    -[NSMutableDictionary setValue:forKey:](v158, "setValue:forKey:", [v118 absoluteString], @"BootedOSBrainURL");
-  }
-
-  if (v184)
-  {
-    [(NSMutableDictionary *)v158 setValue:v184 forKey:@"BootedOSAssetAudience"];
-  }
-
-  if (v181)
-  {
-    [(NSMutableDictionary *)v158 setValue:v181 forKey:@"BootedOSProductVersion"];
-  }
-
-  if ((v176 & 1) == 0)
-  {
-    logfunction("", 1, @"Updating BootedOSState to indicate pallas is disabled\n", v159, v160, v161, v162, v163, v174);
-    [(NSMutableDictionary *)v158 setValue:@"YES" forKey:@"BootedOSHasPallasDisabled"];
-  }
-
-  if (v183)
-  {
-    logfunction("", 1, @"Updating BootedOSState with token path\n", v159, v160, v161, v162, v163, v174);
-    [(NSMutableDictionary *)v158 setValue:v183 forKey:@"BootedOSDawTokenPath"];
-  }
-
-  if (v185)
-  {
-    [(NSMutableDictionary *)v158 setValue:v185 forKey:@"BootedOSDREBrainAssetAudience"];
-  }
-
-  if (v142)
-  {
-    -[NSMutableDictionary setValue:forKey:](v158, "setValue:forKey:", [v142 absoluteString], @"BooteOSDREBrainAssetURL");
+    v164 = objc_alloc_init(NSMutableDictionary);
+    v163 = 0;
   }
 
   if (v182)
   {
-    [(NSMutableDictionary *)v158 addEntriesFromDictionary:v182];
+    [(NSMutableDictionary *)v164 setValue:@"YES" forKey:@"RedRingDisabled"];
   }
 
-  v164 = ramrod_write_os_info_for_nerd("/private/var/MobileSoftwareUpdate/", v158, 0);
-  if (v164 && (saveAccessibilityDomainsForDRE(v182) & 1) == 0)
+  if (v8)
   {
-    logfunction("", 1, @"Failed to save accessibility domains, but continuing with booted OS state save\n", v165, v166, v167, v168, v169, v174);
+    [(NSMutableDictionary *)v164 setValue:v8 forKey:@"BootedOSVersion"];
+  }
+
+  if (v184)
+  {
+    [(NSMutableDictionary *)v164 setValue:v184 forKey:@"BootedOSType"];
+  }
+
+  [(NSMutableDictionary *)v164 setValue:v183 forKey:@"BootedOSLanguage"];
+  if (v111)
+  {
+    -[NSMutableDictionary setValue:forKey:](v164, "setValue:forKey:", [v111 absoluteString], @"BootedOSSUAssetURL");
+  }
+
+  if (v127)
+  {
+    -[NSMutableDictionary setValue:forKey:](v164, "setValue:forKey:", [v127 absoluteString], @"BootedOSDocumentationURL");
+  }
+
+  if (v135)
+  {
+    -[NSMutableDictionary setValue:forKey:](v164, "setValue:forKey:", [v135 absoluteString], @"BootedOSWatchDocumentationURL");
+  }
+
+  if (v119)
+  {
+    -[NSMutableDictionary setValue:forKey:](v164, "setValue:forKey:", [v119 absoluteString], @"BootedOSBrainURL");
+  }
+
+  if (v188)
+  {
+    [(NSMutableDictionary *)v164 setValue:v188 forKey:@"BootedOSAssetAudience"];
+  }
+
+  if (v185)
+  {
+    [(NSMutableDictionary *)v164 setValue:v185 forKey:@"BootedOSProductVersion"];
+  }
+
+  if ((v180 & 1) == 0)
+  {
+    logfunction("", 1, @"Updating BootedOSState to indicate pallas is disabled\n", v165, v166, v167, v168, v169);
+    [(NSMutableDictionary *)v164 setValue:@"YES" forKey:@"BootedOSHasPallasDisabled"];
+  }
+
+  if (v187)
+  {
+    logfunction("", 1, @"Updating BootedOSState with token path\n", v165, v166, v167, v168, v169);
+    [(NSMutableDictionary *)v164 setValue:v187 forKey:@"BootedOSDawTokenPath"];
+  }
+
+  if (v189)
+  {
+    [(NSMutableDictionary *)v164 setValue:v189 forKey:@"BootedOSDREBrainAssetAudience"];
+  }
+
+  if (v143)
+  {
+    -[NSMutableDictionary setValue:forKey:](v164, "setValue:forKey:", [v143 absoluteString], @"BooteOSDREBrainAssetURL");
+  }
+
+  if (v186)
+  {
+    [(NSMutableDictionary *)v164 addEntriesFromDictionary:v186];
+  }
+
+  v171 = ramrod_write_os_info_for_nerd("/private/var/MobileSoftwareUpdate/", v164, 0);
+  if (v171 && (saveAccessibilityDomainsForDRE(v186, v170) & 1) == 0)
+  {
+    logfunction("", 1, @"Failed to save accessibility domains, but continuing with booted OS state save\n", v172, v173, v174, v175, v176);
   }
 
   if (cf)
@@ -4355,139 +4392,139 @@ LABEL_50:
     CFRelease(cf);
   }
 
-  if (v177)
+  if (v181)
   {
-    CFRelease(v177);
+    CFRelease(v181);
   }
 
-  return v164;
+  return v171;
 }
 
-uint64_t saveAccessibilityDomainsForDRE(uint64_t a1)
+uint64_t saveAccessibilityDomainsForDRE(uint64_t a1, uint64_t a2)
 {
-  os_env = msu_get_os_env();
+  os_env = msu_get_os_env(a1, a2);
   if (os_env == 2 || os_env == 4)
   {
-    v50 = a1;
-    v51 = objc_opt_new();
-    v52 = +[NSMutableDictionary dictionary];
-    v56 = 0u;
+    v51 = a1;
+    v52 = objc_opt_new();
+    v53 = +[NSMutableDictionary dictionary];
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v54 = [&off_1000588A0 countByEnumeratingWithState:&v56 objects:v64 count:16];
-    if (v54)
+    v60 = 0u;
+    v55 = [&off_1000588A0 countByEnumeratingWithState:&v57 objects:v65 count:16];
+    if (v55)
     {
-      v53 = *v57;
+      v54 = *v58;
       do
       {
-        for (i = 0; i != v54; i = i + 1)
+        for (i = 0; i != v55; i = i + 1)
         {
-          if (*v57 != v53)
+          if (*v58 != v54)
           {
             objc_enumerationMutation(&off_1000588A0);
           }
 
-          v9 = *(*(&v56 + 1) + 8 * i);
-          v10 = +[NSMutableDictionary dictionary];
-          v11 = CFPreferencesCopyKeyList(v9, @"mobile", kCFPreferencesAnyHost);
-          if (v11)
+          v10 = *(*(&v57 + 1) + 8 * i);
+          v11 = +[NSMutableDictionary dictionary];
+          v12 = CFPreferencesCopyKeyList(v10, @"mobile", kCFPreferencesAnyHost);
+          if (v12)
           {
-            v12 = v11;
-            v55 = i;
-            v62 = 0u;
+            v13 = v12;
+            v56 = i;
             v63 = 0u;
-            v60 = 0u;
+            v64 = 0u;
             v61 = 0u;
-            v13 = [(__CFArray *)v11 countByEnumeratingWithState:&v60 objects:v65 count:16];
-            if (v13)
+            v62 = 0u;
+            v14 = [(__CFArray *)v12 countByEnumeratingWithState:&v61 objects:v66 count:16];
+            if (v14)
             {
-              v14 = v13;
-              v15 = *v61;
+              v15 = v14;
+              v16 = *v62;
               do
               {
-                for (j = 0; j != v14; j = j + 1)
+                for (j = 0; j != v15; j = j + 1)
                 {
-                  if (*v61 != v15)
+                  if (*v62 != v16)
                   {
-                    objc_enumerationMutation(v12);
+                    objc_enumerationMutation(v13);
                   }
 
-                  v17 = *(*(&v60 + 1) + 8 * j);
-                  v18 = CFPreferencesCopyValue(v17, v9, @"mobile", kCFPreferencesAnyHost);
-                  if (v18)
+                  v18 = *(*(&v61 + 1) + 8 * j);
+                  v19 = CFPreferencesCopyValue(v18, v10, @"mobile", kCFPreferencesAnyHost);
+                  if (v19)
                   {
-                    v19 = v18;
-                    [v10 setObject:v18 forKeyedSubscript:v17];
-                    CFRelease(v19);
+                    v20 = v19;
+                    [v11 setObject:v19 forKeyedSubscript:v18];
+                    CFRelease(v20);
                   }
                 }
 
-                v14 = [(__CFArray *)v12 countByEnumeratingWithState:&v60 objects:v65 count:16];
+                v15 = [(__CFArray *)v13 countByEnumeratingWithState:&v61 objects:v66 count:16];
               }
 
-              while (v14);
+              while (v15);
             }
 
-            CFRelease(v12);
-            i = v55;
+            CFRelease(v13);
+            i = v56;
           }
 
-          v20 = [v10 copy];
-          v26 = v20;
-          if (v20 && [v20 count])
+          v21 = [v11 copy];
+          v27 = v21;
+          if (v21 && [v21 count])
           {
-            [v52 setObject:v26 forKeyedSubscript:v9];
-            v49 = [v26 count];
-            logfunction("", 1, @"Exported %lu preferences for domain: %@\n", v27, v28, v29, v30, v31, v49);
+            [v53 setObject:v27 forKeyedSubscript:v10];
+            v49 = [v27 count];
+            logfunction("", 1, @"Exported %lu preferences for domain: %@\n", v28, v29, v30, v31, v32, v49, v10);
           }
 
           else
           {
-            logfunction("", 1, @"No preferences found for domain: %@\n", v21, v22, v23, v24, v25, v9);
+            logfunction("", 1, @"No preferences found for domain: %@\n", v22, v23, v24, v25, v26, v10, v50);
           }
         }
 
-        v54 = [&off_1000588A0 countByEnumeratingWithState:&v56 objects:v64 count:16];
+        v55 = [&off_1000588A0 countByEnumeratingWithState:&v57 objects:v65 count:16];
       }
 
-      while (v54);
+      while (v55);
     }
 
-    v32 = [v52 copy];
-    v38 = v32;
-    if (v32 && [v32 count])
+    v33 = [v53 copy];
+    v39 = v33;
+    if (v33 && [v33 count])
     {
-      v39 = v51;
-      [(NSMutableDictionary *)v51 setObject:v38 forKeyedSubscript:@"AccessibilityDomains"];
+      v40 = v52;
+      [(NSMutableDictionary *)v52 setObject:v39 forKeyedSubscript:@"AccessibilityDomains"];
     }
 
     else
     {
-      logfunction("", 1, @"No accessibility domains to export\n", v33, v34, v35, v36, v37, v48);
-      v39 = v51;
+      logfunction("", 1, @"No accessibility domains to export\n", v34, v35, v36, v37, v38);
+      v40 = v52;
     }
 
-    if (v50)
+    if (v51)
     {
-      [(NSMutableDictionary *)v39 addEntriesFromDictionary:?];
+      [(NSMutableDictionary *)v40 addEntriesFromDictionary:?];
     }
 
-    v40 = ramrod_stash_info_to_file("/private/var/MobileSoftwareUpdate/", "Controller/NeRD", "AccessibilityDomains.plist", v39, 0);
-    if (v40)
+    v41 = ramrod_stash_info_to_file("/private/var/MobileSoftwareUpdate/", "Controller/NeRD", "AccessibilityDomains.plist", v40, 0);
+    if (v41)
     {
-      v41 = [v38 count];
-      logfunction("", 1, @"Successfully exported %lu accessibility domains to DRE\n", v42, v43, v44, v45, v46, v41);
+      v42 = [v39 count];
+      logfunction("", 1, @"Successfully exported %lu accessibility domains to DRE\n", v43, v44, v45, v46, v47, v42);
     }
   }
 
   else
   {
-    logfunction("", 1, @"Not saving accessibility domains - not supported on this target or already in recovery\n", v3, v4, v5, v6, v7, v48);
+    logfunction("", 1, @"Not saving accessibility domains - not supported on this target or already in recovery\n", v4, v5, v6, v7, v8);
     return 0;
   }
 
-  return v40;
+  return v41;
 }
 
 uint64_t msu_running_in_limited_environment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -4512,20 +4549,20 @@ uint64_t msu_running_in_limited_environment(uint64_t a1, uint64_t a2, uint64_t a
     v9 = @"MSU running in normal env(default)\n";
   }
 
-  logfunction("", 1, v9, a4, a5, a6, a7, a8, v11);
+  logfunction("", 1, v9, a4, a5, a6, a7, a8);
   return v8;
 }
 
 BOOL mount_source_preboot(uint64_t a1, NSString **a2, void *a3, _BYTE *a4, CFErrorRef *a5)
 {
-  v30 = 0;
-  if (mount_preboot_volume(0, &v30))
+  v29 = 0;
+  if (mount_preboot_volume(0, &v29))
   {
-    logfunction("", 1, @"Failed to mount preboot\n", v9, v10, v11, v12, v13, v27);
+    logfunction("", 1, @"Failed to mount preboot\n", v9, v10, v11, v12, v13);
     v17 = @"Failed to mount preboot";
     v18 = 62;
 LABEL_5:
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", v18, 0, 0, v17, v14, v15, v16, v28);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", v18, 0, 0, v17, v14, v15, v16, v27);
     if (!a5)
     {
       CFRelease(error_internal_cf);
@@ -4536,23 +4573,23 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  memset(v32, 0, sizeof(v32));
-  bzero(v31, 0x400uLL);
-  ramrod_get_preboot_partition_device_node(v32, 0x20uLL);
-  if (ramrod_get_mount_path(v32, v31, 0x400uLL))
+  memset(v31, 0, sizeof(v31));
+  bzero(v30, 0x400uLL);
+  ramrod_get_preboot_partition_device_node(v31, 0x20uLL);
+  if (ramrod_get_mount_path(v31, v30, 0x400uLL))
   {
     v17 = @"Failed to get preboot mountpoint from dev node (%s)";
-    v28 = v32;
+    v27 = v31;
     v18 = 68;
     goto LABEL_5;
   }
 
-  v29 = 0;
-  v22 = ramrod_change_filesystem_permissions_opt_err(v32, v31, 0, &v29);
+  v28 = 0;
+  v22 = ramrod_change_filesystem_permissions_opt_err(v31, v30, 0, &v28);
   v20 = v22 == 0;
   if (v22)
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 69, v29, 0, @"Failed to upgrade preboot mountpoint to read/write", v23, v24, v25, v27);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 69, v28, 0, @"Failed to upgrade preboot mountpoint to read/write", v23, v24, v25);
     if (!a5)
     {
       CFRelease(error_internal_cf);
@@ -4564,7 +4601,7 @@ LABEL_7:
     return v20;
   }
 
-  v26 = [NSString stringWithUTF8String:v31];
+  v26 = [NSString stringWithUTF8String:v30];
   if (a2)
   {
     *a2 = v26;
@@ -4577,7 +4614,7 @@ LABEL_7:
 
   if (a4)
   {
-    *a4 = v30;
+    *a4 = v29;
   }
 
   return v20;
@@ -4618,92 +4655,91 @@ id __cryptex_size_requirement_for_update_type_block_invoke(uint64_t a1, uint64_t
 
 void MSUCleanupPreboot()
 {
-  v50 = 0;
-  v51 = 0;
-  v49 = 0;
-  if (!mount_source_preboot(1, &v51, &v50, &v49, 0))
+  v44 = 0;
+  v45 = 0;
+  v43 = 0;
+  if (!mount_source_preboot(1, &v45, &v44, &v43, 0))
   {
     return;
   }
 
   v0 = +[NSMutableDictionary dictionary];
-  [v0 setObject:v51 forKeyedSubscript:@"PrebootMountpoint"];
-  v7 = v50;
-  if (v50)
+  [v0 setObject:v45 forKeyedSubscript:@"PrebootMountpoint"];
+  if (v44)
   {
-    [v0 setObject:v50 forKeyedSubscript:@"VolumeGroupUUID"];
+    [v0 setObject:v44 forKeyedSubscript:@"VolumeGroupUUID"];
   }
 
-  ramrod_splat_cleanup(v0, v1, v7, v2, v3, v4, v5, v6);
-  if (v49 == 1)
+  ramrod_splat_cleanup(v0);
+  if (v43 == 1)
   {
     unmount_source_preboot();
   }
 
-  v8 = +[NSFileManager defaultManager];
-  v9 = MGCopyAnswer();
-  if (!v9)
+  v1 = +[NSFileManager defaultManager];
+  v2 = MGCopyAnswer();
+  if (!v2)
   {
-    v26 = @"Unable to query boot manifest hash\n";
+    v19 = @"Unable to query boot manifest hash\n";
 LABEL_13:
-    logfunction("", 1, v26, v10, v11, v12, v13, v14, v45);
+    logfunction("", 1, v19, v3, v4, v5, v6, v7);
     return;
   }
 
-  v15 = v9;
-  v16 = CFGetTypeID(v9);
-  if (v16 != CFDataGetTypeID())
+  v8 = v2;
+  v9 = CFGetTypeID(v2);
+  if (v9 != CFDataGetTypeID())
   {
-    v26 = @"Boot manifest hash is not CFData\n";
+    v19 = @"Boot manifest hash is not CFData\n";
     goto LABEL_13;
   }
 
-  v17 = [NSMutableString stringWithCapacity:2 * CFDataGetLength(v15)];
-  v48[0] = _NSConcreteStackBlock;
-  v48[1] = 3221225472;
-  v48[2] = __MSUCleanupPreboot_block_invoke;
-  v48[3] = &unk_10004D2C0;
-  v48[4] = v17;
-  [(__CFData *)v15 enumerateByteRangesUsingBlock:v48];
-  v18 = [@"/private/preboot" stringByAppendingPathComponent:v17];
-  v19 = [(NSFileManager *)v8 attributesOfItemAtPath:v18 error:0];
-  if (v19)
+  v10 = [NSMutableString stringWithCapacity:2 * CFDataGetLength(v8)];
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = __MSUCleanupPreboot_block_invoke;
+  v42[3] = &unk_10004D2C0;
+  v42[4] = v10;
+  [(__CFData *)v8 enumerateByteRangesUsingBlock:v42];
+  v11 = [@"/private/preboot" stringByAppendingPathComponent:v10];
+  v12 = [(NSFileManager *)v1 attributesOfItemAtPath:v11 error:0];
+  if (v12)
   {
-    if ([(NSDictionary *)v19 fileType]== NSFileTypeSymbolicLink)
+    if ([(NSDictionary *)v12 fileType]== NSFileTypeSymbolicLink)
     {
-      v25 = [(NSFileManager *)v8 destinationOfSymbolicLinkAtPath:v18 error:0];
-      if (v25)
+      v18 = [(NSFileManager *)v1 destinationOfSymbolicLinkAtPath:v11 error:0];
+      if (v18)
       {
-        logfunction("", 1, @"Current manifest hash is a link to %@\n", v27, v28, v29, v30, v31, v25);
+        logfunction("", 1, @"Current manifest hash is a link to %@\n", v20, v21, v22, v23, v24, v18);
       }
     }
 
     else
     {
-      v25 = 0;
+      v18 = 0;
     }
 
-    v32 = [(NSFileManager *)v8 contentsOfDirectoryAtPath:@"/private/preboot" error:0];
-    bzero(&v52, 0x878uLL);
-    if (statfs([@"/private/preboot" fileSystemRepresentation], &v52))
+    v25 = [(NSFileManager *)v1 contentsOfDirectoryAtPath:@"/private/preboot" error:0];
+    bzero(&v46, 0x878uLL);
+    if (statfs([@"/private/preboot" fileSystemRepresentation], &v46))
     {
-      v33 = *__error();
-      v34 = __error();
-      strerror(*v34);
-      logfunction("", 1, @"Error %d (%s) statfs-ing %@\n", v35, v36, v37, v38, v39, v33);
+      v26 = *__error();
+      v27 = __error();
+      v28 = strerror(*v27);
+      logfunction("", 1, @"Error %d (%s) statfs-ing %@\n", v29, v30, v31, v32, v33, v26, v28, @"/private/preboot");
     }
 
-    else if ((v52.f_flags & 0x4001) == 1)
+    else if ((v46.f_flags & 0x4001) == 1)
     {
       cf = 0;
-      if (ramrod_change_filesystem_permissions_opt_err(v52.f_mntfromname, v52.f_mntonname, 0, &cf))
+      if (ramrod_change_filesystem_permissions_opt_err(v46.f_mntfromname, v46.f_mntonname, 0, &cf))
       {
-        logfunction("", 1, @"Failed to upgrade preboot mount to read/write with error:%@\n", v40, v41, v42, v43, v44, cf);
+        logfunction("", 1, @"Failed to upgrade preboot mount to read/write with error:%@\n", v34, v35, v36, v37, v38, cf);
       }
 
       else
       {
-        logfunction("", 1, @"Successfully upgraded preboot mount to read/write\n", v40, v41, v42, v43, v44, v45);
+        logfunction("", 1, @"Successfully upgraded preboot mount to read/write\n", v34, v35, v36, v37, v38, v39);
       }
 
       if (cf)
@@ -4712,23 +4748,23 @@ LABEL_13:
       }
     }
 
-    v46[0] = _NSConcreteStackBlock;
-    v46[1] = 3221225472;
-    v46[2] = __MSUCleanupPreboot_block_invoke_2;
-    v46[3] = &unk_10004D2E8;
-    v46[4] = @"/private/preboot";
-    v46[5] = v8;
-    v46[6] = v17;
-    v46[7] = v25;
-    [(NSArray *)v32 enumerateObjectsUsingBlock:v46];
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = __MSUCleanupPreboot_block_invoke_2;
+    v40[3] = &unk_10004D2E8;
+    v40[4] = @"/private/preboot";
+    v40[5] = v1;
+    v40[6] = v10;
+    v40[7] = v18;
+    [(NSArray *)v25 enumerateObjectsUsingBlock:v40];
   }
 
   else
   {
-    logfunction("", 1, @"No preboot path found, skipping cleanup\n", v20, v21, v22, v23, v24, v45);
+    logfunction("", 1, @"No preboot path found, skipping cleanup\n", v13, v14, v15, v16, v17);
   }
 
-  CFRelease(v15);
+  CFRelease(v8);
 }
 
 id *__MSUCleanupPreboot_block_invoke(id *result, uint64_t a2, uint64_t a3, int a4, _BYTE *a5)
@@ -4758,8 +4794,7 @@ int *__MSUCleanupPreboot_block_invoke_2(id *a1, void *a2)
   v5 = [a1[5] attributesOfItemAtPath:v4 error:0];
   if (v5 && [v5 fileType] == NSFileTypeSymbolicLink && (v14 = objc_msgSend(a1[5], "destinationOfSymbolicLinkAtPath:error:", v4, 0)) != 0 && objc_msgSend(v14, "isEqualToString:", a1[6]))
   {
-    v20 = a1[6];
-    logfunction("", 1, @"Manifest hash %@ is linked to %@\n", v15, v16, v17, v18, v19, a2);
+    logfunction("", 1, @"Manifest hash %@ is linked to %@\n", v15, v16, v17, v18, v19, a2, a1[6]);
     v6 = a2;
   }
 
@@ -4837,7 +4872,7 @@ uint64_t MSUCleanupPreparePath_server(int a1, int a2, CFErrorRef *a3, uint64_t a
       msu_sync_nvram(1, v12, v13, v14, v15, v16, v17, v18);
     }
 
-    logfunction("", 1, @"Purging any suspended/pended update...\n", v14, v15, v16, v17, v18, v241);
+    logfunction("", 1, @"Purging any suspended/pended update...\n", v14, v15, v16, v17, v18);
     unlink("/private/var/MobileSoftwareUpdate/Update.plist");
     unlink("/private/var/MobileSoftwareUpdate/Preflight.plist");
     unlink("/private/var/MobileSoftwareUpdate/brain_path.plist");
@@ -4847,17 +4882,17 @@ uint64_t MSUCleanupPreparePath_server(int a1, int a2, CFErrorRef *a3, uint64_t a
 
   if (a2)
   {
-    [+[MSUFreeSpaceManager sharedInstance](MSUFreeSpaceManager resetAPFSFreeBlocksThreshold:"resetAPFSFreeBlocksThreshold:", 0];
+    [[MSUFreeSpaceManager resetAPFSFreeBlocksThreshold:a3 sharedInstance:a4], "resetAPFSFreeBlocksThreshold:", 0];
   }
 
   else
   {
-    logfunction("", 1, @"Not resetting APFS free blocks threshold\n", a4, a5, a6, a7, a8, v241);
+    logfunction("", 1, @"Not resetting APFS free blocks threshold\n", a4, a5, a6, a7, a8);
   }
 
   bzero(buffer, 0x400uLL);
   v19 = 1;
-  logfunction("", 1, @"Cleaning up unused prepared updates\n", v20, v21, v22, v23, v24, v241);
+  logfunction("", 1, @"Cleaning up unused prepared updates\n", v20, v21, v22, v23, v24);
   init_update_partition_with_reserve_and_reformat(0, "/private/var/MobileSoftwareUpdate/", 0, v25, v26, v27, v28, v29);
   dict = load_dict("/private/var/MobileSoftwareUpdate/Update.plist");
   v31 = load_dict("/private/var/MobileSoftwareUpdate/Preflight.plist");
@@ -4876,13 +4911,13 @@ uint64_t MSUCleanupPreparePath_server(int a1, int a2, CFErrorRef *a3, uint64_t a
       goto LABEL_22;
     }
 
-    memset(&v257, 0, sizeof(v257));
+    memset(&v264, 0, sizeof(v264));
     CFStringGetCString(v43, buffer, 1024, 0x8000100u);
     v45 = realpath_DARWIN_EXTSN(buffer, 0);
     if (v45)
     {
       v46 = v45;
-      if (stat(v45, &v257))
+      if (stat(v45, &v264))
       {
         free(v46);
 LABEL_118:
@@ -4903,10 +4938,10 @@ LABEL_118:
         goto LABEL_118;
       }
 
-      v150 = *__error();
-      v151 = __error();
-      strerror(*v151);
-      error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, v150, 0, 0, @"Could not realpath(3) path %s: %s", v152, v153, v154, buffer);
+      v151 = *__error();
+      v152 = __error();
+      v153 = strerror(*v152);
+      error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, v151, 0, 0, @"Could not realpath(3) path %s: %s", v154, v155, v156, buffer, v153);
       if (!a3)
       {
         CFRelease(error_internal_cf);
@@ -4923,7 +4958,7 @@ LABEL_119:
     goto LABEL_23;
   }
 
-  logfunction("", 1, @"Ignoring preflighted update, it appears to be the same as the suspended/pending update\n", v37, v38, v39, v40, v41, v242);
+  logfunction("", 1, @"Ignoring preflighted update, it appears to be the same as the suspended/pending update\n", v37, v38, v39, v40, v41);
   CFRelease(v32);
   v32 = 0;
 LABEL_22:
@@ -4943,13 +4978,13 @@ LABEL_23:
       goto LABEL_40;
     }
 
-    memset(&v257, 0, sizeof(v257));
+    memset(&v264, 0, sizeof(v264));
     CFStringGetCString(v56, buffer, 1024, 0x8000100u);
     v59 = realpath_DARWIN_EXTSN(buffer, 0);
     v46 = v59;
     if (v59)
     {
-      if (!stat(v59, &v257))
+      if (!stat(v59, &v264))
       {
         if (CFDictionaryContainsKey(dict, @"suspended-update-path"))
         {
@@ -4960,14 +4995,14 @@ LABEL_23:
         }
 
         v53 = copy_nvram_variable(@"boot-command");
-        logfunction("", 1, @"boot-command: '%@'\n", v168, v169, v170, v171, v172, v53);
+        logfunction("", 1, @"boot-command: '%@'\n", v172, v173, v174, v175, v176, v53);
         if (v53)
         {
-          v173 = CFGetTypeID(v53);
-          if (v173 == CFStringGetTypeID() && CFStringCompare(v53, @"upgrade", 0) == kCFCompareEqualTo)
+          v177 = CFGetTypeID(v53);
+          if (v177 == CFStringGetTypeID() && CFStringCompare(v53, @"upgrade", 0) == kCFCompareEqualTo)
           {
             v54 = 1;
-            logfunction("", 1, @"Pending update at %s\n", v174, v175, v176, v177, v178, v46);
+            logfunction("", 1, @"Pending update at %s\n", v178, v179, v180, v181, v182, v46);
             goto LABEL_45;
           }
         }
@@ -4980,21 +5015,21 @@ LABEL_23:
     {
       if (*__error() != 2)
       {
-        v156 = *__error();
-        v157 = __error();
-        strerror(*v157);
-        v161 = _create_error_internal_cf(kCFErrorDomainPOSIX, v156, 0, 0, @"Could not realpath(3) path %s: %s", v158, v159, v160, buffer);
+        v158 = *__error();
+        v159 = __error();
+        v160 = strerror(*v159);
+        v164 = _create_error_internal_cf(kCFErrorDomainPOSIX, v158, 0, 0, @"Could not realpath(3) path %s: %s", v161, v162, v163, buffer, v160);
         if (a3)
         {
-          *a3 = v161;
+          *a3 = v164;
         }
 
         else
         {
-          CFRelease(v161);
+          CFRelease(v164);
         }
 
-        v107 = 0;
+        v109 = 0;
         if (v19)
         {
           goto LABEL_77;
@@ -5021,7 +5056,7 @@ LABEL_40:
 
     else
     {
-      LOBYTE(v80) = 0;
+      v80 = 0;
     }
 
     logfunction("", 1, @"Warning: releasing baseband ticket lock failed: %@\n", v75, v76, v77, v78, v79, v80);
@@ -5032,20 +5067,20 @@ LABEL_45:
   v82 = v81;
   if (v81)
   {
-    v258[0] = v81;
-    v258[1] = 0;
-    v83 = fts_open(v258, 21, 0);
+    v265[0] = v81;
+    v265[1] = 0;
+    v83 = fts_open(v265, 21, 0);
     if (v83)
     {
       v84 = v83;
-      v247 = v82;
-      v248 = v53;
-      v249 = a3;
+      v254 = v82;
+      v255 = v53;
+      v256 = a3;
       v85 = fts_read(v83);
       v86 = v52 | v54;
-      v245 = v32;
-      v246 = dict;
-      v244 = v19;
+      v252 = v32;
+      v253 = dict;
+      v251 = v19;
       if (v85)
       {
         v87 = v85;
@@ -5064,16 +5099,16 @@ LABEL_45:
                   v94 = *__error();
                   v95 = v87->fts_path;
                   v96 = __error();
-                  strerror(*v96);
-                  v100 = _create_error_internal_cf(kCFErrorDomainPOSIX, v94, 0, 0, @"Could not removefile(3) path %s: %s", v97, v98, v99, v95);
-                  if (v249)
+                  v97 = strerror(*v96);
+                  v101 = _create_error_internal_cf(kCFErrorDomainPOSIX, v94, 0, 0, @"Could not removefile(3) path %s: %s", v98, v99, v100, v95, v97);
+                  if (v256)
                   {
-                    *v249 = v100;
+                    *v256 = v101;
                   }
 
                   else
                   {
-                    CFRelease(v100);
+                    CFRelease(v101);
                   }
                 }
               }
@@ -5087,13 +5122,13 @@ LABEL_45:
 
         while (v87);
         fts_close(v84);
-        dict = v246;
+        dict = v253;
         if (v86)
         {
 LABEL_63:
-          v107 = 1;
-          v82 = v247;
-          v53 = v248;
+          v109 = 1;
+          v82 = v254;
+          v53 = v255;
           if (!v46)
           {
             goto LABEL_71;
@@ -5112,75 +5147,73 @@ LABEL_63:
         }
       }
 
-      v114 = DeleteUpgradeBootCommand();
-      v251 = 0;
-      msu_delete_nvram_variable_if_exists(@"target-uuid", &v251);
-      if (v251 | v114)
+      v117 = DeleteUpgradeBootCommand();
+      v258 = 0;
+      msu_delete_nvram_variable_if_exists(@"target-uuid", &v258);
+      if (v258 | v117)
       {
-        msu_sync_nvram(1, v115, v116, v117, v118, v119, v120, v121);
+        msu_sync_nvram(1, v118, v119, v120, v121, v122, v123, v124);
       }
 
-      v127 = v249;
+      v130 = v256;
       if (!unlink("/private/var/MobileSoftwareUpdate/Update.plist"))
       {
-        logfunction("", 1, @"Deleted Preflight.plist because no preflighted update was found\n", v122, v123, v124, v125, v126, v242);
+        logfunction("", 1, @"Deleted Preflight.plist because no preflighted update was found\n", v125, v126, v127, v128, v129);
       }
 
       if (!unlink("/private/var/MobileSoftwareUpdate/Preflight.plist"))
       {
-        logfunction("", 1, @"Deleted Update.plist because no suspended (or pending) update was found\n", v130, v131, v132, v133, v134, v242);
+        logfunction("", 1, @"Deleted Update.plist because no suspended (or pending) update was found\n", v133, v134, v135, v136, v137);
       }
 
-      v82 = v247;
-      v53 = v248;
-      if (!mount_update_partition_if_exists("/private/var/MobileSoftwareUpdate/", v128, v129, v130, v131, v132, v133, v134))
+      v82 = v254;
+      v53 = v255;
+      if (!mount_update_partition_if_exists("/private/var/MobileSoftwareUpdate/", v131, v132, v133, v134, v135, v136, v137))
       {
-        v258[0] = "/private/var/MobileSoftwareUpdate/";
-        v135 = fts_open(v258, 21, 0);
-        if (v135)
+        v265[0] = "/private/var/MobileSoftwareUpdate/";
+        v138 = fts_open(v265, 21, 0);
+        if (v138)
         {
-          v136 = v135;
-          v137 = fts_read(v135);
-          if (v137)
+          v139 = v138;
+          v140 = fts_read(v138);
+          if (v140)
           {
-            v138 = v137;
+            v141 = v140;
             do
             {
-              fts_info = v138->fts_info;
+              fts_info = v141->fts_info;
               if (fts_info != 8)
               {
-                if (fts_info == 1 && v138->fts_level >= 1)
+                if (fts_info == 1 && v141->fts_level >= 1)
                 {
-                  fts_set(v136, v138, 4);
+                  fts_set(v139, v141, 4);
                 }
 
                 goto LABEL_96;
               }
 
-              if (!strncmp("patchd-", v138->fts_name, 7uLL))
+              if (!strncmp("patchd-", v141->fts_name, 7uLL))
               {
                 __endptr[0] = 0;
-                v140 = strtoull(&v138->fts_name[7], __endptr, 10);
-                v141 = __endptr[0];
+                v143 = strtoull(&v141->fts_name[7], __endptr, 10);
+                v144 = __endptr[0];
                 if (__endptr[0])
                 {
-                  v142 = v140;
+                  v145 = v143;
                   if (!strcmp(__endptr[0], ".log"))
                   {
-                    bzero(&v257, 0x400uLL);
-                    snprintf(&v257, 0x400uLL, "%s%.*s", ".patchd-saved-", v141 - (v138 + 111), &v138->fts_name[7]);
-                    v143 = access(&v257, 0);
-                    v149 = v138->fts_path;
-                    if (!v143)
+                    bzero(&v264, 0x400uLL);
+                    snprintf(&v264, 0x400uLL, "%s%.*s", ".patchd-saved-", v144 - (v141 + 111), &v141->fts_name[7]);
+                    if (!access(&v264, 0))
                     {
-                      logfunction("", 1, @"Not saving log file %s\n", v144, v145, v146, v147, v148, v138->fts_path);
+                      logfunction("", 1, @"Not saving log file %s\n", v146, v147, v148, v149, v150, v141->fts_path);
 LABEL_104:
-                      unlink(v138->fts_path);
+                      unlink(v141->fts_path);
                       goto LABEL_96;
                     }
 
-                    logfunction("", 1, @"Saving log file %s\n", v144, v145, v146, v147, v148, v138->fts_path);
-                    if (!submitRestoreLogFile(0, v142, v138->fts_path, 0))
+                    logfunction("", 1, @"Saving log file %s\n", v146, v147, v148, v149, v150, v141->fts_path);
+                    if (!submitRestoreLogFile(0, v145, v141->fts_path, 0))
                     {
                       goto LABEL_104;
                     }
@@ -5189,131 +5222,131 @@ LABEL_104:
               }
 
 LABEL_96:
-              v138 = fts_read(v136);
+              v141 = fts_read(v139);
             }
 
-            while (v138);
+            while (v141);
           }
 
-          fts_close(v136);
-          v53 = v248;
-          v127 = v249;
-          v82 = v247;
+          fts_close(v139);
+          v53 = v255;
+          v130 = v256;
+          v82 = v254;
         }
 
         else
         {
-          v162 = *__error();
-          v163 = __error();
-          strerror(*v163);
-          v167 = _create_error_internal_cf(kCFErrorDomainPOSIX, v162, 0, 0, @"Could not fts_open(3) path %s: %s", v164, v165, v166, "/private/var/MobileSoftwareUpdate/");
-          if (v249)
+          v165 = *__error();
+          v166 = __error();
+          v167 = strerror(*v166);
+          v171 = _create_error_internal_cf(kCFErrorDomainPOSIX, v165, 0, 0, @"Could not fts_open(3) path %s: %s", v168, v169, v170, "/private/var/MobileSoftwareUpdate/", v167);
+          if (v256)
           {
-            *v249 = v167;
+            *v256 = v171;
           }
 
           else
           {
-            CFRelease(v167);
+            CFRelease(v171);
           }
         }
       }
 
-      v243 = v46;
-      v179 = [@"/private/var/MobileSoftwareUpdate/" stringByAppendingPathComponent:@"/mobile/Library/Logs/CrashReporter"];
-      v180 = [@"/private/var" stringByAppendingPathComponent:@"/mobile/Library/Logs/CrashReporter"];
-      v181 = +[NSFileManager defaultManager];
+      v250 = v46;
+      v183 = [@"/private/var/MobileSoftwareUpdate/" stringByAppendingPathComponent:@"/mobile/Library/Logs/CrashReporter"];
+      v184 = [@"/private/var" stringByAppendingPathComponent:@"/mobile/Library/Logs/CrashReporter"];
+      v185 = +[NSFileManager defaultManager];
       if (os_variant_is_recovery())
       {
-        logfunction("", 1, @"%s: Not preserving crash reporter logs on recoveryOS\n", v182, v183, v184, v185, v186, "_migrate_ramdisk_logs");
+        logfunction("", 1, @"%s: Not preserving crash reporter logs on recoveryOS\n", v186, v187, v188, v189, v190, "_migrate_ramdisk_logs");
       }
 
-      else if ([(NSFileManager *)v181 fileExistsAtPath:v179])
+      else if ([(NSFileManager *)v185 fileExistsAtPath:v183])
       {
-        v256 = 0;
-        v192 = [(NSFileManager *)v181 contentsOfDirectoryAtPath:v179 error:&v256];
-        obj = v192;
-        if (!v192 || v256)
+        v263 = 0;
+        v196 = [(NSFileManager *)v185 contentsOfDirectoryAtPath:v183 error:&v263];
+        obj = v196;
+        if (!v196 || v263)
         {
-          [objc_msgSend(v256 "description")];
-          logfunction("", 1, @"%s: Failed to get list of crash logs: %s\n", v210, v211, v212, v213, v214, "_migrate_ramdisk_logs");
+          v217 = [objc_msgSend(v263 "description")];
+          logfunction("", 1, @"%s: Failed to get list of crash logs: %s\n", v218, v219, v220, v221, v222, "_migrate_ramdisk_logs", v217);
         }
 
         else
         {
-          v254 = 0u;
-          v255 = 0u;
+          v261 = 0u;
+          v262 = 0u;
           *__endptr = 0u;
-          v253 = 0u;
-          v193 = [(NSArray *)v192 countByEnumeratingWithState:__endptr objects:&v257 count:16];
-          if (v193)
+          v260 = 0u;
+          v197 = [(NSArray *)v196 countByEnumeratingWithState:__endptr objects:&v264 count:16];
+          if (v197)
           {
-            v194 = v193;
-            v195 = *v253;
+            v198 = v197;
+            v199 = *v260;
             do
             {
-              for (i = 0; i != v194; i = i + 1)
+              for (i = 0; i != v198; i = i + 1)
               {
-                if (*v253 != v195)
+                if (*v260 != v199)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v197 = *&__endptr[1][8 * i];
-                v198 = [v179 stringByAppendingPathComponent:v197];
-                v199 = [v180 stringByAppendingPathComponent:v197];
-                if ([(NSFileManager *)v181 fileExistsAtPath:v199])
+                v201 = *&__endptr[1][8 * i];
+                v202 = [v183 stringByAppendingPathComponent:v201];
+                v203 = [v184 stringByAppendingPathComponent:v201];
+                if ([(NSFileManager *)v185 fileExistsAtPath:v203])
                 {
-                  [(NSFileManager *)v181 removeItemAtPath:v199 error:&v256];
-                  if (v256)
+                  [(NSFileManager *)v185 removeItemAtPath:v203 error:&v263];
+                  if (v263)
                   {
-                    [objc_msgSend(v256 "description")];
-                    logfunction("", 1, @"%s: Failed to remove old log before overwriting: %s\n", v200, v201, v202, v203, v204, "_migrate_ramdisk_logs");
-                    v256 = 0;
+                    v204 = [objc_msgSend(v263 "description")];
+                    logfunction("", 1, @"%s: Failed to remove old log before overwriting: %s\n", v205, v206, v207, v208, v209, "_migrate_ramdisk_logs", v204);
+                    v263 = 0;
                   }
                 }
 
-                [(NSFileManager *)v181 moveItemAtPath:v198 toPath:v199 error:&v256];
-                if (v256)
+                [(NSFileManager *)v185 moveItemAtPath:v202 toPath:v203 error:&v263];
+                if (v263)
                 {
-                  [v198 fileSystemRepresentation];
-                  [objc_msgSend(v256 "description")];
-                  logfunction("", 1, @"%s: Failed to move CrashReporter log %s: %s\n", v205, v206, v207, v208, v209, "_migrate_ramdisk_logs");
-                  v256 = 0;
+                  v210 = [v202 fileSystemRepresentation];
+                  v211 = [objc_msgSend(v263 "description")];
+                  logfunction("", 1, @"%s: Failed to move CrashReporter log %s: %s\n", v212, v213, v214, v215, v216, "_migrate_ramdisk_logs", v210, v211);
+                  v263 = 0;
                 }
               }
 
-              v194 = [(NSArray *)obj countByEnumeratingWithState:__endptr objects:&v257 count:16];
+              v198 = [(NSArray *)obj countByEnumeratingWithState:__endptr objects:&v264 count:16];
             }
 
-            while (v194);
+            while (v198);
           }
         }
 
-        v53 = v248;
-        v127 = v249;
-        v82 = v247;
+        v53 = v255;
+        v130 = v256;
+        v82 = v254;
       }
 
       else
       {
-        logfunction("", 1, @"%s: No ramdisk created CrashReporter dir found\n", v187, v188, v189, v190, v191, "_migrate_ramdisk_logs");
+        logfunction("", 1, @"%s: No ramdisk created CrashReporter dir found\n", v191, v192, v193, v194, v195, "_migrate_ramdisk_logs");
       }
 
       cleanup_boot_environment("/private/var/MobileSoftwareUpdate/");
-      v32 = v245;
-      dict = v246;
-      v19 = v244;
-      v46 = v243;
+      v32 = v252;
+      dict = v253;
+      v19 = v251;
+      v46 = v250;
       if (removefile("/private/var/mobile/MobileSoftwareUpdate/UpdateDownloads", 0, 1u) && *__error() != 2)
       {
-        v215 = *__error();
-        v216 = __error();
-        strerror(*v216);
-        v220 = _create_error_internal_cf(kCFErrorDomainPOSIX, v215, 0, 0, @"Could not removefile(3) downloaded updates at %s: %s", v217, v218, v219, "/private/var/mobile/MobileSoftwareUpdate/UpdateDownloads");
-        if (!v127)
+        v223 = *__error();
+        v224 = __error();
+        v225 = strerror(*v224);
+        v229 = _create_error_internal_cf(kCFErrorDomainPOSIX, v223, 0, 0, @"Could not removefile(3) downloaded updates at %s: %s", v226, v227, v228, "/private/var/mobile/MobileSoftwareUpdate/UpdateDownloads", v225);
+        if (!v130)
         {
-          CFRelease(v220);
+          CFRelease(v229);
           if (MSUDemotionCleanup(0))
           {
             goto LABEL_155;
@@ -5322,59 +5355,59 @@ LABEL_96:
           goto LABEL_153;
         }
 
-        *v127 = v220;
+        *v130 = v229;
       }
 
-      if (MSUDemotionCleanup(v127))
+      if (MSUDemotionCleanup(v130))
       {
         goto LABEL_155;
       }
 
-      if (v127)
+      if (v130)
       {
-        v226 = *v127;
+        v235 = *v130;
 LABEL_154:
-        logfunction("", 1, @"Warning: app demotion cleanup failed: %@\n", v221, v222, v223, v224, v225, v226);
+        logfunction("", 1, @"Warning: app demotion cleanup failed: %@\n", v230, v231, v232, v233, v234, v235);
 LABEL_155:
-        v227 = copy_rooted_snapshot_name();
-        if (v227)
+        v236 = copy_rooted_snapshot_name();
+        if (v236)
         {
-          v234 = v227;
-          if (!mount_apfs_system_readwrite_with_revert("/private/var/MobileSoftwareUpdate/mnt1", v227, v228, v229, v230, v231, v232, v233))
+          v243 = v236;
+          if (!mount_apfs_system_readwrite_with_revert("/private/var/MobileSoftwareUpdate/mnt1", v236, v237, v238, v239, v240, v241, v242))
           {
-            v235 = copy_root_snapshot_name_from_dt();
-            *&v257.st_dev = _NSConcreteStackBlock;
-            v257.st_ino = 3221225472;
-            *&v257.st_uid = __MSUCleanupPreparePath_block_invoke;
-            *&v257.st_rdev = &__block_descriptor_40_e12_B20__0i8r_12l;
-            v257.st_atimespec.tv_sec = v235;
-            enumerate_apfs_snapshots("/private/var/MobileSoftwareUpdate/mnt1", &v257);
-            if (v235)
+            v244 = copy_root_snapshot_name_from_dt();
+            *&v264.st_dev = _NSConcreteStackBlock;
+            v264.st_ino = 3221225472;
+            *&v264.st_uid = __MSUCleanupPreparePath_block_invoke;
+            *&v264.st_rdev = &__block_descriptor_40_e12_B20__0i8r_12l;
+            v264.st_atimespec.tv_sec = v244;
+            enumerate_apfs_snapshots("/private/var/MobileSoftwareUpdate/mnt1", &v264);
+            if (v244)
             {
-              free(v235);
+              free(v244);
             }
 
             if (unmount("/private/var/MobileSoftwareUpdate/mnt1", 0))
             {
-              v236 = __error();
-              v240 = _create_error_internal_cf(kCFErrorDomainPOSIX, *v236, 0, 0, @"Could not unmount live system volume", v237, v238, v239, v242);
-              if (v127)
+              v245 = __error();
+              v249 = _create_error_internal_cf(kCFErrorDomainPOSIX, *v245, 0, 0, @"Could not unmount live system volume", v246, v247, v248);
+              if (v130)
               {
-                *v127 = v240;
+                *v130 = v249;
               }
 
               else
               {
-                CFRelease(v240);
+                CFRelease(v249);
               }
             }
           }
 
-          free(v234);
+          free(v243);
         }
 
-        v107 = 1;
-        if (v243)
+        v109 = 1;
+        if (v250)
         {
           goto LABEL_70;
         }
@@ -5383,28 +5416,28 @@ LABEL_155:
       }
 
 LABEL_153:
-      LOBYTE(v226) = 0;
+      v235 = 0;
       goto LABEL_154;
     }
 
-    v108 = *__error();
-    v109 = __error();
-    strerror(*v109);
-    v106 = _create_error_internal_cf(kCFErrorDomainPOSIX, v108, 0, 0, @"Could not fts_open(3) path %s: %s", v110, v111, v112, v82);
+    v110 = *__error();
+    v111 = __error();
+    v112 = strerror(*v111);
+    v108 = _create_error_internal_cf(kCFErrorDomainPOSIX, v110, 0, 0, @"Could not fts_open(3) path %s: %s", v113, v114, v115, v82, v112);
   }
 
   else
   {
-    v101 = *__error();
-    v102 = __error();
-    strerror(*v102);
-    v106 = _create_error_internal_cf(kCFErrorDomainPOSIX, v101, 0, 0, @"Could not realpath(3) path %s: %s", v103, v104, v105, "/private/var/MobileSoftwareUpdate/");
+    v102 = *__error();
+    v103 = __error();
+    v104 = strerror(*v103);
+    v108 = _create_error_internal_cf(kCFErrorDomainPOSIX, v102, 0, 0, @"Could not realpath(3) path %s: %s", v105, v106, v107, "/private/var/MobileSoftwareUpdate/", v104);
   }
 
   if (!a3)
   {
-    CFRelease(v106);
-    v107 = 0;
+    CFRelease(v108);
+    v109 = 0;
     if (!v46)
     {
       goto LABEL_71;
@@ -5413,8 +5446,8 @@ LABEL_153:
     goto LABEL_70;
   }
 
-  v107 = 0;
-  *a3 = v106;
+  v109 = 0;
+  *a3 = v108;
   if (v46)
   {
 LABEL_70:
@@ -5444,22 +5477,22 @@ LABEL_77:
     CFRelease(dict);
   }
 
-  return v107;
+  return v109;
 }
 
 uint64_t MSUCleanupLogs_server(time_t a1, CFNumberRef *a2, CFErrorRef *a3)
 {
   if (a1 < 0)
   {
-    strerror(22);
-    error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, 22, 0, 0, @"retention value is negative: %lld (%s)", v39, v40, v41, a1);
+    v43 = strerror(22);
+    error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, 22, 0, 0, @"retention value is negative: %lld (%s)", v44, v45, v46, a1, v43);
   }
 
   else
   {
-    v61[0] = "/private/var/MobileSoftwareUpdate/";
-    v61[1] = 0;
-    v6 = fts_open(v61, 21, 0);
+    v67[0] = "/private/var/MobileSoftwareUpdate/";
+    v67[1] = 0;
+    v6 = fts_open(v67, 21, 0);
     if (v6)
     {
       v7 = v6;
@@ -5467,14 +5500,14 @@ uint64_t MSUCleanupLogs_server(time_t a1, CFNumberRef *a2, CFErrorRef *a3)
       v9 = fts_read(v7);
       if (!v9)
       {
-        v43 = 1;
+        v48 = 1;
         goto LABEL_40;
       }
 
       v10 = v9;
-      v58 = v8;
+      v64 = v8;
       v11 = 0;
-      v59 = 0x7FFFFFFFFFFFFFFFLL;
+      v65 = 0x7FFFFFFFFFFFFFFFLL;
       do
       {
         fts_info = v10->fts_info;
@@ -5485,38 +5518,40 @@ uint64_t MSUCleanupLogs_server(time_t a1, CFNumberRef *a2, CFErrorRef *a3)
             fts_namelen = v10->fts_namelen;
             if (fts_namelen >= 4 && !strcmp(&v10->fts_name[fts_namelen - 4], ".log"))
             {
+              tv_sec = v10->fts_statp->st_birthtimespec.tv_sec;
+              v20 = v64 - tv_sec;
               fts_path = v10->fts_path;
-              if (v58 - v10->fts_statp->st_birthtimespec.tv_sec <= a1)
+              if (v64 - tv_sec <= a1)
               {
-                logfunction("", 1, @"keep %s, age:%lld, retention:%lld\n", v14, v15, v16, v17, v18, fts_path);
-                tv_sec = v59;
-                if (v10->fts_statp->st_birthtimespec.tv_sec < v59)
+                logfunction("", 1, @"keep %s, age:%lld, retention:%lld\n", v14, v15, v16, v17, v18, fts_path, v64 - tv_sec, a1);
+                v42 = v65;
+                if (v10->fts_statp->st_birthtimespec.tv_sec < v65)
                 {
-                  tv_sec = v10->fts_statp->st_birthtimespec.tv_sec;
+                  v42 = v10->fts_statp->st_birthtimespec.tv_sec;
                 }
 
-                v59 = tv_sec;
+                v65 = v42;
               }
 
               else if (unlink(fts_path))
               {
-                v25 = v10->fts_path;
-                v26 = __error();
-                strerror(*v26);
-                logfunction("", 1, @"failed to unlink %s: %s\n", v27, v28, v29, v30, v31, v25);
+                v27 = v10->fts_path;
+                v28 = __error();
+                v29 = strerror(*v28);
+                logfunction("", 1, @"failed to unlink %s: %s\n", v30, v31, v32, v33, v34, v27, v29);
                 if (!v11)
                 {
-                  v32 = *__error();
-                  v33 = v10->fts_path;
-                  v34 = __error();
-                  strerror(*v34);
-                  v11 = _create_error_internal_cf(kCFErrorDomainPOSIX, v32, 0, 0, @"Could not unlink path %s: %s", v35, v36, v37, v33);
+                  v35 = *__error();
+                  v36 = v10->fts_path;
+                  v37 = __error();
+                  v38 = strerror(*v37);
+                  v11 = _create_error_internal_cf(kCFErrorDomainPOSIX, v35, 0, 0, @"Could not unlink path %s: %s", v39, v40, v41, v36, v38);
                 }
               }
 
               else
               {
-                logfunction("", 1, @"removed %s, age:%lld, retention:%lld\n", v20, v21, v22, v23, v24, v10->fts_path);
+                logfunction("", 1, @"removed %s, age:%lld, retention:%lld\n", v22, v23, v24, v25, v26, v10->fts_path, v20, a1);
               }
             }
           }
@@ -5535,63 +5570,63 @@ uint64_t MSUCleanupLogs_server(time_t a1, CFNumberRef *a2, CFErrorRef *a3)
       {
         if (a3)
         {
-          v43 = 0;
+          v48 = 0;
           *a3 = v11;
 LABEL_40:
           fts_close(v7);
-          return v43;
+          return v48;
         }
 
-        v56 = v11;
+        v62 = v11;
       }
 
       else
       {
-        v43 = 1;
+        v48 = 1;
         if (!a2)
         {
           goto LABEL_40;
         }
 
-        if (v59 == 0x7FFFFFFFFFFFFFFFLL)
+        if (v65 == 0x7FFFFFFFFFFFFFFFLL)
         {
           goto LABEL_40;
         }
 
-        valuePtr = v58 - v59;
-        v49 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &valuePtr);
-        *a2 = v49;
-        if (v49)
+        valuePtr = v64 - v65;
+        v55 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &valuePtr);
+        *a2 = v55;
+        if (v55)
         {
           goto LABEL_40;
         }
 
-        v50 = *__error();
-        v51 = __error();
-        v52 = strerror(*v51);
-        v56 = _create_error_internal_cf(kCFErrorDomainPOSIX, v50, 0, 0, @"failed to create CFNumber: %s", v53, v54, v55, v52);
+        v56 = *__error();
+        v57 = __error();
+        v58 = strerror(*v57);
+        v62 = _create_error_internal_cf(kCFErrorDomainPOSIX, v56, 0, 0, @"failed to create CFNumber: %s", v59, v60, v61, v58);
         if (a3)
         {
-          *a3 = v56;
+          *a3 = v62;
 LABEL_39:
-          v43 = 0;
+          v48 = 0;
           goto LABEL_40;
         }
       }
 
-      CFRelease(v56);
+      CFRelease(v62);
       goto LABEL_39;
     }
 
-    v44 = *__error();
-    v45 = __error();
-    strerror(*v45);
-    error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, v44, 0, 0, @"Could not fts_open(3) path %s: %s", v46, v47, v48, "/private/var/MobileSoftwareUpdate/");
+    v49 = *__error();
+    v50 = __error();
+    v51 = strerror(*v50);
+    error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, v49, 0, 0, @"Could not fts_open(3) path %s: %s", v52, v53, v54, "/private/var/MobileSoftwareUpdate/", v51);
   }
 
   if (a3)
   {
-    v43 = 0;
+    v48 = 0;
     *a3 = error_internal_cf;
   }
 
@@ -5601,7 +5636,7 @@ LABEL_39:
     return 0;
   }
 
-  return v43;
+  return v48;
 }
 
 uint64_t DeleteUpgradeBootCommand()
@@ -5642,8 +5677,8 @@ uint64_t __MSUCleanupPreparePath_block_invoke(uint64_t a1, int a2, char *__s1)
     else if (fs_snapshot_delete(a2, __s1, 0))
     {
       v17 = __error();
-      strerror(*v17);
-      logfunction("", 1, @"Unable to delete snapshot %s: %s\n", v18, v19, v20, v21, v22, __s1);
+      v24 = strerror(*v17);
+      logfunction("", 1, @"Unable to delete snapshot %s: %s\n", v18, v19, v20, v21, v22, __s1, v24);
     }
 
     else
@@ -5682,7 +5717,7 @@ int32x4_t **lz4_encode_2gb(int32x4_t **result, uint64_t a2, char **a3, uint64_t 
   v7 = vdupq_n_s32(0xFFFFFFFF);
   v8 = *result;
   v9 = *a3;
-  v10 = (*result)[-8].i64 + a2;
+  v10 = &(*result)[-8].i8[a2];
   if (v10 < *result)
   {
     goto LABEL_92;
@@ -6055,7 +6090,7 @@ uint64_t lz4_decode_asm(int8x16_t **a1, unint64_t a2, unint64_t a3, unsigned __i
           v14 = v9;
           v15 = v6;
           v16 = (v9 + v11);
-          v17 = (v6 + v11);
+          v17 = v6->u64 + v11;
           if (v16 < a5 && v17 < a3)
           {
             v19 = *v14;
@@ -6087,7 +6122,7 @@ uint64_t lz4_decode_asm(int8x16_t **a1, unint64_t a2, unint64_t a3, unsigned __i
 
     *v6 = *v9;
     v16 = (v9 + v11);
-    v17 = (v6 + v11);
+    v17 = v6->u64 + v11;
 LABEL_13:
     if (v16 >= a5)
     {
@@ -6571,18 +6606,18 @@ uint64_t UMEventCleanupNVRAMInternal(uint64_t a1, unint64_t a2, _BYTE *a3, CFTyp
     v10 = 1;
     do
     {
-      v21 = 0;
-      v16 = msu_delete_nvram_variable_if_exists(*(a1 + 8 * v6), &v21);
+      v20 = 0;
+      v16 = msu_delete_nvram_variable_if_exists(*(a1 + 8 * v6), &v20);
       if (v16 & 1) == 0 && (v10)
       {
-        logfunction("", 1, @"clearing NVRAM variable failed\n", v11, v12, v13, v14, v15, v18);
+        logfunction("", 1, @"clearing NVRAM variable failed\n", v11, v12, v13, v14, v15);
         v7 = CFErrorCreate(kCFAllocatorDefault, kCFErrorDomainMach, 5, 0);
         v10 = 0;
       }
 
       if (v16)
       {
-        v8 |= v21;
+        v8 |= v20;
       }
 
       v6 = v9++;
@@ -6626,7 +6661,7 @@ uint64_t UMEventCleanupAllNVRAM(int a1, void *a2)
   v10 = [+[UMEventCheckpoint sharedInstance](UMEventCheckpoint cleanupCheckpointsNvramReturnDirty:"cleanupCheckpointsNvramReturnDirty:error:" error:&v21, &v20];
   if (a1 && ((v23 & 1) != 0 || v21 == 1))
   {
-    logfunction("", 1, @"Force syncing NVRAM because values were cleaned up\n", v5, v6, v7, v8, v9, v20);
+    logfunction("", 1, @"Force syncing NVRAM because values were cleaned up\n", v5, v6, v7, v8, v9);
     msu_sync_nvram(1, v11, v12, v13, v14, v15, v16, v17);
   }
 
@@ -6775,46 +6810,46 @@ void __destroy_helper_block_e8_32o40o48o(uint64_t a1)
   _Block_object_dispose(v2, 3);
 }
 
-uint64_t AMRestorePartitionFWCopyTagData(const __CFURL *a1)
+uint64_t AMRestorePartitionFWCopyTagData(const __CFURL *a1, const __CFString *a2, CFTypeRef *a3, off_t *a4, CFTypeRef *a5, off_t *a6)
 {
   if (a1)
   {
-    v1 = _AMRestorePartitionOpenFileWithURL(a1, 0);
-    if (v1)
+    v7 = _AMRestorePartitionOpenFileWithURL(a1, 0);
+    if (v7)
     {
-      v2 = v1;
-      v3 = malloc(0x8000uLL);
-      if (v3)
+      v8 = v7;
+      v9 = malloc(0x8000uLL);
+      if (v9)
       {
-        if (read(v2, v3, 0x8000uLL))
+        if (read(v8, v9, 0x8000uLL))
         {
-          Img4DecodeParseLengthFromBuffer();
-          AMSupportLogInternal();
+          v10 = Img4DecodeParseLengthFromBuffer();
+          AMSupportLogInternal(6, "AMRestorePartitionFWCopyTagData", "No more segments. (derstat=%d)", v10);
         }
 
-        AMSupportLogInternal();
+        AMSupportLogInternal(3, "AMRestorePartitionFWCopyTagData", "No DER segments found.");
       }
 
       else
       {
-        AMRestorePartitionFWCopyTagData_cold_9();
+        AMRestorePartitionFWCopyTagData_cold_9(0);
       }
 
-      if (v2 >= 1)
+      if (v8 >= 1)
       {
-        close(v2);
+        close(v8);
       }
     }
 
     else
     {
-      AMSupportLogInternal();
+      AMSupportLogInternal(3, "AMRestorePartitionFWCopyTagData", "Unable to open inURL %@", a1);
     }
   }
 
   else
   {
-    AMRestorePartitionFWCopyTagData_cold_10();
+    AMRestorePartitionFWCopyTagData_cold_10(0);
   }
 
   AMSupportSafeFree();
@@ -6829,8 +6864,8 @@ uint64_t _AMRestorePartitionOpenFileWithURL(const __CFURL *a1, int a2)
   bzero(buffer, 0x400uLL);
   if (!CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
   {
-    AMSupportLogInternal();
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "_AMRestorePartitionOpenFileWithURL", "failed to convert url to file system representation");
+    AMSupportLogInternal(8, "_AMRestorePartitionOpenFileWithURL", "%@", a1);
     return 0xFFFFFFFFLL;
   }
 
@@ -6838,7 +6873,7 @@ uint64_t _AMRestorePartitionOpenFileWithURL(const __CFURL *a1, int a2)
   v5 = v4;
   if (v4 <= 0)
   {
-    _AMRestorePartitionOpenFileWithURL_cold_2();
+    _AMRestorePartitionOpenFileWithURL_cold_2(v4);
     return v5;
   }
 
@@ -6911,26 +6946,25 @@ uint64_t create_update_partition_folder_hierarchy(const char *a1, uint64_t a2, u
   }
 }
 
-uint64_t create_folder_at_mount_point_for_dir_list_entry(uint64_t *a1, const char *a2)
+uint64_t create_folder_at_mount_point_for_dir_list_entry(uint64_t a1, const char *a2)
 {
-  v55 = 0;
-  asprintf(&v55, "%s/%s", a2, *a1);
-  if (v55)
+  v46 = 0;
+  asprintf(&v46, "%s/%s", a2, *a1);
+  if (v46)
   {
-    if (mkdir(v55, *(a1 + 4)) && *__error() != 17)
+    if (mkdir(v46, *(a1 + 8)) && *__error() != 17)
     {
-      v20 = v55;
-      v50 = *__error();
+      v20 = v46;
+      __error();
       _partition_log("failed to mkdir %s with errno=%d", v21, v22, v23, v24, v25, v26, v27, v20);
     }
 
     else
     {
-      if (chmod(v55, *(a1 + 4)))
+      if (chmod(v46, *(a1 + 8)))
       {
-        v11 = v55;
-        v48 = *(a1 + 4);
-        v52 = *__error();
+        v11 = v46;
+        __error();
         _partition_log("Failed to chmod %s 0%o with errno=%d", v12, v13, v14, v15, v16, v17, v18, v11);
         v19 = 0;
       }
@@ -6941,29 +6975,26 @@ uint64_t create_folder_at_mount_point_for_dir_list_entry(uint64_t *a1, const cha
       }
 
       *__error() = 0;
-      v28 = getpwnam(a1[2]);
+      v28 = getpwnam(*(a1 + 16));
       if (v28)
       {
-        v29 = v28;
-        if (!chown(v55, v29->pw_uid, v29->pw_gid))
+        if (!chown(v46, v28->pw_uid, v28->pw_gid))
         {
 LABEL_14:
-          free(v55);
+          free(v46);
           return v19;
         }
 
-        v30 = v55;
-        pw_uid = v29->pw_uid;
-        pw_gid = v29->pw_gid;
-        v54 = *__error();
-        _partition_log("failed to chown %s %d:%d with errno=%d", v32, v33, v34, v35, v36, v37, v38, v30);
+        v29 = v46;
+        __error();
+        _partition_log("failed to chown %s %d:%d with errno=%d", v30, v31, v32, v33, v34, v35, v36, v29);
       }
 
       else
       {
-        v39 = a1[2];
-        v51 = *__error();
-        _partition_log("failed to getpwnam for %s with errno=%d", v40, v41, v42, v43, v44, v45, v46, v39);
+        v37 = *(a1 + 16);
+        __error();
+        _partition_log("failed to getpwnam for %s with errno=%d", v38, v39, v40, v41, v42, v43, v44, v37);
       }
     }
 
@@ -6971,7 +7002,6 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v49 = *a1;
   _partition_log("failed to allocate path string for %s/%s", v4, v5, v6, v7, v8, v9, v10, a2);
   return 0;
 }
@@ -7103,8 +7133,8 @@ LABEL_14:
 
 uint64_t _unmount_filesystem(const char *a1)
 {
-  bzero(&v50, 0x878uLL);
-  if (statfs(a1, &v50))
+  bzero(&v48, 0x878uLL);
+  if (statfs(a1, &v48))
   {
     v2 = __error();
     strerror(*v2);
@@ -7115,57 +7145,57 @@ uint64_t _unmount_filesystem(const char *a1)
   v11 = realpath_DARWIN_EXTSN(a1, 0);
   if (!v11)
   {
-    v12 = *__error();
-    v13 = __error();
-    strerror(*v13);
-    _partition_log("realpath %s failed: %d %s", v14, v15, v16, v17, v18, v19, v20, a1);
+    __error();
+    v12 = __error();
+    strerror(*v12);
+    _partition_log("realpath %s failed: %d %s", v13, v14, v15, v16, v17, v18, v19, a1);
   }
 
-  if (!strcmp(v50.f_mntonname, v11))
+  if (!strcmp(v48.f_mntonname, v11))
   {
-    v28 = unmount(v11, 0x80000);
-    if (v28)
+    v27 = unmount(v11, 0x80000);
+    if (v27)
     {
-      v10 = v28;
+      v10 = v27;
       if (*__error() != 1)
       {
         goto LABEL_18;
       }
 
-      *&v47 = "/sbin/umount";
-      *(&v47 + 1) = "-f";
-      v48 = v11;
-      v49 = 0;
+      *&v45 = "/sbin/umount";
+      *(&v45 + 1) = "-f";
+      v46 = v11;
+      v47 = 0;
       if (!_executeCommandPtr)
       {
         v10 = 0xFFFFFFFFLL;
 LABEL_18:
-        v38 = *__error();
-        v39 = __error();
-        strerror(*v39);
-        _partition_log("error unmounting '%s': %d %s", v40, v41, v42, v43, v44, v45, v46, a1);
-        v47 = off_10004D700;
+        __error();
+        v37 = __error();
+        strerror(*v37);
+        _partition_log("error unmounting '%s': %d %s", v38, v39, v40, v41, v42, v43, v44, a1);
+        v45 = off_10004D700;
         if (_executeCommandPtr)
         {
-          (_executeCommandPtr)(&v47, _partition_execution_log, 0);
+          _executeCommandPtr(&v45, _partition_execution_log, 0);
         }
 
         goto LABEL_14;
       }
 
-      v36 = (_executeCommandPtr)(&v47, _partition_execution_log, 0);
-      if (v36)
+      v35 = _executeCommandPtr(&v45, _partition_execution_log, 0);
+      if (v35)
       {
-        v10 = v36;
+        v10 = v35;
         goto LABEL_18;
       }
     }
 
-    _partition_log("file system at %s successfully unmounted", v29, v30, v31, v32, v33, v34, v35, a1);
+    _partition_log("file system at %s successfully unmounted", v28, v29, v30, v31, v32, v33, v34, a1);
     goto LABEL_13;
   }
 
-  _partition_log("no file system mounted at %s", v21, v22, v23, v24, v25, v26, v27, a1);
+  _partition_log("no file system mounted at %s", v20, v21, v22, v23, v24, v25, v26, a1);
 LABEL_13:
   v10 = 0;
 LABEL_14:
@@ -7589,23 +7619,22 @@ uint64_t delete_apfs_partition(unsigned int a1, const char *a2, uint64_t a3, uin
   v25 = off_10004D710[a1];
   if (*v25)
   {
-    v26 = off_10004D710[a1];
     if (APFSVolumeDelete())
     {
-      _partition_log("%s : failed to delete partition at slice %d\n", v27, v28, v29, v30, v31, v32, v33, "delete_apfs_partition");
+      _partition_log("%s : failed to delete partition at slice %d\n", v26, v27, v28, v29, v30, v31, v32, "delete_apfs_partition");
       return 1;
     }
 
-    v35 = _partition_log("%s : delete partition succeeded at slice %d %s\n", v27, v28, v29, v30, v31, v32, v33, "delete_apfs_partition");
-    if (!partition_probe_media(v35, v36, v37, v38, v39, v40, v41, v42))
+    v34 = _partition_log("%s : delete partition succeeded at slice %d %s\n", v26, v27, v28, v29, v30, v31, v32, "delete_apfs_partition");
+    if (!partition_probe_media(v34, v35, v36, v37, v38, v39, v40, v41))
     {
-      _partition_log("%s : partition_probe_media() failed for checking for partition at slice %d\n", v43, v44, v45, v46, v47, v48, v49, "delete_apfs_partition");
+      _partition_log("%s : partition_probe_media() failed for checking for partition at slice %d\n", v42, v43, v44, v45, v46, v47, v48, "delete_apfs_partition");
       return 1;
     }
 
     if (*v25)
     {
-      _partition_log("%s : partition_probe_media() found partition at slice %d after it was deleted\n", v43, v44, v45, v46, v47, v48, v49, "delete_apfs_partition");
+      _partition_log("%s : partition_probe_media() found partition at slice %d after it was deleted\n", v42, v43, v44, v45, v46, v47, v48, "delete_apfs_partition");
       return 1;
     }
 
@@ -7766,35 +7795,35 @@ uint64_t _mount_filesystem(uint64_t a1, char *a2)
 
 uint64_t create_allocated_empty_file(uint64_t a1, char *a2)
 {
-  v47 = 0;
+  v46 = 0;
   unlink(a2);
   v4 = open(a2, 2562, 384);
   if (v4 == -1)
   {
-    v44 = *__error();
+    v43 = *__error();
     _partition_log("Could not open %s with error %d", v21, v22, v23, v24, v25, v26, v27, a2);
-    return v44;
+    return v43;
   }
 
   else
   {
     v5 = v4;
-    v46[0] = 0x30000000CLL;
-    v46[1] = 0;
-    v46[2] = a1;
-    if (fcntl(v4, 42, v46) == -1)
+    v45[0] = 0x30000000CLL;
+    v45[1] = 0;
+    v45[2] = a1;
+    if (fcntl(v4, 42, v45) == -1)
     {
       v20 = *__error();
       _partition_log("preallocation of %llu bytes failed: %d", v28, v29, v30, v31, v32, v33, v34, a1);
     }
 
-    else if (v47 >= a1)
+    else if (v46 >= a1)
     {
       if (ftruncate(v5, a1) == -1)
       {
-        v45 = *__error();
+        v44 = *__error();
         _partition_log("failed to write to %s file to establish the size (%d).", v35, v36, v37, v38, v39, v40, v41, a2);
-        v20 = v45;
+        v20 = v44;
       }
 
       else
@@ -7808,7 +7837,7 @@ uint64_t create_allocated_empty_file(uint64_t a1, char *a2)
       _partition_log("failed to allocate all %llu bytes for %s. only allocatedf %llu bytes", v6, v7, v8, v9, v10, v11, v12, a1);
       if (unlink(a2) == -1)
       {
-        v43 = *__error();
+        __error();
         _partition_log("failed to unlink %s: %d", v13, v14, v15, v16, v17, v18, v19, a2);
       }
 
@@ -7836,17 +7865,17 @@ uint64_t mount_update_partition_if_exists(const char *a1, uint64_t a2, uint64_t 
     return 0xFFFFFFFFLL;
   }
 
-  v63 = 0;
+  v62 = 0;
   v24 = realpath_DARWIN_EXTSN(a1, 0);
   if (!v24)
   {
-    v62 = *__error();
+    __error();
     _partition_log("Failed to realpath(%s). errno=%d", v37, v38, v39, v40, v41, v42, v43, a1);
     return 0xFFFFFFFFLL;
   }
 
   v25 = v24;
-  v26 = getmntinfo_r_np(&v63, 2);
+  v26 = getmntinfo_r_np(&v62, 2);
   if (v26 < 1)
   {
     _partition_log("Failed to get mount info for all mounted file systems", v27, v28, v29, v30, v31, v32, v33, v61);
@@ -7855,7 +7884,7 @@ uint64_t mount_update_partition_if_exists(const char *a1, uint64_t a2, uint64_t 
 
   else
   {
-    v34 = v63;
+    v34 = v62;
     v35 = v26;
     v36 = 1112;
     while (strcmp(v34 + v36, &update_device_node_path))
@@ -7875,7 +7904,7 @@ uint64_t mount_update_partition_if_exists(const char *a1, uint64_t a2, uint64_t 
     }
 
     _partition_log("unmounting %s at %s", v45, v46, v47, v48, v49, v50, v51, v34 + v36);
-    _unmount_filesystem(v63 + v36 - 1024);
+    _unmount_filesystem(v62 + v36 - 1024);
 LABEL_16:
     v44 = _mount_filesystem(&update_device_node_path, v25);
     v59 = "Failed to mount";
@@ -7888,9 +7917,9 @@ LABEL_16:
   }
 
 LABEL_19:
-  if (v63)
+  if (v62)
   {
-    free(v63);
+    free(v62);
   }
 
   free(v25);
@@ -8211,19 +8240,19 @@ uint64_t mount_apfs_system_readwrite_with_revert(char *a1, const char *a2, uint6
   partition_probe_media(a1, a2, a3, a4, a5, a6, a7, a8);
   if (!system_device_node_path)
   {
-    _partition_log("system volume device node not found", v10, v11, v12, v13, v14, v15, v16, v102);
+    _partition_log("system volume device node not found", v10, v11, v12, v13, v14, v15, v16, v101);
     return 2;
   }
 
-  v103 = 0;
-  v17 = getmntinfo_r_np(&v103, 2);
+  v102 = 0;
+  v17 = getmntinfo_r_np(&v102, 2);
   if (v17 < 1)
   {
-    _partition_log("Failed to get mount info for all mounted file systems", v18, v19, v20, v21, v22, v23, v24, v102);
+    _partition_log("Failed to get mount info for all mounted file systems", v18, v19, v20, v21, v22, v23, v24, v101);
     return *__error();
   }
 
-  v25 = v103;
+  v25 = v102;
   v26 = v17;
   v27 = 1112;
   while (strcmp(v25 + v27, &system_device_node_path))
@@ -8236,8 +8265,8 @@ uint64_t mount_apfs_system_readwrite_with_revert(char *a1, const char *a2, uint6
   }
 
   _partition_log("unmounting %s at %s", v28, v29, v30, v31, v32, v33, v34, v25 + v27);
-  _unmount_filesystem(v103 + v27 - 1024);
-  v25 = v103;
+  _unmount_filesystem(v102 + v27 - 1024);
+  v25 = v102;
 LABEL_10:
   free(v25);
   v36 = _mount_filesystem(&system_device_node_path, a1);
@@ -8250,7 +8279,7 @@ LABEL_10:
 
   if (!is_mountpoint_apfs(a1))
   {
-    _partition_log("media is not apfs managed: unsupported operation", v45, v46, v47, v48, v49, v50, v51, v102);
+    _partition_log("media is not apfs managed: unsupported operation", v45, v46, v47, v48, v49, v50, v51, v101);
     return 45;
   }
 
@@ -8287,18 +8316,18 @@ LABEL_29:
   _partition_log("reverting system volume to snapshot %s succeeded. remounting...", v54, v55, v56, v57, v58, v59, v60, a2);
   if (!close(v53))
   {
-    v93 = _unmount_filesystem(a1);
-    if (v93)
+    v92 = _unmount_filesystem(a1);
+    if (v92)
     {
-      v35 = v93;
-      _partition_log("system volume device node %s could not be unmounted from %s", v94, v95, v96, v97, v98, v99, v100, &system_device_node_path);
+      v35 = v92;
+      _partition_log("system volume device node %s could not be unmounted from %s", v93, v94, v95, v96, v97, v98, v99, &system_device_node_path);
       return v35;
     }
 
-    v101 = _mount_filesystem(&system_device_node_path, a1);
-    if (v101)
+    v100 = _mount_filesystem(&system_device_node_path, a1);
+    if (v100)
     {
-      v35 = v101;
+      v35 = v100;
       _partition_log("system volume device node %s could not be re-mounted read/write at %s", v45, v46, v47, v48, v49, v50, v51, &system_device_node_path);
       return v35;
     }
@@ -8313,10 +8342,10 @@ LABEL_29:
 LABEL_23:
   if (close(v53))
   {
-    v84 = *__error();
-    v85 = __error();
-    strerror(*v85);
-    _partition_log("%s: Unable to close directory: %d %s\n", v86, v87, v88, v89, v90, v91, v92, "mount_apfs_system_readwrite_with_revert");
+    __error();
+    v84 = __error();
+    strerror(*v84);
+    _partition_log("%s: Unable to close directory: %d %s\n", v85, v86, v87, v88, v89, v90, v91, "mount_apfs_system_readwrite_with_revert");
   }
 
   return v35;
@@ -8588,6 +8617,13 @@ BOOL _ioreg_property_exists(const __CFString *a1)
   return v3 != 0;
 }
 
+void sub_100019F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
+{
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 CFTypeRef _ioreg_copy_property(char *path, const __CFString *a2)
 {
   v3 = IORegistryEntryFromPath(kIOMasterPortDefault, path);
@@ -8628,7 +8664,7 @@ uint64_t MSUBootFirmwareFindNamespace(io_registry_entry_t a1, uint64_t a2)
   return IOServiceGetMatchingService(kIOMasterPortDefault, v6);
 }
 
-void OUTLINED_FUNCTION_0_0(CFErrorRef *a1@<X0>, const __CFString *a2@<X1>, const __CFString *a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, char a7@<W8>)
+void OUTLINED_FUNCTION_0_0(CFErrorRef *a1@<X0>, const __CFString *a2@<X1>, const __CFString *a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, uint64_t a7@<X8>)
 {
 
   ramrod_create_error_cf(a1, a2, 6, 0, a3, a4, a5, a6, a7);
@@ -8640,7 +8676,7 @@ uint64_t OUTLINED_FUNCTION_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   return __os_log_send_and_compose_impl(a1, v6, v5, 80, a5, v7, 16);
 }
 
-void OUTLINED_FUNCTION_2(CFErrorRef *a1@<X0>, const __CFString *a2@<X1>, const __CFString *a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, char a7@<W8>)
+void OUTLINED_FUNCTION_2(CFErrorRef *a1@<X0>, const __CFString *a2@<X1>, const __CFString *a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, uint64_t a7@<X8>)
 {
 
   ramrod_create_error_cf(a1, a2, 2, 0, a3, a4, a5, a6, a7);
@@ -8794,7 +8830,7 @@ uint64_t wait_for_io_service_matching_dict(CFTypeRef cf, unsigned int a2)
     v6 = a2 - v4 >= 3 ? 3 : a2 - v4;
     v7 = CFCopyDescription(cf);
     CStringPtr = CFStringGetCStringPtr(v7, 0);
-    ramrod_log_msg("waiting for matching IOKit service: %s\n", v9, v10, v11, v12, v13, v14, v15, CStringPtr);
+    ramrod_log_msg("waiting for matching IOKit service: %s\n", CStringPtr);
     sleep(v6);
     v4 += v6;
     CFRelease(v7);
@@ -8810,23 +8846,23 @@ uint64_t wait_for_io_service_matching_resource_with_timeout(const char *a1, unsi
   v4 = IOServiceMatching("IOResources");
   if (!v4)
   {
-    ramrod_log_msg("unable to create matching dictionary for resource '%s'\n", v5, v6, v7, v8, v9, v10, v11, a1);
+    ramrod_log_msg("unable to create matching dictionary for resource '%s'\n");
     return 0;
   }
 
-  v12 = v4;
-  v13 = CFStringCreateWithCString(kCFAllocatorDefault, a1, 0x8000100u);
-  if (!v13)
+  v5 = v4;
+  v6 = CFStringCreateWithCString(kCFAllocatorDefault, a1, 0x8000100u);
+  if (!v6)
   {
-    ramrod_log_msg("unable to convert resource name to CFString\n", v14, v15, v16, v17, v18, v19, v20, v23);
+    ramrod_log_msg("unable to convert resource name to CFString\n");
     return 0;
   }
 
-  v21 = v13;
-  CFDictionarySetValue(v12, @"IOResourceMatch", v13);
-  CFRelease(v21);
+  v7 = v6;
+  CFDictionarySetValue(v5, @"IOResourceMatch", v6);
+  CFRelease(v7);
 
-  return wait_for_io_service_matching_dict(v12, a2);
+  return wait_for_io_service_matching_dict(v5, a2);
 }
 
 __CFDictionary *create_embedded_storage_service_query_dict(char *cStr)
@@ -9071,48 +9107,48 @@ void ramrod_log_msg_cf(CFStringRef format, ...)
 {
   va_start(va, format);
   v1 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, 0, format, va);
-  if (!v1)
+  if (v1)
   {
-    ramrod_log_msg("(Failed to format log message)\n", v2, v3, v4, v5, v6, v7, v8, v30);
-    return;
-  }
-
-  v9 = v1;
-  CStringPtr = CFStringGetCStringPtr(v1, 0x8000100u);
-  if (CStringPtr)
-  {
-    v30 = CStringPtr;
-    v18 = "%s";
-  }
-
-  else
-  {
-    Length = CFStringGetLength(v9);
-    MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-    v21 = malloc(MaximumSizeForEncoding + 1);
-    if (v21)
+    v2 = v1;
+    if (CFStringGetCStringPtr(v1, 0x8000100u))
     {
-      v22 = v21;
-      if (CFStringGetCString(v9, v21, MaximumSizeForEncoding + 1, 0x8000100u))
+      ramrod_log_msg("%s");
+    }
+
+    else
+    {
+      Length = CFStringGetLength(v2);
+      MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+      v5 = malloc(MaximumSizeForEncoding + 1);
+      if (v5)
       {
-        ramrod_log_msg("%s", v23, v24, v25, v26, v27, v28, v29, v22);
+        v6 = v5;
+        if (CFStringGetCString(v2, v5, MaximumSizeForEncoding + 1, 0x8000100u))
+        {
+          ramrod_log_msg("%s");
+        }
+
+        else
+        {
+          ramrod_log_msg("(Failed to alloc and convert log message)\n");
+        }
+
+        free(v6);
       }
 
       else
       {
-        ramrod_log_msg("(Failed to alloc and convert log message)\n", v23, v24, v25, v26, v27, v28, v29, v30);
+        ramrod_log_msg("(Failed to alloc and convert log message)\n");
       }
-
-      free(v22);
-      goto LABEL_12;
     }
 
-    v18 = "(Failed to alloc and convert log message)\n";
+    CFRelease(v2);
   }
 
-  ramrod_log_msg(v18, v11, v12, v13, v14, v15, v16, v17, v30);
-LABEL_12:
-  CFRelease(v9);
+  else
+  {
+    ramrod_log_msg("(Failed to format log message)\n");
+  }
 }
 
 void do_ramrod_log_msg(int a1, const char *a2, va_list a3)
@@ -9244,7 +9280,6 @@ CFStringRef checkpoint_nvram_encode_id_string(uint64_t a1, unsigned int *a2)
   }
 
   v4 = strlen(*(a2 + 1));
-  v5 = *a2;
   if (v4 > 0xF2)
   {
     return CFStringCreateWithFormat(0, 0, @"{0x%08X:~%s}", *a2, v3 + v4 - 241);
@@ -9274,34 +9309,34 @@ CFStringRef checkpoint_nvram_encode_by_boot(uint64_t a1, const __CFString *a2)
   v2 = a2;
   if (a2)
   {
-    v16 = 0;
-    asprintf(&v16, "{");
-    v8 = v16;
-    if (v16)
+    v10 = 0;
+    asprintf(&v10, "{");
+    v3 = v10;
+    if (v10)
     {
+      v4 = 0;
       v9 = 0;
-      v15 = 0;
-      v10 = 1;
+      v5 = 1;
       do
       {
-        v11 = v10;
-        v12 = *(&v2->isa + v9);
-        if (v12)
+        v6 = v5;
+        v7 = *(&v2->isa + v4);
+        if (v7)
         {
-          v8 = checkpoint_append_and_free_key_v(v8, checkpoint_boot_type_name[v9], v12, &v15);
-          v16 = v8;
+          v3 = checkpoint_append_and_free_key_v(v3, checkpoint_boot_type_name[v4], v7, &v9);
+          v10 = v3;
         }
 
-        v10 = 0;
-        v9 = 1;
+        v5 = 0;
+        v4 = 1;
       }
 
-      while ((v11 & 1) != 0);
-      v16 = checkpoint_append_and_free(v8, "}", v12, v3, v4, v5, v6, v7, v14);
-      v2 = CFStringCreateWithFormat(0, 0, @"%s", v16);
-      if (v16)
+      while ((v6 & 1) != 0);
+      v10 = checkpoint_append_and_free(v3, "}");
+      v2 = CFStringCreateWithFormat(0, 0, @"%s", v10);
+      if (v10)
       {
-        free(v16);
+        free(v10);
       }
     }
 
@@ -9319,33 +9354,32 @@ CFStringRef checkpoint_nvram_encode_by_id(uint64_t a1, const __CFString *a2)
   v2 = a2;
   if (a2)
   {
-    v15 = 0;
-    asprintf(&v15, "{");
-    v8 = v15;
-    if (v15)
+    v8 = 0;
+    asprintf(&v8, "{");
+    v3 = v8;
+    if (v8)
     {
-      v14 = 0;
+      v7 = 0;
       p_info = &v2->info;
-      v10 = 8;
+      v5 = 8;
       do
       {
-        v11 = *p_info;
         if (*p_info)
         {
-          v8 = checkpoint_append_and_free_id_v(v8, *(p_info - 2), v11, &v14);
-          v15 = v8;
+          v3 = checkpoint_append_and_free_id_v(v3, *(p_info - 2), *p_info, &v7);
+          v8 = v3;
         }
 
         p_info += 2;
-        --v10;
+        --v5;
       }
 
-      while (v10);
-      v15 = checkpoint_append_and_free(v8, "}", v11, v3, v4, v5, v6, v7, v13);
-      v2 = CFStringCreateWithFormat(0, 0, @"%s", v15);
-      if (v15)
+      while (v5);
+      v8 = checkpoint_append_and_free(v3, "}");
+      v2 = CFStringCreateWithFormat(0, 0, @"%s", v8);
+      if (v8)
       {
-        free(v15);
+        free(v8);
       }
     }
 
@@ -9358,44 +9392,43 @@ CFStringRef checkpoint_nvram_encode_by_id(uint64_t a1, const __CFString *a2)
   return v2;
 }
 
-int *checkpoint_nvram_encode_by_id_int(uint64_t a1, int *a2)
+CFStringRef checkpoint_nvram_encode_by_id_int(uint64_t a1, const __CFString *a2)
 {
   v2 = a2;
   if (a2)
   {
-    v14 = 0;
-    asprintf(&v14, "{");
-    if (v14)
+    v7 = 0;
+    asprintf(&v7, "{");
+    if (v7)
     {
-      v13 = 0;
-      v9 = 8;
+      v6 = 0;
+      v3 = 8;
       do
       {
-        if (*v2)
+        if (LODWORD(v2->isa))
         {
-          v12 = 0;
-          asprintf(&v12, "%d", v2[1]);
-          v3 = v12;
-          if (v12)
+          v5 = 0;
+          asprintf(&v5, "%d", HIDWORD(v2->isa));
+          if (v5)
           {
-            v14 = checkpoint_append_and_free_id_v(v14, *v2, v12, &v13);
-            if (v12)
+            v7 = checkpoint_append_and_free_id_v(v7, v2->isa, v5, &v6);
+            if (v5)
             {
-              free(v12);
+              free(v5);
             }
           }
         }
 
-        v2 += 2;
-        --v9;
+        v2 = (v2 + 8);
+        --v3;
       }
 
-      while (v9);
-      v14 = checkpoint_append_and_free(v14, "}", v3, v4, v5, v6, v7, v8, v11);
-      v2 = CFStringCreateWithFormat(0, 0, @"%s", v14);
-      if (v14)
+      while (v3);
+      v7 = checkpoint_append_and_free(v7, "}");
+      v2 = CFStringCreateWithFormat(0, 0, @"%s", v7);
+      if (v7)
       {
-        free(v14);
+        free(v7);
       }
     }
 
@@ -9413,66 +9446,65 @@ CFStringRef checkpoint_nvram_encode_by_id_try(uint64_t a1, const __CFString *a2)
   v2 = a2;
   if (a2)
   {
-    v19 = 0;
-    asprintf(&v19, "{");
-    if (v19)
+    v12 = 0;
+    asprintf(&v12, "{");
+    if (v12)
     {
-      v9 = 0;
-      v18 = 0;
+      v3 = 0;
+      v11 = 0;
       p_info = &v2->info;
       do
       {
-        v11 = v2 + 18 * v9;
-        if (*v11)
+        v5 = v2 + 18 * v3;
+        if (*v5)
         {
-          v22 = 0;
-          asprintf(&v22, "{");
-          if (v22)
+          v15 = 0;
+          asprintf(&v15, "{");
+          if (v15)
           {
-            v12 = 0;
-            v21 = 0;
+            v6 = 0;
+            v14 = 0;
             do
             {
-              v13 = p_info[v12];
-              if (v13)
+              v7 = p_info[v6];
+              if (v7)
               {
-                v20 = 0;
-                asprintf(&v20, "%s", v13);
-                v3 = v20;
-                if (v20)
+                v13 = 0;
+                asprintf(&v13, "%s", v7);
+                if (v13)
                 {
-                  v22 = checkpoint_append_and_free_try_v(v22, v12, v20, &v21);
-                  if (v20)
+                  v15 = checkpoint_append_and_free_try_v(v15, v6, v13, &v14);
+                  if (v13)
                   {
-                    free(v20);
+                    free(v13);
                   }
                 }
               }
 
-              ++v12;
+              ++v6;
             }
 
-            while (v12 != 8);
-            v14 = checkpoint_append_and_free(v22, "}", v3, v4, v5, v6, v7, v8, v17);
-            if (v14)
+            while (v6 != 8);
+            v8 = checkpoint_append_and_free(v15, "}");
+            if (v8)
             {
-              v15 = v14;
-              v19 = checkpoint_append_and_free_id_v(v19, *v11, v14, &v18);
-              free(v15);
+              v9 = v8;
+              v12 = checkpoint_append_and_free_id_v(v12, *v5, v8, &v11);
+              free(v9);
             }
           }
         }
 
-        ++v9;
+        ++v3;
         p_info += 9;
       }
 
-      while (v9 != 8);
-      v19 = checkpoint_append_and_free(v19, "}", v3, v4, v5, v6, v7, v8, v17);
-      v2 = CFStringCreateWithFormat(0, 0, @"%s", v19);
-      if (v19)
+      while (v3 != 8);
+      v12 = checkpoint_append_and_free(v12, "}");
+      v2 = CFStringCreateWithFormat(0, 0, @"%s", v12);
+      if (v12)
       {
-        free(v19);
+        free(v12);
       }
     }
 
@@ -9490,65 +9522,64 @@ CFStringRef checkpoint_nvram_encode_by_id_try_int(uint64_t a1, const __CFString 
   v2 = a2;
   if (a2)
   {
-    v18 = 0;
-    asprintf(&v18, "{");
-    if (v18)
+    v11 = 0;
+    asprintf(&v11, "{");
+    if (v11)
     {
-      v9 = 0;
-      v17 = 0;
-      v10 = v2;
+      v3 = 0;
+      v10 = 0;
+      v4 = v2;
       do
       {
-        v11 = v2 + 11 * v9;
-        if (*v11)
+        v5 = v2 + 11 * v3;
+        if (*v5)
         {
-          v21 = 0;
-          asprintf(&v21, "{");
-          if (v21)
+          v14 = 0;
+          asprintf(&v14, "{");
+          if (v14)
           {
-            v12 = 0;
-            v20 = 0;
+            v6 = 0;
+            v13 = 0;
             do
             {
-              if (*(&v10[1].isa + v12 + 4))
+              if (*(&v4[1].isa + v6 + 4))
               {
-                v19 = 0;
-                asprintf(&v19, "%d", *(&v10->isa + v12 + 1));
-                v3 = v19;
-                if (v19)
+                v12 = 0;
+                asprintf(&v12, "%d", *(&v4->isa + v6 + 1));
+                if (v12)
                 {
-                  v21 = checkpoint_append_and_free_try_v(v21, v12, v19, &v20);
-                  if (v19)
+                  v14 = checkpoint_append_and_free_try_v(v14, v6, v12, &v13);
+                  if (v12)
                   {
-                    free(v19);
+                    free(v12);
                   }
                 }
               }
 
-              ++v12;
+              ++v6;
             }
 
-            while (v12 != 8);
-            v13 = checkpoint_append_and_free(v21, "}", v3, v4, v5, v6, v7, v8, v16);
-            if (v13)
+            while (v6 != 8);
+            v7 = checkpoint_append_and_free(v14, "}");
+            if (v7)
             {
-              v14 = v13;
-              v18 = checkpoint_append_and_free_id_v(v18, *v11, v13, &v17);
-              free(v14);
+              v8 = v7;
+              v11 = checkpoint_append_and_free_id_v(v11, *v5, v7, &v10);
+              free(v8);
             }
           }
         }
 
-        ++v9;
-        v10 = (v10 + 44);
+        ++v3;
+        v4 = (v4 + 44);
       }
 
-      while (v9 != 8);
-      v18 = checkpoint_append_and_free(v18, "}", v3, v4, v5, v6, v7, v8, v16);
-      v2 = CFStringCreateWithFormat(0, 0, @"%s", v18);
-      if (v18)
+      while (v3 != 8);
+      v11 = checkpoint_append_and_free(v11, "}");
+      v2 = CFStringCreateWithFormat(0, 0, @"%s", v11);
+      if (v11)
       {
-        free(v18);
+        free(v11);
       }
     }
 
@@ -9561,25 +9592,24 @@ CFStringRef checkpoint_nvram_encode_by_id_try_int(uint64_t a1, const __CFString 
   return v2;
 }
 
-uint64_t checkpoint_nvram_is_available(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t checkpoint_nvram_is_available(uint64_t a1, int a2, int a3)
 {
-  v8 = a3;
-  v10 = *(a1 + 688);
-  if (!v10)
+  v5 = *(a1 + 688);
+  if (!v5)
   {
     goto LABEL_155;
   }
 
-  if (v10 == 1)
+  if (v5 == 1)
   {
-    v11 = 1;
+    v6 = 1;
     goto LABEL_20;
   }
 
-  v11 = 0;
+  v6 = 0;
   if (a2)
   {
-    if (v10 == 2)
+    if (v5 == 2)
     {
 LABEL_155:
       if (ramrod_check_NVRAM_access())
@@ -9589,15 +9619,15 @@ LABEL_155:
           if (!*(a1 + 2297))
           {
 LABEL_24:
-            v17 = *(a1 + 688);
+            v11 = *(a1 + 688);
             if (*(a1 + 693))
             {
 LABEL_148:
-              v11 = 1;
+              v6 = 1;
               *(a1 + 688) = 1;
-              if (!v8)
+              if (!a3)
               {
-                if (v17)
+                if (v11)
                 {
                   checkpoint_history_add(a1, 2, 1, 0, 256, "NVRAM access has become available", 0, 0, 0);
                 }
@@ -9611,115 +9641,115 @@ LABEL_148:
               goto LABEL_20;
             }
 
-            v18 = *a1 == 1 && v17 == 2;
-            v19 = 696;
-            if (v18)
+            v12 = *a1 == 1 && v11 == 2;
+            v13 = 696;
+            if (v12)
             {
-              v19 = 1088;
+              v13 = 1088;
             }
 
-            v20 = (a1 + v19);
-            if (*(a1 + v19 + 4))
+            v14 = a1 + v13;
+            if (*(a1 + v13 + 4))
             {
-              ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): first available indication when already collected\n", v12, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_handle_first_available");
+              ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): first available indication when already collected\n", "checkpoint_nvram_handle_first_available");
             }
 
             else
             {
-              checkpoint_nvram_collect(a1, v20, a3, a4, a5, a6, a7, a8);
+              checkpoint_nvram_collect(a1, v14);
             }
 
             if (*a1 == 1)
             {
-              v28 = *(a1 + 88);
+              v15 = *(a1 + 88);
               if (*(a1 + 96))
               {
-                if (v28 == 2)
+                if (v15 == 2)
                 {
-                  v38 = &checkpoint_nvram_ota_monitor_aware_awoken;
+                  v19 = &checkpoint_nvram_ota_monitor_aware_awoken;
                 }
 
                 else
                 {
-                  v38 = &checkpoint_nvram_restore_monitor_aware_awoken;
+                  v19 = &checkpoint_nvram_restore_monitor_aware_awoken;
                 }
               }
 
               else
               {
-                if (v28 == 2)
+                if (v15 == 2)
                 {
-                  v30 = checkpoint_nvram_check_collection(a1, v20, checkpoint_nvram_ota_monitor_aware_init, v23, v24, v25, v26, v27);
-                  checkpoint_nvram_delete_var_if_matches(a1, v20);
+                  v17 = checkpoint_nvram_check_collection(a1, v14, checkpoint_nvram_ota_monitor_aware_init);
+                  checkpoint_nvram_delete_var_if_matches(a1, v14);
                   goto LABEL_53;
                 }
 
-                v38 = &checkpoint_nvram_restore_monitor_aware_init;
+                v19 = &checkpoint_nvram_restore_monitor_aware_init;
               }
 
-              v30 = checkpoint_nvram_check_collection(a1, v20, v38, v23, v24, v25, v26, v27);
+              v17 = checkpoint_nvram_check_collection(a1, v14, v19);
 LABEL_53:
-              if (!v20[6])
+              if (!*(v14 + 48))
               {
                 goto LABEL_111;
               }
 
-              outcome_type = checkpoint_get_outcome_type(a1, v20, v32, v33, v34, v35, v36, v37);
+              outcome_type = checkpoint_get_outcome_type(a1, v14);
               if (outcome_type < 0x22)
               {
-                v50 = &checkpoint_outcome_attributes[3 * outcome_type];
+                v25 = &checkpoint_outcome_attributes[3 * outcome_type];
               }
 
               else
               {
-                ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid outcome=%d\n", v43, v44, v45, v46, v47, v48, v49, "checkpoint_get_outcome_attributes");
-                v50 = checkpoint_outcome_attributes;
+                ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid outcome=%d\n", "checkpoint_get_outcome_attributes", outcome_type);
+                v25 = checkpoint_outcome_attributes;
               }
 
-              v51 = v20[6];
-              bzero(v82, 0x400uLL);
-              if (*v50 == 2)
+              v26 = *(v14 + 48);
+              bzero(v49, 0x400uLL);
+              if (*v25 == 2)
               {
-                v52 = *(v50 + 8);
-                if (*(v50 + 8))
+                v27 = *(v25 + 8);
+                if (*(v25 + 8))
                 {
                   *(a1 + 106) = 1;
                 }
 
-                if (*(v50 + 7))
+                if (*(v25 + 7))
                 {
-                  v30 = 0;
+                  v17 = 0;
                   *(a1 + 102) = 1;
                 }
 
-                if (!*(v50 + 5))
+                if (!*(v25 + 5))
                 {
-                  if (!*(v50 + 4) || !*(v50 + 6))
+                  if (!*(v25 + 4) || !*(v25 + 6))
                   {
                     goto LABEL_111;
                   }
 
-                  if (v52)
+                  if (v27)
                   {
                     *(a1 + 101) = 1;
                     goto LABEL_111;
                   }
 
-                  if (!v20[8])
+                  if (!*(v14 + 64))
                   {
                     goto LABEL_111;
                   }
 
 LABEL_97:
-                  v67 = v20[7];
+                  v35 = *(v14 + 56);
                   *(a1 + 101) = 1;
-                  if (!v67 || CFStringCompare(v67, @"true", 0))
+                  if (!v35 || CFStringCompare(v35, @"true", 0))
                   {
                     goto LABEL_99;
                   }
 
                   *(a1 + 100) = 1;
-                  if (*(v50 + 5))
+                  if (*(v25 + 5))
                   {
                     *(a1 + 104) = 257;
                   }
@@ -9730,22 +9760,22 @@ LABEL_97:
                   }
 
 LABEL_111:
-                  if (v30 && !*(a1 + 106) && !*(a1 + 100) && !*(a1 + 104))
+                  if (v17 && !*(a1 + 106) && !*(a1 + 100) && !*(a1 + 104))
                   {
-                    checkpoint_nvram_store_anomaly(a1, v31, "[monitor_aware]pre-existing NVRAM implied reboot-retry but values were inconsistent");
+                    checkpoint_nvram_store_anomaly(a1, v18, "[monitor_aware]pre-existing NVRAM implied reboot-retry but values were inconsistent");
                   }
 
                   goto LABEL_116;
                 }
 
-                if (v52)
+                if (v27)
                 {
                   *(a1 + 101) = 1;
                   *(a1 + 104) = 257;
                   goto LABEL_111;
                 }
 
-                if (v20[8])
+                if (*(v14 + 64))
                 {
                   goto LABEL_97;
                 }
@@ -9753,58 +9783,58 @@ LABEL_111:
 
               else
               {
-                if (!*(v50 + 5))
+                if (!*(v25 + 5))
                 {
                   goto LABEL_111;
                 }
 
-                if (!v20[8])
+                if (!*(v14 + 64))
                 {
-                  checkpoint_get_nvram_value_string(v51, v82);
-                  checkpoint_nvram_store_anomaly(a1, v69, "[monitor_aware]outcome=%s(reboot_retry_not_in_zone)");
+                  checkpoint_get_nvram_value_string(v26, v49);
+                  checkpoint_nvram_store_anomaly(a1, v37, "[monitor_aware]outcome=%s(reboot_retry_not_in_zone)");
                   goto LABEL_116;
                 }
 
-                v53 = v20[7];
-                if (!v53 || CFStringCompare(v53, @"true", 0))
+                v28 = *(v14 + 56);
+                if (!v28 || CFStringCompare(v28, @"true", 0))
                 {
 LABEL_99:
-                  checkpoint_get_nvram_value_string(v51, v82);
-                  checkpoint_nvram_store_anomaly(a1, v68, "[monitor_aware]outcome=%s(reboot_retry_disabled)");
+                  checkpoint_get_nvram_value_string(v26, v49);
+                  checkpoint_nvram_store_anomaly(a1, v36, "[monitor_aware]outcome=%s(reboot_retry_disabled)");
 LABEL_116:
                   if (*(a1 + 104))
                   {
-                    if (v17 == 2)
+                    if (v11 == 2)
                     {
-                      v71 = 0;
-                      v72 = (a1 + 1520);
-                      v73 = &dword_10004D7D0;
+                      v39 = 0;
+                      v40 = (a1 + 1520);
+                      v41 = &dword_10004D7D0;
                       do
                       {
-                        v75 = *v73;
-                        v73 += 8;
-                        v74 = v75;
-                        if (v71 != v75)
+                        v43 = *v41;
+                        v41 += 8;
+                        v42 = v43;
+                        if (v39 != v43)
                         {
-                          v76 = a1 + 1512 + 16 * v74;
-                          *(v76 + 4) = *(v72 - 4);
-                          *(v72 - 4) = 0;
-                          v77 = *v72;
-                          *v72 = *(v76 + 8);
-                          *(v76 + 8) = v77;
+                          v44 = a1 + 1512 + 16 * v42;
+                          *(v44 + 4) = *(v40 - 4);
+                          *(v40 - 4) = 0;
+                          v45 = *v40;
+                          *v40 = *(v44 + 8);
+                          *(v44 + 8) = v45;
                         }
 
-                        ++v71;
-                        v72 += 2;
+                        ++v39;
+                        v40 += 2;
                       }
 
-                      while (v71 != 48);
+                      while (v39 != 48);
                     }
                   }
 
                   else if (*a1 != 1 && *(a1 + 88) == 2)
                   {
-                    ramrod_log_msg("%s\n", v31, v32, v33, v34, v35, v36, v37, "void clear_stale_ota_nvram(void)");
+                    ramrod_log_msg("%s\n", "void clear_stale_ota_nvram(void)");
                     checkpoint_nvram_delete_var_raw(@"boot-breadcrumbs");
                     checkpoint_nvram_delete_var_raw(@"OTA-pre-conversion");
                     checkpoint_nvram_delete_var_raw(@"OTA-post-conversion");
@@ -9814,9 +9844,9 @@ LABEL_116:
                     checkpoint_nvram_delete_var_raw(@"OTA-migrator-metrics");
                     for (i = 0; i != 28; ++i)
                     {
-                      v79 = &checkpoint_nvram_map[4 * dword_100042CEC[i]];
-                      checkpoint_nvram_delete_var_raw(v79[1]);
-                      checkpoint_nvram_delete_var_raw(*v79);
+                      v47 = &checkpoint_nvram_map[4 * dword_100042CEC[i]];
+                      checkpoint_nvram_delete_var_raw(v47[1]);
+                      checkpoint_nvram_delete_var_raw(*v47);
                     }
                   }
 
@@ -9828,33 +9858,33 @@ LABEL_116:
                       {
                         if (*(a1 + 106))
                         {
-                          v80 = 9;
+                          v48 = 9;
                         }
 
                         else if (*(a1 + 105))
                         {
-                          v80 = 12;
+                          v48 = 12;
                         }
 
                         else if (*(a1 + 100))
                         {
-                          v80 = 10;
+                          v48 = 10;
                         }
 
                         else
                         {
-                          v80 = 11;
+                          v48 = 11;
                         }
                       }
 
                       else if (*(a1 + 103))
                       {
-                        v80 = 10;
+                        v48 = 10;
                       }
 
                       else
                       {
-                        v80 = 3;
+                        v48 = 3;
                       }
                     }
 
@@ -9862,26 +9892,26 @@ LABEL_116:
                     {
                       if (*(a1 + 104))
                       {
-                        v80 = 7;
+                        v48 = 7;
                       }
 
                       else
                       {
-                        v80 = 6;
+                        v48 = 6;
                       }
                     }
 
                     else
                     {
-                      v80 = 2;
+                      v48 = 2;
                     }
 
-                    checkpoint_outcome_progress(a1, v80, v32, v33, v34, v35, v36, v37);
+                    checkpoint_outcome_progress(a1, v48);
                   }
 
                   else
                   {
-                    checkpoint_outcome_init(a1, 1, v32, v33, v34, v35, v36, v37);
+                    checkpoint_outcome_init(a1, 1);
                   }
 
                   *(a1 + 693) = 1;
@@ -9893,95 +9923,95 @@ LABEL_116:
               goto LABEL_111;
             }
 
-            v29 = v20[7];
-            if (v29 && CFStringCompare(v29, @"true", 0) == kCFCompareEqualTo)
+            v16 = *(v14 + 56);
+            if (v16 && CFStringCompare(v16, @"true", 0) == kCFCompareEqualTo)
             {
               *(a1 + 100) = 1;
             }
 
             else
             {
-              ramrod_log_msg("AP nonce will not be touched\n", v21, v22, v23, v24, v25, v26, v27, v81);
+              ramrod_log_msg("AP nonce will not be touched\n");
             }
 
-            v39 = *(a1 + 88);
+            v20 = *(a1 + 88);
             if (*(a1 + 96))
             {
-              if (v39 == 2)
+              if (v20 == 2)
               {
-                v40 = checkpoint_nvram_check_collection(a1, v20, checkpoint_nvram_ota_engine_aware_step, v23, v24, v25, v26, v27);
-                checkpoint_nvram_delete_var_if_matches(a1, v20);
+                v21 = checkpoint_nvram_check_collection(a1, v14, checkpoint_nvram_ota_engine_aware_step);
+                checkpoint_nvram_delete_var_if_matches(a1, v14);
                 goto LABEL_71;
               }
 
-              v41 = &checkpoint_nvram_restore_engine_aware_step;
+              v23 = &checkpoint_nvram_restore_engine_aware_step;
             }
 
-            else if (v39 == 2)
+            else if (v20 == 2)
             {
-              v41 = &checkpoint_nvram_ota_engine_aware_init;
+              v23 = &checkpoint_nvram_ota_engine_aware_init;
             }
 
             else
             {
-              v41 = &checkpoint_nvram_restore_engine_aware_init;
+              v23 = &checkpoint_nvram_restore_engine_aware_init;
             }
 
-            v40 = checkpoint_nvram_check_collection(a1, v20, v41, v23, v24, v25, v26, v27);
+            v21 = checkpoint_nvram_check_collection(a1, v14, v23);
 LABEL_71:
-            if (!v20[6])
+            if (!*(v14 + 48))
             {
               *(a1 + 1480) = 1;
               *(a1 + 1488) = "access now enabled";
               if (*(a1 + 88) == 2)
               {
-                if (v20[8])
+                if (*(v14 + 64))
                 {
-                  checkpoint_nvram_delete_var(a1, 7, 0, 0, v34, v35, v36, v37);
+                  checkpoint_nvram_delete_var(a1, 7u, 0, 0);
                 }
 
-                v63 = v20[3];
-                if (v63 && CFStringCompare(v63, @"recover", 0))
+                v31 = *(v14 + 24);
+                if (v31 && CFStringCompare(v31, @"recover", 0))
                 {
-                  checkpoint_nvram_delete_var(a1, 2, 1, 0, v34, v35, v36, v37);
+                  checkpoint_nvram_delete_var(a1, 2u, 1, 0);
                 }
 
-                if (v20[4])
+                if (*(v14 + 32))
                 {
-                  checkpoint_nvram_delete_var(a1, 3, 1, 0, v34, v35, v36, v37);
+                  checkpoint_nvram_delete_var(a1, 3u, 1, 0);
                 }
               }
 
               goto LABEL_103;
             }
 
-            v54 = checkpoint_get_outcome_type(a1, v20, v32, v33, v34, v35, v36, v37);
-            if (v54 < 0x22)
+            v29 = checkpoint_get_outcome_type(a1, v14);
+            if (v29 < 0x22)
             {
-              v62 = &checkpoint_outcome_attributes[3 * v54];
+              v30 = &checkpoint_outcome_attributes[3 * v29];
             }
 
             else
             {
-              ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid outcome=%d\n", v55, v56, v57, v58, v59, v60, v61, "checkpoint_get_outcome_attributes");
-              v62 = checkpoint_outcome_attributes;
+              ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid outcome=%d\n", "checkpoint_get_outcome_attributes", v29);
+              v30 = checkpoint_outcome_attributes;
             }
 
-            v64 = v20[6];
-            bzero(v82, 0x400uLL);
-            if (*v62 != 1)
+            v32 = *(v14 + 48);
+            bzero(v49, 0x400uLL);
+            if (*v30 != 1)
             {
-              if (*(v62 + 6))
+              if (*(v30 + 6))
               {
-                if (v20[8])
+                if (*(v14 + 64))
                 {
-                  checkpoint_reboot_retry_chassis_aware(a1, v64, v32, v33, v34, v35, v36, v37, v81);
+                  checkpoint_reboot_retry_chassis_aware(a1, v32);
                 }
 
                 else
                 {
-                  checkpoint_get_nvram_value_string(v64, v82);
-                  checkpoint_nvram_store_anomaly(a1, v70, "[chassis_aware]outcome=%s(pre_existing_reboot_retry_not_in_zone)", v82);
+                  checkpoint_get_nvram_value_string(v32, v49);
+                  checkpoint_nvram_store_anomaly(a1, v38, "[chassis_aware]outcome=%s(pre_existing_reboot_retry_not_in_zone)", v49);
                 }
               }
 
@@ -9990,29 +10020,29 @@ LABEL_71:
               goto LABEL_103;
             }
 
-            v65 = v20[8];
-            if (*(v62 + 5))
+            v33 = *(v14 + 64);
+            if (*(v30 + 5))
             {
-              if (!v65)
+              if (!v33)
               {
-                checkpoint_get_nvram_value_string(v64, v82);
-                checkpoint_nvram_store_anomaly(a1, v66, "[chassis_aware]outcome=%s(pre_existing_reboot_retry_not_in_zone)", v82);
+                checkpoint_get_nvram_value_string(v32, v49);
+                checkpoint_nvram_store_anomaly(a1, v34, "[chassis_aware]outcome=%s(pre_existing_reboot_retry_not_in_zone)", v49);
 LABEL_103:
-                if (v40 && !*(a1 + 104))
+                if (v21 && !*(a1 + 104))
                 {
-                  checkpoint_nvram_store_anomaly(a1, v31, "[chassis_aware]pre-existing NVRAM implied reboot-retry but values were inconsistent");
+                  checkpoint_nvram_store_anomaly(a1, v22, "[chassis_aware]pre-existing NVRAM implied reboot-retry but values were inconsistent");
                 }
 
                 goto LABEL_116;
               }
             }
 
-            else if (!v65)
+            else if (!v33)
             {
               goto LABEL_103;
             }
 
-            checkpoint_reboot_retry_chassis_aware(a1, v64, v32, v33, v34, v35, v36, v37, v81);
+            checkpoint_reboot_retry_chassis_aware(a1, v32);
             goto LABEL_103;
           }
         }
@@ -10028,38 +10058,38 @@ LABEL_103:
 
           if (*a1 == 2)
           {
-            checkpoint_nvram_delete_var(a1, 47, 0, 0, a5, a6, a7, a8);
+            checkpoint_nvram_delete_var(a1, 0x2Fu, 0, 0);
           }
 
           *(a1 + 2297) = 1;
           *(a1 + 692) = 0;
-          v13 = (a1 + 1016);
-          v14 = -4;
+          v7 = (a1 + 1016);
+          v8 = -4;
           do
           {
-            checkpoint_nvram_collect_var(a1, 1u, v14 + 43, v13++);
+            checkpoint_nvram_collect_var(a1, 1u, v8 + 43, v7++);
           }
 
-          while (!__CFADD__(v14++, 1));
+          while (!__CFADD__(v8++, 1));
           *(a1 + 2296) = 1;
         }
       }
 
       *(a1 + 688) = 2;
-      if (!v8)
+      if (!a3)
       {
         checkpoint_history_add(a1, 2, 1, 0, 256, "NVRAM access is not currently available", 0, 0, 0);
       }
 
-      v11 = 0;
+      v6 = 0;
     }
   }
 
 LABEL_20:
   if (!*(a1 + 96))
   {
-    checkpoint_outcome_init(a1, v11, a3, a4, a5, a6, a7, a8);
+    checkpoint_outcome_init(a1, v6);
   }
 
-  return v11;
+  return v6;
 }

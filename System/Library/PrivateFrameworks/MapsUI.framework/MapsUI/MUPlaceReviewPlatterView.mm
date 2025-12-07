@@ -37,18 +37,16 @@
 
 - (id)_attributesWithFont:(id)font color:(id)color
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E69DB650];
-  v12[0] = *MEMORY[0x1E69DB648];
-  v12[1] = v5;
-  v13[0] = font;
-  v13[1] = color;
+  v11[0] = *MEMORY[0x1E69DB648];
+  v11[1] = v5;
+  v12[0] = font;
+  v12[1] = color;
   v6 = MEMORY[0x1E695DF20];
   colorCopy = color;
   fontCopy = font;
-  v9 = [v6 dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = [v6 dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }
@@ -201,90 +199,88 @@ void __45__MUPlaceReviewPlatterView__updateAppearance__block_invoke(uint64_t a1,
 
 - (void)_setupConstraints
 {
-  v64[20] = *MEMORY[0x1E69E9840];
-  v42 = MEMORY[0x1E696ACD8];
+  v63[20] = *MEMORY[0x1E69E9840];
+  v41 = MEMORY[0x1E696ACD8];
   topAnchor = [(MULabelViewProtocol *)self->_reviewTextView topAnchor];
   topAnchor2 = [(MUPlaceReviewPlatterView *)self topAnchor];
-  v61 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:14.0];
-  v64[0] = v61;
+  v60 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:14.0];
+  v63[0] = v60;
   leadingAnchor = [(MULabelViewProtocol *)self->_reviewTextView leadingAnchor];
   leadingAnchor2 = [(MUPlaceReviewPlatterView *)self leadingAnchor];
-  v58 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
-  v64[1] = v58;
+  v57 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
+  v63[1] = v57;
   trailingAnchor = [(MULabelViewProtocol *)self->_reviewTextView trailingAnchor];
   trailingAnchor2 = [(MUPlaceReviewPlatterView *)self trailingAnchor];
-  v55 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-16.0];
-  v64[2] = v55;
+  v54 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-16.0];
+  v63[2] = v54;
   bottomAnchor = [(MULabelViewProtocol *)self->_reviewTextView bottomAnchor];
   topAnchor3 = [(UILayoutGuide *)self->_userLabelLayoutGuide topAnchor];
-  v52 = [bottomAnchor constraintLessThanOrEqualToAnchor:topAnchor3 constant:-12.0];
-  v64[3] = v52;
+  v51 = [bottomAnchor constraintLessThanOrEqualToAnchor:topAnchor3 constant:-12.0];
+  v63[3] = v51;
   leadingAnchor3 = [(UIImageView *)self->_userAvatarImageView leadingAnchor];
   leadingAnchor4 = [(MUPlaceReviewPlatterView *)self leadingAnchor];
-  v49 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:16.0];
-  v64[4] = v49;
+  v48 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:16.0];
+  v63[4] = v48;
   topAnchor4 = [(UIImageView *)self->_userAvatarImageView topAnchor];
   bottomAnchor2 = [(MULabelViewProtocol *)self->_reviewTextView bottomAnchor];
-  v46 = [topAnchor4 constraintGreaterThanOrEqualToAnchor:bottomAnchor2 constant:16.0];
-  v64[5] = v46;
+  v45 = [topAnchor4 constraintGreaterThanOrEqualToAnchor:bottomAnchor2 constant:16.0];
+  v63[5] = v45;
   centerYAnchor = [(UIImageView *)self->_userAvatarImageView centerYAnchor];
   centerYAnchor2 = [(UILayoutGuide *)self->_userLabelLayoutGuide centerYAnchor];
-  v43 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v64[6] = v43;
+  v42 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v63[6] = v42;
   bottomAnchor3 = [(UIImageView *)self->_userAvatarImageView bottomAnchor];
   bottomAnchor4 = [(MUPlaceReviewPlatterView *)self bottomAnchor];
-  v39 = [bottomAnchor3 constraintLessThanOrEqualToAnchor:bottomAnchor4 constant:-14.0];
-  v64[7] = v39;
+  v38 = [bottomAnchor3 constraintLessThanOrEqualToAnchor:bottomAnchor4 constant:-14.0];
+  v63[7] = v38;
   widthAnchor = [(UIImageView *)self->_userAvatarImageView widthAnchor];
-  v37 = [widthAnchor constraintEqualToConstant:36.0];
-  v64[8] = v37;
+  v36 = [widthAnchor constraintEqualToConstant:36.0];
+  v63[8] = v36;
   heightAnchor = [(UIImageView *)self->_userAvatarImageView heightAnchor];
-  v35 = [heightAnchor constraintEqualToConstant:36.0];
-  v64[9] = v35;
+  v34 = [heightAnchor constraintEqualToConstant:36.0];
+  v63[9] = v34;
   trailingAnchor3 = [(UIImageView *)self->_userAvatarImageView trailingAnchor];
   leadingAnchor5 = [(UILayoutGuide *)self->_userLabelLayoutGuide leadingAnchor];
-  v32 = [trailingAnchor3 constraintEqualToAnchor:leadingAnchor5 constant:-8.0];
-  v64[10] = v32;
+  v31 = [trailingAnchor3 constraintEqualToAnchor:leadingAnchor5 constant:-8.0];
+  v63[10] = v31;
   leadingAnchor6 = [(UILabel *)self->_starLabel leadingAnchor];
   leadingAnchor7 = [(UILayoutGuide *)self->_userLabelLayoutGuide leadingAnchor];
-  v29 = [leadingAnchor6 constraintEqualToAnchor:leadingAnchor7];
-  v64[11] = v29;
+  v28 = [leadingAnchor6 constraintEqualToAnchor:leadingAnchor7];
+  v63[11] = v28;
   trailingAnchor4 = [(UILabel *)self->_starLabel trailingAnchor];
   trailingAnchor5 = [(UILayoutGuide *)self->_userLabelLayoutGuide trailingAnchor];
-  v26 = [trailingAnchor4 constraintEqualToAnchor:trailingAnchor5];
-  v64[12] = v26;
+  v25 = [trailingAnchor4 constraintEqualToAnchor:trailingAnchor5];
+  v63[12] = v25;
   topAnchor5 = [(UILabel *)self->_starLabel topAnchor];
   topAnchor6 = [(UILayoutGuide *)self->_userLabelLayoutGuide topAnchor];
-  v23 = [topAnchor5 constraintEqualToAnchor:topAnchor6];
-  v64[13] = v23;
+  v22 = [topAnchor5 constraintEqualToAnchor:topAnchor6];
+  v63[13] = v22;
   leadingAnchor8 = [(MULabelViewProtocol *)self->_userLabel leadingAnchor];
   leadingAnchor9 = [(UILayoutGuide *)self->_userLabelLayoutGuide leadingAnchor];
-  v20 = [leadingAnchor8 constraintEqualToAnchor:leadingAnchor9];
-  v64[14] = v20;
+  v19 = [leadingAnchor8 constraintEqualToAnchor:leadingAnchor9];
+  v63[14] = v19;
   trailingAnchor6 = [(MULabelViewProtocol *)self->_userLabel trailingAnchor];
   trailingAnchor7 = [(UILayoutGuide *)self->_userLabelLayoutGuide trailingAnchor];
-  v17 = [trailingAnchor6 constraintEqualToAnchor:trailingAnchor7];
-  v64[15] = v17;
+  v16 = [trailingAnchor6 constraintEqualToAnchor:trailingAnchor7];
+  v63[15] = v16;
   topAnchor7 = [(MULabelViewProtocol *)self->_userLabel topAnchor];
   bottomAnchor5 = [(UILabel *)self->_starLabel bottomAnchor];
-  v14 = [topAnchor7 constraintEqualToAnchor:bottomAnchor5];
-  v64[16] = v14;
+  v13 = [topAnchor7 constraintEqualToAnchor:bottomAnchor5];
+  v63[16] = v13;
   bottomAnchor6 = [(MULabelViewProtocol *)self->_userLabel bottomAnchor];
   bottomAnchor7 = [(UILayoutGuide *)self->_userLabelLayoutGuide bottomAnchor];
   v5 = [bottomAnchor6 constraintEqualToAnchor:bottomAnchor7];
-  v64[17] = v5;
+  v63[17] = v5;
   trailingAnchor8 = [(UILayoutGuide *)self->_userLabelLayoutGuide trailingAnchor];
   trailingAnchor9 = [(MUPlaceReviewPlatterView *)self trailingAnchor];
   v8 = [trailingAnchor8 constraintEqualToAnchor:trailingAnchor9 constant:-16.0];
-  v64[18] = v8;
+  v63[18] = v8;
   bottomAnchor8 = [(UILayoutGuide *)self->_userLabelLayoutGuide bottomAnchor];
   bottomAnchor9 = [(MUPlaceReviewPlatterView *)self bottomAnchor];
   v11 = [bottomAnchor8 constraintEqualToAnchor:bottomAnchor9 constant:-14.0];
-  v64[19] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:20];
-  [v42 activateConstraints:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v63[19] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:20];
+  [v41 activateConstraints:v12];
 }
 
 - (void)_setupSubviews

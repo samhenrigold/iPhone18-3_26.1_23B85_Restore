@@ -8,17 +8,15 @@
 
 - (BOOL)useHomeKitRecommendations
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___NHOAccessoryIntent__useHomeKitRecommendations);
   selfCopy = self;
   sub_25B161274();
   sub_25B161144();
 
-  return v5;
+  return v4;
 }
 
 - (void)setUseHomeKitRecommendations:(BOOL)recommendations
 {
-  v3 = *(&self->super.isa + OBJC_IVAR___NHOAccessoryIntent__useHomeKitRecommendations);
   selfCopy = self;
   sub_25B161274();
   sub_25B161154();

@@ -84,16 +84,15 @@ LABEL_5:
 
 - (BOOL)isConnected
 {
-  v3 = *(&self->super.isValid_ + 1);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return 1;
   }
 
-  v4 = *(&self->super.isValid_ + 1);
+  v3 = *(&self->super.isValid_ + 1);
   objc_opt_class();
-  if (!v4)
+  if (!v3)
   {
     JreThrowNullPointerException();
   }
@@ -103,7 +102,7 @@ LABEL_5:
     JreThrowClassCastException();
   }
 
-  return [v4 isConnected];
+  return [v3 isConnected];
 }
 
 - (void)dealloc

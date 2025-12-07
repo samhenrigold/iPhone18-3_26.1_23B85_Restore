@@ -64,9 +64,8 @@
   v9 = *(*(column + 10) + 8 * objc_msgSend_topLevelIndexForStruct_(self, a2, self->_binding->tokens.location, v3, v4, v5, v6));
   if (v9)
   {
-    v12 = **v9;
-    v13 = __dynamic_cast(v9, &unk_2856A2580, &unk_2856A25F0, 0);
-    objc_msgSend_enumerateColumn_includingRoot_shallow_withBlock_(CKXORCUtilities, v14, v13, 1, 0, &unk_2856A2BD8, v15);
+    v12 = __dynamic_cast(v9, &unk_2856A2580, &unk_2856A25F0, 0);
+    objc_msgSend_enumerateColumn_includingRoot_shallow_withBlock_(CKXORCUtilities, v13, v12, 1, 0, &unk_2856A2BD8, v14);
   }
 
   else
@@ -74,45 +73,42 @@
     objc_msgSend_enumerateColumn_includingRoot_shallow_withBlock_(CKXORCUtilities, v10, 0, 1, 0, &unk_2856A2BD8, v11);
   }
 
-  v21 = *(*(column + 10) + 8 * objc_msgSend_topLevelIndexForStruct_(self, v16, self->_binding->tokens.timestamp, v17, v18, v19, v20));
-  if (v21)
+  v20 = *(*(column + 10) + 8 * objc_msgSend_topLevelIndexForStruct_(self, v15, self->_binding->tokens.timestamp, v16, v17, v18, v19));
+  if (v20)
   {
-    v24 = **v21;
-    v25 = __dynamic_cast(v21, &unk_2856A2580, &unk_2856A25F0, 0);
-    objc_msgSend_enumerateColumn_includingRoot_shallow_withBlock_(CKXORCUtilities, v26, v25, 1, 0, &unk_2856A2BF8, v27);
+    v23 = __dynamic_cast(v20, &unk_2856A2580, &unk_2856A25F0, 0);
+    objc_msgSend_enumerateColumn_includingRoot_shallow_withBlock_(CKXORCUtilities, v24, v23, 1, 0, &unk_2856A2BF8, v25);
   }
 
   else
   {
-    objc_msgSend_enumerateColumn_includingRoot_shallow_withBlock_(CKXORCUtilities, v22, 0, 1, 0, &unk_2856A2BF8, v23);
+    objc_msgSend_enumerateColumn_includingRoot_shallow_withBlock_(CKXORCUtilities, v21, 0, 1, 0, &unk_2856A2BF8, v22);
   }
 
-  v33 = *(*(column + 10) + 8 * objc_msgSend_topLevelIndexForStruct_(self, v28, self->_binding->tokens.reference, v29, v30, v31, v32));
-  if (v33)
+  v31 = *(*(column + 10) + 8 * objc_msgSend_topLevelIndexForStruct_(self, v26, self->_binding->tokens.reference, v27, v28, v29, v30));
+  if (v31)
   {
-    v36 = **v33;
-    v37 = __dynamic_cast(v33, &unk_2856A2580, &unk_2856A25F0, 0);
-    objc_msgSend_enumerateColumn_includingRoot_shallow_withBlock_(CKXORCUtilities, v38, v37, 1, 0, &unk_2856A2C18, v39);
+    v34 = __dynamic_cast(v31, &unk_2856A2580, &unk_2856A25F0, 0);
+    objc_msgSend_enumerateColumn_includingRoot_shallow_withBlock_(CKXORCUtilities, v35, v34, 1, 0, &unk_2856A2C18, v36);
   }
 
   else
   {
-    objc_msgSend_enumerateColumn_includingRoot_shallow_withBlock_(CKXORCUtilities, v34, 0, 1, 0, &unk_2856A2C18, v35);
+    objc_msgSend_enumerateColumn_includingRoot_shallow_withBlock_(CKXORCUtilities, v32, 0, 1, 0, &unk_2856A2C18, v33);
   }
 
-  v45 = *(*(column + 10) + 8 * objc_msgSend_topLevelIndexForStruct_(self, v40, self->_binding->tokens.atom, v41, v42, v43, v44));
-  if (v45)
+  v42 = *(*(column + 10) + 8 * objc_msgSend_topLevelIndexForStruct_(self, v37, self->_binding->tokens.atom, v38, v39, v40, v41));
+  if (v42)
   {
-    v48 = **v45;
-    v49 = __dynamic_cast(v45, &unk_2856A2580, &unk_2856A25F0, 0);
+    v45 = __dynamic_cast(v42, &unk_2856A2580, &unk_2856A25F0, 0);
   }
 
   else
   {
-    v49 = 0;
+    v45 = 0;
   }
 
-  objc_msgSend_enumerateColumn_includingRoot_shallow_withBlock_(CKXORCUtilities, v46, v49, 1, 0, &unk_2856A2C38, v47);
+  objc_msgSend_enumerateColumn_includingRoot_shallow_withBlock_(CKXORCUtilities, v43, v45, 1, 0, &unk_2856A2C38, v44);
 }
 
 - (unint64_t)topLevelIndexForStruct:(unint64_t)struct

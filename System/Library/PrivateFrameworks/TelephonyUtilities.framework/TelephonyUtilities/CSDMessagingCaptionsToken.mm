@@ -105,19 +105,18 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_text)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    confidence = self->_confidence;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -136,15 +135,13 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  location = self->_location;
   PBDataWriterWriteUint32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    length = self->_length;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:

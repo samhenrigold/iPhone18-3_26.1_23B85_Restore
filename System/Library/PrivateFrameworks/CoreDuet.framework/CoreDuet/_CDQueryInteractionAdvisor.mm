@@ -153,37 +153,37 @@
   }
 
   v70 = &v68;
-  MEMORY[0x1EEE9AC00]();
-  v85 = &v68 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  i = v25;
-  bzero(v85, v25);
+  MEMORY[0x1EEE9AC00](v25);
+  v85 = &v68 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  i = v26;
+  bzero(v85, v26);
   v104 = 0u;
   v105 = 0u;
   v102 = 0u;
   v103 = 0u;
-  v26 = v126[5];
-  v27 = [v26 countByEnumeratingWithState:&v102 objects:v134 count:16];
-  if (v27)
+  v27 = v126[5];
+  v28 = [v27 countByEnumeratingWithState:&v102 objects:v134 count:16];
+  if (v28)
   {
-    v28 = *v103;
+    v29 = *v103;
     do
     {
-      for (m = 0; m != v27; ++m)
+      for (m = 0; m != v28; ++m)
       {
-        if (*v103 != v28)
+        if (*v103 != v29)
         {
-          objc_enumerationMutation(v26);
+          objc_enumerationMutation(v27);
         }
 
-        v30 = [v126[5] objectForKeyedSubscript:*(*(&v102 + 1) + 8 * m)];
+        v31 = [v126[5] objectForKeyedSubscript:*(*(&v102 + 1) + 8 * m)];
         if (v87)
         {
           for (n = 0; n != v87; ++n)
           {
-            v32 = [v86 objectAtIndexedSubscript:n];
-            v33 = [v30 objectForKey:v32];
+            v33 = [v86 objectAtIndexedSubscript:n];
+            v34 = [v31 objectForKey:v33];
 
-            if (v33)
+            if (v34)
             {
               *&v85[4 * n] = *&v85[4 * n] + 1.0;
             }
@@ -191,31 +191,31 @@
         }
       }
 
-      v27 = [v26 countByEnumeratingWithState:&v102 objects:v134 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v102 objects:v134 count:16];
     }
 
-    while (v27);
+    while (v28);
   }
 
   if (v87)
   {
-    v34 = v80;
-    v35 = v87;
-    v36 = v85;
+    v35 = v80;
+    v36 = v87;
+    v37 = v85;
     do
     {
-      *v36 = logf(v34 / *v36);
-      ++v36;
-      --v35;
+      *v37 = logf(v35 / *v37);
+      ++v37;
+      --v36;
     }
 
-    while (v35);
+    while (v36);
   }
 
   v69 = [v120[5] count];
-  MEMORY[0x1EEE9AC00]();
-  v77 = &v68 - v37;
-  bzero(&v68 - v37, v38);
+  MEMORY[0x1EEE9AC00](v69);
+  v77 = &v68 - v38;
+  bzero(&v68 - v38, v39);
   v100 = 0u;
   v101 = 0u;
   v98 = 0u;
@@ -238,42 +238,42 @@
           objc_enumerationMutation(v78);
         }
 
-        v39 = *(*(&v98 + 1) + 8 * v82);
+        v40 = *(*(&v98 + 1) + 8 * v82);
         v94 = 0u;
         v95 = 0u;
         v96 = 0u;
         v97 = 0u;
         v88 = v86;
-        v40 = [v88 countByEnumeratingWithState:&v94 objects:v132 count:16];
-        if (v40)
+        v41 = [v88 countByEnumeratingWithState:&v94 objects:v132 count:16];
+        if (v41)
         {
-          LODWORD(v41) = 0;
-          v42 = *v95;
+          LODWORD(v42) = 0;
+          v43 = *v95;
           do
           {
-            v43 = 0;
-            v41 = v41;
+            v44 = 0;
+            v42 = v42;
             do
             {
-              if (*v95 != v42)
+              if (*v95 != v43)
               {
                 objc_enumerationMutation(v88);
               }
 
-              v44 = *(*(&v94 + 1) + 8 * v43);
-              v45 = [v126[5] objectForKeyedSubscript:v39];
-              v46 = [v45 objectForKeyedSubscript:v44];
-              LODWORD(v44) = [v46 intValue];
+              v45 = *(*(&v94 + 1) + 8 * v44);
+              v46 = [v126[5] objectForKeyedSubscript:v40];
+              v47 = [v46 objectForKeyedSubscript:v45];
+              LODWORD(v45) = [v47 intValue];
 
-              firstObject[v41++] = v44;
-              ++v43;
+              firstObject[v42++] = v45;
+              ++v44;
             }
 
-            while (v40 != v43);
-            v40 = [v88 countByEnumeratingWithState:&v94 objects:v132 count:16];
+            while (v41 != v44);
+            v41 = [v88 countByEnumeratingWithState:&v94 objects:v132 count:16];
           }
 
-          while (v40);
+          while (v41);
         }
 
         firstObject = (firstObject + i);
@@ -295,16 +295,16 @@
   v90 = 0u;
   v91 = 0u;
   v80 = v120[5];
-  v47 = [v80 countByEnumeratingWithState:&v90 objects:v131 count:16];
-  if (v47)
+  v48 = [v80 countByEnumeratingWithState:&v90 objects:v131 count:16];
+  if (v48)
   {
-    v48 = 0;
+    v49 = 0;
     v81 = *v91;
     do
     {
-      v49 = 0;
-      v50 = &v77[i * v48];
-      v88 = v47;
+      v50 = 0;
+      v51 = &v77[i * v49];
+      v88 = v48;
       do
       {
         if (*v91 != v81)
@@ -312,65 +312,63 @@
           objc_enumerationMutation(v80);
         }
 
-        v51 = *(*(&v90 + 1) + 8 * v49);
-        v52 = objc_alloc_init(_CDAdvisedInteraction);
-        -[_CDAdvisedInteraction setMechanism:](v52, "setMechanism:", [firstObject mechanism]);
+        v52 = *(*(&v90 + 1) + 8 * v50);
+        v53 = objc_alloc_init(_CDAdvisedInteraction);
+        -[_CDAdvisedInteraction setMechanism:](v53, "setMechanism:", [firstObject mechanism]);
         bundleId = [firstObject bundleId];
-        [(_CDAdvisedInteraction *)v52 setBundleId:bundleId];
+        [(_CDAdvisedInteraction *)v53 setBundleId:bundleId];
 
         account = [firstObject account];
-        [(_CDAdvisedInteraction *)v52 setAccount:account];
-        v55 = v87 == 0;
+        [(_CDAdvisedInteraction *)v53 setAccount:account];
+        v56 = v87 == 0;
 
-        v56 = 0.0;
-        if (!v55)
+        v57 = 0.0;
+        if (!v56)
         {
-          v57 = v87;
-          v58 = v50;
-          v59 = v85;
+          v58 = v87;
+          v59 = v51;
+          v60 = v85;
           do
           {
-            v60 = *v58++;
-            v61 = v60;
-            v62 = *v59++;
-            v56 = v56 + (v61 * v62);
-            --v57;
+            v61 = *v59++;
+            v62 = v61;
+            v63 = *v60++;
+            v57 = v57 + (v62 * v63);
+            --v58;
           }
 
-          while (v57);
+          while (v58);
         }
 
-        [(_CDAdvisedInteraction *)v52 setScore:v56];
-        [(_CDAdvisedInteraction *)v52 setContact:v51];
-        [v82 addObject:v52];
+        [(_CDAdvisedInteraction *)v53 setScore:v57];
+        [(_CDAdvisedInteraction *)v53 setContact:v52];
+        [v82 addObject:v53];
 
-        ++v48;
-        v49 = v49 + 1;
-        v50 += i;
+        ++v49;
+        v50 = v50 + 1;
+        v51 += i;
       }
 
-      while (v49 != v88);
-      v47 = [v80 countByEnumeratingWithState:&v90 objects:v131 count:16];
+      while (v50 != v88);
+      v48 = [v80 countByEnumeratingWithState:&v90 objects:v131 count:16];
     }
 
-    while (v47);
+    while (v48);
   }
 
-  v63 = [v82 sortedArrayUsingComparator:&__block_literal_global_20];
+  v64 = [v82 sortedArrayUsingComparator:&__block_literal_global_20];
   resultLimit = [settingsCopy resultLimit];
-  if (resultLimit < [v63 count])
+  if (resultLimit < [v64 count])
   {
-    v65 = [v63 subarrayWithRange:{0, objc_msgSend(settingsCopy, "resultLimit")}];
+    v66 = [v64 subarrayWithRange:{0, objc_msgSend(settingsCopy, "resultLimit")}];
 
-    v63 = v65;
+    v64 = v66;
   }
 
   _Block_object_dispose(&v119, 8);
   _Block_object_dispose(&v125, 8);
 
-  v66 = *MEMORY[0x1E69E9840];
-
-  return v63;
+  return v64;
 }
 
 @end

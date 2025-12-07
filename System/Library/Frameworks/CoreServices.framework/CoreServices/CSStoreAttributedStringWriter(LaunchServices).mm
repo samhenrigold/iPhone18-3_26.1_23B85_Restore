@@ -9,21 +9,21 @@
 
 - (void)write:()LaunchServices version:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4[1];
-  v15 = *a4;
-  v16 = v7;
+  v14 = *a4;
+  v15 = v7;
   v8 = a4[1];
-  v18 = *a4;
-  v19 = v8;
-  memset(v17, 0, sizeof(v17));
-  if (_LSVersionNumberCompare(&v18, v17))
+  v17 = *a4;
+  v18 = v8;
+  memset(v16, 0, sizeof(v16));
+  if (_LSVersionNumberCompare(&v17, v16))
   {
+    v17 = v14;
     v18 = v15;
-    v19 = v16;
-    v9 = _LSVersionNumberGetStringRepresentation(&v18);
-    v10 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:&v15 length:32 freeWhenDone:0];
+    v9 = _LSVersionNumberGetStringRepresentation(&v17);
+    v10 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:&v14 length:32 freeWhenDone:0];
     v11 = MEMORY[0x1E696AEC0];
     v12 = [v10 description];
     v13 = [v11 stringWithFormat:@"%@ (%@)", v9, v12];
@@ -35,8 +35,6 @@
   }
 
   [self write:v6 string:v13];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)write:()LaunchServices directoryClass:

@@ -22,21 +22,21 @@
 
 - (NSString)fileSignature
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fileSignature = self->_fileSignature;
   if (!fileSignature)
   {
     v4 = MEMORY[0x277CCA9F8];
     fileURL = [(PHMediaFormatConversionContent *)self fileURL];
-    v14 = 0;
-    v6 = [v4 fileHandleForReadingFromURL:fileURL error:&v14];
-    v7 = v14;
+    v13 = 0;
+    v6 = [v4 fileHandleForReadingFromURL:fileURL error:&v13];
+    v7 = v13;
 
     if (v6)
     {
-      v13 = v7;
-      v8 = [MEMORY[0x277D3B3E8] fingerPrintForFileDescriptor:objc_msgSend(v6 error:{"fileDescriptor"), &v13}];
-      v9 = v13;
+      v12 = v7;
+      v8 = [MEMORY[0x277D3B3E8] fingerPrintForFileDescriptor:objc_msgSend(v6 error:{"fileDescriptor"), &v12}];
+      v9 = v12;
 
       v10 = self->_fileSignature;
       self->_fileSignature = v8;
@@ -44,7 +44,7 @@
       if (!self->_fileSignature && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v16 = v9;
+        v15 = v9;
         _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to calculate file signature: %@", buf, 0xCu);
       }
 
@@ -56,7 +56,7 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v16 = v7;
+        v15 = v7;
         _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to read file for signature calculation: %@", buf, 0xCu);
       }
 
@@ -65,8 +65,6 @@
 
     fileSignature = self->_fileSignature;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return fileSignature;
 }
@@ -81,7 +79,7 @@
 
 - (id)typeFromFileExtensionWithError:(id *)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   pathExtension = [(NSURL *)self->_fileURL pathExtension];
   if ([pathExtension length])
   {
@@ -105,9 +103,9 @@
     else if (error)
     {
       v11 = MEMORY[0x277CCA9B8];
-      v15 = *MEMORY[0x277CCA450];
-      v16 = @"Unable to determine source media type from filename extension";
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x277CCA450];
+      v15 = @"Unable to determine source media type from filename extension";
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
       *error = [v11 errorWithDomain:@"PHMediaFormatConversionErrorDomain" code:2 userInfo:v12];
     }
 
@@ -117,9 +115,9 @@
   if (error)
   {
     v7 = MEMORY[0x277CCA9B8];
-    v17 = *MEMORY[0x277CCA450];
-    v18[0] = @"Unable to determine source media type for filename without extension";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x277CCA450];
+    v17[0] = @"Unable to determine source media type for filename without extension";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     [v7 errorWithDomain:@"PHMediaFormatConversionErrorDomain" code:2 userInfo:v6];
     *error = v8 = 0;
 LABEL_12:
@@ -129,8 +127,6 @@ LABEL_12:
 
   v8 = 0;
 LABEL_13:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

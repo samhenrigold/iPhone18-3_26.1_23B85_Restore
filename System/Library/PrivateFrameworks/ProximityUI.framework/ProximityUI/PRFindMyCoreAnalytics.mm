@@ -108,7 +108,7 @@
 
 - (id)eventDictionaryWithEvent:(id)event
 {
-  v43[10] = *MEMORY[0x277D85DE8];
+  v42[10] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   sessionId = [(PRFindMyCoreAnalytics *)self sessionId];
 
@@ -117,45 +117,45 @@
     v5 = MEMORY[0x277CCABB0];
     MachTimeSeconds = PRCommonGetMachTimeSeconds();
     [(PRFindMyCoreAnalytics *)self startTime];
-    v39 = [v5 numberWithDouble:MachTimeSeconds - v7];
-    v40 = [MEMORY[0x277CCABB0] numberWithInteger:{-[PRFindMyCoreAnalytics eventNumber](self, "eventNumber")}];
+    v38 = [v5 numberWithDouble:MachTimeSeconds - v7];
+    v39 = [MEMORY[0x277CCABB0] numberWithInteger:{-[PRFindMyCoreAnalytics eventNumber](self, "eventNumber")}];
     v8 = MEMORY[0x277CCABB0];
     previousPose = [(PRFindMyCoreAnalytics *)self previousPose];
     [previousPose pose];
     v11 = vmulq_f32(v10, v10);
     v11.f32[0] = sqrtf(v11.f32[2] + vaddv_f32(*v11.f32));
-    v37 = [v8 numberWithFloat:*v11.i64];
+    v36 = [v8 numberWithFloat:*v11.i64];
 
     [(PRFindMyCoreAnalytics *)self setEventNumber:[(PRFindMyCoreAnalytics *)self eventNumber]+ 1];
-    v42[0] = @"sessionId";
+    v41[0] = @"sessionId";
     sessionId2 = [(PRFindMyCoreAnalytics *)self sessionId];
     uUIDString = [sessionId2 UUIDString];
-    v43[0] = uUIDString;
-    v42[1] = @"eventNumber";
-    stringValue = [v40 stringValue];
-    v43[1] = stringValue;
-    v43[2] = v39;
-    v42[2] = @"timeElapsed";
-    v42[3] = @"traveledDistance";
+    v42[0] = uUIDString;
+    v41[1] = @"eventNumber";
+    stringValue = [v39 stringValue];
+    v42[1] = stringValue;
+    v42[2] = v38;
+    v41[2] = @"timeElapsed";
+    v41[3] = @"traveledDistance";
     traveledDistance = [(PRFindMyCoreAnalytics *)self traveledDistance];
-    v43[3] = traveledDistance;
-    v42[4] = @"traveledDistanceOfUser";
+    v42[3] = traveledDistance;
+    v41[4] = @"traveledDistanceOfUser";
     traveledDistanceOfUser = [(PRFindMyCoreAnalytics *)self traveledDistanceOfUser];
-    v43[4] = traveledDistanceOfUser;
-    v43[5] = v37;
-    v42[5] = @"straightLineDistance";
-    v42[6] = @"rangeEstimate";
+    v42[4] = traveledDistanceOfUser;
+    v42[5] = v36;
+    v41[5] = @"straightLineDistance";
+    v41[6] = @"rangeEstimate";
     rangeEstimate = [(PRFindMyCoreAnalytics *)self rangeEstimate];
-    v43[6] = rangeEstimate;
-    v42[7] = @"numberOfRanges";
+    v42[6] = rangeEstimate;
+    v41[7] = @"numberOfRanges";
     numberOfRanges = [(PRFindMyCoreAnalytics *)self numberOfRanges];
-    v43[7] = numberOfRanges;
-    v42[8] = @"numberOfPoses";
+    v42[7] = numberOfRanges;
+    v41[8] = @"numberOfPoses";
     numberOfPoses = [(PRFindMyCoreAnalytics *)self numberOfPoses];
-    v42[9] = @"eventType";
-    v43[8] = numberOfPoses;
-    v43[9] = eventCopy;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:10];
+    v41[9] = @"eventType";
+    v42[8] = numberOfPoses;
+    v42[9] = eventCopy;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:10];
 
     v21 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v20];
     runId = [(PRFindMyCoreAnalytics *)self runId];
@@ -202,29 +202,25 @@
     v21 = 0;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (void)sendAnalyticsEvent:(id)event
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (eventCopy)
   {
     logger = self->_logger;
     if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = eventCopy;
-      _os_log_impl(&dword_2613DF000, logger, OS_LOG_TYPE_DEFAULT, "Logging event %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = eventCopy;
+      _os_log_impl(&dword_2613DF000, logger, OS_LOG_TYPE_DEFAULT, "Logging event %@", &v6, 0xCu);
     }
 
     [(PRFindMyCoreAnalytics *)self sendLiveOnAnalytics:eventCopy];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureSessionWithProductUUID:(id)d withOwner:(id)owner
@@ -297,7 +293,7 @@
 
 - (void)addLatestTarget:(id)target
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   targetCopy = target;
   latestTarget = [(PRFindMyCoreAnalytics *)self latestTarget];
 
@@ -308,26 +304,24 @@
     latestTarget2 = [(PRFindMyCoreAnalytics *)self latestTarget];
     [latestTarget2 vector];
     v9 = [v7 numberWithFloat:?];
-    v22[0] = v9;
+    v21[0] = v9;
     v10 = MEMORY[0x277CCABB0];
     latestTarget3 = [(PRFindMyCoreAnalytics *)self latestTarget];
     [latestTarget3 vector];
     LODWORD(v12) = HIDWORD(v12);
     v13 = [v10 numberWithFloat:v12];
-    v22[1] = v13;
+    v21[1] = v13;
     v14 = MEMORY[0x277CCABB0];
     latestTarget4 = [(PRFindMyCoreAnalytics *)self latestTarget];
     [latestTarget4 vector];
     LODWORD(v17) = v16;
     v18 = [v14 numberWithFloat:v17];
-    v22[2] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+    v21[2] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
     v20 = [v6 dictionaryWithObjectsAndKeys:{v19, @"target", 0}];
 
     [targetCopy addEntriesFromDictionary:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop

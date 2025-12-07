@@ -318,7 +318,7 @@ LABEL_48:
   return MEMORY[0x29C2642D0](v32);
 }
 
-void sub_296DBC418(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *aBlock, xpc_object_t object)
+void sub_296DBC418(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *aBlock, xpc_object_t object)
 {
   xpc_release(object);
   MEMORY[0x29C2642D0](&a11);
@@ -327,27 +327,26 @@ void sub_296DBC418(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void antenna::ARICommandDriver::transmitIndicationRegister_sync(std::__shared_weak_count_vtbl *a1, uint64_t a2)
 {
-  v4 = a1[3].~__shared_weak_count_0;
-  v5 = operator new(0x20uLL);
-  v5->__shared_owners_ = 0;
-  p_shared_owners = &v5->__shared_owners_;
-  v5->__shared_weak_owners_ = 0;
-  v5->__vftable = &unk_2A1E0C8B0;
-  v5[1].__vftable = a1;
-  v18 = MEMORY[0x29EDCA5F8];
-  v19 = 1174405120;
-  v20 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver31transmitIndicationRegister_syncEN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEE3__0vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
-  v21 = &__block_descriptor_tmp_32_3;
-  v22 = &v5[1];
-  object = v5;
-  atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+  v4 = operator new(0x20uLL);
+  v4->__shared_owners_ = 0;
+  p_shared_owners = &v4->__shared_owners_;
+  v4->__shared_weak_owners_ = 0;
+  v4->__vftable = &unk_2A1E0C8B0;
+  v4[1].__vftable = a1;
+  v16 = MEMORY[0x29EDCA5F8];
+  v17 = 1174405120;
+  v18 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver31transmitIndicationRegister_syncEN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEE3__0vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
+  v19 = &__block_descriptor_tmp_32_3;
+  v20 = &v4[1];
+  object = v4;
+  atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   aBlock = MEMORY[0x29EDCA5F8];
-  v26 = 0x40000000;
-  v27 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
-  v28 = &unk_29EE5BAB0;
-  v29 = &v18;
-  v7 = _Block_copy(&aBlock);
-  v8 = object;
+  v24 = 0x40000000;
+  v25 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
+  v26 = &unk_29EE5BAB0;
+  v27 = &v16;
+  v6 = _Block_copy(&aBlock);
+  v7 = object;
   if (!object || atomic_fetch_add(object + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     if (atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
@@ -358,47 +357,46 @@ void antenna::ARICommandDriver::transmitIndicationRegister_sync(std::__shared_we
     goto LABEL_4;
   }
 
-  (v8->__on_zero_shared)(v8);
-  std::__shared_weak_count::__release_weak(v8);
+  (v7->__on_zero_shared)(v7);
+  std::__shared_weak_count::__release_weak(v7);
   if (!atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
   {
 LABEL_4:
-    (v5->__on_zero_shared)(v5);
-    std::__shared_weak_count::__release_weak(v5);
+    (v4->__on_zero_shared)(v4);
+    std::__shared_weak_count::__release_weak(v4);
   }
 
 LABEL_5:
-  v18 = v7;
+  v16 = v6;
   ice::Client::regIndicationInternal();
-  if (v18)
+  if (v16)
   {
-    _Block_release(v18);
+    _Block_release(v16);
   }
 
-  v9 = a1[3].~__shared_weak_count_0;
-  v10 = operator new(0x20uLL);
-  v10->__shared_owners_ = 0;
-  v11 = &v10->__shared_owners_;
-  v10->__shared_weak_owners_ = 0;
-  v10->__vftable = &unk_2A1E0C930;
-  v10[1].__vftable = a1;
-  v18 = MEMORY[0x29EDCA5F8];
-  v19 = 1174405120;
-  v20 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver31transmitIndicationRegister_syncEN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEE3__1vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
-  v21 = &__block_descriptor_tmp_34_0;
-  v22 = &v10[1];
-  object = v10;
-  atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+  v8 = operator new(0x20uLL);
+  v8->__shared_owners_ = 0;
+  v9 = &v8->__shared_owners_;
+  v8->__shared_weak_owners_ = 0;
+  v8->__vftable = &unk_2A1E0C930;
+  v8[1].__vftable = a1;
+  v16 = MEMORY[0x29EDCA5F8];
+  v17 = 1174405120;
+  v18 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver31transmitIndicationRegister_syncEN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEE3__1vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
+  v19 = &__block_descriptor_tmp_34_0;
+  v20 = &v8[1];
+  object = v8;
+  atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   aBlock = MEMORY[0x29EDCA5F8];
-  v26 = 0x40000000;
-  v27 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
-  v28 = &unk_29EE5BAB0;
-  v29 = &v18;
-  v12 = _Block_copy(&aBlock);
-  v13 = object;
+  v24 = 0x40000000;
+  v25 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
+  v26 = &unk_29EE5BAB0;
+  v27 = &v16;
+  v10 = _Block_copy(&aBlock);
+  v11 = object;
   if (!object || atomic_fetch_add(object + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
-    if (atomic_fetch_add(v11, 0xFFFFFFFFFFFFFFFFLL))
+    if (atomic_fetch_add(v9, 0xFFFFFFFFFFFFFFFFLL))
     {
       goto LABEL_11;
     }
@@ -406,59 +404,59 @@ LABEL_5:
     goto LABEL_10;
   }
 
-  (v13->__on_zero_shared)(v13);
-  std::__shared_weak_count::__release_weak(v13);
-  if (!atomic_fetch_add(v11, 0xFFFFFFFFFFFFFFFFLL))
+  (v11->__on_zero_shared)(v11);
+  std::__shared_weak_count::__release_weak(v11);
+  if (!atomic_fetch_add(v9, 0xFFFFFFFFFFFFFFFFLL))
   {
 LABEL_10:
-    (v10->__on_zero_shared)(v10);
-    std::__shared_weak_count::__release_weak(v10);
+    (v8->__on_zero_shared)(v8);
+    std::__shared_weak_count::__release_weak(v8);
   }
 
 LABEL_11:
-  v18 = v12;
+  v16 = v10;
   ice::Client::regIndicationInternal();
-  if (v18)
+  if (v16)
   {
-    _Block_release(v18);
+    _Block_release(v16);
   }
 
-  v14 = xpc_null_create();
+  v12 = xpc_null_create();
   if (*a2)
   {
-    v15 = _Block_copy(*a2);
+    v13 = _Block_copy(*a2);
   }
 
   else
   {
-    v15 = 0;
+    v13 = 0;
   }
 
-  v16 = *(a2 + 8);
-  v18 = MEMORY[0x29EDCA5F8];
-  v19 = 1174405120;
-  v20 = ___ZNK8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEclIJbS2_EEEvDpT__block_invoke;
-  v21 = &__block_descriptor_tmp_36_0;
-  if (v15)
+  v14 = *(a2 + 8);
+  v16 = MEMORY[0x29EDCA5F8];
+  v17 = 1174405120;
+  v18 = ___ZNK8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEclIJbS2_EEEvDpT__block_invoke;
+  v19 = &__block_descriptor_tmp_36_0;
+  if (v13)
   {
-    v17 = _Block_copy(v15);
-    v24 = 1;
-    v22 = v17;
-    object = v14;
-    if (v14)
+    v15 = _Block_copy(v13);
+    v22 = 1;
+    v20 = v15;
+    object = v12;
+    if (v12)
     {
 LABEL_18:
-      xpc_retain(v14);
+      xpc_retain(v12);
       goto LABEL_21;
     }
   }
 
   else
   {
-    v24 = 1;
-    v22 = 0;
-    object = v14;
-    if (v14)
+    v22 = 1;
+    v20 = 0;
+    object = v12;
+    if (v12)
     {
       goto LABEL_18;
     }
@@ -466,20 +464,20 @@ LABEL_18:
 
   object = xpc_null_create();
 LABEL_21:
-  dispatch_async(v16, &v18);
+  dispatch_async(v14, &v16);
   xpc_release(object);
   object = 0;
-  if (v22)
+  if (v20)
   {
-    _Block_release(v22);
+    _Block_release(v20);
   }
 
-  if (v15)
+  if (v13)
   {
-    _Block_release(v15);
+    _Block_release(v13);
   }
 
-  xpc_release(v14);
+  xpc_release(v12);
 }
 
 void sub_296DBC958(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *aBlock)
@@ -1694,17 +1692,18 @@ LABEL_80:
   return MEMORY[0x29C2646A0](&v53);
 }
 
-void sub_296DBE328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
+void sub_296DBE328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  v31 = *(v29 - 184);
-  if (v31)
+  va_start(va, a27);
+  v30 = *(v28 - 184);
+  if (v30)
   {
-    _Block_release(v31);
+    _Block_release(v30);
   }
 
-  MEMORY[0x29C263BF0](v29 - 176);
-  antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarWaitTimeRspCb_SDK,AriSdk::ARI_CsiIceSarWaitTimeReq_SDK>(AriSdk::ARI_CsiIceSarWaitTimeReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::~callback(&a28);
-  std::__shared_weak_count::__release_weak(v28);
+  MEMORY[0x29C263BF0](v28 - 176, a2, a3, a4, a5, a6, a7, a8);
+  antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarWaitTimeRspCb_SDK,AriSdk::ARI_CsiIceSarWaitTimeReq_SDK>(AriSdk::ARI_CsiIceSarWaitTimeReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::~callback(va);
+  std::__shared_weak_count::__release_weak(v27);
   dispatch::callback<void({block_pointer})(BOOL,xpc::object)>::~callback(&a9);
   MEMORY[0x29C2646A0](&a13);
   _Unwind_Resume(a1);
@@ -1834,30 +1833,32 @@ LABEL_26:
   std::__shared_weak_count::__release_weak(v8);
 }
 
-void sub_296DBE868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_296DBE868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  v18 = *(v16 - 128);
-  if (v18)
+  va_start(va, a14);
+  v17 = *(v15 - 128);
+  if (v17)
   {
-    _Block_release(v18);
+    _Block_release(v17);
   }
 
-  MEMORY[0x29C263BF0](&a15);
+  MEMORY[0x29C263BF0](va, a2, a3, a4, a5, a6, a7, a8);
   antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceCltmRspCb_SDK,AriSdk::ARI_CsiIceCltmReq_SDK>(AriSdk::ARI_CsiIceCltmReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::~callback(&a9);
-  std::__shared_weak_count::__release_weak(v15);
+  std::__shared_weak_count::__release_weak(v14);
   _Unwind_Resume(a1);
 }
 
-void sub_296DBE89C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_296DBE89C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a21);
-  if (v22)
+  va_start(va, a20);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
+  if (v21)
   {
-    _Block_release(v22);
+    _Block_release(v21);
   }
 
   antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceCltmRspCb_SDK,AriSdk::ARI_CsiIceCltmReq_SDK>(AriSdk::ARI_CsiIceCltmReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::~callback(&a9);
-  std::__shared_weak_count::__release_weak(v21);
+  std::__shared_weak_count::__release_weak(v20);
   _Unwind_Resume(a1);
 }
 
@@ -2772,15 +2773,15 @@ LABEL_155:
 
 uint64_t antenna::ARICommandDriver::sendAccessoryReportRF_sync(uint64_t a1, uint64_t a2)
 {
-  v49 = *MEMORY[0x29EDCA608];
+  v48 = *MEMORY[0x29EDCA608];
   __p = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v31[2] = v4;
-  v31[3] = v4;
-  v31[0] = v4;
-  v31[1] = v4;
-  AriSdk::ARI_CsiIceAccessoryStateReq_SDK::ARI_CsiIceAccessoryStateReq_SDK(v31);
+  v30[2] = v4;
+  v30[3] = v4;
+  v30[0] = v4;
+  v30[1] = v4;
+  AriSdk::ARI_CsiIceAccessoryStateReq_SDK::ARI_CsiIceAccessoryStateReq_SDK(v30);
   v5 = *(a1 + 144);
   if ((v5 & 0x7FFFFFFF) != 0)
   {
@@ -2842,17 +2843,17 @@ uint64_t antenna::ARICommandDriver::sendAccessoryReportRF_sync(uint64_t a1, uint
   }
 
   v17 = *(a1 + 128);
-  v33 = a1;
-  v34 = v13;
-  v35 = v15;
+  v32 = a1;
+  v33 = v13;
+  v34 = v15;
   atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-  v36 = -184451072;
+  v35 = -184451072;
   if (!aBlock)
   {
     v18 = 0;
     v19 = object;
-    v37 = 0;
-    v38 = object;
+    v36 = 0;
+    v37 = object;
     if (!object)
     {
       goto LABEL_19;
@@ -2863,8 +2864,8 @@ uint64_t antenna::ARICommandDriver::sendAccessoryReportRF_sync(uint64_t a1, uint
 
   v18 = _Block_copy(aBlock);
   v19 = object;
-  v37 = v18;
-  v38 = object;
+  v36 = v18;
+  v37 = object;
   if (object)
   {
 LABEL_18:
@@ -2880,28 +2881,28 @@ LABEL_19:
   v20[1].__vftable = a1;
   v20[1].__shared_owners_ = v13;
   v20[1].__shared_weak_owners_ = v15;
+  v33 = 0;
   v34 = 0;
-  v35 = 0;
   LODWORD(v20[2].__vftable) = -184451072;
   v20[2].__shared_owners_ = v18;
   v20[2].__shared_weak_owners_ = v19;
+  v36 = 0;
   v37 = 0;
-  v38 = 0;
   *buf = MEMORY[0x29EDCA5F8];
   *&buf[8] = 1174405120;
-  *&v46 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk33ARI_CsiIceAccessoryStateRspCb_SDKENS5_31ARI_CsiIceAccessoryStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
-  *(&v46 + 1) = &__block_descriptor_tmp_52_1;
-  v47 = &v20[1];
-  v48 = v20;
+  *&v45 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk33ARI_CsiIceAccessoryStateRspCb_SDKENS5_31ARI_CsiIceAccessoryStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
+  *(&v45 + 1) = &__block_descriptor_tmp_52_1;
+  v46 = &v20[1];
+  v47 = v20;
   atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v40 = MEMORY[0x29EDCA5F8];
-  v41 = 0x40000000;
-  v42 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
-  v43 = &unk_29EE5BAB0;
-  v44 = buf;
-  v22 = _Block_copy(&v40);
-  v23 = v48;
-  if (!v48 || atomic_fetch_add(&v48->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v39 = MEMORY[0x29EDCA5F8];
+  v40 = 0x40000000;
+  v41 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
+  v42 = &unk_29EE5BAB0;
+  v43 = buf;
+  v22 = _Block_copy(&v39);
+  v23 = v47;
+  if (!v47 || atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     if (atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -2924,52 +2925,52 @@ LABEL_23:
   *&v24 = 0xAAAAAAAAAAAAAAAALL;
   *(&v24 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *buf = v24;
-  v46 = v24;
-  v47 = 0xAAAAAAAAAAAAAAAALL;
+  v45 = v24;
+  v46 = 0xAAAAAAAAAAAAAAAALL;
   v25 = *(v17 + 16);
-  v40 = *(v17 + 8);
+  v39 = *(v17 + 8);
   if (!v25)
   {
-    v41 = 0;
+    v40 = 0;
 LABEL_47:
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v41 = std::__shared_weak_count::lock(v25);
-  if (!v41)
+  v40 = std::__shared_weak_count::lock(v25);
+  if (!v40)
   {
     goto LABEL_47;
   }
 
   ice::SendMsgBaseProxy::SendMsgBaseProxy();
-  v26 = v41;
-  if (v41 && !atomic_fetch_add((v41 + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v26 = v40;
+  if (v40 && !atomic_fetch_add((v40 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
     (v26->__on_zero_shared)(v26);
     std::__shared_weak_count::__release_weak(v26);
   }
 
-  v39 = v22;
+  v38 = v22;
   ice::SendMsgBaseProxy::callback();
-  if (v39)
+  if (v38)
   {
-    _Block_release(v39);
+    _Block_release(v38);
   }
 
   MEMORY[0x29C263BF0](buf);
-  if (v38)
-  {
-    dispatch_release(v38);
-  }
-
   if (v37)
   {
-    _Block_release(v37);
+    dispatch_release(v37);
   }
 
-  if (v35)
+  if (v36)
   {
-    std::__shared_weak_count::__release_weak(v35);
+    _Block_release(v36);
+  }
+
+  if (v34)
+  {
+    std::__shared_weak_count::__release_weak(v34);
   }
 
   std::__shared_weak_count::__release_weak(v15);
@@ -2983,9 +2984,7 @@ LABEL_47:
     _Block_release(aBlock);
   }
 
-  result = MEMORY[0x29C264BF0](v31);
-  v28 = *MEMORY[0x29EDCA608];
-  return result;
+  return MEMORY[0x29C264BF0](v30);
 }
 
 void sub_296DBF618(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *aBlock, char a28)
@@ -2998,24 +2997,25 @@ void sub_296DBF618(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-void sub_296DBF6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+void sub_296DBF6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   dispatch::callback<void({block_pointer})(BOOL,xpc::object)>::~callback(&a9);
-  MEMORY[0x29C264BF0](&a11);
+  MEMORY[0x29C264BF0](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t antenna::ARICommandDriver::sendAccessoryReportARTD_sync(uint64_t a1, uint64_t a2)
 {
-  v49 = *MEMORY[0x29EDCA608];
+  v48 = *MEMORY[0x29EDCA608];
   __p = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v31[2] = v4;
-  v31[3] = v4;
-  v31[0] = v4;
-  v31[1] = v4;
-  AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK::ARI_CsiIceAccessoryStateArtdReq_SDK(v31);
+  v30[2] = v4;
+  v30[3] = v4;
+  v30[0] = v4;
+  v30[1] = v4;
+  AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK::ARI_CsiIceAccessoryStateArtdReq_SDK(v30);
   v5 = *(a1 + 148);
   if ((v5 & 0x7FFFFFFF) != 0)
   {
@@ -3077,17 +3077,17 @@ uint64_t antenna::ARICommandDriver::sendAccessoryReportARTD_sync(uint64_t a1, ui
   }
 
   v17 = *(a1 + 128);
-  v33 = a1;
-  v34 = v13;
-  v35 = v15;
+  v32 = a1;
+  v33 = v13;
+  v34 = v15;
   atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-  v36 = -183697408;
+  v35 = -183697408;
   if (!aBlock)
   {
     v18 = 0;
     v19 = object;
-    v37 = 0;
-    v38 = object;
+    v36 = 0;
+    v37 = object;
     if (!object)
     {
       goto LABEL_19;
@@ -3098,8 +3098,8 @@ uint64_t antenna::ARICommandDriver::sendAccessoryReportARTD_sync(uint64_t a1, ui
 
   v18 = _Block_copy(aBlock);
   v19 = object;
-  v37 = v18;
-  v38 = object;
+  v36 = v18;
+  v37 = object;
   if (object)
   {
 LABEL_18:
@@ -3115,28 +3115,28 @@ LABEL_19:
   v20[1].__vftable = a1;
   v20[1].__shared_owners_ = v13;
   v20[1].__shared_weak_owners_ = v15;
+  v33 = 0;
   v34 = 0;
-  v35 = 0;
   LODWORD(v20[2].__vftable) = -183697408;
   v20[2].__shared_owners_ = v18;
   v20[2].__shared_weak_owners_ = v19;
+  v36 = 0;
   v37 = 0;
-  v38 = 0;
   *buf = MEMORY[0x29EDCA5F8];
   *&buf[8] = 1174405120;
-  *&v46 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk37ARI_CsiIceAccessoryStateArtdRspCb_SDKENS5_35ARI_CsiIceAccessoryStateArtdReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
-  *(&v46 + 1) = &__block_descriptor_tmp_55_0;
-  v47 = &v20[1];
-  v48 = v20;
+  *&v45 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk37ARI_CsiIceAccessoryStateArtdRspCb_SDKENS5_35ARI_CsiIceAccessoryStateArtdReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
+  *(&v45 + 1) = &__block_descriptor_tmp_55_0;
+  v46 = &v20[1];
+  v47 = v20;
   atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v40 = MEMORY[0x29EDCA5F8];
-  v41 = 0x40000000;
-  v42 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
-  v43 = &unk_29EE5BAB0;
-  v44 = buf;
-  v22 = _Block_copy(&v40);
-  v23 = v48;
-  if (!v48 || atomic_fetch_add(&v48->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v39 = MEMORY[0x29EDCA5F8];
+  v40 = 0x40000000;
+  v41 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
+  v42 = &unk_29EE5BAB0;
+  v43 = buf;
+  v22 = _Block_copy(&v39);
+  v23 = v47;
+  if (!v47 || atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     if (atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -3159,52 +3159,52 @@ LABEL_23:
   *&v24 = 0xAAAAAAAAAAAAAAAALL;
   *(&v24 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *buf = v24;
-  v46 = v24;
-  v47 = 0xAAAAAAAAAAAAAAAALL;
+  v45 = v24;
+  v46 = 0xAAAAAAAAAAAAAAAALL;
   v25 = *(v17 + 16);
-  v40 = *(v17 + 8);
+  v39 = *(v17 + 8);
   if (!v25)
   {
-    v41 = 0;
+    v40 = 0;
 LABEL_47:
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v41 = std::__shared_weak_count::lock(v25);
-  if (!v41)
+  v40 = std::__shared_weak_count::lock(v25);
+  if (!v40)
   {
     goto LABEL_47;
   }
 
   ice::SendMsgBaseProxy::SendMsgBaseProxy();
-  v26 = v41;
-  if (v41 && !atomic_fetch_add((v41 + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v26 = v40;
+  if (v40 && !atomic_fetch_add((v40 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
     (v26->__on_zero_shared)(v26);
     std::__shared_weak_count::__release_weak(v26);
   }
 
-  v39 = v22;
+  v38 = v22;
   ice::SendMsgBaseProxy::callback();
-  if (v39)
+  if (v38)
   {
-    _Block_release(v39);
+    _Block_release(v38);
   }
 
   MEMORY[0x29C263BF0](buf);
-  if (v38)
-  {
-    dispatch_release(v38);
-  }
-
   if (v37)
   {
-    _Block_release(v37);
+    dispatch_release(v37);
   }
 
-  if (v35)
+  if (v36)
   {
-    std::__shared_weak_count::__release_weak(v35);
+    _Block_release(v36);
+  }
+
+  if (v34)
+  {
+    std::__shared_weak_count::__release_weak(v34);
   }
 
   std::__shared_weak_count::__release_weak(v15);
@@ -3218,9 +3218,7 @@ LABEL_47:
     _Block_release(aBlock);
   }
 
-  result = MEMORY[0x29C265260](v31);
-  v28 = *MEMORY[0x29EDCA608];
-  return result;
+  return MEMORY[0x29C265260](v30);
 }
 
 void sub_296DBFB74(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *aBlock, char a28)
@@ -3233,10 +3231,11 @@ void sub_296DBFB74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-void sub_296DBFC2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+void sub_296DBFC2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   dispatch::callback<void({block_pointer})(BOOL,xpc::object)>::~callback(&a9);
-  MEMORY[0x29C265260](&a11);
+  MEMORY[0x29C265260](va);
   _Unwind_Resume(a1);
 }
 
@@ -3526,9 +3525,9 @@ LABEL_18:
   }
 }
 
-void sub_296DC0188(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DC0188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   dispatch::callback<void({block_pointer})(BOOL,xpc::object)>::~callback(va);
   _Unwind_Resume(a1);
 }
@@ -3639,24 +3638,24 @@ LABEL_18:
   }
 }
 
-void sub_296DC0340(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DC0340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   dispatch::callback<void({block_pointer})(BOOL,xpc::object)>::~callback(va);
   _Unwind_Resume(a1);
 }
 
 void antenna::ARICommandDriver::speakerState_sync(std::__shared_weak_count_vtbl *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v63 = *MEMORY[0x29EDCA608];
+  v62 = *MEMORY[0x29EDCA608];
   v6 = *MEMORY[0x29EDC8FD0];
   if (xpc_dictionary_get_value(*a2, *MEMORY[0x29EDC8FD0]))
   {
     __p = 0xAAAAAAAAAAAAAAAALL;
     *&v7 = 0xAAAAAAAAAAAAAAAALL;
     *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *v44 = v7;
-    v45 = v7;
+    *v43 = v7;
+    v44 = v7;
     *block = v7;
     *&block[16] = v7;
     AriSdk::ARI_CsiIceSpeakerStateReq_SDK::ARI_CsiIceSpeakerStateReq_SDK(block);
@@ -3713,17 +3712,17 @@ void antenna::ARICommandDriver::speakerState_sync(std::__shared_weak_count_vtbl 
     }
 
     v22 = a1[3].~__shared_weak_count_0;
-    v47 = a1;
-    v48 = v18;
-    v49 = v20;
+    v46 = a1;
+    v47 = v18;
+    v48 = v20;
     atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-    v50 = -183664640;
+    v49 = -183664640;
     if (aBlock)
     {
       v23 = _Block_copy(aBlock);
       v24 = object;
-      v51 = v23;
-      v52 = object;
+      v50 = v23;
+      v51 = object;
       if (!object)
       {
 LABEL_21:
@@ -3735,28 +3734,28 @@ LABEL_21:
         v25[1].__vftable = a1;
         v25[1].__shared_owners_ = v18;
         v25[1].__shared_weak_owners_ = v20;
+        v47 = 0;
         v48 = 0;
-        v49 = 0;
         LODWORD(v25[2].__vftable) = -183664640;
         v25[2].__shared_owners_ = v23;
         v25[2].__shared_weak_owners_ = v24;
+        v50 = 0;
         v51 = 0;
-        v52 = 0;
         *buf = MEMORY[0x29EDCA5F8];
         *&buf[8] = 1174405120;
-        *&v60 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk31ARI_CsiIceSpeakerStateRspCb_SDKENS5_29ARI_CsiIceSpeakerStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
-        *(&v60 + 1) = &__block_descriptor_tmp_58;
-        v61 = &v25[1];
-        v62 = v25;
+        *&v59 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk31ARI_CsiIceSpeakerStateRspCb_SDKENS5_29ARI_CsiIceSpeakerStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
+        *(&v59 + 1) = &__block_descriptor_tmp_58;
+        v60 = &v25[1];
+        v61 = v25;
         atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
-        v54 = MEMORY[0x29EDCA5F8];
-        v55 = 0x40000000;
-        v56 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
-        v57 = &unk_29EE5BAB0;
-        v58 = buf;
-        v27 = _Block_copy(&v54);
-        v28 = v62;
-        if (v62 && !atomic_fetch_add(&v62->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v53 = MEMORY[0x29EDCA5F8];
+        v54 = 0x40000000;
+        v55 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
+        v56 = &unk_29EE5BAB0;
+        v57 = buf;
+        v27 = _Block_copy(&v53);
+        v28 = v61;
+        if (v61 && !atomic_fetch_add(&v61->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v28->__on_zero_shared)(v28);
           std::__shared_weak_count::__release_weak(v28);
@@ -3766,44 +3765,44 @@ LABEL_25:
             *&v29 = 0xAAAAAAAAAAAAAAAALL;
             *(&v29 + 1) = 0xAAAAAAAAAAAAAAAALL;
             *buf = v29;
-            v60 = v29;
-            v61 = 0xAAAAAAAAAAAAAAAALL;
+            v59 = v29;
+            v60 = 0xAAAAAAAAAAAAAAAALL;
             v30 = *(v22 + 2);
-            v54 = *(v22 + 1);
+            v53 = *(v22 + 1);
             if (v30)
             {
-              v55 = std::__shared_weak_count::lock(v30);
-              if (v55)
+              v54 = std::__shared_weak_count::lock(v30);
+              if (v54)
               {
                 ice::SendMsgBaseProxy::SendMsgBaseProxy();
-                v31 = v55;
-                if (v55 && !atomic_fetch_add((v55 + 8), 0xFFFFFFFFFFFFFFFFLL))
+                v31 = v54;
+                if (v54 && !atomic_fetch_add((v54 + 8), 0xFFFFFFFFFFFFFFFFLL))
                 {
                   (v31->__on_zero_shared)(v31);
                   std::__shared_weak_count::__release_weak(v31);
                 }
 
-                v53 = v27;
+                v52 = v27;
                 ice::SendMsgBaseProxy::callback();
-                if (v53)
+                if (v52)
                 {
-                  _Block_release(v53);
+                  _Block_release(v52);
                 }
 
                 MEMORY[0x29C263BF0](buf);
-                if (v52)
-                {
-                  dispatch_release(v52);
-                }
-
                 if (v51)
                 {
-                  _Block_release(v51);
+                  dispatch_release(v51);
                 }
 
-                if (v49)
+                if (v50)
                 {
-                  std::__shared_weak_count::__release_weak(v49);
+                  _Block_release(v50);
+                }
+
+                if (v48)
+                {
+                  std::__shared_weak_count::__release_weak(v48);
                 }
 
                 std::__shared_weak_count::__release_weak(v20);
@@ -3818,13 +3817,13 @@ LABEL_25:
                 }
 
                 MEMORY[0x29C264890](block);
-                goto LABEL_58;
+                return;
               }
             }
 
             else
             {
-              v55 = 0;
+              v54 = 0;
             }
 
             std::__throw_bad_weak_ptr[abi:ne200100]();
@@ -3846,8 +3845,8 @@ LABEL_25:
     {
       v23 = 0;
       v24 = object;
-      v51 = 0;
-      v52 = object;
+      v50 = 0;
+      v51 = object;
       if (!object)
       {
         goto LABEL_21;
@@ -3861,55 +3860,55 @@ LABEL_25:
   v9 = a1[1].~__shared_weak_count;
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v35 = MEMORY[0x29C2663D0](*a2);
+    v34 = MEMORY[0x29C2663D0](*a2);
     memset(block, 170, 24);
-    v36 = strlen(v35);
-    if (v36 >= 0x7FFFFFFFFFFFFFF8)
+    v35 = strlen(v34);
+    if (v35 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v37 = v36;
-    if (v36 >= 0x17)
+    v36 = v35;
+    if (v35 >= 0x17)
     {
-      if ((v36 | 7) == 0x17)
+      if ((v35 | 7) == 0x17)
       {
-        v39 = 25;
+        v38 = 25;
       }
 
       else
       {
-        v39 = (v36 | 7) + 1;
+        v38 = (v35 | 7) + 1;
       }
 
-      v38 = operator new(v39);
-      *&block[8] = v37;
-      *&block[16] = v39 | 0x8000000000000000;
-      *block = v38;
+      v37 = operator new(v38);
+      *&block[8] = v36;
+      *&block[16] = v38 | 0x8000000000000000;
+      *block = v37;
     }
 
     else
     {
-      block[23] = v36;
-      v38 = block;
-      if (!v36)
+      block[23] = v35;
+      v37 = block;
+      if (!v35)
       {
-        goto LABEL_68;
+        goto LABEL_67;
       }
     }
 
-    memcpy(v38, v35, v37);
-LABEL_68:
-    v38[v37] = 0;
-    free(v35);
-    v40 = block;
+    memcpy(v37, v34, v36);
+LABEL_67:
+    v37[v36] = 0;
+    free(v34);
+    v39 = block;
     if (block[23] < 0)
     {
-      v40 = *block;
+      v39 = *block;
     }
 
     *buf = 136315138;
-    *&buf[4] = v40;
+    *&buf[4] = v39;
     _os_log_error_impl(&dword_296D7D000, v9, OS_LOG_TYPE_ERROR, "Missing mandatory TLV. args: %s", buf, 0xCu);
     if ((block[23] & 0x80000000) != 0)
     {
@@ -3935,23 +3934,23 @@ LABEL_68:
   *&block[24] = &__block_descriptor_tmp_36_0;
   if (!v11)
   {
-    LOBYTE(v45) = 0;
-    v44[0] = 0;
-    v44[1] = v10;
+    LOBYTE(v44) = 0;
+    v43[0] = 0;
+    v43[1] = v10;
     if (v10)
     {
       goto LABEL_50;
     }
 
 LABEL_52:
-    v44[1] = xpc_null_create();
+    v43[1] = xpc_null_create();
     goto LABEL_53;
   }
 
   v33 = _Block_copy(v11);
-  LOBYTE(v45) = 0;
-  v44[0] = v33;
-  v44[1] = v10;
+  LOBYTE(v44) = 0;
+  v43[0] = v33;
+  v43[1] = v10;
   if (!v10)
   {
     goto LABEL_52;
@@ -3961,11 +3960,11 @@ LABEL_50:
   xpc_retain(v10);
 LABEL_53:
   dispatch_async(v32, block);
-  xpc_release(v44[1]);
-  v44[1] = 0;
-  if (v44[0])
+  xpc_release(v43[1]);
+  v43[1] = 0;
+  if (v43[0])
   {
-    _Block_release(v44[0]);
+    _Block_release(v43[0]);
   }
 
   if (v11)
@@ -3974,8 +3973,6 @@ LABEL_53:
   }
 
   xpc_release(v10);
-LABEL_58:
-  v34 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DC09D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *aBlock, char a28)
@@ -3990,15 +3987,15 @@ void sub_296DC09D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void antenna::ARICommandDriver::handDetectionState_sync(std::__shared_weak_count_vtbl *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v63 = *MEMORY[0x29EDCA608];
+  v62 = *MEMORY[0x29EDCA608];
   v6 = *MEMORY[0x29EDC9028];
   if (xpc_dictionary_get_value(*a2, *MEMORY[0x29EDC9028]))
   {
     __p = 0xAAAAAAAAAAAAAAAALL;
     *&v7 = 0xAAAAAAAAAAAAAAAALL;
     *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *v44 = v7;
-    v45 = v7;
+    *v43 = v7;
+    v44 = v7;
     *block = v7;
     *&block[16] = v7;
     AriSdk::ARI_CsiIceGripStateReq_SDK::ARI_CsiIceGripStateReq_SDK(block);
@@ -4055,17 +4052,17 @@ void antenna::ARICommandDriver::handDetectionState_sync(std::__shared_weak_count
     }
 
     v22 = a1[3].~__shared_weak_count_0;
-    v47 = a1;
-    v48 = v18;
-    v49 = v20;
+    v46 = a1;
+    v47 = v18;
+    v48 = v20;
     atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-    v50 = -183599104;
+    v49 = -183599104;
     if (aBlock)
     {
       v23 = _Block_copy(aBlock);
       v24 = object;
-      v51 = v23;
-      v52 = object;
+      v50 = v23;
+      v51 = object;
       if (!object)
       {
 LABEL_21:
@@ -4077,28 +4074,28 @@ LABEL_21:
         v25[1].__vftable = a1;
         v25[1].__shared_owners_ = v18;
         v25[1].__shared_weak_owners_ = v20;
+        v47 = 0;
         v48 = 0;
-        v49 = 0;
         LODWORD(v25[2].__vftable) = -183599104;
         v25[2].__shared_owners_ = v23;
         v25[2].__shared_weak_owners_ = v24;
+        v50 = 0;
         v51 = 0;
-        v52 = 0;
         *buf = MEMORY[0x29EDCA5F8];
         *&buf[8] = 1174405120;
-        *&v60 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk28ARI_CsiIceGripStateRspCb_SDKENS5_26ARI_CsiIceGripStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
-        *(&v60 + 1) = &__block_descriptor_tmp_61;
-        v61 = &v25[1];
-        v62 = v25;
+        *&v59 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk28ARI_CsiIceGripStateRspCb_SDKENS5_26ARI_CsiIceGripStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
+        *(&v59 + 1) = &__block_descriptor_tmp_61;
+        v60 = &v25[1];
+        v61 = v25;
         atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
-        v54 = MEMORY[0x29EDCA5F8];
-        v55 = 0x40000000;
-        v56 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
-        v57 = &unk_29EE5BAB0;
-        v58 = buf;
-        v27 = _Block_copy(&v54);
-        v28 = v62;
-        if (v62 && !atomic_fetch_add(&v62->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v53 = MEMORY[0x29EDCA5F8];
+        v54 = 0x40000000;
+        v55 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
+        v56 = &unk_29EE5BAB0;
+        v57 = buf;
+        v27 = _Block_copy(&v53);
+        v28 = v61;
+        if (v61 && !atomic_fetch_add(&v61->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v28->__on_zero_shared)(v28);
           std::__shared_weak_count::__release_weak(v28);
@@ -4108,44 +4105,44 @@ LABEL_25:
             *&v29 = 0xAAAAAAAAAAAAAAAALL;
             *(&v29 + 1) = 0xAAAAAAAAAAAAAAAALL;
             *buf = v29;
-            v60 = v29;
-            v61 = 0xAAAAAAAAAAAAAAAALL;
+            v59 = v29;
+            v60 = 0xAAAAAAAAAAAAAAAALL;
             v30 = *(v22 + 2);
-            v54 = *(v22 + 1);
+            v53 = *(v22 + 1);
             if (v30)
             {
-              v55 = std::__shared_weak_count::lock(v30);
-              if (v55)
+              v54 = std::__shared_weak_count::lock(v30);
+              if (v54)
               {
                 ice::SendMsgBaseProxy::SendMsgBaseProxy();
-                v31 = v55;
-                if (v55 && !atomic_fetch_add((v55 + 8), 0xFFFFFFFFFFFFFFFFLL))
+                v31 = v54;
+                if (v54 && !atomic_fetch_add((v54 + 8), 0xFFFFFFFFFFFFFFFFLL))
                 {
                   (v31->__on_zero_shared)(v31);
                   std::__shared_weak_count::__release_weak(v31);
                 }
 
-                v53 = v27;
+                v52 = v27;
                 ice::SendMsgBaseProxy::callback();
-                if (v53)
+                if (v52)
                 {
-                  _Block_release(v53);
+                  _Block_release(v52);
                 }
 
                 MEMORY[0x29C263BF0](buf);
-                if (v52)
-                {
-                  dispatch_release(v52);
-                }
-
                 if (v51)
                 {
-                  _Block_release(v51);
+                  dispatch_release(v51);
                 }
 
-                if (v49)
+                if (v50)
                 {
-                  std::__shared_weak_count::__release_weak(v49);
+                  _Block_release(v50);
+                }
+
+                if (v48)
+                {
+                  std::__shared_weak_count::__release_weak(v48);
                 }
 
                 std::__shared_weak_count::__release_weak(v20);
@@ -4160,13 +4157,13 @@ LABEL_25:
                 }
 
                 MEMORY[0x29C2642B0](block);
-                goto LABEL_58;
+                return;
               }
             }
 
             else
             {
-              v55 = 0;
+              v54 = 0;
             }
 
             std::__throw_bad_weak_ptr[abi:ne200100]();
@@ -4188,8 +4185,8 @@ LABEL_25:
     {
       v23 = 0;
       v24 = object;
-      v51 = 0;
-      v52 = object;
+      v50 = 0;
+      v51 = object;
       if (!object)
       {
         goto LABEL_21;
@@ -4203,55 +4200,55 @@ LABEL_25:
   v9 = a1[1].~__shared_weak_count;
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v35 = MEMORY[0x29C2663D0](*a2);
+    v34 = MEMORY[0x29C2663D0](*a2);
     memset(block, 170, 24);
-    v36 = strlen(v35);
-    if (v36 >= 0x7FFFFFFFFFFFFFF8)
+    v35 = strlen(v34);
+    if (v35 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v37 = v36;
-    if (v36 >= 0x17)
+    v36 = v35;
+    if (v35 >= 0x17)
     {
-      if ((v36 | 7) == 0x17)
+      if ((v35 | 7) == 0x17)
       {
-        v39 = 25;
+        v38 = 25;
       }
 
       else
       {
-        v39 = (v36 | 7) + 1;
+        v38 = (v35 | 7) + 1;
       }
 
-      v38 = operator new(v39);
-      *&block[8] = v37;
-      *&block[16] = v39 | 0x8000000000000000;
-      *block = v38;
+      v37 = operator new(v38);
+      *&block[8] = v36;
+      *&block[16] = v38 | 0x8000000000000000;
+      *block = v37;
     }
 
     else
     {
-      block[23] = v36;
-      v38 = block;
-      if (!v36)
+      block[23] = v35;
+      v37 = block;
+      if (!v35)
       {
-        goto LABEL_68;
+        goto LABEL_67;
       }
     }
 
-    memcpy(v38, v35, v37);
-LABEL_68:
-    v38[v37] = 0;
-    free(v35);
-    v40 = block;
+    memcpy(v37, v34, v36);
+LABEL_67:
+    v37[v36] = 0;
+    free(v34);
+    v39 = block;
     if (block[23] < 0)
     {
-      v40 = *block;
+      v39 = *block;
     }
 
     *buf = 136315138;
-    *&buf[4] = v40;
+    *&buf[4] = v39;
     _os_log_error_impl(&dword_296D7D000, v9, OS_LOG_TYPE_ERROR, "Missing mandatory TLV. args: %s", buf, 0xCu);
     if ((block[23] & 0x80000000) != 0)
     {
@@ -4277,23 +4274,23 @@ LABEL_68:
   *&block[24] = &__block_descriptor_tmp_36_0;
   if (!v11)
   {
-    LOBYTE(v45) = 0;
-    v44[0] = 0;
-    v44[1] = v10;
+    LOBYTE(v44) = 0;
+    v43[0] = 0;
+    v43[1] = v10;
     if (v10)
     {
       goto LABEL_50;
     }
 
 LABEL_52:
-    v44[1] = xpc_null_create();
+    v43[1] = xpc_null_create();
     goto LABEL_53;
   }
 
   v33 = _Block_copy(v11);
-  LOBYTE(v45) = 0;
-  v44[0] = v33;
-  v44[1] = v10;
+  LOBYTE(v44) = 0;
+  v43[0] = v33;
+  v43[1] = v10;
   if (!v10)
   {
     goto LABEL_52;
@@ -4303,11 +4300,11 @@ LABEL_50:
   xpc_retain(v10);
 LABEL_53:
   dispatch_async(v32, block);
-  xpc_release(v44[1]);
-  v44[1] = 0;
-  if (v44[0])
+  xpc_release(v43[1]);
+  v43[1] = 0;
+  if (v43[0])
   {
-    _Block_release(v44[0]);
+    _Block_release(v43[0]);
   }
 
   if (v11)
@@ -4316,8 +4313,6 @@ LABEL_53:
   }
 
   xpc_release(v10);
-LABEL_58:
-  v34 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DC1144(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *aBlock, char a28)
@@ -4332,15 +4327,15 @@ void sub_296DC1144(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void antenna::ARICommandDriver::powerSourceState_sync(std::__shared_weak_count_vtbl *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v63 = *MEMORY[0x29EDCA608];
+  v62 = *MEMORY[0x29EDCA608];
   v6 = *MEMORY[0x29EDC8FF0];
   if (xpc_dictionary_get_value(*a2, *MEMORY[0x29EDC8FF0]))
   {
     __p = 0xAAAAAAAAAAAAAAAALL;
     *&v7 = 0xAAAAAAAAAAAAAAAALL;
     *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *v44 = v7;
-    v45 = v7;
+    *v43 = v7;
+    v44 = v7;
     *block = v7;
     *&block[16] = v7;
     AriSdk::ARI_CsiIcePowerSourceStateReq_SDK::ARI_CsiIcePowerSourceStateReq_SDK(block);
@@ -4397,17 +4392,17 @@ void antenna::ARICommandDriver::powerSourceState_sync(std::__shared_weak_count_v
     }
 
     v22 = a1[3].~__shared_weak_count_0;
-    v47 = a1;
-    v48 = v18;
-    v49 = v20;
+    v46 = a1;
+    v47 = v18;
+    v48 = v20;
     atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-    v50 = -183533568;
+    v49 = -183533568;
     if (aBlock)
     {
       v23 = _Block_copy(aBlock);
       v24 = object;
-      v51 = v23;
-      v52 = object;
+      v50 = v23;
+      v51 = object;
       if (!object)
       {
 LABEL_21:
@@ -4419,28 +4414,28 @@ LABEL_21:
         v25[1].__vftable = a1;
         v25[1].__shared_owners_ = v18;
         v25[1].__shared_weak_owners_ = v20;
+        v47 = 0;
         v48 = 0;
-        v49 = 0;
         LODWORD(v25[2].__vftable) = -183533568;
         v25[2].__shared_owners_ = v23;
         v25[2].__shared_weak_owners_ = v24;
+        v50 = 0;
         v51 = 0;
-        v52 = 0;
         *buf = MEMORY[0x29EDCA5F8];
         *&buf[8] = 1174405120;
-        *&v60 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk35ARI_CsiIcePowerSourceStateRspCb_SDKENS5_33ARI_CsiIcePowerSourceStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
-        *(&v60 + 1) = &__block_descriptor_tmp_64_1;
-        v61 = &v25[1];
-        v62 = v25;
+        *&v59 = ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk35ARI_CsiIcePowerSourceStateRspCb_SDKENS5_33ARI_CsiIcePowerSourceStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke;
+        *(&v59 + 1) = &__block_descriptor_tmp_64_1;
+        v60 = &v25[1];
+        v61 = v25;
         atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
-        v54 = MEMORY[0x29EDCA5F8];
-        v55 = 0x40000000;
-        v56 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
-        v57 = &unk_29EE5BAB0;
-        v58 = buf;
-        v27 = _Block_copy(&v54);
-        v28 = v62;
-        if (v62 && !atomic_fetch_add(&v62->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v53 = MEMORY[0x29EDCA5F8];
+        v54 = 0x40000000;
+        v55 = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_5;
+        v56 = &unk_29EE5BAB0;
+        v57 = buf;
+        v27 = _Block_copy(&v53);
+        v28 = v61;
+        if (v61 && !atomic_fetch_add(&v61->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v28->__on_zero_shared)(v28);
           std::__shared_weak_count::__release_weak(v28);
@@ -4450,44 +4445,44 @@ LABEL_25:
             *&v29 = 0xAAAAAAAAAAAAAAAALL;
             *(&v29 + 1) = 0xAAAAAAAAAAAAAAAALL;
             *buf = v29;
-            v60 = v29;
-            v61 = 0xAAAAAAAAAAAAAAAALL;
+            v59 = v29;
+            v60 = 0xAAAAAAAAAAAAAAAALL;
             v30 = *(v22 + 2);
-            v54 = *(v22 + 1);
+            v53 = *(v22 + 1);
             if (v30)
             {
-              v55 = std::__shared_weak_count::lock(v30);
-              if (v55)
+              v54 = std::__shared_weak_count::lock(v30);
+              if (v54)
               {
                 ice::SendMsgBaseProxy::SendMsgBaseProxy();
-                v31 = v55;
-                if (v55 && !atomic_fetch_add((v55 + 8), 0xFFFFFFFFFFFFFFFFLL))
+                v31 = v54;
+                if (v54 && !atomic_fetch_add((v54 + 8), 0xFFFFFFFFFFFFFFFFLL))
                 {
                   (v31->__on_zero_shared)(v31);
                   std::__shared_weak_count::__release_weak(v31);
                 }
 
-                v53 = v27;
+                v52 = v27;
                 ice::SendMsgBaseProxy::callback();
-                if (v53)
+                if (v52)
                 {
-                  _Block_release(v53);
+                  _Block_release(v52);
                 }
 
                 MEMORY[0x29C263BF0](buf);
-                if (v52)
-                {
-                  dispatch_release(v52);
-                }
-
                 if (v51)
                 {
-                  _Block_release(v51);
+                  dispatch_release(v51);
                 }
 
-                if (v49)
+                if (v50)
                 {
-                  std::__shared_weak_count::__release_weak(v49);
+                  _Block_release(v50);
+                }
+
+                if (v48)
+                {
+                  std::__shared_weak_count::__release_weak(v48);
                 }
 
                 std::__shared_weak_count::__release_weak(v20);
@@ -4502,13 +4497,13 @@ LABEL_25:
                 }
 
                 MEMORY[0x29C265090](block);
-                goto LABEL_58;
+                return;
               }
             }
 
             else
             {
-              v55 = 0;
+              v54 = 0;
             }
 
             std::__throw_bad_weak_ptr[abi:ne200100]();
@@ -4530,8 +4525,8 @@ LABEL_25:
     {
       v23 = 0;
       v24 = object;
-      v51 = 0;
-      v52 = object;
+      v50 = 0;
+      v51 = object;
       if (!object)
       {
         goto LABEL_21;
@@ -4545,55 +4540,55 @@ LABEL_25:
   v9 = a1[1].~__shared_weak_count;
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v35 = MEMORY[0x29C2663D0](*a2);
+    v34 = MEMORY[0x29C2663D0](*a2);
     memset(block, 170, 24);
-    v36 = strlen(v35);
-    if (v36 >= 0x7FFFFFFFFFFFFFF8)
+    v35 = strlen(v34);
+    if (v35 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v37 = v36;
-    if (v36 >= 0x17)
+    v36 = v35;
+    if (v35 >= 0x17)
     {
-      if ((v36 | 7) == 0x17)
+      if ((v35 | 7) == 0x17)
       {
-        v39 = 25;
+        v38 = 25;
       }
 
       else
       {
-        v39 = (v36 | 7) + 1;
+        v38 = (v35 | 7) + 1;
       }
 
-      v38 = operator new(v39);
-      *&block[8] = v37;
-      *&block[16] = v39 | 0x8000000000000000;
-      *block = v38;
+      v37 = operator new(v38);
+      *&block[8] = v36;
+      *&block[16] = v38 | 0x8000000000000000;
+      *block = v37;
     }
 
     else
     {
-      block[23] = v36;
-      v38 = block;
-      if (!v36)
+      block[23] = v35;
+      v37 = block;
+      if (!v35)
       {
-        goto LABEL_68;
+        goto LABEL_67;
       }
     }
 
-    memcpy(v38, v35, v37);
-LABEL_68:
-    v38[v37] = 0;
-    free(v35);
-    v40 = block;
+    memcpy(v37, v34, v36);
+LABEL_67:
+    v37[v36] = 0;
+    free(v34);
+    v39 = block;
     if (block[23] < 0)
     {
-      v40 = *block;
+      v39 = *block;
     }
 
     *buf = 136315138;
-    *&buf[4] = v40;
+    *&buf[4] = v39;
     _os_log_error_impl(&dword_296D7D000, v9, OS_LOG_TYPE_ERROR, "Missing mandatory TLV. args: %s", buf, 0xCu);
     if ((block[23] & 0x80000000) != 0)
     {
@@ -4619,23 +4614,23 @@ LABEL_68:
   *&block[24] = &__block_descriptor_tmp_36_0;
   if (!v11)
   {
-    LOBYTE(v45) = 0;
-    v44[0] = 0;
-    v44[1] = v10;
+    LOBYTE(v44) = 0;
+    v43[0] = 0;
+    v43[1] = v10;
     if (v10)
     {
       goto LABEL_50;
     }
 
 LABEL_52:
-    v44[1] = xpc_null_create();
+    v43[1] = xpc_null_create();
     goto LABEL_53;
   }
 
   v33 = _Block_copy(v11);
-  LOBYTE(v45) = 0;
-  v44[0] = v33;
-  v44[1] = v10;
+  LOBYTE(v44) = 0;
+  v43[0] = v33;
+  v43[1] = v10;
   if (!v10)
   {
     goto LABEL_52;
@@ -4645,11 +4640,11 @@ LABEL_50:
   xpc_retain(v10);
 LABEL_53:
   dispatch_async(v32, block);
-  xpc_release(v44[1]);
-  v44[1] = 0;
-  if (v44[0])
+  xpc_release(v43[1]);
+  v43[1] = 0;
+  if (v43[0])
   {
-    _Block_release(v44[0]);
+    _Block_release(v43[0]);
   }
 
   if (v11)
@@ -4658,8 +4653,6 @@ LABEL_53:
   }
 
   xpc_release(v10);
-LABEL_58:
-  v34 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DC18AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *aBlock, char a28)
@@ -4835,13 +4828,13 @@ LABEL_31:
   xpc_release(v14);
 }
 
-void sub_296DC1C7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DC1C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   dispatch::callback<void({block_pointer})(BOOL,xpc::object)>::~callback(va);
   MEMORY[0x29C263DF0](va1);
   _Unwind_Resume(a1);
@@ -5050,25 +5043,27 @@ LABEL_42:
   return MEMORY[0x29C264E40](v29);
 }
 
-void sub_296DC2174(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *aBlock, char a27)
+void sub_296DC2174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *aBlock, ...)
 {
+  va_start(va, aBlock);
   if (aBlock)
   {
     _Block_release(aBlock);
   }
 
-  MEMORY[0x29C263BF0](&a27);
+  MEMORY[0x29C263BF0](va, a2, a3, a4, a5, a6, a7, a8);
   antenna::ARICommandDriver::sendMsg<AriSdk::ARI_IBIStwSarBackoffTimeRspCb_SDK,AriSdk::ARI_IBIStwSarBackoffTimeReq_SDK>(AriSdk::ARI_IBIStwSarBackoffTimeReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::~callback(&a20);
-  std::__shared_weak_count::__release_weak(v27);
+  std::__shared_weak_count::__release_weak(v26);
   dispatch::callback<void({block_pointer})(BOOL,xpc::object)>::~callback(&a9);
   MEMORY[0x29C264E40](&a11);
   _Unwind_Resume(a1);
 }
 
-void sub_296DC2200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+void sub_296DC2200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   dispatch::callback<void({block_pointer})(BOOL,xpc::object)>::~callback(&a9);
-  MEMORY[0x29C264E40](&a11);
+  MEMORY[0x29C264E40](va);
   _Unwind_Resume(a1);
 }
 
@@ -5298,41 +5293,42 @@ LABEL_36:
   return MEMORY[0x29C265340](v22);
 }
 
-void sub_296DC26D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DC26D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
   va_copy(va2, va1);
-  v11 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
+  v12 = va_arg(va2, void);
   v14 = va_arg(va2, void);
   v15 = va_arg(va2, void);
   v16 = va_arg(va2, void);
   v17 = va_arg(va2, void);
-  v4 = *(v2 - 120);
-  if (v4)
+  v18 = va_arg(va2, void);
+  v5 = *(v3 - 120);
+  if (v5)
   {
-    _Block_release(v4);
+    _Block_release(v5);
   }
 
-  MEMORY[0x29C263BF0](va1);
+  MEMORY[0x29C263BF0](va1, a2);
   _ZZZN7antenna16ARICommandDriver10getNVItemsEN8dispatch8callbackIU13block_pointerFvbNS_7NVItemsEEEEEUb0_EN3__7D1Ev(va);
   MEMORY[0x29C265340](va2);
   _Unwind_Resume(a1);
 }
 
-void sub_296DC2708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_296DC2708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a30);
-  if (v30)
+  va_start(va, a29);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
+  if (v29)
   {
-    _Block_release(v30);
+    _Block_release(v29);
   }
 
   _ZZZN7antenna16ARICommandDriver10getNVItemsEN8dispatch8callbackIU13block_pointerFvbNS_7NVItemsEEEEEUb0_EN3__7D1Ev(&a10);
@@ -6530,10 +6526,10 @@ LABEL_182:
   operator delete(a1);
 }
 
-void sub_296DC3BB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, xpc_object_t object, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+void sub_296DC3BB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, xpc_object_t object, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   dispatch::callback<void({block_pointer})(BOOL,xpc::object)>::~callback(&object);
-  if (a19 < 0)
+  if (a21 < 0)
   {
     operator delete(__p);
     std::unique_ptr<antenna::ARICommandDriver::perform(xpc::dict,dispatch::callback<void({block_pointer})(BOOL,xpc::object)> &&)::$_0,std::default_delete<dispatch::callback<void({block_pointer})(BOOL,xpc::object)> &&>>::~unique_ptr[abi:ne200100](&a11);
@@ -6571,85 +6567,85 @@ uint64_t *std::unique_ptr<antenna::ARICommandDriver::perform(xpc::dict,dispatch:
   return a1;
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk28ARI_CsiIceSarEnableRspCb_SDKENS5_26ARI_CsiIceSarEnableReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk28ARI_CsiIceSarEnableRspCb_SDKENS5_26ARI_CsiIceSarEnableReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v32 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
-  {
-    goto LABEL_24;
-  }
-
-  v3 = v2[2];
+  v3 = *(a1 + 32);
   if (!v3)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v4 = *v2;
-  v6 = std::__shared_weak_count::lock(v3);
-  v29 = v6;
-  if (!v6)
+  v4 = v3[2];
+  if (!v4)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v7 = v6;
-  v8 = v2[1];
-  v28 = v8;
-  if (!v8)
+  v5 = *v3;
+  v7 = std::__shared_weak_count::lock(v4);
+  v29 = v7;
+  if (!v7)
   {
-    goto LABEL_22;
+    return;
+  }
+
+  v8 = v7;
+  v9 = v3[1];
+  v28 = v9;
+  if (!v9)
+  {
+LABEL_22:
+    if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v8->__on_zero_shared)(v8);
+      std::__shared_weak_count::__release_weak(v8);
+    }
+
+    return;
   }
 
   v27 = 0xAAAAAAAAAAAAAAAALL;
-  *&v9 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v26[2] = v9;
-  v26[3] = v9;
-  v26[0] = v9;
-  v26[1] = v9;
+  *&v10 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v26[2] = v10;
+  v26[3] = v10;
+  v26[0] = v10;
+  v26[1] = v10;
   AriSdk::ARI_CsiIceSarEnableRspCb_SDK::ARI_CsiIceSarEnableRspCb_SDK(v26, a2);
-  if (!v2[4] || !v2[5])
+  if (!v3[4] || !v3[5])
   {
     MEMORY[0x29C264680](v26);
-LABEL_22:
-    if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-
-    goto LABEL_24;
+    goto LABEL_22;
   }
 
   GMID = AriSdk::MsgBase::getGMID(v26);
-  v11 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
-  if (v11 == 67600384 || v11 != *(v2 + 6))
+  v12 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
+  if (v12 == 67600384 || v12 != *(v3 + 6))
   {
-    v13 = *(v4 + 40);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = *(v5 + 40);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v25 = Ari::MsgNameById(v11);
+      v25 = Ari::MsgNameById(v12);
       *buf = 136315138;
       v31 = v25;
-      _os_log_error_impl(&dword_296D7D000, v13, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
+      _os_log_error_impl(&dword_296D7D000, v14, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v14 = v2[4];
-  if (!v14)
+  v15 = v3[4];
+  if (!v15)
   {
-    v15 = 0;
-    v16 = v2[5];
-    if (!v16)
+    v16 = 0;
+    v17 = v3[5];
+    if (!v17)
     {
       goto LABEL_17;
     }
@@ -6657,48 +6653,45 @@ LABEL_22:
     goto LABEL_16;
   }
 
-  v15 = _Block_copy(v14);
-  v16 = v2[5];
-  if (v16)
+  v16 = _Block_copy(v15);
+  v17 = v3[5];
+  if (v17)
   {
 LABEL_16:
-    dispatch_retain(v16);
+    dispatch_retain(v17);
   }
 
 LABEL_17:
-  v17 = v8[2];
-  if (!v17 || (v18 = v8[1], (v19 = std::__shared_weak_count::lock(v17)) == 0))
+  v18 = v9[2];
+  if (!v18 || (v19 = v9[1], (v20 = std::__shared_weak_count::lock(v18)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v20 = v19;
-  v21 = operator new(0x18uLL);
-  *v21 = v15;
-  v21[1] = v16;
-  *(v21 + 16) = v12;
-  v22 = v8[3];
-  atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = operator new(0x18uLL);
-  *v23 = v21;
-  v23[1] = v18;
-  v23[2] = v20;
-  dispatch_async_f(v22, v23, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarEnableRspCb_SDK,AriSdk::ARI_CsiIceSarEnableReq_SDK>(AriSdk::ARI_CsiIceSarEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarEnableRspCb_SDK,AriSdk::ARI_CsiIceSarEnableReq_SDK>(AriSdk::ARI_CsiIceSarEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarEnableRspCb_SDK,AriSdk::ARI_CsiIceSarEnableReq_SDK>(AriSdk::ARI_CsiIceSarEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarEnableRspCb_SDK,AriSdk::ARI_CsiIceSarEnableReq_SDK>(AriSdk::ARI_CsiIceSarEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = v20;
+  v22 = operator new(0x18uLL);
+  *v22 = v16;
+  v22[1] = v17;
+  *(v22 + 16) = v13;
+  v23 = v9[3];
+  atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  v24 = operator new(0x18uLL);
+  *v24 = v22;
+  v24[1] = v19;
+  v24[2] = v21;
+  dispatch_async_f(v23, v24, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarEnableRspCb_SDK,AriSdk::ARI_CsiIceSarEnableReq_SDK>(AriSdk::ARI_CsiIceSarEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarEnableRspCb_SDK,AriSdk::ARI_CsiIceSarEnableReq_SDK>(AriSdk::ARI_CsiIceSarEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarEnableRspCb_SDK,AriSdk::ARI_CsiIceSarEnableReq_SDK>(AriSdk::ARI_CsiIceSarEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarEnableRspCb_SDK,AriSdk::ARI_CsiIceSarEnableReq_SDK>(AriSdk::ARI_CsiIceSarEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
+    (v21->__on_zero_shared)(v21);
+    std::__shared_weak_count::__release_weak(v21);
   }
 
-  v7 = v29;
+  v8 = v29;
   MEMORY[0x29C264680](v26);
-  if (v7)
+  if (v8)
   {
     goto LABEL_22;
   }
-
-LABEL_24:
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DC3FB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -6870,55 +6863,50 @@ void *antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarEnableRspCb_SDK,Ar
   return a1;
 }
 
-uint64_t ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver31transmitIndicationRegister_syncEN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEE3__0vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t result, const unsigned __int8 *a2)
+uint64_t ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver31transmitIndicationRegister_syncEN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEE3__0vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t result, const unsigned __int8 *a2, unsigned int a3)
 {
-  v16 = *MEMORY[0x29EDCA608];
-  v2 = *(result + 32);
-  if (v2)
+  v15 = *MEMORY[0x29EDCA608];
+  v3 = *(result + 32);
+  if (v3)
   {
-    v3 = *v2;
-    v11 = 0xAAAAAAAAAAAAAAAALL;
-    *&v4 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v10[2] = v4;
-    v10[3] = v4;
-    v10[0] = v4;
-    v10[1] = v4;
-    AriSdk::ARI_CsiIceBBTxStateInd_SDK::ARI_CsiIceBBTxStateInd_SDK(v10, a2);
-    GMID = AriSdk::MsgBase::getGMID(v10);
+    v4 = *v3;
+    v10 = 0xAAAAAAAAAAAAAAAALL;
+    *&v5 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v9[2] = v5;
+    v9[3] = v5;
+    v9[0] = v5;
+    v9[1] = v5;
+    AriSdk::ARI_CsiIceBBTxStateInd_SDK::ARI_CsiIceBBTxStateInd_SDK(v9, a2);
+    GMID = AriSdk::MsgBase::getGMID(v9);
     if (ice::isARIResponseValid())
     {
-      if (!AriSdk::ARI_CsiIceBBTxStateInd_SDK::unpack(v10))
+      if (!AriSdk::ARI_CsiIceBBTxStateInd_SDK::unpack(v9) && antenna::CommandDriver::convertModeToState() <= 1)
       {
-        v6 = *v11;
-        if (antenna::CommandDriver::convertModeToState() <= 1)
+        v7 = *(v4 + 88);
+        if (v7)
         {
-          v7 = *(v3 + 88);
-          if (v7)
-          {
-            (*(*v7 + 16))(v7);
-          }
+          (*(*v7 + 16))(v7);
         }
       }
     }
 
     else
     {
-      v8 = *(v3 + 40);
+      v8 = *(v4 + 40);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109376;
-        v13 = (GMID >> 17) & 0xFFFF8000 | (GMID << 26);
-        v14 = 1024;
-        v15 = -175800320;
+        v12 = (GMID >> 17) & 0xFFFF8000 | (GMID << 26);
+        v13 = 1024;
+        v14 = -175800320;
         _os_log_error_impl(&dword_296D7D000, v8, OS_LOG_TYPE_ERROR, "Got unexpected message 0x%0x, expected CsiIceBBTxStateInd (0x%0x)", buf, 0xEu);
       }
     }
 
-    result = MEMORY[0x29C264290](v10);
+    return MEMORY[0x29C264290](v9);
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -6954,52 +6942,51 @@ void std::__shared_ptr_emplace<antenna::ARICommandDriver::transmitIndicationRegi
   operator delete(v1);
 }
 
-uint64_t ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver31transmitIndicationRegister_syncEN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEE3__1vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t result, const unsigned __int8 *a2)
+uint64_t ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver31transmitIndicationRegister_syncEN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEE3__1vEENS4_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t result, const unsigned __int8 *a2, unsigned int a3)
 {
   v16 = *MEMORY[0x29EDCA608];
-  v2 = *(result + 32);
-  if (v2)
+  v3 = *(result + 32);
+  if (v3)
   {
-    v3 = *v2;
+    v4 = *v3;
     v11 = 0xAAAAAAAAAAAAAAAALL;
-    *&v4 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v9[3] = v4;
-    v10 = v4;
-    v9[1] = v4;
-    v9[2] = v4;
-    v9[0] = v4;
+    *&v5 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v9[3] = v5;
+    v10 = v5;
+    v9[1] = v5;
+    v9[2] = v5;
+    v9[0] = v5;
     AriSdk::ARI_IBICallPsTransmitStateIndCb_SDK::ARI_IBICallPsTransmitStateIndCb_SDK(v9, a2);
     GMID = AriSdk::MsgBase::getGMID(v9);
     if (ice::isARIResponseValid())
     {
       if (!AriSdk::ARI_IBICallPsTransmitStateIndCb_SDK::unpack(v9))
       {
-        v6 = *(v3 + 88);
-        if (v6)
+        v7 = *(v4 + 88);
+        if (v7)
         {
-          (*(*v6 + 16))(v6, **(&v10 + 1), *v11);
+          (*(*v7 + 16))(v7, **(&v10 + 1), *v11);
         }
       }
     }
 
     else
     {
-      v7 = *(v3 + 40);
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = *(v4 + 40);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109376;
         v13 = (GMID >> 17) & 0xFFFF8000 | (GMID << 26);
         v14 = 1024;
         v15 = 227016704;
-        _os_log_error_impl(&dword_296D7D000, v7, OS_LOG_TYPE_ERROR, "Got unexpected message 0x%0x, expected IBICallPsTransmitStateIndCb (0x%0x)", buf, 0xEu);
+        _os_log_error_impl(&dword_296D7D000, v8, OS_LOG_TYPE_ERROR, "Got unexpected message 0x%0x, expected IBICallPsTransmitStateIndCb (0x%0x)", buf, 0xEu);
       }
     }
 
-    result = MEMORY[0x29C265390](v9);
+    return MEMORY[0x29C265390](v9);
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -7097,85 +7084,85 @@ void __destroy_helper_block_e8_32c56_ZTSN8dispatch5blockIU13block_pointerFvbN3xp
   }
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk37ARI_CsiIceBBTxStateIndEnableRspCb_SDKENS5_35ARI_CsiIceBBTxStateIndEnableReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk37ARI_CsiIceBBTxStateIndEnableRspCb_SDKENS5_35ARI_CsiIceBBTxStateIndEnableReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v32 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
-  {
-    goto LABEL_24;
-  }
-
-  v3 = v2[2];
+  v3 = *(a1 + 32);
   if (!v3)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v4 = *v2;
-  v6 = std::__shared_weak_count::lock(v3);
-  v29 = v6;
-  if (!v6)
+  v4 = v3[2];
+  if (!v4)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v7 = v6;
-  v8 = v2[1];
-  v28 = v8;
-  if (!v8)
+  v5 = *v3;
+  v7 = std::__shared_weak_count::lock(v4);
+  v29 = v7;
+  if (!v7)
   {
-    goto LABEL_22;
+    return;
+  }
+
+  v8 = v7;
+  v9 = v3[1];
+  v28 = v9;
+  if (!v9)
+  {
+LABEL_22:
+    if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v8->__on_zero_shared)(v8);
+      std::__shared_weak_count::__release_weak(v8);
+    }
+
+    return;
   }
 
   v27 = 0xAAAAAAAAAAAAAAAALL;
-  *&v9 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v26[2] = v9;
-  v26[3] = v9;
-  v26[0] = v9;
-  v26[1] = v9;
+  *&v10 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v26[2] = v10;
+  v26[3] = v10;
+  v26[0] = v10;
+  v26[1] = v10;
   AriSdk::ARI_CsiIceBBTxStateIndEnableRspCb_SDK::ARI_CsiIceBBTxStateIndEnableRspCb_SDK(v26, a2);
-  if (!v2[4] || !v2[5])
+  if (!v3[4] || !v3[5])
   {
     MEMORY[0x29C265490](v26);
-LABEL_22:
-    if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-
-    goto LABEL_24;
+    goto LABEL_22;
   }
 
   GMID = AriSdk::MsgBase::getGMID(v26);
-  v11 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
-  if (v11 == 67600384 || v11 != *(v2 + 6))
+  v12 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
+  if (v12 == 67600384 || v12 != *(v3 + 6))
   {
-    v13 = *(v4 + 40);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = *(v5 + 40);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v25 = Ari::MsgNameById(v11);
+      v25 = Ari::MsgNameById(v12);
       *buf = 136315138;
       v31 = v25;
-      _os_log_error_impl(&dword_296D7D000, v13, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
+      _os_log_error_impl(&dword_296D7D000, v14, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v14 = v2[4];
-  if (!v14)
+  v15 = v3[4];
+  if (!v15)
   {
-    v15 = 0;
-    v16 = v2[5];
-    if (!v16)
+    v16 = 0;
+    v17 = v3[5];
+    if (!v17)
     {
       goto LABEL_17;
     }
@@ -7183,48 +7170,45 @@ LABEL_22:
     goto LABEL_16;
   }
 
-  v15 = _Block_copy(v14);
-  v16 = v2[5];
-  if (v16)
+  v16 = _Block_copy(v15);
+  v17 = v3[5];
+  if (v17)
   {
 LABEL_16:
-    dispatch_retain(v16);
+    dispatch_retain(v17);
   }
 
 LABEL_17:
-  v17 = v8[2];
-  if (!v17 || (v18 = v8[1], (v19 = std::__shared_weak_count::lock(v17)) == 0))
+  v18 = v9[2];
+  if (!v18 || (v19 = v9[1], (v20 = std::__shared_weak_count::lock(v18)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v20 = v19;
-  v21 = operator new(0x18uLL);
-  *v21 = v15;
-  v21[1] = v16;
-  *(v21 + 16) = v12;
-  v22 = v8[3];
-  atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = operator new(0x18uLL);
-  *v23 = v21;
-  v23[1] = v18;
-  v23[2] = v20;
-  dispatch_async_f(v22, v23, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceBBTxStateIndEnableRspCb_SDK,AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK>(AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceBBTxStateIndEnableRspCb_SDK,AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK>(AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceBBTxStateIndEnableRspCb_SDK,AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK>(AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceBBTxStateIndEnableRspCb_SDK,AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK>(AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = v20;
+  v22 = operator new(0x18uLL);
+  *v22 = v16;
+  v22[1] = v17;
+  *(v22 + 16) = v13;
+  v23 = v9[3];
+  atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  v24 = operator new(0x18uLL);
+  *v24 = v22;
+  v24[1] = v19;
+  v24[2] = v21;
+  dispatch_async_f(v23, v24, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceBBTxStateIndEnableRspCb_SDK,AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK>(AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceBBTxStateIndEnableRspCb_SDK,AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK>(AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceBBTxStateIndEnableRspCb_SDK,AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK>(AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceBBTxStateIndEnableRspCb_SDK,AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK>(AriSdk::ARI_CsiIceBBTxStateIndEnableReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
+    (v21->__on_zero_shared)(v21);
+    std::__shared_weak_count::__release_weak(v21);
   }
 
-  v7 = v29;
+  v8 = v29;
   MEMORY[0x29C265490](v26);
-  if (v7)
+  if (v8)
   {
     goto LABEL_22;
   }
-
-LABEL_24:
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DC4CC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -7396,85 +7380,85 @@ void *antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceBBTxStateIndEnableRsp
   return a1;
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk35ARI_IBICallPsTransmitStateRspCb_SDKENS5_33ARI_IBICallPsTransmitStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk35ARI_IBICallPsTransmitStateRspCb_SDKENS5_33ARI_IBICallPsTransmitStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v31 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
-  {
-    goto LABEL_24;
-  }
-
-  v3 = v2[2];
+  v3 = *(a1 + 32);
   if (!v3)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v4 = *v2;
-  v6 = std::__shared_weak_count::lock(v3);
-  v28 = v6;
-  if (!v6)
+  v4 = v3[2];
+  if (!v4)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v7 = v6;
-  v8 = v2[1];
-  v27 = v8;
-  if (!v8)
+  v5 = *v3;
+  v7 = std::__shared_weak_count::lock(v4);
+  v28 = v7;
+  if (!v7)
   {
+    return;
+  }
+
+  v8 = v7;
+  v9 = v3[1];
+  v27 = v9;
+  if (!v9)
+  {
+LABEL_22:
+    if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v8->__on_zero_shared)(v8);
+      std::__shared_weak_count::__release_weak(v8);
+    }
+
+    return;
+  }
+
+  *&v10 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v26[3] = v10;
+  v26[4] = v10;
+  v26[1] = v10;
+  v26[2] = v10;
+  v26[0] = v10;
+  AriSdk::ARI_IBICallPsTransmitStateRspCb_SDK::ARI_IBICallPsTransmitStateRspCb_SDK(v26, a2);
+  if (!v3[4] || !v3[5])
+  {
+    MEMORY[0x29C2653B0](v26);
     goto LABEL_22;
   }
 
-  *&v9 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v26[3] = v9;
-  v26[4] = v9;
-  v26[1] = v9;
-  v26[2] = v9;
-  v26[0] = v9;
-  AriSdk::ARI_IBICallPsTransmitStateRspCb_SDK::ARI_IBICallPsTransmitStateRspCb_SDK(v26, a2);
-  if (!v2[4] || !v2[5])
-  {
-    MEMORY[0x29C2653B0](v26);
-LABEL_22:
-    if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-
-    goto LABEL_24;
-  }
-
   GMID = AriSdk::MsgBase::getGMID(v26);
-  v11 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
-  if (v11 == 67600384 || v11 != *(v2 + 6))
+  v12 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
+  if (v12 == 67600384 || v12 != *(v3 + 6))
   {
-    v13 = *(v4 + 40);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = *(v5 + 40);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v25 = Ari::MsgNameById(v11);
+      v25 = Ari::MsgNameById(v12);
       *buf = 136315138;
       v30 = v25;
-      _os_log_error_impl(&dword_296D7D000, v13, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
+      _os_log_error_impl(&dword_296D7D000, v14, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v14 = v2[4];
-  if (!v14)
+  v15 = v3[4];
+  if (!v15)
   {
-    v15 = 0;
-    v16 = v2[5];
-    if (!v16)
+    v16 = 0;
+    v17 = v3[5];
+    if (!v17)
     {
       goto LABEL_17;
     }
@@ -7482,48 +7466,45 @@ LABEL_22:
     goto LABEL_16;
   }
 
-  v15 = _Block_copy(v14);
-  v16 = v2[5];
-  if (v16)
+  v16 = _Block_copy(v15);
+  v17 = v3[5];
+  if (v17)
   {
 LABEL_16:
-    dispatch_retain(v16);
+    dispatch_retain(v17);
   }
 
 LABEL_17:
-  v17 = v8[2];
-  if (!v17 || (v18 = v8[1], (v19 = std::__shared_weak_count::lock(v17)) == 0))
+  v18 = v9[2];
+  if (!v18 || (v19 = v9[1], (v20 = std::__shared_weak_count::lock(v18)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v20 = v19;
-  v21 = operator new(0x18uLL);
-  *v21 = v15;
-  v21[1] = v16;
-  *(v21 + 16) = v12;
-  v22 = v8[3];
-  atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = operator new(0x18uLL);
-  *v23 = v21;
-  v23[1] = v18;
-  v23[2] = v20;
-  dispatch_async_f(v22, v23, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_IBICallPsTransmitStateRspCb_SDK,AriSdk::ARI_IBICallPsTransmitStateReq_SDK>(AriSdk::ARI_IBICallPsTransmitStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_IBICallPsTransmitStateRspCb_SDK,AriSdk::ARI_IBICallPsTransmitStateReq_SDK>(AriSdk::ARI_IBICallPsTransmitStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_IBICallPsTransmitStateRspCb_SDK,AriSdk::ARI_IBICallPsTransmitStateReq_SDK>(AriSdk::ARI_IBICallPsTransmitStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_IBICallPsTransmitStateRspCb_SDK,AriSdk::ARI_IBICallPsTransmitStateReq_SDK>(AriSdk::ARI_IBICallPsTransmitStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = v20;
+  v22 = operator new(0x18uLL);
+  *v22 = v16;
+  v22[1] = v17;
+  *(v22 + 16) = v13;
+  v23 = v9[3];
+  atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  v24 = operator new(0x18uLL);
+  *v24 = v22;
+  v24[1] = v19;
+  v24[2] = v21;
+  dispatch_async_f(v23, v24, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_IBICallPsTransmitStateRspCb_SDK,AriSdk::ARI_IBICallPsTransmitStateReq_SDK>(AriSdk::ARI_IBICallPsTransmitStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_IBICallPsTransmitStateRspCb_SDK,AriSdk::ARI_IBICallPsTransmitStateReq_SDK>(AriSdk::ARI_IBICallPsTransmitStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_IBICallPsTransmitStateRspCb_SDK,AriSdk::ARI_IBICallPsTransmitStateReq_SDK>(AriSdk::ARI_IBICallPsTransmitStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_IBICallPsTransmitStateRspCb_SDK,AriSdk::ARI_IBICallPsTransmitStateReq_SDK>(AriSdk::ARI_IBICallPsTransmitStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
+    (v21->__on_zero_shared)(v21);
+    std::__shared_weak_count::__release_weak(v21);
   }
 
-  v7 = v28;
+  v8 = v28;
   MEMORY[0x29C2653B0](v26);
-  if (v7)
+  if (v8)
   {
     goto LABEL_22;
   }
-
-LABEL_24:
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DC530C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -7695,85 +7676,85 @@ void *antenna::ARICommandDriver::sendMsg<AriSdk::ARI_IBICallPsTransmitStateRspCb
   return a1;
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk22ARI_CsiIceSarRspCb_SDKENS5_20ARI_CsiIceSarReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk22ARI_CsiIceSarRspCb_SDKENS5_20ARI_CsiIceSarReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v32 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
-  {
-    goto LABEL_24;
-  }
-
-  v3 = v2[2];
+  v3 = *(a1 + 32);
   if (!v3)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v4 = *v2;
-  v6 = std::__shared_weak_count::lock(v3);
-  v29 = v6;
-  if (!v6)
+  v4 = v3[2];
+  if (!v4)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v7 = v6;
-  v8 = v2[1];
-  v28 = v8;
-  if (!v8)
+  v5 = *v3;
+  v7 = std::__shared_weak_count::lock(v4);
+  v29 = v7;
+  if (!v7)
   {
-    goto LABEL_22;
+    return;
+  }
+
+  v8 = v7;
+  v9 = v3[1];
+  v28 = v9;
+  if (!v9)
+  {
+LABEL_22:
+    if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v8->__on_zero_shared)(v8);
+      std::__shared_weak_count::__release_weak(v8);
+    }
+
+    return;
   }
 
   v27 = 0xAAAAAAAAAAAAAAAALL;
-  *&v9 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v26[2] = v9;
-  v26[3] = v9;
-  v26[0] = v9;
-  v26[1] = v9;
+  *&v10 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v26[2] = v10;
+  v26[3] = v10;
+  v26[0] = v10;
+  v26[1] = v10;
   AriSdk::ARI_CsiIceSarRspCb_SDK::ARI_CsiIceSarRspCb_SDK(v26, a2);
-  if (!v2[4] || !v2[5])
+  if (!v3[4] || !v3[5])
   {
     MEMORY[0x29C263EF0](v26);
-LABEL_22:
-    if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-
-    goto LABEL_24;
+    goto LABEL_22;
   }
 
   GMID = AriSdk::MsgBase::getGMID(v26);
-  v11 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
-  if (v11 == 67600384 || v11 != *(v2 + 6))
+  v12 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
+  if (v12 == 67600384 || v12 != *(v3 + 6))
   {
-    v13 = *(v4 + 40);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = *(v5 + 40);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v25 = Ari::MsgNameById(v11);
+      v25 = Ari::MsgNameById(v12);
       *buf = 136315138;
       v31 = v25;
-      _os_log_error_impl(&dword_296D7D000, v13, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
+      _os_log_error_impl(&dword_296D7D000, v14, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v14 = v2[4];
-  if (!v14)
+  v15 = v3[4];
+  if (!v15)
   {
-    v15 = 0;
-    v16 = v2[5];
-    if (!v16)
+    v16 = 0;
+    v17 = v3[5];
+    if (!v17)
     {
       goto LABEL_17;
     }
@@ -7781,48 +7762,45 @@ LABEL_22:
     goto LABEL_16;
   }
 
-  v15 = _Block_copy(v14);
-  v16 = v2[5];
-  if (v16)
+  v16 = _Block_copy(v15);
+  v17 = v3[5];
+  if (v17)
   {
 LABEL_16:
-    dispatch_retain(v16);
+    dispatch_retain(v17);
   }
 
 LABEL_17:
-  v17 = v8[2];
-  if (!v17 || (v18 = v8[1], (v19 = std::__shared_weak_count::lock(v17)) == 0))
+  v18 = v9[2];
+  if (!v18 || (v19 = v9[1], (v20 = std::__shared_weak_count::lock(v18)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v20 = v19;
-  v21 = operator new(0x18uLL);
-  *v21 = v15;
-  v21[1] = v16;
-  *(v21 + 16) = v12;
-  v22 = v8[3];
-  atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = operator new(0x18uLL);
-  *v23 = v21;
-  v23[1] = v18;
-  v23[2] = v20;
-  dispatch_async_f(v22, v23, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarRspCb_SDK,AriSdk::ARI_CsiIceSarReq_SDK>(AriSdk::ARI_CsiIceSarReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarRspCb_SDK,AriSdk::ARI_CsiIceSarReq_SDK>(AriSdk::ARI_CsiIceSarReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarRspCb_SDK,AriSdk::ARI_CsiIceSarReq_SDK>(AriSdk::ARI_CsiIceSarReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarRspCb_SDK,AriSdk::ARI_CsiIceSarReq_SDK>(AriSdk::ARI_CsiIceSarReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = v20;
+  v22 = operator new(0x18uLL);
+  *v22 = v16;
+  v22[1] = v17;
+  *(v22 + 16) = v13;
+  v23 = v9[3];
+  atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  v24 = operator new(0x18uLL);
+  *v24 = v22;
+  v24[1] = v19;
+  v24[2] = v21;
+  dispatch_async_f(v23, v24, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarRspCb_SDK,AriSdk::ARI_CsiIceSarReq_SDK>(AriSdk::ARI_CsiIceSarReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarRspCb_SDK,AriSdk::ARI_CsiIceSarReq_SDK>(AriSdk::ARI_CsiIceSarReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarRspCb_SDK,AriSdk::ARI_CsiIceSarReq_SDK>(AriSdk::ARI_CsiIceSarReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarRspCb_SDK,AriSdk::ARI_CsiIceSarReq_SDK>(AriSdk::ARI_CsiIceSarReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
+    (v21->__on_zero_shared)(v21);
+    std::__shared_weak_count::__release_weak(v21);
   }
 
-  v7 = v29;
+  v8 = v29;
   MEMORY[0x29C263EF0](v26);
-  if (v7)
+  if (v8)
   {
     goto LABEL_22;
   }
-
-LABEL_24:
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DC5958(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -7994,85 +7972,85 @@ void *antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarRspCb_SDK,AriSdk::
   return a1;
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk23ARI_CsiIceCltmRspCb_SDKENS5_21ARI_CsiIceCltmReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk23ARI_CsiIceCltmRspCb_SDKENS5_21ARI_CsiIceCltmReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v32 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
-  {
-    goto LABEL_24;
-  }
-
-  v3 = v2[2];
+  v3 = *(a1 + 32);
   if (!v3)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v4 = *v2;
-  v6 = std::__shared_weak_count::lock(v3);
-  v29 = v6;
-  if (!v6)
+  v4 = v3[2];
+  if (!v4)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v7 = v6;
-  v8 = v2[1];
-  v28 = v8;
-  if (!v8)
+  v5 = *v3;
+  v7 = std::__shared_weak_count::lock(v4);
+  v29 = v7;
+  if (!v7)
   {
-    goto LABEL_22;
+    return;
+  }
+
+  v8 = v7;
+  v9 = v3[1];
+  v28 = v9;
+  if (!v9)
+  {
+LABEL_22:
+    if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v8->__on_zero_shared)(v8);
+      std::__shared_weak_count::__release_weak(v8);
+    }
+
+    return;
   }
 
   v27 = 0xAAAAAAAAAAAAAAAALL;
-  *&v9 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v26[2] = v9;
-  v26[3] = v9;
-  v26[0] = v9;
-  v26[1] = v9;
+  *&v10 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v26[2] = v10;
+  v26[3] = v10;
+  v26[0] = v10;
+  v26[1] = v10;
   AriSdk::ARI_CsiIceCltmRspCb_SDK::ARI_CsiIceCltmRspCb_SDK(v26, a2);
-  if (!v2[4] || !v2[5])
+  if (!v3[4] || !v3[5])
   {
     MEMORY[0x29C263F60](v26);
-LABEL_22:
-    if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-
-    goto LABEL_24;
+    goto LABEL_22;
   }
 
   GMID = AriSdk::MsgBase::getGMID(v26);
-  v11 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
-  if (v11 == 67600384 || v11 != *(v2 + 6))
+  v12 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
+  if (v12 == 67600384 || v12 != *(v3 + 6))
   {
-    v13 = *(v4 + 40);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = *(v5 + 40);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v25 = Ari::MsgNameById(v11);
+      v25 = Ari::MsgNameById(v12);
       *buf = 136315138;
       v31 = v25;
-      _os_log_error_impl(&dword_296D7D000, v13, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
+      _os_log_error_impl(&dword_296D7D000, v14, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v14 = v2[4];
-  if (!v14)
+  v15 = v3[4];
+  if (!v15)
   {
-    v15 = 0;
-    v16 = v2[5];
-    if (!v16)
+    v16 = 0;
+    v17 = v3[5];
+    if (!v17)
     {
       goto LABEL_17;
     }
@@ -8080,48 +8058,45 @@ LABEL_22:
     goto LABEL_16;
   }
 
-  v15 = _Block_copy(v14);
-  v16 = v2[5];
-  if (v16)
+  v16 = _Block_copy(v15);
+  v17 = v3[5];
+  if (v17)
   {
 LABEL_16:
-    dispatch_retain(v16);
+    dispatch_retain(v17);
   }
 
 LABEL_17:
-  v17 = v8[2];
-  if (!v17 || (v18 = v8[1], (v19 = std::__shared_weak_count::lock(v17)) == 0))
+  v18 = v9[2];
+  if (!v18 || (v19 = v9[1], (v20 = std::__shared_weak_count::lock(v18)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v20 = v19;
-  v21 = operator new(0x18uLL);
-  *v21 = v15;
-  v21[1] = v16;
-  *(v21 + 16) = v12;
-  v22 = v8[3];
-  atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = operator new(0x18uLL);
-  *v23 = v21;
-  v23[1] = v18;
-  v23[2] = v20;
-  dispatch_async_f(v22, v23, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceCltmRspCb_SDK,AriSdk::ARI_CsiIceCltmReq_SDK>(AriSdk::ARI_CsiIceCltmReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceCltmRspCb_SDK,AriSdk::ARI_CsiIceCltmReq_SDK>(AriSdk::ARI_CsiIceCltmReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceCltmRspCb_SDK,AriSdk::ARI_CsiIceCltmReq_SDK>(AriSdk::ARI_CsiIceCltmReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceCltmRspCb_SDK,AriSdk::ARI_CsiIceCltmReq_SDK>(AriSdk::ARI_CsiIceCltmReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = v20;
+  v22 = operator new(0x18uLL);
+  *v22 = v16;
+  v22[1] = v17;
+  *(v22 + 16) = v13;
+  v23 = v9[3];
+  atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  v24 = operator new(0x18uLL);
+  *v24 = v22;
+  v24[1] = v19;
+  v24[2] = v21;
+  dispatch_async_f(v23, v24, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceCltmRspCb_SDK,AriSdk::ARI_CsiIceCltmReq_SDK>(AriSdk::ARI_CsiIceCltmReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceCltmRspCb_SDK,AriSdk::ARI_CsiIceCltmReq_SDK>(AriSdk::ARI_CsiIceCltmReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceCltmRspCb_SDK,AriSdk::ARI_CsiIceCltmReq_SDK>(AriSdk::ARI_CsiIceCltmReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceCltmRspCb_SDK,AriSdk::ARI_CsiIceCltmReq_SDK>(AriSdk::ARI_CsiIceCltmReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
+    (v21->__on_zero_shared)(v21);
+    std::__shared_weak_count::__release_weak(v21);
   }
 
-  v7 = v29;
+  v8 = v29;
   MEMORY[0x29C263F60](v26);
-  if (v7)
+  if (v8)
   {
     goto LABEL_22;
   }
-
-LABEL_24:
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DC5FA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -8293,85 +8268,85 @@ void *antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceCltmRspCb_SDK,AriSdk:
   return a1;
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk30ARI_CsiIceSarWaitTimeRspCb_SDKENS5_28ARI_CsiIceSarWaitTimeReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk30ARI_CsiIceSarWaitTimeRspCb_SDKENS5_28ARI_CsiIceSarWaitTimeReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v32 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
-  {
-    goto LABEL_24;
-  }
-
-  v3 = v2[2];
+  v3 = *(a1 + 32);
   if (!v3)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v4 = *v2;
-  v6 = std::__shared_weak_count::lock(v3);
-  v29 = v6;
-  if (!v6)
+  v4 = v3[2];
+  if (!v4)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v7 = v6;
-  v8 = v2[1];
-  v28 = v8;
-  if (!v8)
+  v5 = *v3;
+  v7 = std::__shared_weak_count::lock(v4);
+  v29 = v7;
+  if (!v7)
   {
-    goto LABEL_22;
+    return;
+  }
+
+  v8 = v7;
+  v9 = v3[1];
+  v28 = v9;
+  if (!v9)
+  {
+LABEL_22:
+    if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v8->__on_zero_shared)(v8);
+      std::__shared_weak_count::__release_weak(v8);
+    }
+
+    return;
   }
 
   v27 = 0xAAAAAAAAAAAAAAAALL;
-  *&v9 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v26[2] = v9;
-  v26[3] = v9;
-  v26[0] = v9;
-  v26[1] = v9;
+  *&v10 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v26[2] = v10;
+  v26[3] = v10;
+  v26[0] = v10;
+  v26[1] = v10;
   AriSdk::ARI_CsiIceSarWaitTimeRspCb_SDK::ARI_CsiIceSarWaitTimeRspCb_SDK(v26, a2);
-  if (!v2[4] || !v2[5])
+  if (!v3[4] || !v3[5])
   {
     MEMORY[0x29C264AA0](v26);
-LABEL_22:
-    if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-
-    goto LABEL_24;
+    goto LABEL_22;
   }
 
   GMID = AriSdk::MsgBase::getGMID(v26);
-  v11 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
-  if (v11 == 67600384 || v11 != *(v2 + 6))
+  v12 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
+  if (v12 == 67600384 || v12 != *(v3 + 6))
   {
-    v13 = *(v4 + 40);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = *(v5 + 40);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v25 = Ari::MsgNameById(v11);
+      v25 = Ari::MsgNameById(v12);
       *buf = 136315138;
       v31 = v25;
-      _os_log_error_impl(&dword_296D7D000, v13, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
+      _os_log_error_impl(&dword_296D7D000, v14, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v14 = v2[4];
-  if (!v14)
+  v15 = v3[4];
+  if (!v15)
   {
-    v15 = 0;
-    v16 = v2[5];
-    if (!v16)
+    v16 = 0;
+    v17 = v3[5];
+    if (!v17)
     {
       goto LABEL_17;
     }
@@ -8379,48 +8354,45 @@ LABEL_22:
     goto LABEL_16;
   }
 
-  v15 = _Block_copy(v14);
-  v16 = v2[5];
-  if (v16)
+  v16 = _Block_copy(v15);
+  v17 = v3[5];
+  if (v17)
   {
 LABEL_16:
-    dispatch_retain(v16);
+    dispatch_retain(v17);
   }
 
 LABEL_17:
-  v17 = v8[2];
-  if (!v17 || (v18 = v8[1], (v19 = std::__shared_weak_count::lock(v17)) == 0))
+  v18 = v9[2];
+  if (!v18 || (v19 = v9[1], (v20 = std::__shared_weak_count::lock(v18)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v20 = v19;
-  v21 = operator new(0x18uLL);
-  *v21 = v15;
-  v21[1] = v16;
-  *(v21 + 16) = v12;
-  v22 = v8[3];
-  atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = operator new(0x18uLL);
-  *v23 = v21;
-  v23[1] = v18;
-  v23[2] = v20;
-  dispatch_async_f(v22, v23, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarWaitTimeRspCb_SDK,AriSdk::ARI_CsiIceSarWaitTimeReq_SDK>(AriSdk::ARI_CsiIceSarWaitTimeReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarWaitTimeRspCb_SDK,AriSdk::ARI_CsiIceSarWaitTimeReq_SDK>(AriSdk::ARI_CsiIceSarWaitTimeReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarWaitTimeRspCb_SDK,AriSdk::ARI_CsiIceSarWaitTimeReq_SDK>(AriSdk::ARI_CsiIceSarWaitTimeReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarWaitTimeRspCb_SDK,AriSdk::ARI_CsiIceSarWaitTimeReq_SDK>(AriSdk::ARI_CsiIceSarWaitTimeReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = v20;
+  v22 = operator new(0x18uLL);
+  *v22 = v16;
+  v22[1] = v17;
+  *(v22 + 16) = v13;
+  v23 = v9[3];
+  atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  v24 = operator new(0x18uLL);
+  *v24 = v22;
+  v24[1] = v19;
+  v24[2] = v21;
+  dispatch_async_f(v23, v24, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarWaitTimeRspCb_SDK,AriSdk::ARI_CsiIceSarWaitTimeReq_SDK>(AriSdk::ARI_CsiIceSarWaitTimeReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarWaitTimeRspCb_SDK,AriSdk::ARI_CsiIceSarWaitTimeReq_SDK>(AriSdk::ARI_CsiIceSarWaitTimeReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarWaitTimeRspCb_SDK,AriSdk::ARI_CsiIceSarWaitTimeReq_SDK>(AriSdk::ARI_CsiIceSarWaitTimeReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarWaitTimeRspCb_SDK,AriSdk::ARI_CsiIceSarWaitTimeReq_SDK>(AriSdk::ARI_CsiIceSarWaitTimeReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
+    (v21->__on_zero_shared)(v21);
+    std::__shared_weak_count::__release_weak(v21);
   }
 
-  v7 = v29;
+  v8 = v29;
   MEMORY[0x29C264AA0](v26);
-  if (v7)
+  if (v8)
   {
     goto LABEL_22;
   }
-
-LABEL_24:
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DC65F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -8592,85 +8564,85 @@ void *antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSarWaitTimeRspCb_SDK,
   return a1;
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk33ARI_CsiIceAccessoryStateRspCb_SDKENS5_31ARI_CsiIceAccessoryStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk33ARI_CsiIceAccessoryStateRspCb_SDKENS5_31ARI_CsiIceAccessoryStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v32 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
-  {
-    goto LABEL_24;
-  }
-
-  v3 = v2[2];
+  v3 = *(a1 + 32);
   if (!v3)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v4 = *v2;
-  v6 = std::__shared_weak_count::lock(v3);
-  v29 = v6;
-  if (!v6)
+  v4 = v3[2];
+  if (!v4)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v7 = v6;
-  v8 = v2[1];
-  v28 = v8;
-  if (!v8)
+  v5 = *v3;
+  v7 = std::__shared_weak_count::lock(v4);
+  v29 = v7;
+  if (!v7)
   {
-    goto LABEL_22;
+    return;
+  }
+
+  v8 = v7;
+  v9 = v3[1];
+  v28 = v9;
+  if (!v9)
+  {
+LABEL_22:
+    if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v8->__on_zero_shared)(v8);
+      std::__shared_weak_count::__release_weak(v8);
+    }
+
+    return;
   }
 
   v27 = 0xAAAAAAAAAAAAAAAALL;
-  *&v9 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v26[2] = v9;
-  v26[3] = v9;
-  v26[0] = v9;
-  v26[1] = v9;
+  *&v10 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v26[2] = v10;
+  v26[3] = v10;
+  v26[0] = v10;
+  v26[1] = v10;
   AriSdk::ARI_CsiIceAccessoryStateRspCb_SDK::ARI_CsiIceAccessoryStateRspCb_SDK(v26, a2);
-  if (!v2[4] || !v2[5])
+  if (!v3[4] || !v3[5])
   {
     MEMORY[0x29C265010](v26);
-LABEL_22:
-    if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-
-    goto LABEL_24;
+    goto LABEL_22;
   }
 
   GMID = AriSdk::MsgBase::getGMID(v26);
-  v11 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
-  if (v11 == 67600384 || v11 != *(v2 + 6))
+  v12 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
+  if (v12 == 67600384 || v12 != *(v3 + 6))
   {
-    v13 = *(v4 + 40);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = *(v5 + 40);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v25 = Ari::MsgNameById(v11);
+      v25 = Ari::MsgNameById(v12);
       *buf = 136315138;
       v31 = v25;
-      _os_log_error_impl(&dword_296D7D000, v13, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
+      _os_log_error_impl(&dword_296D7D000, v14, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v14 = v2[4];
-  if (!v14)
+  v15 = v3[4];
+  if (!v15)
   {
-    v15 = 0;
-    v16 = v2[5];
-    if (!v16)
+    v16 = 0;
+    v17 = v3[5];
+    if (!v17)
     {
       goto LABEL_17;
     }
@@ -8678,48 +8650,45 @@ LABEL_22:
     goto LABEL_16;
   }
 
-  v15 = _Block_copy(v14);
-  v16 = v2[5];
-  if (v16)
+  v16 = _Block_copy(v15);
+  v17 = v3[5];
+  if (v17)
   {
 LABEL_16:
-    dispatch_retain(v16);
+    dispatch_retain(v17);
   }
 
 LABEL_17:
-  v17 = v8[2];
-  if (!v17 || (v18 = v8[1], (v19 = std::__shared_weak_count::lock(v17)) == 0))
+  v18 = v9[2];
+  if (!v18 || (v19 = v9[1], (v20 = std::__shared_weak_count::lock(v18)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v20 = v19;
-  v21 = operator new(0x18uLL);
-  *v21 = v15;
-  v21[1] = v16;
-  *(v21 + 16) = v12;
-  v22 = v8[3];
-  atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = operator new(0x18uLL);
-  *v23 = v21;
-  v23[1] = v18;
-  v23[2] = v20;
-  dispatch_async_f(v22, v23, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = v20;
+  v22 = operator new(0x18uLL);
+  *v22 = v16;
+  v22[1] = v17;
+  *(v22 + 16) = v13;
+  v23 = v9[3];
+  atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  v24 = operator new(0x18uLL);
+  *v24 = v22;
+  v24[1] = v19;
+  v24[2] = v21;
+  dispatch_async_f(v23, v24, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
+    (v21->__on_zero_shared)(v21);
+    std::__shared_weak_count::__release_weak(v21);
   }
 
-  v7 = v29;
+  v8 = v29;
   MEMORY[0x29C265010](v26);
-  if (v7)
+  if (v8)
   {
     goto LABEL_22;
   }
-
-LABEL_24:
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DC6C3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -8891,85 +8860,85 @@ void *antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateRspCb_S
   return a1;
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk37ARI_CsiIceAccessoryStateArtdRspCb_SDKENS5_35ARI_CsiIceAccessoryStateArtdReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk37ARI_CsiIceAccessoryStateArtdRspCb_SDKENS5_35ARI_CsiIceAccessoryStateArtdReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v32 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
-  {
-    goto LABEL_24;
-  }
-
-  v3 = v2[2];
+  v3 = *(a1 + 32);
   if (!v3)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v4 = *v2;
-  v6 = std::__shared_weak_count::lock(v3);
-  v29 = v6;
-  if (!v6)
+  v4 = v3[2];
+  if (!v4)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v7 = v6;
-  v8 = v2[1];
-  v28 = v8;
-  if (!v8)
+  v5 = *v3;
+  v7 = std::__shared_weak_count::lock(v4);
+  v29 = v7;
+  if (!v7)
   {
-    goto LABEL_22;
+    return;
+  }
+
+  v8 = v7;
+  v9 = v3[1];
+  v28 = v9;
+  if (!v9)
+  {
+LABEL_22:
+    if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v8->__on_zero_shared)(v8);
+      std::__shared_weak_count::__release_weak(v8);
+    }
+
+    return;
   }
 
   v27 = 0xAAAAAAAAAAAAAAAALL;
-  *&v9 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v26[2] = v9;
-  v26[3] = v9;
-  v26[0] = v9;
-  v26[1] = v9;
+  *&v10 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v26[2] = v10;
+  v26[3] = v10;
+  v26[0] = v10;
+  v26[1] = v10;
   AriSdk::ARI_CsiIceAccessoryStateArtdRspCb_SDK::ARI_CsiIceAccessoryStateArtdRspCb_SDK(v26, a2);
-  if (!v2[4] || !v2[5])
+  if (!v3[4] || !v3[5])
   {
     MEMORY[0x29C265470](v26);
-LABEL_22:
-    if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-
-    goto LABEL_24;
+    goto LABEL_22;
   }
 
   GMID = AriSdk::MsgBase::getGMID(v26);
-  v11 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
-  if (v11 == 67600384 || v11 != *(v2 + 6))
+  v12 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
+  if (v12 == 67600384 || v12 != *(v3 + 6))
   {
-    v13 = *(v4 + 40);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = *(v5 + 40);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v25 = Ari::MsgNameById(v11);
+      v25 = Ari::MsgNameById(v12);
       *buf = 136315138;
       v31 = v25;
-      _os_log_error_impl(&dword_296D7D000, v13, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
+      _os_log_error_impl(&dword_296D7D000, v14, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v14 = v2[4];
-  if (!v14)
+  v15 = v3[4];
+  if (!v15)
   {
-    v15 = 0;
-    v16 = v2[5];
-    if (!v16)
+    v16 = 0;
+    v17 = v3[5];
+    if (!v17)
     {
       goto LABEL_17;
     }
@@ -8977,48 +8946,45 @@ LABEL_22:
     goto LABEL_16;
   }
 
-  v15 = _Block_copy(v14);
-  v16 = v2[5];
-  if (v16)
+  v16 = _Block_copy(v15);
+  v17 = v3[5];
+  if (v17)
   {
 LABEL_16:
-    dispatch_retain(v16);
+    dispatch_retain(v17);
   }
 
 LABEL_17:
-  v17 = v8[2];
-  if (!v17 || (v18 = v8[1], (v19 = std::__shared_weak_count::lock(v17)) == 0))
+  v18 = v9[2];
+  if (!v18 || (v19 = v9[1], (v20 = std::__shared_weak_count::lock(v18)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v20 = v19;
-  v21 = operator new(0x18uLL);
-  *v21 = v15;
-  v21[1] = v16;
-  *(v21 + 16) = v12;
-  v22 = v8[3];
-  atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = operator new(0x18uLL);
-  *v23 = v21;
-  v23[1] = v18;
-  v23[2] = v20;
-  dispatch_async_f(v22, v23, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateArtdRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateArtdRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateArtdRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateArtdRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = v20;
+  v22 = operator new(0x18uLL);
+  *v22 = v16;
+  v22[1] = v17;
+  *(v22 + 16) = v13;
+  v23 = v9[3];
+  atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  v24 = operator new(0x18uLL);
+  *v24 = v22;
+  v24[1] = v19;
+  v24[2] = v21;
+  dispatch_async_f(v23, v24, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateArtdRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateArtdRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateArtdRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateArtdRspCb_SDK,AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK>(AriSdk::ARI_CsiIceAccessoryStateArtdReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
+    (v21->__on_zero_shared)(v21);
+    std::__shared_weak_count::__release_weak(v21);
   }
 
-  v7 = v29;
+  v8 = v29;
   MEMORY[0x29C265470](v26);
-  if (v7)
+  if (v8)
   {
     goto LABEL_22;
   }
-
-LABEL_24:
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DC7288(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -9190,85 +9156,85 @@ void *antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceAccessoryStateArtdRsp
   return a1;
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk31ARI_CsiIceSpeakerStateRspCb_SDKENS5_29ARI_CsiIceSpeakerStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk31ARI_CsiIceSpeakerStateRspCb_SDKENS5_29ARI_CsiIceSpeakerStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v32 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
-  {
-    goto LABEL_24;
-  }
-
-  v3 = v2[2];
+  v3 = *(a1 + 32);
   if (!v3)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v4 = *v2;
-  v6 = std::__shared_weak_count::lock(v3);
-  v29 = v6;
-  if (!v6)
+  v4 = v3[2];
+  if (!v4)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v7 = v6;
-  v8 = v2[1];
-  v28 = v8;
-  if (!v8)
+  v5 = *v3;
+  v7 = std::__shared_weak_count::lock(v4);
+  v29 = v7;
+  if (!v7)
   {
-    goto LABEL_22;
+    return;
+  }
+
+  v8 = v7;
+  v9 = v3[1];
+  v28 = v9;
+  if (!v9)
+  {
+LABEL_22:
+    if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v8->__on_zero_shared)(v8);
+      std::__shared_weak_count::__release_weak(v8);
+    }
+
+    return;
   }
 
   v27 = 0xAAAAAAAAAAAAAAAALL;
-  *&v9 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v26[2] = v9;
-  v26[3] = v9;
-  v26[0] = v9;
-  v26[1] = v9;
+  *&v10 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v26[2] = v10;
+  v26[3] = v10;
+  v26[0] = v10;
+  v26[1] = v10;
   AriSdk::ARI_CsiIceSpeakerStateRspCb_SDK::ARI_CsiIceSpeakerStateRspCb_SDK(v26, a2);
-  if (!v2[4] || !v2[5])
+  if (!v3[4] || !v3[5])
   {
     MEMORY[0x29C264CE0](v26);
-LABEL_22:
-    if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-
-    goto LABEL_24;
+    goto LABEL_22;
   }
 
   GMID = AriSdk::MsgBase::getGMID(v26);
-  v11 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
-  if (v11 == 67600384 || v11 != *(v2 + 6))
+  v12 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
+  if (v12 == 67600384 || v12 != *(v3 + 6))
   {
-    v13 = *(v4 + 40);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = *(v5 + 40);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v25 = Ari::MsgNameById(v11);
+      v25 = Ari::MsgNameById(v12);
       *buf = 136315138;
       v31 = v25;
-      _os_log_error_impl(&dword_296D7D000, v13, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
+      _os_log_error_impl(&dword_296D7D000, v14, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v14 = v2[4];
-  if (!v14)
+  v15 = v3[4];
+  if (!v15)
   {
-    v15 = 0;
-    v16 = v2[5];
-    if (!v16)
+    v16 = 0;
+    v17 = v3[5];
+    if (!v17)
     {
       goto LABEL_17;
     }
@@ -9276,48 +9242,45 @@ LABEL_22:
     goto LABEL_16;
   }
 
-  v15 = _Block_copy(v14);
-  v16 = v2[5];
-  if (v16)
+  v16 = _Block_copy(v15);
+  v17 = v3[5];
+  if (v17)
   {
 LABEL_16:
-    dispatch_retain(v16);
+    dispatch_retain(v17);
   }
 
 LABEL_17:
-  v17 = v8[2];
-  if (!v17 || (v18 = v8[1], (v19 = std::__shared_weak_count::lock(v17)) == 0))
+  v18 = v9[2];
+  if (!v18 || (v19 = v9[1], (v20 = std::__shared_weak_count::lock(v18)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v20 = v19;
-  v21 = operator new(0x18uLL);
-  *v21 = v15;
-  v21[1] = v16;
-  *(v21 + 16) = v12;
-  v22 = v8[3];
-  atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = operator new(0x18uLL);
-  *v23 = v21;
-  v23[1] = v18;
-  v23[2] = v20;
-  dispatch_async_f(v22, v23, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSpeakerStateRspCb_SDK,AriSdk::ARI_CsiIceSpeakerStateReq_SDK>(AriSdk::ARI_CsiIceSpeakerStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSpeakerStateRspCb_SDK,AriSdk::ARI_CsiIceSpeakerStateReq_SDK>(AriSdk::ARI_CsiIceSpeakerStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSpeakerStateRspCb_SDK,AriSdk::ARI_CsiIceSpeakerStateReq_SDK>(AriSdk::ARI_CsiIceSpeakerStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSpeakerStateRspCb_SDK,AriSdk::ARI_CsiIceSpeakerStateReq_SDK>(AriSdk::ARI_CsiIceSpeakerStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = v20;
+  v22 = operator new(0x18uLL);
+  *v22 = v16;
+  v22[1] = v17;
+  *(v22 + 16) = v13;
+  v23 = v9[3];
+  atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  v24 = operator new(0x18uLL);
+  *v24 = v22;
+  v24[1] = v19;
+  v24[2] = v21;
+  dispatch_async_f(v23, v24, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSpeakerStateRspCb_SDK,AriSdk::ARI_CsiIceSpeakerStateReq_SDK>(AriSdk::ARI_CsiIceSpeakerStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSpeakerStateRspCb_SDK,AriSdk::ARI_CsiIceSpeakerStateReq_SDK>(AriSdk::ARI_CsiIceSpeakerStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSpeakerStateRspCb_SDK,AriSdk::ARI_CsiIceSpeakerStateReq_SDK>(AriSdk::ARI_CsiIceSpeakerStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSpeakerStateRspCb_SDK,AriSdk::ARI_CsiIceSpeakerStateReq_SDK>(AriSdk::ARI_CsiIceSpeakerStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
+    (v21->__on_zero_shared)(v21);
+    std::__shared_weak_count::__release_weak(v21);
   }
 
-  v7 = v29;
+  v8 = v29;
   MEMORY[0x29C264CE0](v26);
-  if (v7)
+  if (v8)
   {
     goto LABEL_22;
   }
-
-LABEL_24:
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DC78D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -9489,85 +9452,85 @@ void *antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceSpeakerStateRspCb_SDK
   return a1;
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk28ARI_CsiIceGripStateRspCb_SDKENS5_26ARI_CsiIceGripStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk28ARI_CsiIceGripStateRspCb_SDKENS5_26ARI_CsiIceGripStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v32 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
-  {
-    goto LABEL_24;
-  }
-
-  v3 = v2[2];
+  v3 = *(a1 + 32);
   if (!v3)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v4 = *v2;
-  v6 = std::__shared_weak_count::lock(v3);
-  v29 = v6;
-  if (!v6)
+  v4 = v3[2];
+  if (!v4)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v7 = v6;
-  v8 = v2[1];
-  v28 = v8;
-  if (!v8)
+  v5 = *v3;
+  v7 = std::__shared_weak_count::lock(v4);
+  v29 = v7;
+  if (!v7)
   {
-    goto LABEL_22;
+    return;
+  }
+
+  v8 = v7;
+  v9 = v3[1];
+  v28 = v9;
+  if (!v9)
+  {
+LABEL_22:
+    if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v8->__on_zero_shared)(v8);
+      std::__shared_weak_count::__release_weak(v8);
+    }
+
+    return;
   }
 
   v27 = 0xAAAAAAAAAAAAAAAALL;
-  *&v9 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v26[2] = v9;
-  v26[3] = v9;
-  v26[0] = v9;
-  v26[1] = v9;
+  *&v10 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v26[2] = v10;
+  v26[3] = v10;
+  v26[0] = v10;
+  v26[1] = v10;
   AriSdk::ARI_CsiIceGripStateRspCb_SDK::ARI_CsiIceGripStateRspCb_SDK(v26, a2);
-  if (!v2[4] || !v2[5])
+  if (!v3[4] || !v3[5])
   {
     MEMORY[0x29C264640](v26);
-LABEL_22:
-    if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-
-    goto LABEL_24;
+    goto LABEL_22;
   }
 
   GMID = AriSdk::MsgBase::getGMID(v26);
-  v11 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
-  if (v11 == 67600384 || v11 != *(v2 + 6))
+  v12 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
+  if (v12 == 67600384 || v12 != *(v3 + 6))
   {
-    v13 = *(v4 + 40);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = *(v5 + 40);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v25 = Ari::MsgNameById(v11);
+      v25 = Ari::MsgNameById(v12);
       *buf = 136315138;
       v31 = v25;
-      _os_log_error_impl(&dword_296D7D000, v13, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
+      _os_log_error_impl(&dword_296D7D000, v14, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v14 = v2[4];
-  if (!v14)
+  v15 = v3[4];
+  if (!v15)
   {
-    v15 = 0;
-    v16 = v2[5];
-    if (!v16)
+    v16 = 0;
+    v17 = v3[5];
+    if (!v17)
     {
       goto LABEL_17;
     }
@@ -9575,48 +9538,45 @@ LABEL_22:
     goto LABEL_16;
   }
 
-  v15 = _Block_copy(v14);
-  v16 = v2[5];
-  if (v16)
+  v16 = _Block_copy(v15);
+  v17 = v3[5];
+  if (v17)
   {
 LABEL_16:
-    dispatch_retain(v16);
+    dispatch_retain(v17);
   }
 
 LABEL_17:
-  v17 = v8[2];
-  if (!v17 || (v18 = v8[1], (v19 = std::__shared_weak_count::lock(v17)) == 0))
+  v18 = v9[2];
+  if (!v18 || (v19 = v9[1], (v20 = std::__shared_weak_count::lock(v18)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v20 = v19;
-  v21 = operator new(0x18uLL);
-  *v21 = v15;
-  v21[1] = v16;
-  *(v21 + 16) = v12;
-  v22 = v8[3];
-  atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = operator new(0x18uLL);
-  *v23 = v21;
-  v23[1] = v18;
-  v23[2] = v20;
-  dispatch_async_f(v22, v23, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceGripStateRspCb_SDK,AriSdk::ARI_CsiIceGripStateReq_SDK>(AriSdk::ARI_CsiIceGripStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceGripStateRspCb_SDK,AriSdk::ARI_CsiIceGripStateReq_SDK>(AriSdk::ARI_CsiIceGripStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceGripStateRspCb_SDK,AriSdk::ARI_CsiIceGripStateReq_SDK>(AriSdk::ARI_CsiIceGripStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceGripStateRspCb_SDK,AriSdk::ARI_CsiIceGripStateReq_SDK>(AriSdk::ARI_CsiIceGripStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = v20;
+  v22 = operator new(0x18uLL);
+  *v22 = v16;
+  v22[1] = v17;
+  *(v22 + 16) = v13;
+  v23 = v9[3];
+  atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  v24 = operator new(0x18uLL);
+  *v24 = v22;
+  v24[1] = v19;
+  v24[2] = v21;
+  dispatch_async_f(v23, v24, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceGripStateRspCb_SDK,AriSdk::ARI_CsiIceGripStateReq_SDK>(AriSdk::ARI_CsiIceGripStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceGripStateRspCb_SDK,AriSdk::ARI_CsiIceGripStateReq_SDK>(AriSdk::ARI_CsiIceGripStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceGripStateRspCb_SDK,AriSdk::ARI_CsiIceGripStateReq_SDK>(AriSdk::ARI_CsiIceGripStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceGripStateRspCb_SDK,AriSdk::ARI_CsiIceGripStateReq_SDK>(AriSdk::ARI_CsiIceGripStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
+    (v21->__on_zero_shared)(v21);
+    std::__shared_weak_count::__release_weak(v21);
   }
 
-  v7 = v29;
+  v8 = v29;
   MEMORY[0x29C264640](v26);
-  if (v7)
+  if (v8)
   {
     goto LABEL_22;
   }
-
-LABEL_24:
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DC7F20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -9788,85 +9748,85 @@ void *antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIceGripStateRspCb_SDK,Ar
   return a1;
 }
 
-void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk35ARI_CsiIcePowerSourceStateRspCb_SDKENS5_33ARI_CsiIcePowerSourceStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void ___ZN3ice6detail12wrapCallbackIZN7antenna16ARICommandDriver7sendMsgIN6AriSdk35ARI_CsiIcePowerSourceStateRspCb_SDKENS5_33ARI_CsiIcePowerSourceStateReq_SDKEEEvRT0_jN8dispatch8callbackIU13block_pointerFvbN3xpc6objectEEEEEUlPKhjE_vEENSA_5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
   v32 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (!v2)
-  {
-    goto LABEL_24;
-  }
-
-  v3 = v2[2];
+  v3 = *(a1 + 32);
   if (!v3)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v4 = *v2;
-  v6 = std::__shared_weak_count::lock(v3);
-  v29 = v6;
-  if (!v6)
+  v4 = v3[2];
+  if (!v4)
   {
-    goto LABEL_24;
+    return;
   }
 
-  v7 = v6;
-  v8 = v2[1];
-  v28 = v8;
-  if (!v8)
+  v5 = *v3;
+  v7 = std::__shared_weak_count::lock(v4);
+  v29 = v7;
+  if (!v7)
   {
-    goto LABEL_22;
+    return;
+  }
+
+  v8 = v7;
+  v9 = v3[1];
+  v28 = v9;
+  if (!v9)
+  {
+LABEL_22:
+    if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v8->__on_zero_shared)(v8);
+      std::__shared_weak_count::__release_weak(v8);
+    }
+
+    return;
   }
 
   v27 = 0xAAAAAAAAAAAAAAAALL;
-  *&v9 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v26[2] = v9;
-  v26[3] = v9;
-  v26[0] = v9;
-  v26[1] = v9;
+  *&v10 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v26[2] = v10;
+  v26[3] = v10;
+  v26[0] = v10;
+  v26[1] = v10;
   AriSdk::ARI_CsiIcePowerSourceStateRspCb_SDK::ARI_CsiIcePowerSourceStateRspCb_SDK(v26, a2);
-  if (!v2[4] || !v2[5])
+  if (!v3[4] || !v3[5])
   {
     MEMORY[0x29C2652D0](v26);
-LABEL_22:
-    if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-
-    goto LABEL_24;
+    goto LABEL_22;
   }
 
   GMID = AriSdk::MsgBase::getGMID(v26);
-  v11 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
-  if (v11 == 67600384 || v11 != *(v2 + 6))
+  v12 = ((GMID >> 17) & 0xFFFF8000 | (GMID << 26));
+  if (v12 == 67600384 || v12 != *(v3 + 6))
   {
-    v13 = *(v4 + 40);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = *(v5 + 40);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v25 = Ari::MsgNameById(v11);
+      v25 = Ari::MsgNameById(v12);
       *buf = 136315138;
       v31 = v25;
-      _os_log_error_impl(&dword_296D7D000, v13, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
+      _os_log_error_impl(&dword_296D7D000, v14, OS_LOG_TYPE_ERROR, "Response %s is invalid", buf, 0xCu);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v14 = v2[4];
-  if (!v14)
+  v15 = v3[4];
+  if (!v15)
   {
-    v15 = 0;
-    v16 = v2[5];
-    if (!v16)
+    v16 = 0;
+    v17 = v3[5];
+    if (!v17)
     {
       goto LABEL_17;
     }
@@ -9874,46 +9834,43 @@ LABEL_22:
     goto LABEL_16;
   }
 
-  v15 = _Block_copy(v14);
-  v16 = v2[5];
-  if (v16)
+  v16 = _Block_copy(v15);
+  v17 = v3[5];
+  if (v17)
   {
 LABEL_16:
-    dispatch_retain(v16);
+    dispatch_retain(v17);
   }
 
 LABEL_17:
-  v17 = v8[2];
-  if (!v17 || (v18 = v8[1], (v19 = std::__shared_weak_count::lock(v17)) == 0))
+  v18 = v9[2];
+  if (!v18 || (v19 = v9[1], (v20 = std::__shared_weak_count::lock(v18)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v20 = v19;
-  v21 = operator new(0x18uLL);
-  *v21 = v15;
-  v21[1] = v16;
-  *(v21 + 16) = v12;
-  v22 = v8[3];
-  atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = operator new(0x18uLL);
-  *v23 = v21;
-  v23[1] = v18;
-  v23[2] = v20;
-  dispatch_async_f(v22, v23, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIcePowerSourceStateRspCb_SDK,AriSdk::ARI_CsiIcePowerSourceStateReq_SDK>(AriSdk::ARI_CsiIcePowerSourceStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIcePowerSourceStateRspCb_SDK,AriSdk::ARI_CsiIcePowerSourceStateReq_SDK>(AriSdk::ARI_CsiIcePowerSourceStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIcePowerSourceStateRspCb_SDK,AriSdk::ARI_CsiIcePowerSourceStateReq_SDK>(AriSdk::ARI_CsiIcePowerSourceStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIcePowerSourceStateRspCb_SDK,AriSdk::ARI_CsiIcePowerSourceStateReq_SDK>(AriSdk::ARI_CsiIcePowerSourceStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = v20;
+  v22 = operator new(0x18uLL);
+  *v22 = v16;
+  v22[1] = v17;
+  *(v22 + 16) = v13;
+  v23 = v9[3];
+  atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  v24 = operator new(0x18uLL);
+  *v24 = v22;
+  v24[1] = v19;
+  v24[2] = v21;
+  dispatch_async_f(v23, v24, dispatch::async<void ctu::SharedSynchronizable<antenna::CommandDriver>::execute_wrapped<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIcePowerSourceStateRspCb_SDK,AriSdk::ARI_CsiIcePowerSourceStateReq_SDK>(AriSdk::ARI_CsiIcePowerSourceStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>(void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIcePowerSourceStateRspCb_SDK,AriSdk::ARI_CsiIcePowerSourceStateReq_SDK>(AriSdk::ARI_CsiIcePowerSourceStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIcePowerSourceStateRspCb_SDK,AriSdk::ARI_CsiIcePowerSourceStateReq_SDK>(AriSdk::ARI_CsiIcePowerSourceStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1},dispatch_queue_s *::default_delete<void antenna::ARICommandDriver::sendMsg<AriSdk::ARI_CsiIcePowerSourceStateRspCb_SDK,AriSdk::ARI_CsiIcePowerSourceStateReq_SDK>(AriSdk::ARI_CsiIcePowerSourceStateReq_SDK &,unsigned int,dispatch::callback<void({block_pointer})(BOOL,xpc::object)>)::{lambda(unsigned char const*,unsigned int)#1}::operator() const(unsigned char const*,unsigned int)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
+    (v21->__on_zero_shared)(v21);
+    std::__shared_weak_count::__release_weak(v21);
   }
 
-  v7 = v29;
+  v8 = v29;
   MEMORY[0x29C2652D0](v26);
-  if (v7)
+  if (v8)
   {
     goto LABEL_22;
   }
-
-LABEL_24:
-  v24 = *MEMORY[0x29EDCA608];
 }

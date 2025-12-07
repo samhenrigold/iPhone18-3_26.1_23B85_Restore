@@ -8,17 +8,17 @@
 
 + ($5934897077F541E2EA57917B1DCA15E9)regionForAnnotations:(SEL)annotations
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = a4;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     v8 = -90.0;
     v9 = 180.0;
     v10 = 90.0;
@@ -27,12 +27,12 @@
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         [v13 coordinate];
         v9 = fmin(v9, v14);
         [v13 coordinate];
@@ -43,13 +43,12 @@
         v10 = fmin(v10, v17);
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 

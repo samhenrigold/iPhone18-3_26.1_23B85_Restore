@@ -28,37 +28,31 @@
   to;
   if ([(_CPPhotosAttributes *)self positionIndex])
   {
-    positionIndex = self->_positionIndex;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPPhotosAttributes *)self isEmbeddingMatched])
   {
-    isEmbeddingMatched = self->_isEmbeddingMatched;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPPhotosAttributes *)self isMetadataMatched])
   {
-    isMetadataMatched = self->_isMetadataMatched;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPPhotosAttributes *)self isVideo])
   {
-    isVideo = self->_isVideo;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPPhotosAttributes *)self isFavorite])
   {
-    isFavorite = self->_isFavorite;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPPhotosAttributes *)self photosSuggestionType])
   {
-    photosSuggestionType = self->_photosSuggestionType;
     PBDataWriterWriteInt32Field();
   }
 

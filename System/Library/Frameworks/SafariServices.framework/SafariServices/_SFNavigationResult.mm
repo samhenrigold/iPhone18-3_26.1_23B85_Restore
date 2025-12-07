@@ -190,9 +190,10 @@ LABEL_18:
   v15 = v14;
   if (frameCopy && !appsCopy)
   {
-    if ([v14 safari_hasFeedScheme])
+    safari_hasFeedScheme = [v14 safari_hasFeedScheme];
+    if (safari_hasFeedScheme)
     {
-      v16 = [_SFNavigationResult resultWithRedirectToExternalURL:v15 preferredApplicationBundleIdentifier:identifierCopy];
+      v18 = [_SFNavigationResult resultWithRedirectToExternalURL:v15 preferredApplicationBundleIdentifier:identifierCopy];
       goto LABEL_62;
     }
 
@@ -204,10 +205,10 @@ LABEL_18:
 
     else
     {
-      v19 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+      v21 = WBS_LOG_CHANNEL_PREFIXPageLoading(safari_hasFeedScheme, v17);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
-        [_SFNavigationResult resultOfLoadingRequest:v19 isMainFrame:? disallowRedirectToExternalApps:? preferredApplicationBundleIdentifier:? redirectDecisionHandler:?];
+        [_SFNavigationResult resultOfLoadingRequest:v21 isMainFrame:? disallowRedirectToExternalApps:? preferredApplicationBundleIdentifier:? redirectDecisionHandler:?];
       }
 
       radarWebURL = 0;
@@ -221,70 +222,70 @@ LABEL_18:
       if ([scheme3 caseInsensitiveCompare:@"fb"])
       {
         IsPad = _SFDeviceIsPad();
-        v24 = IsPad;
-        if (IsPad && ([radarWebURL scheme], v42 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v42, "safari_isCaseInsensitiveEqualToString:", @"maps")))
+        v26 = IsPad;
+        if (IsPad && ([radarWebURL scheme], v44 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v44, "safari_isCaseInsensitiveEqualToString:", @"maps")))
         {
           host = [v15 host];
           if ([host safari_isCaseInsensitiveEqualToString:@"maps.apple.com"])
           {
-            v41 = host;
+            v43 = host;
             path = [v15 path];
             if ([path safari_hasPrefix:@"/place"])
             {
-              v43 = 0;
+              v45 = 0;
             }
 
             else if (handlerCopy)
             {
-              v43 = handlerCopy[2](handlerCopy, radarWebURL);
+              v45 = handlerCopy[2](handlerCopy, radarWebURL);
             }
 
             else
             {
-              v43 = 1;
+              v45 = 1;
             }
 
-            host = v41;
+            host = v43;
           }
 
           else if (handlerCopy)
           {
-            v43 = handlerCopy[2](handlerCopy, radarWebURL);
+            v45 = handlerCopy[2](handlerCopy, radarWebURL);
           }
 
           else
           {
-            v43 = 1;
+            v45 = 1;
           }
 
-          v27 = v42;
+          v29 = v44;
         }
 
         else
         {
           if (handlerCopy)
           {
-            v43 = handlerCopy[2](handlerCopy, radarWebURL);
+            v45 = handlerCopy[2](handlerCopy, radarWebURL);
           }
 
           else
           {
-            v43 = 1;
+            v45 = 1;
           }
 
-          v27 = v42;
-          if ((v24 & 1) == 0)
+          v29 = v44;
+          if ((v26 & 1) == 0)
           {
 LABEL_33:
 
-            if (v43)
+            if (v45)
             {
-              v28 = radarWebURL;
-              v29 = 0;
+              v30 = radarWebURL;
+              v31 = 0;
 LABEL_35:
-              v30 = [_SFNavigationResult resultWithRedirectToExternalURL:v28 preferredApplicationBundleIdentifier:v29];
+              v32 = [_SFNavigationResult resultWithRedirectToExternalURL:v30 preferredApplicationBundleIdentifier:v31];
 LABEL_60:
-              v16 = v30;
+              v18 = v32;
               goto LABEL_61;
             }
 
@@ -302,12 +303,12 @@ LABEL_36:
   radarWebURL = [v15 radarWebURL];
   if (!radarWebURL)
   {
-    if ([MEMORY[0x1E69E2FB8] _canHandleRequest:requestCopy] || (objc_msgSend(requestCopy, "URL"), v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v33, "safari_isSafariWebExtensionURL"), v33, v34))
+    if ([MEMORY[0x1E69E2FB8] _canHandleRequest:requestCopy] || (objc_msgSend(requestCopy, "URL"), v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(v35, "safari_isSafariWebExtensionURL"), v35, v36))
     {
 LABEL_44:
-      v31 = 1;
+      v33 = 1;
 LABEL_45:
-      v32 = v15;
+      v34 = v15;
       goto LABEL_59;
     }
 
@@ -316,36 +317,36 @@ LABEL_45:
       if (categoryForURL(v15) == 1)
       {
         safari_originalDataAsString = [v15 safari_originalDataAsString];
-        v36 = [safari_originalDataAsString length];
+        v38 = [safari_originalDataAsString length];
 
-        if (v36 >= 0x3E9)
+        if (v38 >= 0x3E9)
         {
-          v31 = 0;
+          v33 = 0;
           goto LABEL_45;
         }
 
         if ([v15 isFaceTimeMultiwayURL])
         {
-          v37 = [objc_alloc(MEMORY[0x1E69D8C10]) initWithURL:v15];
-          v38 = v37;
-          if (!v37)
+          v39 = [objc_alloc(MEMORY[0x1E69D8C10]) initWithURL:v15];
+          v40 = v39;
+          if (!v39)
           {
-            v16 = [_SFNavigationResult resultOfType:0 withURL:v15];
+            v18 = [_SFNavigationResult resultOfType:0 withURL:v15];
             goto LABEL_68;
           }
 
-          [v37 setShowUIPrompt:1];
+          [v39 setShowUIPrompt:1];
 LABEL_55:
-          v39 = [v38 URL];
-          v16 = [_SFNavigationResult resultWithRedirectToExternalURL:v39 preferredApplicationBundleIdentifier:0];
+          v41 = [v40 URL];
+          v18 = [_SFNavigationResult resultWithRedirectToExternalURL:v41 preferredApplicationBundleIdentifier:0];
 
 LABEL_68:
           goto LABEL_61;
         }
 
-        v38 = [objc_alloc(MEMORY[0x1E69D8BD0]) initWithURL:v15];
-        [v38 setShowUIPrompt:1];
-        if ([v38 isValid])
+        v40 = [objc_alloc(MEMORY[0x1E69D8BD0]) initWithURL:v15];
+        [v40 setShowUIPrompt:1];
+        if ([v40 isValid])
         {
           goto LABEL_55;
         }
@@ -355,8 +356,8 @@ LABEL_68:
       {
         if (![v15 safari_isMarketplaceKitURL])
         {
-          v28 = v15;
-          v29 = identifierCopy;
+          v30 = v15;
+          v31 = identifierCopy;
           goto LABEL_35;
         }
 
@@ -364,23 +365,23 @@ LABEL_68:
       }
     }
 
-    v31 = 0;
-    v32 = 0;
+    v33 = 0;
+    v34 = 0;
     goto LABEL_59;
   }
 
   if (appsCopy)
   {
 LABEL_41:
-    v31 = 2;
-    v32 = radarWebURL;
+    v33 = 2;
+    v34 = radarWebURL;
 LABEL_59:
-    v30 = [_SFNavigationResult resultOfType:v31 withURL:v32];
+    v32 = [_SFNavigationResult resultOfType:v33 withURL:v34];
     goto LABEL_60;
   }
 
-  v16 = [_SFNavigationResult resultWithRedirectToExternalURL:v15 preferredApplicationBundleIdentifier:0];
-  if ([v16 type] != 3)
+  v18 = [_SFNavigationResult resultWithRedirectToExternalURL:v15 preferredApplicationBundleIdentifier:0];
+  if ([v18 type] != 3)
   {
 
     goto LABEL_41;
@@ -390,7 +391,7 @@ LABEL_61:
 
 LABEL_62:
 
-  return v16;
+  return v18;
 }
 
 + (void)determineResultOfLoadingRequest:(id)request isMainFrame:(BOOL)frame disallowRedirectToExternalApps:(BOOL)apps preferredApplicationBundleIdentifier:(id)identifier redirectDecisionHandler:(id)handler completionHandler:(id)completionHandler

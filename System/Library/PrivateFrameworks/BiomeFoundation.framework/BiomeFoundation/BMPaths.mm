@@ -9,6 +9,7 @@
 + (id)_biomeUserDataDirectory:(unint64_t)directory;
 + (id)_pathForLibraryStreamWithDomain:(unint64_t)domain;
 + (id)_pathForTesting;
++ (id)allSetsResourceSpecifierWithOptions:(unsigned __int8)options;
 + (id)biomeTemporaryDirectoryForContainer:(id)container;
 + (id)biomeTemporaryDirectoryForDomain:(unint64_t)domain;
 + (id)computeDirectoryForDomain:(unint64_t)domain;
@@ -545,15 +546,15 @@ LABEL_13:
 
 + (void)setBasePathForTestingWithPath:(id)path
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (os_variant_allows_internal_security_policies())
   {
     if (pathCopy)
     {
-      bzero(v7, 0x400uLL);
-      realpath_DARWIN_EXTSN([pathCopy fileSystemRepresentation], v7);
-      v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v7];
+      bzero(v6, 0x400uLL);
+      realpath_DARWIN_EXTSN([pathCopy fileSystemRepresentation], v6);
+      v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v6];
       v5 = _bmBasePathForTesting;
       _bmBasePathForTesting = v4;
     }
@@ -569,8 +570,6 @@ LABEL_13:
   {
     +[BMPaths(TestingSupport_Project) setBasePathForTestingWithPath:];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)unsetBasePathForTesting
@@ -601,15 +600,15 @@ LABEL_13:
 
 + (id)dataResourcePathComponentFromResource:(id)resource
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
   name = [resourceCopy name];
   v5 = [@"Default" stringByAppendingPathComponent:name];
 
   descriptors = [resourceCopy descriptors];
-  v24 = 0;
-  v7 = [BMResourceDescriptor sortedDescriptorsDetectingDuplicates:descriptors error:&v24];
-  v8 = v24;
+  v23 = 0;
+  v7 = [BMResourceDescriptor sortedDescriptorsDetectingDuplicates:descriptors error:&v23];
+  v8 = v23;
 
   if (v7)
   {
@@ -623,28 +622,28 @@ LABEL_13:
 
   if (v9)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         v15 = 0;
         v16 = v5;
         do
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          encodedString = [*(*(&v20 + 1) + 8 * v15) encodedString];
+          encodedString = [*(*(&v19 + 1) + 8 * v15) encodedString];
           v5 = [v16 stringByAppendingPathComponent:encodedString];
 
           ++v15;
@@ -652,7 +651,7 @@ LABEL_13:
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v13);
@@ -667,44 +666,42 @@ LABEL_13:
     v10 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 + (id)resourceFromDataResourcePath:(id)path inContainer:(id)container
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   containerCopy = container;
   v7 = objc_opt_new();
   if (pathCopy)
   {
-    v34 = containerCopy;
+    v33 = containerCopy;
     v8 = objc_opt_new();
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     pathComponents = [pathCopy pathComponents];
     reverseObjectEnumerator = [pathComponents reverseObjectEnumerator];
 
-    v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v41;
+      v13 = *v40;
 LABEL_4:
       v14 = 0;
       while (1)
       {
-        if (*v41 != v13)
+        if (*v40 != v13)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v15 = *(*(&v40 + 1) + 8 * v14);
-        if (([v15 isEqualToString:{@"/", v34}] & 1) == 0)
+        v15 = *(*(&v39 + 1) + 8 * v14);
+        if (([v15 isEqualToString:{@"/", v33}] & 1) == 0)
         {
           [v8 addObject:v15];
         }
@@ -716,7 +713,7 @@ LABEL_4:
 
         if (v12 == ++v14)
         {
-          v12 = [reverseObjectEnumerator countByEnumeratingWithState:&v40 objects:v45 count:16];
+          v12 = [reverseObjectEnumerator countByEnumeratingWithState:&v39 objects:v44 count:16];
           if (v12)
           {
             goto LABEL_4;
@@ -735,32 +732,32 @@ LABEL_4:
     {
       v21 = [v18 objectAtIndex:0];
       [v18 removeObjectAtIndex:0];
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       v22 = v18;
-      v23 = [v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v35 objects:v43 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v37;
+        v25 = *v36;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v37 != v25)
+            if (*v36 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = *(*(&v36 + 1) + 8 * i);
+            v27 = *(*(&v35 + 1) + 8 * i);
             v28 = [BMResourceDescriptor alloc];
-            v35 = 0;
-            v29 = [(BMResourceDescriptor *)v28 initWithEncodedString:v27 error:&v35];
+            v34 = 0;
+            v29 = [(BMResourceDescriptor *)v28 initWithEncodedString:v27 error:&v34];
             if (v29)
             {
-              v30 = v35 == 0;
+              v30 = v34 == 0;
             }
 
             else
@@ -774,20 +771,20 @@ LABEL_4:
             }
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v35 objects:v43 count:16];
         }
 
         while (v24);
       }
 
-      containerCopy = v34;
-      v31 = [BMResourceSpecifier resourceFromContainer:v34 withType:4 name:v21 descriptors:v7];
+      containerCopy = v33;
+      v31 = [BMResourceSpecifier resourceFromContainer:v33 withType:4 name:v21 descriptors:v7];
     }
 
     else
     {
       v31 = 0;
-      containerCopy = v34;
+      containerCopy = v33;
     }
   }
 
@@ -796,31 +793,22 @@ LABEL_4:
     v31 = 0;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
-
   return v31;
 }
 
-+ (void)pathComponentForStreamType:.cold.3()
++ (id)allSetsResourceSpecifierWithOptions:(unsigned __int8)options
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  optionsCopy = options;
+  v4 = [BMResourceSpecifier alloc];
+  v5 = [(BMResourceSpecifier *)v4 initWithType:4 name:@"BMSetsResource" descriptors:MEMORY[0x1E695E0F0] options:optionsCopy];
+
+  return v5;
 }
 
 + (void)pathForSharedSyncWithAccount:(uint64_t)a1 domain:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
   v4 = [MEMORY[0x1E696AAA8] currentHandler];
   [v4 handleFailureInMethod:a1 object:a2 file:@"BMPaths.m" lineNumber:206 description:{@"Invalid parameter not satisfying: %@", @"BMIdentifierIsPathSafe(identifier)"}];
-}
-
-+ (void)pathForDatabase:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

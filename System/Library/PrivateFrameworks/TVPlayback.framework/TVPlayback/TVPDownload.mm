@@ -4,6 +4,7 @@
 - (TVPDownload)initWithMediaItem:(id)item downloadSession:(id)session existingDownloadTask:(id)task;
 - (TVPDownloadSession)downloadSession;
 - (double)progress;
+- (id)_audibleInterstitialDownloadCriteriaForPreferredAudioLanguages:(id)languages includeOriginalAudio:(BOOL)audio audioDescriptionsEnabled:(BOOL)enabled;
 - (id)_legibleInterstitialDownloadCriteriaForSubtitleLanguages:(id)languages includeSDH:(BOOL)h;
 - (id)_variantQualifiersForCurrentSettingsUsingMultichannelAudio:(BOOL)audio;
 - (id)descriptionForState:(int64_t)state;
@@ -43,13 +44,13 @@ uint64_t __25__TVPDownload_initialize__block_invoke()
 
 - (TVPDownload)initWithMediaItem:(id)item downloadSession:(id)session existingDownloadTask:(id)task
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   sessionCopy = session;
   taskCopy = task;
-  v30.receiver = self;
-  v30.super_class = TVPDownload;
-  v12 = [(TVPDownload *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = TVPDownload;
+  v12 = [(TVPDownload *)&v29 init];
   v13 = v12;
   if (v12)
   {
@@ -80,7 +81,7 @@ uint64_t __25__TVPDownload_initialize__block_invoke()
       v20 = v18;
       v21 = [(TVPDownload *)v13 descriptionForState:state];
       *buf = 138412290;
-      v32 = v21;
+      v31 = v21;
       _os_log_impl(&dword_26CEDD000, v20, OS_LOG_TYPE_DEFAULT, "Setting state to %@", buf, 0xCu);
     }
 
@@ -97,7 +98,6 @@ uint64_t __25__TVPDownload_initialize__block_invoke()
     [(TVPStateMachine *)v13->_stateMachine setShouldAcceptEvents:1];
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -300,7 +300,7 @@ LABEL_8:
 
 - (void)URLSession:(id)session assetDownloadTask:(id)task willDownloadToURL:(id)l
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   lCopy = l;
@@ -309,13 +309,13 @@ LABEL_8:
   {
     v12 = v11;
     mediaItem = [(TVPDownload *)self mediaItem];
-    v23 = 138412802;
-    v24 = taskCopy;
-    v25 = 2112;
-    v26 = mediaItem;
-    v27 = 2112;
-    v28 = lCopy;
-    _os_log_impl(&dword_26CEDD000, v12, OS_LOG_TYPE_DEFAULT, "Task [%@] for media item [%@] will download to [%@]", &v23, 0x20u);
+    v22 = 138412802;
+    v23 = taskCopy;
+    v24 = 2112;
+    v25 = mediaItem;
+    v26 = 2112;
+    v27 = lCopy;
+    _os_log_impl(&dword_26CEDD000, v12, OS_LOG_TYPE_DEFAULT, "Task [%@] for media item [%@] will download to [%@]", &v22, 0x20u);
   }
 
   delegates = [(TVPDownload *)self delegates];
@@ -345,8 +345,6 @@ LABEL_8:
 
     while (v16 < v21);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session assetDownloadTask:(id)task willDownloadVariants:(id)variants
@@ -400,28 +398,26 @@ LABEL_8:
 
 void __65__TVPDownload_URLSession_assetDownloadTask_willDownloadVariants___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = sLogObject_2;
   if (os_log_type_enabled(sLogObject_2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
     v5 = a1[6];
-    v7 = 138412802;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_26CEDD000, v2, OS_LOG_TYPE_DEFAULT, "Download task [%@] for media item [%@] will download variants %@", &v7, 0x20u);
+    v6 = 138412802;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_26CEDD000, v2, OS_LOG_TYPE_DEFAULT, "Download task [%@] for media item [%@] will download variants %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   downloadTerminationBackgroundTask = [(TVPDownload *)self downloadTerminationBackgroundTask];
@@ -434,12 +430,12 @@ void __65__TVPDownload_URLSession_assetDownloadTask_willDownloadVariants___block
     v14 = [v11 stringWithFormat:@"Download termination [%@]", name];
 
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __52__TVPDownload_URLSession_task_didCompleteWithError___block_invoke;
-    v23[3] = &unk_279D7BDC8;
-    v23[4] = self;
-    v16 = [mEMORY[0x277D75128] beginBackgroundTaskWithName:v14 expirationHandler:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __52__TVPDownload_URLSession_task_didCompleteWithError___block_invoke;
+    v22[3] = &unk_279D7BDC8;
+    v22[4] = self;
+    v16 = [mEMORY[0x277D75128] beginBackgroundTaskWithName:v14 expirationHandler:v22];
 
     v17 = sLogObject_2;
     if (v16 == v10)
@@ -453,9 +449,9 @@ void __65__TVPDownload_URLSession_assetDownloadTask_willDownloadVariants___block
     else if (os_log_type_enabled(sLogObject_2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v25 = v16;
-      v26 = 2112;
-      v27 = v14;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v14;
       _os_log_impl(&dword_26CEDD000, v17, OS_LOG_TYPE_DEFAULT, "Beginning download termination background task with identifier %lu, name: %@", buf, 0x16u);
     }
 
@@ -475,11 +471,11 @@ void __65__TVPDownload_URLSession_assetDownloadTask_willDownloadVariants___block
       v19 = v18;
       mediaItem = [(TVPDownload *)self mediaItem];
       *buf = 138412802;
-      v25 = taskCopy;
-      v26 = 2112;
-      v27 = mediaItem;
-      v28 = 2112;
-      v29 = errorCopy;
+      v24 = taskCopy;
+      v25 = 2112;
+      v26 = mediaItem;
+      v27 = 2112;
+      v28 = errorCopy;
       _os_log_error_impl(&dword_26CEDD000, v19, OS_LOG_TYPE_ERROR, "Task [%@] for media item [%@] did complete with error: %@", buf, 0x20u);
 LABEL_15:
     }
@@ -490,20 +486,18 @@ LABEL_15:
     v19 = v18;
     mediaItem = [(TVPDownload *)self mediaItem];
     *buf = 138412546;
-    v25 = taskCopy;
-    v26 = 2112;
-    v27 = mediaItem;
+    v24 = taskCopy;
+    v25 = 2112;
+    v26 = mediaItem;
     _os_log_impl(&dword_26CEDD000, v19, OS_LOG_TYPE_DEFAULT, "Task [%@] for media item [%@] did complete download task successfully", buf, 0x16u);
     goto LABEL_15;
   }
 
   stateMachine2 = [(TVPDownload *)self stateMachine];
   [stateMachine2 postEvent:@"Download task did complete" withContext:errorCopy];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __52__TVPDownload_URLSession_task_didCompleteWithError___block_invoke(uint64_t a1)
+void *__52__TVPDownload_URLSession_task_didCompleteWithError___block_invoke(uint64_t a1)
 {
   v1 = (a1 + 32);
   result = [*(a1 + 32) downloadTerminationBackgroundTask];
@@ -527,16 +521,14 @@ uint64_t __52__TVPDownload_URLSession_task_didCompleteWithError___block_invoke(u
 
 - (void)_downloadProgressDidChange
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   downloadTask = [a2 downloadTask];
   progress = [downloadTask progress];
   [progress fractionCompleted];
-  v8 = 134217984;
-  v9 = v6 * 100.0;
-  _os_log_debug_impl(&dword_26CEDD000, selfCopy, OS_LOG_TYPE_DEBUG, "Download progress did change to %.2f%%", &v8, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134217984;
+  v8 = v6 * 100.0;
+  _os_log_debug_impl(&dword_26CEDD000, selfCopy, OS_LOG_TYPE_DEBUG, "Download progress did change to %.2f%%", &v7, 0xCu);
 }
 
 - (void)_mediaItemLoaderStateDidChangeTo:(id)to
@@ -556,8 +548,8 @@ uint64_t __52__TVPDownload_URLSession_task_didCompleteWithError___block_invoke(u
     }
 
     stateMachine = [(TVPDownload *)self stateMachine];
-    mediaItemLoader = [(TVPDownload *)self mediaItemLoader];
-    error = [mediaItemLoader error];
+    v5 = objc_msgSend_mediaItemLoader(self);
+    error = [v5 error];
     [stateMachine postEvent:@"Error did occur" withContext:error];
   }
 
@@ -566,52 +558,52 @@ LABEL_6:
 
 - (void)_addMediaSelectionOptionsIfNotAlreadyAdded:(id)added toMediaSelections:(id)selections forMediaSelectionGroup:(id)group baseMediaSelection:(id)selection
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   selectionsCopy = selections;
   groupCopy = group;
   selectionCopy = selection;
   obj = addedCopy;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v11 = [addedCopy countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v11 = [addedCopy countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v11)
   {
     v12 = v11;
-    v26 = *v33;
+    v25 = *v32;
     do
     {
       v13 = 0;
       do
       {
-        if (*v33 != v26)
+        if (*v32 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v32 + 1) + 8 * v13);
+        v14 = *(*(&v31 + 1) + 8 * v13);
+        v27 = 0u;
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
         v15 = selectionsCopy;
-        v16 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v29;
+          v18 = *v28;
 LABEL_8:
           v19 = 0;
           while (1)
           {
-            if (*v29 != v18)
+            if (*v28 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = [*(*(&v28 + 1) + 8 * v19) selectedMediaOptionInMediaSelectionGroup:groupCopy];
+            v20 = [*(*(&v27 + 1) + 8 * v19) selectedMediaOptionInMediaSelectionGroup:groupCopy];
             v21 = [v14 isEqual:v20];
 
             if (v21)
@@ -621,7 +613,7 @@ LABEL_8:
 
             if (v17 == ++v19)
             {
-              v17 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
               if (v17)
               {
                 goto LABEL_8;
@@ -646,20 +638,18 @@ LABEL_14:
       }
 
       while (v13 != v12);
-      v12 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v12 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v12);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_variantQualifiersForCurrentSettingsUsingMultichannelAudio:(BOOL)audio
 {
   audioCopy = audio;
-  v75[2] = *MEMORY[0x277D85DE8];
-  v65 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v74[2] = *MEMORY[0x277D85DE8];
+  v64 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (audioCopy)
   {
     v5 = 2;
@@ -681,9 +671,9 @@ LABEL_14:
     v10 = [v8 predicateForPresentationWidth:0 operatorType:?];
 
     v11 = MEMORY[0x277CCA920];
-    v75[0] = v6;
-    v75[1] = v10;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:2];
+    v74[0] = v6;
+    v74[1] = v10;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
     v13 = [v11 andPredicateWithSubpredicates:v12];
 
     v6 = v13;
@@ -693,24 +683,24 @@ LABEL_14:
   {
     v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"videoAttributes.videoRange == %@", *MEMORY[0x277CE63A0]];
     v15 = MEMORY[0x277CCA920];
-    v74[0] = v14;
+    v73[0] = v14;
     v16 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%@ IN videoAttributes.codecTypes", &unk_287E596C0];
-    v74[1] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
+    v73[1] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:2];
     v18 = [v15 andPredicateWithSubpredicates:v17];
 
     v19 = MEMORY[0x277CCA920];
-    v73[0] = v6;
-    v73[1] = v18;
-    v63 = v18;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:2];
+    v72[0] = v6;
+    v72[1] = v18;
+    v62 = v18;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
     v21 = [v19 andPredicateWithSubpredicates:v20];
 
     v22 = MEMORY[0x277CCA920];
-    v72[0] = v6;
-    v72[1] = v14;
-    v64 = v14;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
+    v71[0] = v6;
+    v71[1] = v14;
+    v63 = v14;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
     v24 = [v22 andPredicateWithSubpredicates:v23];
 
     maximumAverageBitrateForHDR = [(TVPDownload *)self maximumAverageBitrateForHDR];
@@ -722,15 +712,15 @@ LABEL_14:
       v28 = [v26 predicateWithFormat:@"averageBitRate < %@", maximumAverageBitrateForHDR2];
 
       v29 = MEMORY[0x277CCA920];
-      v71[0] = v21;
-      v71[1] = v28;
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+      v70[0] = v21;
+      v70[1] = v28;
+      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
       v31 = [v29 andPredicateWithSubpredicates:v30];
 
       v32 = MEMORY[0x277CCA920];
-      v70[0] = v24;
-      v70[1] = v28;
-      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+      v69[0] = v24;
+      v69[1] = v28;
+      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
       v34 = [v32 andPredicateWithSubpredicates:v33];
 
       v24 = v34;
@@ -738,16 +728,16 @@ LABEL_14:
     }
 
     v35 = [MEMORY[0x277CE6458] assetVariantQualifierWithPredicate:v21];
-    [v65 addObject:v35];
+    [v64 addObject:v35];
 
     v36 = [MEMORY[0x277CE6458] assetVariantQualifierWithPredicate:v24];
-    [v65 addObject:v36];
+    [v64 addObject:v36];
 
     v37 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%@ IN videoAttributes.codecTypes", &unk_287E596D8];
     v38 = MEMORY[0x277CCA920];
-    v69[0] = v6;
-    v69[1] = v37;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
+    v68[0] = v6;
+    v68[1] = v37;
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
     v40 = [v38 andPredicateWithSubpredicates:v39];
 
     maximumAverageBitrateForSDRHEVC = [(TVPDownload *)self maximumAverageBitrateForSDRHEVC];
@@ -759,23 +749,23 @@ LABEL_14:
       v44 = [v42 predicateWithFormat:@"averageBitRate < %@", maximumAverageBitrateForSDRHEVC2];
 
       v45 = MEMORY[0x277CCA920];
-      v68[0] = v40;
-      v68[1] = v44;
-      v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
+      v67[0] = v40;
+      v67[1] = v44;
+      v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
       v47 = [v45 andPredicateWithSubpredicates:v46];
 
       v40 = v47;
     }
 
     v48 = [MEMORY[0x277CE6458] assetVariantQualifierWithPredicate:v40];
-    [v65 addObject:v48];
+    [v64 addObject:v48];
   }
 
   v49 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%@ IN videoAttributes.codecTypes", &unk_287E596F0];
   v50 = MEMORY[0x277CCA920];
-  v67[0] = v6;
-  v67[1] = v49;
-  v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
+  v66[0] = v6;
+  v66[1] = v49;
+  v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
   v52 = [v50 andPredicateWithSubpredicates:v51];
 
   maximumAverageBitrateForAVC = [(TVPDownload *)self maximumAverageBitrateForAVC];
@@ -787,20 +777,18 @@ LABEL_14:
     v56 = [v54 predicateWithFormat:@"averageBitRate < %@", maximumAverageBitrateForAVC2];
 
     v57 = MEMORY[0x277CCA920];
-    v66[0] = v52;
-    v66[1] = v56;
-    v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
+    v65[0] = v52;
+    v65[1] = v56;
+    v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
     v59 = [v57 andPredicateWithSubpredicates:v58];
 
     v52 = v59;
   }
 
   v60 = [MEMORY[0x277CE6458] assetVariantQualifierWithPredicate:v52];
-  [v65 addObject:v60];
+  [v64 addObject:v60];
 
-  v61 = *MEMORY[0x277D85DE8];
-
-  return v65;
+  return v64;
 }
 
 - (BOOL)_anyDelegateRespondsToProcessFinishedDownload
@@ -894,7 +882,7 @@ void __54__TVPDownload__processFinishedDownloadWithCompletion___block_invoke(uin
 
 uint64_t __54__TVPDownload__processFinishedDownloadWithCompletion___block_invoke_2(uint64_t result)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(result + 32))
   {
     v1 = result;
@@ -906,59 +894,83 @@ uint64_t __54__TVPDownload__processFinishedDownloadWithCompletion___block_invoke
       if (v4)
       {
         v5 = *(*(*(v1 + 40) + 8) + 40);
-        v10 = 138412290;
-        v11 = v5;
+        v9 = 138412290;
+        v10 = v5;
         v6 = "Processed finished download with error %@";
         v7 = v3;
         v8 = 12;
 LABEL_7:
-        _os_log_impl(&dword_26CEDD000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
+        _os_log_impl(&dword_26CEDD000, v7, OS_LOG_TYPE_DEFAULT, v6, &v9, v8);
       }
     }
 
     else if (v4)
     {
-      LOWORD(v10) = 0;
+      LOWORD(v9) = 0;
       v6 = "Processed finished download successfully";
       v7 = v3;
       v8 = 2;
       goto LABEL_7;
     }
 
-    result = (*(*(v1 + 32) + 16))(*(v1 + 32), *(*(*(v1 + 40) + 8) + 40));
+    return (*(*(v1 + 32) + 16))(*(v1 + 32), *(*(*(v1 + 40) + 8) + 40));
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-- (id)_legibleInterstitialDownloadCriteriaForSubtitleLanguages:(id)languages includeSDH:(BOOL)h
+- (id)_audibleInterstitialDownloadCriteriaForPreferredAudioLanguages:(id)languages includeOriginalAudio:(BOOL)audio audioDescriptionsEnabled:(BOOL)enabled
 {
-  hCopy = h;
-  v46[1] = *MEMORY[0x277D85DE8];
+  enabledCopy = enabled;
+  audioCopy = audio;
+  v47[1] = *MEMORY[0x277D85DE8];
   languagesCopy = languages;
-  v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v7 = objc_alloc(MEMORY[0x277CE65E8]);
-  v8 = *MEMORY[0x277CE5E28];
-  v46[0] = *MEMORY[0x277CE5E28];
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
-  v10 = [v7 initWithPremiumMediaCharacteristics:v9 preferredLanguages:0 preferredMediaCharacteristics:0];
-
-  v33 = v10;
-  [v6 addObject:v10];
-  v11 = MEMORY[0x277CE5E00];
-  v12 = MEMORY[0x277CE5E38];
-  if (hCopy)
+  v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  if (enabledCopy)
   {
-    v13 = objc_alloc(MEMORY[0x277CE65E8]);
-    v14 = *v11;
-    v45[0] = v8;
-    v45[1] = v14;
-    v45[2] = *v12;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:3];
-    v16 = [v13 initWithPremiumMediaCharacteristics:v15 preferredLanguages:0 preferredMediaCharacteristics:0];
+    preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
+    firstObject = [preferredLanguages firstObject];
 
-    [v6 addObject:v16];
+    if (firstObject)
+    {
+      if (languagesCopy)
+      {
+        if (([languagesCopy containsObject:firstObject] & 1) == 0)
+        {
+          v11 = [languagesCopy arrayByAddingObject:firstObject];
+
+          languagesCopy = v11;
+        }
+      }
+
+      else
+      {
+        v47[0] = firstObject;
+        languagesCopy = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
+      }
+    }
+  }
+
+  if (audioCopy)
+  {
+    v12 = objc_alloc(MEMORY[0x277CE65E8]);
+    v13 = *MEMORY[0x277CE5E28];
+    v46 = *MEMORY[0x277CE5E28];
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+    v15 = [v12 initWithPremiumMediaCharacteristics:v14 preferredLanguages:0 preferredMediaCharacteristics:0];
+
+    [v8 addObject:v15];
+    if (enabledCopy)
+    {
+      v16 = objc_alloc(MEMORY[0x277CE65E8]);
+      v17 = *MEMORY[0x277CE5E08];
+      v45[0] = v13;
+      v45[1] = v17;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+      v19 = [v16 initWithPremiumMediaCharacteristics:v18 preferredLanguages:0 preferredMediaCharacteristics:0];
+
+      [v8 addObject:v19];
+    }
   }
 
   v39 = 0u;
@@ -966,164 +978,243 @@ LABEL_7:
   v37 = 0u;
   v38 = 0u;
   obj = languagesCopy;
-  v17 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
-  v18 = 0x277CE6000uLL;
-  if (v17)
+  v20 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+  v21 = 0x277CBE000uLL;
+  if (v20)
   {
-    v19 = v17;
-    v20 = *v38;
-    v21 = *v12;
-    v34 = *v12;
-    v35 = *v11;
+    v22 = v20;
+    v23 = *v38;
+    v24 = *MEMORY[0x277CE5E08];
     do
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v38 != v20)
+        if (*v38 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v37 + 1) + 8 * i);
-        v24 = objc_alloc(*(v18 + 1512));
-        v43 = v23;
-        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
-        v26 = [v24 initWithPreferredLanguages:v25 preferredMediaCharacteristics:0];
+        v26 = *(*(&v37 + 1) + 8 * i);
+        v27 = objc_alloc(MEMORY[0x277CE65E8]);
+        v43 = v26;
+        v28 = [*(v21 + 2656) arrayWithObjects:&v43 count:1];
+        v29 = [v27 initWithPreferredLanguages:v28 preferredMediaCharacteristics:0];
 
-        [v6 addObject:v26];
-        if (hCopy)
+        [v8 addObject:v29];
+        if (enabledCopy)
         {
-          v27 = objc_alloc(*(v18 + 1512));
-          v42 = v23;
-          v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
-          v41[0] = v35;
-          v41[1] = v34;
-          v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
-          v30 = [v27 initWithPreferredLanguages:v28 preferredMediaCharacteristics:v29];
+          v30 = objc_alloc(MEMORY[0x277CE65E8]);
+          v42 = v26;
+          v31 = [*(v21 + 2656) arrayWithObjects:&v42 count:1];
+          v41 = v24;
+          [*(v21 + 2656) arrayWithObjects:&v41 count:1];
+          v33 = v32 = enabledCopy;
+          v34 = [v30 initWithPreferredLanguages:v31 preferredMediaCharacteristics:v33];
 
-          v18 = 0x277CE6000;
-          [v6 addObject:v30];
+          enabledCopy = v32;
+          v21 = 0x277CBE000;
+
+          [v8 addObject:v34];
         }
       }
 
-      v19 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+      v22 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+    }
+
+    while (v22);
+  }
+
+  return v8;
+}
+
+- (id)_legibleInterstitialDownloadCriteriaForSubtitleLanguages:(id)languages includeSDH:(BOOL)h
+{
+  hCopy = h;
+  v44[1] = *MEMORY[0x277D85DE8];
+  languagesCopy = languages;
+  v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v7 = objc_alloc(MEMORY[0x277CE65E8]);
+  v8 = *MEMORY[0x277CE5E28];
+  v44[0] = *MEMORY[0x277CE5E28];
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
+  v10 = [v7 initWithPremiumMediaCharacteristics:v9 preferredLanguages:0 preferredMediaCharacteristics:0];
+
+  v31 = v10;
+  [v6 addObject:v10];
+  v11 = MEMORY[0x277CE5E00];
+  v12 = MEMORY[0x277CE5E38];
+  if (hCopy)
+  {
+    v13 = objc_alloc(MEMORY[0x277CE65E8]);
+    v14 = *v11;
+    v43[0] = v8;
+    v43[1] = v14;
+    v43[2] = *v12;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
+    v16 = [v13 initWithPremiumMediaCharacteristics:v15 preferredLanguages:0 preferredMediaCharacteristics:0];
+
+    [v6 addObject:v16];
+  }
+
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  obj = languagesCopy;
+  v17 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
+  v18 = 0x277CE6000uLL;
+  if (v17)
+  {
+    v19 = v17;
+    v20 = *v36;
+    v32 = *v12;
+    v33 = *v11;
+    do
+    {
+      for (i = 0; i != v19; ++i)
+      {
+        if (*v36 != v20)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v22 = *(*(&v35 + 1) + 8 * i);
+        v23 = objc_alloc(*(v18 + 1512));
+        v41 = v22;
+        v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
+        v25 = [v23 initWithPreferredLanguages:v24 preferredMediaCharacteristics:0];
+
+        [v6 addObject:v25];
+        if (hCopy)
+        {
+          v26 = objc_alloc(*(v18 + 1512));
+          v40 = v22;
+          v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+          v39[0] = v33;
+          v39[1] = v32;
+          v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+          v29 = [v26 initWithPreferredLanguages:v27 preferredMediaCharacteristics:v28];
+
+          v18 = 0x277CE6000;
+          [v6 addObject:v29];
+        }
+      }
+
+      v19 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
     }
 
     while (v19);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (void)_registerStateMachineHandlers
 {
-  v42[2] = *MEMORY[0x277D85DE8];
+  v41[2] = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   stateMachine = [(TVPDownload *)self stateMachine];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke;
-  v36[3] = &unk_279D7BE90;
-  objc_copyWeak(&v37, &location);
-  v4 = MEMORY[0x26D6B0400](v36);
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2;
-  v33[3] = &unk_279D7BEE0;
-  objc_copyWeak(&v35, &location);
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke;
+  v35[3] = &unk_279D7BE90;
+  objc_copyWeak(&v36, &location);
+  v4 = MEMORY[0x26D6B0400](v35);
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2;
+  v32[3] = &unk_279D7BEE0;
+  objc_copyWeak(&v34, &location);
   v5 = v4;
-  v34 = v5;
-  v6 = MEMORY[0x26D6B0400](v33);
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_123;
-  v30[3] = &unk_279D7BF58;
-  objc_copyWeak(&v32, &location);
-  v15 = v5;
-  v31 = v15;
-  [stateMachine registerHandlerForEvent:@"Start" onState:@"Not started" withBlock:v30];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_139;
-  v28[3] = &unk_279D7BFD0;
-  objc_copyWeak(&v29, &location);
-  [stateMachine registerHandlerForEvent:@"AVAsset keys did load" onState:@"Waiting for AVAsset keys to load" withBlock:v28];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195;
-  v26[3] = &unk_279D7BFD0;
-  objc_copyWeak(&v27, &location);
-  [stateMachine registerHandlerForEvent:@"Key fetch attempt complete" onState:@"Fetching playback keys" withBlock:v26];
-  v42[0] = @"Waiting for AVAsset keys to load";
-  v42[1] = @"Fetching playback keys";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+  v33 = v5;
+  v6 = MEMORY[0x26D6B0400](v32);
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_123;
+  v29[3] = &unk_279D7BF58;
+  objc_copyWeak(&v31, &location);
+  v14 = v5;
+  v30 = v14;
+  [stateMachine registerHandlerForEvent:@"Start" onState:@"Not started" withBlock:v29];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_139;
+  v27[3] = &unk_279D7BFD0;
+  objc_copyWeak(&v28, &location);
+  [stateMachine registerHandlerForEvent:@"AVAsset keys did load" onState:@"Waiting for AVAsset keys to load" withBlock:v27];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195;
+  v25[3] = &unk_279D7BFD0;
+  objc_copyWeak(&v26, &location);
+  [stateMachine registerHandlerForEvent:@"Key fetch attempt complete" onState:@"Fetching playback keys" withBlock:v25];
+  v41[0] = @"Waiting for AVAsset keys to load";
+  v41[1] = @"Fetching playback keys";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
   [stateMachine registerHandlerForEvent:@"Download task did complete" onStates:v7 withBlock:&__block_literal_global_225];
 
-  v41[0] = @"Not started";
-  v41[1] = @"Downloading";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_227;
-  v23[3] = &unk_279D7BF58;
-  objc_copyWeak(&v25, &location);
+  v40[0] = @"Not started";
+  v40[1] = @"Downloading";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_227;
+  v22[3] = &unk_279D7BF58;
+  objc_copyWeak(&v24, &location);
   v9 = v6;
-  v24 = v9;
-  [stateMachine registerHandlerForEvent:@"Download task did complete" onStates:v8 withBlock:v23];
+  v23 = v9;
+  [stateMachine registerHandlerForEvent:@"Download task did complete" onStates:v8 withBlock:v22];
 
   [stateMachine registerHandlerForEvent:@"Download task did complete" onState:@"Terminating" withBlock:&__block_literal_global_231];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_233;
-  v21[3] = &unk_279D7C020;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_233;
+  v20[3] = &unk_279D7C020;
   v10 = v9;
-  v22 = v10;
-  [stateMachine registerHandlerForEvent:@"Did process finished download" onState:@"Processing finished download" withBlock:v21];
-  v40[0] = @"Cancel";
-  v40[1] = @"Error did occur";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
-  v39[0] = @"Not started";
-  v39[1] = @"Waiting for AVAsset keys to load";
-  v39[2] = @"Fetching playback keys";
-  v39[3] = @"Downloading";
-  v39[4] = @"Processing finished download";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:5];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_4_235;
-  v19[3] = &unk_279D7BFD0;
-  objc_copyWeak(&v20, &location);
-  [stateMachine registerHandlerForEvents:v11 onStates:v12 withBlock:v19];
+  v21 = v10;
+  [stateMachine registerHandlerForEvent:@"Did process finished download" onState:@"Processing finished download" withBlock:v20];
+  v39[0] = @"Cancel";
+  v39[1] = @"Error did occur";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+  v38[0] = @"Not started";
+  v38[1] = @"Waiting for AVAsset keys to load";
+  v38[2] = @"Fetching playback keys";
+  v38[3] = @"Downloading";
+  v38[4] = @"Processing finished download";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:5];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_4_235;
+  v18[3] = &unk_279D7BFD0;
+  objc_copyWeak(&v19, &location);
+  [stateMachine registerHandlerForEvents:v11 onStates:v12 withBlock:v18];
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_238;
-  v16[3] = &unk_279D7BF58;
-  objc_copyWeak(&v18, &location);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_238;
+  v15[3] = &unk_279D7BF58;
+  objc_copyWeak(&v17, &location);
   v13 = v10;
-  v17 = v13;
-  [stateMachine registerHandlerForEvent:@"Termination delay did finish" onState:@"Terminating" withBlock:v16];
+  v16 = v13;
+  [stateMachine registerHandlerForEvent:@"Termination delay did finish" onState:@"Terminating" withBlock:v15];
 
-  objc_destroyWeak(&v18);
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v19);
 
-  objc_destroyWeak(&v25);
-  objc_destroyWeak(&v27);
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v28);
 
-  objc_destroyWeak(&v32);
-  objc_destroyWeak(&v35);
+  objc_destroyWeak(&v31);
+  objc_destroyWeak(&v34);
 
-  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(&location);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __44__TVPDownload__registerStateMachineHandlers__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = sLogObject_2;
   if (os_log_type_enabled(sLogObject_2, OS_LOG_TYPE_DEFAULT))
@@ -1131,21 +1222,19 @@ void __44__TVPDownload__registerStateMachineHandlers__block_invoke(uint64_t a1, 
     v5 = v4;
     v6 = [WeakRetained descriptionForState:a2];
     *buf = 138412290;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_26CEDD000, v5, OS_LOG_TYPE_DEFAULT, "Setting state to %@", buf, 0xCu);
   }
 
   [WeakRetained setState:a2];
   v7 = [WeakRetained stateMachine];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_115;
-  v9[3] = &unk_279D7BE68;
-  v9[4] = WeakRetained;
-  v9[5] = a2;
-  [v7 executeBlockAfterCurrentStateTransition:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_115;
+  v8[3] = &unk_279D7BE68;
+  v8[4] = WeakRetained;
+  v8[5] = a2;
+  [v7 executeBlockAfterCurrentStateTransition:v8];
 }
 
 void __44__TVPDownload__registerStateMachineHandlers__block_invoke_115(uint64_t a1)
@@ -1237,13 +1326,13 @@ LABEL_8:
   [v5 setLastDownloadProgressFractionCompleted:0.0];
   if ([v5 addedMediaItemLoaderStateObserver])
   {
-    v18 = [v5 mediaItemLoader];
+    v18 = objc_msgSend_mediaItemLoader(v5);
     [v18 removeObserver:v5 forKeyPath:@"state" context:__TVPMediaItemLoaderStateKVOContext];
 
     [v5 setAddedMediaItemLoaderStateObserver:0];
   }
 
-  v19 = [v5 mediaItemLoader];
+  v19 = objc_msgSend_mediaItemLoader(v5);
   [v19 cleanupIfNecessary];
 
   [v5 setMediaItemLoader:0];
@@ -1262,21 +1351,20 @@ LABEL_8:
   [v21 executeBlockAfterCurrentStateTransition:v22];
 }
 
-void __44__TVPDownload__registerStateMachineHandlers__block_invoke_3(void *a1)
+void __44__TVPDownload__registerStateMachineHandlers__block_invoke_3(uint64_t a1)
 {
-  v2 = a1[6];
-  (*(a1[5] + 16))();
+  (*(*(a1 + 40) + 16))();
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_4;
   block[3] = &unk_279D7BDC8;
-  block[4] = a1[4];
+  block[4] = *(a1 + 32);
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __44__TVPDownload__registerStateMachineHandlers__block_invoke_4(uint64_t a1)
+void *__44__TVPDownload__registerStateMachineHandlers__block_invoke_4(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) downloadInitiationBackgroundTask];
   v3 = *MEMORY[0x277D767B0];
   if (v2 != *MEMORY[0x277D767B0])
@@ -1286,9 +1374,9 @@ uint64_t __44__TVPDownload__registerStateMachineHandlers__block_invoke_4(uint64_
     {
       v5 = *(a1 + 32);
       v6 = v4;
-      v15 = 134217984;
-      v16 = [v5 downloadInitiationBackgroundTask];
-      _os_log_impl(&dword_26CEDD000, v6, OS_LOG_TYPE_DEFAULT, "Ending download initiation background task with identifier %lu", &v15, 0xCu);
+      v14 = 134217984;
+      v15 = [v5 downloadInitiationBackgroundTask];
+      _os_log_impl(&dword_26CEDD000, v6, OS_LOG_TYPE_DEFAULT, "Ending download initiation background task with identifier %lu", &v14, 0xCu);
     }
 
     v7 = [MEMORY[0x277D75128] sharedApplication];
@@ -1306,36 +1394,35 @@ uint64_t __44__TVPDownload__registerStateMachineHandlers__block_invoke_4(uint64_
       v10 = *(a1 + 32);
       v11 = v9;
       v12 = [v10 downloadTerminationBackgroundTask];
-      v15 = 134217984;
-      v16 = v12;
-      _os_log_impl(&dword_26CEDD000, v11, OS_LOG_TYPE_DEFAULT, "Ending download termination background task with identifier %lu", &v15, 0xCu);
+      v14 = 134217984;
+      v15 = v12;
+      _os_log_impl(&dword_26CEDD000, v11, OS_LOG_TYPE_DEFAULT, "Ending download termination background task with identifier %lu", &v14, 0xCu);
     }
 
     v13 = [MEMORY[0x277D75128] sharedApplication];
     [v13 endBackgroundTask:{objc_msgSend(*(a1 + 32), "downloadTerminationBackgroundTask")}];
 
-    result = [*(a1 + 32) setDownloadTerminationBackgroundTask:v3];
+    return [*(a1 + 32) setDownloadTerminationBackgroundTask:v3];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_123(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = [WeakRetained downloadTask];
 
   if (v5)
   {
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_136;
-    v37[3] = &unk_279D7BF30;
-    v38 = *(a1 + 32);
-    [v3 executeBlockAfterCurrentStateTransition:v37];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_136;
+    v36[3] = &unk_279D7BF30;
+    v37 = *(a1 + 32);
+    [v3 executeBlockAfterCurrentStateTransition:v36];
     v6 = [WeakRetained downloadTask];
     v7 = [v6 state];
 
@@ -1366,17 +1453,17 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_123(ui
           _os_log_impl(&dword_26CEDD000, v21, OS_LOG_TYPE_DEFAULT, "Calling URLSession:task:didCompleteWithError: since download task is already completed", buf, 2u);
         }
 
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_137;
-        v36[3] = &unk_279D7BDC8;
-        v36[4] = WeakRetained;
-        [v3 executeBlockAfterCurrentStateTransition:v36];
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_137;
+        v35[3] = &unk_279D7BDC8;
+        v35[4] = WeakRetained;
+        [v3 executeBlockAfterCurrentStateTransition:v35];
       }
     }
 
     v22 = @"Downloading";
-    v23 = v38;
+    v23 = v37;
   }
 
   else
@@ -1391,12 +1478,12 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_123(ui
       v15 = [v12 stringWithFormat:@"Download initiation [%@]", v14];
 
       v16 = [MEMORY[0x277D75128] sharedApplication];
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_127;
-      v47[3] = &unk_279D7BDC8;
-      v47[4] = WeakRetained;
-      v17 = [v16 beginBackgroundTaskWithName:v15 expirationHandler:v47];
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_127;
+      v46[3] = &unk_279D7BDC8;
+      v46[4] = WeakRetained;
+      v17 = [v16 beginBackgroundTaskWithName:v15 expirationHandler:v46];
 
       v18 = sLogObject_2;
       if (v17 == v11)
@@ -1410,9 +1497,9 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_123(ui
       else if (os_log_type_enabled(sLogObject_2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
-        v49 = v17;
-        v50 = 2112;
-        v51 = v15;
+        v48 = v17;
+        v49 = 2112;
+        v50 = v15;
         _os_log_impl(&dword_26CEDD000, v18, OS_LOG_TYPE_DEFAULT, "Beginning download initiation background task with identifier %lu, name: %@", buf, 0x16u);
       }
 
@@ -1452,26 +1539,26 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_123(ui
         v30 = 1;
       }
 
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_129;
-      v44[3] = &unk_279D7BF08;
-      v45 = *(a1 + 32);
-      v46 = v30;
-      [v3 executeBlockAfterCurrentStateTransition:v44];
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_129;
+      v43[3] = &unk_279D7BF08;
+      v44 = *(a1 + 32);
+      v45 = v30;
+      [v3 executeBlockAfterCurrentStateTransition:v43];
       [v23 loadIfNecessary];
       v31 = [v23 state];
       if (([v31 isEqualToString:0x287E4F0D8] & 1) != 0 || (objc_msgSend(v31, "isEqualToString:", 0x287E4F0F8) & 1) != 0 || objc_msgSend(v31, "isEqualToString:", 0x287E4F118))
       {
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_130;
-        v42[3] = &unk_279D7BDC8;
-        v43 = v3;
-        [v43 executeBlockAfterCurrentStateTransition:v42];
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_130;
+        v41[3] = &unk_279D7BDC8;
+        v42 = v3;
+        [v42 executeBlockAfterCurrentStateTransition:v41];
       }
 
-      v32 = v45;
+      v32 = v44;
     }
 
     else
@@ -1482,24 +1569,23 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_123(ui
       }
 
       v33 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TVPlaybackErrorDomain" code:802 userInfo:0];
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_135;
-      v39[3] = &unk_279D7BC20;
-      v40 = v3;
-      v41 = v33;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_135;
+      v38[3] = &unk_279D7BC20;
+      v39 = v3;
+      v40 = v33;
       v32 = v33;
-      [v40 executeBlockAfterCurrentStateTransition:v39];
+      [v39 executeBlockAfterCurrentStateTransition:v38];
     }
 
     v22 = @"Waiting for AVAsset keys to load";
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
-uint64_t __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_127(uint64_t a1)
+void *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_127(uint64_t a1)
 {
   v1 = (a1 + 32);
   result = [*(a1 + 32) downloadInitiationBackgroundTask];
@@ -1539,7 +1625,7 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_139(
   v34 = a4;
   v33 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v11 = [WeakRetained mediaItemLoader];
+  v11 = objc_msgSend_mediaItemLoader(WeakRetained);
   v12 = [v11 AVAsset];
 
   v13 = [v12 tvp_maximumVideoRange];
@@ -1575,7 +1661,7 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_139(
   v23 = [WeakRetained mediaItem];
   v24 = [v23 mediaItemMetadataForProperty:@"TVPMediaItemMetadataContentKeyRequestParams"];
 
-  v25 = [WeakRetained mediaItemLoader];
+  v25 = objc_msgSend_mediaItemLoader(WeakRetained);
   v26 = [v25 contentKeySession];
 
   if ([v24 count] && (objc_msgSend(WeakRetained, "mediaItem"), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "conformsToProtocol:", &unk_287E7B4E8), v27, v28))
@@ -1649,13 +1735,13 @@ void __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_193(uint64_
 
 __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v342[2] = *MEMORY[0x277D85DE8];
+  v341[2] = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
   v12 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v258 = WeakRetained;
+  v257 = WeakRetained;
   if ([WeakRetained performKeyFetchOnly])
   {
     v14 = sLogObject_2;
@@ -1665,62 +1751,62 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
       _os_log_impl(&dword_26CEDD000, v14, OS_LOG_TYPE_DEFAULT, "Skipping actual download since performKeyFetchOnly is YES", buf, 2u);
     }
 
-    v317[0] = MEMORY[0x277D85DD0];
-    v317[1] = 3221225472;
-    v317[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_196;
-    v317[3] = &unk_279D7BDC8;
-    v318 = v9;
-    [v318 executeBlockAfterCurrentStateTransition:v317];
-    v15 = v318;
+    v316[0] = MEMORY[0x277D85DD0];
+    v316[1] = 3221225472;
+    v316[2] = __44__TVPDownload__registerStateMachineHandlers__block_invoke_196;
+    v316[3] = &unk_279D7BDC8;
+    v317 = v9;
+    [v317 executeBlockAfterCurrentStateTransition:v316];
+    v15 = v317;
     v16 = WeakRetained;
     goto LABEL_234;
   }
 
-  v249 = v12;
-  v245 = v10;
-  v17 = [WeakRetained mediaItemLoader];
+  v248 = v12;
+  v244 = v10;
+  v17 = objc_msgSend_mediaItemLoader(WeakRetained);
   v18 = [v17 AVAsset];
 
-  v238 = *MEMORY[0x277CE5DE0];
+  v237 = *MEMORY[0x277CE5DE0];
   v19 = [v18 tvp_mediaSelectionGroupForMediaCharacteristic:?];
-  v239 = *MEMORY[0x277CE5E30];
+  v238 = *MEMORY[0x277CE5E30];
   v20 = [v18 tvp_mediaSelectionGroupForMediaCharacteristic:?];
-  v264 = v19;
+  v263 = v19;
   v21 = [v19 options];
   v22 = MEMORY[0x277CE6510];
   v23 = *MEMORY[0x277CE5E28];
-  v265 = *MEMORY[0x277CE5E20];
-  v342[0] = *MEMORY[0x277CE5E20];
-  v342[1] = v23;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v342 count:2];
-  v247 = v21;
-  v246 = [v22 mediaSelectionOptionsFromArray:v21 withMediaCharacteristics:v24];
+  v264 = *MEMORY[0x277CE5E20];
+  v341[0] = *MEMORY[0x277CE5E20];
+  v341[1] = v23;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v341 count:2];
+  v246 = v21;
+  v245 = [v22 mediaSelectionOptionsFromArray:v21 withMediaCharacteristics:v24];
 
-  v248 = v18;
-  v257 = [v18 preferredMediaSelection];
+  v247 = v18;
+  v256 = [v18 preferredMediaSelection];
   v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v26 = [WeakRetained preferredAudioLanguageCodes];
-  v250 = [v26 mutableCopy];
+  v249 = [v26 mutableCopy];
 
   v27 = MAAudibleMediaCopyPreferredCharacteristics();
-  v240 = [(__CFArray *)v27 containsObject:*MEMORY[0x277CD5600]];
-  v251 = 1;
+  v239 = [(__CFArray *)v27 containsObject:*MEMORY[0x277CD5600]];
+  v250 = 1;
   v28 = MACaptionAppearanceCopyPreferredCaptioningMediaCharacteristics(kMACaptionAppearanceDomainUser);
   if (([(__CFArray *)v28 containsObject:*MEMORY[0x277CD55F8]]& 1) == 0)
   {
-    v251 = [(__CFArray *)v28 containsObject:*MEMORY[0x277CD5608]];
+    v250 = [(__CFArray *)v28 containsObject:*MEMORY[0x277CD5608]];
   }
 
-  v243 = v28;
-  v256 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v29 = [v258 mediaItemLoader];
+  v242 = v28;
+  v255 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v29 = objc_msgSend_mediaItemLoader(v257);
   v30 = [v29 containsStreamingAVAsset];
 
-  v241 = v11;
-  v242 = v9;
-  v254 = v20;
-  v259 = v25;
-  v244 = v27;
+  v240 = v11;
+  v241 = v9;
+  v253 = v20;
+  v258 = v25;
+  v243 = v27;
   if (!v30)
   {
     v44 = sLogObject_2;
@@ -1731,13 +1817,13 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
     }
 
     v45 = MEMORY[0x277CBEBF8];
-    v10 = v245;
-    v12 = v249;
+    v10 = v244;
+    v12 = v248;
     goto LABEL_188;
   }
 
   v31 = 0x277CBE000uLL;
-  if (!v257)
+  if (!v256)
   {
     if (os_log_type_enabled(sLogObject_2, OS_LOG_TYPE_ERROR))
     {
@@ -1748,9 +1834,9 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
     goto LABEL_178;
   }
 
-  v32 = v258;
-  v33 = v250;
-  if ([v258 includeDefaultAudioOption])
+  v32 = v257;
+  v33 = v249;
+  if ([v257 includeDefaultAudioOption])
   {
     v34 = sLogObject_2;
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
@@ -1759,8 +1845,8 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
       _os_log_impl(&dword_26CEDD000, v34, OS_LOG_TYPE_DEFAULT, "Including default audio option due to user preference", buf, 2u);
     }
 
-    [v25 addObject:v257];
-    v32 = v258;
+    [v25 addObject:v256];
+    v32 = v257;
   }
 
   if ([v32 includeOriginalAudio])
@@ -1773,12 +1859,12 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
     }
 
     v36 = MEMORY[0x277CE6510];
-    v341 = *MEMORY[0x277CE5E08];
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v341 count:1];
-    v38 = [v36 mediaSelectionOptionsFromArray:v246 withoutMediaCharacteristics:v37];
+    v340 = *MEMORY[0x277CE5E08];
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v340 count:1];
+    v38 = [v36 mediaSelectionOptionsFromArray:v245 withoutMediaCharacteristics:v37];
 
-    v32 = v258;
-    [v258 _addMediaSelectionOptionsIfNotAlreadyAdded:v38 toMediaSelections:v25 forMediaSelectionGroup:v264 baseMediaSelection:v257];
+    v32 = v257;
+    [v257 _addMediaSelectionOptionsIfNotAlreadyAdded:v38 toMediaSelections:v25 forMediaSelectionGroup:v263 baseMediaSelection:v256];
   }
 
   if ([v32 includeDeviceLanguageAudio])
@@ -1788,7 +1874,7 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
 
     if (v40)
     {
-      if (!v250)
+      if (!v249)
       {
         v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
       }
@@ -1810,7 +1896,7 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
         if (v43)
         {
           *buf = 138412290;
-          v340 = v40;
+          v339 = v40;
           _os_log_impl(&dword_26CEDD000, v42, OS_LOG_TYPE_DEFAULT, "Adding device language to preferred audio language codes: %@", buf, 0xCu);
         }
 
@@ -1823,68 +1909,68 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
   if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v340 = v33;
+    v339 = v33;
     _os_log_impl(&dword_26CEDD000, v47, OS_LOG_TYPE_DEFAULT, "Preferred audio language codes: %@", buf, 0xCu);
   }
 
-  v250 = v33;
+  v249 = v33;
   if ([v33 count])
   {
     v48 = MEMORY[0x277CE6510];
-    v338 = v265;
-    v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v338 count:1];
-    v50 = [v48 mediaSelectionOptionsFromArray:v247 withMediaCharacteristics:v49];
+    v337 = v264;
+    v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v337 count:1];
+    v50 = [v48 mediaSelectionOptionsFromArray:v246 withMediaCharacteristics:v49];
 
-    v315 = 0u;
-    v316 = 0u;
-    v313 = 0u;
     v314 = 0u;
+    v315 = 0u;
+    v312 = 0u;
+    v313 = 0u;
     v51 = v33;
-    v52 = [v51 countByEnumeratingWithState:&v313 objects:v337 count:16];
+    v52 = [v51 countByEnumeratingWithState:&v312 objects:v336 count:16];
     if (v52)
     {
       v53 = v52;
-      v54 = *v314;
+      v54 = *v313;
       v55 = *MEMORY[0x277CE5E08];
       do
       {
         for (i = 0; i != v53; ++i)
         {
-          if (*v314 != v54)
+          if (*v313 != v54)
           {
             objc_enumerationMutation(v51);
           }
 
           v57 = MEMORY[0x277CE6510];
-          v336 = *(*(&v313 + 1) + 8 * i);
-          v58 = [*(v31 + 2656) arrayWithObjects:&v336 count:1];
+          v335 = *(*(&v312 + 1) + 8 * i);
+          v58 = [*(v31 + 2656) arrayWithObjects:&v335 count:1];
           v59 = [v57 mediaSelectionOptionsFromArray:v50 filteredAndSortedAccordingToPreferredLanguages:v58];
 
           v60 = MEMORY[0x277CE6510];
-          v335 = v55;
-          v61 = [*(v31 + 2656) arrayWithObjects:&v335 count:1];
+          v334 = v55;
+          v61 = [*(v31 + 2656) arrayWithObjects:&v334 count:1];
           v62 = [v60 mediaSelectionOptionsFromArray:v59 withoutMediaCharacteristics:v61];
 
           v63 = [v62 firstObject];
           v64 = v63;
           if (v63)
           {
-            v334 = v63;
-            v65 = [*(v31 + 2656) arrayWithObjects:&v334 count:1];
-            [v258 _addMediaSelectionOptionsIfNotAlreadyAdded:v65 toMediaSelections:v259 forMediaSelectionGroup:v264 baseMediaSelection:v257];
+            v333 = v63;
+            v65 = [*(v31 + 2656) arrayWithObjects:&v333 count:1];
+            [v257 _addMediaSelectionOptionsIfNotAlreadyAdded:v65 toMediaSelections:v258 forMediaSelectionGroup:v263 baseMediaSelection:v256];
 
             v31 = 0x277CBE000;
           }
         }
 
-        v53 = [v51 countByEnumeratingWithState:&v313 objects:v337 count:16];
+        v53 = [v51 countByEnumeratingWithState:&v312 objects:v336 count:16];
       }
 
       while (v53);
     }
 
-    v20 = v254;
-    v25 = v259;
+    v20 = v253;
+    v25 = v258;
   }
 
   if (![v25 count])
@@ -1896,10 +1982,10 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
       _os_log_impl(&dword_26CEDD000, v66, OS_LOG_TYPE_DEFAULT, "Including default audio option since none of user's preferred audio languages could be found", buf, 2u);
     }
 
-    [v25 addObject:v257];
+    [v25 addObject:v256];
   }
 
-  if (v240)
+  if (v239)
   {
     v67 = sLogObject_2;
     if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
@@ -1909,26 +1995,26 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
     }
 
     v68 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v308 = 0u;
     v309 = 0u;
     v310 = 0u;
     v311 = 0u;
-    v312 = 0u;
     v69 = v25;
-    v70 = [v69 countByEnumeratingWithState:&v309 objects:v333 count:16];
+    v70 = [v69 countByEnumeratingWithState:&v308 objects:v332 count:16];
     if (v70)
     {
       v71 = v70;
-      v72 = *v310;
+      v72 = *v309;
       do
       {
         for (j = 0; j != v71; ++j)
         {
-          if (*v310 != v72)
+          if (*v309 != v72)
           {
             objc_enumerationMutation(v69);
           }
 
-          v74 = [*(*(&v309 + 1) + 8 * j) selectedMediaOptionInMediaSelectionGroup:v264];
+          v74 = [*(*(&v308 + 1) + 8 * j) selectedMediaOptionInMediaSelectionGroup:v263];
           v75 = [v74 extendedLanguageTag];
 
           if (v75)
@@ -1937,68 +2023,68 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
           }
         }
 
-        v71 = [v69 countByEnumeratingWithState:&v309 objects:v333 count:16];
+        v71 = [v69 countByEnumeratingWithState:&v308 objects:v332 count:16];
       }
 
       while (v71);
     }
 
     v76 = MEMORY[0x277CE6510];
-    v332 = v265;
-    v77 = [MEMORY[0x277CBEA60] arrayWithObjects:&v332 count:1];
-    v78 = [v76 mediaSelectionOptionsFromArray:v247 withMediaCharacteristics:v77];
+    v331 = v264;
+    v77 = [MEMORY[0x277CBEA60] arrayWithObjects:&v331 count:1];
+    v78 = [v76 mediaSelectionOptionsFromArray:v246 withMediaCharacteristics:v77];
 
     v79 = MEMORY[0x277CE6510];
     v80 = [v68 allObjects];
-    v266 = v78;
+    v265 = v78;
     v81 = [v79 mediaSelectionOptionsFromArray:v78 filteredAndSortedAccordingToPreferredLanguages:v80];
 
     v82 = MEMORY[0x277CE6510];
-    v331 = *MEMORY[0x277CE5E08];
-    v83 = [MEMORY[0x277CBEA60] arrayWithObjects:&v331 count:1];
+    v330 = *MEMORY[0x277CE5E08];
+    v83 = [MEMORY[0x277CBEA60] arrayWithObjects:&v330 count:1];
     v84 = [v82 mediaSelectionOptionsFromArray:v81 withMediaCharacteristics:v83];
 
-    v307 = 0u;
-    v308 = 0u;
-    v305 = 0u;
     v306 = 0u;
+    v307 = 0u;
+    v304 = 0u;
+    v305 = 0u;
     v85 = v84;
-    v86 = [v85 countByEnumeratingWithState:&v305 objects:v330 count:16];
+    v86 = [v85 countByEnumeratingWithState:&v304 objects:v329 count:16];
     if (v86)
     {
       v87 = v86;
-      v88 = *v306;
+      v88 = *v305;
       do
       {
         for (k = 0; k != v87; ++k)
         {
-          if (*v306 != v88)
+          if (*v305 != v88)
           {
             objc_enumerationMutation(v85);
           }
 
-          v90 = *(*(&v305 + 1) + 8 * k);
+          v90 = *(*(&v304 + 1) + 8 * k);
           v91 = [v69 firstObject];
           v92 = [v91 mutableCopy];
 
-          [v92 selectMediaOption:v90 inMediaSelectionGroup:v264];
+          [v92 selectMediaOption:v90 inMediaSelectionGroup:v263];
           [v69 addObject:v92];
         }
 
-        v87 = [v85 countByEnumeratingWithState:&v305 objects:v330 count:16];
+        v87 = [v85 countByEnumeratingWithState:&v304 objects:v329 count:16];
       }
 
       while (v87);
     }
 
-    v20 = v254;
-    v25 = v259;
+    v20 = v253;
+    v25 = v258;
     v31 = 0x277CBE000uLL;
   }
 
   v93 = [v20 options];
-  v237 = v93;
-  if ([v258 includesAllSubtitles])
+  v236 = v93;
+  if ([v257 includesAllSubtitles])
   {
     v94 = sLogObject_2;
     if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
@@ -2011,129 +2097,129 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
     goto LABEL_170;
   }
 
-  v262 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v261 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v96 = MEMORY[0x277CE6510];
-  v329 = *MEMORY[0x277CE5DF8];
-  v97 = [*(v31 + 2656) arrayWithObjects:&v329 count:1];
-  v236 = [v96 mediaSelectionOptionsFromArray:v93 withoutMediaCharacteristics:v97];
+  v328 = *MEMORY[0x277CE5DF8];
+  v97 = [*(v31 + 2656) arrayWithObjects:&v328 count:1];
+  v235 = [v96 mediaSelectionOptionsFromArray:v93 withoutMediaCharacteristics:v97];
 
-  v303 = 0u;
-  v304 = 0u;
-  v301 = 0u;
   v302 = 0u;
+  v303 = 0u;
+  v300 = 0u;
+  v301 = 0u;
   v98 = v93;
-  v99 = [v98 countByEnumeratingWithState:&v301 objects:v328 count:16];
+  v99 = [v98 countByEnumeratingWithState:&v300 objects:v327 count:16];
   if (v99)
   {
     v100 = v99;
-    v101 = *v302;
+    v101 = *v301;
     v102 = *MEMORY[0x277CE5E58];
     do
     {
       for (m = 0; m != v100; ++m)
       {
-        if (*v302 != v101)
+        if (*v301 != v101)
         {
           objc_enumerationMutation(v98);
         }
 
-        v104 = *(*(&v301 + 1) + 8 * m);
+        v104 = *(*(&v300 + 1) + 8 * m);
         v105 = [v104 mediaType];
         v106 = [v105 isEqualToString:v102];
 
         if (v106)
         {
-          [v262 addObject:v104];
+          [v261 addObject:v104];
         }
       }
 
-      v100 = [v98 countByEnumeratingWithState:&v301 objects:v328 count:16];
+      v100 = [v98 countByEnumeratingWithState:&v300 objects:v327 count:16];
     }
 
     while (v100);
   }
 
-  v299 = 0u;
-  v300 = 0u;
-  v297 = 0u;
   v298 = 0u;
-  v25 = v259;
-  v107 = v259;
-  v108 = [v107 countByEnumeratingWithState:&v297 objects:v327 count:16];
+  v299 = 0u;
+  v296 = 0u;
+  v297 = 0u;
+  v25 = v258;
+  v107 = v258;
+  v108 = [v107 countByEnumeratingWithState:&v296 objects:v326 count:16];
   if (v108)
   {
     v109 = v108;
-    v110 = *v298;
+    v110 = *v297;
     do
     {
       for (n = 0; n != v109; ++n)
       {
-        if (*v298 != v110)
+        if (*v297 != v110)
         {
           objc_enumerationMutation(v107);
         }
 
-        v112 = [*(*(&v297 + 1) + 8 * n) selectedMediaOptionInMediaSelectionGroup:v264];
+        v112 = [*(*(&v296 + 1) + 8 * n) selectedMediaOptionInMediaSelectionGroup:v263];
         v113 = [v112 associatedMediaSelectionOptionInMediaSelectionGroup:v20];
         if (v113)
         {
-          [v262 addObject:v113];
+          [v261 addObject:v113];
         }
 
         v114 = [v112 extendedLanguageTag];
         if (v114)
         {
-          [v256 addObject:v114];
+          [v255 addObject:v114];
         }
       }
 
-      v109 = [v107 countByEnumeratingWithState:&v297 objects:v327 count:16];
+      v109 = [v107 countByEnumeratingWithState:&v296 objects:v326 count:16];
     }
 
     while (v109);
   }
 
-  if ([v250 count])
+  if ([v249 count])
   {
-    [v256 addObjectsFromArray:v250];
+    [v255 addObjectsFromArray:v249];
   }
 
   v115 = sLogObject_2;
   if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v340 = v256;
+    v339 = v255;
     _os_log_impl(&dword_26CEDD000, v115, OS_LOG_TYPE_DEFAULT, "Will look for subtitles that match preferred audio languages and audio languages being downloaded: %@", buf, 0xCu);
   }
 
   v116 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v292 = 0u;
   v293 = 0u;
   v294 = 0u;
   v295 = 0u;
-  v296 = 0u;
-  v117 = v246;
-  v118 = [v117 countByEnumeratingWithState:&v293 objects:v326 count:16];
+  v117 = v245;
+  v118 = [v117 countByEnumeratingWithState:&v292 objects:v325 count:16];
   if (v118)
   {
     v119 = v118;
-    v120 = *v294;
+    v120 = *v293;
     do
     {
       for (ii = 0; ii != v119; ++ii)
       {
-        if (*v294 != v120)
+        if (*v293 != v120)
         {
           objc_enumerationMutation(v117);
         }
 
-        v122 = [*(*(&v293 + 1) + 8 * ii) extendedLanguageTag];
+        v122 = [*(*(&v292 + 1) + 8 * ii) extendedLanguageTag];
         if (v122)
         {
           [v116 addObject:v122];
         }
       }
 
-      v119 = [v117 countByEnumeratingWithState:&v293 objects:v326 count:16];
+      v119 = [v117 countByEnumeratingWithState:&v292 objects:v325 count:16];
     }
 
     while (v119);
@@ -2143,12 +2229,12 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
   if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v340 = v116;
+    v339 = v116;
     _os_log_impl(&dword_26CEDD000, v123, OS_LOG_TYPE_DEFAULT, "Will look for subtitles that match original audio language: %@", buf, 0xCu);
   }
 
   v124 = [v116 allObjects];
-  [v256 addObjectsFromArray:v124];
+  [v255 addObjectsFromArray:v124];
 
   v125 = [MEMORY[0x277CBEAF8] preferredLanguages];
   if (v125)
@@ -2157,97 +2243,97 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
     if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v340 = v125;
+      v339 = v125;
       _os_log_impl(&dword_26CEDD000, v126, OS_LOG_TYPE_DEFAULT, "Will look for subtitles that match device languages: %@", buf, 0xCu);
     }
 
-    [v256 addObjectsFromArray:v125];
+    [v255 addObjectsFromArray:v125];
   }
 
-  v127 = [v258 preferredSubtitleLanguageCodes];
+  v127 = [v257 preferredSubtitleLanguageCodes];
 
   if (v127)
   {
     v128 = sLogObject_2;
     if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
     {
-      v129 = [v258 preferredSubtitleLanguageCodes];
+      v129 = [v257 preferredSubtitleLanguageCodes];
       *buf = 138412290;
-      v340 = v129;
+      v339 = v129;
       _os_log_impl(&dword_26CEDD000, v128, OS_LOG_TYPE_DEFAULT, "Will look for subtitles that match user's preferred subtitle languages: %@", buf, 0xCu);
     }
 
-    v130 = [v258 preferredSubtitleLanguageCodes];
-    [v256 addObjectsFromArray:v130];
+    v130 = [v257 preferredSubtitleLanguageCodes];
+    [v255 addObjectsFromArray:v130];
   }
 
-  if ([v256 containsObject:@"yue"])
+  if ([v255 containsObject:@"yue"])
   {
-    [v256 addObject:@"yue-Hant"];
+    [v255 addObject:@"yue-Hant"];
   }
 
-  v235 = v116;
+  v234 = v116;
   v131 = sLogObject_2;
   if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v340 = v256;
+    v339 = v255;
     _os_log_impl(&dword_26CEDD000, v131, OS_LOG_TYPE_DEFAULT, "Final list of preferred subtitle languages: %@", buf, 0xCu);
   }
 
-  v234 = v125;
+  v233 = v125;
 
   v132 = MEMORY[0x277CE6510];
-  v133 = [v256 allObjects];
-  v134 = [v132 mediaSelectionOptionsFromArray:v236 filteredAndSortedAccordingToPreferredLanguages:v133];
+  v133 = [v255 allObjects];
+  v134 = [v132 mediaSelectionOptionsFromArray:v235 filteredAndSortedAccordingToPreferredLanguages:v133];
 
   v135 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v136 = sLogObject_2;
   if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
   {
     v137 = @"NO";
-    if (v251)
+    if (v250)
     {
       v137 = @"YES";
     }
 
     *buf = 138412290;
-    v340 = v137;
+    v339 = v137;
     _os_log_impl(&dword_26CEDD000, v136, OS_LOG_TYPE_DEFAULT, "Will prefer SDH subtitles: %@", buf, 0xCu);
   }
 
-  v291 = 0u;
-  v292 = 0u;
-  v289 = 0u;
   v290 = 0u;
+  v291 = 0u;
+  v288 = 0u;
+  v289 = 0u;
   v138 = v134;
-  v260 = [v138 countByEnumeratingWithState:&v289 objects:v325 count:16];
-  if (v260)
+  v259 = [v138 countByEnumeratingWithState:&v288 objects:v324 count:16];
+  if (v259)
   {
-    v139 = *v290;
+    v139 = *v289;
     v140 = *MEMORY[0x277CE5E90];
-    v252 = v138;
-    v253 = v135;
-    v255 = *v290;
+    v251 = v138;
+    v252 = v135;
+    v254 = *v289;
     do
     {
-      for (jj = 0; jj != v260; ++jj)
+      for (jj = 0; jj != v259; ++jj)
       {
-        if (*v290 != v139)
+        if (*v289 != v139)
         {
           objc_enumerationMutation(v138);
         }
 
-        v142 = *(*(&v289 + 1) + 8 * jj);
+        v142 = *(*(&v288 + 1) + 8 * jj);
         v143 = [v142 extendedLanguageTag];
         if (!v143)
         {
           goto LABEL_167;
         }
 
-        v267 = v143;
+        v266 = v143;
         v144 = [v135 containsObject:v143];
-        v143 = v267;
+        v143 = v266;
         if (v144)
         {
           goto LABEL_167;
@@ -2256,50 +2342,50 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195(
         v145 = [v142 mediaType];
         v146 = [v145 isEqualToString:v140];
 
-        v143 = v267;
-        v139 = v255;
+        v143 = v266;
+        v139 = v254;
         if (!v146)
         {
           goto LABEL_167;
         }
 
-        v287 = 0u;
-        v288 = 0u;
-        v285 = 0u;
         v286 = 0u;
+        v287 = 0u;
+        v284 = 0u;
+        v285 = 0u;
         v147 = v138;
-        v148 = [v147 countByEnumeratingWithState:&v285 objects:v324 count:16];
+        v148 = [v147 countByEnumeratingWithState:&v284 objects:v323 count:16];
         if (!v148)
         {
 LABEL_147:
 
 LABEL_163:
-          [v262 addObject:v142];
-          v135 = v253;
-          v20 = v254;
-          v25 = v259;
-          v139 = v255;
+          [v261 addObject:v142];
+          v135 = v252;
+          v20 = v253;
+          v25 = v258;
+          v139 = v254;
           goto LABEL_166;
         }
 
         v149 = v148;
-        v150 = *v286;
+        v150 = *v285;
 LABEL_137:
         v151 = 0;
         while (1)
         {
-          if (*v286 != v150)
+          if (*v285 != v150)
           {
             objc_enumerationMutation(v147);
           }
 
-          v152 = *(*(&v285 + 1) + 8 * v151);
+          v152 = *(*(&v284 + 1) + 8 * v151);
           if (v152 == v142)
           {
             goto LABEL_145;
           }
 
-          v153 = [*(*(&v285 + 1) + 8 * v151) mediaType];
+          v153 = [*(*(&v284 + 1) + 8 * v151) mediaType];
           v154 = [v153 isEqualToString:v140];
 
           if (!v154)
@@ -2311,7 +2397,7 @@ LABEL_137:
           v156 = v155;
           if (v155)
           {
-            if ([v155 isEqualToString:v267])
+            if ([v155 isEqualToString:v266])
             {
               break;
             }
@@ -2320,7 +2406,7 @@ LABEL_137:
 LABEL_145:
           if (v149 == ++v151)
           {
-            v149 = [v147 countByEnumeratingWithState:&v285 objects:v324 count:16];
+            v149 = [v147 countByEnumeratingWithState:&v284 objects:v323 count:16];
             if (v149)
             {
               goto LABEL_137;
@@ -2337,14 +2423,14 @@ LABEL_145:
           goto LABEL_163;
         }
 
-        v135 = v253;
-        v20 = v254;
-        v25 = v259;
-        v139 = v255;
+        v135 = v252;
+        v20 = v253;
+        v25 = v258;
+        v139 = v254;
         if ([v142 tvp_isSDHSubtitle] && (objc_msgSend(v157, "tvp_isSDHSubtitle") & 1) != 0 || (objc_msgSend(v142, "tvp_isSDHSubtitle") & 1) == 0 && (objc_msgSend(v157, "tvp_isSDHSubtitle") & 1) == 0)
         {
-          [v262 addObject:v142];
-          [v262 addObject:v157];
+          [v261 addObject:v142];
+          [v261 addObject:v157];
         }
 
         else
@@ -2372,7 +2458,7 @@ LABEL_145:
 
           v161 = v160;
           v162 = v161;
-          if (v251)
+          if (v250)
           {
             v163 = v159;
           }
@@ -2382,45 +2468,45 @@ LABEL_145:
             v163 = v161;
           }
 
-          [v262 addObject:v163];
+          [v261 addObject:v163];
         }
 
 LABEL_166:
-        [v135 addObject:v267];
-        v143 = v267;
-        v138 = v252;
+        [v135 addObject:v266];
+        v143 = v266;
+        v138 = v251;
 LABEL_167:
       }
 
-      v260 = [v138 countByEnumeratingWithState:&v289 objects:v325 count:16];
+      v259 = [v138 countByEnumeratingWithState:&v288 objects:v324 count:16];
     }
 
-    while (v260);
+    while (v259);
   }
 
-  v95 = [v262 allObjects];
+  v95 = [v261 allObjects];
 
 LABEL_170:
-  v283 = 0u;
-  v284 = 0u;
-  v281 = 0u;
   v282 = 0u;
+  v283 = 0u;
+  v280 = 0u;
+  v281 = 0u;
   v164 = v95;
-  v165 = [v164 countByEnumeratingWithState:&v281 objects:v323 count:16];
+  v165 = [v164 countByEnumeratingWithState:&v280 objects:v322 count:16];
   if (v165)
   {
     v166 = v165;
-    v167 = *v282;
+    v167 = *v281;
     do
     {
       for (kk = 0; kk != v166; ++kk)
       {
-        if (*v282 != v167)
+        if (*v281 != v167)
         {
           objc_enumerationMutation(v164);
         }
 
-        v169 = *(*(&v281 + 1) + 8 * kk);
+        v169 = *(*(&v280 + 1) + 8 * kk);
         v170 = [v25 firstObject];
         v171 = [v170 mutableCopy];
 
@@ -2428,7 +2514,7 @@ LABEL_170:
         [v25 addObject:v171];
       }
 
-      v166 = [v164 countByEnumeratingWithState:&v281 objects:v323 count:16];
+      v166 = [v164 countByEnumeratingWithState:&v280 objects:v322 count:16];
     }
 
     while (v166);
@@ -2436,73 +2522,73 @@ LABEL_170:
 
   v46 = v25;
 LABEL_178:
-  v279 = 0u;
-  v280 = 0u;
-  v277 = 0u;
   v278 = 0u;
+  v279 = 0u;
+  v276 = 0u;
+  v277 = 0u;
   v45 = v46;
-  v172 = [v45 countByEnumeratingWithState:&v277 objects:v322 count:16];
+  v172 = [v45 countByEnumeratingWithState:&v276 objects:v321 count:16];
   if (v172)
   {
     v173 = v172;
-    v174 = *v278;
+    v174 = *v277;
     do
     {
       for (mm = 0; mm != v173; ++mm)
       {
-        if (*v278 != v174)
+        if (*v277 != v174)
         {
           objc_enumerationMutation(v45);
         }
 
-        v176 = *(*(&v277 + 1) + 8 * mm);
+        v176 = *(*(&v276 + 1) + 8 * mm);
         v177 = sLogObject_2;
         if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
         {
           v178 = [v176 tvp_description];
           *buf = 138412290;
-          v340 = v178;
+          v339 = v178;
           _os_log_impl(&dword_26CEDD000, v177, OS_LOG_TYPE_DEFAULT, "Will download media selection: %@", buf, 0xCu);
         }
       }
 
-      v173 = [v45 countByEnumeratingWithState:&v277 objects:v322 count:16];
+      v173 = [v45 countByEnumeratingWithState:&v276 objects:v321 count:16];
     }
 
     while (v173);
   }
 
-  v11 = v241;
-  v9 = v242;
-  v10 = v245;
-  v12 = v249;
+  v11 = v240;
+  v9 = v241;
+  v10 = v244;
+  v12 = v248;
 LABEL_188:
-  v179 = [v258 downloadTask];
+  v179 = [v257 downloadTask];
 
   if (v179)
   {
     v180 = sLogObject_2;
-    v181 = v259;
+    v181 = v258;
     if (os_log_type_enabled(v180, OS_LOG_TYPE_ERROR))
     {
       __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_195_cold_2();
     }
 
-    v182 = v258;
+    v182 = v257;
   }
 
   else
   {
-    v183 = [v258 mediaItem];
+    v183 = [v257 mediaItem];
     v184 = [v183 mediaItemMetadataForProperty:@"TVPMediaItemMetadataTitle"];
 
-    v261 = v184;
-    v185 = [MEMORY[0x277CE63E0] downloadConfigurationWithAsset:v248 title:v184];
-    v186 = [v258 storageSettingsImageData];
+    v260 = v184;
+    v185 = [MEMORY[0x277CE63E0] downloadConfigurationWithAsset:v247 title:v184];
+    v186 = [v257 storageSettingsImageData];
     [v185 setArtworkData:v186];
 
-    v182 = v258;
-    v263 = v185;
+    v182 = v257;
+    v262 = v185;
     if (_os_feature_enabled_impl())
     {
       v187 = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -2511,7 +2597,7 @@ LABEL_188:
       if ((v188 & 1) == 0)
       {
         [v185 setDownloadsInterstitialAssets:1];
-        v189 = [v258 _audibleInterstitialDownloadCriteriaForPreferredAudioLanguages:v250 includeOriginalAudio:objc_msgSend(v258 audioDescriptionsEnabled:{"includeOriginalAudio"), v240}];
+        v189 = [v257 _audibleInterstitialDownloadCriteriaForPreferredAudioLanguages:v249 includeOriginalAudio:objc_msgSend(v257 audioDescriptionsEnabled:{"includeOriginalAudio"), v239}];
         v190 = sLogObject_2;
         if (os_log_type_enabled(v190, OS_LOG_TYPE_DEFAULT))
         {
@@ -2519,36 +2605,36 @@ LABEL_188:
           _os_log_impl(&dword_26CEDD000, v190, OS_LOG_TYPE_DEFAULT, "Setting audible interstitial media selection criteria to:", buf, 2u);
         }
 
-        v275 = 0u;
-        v276 = 0u;
-        v273 = 0u;
         v274 = 0u;
+        v275 = 0u;
+        v272 = 0u;
+        v273 = 0u;
         v191 = v189;
-        v192 = [v191 countByEnumeratingWithState:&v273 objects:v321 count:16];
+        v192 = [v191 countByEnumeratingWithState:&v272 objects:v320 count:16];
         if (v192)
         {
           v193 = v192;
-          v194 = *v274;
+          v194 = *v273;
           do
           {
             for (nn = 0; nn != v193; ++nn)
             {
-              if (*v274 != v194)
+              if (*v273 != v194)
               {
                 objc_enumerationMutation(v191);
               }
 
-              v196 = *(*(&v273 + 1) + 8 * nn);
+              v196 = *(*(&v272 + 1) + 8 * nn);
               v197 = sLogObject_2;
               if (os_log_type_enabled(v197, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v340 = v196;
+                v339 = v196;
                 _os_log_impl(&dword_26CEDD000, v197, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
               }
             }
 
-            v193 = [v191 countByEnumeratingWithState:&v273 objects:v321 count:16];
+            v193 = [v191 countByEnumeratingWithState:&v272 objects:v320 count:16];
           }
 
           while (v193);
@@ -2556,11 +2642,11 @@ LABEL_188:
 
         if (v191)
         {
-          [v263 setInterstitialMediaSelectionCriteria:v191 forMediaCharacteristic:v238];
+          [v262 setInterstitialMediaSelectionCriteria:v191 forMediaCharacteristic:v237];
         }
 
-        v198 = [v256 allObjects];
-        v199 = [v258 _legibleInterstitialDownloadCriteriaForSubtitleLanguages:v198 includeSDH:v251];
+        v198 = [v255 allObjects];
+        v199 = [v257 _legibleInterstitialDownloadCriteriaForSubtitleLanguages:v198 includeSDH:v250];
 
         v200 = sLogObject_2;
         if (os_log_type_enabled(v200, OS_LOG_TYPE_DEFAULT))
@@ -2569,54 +2655,54 @@ LABEL_188:
           _os_log_impl(&dword_26CEDD000, v200, OS_LOG_TYPE_DEFAULT, "Setting legible interstitial media selection criteria to:", buf, 2u);
         }
 
-        v271 = 0u;
-        v272 = 0u;
-        v269 = 0u;
         v270 = 0u;
+        v271 = 0u;
+        v268 = 0u;
+        v269 = 0u;
         v201 = v199;
-        v202 = [v201 countByEnumeratingWithState:&v269 objects:v320 count:16];
+        v202 = [v201 countByEnumeratingWithState:&v268 objects:v319 count:16];
         if (v202)
         {
           v203 = v202;
-          v204 = *v270;
+          v204 = *v269;
           do
           {
             for (i1 = 0; i1 != v203; ++i1)
             {
-              if (*v270 != v204)
+              if (*v269 != v204)
               {
                 objc_enumerationMutation(v201);
               }
 
-              v206 = *(*(&v269 + 1) + 8 * i1);
+              v206 = *(*(&v268 + 1) + 8 * i1);
               v207 = sLogObject_2;
               if (os_log_type_enabled(v207, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v340 = v206;
+                v339 = v206;
                 _os_log_impl(&dword_26CEDD000, v207, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
               }
             }
 
-            v203 = [v201 countByEnumeratingWithState:&v269 objects:v320 count:16];
+            v203 = [v201 countByEnumeratingWithState:&v268 objects:v319 count:16];
           }
 
           while (v203);
         }
 
-        v185 = v263;
+        v185 = v262;
         if (v201)
         {
-          [v263 setInterstitialMediaSelectionCriteria:v201 forMediaCharacteristic:v239];
+          [v262 setInterstitialMediaSelectionCriteria:v201 forMediaCharacteristic:v238];
         }
 
-        v10 = v245;
-        v182 = v258;
-        v20 = v254;
+        v10 = v244;
+        v182 = v257;
+        v20 = v253;
       }
     }
 
-    v208 = [v182 mediaItemLoader];
+    v208 = objc_msgSend_mediaItemLoader(v182);
     v209 = [v208 containsStreamingAVAsset];
 
     if (v209)
@@ -2632,8 +2718,8 @@ LABEL_188:
       v214 = objc_alloc_init(MEMORY[0x277CE63E8]);
       [v214 setMediaSelections:v45];
       [v214 setVariantQualifiers:v213];
-      v319 = v214;
-      v215 = [MEMORY[0x277CBEA60] arrayWithObjects:&v319 count:1];
+      v318 = v214;
+      v215 = [MEMORY[0x277CBEA60] arrayWithObjects:&v318 count:1];
       [v185 setAuxiliaryContentConfigurations:v215];
     }
 
@@ -2645,7 +2731,7 @@ LABEL_188:
     if (os_log_type_enabled(v218, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v340 = v217;
+      v339 = v217;
       _os_log_impl(&dword_26CEDD000, v218, OS_LOG_TYPE_DEFAULT, "Created download task %@", buf, 0xCu);
     }
 
@@ -2684,11 +2770,11 @@ LABEL_188:
       while (v222 < v228);
     }
 
-    v11 = v241;
-    v9 = v242;
-    v12 = v249;
-    v181 = v259;
-    v180 = v261;
+    v11 = v240;
+    v9 = v241;
+    v12 = v248;
+    v181 = v258;
+    v180 = v260;
   }
 
   [v182 downloadTask];
@@ -2704,16 +2790,15 @@ LABEL_188:
   block[4] = v16;
   dispatch_async(v230, block);
 
-  v15 = v248;
+  v15 = v247;
 LABEL_234:
 
-  v232 = *MEMORY[0x277D85DE8];
   return @"Downloading";
 }
 
-uint64_t __44__TVPDownload__registerStateMachineHandlers__block_invoke_222(uint64_t a1)
+void *__44__TVPDownload__registerStateMachineHandlers__block_invoke_222(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) downloadInitiationBackgroundTask];
   v3 = *MEMORY[0x277D767B0];
   if (result != *MEMORY[0x277D767B0])
@@ -2723,18 +2808,17 @@ uint64_t __44__TVPDownload__registerStateMachineHandlers__block_invoke_222(uint6
     {
       v5 = *(a1 + 32);
       v6 = v4;
-      v9 = 134217984;
-      v10 = [v5 downloadInitiationBackgroundTask];
-      _os_log_impl(&dword_26CEDD000, v6, OS_LOG_TYPE_DEFAULT, "Ending download initiation background task with identifier %lu", &v9, 0xCu);
+      v8 = 134217984;
+      v9 = [v5 downloadInitiationBackgroundTask];
+      _os_log_impl(&dword_26CEDD000, v6, OS_LOG_TYPE_DEFAULT, "Ending download initiation background task with identifier %lu", &v8, 0xCu);
     }
 
     v7 = [MEMORY[0x277D75128] sharedApplication];
     [v7 endBackgroundTask:{objc_msgSend(*(a1 + 32), "downloadInitiationBackgroundTask")}];
 
-    result = [*(a1 + 32) setDownloadInitiationBackgroundTask:v3];
+    return [*(a1 + 32) setDownloadInitiationBackgroundTask:v3];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2956,24 +3040,20 @@ __CFString *__44__TVPDownload__registerStateMachineHandlers__block_invoke_2_238(
 
 void __52__TVPDownload_URLSession_task_didCompleteWithError___block_invoke_cold_1(void **a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a2;
-  [v2 downloadTerminationBackgroundTask];
-  OUTLINED_FUNCTION_2(&dword_26CEDD000, v4, v5, "Download termination background task with identifier %lu expired.  This is not expected to ever happen.  Ending background task", v6, v7, v8, v9, 0);
-
-  v10 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 134217984;
+  *(&v10 + 4) = [v2 downloadTerminationBackgroundTask];
+  OUTLINED_FUNCTION_2(&dword_26CEDD000, v4, v5, "Download termination background task with identifier %lu expired.  This is not expected to ever happen.  Ending background task", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void __44__TVPDownload__registerStateMachineHandlers__block_invoke_2_127_cold_1(void **a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a2;
-  [v2 downloadInitiationBackgroundTask];
-  OUTLINED_FUNCTION_2(&dword_26CEDD000, v4, v5, "Download initiation background task with identifier %lu expired.  Ending background task", v6, v7, v8, v9, 0);
-
-  v10 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 134217984;
+  *(&v10 + 4) = [v2 downloadInitiationBackgroundTask];
+  OUTLINED_FUNCTION_2(&dword_26CEDD000, v4, v5, "Download initiation background task with identifier %lu expired.  Ending background task", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 @end

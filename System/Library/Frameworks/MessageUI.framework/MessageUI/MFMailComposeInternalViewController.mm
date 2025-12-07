@@ -396,7 +396,7 @@ void __53__MFMailComposeInternalViewController_viewDidAppear___block_invoke()
   }
 }
 
-uint64_t __75__MFMailComposeInternalViewController__beginDelayingCompositionPresenation__block_invoke(uint64_t a1, int a2)
+uint64_t __75__MFMailComposeInternalViewController__beginDelayingCompositionPresenation__block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x1E69E9840];
   if (a2)
@@ -1572,17 +1572,17 @@ void __65__MFMailComposeInternalViewController_composeFinishedWithResult___block
   }
 }
 
-void __96__MFMailComposeInternalViewController_requestFramesForAttachmentsWithIdentifiers_resultHandler___block_invoke(uint64_t a1)
+void __96__MFMailComposeInternalViewController_requestFramesForAttachmentsWithIdentifiers_resultHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MFLogGeneral();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = MFLogGeneral();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1BE819000, v2, OS_LOG_TYPE_INFO, "#CompositionServices Background task expired (requestFramesForAttachmentsWithIdentifiers)", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1BE819000, v3, OS_LOG_TYPE_INFO, "#CompositionServices Background task expired (requestFramesForAttachmentsWithIdentifiers)", v5, 2u);
   }
 
-  v3 = [MEMORY[0x1E69DC668] sharedApplication];
-  [v3 endBackgroundTask:*(*(*(a1 + 32) + 8) + 24)];
+  v4 = [MEMORY[0x1E69DC668] sharedApplication];
+  [v4 endBackgroundTask:*(*(*(a1 + 32) + 8) + 24)];
 }
 
 void __96__MFMailComposeInternalViewController_requestFramesForAttachmentsWithIdentifiers_resultHandler___block_invoke_169(uint64_t a1, void *a2, void *a3)
@@ -1693,17 +1693,17 @@ void __96__MFMailComposeInternalViewController_requestFramesForAttachmentsWithId
   }
 }
 
-void __59__MFMailComposeInternalViewController_autosaveWithHandler___block_invoke(uint64_t a1)
+void __59__MFMailComposeInternalViewController_autosaveWithHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MFLogGeneral();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = MFLogGeneral();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1BE819000, v2, OS_LOG_TYPE_INFO, "#CompositionServices Background task expired (autosaveWithHandler)", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1BE819000, v3, OS_LOG_TYPE_INFO, "#CompositionServices Background task expired (autosaveWithHandler)", v5, 2u);
   }
 
-  v3 = [MEMORY[0x1E69DC668] sharedApplication];
-  [v3 endBackgroundTask:*(*(*(a1 + 32) + 8) + 24)];
+  v4 = [MEMORY[0x1E69DC668] sharedApplication];
+  [v4 endBackgroundTask:*(*(*(a1 + 32) + 8) + 24)];
 }
 
 void __59__MFMailComposeInternalViewController_autosaveWithHandler___block_invoke_176(uint64_t a1, void *a2, void *a3)

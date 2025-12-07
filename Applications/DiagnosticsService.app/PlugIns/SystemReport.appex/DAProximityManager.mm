@@ -6,6 +6,7 @@
 - (void)dealloc;
 - (void)deviceStart;
 - (void)deviceStop;
+- (void)handleNewProximityValue:(int)value;
 - (void)registerProximityChangedCallback;
 - (void)unregisterProximityChangedCallback;
 @end
@@ -97,6 +98,14 @@
   }
 
   return updating ^ 1;
+}
+
+- (void)handleNewProximityValue:(int)value
+{
+  v3 = *&value;
+  handler = [(DAProximityManager *)self handler];
+  v4 = +[NSDate date];
+  handler[2](handler, v3, v4);
 }
 
 - (BOOL)stopProximitySensorUpdates

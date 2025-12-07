@@ -446,7 +446,7 @@ LABEL_42:
   v40 = [inputsType2 objectAtIndexedSubscript:0];
   intValue = [v40 intValue];
 
-  [(VCPCNNModelEspressoV2 *)self->_tokenModel outputs];
+  objc_msgSend_outputs(self->_tokenModel);
   v42 = [**buf getData:intValue];
   *v75 = v42;
   v87 = buf;
@@ -478,7 +478,7 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  [(VCPCNNModelEspressoV2 *)self->_textModel outputs];
+  objc_msgSend_outputs(self->_textModel);
   v31 = *(*buf + 16);
   v87 = buf;
   std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v87);
@@ -564,29 +564,29 @@ LABEL_47:
 
 void __48__VCPTextEncoder_textEmbeddingForQuery_useFP16___block_invoke(void *a1)
 {
-  v2 = VCPSignPostLog();
+  v2 = VCPSignPostLog(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = VCPSignPostLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = VCPSignPostLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "CSUTextEncoder_runOnInputText", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "CSUTextEncoder_runOnInputText", "", buf, 2u);
   }
 
-  v6 = a1[5];
-  v7 = *(a1[4] + 24);
-  v8 = *(a1[6] + 8);
-  obj = *(v8 + 40);
-  [v7 runOnInputText:v6 error:&obj];
-  objc_storeStrong((v8 + 40), obj);
-  v9 = VCPSignPostLog();
-  v10 = v9;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v7 = a1[5];
+  v8 = *(a1[4] + 24);
+  v9 = *(a1[6] + 8);
+  obj = *(v9 + 40);
+  [v8 runOnInputText:v7 error:&obj];
+  objc_storeStrong((v9 + 40), obj);
+  v11 = VCPSignPostLog(v10);
+  v12 = v11;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    *v11 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_END, v3, "CSUTextEncoder_runOnInputText", "", v11, 2u);
+    *v13 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_END, v3, "CSUTextEncoder_runOnInputText", "", v13, 2u);
   }
 }
 

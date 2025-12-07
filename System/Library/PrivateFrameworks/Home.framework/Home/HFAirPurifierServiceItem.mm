@@ -7,68 +7,68 @@
 
 - (id)createControlItemsWithOptions:(id)options
 {
-  v119 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   controlItemValueSourceForPrimaryService = [(HFServiceItem *)self controlItemValueSourceForPrimaryService];
-  v100 = [MEMORY[0x277CBEB58] set];
-  service = [(HFServiceItem *)self service];
-  hf_childServices = [service hf_childServices];
+  v99 = [MEMORY[0x277CBEB58] set];
+  v6 = objc_msgSend_service(self);
+  hf_childServices = [v6 hf_childServices];
   v8 = [hf_childServices na_firstObjectPassingTest:&__block_literal_global_86];
 
   v9 = MEMORY[0x277CBEB58];
-  service2 = [(HFServiceItem *)self service];
-  v11 = [v9 setWithObject:service2];
+  v10 = objc_msgSend_service(self);
+  v11 = [v9 setWithObject:v10];
 
   [v11 na_safeAddObject:v8];
-  v90 = v11;
-  v97 = [(HFServiceItem *)self controlItemValueSourceForServices:v11];
-  service3 = [(HFServiceItem *)self service];
-  hf_childServices2 = [service3 hf_childServices];
+  v89 = v11;
+  v96 = [(HFServiceItem *)self controlItemValueSourceForServices:v11];
+  v12 = objc_msgSend_service(self);
+  hf_childServices2 = [v12 hf_childServices];
   v14 = [hf_childServices2 na_filter:&__block_literal_global_3_9];
 
   v15 = MEMORY[0x277CBEB58];
-  service4 = [(HFServiceItem *)self service];
-  v17 = [v15 setWithObject:service4];
+  v16 = objc_msgSend_service(self);
+  v17 = [v15 setWithObject:v16];
 
-  v89 = v14;
+  v88 = v14;
   [v17 unionSet:v14];
-  v88 = v17;
-  v96 = [(HFServiceItem *)self controlItemValueSourceForServices:v17];
+  v87 = v17;
+  v95 = [(HFServiceItem *)self controlItemValueSourceForServices:v17];
   v18 = MEMORY[0x277CBEB98];
   v19 = +[HFPowerStateTargetValueTuple fanStateTargetValueTuple];
   v20 = [HFPowerStateTargetValueTuple alloc];
-  v93 = *MEMORY[0x277CCFB00];
+  v92 = *MEMORY[0x277CCFB00];
   v21 = [HFPowerStateTargetValueTuple initWithCharacteristicType:v20 onTargetValue:"initWithCharacteristicType:onTargetValue:offTargetValue:" offTargetValue:?];
-  v95 = [v18 setWithObjects:{v19, v21, 0}];
+  v94 = [v18 setWithObjects:{v19, v21, 0}];
 
   v22 = *MEMORY[0x277CCFA20];
-  v91 = v8;
-  v92 = controlItemValueSourceForPrimaryService;
+  v90 = v8;
+  v91 = controlItemValueSourceForPrimaryService;
   if (v8)
   {
     v23 = [v8 hf_characteristicOfType:v22];
 
     if (v23)
     {
-      service5 = [(HFServiceItem *)self service];
-      v25 = [service5 hf_characteristicOfType:v22];
+      v24 = objc_msgSend_service(self);
+      v25 = [v24 hf_characteristicOfType:v22];
 
       if (v25)
       {
         v26 = HFLogForCategory(0x2CuLL);
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          service6 = [(HFServiceItem *)self service];
+          v83 = objc_msgSend_service(self);
           *buf = 138412546;
-          v116 = service6;
-          v117 = 2112;
-          v118 = v8;
+          v115 = v83;
+          v116 = 2112;
+          v117 = v8;
           _os_log_error_impl(&dword_20D9BF000, v26, OS_LOG_TYPE_ERROR, "Both the air purifier service (%@) and the fan child service (%@) have a rotation speed characteristic. This is not a valid configuration. Arbitrarily choosing to use the child fan's characteristic,", buf, 0x16u);
         }
       }
 
       v27 = [MEMORY[0x277CBEB98] setWithObject:v8];
-      v98 = [(HFServiceItem *)self controlItemValueSourceForServices:v27];
+      v97 = [(HFServiceItem *)self controlItemValueSourceForServices:v27];
 
       v28 = [v8 hf_characteristicOfType:*MEMORY[0x277CCFA18]];
       metadata = [v28 metadata];
@@ -80,107 +80,107 @@
       {
         v33 = [HFMultiStateControlItem alloc];
         characteristicType = [v28 characteristicType];
-        v113 = @"title";
+        v112 = @"title";
         v35 = HFItemOptionalLocalizedString(@"HFControlShortTitleRotationDirection", optionsCopy);
-        v114 = v35;
-        [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v114 forKeys:&v113 count:1];
+        v113 = v35;
+        [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
         v36 = v22;
         v38 = v37 = optionsCopy;
-        v39 = [(HFMultiStateControlItem *)v33 initWithValueSource:v98 characteristicType:characteristicType possibleValueSet:v32 displayResults:v38];
-        [v100 na_safeAddObject:v39];
+        v39 = [(HFMultiStateControlItem *)v33 initWithValueSource:v97 characteristicType:characteristicType possibleValueSet:v32 displayResults:v38];
+        [v99 na_safeAddObject:v39];
 
         optionsCopy = v37;
         v22 = v36;
       }
 
-      controlItemValueSourceForPrimaryService = v92;
-      v40 = v98;
-      if (v98)
+      controlItemValueSourceForPrimaryService = v91;
+      v40 = v97;
+      if (v97)
       {
         goto LABEL_12;
       }
     }
   }
 
-  service7 = [(HFServiceItem *)self service];
-  v42 = [service7 hf_characteristicOfType:v22];
+  v41 = objc_msgSend_service(self);
+  v42 = [v41 hf_characteristicOfType:v22];
 
   if (v42 && (v40 = controlItemValueSourceForPrimaryService) != 0)
   {
 LABEL_12:
-    v111[0] = @"title";
+    v110[0] = @"title";
     v43 = HFItemOptionalLocalizedString(@"HFControlShortTitleLinkedFanRotationSpeed", optionsCopy);
-    v112[0] = v43;
-    v111[1] = @"controlDescription";
+    v111[0] = v43;
+    v110[1] = @"controlDescription";
     v44 = HFItemOptionalLocalizedString(@"HFControlShortTitleLinkedFanRotationSpeed", optionsCopy);
-    v112[1] = v44;
-    v111[2] = @"controlItemPurpose";
+    v111[1] = v44;
+    v110[2] = @"controlItemPurpose";
     v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:4];
-    v112[2] = v45;
-    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v112 forKeys:v111 count:3];
+    v111[2] = v45;
+    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v111 forKeys:v110 count:3];
 
     v47 = optionsCopy;
     v48 = [HFPowerStateControlItem alloc];
     v49 = [(HFPowerStateControlItem *)v48 initWithValueSource:v40 displayResults:MEMORY[0x277CBEC10]];
-    v99 = v40;
+    v98 = v40;
     v50 = [[HFIncrementalStateControlItem alloc] initWithValueSource:v40 primaryStateControlItem:v49 incrementalCharacteristicType:v22 displayResults:v46];
-    [v100 addObject:v50];
+    [v99 addObject:v50];
   }
 
   else
   {
-    v99 = 0;
+    v98 = 0;
     v47 = optionsCopy;
   }
 
-  service8 = [(HFServiceItem *)self service];
-  v52 = [service8 hf_characteristicOfType:v93];
+  v51 = objc_msgSend_service(self);
+  v52 = [v51 hf_characteristicOfType:v92];
   metadata2 = [v52 metadata];
 
-  v87 = metadata2;
+  v86 = metadata2;
   v54 = [[HFMultiStateValueSet alloc] initWithCharacteristicMetadata:metadata2];
-  v109 = @"title";
+  v108 = @"title";
   v55 = HFItemOptionalLocalizedString(@"HFCharacteristicValueAirPurifierTargetStateAuto", v47);
-  v110 = v55;
-  v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v110 forKeys:&v109 count:1];
+  v109 = v55;
+  v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
   [(HFMultiStateValueSet *)v54 addValue:&unk_282523F58 displayResults:v56];
 
-  v107 = @"title";
+  v106 = @"title";
   v57 = HFItemOptionalLocalizedString(@"HFCharacteristicValueAirPurifierTargetStateManual", v47);
-  v108 = v57;
-  v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
+  v107 = v57;
+  v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
   [(HFMultiStateValueSet *)v54 addValue:&unk_282523F70 displayResults:v58];
 
   v59 = [HFUtilities comparatorWithSortedObjects:&unk_2825257B0];
   [(HFMultiStateValueSet *)v54 setValueComparator:v59];
 
   v60 = [HFPowerStateControlItem alloc];
-  v105 = @"title";
+  v104 = @"title";
   HFItemOptionalLocalizedString(@"HFControlShortTitlePower", v47);
   v62 = v61 = v47;
-  v106 = v62;
-  v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
-  v64 = [(HFPowerStateControlItem *)v60 initWithValueSource:v97 auxiliaryTargetValueTuples:v95 displayResults:v63];
+  v105 = v62;
+  v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+  v64 = [(HFPowerStateControlItem *)v60 initWithValueSource:v96 auxiliaryTargetValueTuples:v94 displayResults:v63];
 
-  v103[0] = @"title";
+  v102[0] = @"title";
   v65 = HFItemOptionalLocalizedString(@"HFControlShortTitleAirPurifierState", v47);
-  v104[0] = v65;
-  v103[1] = @"controlItemPurpose";
+  v103[0] = v65;
+  v102[1] = @"controlItemPurpose";
   v66 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:12];
-  v104[1] = v66;
-  v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v104 forKeys:v103 count:2];
+  v103[1] = v66;
+  v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v103 forKeys:v102 count:2];
 
   v68 = [HFTargetModeControlItem alloc];
-  v69 = v93;
-  v94 = v54;
-  v86 = v67;
-  v85 = [(HFTargetModeControlItem *)v68 initWithValueSource:v97 targetModeCharacteristicType:v69 targetModeValueSet:v54 primaryPowerStateControlItem:v64 displayResults:v67];
-  [v100 addObject:?];
-  v70 = [[HFSwingModeControlItem alloc] initWithValueSource:v96];
-  [v100 na_safeAddObject:v70];
+  v69 = v92;
+  v93 = v54;
+  v85 = v67;
+  v84 = [(HFTargetModeControlItem *)v68 initWithValueSource:v96 targetModeCharacteristicType:v69 targetModeValueSet:v54 primaryPowerStateControlItem:v64 displayResults:v67];
+  [v99 addObject:?];
+  v70 = [[HFSwingModeControlItem alloc] initWithValueSource:v95];
+  [v99 na_safeAddObject:v70];
 
-  service9 = [(HFServiceItem *)self service];
-  v72 = [service9 hf_characteristicOfType:*MEMORY[0x277CCF958]];
+  v71 = objc_msgSend_service(self);
+  v72 = [v71 hf_characteristicOfType:*MEMORY[0x277CCF958]];
 
   metadata3 = [v72 metadata];
   v74 = HFItemOptionalLocalizedString(@"HFCharacteristicValueLockPhysicalControlsUnlocked", v61);
@@ -191,17 +191,15 @@ LABEL_12:
   {
     v77 = [HFMultiStateControlItem alloc];
     characteristicType2 = [v72 characteristicType];
-    v101 = @"title";
+    v100 = @"title";
     v79 = HFItemOptionalLocalizedString(@"HFControlShortTitleLockPhysicalControls", v61);
-    v102 = v79;
-    v80 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
-    v81 = [(HFMultiStateControlItem *)v77 initWithValueSource:v92 characteristicType:characteristicType2 possibleValueSet:v76 displayResults:v80];
-    [v100 na_safeAddObject:v81];
+    v101 = v79;
+    v80 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+    v81 = [(HFMultiStateControlItem *)v77 initWithValueSource:v91 characteristicType:characteristicType2 possibleValueSet:v76 displayResults:v80];
+    [v99 na_safeAddObject:v81];
   }
 
-  v82 = *MEMORY[0x277D85DE8];
-
-  return v100;
+  return v99;
 }
 
 uint64_t __58__HFAirPurifierServiceItem_createControlItemsWithOptions___block_invoke(uint64_t a1, void *a2)
@@ -251,7 +249,7 @@ id __56__HFAirPurifierServiceItem__subclass_updateWithOptions___block_invoke(uin
   v6 = [v5 valueWithExpectedClass:objc_opt_class()];
   v7 = [v3 readResponse];
   v8 = *MEMORY[0x277CCF748];
-  v9 = [*(a1 + 32) service];
+  v9 = objc_msgSend_service(*(a1 + 32));
   v10 = [v7 responseForCharacteristicType:v8 inService:v9];
 
   v46 = v10;
@@ -265,7 +263,7 @@ id __56__HFAirPurifierServiceItem__subclass_updateWithOptions___block_invoke(uin
   v15 = [v14 responseForCharacteristicType:*MEMORY[0x277CCF8A0]];
   v16 = [v15 valueWithExpectedClass:objc_opt_class()];
 
-  v17 = [*(a1 + 32) service];
+  v17 = objc_msgSend_service(*(a1 + 32));
   v18 = [v17 hf_childServices];
   v19 = [v18 na_firstObjectPassingTest:&__block_literal_global_49];
 

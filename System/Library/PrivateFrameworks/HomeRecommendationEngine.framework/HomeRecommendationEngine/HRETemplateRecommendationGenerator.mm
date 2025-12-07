@@ -103,34 +103,32 @@ BOOL __63__HRETemplateRecommendationGenerator__filterTemplates_options___block_i
 
 void __59__HRETemplateRecommendationGenerator_allAvailableTemplates__block_invoke()
 {
-  v14[11] = *MEMORY[0x277D85DE8];
-  v13 = objc_alloc_init(HREArriveHomeTemplate);
-  v14[0] = v13;
+  v13[11] = *MEMORY[0x277D85DE8];
+  v12 = objc_alloc_init(HREArriveHomeTemplate);
+  v13[0] = v12;
   v0 = objc_alloc_init(HREGoodNightTemplate);
-  v14[1] = v0;
+  v13[1] = v0;
   v1 = objc_alloc_init(HREGoodMorningTemplate);
-  v14[2] = v1;
+  v13[2] = v1;
   v2 = objc_alloc_init(HRELeaveHomeTemplate);
-  v14[3] = v2;
+  v13[3] = v2;
   v3 = objc_alloc_init(HREAutoArriveHomeTemplate);
-  v14[4] = v3;
+  v13[4] = v3;
   v4 = objc_alloc_init(HREAutoLeaveHomeTemplate);
-  v14[5] = v4;
+  v13[5] = v4;
   v5 = objc_alloc_init(HREAutoLightsOnUnlockTemplate);
-  v14[6] = v5;
+  v13[6] = v5;
   v6 = objc_alloc_init(HRELockWhenDoorClosedTemplate);
-  v14[7] = v6;
+  v13[7] = v6;
   v7 = objc_alloc_init(HREMotionSensorLightsTemplate);
-  v14[8] = v7;
+  v13[8] = v7;
   v8 = objc_alloc_init(HRELightsAllOffContextActionTemplate);
-  v14[9] = v8;
+  v13[9] = v8;
   v9 = objc_alloc_init(HREMediaPauseAllContextActionTemplate);
-  v14[10] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:11];
+  v13[10] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:11];
   v11 = _MergedGlobals_4;
   _MergedGlobals_4 = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

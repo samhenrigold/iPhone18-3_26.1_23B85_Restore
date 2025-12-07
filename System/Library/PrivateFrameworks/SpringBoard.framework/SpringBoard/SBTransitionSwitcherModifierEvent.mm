@@ -901,7 +901,7 @@ LABEL_8:
 
   fromFloatingConfiguration = [(SBTransitionSwitcherModifierEvent *)self fromFloatingConfiguration];
   toFloatingConfiguration = [(SBTransitionSwitcherModifierEvent *)self toFloatingConfiguration];
-  fromFloatingSwitcherVisible = [(SBTransitionSwitcherModifierEvent *)self fromFloatingSwitcherVisible];
+  v6 = objc_msgSend_fromFloatingSwitcherVisible(self);
   toFloatingSwitcherVisible = [(SBTransitionSwitcherModifierEvent *)self toFloatingSwitcherVisible];
   fromEnvironmentMode = [(SBTransitionSwitcherModifierEvent *)self fromEnvironmentMode];
   toEnvironmentMode = [(SBTransitionSwitcherModifierEvent *)self toEnvironmentMode];
@@ -909,7 +909,7 @@ LABEL_8:
   toPeekConfiguration = [(SBTransitionSwitcherModifierEvent *)self toPeekConfiguration];
   isGestureInitiated = [(SBTransitionSwitcherModifierEvent *)self isGestureInitiated];
   v13 = 0;
-  if (!isGestureInitiated && fromInterfaceOrientation == toInterfaceOrientation && fromFloatingAppLayout == toFloatingAppLayout && fromFloatingConfiguration == toFloatingConfiguration && ((fromFloatingSwitcherVisible ^ toFloatingSwitcherVisible) & 1) == 0 && fromEnvironmentMode == toEnvironmentMode && fromPeekConfiguration == toPeekConfiguration)
+  if (!isGestureInitiated && fromInterfaceOrientation == toInterfaceOrientation && fromFloatingAppLayout == toFloatingAppLayout && fromFloatingConfiguration == toFloatingConfiguration && ((v6 ^ toFloatingSwitcherVisible) & 1) == 0 && fromEnvironmentMode == toEnvironmentMode && fromPeekConfiguration == toPeekConfiguration)
   {
     fromAppLayout = [(SBTransitionSwitcherModifierEvent *)self fromAppLayout];
     toAppLayout = [(SBTransitionSwitcherModifierEvent *)self toAppLayout];

@@ -163,7 +163,7 @@ LABEL_3:
 
 - (id)fileURLForKey:(id)key
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = [key dataUsingEncoding:4];
   CC_SHA1([v4 bytes], objc_msgSend(v4, "length"), md);
   v5 = objc_opt_new();
@@ -174,8 +174,6 @@ LABEL_3:
 
   cacheURL = [(WFDiskCache *)self cacheURL];
   v8 = [cacheURL URLByAppendingPathComponent:v5 isDirectory:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

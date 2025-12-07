@@ -1,5 +1,6 @@
 @interface _DKSyncRapportContextStorage
 + (id)sharedInstance;
+- (void)fetchContextValuesFromPeer:(id)peer forKeyPaths:(id)paths highPriority:(BOOL)priority completion:(id)completion;
 - (void)handleFetchContextValuesWithRequest:(void *)request options:(void *)options responseHandler:;
 - (void)handleFetchContextValuesWithResponse:(void *)response options:(void *)options error:(void *)error peer:(void *)peer plStartDate:(void *)date completion:;
 - (void)handleSendContextValuesWithRequest:(void *)request options:(void *)options responseHandler:;
@@ -9,7 +10,10 @@
 - (void)handleUnsubscribeToContextValueChangeNotificationsWithRequest:(void *)request options:(void *)options responseHandler:;
 - (void)handleUnsubscribeToContextValueChangeNotificationsWithResponse:(void *)response options:(void *)options error:(void *)error peer:(void *)peer plStartDate:(void *)date completion:;
 - (void)registerRequestIDsWithClient:(id)client;
+- (void)sendContextValuesToPeer:(id)peer registrationIdentifier:(id)identifier archivedObjects:(id)objects highPriority:(BOOL)priority completion:(id)completion;
 - (void)setDelegate:(id)delegate;
+- (void)subscribeToContextValueChangeNotificationsFromPeer:(id)peer registrationIdentifier:(id)identifier predicate:(id)predicate highPriority:(BOOL)priority completion:(id)completion;
+- (void)unsubscribeFromContextValueChangeNotificationsFromPeer:(id)peer registrationIdentifier:(id)identifier predicate:(id)predicate highPriority:(BOOL)priority completion:(id)completion;
 @end
 
 @implementation _DKSyncRapportContextStorage
@@ -57,8 +61,8 @@
 
 - (void)handleFetchContextValuesWithRequest:(void *)request options:(void *)options responseHandler:
 {
-  v31[15] = *MEMORY[0x1E69E9840];
-  v29 = a2;
+  v30[15] = *MEMORY[0x1E69E9840];
+  v28 = a2;
   requestCopy = request;
   optionsCopy = options;
   if (self)
@@ -83,7 +87,7 @@
       [_DKSyncRapportContextStorage handleFetchContextValuesWithRequest:options:responseHandler:];
     }
 
-    v12 = [v29 objectForKeyedSubscript:@"keyPaths"];
+    v12 = [v28 objectForKeyedSubscript:@"keyPaths"];
     v13 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
@@ -95,7 +99,7 @@
     }
 
     v14 = self[2];
-    v27 = v14 == 0;
+    v26 = v14 == 0;
     if (v14)
     {
       v15 = [v14 remoteContextStorage:self archivedObjectsForKeyPaths:v12];
@@ -126,19 +130,19 @@
 
     v21 = v20;
 
-    v30[0] = @"server";
-    v30[1] = @"results";
+    v29[0] = @"server";
+    v29[1] = @"results";
     v22 = MEMORY[0x1E695E0F8];
     if (v15)
     {
       v22 = v15;
     }
 
-    v31[0] = v21;
-    v31[1] = v22;
-    v30[2] = @"version";
-    v31[2] = @"3.0";
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:3];
+    v30[0] = v21;
+    v30[1] = v22;
+    v29[2] = @"version";
+    v30[2] = @"3.0";
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:3];
     v24 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
@@ -151,17 +155,15 @@
     if (date)
     {
       date2 = [MEMORY[0x1E695DF00] date];
-      +[_DKSyncPowerlog recordWithSyncType:transportType:startDate:endDate:isEmpty:](_DKSyncPowerlog, "recordWithSyncType:transportType:startDate:endDate:isEmpty:", 0, [self transportType], date, date2, v27);
+      +[_DKSyncPowerlog recordWithSyncType:transportType:startDate:endDate:isEmpty:](_DKSyncPowerlog, "recordWithSyncType:transportType:startDate:endDate:isEmpty:", 0, [self transportType], date, date2, v26);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSendContextValuesWithRequest:(void *)request options:(void *)options responseHandler:
 {
-  v44[12] = *MEMORY[0x1E69E9840];
-  v37 = a2;
+  v43[12] = *MEMORY[0x1E69E9840];
+  v36 = a2;
   requestCopy = request;
   optionsCopy = options;
   if (!self)
@@ -204,9 +206,9 @@
     goto LABEL_27;
   }
 
-  v10 = [v37 objectForKeyedSubscript:@"client"];
-  v34 = [v37 objectForKeyedSubscript:@"id"];
-  v11 = [v37 objectForKeyedSubscript:@"objects"];
+  v10 = [v36 objectForKeyedSubscript:@"client"];
+  v33 = [v36 objectForKeyedSubscript:@"id"];
+  v11 = [v36 objectForKeyedSubscript:@"objects"];
   v12 = +[_DKSyncPeerStatusTracker sharedInstance];
   v13 = [v12 existingPeerWithSourceDeviceID:v10];
   v14 = [requestCopy objectForKeyedSubscript:@"senderIDS"];
@@ -220,13 +222,13 @@
       v17 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v31 = [objc_opt_class() description];
+        v30 = [objc_opt_class() description];
         allKeys = [v11 allKeys];
         _CDPrettyPrintCollection(allKeys, 0, 0, 0);
         *buf = 138543618;
-        v40 = v31;
-        v33 = v41 = 2112;
-        v42 = v33;
+        v39 = v30;
+        v32 = v40 = 2112;
+        v41 = v32;
         _os_log_debug_impl(&dword_191750000, v17, OS_LOG_TYPE_DEBUG, "%{public}@: Received sent context values with key paths '%@'", buf, 0x16u);
       }
 
@@ -234,7 +236,7 @@
       if (objc_opt_isKindOfClass())
       {
         v18 = 0;
-        [self[2] remoteContextStorage:self registrationIdentifier:v34 setArchivedObjects:v11 peer:v13];
+        [self[2] remoteContextStorage:self registrationIdentifier:v33 setArchivedObjects:v11 peer:v13];
       }
 
       else
@@ -291,11 +293,11 @@ LABEL_27:
 
   v26 = v25;
 
-  v43[0] = @"server";
-  v43[1] = @"version";
-  v44[0] = v26;
-  v44[1] = @"3.0";
-  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:2];
+  v42[0] = @"server";
+  v42[1] = @"version";
+  v43[0] = v26;
+  v43[1] = @"3.0";
+  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:2];
   v28 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
@@ -312,13 +314,12 @@ LABEL_27:
   }
 
 LABEL_34:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSubscribeToContextValueChangeNotificationsWithRequest:(void *)request options:(void *)options responseHandler:
 {
-  v59 = *MEMORY[0x1E69E9840];
-  v45 = a2;
+  v58 = *MEMORY[0x1E69E9840];
+  v44 = a2;
   requestCopy = request;
   optionsCopy = options;
   if (!self)
@@ -361,9 +362,9 @@ LABEL_34:
     goto LABEL_24;
   }
 
-  v10 = [v45 objectForKeyedSubscript:@"client"];
-  v11 = [v45 objectForKeyedSubscript:@"id"];
-  v12 = [v45 objectForKeyedSubscript:@"predicate"];
+  v10 = [v44 objectForKeyedSubscript:@"client"];
+  v11 = [v44 objectForKeyedSubscript:@"id"];
+  v12 = [v44 objectForKeyedSubscript:@"predicate"];
   v13 = +[_DKSyncPeerStatusTracker sharedInstance];
   v14 = [v13 existingPeerWithSourceDeviceID:v10];
   v15 = [requestCopy objectForKeyedSubscript:@"senderIDS"];
@@ -404,41 +405,41 @@ LABEL_21:
     v18 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v41 = [objc_opt_class() description];
-      v32 = [v14 me];
-      v33 = @"pseudo ";
-      if (!v32)
+      v40 = [objc_opt_class() description];
+      v31 = [v14 me];
+      v32 = @"pseudo ";
+      if (!v31)
       {
-        v33 = &stru_1F05B9908;
+        v32 = &stru_1F05B9908;
       }
 
-      v39 = v33;
+      v38 = v32;
       identifier = [v14 identifier];
       model = [v14 model];
       if (model)
       {
-        v38 = MEMORY[0x1E696AEC0];
+        v37 = MEMORY[0x1E696AEC0];
         model2 = [v14 model];
-        v34 = [v38 stringWithFormat:@" (%@)", model2];
-        v37 = model2;
+        v33 = [v37 stringWithFormat:@" (%@)", model2];
+        v36 = model2;
       }
 
       else
       {
-        v34 = &stru_1F05B9908;
+        v33 = &stru_1F05B9908;
       }
 
       *buf = 138544386;
-      v50 = v41;
-      v51 = 2112;
-      v52 = v11;
-      v53 = 2114;
-      v54 = v39;
-      v55 = 2114;
-      v56 = identifier;
-      v57 = 2114;
-      v58 = v34;
-      v36 = v34;
+      v49 = v40;
+      v50 = 2112;
+      v51 = v11;
+      v52 = 2114;
+      v53 = v38;
+      v54 = 2114;
+      v55 = identifier;
+      v56 = 2114;
+      v57 = v33;
+      v35 = v33;
       _os_log_debug_impl(&dword_191750000, v18, OS_LOG_TYPE_DEBUG, "%{public}@: Received subscribe to context value changes request for '%@' from %{public}@peer %{public}@%{public}@", buf, 0x34u);
       if (model)
       {
@@ -451,8 +452,8 @@ LABEL_21:
     goto LABEL_23;
   }
 
-  v31 = +[_CDLogging syncChannel];
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  v30 = +[_CDLogging syncChannel];
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     [objc_opt_class() description];
     objc_claimAutoreleasedReturnValue();
@@ -475,11 +476,11 @@ LABEL_24:
 
   v26 = v25;
 
-  v47[0] = @"server";
-  v47[1] = @"version";
-  v48[0] = v26;
-  v48[1] = @"3.0";
-  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
+  v46[0] = @"server";
+  v46[1] = @"version";
+  v47[0] = v26;
+  v47[1] = @"3.0";
+  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:2];
   v28 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
@@ -496,13 +497,12 @@ LABEL_24:
   }
 
 LABEL_31:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleUnsubscribeToContextValueChangeNotificationsWithRequest:(void *)request options:(void *)options responseHandler:
 {
-  v59 = *MEMORY[0x1E69E9840];
-  v45 = a2;
+  v58 = *MEMORY[0x1E69E9840];
+  v44 = a2;
   requestCopy = request;
   optionsCopy = options;
   if (!self)
@@ -545,9 +545,9 @@ LABEL_31:
     goto LABEL_24;
   }
 
-  v10 = [v45 objectForKeyedSubscript:@"client"];
-  v11 = [v45 objectForKeyedSubscript:@"id"];
-  v12 = [v45 objectForKeyedSubscript:@"predicate"];
+  v10 = [v44 objectForKeyedSubscript:@"client"];
+  v11 = [v44 objectForKeyedSubscript:@"id"];
+  v12 = [v44 objectForKeyedSubscript:@"predicate"];
   v13 = +[_DKSyncPeerStatusTracker sharedInstance];
   v14 = [v13 existingPeerWithSourceDeviceID:v10];
   v15 = [requestCopy objectForKeyedSubscript:@"senderIDS"];
@@ -588,41 +588,41 @@ LABEL_21:
     v18 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v41 = [objc_opt_class() description];
-      v32 = [v14 me];
-      v33 = @"pseudo ";
-      if (!v32)
+      v40 = [objc_opt_class() description];
+      v31 = [v14 me];
+      v32 = @"pseudo ";
+      if (!v31)
       {
-        v33 = &stru_1F05B9908;
+        v32 = &stru_1F05B9908;
       }
 
-      v39 = v33;
+      v38 = v32;
       identifier = [v14 identifier];
       model = [v14 model];
       if (model)
       {
-        v38 = MEMORY[0x1E696AEC0];
+        v37 = MEMORY[0x1E696AEC0];
         model2 = [v14 model];
-        v34 = [v38 stringWithFormat:@" (%@)", model2];
-        v37 = model2;
+        v33 = [v37 stringWithFormat:@" (%@)", model2];
+        v36 = model2;
       }
 
       else
       {
-        v34 = &stru_1F05B9908;
+        v33 = &stru_1F05B9908;
       }
 
       *buf = 138544386;
-      v50 = v41;
-      v51 = 2112;
-      v52 = v11;
-      v53 = 2114;
-      v54 = v39;
-      v55 = 2114;
-      v56 = identifier;
-      v57 = 2114;
-      v58 = v34;
-      v36 = v34;
+      v49 = v40;
+      v50 = 2112;
+      v51 = v11;
+      v52 = 2114;
+      v53 = v38;
+      v54 = 2114;
+      v55 = identifier;
+      v56 = 2114;
+      v57 = v33;
+      v35 = v33;
       _os_log_debug_impl(&dword_191750000, v18, OS_LOG_TYPE_DEBUG, "%{public}@: Received unsubscribe to context value changes request for '%@' from %{public}@peer %{public}@%{public}@", buf, 0x34u);
       if (model)
       {
@@ -635,8 +635,8 @@ LABEL_21:
     goto LABEL_23;
   }
 
-  v31 = +[_CDLogging syncChannel];
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  v30 = +[_CDLogging syncChannel];
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     [objc_opt_class() description];
     objc_claimAutoreleasedReturnValue();
@@ -659,11 +659,11 @@ LABEL_24:
 
   v26 = v25;
 
-  v47[0] = @"server";
-  v47[1] = @"version";
-  v48[0] = v26;
-  v48[1] = @"3.0";
-  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
+  v46[0] = @"server";
+  v46[1] = @"version";
+  v47[0] = v26;
+  v47[1] = @"3.0";
+  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:2];
   v28 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
@@ -680,12 +680,112 @@ LABEL_24:
   }
 
 LABEL_31:
-  v30 = *MEMORY[0x1E69E9840];
+}
+
+- (void)fetchContextValuesFromPeer:(id)peer forKeyPaths:(id)paths highPriority:(BOOL)priority completion:(id)completion
+{
+  priorityCopy = priority;
+  v51[3] = *MEMORY[0x1E69E9840];
+  peerCopy = peer;
+  pathsCopy = paths;
+  completionCopy = completion;
+  v13 = +[_DKSyncSerializer underlyingQueue];
+  dispatch_assert_queue_V2(v13);
+
+  myDeviceID = [(_DKSyncRapportStorage *)self myDeviceID];
+  if (-[_DKSyncRapportStorage isAvailable](self, "isAvailable") && ([peerCopy idsDeviceIdentifier], (v15 = objc_claimAutoreleasedReturnValue()) != 0) && (v16 = v15, v17 = -[_DKSyncRapportStorage isTransportActiveForPeer:](self, "isTransportActiveForPeer:", peerCopy), v16, v17))
+  {
+    date = [MEMORY[0x1E695DF00] date];
+    v19 = &stru_1F05B9908;
+    if (myDeviceID)
+    {
+      v20 = myDeviceID;
+    }
+
+    else
+    {
+      v20 = &stru_1F05B9908;
+    }
+
+    v50[0] = @"client";
+    v50[1] = @"keyPaths";
+    v21 = MEMORY[0x1E695E0F0];
+    if (pathsCopy)
+    {
+      v21 = pathsCopy;
+    }
+
+    v51[0] = v20;
+    v51[1] = v21;
+    v50[2] = @"version";
+    v51[2] = @"3.0";
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:3];
+    v23 = +[_CDLogging syncChannel];
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    {
+      v33 = [objc_opt_class() description];
+      v26 = [peerCopy me];
+      v27 = @"pseudo ";
+      if (!v26)
+      {
+        v27 = &stru_1F05B9908;
+      }
+
+      v30 = v27;
+      identifier = [peerCopy identifier];
+      model = [peerCopy model];
+      if (model)
+      {
+        v28 = MEMORY[0x1E696AEC0];
+        model2 = [peerCopy model];
+        v19 = [v28 stringWithFormat:@" (%@)", model2];
+      }
+
+      *buf = 138544386;
+      v41 = v33;
+      v42 = 2114;
+      v43 = v30;
+      v44 = 2114;
+      v45 = identifier;
+      v46 = 2114;
+      v47 = v19;
+      v48 = 2112;
+      v49 = v22;
+      _os_log_debug_impl(&dword_191750000, v23, OS_LOG_TYPE_DEBUG, "%{public}@: Sending fetch context values request to %{public}@peer %{public}@%{public}@: %@", buf, 0x34u);
+      if (model)
+      {
+      }
+    }
+
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __95___DKSyncRapportContextStorage_fetchContextValuesFromPeer_forKeyPaths_highPriority_completion___block_invoke;
+    v36[3] = &unk_1E736AD00;
+    v36[4] = self;
+    v37 = peerCopy;
+    v38 = date;
+    v39 = completionCopy;
+    v24 = completionCopy;
+    v25 = date;
+    [(_DKSyncRapportStorage *)self sendRequestID:@"com.apple.coreduet.fetch-context-values" request:v22 peer:v37 highPriority:priorityCopy options:0 responseHandler:v36];
+  }
+
+  else
+  {
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __95___DKSyncRapportContextStorage_fetchContextValuesFromPeer_forKeyPaths_highPriority_completion___block_invoke_2;
+    v34[3] = &unk_1E7367508;
+    v35 = completionCopy;
+    v22 = completionCopy;
+    [(_DKSyncRapportStorage *)self handleAvailabilityFailureWithPeer:peerCopy completion:v34];
+    v25 = v35;
+  }
 }
 
 - (void)handleFetchContextValuesWithResponse:(void *)response options:(void *)options error:(void *)error peer:(void *)peer plStartDate:(void *)date completion:
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v13 = a2;
   responseCopy = response;
   optionsCopy = options;
@@ -742,41 +842,41 @@ LABEL_31:
   v25 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
-    v35 = [objc_opt_class() description];
+    v34 = [objc_opt_class() description];
     if ([errorCopy me])
     {
-      v30 = @"pseudo ";
+      v29 = @"pseudo ";
     }
 
     else
     {
-      v30 = &stru_1F05B9908;
+      v29 = &stru_1F05B9908;
     }
 
     identifier = [errorCopy identifier];
     model = [errorCopy model];
     if (model)
     {
-      v33 = MEMORY[0x1E696AEC0];
+      v32 = MEMORY[0x1E696AEC0];
       model2 = [errorCopy model];
-      v32 = [v33 stringWithFormat:@" (%@)", model2];
+      v31 = [v32 stringWithFormat:@" (%@)", model2];
     }
 
     else
     {
-      v32 = &stru_1F05B9908;
+      v31 = &stru_1F05B9908;
     }
 
     *buf = 138544386;
-    v39 = v35;
-    v40 = 2114;
-    v41 = v30;
-    v42 = 2114;
-    v43 = identifier;
-    v44 = 2114;
-    v45 = v32;
-    v46 = 2112;
-    v47 = v13;
+    v38 = v34;
+    v39 = 2114;
+    v40 = v29;
+    v41 = 2114;
+    v42 = identifier;
+    v43 = 2114;
+    v44 = v31;
+    v45 = 2112;
+    v46 = v13;
     _os_log_debug_impl(&dword_191750000, v25, OS_LOG_TYPE_DEBUG, "%{public}@: Received fetch context values response from %{public}@peer %{public}@%{public}@: %@", buf, 0x34u);
     if (model)
     {
@@ -823,12 +923,112 @@ LABEL_17:
   }
 
 LABEL_22:
-  v29 = *MEMORY[0x1E69E9840];
+}
+
+- (void)sendContextValuesToPeer:(id)peer registrationIdentifier:(id)identifier archivedObjects:(id)objects highPriority:(BOOL)priority completion:(id)completion
+{
+  priorityCopy = priority;
+  v54[4] = *MEMORY[0x1E69E9840];
+  peerCopy = peer;
+  identifierCopy = identifier;
+  objectsCopy = objects;
+  completionCopy = completion;
+  v16 = +[_DKSyncSerializer underlyingQueue];
+  dispatch_assert_queue_V2(v16);
+
+  myDeviceID = [(_DKSyncRapportStorage *)self myDeviceID];
+  if (identifierCopy && [objectsCopy count] && -[_DKSyncRapportStorage isAvailable](self, "isAvailable") && (objc_msgSend(peerCopy, "idsDeviceIdentifier"), (v18 = objc_claimAutoreleasedReturnValue()) != 0) && (v19 = v18, v20 = -[_DKSyncRapportStorage isTransportActiveForPeer:](self, "isTransportActiveForPeer:", peerCopy), v19, v20))
+  {
+    date = [MEMORY[0x1E695DF00] date];
+    v22 = &stru_1F05B9908;
+    if (myDeviceID)
+    {
+      v22 = myDeviceID;
+    }
+
+    v53[0] = @"client";
+    v53[1] = @"id";
+    v54[0] = v22;
+    v54[1] = identifierCopy;
+    v53[2] = @"objects";
+    v53[3] = @"version";
+    v54[2] = objectsCopy;
+    v54[3] = @"3.0";
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:4];
+    v24 = +[_CDLogging syncChannel];
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    {
+      v33 = date;
+      v36 = v23;
+      v35 = [objc_opt_class() description];
+      v26 = [peerCopy me];
+      v27 = @"pseudo ";
+      v28 = &stru_1F05B9908;
+      if (!v26)
+      {
+        v27 = &stru_1F05B9908;
+      }
+
+      v32 = v27;
+      identifier = [peerCopy identifier];
+      model = [peerCopy model];
+      if (model)
+      {
+        v30 = MEMORY[0x1E696AEC0];
+        model2 = [peerCopy model];
+        v28 = [v30 stringWithFormat:@" (%@)", model2];
+      }
+
+      *buf = 138544386;
+      v44 = v35;
+      v45 = 2114;
+      v46 = v32;
+      v47 = 2114;
+      v48 = identifier;
+      v49 = 2114;
+      v50 = v28;
+      v51 = 2112;
+      v52 = v36;
+      _os_log_debug_impl(&dword_191750000, v24, OS_LOG_TYPE_DEBUG, "%{public}@: Sending send context values to %{public}@peer %{public}@%{public}@: %@", buf, 0x34u);
+      if (model)
+      {
+      }
+
+      v23 = v36;
+      date = v33;
+    }
+
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __119___DKSyncRapportContextStorage_sendContextValuesToPeer_registrationIdentifier_archivedObjects_highPriority_completion___block_invoke;
+    v39[3] = &unk_1E736AD00;
+    v39[4] = self;
+    v40 = peerCopy;
+    v41 = date;
+    v42 = completionCopy;
+    v25 = date;
+    [(_DKSyncRapportStorage *)self sendRequestID:@"com.apple.coreduet.send-context-values" request:v23 peer:v40 highPriority:priorityCopy options:0 responseHandler:v39];
+  }
+
+  else if ([objectsCopy count])
+  {
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __119___DKSyncRapportContextStorage_sendContextValuesToPeer_registrationIdentifier_archivedObjects_highPriority_completion___block_invoke_2;
+    v37[3] = &unk_1E7367508;
+    v38 = completionCopy;
+    [(_DKSyncRapportStorage *)self handleAvailabilityFailureWithPeer:peerCopy completion:v37];
+  }
+
+  else
+  {
+    (*(completionCopy + 2))(completionCopy, 0);
+  }
 }
 
 - (void)handleSendContextValuesWithResponse:(void *)response options:(void *)options error:(void *)error peer:(void *)peer plStartDate:(void *)date completion:
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v14 = a2;
   responseCopy = response;
   optionsCopy = options;
@@ -868,39 +1068,39 @@ LABEL_22:
       v24 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        v34 = [objc_opt_class() description];
-        v28 = [errorCopy me];
-        v29 = &stru_1F05B9908;
-        if (v28)
+        v33 = [objc_opt_class() description];
+        v27 = [errorCopy me];
+        v28 = &stru_1F05B9908;
+        if (v27)
         {
-          v29 = @"pseudo ";
+          v28 = @"pseudo ";
         }
 
-        v32 = v29;
+        v31 = v28;
         identifier = [errorCopy identifier];
         model = [errorCopy model];
         if (model)
         {
-          v31 = MEMORY[0x1E696AEC0];
+          v30 = MEMORY[0x1E696AEC0];
           model2 = [errorCopy model];
-          v30 = [v31 stringWithFormat:@" (%@)", model2];
+          v29 = [v30 stringWithFormat:@" (%@)", model2];
         }
 
         else
         {
-          v30 = &stru_1F05B9908;
+          v29 = &stru_1F05B9908;
         }
 
         *buf = 138544386;
-        v37 = v34;
-        v38 = 2114;
-        v39 = v32;
-        v40 = 2114;
-        v41 = identifier;
-        v42 = 2114;
-        v43 = v30;
-        v44 = 2112;
-        v45 = v14;
+        v36 = v33;
+        v37 = 2114;
+        v38 = v31;
+        v39 = 2114;
+        v40 = identifier;
+        v41 = 2114;
+        v42 = v29;
+        v43 = 2112;
+        v44 = v14;
         _os_log_debug_impl(&dword_191750000, v24, OS_LOG_TYPE_DEBUG, "%{public}@: Received sent context values response from %{public}@peer %{public}@%{public}@: %@", buf, 0x34u);
         if (model)
         {
@@ -931,13 +1131,114 @@ LABEL_22:
       }
     }
   }
+}
 
-  v27 = *MEMORY[0x1E69E9840];
+- (void)subscribeToContextValueChangeNotificationsFromPeer:(id)peer registrationIdentifier:(id)identifier predicate:(id)predicate highPriority:(BOOL)priority completion:(id)completion
+{
+  priorityCopy = priority;
+  v56[4] = *MEMORY[0x1E69E9840];
+  peerCopy = peer;
+  identifierCopy = identifier;
+  predicateCopy = predicate;
+  completionCopy = completion;
+  v16 = +[_DKSyncSerializer underlyingQueue];
+  dispatch_assert_queue_V2(v16);
+
+  myDeviceID = [(_DKSyncRapportStorage *)self myDeviceID];
+  v18 = [identifierCopy length];
+  if (predicateCopy && v18 && -[_DKSyncRapportStorage isAvailable](self, "isAvailable") && ([peerCopy idsDeviceIdentifier], (v19 = objc_claimAutoreleasedReturnValue()) != 0) && (v20 = v19, v21 = -[_DKSyncRapportStorage isTransportActiveForPeer:](self, "isTransportActiveForPeer:", peerCopy), v20, v21))
+  {
+    date = [MEMORY[0x1E695DF00] date];
+    v23 = &stru_1F05B9908;
+    if (myDeviceID)
+    {
+      v23 = myDeviceID;
+    }
+
+    v55[0] = @"client";
+    v55[1] = @"id";
+    v56[0] = v23;
+    v56[1] = identifierCopy;
+    v55[2] = @"predicate";
+    v55[3] = @"version";
+    v56[2] = predicateCopy;
+    v56[3] = @"3.0";
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:4];
+    v25 = +[_CDLogging syncChannel];
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    {
+      v35 = date;
+      v38 = v24;
+      v37 = [objc_opt_class() description];
+      v28 = [peerCopy me];
+      v29 = @"pseudo ";
+      v30 = &stru_1F05B9908;
+      if (!v28)
+      {
+        v29 = &stru_1F05B9908;
+      }
+
+      v34 = v29;
+      identifier = [peerCopy identifier];
+      model = [peerCopy model];
+      if (model)
+      {
+        v32 = MEMORY[0x1E696AEC0];
+        model2 = [peerCopy model];
+        v30 = [v32 stringWithFormat:@" (%@)", model2];
+      }
+
+      *buf = 138544386;
+      v46 = v37;
+      v47 = 2114;
+      v48 = v34;
+      v49 = 2114;
+      v50 = identifier;
+      v51 = 2114;
+      v52 = v30;
+      v53 = 2112;
+      v54 = v38;
+      _os_log_debug_impl(&dword_191750000, v25, OS_LOG_TYPE_DEBUG, "%{public}@: Sending subscribe to context value changes request to %{public}@peer %{public}@%{public}@: %@", buf, 0x34u);
+      if (model)
+      {
+      }
+
+      v24 = v38;
+      date = v35;
+    }
+
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __140___DKSyncRapportContextStorage_subscribeToContextValueChangeNotificationsFromPeer_registrationIdentifier_predicate_highPriority_completion___block_invoke;
+    v41[3] = &unk_1E736AD00;
+    v41[4] = self;
+    v42 = peerCopy;
+    v43 = date;
+    v44 = completionCopy;
+    v26 = date;
+    [(_DKSyncRapportStorage *)self sendRequestID:@"com.apple.coreduet.subscribe-to-context-value-changes" request:v24 peer:v42 highPriority:priorityCopy options:0 responseHandler:v41];
+  }
+
+  else if ([identifierCopy length])
+  {
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __140___DKSyncRapportContextStorage_subscribeToContextValueChangeNotificationsFromPeer_registrationIdentifier_predicate_highPriority_completion___block_invoke_2;
+    v39[3] = &unk_1E7367508;
+    v40 = completionCopy;
+    [(_DKSyncRapportStorage *)self handleAvailabilityFailureWithPeer:peerCopy completion:v39];
+  }
+
+  else
+  {
+    v27 = +[_DKSyncErrors internalFailure];
+    (*(completionCopy + 2))(completionCopy, v27);
+  }
 }
 
 - (void)handleSubscribeToContextValueChangeNotificationsWithResponse:(void *)response options:(void *)options error:(void *)error peer:(void *)peer plStartDate:(void *)date completion:
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v14 = a2;
   responseCopy = response;
   optionsCopy = options;
@@ -977,39 +1278,39 @@ LABEL_22:
       v24 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        v34 = [objc_opt_class() description];
-        v28 = [errorCopy me];
-        v29 = &stru_1F05B9908;
-        if (v28)
+        v33 = [objc_opt_class() description];
+        v27 = [errorCopy me];
+        v28 = &stru_1F05B9908;
+        if (v27)
         {
-          v29 = @"pseudo ";
+          v28 = @"pseudo ";
         }
 
-        v32 = v29;
+        v31 = v28;
         identifier = [errorCopy identifier];
         model = [errorCopy model];
         if (model)
         {
-          v31 = MEMORY[0x1E696AEC0];
+          v30 = MEMORY[0x1E696AEC0];
           model2 = [errorCopy model];
-          v30 = [v31 stringWithFormat:@" (%@)", model2];
+          v29 = [v30 stringWithFormat:@" (%@)", model2];
         }
 
         else
         {
-          v30 = &stru_1F05B9908;
+          v29 = &stru_1F05B9908;
         }
 
         *buf = 138544386;
-        v37 = v34;
-        v38 = 2114;
-        v39 = v32;
-        v40 = 2114;
-        v41 = identifier;
-        v42 = 2114;
-        v43 = v30;
-        v44 = 2112;
-        v45 = v14;
+        v36 = v33;
+        v37 = 2114;
+        v38 = v31;
+        v39 = 2114;
+        v40 = identifier;
+        v41 = 2114;
+        v42 = v29;
+        v43 = 2112;
+        v44 = v14;
         _os_log_debug_impl(&dword_191750000, v24, OS_LOG_TYPE_DEBUG, "%{public}@: Received subscribe to context value changes response from %{public}@peer %{public}@%{public}@: %@", buf, 0x34u);
         if (model)
         {
@@ -1040,13 +1341,114 @@ LABEL_22:
       }
     }
   }
+}
 
-  v27 = *MEMORY[0x1E69E9840];
+- (void)unsubscribeFromContextValueChangeNotificationsFromPeer:(id)peer registrationIdentifier:(id)identifier predicate:(id)predicate highPriority:(BOOL)priority completion:(id)completion
+{
+  priorityCopy = priority;
+  v56[4] = *MEMORY[0x1E69E9840];
+  peerCopy = peer;
+  identifierCopy = identifier;
+  predicateCopy = predicate;
+  completionCopy = completion;
+  v16 = +[_DKSyncSerializer underlyingQueue];
+  dispatch_assert_queue_V2(v16);
+
+  myDeviceID = [(_DKSyncRapportStorage *)self myDeviceID];
+  v18 = [identifierCopy length];
+  if (predicateCopy && v18 && -[_DKSyncRapportStorage isAvailable](self, "isAvailable") && ([peerCopy idsDeviceIdentifier], (v19 = objc_claimAutoreleasedReturnValue()) != 0) && (v20 = v19, v21 = -[_DKSyncRapportStorage isTransportActiveForPeer:](self, "isTransportActiveForPeer:", peerCopy), v20, v21))
+  {
+    date = [MEMORY[0x1E695DF00] date];
+    v23 = &stru_1F05B9908;
+    if (myDeviceID)
+    {
+      v23 = myDeviceID;
+    }
+
+    v55[0] = @"client";
+    v55[1] = @"id";
+    v56[0] = v23;
+    v56[1] = identifierCopy;
+    v55[2] = @"predicate";
+    v55[3] = @"version";
+    v56[2] = predicateCopy;
+    v56[3] = @"3.0";
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:4];
+    v25 = +[_CDLogging syncChannel];
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    {
+      v35 = date;
+      v38 = v24;
+      v37 = [objc_opt_class() description];
+      v28 = [peerCopy me];
+      v29 = @"pseudo ";
+      v30 = &stru_1F05B9908;
+      if (!v28)
+      {
+        v29 = &stru_1F05B9908;
+      }
+
+      v34 = v29;
+      identifier = [peerCopy identifier];
+      model = [peerCopy model];
+      if (model)
+      {
+        v32 = MEMORY[0x1E696AEC0];
+        model2 = [peerCopy model];
+        v30 = [v32 stringWithFormat:@" (%@)", model2];
+      }
+
+      *buf = 138544386;
+      v46 = v37;
+      v47 = 2114;
+      v48 = v34;
+      v49 = 2114;
+      v50 = identifier;
+      v51 = 2114;
+      v52 = v30;
+      v53 = 2112;
+      v54 = v38;
+      _os_log_debug_impl(&dword_191750000, v25, OS_LOG_TYPE_DEBUG, "%{public}@: Sending unsubscribe to context value changes request to %{public}@peer %{public}@%{public}@: %@", buf, 0x34u);
+      if (model)
+      {
+      }
+
+      v24 = v38;
+      date = v35;
+    }
+
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __144___DKSyncRapportContextStorage_unsubscribeFromContextValueChangeNotificationsFromPeer_registrationIdentifier_predicate_highPriority_completion___block_invoke;
+    v41[3] = &unk_1E736AD00;
+    v41[4] = self;
+    v42 = peerCopy;
+    v43 = date;
+    v44 = completionCopy;
+    v26 = date;
+    [(_DKSyncRapportStorage *)self sendRequestID:@"com.apple.coreduet.unsubscribe-to-context-value-changes" request:v24 peer:v42 highPriority:priorityCopy options:0 responseHandler:v41];
+  }
+
+  else if ([identifierCopy length])
+  {
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __144___DKSyncRapportContextStorage_unsubscribeFromContextValueChangeNotificationsFromPeer_registrationIdentifier_predicate_highPriority_completion___block_invoke_2;
+    v39[3] = &unk_1E7367508;
+    v40 = completionCopy;
+    [(_DKSyncRapportStorage *)self handleAvailabilityFailureWithPeer:peerCopy completion:v39];
+  }
+
+  else
+  {
+    v27 = +[_DKSyncErrors internalFailure];
+    (*(completionCopy + 2))(completionCopy, v27);
+  }
 }
 
 - (void)handleUnsubscribeToContextValueChangeNotificationsWithResponse:(void *)response options:(void *)options error:(void *)error peer:(void *)peer plStartDate:(void *)date completion:
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v14 = a2;
   responseCopy = response;
   optionsCopy = options;
@@ -1086,39 +1488,39 @@ LABEL_22:
       v24 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        v34 = [objc_opt_class() description];
-        v28 = [errorCopy me];
-        v29 = &stru_1F05B9908;
-        if (v28)
+        v33 = [objc_opt_class() description];
+        v27 = [errorCopy me];
+        v28 = &stru_1F05B9908;
+        if (v27)
         {
-          v29 = @"pseudo ";
+          v28 = @"pseudo ";
         }
 
-        v32 = v29;
+        v31 = v28;
         identifier = [errorCopy identifier];
         model = [errorCopy model];
         if (model)
         {
-          v31 = MEMORY[0x1E696AEC0];
+          v30 = MEMORY[0x1E696AEC0];
           model2 = [errorCopy model];
-          v30 = [v31 stringWithFormat:@" (%@)", model2];
+          v29 = [v30 stringWithFormat:@" (%@)", model2];
         }
 
         else
         {
-          v30 = &stru_1F05B9908;
+          v29 = &stru_1F05B9908;
         }
 
         *buf = 138544386;
-        v37 = v34;
-        v38 = 2114;
-        v39 = v32;
-        v40 = 2114;
-        v41 = identifier;
-        v42 = 2114;
-        v43 = v30;
-        v44 = 2112;
-        v45 = v14;
+        v36 = v33;
+        v37 = 2114;
+        v38 = v31;
+        v39 = 2114;
+        v40 = identifier;
+        v41 = 2114;
+        v42 = v29;
+        v43 = 2112;
+        v44 = v14;
         _os_log_debug_impl(&dword_191750000, v24, OS_LOG_TYPE_DEBUG, "%{public}@: Received unsubscribe to context value changes response from %{public}@peer %{public}@%{public}@: %@", buf, 0x34u);
         if (model)
         {
@@ -1149,8 +1551,6 @@ LABEL_22:
       }
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDelegate:(id)delegate

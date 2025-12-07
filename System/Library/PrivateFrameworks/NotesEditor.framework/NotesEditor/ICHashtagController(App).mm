@@ -60,7 +60,7 @@ LABEL_5:
           if ((v16 & 1) == 0)
           {
             v32 = a3 >= v31;
-            v33 = a3 - v31;
+            v33 = &a3[-v31];
             if (v32)
             {
               v30 = v33;
@@ -101,7 +101,7 @@ LABEL_30:
           }
 
           v66 = v18;
-          if (rangeOfHashtag + v43 == a3 + a4)
+          if ((rangeOfHashtag + v43) == &a3[a4])
           {
             string = [v67 string];
             if ([self range:rangeOfHashtag hasValidPostfixCharacterForString:{v43, string}])
@@ -355,7 +355,7 @@ LABEL_10:
   string = [v12 string];
   v15 = [string substringWithRange:{a3, a4}];
 
-  if (![MEMORY[0x277D35EE8] shouldAutoConvertToTag] || a3 + a4 > objc_msgSend(v12, "length"))
+  if (![MEMORY[0x277D35EE8] shouldAutoConvertToTag] || &a3[a4] > objc_msgSend(v12, "length"))
   {
     [self updateUIWhenAutoConversionOff:v15 textStorage:v12];
     goto LABEL_4;

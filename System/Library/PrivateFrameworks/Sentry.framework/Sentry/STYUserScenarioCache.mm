@@ -94,11 +94,11 @@
 
 - (STYUserScenarioCache)initWithPlatform:(id)platform
 {
-  v48[2] = *MEMORY[0x277D85DE8];
+  v47[2] = *MEMORY[0x277D85DE8];
   platformCopy = platform;
-  v42.receiver = self;
-  v42.super_class = STYUserScenarioCache;
-  v5 = [(STYUserScenarioCache *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = STYUserScenarioCache;
+  v5 = [(STYUserScenarioCache *)&v41 init];
   if (v5)
   {
     v6 = +[STYDeviceInfo hardwareModel];
@@ -119,23 +119,23 @@
     v15 = v14;
     if (v14)
     {
-      v48[0] = v14;
-      v48[1] = v13;
+      v47[0] = v14;
+      v47[1] = v13;
       v16 = MEMORY[0x277CBEA60];
-      v17 = v48;
+      v17 = v47;
       v18 = 2;
     }
 
     else
     {
-      v47 = v13;
+      v46 = v13;
       v16 = MEMORY[0x277CBEA60];
-      v17 = &v47;
+      v17 = &v46;
       v18 = 1;
     }
 
     v19 = [v16 arrayWithObjects:v17 count:v18];
-    v41 = v13;
+    v40 = v13;
     v20 = 0x277CCA000uLL;
     v21 = 0x277CBE000uLL;
     if ([(STYUserScenarioCache *)v5 setupWhitelistedScenarios:platformCopy bundles:v19])
@@ -144,11 +144,11 @@
       v22 = MEMORY[0x277CCA9B8];
       v23 = STYUserScenarioErrorDomain;
       v24 = *MEMORY[0x277CCA450];
-      v45 = *MEMORY[0x277CCA450];
+      v44 = *MEMORY[0x277CCA450];
       mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
       v26 = [mainBundle localizedStringForKey:@"Failed to retrieve bundle id for signpost event" value:&stru_287705D88 table:0];
-      v46 = v26;
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+      v45 = v26;
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
       v28 = v22;
       v20 = 0x277CCA000;
       v29 = [v28 errorWithDomain:v23 code:-2008 userInfo:v27];
@@ -166,11 +166,11 @@
 
     v31 = *(v20 + 2488);
     v32 = STYUserScenarioErrorDomain;
-    v43 = v24;
+    v42 = v24;
     mainBundle2 = [*(v12 + 2264) mainBundle];
     v34 = [mainBundle2 localizedStringForKey:@"Framework is not Configured properly. Please file a bug against Sentry | Framework" value:&stru_287705D88 table:0];
-    v44 = v34;
-    v35 = [*(v21 + 2752) dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+    v43 = v34;
+    v35 = [*(v21 + 2752) dictionaryWithObjects:&v43 forKeys:&v42 count:1];
     v36 = [v31 errorWithDomain:v32 code:-2007 userInfo:v35];
     badConfigError = v5->_badConfigError;
     v5->_badConfigError = v36;
@@ -178,7 +178,6 @@
     v38 = v5;
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -194,29 +193,29 @@
 
 - (id)loadWhitelist:(id)whitelist platform:(id)platform bundles:(id)bundles
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   bundlesCopy = bundles;
   platform = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", whitelist, platform];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = bundlesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v20 + 1) + 8 * i) pathForResource:platform ofType:@"plist"];
+        v14 = [*(*(&v19 + 1) + 8 * i) pathForResource:platform ofType:@"plist"];
         v15 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v14];
 
         if (v15)
@@ -226,7 +225,7 @@
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v11)
       {
         continue;
@@ -246,8 +245,6 @@
 
   v15 = 0;
 LABEL_13:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -398,7 +395,7 @@ LABEL_13:
 
 - (BOOL)isResponsivenessScenarioWhitelisted:(id)whitelisted error:(id *)error
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   whitelistedCopy = whitelisted;
   allKeys = [(NSDictionary *)self->_responsivenessConfigForWhitelistedSubsystems allKeys];
   subsystem = [whitelistedCopy subsystem];
@@ -498,11 +495,11 @@ LABEL_17:
   name3 = [whitelistedCopy name];
   v30 = [v26 stringWithFormat:@"scenario %@.%@.%@ is not whitelisted", subsystem3, category3, name3];
 
-  v37 = *MEMORY[0x277CCA450];
+  v36 = *MEMORY[0x277CCA450];
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   v32 = [mainBundle localizedStringForKey:v30 value:&stru_287705D88 table:0];
-  v38[0] = v32;
-  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+  v37[0] = v32;
+  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
 
   if (error)
   {
@@ -512,55 +509,35 @@ LABEL_17:
   v34 = 0;
 LABEL_20:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
 - (BOOL)isAnimationScenarioWhitelisted:(id)whitelisted error:(id *)error
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   whitelistedCopy = whitelisted;
   allKeys = [(NSDictionary *)self->_animationConfigForWhitelistedSubsystems allKeys];
   subsystem = [whitelistedCopy subsystem];
   v9 = [allKeys containsObject:subsystem];
 
-  if (!v9)
-  {
-    goto LABEL_5;
-  }
-
-  allKeys2 = [(NSDictionary *)self->_animationConfigForWhitelistedCategories allKeys];
-  category = [whitelistedCopy category];
-  v12 = [allKeys2 containsObject:category];
-
-  if (!v12)
-  {
-    goto LABEL_5;
-  }
-
-  allKeys3 = [(NSDictionary *)self->_animationConfigForWhitelistedNames allKeys];
-  name = [whitelistedCopy name];
-  v15 = [allKeys3 containsObject:name];
-
-  if (v15)
+  if (v9 && (-[NSDictionary allKeys](self->_animationConfigForWhitelistedCategories, "allKeys"), v10 = objc_claimAutoreleasedReturnValue(), [whitelistedCopy category], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "containsObject:", v11), v11, v10, v12) && (-[NSDictionary allKeys](self->_animationConfigForWhitelistedNames, "allKeys"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(whitelistedCopy, "name"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "containsObject:", v14), v14, v13, (v15 & 1) != 0))
   {
     v16 = 1;
   }
 
   else
   {
-LABEL_5:
     v17 = MEMORY[0x277CCACA8];
     subsystem2 = [whitelistedCopy subsystem];
-    category2 = [whitelistedCopy category];
-    name2 = [whitelistedCopy name];
-    v21 = [v17 stringWithFormat:@"scenario %@.%@.%@ is not whitelisted", subsystem2, category2, name2];
+    category = [whitelistedCopy category];
+    name = [whitelistedCopy name];
+    v21 = [v17 stringWithFormat:@"scenario %@.%@.%@ is not whitelisted", subsystem2, category, name];
 
-    v27 = *MEMORY[0x277CCA450];
+    v26 = *MEMORY[0x277CCA450];
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     v23 = [mainBundle localizedStringForKey:v21 value:&stru_287705D88 table:0];
-    v28[0] = v23;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v27[0] = v23;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
 
     if (error)
     {
@@ -570,7 +547,6 @@ LABEL_5:
     v16 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -595,29 +571,29 @@ LABEL_5:
 
 - (id)appNameFromBundleId:(id)id
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   idCopy = id;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->_bundleIdForAppName;
-  v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
-        v11 = [(NSDictionary *)self->_bundleIdForAppName objectForKeyedSubscript:v10, v16];
+        v10 = *(*(&v15 + 1) + 8 * i);
+        v11 = [(NSDictionary *)self->_bundleIdForAppName objectForKeyedSubscript:v10, v15];
         v12 = [v11 isEqualToString:idCopy];
 
         if (v12)
@@ -627,7 +603,7 @@ LABEL_5:
         }
       }
 
-      v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -639,8 +615,6 @@ LABEL_5:
 
   v13 = 0;
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -785,7 +759,7 @@ LABEL_11:
 
 - (id)scenarioFromSignpostEvent:(id)event error:(id *)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   subsystem = [eventCopy subsystem];
   if (![subsystem isEqualToString:@"com.apple.FrontBoard"])
@@ -813,19 +787,17 @@ LABEL_6:
 LABEL_7:
   if (*error)
   {
-    v17 = *MEMORY[0x277CCA450];
+    v16 = *MEMORY[0x277CCA450];
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     v13 = [mainBundle localizedStringForKey:@"Signpost is not whitelisted." value:&stru_287705D88 table:0];
-    v18[0] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v17[0] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
 
     *error = [MEMORY[0x277CCA9B8] errorWithDomain:STYUserScenarioErrorDomain code:-2000 userInfo:v14];
   }
 
   v11 = 0;
 LABEL_10:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -851,40 +823,30 @@ uint64_t __35__STYUserScenarioCache_sharedCache__block_invoke()
 
 - (void)loadWhitelist:platform:bundles:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_2656CE000, v0, OS_LOG_TYPE_ERROR, "Unable to load plist: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2656CE000, v0, OS_LOG_TYPE_ERROR, "Unable to load plist: %@", v1, 0xCu);
 }
 
 - (void)isResponsivenessScenarioWhitelisted:(void *)a1 error:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 subsystem];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2656CE000, v2, v3, "Subsystem %@ is not whitelisted", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2656CE000, v2, v3, "Subsystem %@ is not whitelisted", v4, v5, v6, v7);
 }
 
 - (void)isResponsivenessScenarioWhitelisted:(void *)a1 error:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 category];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2656CE000, v2, v3, "Category %@ is not whitelisted", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2656CE000, v2, v3, "Category %@ is not whitelisted", v4, v5, v6, v7);
 }
 
 - (void)isResponsivenessScenarioWhitelisted:(void *)a1 error:.cold.3(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2656CE000, v2, v3, "Name %@ is not whitelisted", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2656CE000, v2, v3, "Name %@ is not whitelisted", v4, v5, v6, v7);
 }
 
 @end

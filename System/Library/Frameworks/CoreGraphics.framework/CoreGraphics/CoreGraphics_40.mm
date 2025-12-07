@@ -3910,7 +3910,7 @@ LABEL_74:
 
           else
           {
-            v50 = (a2 + 6);
+            v50 = a2 + 6;
           }
 
           a2[4] = a2 + 6;
@@ -4022,7 +4022,7 @@ CFStringRef image_provider_copy_debug_description(uint64_t a1)
     return 0;
   }
 
-  return create_debug_string(a1, v2, v3, v4, v5, v6, v7, v8);
+  return create_debug_string(a1);
 }
 
 CFStringRef image_provider_copy_format_description(uint64_t a1)
@@ -4032,7 +4032,7 @@ CFStringRef image_provider_copy_format_description(uint64_t a1)
     return 0;
   }
 
-  return create_debug_string(a1, v2, v3, v4, v5, v6, v7, v8);
+  return create_debug_string(a1);
 }
 
 uint64_t CGImageProviderGetTypeID()
@@ -4359,7 +4359,7 @@ uint64_t CPPDFStyleEqual(uint64_t a1, uint64_t a2, __int16 a3)
   return result;
 }
 
-uint64_t hasConsistentSpacing(uint64_t a1, unsigned int *a2, void *a3, int *a4)
+uint64_t hasConsistentSpacing(uint64_t a1, unsigned int *a2, void *a3, unsigned int *a4)
 {
   v4 = *a4 | a2[3];
   *a4 = v4;
@@ -4435,11 +4435,11 @@ uint64_t hasConsistentSpacing(uint64_t a1, unsigned int *a2, void *a3, int *a4)
   return result;
 }
 
-uint64_t markSplitByGuide(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t markSplitByGuide(uint64_t a1, uint64_t a2, uint64_t a3, void **a4)
 {
-  if (*(a2 + 8) >= 2 && (isSplitByStripArray(a1, a2, *a4, 1) || isSplitByStripArray(a1, a2, *(a4 + 8), 0) || isSplitByStripArray(a1, a2, *(a4 + 16), 0) || (*(a1 + 12) & 0xA) != 0 || (*(a2 + 12) & 5) != 0))
+  if (*(a2 + 8) >= 2 && (isSplitByStripArray(a1, a2, *a4, 1) || isSplitByStripArray(a1, a2, a4[1], 0) || isSplitByStripArray(a1, a2, a4[2], 0) || (*(a1 + 12) & 0xA) != 0 || (*(a2 + 12) & 5) != 0))
   {
-    *(a4 + 24) = a2;
+    a4[3] = a2;
   }
 
   return 1;
@@ -4577,7 +4577,7 @@ LABEL_19:
     v12 = a3;
     v13 = a5;
     v14 = [a4 charAtIndex:*v8];
-    v15 = [a4 charAtIndex:v11 + *v8 - 1];
+    v15 = [a4 charAtIndex:(v11 + *v8 - 1)];
     v16 = *(v14 + 80);
     v17 = *(v15 + 80) + *(v15 + 144);
     v18 = *(a6 + 32);
@@ -4683,7 +4683,7 @@ LABEL_19:
     v12 = a3;
     v13 = a5;
     v14 = [a4 charAtIndex:*v8];
-    v15 = [a4 charAtIndex:v11 + *v8 - 1];
+    v15 = [a4 charAtIndex:(v11 + *v8 - 1)];
     v16 = *(v14 + 80);
     v17 = *(v15 + 80) + *(v15 + 144);
     v18 = *(a6 + 40);
@@ -4789,7 +4789,7 @@ LABEL_23:
     v12 = a3;
     v13 = a5;
     v14 = [a4 charAtIndex:*v8];
-    v15 = [a4 charAtIndex:v11 + *v8 - 1];
+    v15 = [a4 charAtIndex:(v11 + *v8 - 1)];
     v16 = *(v14 + 80);
     v17 = *(v15 + 80) + *(v15 + 144);
     v18 = *(a6 + 32);
@@ -5001,72 +5001,72 @@ size_t skip_swapped_bytes(uint64_t a1, uint64_t a2)
   return CGAccessSessionSkipForward(v4, a2);
 }
 
-unint64_t get_swapped_bytes(int *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t get_swapped_bytes(int *a1, int8x16_t *a2, unint64_t a3)
 {
-  v11 = *(a1 + 2);
-  if (!v11)
+  v6 = *(a1 + 2);
+  if (!v6)
   {
-    v11 = CGAccessSessionCreate(*(a1 + 1));
-    *(a1 + 2) = v11;
+    v6 = CGAccessSessionCreate(*(a1 + 1));
+    *(a1 + 2) = v6;
   }
 
-  result = CGAccessSessionGetBytes(v11, a2->i8, a3, a4, a5, a6, a7, a8);
+  result = CGAccessSessionGetBytes(v6, a2->i8, a3);
   if (result < 8)
   {
-    v14 = result;
+    v9 = result;
   }
 
   else
   {
-    v13 = *a1;
-    v14 = (result + v13 - 1) & -v13;
-    v15.i64[1] = 0xF0E0D0C0B0A0908;
-    v16 = veorq_s8(vdupq_n_s8(v13 - 1), xmmword_18439C980);
-    if (v14 >= 0x20)
+    v8 = *a1;
+    v9 = (result + v8 - 1) & -v8;
+    v10.i64[1] = 0xF0E0D0C0B0A0908;
+    v11 = veorq_s8(vdupq_n_s8(v8 - 1), xmmword_18439C980);
+    if (v9 >= 0x20)
     {
       do
       {
-        v15 = vqtbl1q_s8(a2[1], v16);
-        *a2 = vqtbl1q_s8(*a2, v16);
-        a2[1] = v15;
+        v10 = vqtbl1q_s8(a2[1], v11);
+        *a2 = vqtbl1q_s8(*a2, v11);
+        a2[1] = v10;
         a2 += 2;
-        v14 -= 32;
+        v9 -= 32;
       }
 
-      while (v14 > 0x1F);
+      while (v9 > 0x1F);
     }
 
-    if (v14 >= 8)
+    if (v9 >= 8)
     {
       do
       {
-        v15.i64[0] = a2->i64[0];
-        *a2->i8 = vqtbl1_s8(v15, *v16.i8);
+        v10.i64[0] = a2->i64[0];
+        *a2->i8 = vqtbl1_s8(v10, *v11.i8);
         a2 = (a2 + 8);
-        v14 -= 8;
+        v9 -= 8;
       }
 
-      while (v14 > 7);
+      while (v9 > 7);
     }
   }
 
-  v17 = *a1;
+  v12 = *a1;
   if (*a1 == 2)
   {
-    if (v14)
+    if (v9)
     {
-      for (i = 0; i < v14; i += 2)
+      for (i = 0; i < v9; i += 2)
       {
         a2->i16[i / 2] = bswap32(a2->u16[i / 2]) >> 16;
       }
     }
   }
 
-  else if (v17 == 4)
+  else if (v12 == 4)
   {
-    if (v14)
+    if (v9)
     {
-      for (j = 0; j < v14; j += 4)
+      for (j = 0; j < v9; j += 4)
       {
         a2->i32[j / 4] = bswap32(a2->u32[j / 4]);
       }
@@ -5075,12 +5075,12 @@ unint64_t get_swapped_bytes(int *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, ui
 
   else
   {
-    if (v17 != 8)
+    if (v12 != 8)
     {
       abort();
     }
 
-    if (v14)
+    if (v9)
     {
       a2->i64[0] = bswap64(a2->i64[0]);
     }
@@ -6199,16 +6199,16 @@ __CFDictionary *copy_pdf_description(void *a1)
           v14 = print_program(v12, v10);
           if (v14 > program_string_length)
           {
-            _CGHandleAssert("type4_program_create_string", 237, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/PDF/Functions/type4-program.c", "size <= length", "size of program (%lu) overflowed length (%lu)", v15, v16, v17, v14);
+            _CGHandleAssert("type4_program_create_string", 237, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/PDF/Functions/type4-program.c", "size <= length", "size of program (%lu) overflowed length (%lu)", v14, program_string_length);
           }
 
-          v18 = strlen(v13);
-          v19 = CFDataCreate(*MEMORY[0x1E695E480], v13, v18);
-          if (v19)
+          v15 = strlen(v13);
+          v16 = CFDataCreate(*MEMORY[0x1E695E480], v13, v15);
+          if (v16)
           {
-            v20 = v19;
-            CFDictionarySetValue(v3, @"/%Stream", v19);
-            CFRelease(v20);
+            v17 = v16;
+            CFDictionarySetValue(v3, @"/%Stream", v16);
+            CFRelease(v17);
             free(v13);
             return v3;
           }
@@ -6225,22 +6225,22 @@ __CFDictionary *copy_pdf_description(void *a1)
   return v3;
 }
 
-void type4_evaluate(unint64_t *a1, double *a2, uint64_t a3)
+void type4_evaluate(unint64_t *result, double *a2, uint64_t *a3)
 {
-  if (!a1)
+  if (!result)
   {
     return;
   }
 
   v3 = a3;
-  v5 = *a1;
-  if (!*a1)
+  v5 = *result;
+  if (!*result)
   {
 LABEL_19:
-    v18 = a1[2];
+    v18 = result[2];
     if (v18)
     {
-      v19 = *(a1[5] + 16);
+      v19 = *(result[5] + 16);
       do
       {
         v20 = *v19++;
@@ -6276,16 +6276,16 @@ LABEL_19:
   {
 LABEL_4:
     v7 = 0;
-    v8 = a1[6];
+    v8 = result[6];
     atomic_compare_exchange_strong_explicit(v8, &v7, 1u, memory_order_relaxed, memory_order_relaxed);
     v9 = v7 == 0;
     if (v8 && v9)
     {
-      v10 = *a1;
-      if (!*a1)
+      v10 = *result;
+      if (!*result)
       {
 LABEL_10:
-        v13 = a1[2];
+        v13 = result[2];
         if (v13)
         {
           v14 = *(v8 + 16);
@@ -6331,9 +6331,9 @@ LABEL_34:
       }
     }
 
-    evaluate(a1, a2, a3);
+    evaluate(result, a2, a3);
     v22 = 0;
-    v8 = a1[6];
+    v8 = result[6];
     atomic_compare_exchange_strong_explicit(v8, &v22, 1u, memory_order_relaxed, memory_order_relaxed);
     v23 = v22 == 0;
     if (!v8 || !v23)
@@ -6341,8 +6341,8 @@ LABEL_34:
       return;
     }
 
-    v24 = *a1;
-    if (*a1)
+    v24 = *result;
+    if (*result)
     {
       v25 = *(v8 + 8);
       do
@@ -6355,7 +6355,7 @@ LABEL_34:
       while (v24);
     }
 
-    v27 = a1[2];
+    v27 = result[2];
     if (v27)
     {
       v28 = *(v8 + 16);
@@ -6373,7 +6373,7 @@ LABEL_34:
   }
 }
 
-void evaluate(uint64_t a1, double *a2, uint64_t a3)
+void evaluate(void *a1, double *a2, uint64_t a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   v18 = 0;
@@ -6413,8 +6413,8 @@ void evaluate(uint64_t a1, double *a2, uint64_t a3)
 
   v7 = 0.0;
 LABEL_9:
-  type4_program_execute(*(a1 + 32), &v16);
-  v9 = *(a1 + 16);
+  type4_program_execute(a1[4], &v16);
+  v9 = a1[2];
   if (v9)
   {
     v10 = 0;
@@ -6449,7 +6449,7 @@ LABEL_9:
       else
       {
         pdf_error("error evaluating Type 4 function: typecheck.");
-        v9 = *(a1 + 16);
+        v9 = a1[2];
         v15 = 0.0;
       }
 
@@ -7069,45 +7069,45 @@ uint64_t CGPDFLayoutIsWhiteSpaceCharacter(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void CGPDFLayoutBufferUnicodeAndBoundsForRange(uint64_t a1, _WORD *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void CGPDFLayoutBufferUnicodeAndBoundsForRange(uint64_t a1, _WORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6, double a7, double a8, double a9, __n128 a10)
 {
   if (a1)
   {
-    v5 = a4;
+    v10 = a4;
     if ((a4 & 0x8000000000000000) == 0)
     {
-      v6 = *(a1 + 48);
-      if (a4 + a5 <= v6)
+      v11 = *(a1 + 48);
+      if (a4 + a5 <= v11)
       {
-        v7 = *(a1 + 24);
-        if (v7)
+        v12 = *(a1 + 24);
+        if (v12)
         {
           if (a5 >= 1)
           {
-            if (a4 + a5 >= v6)
+            if (a4 + a5 >= v11)
             {
-              v10 = *(a1 + 48);
+              v15 = *(a1 + 48);
             }
 
             else
             {
-              v10 = a4 + a5;
+              v15 = a4 + a5;
             }
 
-            v11 = (v7 + 24 * a4);
-            v12 = a2;
-            v13 = a3;
+            v16 = (v12 + 24 * a4);
+            v17 = a2;
+            v18 = a3;
             do
             {
               if (a2)
               {
-                v14 = *v11;
-                if (*v11)
+                v19 = *v16;
+                if (*v16)
                 {
-                  LOWORD(v14) = LOWORD(v14->height);
+                  LOWORD(v19) = LOWORD(v19->height);
                 }
 
-                *v12++ = v14;
+                *v17++ = v19;
               }
 
               if (a3)
@@ -7115,23 +7115,23 @@ void CGPDFLayoutBufferUnicodeAndBoundsForRange(uint64_t a1, _WORD *a2, uint64_t 
                 p_height = &CGRectNull.size.height;
                 p_size = &CGRectNull.size;
                 p_y = &CGRectNull.origin.y;
-                v18 = v11[1];
-                if (*v11)
+                v23 = v16[1];
+                if (*v16)
                 {
-                  p_y = &(*v11)[1].height;
-                  p_size = *v11 + 2;
-                  p_height = &(*v11)[2].height;
-                  v19 = &(*v11)[1];
+                  p_y = &(*v16)[1].height;
+                  p_size = *v16 + 2;
+                  p_height = &(*v16)[2].height;
+                  v24 = &(*v16)[1];
                 }
 
                 else
                 {
-                  v19 = &CGRectNull;
+                  v24 = &CGRectNull;
                 }
 
-                if (v18)
+                if (v23)
                 {
-                  height = v18[2].height;
+                  height = v23[2].height;
                 }
 
                 else
@@ -7139,18 +7139,18 @@ void CGPDFLayoutBufferUnicodeAndBoundsForRange(uint64_t a1, _WORD *a2, uint64_t 
                   height = 0.0;
                 }
 
-                *v13 = CGRectUprightBoundsForRotation(v19->origin.x, *p_y, p_size->width, *p_height, height);
-                *(v13 + 8) = v21;
-                *(v13 + 16) = v22;
-                *(v13 + 24) = v23;
-                v13 += 32;
+                *v18 = CGRectUprightBoundsForRotation(v24->origin.x, *p_y, p_size->width, *p_height, height);
+                *(v18 + 8) = v26;
+                *(v18 + 16) = v27;
+                *(v18 + 24) = v28;
+                v18 += 32;
               }
 
-              ++v5;
-              v11 += 3;
+              ++v10;
+              v16 += 3;
             }
 
-            while (v5 < v10);
+            while (v10 < v15);
           }
         }
       }
@@ -7179,13 +7179,13 @@ CGFloat CGRectUprightBoundsForRotation(CGFloat a1, CGFloat a2, CGFloat a3, CGFlo
   return a1;
 }
 
-uint64_t CreateSelectionBetweenPoints(uint64_t a1, unsigned int a2, uint64_t a3, double a4, double a5, double a6, double a7)
+uint64_t CreateSelectionBetweenPoints(uint64_t a1, unsigned int a2, uint64_t a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7)
 {
   v8 = a1;
-  v96 = a4;
-  v97 = a5;
-  v94 = a6;
-  v95 = a7;
+  v88 = a4.n128_f64[0];
+  v89 = a5.n128_f64[0];
+  v86 = a6.n128_f64[0];
+  v87 = a7.n128_f64[0];
   if (a2)
   {
     if (!a1)
@@ -7204,9 +7204,9 @@ uint64_t CreateSelectionBetweenPoints(uint64_t a1, unsigned int a2, uint64_t a3,
       v11 = dword_1844DC0C8[a2 - 1];
     }
 
-    v93 = 0;
-    v91 = 0;
-    v92 = 0;
+    v85 = 0;
+    v83 = 0;
+    v84 = 0;
     if (a2 == 1)
     {
       v13 = 1.0;
@@ -7218,22 +7218,22 @@ uint64_t CreateSelectionBetweenPoints(uint64_t a1, unsigned int a2, uint64_t a3,
     }
 
     RangeFromStringRange = 0;
-    v90 = 0;
-    CGPDFNodeGetNodeRangeBetweenPoints(v10, v11, a3, &v92, &v91, &v93, &RangeFromStringRange, a4, a5, a6, a7, v13);
-    v15 = v91;
-    v14 = v92;
-    if (v92 == v91)
+    v82 = 0;
+    CGPDFNodeGetNodeRangeBetweenPoints(v10, v11, a3, &v84, &v83, &v85, &RangeFromStringRange, a4, a5, a6, a7.n128_f64[0], v13);
+    v15 = v83;
+    v14 = v84;
+    if (v84 == v83)
     {
-      if (v92)
+      if (v84)
       {
-        TextRange = CGPDFNodeGetTextRange(v92);
-        v20 = CPRangeUnion(TextRange, v19, RangeFromStringRange, v90);
+        TextRange = CGPDFNodeGetTextRange(v84);
+        v20 = CPRangeUnion(TextRange, v19, RangeFromStringRange, v82);
       }
 
       else
       {
         v20 = RangeFromStringRange;
-        v21 = v90;
+        v21 = v82;
       }
 
       if (v21 < 1)
@@ -7250,16 +7250,16 @@ uint64_t CreateSelectionBetweenPoints(uint64_t a1, unsigned int a2, uint64_t a3,
 
     else
     {
-      if (v93)
+      if (v85)
       {
-        IndexSet = CreateIndexSet(v92, v91, v11, a3);
-        v17 = &v91;
+        IndexSet = CreateIndexSet(v84, v83, v11, a3);
+        v17 = &v83;
       }
 
       else
       {
-        IndexSet = CreateIndexSet(v91, v92, v11, a3);
-        v17 = &v92;
+        IndexSet = CreateIndexSet(v83, v84, v11, a3);
+        v17 = &v84;
         v14 = v15;
       }
 
@@ -7280,8 +7280,8 @@ uint64_t CreateSelectionBetweenPoints(uint64_t a1, unsigned int a2, uint64_t a3,
       v27 = IndexSet[1].i64[0];
       if (v27 >= 1)
       {
-        v83 = v11;
-        v84 = v8;
+        v75 = v11;
+        v76 = v8;
         Range = CPIndexSetGetRange(IndexSet, 0);
         v30 = v29;
         v31 = CPIndexSetGetRange(IndexSet, v27 - 1);
@@ -7304,9 +7304,9 @@ uint64_t CreateSelectionBetweenPoints(uint64_t a1, unsigned int a2, uint64_t a3,
           v32 = RangeFromStringRange;
         }
 
-        v8 = v84;
-        LODWORD(v11) = v83;
-        v34 = v90 + v32;
+        v8 = v76;
+        LODWORD(v11) = v75;
+        v34 = v82 + v32;
         if (v25 + v26 < v34 && IndexSet[1].i64[0] >= v27)
         {
           v35 = (IndexSet[2].i64[0] + 16 * (v27 - 1));
@@ -7335,53 +7335,53 @@ uint64_t CreateSelectionBetweenPoints(uint64_t a1, unsigned int a2, uint64_t a3,
       goto LABEL_51;
     }
 
-    if (v90 < 1 || *(v8 + 72) != 1 || (v39 = LastIndex, v86 = 0, v87 = 0, v88 = 0, CGPDFLayoutGetRTLData(&v86, v8), v39 >= v88))
+    if (v82 < 1 || *(v8 + 72) != 1 || (v39 = LastIndex, v78 = 0, v79 = 0, v80 = 0, CGPDFLayoutGetRTLData(&v78, v8), v39 >= v80))
     {
 LABEL_86:
-      if (a2 != 1 || CGPDFLayoutExtendRangeToWordBoundaries(v8, IndexSet, RangeFromStringRange, v90))
+      if (a2 != 1 || CGPDFLayoutExtendRangeToWordBoundaries(v8, IndexSet, RangeFromStringRange, v82))
       {
-        v48 = CGPDFSelectionCreateWithIndexSet(*(v8 + 16), IndexSet);
+        v46 = CGPDFSelectionCreateWithIndexSet(*(v8 + 16), IndexSet);
         goto LABEL_89;
       }
 
 LABEL_51:
-      v48 = 0;
+      v46 = 0;
 LABEL_89:
       CFRelease(IndexSet);
-      return v48;
+      return v46;
     }
 
     CFRelease(IndexSet);
-    if (v93)
+    if (v85)
     {
-      v40 = v92;
-      if (v92 && (v41 = CGPDFNodeGetTextRange(v92), v45 = v41 + v44, RangeFromStringRange >= v41 + v44) && (v42.n128_f64[0] = v96, v43.n128_f64[0] = v97, CGPDFNodeIsHitByPoint(v40, v42, v43, v13)))
+      v40 = v84;
+      if (v84 && (v41 = CGPDFNodeGetTextRange(v84), v43 = v41 + v42, RangeFromStringRange >= v41 + v42) && CGPDFNodeIsHitByPoint(v40, v88, v89, v13))
       {
-        v46 = 0;
-        v47 = RangeFromStringRange - v45 + v90 + 1;
-        RangeFromStringRange = v45 - 1;
-        v90 = v47;
+        v44 = 0;
+        v45 = RangeFromStringRange - v43 + v82 + 1;
+        RangeFromStringRange = v43 - 1;
+        v82 = v45;
       }
 
       else
       {
-        v46 = &v96;
+        v44 = &v88;
       }
 
-      v56 = v91;
-      if (!v91 || (v57 = CGPDFNodeGetTextRange(v91), v90 + RangeFromStringRange > v57) || (v60 = v57, v58.n128_f64[0] = v94, v59.n128_f64[0] = v95, !CGPDFNodeIsHitByPoint(v56, v58, v59, v13)))
+      v52 = v83;
+      if (!v83 || (v53 = CGPDFNodeGetTextRange(v83), v82 + RangeFromStringRange > v53) || (v54 = v53, !CGPDFNodeIsHitByPoint(v52, v86, v87, v13)))
       {
-        v61 = &v94;
+        v55 = &v86;
 LABEL_67:
-        v85 = 0;
-        StringRangeFromCursorRange = CGPDFLayoutGetStringRangeFromCursorRange(v8, RangeFromStringRange, v90, v46, v61, a3, &v85, v13);
+        v77 = 0;
+        StringRangeFromCursorRange = CGPDFLayoutGetStringRangeFromCursorRange(v8, RangeFromStringRange, v82, v44, v55, a3, &v77, v13);
         if ((StringRangeFromCursorRange & 0x8000000000000000) == 0)
         {
-          v68 = StringRangeFromCursorRange;
-          v69 = v67;
-          v70 = v11;
-          IndexSetForStringRange = CGPDFLayoutCreateIndexSetForStringRange(v8, StringRangeFromCursorRange, v67);
-          v72 = IndexSetForStringRange;
+          v60 = StringRangeFromCursorRange;
+          v61 = v59;
+          v62 = v11;
+          IndexSetForStringRange = CGPDFLayoutCreateIndexSetForStringRange(v8, StringRangeFromCursorRange, v59);
+          v64 = IndexSetForStringRange;
           if (a3)
           {
             IndexSet = IndexSetForStringRange;
@@ -7390,53 +7390,53 @@ LABEL_67:
           else
           {
             IndexSet = CGPDFLayoutCopyIndexSetRemovingGraphics(v8, IndexSetForStringRange);
-            if (v72)
+            if (v64)
             {
-              CFRelease(v72);
+              CFRelease(v64);
             }
           }
 
           if (IndexSet)
           {
-            RangeFromStringRange = CGPDFLayoutGetRangeFromStringRange(v8, v68, v69);
-            v90 = v73;
-            v74 = (v87 + 4 * v68);
-            v75 = v74[v69 - 1];
-            for (i = CGPDFNodeGetNodeContainingTextRange(v10, *v74, 1); i; i = *(i + 8))
+            RangeFromStringRange = CGPDFLayoutGetRangeFromStringRange(v8, v60, v61);
+            v82 = v65;
+            v66 = (v79 + 4 * v60);
+            v67 = v66[v61 - 1];
+            for (i = CGPDFNodeGetNodeContainingTextRange(v10, *v66, 1); i; i = *(i + 1))
             {
-              if (*i == v70)
+              if (*i == v62)
               {
                 break;
               }
             }
 
-            v92 = i;
-            for (j = CGPDFNodeGetNodeContainingTextRange(v10, v75, 1); j; j = *(j + 8))
+            v84 = i;
+            for (j = CGPDFNodeGetNodeContainingTextRange(v10, v67, 1); j; j = *(j + 1))
             {
-              if (*j == v70)
+              if (*j == v62)
               {
                 break;
               }
             }
 
-            v91 = j;
+            v83 = j;
             if (i)
             {
-              v78 = CGPDFNodeGetTextRange(i);
-              CPIndexSetAddRange(IndexSet, v78, v79);
-              j = v91;
-              v80 = v92;
+              v70 = CGPDFNodeGetTextRange(i);
+              CPIndexSetAddRange(IndexSet, v70, v71);
+              j = v83;
+              v72 = v84;
             }
 
             else
             {
-              v80 = 0;
+              v72 = 0;
             }
 
-            if (j && j != v80)
+            if (j && j != v72)
             {
-              v81 = CGPDFNodeGetTextRange(j);
-              CPIndexSetAddRange(IndexSet, v81, v82);
+              v73 = CGPDFNodeGetTextRange(j);
+              CPIndexSetAddRange(IndexSet, v73, v74);
             }
 
             goto LABEL_86;
@@ -7449,48 +7449,48 @@ LABEL_67:
 
     else
     {
-      v49 = v91;
-      if (v91 && (v50 = CGPDFNodeGetTextRange(v91), v54 = v50 + v53, RangeFromStringRange >= v50 + v53) && (v51.n128_f64[0] = v94, v52.n128_f64[0] = v95, CGPDFNodeIsHitByPoint(v49, v51, v52, v13)))
+      v47 = v83;
+      if (v83 && (v48 = CGPDFNodeGetTextRange(v83), v50 = v48 + v49, RangeFromStringRange >= v48 + v49) && CGPDFNodeIsHitByPoint(v47, v86, v87, v13))
       {
-        v46 = 0;
-        v55 = RangeFromStringRange - v54 + v90 + 1;
-        RangeFromStringRange = v54 - 1;
-        v90 = v55;
+        v44 = 0;
+        v51 = RangeFromStringRange - v50 + v82 + 1;
+        RangeFromStringRange = v50 - 1;
+        v82 = v51;
       }
 
       else
       {
-        v46 = &v94;
+        v44 = &v86;
       }
 
-      v62 = v92;
-      if (!v92 || (v63 = CGPDFNodeGetTextRange(v92), v90 + RangeFromStringRange > v63) || (v60 = v63, v64.n128_f64[0] = v96, v65.n128_f64[0] = v97, !CGPDFNodeIsHitByPoint(v62, v64, v65, v13)))
+      v56 = v84;
+      if (!v84 || (v57 = CGPDFNodeGetTextRange(v84), v82 + RangeFromStringRange > v57) || (v54 = v57, !CGPDFNodeIsHitByPoint(v56, v88, v89, v13)))
       {
-        v61 = &v96;
+        v55 = &v88;
         goto LABEL_67;
       }
     }
 
-    v61 = 0;
-    v90 = v60 - RangeFromStringRange + 1;
+    v55 = 0;
+    v82 = v54 - RangeFromStringRange + 1;
     goto LABEL_67;
   }
 
   return CreateCharacterSelectionBetweenPoints(a1, a3, a4, a5, a6, a7);
 }
 
-uint64_t CreateCharacterSelectionBetweenPoints(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6)
+uint64_t CreateCharacterSelectionBetweenPoints(uint64_t a1, uint64_t a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
 {
-  *v44 = a3;
-  *&v44[1] = a4;
-  *v43 = a5;
-  *&v43[1] = a6;
+  v44[0] = a3.n128_u64[0];
+  v44[1] = a4.n128_u64[0];
+  v43[0] = a5.n128_u64[0];
+  v43[1] = a6.n128_u64[0];
   if (!a1)
   {
     return 0;
   }
 
-  if (vabdd_f64(a3, a5) + vabdd_f64(a4, a6) < 0.1)
+  if (vabdd_f64(a3.n128_f64[0], a5.n128_f64[0]) + vabdd_f64(a4.n128_f64[0], a6.n128_f64[0]) < 0.1)
   {
     return 0;
   }
@@ -7501,7 +7501,7 @@ uint64_t CreateCharacterSelectionBetweenPoints(uint64_t a1, uint64_t a2, double 
   v41 = 0;
   v38 = 0;
   v39 = 0;
-  CGPDFNodeGetNodeRangeBetweenPoints(v8, 1, a2, &v41, &v40, &v42, &v38, a3, a4, a5, a6, 0.0);
+  CGPDFNodeGetNodeRangeBetweenPoints(v8, 1, a2, &v41, &v40, &v42, &v38, a3, a4, a5, a6.n128_f64[0], 0.0);
   if (v39 < 1)
   {
     return 0;
@@ -7680,8 +7680,9 @@ LABEL_53:
   return v26;
 }
 
-int64x2_t *CreateIndexSet(uint64_t a1, uint64_t a2, int a3, int a4)
+int64x2_t *CreateIndexSet(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
+  v4 = a3;
   v28 = 1;
   v6 = (a3 - 514) < 3 || a3 == 1;
   if (!v6 && a3 != 1537)
@@ -7731,7 +7732,7 @@ LABEL_8:
     }
 
     v21 = v20 + v13 + v15;
-    if (a3 != 1 || v21 >= v17)
+    if (v4 != 1 || v21 >= v17)
     {
       goto LABEL_29;
     }
@@ -8400,10 +8401,10 @@ LABEL_43:
   return v9;
 }
 
-int64x2_t *CGPDFLayoutCreateIndexSetForStringRange(uint64_t a1, unint64_t a2, uint64_t a3)
+int64x2_t *CGPDFLayoutCreateIndexSetForStringRange(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   v3 = 0;
-  if (!a1 || (a2 & 0x8000000000000000) != 0)
+  if (!a1 || a2 < 0)
   {
     return v3;
   }
@@ -8679,7 +8680,7 @@ LABEL_35:
   return v5;
 }
 
-uint64_t CGPDFLayoutGetRangeFromStringRange(uint64_t a1, unint64_t a2, uint64_t a3)
+uint64_t CGPDFLayoutGetRangeFromStringRange(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3 < 1)
   {
@@ -8695,7 +8696,7 @@ uint64_t CGPDFLayoutGetRangeFromStringRange(uint64_t a1, unint64_t a2, uint64_t 
     v22 = 0;
     CGPDFLayoutGetRTLData(&v20, a1);
     v8 = a2 + a3;
-    if ((a2 + a3) <= v22)
+    if (a2 + a3 <= v22)
     {
       v9 = *(v21 + 4 * a2);
       v10 = a3 - 1;
@@ -8869,7 +8870,7 @@ BOOL CGPDFLayoutExtendRangeToWordBoundaries(uint64_t a1, uint64_t a2, uint64_t a
         v22 += location;
       }
 
-      if ((v22 & 0x8000000000000000) != 0 || (v33 = CFStringTokenizerGoToTokenAtIndex(v28, ~(v22 + v24) + v56 + StringRangeFromRange + length), CurrentTokenRange = CFStringTokenizerGetCurrentTokenRange(v28), !v33) || (v35 = length - (CurrentTokenRange.length + CurrentTokenRange.location), v35 < 1))
+      if (v22 < 0 || (v33 = CFStringTokenizerGoToTokenAtIndex(v28, ~(v22 + v24) + v56 + StringRangeFromRange + length), CurrentTokenRange = CFStringTokenizerGetCurrentTokenRange(v28), !v33) || (v35 = length - (CurrentTokenRange.length + CurrentTokenRange.location), v35 < 1))
       {
         CFRelease(v28);
         if (!v32)

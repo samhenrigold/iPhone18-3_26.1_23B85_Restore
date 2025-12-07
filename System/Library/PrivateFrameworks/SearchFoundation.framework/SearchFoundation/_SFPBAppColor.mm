@@ -153,9 +153,7 @@ LABEL_8:
 
 - (void)setApplicationBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  applicationBundleIdentifier = self->_applicationBundleIdentifier;
-  self->_applicationBundleIdentifier = v4;
+  self->_applicationBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

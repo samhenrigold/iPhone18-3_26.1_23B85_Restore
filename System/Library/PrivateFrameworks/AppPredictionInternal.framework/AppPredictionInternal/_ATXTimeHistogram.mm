@@ -86,7 +86,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v12 = __atxlog_handle_default();
+  v12 = __atxlog_handle_default(count);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     [_ATXTimeHistogram initWithCoder:v12];

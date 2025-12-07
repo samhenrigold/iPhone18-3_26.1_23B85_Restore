@@ -43,9 +43,8 @@ int main(int argc, const char **argv, const char **envp)
   v8 = type metadata accessor for Logger();
   sub_100001494(v8, qword_100008040);
   sub_1000014F8(v8, qword_100008040);
-  strcpy(&v33, "main.swift");
-  BYTE3(v33._object) = 0;
-  HIDWORD(v33._object) = -369098752;
+  v33._countAndFlagsBits = 0x6977732E6E69616DLL;
+  v33._object = 0xEA00000000007466;
   Logger.init<A>(_:)();
   v33._countAndFlagsBits = 0;
   v33._object = 0xE000000000000000;
@@ -152,14 +151,11 @@ int main(int argc, const char **argv, const char **envp)
 
 uint64_t *sub_100001494(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

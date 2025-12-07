@@ -69,7 +69,7 @@
   [transitionCoordinator animateAlongsideTransition:0 completion:&__block_literal_global_146];
 }
 
-uint64_t __66__VUIDialogPresentationController_presentationTransitionWillBegin__block_invoke(uint64_t a1, void *a2)
+void *__66__VUIDialogPresentationController_presentationTransitionWillBegin__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)
@@ -92,7 +92,7 @@ uint64_t __66__VUIDialogPresentationController_presentationTransitionWillBegin__
   [transitionCoordinator animateAlongsideTransition:0 completion:&__block_literal_global_12_1];
 }
 
-uint64_t __63__VUIDialogPresentationController_dismissalTransitionWillBegin__block_invoke(uint64_t a1, void *a2)
+void *__63__VUIDialogPresentationController_dismissalTransitionWillBegin__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)

@@ -93,9 +93,9 @@
 
     if (v10 < 0.05)
     {
-      [(MPMusicPlayerControllerNowPlayingTimeSnapshot *)self currentTime];
+      objc_msgSend_currentTime(self);
       v12 = v11;
-      [v6 currentTime];
+      objc_msgSend_currentTime(v6);
       v14 = v12 - v13;
       if (v14 < 0.0)
       {

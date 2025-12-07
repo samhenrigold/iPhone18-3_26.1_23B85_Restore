@@ -101,7 +101,7 @@ void __52__VUITransactionButton_initWithType_interfaceStyle___block_invoke_2(uin
 
 - (void)setTransactionIDs:(id)ds
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = dsCopy;
   if (!dsCopy)
@@ -114,32 +114,32 @@ void __52__VUITransactionButton_initWithType_interfaceStyle___block_invoke_2(uin
   {
   }
 
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
   v6 = self->_transactionIDs;
-  v7 = [(NSSet *)v6 countByEnumeratingWithState:&v14 objects:v24 count:16];
+  v7 = [(NSSet *)v6 countByEnumeratingWithState:&v15 objects:v25 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        if ([VUIActionCommerceTransaction isTransactionInProgressForBuyParams:*(*(&v14 + 1) + 8 * i), v14])
+        if ([VUIActionCommerceTransaction isTransactionInProgressForBuyParams:*(*(&v15 + 1) + 8 * i), v15])
         {
           v7 = 1;
           goto LABEL_15;
         }
       }
 
-      v7 = [(NSSet *)v6 countByEnumeratingWithState:&v14 objects:v24 count:16];
+      v7 = [(NSSet *)v6 countByEnumeratingWithState:&v15 objects:v25 count:16];
       if (v7)
       {
         continue;
@@ -151,17 +151,17 @@ void __52__VUITransactionButton_initWithType_interfaceStyle___block_invoke_2(uin
 
 LABEL_15:
 
-  v10 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = VUIDefaultLogObject(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [(NSSet *)self->_transactionIDs count];
+    v12 = [(NSSet *)self->_transactionIDs count];
     *buf = 134218496;
     selfCopy = self;
-    v20 = 1024;
-    v21 = v7;
-    v22 = 2048;
-    v23 = v11;
-    _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUITransactionButton <%p>: anyTransactionsInProgress=%d, [_transactionIds count]=%lu", buf, 0x1Cu);
+    v21 = 1024;
+    v22 = v7;
+    v23 = 2048;
+    v24 = v12;
+    _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUITransactionButton <%p>: anyTransactionsInProgress=%d, [_transactionIds count]=%lu", buf, 0x1Cu);
   }
 
   [(VUITransactionButton *)self setMonitorTransaction:v7];
@@ -360,17 +360,18 @@ LABEL_15:
 
 - (void)_buttonTapped:(id)tapped eventName:(id)name
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if ([(VUITransactionButton *)self isWaitingForTransactionToStart:tapped]|| [(VUITransactionButton *)self monitorTransaction])
+  v13 = *MEMORY[0x1E69E9840];
+  v5 = [(VUITransactionButton *)self isWaitingForTransactionToStart:tapped];
+  if (v5 & 1) != 0 || (v5 = [(VUITransactionButton *)self monitorTransaction], (v5))
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
       isWaitingForTransactionToStart = [(VUITransactionButton *)self isWaitingForTransactionToStart];
-      v10 = 1024;
+      v11 = 1024;
       monitorTransaction = [(VUITransactionButton *)self monitorTransaction];
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "Ignoring transaction button tap. isWaitingForTransactionToStart %d, monitorTransaction %d", buf, 0xEu);
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "Ignoring transaction button tap. isWaitingForTransactionToStart %d, monitorTransaction %d", buf, 0xEu);
     }
   }
 
@@ -458,19 +459,19 @@ LABEL_15:
 
 void __63__VUITransactionButton__handleTransactionDidStartNotification___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) transactionIDs];
   v3 = [v2 containsObject:*(a1 + 40)];
 
   if (v3)
   {
-    v4 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = VUIDefaultLogObject(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v6 = 134217984;
-      v7 = v5;
-      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUITransactionButton <%p>: setMonitorTransaction=YES", &v6, 0xCu);
+      v6 = *(a1 + 32);
+      v7 = 134217984;
+      v8 = v6;
+      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUITransactionButton <%p>: setMonitorTransaction=YES", &v7, 0xCu);
     }
 
     [*(a1 + 32) setMonitorTransaction:1];
@@ -499,41 +500,41 @@ void __63__VUITransactionButton__handleTransactionDidStartNotification___block_i
 
 void __64__VUITransactionButton__handleTransactionDidFinishNotification___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) transactionIDs];
   v3 = [v2 containsObject:*(a1 + 40)];
 
   if (v3)
   {
+    v20 = 0u;
+    v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
     v4 = [*(a1 + 32) transactionIDs];
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v17;
+      v7 = *v19;
       while (2)
       {
         v8 = 0;
         do
         {
-          if (*v17 != v7)
+          if (*v19 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          if ([VUIActionCommerceTransaction isTransactionInProgressForBuyParams:*(*(&v16 + 1) + 8 * v8)])
+          if ([VUIActionCommerceTransaction isTransactionInProgressForBuyParams:*(*(&v18 + 1) + 8 * v8)])
           {
 
-            v10 = VUIDefaultLogObject();
+            v10 = VUIDefaultLogObject(v15);
             if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
             {
-              v14 = *(a1 + 32);
+              v16 = *(a1 + 32);
               *buf = 134217984;
-              v21 = v14;
+              v23 = v16;
               _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUITransactionButton <%p>: one or many transactions still running, do not hide indicator", buf, 0xCu);
             }
 
@@ -544,7 +545,7 @@ void __64__VUITransactionButton__handleTransactionDidFinishNotification___block_
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
         if (v6)
         {
           continue;
@@ -557,16 +558,16 @@ void __64__VUITransactionButton__handleTransactionDidFinishNotification___block_
     v9 = [*(a1 + 48) userInfo];
     v10 = [v9 objectForKeyedSubscript:@"Error"];
 
-    v11 = VUIDefaultLogObject();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v12 = VUIDefaultLogObject(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
     if (v10)
     {
-      if (v12)
+      if (v13)
       {
-        v13 = *(a1 + 32);
+        v14 = *(a1 + 32);
         *buf = 134217984;
-        v21 = v13;
-        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUITransactionButton <%p>: allTransactionsFinished & there's an error -> hide indicator", buf, 0xCu);
+        v23 = v14;
+        _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUITransactionButton <%p>: allTransactionsFinished & there's an error -> hide indicator", buf, 0xCu);
       }
 
       [*(a1 + 32) setMonitorTransaction:0];
@@ -574,12 +575,12 @@ void __64__VUITransactionButton__handleTransactionDidFinishNotification___block_
 
     else
     {
-      if (v12)
+      if (v13)
       {
-        v15 = *(a1 + 32);
+        v17 = *(a1 + 32);
         *buf = 134217984;
-        v21 = v15;
-        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUITransactionButton <%p>: allTransactionsFinished successfully, do not hide indicator, just wait for page refreshing", buf, 0xCu);
+        v23 = v17;
+        _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUITransactionButton <%p>: allTransactionsFinished successfully, do not hide indicator, just wait for page refreshing", buf, 0xCu);
       }
     }
 

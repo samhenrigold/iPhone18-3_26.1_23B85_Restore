@@ -53,7 +53,7 @@
   y = bounds.origin.y;
   x = bounds.origin.x;
   selfCopy = self;
-  sub_10004C160(x, y, width, height);
+  sub_10004C160(selfCopy, x, y, width, height);
   v9 = v8;
   v11 = v10;
 

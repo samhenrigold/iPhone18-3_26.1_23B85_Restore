@@ -93,21 +93,19 @@
 
 - (id)upcomingTriggersAfterDate:(id)date
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v3 = [(MTTimer *)self nextTriggerAfterDate:date];
   v4 = v3;
   if (v3)
   {
-    v8[0] = v3;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = v3;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = MEMORY[0x1E695E0F0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -126,18 +124,16 @@
 
 void __50__MTTimer_Properties__propertiesAffectingSessions__block_invoke()
 {
-  v5[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"MTTimerState";
-  v5[1] = @"MTTimerFireTimerClass";
-  v5[2] = @"MTTimerFireTime";
-  v5[3] = @"MTTimerTitle";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
+  v4[0] = @"MTTimerState";
+  v4[1] = @"MTTimerFireTimerClass";
+  v4[2] = @"MTTimerFireTime";
+  v4[3] = @"MTTimerTitle";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:4];
   v2 = [v0 setWithArray:v1];
   v3 = propertiesAffectingSessions_propertiesAffectingSessions;
   propertiesAffectingSessions_propertiesAffectingSessions = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (MTTimer)initWithState:(unint64_t)state duration:(double)duration
@@ -276,35 +272,35 @@ void __50__MTTimer_Properties__propertiesAffectingSessions__block_invoke()
 
 + (id)firstActiveTimerFromTimers:(id)timers
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   timersCopy = timers;
-  v5 = [timersCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [timersCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(timersCopy);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        if ([self isActiveTimer:{v9, v13}])
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if ([self isActiveTimer:{v9, v12}])
         {
           v10 = v9;
           goto LABEL_11;
         }
       }
 
-      v6 = [timersCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [timersCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -316,8 +312,6 @@ void __50__MTTimer_Properties__propertiesAffectingSessions__block_invoke()
 
   v10 = 0;
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -459,7 +453,7 @@ LABEL_11:
 
 - (id)nextTriggerAfterDate:(id)date
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   lastModifiedDate = [(MTTimer *)self lastModifiedDate];
   if (lastModifiedDate)
@@ -475,13 +469,13 @@ LABEL_11:
       {
         timerID = [(MTTimer *)self timerID];
         lastModifiedDate3 = [(MTTimer *)self lastModifiedDate];
-        v41 = 138543874;
-        v42 = timerID;
-        v43 = 2114;
-        v44 = dateCopy;
-        v45 = 2114;
-        v46 = lastModifiedDate3;
-        _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ modified after %{public}@ (%{public}@)", &v41, 0x20u);
+        v40 = 138543874;
+        v41 = timerID;
+        v42 = 2114;
+        v43 = dateCopy;
+        v44 = 2114;
+        v45 = lastModifiedDate3;
+        _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ modified after %{public}@ (%{public}@)", &v40, 0x20u);
       }
 
       lastModifiedDate4 = [(MTTimer *)self lastModifiedDate];
@@ -504,13 +498,13 @@ LABEL_11:
       {
         timerID2 = [(MTTimer *)self timerID];
         firedDate3 = [(MTTimer *)self firedDate];
-        v41 = 138543874;
-        v42 = timerID2;
-        v43 = 2114;
-        v44 = dateCopy;
-        v45 = 2114;
-        v46 = firedDate3;
-        _os_log_impl(&dword_1B1F9F000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ already fired after %{public}@ (%{public}@)", &v41, 0x20u);
+        v40 = 138543874;
+        v41 = timerID2;
+        v42 = 2114;
+        v43 = dateCopy;
+        v44 = 2114;
+        v45 = firedDate3;
+        _os_log_impl(&dword_1B1F9F000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ already fired after %{public}@ (%{public}@)", &v40, 0x20u);
       }
 
       firedDate4 = [(MTTimer *)self firedDate];
@@ -533,13 +527,13 @@ LABEL_11:
       {
         timerID3 = [(MTTimer *)self timerID];
         dismissedDate3 = [(MTTimer *)self dismissedDate];
-        v41 = 138543874;
-        v42 = timerID3;
-        v43 = 2114;
-        v44 = dateCopy;
-        v45 = 2114;
-        v46 = dismissedDate3;
-        _os_log_impl(&dword_1B1F9F000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ already dismissed after %{public}@ (%{public}@)", &v41, 0x20u);
+        v40 = 138543874;
+        v41 = timerID3;
+        v42 = 2114;
+        v43 = dateCopy;
+        v44 = 2114;
+        v45 = dismissedDate3;
+        _os_log_impl(&dword_1B1F9F000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ already dismissed after %{public}@ (%{public}@)", &v40, 0x20u);
       }
 
       dismissedDate4 = [(MTTimer *)self dismissedDate];
@@ -593,11 +587,11 @@ LABEL_11:
       v36 = MTLogForCategory(4);
       if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
-        v41 = 138543618;
-        v42 = date;
-        v43 = 2114;
-        v44 = dateCopy;
-        _os_log_impl(&dword_1B1F9F000, v36, OS_LOG_TYPE_DEFAULT, "Next trigger date %{public}@ is prior to requested date %{public}@", &v41, 0x16u);
+        v40 = 138543618;
+        v41 = date;
+        v42 = 2114;
+        v43 = dateCopy;
+        _os_log_impl(&dword_1B1F9F000, v36, OS_LOG_TYPE_DEFAULT, "Next trigger date %{public}@ is prior to requested date %{public}@", &v40, 0x16u);
       }
 
       v34 = 0;
@@ -613,14 +607,12 @@ LABEL_11:
   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     timerID4 = [(MTTimer *)self timerID];
-    v41 = 138543618;
-    v42 = timerID4;
-    v43 = 2114;
-    v44 = v34;
-    _os_log_impl(&dword_1B1F9F000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@ has next trigger %{public}@", &v41, 0x16u);
+    v40 = 138543618;
+    v41 = timerID4;
+    v42 = 2114;
+    v43 = v34;
+    _os_log_impl(&dword_1B1F9F000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@ has next trigger %{public}@", &v40, 0x16u);
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v34;
 }
@@ -1118,7 +1110,7 @@ LABEL_8:
 
 - (id)initFromDeserializer:(id)deserializer
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   mtCoder = [deserializer mtCoder];
   _initCommon = [(MTTimer *)self _initCommon];
   if (!_initCommon)
@@ -1184,9 +1176,9 @@ LABEL_26:
           if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v70 = _initCommon;
-            v71 = 2048;
-            v72 = v7;
+            v69 = _initCommon;
+            v70 = 2048;
+            v71 = v7;
             _os_log_impl(&dword_1B1F9F000, v29, OS_LOG_TYPE_INFO, "%{public}@ read data version: %f", buf, 0x16u);
           }
 
@@ -1325,7 +1317,6 @@ LABEL_29:
   *(_initCommon + 12) = v65;
 
 LABEL_41:
-  v67 = *MEMORY[0x1E69E9840];
   return _initCommon;
 }
 
@@ -1432,24 +1423,21 @@ LABEL_11:
 
 - (void)nextTriggerAfterDate:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a1 timerID];
-  v7 = 138543618;
-  v8 = v5;
-  v9 = 2114;
-  v10 = a2;
-  _os_log_debug_impl(&dword_1B1F9F000, a3, OS_LOG_TYPE_DEBUG, "Computing next fire date for %{public}@ after %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = v5;
+  v8 = 2114;
+  v9 = a2;
+  _os_log_debug_impl(&dword_1B1F9F000, a3, OS_LOG_TYPE_DEBUG, "Computing next fire date for %{public}@ after %{public}@", &v6, 0x16u);
 }
 
 - (void)initFromDeserializer:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "Illegal fire time class %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "Illegal fire time class %{public}@", &v2, 0xCu);
 }
 
 @end

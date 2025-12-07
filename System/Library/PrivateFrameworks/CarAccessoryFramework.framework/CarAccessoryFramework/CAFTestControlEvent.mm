@@ -23,6 +23,7 @@
 - (void)setTestAccEventNoParamsHandler:(id)handler;
 - (void)setTestAccEventWithParamsHandler:(id)handler;
 - (void)testDevEventNoParams;
+- (void)testDevEventWithParamsWithTestInput9:(unsigned __int8)input9 testInput10:(id)input10;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -138,6 +139,18 @@
   }
 
   return v4;
+}
+
+- (void)testDevEventWithParamsWithTestInput9:(unsigned __int8)input9 testInput10:(id)input10
+{
+  input9Copy = input9;
+  input10Copy = input10;
+  testDevEventWithParamsControl = [(CAFTestControlEvent *)self testDevEventWithParamsControl];
+  v7 = testDevEventWithParamsControl;
+  if (testDevEventWithParamsControl)
+  {
+    [testDevEventWithParamsControl testDevEventWithParamsWithTestInput9:input9Copy testInput10:input10Copy];
+  }
 }
 
 - (BOOL)hasTestDevEventWithParams

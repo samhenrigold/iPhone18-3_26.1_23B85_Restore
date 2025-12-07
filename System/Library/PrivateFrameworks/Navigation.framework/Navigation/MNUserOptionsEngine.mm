@@ -24,7 +24,7 @@
 
 - (id)localizedStringForKey:(id)key
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if ([keyCopy length])
   {
@@ -34,8 +34,8 @@
     {
       v7 = MEMORY[0x1E696AAE8];
       localizations = [_navigationBundle localizations];
-      v27[0] = currentVoiceLanguage;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+      v26[0] = currentVoiceLanguage;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
       v10 = [v7 preferredLocalizationsFromArray:localizations forPreferences:v9];
 
       firstObject = [v10 firstObject];
@@ -43,13 +43,13 @@
       v13 = GetAudioLogForMNUserOptionsEngineCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v21 = 138412802;
-        v22 = keyCopy;
-        v23 = 2112;
-        v24 = currentVoiceLanguage;
-        v25 = 2112;
-        v26 = firstObject;
-        _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_INFO, "⒰ trying to find key: %@, language: %@, canonical language identifier: %@", &v21, 0x20u);
+        v20 = 138412802;
+        v21 = keyCopy;
+        v22 = 2112;
+        v23 = currentVoiceLanguage;
+        v24 = 2112;
+        v25 = firstObject;
+        _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_INFO, "⒰ trying to find key: %@, language: %@, canonical language identifier: %@", &v20, 0x20u);
       }
 
       if (v12)
@@ -59,13 +59,13 @@
           v14 = GetAudioLogForMNUserOptionsEngineCategory();
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            v21 = 138412802;
-            v22 = keyCopy;
-            v23 = 2112;
-            v24 = currentVoiceLanguage;
-            v25 = 2112;
-            v26 = firstObject;
-            _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_ERROR, "⒰ a string for key wasn't found : key: %@, language: %@, canonical language identifier: %@", &v21, 0x20u);
+            v20 = 138412802;
+            v21 = keyCopy;
+            v22 = 2112;
+            v23 = currentVoiceLanguage;
+            v24 = 2112;
+            v25 = firstObject;
+            _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_ERROR, "⒰ a string for key wasn't found : key: %@, language: %@, canonical language identifier: %@", &v20, 0x20u);
           }
         }
 
@@ -101,14 +101,12 @@
     v15 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 - (void)update:(id)update
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   if (updateCopy)
   {
@@ -117,8 +115,8 @@
       v5 = GetAudioLogForMNUserOptionsEngineCategory();
       if (os_log_type_enabled(&v5->super, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_1D311E000, &v5->super, OS_LOG_TYPE_INFO, "ⓤ Ignoring options update; they are unchanged", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_1D311E000, &v5->super, OS_LOG_TYPE_INFO, "ⓤ Ignoring options update; they are unchanged", &v10, 2u);
       }
     }
 
@@ -133,18 +131,16 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = self->_options;
-        v11 = 138412546;
-        v12 = v5;
-        v13 = 2112;
-        v14 = v9;
-        _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_INFO, "ⓤ Notifying observers with old options : %@ and new options : %@", &v11, 0x16u);
+        v10 = 138412546;
+        v11 = v5;
+        v12 = 2112;
+        v13 = v9;
+        _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_INFO, "ⓤ Notifying observers with old options : %@ and new options : %@", &v10, 0x16u);
       }
 
       [(GEOObserverHashTable *)self->_observers userOptionsEngine:self didChangeFrom:v5 to:self->_options];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterObserver:(id)observer

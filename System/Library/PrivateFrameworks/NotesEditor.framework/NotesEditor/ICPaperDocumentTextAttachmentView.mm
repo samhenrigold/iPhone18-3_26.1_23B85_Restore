@@ -164,7 +164,7 @@ LABEL_6:
 - (CGRect)bounds
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for PaperDocumentTextAttachmentView();
+  v6.super_class = type metadata accessor for PaperDocumentTextAttachmentView(0);
   [(ICPaperDocumentTextAttachmentView *)&v6 bounds];
   result.size.height = v5;
   result.size.width = v4;
@@ -179,7 +179,7 @@ LABEL_6:
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  v8 = type metadata accessor for PaperDocumentTextAttachmentView();
+  v8 = type metadata accessor for PaperDocumentTextAttachmentView(0);
   v23.receiver = self;
   v23.super_class = v8;
   selfCopy = self;
@@ -232,7 +232,7 @@ LABEL_6:
 - (void)didMoveToWindow
 {
   selfCopy = self;
-  sub_2152F59F8();
+  sub_2152F59F8(selfCopy, v2);
 }
 
 - (id)hitTest:(CGPoint)test withEvent:(id)event
@@ -240,7 +240,7 @@ LABEL_6:
   y = test.y;
   x = test.x;
   v13.receiver = self;
-  v13.super_class = type metadata accessor for PaperDocumentTextAttachmentView();
+  v13.super_class = type metadata accessor for PaperDocumentTextAttachmentView(0);
   v7 = v13.receiver;
   eventCopy = event;
   v9 = [(ICPaperDocumentTextAttachmentView *)&v13 hitTest:eventCopy withEvent:x, y];
@@ -251,7 +251,7 @@ LABEL_6:
   }
 
   v10 = v9;
-  sub_2151A6C9C(0, &qword_2811994D0);
+  sub_2151A6C9C(0, &qword_2811994D0, 0x277D75D18);
   v11 = v7;
   v7 = v10;
   LOBYTE(v10) = sub_2154A291C();
@@ -327,7 +327,7 @@ LABEL_5:
   }
 
   v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for PaperDocumentTextAttachmentView();
+  v5.super_class = type metadata accessor for PaperDocumentTextAttachmentView(0);
   [(ICPaperDocumentTextAttachmentView *)&v5 dealloc];
 }
 
@@ -349,7 +349,7 @@ LABEL_5:
 
 - (id)tiledViewAttachmentViews
 {
-  sub_2151A6C9C(0, &qword_27CA5A4F8);
+  sub_2151A6C9C(0, &qword_27CA5A4F8, 0x277CD95E8);
   v2 = sub_2154A1F3C();
 
   return v2;

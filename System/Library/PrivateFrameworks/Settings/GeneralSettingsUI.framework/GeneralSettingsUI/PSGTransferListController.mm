@@ -2,6 +2,7 @@
 - (id)specifiers;
 - (void)beginPrebuddy:(id)prebuddy;
 - (void)handleURL:(id)l withCompletion:(id)completion;
+- (void)presentExitBuddyWithUpsellTradeIn:(BOOL)in withCompletion:(id)completion;
 - (void)viewDidLoad;
 @end
 
@@ -67,7 +68,7 @@
 void __43__PSGTransferListController_beginPrebuddy___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _PSGLoggingFacility();
+  v4 = _PSGLoggingFacility(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -108,7 +109,7 @@ void __43__PSGTransferListController_beginPrebuddy___block_invoke_28(uint64_t a1
 void __43__PSGTransferListController_beginPrebuddy___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = _PSGLoggingFacility();
+  v5 = _PSGLoggingFacility(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -122,7 +123,7 @@ void __43__PSGTransferListController_beginPrebuddy___block_invoke_2(uint64_t a1,
   v9 = WeakRetained;
   if (v7)
   {
-    v10 = _PSGLoggingFacility();
+    v10 = _PSGLoggingFacility(WeakRetained);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *v17 = 0;
@@ -183,6 +184,16 @@ void __43__PSGTransferListController_beginPrebuddy___block_invoke_2(uint64_t a1,
     v13.super_class = PSGTransferListController;
     [(PSGTransferListController *)&v13 handleURL:lCopy withCompletion:completionCopy];
   }
+}
+
+- (void)presentExitBuddyWithUpsellTradeIn:(BOOL)in withCompletion:(id)completion
+{
+  inCopy = in;
+  v6 = MEMORY[0x277D05538];
+  completionCopy = completion;
+  defaultConfiguration = [v6 defaultConfiguration];
+  [defaultConfiguration setUpsellTradeIn:inCopy];
+  [MEMORY[0x277D05548] presentUsingParentViewController:self configuration:defaultConfiguration completion:completionCopy];
 }
 
 @end

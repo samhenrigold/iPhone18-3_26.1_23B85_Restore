@@ -127,7 +127,6 @@ LABEL_4:
     goto LABEL_20;
   }
 
-  v5 = *(equalCopy + 64);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 64) & 4) == 0 || self->_numToken != *(equalCopy + 6))
@@ -139,7 +138,7 @@ LABEL_4:
   else if ((*(equalCopy + 64) & 4) != 0)
   {
 LABEL_20:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_21;
   }
 
@@ -172,17 +171,17 @@ LABEL_20:
   embedderId = self->_embedderId;
   if (embedderId | *(equalCopy + 7))
   {
-    v7 = [(NSString *)embedderId isEqual:?];
+    v6 = [(NSString *)embedderId isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_21:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -294,15 +293,14 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v7 = toCopy;
   if (self->_values.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_values.list[v5];
       PBDataWriterWriteFloatField();
-      toCopy = v11;
+      toCopy = v7;
       ++v5;
     }
 
@@ -312,9 +310,8 @@ LABEL_9:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    numToken = self->_numToken;
     PBDataWriterWriteUint64Field();
-    toCopy = v11;
+    toCopy = v7;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -333,22 +330,20 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  numLayer = self->_numLayer;
   PBDataWriterWriteUint64Field();
-  toCopy = v11;
+  toCopy = v7;
   if (*&self->_has)
   {
 LABEL_7:
-    embeddingDim = self->_embeddingDim;
     PBDataWriterWriteUint64Field();
-    toCopy = v11;
+    toCopy = v7;
   }
 
 LABEL_8:
   if (self->_embedderId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v7;
   }
 }
 

@@ -10,9 +10,10 @@
 - (PUPickerSuggestion)currentSuggestion
 {
   selfCopy = self;
-  v3 = sub_1B37D4524();
+  sub_1B37D4524();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (void)setCurrentSuggestion:(id)suggestion

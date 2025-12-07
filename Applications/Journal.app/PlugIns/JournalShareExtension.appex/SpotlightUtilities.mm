@@ -22,7 +22,7 @@
 
 + (void)setDisableSearchInSpotlightFlagWithDisableSearchInSpotlight:(BOOL)spotlight completionHandler:(id)handler
 {
-  v7 = sub_100007210(&qword_10014CBD8);
+  v7 = sub_100007210(&qword_10014CBD8, &qword_10010E240);
   __chkstk_darwin(v7 - 8);
   v9 = &v15 - v8;
   v10 = _Block_copy(handler);
@@ -47,7 +47,7 @@
 
 + (void)deleteAllSearchableItemsWithCompletionHandler:(id)handler
 {
-  v5 = sub_100007210(&qword_10014CBD8);
+  v5 = sub_100007210(&qword_10014CBD8, &qword_10010E240);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);
@@ -71,7 +71,7 @@
 
 + (void)reindexAllSearchableItemsWithSpotlightDelegate:(NSCoreDataCoreSpotlightDelegate *)delegate completionHandler:(id)handler
 {
-  v7 = sub_100007210(&qword_10014CBD8);
+  v7 = sub_100007210(&qword_10014CBD8, &qword_10010E240);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);

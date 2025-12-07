@@ -83,7 +83,7 @@ LABEL_9:
 - (NSAttributedString)attributedString
 {
   v29[2] = *MEMORY[0x1E69E9840];
-  if (UIKitLibraryCore_45531())
+  if (UIKitLibraryCore_45531(0))
   {
     stringValue = [(HMHTMLDocument *)self stringValue];
     fastestEncoding = [stringValue fastestEncoding];
@@ -151,8 +151,8 @@ LABEL_9:
     if (!v14)
     {
 LABEL_16:
-      dlerror();
-      abort_report_np();
+      v22 = dlerror();
+      abort_report_np("%s", v22);
       __break(1u);
     }
 
@@ -169,8 +169,6 @@ LABEL_16:
   {
     v20 = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

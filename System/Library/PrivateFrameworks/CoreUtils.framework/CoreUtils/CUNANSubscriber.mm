@@ -526,84 +526,84 @@ void __37__CUNANSubscriber_subscriberStarted___block_invoke(uint64_t a1)
 
 void __62__CUNANSubscriber_sendMessageData_endpoint_completionHandler___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__5238;
-  v41 = __Block_byref_object_dispose__5239;
-  v42 = 0;
+  v36 = *MEMORY[0x1E69E9840];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__5238;
+  v30 = __Block_byref_object_dispose__5239;
+  v31 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __62__CUNANSubscriber_sendMessageData_endpoint_completionHandler___block_invoke_2;
   aBlock[3] = &unk_1E73A3960;
-  v36 = &v37;
-  v35 = *(a1 + 56);
+  v25 = &v26;
+  v24 = *(a1 + 56);
   v2 = _Block_copy(aBlock);
-  v8 = *(*(a1 + 32) + 104);
-  if (v8)
+  v3 = *(*(a1 + 32) + 104);
+  if (v3)
   {
-    v9 = [*(a1 + 40) discoveryResult];
-    v10 = v9;
-    if (v9)
+    v4 = [*(a1 + 40) discoveryResult];
+    v5 = v4;
+    if (v4)
     {
-      v11 = [v9 publishID];
-      [v10 publisherAddress];
+      v6 = [v4 publishID];
+      [v5 publisherAddress];
     }
 
     else
     {
-      v11 = [*(a1 + 40) instanceID];
+      v6 = [*(a1 + 40) instanceID];
       [*(a1 + 40) macAddress];
     }
-    v17 = ;
-    if (v17)
+    v7 = ;
+    if (v7)
     {
-      v18 = logger_5122();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v8 = logger_5122();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = *(a1 + 40);
-        v20 = CUPrintNSDataHex(*(a1 + 48), 12, 1);
+        v9 = *(a1 + 40);
+        v10 = CUPrintNSDataHex(*(a1 + 48), 12, 1);
         *buf = 138412546;
-        v44 = v19;
-        v45 = 2112;
-        v46 = v20;
-        _os_log_impl(&dword_191EAF000, v18, OS_LOG_TYPE_DEFAULT, "SendMessage start: EP %@, Data %@", buf, 0x16u);
+        v33 = v9;
+        v34 = 2112;
+        v35 = v10;
+        _os_log_impl(&dword_191EAF000, v8, OS_LOG_TYPE_DEFAULT, "SendMessage start: EP %@, Data %@", buf, 0x16u);
       }
 
-      v21 = *(a1 + 48);
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __62__CUNANSubscriber_sendMessageData_endpoint_completionHandler___block_invoke_15;
-      v31[3] = &unk_1E73A37B0;
-      v30 = *(a1 + 32);
-      v22 = *(&v30 + 1);
-      v23 = *(a1 + 48);
-      v24 = *(a1 + 56);
-      *&v25 = v23;
-      *(&v25 + 1) = v24;
-      v32 = v30;
-      v33 = v25;
-      [v8 sendMessage:v21 toPeerAddress:v17 withInstanceID:v11 completionHandler:v31];
+      v11 = *(a1 + 48);
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __62__CUNANSubscriber_sendMessageData_endpoint_completionHandler___block_invoke_15;
+      v20[3] = &unk_1E73A37B0;
+      v19 = *(a1 + 32);
+      v12 = *(&v19 + 1);
+      v13 = *(a1 + 48);
+      v14 = *(a1 + 56);
+      *&v15 = v13;
+      *(&v15 + 1) = v14;
+      v21 = v19;
+      v22 = v15;
+      [v3 sendMessage:v11 toPeerAddress:v7 withInstanceID:v6 completionHandler:v20];
     }
 
     else
     {
-      v27 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No peer address", v12, v13, v14, v15, v16, v29);
-      v28 = v38[5];
-      v38[5] = v27;
+      v17 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No peer address");
+      v18 = v27[5];
+      v27[5] = v17;
     }
   }
 
   else
   {
-    v26 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960551, "Subscriber not activated", v3, v4, v5, v6, v7, v29);
-    v17 = v38[5];
-    v38[5] = v26;
+    v16 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960551, "Subscriber not activated");
+    v7 = v27[5];
+    v27[5] = v16;
   }
 
   v2[2](v2);
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v26, 8);
 }
 
 uint64_t __62__CUNANSubscriber_sendMessageData_endpoint_completionHandler___block_invoke_2(uint64_t result)
@@ -641,26 +641,26 @@ void __62__CUNANSubscriber_sendMessageData_endpoint_completionHandler___block_in
   dispatch_async(v3, v4);
 }
 
-void __62__CUNANSubscriber_sendMessageData_endpoint_completionHandler___block_invoke_2_16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __62__CUNANSubscriber_sendMessageData_endpoint_completionHandler___block_invoke_2_16(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v9 = *(a1 + 56);
-  if (v9)
+  v24 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 56);
+  if (v2)
   {
-    v10 = NSErrorF_safe(*MEMORY[0x1E696A768], (v9 + 313300), "SendMessage failed", a4, a5, a6, a7, a8, v25);
-    v11 = logger_5122();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v3 = NSErrorF_safe(*MEMORY[0x1E696A768], (v2 + 313300), "SendMessage failed");
+    v4 = logger_5122();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v15 = *(a1 + 32);
-      v16 = CUPrintNSDataHex(*(a1 + 40), 12, 1);
-      v24 = NSPrintF("%{error}", v17, v18, v19, v20, v21, v22, v23, v10);
+      v8 = *(a1 + 32);
+      v9 = CUPrintNSDataHex(*(a1 + 40), 12, 1);
+      v17 = NSPrintF("%{error}", v10, v11, v12, v13, v14, v15, v16, v3);
       *buf = 138412802;
-      v27 = v15;
-      v28 = 2112;
-      v29 = v16;
-      v30 = 2112;
-      v31 = v24;
-      _os_log_error_impl(&dword_191EAF000, v11, OS_LOG_TYPE_ERROR, "### SendMessage failed: EP %@, Data %@, %@", buf, 0x20u);
+      v19 = v8;
+      v20 = 2112;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v17;
+      _os_log_error_impl(&dword_191EAF000, v4, OS_LOG_TYPE_ERROR, "### SendMessage failed: EP %@, Data %@, %@", buf, 0x20u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -668,16 +668,16 @@ void __62__CUNANSubscriber_sendMessageData_endpoint_completionHandler___block_in
 
   else
   {
-    v12 = logger_5122();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v5 = logger_5122();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 32);
-      v14 = CUPrintNSDataHex(*(a1 + 40), 12, 1);
+      v6 = *(a1 + 32);
+      v7 = CUPrintNSDataHex(*(a1 + 40), 12, 1);
       *buf = 138412546;
-      v27 = v13;
-      v28 = 2112;
-      v29 = v14;
-      _os_log_impl(&dword_191EAF000, v12, OS_LOG_TYPE_DEFAULT, "SendMessage completed: EP %@, Data %@", buf, 0x16u);
+      v19 = v6;
+      v20 = 2112;
+      v21 = v7;
+      _os_log_impl(&dword_191EAF000, v5, OS_LOG_TYPE_DEFAULT, "SendMessage completed: EP %@, Data %@", buf, 0x16u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -972,7 +972,7 @@ void __36__CUNANSubscriber__lostAllEndpoints__block_invoke(uint64_t a1, uint64_t
 
     else
     {
-      v43 = [objc_alloc(getWiFiAwareSubscribeConfigurationClass[0]()) initWithServiceName:v15];
+      v43 = [objc_alloc(getWiFiAwareSubscribeConfigurationClass()) initWithServiceName:v15];
       v44 = v43;
       if (self->_controlFlags)
       {
@@ -984,7 +984,7 @@ void __36__CUNANSubscriber__lostAllEndpoints__block_invoke(uint64_t a1, uint64_t
         [v44 setDiscoveryMode:?];
       }
 
-      v45 = [objc_alloc(getWiFiAwareSubscriberClass[0]()) initWithConfiguration:v44];
+      v45 = [objc_alloc(getWiFiAwareSubscriberClass()) initWithConfiguration:v44];
       wfaSubscriber = self->_wfaSubscriber;
       self->_wfaSubscriber = v45;
 

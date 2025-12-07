@@ -17,7 +17,7 @@
 {
   v4 = type metadata accessor for PresentationMode();
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVyAA16PresentationModeVGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVyAA16PresentationModeVGMd, &_s7SwiftUI7BindingVyAA16PresentationModeVGMR);
   MEMORY[0x1EEE9AC00](v5);
   v7 = &v12 - v6;
   v8 = type metadata accessor for ColorPickerRepresentable(0);
@@ -31,7 +31,7 @@
   PresentationMode.dismiss()();
   Binding.wrappedValue.setter();
 
-  outlined destroy of StocksKitCurrencyCache.Provider?(v7, &_s7SwiftUI7BindingVyAA16PresentationModeVGMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v7, &_s7SwiftUI7BindingVyAA16PresentationModeVGMd, &_s7SwiftUI7BindingVyAA16PresentationModeVGMR);
 }
 
 @end

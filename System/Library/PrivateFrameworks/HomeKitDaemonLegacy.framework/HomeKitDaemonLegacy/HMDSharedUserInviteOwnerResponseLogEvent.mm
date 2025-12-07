@@ -25,7 +25,7 @@
   v8 = [MEMORY[0x277CCABB0] numberWithLongLong:{-[HMDSharedUserInviteOwnerResponseLogEvent totalOwnerResidentResponseMS](self, "totalOwnerResidentResponseMS")}];
   [v3 setObject:v8 forKeyedSubscript:@"totalOwnerResidentResponseMS"];
 
-  v9 = [v3 copy];
+  v9 = objc_msgSend_copy(v3);
 
   return v9;
 }

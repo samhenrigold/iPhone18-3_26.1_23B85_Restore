@@ -30,7 +30,7 @@
   swift_unknownObjectRelease();
   sub_24E0BCFF0();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC12GameCenterUIP33_ED65E62AB2E9DEC955C1CAF6BA7C69F726CustomNavigationController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass

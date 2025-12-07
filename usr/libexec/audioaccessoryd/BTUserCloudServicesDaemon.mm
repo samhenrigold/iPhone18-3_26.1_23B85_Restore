@@ -45,32 +45,33 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v3 = CFPrefs_CopyKeys();
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v23;
+    v8 = *v28;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v23 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v27 + 1) + 8 * i);
         if (!v6)
         {
-          NSAppendPrintF();
-          v11 = v7;
+          v26 = v7;
+          NSAppendPrintF(&v26, "\n");
+          v11 = v26;
 
           v7 = v11;
         }
@@ -78,16 +79,17 @@
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v21 = CFPrefs_CopyTypedValue();
-          NSAppendPrintF();
-          v12 = v7;
+          v12 = CFPrefs_CopyTypedValue();
+          v25 = v7;
+          NSAppendPrintF(&v25, "Pref: '%@' = '%##@'\n", v10, v12);
+          v13 = v25;
 
           ++v6;
-          v7 = v12;
+          v7 = v13;
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v5);
@@ -98,18 +100,21 @@
     v7 = 0;
   }
 
-  v13 = +[CBIDSManager sharedInstance];
-  statedumpAndRecordDailyMetric = [v13 statedumpAndRecordDailyMetric];
-  NSAppendPrintF();
-  v14 = v7;
+  v24 = v7;
+  v14 = +[CBIDSManager sharedInstance];
+  statedumpAndRecordDailyMetric = [v14 statedumpAndRecordDailyMetric];
+  NSAppendPrintF(&v24, "%@\n", statedumpAndRecordDailyMetric);
+  v16 = v24;
 
-  v15 = +[CloudXPCService sharedInstance];
-  deviceManager = [v15 deviceManager];
+  v23 = v16;
+  v17 = +[CloudXPCService sharedInstance];
+  deviceManager = [v17 deviceManager];
   printDebug = [deviceManager printDebug];
-  NSAppendPrintF();
-  v17 = v14;
+  NSAppendPrintF(&v23, "%@\n", printDebug);
+  v20 = v23;
+  v21 = v23;
 
-  return v14;
+  return v20;
 }
 
 - (void)activate
@@ -138,7 +143,6 @@
 
   if (!self->_stateHandle)
   {
-    dispatchQueue = self->_dispatchQueue;
     self->_stateHandle = os_state_add_handler();
   }
 }
@@ -191,7 +195,7 @@
   v41 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   v11 = xpc_copy_code_signing_identity_for_token();
@@ -267,8 +271,7 @@
   [v36 resume];
   if (dword_1002F6ED8 <= 20 && (dword_1002F6ED8 != -1 || _LogCategory_Initialize()))
   {
-    [v36 processIdentifier];
-    LogPrintF();
+    LogPrintF(&dword_1002F6ED8, "-[BTUserCloudServicesDaemon listener:shouldAcceptNewConnection:]", 20, "XPC connection started: %#{pid}", [v36 processIdentifier]);
   }
 
   objc_destroyWeak(&v38);

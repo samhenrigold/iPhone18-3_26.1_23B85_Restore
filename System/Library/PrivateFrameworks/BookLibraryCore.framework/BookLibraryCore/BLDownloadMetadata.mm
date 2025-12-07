@@ -102,16 +102,20 @@
 - (void)_setValueCopy:(id)copy forMetadataKey:(id)key;
 - (void)setArtistIdentifier:(unint64_t)identifier;
 - (void)setArtistName:(id)name;
+- (void)setAutomaticDownload:(BOOL)download;
 - (void)setCancelDownloadURL:(id)l;
 - (void)setCollectionIdentifier:(unint64_t)identifier;
 - (void)setCollectionIndexInCollectionGroup:(id)group;
 - (void)setCollectionName:(id)name;
+- (void)setCompilation:(BOOL)compilation;
 - (void)setComposerIdentifier:(unint64_t)identifier;
 - (void)setContentRating:(id)rating;
+- (void)setDeviceBasedVPP:(BOOL)p;
 - (void)setDictionary:(id)dictionary;
 - (void)setExplicitContent:(BOOL)content;
 - (void)setFullSizeImageURL:(id)l;
 - (void)setGenreIdentifier:(unint64_t)identifier;
+- (void)setHighDefinition:(BOOL)definition;
 - (void)setHlsPlaylistURL:(id)l;
 - (void)setIndexInCollection:(id)collection;
 - (void)setItemIdentifier:(unint64_t)identifier;
@@ -119,6 +123,7 @@
 - (void)setLaunchExtrasUrl:(id)url;
 - (void)setLongDescription:(id)description;
 - (void)setMD5HashStrings:(id)strings numberOfBytesToHash:(id)hash;
+- (void)setMusicShow:(BOOL)show;
 - (void)setNumberOfCollectionsInCollectionGroup:(id)group;
 - (void)setNumberOfItemsInCollection:(id)collection;
 - (void)setPodcastFeedURL:(id)l;
@@ -126,9 +131,14 @@
 - (void)setPreferredAssetFlavor:(id)flavor;
 - (void)setPrimaryAssetURL:(id)l;
 - (void)setRacGUID:(id)d;
+- (void)setRedownloadDownload:(BOOL)download;
 - (void)setReleaseDate:(id)date;
 - (void)setReleaseDateString:(id)string;
+- (void)setRental:(BOOL)rental;
 - (void)setRequestPersistentID:(id)d;
+- (void)setSample:(BOOL)sample;
+- (void)setSharedResource:(BOOL)resource;
+- (void)setShouldDownloadAutomatically:(BOOL)automatically;
 - (void)setThumbnailImageURL:(id)l;
 - (void)setTitle:(id)title;
 - (void)setValue:(id)value forMetadataKey:(id)key;
@@ -1016,6 +1026,18 @@
   [(BLDownloadMetadata *)self setValue:nameCopy forMetadataKey:v4];
 }
 
+- (void)setCompilation:(BOOL)compilation
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:compilation];
+  [(BLDownloadMetadata *)self setValue:v4 forMetadataKey:@"compilation"];
+}
+
+- (void)setDeviceBasedVPP:(BOOL)p
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:p];
+  [(BLDownloadMetadata *)self setValue:v4 forMetadataKey:@"isDeviceBased"];
+}
+
 - (void)setComposerIdentifier:(unint64_t)identifier
 {
   v5 = [MEMORY[0x277CCABB0] bl_numberWithItemIdentifier:identifier];
@@ -1064,6 +1086,12 @@
   }
 
   [(BLDownloadMetadata *)self setValue:v5 forMetadataKey:v4];
+}
+
+- (void)setHighDefinition:(BOOL)definition
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:definition];
+  [(BLDownloadMetadata *)self setValue:v4 forMetadataKey:@"high-definition"];
 }
 
 - (void)setHlsPlaylistURL:(id)l
@@ -1184,6 +1212,30 @@
   }
 
   [(BLDownloadMetadata *)self setValue:dateCopy forMetadataKey:v4];
+}
+
+- (void)setRental:(BOOL)rental
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:rental];
+  [(BLDownloadMetadata *)self setValue:v4 forMetadataKey:@"isRental"];
+}
+
+- (void)setSample:(BOOL)sample
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:sample];
+  [(BLDownloadMetadata *)self setValue:v4 forMetadataKey:@"isSample"];
+}
+
+- (void)setMusicShow:(BOOL)show
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:show];
+  [(BLDownloadMetadata *)self setValue:v4 forMetadataKey:@"is-apple-music-show"];
+}
+
+- (void)setSharedResource:(BOOL)resource
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:resource];
+  [(BLDownloadMetadata *)self _setValueCopy:v4 forMetadataKey:@"isSharedResource"];
 }
 
 - (void)setThumbnailImageURL:(id)l
@@ -1948,6 +2000,12 @@
   return v3;
 }
 
+- (void)setAutomaticDownload:(BOOL)download
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:download];
+  [(BLDownloadMetadata *)self setValue:v4 forMetadataKey:@"is-auto-download"];
+}
+
 - (void)setCancelDownloadURL:(id)l
 {
   absoluteString = [l absoluteString];
@@ -2060,6 +2118,12 @@
   [(BLDownloadMetadata *)self _setValue:absoluteString forTopLevelKey:@"URL"];
 }
 
+- (void)setRedownloadDownload:(BOOL)download
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:download];
+  [(BLDownloadMetadata *)self setValue:v4 forMetadataKey:@"is-redownload"];
+}
+
 - (void)setReleaseDateString:(id)string
 {
   stringCopy = string;
@@ -2104,6 +2168,12 @@
   }
 
   [(BLDownloadMetadata *)self setValue:v6 forMetadataKey:@"com.apple.iTunesStore.downloadInfo"];
+}
+
+- (void)setShouldDownloadAutomatically:(BOOL)automatically
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:automatically];
+  [(BLDownloadMetadata *)self setValue:v4 forMetadataKey:@"auto-download"];
 }
 
 - (void)setValue:(id)value forMetadataKey:(id)key
@@ -2248,7 +2318,7 @@
 
 - (id)_assetDictionary
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableDictionary *)self->_dictionary objectForKey:@"metadata"];
   v4 = [v3 objectForKey:@"kind"];
   v5 = [(NSMutableDictionary *)self->_dictionary objectForKey:@"assets"];
@@ -2303,7 +2373,7 @@
 
   if ([v5 count])
   {
-    v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v9 = [v3 objectForKey:@"com.apple.iTunesStore.downloadInfo"];
     if (!v9)
     {
@@ -2312,13 +2382,13 @@
 
     v10 = 0x277CBE000uLL;
     objc_opt_class();
-    v11 = v43;
+    v11 = v40;
     if (objc_opt_isKindOfClass())
     {
       v12 = [v9 objectForKey:@"preferredAssetFlavor"];
       if ([v12 length])
       {
-        [v43 addObject:v12];
+        [v40 addObject:v12];
       }
     }
 
@@ -2328,60 +2398,58 @@
       if (v13 == 1.0)
       {
         v14 = [MEMORY[0x277CBEA60] arrayWithObjects:{@"lrpluspub", @"lrpub", 0}];
-        [v43 addObjectsFromArray:v14];
+        [v40 addObjectsFromArray:v14];
       }
 
       v15 = [MEMORY[0x277CBEA60] arrayWithObjects:{@"pluspub", @"pub", 0}];
-      [v43 addObjectsFromArray:v15];
+      [v40 addObjectsFromArray:v15];
     }
 
-    v42 = v3;
-    v40 = v9;
-    v41 = v4;
-    if ([v43 count])
+    v39 = v3;
+    v37 = v9;
+    v38 = v4;
+    if ([v40 count])
     {
       v16 = [v5 count];
       if (v16 < 1)
       {
-        v45 = 0;
+        v42 = 0;
       }
 
       else
       {
         v17 = v16;
-        v45 = 0;
+        v42 = 0;
         v18 = 0;
-        v44 = 0x7FFFFFFFFFFFFFFFLL;
+        v41 = 0x7FFFFFFFFFFFFFFFLL;
         v19 = 0x277CCA000uLL;
         do
         {
           v20 = [v5 objectAtIndex:v18];
-          v21 = *(v10 + 2752);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v22 = [v20 objectForKey:@"flavor"];
-            v23 = *(v19 + 3240);
+            v21 = [v20 objectForKey:@"flavor"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v24 = v19;
-              v25 = v5;
-              v26 = v10;
-              v27 = [v11 indexOfObject:v22];
-              if (v27 < v44)
+              v22 = v19;
+              v23 = v5;
+              v24 = v10;
+              v25 = [v11 indexOfObject:v21];
+              if (v25 < v41)
               {
-                v28 = v27;
-                v29 = v20;
+                v26 = v25;
+                v27 = v20;
 
-                v44 = v28;
-                v45 = v29;
-                v11 = v43;
+                v41 = v26;
+                v42 = v27;
+                v11 = v40;
               }
 
-              v10 = v26;
-              v5 = v25;
-              v19 = v24;
+              v10 = v24;
+              v5 = v23;
+              v19 = v22;
             }
           }
 
@@ -2394,36 +2462,36 @@
 
     else
     {
-      v48 = 0u;
-      v49 = 0u;
+      v45 = 0u;
       v46 = 0u;
-      v47 = 0u;
-      v31 = v5;
-      v32 = [v31 countByEnumeratingWithState:&v46 objects:v50 count:16];
-      if (v32)
+      v43 = 0u;
+      v44 = 0u;
+      v29 = v5;
+      v30 = [v29 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      if (v30)
       {
-        v33 = v32;
-        v34 = *v47;
+        v31 = v30;
+        v32 = *v44;
         while (2)
         {
-          for (i = 0; i != v33; ++i)
+          for (i = 0; i != v31; ++i)
           {
-            if (*v47 != v34)
+            if (*v44 != v32)
             {
-              objc_enumerationMutation(v31);
+              objc_enumerationMutation(v29);
             }
 
-            v36 = *(*(&v46 + 1) + 8 * i);
+            v34 = *(*(&v43 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v45 = v36;
+              v42 = v34;
               goto LABEL_50;
             }
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v46 objects:v50 count:16];
-          if (v33)
+          v31 = [v29 countByEnumeratingWithState:&v43 objects:v47 count:16];
+          if (v31)
           {
             continue;
           }
@@ -2432,26 +2500,25 @@
         }
       }
 
-      v45 = 0;
+      v42 = 0;
 LABEL_50:
 
-      v11 = v43;
+      v11 = v40;
     }
 
-    v4 = v41;
-    v3 = v42;
-    v30 = v45;
+    v4 = v38;
+    v3 = v39;
+    v28 = v42;
   }
 
   else
   {
-    v30 = 0;
+    v28 = 0;
   }
 
-  v37 = v30;
+  v35 = v28;
 
-  v38 = *MEMORY[0x277D85DE8];
-  return v30;
+  return v28;
 }
 
 - (id)_dateValueForValue:(id)value

@@ -25,17 +25,17 @@
       v28[1] = @"x";
       v29[0] = data;
       v29[1] = metadataCopy;
-      v11 = MEMORY[0x277CBEAC0];
-      v12 = v29;
-      v13 = v28;
-      v14 = 2;
+      v12 = MEMORY[0x277CBEAC0];
+      v13 = v29;
+      v14 = v28;
+      v15 = 2;
     }
 
     else
     {
       if (!data)
       {
-        p_super = blt_ids_log();
+        p_super = blt_ids_log(v11);
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
         {
           [(BLTPBFileURLMetaData *)managerCopy initWithSequenceNumberManager:v19 extraMetadata:v20, v21, v22, v23, v24];
@@ -46,109 +46,110 @@
 
       v26 = @"t";
       v27 = data;
-      v11 = MEMORY[0x277CBEAC0];
-      v12 = &v27;
-      v13 = &v26;
-      v14 = 1;
+      v12 = MEMORY[0x277CBEAC0];
+      v13 = &v27;
+      v14 = &v26;
+      v15 = 1;
     }
 
-    v15 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:v14];
+    v16 = [v12 dictionaryWithObjects:v13 forKeys:v14 count:v15];
     p_super = &v8->_metadata->super;
-    v8->_metadata = v15;
+    v8->_metadata = v16;
 LABEL_8:
 
     objc_storeStrong(&v8->_extraMetadata, metadata);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BLTPBFileURLMetaData)initWithMetadata:(id)metadata sequenceNumberManager:(id)manager
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   managerCopy = manager;
   v9 = [metadataCopy objectForKeyedSubscript:@"t"];
 
   if (v9)
   {
-    v10 = [BLTPBTransportData alloc];
-    v11 = [metadataCopy objectForKeyedSubscript:@"t"];
-    v12 = [(BLTPBTransportData *)v10 initWithData:v11];
+    v11 = [BLTPBTransportData alloc];
+    v12 = [metadataCopy objectForKeyedSubscript:@"t"];
+    v13 = [(BLTPBTransportData *)v11 initWithData:v12];
 
-    if (v12)
+    if (v13)
     {
-      v30.receiver = self;
-      v30.super_class = BLTPBFileURLMetaData;
-      v13 = [(BLTPBFileURLMetaData *)&v30 init];
-      if (v13)
+      v33.receiver = self;
+      v33.super_class = BLTPBFileURLMetaData;
+      v15 = [(BLTPBFileURLMetaData *)&v33 init];
+      if (v15)
       {
-        v14 = [metadataCopy objectForKeyedSubscript:@"x"];
-        extraMetadata = v13->_extraMetadata;
-        v13->_extraMetadata = v14;
+        v16 = [metadataCopy objectForKeyedSubscript:@"x"];
+        extraMetadata = v15->_extraMetadata;
+        v15->_extraMetadata = v16;
 
-        objc_storeStrong(&v13->_metadata, metadata);
-        if ([(BLTPBTransportData *)v12 hasSequenceNumber])
+        objc_storeStrong(&v15->_metadata, metadata);
+        hasSequenceNumber = [(BLTPBTransportData *)v13 hasSequenceNumber];
+        if (hasSequenceNumber)
         {
-          v13->_sessionState = [(BLTPBTransportData *)v12 backwardsCompatibleSessionState];
-          v16 = blt_ids_log();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+          backwardsCompatibleSessionState = [(BLTPBTransportData *)v13 backwardsCompatibleSessionState];
+          v15->_sessionState = backwardsCompatibleSessionState;
+          v20 = blt_ids_log(backwardsCompatibleSessionState);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
           {
             serviceName = [managerCopy serviceName];
-            sequenceNumber = [(BLTPBTransportData *)v12 sequenceNumber];
-            sessionUUID = [(BLTPBTransportData *)v12 sessionUUID];
+            sequenceNumber = [(BLTPBTransportData *)v13 sequenceNumber];
+            sessionUUID = [(BLTPBTransportData *)v13 sessionUUID];
             uUIDString = [sessionUUID UUIDString];
-            v21 = uUIDString;
-            v22 = "startAck";
-            sessionState = v13->_sessionState;
+            v25 = uUIDString;
+            v26 = "startAck";
+            sessionState = v15->_sessionState;
             if (sessionState == 1)
             {
-              v22 = "start";
+              v26 = "start";
             }
 
             *buf = 138413058;
-            v33 = 2048;
-            v32 = serviceName;
-            v34 = sequenceNumber;
+            v36 = 2048;
+            v35 = serviceName;
+            v37 = sequenceNumber;
             if (!sessionState)
             {
-              v22 = "normal";
+              v26 = "normal";
             }
 
-            v35 = 2112;
-            v36 = uUIDString;
-            v37 = 2080;
-            v38 = v22;
-            _os_log_impl(&dword_241FB3000, v16, OS_LOG_TYPE_INFO, "Sequence number attached to incoming fileURL on service %@: %llu session: %@ state: %s", buf, 0x2Au);
+            v38 = 2112;
+            v39 = uUIDString;
+            v40 = 2080;
+            v41 = v26;
+            _os_log_impl(&dword_241FB3000, v20, OS_LOG_TYPE_INFO, "Sequence number attached to incoming fileURL on service %@: %llu session: %@ state: %s", buf, 0x2Au);
           }
 
-          v13->_sequenceNumberError = [(BLTPBTransportData *)v12 setSequenceNumberOnManager:managerCopy];
+          v15->_sequenceNumberError = [(BLTPBTransportData *)v13 setSequenceNumberOnManager:managerCopy];
         }
 
         else
         {
-          v27 = blt_ids_log();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+          v31 = blt_ids_log(hasSequenceNumber);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_241FB3000, v27, OS_LOG_TYPE_INFO, "Received message without sequence number", buf, 2u);
+            _os_log_impl(&dword_241FB3000, v31, OS_LOG_TYPE_INFO, "Received message without sequence number", buf, 2u);
           }
         }
       }
 
-      self = v13;
+      self = v15;
       selfCopy = self;
     }
 
     else
     {
-      v26 = blt_ids_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v30 = blt_ids_log(v14);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v32 = metadataCopy;
-        _os_log_impl(&dword_241FB3000, v26, OS_LOG_TYPE_ERROR, "No transport data. Metadata: %@", buf, 0xCu);
+        v35 = metadataCopy;
+        _os_log_impl(&dword_241FB3000, v30, OS_LOG_TYPE_ERROR, "No transport data. Metadata: %@", buf, 0xCu);
       }
 
       _BLTCaptureBug(@"BLTPBFileURLMetaDataMissingTransportData");
@@ -158,19 +159,18 @@ LABEL_8:
 
   else
   {
-    v24 = blt_ids_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v28 = blt_ids_log(v10);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v32 = metadataCopy;
-      _os_log_impl(&dword_241FB3000, v24, OS_LOG_TYPE_ERROR, "No transport data. Metadata: %@", buf, 0xCu);
+      v35 = metadataCopy;
+      _os_log_impl(&dword_241FB3000, v28, OS_LOG_TYPE_ERROR, "No transport data. Metadata: %@", buf, 0xCu);
     }
 
     _BLTCaptureBug(@"BLTPBFileURLMetadataTransportDataKey is nil");
     selfCopy = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -185,9 +185,9 @@ LABEL_8:
 
 - (void)initWithSequenceNumberManager:(uint64_t)a3 extraMetadata:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_241FB3000, a2, a3, "BLTPBFileURLMetaData initWithSequenceNumberManager %@: transportData was nil!", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_241FB3000, a2, a3, "BLTPBFileURLMetaData initWithSequenceNumberManager %@: transportData was nil!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

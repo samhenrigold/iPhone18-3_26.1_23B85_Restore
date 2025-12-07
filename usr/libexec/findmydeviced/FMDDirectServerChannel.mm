@@ -214,18 +214,20 @@
   protectionSpace = [challengeCopy protectionSpace];
   host = [protectionSpace host];
 
-  if ([host isEqualToString:@"gateway.icloud.com"])
+  v13 = [host isEqualToString:@"gateway.icloud.com"];
+  if (v13)
   {
-    v13 = [FMPreferencesUtil BOOLForKey:@"EnableCertPinningForFindkit" inDomain:kFMDNotBackedUpPrefDomain];
-    v14 = sub_10000BE38();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v14 = [FMPreferencesUtil BOOLForKey:@"EnableCertPinningForFindkit" inDomain:kFMDNotBackedUpPrefDomain];
+    v15 = v14;
+    v16 = sub_10000BE38(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *&buf[4] = v13;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "cert pinning for Findkit enabled = %d", buf, 8u);
+      *&buf[4] = v15;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "cert pinning for Findkit enabled = %d", buf, 8u);
     }
 
-    if ((v13 & 1) == 0)
+    if ((v15 & 1) == 0)
     {
       goto LABEL_8;
     }
@@ -238,24 +240,24 @@ LABEL_8:
     goto LABEL_32;
   }
 
-  v15 = sub_100002880();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100002880(v13);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "FMDDirectServerChannel Detecting authentication method", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMDDirectServerChannel Detecting authentication method", buf, 2u);
   }
 
   protectionSpace2 = [challengeCopy protectionSpace];
   authenticationMethod = [protectionSpace2 authenticationMethod];
-  v18 = [authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
+  v20 = [authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
 
-  if (v18)
+  if (v20)
   {
-    v19 = sub_100002880();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_100002880(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "FMDDirectServerChannel Setting server trust policy", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "FMDDirectServerChannel Setting server trust policy", buf, 2u);
     }
 
     host2 = [protectionSpace2 host];
@@ -264,87 +266,88 @@ LABEL_8:
     if (AppleFMiPService)
     {
       serverTrust = [protectionSpace2 serverTrust];
-      v23 = SecTrustSetPolicies(serverTrust, AppleFMiPService);
+      v26 = SecTrustSetPolicies(serverTrust, AppleFMiPService);
       CFRelease(AppleFMiPService);
-      if (v23)
+      if (v26)
       {
-        v24 = sub_100002880();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v28 = sub_100002880(v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          *&buf[4] = v23;
-          _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Error setting the trust policies : %ld", buf, 0xCu);
+          *&buf[4] = v26;
+          _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Error setting the trust policies : %ld", buf, 0xCu);
         }
 
-        v38 = @"FMDUnerlyingErrorKey";
-        v25 = [NSError errorWithDomain:@"SecTrustSetPolicies" code:v23 userInfo:0];
-        v39 = v25;
-        v26 = [NSDictionary dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-        v27 = [NSError errorWithDomain:@"FMDDirectServerChannelPinningErrorDomain" code:0 userInfo:v26];
+        v43 = @"FMDUnerlyingErrorKey";
+        v29 = [NSError errorWithDomain:@"SecTrustSetPolicies" code:v26 userInfo:0];
+        v44 = v29;
+        v30 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+        v31 = [NSError errorWithDomain:@"FMDDirectServerChannelPinningErrorDomain" code:0 userInfo:v30];
 
-        v28 = 0;
-        v29 = 2;
+        v32 = 0;
+        v33 = 2;
       }
 
       else
       {
         *buf = 0;
-        if (SecTrustEvaluateWithError(serverTrust, buf))
+        v36 = SecTrustEvaluateWithError(serverTrust, buf);
+        if (v36)
         {
-          v28 = [NSURLCredential credentialForTrust:serverTrust];
-          v32 = sub_100002880();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v32 = [NSURLCredential credentialForTrust:serverTrust];
+          v37 = sub_100002880(v32);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
-            *v35 = 0;
-            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "FMDDirectServerChannel Pinning success - presenting fmip trust as credential.", v35, 2u);
+            *v40 = 0;
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "FMDDirectServerChannel Pinning success - presenting fmip trust as credential.", v40, 2u);
           }
 
-          v27 = 0;
-          v29 = 0;
+          v31 = 0;
+          v33 = 0;
         }
 
         else
         {
-          v33 = sub_100002880();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v38 = sub_100002880(v36);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            sub_10022B508(v33);
+            sub_10022B508(v38);
           }
 
-          v41 = @"FMDUnerlyingErrorKey";
-          v32 = [NSError errorWithDomain:@"SecTrustEvaluate" code:1 userInfo:0];
-          v42 = v32;
-          v34 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-          v27 = [NSError errorWithDomain:@"FMDDirectServerChannelPinningErrorDomain" code:1 userInfo:v34];
+          v46 = @"FMDUnerlyingErrorKey";
+          v37 = [NSError errorWithDomain:@"SecTrustEvaluate" code:1 userInfo:0];
+          v47 = v37;
+          v39 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+          v31 = [NSError errorWithDomain:@"FMDDirectServerChannelPinningErrorDomain" code:1 userInfo:v39];
 
-          v28 = 0;
-          v29 = 2;
+          v32 = 0;
+          v33 = 2;
         }
       }
     }
 
     else
     {
-      v36 = @"FMDUnerlyingErrorKey";
-      v30 = [NSError errorWithDomain:@"SecPolicyCreateAppleFMiPService" code:0 userInfo:0];
-      v37 = v30;
-      v31 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-      v29 = 2;
-      v27 = [NSError errorWithDomain:@"FMDDirectServerChannelPinningErrorDomain" code:2 userInfo:v31];
+      v41 = @"FMDUnerlyingErrorKey";
+      v34 = [NSError errorWithDomain:@"SecPolicyCreateAppleFMiPService" code:0 userInfo:0];
+      v42 = v34;
+      v35 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v33 = 2;
+      v31 = [NSError errorWithDomain:@"FMDDirectServerChannelPinningErrorDomain" code:2 userInfo:v35];
 
-      v28 = 0;
+      v32 = 0;
     }
 
-    [(FMDDirectServerChannel *)self _logRequestError:v27];
+    [(FMDDirectServerChannel *)self _logRequestError:v31];
   }
 
   else
   {
-    v28 = 0;
-    v29 = 1;
+    v32 = 0;
+    v33 = 1;
   }
 
-  (handlerCopy)[2](handlerCopy, v29, v28);
+  (handlerCopy)[2](handlerCopy, v33, v32);
 
 LABEL_32:
 }
@@ -352,33 +355,34 @@ LABEL_32:
 - (void)_logRequestError:(id)error
 {
   errorCopy = error;
+  v4 = errorCopy;
   if (errorCopy)
   {
-    v4 = sub_100002880();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100002880(errorCopy);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = errorCopy;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Network error occured %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Network error occured %@", &v11, 0xCu);
     }
 
-    v5 = [(FMDEventLoggerEventError *)[FMDEventLoggerEventDataPeekError alloc] initWithEventName:@"FMDDirectServerChannelRequestError"];
-    userInfo = [errorCopy userInfo];
-    v7 = [userInfo objectForKeyedSubscript:@"FMDUnerlyingErrorKey"];
+    v6 = [(FMDEventLoggerEventError *)[FMDEventLoggerEventDataPeekError alloc] initWithEventName:@"FMDDirectServerChannelRequestError"];
+    userInfo = [v4 userInfo];
+    v8 = [userInfo objectForKeyedSubscript:@"FMDUnerlyingErrorKey"];
 
-    if (v7)
+    if (v8)
     {
-      v8 = v7;
+      v9 = v8;
     }
 
     else
     {
-      v8 = errorCopy;
+      v9 = v4;
     }
 
-    [(FMDEventLoggerEventDataPeekError *)v5 setError:v8];
-    v9 = +[FMDEventLogger sharedLogger];
-    [v9 logEvent:v5];
+    [(FMDEventLoggerEventDataPeekError *)v6 setError:v9];
+    v10 = +[FMDEventLogger sharedLogger];
+    [v10 logEvent:v6];
   }
 }
 

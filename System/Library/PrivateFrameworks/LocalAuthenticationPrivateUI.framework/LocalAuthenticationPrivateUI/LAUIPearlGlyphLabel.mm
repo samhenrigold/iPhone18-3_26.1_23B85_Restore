@@ -646,7 +646,7 @@
   memset(&v192, 0, sizeof(v192));
   if (v130)
   {
-    [v130 transform];
+    objc_msgSend_transform(v130);
   }
 
   a = v192;
@@ -932,7 +932,7 @@
           [layer2 setBounds:?];
           if (v10)
           {
-            [v10 transform];
+            objc_msgSend_transform(v10);
           }
 
           else
@@ -1700,7 +1700,7 @@ LABEL_61:
     memset(&v48, 0, sizeof(v48));
     if (v13)
     {
-      [v13 transform];
+      objc_msgSend_transform(v13);
     }
 
     a = v48;

@@ -82,7 +82,7 @@
 
 - (BOOL)_validateDescriptor:(id)descriptor usingAllowedDescriptors:(id)descriptors withError:(id *)error
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   descriptorsCopy = descriptors;
   v11 = objc_msgSend_name(descriptorCopy, v9, v10);
@@ -95,11 +95,11 @@
     }
 
     v16 = MEMORY[0x277CCA9B8];
-    v23[0] = *MEMORY[0x277CCA068];
-    v23[1] = @"ANSTDescriptor";
-    v24[0] = @"Descriptor name should not be empty.";
-    v24[1] = descriptorCopy;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v12, v24, v23, 2);
+    v22[0] = *MEMORY[0x277CCA068];
+    v22[1] = @"ANSTDescriptor";
+    v23[0] = @"Descriptor name should not be empty.";
+    v23[1] = descriptorCopy;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v12, v23, v22, 2);
     v17 = LABEL_9:;
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v16, v18, @"ANSTErrorDomain", 10, v17);
 
@@ -115,24 +115,23 @@
     }
 
     v16 = MEMORY[0x277CCA9B8];
-    v21[0] = *MEMORY[0x277CCA068];
-    v21[1] = @"ANSTDescriptor";
-    v22[0] = @"Unrecognized descriptor is not allowed.";
-    v22[1] = descriptorCopy;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, v22, v21, 2);
+    v20[0] = *MEMORY[0x277CCA068];
+    v20[1] = @"ANSTDescriptor";
+    v21[0] = @"Unrecognized descriptor is not allowed.";
+    v21[1] = descriptorCopy;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, v21, v20, 2);
     goto LABEL_9;
   }
 
   LOBYTE(error) = 1;
 LABEL_10:
 
-  v19 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (BOOL)_validateTensorData:(id)data forDescriptor:(id)descriptor usingAllowedDescriptors:(id)descriptors withError:(id *)error
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   descriptorCopy = descriptor;
   if (!objc_msgSend__validateDescriptor_usingAllowedDescriptors_withError_(self, v12, descriptorCopy, descriptors, error))
@@ -153,11 +152,11 @@ LABEL_10:
       }
 
       v19 = MEMORY[0x277CCA9B8];
-      v24[0] = *MEMORY[0x277CCA068];
-      v24[1] = @"ANSTDescriptor";
-      v25[0] = @"Tensor does not match its designated descriptor.";
-      v25[1] = descriptorCopy;
-      v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v18, v25, v24, 2);
+      v23[0] = *MEMORY[0x277CCA068];
+      v23[1] = @"ANSTDescriptor";
+      v24[0] = @"Tensor does not match its designated descriptor.";
+      v24[1] = descriptorCopy;
+      v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v18, v24, v23, 2);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v19, v21, @"ANSTErrorDomain", 11, v20);
 
 LABEL_7:
@@ -169,13 +168,12 @@ LABEL_7:
   LOBYTE(error) = 1;
 LABEL_8:
 
-  v22 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (BOOL)_validatePixelBuffer:(id)buffer forDescriptor:(id)descriptor usingAllowedDescriptors:(id)descriptors withError:(id *)error
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   descriptorCopy = descriptor;
   if (!objc_msgSend__validateDescriptor_usingAllowedDescriptors_withError_(self, v12, descriptorCopy, descriptors, error))
@@ -196,11 +194,11 @@ LABEL_8:
       }
 
       v19 = MEMORY[0x277CCA9B8];
-      v24[0] = *MEMORY[0x277CCA068];
-      v24[1] = @"ANSTDescriptor";
-      v25[0] = @"Pixel buffer does not match its designated descriptor.";
-      v25[1] = descriptorCopy;
-      v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v18, v25, v24, 2);
+      v23[0] = *MEMORY[0x277CCA068];
+      v23[1] = @"ANSTDescriptor";
+      v24[0] = @"Pixel buffer does not match its designated descriptor.";
+      v24[1] = descriptorCopy;
+      v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v18, v24, v23, 2);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v19, v21, @"ANSTErrorDomain", 13, v20);
 
 LABEL_7:
@@ -212,7 +210,6 @@ LABEL_7:
   LOBYTE(error) = 1;
 LABEL_8:
 
-  v22 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -326,17 +323,16 @@ LABEL_8:
 
 - (BOOL)resetWithError:(id *)error
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (error)
   {
     v4 = MEMORY[0x277CCA9B8];
-    v9 = *MEMORY[0x277CCA068];
-    v10[0] = @"This specific post processor has not implemented a reset yet. If you need a reset, please file a radar to 'ANST | Implementation'. ";
-    v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v10, &v9, 1);
+    v8 = *MEMORY[0x277CCA068];
+    v9[0] = @"This specific post processor has not implemented a reset yet. If you need a reset, please file a radar to 'ANST | Implementation'. ";
+    v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v9, &v8, 1);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v4, v6, @"ANSTErrorDomain", 0, v5);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -396,28 +392,28 @@ LABEL_8:
 
 - (BOOL)bindInputsToNetwork:(id)network error:(id *)error
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   networkCopy = network;
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
   v9 = objc_msgSend_inferenceInputTensorDescriptors(self, v7, v8);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v79, v86, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v78, v85, 16);
   if (v11)
   {
     v14 = v11;
-    v15 = *v80;
+    v15 = *v79;
 LABEL_3:
     v16 = 0;
     while (1)
     {
-      if (*v80 != v15)
+      if (*v79 != v15)
       {
         objc_enumerationMutation(v9);
       }
 
-      v17 = *(*(&v79 + 1) + 8 * v16);
+      v17 = *(*(&v78 + 1) + 8 * v16);
       v18 = objc_msgSend_name(v17, v12, v13);
       v20 = objc_msgSend_tensorSurfaceForNetworkInputNamed_error_(networkCopy, v19, v18, error);
 
@@ -435,7 +431,7 @@ LABEL_3:
 
       if (v14 == ++v16)
       {
-        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v79, v86, 16);
+        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v78, v85, 16);
         if (v14)
         {
           goto LABEL_3;
@@ -450,26 +446,26 @@ LABEL_3:
   {
 LABEL_10:
 
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
     v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
     v9 = objc_msgSend_inferenceOutputTensorDescriptors(self, v23, v24);
-    v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v25, &v75, v85, 16);
+    v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v25, &v74, v84, 16);
     if (v26)
     {
       v29 = v26;
-      v30 = *v76;
+      v30 = *v75;
 LABEL_12:
       v31 = 0;
       while (1)
       {
-        if (*v76 != v30)
+        if (*v75 != v30)
         {
           objc_enumerationMutation(v9);
         }
 
-        v32 = *(*(&v75 + 1) + 8 * v31);
+        v32 = *(*(&v74 + 1) + 8 * v31);
         v33 = objc_msgSend_name(v32, v27, v28);
         v35 = objc_msgSend_tensorSurfaceForNetworkOutputNamed_error_(networkCopy, v34, v33, error);
 
@@ -487,7 +483,7 @@ LABEL_12:
 
         if (v29 == ++v31)
         {
-          v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v27, &v75, v85, 16);
+          v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v27, &v74, v84, 16);
           if (v29)
           {
             goto LABEL_12;
@@ -502,26 +498,26 @@ LABEL_12:
     {
 LABEL_19:
 
-      v73 = 0u;
-      v74 = 0u;
-      v71 = 0u;
       v72 = 0u;
+      v73 = 0u;
+      v70 = 0u;
+      v71 = 0u;
       v9 = objc_msgSend_inferenceInputPixelBufferDescriptors(self, v37, v38);
-      v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v39, &v71, v84, 16);
+      v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v39, &v70, v83, 16);
       if (v40)
       {
         v43 = v40;
-        v44 = *v72;
+        v44 = *v71;
 LABEL_21:
         v45 = 0;
         while (1)
         {
-          if (*v72 != v44)
+          if (*v71 != v44)
           {
             objc_enumerationMutation(v9);
           }
 
-          v46 = *(*(&v71 + 1) + 8 * v45);
+          v46 = *(*(&v70 + 1) + 8 * v45);
           v47 = objc_msgSend_name(v46, v41, v42);
           v49 = objc_msgSend_pixelBufferForNetworkInputNamed_error_(networkCopy, v48, v47, error);
 
@@ -539,7 +535,7 @@ LABEL_21:
 
           if (v43 == ++v45)
           {
-            v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v41, &v71, v84, 16);
+            v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v41, &v70, v83, 16);
             if (v43)
             {
               goto LABEL_21;
@@ -554,12 +550,12 @@ LABEL_21:
       {
 LABEL_28:
 
-        v69 = 0u;
-        v70 = 0u;
-        v67 = 0u;
         v68 = 0u;
+        v69 = 0u;
+        v66 = 0u;
+        v67 = 0u;
         v9 = objc_msgSend_inferenceOutputPixelBufferDescriptors(self, v51, v52, 0);
-        v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v53, &v67, v83, 16);
+        v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v53, &v66, v82, 16);
         if (!v54)
         {
           LOBYTE(v22) = 1;
@@ -567,17 +563,17 @@ LABEL_28:
         }
 
         v57 = v54;
-        v58 = *v68;
+        v58 = *v67;
 LABEL_30:
         v59 = 0;
         while (1)
         {
-          if (*v68 != v58)
+          if (*v67 != v58)
           {
             objc_enumerationMutation(v9);
           }
 
-          v60 = *(*(&v67 + 1) + 8 * v59);
+          v60 = *(*(&v66 + 1) + 8 * v59);
           v61 = objc_msgSend_name(v60, v55, v56);
           v63 = objc_msgSend_pixelBufferForNetworkOutputNamed_error_(networkCopy, v62, v61, error);
 
@@ -595,7 +591,7 @@ LABEL_30:
 
           if (v57 == ++v59)
           {
-            v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v55, &v67, v83, 16);
+            v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v55, &v66, v82, 16);
             LOBYTE(v22) = 1;
             if (v57)
             {
@@ -612,7 +608,6 @@ LABEL_30:
   LOBYTE(v22) = 0;
 LABEL_39:
 
-  v65 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

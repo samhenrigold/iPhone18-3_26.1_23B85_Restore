@@ -59,42 +59,40 @@
 
 - (void)notifyObservers:(id)observers
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   observersCopy = observers;
   os_unfair_lock_lock(&self->_lock);
   allObjects = [(NSHashTable *)self->_observerTable allObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = allObjects;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        observersCopy[2](observersCopy, *(*(&v12 + 1) + 8 * v10++));
+        observersCopy[2](observersCopy, *(*(&v11 + 1) + 8 * v10++));
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)count

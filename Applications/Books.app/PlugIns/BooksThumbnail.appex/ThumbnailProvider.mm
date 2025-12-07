@@ -8,7 +8,7 @@
 {
   requestCopy = request;
   handlerCopy = handler;
-  v6 = BooksThumbsLog();
+  v6 = BooksThumbsLog(handlerCopy);
   fileURL = [requestCopy fileURL];
   [requestCopy maximumSize];
   if (v8 < 8.0)
@@ -32,10 +32,10 @@
   {
     *buf = 138543874;
     *&buf[4] = fileURL;
-    v47 = 2048;
-    v48 = v10;
-    v49 = 2048;
-    v50 = v12;
+    v48 = 2048;
+    v49 = v10;
+    v50 = 2048;
+    v51 = v12;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "provideThumbnailForFileRequest for URL: %{public}@ size: %f,%f", buf, 0x20u);
   }
 
@@ -61,9 +61,9 @@
     v22 = [v15 stringByAppendingPathComponent:v21];
     v23 = [NSURL fileURLWithPath:v22];
 
-    v45 = 0;
-    v24 = [BUZipFileArchive extractArchiveFromURL:fileURL toURL:v23 options:0 error:&v45];
-    v25 = v45;
+    v46 = 0;
+    v24 = [BUZipFileArchive extractArchiveFromURL:fileURL toURL:v23 options:0 error:&v46];
+    v25 = v46;
     if (v24)
     {
       v26 = sub_10000141C(v14, v23);
@@ -89,53 +89,53 @@
     v29 = v28;
     if (v28)
     {
-      [v28 size];
-      v32 = v30;
+      v30 = [v28 size];
       v33 = v31;
-      if (v30 <= v10 && v31 <= v12)
+      v34 = v32;
+      if (v31 <= v10 && v32 <= v12)
       {
         goto LABEL_37;
       }
 
-      if (v30 == 0.0 || v31 == 0.0)
+      if (v31 == 0.0 || v32 == 0.0)
       {
-        v37 = BooksThumbsLog();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v38 = BooksThumbsLog(v30);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
-          sub_100001910(v37);
+          sub_100001910(v38);
         }
       }
 
       else
       {
-        if (v30 / v31 > v10 / v12)
+        if (v31 / v32 > v10 / v12)
         {
-          v33 = v31 * (v10 / v30);
-          v32 = v10;
+          v34 = v32 * (v10 / v31);
+          v33 = v10;
 LABEL_37:
-          v41[0] = _NSConcreteStackBlock;
-          v41[1] = 3221225472;
-          v41[2] = sub_10000182C;
-          v41[3] = &unk_1000041D8;
-          v35 = v29;
-          v42 = v35;
-          v43 = v32;
+          v42[0] = _NSConcreteStackBlock;
+          v42[1] = 3221225472;
+          v42[2] = sub_10000182C;
+          v42[3] = &unk_1000041D8;
+          v36 = v29;
+          v43 = v36;
           v44 = v33;
-          v36 = [QLThumbnailReply replyWithContextSize:v41 currentContextDrawingBlock:v32, v33];
+          v45 = v34;
+          v37 = [QLThumbnailReply replyWithContextSize:v42 currentContextDrawingBlock:v33, v34];
 
           goto LABEL_38;
         }
 
-        if (v30 / v31 < v10 / v12)
+        if (v31 / v32 < v10 / v12)
         {
-          v32 = v30 * (v12 / v31);
+          v33 = v31 * (v12 / v32);
 LABEL_36:
-          v33 = v12;
+          v34 = v12;
           goto LABEL_37;
         }
       }
 
-      v32 = v10;
+      v33 = v10;
       goto LABEL_36;
     }
   }
@@ -145,14 +145,14 @@ LABEL_36:
     sub_100001954();
   }
 
-  v35 = 0;
   v36 = 0;
+  v37 = 0;
 LABEL_38:
-  v38 = objc_retainBlock(handlerCopy);
-  v39 = v38;
-  if (v38)
+  v39 = objc_retainBlock(handlerCopy);
+  v40 = v39;
+  if (v39)
   {
-    (*(v38 + 2))(v38, v36, v25);
+    (*(v39 + 2))(v39, v37, v25);
   }
 }
 

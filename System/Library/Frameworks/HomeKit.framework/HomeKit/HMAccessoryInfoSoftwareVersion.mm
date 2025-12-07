@@ -22,7 +22,7 @@
 
 - (HMAccessoryInfoSoftwareVersion)initWithProtoPayload:(id)payload
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   if ([payloadCopy hasMajorVersion] && objc_msgSend(payloadCopy, "hasMinorVersion") && (objc_msgSend(payloadCopy, "hasUpdateVersion") & 1) != 0)
   {
@@ -45,22 +45,21 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138544130;
-      v19 = v15;
-      v20 = 2048;
+      v17 = 138544130;
+      v18 = v15;
+      v19 = 2048;
       majorVersion2 = [payloadCopy majorVersion];
-      v22 = 2048;
+      v21 = 2048;
       minorVersion2 = [payloadCopy minorVersion];
-      v24 = 2048;
+      v23 = 2048;
       updateVersion2 = [payloadCopy updateVersion];
-      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Proto payload is missing required sw version info. Major: %lld minor: %lld update: %lld", &v18, 0x2Au);
+      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Proto payload is missing required sw version info. Major: %lld minor: %lld update: %lld", &v17, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v13);
     v12 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

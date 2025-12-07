@@ -25,72 +25,71 @@
 
 - (unsigned)match:(id)match eventClass:(int64_t)class attributes:(id)attributes bucket:(unsigned int)bucket logger:(id)logger
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   matchCopy = match;
   attributesCopy = attributes;
   loggerCopy = logger;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
   v14 = getOSLog();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v33 = matchCopy;
+    v32 = matchCopy;
     _os_log_debug_impl(&dword_1887D2000, v14, OS_LOG_TYPE_DEBUG, "matching rules %@", buf, 0xCu);
   }
 
   queue = [(SFAnalyticsCollection *)self queue];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __67__SFAnalyticsCollection_match_eventClass_attributes_bucket_logger___block_invoke;
-  v22[3] = &unk_1E70D6AE8;
-  v22[4] = self;
-  v23 = matchCopy;
-  v24 = attributesCopy;
-  v25 = loggerCopy;
-  v26 = &v28;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __67__SFAnalyticsCollection_match_eventClass_attributes_bucket_logger___block_invoke;
+  v21[3] = &unk_1E70D6AE8;
+  v21[4] = self;
+  v22 = matchCopy;
+  v23 = attributesCopy;
+  v24 = loggerCopy;
+  v25 = &v27;
   classCopy = class;
   v16 = loggerCopy;
   v17 = attributesCopy;
   v18 = matchCopy;
-  dispatch_sync(queue, v22);
+  dispatch_sync(queue, v21);
 
-  v19 = *(v29 + 6);
-  _Block_object_dispose(&v28, 8);
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *(v28 + 6);
+  _Block_object_dispose(&v27, 8);
   return v19;
 }
 
 void __67__SFAnalyticsCollection_match_eventClass_attributes_bucket_logger___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) matchingRules];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
 
   if (v3 && [v3 count])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v17;
+      v7 = *v16;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v17 != v7)
+          if (*v16 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v16 + 1) + 8 * i);
+          v9 = *(*(&v15 + 1) + 8 * i);
           v10 = *(a1 + 48);
           v11 = *(a1 + 72);
           v12 = [*(a1 + 32) processName];
@@ -103,7 +102,7 @@ void __67__SFAnalyticsCollection_match_eventClass_attributes_bucket_logger___blo
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v6);
@@ -115,14 +114,12 @@ void __67__SFAnalyticsCollection_match_eventClass_attributes_bucket_logger___blo
     v4 = getOSLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v15 = *(a1 + 40);
+      v14 = *(a1 + 40);
       *buf = 138412290;
-      v22 = v15;
+      v21 = v14;
       _os_log_debug_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEBUG, "no rules %@", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)storeCollection:(id)collection logger:(id)logger
@@ -187,31 +184,31 @@ void __48__SFAnalyticsCollection_storeCollection_logger___block_invoke(uint64_t 
 
 - (void)loadCollection:(id)collection
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   v5 = [collectionCopy dataPropertyForKey:@"SFCollectionConfig"];
   if (v5)
   {
     v6 = [(SFAnalyticsCollection *)self parseCollection:v5 logger:collectionCopy];
     queue = [(SFAnalyticsCollection *)self queue];
-    v11 = MEMORY[0x1E69E9820];
-    v12 = 3221225472;
-    v13 = __40__SFAnalyticsCollection_loadCollection___block_invoke;
-    v14 = &unk_1E70D6A98;
+    v10 = MEMORY[0x1E69E9820];
+    v11 = 3221225472;
+    v12 = __40__SFAnalyticsCollection_loadCollection___block_invoke;
+    v13 = &unk_1E70D6A98;
     selfCopy = self;
     v8 = v6;
-    v16 = v8;
-    dispatch_sync(queue, &v11);
+    v15 = v8;
+    dispatch_sync(queue, &v10);
 
     v9 = getOSLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = v8;
+      v17 = v8;
       _os_log_impl(&dword_1887D2000, v9, OS_LOG_TYPE_DEFAULT, "Loading matching rules: %@", buf, 0xCu);
     }
 
-    [(SFAnalyticsCollection *)self setupMetricsHook:collectionCopy, v11, v12, v13, v14, selfCopy];
+    [(SFAnalyticsCollection *)self setupMetricsHook:collectionCopy, v10, v11, v12, v13, selfCopy];
   }
 
   else
@@ -223,8 +220,6 @@ void __48__SFAnalyticsCollection_storeCollection_logger___block_invoke(uint64_t 
       _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "No rules, not setting up collection", buf, 2u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __40__SFAnalyticsCollection_loadCollection___block_invoke(uint64_t a1)
@@ -383,11 +378,11 @@ void __42__SFAnalyticsCollection_setupMetricsHook___block_invoke_4(uint64_t a1)
 
 - (id)parseCollection:(id)collection logger:(id)logger
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   loggerCopy = logger;
-  v60 = 0;
-  v5 = [collection decompressedDataUsingAlgorithm:0 error:&v60];
-  v6 = v60;
+  v59 = 0;
+  v5 = [collection decompressedDataUsingAlgorithm:0 error:&v59];
+  v6 = v59;
   if (v5)
   {
     v7 = [[SECSFARules alloc] initWithData:v5];
@@ -400,34 +395,34 @@ void __42__SFAnalyticsCollection_setupMetricsHook___block_invoke_4(uint64_t a1)
       eventFilters = [(SECSFARules *)v7 eventFilters];
       v13 = [eventFilters count];
 
-      v48 = v6;
-      v49 = v5;
-      v47 = v7;
+      v47 = v6;
+      v48 = v5;
+      v46 = v7;
       if (v13)
       {
         dictionary = [MEMORY[0x1E695DF90] dictionary];
         [(SecSFAParsedCollection *)v8 setAllowedEvents:dictionary];
 
-        v58 = 0u;
-        v59 = 0u;
-        v56 = 0u;
         v57 = 0u;
+        v58 = 0u;
+        v55 = 0u;
+        v56 = 0u;
         eventFilters2 = [(SECSFARules *)v7 eventFilters];
-        v16 = [eventFilters2 countByEnumeratingWithState:&v56 objects:v62 count:16];
+        v16 = [eventFilters2 countByEnumeratingWithState:&v55 objects:v61 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v57;
+          v18 = *v56;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v57 != v18)
+              if (*v56 != v18)
               {
                 objc_enumerationMutation(eventFilters2);
               }
 
-              v20 = *(*(&v56 + 1) + 8 * i);
+              v20 = *(*(&v55 + 1) + 8 * i);
               if ([v20 dropRate])
               {
                 if ([v20 dropRate] < 1 || objc_msgSend(v20, "dropRate") > 100)
@@ -451,14 +446,14 @@ void __42__SFAnalyticsCollection_setupMetricsHook___block_invoke_4(uint64_t a1)
               [allowedEvents setObject:v21 forKeyedSubscript:event];
             }
 
-            v17 = [eventFilters2 countByEnumeratingWithState:&v56 objects:v62 count:16];
+            v17 = [eventFilters2 countByEnumeratingWithState:&v55 objects:v61 count:16];
           }
 
           while (v17);
         }
 
-        v5 = v49;
-        v7 = v47;
+        v5 = v48;
+        v7 = v46;
       }
 
       eventRules = [(SECSFARules *)v7 eventRules];
@@ -469,26 +464,26 @@ void __42__SFAnalyticsCollection_setupMetricsHook___block_invoke_4(uint64_t a1)
         dictionary2 = [MEMORY[0x1E695DF90] dictionary];
         [(SecSFAParsedCollection *)v8 setMatchingRules:dictionary2];
 
-        v54 = 0u;
-        v55 = 0u;
-        v52 = 0u;
         v53 = 0u;
+        v54 = 0u;
+        v51 = 0u;
+        v52 = 0u;
         eventRules2 = [(SECSFARules *)v7 eventRules];
-        v28 = [eventRules2 countByEnumeratingWithState:&v52 objects:v61 count:16];
+        v28 = [eventRules2 countByEnumeratingWithState:&v51 objects:v60 count:16];
         if (v28)
         {
           v29 = v28;
-          v30 = *v53;
+          v30 = *v52;
           do
           {
             for (j = 0; j != v29; ++j)
             {
-              if (*v53 != v30)
+              if (*v52 != v30)
               {
                 objc_enumerationMutation(eventRules2);
               }
 
-              v32 = *(*(&v52 + 1) + 8 * j);
+              v32 = *(*(&v51 + 1) + 8 * j);
               versions = [v32 versions];
               if (versions)
               {
@@ -525,15 +520,15 @@ void __42__SFAnalyticsCollection_setupMetricsHook___block_invoke_4(uint64_t a1)
               [allowedEvents2 setObject:&unk_1EFAAC6A0 forKeyedSubscript:eventType3];
             }
 
-            v29 = [eventRules2 countByEnumeratingWithState:&v52 objects:v61 count:16];
+            v29 = [eventRules2 countByEnumeratingWithState:&v51 objects:v60 count:16];
           }
 
           while (v29);
         }
 
-        v6 = v48;
-        v5 = v49;
-        v7 = v47;
+        v6 = v47;
+        v5 = v48;
+        v7 = v46;
       }
     }
   }
@@ -543,37 +538,35 @@ void __42__SFAnalyticsCollection_setupMetricsHook___block_invoke_4(uint64_t a1)
     v8 = 0;
   }
 
-  v45 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (BOOL)allowedVersionsWithSelf:(id)self
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   if ([selfCopy versionsCount])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     versions = [selfCopy versions];
-    v6 = [versions countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [versions countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(versions);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           v11 = objc_opt_class();
           selfVersion = [(SFAnalyticsCollection *)self selfVersion];
           LOBYTE(v10) = [v11 isVersionSameOrNewer:selfVersion than:v10];
@@ -585,7 +578,7 @@ void __42__SFAnalyticsCollection_setupMetricsHook___block_invoke_4(uint64_t a1)
           }
         }
 
-        v7 = [versions countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [versions countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v7)
         {
           continue;
@@ -604,7 +597,6 @@ LABEL_12:
     v13 = 1;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

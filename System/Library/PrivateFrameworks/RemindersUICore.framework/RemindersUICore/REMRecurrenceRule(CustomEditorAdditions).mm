@@ -1,6 +1,6 @@
 @interface REMRecurrenceRule(CustomEditorAdditions)
+- (BOOL)isSimpleRule;
 - (uint64_t)isAnyDayRule;
-- (uint64_t)isSimpleRule;
 - (uint64_t)isWeekdayRule;
 - (uint64_t)isWeekendRule;
 @end
@@ -34,7 +34,7 @@
   return v3;
 }
 
-- (uint64_t)isSimpleRule
+- (BOOL)isSimpleRule
 {
   if (![self frequency])
   {

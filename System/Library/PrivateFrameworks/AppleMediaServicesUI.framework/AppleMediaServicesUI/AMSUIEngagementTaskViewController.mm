@@ -20,6 +20,8 @@
 - (void)dynamicViewController:(id)controller didResolveWithResult:(id)result error:(id)error;
 - (void)loadView;
 - (void)presentationControllerDidDismiss:(id)dismiss;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 - (void)webViewController:(id)controller didFinishPurchaseWithResult:(id)result error:(id)error;
 - (void)webViewController:(id)controller didResolveWithResult:(id)result error:(id)error completion:(id)completion;
@@ -74,6 +76,50 @@
   ams_defaultPlatformBackgroundColor = [MEMORY[0x1E69DC888] ams_defaultPlatformBackgroundColor];
   view = [(AMSUICommonViewController *)self view];
   [view setBackgroundColor:ams_defaultPlatformBackgroundColor];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = AMSUIEngagementTaskViewController;
+  [(AMSUIEngagementTaskViewController *)&v3 viewDidAppear:appear];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = AMSUIEngagementTaskViewController;
+  [(AMSUIEngagementTaskViewController *)&v8 viewDidDisappear:disappear];
+  if (![(AMSUIEngagementTaskViewController *)self ignoresDismissDetection])
+  {
+    if (([(AMSUIEngagementTaskViewController *)self isBeingDismissed]& 1) == 0)
+    {
+      navigationController = [(AMSUIEngagementTaskViewController *)self navigationController];
+      if ([navigationController isBeingDismissed])
+      {
+      }
+
+      else
+      {
+        isMovingFromParentViewController = [(AMSUIEngagementTaskViewController *)self isMovingFromParentViewController];
+
+        if (!isMovingFromParentViewController)
+        {
+          return;
+        }
+      }
+    }
+
+    dismissBlock = [(AMSUIEngagementTaskViewController *)self dismissBlock];
+
+    if (dismissBlock)
+    {
+      dismissBlock2 = [(AMSUIEngagementTaskViewController *)self dismissBlock];
+      dismissBlock2[2]();
+
+      [(AMSUIEngagementTaskViewController *)self setDismissBlock:0];
+    }
+  }
 }
 
 - (void)viewWillLayoutSubviews
@@ -139,7 +185,7 @@ uint64_t __47__AMSUIEngagementTaskViewController_canPresent__block_invoke(uint64
 
 - (id)startEngagement
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   request = [(AMSUIEngagementTaskViewController *)self request];
   logKey = [request logKey];
   v5 = AMSSetLogKey();
@@ -159,11 +205,11 @@ uint64_t __47__AMSUIEngagementTaskViewController_canPresent__block_invoke(uint64
     v11 = [request2 URL];
     v12 = AMSLogableURL();
     *buf = 138543874;
-    v26 = v8;
-    v27 = 2114;
-    v28 = v9;
-    v29 = 2114;
-    v30 = v12;
+    v25 = v8;
+    v26 = 2114;
+    v27 = v9;
+    v28 = 2114;
+    v29 = v12;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Starting engagement task with URL: %{public}@", buf, 0x20u);
   }
 
@@ -181,30 +227,29 @@ uint64_t __47__AMSUIEngagementTaskViewController_canPresent__block_invoke(uint64
   }
 
   _preloadChild = [(AMSUIEngagementTaskViewController *)self _preloadChild];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_2;
-  v23[3] = &unk_1E7F24C38;
-  v23[4] = self;
-  v16 = [_preloadChild continueWithBlock:v23];
-
   v22[0] = MEMORY[0x1E69E9820];
   v22[1] = 3221225472;
-  v22[2] = __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_35;
-  v22[3] = &unk_1E7F24BA0;
+  v22[2] = __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_2;
+  v22[3] = &unk_1E7F24C38;
   v22[4] = self;
-  v17 = [v16 catchWithBlock:v22];
+  v16 = [_preloadChild continueWithBlock:v22];
+
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_35;
+  v21[3] = &unk_1E7F24BA0;
+  v21[4] = self;
+  v17 = [v16 catchWithBlock:v21];
 
   objc_initWeak(buf, self);
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_2_39;
-  v20[3] = &unk_1E7F24C60;
-  objc_copyWeak(&v21, buf);
-  [v17 addFinishBlock:v20];
-  objc_destroyWeak(&v21);
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_2_39;
+  v19[3] = &unk_1E7F24C60;
+  objc_copyWeak(&v20, buf);
+  [v17 addFinishBlock:v19];
+  objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -218,7 +263,7 @@ void __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke(uint6
 
 id __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) request];
@@ -228,27 +273,27 @@ id __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_2(uint6
   v10 = objc_alloc_init(MEMORY[0x1E698CAD0]);
   [*(a1 + 32) setPresented:1];
   objc_initWeak(&location, *(a1 + 32));
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_3;
-  v30[3] = &unk_1E7F24730;
-  objc_copyWeak(&v32, &location);
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_3;
+  v28[3] = &unk_1E7F24730;
+  objc_copyWeak(&v30, &location);
   v11 = v10;
-  v31 = v11;
-  [*(a1 + 32) setDismissBlock:v30];
+  v29 = v11;
+  [*(a1 + 32) setDismissBlock:v28];
   if (v6)
   {
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_30;
-    v26 = &unk_1E7F24590;
-    v27 = *(a1 + 32);
+    v21 = MEMORY[0x1E69E9820];
+    v22 = 3221225472;
+    v23 = __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_30;
+    v24 = &unk_1E7F24590;
+    v25 = *(a1 + 32);
     v12 = v6;
-    v28 = v12;
+    v26 = v12;
     v13 = v11;
-    v29 = v13;
-    dispatch_async(MEMORY[0x1E69E96A0], &v23);
-    [*(a1 + 32) setError:{v12, v23, v24, v25, v26, v27}];
+    v27 = v13;
+    dispatch_async(MEMORY[0x1E69E96A0], &v21);
+    [*(a1 + 32) setError:{v12, v21, v22, v23, v24, v25}];
     v14 = v13;
   }
 
@@ -263,33 +308,30 @@ id __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_2(uint6
     v16 = [v15 OSLogObject];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(a1 + 32);
-      v18 = objc_opt_class();
-      v19 = AMSLogKey();
+      v17 = objc_opt_class();
+      v18 = AMSLogKey();
       *buf = 138543874;
+      v33 = v17;
+      v34 = 2114;
       v35 = v18;
       v36 = 2114;
-      v37 = v19;
-      v38 = 2114;
-      v39 = v5;
+      v37 = v5;
       _os_log_impl(&dword_1BB036000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Presenting: %{public}@", buf, 0x20u);
     }
 
     [*(a1 + 32) _updateChildViewController:v5];
-    v20 = v11;
+    v19 = v11;
   }
 
-  objc_destroyWeak(&v32);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(&location);
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 void __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_3(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained request];
   v4 = [v3 logKey];
@@ -306,11 +348,11 @@ void __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_3(uin
   {
     v8 = objc_opt_class();
     v9 = AMSLogKey();
-    v20 = 138543618;
-    v21 = v8;
-    v22 = 2114;
-    v23 = v9;
-    _os_log_impl(&dword_1BB036000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dismiss called on presented view controller", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v8;
+    v21 = 2114;
+    v22 = v9;
+    _os_log_impl(&dword_1BB036000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dismiss called on presented view controller", &v19, 0x16u);
   }
 
   v10 = [WeakRetained error];
@@ -329,16 +371,16 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v18 = [WeakRetained request];
-    if ([v18 failOnDismiss])
+    v17 = [WeakRetained request];
+    if ([v17 failOnDismiss])
     {
     }
 
     else
     {
-      v19 = [WeakRetained ignoresDismissDetection];
+      v18 = [WeakRetained ignoresDismissDetection];
 
-      if ((v19 & 1) == 0)
+      if ((v18 & 1) == 0)
       {
         v13 = objc_alloc_init(MEMORY[0x1E698C910]);
         v16 = *(a1 + 32);
@@ -357,8 +399,6 @@ LABEL_7:
   v13 = v12;
   [v11 finishWithError:v12];
 LABEL_11:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_30(uint64_t a1)
@@ -453,7 +493,7 @@ id __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_35(uint
 
 void __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_2_39(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -476,17 +516,17 @@ void __52__AMSUIEngagementTaskViewController_startEngagement__block_invoke_2_39(
       v14 = objc_opt_class();
       v15 = AMSLogKey();
       v16 = AMSLogableError();
-      v22 = 138543874;
-      v23 = v14;
-      v24 = 2114;
-      v25 = v15;
-      v26 = 2114;
-      v27 = v16;
+      v21 = 138543874;
+      v22 = v14;
+      v23 = 2114;
+      v24 = v15;
+      v25 = 2114;
+      v26 = v16;
       v17 = "%{public}@: [%{public}@] Task completed with error: %{public}@";
       v18 = v13;
       v19 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-      _os_log_impl(&dword_1BB036000, v18, v19, v17, &v22, 0x20u);
+      _os_log_impl(&dword_1BB036000, v18, v19, v17, &v21, 0x20u);
     }
   }
 
@@ -503,20 +543,18 @@ LABEL_10:
       v20 = objc_opt_class();
       v15 = AMSLogKey();
       v16 = [v5 userInfo];
-      v22 = 138543874;
-      v23 = v20;
-      v24 = 2114;
-      v25 = v15;
-      v26 = 2112;
-      v27 = v16;
+      v21 = 138543874;
+      v22 = v20;
+      v23 = 2114;
+      v24 = v15;
+      v25 = 2112;
+      v26 = v16;
       v17 = "%{public}@: [%{public}@] Task completed successfully. %@";
       v18 = v13;
       v19 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_10;
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setup
@@ -595,7 +633,7 @@ LABEL_10:
 
 - (id)_isOriginatingURLTrusted
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -612,13 +650,13 @@ LABEL_10:
     request2 = [(AMSUIEngagementTaskViewController *)self request];
     v10 = [request2 URL];
     *buf = 138544130;
-    v31 = v5;
-    v32 = 2114;
-    v33 = v6;
-    v34 = 2114;
-    v35 = originatingURL;
-    v36 = 2114;
-    v37 = v10;
+    v30 = v5;
+    v31 = 2114;
+    v32 = v6;
+    v33 = 2114;
+    v34 = originatingURL;
+    v35 = 2114;
+    v36 = v10;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Checking if originating URL %{public}@ is trusted for request %{public}@", buf, 0x2Au);
   }
 
@@ -637,22 +675,22 @@ LABEL_10:
       v18 = [v17 arrayForKey:@"trustedEngagementReferrers"];
       valuePromise = [v18 valuePromise];
 
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __61__AMSUIEngagementTaskViewController__isOriginatingURLTrusted__block_invoke;
-      v28[3] = &unk_1E7F24410;
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __61__AMSUIEngagementTaskViewController__isOriginatingURLTrusted__block_invoke;
+      v27[3] = &unk_1E7F24410;
       v20 = v16;
-      v29 = v20;
-      [valuePromise addErrorBlock:v28];
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __61__AMSUIEngagementTaskViewController__isOriginatingURLTrusted__block_invoke_2;
-      v26[3] = &unk_1E7F24CB0;
-      v26[4] = self;
+      v28 = v20;
+      [valuePromise addErrorBlock:v27];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __61__AMSUIEngagementTaskViewController__isOriginatingURLTrusted__block_invoke_2;
+      v25[3] = &unk_1E7F24CB0;
+      v25[4] = self;
       v21 = v20;
-      v27 = v21;
-      [valuePromise addSuccessBlock:v26];
-      v22 = v27;
+      v26 = v21;
+      [valuePromise addSuccessBlock:v25];
+      v22 = v26;
       promiseWithSuccess = v21;
 
       goto LABEL_10;
@@ -665,16 +703,15 @@ LABEL_10:
 
   promiseWithSuccess = [MEMORY[0x1E698C7F0] promiseWithSuccess];
 LABEL_10:
-  v24 = *MEMORY[0x1E69E9840];
 
   return promiseWithSuccess;
 }
 
-void __61__AMSUIEngagementTaskViewController__isOriginatingURLTrusted__block_invoke(uint64_t a1)
+void __61__AMSUIEngagementTaskViewController__isOriginatingURLTrusted__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = AMSError();
-  [v1 finishWithError:v2];
+  v2 = *(a1 + 32);
+  v3 = AMSError();
+  [v2 finishWithError:v3];
 }
 
 void __61__AMSUIEngagementTaskViewController__isOriginatingURLTrusted__block_invoke_2(uint64_t a1, void *a2)
@@ -701,29 +738,29 @@ void __61__AMSUIEngagementTaskViewController__isOriginatingURLTrusted__block_inv
 
 - (BOOL)_isURLTrusted:(id)trusted inDomains:(id)domains
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   domainsCopy = domains;
   host = [trusted host];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = domainsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && [v12 length])
         {
@@ -744,7 +781,7 @@ LABEL_15:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -757,7 +794,6 @@ LABEL_15:
   v13 = 0;
 LABEL_16:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -844,7 +880,7 @@ LABEL_7:
 
 id __50__AMSUIEngagementTaskViewController__preloadChild__block_invoke_60(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) request];
   v5 = [v4 logKey];
@@ -859,28 +895,25 @@ id __50__AMSUIEngagementTaskViewController__preloadChild__block_invoke_60(uint64
   v8 = [v7 OSLogObject];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
-    v11 = AMSLogKey();
-    v15 = 138543874;
+    v9 = objc_opt_class();
+    v10 = AMSLogKey();
+    v13 = 138543874;
+    v14 = v9;
+    v15 = 2114;
     v16 = v10;
-    v17 = 2114;
-    v18 = v11;
-    v19 = 2048;
-    v20 = [v3 longValue];
-    _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Determined URL type: %ld", &v15, 0x20u);
+    v17 = 2048;
+    v18 = [v3 longValue];
+    _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Determined URL type: %ld", &v13, 0x20u);
   }
 
-  v12 = [*(a1 + 32) _viewControllerForType:v3];
+  v11 = [*(a1 + 32) _viewControllerForType:v3];
 
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v11;
 }
 
 - (void)_receivedCarrierLinkResult:(id)result
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   resultCopy = result;
   result = [(AMSUIEngagementTaskViewController *)self result];
   v6 = result;
@@ -898,17 +931,15 @@ id __50__AMSUIEngagementTaskViewController__preloadChild__block_invoke_60(uint64
 
   [v8 setCarrierLinkResult:resultCopy];
   [(AMSUIEngagementTaskViewController *)self setResult:v8];
-  v11 = @"didCarrierLink";
-  v12[0] = MEMORY[0x1E695E118];
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = @"didCarrierLink";
+  v11[0] = MEMORY[0x1E695E118];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   [(AMSUIEngagementTaskViewController *)self _finishWithResultInfo:v9 error:0];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_receivedPurchaseResult:(id)result
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   resultCopy = result;
   result = [(AMSUIEngagementTaskViewController *)self result];
   v6 = result;
@@ -926,12 +957,10 @@ id __50__AMSUIEngagementTaskViewController__preloadChild__block_invoke_60(uint64
 
   [v8 setPurchaseResult:resultCopy];
   [(AMSUIEngagementTaskViewController *)self setResult:v8];
-  v11 = @"didPurchase";
-  v12[0] = MEMORY[0x1E695E118];
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = @"didPurchase";
+  v11[0] = MEMORY[0x1E695E118];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   [(AMSUIEngagementTaskViewController *)self _finishWithResultInfo:v9 error:0];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateChildViewController:(id)controller
@@ -986,7 +1015,7 @@ void __64__AMSUIEngagementTaskViewController__updateChildViewController___block_
 
 void __60__AMSUIEngagementTaskViewController__viewControllerForType___block_invoke(id *a1)
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   v2 = [a1[4] request];
   v3 = [v2 clientData];
   v4 = v3;
@@ -998,9 +1027,9 @@ void __60__AMSUIEngagementTaskViewController__viewControllerForType___block_invo
 
   v6 = v5;
 
-  v32 = @"engagementTask";
-  v33[0] = MEMORY[0x1E695E118];
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+  v31 = @"engagementTask";
+  v32[0] = MEMORY[0x1E695E118];
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
   v8 = [v6 ams_dictionaryByAddingEntriesFromDictionary:v7];
 
   v9 = [a1[5] integerValue];
@@ -1063,13 +1092,11 @@ LABEL_9:
       [a1[6] finishWithResult:v14];
       goto LABEL_10;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dynamicViewController:(id)controller didFinishCarrierLinkingWithResult:(id)result error:(id)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
@@ -1086,11 +1113,11 @@ LABEL_9:
     {
       v12 = objc_opt_class();
       v13 = AMSLogKey();
-      v19 = 138543618;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v13;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dynamic UI carrier link succeeded", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v12;
+      v20 = 2114;
+      v21 = v13;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dynamic UI carrier link succeeded", &v18, 0x16u);
     }
 
     [(AMSUIEngagementTaskViewController *)self _receivedCarrierLinkResult:resultCopy];
@@ -1109,22 +1136,20 @@ LABEL_9:
       v15 = objc_opt_class();
       v16 = AMSLogKey();
       v17 = AMSLogableError();
-      v19 = 138543874;
-      v20 = v15;
-      v21 = 2114;
-      v22 = v16;
-      v23 = 2114;
-      v24 = v17;
-      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Dynamic UI carrier link failed with error: %{public}@", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v15;
+      v20 = 2114;
+      v21 = v16;
+      v22 = 2114;
+      v23 = v17;
+      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Dynamic UI carrier link failed with error: %{public}@", &v18, 0x20u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dynamicViewController:(id)controller didFinishPurchaseWithResult:(id)result error:(id)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
@@ -1141,11 +1166,11 @@ LABEL_9:
     {
       v12 = objc_opt_class();
       v13 = AMSLogKey();
-      v19 = 138543618;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v13;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dynamic UI purchase succeeded", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v12;
+      v20 = 2114;
+      v21 = v13;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dynamic UI purchase succeeded", &v18, 0x16u);
     }
 
     [(AMSUIEngagementTaskViewController *)self _receivedPurchaseResult:resultCopy];
@@ -1164,22 +1189,20 @@ LABEL_9:
       v15 = objc_opt_class();
       v16 = AMSLogKey();
       v17 = AMSLogableError();
-      v19 = 138543874;
-      v20 = v15;
-      v21 = 2114;
-      v22 = v16;
-      v23 = 2114;
-      v24 = v17;
-      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Dynamic UI purchase failed with error: %{public}@", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v15;
+      v20 = 2114;
+      v21 = v16;
+      v22 = 2114;
+      v23 = v17;
+      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Dynamic UI purchase failed with error: %{public}@", &v18, 0x20u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dynamicViewController:(id)controller didFinishWithPurchaseResult:(id)result error:(id)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   mEMORY[0x1E698C968]2 = mEMORY[0x1E698C968];
@@ -1195,11 +1218,11 @@ LABEL_9:
     {
       v10 = objc_opt_class();
       v11 = AMSLogKey();
-      v18 = 138543618;
-      v19 = v10;
-      v20 = 2114;
-      v21 = v11;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dynamic UI purchase succeeded", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v10;
+      v19 = 2114;
+      v20 = v11;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dynamic UI purchase succeeded", &v17, 0x16u);
     }
 
     [(AMSUIEngagementTaskViewController *)self _receivedPurchaseResult:resultCopy];
@@ -1217,11 +1240,11 @@ LABEL_9:
     {
       v13 = objc_opt_class();
       v14 = AMSLogKey();
-      v18 = 138543618;
-      v19 = v13;
-      v20 = 2114;
-      v21 = v14;
-      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dynamic UI flow resolved and was dismissed", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v13;
+      v19 = 2114;
+      v20 = v14;
+      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dynamic UI flow resolved and was dismissed", &v17, 0x16u);
     }
 
     dismissBlock = [(AMSUIEngagementTaskViewController *)self dismissBlock];
@@ -1234,13 +1257,11 @@ LABEL_9:
       [(AMSUIEngagementTaskViewController *)self setDismissBlock:0];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dynamicViewController:(id)controller didResolveWithResult:(id)result error:(id)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E698C968];
   errorCopy = error;
   resultCopy = result;
@@ -1255,11 +1276,11 @@ LABEL_9:
   {
     v12 = objc_opt_class();
     v13 = AMSLogKey();
-    v17 = 138543618;
-    v18 = v12;
-    v19 = 2114;
-    v20 = v13;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dynamic UI did resolve", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v12;
+    v18 = 2114;
+    v19 = v13;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dynamic UI did resolve", &v16, 0x16u);
   }
 
   [(AMSUIEngagementTaskViewController *)self _finishWithResultInfo:resultCopy error:errorCopy];
@@ -1272,13 +1293,11 @@ LABEL_9:
 
     [(AMSUIEngagementTaskViewController *)self setDismissBlock:0];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)dynamicViewControllerShouldDismiss:(id)dismiss
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -1290,11 +1309,11 @@ LABEL_9:
   {
     v6 = objc_opt_class();
     v7 = AMSLogKey();
-    v12 = 138543618;
-    v13 = v6;
-    v14 = 2114;
-    v15 = v7;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dynamic UI will dismiss", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v6;
+    v13 = 2114;
+    v14 = v7;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dynamic UI will dismiss", &v11, 0x16u);
   }
 
   dismissBlock = [(AMSUIEngagementTaskViewController *)self dismissBlock];
@@ -1307,14 +1326,12 @@ LABEL_9:
     [(AMSUIEngagementTaskViewController *)self setDismissBlock:0];
   }
 
-  result = [(AMSUIEngagementTaskViewController *)self ignoresDismissDetection];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(AMSUIEngagementTaskViewController *)self ignoresDismissDetection];
 }
 
 - (void)webViewController:(id)controller didFinishPurchaseWithResult:(id)result error:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v6 = MEMORY[0x1E698C968];
@@ -1330,22 +1347,20 @@ LABEL_9:
     {
       v10 = objc_opt_class();
       v11 = AMSLogKey();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v11;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Web UI purchase succeeded", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2114;
+      v15 = v11;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Web UI purchase succeeded", &v12, 0x16u);
     }
 
     [(AMSUIEngagementTaskViewController *)self _receivedPurchaseResult:resultCopy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)webViewController:(id)controller didResolveWithResult:(id)result error:(id)error completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v10 = MEMORY[0x1E698C968];
   errorCopy = error;
@@ -1361,11 +1376,11 @@ LABEL_9:
   {
     v15 = objc_opt_class();
     v16 = AMSLogKey();
-    v20 = 138543618;
-    v21 = v15;
-    v22 = 2114;
-    v23 = v16;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Web UI did resolve", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v15;
+    v21 = 2114;
+    v22 = v16;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Web UI did resolve", &v19, 0x16u);
   }
 
   [(AMSUIEngagementTaskViewController *)self _finishWithResultInfo:resultCopy error:errorCopy];
@@ -1383,8 +1398,6 @@ LABEL_9:
   }
 
   (*(completionCopy + 2))(completionCopy, MEMORY[0x1E695E118], 0);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

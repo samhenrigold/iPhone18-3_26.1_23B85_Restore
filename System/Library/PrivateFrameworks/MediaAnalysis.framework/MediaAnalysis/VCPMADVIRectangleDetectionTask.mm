@@ -85,23 +85,23 @@ void __40__VCPMADVIRectangleDetectionTask_cancel__block_invoke(uint64_t a1)
 
 - (int)run
 {
-  v62[1] = *MEMORY[0x1E69E9840];
+  v69[1] = *MEMORY[0x1E69E9840];
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 0;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADVIRectangleDetectionTask running...", buf, 2u);
   }
 
-  v54 = 0;
-  v53 = 0;
-  if (![(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&v54 orientation:&v53])
+  v61 = 0;
+  v60 = 0;
+  if (![(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&v61 orientation:&v60])
   {
     v5 = +[VCPMADVIRectangleDetectionResource sharedResource];
     v8 = +[VCPMADResourceManager sharedManager];
-    v49 = [v8 activateResource:v5];
+    v56 = [v8 activateResource:v5];
 
     v9 = objc_alloc_init(MEMORY[0x1E69844E0]);
-    if (DeviceHasANE())
+    if (DeviceHasANE(v9, v10))
     {
       defaultANEDevice = [MEMORY[0x1E6984608] defaultANEDevice];
       [v9 setProcessingDevice:defaultANEDevice];
@@ -120,17 +120,17 @@ void __40__VCPMADVIRectangleDetectionTask_cancel__block_invoke(uint64_t a1)
     [v9 setMaximumObservations:{-[MADVIRectangleDetectionRequest maximumObservations](self->_request, "maximumObservations")}];
     if (self->_preferredMetalDevice)
     {
-      v11 = [MEMORY[0x1E6984608] deviceForMetalDevice:?];
-      [v9 setProcessingDevice:v11];
+      v12 = [MEMORY[0x1E6984608] deviceForMetalDevice:?];
+      [v9 setProcessingDevice:v12];
 
       if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
         processingDevice = [v9 processingDevice];
         preferredMetalDevice = self->_preferredMetalDevice;
         *buf = 138412546;
-        v58 = processingDevice;
-        v59 = 2112;
-        v60 = preferredMetalDevice;
+        v65 = processingDevice;
+        v66 = 2112;
+        v67 = preferredMetalDevice;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[RectangleDetection] Set VNProcessingDevice: %@ (%@)", buf, 0x16u);
       }
     }
@@ -141,11 +141,11 @@ void __40__VCPMADVIRectangleDetectionTask_cancel__block_invoke(uint64_t a1)
     block[2] = __37__VCPMADVIRectangleDetectionTask_run__block_invoke;
     block[3] = &unk_1E834D238;
     block[4] = self;
-    v15 = v9;
-    v52 = v15;
+    v16 = v9;
+    v59 = v16;
     dispatch_sync(cancelQueue, block);
-    v16 = atomic_load(&self->_canceled);
-    if (v16)
+    v18 = atomic_load(&self->_canceled);
+    if (v18)
     {
       v6 = 0;
       v7 = -128;
@@ -154,83 +154,83 @@ LABEL_39:
       goto LABEL_40;
     }
 
-    v17 = VCPSignPostLog();
-    v18 = os_signpost_id_generate(v17);
+    v19 = VCPSignPostLog(v17);
+    v20 = os_signpost_id_generate(v19);
 
-    v19 = VCPSignPostLog();
-    v20 = v19;
-    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+    v22 = VCPSignPostLog(v21);
+    v23 = v22;
+    if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
     {
       signpostPayload = self->_signpostPayload;
       *buf = 138412290;
-      v58 = signpostPayload;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v18, "VNImageRequestHandler_init", "%@", buf, 0xCu);
+      v65 = signpostPayload;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v20, "VNImageRequestHandler_init", "%@", buf, 0xCu);
     }
 
-    v22 = objc_alloc(MEMORY[0x1E69845B8]);
-    v23 = v54;
-    v24 = v53;
+    v25 = objc_alloc(MEMORY[0x1E69845B8]);
+    v26 = v61;
+    v27 = v60;
     session = [v5 session];
-    v48 = [v22 initWithCVPixelBuffer:v23 orientation:v24 options:MEMORY[0x1E695E0F8] session:session];
+    v55 = [v25 initWithCVPixelBuffer:v26 orientation:v27 options:MEMORY[0x1E695E0F8] session:session];
 
-    v26 = VCPSignPostLog();
-    v27 = v26;
-    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+    v30 = VCPSignPostLog(v29);
+    v31 = v30;
+    if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
     {
-      v28 = self->_signpostPayload;
+      v32 = self->_signpostPayload;
       *buf = 138412290;
-      v58 = v28;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v18, "VNImageRequestHandler_init", "%@", buf, 0xCu);
+      v65 = v32;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v31, OS_SIGNPOST_INTERVAL_END, v20, "VNImageRequestHandler_init", "%@", buf, 0xCu);
     }
 
-    v29 = VCPSignPostLog();
-    v30 = os_signpost_id_generate(v29);
+    v34 = VCPSignPostLog(v33);
+    v35 = os_signpost_id_generate(v34);
 
-    v31 = VCPSignPostLog();
-    v32 = v31;
-    if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+    v37 = VCPSignPostLog(v36);
+    v38 = v37;
+    if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
     {
-      v33 = self->_signpostPayload;
+      v39 = self->_signpostPayload;
       *buf = 138412290;
-      v58 = v33;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_BEGIN, v30, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
+      v65 = v39;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v38, OS_SIGNPOST_INTERVAL_BEGIN, v35, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
     }
 
-    v56 = v15;
-    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v56 count:1];
-    v50 = 0;
-    v35 = [v48 performRequests:v34 error:&v50];
-    v6 = v50;
+    v63 = v16;
+    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v63 count:1];
+    v57 = 0;
+    v41 = [v55 performRequests:v40 error:&v57];
+    v6 = v57;
 
-    v36 = VCPSignPostLog();
-    v37 = v36;
-    if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
+    v43 = VCPSignPostLog(v42);
+    v44 = v43;
+    if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
     {
-      v38 = self->_signpostPayload;
+      v45 = self->_signpostPayload;
       *buf = 138412290;
-      v58 = v38;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v37, OS_SIGNPOST_INTERVAL_END, v30, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
+      v65 = v45;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v44, OS_SIGNPOST_INTERVAL_END, v35, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
     }
 
-    if (v35)
+    if (v41)
     {
       request = self->_request;
-      v40 = objc_alloc(MEMORY[0x1E69AE440]);
-      results = [v15 results];
-      v42 = [v40 initWithObservations:results];
-      v55 = v42;
-      v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
-      [(MADVIRectangleDetectionRequest *)request setResults:v43];
+      v47 = objc_alloc(MEMORY[0x1E69AE440]);
+      results = [v16 results];
+      v49 = [v47 initWithObservations:results];
+      v62 = v49;
+      v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v62 count:1];
+      [(MADVIRectangleDetectionRequest *)request setResults:v50];
 
       results2 = [(MADVIRectangleDetectionRequest *)self->_request results];
       firstObject = [results2 firstObject];
-      [firstObject setExecutionNanoseconds:{objc_msgSend(v15, "executionNanoseconds")}];
+      [firstObject setExecutionNanoseconds:{objc_msgSend(v16, "executionNanoseconds")}];
     }
 
     else
     {
-      v46 = atomic_load(&self->_canceled);
-      if (v46)
+      v53 = atomic_load(&self->_canceled);
+      if (v53)
       {
         v7 = -128;
 LABEL_38:
@@ -241,7 +241,7 @@ LABEL_38:
       [(MADVIRectangleDetectionRequest *)self->_request setError:v6];
     }
 
-    [v49 reset];
+    [v56 reset];
     if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -260,16 +260,16 @@ LABEL_38:
 
   v3 = self->_request;
   v4 = MEMORY[0x1E696ABC0];
-  v61 = *MEMORY[0x1E696A578];
+  v68 = *MEMORY[0x1E696A578];
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image loading failed"];
-  v62[0] = v5;
-  v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:&v61 count:1];
+  v69[0] = v5;
+  v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:&v68 count:1];
   v6 = [v4 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:?];
   [(MADVIRectangleDetectionRequest *)v3 setError:v6];
   v7 = 0;
 LABEL_40:
 
-  CF<__CVBuffer *>::~CF(&v54);
+  CF<__CVBuffer *>::~CF(&v61);
   return v7;
 }
 

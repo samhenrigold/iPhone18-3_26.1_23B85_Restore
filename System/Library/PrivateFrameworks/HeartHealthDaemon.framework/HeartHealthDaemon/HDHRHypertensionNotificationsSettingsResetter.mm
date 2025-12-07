@@ -29,14 +29,14 @@
 
 - (void)featureAvailabilityProvidingDidUpdateOnboardingCompletion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   queue = self->_queue;
   completionCopy = completion;
   dispatch_assert_queue_V2(queue);
-  v22 = 0;
-  v6 = [completionCopy earliestDateLowestOnboardingVersionCompletedWithError:&v22];
+  v21 = 0;
+  v6 = [completionCopy earliestDateLowestOnboardingVersionCompletedWithError:&v21];
 
-  v7 = v22;
+  v7 = v21;
   v8 = v7;
   if (!v6)
   {
@@ -55,9 +55,9 @@
       keyValueDomain = self->_keyValueDomain;
       v11 = MEMORY[0x277D12F08];
       v12 = *MEMORY[0x277D12F08];
-      v21 = 0;
-      v9 = [(HDKeyValueDomain *)keyValueDomain dateForKey:v12 error:&v21];
-      v13 = v21;
+      v20 = 0;
+      v9 = [(HDKeyValueDomain *)keyValueDomain dateForKey:v12 error:&v20];
+      v13 = v20;
       if (v13)
       {
         v8 = v13;
@@ -71,17 +71,17 @@
 
       else if (v9)
       {
-        v16 = self->_keyValueDomain;
-        v17 = *v11;
-        v20 = 0;
-        v18 = [(HDKeyValueDomain *)v16 setDate:0 forKey:v17 error:&v20];
-        v8 = v20;
+        v15 = self->_keyValueDomain;
+        v16 = *v11;
+        v19 = 0;
+        v17 = [(HDKeyValueDomain *)v15 setDate:0 forKey:v16 error:&v19];
+        v8 = v19;
         _HKInitializeLogging();
-        v19 = HKLogHeartRateCategory();
-        v14 = v19;
-        if (v18)
+        v18 = HKLogHeartRateCategory();
+        v14 = v18;
+        if (v17)
         {
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
             selfCopy2 = self;
@@ -89,7 +89,7 @@
           }
         }
 
-        else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [HDHRHypertensionNotificationsSettingsResetter featureAvailabilityProvidingDidUpdateOnboardingCompletion:];
         }
@@ -110,32 +110,6 @@
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
-}
-
-- (void)featureAvailabilityProvidingDidUpdateOnboardingCompletion:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] (Skipping reset) Failed to retrieve hypertension notifications earliest onboarding date with error %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)featureAvailabilityProvidingDidUpdateOnboardingCompletion:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] (Skipping reset) Failed to retrieve hypertension notifications last analysis window end date with error %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)featureAvailabilityProvidingDidUpdateOnboardingCompletion:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Failed to reset hypertension notifications last analysis window end date with error %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

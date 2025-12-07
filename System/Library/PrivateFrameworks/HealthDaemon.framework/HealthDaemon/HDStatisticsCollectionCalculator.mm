@@ -337,31 +337,32 @@
 {
   v31 = *MEMORY[0x277D85DE8];
   intervalsCopy = intervals;
-  v7 = [intervalsCopy copy];
+  v7 = objc_msgSend_copy(intervalsCopy);
   maskedIntervals = self->_maskedIntervals;
   self->_maskedIntervals = v7;
 
-  __p = 0uLL;
+  __p = 0;
+  v28 = 0;
   v29 = 0;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v9 = intervalsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v30 count:16];
   if (v10)
   {
-    v11 = *v25;
+    v11 = *v24;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         startDate = [v13 startDate];
         [startDate timeIntervalSinceReferenceDate];
         v16 = v15;
@@ -390,27 +391,26 @@
         HKIntervalMask<double>::_insertInterval(&__p, v19, v20);
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v23 objects:v30 count:16];
     }
 
     while (v10);
   }
 
   v21 = (*(*self->_implementation.__ptr_ + 64))(self->_implementation.__ptr_, &__p, error);
-  if (__p.n128_u64[0])
+  if (__p)
   {
-    __p.n128_u64[1] = __p.n128_u64[0];
-    operator delete(__p.n128_u64[0]);
+    v28 = __p;
+    operator delete(__p);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (void)setStatisticsHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = [handlerCopy copy];
+  v5 = objc_msgSend_copy(handlerCopy);
   statisticsHandler = self->_statisticsHandler;
   self->_statisticsHandler = v5;
 

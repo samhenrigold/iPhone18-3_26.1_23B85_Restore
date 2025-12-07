@@ -182,36 +182,4 @@ void __74__DNDSUserAvailabilityIntentLauncher_launchIntentExtensionWithCompletio
   }
 }
 
-void __74__DNDSUserAvailabilityIntentLauncher_launchIntentExtensionWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "INCExtensionConnection timeout!! %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __74__DNDSUserAvailabilityIntentLauncher_launchIntentExtensionWithCompletion___block_invoke_4_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "INCExtensionConnection interrupted!! %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __74__DNDSUserAvailabilityIntentLauncher_launchIntentExtensionWithCompletion___block_invoke_5_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "INCExtensionConnection resumeWithCompletionHandler error!! %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __74__DNDSUserAvailabilityIntentLauncher_launchIntentExtensionWithCompletion___block_invoke_6_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "INCExtensionConnection proxy handle error!! %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 @end

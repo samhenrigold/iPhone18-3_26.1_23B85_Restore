@@ -114,7 +114,7 @@
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_linkedContactStoreIdentifier)
   {
@@ -131,33 +131,32 @@
     PBDataWriterWriteStringField();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_destinations;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -190,11 +189,8 @@
 
   if (*&self->_has)
   {
-    shouldRemove = self->_shouldRemove;
     PBDataWriterWriteBOOLField();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -269,7 +265,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_linkedContactStoreIdentifier copyWithZone:zone];
   v7 = *(v5 + 24);
@@ -283,34 +279,34 @@
   v11 = *(v5 + 72);
   *(v5 + 72) = v10;
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v12 = self->_destinations;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v31;
+    v15 = *v30;
     do
     {
       v16 = 0;
       do
       {
-        if (*v31 != v15)
+        if (*v30 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v30 + 1) + 8 * v16) copyWithZone:{zone, v30}];
+        v17 = [*(*(&v29 + 1) + 8 * v16) copyWithZone:{zone, v29}];
         [v5 addDestinations:v17];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v14);
@@ -342,7 +338,6 @@
     *(v5 + 84) |= 1u;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -492,7 +487,7 @@ LABEL_23:
 
 - (void)mergeFrom:(id)from
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 3))
   {
@@ -509,29 +504,29 @@ LABEL_23:
     [(ASCodableContact *)self setShortName:?];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v5 = *(fromCopy + 1);
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(ASCodableContact *)self addDestinations:*(*(&v17 + 1) + 8 * i), v17];
+        [(ASCodableContact *)self addDestinations:*(*(&v16 + 1) + 8 * i), v16];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -597,8 +592,6 @@ LABEL_23:
     self->_shouldRemove = *(fromCopy + 80);
     *&self->_has |= 1u;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

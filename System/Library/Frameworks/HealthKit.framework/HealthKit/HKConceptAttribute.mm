@@ -86,9 +86,11 @@
 
 uint64_t __33__HKConceptAttribute_numberValue__block_invoke()
 {
-  numberValue_numberFormatter = objc_alloc_init(MEMORY[0x1E696ADA0]);
+  v0 = objc_alloc_init(MEMORY[0x1E696ADA0]);
+  v1 = numberValue_numberFormatter;
+  numberValue_numberFormatter = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)BOOLValue

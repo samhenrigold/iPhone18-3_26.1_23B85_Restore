@@ -409,7 +409,7 @@
   if ([(THWIntroMediaController *)self->_introMediaController isMovie])
   {
     player = [(AVPlayerViewController *)[(THiOSIntroMediaViewController *)self moviePlayerViewController] player];
-    if (player && ([(AVPlayer *)player currentTime], v4 > 0))
+    if (player && (objc_msgSend_currentTime(player), v4 > 0))
     {
       [(THiOSIntroMediaViewController *)self p_showMovieControls];
     }
@@ -433,13 +433,13 @@
   player = [(AVPlayerViewController *)[(THiOSIntroMediaViewController *)self moviePlayerViewController] player];
   if (player)
   {
-    [(AVPlayer *)player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   currentItem = [[(AVPlayerViewController *)[(THiOSIntroMediaViewController *)self moviePlayerViewController:0] player] currentItem];
   if (currentItem)
   {
-    [(AVPlayerItem *)currentItem duration];
+    objc_msgSend_duration(currentItem);
     v5 = v8;
   }
 

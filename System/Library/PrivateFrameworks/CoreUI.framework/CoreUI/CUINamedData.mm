@@ -28,13 +28,13 @@
 
 - (CUINamedData)initWithName:(id)name usingRenditionKey:(id)key fromTheme:(unint64_t)theme
 {
-  v15.receiver = self;
-  v15.super_class = CUINamedData;
-  v6 = [(CUINamedLookup *)&v15 initWithName:name usingRenditionKey:key fromTheme:theme];
+  v9.receiver = self;
+  v9.super_class = CUINamedData;
+  v6 = [(CUINamedLookup *)&v9 initWithName:name usingRenditionKey:key fromTheme:theme];
   _rendition = [(CUINamedLookup *)v6 _rendition];
   if ([(CUIThemeRendition *)_rendition type]!= 1000 && [(CUIThemeRendition *)_rendition type]!= 9)
   {
-    _CUILog(4, "CoreUI: attempting to lookup a named data '%@' with a type that is not a data type in the AssetCatalog", v8, v9, v10, v11, v12, v13, name);
+    _CUILog(4, "CoreUI: attempting to lookup a named data '%@' with a type that is not a data type in the AssetCatalog", name);
 
     return 0;
   }

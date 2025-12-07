@@ -50,7 +50,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_258A1040C(v8);
+  sub_258A1040C(v8, v9);
 }
 
 - (_TtC14MentalHealthUI13MetalRenderer)init

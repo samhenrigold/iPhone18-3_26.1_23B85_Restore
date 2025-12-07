@@ -15,22 +15,22 @@
   v6 = v5;
   v8 = v7;
   v9 = objc_opt_class();
-  activeInterfaceOrientation = [*MEMORY[0x277D76620] activeInterfaceOrientation];
+  [*MEMORY[0x277D76620] activeInterfaceOrientation];
   if (v9)
   {
-    [v9 nc_transformForInterfaceOrientation:activeInterfaceOrientation];
+    objc_msgSend_nc_transformForInterfaceOrientation_(v9);
   }
 
   else
   {
-    memset(&v11, 0, sizeof(v11));
+    memset(&v10, 0, sizeof(v10));
   }
 
-  v12.origin.x = v2;
-  v12.origin.y = v4;
-  v12.size.width = v6;
-  v12.size.height = v8;
-  CGRectApplyAffineTransform(v12, &v11);
+  v11.origin.x = v2;
+  v11.origin.y = v4;
+  v11.size.width = v6;
+  v11.size.height = v8;
+  CGRectApplyAffineTransform(v11, &v10);
 }
 
 + (CGAffineTransform)nc_transformForScreenOriginRotation:()NCAdditions
@@ -75,24 +75,9 @@
 
 + (uint64_t)nc_counterTransformForActiveInterfaceOrientation
 {
-  activeInterfaceOrientation = [*MEMORY[0x277D76620] activeInterfaceOrientation];
-  v3 = 3;
-  if (activeInterfaceOrientation != 4)
-  {
-    v3 = 4;
-  }
+  [*MEMORY[0x277D76620] activeInterfaceOrientation];
 
-  if ((activeInterfaceOrientation - 3) >= 2)
-  {
-    v4 = activeInterfaceOrientation;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  return [self nc_transformForInterfaceOrientation:v4];
+  return objc_msgSend_nc_transformForInterfaceOrientation_(self);
 }
 
 @end

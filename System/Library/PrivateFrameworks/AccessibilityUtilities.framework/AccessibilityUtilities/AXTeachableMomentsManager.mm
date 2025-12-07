@@ -29,9 +29,11 @@
 
 uint64_t __42__AXTeachableMomentsManager_sharedManager__block_invoke()
 {
-  sharedManager_Manager_0 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedManager_Manager_0;
+  sharedManager_Manager_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_majorBuildVersion
@@ -42,7 +44,7 @@ uint64_t __42__AXTeachableMomentsManager_sharedManager__block_invoke()
   v5 = processInfo;
   if (processInfo)
   {
-    [processInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo);
     v6 = v10;
   }
 
@@ -65,7 +67,7 @@ uint64_t __42__AXTeachableMomentsManager_sharedManager__block_invoke()
   v5 = processInfo;
   if (processInfo)
   {
-    [processInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo);
     v6 = v16;
   }
 
@@ -80,7 +82,7 @@ uint64_t __42__AXTeachableMomentsManager_sharedManager__block_invoke()
   v10 = processInfo2;
   if (processInfo2)
   {
-    [processInfo2 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo2);
     v11 = v15;
   }
 

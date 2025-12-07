@@ -23,7 +23,7 @@
   {
     v5 = [dictionaryCopy PKStringForKey:@"style"];
     v6 = v5;
-    if (v5 == @"zoomedShape" || v5 && (v7 = [(__CFString *)v5 isEqualToString:@"zoomedShape"], v6, (v7 & 1) != 0))
+    if (v5 == @"zoomedShape" || v5 && (isEqualToString = objc_msgSend_isEqualToString_(v5), v6, (isEqualToString & 1) != 0))
     {
 
       self->_style = 1;
@@ -144,7 +144,7 @@ LABEL_12:
     v37 = MEMORY[0x1E696B098];
     if (layerCopy)
     {
-      [layerCopy transform];
+      objc_msgSend_transform(layerCopy);
     }
 
     else

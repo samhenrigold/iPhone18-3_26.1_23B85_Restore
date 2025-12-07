@@ -209,7 +209,7 @@ LABEL_8:
     v16 = nar_sync_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_10000BD20(error);
+      sub_10000BD20();
     }
 
     domain = [*error domain];

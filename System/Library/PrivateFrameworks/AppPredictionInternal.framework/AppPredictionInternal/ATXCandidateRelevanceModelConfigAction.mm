@@ -59,16 +59,7 @@
 
   biomeStoreData = [candidateCopy biomeStoreData];
 
-  if (!biomeStoreData)
-  {
-    goto LABEL_5;
-  }
-
-  actionKey = [biomeStoreData actionKey];
-  v14 = [_ATXActionUtils getActionTypeFromActionKey:actionKey];
-  v15 = [v14 isEqualToString:@"INPlayMediaIntent"];
-
-  if (!v15 || ([ATXMediaActionPrediction updatedPlayMediaAction:biomeStoreData], v16 = objc_claimAutoreleasedReturnValue(), biomeStoreData, (biomeStoreData = v16) != 0))
+  if (biomeStoreData && (([biomeStoreData actionKey], v13 = objc_claimAutoreleasedReturnValue(), +[_ATXActionUtils getActionTypeFromActionKey:](_ATXActionUtils, "getActionTypeFromActionKey:", v13), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", @"INPlayMediaIntent"), v14, v13, !v15) || (+[ATXMediaActionPrediction updatedPlayMediaAction:](ATXMediaActionPrediction, "updatedPlayMediaAction:", biomeStoreData), v16 = objc_claimAutoreleasedReturnValue(), biomeStoreData, (biomeStoreData = v16) != 0)))
   {
     v17 = objc_alloc(MEMORY[0x277CEB7F0]);
     *&v18 = prediction;
@@ -84,7 +75,6 @@
 
   else
   {
-LABEL_5:
     v25 = 0;
   }
 

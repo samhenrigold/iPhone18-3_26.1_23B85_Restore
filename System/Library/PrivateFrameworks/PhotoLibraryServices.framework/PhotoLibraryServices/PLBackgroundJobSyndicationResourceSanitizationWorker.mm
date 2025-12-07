@@ -111,7 +111,7 @@ void __111__PLBackgroundJobSyndicationResourceSanitizationWorker_performTransact
         *buf = 138412546;
         v23 = workerName;
         v24 = 2048;
-        v25 = [v13 count];
+        v25 = objc_msgSend_count(v13);
         _os_log_impl(&dword_19BF1F000, v14, OS_LOG_TYPE_DEFAULT, "[resource.sync] %@ prefetching %lu items", buf, 0x16u);
       }
 
@@ -209,14 +209,14 @@ LABEL_6:
   v8 = libraryCopy;
   v35 = v8;
   [v8 performBlockAndWait:v34];
-  if ([v38[5] count])
+  if (objc_msgSend_count(v38[5]))
   {
     if ([(PLBackgroundJobSyndicationResourceSanitizationWorker *)self batchSize]== 1)
     {
       v9 = PLBackgroundJobServiceGetLog();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v10 = [v38[5] count];
+        v10 = objc_msgSend_count(v38[5]);
         *buf = 134217984;
         v44 = v10;
         _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_INFO, "[resource.sync]: %tu work items need processing", buf, 0xCu);
@@ -249,7 +249,7 @@ LABEL_6:
           }
 
           [v14 addObject:*(*(&v30 + 1) + 8 * i)];
-          v19 = [v14 count];
+          v19 = objc_msgSend_count(v14);
           if (v19 == [(PLBackgroundJobSyndicationResourceSanitizationWorker *)self batchSize])
           {
             v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -265,7 +265,7 @@ LABEL_6:
       while (v16);
     }
 
-    if (![v14 count])
+    if (!objc_msgSend_count(v14))
     {
       [v13 removeLastObject];
     }
@@ -273,8 +273,8 @@ LABEL_6:
     v21 = PLBackgroundJobServiceGetLog();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v22 = [v13 count];
-      v23 = [v38[5] count];
+      v22 = objc_msgSend_count(v13);
+      v23 = objc_msgSend_count(v38[5]);
       *buf = 134218240;
       v44 = v22;
       v45 = 2048;

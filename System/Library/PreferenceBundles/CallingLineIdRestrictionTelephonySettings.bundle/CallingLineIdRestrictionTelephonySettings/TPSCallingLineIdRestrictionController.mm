@@ -43,12 +43,12 @@
   contextCopy = context;
   v5 = [[TPSCallingLineIdRestrictionRequest alloc] initWithSubscriptionContext:contextCopy];
 
-  v6 = TPSCallingLineIdRestrictionLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = TPSCallingLineIdRestrictionLog(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Sending caller line ID restriction request %@.", &v7, 0xCu);
+    v9 = 138412290;
+    v10 = v5;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Sending caller line ID restriction request %@.", &v9, 0xCu);
   }
 
   [(TPSCallingLineIdRestrictionRequestController *)self->_requestController addRequest:v5];
@@ -63,12 +63,12 @@
     subscriptionContext = [(TPSCallingLineIdRestrictionController *)self subscriptionContext];
     v7 = [v5 initWithSubscriptionContext:subscriptionContext state:change];
 
-    v8 = TPSCallingLineIdRestrictionLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = TPSCallingLineIdRestrictionLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Sending caller line ID restriction set request %@.", &v10, 0xCu);
+      v12 = 138412290;
+      v13 = v7;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Sending caller line ID restriction set request %@.", &v12, 0xCu);
     }
 
     requestController = [(TPSCallingLineIdRestrictionController *)self requestController];
@@ -79,23 +79,23 @@
 - (void)requestController:(id)controller didReceiveResponse:(id)response
 {
   responseCopy = response;
-  v6 = TPSCallingLineIdRestrictionLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = TPSCallingLineIdRestrictionLog(responseCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = objc_opt_class();
-    v15 = 2112;
-    v16 = responseCopy;
-    v7 = v14;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%@ received response %@.", &v13, 0x16u);
+    v14 = 138412546;
+    v15 = objc_opt_class();
+    v16 = 2112;
+    v17 = responseCopy;
+    v8 = v15;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "%@ received response %@.", &v14, 0x16u);
   }
 
   -[TPSCallingLineIdRestrictionController setEditable:](self, "setEditable:", [responseCopy isEditable]);
   -[TPSCallingLineIdRestrictionController setState:](self, "setState:", [responseCopy state]);
   delegate = [(TPSCallingLineIdRestrictionController *)self delegate];
-  v9 = objc_opt_respondsToSelector();
+  v10 = objc_opt_respondsToSelector();
 
-  if (v9)
+  if (v10)
   {
     delegate2 = [(TPSCallingLineIdRestrictionController *)self delegate];
     state = [responseCopy state];

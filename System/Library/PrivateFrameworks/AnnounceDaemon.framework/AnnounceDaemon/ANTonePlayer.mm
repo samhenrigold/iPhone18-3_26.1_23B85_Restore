@@ -23,20 +23,19 @@
 - (ANTonePlayer)initWithAudioSessionID:(unsigned int)d endpointUUID:(id)iD
 {
   iDCopy = iD;
-  v14.receiver = self;
-  v14.super_class = ANTonePlayer;
-  v8 = [(ANTonePlayer *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = ANTonePlayer;
+  v8 = [(ANTonePlayer *)&v13 init];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(&v8->_endpointUUID, iD);
     v9->_proxyAudioSessionID = d;
     v9->_usingProxyAudioSession = 0;
-    endpointUUID = v9->_endpointUUID;
     ANLogBuildCategoryName();
-    v11 = ANLogWithCategory();
+    v10 = ANLogWithCategory();
     log = v9->_log;
-    v9->_log = v11;
+    v9->_log = v10;
   }
 
   return v9;
@@ -119,7 +118,7 @@
 
 - (void)_playSystemSoundWithFileURL:(id)l
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D26E58];
   lCopy = l;
   sharedAVSystemController = [v4 sharedAVSystemController];
@@ -129,7 +128,7 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v22 = an_isCarPlayConnected;
+    v21 = an_isCarPlayConnected;
     _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "CarPlay is Connected: %d", buf, 8u);
   }
 
@@ -147,9 +146,9 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v22 = outSystemSoundID;
-    v23 = 2112;
-    v24 = v10;
+    v21 = outSystemSoundID;
+    v22 = 2112;
+    v23 = v10;
     _os_log_impl(&dword_23F525000, v11, OS_LOG_TYPE_DEFAULT, "Playing system sound. SoundID=%u, options=%@", buf, 0x12u);
   }
 
@@ -159,21 +158,11 @@
   block[1] = 3221225472;
   block[2] = __44__ANTonePlayer__playSystemSoundWithFileURL___block_invoke;
   block[3] = &unk_278C86988;
-  v19 = outSystemSoundID;
-  v17 = v10;
+  v18 = outSystemSoundID;
+  v16 = v10;
   selfCopy = self;
   v14 = v10;
   dispatch_after(v13, v12, block);
-
-  v15 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t __44__ANTonePlayer__playSystemSoundWithFileURL___block_invoke(uint64_t a1)
-{
-  v4 = *(a1 + 48);
-  v1 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return AudioServicesPlaySystemSoundWithOptions();
 }
 
 uint64_t __44__ANTonePlayer__playSystemSoundWithFileURL___block_invoke_2(uint64_t a1)
@@ -262,16 +251,16 @@ uint64_t __44__ANTonePlayer__playSystemSoundWithFileURL___block_invoke_2(uint64_
 
 - (void)_deactivateAudioSession
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (![(ANTonePlayer *)self usingProxyAudioSession])
   {
     audioSession = [(ANTonePlayer *)self audioSession];
     opaqueSessionID = [audioSession opaqueSessionID];
 
     audioSession2 = [(ANTonePlayer *)self audioSession];
-    v12 = 0;
-    v7 = [audioSession2 setActive:0 withOptions:1 error:&v12];
-    v3 = v12;
+    v11 = 0;
+    v7 = [audioSession2 setActive:0 withOptions:1 error:&v11];
+    v3 = v11;
 
     v8 = [(ANTonePlayer *)self log];
     v9 = v8;
@@ -286,9 +275,9 @@ LABEL_9:
 
       audioSession3 = [(ANTonePlayer *)self audioSession];
       *buf = 138412546;
-      v14 = audioSession3;
-      v15 = 1024;
-      v16 = opaqueSessionID;
+      v13 = audioSession3;
+      v14 = 1024;
+      v15 = opaqueSessionID;
       _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "Deactivated audio session %@ (ID = %d)", buf, 0x12u);
     }
 
@@ -301,11 +290,11 @@ LABEL_9:
 
       audioSession3 = [(ANTonePlayer *)self audioSession];
       *buf = 138412802;
-      v14 = audioSession3;
-      v15 = 1024;
-      v16 = opaqueSessionID;
-      v17 = 2112;
-      v18 = v3;
+      v13 = audioSession3;
+      v14 = 1024;
+      v15 = opaqueSessionID;
+      v16 = 2112;
+      v17 = v3;
       _os_log_error_impl(&dword_23F525000, v9, OS_LOG_TYPE_ERROR, "Failed to deactivate audio session %@ (ID = %d), Error = %@", buf, 0x1Cu);
     }
 
@@ -320,8 +309,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForNotificationsWithAudioSession:(id)session
@@ -372,7 +359,7 @@ LABEL_10:
 
 - (void)audioSessionInterruptionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
   if (object && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -386,11 +373,11 @@ LABEL_10:
       if (v8)
       {
         audioSession2 = [(ANTonePlayer *)self audioSession];
-        v18 = 138412546;
-        v19 = audioSession2;
-        v20 = 2112;
-        v21 = object;
-        _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "Received Audio Session Interruption Notification for different Audio Session. Expected: %@, Actual: %@", &v18, 0x16u);
+        v17 = 138412546;
+        v18 = audioSession2;
+        v19 = 2112;
+        v20 = object;
+        _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "Received Audio Session Interruption Notification for different Audio Session. Expected: %@, Actual: %@", &v17, 0x16u);
       }
 
       goto LABEL_8;
@@ -398,28 +385,28 @@ LABEL_10:
 
     if (v8)
     {
-      v18 = 138412290;
-      v19 = object;
-      _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "Received Audio Session Interruption Notification for Audio Session %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = object;
+      _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "Received Audio Session Interruption Notification for Audio Session %@", &v17, 0xCu);
     }
 
     userInfo = [handlerCopy userInfo];
     v7 = userInfo;
     if (userInfo)
     {
-      v12 = [userInfo valueForKey:*MEMORY[0x277CB8080]];
-      v13 = v12;
-      if (v12)
+      v11 = [userInfo valueForKey:*MEMORY[0x277CB8080]];
+      v12 = v11;
+      if (v11)
       {
-        unsignedIntegerValue = [v12 unsignedIntegerValue];
-        v15 = [(ANTonePlayer *)self log];
-        player = v15;
+        unsignedIntegerValue = [v11 unsignedIntegerValue];
+        v14 = [(ANTonePlayer *)self log];
+        player = v14;
         if (!unsignedIntegerValue)
         {
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v18) = 0;
-            _os_log_impl(&dword_23F525000, player, OS_LOG_TYPE_DEFAULT, "Audio Session Interruption Ended. Not playing. Doing nothing.", &v18, 2u);
+            LOWORD(v17) = 0;
+            _os_log_impl(&dword_23F525000, player, OS_LOG_TYPE_DEFAULT, "Audio Session Interruption Ended. Not playing. Doing nothing.", &v17, 2u);
           }
 
           goto LABEL_29;
@@ -427,17 +414,17 @@ LABEL_10:
 
         if (unsignedIntegerValue == 1)
         {
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v18) = 0;
-            _os_log_impl(&dword_23F525000, player, OS_LOG_TYPE_DEFAULT, "Audio Session Interruption Began", &v18, 2u);
+            LOWORD(v17) = 0;
+            _os_log_impl(&dword_23F525000, player, OS_LOG_TYPE_DEFAULT, "Audio Session Interruption Began", &v17, 2u);
           }
 
           player = [(ANTonePlayer *)self player];
           [player pause];
         }
 
-        else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           [ANTonePlayer audioSessionInterruptionHandler:];
         }
@@ -458,8 +445,8 @@ LABEL_29:
       goto LABEL_8;
     }
 
-    v17 = [(ANTonePlayer *)self log];
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = [(ANTonePlayer *)self log];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [ANTonePlayer audioSessionInterruptionHandler:];
     }
@@ -477,8 +464,6 @@ LABEL_29:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFailure
@@ -566,7 +551,7 @@ LABEL_8:
 
 - (void)playerRateChangedHandler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   object = [handlerCopy object];
   if (object)
@@ -578,18 +563,18 @@ LABEL_8:
       v7 = [(ANTonePlayer *)self log];
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = *&handlerCopy;
-        _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "|> Rate Changed Notification: %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = *&handlerCopy;
+        _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "|> Rate Changed Notification: %@", &v13, 0xCu);
       }
 
       v8 = [(ANTonePlayer *)self log];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         [object rate];
-        v14 = 134217984;
-        v15 = v9;
-        _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "|> Player Rate: %f", &v14, 0xCu);
+        v13 = 134217984;
+        v14 = v9;
+        _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "|> Player Rate: %f", &v13, 0xCu);
       }
 
       userInfo = [handlerCopy userInfo];
@@ -607,8 +592,6 @@ LABEL_8:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callHandler:(id)handler
@@ -627,20 +610,18 @@ LABEL_8:
 
 - (void)playFileURL:(uint64_t)a1 completionHandler:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23F525000, a2, OS_LOG_TYPE_ERROR, "Failed to create Audio Session. Error = %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23F525000, a2, OS_LOG_TYPE_ERROR, "Failed to create Audio Session. Error = %@", &v2, 0xCu);
 }
 
 - (void)_playFileURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23F525000, a2, OS_LOG_TYPE_ERROR, "Failed to activate Audio Session. Error = %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23F525000, a2, OS_LOG_TYPE_ERROR, "Failed to activate Audio Session. Error = %@", &v2, 0xCu);
 }
 
 @end

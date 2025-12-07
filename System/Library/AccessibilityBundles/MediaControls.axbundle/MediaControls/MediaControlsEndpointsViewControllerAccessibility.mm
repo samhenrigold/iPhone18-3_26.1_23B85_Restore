@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (BOOL)accessibilityPerformEscape;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MediaControlsEndpointsViewControllerAccessibility
@@ -28,6 +29,14 @@
   [v3 setAccessibilityNavigationStyle:2];
   v5 = [(MediaControlsEndpointsViewControllerAccessibility *)self safeValueForKey:@"scrollView"];
   [v5 accessibilitySetIdentification:@"AXMediaControlsScrollViewIdentifier"];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MediaControlsEndpointsViewControllerAccessibility;
+  [(MediaControlsEndpointsViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(MediaControlsEndpointsViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 - (BOOL)accessibilityPerformEscape
@@ -60,10 +69,9 @@
   return accessibilityPerformEscape;
 }
 
-void __79__MediaControlsEndpointsViewControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
+void __79__MediaControlsEndpointsViewControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = *(a1 + 32);
   v3 = __UIAccessibilityCastAsClass();
   v4 = [v3 parentViewController];
   NSClassFromString(&cfstr_Ccuicontentmod.isa);

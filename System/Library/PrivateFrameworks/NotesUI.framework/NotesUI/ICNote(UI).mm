@@ -56,11 +56,9 @@
 - (uint64_t)isHandwritingRecognitionEnabled;
 - (uint64_t)isHashtagRowAtRange:()UI outRangeForAppending:outIndex:forHashtagAttachment:outHashtagCount:;
 - (uint64_t)noteDidClearDecryptedData;
-- (uint64_t)noteWillTurnIntoFault;
 - (uint64_t)preventLockReason;
 - (uint64_t)primaryWritingDirection;
 - (uint64_t)saveAfterDelay;
-- (uint64_t)setHandwritingRecognitionEnabled:()UI;
 - (uint64_t)updateModificationDateAndChangeCount;
 - (uint64_t)updateModificationDateAndChangeCountAndSaveAfterDelay;
 - (uint64_t)updateModificationDateAndChangeCountAndSaveImmediately;
@@ -80,6 +78,7 @@
 - (void)noteDidReplaceDocument;
 - (void)noteWillMergeDocumentWithUserInfo:()UI;
 - (void)noteWillReleaseTextStorage;
+- (void)noteWillTurnIntoFault;
 - (void)notifyTextViewsNoteDidMerge;
 - (void)notifyTextViewsNoteWillMerge;
 - (void)outlineControllerCollapsedStateDidChange:()UI;
@@ -87,6 +86,7 @@
 - (void)save;
 - (void)saveOutlineState;
 - (void)setCalculatePreviewBehavior:()UI;
+- (void)setHandwritingRecognitionEnabled:()UI;
 - (void)setIsDrawingStroke:()UI;
 - (void)setIsFastSyncSessionActive:()UI;
 - (void)setSelectedInk:()UI;
@@ -99,7 +99,7 @@
 
 @implementation ICNote(UI)
 
-- (uint64_t)noteWillTurnIntoFault
+- (void)noteWillTurnIntoFault
 {
   result = [self shouldReleaseTextStorageWhenTurningIntoFault];
   if (result)
@@ -398,12 +398,12 @@
 - (void)noteDidMergeNoteDocumentWithUserInfo:()UI
 {
   v4 = a3;
-  v5 = [v4 objectForKeyedSubscript:@"SavedSelections"];
+  v5 = objc_msgSend_objectForKeyedSubscript_(v4);
   textStorage = [self textStorage];
   [textStorage restoreSelection:v5];
 
   [self notifyTextViewsNoteDidMerge];
-  v7 = [v4 objectForKeyedSubscript:@"BeforeMergeTimestamp"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(v4);
 
   textStorage2 = [self textStorage];
   v9 = [self rangesModifiedAfterTimestamp:v7 inTextStorage:textStorage2];
@@ -1858,7 +1858,7 @@ LABEL_44:
 + (void)thumbnailImageForAttachment:()UI minSize:scale:appearanceType:requireAppearance:imageScaling:showAsFileIcon:isMovie:movieDuration:
 {
   v15 = 0;
-  v9 = [a3 thumbnailImage:&v15 minSize:a9 scale:? appearanceType:? requireAppearance:? imageScaling:? showAsFileIcon:? isMovie:? movieDuration:?];
+  v9 = [a3 thumbnailImage:&v15 minSize:a4 scale:a5 appearanceType:a6 requireAppearance:a7 imageScaling:a8 showAsFileIcon:a9 isMovie:? movieDuration:?];
   v10 = v15;
   v11 = v10;
   if (v9)
@@ -2562,7 +2562,7 @@ LABEL_8:
 {
   v4 = a4;
   v5 = a3;
-  v7 = a3 + a4;
+  v7 = &a3[a4];
   textStorage = [self textStorage];
   v9 = [textStorage length];
 
@@ -2648,7 +2648,7 @@ LABEL_15:
   textStorage = [self textStorage];
   v8 = [textStorage length];
 
-  if (a3 + a4 > v8)
+  if (&a3[a4] > v8)
   {
     goto LABEL_6;
   }
@@ -2787,7 +2787,7 @@ LABEL_6:
   [self setSelectedInkColorString:ic_colorString];
 }
 
-- (uint64_t)setHandwritingRecognitionEnabled:()UI
+- (void)setHandwritingRecognitionEnabled:()UI
 {
   result = [self isHandwritingRecognitionEnabled];
   if (result != a3)
@@ -3399,12 +3399,12 @@ LABEL_12:
   if (v10)
   {
     attachmentIdentifier = [v10 attachmentIdentifier];
-    attachment = [v7 objectForKeyedSubscript:attachmentIdentifier];
+    attachment = objc_msgSend_objectForKeyedSubscript_(v7);
 
     if (!attachment)
     {
       attachmentIdentifier2 = [v10 attachmentIdentifier];
-      v15 = [v8 objectForKeyedSubscript:attachmentIdentifier2];
+      v15 = objc_msgSend_objectForKeyedSubscript_(v8);
 
       if (v15)
       {

@@ -49,7 +49,7 @@
     v7 = [(ConversationPersonFilter *)self _identifiersForRecommendedPerson:caller2];
 
     v8 = [filterCopy callerPoolContainsOneOf:v7];
-    v9 = IntentHandlerDefaultLog();
+    v9 = IntentHandlerDefaultLog(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = @"NO";
@@ -80,37 +80,37 @@
 
   if (v6)
   {
-    v20 = 0u;
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
+    v20 = 0u;
     participants2 = [(ConversationPersonFilter *)self participants];
-    v8 = [participants2 countByEnumeratingWithState:&v18 objects:v24 count:16];
-    if (v8)
+    v9 = [participants2 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v19;
+      v10 = v9;
+      v11 = *v20;
       while (2)
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v10; i = i + 1)
         {
-          if (*v19 != v10)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(participants2);
           }
 
-          v12 = [(ConversationPersonFilter *)self _identifiersForRecommendedPerson:*(*(&v18 + 1) + 8 * i)];
-          v13 = [filterCopy participantsPoolContainsOneOf:v12];
+          v13 = [(ConversationPersonFilter *)self _identifiersForRecommendedPerson:*(*(&v19 + 1) + 8 * i)];
+          v14 = [filterCopy participantsPoolContainsOneOf:v13];
 
-          if (!v13)
+          if (!v14)
           {
-            v14 = 0;
+            v15 = 0;
             goto LABEL_12;
           }
         }
 
-        v9 = [participants2 countByEnumeratingWithState:&v18 objects:v24 count:16];
-        if (v9)
+        v10 = [participants2 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        if (v10)
         {
           continue;
         }
@@ -119,30 +119,30 @@
       }
     }
 
-    v14 = 1;
+    v15 = 1;
 LABEL_12:
   }
 
   else
   {
-    v14 = 1;
+    v15 = 1;
   }
 
-  v15 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = IntentHandlerDefaultLog(v7);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = @"NO";
-    if (v14)
+    v17 = @"NO";
+    if (v15)
     {
-      v16 = @"YES";
+      v17 = @"YES";
     }
 
     *buf = 138412290;
-    v23 = v16;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "ConversationPersonFilter: matchesParticipants=%@", buf, 0xCu);
+    v24 = v17;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "ConversationPersonFilter: matchesParticipants=%@", buf, 0xCu);
   }
 
-  return v14;
+  return v15;
 }
 
 - (id)_contactPoolForConversation:(id)conversation

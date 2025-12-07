@@ -39,7 +39,7 @@ flatbuffers::DetachedBuffer *__37__QSSWebTranslationInfo_flatbuffData__block_inv
 
 - (Offset<siri::speech::schema_fb::WebTranslationInfo>)addObjectToBuffer:(void *)buffer
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   text = [(QSSWebTranslationInfo *)self text];
   v6 = text;
   if (!text)
@@ -51,50 +51,50 @@ flatbuffers::DetachedBuffer *__37__QSSWebTranslationInfo_flatbuffData__block_inv
   v8 = strlen(uTF8String);
   String = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String, v8);
 
-  memset(&v29, 0, sizeof(v29));
+  memset(&v28, 0, sizeof(v28));
   spans = [(QSSWebTranslationInfo *)self spans];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v29, [spans count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v28, [spans count]);
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   spans2 = [(QSSWebTranslationInfo *)self spans];
-  v12 = [spans2 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v12 = [spans2 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v12)
   {
-    v13 = *v26;
+    v13 = *v25;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(spans2);
         }
 
-        v24 = [*(*(&v25 + 1) + 8 * i) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v29, &v24);
+        v23 = [*(*(&v24 + 1) + 8 * i) addObjectToBuffer:buffer];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v28, &v23);
       }
 
-      v12 = [spans2 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v12 = [spans2 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v12);
   }
 
-  begin = v29.__begin_;
-  if (v29.__end_ == v29.__begin_)
+  begin = v28.__begin_;
+  if (v28.__end_ == v28.__begin_)
   {
     v16 = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::Span>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::Span>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::Span>> const&)::t;
   }
 
   else
   {
-    v16 = v29.__begin_;
+    v16 = v28.__begin_;
   }
 
-  v17 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v16, v29.__end_ - v29.__begin_);
+  v17 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v16, v28.__end_ - v28.__begin_);
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v18 = *(buffer + 8);
@@ -108,7 +108,6 @@ flatbuffers::DetachedBuffer *__37__QSSWebTranslationInfo_flatbuffData__block_inv
     operator delete(begin);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

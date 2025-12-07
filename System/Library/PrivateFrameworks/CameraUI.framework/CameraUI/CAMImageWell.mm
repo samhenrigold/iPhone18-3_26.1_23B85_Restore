@@ -474,7 +474,7 @@
   }
 }
 
-uint64_t __46__CAMImageWell__updateThumbnailImageAnimated___block_invoke(uint64_t a1)
+void *__46__CAMImageWell__updateThumbnailImageAnimated___block_invoke(uint64_t a1)
 {
   v17 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 56);
@@ -543,30 +543,30 @@ LABEL_7:
 
 - (void)_performEmitAnimationWithImage:(id)image orientation:(int64_t)orientation withCompletionBlock:(id)block
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   blockCopy = block;
-  v10 = os_log_create("com.apple.camera", "ImageWell");
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v9 = os_log_create("com.apple.camera", "ImageWell");
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     _uuid = [(CAMImageWell *)self _uuid];
     LODWORD(buf.a) = 138543618;
     *(&buf.a + 4) = _uuid;
     WORD2(buf.b) = 2114;
     *(&buf.b + 6) = imageCopy;
-    _os_log_impl(&dword_1A3640000, v10, OS_LOG_TYPE_DEFAULT, "ImageWell %{public}@: _performEmitAnimationWithImage: %{public}@", &buf, 0x16u);
+    _os_log_impl(&dword_1A3640000, v9, OS_LOG_TYPE_DEFAULT, "ImageWell %{public}@: _performEmitAnimationWithImage: %{public}@", &buf, 0x16u);
   }
 
   memset(&buf, 0, sizeof(buf));
-  [(CAMImageWell *)self _affineTransformForImageOrientation:orientation];
-  v12 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:imageCopy];
+  objc_msgSend__affineTransformForImageOrientation_(self);
+  v11 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:imageCopy];
   [(UIView *)self->__containerView bounds];
-  [v12 setFrame:?];
-  [v12 setContentMode:2];
+  [v11 setFrame:?];
+  [v11 setContentMode:2];
   thumbnailImageView = self->__thumbnailImageView;
   if (thumbnailImageView)
   {
-    [(UIImageView *)thumbnailImageView transform];
+    objc_msgSend_transform(thumbnailImageView);
   }
 
   else
@@ -575,39 +575,39 @@ LABEL_7:
   }
 
   t2 = buf;
-  CGAffineTransformConcat(&v31, &t1, &t2);
-  [v12 setTransform:&v31];
-  [(UIView *)self->__containerView addSubview:v12];
-  LODWORD(v14) = 1.0;
-  v15 = [MEMORY[0x1E69793D0] functionWithControlPoints:0.0 :0.0 :0.0 :v14];
-  v16 = [MEMORY[0x1E6979318] animationWithKeyPath:@"bounds"];
-  v17 = [MEMORY[0x1E696B098] valueWithCGRect:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-  [v16 setFromValue:v17];
+  CGAffineTransformConcat(&v30, &t1, &t2);
+  [v11 setTransform:&v30];
+  [(UIView *)self->__containerView addSubview:v11];
+  LODWORD(v13) = 1.0;
+  v14 = [MEMORY[0x1E69793D0] functionWithControlPoints:0.0 :0.0 :0.0 :v13];
+  v15 = [MEMORY[0x1E6979318] animationWithKeyPath:@"bounds"];
+  v16 = [MEMORY[0x1E696B098] valueWithCGRect:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+  [v15 setFromValue:v16];
 
-  v18 = MEMORY[0x1E696B098];
+  v17 = MEMORY[0x1E696B098];
   [(UIView *)self->__containerView bounds];
-  v19 = [v18 valueWithCGRect:?];
-  [v16 setToValue:v19];
+  v18 = [v17 valueWithCGRect:?];
+  [v15 setToValue:v18];
 
   UIAnimationDragCoefficient();
-  [v16 setDuration:v20 * 0.2];
-  [v16 setTimingFunction:v15];
-  [v16 setFillMode:*MEMORY[0x1E69797E0]];
-  [CAMAnimationHelper configurePowerSensitiveAnimation:v16];
-  v21 = objc_alloc_init(CAMAnimationDelegate);
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __79__CAMImageWell__performEmitAnimationWithImage_orientation_withCompletionBlock___block_invoke;
-  v25[3] = &unk_1E76FA268;
-  v26 = v12;
+  [v15 setDuration:v19 * 0.2];
+  [v15 setTimingFunction:v14];
+  [v15 setFillMode:*MEMORY[0x1E69797E0]];
+  [CAMAnimationHelper configurePowerSensitiveAnimation:v15];
+  v20 = objc_alloc_init(CAMAnimationDelegate);
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __79__CAMImageWell__performEmitAnimationWithImage_orientation_withCompletionBlock___block_invoke;
+  v24[3] = &unk_1E76FA268;
+  v25 = v11;
   selfCopy = self;
-  v28 = blockCopy;
-  v22 = blockCopy;
-  v23 = v12;
-  [(CAMAnimationDelegate *)v21 setCompletion:v25];
-  [v16 setDelegate:v21];
-  layer = [v23 layer];
-  [layer addAnimation:v16 forKey:@"emitAnimation"];
+  v27 = blockCopy;
+  v21 = blockCopy;
+  v22 = v11;
+  [(CAMAnimationDelegate *)v20 setCompletion:v24];
+  [v15 setDelegate:v20];
+  layer = [v22 layer];
+  [layer addAnimation:v15 forKey:@"emitAnimation"];
 }
 
 uint64_t __79__CAMImageWell__performEmitAnimationWithImage_orientation_withCompletionBlock___block_invoke(uint64_t a1)

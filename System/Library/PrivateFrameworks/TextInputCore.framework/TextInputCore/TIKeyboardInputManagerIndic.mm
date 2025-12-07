@@ -68,8 +68,8 @@ void __44__TIKeyboardInputManagerIndic_setKeyLayout___block_invoke(uint64_t a1, 
   if (-[TIKeyboardInputManagerIndic alphabeticLayout](self, "alphabeticLayout") && ([inputCopy isPopupVariant] & 1) == 0)
   {
     scriptComposer = [(TIKeyboardInputManagerIndic *)self scriptComposer];
-    string = [inputCopy string];
-    v7 = [scriptComposer stringByComposingInput:string];
+    v6 = objc_msgSend_string(inputCopy);
+    v7 = [scriptComposer stringByComposingInput:v6];
     [inputCopy setString:v7];
   }
 
@@ -82,26 +82,24 @@ void __44__TIKeyboardInputManagerIndic_setKeyLayout___block_invoke(uint64_t a1, 
 
 - (void)syncToLayoutState:(id)state
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = TIKeyboardInputManagerIndic;
+  v12 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = TIKeyboardInputManagerIndic;
   stateCopy = state;
-  [(TIKeyboardInputManager *)&v10 syncToLayoutState:stateCopy];
+  [(TIKeyboardInputManager *)&v9 syncToLayoutState:stateCopy];
   softwareLayout = [stateCopy softwareLayout];
 
-  KB::String::String(v11, [softwareLayout UTF8String]);
-  [(TIKeyboardInputManagerIndic *)self setAlphabeticLayout:TI::IndicUtils::isAlphabeticLayout(v11)];
-  if (v12 && v11[6] == 1)
+  KB::String::String(v10, [softwareLayout UTF8String]);
+  [(TIKeyboardInputManagerIndic *)self setAlphabeticLayout:TI::IndicUtils::isAlphabeticLayout(v10)];
+  if (v11 && v10[6] == 1)
   {
-    free(v12);
+    free(v11);
   }
 
   inputMode = [(TIKeyboardInputManagerBase *)self inputMode];
   languageWithRegion = [inputMode languageWithRegion];
   scriptComposer = [(TIKeyboardInputManagerIndic *)self scriptComposer];
   [scriptComposer setLanguageIdentifier:languageWithRegion];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (TIKeyboardInputManagerIndic)initWithConfig:(id)config keyboardState:(id)state

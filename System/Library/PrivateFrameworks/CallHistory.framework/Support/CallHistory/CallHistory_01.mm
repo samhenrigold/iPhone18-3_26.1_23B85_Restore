@@ -1,100 +1,3 @@
-uint64_t *sub_1000327B0(uint64_t a1, uint64_t *a2)
-{
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
-  {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
-  }
-
-  return a2;
-}
-
-void sub_100032828(uint64_t a1, NSObject *a2)
-{
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Data store maintenance could not remove calls; operation failed with error %{public}@", &v2, 0xCu);
-}
-
-void sub_100032910(uint8_t *buf, _BYTE *a2, os_log_t log)
-{
-  *buf = 0;
-  *a2 = 0;
-  _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Ignoring call with nil uniqueId", buf, 2u);
-}
-
-void sub_100032A20(void *a1)
-{
-  [a1 count];
-  sub_100010C2C();
-  sub_100010C38(&_mh_execute_header, v1, v2, "No calls found for %lu items", v3, v4, v5, v6, v7);
-}
-
-void sub_100032B68(void *a1)
-{
-  v1 = [a1 container];
-  sub_100010C2C();
-  sub_100017674();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-}
-
-void sub_100032BF4()
-{
-  sub_100010C2C();
-  sub_1000176A0();
-  sub_1000176B0(&_mh_execute_header, v0, v1, "Failed to unarchive the specified data %{public}@ %{public}@");
-}
-
-void sub_100032C60()
-{
-  sub_100010C2C();
-  sub_1000176A0();
-  sub_1000176B0(&_mh_execute_header, v0, v1, "Failed to archive the specified server change token %{public}@ %{public}@");
-}
-
-void sub_100032DA0(void *a1)
-{
-  v1 = [a1 userInfo];
-  v2 = [v1 objectForKey:CKPartialErrorsByItemIDKey];
-  sub_100010C2C();
-  sub_100017674();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-}
-
-void sub_100032EB8(uint64_t a1)
-{
-  v6 = [*(a1 + 40) userInfo];
-  sub_100017674();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-}
-
-void sub_100032FCC(void *a1)
-{
-  v1 = [a1 recordID];
-  sub_100017684();
-  sub_100017674();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-}
-
-void sub_100033068(void *a1)
-{
-  v1 = [a1 recordID];
-  sub_100017684();
-  sub_100017674();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-}
-
-void sub_100033104()
-{
-  sub_100010C2C();
-  sub_1000176A0();
-  sub_1000176B0(&_mh_execute_header, v0, v1, "Failed to archive the specified recent call: %{public}@ %{public}@");
-}
-
 void sub_1000333C8()
 {
   sub_100017684();
@@ -109,27 +12,27 @@ void sub_100033518()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100033598(uint64_t a1)
+void sub_100033598()
 {
-  sub_1000176D0(a1, __stack_chk_guard);
-  v3 = 138543618;
+  sub_1000176D0(__stack_chk_guard);
+  v2 = 138543618;
   sub_100017684();
-  sub_1000176B0(&_mh_execute_header, v1, v2, "Fetching record zone with identifier %{public}@ failed with error %{public}@", v3);
+  sub_1000176B0(&_mh_execute_header, v0, v1, "Fetching record zone with identifier %{public}@ failed with error %{public}@", v2);
 }
 
-void sub_100033608(uint64_t a1)
+void sub_100033608()
 {
-  sub_1000176D0(a1, __stack_chk_guard);
-  v3 = 138543618;
+  sub_1000176D0(__stack_chk_guard);
+  v2 = 138543618;
   sub_100017684();
-  sub_1000176B0(&_mh_execute_header, v1, v2, "Request to create record zone with identifier %{public}@ failed with error %{public}@", v3);
+  sub_1000176B0(&_mh_execute_header, v0, v1, "Request to create record zone with identifier %{public}@ failed with error %{public}@", v2);
 }
 
-void sub_100033678(uint64_t a1)
+void sub_100033678()
 {
-  sub_1000176D0(a1, __stack_chk_guard);
+  sub_1000176D0(__stack_chk_guard);
   sub_100017694();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10003377C(void *a1)
@@ -181,11 +84,32 @@ void sub_100033AFC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_100033B6C(unsigned __int8 *a1)
+void sub_100033C28(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v6 = *a1;
-  sub_100017694();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"ProtobufTransactions";
+  sub_100010C10(&_mh_execute_header, a1, a3, "Expected to find NSData %{public}@ key, dropping!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100033CA0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"Configuration";
+  sub_100010C10(&_mh_execute_header, a1, a3, "Expected to find NSNumber %{public}@ key, dropping!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100033D18(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100010C10(&_mh_execute_header, a2, a3, "Could not retrieve transaction data from message dictionary %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100033D84(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100010C10(&_mh_execute_header, a2, a3, "Could not retrieve configuration from message dictionary %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100033DF0(uint64_t a1, unsigned int *a2, NSObject *a3)
@@ -254,21 +178,21 @@ void sub_10003453C(id *a1)
 {
   v1 = [*a1 defaultLogDirectory];
   sub_100010C2C();
-  sub_100010C38(&_mh_execute_header, v2, v3, "Could not create transaction log directory at %{public}@", v4, v5, v6, v7, v8);
+  sub_100010C38(&_mh_execute_header, v2, v3, "Could not create transaction log directory at %{public}@", v4, v5, v6, v7);
 }
 
 void sub_1000345C4(id *a1)
 {
   v1 = [*a1 path];
   sub_100010C2C();
-  sub_100010C38(&_mh_execute_header, v2, v3, "Could not create transaction log at %{public}@", v4, v5, v6, v7, v8);
+  sub_100010C38(&_mh_execute_header, v2, v3, "Could not create transaction log at %{public}@", v4, v5, v6, v7);
 }
 
 void sub_10003464C(void *a1)
 {
   v1 = [a1 path];
   sub_100010C2C();
-  sub_100010C38(&_mh_execute_header, v2, v3, "Could not open file handle for %{public}@", v4, v5, v6, v7, v8);
+  sub_100010C38(&_mh_execute_header, v2, v3, "Could not open file handle for %{public}@", v4, v5, v6, v7);
 }
 
 void sub_100034888()
@@ -285,11 +209,11 @@ void sub_100034974(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Could not fetch contacts: %{public}@", &v2, 0xCu);
 }
 
-uint64_t sub_1000349EC()
+void sub_1000349EC()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_100034A10(v0);
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  sub_100034A10(v1);
 }
 
 void sub_100034A54(uint64_t a1, uint64_t a2, os_log_t log)

@@ -1872,9 +1872,11 @@ LABEL_14:
 
 uint64_t __44__PHPhotosHighlight_dateRangeTitleGenerator__block_invoke()
 {
-  dateRangeTitleGenerator_pl_once_object_17 = objc_alloc_init(MEMORY[0x1E69BE3C0]);
+  v0 = objc_alloc_init(MEMORY[0x1E69BE3C0]);
+  v1 = dateRangeTitleGenerator_pl_once_object_17;
+  dateRangeTitleGenerator_pl_once_object_17 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)fetchPredicateFromComparisonPredicate:(id)predicate options:(id)options
@@ -2467,16 +2469,16 @@ void __54__PHPhotosHighlight_propertySetAccessorsByPropertySet__block_invoke()
   return v5;
 }
 
-void __52__PHPhotosHighlight_propertySetClassForPropertySet___block_invoke()
+void __52__PHPhotosHighlight_propertySetClassForPropertySet___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3[2] = *MEMORY[0x1E69E9840];
-  v2[0] = @"PHPhotosHighlightPropertySetIdentifier";
-  v2[1] = @"PHPhotosHighlightPropertySetCore";
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
-  v1 = propertySetClassForPropertySet__propertySetClassByPropertySetName;
-  propertySetClassForPropertySet__propertySetClassByPropertySetName = v0;
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"PHPhotosHighlightPropertySetIdentifier";
+  v4[1] = @"PHPhotosHighlightPropertySetCore";
+  v5[0] = objc_opt_class();
+  v5[1] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
+  v3 = propertySetClassForPropertySet__propertySetClassByPropertySetName;
+  propertySetClassForPropertySet__propertySetClassByPropertySetName = v2;
 }
 
 id __58__PHPhotosHighlight__keyAssetObjectIDForHighlight_filter___block_invoke_2(uint64_t a1, void *a2)

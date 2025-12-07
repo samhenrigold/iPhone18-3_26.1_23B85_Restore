@@ -15,28 +15,27 @@
   v12 = v11;
 
   swift_getObjCClassMetadata();
-  static BMPoirotSchematizerShim.searchValue(in:withFieldNumber:typeRawValue:error:)(v10, v12, number, value, error, v21);
+  static BMPoirotSchematizerShim.searchValue(in:withFieldNumber:typeRawValue:error:)(v10, v12, number, value, error, v20);
   outlined consume of Data._Representation(v10, v12);
-  v13 = v22;
-  if (v22)
+  v13 = v21;
+  if (v21)
   {
-    v14 = __swift_project_boxed_opaque_existential_1(v21, v22);
+    v14 = __swift_project_boxed_opaque_existential_1(v20, v21);
     v15 = *(v13 - 8);
-    v16 = *(v15 + 64);
-    MEMORY[0x1EEE9AC00](v14);
-    v18 = v21 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v15 + 16))(v18);
-    v19 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v15 + 8))(v18, v13);
-    __swift_destroy_boxed_opaque_existential_1Tm(v21);
+    MEMORY[0x1EEE9AC00](v14, v14);
+    v17 = v20 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v15 + 16))(v17);
+    v18 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v15 + 8))(v17, v13);
+    __swift_destroy_boxed_opaque_existential_1Tm(v20);
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  return v19;
+  return v18;
 }
 
 + (id)searchValueIn:(id)in withFieldPath:(id)path typeRawValue:(int64_t)value error:(id *)error
@@ -48,29 +47,28 @@
 
   v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getObjCClassMetadata();
-  static BMPoirotSchematizerShim.searchValue(in:withFieldPath:typeRawValue:error:)(v11, v13, v14, value, error, v23);
+  static BMPoirotSchematizerShim.searchValue(in:withFieldPath:typeRawValue:error:)(v11, v13, v14, value, error, v22);
 
   outlined consume of Data._Representation(v11, v13);
-  v15 = v24;
-  if (v24)
+  v15 = v23;
+  if (v23)
   {
-    v16 = __swift_project_boxed_opaque_existential_1(v23, v24);
+    v16 = __swift_project_boxed_opaque_existential_1(v22, v23);
     v17 = *(v15 - 8);
-    v18 = *(v17 + 64);
-    MEMORY[0x1EEE9AC00](v16);
-    v20 = v23 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v17 + 16))(v20);
-    v21 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v17 + 8))(v20, v15);
-    __swift_destroy_boxed_opaque_existential_1Tm(v23);
+    MEMORY[0x1EEE9AC00](v16, v16);
+    v19 = v22 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v17 + 16))(v19);
+    v20 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v17 + 8))(v19, v15);
+    __swift_destroy_boxed_opaque_existential_1Tm(v22);
   }
 
   else
   {
-    v21 = 0;
+    v20 = 0;
   }
 
-  return v21;
+  return v20;
 }
 
 + (id)searchValuesIn:(id)in withFieldNumber:(int64_t)number typeRawValue:(int64_t)value error:(id *)error

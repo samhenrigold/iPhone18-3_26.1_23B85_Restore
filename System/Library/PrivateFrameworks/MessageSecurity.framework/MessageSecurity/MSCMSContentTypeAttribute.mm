@@ -48,7 +48,7 @@ LABEL_10:
   v24[1] = 0;
   attributeValues2 = [attributeCopy attributeValues];
   v12 = [attributeValues2 objectAtIndex:0];
-  v13 = nsheim_decode_ContentType(v12);
+  v13 = nsheim_decode_ContentType(v12, v24);
 
   if (v13)
   {
@@ -72,7 +72,7 @@ LABEL_12:
   v19 = [MSOID OIDWithAsn1OID:v24 error:error];
   if (v19)
   {
-    free_ContentType();
+    free_ContentType(v24);
     v23.receiver = self;
     v23.super_class = MSCMSContentTypeAttribute;
     v20 = [(MSCMSContentTypeAttribute *)&v23 init];
@@ -97,11 +97,11 @@ LABEL_19:
 
 - (id)encodeAttributeWithError:(id *)error
 {
-  v25[1] = *MEMORY[0x277D85DE8];
-  v23[0] = [(MSOID *)self->_contentType Asn1OID];
-  v23[1] = v4;
-  v22 = 0;
-  v5 = length_ContentType(v23);
+  v24[1] = *MEMORY[0x277D85DE8];
+  v22[0] = [(MSOID *)self->_contentType Asn1OID];
+  v22[1] = v4;
+  v21 = 0;
+  v5 = length_ContentType(v22);
   v6 = [MEMORY[0x277CBEB28] dataWithLength:v5];
   if (!v6)
   {
@@ -115,7 +115,7 @@ LABEL_19:
   }
 
   v7 = v6;
-  v8 = encode_ContentType([v6 mutableBytes] + v5 - 1, v5, v23, &v22);
+  v8 = encode_ContentType([v6 mutableBytes] + v5 - 1, v5, v22, &v21);
   if (v8)
   {
     v9 = v8;
@@ -130,18 +130,18 @@ LABEL_5:
 
 LABEL_4:
     v11 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v25[0] = @"Failed encoding type ContentType";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:{1, v22}];
+    v23 = *MEMORY[0x277CCA450];
+    v24[0] = @"Failed encoding type ContentType";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:{1, v21}];
     *error = [v11 errorWithDomain:@"com.apple.HeimASN1" code:v10 userInfo:v12];
 
     goto LABEL_5;
   }
 
-  if (v5 != v22)
+  if (v5 != v21)
   {
-    v19 = asn1_abort();
-    return [(MSCMSContentTypeAttribute *)v19 initWithOID:v20, v21];
+    v18 = asn1_abort();
+    return [(MSCMSContentTypeAttribute *)v18 initWithOID:v19, v20];
   }
 
 LABEL_9:
@@ -158,14 +158,12 @@ LABEL_9:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (MSCMSContentTypeAttribute)initWithOID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (initWithOID__onceToken != -1)
   {
@@ -178,9 +176,9 @@ LABEL_9:
 
   if (v5)
   {
-    v15.receiver = self;
-    v15.super_class = MSCMSContentTypeAttribute;
-    v7 = [(MSCMSContentTypeAttribute *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = MSCMSContentTypeAttribute;
+    v7 = [(MSCMSContentTypeAttribute *)&v14 init];
     v8 = v7;
     if (v7)
     {
@@ -204,43 +202,42 @@ LABEL_9:
       v11 = v10;
       oIDString2 = [dCopy OIDString];
       *buf = 138412290;
-      v17 = oIDString2;
+      v16 = oIDString2;
       _os_log_impl(&dword_258C80000, v11, OS_LOG_TYPE_ERROR, "Found unknown content type: %@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 void __41__MSCMSContentTypeAttribute_initWithOID___block_invoke()
 {
-  v5[9] = *MEMORY[0x277D85DE8];
+  v4[9] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"1.2.840.113549.1.7.1";
-  v5[1] = @"1.2.840.113549.1.7.2";
-  v5[2] = @"1.2.840.113549.1.7.3";
-  v5[3] = @"1.2.840.113549.1.7.5";
-  v5[4] = @"1.2.840.113549.1.7.6";
-  v5[5] = @"1.2.840.113549.1.9.16.1.2";
-  v5[6] = @"1.2.840.113549.1.9.16.1.23";
-  v5[7] = @"1.2.840.113549.1.9.16.1.9";
-  v5[8] = @"1.2.840.113549.1.9.16.1.4";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:9];
+  v4[0] = @"1.2.840.113549.1.7.1";
+  v4[1] = @"1.2.840.113549.1.7.2";
+  v4[2] = @"1.2.840.113549.1.7.3";
+  v4[3] = @"1.2.840.113549.1.7.5";
+  v4[4] = @"1.2.840.113549.1.7.6";
+  v4[5] = @"1.2.840.113549.1.9.16.1.2";
+  v4[6] = @"1.2.840.113549.1.9.16.1.23";
+  v4[7] = @"1.2.840.113549.1.9.16.1.9";
+  v4[8] = @"1.2.840.113549.1.9.16.1.4";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:9];
   v2 = [v0 setWithArray:v1];
   v3 = initWithOID__sKnownContentTypes;
   initWithOID__sKnownContentTypes = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __41__MSCMSContentTypeAttribute_initWithOID___block_invoke_2()
 {
-  MS_DEFAULT_LOG_INTERNAL = os_log_create("com.apple.MessageSecurity", "default");
+  v0 = os_log_create("com.apple.MessageSecurity", "default");
+  v1 = MS_DEFAULT_LOG_INTERNAL;
+  MS_DEFAULT_LOG_INTERNAL = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)contentTypeAttributeWithOID:(id)d

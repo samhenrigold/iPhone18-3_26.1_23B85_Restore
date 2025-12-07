@@ -19,7 +19,7 @@
   v66 = configurationCopy;
   if (!configurationCopy)
   {
-    [PRUISPosterChannelModelCoordinator initWithChannelConfiguration:a2 extensionProvider:?];
+    [PRUISPosterChannelModelCoordinator initWithChannelConfiguration:a2 extensionProvider:self];
   }
 
   if (initWithChannelConfiguration_extensionProvider__onceToken != -1)
@@ -247,7 +247,7 @@ void __85__PRUISPosterChannelModelCoordinator_initWithChannelConfiguration_exten
   identifierCopy = identifier;
   if (!identifierCopy)
   {
-    [PRUISPosterChannelModelCoordinator fileSystemEndpointForChannelIdentifier:a2];
+    [(PRUISPosterChannelModelCoordinator *)a2 fileSystemEndpointForChannelIdentifier:?];
   }
 
   v6 = identifierCopy;
@@ -489,37 +489,37 @@ void __75__PRUISPosterChannelModelCoordinator_updateGalleryForChannel_fetchOptio
   [v8 handleFailureInMethod:a2 object:a3 file:@"PRUISPosterChannelModelCoordinator.m" lineNumber:89 description:{@"File system location does not exist for URL %@: %@", *a1, a4}];
 }
 
-- (void)initWithChannelConfiguration:(const char *)a1 extensionProvider:.cold.3(const char *a1)
+- (void)initWithChannelConfiguration:(const char *)a1 extensionProvider:(uint64_t)a2 .cold.3(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"channelConfiguration"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"channelConfiguration", v12, v13);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v11 = v2;
-  [v2 UTF8String];
+  v12 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)fileSystemEndpointForChannelIdentifier:(const char *)a1 .cold.1(const char *a1)
+- (void)fileSystemEndpointForChannelIdentifier:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"channelIdentifier"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"channelIdentifier", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

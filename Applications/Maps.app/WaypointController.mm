@@ -44,8 +44,8 @@
   isolationQueue = [(WaypointController *)self isolationQueue];
   dispatch_assert_queue_V2(isolationQueue);
 
-  configuration = [(WaypointController *)self configuration];
-  origin = [configuration origin];
+  v4 = objc_msgSend_configuration(self);
+  origin = [v4 origin];
   isCurrentLocation = [origin isCurrentLocation];
 
   v7 = sub_1006704F0();
@@ -59,8 +59,8 @@
     }
 
     v9 = [ComposedWaypointTask alloc];
-    configuration2 = [(WaypointController *)self configuration];
-    origin2 = [configuration2 origin];
+    v10 = objc_msgSend_configuration(self);
+    origin2 = [v10 origin];
     v7 = [(ComposedWaypointTask *)v9 initWithRequest:origin2];
 
     tasks = [(WaypointController *)self tasks];
@@ -543,8 +543,8 @@ LABEL_12:
 
   else
   {
-    configuration = [(WaypointController *)self configuration];
-    requests = [configuration requests];
+    v6 = objc_msgSend_configuration(self);
+    requests = [v6 requests];
     v8 = [requests count];
 
     if (v8 > 1)
@@ -556,8 +556,8 @@ LABEL_12:
       v33 = 0u;
       v30 = 0u;
       v31 = 0u;
-      configuration2 = [(WaypointController *)self configuration];
-      requests2 = [configuration2 requests];
+      v14 = objc_msgSend_configuration(self);
+      requests2 = [v14 requests];
 
       v16 = [requests2 countByEnumeratingWithState:&v30 objects:v36 count:16];
       if (v16)

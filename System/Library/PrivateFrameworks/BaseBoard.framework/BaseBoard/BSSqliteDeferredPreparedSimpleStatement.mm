@@ -3,7 +3,7 @@
 
 @implementation BSSqliteDeferredPreparedSimpleStatement
 
-void __87___BSSqliteDeferredPreparedSimpleStatement_executeWithBindings_resultRowHandler_error___block_invoke(uint64_t *a1, sqlite3 *a2)
+void __87___BSSqliteDeferredPreparedSimpleStatement_executeWithBindings_resultRowHandler_error___block_invoke(void *a1, sqlite3 *a2)
 {
   v3 = *(a1[4] + 24);
   if (v3)

@@ -2,6 +2,7 @@
 - (_LSSynthesizedExtensionPointRecord)initWithCoder:(id)coder;
 - (_LSSynthesizedExtensionPointRecord)initWithIdentifier:(id)identifier;
 - (id)_initWithContext:(LSContext *)context persistentIdentifierData:(const LSPersistentIdentifierData *)data length:(unint64_t)length;
+- (id)_persistentIdentifierWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -67,6 +68,24 @@ LABEL_4:
   }
 
   return v7;
+}
+
+- (id)_persistentIdentifierWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes
+{
+  v12.receiver = self;
+  v12.super_class = _LSSynthesizedExtensionPointRecord;
+  v7 = [(LSRecord *)&v12 _persistentIdentifierWithContext:context tableID:*&d unitID:*&iD unitBytes:bytes];
+  v8 = [v7 mutableCopy];
+
+  v9 = [(NSString *)self->_identifier dataUsingEncoding:4];
+  if (v9)
+  {
+    [v8 appendData:v9];
+  }
+
+  v10 = [v8 copy];
+
+  return v10;
 }
 
 - (void)encodeWithCoder:(id)coder

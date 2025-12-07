@@ -1,1086 +1,27 @@
-uint64_t sub_297FB873C(uint64_t a1, uint64_t a2, int a3, char a4)
-{
-  v28 = *MEMORY[0x29EDCA608];
-  v8 = malloc_type_calloc(1uLL, 0x10uLL, 0x1010040A1D9428BuLL);
-  if (v8)
-  {
-    v9 = v8;
-    *v8 = a2;
-    *(v8 + 2) = a3;
-    v10 = sub_297F9DC04();
-    pthread_mutex_lock((v10[3] + 8));
-    v11 = v10[3];
-    ++*v11;
-    pthread_mutex_unlock((v11 + 8));
-    v12 = *(*(a1 + 24) + 560);
-    block[0] = MEMORY[0x29EDCA5F8];
-    block[1] = 0x40000000;
-    block[2] = sub_297FB8A50;
-    block[3] = &unk_29EE88188;
-    v25 = a4;
-    block[4] = a1;
-    block[5] = v9;
-    block[6] = v10;
-    dispatch_async_and_wait(v12, block);
-    if (sub_297F9F694(v10))
-    {
-      v13 = MEMORY[0x29EDC9730];
-      dispatch_get_specific(*MEMORY[0x29EDC9730]);
-      Logger = NFLogGetLogger();
-      if (Logger)
-      {
-        Logger(3, "%s:%i status=0x%04llX", "_NFDriverSetRFSettings", 1132, *v10);
-      }
-
-      dispatch_get_specific(*v13);
-      v15 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-      {
-        v16 = *v10;
-        *buf = 136446722;
-        *&buf[4] = "_NFDriverSetRFSettings";
-        *&buf[12] = 1024;
-        *&buf[14] = 1132;
-        *&buf[18] = 2048;
-        *&buf[20] = v16;
-        _os_log_impl(&dword_297F97000, v15, OS_LOG_TYPE_ERROR, "%{public}s:%i status=0x%04llX", buf, 0x1Cu);
-      }
-
-      if (*v10 == 137)
-      {
-        v17 = 13;
-      }
-
-      else
-      {
-        v17 = 1;
-      }
-
-      v18 = *(*(a1 + 24) + 560);
-      *buf = MEMORY[0x29EDCA5F8];
-      *&buf[8] = 0x40000000;
-      *&buf[16] = sub_297FB7B1C;
-      *&buf[24] = &unk_29EE880F8;
-      v27 = a1;
-      dispatch_async(v18, buf);
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-
-    sub_297F9FBDC(v10);
-    free(v9);
-  }
-
-  else
-  {
-    v19 = MEMORY[0x29EDC9730];
-    dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v20 = NFLogGetLogger();
-    if (v20)
-    {
-      v20(3, "%s:%i Allocation failure", "_NFDriverSetRFSettings", 1107);
-    }
-
-    dispatch_get_specific(*v19);
-    v21 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446466;
-      *&buf[4] = "_NFDriverSetRFSettings";
-      *&buf[12] = 1024;
-      *&buf[14] = 1107;
-      _os_log_impl(&dword_297F97000, v21, OS_LOG_TYPE_ERROR, "%{public}s:%i Allocation failure", buf, 0x12u);
-    }
-
-    v17 = 3;
-  }
-
-  v22 = *MEMORY[0x29EDCA608];
-  return v17;
-}
-
-void sub_297FB8A50(uint64_t a1)
-{
-  v19 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 40);
-  v4 = *(*(*(a1 + 32) + 24) + 576);
-  v5 = *(a1 + 48);
-  v6 = phLibNfc_Mgt_SetRfSettings();
-  if (v6)
-  {
-    v7 = v6 == 13;
-  }
-
-  else
-  {
-    v7 = 1;
-  }
-
-  if (!v7)
-  {
-    v8 = v6;
-    v9 = MEMORY[0x29EDC9730];
-    dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    Logger = NFLogGetLogger();
-    if (Logger)
-    {
-      Logger(3, "%s:%i Failed to set RF settings : status=0x%04X", "_NFDriverSetRFSettings_block_invoke", 1125, v8);
-    }
-
-    dispatch_get_specific(*v9);
-    v11 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446722;
-      v14 = "_NFDriverSetRFSettings_block_invoke";
-      v15 = 1024;
-      v16 = 1125;
-      v17 = 1024;
-      v18 = v8;
-      _os_log_impl(&dword_297F97000, v11, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to set RF settings : status=0x%04X", buf, 0x18u);
-    }
-
-    sub_297F9FB20(*(a1 + 48), v8);
-    sub_297F9FBDC(*(a1 + 48));
-  }
-
-  v12 = *MEMORY[0x29EDCA608];
-}
-
-void sub_297FB8BA0(uint64_t a1, void **a2, unsigned int a3)
-{
-  sub_297F9FB20(a2, a3);
-
-  sub_297F9FBDC(a2);
-}
-
-__CFDictionary *NFDriverCopyAndClearAssertion(uint64_t a1, int a2, int a3)
-{
-  v39 = *MEMORY[0x29EDCA608];
-  v6 = malloc_type_calloc(1uLL, 0xF0uLL, 0x10100405651454EuLL);
-  if (v6)
-  {
-    if (!a2)
-    {
-      Mutable = 0;
-      if (!a3)
-      {
-        goto LABEL_31;
-      }
-
-      goto LABEL_25;
-    }
-
-    v7 = v6;
-    v8 = sub_297FB8FC8(a1, 1, v6);
-    if (sub_297F9F694(v8))
-    {
-      v9 = MEMORY[0x29EDC9730];
-      dispatch_get_specific(*MEMORY[0x29EDC9730]);
-      Logger = NFLogGetLogger();
-      if (Logger)
-      {
-        Logger(3, "%s:%i status=0x%04llX", "NFDriverCopyAndClearAssertion", 1493, *v8);
-      }
-
-      dispatch_get_specific(*v9);
-      v11 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        v12 = *v8;
-        *buf = 136446722;
-        v34 = "NFDriverCopyAndClearAssertion";
-        v35 = 1024;
-        v36 = 1493;
-        v37 = 2048;
-        v38 = v12;
-        _os_log_impl(&dword_297F97000, v11, OS_LOG_TYPE_ERROR, "%{public}s:%i status=0x%04llX", buf, 0x1Cu);
-      }
-    }
-
-    else
-    {
-      sub_297FB908C(v7);
-      if (*(*(a1 + 24) + 764) == 1)
-      {
-        sub_297FBA53C(a1);
-        v17 = *v7;
-        v18 = *(v7 + 26);
-        v19 = v7[54];
-        postAnalyticsHardwareExceptionEvent();
-      }
-    }
-
-    sub_297F9FBDC(v8);
-    Mutable = CFDictionaryCreateMutable(0, 2, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    if (Mutable)
-    {
-      v20 = CFNumberCreate(0, kCFNumberSInt32Type, v7);
-      if (v20)
-      {
-        v21 = v20;
-        CFDictionaryAddValue(Mutable, @"PC", v20);
-        CFRelease(v21);
-      }
-
-      v22 = v7[54];
-      if (v22)
-      {
-        v23 = *(v7 + 26);
-        if (v23)
-        {
-          v24 = CFDataCreate(0, v23, v22);
-          if (v24)
-          {
-            v25 = v24;
-            CFDictionaryAddValue(Mutable, @"Assert", v24);
-            CFRelease(v25);
-          }
-        }
-      }
-    }
-
-    free(v7);
-    if (a3)
-    {
-LABEL_25:
-      v26 = sub_297FB8FC8(a1, 0, 0);
-      if (sub_297F9F694(v26))
-      {
-        v27 = MEMORY[0x29EDC9730];
-        dispatch_get_specific(*MEMORY[0x29EDC9730]);
-        v28 = NFLogGetLogger();
-        if (v28)
-        {
-          v28(3, "%s:%i status=0x%04llX", "NFDriverCopyAndClearAssertion", 1519, *v26);
-        }
-
-        dispatch_get_specific(*v27);
-        v29 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-        {
-          v30 = *v26;
-          *buf = 136446722;
-          v34 = "NFDriverCopyAndClearAssertion";
-          v35 = 1024;
-          v36 = 1519;
-          v37 = 2048;
-          v38 = v30;
-          _os_log_impl(&dword_297F97000, v29, OS_LOG_TYPE_ERROR, "%{public}s:%i status=0x%04llX", buf, 0x1Cu);
-        }
-      }
-
-      sub_297F9FBDC(v26);
-    }
-  }
-
-  else
-  {
-    v13 = MEMORY[0x29EDC9730];
-    dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v14 = NFLogGetLogger();
-    if (v14)
-    {
-      v14(3, "%s:%i Allocation failed", "NFDriverCopyAndClearAssertion", 1485);
-    }
-
-    dispatch_get_specific(*v13);
-    v15 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446466;
-      v34 = "NFDriverCopyAndClearAssertion";
-      v35 = 1024;
-      v36 = 1485;
-      _os_log_impl(&dword_297F97000, v15, OS_LOG_TYPE_ERROR, "%{public}s:%i Allocation failed", buf, 0x12u);
-    }
-
-    Mutable = 0;
-  }
-
-LABEL_31:
-  v31 = *MEMORY[0x29EDCA608];
-  return Mutable;
-}
-
-void *sub_297FB8FC8(uint64_t a1, int a2, uint64_t a3)
-{
-  v6 = sub_297F9DC04();
-  pthread_mutex_lock((v6[3] + 8));
-  v7 = v6[3];
-  ++*v7;
-  pthread_mutex_unlock((v7 + 8));
-  v8 = *(*(a1 + 24) + 560);
-  v10[0] = MEMORY[0x29EDCA5F8];
-  v10[1] = 0x40000000;
-  v10[2] = sub_297FD54EC;
-  v10[3] = &unk_29EE88A40;
-  v11 = a2;
-  v10[4] = a1;
-  v10[5] = a3;
-  v10[6] = v6;
-  dispatch_async_and_wait(v8, v10);
-  return v6;
-}
-
-void sub_297FB908C(int *a1)
-{
-  v144 = *MEMORY[0x29EDCA608];
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  Logger = NFLogGetLogger();
-  if (Logger)
-  {
-    Logger(3, "%s:%i PC: %d", "_NFDriverLogAssert", 1147, *a1);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v3 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-  {
-    v4 = *a1;
-    *buf = 136446722;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1147;
-    *&buf[18] = 1024;
-    *&buf[20] = v4;
-    _os_log_impl(&dword_297F97000, v3, OS_LOG_TYPE_ERROR, "%{public}s:%i PC: %d", buf, 0x18u);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v5 = NFLogGetLogger();
-  if (v5)
-  {
-    v5(3, "%s:%i ---- HARD FAULT ----", "_NFDriverLogAssert", 1148);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v6 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 136446466;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1148;
-    _os_log_impl(&dword_297F97000, v6, OS_LOG_TYPE_ERROR, "%{public}s:%i ---- HARD FAULT ----", buf, 0x12u);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v7 = NFLogGetLogger();
-  if (v7)
-  {
-    v7(3, "%s:%i R0=0x%04x R1=0x%04x R2=0x%04x R3=0x%04x R12=0x%04x", "_NFDriverLogAssert", 1152, a1[25], a1[26], a1[27], a1[28], a1[29]);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v8 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-  {
-    v9 = a1[25];
-    v10 = a1[26];
-    v11 = a1[27];
-    v12 = a1[28];
-    v13 = a1[29];
-    *buf = 136447746;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1152;
-    *&buf[18] = 1024;
-    *&buf[20] = v9;
-    *&buf[24] = 1024;
-    *&buf[26] = v10;
-    *&buf[30] = 1024;
-    LODWORD(v139) = v11;
-    WORD2(v139) = 1024;
-    *(&v139 + 6) = v12;
-    WORD5(v139) = 1024;
-    HIDWORD(v139) = v13;
-    _os_log_impl(&dword_297F97000, v8, OS_LOG_TYPE_ERROR, "%{public}s:%i R0=0x%04x R1=0x%04x R2=0x%04x R3=0x%04x R12=0x%04x", buf, 0x30u);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v14 = NFLogGetLogger();
-  if (v14)
-  {
-    v14(3, "%s:%i LR=0x%04x PC=0x%04x XPSR=0x%04x", "_NFDriverLogAssert", 1155, a1[30], a1[31], a1[32]);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v15 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-  {
-    v16 = a1[30];
-    v17 = a1[31];
-    v18 = a1[32];
-    *buf = 136447234;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1155;
-    *&buf[18] = 1024;
-    *&buf[20] = v16;
-    *&buf[24] = 1024;
-    *&buf[26] = v17;
-    *&buf[30] = 1024;
-    LODWORD(v139) = v18;
-    _os_log_impl(&dword_297F97000, v15, OS_LOG_TYPE_ERROR, "%{public}s:%i LR=0x%04x PC=0x%04x XPSR=0x%04x", buf, 0x24u);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v19 = NFLogGetLogger();
-  if (v19)
-  {
-    v19(3, "%s:%i HFLR=0x%04x PSP=0x%04x MSP=0x%04x", "_NFDriverLogAssert", 1158, a1[33], a1[34], a1[35]);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v20 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-  {
-    v21 = a1[33];
-    v22 = a1[34];
-    v23 = a1[35];
-    *buf = 136447234;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1158;
-    *&buf[18] = 1024;
-    *&buf[20] = v21;
-    *&buf[24] = 1024;
-    *&buf[26] = v22;
-    *&buf[30] = 1024;
-    LODWORD(v139) = v23;
-    _os_log_impl(&dword_297F97000, v20, OS_LOG_TYPE_ERROR, "%{public}s:%i HFLR=0x%04x PSP=0x%04x MSP=0x%04x", buf, 0x24u);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v24 = NFLogGetLogger();
-  if (v24)
-  {
-    v24(3, "%s:%i ---- WATCHDOG ----", "_NFDriverLogAssert", 1159);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v25 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 136446466;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1159;
-    _os_log_impl(&dword_297F97000, v25, OS_LOG_TYPE_ERROR, "%{public}s:%i ---- WATCHDOG ----", buf, 0x12u);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v26 = NFLogGetLogger();
-  if (v26)
-  {
-    v26(3, "%s:%i RF-proc: pc=0x%04x sp=0x%04x obj=0x%04x state=0x%04x", "_NFDriverLogAssert", 1162, a1[1], a1[2], a1[3], a1[4]);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v27 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-  {
-    v28 = a1[1];
-    v29 = a1[2];
-    v30 = a1[3];
-    v31 = a1[4];
-    *buf = 136447490;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1162;
-    *&buf[18] = 1024;
-    *&buf[20] = v28;
-    *&buf[24] = 1024;
-    *&buf[26] = v29;
-    *&buf[30] = 1024;
-    LODWORD(v139) = v30;
-    WORD2(v139) = 1024;
-    *(&v139 + 6) = v31;
-    _os_log_impl(&dword_297F97000, v27, OS_LOG_TYPE_ERROR, "%{public}s:%i RF-proc: pc=0x%04x sp=0x%04x obj=0x%04x state=0x%04x", buf, 0x2Au);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v32 = NFLogGetLogger();
-  if (v32)
-  {
-    v32(3, "%s:%i SWP-proc: pc=0x%04x sp=0x%04x obj=0x%04x state=0x%04x", "_NFDriverLogAssert", 1165, a1[5], a1[6], a1[7], a1[8]);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v33 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
-  {
-    v34 = a1[5];
-    v35 = a1[6];
-    v36 = a1[7];
-    v37 = a1[8];
-    *buf = 136447490;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1165;
-    *&buf[18] = 1024;
-    *&buf[20] = v34;
-    *&buf[24] = 1024;
-    *&buf[26] = v35;
-    *&buf[30] = 1024;
-    LODWORD(v139) = v36;
-    WORD2(v139) = 1024;
-    *(&v139 + 6) = v37;
-    _os_log_impl(&dword_297F97000, v33, OS_LOG_TYPE_ERROR, "%{public}s:%i SWP-proc: pc=0x%04x sp=0x%04x obj=0x%04x state=0x%04x", buf, 0x2Au);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v38 = NFLogGetLogger();
-  if (v38)
-  {
-    v38(3, "%s:%i kernel: pc=0x%04x sp=0x%04x obj=0x%04x state=0x%04x", "_NFDriverLogAssert", 1168, a1[9], a1[10], a1[11], a1[12]);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v39 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
-  {
-    v40 = a1[9];
-    v41 = a1[10];
-    v42 = a1[11];
-    v43 = a1[12];
-    *buf = 136447490;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1168;
-    *&buf[18] = 1024;
-    *&buf[20] = v40;
-    *&buf[24] = 1024;
-    *&buf[26] = v41;
-    *&buf[30] = 1024;
-    LODWORD(v139) = v42;
-    WORD2(v139) = 1024;
-    *(&v139 + 6) = v43;
-    _os_log_impl(&dword_297F97000, v39, OS_LOG_TYPE_ERROR, "%{public}s:%i kernel: pc=0x%04x sp=0x%04x obj=0x%04x state=0x%04x", buf, 0x2Au);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v44 = NFLogGetLogger();
-  if (v44)
-  {
-    v44(3, "%s:%i host: pc=0x%04x sp=0x%04x obj=0x%04x state=0x%04x", "_NFDriverLogAssert", 1171, a1[13], a1[14], a1[15], a1[16]);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v45 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
-  {
-    v46 = a1[13];
-    v47 = a1[14];
-    v48 = a1[15];
-    v49 = a1[16];
-    *buf = 136447490;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1171;
-    *&buf[18] = 1024;
-    *&buf[20] = v46;
-    *&buf[24] = 1024;
-    *&buf[26] = v47;
-    *&buf[30] = 1024;
-    LODWORD(v139) = v48;
-    WORD2(v139) = 1024;
-    *(&v139 + 6) = v49;
-    _os_log_impl(&dword_297F97000, v45, OS_LOG_TYPE_ERROR, "%{public}s:%i host: pc=0x%04x sp=0x%04x obj=0x%04x state=0x%04x", buf, 0x2Au);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v50 = NFLogGetLogger();
-  if (v50)
-  {
-    v50(3, "%s:%i mailbox: pc=0x%04x sp=0x%04x obj=0x%04x state=0x%04x", "_NFDriverLogAssert", 1174, a1[17], a1[18], a1[19], a1[20]);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v51 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
-  {
-    v52 = a1[17];
-    v53 = a1[18];
-    v54 = a1[19];
-    v55 = a1[20];
-    *buf = 136447490;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1174;
-    *&buf[18] = 1024;
-    *&buf[20] = v52;
-    *&buf[24] = 1024;
-    *&buf[26] = v53;
-    *&buf[30] = 1024;
-    LODWORD(v139) = v54;
-    WORD2(v139) = 1024;
-    *(&v139 + 6) = v55;
-    _os_log_impl(&dword_297F97000, v51, OS_LOG_TYPE_ERROR, "%{public}s:%i mailbox: pc=0x%04x sp=0x%04x obj=0x%04x state=0x%04x", buf, 0x2Au);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v56 = NFLogGetLogger();
-  if (v56)
-  {
-    v56(3, "%s:%i host-LP: pc=0x%04x sp=0x%04x obj=0x%04x state=0x%04x", "_NFDriverLogAssert", 1177, a1[21], a1[22], a1[23], a1[24]);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v57 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
-  {
-    v58 = a1[21];
-    v59 = a1[22];
-    v60 = a1[23];
-    v61 = a1[24];
-    *buf = 136447490;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1177;
-    *&buf[18] = 1024;
-    *&buf[20] = v58;
-    *&buf[24] = 1024;
-    *&buf[26] = v59;
-    *&buf[30] = 1024;
-    LODWORD(v139) = v60;
-    WORD2(v139) = 1024;
-    *(&v139 + 6) = v61;
-    _os_log_impl(&dword_297F97000, v57, OS_LOG_TYPE_ERROR, "%{public}s:%i host-LP: pc=0x%04x sp=0x%04x obj=0x%04x state=0x%04x", buf, 0x2Au);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v62 = NFLogGetLogger();
-  if (v62)
-  {
-    v62(3, "%s:%i ---- TICKS ----", "_NFDriverLogAssert", 1179);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v63 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 136446466;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1179;
-    _os_log_impl(&dword_297F97000, v63, OS_LOG_TYPE_ERROR, "%{public}s:%i ---- TICKS ----", buf, 0x12u);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v64 = NFLogGetLogger();
-  if (v64)
-  {
-    v64(3, "%s:%i RF=0x%04x, SWP=0x%04x, Kernel=0x%04x, Host=0x%04x, SMB=0x%04x, LowPwr=0x%04x, sys=0x%04x", "_NFDriverLogAssert", 1180, a1[36], a1[37], a1[38], a1[39], a1[40], a1[41], a1[42]);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v65 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
-  {
-    v66 = a1[36];
-    v67 = a1[37];
-    v68 = a1[38];
-    v69 = a1[39];
-    v70 = a1[40];
-    v71 = a1[41];
-    v72 = a1[42];
-    *buf = 136448258;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1180;
-    *&buf[18] = 1024;
-    *&buf[20] = v66;
-    *&buf[24] = 1024;
-    *&buf[26] = v67;
-    *&buf[30] = 1024;
-    LODWORD(v139) = v68;
-    WORD2(v139) = 1024;
-    *(&v139 + 6) = v69;
-    WORD5(v139) = 1024;
-    HIDWORD(v139) = v70;
-    v140 = 1024;
-    v141 = v71;
-    v142 = 1024;
-    v143 = v72;
-    _os_log_impl(&dword_297F97000, v65, OS_LOG_TYPE_ERROR, "%{public}s:%i RF=0x%04x, SWP=0x%04x, Kernel=0x%04x, Host=0x%04x, SMB=0x%04x, LowPwr=0x%04x, sys=0x%04x", buf, 0x3Cu);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v73 = NFLogGetLogger();
-  if (v73)
-  {
-    v73(3, "%s:%i ---- SPMI ----", "_NFDriverLogAssert", 1182);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v74 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 136446466;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1182;
-    _os_log_impl(&dword_297F97000, v74, OS_LOG_TYPE_ERROR, "%{public}s:%i ---- SPMI ----", buf, 0x12u);
-  }
-
-  v75 = a1[46];
-  v128 = a1;
-  if (v75)
-  {
-    v76 = *(a1 + 22);
-    if (v76)
-    {
-      v139 = 0u;
-      memset(buf, 0, sizeof(buf));
-      v77 = MEMORY[0x29EDC9730];
-      dispatch_get_specific(*MEMORY[0x29EDC9730]);
-      v78 = NFLogGetLogger();
-      dispatch_get_specific(*v77);
-      v79 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
-      {
-        v80 = a1[46];
-        *v130 = 136315906;
-        v131 = "_NFDriverLogAssert";
-        v132 = 1024;
-        v133 = 1184;
-        v134 = 2082;
-        v135 = "SPMI RAM info";
-        v136 = 2048;
-        v137 = v80;
-        _os_log_impl(&dword_297F97000, v79, OS_LOG_TYPE_ERROR, "%s:%i %{public}s %lu bytes", v130, 0x26u);
-      }
-
-      if (v78)
-      {
-        v78(3, "%s:%i %s %lu bytes :", "_NFDriverLogAssert", 1184, "SPMI RAM info", a1[46]);
-      }
-
-      v81 = 0;
-      do
-      {
-        v82 = 0;
-        v83 = &buf[__sprintf_chk(buf, 0, 0x30uLL, "%04lX: ", v81)];
-        do
-        {
-          v84 = *(v76 + v81++);
-          v85 = sprintf(v83, "0x%02X ", v84);
-          if (v82 > 6)
-          {
-            break;
-          }
-
-          v83 += v85;
-          ++v82;
-        }
-
-        while (v81 < v75);
-        dispatch_get_specific(*MEMORY[0x29EDC9730]);
-        v86 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
-        {
-          *v130 = 136446210;
-          v131 = buf;
-          _os_log_impl(&dword_297F97000, v86, OS_LOG_TYPE_ERROR, "%{public}s", v130, 0xCu);
-        }
-
-        if (v78)
-        {
-          v78(3, "%s", buf);
-        }
-      }
-
-      while (v81 < v75);
-      a1 = v128;
-    }
-  }
-
-  v87 = a1[50];
-  if (v87)
-  {
-    v88 = *(a1 + 24);
-    if (v88)
-    {
-      v139 = 0u;
-      memset(buf, 0, sizeof(buf));
-      v89 = MEMORY[0x29EDC9730];
-      dispatch_get_specific(*MEMORY[0x29EDC9730]);
-      v90 = NFLogGetLogger();
-      dispatch_get_specific(*v89);
-      v91 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
-      {
-        v92 = a1[50];
-        *v130 = 136315906;
-        v131 = "_NFDriverLogAssert";
-        v132 = 1024;
-        v133 = 1187;
-        v134 = 2082;
-        v135 = "SPMI Flash info";
-        v136 = 2048;
-        v137 = v92;
-        _os_log_impl(&dword_297F97000, v91, OS_LOG_TYPE_ERROR, "%s:%i %{public}s %lu bytes", v130, 0x26u);
-      }
-
-      if (v90)
-      {
-        v90(3, "%s:%i %s %lu bytes :", "_NFDriverLogAssert", 1187, "SPMI Flash info", a1[50]);
-      }
-
-      v93 = 0;
-      do
-      {
-        v94 = 0;
-        v95 = &buf[__sprintf_chk(buf, 0, 0x30uLL, "%04lX: ", v93)];
-        do
-        {
-          v96 = *(v88 + v93++);
-          v97 = sprintf(v95, "0x%02X ", v96);
-          if (v94 > 6)
-          {
-            break;
-          }
-
-          v95 += v97;
-          ++v94;
-        }
-
-        while (v93 < v87);
-        dispatch_get_specific(*MEMORY[0x29EDC9730]);
-        v98 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
-        {
-          *v130 = 136446210;
-          v131 = buf;
-          _os_log_impl(&dword_297F97000, v98, OS_LOG_TYPE_ERROR, "%{public}s", v130, 0xCu);
-        }
-
-        if (v90)
-        {
-          v90(3, "%s", buf);
-        }
-      }
-
-      while (v93 < v87);
-      a1 = v128;
-    }
-  }
-
-  if (a1[54] && *(a1 + 26))
-  {
-    dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v99 = NFLogGetLogger();
-    if (v99)
-    {
-      v99(3, "%s:%i ---- ASSERT ----", "_NFDriverLogAssert", 1191);
-    }
-
-    dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v100 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446466;
-      *&buf[4] = "_NFDriverLogAssert";
-      *&buf[12] = 1024;
-      *&buf[14] = 1191;
-      _os_log_impl(&dword_297F97000, v100, OS_LOG_TYPE_ERROR, "%{public}s:%i ---- ASSERT ----", buf, 0x12u);
-    }
-
-    v139 = 0u;
-    memset(buf, 0, sizeof(buf));
-    v101 = a1[54];
-    v102 = *(a1 + 26);
-    v103 = MEMORY[0x29EDC9730];
-    dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v104 = NFLogGetLogger();
-    dispatch_get_specific(*v103);
-    v105 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
-    {
-      v106 = a1[54];
-      *v130 = 136315906;
-      v131 = "_NFDriverLogAssert";
-      v132 = 1024;
-      v133 = 1192;
-      v134 = 2082;
-      v135 = "Assert info";
-      v136 = 2048;
-      v137 = v106;
-      _os_log_impl(&dword_297F97000, v105, OS_LOG_TYPE_ERROR, "%s:%i %{public}s %lu bytes", v130, 0x26u);
-    }
-
-    if (v104)
-    {
-      v104(3, "%s:%i %s %lu bytes :", "_NFDriverLogAssert", 1192, "Assert info", a1[54]);
-    }
-
-    if (v101)
-    {
-      v107 = 0;
-      do
-      {
-        v108 = 0;
-        v109 = &buf[__sprintf_chk(buf, 0, 0x30uLL, "%04lX: ", v107)];
-        do
-        {
-          v110 = *(v102 + v107++);
-          v111 = sprintf(v109, "0x%02X ", v110);
-          if (v108 > 6)
-          {
-            break;
-          }
-
-          v109 += v111;
-          ++v108;
-        }
-
-        while (v107 < v101);
-        dispatch_get_specific(*MEMORY[0x29EDC9730]);
-        v112 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
-        {
-          *v130 = 136446210;
-          v131 = buf;
-          _os_log_impl(&dword_297F97000, v112, OS_LOG_TYPE_ERROR, "%{public}s", v130, 0xCu);
-        }
-
-        if (v104)
-        {
-          v104(3, "%s", buf);
-        }
-      }
-
-      while (v107 < v101);
-    }
-
-    a1 = v128;
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v113 = NFLogGetLogger();
-  if (v113)
-  {
-    v113(3, "%s:%i ---- Core Dump ----", "_NFDriverLogAssert", 1195);
-  }
-
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v114 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 136446466;
-    *&buf[4] = "_NFDriverLogAssert";
-    *&buf[12] = 1024;
-    *&buf[14] = 1195;
-    _os_log_impl(&dword_297F97000, v114, OS_LOG_TYPE_ERROR, "%{public}s:%i ---- Core Dump ----", buf, 0x12u);
-  }
-
-  v115 = a1[58];
-  if (v115)
-  {
-    v129 = *(a1 + 28);
-    if (v129)
-    {
-      v139 = 0u;
-      memset(buf, 0, sizeof(buf));
-      v116 = MEMORY[0x29EDC9730];
-      dispatch_get_specific(*MEMORY[0x29EDC9730]);
-      v117 = NFLogGetLogger();
-      dispatch_get_specific(*v116);
-      v118 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
-      {
-        v119 = a1[58];
-        *v130 = 136315906;
-        v131 = "_NFDriverLogAssert";
-        v132 = 1024;
-        v133 = 1197;
-        v134 = 2082;
-        v135 = "Core Dump";
-        v136 = 2048;
-        v137 = v119;
-        _os_log_impl(&dword_297F97000, v118, OS_LOG_TYPE_ERROR, "%s:%i %{public}s %lu bytes", v130, 0x26u);
-      }
-
-      if (v117)
-      {
-        v117(3, "%s:%i %s %lu bytes :", "_NFDriverLogAssert", 1197, "Core Dump", a1[58]);
-      }
-
-      v120 = 0;
-      do
-      {
-        v121 = 0;
-        v122 = &buf[__sprintf_chk(buf, 0, 0x30uLL, "%04lX: ", v120)];
-        do
-        {
-          v123 = v121 + 1;
-          v124 = v121 + 1 + v120;
-          v125 = sprintf(v122, "0x%02X ", *(v129 + v120 + v121));
-          if (v121 > 6)
-          {
-            break;
-          }
-
-          v122 += v125;
-          ++v121;
-        }
-
-        while (v124 < v115);
-        dispatch_get_specific(*MEMORY[0x29EDC9730]);
-        v126 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
-        {
-          *v130 = 136446210;
-          v131 = buf;
-          _os_log_impl(&dword_297F97000, v126, OS_LOG_TYPE_ERROR, "%{public}s", v130, 0xCu);
-        }
-
-        if (v117)
-        {
-          v117(3, "%s", buf);
-        }
-
-        v120 += v123;
-      }
-
-      while (v124 < v115);
-    }
-  }
-
-  v127 = *MEMORY[0x29EDCA608];
-}
-
 uint64_t sub_297FBA53C(uint64_t a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  memset(v3, 0, 44);
-  result = NFDriverGetControllerInfo(a1, v3);
+  v3 = *MEMORY[0x29EDCA608];
+  memset(v2, 0, 44);
+  result = NFDriverGetControllerInfo(a1, v2);
   if (result)
   {
-    if ((DWORD1(v3[0]) - 5) > 0xD)
+    if ((DWORD1(v2[0]) - 5) > 0xD)
     {
-      result = 0;
+      return 0;
     }
 
     else
     {
-      result = dword_297FDB6AC[DWORD1(v3[0]) - 5];
+      return dword_297FDB6AC[DWORD1(v2[0]) - 5];
     }
   }
 
-  v2 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t NFDriverTriggerCoreDump(uint64_t a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v1 = sub_297FA0380(a1, 245, 0, 0);
   if (sub_297F9F694(v1))
   {
@@ -1097,9 +38,9 @@ uint64_t NFDriverTriggerCoreDump(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v9 = "NFDriverTriggerCoreDump";
-      v10 = 1024;
-      v11 = 1534;
+      v8 = "NFDriverTriggerCoreDump";
+      v9 = 1024;
+      v10 = 1534;
       _os_log_impl(&dword_297F97000, v4, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to trigger core dump", buf, 0x12u);
     }
 
@@ -1112,7 +53,6 @@ uint64_t NFDriverTriggerCoreDump(uint64_t a1)
   }
 
   sub_297F9FBDC(v1);
-  v6 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -1138,8 +78,6 @@ uint64_t sub_297FBA6E8(uint64_t a1, int a2)
 
 uint64_t sub_297FBA79C(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 24) + 576);
-  v3 = *(a1 + 48);
   result = phLibNfc_Mgt_GetTagID();
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
@@ -1147,7 +85,7 @@ uint64_t sub_297FBA79C(uint64_t a1)
 
 BOOL NFDriverDisableHeadlessModeMiniNV(uint64_t a1)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v2 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -1161,30 +99,26 @@ BOOL NFDriverDisableHeadlessModeMiniNV(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446466;
-    v8 = "NFDriverDisableHeadlessModeMiniNV";
-    v9 = 1024;
-    v10 = 1735;
+    v7 = "NFDriverDisableHeadlessModeMiniNV";
+    v8 = 1024;
+    v9 = 1735;
     _os_log_impl(&dword_297F97000, v4, OS_LOG_TYPE_ERROR, "%{public}s:%i WARNING !!!\nWARNING !!!\nWriting to Mini NV to disable headless. This is not expected outside factory.\nWARNING !!!", buf, 0x12u);
   }
 
-  result = sub_297FBA8E0(a1, 0);
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return sub_297FBA8E0(a1, 0);
 }
 
 BOOL sub_297FBA8E0(uint64_t a1, int a2)
 {
-  v29 = *MEMORY[0x29EDCA608];
-  v23 = 0;
-  memset(v28, 0, 44);
-  if (!NFDriverGetControllerInfo(a1, v28))
+  v28 = *MEMORY[0x29EDCA608];
+  v22 = 0;
+  memset(v27, 0, 44);
+  if (!NFDriverGetControllerInfo(a1, v27))
   {
-LABEL_7:
-    v7 = 0;
-    goto LABEL_8;
+    return 0;
   }
 
-  if (DWORD1(v28[0]) <= 6)
+  if (DWORD1(v27[0]) <= 6)
   {
     v4 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
@@ -1199,120 +133,116 @@ LABEL_7:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v25 = "_NFDriverConfigMiniNVForHeadless";
-      v26 = 1024;
-      v27 = 1697;
+      v24 = "_NFDriverConfigMiniNVForHeadless";
+      v25 = 1024;
+      v26 = 1697;
       _os_log_impl(&dword_297F97000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Device does not support this feature", buf, 0x12u);
     }
 
-    goto LABEL_7;
+    return 0;
   }
 
-  if (DWORD1(v28[0]) == 18)
+  if (DWORD1(v27[0]) == 18)
   {
-LABEL_10:
-    v7 = 1;
-    goto LABEL_8;
+    return 1;
   }
 
-  v10 = sub_297FBB930(a1, &v23);
-  if (v23)
+  v9 = sub_297FBB930(a1, &v22);
+  if (v22)
   {
-    v11 = a2 ^ 1;
+    v10 = a2 ^ 1;
   }
 
   else
   {
-    v11 = v10;
+    v10 = v9;
   }
 
-  v12 = MEMORY[0x29EDC9730];
+  v11 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v13 = NFLogGetLogger();
-  if ((a2 ^ 1) != v11)
+  v12 = NFLogGetLogger();
+  if ((a2 ^ 1) != v10)
   {
-    if (v13)
+    if (v12)
     {
-      v13(6, "%s:%i Headless mini NV already set", "_NFDriverConfigMiniNVForHeadless", 1727);
+      v12(6, "%s:%i Headless mini NV already set", "_NFDriverConfigMiniNVForHeadless", 1727);
     }
 
-    dispatch_get_specific(*v12);
-    v20 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    dispatch_get_specific(*v11);
+    v19 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v25 = "_NFDriverConfigMiniNVForHeadless";
-      v26 = 1024;
-      v27 = 1727;
-      _os_log_impl(&dword_297F97000, v20, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Headless mini NV already set", buf, 0x12u);
+      v24 = "_NFDriverConfigMiniNVForHeadless";
+      v25 = 1024;
+      v26 = 1727;
+      _os_log_impl(&dword_297F97000, v19, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Headless mini NV already set", buf, 0x12u);
     }
 
-    goto LABEL_10;
+    return 1;
   }
 
-  if (v13)
+  if (v12)
   {
-    v13(6, "%s:%i Writing headless mini NV ", "_NFDriverConfigMiniNVForHeadless", 1713);
+    v12(6, "%s:%i Writing headless mini NV ", "_NFDriverConfigMiniNVForHeadless", 1713);
   }
 
-  dispatch_get_specific(*v12);
-  v14 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  dispatch_get_specific(*v11);
+  v13 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v25 = "_NFDriverConfigMiniNVForHeadless";
-    v26 = 1024;
-    v27 = 1713;
-    _os_log_impl(&dword_297F97000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Writing headless mini NV ", buf, 0x12u);
+    v24 = "_NFDriverConfigMiniNVForHeadless";
+    v25 = 1024;
+    v26 = 1713;
+    _os_log_impl(&dword_297F97000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Writing headless mini NV ", buf, 0x12u);
   }
 
-  v15 = sub_297FBA6E8(a1, 3);
-  v22[0] = HIBYTE(v15);
-  v22[1] = v15;
-  v22[2] = 1;
-  v22[3] = a2;
-  v21 = sub_297FA02E4(4u, v22);
-  v16 = sub_297FA0380(a1, 37025, v21, 0);
-  v17 = sub_297F9F694(v16);
-  v7 = v17 == 0;
-  if (v17)
+  v14 = sub_297FBA6E8(a1, 3);
+  v21[0] = HIBYTE(v14);
+  v21[1] = v14;
+  v21[2] = 1;
+  v21[3] = a2;
+  v20 = sub_297FA02E4(4u, v21);
+  v15 = sub_297FA0380(a1, 37025, v20, 0);
+  v16 = sub_297F9F694(v15);
+  v7 = v16 == 0;
+  if (v16)
   {
-    dispatch_get_specific(*v12);
-    v18 = NFLogGetLogger();
-    if (v18)
+    dispatch_get_specific(*v11);
+    v17 = NFLogGetLogger();
+    if (v17)
     {
-      v18(3, "%s:%i Failed to write miniNV", "_NFDriverConfigMiniNVForHeadless", 1721);
+      v17(3, "%s:%i Failed to write miniNV", "_NFDriverConfigMiniNVForHeadless", 1721);
     }
 
-    dispatch_get_specific(*v12);
-    v19 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    dispatch_get_specific(*v11);
+    v18 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v25 = "_NFDriverConfigMiniNVForHeadless";
-      v26 = 1024;
-      v27 = 1721;
-      _os_log_impl(&dword_297F97000, v19, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to write miniNV", buf, 0x12u);
+      v24 = "_NFDriverConfigMiniNVForHeadless";
+      v25 = 1024;
+      v26 = 1721;
+      _os_log_impl(&dword_297F97000, v18, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to write miniNV", buf, 0x12u);
     }
   }
 
-  sub_297F9FBDC(v16);
-  sub_297FA0714(&v21);
-LABEL_8:
-  v8 = *MEMORY[0x29EDCA608];
+  sub_297F9FBDC(v15);
+  sub_297FA0714(&v20);
   return v7;
 }
 
 BOOL NFDriverSetHeadlessMode(uint64_t a1, int a2)
 {
-  v42 = *MEMORY[0x29EDCA608];
-  memset(v38, 0, 44);
-  if (!NFDriverGetControllerInfo(a1, v38))
+  v41 = *MEMORY[0x29EDCA608];
+  memset(v37, 0, 44);
+  if (!NFDriverGetControllerInfo(a1, v37))
   {
-    goto LABEL_52;
+    return 0;
   }
 
-  if (DWORD1(v38[0]) <= 6)
+  if (DWORD1(v37[0]) <= 6)
   {
     v4 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
@@ -1326,7 +256,7 @@ BOOL NFDriverSetHeadlessMode(uint64_t a1, int a2)
     v6 = NFSharedLogGetLogger();
     if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_9;
+      return 1;
     }
 
     *buf = 136446466;
@@ -1339,26 +269,26 @@ BOOL NFDriverSetHeadlessMode(uint64_t a1, int a2)
     goto LABEL_7;
   }
 
-  if (DWORD1(v38[0]) == 18)
+  if (DWORD1(v37[0]) == 18)
   {
-    goto LABEL_9;
+    return 1;
   }
 
   if ((*(*(a1 + 24) + 588) & 0x20) != 0)
   {
-    v35 = MEMORY[0x29EDC9730];
+    v34 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v36 = NFLogGetLogger();
-    if (v36)
+    v35 = NFLogGetLogger();
+    if (v35)
     {
-      v36(4, "%s:%i LPEM flash writes disabled! Headless mode will not be updated on the device.", "NFDriverSetHeadlessMode", 1764);
+      v35(4, "%s:%i LPEM flash writes disabled! Headless mode will not be updated on the device.", "NFDriverSetHeadlessMode", 1764);
     }
 
-    dispatch_get_specific(*v35);
-    v37 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    dispatch_get_specific(*v34);
+    v36 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_9;
+      return 1;
     }
 
     *buf = 136446466;
@@ -1366,13 +296,11 @@ BOOL NFDriverSetHeadlessMode(uint64_t a1, int a2)
     *&buf[12] = 1024;
     *&buf[14] = 1764;
     v7 = "%{public}s:%i LPEM flash writes disabled! Headless mode will not be updated on the device.";
-    v8 = v37;
+    v8 = v36;
     v9 = OS_LOG_TYPE_ERROR;
 LABEL_7:
     _os_log_impl(&dword_297F97000, v8, v9, v7, buf, 0x12u);
-LABEL_9:
-    v10 = 1;
-    goto LABEL_53;
+    return 1;
   }
 
   if ((*(a1 + 60) & 1) != 0 || *(a1 + 32) || *(a1 + 36))
@@ -1408,9 +336,7 @@ LABEL_20:
         goto LABEL_21;
       }
 
-LABEL_52:
-      v10 = 0;
-      goto LABEL_53;
+      return 0;
     }
   }
 
@@ -1475,9 +401,9 @@ LABEL_21:
   *&buf[8] = 0x40000000;
   *&buf[16] = sub_297FD5678;
   *&buf[24] = &unk_29EE88A60;
-  v41 = a2;
+  v40 = a2;
   *&buf[32] = a1;
-  v40 = v20;
+  v39 = v20;
   dispatch_async_and_wait(v22, buf);
   v23 = sub_297F9F694(v20);
   v10 = v23 == 0;
@@ -1559,39 +485,37 @@ LABEL_21:
         _os_log_impl(&dword_297F97000, v32, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to update discovery", buf, 0x12u);
       }
 
-      goto LABEL_52;
+      return 0;
     }
   }
 
-LABEL_53:
-  v33 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
 uint64_t NFDriverGetHeadlessModeFlags(uint64_t a1, int *a2)
 {
-  v54 = *MEMORY[0x29EDCA608];
-  memset(v43, 0, 44);
-  result = NFDriverGetControllerInfo(a1, v43);
+  v53 = *MEMORY[0x29EDCA608];
+  memset(v42, 0, 44);
+  result = NFDriverGetControllerInfo(a1, v42);
   if (!result)
   {
-    goto LABEL_52;
+    return result;
   }
 
-  if (DWORD1(v43[0]) > 6)
+  if (DWORD1(v42[0]) > 6)
   {
-    if (DWORD1(v43[0]) == 18)
+    if (DWORD1(v42[0]) == 18)
     {
-      goto LABEL_8;
+      return 0;
     }
 
     v8 = sub_297FBB930(a1, a2);
-    v42 = -114;
-    v41 = -24575;
-    v40 = sub_297FA02E4(3u, &v41);
+    v41 = -114;
+    v40 = -24575;
+    v39 = sub_297FA02E4(3u, &v40);
     v9 = sub_297FA02E4(0x10u, 0);
-    v39 = v9;
-    v10 = sub_297FA0380(a1, 37026, v40, v9);
+    v38 = v9;
+    v10 = sub_297FA0380(a1, 37026, v39, v9);
     if (sub_297F9F694(v10))
     {
       v11 = MEMORY[0x29EDC9730];
@@ -1661,8 +585,8 @@ LABEL_16:
 
         else
         {
-          v37 = v10;
-          v53 = 0u;
+          v36 = v10;
+          v52 = 0u;
           memset(buf, 0, sizeof(buf));
           v26 = MEMORY[0x29EDC9730];
           dispatch_get_specific(*MEMORY[0x29EDC9730]);
@@ -1672,18 +596,18 @@ LABEL_16:
           if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
             v29 = v9[2];
-            *v44 = 136315906;
-            v45 = "_NFDriverReadHeadless";
-            v46 = 1024;
-            v47 = 1674;
-            v48 = 2082;
-            v49 = "Unexpected headless reply";
-            v50 = 2048;
-            v51 = v29;
-            _os_log_impl(&dword_297F97000, v28, OS_LOG_TYPE_ERROR, "%s:%i %{public}s %lu bytes", v44, 0x26u);
+            *v43 = 136315906;
+            v44 = "_NFDriverReadHeadless";
+            v45 = 1024;
+            v46 = 1674;
+            v47 = 2082;
+            v48 = "Unexpected headless reply";
+            v49 = 2048;
+            v50 = v29;
+            _os_log_impl(&dword_297F97000, v28, OS_LOG_TYPE_ERROR, "%s:%i %{public}s %lu bytes", v43, 0x26u);
           }
 
-          v38 = v8;
+          v37 = v8;
           if (v27)
           {
             v27(3, "%s:%i %s %lu bytes :", "_NFDriverReadHeadless", 1674, "Unexpected headless reply", v9[2]);
@@ -1714,9 +638,9 @@ LABEL_16:
               v35 = NFSharedLogGetLogger();
               if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
               {
-                *v44 = 136446210;
-                v45 = buf;
-                _os_log_impl(&dword_297F97000, v35, OS_LOG_TYPE_ERROR, "%{public}s", v44, 0xCu);
+                *v43 = 136446210;
+                v44 = buf;
+                _os_log_impl(&dword_297F97000, v35, OS_LOG_TYPE_ERROR, "%{public}s", v43, 0xCu);
               }
 
               if (v27)
@@ -1734,8 +658,8 @@ LABEL_16:
             *a2 = 8;
           }
 
-          v8 = v38;
-          v10 = v37;
+          v8 = v37;
+          v10 = v36;
         }
 
         goto LABEL_49;
@@ -1771,19 +695,17 @@ LABEL_16:
     v14 = 0;
 LABEL_49:
     sub_297F9FBDC(v10);
-    sub_297FA0714(&v40);
     sub_297FA0714(&v39);
+    sub_297FA0714(&v38);
     if (v14)
     {
-      result = v8 | 2;
+      return v8 | 2;
     }
 
     else
     {
-      result = v8;
+      return v8;
     }
-
-    goto LABEL_52;
   }
 
   v5 = MEMORY[0x29EDC9730];
@@ -1804,26 +726,23 @@ LABEL_49:
     *&buf[12] = 1024;
     *&buf[14] = 1811;
     _os_log_impl(&dword_297F97000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Device does not support this feature", buf, 0x12u);
-LABEL_8:
-    result = 0;
+    return 0;
   }
 
-LABEL_52:
-  v36 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t sub_297FBB930(uint64_t a1, int *a2)
 {
-  v50 = *MEMORY[0x29EDCA608];
+  v49 = *MEMORY[0x29EDCA608];
   v4 = sub_297FBA6E8(a1, 3);
-  v39[0] = 1;
-  v39[1] = HIBYTE(v4);
-  v39[2] = v4;
-  v38 = sub_297FA02E4(3u, v39);
+  v38[0] = 1;
+  v38[1] = HIBYTE(v4);
+  v38[2] = v4;
+  v37 = sub_297FA02E4(3u, v38);
   v5 = sub_297FA02E4(0x10u, 0);
-  v37 = v5;
-  v6 = sub_297FA0380(a1, 37026, v38, v5);
+  v36 = v5;
+  v6 = sub_297FA0380(a1, 37026, v37, v5);
   if (sub_297F9F694(v6))
   {
     v7 = MEMORY[0x29EDC9730];
@@ -1894,9 +813,9 @@ LABEL_37:
   v13 = *v5;
   if (v12 < 5 || v13 == 0)
   {
-    v35 = a2;
-    v36 = v6;
-    v49 = 0u;
+    v34 = a2;
+    v35 = v6;
+    v48 = 0u;
     memset(buf, 0, sizeof(buf));
     v15 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
@@ -1906,15 +825,15 @@ LABEL_37:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = v5[2];
-      *v40 = 136315906;
-      v41 = "_NFDriverReadMiniNVForHeadless";
-      v42 = 1024;
-      v43 = 1644;
-      v44 = 2082;
-      v45 = "Unexpected mini NV reply";
-      v46 = 2048;
-      v47 = v18;
-      _os_log_impl(&dword_297F97000, v17, OS_LOG_TYPE_ERROR, "%s:%i %{public}s %lu bytes", v40, 0x26u);
+      *v39 = 136315906;
+      v40 = "_NFDriverReadMiniNVForHeadless";
+      v41 = 1024;
+      v42 = 1644;
+      v43 = 2082;
+      v44 = "Unexpected mini NV reply";
+      v45 = 2048;
+      v46 = v18;
+      _os_log_impl(&dword_297F97000, v17, OS_LOG_TYPE_ERROR, "%s:%i %{public}s %lu bytes", v39, 0x26u);
     }
 
     if (v16)
@@ -1947,9 +866,9 @@ LABEL_37:
         v24 = NFSharedLogGetLogger();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          *v40 = 136446210;
-          v41 = buf;
-          _os_log_impl(&dword_297F97000, v24, OS_LOG_TYPE_ERROR, "%{public}s", v40, 0xCu);
+          *v39 = 136446210;
+          v40 = buf;
+          _os_log_impl(&dword_297F97000, v24, OS_LOG_TYPE_ERROR, "%{public}s", v39, 0xCu);
         }
 
         if (v16)
@@ -1962,12 +881,12 @@ LABEL_37:
     }
 
     v10 = 0;
-    if (v35)
+    if (v34)
     {
-      *v35 = 8;
+      *v34 = 8;
     }
 
-    v6 = v36;
+    v6 = v35;
   }
 
   else
@@ -2002,15 +921,14 @@ LABEL_37:
 
 LABEL_44:
   sub_297F9FBDC(v6);
-  sub_297FA0714(&v38);
   sub_297FA0714(&v37);
-  v33 = *MEMORY[0x29EDCA608];
+  sub_297FA0714(&v36);
   return v10 & 1;
 }
 
 void sub_297FBBE78(uint64_t a1, double a2)
 {
-  v85 = *MEMORY[0x29EDCA608];
+  v84 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
     v5 = MEMORY[0x29EDC9730];
@@ -2025,20 +943,20 @@ void sub_297FBBE78(uint64_t a1, double a2)
     v7 = NFSharedLogGetLogger();
     if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_38;
+      return;
     }
 
     *buf = 136446466;
-    v66 = "_NFDriverLogLevel1Updated";
-    v67 = 1024;
-    v68 = 1205;
+    v65 = "_NFDriverLogLevel1Updated";
+    v66 = 1024;
+    v67 = 1205;
     v8 = "%{public}s:%i Invalid logging value";
     v9 = v7;
     v10 = OS_LOG_TYPE_ERROR;
     v11 = 18;
 LABEL_37:
     _os_log_impl(&dword_297F97000, v9, v10, v8, buf, v11);
-    goto LABEL_38;
+    return;
   }
 
   if (*a1)
@@ -2062,7 +980,7 @@ LABEL_37:
       v17 = NFSharedLogGetLogger();
       if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_38;
+        return;
       }
 
       v18 = *(a1 + 24);
@@ -2076,31 +994,31 @@ LABEL_37:
       v25 = *(a1 + 44);
       v27 = *(a1 + 60);
       *buf = 136449282;
-      v66 = "_NFDriverLogLevel1Updated";
-      v67 = 1024;
-      v68 = 1220;
-      v69 = 2048;
-      *v70 = v13;
-      *&v70[8] = 1024;
-      v71 = v18;
-      v72 = 1024;
-      v73 = v19;
-      v74 = 1024;
-      v75 = v20;
-      v76 = 1024;
-      *v77 = v25;
-      *&v77[4] = 1024;
-      *&v77[6] = v21;
-      LOWORD(v78) = 1024;
-      *(&v78 + 2) = v22;
-      HIWORD(v78) = 2048;
-      v79 = v23;
-      v80 = 2048;
-      *v81 = v24;
-      *&v81[8] = 1024;
-      v82 = v26;
-      v83 = 1024;
-      v84 = v27;
+      v65 = "_NFDriverLogLevel1Updated";
+      v66 = 1024;
+      v67 = 1220;
+      v68 = 2048;
+      *v69 = v13;
+      *&v69[8] = 1024;
+      v70 = v18;
+      v71 = 1024;
+      v72 = v19;
+      v73 = 1024;
+      v74 = v20;
+      v75 = 1024;
+      *v76 = v25;
+      *&v76[4] = 1024;
+      *&v76[6] = v21;
+      LOWORD(v77) = 1024;
+      *(&v77 + 2) = v22;
+      HIWORD(v77) = 2048;
+      v78 = v23;
+      v79 = 2048;
+      *v80 = v24;
+      *&v80[8] = 1024;
+      v81 = v26;
+      v82 = 1024;
+      v83 = v27;
       v8 = "%{public}s:%i [L1] %0.6f state=0x%x tech=0x%x rssi=0x%x FelicaL1State=0x%x L1DataRxFailure=0x%x AGCRegValue=0x%x vpp=%f ALMPhase=%.3f fs=0x%x RMRobustness=0x%04x";
       v9 = v17;
       v10 = OS_LOG_TYPE_DEFAULT;
@@ -2121,7 +1039,7 @@ LABEL_37:
       v41 = NFSharedLogGetLogger();
       if (!os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_38;
+        return;
       }
 
       v42 = *(a1 + 24);
@@ -2134,29 +1052,29 @@ LABEL_37:
       v48 = *(a1 + 44);
       v50 = *(a1 + 60);
       *buf = 136449026;
-      v66 = "_NFDriverLogLevel1Updated";
-      v67 = 1024;
-      v68 = 1227;
-      v69 = 2048;
-      *v70 = v13;
-      *&v70[8] = 1024;
-      v71 = v42;
-      v72 = 1024;
-      v73 = v43;
-      v74 = 1024;
-      v75 = v44;
-      v76 = 1024;
-      *v77 = v48;
-      *&v77[4] = 1024;
-      *&v77[6] = v45;
-      LOWORD(v78) = 1024;
-      *(&v78 + 2) = v46;
-      HIWORD(v78) = 2048;
-      v79 = v47;
-      v80 = 1024;
-      *v81 = v49;
-      *&v81[4] = 1024;
-      *&v81[6] = v50;
+      v65 = "_NFDriverLogLevel1Updated";
+      v66 = 1024;
+      v67 = 1227;
+      v68 = 2048;
+      *v69 = v13;
+      *&v69[8] = 1024;
+      v70 = v42;
+      v71 = 1024;
+      v72 = v43;
+      v73 = 1024;
+      v74 = v44;
+      v75 = 1024;
+      *v76 = v48;
+      *&v76[4] = 1024;
+      *&v76[6] = v45;
+      LOWORD(v77) = 1024;
+      *(&v77 + 2) = v46;
+      HIWORD(v77) = 2048;
+      v78 = v47;
+      v79 = 1024;
+      *v80 = v49;
+      *&v80[4] = 1024;
+      *&v80[6] = v50;
       v8 = "%{public}s:%i [L1] %0.6f state=0x%x tech=0x%x rssi=0x%x FelicaL1State=0x%x L1DataRxFailure=0x%x AGCRegValue=0x%x vpp=%f fs=0x%x RMRobustness=0x%04x";
       v9 = v41;
       v10 = OS_LOG_TYPE_DEFAULT;
@@ -2184,7 +1102,7 @@ LABEL_37:
     v32 = NFSharedLogGetLogger();
     if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_38;
+      return;
     }
 
     v33 = *(a1 + 20);
@@ -2194,23 +1112,23 @@ LABEL_37:
     v37 = *(a1 + 56);
     v38 = *(a1 + 60);
     *buf = 136448258;
-    v66 = "_NFDriverLogLevel1Updated";
-    v67 = 1024;
-    v68 = 1236;
-    v69 = 2048;
-    *v70 = v29;
-    *&v70[8] = 1024;
-    v71 = v33;
-    v72 = 1024;
-    v73 = v34;
-    v74 = 1024;
-    v75 = v35;
-    v76 = 2048;
-    *v77 = v36;
-    *&v77[8] = 2048;
-    v78 = v37;
-    LOWORD(v79) = 1024;
-    *(&v79 + 2) = v38;
+    v65 = "_NFDriverLogLevel1Updated";
+    v66 = 1024;
+    v67 = 1236;
+    v68 = 2048;
+    *v69 = v29;
+    *&v69[8] = 1024;
+    v70 = v33;
+    v71 = 1024;
+    v72 = v34;
+    v73 = 1024;
+    v74 = v35;
+    v75 = 2048;
+    *v76 = v36;
+    *&v76[8] = 2048;
+    v77 = v37;
+    LOWORD(v78) = 1024;
+    *(&v78 + 2) = v38;
     v8 = "%{public}s:%i [L1] %0.6f APCInfo=0x%x tech=0x%x retCode=0x%x vpp=%f ALMPhase=%.3f RMRobustness=0x%04x";
     v9 = v32;
     v10 = OS_LOG_TYPE_DEFAULT;
@@ -2220,7 +1138,7 @@ LABEL_37:
 
   if (!*(a1 + 8))
   {
-    goto LABEL_38;
+    return;
   }
 
   v3 = *(a1 + 16);
@@ -2265,15 +1183,15 @@ LABEL_32:
       v59 = strerror(*v58);
       v60 = *__error();
       *buf = 136447234;
-      v66 = "_NFDriverLogLevel1Updated";
-      v67 = 1024;
-      v68 = 1252;
-      v69 = 2080;
-      *v70 = v59;
-      *&v70[8] = 1024;
-      v71 = v60;
-      v72 = 1024;
-      v73 = 255;
+      v65 = "_NFDriverLogLevel1Updated";
+      v66 = 1024;
+      v67 = 1252;
+      v68 = 2080;
+      *v69 = v59;
+      *&v69[8] = 1024;
+      v70 = v60;
+      v71 = 1024;
+      v72 = 255;
       _os_log_impl(&dword_297F97000, v57, OS_LOG_TYPE_ERROR, "%{public}s:%i %s errno=%d Invalid L1 standby wake event 0x%x", buf, 0x28u);
     }
   }
@@ -2292,27 +1210,24 @@ LABEL_33:
   if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
-    v66 = "_NFDriverLogLevel1Updated";
-    v67 = 1024;
-    v68 = 1256;
-    v69 = 1024;
-    *v70 = v3;
-    *&v70[4] = 1024;
-    *&v70[6] = v4;
+    v65 = "_NFDriverLogLevel1Updated";
+    v66 = 1024;
+    v67 = 1256;
+    v68 = 1024;
+    *v69 = v3;
+    *&v69[4] = 1024;
+    *&v69[6] = v4;
     v8 = "%{public}s:%i [L1] StandbyEventType=0x%x RegValue=0x%x";
     v9 = v63;
     v10 = OS_LOG_TYPE_DEFAULT;
     v11 = 30;
     goto LABEL_37;
   }
-
-LABEL_38:
-  v64 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297FBC5D4(unsigned __int8 *a1, double a2, double a3)
 {
-  *(&v109[2] + 6) = *MEMORY[0x29EDCA608];
+  *(&v108[2] + 6) = *MEMORY[0x29EDCA608];
   v4 = MEMORY[0x29EDC9730];
   if (*a1)
   {
@@ -2373,23 +1288,23 @@ LABEL_18:
           v38 = *(v8 + v6 - 20);
           v39 = *(v8 + v6);
           *buf = 136448258;
-          v99 = "_NFDriverLogLevel2Updated";
-          v100 = 1024;
-          v101 = 1296;
-          v102 = 2048;
-          *v103 = v10;
-          *&v103[8] = 1024;
-          *v104 = v35;
+          v98 = "_NFDriverLogLevel2Updated";
+          v99 = 1024;
+          v100 = 1296;
+          v101 = 2048;
+          *v102 = v10;
+          *&v102[8] = 1024;
+          *v103 = v35;
+          *&v103[4] = 1024;
+          *v104 = v36;
           *&v104[4] = 1024;
-          *v105 = v36;
-          *&v105[4] = 1024;
-          v106 = v37;
-          v107 = 1024;
-          *v108 = v34;
-          *&v108[4] = 1024;
-          *&v108[6] = v38;
-          LOWORD(v109[0]) = 1024;
-          *(v109 + 2) = v39;
+          v105 = v37;
+          v106 = 1024;
+          *v107 = v34;
+          *&v107[4] = 1024;
+          *&v107[6] = v38;
+          LOWORD(v108[0]) = 1024;
+          *(v108 + 2) = v39;
           v20 = v33;
           v21 = "%{public}s:%i [L2] %0.6f state=0x%02x mod=0x%02x rssi=0x%04x, extraInfo=0x%0x fs=0x%04x RMRobustness=0x%04x";
           v22 = 64;
@@ -2416,21 +1331,21 @@ LABEL_18:
         v28 = *(v8 + v6 - 12);
         v29 = *(v8 + v6);
         *buf = 136448002;
-        v99 = "_NFDriverLogLevel2Updated";
-        v100 = 1024;
-        v101 = 1283;
-        v102 = 2048;
-        *v103 = v10;
-        *&v103[8] = 1024;
-        *v104 = v25;
+        v98 = "_NFDriverLogLevel2Updated";
+        v99 = 1024;
+        v100 = 1283;
+        v101 = 2048;
+        *v102 = v10;
+        *&v102[8] = 1024;
+        *v103 = v25;
+        *&v103[4] = 1024;
+        *v104 = v26;
         *&v104[4] = 1024;
-        *v105 = v26;
-        *&v105[4] = 1024;
-        v106 = v27;
-        v107 = 1024;
-        *v108 = v28;
-        *&v108[4] = 1024;
-        *&v108[6] = v29;
+        v105 = v27;
+        v106 = 1024;
+        *v107 = v28;
+        *&v107[4] = 1024;
+        *&v107[6] = v29;
         v20 = v24;
         v21 = "%{public}s:%i [L2] %0.6f state=0x%02x mod=0x%02x sc=0x%04x, extraInfo=0x%0x RMRobustness=0x%04x";
         v22 = 58;
@@ -2464,23 +1379,23 @@ LABEL_18:
         v18 = *(v8 + v6 - 20);
         v19 = *(v8 + v6);
         *buf = 136448258;
-        v99 = "_NFDriverLogLevel2Updated";
-        v100 = 1024;
-        v101 = 1273;
-        v102 = 2048;
-        *v103 = v10;
-        *&v103[8] = 1024;
-        *v104 = v14;
+        v98 = "_NFDriverLogLevel2Updated";
+        v99 = 1024;
+        v100 = 1273;
+        v101 = 2048;
+        *v102 = v10;
+        *&v102[8] = 1024;
+        *v103 = v14;
+        *&v103[4] = 1024;
+        *v104 = v15;
         *&v104[4] = 1024;
-        *v105 = v15;
-        *&v105[4] = 1024;
-        v106 = v16;
-        v107 = 2048;
-        *v108 = v17;
-        *&v108[8] = 1024;
-        LODWORD(v109[0]) = v18;
-        WORD2(v109[0]) = 1024;
-        *(v109 + 6) = v19;
+        v105 = v16;
+        v106 = 2048;
+        *v107 = v17;
+        *&v107[8] = 1024;
+        LODWORD(v108[0]) = v18;
+        WORD2(v108[0]) = 1024;
+        *(v108 + 6) = v19;
         v20 = v13;
         v21 = "%{public}s:%i [L2] %0.6f state=0x%02x mod=0x%02x rssi=0x%04x, ALMPhase=%.3f fs=0x%04x RMRobustness=0x%04x";
         v22 = 68;
@@ -2522,17 +1437,17 @@ LABEL_29:
         v48 = *(v43 + v40 + 13);
         v49 = *(v43 + v40 + 4);
         *buf = 136447490;
-        v99 = "_NFDriverLogLevel2Updated";
-        v100 = 1024;
-        v101 = 1307;
-        v102 = 2048;
-        *v103 = v44;
-        *&v103[8] = 1024;
-        *v104 = v47;
+        v98 = "_NFDriverLogLevel2Updated";
+        v99 = 1024;
+        v100 = 1307;
+        v101 = 2048;
+        *v102 = v44;
+        *&v102[8] = 1024;
+        *v103 = v47;
+        *&v103[4] = 1024;
+        *v104 = v48;
         *&v104[4] = 1024;
-        *v105 = v48;
-        *&v105[4] = 1024;
-        v106 = v49;
+        v105 = v49;
         _os_log_impl(&dword_297F97000, v46, OS_LOG_TYPE_DEFAULT, "%{public}s:%i [L2] %0.6f command=0x%02x debug=0x%02x rssi=0x%04x", buf, 0x2Eu);
       }
 
@@ -2567,13 +1482,13 @@ LABEL_29:
       {
         v57 = *(v53 + v50 + 4);
         *buf = 136446978;
-        v99 = "_NFDriverLogLevel2Updated";
-        v100 = 1024;
-        v101 = 1315;
-        v102 = 2048;
-        *v103 = v54;
-        *&v103[8] = 1024;
-        *v104 = v57;
+        v98 = "_NFDriverLogLevel2Updated";
+        v99 = 1024;
+        v100 = 1315;
+        v101 = 2048;
+        *v102 = v54;
+        *&v102[8] = 1024;
+        *v103 = v57;
         _os_log_impl(&dword_297F97000, v56, OS_LOG_TYPE_DEFAULT, "%{public}s:%i [L2] %0.6f code=0x%04x", buf, 0x22u);
       }
 
@@ -2612,21 +1527,21 @@ LABEL_29:
         v68 = *(v61 + v58 + 12);
         v69 = *(v61 + v58 + 16);
         *buf = 136448002;
-        v99 = "_NFDriverLogLevel2Updated";
-        v100 = 1024;
-        v101 = 1327;
-        v102 = 2048;
-        *v103 = v62;
-        *&v103[8] = 1024;
-        *v104 = v65;
+        v98 = "_NFDriverLogLevel2Updated";
+        v99 = 1024;
+        v100 = 1327;
+        v101 = 2048;
+        *v102 = v62;
+        *&v102[8] = 1024;
+        *v103 = v65;
+        *&v103[4] = 1024;
+        *v104 = v66;
         *&v104[4] = 1024;
-        *v105 = v66;
-        *&v105[4] = 1024;
-        v106 = v67;
-        v107 = 2048;
-        *v108 = v68;
-        *&v108[8] = 2048;
-        *v109 = v69;
+        v105 = v67;
+        v106 = 2048;
+        *v107 = v68;
+        *&v107[8] = 2048;
+        *v108 = v69;
         _os_log_impl(&dword_297F97000, v64, OS_LOG_TYPE_DEFAULT, "%{public}s:%i [L2] %0.6f response=0x%02x status=0x%04x debug=0x%02x vpp=%f ALMPhase=%.3f", buf, 0x42u);
       }
 
@@ -2662,15 +1577,15 @@ LABEL_29:
         v77 = *(v73 + v70 + 4);
         v78 = *(v73 + v70 + 8);
         *buf = 136447234;
-        v99 = "_NFDriverLogLevel2Updated";
-        v100 = 1024;
-        v101 = 1336;
-        v102 = 2048;
-        *v103 = v74;
-        *&v103[8] = 1024;
-        *v104 = v77;
-        *&v104[4] = 1024;
-        *v105 = v78;
+        v98 = "_NFDriverLogLevel2Updated";
+        v99 = 1024;
+        v100 = 1336;
+        v101 = 2048;
+        *v102 = v74;
+        *&v102[8] = 1024;
+        *v103 = v77;
+        *&v103[4] = 1024;
+        *v104 = v78;
         _os_log_impl(&dword_297F97000, v76, OS_LOG_TYPE_DEFAULT, "%{public}s:%i [L2] %0.6f event=0x%02x debug=0x%02x", buf, 0x28u);
       }
 
@@ -2709,17 +1624,17 @@ LABEL_29:
         v87 = *(v81 + v79 + 8);
         v86 = *(v81 + v79 + 12);
         *buf = 136447490;
-        v99 = "_NFDriverLogLevel2Updated";
-        v100 = 1024;
-        v101 = 1345;
-        v102 = 1024;
-        *v103 = v84;
-        *&v103[4] = 1024;
-        *&v103[6] = v85;
+        v98 = "_NFDriverLogLevel2Updated";
+        v99 = 1024;
+        v100 = 1345;
+        v101 = 1024;
+        *v102 = v84;
+        *&v102[4] = 1024;
+        *&v102[6] = v85;
+        *v103 = 1024;
+        *&v103[2] = v87;
         *v104 = 1024;
-        *&v104[2] = v87;
-        *v105 = 1024;
-        *&v105[2] = v86;
+        *&v104[2] = v86;
         _os_log_impl(&dword_297F97000, v83, OS_LOG_TYPE_DEFAULT, "%{public}s:%i [L2] phase1Abrt=0x%02x phase2Abrt=0x%02x maxRfPulseAbrt=0x%02x successDetect=0x%02x", buf, 0x2Au);
       }
 
@@ -2753,17 +1668,17 @@ LABEL_29:
         v95 = *(v90 + v88 + 4);
         v96 = *(v90 + v88 + 6);
         *buf = 136447490;
-        v99 = "_NFDriverLogLevel2Updated";
-        v100 = 1024;
-        v101 = 1355;
-        v102 = 1024;
-        *v103 = v93;
-        *&v103[4] = 1024;
-        *&v103[6] = v94;
+        v98 = "_NFDriverLogLevel2Updated";
+        v99 = 1024;
+        v100 = 1355;
+        v101 = 1024;
+        *v102 = v93;
+        *&v102[4] = 1024;
+        *&v102[6] = v94;
+        *v103 = 1024;
+        *&v103[2] = v95;
         *v104 = 1024;
-        *&v104[2] = v95;
-        *v105 = 1024;
-        *&v105[2] = v96;
+        *&v104[2] = v96;
         _os_log_impl(&dword_297F97000, v92, OS_LOG_TYPE_DEFAULT, "%{public}s:%i [L2] ms=0x%02x µs=0x%02x LMA=0x%02x BBA=0x%02x", buf, 0x2Au);
       }
 
@@ -2773,8 +1688,6 @@ LABEL_29:
 
     while (v89 < a1[8]);
   }
-
-  v97 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297FBD15C(uint64_t a1)
@@ -2874,10 +1787,10 @@ uint64_t sub_297FBD3AC(uint64_t result)
 
 void sub_297FBD3E8(uint64_t *a1)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  *v23 = 0u;
+  *v22 = 0u;
   v2 = *(a1 + 2);
   v3 = *a1;
   v4 = MEMORY[0x29EDC9730];
@@ -2889,13 +1802,13 @@ void sub_297FBD3E8(uint64_t *a1)
   {
     v7 = *(a1 + 2);
     *buf = 136315906;
-    v16 = "_NFDriverLogLPCDDebug";
-    v17 = 1024;
-    v18 = 1361;
-    v19 = 2082;
-    v20 = "[lpcd]";
-    v21 = 2048;
-    v22 = v7;
+    v15 = "_NFDriverLogLPCDDebug";
+    v16 = 1024;
+    v17 = 1361;
+    v18 = 2082;
+    v19 = "[lpcd]";
+    v20 = 2048;
+    v21 = v7;
     _os_log_impl(&dword_297F97000, v6, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", buf, 0x26u);
   }
 
@@ -2910,7 +1823,7 @@ void sub_297FBD3E8(uint64_t *a1)
     do
     {
       v9 = 0;
-      v10 = &v23[__sprintf_chk(v23, 0, 0x30uLL, "%04lX: ", v8)];
+      v10 = &v22[__sprintf_chk(v22, 0, 0x30uLL, "%04lX: ", v8)];
       do
       {
         v11 = *(v3 + v8++);
@@ -2930,20 +1843,18 @@ void sub_297FBD3E8(uint64_t *a1)
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v16 = v23;
+        v15 = v22;
         _os_log_impl(&dword_297F97000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
       }
 
       if (Logger)
       {
-        Logger(5, "%s", v23);
+        Logger(5, "%s", v22);
       }
     }
 
     while (v8 < v2);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297FBD628(uint64_t a1)
@@ -2984,7 +1895,7 @@ uint64_t sub_297FBD6D8(uint64_t result)
 
 void sub_297FBD708(uint64_t a1)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v2 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -2999,11 +1910,11 @@ void sub_297FBD708(uint64_t a1)
   {
     v5 = *(a1 + 32);
     *buf = 136446722;
-    v10 = "_Callback_NFDriverNotifyGeneral_block_invoke_2";
-    v11 = 1024;
-    v12 = 2160;
-    v13 = 2080;
-    v14 = v5;
+    v9 = "_Callback_NFDriverNotifyGeneral_block_invoke_2";
+    v10 = 1024;
+    v11 = 2160;
+    v12 = 2080;
+    v13 = v5;
     _os_log_impl(&dword_297F97000, v4, OS_LOG_TYPE_ERROR, "%{public}s:%i %s TEMPERATURE WARNING RECEIVED", buf, 0x1Cu);
   }
 
@@ -3013,8 +1924,6 @@ void sub_297FBD708(uint64_t a1)
   {
     v7(*(v6 + 480), *(a1 + 48), *(a1 + 52));
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_297FBD838(uint64_t result)
@@ -3047,38 +1956,37 @@ uint64_t sub_297FBD86C(uint64_t result)
   return result;
 }
 
-uint64_t sub_297FBD8A0(uint64_t a1)
+double sub_297FBD8A0(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 24);
-  if (*(v2 + 762) == 1)
+  v1 = *(*(a1 + 32) + 24);
+  if (*(v1 + 762) == 1)
   {
-    v3 = *(v2 + 224);
-    if (v3)
+    v2 = *(v1 + 224);
+    if (v2)
     {
-      v3(*(v2 + 488), *(a1 + 40));
+      v2(*(v1 + 488), *(a1 + 40));
     }
   }
 
-  v4 = *(a1 + 40);
-
-  return NFDataRelease();
+  NFDataRelease();
+  return result;
 }
 
 uint64_t sub_297FBD8FC(int a1)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (a1 > 16)
   {
     if (a1 <= 20)
     {
       if ((a1 - 17) >= 3)
       {
-        result = 0;
+        return 0;
       }
 
       else
       {
-        result = 2;
+        return 2;
       }
     }
 
@@ -3086,7 +1994,7 @@ uint64_t sub_297FBD8FC(int a1)
     {
       if (a1 == 23)
       {
-        result = 5;
+        return 5;
       }
 
       else if (a1 == 25)
@@ -3104,18 +2012,18 @@ uint64_t sub_297FBD8FC(int a1)
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
-          v12 = "_NFDriverRFTechToTagType";
-          v13 = 1024;
-          v14 = 1880;
+          v11 = "_NFDriverRFTechToTagType";
+          v12 = 1024;
+          v13 = 1880;
           _os_log_impl(&dword_297F97000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Found Kovio tag", buf, 0x12u);
         }
 
-        result = 7;
+        return 7;
       }
 
       else
       {
-        result = 0;
+        return 0;
       }
     }
 
@@ -3133,12 +2041,12 @@ uint64_t sub_297FBD8FC(int a1)
 
       if (a1 == 21)
       {
-        result = 3;
+        return 3;
       }
 
       else
       {
-        result = v6;
+        return v6;
       }
     }
   }
@@ -3192,17 +2100,14 @@ uint64_t sub_297FBD8FC(int a1)
 
     if (a1 <= 12)
     {
-      result = (a1 - 10) < 3;
+      return (a1 - 10) < 3;
     }
 
     else
     {
-      result = v2;
+      return v2;
     }
   }
-
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 void sub_297FBDAA0(uint64_t a1)
@@ -3255,21 +2160,18 @@ uint64_t sub_297FBDB38(uint64_t result)
   return result;
 }
 
-uint64_t sub_297FBDB60(uint64_t result)
+double sub_297FBDB60(uint64_t a1)
 {
-  v2 = *(*(result + 32) + 24);
+  v2 = *(*(a1 + 32) + 24);
   if (*(v2 + 762) == 1)
   {
-    v3 = result;
-    v4 = *(v2 + 256);
-    if (v4)
+    v3 = *(v2 + 256);
+    if (v3)
     {
-      v4(*(v2 + 520), *(result + 40));
+      v3(*(v2 + 520), *(a1 + 40));
     }
 
-    v5 = *(v3 + 40);
-
-    return NFDataRelease();
+    NFDataRelease();
   }
 
   return result;
@@ -3277,7 +2179,7 @@ uint64_t sub_297FBDB60(uint64_t result)
 
 void sub_297FBDBC0(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, int a5)
 {
-  v56 = *MEMORY[0x29EDCA608];
+  v55 = *MEMORY[0x29EDCA608];
   v10 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -3296,8 +2198,8 @@ void sub_297FBDBC0(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, int a
     *&buf[14] = 2717;
     *&buf[18] = 1024;
     *&buf[20] = a4;
-    LOWORD(v54) = 1024;
-    *(&v54 + 2) = a5;
+    LOWORD(v53) = 1024;
+    *(&v53 + 2) = a5;
     _os_log_impl(&dword_297F97000, v12, OS_LOG_TYPE_DEFAULT, "%{public}s:%i num_dev=%d, status=%d", buf, 0x1Eu);
   }
 
@@ -3326,7 +2228,7 @@ void sub_297FBDBC0(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, int a
           goto LABEL_54;
         }
 
-        goto LABEL_74;
+        return;
       }
 
       if (a5 != 146)
@@ -3354,10 +2256,10 @@ LABEL_54:
             v36 = 18;
 LABEL_55:
             _os_log_impl(&dword_297F97000, v35, OS_LOG_TYPE_DEFAULT, v15, buf, v36);
-            goto LABEL_74;
+            return;
           }
 
-          goto LABEL_74;
+          return;
         }
 
 LABEL_61:
@@ -3384,7 +2286,7 @@ LABEL_61:
           goto LABEL_55;
         }
 
-        goto LABEL_74;
+        return;
       }
 
       dispatch_get_specific(*v10);
@@ -3406,15 +2308,15 @@ LABEL_61:
       }
 
       v20 = *(*(a2 + 24) + 568);
-      v49[0] = MEMORY[0x29EDCA5F8];
-      v49[1] = 0x40000000;
-      v49[2] = sub_297FBEB44;
-      v49[3] = &unk_29EE883D8;
-      v49[4] = a2;
-      v21 = v49;
+      v48[0] = MEMORY[0x29EDCA5F8];
+      v48[1] = 0x40000000;
+      v48[2] = sub_297FBEB44;
+      v48[3] = &unk_29EE883D8;
+      v48[4] = a2;
+      v21 = v48;
 LABEL_73:
       dispatch_async(v20, v21);
-      goto LABEL_74;
+      return;
     }
 
     if (a5 != 119)
@@ -3438,12 +2340,12 @@ LABEL_73:
       }
 
       v20 = *(*(a2 + 24) + 568);
-      v48[0] = MEMORY[0x29EDCA5F8];
-      v48[1] = 0x40000000;
-      v48[2] = sub_297FBEB6C;
-      v48[3] = &unk_29EE883F8;
-      v48[4] = a2;
-      v21 = v48;
+      v47[0] = MEMORY[0x29EDCA5F8];
+      v47[1] = 0x40000000;
+      v47[2] = sub_297FBEB6C;
+      v47[3] = &unk_29EE883F8;
+      v47[4] = a2;
+      v21 = v47;
       goto LABEL_73;
     }
 
@@ -3475,7 +2377,7 @@ LABEL_73:
           goto LABEL_54;
         }
 
-        goto LABEL_74;
+        return;
       }
 
       goto LABEL_61;
@@ -3493,10 +2395,10 @@ LABEL_33:
       v23 = malloc_type_calloc(a4, 0x60uLL, 0x108004063299CC8uLL);
       if (!v23)
       {
-        goto LABEL_74;
+        return;
       }
 
-      v47 = v23;
+      v46 = v23;
       if (a3)
       {
         v24 = (a3 + 8);
@@ -3544,7 +2446,7 @@ LABEL_33:
           v24 += 2;
           if (!--v22)
           {
-            v44 = v47;
+            v44 = v46;
             goto LABEL_72;
           }
         }
@@ -3568,7 +2470,7 @@ LABEL_33:
         _os_log_impl(&dword_297F97000, v42, OS_LOG_TYPE_ERROR, "%{public}s:%i remote dev list is invalid", buf, 0x12u);
       }
 
-      v44 = v47;
+      v44 = v46;
       if (NFIsInternalBuild())
       {
         sub_297FBE498(a1, 0, 0, 0);
@@ -3576,8 +2478,8 @@ LABEL_33:
         *buf = MEMORY[0x29EDCA5F8];
         *&buf[8] = 0x40000000;
         *&buf[16] = sub_297FB7B1C;
-        v54 = &unk_29EE880F8;
-        v55 = a2;
+        v53 = &unk_29EE880F8;
+        v54 = a2;
         dispatch_async(v43, buf);
       }
 
@@ -3595,10 +2497,10 @@ LABEL_72:
     block[1] = 0x40000000;
     block[2] = sub_297FBEAB8;
     block[3] = &unk_29EE883B8;
-    v52 = a4;
+    v51 = a4;
     block[4] = a2;
     block[5] = v44;
-    v51 = a5;
+    v50 = a5;
     v21 = block;
     goto LABEL_73;
   }
@@ -3626,14 +2528,11 @@ LABEL_72:
     v15 = "%{public}s:%i halted";
     goto LABEL_54;
   }
-
-LABEL_74:
-  v45 = *MEMORY[0x29EDCA608];
 }
 
-BOOL sub_297FBE498(uint64_t a1, void *a2, _WORD *a3, _DWORD *a4)
+BOOL sub_297FBE498(uint64_t a1, uint64_t *a2, unsigned __int16 *a3, int *a4)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   DebugInfo = phLibNfc_Mgt_GetDebugInfo();
   if (DebugInfo)
   {
@@ -3650,11 +2549,11 @@ BOOL sub_297FBE498(uint64_t a1, void *a2, _WORD *a3, _DWORD *a4)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v21 = "_Dispatched_NFDriverGetStackDebugInfo";
-      v22 = 1024;
-      v23 = 6120;
-      v24 = 1024;
-      v25 = DebugInfo;
+      v20 = "_Dispatched_NFDriverGetStackDebugInfo";
+      v21 = 1024;
+      v22 = 6120;
+      v23 = 1024;
+      v24 = DebugInfo;
       v11 = "%{public}s:%i Get Debug Info failed: %04X";
       v12 = v10;
       v13 = OS_LOG_TYPE_DEFAULT;
@@ -3694,15 +2593,15 @@ LABEL_16:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136447234;
-      v21 = "_Dispatched_NFDriverGetStackDebugInfo";
-      v22 = 1024;
-      v23 = 6117;
-      v24 = 1024;
-      v25 = 137;
-      v26 = 1024;
-      v27 = 0;
-      v28 = 2048;
-      v29 = 0;
+      v20 = "_Dispatched_NFDriverGetStackDebugInfo";
+      v21 = 1024;
+      v22 = 6117;
+      v23 = 1024;
+      v24 = 137;
+      v25 = 1024;
+      v26 = 0;
+      v27 = 2048;
+      v28 = 0;
       v11 = "%{public}s:%i LastAPI=0x%02X, LastAPIStatus=0x%04X DebugInfo=0x%016llX";
       v12 = v17;
       v13 = OS_LOG_TYPE_ERROR;
@@ -3711,15 +2610,13 @@ LABEL_16:
     }
   }
 
-  result = DebugInfo == 0;
-  v19 = *MEMORY[0x29EDCA608];
-  return result;
+  return DebugInfo == 0;
 }
 
 char *sub_297FBE6DC(char *result, uint64_t a2, uint64_t a3)
 {
   v4 = result;
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   *result = a2;
   v5 = *(a3 + 4);
   if (v5 <= 20)
@@ -3757,7 +2654,7 @@ char *sub_297FBE6DC(char *result, uint64_t a2, uint64_t a3)
         result = memcpy(v4 + 72, (a3 + 8), v7);
         v4[88] = v7;
         v4[68] = *(a3 + 72) & 0xF;
-        goto LABEL_59;
+        return result;
       }
 
       if (v5 == 13)
@@ -3786,7 +2683,7 @@ LABEL_54:
       *(result + 9) = v10;
       result[88] = 12;
       result[16] = *(a3 + 72) & 0xF;
-      goto LABEL_59;
+      return result;
     }
 
     if (v5 == 15)
@@ -3831,7 +2728,7 @@ LABEL_55:
 
     result = memcpy(v4 + 72, (a3 + 8), v21);
     v4[88] = v21;
-    goto LABEL_59;
+    return result;
   }
 
   if (v5 > 23)
@@ -3844,14 +2741,14 @@ LABEL_55:
 
     if (v5 == 24)
     {
-      goto LABEL_59;
+      return result;
     }
 
     if (v5 != 25)
     {
 LABEL_51:
       *(result + 2) = 0;
-      goto LABEL_59;
+      return result;
     }
 
     v11 = MEMORY[0x29EDC9730];
@@ -3867,9 +2764,9 @@ LABEL_51:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v24 = "_copyTagInfoFromDevice";
-      v25 = 1024;
-      v26 = 2687;
+      v23 = "_copyTagInfoFromDevice";
+      v24 = 1024;
+      v25 = 2687;
       _os_log_impl(&dword_297F97000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Found Kovio tag", buf, 0x12u);
     }
 
@@ -3933,7 +2830,7 @@ LABEL_51:
 LABEL_31:
     result = memcpy(v4 + 72, v4 + 12, v9);
     v4[88] = v9;
-    goto LABEL_59;
+    return result;
   }
 
   *(result + 2) = 3;
@@ -3955,8 +2852,6 @@ LABEL_31:
   v4[12] = *(a3 + 18);
   *(v4 + 23) = *(a3 + 19);
   *(v4 + 31) = *(a3 + 27);
-LABEL_59:
-  v22 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -3975,7 +2870,6 @@ void sub_297FBEAB8(uint64_t a1)
 
       else
       {
-        v5 = *(a1 + 48) == 119;
         v4 = 0;
       }
 
@@ -3983,11 +2877,11 @@ void sub_297FBEAB8(uint64_t a1)
     }
   }
 
-  v6 = *(a1 + 40);
-  if (v6)
+  v5 = *(a1 + 40);
+  if (v5)
   {
 
-    free(v6);
+    free(v5);
   }
 }
 
@@ -4036,45 +2930,43 @@ uint64_t sub_297FBEB94(uint64_t result)
   return result;
 }
 
-uint64_t sub_297FBEBC0(uint64_t a1)
+double sub_297FBEBC0(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 24);
-  if (*(v2 + 762) == 1)
+  v1 = *(*(a1 + 32) + 24);
+  if (*(v1 + 762) == 1)
   {
-    v3 = *(v2 + 16);
-    if (v3)
+    v2 = *(v1 + 16);
+    if (v2)
     {
-      v3(*(v2 + 280), *(a1 + 40));
+      v2(*(v1 + 280), *(a1 + 40));
     }
   }
 
-  v4 = *(a1 + 40);
-
-  return NFDataRelease();
+  NFDataRelease();
+  return result;
 }
 
-uint64_t sub_297FBEC1C(void *a1)
+double sub_297FBEC1C(void *a1)
 {
-  v2 = *(a1[4] + 24);
-  if (*(v2 + 762) == 1)
+  v1 = *(a1[4] + 24);
+  if (*(v1 + 762) == 1)
   {
-    v3 = *(v2 + 24);
-    if (v3)
+    v2 = *(v1 + 24);
+    if (v2)
     {
-      v3(*(v2 + 288), a1[5], a1[6]);
+      v2(*(v1 + 288), a1[5], a1[6]);
     }
   }
 
-  v4 = a1[5];
   NFDataRelease();
-  v5 = a1[6];
 
-  return NFDataRelease();
+  NFDataRelease();
+  return result;
 }
 
 void sub_297FBEC80(void *a1)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v1 = *(a1[4] + 24);
   if (*(v1 + 762) == 1)
   {
@@ -4101,9 +2993,9 @@ void sub_297FBEC80(void *a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v18 = "_Callback_NFDriverNotifySE_block_invoke";
-        v19 = 1024;
-        v20 = 2962;
+        v17 = "_Callback_NFDriverNotifySE_block_invoke";
+        v18 = 1024;
+        v19 = 2962;
         _os_log_impl(&dword_297F97000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Embedded SE EVT_RESTRICTED!", buf, 0x12u);
       }
     }
@@ -4157,8 +3049,6 @@ void sub_297FBEC80(void *a1)
       v10(v11, v5, v15);
     }
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_297FBEDF8(uint64_t result)
@@ -4369,21 +3259,20 @@ uint64_t sub_297FBF13C(uint64_t result)
   return result;
 }
 
-uint64_t sub_297FBF164(uint64_t a1)
+double sub_297FBF164(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 24);
-  if (*(v2 + 762) == 1)
+  v1 = *(*(a1 + 32) + 24);
+  if (*(v1 + 762) == 1)
   {
-    v3 = *(v2 + 120);
-    if (v3)
+    v2 = *(v1 + 120);
+    if (v2)
     {
-      v3(*(v2 + 384), **(a1 + 40), *(*(a1 + 40) + 8));
+      v2(*(v1 + 384), **(a1 + 40), *(*(a1 + 40) + 8));
     }
   }
 
-  v4 = *(a1 + 40);
-
-  return NFDataRelease();
+  NFDataRelease();
+  return result;
 }
 
 void sub_297FBF1C8(void *a1)
@@ -4426,7 +3315,7 @@ uint64_t sub_297FBF250(uint64_t result)
 
 void sub_297FBF294(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, int a5)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   if (a5 <= 53)
   {
     if (a5)
@@ -4446,9 +3335,9 @@ void sub_297FBF294(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, int a
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
-          v27 = "_Callback_NFDriverNotifyHCE";
-          v28 = 1024;
-          v29 = 3349;
+          v26 = "_Callback_NFDriverNotifyHCE";
+          v27 = 1024;
+          v28 = 3349;
           v12 = "%{public}s:%i halted";
 LABEL_22:
           v19 = v11;
@@ -4456,7 +3345,7 @@ LABEL_22:
           goto LABEL_23;
         }
 
-        goto LABEL_24;
+        return;
       }
 
 LABEL_14:
@@ -4473,20 +3362,20 @@ LABEL_14:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446722;
-        v27 = "_Callback_NFDriverNotifyHCE";
-        v28 = 1024;
-        v29 = 3354;
-        v30 = 1024;
-        v31 = a5;
+        v26 = "_Callback_NFDriverNotifyHCE";
+        v27 = 1024;
+        v28 = 3354;
+        v29 = 1024;
+        v30 = a5;
         v12 = "%{public}s:%i status=0x%04X";
         v19 = v18;
         v20 = 24;
 LABEL_23:
         _os_log_impl(&dword_297F97000, v19, OS_LOG_TYPE_DEFAULT, v12, buf, v20);
-        goto LABEL_24;
+        return;
       }
 
-      goto LABEL_24;
+      return;
     }
 
 LABEL_10:
@@ -4503,7 +3392,7 @@ LABEL_10:
         block[3] = &unk_29EE885E0;
         block[4] = a2;
         block[5] = a3;
-        v25 = v13;
+        v24 = v13;
         dispatch_async(v15, block);
         ++v13;
       }
@@ -4511,7 +3400,7 @@ LABEL_10:
       while (v13 < a4);
     }
 
-    goto LABEL_24;
+    return;
   }
 
   if (a5 != 56)
@@ -4537,15 +3426,12 @@ LABEL_10:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v27 = "_Callback_NFDriverNotifyHCE";
-    v28 = 1024;
-    v29 = 3344;
+    v26 = "_Callback_NFDriverNotifyHCE";
+    v27 = 1024;
+    v28 = 3344;
     v12 = "%{public}s:%i deselected";
     goto LABEL_22;
   }
-
-LABEL_24:
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_297FBF594(uint64_t result)
@@ -4565,17 +3451,17 @@ uint64_t sub_297FBF594(uint64_t result)
 
 uint64_t sub_297FBF5D0(uint64_t a1)
 {
-  v85 = *MEMORY[0x29EDCA608];
+  v84 = *MEMORY[0x29EDCA608];
   *(*(a1 + 24) + 763) = 0;
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x2000000000;
-  v79 = 3;
-  v2 = malloc_type_calloc(3uLL, 0x10uLL, 0x1080040FC6463CFuLL);
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x2000000000;
   v75 = 0;
+  v76 = &v75;
+  v77 = 0x2000000000;
+  v78 = 3;
+  v2 = malloc_type_calloc(3uLL, 0x10uLL, 0x1080040FC6463CFuLL);
+  v71 = 0;
+  v72 = &v71;
+  v73 = 0x2000000000;
+  v74 = 0;
   v3 = *(*(a1 + 24) + 560);
   block[0] = MEMORY[0x29EDCA5F8];
   block[1] = 0x40000000;
@@ -4583,24 +3469,24 @@ uint64_t sub_297FBF5D0(uint64_t a1)
   block[3] = &unk_29EE88608;
   block[6] = a1;
   block[7] = v2;
-  block[4] = &v72;
-  block[5] = &v76;
+  block[4] = &v71;
+  block[5] = &v75;
   dispatch_async_and_wait(v3, block);
-  if (*(v73 + 12))
+  if (*(v72 + 12))
   {
     v4 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
     Logger = NFLogGetLogger();
     if (Logger)
     {
-      Logger(3, "%s:%i status=0x%04X", "_NFDriverEnumerateSecureElements", 3969, *(v73 + 12));
+      Logger(3, "%s:%i status=0x%04X", "_NFDriverEnumerateSecureElements", 3969, *(v72 + 12));
     }
 
     dispatch_get_specific(*v4);
     v6 = NFSharedLogGetLogger();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(v73 + 12);
+      v7 = *(v72 + 12);
       *buf = 136446722;
       *&buf[4] = "_NFDriverEnumerateSecureElements";
       *&buf[12] = 1024;
@@ -4622,15 +3508,15 @@ uint64_t sub_297FBF5D0(uint64_t a1)
     goto LABEL_116;
   }
 
-  if (*(v77 + 24) <= 3u)
+  if (*(v76 + 24) <= 3u)
   {
-    if (*(v77 + 24))
+    if (*(v76 + 24))
     {
       v15 = 0;
       v16 = 0;
       v17 = 0;
       v18 = 0;
-      v70 = v2;
+      v69 = v2;
       v19 = v2 + 3;
       v20 = MEMORY[0x29EDC9730];
       while (1)
@@ -4788,24 +3674,24 @@ uint64_t sub_297FBF5D0(uint64_t a1)
         if ((NFDriverGetControllerInfo(a1, buf) & 1) == 0)
         {
           dispatch_get_specific(*v20);
-          v68 = NFLogGetLogger();
-          if (v68)
+          v67 = NFLogGetLogger();
+          if (v67)
           {
-            v68(3, "%s:%i Failed to get controller info", "_NFDriverEnumerateSecureElements", 3994);
+            v67(3, "%s:%i Failed to get controller info", "_NFDriverEnumerateSecureElements", 3994);
           }
 
           dispatch_get_specific(*v20);
-          v69 = NFSharedLogGetLogger();
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+          v68 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
           {
-            *v81 = 136446466;
-            v82 = "_NFDriverEnumerateSecureElements";
-            v83 = 1024;
-            v84 = 3994;
-            _os_log_impl(&dword_297F97000, v69, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to get controller info", v81, 0x12u);
+            *v80 = 136446466;
+            v81 = "_NFDriverEnumerateSecureElements";
+            v82 = 1024;
+            v83 = 3994;
+            _os_log_impl(&dword_297F97000, v68, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to get controller info", v80, 0x12u);
           }
 
-          v14 = v70;
+          v14 = v69;
           goto LABEL_13;
         }
 
@@ -4845,11 +3731,11 @@ uint64_t sub_297FBF5D0(uint64_t a1)
         v44 = NFSharedLogGetLogger();
         if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
-          *v81 = 136446466;
-          v82 = "_NFDriverRebootRemovedSE";
-          v83 = 1024;
-          v84 = 3642;
-          _os_log_impl(&dword_297F97000, v44, OS_LOG_TYPE_ERROR, "%{public}s:%i Error, trying to power cycle the SE.", v81, 0x12u);
+          *v80 = 136446466;
+          v81 = "_NFDriverRebootRemovedSE";
+          v82 = 1024;
+          v83 = 3642;
+          _os_log_impl(&dword_297F97000, v44, OS_LOG_TYPE_ERROR, "%{public}s:%i Error, trying to power cycle the SE.", v80, 0x12u);
         }
 
         if ((NFDriverSetSecureElementPower(a1, 1) & 1) == 0 && (NFDriverSetSecureElementPower(a1, 1) & 1) == 0)
@@ -4865,11 +3751,11 @@ uint64_t sub_297FBF5D0(uint64_t a1)
           v50 = NFSharedLogGetLogger();
           if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
           {
-            *v81 = 136446466;
-            v82 = "_NFDriverRebootRemovedSE";
-            v83 = 1024;
-            v84 = 3649;
-            _os_log_impl(&dword_297F97000, v50, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Power cycling SE success.", v81, 0x12u);
+            *v80 = 136446466;
+            v81 = "_NFDriverRebootRemovedSE";
+            v82 = 1024;
+            v83 = 3649;
+            _os_log_impl(&dword_297F97000, v50, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Power cycling SE success.", v80, 0x12u);
           }
 
           *(v42 + 24) = 0;
@@ -4887,11 +3773,11 @@ uint64_t sub_297FBF5D0(uint64_t a1)
         v46 = NFSharedLogGetLogger();
         if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
-          *v81 = 136446466;
-          v82 = "_NFDriverRebootRemovedSE";
-          v83 = 1024;
-          v84 = 3652;
-          _os_log_impl(&dword_297F97000, v46, OS_LOG_TYPE_ERROR, "%{public}s:%i Error: Failed to power cycle the SE.", v81, 0x12u);
+          *v80 = 136446466;
+          v81 = "_NFDriverRebootRemovedSE";
+          v82 = 1024;
+          v83 = 3652;
+          _os_log_impl(&dword_297F97000, v46, OS_LOG_TYPE_ERROR, "%{public}s:%i Error: Failed to power cycle the SE.", v80, 0x12u);
         }
 
         dispatch_get_specific(*v20);
@@ -4905,11 +3791,11 @@ uint64_t sub_297FBF5D0(uint64_t a1)
         v48 = NFSharedLogGetLogger();
         if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
         {
-          *v81 = 136446466;
-          v82 = "_NFDriverEnumerateSecureElements";
-          v83 = 1024;
-          v84 = 4006;
-          v28 = v81;
+          *v80 = 136446466;
+          v81 = "_NFDriverEnumerateSecureElements";
+          v82 = 1024;
+          v83 = 4006;
+          v28 = v80;
           v29 = v48;
           v30 = "%{public}s:%i Failed to recover SE";
           v31 = 18;
@@ -4920,9 +3806,9 @@ LABEL_41:
 LABEL_81:
         ++v15;
         v19 += 4;
-        if (v15 >= *(v77 + 24))
+        if (v15 >= *(v76 + 24))
         {
-          v2 = v70;
+          v2 = v69;
           if ((v16 & 1) == 0)
           {
             goto LABEL_85;
@@ -5097,14 +3983,14 @@ LABEL_107:
   v11 = NFLogGetLogger();
   if (v11)
   {
-    v11(3, "%s:%i Unexpected count of SEs : %d", "_NFDriverEnumerateSecureElements", 3975, *(v77 + 24));
+    v11(3, "%s:%i Unexpected count of SEs : %d", "_NFDriverEnumerateSecureElements", 3975, *(v76 + 24));
   }
 
   dispatch_get_specific(*v10);
   v12 = NFSharedLogGetLogger();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    v13 = *(v77 + 24);
+    v13 = *(v76 + 24);
     *buf = 136446722;
     *&buf[4] = "_NFDriverEnumerateSecureElements";
     *&buf[12] = 1024;
@@ -5119,24 +4005,19 @@ LABEL_13:
   free(v14);
   v9 = 8;
 LABEL_116:
-  _Block_object_dispose(&v72, 8);
-  _Block_object_dispose(&v76, 8);
-  v66 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v71, 8);
+  _Block_object_dispose(&v75, 8);
   return v9;
 }
 
 uint64_t sub_297FC04F8(void *a1)
 {
-  v2 = a1[5];
-  v3 = *(*(a1[6] + 24) + 576);
-  v4 = a1[7];
-  v5 = *(v2 + 8);
   result = phLibNfc_SE_GetSecureElementList();
   *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
-uint64_t sub_297FC0540(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5)
+uint64_t sub_297FC0540(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = *a1;
   if (v6)
@@ -5155,7 +4036,7 @@ uint64_t sub_297FC0540(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5)
 
 uint64_t sub_297FC05A4(uint64_t a1, int a2)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v4 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -5197,7 +4078,7 @@ uint64_t sub_297FC05A4(uint64_t a1, int a2)
       _os_log_impl(&dword_297F97000, v8, OS_LOG_TYPE_ERROR, "%{public}s:%i Warning : Standby disabled - skipping enablement.", buf, 0x12u);
     }
 
-    goto LABEL_26;
+    return 1;
   }
 
   dispatch_get_specific(*v4);
@@ -5230,16 +4111,14 @@ uint64_t sub_297FC05A4(uint64_t a1, int a2)
   *&buf[8] = 0x40000000;
   *&buf[16] = sub_297FD6AE0;
   *&buf[24] = &unk_29EE88AC8;
-  v24 = a2;
-  v22 = a1;
-  v23 = v11;
+  v23 = a2;
+  v21 = a1;
+  v22 = v11;
   dispatch_async_and_wait(v13, buf);
   if (!sub_297F9F694(v11))
   {
     sub_297F9FBDC(v11);
-LABEL_26:
-    result = 1;
-    goto LABEL_27;
+    return 1;
   }
 
   dispatch_get_specific(*v4);
@@ -5269,7 +4148,7 @@ LABEL_26:
   *&buf[8] = 0x40000000;
   *&buf[16] = sub_297FB7B1C;
   *&buf[24] = &unk_29EE880F8;
-  v22 = a1;
+  v21 = a1;
   dispatch_async(v18, buf);
   if (v17 == 44 || v17 == 34)
   {
@@ -5277,233 +4156,223 @@ LABEL_26:
   }
 
   sub_297F9FBDC(v11);
-  result = 0;
-LABEL_27:
-  v20 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 uint64_t sub_297FC09CC(uint64_t a1, uint64_t a2)
 {
-  v40 = *MEMORY[0x29EDCA608];
-  v34 = 0;
-  memset(v33, 0, sizeof(v33));
+  v39 = *MEMORY[0x29EDCA608];
+  v33 = 0;
+  memset(v32, 0, sizeof(v32));
   if (*(a1 + 56))
   {
-    v2 = 0;
+    return 0;
+  }
+
+  memset(v31, 0, 44);
+  NFDriverGetControllerInfo(a1, v31);
+  v5 = *(a2 + 192);
+  if (v5)
+  {
+    v6 = 0;
+    v7 = (a2 + 1);
+    do
+    {
+      v8 = *(v7 - 1);
+      if (*(v7 - 1))
+      {
+        v9 = *(*(a1 + 24) + 544);
+        if (v9)
+        {
+          v9 = *(v9 + 8);
+        }
+
+        v10 = v32 + 40 * v6;
+        *v10 = v9;
+        *(v10 + 2) = 2;
+        v10[12] |= 1u;
+        v10[32] = v8;
+        memcpy(v10 + 16, v7, v8);
+        if (++v6 >= 0xCu)
+        {
+          __assert_rtn("_NFDriverConfigureRoutingTable", "NFDriver.c", 4234, "numRoutes <= MAX_NFCC_ROUTING_ENTRIES");
+        }
+      }
+
+      v7 += 17;
+      --v5;
+    }
+
+    while (v5);
   }
 
   else
   {
-    memset(v32, 0, 44);
-    NFDriverGetControllerInfo(a1, v32);
-    v5 = *(a2 + 192);
-    if (v5)
+    v6 = 0;
+  }
+
+  v11 = *(a1 + 24);
+  v12 = *(v11 + 528);
+  if (v12)
+  {
+    v12 = *(v12 + 8);
+  }
+
+  v13 = v32 + 40 * v6;
+  *v13 = v12;
+  *(v13 + 2) = 1;
+  v13[12] |= 1u;
+  *(v13 + 4) = 4;
+  if ((v6 + 1) >= 0xCu)
+  {
+    __assert_rtn("_NFDriverConfigureRoutingTable", "NFDriver.c", 4244, "numRoutes <= MAX_NFCC_ROUTING_ENTRIES");
+  }
+
+  v14 = *(v11 + 528);
+  if (v14)
+  {
+    v14 = *(v14 + 8);
+  }
+
+  v15 = v32 + 40 * (v6 + 1);
+  *v15 = v14;
+  *(v15 + 2) = 0;
+  v16 = v15[12];
+  v15[12] = v16 | 1;
+  *(v15 + 4) = 2;
+  if (DWORD1(v31[0]) >= 7)
+  {
+    v15[12] = v16 | 3;
+  }
+
+  if ((v6 + 2) >= 0xCu)
+  {
+    __assert_rtn("_NFDriverConfigureRoutingTable", "NFDriver.c", 4255, "numRoutes <= MAX_NFCC_ROUTING_ENTRIES");
+  }
+
+  v17 = *(v11 + 544);
+  if (v17)
+  {
+    v17 = *(v17 + 8);
+  }
+
+  v18 = v32 + 40 * (v6 + 2);
+  *v18 = v17;
+  *(v18 + 2) = 1;
+  v18[12] |= 1u;
+  *(v18 + 4) = 4;
+  if ((v6 + 3) >= 0xCu)
+  {
+    __assert_rtn("_NFDriverConfigureRoutingTable", "NFDriver.c", 4264, "numRoutes <= MAX_NFCC_ROUTING_ENTRIES");
+  }
+
+  v19 = *(v11 + 528);
+  if (v19)
+  {
+    v19 = *(v19 + 8);
+  }
+
+  v20 = v32 + 40 * (v6 + 3);
+  *v20 = v19;
+  *(v20 + 2) = 1;
+  v20[12] |= 2u;
+  *(v20 + 4) = 4;
+  if ((v6 + 4) >= 0xCu)
+  {
+    __assert_rtn("_NFDriverConfigureRoutingTable", "NFDriver.c", 4274, "numRoutes <= MAX_NFCC_ROUTING_ENTRIES");
+  }
+
+  v21 = MEMORY[0x29EDC9730];
+  dispatch_get_specific(*MEMORY[0x29EDC9730]);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    Logger(6, "%s:%i Routing changed", "_NFDriverConfigureRoutingTable", 4276);
+  }
+
+  dispatch_get_specific(*v21);
+  v23 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    *&buf[4] = "_NFDriverConfigureRoutingTable";
+    *&buf[12] = 1024;
+    *&buf[14] = 4276;
+    _os_log_impl(&dword_297F97000, v23, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Routing changed", buf, 0x12u);
+  }
+
+  v24 = sub_297F9DC04();
+  pthread_mutex_lock((v24[3] + 8));
+  v25 = v24[3];
+  ++*v25;
+  pthread_mutex_unlock((v25 + 8));
+  v26 = *(*(a1 + 24) + 560);
+  *buf = MEMORY[0x29EDCA5F8];
+  *&buf[8] = 0x40000000;
+  *&buf[16] = sub_297FD6C9C;
+  *&buf[24] = &unk_29EE88AE8;
+  v38 = v6 + 4;
+  v35 = a1;
+  v36 = v32;
+  v37 = v24;
+  dispatch_async_and_wait(v26, buf);
+  if (sub_297F9F694(v24))
+  {
+    dispatch_get_specific(*v21);
+    v27 = NFLogGetLogger();
+    if (v27)
     {
-      v6 = 0;
-      v7 = (a2 + 1);
-      do
-      {
-        v8 = *(v7 - 1);
-        if (*(v7 - 1))
-        {
-          v9 = *(*(a1 + 24) + 544);
-          if (v9)
-          {
-            v9 = *(v9 + 8);
-          }
-
-          v10 = v33 + 40 * v6;
-          *v10 = v9;
-          *(v10 + 2) = 2;
-          v10[12] |= 1u;
-          v10[32] = v8;
-          memcpy(v10 + 16, v7, v8);
-          if (++v6 >= 0xCu)
-          {
-            __assert_rtn("_NFDriverConfigureRoutingTable", "NFDriver.c", 4234, "numRoutes <= MAX_NFCC_ROUTING_ENTRIES");
-          }
-        }
-
-        v7 += 17;
-        --v5;
-      }
-
-      while (v5);
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-
-    v11 = *(a1 + 24);
-    v12 = *(v11 + 528);
-    if (v12)
-    {
-      v12 = *(v12 + 8);
-    }
-
-    v13 = v33 + 40 * v6;
-    *v13 = v12;
-    *(v13 + 2) = 1;
-    v13[12] |= 1u;
-    *(v13 + 4) = 4;
-    if ((v6 + 1) >= 0xCu)
-    {
-      __assert_rtn("_NFDriverConfigureRoutingTable", "NFDriver.c", 4244, "numRoutes <= MAX_NFCC_ROUTING_ENTRIES");
-    }
-
-    v14 = *(v11 + 528);
-    if (v14)
-    {
-      v14 = *(v14 + 8);
-    }
-
-    v15 = v33 + 40 * (v6 + 1);
-    *v15 = v14;
-    *(v15 + 2) = 0;
-    v16 = v15[12];
-    v15[12] = v16 | 1;
-    *(v15 + 4) = 2;
-    if (DWORD1(v32[0]) >= 7)
-    {
-      v15[12] = v16 | 3;
-    }
-
-    if ((v6 + 2) >= 0xCu)
-    {
-      __assert_rtn("_NFDriverConfigureRoutingTable", "NFDriver.c", 4255, "numRoutes <= MAX_NFCC_ROUTING_ENTRIES");
-    }
-
-    v17 = *(v11 + 544);
-    if (v17)
-    {
-      v17 = *(v17 + 8);
-    }
-
-    v18 = v33 + 40 * (v6 + 2);
-    *v18 = v17;
-    *(v18 + 2) = 1;
-    v18[12] |= 1u;
-    *(v18 + 4) = 4;
-    if ((v6 + 3) >= 0xCu)
-    {
-      __assert_rtn("_NFDriverConfigureRoutingTable", "NFDriver.c", 4264, "numRoutes <= MAX_NFCC_ROUTING_ENTRIES");
-    }
-
-    v19 = *(v11 + 528);
-    if (v19)
-    {
-      v19 = *(v19 + 8);
-    }
-
-    v20 = v33 + 40 * (v6 + 3);
-    *v20 = v19;
-    *(v20 + 2) = 1;
-    v20[12] |= 2u;
-    *(v20 + 4) = 4;
-    if ((v6 + 4) >= 0xCu)
-    {
-      __assert_rtn("_NFDriverConfigureRoutingTable", "NFDriver.c", 4274, "numRoutes <= MAX_NFCC_ROUTING_ENTRIES");
-    }
-
-    v21 = MEMORY[0x29EDC9730];
-    dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    Logger = NFLogGetLogger();
-    if (Logger)
-    {
-      Logger(6, "%s:%i Routing changed", "_NFDriverConfigureRoutingTable", 4276);
+      v27(3, "%s:%i Failed to setup routing 0x%04llx", "_NFDriverConfigureRoutingTable", 4279, *v24);
     }
 
     dispatch_get_specific(*v21);
-    v23 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v28 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136446466;
+      v29 = *v24;
+      *buf = 136446722;
       *&buf[4] = "_NFDriverConfigureRoutingTable";
       *&buf[12] = 1024;
-      *&buf[14] = 4276;
-      _os_log_impl(&dword_297F97000, v23, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Routing changed", buf, 0x12u);
+      *&buf[14] = 4279;
+      *&buf[18] = 2048;
+      *&buf[20] = v29;
+      _os_log_impl(&dword_297F97000, v28, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to setup routing 0x%04llx", buf, 0x1Cu);
     }
 
-    v24 = sub_297F9DC04();
-    pthread_mutex_lock((v24[3] + 8));
-    v25 = v24[3];
-    ++*v25;
-    pthread_mutex_unlock((v25 + 8));
-    v26 = *(*(a1 + 24) + 560);
-    *buf = MEMORY[0x29EDCA5F8];
-    *&buf[8] = 0x40000000;
-    *&buf[16] = sub_297FD6C9C;
-    *&buf[24] = &unk_29EE88AE8;
-    v39 = v6 + 4;
-    v36 = a1;
-    v37 = v33;
-    v38 = v24;
-    dispatch_async_and_wait(v26, buf);
-    if (sub_297F9F694(v24))
-    {
-      dispatch_get_specific(*v21);
-      v27 = NFLogGetLogger();
-      if (v27)
-      {
-        v27(3, "%s:%i Failed to setup routing 0x%04llx", "_NFDriverConfigureRoutingTable", 4279, *v24);
-      }
-
-      dispatch_get_specific(*v21);
-      v28 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-      {
-        v29 = *v24;
-        *buf = 136446722;
-        *&buf[4] = "_NFDriverConfigureRoutingTable";
-        *&buf[12] = 1024;
-        *&buf[14] = 4279;
-        *&buf[18] = 2048;
-        *&buf[20] = v29;
-        _os_log_impl(&dword_297F97000, v28, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to setup routing 0x%04llx", buf, 0x1Cu);
-      }
-
-      v2 = 1;
-    }
-
-    else
-    {
-      v2 = 0;
-    }
-
-    sub_297F9FBDC(v24);
+    v2 = 1;
   }
 
-  v30 = *MEMORY[0x29EDCA608];
+  else
+  {
+    v2 = 0;
+  }
+
+  sub_297F9FBDC(v24);
   return v2;
 }
 
 uint64_t NFDriverEnableAntiRelay(uint64_t a1, uint64_t a2, int a3)
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v25[0] = 17210017;
+  v26 = *MEMORY[0x29EDCA608];
+  v24[0] = 17210017;
   if (*(a1 + 56))
   {
-    goto LABEL_2;
+    return 0;
   }
 
   if (a3 == 5)
   {
-    memset(v24, 0, sizeof(v24));
-    NFDriverGetControllerInfo(a1, v24);
-    if (*&v24[4] < 7u)
+    memset(v23, 0, sizeof(v23));
+    NFDriverGetControllerInfo(a1, v23);
+    if (*&v23[4] < 7u)
     {
-LABEL_2:
-      v3 = 0;
-      goto LABEL_18;
+      return 0;
     }
 
-    v25[1] = *a2;
-    v26 = *(a2 + 4);
-    v17 = sub_297FA02E4(9u, v25);
-    v7 = sub_297FA0380(a1, 37025, v17, 0);
+    v24[1] = *a2;
+    v25 = *(a2 + 4);
+    v16 = sub_297FA02E4(9u, v24);
+    v7 = sub_297FA0380(a1, 37025, v16, 0);
     if (sub_297F9F694(v7))
     {
       v8 = MEMORY[0x29EDC9730];
@@ -5520,11 +4389,11 @@ LABEL_2:
       {
         v11 = *v7;
         *buf = 136446722;
-        v19 = "NFDriverEnableAntiRelay";
-        v20 = 1024;
-        v21 = 4415;
-        v22 = 2048;
-        v23 = v11;
+        v18 = "NFDriverEnableAntiRelay";
+        v19 = 1024;
+        v20 = 4415;
+        v21 = 2048;
+        v22 = v11;
         _os_log_impl(&dword_297F97000, v10, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to set Prox config : 0x%08llx", buf, 0x1Cu);
       }
 
@@ -5537,7 +4406,7 @@ LABEL_2:
     }
 
     sub_297F9FBDC(v7);
-    sub_297FA0714(&v17);
+    sub_297FA0714(&v16);
   }
 
   else
@@ -5554,26 +4423,24 @@ LABEL_2:
     v14 = NFSharedLogGetLogger();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      *v24 = 136446722;
-      *&v24[4] = "NFDriverEnableAntiRelay";
-      *&v24[12] = 1024;
-      *&v24[14] = 4401;
-      *&v24[18] = 1024;
-      *&v24[20] = a3;
-      _os_log_impl(&dword_297F97000, v14, OS_LOG_TYPE_ERROR, "%{public}s:%i Unexpected size of AID prefix : %d.", v24, 0x18u);
+      *v23 = 136446722;
+      *&v23[4] = "NFDriverEnableAntiRelay";
+      *&v23[12] = 1024;
+      *&v23[14] = 4401;
+      *&v23[18] = 1024;
+      *&v23[20] = a3;
+      _os_log_impl(&dword_297F97000, v14, OS_LOG_TYPE_ERROR, "%{public}s:%i Unexpected size of AID prefix : %d.", v23, 0x18u);
     }
 
-    v3 = 5;
+    return 5;
   }
 
-LABEL_18:
-  v15 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
 _DWORD *NFDriverOpen(uint64_t a1, _BYTE *a2)
 {
-  v65 = *MEMORY[0x29EDCA608];
+  v61 = *MEMORY[0x29EDCA608];
   if (a2)
   {
     *a2 = 1;
@@ -5582,7 +4449,7 @@ _DWORD *NFDriverOpen(uint64_t a1, _BYTE *a2)
   v4 = malloc_type_calloc(1uLL, 0x48uLL, 0x10D00401727F4BCuLL);
   if (!v4)
   {
-    goto LABEL_83;
+    return v4;
   }
 
   v5 = malloc_type_calloc(1uLL, 0x308uLL, 0x10A00407C638DA0uLL);
@@ -5590,9 +4457,7 @@ _DWORD *NFDriverOpen(uint64_t a1, _BYTE *a2)
   {
 LABEL_81:
     free(v4);
-LABEL_82:
-    v4 = 0;
-    goto LABEL_83;
+    return 0;
   }
 
   v6 = v5;
@@ -5687,7 +4552,7 @@ LABEL_29:
 
     if (!v11)
     {
-      v49 = MEMORY[0x29EDC9730];
+      v46 = MEMORY[0x29EDC9730];
       dispatch_get_specific(*MEMORY[0x29EDC9730]);
       Logger = NFLogGetLogger();
       if (Logger)
@@ -5695,9 +4560,9 @@ LABEL_29:
         Logger(6, "%s:%i HW is not supported", "NFDriverOpen", 4651);
       }
 
-      dispatch_get_specific(*v49);
-      v51 = NFSharedLogGetLogger();
-      if (!os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      dispatch_get_specific(*v46);
+      v48 = NFSharedLogGetLogger();
+      if (!os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_78;
       }
@@ -5706,12 +4571,12 @@ LABEL_29:
       *&buf[4] = "NFDriverOpen";
       *&buf[12] = 1024;
       *&buf[14] = 4651;
-      v52 = "%{public}s:%i HW is not supported";
-      v53 = v51;
-      v54 = OS_LOG_TYPE_DEFAULT;
-      v55 = 18;
+      v49 = "%{public}s:%i HW is not supported";
+      v50 = v48;
+      v51 = OS_LOG_TYPE_DEFAULT;
+      v52 = 18;
 LABEL_77:
-      _os_log_impl(&dword_297F97000, v53, v54, v52, buf, v55);
+      _os_log_impl(&dword_297F97000, v50, v51, v49, buf, v52);
 LABEL_78:
       if (a2)
       {
@@ -5723,17 +4588,17 @@ LABEL_78:
     }
 
 LABEL_73:
-    v57 = MEMORY[0x29EDC9730];
+    v54 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v58 = NFLogGetLogger();
-    if (v58)
+    v55 = NFLogGetLogger();
+    if (v55)
     {
-      v58(3, "%s:%i Wrong interfaceType %d - cannot continue!", "NFDriverOpen", 4658, v11);
+      v55(3, "%s:%i Wrong interfaceType %d - cannot continue!", "NFDriverOpen", 4658, v11);
     }
 
-    dispatch_get_specific(*v57);
-    v59 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+    dispatch_get_specific(*v54);
+    v56 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_78;
     }
@@ -5744,10 +4609,10 @@ LABEL_73:
     *&buf[14] = 4658;
     *&buf[18] = 1024;
     *&buf[20] = v11;
-    v52 = "%{public}s:%i Wrong interfaceType %d - cannot continue!";
-    v53 = v59;
-    v54 = OS_LOG_TYPE_ERROR;
-    v55 = 24;
+    v49 = "%{public}s:%i Wrong interfaceType %d - cannot continue!";
+    v50 = v56;
+    v51 = OS_LOG_TYPE_ERROR;
+    v52 = 24;
     goto LABEL_77;
   }
 
@@ -5764,9 +4629,9 @@ LABEL_73:
 
   if (*v8 == 1)
   {
-    v56 = NFHardwareSkipSpmiReconfig();
+    v53 = NFHardwareSkipSpmiReconfig();
     *(v4 + 1) = strdup("com.apple.spmi.nfc.hammerfest");
-    if (!v56)
+    if (!v53)
     {
       *(v4 + 2) = strdup("com.apple.spmi.nfc");
       goto LABEL_30;
@@ -5803,174 +4668,171 @@ LABEL_30:
 
   *(v6 + 70) = dispatch_workloop_create_inactive(v15);
   *(v6 + 71) = dispatch_workloop_create_inactive(v16);
+  dispatch_workloop_set_scheduler_priority();
+  dispatch_workloop_set_scheduler_priority();
   v17 = *(v6 + 70);
-  dispatch_workloop_set_scheduler_priority();
-  v18 = *(v6 + 71);
-  dispatch_workloop_set_scheduler_priority();
-  v19 = *(v6 + 70);
-  v20 = MEMORY[0x29EDC9730];
-  v21 = *MEMORY[0x29EDC9730];
+  v18 = MEMORY[0x29EDC9730];
+  v19 = *MEMORY[0x29EDC9730];
   if (*(v4 + 56) == 1)
   {
-    dispatch_queue_set_specific(v19, v21, 3, 0);
-    v22 = *(v6 + 71);
-    v23 = *v20;
-    v24 = 3;
+    dispatch_queue_set_specific(v17, v19, 3, 0);
+    v20 = *(v6 + 71);
+    v21 = *v18;
+    v22 = 3;
   }
 
   else
   {
-    dispatch_queue_set_specific(v19, v21, 0, 0);
-    v22 = *(v6 + 71);
-    v23 = *v20;
-    v24 = 0;
+    dispatch_queue_set_specific(v17, v19, 0, 0);
+    v20 = *(v6 + 71);
+    v21 = *v18;
+    v22 = 0;
   }
 
-  dispatch_queue_set_specific(v22, v23, v24, 0);
+  dispatch_queue_set_specific(v20, v21, v22, 0);
   dispatch_activate(*(v6 + 70));
   dispatch_activate(*(v6 + 71));
   if (*v8 == 1)
   {
     *(*(v4 + 3) + 766) = MEMORY[0x29C27DA40]();
-    dispatch_get_specific(*v20);
-    v25 = NFLogGetLogger();
-    if (v25)
+    dispatch_get_specific(*v18);
+    v23 = NFLogGetLogger();
+    if (v23)
     {
-      v25(6, "%s:%i interfaceType:%d path:%s flags:0x%llx  aux path:%s  warmBoot:%d", "NFDriverOpen", 4694, *v4, *(v4 + 1), *(v6 + 73), *(v4 + 2), *(*(v4 + 3) + 766));
+      v23(6, "%s:%i interfaceType:%d path:%s flags:0x%llx  aux path:%s  warmBoot:%d", "NFDriverOpen", 4694, *v4, *(v4 + 1), *(v6 + 73), *(v4 + 2), *(*(v4 + 3) + 766));
     }
 
-    dispatch_get_specific(*v20);
-    v26 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    dispatch_get_specific(*v18);
+    v24 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_49;
     }
 
-    v27 = *v4;
-    v28 = *(v6 + 73);
-    v29 = *(v4 + 1);
-    v30 = *(v4 + 2);
-    v31 = *(*(v4 + 3) + 766);
+    v25 = *v4;
+    v26 = *(v6 + 73);
+    v27 = *(v4 + 1);
+    v28 = *(v4 + 2);
+    v29 = *(*(v4 + 3) + 766);
     *buf = 136447746;
     *&buf[4] = "NFDriverOpen";
     *&buf[12] = 1024;
     *&buf[14] = 4694;
     *&buf[18] = 1024;
-    *&buf[20] = v27;
+    *&buf[20] = v25;
     *&buf[24] = 2080;
-    *&buf[26] = v29;
+    *&buf[26] = v27;
     *&buf[34] = 2048;
-    *&buf[36] = v28;
+    *&buf[36] = v26;
     *&buf[44] = 2080;
-    *&buf[46] = v30;
-    v63 = 1024;
-    v64 = v31;
-    v32 = "%{public}s:%i interfaceType:%d path:%s flags:0x%llx  aux path:%s  warmBoot:%d";
-    v33 = v26;
-    v34 = 60;
+    *&buf[46] = v28;
+    v59 = 1024;
+    v60 = v29;
+    v30 = "%{public}s:%i interfaceType:%d path:%s flags:0x%llx  aux path:%s  warmBoot:%d";
+    v31 = v24;
+    v32 = 60;
   }
 
   else
   {
-    dispatch_get_specific(*v20);
-    v35 = NFLogGetLogger();
-    if (v35)
+    dispatch_get_specific(*v18);
+    v33 = NFLogGetLogger();
+    if (v33)
     {
-      v35(6, "%s:%i interfaceType:%d path:%s flags:0x%llx", "NFDriverOpen", 4699, *v4, *(v4 + 1), *(v6 + 73));
+      v33(6, "%s:%i interfaceType:%d path:%s flags:0x%llx", "NFDriverOpen", 4699, *v4, *(v4 + 1), *(v6 + 73));
     }
 
-    dispatch_get_specific(*v20);
-    v36 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    dispatch_get_specific(*v18);
+    v34 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_49;
     }
 
-    v37 = *v4;
-    v38 = *(v4 + 1);
-    v39 = *(v6 + 73);
+    v35 = *v4;
+    v36 = *(v4 + 1);
+    v37 = *(v6 + 73);
     *buf = 136447234;
     *&buf[4] = "NFDriverOpen";
     *&buf[12] = 1024;
     *&buf[14] = 4699;
     *&buf[18] = 1024;
-    *&buf[20] = v37;
+    *&buf[20] = v35;
     *&buf[24] = 2080;
-    *&buf[26] = v38;
+    *&buf[26] = v36;
     *&buf[34] = 2048;
-    *&buf[36] = v39;
-    v32 = "%{public}s:%i interfaceType:%d path:%s flags:0x%llx";
-    v33 = v36;
-    v34 = 44;
+    *&buf[36] = v37;
+    v30 = "%{public}s:%i interfaceType:%d path:%s flags:0x%llx";
+    v31 = v34;
+    v32 = 44;
   }
 
-  _os_log_impl(&dword_297F97000, v33, OS_LOG_TYPE_DEFAULT, v32, buf, v34);
+  _os_log_impl(&dword_297F97000, v31, OS_LOG_TYPE_DEFAULT, v30, buf, v32);
 LABEL_49:
   NFDriverSetPollingConfig(v4, 0, 0);
   *(v6 + 69) = dispatch_semaphore_create(1);
   *(v6 + 762) = 1;
   byte_2A18BD36C = 0;
-  v40 = sub_297F9DC04();
-  pthread_mutex_lock((v40[3] + 8));
-  v41 = v40[3];
-  ++*v41;
-  pthread_mutex_unlock((v41 + 8));
-  v42 = *(*(v4 + 3) + 560);
+  v38 = sub_297F9DC04();
+  pthread_mutex_lock((v38[3] + 8));
+  v39 = v38[3];
+  ++*v39;
+  pthread_mutex_unlock((v39 + 8));
+  v40 = *(*(v4 + 3) + 560);
   *buf = MEMORY[0x29EDCA5F8];
   *&buf[8] = 0x40000000;
   *&buf[16] = sub_297FD6E28;
   *&buf[24] = &unk_29EE88B08;
   *&buf[32] = v4;
-  *&buf[40] = v40;
-  dispatch_async_and_wait(v42, buf);
-  if (sub_297F9F694(v40))
+  *&buf[40] = v38;
+  dispatch_async_and_wait(v40, buf);
+  if (sub_297F9F694(v38))
   {
     if (*(v6 + 764) == 1)
     {
-      v43 = *v40;
       NFDriverGetStackBreadcrumb(v4);
       postAnalyticsMiddlewareExceptionEvent();
     }
 
-    dispatch_get_specific(*v20);
-    v44 = NFLogGetLogger();
-    if (v44)
+    dispatch_get_specific(*v18);
+    v41 = NFLogGetLogger();
+    if (v41)
     {
-      v44(3, "%s:%i status=0x%04llX", "NFDriverOpen", 4724, *v40);
+      v41(3, "%s:%i status=0x%04llX", "NFDriverOpen", 4724, *v38);
     }
 
-    dispatch_get_specific(*v20);
-    v45 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    dispatch_get_specific(*v18);
+    v42 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      v46 = *v40;
+      v43 = *v38;
       *buf = 136446722;
       *&buf[4] = "NFDriverOpen";
       *&buf[12] = 1024;
       *&buf[14] = 4724;
       *&buf[18] = 2048;
-      *&buf[20] = v46;
-      _os_log_impl(&dword_297F97000, v45, OS_LOG_TYPE_ERROR, "%{public}s:%i status=0x%04llX", buf, 0x1Cu);
+      *&buf[20] = v43;
+      _os_log_impl(&dword_297F97000, v42, OS_LOG_TYPE_ERROR, "%{public}s:%i status=0x%04llX", buf, 0x1Cu);
     }
 
-    if (*v40 == 51)
+    if (*v38 == 51)
     {
-      dispatch_get_specific(*v20);
-      v47 = NFLogGetLogger();
-      if (v47)
+      dispatch_get_specific(*v18);
+      v44 = NFLogGetLogger();
+      if (v44)
       {
-        v47(6, "%s:%i Hardware not supported", "NFDriverOpen", 4728);
+        v44(6, "%s:%i Hardware not supported", "NFDriverOpen", 4728);
       }
 
-      dispatch_get_specific(*v20);
-      v48 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+      dispatch_get_specific(*v18);
+      v45 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
         *&buf[4] = "NFDriverOpen";
         *&buf[12] = 1024;
         *&buf[14] = 4728;
-        _os_log_impl(&dword_297F97000, v48, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Hardware not supported", buf, 0x12u);
+        _os_log_impl(&dword_297F97000, v45, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Hardware not supported", buf, 0x12u);
       }
 
       if (a2)
@@ -5979,26 +4841,24 @@ LABEL_49:
       }
     }
 
-    sub_297F9FBDC(v40);
+    sub_297F9FBDC(v38);
     NFDriverClose(v4);
-    goto LABEL_82;
+    return 0;
   }
 
-  sub_297F9FBDC(v40);
-LABEL_83:
-  v60 = *MEMORY[0x29EDCA608];
+  sub_297F9FBDC(v38);
   return v4;
 }
 
 void NFDriverSetPollingConfig(uint64_t a1, unsigned int a2, int a3)
 {
-  v58 = *MEMORY[0x29EDCA608];
+  v57 = *MEMORY[0x29EDCA608];
   if (a1)
   {
     v5 = *(a1 + 24);
-    v33 = (a2 >> 2) & 1;
+    v32 = (a2 >> 2) & 1;
     v6 = (a2 >> 3) & 1;
-    v7 = (16 * v6) & 0xFFFDFFFE | (((a2 >> 7) & 1) << 17) | ((4 * v33) | (2 * ((a2 >> 1) & 1))) & 0xFFFE7FF6 | (8 * v33) & 0xFFFE7FFE | (((a2 >> 5) & 1) << 15) & 0xFFFEFFFE | (((a2 >> 6) & 1) << 16) | a2 & 1;
+    v7 = (16 * v6) & 0xFFFDFFFE | (((a2 >> 7) & 1) << 17) | ((4 * v32) | (2 * ((a2 >> 1) & 1))) & 0xFFFE7FF6 | (8 * v32) & 0xFFFE7FFE | (((a2 >> 5) & 1) << 15) & 0xFFFEFFFE | (((a2 >> 6) & 1) << 16) | a2 & 1;
     *(v5 + 688) = v7;
     v8 = MEMORY[0x29EDC9730];
     if ((a2 & 0x10) != 0)
@@ -6016,9 +4876,9 @@ void NFDriverSetPollingConfig(uint64_t a1, unsigned int a2, int a3)
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v35 = "NFDriverSetPollingConfig";
-        v36 = 1024;
-        v37 = 4842;
+        v34 = "NFDriverSetPollingConfig";
+        v35 = 1024;
+        v36 = 4842;
         _os_log_impl(&dword_297F97000, v21, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Polling config is using VAS ECP", buf, 0x12u);
       }
 
@@ -6041,9 +4901,9 @@ void NFDriverSetPollingConfig(uint64_t a1, unsigned int a2, int a3)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v35 = "NFDriverSetPollingConfig";
-        v36 = 1024;
-        v37 = 4852;
+        v34 = "NFDriverSetPollingConfig";
+        v35 = 1024;
+        v36 = 4852;
         v12 = "%{public}s:%i Polling config is using Custom ECP";
         goto LABEL_22;
       }
@@ -6051,7 +4911,7 @@ void NFDriverSetPollingConfig(uint64_t a1, unsigned int a2, int a3)
 
     else
     {
-      *(v5 + 688) = (16 * v6) & 0xFFFDF7FE | (((a2 >> 7) & 1) << 17) | ((4 * v33) | (2 * ((a2 >> 1) & 1))) & 0xFFFE77F6 | (8 * ((a2 >> 2) & 1)) & 0xFFFE77FE | (((a2 >> 5) & 1) << 15) & 0xFFFEF7FE | (((a2 >> 6) & 1) << 16) | a2 & 1;
+      *(v5 + 688) = (16 * v6) & 0xFFFDF7FE | (((a2 >> 7) & 1) << 17) | ((4 * v32) | (2 * ((a2 >> 1) & 1))) & 0xFFFE77F6 | (8 * ((a2 >> 2) & 1)) & 0xFFFE77FE | (((a2 >> 5) & 1) << 15) & 0xFFFEF7FE | (((a2 >> 6) & 1) << 16) | a2 & 1;
       dispatch_get_specific(*v8);
       v9 = NFLogGetLogger();
       if (v9)
@@ -6065,9 +4925,9 @@ void NFDriverSetPollingConfig(uint64_t a1, unsigned int a2, int a3)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v35 = "NFDriverSetPollingConfig";
-        v36 = 1024;
-        v37 = 4855;
+        v34 = "NFDriverSetPollingConfig";
+        v35 = 1024;
+        v36 = 4855;
         v12 = "%{public}s:%i Polling config is not using ECP";
 LABEL_22:
         _os_log_impl(&dword_297F97000, v11, OS_LOG_TYPE_DEFAULT, v12, buf, 0x12u);
@@ -6085,7 +4945,7 @@ LABEL_22:
     v28 = NFLogGetLogger();
     if (v28)
     {
-      v28(6, "%s:%i Polling cfg: A:%d B:%d F:%d 15693:%d S:%d S2:%d S3:%d CustomECP:%d VAS_ECP:%d frameRF:%d", "NFDriverSetPollingConfig", 4873, a2 & 1, (a2 >> 1) & 1, v33, v6, (a2 >> 5) & 1, (a2 >> 6) & 1, (a2 >> 7) & 1, (*(v5 + 688) >> 11) & 1, (*(v5 + 688) >> 12) & 1, *(v5 + 765));
+      v28(6, "%s:%i Polling cfg: A:%d B:%d F:%d 15693:%d S:%d S2:%d S3:%d CustomECP:%d VAS_ECP:%d frameRF:%d", "NFDriverSetPollingConfig", 4873, a2 & 1, (a2 >> 1) & 1, v32, v6, (a2 >> 5) & 1, (a2 >> 6) & 1, (a2 >> 7) & 1, (*(v5 + 688) >> 11) & 1, (*(v5 + 688) >> 12) & 1, *(v5 + 765));
     }
 
     dispatch_get_specific(*v10);
@@ -6095,29 +4955,29 @@ LABEL_22:
       v30 = *(v5 + 688);
       v31 = *(v5 + 765);
       *buf = 136449026;
-      v35 = "NFDriverSetPollingConfig";
-      v36 = 1024;
-      v37 = 4873;
-      v38 = 1024;
-      v39 = v23;
-      v40 = 1024;
-      v41 = v24;
-      v42 = 1024;
-      v43 = v33;
-      v44 = 1024;
-      v45 = v6;
-      v46 = 1024;
-      v47 = v25;
-      v48 = 1024;
-      v49 = v26;
-      v50 = 1024;
-      v51 = v27;
-      v52 = 1024;
-      v53 = (v30 >> 11) & 1;
-      v54 = 1024;
-      v55 = (v30 >> 12) & 1;
-      v56 = 1024;
-      v57 = v31;
+      v34 = "NFDriverSetPollingConfig";
+      v35 = 1024;
+      v36 = 4873;
+      v37 = 1024;
+      v38 = v23;
+      v39 = 1024;
+      v40 = v24;
+      v41 = 1024;
+      v42 = v32;
+      v43 = 1024;
+      v44 = v6;
+      v45 = 1024;
+      v46 = v25;
+      v47 = 1024;
+      v48 = v26;
+      v49 = 1024;
+      v50 = v27;
+      v51 = 1024;
+      v52 = (v30 >> 11) & 1;
+      v53 = 1024;
+      v54 = (v30 >> 12) & 1;
+      v55 = 1024;
+      v56 = v31;
       v16 = "%{public}s:%i Polling cfg: A:%d B:%d F:%d 15693:%d S:%d S2:%d S3:%d CustomECP:%d VAS_ECP:%d frameRF:%d";
       v17 = v29;
       v18 = OS_LOG_TYPE_DEFAULT;
@@ -6125,7 +4985,7 @@ LABEL_22:
       goto LABEL_27;
     }
 
-    goto LABEL_28;
+    return;
   }
 
   v13 = MEMORY[0x29EDC9730];
@@ -6141,9 +5001,9 @@ LABEL_22:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446466;
-    v35 = "NFDriverSetPollingConfig";
-    v36 = 1024;
-    v37 = 4826;
+    v34 = "NFDriverSetPollingConfig";
+    v35 = 1024;
+    v36 = 4826;
     v16 = "%{public}s:%i Invalid param";
     v17 = v15;
     v18 = OS_LOG_TYPE_ERROR;
@@ -6151,20 +5011,17 @@ LABEL_22:
 LABEL_27:
     _os_log_impl(&dword_297F97000, v17, v18, v16, buf, v19);
   }
-
-LABEL_28:
-  v32 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t NFDriverGetStackBreadcrumb(uint64_t a1)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (a1 && (*(a1 + 57) & 1) != 0)
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2000000000;
-    v10 = 0;
+    v9 = 0;
     v1 = *(*(a1 + 24) + 560);
     block[0] = MEMORY[0x29EDCA5F8];
     block[1] = 0x40000000;
@@ -6198,16 +5055,15 @@ uint64_t NFDriverGetStackBreadcrumb(uint64_t a1)
       _os_log_impl(&dword_297F97000, v5, OS_LOG_TYPE_ERROR, "%{public}s:%i Driver is null", buf, 0x12u);
     }
 
-    v2 = 0;
+    return 0;
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
 void NFDriverClose(uint64_t a1)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v2 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -6253,8 +5109,8 @@ void NFDriverClose(uint64_t a1)
     *&buf[8] = 0x40000000;
     *&buf[16] = sub_297FD7478;
     *&buf[24] = &unk_29EE88B48;
-    v19 = a1;
-    v20 = v7;
+    v18 = a1;
+    v19 = v7;
     dispatch_async_and_wait(v9, buf);
     if (sub_297F9F694(v7))
     {
@@ -6284,7 +5140,7 @@ void NFDriverClose(uint64_t a1)
       *&buf[8] = 0x40000000;
       *&buf[16] = sub_297FB7B1C;
       *&buf[24] = &unk_29EE880F8;
-      v19 = a1;
+      v18 = a1;
       dispatch_async(v13, buf);
     }
 
@@ -6307,7 +5163,6 @@ void NFDriverClose(uint64_t a1)
   dispatch_barrier_async(v15, block);
   sub_297F9F694(v14);
   sub_297F9FBDC(v14);
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_297FC23C4(uint64_t a1)
@@ -6371,7 +5226,7 @@ uint64_t sub_297FC23C4(uint64_t a1)
 
 void NFDriverPreventReset(uint64_t a1, int a2)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v4 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -6385,34 +5240,35 @@ void NFDriverPreventReset(uint64_t a1, int a2)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v12 = "NFDriverPreventReset";
-    v13 = 1024;
-    v14 = 4809;
-    v15 = 1024;
-    v16 = a2;
+    v11 = "NFDriverPreventReset";
+    v12 = 1024;
+    v13 = 4809;
+    v14 = 1024;
+    v15 = a2;
     _os_log_impl(&dword_297F97000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Setting prevent reset to %d", buf, 0x18u);
   }
 
   v7 = *(a1 + 24);
   *(v7 + 768) = a2;
   byte_2A18BD381 = a2;
-  if ((a2 & 1) == 0 && *(v7 + 760))
+  if ((a2 & 1) == 0)
   {
-    v8 = *(v7 + 560);
-    block[0] = MEMORY[0x29EDCA5F8];
-    block[1] = 0x40000000;
-    block[2] = sub_297FC262C;
-    block[3] = &unk_29EE88648;
-    block[4] = a1;
-    dispatch_async(v8, block);
+    if (*(v7 + 760))
+    {
+      v8 = *(v7 + 560);
+      block[0] = MEMORY[0x29EDCA5F8];
+      block[1] = 0x40000000;
+      block[2] = sub_297FC262C;
+      block[3] = &unk_29EE88648;
+      block[4] = a1;
+      dispatch_async(v8, block);
+    }
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t NFDriverSetPollingProfile(uint64_t a1, unsigned int a2)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v4 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -6426,26 +5282,24 @@ uint64_t NFDriverSetPollingProfile(uint64_t a1, unsigned int a2)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v28 = "NFDriverSetPollingProfile";
-    v29 = 1024;
-    v30 = 4878;
-    v31 = 1024;
-    LODWORD(v32) = a2;
+    v27 = "NFDriverSetPollingProfile";
+    v28 = 1024;
+    v29 = 4878;
+    v30 = 1024;
+    LODWORD(v31) = a2;
     _os_log_impl(&dword_297F97000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s:%i profile: %d", buf, 0x18u);
   }
 
   v7 = *(a1 + 40);
   if (v7 == a2)
   {
-    goto LABEL_6;
+    return 1;
   }
 
   if ((v7 | 4) == 4 && (a2 & 0xFFFFFFFB) == 0)
   {
     *(a1 + 40) = a2;
-LABEL_6:
-    v8 = 1;
-    goto LABEL_37;
+    return 1;
   }
 
   if (a2 >= 5)
@@ -6462,11 +5316,11 @@ LABEL_6:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v28 = "NFDriverSetPollingProfile";
-      v29 = 1024;
-      v30 = 4910;
-      v31 = 1024;
-      LODWORD(v32) = 0;
+      v27 = "NFDriverSetPollingProfile";
+      v28 = 1024;
+      v29 = 4910;
+      v30 = 1024;
+      LODWORD(v31) = 0;
       _os_log_impl(&dword_297F97000, v11, OS_LOG_TYPE_ERROR, "%{public}s:%i Unknown poll mode profile 0x%0x, using default", buf, 0x18u);
     }
 
@@ -6494,9 +5348,9 @@ LABEL_6:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446466;
-        v28 = "NFDriverSetPollingProfile";
-        v29 = 1024;
-        v30 = 4919;
+        v27 = "NFDriverSetPollingProfile";
+        v28 = 1024;
+        v29 = 4919;
         _os_log_impl(&dword_297F97000, v13, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to stop discovery", buf, 0x12u);
       }
     }
@@ -6510,12 +5364,12 @@ LABEL_6:
   }
 
   v15 = sub_297FBA6E8(a1, 18);
-  v26[0] = HIBYTE(v15);
-  v26[1] = v15;
-  v26[2] = 1;
-  v26[3] = v9;
-  v25 = sub_297FA02E4(4u, v26);
-  v16 = sub_297FA0380(a1, 37025, v25, 0);
+  v25[0] = HIBYTE(v15);
+  v25[1] = v15;
+  v25[2] = 1;
+  v25[3] = v9;
+  v24 = sub_297FA02E4(4u, v25);
+  v16 = sub_297FA0380(a1, 37025, v24, 0);
   if (sub_297F9F694(v16))
   {
     dispatch_get_specific(*v4);
@@ -6531,23 +5385,21 @@ LABEL_6:
     {
       v19 = *v16;
       *buf = 136446722;
-      v28 = "NFDriverSetPollingProfile";
-      v29 = 1024;
-      v30 = 4930;
-      v31 = 2048;
-      v32 = v19;
+      v27 = "NFDriverSetPollingProfile";
+      v28 = 1024;
+      v29 = 4930;
+      v30 = 2048;
+      v31 = v19;
       _os_log_impl(&dword_297F97000, v18, OS_LOG_TYPE_ERROR, "%{public}s:%i status=0x%04llX", buf, 0x1Cu);
     }
 
     sub_297F9FBDC(v16);
-    sub_297FA0714(&v25);
-LABEL_31:
-    v8 = 0;
-    goto LABEL_37;
+    sub_297FA0714(&v24);
+    return 0;
   }
 
   sub_297F9FBDC(v16);
-  sub_297FA0714(&v25);
+  sub_297FA0714(&v24);
   *(a1 + 40) = a2;
   v8 = 1;
   if (v14)
@@ -6556,41 +5408,39 @@ LABEL_31:
     if (!sub_297F9D8BC(a1, *(a1 + 32), *(a1 + 36), *(a1 + 60), 0, *(a1 + 61), v20))
     {
       dispatch_get_specific(*v4);
-      v23 = NFLogGetLogger();
-      if (v23)
+      v22 = NFLogGetLogger();
+      if (v22)
       {
-        v23(3, "%s:%i Failed to update discovery", "NFDriverSetPollingProfile", 4942);
+        v22(3, "%s:%i Failed to update discovery", "NFDriverSetPollingProfile", 4942);
       }
 
       dispatch_get_specific(*v4);
-      v24 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v23 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446466;
-        v28 = "NFDriverSetPollingProfile";
-        v29 = 1024;
-        v30 = 4942;
-        _os_log_impl(&dword_297F97000, v24, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to update discovery", buf, 0x12u);
+        v27 = "NFDriverSetPollingProfile";
+        v28 = 1024;
+        v29 = 4942;
+        _os_log_impl(&dword_297F97000, v23, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to update discovery", buf, 0x12u);
       }
 
-      goto LABEL_31;
+      return 0;
     }
   }
 
-LABEL_37:
-  v21 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
 BOOL NFDriverSetFelicaSystemCode(uint64_t a1, __int16 a2)
 {
-  v22 = *MEMORY[0x29EDCA608];
-  v12 = 19616;
-  v13 = 2;
-  v14 = HIBYTE(a2);
-  v15 = a2;
-  v11 = sub_297FA02E4(5u, &v12);
-  v3 = sub_297FA0380(a1, 37025, v11, 0);
+  v21 = *MEMORY[0x29EDCA608];
+  v11 = 19616;
+  v12 = 2;
+  v13 = HIBYTE(a2);
+  v14 = a2;
+  v10 = sub_297FA02E4(5u, &v11);
+  v3 = sub_297FA0380(a1, 37025, v10, 0);
   v4 = sub_297F9F694(v3);
   if (v4)
   {
@@ -6608,24 +5458,23 @@ BOOL NFDriverSetFelicaSystemCode(uint64_t a1, __int16 a2)
     {
       v8 = *v3;
       *buf = 136446722;
-      v17 = "NFDriverSetFelicaSystemCode";
-      v18 = 1024;
-      v19 = 4960;
-      v20 = 2048;
-      v21 = v8;
+      v16 = "NFDriverSetFelicaSystemCode";
+      v17 = 1024;
+      v18 = 4960;
+      v19 = 2048;
+      v20 = v8;
       _os_log_impl(&dword_297F97000, v7, OS_LOG_TYPE_ERROR, "%{public}s:%i status=0x%04llX", buf, 0x1Cu);
     }
   }
 
   sub_297F9FBDC(v3);
-  sub_297FA0714(&v11);
-  v9 = *MEMORY[0x29EDCA608];
+  sub_297FA0714(&v10);
   return v4 == 0;
 }
 
 void NFDriverSetExpressConfig(uint64_t a1, unsigned int a2)
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   if (NF_isFeatureSupported())
   {
     if (a1)
@@ -6654,21 +5503,21 @@ void NFDriverSetExpressConfig(uint64_t a1, unsigned int a2)
       {
         v10 = *(v4 + 692);
         *buf = 136448002;
-        v20 = "NFDriverSetExpressConfig";
-        v21 = 1024;
-        v22 = 5000;
-        v23 = 1024;
-        v24 = v10 & 1;
-        v25 = 1024;
-        v26 = (v10 >> 1) & 1;
-        v27 = 1024;
-        v28 = (v10 >> 2) & 1;
-        v29 = 1024;
-        v30 = (v10 >> 3) & 1;
-        v31 = 1024;
-        v32 = (v10 >> 5) & 1;
-        v33 = 1024;
-        v34 = (v10 >> 4) & 1;
+        v19 = "NFDriverSetExpressConfig";
+        v20 = 1024;
+        v21 = 5000;
+        v22 = 1024;
+        v23 = v10 & 1;
+        v24 = 1024;
+        v25 = (v10 >> 1) & 1;
+        v26 = 1024;
+        v27 = (v10 >> 2) & 1;
+        v28 = 1024;
+        v29 = (v10 >> 3) & 1;
+        v30 = 1024;
+        v31 = (v10 >> 5) & 1;
+        v32 = 1024;
+        v33 = (v10 >> 4) & 1;
         v11 = "%{public}s:%i Express cfg: Transit:%d Access:%d Generic-A:%d SinglePoll:%d Block:%d Debug:%d";
         v12 = v9;
         v13 = OS_LOG_TYPE_DEFAULT;
@@ -6693,9 +5542,9 @@ LABEL_13:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446466;
-        v20 = "NFDriverSetExpressConfig";
-        v21 = 1024;
-        v22 = 4976;
+        v19 = "NFDriverSetExpressConfig";
+        v20 = 1024;
+        v21 = 4976;
         v11 = "%{public}s:%i Invalid param";
         v12 = v17;
         v13 = OS_LOG_TYPE_ERROR;
@@ -6704,8 +5553,6 @@ LABEL_13:
       }
     }
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t NFDriverSetCallback(uint64_t result, unsigned int a2, uint64_t a3, uint64_t a4)
@@ -6727,10 +5574,10 @@ void sub_297FC2EF4(uint64_t a1, void **a2, unsigned int a3)
 
 uint64_t NFDriverUpdateFirmware(uint64_t a1, uint64_t a2, int a3, int a4)
 {
-  v32 = *MEMORY[0x29EDCA608];
-  v30 = sub_297FA02E4(*(a2 + 8), *a2);
+  v31 = *MEMORY[0x29EDCA608];
+  v29 = sub_297FA02E4(*(a2 + 8), *a2);
   v7 = 0;
-  v29 = sub_297FA02E4(2u, 0);
+  v28 = sub_297FA02E4(2u, 0);
   v8 = MEMORY[0x29EDC9730];
   while (1)
   {
@@ -6776,7 +5623,7 @@ uint64_t NFDriverUpdateFirmware(uint64_t a1, uint64_t a2, int a3, int a4)
       _os_log_impl(&dword_297F97000, v12, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Attempt %d of %d", buf, 0x1Eu);
     }
 
-    v13 = sub_297FA0380(a1, v10, v30, v29);
+    v13 = sub_297FA0380(a1, v10, v29, v28);
     if (!sub_297F9F694(v13))
     {
       break;
@@ -6811,7 +5658,7 @@ uint64_t NFDriverUpdateFirmware(uint64_t a1, uint64_t a2, int a3, int a4)
 
     if (v15)
     {
-      v15(3, "%s:%i status=0x%04llX, previous state %d", "NFDriverUpdateFirmware", 5065, *v13, **v29);
+      v15(3, "%s:%i status=0x%04llX, previous state %d", "NFDriverUpdateFirmware", 5065, *v13, **v28);
     }
 
     dispatch_get_specific(*v8);
@@ -6819,7 +5666,7 @@ uint64_t NFDriverUpdateFirmware(uint64_t a1, uint64_t a2, int a3, int a4)
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = *v13;
-      v18 = **v29;
+      v18 = **v28;
       *buf = 136446978;
       *&buf[4] = "NFDriverUpdateFirmware";
       *&buf[12] = 1024;
@@ -6843,10 +5690,9 @@ uint64_t NFDriverUpdateFirmware(uint64_t a1, uint64_t a2, int a3, int a4)
     if ((a3 & ~(a3 >> 31)) + 1 == ++v7)
     {
       sub_297FB7E3C(a1);
+      sub_297FA0714(&v28);
       sub_297FA0714(&v29);
-      sub_297FA0714(&v30);
-      result = 1;
-      goto LABEL_30;
+      return 1;
     }
   }
 
@@ -6854,14 +5700,14 @@ uint64_t NFDriverUpdateFirmware(uint64_t a1, uint64_t a2, int a3, int a4)
   v21 = NFLogGetLogger();
   if (v21)
   {
-    v21(6, "%s:%i Update successful, previous session state was %d", "NFDriverUpdateFirmware", 5050, **v29);
+    v21(6, "%s:%i Update successful, previous session state was %d", "NFDriverUpdateFirmware", 5050, **v28);
   }
 
   dispatch_get_specific(*v8);
   v22 = NFSharedLogGetLogger();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = **v29;
+    v23 = **v28;
     *buf = 136446722;
     *&buf[4] = "NFDriverUpdateFirmware";
     *&buf[12] = 1024;
@@ -6877,18 +5723,15 @@ LABEL_28:
 
 LABEL_29:
   sub_297F9FBDC(v13);
+  sub_297FA0714(&v28);
   sub_297FA0714(&v29);
-  sub_297FA0714(&v30);
   sub_297FC33D0(a1);
-  result = 0;
-LABEL_30:
-  v28 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 void sub_297FC33D0(uint64_t a1)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v2 = NFGetProductType();
   if (v2 <= 9)
   {
@@ -6900,14 +5743,14 @@ void sub_297FC33D0(uint64_t a1)
 
     else if (((1 << v2) & 0x180) == 0)
     {
-      goto LABEL_20;
+      return;
     }
 
-    v15 = 2208;
-    v16 = 1;
-    v17 = HasVirtualGPIO;
-    v14 = sub_297FA02E4(4u, &v15);
-    v4 = sub_297FA0380(a1, 240, v14, 0);
+    v14 = 2208;
+    v15 = 1;
+    v16 = HasVirtualGPIO;
+    v13 = sub_297FA02E4(4u, &v14);
+    v4 = sub_297FA0380(a1, 240, v13, 0);
     v5 = sub_297F9F694(v4);
     v6 = MEMORY[0x29EDC9730];
     if (v5)
@@ -6924,15 +5767,15 @@ void sub_297FC33D0(uint64_t a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446466;
-        v19 = "_NFDriverConfigureHardware";
-        v20 = 1024;
-        v21 = 4526;
+        v18 = "_NFDriverConfigureHardware";
+        v19 = 1024;
+        v20 = 4526;
         _os_log_impl(&dword_297F97000, v8, OS_LOG_TYPE_ERROR, "%{public}s:%i failed to set vGPIO tag (0xA008)", buf, 0x12u);
       }
     }
 
     sub_297F9FBDC(v4);
-    sub_297FA0714(&v14);
+    sub_297FA0714(&v13);
     dispatch_get_specific(*v6);
     v9 = NFLogGetLogger();
     if (v9)
@@ -6965,22 +5808,19 @@ void sub_297FC33D0(uint64_t a1)
       }
 
       *buf = 136446722;
-      v19 = "_NFDriverConfigureHardware";
-      v20 = 1024;
-      v21 = 4531;
-      v22 = 2080;
-      v23 = v12;
+      v18 = "_NFDriverConfigureHardware";
+      v19 = 1024;
+      v20 = 4531;
+      v21 = 2080;
+      v22 = v12;
       _os_log_impl(&dword_297F97000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s:%i %s configured successfully", buf, 0x1Cu);
     }
   }
-
-LABEL_20:
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t NFDriverRestartDiscovery(uint64_t a1, int a2)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if (a2 && !sub_297F9D8BC(a1, 0, 0, 0, 0, 0, 0))
   {
     v10 = MEMORY[0x29EDC9730];
@@ -6995,13 +5835,13 @@ uint64_t NFDriverRestartDiscovery(uint64_t a1, int a2)
     v8 = NFSharedLogGetLogger();
     if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_16;
+      return 0;
     }
 
     *buf = 136446466;
-    v15 = "NFDriverRestartDiscovery";
-    v16 = 1024;
-    v17 = 5736;
+    v14 = "NFDriverRestartDiscovery";
+    v15 = 1024;
+    v16 = 5736;
     v9 = "%{public}s:%i Failed to stop discovery";
     goto LABEL_15;
   }
@@ -7031,39 +5871,37 @@ uint64_t NFDriverRestartDiscovery(uint64_t a1, int a2)
     v8 = NFSharedLogGetLogger();
     if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_16;
+      return 0;
     }
 
     *buf = 136446466;
-    v15 = "NFDriverRestartDiscovery";
-    v16 = 1024;
-    v17 = 5747;
+    v14 = "NFDriverRestartDiscovery";
+    v15 = 1024;
+    v16 = 5747;
     v9 = "%{public}s:%i Failed to update discovery";
 LABEL_15:
     _os_log_impl(&dword_297F97000, v8, OS_LOG_TYPE_ERROR, v9, buf, 0x12u);
-LABEL_16:
-    v4 = 0;
+    return 0;
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 BOOL NFDriverIsSecureElementEnumerated(uint64_t a1, int a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (a2 > 1)
   {
     if (a2 == 2)
     {
       v3 = *(*(a1 + 24) + 536);
-      goto LABEL_14;
+      return v3 != 0;
     }
 
     if (a2 == 4)
     {
       v3 = *(*(a1 + 24) + 544);
-      goto LABEL_14;
+      return v3 != 0;
     }
   }
 
@@ -7071,17 +5909,13 @@ BOOL NFDriverIsSecureElementEnumerated(uint64_t a1, int a2)
   {
     if (!a2)
     {
-LABEL_12:
-      result = 0;
-      goto LABEL_15;
+      return 0;
     }
 
     if (a2 == 1)
     {
       v3 = *(*(a1 + 24) + 528);
-LABEL_14:
-      result = v3 != 0;
-      goto LABEL_15;
+      return v3 != 0;
     }
   }
 
@@ -7099,23 +5933,21 @@ LABEL_14:
   if (result)
   {
     *buf = 136446722;
-    v10 = "NFDriverIsSecureElementEnumerated";
-    v11 = 1024;
-    v12 = 5775;
-    v13 = 1024;
-    v14 = a2;
+    v9 = "NFDriverIsSecureElementEnumerated";
+    v10 = 1024;
+    v11 = 5775;
+    v12 = 1024;
+    v13 = a2;
     _os_log_impl(&dword_297F97000, v6, OS_LOG_TYPE_ERROR, "%{public}s:%i Unknown value: %d", buf, 0x18u);
-    goto LABEL_12;
+    return 0;
   }
 
-LABEL_15:
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 BOOL NFDriverSetSecureElementAlwaysOn(uint64_t a1, int a2)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v4 = MEMORY[0x29EDC9730];
   if (a2 && *(a1 + 60) != 1)
   {
@@ -7178,9 +6010,9 @@ BOOL NFDriverSetSecureElementAlwaysOn(uint64_t a1, int a2)
   *&buf[8] = 0x40000000;
   *&buf[16] = sub_297FD7FFC;
   *&buf[24] = &unk_29EE88BA8;
-  v30 = a2;
-  v28 = a1;
-  v29 = v10;
+  v29 = a2;
+  v27 = a1;
+  v28 = v10;
   dispatch_async_and_wait(v12, buf);
   v13 = sub_297F9F694(v10);
   if (v13)
@@ -7212,7 +6044,7 @@ BOOL NFDriverSetSecureElementAlwaysOn(uint64_t a1, int a2)
     *&buf[8] = 0x40000000;
     *&buf[16] = sub_297FB7B1C;
     *&buf[24] = &unk_29EE880F8;
-    v28 = a1;
+    v27 = a1;
     dispatch_async(v18, buf);
     if (v17 == 44 || v17 == 34)
     {
@@ -7244,7 +6076,7 @@ BOOL NFDriverSetSecureElementAlwaysOn(uint64_t a1, int a2)
         v20 = *(a1 + 32);
         if (!v20)
         {
-          goto LABEL_39;
+          return v13 == 0;
         }
 
         v21 = 0;
@@ -7283,18 +6115,15 @@ BOOL NFDriverSetSecureElementAlwaysOn(uint64_t a1, int a2)
     }
   }
 
-LABEL_39:
-  result = v13 == 0;
-  v26 = *MEMORY[0x29EDCA608];
-  return result;
+  return v13 == 0;
 }
 
 BOOL NFDriverSetEmbeddedSecureElementPower(uint64_t a1, int a2)
 {
-  v18 = *MEMORY[0x29EDCA608];
-  memset(v11, 0, sizeof(v11));
-  v10 = 0;
-  v9 = 6;
+  v17 = *MEMORY[0x29EDCA608];
+  memset(v10, 0, sizeof(v10));
+  v9 = 0;
+  v8 = 6;
   v4 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -7308,31 +6137,27 @@ BOOL NFDriverSetEmbeddedSecureElementPower(uint64_t a1, int a2)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v13 = "NFDriverSetEmbeddedSecureElementPower";
-    v14 = 1024;
-    v15 = 5838;
-    v16 = 1024;
-    v17 = a2;
+    v12 = "NFDriverSetEmbeddedSecureElementPower";
+    v13 = 1024;
+    v14 = 5838;
+    v15 = 1024;
+    v16 = a2;
     _os_log_impl(&dword_297F97000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s:%i eSE, enabled=%d", buf, 0x18u);
   }
 
-  if (a2)
+  if (!a2)
   {
-    LODWORD(v9) = 1;
-    result = NFDriverSetConfiguration(a1, v11, &v9);
-    if (result)
-    {
-      usleep(0x7D0u);
-      result = 1;
-    }
+    return NFDriverSetConfiguration(a1, v10, &v8);
   }
 
-  else
+  LODWORD(v8) = 1;
+  result = NFDriverSetConfiguration(a1, v10, &v8);
+  if (result)
   {
-    result = NFDriverSetConfiguration(a1, v11, &v9);
+    usleep(0x7D0u);
+    return 1;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -7352,7 +6177,7 @@ uint64_t NFDriverSecureElementGetResponseStatus(void *a1)
 
 uint64_t NFDriverSecureElementSendCommandToOS(uint64_t a1, unsigned int a2, unsigned int a3, char a4, char a5, char a6, char a7, char a8, uint64_t a9)
 {
-  v58 = *MEMORY[0x29EDCA608];
+  v56 = *MEMORY[0x29EDCA608];
   if (a9)
   {
     v14 = *(a9 + 8);
@@ -7360,42 +6185,42 @@ uint64_t NFDriverSecureElementSendCommandToOS(uint64_t a1, unsigned int a2, unsi
     {
       if (v14 >> 16)
       {
-        v38 = MEMORY[0x29EDC9730];
+        v37 = MEMORY[0x29EDC9730];
         dispatch_get_specific(*MEMORY[0x29EDC9730]);
         Logger = NFLogGetLogger();
         if (Logger)
         {
-          v40 = Logger;
-          v41 = __error();
-          v42 = strerror(*v41);
-          v43 = __error();
-          v40(3, "%s:%i %s errno=%d Payload length overflow error. ", "NFDriverSecureElementSendCommandToOS", 5895, v42, *v43);
+          v39 = Logger;
+          v40 = __error();
+          v41 = strerror(*v40);
+          v42 = __error();
+          v39(3, "%s:%i %s errno=%d Payload length overflow error. ", "NFDriverSecureElementSendCommandToOS", 5895, v41, *v42);
         }
 
-        dispatch_get_specific(*v38);
+        dispatch_get_specific(*v37);
         v30 = NFSharedLogGetLogger();
         if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_24;
+          return 0;
         }
 
-        v44 = __error();
-        v45 = strerror(*v44);
-        v46 = *__error();
+        v43 = __error();
+        v44 = strerror(*v43);
+        v45 = *__error();
         *buf = 136446978;
-        v51 = "NFDriverSecureElementSendCommandToOS";
-        v52 = 1024;
-        v53 = 5895;
-        v54 = 2080;
+        v49 = "NFDriverSecureElementSendCommandToOS";
+        v50 = 1024;
+        v51 = 5895;
+        v52 = 2080;
+        v53 = v44;
+        v54 = 1024;
         v55 = v45;
-        v56 = 1024;
-        v57 = v46;
         v34 = "%{public}s:%i %s errno=%d Payload length overflow error. ";
         goto LABEL_23;
       }
 
       v15 = a1;
-      v49 = a2;
+      v47 = a2;
       v16 = a8;
       v17 = v14 + 8;
     }
@@ -7403,7 +6228,7 @@ uint64_t NFDriverSecureElementSendCommandToOS(uint64_t a1, unsigned int a2, unsi
     else
     {
       v15 = a1;
-      v49 = a2;
+      v47 = a2;
       v16 = a8;
       v17 = v14 + 6;
     }
@@ -7412,7 +6237,7 @@ uint64_t NFDriverSecureElementSendCommandToOS(uint64_t a1, unsigned int a2, unsi
   else
   {
     v15 = a1;
-    v49 = a2;
+    v47 = a2;
     v16 = a8;
     v17 = 5;
   }
@@ -7421,7 +6246,7 @@ uint64_t NFDriverSecureElementSendCommandToOS(uint64_t a1, unsigned int a2, unsi
   if (v18)
   {
     v19 = v18;
-    v48 = a3;
+    v46 = a3;
     v20 = *v18;
     *v20 = a4;
     v20[1] = a5;
@@ -7452,9 +6277,8 @@ LABEL_17:
 
 LABEL_18:
     v20[v17 - 1] = v16;
-    v35 = NFDriverSecureElementTransceive(v15, v49, v48, v19, 0, 0);
+    v35 = NFDriverSecureElementTransceive(v15, v47, v46, v19, 0, 0);
     NFDataRelease();
-    v36 = *MEMORY[0x29EDCA608];
     return v35;
   }
 
@@ -7478,27 +6302,25 @@ LABEL_18:
     v32 = strerror(*v31);
     v33 = *__error();
     *buf = 136446978;
-    v51 = "NFDriverSecureElementSendCommandToOS";
-    v52 = 1024;
-    v53 = 5902;
-    v54 = 2080;
-    v55 = v32;
-    v56 = 1024;
-    v57 = v33;
+    v49 = "NFDriverSecureElementSendCommandToOS";
+    v50 = 1024;
+    v51 = 5902;
+    v52 = 2080;
+    v53 = v32;
+    v54 = 1024;
+    v55 = v33;
     v34 = "%{public}s:%i %s errno=%d Unable to allocate memory for capdu. ";
 LABEL_23:
     _os_log_impl(&dword_297F97000, v30, OS_LOG_TYPE_ERROR, v34, buf, 0x22u);
   }
 
-LABEL_24:
-  v47 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
 uint64_t NFDriverSecureElementTransceive(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, int *a5, char a6)
 {
-  v193 = *MEMORY[0x29EDCA608];
-  memset(v188, 0, 44);
+  v191 = *MEMORY[0x29EDCA608];
+  memset(v186, 0, 44);
   if (*(*(a1 + 24) + 763) == 1)
   {
     v7 = MEMORY[0x29EDC9730];
@@ -7524,11 +6346,11 @@ uint64_t NFDriverSecureElementTransceive(uint64_t a1, uint64_t a2, uint64_t a3, 
     goto LABEL_6;
   }
 
-  if ((NFDriverGetControllerInfo(a1, v188) & 1) == 0)
+  if ((NFDriverGetControllerInfo(a1, v186) & 1) == 0)
   {
     if (!a5)
     {
-      goto LABEL_135;
+      return 0;
     }
 
     v13 = 0;
@@ -7600,14 +6422,14 @@ LABEL_7:
 LABEL_8:
     if (!a5)
     {
-      goto LABEL_135;
+      return 0;
     }
 
     v13 = 0;
     v14 = 4;
 LABEL_23:
     *a5 = v14;
-    goto LABEL_136;
+    return v13;
   }
 
   v22 = *(*(a1 + 24) + 584);
@@ -7644,35 +6466,35 @@ LABEL_23:
       {
         if (a3 == 2)
         {
-          v168 = *(*(a1 + 24) + 584);
-          v169 = a3;
-          v190 = 0u;
+          v166 = *(*(a1 + 24) + 584);
+          v167 = a3;
+          v188 = 0u;
           memset(buf, 0, sizeof(buf));
           v65 = *a4;
           v66 = a4[1];
           v67 = MEMORY[0x29EDC9730];
           dispatch_get_specific(*MEMORY[0x29EDC9730]);
-          v178 = NFLogGetLogger();
+          v176 = NFLogGetLogger();
           dispatch_get_specific(*v67);
           v68 = NFSharedLogGetLogger();
           if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
           {
             v69 = a4[1];
-            *v180 = 136315906;
-            v181 = "NFDriverSecureElementTransceive";
-            v182 = 1024;
-            v183 = 7680;
-            v184 = 2082;
-            v185 = "[C-APDU System>]";
-            v186 = 2048;
-            v187 = v69;
-            _os_log_impl(&dword_297F97000, v68, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v180, 0x26u);
+            *v178 = 136315906;
+            v179 = "NFDriverSecureElementTransceive";
+            v180 = 1024;
+            v181 = 7680;
+            v182 = 2082;
+            v183 = "[C-APDU System>]";
+            v184 = 2048;
+            v185 = v69;
+            _os_log_impl(&dword_297F97000, v68, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v178, 0x26u);
           }
 
-          v171 = a5;
-          if (v178)
+          v169 = a5;
+          if (v176)
           {
-            v178(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7680, "[C-APDU System>]", a4[1]);
+            v176(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7680, "[C-APDU System>]", a4[1]);
           }
 
           if (v66)
@@ -7700,14 +6522,14 @@ LABEL_23:
               v75 = NFSharedLogGetLogger();
               if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
               {
-                *v180 = 136446210;
-                v181 = buf;
-                _os_log_impl(&dword_297F97000, v75, OS_LOG_TYPE_DEFAULT, "%{public}s", v180, 0xCu);
+                *v178 = 136446210;
+                v179 = buf;
+                _os_log_impl(&dword_297F97000, v75, OS_LOG_TYPE_DEFAULT, "%{public}s", v178, 0xCu);
               }
 
-              if (v178)
+              if (v176)
               {
-                v178(6, "%s", buf);
+                v176(6, "%s", buf);
               }
             }
 
@@ -7722,35 +6544,35 @@ LABEL_23:
             goto LABEL_97;
           }
 
-          v168 = *(*(a1 + 24) + 584);
-          v169 = a3;
-          v171 = a5;
-          v190 = 0u;
+          v166 = *(*(a1 + 24) + 584);
+          v167 = a3;
+          v169 = a5;
+          v188 = 0u;
           memset(buf, 0, sizeof(buf));
           v43 = *a4;
           v44 = a4[1];
           v45 = MEMORY[0x29EDC9730];
           dispatch_get_specific(*MEMORY[0x29EDC9730]);
-          v176 = NFLogGetLogger();
+          v174 = NFLogGetLogger();
           dispatch_get_specific(*v45);
           v46 = NFSharedLogGetLogger();
           if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
           {
             v47 = a4[1];
-            *v180 = 136315906;
-            v181 = "NFDriverSecureElementTransceive";
-            v182 = 1024;
-            v183 = 7682;
-            v184 = 2082;
-            v185 = "[C-APDU Guest>]";
-            v186 = 2048;
-            v187 = v47;
-            _os_log_impl(&dword_297F97000, v46, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v180, 0x26u);
+            *v178 = 136315906;
+            v179 = "NFDriverSecureElementTransceive";
+            v180 = 1024;
+            v181 = 7682;
+            v182 = 2082;
+            v183 = "[C-APDU Guest>]";
+            v184 = 2048;
+            v185 = v47;
+            _os_log_impl(&dword_297F97000, v46, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v178, 0x26u);
           }
 
-          if (v176)
+          if (v174)
           {
-            v176(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7682, "[C-APDU Guest>]", a4[1]);
+            v174(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7682, "[C-APDU Guest>]", a4[1]);
           }
 
           if (v44)
@@ -7778,14 +6600,14 @@ LABEL_23:
               v53 = NFSharedLogGetLogger();
               if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
               {
-                *v180 = 136446210;
-                v181 = buf;
-                _os_log_impl(&dword_297F97000, v53, OS_LOG_TYPE_DEFAULT, "%{public}s", v180, 0xCu);
+                *v178 = 136446210;
+                v179 = buf;
+                _os_log_impl(&dword_297F97000, v53, OS_LOG_TYPE_DEFAULT, "%{public}s", v178, 0xCu);
               }
 
-              if (v176)
+              if (v174)
               {
-                v176(6, "%s", buf);
+                v174(6, "%s", buf);
               }
             }
 
@@ -7801,35 +6623,35 @@ LABEL_23:
           goto LABEL_97;
         }
 
-        v168 = *(*(a1 + 24) + 584);
-        v169 = a3;
-        v190 = 0u;
+        v166 = *(*(a1 + 24) + 584);
+        v167 = a3;
+        v188 = 0u;
         memset(buf, 0, sizeof(buf));
         v32 = *a4;
         v33 = a4[1];
         v34 = MEMORY[0x29EDC9730];
         dispatch_get_specific(*MEMORY[0x29EDC9730]);
-        v175 = NFLogGetLogger();
+        v173 = NFLogGetLogger();
         dispatch_get_specific(*v34);
         v35 = NFSharedLogGetLogger();
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           v36 = a4[1];
-          *v180 = 136315906;
-          v181 = "NFDriverSecureElementTransceive";
-          v182 = 1024;
-          v183 = 7684;
-          v184 = 2082;
-          v185 = "[C-APDU UICC>]";
-          v186 = 2048;
-          v187 = v36;
-          _os_log_impl(&dword_297F97000, v35, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v180, 0x26u);
+          *v178 = 136315906;
+          v179 = "NFDriverSecureElementTransceive";
+          v180 = 1024;
+          v181 = 7684;
+          v182 = 2082;
+          v183 = "[C-APDU UICC>]";
+          v184 = 2048;
+          v185 = v36;
+          _os_log_impl(&dword_297F97000, v35, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v178, 0x26u);
         }
 
-        v171 = a5;
-        if (v175)
+        v169 = a5;
+        if (v173)
         {
-          v175(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7684, "[C-APDU UICC>]", a4[1]);
+          v173(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7684, "[C-APDU UICC>]", a4[1]);
         }
 
         if (v33)
@@ -7857,14 +6679,14 @@ LABEL_23:
             v42 = NFSharedLogGetLogger();
             if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
             {
-              *v180 = 136446210;
-              v181 = buf;
-              _os_log_impl(&dword_297F97000, v42, OS_LOG_TYPE_DEFAULT, "%{public}s", v180, 0xCu);
+              *v178 = 136446210;
+              v179 = buf;
+              _os_log_impl(&dword_297F97000, v42, OS_LOG_TYPE_DEFAULT, "%{public}s", v178, 0xCu);
             }
 
-            if (v175)
+            if (v173)
             {
-              v175(6, "%s", buf);
+              v173(6, "%s", buf);
             }
           }
 
@@ -7874,35 +6696,35 @@ LABEL_23:
 
       else
       {
-        v168 = *(*(a1 + 24) + 584);
-        v169 = a3;
-        v190 = 0u;
+        v166 = *(*(a1 + 24) + 584);
+        v167 = a3;
+        v188 = 0u;
         memset(buf, 0, sizeof(buf));
         v54 = *a4;
         v55 = a4[1];
         v56 = MEMORY[0x29EDC9730];
         dispatch_get_specific(*MEMORY[0x29EDC9730]);
-        v177 = NFLogGetLogger();
+        v175 = NFLogGetLogger();
         dispatch_get_specific(*v56);
         v57 = NFSharedLogGetLogger();
         if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
         {
           v58 = a4[1];
-          *v180 = 136315906;
-          v181 = "NFDriverSecureElementTransceive";
-          v182 = 1024;
-          v183 = 7678;
-          v184 = 2082;
-          v185 = "[C-APDU>]";
-          v186 = 2048;
-          v187 = v58;
-          _os_log_impl(&dword_297F97000, v57, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v180, 0x26u);
+          *v178 = 136315906;
+          v179 = "NFDriverSecureElementTransceive";
+          v180 = 1024;
+          v181 = 7678;
+          v182 = 2082;
+          v183 = "[C-APDU>]";
+          v184 = 2048;
+          v185 = v58;
+          _os_log_impl(&dword_297F97000, v57, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v178, 0x26u);
         }
 
-        v171 = a5;
-        if (v177)
+        v169 = a5;
+        if (v175)
         {
-          v177(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7678, "[C-APDU>]", a4[1]);
+          v175(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7678, "[C-APDU>]", a4[1]);
         }
 
         if (v55)
@@ -7930,14 +6752,14 @@ LABEL_23:
             v64 = NFSharedLogGetLogger();
             if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
             {
-              *v180 = 136446210;
-              v181 = buf;
-              _os_log_impl(&dword_297F97000, v64, OS_LOG_TYPE_DEFAULT, "%{public}s", v180, 0xCu);
+              *v178 = 136446210;
+              v179 = buf;
+              _os_log_impl(&dword_297F97000, v64, OS_LOG_TYPE_DEFAULT, "%{public}s", v178, 0xCu);
             }
 
-            if (v177)
+            if (v175)
             {
-              v177(6, "%s", buf);
+              v175(6, "%s", buf);
             }
           }
 
@@ -7945,9 +6767,9 @@ LABEL_23:
         }
       }
 
-      a5 = v171;
-      LOBYTE(v22) = v168;
-      a3 = v169;
+      a5 = v169;
+      LOBYTE(v22) = v166;
+      a3 = v167;
     }
   }
 
@@ -7976,7 +6798,7 @@ LABEL_97:
 
     if (!a5)
     {
-      goto LABEL_135;
+      return 0;
     }
 
     v13 = 0;
@@ -8052,23 +6874,23 @@ LABEL_97:
     v97 = v79;
 LABEL_134:
     free(v97);
-    goto LABEL_135;
+    return 0;
   }
 
-  v172 = a5;
+  v170 = a5;
   v81[40] = a6;
   *(v81 + 2) = a4[1];
   *v81 = *a4;
   *(v81 + 6) = v80;
-  v179 = v79;
+  v177 = v79;
   *(v81 + 2) = v79;
   if (a3 <= 4)
   {
     *(v81 + 9) = dword_297FDB6F0[a3];
   }
 
-  v170 = a3;
-  v174 = v81;
+  v168 = a3;
+  v172 = v81;
   v82 = 1;
   while (1)
   {
@@ -8084,188 +6906,188 @@ LABEL_134:
     *&buf[8] = 0x40000000;
     *&buf[16] = sub_297FD8754;
     *&buf[24] = &unk_29EE88C28;
-    v192 = a2;
-    *&v190 = a1;
-    *(&v190 + 1) = v174;
-    v191 = v83;
+    v190 = a2;
+    *&v188 = a1;
+    *(&v188 + 1) = v172;
+    v189 = v83;
     dispatch_async_and_wait(v85, buf);
     v86 = sub_297F9F694(v83);
     dispatch_semaphore_signal(*(*(a1 + 24) + 552));
     if (!v86)
     {
       sub_297F9FBDC(v83);
-      v103 = a5;
-      v173 = v77;
+      v102 = a5;
+      v171 = v77;
       if ((v22 & 0x10) != 0)
       {
         if (byte_2A18BD36C)
         {
           dispatch_get_specific(*MEMORY[0x29EDC9730]);
-          v104 = NFLogGetLogger();
-          if (v104)
+          v103 = NFLogGetLogger();
+          if (v103)
           {
-            v104(6, "%s:%i [R-APDU<] REDACTED %ld bytes", "NFDriverSecureElementTransceive", 7835, *v77);
+            v103(6, "%s:%i [R-APDU<] REDACTED %ld bytes", "NFDriverSecureElementTransceive", 7835, *v77);
           }
 
           dispatch_get_specific(*MEMORY[0x29EDC9730]);
-          v105 = NFSharedLogGetLogger();
-          if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
+          v104 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
           {
-            v106 = *v77;
+            v105 = *v77;
             *buf = 136446722;
             *&buf[4] = "NFDriverSecureElementTransceive";
             *&buf[12] = 1024;
             *&buf[14] = 7835;
             *&buf[18] = 2048;
-            *&buf[20] = v106;
-            _os_log_impl(&dword_297F97000, v105, OS_LOG_TYPE_DEFAULT, "%{public}s:%i [R-APDU<] REDACTED %ld bytes", buf, 0x1Cu);
+            *&buf[20] = v105;
+            _os_log_impl(&dword_297F97000, v104, OS_LOG_TYPE_DEFAULT, "%{public}s:%i [R-APDU<] REDACTED %ld bytes", buf, 0x1Cu);
           }
 
           goto LABEL_239;
         }
 
-        if (v170 > 1)
+        if (v168 > 1)
         {
-          if (v170 == 2)
+          if (v168 == 2)
           {
-            v190 = 0u;
+            v188 = 0u;
             memset(buf, 0, sizeof(buf));
-            v152 = *v77;
-            v153 = MEMORY[0x29EDC9730];
+            v151 = *v77;
+            v152 = MEMORY[0x29EDC9730];
             dispatch_get_specific(*MEMORY[0x29EDC9730]);
-            v154 = NFLogGetLogger();
-            dispatch_get_specific(*v153);
-            v155 = NFSharedLogGetLogger();
-            if (os_log_type_enabled(v155, OS_LOG_TYPE_DEFAULT))
+            v153 = NFLogGetLogger();
+            dispatch_get_specific(*v152);
+            v154 = NFSharedLogGetLogger();
+            if (os_log_type_enabled(v154, OS_LOG_TYPE_DEFAULT))
             {
-              v156 = *v173;
-              *v180 = 136315906;
-              v181 = "NFDriverSecureElementTransceive";
-              v182 = 1024;
-              v183 = 7828;
-              v184 = 2082;
-              v185 = "[R-APDU System<]";
-              v186 = 2048;
-              v187 = v156;
-              _os_log_impl(&dword_297F97000, v155, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v180, 0x26u);
+              v155 = *v171;
+              *v178 = 136315906;
+              v179 = "NFDriverSecureElementTransceive";
+              v180 = 1024;
+              v181 = 7828;
+              v182 = 2082;
+              v183 = "[R-APDU System<]";
+              v184 = 2048;
+              v185 = v155;
+              _os_log_impl(&dword_297F97000, v154, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v178, 0x26u);
             }
 
-            if (v154)
+            if (v153)
             {
-              v154(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7828, "[R-APDU System<]", *v173);
+              v153(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7828, "[R-APDU System<]", *v171);
             }
 
-            if (v152)
+            if (v151)
             {
-              v157 = 0;
+              v156 = 0;
               do
               {
-                v158 = 0;
-                v159 = &buf[__sprintf_chk(buf, 0, 0x30uLL, "%04lX: ", v157)];
+                v157 = 0;
+                v158 = &buf[__sprintf_chk(buf, 0, 0x30uLL, "%04lX: ", v156)];
                 do
                 {
-                  v160 = v179[v157++];
-                  v161 = sprintf(v159, "0x%02X ", v160);
-                  if (v158 > 6)
+                  v159 = v177[v156++];
+                  v160 = sprintf(v158, "0x%02X ", v159);
+                  if (v157 > 6)
                   {
                     break;
                   }
 
-                  v159 += v161;
-                  ++v158;
+                  v158 += v160;
+                  ++v157;
                 }
 
-                while (v157 < v152);
+                while (v156 < v151);
                 dispatch_get_specific(*MEMORY[0x29EDC9730]);
-                v162 = NFSharedLogGetLogger();
-                if (os_log_type_enabled(v162, OS_LOG_TYPE_DEFAULT))
+                v161 = NFSharedLogGetLogger();
+                if (os_log_type_enabled(v161, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v180 = 136446210;
-                  v181 = buf;
-                  _os_log_impl(&dword_297F97000, v162, OS_LOG_TYPE_DEFAULT, "%{public}s", v180, 0xCu);
+                  *v178 = 136446210;
+                  v179 = buf;
+                  _os_log_impl(&dword_297F97000, v161, OS_LOG_TYPE_DEFAULT, "%{public}s", v178, 0xCu);
                 }
 
-                if (v154)
+                if (v153)
                 {
-                  v154(6, "%s", buf);
+                  v153(6, "%s", buf);
                 }
               }
 
-              while (v157 < v152);
+              while (v156 < v151);
             }
 
             goto LABEL_238;
           }
 
-          if (v170 == 3)
+          if (v168 == 3)
           {
-            v190 = 0u;
+            v188 = 0u;
             memset(buf, 0, sizeof(buf));
-            v129 = *v77;
-            v130 = MEMORY[0x29EDC9730];
+            v128 = *v77;
+            v129 = MEMORY[0x29EDC9730];
             dispatch_get_specific(*MEMORY[0x29EDC9730]);
-            v131 = NFLogGetLogger();
-            dispatch_get_specific(*v130);
-            v132 = NFSharedLogGetLogger();
-            if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
+            v130 = NFLogGetLogger();
+            dispatch_get_specific(*v129);
+            v131 = NFSharedLogGetLogger();
+            if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
             {
-              v133 = *v173;
-              *v180 = 136315906;
-              v181 = "NFDriverSecureElementTransceive";
-              v182 = 1024;
-              v183 = 7830;
-              v184 = 2082;
-              v185 = "[R-APDU Guest<]";
-              v186 = 2048;
-              v187 = v133;
-              _os_log_impl(&dword_297F97000, v132, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v180, 0x26u);
+              v132 = *v171;
+              *v178 = 136315906;
+              v179 = "NFDriverSecureElementTransceive";
+              v180 = 1024;
+              v181 = 7830;
+              v182 = 2082;
+              v183 = "[R-APDU Guest<]";
+              v184 = 2048;
+              v185 = v132;
+              _os_log_impl(&dword_297F97000, v131, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v178, 0x26u);
             }
 
-            if (v131)
+            if (v130)
             {
-              v131(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7830, "[R-APDU Guest<]", *v173);
+              v130(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7830, "[R-APDU Guest<]", *v171);
             }
 
-            if (v129)
+            if (v128)
             {
-              v134 = 0;
+              v133 = 0;
               do
               {
-                v135 = 0;
-                v136 = &buf[__sprintf_chk(buf, 0, 0x30uLL, "%04lX: ", v134)];
+                v134 = 0;
+                v135 = &buf[__sprintf_chk(buf, 0, 0x30uLL, "%04lX: ", v133)];
                 do
                 {
-                  v137 = v135 + 1;
-                  v138 = v135 + 1 + v134;
-                  v139 = sprintf(v136, "0x%02X ", v179[v134 + v135]);
-                  if (v135 > 6)
+                  v136 = v134 + 1;
+                  v137 = v134 + 1 + v133;
+                  v138 = sprintf(v135, "0x%02X ", v177[v133 + v134]);
+                  if (v134 > 6)
                   {
                     break;
                   }
 
-                  v136 += v139;
-                  ++v135;
+                  v135 += v138;
+                  ++v134;
                 }
 
-                while (v138 < v129);
+                while (v137 < v128);
                 dispatch_get_specific(*MEMORY[0x29EDC9730]);
-                v140 = NFSharedLogGetLogger();
-                if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
+                v139 = NFSharedLogGetLogger();
+                if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v180 = 136446210;
-                  v181 = buf;
-                  _os_log_impl(&dword_297F97000, v140, OS_LOG_TYPE_DEFAULT, "%{public}s", v180, 0xCu);
+                  *v178 = 136446210;
+                  v179 = buf;
+                  _os_log_impl(&dword_297F97000, v139, OS_LOG_TYPE_DEFAULT, "%{public}s", v178, 0xCu);
                 }
 
-                if (v131)
+                if (v130)
                 {
-                  v131(6, "%s", buf);
+                  v130(6, "%s", buf);
                 }
 
-                v134 += v137;
+                v133 += v136;
               }
 
-              while (v138 < v129);
+              while (v137 < v128);
             }
 
             goto LABEL_238;
@@ -8274,201 +7096,199 @@ LABEL_134:
 
         else
         {
-          if (!v170)
+          if (!v168)
           {
-            v190 = 0u;
+            v188 = 0u;
             memset(buf, 0, sizeof(buf));
-            v141 = *v77;
-            v142 = MEMORY[0x29EDC9730];
+            v140 = *v77;
+            v141 = MEMORY[0x29EDC9730];
             dispatch_get_specific(*MEMORY[0x29EDC9730]);
-            v143 = NFLogGetLogger();
-            dispatch_get_specific(*v142);
-            v144 = NFSharedLogGetLogger();
-            if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
+            v142 = NFLogGetLogger();
+            dispatch_get_specific(*v141);
+            v143 = NFSharedLogGetLogger();
+            if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
             {
-              v145 = *v173;
-              *v180 = 136315906;
-              v181 = "NFDriverSecureElementTransceive";
-              v182 = 1024;
-              v183 = 7826;
-              v184 = 2082;
-              v185 = "[R-APDU<]";
-              v186 = 2048;
-              v187 = v145;
-              _os_log_impl(&dword_297F97000, v144, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v180, 0x26u);
+              v144 = *v171;
+              *v178 = 136315906;
+              v179 = "NFDriverSecureElementTransceive";
+              v180 = 1024;
+              v181 = 7826;
+              v182 = 2082;
+              v183 = "[R-APDU<]";
+              v184 = 2048;
+              v185 = v144;
+              _os_log_impl(&dword_297F97000, v143, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v178, 0x26u);
             }
 
-            if (v143)
+            if (v142)
             {
-              v143(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7826, "[R-APDU<]", *v173);
+              v142(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7826, "[R-APDU<]", *v171);
             }
 
-            if (v141)
+            if (v140)
             {
-              v146 = 0;
+              v145 = 0;
               do
               {
-                v147 = 0;
-                v148 = &buf[__sprintf_chk(buf, 0, 0x30uLL, "%04lX: ", v146)];
+                v146 = 0;
+                v147 = &buf[__sprintf_chk(buf, 0, 0x30uLL, "%04lX: ", v145)];
                 do
                 {
-                  v149 = v179[v146++];
-                  v150 = sprintf(v148, "0x%02X ", v149);
-                  if (v147 > 6)
+                  v148 = v177[v145++];
+                  v149 = sprintf(v147, "0x%02X ", v148);
+                  if (v146 > 6)
                   {
                     break;
                   }
 
-                  v148 += v150;
-                  ++v147;
+                  v147 += v149;
+                  ++v146;
                 }
 
-                while (v146 < v141);
+                while (v145 < v140);
                 dispatch_get_specific(*MEMORY[0x29EDC9730]);
-                v151 = NFSharedLogGetLogger();
-                if (os_log_type_enabled(v151, OS_LOG_TYPE_DEFAULT))
+                v150 = NFSharedLogGetLogger();
+                if (os_log_type_enabled(v150, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v180 = 136446210;
-                  v181 = buf;
-                  _os_log_impl(&dword_297F97000, v151, OS_LOG_TYPE_DEFAULT, "%{public}s", v180, 0xCu);
+                  *v178 = 136446210;
+                  v179 = buf;
+                  _os_log_impl(&dword_297F97000, v150, OS_LOG_TYPE_DEFAULT, "%{public}s", v178, 0xCu);
                 }
 
-                if (v143)
+                if (v142)
                 {
-                  v143(6, "%s", buf);
+                  v142(6, "%s", buf);
                 }
               }
 
-              while (v146 < v141);
+              while (v145 < v140);
             }
 
             goto LABEL_238;
           }
 
-          if (v170 == 1)
+          if (v168 == 1)
           {
-            v190 = 0u;
+            v188 = 0u;
             memset(buf, 0, sizeof(buf));
-            v117 = *v77;
-            v118 = MEMORY[0x29EDC9730];
+            v116 = *v77;
+            v117 = MEMORY[0x29EDC9730];
             dispatch_get_specific(*MEMORY[0x29EDC9730]);
-            v119 = NFLogGetLogger();
-            dispatch_get_specific(*v118);
-            v120 = NFSharedLogGetLogger();
-            if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
+            v118 = NFLogGetLogger();
+            dispatch_get_specific(*v117);
+            v119 = NFSharedLogGetLogger();
+            if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
             {
-              v121 = *v173;
-              *v180 = 136315906;
-              v181 = "NFDriverSecureElementTransceive";
-              v182 = 1024;
-              v183 = 7832;
-              v184 = 2082;
-              v185 = "[R-APDU UICC<]";
-              v186 = 2048;
-              v187 = v121;
-              _os_log_impl(&dword_297F97000, v120, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v180, 0x26u);
+              v120 = *v171;
+              *v178 = 136315906;
+              v179 = "NFDriverSecureElementTransceive";
+              v180 = 1024;
+              v181 = 7832;
+              v182 = 2082;
+              v183 = "[R-APDU UICC<]";
+              v184 = 2048;
+              v185 = v120;
+              _os_log_impl(&dword_297F97000, v119, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", v178, 0x26u);
             }
 
-            if (v119)
+            if (v118)
             {
-              v119(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7832, "[R-APDU UICC<]", *v173);
+              v118(6, "%s:%i %s %lu bytes :", "NFDriverSecureElementTransceive", 7832, "[R-APDU UICC<]", *v171);
             }
 
-            if (v117)
+            if (v116)
             {
-              v122 = 0;
+              v121 = 0;
               do
               {
-                v123 = 0;
-                v124 = &buf[__sprintf_chk(buf, 0, 0x30uLL, "%04lX: ", v122)];
+                v122 = 0;
+                v123 = &buf[__sprintf_chk(buf, 0, 0x30uLL, "%04lX: ", v121)];
                 do
                 {
-                  v125 = v123 + 1;
-                  v126 = v123 + 1 + v122;
-                  v127 = sprintf(v124, "0x%02X ", v179[v122 + v123]);
-                  if (v123 > 6)
+                  v124 = v122 + 1;
+                  v125 = v122 + 1 + v121;
+                  v126 = sprintf(v123, "0x%02X ", v177[v121 + v122]);
+                  if (v122 > 6)
                   {
                     break;
                   }
 
-                  v124 += v127;
-                  ++v123;
+                  v123 += v126;
+                  ++v122;
                 }
 
-                while (v126 < v117);
+                while (v125 < v116);
                 dispatch_get_specific(*MEMORY[0x29EDC9730]);
-                v128 = NFSharedLogGetLogger();
-                if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
+                v127 = NFSharedLogGetLogger();
+                if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v180 = 136446210;
-                  v181 = buf;
-                  _os_log_impl(&dword_297F97000, v128, OS_LOG_TYPE_DEFAULT, "%{public}s", v180, 0xCu);
+                  *v178 = 136446210;
+                  v179 = buf;
+                  _os_log_impl(&dword_297F97000, v127, OS_LOG_TYPE_DEFAULT, "%{public}s", v178, 0xCu);
                 }
 
-                if (v119)
+                if (v118)
                 {
-                  v119(6, "%s", buf);
+                  v118(6, "%s", buf);
                 }
 
-                v122 += v125;
+                v121 += v124;
               }
 
-              while (v126 < v117);
+              while (v125 < v116);
             }
 
 LABEL_238:
-            v103 = v172;
-            v77 = v173;
-            v79 = v179;
+            v102 = v170;
+            v79 = v177;
           }
         }
       }
 
 LABEL_239:
-      v163 = *v77;
       v13 = NFDataCreateWithBytesNoCopy();
       if (v13)
       {
-        if (v103)
+        if (v102)
         {
-          *v103 = 0;
+          *v102 = 0;
         }
       }
 
       else
       {
         dispatch_get_specific(*MEMORY[0x29EDC9730]);
-        v164 = NFLogGetLogger();
-        if (v164)
+        v162 = NFLogGetLogger();
+        if (v162)
         {
-          v164(3, "%s:%i Failed to create data (%lu bytes) with result", "NFDriverSecureElementTransceive", 7841, *v173);
+          v162(3, "%s:%i Failed to create data (%lu bytes) with result", "NFDriverSecureElementTransceive", 7841, *v171);
         }
 
         dispatch_get_specific(*MEMORY[0x29EDC9730]);
-        v165 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
+        v163 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v163, OS_LOG_TYPE_ERROR))
         {
-          v166 = *v173;
+          v164 = *v171;
           *buf = 136446722;
           *&buf[4] = "NFDriverSecureElementTransceive";
           *&buf[12] = 1024;
           *&buf[14] = 7841;
           *&buf[18] = 2048;
-          *&buf[20] = v166;
-          _os_log_impl(&dword_297F97000, v165, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to create data (%lu bytes) with result", buf, 0x1Cu);
+          *&buf[20] = v164;
+          _os_log_impl(&dword_297F97000, v163, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to create data (%lu bytes) with result", buf, 0x1Cu);
         }
 
-        if (v103)
+        if (v102)
         {
-          *v103 = 3;
+          *v102 = 3;
         }
 
         free(v79);
       }
 
-      free(v174);
-      free(v173);
-      goto LABEL_136;
+      free(v172);
+      free(v171);
+      return v13;
     }
 
     v87 = *(*(a1 + 24) + 560);
@@ -8476,7 +7296,7 @@ LABEL_239:
     *&buf[8] = 0x40000000;
     *&buf[16] = sub_297FD8E24;
     *&buf[24] = &unk_29EE88C48;
-    *&v190 = a1;
+    *&v188 = a1;
     dispatch_async(v87, buf);
     v88 = *v83;
     if (*v83 == 65)
@@ -8516,17 +7336,17 @@ LABEL_239:
     sub_297F9FBDC(v83);
     if (++v82 == 4)
     {
-      free(v174);
+      free(v172);
       free(v77);
       free(v79);
       if (!a5)
       {
-        goto LABEL_135;
+        return 0;
       }
 
       v13 = 0;
       *a5 = 4;
-      goto LABEL_136;
+      return v13;
     }
   }
 
@@ -8536,31 +7356,31 @@ LABEL_239:
   }
 
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v107 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+  v106 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
   {
-    v108 = *v83;
+    v107 = *v83;
     *buf = 136446722;
     *&buf[4] = "NFDriverSecureElementTransceive";
     *&buf[12] = 1024;
     *&buf[14] = 7751;
     *&buf[18] = 2048;
-    *&buf[20] = v108;
-    _os_log_impl(&dword_297F97000, v107, OS_LOG_TYPE_ERROR, "%{public}s:%i status=0x%04llX", buf, 0x1Cu);
+    *&buf[20] = v107;
+    _os_log_impl(&dword_297F97000, v106, OS_LOG_TYPE_ERROR, "%{public}s:%i status=0x%04llX", buf, 0x1Cu);
   }
 
   NFDriverDumpUART(a1);
-  v109 = *v83;
+  v108 = *v83;
   if (*v83 == 65)
   {
-    v110 = *(a1 + 24);
-    if (*(v110 + 762) == 1)
+    v109 = *(a1 + 24);
+    if (*(v109 + 762) == 1)
     {
-      v111 = *(v110 + 96);
-      if (v111)
+      v110 = *(v109 + 96);
+      if (v110)
       {
-        v111(*(v110 + 360), a2, 0);
-        v109 = *v83;
+        v110(*(v109 + 360), a2, 0);
+        v108 = *v83;
         goto LABEL_151;
       }
     }
@@ -8568,22 +7388,22 @@ LABEL_239:
 LABEL_171:
     sub_297F9FBDC(v83);
     free(v79);
-    free(v174);
+    free(v172);
     free(v77);
     if (!a5)
     {
-      goto LABEL_135;
+      return 0;
     }
 
     v13 = 0;
-    v116 = 1;
+    v115 = 1;
 LABEL_173:
-    *a5 = v116;
-    goto LABEL_136;
+    *a5 = v115;
+    return v13;
   }
 
 LABEL_151:
-  if (v109 == 214)
+  if (v108 == 214)
   {
     if ((*(*(a1 + 24) + 756) - 14) > 4)
     {
@@ -8591,27 +7411,27 @@ LABEL_151:
     }
 
     sub_297FBEF8C(a1);
-    v109 = *v83;
+    v108 = *v83;
   }
 
-  if ((v109 - 36) <= 0x1E && ((1 << (v109 - 36)) & 0x40000101) != 0 || v109 == 218)
+  if ((v108 - 36) <= 0x1E && ((1 << (v108 - 36)) & 0x40000101) != 0 || v108 == 218)
   {
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v114 = NFLogGetLogger();
-    if (v114)
+    v113 = NFLogGetLogger();
+    if (v113)
     {
-      v114(3, "%s:%i Simulating HW Reset", "NFDriverSecureElementTransceive", 7799);
+      v113(3, "%s:%i Simulating HW Reset", "NFDriverSecureElementTransceive", 7799);
     }
 
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v115 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
+    v114 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
       *&buf[4] = "NFDriverSecureElementTransceive";
       *&buf[12] = 1024;
       *&buf[14] = 7799;
-      _os_log_impl(&dword_297F97000, v115, OS_LOG_TYPE_ERROR, "%{public}s:%i Simulating HW Reset", buf, 0x12u);
+      _os_log_impl(&dword_297F97000, v114, OS_LOG_TYPE_ERROR, "%{public}s:%i Simulating HW Reset", buf, 0x12u);
     }
 
     if (NFIsInternalBuild() && *v83 == 44 && *(*(a1 + 24) + 769) == 1 && NFDriverCopySMBLog(a1))
@@ -8624,43 +7444,39 @@ LABEL_151:
     goto LABEL_171;
   }
 
-  if (v109 != 217)
+  if (v108 != 217)
   {
     goto LABEL_171;
   }
 
-  v112 = *(a1 + 24);
-  if (*(v112 + 762) == 1)
+  v111 = *(a1 + 24);
+  if (*(v111 + 762) == 1)
   {
-    v113 = *v77 ? *v79 : 0;
-    v167 = *(v112 + 200);
-    if (v167)
+    v112 = *v77 ? *v79 : 0;
+    v165 = *(v111 + 200);
+    if (v165)
     {
-      v167(*(v112 + 464), v170, v113);
+      v165(*(v111 + 464), v168, v112);
     }
   }
 
   sub_297F9FBDC(v83);
   free(v77);
-  free(v174);
+  free(v172);
   free(v79);
   if (a5)
   {
     v13 = 0;
-    v116 = 22;
+    v115 = 22;
     goto LABEL_173;
   }
 
-LABEL_135:
-  v13 = 0;
-LABEL_136:
-  v101 = *MEMORY[0x29EDCA608];
-  return v13;
+  return 0;
 }
 
-BOOL NFDriverSecureElementSelectWithOS(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _WORD *a5)
+BOOL NFDriverSecureElementSelectWithOS(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4, _WORD *a5)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v6 = NFDriverSecureElementSendCommandToOS(a1, a2, a3, 0, 164, 4, 0, 0, a4);
   if (v6)
   {
@@ -8681,7 +7497,7 @@ BOOL NFDriverSecureElementSelectWithOS(uint64_t a1, uint64_t a2, uint64_t a3, ui
       *a5 = v8;
     }
 
-    result = v8 == 36864;
+    return v8 == 36864;
   }
 
   else
@@ -8699,9 +7515,9 @@ BOOL NFDriverSecureElementSelectWithOS(uint64_t a1, uint64_t a2, uint64_t a3, ui
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v15 = "NFDriverSecureElementSelectWithOS";
-      v16 = 1024;
-      v17 = 5952;
+      v14 = "NFDriverSecureElementSelectWithOS";
+      v15 = 1024;
+      v16 = 5952;
       _os_log_impl(&dword_297F97000, v11, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to select", buf, 0x12u);
     }
 
@@ -8712,13 +7528,12 @@ BOOL NFDriverSecureElementSelectWithOS(uint64_t a1, uint64_t a2, uint64_t a3, ui
     }
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t NFDriverTriggerDelayedWake(uint64_t a1, char a2)
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   if ((*(a1 + 60) & 1) != 0 || *(a1 + 32) || *(a1 + 36))
   {
     if (!sub_297F9D8BC(a1, 0, 0, 0, 0, 0, 0))
@@ -8765,7 +7580,7 @@ uint64_t NFDriverTriggerDelayedWake(uint64_t a1, char a2)
     v17 = NFSharedLogGetLogger();
     if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_22;
+      return 0;
     }
 
     *buf = 136446466;
@@ -8775,9 +7590,7 @@ uint64_t NFDriverTriggerDelayedWake(uint64_t a1, char a2)
     v18 = "%{public}s:%i Failed to disable standby mode.";
 LABEL_21:
     _os_log_impl(&dword_297F97000, v17, OS_LOG_TYPE_ERROR, v18, buf, 0x12u);
-LABEL_22:
-    v19 = 0;
-    goto LABEL_23;
+    return 0;
   }
 
   v8 = sub_297F9DC04();
@@ -8790,9 +7603,9 @@ LABEL_22:
   *&buf[8] = 0x40000000;
   *&buf[16] = sub_297FD81B8;
   *&buf[24] = &unk_29EE88BC8;
-  v28 = a2;
-  v26 = a1;
-  v27 = v8;
+  v27 = a2;
+  v25 = a1;
+  v26 = v8;
   dispatch_async_and_wait(v10, buf);
   if (sub_297F9F694(v8))
   {
@@ -8819,29 +7632,29 @@ LABEL_22:
     }
 
     sub_297F9FBDC(v8);
-    goto LABEL_22;
+    return 0;
   }
 
   sub_297F9FBDC(v8);
   v19 = 1;
   if (v7)
   {
-    v22 = *(a1 + 62) ? 1 : 2;
-    if (!sub_297F9D8BC(a1, *(a1 + 32), *(a1 + 36), *(a1 + 60), 0, *(a1 + 61), v22))
+    v21 = *(a1 + 62) ? 1 : 2;
+    if (!sub_297F9D8BC(a1, *(a1 + 32), *(a1 + 36), *(a1 + 60), 0, *(a1 + 61), v21))
     {
-      v23 = MEMORY[0x29EDC9730];
+      v22 = MEMORY[0x29EDC9730];
       dispatch_get_specific(*MEMORY[0x29EDC9730]);
-      v24 = NFLogGetLogger();
-      if (v24)
+      v23 = NFLogGetLogger();
+      if (v23)
       {
-        v24(3, "%s:%i Failed to update discovery", "NFDriverTriggerDelayedWake", 5993);
+        v23(3, "%s:%i Failed to update discovery", "NFDriverTriggerDelayedWake", 5993);
       }
 
-      dispatch_get_specific(*v23);
+      dispatch_get_specific(*v22);
       v17 = NFSharedLogGetLogger();
       if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_22;
+        return 0;
       }
 
       *buf = 136446466;
@@ -8853,14 +7666,12 @@ LABEL_22:
     }
   }
 
-LABEL_23:
-  v20 = *MEMORY[0x29EDCA608];
   return v19;
 }
 
 BOOL NFDriverCrashNFCC(uint64_t a1, int a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v4 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -8874,22 +7685,22 @@ BOOL NFDriverCrashNFCC(uint64_t a1, int a2)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v18 = "NFDriverCrashNFCC";
-    v19 = 1024;
-    v20 = 6007;
-    v21 = 1024;
-    LODWORD(v22) = a2;
+    v17 = "NFDriverCrashNFCC";
+    v18 = 1024;
+    v19 = 6007;
+    v20 = 1024;
+    LODWORD(v21) = a2;
     _os_log_impl(&dword_297F97000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Crashing in %d ms", buf, 0x18u);
   }
 
-  v14[0] = MEMORY[0x29EDCA5F8];
-  v14[1] = 0x40000000;
-  v14[2] = sub_297FC68AC;
-  v14[3] = &unk_29EE88668;
-  v14[4] = a1;
-  v15 = a2 != 0;
-  v16 = a2;
-  v7 = sub_297FA1B10(a1, v14);
+  v13[0] = MEMORY[0x29EDCA5F8];
+  v13[1] = 0x40000000;
+  v13[2] = sub_297FC68AC;
+  v13[3] = &unk_29EE88668;
+  v13[4] = a1;
+  v14 = a2 != 0;
+  v15 = a2;
+  v7 = sub_297FA1B10(a1, v13);
   v8 = sub_297F9F694(v7);
   if (v8)
   {
@@ -8906,27 +7717,26 @@ BOOL NFDriverCrashNFCC(uint64_t a1, int a2)
     {
       v11 = *v7;
       *buf = 136446722;
-      v18 = "NFDriverCrashNFCC";
-      v19 = 1024;
-      v20 = 6022;
-      v21 = 2048;
-      v22 = v11;
+      v17 = "NFDriverCrashNFCC";
+      v18 = 1024;
+      v19 = 6022;
+      v20 = 2048;
+      v21 = v11;
       _os_log_impl(&dword_297F97000, v10, OS_LOG_TYPE_ERROR, "%{public}s:%i status=0x%04llX", buf, 0x1Cu);
     }
   }
 
   sub_297F9FBDC(v7);
-  v12 = *MEMORY[0x29EDCA608];
   return v8 == 0;
 }
 
 BOOL NFDriverEnableHeadlessTestMode(uint64_t a1, int a2, unsigned int a3)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v6 = sub_297FBA6E8(a1, 27);
-  v16[0] = HIBYTE(v6);
-  v16[1] = v6;
-  v17 = 1;
+  v15[0] = HIBYTE(v6);
+  v15[1] = v6;
+  v16 = 1;
   if (a2)
   {
     v7 = 429496730 * a3;
@@ -8946,32 +7756,28 @@ BOOL NFDriverEnableHeadlessTestMode(uint64_t a1, int a2, unsigned int a3)
       {
         *buf = 136446466;
         *&buf[4] = "NFDriverEnableHeadlessTestMode";
-        v19 = 1024;
-        v20 = 6048;
+        v18 = 1024;
+        v19 = 6048;
         _os_log_impl(&dword_297F97000, v13, OS_LOG_TYPE_ERROR, "%{public}s:%i Interval must be < 900 ms", buf, 0x12u);
       }
 
-      goto LABEL_10;
+      return 0;
     }
 
-    HIBYTE(v17) = BYTE4(v7) | 0x80;
+    HIBYTE(v16) = BYTE4(v7) | 0x80;
   }
 
-  v8 = sub_297FA02E4(4u, v16);
+  v8 = sub_297FA02E4(4u, v15);
   *buf = v8;
   if (!v8)
   {
-LABEL_10:
-    v10 = 0;
-    goto LABEL_11;
+    return 0;
   }
 
   v9 = sub_297FA0380(a1, 37025, v8, 0);
   v10 = sub_297F9F694(v9) == 0;
   sub_297F9FBDC(v9);
   sub_297FA0714(buf);
-LABEL_11:
-  v14 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
@@ -8998,11 +7804,11 @@ BOOL NFDriverToggleGPIO(uint64_t a1, char a2)
 
 uint64_t sub_297FC6B20(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
-  v9 = 0;
+  v13 = *MEMORY[0x29EDCA608];
+  v8 = 0;
   if (a1 && (*(a1 + 57) & 1) != 0)
   {
-    if (!sub_297FBE498(*(*(a1 + 24) + 576), &v9, 0, 0))
+    if (!sub_297FBE498(*(*(a1 + 24) + 576), &v8, 0, 0))
     {
       v1 = MEMORY[0x29EDC9730];
       dispatch_get_specific(*MEMORY[0x29EDC9730]);
@@ -9017,14 +7823,14 @@ uint64_t sub_297FC6B20(uint64_t a1)
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v11 = "_Dispatched_NFDriverGetStackBreadcrumb";
-        v12 = 1024;
-        v13 = 6134;
+        v10 = "_Dispatched_NFDriverGetStackBreadcrumb";
+        v11 = 1024;
+        v12 = 6134;
         _os_log_impl(&dword_297F97000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Get stack breadcrumb failed", buf, 0x12u);
       }
     }
 
-    result = v9;
+    return v8;
   }
 
   else
@@ -9042,17 +7848,14 @@ uint64_t sub_297FC6B20(uint64_t a1)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v11 = "_Dispatched_NFDriverGetStackBreadcrumb";
-      v12 = 1024;
-      v13 = 6130;
+      v10 = "_Dispatched_NFDriverGetStackBreadcrumb";
+      v11 = 1024;
+      v12 = 6130;
       _os_log_impl(&dword_297F97000, v7, OS_LOG_TYPE_ERROR, "%{public}s:%i Driver is null", buf, 0x12u);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t sub_297FC6CE8(uint64_t a1)
@@ -9064,9 +7867,9 @@ uint64_t sub_297FC6CE8(uint64_t a1)
 
 uint64_t NFDriverDebugDumpMemory(uint64_t a1, int a2)
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v21 = 0;
-  memset(v22, 0, 44);
+  v26 = *MEMORY[0x29EDCA608];
+  v20 = 0;
+  memset(v21, 0, 44);
   if (a2)
   {
     v4 = MEMORY[0x29EDC9730];
@@ -9098,104 +7901,99 @@ uint64_t NFDriverDebugDumpMemory(uint64_t a1, int a2)
     v7 = 1;
   }
 
-  if (NFDriverGetControllerInfo(a1, v22))
+  if (!NFDriverGetControllerInfo(a1, v21))
   {
-    if (DWORD1(v22[0]) == 21)
-    {
-      v8 = MEMORY[0x29EDC9730];
-      dispatch_get_specific(*MEMORY[0x29EDC9730]);
-      v9 = NFLogGetLogger();
-      if (v9)
-      {
-        v9(6, "%s:%i Device does not support this feature", "NFDriverDebugDumpMemory", 6197);
-      }
-
-      dispatch_get_specific(*v8);
-      v10 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136446466;
-        *&buf[4] = "NFDriverDebugDumpMemory";
-        *&buf[12] = 1024;
-        *&buf[14] = 6197;
-        _os_log_impl(&dword_297F97000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Device does not support this feature", buf, 0x12u);
-      }
-    }
-
-    else
-    {
-      v11 = sub_297F9DC04();
-      pthread_mutex_lock((v11[3] + 8));
-      v12 = v11[3];
-      ++*v12;
-      pthread_mutex_unlock((v12 + 8));
-      v11[2] = &v21;
-      v13 = *(*(a1 + 24) + 560);
-      *buf = MEMORY[0x29EDCA5F8];
-      *&buf[8] = 0x40000000;
-      *&buf[16] = sub_297FD8424;
-      *&buf[24] = &unk_29EE88BE8;
-      v24 = v11;
-      v25 = a1;
-      v26 = v7;
-      dispatch_async_and_wait(v13, buf);
-      if (!sub_297F9F694(v11))
-      {
-        sub_297F9FBDC(v11);
-        result = v21;
-        goto LABEL_22;
-      }
-
-      v14 = MEMORY[0x29EDC9730];
-      dispatch_get_specific(*MEMORY[0x29EDC9730]);
-      v15 = NFLogGetLogger();
-      if (v15)
-      {
-        v15(3, "%s:%i status=0x%04llX", "NFDriverDebugDumpMemory", 6203, *v11);
-      }
-
-      dispatch_get_specific(*v14);
-      v16 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-      {
-        v17 = *v11;
-        *buf = 136446722;
-        *&buf[4] = "NFDriverDebugDumpMemory";
-        *&buf[12] = 1024;
-        *&buf[14] = 6203;
-        *&buf[18] = 2048;
-        *&buf[20] = v17;
-        _os_log_impl(&dword_297F97000, v16, OS_LOG_TYPE_ERROR, "%{public}s:%i status=0x%04llX", buf, 0x1Cu);
-      }
-
-      sub_297F9FBDC(v11);
-      if (*v11 != 30)
-      {
-        v18 = *(*(a1 + 24) + 560);
-        *buf = MEMORY[0x29EDCA5F8];
-        *&buf[8] = 0x40000000;
-        *&buf[16] = sub_297FB7B1C;
-        *&buf[24] = &unk_29EE880F8;
-        v24 = a1;
-        dispatch_async(v18, buf);
-      }
-    }
+    return 0;
   }
 
-  result = 0;
-LABEL_22:
-  v20 = *MEMORY[0x29EDCA608];
-  return result;
+  if (DWORD1(v21[0]) == 21)
+  {
+    v8 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    v9 = NFLogGetLogger();
+    if (v9)
+    {
+      v9(6, "%s:%i Device does not support this feature", "NFDriverDebugDumpMemory", 6197);
+    }
+
+    dispatch_get_specific(*v8);
+    v10 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136446466;
+      *&buf[4] = "NFDriverDebugDumpMemory";
+      *&buf[12] = 1024;
+      *&buf[14] = 6197;
+      _os_log_impl(&dword_297F97000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Device does not support this feature", buf, 0x12u);
+    }
+
+    return 0;
+  }
+
+  v11 = sub_297F9DC04();
+  pthread_mutex_lock((v11[3] + 8));
+  v12 = v11[3];
+  ++*v12;
+  pthread_mutex_unlock((v12 + 8));
+  v11[2] = &v20;
+  v13 = *(*(a1 + 24) + 560);
+  *buf = MEMORY[0x29EDCA5F8];
+  *&buf[8] = 0x40000000;
+  *&buf[16] = sub_297FD8424;
+  *&buf[24] = &unk_29EE88BE8;
+  v23 = v11;
+  v24 = a1;
+  v25 = v7;
+  dispatch_async_and_wait(v13, buf);
+  if (sub_297F9F694(v11))
+  {
+    v14 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    v15 = NFLogGetLogger();
+    if (v15)
+    {
+      v15(3, "%s:%i status=0x%04llX", "NFDriverDebugDumpMemory", 6203, *v11);
+    }
+
+    dispatch_get_specific(*v14);
+    v16 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v17 = *v11;
+      *buf = 136446722;
+      *&buf[4] = "NFDriverDebugDumpMemory";
+      *&buf[12] = 1024;
+      *&buf[14] = 6203;
+      *&buf[18] = 2048;
+      *&buf[20] = v17;
+      _os_log_impl(&dword_297F97000, v16, OS_LOG_TYPE_ERROR, "%{public}s:%i status=0x%04llX", buf, 0x1Cu);
+    }
+
+    sub_297F9FBDC(v11);
+    if (*v11 != 30)
+    {
+      v18 = *(*(a1 + 24) + 560);
+      *buf = MEMORY[0x29EDCA5F8];
+      *&buf[8] = 0x40000000;
+      *&buf[16] = sub_297FB7B1C;
+      *&buf[24] = &unk_29EE880F8;
+      v23 = a1;
+      dispatch_async(v18, buf);
+    }
+
+    return 0;
+  }
+
+  sub_297F9FBDC(v11);
+  return v20;
 }
 
 uint64_t NFDriverRemoteDeviceFelicaTransceive(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4, double a5)
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   if (!a4)
   {
-LABEL_19:
-    v16 = 5;
-    goto LABEL_28;
+    return 5;
   }
 
   *a4 = 0;
@@ -9215,13 +8013,13 @@ LABEL_19:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v30 = "NFDriverRemoteDeviceFelicaTransceive";
-      v31 = 1024;
-      v32 = 6315;
+      v28 = "NFDriverRemoteDeviceFelicaTransceive";
+      v29 = 1024;
+      v30 = 6315;
       _os_log_impl(&dword_297F97000, v19, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to allocate buffer", buf, 0x12u);
     }
 
-    goto LABEL_24;
+    return 3;
   }
 
   v11 = v10;
@@ -9240,14 +8038,14 @@ LABEL_19:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v30 = "NFDriverRemoteDeviceFelicaTransceive";
-      v31 = 1024;
-      v32 = 6320;
+      v28 = "NFDriverRemoteDeviceFelicaTransceive";
+      v29 = 1024;
+      v30 = 6320;
       _os_log_impl(&dword_297F97000, v22, OS_LOG_TYPE_ERROR, "%{public}s:%i No command APDU provided", buf, 0x12u);
     }
 
     free(v11);
-    goto LABEL_19;
+    return 5;
   }
 
   if (a3[1] <= 0x10000uLL)
@@ -9262,24 +8060,22 @@ LABEL_19:
       *(v23 + 6) = v11;
       v23[14] = 0x10000;
       v16 = sub_297FC7470(a1, a2, v23, a5);
-      if (v16 || (v25 = v24[14], (v26 = NFDataCreateWithBytesNoCopy()) == 0))
+      if (v16 || (v25 = NFDataCreateWithBytesNoCopy()) == 0)
       {
         free(v11);
       }
 
       else
       {
-        *a4 = v26;
+        *a4 = v25;
       }
 
       free(v24);
-      goto LABEL_28;
+      return v16;
     }
 
     free(v11);
-LABEL_24:
-    v16 = 3;
-    goto LABEL_28;
+    return 3;
   }
 
   v12 = MEMORY[0x29EDC9730];
@@ -9296,32 +8092,29 @@ LABEL_24:
   {
     v15 = a3[1];
     *buf = 136446722;
-    v30 = "NFDriverRemoteDeviceFelicaTransceive";
-    v31 = 1024;
-    v32 = 6326;
-    v33 = 2048;
-    v34 = v15;
+    v28 = "NFDriverRemoteDeviceFelicaTransceive";
+    v29 = 1024;
+    v30 = 6326;
+    v31 = 2048;
+    v32 = v15;
     _os_log_impl(&dword_297F97000, v14, OS_LOG_TYPE_ERROR, "%{public}s:%i Felica command is too large: %ld bytes", buf, 0x1Cu);
   }
 
   free(v11);
-  v16 = 8;
-LABEL_28:
-  v27 = *MEMORY[0x29EDCA608];
-  return v16;
+  return 8;
 }
 
 uint64_t sub_297FC7470(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
 {
-  v55 = *MEMORY[0x29EDCA608];
+  v54 = *MEMORY[0x29EDCA608];
   v6 = *(*(a1 + 24) + 584);
   if ((v6 & 0x10) != 0)
   {
-    v41 = a2;
-    v42 = a1;
-    v43 = *(*(a1 + 24) + 584);
-    v54 = 0u;
-    memset(v53, 0, sizeof(v53));
+    v40 = a2;
+    v41 = a1;
+    v42 = *(*(a1 + 24) + 584);
+    v53 = 0u;
+    memset(v52, 0, sizeof(v52));
     v7 = *(a3 + 40);
     v8 = *(a3 + 32);
     v9 = MEMORY[0x29EDC9730];
@@ -9333,13 +8126,13 @@ uint64_t sub_297FC7470(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
     {
       v12 = *(a3 + 40);
       *buf = 136315906;
-      v46 = "_NFDriverRemoteDevTransceive";
-      v47 = 1024;
-      v48 = 6260;
-      v49 = 2082;
-      v50 = "[Reader C-APDU>]";
-      v51 = 2048;
-      v52 = v12;
+      v45 = "_NFDriverRemoteDevTransceive";
+      v46 = 1024;
+      v47 = 6260;
+      v48 = 2082;
+      v49 = "[Reader C-APDU>]";
+      v50 = 2048;
+      v51 = v12;
       _os_log_impl(&dword_297F97000, v11, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", buf, 0x26u);
     }
 
@@ -9354,7 +8147,7 @@ uint64_t sub_297FC7470(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
       do
       {
         v14 = 0;
-        v15 = &v53[__sprintf_chk(v53, 0, 0x30uLL, "%04lX: ", v13)];
+        v15 = &v52[__sprintf_chk(v52, 0, 0x30uLL, "%04lX: ", v13)];
         do
         {
           v16 = *(v8 + v13++);
@@ -9374,33 +8167,33 @@ uint64_t sub_297FC7470(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446210;
-          v46 = v53;
+          v45 = v52;
           _os_log_impl(&dword_297F97000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
         }
 
         if (Logger)
         {
-          Logger(6, "%s", v53);
+          Logger(6, "%s", v52);
         }
       }
 
       while (v13 < v7);
     }
 
-    LOBYTE(v6) = v43;
-    a2 = v41;
-    a1 = v42;
+    LOBYTE(v6) = v42;
+    a2 = v40;
+    a1 = v41;
   }
 
-  v44[0] = MEMORY[0x29EDCA5F8];
-  v44[1] = 0x40000000;
-  v44[2] = sub_297FD8660;
-  v44[3] = &unk_29EE88C08;
-  v44[4] = a3;
-  *&v44[5] = a4;
-  v44[6] = a1;
-  v44[7] = a2;
-  v19 = sub_297FA1B10(a1, v44);
+  v43[0] = MEMORY[0x29EDCA5F8];
+  v43[1] = 0x40000000;
+  v43[2] = sub_297FD8660;
+  v43[3] = &unk_29EE88C08;
+  v43[4] = a3;
+  *&v43[5] = a4;
+  v43[6] = a1;
+  v43[7] = a2;
+  v19 = sub_297FA1B10(a1, v43);
   v20 = sub_297F9F694(v19);
   if (v20 > 144)
   {
@@ -9462,13 +8255,13 @@ LABEL_29:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       v26 = *v19;
-      *v53 = 136446722;
-      *&v53[4] = "_NFDriverRemoteDevTransceive";
-      *&v53[12] = 1024;
-      *&v53[14] = 6287;
-      *&v53[18] = 2048;
-      *&v53[20] = v26;
-      _os_log_impl(&dword_297F97000, v25, OS_LOG_TYPE_ERROR, "%{public}s:%i phLibNfc_RemoteDev_Transceive failed 0x%04llx", v53, 0x1Cu);
+      *v52 = 136446722;
+      *&v52[4] = "_NFDriverRemoteDevTransceive";
+      *&v52[12] = 1024;
+      *&v52[14] = 6287;
+      *&v52[18] = 2048;
+      *&v52[20] = v26;
+      _os_log_impl(&dword_297F97000, v25, OS_LOG_TYPE_ERROR, "%{public}s:%i phLibNfc_RemoteDev_Transceive failed 0x%04llx", v52, 0x1Cu);
     }
 
     v21 = 1;
@@ -9477,8 +8270,8 @@ LABEL_29:
 
   if ((v6 & 0x10) != 0)
   {
-    v54 = 0u;
-    memset(v53, 0, sizeof(v53));
+    v53 = 0u;
+    memset(v52, 0, sizeof(v52));
     v27 = *(a3 + 56);
     v28 = *(a3 + 48);
     v29 = MEMORY[0x29EDC9730];
@@ -9490,13 +8283,13 @@ LABEL_29:
     {
       v32 = *(a3 + 56);
       *buf = 136315906;
-      v46 = "_NFDriverRemoteDevTransceive";
-      v47 = 1024;
-      v48 = 6294;
-      v49 = 2082;
-      v50 = "[Reader R-APDU<]";
-      v51 = 2048;
-      v52 = v32;
+      v45 = "_NFDriverRemoteDevTransceive";
+      v46 = 1024;
+      v47 = 6294;
+      v48 = 2082;
+      v49 = "[Reader R-APDU<]";
+      v50 = 2048;
+      v51 = v32;
       _os_log_impl(&dword_297F97000, v31, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", buf, 0x26u);
     }
 
@@ -9511,7 +8304,7 @@ LABEL_29:
       do
       {
         v34 = 0;
-        v35 = &v53[__sprintf_chk(v53, 0, 0x30uLL, "%04lX: ", v33)];
+        v35 = &v52[__sprintf_chk(v52, 0, 0x30uLL, "%04lX: ", v33)];
         do
         {
           v36 = *(v28 + v33++);
@@ -9531,13 +8324,13 @@ LABEL_29:
         if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446210;
-          v46 = v53;
+          v45 = v52;
           _os_log_impl(&dword_297F97000, v38, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
         }
 
         if (v30)
         {
-          v30(6, "%s", v53);
+          v30(6, "%s", v52);
         }
       }
 
@@ -9549,18 +8342,15 @@ LABEL_29:
 LABEL_51:
   v19[2] = 0;
   sub_297F9FBDC(v19);
-  v39 = *MEMORY[0x29EDCA608];
   return v21;
 }
 
 uint64_t NFDriverRemoteDeviceIso15693Transceive(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, double a5)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   if (!a4)
   {
-LABEL_19:
-    v16 = 5;
-    goto LABEL_31;
+    return 5;
   }
 
   *a4 = 0;
@@ -9580,13 +8370,13 @@ LABEL_19:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v31 = "NFDriverRemoteDeviceIso15693Transceive";
-      v32 = 1024;
-      v33 = 6372;
+      v29 = "NFDriverRemoteDeviceIso15693Transceive";
+      v30 = 1024;
+      v31 = 6372;
       _os_log_impl(&dword_297F97000, v19, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to allocate buffer", buf, 0x12u);
     }
 
-    goto LABEL_24;
+    return 3;
   }
 
   v11 = v10;
@@ -9605,14 +8395,14 @@ LABEL_19:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v31 = "NFDriverRemoteDeviceIso15693Transceive";
-      v32 = 1024;
-      v33 = 6377;
+      v29 = "NFDriverRemoteDeviceIso15693Transceive";
+      v30 = 1024;
+      v31 = 6377;
       _os_log_impl(&dword_297F97000, v22, OS_LOG_TYPE_ERROR, "%{public}s:%i No command APDU provided", buf, 0x12u);
     }
 
     free(v11);
-    goto LABEL_19;
+    return 5;
   }
 
   if (*(a3 + 8) <= 0x10000uLL)
@@ -9638,24 +8428,22 @@ LABEL_19:
       *(v23 + 6) = v11;
       v23[14] = 0x10000;
       v16 = sub_297FC7470(a1, a2, v23, a5);
-      if (v16 || (v26 = v24[14], (v27 = NFDataCreateWithBytesNoCopy()) == 0))
+      if (v16 || (v26 = NFDataCreateWithBytesNoCopy()) == 0)
       {
         free(v11);
       }
 
       else
       {
-        *a4 = v27;
+        *a4 = v26;
       }
 
       free(v24);
-      goto LABEL_31;
+      return v16;
     }
 
     free(v11);
-LABEL_24:
-    v16 = 3;
-    goto LABEL_31;
+    return 3;
   }
 
   v12 = MEMORY[0x29EDC9730];
@@ -9672,29 +8460,24 @@ LABEL_24:
   {
     v15 = *(a3 + 8);
     *buf = 136446722;
-    v31 = "NFDriverRemoteDeviceIso15693Transceive";
-    v32 = 1024;
-    v33 = 6383;
-    v34 = 2048;
-    v35 = v15;
+    v29 = "NFDriverRemoteDeviceIso15693Transceive";
+    v30 = 1024;
+    v31 = 6383;
+    v32 = 2048;
+    v33 = v15;
     _os_log_impl(&dword_297F97000, v14, OS_LOG_TYPE_ERROR, "%{public}s:%i Command is too large: %ld bytes", buf, 0x1Cu);
   }
 
   free(v11);
-  v16 = 8;
-LABEL_31:
-  v28 = *MEMORY[0x29EDCA608];
-  return v16;
+  return 8;
 }
 
 uint64_t NFDriverRemoteDeviceIso14443Transceive(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4, double a5)
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   if (!a4)
   {
-LABEL_19:
-    v16 = 5;
-    goto LABEL_28;
+    return 5;
   }
 
   *a4 = 0;
@@ -9714,13 +8497,13 @@ LABEL_19:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v30 = "NFDriverRemoteDeviceIso14443Transceive";
-      v31 = 1024;
-      v32 = 6437;
+      v28 = "NFDriverRemoteDeviceIso14443Transceive";
+      v29 = 1024;
+      v30 = 6437;
       _os_log_impl(&dword_297F97000, v19, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to allocate buffer", buf, 0x12u);
     }
 
-    goto LABEL_24;
+    return 3;
   }
 
   v11 = v10;
@@ -9739,14 +8522,14 @@ LABEL_19:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v30 = "NFDriverRemoteDeviceIso14443Transceive";
-      v31 = 1024;
-      v32 = 6442;
+      v28 = "NFDriverRemoteDeviceIso14443Transceive";
+      v29 = 1024;
+      v30 = 6442;
       _os_log_impl(&dword_297F97000, v22, OS_LOG_TYPE_ERROR, "%{public}s:%i No command APDU provided", buf, 0x12u);
     }
 
     free(v11);
-    goto LABEL_19;
+    return 5;
   }
 
   if (a3[1] <= 0x10000uLL)
@@ -9761,24 +8544,22 @@ LABEL_19:
       *(v23 + 6) = v11;
       v23[14] = 0x10000;
       v16 = sub_297FC7470(a1, a2, v23, a5);
-      if (v16 || (v25 = v24[14], (v26 = NFDataCreateWithBytesNoCopy()) == 0))
+      if (v16 || (v25 = NFDataCreateWithBytesNoCopy()) == 0)
       {
         free(v11);
       }
 
       else
       {
-        *a4 = v26;
+        *a4 = v25;
       }
 
       free(v24);
-      goto LABEL_28;
+      return v16;
     }
 
     free(v11);
-LABEL_24:
-    v16 = 3;
-    goto LABEL_28;
+    return 3;
   }
 
   v12 = MEMORY[0x29EDC9730];
@@ -9795,34 +8576,31 @@ LABEL_24:
   {
     v15 = a3[1];
     *buf = 136446722;
-    v30 = "NFDriverRemoteDeviceIso14443Transceive";
-    v31 = 1024;
-    v32 = 6448;
-    v33 = 2048;
-    v34 = v15;
+    v28 = "NFDriverRemoteDeviceIso14443Transceive";
+    v29 = 1024;
+    v30 = 6448;
+    v31 = 2048;
+    v32 = v15;
     _os_log_impl(&dword_297F97000, v14, OS_LOG_TYPE_ERROR, "%{public}s:%i Command is too large: %ld bytes", buf, 0x1Cu);
   }
 
   free(v11);
-  v16 = 8;
-LABEL_28:
-  v27 = *MEMORY[0x29EDCA608];
-  return v16;
+  return 8;
 }
 
 uint64_t NFDriverRemoteDevConnect(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   if (a2)
   {
-    v15[0] = MEMORY[0x29EDCA5F8];
-    v15[1] = 0x40000000;
-    v15[2] = sub_297FC83C0;
-    v15[3] = &unk_29EE886D8;
-    v15[4] = a3;
-    v15[5] = a1;
-    v15[6] = a2;
-    v3 = sub_297FA1B10(a1, v15);
+    v14[0] = MEMORY[0x29EDCA5F8];
+    v14[1] = 0x40000000;
+    v14[2] = sub_297FC83C0;
+    v14[3] = &unk_29EE886D8;
+    v14[4] = a3;
+    v14[5] = a1;
+    v14[6] = a2;
+    v3 = sub_297FA1B10(a1, v14);
     if (sub_297F9F694(v3))
     {
       v4 = MEMORY[0x29EDC9730];
@@ -9839,11 +8617,11 @@ uint64_t NFDriverRemoteDevConnect(uint64_t a1, uint64_t a2, uint64_t a3)
       {
         v7 = *v3;
         *buf = 136446722;
-        v17 = "NFDriverRemoteDevConnect";
-        v18 = 1024;
-        v19 = 6536;
-        v20 = 2048;
-        v21 = v7;
+        v16 = "NFDriverRemoteDevConnect";
+        v17 = 1024;
+        v18 = 6536;
+        v19 = 2048;
+        v20 = v7;
         _os_log_impl(&dword_297F97000, v6, OS_LOG_TYPE_ERROR, "%{public}s:%i phLibNfc_RemoteDev_Connect failed: 0x%04llx", buf, 0x1Cu);
       }
 
@@ -9891,15 +8669,1270 @@ uint64_t NFDriverRemoteDevConnect(uint64_t a1, uint64_t a2, uint64_t a3)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v17 = "NFDriverRemoteDevConnect";
-      v18 = 1024;
-      v19 = 6525;
+      v16 = "NFDriverRemoteDevConnect";
+      v17 = 1024;
+      v18 = 6525;
       _os_log_impl(&dword_297F97000, v12, OS_LOG_TYPE_ERROR, "%{public}s:%i No remote tag handle provided", buf, 0x12u);
     }
 
-    v9 = 5;
+    return 5;
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return v9;
+}
+
+void sub_297FC83EC(uint64_t a1, void **a2, uint64_t a3, uint64_t a4, unsigned int a5)
+{
+  if (a2)
+  {
+    if (a4 && !a5)
+    {
+      v7 = a2[2];
+      if ((*(a4 + 4) & 0xFFFFFFFE) == 0xA && v7 != 0)
+      {
+        sub_297FBE6DC(v7, a3, a4);
+      }
+    }
+
+    sub_297F9FB20(a2, a5);
+
+    sub_297F9FBDC(a2);
+  }
+}
+
+uint64_t NFDriverRemoteDevDisconnect(uint64_t a1, uint64_t a2, int a3)
+{
+  v25 = *MEMORY[0x29EDCA608];
+  if (a2)
+  {
+    if (a3)
+    {
+      v3 = *(a1 + 40);
+      v4 = v3 - 1;
+      if (v3 == 3)
+      {
+        v5 = 7;
+      }
+
+      else
+      {
+        v5 = 6;
+      }
+
+      if (v4 < 2)
+      {
+        v5 = 7;
+      }
+    }
+
+    else
+    {
+      v5 = 5;
+    }
+
+    v17[0] = MEMORY[0x29EDCA5F8];
+    v17[1] = 0x40000000;
+    v17[2] = sub_297FC8710;
+    v17[3] = &unk_29EE886F8;
+    v17[4] = a1;
+    v17[5] = a2;
+    v18 = v5;
+    v10 = sub_297FA1B10(a1, v17);
+    if (!sub_297F9F694(v10))
+    {
+      v9 = 0;
+      goto LABEL_31;
+    }
+
+    v11 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      Logger(3, "%s:%i phLibNfc_RemoteDev_Disconnect failed: 0x%04llx", "NFDriverRemoteDevDisconnect", 6584, *v10);
+    }
+
+    dispatch_get_specific(*v11);
+    v13 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v14 = *v10;
+      *buf = 136446722;
+      v20 = "NFDriverRemoteDevDisconnect";
+      v21 = 1024;
+      v22 = 6584;
+      v23 = 2048;
+      v24 = v14;
+      _os_log_impl(&dword_297F97000, v13, OS_LOG_TYPE_ERROR, "%{public}s:%i phLibNfc_RemoteDev_Disconnect failed: 0x%04llx", buf, 0x1Cu);
+    }
+
+    v15 = *v10;
+    if (*v10 <= 120)
+    {
+      if (v15 == 51)
+      {
+        v9 = 19;
+        goto LABEL_31;
+      }
+
+      if (v15 == 58)
+      {
+LABEL_24:
+        v9 = 6;
+LABEL_31:
+        sub_297F9FBDC(v10);
+        return v9;
+      }
+    }
+
+    else
+    {
+      if (v15 == 121)
+      {
+        v9 = 18;
+        goto LABEL_31;
+      }
+
+      if (v15 == 146 || v15 == 148)
+      {
+        goto LABEL_24;
+      }
+    }
+
+    v9 = 1;
+    goto LABEL_31;
+  }
+
+  v6 = MEMORY[0x29EDC9730];
+  dispatch_get_specific(*MEMORY[0x29EDC9730]);
+  v7 = NFLogGetLogger();
+  if (v7)
+  {
+    v7(3, "%s:%i No remote tag handle provided", "NFDriverRemoteDevDisconnect", 6567);
+  }
+
+  dispatch_get_specific(*v6);
+  v8 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136446466;
+    v20 = "NFDriverRemoteDevDisconnect";
+    v21 = 1024;
+    v22 = 6567;
+    _os_log_impl(&dword_297F97000, v8, OS_LOG_TYPE_ERROR, "%{public}s:%i No remote tag handle provided", buf, 0x12u);
+  }
+
+  return 5;
+}
+
+void sub_297FC873C(uint64_t a1, void **a2, uint64_t a3, unsigned int a4)
+{
+  if (a2)
+  {
+    sub_297F9FB20(a2, a4);
+
+    sub_297F9FBDC(a2);
+  }
+}
+
+uint64_t NFDriverRemoteDevCheckNdef(uint64_t a1, uint64_t a2, void *a3)
+{
+  v38 = *MEMORY[0x29EDCA608];
+  v6 = NFSharedSignpostLog();
+  if (os_signpost_enabled(v6))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_297F97000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "NFDriverRemoteDevCheckNdef", &unk_297FE9C47, buf, 2u);
+  }
+
+  *buf = 0;
+  v28 = buf;
+  v29 = 0x2800000000;
+  v30 = 0;
+  v31 = 0;
+  a3[1] = 0;
+  a3[2] = 0;
+  *a3 = 0;
+  if (a2)
+  {
+    v26[0] = MEMORY[0x29EDCA5F8];
+    v26[1] = 0x40000000;
+    v26[2] = sub_297FC8B8C;
+    v26[3] = &unk_29EE88720;
+    v26[4] = buf;
+    v26[5] = a1;
+    v26[6] = a2;
+    v7 = sub_297FA1B10(a1, v26);
+    if (!sub_297F9F694(v7))
+    {
+      v18 = v28;
+      v19 = *(v28 + 28);
+      *&v20 = v19;
+      *(&v20 + 1) = HIDWORD(v19);
+      *a3 = v20;
+      v21 = v18[24];
+      if ((v21 - 1) >= 2)
+      {
+        if (v21 != 3)
+        {
+          v13 = 0;
+          goto LABEL_34;
+        }
+
+        v13 = 0;
+        v22 = 1;
+      }
+
+      else
+      {
+        v13 = 0;
+        v22 = 257;
+      }
+
+      *(a3 + 8) = v22;
+LABEL_34:
+      v23 = NFSharedSignpostLog();
+      if (os_signpost_enabled(v23))
+      {
+        v24 = *v7;
+        *v32 = 134349056;
+        v33 = v24;
+        _os_signpost_emit_with_name_impl(&dword_297F97000, v23, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "NFDriverRemoteDevCheckNdef", " mutexStatus=%{public, signpost.description:attribute}llu ", v32, 0xCu);
+      }
+
+      v7[2] = 0;
+      sub_297F9FBDC(v7);
+      goto LABEL_37;
+    }
+
+    v8 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      Logger(3, "%s:%i phLibNfc_RemoteDev_CheckNdef failed: 0x%04llx", "NFDriverRemoteDevCheckNdef", 6654, *v7);
+    }
+
+    dispatch_get_specific(*v8);
+    v10 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v11 = *v7;
+      *v32 = 136446722;
+      v33 = "NFDriverRemoteDevCheckNdef";
+      v34 = 1024;
+      v35 = 6654;
+      v36 = 2048;
+      v37 = v11;
+      _os_log_impl(&dword_297F97000, v10, OS_LOG_TYPE_ERROR, "%{public}s:%i phLibNfc_RemoteDev_CheckNdef failed: 0x%04llx", v32, 0x1Cu);
+    }
+
+    v12 = *v7;
+    if (*v7 > 148)
+    {
+      if (v12 == 149)
+      {
+        v13 = 5;
+        goto LABEL_34;
+      }
+
+      if (v12 == 152)
+      {
+        v13 = 12;
+        goto LABEL_34;
+      }
+
+      if (v12 != 150)
+      {
+LABEL_13:
+        v13 = 1;
+        goto LABEL_34;
+      }
+    }
+
+    else
+    {
+      if (v12 == 121)
+      {
+        v13 = 18;
+        goto LABEL_34;
+      }
+
+      if (v12 != 146 && v12 != 148)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    v13 = 6;
+    goto LABEL_34;
+  }
+
+  v14 = MEMORY[0x29EDC9730];
+  dispatch_get_specific(*MEMORY[0x29EDC9730]);
+  v15 = NFLogGetLogger();
+  if (v15)
+  {
+    v15(3, "%s:%i No remote tag handle provided", "NFDriverRemoteDevCheckNdef", 6626);
+  }
+
+  dispatch_get_specific(*v14);
+  v16 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  {
+    *v32 = 136446466;
+    v33 = "NFDriverRemoteDevCheckNdef";
+    v34 = 1024;
+    v35 = 6626;
+    _os_log_impl(&dword_297F97000, v16, OS_LOG_TYPE_ERROR, "%{public}s:%i No remote tag handle provided", v32, 0x12u);
+  }
+
+  v17 = NFSharedSignpostLog();
+  if (os_signpost_enabled(v17))
+  {
+    *v32 = 0;
+    _os_signpost_emit_with_name_impl(&dword_297F97000, v17, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "NFDriverRemoteDevCheckNdef", &unk_297FE9C47, v32, 2u);
+  }
+
+  v13 = 5;
+LABEL_37:
+  _Block_object_dispose(buf, 8);
+  return v13;
+}
+
+void sub_297FC8BC4(uint64_t a1, void **a2, uint64_t a3, int a4, unsigned int a5)
+{
+  if (a2)
+  {
+    if (!a5)
+    {
+      v6 = a2[2];
+      if (v6)
+      {
+        *v6 = a3;
+        v6[2] = a4;
+      }
+    }
+
+    sub_297F9FB20(a2, a5);
+
+    sub_297F9FBDC(a2);
+  }
+}
+
+uint64_t NFDriverRemoteDevWriteNdef(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+{
+  v40 = *MEMORY[0x29EDCA608];
+  v8 = NFSharedSignpostLog();
+  if (os_signpost_enabled(v8))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_297F97000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "NFDriverRemoteDevWriteNdef", &unk_297FE9C47, buf, 2u);
+  }
+
+  if (!a2)
+  {
+    v17 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      Logger(3, "%s:%i No remote tag handle provided", "NFDriverRemoteDevWriteNdef", 6695);
+    }
+
+    dispatch_get_specific(*v17);
+    v19 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v35 = "NFDriverRemoteDevWriteNdef";
+      v36 = 1024;
+      v37 = 6695;
+      _os_log_impl(&dword_297F97000, v19, OS_LOG_TYPE_ERROR, "%{public}s:%i No remote tag handle provided", buf, 0x12u);
+    }
+
+    v20 = NFSharedSignpostLog();
+    if (!os_signpost_enabled(v20))
+    {
+      return 5;
+    }
+
+    *buf = 0;
+    goto LABEL_28;
+  }
+
+  if (!a3)
+  {
+    v21 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    v22 = NFLogGetLogger();
+    if (v22)
+    {
+      v22(3, "%s:%i No NDEF write data provided", "NFDriverRemoteDevWriteNdef", 6702);
+    }
+
+    dispatch_get_specific(*v21);
+    v23 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v35 = "NFDriverRemoteDevWriteNdef";
+      v36 = 1024;
+      v37 = 6702;
+      _os_log_impl(&dword_297F97000, v23, OS_LOG_TYPE_ERROR, "%{public}s:%i No NDEF write data provided", buf, 0x12u);
+    }
+
+    v20 = NFSharedSignpostLog();
+    if (!os_signpost_enabled(v20))
+    {
+      return 5;
+    }
+
+    *buf = 0;
+LABEL_28:
+    _os_signpost_emit_with_name_impl(&dword_297F97000, v20, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "NFDriverRemoteDevWriteNdef", &unk_297FE9C47, buf, 2u);
+    return 5;
+  }
+
+  v9 = sub_297FA02E4(*(a3 + 8), *a3);
+  v33 = v9;
+  if (v9)
+  {
+    v31[0] = MEMORY[0x29EDCA5F8];
+    v31[1] = 0x40000000;
+    v31[2] = sub_297FC91A4;
+    v31[3] = &unk_29EE88740;
+    v31[4] = a1;
+    v31[5] = a2;
+    v31[6] = v9;
+    v32 = a4;
+    v10 = sub_297FA1B10(a1, v31);
+    if (sub_297F9F694(v10))
+    {
+      v11 = MEMORY[0x29EDC9730];
+      dispatch_get_specific(*MEMORY[0x29EDC9730]);
+      v12 = NFLogGetLogger();
+      if (v12)
+      {
+        v12(3, "%s:%i phLibNfc_Ndef_Write failed: 0x%04llx", "NFDriverRemoteDevWriteNdef", 6721, *v10);
+      }
+
+      dispatch_get_specific(*v11);
+      v13 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        v14 = *v10;
+        *buf = 136446722;
+        v35 = "NFDriverRemoteDevWriteNdef";
+        v36 = 1024;
+        v37 = 6721;
+        v38 = 2048;
+        v39 = v14;
+        _os_log_impl(&dword_297F97000, v13, OS_LOG_TYPE_ERROR, "%{public}s:%i phLibNfc_Ndef_Write failed: 0x%04llx", buf, 0x1Cu);
+      }
+
+      v15 = *v10;
+      v16 = 6;
+      if (*v10 > 148)
+      {
+        if (v15 == 149)
+        {
+          v16 = 5;
+        }
+
+        else if (v15 != 255)
+        {
+          if (v15 != 152)
+          {
+LABEL_48:
+            v16 = 1;
+            goto LABEL_38;
+          }
+
+          v16 = 12;
+        }
+      }
+
+      else
+      {
+        switch(v15)
+        {
+          case 31:
+            v16 = 15;
+            break;
+          case 121:
+            v16 = 18;
+            break;
+          case 148:
+            break;
+          default:
+            goto LABEL_48;
+        }
+      }
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+
+LABEL_38:
+    v28 = NFSharedSignpostLog();
+    if (os_signpost_enabled(v28))
+    {
+      v29 = *v10;
+      *buf = 134349056;
+      v35 = v29;
+      _os_signpost_emit_with_name_impl(&dword_297F97000, v28, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "NFDriverRemoteDevWriteNdef", " mutexStatus=%{public, signpost.description:attribute}llu ", buf, 0xCu);
+    }
+
+    sub_297F9FBDC(v10);
+    sub_297FA0714(&v33);
+    return v16;
+  }
+
+  v24 = MEMORY[0x29EDC9730];
+  dispatch_get_specific(*MEMORY[0x29EDC9730]);
+  v25 = NFLogGetLogger();
+  if (v25)
+  {
+    v25(3, "%s:%i Failed to allocate buffer", "NFDriverRemoteDevWriteNdef", 6710);
+  }
+
+  dispatch_get_specific(*v24);
+  v26 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136446466;
+    v35 = "NFDriverRemoteDevWriteNdef";
+    v36 = 1024;
+    v37 = 6710;
+    _os_log_impl(&dword_297F97000, v26, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to allocate buffer", buf, 0x12u);
+  }
+
+  v27 = NFSharedSignpostLog();
+  if (os_signpost_enabled(v27))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_297F97000, v27, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "NFDriverRemoteDevWriteNdef", &unk_297FE9C47, buf, 2u);
+  }
+
+  return 3;
+}
+
+void sub_297FC91D8(uint64_t a1, void **a2, unsigned int a3)
+{
+  if (a2)
+  {
+    sub_297F9FB20(a2, a3);
+
+    sub_297F9FBDC(a2);
+  }
+}
+
+uint64_t NFDriverRemoteDevFormatNdef(uint64_t a1, uint64_t a2, uint64_t *a3)
+{
+  v25 = *MEMORY[0x29EDCA608];
+  v16[0] = 0;
+  v16[1] = v16;
+  v16[2] = 0x2800000000;
+  v17 = 0;
+  v18 = 0;
+  if (a2)
+  {
+    if (a3)
+    {
+      v3 = *a3;
+      v4 = *(a3 + 2);
+    }
+
+    else
+    {
+      v3 = 0;
+      v4 = 0;
+    }
+
+    v17 = v3;
+    LODWORD(v18) = v4;
+    v15[0] = MEMORY[0x29EDCA5F8];
+    v15[1] = 0x40000000;
+    v15[2] = sub_297FC94A8;
+    v15[3] = &unk_29EE88768;
+    v15[4] = v16;
+    v15[5] = a1;
+    v15[6] = a2;
+    v9 = sub_297FA1B10(a1, v15);
+    if (sub_297F9F694(v9))
+    {
+      v10 = MEMORY[0x29EDC9730];
+      dispatch_get_specific(*MEMORY[0x29EDC9730]);
+      Logger = NFLogGetLogger();
+      if (Logger)
+      {
+        Logger(3, "%s:%i phLibNfc_RemoteDev_FormatNdef failed: 0x%04llx", "NFDriverRemoteDevFormatNdef", 6777, *v9);
+      }
+
+      dispatch_get_specific(*v10);
+      v12 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        v13 = *v9;
+        *buf = 136446722;
+        v20 = "NFDriverRemoteDevFormatNdef";
+        v21 = 1024;
+        v22 = 6777;
+        v23 = 2048;
+        v24 = v13;
+        _os_log_impl(&dword_297F97000, v12, OS_LOG_TYPE_ERROR, "%{public}s:%i phLibNfc_RemoteDev_FormatNdef failed: 0x%04llx", buf, 0x1Cu);
+      }
+
+      if (*v9 == 121)
+      {
+        v8 = 18;
+      }
+
+      else
+      {
+        v8 = 0;
+      }
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    sub_297F9FBDC(v9);
+  }
+
+  else
+  {
+    v5 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    v6 = NFLogGetLogger();
+    if (v6)
+    {
+      v6(3, "%s:%i No remote tag handle provided", "NFDriverRemoteDevFormatNdef", 6765);
+    }
+
+    dispatch_get_specific(*v5);
+    v7 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v20 = "NFDriverRemoteDevFormatNdef";
+      v21 = 1024;
+      v22 = 6765;
+      _os_log_impl(&dword_297F97000, v7, OS_LOG_TYPE_ERROR, "%{public}s:%i No remote tag handle provided", buf, 0x12u);
+    }
+
+    v8 = 5;
+  }
+
+  _Block_object_dispose(v16, 8);
+  return v8;
+}
+
+void sub_297FC94EC(uint64_t a1, void **a2, unsigned int a3)
+{
+  if (a2)
+  {
+    sub_297F9FB20(a2, a3);
+
+    sub_297F9FBDC(a2);
+  }
+}
+
+uint64_t NFDriverRemoteDevWriteLockNdef(uint64_t a1, uint64_t a2)
+{
+  v20 = *MEMORY[0x29EDCA608];
+  if (a2)
+  {
+    v13[0] = MEMORY[0x29EDCA5F8];
+    v13[1] = 0x40000000;
+    v13[2] = sub_297FC9798;
+    v13[3] = &unk_29EE88788;
+    v13[4] = a1;
+    v13[5] = a2;
+    v2 = sub_297FA1B10(a1, v13);
+    if (sub_297F9F694(v2))
+    {
+      v3 = MEMORY[0x29EDC9730];
+      dispatch_get_specific(*MEMORY[0x29EDC9730]);
+      Logger = NFLogGetLogger();
+      if (Logger)
+      {
+        Logger(3, "%s:%i phLibNfc_RemoteDev_CheckPresence failed: 0x%04llx", "NFDriverRemoteDevWriteLockNdef", 6812, *v2);
+      }
+
+      dispatch_get_specific(*v3);
+      v5 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        v6 = *v2;
+        *buf = 136446722;
+        v15 = "NFDriverRemoteDevWriteLockNdef";
+        v16 = 1024;
+        v17 = 6812;
+        v18 = 2048;
+        v19 = v6;
+        _os_log_impl(&dword_297F97000, v5, OS_LOG_TYPE_ERROR, "%{public}s:%i phLibNfc_RemoteDev_CheckPresence failed: 0x%04llx", buf, 0x1Cu);
+      }
+
+      v7 = *v2;
+      if (*v2 == 121)
+      {
+        v8 = 18;
+      }
+
+      else if (v7 == 150)
+      {
+        v8 = 6;
+      }
+
+      else if (v7 == 152)
+      {
+        v8 = 12;
+      }
+
+      else
+      {
+        v8 = 1;
+      }
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    sub_297F9FBDC(v2);
+  }
+
+  else
+  {
+    v9 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    v10 = NFLogGetLogger();
+    if (v10)
+    {
+      v10(3, "%s:%i No remote tag handle provided", "NFDriverRemoteDevWriteLockNdef", 6804);
+    }
+
+    dispatch_get_specific(*v9);
+    v11 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v15 = "NFDriverRemoteDevWriteLockNdef";
+      v16 = 1024;
+      v17 = 6804;
+      _os_log_impl(&dword_297F97000, v11, OS_LOG_TYPE_ERROR, "%{public}s:%i No remote tag handle provided", buf, 0x12u);
+    }
+
+    return 5;
+  }
+
+  return v8;
+}
+
+void sub_297FC97C0(uint64_t a1, void **a2, unsigned int a3)
+{
+  if (a2)
+  {
+    sub_297F9FB20(a2, a3);
+
+    sub_297F9FBDC(a2);
+  }
+}
+
+uint64_t NFDriverRemoteDevCheckPresence(uint64_t a1, uint64_t a2)
+{
+  v19 = *MEMORY[0x29EDCA608];
+  if (a2)
+  {
+    v12[0] = MEMORY[0x29EDCA5F8];
+    v12[1] = 0x40000000;
+    v12[2] = sub_297FC9A48;
+    v12[3] = &unk_29EE887A8;
+    v12[4] = a1;
+    v12[5] = a2;
+    v2 = sub_297FA1B10(a1, v12);
+    if (sub_297F9F694(v2))
+    {
+      v3 = MEMORY[0x29EDC9730];
+      dispatch_get_specific(*MEMORY[0x29EDC9730]);
+      Logger = NFLogGetLogger();
+      if (Logger)
+      {
+        Logger(3, "%s:%i phLibNfc_RemoteDev_CheckPresence failed: 0x%04llx", "NFDriverRemoteDevCheckPresence", 6853, *v2);
+      }
+
+      dispatch_get_specific(*v3);
+      v5 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        v6 = *v2;
+        *buf = 136446722;
+        v14 = "NFDriverRemoteDevCheckPresence";
+        v15 = 1024;
+        v16 = 6853;
+        v17 = 2048;
+        v18 = v6;
+        _os_log_impl(&dword_297F97000, v5, OS_LOG_TYPE_ERROR, "%{public}s:%i phLibNfc_RemoteDev_CheckPresence failed: 0x%04llx", buf, 0x1Cu);
+      }
+
+      if (*v2 == 121)
+      {
+        v7 = 18;
+      }
+
+      else
+      {
+        v7 = 6;
+      }
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    sub_297F9FBDC(v2);
+  }
+
+  else
+  {
+    v8 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    v9 = NFLogGetLogger();
+    if (v9)
+    {
+      v9(3, "%s:%i No remote tag handle provided", "NFDriverRemoteDevCheckPresence", 6845);
+    }
+
+    dispatch_get_specific(*v8);
+    v10 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v14 = "NFDriverRemoteDevCheckPresence";
+      v15 = 1024;
+      v16 = 6845;
+      _os_log_impl(&dword_297F97000, v10, OS_LOG_TYPE_ERROR, "%{public}s:%i No remote tag handle provided", buf, 0x12u);
+    }
+
+    return 5;
+  }
+
+  return v7;
+}
+
+void sub_297FC9A6C(uint64_t a1, void **a2, unsigned int a3)
+{
+  if (a2)
+  {
+    sub_297F9FB20(a2, a3);
+
+    sub_297F9FBDC(a2);
+  }
+}
+
+uint64_t NFDriverRemoteDevReadNdef(uint64_t a1, uint64_t a2, void *a3, _DWORD *a4)
+{
+  v44 = *MEMORY[0x29EDCA608];
+  v8 = NFSharedSignpostLog();
+  if (os_signpost_enabled(v8))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_297F97000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "NFDriverRemoteDevReadNdef", &unk_297FE9C47, buf, 2u);
+  }
+
+  if (!a2)
+  {
+    v19 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      Logger(3, "%s:%i No remote tag handle provided", "NFDriverRemoteDevReadNdef", 6884);
+    }
+
+    dispatch_get_specific(*v19);
+    v21 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v39 = "NFDriverRemoteDevReadNdef";
+      v40 = 1024;
+      v41 = 6884;
+      _os_log_impl(&dword_297F97000, v21, OS_LOG_TYPE_ERROR, "%{public}s:%i No remote tag handle provided", buf, 0x12u);
+    }
+
+    v18 = NFSharedSignpostLog();
+    if (!os_signpost_enabled(v18))
+    {
+      return 5;
+    }
+
+    *buf = 0;
+    goto LABEL_26;
+  }
+
+  if (!a3 || (v9 = a3[1]) == 0)
+  {
+    v15 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    v16 = NFLogGetLogger();
+    if (v16)
+    {
+      v16(3, "%s:%i Invalid buffer", "NFDriverRemoteDevReadNdef", 6890);
+    }
+
+    dispatch_get_specific(*v15);
+    v17 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v39 = "NFDriverRemoteDevReadNdef";
+      v40 = 1024;
+      v41 = 6890;
+      _os_log_impl(&dword_297F97000, v17, OS_LOG_TYPE_ERROR, "%{public}s:%i Invalid buffer", buf, 0x12u);
+    }
+
+    v18 = NFSharedSignpostLog();
+    if (!os_signpost_enabled(v18))
+    {
+      return 5;
+    }
+
+    *buf = 0;
+LABEL_26:
+    _os_signpost_emit_with_name_impl(&dword_297F97000, v18, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "NFDriverRemoteDevReadNdef", &unk_297FE9C47, buf, 2u);
+    return 5;
+  }
+
+  if (v9 > 0x8000)
+  {
+    v10 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    v11 = NFLogGetLogger();
+    if (v11)
+    {
+      v11(3, "%s:%i Requested read size is over the limit", "NFDriverRemoteDevReadNdef", 6894);
+    }
+
+    dispatch_get_specific(*v10);
+    v12 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v39 = "NFDriverRemoteDevReadNdef";
+      v40 = 1024;
+      v41 = 6894;
+      _os_log_impl(&dword_297F97000, v12, OS_LOG_TYPE_ERROR, "%{public}s:%i Requested read size is over the limit", buf, 0x12u);
+    }
+
+    v13 = NFSharedSignpostLog();
+    if (os_signpost_enabled(v13))
+    {
+      *buf = 0;
+      _os_signpost_emit_with_name_impl(&dword_297F97000, v13, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "NFDriverRemoteDevReadNdef", &unk_297FE9C47, buf, 2u);
+    }
+
+    return 15;
+  }
+
+  v23 = malloc_type_calloc(1uLL, 0x10uLL, 0x1010040A1D9428BuLL);
+  if (v23)
+  {
+    v24 = v23;
+    *v23 = *a3;
+    v23[2] = a3[1];
+    v37[0] = MEMORY[0x29EDCA5F8];
+    v37[1] = 0x40000000;
+    v37[2] = sub_297FCA15C;
+    v37[3] = &unk_29EE887C8;
+    v37[4] = a1;
+    v37[5] = a2;
+    v37[6] = v23;
+    v25 = sub_297FA1B10(a1, v37);
+    if (sub_297F9F694(v25))
+    {
+      v26 = MEMORY[0x29EDC9730];
+      dispatch_get_specific(*MEMORY[0x29EDC9730]);
+      v27 = NFLogGetLogger();
+      if (v27)
+      {
+        v27(3, "%s:%i phLibNfc_Ndef_Read failed: 0x%04llx", "NFDriverRemoteDevReadNdef", 6916, *v25);
+      }
+
+      dispatch_get_specific(*v26);
+      v28 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        v29 = *v25;
+        *buf = 136446722;
+        v39 = "NFDriverRemoteDevReadNdef";
+        v40 = 1024;
+        v41 = 6916;
+        v42 = 2048;
+        v43 = v29;
+        _os_log_impl(&dword_297F97000, v28, OS_LOG_TYPE_ERROR, "%{public}s:%i phLibNfc_Ndef_Read failed: 0x%04llx", buf, 0x1Cu);
+      }
+
+      v30 = *v25;
+      if (*v25 > 151)
+      {
+        v14 = 12;
+        if (v30 == 152 || v30 == 255)
+        {
+          goto LABEL_48;
+        }
+
+        if (v30 == 157)
+        {
+          v14 = 0;
+          *a4 = 0;
+          goto LABEL_48;
+        }
+      }
+
+      else
+      {
+        if (v30 == 121)
+        {
+          v14 = 18;
+          goto LABEL_48;
+        }
+
+        if (v30 == 148)
+        {
+          v14 = 6;
+          goto LABEL_48;
+        }
+
+        if (v30 == 149)
+        {
+          v14 = 5;
+LABEL_48:
+          v35 = NFSharedSignpostLog();
+          if (os_signpost_enabled(v35))
+          {
+            v36 = *v25;
+            *buf = 134349056;
+            v39 = v36;
+            _os_signpost_emit_with_name_impl(&dword_297F97000, v35, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "NFDriverRemoteDevReadNdef", " mutexStatus=%{public, signpost.description:attribute}llu ", buf, 0xCu);
+          }
+
+          sub_297F9FBDC(v25);
+          free(v24);
+          return v14;
+        }
+      }
+
+      v14 = 1;
+      goto LABEL_48;
+    }
+
+    v14 = 0;
+    *a4 = v24[2];
+    goto LABEL_48;
+  }
+
+  v31 = MEMORY[0x29EDC9730];
+  dispatch_get_specific(*MEMORY[0x29EDC9730]);
+  v32 = NFLogGetLogger();
+  if (v32)
+  {
+    v32(3, "%s:%i Failed to allocate buffer", "NFDriverRemoteDevReadNdef", 6901);
+  }
+
+  dispatch_get_specific(*v31);
+  v33 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136446466;
+    v39 = "NFDriverRemoteDevReadNdef";
+    v40 = 1024;
+    v41 = 6901;
+    _os_log_impl(&dword_297F97000, v33, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to allocate buffer", buf, 0x12u);
+  }
+
+  v34 = NFSharedSignpostLog();
+  if (os_signpost_enabled(v34))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_297F97000, v34, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "NFDriverRemoteDevReadNdef", &unk_297FE9C47, buf, 2u);
+  }
+
+  return 3;
+}
+
+uint64_t sub_297FCA15C(void *a1, uint64_t a2)
+{
+  sub_297F9F5F4(a2, 5.0);
+  v4 = a1[5];
+  v5 = *(*(a1[4] + 24) + 576);
+  v6 = a1[6];
+
+  return MEMORY[0x2A1C6E4F8](v5, v4, v6, 1, sub_297FCA1C4, a2);
+}
+
+void sub_297FCA1C4(uint64_t a1, void **a2, unsigned int a3)
+{
+  if (a2)
+  {
+    sub_297F9FB20(a2, a3);
+
+    sub_297F9FBDC(a2);
+  }
+}
+
+BOOL NFDriverRemoteDevSend(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
+{
+  v42 = *MEMORY[0x29EDCA608];
+  v8 = malloc_type_calloc(1uLL, 0x10uLL, 0x1010040A1D9428BuLL);
+  if (!v8)
+  {
+    return 0;
+  }
+
+  v9 = v8;
+  *v8 = a3;
+  *(v8 + 2) = a4;
+  if (!a2)
+  {
+    v25 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      Logger(3, "%s:%i No remote tag handle provided", "NFDriverRemoteDevSend", 6969);
+    }
+
+    dispatch_get_specific(*v25);
+    v27 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      *v40 = 136446466;
+      *&v40[4] = "NFDriverRemoteDevSend";
+      *&v40[12] = 1024;
+      *&v40[14] = 6969;
+      _os_log_impl(&dword_297F97000, v27, OS_LOG_TYPE_ERROR, "%{public}s:%i No remote tag handle provided", v40, 0x12u);
+    }
+
+    free(v9);
+    return 0;
+  }
+
+  if ((*(*(a1 + 24) + 584) & 0x10) != 0)
+  {
+    v29 = a1;
+    v30 = v8;
+    v41 = 0u;
+    memset(v40, 0, sizeof(v40));
+    v10 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    v11 = NFLogGetLogger();
+    dispatch_get_specific(*v10);
+    v12 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315906;
+      v33 = "NFDriverRemoteDevSend";
+      v34 = 1024;
+      v35 = 6976;
+      v36 = 2082;
+      v37 = "[HCE C-APDU>]";
+      v38 = 2048;
+      v39 = a4;
+      _os_log_impl(&dword_297F97000, v12, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", buf, 0x26u);
+    }
+
+    if (v11)
+    {
+      v11(6, "%s:%i %s %lu bytes :", "NFDriverRemoteDevSend", 6976, "[HCE C-APDU>]", a4);
+    }
+
+    if (a4)
+    {
+      v13 = 0;
+      do
+      {
+        v14 = 0;
+        v15 = &v40[__sprintf_chk(v40, 0, 0x30uLL, "%04lX: ", v13)];
+        do
+        {
+          v16 = *(a3 + v13++);
+          v17 = sprintf(v15, "0x%02X ", v16);
+          if (v14 > 6)
+          {
+            break;
+          }
+
+          v15 += v17;
+          ++v14;
+        }
+
+        while (v13 < a4);
+        dispatch_get_specific(*MEMORY[0x29EDC9730]);
+        v18 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136446210;
+          v33 = v40;
+          _os_log_impl(&dword_297F97000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
+        }
+
+        if (v11)
+        {
+          v11(6, "%s", v40);
+        }
+      }
+
+      while (v13 < a4);
+    }
+
+    a1 = v29;
+    v9 = v30;
+  }
+
+  v31[0] = MEMORY[0x29EDCA5F8];
+  v31[1] = 0x40000000;
+  v31[2] = sub_297FCA690;
+  v31[3] = &unk_29EE887E8;
+  v31[4] = a1;
+  v31[5] = a2;
+  v31[6] = v9;
+  v19 = sub_297FA1B10(a1, v31);
+  v20 = sub_297F9F694(v19);
+  v21 = v20 == 0;
+  if (v20)
+  {
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    v22 = NFLogGetLogger();
+    if (v22)
+    {
+      v22(3, "%s:%i phLibNfc_RemoteDev_Send failed 0x%04llx", "NFDriverRemoteDevSend", 6984, *v19);
+    }
+
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    v23 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      v24 = *v19;
+      *v40 = 136446722;
+      *&v40[4] = "NFDriverRemoteDevSend";
+      *&v40[12] = 1024;
+      *&v40[14] = 6984;
+      *&v40[18] = 2048;
+      *&v40[20] = v24;
+      _os_log_impl(&dword_297F97000, v23, OS_LOG_TYPE_ERROR, "%{public}s:%i phLibNfc_RemoteDev_Send failed 0x%04llx", v40, 0x1Cu);
+    }
+  }
+
+  sub_297F9FBDC(v19);
+  free(v9);
+  return v21;
 }

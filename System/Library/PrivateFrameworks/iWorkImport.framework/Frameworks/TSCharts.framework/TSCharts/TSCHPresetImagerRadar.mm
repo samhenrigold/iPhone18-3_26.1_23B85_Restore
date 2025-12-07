@@ -123,7 +123,7 @@
 {
   height = size.height;
   width = size.width;
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   presetCopy = preset;
   isEllipticalWithPreset = objc_msgSend_p_isEllipticalWithPreset_(self, v13, v14, v15, v16, presetCopy);
   objc_msgSend_p_squareRectFromSize_inset_(self, v18, width, height, 5.0);
@@ -139,9 +139,9 @@
   TSUCenterOfRect();
   TSUAddPoints();
   CGContextTranslateCTM(context, v26, v27);
-  v106 = presetCopy;
-  v110 = objc_msgSend_seriesStyles(presetCopy, v28, v29, v30, v31);
-  v109 = objc_msgSend_count(v110, v32, v33, v34, v35);
+  v105 = presetCopy;
+  v109 = objc_msgSend_seriesStyles(presetCopy, v28, v29, v30, v31);
+  v108 = objc_msgSend_count(v109, v32, v33, v34, v35);
   v36 = 1;
   v37 = 0uLL;
   v38 = &unk_2764D6FA8;
@@ -152,53 +152,53 @@
     v40 = v36;
     do
     {
-      v111 = v23 * (v38[v39] / 100.0);
-      *&v113.a = v37;
-      *&v113.c = v37;
-      *&v113.tx = v37;
-      CGAffineTransformMakeRotation(&v113, v39 * -1.25663706);
+      v110 = v23 * (v38[v39] / 100.0);
+      *&v112.a = v37;
+      *&v112.c = v37;
+      *&v112.tx = v37;
+      CGAffineTransformMakeRotation(&v112, v39 * -1.25663706);
       v37 = 0uLL;
-      tx = v113.tx;
-      v43 = vmlaq_f64(vmulq_n_f64(*&v113.c, v111), 0, *&v113.a);
-      v44 = vaddq_f64(*&v113.tx, v43);
-      v114[v39++] = v44;
+      tx = v112.tx;
+      v43 = vmlaq_f64(vmulq_n_f64(*&v112.c, v110), 0, *&v112.a);
+      v44 = vaddq_f64(*&v112.tx, v43);
+      v113[v39++] = v44;
     }
 
     while (v39 != 5);
-    v45 = objc_msgSend_objectAtIndexedSubscript_(v110, v41, v44.f64[0], v43.f64[0], tx, v40 % v109);
+    v45 = objc_msgSend_objectAtIndexedSubscript_(v109, v41, v44.f64[0], v43.f64[0], tx, v40 % v108);
     v50 = objc_msgSend_p_strokeFromStyle_specific_default_(self, v46, v47, v48, v49, v45, 1505, 0);
     v55 = objc_msgSend_p_objectFromStyle_specific_default_(self, v51, v52, v53, v54, v45, 1415, 0);
     objc_msgSend_width(v50, v56, v57, v58, v59);
     v61 = v60 + v60;
     v65 = objc_msgSend_cap(v50, v62, v60, v63, v64);
-    sub_27628CBE8(contextCopy2, v114, 5uLL, 1u, v65, v61, v66, v67);
-    v69 = sub_2762A1ACC(v114, 5uLL, 1);
+    sub_27628CBE8(contextCopy2, v113, 5uLL, 1, v65, v61, v66, v67);
+    v69 = sub_2762A1ACC(v113, 5uLL, 1);
     if (v50)
     {
       v73 = objc_msgSend_boxedValueForProperty_(v45, v68, v70, v71, v72, 1417);
       if (objc_msgSend_BOOLValue(v73, v74, v75, v76, v77))
       {
-        v82 = objc_msgSend_color(v50, v78, v79, v80, v81);
-        v112 = v82;
-        objc_msgSend_floatValueForProperty_(v45, v83, v84, v85, v86, 1416);
-        LODWORD(v90) = 2139095040;
-        if (*&v88 == INFINITY)
+        v81 = objc_msgSend_color(v50, v78, v79, v80);
+        v111 = v81;
+        objc_msgSend_floatValueForProperty_(v45, v82, v83, v84, v85, 1416);
+        LODWORD(v89) = 2139095040;
+        if (*&v87 == INFINITY)
         {
-          v91 = 0.15;
+          v90 = 0.15;
         }
 
         else
         {
-          v91 = *&v88;
+          v90 = *&v87;
         }
 
-        objc_msgSend_alphaComponent(v82, v87, v88, v90, v89);
-        *&v92 = v92 * v91;
-        v93 = MEMORY[0x277D801F8];
-        v96 = objc_msgSend_colorWithAlphaComponent_(v82, v94, *&v92, v91, v95);
-        v101 = objc_msgSend_colorWithColor_(v93, v97, v98, v99, v100, v96);
+        objc_msgSend_alphaComponent(v81, v86, v87, v89, v88);
+        *&v91 = v91 * v90;
+        v92 = MEMORY[0x277D801F8];
+        v95 = objc_msgSend_colorWithAlphaComponent_(v81, v93, *&v91, v90, v94);
+        v100 = objc_msgSend_colorWithColor_(v92, v96, v97, v98, v99, v95);
 
-        v55 = v101;
+        v55 = v100;
         contextCopy2 = context;
       }
 
@@ -208,7 +208,7 @@
     if (v55)
     {
       CGContextSaveGState(contextCopy2);
-      objc_msgSend_p_fillPath_withFill_inContext_(self, v102, v103, v104, v105, v69, v55, contextCopy2);
+      objc_msgSend_p_fillPath_withFill_inContext_(self, v101, v102, v103, v104, v69, v55, contextCopy2);
       CGContextRestoreGState(contextCopy2);
     }
 

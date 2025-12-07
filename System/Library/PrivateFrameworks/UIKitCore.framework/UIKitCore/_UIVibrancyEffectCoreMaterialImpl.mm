@@ -126,9 +126,9 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      v13 = [(NSString *)v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if (v13)
+      if (isEqual)
       {
 LABEL_14:
         darkMaterial = self->_darkMaterial;
@@ -145,7 +145,7 @@ LABEL_14:
           v12 = 0;
           if (v8 && v15)
           {
-            v12 = [(NSString *)v8 isEqual:v15];
+            v12 = objc_msgSend_isEqual_(v8);
           }
         }
 

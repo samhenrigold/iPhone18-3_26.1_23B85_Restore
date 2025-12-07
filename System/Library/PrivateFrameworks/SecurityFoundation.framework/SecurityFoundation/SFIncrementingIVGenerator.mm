@@ -53,10 +53,7 @@
 
 - (void)setMessageID:(id)d
 {
-  v4 = [d copy];
-  incrementingIVGeneratorInternal = self->_incrementingIVGeneratorInternal;
-  v6 = incrementingIVGeneratorInternal[1];
-  incrementingIVGeneratorInternal[1] = v4;
+  *(self->_incrementingIVGeneratorInternal + 1) = [d copy];
 
   MEMORY[0x2821F96F8]();
 }

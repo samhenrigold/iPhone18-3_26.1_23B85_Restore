@@ -492,7 +492,7 @@ void __62__SBMenuBarManager__setMenuBarVisible_animated_userInitiated___block_in
     return 0;
   }
 
-  [(UIStatusBar *)self->_menuBarStatusBar frame];
+  objc_msgSend_frame(self->_menuBarStatusBar);
   v39.x = v7;
   v39.y = v8;
   if (!CGRectContainsPoint(v43, v39))
@@ -508,7 +508,7 @@ void __62__SBMenuBarManager__setMenuBarVisible_animated_userInitiated___block_in
   v16 = v15;
   v18 = v17;
   view = [(SBMenuBarViewController *)self->_menuBarViewController view];
-  [view frame];
+  objc_msgSend_frame(view);
   [view convertRect:self->_menuBarWindow toView:?];
   v37 = v21;
   v38 = v20;
@@ -867,7 +867,7 @@ void __31__SBMenuBarManager_peekMenuBar__block_invoke_3(uint64_t a1)
 
 - (double)maximumContentWidthForMenuBarViewController:(id)controller
 {
-  [(UIStatusBar *)self->_menuBarStatusBar frame];
+  objc_msgSend_frame(self->_menuBarStatusBar, a2, controller);
   v5 = v4;
   statusBar = [(UIStatusBar *)self->_menuBarStatusBar statusBar];
   [statusBar maximumPossibleMenuBarWidth];

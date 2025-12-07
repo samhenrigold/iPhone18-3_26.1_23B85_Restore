@@ -62,28 +62,29 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v14 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)self initWithProto:v14];
+      [(ATXDigestTimeline *)self initWithProto:v15];
     }
 
     goto LABEL_7;
   }
 
-  v5 = MEMORY[0x1E696AFB0];
-  v6 = protoCopy;
-  v7 = [v5 alloc];
-  sessionUUID = [v6 sessionUUID];
-  v9 = [v7 initWithUUIDString:sessionUUID];
+  v6 = MEMORY[0x1E696AFB0];
+  v7 = protoCopy;
+  v8 = [v6 alloc];
+  sessionUUID = [v7 sessionUUID];
+  v10 = [v8 initWithUUIDString:sessionUUID];
 
-  digestOnboardingSuggestionOutcome = [v6 digestOnboardingSuggestionOutcome];
-  [v6 timeToResolution];
-  v12 = v11;
+  digestOnboardingSuggestionOutcome = [v7 digestOnboardingSuggestionOutcome];
+  [v7 timeToResolution];
+  v13 = v12;
 
-  self = [(ATXDigestOnboardingSuggestionLoggingEvent *)self initWithSessionUUID:v9 outcome:digestOnboardingSuggestionOutcome timeToResolution:v12];
+  self = [(ATXDigestOnboardingSuggestionLoggingEvent *)self initWithSessionUUID:v10 outcome:digestOnboardingSuggestionOutcome timeToResolution:v13];
   selfCopy = self;
 LABEL_8:
 

@@ -14,7 +14,7 @@
 
 - (void)_materialDidReceiveLuma:(double)luma
 {
-  sub_188A34624(0, &qword_1ED48F680);
+  sub_188A34624(0, &qword_1ED48F680, off_1E70EAD78);
   selfCopy = self;
   v6 = MEMORY[0x18CFE1B90](0.5, 1.0, 0.0);
   v7 = swift_allocObject();

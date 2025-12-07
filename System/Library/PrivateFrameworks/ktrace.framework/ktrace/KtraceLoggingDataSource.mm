@@ -40,29 +40,29 @@
 
 BOOL __46__KtraceLoggingDataSource_initWithKtraceFile___block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v4 = ktrace_chunk_tag(a2);
-  if (v4 == 32786)
+  v5 = ktrace_chunk_tag(a2, a2);
+  if (v5 == 32786)
   {
-    v5 = ktrace_chunk_size_t(a2);
-    v6 = malloc_type_malloc(v5, 0xDAF1C3B1uLL);
-    if (!v6)
+    v6 = ktrace_chunk_size_t(a2, v4);
+    v7 = malloc_type_malloc(v6, 0xDAF1C3B1uLL);
+    if (!v7)
     {
       ktrace_postprocess_file_internal_cold_4();
     }
 
-    v7 = v6;
-    if (ktrace_chunk_copy_data(a2, 0, v6, v5))
+    v8 = v7;
+    if (ktrace_chunk_copy_data(a2, 0, v7, v6))
     {
-      free(v7);
+      free(v8);
     }
 
     else
     {
-      [*(a1 + 32) set_metadata:{objc_msgSend(MEMORY[0x277CBEA90], "dataWithBytesNoCopy:length:", v7, v5)}];
+      [*(a1 + 32) set_metadata:{objc_msgSend(MEMORY[0x277CBEA90], "dataWithBytesNoCopy:length:", v8, v6)}];
     }
   }
 
-  return v4 != 32786;
+  return v5 != 32786;
 }
 
 - (id)nextEventDataChunk
@@ -104,30 +104,30 @@ uint64_t __45__KtraceLoggingDataSource_nextEventDataChunk__block_invoke(uint64_t
     return 1;
   }
 
-  if (ktrace_chunk_tag(a2) != 32785)
+  if (ktrace_chunk_tag(a2, a2) != 32785)
   {
     return 1;
   }
 
-  v5 = ktrace_chunk_size_t(a2);
-  v6 = malloc_type_malloc(v5, 0xBA2EB58DuLL);
-  if (!v6)
+  v6 = ktrace_chunk_size_t(a2, v5);
+  v7 = malloc_type_malloc(v6, 0xBA2EB58DuLL);
+  if (!v7)
   {
     ktrace_postprocess_file_internal_cold_4();
   }
 
-  v7 = v6;
-  if (ktrace_chunk_copy_data(a2, 0, v6, v5))
+  v8 = v7;
+  if (ktrace_chunk_copy_data(a2, 0, v7, v6))
   {
-    free(v7);
+    free(v8);
     return 0;
   }
 
   else
   {
-    v9 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v7 length:v5];
+    v10 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v8 length:v6];
     result = 0;
-    *(*(*(a1 + 40) + 8) + 40) = v9;
+    *(*(*(a1 + 40) + 8) + 40) = v10;
     *(*(a1 + 32) + 8) = 1;
   }
 

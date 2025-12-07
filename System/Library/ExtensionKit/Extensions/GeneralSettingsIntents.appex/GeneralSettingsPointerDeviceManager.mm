@@ -9,9 +9,9 @@
 {
   sub_10000ABB4(0, &qword_10001C938, BKSMousePointerDevice_ptr);
   sub_100009650();
-  sub_10000FA68();
+  v4 = sub_10000FA68();
   selfCopy = self;
-  sub_100009204();
+  sub_100009204(v4);
 }
 
 - (void)mousePointerDevicesDidDisconnect:(id)disconnect

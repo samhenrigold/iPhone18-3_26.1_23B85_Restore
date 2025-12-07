@@ -11,7 +11,7 @@
 
 - (id)cd_generateValueForProperty:(id)property managedObjectField:(id)field context:(id)context
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   fieldCopy = field;
   contextCopy = context;
@@ -40,9 +40,9 @@ LABEL_15:
   {
     if (![fieldCopy isEqualToString:@"service"])
     {
-      v26.receiver = self;
-      v26.super_class = HMDCharacteristicWriteActionModel;
-      v17 = [(HMDBackingStoreModelObject *)&v26 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
+      v25.receiver = self;
+      v25.super_class = HMDCharacteristicWriteActionModel;
+      v17 = [(HMDBackingStoreModelObject *)&v25 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
       goto LABEL_20;
     }
 
@@ -79,13 +79,13 @@ LABEL_15:
         v22 = HMFBooleanToString();
         v23 = HMFBooleanToString();
         *buf = 138544130;
-        v28 = v21;
-        v29 = 2112;
-        v30 = selfCopy;
-        v31 = 2112;
-        v32 = v22;
-        v33 = 2112;
-        v34 = v23;
+        v27 = v21;
+        v28 = 2112;
+        v29 = selfCopy;
+        v30 = 2112;
+        v31 = v22;
+        v32 = 2112;
+        v33 = v23;
         _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@: Cannot resolve service (haveAccessoryUUID=%@, haveServiceID=%@)", buf, 0x2Au);
       }
 
@@ -95,8 +95,6 @@ LABEL_15:
 
   v17 = 0;
 LABEL_20:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -277,31 +275,29 @@ LABEL_18:
 
 void __47__HMDCharacteristicWriteActionModel_properties__block_invoke(uint64_t a1)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v11.receiver = *(a1 + 32);
-  v11.super_class = &OBJC_METACLASS___HMDCharacteristicWriteActionModel;
-  v1 = objc_msgSendSuper2(&v11, sel_properties);
+  v12[4] = *MEMORY[0x277D85DE8];
+  v10.receiver = *(a1 + 32);
+  v10.super_class = &OBJC_METACLASS___HMDCharacteristicWriteActionModel;
+  v1 = objc_msgSendSuper2(&v10, sel_properties);
   v2 = [v1 mutableCopy];
   v3 = properties__properties_184207;
   properties__properties_184207 = v2;
 
   v4 = properties__properties_184207;
-  v12[0] = @"accessory";
+  v11[0] = @"accessory";
   v5 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v13[0] = v5;
-  v12[1] = @"serviceID";
+  v12[0] = v5;
+  v11[1] = @"serviceID";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v13[1] = v6;
-  v12[2] = @"characteristicID";
+  v12[1] = v6;
+  v11[2] = @"characteristicID";
   v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v13[2] = v7;
-  v12[3] = @"targetValue";
+  v12[2] = v7;
+  v11[3] = @"targetValue";
   v8 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v13[3] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
+  v12[3] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
   [v4 addEntriesFromDictionary:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -5,6 +5,7 @@
 - (BOOL)_remoteAddressIsOKtoRead:(unint64_t)read;
 - (BOOL)isValidPointer:(uint64_t)pointer;
 - (VMUAutoreleasePoolPageLayout)createAutoreleasePoolPageLayout;
+- (VMUObjectIdentifier)initWithTask:(unsigned int)task symbolicator:(_CSTypeRef)symbolicator scanner:(id)scanner;
 - (VMUObjectIdentifier)initWithVMUTask:(id)task symbolicator:(_CSTypeRef)symbolicator scanner:(id)scanner;
 - (VMUTaskMemoryScanner)scanner;
 - (_CSTypeRef)_symbolicator;
@@ -13,6 +14,7 @@
 - (_CSTypeRef)symbolicator;
 - (_VMURange)validVMRange;
 - (id)_classInfoForMemory:(void *)memory length:(unint64_t)length atOffset:(unint64_t)offset remoteAddress:(unint64_t)address;
+- (id)_returnFaultedClass:(unint64_t)class ofType:(unsigned int)type;
 - (id)_scanner;
 - (id)classInfoForCFTypeInstance:(void *)instance length:(unint64_t)length remoteAddress:(unint64_t)address;
 - (id)classInfoForMemory:(void *)memory length:(unint64_t)length remoteAddress:(unint64_t)address;
@@ -37,6 +39,7 @@
 - (id)labelForNSCFData:(void *)data length:(unint64_t)length remoteAddress:(unint64_t)address;
 - (id)labelForNSCFDictionary:(void *)dictionary length:(unint64_t)length remoteAddress:(unint64_t)address;
 - (id)labelForNSCFSet:(void *)set length:(unint64_t)length remoteAddress:(unint64_t)address;
+- (id)labelForNSCFStringAtRemoteAddress:(unint64_t)address printDetail:(BOOL)detail;
 - (id)labelForNSConcreteData:(void *)data length:(unint64_t)length remoteAddress:(unint64_t)address;
 - (id)labelForNSConcreteHashTable:(void *)table length:(unint64_t)length remoteAddress:(unint64_t)address;
 - (id)labelForNSDate:(void *)date length:(unint64_t)length remoteAddress:(unint64_t)address;
@@ -45,6 +48,7 @@
 - (id)labelForNSNumber:(void *)number length:(unint64_t)length remoteAddress:(unint64_t)address;
 - (id)labelForNSPathStore2:(void *)store2 length:(unint64_t)length remoteAddress:(unint64_t)address;
 - (id)labelForNSSet:(void *)set length:(unint64_t)length remoteAddress:(unint64_t)address;
+- (id)labelForNSString:(void *)string mappedSize:(unint64_t)size remoteAddress:(unint64_t)address printDetail:(BOOL)detail;
 - (id)labelForNSTaggedPointerStringCStringContainer:(void *)container length:(unint64_t)length remoteAddress:(unint64_t)address;
 - (id)labelForNSURL:(void *)l length:(unint64_t)length remoteAddress:(unint64_t)address;
 - (id)labelForNSXPCConnection:(void *)connection length:(unint64_t)length remoteAddress:(unint64_t)address;
@@ -75,6 +79,7 @@
 - (uint64_t)setNeedToValidateRemoteMirrorReadAddressRange:(uint64_t)result;
 - (unint64_t)addressOfSymbol:(const char *)symbol inLibrary:(const char *)library;
 - (unint64_t)countFromPointerInAutoreleasePool:(void *)pool;
+- (void)_faultClass:(unint64_t)class ofType:(unsigned int)type;
 - (void)_findObjCAndSwiftClassesFromClass:(unint64_t)class recursionDepth:(unsigned int)depth;
 - (void)_findOffsetsInOSXPCConnection:(void *)connection length:(unint64_t)length;
 - (void)_generateClassInfosForObjCClassStructurePointerTypes;
@@ -124,37 +129,31 @@
     {
       v12 = Name;
       v13 = v10 >> 3;
-      v14 = &Name[8 * (v10 >> 3)];
-      if (*(v14 - 2))
+      if (*&Name[8 * (v10 >> 3) - 16])
       {
 LABEL_9:
         LOBYTE(Name) = 0;
         return Name;
       }
 
-      v15 = *v14;
-      opaque_1 = self->_symbolicator._opaque_1;
-      opaque_2 = self->_symbolicator._opaque_2;
       CSSymbolicatorGetSymbolWithAddressAtTime();
       if ((CSSymbolIsFunction() & 1) != 0 || (LODWORD(Name) = CSSymbolIsDeduplicated(), Name))
       {
-        v18 = 0;
+        v14 = 0;
         if (v13 <= 1)
         {
-          v19 = 1;
+          v15 = 1;
         }
 
         else
         {
-          v19 = v10 >> 3;
+          v15 = v10 >> 3;
         }
 
         while (1)
         {
-          if (HIDWORD(*&v12[8 * v18]) && (*&v12[8 * v18] & 7) == 0)
+          if (HIDWORD(*&v12[8 * v14]) && (*&v12[8 * v14] & 7) == 0)
           {
-            v21 = self->_symbolicator._opaque_1;
-            v22 = self->_symbolicator._opaque_2;
             CSSymbolicatorGetSymbolWithAddressAtTime();
             if (CSSymbolIsFunction() & 1) != 0 || (CSSymbolIsDeduplicated())
             {
@@ -162,9 +161,9 @@ LABEL_9:
             }
           }
 
-          if (v19 == ++v18)
+          if (v15 == ++v14)
           {
-            LOBYTE(Name) = v18 >= v13;
+            LOBYTE(Name) = v14 >= v13;
             return Name;
           }
         }
@@ -181,9 +180,9 @@ LABEL_9:
 {
   taskCopy = task;
   scannerCopy = scanner;
-  v85.receiver = self;
-  v85.super_class = VMUObjectIdentifier;
-  v10 = [(VMUObjectIdentifier *)&v85 init];
+  v82.receiver = self;
+  v82.super_class = VMUObjectIdentifier;
+  v10 = [(VMUObjectIdentifier *)&v82 init];
   if (v10)
   {
     v11 = +[VMUDebugTimer sharedTimerIfCreated];
@@ -215,10 +214,7 @@ LABEL_9:
 
     v10->_symbolicator._opaque_1 = v15;
     v10->_symbolicator._opaque_2 = v16;
-    isExclaveCore = [taskCopy isExclaveCore];
-    opaque_1 = v10->_symbolicator._opaque_1;
-    opaque_2 = v10->_symbolicator._opaque_2;
-    if (isExclaveCore)
+    if ([taskCopy isExclaveCore])
     {
       SymbolOwner = CSSymbolicatorGetSymbolOwner();
     }
@@ -229,45 +225,45 @@ LABEL_9:
     }
 
     v10->_libobjcSymbolOwner._opaque_1 = SymbolOwner;
-    v10->_libobjcSymbolOwner._opaque_2 = v21;
-    v22 = objc_alloc_init(VMUClassInfoMap);
+    v10->_libobjcSymbolOwner._opaque_2 = v18;
+    v19 = objc_alloc_init(VMUClassInfoMap);
     realizedIsaToClassInfo = v10->_realizedIsaToClassInfo;
-    v10->_realizedIsaToClassInfo = v22;
+    v10->_realizedIsaToClassInfo = v19;
 
-    v24 = objc_opt_new();
+    v21 = objc_opt_new();
     cfTypeIDToClassInfo = v10->_cfTypeIDToClassInfo;
-    v10->_cfTypeIDToClassInfo = v24;
+    v10->_cfTypeIDToClassInfo = v21;
 
-    v26 = objc_opt_new();
+    v23 = objc_opt_new();
     coreMediaFigBaseClassToClassInfo = v10->_coreMediaFigBaseClassToClassInfo;
-    v10->_coreMediaFigBaseClassToClassInfo = v26;
+    v10->_coreMediaFigBaseClassToClassInfo = v23;
 
-    v28 = [MEMORY[0x1E696AC70] hashTableWithOptions:1282];
+    v25 = [MEMORY[0x1E696AC70] hashTableWithOptions:1282];
     nonObjectIsaHash = v10->_nonObjectIsaHash;
-    v10->_nonObjectIsaHash = v28;
+    v10->_nonObjectIsaHash = v25;
 
-    v30 = objc_opt_new();
+    v27 = objc_opt_new();
     pidToProcessNameDict = v10->_pidToProcessNameDict;
-    v10->_pidToProcessNameDict = v30;
+    v10->_pidToProcessNameDict = v27;
 
-    v32 = objc_opt_new();
+    v29 = objc_opt_new();
     moduleNameToBinaryPathDict = v10->_moduleNameToBinaryPathDict;
-    v10->_moduleNameToBinaryPathDict = v32;
+    v10->_moduleNameToBinaryPathDict = v29;
 
-    v34 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:1282 valueOptions:0];
+    v31 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:1282 valueOptions:0];
     itemCountToLabelStringUniquingMap = v10->_itemCountToLabelStringUniquingMap;
-    v10->_itemCountToLabelStringUniquingMap = v34;
+    v10->_itemCountToLabelStringUniquingMap = v31;
 
     v10->_labelStringUniquingMaps = malloc_type_calloc(0x200uLL, 8uLL, 0x80040B8603338uLL);
-    v36 = objc_opt_new();
+    v33 = objc_opt_new();
     labelStringUniquingMaps = v10->_labelStringUniquingMaps;
-    v38 = labelStringUniquingMaps[1];
-    labelStringUniquingMaps[1] = v36;
+    v35 = labelStringUniquingMaps[1];
+    labelStringUniquingMaps[1] = v33;
 
     v10->_stringTypeDescriptions = malloc_type_calloc(0x200uLL, 8uLL, 0x80040B8603338uLL);
-    v39 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v36 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     stringUniquingSet = v10->_stringUniquingSet;
-    v10->_stringUniquingSet = v39;
+    v10->_stringUniquingSet = v36;
 
     memoryCache2 = [scannerCopy memoryCache];
     if (memoryCache2 || ([(VMUTask *)v10->_task memoryCache], (memoryCache2 = objc_claimAutoreleasedReturnValue()) != 0))
@@ -276,24 +272,24 @@ LABEL_9:
       aBlock[1] = 3221225472;
       aBlock[2] = __60__VMUObjectIdentifier_initWithVMUTask_symbolicator_scanner___block_invoke;
       aBlock[3] = &unk_1E8277698;
-      v42 = memoryCache2;
-      v84 = v42;
-      v43 = _Block_copy(aBlock);
+      v39 = memoryCache2;
+      v81 = v39;
+      v40 = _Block_copy(aBlock);
       memoryReader = v10->_memoryReader;
-      v10->_memoryReader = v43;
+      v10->_memoryReader = v40;
 
       v10->_targetProcessContainsMallocStackLoggingLiteZone = 0;
       if ([scannerCopy zoneCount])
       {
-        v45 = 0;
+        v42 = 0;
         do
         {
-          v46 = [scannerCopy zoneNameForIndex:v45];
-          if ([v46 hasPrefix:@"MallocStackLoggingLiteZone"])
+          v43 = [scannerCopy zoneNameForIndex:v42];
+          if ([v43 hasPrefix:@"MallocStackLoggingLiteZone"])
           {
-            v47 = [v46 hasPrefix:@"MallocStackLoggingLiteZone_Wrapper"];
+            v44 = [v43 hasPrefix:@"MallocStackLoggingLiteZone_Wrapper"];
 
-            if ((v47 & 1) == 0)
+            if ((v44 & 1) == 0)
             {
               v10->_targetProcessContainsMallocStackLoggingLiteZone = 1;
               break;
@@ -304,42 +300,42 @@ LABEL_9:
           {
           }
 
-          v45 = (v45 + 1);
+          v42 = (v42 + 1);
         }
 
-        while (v45 < [scannerCopy zoneCount]);
+        while (v42 < [scannerCopy zoneCount]);
       }
 
       v10->_autoreleasePoolPageLayout = [(VMUObjectIdentifier *)v10 createAutoreleasePoolPageLayout];
       v10->_debugSwiftRemoteMirror = 0;
-      v48 = getenv("SYMBOLICATION_DEBUG_SWIFT_REMOTE_MIRROR");
-      if (v48)
+      v45 = getenv("SYMBOLICATION_DEBUG_SWIFT_REMOTE_MIRROR");
+      if (v45)
       {
-        v49 = v48;
-        if (!strcmp(v48, "YES") || *v49 == 49 && !v49[1])
+        v46 = v45;
+        if (!strcmp(v45, "YES") || *v46 == 49 && !v46[1])
         {
           v10->_debugSwiftRemoteMirror = 1;
         }
       }
 
       v10->_swiftMirror = malloc_type_calloc(1uLL, 0x18uLL, 0x102004024DAA5DEuLL);
-      v50 = [(VMUObjectIdentifier *)v10 addressOfSymbol:"_objc_class_abi_version" inLibrary:"libobjc.A.dylib"];
-      if (v50)
+      v47 = [(VMUObjectIdentifier *)v10 addressOfSymbol:"_objc_class_abi_version" inLibrary:"libobjc.A.dylib"];
+      if (v47)
       {
-        v51 = v50;
-        v52 = v10->_memoryReader;
-        v53 = v52[2](v52, v51, 4);
-        if (v53)
+        v48 = v47;
+        v49 = v10->_memoryReader;
+        v50 = v49[2](v49, v48, 4);
+        if (v50)
         {
-          v54 = *v53;
+          v51 = *v50;
         }
 
         else
         {
-          v54 = 0;
+          v51 = 0;
         }
 
-        v10->_objcABI = v54;
+        v10->_objcABI = v51;
       }
 
       if (v11)
@@ -350,11 +346,11 @@ LABEL_9:
           signpostID = [v11 signpostID];
           if ((signpostID - 1) <= 0xFFFFFFFFFFFFFFFDLL)
           {
-            v57 = signpostID;
+            v54 = signpostID;
             if (os_signpost_enabled(logHandle))
             {
-              v82 = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle, OS_SIGNPOST_INTERVAL_END, v57, "initObjectIdentifier", "", &v82, 2u);
+              v79 = 0;
+              _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle, OS_SIGNPOST_INTERVAL_END, v54, "initObjectIdentifier", "", &v79, 2u);
             }
           }
         }
@@ -365,11 +361,11 @@ LABEL_9:
         signpostID2 = [v11 signpostID];
         if ((signpostID2 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          v60 = signpostID2;
+          v57 = signpostID2;
           if (os_signpost_enabled(logHandle2))
           {
-            v82 = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle2, OS_SIGNPOST_INTERVAL_BEGIN, v60, "initObjectIdentifier", "loadSwiftReflectionLibraries", &v82, 2u);
+            v79 = 0;
+            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle2, OS_SIGNPOST_INTERVAL_BEGIN, v57, "initObjectIdentifier", "loadSwiftReflectionLibraries", &v79, 2u);
           }
         }
       }
@@ -380,9 +376,9 @@ LABEL_9:
         [0 startWithCategory:"initObjectIdentifier" message:"loadSwiftReflectionLibraries"];
       }
 
-      v61 = objc_autoreleasePoolPush();
+      v58 = objc_autoreleasePoolPush();
       [(VMUObjectIdentifier *)v10 loadSwiftReflectionLibraries];
-      objc_autoreleasePoolPop(v61);
+      objc_autoreleasePoolPop(v58);
       [(VMUObjectIdentifier *)v10 _populateSwiftABIVariables];
       if (v11)
       {
@@ -392,11 +388,11 @@ LABEL_9:
           signpostID3 = [v11 signpostID];
           if ((signpostID3 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
           {
-            v64 = signpostID3;
+            v61 = signpostID3;
             if (os_signpost_enabled(logHandle3))
             {
-              v82 = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle3, OS_SIGNPOST_INTERVAL_END, v64, "initObjectIdentifier", "", &v82, 2u);
+              v79 = 0;
+              _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle3, OS_SIGNPOST_INTERVAL_END, v61, "initObjectIdentifier", "", &v79, 2u);
             }
           }
         }
@@ -407,11 +403,11 @@ LABEL_9:
         signpostID4 = [v11 signpostID];
         if ((signpostID4 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          v67 = signpostID4;
+          v64 = signpostID4;
           if (os_signpost_enabled(logHandle4))
           {
-            v82 = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle4, OS_SIGNPOST_INTERVAL_BEGIN, v67, "initObjectIdentifier", "findCFTypes", &v82, 2u);
+            v79 = 0;
+            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle4, OS_SIGNPOST_INTERVAL_BEGIN, v64, "initObjectIdentifier", "findCFTypes", &v79, 2u);
           }
         }
       }
@@ -432,11 +428,11 @@ LABEL_9:
           signpostID5 = [v11 signpostID];
           if ((signpostID5 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
           {
-            v70 = signpostID5;
+            v67 = signpostID5;
             if (os_signpost_enabled(logHandle5))
             {
-              v82 = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle5, OS_SIGNPOST_INTERVAL_END, v70, "initObjectIdentifier", "", &v82, 2u);
+              v79 = 0;
+              _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle5, OS_SIGNPOST_INTERVAL_END, v67, "initObjectIdentifier", "", &v79, 2u);
             }
           }
         }
@@ -447,11 +443,11 @@ LABEL_9:
         signpostID6 = [v11 signpostID];
         if ((signpostID6 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          v73 = signpostID6;
+          v70 = signpostID6;
           if (os_signpost_enabled(logHandle6))
           {
-            v82 = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle6, OS_SIGNPOST_INTERVAL_BEGIN, v73, "initObjectIdentifier", "findObjCAndSwiftClasses", &v82, 2u);
+            v79 = 0;
+            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle6, OS_SIGNPOST_INTERVAL_BEGIN, v70, "initObjectIdentifier", "findObjCAndSwiftClasses", &v79, 2u);
           }
         }
       }
@@ -470,14 +466,14 @@ LABEL_9:
       v10->_objcEmptyCacheAddress = [(VMUObjectIdentifier *)v10 addressOfSymbol:"__objc_empty_cache" inLibrary:"libobjc.A.dylib"];
       if (v10->_taskIsDriverKit)
       {
-        v74 = [[VMUObjectIdentifierDriverKitSupport alloc] initWithObjectIdentifier:v10];
+        v71 = [[VMUObjectIdentifierDriverKitSupport alloc] initWithObjectIdentifier:v10];
         driverKitSupport = v10->_driverKitSupport;
-        v10->_driverKitSupport = v74;
+        v10->_driverKitSupport = v71;
       }
 
-      v76 = [[VMUAttributeGraphTypeIdentifier alloc] initWithObjectIdentifier:v10];
+      v73 = [[VMUAttributeGraphTypeIdentifier alloc] initWithObjectIdentifier:v10];
       attributeGraphTypeIdentifier = v10->_attributeGraphTypeIdentifier;
-      v10->_attributeGraphTypeIdentifier = v76;
+      v10->_attributeGraphTypeIdentifier = v73;
 
       v10->_objectContentLevel = 1;
       if (v11 && [v11 signpostID])
@@ -486,11 +482,11 @@ LABEL_9:
         signpostID7 = [v11 signpostID];
         if ((signpostID7 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          v80 = signpostID7;
+          v77 = signpostID7;
           if (os_signpost_enabled(logHandle7))
           {
-            v82 = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle7, OS_SIGNPOST_INTERVAL_END, v80, "initObjectIdentifier", "", &v82, 2u);
+            v79 = 0;
+            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle7, OS_SIGNPOST_INTERVAL_END, v77, "initObjectIdentifier", "", &v79, 2u);
           }
         }
       }
@@ -500,7 +496,7 @@ LABEL_9:
 
     else
     {
-      v42 = v10;
+      v39 = v10;
       v10 = 0;
     }
   }
@@ -522,11 +518,21 @@ uint64_t __60__VMUObjectIdentifier_initWithVMUTask_symbolicator_scanner___block_
   }
 }
 
+- (VMUObjectIdentifier)initWithTask:(unsigned int)task symbolicator:(_CSTypeRef)symbolicator scanner:(id)scanner
+{
+  opaque_2 = symbolicator._opaque_2;
+  opaque_1 = symbolicator._opaque_1;
+  v7 = *&task;
+  scannerCopy = scanner;
+  v10 = [[VMUTask alloc] initWithTask:v7];
+  scannerCopy = [(VMUObjectIdentifier *)self initWithVMUTask:v10 symbolicator:opaque_1 scanner:opaque_2, scannerCopy];
+
+  return scannerCopy;
+}
+
 - (void)dealloc
 {
   [(VMUObjectIdentifier *)self destroy_libSwiftRemoteMirror];
-  opaque_1 = self->_symbolicator._opaque_1;
-  opaque_2 = self->_symbolicator._opaque_2;
   CSRelease();
   self->_symbolicator._opaque_1 = 0;
   self->_symbolicator._opaque_2 = 0;
@@ -535,7 +541,7 @@ uint64_t __60__VMUObjectIdentifier_initWithVMUTask_symbolicator_scanner___block_
     for (i = 0; i != 13; ++i)
     {
       objCClassStructureClassInfos = self->_objCClassStructureClassInfos;
-      v7 = objCClassStructureClassInfos[i];
+      v5 = objCClassStructureClassInfos[i];
       objCClassStructureClassInfos[i] = 0;
     }
 
@@ -555,29 +561,29 @@ uint64_t __60__VMUObjectIdentifier_initWithVMUTask_symbolicator_scanner___block_
     labelStringUniquingMaps = self->_labelStringUniquingMaps;
     if (labelStringUniquingMaps)
     {
-      v11 = labelStringUniquingMaps[j];
+      v9 = labelStringUniquingMaps[j];
       labelStringUniquingMaps[j] = 0;
     }
 
     stringTypeDescriptions = self->_stringTypeDescriptions;
     if (stringTypeDescriptions)
     {
-      v13 = stringTypeDescriptions[j];
+      v11 = stringTypeDescriptions[j];
       stringTypeDescriptions[j] = 0;
     }
   }
 
-  v14 = self->_labelStringUniquingMaps;
-  if (v14)
+  v12 = self->_labelStringUniquingMaps;
+  if (v12)
   {
-    free(v14);
+    free(v12);
     self->_labelStringUniquingMaps = 0;
   }
 
-  v15 = self->_stringTypeDescriptions;
-  if (v15)
+  v13 = self->_stringTypeDescriptions;
+  if (v13)
   {
-    free(v15);
+    free(v13);
     self->_stringTypeDescriptions = 0;
   }
 
@@ -587,9 +593,9 @@ uint64_t __60__VMUObjectIdentifier_initWithVMUTask_symbolicator_scanner___block_
     free(autoreleasePoolPageLayout);
   }
 
-  v17.receiver = self;
-  v17.super_class = VMUObjectIdentifier;
-  [(VMUObjectIdentifier *)&v17 dealloc];
+  v15.receiver = self;
+  v15.super_class = VMUObjectIdentifier;
+  [(VMUObjectIdentifier *)&v15 dealloc];
 }
 
 - (void)flushRemoteMirrorMemoryCache
@@ -897,121 +903,117 @@ LABEL_44:
 {
   if (length >= 0x10)
   {
-    v8 = [(VMUClassInfoMap *)self->_cfTypeIDToClassInfo classInfoForAddress:__CFGenericTypeID()];
-    v5 = v8;
-    if (v8)
+    v7 = [(VMUClassInfoMap *)self->_cfTypeIDToClassInfo classInfoForAddress:__CFGenericTypeID()];
+    v5 = v7;
+    if (v7)
     {
-      if ([v8 isCoreMediaFigObject])
+      if ([v7 isCoreMediaFigObject])
       {
-        v9 = *(instance + 3);
-        v10 = [VMUTask ptrauthStripDataPointer:?];
-        if (v10)
+        v8 = [VMUTask ptrauthStripDataPointer:?];
+        if (v8)
         {
+          v9 = v8;
+          v10 = [(VMUClassInfoMap *)self->_coreMediaFigBaseClassToClassInfo classInfoForAddress:v8];
           v11 = v10;
-          v12 = [(VMUClassInfoMap *)self->_coreMediaFigBaseClassToClassInfo classInfoForAddress:v10];
-          v13 = v12;
-          if (v12)
+          if (v10)
           {
-            v14 = v12;
+            v12 = v10;
           }
 
           else
           {
-            v44 = 0;
+            v39 = 0;
             memoryCache = [(VMUTask *)self->_task memoryCache];
-            v16 = [memoryCache peekAtAddress:v11 size:16 returnsBuf:&v44];
+            v14 = [memoryCache peekAtAddress:v9 size:16 returnsBuf:&v39];
 
-            if (!v16)
+            if (!v14)
             {
-              if (v44)
+              if (v39)
               {
-                v17 = *(v44 + 8);
                 if ([VMUTask ptrauthStripDataPointer:?])
                 {
-                  opaque_1 = self->_symbolicator._opaque_1;
-                  opaque_2 = self->_symbolicator._opaque_2;
                   CSSymbolicatorGetSymbolWithAddressAtTime();
                   if ((CSIsNull() & 1) == 0)
                   {
                     Name = CSSymbolGetName();
                     if (Name)
                     {
-                      v21 = Name;
-                      v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Name];
-                      if (*v21 == 107)
+                      v16 = Name;
+                      v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Name];
+                      if (*v16 == 107)
                       {
-                        v22 = v21 + 1;
+                        v17 = v16 + 1;
                       }
 
                       else
                       {
-                        v22 = v21;
+                        v17 = v16;
                       }
 
-                      v23 = strstr(v22, "_BaseClass");
-                      if (!v23)
+                      v18 = strstr(v17, "_BaseClass");
+                      if (!v18)
                       {
-                        v23 = strstr(v22, "BaseClass");
+                        v18 = strstr(v17, "BaseClass");
                       }
 
-                      v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v22];
-                      v25 = v24;
-                      if (v23)
+                      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v17];
+                      v20 = v19;
+                      if (v18)
                       {
-                        v26 = [v24 substringToIndex:v23 - v22];
+                        v21 = [v19 substringToIndex:v18 - v17];
 
-                        v25 = v26;
+                        v20 = v21;
                       }
 
                       className = [v5 className];
-                      v28 = [className isEqualToString:v25];
+                      v23 = [className isEqualToString:v20];
 
                       className2 = [v5 className];
-                      v30 = className2;
-                      if (v28)
+                      v25 = className2;
+                      if (v23)
                       {
-                        printFigSubclassInfo(className2, &stru_1F461F9C8, v43);
+                        printFigSubclassInfo(className2, &stru_1F461F9C8, v38);
 
-                        [(VMUClassInfoMap *)self->_coreMediaFigBaseClassToClassInfo addClassInfo:v5 forAddress:v11];
+                        [(VMUClassInfoMap *)self->_coreMediaFigBaseClassToClassInfo addClassInfo:v5 forAddress:v9];
                       }
 
                       else
                       {
-                        v31 = [v25 hasPrefix:className2];
+                        v26 = [v20 hasPrefix:className2];
 
-                        if (v31)
+                        if (v26)
                         {
                           className3 = [v5 className];
-                          v33 = [v25 substringFromIndex:{objc_msgSend(className3, "length")}];
+                          v28 = [v20 substringFromIndex:{objc_msgSend(className3, "length")}];
 
-                          v25 = v33;
+                          v20 = v28;
                         }
 
                         className4 = [v5 className];
-                        v35 = [className4 stringByAppendingFormat:@" (%@)", v25];
+                        v30 = [className4 stringByAppendingFormat:@" (%@)", v20];
 
                         CSSymbolGetSymbolOwner();
                         Path = CSSymbolOwnerGetPath();
                         if (Path)
                         {
-                          v37 = Path;
+                          v32 = Path;
                         }
 
                         else
                         {
-                          v37 = "<unknown>";
+                          v32 = "<unknown>";
                         }
 
-                        v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v37];
-                        v39 = [(VMUClassInfo *)VMUMutableClassInfo classInfoWithClassName:v35 binaryPath:v38 type:4];
+                        v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v32];
+                        v34 = [(VMUClassInfo *)VMUMutableClassInfo classInfoWithClassName:v30 binaryPath:v33 type:4];
 
-                        [v39 setIsCoreMediaFigObject:1];
+                        [v34 setIsCoreMediaFigObject:1];
                         className5 = [v5 className];
-                        printFigSubclassInfo(className5, v35, v43);
+                        printFigSubclassInfo(className5, v30, v38);
 
-                        [(VMUClassInfoMap *)self->_coreMediaFigBaseClassToClassInfo addClassInfo:v39 forAddress:v11];
-                        v25 = v35;
-                        v5 = v39;
+                        [(VMUClassInfoMap *)self->_coreMediaFigBaseClassToClassInfo addClassInfo:v34 forAddress:v9];
+                        v20 = v30;
+                        v5 = v34;
                       }
                     }
                   }
@@ -1019,13 +1021,13 @@ LABEL_44:
               }
             }
 
-            v14 = v5;
-            v5 = v14;
+            v12 = v5;
+            v5 = v12;
           }
 
-          v41 = v14;
+          v36 = v12;
 
-          v5 = v41;
+          v5 = v36;
         }
       }
     }
@@ -1052,27 +1054,24 @@ LABEL_44:
   v9 = (*(self->_memoryReader + 2))();
   if (v9)
   {
-    v10 = v9;
-    if (self->_objcEmptyCacheAddress != v9[2])
+    if (self->_objcEmptyCacheAddress != *(v9 + 16))
     {
 LABEL_4:
       LOBYTE(v9) = 0;
       return v9;
     }
 
-    v11 = *v9;
-    v12 = (*(self->_isaTranslator + 2))();
-    LODWORD(v9) = [(VMUObjectIdentifier *)self isValidPointer:v12];
+    v10 = (*(self->_isaTranslator + 2))();
+    LODWORD(v9) = [(VMUObjectIdentifier *)self isValidPointer:v10];
     if (v9)
     {
-      v13 = v10[1];
-      v14 = (*(self->_isaTranslator + 2))();
-      LODWORD(v9) = [(VMUObjectIdentifier *)self isValidPointer:v14];
+      v11 = (*(self->_isaTranslator + 2))();
+      LODWORD(v9) = [(VMUObjectIdentifier *)self isValidPointer:v11];
       if (v9)
       {
-        v15 = [(VMUClassInfoMap *)self->_realizedIsaToClassInfo classInfoForAddress:v14];
+        v12 = [(VMUClassInfoMap *)self->_realizedIsaToClassInfo classInfoForAddress:v11];
 
-        if (v15)
+        if (v12)
         {
           LOBYTE(v9) = 1;
         }
@@ -1084,7 +1083,7 @@ LABEL_4:
             goto LABEL_4;
           }
 
-          LOBYTE(v9) = [(VMUObjectIdentifier *)self _isUnrealizedObjCClass:v14 recursionDepth:depth - 1];
+          LOBYTE(v9) = [(VMUObjectIdentifier *)self _isUnrealizedObjCClass:v11 recursionDepth:depth - 1];
         }
       }
     }
@@ -1095,24 +1094,23 @@ LABEL_4:
 
 - (id)_classInfoForMemory:(void *)memory length:(unint64_t)length atOffset:(unint64_t)offset remoteAddress:(unint64_t)address
 {
-  v11 = *(memory + offset);
-  v12 = (*(self->_isaTranslator + 2))();
-  v13 = [(VMUAttributeGraphTypeIdentifier *)self->_attributeGraphTypeIdentifier metadataPointerForAllocation:address];
-  if (!v13)
+  v11 = (*(self->_isaTranslator + 2))();
+  v12 = [(VMUAttributeGraphTypeIdentifier *)self->_attributeGraphTypeIdentifier metadataPointerForAllocation:address];
+  if (!v12)
   {
-    if (!offset && v12 == self->_coreFoundationCFTypeIsa)
+    if (!offset && v11 == self->_coreFoundationCFTypeIsa)
     {
-      v14 = [(VMUObjectIdentifier *)self classInfoForCFTypeInstance:memory length:length remoteAddress:address];
+      v13 = [(VMUObjectIdentifier *)self classInfoForCFTypeInstance:memory length:length remoteAddress:address];
       goto LABEL_6;
     }
 
-    if (![(VMUObjectIdentifier *)self isValidPointer:v12])
+    if (![(VMUObjectIdentifier *)self isValidPointer:v11])
     {
       p_super = 0;
       goto LABEL_7;
     }
 
-    if (v12 == self->_lastClassInfoForMemoryIsa)
+    if (v11 == self->_lastClassInfoForMemoryIsa)
     {
       p_super = self->_lastClassInfoForMemoryClassInfo;
       if (!p_super)
@@ -1128,43 +1126,43 @@ LABEL_23:
         {
 
 LABEL_31:
-          v23 = [VMUClassInfo alloc];
+          v22 = [VMUClassInfo alloc];
           className2 = [(VMUClassInfo *)p_super className];
-          v25 = [(VMUClassInfo *)v23 initSwiftClassWithName:className2 classInfoType:64 size:length];
+          v24 = [(VMUClassInfo *)v22 initSwiftClassWithName:className2 classInfoType:64 size:length];
 
-          p_super = v25;
+          p_super = v24;
           goto LABEL_68;
         }
 
         className3 = [(VMUClassInfo *)p_super className];
-        v22 = [className3 isEqualToString:@"_SwiftValue"];
+        v21 = [className3 isEqualToString:@"_SwiftValue"];
 
-        if (v22)
+        if (v21)
         {
           goto LABEL_31;
         }
       }
 
 LABEL_68:
-      self->_lastClassInfoForMemoryIsa = v12;
+      self->_lastClassInfoForMemoryIsa = v11;
       objc_storeStrong(&self->_lastClassInfoForMemoryClassInfo, p_super);
       goto LABEL_7;
     }
 
-    v17 = [(VMUClassInfoMap *)self->_realizedIsaToClassInfo classInfoForAddress:v12];
-    if (v17)
+    v16 = [(VMUClassInfoMap *)self->_realizedIsaToClassInfo classInfoForAddress:v11];
+    if (v16)
     {
-      p_super = v17;
+      p_super = v16;
       goto LABEL_23;
     }
 
-    if ([(VMUObjectIdentifier *)self hasSwiftContent]&& [(VMUObjectIdentifier *)self _isUnrealizedObjCClass:v12 recursionDepth:512])
+    if ([(VMUObjectIdentifier *)self hasSwiftContent]&& [(VMUObjectIdentifier *)self _isUnrealizedObjCClass:v11 recursionDepth:512])
     {
       self->_swiftMirrorReaderContext.needToValidateAddressRange = 1;
-      v19 = [(VMUClassInfo *)[VMUMutableClassInfo alloc] initWithClass:v12 type:8 infoMap:self->_realizedIsaToClassInfo objectIdentifier:self reader:self->_memoryReader];
-      if (v19)
+      v18 = [(VMUClassInfo *)[VMUMutableClassInfo alloc] initWithClass:v11 type:8 infoMap:self->_realizedIsaToClassInfo objectIdentifier:self reader:self->_memoryReader];
+      if (v18)
       {
-        p_super = &v19->super;
+        p_super = &v18->super;
         WeakRetained = objc_loadWeakRetained(&self->_scanner);
         [WeakRetained applyTypeOverlayToMutableInfo:p_super];
 
@@ -1175,57 +1173,55 @@ LABEL_68:
       self->_swiftMirrorReaderContext.needToValidateAddressRange = 0;
     }
 
-    v26 = objc_loadWeakRetained(&self->_scanner);
-    v27 = [v26 addressIsInDataSegment:v12];
+    v25 = objc_loadWeakRetained(&self->_scanner);
+    v26 = [v25 addressIsInDataSegment:v11];
 
-    if (!v27 || NSHashGet(self->_nonObjectIsaHash, v12))
+    if (!v26 || NSHashGet(self->_nonObjectIsaHash, v11))
     {
 LABEL_67:
       p_super = 0;
       goto LABEL_68;
     }
 
-    opaque_1 = self->_symbolicator._opaque_1;
-    opaque_2 = self->_symbolicator._opaque_2;
     CSSymbolicatorGetSymbolOwnerWithAddressAtTime();
-    if (CSSymbolOwnerUsesCPlusPlus() && (SymbolWithAddress = CSSymbolOwnerGetSymbolWithAddress(), v32 = v31, (CSIsNull() & 1) == 0))
+    if (CSSymbolOwnerUsesCPlusPlus() && (SymbolWithAddress = CSSymbolOwnerGetSymbolWithAddress(), v29 = v28, (CSIsNull() & 1) == 0))
     {
       if (self->_taskIsDriverKit)
       {
-        p_super = [(VMUObjectIdentifierDriverKitSupport *)self->_driverKitSupport classInfoForDriverKitMemory:memory length:length atOffset:offset translatedIsa:v12 symbol:SymbolWithAddress remoteAddress:v32, address];
+        p_super = [(VMUObjectIdentifierDriverKitSupport *)self->_driverKitSupport classInfoForDriverKitMemory:memory length:length atOffset:offset translatedIsa:v11 symbol:SymbolWithAddress remoteAddress:v29, address];
         if ([(VMUClassInfo *)p_super infoType]== 128)
         {
-          [(VMUClassInfoMap *)self->_realizedIsaToClassInfo addClassInfo:p_super forAddress:v12];
+          [(VMUClassInfoMap *)self->_realizedIsaToClassInfo addClassInfo:p_super forAddress:v11];
         }
       }
 
       else
       {
-        *&v51 = 0;
-        v44 = [(VMUObjectIdentifier *)self _isaPointerRefersToVTable:v12 remoteAddress:address symbol:SymbolWithAddress symbolNameOut:v32, &v51];
+        *&v48 = 0;
+        v41 = [(VMUObjectIdentifier *)self _isaPointerRefersToVTable:v11 remoteAddress:address symbol:SymbolWithAddress symbolNameOut:v29, &v48];
         p_super = 0;
-        if (v44)
+        if (v41)
         {
-          v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v51 + 11];
-          v48 = VMUSimplifyCPlusPlusSymbolName(v45);
+          v42 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v48 + 11];
+          v45 = VMUSimplifyCPlusPlusSymbolName(v42);
 
           Path = CSSymbolOwnerGetPath();
           if (Path)
           {
-            v47 = [MEMORY[0x1E696AEC0] stringWithUTF8String:CSSymbolOwnerGetPath()];
+            v44 = [MEMORY[0x1E696AEC0] stringWithUTF8String:CSSymbolOwnerGetPath()];
           }
 
           else
           {
-            v47 = &stru_1F461F9C8;
+            v44 = &stru_1F461F9C8;
           }
 
-          p_super = [VMUClassInfo classInfoWithClassName:v48 binaryPath:v47 type:2];
+          p_super = [VMUClassInfo classInfoWithClassName:v45 binaryPath:v44 type:2];
           if (Path)
           {
           }
 
-          [(VMUClassInfoMap *)self->_realizedIsaToClassInfo addClassInfo:p_super forAddress:v12];
+          [(VMUClassInfoMap *)self->_realizedIsaToClassInfo addClassInfo:p_super forAddress:v11];
         }
       }
     }
@@ -1248,47 +1244,47 @@ LABEL_67:
         goto LABEL_65;
       }
 
-      v33 = objc_loadWeakRetained(&self->_scanner);
-      v34 = [v33 validateAddressRangeForSwiftRemoteMirror:v12 allowUnusedSplitLibs:{8, 0}];
+      v30 = objc_loadWeakRetained(&self->_scanner);
+      v31 = [v30 validateAddressRangeForSwiftRemoteMirror:v11 allowUnusedSplitLibs:{8, 0}];
 
-      if (v34)
+      if (v31)
       {
-        v53 = 0;
+        v50 = 0;
         memoryCache = [(VMUTask *)self->_task memoryCache];
-        [memoryCache readPointerAt:v12 value:&v53];
+        [memoryCache readPointerAt:v11 value:&v50];
 
         p_super = 0;
-        if (v53 == 1024)
+        if (v50 == 1024)
         {
           self->_swiftMirrorReaderContext.needToValidateAddressRange = 1;
-          v51 = 0uLL;
-          v52 = 0;
-          vmu_swift_reflection_infoForInstance(self->_swiftMirror->var0, address, &v51);
+          v48 = 0uLL;
+          v49 = 0;
+          vmu_swift_reflection_infoForInstance(self->_swiftMirror->var0, address, &v48);
           p_super = 0;
-          if (v51 == 18)
+          if (v48 == 18)
           {
             if (_classInfoForMemory_length_atOffset_remoteAddress__onceToken != -1)
             {
               [VMUObjectIdentifier _classInfoForMemory:length:atOffset:remoteAddress:];
             }
 
-            v36 = objc_loadWeakRetained(&self->_scanner);
-            memoryCache2 = [v36 memoryCache];
-            HaveGenericCaptures = closureContextMayHaveGenericCaptures(v12, memoryCache2);
+            v33 = objc_loadWeakRetained(&self->_scanner);
+            memoryCache2 = [v33 memoryCache];
+            v35 = closureContextMayHaveGenericCaptures(v11, memoryCache2);
 
-            if ((HaveGenericCaptures & 1) != 0 || (v39 = [VMUMutableClassInfo alloc], realizedIsaToClassInfo = self->_realizedIsaToClassInfo, swiftMirror = self->_swiftMirror, v49 = v51, v50 = v52, (v42 = [(VMUClassInfo *)v39 initWithClosureContext:address typeInfo:&v49 infoMap:realizedIsaToClassInfo swiftFieldMetadataContext:swiftMirror]) == 0))
+            if ((v35 & 1) != 0 || (v36 = [VMUMutableClassInfo alloc], realizedIsaToClassInfo = self->_realizedIsaToClassInfo, swiftMirror = self->_swiftMirror, v46 = v48, v47 = v49, (v39 = [(VMUClassInfo *)v36 initWithClosureContext:address typeInfo:&v46 infoMap:realizedIsaToClassInfo swiftFieldMetadataContext:swiftMirror]) == 0))
             {
               p_super = _classInfoForMemory_length_atOffset_remoteAddress__closureContextWithUnknownLayoutClassInfo;
             }
 
             else
             {
-              p_super = v42;
-              v43 = objc_loadWeakRetained(&self->_scanner);
-              [v43 applyTypeOverlayToMutableInfo:p_super];
+              p_super = v39;
+              v40 = objc_loadWeakRetained(&self->_scanner);
+              [v40 applyTypeOverlayToMutableInfo:p_super];
             }
 
-            [(VMUClassInfoMap *)self->_realizedIsaToClassInfo addClassInfo:p_super forAddress:v12];
+            [(VMUClassInfoMap *)self->_realizedIsaToClassInfo addClassInfo:p_super forAddress:v11];
           }
 
           self->_swiftMirrorReaderContext.needToValidateAddressRange = 0;
@@ -1303,13 +1299,13 @@ LABEL_65:
       }
     }
 
-    NSHashInsert(self->_nonObjectIsaHash, v12);
+    NSHashInsert(self->_nonObjectIsaHash, v11);
     goto LABEL_67;
   }
 
-  v14 = [(VMUAttributeGraphTypeIdentifier *)self->_attributeGraphTypeIdentifier classInfoForAttributeGraphValueWithMetadata:v13];
+  v13 = [(VMUAttributeGraphTypeIdentifier *)self->_attributeGraphTypeIdentifier classInfoForAttributeGraphValueWithMetadata:v12];
 LABEL_6:
-  p_super = v14;
+  p_super = v13;
 LABEL_7:
   if (!offset && !p_super)
   {
@@ -1363,12 +1359,75 @@ void __73__VMUObjectIdentifier__classInfoForMemory_length_atOffset_remoteAddress
   return v8;
 }
 
+- (id)_returnFaultedClass:(unint64_t)class ofType:(unsigned int)type
+{
+  v4 = *&type;
+  if (type == 4)
+  {
+    realizedIsaToClassInfo = 0;
+  }
+
+  else
+  {
+    realizedIsaToClassInfo = self->_realizedIsaToClassInfo;
+  }
+
+  v8 = realizedIsaToClassInfo;
+  v9 = [(VMUClassInfoMap *)v8 classInfoForAddress:class];
+  if (v9 || v4 == 1 && (unrealizedClassInfos = self->_unrealizedClassInfos) != 0 && ([(VMUClassInfoMap *)unrealizedClassInfos classInfoForAddress:class], (v9 = objc_claimAutoreleasedReturnValue()) != 0))
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = [[VMUClassInfo alloc] initWithRealizedClass:class type:v4 infoMap:v8 objectIdentifier:self reader:self->_memoryReader];
+    if (!v10 && v4 == 1 && self->_unrealizedClassInfos)
+    {
+      v10 = [[VMUClassInfo alloc] initWithClass:class type:1 infoMap:self->_unrealizedClassInfos objectIdentifier:self reader:self->_memoryReader];
+    }
+
+    if ([(VMUClassInfo *)v10 infoType]== 1)
+    {
+      if (self->_coreFoundationCFTypeIsa || (-[VMUClassInfo className](v10, "className"), v14 = objc_claimAutoreleasedReturnValue(), v15 = [v14 isEqualToString:@"__NSCFType"], v14, !v15))
+      {
+        ++self->_objCClassCount;
+      }
+
+      else
+      {
+        self->_coreFoundationCFTypeIsa = class;
+      }
+    }
+
+    else if ([(VMUClassInfo *)v10 infoType]== 8)
+    {
+      ++self->_swiftClassCount;
+    }
+
+    else if ([(VMUClassInfo *)v10 infoType]== 4)
+    {
+      ++self->_cfClassCount;
+    }
+  }
+
+  v11 = v10;
+
+  return v11;
+}
+
+- (void)_faultClass:(unint64_t)class ofType:(unsigned int)type
+{
+  v4 = *&type;
+  v7 = objc_autoreleasePoolPush();
+  v8 = [(VMUObjectIdentifier *)self _returnFaultedClass:class ofType:v4];
+
+  objc_autoreleasePoolPop(v7);
+}
+
 - (void)findCFTypes_version1
 {
-  isExclaveCore = [(VMUTask *)self->_task isExclaveCore];
-  opaque_1 = self->_symbolicator._opaque_1;
-  opaque_2 = self->_symbolicator._opaque_2;
-  if (isExclaveCore)
+  if ([(VMUTask *)self->_task isExclaveCore])
   {
     SymbolOwner = CSSymbolicatorGetSymbolOwner();
   }
@@ -1378,34 +1437,28 @@ void __73__VMUObjectIdentifier__classInfoForMemory_length_atOffset_remoteAddress
     SymbolOwner = CSSymbolicatorGetSymbolOwnerWithNameAtTime();
   }
 
-  v8 = SymbolOwner;
-  v9 = v7;
-  v10 = _map_remote_mangled_symbol_value(self->_memoryReader, "___CFRuntimeClassTableCount", SymbolOwner, v7, 4);
-  if (v10)
+  v5 = SymbolOwner;
+  v6 = v4;
+  v7 = _map_remote_mangled_symbol_value(self->_memoryReader, "___CFRuntimeClassTableCount", SymbolOwner, v4, 4);
+  if (v7)
   {
-    v11 = *v10;
-    if (v11)
+    v8 = *v7;
+    if (v8)
     {
-      v12 = _map_remote_mangled_symbol_value(self->_memoryReader, "___CFRuntimeClassTables", v8, v9, 8 * v11);
-      if (v12 || (v12 = _map_remote_mangled_symbol_value(self->_memoryReader, "___CFRuntimeClassTable", v8, v9, 8 * v11)) != 0)
+      if ((_map_remote_mangled_symbol_value(self->_memoryReader, "___CFRuntimeClassTables", v5, v6, 8 * v8) || _map_remote_mangled_symbol_value(self->_memoryReader, "___CFRuntimeClassTable", v5, v6, 8 * v8)) && v8 >= 1)
       {
-        v13 = v12;
-        if (v11 >= 1)
+        for (i = 0; i != v8; ++i)
         {
-          for (i = 0; i != v11; ++i)
+          v10 = [VMUTask stripExtraPointerBits:?];
+          if (v10)
           {
-            v15 = *(v13 + 8 * i);
-            v16 = [VMUTask stripExtraPointerBits:?];
-            if (v16)
-            {
-              v17 = v16;
-              v18 = objc_autoreleasePoolPush();
-              v19 = [(VMUObjectIdentifier *)self _returnFaultedClass:v17 ofType:4];
-              [(VMUClassInfoMap *)self->_cfTypeIDToClassInfo addClassInfo:v19 forAddress:i];
-              [(VMUClassInfoMap *)self->_realizedIsaToClassInfo addClassInfo:v19 forAddress:v17];
+            v11 = v10;
+            v12 = objc_autoreleasePoolPush();
+            v13 = [(VMUObjectIdentifier *)self _returnFaultedClass:v11 ofType:4];
+            [(VMUClassInfoMap *)self->_cfTypeIDToClassInfo addClassInfo:v13 forAddress:i];
+            [(VMUClassInfoMap *)self->_realizedIsaToClassInfo addClassInfo:v13 forAddress:v11];
 
-              objc_autoreleasePoolPop(v18);
-            }
+            objc_autoreleasePoolPop(v12);
           }
         }
       }
@@ -1441,11 +1494,7 @@ void __73__VMUObjectIdentifier__classInfoForMemory_length_atOffset_remoteAddress
 
 uint64_t __43__VMUObjectIdentifier_findCFTypes_version2__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) isExclaveCore];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 24);
-  if (v2)
+  if ([*(*(a1 + 32) + 8) isExclaveCore])
   {
     CSSymbolicatorGetSymbolOwner();
   }
@@ -1573,37 +1622,35 @@ void *__34__VMUObjectIdentifier_findCFTypes__block_invoke()
 
   if ([(VMUTask *)self->_task isExclaveCore])
   {
-    opaque_1 = self->_symbolicator._opaque_1;
-    opaque_2 = self->_symbolicator._opaque_2;
     CSSymbolicatorGetSymbolOwner();
     Path = CSSymbolOwnerGetPath();
     if (Path)
     {
-      v8 = Path;
+      v6 = Path;
     }
 
     else
     {
-      v8 = "<unknown>";
+      v6 = "<unknown>";
     }
 
-    v9 = [VMUClassInfo alloc];
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v8];
-    v11 = [(VMUClassInfo *)v9 initWithClassName:@"NSBlock" binaryPath:v10 type:1];
+    v7 = [VMUClassInfo alloc];
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v6];
+    v9 = [(VMUClassInfo *)v7 initWithClassName:@"NSBlock" binaryPath:v8 type:1];
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __46__VMUObjectIdentifier_findObjCAndSwiftClasses__block_invoke;
     aBlock[3] = &unk_1E8279398;
-    v15 = v11;
-    v16 = v8;
+    v13 = v9;
+    v14 = v6;
     aBlock[4] = self;
-    v12 = v11;
-    v13 = _Block_copy(aBlock);
-    v13[2](v13, "__NSConcreteStackBlock", @"__NSStackBlock__");
-    v13[2](v13, "__NSConcreteMallocBlock", @"__NSMallocBlock__");
-    v13[2](v13, "__NSConcreteGlobalBlock", @"__NSGlobalBlock__");
-    v13[2](v13, "__NSConcreteWeakBlockVariable", @"__NSWeakBlockVariable__");
+    v10 = v9;
+    v11 = _Block_copy(aBlock);
+    v11[2](v11, "__NSConcreteStackBlock", @"__NSStackBlock__");
+    v11[2](v11, "__NSConcreteMallocBlock", @"__NSMallocBlock__");
+    v11[2](v11, "__NSConcreteGlobalBlock", @"__NSGlobalBlock__");
+    v11[2](v11, "__NSConcreteWeakBlockVariable", @"__NSWeakBlockVariable__");
   }
 }
 
@@ -1736,12 +1783,12 @@ void __46__VMUObjectIdentifier_findObjCAndSwiftClasses__block_invoke(uint64_t a1
   v5 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_indexed_isa_magic_value", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
   if (v5)
   {
-    v35 = *v5;
+    v33 = *v5;
   }
 
   else
   {
-    v35 = 0;
+    v33 = 0;
   }
 
   v6 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_indexed_isa_index_mask", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
@@ -1766,11 +1813,20 @@ void __46__VMUObjectIdentifier_findObjCAndSwiftClasses__block_invoke(uint64_t a1
     v9 = 0;
   }
 
-  opaque_1 = self->_libobjcSymbolOwner._opaque_1;
-  opaque_2 = self->_libobjcSymbolOwner._opaque_2;
   CSSymbolOwnerGetSymbolWithMangledName();
   Range = CSSymbolGetRange();
-  v13 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_indexed_classes_count", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
+  v11 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_indexed_classes_count", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
+  if (v11)
+  {
+    v12 = *v11;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v13 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_isa_class_mask", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
   if (v13)
   {
     v14 = *v13;
@@ -1781,7 +1837,7 @@ void __46__VMUObjectIdentifier_findObjCAndSwiftClasses__block_invoke(uint64_t a1
     v14 = 0;
   }
 
-  v15 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_isa_class_mask", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
+  v15 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_isa_magic_mask", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
   if (v15)
   {
     v16 = *v15;
@@ -1792,29 +1848,30 @@ void __46__VMUObjectIdentifier_findObjCAndSwiftClasses__block_invoke(uint64_t a1
     v16 = 0;
   }
 
-  v17 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_isa_magic_mask", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
+  v17 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_isa_magic_value", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
   if (v17)
   {
-    v18 = *v17;
+    v32 = *v17;
   }
 
   else
   {
-    v18 = 0;
+    v32 = 0;
   }
 
-  v19 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_isa_magic_value", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
-  if (v19)
+  v18 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_taggedpointer_mask", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
+  if (v18)
   {
-    v34 = *v19;
+    v19 = *v18;
   }
 
   else
   {
-    v34 = 0;
+    v19 = 0;
   }
 
-  v20 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_taggedpointer_mask", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
+  self->_taggedPointerMask = v19;
+  v20 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_taggedpointer_obfuscator", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
   if (v20)
   {
     v21 = *v20;
@@ -1825,8 +1882,8 @@ void __46__VMUObjectIdentifier_findObjCAndSwiftClasses__block_invoke(uint64_t a1
     v21 = 0;
   }
 
-  self->_taggedPointerMask = v21;
-  v22 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_taggedpointer_obfuscator", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
+  self->_taggedPointerObfuscator = v21;
+  v22 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_tag60_permutations", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
   if (v22)
   {
     v23 = *v22;
@@ -1837,71 +1894,59 @@ void __46__VMUObjectIdentifier_findObjCAndSwiftClasses__block_invoke(uint64_t a1
     v23 = 0;
   }
 
-  self->_taggedPointerObfuscator = v23;
-  v24 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_tag60_permutations", self->_libobjcSymbolOwner._opaque_1, self->_libobjcSymbolOwner._opaque_2, 8);
-  if (v24)
-  {
-    v25 = *v24;
-  }
-
-  else
-  {
-    v25 = 0;
-  }
-
-  *self->_taggedPointerPermutations = v25;
-  v26 = self->_task;
-  v27 = _Block_copy(self->_memoryReader);
-  v28 = v27;
-  if (v4 && v35 && v7 && v9 && Range && v14)
+  *self->_taggedPointerPermutations = v23;
+  v24 = self->_task;
+  v25 = _Block_copy(self->_memoryReader);
+  v26 = v25;
+  if (v4 && v33 && v7 && v9 && Range && v12)
   {
     self->_fragileNonPointerIsas = 1;
-    v29 = v4;
-    v30 = v38;
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __41__VMUObjectIdentifier_setupIsaTranslator__block_invoke;
-    v38[3] = &unk_1E82793C0;
-    v38[5] = v16;
-    v38[6] = v7;
-    v38[7] = v29;
-    v38[8] = v35;
-    v38[9] = v9;
-    v38[10] = v14;
-    v38[11] = Range;
-    v31 = v27;
+    v27 = v4;
+    v28 = v36;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __41__VMUObjectIdentifier_setupIsaTranslator__block_invoke;
+    v36[3] = &unk_1E82793C0;
+    v36[5] = v14;
+    v36[6] = v7;
+    v36[7] = v27;
+    v36[8] = v33;
+    v36[9] = v9;
+    v36[10] = v12;
+    v36[11] = Range;
+    v29 = v25;
   }
 
   else
   {
-    if (v16 && v18)
+    if (v14 && v16)
     {
-      v30 = v37;
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __41__VMUObjectIdentifier_setupIsaTranslator__block_invoke_2;
-      v37[3] = &unk_1E82793E8;
-      v37[5] = v16;
-      v37[6] = v18;
-      v37[7] = v34;
+      v28 = v35;
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __41__VMUObjectIdentifier_setupIsaTranslator__block_invoke_2;
+      v35[3] = &unk_1E82793E8;
+      v35[5] = v14;
+      v35[6] = v16;
+      v35[7] = v32;
     }
 
     else
     {
-      v30 = v36;
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __41__VMUObjectIdentifier_setupIsaTranslator__block_invoke_3;
-      v36[3] = &unk_1E8279410;
+      v28 = v34;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __41__VMUObjectIdentifier_setupIsaTranslator__block_invoke_3;
+      v34[3] = &unk_1E8279410;
     }
 
-    v31 = v26;
+    v29 = v24;
   }
 
-  v30[4] = v31;
-  v32 = _Block_copy(v30);
+  v28[4] = v29;
+  v30 = _Block_copy(v28);
   isaTranslator = self->_isaTranslator;
-  self->_isaTranslator = v32;
+  self->_isaTranslator = v30;
 
   if (!self->_isaTranslator)
   {
@@ -1943,7 +1988,7 @@ unint64_t __41__VMUObjectIdentifier_setupIsaTranslator__block_invoke(void *a1, u
   return a2;
 }
 
-uint64_t __41__VMUObjectIdentifier_setupIsaTranslator__block_invoke_2(uint64_t *a1, uint64_t a2)
+uint64_t __41__VMUObjectIdentifier_setupIsaTranslator__block_invoke_2(void *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -1979,10 +2024,7 @@ uint64_t __41__VMUObjectIdentifier_setupIsaTranslator__block_invoke_3(uint64_t a
 
 - (unint64_t)addressOfSymbol:(const char *)symbol inLibrary:(const char *)library
 {
-  isExclaveCore = [(VMUTask *)self->_task isExclaveCore];
-  opaque_1 = self->_symbolicator._opaque_1;
-  opaque_2 = self->_symbolicator._opaque_2;
-  if (isExclaveCore)
+  if ([(VMUTask *)self->_task isExclaveCore])
   {
     CSSymbolicatorGetSymbolOwner();
   }
@@ -2002,10 +2044,8 @@ uint64_t __41__VMUObjectIdentifier_setupIsaTranslator__block_invoke_3(uint64_t a
 
 - (_CSTypeRef)symbolForAddress:(unint64_t)address
 {
-  opaque_1 = self->_symbolicator._opaque_1;
-  opaque_2 = self->_symbolicator._opaque_2;
   SymbolWithAddressAtTime = CSSymbolicatorGetSymbolWithAddressAtTime();
-  result._opaque_2 = v6;
+  result._opaque_2 = v4;
   result._opaque_1 = SymbolWithAddressAtTime;
   return result;
 }
@@ -2073,34 +2113,34 @@ uint64_t __41__VMUObjectIdentifier_setupIsaTranslator__block_invoke_3(uint64_t a
 
 void __54__VMUObjectIdentifier_buildIsaToObjectLabelHandlerMap__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [a2 stringByAppendingString:@"length:remoteAddress:"];
   v7 = NSSelectorFromString(v6);
   if (v7)
   {
     v8 = v7;
-    v17 = v5;
+    v16 = v5;
     v9 = [v5 objectForKey:@"Classes"];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * i);
+          v14 = *(*(&v17 + 1) + 8 * i);
           [*(a1 + 32) objectForKey:v14];
           if ([v14 hasSuffix:@"<"])
           {
@@ -2115,16 +2155,14 @@ void __54__VMUObjectIdentifier_buildIsaToObjectLabelHandlerMap__block_invoke(uin
           [*v15 setObject:v8 forKey:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
     }
 
-    v5 = v17;
+    v5 = v16;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __54__VMUObjectIdentifier_buildIsaToObjectLabelHandlerMap__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -2474,6 +2512,68 @@ LABEL_35:
   return v24;
 }
 
+- (id)labelForNSString:(void *)string mappedSize:(unint64_t)size remoteAddress:(unint64_t)address printDetail:(BOOL)detail
+{
+  detailCopy = detail;
+  v11 = 0;
+  v8 = stringFromMappedNSCFString(self->_task, string, size, address, self->_readonlyRegionRanges, &v11);
+  if (v8)
+  {
+    v9 = [(VMUObjectIdentifier *)self uniquifyStringLabel:v8 stringType:v11 printDetail:detailCopy];
+  }
+
+  else if (self->_objectContentLevel == 2)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v9 = @"<couldn't read content>";
+  }
+
+  return v9;
+}
+
+- (id)labelForNSCFStringAtRemoteAddress:(unint64_t)address printDetail:(BOOL)detail
+{
+  detailCopy = detail;
+  v16 = 0;
+  memoryCache = [(VMUTask *)self->_task memoryCache];
+  v8 = [memoryCache tryPeekAtAddress:address outPtr:&v16];
+
+  v9 = 0;
+  if (v8 >= 0x10)
+  {
+    v13 = (*(self->_isaTranslator + 2))();
+    v14 = [(VMUObjectIdentifier *)self objectLabelHandlerForRemoteIsa:v13];
+    v15 = v14;
+    if (v14 && *(v14 + 24) == sel_labelForNSString_length_remoteAddress_)
+    {
+      v9 = [(VMUObjectIdentifier *)self labelForNSString:v16 mappedSize:v8 remoteAddress:address printDetail:detailCopy];
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+  }
+
+  if ([(VMUObjectIdentifier *)self isTaggedPointer:address])
+  {
+    v10 = [(VMUObjectIdentifier *)self labelForTaggedPointer:address];
+  }
+
+  else
+  {
+    v10 = v9;
+  }
+
+  v11 = v10;
+
+  return v11;
+}
+
 - (id)labelForNSTaggedPointerStringCStringContainer:(void *)container length:(unint64_t)length remoteAddress:(unint64_t)address
 {
   if (self->_objectContentLevel == 3)
@@ -2775,10 +2875,9 @@ LABEL_35:
   task = self->_task;
   readonlyRegionRanges = self->_readonlyRegionRanges;
   WeakRetained = objc_loadWeakRetained(&self->_scanner);
-  symbolicator = self->_symbolicator;
-  v12 = stringFromMappedNSCFData(task, data, address, length, readonlyRegionRanges, 2, WeakRetained);
+  v13 = stringFromMappedNSCFData(task, data, address, length, readonlyRegionRanges, 2, WeakRetained, v12, self->_symbolicator._opaque_1, self->_symbolicator._opaque_2);
 
-  return v12;
+  return v13;
 }
 
 - (id)labelForNSConcreteData:(void *)data length:(unint64_t)length remoteAddress:(unint64_t)address
@@ -2786,10 +2885,9 @@ LABEL_35:
   task = self->_task;
   readonlyRegionRanges = self->_readonlyRegionRanges;
   WeakRetained = objc_loadWeakRetained(&self->_scanner);
-  symbolicator = self->_symbolicator;
-  v12 = stringFromMappedNSCFData(task, data, address, length, readonlyRegionRanges, 1, WeakRetained);
+  v13 = stringFromMappedNSCFData(task, data, address, length, readonlyRegionRanges, 1, WeakRetained, v12, self->_symbolicator._opaque_1, self->_symbolicator._opaque_2);
 
-  return v12;
+  return v13;
 }
 
 - (id)labelForNSInlineData:(void *)data length:(unint64_t)length remoteAddress:(unint64_t)address
@@ -2797,97 +2895,94 @@ LABEL_35:
   task = self->_task;
   readonlyRegionRanges = self->_readonlyRegionRanges;
   WeakRetained = objc_loadWeakRetained(&self->_scanner);
-  symbolicator = self->_symbolicator;
-  v12 = stringFromMappedNSCFData(task, data, address, length, readonlyRegionRanges, 0, WeakRetained);
+  v13 = stringFromMappedNSCFData(task, data, address, length, readonlyRegionRanges, 0, WeakRetained, v12, self->_symbolicator._opaque_1, self->_symbolicator._opaque_2);
 
-  return v12;
+  return v13;
 }
 
 - (id)labelForCoreMediaFigObject:(void *)object length:(unint64_t)length remoteAddress:(unint64_t)address
 {
-  v8 = *(object + 3);
-  v9 = [VMUTask ptrauthStripDataPointer:?];
-  if (HIDWORD(v9))
+  v8 = [VMUTask ptrauthStripDataPointer:?];
+  if (HIDWORD(v8))
   {
-    v10 = (v9 & 7) == 0;
+    v9 = (v8 & 7) == 0;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  if (!v10)
+  if (!v9)
   {
     goto LABEL_20;
   }
 
-  v11 = v9;
-  v30 = 0;
+  v10 = v8;
+  v28 = 0;
   memoryCache = [(VMUTask *)self->_task memoryCache];
-  LODWORD(v11) = [memoryCache peekAtAddress:v11 size:16 returnsBuf:&v30];
+  LODWORD(v10) = [memoryCache peekAtAddress:v10 size:16 returnsBuf:&v28];
 
-  if (v11 || v30 == 0)
+  if (v10 || v28 == 0)
   {
     goto LABEL_20;
   }
 
-  v14 = *(v30 + 8);
-  v15 = [VMUTask ptrauthStripDataPointer:?];
-  if (!HIDWORD(v15) || (v15 & 7) != 0)
+  v13 = [VMUTask ptrauthStripDataPointer:?];
+  if (!HIDWORD(v13) || (v13 & 7) != 0)
   {
     goto LABEL_20;
   }
 
-  v17 = v15;
-  v29 = 0;
+  v15 = v13;
+  v27 = 0;
   memoryCache2 = [(VMUTask *)self->_task memoryCache];
-  v19 = [memoryCache2 peekAtAddress:v17 size:8 returnsBuf:&v29];
+  v17 = [memoryCache2 peekAtAddress:v15 size:8 returnsBuf:&v27];
 
-  v20 = v19 || v29 == 0;
-  if (v20 || (*v29 - 1025) < 0xFFFFFFFFFFFFFC03)
+  v18 = v17 || v27 == 0;
+  if (v18 || (*v27 - 1025) < 0xFFFFFFFFFFFFFC03)
   {
     goto LABEL_20;
   }
 
   memoryCache3 = [(VMUTask *)self->_task memoryCache];
-  v24 = [memoryCache3 peekAtAddress:v17 size:88 returnsBuf:&v29];
+  v22 = [memoryCache3 peekAtAddress:v15 size:88 returnsBuf:&v27];
 
-  v21 = 0;
-  if (!v24 && v29)
+  v19 = 0;
+  if (!v22 && v27)
   {
-    v25 = v29[10];
-    if (!v25)
+    v23 = v27[10];
+    if (!v23)
     {
       goto LABEL_20;
     }
 
-    v21 = 0;
-    v26 = __CFADD__(v25, 32);
-    v27 = v25 + 32;
-    if (v26 || length <= v27)
+    v19 = 0;
+    v24 = __CFADD__(v23, 32);
+    v25 = v23 + 32;
+    if (v24 || length <= v25)
     {
       goto LABEL_21;
     }
 
-    v28 = object + v27;
-    if (!v28)
+    v26 = object + v25;
+    if (!v26)
     {
 LABEL_20:
-      v21 = 0;
+      v19 = 0;
       goto LABEL_21;
     }
 
-    v21 = strnlen(v28, length - v27);
-    if (v21)
+    v19 = strnlen(v26, length - v25);
+    if (v19)
     {
-      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"label: %.*s", v21, v28];
+      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"label: %.*s", v19, v26];
     }
   }
 
 LABEL_21:
 
-  return v21;
+  return v19;
 }
 
 - (id)labelForOSDispatchMach:(void *)mach length:(unint64_t)length remoteAddress:(unint64_t)address
@@ -2927,13 +3022,11 @@ LABEL_21:
     goto LABEL_23;
   }
 
-  opaque_1 = self->_symbolicator._opaque_1;
-  opaque_2 = self->_symbolicator._opaque_2;
   CSSymbolicatorGetSymbolOwnerWithAddressAtTime();
   Name = CSSymbolOwnerGetName();
   if (Name)
   {
-    v13 = Name;
+    v11 = Name;
     if (strcmp(Name, "CoreFoundation"))
     {
       goto LABEL_21;
@@ -2942,25 +3035,25 @@ LABEL_21:
 
   if (!strncmp(v8, "com.apple.CFNetwork", 0x13uLL))
   {
-    v13 = "CFNetwork";
+    v11 = "CFNetwork";
 LABEL_21:
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"%s (from %s)", v8, v13];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"%s (from %s)", v8, v11];
     goto LABEL_22;
   }
 
   if (!strncmp(v8, "com.apple.CF", 0xCuLL))
   {
-    v13 = "CoreFoundation";
+    v11 = "CoreFoundation";
     goto LABEL_21;
   }
 
   if (!strncmp(v8, "com.apple.lsd", 0xDuLL))
   {
-    v13 = "LaunchServices";
+    v11 = "LaunchServices";
     goto LABEL_21;
   }
 
-  [MEMORY[0x1E696AEC0] stringWithFormat:@"%s", v8, v15];
+  [MEMORY[0x1E696AEC0] stringWithFormat:@"%s", v8, v13];
   v9 = LABEL_22:;
 LABEL_23:
 
@@ -3013,35 +3106,13 @@ LABEL_23:
       dispatch_once(&labelForOSLog_length_remoteAddress__onceToken, block);
     }
 
-    if (labelForOSLog_length_remoteAddress__libtraceVersion > 0x41A || (v9 = *(log + 5), !(v9 >> 28)))
-    {
-      v9 = *(log + 3);
-      if (!(v9 >> 28))
-      {
-        goto LABEL_13;
-      }
-    }
-
-    memoryCache = [(VMUTask *)self->_task memoryCache];
-    v11 = [memoryCache peekStringAtAddress:v9 + 4];
-
-    if (!v11)
-    {
-      goto LABEL_13;
-    }
-
-    v12 = strlen(v11);
-    memoryCache2 = [(VMUTask *)self->_task memoryCache];
-    v14 = [memoryCache2 peekStringAtAddress:v9 + v12 + 5];
-
-    if (v14)
+    if ((labelForOSLog_length_remoteAddress__libtraceVersion <= 0x41A && (v9 = *(log + 5), v9 >> 28) || (v9 = *(log + 3), v9 >> 28)) && (-[VMUTask memoryCache](self->_task, "memoryCache"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 peekStringAtAddress:v9 + 4], v10, v11) && (v12 = strlen(v11), -[VMUTask memoryCache](self->_task, "memoryCache"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "peekStringAtAddress:", v9 + v12 + 5), v13, v14))
     {
       v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%s:%s]", v11, v14];
     }
 
     else
     {
-LABEL_13:
       v15 = 0;
     }
   }
@@ -3056,11 +3127,7 @@ LABEL_13:
 
 uint64_t __58__VMUObjectIdentifier_labelForOSLog_length_remoteAddress___block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) isExclaveCore];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 24);
-  if (v2)
+  if ([*(*(a1 + 32) + 8) isExclaveCore])
   {
     CSSymbolicatorGetSymbolOwner();
   }
@@ -3499,35 +3566,34 @@ void *__66__VMUObjectIdentifier_labelForOSTransaction_length_remoteAddress___blo
   {
     for (i = 24; ; i += 8)
     {
-      v9 = *(connection + i - 16);
-      v10 = [VMUTask stripExtraPointerBits:?];
-      if (HIDWORD(v10) && (v10 & 7) == 0)
+      v8 = [VMUTask stripExtraPointerBits:?];
+      if (HIDWORD(v8) && (v8 & 7) == 0)
       {
-        v12 = v10;
+        v10 = v8;
         WeakRetained = objc_loadWeakRetained(&self->_scanner);
-        v14 = [WeakRetained nodeForAddress:v12];
+        LODWORD(v10) = [WeakRetained nodeForAddress:v10];
 
-        if (v14 != -1)
+        if (v10 != -1)
         {
-          v15 = objc_loadWeakRetained(&self->_scanner);
-          v16 = v15;
-          if (v15)
+          v12 = objc_loadWeakRetained(&self->_scanner);
+          v13 = v12;
+          if (v12)
           {
-            [v15 nodeDetails:v14];
+            objc_msgSend_nodeDetails_(v12);
           }
 
           className = [0 className];
-          v18 = [className isEqualToString:@"OS_dispatch_mach"];
+          v15 = [className isEqualToString:@"OS_dispatch_mach"];
 
-          if (v18)
+          if (v15)
           {
             break;
           }
         }
       }
 
-      v19 = i;
-      if (v19 > length)
+      v16 = i;
+      if (v16 > length)
       {
         return;
       }
@@ -3601,24 +3667,8 @@ void *__66__VMUObjectIdentifier_labelForOSTransaction_length_remoteAddress___blo
 - (id)labelForProtocol:(void *)protocol length:(unint64_t)length remoteAddress:(unint64_t)address
 {
   v7 = *(protocol + 10);
-  if (v7)
+  if (v7 && -[VMUObjectIdentifier _remoteAddressIsOKtoRead:](self, "_remoteAddressIsOKtoRead:", *(protocol + 10), length, address) && (-[VMUTask memoryCache](self->_task, "memoryCache"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 peekStringAtAddress:v7], v8, v9) || (v10 = *(protocol + 1)) != 0 && -[VMUObjectIdentifier _remoteAddressIsOKtoRead:](self, "_remoteAddressIsOKtoRead:", v10, length, address) && (-[VMUTask memoryCache](self->_task, "memoryCache"), v11 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v11, "peekStringAtAddress:", v10), v11, v9))
   {
-    if ([(VMUObjectIdentifier *)self _remoteAddressIsOKtoRead:*(protocol + 10), length, address])
-    {
-      memoryCache = [(VMUTask *)self->_task memoryCache];
-      v9 = [memoryCache peekStringAtAddress:v7];
-
-      if (v9)
-      {
-        goto LABEL_7;
-      }
-    }
-  }
-
-  v10 = *(protocol + 1);
-  if (v10 && -[VMUObjectIdentifier _remoteAddressIsOKtoRead:](self, "_remoteAddressIsOKtoRead:", v10, length, address) && (-[VMUTask memoryCache](self->_task, "memoryCache"), v11 = objc_claimAutoreleasedReturnValue(), v9 = [v11 peekStringAtAddress:v10], v11, v9))
-  {
-LABEL_7:
     v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v9];
   }
 
@@ -3715,20 +3765,17 @@ ptrdiff_t __68__VMUObjectIdentifier_labelForNSXPCConnection_length_remoteAddress
 
 - (id)labelFor__NSMallocBlock__:(void *)block__ length:(unint64_t)length remoteAddress:(unint64_t)address
 {
-  v6 = *(block__ + 2);
-  v7 = [VMUTask ptrauthStripFunctionPointer:?];
+  v6 = [VMUTask ptrauthStripFunctionPointer:?];
 
-  return [(VMUObjectIdentifier *)self symbolForRemoteAddress:v7];
+  return [(VMUObjectIdentifier *)self symbolForRemoteAddress:v6];
 }
 
 - (id)symbolForRemoteAddress:(unint64_t)address
 {
-  opaque_1 = self->_symbolicator._opaque_1;
-  opaque_2 = self->_symbolicator._opaque_2;
   CSSymbolicatorGetSymbolOwnerWithAddressAtTime();
   if (CSIsNull())
   {
-    v6 = 0;
+    v4 = 0;
   }
 
   else
@@ -3736,16 +3783,16 @@ ptrdiff_t __68__VMUObjectIdentifier_labelForNSXPCConnection_length_remoteAddress
     Name = CSSymbolOwnerGetName();
     if (Name)
     {
-      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Name];
+      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Name];
     }
 
     else
     {
-      v8 = @"<unknown-binary>";
+      v6 = @"<unknown-binary>";
     }
 
     CSSymbolOwnerGetSymbolWithAddress();
-    if ((CSIsNull() & 1) != 0 || (v9 = CSSymbolGetName()) == 0 || ([MEMORY[0x1E696AEC0] stringWithUTF8String:v9], (baseAddress = objc_claimAutoreleasedReturnValue()) == 0))
+    if ((CSIsNull() & 1) != 0 || (v7 = CSSymbolGetName()) == 0 || ([MEMORY[0x1E696AEC0] stringWithUTF8String:v7], (baseAddress = objc_claimAutoreleasedReturnValue()) == 0))
     {
       BaseAddress = CSSymbolOwnerGetBaseAddress();
       if (BaseAddress)
@@ -3762,19 +3809,19 @@ ptrdiff_t __68__VMUObjectIdentifier_labelForNSXPCConnection_length_remoteAddress
     CSSymbolOwnerGetSourceInfoWithAddress();
     if (CSIsNull())
     {
-      v12 = &stru_1F461F9C8;
+      v10 = &stru_1F461F9C8;
     }
 
     else
     {
       Path = CSSourceInfoGetPath();
-      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"  %s:%u", Path, CSSourceInfoGetLineNumber()];
+      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"  %s:%u", Path, CSSourceInfoGetLineNumber()];
     }
 
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@  %@  %#qx%@", v8, baseAddress, address, v12];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@  %@  %#qx%@", v6, baseAddress, address, v10];
   }
 
-  return v6;
+  return v4;
 }
 
 - (id)labelForClassDataRO:(void *)o length:(unint64_t)length remoteAddress:(unint64_t)address
@@ -4000,7 +4047,7 @@ LABEL_53:
       }
     }
 
-    v36 = v14;
+    v35 = v14;
     if (v16 != addressCopy)
     {
       className = [addressCopy className];
@@ -4024,11 +4071,11 @@ LABEL_51:
           goto LABEL_52;
         }
 
-        v37 = 0;
-        v19 = stringFromBytes(a2, memory, &v37);
+        v36 = 0;
+        v19 = stringFromBytes(a2, memory, &v36);
         if (v19)
         {
-          v20 = [self uniquifyStringLabel:v19 stringType:v37 printDetail:1];
+          v20 = [self uniquifyStringLabel:v19 stringType:v36 printDetail:1];
         }
 
         else
@@ -4055,7 +4102,7 @@ LABEL_50:
       if (!v23)
       {
         v13 = 0;
-        v14 = v36;
+        v14 = v35;
         goto LABEL_46;
       }
     }
@@ -4064,11 +4111,11 @@ LABEL_50:
     {
       v21 = 0;
       v13 = 0;
-      v14 = v36;
+      v14 = v35;
       goto LABEL_52;
     }
 
-    v14 = v36;
+    v14 = v35;
 LABEL_31:
     if ([v16 isCoreMediaFigObject])
     {
@@ -4112,13 +4159,13 @@ LABEL_52:
         }
 
         memcpy(v29 + 8, a2 + 8, memory - 8);
-        v35 = v29;
+        v34 = v29;
         a2 = v29;
       }
 
       else
       {
-        v35 = 0;
+        v34 = 0;
       }
 
       v31 = v26;
@@ -4133,7 +4180,6 @@ LABEL_52:
         v33 = v31[3];
         if (v33)
         {
-          v34 = v31[3];
           [self v33];
         }
 
@@ -4145,9 +4191,9 @@ LABEL_52:
       }
 
       v13 = v32;
-      if (v35)
+      if (v34)
       {
-        free(v35);
+        free(v34);
       }
 
       goto LABEL_52;
@@ -4184,7 +4230,7 @@ LABEL_54:
           v16 = v15;
           if (v15)
           {
-            [v15 nodeDetails:v14];
+            objc_msgSend_nodeDetails_(v15);
           }
         }
       }
@@ -4203,7 +4249,6 @@ id __74__VMUObjectIdentifier_labelForObjectOfClass_atOffset_ofObject_withLength_
     v11 = *(v9 + 3);
     if (v11)
     {
-      v12 = *(v9 + 3);
       [v10 v11];
     }
 
@@ -4211,15 +4256,15 @@ id __74__VMUObjectIdentifier_labelForObjectOfClass_atOffset_ofObject_withLength_
     {
       [v10 0];
     }
-    v13 = ;
+    v12 = ;
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  return v13;
+  return v12;
 }
 
 uint64_t (*__87__VMUObjectIdentifier_labelForMemory_length_remoteAddress_classInfo_usingHandlerBlock___block_invoke())(void)
@@ -4259,7 +4304,7 @@ uint64_t (*__87__VMUObjectIdentifier_labelForMemory_length_remoteAddress_classIn
   return v3;
 }
 
-BOOL __52__VMUObjectIdentifier__populateSwiftReflectionInfo___block_invoke(uint64_t a1)
+BOOL __52__VMUObjectIdentifier__populateSwiftReflectionInfo___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   CSSymbolOwnerGetBaseAddress();
   result = vmu_swift_reflection_addImage(*(a1 + 40));
@@ -4282,10 +4327,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  isExclaveCore = [(VMUTask *)self->_task isExclaveCore];
-  opaque_1 = self->_symbolicator._opaque_1;
-  opaque_2 = self->_symbolicator._opaque_2;
-  if (isExclaveCore)
+  if ([(VMUTask *)self->_task isExclaveCore])
   {
     SymbolOwner = CSSymbolicatorGetSymbolOwner();
   }
@@ -4295,8 +4337,8 @@ LABEL_8:
     SymbolOwner = CSSymbolicatorGetSymbolOwnerWithNameAtTime();
   }
 
-  v10 = SymbolOwner;
-  v11 = v9;
+  v7 = SymbolOwner;
+  v8 = v6;
   if (CSIsNull())
   {
     swiftMirror = self->_swiftMirror;
@@ -4304,23 +4346,23 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v14 = self->_swiftMirror;
-  v15 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_swift_stable_abi_bit", v10, v11, 8);
-  if (v15)
+  v11 = self->_swiftMirror;
+  v12 = _map_remote_mangled_symbol_value(self->_memoryReader, "_objc_debug_swift_stable_abi_bit", v7, v8, 8);
+  if (v12)
   {
-    v14->var1 = *v15;
+    v11->var1 = *v12;
   }
 
   else
   {
-    v14->var1 = 0;
+    v11->var1 = 0;
   }
 
 LABEL_9:
-  v12 = self->_swiftMirror;
-  if (v12->var0)
+  v9 = self->_swiftMirror;
+  if (v9->var0)
   {
-    var1 = v12->var1;
+    var1 = v9->var1;
 
     vmu_swift_reflection_setClassIsSwiftMask(var1);
   }
@@ -4343,16 +4385,16 @@ LABEL_9:
     }
 
     symbolicator = self->_symbolicator;
-    v20 = _Block_copy(self->_memoryReader);
-    v21 = createRemoteAddressToLocalAddressAndSizeMap();
-    v22 = createRemoteStringToLengthMap();
-    v23 = 0;
+    v15 = _Block_copy(self->_memoryReader);
+    v16 = createRemoteAddressToLocalAddressAndSizeMap();
+    v17 = createRemoteStringToLengthMap();
+    v18 = 0;
     isExclaveCore = [(VMUTask *)self->_task isExclaveCore];
-    v26 = 0;
-    v25 = v6;
-    objc_initWeak(&v27, self);
-    objc_copyWeak(&v28, &self->_scanner);
-    objc_initWeak(&v29, self->_task);
+    v21 = 0;
+    v20 = v6;
+    objc_initWeak(&v22, self);
+    objc_copyWeak(&v23, &self->_scanner);
+    objc_initWeak(&v24, self->_task);
     __copy_assignment_8_8_t0w16_sb16_s24_s32_t40w16_w56_w64_w72(&self->_swiftMirrorReaderContext, &symbolicator);
     ReflectionContextWithDataLayout = vmu_swift_reflection_createReflectionContextWithDataLayout(&self->_swiftMirrorReaderContext, _query_data_layout_function, _free_bytes_function, _read_bytes_function, _get_string_length, _get_symbol_address);
     if (ReflectionContextWithDataLayout && ![(VMUObjectIdentifier *)self _populateSwiftReflectionInfo:ReflectionContextWithDataLayout])
@@ -4367,10 +4409,7 @@ LABEL_9:
     aBlock[3] = &unk_1E8278938;
     aBlock[4] = self;
     v8 = _Block_copy(aBlock);
-    isExclaveCore2 = [(VMUTask *)self->_task isExclaveCore];
-    opaque_1 = self->_symbolicator._opaque_1;
-    opaque_2 = self->_symbolicator._opaque_2;
-    if (isExclaveCore2)
+    if ([(VMUTask *)self->_task isExclaveCore])
     {
       SymbolOwner = CSSymbolicatorGetSymbolOwner();
     }
@@ -4378,20 +4417,18 @@ LABEL_9:
     else
     {
       CSSymbolicatorForeachSymbolOwnerWithNameAtTime();
-      v14 = self->_symbolicator._opaque_1;
-      v15 = self->_symbolicator._opaque_2;
       SymbolOwner = CSSymbolicatorGetAOutSymbolOwner();
     }
 
-    v8[2](v8, SymbolOwner, v13);
+    v8[2](v8, SymbolOwner, v10);
     [(VMUObjectIdentifier *)self _loadSwiftAsyncTaskAndSlabRecognitionInfo];
     if (ReflectionContextWithDataLayout)
     {
-      v16 = vmu_swift_reflection_typeRefForMangledTypeName(ReflectionContextWithDataLayout);
+      v11 = vmu_swift_reflection_typeRefForMangledTypeName(ReflectionContextWithDataLayout);
       swiftMirror = self->_swiftMirror;
-      if (v16)
+      if (v11)
       {
-        swiftMirror->var2 = v16;
+        swiftMirror->var2 = v11;
       }
 
       else
@@ -4480,10 +4517,7 @@ LABEL_15:
   v3 = getenv("DT_SKIP_PRECISE_SCANNING_SWIFT_ASYNC_ALLOCATIONS");
   if (!v3 || (v4 = v3, strcmp(v3, "YES")) && (*v4 != 49 || v4[1]))
   {
-    isExclaveCore = [(VMUTask *)self->_task isExclaveCore];
-    opaque_1 = self->_symbolicator._opaque_1;
-    opaque_2 = self->_symbolicator._opaque_2;
-    if (isExclaveCore)
+    if ([(VMUTask *)self->_task isExclaveCore])
     {
       SymbolOwner = CSSymbolicatorGetSymbolOwner();
     }
@@ -4493,44 +4527,44 @@ LABEL_15:
       SymbolOwner = CSSymbolicatorGetSymbolOwnerWithNameAtTime();
     }
 
-    v10 = SymbolOwner;
-    v11 = v9;
-    if (CSIsNull())
+    v7 = SymbolOwner;
+    v8 = v6;
+    v9 = CSIsNull();
+    if (v9)
     {
-      if (!_debugSwiftAsyncPrintfIsEnabled())
+      if (!_debugSwiftAsyncPrintfIsEnabled(v9, v10))
       {
         return;
       }
 
-      v12 = "libswift_Concurrency";
+      v11 = "libswift_Concurrency";
       goto LABEL_19;
     }
 
-    v13 = *MEMORY[0x1E69E9A60];
     CSSymbolicatorCreateWithTask();
     CSSymbolicatorGetSymbolOwnerWithNameAtTime();
     CSSymbolOwnerGetSymbolWithMangledName();
     if (CSIsNull())
     {
-      CSRelease();
+      v12 = CSRelease();
 LABEL_17:
-      if (!_debugSwiftAsyncPrintfIsEnabled())
+      if (!_debugSwiftAsyncPrintfIsEnabled(v12, v13))
       {
         return;
       }
 
-      v12 = "libswiftRemoteMirror version or it wasn't new enough";
+      v11 = "libswiftRemoteMirror version or it wasn't new enough";
       goto LABEL_19;
     }
 
     Range = CSSymbolGetRange();
-    CSRelease();
+    v12 = CSRelease();
     if (!Range || *Range <= 2u)
     {
       goto LABEL_17;
     }
 
-    v15 = _map_remote_mangled_symbol_value(self->_memoryReader, "__swift_concurrency_debug_asyncTaskMetadata", v10, v11, 8);
+    v15 = _map_remote_mangled_symbol_value(self->_memoryReader, "__swift_concurrency_debug_asyncTaskMetadata", v7, v8, 8);
     if (v15)
     {
       v16 = *v15;
@@ -4541,39 +4575,39 @@ LABEL_17:
       v16 = 0;
     }
 
-    v17 = _map_remote_mangled_symbol_value(self->_memoryReader, "__swift_concurrency_debug_asyncTaskSlabMetadata", v10, v11, 8);
-    if (v17 && v16 && (v18 = *v17) != 0)
+    v17 = _map_remote_mangled_symbol_value(self->_memoryReader, "__swift_concurrency_debug_asyncTaskSlabMetadata", v7, v8, 8);
+    if (v17 && v16 && (v19 = *v17) != 0)
     {
       self->_swiftConcurrencyDebugAsyncTaskMetadataIsa = v16;
-      self->_swiftConcurrencyDebugAsyncTaskSlabMetadataIsa = v18;
+      self->_swiftConcurrencyDebugAsyncTaskSlabMetadataIsa = v19;
       if (CSSymbolOwnerGetPath())
       {
-        v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:CSSymbolOwnerGetPath()];
+        v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:CSSymbolOwnerGetPath()];
       }
 
       else
       {
-        v19 = &stru_1F461F9C8;
+        v20 = &stru_1F461F9C8;
       }
 
-      v22 = v19;
-      v20 = [(VMUClassInfo *)VMUMutableClassInfo classInfoWithClassName:@"AsyncTask" binaryPath:v19 type:8];
-      [v20 setDisplayName:@"Task stack"];
-      [v20 setDefaultScanType:1];
-      [v20 setIsRootClass:1];
-      [(VMUClassInfoMap *)self->_realizedIsaToClassInfo addClassInfo:v20 forAddress:self->_swiftConcurrencyDebugAsyncTaskMetadataIsa];
-      v21 = [(VMUClassInfo *)VMUMutableClassInfo classInfoWithClassName:@"AsyncTask Slab" binaryPath:v22 type:8];
+      v23 = v20;
+      v21 = [(VMUClassInfo *)VMUMutableClassInfo classInfoWithClassName:@"AsyncTask" binaryPath:v20 type:8];
       [v21 setDisplayName:@"Task stack"];
       [v21 setDefaultScanType:1];
       [v21 setIsRootClass:1];
-      [(VMUClassInfoMap *)self->_realizedIsaToClassInfo addClassInfo:v21 forAddress:self->_swiftConcurrencyDebugAsyncTaskSlabMetadataIsa];
+      [(VMUClassInfoMap *)self->_realizedIsaToClassInfo addClassInfo:v21 forAddress:self->_swiftConcurrencyDebugAsyncTaskMetadataIsa];
+      v22 = [(VMUClassInfo *)VMUMutableClassInfo classInfoWithClassName:@"AsyncTask Slab" binaryPath:v23 type:8];
+      [v22 setDisplayName:@"Task stack"];
+      [v22 setDefaultScanType:1];
+      [v22 setIsRootClass:1];
+      [(VMUClassInfoMap *)self->_realizedIsaToClassInfo addClassInfo:v22 forAddress:self->_swiftConcurrencyDebugAsyncTaskSlabMetadataIsa];
     }
 
-    else if (_debugSwiftAsyncPrintfIsEnabled())
+    else if (_debugSwiftAsyncPrintfIsEnabled(v17, v18))
     {
-      v12 = "pseudo-isas for AsyncTasks and Slabs";
+      v11 = "pseudo-isas for AsyncTasks and Slabs";
 LABEL_19:
-      _debugSwiftAsyncPrintf(0, "Won't attempt precise Swift Concurrency allocation scanning because couldn't find %s\n", v12);
+      _debugSwiftAsyncPrintf(0, "Won't attempt precise Swift Concurrency allocation scanning because couldn't find %s\n", v11);
     }
   }
 }

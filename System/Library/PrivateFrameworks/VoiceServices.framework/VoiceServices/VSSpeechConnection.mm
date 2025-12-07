@@ -32,6 +32,7 @@
 - (void)pauseSpeechRequest:(id)request atMark:(int64_t)mark;
 - (void)prewarmIfNeededWithRequest:(id)request reply:(id)reply;
 - (void)setDelegate:(id)delegate;
+- (void)setKeepActive:(BOOL)active;
 - (void)setSubscribedVoiceAssets:(id)assets withClientID:(id)d forAccessoryID:(id)iD;
 - (void)setXpcConnection:(id)connection;
 - (void)startPhonemesRequest:(id)request phonemeSystem:(int64_t)system reply:(id)reply;
@@ -41,6 +42,7 @@
 - (void)stopPresynthesizedAudioRequest:(id)request;
 - (void)stopSpeechRequest:(id)request atMark:(int64_t)mark;
 - (void)triggerCellularDownloadedVoiceAssets:(id)assets withClientID:(id)d;
+- (void)updateWithConnectionIdentifier:(id)identifier keepActive:(BOOL)active;
 @end
 
 @implementation VSSpeechConnection
@@ -77,20 +79,18 @@
 
 void __42__VSSpeechConnection_forwardStreamObject___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = [v2 localizedDescription];
-    v6 = 136315394;
-    v7 = "[VSSpeechConnection forwardStreamObject:]_block_invoke";
-    v8 = 2112;
-    v9 = v5;
-    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "%s, Error: %@", &v6, 0x16u);
+    v4 = [v2 localizedDescription];
+    v5 = 136315394;
+    v6 = "[VSSpeechConnection forwardStreamObject:]_block_invoke";
+    v7 = 2112;
+    v8 = v4;
+    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "%s, Error: %@", &v5, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getVoiceInfoForLanguageCode:(id)code name:(id)name footprint:(int64_t)footprint gender:(int64_t)gender type:(int64_t)type reply:(id)reply
@@ -110,14 +110,14 @@ void __42__VSSpeechConnection_forwardStreamObject___block_invoke(uint64_t a1, vo
 
 void __83__VSSpeechConnection_getVoiceInfoForLanguageCode_name_footprint_gender_type_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = VSGetLogDefault();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_error_impl(&dword_272850000, v4, OS_LOG_TYPE_ERROR, "Can't get voice info: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_error_impl(&dword_272850000, v4, OS_LOG_TYPE_ERROR, "Can't get voice info: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -125,8 +125,6 @@ void __83__VSSpeechConnection_getVoiceInfoForLanguageCode_name_footprint_gender_
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getVoiceResourceForLanguage:(id)language reply:(id)reply
@@ -145,14 +143,14 @@ void __83__VSSpeechConnection_getVoiceInfoForLanguageCode_name_footprint_gender_
 
 void __56__VSSpeechConnection_getVoiceResourceForLanguage_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = VSGetLogDefault();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_error_impl(&dword_272850000, v4, OS_LOG_TYPE_ERROR, "Can't get VoiceResource: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_error_impl(&dword_272850000, v4, OS_LOG_TYPE_ERROR, "Can't get VoiceResource: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -160,8 +158,6 @@ void __56__VSSpeechConnection_getVoiceResourceForLanguage_reply___block_invoke(u
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAllVoiceSubscriptionsWithReply:(id)reply
@@ -179,14 +175,14 @@ void __56__VSSpeechConnection_getVoiceResourceForLanguage_reply___block_invoke(u
 
 void __56__VSSpeechConnection_getAllVoiceSubscriptionsWithReply___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = VSGetLogDefault();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_error_impl(&dword_272850000, v4, OS_LOG_TYPE_ERROR, "Can't get all subscribed voice assets: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_error_impl(&dword_272850000, v4, OS_LOG_TYPE_ERROR, "Can't get all subscribed voice assets: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -194,8 +190,6 @@ void __56__VSSpeechConnection_getAllVoiceSubscriptionsWithReply___block_invoke(u
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSubscribedVoiceAssetsWithClientID:(id)d forAccessoryID:(id)iD reply:(id)reply
@@ -215,14 +209,14 @@ void __56__VSSpeechConnection_getAllVoiceSubscriptionsWithReply___block_invoke(u
 
 void __80__VSSpeechConnection_getSubscribedVoiceAssetsWithClientID_forAccessoryID_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = VSGetLogDefault();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_error_impl(&dword_272850000, v4, OS_LOG_TYPE_ERROR, "Can't get subscribed voice assets: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_error_impl(&dword_272850000, v4, OS_LOG_TYPE_ERROR, "Can't get subscribed voice assets: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -230,8 +224,6 @@ void __80__VSSpeechConnection_getSubscribedVoiceAssetsWithClientID_forAccessoryI
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)triggerCellularDownloadedVoiceAssets:(id)assets withClientID:(id)d
@@ -390,7 +382,7 @@ uint64_t __59__VSSpeechConnection_getLocalVoiceAssetsForLanguage_reply___block_i
   }
 }
 
-uint64_t __54__VSSpeechConnection_startPresynthesizedAudioRequest___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__54__VSSpeechConnection_startPresynthesizedAudioRequest___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   *(*(*(a1 + 32) + 8) + 24) = a3;
   result = [a2 enqueue];
@@ -434,7 +426,7 @@ uint64_t __54__VSSpeechConnection_startPresynthesizedAudioRequest___block_invoke
   }
 }
 
-uint64_t __41__VSSpeechConnection_startSpeechRequest___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__41__VSSpeechConnection_startSpeechRequest___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   *(*(*(a1 + 32) + 8) + 24) = a3;
   result = [a2 shouldWaitCurrentSpeaking];
@@ -471,18 +463,17 @@ uint64_t __41__VSSpeechConnection_startSpeechRequest___block_invoke_2(uint64_t a
 
 void __63__VSSpeechConnection_startPhonemesRequest_phonemeSystem_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = VSGetLogDefault();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_error_impl(&dword_272850000, v4, OS_LOG_TYPE_ERROR, "Can't start PhonemesRequest: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_error_impl(&dword_272850000, v4, OS_LOG_TYPE_ERROR, "Can't start PhonemesRequest: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSystemSpeakingOnBehalfOfCurrentConnection
@@ -524,19 +515,17 @@ LABEL_5:
 
 void __65__VSSpeechConnection_isSystemSpeakingOnBehalfOfCurrentConnection__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[VSSpeechConnection isSystemSpeakingOnBehalfOfCurrentConnection]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error at %s , %@ ", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[VSSpeechConnection isSystemSpeakingOnBehalfOfCurrentConnection]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error at %s , %@ ", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSystemSpeaking
@@ -561,19 +550,17 @@ void __65__VSSpeechConnection_isSystemSpeakingOnBehalfOfCurrentConnection__block
 
 void __38__VSSpeechConnection_isSystemSpeaking__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[VSSpeechConnection isSystemSpeaking]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error at %s , %@ ", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[VSSpeechConnection isSystemSpeaking]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error at %s , %@ ", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)availableFootprintsForVoice:(id)voice languageCode:(id)code
@@ -603,17 +590,15 @@ void __38__VSSpeechConnection_isSystemSpeaking__block_invoke(uint64_t a1, void *
 
 void __63__VSSpeechConnection_availableFootprintsForVoice_languageCode___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error %@ asking for voice footprints", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error %@ asking for voice footprints", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)availableVoicesForLanguageCode:(id)code
@@ -642,17 +627,15 @@ void __63__VSSpeechConnection_availableFootprintsForVoice_languageCode___block_i
 
 void __53__VSSpeechConnection_availableVoicesForLanguageCode___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error %@ asking for voices", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error %@ asking for voices", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)estimateDurationWithRequest:(id)request reply:(id)reply
@@ -666,18 +649,16 @@ void __53__VSSpeechConnection_availableVoicesForLanguageCode___block_invoke(uint
 
 void __56__VSSpeechConnection_estimateDurationWithRequest_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = [v2 description];
-    v6 = 138412290;
-    v7 = v5;
-    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error estimateDurationWithRequest:reply: %@", &v6, 0xCu);
+    v4 = [v2 description];
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error estimateDurationWithRequest:reply: %@", &v5, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)queryPhaticCapabilityWithRequest:(id)request
@@ -704,19 +685,17 @@ void __56__VSSpeechConnection_estimateDurationWithRequest_reply___block_invoke(u
 
 void __55__VSSpeechConnection_queryPhaticCapabilityWithRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[VSSpeechConnection queryPhaticCapabilityWithRequest:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error at %s , %@ ", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[VSSpeechConnection queryPhaticCapabilityWithRequest:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error at %s , %@ ", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prewarmIfNeededWithRequest:(id)request reply:(id)reply
@@ -735,14 +714,14 @@ void __55__VSSpeechConnection_queryPhaticCapabilityWithRequest___block_invoke(ui
 
 void __55__VSSpeechConnection_prewarmIfNeededWithRequest_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = VSGetLogDefault();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_error_impl(&dword_272850000, v4, OS_LOG_TYPE_ERROR, "Can't prewarm: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_error_impl(&dword_272850000, v4, OS_LOG_TYPE_ERROR, "Can't prewarm: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -750,23 +729,41 @@ void __55__VSSpeechConnection_prewarmIfNeededWithRequest_reply___block_invoke(ui
   {
     (*(v5 + 16))(v5, v3);
   }
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)updateWithConnectionIdentifier:(id)identifier keepActive:(BOOL)active
+{
+  activeCopy = active;
+  identifierCopy = identifier;
+  v7 = [(VSSpeechConnection *)self _remoteObjectWithErrorHandler:&__block_literal_global_178];
+  [v7 updateWithConnectionIdentifier:identifierCopy keepActive:activeCopy];
 }
 
 void __64__VSSpeechConnection_updateWithConnectionIdentifier_keepActive___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error updateWithConnectionIdentifier: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "Error updateWithConnectionIdentifier: %@", &v4, 0xCu);
   }
+}
 
-  v4 = *MEMORY[0x277D85DE8];
+- (void)setKeepActive:(BOOL)active
+{
+  if (self->_keepActive != active)
+  {
+    activeCopy = active;
+    self->_keepActive = active;
+    identifier = self->_identifier;
+    if (identifier)
+    {
+      [(VSSpeechConnection *)self updateWithConnectionIdentifier:identifier keepActive:activeCopy];
+    }
+  }
 }
 
 - (void)setDelegate:(id)delegate
@@ -803,7 +800,7 @@ void __64__VSSpeechConnection_updateWithConnectionIdentifier_keepActive___block_
 
 - (void)_connectionInvalidated
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   if (WeakRetained)
@@ -830,36 +827,36 @@ void __64__VSSpeechConnection_updateWithConnectionIdentifier_keepActive___block_
 LABEL_8:
         delegateWrapper3 = [(VSSpeechConnection *)self delegateWrapper];
         requests3 = [delegateWrapper3 requests];
-        v51[0] = MEMORY[0x277D85DD0];
-        v51[1] = 3221225472;
-        v51[2] = __44__VSSpeechConnection__connectionInvalidated__block_invoke;
-        v51[3] = &unk_279E4F850;
-        v51[4] = self;
+        v50[0] = MEMORY[0x277D85DD0];
+        v50[1] = 3221225472;
+        v50[2] = __44__VSSpeechConnection__connectionInvalidated__block_invoke;
+        v50[3] = &unk_279E4F850;
+        v50[4] = self;
         v32 = v4;
-        v52 = v32;
-        [requests3 enumerateObjectsUsingBlock:v51];
+        v51 = v32;
+        [requests3 enumerateObjectsUsingBlock:v50];
 
         delegateWrapper4 = [(VSSpeechConnection *)self delegateWrapper];
         audioRequests2 = [delegateWrapper4 audioRequests];
-        v49[0] = MEMORY[0x277D85DD0];
-        v49[1] = 3221225472;
-        v49[2] = __44__VSSpeechConnection__connectionInvalidated__block_invoke_2;
-        v49[3] = &unk_279E4F878;
-        v49[4] = self;
+        v48[0] = MEMORY[0x277D85DD0];
+        v48[1] = 3221225472;
+        v48[2] = __44__VSSpeechConnection__connectionInvalidated__block_invoke_2;
+        v48[3] = &unk_279E4F878;
+        v48[4] = self;
         v35 = v32;
-        v50 = v35;
-        [audioRequests2 enumerateObjectsUsingBlock:v49];
+        v49 = v35;
+        [audioRequests2 enumerateObjectsUsingBlock:v48];
 
         delegateWrapper5 = [(VSSpeechConnection *)self delegateWrapper];
         concurrentSynthesisRequests = [delegateWrapper5 concurrentSynthesisRequests];
-        v47[0] = MEMORY[0x277D85DD0];
-        v47[1] = 3221225472;
-        v47[2] = __44__VSSpeechConnection__connectionInvalidated__block_invoke_3;
-        v47[3] = &unk_279E4F8A0;
-        v47[4] = self;
-        v48 = v35;
+        v46[0] = MEMORY[0x277D85DD0];
+        v46[1] = 3221225472;
+        v46[2] = __44__VSSpeechConnection__connectionInvalidated__block_invoke_3;
+        v46[3] = &unk_279E4F8A0;
+        v46[4] = self;
+        v47 = v35;
         v38 = v35;
-        [concurrentSynthesisRequests enumerateKeysAndObjectsUsingBlock:v47];
+        [concurrentSynthesisRequests enumerateKeysAndObjectsUsingBlock:v46];
 
         v39 = objc_loadWeakRetained(&self->_delegate);
         [v39 connection:self invalidatedWithError:v38];
@@ -879,8 +876,8 @@ LABEL_8:
     {
       v16 = objc_alloc_init(MEMORY[0x277D5B180]);
       v17 = [MEMORY[0x277CCABB0] numberWithInt:4294967287];
-      v53[0] = v17;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
+      v52[0] = v17;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:1];
       [v16 setErrorCodes:v18];
 
       v19 = objc_alloc_init(MEMORY[0x277D5B150]);
@@ -921,8 +918,6 @@ LABEL_9:
   delegateWrapper9 = [(VSSpeechConnection *)self delegateWrapper];
   concurrentSynthesisRequests2 = [delegateWrapper9 concurrentSynthesisRequests];
   [concurrentSynthesisRequests2 removeAllObjects];
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __44__VSSpeechConnection__connectionInvalidated__block_invoke(uint64_t a1, void *a2)
@@ -968,22 +963,20 @@ void __44__VSSpeechConnection__connectionInvalidated__block_invoke_3(uint64_t a1
 
 void __39__VSSpeechConnection__remoteObjectSync__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = VSGetLogDefault();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[VSSpeechConnection _remoteObjectSync]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "%s, error: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[VSSpeechConnection _remoteObjectSync]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_error_impl(&dword_272850000, v3, OS_LOG_TYPE_ERROR, "%s, error: %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_remoteObject
@@ -1022,7 +1015,7 @@ void __39__VSSpeechConnection__remoteObjectSync__block_invoke(uint64_t a1, void 
 
 void __35__VSSpeechConnection_xpcConnection__block_invoke(uint64_t a1)
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   if (!*(*(a1 + 32) + 16))
   {
     v2 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.voiceservices.tts" options:0];
@@ -1032,53 +1025,53 @@ void __35__VSSpeechConnection_xpcConnection__block_invoke(uint64_t a1)
 
     v5 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2881EE8A8];
     v6 = MEMORY[0x277CBEB98];
-    v35[0] = objc_opt_class();
-    v35[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+    v34[0] = objc_opt_class();
+    v34[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
     v8 = [v6 setWithArray:v7];
 
     [v5 setClasses:v8 forSelector:sel_getLocalVoicesForLanguage_reply_ argumentIndex:0 ofReply:1];
     [v5 setClasses:v8 forSelector:sel_getSubscribedVoiceAssetsWithClientID_forAccessoryID_reply_ argumentIndex:0 ofReply:1];
     v9 = MEMORY[0x277CBEB98];
-    v34[0] = objc_opt_class();
-    v34[1] = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+    v33[0] = objc_opt_class();
+    v33[1] = objc_opt_class();
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
     v11 = [v9 setWithArray:v10];
 
     [v5 setClasses:v11 forSelector:sel_getLocalVoiceResourcesReply_ argumentIndex:0 ofReply:1];
     [v5 setClasses:v11 forSelector:sel_getVoiceResourceForLanguage_reply_ argumentIndex:0 ofReply:1];
     v12 = MEMORY[0x277CBEB98];
-    v33[0] = objc_opt_class();
-    v33[1] = objc_opt_class();
-    v33[2] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
+    v32[0] = objc_opt_class();
+    v32[1] = objc_opt_class();
+    v32[2] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
     v14 = [v12 setWithArray:v13];
 
     [v5 setClasses:v14 forSelector:sel_getAllVoiceSubscriptionsWithReply_ argumentIndex:0 ofReply:1];
     [*(*(a1 + 32) + 16) setRemoteObjectInterface:v5];
     objc_initWeak(&location, *(a1 + 32));
     v15 = *(*(a1 + 32) + 16);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __35__VSSpeechConnection_xpcConnection__block_invoke_2;
-    v29[3] = &unk_279E4F7B8;
-    objc_copyWeak(&v30, &location);
-    [v15 setInvalidationHandler:v29];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __35__VSSpeechConnection_xpcConnection__block_invoke_2;
+    v28[3] = &unk_279E4F7B8;
+    objc_copyWeak(&v29, &location);
+    [v15 setInvalidationHandler:v28];
     v16 = *(*(a1 + 32) + 16);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __35__VSSpeechConnection_xpcConnection__block_invoke_3;
-    v27[3] = &unk_279E4F7B8;
-    objc_copyWeak(&v28, &location);
-    [v16 setInterruptionHandler:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __35__VSSpeechConnection_xpcConnection__block_invoke_3;
+    v26[3] = &unk_279E4F7B8;
+    objc_copyWeak(&v27, &location);
+    [v16 setInterruptionHandler:v26];
     v17 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2881E9A78];
     v18 = MEMORY[0x277CBEB98];
-    v32[0] = objc_opt_class();
-    v32[1] = objc_opt_class();
-    v32[2] = objc_opt_class();
-    v32[3] = objc_opt_class();
-    v32[4] = objc_opt_class();
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:5];
+    v31[0] = objc_opt_class();
+    v31[1] = objc_opt_class();
+    v31[2] = objc_opt_class();
+    v31[3] = objc_opt_class();
+    v31[4] = objc_opt_class();
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:5];
     v20 = [v18 setWithArray:v19];
 
     [v17 setClasses:v20 forSelector:sel_speechRequest_didReceiveTimingInfo_ argumentIndex:1 ofReply:0];
@@ -1098,12 +1091,10 @@ void __35__VSSpeechConnection_xpcConnection__block_invoke(uint64_t a1)
       [v25 updateWithConnectionIdentifier:*(*(a1 + 32) + 24) keepActive:*(*(a1 + 32) + 8)];
     }
 
-    objc_destroyWeak(&v28);
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __35__VSSpeechConnection_xpcConnection__block_invoke_2(uint64_t a1)
@@ -1121,7 +1112,7 @@ void __35__VSSpeechConnection_xpcConnection__block_invoke_3(uint64_t a1)
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -1131,10 +1122,9 @@ void __35__VSSpeechConnection_xpcConnection__block_invoke_3(uint64_t a1)
   }
 
   [(NSXPCConnection *)self->_xpcConnection invalidate];
-  v5.receiver = self;
-  v5.super_class = VSSpeechConnection;
-  [(VSSpeechConnection *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = VSSpeechConnection;
+  [(VSSpeechConnection *)&v4 dealloc];
 }
 
 - (VSSpeechConnection)init

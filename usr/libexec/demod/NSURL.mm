@@ -28,9 +28,9 @@
     while (1)
     {
       v6 = objc_autoreleasePoolPush();
-      v13 = 0;
-      v7 = [v4 readDataUpToLength:0x40000 error:&v13];
-      v8 = v13;
+      v14 = 0;
+      v7 = [v4 readDataUpToLength:0x40000 error:&v14];
+      v8 = v14;
       if (v8)
       {
         break;
@@ -41,7 +41,7 @@
 
         objc_autoreleasePoolPop(v6);
         CC_SHA1_Final(md, &c);
-        v11 = [NSData dataWithBytes:md length:20];
+        v12 = [NSData dataWithBytes:md length:20];
         v9 = 0;
         goto LABEL_12;
       }
@@ -54,13 +54,13 @@
     v9 = v8;
 
     objc_autoreleasePoolPop(v6);
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100063A54(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_1000D477C(self, v9, v10);
+      sub_1000D477C(self, v9, v11);
     }
 
-    v11 = 0;
+    v12 = 0;
 LABEL_12:
     [v4 closeFile];
   }
@@ -68,11 +68,11 @@ LABEL_12:
   else
   {
     sub_1000D483C(self);
-    v11 = 0;
+    v12 = 0;
     v9 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 + (id)fileURLWithString:(id)string

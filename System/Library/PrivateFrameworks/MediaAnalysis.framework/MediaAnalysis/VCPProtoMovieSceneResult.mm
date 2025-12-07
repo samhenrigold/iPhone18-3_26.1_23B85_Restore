@@ -589,11 +589,11 @@ LABEL_11:
     [dictionary setObject:v9 forKeyedSubscript:@"slowMoFlicker"];
   }
 
-  timeRange = [(VCPProtoMovieSceneResult *)self timeRange];
-  v11 = timeRange;
-  if (timeRange)
+  v10 = objc_msgSend_timeRange(self);
+  v11 = v10;
+  if (v10)
   {
-    [timeRange timeRangeValue];
+    objc_msgSend_timeRangeValue(v10);
   }
 
   else

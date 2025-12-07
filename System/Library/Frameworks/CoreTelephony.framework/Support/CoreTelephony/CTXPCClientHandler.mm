@@ -275,7 +275,7 @@
 {
   if ([(CTXPCClientHandler *)self hasEntitlement:3])
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v3 = v12;
     ctu::OsLogContext::~OsLogContext(v11);
     v4 = 1;
@@ -298,7 +298,7 @@ LABEL_4:
   {
     if ((v7 & 1) == 0)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v3 = v12;
       ctu::OsLogContext::~OsLogContext(v11);
       v4 = 1;
@@ -312,7 +312,7 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v9 = v12;
     ctu::OsLogContext::~OsLogContext(v11);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
@@ -327,7 +327,7 @@ LABEL_4:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = v12;
     ctu::OsLogContext::~OsLogContext(v11);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
@@ -351,34 +351,34 @@ LABEL_4:
   {
     if (lazuliCopy)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v8 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         [lazuliCopy slotID];
-        v9 = CTSubscriptionSlotAsString();
+        v10 = CTSubscriptionSlotAsString();
         *buf = 136315138;
-        *&buf[4] = v9;
+        *&buf[4] = v10;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] disableLazuli: %s", buf, 0xCu);
       }
 
       *buf = 0uLL;
-      sub_1006E5EC0(self, buf);
-      v10 = *buf;
+      sub_1006E5EC0(self, v9, buf);
+      v11 = *buf;
       if (*buf)
       {
-        v11 = sub_100018A64([lazuliCopy slotID]);
-        if ((*(*v10 + 40))(v10, v11))
+        v12 = sub_100018A64([lazuliCopy slotID]);
+        if ((*(*v11 + 40))(v11, v12))
         {
           completionCopy[2](completionCopy, 0);
           goto LABEL_19;
         }
 
-        [(CTXPCClientHandler *)self getLogContext];
-        v16 = v20;
-        ctu::OsLogContext::~OsLogContext(&v18);
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        objc_msgSend_getLogContext(self);
+        v17 = v21;
+        ctu::OsLogContext::~OsLogContext(&v19);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_10177AB64();
         }
@@ -386,19 +386,19 @@ LABEL_4:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v15 = v20;
-        ctu::OsLogContext::~OsLogContext(&v18);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        objc_msgSend_getLogContext(self);
+        v16 = v21;
+        ctu::OsLogContext::~OsLogContext(&v19);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           sub_10177AB98();
         }
       }
 
-      v18 = 5;
-      v19 = 1;
-      v17 = sub_100A99330(&v18);
-      (completionCopy)[2](completionCopy, v17);
+      v19 = 5;
+      v20 = 1;
+      v18 = sub_100A99330(&v19);
+      (completionCopy)[2](completionCopy, v18);
 
 LABEL_19:
       if (*&buf[8])
@@ -409,26 +409,26 @@ LABEL_19:
       goto LABEL_21;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v13 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v14 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v14 = sub_100A99330(buf);
-    (completionCopy)[2](completionCopy, v14);
+    v15 = sub_100A99330(buf);
+    (completionCopy)[2](completionCopy, v15);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v12 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v13 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10177AC00();
     }
@@ -445,34 +445,34 @@ LABEL_21:
   {
     if (messagingCopy)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v8 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         [messagingCopy slotID];
-        v9 = CTSubscriptionSlotAsString();
+        v10 = CTSubscriptionSlotAsString();
         *buf = 136315138;
-        *&buf[4] = v9;
+        *&buf[4] = v10;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] disableBusinessMessaging: %s", buf, 0xCu);
       }
 
       *buf = 0uLL;
-      sub_1006E5EC0(self, buf);
-      v10 = *buf;
+      sub_1006E5EC0(self, v9, buf);
+      v11 = *buf;
       if (*buf)
       {
-        v11 = sub_100018A64([messagingCopy slotID]);
-        if ((*(*v10 + 56))(v10, v11))
+        v12 = sub_100018A64([messagingCopy slotID]);
+        if ((*(*v11 + 56))(v11, v12))
         {
           completionCopy[2](completionCopy, 0);
           goto LABEL_19;
         }
 
-        [(CTXPCClientHandler *)self getLogContext];
-        v16 = v20;
-        ctu::OsLogContext::~OsLogContext(&v18);
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        objc_msgSend_getLogContext(self);
+        v17 = v21;
+        ctu::OsLogContext::~OsLogContext(&v19);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_10177AC34();
         }
@@ -480,19 +480,19 @@ LABEL_21:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v15 = v20;
-        ctu::OsLogContext::~OsLogContext(&v18);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        objc_msgSend_getLogContext(self);
+        v16 = v21;
+        ctu::OsLogContext::~OsLogContext(&v19);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           sub_10177AC68();
         }
       }
 
-      v18 = 5;
-      v19 = 1;
-      v17 = sub_100A99330(&v18);
-      (completionCopy)[2](completionCopy, v17);
+      v19 = 5;
+      v20 = 1;
+      v18 = sub_100A99330(&v19);
+      (completionCopy)[2](completionCopy, v18);
 
 LABEL_19:
       if (*&buf[8])
@@ -503,26 +503,26 @@ LABEL_19:
       goto LABEL_21;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v13 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v14 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v14 = sub_100A99330(buf);
-    (completionCopy)[2](completionCopy, v14);
+    v15 = sub_100A99330(buf);
+    (completionCopy)[2](completionCopy, v15);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v12 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v13 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10177AC9C();
     }
@@ -539,34 +539,34 @@ LABEL_21:
   {
     if (lazuliCopy)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v8 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         [lazuliCopy slotID];
-        v9 = CTSubscriptionSlotAsString();
+        v10 = CTSubscriptionSlotAsString();
         *buf = 136315138;
-        *&buf[4] = v9;
+        *&buf[4] = v10;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] enableLazuli: %s", buf, 0xCu);
       }
 
       *buf = 0uLL;
-      sub_1006E5EC0(self, buf);
-      v10 = *buf;
+      sub_1006E5EC0(self, v9, buf);
+      v11 = *buf;
       if (*buf)
       {
-        v11 = sub_100018A64([lazuliCopy slotID]);
-        if ((*(*v10 + 32))(v10, v11))
+        v12 = sub_100018A64([lazuliCopy slotID]);
+        if ((*(*v11 + 32))(v11, v12))
         {
           completionCopy[2](completionCopy, 0);
           goto LABEL_19;
         }
 
-        [(CTXPCClientHandler *)self getLogContext];
-        v16 = v20;
-        ctu::OsLogContext::~OsLogContext(&v18);
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        objc_msgSend_getLogContext(self);
+        v17 = v21;
+        ctu::OsLogContext::~OsLogContext(&v19);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_10177ACD0();
         }
@@ -574,19 +574,19 @@ LABEL_21:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v15 = v20;
-        ctu::OsLogContext::~OsLogContext(&v18);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        objc_msgSend_getLogContext(self);
+        v16 = v21;
+        ctu::OsLogContext::~OsLogContext(&v19);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           sub_10177AD04();
         }
       }
 
-      v18 = 5;
-      v19 = 1;
-      v17 = sub_100A99330(&v18);
-      (completionCopy)[2](completionCopy, v17);
+      v19 = 5;
+      v20 = 1;
+      v18 = sub_100A99330(&v19);
+      (completionCopy)[2](completionCopy, v18);
 
 LABEL_19:
       if (*&buf[8])
@@ -597,26 +597,26 @@ LABEL_19:
       goto LABEL_21;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v13 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v14 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v14 = sub_100A99330(buf);
-    (completionCopy)[2](completionCopy, v14);
+    v15 = sub_100A99330(buf);
+    (completionCopy)[2](completionCopy, v15);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v12 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v13 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10177AD38();
     }
@@ -633,34 +633,34 @@ LABEL_21:
   {
     if (messagingCopy)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v8 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         [messagingCopy slotID];
-        v9 = CTSubscriptionSlotAsString();
+        v10 = CTSubscriptionSlotAsString();
         *buf = 136315138;
-        *&buf[4] = v9;
+        *&buf[4] = v10;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] enableBusinessMessaging: %s", buf, 0xCu);
       }
 
       *buf = 0uLL;
-      sub_1006E5EC0(self, buf);
-      v10 = *buf;
+      sub_1006E5EC0(self, v9, buf);
+      v11 = *buf;
       if (*buf)
       {
-        v11 = sub_100018A64([messagingCopy slotID]);
-        if ((*(*v10 + 48))(v10, v11))
+        v12 = sub_100018A64([messagingCopy slotID]);
+        if ((*(*v11 + 48))(v11, v12))
         {
           completionCopy[2](completionCopy, 0);
           goto LABEL_19;
         }
 
-        [(CTXPCClientHandler *)self getLogContext];
-        v16 = v20;
-        ctu::OsLogContext::~OsLogContext(&v18);
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        objc_msgSend_getLogContext(self);
+        v17 = v21;
+        ctu::OsLogContext::~OsLogContext(&v19);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_10177AD6C();
         }
@@ -668,19 +668,19 @@ LABEL_21:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v15 = v20;
-        ctu::OsLogContext::~OsLogContext(&v18);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        objc_msgSend_getLogContext(self);
+        v16 = v21;
+        ctu::OsLogContext::~OsLogContext(&v19);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           sub_10177ADA0();
         }
       }
 
-      v18 = 5;
-      v19 = 1;
-      v17 = sub_100A99330(&v18);
-      (completionCopy)[2](completionCopy, v17);
+      v19 = 5;
+      v20 = 1;
+      v18 = sub_100A99330(&v19);
+      (completionCopy)[2](completionCopy, v18);
 
 LABEL_19:
       if (*&buf[8])
@@ -691,26 +691,26 @@ LABEL_19:
       goto LABEL_21;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v13 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v14 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v14 = sub_100A99330(buf);
-    (completionCopy)[2](completionCopy, v14);
+    v15 = sub_100A99330(buf);
+    (completionCopy)[2](completionCopy, v15);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v12 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v13 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10177ADD4();
     }
@@ -734,7 +734,7 @@ LABEL_21:
       {
         if (v11)
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v12 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -750,98 +750,98 @@ LABEL_21:
           }
 
           v15 = sub_100018A64([informationCopy slotID]);
-          v29 = 0;
           v30 = 0;
-          sub_1006E5E0C(self, &v29);
-          if (!v29)
+          v31 = 0;
+          sub_1006E5E0C(self, &v30, v16);
+          if (!v30)
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v20 = *&buf[8];
+            objc_msgSend_getLogContext(self);
+            v21 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               sub_10177AD04();
             }
 
             *buf = 5;
             buf[4] = 1;
-            v21 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v21);
+            v22 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v22);
 
             goto LABEL_34;
           }
 
-          v27[0] = 0;
-          v27[1] = 0;
-          v28 = 0;
-          sub_100A972E8(v27);
-          v26 = 0;
-          v16 = v29;
+          v28[0] = 0;
+          v28[1] = 0;
+          v29 = 0;
+          sub_100A972E8(v28);
+          v27 = 0;
+          v17 = v30;
           sub_1006E72AC(destinationCopy, buf);
-          if (SHIBYTE(v28) < 0)
+          if (SHIBYTE(v29) < 0)
           {
-            sub_100005F2C(__p, v27[0], v27[1]);
+            sub_100005F2C(__p, v28[0], v28[1]);
           }
 
           else
           {
-            *__p = *v27;
-            v25 = v28;
+            *__p = *v28;
+            v26 = v29;
           }
 
-          v22 = (*(*v16 + 96))(v16, v15, buf, __p);
-          LODWORD(v26) = v22;
-          BYTE4(v26) = BYTE4(v22);
-          if (SHIBYTE(v25) < 0)
+          v23 = (*(*v17 + 96))(v17, v15, buf, __p);
+          LODWORD(v27) = v23;
+          BYTE4(v27) = BYTE4(v23);
+          if (SHIBYTE(v26) < 0)
           {
             operator delete(__p[0]);
           }
 
-          if (v37 < 0)
+          if (v38 < 0)
           {
-            operator delete(v36);
+            operator delete(v37);
           }
 
-          if (v35[24] == 1)
+          if (v36[24] == 1)
           {
-            __p[0] = v35;
+            __p[0] = v36;
             sub_1000087B4(__p);
           }
 
-          if (v34 < 0)
+          if (v35 < 0)
           {
-            operator delete(v33);
+            operator delete(v34);
           }
 
-          if (v32 < 0)
+          if (v33 < 0)
           {
             operator delete(*buf);
-            if ((v22 & 0x100000000) == 0)
+            if ((v23 & 0x100000000) == 0)
             {
               goto LABEL_29;
             }
           }
 
-          else if ((v22 & 0x100000000) == 0)
+          else if ((v23 & 0x100000000) == 0)
           {
 LABEL_29:
             completionCopy[2](completionCopy, 0);
             goto LABEL_32;
           }
 
-          v23 = sub_100A99330(&v26);
-          completionCopy[2](completionCopy, v23);
+          v24 = sub_100A99330(&v27);
+          completionCopy[2](completionCopy, v24);
 
 LABEL_32:
-          if (SHIBYTE(v28) < 0)
+          if (SHIBYTE(v29) < 0)
           {
-            operator delete(v27[0]);
+            operator delete(v28[0]);
           }
 
 LABEL_34:
-          if (v30)
+          if (v31)
           {
-            sub_100004A34(v30);
+            sub_100004A34(v31);
           }
 
           goto LABEL_36;
@@ -849,29 +849,29 @@ LABEL_34:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v17 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v18 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v18 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v18);
+    v19 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v19);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v19 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v20 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Invalid completion block while fetching chatbot render information", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Invalid completion block while fetching chatbot render information", buf, 2u);
     }
   }
 
@@ -887,8 +887,8 @@ LABEL_36:
   {
     if (informationCopy && botCopy && ([botCopy uri], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v12 = *&v36[4];
+      objc_msgSend_getLogContext(self);
+      v12 = *&v37[4];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
@@ -896,70 +896,70 @@ LABEL_36:
         v13 = CTSubscriptionSlotAsString();
         v14 = [botCopy uri];
         *buf = 136315395;
-        *v36 = v13;
-        *&v36[8] = 2113;
-        *&v36[10] = v14;
+        *v37 = v13;
+        *&v37[8] = 2113;
+        *&v37[10] = v14;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] readCachedChatBotRenderInformation [slot: %s, destination: %{private}@]", buf, 0x16u);
       }
 
       v15 = sub_100018A64([informationCopy slotID]);
-      v32 = 0;
       v33 = 0;
-      sub_1006E5FC4(self, &v32);
-      v16 = v32;
-      if (v32)
+      v34 = 0;
+      sub_1006E5FC4(self, v16, &v33);
+      v17 = v33;
+      if (v33)
       {
         bzero(buf, 0x2C0uLL);
-        memset(v30, 0, sizeof(v30));
-        v31 = 1;
-        sub_1006E72AC(botCopy, v23);
-        (*(*v16 + 288))(buf, v16, v30, v15, v23);
-        if (v29 < 0)
+        memset(v31, 0, sizeof(v31));
+        v32 = 1;
+        sub_1006E72AC(botCopy, v24);
+        (*(*v17 + 288))(buf, v17, v31, v15, v24);
+        if (v30 < 0)
         {
           operator delete(__p);
         }
 
-        if (v27[24] == 1)
+        if (v28[24] == 1)
         {
-          v34 = v27;
-          sub_1000087B4(&v34);
+          v35 = v28;
+          sub_1000087B4(&v35);
         }
 
-        if (v26 < 0)
+        if (v27 < 0)
         {
-          operator delete(v25);
+          operator delete(v26);
         }
 
-        if (v24 < 0)
+        if (v25 < 0)
         {
-          operator delete(v23[0]);
+          operator delete(v24[0]);
         }
 
-        TMClientInfo::~TMClientInfo(v30);
-        v17 = [[CTLazuliChatBotRenderInformationData alloc] initWithReflection:buf];
-        completionCopy[2](completionCopy, v17, 0);
+        TMClientInfo::~TMClientInfo(v31);
+        v18 = [[CTLazuliChatBotRenderInformationData alloc] initWithReflection:buf];
+        completionCopy[2](completionCopy, v18, 0);
 
-        if (v45 == 1)
+        if (v46 == 1)
         {
-          if (v44 == 1 && v43 < 0)
+          if (v45 == 1 && v44 < 0)
           {
-            operator delete(v42);
+            operator delete(v43);
           }
 
-          if (v41 < 0)
+          if (v42 < 0)
           {
-            operator delete(v40);
+            operator delete(v41);
           }
 
-          if (v39 < 0)
+          if (v40 < 0)
           {
-            operator delete(v38);
+            operator delete(v39);
           }
 
-          if (v37[24] == 1)
+          if (v38[24] == 1)
           {
-            v23[0] = v37;
-            sub_100191E28(v23);
+            v24[0] = v38;
+            sub_100191E28(v24);
           }
 
           sub_1006FA044(buf);
@@ -968,52 +968,52 @@ LABEL_36:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v21 = *&v36[4];
+        objc_msgSend_getLogContext(self);
+        v22 = *&v37[4];
         ctu::OsLogContext::~OsLogContext(buf);
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           sub_10177AE08();
         }
 
         *buf = 5;
-        v36[0] = 1;
-        v22 = sub_100A99330(buf);
-        (completionCopy)[2](completionCopy, 0, v22);
+        v37[0] = 1;
+        v23 = sub_100A99330(buf);
+        (completionCopy)[2](completionCopy, 0, v23);
       }
 
-      if (v33)
+      if (v34)
       {
-        sub_100004A34(v33);
+        sub_100004A34(v34);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v18 = *&v36[4];
+      objc_msgSend_getLogContext(self);
+      v19 = *&v37[4];
       ctu::OsLogContext::~OsLogContext(buf);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       *buf = 4;
-      v36[0] = 1;
-      v19 = sub_100A99330(buf);
-      (completionCopy)[2](completionCopy, 0, v19);
+      v37[0] = 1;
+      v20 = sub_100A99330(buf);
+      (completionCopy)[2](completionCopy, 0, v20);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v20 = *&v36[4];
+    objc_msgSend_getLogContext(self);
+    v21 = *&v37[4];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Invalid completion block while fetching chatbot render information from cache", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Invalid completion block while fetching chatbot render information from cache", buf, 2u);
     }
   }
 }
@@ -1036,7 +1036,7 @@ LABEL_36:
 
         if (uuid)
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v17 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
@@ -1049,59 +1049,59 @@ LABEL_36:
             *&buf[4] = v18;
             *&buf[12] = 2113;
             *&buf[14] = v19;
-            v40 = 2113;
-            v41 = uuid2;
+            v41 = 2113;
+            v42 = uuid2;
             _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] fetchRenderInformation [slot: %s, destination: %{private}@, operationID: %{private}@]", buf, 0x20u);
           }
 
           v21 = sub_100018A64([informationCopy slotID]);
-          v37 = 0;
           v38 = 0;
-          sub_1006E5FC4(self, &v37);
-          v22 = v37;
-          if (v37)
+          v39 = 0;
+          sub_1006E5FC4(self, v22, &v38);
+          v23 = v38;
+          if (v38)
           {
-            v36 = 0;
-            memset(v34, 0, sizeof(v34));
-            v35 = 1;
+            v37 = 0;
+            memset(v35, 0, sizeof(v35));
+            v36 = 1;
             sub_1006E72AC(botCopy, buf);
             uuid3 = [dCopy uuid];
-            v24 = uuid3;
+            v25 = uuid3;
             sub_10000501C(__p, [uuid3 UTF8String]);
-            v25 = (*(*v22 + 280))(v22, v34, v21, buf, __p);
-            LODWORD(v36) = v25;
-            BYTE4(v36) = BYTE4(v25);
-            if (v33 < 0)
+            v26 = (*(*v23 + 280))(v23, v35, v21, buf, __p);
+            LODWORD(v37) = v26;
+            BYTE4(v37) = BYTE4(v26);
+            if (v34 < 0)
             {
               operator delete(__p[0]);
             }
 
-            if (v45 < 0)
+            if (v46 < 0)
             {
-              operator delete(v44);
+              operator delete(v45);
             }
 
-            if (v43[24] == 1)
+            if (v44[24] == 1)
             {
-              __p[0] = v43;
+              __p[0] = v44;
               sub_1000087B4(__p);
             }
 
-            if (v42 < 0)
+            if (v43 < 0)
             {
-              operator delete(v41);
+              operator delete(v42);
             }
 
-            if (SHIBYTE(v40) < 0)
+            if (SHIBYTE(v41) < 0)
             {
               operator delete(*buf);
             }
 
-            TMClientInfo::~TMClientInfo(v34);
-            if ((v25 & 0x100000000) != 0)
+            TMClientInfo::~TMClientInfo(v35);
+            if ((v26 & 0x100000000) != 0)
             {
-              v31 = sub_100A99330(&v36);
-              completionCopy[2](completionCopy, v31);
+              v32 = sub_100A99330(&v37);
+              completionCopy[2](completionCopy, v32);
             }
 
             else
@@ -1112,23 +1112,23 @@ LABEL_36:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v29 = *&buf[8];
+            objc_msgSend_getLogContext(self);
+            v30 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               sub_10177AE3C();
             }
 
             *buf = 5;
             buf[4] = 1;
-            v30 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v30);
+            v31 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v31);
           }
 
-          if (v38)
+          if (v39)
           {
-            sub_100004A34(v38);
+            sub_100004A34(v39);
           }
 
           goto LABEL_28;
@@ -1140,29 +1140,29 @@ LABEL_36:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v27 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v28 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v28 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v28);
+    v29 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v29);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v26 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v27 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Invalid completion block while fetching chatbot render information", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Invalid completion block while fetching chatbot render information", buf, 2u);
     }
   }
 
@@ -1177,117 +1177,117 @@ LABEL_28:
   {
     if (configurationCopy)
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v8 = *(v21 + 4);
+      objc_msgSend_getLogContext(self);
+      v8 = *(v22 + 4);
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         [configurationCopy slotID];
-        v9 = CTSubscriptionSlotAsString();
+        v10 = CTSubscriptionSlotAsString();
         *buf = 136315138;
-        v21[0] = v9;
+        v22[0] = v10;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] getSystemConfiguration: [slot %s]", buf, 0xCu);
       }
 
-      v17 = 0;
       v18 = 0;
-      sub_1006E5EC0(self, &v17);
-      v10 = v17;
-      if (v17)
+      v19 = 0;
+      sub_1006E5EC0(self, v9, &v18);
+      v11 = v18;
+      if (v18)
       {
-        v11 = sub_100018A64([configurationCopy slotID]);
+        v12 = sub_100018A64([configurationCopy slotID]);
         bzero(buf, 0x208uLL);
-        (*(*v10 + 64))(buf, v10, v11);
-        v12 = [[CTLazuliSystemConfiguration alloc] initWithReflection:buf];
-        completionCopy[2](completionCopy, v12, 0);
+        (*(*v11 + 64))(buf, v11, v12);
+        v13 = [[CTLazuliSystemConfiguration alloc] initWithReflection:buf];
+        completionCopy[2](completionCopy, v13, 0);
 
-        if (v45 < 0)
+        if (v46 < 0)
         {
           operator delete(__p);
         }
 
-        if (v43[24] == 1)
+        if (v44[24] == 1)
         {
-          v19 = v43;
-          sub_1000087B4(&v19);
-          if (v42 < 0)
+          v20 = v44;
+          sub_1000087B4(&v20);
+          if (v43 < 0)
           {
-            operator delete(v41);
+            operator delete(v42);
           }
         }
 
-        if (v40 == 1)
+        if (v41 == 1)
         {
-          if (v39 == 1 && v38 < 0)
+          if (v40 == 1 && v39 < 0)
           {
-            operator delete(v37);
+            operator delete(v38);
           }
 
-          if (v36 == 1 && v35 < 0)
+          if (v37 == 1 && v36 < 0)
           {
-            operator delete(v34);
+            operator delete(v35);
           }
 
-          if (v33 == 1 && v32 < 0)
+          if (v34 == 1 && v33 < 0)
           {
-            operator delete(v31);
+            operator delete(v32);
           }
 
-          if (v30 == 1 && v29 < 0)
+          if (v31 == 1 && v30 < 0)
           {
-            operator delete(v28);
+            operator delete(v29);
           }
 
-          if (v27 == 1 && v26 < 0)
+          if (v28 == 1 && v27 < 0)
           {
-            operator delete(v25);
+            operator delete(v26);
           }
         }
 
-        if (v24 == 1 && v23 == 1 && v22 < 0)
+        if (v25 == 1 && v24 == 1 && v23 < 0)
         {
-          operator delete(*(&v21[6] + 4));
+          operator delete(*(&v22[6] + 4));
         }
       }
 
       else
       {
-        v16 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
-        (completionCopy)[2](completionCopy, 0, v16);
+        v17 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
+        (completionCopy)[2](completionCopy, 0, v17);
       }
 
-      if (v18)
+      if (v19)
       {
-        sub_100004A34(v18);
+        sub_100004A34(v19);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v14 = *(v21 + 4);
+      objc_msgSend_getLogContext(self);
+      v15 = *(v22 + 4);
       ctu::OsLogContext::~OsLogContext(buf);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       *buf = 4;
-      LOBYTE(v21[0]) = 1;
-      v15 = sub_100A99330(buf);
-      (completionCopy)[2](completionCopy, 0, v15);
+      LOBYTE(v22[0]) = 1;
+      v16 = sub_100A99330(buf);
+      (completionCopy)[2](completionCopy, 0, v16);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v13 = *(v21 + 4);
+    objc_msgSend_getLogContext(self);
+    v14 = *(v22 + 4);
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Invalid completion block while getting system configuration information", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Invalid completion block while getting system configuration information", buf, 2u);
     }
   }
 }
@@ -1301,58 +1301,58 @@ LABEL_28:
   {
     if (messageCopy && dCopy && ([dCopy uuid], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v12 = *(v34 + 4);
+      objc_msgSend_getLogContext(self);
+      v12 = *(v35 + 4);
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         uuid = [dCopy uuid];
         *buf = 138543362;
-        v34[0] = uuid;
+        v35[0] = uuid;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] retrieveMessage [identifier: %{public}@]", buf, 0xCu);
       }
 
       v14 = sub_100018A64([messageCopy slotID]);
-      v31 = 0;
       v32 = 0;
-      sub_1006E5FC4(self, &v31);
-      v15 = v31;
-      if (v31)
+      v33 = 0;
+      sub_1006E5FC4(self, v15, &v32);
+      v16 = v32;
+      if (v32)
       {
         bzero(buf, 0x468uLL);
-        memset(v29, 0, sizeof(v29));
-        v30 = 1;
-        sub_1006E8724(dCopy, v24);
-        (*(*v15 + 168))(buf, v15, v29, v14, v24);
-        if (v28 == 1 && v27 < 0)
+        memset(v30, 0, sizeof(v30));
+        v31 = 1;
+        sub_1006E8724(dCopy, v25);
+        (*(*v16 + 168))(buf, v16, v30, v14, v25);
+        if (v29 == 1 && v28 < 0)
         {
           operator delete(__p);
         }
 
-        if (v25 < 0)
+        if (v26 < 0)
         {
-          operator delete(v24[0]);
+          operator delete(v25[0]);
         }
 
-        TMClientInfo::~TMClientInfo(v29);
-        if (v47)
+        TMClientInfo::~TMClientInfo(v30);
+        if (v48)
         {
-          v16 = [CTLazuliMessageEnvelope alloc];
-          if ((v47 & 1) == 0)
+          v17 = [CTLazuliMessageEnvelope alloc];
+          if ((v48 & 1) == 0)
           {
             sub_1000D1644();
           }
 
-          v17 = [v16 initWithReflection:buf];
-          completionCopy[2](completionCopy, v17, 0);
+          v18 = [v17 initWithReflection:buf];
+          completionCopy[2](completionCopy, v18, 0);
         }
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
-          v23 = v24[1];
-          ctu::OsLogContext::~OsLogContext(v24);
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          objc_msgSend_getLogContext(self);
+          v24 = v25[1];
+          ctu::OsLogContext::~OsLogContext(v25);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
             sub_10177AE70();
           }
@@ -1360,90 +1360,90 @@ LABEL_28:
           completionCopy[2](completionCopy, 0, 0);
         }
 
-        if (v47 == 1)
+        if (v48 == 1)
         {
-          sub_1006A9CB8(&v46);
-          if (v45 == 1 && v44 < 0)
+          sub_1006A9CB8(&v47);
+          if (v46 == 1 && v45 < 0)
           {
-            operator delete(v43);
+            operator delete(v44);
           }
 
-          if (v42 < 0)
+          if (v43 < 0)
           {
-            operator delete(v41);
+            operator delete(v42);
           }
 
-          if (v40 < 0)
+          if (v41 < 0)
           {
-            operator delete(v39);
+            operator delete(v40);
           }
 
-          if (v38[24] == 1)
+          if (v39[24] == 1)
           {
-            v24[0] = v38;
-            sub_1000087B4(v24);
+            v25[0] = v39;
+            sub_1000087B4(v25);
           }
 
-          if (v37 < 0)
+          if (v38 < 0)
           {
-            operator delete(v36);
+            operator delete(v37);
           }
 
-          if (v35 < 0)
+          if (v36 < 0)
           {
-            operator delete(*(v34 + 4));
+            operator delete(*(v35 + 4));
           }
         }
       }
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v21 = *(v34 + 4);
+        objc_msgSend_getLogContext(self);
+        v22 = *(v35 + 4);
         ctu::OsLogContext::~OsLogContext(buf);
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           sub_10177AEA4();
         }
 
         *buf = 5;
-        LOBYTE(v34[0]) = 1;
-        v22 = sub_100A99330(buf);
-        (completionCopy)[2](completionCopy, 0, v22);
+        LOBYTE(v35[0]) = 1;
+        v23 = sub_100A99330(buf);
+        (completionCopy)[2](completionCopy, 0, v23);
       }
 
-      if (v32)
+      if (v33)
       {
-        sub_100004A34(v32);
+        sub_100004A34(v33);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v18 = *(v34 + 4);
+      objc_msgSend_getLogContext(self);
+      v19 = *(v35 + 4);
       ctu::OsLogContext::~OsLogContext(buf);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       *buf = 4;
-      LOBYTE(v34[0]) = 1;
-      v19 = sub_100A99330(buf);
-      (completionCopy)[2](completionCopy, 0, v19);
+      LOBYTE(v35[0]) = 1;
+      v20 = sub_100A99330(buf);
+      (completionCopy)[2](completionCopy, 0, v20);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v20 = *(v34 + 4);
+    objc_msgSend_getLogContext(self);
+    v21 = *(v35 + 4);
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Invalid completion block while retrieving message", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Invalid completion block while retrieving message", buf, 2u);
     }
   }
 }
@@ -1456,7 +1456,7 @@ LABEL_28:
   {
     if (dsCopy)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v8 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -1469,24 +1469,24 @@ LABEL_28:
       }
 
       sub_100018A64([dsCopy slotID]);
-      v17 = 0;
       v18 = 0;
-      sub_1006E5E0C(self, &v17);
-      if (v17)
+      v19 = 0;
+      sub_1006E5E0C(self, &v18, v10);
+      if (v18)
       {
         *buf = 0u;
-        v21 = 0u;
-        (*(*v17 + 200))(buf);
-        if (BYTE8(v21))
+        v22 = 0u;
+        (*(*v18 + 200))(buf);
+        if (BYTE8(v22))
         {
-          v10 = [CTLazuliMessageIDList alloc];
-          if ((BYTE8(v21) & 1) == 0)
+          v11 = [CTLazuliMessageIDList alloc];
+          if ((BYTE8(v22) & 1) == 0)
           {
             sub_1000D1644();
           }
 
-          v11 = [v10 initWithReflection:buf];
-          completionCopy[2](completionCopy, v11, 0);
+          v12 = [v11 initWithReflection:buf];
+          completionCopy[2](completionCopy, v12, 0);
         }
 
         else
@@ -1494,58 +1494,58 @@ LABEL_28:
           completionCopy[2](completionCopy, 0, 0);
         }
 
-        if (BYTE8(v21) == 1)
+        if (BYTE8(v22) == 1)
         {
-          v19 = buf;
-          sub_1006ACCB8(&v19);
+          v20 = buf;
+          sub_1006ACCB8(&v20);
         }
       }
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v15 = *&buf[8];
+        objc_msgSend_getLogContext(self);
+        v16 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           sub_10177AED8();
         }
 
         *buf = 5;
         buf[4] = 1;
-        v16 = sub_100A99330(buf);
-        (completionCopy)[2](completionCopy, 0, v16);
+        v17 = sub_100A99330(buf);
+        (completionCopy)[2](completionCopy, 0, v17);
       }
 
-      if (v18)
+      if (v19)
       {
-        sub_100004A34(v18);
+        sub_100004A34(v19);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v13 = *&buf[8];
+      objc_msgSend_getLogContext(self);
+      v14 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       *buf = 4;
       buf[4] = 1;
-      v14 = sub_100A99330(buf);
-      (completionCopy)[2](completionCopy, 0, v14);
+      v15 = sub_100A99330(buf);
+      (completionCopy)[2](completionCopy, 0, v15);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v12 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v13 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10177AF0C();
     }
@@ -1561,70 +1561,70 @@ LABEL_28:
   {
     if (messagesCopy && listCopy)
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v11 = *(&buf + 1);
-      ctu::OsLogContext::~OsLogContext(&buf);
+      objc_msgSend_getLogContext(self);
+      v11 = *&buf[8];
+      ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         [messagesCopy slotID];
         v12 = CTSubscriptionSlotAsString();
-        LODWORD(buf) = 136315138;
-        *(&buf + 4) = v12;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] acknowledgeIncomingMessages: [slot: %s]", &buf, 0xCu);
+        *buf = 136315138;
+        *&buf[4] = v12;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] acknowledgeIncomingMessages: [slot: %s]", buf, 0xCu);
       }
 
       v13 = sub_100018A64([messagesCopy slotID]);
-      v30 = 0;
       v31 = 0;
-      sub_1006E5E0C(self, &v30);
-      if (v30)
+      v32 = 0;
+      sub_1006E5E0C(self, &v31, v14);
+      if (v31)
       {
-        memset(v29, 0, sizeof(v29));
-        v25 = 0u;
+        memset(v30, 0, sizeof(v30));
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
+        v29 = 0u;
         list = [listCopy list];
-        v15 = [list countByEnumeratingWithState:&v25 objects:v37 count:16];
-        if (v15)
+        v16 = [list countByEnumeratingWithState:&v26 objects:v37 count:16];
+        if (v16)
         {
-          v16 = *v26;
+          v17 = *v27;
           do
           {
-            for (i = 0; i != v15; i = i + 1)
+            for (i = 0; i != v16; i = i + 1)
             {
-              if (*v26 != v16)
+              if (*v27 != v17)
               {
                 objc_enumerationMutation(list);
               }
 
-              sub_1006E8724(*(*(&v25 + 1) + 8 * i), &buf);
-              sub_1006E9190(v29, &buf);
+              sub_1006E8724(*(*(&v26 + 1) + 8 * i), buf);
+              sub_1006E9190(v30, buf);
               if (v36 == 1 && v35 < 0)
               {
                 operator delete(__p);
               }
 
-              if (v33 < 0)
+              if (buf[23] < 0)
               {
-                operator delete(buf);
+                operator delete(*buf);
               }
             }
 
-            v15 = [list countByEnumeratingWithState:&v25 objects:v37 count:16];
+            v16 = [list countByEnumeratingWithState:&v26 objects:v37 count:16];
           }
 
-          while (v15);
+          while (v16);
         }
 
-        *&buf = 0;
-        v18 = (*(*v30 + 208))(v30, v13, v29);
-        LODWORD(buf) = v18;
-        BYTE4(buf) = BYTE4(v18);
-        if ((v18 & 0x100000000) != 0)
+        *buf = 0;
+        v19 = (*(*v31 + 208))(v31, v13, v30);
+        *buf = v19;
+        buf[4] = BYTE4(v19);
+        if ((v19 & 0x100000000) != 0)
         {
-          v24 = sub_100A99330(&buf);
-          completionCopy[2](completionCopy, v24);
+          v25 = sub_100A99330(buf);
+          completionCopy[2](completionCopy, v25);
         }
 
         else
@@ -1632,55 +1632,55 @@ LABEL_28:
           completionCopy[2](completionCopy, 0);
         }
 
-        *&buf = v29;
-        sub_1006ACCB8(&buf);
+        *buf = v30;
+        sub_1006ACCB8(buf);
       }
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v22 = *(&buf + 1);
-        ctu::OsLogContext::~OsLogContext(&buf);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        objc_msgSend_getLogContext(self);
+        v23 = *&buf[8];
+        ctu::OsLogContext::~OsLogContext(buf);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           sub_10177AF40();
         }
 
-        LODWORD(buf) = 5;
-        BYTE4(buf) = 1;
-        v23 = sub_100A99330(&buf);
-        completionCopy[2](completionCopy, v23);
+        *buf = 5;
+        buf[4] = 1;
+        v24 = sub_100A99330(buf);
+        completionCopy[2](completionCopy, v24);
       }
 
-      if (v31)
+      if (v32)
       {
-        sub_100004A34(v31);
+        sub_100004A34(v32);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v20 = *(&buf + 1);
-      ctu::OsLogContext::~OsLogContext(&buf);
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      objc_msgSend_getLogContext(self);
+      v21 = *&buf[8];
+      ctu::OsLogContext::~OsLogContext(buf);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
-      LODWORD(buf) = 4;
-      BYTE4(buf) = 1;
-      v21 = sub_100A99330(&buf);
-      completionCopy[2](completionCopy, v21);
+      *buf = 4;
+      buf[4] = 1;
+      v22 = sub_100A99330(buf);
+      completionCopy[2](completionCopy, v22);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v19 = *(&buf + 1);
-    ctu::OsLogContext::~OsLogContext(&buf);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    objc_msgSend_getLogContext(self);
+    v20 = *&buf[8];
+    ctu::OsLogContext::~OsLogContext(buf);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_10177AF74();
     }
@@ -1702,7 +1702,7 @@ LABEL_28:
 
         if (v11)
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v12 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -1718,98 +1718,98 @@ LABEL_28:
           }
 
           v15 = sub_100018A64([capabilitiesCopy slotID]);
-          v29 = 0;
           v30 = 0;
-          sub_1006E5E0C(self, &v29);
-          if (!v29)
+          v31 = 0;
+          sub_1006E5E0C(self, &v30, v16);
+          if (!v30)
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v20 = *&buf[8];
+            objc_msgSend_getLogContext(self);
+            v21 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               sub_10177AFA8();
             }
 
             *buf = 5;
             buf[4] = 1;
-            v21 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v21);
+            v22 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v22);
 
             goto LABEL_34;
           }
 
-          v27[0] = 0;
-          v27[1] = 0;
-          v28 = 0;
-          sub_100A972E8(v27);
-          v26 = 0;
-          v16 = v29;
+          v28[0] = 0;
+          v28[1] = 0;
+          v29 = 0;
+          sub_100A972E8(v28);
+          v27 = 0;
+          v17 = v30;
           sub_1006E72AC(destinationCopy, buf);
-          if (SHIBYTE(v28) < 0)
+          if (SHIBYTE(v29) < 0)
           {
-            sub_100005F2C(__p, v27[0], v27[1]);
+            sub_100005F2C(__p, v28[0], v28[1]);
           }
 
           else
           {
-            *__p = *v27;
-            v25 = v28;
+            *__p = *v28;
+            v26 = v29;
           }
 
-          v22 = (*(*v16 + 128))(v16, v15, buf, __p);
-          LODWORD(v26) = v22;
-          BYTE4(v26) = BYTE4(v22);
-          if (SHIBYTE(v25) < 0)
+          v23 = (*(*v17 + 128))(v17, v15, buf, __p);
+          LODWORD(v27) = v23;
+          BYTE4(v27) = BYTE4(v23);
+          if (SHIBYTE(v26) < 0)
           {
             operator delete(__p[0]);
           }
 
-          if (v37 < 0)
+          if (v38 < 0)
           {
-            operator delete(v36);
+            operator delete(v37);
           }
 
-          if (v35[24] == 1)
+          if (v36[24] == 1)
           {
-            __p[0] = v35;
+            __p[0] = v36;
             sub_1000087B4(__p);
           }
 
-          if (v34 < 0)
+          if (v35 < 0)
           {
-            operator delete(v33);
+            operator delete(v34);
           }
 
-          if (v32 < 0)
+          if (v33 < 0)
           {
             operator delete(*buf);
-            if ((v22 & 0x100000000) == 0)
+            if ((v23 & 0x100000000) == 0)
             {
               goto LABEL_29;
             }
           }
 
-          else if ((v22 & 0x100000000) == 0)
+          else if ((v23 & 0x100000000) == 0)
           {
 LABEL_29:
             completionCopy[2](completionCopy, 0);
             goto LABEL_32;
           }
 
-          v23 = sub_100A99330(&v26);
-          completionCopy[2](completionCopy, v23);
+          v24 = sub_100A99330(&v27);
+          completionCopy[2](completionCopy, v24);
 
 LABEL_32:
-          if (SHIBYTE(v28) < 0)
+          if (SHIBYTE(v29) < 0)
           {
-            operator delete(v27[0]);
+            operator delete(v28[0]);
           }
 
 LABEL_34:
-          if (v30)
+          if (v31)
           {
-            sub_100004A34(v30);
+            sub_100004A34(v31);
           }
 
           goto LABEL_36;
@@ -1817,26 +1817,26 @@ LABEL_34:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v17 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v18 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v18 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v18);
+    v19 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v19);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v19 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v20 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_10177AFDC();
     }
@@ -1854,10 +1854,10 @@ LABEL_36:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v27 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v28 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       sub_10177B078();
     }
@@ -1883,40 +1883,40 @@ LABEL_36:
   if (!uuid)
   {
 LABEL_16:
-    [(CTXPCClientHandler *)self getLogContext];
-    v28 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v29 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v29 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v29);
+    v30 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v30);
 
     goto LABEL_19;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v20 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     [capabilitiesCopy slotID];
-    v39 = CTSubscriptionSlotAsString();
+    v40 = CTSubscriptionSlotAsString();
     v21 = [destinationCopy uri];
     type = [optionsCopy type];
     uuid2 = [dCopy uuid];
     *buf = 136315907;
-    *&buf[4] = v39;
+    *&buf[4] = v40;
     *&buf[12] = 2113;
     *&buf[14] = v21;
-    v50 = 2048;
-    v51 = type;
-    v52 = 2113;
-    v53 = uuid2;
+    v51 = 2048;
+    v52 = type;
+    v53 = 2113;
+    v54 = uuid2;
     _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] fetchRemoteCapabilities [slot: %s, destination: %{private}@, options: %ld, operationID: %{private}@]", buf, 0x2Au);
   }
 
@@ -1924,61 +1924,61 @@ LABEL_16:
   type2 = [optionsCopy type];
   if (!type2)
   {
-    v26 = 0;
+    v27 = 0;
     goto LABEL_21;
   }
 
   if (type2 == 2)
   {
-    v26 = 2;
+    v27 = 2;
 LABEL_21:
-    v46 = 0;
     v47 = 0;
-    sub_1006E5FC4(self, &v46);
-    v30 = v46;
-    if (v46)
+    v48 = 0;
+    sub_1006E5FC4(self, v26, &v47);
+    v31 = v47;
+    if (v47)
     {
-      v45 = v26;
-      v43[0] = 0;
-      v43[1] = 0;
-      v44 = 0;
+      v46 = v27;
+      v44[0] = 0;
+      v44[1] = 0;
+      v45 = 0;
       uuid3 = [dCopy uuid];
-      v32 = uuid3;
-      sub_10000501C(v43, [uuid3 UTF8String]);
+      v33 = uuid3;
+      sub_10000501C(v44, [uuid3 UTF8String]);
 
-      v42 = 0;
-      memset(v40, 0, sizeof(v40));
-      v41 = 1;
+      v43 = 0;
+      memset(v41, 0, sizeof(v41));
+      v42 = 1;
       sub_1006E72AC(destinationCopy, buf);
-      v33 = (*(*v30 + 224))(v30, v40, v24, buf, v43, &v45);
-      LODWORD(v42) = v33;
-      BYTE4(v42) = BYTE4(v33);
-      if (v57 < 0)
+      v34 = (*(*v31 + 224))(v31, v41, v24, buf, v44, &v46);
+      LODWORD(v43) = v34;
+      BYTE4(v43) = BYTE4(v34);
+      if (v58 < 0)
       {
         operator delete(__p);
       }
 
-      if (v55[24] == 1)
+      if (v56[24] == 1)
       {
-        v48 = v55;
-        sub_1000087B4(&v48);
+        v49 = v56;
+        sub_1000087B4(&v49);
       }
 
-      if (v54 < 0)
+      if (v55 < 0)
       {
-        operator delete(v51);
+        operator delete(v52);
       }
 
-      if (SHIBYTE(v50) < 0)
+      if (SHIBYTE(v51) < 0)
       {
         operator delete(*buf);
       }
 
-      TMClientInfo::~TMClientInfo(v40);
-      if ((v33 & 0x100000000) != 0)
+      TMClientInfo::~TMClientInfo(v41);
+      if ((v34 & 0x100000000) != 0)
       {
-        v38 = sub_100A99330(&v42);
-        completionCopy[2](completionCopy, v38);
+        v39 = sub_100A99330(&v43);
+        completionCopy[2](completionCopy, v39);
       }
 
       else
@@ -1986,48 +1986,48 @@ LABEL_21:
         completionCopy[2](completionCopy, 0);
       }
 
-      if (SHIBYTE(v44) < 0)
+      if (SHIBYTE(v45) < 0)
       {
-        operator delete(v43[0]);
+        operator delete(v44[0]);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v36 = *&buf[8];
+      objc_msgSend_getLogContext(self);
+      v37 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         sub_10177B010();
       }
 
       *buf = 5;
       buf[4] = 1;
-      v37 = sub_100A99330(buf);
-      completionCopy[2](completionCopy, v37);
+      v38 = sub_100A99330(buf);
+      completionCopy[2](completionCopy, v38);
     }
 
-    if (v47)
+    if (v48)
     {
-      sub_100004A34(v47);
+      sub_100004A34(v48);
     }
 
     goto LABEL_19;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v34 = *&buf[8];
+  objc_msgSend_getLogContext(self);
+  v35 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
   {
     sub_10177B044();
   }
 
   *buf = -1;
   buf[4] = 1;
-  v35 = sub_100A99330(buf);
-  completionCopy[2](completionCopy, v35);
+  v36 = sub_100A99330(buf);
+  completionCopy[2](completionCopy, v36);
 
 LABEL_19:
 }
@@ -2050,7 +2050,7 @@ LABEL_19:
 
         if (uuid)
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v17 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
@@ -2063,55 +2063,55 @@ LABEL_19:
             *&buf[4] = v18;
             *&buf[12] = 2113;
             *&buf[14] = v19;
-            v39 = 2113;
-            v40 = uuid2;
+            v40 = 2113;
+            v41 = uuid2;
             _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] discoverRemoteCapabilities [slot: %s, destination: %{private}@, operationID: %{private}@]", buf, 0x20u);
           }
 
           v21 = sub_100018A64([capabilitiesCopy slotID]);
-          v35 = 0;
           v36 = 0;
-          sub_1006E5E0C(self, &v35);
-          if (v35)
+          v37 = 0;
+          sub_1006E5E0C(self, &v36, v22);
+          if (v36)
           {
-            v33[0] = 0;
-            v33[1] = 0;
-            v34 = 0;
+            v34[0] = 0;
+            v34[1] = 0;
+            v35 = 0;
             uuid3 = [dCopy uuid];
-            v23 = uuid3;
-            sub_10000501C(v33, [uuid3 UTF8String]);
+            v24 = uuid3;
+            sub_10000501C(v34, [uuid3 UTF8String]);
 
-            v32 = 0;
-            v24 = v35;
+            v33 = 0;
+            v25 = v36;
             sub_1006E72AC(destinationCopy, buf);
-            v25 = (*(*v24 + 128))(v24, v21, buf, v33);
-            LODWORD(v32) = v25;
-            BYTE4(v32) = BYTE4(v25);
-            if (v44 < 0)
+            v26 = (*(*v25 + 128))(v25, v21, buf, v34);
+            LODWORD(v33) = v26;
+            BYTE4(v33) = BYTE4(v26);
+            if (v45 < 0)
             {
               operator delete(__p);
             }
 
-            if (v42[24] == 1)
+            if (v43[24] == 1)
             {
-              v37 = v42;
-              sub_1000087B4(&v37);
+              v38 = v43;
+              sub_1000087B4(&v38);
             }
 
-            if (v41 < 0)
+            if (v42 < 0)
             {
-              operator delete(v40);
+              operator delete(v41);
             }
 
-            if (SHIBYTE(v39) < 0)
+            if (SHIBYTE(v40) < 0)
             {
               operator delete(*buf);
             }
 
-            if ((v25 & 0x100000000) != 0)
+            if ((v26 & 0x100000000) != 0)
             {
-              v31 = sub_100A99330(&v32);
-              completionCopy[2](completionCopy, v31);
+              v32 = sub_100A99330(&v33);
+              completionCopy[2](completionCopy, v32);
             }
 
             else
@@ -2119,31 +2119,31 @@ LABEL_19:
               completionCopy[2](completionCopy, 0);
             }
 
-            if (SHIBYTE(v34) < 0)
+            if (SHIBYTE(v35) < 0)
             {
-              operator delete(v33[0]);
+              operator delete(v34[0]);
             }
           }
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v29 = *&buf[8];
+            objc_msgSend_getLogContext(self);
+            v30 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               sub_10177AFA8();
             }
 
             *buf = 5;
             buf[4] = 1;
-            v30 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v30);
+            v31 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v31);
           }
 
-          if (v36)
+          if (v37)
           {
-            sub_100004A34(v36);
+            sub_100004A34(v37);
           }
 
           goto LABEL_26;
@@ -2155,26 +2155,26 @@ LABEL_19:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v27 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v28 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v28 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v28);
+    v29 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v29);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v26 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v27 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_10177AFDC();
     }
@@ -2192,7 +2192,7 @@ LABEL_26:
   {
     if (capabilitiesCopy && destinationCopy && ([destinationCopy uri], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v12 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -2208,59 +2208,59 @@ LABEL_26:
       }
 
       v15 = sub_100018A64([capabilitiesCopy slotID]);
-      v32 = 0;
       v33 = 0;
-      sub_1006E5E0C(self, &v32);
-      v16 = v32;
-      if (v32)
+      v34 = 0;
+      sub_1006E5E0C(self, &v33, v16);
+      v17 = v33;
+      if (v33)
       {
-        v47 = 0u;
         v48 = 0u;
-        v45 = 0u;
+        v49 = 0u;
         v46 = 0u;
-        v43 = 0u;
+        v47 = 0u;
         v44 = 0u;
-        v41 = 0u;
+        v45 = 0u;
         v42 = 0u;
-        v39 = 0u;
+        v43 = 0u;
         v40 = 0u;
-        v38 = 0u;
-        v36 = 0u;
-        memset(v37, 0, sizeof(v37));
+        v41 = 0u;
+        v39 = 0u;
+        v37 = 0u;
+        memset(v38, 0, sizeof(v38));
         memset(buf, 0, sizeof(buf));
-        sub_1006E72AC(destinationCopy, v25);
-        (*(*v16 + 144))(buf, v16, v15, v25);
-        if (v31 < 0)
+        sub_1006E72AC(destinationCopy, v26);
+        (*(*v17 + 144))(buf, v17, v15, v26);
+        if (v32 < 0)
         {
           operator delete(__p);
         }
 
-        if (v29[24] == 1)
+        if (v30[24] == 1)
         {
-          v34 = v29;
-          sub_1000087B4(&v34);
+          v35 = v30;
+          sub_1000087B4(&v35);
         }
 
-        if (v28 < 0)
+        if (v29 < 0)
         {
-          operator delete(v27);
+          operator delete(v28);
         }
 
-        if (v26 < 0)
+        if (v27 < 0)
         {
-          operator delete(v25[0]);
+          operator delete(v26[0]);
         }
 
-        if (BYTE8(v48))
+        if (BYTE8(v49))
         {
-          v17 = [CTLazuliCapabilitiesInformation alloc];
-          if ((BYTE8(v48) & 1) == 0)
+          v18 = [CTLazuliCapabilitiesInformation alloc];
+          if ((BYTE8(v49) & 1) == 0)
           {
             sub_1000D1644();
           }
 
-          v18 = [v17 initWithReflection:buf];
-          completionCopy[2](completionCopy, v18, 0);
+          v19 = [v18 initWithReflection:buf];
+          completionCopy[2](completionCopy, v19, 0);
         }
 
         else
@@ -2268,36 +2268,36 @@ LABEL_26:
           completionCopy[2](completionCopy, 0, 0);
         }
 
-        if (BYTE8(v48) == 1)
+        if (BYTE8(v49) == 1)
         {
-          if (v48 == 1 && SHIBYTE(v47) < 0)
+          if (v49 == 1 && SHIBYTE(v48) < 0)
           {
-            operator delete(*(&v46 + 1));
+            operator delete(*(&v47 + 1));
           }
 
-          if (BYTE8(v44) == 1)
+          if (BYTE8(v45) == 1)
           {
-            v25[0] = &v43;
-            sub_1000087B4(v25);
+            v26[0] = &v44;
+            sub_1000087B4(v26);
           }
 
-          if (v42 == 1 && SHIBYTE(v41) < 0)
+          if (v43 == 1 && SHIBYTE(v42) < 0)
           {
-            operator delete(*(&v40 + 1));
+            operator delete(*(&v41 + 1));
           }
 
-          if (SHIBYTE(v39) < 0)
+          if (SHIBYTE(v40) < 0)
           {
-            operator delete(*(&v38 + 1));
+            operator delete(*(&v39 + 1));
           }
 
-          if (v38 == 1)
+          if (v39 == 1)
           {
-            v25[0] = &v37[8];
-            sub_1000087B4(v25);
+            v26[0] = &v38[8];
+            sub_1000087B4(v26);
           }
 
-          if (SHIBYTE(v36) < 0)
+          if (SHIBYTE(v37) < 0)
           {
             operator delete(*&buf[24]);
           }
@@ -2311,57 +2311,57 @@ LABEL_26:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v23 = *&buf[8];
+        objc_msgSend_getLogContext(self);
+        v24 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           sub_10177AFA8();
         }
 
         *buf = 0;
         buf[4] = 1;
-        v24 = sub_100A99330(buf);
-        (completionCopy)[2](completionCopy, 0, v24);
+        v25 = sub_100A99330(buf);
+        (completionCopy)[2](completionCopy, 0, v25);
       }
 
-      if (v33)
+      if (v34)
       {
-        sub_100004A34(v33);
+        sub_100004A34(v34);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v19 = *&buf[8];
+      objc_msgSend_getLogContext(self);
+      v20 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       *buf = 4;
       buf[4] = 1;
-      v20 = sub_100A99330(buf);
-      (completionCopy)[2](completionCopy, 0, v20);
+      v21 = sub_100A99330(buf);
+      (completionCopy)[2](completionCopy, 0, v21);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v21 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v22 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_10177B0AC();
     }
 
     *buf = 5;
     buf[4] = 1;
-    v22 = sub_100A99330(buf);
-    MEMORY[0x10](0, 0, v22);
+    v23 = sub_100A99330(buf);
+    MEMORY[0x10](0, 0, v23);
   }
 }
 
@@ -2389,120 +2389,120 @@ LABEL_26:
 
           if (uuid2)
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v25 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
             if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
             {
               [messageCopy slotID];
-              v40 = CTSubscriptionSlotAsString();
+              v41 = CTSubscriptionSlotAsString();
               v26 = "true";
               if (!securityCopy)
               {
                 v26 = "false";
               }
 
-              v41 = [toCopy uri];
+              v42 = [toCopy uri];
               uuid3 = [dCopy uuid];
               uuid4 = [iDCopy uuid];
               *buf = 136316419;
-              *&buf[4] = v40;
+              *&buf[4] = v41;
               *&buf[12] = 2080;
-              *&buf[14] = v38;
-              v68 = 2113;
-              v69 = v41;
-              v70 = 2114;
-              v71 = uuid3;
-              v72 = 2048;
+              *&buf[14] = v39;
+              v69 = 2113;
+              v70 = v42;
+              v71 = 2114;
+              v72 = uuid3;
+              v73 = 2048;
               dispositionCopy = disposition;
-              v74 = 2114;
-              v75 = uuid4;
+              v75 = 2114;
+              v76 = uuid4;
               _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendDispositionNotificationMessage [slot: %s, security: %s, to: %{private}@, identifier: %{public}@, type: %ld, forMessageID: %{public}@]", buf, 0x3Eu);
             }
 
             v28 = sub_100018A64([messageCopy slotID]);
-            v65 = 0;
             v66 = 0;
-            sub_1006E5FC4(self, &v65);
-            v29 = v65;
-            if (v65)
+            v67 = 0;
+            sub_1006E5FC4(self, v29, &v66);
+            v30 = v66;
+            if (v66)
             {
-              v64 = 0;
+              v65 = 0;
               if (disposition == 2)
               {
-                v30 = 2;
+                v31 = 2;
               }
 
               else
               {
-                v30 = -1;
+                v31 = -1;
               }
 
-              v62 = 0u;
               v63 = 0u;
+              v64 = 0u;
               if (!disposition)
               {
-                v30 = 0;
+                v31 = 0;
               }
 
-              v60 = 0uLL;
               v61 = 0uLL;
-              v58 = 0uLL;
+              v62 = 0uLL;
               v59 = 0uLL;
-              LODWORD(v58) = v30;
-              sub_1006E8724(iDCopy, &v58 + 8);
-              v57 = 0;
-              memset(v55, 0, sizeof(v55));
-              v56 = 1;
-              sub_1006E72AC(toCopy, v48);
-              sub_1006E8724(dCopy, v43);
+              v60 = 0uLL;
+              LODWORD(v59) = v31;
+              sub_1006E8724(iDCopy, &v59 + 8);
+              v58 = 0;
+              memset(v56, 0, sizeof(v56));
+              v57 = 1;
+              sub_1006E72AC(toCopy, v49);
+              sub_1006E8724(dCopy, v44);
               buf[0] = securityCopy != 0;
               buf[8] = 0;
-              v76 = 0;
-              v31 = (*(*v29 + 72))(v29, v55, v28, v48, v43, &v58, buf);
-              LODWORD(v57) = v31;
-              BYTE4(v57) = BYTE4(v31);
-              if (v76 == 1)
+              v77 = 0;
+              v32 = (*(*v30 + 72))(v30, v56, v28, v49, v44, &v59, buf);
+              LODWORD(v58) = v32;
+              BYTE4(v58) = BYTE4(v32);
+              if (v77 == 1)
               {
                 sub_1002AF7A0(&buf[16]);
               }
 
-              if (v47 == 1 && v46 < 0)
+              if (v48 == 1 && v47 < 0)
               {
                 operator delete(__p);
               }
 
-              if (v44 < 0)
+              if (v45 < 0)
               {
-                operator delete(v43[0]);
+                operator delete(v44[0]);
               }
 
-              if (v54 < 0)
+              if (v55 < 0)
               {
-                operator delete(v53);
+                operator delete(v54);
               }
 
-              if (v52[24] == 1)
+              if (v53[24] == 1)
               {
-                *buf = v52;
+                *buf = v53;
                 sub_1000087B4(buf);
               }
 
-              if (v51 < 0)
+              if (v52 < 0)
               {
-                operator delete(v50);
+                operator delete(v51);
               }
 
-              if (v49 < 0)
+              if (v50 < 0)
               {
-                operator delete(v48[0]);
+                operator delete(v49[0]);
               }
 
-              TMClientInfo::~TMClientInfo(v55);
-              if ((v31 & 0x100000000) != 0)
+              TMClientInfo::~TMClientInfo(v56);
+              if ((v32 & 0x100000000) != 0)
               {
-                v37 = sub_100A99330(&v57);
-                completionCopy[2](completionCopy, v37);
+                v38 = sub_100A99330(&v58);
+                completionCopy[2](completionCopy, v38);
               }
 
               else
@@ -2510,36 +2510,36 @@ LABEL_26:
                 completionCopy[2](completionCopy, 0);
               }
 
-              if (v64 == 1 && SHIBYTE(v62) < 0)
+              if (v65 == 1 && SHIBYTE(v63) < 0)
               {
-                operator delete(*(&v61 + 1));
+                operator delete(*(&v62 + 1));
               }
 
-              if (SHIBYTE(v59) < 0)
+              if (SHIBYTE(v60) < 0)
               {
-                operator delete(*(&v58 + 1));
+                operator delete(*(&v59 + 1));
               }
             }
 
             else
             {
-              [(CTXPCClientHandler *)self getLogContext];
-              v35 = *&buf[8];
+              objc_msgSend_getLogContext(self);
+              v36 = *&buf[8];
               ctu::OsLogContext::~OsLogContext(buf);
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
               {
                 sub_10177B0E0();
               }
 
               *buf = 5;
               buf[4] = 1;
-              v36 = sub_100A99330(buf);
-              completionCopy[2](completionCopy, v36);
+              v37 = sub_100A99330(buf);
+              completionCopy[2](completionCopy, v37);
             }
 
-            if (v66)
+            if (v67)
             {
-              sub_100004A34(v66);
+              sub_100004A34(v67);
             }
 
             goto LABEL_43;
@@ -2551,26 +2551,26 @@ LABEL_26:
     }
 
 LABEL_40:
-    [(CTXPCClientHandler *)self getLogContext];
-    v33 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v34 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v34 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v34);
+    v35 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v35);
 
     goto LABEL_43;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v32 = *&buf[8];
+  objc_msgSend_getLogContext(self);
+  v33 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
     sub_10177B114();
   }
@@ -2598,13 +2598,13 @@ LABEL_43:
 
         if (informationCopy && uuid)
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v23 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             [messageCopy slotID];
-            v37 = CTSubscriptionSlotAsString();
+            v39 = CTSubscriptionSlotAsString();
             if (securityCopy)
             {
               v24 = "true";
@@ -2615,156 +2615,156 @@ LABEL_43:
               v24 = "false";
             }
 
-            v38 = [toCopy uri];
+            v40 = [toCopy uri];
             uuid2 = [dCopy uuid];
             *buf = 136315907;
-            *&buf[4] = v37;
+            *&buf[4] = v39;
             *&buf[12] = 2080;
             *&buf[14] = v24;
-            v85 = 2113;
-            v86 = v38;
-            LOWORD(v87[0]) = 2114;
-            *(v87 + 2) = uuid2;
+            v87 = 2113;
+            v88 = v40;
+            LOWORD(v89[0]) = 2114;
+            *(v89 + 2) = uuid2;
             _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendFileTransferMessage [slot: %s, security: %s, to: %{private}@, identifier: %{public}@]", buf, 0x2Au);
           }
 
           v26 = sub_100018A64([messageCopy slotID]);
-          v79 = 0;
-          v78 = 0;
-          sub_1006E5E0C(self, &v78);
-          if (v78)
+          v81 = 0;
+          v80 = 0;
+          sub_1006E5E0C(self, &v80, v27);
+          if (v80)
           {
-            v77 = 0;
-            v76 = 0;
-            sub_1006E5FC4(self, &v76);
-            v27 = v76;
-            if (v76)
+            v79 = 0;
+            v78 = 0;
+            sub_1006E5FC4(self, v28, &v78);
+            v29 = v78;
+            if (v78)
             {
-              bzero(v55, 0x208uLL);
-              sub_1006EB6AC(informationCopy, v55);
-              v54 = 0;
-              memset(v52, 0, sizeof(v52));
-              v53 = 1;
-              sub_1006E72AC(toCopy, v45);
-              sub_1006E8724(dCopy, v40);
-              sub_1001907C0(buf, v55);
-              sub_100190C40(v103, v74);
-              sub_100190324(v104, v75);
-              v105 = 0;
-              v106 = 0;
+              bzero(v57, 0x208uLL);
+              sub_1006EB6AC(informationCopy, v57);
+              v56 = 0;
+              memset(v54, 0, sizeof(v54));
+              v55 = 1;
+              sub_1006E72AC(toCopy, v47);
+              sub_1006E8724(dCopy, v42);
+              sub_1001907C0(buf, v57);
+              sub_100190C40(v105, v76);
+              sub_100190324(v106, v77);
+              v108 = 0;
+              v109 = 0;
               metaData = [informationCopy metaData];
-              sub_1006EBDBC(metaData, v107);
-              LOBYTE(v80) = securityCopy != 0;
-              v81 = 0;
+              sub_1006EBDBC(metaData, v110);
+              LOBYTE(v82) = securityCopy != 0;
               v83 = 0;
-              v28 = (*(*v27 + 40))(v27, v52, v26, v45, v40, buf, &v80);
-              LODWORD(v54) = v28;
-              BYTE4(v54) = BYTE4(v28);
-              if (v83 == 1)
+              v85 = 0;
+              v30 = (*(*v29 + 40))(v29, v54, v26, v47, v42, buf, &v82);
+              LODWORD(v56) = v30;
+              BYTE4(v56) = BYTE4(v30);
+              if (v85 == 1)
               {
-                sub_1002AF7A0(&v82);
+                sub_1002AF7A0(&v84);
               }
 
-              if (v107[24] == 1)
+              if (v110[24] == 1)
               {
-                v80 = v107;
-                sub_100190608(&v80);
+                v82 = v110;
+                sub_100190608(&v82);
               }
 
-              if (v106 == 1)
+              if (v109 == 1)
               {
-                v80 = &v105;
-                sub_10019029C(&v80);
+                v82 = &v108;
+                sub_10019029C(&v82);
               }
 
-              if (v104[24] == 1)
+              if (v107 == 1)
               {
-                v80 = v104;
-                sub_100190608(&v80);
+                v82 = v106;
+                sub_100190608(&v82);
               }
 
-              sub_100190D9C(v103);
-              if (v102 == 1)
+              sub_100190D9C(v105);
+              if (v104 == 1)
               {
-                if (v101 == 1)
+                if (v103 == 1)
                 {
                   if (__p)
                   {
-                    v100 = __p;
+                    v102 = __p;
                     operator delete(__p);
                   }
 
-                  if (v98 == 1 && v96)
+                  if (v100 == 1 && v98)
                   {
-                    v97 = v96;
-                    operator delete(v96);
+                    v99 = v98;
+                    operator delete(v98);
                   }
 
-                  if (v95 == 1 && v93)
+                  if (v97 == 1 && v95)
+                  {
+                    v96 = v95;
+                    operator delete(v95);
+                  }
+
+                  if (v93)
                   {
                     v94 = v93;
                     operator delete(v93);
                   }
+                }
 
-                  if (v91)
-                  {
-                    v92 = v91;
-                    operator delete(v91);
-                  }
+                if (v92 < 0)
+                {
+                  operator delete(v91);
                 }
 
                 if (v90 < 0)
                 {
-                  operator delete(v89);
+                  operator delete(v89[0]);
                 }
 
-                if (v88 < 0)
-                {
-                  operator delete(v87[0]);
-                }
-
-                if (SHIBYTE(v86) < 0)
+                if (SHIBYTE(v88) < 0)
                 {
                   operator delete(*&buf[8]);
                 }
               }
 
-              if (v44 == 1 && v43 < 0)
+              if (v46 == 1 && v45 < 0)
               {
-                operator delete(v42);
+                operator delete(v44);
               }
 
-              if (v41 < 0)
+              if (v43 < 0)
               {
-                operator delete(v40[0]);
+                operator delete(v42[0]);
               }
 
-              if (v51 < 0)
+              if (v53 < 0)
               {
-                operator delete(v50);
+                operator delete(v52);
               }
 
-              if (v49[24] == 1)
+              if (v51[24] == 1)
               {
-                *buf = v49;
+                *buf = v51;
                 sub_1000087B4(buf);
+              }
+
+              if (v50 < 0)
+              {
+                operator delete(v49);
               }
 
               if (v48 < 0)
               {
-                operator delete(v47);
+                operator delete(v47[0]);
               }
 
-              if (v46 < 0)
+              TMClientInfo::~TMClientInfo(v54);
+              if (BYTE4(v56) == 1)
               {
-                operator delete(v45[0]);
-              }
-
-              TMClientInfo::~TMClientInfo(v52);
-              if (BYTE4(v54) == 1)
-              {
-                v29 = sub_100A99330(&v54);
-                completionCopy[2](completionCopy, v29);
+                v31 = sub_100A99330(&v56);
+                completionCopy[2](completionCopy, v31);
               }
 
               else
@@ -2772,40 +2772,45 @@ LABEL_43:
                 completionCopy[2](completionCopy, 0);
               }
 
-              if (v75[24] == 1)
+              if (v77[24] == 1)
               {
-                *buf = v75;
+                *buf = v77;
                 sub_100190608(buf);
               }
 
-              sub_100190D9C(v74);
-              if (v73 == 1)
+              sub_100190D9C(v76);
+              if (v75 == 1)
               {
-                if (v72 == 1)
+                if (v74 == 1)
                 {
-                  if (v70)
+                  if (v72)
                   {
-                    v71 = v70;
-                    operator delete(v70);
+                    v73 = v72;
+                    operator delete(v72);
                   }
 
-                  if (v69 == 1 && v67)
+                  if (v71 == 1 && v69)
                   {
-                    v68 = v67;
-                    operator delete(v67);
+                    v70 = v69;
+                    operator delete(v69);
                   }
 
-                  if (v66 == 1 && v64)
+                  if (v68 == 1 && v66)
+                  {
+                    v67 = v66;
+                    operator delete(v66);
+                  }
+
+                  if (v64)
                   {
                     v65 = v64;
                     operator delete(v64);
                   }
+                }
 
-                  if (v62)
-                  {
-                    v63 = v62;
-                    operator delete(v62);
-                  }
+                if (v63 < 0)
+                {
+                  operator delete(v62);
                 }
 
                 if (v61 < 0)
@@ -2817,55 +2822,50 @@ LABEL_43:
                 {
                   operator delete(v58);
                 }
-
-                if (v57 < 0)
-                {
-                  operator delete(v56);
-                }
               }
             }
 
             else
             {
-              [(CTXPCClientHandler *)self getLogContext];
-              v35 = *&buf[8];
+              objc_msgSend_getLogContext(self);
+              v37 = *&buf[8];
               ctu::OsLogContext::~OsLogContext(buf);
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
                 sub_10177B148();
               }
 
               *buf = 5;
               buf[4] = 1;
-              v36 = sub_100A99330(buf);
-              completionCopy[2](completionCopy, v36);
+              v38 = sub_100A99330(buf);
+              completionCopy[2](completionCopy, v38);
             }
 
-            if (v77)
+            if (v79)
             {
-              sub_100004A34(v77);
+              sub_100004A34(v79);
             }
           }
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v33 = *&buf[8];
+            objc_msgSend_getLogContext(self);
+            v35 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
               sub_10177B17C();
             }
 
             *buf = 5;
             buf[4] = 1;
-            v34 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v34);
+            v36 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v36);
           }
 
-          if (v79)
+          if (v81)
           {
-            sub_100004A34(v79);
+            sub_100004A34(v81);
           }
 
           goto LABEL_62;
@@ -2877,26 +2877,26 @@ LABEL_43:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v31 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v33 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v32 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v32);
+    v34 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v34);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v30 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v32 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_10177B1B0();
     }
@@ -2930,125 +2930,125 @@ LABEL_62:
           if (content)
           {
             v25 = sub_100018A64([messageCopy slotID]);
-            v68 = 0;
-            v69 = 0;
-            sub_1006E5E0C(self, &v68);
-            if (v68)
+            v70 = 0;
+            v71 = 0;
+            sub_1006E5E0C(self, &v70, v26);
+            if (v70)
             {
-              v66 = 0;
-              v67 = 0;
-              sub_1006E5FC4(self, &v66);
-              v26 = v66;
-              if (v66)
+              v68 = 0;
+              v69 = 0;
+              sub_1006E5FC4(self, v27, &v68);
+              v28 = v68;
+              if (v68)
               {
-                v46 = v25;
-                [(CTXPCClientHandler *)self getLogContext];
-                v27 = *&buf[8];
+                v48 = v25;
+                objc_msgSend_getLogContext(self);
+                v29 = *&buf[8];
                 ctu::OsLogContext::~OsLogContext(buf);
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+                if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
                 {
                   [messageCopy slotID];
-                  v44 = CTSubscriptionSlotAsString();
-                  v28 = "true";
+                  v46 = CTSubscriptionSlotAsString();
+                  v30 = "true";
                   if (!securityCopy)
                   {
-                    v28 = "false";
+                    v30 = "false";
                   }
 
-                  v43 = v28;
-                  v45 = [toCopy uri];
+                  v45 = v30;
+                  v47 = [toCopy uri];
                   uuid2 = [dCopy uuid];
                   content2 = [withMessageCopy content];
                   *buf = 136316419;
-                  *&buf[4] = v44;
+                  *&buf[4] = v46;
                   *&buf[12] = 2080;
-                  *&buf[14] = v43;
-                  v71 = 2113;
-                  v72 = v45;
-                  v73 = 2114;
-                  v74 = uuid2;
-                  v75 = 2160;
-                  v76 = 1752392040;
-                  v77 = 2117;
-                  v78 = content2;
-                  _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendTextMessage [slot: %s, security: %s, to: %{private}@, identifier: %{public}@, content: %{sensitive, mask.hash}@]", buf, 0x3Eu);
+                  *&buf[14] = v45;
+                  v73 = 2113;
+                  v74 = v47;
+                  v75 = 2114;
+                  v76 = uuid2;
+                  v77 = 2160;
+                  v78 = 1752392040;
+                  v79 = 2117;
+                  v80 = content2;
+                  _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendTextMessage [slot: %s, security: %s, to: %{private}@, identifier: %{public}@, content: %{sensitive, mask.hash}@]", buf, 0x3Eu);
                 }
 
-                memset(v64, 0, sizeof(v64));
-                v65 = 1;
-                sub_1006E72AC(toCopy, v57);
-                sub_1006E8724(dCopy, v52);
+                memset(v66, 0, sizeof(v66));
+                v67 = 1;
+                sub_1006E72AC(toCopy, v59);
+                sub_1006E8724(dCopy, v54);
                 content3 = [withMessageCopy content];
-                v32 = content3;
+                v34 = content3;
                 sub_10000501C(__p, [content3 UTF8String]);
-                v49 = 0;
-                v50 = 0;
+                v51 = 0;
+                v52 = 0;
                 metaData = [withMessageCopy metaData];
-                sub_1006EBDBC(metaData, v51);
+                sub_1006EBDBC(metaData, v53);
                 buf[0] = securityCopy != 0;
                 buf[8] = 0;
-                v79 = 0;
-                v34 = (*(*v26 + 24))(v26, v64, v46, v57, v52, __p, buf);
-                if (v79 == 1)
+                v81 = 0;
+                v36 = (*(*v28 + 24))(v28, v66, v48, v59, v54, __p, buf);
+                if (v81 == 1)
                 {
                   sub_1002AF7A0(&buf[16]);
                 }
 
-                if (v51[24] == 1)
+                if (v53[24] == 1)
                 {
-                  *buf = v51;
+                  *buf = v53;
                   sub_100190608(buf);
                 }
 
-                if (v50 == 1)
+                if (v52 == 1)
                 {
-                  *buf = &v49;
+                  *buf = &v51;
                   sub_10019029C(buf);
                 }
 
-                if (v48 < 0)
+                if (v50 < 0)
                 {
                   operator delete(__p[0]);
                 }
 
-                if (v56 == 1 && v55 < 0)
+                if (v58 == 1 && v57 < 0)
                 {
-                  operator delete(v54);
+                  operator delete(v56);
                 }
 
-                if (v53 < 0)
+                if (v55 < 0)
                 {
-                  operator delete(v52[0]);
+                  operator delete(v54[0]);
                 }
 
-                if (v63 < 0)
+                if (v65 < 0)
                 {
-                  operator delete(v62);
+                  operator delete(v64);
                 }
 
-                if (v61[24] == 1)
+                if (v63[24] == 1)
                 {
-                  *buf = v61;
+                  *buf = v63;
                   sub_1000087B4(buf);
+                }
+
+                if (v62 < 0)
+                {
+                  operator delete(v61);
                 }
 
                 if (v60 < 0)
                 {
-                  operator delete(v59);
+                  operator delete(v59[0]);
                 }
 
-                if (v58 < 0)
+                TMClientInfo::~TMClientInfo(v66);
+                if ((v36 & 0x100000000) != 0)
                 {
-                  operator delete(v57[0]);
-                }
-
-                TMClientInfo::~TMClientInfo(v64);
-                if ((v34 & 0x100000000) != 0)
-                {
-                  *buf = v34;
+                  *buf = v36;
                   buf[4] = 1;
-                  v42 = sub_100A99330(buf);
-                  completionCopy[2](completionCopy, v42);
+                  v44 = sub_100A99330(buf);
+                  completionCopy[2](completionCopy, v44);
                 }
 
                 else
@@ -3059,45 +3059,45 @@ LABEL_62:
 
               else
               {
-                [(CTXPCClientHandler *)self getLogContext];
-                v40 = *&buf[8];
+                objc_msgSend_getLogContext(self);
+                v42 = *&buf[8];
                 ctu::OsLogContext::~OsLogContext(buf);
-                if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                 {
                   sub_10177B1E4();
                 }
 
                 *buf = 5;
                 buf[4] = 1;
-                v41 = sub_100A99330(buf);
-                completionCopy[2](completionCopy, v41);
+                v43 = sub_100A99330(buf);
+                completionCopy[2](completionCopy, v43);
               }
 
-              if (v67)
+              if (v69)
               {
-                sub_100004A34(v67);
+                sub_100004A34(v69);
               }
             }
 
             else
             {
-              [(CTXPCClientHandler *)self getLogContext];
-              v38 = *&buf[8];
+              objc_msgSend_getLogContext(self);
+              v40 = *&buf[8];
               ctu::OsLogContext::~OsLogContext(buf);
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
               {
                 sub_10177B218();
               }
 
               *buf = 5;
               buf[4] = 1;
-              v39 = sub_100A99330(buf);
-              completionCopy[2](completionCopy, v39);
+              v41 = sub_100A99330(buf);
+              completionCopy[2](completionCopy, v41);
             }
 
-            if (v69)
+            if (v71)
             {
-              sub_100004A34(v69);
+              sub_100004A34(v71);
             }
 
             goto LABEL_45;
@@ -3109,26 +3109,26 @@ LABEL_62:
     }
 
 LABEL_42:
-    [(CTXPCClientHandler *)self getLogContext];
-    v36 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v38 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v37 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v37);
+    v39 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v39);
 
     goto LABEL_45;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v35 = *&buf[8];
+  objc_msgSend_getLogContext(self);
+  v37 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
   {
     sub_10177B24C();
   }
@@ -3143,38 +3143,38 @@ LABEL_45:
   dCopy = d;
   indicationCopy = indication;
   securityCopy = security;
-  v70 = 0;
   v71 = 0;
-  sub_1006E5FC4(self, &v70);
-  v19 = v70;
-  if (v70)
+  v72 = 0;
+  sub_1006E5FC4(self, v19, &v71);
+  v20 = v71;
+  if (v71)
   {
     if (indicatorCopy && toCopy)
     {
-      v20 = [toCopy uri];
-      v21 = v20;
-      if (dCopy && v20)
+      v21 = [toCopy uri];
+      v22 = v21;
+      if (dCopy && v21)
       {
         uuid = [dCopy uuid];
 
         if (indicationCopy && uuid)
         {
-          [(CTXPCClientHandler *)self getLogContext];
-          v23 = *&buf[8];
+          objc_msgSend_getLogContext(self);
+          v24 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
-          log = v23;
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          log = v24;
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             [indicatorCopy slotID];
-            v49 = CTSubscriptionSlotAsString();
-            v24 = "true";
+            v50 = CTSubscriptionSlotAsString();
+            v25 = "true";
             if (!securityCopy)
             {
-              v24 = "false";
+              v25 = "false";
             }
 
-            v48 = v24;
-            v52 = [toCopy uri];
+            v49 = v25;
+            v53 = [toCopy uri];
             uuid2 = [dCopy uuid];
             refreshTime = [indicationCopy refreshTime];
             if (refreshTime)
@@ -3202,11 +3202,11 @@ LABEL_45:
             }
 
             *buf = 136316675;
-            *&buf[4] = v49;
+            *&buf[4] = v50;
             *&buf[12] = 2080;
-            *&buf[14] = v48;
+            *&buf[14] = v49;
             *&buf[22] = 2113;
-            *&buf[24] = v52;
+            *&buf[24] = v53;
             *&buf[32] = 2114;
             *&buf[34] = uuid2;
             *&buf[42] = 2048;
@@ -3225,15 +3225,15 @@ LABEL_45:
             }
           }
 
-          v54 = sub_100018A64([indicatorCopy slotID]);
-          v79 = 0;
-          memset(v78, 0, sizeof(v78));
-          v77 = 0u;
+          v55 = sub_100018A64([indicatorCopy slotID]);
+          v80 = 0;
+          memset(v79, 0, sizeof(v79));
+          v78 = 0u;
           memset(buf, 0, sizeof(buf));
           refreshTime3 = [indicationCopy refreshTime];
-          v31 = refreshTime3 == 0;
+          v32 = refreshTime3 == 0;
 
-          if (!v31)
+          if (!v32)
           {
             refreshTime4 = [indicationCopy refreshTime];
             longValue2 = [refreshTime4 longValue];
@@ -3247,102 +3247,102 @@ LABEL_45:
 
           buf[16] = [indicationCopy active];
           lastActive3 = [indicationCopy lastActive];
-          v35 = lastActive3 == 0;
+          v36 = lastActive3 == 0;
 
-          if (!v35)
+          if (!v36)
           {
             lastActive4 = [indicationCopy lastActive];
-            v37 = lastActive4;
+            v38 = lastActive4;
             uTF8String2 = [lastActive4 UTF8String];
             sub_100184AD0(&buf[24], &uTF8String2);
           }
 
           contentType = [indicationCopy contentType];
-          v39 = contentType == 0;
+          v40 = contentType == 0;
 
-          if (!v39)
+          if (!v40)
           {
             contentType2 = [indicationCopy contentType];
-            v41 = contentType2;
+            v42 = contentType2;
             uTF8String2 = [contentType2 UTF8String];
             sub_100184AD0(&buf[56], &uTF8String2);
           }
 
-          v69 = 0;
-          memset(v67, 0, sizeof(v67));
-          v68 = 1;
-          sub_1006E72AC(toCopy, v60);
-          sub_1006E8724(dCopy, v55);
+          v70 = 0;
+          memset(v68, 0, sizeof(v68));
+          v69 = 1;
+          sub_1006E72AC(toCopy, v61);
+          sub_1006E8724(dCopy, v56);
           LOBYTE(uTF8String2) = securityCopy != 0;
-          LOBYTE(v73) = 0;
-          v75 = 0;
-          v42 = (*(*v19 + 88))(v19, v67, v54, v60, v55, buf, &uTF8String2);
-          LODWORD(v69) = v42;
-          BYTE4(v69) = BYTE4(v42);
-          if (v75 == 1)
+          LOBYTE(v74) = 0;
+          v76 = 0;
+          v43 = (*(*v20 + 88))(v20, v68, v55, v61, v56, buf, &uTF8String2);
+          LODWORD(v70) = v43;
+          BYTE4(v70) = BYTE4(v43);
+          if (v76 == 1)
           {
-            sub_1002AF7A0(&v74);
+            sub_1002AF7A0(&v75);
           }
 
-          if (v59 == 1 && v58 < 0)
+          if (v60 == 1 && v59 < 0)
           {
             operator delete(__p);
           }
 
-          if (v56 < 0)
+          if (v57 < 0)
           {
-            operator delete(v55[0]);
+            operator delete(v56[0]);
           }
 
-          if (v66 < 0)
+          if (v67 < 0)
           {
-            operator delete(v65);
+            operator delete(v66);
           }
 
-          if (v64[24] == 1)
+          if (v65[24] == 1)
           {
-            uTF8String2 = v64;
+            uTF8String2 = v65;
             sub_1000087B4(&uTF8String2);
           }
 
-          if (v63 < 0)
+          if (v64 < 0)
           {
-            operator delete(v62);
+            operator delete(v63);
           }
 
-          if (v61 < 0)
+          if (v62 < 0)
           {
-            operator delete(v60[0]);
+            operator delete(v61[0]);
           }
 
-          TMClientInfo::~TMClientInfo(v67);
-          if ((v42 & 0x100000000) != 0)
+          TMClientInfo::~TMClientInfo(v68);
+          if ((v43 & 0x100000000) != 0)
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v43 = v73;
+            objc_msgSend_getLogContext(self);
+            v44 = v74;
             ctu::OsLogContext::~OsLogContext(&uTF8String2);
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
               sub_10177B280();
             }
 
             if (error)
             {
-              *error = sub_100A99330(&v69);
+              *error = sub_100A99330(&v70);
             }
           }
 
-          if (v79 == 1)
+          if (v80 == 1)
           {
-            sub_1002AF7A0(&v78[8]);
+            sub_1002AF7A0(&v79[8]);
           }
 
-          if (v77 == 1 && buf[79] < 0)
+          if (v78 == 1 && (buf[79] & 0x80000000) != 0)
           {
             operator delete(*&buf[56]);
           }
 
-          if (buf[48] == 1 && buf[47] < 0)
+          if (buf[48] == 1 && (buf[47] & 0x80000000) != 0)
           {
             operator delete(*&buf[24]);
           }
@@ -3356,10 +3356,10 @@ LABEL_45:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v28 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v29 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
@@ -3368,17 +3368,17 @@ LABEL_45:
     {
       *buf = 4;
       buf[4] = 1;
-      v27 = sub_100A99330(buf);
+      v28 = sub_100A99330(buf);
       goto LABEL_22;
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v26 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v27 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_10177B2B4();
     }
@@ -3387,16 +3387,16 @@ LABEL_45:
     {
       *buf = 3;
       buf[4] = 1;
-      v27 = sub_100A99330(buf);
+      v28 = sub_100A99330(buf);
 LABEL_22:
-      *error = v27;
+      *error = v28;
     }
   }
 
 LABEL_23:
-  if (v71)
+  if (v72)
   {
-    sub_100004A34(v71);
+    sub_100004A34(v72);
   }
 }
 
@@ -3426,7 +3426,7 @@ LABEL_23:
 
               if (uuid2)
               {
-                [(CTXPCClientHandler *)self getLogContext];
+                objc_msgSend_getLogContext(self);
                 v19 = *&buf[8];
                 ctu::OsLogContext::~OsLogContext(buf);
                 if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
@@ -3443,60 +3443,60 @@ LABEL_23:
                   *&buf[14] = uuid3;
                   *&buf[22] = 2113;
                   *&buf[24] = destination2;
-                  LOWORD(v51) = 2114;
-                  *(&v51 + 2) = uuid4;
+                  LOWORD(v52) = 2114;
+                  *(&v52 + 2) = uuid4;
                   _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] revokeMessage [slot: %s, identifier: %{public}@, revoke.dst = %{private}@, revoke.messageID: %{public}@]", buf, 0x2Au);
                 }
 
                 v23 = sub_100018A64([messageCopy slotID]);
-                v48 = 0;
                 v49 = 0;
-                sub_1006E5FC4(self, &v48);
-                v24 = v48;
-                if (v48)
+                v50 = 0;
+                sub_1006E5FC4(self, v24, &v49);
+                v25 = v49;
+                if (v49)
                 {
-                  v59 = 0u;
                   v60 = 0u;
-                  v57 = 0u;
+                  v61 = 0u;
                   v58 = 0u;
-                  v55 = 0u;
+                  v59 = 0u;
                   v56 = 0u;
-                  v53 = 0u;
+                  v57 = 0u;
                   v54 = 0u;
-                  memset(v52, 0, sizeof(v52));
-                  v51 = 0u;
+                  v55 = 0u;
+                  memset(v53, 0, sizeof(v53));
+                  v52 = 0u;
                   memset(buf, 0, sizeof(buf));
                   destination3 = [dataCopy destination];
-                  v26 = [destination3 uri];
-                  v27 = v26;
-                  sub_10000501C(buf, [v26 UTF8String]);
-                  v52[8] = 0;
-                  LOBYTE(v53) = 0;
-                  v54 = 0uLL;
-                  *(&v53 + 1) = 0;
-                  v51 = 0uLL;
+                  v27 = [destination3 uri];
+                  v28 = v27;
+                  sub_10000501C(buf, [v27 UTF8String]);
+                  v53[8] = 0;
+                  LOBYTE(v54) = 0;
+                  v55 = 0uLL;
+                  *(&v54 + 1) = 0;
+                  v52 = 0uLL;
                   *&buf[24] = 0;
-                  v52[0] = 0;
+                  v53[0] = 0;
                   messageID4 = [dataCopy messageID];
-                  sub_1006E8724(messageID4, &v55);
+                  sub_1006E8724(messageID4, &v56);
 
-                  v46 = 0u;
                   v47 = 0u;
-                  v44 = 0u;
+                  v48 = 0u;
+                  v45 = 0u;
                   *__p = 0u;
-                  *v42 = 0u;
-                  v43 = 0u;
-                  sub_1006E8724(dCopy, v42);
-                  memset(v40, 0, sizeof(v40));
-                  v41 = 1;
-                  v29 = (*(*v24 + 272))(v24, v40, v23, buf, v42);
-                  TMClientInfo::~TMClientInfo(v40);
-                  if ((v29 & 0x100000000) != 0)
+                  *v43 = 0u;
+                  v44 = 0u;
+                  sub_1006E8724(dCopy, v43);
+                  memset(v41, 0, sizeof(v41));
+                  v42 = 1;
+                  v30 = (*(*v25 + 272))(v25, v41, v23, buf, v43);
+                  TMClientInfo::~TMClientInfo(v41);
+                  if ((v30 & 0x100000000) != 0)
                   {
-                    v38 = v29;
-                    v39 = 1;
-                    v35 = sub_100A99330(&v38);
-                    completionCopy[2](completionCopy, v35);
+                    v39 = v30;
+                    v40 = 1;
+                    v36 = sub_100A99330(&v39);
+                    completionCopy[2](completionCopy, v36);
                   }
 
                   else
@@ -3504,38 +3504,38 @@ LABEL_23:
                     completionCopy[2](completionCopy, 0);
                   }
 
-                  if (BYTE8(v47) == 1 && SBYTE7(v46) < 0)
+                  if (BYTE8(v48) == 1 && SBYTE7(v47) < 0)
                   {
                     operator delete(__p[0]);
                   }
 
-                  if (SBYTE7(v43) < 0)
+                  if (SBYTE7(v44) < 0)
                   {
-                    operator delete(v42[0]);
+                    operator delete(v43[0]);
                   }
 
-                  if (BYTE8(v60) == 1 && SBYTE7(v59) < 0)
+                  if (BYTE8(v61) == 1 && SBYTE7(v60) < 0)
                   {
-                    operator delete(v58);
+                    operator delete(v59);
                   }
 
-                  if (SBYTE7(v56) < 0)
+                  if (SBYTE7(v57) < 0)
                   {
-                    operator delete(v55);
+                    operator delete(v56);
                   }
 
-                  if (SHIBYTE(v54) < 0)
+                  if (SHIBYTE(v55) < 0)
                   {
-                    operator delete(*(&v53 + 1));
+                    operator delete(*(&v54 + 1));
                   }
 
-                  if (v53 == 1)
+                  if (v54 == 1)
                   {
-                    v42[0] = &v52[8];
-                    sub_1000087B4(v42);
+                    v43[0] = &v53[8];
+                    sub_1000087B4(v43);
                   }
 
-                  if (SHIBYTE(v51) < 0)
+                  if (SHIBYTE(v52) < 0)
                   {
                     operator delete(*&buf[24]);
                   }
@@ -3548,23 +3548,23 @@ LABEL_23:
 
                 else
                 {
-                  [(CTXPCClientHandler *)self getLogContext];
-                  v33 = *&buf[8];
+                  objc_msgSend_getLogContext(self);
+                  v34 = *&buf[8];
                   ctu::OsLogContext::~OsLogContext(buf);
-                  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+                  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
                   {
                     sub_10177B1E4();
                   }
 
                   *buf = 5;
                   buf[4] = 1;
-                  v34 = sub_100A99330(buf);
-                  completionCopy[2](completionCopy, v34);
+                  v35 = sub_100A99330(buf);
+                  completionCopy[2](completionCopy, v35);
                 }
 
-                if (v49)
+                if (v50)
                 {
-                  sub_100004A34(v49);
+                  sub_100004A34(v50);
                 }
 
                 goto LABEL_20;
@@ -3578,26 +3578,26 @@ LABEL_23:
     }
 
 LABEL_17:
-    [(CTXPCClientHandler *)self getLogContext];
-    v31 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v32 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v32 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v32);
+    v33 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v33);
 
     goto LABEL_20;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v30 = *&buf[8];
+  objc_msgSend_getLogContext(self);
+  v31 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
     sub_10177B24C();
   }
@@ -3625,7 +3625,7 @@ LABEL_20:
 
         if (pushCopy && uuid)
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v23 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
@@ -3642,13 +3642,13 @@ LABEL_20:
               v25 = "false";
             }
 
-            v57 = [toCopy uri];
+            v58 = [toCopy uri];
             uuid2 = [dCopy uuid];
-            v51 = v25;
-            v52 = v24;
+            v52 = v25;
+            v53 = v24;
             [pushCopy coordinates];
-            v53 = longitude = "3$_5EEvRNS2_10RestModuleEOT_NS_17integral_constantIbLb0EEEEUlRKN3xpc6objectEE_NS8_ISS_EEFvSP_EEE";
-            if (v53)
+            v54 = longitude = "3$_5EEvRNS2_10RestModuleEOT_NS_17integral_constantIbLb0EEEEUlRKN3xpc6objectEE_NS8_ISS_EEFvSP_EEE";
+            if (v54)
             {
               coordinates = [pushCopy coordinates];
               latitude = [coordinates latitude];
@@ -3675,118 +3675,118 @@ LABEL_20:
             }
 
             *buf = 136316419;
-            *&buf[4] = v52;
+            *&buf[4] = v53;
             *&buf[12] = 2080;
-            *&buf[14] = v51;
-            v85 = 2113;
-            v86 = v57;
-            v87 = 2114;
-            v88 = uuid2;
-            v89 = 2048;
-            v90 = v28;
-            v91 = 2048;
-            v92 = v33;
+            *&buf[14] = v52;
+            v86 = 2113;
+            v87 = v58;
+            v88 = 2114;
+            v89 = uuid2;
+            v90 = 2048;
+            v91 = v28;
+            v92 = 2048;
+            v93 = v33;
             _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendGeolocationMessage [slot: %s, security: %s, to: %{private}@, messageIdentifier: %{public}@, push.latitude: %{senstive}f, push.longitude: %{senstive}f]", buf, 0x3Eu);
             if (coordinates2)
             {
             }
 
-            if (v53)
+            if (v54)
             {
             }
           }
 
-          v58 = sub_100018A64([messageCopy slotID]);
-          v82 = 0;
+          v59 = sub_100018A64([messageCopy slotID]);
           v83 = 0;
-          sub_1006E5FC4(self, &v82);
-          v34 = v82;
-          if (v82)
+          v84 = 0;
+          sub_1006E5FC4(self, v34, &v83);
+          v35 = v83;
+          if (v83)
           {
-            *v80 = 0u;
-            v81 = 0u;
+            *v81 = 0u;
+            v82 = 0u;
             additionalDescription = [pushCopy additionalDescription];
-            v36 = additionalDescription == 0;
+            v37 = additionalDescription == 0;
 
-            if (!v36)
+            if (!v37)
             {
               additionalDescription2 = [pushCopy additionalDescription];
-              v38 = additionalDescription2;
+              v39 = additionalDescription2;
               *buf = [additionalDescription2 UTF8String];
-              sub_100184AD0(v80, buf);
+              sub_100184AD0(v81, buf);
             }
 
-            v78 = 0u;
             v79 = 0u;
-            v76 = 0u;
+            v80 = 0u;
             v77 = 0u;
-            *v74 = 0u;
-            v75 = 0u;
+            v78 = 0u;
+            *v75 = 0u;
+            v76 = 0u;
             coordinates4 = [pushCopy coordinates];
             longitude2 = [coordinates4 longitude];
             [longitude2 doubleValue];
-            v73[0] = v39;
+            v74[0] = v40;
             coordinates5 = [pushCopy coordinates];
             latitude2 = [coordinates5 latitude];
             [latitude2 doubleValue];
-            v73[1] = v42;
-            sub_10006F264(v74, v80);
-            LOBYTE(v76) = 0;
-            BYTE8(v77) = 0;
+            v74[1] = v43;
+            sub_10006F264(v75, v81);
+            LOBYTE(v77) = 0;
+            BYTE8(v78) = 0;
             metaData = [pushCopy metaData];
-            sub_1006EBDBC(metaData, &v78);
+            sub_1006EBDBC(metaData, &v79);
 
-            memset(v71, 0, sizeof(v71));
-            v72 = 1;
-            sub_1006E72AC(toCopy, v64);
-            sub_1006E8724(dCopy, v59);
+            memset(v72, 0, sizeof(v72));
+            v73 = 1;
+            sub_1006E72AC(toCopy, v65);
+            sub_1006E8724(dCopy, v60);
             buf[0] = securityCopy != 0;
             buf[8] = 0;
-            v93 = 0;
-            v44 = (*(*v34 + 56))(v34, v71, v58, v64, v59, v73, buf);
-            if (v93 == 1)
+            v94 = 0;
+            v45 = (*(*v35 + 56))(v35, v72, v59, v65, v60, v74, buf);
+            if (v94 == 1)
             {
               sub_1002AF7A0(&buf[16]);
             }
 
-            if (v63 == 1 && v62 < 0)
+            if (v64 == 1 && v63 < 0)
             {
               operator delete(__p);
             }
 
-            if (v60 < 0)
+            if (v61 < 0)
             {
-              operator delete(v59[0]);
+              operator delete(v60[0]);
             }
 
-            if (v70 < 0)
+            if (v71 < 0)
             {
-              operator delete(v69);
+              operator delete(v70);
             }
 
-            if (v68[24] == 1)
+            if (v69[24] == 1)
             {
-              *buf = v68;
+              *buf = v69;
               sub_1000087B4(buf);
             }
 
-            if (v67 < 0)
+            if (v68 < 0)
             {
-              operator delete(v66);
+              operator delete(v67);
             }
 
-            if (v65 < 0)
+            if (v66 < 0)
             {
-              operator delete(v64[0]);
+              operator delete(v65[0]);
             }
 
-            TMClientInfo::~TMClientInfo(v71);
-            if ((v44 & 0x100000000) != 0)
+            TMClientInfo::~TMClientInfo(v72);
+            if ((v45 & 0x100000000) != 0)
             {
-              *buf = v44;
+              *buf = v45;
               buf[4] = 1;
-              v47 = sub_100A99330(buf);
-              completionCopy[2](completionCopy, v47);
+              v48 = sub_100A99330(buf);
+              completionCopy[2](completionCopy, v48);
             }
 
             else
@@ -3794,48 +3794,48 @@ LABEL_20:
               completionCopy[2](completionCopy, 0);
             }
 
-            if (BYTE8(v79) == 1)
+            if (BYTE8(v80) == 1)
             {
-              *buf = &v78;
+              *buf = &v79;
               sub_100190608(buf);
             }
 
-            if (BYTE8(v77) == 1)
+            if (BYTE8(v78) == 1)
             {
-              *buf = &v76;
+              *buf = &v77;
               sub_10019029C(buf);
             }
 
-            if (BYTE8(v75) == 1 && SBYTE7(v75) < 0)
+            if (BYTE8(v76) == 1 && SBYTE7(v76) < 0)
             {
-              operator delete(v74[0]);
+              operator delete(v75[0]);
             }
 
-            if (BYTE8(v81) == 1 && SBYTE7(v81) < 0)
+            if (BYTE8(v82) == 1 && SBYTE7(v82) < 0)
             {
-              operator delete(v80[0]);
+              operator delete(v81[0]);
             }
           }
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v45 = *&buf[8];
+            objc_msgSend_getLogContext(self);
+            v46 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
             {
               sub_10177B2E8();
             }
 
             *buf = 5;
             buf[4] = 1;
-            v46 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v46);
+            v47 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v47);
           }
 
-          if (v83)
+          if (v84)
           {
-            sub_100004A34(v83);
+            sub_100004A34(v84);
           }
 
           goto LABEL_20;
@@ -3847,7 +3847,7 @@ LABEL_20:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v30 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
@@ -3863,7 +3863,7 @@ LABEL_20:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v29 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
@@ -3894,7 +3894,7 @@ LABEL_20:
 
         if (withActionCopy && uuid)
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v20 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
@@ -3908,75 +3908,75 @@ LABEL_20:
             *&buf[4] = v21;
             *&buf[12] = 2112;
             *&buf[14] = v22;
-            v47 = 2114;
-            v48 = uuid2;
-            v49 = 2048;
-            v50 = type;
+            v48 = 2114;
+            v49 = uuid2;
+            v50 = 2048;
+            v51 = type;
             _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendDeviceAction [slot: %s, to: %@, messageIdentifier: %{public}@, type: %ld]", buf, 0x2Au);
           }
 
           v25 = sub_100018A64([actionCopy slotID]);
-          v44 = 0;
           v45 = 0;
-          sub_1006E5FC4(self, &v44);
-          v26 = v44;
-          if (v44)
+          v46 = 0;
+          sub_1006E5FC4(self, v26, &v45);
+          v27 = v45;
+          if (v45)
           {
             if ([withActionCopy type])
             {
-              v27 = -1;
+              v28 = -1;
             }
 
             else
             {
-              v27 = 0;
+              v28 = 0;
             }
 
-            v43 = v27;
-            v42 = 0;
-            memset(v40, 0, sizeof(v40));
-            v41 = 1;
+            v44 = v28;
+            v43 = 0;
+            memset(v41, 0, sizeof(v41));
+            v42 = 1;
             sub_1006E72AC(toCopy, buf);
-            sub_1006E8724(dCopy, v35);
-            v28 = (*(*v26 + 160))(v26, v40, v25, buf, v35, &v43);
-            LODWORD(v42) = v28;
-            BYTE4(v42) = BYTE4(v28);
-            if (v39 == 1 && v38 < 0)
+            sub_1006E8724(dCopy, v36);
+            v29 = (*(*v27 + 160))(v27, v41, v25, buf, v36, &v44);
+            LODWORD(v43) = v29;
+            BYTE4(v43) = BYTE4(v29);
+            if (v40 == 1 && v39 < 0)
             {
               operator delete(__p);
             }
 
-            if (v36 < 0)
+            if (v37 < 0)
             {
-              operator delete(v35[0]);
+              operator delete(v36[0]);
             }
 
-            if (v54 < 0)
+            if (v55 < 0)
             {
-              operator delete(v53);
+              operator delete(v54);
             }
 
-            if (v52[24] == 1)
+            if (v53[24] == 1)
             {
-              v35[0] = v52;
-              sub_1000087B4(v35);
+              v36[0] = v53;
+              sub_1000087B4(v36);
             }
 
-            if (v51 < 0)
+            if (v52 < 0)
             {
-              operator delete(v48);
+              operator delete(v49);
             }
 
-            if (SHIBYTE(v47) < 0)
+            if (SHIBYTE(v48) < 0)
             {
               operator delete(*buf);
             }
 
-            TMClientInfo::~TMClientInfo(v40);
-            if ((v28 & 0x100000000) != 0)
+            TMClientInfo::~TMClientInfo(v41);
+            if ((v29 & 0x100000000) != 0)
             {
-              v34 = sub_100A99330(&v42);
-              completionCopy[2](completionCopy, v34);
+              v35 = sub_100A99330(&v43);
+              completionCopy[2](completionCopy, v35);
             }
 
             else
@@ -3987,23 +3987,23 @@ LABEL_20:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v32 = *&buf[8];
+            objc_msgSend_getLogContext(self);
+            v33 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
             {
               sub_10177B350();
             }
 
             *buf = 5;
             buf[4] = 1;
-            v33 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v33);
+            v34 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v34);
           }
 
-          if (v45)
+          if (v46)
           {
-            sub_100004A34(v45);
+            sub_100004A34(v46);
           }
 
           goto LABEL_34;
@@ -4015,26 +4015,26 @@ LABEL_20:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v30 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v31 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v31 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v31);
+    v32 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v32);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v29 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v30 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       sub_10177B384();
     }
@@ -4062,97 +4062,97 @@ LABEL_34:
 
         if (settingCopy && uuid)
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v20 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             [settingsCopy slotID];
             v21 = CTSubscriptionSlotAsString();
-            v36 = [toCopy uri];
+            v37 = [toCopy uri];
             uuid2 = [dCopy uuid];
             type = [settingCopy type];
             *buf = 136315906;
             *&buf[4] = v21;
             *&buf[12] = 2112;
-            *&buf[14] = v36;
-            v47 = 2112;
-            v48 = uuid2;
-            v49 = 2048;
-            v50 = type;
+            *&buf[14] = v37;
+            v48 = 2112;
+            v49 = uuid2;
+            v50 = 2048;
+            v51 = type;
             _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendDeviceSettings [slot: %s, to: %@, identifier: %@, type: %ld]", buf, 0x2Au);
           }
 
           v24 = sub_100018A64([settingsCopy slotID]);
-          v44 = 0;
           v45 = 0;
-          sub_1006E5E0C(self, &v44);
-          if (v44)
+          v46 = 0;
+          sub_1006E5E0C(self, &v45, v25);
+          if (v45)
           {
             type2 = [settingCopy type];
             if (type2)
             {
-              v26 = -1;
+              v27 = -1;
             }
 
             else
             {
-              v26 = 0;
+              v27 = 0;
             }
 
             if (type2 == 1)
             {
-              v27 = 1;
+              v28 = 1;
             }
 
             else
             {
-              v27 = v26;
+              v28 = v27;
             }
 
-            v43 = 0;
-            v28 = v44;
+            v44 = 0;
+            v29 = v45;
             sub_1006E72AC(toCopy, buf);
-            sub_1006E8724(dCopy, v38);
-            v37 = v27;
-            v29 = (*(*v28 + 264))(v28, v24, buf, v38, &v37);
-            LODWORD(v43) = v29;
-            BYTE4(v43) = BYTE4(v29);
-            if (v42 == 1 && v41 < 0)
+            sub_1006E8724(dCopy, v39);
+            v38 = v28;
+            v30 = (*(*v29 + 264))(v29, v24, buf, v39, &v38);
+            LODWORD(v44) = v30;
+            BYTE4(v44) = BYTE4(v30);
+            if (v43 == 1 && v42 < 0)
             {
               operator delete(__p);
             }
 
-            if (v39 < 0)
+            if (v40 < 0)
             {
-              operator delete(v38[0]);
+              operator delete(v39[0]);
             }
 
-            if (v54 < 0)
+            if (v55 < 0)
             {
-              operator delete(v53);
+              operator delete(v54);
             }
 
-            if (v52[24] == 1)
+            if (v53[24] == 1)
             {
-              v38[0] = v52;
-              sub_1000087B4(v38);
+              v39[0] = v53;
+              sub_1000087B4(v39);
             }
 
-            if (v51 < 0)
+            if (v52 < 0)
             {
-              operator delete(v48);
+              operator delete(v49);
             }
 
-            if (SHIBYTE(v47) < 0)
+            if (SHIBYTE(v48) < 0)
             {
               operator delete(*buf);
             }
 
-            if ((v29 & 0x100000000) != 0)
+            if ((v30 & 0x100000000) != 0)
             {
-              v35 = sub_100A99330(&v43);
-              completionCopy[2](completionCopy, v35);
+              v36 = sub_100A99330(&v44);
+              completionCopy[2](completionCopy, v36);
             }
 
             else
@@ -4163,23 +4163,23 @@ LABEL_34:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v33 = *&buf[8];
+            objc_msgSend_getLogContext(self);
+            v34 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
               sub_10177B3B8();
             }
 
             *buf = 5;
             buf[4] = 1;
-            v34 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v34);
+            v35 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v35);
           }
 
-          if (v45)
+          if (v46)
           {
-            sub_100004A34(v45);
+            sub_100004A34(v46);
           }
 
           goto LABEL_37;
@@ -4191,26 +4191,26 @@ LABEL_34:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v31 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v32 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v32 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v32);
+    v33 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v33);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v30 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v31 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       sub_10177B3EC();
     }
@@ -4238,14 +4238,14 @@ LABEL_37:
 
         if (responseCopy && uuid)
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v20 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             [replyCopy slotID];
             v21 = CTSubscriptionSlotAsString();
-            v45 = [toCopy uri];
+            v46 = [toCopy uri];
             uuid2 = [dCopy uuid];
             displayText = [responseCopy displayText];
             if (displayText)
@@ -4265,7 +4265,7 @@ LABEL_37:
               uuid3 = [inReplyToID2 uuid];
               if (uuid3)
               {
-                v38 = uuid3;
+                v39 = uuid3;
                 inReplyToID3 = [responseCopy inReplyToID];
                 uuid4 = [inReplyToID3 uuid];
                 LODWORD(uuid3) = 1;
@@ -4273,7 +4273,7 @@ LABEL_37:
 
               else
               {
-                v38 = 0;
+                v39 = 0;
                 uuid4 = &stru_101F6AFB8;
               }
             }
@@ -4287,13 +4287,13 @@ LABEL_37:
             *buf = 136316163;
             *&buf[4] = v21;
             *&buf[12] = 2113;
-            *&buf[14] = v45;
-            v64 = 2114;
-            v65 = uuid2;
-            v66 = 2113;
-            v67 = displayText2;
-            v68 = 2114;
-            *v69 = uuid4;
+            *&buf[14] = v46;
+            v65 = 2114;
+            v66 = uuid2;
+            v67 = 2113;
+            v68 = displayText2;
+            v69 = 2114;
+            *v70 = uuid4;
             _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendResponseForSuggestedReply [slot: %s, to: %{private}@, identifier: %{public}@, response.displayText: %{private}@, response.inReplyToID: %{public}@]", buf, 0x34u);
             if (uuid3)
             {
@@ -4309,84 +4309,84 @@ LABEL_37:
           }
 
           v27 = sub_100018A64([replyCopy slotID]);
-          v61 = 0;
           v62 = 0;
-          sub_1006E5FC4(self, &v61);
-          v28 = v61;
-          if (v61)
+          v63 = 0;
+          sub_1006E5FC4(self, v28, &v62);
+          v29 = v62;
+          if (v62)
           {
-            memset(v59, 0, sizeof(v59));
-            v60 = 1;
-            sub_1006E72AC(toCopy, v52);
-            sub_1006E8724(dCopy, v47);
+            memset(v60, 0, sizeof(v60));
+            v61 = 1;
+            sub_1006E72AC(toCopy, v53);
+            sub_1006E8724(dCopy, v48);
             displayText3 = [responseCopy displayText];
-            v29 = displayText3;
+            v30 = displayText3;
             sub_10000501C(buf, [displayText3 UTF8String]);
             postBackData = [responseCopy postBackData];
             data = [postBackData data];
-            v31 = data;
-            sub_10000501C(&v65, [data UTF8String]);
+            v32 = data;
+            sub_10000501C(&v66, [data UTF8String]);
             inReplyToID4 = [responseCopy inReplyToID];
-            sub_1006E8724(inReplyToID4, &v69[4]);
-            v33 = (*(*v28 + 144))(v28, v59, v27, v52, v47, buf);
-            if (v73 == 1 && v72 < 0)
+            sub_1006E8724(inReplyToID4, &v70[4]);
+            v34 = (*(*v29 + 144))(v29, v60, v27, v53, v48, buf);
+            if (v74 == 1 && v73 < 0)
             {
-              operator delete(v71);
+              operator delete(v72);
             }
 
-            if (v70 < 0)
+            if (v71 < 0)
             {
-              operator delete(*&v69[4]);
+              operator delete(*&v70[4]);
             }
 
-            if ((v69[3] & 0x80000000) != 0)
+            if ((v70[3] & 0x80000000) != 0)
             {
-              operator delete(v65);
+              operator delete(v66);
             }
 
-            if (SHIBYTE(v64) < 0)
+            if (SHIBYTE(v65) < 0)
             {
               operator delete(*buf);
             }
 
-            if (v51 == 1 && v50 < 0)
+            if (v52 == 1 && v51 < 0)
             {
               operator delete(__p);
             }
 
-            if (v48 < 0)
+            if (v49 < 0)
             {
-              operator delete(v47[0]);
+              operator delete(v48[0]);
             }
 
-            if (v58 < 0)
+            if (v59 < 0)
             {
-              operator delete(v57);
+              operator delete(v58);
             }
 
-            if (v56[24] == 1)
+            if (v57[24] == 1)
             {
-              *buf = v56;
+              *buf = v57;
               sub_1000087B4(buf);
             }
 
-            if (v55 < 0)
+            if (v56 < 0)
             {
-              operator delete(v54);
+              operator delete(v55);
             }
 
-            if (v53 < 0)
+            if (v54 < 0)
             {
-              operator delete(v52[0]);
+              operator delete(v53[0]);
             }
 
-            TMClientInfo::~TMClientInfo(v59);
-            if ((v33 & 0x100000000) != 0)
+            TMClientInfo::~TMClientInfo(v60);
+            if ((v34 & 0x100000000) != 0)
             {
-              *buf = v33;
+              *buf = v34;
               buf[4] = 1;
-              v36 = sub_100A99330(buf);
-              completionCopy[2](completionCopy, v36);
+              v37 = sub_100A99330(buf);
+              completionCopy[2](completionCopy, v37);
             }
 
             else
@@ -4397,23 +4397,23 @@ LABEL_37:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v34 = *&buf[8];
+            objc_msgSend_getLogContext(self);
+            v35 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
               sub_10177B420();
             }
 
             *buf = 5;
             buf[4] = 1;
-            v35 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v35);
+            v36 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v36);
           }
 
-          if (v62)
+          if (v63)
           {
-            sub_100004A34(v62);
+            sub_100004A34(v63);
           }
 
           goto LABEL_16;
@@ -4425,7 +4425,7 @@ LABEL_37:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v23 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -4441,7 +4441,7 @@ LABEL_37:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v22 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -4472,14 +4472,14 @@ LABEL_16:
 
         if (responseCopy && uuid)
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v20 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             [actionCopy slotID];
             v21 = CTSubscriptionSlotAsString();
-            v45 = [toCopy uri];
+            v46 = [toCopy uri];
             uuid2 = [dCopy uuid];
             displayText = [responseCopy displayText];
             if (displayText)
@@ -4499,7 +4499,7 @@ LABEL_16:
               uuid3 = [inReplyToID2 uuid];
               if (uuid3)
               {
-                v38 = uuid3;
+                v39 = uuid3;
                 inReplyToID3 = [responseCopy inReplyToID];
                 uuid4 = [inReplyToID3 uuid];
                 LODWORD(uuid3) = 1;
@@ -4507,7 +4507,7 @@ LABEL_16:
 
               else
               {
-                v38 = 0;
+                v39 = 0;
                 uuid4 = &stru_101F6AFB8;
               }
             }
@@ -4521,13 +4521,13 @@ LABEL_16:
             *buf = 136316163;
             *&buf[4] = v21;
             *&buf[12] = 2113;
-            *&buf[14] = v45;
-            v64 = 2114;
-            v65 = uuid2;
-            v66 = 2113;
-            v67 = displayText2;
-            v68 = 2114;
-            *v69 = uuid4;
+            *&buf[14] = v46;
+            v65 = 2114;
+            v66 = uuid2;
+            v67 = 2113;
+            v68 = displayText2;
+            v69 = 2114;
+            *v70 = uuid4;
             _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendResponseForSuggestedAction [slot: %s, to: %{private}@, identifier: %{public}@, response.displayText: %{private}@, response.inReplyToID: %{public}@]", buf, 0x34u);
             if (uuid3)
             {
@@ -4543,84 +4543,84 @@ LABEL_16:
           }
 
           v27 = sub_100018A64([actionCopy slotID]);
-          v61 = 0;
           v62 = 0;
-          sub_1006E5FC4(self, &v61);
-          v28 = v61;
-          if (v61)
+          v63 = 0;
+          sub_1006E5FC4(self, v28, &v62);
+          v29 = v62;
+          if (v62)
           {
-            memset(v59, 0, sizeof(v59));
-            v60 = 1;
-            sub_1006E72AC(toCopy, v52);
-            sub_1006E8724(dCopy, v47);
+            memset(v60, 0, sizeof(v60));
+            v61 = 1;
+            sub_1006E72AC(toCopy, v53);
+            sub_1006E8724(dCopy, v48);
             displayText3 = [responseCopy displayText];
-            v29 = displayText3;
+            v30 = displayText3;
             sub_10000501C(buf, [displayText3 UTF8String]);
             postBackData = [responseCopy postBackData];
             data = [postBackData data];
-            v31 = data;
-            sub_10000501C(&v65, [data UTF8String]);
+            v32 = data;
+            sub_10000501C(&v66, [data UTF8String]);
             inReplyToID4 = [responseCopy inReplyToID];
-            sub_1006E8724(inReplyToID4, &v69[4]);
-            v33 = (*(*v28 + 152))(v28, v59, v27, v52, v47, buf);
-            if (v73 == 1 && v72 < 0)
+            sub_1006E8724(inReplyToID4, &v70[4]);
+            v34 = (*(*v29 + 152))(v29, v60, v27, v53, v48, buf);
+            if (v74 == 1 && v73 < 0)
             {
-              operator delete(v71);
+              operator delete(v72);
             }
 
-            if (v70 < 0)
+            if (v71 < 0)
             {
-              operator delete(*&v69[4]);
+              operator delete(*&v70[4]);
             }
 
-            if ((v69[3] & 0x80000000) != 0)
+            if ((v70[3] & 0x80000000) != 0)
             {
-              operator delete(v65);
+              operator delete(v66);
             }
 
-            if (SHIBYTE(v64) < 0)
+            if (SHIBYTE(v65) < 0)
             {
               operator delete(*buf);
             }
 
-            if (v51 == 1 && v50 < 0)
+            if (v52 == 1 && v51 < 0)
             {
               operator delete(__p);
             }
 
-            if (v48 < 0)
+            if (v49 < 0)
             {
-              operator delete(v47[0]);
+              operator delete(v48[0]);
             }
 
-            if (v58 < 0)
+            if (v59 < 0)
             {
-              operator delete(v57);
+              operator delete(v58);
             }
 
-            if (v56[24] == 1)
+            if (v57[24] == 1)
             {
-              *buf = v56;
+              *buf = v57;
               sub_1000087B4(buf);
             }
 
-            if (v55 < 0)
+            if (v56 < 0)
             {
-              operator delete(v54);
+              operator delete(v55);
             }
 
-            if (v53 < 0)
+            if (v54 < 0)
             {
-              operator delete(v52[0]);
+              operator delete(v53[0]);
             }
 
-            TMClientInfo::~TMClientInfo(v59);
-            if ((v33 & 0x100000000) != 0)
+            TMClientInfo::~TMClientInfo(v60);
+            if ((v34 & 0x100000000) != 0)
             {
-              *buf = v33;
+              *buf = v34;
               buf[4] = 1;
-              v36 = sub_100A99330(buf);
-              completionCopy[2](completionCopy, v36);
+              v37 = sub_100A99330(buf);
+              completionCopy[2](completionCopy, v37);
             }
 
             else
@@ -4631,23 +4631,23 @@ LABEL_16:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v34 = *&buf[8];
+            objc_msgSend_getLogContext(self);
+            v35 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
               sub_10177B488();
             }
 
             *buf = 5;
             buf[4] = 1;
-            v35 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v35);
+            v36 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v36);
           }
 
-          if (v62)
+          if (v63)
           {
-            sub_100004A34(v62);
+            sub_100004A34(v63);
           }
 
           goto LABEL_16;
@@ -4659,7 +4659,7 @@ LABEL_16:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v23 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -4675,7 +4675,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v22 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -4720,13 +4720,13 @@ LABEL_16:
 
                   if (list)
                   {
-                    [(CTXPCClientHandler *)self getLogContext];
+                    objc_msgSend_getLogContext(self);
                     v22 = *&buf[8];
                     ctu::OsLogContext::~OsLogContext(buf);
                     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
                     {
                       [spamCopy slotID];
-                      v60 = CTSubscriptionSlotAsString();
+                      v61 = CTSubscriptionSlotAsString();
                       v23 = [chatbotCopy uri];
                       chatbotUri2 = [infoCopy chatbotUri];
                       messageIDList3 = [infoCopy messageIDList];
@@ -4734,7 +4734,7 @@ LABEL_16:
                       v26 = [list2 count];
                       spamType = [infoCopy spamType];
                       *buf = 136316163;
-                      *&buf[4] = v60;
+                      *&buf[4] = v61;
                       *&buf[12] = 2113;
                       *&buf[14] = v23;
                       *&buf[22] = 2113;
@@ -4747,36 +4747,36 @@ LABEL_16:
                     }
 
                     v28 = sub_100018A64([spamCopy slotID]);
-                    v77 = 0;
                     v78 = 0;
-                    sub_1006E5E0C(self, &v77);
-                    if (!v77)
+                    v79 = 0;
+                    sub_1006E5E0C(self, &v78, v29);
+                    if (!v78)
                     {
-                      [(CTXPCClientHandler *)self getLogContext];
-                      v50 = *&buf[8];
+                      objc_msgSend_getLogContext(self);
+                      v51 = *&buf[8];
                       ctu::OsLogContext::~OsLogContext(buf);
-                      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+                      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
                       {
                         sub_10177B58C();
                       }
 
                       *buf = 5;
                       buf[4] = 1;
-                      v51 = sub_100A99330(buf);
-                      completionCopy[2](completionCopy, v51);
+                      v52 = sub_100A99330(buf);
+                      completionCopy[2](completionCopy, v52);
 
                       goto LABEL_74;
                     }
 
-                    v29 = [chatbotCopy uri];
-                    v30 = v29 == 0;
+                    v30 = [chatbotCopy uri];
+                    v31 = v30 == 0;
 
-                    if (v30)
+                    if (v31)
                     {
-                      [(CTXPCClientHandler *)self getLogContext];
-                      v52 = *&buf[8];
+                      objc_msgSend_getLogContext(self);
+                      v53 = *&buf[8];
                       ctu::OsLogContext::~OsLogContext(buf);
-                      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+                      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
                       {
                         sub_10177B558();
                       }
@@ -4786,36 +4786,36 @@ LABEL_16:
                     {
                       messageIDList4 = [infoCopy messageIDList];
                       list3 = [messageIDList4 list];
-                      v33 = [list3 count] == 0;
+                      v34 = [list3 count] == 0;
 
-                      if (!v33)
+                      if (!v34)
                       {
-                        v74 = 0;
                         v75 = 0;
                         v76 = 0;
-                        v70 = 0u;
+                        v77 = 0;
                         v71 = 0u;
                         v72 = 0u;
                         v73 = 0u;
+                        v74 = 0u;
                         messageIDList5 = [infoCopy messageIDList];
                         list4 = [messageIDList5 list];
 
-                        v36 = [list4 countByEnumeratingWithState:&v70 objects:v86 count:16];
-                        if (v36)
+                        v37 = [list4 countByEnumeratingWithState:&v71 objects:v87 count:16];
+                        if (v37)
                         {
-                          v37 = *v71;
+                          v38 = *v72;
                           do
                           {
-                            for (i = 0; i != v36; i = i + 1)
+                            for (i = 0; i != v37; i = i + 1)
                             {
-                              if (*v71 != v37)
+                              if (*v72 != v38)
                               {
                                 objc_enumerationMutation(list4);
                               }
 
-                              sub_1006E8724(*(*(&v70 + 1) + 8 * i), buf);
-                              sub_1006E9190(&v74, buf);
-                              if (BYTE8(v81) == 1 && SBYTE7(v80) < 0)
+                              sub_1006E8724(*(*(&v71 + 1) + 8 * i), buf);
+                              sub_1006E9190(&v75, buf);
+                              if (BYTE8(v82) == 1 && SBYTE7(v81) < 0)
                               {
                                 operator delete(*&buf[48]);
                               }
@@ -4826,90 +4826,90 @@ LABEL_16:
                               }
                             }
 
-                            v36 = [list4 countByEnumeratingWithState:&v70 objects:v86 count:16];
+                            v37 = [list4 countByEnumeratingWithState:&v71 objects:v87 count:16];
                           }
 
-                          while (v36);
+                          while (v37);
                         }
 
-                        memset(&v69, 0, sizeof(v69));
-                        sub_10000501C(&v69, "");
+                        memset(&v70, 0, sizeof(v70));
+                        sub_10000501C(&v70, "");
                         freeBodyText = [infoCopy freeBodyText];
-                        v40 = freeBodyText == 0;
+                        v41 = freeBodyText == 0;
 
-                        if (!v40)
+                        if (!v41)
                         {
                           freeBodyText2 = [infoCopy freeBodyText];
-                          v42 = freeBodyText2;
-                          sub_100016890(&v69, [freeBodyText2 UTF8String]);
+                          v43 = freeBodyText2;
+                          sub_100016890(&v70, [freeBodyText2 UTF8String]);
                         }
 
                         spamType2 = [infoCopy spamType];
-                        v84 = 0u;
                         v85 = 0u;
+                        v86 = 0u;
                         if (spamType2 + 1 >= 4)
                         {
-                          v44 = 3;
+                          v45 = 3;
                         }
 
                         else
                         {
-                          v44 = spamType2;
+                          v45 = spamType2;
                         }
 
-                        v82 = 0uLL;
                         v83 = 0uLL;
-                        v80 = 0uLL;
+                        v84 = 0uLL;
                         v81 = 0uLL;
+                        v82 = 0uLL;
                         memset(buf, 0, sizeof(buf));
                         buf[0] = 1;
-                        v45 = [chatbotCopy uri];
-                        v46 = v45;
-                        sub_10000501C(&buf[8], [v45 UTF8String]);
+                        v46 = [chatbotCopy uri];
+                        v47 = v46;
+                        sub_10000501C(&buf[8], [v46 UTF8String]);
                         buf[32] = 0;
                         buf[56] = 0;
-                        *&v81 = 0;
-                        v80 = 0uLL;
-                        sub_1006FB07C(&v80, v74, v75, 0xAAAAAAAAAAAAAAABLL * ((v75 - v74) >> 5));
-                        BYTE8(v81) = 0;
-                        LOBYTE(v83) = 0;
-                        DWORD2(v83) = v44;
-                        if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+                        *&v82 = 0;
+                        v81 = 0uLL;
+                        sub_1006FB07C(&v81, v75, v76, 0xAAAAAAAAAAAAAAABLL * ((v76 - v75) >> 5));
+                        BYTE8(v82) = 0;
+                        LOBYTE(v84) = 0;
+                        DWORD2(v84) = v45;
+                        if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
                         {
-                          sub_100005F2C(&v84, v69.__r_.__value_.__l.__data_, v69.__r_.__value_.__l.__size_);
+                          sub_100005F2C(&v85, v70.__r_.__value_.__l.__data_, v70.__r_.__value_.__l.__size_);
                         }
 
                         else
                         {
-                          v84 = *&v69.__r_.__value_.__l.__data_;
-                          *&v85 = *(&v69.__r_.__value_.__l + 2);
+                          v85 = *&v70.__r_.__value_.__l.__data_;
+                          *&v86 = *(&v70.__r_.__value_.__l + 2);
                         }
 
-                        BYTE8(v85) = 1;
+                        BYTE8(v86) = 1;
 
-                        v67[0] = 0;
-                        v67[1] = 0;
-                        v68 = 0;
+                        v68[0] = 0;
+                        v68[1] = 0;
+                        v69 = 0;
                         uuid2 = [dCopy uuid];
-                        v56 = uuid2;
-                        sub_10000501C(v67, [uuid2 UTF8String]);
+                        v57 = uuid2;
+                        sub_10000501C(v68, [uuid2 UTF8String]);
 
-                        v66 = 0;
-                        v57 = (*(*v77 + 112))(v77, v28, buf, v67);
-                        LODWORD(v66) = v57;
-                        BYTE4(v66) = BYTE4(v57);
-                        if ((v57 & 0x100000000) != 0)
+                        v67 = 0;
+                        v58 = (*(*v78 + 112))(v78, v28, buf, v68);
+                        LODWORD(v67) = v58;
+                        BYTE4(v67) = BYTE4(v58);
+                        if ((v58 & 0x100000000) != 0)
                         {
-                          [(CTXPCClientHandler *)self getLogContext];
-                          v58 = v65;
-                          ctu::OsLogContext::~OsLogContext(v64);
-                          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+                          objc_msgSend_getLogContext(self);
+                          v59 = v66;
+                          ctu::OsLogContext::~OsLogContext(v65);
+                          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
                           {
                             sub_10177B4F0();
                           }
 
-                          v59 = sub_100A99330(&v66);
-                          completionCopy[2](completionCopy, v59);
+                          v60 = sub_100A99330(&v67);
+                          completionCopy[2](completionCopy, v60);
                         }
 
                         else
@@ -4917,23 +4917,23 @@ LABEL_16:
                           completionCopy[2](completionCopy, 0);
                         }
 
-                        if (SHIBYTE(v68) < 0)
+                        if (SHIBYTE(v69) < 0)
                         {
-                          operator delete(v67[0]);
+                          operator delete(v68[0]);
                         }
 
-                        if (BYTE8(v85) == 1 && SBYTE7(v85) < 0)
+                        if (BYTE8(v86) == 1 && SBYTE7(v86) < 0)
                         {
-                          operator delete(v84);
+                          operator delete(v85);
                         }
 
-                        if (v83 == 1 && SHIBYTE(v82) < 0)
+                        if (v84 == 1 && SHIBYTE(v83) < 0)
                         {
-                          operator delete(*(&v81 + 1));
+                          operator delete(*(&v82 + 1));
                         }
 
-                        v67[0] = &v80;
-                        sub_1006ACCB8(v67);
+                        v68[0] = &v81;
+                        sub_1006ACCB8(v68);
                         if (buf[56] == 1 && buf[55] < 0)
                         {
                           operator delete(*&buf[32]);
@@ -4944,20 +4944,20 @@ LABEL_16:
                           operator delete(*&buf[8]);
                         }
 
-                        if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+                        if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
                         {
-                          operator delete(v69.__r_.__value_.__l.__data_);
+                          operator delete(v70.__r_.__value_.__l.__data_);
                         }
 
-                        *buf = &v74;
+                        *buf = &v75;
                         sub_1006ACCB8(buf);
                         goto LABEL_74;
                       }
 
-                      [(CTXPCClientHandler *)self getLogContext];
-                      v54 = *&buf[8];
+                      objc_msgSend_getLogContext(self);
+                      v55 = *&buf[8];
                       ctu::OsLogContext::~OsLogContext(buf);
-                      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+                      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
                       {
                         sub_10177B524();
                       }
@@ -4965,13 +4965,13 @@ LABEL_16:
 
                     *buf = -1;
                     buf[4] = 1;
-                    v53 = sub_100A99330(buf);
-                    completionCopy[2](completionCopy, v53);
+                    v54 = sub_100A99330(buf);
+                    completionCopy[2](completionCopy, v54);
 
 LABEL_74:
-                    if (v78)
+                    if (v79)
                     {
-                      sub_100004A34(v78);
+                      sub_100004A34(v79);
                     }
 
                     goto LABEL_42;
@@ -4987,29 +4987,29 @@ LABEL_74:
     }
 
 LABEL_39:
-    [(CTXPCClientHandler *)self getLogContext];
-    v48 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v49 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v49 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v49);
+    v50 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v50);
 
     goto LABEL_42;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v47 = *&buf[8];
+  objc_msgSend_getLogContext(self);
+  v48 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_INFO, "Invalid completion block while reporting chatbot spam", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "Invalid completion block while reporting chatbot spam", buf, 2u);
   }
 
 LABEL_42:
@@ -5048,13 +5048,13 @@ LABEL_42:
 
                   if (list)
                   {
-                    [(CTXPCClientHandler *)self getLogContext];
+                    objc_msgSend_getLogContext(self);
                     v22 = *&buf[8];
                     ctu::OsLogContext::~OsLogContext(buf);
                     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
                     {
                       [contextCopy slotID];
-                      v66 = CTSubscriptionSlotAsString();
+                      v67 = CTSubscriptionSlotAsString();
                       v23 = [destinationCopy uri];
                       destinationUri2 = [infoCopy destinationUri];
                       messageIDList3 = [infoCopy messageIDList];
@@ -5062,7 +5062,7 @@ LABEL_42:
                       v27 = [list2 count];
                       spamType = [infoCopy spamType];
                       *buf = 136316163;
-                      *&buf[4] = v66;
+                      *&buf[4] = v67;
                       *&buf[12] = 2113;
                       *&buf[14] = v23;
                       *&buf[22] = 2113;
@@ -5075,37 +5075,37 @@ LABEL_42:
                     }
 
                     v29 = sub_100018A64([contextCopy slotID]);
-                    v85 = 0;
                     v86 = 0;
-                    sub_1006E5FC4(self, &v85);
-                    v30 = v85;
-                    if (!v85)
+                    v87 = 0;
+                    sub_1006E5FC4(self, v30, &v86);
+                    v31 = v86;
+                    if (!v86)
                     {
-                      [(CTXPCClientHandler *)self getLogContext];
-                      v56 = *&buf[8];
+                      objc_msgSend_getLogContext(self);
+                      v57 = *&buf[8];
                       ctu::OsLogContext::~OsLogContext(buf);
-                      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+                      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
                       {
                         sub_10177B5F4();
                       }
 
                       *buf = 5;
                       buf[4] = 1;
-                      v57 = sub_100A99330(buf);
-                      completionCopy[2](completionCopy, v57);
+                      v58 = sub_100A99330(buf);
+                      completionCopy[2](completionCopy, v58);
 
                       goto LABEL_81;
                     }
 
-                    v31 = [destinationCopy uri];
-                    v32 = v31 == 0;
+                    v32 = [destinationCopy uri];
+                    v33 = v32 == 0;
 
-                    if (v32)
+                    if (v33)
                     {
-                      [(CTXPCClientHandler *)self getLogContext];
-                      v58 = *&buf[8];
+                      objc_msgSend_getLogContext(self);
+                      v59 = *&buf[8];
                       ctu::OsLogContext::~OsLogContext(buf);
-                      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+                      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
                       {
                         sub_10177B5C0();
                       }
@@ -5115,36 +5115,36 @@ LABEL_42:
                     {
                       messageIDList4 = [infoCopy messageIDList];
                       list3 = [messageIDList4 list];
-                      v35 = [list3 count] == 0;
+                      v36 = [list3 count] == 0;
 
-                      if (!v35)
+                      if (!v36)
                       {
-                        v82 = 0;
                         v83 = 0;
                         v84 = 0;
-                        v78 = 0u;
+                        v85 = 0;
                         v79 = 0u;
                         v80 = 0u;
                         v81 = 0u;
+                        v82 = 0u;
                         messageIDList5 = [infoCopy messageIDList];
                         list4 = [messageIDList5 list];
 
-                        v38 = [list4 countByEnumeratingWithState:&v78 objects:v92 count:16];
-                        if (v38)
+                        v39 = [list4 countByEnumeratingWithState:&v79 objects:v93 count:16];
+                        if (v39)
                         {
-                          v39 = *v79;
+                          v40 = *v80;
                           do
                           {
-                            for (i = 0; i != v38; i = i + 1)
+                            for (i = 0; i != v39; i = i + 1)
                             {
-                              if (*v79 != v39)
+                              if (*v80 != v40)
                               {
                                 objc_enumerationMutation(list4);
                               }
 
-                              sub_1006E8724(*(*(&v78 + 1) + 8 * i), buf);
-                              sub_1006E9190(&v82, buf);
-                              if (v88[1].__r_.__value_.__s.__data_[0] == 1 && v88[0].__r_.__value_.__s.__data_[7] < 0)
+                              sub_1006E8724(*(*(&v79 + 1) + 8 * i), buf);
+                              sub_1006E9190(&v83, buf);
+                              if (v89[1].__r_.__value_.__s.__data_[0] == 1 && v89[0].__r_.__value_.__s.__data_[7] < 0)
                               {
                                 operator delete(*&buf[48]);
                               }
@@ -5155,111 +5155,111 @@ LABEL_42:
                               }
                             }
 
-                            v38 = [list4 countByEnumeratingWithState:&v78 objects:v92 count:16];
+                            v39 = [list4 countByEnumeratingWithState:&v79 objects:v93 count:16];
                           }
 
-                          while (v38);
+                          while (v39);
+                        }
+
+                        memset(&v78, 0, sizeof(v78));
+                        sub_10000501C(&v78, "");
+                        content = [infoCopy content];
+                        v43 = content == 0;
+
+                        if (!v43)
+                        {
+                          content2 = [infoCopy content];
+                          v45 = content2;
+                          sub_100016890(&v78, [content2 UTF8String]);
                         }
 
                         memset(&v77, 0, sizeof(v77));
                         sub_10000501C(&v77, "");
-                        content = [infoCopy content];
-                        v42 = content == 0;
-
-                        if (!v42)
-                        {
-                          content2 = [infoCopy content];
-                          v44 = content2;
-                          sub_100016890(&v77, [content2 UTF8String]);
-                        }
-
-                        memset(&v76, 0, sizeof(v76));
-                        sub_10000501C(&v76, "");
                         freeBodyText = [infoCopy freeBodyText];
-                        v46 = freeBodyText == 0;
+                        v47 = freeBodyText == 0;
 
-                        if (!v46)
+                        if (!v47)
                         {
                           freeBodyText2 = [infoCopy freeBodyText];
-                          v48 = freeBodyText2;
-                          sub_100016890(&v76, [freeBodyText2 UTF8String]);
+                          v49 = freeBodyText2;
+                          sub_100016890(&v77, [freeBodyText2 UTF8String]);
                         }
 
                         spamType2 = [infoCopy spamType];
-                        *v90 = 0u;
-                        v91 = 0u;
+                        *v91 = 0u;
+                        v92 = 0u;
                         if (spamType2 + 1 >= 4)
                         {
-                          v50 = 3;
+                          v51 = 3;
                         }
 
                         else
                         {
-                          v50 = spamType2;
+                          v51 = spamType2;
                         }
 
-                        v89 = 0uLL;
-                        memset(v88, 0, sizeof(v88));
+                        v90 = 0uLL;
+                        memset(v89, 0, sizeof(v89));
                         memset(buf, 0, sizeof(buf));
                         buf[0] = [infoCopy isChatbot];
-                        v51 = [destinationCopy uri];
-                        v52 = v51;
-                        sub_10000501C(&buf[8], [v51 UTF8String]);
+                        v52 = [destinationCopy uri];
+                        v53 = v52;
+                        sub_10000501C(&buf[8], [v52 UTF8String]);
                         buf[32] = 0;
                         buf[56] = 0;
-                        memset(v88, 0, 24);
-                        sub_1006FB07C(v88, v82, v83, 0xAAAAAAAAAAAAAAABLL * ((v83 - v82) >> 5));
+                        memset(v89, 0, 24);
+                        sub_1006FB07C(v89, v83, v84, 0xAAAAAAAAAAAAAAABLL * ((v84 - v83) >> 5));
+                        if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
+                        {
+                          sub_100005F2C(&v89[1], v78.__r_.__value_.__l.__data_, v78.__r_.__value_.__l.__size_);
+                        }
+
+                        else
+                        {
+                          v89[1] = v78;
+                        }
+
+                        LOBYTE(v90) = 1;
+                        DWORD2(v90) = v51;
                         if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
                         {
-                          sub_100005F2C(&v88[1], v77.__r_.__value_.__l.__data_, v77.__r_.__value_.__l.__size_);
+                          sub_100005F2C(v91, v77.__r_.__value_.__l.__data_, v77.__r_.__value_.__l.__size_);
                         }
 
                         else
                         {
-                          v88[1] = v77;
+                          *v91 = *&v77.__r_.__value_.__l.__data_;
+                          *&v92 = *(&v77.__r_.__value_.__l + 2);
                         }
 
-                        LOBYTE(v89) = 1;
-                        DWORD2(v89) = v50;
-                        if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
-                        {
-                          sub_100005F2C(v90, v76.__r_.__value_.__l.__data_, v76.__r_.__value_.__l.__size_);
-                        }
+                        BYTE8(v92) = 1;
 
-                        else
-                        {
-                          *v90 = *&v76.__r_.__value_.__l.__data_;
-                          *&v91 = *(&v76.__r_.__value_.__l + 2);
-                        }
-
-                        BYTE8(v91) = 1;
-
-                        v74[0] = 0;
-                        v74[1] = 0;
-                        v75 = 0;
+                        v75[0] = 0;
+                        v75[1] = 0;
+                        v76 = 0;
                         uuid2 = [dCopy uuid];
-                        v62 = uuid2;
-                        sub_10000501C(v74, [uuid2 UTF8String]);
+                        v63 = uuid2;
+                        sub_10000501C(v75, [uuid2 UTF8String]);
 
-                        v73 = 0;
-                        memset(v71, 0, sizeof(v71));
-                        v72 = 1;
-                        v63 = (*(*v30 + 264))(v30, v71, v29, buf, v74);
-                        LODWORD(v73) = v63;
-                        BYTE4(v73) = BYTE4(v63);
-                        TMClientInfo::~TMClientInfo(v71);
-                        if (BYTE4(v73) == 1)
+                        v74 = 0;
+                        memset(v72, 0, sizeof(v72));
+                        v73 = 1;
+                        v64 = (*(*v31 + 264))(v31, v72, v29, buf, v75);
+                        LODWORD(v74) = v64;
+                        BYTE4(v74) = BYTE4(v64);
+                        TMClientInfo::~TMClientInfo(v72);
+                        if (BYTE4(v74) == 1)
                         {
-                          [(CTXPCClientHandler *)self getLogContext];
-                          v64 = v70;
-                          ctu::OsLogContext::~OsLogContext(v69);
-                          if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+                          objc_msgSend_getLogContext(self);
+                          v65 = v71;
+                          ctu::OsLogContext::~OsLogContext(v70);
+                          if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
                           {
                             sub_10177B4F0();
                           }
 
-                          v65 = sub_100A99330(&v73);
-                          completionCopy[2](completionCopy, v65);
+                          v66 = sub_100A99330(&v74);
+                          completionCopy[2](completionCopy, v66);
                         }
 
                         else
@@ -5267,23 +5267,23 @@ LABEL_42:
                           completionCopy[2](completionCopy, 0);
                         }
 
-                        if (SHIBYTE(v75) < 0)
+                        if (SHIBYTE(v76) < 0)
                         {
-                          operator delete(v74[0]);
+                          operator delete(v75[0]);
                         }
 
-                        if (BYTE8(v91) == 1 && SBYTE7(v91) < 0)
+                        if (BYTE8(v92) == 1 && SBYTE7(v92) < 0)
                         {
-                          operator delete(v90[0]);
+                          operator delete(v91[0]);
                         }
 
-                        if (v89 == 1 && SHIBYTE(v88[1].__r_.__value_.__r.__words[2]) < 0)
+                        if (v90 == 1 && SHIBYTE(v89[1].__r_.__value_.__r.__words[2]) < 0)
                         {
-                          operator delete(v88[1].__r_.__value_.__l.__data_);
+                          operator delete(v89[1].__r_.__value_.__l.__data_);
                         }
 
-                        v74[0] = v88;
-                        sub_1006ACCB8(v74);
+                        v75[0] = v89;
+                        sub_1006ACCB8(v75);
                         if (buf[56] == 1 && buf[55] < 0)
                         {
                           operator delete(*&buf[32]);
@@ -5294,25 +5294,25 @@ LABEL_42:
                           operator delete(*&buf[8]);
                         }
 
-                        if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
-                        {
-                          operator delete(v76.__r_.__value_.__l.__data_);
-                        }
-
                         if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
                         {
                           operator delete(v77.__r_.__value_.__l.__data_);
                         }
 
-                        *buf = &v82;
+                        if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
+                        {
+                          operator delete(v78.__r_.__value_.__l.__data_);
+                        }
+
+                        *buf = &v83;
                         sub_1006ACCB8(buf);
                         goto LABEL_81;
                       }
 
-                      [(CTXPCClientHandler *)self getLogContext];
-                      v60 = *&buf[8];
+                      objc_msgSend_getLogContext(self);
+                      v61 = *&buf[8];
                       ctu::OsLogContext::~OsLogContext(buf);
-                      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+                      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
                       {
                         sub_10177B524();
                       }
@@ -5320,13 +5320,13 @@ LABEL_42:
 
                     *buf = -1;
                     buf[4] = 1;
-                    v59 = sub_100A99330(buf);
-                    completionCopy[2](completionCopy, v59);
+                    v60 = sub_100A99330(buf);
+                    completionCopy[2](completionCopy, v60);
 
 LABEL_81:
-                    if (v86)
+                    if (v87)
                     {
-                      sub_100004A34(v86);
+                      sub_100004A34(v87);
                     }
 
                     goto LABEL_44;
@@ -5342,29 +5342,29 @@ LABEL_81:
     }
 
 LABEL_41:
-    [(CTXPCClientHandler *)self getLogContext];
-    v54 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v55 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v55 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v55);
+    v56 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v56);
 
     goto LABEL_44;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v53 = *&buf[8];
+  objc_msgSend_getLogContext(self);
+  v54 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
-  if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_INFO, "Invalid completion block while reporting chatbot spam", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_INFO, "Invalid completion block while reporting chatbot spam", buf, 2u);
   }
 
 LABEL_44:
@@ -5379,7 +5379,7 @@ LABEL_44:
   {
     if (base64Copy && stringCopy && ([stringCopy base64String], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v12 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -5397,44 +5397,44 @@ LABEL_44:
       }
 
       v15 = sub_100018A64([base64Copy slotID]);
-      v29 = 0;
       v30 = 0;
-      sub_1006E5E0C(self, &v29);
-      v16 = v29;
-      if (v29)
+      v31 = 0;
+      sub_1006E5E0C(self, &v30, v16);
+      v17 = v30;
+      if (v30)
       {
-        v32 = 0;
+        v33 = 0;
         memset(buf, 0, sizeof(buf));
         base64String2 = [stringCopy base64String];
-        v18 = base64String2;
+        v19 = base64String2;
         sub_10000501C(__p, [base64String2 UTF8String]);
-        (*(*v16 + 152))(buf, v16, v15, __p);
-        if (v28 < 0)
+        (*(*v17 + 152))(buf, v17, v15, __p);
+        if (v29 < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (v32)
+        if (v33)
         {
-          v19 = [CTLazuliDeepLinkBase64StringDecoded alloc];
-          if ((v32 & 1) == 0)
+          v20 = [CTLazuliDeepLinkBase64StringDecoded alloc];
+          if ((v33 & 1) == 0)
           {
             sub_1000D1644();
           }
 
-          v20 = [v19 initWithReflection:buf];
-          completionCopy[2](completionCopy, 0, v20);
+          v21 = [v20 initWithReflection:buf];
+          completionCopy[2](completionCopy, 0, v21);
         }
 
         else
         {
           LODWORD(__p[0]) = 6;
           BYTE4(__p[0]) = 1;
-          v26 = sub_100A99330(__p);
-          (completionCopy)[2](completionCopy, v26, 0);
+          v27 = sub_100A99330(__p);
+          (completionCopy)[2](completionCopy, v27, 0);
         }
 
-        if (v32 == 1 && buf[24] == 1)
+        if (v33 == 1 && buf[24] == 1)
         {
           __p[0] = buf;
           sub_10019029C(__p);
@@ -5443,49 +5443,49 @@ LABEL_44:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v24 = *&buf[8];
+        objc_msgSend_getLogContext(self);
+        v25 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           sub_10177B17C();
         }
 
         *buf = 5;
         buf[4] = 1;
-        v25 = sub_100A99330(buf);
-        (completionCopy)[2](completionCopy, v25, 0);
+        v26 = sub_100A99330(buf);
+        (completionCopy)[2](completionCopy, v26, 0);
       }
 
-      if (v30)
+      if (v31)
       {
-        sub_100004A34(v30);
+        sub_100004A34(v31);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v21 = *&buf[8];
+      objc_msgSend_getLogContext(self);
+      v22 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       *buf = 4;
       buf[4] = 1;
-      v22 = sub_100A99330(buf);
-      (completionCopy)[2](completionCopy, v22, 0);
+      v23 = sub_100A99330(buf);
+      (completionCopy)[2](completionCopy, v23, 0);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v23 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v24 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_10177B628();
     }
@@ -5512,13 +5512,13 @@ LABEL_44:
 
         if (content)
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v23 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             [messageCopy slotID];
-            v38 = CTSubscriptionSlotAsString();
+            v39 = CTSubscriptionSlotAsString();
             v24 = "true";
             if (!securityCopy)
             {
@@ -5530,97 +5530,97 @@ LABEL_44:
             uuid2 = [dCopy uuid];
             content2 = [withMessageCopy content];
             *buf = 136316675;
-            *&buf[4] = v38;
+            *&buf[4] = v39;
             *&buf[12] = 2080;
-            *&buf[14] = v37;
-            v63 = 2113;
-            v64 = focus;
-            v65 = 2114;
-            v66 = conversationID;
-            v67 = 2114;
-            v68 = uuid2;
-            v69 = 2160;
-            v70 = 1752392040;
-            v71 = 2117;
-            v72 = content2;
+            *&buf[14] = v38;
+            v64 = 2113;
+            v65 = focus;
+            v66 = 2114;
+            v67 = conversationID;
+            v68 = 2114;
+            v69 = uuid2;
+            v70 = 2160;
+            v71 = 1752392040;
+            v72 = 2117;
+            v73 = content2;
             _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendTextMessage: [slot: %s, security: %s, to.focus: %{private}@, to.conversationID: %{public}@, messageIdentifier: %{public}@, message: %{sensitive, mask.hash}@]", buf, 0x48u);
           }
 
           v27 = sub_100018A64([messageCopy slotID]);
-          v60 = 0;
           v61 = 0;
-          sub_1006E5FC4(self, &v60);
-          v28 = v60;
-          if (v60)
+          v62 = 0;
+          sub_1006E5FC4(self, v28, &v61);
+          v29 = v61;
+          if (v61)
           {
-            memset(v58, 0, sizeof(v58));
-            v59 = 1;
-            sub_1006F2118(destinationCopy, v52);
-            sub_1006E8724(dCopy, v47);
+            memset(v59, 0, sizeof(v59));
+            v60 = 1;
+            sub_1006F2118(destinationCopy, v53);
+            sub_1006E8724(dCopy, v48);
             content3 = [withMessageCopy content];
             sub_10000501C(__p, [content3 UTF8String]);
-            v44 = 0;
             v45 = 0;
+            v46 = 0;
             metaData = [withMessageCopy metaData];
-            sub_1006EBDBC(metaData, v46);
+            sub_1006EBDBC(metaData, v47);
             buf[0] = securityCopy != 0;
             buf[8] = 0;
-            v73 = 0;
-            v30 = (*(*v28 + 32))(v28, v58, v27, v52, v47, __p, buf);
-            if (v73 == 1)
+            v74 = 0;
+            v31 = (*(*v29 + 32))(v29, v59, v27, v53, v48, __p, buf);
+            if (v74 == 1)
             {
               sub_1002AF7A0(&buf[16]);
             }
 
-            if (v46[24] == 1)
+            if (v47[24] == 1)
             {
-              *buf = v46;
+              *buf = v47;
               sub_100190608(buf);
             }
 
-            if (v45 == 1)
+            if (v46 == 1)
             {
-              *buf = &v44;
+              *buf = &v45;
               sub_10019029C(buf);
             }
 
-            if (v43 < 0)
+            if (v44 < 0)
             {
               operator delete(__p[0]);
             }
 
-            if (v51 == 1 && v50 < 0)
+            if (v52 == 1 && v51 < 0)
             {
-              operator delete(v49);
+              operator delete(v50);
             }
 
-            if (v48 < 0)
+            if (v49 < 0)
             {
-              operator delete(v47[0]);
+              operator delete(v48[0]);
             }
 
-            if (v57 < 0)
+            if (v58 < 0)
             {
-              operator delete(v56);
+              operator delete(v57);
             }
 
-            if (v55 < 0)
+            if (v56 < 0)
             {
-              operator delete(v54);
+              operator delete(v55);
             }
 
-            if (v53 < 0)
+            if (v54 < 0)
             {
-              operator delete(v52[0]);
+              operator delete(v53[0]);
             }
 
-            TMClientInfo::~TMClientInfo(v58);
-            if ((v30 & 0x100000000) != 0)
+            TMClientInfo::~TMClientInfo(v59);
+            if ((v31 & 0x100000000) != 0)
             {
-              *buf = v30;
+              *buf = v31;
               buf[4] = 1;
-              v36 = sub_100A99330(buf);
-              completionCopy[2](completionCopy, v36);
+              v37 = sub_100A99330(buf);
+              completionCopy[2](completionCopy, v37);
             }
 
             else
@@ -5631,23 +5631,23 @@ LABEL_44:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v34 = *&buf[8];
+            objc_msgSend_getLogContext(self);
+            v35 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
               sub_10177B65C();
             }
 
             *buf = 5;
             buf[4] = 1;
-            v35 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v35);
+            v36 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v36);
           }
 
-          if (v61)
+          if (v62)
           {
-            sub_100004A34(v61);
+            sub_100004A34(v62);
           }
 
           goto LABEL_40;
@@ -5659,26 +5659,26 @@ LABEL_44:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v32 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v33 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v33 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v33);
+    v34 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v34);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v31 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v32 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_10177B690();
     }
@@ -5699,21 +5699,21 @@ LABEL_40:
   {
     if (indicatorCopy && destinationCopy && dCopy && ([dCopy uuid], v19 = objc_claimAutoreleasedReturnValue(), v19, indicationCopy) && v19)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       lastActive2 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       log = lastActive2;
       if (os_log_type_enabled(lastActive2, OS_LOG_TYPE_DEFAULT))
       {
         [indicatorCopy slotID];
-        v45 = CTSubscriptionSlotAsString();
-        v21 = "true";
+        v46 = CTSubscriptionSlotAsString();
+        v22 = "true";
         if (!securityCopy)
         {
-          v21 = "false";
+          v22 = "false";
         }
 
-        v44 = v21;
+        v45 = v22;
         focus = [destinationCopy focus];
         if (focus)
         {
@@ -5754,7 +5754,7 @@ LABEL_40:
         if (lastActive)
         {
           lastActive2 = [indicationCopy lastActive];
-          v27 = lastActive2;
+          v28 = lastActive2;
           uTF8String = [lastActive2 UTF8String];
         }
 
@@ -5764,9 +5764,9 @@ LABEL_40:
         }
 
         *buf = 136316931;
-        *&buf[4] = v45;
+        *&buf[4] = v46;
         *&buf[12] = 2080;
-        *&buf[14] = v44;
+        *&buf[14] = v45;
         *&buf[22] = 2114;
         *&buf[24] = focus2;
         *&buf[32] = 2114;
@@ -5776,9 +5776,9 @@ LABEL_40:
         *&buf[52] = 2048;
         *&buf[54] = longValue;
         *&buf[62] = 1024;
-        LODWORD(v77) = active;
-        WORD2(v77) = 2081;
-        *(&v77 + 6) = uTF8String;
+        LODWORD(v78) = active;
+        WORD2(v78) = 2081;
+        *(&v78 + 6) = uTF8String;
         _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendGroupComposingIndicator: [slot: %s, security: %s, to.focus: %{public}@, to.conversationID: %{public}@, messageIdentifier: %{private}@, ind.refreshTime: %ld, ind.active: %d, ind.lastActive: %{private}s]", buf, 0x4Eu);
         if (lastActive)
         {
@@ -5799,17 +5799,17 @@ LABEL_40:
         }
       }
 
-      v69 = 0;
       v70 = 0;
-      sub_1006E5FC4(self, &v69);
-      v29 = v69;
-      if (v69)
+      v71 = 0;
+      sub_1006E5FC4(self, v21, &v70);
+      v30 = v70;
+      if (v70)
       {
-        v52 = sub_100018A64([indicatorCopy slotID]);
-        v80 = 0;
-        memset(v79, 0, sizeof(v79));
-        v77 = 0u;
+        v53 = sub_100018A64([indicatorCopy slotID]);
+        v81 = 0;
+        memset(v80, 0, sizeof(v80));
         v78 = 0u;
+        v79 = 0u;
         memset(buf, 0, sizeof(buf));
         loga = [indicationCopy refreshTime];
         if (loga)
@@ -5830,7 +5830,7 @@ LABEL_40:
         if (lastActive3)
         {
           uuid = [indicationCopy lastActive];
-          v34 = uuid;
+          v35 = uuid;
           uTF8String2 = [uuid UTF8String];
         }
 
@@ -5845,7 +5845,7 @@ LABEL_40:
         if (contentType)
         {
           lastActive2 = [indicationCopy contentType];
-          v37 = lastActive2;
+          v38 = lastActive2;
           uTF8String3 = [lastActive2 UTF8String];
         }
 
@@ -5855,10 +5855,10 @@ LABEL_40:
         }
 
         sub_10000501C(&buf[56], uTF8String3);
-        LOBYTE(v78) = 1;
-        BYTE8(v78) = 0;
-        v79[0] = 0;
-        LOBYTE(v80) = 0;
+        LOBYTE(v79) = 1;
+        BYTE8(v79) = 0;
+        v80[0] = 0;
+        LOBYTE(v81) = 0;
         if (contentType)
         {
         }
@@ -5871,59 +5871,59 @@ LABEL_40:
         {
         }
 
-        memset(v67, 0, sizeof(v67));
-        v68 = 1;
-        sub_1006F2118(destinationCopy, v61);
-        sub_1006E8724(dCopy, v56);
-        LOBYTE(v71) = securityCopy != 0;
-        LOBYTE(v73) = 0;
-        v75 = 0;
-        v39 = (*(*v29 + 96))(v29, v67, v52, v61, v56, buf, &v71);
-        if (v75 == 1)
+        memset(v68, 0, sizeof(v68));
+        v69 = 1;
+        sub_1006F2118(destinationCopy, v62);
+        sub_1006E8724(dCopy, v57);
+        LOBYTE(v72) = securityCopy != 0;
+        LOBYTE(v74) = 0;
+        v76 = 0;
+        v40 = (*(*v30 + 96))(v30, v68, v53, v62, v57, buf, &v72);
+        if (v76 == 1)
         {
-          sub_1002AF7A0(&v74);
+          sub_1002AF7A0(&v75);
         }
 
-        if (v60 == 1 && v59 < 0)
+        if (v61 == 1 && v60 < 0)
         {
           operator delete(__p);
         }
 
-        if (v57 < 0)
+        if (v58 < 0)
         {
-          operator delete(v56[0]);
+          operator delete(v57[0]);
         }
 
-        if (v66 < 0)
+        if (v67 < 0)
         {
-          operator delete(v65);
+          operator delete(v66);
         }
 
-        if (v64 < 0)
+        if (v65 < 0)
         {
-          operator delete(v63);
+          operator delete(v64);
         }
 
-        if (v62 < 0)
+        if (v63 < 0)
         {
-          operator delete(v61[0]);
+          operator delete(v62[0]);
         }
 
-        TMClientInfo::~TMClientInfo(v67);
-        if ((v39 & 0x100000000) != 0)
+        TMClientInfo::~TMClientInfo(v68);
+        if ((v40 & 0x100000000) != 0)
         {
-          [(CTXPCClientHandler *)self getLogContext];
-          v40 = v73;
-          ctu::OsLogContext::~OsLogContext(&v71);
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          objc_msgSend_getLogContext(self);
+          v41 = v74;
+          ctu::OsLogContext::~OsLogContext(&v72);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
             sub_10177B280();
           }
 
-          v71 = v39;
-          v72 = 1;
-          v41 = sub_100A99330(&v71);
-          completionCopy[2](completionCopy, v41);
+          v72 = v40;
+          v73 = 1;
+          v42 = sub_100A99330(&v72);
+          completionCopy[2](completionCopy, v42);
         }
 
         else
@@ -5931,12 +5931,12 @@ LABEL_40:
           completionCopy[2](completionCopy, 0);
         }
 
-        if (v80 == 1)
+        if (v81 == 1)
         {
-          sub_1002AF7A0(&v79[8]);
+          sub_1002AF7A0(&v80[8]);
         }
 
-        if (v78 == 1 && SHIBYTE(v77) < 0)
+        if (v79 == 1 && SHIBYTE(v78) < 0)
         {
           operator delete(*&buf[56]);
         }
@@ -5949,49 +5949,49 @@ LABEL_40:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v31 = *&buf[8];
+        objc_msgSend_getLogContext(self);
+        v32 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           sub_10177B6C4();
         }
 
         *buf = 5;
         buf[4] = 1;
-        v32 = sub_100A99330(buf);
-        completionCopy[2](completionCopy, v32);
+        v33 = sub_100A99330(buf);
+        completionCopy[2](completionCopy, v33);
       }
 
-      if (v70)
+      if (v71)
       {
-        sub_100004A34(v70);
+        sub_100004A34(v71);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v22 = *&buf[8];
+      objc_msgSend_getLogContext(self);
+      v23 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       *buf = 4;
       buf[4] = 1;
-      v23 = sub_100A99330(buf);
-      completionCopy[2](completionCopy, v23);
+      v24 = sub_100A99330(buf);
+      completionCopy[2](completionCopy, v24);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v24 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v25 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       sub_10177B6F8();
     }
@@ -6007,7 +6007,7 @@ LABEL_40:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = v23;
     ctu::OsLogContext::~OsLogContext(&v21);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
@@ -6016,7 +6016,7 @@ LABEL_40:
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendGroupComposingIndicator", &v21, 2u);
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v23;
     ctu::OsLogContext::~OsLogContext(&v21);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -6032,7 +6032,7 @@ LABEL_40:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v20 = v23;
     ctu::OsLogContext::~OsLogContext(&v21);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -6054,20 +6054,20 @@ LABEL_40:
   {
     if (messageCopy && destinationCopy && dCopy && ([dCopy uuid], v18 = objc_claimAutoreleasedReturnValue(), v18, pushCopy) && v18)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v19 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         [messageCopy slotID];
-        v20 = CTSubscriptionSlotAsString();
-        v21 = "true";
+        v21 = CTSubscriptionSlotAsString();
+        v22 = "true";
         if (!securityCopy)
         {
-          v21 = "false";
+          v22 = "false";
         }
 
-        v55 = v21;
+        v56 = v22;
         focus = [destinationCopy focus];
         if (focus)
         {
@@ -6091,10 +6091,10 @@ LABEL_40:
         }
 
         uuid = [dCopy uuid];
-        v54 = v20;
+        v55 = v21;
         [pushCopy coordinates];
-        v61 = v26 = 0x406FE00000000000;
-        if (v61)
+        v62 = v27 = 0x406FE00000000000;
+        if (v62)
         {
           coordinates = [pushCopy coordinates];
           latitude = [coordinates latitude];
@@ -6103,69 +6103,69 @@ LABEL_40:
             coordinates2 = [pushCopy coordinates];
             latitude2 = [coordinates2 latitude];
             [latitude2 doubleValue];
-            v26 = v27;
-            v53 = 1;
+            v27 = v28;
+            v54 = 1;
           }
 
           else
           {
             latitude = 0;
-            v53 = 0;
+            v54 = 0;
           }
         }
 
         else
         {
-          v53 = 0;
+          v54 = 0;
         }
 
         coordinates3 = [pushCopy coordinates];
-        v29 = 0x406FE00000000000;
+        v30 = 0x406FE00000000000;
         if (coordinates3)
         {
           coordinates4 = [pushCopy coordinates];
           longitude = [coordinates4 longitude];
           if (longitude)
           {
-            v48 = longitude;
+            v49 = longitude;
             coordinates5 = [pushCopy coordinates];
             longitude2 = [coordinates5 longitude];
             [longitude2 doubleValue];
-            v29 = v31;
-            v32 = messageCopy;
-            v33 = 1;
+            v30 = v32;
+            v33 = messageCopy;
+            v34 = 1;
           }
 
           else
           {
-            v32 = messageCopy;
-            v48 = 0;
-            v33 = 0;
+            v33 = messageCopy;
+            v49 = 0;
+            v34 = 0;
           }
         }
 
         else
         {
-          v32 = messageCopy;
-          v33 = 0;
+          v33 = messageCopy;
+          v34 = 0;
         }
 
         *buf = 136316674;
-        *&buf[4] = v54;
+        *&buf[4] = v55;
         *&buf[12] = 2080;
-        *&buf[14] = v55;
-        v90 = 2114;
-        v91 = focus2;
-        v92 = 2114;
-        v93 = conversationID2;
-        v94 = 2114;
-        v95 = uuid;
-        v96 = 2048;
-        v97 = v26;
-        v98 = 2048;
-        v99 = v29;
+        *&buf[14] = v56;
+        v91 = 2114;
+        v92 = focus2;
+        v93 = 2114;
+        v94 = conversationID2;
+        v95 = 2114;
+        v96 = uuid;
+        v97 = 2048;
+        v98 = v27;
+        v99 = 2048;
+        v100 = v30;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendGeolocationMessage: [slot: %s, security: %s, to.focus: %{public}@, to.conversationID: %{public}@, messageIdentifier: %{public}@, .latitude: %{senstive}f, .longitude: %{senstive}f]", buf, 0x48u);
-        if (v33)
+        if (v34)
         {
         }
 
@@ -6173,11 +6173,11 @@ LABEL_40:
         {
         }
 
-        if (v53)
+        if (v54)
         {
         }
 
-        if (v61)
+        if (v62)
         {
         }
 
@@ -6189,89 +6189,89 @@ LABEL_40:
         {
         }
 
-        messageCopy = v32;
+        messageCopy = v33;
       }
 
-      v87 = 0;
       v88 = 0;
-      sub_1006E5FC4(self, &v87);
-      v34 = v87;
-      if (v87)
+      v89 = 0;
+      sub_1006E5FC4(self, v20, &v88);
+      v35 = v88;
+      if (v88)
       {
-        v60 = sub_100018A64([messageCopy slotID]);
-        v85 = 0u;
+        v61 = sub_100018A64([messageCopy slotID]);
         v86 = 0u;
-        v83 = 0u;
+        v87 = 0u;
         v84 = 0u;
-        v81 = 0u;
+        v85 = 0u;
         v82 = 0u;
+        v83 = 0u;
         coordinates6 = [pushCopy coordinates];
         longitude3 = [coordinates6 longitude];
         [longitude3 doubleValue];
-        v80[0] = v35;
+        v81[0] = v36;
         coordinates7 = [pushCopy coordinates];
         latitude3 = [coordinates7 latitude];
-        v22 = messageCopy;
+        v23 = messageCopy;
         [latitude3 doubleValue];
-        v80[1] = v38;
-        BYTE8(v82) = 0;
-        BYTE8(v84) = 0;
+        v81[1] = v39;
+        BYTE8(v83) = 0;
+        BYTE8(v85) = 0;
         metaData = [pushCopy metaData];
-        sub_1006EBDBC(metaData, &v85);
+        sub_1006EBDBC(metaData, &v86);
 
-        memset(v78, 0, sizeof(v78));
-        v79 = 1;
-        sub_1006F2118(destinationCopy, v72);
-        sub_1006E8724(dCopy, v67);
+        memset(v79, 0, sizeof(v79));
+        v80 = 1;
+        sub_1006F2118(destinationCopy, v73);
+        sub_1006E8724(dCopy, v68);
         buf[0] = securityCopy != 0;
         buf[8] = 0;
-        v100 = 0;
-        v40 = (*(*v34 + 64))(v34, v78, v60, v72, v67, v80, buf);
-        if (v100 == 1)
+        v101 = 0;
+        v41 = (*(*v35 + 64))(v35, v79, v61, v73, v68, v81, buf);
+        if (v101 == 1)
         {
           sub_1002AF7A0(&buf[16]);
         }
 
-        if (v71 == 1 && v70 < 0)
+        if (v72 == 1 && v71 < 0)
         {
           operator delete(__p);
         }
 
-        if (v68 < 0)
+        if (v69 < 0)
         {
-          operator delete(v67[0]);
+          operator delete(v68[0]);
         }
 
-        if (v77 < 0)
+        if (v78 < 0)
         {
-          operator delete(v76);
+          operator delete(v77);
         }
 
-        if (v75 < 0)
+        if (v76 < 0)
         {
-          operator delete(v74);
+          operator delete(v75);
         }
 
-        if (v73 < 0)
+        if (v74 < 0)
         {
-          operator delete(v72[0]);
+          operator delete(v73[0]);
         }
 
-        TMClientInfo::~TMClientInfo(v78);
-        if ((v40 & 0x100000000) != 0)
+        TMClientInfo::~TMClientInfo(v79);
+        if ((v41 & 0x100000000) != 0)
         {
-          [(CTXPCClientHandler *)self getLogContext];
-          v43 = *&buf[8];
+          objc_msgSend_getLogContext(self);
+          v44 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
             sub_10177B794();
           }
 
-          *buf = v40;
+          *buf = v41;
           buf[4] = 1;
-          v44 = sub_100A99330(buf);
-          completionCopy[2](completionCopy, v44);
+          v45 = sub_100A99330(buf);
+          completionCopy[2](completionCopy, v45);
         }
 
         else
@@ -6279,72 +6279,72 @@ LABEL_40:
           completionCopy[2](completionCopy, 0);
         }
 
-        if (BYTE8(v86) == 1)
+        if (BYTE8(v87) == 1)
         {
-          *buf = &v85;
+          *buf = &v86;
           sub_100190608(buf);
         }
 
-        if (BYTE8(v84) == 1)
+        if (BYTE8(v85) == 1)
         {
-          *buf = &v83;
+          *buf = &v84;
           sub_10019029C(buf);
         }
 
-        if (BYTE8(v82) == 1 && SBYTE7(v82) < 0)
+        if (BYTE8(v83) == 1 && SBYTE7(v83) < 0)
         {
-          operator delete(v81);
+          operator delete(v82);
         }
       }
 
       else
       {
-        v22 = messageCopy;
-        [(CTXPCClientHandler *)self getLogContext];
-        v41 = *&buf[8];
+        v23 = messageCopy;
+        objc_msgSend_getLogContext(self);
+        v42 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
           sub_10177B7C8();
         }
 
         *buf = 5;
         buf[4] = 1;
-        v42 = sub_100A99330(buf);
-        completionCopy[2](completionCopy, v42);
+        v43 = sub_100A99330(buf);
+        completionCopy[2](completionCopy, v43);
       }
 
-      if (v88)
+      if (v89)
       {
-        sub_100004A34(v88);
+        sub_100004A34(v89);
       }
     }
 
     else
     {
-      v22 = messageCopy;
-      [(CTXPCClientHandler *)self getLogContext];
-      v23 = *&buf[8];
+      v23 = messageCopy;
+      objc_msgSend_getLogContext(self);
+      v24 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       *buf = 4;
       buf[4] = 1;
-      v24 = sub_100A99330(buf);
-      completionCopy[2](completionCopy, v24);
+      v25 = sub_100A99330(buf);
+      completionCopy[2](completionCopy, v25);
     }
   }
 
   else
   {
-    v22 = messageCopy;
-    [(CTXPCClientHandler *)self getLogContext];
-    v25 = *&buf[8];
+    v23 = messageCopy;
+    objc_msgSend_getLogContext(self);
+    v26 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       sub_10177B7FC();
     }
@@ -6363,18 +6363,18 @@ LABEL_40:
   {
     if (messageCopy && destinationCopy && dCopy && ([dCopy uuid], v19 = objc_claimAutoreleasedReturnValue(), v19, informationCopy) && v19)
     {
-      v40 = messageCopy;
-      [(CTXPCClientHandler *)self getLogContext];
+      v41 = messageCopy;
+      objc_msgSend_getLogContext(self);
       v20 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         [messageCopy slotID];
-        v37 = CTSubscriptionSlotAsString();
-        v21 = "true";
+        v38 = CTSubscriptionSlotAsString();
+        v22 = "true";
         if (!securityCopy)
         {
-          v21 = "false";
+          v22 = "false";
         }
 
         focus = [destinationCopy focus];
@@ -6401,15 +6401,15 @@ LABEL_40:
 
         uuid = [dCopy uuid];
         *buf = 136316162;
-        *&buf[4] = v37;
+        *&buf[4] = v38;
         *&buf[12] = 2080;
-        *&buf[14] = v36;
-        v83 = 2114;
-        v84 = focus2;
-        *v85 = 2114;
-        *&v85[2] = conversationID2;
-        v86 = 2114;
-        v87 = uuid;
+        *&buf[14] = v37;
+        v84 = 2114;
+        v85 = focus2;
+        *v86 = 2114;
+        *&v86[2] = conversationID2;
+        v87 = 2114;
+        v88 = uuid;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendFileTransferMessage: [slot: %s, security: %s, to.focus: %{public}@, to.conversationID: %{public}@, identifier: %{public}@]", buf, 0x34u);
 
         if (conversationID)
@@ -6421,141 +6421,141 @@ LABEL_40:
         }
       }
 
+      v78 = 0;
       v77 = 0;
-      v76 = 0;
-      sub_1006E5FC4(self, &v76);
-      v28 = v76;
-      messageCopy = v40;
-      if (v76)
+      sub_1006E5FC4(self, v21, &v77);
+      v29 = v77;
+      messageCopy = v41;
+      if (v77)
       {
-        v29 = sub_100018A64([v40 slotID]);
-        bzero(v55, 0x208uLL);
-        sub_1006EB6AC(informationCopy, v55);
-        memset(v53, 0, sizeof(v53));
-        v54 = 1;
-        sub_1006F2118(destinationCopy, v47);
-        sub_1006E8724(dCopy, v42);
-        sub_1001907C0(buf, v55);
-        sub_100190C40(v103, v74);
-        sub_100190324(v104, v75);
-        v105 = 0;
-        v106 = 0;
+        v30 = sub_100018A64([v41 slotID]);
+        bzero(v56, 0x208uLL);
+        sub_1006EB6AC(informationCopy, v56);
+        memset(v54, 0, sizeof(v54));
+        v55 = 1;
+        sub_1006F2118(destinationCopy, v48);
+        sub_1006E8724(dCopy, v43);
+        sub_1001907C0(buf, v56);
+        sub_100190C40(v104, v75);
+        sub_100190324(v105, v76);
+        v107 = 0;
+        v108 = 0;
         metaData = [informationCopy metaData];
-        sub_1006EBDBC(metaData, v107);
-        LOBYTE(v78) = securityCopy != 0;
-        v79 = 0;
-        v81 = 0;
-        v31 = (*(*v28 + 48))(v28, v53, v29, v47, v42, buf, &v78);
-        if (v81 == 1)
+        sub_1006EBDBC(metaData, v109);
+        LOBYTE(v79) = securityCopy != 0;
+        v80 = 0;
+        v82 = 0;
+        v32 = (*(*v29 + 48))(v29, v54, v30, v48, v43, buf, &v79);
+        if (v82 == 1)
         {
-          sub_1002AF7A0(&v80);
+          sub_1002AF7A0(&v81);
         }
 
-        if (v107[24] == 1)
+        if (v109[24] == 1)
         {
-          v78 = v107;
-          sub_100190608(&v78);
+          v79 = v109;
+          sub_100190608(&v79);
+        }
+
+        if (v108 == 1)
+        {
+          v79 = &v107;
+          sub_10019029C(&v79);
         }
 
         if (v106 == 1)
         {
-          v78 = &v105;
-          sub_10019029C(&v78);
+          v79 = v105;
+          sub_100190608(&v79);
         }
 
-        if (v104[24] == 1)
+        sub_100190D9C(v104);
+        messageCopy = v41;
+        if (v103 == 1)
         {
-          v78 = v104;
-          sub_100190608(&v78);
-        }
-
-        sub_100190D9C(v103);
-        messageCopy = v40;
-        if (v102 == 1)
-        {
-          if (v101 == 1)
+          if (v102 == 1)
           {
             if (__p)
             {
-              v100 = __p;
+              v101 = __p;
               operator delete(__p);
             }
 
-            if (v98 == 1 && v96)
+            if (v99 == 1 && v97)
             {
-              v97 = v96;
-              operator delete(v96);
+              v98 = v97;
+              operator delete(v97);
             }
 
-            if (v95 == 1 && v93)
+            if (v96 == 1 && v94)
             {
-              v94 = v93;
-              operator delete(v93);
+              v95 = v94;
+              operator delete(v94);
             }
 
-            if (v91)
+            if (v92)
             {
-              v92 = v91;
-              operator delete(v91);
+              v93 = v92;
+              operator delete(v92);
             }
           }
 
-          if (v90 < 0)
+          if (v91 < 0)
           {
-            operator delete(v89);
+            operator delete(v90);
           }
 
-          if (v88 < 0)
+          if (v89 < 0)
           {
-            operator delete(*v85);
+            operator delete(*v86);
           }
 
-          if (SHIBYTE(v84) < 0)
+          if (SHIBYTE(v85) < 0)
           {
             operator delete(*&buf[8]);
           }
         }
 
-        if (v46 == 1 && v45 < 0)
+        if (v47 == 1 && v46 < 0)
         {
-          operator delete(v44);
+          operator delete(v45);
         }
 
-        if (v43 < 0)
+        if (v44 < 0)
         {
-          operator delete(v42[0]);
+          operator delete(v43[0]);
         }
 
-        if (v52 < 0)
+        if (v53 < 0)
         {
-          operator delete(v51);
+          operator delete(v52);
         }
 
-        if (v50 < 0)
+        if (v51 < 0)
         {
-          operator delete(v49);
+          operator delete(v50);
         }
 
-        if (v48 < 0)
+        if (v49 < 0)
         {
-          operator delete(v47[0]);
+          operator delete(v48[0]);
         }
 
-        TMClientInfo::~TMClientInfo(v53);
-        if ((v31 & 0x100000000) != 0)
+        TMClientInfo::~TMClientInfo(v54);
+        if ((v32 & 0x100000000) != 0)
         {
-          [(CTXPCClientHandler *)self getLogContext];
-          v34 = *&buf[8];
+          objc_msgSend_getLogContext(self);
+          v35 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
             sub_10177B830();
           }
 
-          *buf = v31;
+          *buf = v32;
           buf[4] = 1;
-          v35 = sub_100A99330(buf);
-          completionCopy[2](completionCopy, v35);
+          v36 = sub_100A99330(buf);
+          completionCopy[2](completionCopy, v36);
         }
 
         else
@@ -6563,104 +6563,104 @@ LABEL_40:
           completionCopy[2](completionCopy, 0);
         }
 
-        if (v75[24] == 1)
+        if (v76[24] == 1)
         {
-          *buf = v75;
+          *buf = v76;
           sub_100190608(buf);
         }
 
-        sub_100190D9C(v74);
-        if (v73 == 1)
+        sub_100190D9C(v75);
+        if (v74 == 1)
         {
-          if (v72 == 1)
+          if (v73 == 1)
           {
-            if (v70)
+            if (v71)
             {
-              v71 = v70;
-              operator delete(v70);
+              v72 = v71;
+              operator delete(v71);
             }
 
-            if (v69 == 1 && v67)
+            if (v70 == 1 && v68)
             {
-              v68 = v67;
-              operator delete(v67);
+              v69 = v68;
+              operator delete(v68);
             }
 
-            if (v66 == 1 && v64)
+            if (v67 == 1 && v65)
             {
-              v65 = v64;
-              operator delete(v64);
+              v66 = v65;
+              operator delete(v65);
             }
 
-            if (v62)
+            if (v63)
             {
-              v63 = v62;
-              operator delete(v62);
+              v64 = v63;
+              operator delete(v63);
             }
           }
 
-          if (v61 < 0)
+          if (v62 < 0)
           {
-            operator delete(v60);
+            operator delete(v61);
           }
 
-          if (v59 < 0)
+          if (v60 < 0)
           {
-            operator delete(v58);
+            operator delete(v59);
           }
 
-          if (v57 < 0)
+          if (v58 < 0)
           {
-            operator delete(v56);
+            operator delete(v57);
           }
         }
       }
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v32 = *&buf[8];
+        objc_msgSend_getLogContext(self);
+        v33 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           sub_10177B864();
         }
 
         *buf = 5;
         buf[4] = 1;
-        v33 = sub_100A99330(buf);
-        completionCopy[2](completionCopy, v33);
+        v34 = sub_100A99330(buf);
+        completionCopy[2](completionCopy, v34);
       }
 
-      if (v77)
+      if (v78)
       {
-        sub_100004A34(v77);
+        sub_100004A34(v78);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v22 = *&buf[8];
+      objc_msgSend_getLogContext(self);
+      v23 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       *buf = 4;
       buf[4] = 1;
-      v23 = sub_100A99330(buf);
-      completionCopy[2](completionCopy, v23);
+      v24 = sub_100A99330(buf);
+      completionCopy[2](completionCopy, v24);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v24 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v25 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       sub_10177B898();
     }
@@ -6692,20 +6692,20 @@ LABEL_40:
 
           if (uuid2)
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v26 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
             if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               [messageCopy slotID];
-              v42 = CTSubscriptionSlotAsString();
-              v27 = "true";
+              v43 = CTSubscriptionSlotAsString();
+              v28 = "true";
               if (!securityCopy)
               {
-                v27 = "false";
+                v28 = "false";
               }
 
-              v41 = v27;
+              v42 = v28;
               focus = [groupCopy focus];
               if (focus)
               {
@@ -6728,25 +6728,25 @@ LABEL_40:
                 conversationID2 = &stru_101F6AFB8;
               }
 
-              v46 = [toCopy uri];
+              v47 = [toCopy uri];
               uuid3 = [dCopy uuid];
               uuid4 = [iDCopy uuid];
               *buf = 136316930;
-              *&buf[4] = v42;
+              *&buf[4] = v43;
               *&buf[12] = 2080;
-              *&buf[14] = v41;
-              v80 = 2114;
-              v81 = focus2;
-              v82 = 2114;
-              v83 = conversationID2;
-              v84 = 2112;
-              v85 = v46;
-              v86 = 2114;
-              v87 = uuid3;
-              v88 = 2048;
+              *&buf[14] = v42;
+              v81 = 2114;
+              v82 = focus2;
+              v83 = 2114;
+              v84 = conversationID2;
+              v85 = 2112;
+              v86 = v47;
+              v87 = 2114;
+              v88 = uuid3;
+              v89 = 2048;
               dispositionCopy = disposition;
-              v90 = 2114;
-              v91 = uuid4;
+              v91 = 2114;
+              v92 = uuid4;
               _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendGroupDispositionNotificationMessage: [slot: %s, security: %s, group.focus: %{public}@, group.conversationID: %{public}@, to: %@, identifier: %{public}@, type: %ld, forMessageID: %{public}@]", buf, 0x52u);
 
               if (conversationID)
@@ -6758,112 +6758,112 @@ LABEL_40:
               }
             }
 
+            v79 = 0;
             v78 = 0;
-            v77 = 0;
-            sub_1006E5FC4(self, &v77);
-            v33 = v77;
-            if (v77)
+            sub_1006E5FC4(self, v27, &v78);
+            v34 = v78;
+            if (v78)
             {
-              v34 = sub_100018A64([messageCopy slotID]);
-              v76 = 0;
+              v35 = sub_100018A64([messageCopy slotID]);
+              v77 = 0;
               if (disposition == 2)
               {
-                v35 = 2;
+                v36 = 2;
               }
 
               else
               {
-                v35 = -1;
+                v36 = -1;
               }
 
-              v74 = 0u;
               v75 = 0u;
+              v76 = 0u;
               if (!disposition)
               {
-                v35 = 0;
+                v36 = 0;
               }
 
-              v72 = 0uLL;
               v73 = 0uLL;
-              v70 = 0uLL;
+              v74 = 0uLL;
               v71 = 0uLL;
-              LODWORD(v70) = v35;
-              sub_1006E8724(iDCopy, &v70 + 8);
-              memset(v68, 0, sizeof(v68));
-              v69 = 1;
-              sub_1006F2118(groupCopy, v62);
-              sub_1006E72AC(toCopy, v55);
-              sub_1006E8724(dCopy, v50);
+              v72 = 0uLL;
+              LODWORD(v71) = v36;
+              sub_1006E8724(iDCopy, &v71 + 8);
+              memset(v69, 0, sizeof(v69));
+              v70 = 1;
+              sub_1006F2118(groupCopy, v63);
+              sub_1006E72AC(toCopy, v56);
+              sub_1006E8724(dCopy, v51);
               buf[0] = securityCopy != 0;
               buf[8] = 0;
-              v92 = 0;
-              v36 = (*(*v33 + 80))(v33, v68, v34, v62, v55, v50, &v70, buf);
-              if (v92 == 1)
+              v93 = 0;
+              v37 = (*(*v34 + 80))(v34, v69, v35, v63, v56, v51, &v71, buf);
+              if (v93 == 1)
               {
                 sub_1002AF7A0(&buf[16]);
               }
 
-              if (v54 == 1 && v53 < 0)
+              if (v55 == 1 && v54 < 0)
               {
                 operator delete(__p);
               }
 
-              if (v51 < 0)
+              if (v52 < 0)
               {
-                operator delete(v50[0]);
+                operator delete(v51[0]);
               }
 
-              if (v61 < 0)
+              if (v62 < 0)
               {
-                operator delete(v60);
+                operator delete(v61);
               }
 
-              if (v59[24] == 1)
+              if (v60[24] == 1)
               {
-                *buf = v59;
+                *buf = v60;
                 sub_1000087B4(buf);
               }
 
-              if (v58 < 0)
+              if (v59 < 0)
               {
-                operator delete(v57);
+                operator delete(v58);
               }
 
-              if (v56 < 0)
+              if (v57 < 0)
               {
-                operator delete(v55[0]);
+                operator delete(v56[0]);
               }
 
-              if (v67 < 0)
+              if (v68 < 0)
               {
-                operator delete(v66);
+                operator delete(v67);
               }
 
-              if (v65 < 0)
+              if (v66 < 0)
               {
-                operator delete(v64);
+                operator delete(v65);
               }
 
-              if (v63 < 0)
+              if (v64 < 0)
               {
-                operator delete(v62[0]);
+                operator delete(v63[0]);
               }
 
-              TMClientInfo::~TMClientInfo(v68);
-              if ((v36 & 0x100000000) != 0)
+              TMClientInfo::~TMClientInfo(v69);
+              if ((v37 & 0x100000000) != 0)
               {
-                [(CTXPCClientHandler *)self getLogContext];
-                v39 = *&buf[8];
+                objc_msgSend_getLogContext(self);
+                v40 = *&buf[8];
                 ctu::OsLogContext::~OsLogContext(buf);
-                if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
                 {
                   sub_10177B830();
                 }
 
-                *buf = v36;
+                *buf = v37;
                 buf[4] = 1;
-                v40 = sub_100A99330(buf);
-                completionCopy[2](completionCopy, v40);
+                v41 = sub_100A99330(buf);
+                completionCopy[2](completionCopy, v41);
               }
 
               else
@@ -6871,36 +6871,36 @@ LABEL_40:
                 completionCopy[2](completionCopy, 0);
               }
 
-              if (v76 == 1 && SHIBYTE(v74) < 0)
+              if (v77 == 1 && SHIBYTE(v75) < 0)
               {
-                operator delete(*(&v73 + 1));
+                operator delete(*(&v74 + 1));
               }
 
-              if (SHIBYTE(v71) < 0)
+              if (SHIBYTE(v72) < 0)
               {
-                operator delete(*(&v70 + 1));
+                operator delete(*(&v71 + 1));
               }
             }
 
             else
             {
-              [(CTXPCClientHandler *)self getLogContext];
-              v37 = *&buf[8];
+              objc_msgSend_getLogContext(self);
+              v38 = *&buf[8];
               ctu::OsLogContext::~OsLogContext(buf);
-              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
               {
                 sub_10177B8CC();
               }
 
               *buf = 5;
               buf[4] = 1;
-              v38 = sub_100A99330(buf);
-              completionCopy[2](completionCopy, v38);
+              v39 = sub_100A99330(buf);
+              completionCopy[2](completionCopy, v39);
             }
 
-            if (v78)
+            if (v79)
             {
-              sub_100004A34(v78);
+              sub_100004A34(v79);
             }
 
             goto LABEL_22;
@@ -6912,26 +6912,26 @@ LABEL_40:
     }
 
 LABEL_19:
-    [(CTXPCClientHandler *)self getLogContext];
-    v29 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v30 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v30 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v30);
+    v31 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v31);
 
     goto LABEL_22;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v28 = *&buf[8];
+  objc_msgSend_getLogContext(self);
+  v29 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
     sub_10177B898();
   }
@@ -6959,20 +6959,20 @@ LABEL_22:
 
         if (uuid)
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v23 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             [participantsCopy slotID];
-            v24 = CTSubscriptionSlotAsString();
-            v25 = "true";
+            v25 = CTSubscriptionSlotAsString();
+            v26 = "true";
             if (!securityCopy)
             {
-              v25 = "false";
+              v26 = "false";
             }
 
-            v44 = v25;
+            v45 = v26;
             focus = [chatCopy focus];
             if (focus)
             {
@@ -6995,224 +6995,11 @@ LABEL_22:
               conversationID2 = &stru_101F6AFB8;
             }
 
-            v42 = v24;
-            v43 = v23;
-            memberList2 = [addCopy memberList];
-            v30 = [memberList2 count];
-            uuid2 = [dCopy uuid];
-            *buf = 136316418;
-            *&buf[4] = v42;
-            *&buf[12] = 2080;
-            *&buf[14] = v44;
-            v63 = 2114;
-            v64 = focus2;
-            v65 = 2114;
-            v66 = conversationID2;
-            v67 = 2048;
-            v68 = v30;
-            v69 = 2112;
-            v70 = uuid2;
-            _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] addParticipants: [slot: %s, security: %s, to.focus: %{public}@, to.conversationID: %{public}@, list.memberList.size: %ld,  operationID: %@]", buf, 0x3Eu);
-
-            if (conversationID)
-            {
-            }
-
-            if (focus)
-            {
-            }
-          }
-
-          v60 = 0;
-          v61 = 0;
-          sub_1006E5FC4(self, &v60);
-          v32 = v60;
-          if (v60)
-          {
-            v33 = sub_100018A64([participantsCopy slotID]);
-            memset(v58, 0, sizeof(v58));
-            v59 = 1;
-            sub_1006F2118(chatCopy, v52);
-            sub_1006F51D4(addCopy, v50);
-            uuid3 = [dCopy uuid];
-            v35 = uuid3;
-            sub_10000501C(__p, [uuid3 UTF8String]);
-            buf[0] = securityCopy != 0;
-            buf[8] = 0;
-            v71 = 0;
-            v36 = (*(*v32 + 104))(v32, v58, v33, v52, v50, __p, buf);
-            if (v71 == 1)
-            {
-              sub_1002AF7A0(&buf[16]);
-            }
-
-            if (v49 < 0)
-            {
-              operator delete(__p[0]);
-            }
-
-            *buf = &v51;
-            sub_1000D48DC(buf);
-            *buf = v50;
-            sub_1000087B4(buf);
-            if (v57 < 0)
-            {
-              operator delete(v56);
-            }
-
-            if (v55 < 0)
-            {
-              operator delete(v54);
-            }
-
-            if (v53 < 0)
-            {
-              operator delete(v52[0]);
-            }
-
-            TMClientInfo::~TMClientInfo(v58);
-            if ((v36 & 0x100000000) != 0)
-            {
-              [(CTXPCClientHandler *)self getLogContext];
-              v39 = *&buf[8];
-              ctu::OsLogContext::~OsLogContext(buf);
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
-              {
-                sub_10177B900();
-              }
-
-              *buf = v36;
-              buf[4] = 1;
-              v40 = sub_100A99330(buf);
-              completionCopy[2](completionCopy, v40);
-            }
-
-            else
-            {
-              completionCopy[2](completionCopy, 0);
-            }
-          }
-
-          else
-          {
-            [(CTXPCClientHandler *)self getLogContext];
-            v37 = *&buf[8];
-            ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
-            {
-              sub_10177B934();
-            }
-
-            *buf = 5;
-            buf[4] = 1;
-            v38 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v38);
-          }
-
-          if (v61)
-          {
-            sub_100004A34(v61);
-          }
-
-          goto LABEL_19;
-        }
-      }
-
-      else
-      {
-      }
-    }
-
-    [(CTXPCClientHandler *)self getLogContext];
-    v27 = *&buf[8];
-    ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-    {
-      sub_10177ABCC();
-    }
-
-    *buf = 4;
-    buf[4] = 1;
-    v28 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v28);
-  }
-
-  else
-  {
-    [(CTXPCClientHandler *)self getLogContext];
-    v26 = *&buf[8];
-    ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
-    {
-      sub_10177B968();
-    }
-  }
-
-LABEL_19:
-}
-
-- (void)removeParticipants:(id)participants fromGroupChat:(id)chat withParticipantsToRemove:(id)remove withOperationID:(id)d withSecurity:(id)security completion:(id)completion
-{
-  participantsCopy = participants;
-  chatCopy = chat;
-  removeCopy = remove;
-  dCopy = d;
-  securityCopy = security;
-  completionCopy = completion;
-  if (completionCopy)
-  {
-    if (participantsCopy && chatCopy && removeCopy)
-    {
-      memberList = [removeCopy memberList];
-      v21 = memberList;
-      if (dCopy && memberList)
-      {
-        uuid = [dCopy uuid];
-
-        if (uuid)
-        {
-          [(CTXPCClientHandler *)self getLogContext];
-          v23 = *&buf[8];
-          ctu::OsLogContext::~OsLogContext(buf);
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-          {
-            [participantsCopy slotID];
-            v24 = CTSubscriptionSlotAsString();
-            v25 = "true";
-            if (!securityCopy)
-            {
-              v25 = "false";
-            }
-
-            v45 = v25;
-            focus = [chatCopy focus];
-            if (focus)
-            {
-              focus2 = [chatCopy focus];
-            }
-
-            else
-            {
-              focus2 = &stru_101F6AFB8;
-            }
-
-            conversationID = [chatCopy conversationID];
-            if (conversationID)
-            {
-              conversationID2 = [chatCopy conversationID];
-            }
-
-            else
-            {
-              conversationID2 = &stru_101F6AFB8;
-            }
-
-            v43 = v24;
+            v43 = v25;
             v44 = v23;
-            memberList2 = [removeCopy memberList];
-            v30 = [memberList2 count];
+            memberList2 = [addCopy memberList];
+            v31 = [memberList2 count];
             uuid2 = [dCopy uuid];
-            v41 = conversationID;
             *buf = 136316418;
             *&buf[4] = v43;
             *&buf[12] = 2080;
@@ -7222,10 +7009,10 @@ LABEL_19:
             v66 = 2114;
             v67 = conversationID2;
             v68 = 2048;
-            v69 = v30;
-            v70 = 2114;
+            v69 = v31;
+            v70 = 2112;
             v71 = uuid2;
-            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] removeParticipants: [slot: %s, security: %s, from.focus: %{public}@, from.conversationID: %{public}@, list.memberList.size: %lu, operationID: %{public}@]", buf, 0x3Eu);
+            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] addParticipants: [slot: %s, security: %s, to.focus: %{public}@, to.conversationID: %{public}@, list.memberList.size: %ld,  operationID: %@]", buf, 0x3Eu);
 
             if (conversationID)
             {
@@ -7236,24 +7023,24 @@ LABEL_19:
             }
           }
 
-          v32 = sub_100018A64([participantsCopy slotID]);
           v61 = 0;
           v62 = 0;
-          sub_1006E5FC4(self, &v61);
+          sub_1006E5FC4(self, v24, &v61);
           v33 = v61;
           if (v61)
           {
+            v34 = sub_100018A64([participantsCopy slotID]);
             memset(v59, 0, sizeof(v59));
             v60 = 1;
             sub_1006F2118(chatCopy, v53);
-            sub_1006F51D4(removeCopy, v51);
+            sub_1006F51D4(addCopy, v51);
             uuid3 = [dCopy uuid];
-            v35 = uuid3;
+            v36 = uuid3;
             sub_10000501C(__p, [uuid3 UTF8String]);
             buf[0] = securityCopy != 0;
             buf[8] = 0;
             v72 = 0;
-            v36 = (*(*v33 + 112))(v33, v59, v32, v53, v51, __p, buf);
+            v37 = (*(*v33 + 104))(v33, v59, v34, v53, v51, __p, buf);
             if (v72 == 1)
             {
               sub_1002AF7A0(&buf[16]);
@@ -7284,20 +7071,20 @@ LABEL_19:
             }
 
             TMClientInfo::~TMClientInfo(v59);
-            if ((v36 & 0x100000000) != 0)
+            if ((v37 & 0x100000000) != 0)
             {
-              [(CTXPCClientHandler *)self getLogContext];
-              v39 = *&buf[8];
+              objc_msgSend_getLogContext(self);
+              v40 = *&buf[8];
               ctu::OsLogContext::~OsLogContext(buf);
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
               {
-                sub_10177B99C();
+                sub_10177B900();
               }
 
-              *buf = v36;
+              *buf = v37;
               buf[4] = 1;
-              v40 = sub_100A99330(buf);
-              completionCopy[2](completionCopy, v40);
+              v41 = sub_100A99330(buf);
+              completionCopy[2](completionCopy, v41);
             }
 
             else
@@ -7308,18 +7095,18 @@ LABEL_19:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v37 = *&buf[8];
+            objc_msgSend_getLogContext(self);
+            v38 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
               sub_10177B934();
             }
 
             *buf = 5;
             buf[4] = 1;
-            v38 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v38);
+            v39 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v39);
           }
 
           if (v62)
@@ -7336,7 +7123,220 @@ LABEL_19:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
+    v28 = *&buf[8];
+    ctu::OsLogContext::~OsLogContext(buf);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      sub_10177ABCC();
+    }
+
+    *buf = 4;
+    buf[4] = 1;
+    v29 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v29);
+  }
+
+  else
+  {
+    objc_msgSend_getLogContext(self);
+    v27 = *&buf[8];
+    ctu::OsLogContext::~OsLogContext(buf);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      sub_10177B968();
+    }
+  }
+
+LABEL_19:
+}
+
+- (void)removeParticipants:(id)participants fromGroupChat:(id)chat withParticipantsToRemove:(id)remove withOperationID:(id)d withSecurity:(id)security completion:(id)completion
+{
+  participantsCopy = participants;
+  chatCopy = chat;
+  removeCopy = remove;
+  dCopy = d;
+  securityCopy = security;
+  completionCopy = completion;
+  if (completionCopy)
+  {
+    if (participantsCopy && chatCopy && removeCopy)
+    {
+      memberList = [removeCopy memberList];
+      v21 = memberList;
+      if (dCopy && memberList)
+      {
+        uuid = [dCopy uuid];
+
+        if (uuid)
+        {
+          objc_msgSend_getLogContext(self);
+          v23 = *&buf[8];
+          ctu::OsLogContext::~OsLogContext(buf);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          {
+            [participantsCopy slotID];
+            v24 = CTSubscriptionSlotAsString();
+            v25 = "true";
+            if (!securityCopy)
+            {
+              v25 = "false";
+            }
+
+            v46 = v25;
+            focus = [chatCopy focus];
+            if (focus)
+            {
+              focus2 = [chatCopy focus];
+            }
+
+            else
+            {
+              focus2 = &stru_101F6AFB8;
+            }
+
+            conversationID = [chatCopy conversationID];
+            if (conversationID)
+            {
+              conversationID2 = [chatCopy conversationID];
+            }
+
+            else
+            {
+              conversationID2 = &stru_101F6AFB8;
+            }
+
+            v44 = v24;
+            v45 = v23;
+            memberList2 = [removeCopy memberList];
+            v30 = [memberList2 count];
+            uuid2 = [dCopy uuid];
+            v42 = conversationID;
+            *buf = 136316418;
+            *&buf[4] = v44;
+            *&buf[12] = 2080;
+            *&buf[14] = v46;
+            v65 = 2114;
+            v66 = focus2;
+            v67 = 2114;
+            v68 = conversationID2;
+            v69 = 2048;
+            v70 = v30;
+            v71 = 2114;
+            v72 = uuid2;
+            _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] removeParticipants: [slot: %s, security: %s, from.focus: %{public}@, from.conversationID: %{public}@, list.memberList.size: %lu, operationID: %{public}@]", buf, 0x3Eu);
+
+            if (conversationID)
+            {
+            }
+
+            if (focus)
+            {
+            }
+          }
+
+          v32 = sub_100018A64([participantsCopy slotID]);
+          v62 = 0;
+          v63 = 0;
+          sub_1006E5FC4(self, v33, &v62);
+          v34 = v62;
+          if (v62)
+          {
+            memset(v60, 0, sizeof(v60));
+            v61 = 1;
+            sub_1006F2118(chatCopy, v54);
+            sub_1006F51D4(removeCopy, v52);
+            uuid3 = [dCopy uuid];
+            v36 = uuid3;
+            sub_10000501C(__p, [uuid3 UTF8String]);
+            buf[0] = securityCopy != 0;
+            buf[8] = 0;
+            v73 = 0;
+            v37 = (*(*v34 + 112))(v34, v60, v32, v54, v52, __p, buf);
+            if (v73 == 1)
+            {
+              sub_1002AF7A0(&buf[16]);
+            }
+
+            if (v51 < 0)
+            {
+              operator delete(__p[0]);
+            }
+
+            *buf = &v53;
+            sub_1000D48DC(buf);
+            *buf = v52;
+            sub_1000087B4(buf);
+            if (v59 < 0)
+            {
+              operator delete(v58);
+            }
+
+            if (v57 < 0)
+            {
+              operator delete(v56);
+            }
+
+            if (v55 < 0)
+            {
+              operator delete(v54[0]);
+            }
+
+            TMClientInfo::~TMClientInfo(v60);
+            if ((v37 & 0x100000000) != 0)
+            {
+              objc_msgSend_getLogContext(self);
+              v40 = *&buf[8];
+              ctu::OsLogContext::~OsLogContext(buf);
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+              {
+                sub_10177B99C();
+              }
+
+              *buf = v37;
+              buf[4] = 1;
+              v41 = sub_100A99330(buf);
+              completionCopy[2](completionCopy, v41);
+            }
+
+            else
+            {
+              completionCopy[2](completionCopy, 0);
+            }
+          }
+
+          else
+          {
+            objc_msgSend_getLogContext(self);
+            v38 = *&buf[8];
+            ctu::OsLogContext::~OsLogContext(buf);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+            {
+              sub_10177B934();
+            }
+
+            *buf = 5;
+            buf[4] = 1;
+            v39 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v39);
+          }
+
+          if (v63)
+          {
+            sub_100004A34(v63);
+          }
+
+          goto LABEL_19;
+        }
+      }
+
+      else
+      {
+      }
+    }
+
+    objc_msgSend_getLogContext(self);
     v27 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
@@ -7352,7 +7352,7 @@ LABEL_19:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v26 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
@@ -7384,17 +7384,17 @@ LABEL_19:
 
           if (uuid)
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v19 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
             if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
             {
               [iconCopy slotID];
-              v48 = CTSubscriptionSlotAsString();
-              v20 = "true";
+              v49 = CTSubscriptionSlotAsString();
+              v21 = "true";
               if (!securityCopy)
               {
-                v20 = "false";
+                v21 = "false";
               }
 
               focus = [chatCopy focus];
@@ -7421,15 +7421,15 @@ LABEL_19:
 
               uuid2 = [dCopy uuid];
               *buf = 136316163;
-              *&buf[4] = v48;
+              *&buf[4] = v49;
               *&buf[12] = 2080;
-              *&buf[14] = v47;
+              *&buf[14] = v48;
               *&buf[22] = 2113;
-              *v69 = focus2;
-              *&v69[8] = 2114;
-              *&v69[10] = conversationID2;
-              *&v69[18] = 2114;
-              *&v69[20] = uuid2;
+              *v70 = focus2;
+              *&v70[8] = 2114;
+              *&v70[10] = conversationID2;
+              *&v70[18] = 2114;
+              *&v70[20] = uuid2;
               _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] changeIcon: [slot: %s, security: %s, chat.focus: %{private}@, chat.conversationID: %{public}@, operationID: %{public}@]", buf, 0x34u);
 
               if (conversationID)
@@ -7441,96 +7441,96 @@ LABEL_19:
               }
             }
 
-            v66 = 0;
             v67 = 0;
-            sub_1006E5E0C(self, &v66);
-            if (!v66)
+            v68 = 0;
+            sub_1006E5E0C(self, &v67, v20);
+            if (!v67)
             {
-              [(CTXPCClientHandler *)self getLogContext];
-              v39 = *&buf[8];
+              objc_msgSend_getLogContext(self);
+              v40 = *&buf[8];
               ctu::OsLogContext::~OsLogContext(buf);
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
               {
                 sub_10177AD04();
               }
 
               *buf = 5;
               buf[4] = 1;
-              v40 = sub_100A99330(buf);
-              completionCopy[2](completionCopy, v40);
+              v41 = sub_100A99330(buf);
+              completionCopy[2](completionCopy, v41);
 
               goto LABEL_64;
             }
 
-            v27 = sub_100018A64([iconCopy slotID]);
-            v65 = 0;
-            *v64 = 0u;
+            v28 = sub_100018A64([iconCopy slotID]);
+            v66 = 0;
+            *v65 = 0u;
             *__p = 0u;
-            memset(v63, 0, sizeof(v63));
+            memset(v64, 0, sizeof(v64));
             if (newIconCopy)
             {
               data = [newIconCopy data];
-              v29 = data == 0;
+              v30 = data == 0;
 
-              if (!v29)
+              if (!v30)
               {
                 data2 = [newIconCopy data];
-                v31 = [data2 length];
+                v32 = [data2 length];
 
                 data3 = [newIconCopy data];
-                v33 = data3;
+                v34 = data3;
                 bytes = [data3 bytes];
 
-                v55 = 0;
                 v56 = 0;
                 v57 = 0;
-                sub_1000DCF88(&v55, bytes, v31 + bytes, v31);
+                v58 = 0;
+                sub_1000DCF88(&v56, bytes, &v32[bytes], v32);
                 name = [newIconCopy name];
-                v36 = name;
+                v37 = name;
                 sub_10000501C(buf, [name UTF8String]);
-                memset(v69, 0, 24);
-                sub_100034C50(v69, v55, v56, v56 - v55);
+                memset(v70, 0, 24);
+                sub_100034C50(v70, v56, v57, v57 - v56);
                 type = [newIconCopy type];
-                v38 = type;
-                sub_10000501C(&v69[24], [type UTF8String]);
-                if (SHIBYTE(v63[0]) < 0)
+                v39 = type;
+                sub_10000501C(&v70[24], [type UTF8String]);
+                if (SHIBYTE(v64[0]) < 0)
                 {
                   operator delete(__p[0]);
                 }
 
                 *__p = *buf;
-                v63[0] = *&buf[16];
+                v64[0] = *&buf[16];
                 buf[23] = 0;
                 buf[0] = 0;
-                if (v63[1])
+                if (v64[1])
                 {
-                  v63[2] = v63[1];
-                  operator delete(v63[1]);
+                  v64[2] = v64[1];
+                  operator delete(v64[1]);
                 }
 
-                *&v63[1] = *v69;
-                v63[3] = *&v69[16];
-                memset(v69, 0, 24);
-                if (SHIBYTE(v65) < 0)
+                *&v64[1] = *v70;
+                v64[3] = *&v70[16];
+                memset(v70, 0, 24);
+                if (SHIBYTE(v66) < 0)
                 {
-                  operator delete(v64[0]);
-                  *v64 = *&v69[24];
-                  v65 = v70;
-                  HIBYTE(v70) = 0;
-                  v69[24] = 0;
-                  if (*v69)
+                  operator delete(v65[0]);
+                  *v65 = *&v70[24];
+                  v66 = v71;
+                  HIBYTE(v71) = 0;
+                  v70[24] = 0;
+                  if (*v70)
                   {
-                    *&v69[8] = *v69;
-                    operator delete(*v69);
+                    *&v70[8] = *v70;
+                    operator delete(*v70);
                   }
                 }
 
                 else
                 {
-                  *v64 = *&v69[24];
-                  v65 = v70;
-                  HIBYTE(v70) = 0;
-                  v69[24] = 0;
+                  *v65 = *&v70[24];
+                  v66 = v71;
+                  HIBYTE(v71) = 0;
+                  v70[24] = 0;
                 }
 
                 if ((buf[23] & 0x80000000) != 0)
@@ -7538,94 +7538,94 @@ LABEL_19:
                   operator delete(*buf);
                 }
 
-                if (v55)
+                if (v56)
                 {
-                  v56 = v55;
-                  operator delete(v55);
+                  v57 = v56;
+                  operator delete(v56);
                 }
               }
             }
 
-            v41 = v66;
-            sub_1006F2118(chatCopy, &v55);
+            v42 = v67;
+            sub_1006F2118(chatCopy, &v56);
             uuid3 = [dCopy uuid];
-            v43 = uuid3;
-            sub_10000501C(v53, [uuid3 UTF8String]);
+            v44 = uuid3;
+            sub_10000501C(v54, [uuid3 UTF8String]);
             buf[0] = securityCopy != 0;
             buf[8] = 0;
-            v71 = 0;
-            v44 = (*(*v41 + 352))(v41, v27, &v55, __p, v53, buf);
-            if (v71 == 1)
+            v72 = 0;
+            v45 = (*(*v42 + 352))(v42, v28, &v56, __p, v54, buf);
+            if (v72 == 1)
             {
               sub_1002AF7A0(&buf[16]);
             }
 
-            if (v54 < 0)
+            if (v55 < 0)
             {
-              operator delete(v53[0]);
+              operator delete(v54[0]);
             }
 
-            if (v61 < 0)
+            if (v62 < 0)
             {
-              operator delete(v60);
+              operator delete(v61);
             }
 
-            if (v59 < 0)
+            if (v60 < 0)
             {
-              operator delete(v58);
+              operator delete(v59);
             }
 
-            if (SHIBYTE(v57) < 0)
+            if (SHIBYTE(v58) < 0)
             {
-              operator delete(v55);
-              if ((v44 & 0x100000000) == 0)
+              operator delete(v56);
+              if ((v45 & 0x100000000) == 0)
               {
                 goto LABEL_53;
               }
             }
 
-            else if ((v44 & 0x100000000) == 0)
+            else if ((v45 & 0x100000000) == 0)
             {
 LABEL_53:
               completionCopy[2](completionCopy, 0);
 LABEL_58:
-              if (SHIBYTE(v65) < 0)
+              if (SHIBYTE(v66) < 0)
               {
-                operator delete(v64[0]);
+                operator delete(v65[0]);
               }
 
-              if (v63[1])
+              if (v64[1])
               {
-                v63[2] = v63[1];
-                operator delete(v63[1]);
+                v64[2] = v64[1];
+                operator delete(v64[1]);
               }
 
-              if (SHIBYTE(v63[0]) < 0)
+              if (SHIBYTE(v64[0]) < 0)
               {
                 operator delete(__p[0]);
               }
 
 LABEL_64:
-              if (v67)
+              if (v68)
               {
-                sub_100004A34(v67);
+                sub_100004A34(v68);
               }
 
               goto LABEL_66;
             }
 
-            [(CTXPCClientHandler *)self getLogContext];
-            v45 = *&buf[8];
+            objc_msgSend_getLogContext(self);
+            v46 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
             {
               sub_10177BA04();
             }
 
-            *buf = v44;
+            *buf = v45;
             buf[4] = 1;
-            v46 = sub_100A99330(buf);
-            completionCopy[2](completionCopy, v46);
+            v47 = sub_100A99330(buf);
+            completionCopy[2](completionCopy, v47);
 
             goto LABEL_58;
           }
@@ -7633,26 +7633,26 @@ LABEL_64:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v21 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v22 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v22 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v22);
+    v23 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v23);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v23 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v24 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_10177BA38();
     }
@@ -7681,77 +7681,77 @@ LABEL_66:
 
           if (uuid)
           {
-            [(CTXPCClientHandler *)self getLogContext];
-            v21 = *&v61[4];
+            objc_msgSend_getLogContext(self);
+            v21 = *&v62[4];
             ctu::OsLogContext::~OsLogContext(buf);
             if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
 LABEL_33:
-              memset(&v59, 0, sizeof(v59));
+              memset(&v60, 0, sizeof(v60));
               if (newSubjectCopy)
               {
                 displayString = [newSubjectCopy displayString];
                 v29 = displayString;
-                sub_100016890(&v59, [displayString UTF8String]);
+                sub_100016890(&v60, [displayString UTF8String]);
               }
 
               v30 = sub_100018A64([subjectCopy slotID]);
-              v57 = 0;
               v58 = 0;
-              sub_1006E5FC4(self, &v57);
-              v31 = v57;
-              if (v57)
+              v59 = 0;
+              sub_1006E5FC4(self, v31, &v58);
+              v32 = v58;
+              if (v58)
               {
-                memset(v55, 0, sizeof(v55));
-                v56 = 1;
-                sub_1006F2118(chatCopy, v49);
+                memset(v56, 0, sizeof(v56));
+                v57 = 1;
+                sub_1006F2118(chatCopy, v50);
                 uuid2 = [dCopy uuid];
-                v33 = uuid2;
+                v34 = uuid2;
                 sub_10000501C(__p, [uuid2 UTF8String]);
                 buf[0] = securityCopy != 0;
-                v61[4] = 0;
-                v70 = 0;
-                v34 = (*(*v31 + 120))(v31, v55, v30, v49, &v59, __p, buf);
-                if (v70 == 1)
+                v62[4] = 0;
+                v71 = 0;
+                v35 = (*(*v32 + 120))(v32, v56, v30, v50, &v60, __p, buf);
+                if (v71 == 1)
                 {
-                  sub_1002AF7A0(&v61[12]);
+                  sub_1002AF7A0(&v62[12]);
                 }
 
-                if (v48 < 0)
+                if (v49 < 0)
                 {
                   operator delete(__p[0]);
                 }
 
-                if (v54 < 0)
+                if (v55 < 0)
                 {
-                  operator delete(v53);
+                  operator delete(v54);
                 }
 
-                if (v52 < 0)
+                if (v53 < 0)
                 {
-                  operator delete(v51);
+                  operator delete(v52);
                 }
 
-                if (v50 < 0)
+                if (v51 < 0)
                 {
-                  operator delete(v49[0]);
+                  operator delete(v50[0]);
                 }
 
-                TMClientInfo::~TMClientInfo(v55);
-                if ((v34 & 0x100000000) != 0)
+                TMClientInfo::~TMClientInfo(v56);
+                if ((v35 & 0x100000000) != 0)
                 {
-                  [(CTXPCClientHandler *)self getLogContext];
-                  v37 = *&v61[4];
+                  objc_msgSend_getLogContext(self);
+                  v38 = *&v62[4];
                   ctu::OsLogContext::~OsLogContext(buf);
-                  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+                  if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
                   {
                     sub_10177BA04();
                   }
 
-                  *buf = v34;
-                  v61[0] = 1;
-                  v38 = sub_100A99330(buf);
-                  completionCopy[2](completionCopy, v38);
+                  *buf = v35;
+                  v62[0] = 1;
+                  v39 = sub_100A99330(buf);
+                  completionCopy[2](completionCopy, v39);
                 }
 
                 else
@@ -7762,42 +7762,42 @@ LABEL_33:
 
               else
               {
-                [(CTXPCClientHandler *)self getLogContext];
-                v35 = *&v61[4];
+                objc_msgSend_getLogContext(self);
+                v36 = *&v62[4];
                 ctu::OsLogContext::~OsLogContext(buf);
-                if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                 {
                   sub_10177B934();
                 }
 
                 *buf = 5;
-                v61[0] = 1;
-                v36 = sub_100A99330(buf);
-                completionCopy[2](completionCopy, v36);
+                v62[0] = 1;
+                v37 = sub_100A99330(buf);
+                completionCopy[2](completionCopy, v37);
               }
 
-              if (v58)
+              if (v59)
               {
-                sub_100004A34(v58);
+                sub_100004A34(v59);
               }
 
-              if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v59.__r_.__value_.__l.__data_);
+                operator delete(v60.__r_.__value_.__l.__data_);
               }
 
               goto LABEL_58;
             }
 
             [subjectCopy slotID];
-            v42 = CTSubscriptionSlotAsString();
+            v43 = CTSubscriptionSlotAsString();
             v22 = "true";
             if (!securityCopy)
             {
               v22 = "false";
             }
 
-            v41 = v22;
+            v42 = v22;
             focus = [chatCopy focus];
             if (focus)
             {
@@ -7829,13 +7829,13 @@ LABEL_19:
                 if (displayString2)
                 {
                   displayString3 = [newSubjectCopy displayString];
-                  v40 = 1;
+                  v41 = 1;
                 }
 
                 else
                 {
                   displayString2 = 0;
-                  v40 = 0;
+                  v41 = 0;
                   displayString3 = &stru_101F6AFB8;
                 }
 
@@ -7843,25 +7843,25 @@ LABEL_19:
               }
             }
 
-            v40 = 0;
+            v41 = 0;
             displayString3 = &stru_101F6AFB8;
 LABEL_24:
             uuid3 = [dCopy uuid];
             *buf = 136316418;
-            *v61 = v42;
-            *&v61[8] = 2080;
-            *&v61[10] = v41;
-            v62 = 2114;
-            v63 = focus2;
-            v64 = 2114;
-            v65 = conversationID2;
-            v66 = 2112;
-            v67 = displayString3;
-            v68 = 2114;
-            v69 = uuid3;
+            *v62 = v43;
+            *&v62[8] = 2080;
+            *&v62[10] = v42;
+            v63 = 2114;
+            v64 = focus2;
+            v65 = 2114;
+            v66 = conversationID2;
+            v67 = 2112;
+            v68 = displayString3;
+            v69 = 2114;
+            v70 = uuid3;
             _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] changeSubject: [slot: %s, security: %s, chat.focus: %{public}@, chat.conversationID: %{public}@, subject: %{senstive}@, operationID: %{public}@]", buf, 0x3Eu);
 
-            if (v40)
+            if (v41)
             {
             }
 
@@ -7883,8 +7883,8 @@ LABEL_24:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v23 = *&v61[4];
+    objc_msgSend_getLogContext(self);
+    v23 = *&v62[4];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
@@ -7892,15 +7892,15 @@ LABEL_24:
     }
 
     *buf = 4;
-    v61[0] = 1;
+    v62[0] = 1;
     v24 = sub_100A99330(buf);
     completionCopy[2](completionCopy, v24);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v25 = *&v61[4];
+    objc_msgSend_getLogContext(self);
+    v25 = *&v62[4];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
@@ -7917,7 +7917,7 @@ LABEL_58:
   chatCopy = chat;
   dCopy = d;
   completionCopy = completion;
-  v83 = createCopy;
+  v84 = createCopy;
   if (completionCopy)
   {
     if (createCopy)
@@ -7937,14 +7937,14 @@ LABEL_58:
 
               if (memberList)
               {
-                [(CTXPCClientHandler *)self getLogContext];
+                objc_msgSend_getLogContext(self);
                 v17 = *&buf[8];
                 ctu::OsLogContext::~OsLogContext(buf);
                 selfCopy = self;
                 if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
                 {
                   [createCopy slotID];
-                  v82 = CTSubscriptionSlotAsString();
+                  v83 = CTSubscriptionSlotAsString();
                   participants3 = [chatCopy participants];
                   memberList2 = [participants3 memberList];
                   v20 = [memberList2 count];
@@ -7976,7 +7976,7 @@ LABEL_58:
 
                   uuid2 = [dCopy uuid];
                   *buf = 136316163;
-                  *&buf[4] = v82;
+                  *&buf[4] = v83;
                   *&buf[12] = 2048;
                   *&buf[14] = v20;
                   *&buf[22] = 2160;
@@ -7996,10 +7996,10 @@ LABEL_58:
                   }
                 }
 
-                v80 = sub_100018A64([v83 slotID]);
-                v100 = 0u;
+                v81 = sub_100018A64([v84 slotID]);
                 v101 = 0u;
-                v99 = 0u;
+                v102 = 0u;
+                v100 = 0u;
                 participants4 = [chatCopy participants];
                 memberList3 = [participants4 memberList];
                 v30 = [memberList3 count];
@@ -8017,10 +8017,10 @@ LABEL_58:
                     sub_10000501C(buf, [member UTF8String]);
                     *&buf[24] = -1;
                     buf[28] = 0;
-                    v37 = v101;
-                    if (v101 >= *(&v101 + 1))
+                    v37 = v102;
+                    if (v102 >= *(&v102 + 1))
                     {
-                      *&v101 = sub_1006AD550(&v100 + 8, buf);
+                      *&v102 = sub_1006AD550(&v101 + 8, buf);
                       if (buf[23] < 0)
                       {
                         operator delete(*buf);
@@ -8030,19 +8030,19 @@ LABEL_58:
                     else
                     {
                       v38 = *buf;
-                      *(v101 + 16) = *&buf[16];
+                      *(v102 + 16) = *&buf[16];
                       *v37 = v38;
                       memset(buf, 0, 24);
                       v39 = buf[28];
                       *(v37 + 24) = *&buf[24];
                       *(v37 + 28) = v39;
-                      *&v101 = v37 + 32;
+                      *&v102 = v37 + 32;
                     }
                   }
                 }
 
                 __p = 0u;
-                v98 = 0u;
+                v99 = 0u;
                 subject4 = [chatCopy subject];
                 if (subject4)
                 {
@@ -8060,15 +8060,15 @@ LABEL_58:
                       displayString5 = [subject7 displayString];
                       v48 = displayString5;
                       sub_10000501C(buf, [displayString5 UTF8String]);
-                      if (BYTE8(v98) == 1)
+                      if (BYTE8(v99) == 1)
                       {
-                        if (SBYTE7(v98) < 0)
+                        if (SBYTE7(v99) < 0)
                         {
                           operator delete(__p);
                         }
 
                         __p = *buf;
-                        *&v98 = *&buf[16];
+                        *&v99 = *&buf[16];
                         buf[23] = 0;
                         buf[0] = 0;
                       }
@@ -8076,9 +8076,9 @@ LABEL_58:
                       else
                       {
                         __p = *buf;
-                        *&v98 = *&buf[16];
+                        *&v99 = *&buf[16];
                         memset(buf, 0, 24);
-                        BYTE8(v98) = 1;
+                        BYTE8(v99) = 1;
                       }
                     }
                   }
@@ -8088,11 +8088,11 @@ LABEL_58:
                   }
                 }
 
-                v96 = 0u;
-                v94 = 0u;
-                *v95 = 0u;
-                *v92 = 0u;
+                v97 = 0u;
+                v95 = 0u;
+                *v96 = 0u;
                 *v93 = 0u;
+                *v94 = 0u;
                 icon = [chatCopy icon];
                 v50 = icon == 0;
 
@@ -8120,7 +8120,7 @@ LABEL_58:
                     bytes = [data3 bytes];
 
                     memset(buf, 0, 24);
-                    sub_1000DCF88(buf, bytes, v56 + bytes, v56);
+                    sub_1000DCF88(buf, bytes, &v56[bytes], v56);
                     v62 = *buf;
                     v61 = *&buf[8];
                   }
@@ -8135,8 +8135,8 @@ LABEL_58:
                   type = [icon6 type];
                   v68 = type;
                   sub_10000501C(&buf[48], [type UTF8String]);
-                  sub_1006F79E0(v92, buf);
-                  if (SBYTE7(v103) < 0)
+                  sub_1006F79E0(v93, buf);
+                  if (SBYTE7(v104) < 0)
                   {
                     operator delete(*&buf[48]);
                   }
@@ -8158,66 +8158,66 @@ LABEL_58:
                   }
                 }
 
-                v114 = 0;
-                v112 = 0u;
+                v115 = 0;
                 v113 = 0u;
+                v114 = 0u;
+                memset(v112, 0, sizeof(v112));
+                v110 = 0u;
                 memset(v111, 0, sizeof(v111));
-                v109 = 0u;
-                memset(v110, 0, sizeof(v110));
-                v107 = 0u;
                 v108 = 0u;
-                v105 = 0u;
+                v109 = 0u;
                 v106 = 0u;
-                v103 = 0u;
+                v107 = 0u;
                 v104 = 0u;
+                v105 = 0u;
                 memset(buf, 0, sizeof(buf));
-                sub_10004EFD0(buf, v99, *(&v99 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v99 + 1) - v99) >> 3));
+                sub_10004EFD0(buf, v100, *(&v100 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v100 + 1) - v100) >> 3));
                 memset(&buf[24], 0, 24);
-                sub_1000D4704(&buf[24], *(&v100 + 1), v101, (v101 - *(&v100 + 1)) >> 5);
-                BYTE8(v109) = 0;
+                sub_1000D4704(&buf[24], SDWORD2(v101), v102, (v102 - *(&v101 + 1)) >> 5);
+                BYTE8(v110) = 0;
                 *&buf[48] = 0u;
-                v103 = 0u;
                 v104 = 0u;
-                LOBYTE(v105) = 0;
-                sub_1000D43F8(v110, &__p);
-                sub_1000D4448(v111, v92);
-                v112 = 0uLL;
-                *&v113 = 0;
-                DWORD2(v113) = -1;
-                BYTE12(v113) = 0;
-                LOBYTE(v114) = [chatCopy secure];
-                v90 = 0;
+                v105 = 0u;
+                LOBYTE(v106) = 0;
+                sub_1000D43F8(v111, &__p);
+                sub_1000D4448(v112, v93);
+                v113 = 0uLL;
+                *&v114 = 0;
+                DWORD2(v114) = -1;
+                BYTE12(v114) = 0;
+                LOBYTE(v115) = [chatCopy secure];
                 v91 = 0;
-                sub_1006E5FC4(selfCopy, &v90);
-                v69 = v90;
-                if (v90)
+                v92 = 0;
+                sub_1006E5FC4(selfCopy, v69, &v91);
+                v70 = v91;
+                if (v91)
                 {
-                  memset(v88, 0, sizeof(v88));
-                  v89 = 1;
+                  memset(v89, 0, sizeof(v89));
+                  v90 = 1;
                   uuid3 = [dCopy uuid];
-                  v71 = uuid3;
-                  sub_10000501C(&v85, [uuid3 UTF8String]);
-                  v72 = (*(*v69 + 128))(v69, v88, v80, buf, &v85);
-                  if (v87 < 0)
+                  v72 = uuid3;
+                  sub_10000501C(&v86, [uuid3 UTF8String]);
+                  v73 = (*(*v70 + 128))(v70, v89, v81, buf, &v86);
+                  if (v88 < 0)
                   {
-                    operator delete(v85);
+                    operator delete(v86);
                   }
 
-                  TMClientInfo::~TMClientInfo(v88);
-                  if ((v72 & 0x100000000) != 0)
+                  TMClientInfo::~TMClientInfo(v89);
+                  if ((v73 & 0x100000000) != 0)
                   {
-                    [(CTXPCClientHandler *)selfCopy getLogContext];
-                    v75 = v86;
-                    ctu::OsLogContext::~OsLogContext(&v85);
-                    if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+                    objc_msgSend_getLogContext(selfCopy);
+                    v76 = v87;
+                    ctu::OsLogContext::~OsLogContext(&v86);
+                    if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
                     {
                       sub_10177BAA0();
                     }
 
-                    LODWORD(v85) = v72;
-                    BYTE4(v85) = 1;
-                    v76 = sub_100A99330(&v85);
-                    completionCopy[2](completionCopy, v76);
+                    LODWORD(v86) = v73;
+                    BYTE4(v86) = 1;
+                    v77 = sub_100A99330(&v86);
+                    completionCopy[2](completionCopy, v77);
                   }
 
                   else
@@ -8228,53 +8228,53 @@ LABEL_58:
 
                 else
                 {
-                  [(CTXPCClientHandler *)selfCopy getLogContext];
-                  v73 = v86;
-                  ctu::OsLogContext::~OsLogContext(&v85);
-                  if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+                  objc_msgSend_getLogContext(selfCopy);
+                  v74 = v87;
+                  ctu::OsLogContext::~OsLogContext(&v86);
+                  if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
                   {
                     sub_10177B934();
                   }
 
-                  LODWORD(v85) = 5;
-                  BYTE4(v85) = 1;
-                  v74 = sub_100A99330(&v85);
-                  completionCopy[2](completionCopy, v74);
+                  LODWORD(v86) = 5;
+                  BYTE4(v86) = 1;
+                  v75 = sub_100A99330(&v86);
+                  completionCopy[2](completionCopy, v75);
                 }
 
-                if (v91)
+                if (v92)
                 {
-                  sub_100004A34(v91);
+                  sub_100004A34(v92);
                 }
 
                 sub_1000D45B0(buf);
-                if (BYTE8(v96) == 1)
+                if (BYTE8(v97) == 1)
                 {
-                  if (SBYTE7(v96) < 0)
+                  if (SBYTE7(v97) < 0)
                   {
-                    operator delete(v95[0]);
+                    operator delete(v96[0]);
                   }
 
-                  if (v93[1])
+                  if (v94[1])
                   {
-                    *&v94 = v93[1];
-                    operator delete(v93[1]);
+                    *&v95 = v94[1];
+                    operator delete(v94[1]);
                   }
 
-                  if (SHIBYTE(v93[0]) < 0)
+                  if (SHIBYTE(v94[0]) < 0)
                   {
-                    operator delete(v92[0]);
+                    operator delete(v93[0]);
                   }
                 }
 
-                if (BYTE8(v98) == 1 && SBYTE7(v98) < 0)
+                if (BYTE8(v99) == 1 && SBYTE7(v99) < 0)
                 {
                   operator delete(__p);
                 }
 
-                *buf = &v100 + 8;
+                *buf = &v101 + 8;
                 sub_1000D48DC(buf);
-                *buf = &v99;
+                *buf = &v100;
                 sub_1000087B4(buf);
                 goto LABEL_18;
               }
@@ -8288,7 +8288,7 @@ LABEL_58:
       }
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v25 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
@@ -8304,7 +8304,7 @@ LABEL_58:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v24 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -8326,7 +8326,7 @@ LABEL_18:
   {
     if (exitCopy && chatCopy && dCopy && ([dCopy uuid], v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v15 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
@@ -8356,15 +8356,15 @@ LABEL_18:
         }
 
         uuid = [dCopy uuid];
-        v32 = conversationID;
+        v33 = conversationID;
         *buf = 136315906;
         *&buf[4] = v16;
         *&buf[12] = 2114;
         *&buf[14] = focus2;
-        v42 = 2114;
-        v43 = conversationID2;
-        v44 = 2114;
-        v45 = uuid;
+        v43 = 2114;
+        v44 = conversationID2;
+        v45 = 2114;
+        v46 = uuid;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] exit: [slot: %s, chat.focus: %{public}@, chat.conversationID: %{public}@, operationID: %{public}@]", buf, 0x2Au);
 
         if (conversationID)
@@ -8377,54 +8377,54 @@ LABEL_18:
       }
 
       v23 = sub_100018A64([exitCopy slotID]);
-      v39 = 0;
       v40 = 0;
-      sub_1006E5FC4(self, &v39);
-      v24 = v39;
-      if (v39)
+      v41 = 0;
+      sub_1006E5FC4(self, v24, &v40);
+      v25 = v40;
+      if (v40)
       {
-        memset(v37, 0, sizeof(v37));
-        v38 = 1;
+        memset(v38, 0, sizeof(v38));
+        v39 = 1;
         sub_1006F2118(chatCopy, buf);
         uuid2 = [dCopy uuid];
-        v26 = uuid2;
+        v27 = uuid2;
         sub_10000501C(__p, [uuid2 UTF8String]);
-        v27 = (*(*v24 + 136))(v24, v37, v23, buf, __p);
-        if (v36 < 0)
+        v28 = (*(*v25 + 136))(v25, v38, v23, buf, __p);
+        if (v37 < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (v48 < 0)
+        if (v49 < 0)
         {
-          operator delete(v47);
+          operator delete(v48);
         }
 
-        if (v46 < 0)
+        if (v47 < 0)
         {
-          operator delete(v43);
+          operator delete(v44);
         }
 
-        if (SHIBYTE(v42) < 0)
+        if (SHIBYTE(v43) < 0)
         {
           operator delete(*buf);
         }
 
-        TMClientInfo::~TMClientInfo(v37);
-        if ((v27 & 0x100000000) != 0)
+        TMClientInfo::~TMClientInfo(v38);
+        if ((v28 & 0x100000000) != 0)
         {
-          [(CTXPCClientHandler *)self getLogContext];
-          v30 = *&buf[8];
+          objc_msgSend_getLogContext(self);
+          v31 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
             sub_10177BB08();
           }
 
-          *buf = v27;
+          *buf = v28;
           buf[4] = 1;
-          v31 = sub_100A99330(buf);
-          completionCopy[2](completionCopy, v31);
+          v32 = sub_100A99330(buf);
+          completionCopy[2](completionCopy, v32);
         }
 
         else
@@ -8435,29 +8435,29 @@ LABEL_18:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v28 = *&buf[8];
+        objc_msgSend_getLogContext(self);
+        v29 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           sub_10177B934();
         }
 
         *buf = 5;
         buf[4] = 1;
-        v29 = sub_100A99330(buf);
-        completionCopy[2](completionCopy, v29);
+        v30 = sub_100A99330(buf);
+        completionCopy[2](completionCopy, v30);
       }
 
-      if (v40)
+      if (v41)
       {
-        sub_100004A34(v40);
+        sub_100004A34(v41);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v17 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -8474,7 +8474,7 @@ LABEL_18:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v19 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -8493,96 +8493,96 @@ LABEL_18:
   {
     if (chatCopy && v9)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v11 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         [chatCopy slotID];
-        v12 = CTSubscriptionSlotAsString();
+        v13 = CTSubscriptionSlotAsString();
         *buf = 136315395;
-        *&buf[4] = v12;
+        *&buf[4] = v13;
         *&buf[12] = 2113;
         *&buf[14] = v9;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] deleteChat: [slot: %s, chat: %{private}@]", buf, 0x16u);
       }
 
-      v23 = 0;
       v24 = 0;
-      sub_1006E5E0C(self, &v23);
-      if (!v23)
+      v25 = 0;
+      sub_1006E5E0C(self, &v24, v12);
+      if (!v24)
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v20 = *&buf[8];
+        objc_msgSend_getLogContext(self);
+        v21 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           sub_10177BB70();
         }
 
         *buf = 5;
         buf[4] = 1;
-        v21 = sub_100A99330(buf);
-        completionCopy[2](completionCopy, v21);
+        v22 = sub_100A99330(buf);
+        completionCopy[2](completionCopy, v22);
 
         goto LABEL_20;
       }
 
-      v13 = sub_100018A64([chatCopy slotID]);
-      v14 = v23;
-      v15 = v9;
+      v14 = sub_100018A64([chatCopy slotID]);
+      v15 = v24;
+      v16 = v9;
       sub_10000501C(buf, [v9 UTF8String]);
-      v16 = (*(*v14 + 368))(v14, v13, buf);
-      if (v26 < 0)
+      v17 = (*(*v15 + 368))(v15, v14, buf);
+      if (v27 < 0)
       {
         operator delete(*buf);
-        if ((v16 & 0x100000000) == 0)
+        if ((v17 & 0x100000000) == 0)
         {
           goto LABEL_9;
         }
       }
 
-      else if ((v16 & 0x100000000) == 0)
+      else if ((v17 & 0x100000000) == 0)
       {
 LABEL_9:
         completionCopy[2](completionCopy, 0);
         goto LABEL_20;
       }
 
-      *buf = v16;
+      *buf = v17;
       buf[4] = 1;
-      v22 = sub_100A99330(buf);
-      completionCopy[2](completionCopy, v22);
+      v23 = sub_100A99330(buf);
+      completionCopy[2](completionCopy, v23);
 
 LABEL_20:
-      if (v24)
+      if (v25)
       {
-        sub_100004A34(v24);
+        sub_100004A34(v25);
       }
 
       goto LABEL_22;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
-    v18 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v19 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10177ABCC();
     }
 
     *buf = 4;
     buf[4] = 1;
-    v19 = sub_100A99330(buf);
-    completionCopy[2](completionCopy, v19);
+    v20 = sub_100A99330(buf);
+    completionCopy[2](completionCopy, v20);
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v17 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v18 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10177BBA4();
     }
@@ -8600,15 +8600,15 @@ LABEL_22:
   {
     if (lCopy && urlCopy)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v11 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         [lCopy slotID];
-        v12 = CTSubscriptionSlotAsString();
+        v13 = CTSubscriptionSlotAsString();
         *buf = 136315395;
-        *&buf[4] = v12;
+        *&buf[4] = v13;
         *&buf[12] = 2113;
         *&buf[14] = urlCopy;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] setProvisioningServerURL: [slot: %s, url: %{private}@]", buf, 0x16u);
@@ -8616,15 +8616,15 @@ LABEL_22:
 
       *buf = 0;
       *&buf[8] = 0;
-      sub_1006E5E0C(self, buf);
+      sub_1006E5E0C(self, buf, v12);
       if (*buf)
       {
-        v13 = sub_100018A64([lCopy slotID]);
-        v14 = *buf;
-        v15 = urlCopy;
+        v14 = sub_100018A64([lCopy slotID]);
+        v15 = *buf;
+        v16 = urlCopy;
         sub_10000501C(__p, [urlCopy UTF8String]);
-        (*(*v14 + 160))(v14, v13, __p);
-        if (v22 < 0)
+        (*(*v15 + 160))(v15, v14, __p);
+        if (v23 < 0)
         {
           operator delete(__p[0]);
         }
@@ -8634,18 +8634,18 @@ LABEL_22:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v19 = v25;
-        ctu::OsLogContext::~OsLogContext(&v23);
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        objc_msgSend_getLogContext(self);
+        v20 = v26;
+        ctu::OsLogContext::~OsLogContext(&v24);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           sub_10177BBD8();
         }
 
-        v23 = 5;
-        v24 = 1;
-        v20 = sub_100A99330(&v23);
-        (completionCopy)[2](completionCopy, v20);
+        v24 = 5;
+        v25 = 1;
+        v21 = sub_100A99330(&v24);
+        (completionCopy)[2](completionCopy, v21);
       }
 
       if (*&buf[8])
@@ -8656,27 +8656,27 @@ LABEL_22:
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v17 = *&buf[8];
+      objc_msgSend_getLogContext(self);
+      v18 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       *buf = 4;
       buf[4] = 1;
-      v18 = sub_100A99330(buf);
-      (completionCopy)[2](completionCopy, v18);
+      v19 = sub_100A99330(buf);
+      (completionCopy)[2](completionCopy, v19);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v16 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v17 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10177BC0C();
     }
@@ -8691,60 +8691,60 @@ LABEL_22:
   {
     if (lCopy)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v8 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         [lCopy slotID];
-        v9 = CTSubscriptionSlotAsString();
+        v10 = CTSubscriptionSlotAsString();
         *buf = 136315138;
-        *&buf[4] = v9;
+        *&buf[4] = v10;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] getProvisioningServerURL: [slot: %s]", buf, 0xCu);
       }
 
-      v22 = 0;
       v23 = 0;
-      sub_1006E5E0C(self, &v22);
-      if (v22)
+      v24 = 0;
+      sub_1006E5E0C(self, &v23, v9);
+      if (v23)
       {
         sub_100018A64([lCopy slotID]);
         *buf = 0u;
-        v25 = 0u;
-        (*(*v22 + 168))(buf);
-        if (BYTE8(v25))
+        v26 = 0u;
+        (*(*v23 + 168))(buf);
+        if (BYTE8(v26))
         {
-          if ((SBYTE7(v25) & 0x80u) == 0)
+          if ((SBYTE7(v26) & 0x80u) == 0)
           {
-            v10 = buf;
+            v11 = buf;
           }
 
           else
           {
-            v10 = *buf;
+            v11 = *buf;
           }
 
-          v11 = [NSString stringWithUTF8String:v10];
-          completionCopy[2](completionCopy, v11, 0);
+          v12 = [NSString stringWithUTF8String:v11];
+          completionCopy[2](completionCopy, v12, 0);
         }
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
-          v17 = v21;
-          ctu::OsLogContext::~OsLogContext(&v19);
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          objc_msgSend_getLogContext(self);
+          v18 = v22;
+          ctu::OsLogContext::~OsLogContext(&v20);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             sub_10177BC40();
           }
 
-          v19 = 5;
-          v20 = 1;
-          v18 = sub_100A99330(&v19);
-          (completionCopy)[2](completionCopy, 0, v18);
+          v20 = 5;
+          v21 = 1;
+          v19 = sub_100A99330(&v20);
+          (completionCopy)[2](completionCopy, 0, v19);
         }
 
-        if (BYTE8(v25) == 1 && SBYTE7(v25) < 0)
+        if (BYTE8(v26) == 1 && SBYTE7(v26) < 0)
         {
           operator delete(*buf);
         }
@@ -8752,49 +8752,49 @@ LABEL_22:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v15 = *&buf[8];
+        objc_msgSend_getLogContext(self);
+        v16 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           sub_10177BC74();
         }
 
         *buf = 5;
         buf[4] = 1;
-        v16 = sub_100A99330(buf);
-        (completionCopy)[2](completionCopy, 0, v16);
+        v17 = sub_100A99330(buf);
+        (completionCopy)[2](completionCopy, 0, v17);
       }
 
-      if (v23)
+      if (v24)
       {
-        sub_100004A34(v23);
+        sub_100004A34(v24);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v13 = *&buf[8];
+      objc_msgSend_getLogContext(self);
+      v14 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       *buf = 4;
       buf[4] = 1;
-      v14 = sub_100A99330(buf);
-      (completionCopy)[2](completionCopy, 0, v14);
+      v15 = sub_100A99330(buf);
+      (completionCopy)[2](completionCopy, 0, v15);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v12 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v13 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10177BCA8();
     }
@@ -8812,71 +8812,71 @@ LABEL_22:
   {
     if (messageCopy && toCopy && dCopy && withMessageCopy)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v17 = *(&buf + 1);
       ctu::OsLogContext::~OsLogContext(&buf);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         [messageCopy slotID];
-        v18 = CTSubscriptionSlotAsString();
+        v19 = CTSubscriptionSlotAsString();
         LODWORD(buf) = 136315138;
-        *(&buf + 4) = v18;
+        *(&buf + 4) = v19;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendOneToManyTextMessage: [slot: %s]", &buf, 0xCu);
       }
 
-      v38 = 0;
       v39 = 0;
-      sub_1006E5E0C(self, &v38);
-      if (v38)
+      v40 = 0;
+      sub_1006E5E0C(self, &v39, v18);
+      if (v39)
       {
-        v19 = sub_100018A64([messageCopy slotID]);
-        v37 = 0;
-        v20 = v38;
-        sub_1006F907C(toCopy, v36);
+        v20 = sub_100018A64([messageCopy slotID]);
+        v38 = 0;
+        v21 = v39;
+        sub_1006F907C(toCopy, v37);
         sub_1006E8724(dCopy, &buf);
         content = [withMessageCopy content];
-        v22 = content;
+        v23 = content;
         sub_10000501C(__p, [content UTF8String]);
-        v33 = 0;
         v34 = 0;
+        v35 = 0;
         metaData = [withMessageCopy metaData];
-        sub_1006EBDBC(metaData, v35);
-        v24 = (*(*v20 + 384))(v20, v19, v36, &buf, __p);
-        LODWORD(v37) = v24;
-        BYTE4(v37) = BYTE4(v24);
-        if (v35[24] == 1)
+        sub_1006EBDBC(metaData, v36);
+        v25 = (*(*v21 + 384))(v21, v20, v37, &buf, __p);
+        LODWORD(v38) = v25;
+        BYTE4(v38) = BYTE4(v25);
+        if (v36[24] == 1)
         {
-          v40 = v35;
-          sub_100190608(&v40);
+          v41 = v36;
+          sub_100190608(&v41);
         }
 
-        if (v34 == 1)
+        if (v35 == 1)
         {
-          v40 = &v33;
-          sub_10019029C(&v40);
+          v41 = &v34;
+          sub_10019029C(&v41);
         }
 
-        if (v32 < 0)
+        if (v33 < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (v45 == 1 && v44 < 0)
+        if (v46 == 1 && v45 < 0)
         {
-          operator delete(v43);
+          operator delete(v44);
         }
 
-        if (v42 < 0)
+        if (v43 < 0)
         {
           operator delete(buf);
         }
 
-        *&buf = v36;
+        *&buf = v37;
         sub_1006FB6F8(&buf);
-        if ((v24 & 0x100000000) != 0)
+        if ((v25 & 0x100000000) != 0)
         {
-          v30 = sub_100A99330(&v37);
-          completionCopy[2](completionCopy, v30);
+          v31 = sub_100A99330(&v38);
+          completionCopy[2](completionCopy, v31);
         }
 
         else
@@ -8887,49 +8887,49 @@ LABEL_22:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v28 = *(&buf + 1);
+        objc_msgSend_getLogContext(self);
+        v29 = *(&buf + 1);
         ctu::OsLogContext::~OsLogContext(&buf);
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           sub_10177BC74();
         }
 
         LODWORD(buf) = 5;
         BYTE4(buf) = 1;
-        v29 = sub_100A99330(&buf);
-        completionCopy[2](completionCopy, v29);
+        v30 = sub_100A99330(&buf);
+        completionCopy[2](completionCopy, v30);
       }
 
-      if (v39)
+      if (v40)
       {
-        sub_100004A34(v39);
+        sub_100004A34(v40);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v26 = *(&buf + 1);
+      objc_msgSend_getLogContext(self);
+      v27 = *(&buf + 1);
       ctu::OsLogContext::~OsLogContext(&buf);
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       LODWORD(buf) = 4;
       BYTE4(buf) = 1;
-      v27 = sub_100A99330(&buf);
-      completionCopy[2](completionCopy, v27);
+      v28 = sub_100A99330(&buf);
+      completionCopy[2](completionCopy, v28);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v25 = *(&buf + 1);
+    objc_msgSend_getLogContext(self);
+    v26 = *(&buf + 1);
     ctu::OsLogContext::~OsLogContext(&buf);
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       sub_10177BCDC();
     }
@@ -8947,81 +8947,81 @@ LABEL_22:
   {
     if (messageCopy && toCopy && dCopy && pushCopy)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v17 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         [messageCopy slotID];
-        v18 = CTSubscriptionSlotAsString();
+        v19 = CTSubscriptionSlotAsString();
         *buf = 136315138;
-        *&buf[4] = v18;
+        *&buf[4] = v19;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendOneToManyTextMessage: [slot: %s]", buf, 0xCu);
       }
 
-      v48 = 0;
       v49 = 0;
-      sub_1006E5E0C(self, &v48);
-      if (v48)
+      v50 = 0;
+      sub_1006E5E0C(self, &v49, v18);
+      if (v49)
       {
-        v38 = sub_100018A64([messageCopy slotID]);
-        *v46 = 0u;
-        v47 = 0u;
+        v39 = sub_100018A64([messageCopy slotID]);
+        *v47 = 0u;
+        v48 = 0u;
         additionalDescription = [pushCopy additionalDescription];
-        v20 = additionalDescription == 0;
+        v21 = additionalDescription == 0;
 
-        if (!v20)
+        if (!v21)
         {
           additionalDescription2 = [pushCopy additionalDescription];
-          v22 = additionalDescription2;
+          v23 = additionalDescription2;
           *buf = [additionalDescription2 UTF8String];
-          sub_100184AD0(v46, buf);
+          sub_100184AD0(v47, buf);
         }
 
-        v55 = 0u;
         v56 = 0u;
-        v53 = 0u;
+        v57 = 0u;
         v54 = 0u;
-        *v51 = 0u;
-        v52 = 0u;
+        v55 = 0u;
+        *v52 = 0u;
+        v53 = 0u;
         *buf = 0u;
         coordinates = [pushCopy coordinates];
         longitude = [coordinates longitude];
         [longitude doubleValue];
-        *buf = v24;
+        *buf = v25;
         coordinates2 = [pushCopy coordinates];
         latitude = [coordinates2 latitude];
         [latitude doubleValue];
-        *&buf[8] = v27;
-        sub_10006F264(v51, v46);
-        LOBYTE(v53) = 0;
-        BYTE8(v54) = 0;
+        *&buf[8] = v28;
+        sub_10006F264(v52, v47);
+        LOBYTE(v54) = 0;
+        BYTE8(v55) = 0;
         metaData = [pushCopy metaData];
-        sub_1006EBDBC(metaData, &v55);
+        sub_1006EBDBC(metaData, &v56);
 
-        v45 = 0;
-        v29 = v48;
-        sub_1006F907C(toCopy, v44);
-        sub_1006E8724(dCopy, v39);
-        v30 = (*(*v29 + 392))(v29, v38, v44, v39, buf);
-        LODWORD(v45) = v30;
-        BYTE4(v45) = BYTE4(v30);
-        if (v43 == 1 && v42 < 0)
+        v46 = 0;
+        v30 = v49;
+        sub_1006F907C(toCopy, v45);
+        sub_1006E8724(dCopy, v40);
+        v31 = (*(*v30 + 392))(v30, v39, v45, v40, buf);
+        LODWORD(v46) = v31;
+        BYTE4(v46) = BYTE4(v31);
+        if (v44 == 1 && v43 < 0)
         {
           operator delete(__p);
         }
 
-        if (v40 < 0)
+        if (v41 < 0)
         {
-          operator delete(v39[0]);
+          operator delete(v40[0]);
         }
 
-        v39[0] = v44;
-        sub_1006FB6F8(v39);
-        if ((v30 & 0x100000000) != 0)
+        v40[0] = v45;
+        sub_1006FB6F8(v40);
+        if ((v31 & 0x100000000) != 0)
         {
-          v36 = sub_100A99330(&v45);
-          completionCopy[2](completionCopy, v36);
+          v37 = sub_100A99330(&v46);
+          completionCopy[2](completionCopy, v37);
         }
 
         else
@@ -9029,74 +9029,74 @@ LABEL_22:
           completionCopy[2](completionCopy, 0);
         }
 
-        if (BYTE8(v56) == 1)
+        if (BYTE8(v57) == 1)
         {
-          v39[0] = &v55;
-          sub_100190608(v39);
+          v40[0] = &v56;
+          sub_100190608(v40);
         }
 
-        if (BYTE8(v54) == 1)
+        if (BYTE8(v55) == 1)
         {
-          v39[0] = &v53;
-          sub_10019029C(v39);
+          v40[0] = &v54;
+          sub_10019029C(v40);
         }
 
-        if (BYTE8(v52) == 1 && SBYTE7(v52) < 0)
+        if (BYTE8(v53) == 1 && SBYTE7(v53) < 0)
         {
-          operator delete(v51[0]);
+          operator delete(v52[0]);
         }
 
-        if (BYTE8(v47) == 1 && SBYTE7(v47) < 0)
+        if (BYTE8(v48) == 1 && SBYTE7(v48) < 0)
         {
-          operator delete(v46[0]);
+          operator delete(v47[0]);
         }
       }
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v34 = *&buf[8];
+        objc_msgSend_getLogContext(self);
+        v35 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           sub_10177BC74();
         }
 
         *buf = 5;
         buf[4] = 1;
-        v35 = sub_100A99330(buf);
-        completionCopy[2](completionCopy, v35);
+        v36 = sub_100A99330(buf);
+        completionCopy[2](completionCopy, v36);
       }
 
-      if (v49)
+      if (v50)
       {
-        sub_100004A34(v49);
+        sub_100004A34(v50);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v32 = *&buf[8];
+      objc_msgSend_getLogContext(self);
+      v33 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       *buf = 4;
       buf[4] = 1;
-      v33 = sub_100A99330(buf);
-      completionCopy[2](completionCopy, v33);
+      v34 = sub_100A99330(buf);
+      completionCopy[2](completionCopy, v34);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v31 = *&buf[8];
+    objc_msgSend_getLogContext(self);
+    v32 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_10177BCDC();
     }
@@ -9114,120 +9114,120 @@ LABEL_22:
   {
     if (messageCopy && toCopy && dCopy && descriptorCopy)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v17 = *(&buf + 1);
       ctu::OsLogContext::~OsLogContext(&buf);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         [messageCopy slotID];
-        v18 = CTSubscriptionSlotAsString();
+        v19 = CTSubscriptionSlotAsString();
         LODWORD(buf) = 136315138;
-        *(&buf + 4) = v18;
+        *(&buf + 4) = v19;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[MSG] ==>> laz ==>> [CT] sendOneToManyTextMessage: [slot: %s]", &buf, 0xCu);
       }
 
+      v59 = 0;
       v58 = 0;
-      v57 = 0;
-      sub_1006E5E0C(self, &v57);
-      if (v57)
+      sub_1006E5E0C(self, &v58, v18);
+      if (v58)
       {
-        v19 = sub_100018A64([messageCopy slotID]);
-        bzero(v36, 0x208uLL);
-        sub_1006EB6AC(descriptorCopy, v36);
-        v35 = 0;
-        v20 = v57;
-        sub_1006F907C(toCopy, v34);
-        sub_1006E8724(dCopy, v29);
-        sub_1001907C0(&buf, v36);
-        sub_100190C40(v78, v55);
-        sub_100190324(v79, v56);
-        v80 = 0;
-        v81 = 0;
+        v20 = sub_100018A64([messageCopy slotID]);
+        bzero(v37, 0x208uLL);
+        sub_1006EB6AC(descriptorCopy, v37);
+        v36 = 0;
+        v21 = v58;
+        sub_1006F907C(toCopy, v35);
+        sub_1006E8724(dCopy, v30);
+        sub_1001907C0(&buf, v37);
+        sub_100190C40(v79, v56);
+        sub_100190324(v80, v57);
+        v82 = 0;
+        v83 = 0;
         metaData = [descriptorCopy metaData];
-        sub_1006EBDBC(metaData, v82);
-        v22 = (*(*v20 + 400))(v20, v19, v34, v29, &buf);
-        LODWORD(v35) = v22;
-        BYTE4(v35) = BYTE4(v22);
-        if (v82[24] == 1)
+        sub_1006EBDBC(metaData, v84);
+        v23 = (*(*v21 + 400))(v21, v20, v35, v30, &buf);
+        LODWORD(v36) = v23;
+        BYTE4(v36) = BYTE4(v23);
+        if (v84[24] == 1)
         {
-          v59 = v82;
-          sub_100190608(&v59);
+          v60 = v84;
+          sub_100190608(&v60);
+        }
+
+        if (v83 == 1)
+        {
+          v60 = &v82;
+          sub_10019029C(&v60);
         }
 
         if (v81 == 1)
         {
-          v59 = &v80;
-          sub_10019029C(&v59);
+          v60 = v80;
+          sub_100190608(&v60);
         }
 
-        if (v79[24] == 1)
+        sub_100190D9C(v79);
+        if (v78 == 1)
         {
-          v59 = v79;
-          sub_100190608(&v59);
-        }
-
-        sub_100190D9C(v78);
-        if (v77 == 1)
-        {
-          if (v76 == 1)
+          if (v77 == 1)
           {
             if (__p)
             {
-              v75 = __p;
+              v76 = __p;
               operator delete(__p);
             }
 
-            if (v73 == 1 && v71)
+            if (v74 == 1 && v72)
             {
-              v72 = v71;
-              operator delete(v71);
+              v73 = v72;
+              operator delete(v72);
             }
 
-            if (v70 == 1 && v68)
+            if (v71 == 1 && v69)
             {
-              v69 = v68;
-              operator delete(v68);
+              v70 = v69;
+              operator delete(v69);
             }
 
-            if (v66)
+            if (v67)
             {
-              v67 = v66;
-              operator delete(v66);
+              v68 = v67;
+              operator delete(v67);
             }
           }
 
-          if (v65 < 0)
+          if (v66 < 0)
           {
-            operator delete(v64);
+            operator delete(v65);
           }
 
-          if (v63 < 0)
+          if (v64 < 0)
           {
-            operator delete(v62);
+            operator delete(v63);
           }
 
-          if (v61 < 0)
+          if (v62 < 0)
           {
             operator delete(*(&buf + 1));
           }
         }
 
-        if (v33 == 1 && v32 < 0)
+        if (v34 == 1 && v33 < 0)
         {
-          operator delete(v31);
+          operator delete(v32);
         }
 
-        if (v30 < 0)
+        if (v31 < 0)
         {
-          operator delete(v29[0]);
+          operator delete(v30[0]);
         }
 
-        *&buf = v34;
+        *&buf = v35;
         sub_1006FB6F8(&buf);
-        if (BYTE4(v35) == 1)
+        if (BYTE4(v36) == 1)
         {
-          v23 = sub_100A99330(&v35);
-          completionCopy[2](completionCopy, v23);
+          v24 = sub_100A99330(&v36);
+          completionCopy[2](completionCopy, v24);
         }
 
         else
@@ -9235,104 +9235,104 @@ LABEL_22:
           completionCopy[2](completionCopy, 0);
         }
 
-        if (v56[24] == 1)
+        if (v57[24] == 1)
         {
-          *&buf = v56;
+          *&buf = v57;
           sub_100190608(&buf);
         }
 
-        sub_100190D9C(v55);
-        if (v54 == 1)
+        sub_100190D9C(v56);
+        if (v55 == 1)
         {
-          if (v53 == 1)
+          if (v54 == 1)
           {
-            if (v51)
+            if (v52)
             {
-              v52 = v51;
-              operator delete(v51);
+              v53 = v52;
+              operator delete(v52);
             }
 
-            if (v50 == 1 && v48)
+            if (v51 == 1 && v49)
             {
-              v49 = v48;
-              operator delete(v48);
+              v50 = v49;
+              operator delete(v49);
             }
 
-            if (v47 == 1 && v45)
+            if (v48 == 1 && v46)
             {
-              v46 = v45;
-              operator delete(v45);
+              v47 = v46;
+              operator delete(v46);
             }
 
-            if (v43)
+            if (v44)
             {
-              v44 = v43;
-              operator delete(v43);
+              v45 = v44;
+              operator delete(v44);
             }
           }
 
-          if (v42 < 0)
+          if (v43 < 0)
           {
-            operator delete(v41);
+            operator delete(v42);
           }
 
-          if (v40 < 0)
+          if (v41 < 0)
           {
-            operator delete(v39);
+            operator delete(v40);
           }
 
-          if (v38 < 0)
+          if (v39 < 0)
           {
-            operator delete(v37);
+            operator delete(v38);
           }
         }
       }
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
-        v27 = *(&buf + 1);
+        objc_msgSend_getLogContext(self);
+        v28 = *(&buf + 1);
         ctu::OsLogContext::~OsLogContext(&buf);
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           sub_10177BC74();
         }
 
         LODWORD(buf) = 5;
         BYTE4(buf) = 1;
-        v28 = sub_100A99330(&buf);
-        completionCopy[2](completionCopy, v28);
+        v29 = sub_100A99330(&buf);
+        completionCopy[2](completionCopy, v29);
       }
 
-      if (v58)
+      if (v59)
       {
-        sub_100004A34(v58);
+        sub_100004A34(v59);
       }
     }
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
-      v25 = *(&buf + 1);
+      objc_msgSend_getLogContext(self);
+      v26 = *(&buf + 1);
       ctu::OsLogContext::~OsLogContext(&buf);
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         sub_10177ABCC();
       }
 
       LODWORD(buf) = 4;
       BYTE4(buf) = 1;
-      v26 = sub_100A99330(&buf);
-      completionCopy[2](completionCopy, v26);
+      v27 = sub_100A99330(&buf);
+      completionCopy[2](completionCopy, v27);
     }
   }
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
-    v24 = *(&buf + 1);
+    objc_msgSend_getLogContext(self);
+    v25 = *(&buf + 1);
     ctu::OsLogContext::~OsLogContext(&buf);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       sub_10177BCDC();
     }
@@ -9353,7 +9353,7 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v24);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -9403,7 +9403,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v25;
           ctu::OsLogContext::~OsLogContext(&v24);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -9436,7 +9436,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v25;
   ctu::OsLogContext::~OsLogContext(&v24);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -9453,7 +9453,7 @@ LABEL_23:
   stateCopy = state;
   if (stateCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v20);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -9504,7 +9504,7 @@ LABEL_12:
 
     if (!v13)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v19 = v21;
       ctu::OsLogContext::~OsLogContext(&v20);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -9549,7 +9549,7 @@ LABEL_24:
     goto LABEL_23;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v21;
   ctu::OsLogContext::~OsLogContext(&v20);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -9566,7 +9566,7 @@ LABEL_26:
   enabledCopy = enabled;
   if (enabledCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v18);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -9611,7 +9611,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v17 = v19;
           ctu::OsLogContext::~OsLogContext(&v18);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -9644,7 +9644,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v19;
   ctu::OsLogContext::~OsLogContext(&v18);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -9662,7 +9662,7 @@ LABEL_21:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v21);
     v8 = ServiceMap;
     if ((v9 & 0x8000000000000000) != 0)
@@ -9711,7 +9711,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v19 = v22;
           ctu::OsLogContext::~OsLogContext(&v21);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -9744,7 +9744,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v17 = v22;
   ctu::OsLogContext::~OsLogContext(&v21);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -9767,7 +9767,7 @@ LABEL_21:
     {
       if (infoCopy)
       {
-        [(CTXPCClientHandler *)self registry];
+        objc_msgSend_registry(self);
         ServiceMap = Registry::getServiceMap(*buf);
         v12 = ServiceMap;
         if ((v13 & 0x8000000000000000) != 0)
@@ -9829,7 +9829,7 @@ LABEL_20:
 
             else
             {
-              [(CTXPCClientHandler *)self getLogContext];
+              objc_msgSend_getLogContext(self);
               v25 = v31;
               ctu::OsLogContext::~OsLogContext(buf);
               if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
@@ -9862,7 +9862,7 @@ LABEL_20:
         goto LABEL_20;
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v23 = v31;
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -9874,7 +9874,7 @@ LABEL_20:
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v21 = v31;
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -9890,7 +9890,7 @@ LABEL_20:
     goto LABEL_29;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v20 = v31;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -9908,7 +9908,7 @@ LABEL_29:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -10026,7 +10026,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v28 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -10059,7 +10059,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -10076,7 +10076,7 @@ LABEL_39:
   contextCopy = context;
   indexCopy = index;
   completionCopy = completion;
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v24);
   v12 = ServiceMap;
   if ((v13 & 0x8000000000000000) != 0)
@@ -10143,7 +10143,7 @@ LABEL_15:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v22 = v25;
     ctu::OsLogContext::~OsLogContext(&v24);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -10171,7 +10171,7 @@ LABEL_15:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v35;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -10183,7 +10183,7 @@ LABEL_15:
     goto LABEL_24;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(*buf);
   v9 = ServiceMap;
   if ((v10 & 0x8000000000000000) != 0)
@@ -10292,7 +10292,7 @@ LABEL_23:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v27 = v35;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
@@ -10320,7 +10320,7 @@ LABEL_24:
   responseCopy = response;
   indexCopy = index;
   completionCopy = completion;
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(*buf);
   v17 = ServiceMap;
   if ((v18 & 0x8000000000000000) != 0)
@@ -10390,7 +10390,7 @@ LABEL_15:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v30 = v34;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
@@ -10418,7 +10418,7 @@ LABEL_15:
   sessionCopy = session;
   responseCopy = response;
   completionCopy = completion;
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v31);
   v15 = ServiceMap;
   if ((v16 & 0x8000000000000000) != 0)
@@ -10499,7 +10499,7 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v29 = v32;
   ctu::OsLogContext::~OsLogContext(&v31);
   if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
@@ -10528,7 +10528,7 @@ LABEL_25:
   responseCopy = response;
   stringCopy = string;
   completionCopy = completion;
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(__p[0]);
   v17 = ServiceMap;
   if ((v18 & 0x8000000000000000) != 0)
@@ -10579,7 +10579,7 @@ LABEL_9:
 
   if (!v24)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v30 = __p[1];
     ctu::OsLogContext::~OsLogContext(__p);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
@@ -10687,7 +10687,7 @@ LABEL_34:
   sessionCopy = session;
   responseCopy = response;
   completionCopy = completion;
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v32);
   v17 = ServiceMap;
   if ((v18 & 0x8000000000000000) != 0)
@@ -10774,7 +10774,7 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v30 = v33;
   ctu::OsLogContext::~OsLogContext(&v32);
   if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
@@ -10800,7 +10800,7 @@ LABEL_26:
 {
   contextCopy = context;
   completionCopy = completion;
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v20);
   v9 = ServiceMap;
   if ((v10 & 0x8000000000000000) != 0)
@@ -10866,7 +10866,7 @@ LABEL_15:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v21;
     ctu::OsLogContext::~OsLogContext(&v20);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -10892,7 +10892,7 @@ LABEL_15:
 {
   contextCopy = context;
   completionCopy = completion;
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v20);
   v9 = ServiceMap;
   if ((v10 & 0x8000000000000000) != 0)
@@ -10958,7 +10958,7 @@ LABEL_15:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v21;
     ctu::OsLogContext::~OsLogContext(&v20);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -10986,7 +10986,7 @@ LABEL_15:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(__p);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -11059,7 +11059,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v25;
           ctu::OsLogContext::~OsLogContext(&__p);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -11092,7 +11092,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v25;
   ctu::OsLogContext::~OsLogContext(&__p);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -11109,7 +11109,7 @@ LABEL_27:
   contextCopy = context;
   responseCopy = response;
   completionCopy = completion;
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v42[0]);
   v12 = ServiceMap;
   if ((v13 & 0x8000000000000000) != 0)
@@ -11225,7 +11225,7 @@ LABEL_9:
   {
     if ((sub_100B051A4() & 2) == 0)
     {
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       v26 = Registry::getServiceMap(v42[0]);
       v27 = v26;
       if ((v28 & 0x8000000000000000) != 0)
@@ -11353,7 +11353,7 @@ LABEL_54:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v18);
   v9 = ServiceMap;
   if ((v10 & 0x8000000000000000) != 0)
@@ -11424,7 +11424,7 @@ LABEL_17:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v23);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -11474,7 +11474,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v21 = v24;
           ctu::OsLogContext::~OsLogContext(&v23);
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -11507,7 +11507,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v24;
   ctu::OsLogContext::~OsLogContext(&v23);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -11526,7 +11526,7 @@ LABEL_21:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v20 = v25;
     ctu::OsLogContext::~OsLogContext(&v24);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -11538,7 +11538,7 @@ LABEL_21:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v24);
   v11 = ServiceMap;
   if ((v12 & 0x8000000000000000) != 0)
@@ -11601,7 +11601,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v22 = v25;
     ctu::OsLogContext::~OsLogContext(&v24);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -11628,7 +11628,7 @@ LABEL_17:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v23);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -11678,7 +11678,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v21 = v24;
           ctu::OsLogContext::~OsLogContext(&v23);
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -11711,7 +11711,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v24;
   ctu::OsLogContext::~OsLogContext(&v23);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -11730,7 +11730,7 @@ LABEL_21:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v20 = v25;
     ctu::OsLogContext::~OsLogContext(&v24);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -11742,7 +11742,7 @@ LABEL_21:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v24);
   v11 = ServiceMap;
   if ((v12 & 0x8000000000000000) != 0)
@@ -11805,7 +11805,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v22 = v25;
     ctu::OsLogContext::~OsLogContext(&v24);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -11831,7 +11831,7 @@ LABEL_17:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v18);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -11875,7 +11875,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v17 = v19;
           ctu::OsLogContext::~OsLogContext(&v18);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -11908,7 +11908,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v19;
   ctu::OsLogContext::~OsLogContext(&v18);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -11926,7 +11926,7 @@ LABEL_21:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v24;
     ctu::OsLogContext::~OsLogContext(&v23);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -11938,7 +11938,7 @@ LABEL_21:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v23);
   v9 = ServiceMap;
   if ((v10 & 0x8000000000000000) != 0)
@@ -12001,7 +12001,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v21 = v24;
     ctu::OsLogContext::~OsLogContext(&v23);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -12029,7 +12029,7 @@ LABEL_17:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v20 = v25;
     ctu::OsLogContext::~OsLogContext(&v24);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -12041,7 +12041,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v24);
   v11 = ServiceMap;
   if ((v12 & 0x8000000000000000) != 0)
@@ -12104,7 +12104,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v22 = v25;
     ctu::OsLogContext::~OsLogContext(&v24);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -12131,7 +12131,7 @@ LABEL_17:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v22);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -12177,7 +12177,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v21 = v23;
           ctu::OsLogContext::~OsLogContext(&v22);
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -12209,7 +12209,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v23;
   ctu::OsLogContext::~OsLogContext(&v22);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -12227,7 +12227,7 @@ LABEL_21:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v24;
     ctu::OsLogContext::~OsLogContext(&v23);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -12239,7 +12239,7 @@ LABEL_21:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v23);
   v9 = ServiceMap;
   if ((v10 & 0x8000000000000000) != 0)
@@ -12302,7 +12302,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v21 = v24;
     ctu::OsLogContext::~OsLogContext(&v23);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -12330,7 +12330,7 @@ LABEL_17:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v20 = v25;
     ctu::OsLogContext::~OsLogContext(&v24);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -12342,7 +12342,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v24);
   v11 = ServiceMap;
   if ((v12 & 0x8000000000000000) != 0)
@@ -12405,7 +12405,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v22 = v25;
     ctu::OsLogContext::~OsLogContext(&v24);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -12431,7 +12431,7 @@ LABEL_17:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v15 = v20;
     ctu::OsLogContext::~OsLogContext(&v19);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -12443,7 +12443,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v19);
   v6 = ServiceMap;
   if ((v7 & 0x8000000000000000) != 0)
@@ -12505,7 +12505,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = v20;
     ctu::OsLogContext::~OsLogContext(&v19);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -12532,7 +12532,7 @@ LABEL_17:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = v21;
     ctu::OsLogContext::~OsLogContext(&v20);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -12544,7 +12544,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v20);
   v8 = ServiceMap;
   if ((v9 & 0x8000000000000000) != 0)
@@ -12606,7 +12606,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v21;
     ctu::OsLogContext::~OsLogContext(&v20);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -12633,7 +12633,7 @@ LABEL_17:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v24;
     ctu::OsLogContext::~OsLogContext(&v23);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -12645,7 +12645,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v23);
   v9 = ServiceMap;
   if ((v10 & 0x8000000000000000) != 0)
@@ -12708,7 +12708,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v21 = v24;
     ctu::OsLogContext::~OsLogContext(&v23);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -12736,7 +12736,7 @@ LABEL_17:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v20 = v25;
     ctu::OsLogContext::~OsLogContext(&v24);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -12748,7 +12748,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v24);
   v11 = ServiceMap;
   if ((v12 & 0x8000000000000000) != 0)
@@ -12811,7 +12811,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v22 = v25;
     ctu::OsLogContext::~OsLogContext(&v24);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -12865,7 +12865,7 @@ LABEL_17:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = v11;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -12909,7 +12909,7 @@ LABEL_17:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = v11;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -12931,10 +12931,10 @@ LABEL_17:
     if (*buf && (v9 = 2048, IsTelephonyRunningExtended(&v9)))
     {
       v5 = *buf;
-      object[0] = objc_retainBlock(dataCopy);
-      [(CTXPCClientHandler *)self getQueue];
+      *&object = objc_retainBlock(dataCopy);
+      objc_msgSend_getQueue(self);
       v12 = off_101F24AD8;
-      v13 = *object;
+      v13 = object;
       v14 = &v12;
       (*(*v5 + 104))(v5, &v12);
       sub_1006648E4(&v12);
@@ -12955,7 +12955,7 @@ LABEL_17:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v7 = v11;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
@@ -12971,7 +12971,7 @@ LABEL_17:
   statusCopy = status;
   if (statusCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(buf);
     v6 = ServiceMap;
     v7 = "18DiagnosticsService";
@@ -13029,7 +13029,7 @@ LABEL_12:
     }
 
     v16 = sub_10109DCB0(v13);
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = *(&buf + 1);
     ctu::OsLogContext::~OsLogContext(&buf);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
@@ -13087,7 +13087,7 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = *(&buf + 1);
   ctu::OsLogContext::~OsLogContext(&buf);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -13104,7 +13104,7 @@ LABEL_32:
   modeCopy = mode;
   if (!modeCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v5 = v19;
     ctu::OsLogContext::~OsLogContext(&v18);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -13114,7 +13114,7 @@ LABEL_32:
     }
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v18);
   v7 = ServiceMap;
   if ((v8 & 0x8000000000000000) != 0)
@@ -13174,7 +13174,7 @@ LABEL_12:
     goto LABEL_19;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v17 = v19;
   ctu::OsLogContext::~OsLogContext(&v18);
   if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -13235,7 +13235,7 @@ LABEL_19:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = v11;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -13252,7 +13252,7 @@ LABEL_19:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v23);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -13302,7 +13302,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v21 = v24;
           ctu::OsLogContext::~OsLogContext(&v23);
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -13335,7 +13335,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v24;
   ctu::OsLogContext::~OsLogContext(&v23);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -13353,7 +13353,7 @@ LABEL_21:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v23);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -13423,7 +13423,7 @@ LABEL_21:
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v22 = v24;
       ctu::OsLogContext::~OsLogContext(&v23);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -13438,7 +13438,7 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v24;
   ctu::OsLogContext::~OsLogContext(&v23);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -13457,7 +13457,7 @@ LABEL_23:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v25);
     v11 = ServiceMap;
     if ((v12 & 0x8000000000000000) != 0)
@@ -13507,7 +13507,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v23 = v26;
           ctu::OsLogContext::~OsLogContext(&v25);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -13540,7 +13540,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v20 = v26;
   ctu::OsLogContext::~OsLogContext(&v25);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -13558,7 +13558,7 @@ LABEL_21:
   if (updateCopy)
   {
     v5 = updateCopy;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v20);
     v7 = ServiceMap;
     if ((v8 & 0x8000000000000000) != 0)
@@ -13609,7 +13609,7 @@ LABEL_13:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v18 = v21;
           ctu::OsLogContext::~OsLogContext(&v20);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -13642,7 +13642,7 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v16 = v21;
   ctu::OsLogContext::~OsLogContext(&v20);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -13663,7 +13663,7 @@ LABEL_22:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(buf);
     v10 = ServiceMap;
     if (v11 < 0)
@@ -13851,7 +13851,7 @@ LABEL_12:
 
           sps_environment = [withCopy sps_environment];
           (*(*v48 + 8))(v48, v49, &v60, sps_environment);
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v44 = *(&buf + 1);
           ctu::OsLogContext::~OsLogContext(&buf);
           if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
@@ -13868,7 +13868,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v45 = *(&buf + 1);
           ctu::OsLogContext::~OsLogContext(&buf);
           if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
@@ -13901,7 +13901,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = *(&buf + 1);
   ctu::OsLogContext::~OsLogContext(&buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -13918,7 +13918,7 @@ LABEL_52:
   keysCopy = keys;
   if (!keysCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v15 = v20;
     ctu::OsLogContext::~OsLogContext(&v19);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -13930,7 +13930,7 @@ LABEL_52:
     goto LABEL_19;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v19);
   v6 = ServiceMap;
   if ((v7 & 0x8000000000000000) != 0)
@@ -13982,7 +13982,7 @@ LABEL_12:
   if (v13)
   {
     (*(*v13 + 16))(v13);
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v16 = v20;
     ctu::OsLogContext::~OsLogContext(&v19);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
@@ -14001,7 +14001,7 @@ LABEL_18:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = v20;
     ctu::OsLogContext::~OsLogContext(&v19);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -14028,7 +14028,7 @@ LABEL_19:
   if (updateCopy)
   {
     v5 = updateCopy;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v20);
     v7 = ServiceMap;
     if ((v8 & 0x8000000000000000) != 0)
@@ -14079,7 +14079,7 @@ LABEL_13:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v18 = v21;
           ctu::OsLogContext::~OsLogContext(&v20);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -14112,7 +14112,7 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v16 = v21;
   ctu::OsLogContext::~OsLogContext(&v20);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -14131,7 +14131,7 @@ LABEL_22:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(buf);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -14176,7 +14176,7 @@ LABEL_12:
           (*(*(v16 + 8) + 8))(v16 + 8, result, buf, [updatedCopy sps_environment]);
           sub_1000475BC(&buf);
 
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v21 = *(&buf + 1);
           ctu::OsLogContext::~OsLogContext(&buf);
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
@@ -14191,7 +14191,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = *(&buf + 1);
           ctu::OsLogContext::~OsLogContext(&buf);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -14224,7 +14224,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = *(&buf + 1);
   ctu::OsLogContext::~OsLogContext(&buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -14241,7 +14241,7 @@ LABEL_23:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v7 = ServiceMap;
     if ((v8 & 0x8000000000000000) != 0)
@@ -14285,7 +14285,7 @@ LABEL_12:
           operator new();
         }
 
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v18 = v22;
         ctu::OsLogContext::~OsLogContext(buf);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -14317,7 +14317,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v16 = v22;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -14334,7 +14334,7 @@ LABEL_20:
   supportCopy = support;
   if (supportCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -14389,7 +14389,7 @@ LABEL_12:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v19 = v23;
             ctu::OsLogContext::~OsLogContext(buf);
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -14409,7 +14409,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v18 = v23;
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -14441,7 +14441,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v23;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -14462,7 +14462,7 @@ LABEL_27:
   {
     if (bearerCopy)
     {
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       ServiceMap = Registry::getServiceMap(*buf);
       v8 = ServiceMap;
       if (v9 < 0)
@@ -14528,7 +14528,7 @@ LABEL_16:
 
             else
             {
-              [(CTXPCClientHandler *)self getLogContext];
+              objc_msgSend_getLogContext(self, v26);
               v24 = v36;
               ctu::OsLogContext::~OsLogContext(buf);
               if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -14549,7 +14549,7 @@ LABEL_16:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self, v26);
             v22 = v36;
             ctu::OsLogContext::~OsLogContext(buf);
             if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -14582,7 +14582,7 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = v36;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -14597,7 +14597,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v16 = v36;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -14618,7 +14618,7 @@ LABEL_33:
   {
     if (bearerCopy)
     {
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       ServiceMap = Registry::getServiceMap(*buf);
       v9 = ServiceMap;
       if ((v10 & 0x8000000000000000) != 0)
@@ -14673,7 +14673,7 @@ LABEL_16:
 
             else
             {
-              [(CTXPCClientHandler *)self getLogContext];
+              objc_msgSend_getLogContext(self);
               v25 = v30;
               ctu::OsLogContext::~OsLogContext(buf);
               if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
@@ -14694,7 +14694,7 @@ LABEL_16:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v23 = v30;
             ctu::OsLogContext::~OsLogContext(buf);
             if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -14727,7 +14727,7 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v19 = v30;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -14742,7 +14742,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v30;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -14760,7 +14760,7 @@ LABEL_31:
   bearersCopy = bearers;
   if (bearersCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -14815,7 +14815,7 @@ LABEL_12:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v20 = v25;
             ctu::OsLogContext::~OsLogContext(buf);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -14836,7 +14836,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v18 = v25;
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -14869,7 +14869,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v25;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -14889,7 +14889,7 @@ LABEL_27:
   {
     if (presentCopy)
     {
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       ServiceMap = Registry::getServiceMap(*buf);
       v9 = ServiceMap;
       if ((v10 & 0x8000000000000000) != 0)
@@ -14944,7 +14944,7 @@ LABEL_16:
 
             else
             {
-              [(CTXPCClientHandler *)self getLogContext];
+              objc_msgSend_getLogContext(self);
               v25 = v30;
               ctu::OsLogContext::~OsLogContext(buf);
               if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
@@ -14965,7 +14965,7 @@ LABEL_16:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v23 = v30;
             ctu::OsLogContext::~OsLogContext(buf);
             if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -14998,7 +14998,7 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v19 = v30;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -15013,7 +15013,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v30;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -15031,7 +15031,7 @@ LABEL_31:
   bearersCopy = bearers;
   if (bearersCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -15086,7 +15086,7 @@ LABEL_12:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v19 = v23;
             ctu::OsLogContext::~OsLogContext(buf);
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -15106,7 +15106,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v18 = v23;
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -15138,7 +15138,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v23;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -15155,7 +15155,7 @@ LABEL_27:
   characteristicsCopy = characteristics;
   if (characteristicsCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -15210,7 +15210,7 @@ LABEL_12:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v20 = v25;
             ctu::OsLogContext::~OsLogContext(buf);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -15231,7 +15231,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v18 = v25;
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -15264,7 +15264,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v25;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -15281,7 +15281,7 @@ LABEL_27:
   characteristicsCopy = characteristics;
   if (characteristicsCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -15336,7 +15336,7 @@ LABEL_12:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v20 = v25;
             ctu::OsLogContext::~OsLogContext(buf);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -15357,7 +15357,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v18 = v25;
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -15390,7 +15390,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v25;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -15418,7 +15418,7 @@ LABEL_27:
       goto LABEL_30;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v14 = ServiceMap;
     if (v15 < 0)
@@ -15497,7 +15497,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v28 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -15530,7 +15530,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v23 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -15559,7 +15559,7 @@ LABEL_30:
       goto LABEL_39;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v17 = ServiceMap;
     if (v18 < 0)
@@ -15664,7 +15664,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v31 = v38;
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
@@ -15697,7 +15697,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v26 = v38;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
@@ -15723,7 +15723,7 @@ LABEL_39:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v24);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -15773,7 +15773,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v25;
           ctu::OsLogContext::~OsLogContext(&v24);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -15806,7 +15806,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v25;
   ctu::OsLogContext::~OsLogContext(&v24);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -15832,7 +15832,7 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v24);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -15882,7 +15882,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v25;
           ctu::OsLogContext::~OsLogContext(&v24);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -15915,7 +15915,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v25;
   ctu::OsLogContext::~OsLogContext(&v24);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -15942,7 +15942,7 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v26);
     v11 = ServiceMap;
     if ((v12 & 0x8000000000000000) != 0)
@@ -15992,7 +15992,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v24 = v27;
           ctu::OsLogContext::~OsLogContext(&v26);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -16025,7 +16025,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v20 = v27;
   ctu::OsLogContext::~OsLogContext(&v26);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -16051,7 +16051,7 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v25);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -16103,7 +16103,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v23 = v26;
           ctu::OsLogContext::~OsLogContext(&v25);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -16136,7 +16136,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v26;
   ctu::OsLogContext::~OsLogContext(&v25);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -16158,14 +16158,14 @@ LABEL_23:
     {
       *buf = 0;
       v15 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (v13)
       {
         sub_100004A34(v13);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v10 = v13;
       ctu::OsLogContext::~OsLogContext(v12);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -16192,7 +16192,7 @@ LABEL_23:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = v15;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -16210,14 +16210,14 @@ LABEL_23:
   {
     *buf = 0;
     v11 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     sGetSubscriberSimInterface();
     if (v9)
     {
       sub_100004A34(v9);
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v6 = v9;
     ctu::OsLogContext::~OsLogContext(v8);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -16237,7 +16237,7 @@ LABEL_23:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v5 = v11;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -16253,14 +16253,14 @@ LABEL_23:
   configCopy = config;
   v9 = 0;
   v10 = 0;
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   sGetSubscriberSimInterface();
   if (v8)
   {
     sub_100004A34(v8);
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v5 = v8;
   ctu::OsLogContext::~OsLogContext(v7);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -16285,14 +16285,14 @@ LABEL_23:
   {
     *buf = 0;
     v11 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     sGetSubscriberSimInterface();
     if (v9)
     {
       sub_100004A34(v9);
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v6 = v9;
     ctu::OsLogContext::~OsLogContext(v8);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -16312,7 +16312,7 @@ LABEL_23:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v5 = v11;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -16333,14 +16333,14 @@ LABEL_23:
     {
       v14 = 0;
       v15 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (v13)
       {
         sub_100004A34(v13);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v10 = v13;
       ctu::OsLogContext::~OsLogContext(&__p);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -16367,7 +16367,7 @@ LABEL_23:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = v13;
     ctu::OsLogContext::~OsLogContext(&__p);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -16383,7 +16383,7 @@ LABEL_23:
   infoCopy = info;
   if (infoCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -16457,7 +16457,7 @@ LABEL_20:
       goto LABEL_22;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     v19 = Registry::getServiceMap(*buf);
     v20 = v19;
     if ((v21 & 0x8000000000000000) != 0)
@@ -16508,7 +16508,7 @@ LABEL_31:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v30 = v34;
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
@@ -16541,7 +16541,7 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v34;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -16563,14 +16563,14 @@ LABEL_22:
     {
       *buf = 0;
       v15 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (v13)
       {
         sub_100004A34(v13);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v10 = v13;
       ctu::OsLogContext::~OsLogContext(v12);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -16597,7 +16597,7 @@ LABEL_22:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = v15;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -16618,14 +16618,14 @@ LABEL_22:
     {
       v13 = 0;
       v14 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (*&buf[8])
       {
         sub_100004A34(*&buf[8]);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v10 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -16652,7 +16652,7 @@ LABEL_22:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -16680,7 +16680,7 @@ LABEL_22:
         v13 = sub_100018A64([v12 slotID]);
         if (!v13)
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v27 = v33;
           ctu::OsLogContext::~OsLogContext(&v32);
           if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
@@ -16695,7 +16695,7 @@ LABEL_22:
           goto LABEL_28;
         }
 
-        [(CTXPCClientHandler *)self registry];
+        objc_msgSend_registry(self);
         ServiceMap = Registry::getServiceMap(v32);
         v15 = ServiceMap;
         if ((v16 & 0x8000000000000000) != 0)
@@ -16786,7 +16786,7 @@ LABEL_28:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v24 = v33;
     ctu::OsLogContext::~OsLogContext(&v32);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -16817,7 +16817,7 @@ LABEL_29:
     v11 = sub_100018A64([contextCopy slotID]);
     if (v11)
     {
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       ServiceMap = Registry::getServiceMap(v29);
       v13 = ServiceMap;
       if ((v14 & 0x8000000000000000) != 0)
@@ -16891,7 +16891,7 @@ LABEL_18:
       goto LABEL_18;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v24 = v30;
     ctu::OsLogContext::~OsLogContext(&v29);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -16906,7 +16906,7 @@ LABEL_18:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v22 = v30;
     ctu::OsLogContext::~OsLogContext(&v29);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -16937,7 +16937,7 @@ LABEL_25:
     v11 = sub_100018A64([identityCopy slotID]);
     if (v11)
     {
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       ServiceMap = Registry::getServiceMap(v28);
       v13 = ServiceMap;
       if ((v14 & 0x8000000000000000) != 0)
@@ -17010,7 +17010,7 @@ LABEL_18:
       goto LABEL_18;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v24 = v29;
     ctu::OsLogContext::~OsLogContext(&v28);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -17025,7 +17025,7 @@ LABEL_18:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v22 = v29;
     ctu::OsLogContext::~OsLogContext(&v28);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -17056,7 +17056,7 @@ LABEL_25:
     v11 = sub_100018A64([contextCopy slotID]);
     if (v11)
     {
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       ServiceMap = Registry::getServiceMap(v29);
       v13 = ServiceMap;
       if ((v14 & 0x8000000000000000) != 0)
@@ -17130,7 +17130,7 @@ LABEL_18:
       goto LABEL_18;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v24 = v30;
     ctu::OsLogContext::~OsLogContext(&v29);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -17145,7 +17145,7 @@ LABEL_18:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v22 = v30;
     ctu::OsLogContext::~OsLogContext(&v29);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -17170,7 +17170,7 @@ LABEL_25:
       v11 = sub_100018A64([identityCopy slotID]);
       if (v11)
       {
-        [(CTXPCClientHandler *)self registry];
+        objc_msgSend_registry(self);
         ServiceMap = Registry::getServiceMap(v26);
         v13 = ServiceMap;
         if ((v14 & 0x8000000000000000) != 0)
@@ -17239,7 +17239,7 @@ LABEL_19:
         goto LABEL_19;
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v24 = v27;
       ctu::OsLogContext::~OsLogContext(&v26);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -17261,7 +17261,7 @@ LABEL_19:
     goto LABEL_27;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v22 = v27;
   ctu::OsLogContext::~OsLogContext(&v26);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -17304,7 +17304,7 @@ LABEL_15:
     if ((v20 & 1) == 0)
     {
 LABEL_4:
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       ServiceMap = Registry::getServiceMap(v25);
       v9 = ServiceMap;
       if ((v10 & 0x8000000000000000) != 0)
@@ -17350,7 +17350,7 @@ LABEL_22:
             operator new();
           }
 
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v23 = v26;
           ctu::OsLogContext::~OsLogContext(&v25);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -17382,7 +17382,7 @@ LABEL_22:
       goto LABEL_22;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v21 = v26;
     ctu::OsLogContext::~OsLogContext(&v25);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
@@ -17396,7 +17396,7 @@ LABEL_22:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v26;
     ctu::OsLogContext::~OsLogContext(&v25);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -17428,7 +17428,7 @@ LABEL_15:
     {
       memset(buf, 0, sizeof(buf));
       v30 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       ServiceMap = Registry::getServiceMap(*v27);
       v9 = ServiceMap;
       if (v10 < 0)
@@ -17516,7 +17516,7 @@ LABEL_33:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v21 = *&v27[8];
         ctu::OsLogContext::~OsLogContext(v27);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -17570,7 +17570,7 @@ LABEL_34:
       goto LABEL_15;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v20 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
@@ -17584,7 +17584,7 @@ LABEL_34:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -17604,7 +17604,7 @@ LABEL_40:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v21 = v35;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -17624,7 +17624,7 @@ LABEL_40:
     goto LABEL_27;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(*buf);
   v12 = ServiceMap;
   if (v13 < 0)
@@ -17722,7 +17722,7 @@ LABEL_26:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v27 = v35;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
@@ -17757,7 +17757,7 @@ LABEL_27:
       goto LABEL_30;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v25);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -17832,7 +17832,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v23 = v26;
           ctu::OsLogContext::~OsLogContext(&v25);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -17865,7 +17865,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v26;
   ctu::OsLogContext::~OsLogContext(&v25);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -17891,7 +17891,7 @@ LABEL_30:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v24);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -17941,7 +17941,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v25;
           ctu::OsLogContext::~OsLogContext(&v24);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -17974,7 +17974,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v25;
   ctu::OsLogContext::~OsLogContext(&v24);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -18000,7 +18000,7 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v24);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -18050,7 +18050,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v25;
           ctu::OsLogContext::~OsLogContext(&v24);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -18083,7 +18083,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v25;
   ctu::OsLogContext::~OsLogContext(&v24);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -18126,7 +18126,7 @@ LABEL_23:
     if ((v8 & 1) == 0)
     {
 LABEL_13:
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       ServiceMap = Registry::getServiceMap(v41);
       v14 = ServiceMap;
       if (v15 < 0)
@@ -18177,7 +18177,7 @@ LABEL_21:
 
       if (!v21)
       {
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v35 = v42;
         ctu::OsLogContext::~OsLogContext(&v41);
         if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
@@ -18233,7 +18233,7 @@ LABEL_58:
         goto LABEL_60;
       }
 
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       v25 = Registry::getServiceMap(v41);
       v26 = v25;
       if (v27 < 0)
@@ -18329,7 +18329,7 @@ LABEL_38:
       goto LABEL_38;
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v12 = v42;
     ctu::OsLogContext::~OsLogContext(&v41);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
@@ -18343,7 +18343,7 @@ LABEL_38:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v10 = v42;
     ctu::OsLogContext::~OsLogContext(&v41);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -18366,14 +18366,14 @@ LABEL_60:
     {
       *buf = 0;
       v15 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (v13)
       {
         sub_100004A34(v13);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v10 = v13;
       ctu::OsLogContext::~OsLogContext(v12);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -18400,7 +18400,7 @@ LABEL_60:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = v15;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -18421,14 +18421,14 @@ LABEL_60:
     {
       *buf = 0;
       v15 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (v13)
       {
         sub_100004A34(v13);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v10 = v13;
       ctu::OsLogContext::~OsLogContext(v12);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -18455,7 +18455,7 @@ LABEL_60:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = v15;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -18491,7 +18491,7 @@ LABEL_60:
       goto LABEL_51;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -18622,7 +18622,7 @@ LABEL_14:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v30 = *&buf[8];
             ctu::OsLogContext::~OsLogContext(buf);
             if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
@@ -18645,7 +18645,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v28 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -18678,7 +18678,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -18696,7 +18696,7 @@ LABEL_51:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v27[0];
     ctu::OsLogContext::~OsLogContext(&v26);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -18716,7 +18716,7 @@ LABEL_51:
     goto LABEL_27;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v26);
   v9 = ServiceMap;
   if ((v10 & 0x8000000000000000) != 0)
@@ -18812,7 +18812,7 @@ LABEL_26:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v24 = v27[0];
     ctu::OsLogContext::~OsLogContext(&v26);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -18847,7 +18847,7 @@ LABEL_27:
       goto LABEL_32;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v27);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -18910,7 +18910,7 @@ LABEL_14:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v23 = *(&buf + 1);
             ctu::OsLogContext::~OsLogContext(&buf);
             if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -18933,7 +18933,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v21 = v28;
           ctu::OsLogContext::~OsLogContext(&v27);
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -18966,7 +18966,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v28;
   ctu::OsLogContext::~OsLogContext(&v27);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -18993,7 +18993,7 @@ LABEL_32:
       v46 = completionCopy;
       if (!paramsCopy)
       {
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v24 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -19009,7 +19009,7 @@ LABEL_32:
 
       if (!data)
       {
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v26 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
@@ -19021,7 +19021,7 @@ LABEL_32:
         goto LABEL_22;
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v13 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -19042,7 +19042,7 @@ LABEL_32:
       v18 = Value;
       if (!Value || (v19 = CFGetTypeID(Value), v19 != CFStringGetTypeID()))
       {
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v25 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
@@ -19103,7 +19103,7 @@ LABEL_22:
                 v49 = *buf;
                 v37 = *&buf[16];
                 *buf = &v52;
-                v38 = sub_1004FCB34(&v58, &v52);
+                v38 = sub_1004FCB34(&v58, &v52, &unk_101802C98, buf);
                 v39 = v38[5];
                 if (v39)
                 {
@@ -19122,7 +19122,7 @@ LABEL_22:
 
               else
               {
-                [(CTXPCClientHandler *)self getLogContext];
+                objc_msgSend_getLogContext(self);
                 v35 = *&buf[8];
                 ctu::OsLogContext::~OsLogContext(buf);
                 if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
@@ -19143,7 +19143,7 @@ LABEL_22:
 
       v52 = 0;
       v53 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (*&buf[8])
       {
@@ -19175,7 +19175,7 @@ LABEL_22:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v43 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
         if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
@@ -19207,7 +19207,7 @@ LABEL_22:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v22 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     v11 = paramsCopy;
@@ -19234,7 +19234,7 @@ LABEL_23:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v12 = v14;
     ctu::OsLogContext::~OsLogContext(v13);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -19259,7 +19259,7 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v24);
     v9 = ServiceMap;
     v10 = "22CellularPlanController";
@@ -19310,7 +19310,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v25;
           ctu::OsLogContext::~OsLogContext(&v24);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -19343,7 +19343,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v25;
   ctu::OsLogContext::~OsLogContext(&v24);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -19369,7 +19369,7 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v24);
     v9 = ServiceMap;
     v10 = "22CellularPlanController";
@@ -19420,7 +19420,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v25;
           ctu::OsLogContext::~OsLogContext(&v24);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -19453,7 +19453,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v25;
   ctu::OsLogContext::~OsLogContext(&v24);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -19479,7 +19479,7 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v23);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -19525,7 +19525,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v24;
           ctu::OsLogContext::~OsLogContext(&v23);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -19558,7 +19558,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v24;
   ctu::OsLogContext::~OsLogContext(&v23);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -19580,14 +19580,14 @@ LABEL_23:
     {
       *buf = 0;
       v15 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (v13)
       {
         sub_100004A34(v13);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v10 = v13;
       ctu::OsLogContext::~OsLogContext(v12);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -19614,7 +19614,7 @@ LABEL_23:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = v15;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -19636,14 +19636,14 @@ LABEL_23:
     {
       *buf = 0;
       v19 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (v17)
       {
         sub_100004A34(v17);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v14 = v17;
       ctu::OsLogContext::~OsLogContext(v16);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
@@ -19670,7 +19670,7 @@ LABEL_23:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v12 = v19;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -19692,14 +19692,14 @@ LABEL_23:
     {
       *buf = 0;
       v18 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (v16)
       {
         sub_100004A34(v16);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v13 = v16;
       ctu::OsLogContext::~OsLogContext(v15);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -19726,7 +19726,7 @@ LABEL_23:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v11 = v18;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -19749,14 +19749,14 @@ LABEL_23:
     {
       *buf = 0;
       v21 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (v19)
       {
         sub_100004A34(v19);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v16 = v19;
       ctu::OsLogContext::~OsLogContext(v18);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -19783,7 +19783,7 @@ LABEL_23:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v14 = v21;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
@@ -19806,14 +19806,14 @@ LABEL_23:
     {
       *buf = 0;
       v21 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (v19)
       {
         sub_100004A34(v19);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v16 = v19;
       ctu::OsLogContext::~OsLogContext(v18);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -19840,7 +19840,7 @@ LABEL_23:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v14 = v21;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
@@ -19861,14 +19861,14 @@ LABEL_23:
     {
       *buf = 0;
       v15 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (v13)
       {
         sub_100004A34(v13);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v10 = v13;
       ctu::OsLogContext::~OsLogContext(v12);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -19895,7 +19895,7 @@ LABEL_23:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = v15;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -19916,14 +19916,14 @@ LABEL_23:
     {
       *buf = 0;
       v15 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (v13)
       {
         sub_100004A34(v13);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v10 = v13;
       ctu::OsLogContext::~OsLogContext(v12);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -19950,7 +19950,7 @@ LABEL_23:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = v15;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -19967,7 +19967,7 @@ LABEL_23:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v24;
     ctu::OsLogContext::~OsLogContext(&v23);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -19987,7 +19987,7 @@ LABEL_23:
     goto LABEL_19;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v23);
   v9 = ServiceMap;
   if ((v10 & 0x8000000000000000) != 0)
@@ -20050,7 +20050,7 @@ LABEL_18:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v21 = v24;
     ctu::OsLogContext::~OsLogContext(&v23);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -20073,7 +20073,7 @@ LABEL_19:
 
 - (void)SIMUnlockProcedureDidComplete
 {
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self, a2);
   ServiceMap = Registry::getServiceMap(v14);
   v4 = ServiceMap;
   if ((v5 & 0x8000000000000000) != 0)
@@ -20128,7 +20128,7 @@ LABEL_9:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v13 = v15;
   ctu::OsLogContext::~OsLogContext(&v14);
   if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -20164,14 +20164,14 @@ LABEL_15:
     {
       v16 = 0;
       v17 = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sGetSubscriberSimInterface();
       if (*&buf[8])
       {
         sub_100004A34(*&buf[8]);
       }
 
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v13 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -20198,7 +20198,7 @@ LABEL_15:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v11 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -20226,7 +20226,7 @@ LABEL_15:
     v8 = sub_10002A8E0(tokenCopy);
     *buf = 0;
     v28 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v25);
     v10 = ServiceMap;
     if ((v11 & 0x8000000000000000) != 0)
@@ -20282,7 +20282,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v23 = v26;
           ctu::OsLogContext::~OsLogContext(&v25);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -20315,7 +20315,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v19 = v28;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -20344,7 +20344,7 @@ LABEL_25:
     v8 = sub_10002A8E0(tokenCopy);
     *buf = 0;
     v28 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v25);
     v10 = ServiceMap;
     if ((v11 & 0x8000000000000000) != 0)
@@ -20400,7 +20400,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v23 = v26;
           ctu::OsLogContext::~OsLogContext(&v25);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -20433,7 +20433,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v19 = v28;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -20481,7 +20481,7 @@ LABEL_25:
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self, v5);
       v9 = v12;
       ctu::OsLogContext::~OsLogContext(&v11);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
@@ -20502,7 +20502,7 @@ LABEL_25:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v8 = *(&buf + 1);
     ctu::OsLogContext::~OsLogContext(&buf);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -20518,7 +20518,7 @@ LABEL_25:
   forCopy = for;
   completionCopy = completion;
   v8 = sub_100018A64([forCopy slotID]);
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(__p[0]);
   v10 = ServiceMap;
   if (v11 < 0)
@@ -20536,8 +20536,8 @@ LABEL_25:
   }
 
   std::mutex::lock(ServiceMap);
-  v24 = v11;
-  v15 = sub_100009510(&v10[1].__m_.__sig, &v24);
+  v25 = v11;
+  v15 = sub_100009510(&v10[1].__m_.__sig, &v25);
   if (v15)
   {
     v17 = v15[3];
@@ -20573,27 +20573,27 @@ LABEL_9:
     completionCopy[2](completionCopy, 0, v19);
   }
 
-  v23 = 0;
-  memset(v22, 0, sizeof(v22));
+  v24 = 0;
+  memset(v23, 0, sizeof(v23));
   *__p = 0u;
   (*(*v17 + 8))(__p, v17, v8);
-  if (v23)
+  if (v24)
   {
-    v20 = sub_100185E04(__p);
-    (completionCopy)[2](completionCopy, v20, 0);
+    v21 = sub_100185E04(__p, v20);
+    (completionCopy)[2](completionCopy, v21, 0);
   }
 
   else
   {
-    v20 = [NSError errorWithDomain:NSPOSIXErrorDomain code:6 userInfo:0];
-    completionCopy[2](completionCopy, 0, v20);
+    v21 = [NSError errorWithDomain:NSPOSIXErrorDomain code:6 userInfo:0];
+    completionCopy[2](completionCopy, 0, v21);
   }
 
-  if (v23 == 1)
+  if (v24 == 1)
   {
-    v24 = v22 + 1;
-    sub_10143F388(&v24);
-    if (SBYTE7(v22[0]) < 0)
+    v25 = v23 + 1;
+    sub_10143F388(&v25);
+    if (SBYTE7(v23[0]) < 0)
     {
       operator delete(__p[0]);
       if (v18)
@@ -20621,7 +20621,7 @@ LABEL_20:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v21 = v35;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -20641,7 +20641,7 @@ LABEL_20:
     goto LABEL_27;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(*buf);
   v12 = ServiceMap;
   if (v13 < 0)
@@ -20739,7 +20739,7 @@ LABEL_26:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v27 = v35;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
@@ -20765,7 +20765,7 @@ LABEL_27:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v19);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -20835,7 +20835,7 @@ LABEL_22:
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v18 = v20;
       ctu::OsLogContext::~OsLogContext(&v19);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -20851,7 +20851,7 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v20;
   ctu::OsLogContext::~OsLogContext(&v19);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -20868,7 +20868,7 @@ LABEL_24:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v18);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -20917,7 +20917,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v17 = v19;
           ctu::OsLogContext::~OsLogContext(&v18);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -20949,7 +20949,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v19;
   ctu::OsLogContext::~OsLogContext(&v18);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -20982,7 +20982,7 @@ LABEL_21:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v7 = v9;
     ctu::OsLogContext::~OsLogContext(&v8);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
@@ -21007,7 +21007,7 @@ LABEL_21:
       goto LABEL_32;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -21099,7 +21099,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v25 = v32;
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
@@ -21132,7 +21132,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v32;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -21149,7 +21149,7 @@ LABEL_32:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v15 = v19;
     ctu::OsLogContext::~OsLogContext(&v18);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -21161,7 +21161,7 @@ LABEL_32:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v18);
   v6 = ServiceMap;
   if ((v7 & 0x8000000000000000) != 0)
@@ -21240,7 +21240,7 @@ LABEL_17:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v23 = v41;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -21263,7 +21263,7 @@ LABEL_17:
   if ([(CTXPCClientHandler *)self hasEntitlement:33])
   {
 LABEL_6:
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v13 = ServiceMap;
     if ((v14 & 0x8000000000000000) != 0)
@@ -21339,7 +21339,7 @@ LABEL_25:
     goto LABEL_15;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   v24 = Registry::getServiceMap(*buf);
   v25 = v24;
   if ((v26 & 0x8000000000000000) != 0)
@@ -21417,7 +21417,7 @@ LABEL_34:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v38 = v41;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
@@ -21452,7 +21452,7 @@ LABEL_15:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v23);
     v8 = ServiceMap;
     if ((v9 & 0x8000000000000000) != 0)
@@ -21503,7 +21503,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v21 = v24;
           ctu::OsLogContext::~OsLogContext(&v23);
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -21536,7 +21536,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v17 = v24;
   ctu::OsLogContext::~OsLogContext(&v23);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -21553,7 +21553,7 @@ LABEL_23:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = v31;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -21573,7 +21573,7 @@ LABEL_23:
     goto LABEL_31;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(*buf);
   v8 = ServiceMap;
   if (v9 < 0)
@@ -21701,7 +21701,7 @@ LABEL_31:
       goto LABEL_26;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v22);
     v8 = ServiceMap;
     if ((v9 & 0x8000000000000000) != 0)
@@ -21756,7 +21756,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v21 = v23;
           ctu::OsLogContext::~OsLogContext(&v22);
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -21789,7 +21789,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v17 = v23;
   ctu::OsLogContext::~OsLogContext(&v22);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -21806,7 +21806,7 @@ LABEL_26:
   enabledCopy = enabled;
   if (enabledCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v18);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -21851,7 +21851,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v17 = v19;
           ctu::OsLogContext::~OsLogContext(&v18);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -21884,7 +21884,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v19;
   ctu::OsLogContext::~OsLogContext(&v18);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -21902,7 +21902,7 @@ LABEL_21:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = v21;
     ctu::OsLogContext::~OsLogContext(&v20);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -21914,7 +21914,7 @@ LABEL_21:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v20);
   v8 = ServiceMap;
   if ((v9 & 0x8000000000000000) != 0)
@@ -21976,7 +21976,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v21;
     ctu::OsLogContext::~OsLogContext(&v20);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -22011,7 +22011,7 @@ LABEL_17:
       goto LABEL_33;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -22052,7 +22052,7 @@ LABEL_14:
         {
           memset(buf, 0, sizeof(buf));
           v29 = 0;
-          [(CTXPCClientHandler *)self registry];
+          objc_msgSend_registry(self);
           sub_100018A64([budgetCopy slotID]);
           PersonalityIdFromSlotId();
           if (SHIBYTE(v27) < 0)
@@ -22096,7 +22096,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v20 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -22129,7 +22129,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -22156,7 +22156,7 @@ LABEL_33:
       goto LABEL_37;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v12 = ServiceMap;
     if (v13 < 0)
@@ -22207,7 +22207,7 @@ LABEL_14:
 
     if (!v19)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v23 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -22223,7 +22223,7 @@ LABEL_14:
 
     memset(buf, 0, sizeof(buf));
     v29 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     sub_100018A64([enteredCopy slotID]);
     PersonalityIdFromSlotId();
     if (SHIBYTE(v27) < 0)
@@ -22284,7 +22284,7 @@ LABEL_35:
     goto LABEL_37;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v21 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -22310,7 +22310,7 @@ LABEL_37:
       goto LABEL_37;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -22361,7 +22361,7 @@ LABEL_14:
 
     if (!v16)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v20 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -22377,7 +22377,7 @@ LABEL_14:
 
     memset(buf, 0, sizeof(buf));
     v26 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     sub_100018A64([budgetCopy slotID]);
     PersonalityIdFromSlotId();
     if (SHIBYTE(v24) < 0)
@@ -22438,7 +22438,7 @@ LABEL_35:
     goto LABEL_37;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -22464,7 +22464,7 @@ LABEL_37:
       goto LABEL_33;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -22505,7 +22505,7 @@ LABEL_14:
         {
           memset(buf, 0, sizeof(buf));
           v29 = 0;
-          [(CTXPCClientHandler *)self registry];
+          objc_msgSend_registry(self);
           sub_100018A64([budgetCopy slotID]);
           PersonalityIdFromSlotId();
           if (SHIBYTE(v27) < 0)
@@ -22549,7 +22549,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v20 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -22582,7 +22582,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -22609,7 +22609,7 @@ LABEL_33:
       goto LABEL_37;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v12 = ServiceMap;
     if (v13 < 0)
@@ -22660,7 +22660,7 @@ LABEL_14:
 
     if (!v19)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v23 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -22676,7 +22676,7 @@ LABEL_14:
 
     memset(buf, 0, sizeof(buf));
     v29 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     sub_100018A64([enteredCopy slotID]);
     PersonalityIdFromSlotId();
     if (SHIBYTE(v27) < 0)
@@ -22737,7 +22737,7 @@ LABEL_35:
     goto LABEL_37;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v21 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -22763,7 +22763,7 @@ LABEL_37:
       goto LABEL_37;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -22814,7 +22814,7 @@ LABEL_14:
 
     if (!v16)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v20 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -22830,7 +22830,7 @@ LABEL_14:
 
     memset(buf, 0, sizeof(buf));
     v26 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     sub_100018A64([budgetCopy slotID]);
     PersonalityIdFromSlotId();
     if (SHIBYTE(v24) < 0)
@@ -22891,7 +22891,7 @@ LABEL_35:
     goto LABEL_37;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -22917,7 +22917,7 @@ LABEL_37:
       goto LABEL_33;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -22958,7 +22958,7 @@ LABEL_14:
         {
           memset(buf, 0, sizeof(buf));
           v28 = 0;
-          [(CTXPCClientHandler *)self registry];
+          objc_msgSend_registry(self);
           sub_100018A64([montCopy slotID]);
           PersonalityIdFromSlotId();
           if (SHIBYTE(v26) < 0)
@@ -23002,7 +23002,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v20 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -23035,7 +23035,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -23062,7 +23062,7 @@ LABEL_33:
       goto LABEL_37;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v12 = ServiceMap;
     if (v13 < 0)
@@ -23113,7 +23113,7 @@ LABEL_14:
 
     if (!v19)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v23 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -23129,7 +23129,7 @@ LABEL_14:
 
     memset(buf, 0, sizeof(buf));
     v29 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     sub_100018A64([endCopy slotID]);
     PersonalityIdFromSlotId();
     if (SHIBYTE(v27) < 0)
@@ -23190,7 +23190,7 @@ LABEL_35:
     goto LABEL_37;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v21 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -23216,7 +23216,7 @@ LABEL_37:
       goto LABEL_37;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -23267,7 +23267,7 @@ LABEL_14:
 
     if (!v16)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v20 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -23283,7 +23283,7 @@ LABEL_14:
 
     memset(buf, 0, sizeof(buf));
     v26 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     sub_100018A64([monthCopy slotID]);
     PersonalityIdFromSlotId();
     if (SHIBYTE(v24) < 0)
@@ -23344,7 +23344,7 @@ LABEL_35:
     goto LABEL_37;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -23361,7 +23361,7 @@ LABEL_37:
   infoCopy = info;
   if (infoCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -23425,7 +23425,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v25 = v34;
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
@@ -23458,7 +23458,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v34;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -23476,7 +23476,7 @@ LABEL_21:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v26);
     v9 = ServiceMap;
     v10 = "22CellularPlanController";
@@ -23530,7 +23530,7 @@ LABEL_12:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v22 = v27;
             ctu::OsLogContext::~OsLogContext(&v26);
             if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -23546,7 +23546,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v24 = v27;
           ctu::OsLogContext::~OsLogContext(&v26);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -23579,7 +23579,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v27;
   ctu::OsLogContext::~OsLogContext(&v26);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -23597,7 +23597,7 @@ LABEL_26:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v26);
     v9 = ServiceMap;
     v10 = "22CellularPlanController";
@@ -23651,7 +23651,7 @@ LABEL_12:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v22 = v27;
             ctu::OsLogContext::~OsLogContext(&v26);
             if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -23667,7 +23667,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v24 = v27;
           ctu::OsLogContext::~OsLogContext(&v26);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -23700,7 +23700,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v27;
   ctu::OsLogContext::~OsLogContext(&v26);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -23718,7 +23718,7 @@ LABEL_26:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v25);
     v9 = ServiceMap;
     v10 = "22CellularPlanController";
@@ -23770,7 +23770,7 @@ LABEL_12:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v21 = v26;
             ctu::OsLogContext::~OsLogContext(&v25);
             if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -23786,7 +23786,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v23 = v26;
           ctu::OsLogContext::~OsLogContext(&v25);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -23819,7 +23819,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v26;
   ctu::OsLogContext::~OsLogContext(&v25);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -23836,7 +23836,7 @@ LABEL_26:
   neededCopy = needed;
   if (!neededCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v15 = v20;
     ctu::OsLogContext::~OsLogContext(&v19);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -23848,7 +23848,7 @@ LABEL_26:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v19);
   v6 = ServiceMap;
   v7 = "22CellularPlanController";
@@ -23911,7 +23911,7 @@ LABEL_16:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = v20;
     ctu::OsLogContext::~OsLogContext(&v19);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -23938,7 +23938,7 @@ LABEL_17:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v25);
     v9 = ServiceMap;
     v10 = "22CellularPlanController";
@@ -23990,7 +23990,7 @@ LABEL_12:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v21 = v26;
             ctu::OsLogContext::~OsLogContext(&v25);
             if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -24006,7 +24006,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v23 = v26;
           ctu::OsLogContext::~OsLogContext(&v25);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -24039,7 +24039,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v26;
   ctu::OsLogContext::~OsLogContext(&v25);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -24057,7 +24057,7 @@ LABEL_26:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(buf);
     dataSetName3 = ServiceMap;
     v9 = "22CellularPlanController";
@@ -24131,7 +24131,7 @@ LABEL_12:
             v70 = 0u;
             buf = 0u;
             v68 = 0u;
-            sub_10000501C(&v70 + 8, "");
+            sub_10000501C(&v70 + 1, "");
             sub_10000501C(&v72, "");
             WORD4(v73) = 0;
             HIDWORD(v73) = 0;
@@ -24221,7 +24221,7 @@ LABEL_12:
                 v42 = geofenceId;
                 sub_100016890((&v59 + 8), [geofenceId UTF8String]);
 
-                sub_1004604CC(&v74, &v59 + 1);
+                sub_1004604CC(&v74, &v59 + 1, &v59 + 8, &v58);
                 if (SHIBYTE(v62) < 0)
                 {
                   operator delete(__p);
@@ -24302,7 +24302,7 @@ LABEL_12:
 
     else
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v24 = *(&buf + 1);
       ctu::OsLogContext::~OsLogContext(&buf);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -24322,7 +24322,7 @@ LABEL_23:
     goto LABEL_25;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v17 = *(&buf + 1);
   ctu::OsLogContext::~OsLogContext(&buf);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -24339,7 +24339,7 @@ LABEL_25:
   profileCopy = profile;
   if (profileCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(buf);
     v6 = ServiceMap;
     v7 = "22CellularPlanController";
@@ -24388,7 +24388,7 @@ LABEL_12:
           v31 = 0u;
           buf = 0u;
           v29 = 0u;
-          sub_10000501C(&v31 + 8, "");
+          sub_10000501C(&v31 + 1, "");
           sub_10000501C(&v33, "");
           WORD4(v34) = 0;
           HIDWORD(v34) = 0;
@@ -24448,7 +24448,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v17 = *(&buf + 1);
           ctu::OsLogContext::~OsLogContext(&buf);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -24480,7 +24480,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = *(&buf + 1);
   ctu::OsLogContext::~OsLogContext(&buf);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -24497,7 +24497,7 @@ LABEL_36:
   simsCopy = sims;
   if (!simsCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v5 = v20;
     ctu::OsLogContext::~OsLogContext(&v19);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -24509,7 +24509,7 @@ LABEL_36:
     simsCopy = &stru_101F42058;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v19);
   v7 = ServiceMap;
   v8 = "22CellularPlanController";
@@ -24571,7 +24571,7 @@ LABEL_13:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = v20;
     ctu::OsLogContext::~OsLogContext(&v19);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -24597,7 +24597,7 @@ LABEL_13:
   v55 = profileCopy;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = *(&buf + 1);
     ctu::OsLogContext::~OsLogContext(&buf);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -24609,7 +24609,7 @@ LABEL_13:
     goto LABEL_74;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(buf);
   dataSetName2 = ServiceMap;
   v10 = "22CellularPlanController";
@@ -24672,7 +24672,7 @@ LABEL_12:
       v78 = 0u;
       buf = 0u;
       v76 = 0u;
-      sub_10000501C(&v78 + 8, "");
+      sub_10000501C(&v78 + 1, "");
       sub_10000501C(&v80, "");
       WORD4(v81) = 0;
       HIDWORD(v81) = 0;
@@ -24798,7 +24798,7 @@ LABEL_12:
           v50 = geofenceId;
           sub_100016890((&v67 + 8), [geofenceId UTF8String]);
 
-          sub_1004604CC(&v82, &v67 + 1);
+          sub_1004604CC(&v82, &v67 + 1, &v67 + 8, &v66);
           if (SHIBYTE(v70) < 0)
           {
             operator delete(__p);
@@ -24881,7 +24881,7 @@ LABEL_12:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v24 = *(&buf + 1);
     ctu::OsLogContext::~OsLogContext(&buf);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -24908,7 +24908,7 @@ LABEL_74:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(buf);
     dataSetName2 = ServiceMap;
     v10 = "22CellularPlanController";
@@ -24959,7 +24959,7 @@ LABEL_12:
             v48 = 0u;
             buf = 0u;
             v46 = 0u;
-            sub_10000501C(&v48 + 8, "");
+            sub_10000501C(&v48 + 1, "");
             sub_10000501C(&v50, "");
             WORD4(v51) = 0;
             HIDWORD(v51) = 0;
@@ -25097,7 +25097,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = *(&buf + 1);
           ctu::OsLogContext::~OsLogContext(&buf);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -25130,7 +25130,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = *(&buf + 1);
   ctu::OsLogContext::~OsLogContext(&buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -25149,7 +25149,7 @@ LABEL_58:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(buf);
     dataSetName2 = ServiceMap;
     v12 = "22CellularPlanController";
@@ -25200,7 +25200,7 @@ LABEL_12:
             v50 = 0u;
             buf = 0u;
             v48 = 0u;
-            sub_10000501C(&v50 + 8, "");
+            sub_10000501C(&v50 + 1, "");
             sub_10000501C(&v52, "");
             WORD4(v53) = 0;
             HIDWORD(v53) = 0;
@@ -25338,7 +25338,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v24 = *(&buf + 1);
           ctu::OsLogContext::~OsLogContext(&buf);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -25371,7 +25371,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v20 = *(&buf + 1);
   ctu::OsLogContext::~OsLogContext(&buf);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -25389,7 +25389,7 @@ LABEL_58:
   completionCopy = completion;
   if (completionCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v26);
     v9 = ServiceMap;
     v10 = "22CellularPlanController";
@@ -25443,7 +25443,7 @@ LABEL_12:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v22 = v27;
             ctu::OsLogContext::~OsLogContext(&v26);
             if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -25459,7 +25459,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v24 = v27;
           ctu::OsLogContext::~OsLogContext(&v26);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -25492,7 +25492,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v27;
   ctu::OsLogContext::~OsLogContext(&v26);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -25512,8 +25512,8 @@ LABEL_26:
     *buf = 0;
     v13 = 0;
     v11 = 0;
-    [(CTXPCClientHandler *)self registry];
-    sub_10152E04C(buf, &v11, &v9);
+    objc_msgSend_registry(self);
+    sub_10152E04C(buf, &v11, v9);
     v5 = v11;
     if (v10)
     {
@@ -25544,7 +25544,7 @@ LABEL_26:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v6 = v13;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -25565,7 +25565,7 @@ LABEL_26:
     *buf = 0;
     v25 = 0;
     v23 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     sub_10152E04C(buf, &v23, &v21);
     v11 = v23;
     if (v22)
@@ -25610,7 +25610,7 @@ LABEL_26:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v12 = v25;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -25629,7 +25629,7 @@ LABEL_26:
     *buf = 0;
     v26 = 0;
     v24 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     sub_10152E04C(buf, &v24, &v22);
     v5 = v24;
     if (v23)
@@ -25649,7 +25649,7 @@ LABEL_23:
       goto LABEL_26;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v20);
     v8 = ServiceMap;
     if ((v9 & 0x8000000000000000) != 0)
@@ -25724,7 +25724,7 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v6 = v26;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -25807,7 +25807,7 @@ LABEL_26:
   v11 = completionCopy;
   if (!contextCopy || !capabilityCopy || !completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v26 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
@@ -25841,7 +25841,7 @@ LABEL_19:
     __p = 0;
     v68 = 0;
     v69 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     uuid = [v13 uuid];
     sub_100047544(uuid, &v64);
     PersonalityIdFromUuid();
@@ -25860,7 +25860,7 @@ LABEL_19:
 
     if (!v15)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v30 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
@@ -25880,7 +25880,7 @@ LABEL_19:
       goto LABEL_39;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v17 = ServiceMap;
     if (v18 < 0)
@@ -25931,7 +25931,7 @@ LABEL_28:
 
     if (!v24)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v32 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
@@ -25993,7 +25993,7 @@ LABEL_71:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v50 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
@@ -26037,7 +26037,7 @@ LABEL_71:
       v44 = sub_100018A64([v13 slotID]);
       if (!v44)
       {
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v51 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
         if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
@@ -26051,7 +26051,7 @@ LABEL_71:
 
       *buf = 0;
       *&buf[8] = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sub_1015DB584(buf, v64);
       if (v65)
       {
@@ -26066,7 +26066,7 @@ LABEL_71:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v57 = v65;
         ctu::OsLogContext::~OsLogContext(&v64);
         if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
@@ -26083,7 +26083,7 @@ LABEL_71:
       if (!*&buf[8])
       {
 LABEL_81:
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v58 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
         if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
@@ -26114,7 +26114,7 @@ LABEL_80:
       goto LABEL_81;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     v34 = Registry::getServiceMap(*buf);
     v35 = v34;
     if (v36 < 0)
@@ -26193,7 +26193,7 @@ LABEL_74:
     goto LABEL_74;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v28 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -26217,7 +26217,7 @@ LABEL_41:
   v11 = completionCopy;
   if (!contextCopy || !capabilityCopy || !completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v26 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
@@ -26251,7 +26251,7 @@ LABEL_19:
     __p = 0;
     v68 = 0;
     v69 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     uuid = [v13 uuid];
     sub_100047544(uuid, &v64);
     PersonalityIdFromUuid();
@@ -26270,7 +26270,7 @@ LABEL_19:
 
     if (!v15)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v30 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
@@ -26290,7 +26290,7 @@ LABEL_19:
       goto LABEL_39;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v17 = ServiceMap;
     if (v18 < 0)
@@ -26341,7 +26341,7 @@ LABEL_28:
 
     if (!v24)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v32 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
@@ -26403,7 +26403,7 @@ LABEL_71:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v50 = *&buf[8];
           ctu::OsLogContext::~OsLogContext(buf);
           if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
@@ -26447,7 +26447,7 @@ LABEL_71:
       v44 = sub_100018A64([v13 slotID]);
       if (!v44)
       {
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v51 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
         if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
@@ -26461,7 +26461,7 @@ LABEL_71:
 
       *buf = 0;
       *&buf[8] = 0;
-      [(CTXPCClientHandler *)self registry];
+      objc_msgSend_registry(self);
       sub_1015DB584(buf, v64);
       if (v65)
       {
@@ -26476,7 +26476,7 @@ LABEL_71:
 
       else
       {
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v57 = v65;
         ctu::OsLogContext::~OsLogContext(&v64);
         if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
@@ -26493,7 +26493,7 @@ LABEL_71:
       if (!*&buf[8])
       {
 LABEL_81:
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v58 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
         if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
@@ -26524,7 +26524,7 @@ LABEL_80:
       goto LABEL_81;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     v34 = Registry::getServiceMap(*buf);
     v35 = v34;
     if (v36 < 0)
@@ -26603,7 +26603,7 @@ LABEL_74:
     goto LABEL_74;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v28 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -26629,7 +26629,7 @@ LABEL_41:
   v16 = completionCopy;
   if (!contextCopy || !capabilityCopy || !completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v31 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
@@ -26663,7 +26663,7 @@ LABEL_19:
     __p = 0;
     v73 = 0;
     v74 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     uuid = [v18 uuid];
     sub_100047544(uuid, v70);
     PersonalityIdFromUuid();
@@ -26682,7 +26682,7 @@ LABEL_19:
 
     if (!v20)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v35 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
@@ -26702,7 +26702,7 @@ LABEL_19:
       goto LABEL_82;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v22 = ServiceMap;
     if (v23 < 0)
@@ -26754,7 +26754,7 @@ LABEL_28:
 
     if (!v29)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v39 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
@@ -26826,7 +26826,7 @@ LABEL_28:
         {
           *buf = 0;
           *&buf[8] = 0;
-          [(CTXPCClientHandler *)self registry];
+          objc_msgSend_registry(self);
           sub_1015DB584(buf, *v70);
           if (v71)
           {
@@ -26841,7 +26841,7 @@ LABEL_28:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v65 = v71;
             ctu::OsLogContext::~OsLogContext(v70);
             if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
@@ -26861,7 +26861,7 @@ LABEL_28:
           goto LABEL_77;
         }
 
-        [(CTXPCClientHandler *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v58 = *&buf[8];
         ctu::OsLogContext::~OsLogContext(buf);
         if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
@@ -26873,7 +26873,7 @@ LABEL_28:
 
       v40 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
 LABEL_77:
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v59 = *&buf[8];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
@@ -26906,7 +26906,7 @@ LABEL_82:
     }
 
     v66 = v30;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     v41 = Registry::getServiceMap(*buf);
     v42 = v41;
     if (v43 < 0)
@@ -26984,7 +26984,7 @@ LABEL_74:
     goto LABEL_74;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v33 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
@@ -27007,7 +27007,7 @@ LABEL_84:
   v8 = capabilitiesCopy;
   if (!contextCopy || !capabilitiesCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v22 = v31;
     ctu::OsLogContext::~OsLogContext(&v30);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -27047,7 +27047,7 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v30);
     v13 = ServiceMap;
     if ((v14 & 0x8000000000000000) != 0)
@@ -27096,7 +27096,7 @@ LABEL_20:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v28 = v31;
           ctu::OsLogContext::~OsLogContext(&v30);
           if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -27129,7 +27129,7 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v24 = v31;
   ctu::OsLogContext::~OsLogContext(&v30);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -27159,7 +27159,7 @@ LABEL_30:
       goto LABEL_29;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v25);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -27199,7 +27199,7 @@ LABEL_14:
         if (v16)
         {
           v20 = sub_100018A64([gCopy slotID]);
-          [(CTXPCClientHandler *)self registry];
+          objc_msgSend_registry(self);
           isValidSimSlot = subscriber::isValidSimSlot();
           if (v26)
           {
@@ -27214,7 +27214,7 @@ LABEL_14:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v24 = v26;
             ctu::OsLogContext::~OsLogContext(&v25);
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -27230,7 +27230,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v23 = v26;
           ctu::OsLogContext::~OsLogContext(&v25);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -27263,7 +27263,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v26;
   ctu::OsLogContext::~OsLogContext(&v25);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -27283,7 +27283,7 @@ LABEL_29:
   v11 = completionCopy;
   if (!contextCopy || !statusCopy || !completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v15 = v26;
     ctu::OsLogContext::~OsLogContext(&__p);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -27317,7 +27317,7 @@ LABEL_11:
     __p = 0;
     v26 = 0;
     v27 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     uuid = [v13 uuid];
     sub_100047544(uuid, &v28);
     PersonalityIdFromUuid();
@@ -27328,7 +27328,7 @@ LABEL_11:
       sub_100004A34(*&buf_4[4]);
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v19 = *&buf_4[4];
     ctu::OsLogContext::~OsLogContext(&buf);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -27353,7 +27353,7 @@ LABEL_11:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = v26;
     ctu::OsLogContext::~OsLogContext(&__p);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -27376,7 +27376,7 @@ LABEL_22:
   listCopy = list;
   if (listCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v20);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -27427,7 +27427,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v18 = v21;
           ctu::OsLogContext::~OsLogContext(&v20);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -27460,7 +27460,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v21;
   ctu::OsLogContext::~OsLogContext(&v20);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -27477,7 +27477,7 @@ LABEL_21:
   infoCopy = info;
   if (infoCopy)
   {
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v20);
     v6 = ServiceMap;
     if ((v7 & 0x8000000000000000) != 0)
@@ -27528,7 +27528,7 @@ LABEL_12:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v18 = v21;
           ctu::OsLogContext::~OsLogContext(&v20);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -27561,7 +27561,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v15 = v21;
   ctu::OsLogContext::~OsLogContext(&v20);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -27581,7 +27581,7 @@ LABEL_21:
   v11 = completionCopy;
   if (!contextCopy || !completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v15 = v26;
     ctu::OsLogContext::~OsLogContext(&__p);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -27615,7 +27615,7 @@ LABEL_10:
     __p = 0;
     v26 = 0;
     v27 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     uuid = [v13 uuid];
     sub_100047544(uuid, &v28);
     PersonalityIdFromUuid();
@@ -27626,7 +27626,7 @@ LABEL_10:
       sub_100004A34(*&buf_4[4]);
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v19 = *&buf_4[4];
     ctu::OsLogContext::~OsLogContext(&buf);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -27651,7 +27651,7 @@ LABEL_10:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = v26;
     ctu::OsLogContext::~OsLogContext(&__p);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -27677,7 +27677,7 @@ LABEL_18:
   v11 = completionCopy;
   if (!contextCopy || !completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v15 = v26;
     ctu::OsLogContext::~OsLogContext(&__p);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -27711,7 +27711,7 @@ LABEL_10:
     __p = 0;
     v26 = 0;
     v27 = 0;
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     uuid = [v13 uuid];
     sub_100047544(uuid, &v28);
     PersonalityIdFromUuid();
@@ -27722,7 +27722,7 @@ LABEL_10:
       sub_100004A34(*&buf_4[4]);
     }
 
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v19 = *&buf_4[4];
     ctu::OsLogContext::~OsLogContext(&buf);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -27747,7 +27747,7 @@ LABEL_10:
 
   else
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = v26;
     ctu::OsLogContext::~OsLogContext(&__p);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -27774,7 +27774,7 @@ LABEL_18:
     v8 = [completeCopy objectForKey:@"SlotID"];
     if (!v8)
     {
-      [(CTXPCClientHandler *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v20 = v27;
       ctu::OsLogContext::~OsLogContext(&v26);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -27789,7 +27789,7 @@ LABEL_18:
       goto LABEL_31;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v26);
     v10 = ServiceMap;
     if (v11 < 0)
@@ -27839,7 +27839,7 @@ LABEL_16:
 
           else
           {
-            [(CTXPCClientHandler *)self getLogContext];
+            objc_msgSend_getLogContext(self);
             v24 = *(&buf + 1);
             ctu::OsLogContext::~OsLogContext(&buf);
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -27861,7 +27861,7 @@ LABEL_16:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v27;
           ctu::OsLogContext::~OsLogContext(&v26);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -27896,7 +27896,7 @@ LABEL_31:
     goto LABEL_16;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v19 = v27;
   ctu::OsLogContext::~OsLogContext(&v26);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -27916,7 +27916,7 @@ LABEL_32:
   v10 = completionCopy;
   if (!contextCopy || !completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v14 = v19;
     ctu::OsLogContext::~OsLogContext(&v18);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
@@ -27946,7 +27946,7 @@ LABEL_17:
 
   if (!v12)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v16 = v19;
     ctu::OsLogContext::~OsLogContext(&v18);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -27964,7 +27964,7 @@ LABEL_17:
   v13 = sub_100018A64([v12 slotID]);
   if (!v13)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = v19;
     ctu::OsLogContext::~OsLogContext(&v18);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -27979,7 +27979,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   mandatoryDisableVoLTE(&v18, v13, eCopy);
   if (v19)
   {
@@ -27998,7 +27998,7 @@ LABEL_18:
   v8 = eCopy;
   if (!contextCopy || !eCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v13 = v18;
     ctu::OsLogContext::~OsLogContext(v17);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -28028,7 +28028,7 @@ LABEL_15:
 
   if (!v10)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v15 = v18;
     ctu::OsLogContext::~OsLogContext(v17);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -28046,7 +28046,7 @@ LABEL_15:
   v11 = sub_100018A64([v10 slotID]);
   if (!v11)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v16 = v18;
     ctu::OsLogContext::~OsLogContext(v17);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -28073,7 +28073,7 @@ LABEL_16:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = v24;
     ctu::OsLogContext::~OsLogContext(&v23);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -28085,7 +28085,7 @@ LABEL_16:
     goto LABEL_21;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v23);
   v9 = ServiceMap;
   if ((v10 & 0x8000000000000000) != 0)
@@ -28161,7 +28161,7 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v20 = v24;
   ctu::OsLogContext::~OsLogContext(&v23);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -28195,7 +28195,7 @@ LABEL_21:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v24);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -28245,7 +28245,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v25;
           ctu::OsLogContext::~OsLogContext(&v24);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -28278,7 +28278,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v25;
   ctu::OsLogContext::~OsLogContext(&v24);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -28304,7 +28304,7 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v24);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -28354,7 +28354,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v25;
           ctu::OsLogContext::~OsLogContext(&v24);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -28387,7 +28387,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v25;
   ctu::OsLogContext::~OsLogContext(&v24);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -28413,7 +28413,7 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v24);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -28463,7 +28463,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v25;
           ctu::OsLogContext::~OsLogContext(&v24);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -28496,7 +28496,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v25;
   ctu::OsLogContext::~OsLogContext(&v24);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -28522,7 +28522,7 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(v24);
     v9 = ServiceMap;
     if ((v10 & 0x8000000000000000) != 0)
@@ -28572,7 +28572,7 @@ LABEL_14:
 
         else
         {
-          [(CTXPCClientHandler *)self getLogContext];
+          objc_msgSend_getLogContext(self);
           v22 = v25;
           ctu::OsLogContext::~OsLogContext(&v24);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -28605,7 +28605,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v18 = v25;
   ctu::OsLogContext::~OsLogContext(&v24);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -28631,7 +28631,7 @@ LABEL_23:
       goto LABEL_20;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -28663,20 +28663,21 @@ LABEL_23:
         sub_100004A34(v15);
         v17 = 0;
 LABEL_14:
-        if (v25)
+        if (v26)
         {
-          sub_100004A34(v25);
+          sub_100004A34(v26);
         }
 
         if (v16)
         {
-          [(CTXPCClientHandler *)self getQueue];
+          v23 = 0;
+          objc_msgSend_getQueue(self);
           v20 = objc_retainBlock(completionCopy);
           object = v22;
           *buf = off_101F5D6F0;
-          v25 = v20;
-          v26 = buf;
-          sub_100D1A888();
+          v26 = v20;
+          v27 = buf;
+          sub_100D1A888(&v23, &object, buf);
         }
 
         v21 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
@@ -28702,8 +28703,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v18 = v25;
+  objc_msgSend_getLogContext(self);
+  v18 = v26;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
@@ -28728,7 +28729,7 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -28760,20 +28761,21 @@ LABEL_20:
         sub_100004A34(v15);
         v17 = 0;
 LABEL_14:
-        if (v25)
+        if (v26)
         {
-          sub_100004A34(v25);
+          sub_100004A34(v26);
         }
 
         if (v16)
         {
-          [(CTXPCClientHandler *)self getQueue];
+          v23 = 0;
+          objc_msgSend_getQueue(self);
           v20 = objc_retainBlock(completionCopy);
           object = v22;
           *buf = off_101F5D770;
-          v25 = v20;
-          v26 = buf;
-          sub_100D1AD6C();
+          v26 = v20;
+          v27 = buf;
+          sub_100D1AD6C(&v23, &object, buf);
         }
 
         v21 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
@@ -28799,8 +28801,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v18 = v25;
+  objc_msgSend_getLogContext(self);
+  v18 = v26;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
@@ -28818,7 +28820,7 @@ LABEL_20:
   completionCopy = completion;
   if (!completionCopy)
   {
-    [(CTXPCClientHandler *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v20 = v24;
     ctu::OsLogContext::~OsLogContext(&v23);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -28838,7 +28840,7 @@ LABEL_20:
     goto LABEL_19;
   }
 
-  [(CTXPCClientHandler *)self registry];
+  objc_msgSend_registry(self);
   ServiceMap = Registry::getServiceMap(v23);
   v11 = ServiceMap;
   if ((v12 & 0x8000000000000000) != 0)
@@ -28924,10 +28926,10 @@ LABEL_19:
       goto LABEL_20;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
-    if ((v10 & 0x8000000000000000) != 0)
+    if (v10 < 0)
     {
       v11 = (v10 & 0x7FFFFFFFFFFFFFFFLL);
       v12 = 5381;
@@ -28956,22 +28958,22 @@ LABEL_19:
         sub_100004A34(v15);
         v17 = 0;
 LABEL_14:
-        if (v25)
+        if (v26)
         {
-          sub_100004A34(v25);
+          sub_100004A34(v26);
         }
 
         if (v16)
         {
           v23[0] = 0;
           v23[1] = 0;
-          [(CTXPCClientHandler *)self getQueue];
+          objc_msgSend_getQueue(self);
           v20 = objc_retainBlock(completionCopy);
-          v23[2] = v22;
+          object = v22;
           *buf = off_101F5D7F0;
-          v25 = v20;
-          v26 = buf;
-          sub_100D1B250();
+          v26 = v20;
+          v27 = buf;
+          sub_100D1B250(v23, &object, buf);
         }
 
         v21 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
@@ -28997,8 +28999,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v18 = v25;
+  objc_msgSend_getLogContext(self);
+  v18 = v26;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
@@ -29023,7 +29025,7 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -29055,20 +29057,21 @@ LABEL_20:
         sub_100004A34(v15);
         v17 = 0;
 LABEL_14:
-        if (v25)
+        if (v26)
         {
-          sub_100004A34(v25);
+          sub_100004A34(v26);
         }
 
         if (v16)
         {
-          [(CTXPCClientHandler *)self getQueue];
+          v23 = 0;
+          objc_msgSend_getQueue(self);
           v20 = objc_retainBlock(completionCopy);
           object = v22;
           *buf = off_101F5D870;
-          v25 = v20;
-          v26 = buf;
-          sub_100D1C0FC();
+          v26 = v20;
+          v27 = buf;
+          sub_100D1C0FC(&v23, &object, buf);
         }
 
         v21 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
@@ -29094,8 +29097,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v18 = v25;
+  objc_msgSend_getLogContext(self);
+  v18 = v26;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
@@ -29120,10 +29123,10 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
-    if ((v10 & 0x8000000000000000) != 0)
+    if (v10 < 0)
     {
       v11 = (v10 & 0x7FFFFFFFFFFFFFFFLL);
       v12 = 5381;
@@ -29152,22 +29155,22 @@ LABEL_20:
         sub_100004A34(v15);
         v17 = 0;
 LABEL_14:
-        if (v25)
+        if (v26)
         {
-          sub_100004A34(v25);
+          sub_100004A34(v26);
         }
 
         if (v16)
         {
           v23[0] = 0;
           v23[1] = 0;
-          [(CTXPCClientHandler *)self getQueue];
+          objc_msgSend_getQueue(self);
           v20 = objc_retainBlock(completionCopy);
-          v23[2] = v22;
+          object = v22;
           *buf = off_101F5D8F0;
-          v25 = v20;
-          v26 = buf;
-          sub_100D1B734();
+          v26 = v20;
+          v27 = buf;
+          sub_100D1B734(v23, &object, buf);
         }
 
         v21 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
@@ -29193,8 +29196,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v18 = v25;
+  objc_msgSend_getLogContext(self);
+  v18 = v26;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
@@ -29219,7 +29222,7 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -29251,20 +29254,21 @@ LABEL_20:
         sub_100004A34(v15);
         v17 = 0;
 LABEL_14:
-        if (v25)
+        if (v26)
         {
-          sub_100004A34(v25);
+          sub_100004A34(v26);
         }
 
         if (v16)
         {
-          [(CTXPCClientHandler *)self getQueue];
+          v23 = 0;
+          objc_msgSend_getQueue(self);
           v20 = objc_retainBlock(completionCopy);
           object = v22;
           *buf = off_101F5D970;
-          v25 = v20;
-          v26 = buf;
-          sub_100D1C0FC();
+          v26 = v20;
+          v27 = buf;
+          sub_100D1C0FC(&v23, &object, buf);
         }
 
         v21 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
@@ -29290,8 +29294,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v18 = v25;
+  objc_msgSend_getLogContext(self);
+  v18 = v26;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
@@ -29316,10 +29320,10 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
-    if ((v10 & 0x8000000000000000) != 0)
+    if (v10 < 0)
     {
       v11 = (v10 & 0x7FFFFFFFFFFFFFFFLL);
       v12 = 5381;
@@ -29348,22 +29352,22 @@ LABEL_20:
         sub_100004A34(v15);
         v17 = 0;
 LABEL_14:
-        if (v25)
+        if (v26)
         {
-          sub_100004A34(v25);
+          sub_100004A34(v26);
         }
 
         if (v16)
         {
           v23[0] = 0;
           v23[1] = 0;
-          [(CTXPCClientHandler *)self getQueue];
+          objc_msgSend_getQueue(self);
           v20 = objc_retainBlock(completionCopy);
-          v23[2] = v22;
+          object = v22;
           *buf = off_101F5D9F0;
-          v25 = v20;
-          v26 = buf;
-          sub_100D1BC18();
+          v26 = v20;
+          v27 = buf;
+          sub_100D1BC18(v23, &object, buf);
         }
 
         v21 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
@@ -29389,8 +29393,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v18 = v25;
+  objc_msgSend_getLogContext(self);
+  v18 = v26;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
@@ -29415,7 +29419,7 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -29447,20 +29451,21 @@ LABEL_20:
         sub_100004A34(v15);
         v17 = 0;
 LABEL_14:
-        if (v25)
+        if (v26)
         {
-          sub_100004A34(v25);
+          sub_100004A34(v26);
         }
 
         if (v16)
         {
-          [(CTXPCClientHandler *)self getQueue];
+          v23 = 0;
+          objc_msgSend_getQueue(self);
           v20 = objc_retainBlock(completionCopy);
           object = v22;
           *buf = off_101F5DA70;
-          v25 = v20;
-          v26 = buf;
-          sub_100D1C0FC();
+          v26 = v20;
+          v27 = buf;
+          sub_100D1C0FC(&v23, &object, buf);
         }
 
         v21 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
@@ -29486,8 +29491,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v18 = v25;
+  objc_msgSend_getLogContext(self);
+  v18 = v26;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
@@ -29512,7 +29517,7 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -29544,20 +29549,21 @@ LABEL_20:
         sub_100004A34(v15);
         v17 = 0;
 LABEL_14:
-        if (v25)
+        if (v26)
         {
-          sub_100004A34(v25);
+          sub_100004A34(v26);
         }
 
         if (v16)
         {
-          [(CTXPCClientHandler *)self getQueue];
+          v23 = 0;
+          objc_msgSend_getQueue(self);
           v20 = objc_retainBlock(completionCopy);
           object = v22;
           *buf = off_101F5DAF0;
-          v25 = v20;
-          v26 = buf;
-          sub_100D1C0FC();
+          v26 = v20;
+          v27 = buf;
+          sub_100D1C0FC(&v23, &object, buf);
         }
 
         v21 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
@@ -29583,8 +29589,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v18 = v25;
+  objc_msgSend_getLogContext(self);
+  v18 = v26;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
@@ -29609,7 +29615,7 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v9 = ServiceMap;
     if (v10 < 0)
@@ -29641,20 +29647,21 @@ LABEL_20:
         sub_100004A34(v15);
         v17 = 0;
 LABEL_14:
-        if (v25)
+        if (v26)
         {
-          sub_100004A34(v25);
+          sub_100004A34(v26);
         }
 
         if (v16)
         {
-          [(CTXPCClientHandler *)self getQueue];
+          v23 = 0;
+          objc_msgSend_getQueue(self);
           v20 = objc_retainBlock(completionCopy);
           object = v22;
           *buf = off_101F5DB70;
-          v25 = v20;
-          v26 = buf;
-          sub_100D1C8D4();
+          v26 = v20;
+          v27 = buf;
+          sub_100D1C8D4(&v23, &object, buf);
         }
 
         v21 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
@@ -29680,8 +29687,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
-  v18 = v25;
+  objc_msgSend_getLogContext(self);
+  v18 = v26;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
@@ -29708,7 +29715,7 @@ LABEL_20:
       goto LABEL_25;
     }
 
-    [(CTXPCClientHandler *)self registry];
+    objc_msgSend_registry(self);
     ServiceMap = Registry::getServiceMap(*buf);
     v10 = ServiceMap;
     if (v11 < 0)
@@ -29780,13 +29787,13 @@ LABEL_14:
             }
           }
 
-          [(CTXPCClientHandler *)self getQueue];
+          objc_msgSend_getQueue(self);
           v31 = objc_retainBlock(completionCopy);
           v38 = object;
           v39[0] = off_101F5DBF0;
           v39[1] = v31;
           v39[3] = v39;
-          sub_100D1C0FC();
+          sub_100D1C0FC(buf, &v38, v39);
         }
 
         v32 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
@@ -29812,7 +29819,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  [(CTXPCClientHandler *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v19 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))

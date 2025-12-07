@@ -515,132 +515,128 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v5 = self->_phoneNumbers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v41 objects:v48 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v37 objects:v44 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v42;
+    v8 = *v38;
     do
     {
       v9 = 0;
       do
       {
-        if (*v42 != v8)
+        if (*v38 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v41 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
-        v9 = v9 + 1;
+        ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v41 objects:v48 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v37 objects:v44 count:16];
     }
 
     while (v7);
-  }
-
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v11 = self->_urls;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v37 objects:v47 count:16];
-  if (v12)
-  {
-    v13 = v12;
-    v14 = *v38;
-    do
-    {
-      v15 = 0;
-      do
-      {
-        if (*v38 != v14)
-        {
-          objc_enumerationMutation(v11);
-        }
-
-        v16 = *(*(&v37 + 1) + 8 * v15);
-        PBDataWriterWriteSubmessage();
-        v15 = v15 + 1;
-      }
-
-      while (v13 != v15);
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v37 objects:v47 count:16];
-    }
-
-    while (v13);
   }
 
   v35 = 0u;
   v36 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v17 = self->_emails;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v33 objects:v46 count:16];
-  if (v18)
+  v10 = self->_urls;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v33 objects:v43 count:16];
+  if (v11)
   {
-    v19 = v18;
-    v20 = *v34;
+    v12 = v11;
+    v13 = *v34;
     do
     {
-      v21 = 0;
+      v14 = 0;
       do
       {
-        if (*v34 != v20)
+        if (*v34 != v13)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v10);
         }
 
-        v22 = *(*(&v33 + 1) + 8 * v21);
         PBDataWriterWriteSubmessage();
-        v21 = v21 + 1;
+        ++v14;
       }
 
-      while (v19 != v21);
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v33 objects:v46 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v33 objects:v43 count:16];
     }
 
-    while (v19);
+    while (v12);
   }
 
   v31 = 0u;
   v32 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v23 = self->_addresses;
-  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v29 objects:v45 count:16];
-  if (v24)
+  v15 = self->_emails;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v29 objects:v42 count:16];
+  if (v16)
   {
-    v25 = v24;
-    v26 = *v30;
+    v17 = v16;
+    v18 = *v30;
     do
     {
-      v27 = 0;
+      v19 = 0;
       do
       {
-        if (*v30 != v26)
+        if (*v30 != v18)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v15);
         }
 
-        v28 = *(*(&v29 + 1) + 8 * v27);
         PBDataWriterWriteSubmessage();
-        v27 = v27 + 1;
+        ++v19;
       }
 
-      while (v25 != v27);
-      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v29 objects:v45 count:16];
+      while (v17 != v19);
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v29 objects:v42 count:16];
     }
 
-    while (v25);
+    while (v17);
+  }
+
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v20 = self->_addresses;
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v25 objects:v41 count:16];
+  if (v21)
+  {
+    v22 = v21;
+    v23 = *v26;
+    do
+    {
+      v24 = 0;
+      do
+      {
+        if (*v26 != v23)
+        {
+          objc_enumerationMutation(v20);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v24;
+      }
+
+      while (v22 != v24);
+      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v25 objects:v41 count:16];
+    }
+
+    while (v22);
   }
 
   if (self->_preferredChannel)
@@ -1070,135 +1066,34 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_58;
-  }
-
-  identifier = self->_identifier;
-  if (identifier | equalCopy[8])
-  {
-    if (![(NSString *)identifier isEqual:?])
-    {
-      goto LABEL_58;
-    }
-  }
-
-  namePrefix = self->_namePrefix;
-  if (namePrefix | equalCopy[11] && ![(NSString *)namePrefix isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  givenName = self->_givenName;
-  if (givenName | equalCopy[7] && ![(NSString *)givenName isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  middleName = self->_middleName;
-  if (middleName | equalCopy[10] && ![(NSString *)middleName isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  familyName = self->_familyName;
-  if (familyName | equalCopy[6] && ![(NSString *)familyName isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  previousFamilyName = self->_previousFamilyName;
-  if (previousFamilyName | equalCopy[24] && ![(NSString *)previousFamilyName isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  nameSuffix = self->_nameSuffix;
-  if (nameSuffix | equalCopy[12] && ![(NSString *)nameSuffix isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  nickname = self->_nickname;
-  if (nickname | equalCopy[13] && ![(NSString *)nickname isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  organizationName = self->_organizationName;
-  if (organizationName | equalCopy[16] && ![(NSString *)organizationName isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  departmentName = self->_departmentName;
-  if (departmentName | equalCopy[4] && ![(NSString *)departmentName isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  jobTitle = self->_jobTitle;
-  if (jobTitle | equalCopy[9] && ![(NSString *)jobTitle isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  note = self->_note;
-  if (note | equalCopy[15] && ![(NSString *)note isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  birthday = self->_birthday;
-  if (birthday | equalCopy[2] && ![(ABSPBDate *)birthday isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  nonGregorianBirthday = self->_nonGregorianBirthday;
-  if (nonGregorianBirthday | equalCopy[14] && ![(ABSPBDate *)nonGregorianBirthday isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  phoneticOrganizationName = self->_phoneticOrganizationName;
-  if (phoneticOrganizationName | equalCopy[22] && ![(NSString *)phoneticOrganizationName isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  phoneticFamilyName = self->_phoneticFamilyName;
-  if (phoneticFamilyName | equalCopy[19] && ![(NSString *)phoneticFamilyName isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  phoneticGivenName = self->_phoneticGivenName;
-  if (phoneticGivenName | equalCopy[20] && ![(NSString *)phoneticGivenName isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  phoneticMiddleName = self->_phoneticMiddleName;
-  if (phoneticMiddleName | equalCopy[21] && ![(NSString *)phoneticMiddleName isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  pronunciationGivenName = self->_pronunciationGivenName;
-  if (pronunciationGivenName | equalCopy[26] && ![(NSString *)pronunciationGivenName isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  pronunciationFamilyName = self->_pronunciationFamilyName;
-  if (pronunciationFamilyName | equalCopy[25] && ![(NSString *)pronunciationFamilyName isEqual:?])
-  {
-    goto LABEL_58;
-  }
-
-  if (((phonemeData = self->_phonemeData, !(phonemeData | equalCopy[18])) || [(NSString *)phonemeData isEqual:?]) && ((callAlert = self->_callAlert, !(callAlert | equalCopy[3])) || [(ABSPBAlert *)callAlert isEqual:?]) && ((textAlert = self->_textAlert, !(textAlert | equalCopy[27])) || [(ABSPBAlert *)textAlert isEqual:?]) && ((phoneNumbers = self->_phoneNumbers, !(phoneNumbers | equalCopy[17])) || [(NSMutableArray *)phoneNumbers isEqual:?]) && ((urls = self->_urls, !(urls | equalCopy[28])) || [(NSMutableArray *)urls isEqual:?]) && ((emails = self->_emails, !(emails | equalCopy[5])) || [(NSMutableArray *)emails isEqual:?]) && ((addresses = self->_addresses, !(addresses | equalCopy[1])) || [(NSMutableArray *)addresses isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()]
+    && ((identifier = self->_identifier, !(identifier | equalCopy[8])) || [(NSString *)identifier isEqual:?])
+    && ((namePrefix = self->_namePrefix, !(namePrefix | equalCopy[11])) || [(NSString *)namePrefix isEqual:?])
+    && ((givenName = self->_givenName, !(givenName | equalCopy[7])) || [(NSString *)givenName isEqual:?])
+    && ((middleName = self->_middleName, !(middleName | equalCopy[10])) || [(NSString *)middleName isEqual:?])
+    && ((familyName = self->_familyName, !(familyName | equalCopy[6])) || [(NSString *)familyName isEqual:?])
+    && ((previousFamilyName = self->_previousFamilyName, !(previousFamilyName | equalCopy[24])) || [(NSString *)previousFamilyName isEqual:?])
+    && ((nameSuffix = self->_nameSuffix, !(nameSuffix | equalCopy[12])) || [(NSString *)nameSuffix isEqual:?])
+    && ((nickname = self->_nickname, !(nickname | equalCopy[13])) || [(NSString *)nickname isEqual:?])
+    && ((organizationName = self->_organizationName, !(organizationName | equalCopy[16])) || [(NSString *)organizationName isEqual:?])
+    && ((departmentName = self->_departmentName, !(departmentName | equalCopy[4])) || [(NSString *)departmentName isEqual:?])
+    && ((jobTitle = self->_jobTitle, !(jobTitle | equalCopy[9])) || [(NSString *)jobTitle isEqual:?])
+    && ((note = self->_note, !(note | equalCopy[15])) || [(NSString *)note isEqual:?])
+    && ((birthday = self->_birthday, !(birthday | equalCopy[2])) || [(ABSPBDate *)birthday isEqual:?])
+    && ((nonGregorianBirthday = self->_nonGregorianBirthday, !(nonGregorianBirthday | equalCopy[14])) || [(ABSPBDate *)nonGregorianBirthday isEqual:?])
+    && ((phoneticOrganizationName = self->_phoneticOrganizationName, !(phoneticOrganizationName | equalCopy[22])) || [(NSString *)phoneticOrganizationName isEqual:?])
+    && ((phoneticFamilyName = self->_phoneticFamilyName, !(phoneticFamilyName | equalCopy[19])) || [(NSString *)phoneticFamilyName isEqual:?])
+    && ((phoneticGivenName = self->_phoneticGivenName, !(phoneticGivenName | equalCopy[20])) || [(NSString *)phoneticGivenName isEqual:?])
+    && ((phoneticMiddleName = self->_phoneticMiddleName, !(phoneticMiddleName | equalCopy[21])) || [(NSString *)phoneticMiddleName isEqual:?])
+    && ((pronunciationGivenName = self->_pronunciationGivenName, !(pronunciationGivenName | equalCopy[26])) || [(NSString *)pronunciationGivenName isEqual:?])
+    && ((pronunciationFamilyName = self->_pronunciationFamilyName, !(pronunciationFamilyName | equalCopy[25])) || [(NSString *)pronunciationFamilyName isEqual:?])
+    && ((phonemeData = self->_phonemeData, !(phonemeData | equalCopy[18])) || [(NSString *)phonemeData isEqual:?])
+    && ((callAlert = self->_callAlert, !(callAlert | equalCopy[3])) || [(ABSPBAlert *)callAlert isEqual:?])
+    && ((textAlert = self->_textAlert, !(textAlert | equalCopy[27])) || [(ABSPBAlert *)textAlert isEqual:?])
+    && ((phoneNumbers = self->_phoneNumbers, !(phoneNumbers | equalCopy[17])) || [(NSMutableArray *)phoneNumbers isEqual:?])
+    && ((urls = self->_urls, !(urls | equalCopy[28])) || [(NSMutableArray *)urls isEqual:?])
+    && ((emails = self->_emails, !(emails | equalCopy[5])) || [(NSMutableArray *)emails isEqual:?])
+    && ((addresses = self->_addresses, !(addresses | equalCopy[1])) || [(NSMutableArray *)addresses isEqual:?]))
   {
     preferredChannel = self->_preferredChannel;
     if (preferredChannel | equalCopy[23])
@@ -1214,7 +1109,6 @@
 
   else
   {
-LABEL_58:
     v33 = 0;
   }
 

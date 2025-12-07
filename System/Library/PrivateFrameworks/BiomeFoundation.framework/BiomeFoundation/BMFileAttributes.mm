@@ -56,7 +56,7 @@
 
 - (BMFileAttributes)initWithCoder:(id)coder
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"path"];
   path = self->_path;
@@ -71,11 +71,11 @@
   if (!v9 || [v9 unsignedIntegerValue] >= 4)
   {
     v15 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A578];
-    v26[0] = @"Invalid access mode";
+    v24 = *MEMORY[0x1E696A578];
+    v25[0] = @"Invalid access mode";
     v16 = MEMORY[0x1E695DF20];
-    v17 = v26;
-    v18 = &v25;
+    v17 = v25;
+    v18 = &v24;
 LABEL_8:
     v19 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:1];
     v20 = [v15 errorWithDomain:@"BiomeStorageError" code:2 userInfo:v19];
@@ -93,11 +93,11 @@ LABEL_8:
   if (!v12 || [v12 unsignedIntegerValue] >= 7)
   {
     v15 = MEMORY[0x1E696ABC0];
-    v23 = *MEMORY[0x1E696A578];
-    v24 = @"Invalid protection class";
+    v22 = *MEMORY[0x1E696A578];
+    v23 = @"Invalid protection class";
     v16 = MEMORY[0x1E695DF20];
-    v17 = &v24;
-    v18 = &v23;
+    v17 = &v23;
+    v18 = &v22;
     goto LABEL_8;
   }
 
@@ -107,7 +107,6 @@ LABEL_8:
   selfCopy = self;
 LABEL_9:
 
-  v21 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

@@ -150,51 +150,51 @@ LABEL_8:
   platformKeyCredentialRegistrationOptions = [requestCopy platformKeyCredentialRegistrationOptions];
   if (!(platformKeyCredentialAssertionOptions | platformKeyCredentialRegistrationOptions))
   {
-    sub_10005DFEC(a2);
+    sub_10005DFEC(a2, self);
   }
 
-  v16 = platformKeyCredentialRegistrationOptions;
+  v17 = platformKeyCredentialRegistrationOptions;
   if ([identifierCopy length])
   {
-    v17 = sub_100002C64(CDAppSignInUtilities, platformKeyCredentialAssertionOptions, v16);
-    if ([v17 length])
+    v18 = sub_100002C64(CDAppSignInUtilities, platformKeyCredentialAssertionOptions, v17);
+    if ([v18 length])
     {
-      if ([domainsCopy containsObject:v17])
+      if ([domainsCopy containsObject:v18])
       {
         handlerCopy[2](handlerCopy, 0);
       }
 
       else
       {
-        v23 = CPSErrorDomain;
-        v27 = NSLocalizedDescriptionKey;
-        v24 = [NSString stringWithFormat:@"Application (%@) is not associated with relying party identifier (%@)", identifierCopy, v17];
-        v28 = v24;
-        v25 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-        v26 = [NSError errorWithDomain:v23 code:205 userInfo:v25];
-        (handlerCopy)[2](handlerCopy, v26);
+        v24 = CPSErrorDomain;
+        v28 = NSLocalizedDescriptionKey;
+        v25 = [NSString stringWithFormat:@"Application (%@) is not associated with relying party identifier (%@)", identifierCopy, v18];
+        v29 = v25;
+        v26 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+        v27 = [NSError errorWithDomain:v24 code:205 userInfo:v26];
+        (handlerCopy)[2](handlerCopy, v27);
       }
     }
 
     else
     {
-      v20 = CPSErrorDomain;
-      v29 = NSLocalizedDescriptionKey;
-      v30 = @"Missing relying party identifier";
-      v21 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-      v22 = [NSError errorWithDomain:v20 code:205 userInfo:v21];
-      (handlerCopy)[2](handlerCopy, v22);
+      v21 = CPSErrorDomain;
+      v30 = NSLocalizedDescriptionKey;
+      v31 = @"Missing relying party identifier";
+      v22 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v23 = [NSError errorWithDomain:v21 code:205 userInfo:v22];
+      (handlerCopy)[2](handlerCopy, v23);
     }
   }
 
   else
   {
-    v18 = CPSErrorDomain;
-    v31 = NSLocalizedDescriptionKey;
-    v32 = @"Missing application identifier";
-    v17 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-    v19 = [NSError errorWithDomain:v18 code:205 userInfo:v17];
-    (handlerCopy)[2](handlerCopy, v19);
+    v19 = CPSErrorDomain;
+    v32 = NSLocalizedDescriptionKey;
+    v33 = @"Missing application identifier";
+    v18 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v20 = [NSError errorWithDomain:v19 code:205 userInfo:v18];
+    (handlerCopy)[2](handlerCopy, v20);
   }
 }
 

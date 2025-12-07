@@ -16,7 +16,7 @@
 
 void __50__AXInvertColorsController_loadInvertColorsBundle__block_invoke()
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v0 = AXAccessibilityBundlesDirectory();
   v1 = MEMORY[0x29EDB9F48];
   v2 = [v0 stringByAppendingPathComponent:@"InvertColorsManager.bundle"];
@@ -26,15 +26,15 @@ void __50__AXInvertColorsController_loadInvertColorsBundle__block_invoke()
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_29BADF000, v4, OS_LOG_TYPE_INFO, "Invert colors bundle %{public}@", buf, 0xCu);
   }
 
   if (([v3 isLoaded] & 1) == 0)
   {
-    v11 = 0;
-    v5 = [v3 loadAndReturnError:&v11];
-    v6 = v11;
+    v10 = 0;
+    v5 = [v3 loadAndReturnError:&v10];
+    v6 = v10;
     v7 = v6;
     if (!v5 || v6)
     {
@@ -58,7 +58,7 @@ LABEL_11:
 
       v8 = [v3 principalClass];
       *buf = 138543362;
-      v13 = v8;
+      v12 = v8;
       v9 = v8;
       _os_log_impl(&dword_29BADF000, v7, OS_LOG_TYPE_INFO, "Loading: %{public}@", buf, 0xCu);
     }
@@ -67,8 +67,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 + (void)initializeMonitoring
@@ -92,13 +90,12 @@ LABEL_12:
 
 void __50__AXInvertColorsController_loadInvertColorsBundle__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x29EDCA608];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_29BADF000, log, OS_LOG_TYPE_ERROR, "Could not load: %{public}@ %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_29BADF000, log, OS_LOG_TYPE_ERROR, "Could not load: %{public}@ %{public}@", &v3, 0x16u);
 }
 
 @end

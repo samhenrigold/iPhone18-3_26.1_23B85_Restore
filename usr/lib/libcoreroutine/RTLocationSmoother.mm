@@ -335,7 +335,7 @@ void __78__RTLocationSmoother_estimateLocationWithLocations_timestamp_parameters
   memset(&v38[2], 0, 32);
   if (location1Copy)
   {
-    [location1Copy clientLocation];
+    objc_msgSend_clientLocation(location1Copy);
   }
 
   v23 = timestamp - v15;
@@ -428,7 +428,7 @@ void __78__RTLocationSmoother_estimateLocationWithLocations_timestamp_parameters
   memset(buf, 0, sizeof(buf));
   if (locationCopy)
   {
-    [locationCopy clientLocation];
+    objc_msgSend_clientLocation(locationCopy);
   }
 
   *&buf[20] = v12;
@@ -469,7 +469,7 @@ void __78__RTLocationSmoother_estimateLocationWithLocations_timestamp_parameters
   v13 = v12;
   if (v12)
   {
-    [v12 clientLocation];
+    objc_msgSend_clientLocation(v12);
   }
 
   else
@@ -1090,7 +1090,7 @@ LABEL_63:
     v113 = v112;
     if (v112)
     {
-      [v112 clientLocation];
+      objc_msgSend_clientLocation(v112);
     }
 
     else
@@ -1202,7 +1202,7 @@ LABEL_79:
     v28 = 0u;
     v29 = 0u;
     v27 = 0u;
-    [v14 clientLocation];
+    objc_msgSend_clientLocation(v14);
     *(&v28 + 4) = *(&v28 + 4) + v11 * v16;
     v23 = objc_alloc(MEMORY[0x277CE41F8]);
     v25[6] = v33;

@@ -41,10 +41,10 @@
 
 - (id)jsonDict
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   wifiSSID = self->_wifiSSID;
-  v9[0] = @"wifiSSID";
-  v9[1] = @"onWifi";
+  v8[0] = @"wifiSSID";
+  v8[1] = @"onWifi";
   if (self->_onWifi)
   {
     v3 = @"YES";
@@ -55,10 +55,10 @@
     v3 = @"NO";
   }
 
-  v10[0] = wifiSSID;
-  v10[1] = v3;
+  v9[0] = wifiSSID;
+  v9[1] = v3;
   inAirplaneMode = self->_inAirplaneMode;
-  v9[2] = @"inAirplaneMode";
+  v8[2] = @"inAirplaneMode";
   if (inAirplaneMode)
   {
     v5 = @"YES";
@@ -69,9 +69,8 @@
     v5 = @"NO";
   }
 
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -114,21 +113,22 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v10 = __atxlog_handle_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [(ATXPredictionDeviceStateContext *)self initWithProto:v10];
+      [(ATXPredictionDeviceStateContext *)self initWithProto:v11];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  wifiSSID = [v5 wifiSSID];
-  onWifi = [v5 onWifi];
-  inAirplaneMode = [v5 inAirplaneMode];
+  v6 = protoCopy;
+  wifiSSID = [v6 wifiSSID];
+  onWifi = [v6 onWifi];
+  inAirplaneMode = [v6 inAirplaneMode];
 
   self = [(ATXPredictionDeviceStateContext *)self initWithWifiSSID:wifiSSID onWifi:onWifi inAirplaneMode:inAirplaneMode];
   selfCopy = self;
@@ -198,14 +198,12 @@ LABEL_8:
 
 - (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBPredictionDeviceStateContext proto", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBPredictionDeviceStateContext proto", &v5, 0xCu);
 }
 
 @end

@@ -797,9 +797,9 @@ void __55__ICTK2TextLayoutManager_todoButtonsForCharacterRange___block_invoke(ui
   return v12;
 }
 
-uint64_t __53__ICTK2TextLayoutManager_lineCountForCharacterRange___block_invoke(void *a1, void *a2, double a3, double a4)
+void *__53__ICTK2TextLayoutManager_lineCountForCharacterRange___block_invoke(void *a1, void *a2, double a3, double a4)
 {
-  result = [a2 intersectsWithTextRange:a1[4]];
+  result = [a2 intersectsWithTextRange:{a1[4], a3}];
   if (result)
   {
     v7 = *(a1[5] + 8);
@@ -1694,6 +1694,13 @@ LABEL_30:
   [a1 count];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(&dword_2151A1000, a2, OS_LOG_TYPE_DEBUG, "Invalidating text layout for %lu ranges", v3, 0xCu);
+}
+
+void __50__ICTK2TextLayoutManager_attachmentWillBeDeleted___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_1(&dword_2151A1000, a2, a3, "Clearing table view controller cache for identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)viewProviderForTextAttachment:(NSObject *)a3 parentView:location:ignoreCache:.cold.2(objc_class *a1, uint64_t a2, NSObject *a3)

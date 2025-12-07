@@ -51,24 +51,24 @@
   [environment defaultStatusBarHeight];
   v5 = v4;
 
-  if (isPad())
+  if (isPad(v6, v7))
   {
-    v6 = v5;
+    v8 = v5;
   }
 
   else
   {
-    v6 = 0.0;
+    v8 = 0.0;
   }
 
   cardsCanExpand = [(BCCardStackConfiguration *)self cardsCanExpand];
-  v8 = 44.0;
+  v10 = 44.0;
   if (cardsCanExpand)
   {
-    v8 = 13.0;
+    v10 = 13.0;
   }
 
-  return v6 + v5 + v8;
+  return v8 + v5 + v10;
 }
 
 - (double)cardGap
@@ -95,9 +95,10 @@
 
 - (double)cardCornerRadius
 {
-  if (_UISolariumEnabled())
+  v3 = _UISolariumEnabled();
+  if (v3)
   {
-    if (isPhone())
+    if (isPhone(v3))
     {
       return 38.0;
     }
@@ -113,16 +114,16 @@
     environment = [(BCLayoutConfiguration *)self environment];
     if ([environment isCompactWidth])
     {
-      v3 = 12.0;
+      v4 = 12.0;
     }
 
     else
     {
-      v3 = 16.0;
+      v4 = 16.0;
     }
   }
 
-  return v3;
+  return v4;
 }
 
 - (double)auxiliaryNavigationBarHorizontalInset

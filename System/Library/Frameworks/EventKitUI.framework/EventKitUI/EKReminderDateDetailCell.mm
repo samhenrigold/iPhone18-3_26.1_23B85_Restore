@@ -29,26 +29,26 @@
     secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
     [(UILabel *)v10->_line setTextColor:secondaryLabelColor];
 
-    contentView = [(EKReminderDateDetailCell *)v10 contentView];
-    [contentView addSubview:v10->_line];
+    v15 = objc_msgSend_contentView(v10);
+    [v15 addSubview:v10->_line];
 
     v43 = MEMORY[0x1E696ACD8];
     leadingAnchor = [(UILabel *)v10->_line leadingAnchor];
-    contentView2 = [(EKReminderDateDetailCell *)v10 contentView];
-    layoutMarginsGuide = [contentView2 layoutMarginsGuide];
+    v51 = objc_msgSend_contentView(v10);
+    layoutMarginsGuide = [v51 layoutMarginsGuide];
     leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
     v47 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:6.0];
     v55[0] = v47;
     trailingAnchor = [(UILabel *)v10->_line trailingAnchor];
-    contentView3 = [(EKReminderDateDetailCell *)v10 contentView];
-    layoutMarginsGuide2 = [contentView3 layoutMarginsGuide];
+    v46 = objc_msgSend_contentView(v10);
+    layoutMarginsGuide2 = [v46 layoutMarginsGuide];
     trailingAnchor2 = [layoutMarginsGuide2 trailingAnchor];
     v41 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-6.0];
     v55[1] = v41;
     topAnchor = [(UILabel *)v10->_line topAnchor];
     v40 = topAnchor;
-    contentView4 = [(EKReminderDateDetailCell *)v10 contentView];
-    topAnchor2 = [contentView4 topAnchor];
+    v17 = objc_msgSend_contentView(v10);
+    topAnchor2 = [v17 topAnchor];
     v19 = MEMORY[0x1D38B98D0]();
     v20 = 5.0;
     if (v19)
@@ -60,8 +60,8 @@
     v55[2] = v21;
     [(UILabel *)v10->_line bottomAnchor];
     v22 = v53 = eventCopy;
-    contentView5 = [(EKReminderDateDetailCell *)v10 contentView];
-    bottomAnchor = [contentView5 bottomAnchor];
+    v23 = objc_msgSend_contentView(v10);
+    bottomAnchor = [v23 bottomAnchor];
     v25 = MEMORY[0x1D38B98D0]();
     v26 = -15.0;
     if (v25)

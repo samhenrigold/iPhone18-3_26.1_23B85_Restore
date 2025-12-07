@@ -19,7 +19,7 @@
   v4 = (&self->super.super.super.super.super.isa + OBJC_IVAR____TtC11Diagnostics31FileBrowsingTableViewController_completion);
   *v4 = 0;
   v4[1] = 0;
-  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC11Diagnostics31FileBrowsingTableViewController_files) = _swiftEmptyArrayStorage;
+  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC11Diagnostics31FileBrowsingTableViewController_files) = &_swiftEmptyArrayStorage;
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;
@@ -27,8 +27,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10005AA00(appear);
+  sub_10005AA00(appearCopy);
 }
 
 - (void)viewDidLoad

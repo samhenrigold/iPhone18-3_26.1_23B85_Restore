@@ -71,22 +71,23 @@ float ADReprojectionOptimizations::backProjectUndistortedPixels(unint64_t a1, ui
   if (a1 > v12)
   {
     v26 = &a4[4 * v12];
-    f32 = a3[v12 / 4].f32;
+    v27 = &a3[v12 / 4];
     v28 = (a2 + 16 * v12 + 8);
     do
     {
-      v29 = v10 * ((*(v28 - 1) - *&v8) * *f32);
+      v29 = v10 * ((*(v28 - 1) - *&v8) * v27->f32[0]);
       v30 = *v26;
       *v26 = v29;
       v31 = *v28;
       v28 += 2;
-      v32 = *f32;
+      v32 = v27->f32[0];
       v26[2] = *(&v30 + 2);
       *&v30 = v29;
       v33 = v11 * ((v31 - *&v9) * v32);
       *(&v30 + 1) = v33;
       *v26 = v30;
-      *&v31 = *f32++;
+      LODWORD(v31) = v27->i32[0];
+      v27 = (v27 + 4);
       v26[2] = *&v31;
       *v26 = v30;
       v26 += 4;
@@ -130,17 +131,17 @@ unint64_t ADReprojectionOptimizations::projectPoints(unint64_t result, const flo
       v20 = a3;
       v21 = vcvt_hight_f64_f32(v18);
       v30.val[0] = vcvt_hight_f64_f32(v19);
-      vst2q_f64(v20, *v29.val[2].f32);
-      v20 += 4;
-      vst2q_f64(v20, *v30.val[0].f32);
+      vst2q_f64(v20->f64, *v29.val[2].f32);
+      v20 += 2;
+      vst2q_f64(v20->f64, *v30.val[0].f32);
       v29.val[2] = vcvtq_f64_f32(*v29.val[0].f32);
       v29.val[3] = vcvtq_f64_f32(*v29.val[1].f32);
-      f64 = a3[4].f64;
+      v22 = a3 + 4;
       v23 = vcvt_hight_f64_f32(v29.val[0]);
-      vst2q_f64(f64, *v29.val[2].f32);
+      vst2q_f64(v22->f64, *v29.val[2].f32);
       v30.val[0] = vcvt_hight_f64_f32(v29.val[1]);
-      v24 = a3[6].f64;
-      vst2q_f64(v24, *v30.val[0].f32);
+      v24 = a3 + 6;
+      vst2q_f64(v24->f64, *v30.val[0].f32);
       v6 += 8;
       a3 += 8;
       v14 += 32;
@@ -255,7 +256,7 @@ LABEL_36:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         v33 = CVPixelBufferGetPixelFormatType(pixelBuffer);
-        PixelBufferUtils::pixelFormatAsString(v33, buf);
+        PixelBufferUtils::pixelFormatAsString(buf, v33);
         v34 = v40 >= 0 ? buf : *buf;
         *v41 = 136315138;
         v42 = v34;
@@ -326,9 +327,9 @@ uint64_t reprojectUndistortedDepthMapWithInputImmediates<float,1717855600u>(__CV
         memset(&v1562, 0, sizeof(v1562));
         v1144 = MEMORY[0x277CBF3A0];
         v1286 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+        PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v1144, &buf);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v1144);
         v1146 = BytesPerRow >> 1;
         data = buf.data;
         if (v1146 * v1141)
@@ -773,9 +774,9 @@ uint64_t reprojectUndistortedDepthMapWithInputImmediates<float,1717855600u>(__CV
             CVPixelBufferLockBaseAddress(pixelBuffer, 0);
             memset(&v1562, 0, sizeof(v1562));
             v138 = MEMORY[0x277CBF3A0];
-            PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+            PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
             memset(&buf, 0, sizeof(buf));
-            PixelBufferUtils::asVImageBuffer(pixelBuffer, *v138, &buf);
+            PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v138);
             v140 = buf.data;
             v139 = buf.height;
             bzero(buf.data, buf.height * buf.rowBytes);
@@ -1015,9 +1016,9 @@ LABEL_220:
         memset(&v1562, 0, sizeof(v1562));
         v850 = MEMORY[0x277CBF3A0];
         v851 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+        PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v850, &buf);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v850);
         v856 = v849 >> 2;
         v857 = buf.data;
         if (v856 * v847)
@@ -1335,9 +1336,9 @@ LABEL_220:
           CVPixelBufferLockBaseAddress(pixelBuffer, 0);
           memset(&v1562, 0, sizeof(v1562));
           v615 = MEMORY[0x277CBF3A0];
-          PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+          PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
           memset(&buf, 0, sizeof(buf));
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, *v615, &buf);
+          PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v615);
           v617 = buf.data;
           v616 = buf.height;
           bzero(buf.data, buf.height * buf.rowBytes);
@@ -1590,9 +1591,9 @@ LABEL_391:
     memset(&v1562, 0, sizeof(v1562));
     v727 = MEMORY[0x277CBF3A0];
     v728 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+    PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v727, &buf);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v727);
     v730 = v726 >> 1;
     v731 = buf.data;
     if (v730 * v724)
@@ -1900,10 +1901,10 @@ LABEL_391:
       CVPixelBufferLockBaseAddress(a2, 0);
       memset(&v1562, 0, sizeof(v1562));
       v983 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+      PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
       memset(&buf, 0, sizeof(buf));
-      PixelBufferUtils::asVImageBuffer(pixelBuffer, *v983, &buf);
-      PixelBufferUtils::asVImageBuffer(v1341, *v983, &v1561);
+      PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v983);
+      PixelBufferUtils::asVImageBuffer(&v1561, v1341, *v983);
       v985 = v982 >> 1;
       v1320 = v1561.data;
       v1316 = v1561.rowBytes;
@@ -2384,10 +2385,10 @@ LABEL_391:
         memset(&v1562, 0, sizeof(v1562));
         v26 = MEMORY[0x277CBF3A0];
         v27 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+        PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v26, &buf);
-        PixelBufferUtils::asVImageBuffer(v1341, *v26, &v1561);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v26);
+        PixelBufferUtils::asVImageBuffer(&v1561, v1341, *v26);
         v28 = v1561.data;
         v29 = v1561.rowBytes;
         v31 = buf.data;
@@ -2645,10 +2646,10 @@ LABEL_124:
     memset(&v1562, 0, sizeof(v1562));
     v486 = MEMORY[0x277CBF3A0];
     v487 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+    PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v486, &buf);
-    PixelBufferUtils::asVImageBuffer(v1341, *v486, &v1561);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v486);
+    PixelBufferUtils::asVImageBuffer(&v1561, v1341, *v486);
     v489 = v485 >> 2;
     v490 = v1561.data;
     v491 = v1561.rowBytes;
@@ -2975,10 +2976,10 @@ LABEL_88:
     memset(&v1562, 0, sizeof(v1562));
     v353 = MEMORY[0x277CBF3A0];
     v354 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+    PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v353, &buf);
-    PixelBufferUtils::asVImageBuffer(v1341, *v353, &v1561);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v353);
+    PixelBufferUtils::asVImageBuffer(&v1561, v1341, *v353);
     v357 = v352 >> 1;
     v358 = v1561.data;
     v359 = v1561.rowBytes;
@@ -3328,10 +3329,10 @@ LABEL_88:
     memset(&v1562, 0, sizeof(v1562));
     v248 = MEMORY[0x277CBF3A0];
     v27 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+    PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v248, &buf);
-    PixelBufferUtils::asVImageBuffer(v1341, *v248, &v1561);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v248);
+    PixelBufferUtils::asVImageBuffer(&v1561, v1341, *v248);
     v249 = v1561.data;
     v250 = v1561.rowBytes;
     v252 = buf.data;
@@ -3587,7 +3588,7 @@ LABEL_322:
   {
 LABEL_393:
     v1284 = CVPixelBufferGetPixelFormatType(pixelBuffer);
-    PixelBufferUtils::pixelFormatAsString(v1284, &v1562);
+    PixelBufferUtils::pixelFormatAsString(&v1562.data, v1284);
     if ((v1562.width & 0x8000000000000000) == 0)
     {
       v1285 = &v1562;
@@ -3632,9 +3633,9 @@ uint64_t reprojectUndistortedDepthMapWithInputImmediates<half,1751410032u>(__CVB
         memset(&v1573, 0, sizeof(v1573));
         v1155 = MEMORY[0x277CBF3A0];
         v1299 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+        PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v1155, &buf);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v1155);
         v1157 = BytesPerRow >> 1;
         data = buf.data;
         if (v1157 * v1152)
@@ -4082,9 +4083,9 @@ uint64_t reprojectUndistortedDepthMapWithInputImmediates<half,1751410032u>(__CVB
             CVPixelBufferLockBaseAddress(pixelBuffer, 0);
             memset(&v1573, 0, sizeof(v1573));
             v140 = MEMORY[0x277CBF3A0];
-            PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+            PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
             memset(&buf, 0, sizeof(buf));
-            PixelBufferUtils::asVImageBuffer(pixelBuffer, *v140, &buf);
+            PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v140);
             v142 = buf.data;
             v141 = buf.height;
             bzero(buf.data, buf.height * buf.rowBytes);
@@ -4331,9 +4332,9 @@ LABEL_220:
         memset(&v1573, 0, sizeof(v1573));
         v858 = MEMORY[0x277CBF3A0];
         v859 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+        PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v858, &buf);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v858);
         v864 = v857 >> 2;
         v865 = buf.data;
         if (v864 * v855)
@@ -4654,9 +4655,9 @@ LABEL_220:
           CVPixelBufferLockBaseAddress(pixelBuffer, 0);
           memset(&v1573, 0, sizeof(v1573));
           v620 = MEMORY[0x277CBF3A0];
-          PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+          PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
           memset(&buf, 0, sizeof(buf));
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, *v620, &buf);
+          PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v620);
           v622 = buf.data;
           v621 = buf.height;
           bzero(buf.data, buf.height * buf.rowBytes);
@@ -4911,9 +4912,9 @@ LABEL_391:
     memset(&v1573, 0, sizeof(v1573));
     v733 = MEMORY[0x277CBF3A0];
     v734 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+    PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v733, &buf);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v733);
     v736 = v732 >> 1;
     v737 = buf.data;
     if (v736 * v730)
@@ -5224,10 +5225,10 @@ LABEL_391:
       CVPixelBufferLockBaseAddress(a2, 0);
       memset(&v1573, 0, sizeof(v1573));
       v993 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+      PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
       memset(&buf, 0, sizeof(buf));
-      PixelBufferUtils::asVImageBuffer(pixelBuffer, *v993, &buf);
-      PixelBufferUtils::asVImageBuffer(v1353, *v993, &v1572);
+      PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v993);
+      PixelBufferUtils::asVImageBuffer(&v1572, v1353, *v993);
       v995 = v992 >> 1;
       v1332 = v1572.data;
       v1329 = v1572.rowBytes;
@@ -5710,10 +5711,10 @@ LABEL_391:
         memset(&v1573, 0, sizeof(v1573));
         v26 = MEMORY[0x277CBF3A0];
         v27 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+        PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v26, &buf);
-        PixelBufferUtils::asVImageBuffer(v1353, *v26, &v1572);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v26);
+        PixelBufferUtils::asVImageBuffer(&v1572, v1353, *v26);
         v28 = v1572.data;
         v29 = v1572.rowBytes;
         v31 = buf.data;
@@ -5974,10 +5975,10 @@ LABEL_124:
     memset(&v1573, 0, sizeof(v1573));
     v489 = MEMORY[0x277CBF3A0];
     v490 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+    PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v489, &buf);
-    PixelBufferUtils::asVImageBuffer(v1353, *v489, &v1572);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v489);
+    PixelBufferUtils::asVImageBuffer(&v1572, v1353, *v489);
     v492 = v488 >> 2;
     v493 = v1572.data;
     v494 = v1572.rowBytes;
@@ -6307,10 +6308,10 @@ LABEL_88:
     memset(&v1573, 0, sizeof(v1573));
     v356 = MEMORY[0x277CBF3A0];
     v357 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+    PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v356, &buf);
-    PixelBufferUtils::asVImageBuffer(v1353, *v356, &v1572);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v356);
+    PixelBufferUtils::asVImageBuffer(&v1572, v1353, *v356);
     v360 = v355 >> 1;
     v361 = v1572.data;
     v362 = v1572.rowBytes;
@@ -6659,10 +6660,10 @@ LABEL_88:
     memset(&v1573, 0, sizeof(v1573));
     v254 = MEMORY[0x277CBF3A0];
     v27 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1573);
+    PixelBufferUtils::asVImageBuffer(&v1573, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v254, &buf);
-    PixelBufferUtils::asVImageBuffer(v1353, *v254, &v1572);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v254);
+    PixelBufferUtils::asVImageBuffer(&v1572, v1353, *v254);
     v255 = v1572.data;
     v256 = v1572.rowBytes;
     v258 = buf.data;
@@ -6912,7 +6913,7 @@ LABEL_322:
   {
 LABEL_393:
     v1297 = CVPixelBufferGetPixelFormatType(pixelBuffer);
-    PixelBufferUtils::pixelFormatAsString(v1297, &v1573);
+    PixelBufferUtils::pixelFormatAsString(&v1573.data, v1297);
     if ((v1573.width & 0x8000000000000000) == 0)
     {
       v1298 = &v1573;
@@ -6957,9 +6958,9 @@ uint64_t reprojectUndistortedDepthMapWithInputImmediates<float,1717856627u>(__CV
         memset(&v1562, 0, sizeof(v1562));
         v1144 = MEMORY[0x277CBF3A0];
         v1286 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+        PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v1144, &buf);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v1144);
         v1146 = BytesPerRow >> 1;
         data = buf.data;
         if (v1146 * v1141)
@@ -7404,9 +7405,9 @@ uint64_t reprojectUndistortedDepthMapWithInputImmediates<float,1717856627u>(__CV
             CVPixelBufferLockBaseAddress(pixelBuffer, 0);
             memset(&v1562, 0, sizeof(v1562));
             v138 = MEMORY[0x277CBF3A0];
-            PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+            PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
             memset(&buf, 0, sizeof(buf));
-            PixelBufferUtils::asVImageBuffer(pixelBuffer, *v138, &buf);
+            PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v138);
             v140 = buf.data;
             v139 = buf.height;
             bzero(buf.data, buf.height * buf.rowBytes);
@@ -7646,9 +7647,9 @@ LABEL_220:
         memset(&v1562, 0, sizeof(v1562));
         v850 = MEMORY[0x277CBF3A0];
         v851 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+        PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v850, &buf);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v850);
         v856 = v849 >> 2;
         v857 = buf.data;
         if (v856 * v847)
@@ -7966,9 +7967,9 @@ LABEL_220:
           CVPixelBufferLockBaseAddress(pixelBuffer, 0);
           memset(&v1562, 0, sizeof(v1562));
           v615 = MEMORY[0x277CBF3A0];
-          PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+          PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
           memset(&buf, 0, sizeof(buf));
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, *v615, &buf);
+          PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v615);
           v617 = buf.data;
           v616 = buf.height;
           bzero(buf.data, buf.height * buf.rowBytes);
@@ -8221,9 +8222,9 @@ LABEL_391:
     memset(&v1562, 0, sizeof(v1562));
     v727 = MEMORY[0x277CBF3A0];
     v728 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+    PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v727, &buf);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v727);
     v730 = v726 >> 1;
     v731 = buf.data;
     if (v730 * v724)
@@ -8531,10 +8532,10 @@ LABEL_391:
       CVPixelBufferLockBaseAddress(a2, 0);
       memset(&v1562, 0, sizeof(v1562));
       v983 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+      PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
       memset(&buf, 0, sizeof(buf));
-      PixelBufferUtils::asVImageBuffer(pixelBuffer, *v983, &buf);
-      PixelBufferUtils::asVImageBuffer(v1341, *v983, &v1561);
+      PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v983);
+      PixelBufferUtils::asVImageBuffer(&v1561, v1341, *v983);
       v985 = v982 >> 1;
       v1320 = v1561.data;
       v1316 = v1561.rowBytes;
@@ -9015,10 +9016,10 @@ LABEL_391:
         memset(&v1562, 0, sizeof(v1562));
         v26 = MEMORY[0x277CBF3A0];
         v27 = a1;
-        PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+        PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, *v26, &buf);
-        PixelBufferUtils::asVImageBuffer(v1341, *v26, &v1561);
+        PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v26);
+        PixelBufferUtils::asVImageBuffer(&v1561, v1341, *v26);
         v28 = v1561.data;
         v29 = v1561.rowBytes;
         v31 = buf.data;
@@ -9276,10 +9277,10 @@ LABEL_124:
     memset(&v1562, 0, sizeof(v1562));
     v486 = MEMORY[0x277CBF3A0];
     v487 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+    PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v486, &buf);
-    PixelBufferUtils::asVImageBuffer(v1341, *v486, &v1561);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v486);
+    PixelBufferUtils::asVImageBuffer(&v1561, v1341, *v486);
     v489 = v485 >> 2;
     v490 = v1561.data;
     v491 = v1561.rowBytes;
@@ -9606,10 +9607,10 @@ LABEL_88:
     memset(&v1562, 0, sizeof(v1562));
     v353 = MEMORY[0x277CBF3A0];
     v354 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+    PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v353, &buf);
-    PixelBufferUtils::asVImageBuffer(v1341, *v353, &v1561);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v353);
+    PixelBufferUtils::asVImageBuffer(&v1561, v1341, *v353);
     v357 = v352 >> 1;
     v358 = v1561.data;
     v359 = v1561.rowBytes;
@@ -9959,10 +9960,10 @@ LABEL_88:
     memset(&v1562, 0, sizeof(v1562));
     v248 = MEMORY[0x277CBF3A0];
     v27 = a1;
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v1562);
+    PixelBufferUtils::asVImageBuffer(&v1562, a1, *MEMORY[0x277CBF3A0]);
     memset(&buf, 0, sizeof(buf));
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *v248, &buf);
-    PixelBufferUtils::asVImageBuffer(v1341, *v248, &v1561);
+    PixelBufferUtils::asVImageBuffer(&buf, pixelBuffer, *v248);
+    PixelBufferUtils::asVImageBuffer(&v1561, v1341, *v248);
     v249 = v1561.data;
     v250 = v1561.rowBytes;
     v252 = buf.data;
@@ -10218,7 +10219,7 @@ LABEL_322:
   {
 LABEL_393:
     v1284 = CVPixelBufferGetPixelFormatType(pixelBuffer);
-    PixelBufferUtils::pixelFormatAsString(v1284, &v1562);
+    PixelBufferUtils::pixelFormatAsString(&v1562.data, v1284);
     if ((v1562.width & 0x8000000000000000) == 0)
     {
       v1285 = &v1562;

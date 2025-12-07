@@ -202,15 +202,15 @@
 {
   v3 = [objc_alloc(MEMORY[0x1E69DD648]) initWithSourceView:self->_contentView];
   [v3 setHidesSourceView:1];
-  [(SBIconView *)self->_contentView bounds];
+  objc_msgSend_bounds(self->_contentView);
   [v3 setBounds:?];
   [v3 setAllowsBackdropGroups:1];
   v4 = [objc_alloc(MEMORY[0x1E69DD648]) initWithSourceView:self->_shadowView];
   [v4 setHidesSourceView:1];
-  [(UIView *)self->_shadowView bounds];
+  objc_msgSend_bounds(self->_shadowView);
   [v4 setBounds:?];
   v5 = [[SBHPortaledShadowedWidgetView alloc] initWithContentView:v3 shadowView:v4 perspectiveEnabled:0];
-  [(SBHShadowedWidgetView *)self->_shadowedWidgetView bounds];
+  objc_msgSend_bounds(self->_shadowedWidgetView);
   [(SBHPortaledShadowedWidgetView *)v5 setBounds:?];
 
   return v5;
@@ -494,7 +494,7 @@ LABEL_6:
 
   if (v7)
   {
-    [v7 transform];
+    objc_msgSend_transform(v7);
   }
 
   else

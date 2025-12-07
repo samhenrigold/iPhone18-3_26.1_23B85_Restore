@@ -298,7 +298,9 @@ LABEL_17:
   v7 = SBLogStatusBarish();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_30(&dword_21ED4E000, v8, v9, "[Recording Indicator][MOT]: canceling operation for indicators: %@", v10, v11, v12, v13, 2u);
+    LODWORD(v28) = 138412290;
+    HIDWORD(v28) = v6;
+    OUTLINED_FUNCTION_0_30(&dword_21ED4E000, v8, v9, "[Recording Indicator][MOT]: canceling operation for indicators: %@", v10, v11, v12, v13, v28, HIDWORD(v6));
   }
 
   if (self)
@@ -322,7 +324,9 @@ LABEL_17:
     v20 = SBLogStatusBarish();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      OUTLINED_FUNCTION_0_30(&dword_21ED4E000, v21, v22, "[Recording Indicator][MOT]: canceling MOT timer for indicators: %@", v23, v24, v25, v26, 2u);
+      LODWORD(v27) = 138412290;
+      *(&v27 + 4) = v6;
+      OUTLINED_FUNCTION_0_30(&dword_21ED4E000, v21, v22, "[Recording Indicator][MOT]: canceling MOT timer for indicators: %@", v23, v24, v25, v26, v27);
     }
 
     [(SBSecureIndicatorMinimumOnTimeCoordinator *)self _cancelTimerForIndicators:indicators];

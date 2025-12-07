@@ -353,52 +353,54 @@ void __34__WKInterfaceDevice_currentDevice__block_invoke()
 - (BOOL)addCachedImage:(id)image name:(id)name
 {
   nameCopy = name;
+  v6 = nameCopy;
   if (image)
   {
-    v6 = [SPRemoteInterface SerializablePropertyValue:image];
-    v7 = +[SPCompanionAssetCache sharedInstance];
-    v8 = [nameCopy copy];
-    v9 = [v7 addImageToPermanentCache:v6 withName:v8];
+    v7 = [SPRemoteInterface SerializablePropertyValue:image];
+    v8 = +[SPCompanionAssetCache sharedInstance];
+    v9 = [v6 copy];
+    v10 = [v8 addImageToPermanentCache:v7 withName:v9];
   }
 
   else
   {
-    v10 = wk_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      [WKInterfaceDevice addCachedImage:name:];
-    }
-
-    v9 = 0;
-  }
-
-  return v9;
-}
-
-- (BOOL)addCachedImageWithData:(id)data name:(id)name
-{
-  dataCopy = data;
-  nameCopy = name;
-  if (dataCopy)
-  {
-    v7 = +[SPCompanionAssetCache sharedInstance];
-    v8 = [dataCopy copy];
-    v9 = [nameCopy copy];
-    v10 = [v7 addImageToPermanentCache:v8 withName:v9];
-  }
-
-  else
-  {
-    v11 = wk_default_log();
+    v11 = wk_default_log(nameCopy);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [WKInterfaceDevice addCachedImageWithData:name:];
+      [WKInterfaceDevice addCachedImage:name:];
     }
 
     v10 = 0;
   }
 
   return v10;
+}
+
+- (BOOL)addCachedImageWithData:(id)data name:(id)name
+{
+  dataCopy = data;
+  nameCopy = name;
+  v7 = nameCopy;
+  if (dataCopy)
+  {
+    v8 = +[SPCompanionAssetCache sharedInstance];
+    v9 = [dataCopy copy];
+    v10 = [v7 copy];
+    v11 = [v8 addImageToPermanentCache:v9 withName:v10];
+  }
+
+  else
+  {
+    v12 = wk_default_log(nameCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      [WKInterfaceDevice addCachedImageWithData:name:];
+    }
+
+    v11 = 0;
+  }
+
+  return v11;
 }
 
 - (void)removeCachedImageWithName:(id)name
@@ -511,20 +513,18 @@ void __34__WKInterfaceDevice_currentDevice__block_invoke_cold_5()
 
 - (void)addCachedImage:name:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 253;
-  _os_log_error_impl(&dword_23B338000, v0, OS_LOG_TYPE_ERROR, "%{public}s:%d: Error: WKInterfaceDevice, addCachedImageWithData - image is nil", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 253;
+  _os_log_error_impl(&dword_23B338000, v0, OS_LOG_TYPE_ERROR, "%{public}s:%d: Error: WKInterfaceDevice, addCachedImageWithData - image is nil", v1, 0x12u);
 }
 
 - (void)addCachedImageWithData:name:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 269;
-  _os_log_error_impl(&dword_23B338000, v0, OS_LOG_TYPE_ERROR, "%{public}s:%d: Error: WKInterfaceDevice addCachedImageWithData:name: - imageData is nil", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 269;
+  _os_log_error_impl(&dword_23B338000, v0, OS_LOG_TYPE_ERROR, "%{public}s:%d: Error: WKInterfaceDevice addCachedImageWithData:name: - imageData is nil", v1, 0x12u);
 }
 
 @end

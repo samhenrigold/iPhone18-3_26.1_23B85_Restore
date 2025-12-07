@@ -55,23 +55,22 @@ uint64_t __32__FMFScheduler_currentSchedules__block_invoke(uint64_t a1, void *a2
 
 - (void)scheduleTimerFired
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = LogCategory_Daemon();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [MEMORY[0x277CBEAA8] now];
-    v7 = 136315394;
-    v8 = "[FMFScheduler scheduleTimerFired]";
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "%s: Schedule timer fired at date %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[FMFScheduler scheduleTimerFired]";
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "%s: Schedule timer fired at date %@", &v6, 0x16u);
   }
 
   delegate = [(FMFScheduler *)self delegate];
   [delegate schedulerCurrentSchedulesDidChange:self];
 
   [(FMFScheduler *)self _updateScheduleTimer];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateScheduleTimer
@@ -85,17 +84,17 @@ uint64_t __32__FMFScheduler_currentSchedules__block_invoke(uint64_t a1, void *a2
   if (v6)
   {
     xpc_set_event();
-    v7 = xpc_dictionary_create(0, 0, 0);
+    v8 = xpc_dictionary_create(0, 0, 0);
     [v6 timeIntervalSinceNow];
-    v9 = v8;
-    v10 = time(0);
-    xpc_dictionary_set_date(v7, "Date", ((ceil(v9) + v10) * 1000000000.0));
-    xpc_dictionary_set_BOOL(v7, "UserVisible", 1);
+    v10 = v9;
+    v11 = time(0);
+    xpc_dictionary_set_date(v8, "Date", ((ceil(v10) + v11) * 1000000000.0));
+    xpc_dictionary_set_BOOL(v8, "UserVisible", 1);
     xpc_set_event();
   }
 
-  v11 = LogCategory_Daemon();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = LogCategory_Daemon(v7);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     timer = [(FMFScheduler *)self timer];
     schedules2 = [(FMFScheduler *)self schedules];
@@ -107,10 +106,8 @@ uint64_t __32__FMFScheduler_currentSchedules__block_invoke(uint64_t a1, void *a2
     v20 = v6;
     v21 = 2112;
     v22 = schedules2;
-    _os_log_impl(&dword_24A33F000, v11, OS_LOG_TYPE_DEFAULT, "%s: %@ fireDate: %@ schedules: %@", &v15, 0x2Au);
+    _os_log_impl(&dword_24A33F000, v12, OS_LOG_TYPE_DEFAULT, "%s: %@ fireDate: %@ schedules: %@", &v15, 0x2Au);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_nextStartOrEndDateFrom:(id)from forSchedules:(id)schedules

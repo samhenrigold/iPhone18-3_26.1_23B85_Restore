@@ -52,8 +52,8 @@
   v16.size.height = height;
   if (!CGRectEqualToRect(v16, v17))
   {
-    presentation = [(_UIDatePickerContainerView *)self presentation];
-    isBeingDismissedOrPresented = [presentation isBeingDismissedOrPresented];
+    v12 = objc_msgSend_presentation(self);
+    isBeingDismissedOrPresented = [v12 isBeingDismissedOrPresented];
 
     if ((isBeingDismissedOrPresented & 1) == 0)
     {
@@ -88,8 +88,8 @@
   v16.size.height = height;
   if (!CGRectEqualToRect(v16, v17))
   {
-    presentation = [(_UIDatePickerContainerView *)self presentation];
-    isBeingDismissedOrPresented = [presentation isBeingDismissedOrPresented];
+    v12 = objc_msgSend_presentation(self);
+    isBeingDismissedOrPresented = [v12 isBeingDismissedOrPresented];
 
     if ((isBeingDismissedOrPresented & 1) == 0)
     {
@@ -148,21 +148,21 @@
     }
   }
 
-  presentation = [(_UIDatePickerContainerView *)self presentation];
-  sourceView = [presentation sourceView];
+  v10 = objc_msgSend_presentation(self);
+  sourceView = [v10 sourceView];
 
   [sourceView convertPoint:self fromView:{x, y}];
   v13 = v12;
   v15 = v14;
-  presentation2 = [(_UIDatePickerContainerView *)self presentation];
-  if ([presentation2 overlayAnchor] != 2)
+  v16 = objc_msgSend_presentation(self);
+  if ([v16 overlayAnchor] != 2)
   {
 
     goto LABEL_7;
   }
 
-  presentation3 = [(_UIDatePickerContainerView *)self presentation];
-  [presentation3 sourceRect];
+  v17 = objc_msgSend_presentation(self);
+  [v17 sourceRect];
   v26.x = v13;
   v26.y = v15;
   v18 = CGRectContainsPoint(v27, v26);
@@ -181,8 +181,8 @@ LABEL_8:
   {
     if (v20)
     {
-      presentation4 = [(_UIDatePickerContainerView *)self presentation];
-      -[_UIDatePickerContainerView setLastHitTestWasPassedThrough:](self, "setLastHitTestWasPassedThrough:", [presentation4 ignoresPassthroughOnSourceView] ^ 1);
+      v21 = objc_msgSend_presentation(self);
+      -[_UIDatePickerContainerView setLastHitTestWasPassedThrough:](self, "setLastHitTestWasPassedThrough:", [v21 ignoresPassthroughOnSourceView] ^ 1);
     }
 
     else

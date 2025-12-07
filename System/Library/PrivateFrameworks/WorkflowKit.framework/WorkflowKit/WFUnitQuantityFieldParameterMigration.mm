@@ -24,84 +24,80 @@
 - (void)migrateWorkflow
 {
   selfCopy = self;
-  v36 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
   actions = [(WFWorkflowMigration *)self actions];
-  v4 = [actions countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v4 = [actions countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = @"is.workflow.actions.searchlocalbusinesses";
-    v7 = *v28;
-    v8 = 0x1E696A000uLL;
-    v25 = selfCopy;
+    v7 = *v25;
+    v22 = selfCopy;
     do
     {
-      v9 = 0;
+      v8 = 0;
       do
       {
-        if (*v28 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(actions);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * v9);
+        v9 = *(*(&v24 + 1) + 8 * v8);
         actionIdentifierKey = [(WFWorkflowMigration *)selfCopy actionIdentifierKey];
-        v12 = [v10 objectForKeyedSubscript:actionIdentifierKey];
+        v11 = [v9 objectForKeyedSubscript:actionIdentifierKey];
 
-        if ([v12 isEqualToString:v6])
+        if (objc_msgSend_isEqualToString_(v11))
         {
           actionParametersKey = [(WFWorkflowMigration *)selfCopy actionParametersKey];
-          v14 = [v10 objectForKeyedSubscript:actionParametersKey];
+          v13 = [v9 objectForKeyedSubscript:actionParametersKey];
 
-          v15 = [v14 objectForKey:@"WFSearchRadius"];
-          v16 = *(v8 + 3480);
+          v14 = [v13 objectForKey:@"WFSearchRadius"];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
-          if (v15 && (isKindOfClass & 1) != 0)
+          if (v14 && (isKindOfClass & 1) != 0)
           {
-            v26 = [v14 objectForKeyedSubscript:@"WFSearchRadius"];
-            v31[0] = @"Magnitude";
-            v31[1] = @"Unit";
-            v32[0] = v26;
-            v32[1] = @"km";
-            v33[0] = @"Value";
-            v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
-            v33[1] = @"WFSerializationType";
-            v34[0] = v18;
-            v34[1] = @"WFQuantityFieldValue";
-            [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
-            v19 = v7;
-            v20 = v5;
-            v21 = v6;
-            v23 = v22 = actions;
+            v23 = [v13 objectForKeyedSubscript:@"WFSearchRadius"];
+            v28[0] = @"Magnitude";
+            v28[1] = @"Unit";
+            v29[0] = v23;
+            v29[1] = @"km";
+            v30[0] = @"Value";
+            v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
+            v30[1] = @"WFSerializationType";
+            v31[0] = v16;
+            v31[1] = @"WFQuantityFieldValue";
+            [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
+            v17 = v7;
+            v18 = v5;
+            v19 = v6;
+            v21 = v20 = actions;
 
-            selfCopy = v25;
-            [v14 setObject:v23 forKey:@"WFSearchRadius"];
+            selfCopy = v22;
+            [v13 setObject:v21 forKey:@"WFSearchRadius"];
 
-            actions = v22;
-            v6 = v21;
-            v5 = v20;
-            v7 = v19;
-            v8 = 0x1E696A000;
+            actions = v20;
+            v6 = v19;
+            v5 = v18;
+            v7 = v17;
           }
         }
 
-        ++v9;
+        ++v8;
       }
 
-      while (v5 != v9);
-      v5 = [actions countByEnumeratingWithState:&v27 objects:v35 count:16];
+      while (v5 != v8);
+      v5 = [actions countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v5);
   }
 
   [(WFWorkflowMigration *)selfCopy finish];
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

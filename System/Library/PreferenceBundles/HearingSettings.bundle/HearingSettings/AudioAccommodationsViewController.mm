@@ -26,6 +26,8 @@
 - (void)updateHeadphoneStatus;
 - (void)updateLevelAndShape;
 - (void)updateShapeFooter;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willBecomeActive;
 - (void)willResignActive;
 @end
@@ -124,6 +126,25 @@
   [(AudioAccommodationsViewController *)self headphoneStateChangedNotification:0];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = AudioAccommodationsViewController;
+  [(AudioAccommodationsViewController *)&v5 viewWillAppear:appear];
+  [(AudioAccommodationsViewController *)self reloadSpecifiers];
+  [(AudioAccommodationsViewController *)self updateLevelAndShape];
+  v4 = +[PASettings sharedInstance];
+  [v4 setCurrentEnrollmentProgress:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = AudioAccommodationsViewController;
+  [(AudioAccommodationsViewController *)&v4 viewDidDisappear:disappear];
+  [(AudioAccommodationsViewController *)self stopPlayingSample];
+}
+
 - (void)willResignActive
 {
   v3.receiver = self;
@@ -205,7 +226,7 @@
     [v7 addObject:v18];
     if (!personalMediaEnabled)
     {
-      goto LABEL_48;
+      goto LABEL_46;
     }
 
     v19 = +[PASettings sharedInstance];
@@ -220,13 +241,13 @@
 
       if (!personalMediaConfiguration)
       {
-LABEL_48:
+LABEL_46:
         v75 = [v7 copy];
         v76 = *&self->PSListController_opaque[v3];
         *&self->PSListController_opaque[v3] = v75;
 
         v4 = *&self->PSListController_opaque[v3];
-        goto LABEL_49;
+        goto LABEL_47;
       }
     }
 
@@ -365,11 +386,7 @@ LABEL_48:
     }
 
     v52 = +[PAStimulus musicStimulus];
-    if ([v52 isPlaying])
-    {
-      self->_playingMedia;
-    }
-
+    [v52 isPlaying];
     v53 = paLocString();
     v54 = [PSSpecifier preferenceSpecifierNamed:v53 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
@@ -402,7 +419,7 @@ LABEL_48:
       v62 = &__AXStringForVariables_ptr;
       if (!pairedDeviceSupportsPSE)
       {
-        goto LABEL_40;
+        goto LABEL_38;
       }
 
       v60 = paLocString();
@@ -414,7 +431,7 @@ LABEL_48:
       v62 = &__AXStringForVariables_ptr;
     }
 
-LABEL_40:
+LABEL_38:
     [v27 addObject:v59];
     v63 = v62[178];
     v64 = paLocString();
@@ -434,9 +451,9 @@ LABEL_40:
 
     if (!v64)
     {
-LABEL_47:
+LABEL_45:
 
-      goto LABEL_48;
+      goto LABEL_46;
     }
 
     availablePSEDevices = [(AudioAccommodationsViewController *)self availablePSEDevices];
@@ -454,9 +471,9 @@ LABEL_47:
     {
       if ([availablePSEDevices count] < 2)
       {
-LABEL_46:
+LABEL_44:
 
-        goto LABEL_47;
+        goto LABEL_45;
       }
 
       v74 = paLocString();
@@ -467,10 +484,10 @@ LABEL_46:
 
     v18 = v71;
     [v27 addObject:v71];
-    goto LABEL_46;
+    goto LABEL_44;
   }
 
-LABEL_49:
+LABEL_47:
 
   return v4;
 }
@@ -513,10 +530,9 @@ LABEL_3:
 
 - (void)_setShapeFooterForSpecifier:(id)specifier
 {
-  currentShape = self->_currentShape;
   specifierCopy = specifier;
-  v5 = paLocString();
-  [specifierCopy setProperty:v5 forKey:PSFooterTextGroupKey];
+  v4 = paLocString();
+  [specifierCopy setProperty:v4 forKey:PSFooterTextGroupKey];
 }
 
 - (void)updateShapeFooter

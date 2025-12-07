@@ -288,7 +288,6 @@ LABEL_13:
       v5 = 0;
       do
       {
-        v6 = self->_values.list[v5];
         PBDataWriterWriteUint32Field();
         ++v5;
       }
@@ -302,14 +301,12 @@ LABEL_13:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    minValue = self->_minValue;
     PBDataWriterWriteFloatField();
     has = self->_has;
   }
 
   if (has)
   {
-    bucketSize = self->_bucketSize;
     PBDataWriterWriteFloatField();
   }
 }

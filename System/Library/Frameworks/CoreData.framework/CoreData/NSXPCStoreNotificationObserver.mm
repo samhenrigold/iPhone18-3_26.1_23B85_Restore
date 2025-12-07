@@ -8,18 +8,18 @@
 
 - (id)initForObservationWithName:(id)name store:(id)store
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = NSXPCStoreNotificationObserver;
-  v6 = [(NSXPCStoreNotificationObserver *)&v19 init];
+  v21 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = NSXPCStoreNotificationObserver;
+  v6 = [(NSXPCStoreNotificationObserver *)&v18 init];
   v7 = v6;
   if (v6)
   {
     v6->_token = -1;
     v6->_storeID = [objc_msgSend(store "identifier")];
     objc_storeWeak(&v7->_psc, [store persistentStoreCoordinator]);
-    v8 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.CoreData.%@.%p", name, v7), "UTF8String"];
-    v7->_queue = dispatch_queue_create(v8, MEMORY[0x1E69E96A8]);
+    name = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] name];
+    v7->_queue = dispatch_queue_create(name, MEMORY[0x1E69E96A8]);
     objc_initWeak(&location, v7);
     fileSystemRepresentation = [name fileSystemRepresentation];
     queue = v7->_queue;
@@ -28,7 +28,7 @@
     handler[2] = __67__NSXPCStoreNotificationObserver_initForObservationWithName_store___block_invoke;
     handler[3] = &unk_1E6EC2008;
     handler[4] = v7;
-    objc_copyWeak(&v17, &location);
+    objc_copyWeak(&v16, &location);
     v11 = notify_register_dispatch(fileSystemRepresentation, &v7->_token, queue, handler);
     if (v11)
     {
@@ -42,7 +42,7 @@
           if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109120;
-            v21 = v11;
+            v20 = v11;
 LABEL_12:
             _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error:  Failed to setup notification listener: %d\n", buf, 8u);
           }
@@ -54,7 +54,7 @@ LABEL_12:
           if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109120;
-            v21 = v11;
+            v20 = v11;
             goto LABEL_12;
           }
         }
@@ -63,24 +63,21 @@ LABEL_12:
       _NSCoreDataLog_console(1, " Failed to setup notification listener: %d", v11);
       objc_autoreleasePoolPop(v12);
 
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v16);
       objc_destroyWeak(&location);
-      v7 = 0;
-      goto LABEL_10;
+      return 0;
     }
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
 
-LABEL_10:
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 id __67__NSXPCStoreNotificationObserver_initForObservationWithName_store___block_invoke(uint64_t a1, int a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v5 = [MEMORY[0x1E696AD88] defaultCenter];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
@@ -102,7 +99,7 @@ id __67__NSXPCStoreNotificationObserver_initForObservationWithName_store___block
           if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v23 = v8;
+            v22 = v8;
             _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Remote Change Notification - posting NSRemotePersistentStoreDidChangeNotification for store  %@ \n", buf, 0xCu);
           }
         }
@@ -113,7 +110,7 @@ id __67__NSXPCStoreNotificationObserver_initForObservationWithName_store___block
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v23 = v8;
+            v22 = v8;
             _os_log_impl(&dword_18565F000, v13, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Remote Change Notification - posting NSRemotePersistentStoreDidChangeNotification for store  %@ \n", buf, 0xCu);
           }
         }
@@ -144,9 +141,9 @@ id __67__NSXPCStoreNotificationObserver_initForObservationWithName_store___block
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v23 = v8;
-            v24 = 2048;
-            v25 = state64;
+            v22 = v8;
+            v23 = 2048;
+            v24 = state64;
             _os_log_error_impl(&dword_18565F000, v16, OS_LOG_TYPE_ERROR, "CoreData: error: Remote Change Notification - PSC to post notification for store  %@ with state %ld\n", buf, 0x16u);
           }
         }
@@ -157,9 +154,9 @@ id __67__NSXPCStoreNotificationObserver_initForObservationWithName_store___block
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v23 = v8;
-            v24 = 2048;
-            v25 = state64;
+            v22 = v8;
+            v23 = 2048;
+            v24 = state64;
             _os_log_impl(&dword_18565F000, v17, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Remote Change Notification - PSC to post notification for store  %@ with state %ld\n", buf, 0x16u);
           }
         }
@@ -187,9 +184,7 @@ id __67__NSXPCStoreNotificationObserver_initForObservationWithName_store___block
   }
 
   [v4 drain];
-  result = 0;
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (void)dealloc

@@ -15,20 +15,25 @@ LABEL_14:
       JreThrowNullPointerException();
     }
 
-    v6 = (v5 + 24);
-    v7 = &v5[8 * *(v5 + 2) + 24];
-    while (v6 < v7)
+    v7 = (v5 + 24);
+    v8 = v5 + 24 + 8 * *(v5 + 8);
+    while (v7 < v8)
     {
-      v9 = *v6++;
-      v8 = v9;
-      if (v9 != OrgApacheLuceneUtilAttribute_class_() && [OrgApacheLuceneUtilAttribute_class_() isAssignableFrom:v8])
+      v10 = *v7++;
+      v9 = v10;
+      v5 = OrgApacheLuceneUtilAttribute_class_(v5, v6);
+      if (v10 != v5)
       {
-        if (!v8)
+        v5 = [OrgApacheLuceneUtilAttribute_class_(v5 v6)];
+        if (v5)
         {
-          goto LABEL_14;
-        }
+          if (!v9)
+          {
+            goto LABEL_14;
+          }
 
-        -[JavaUtilHashSet addWithId:](v4, "addWithId:", [v8 asSubclass:OrgApacheLuceneUtilAttribute_class_()]);
+          v5 = -[JavaUtilHashSet addWithId:](v4, "addWithId:", [v9 asSubclass:{OrgApacheLuceneUtilAttribute_class_(v5, v6)}]);
+        }
       }
     }
 
@@ -36,9 +41,9 @@ LABEL_14:
   }
 
   while (class);
-  v10 = [IOSObjectArray arrayWithLength:[(JavaUtilHashSet *)v4 size] type:IOSClass_class_()];
+  v11 = [IOSObjectArray arrayWithLength:[(JavaUtilHashSet *)v4 size] type:IOSClass_class_()];
 
-  return [(JavaUtilAbstractCollection *)v4 toArrayWithNSObjectArray:v10];
+  return [(JavaUtilAbstractCollection *)v4 toArrayWithNSObjectArray:v11];
 }
 
 @end

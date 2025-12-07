@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)directionsModeAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsDirectionsMode:(id)mode;
 - (int)StringAsType:(id)type;
 - (int)directionsMode;
@@ -22,6 +24,21 @@
 @end
 
 @implementation SyncedBookmarkRepr
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_10003D0E8 + string);
+  }
+
+  return v4;
+}
 
 - (int)StringAsType:(id)type
 {
@@ -195,6 +212,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFF7F | v3;
+}
+
+- (id)directionsModeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_10003D118 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsDirectionsMode:(id)mode
@@ -468,7 +500,6 @@ LABEL_17:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  type = self->_type;
   PBDataWriterWriteInt32Field();
   if (self->_title)
   {
@@ -483,7 +514,6 @@ LABEL_17:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    latitude = self->_latitude;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -503,7 +533,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  longitude = self->_longitude;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -518,7 +547,6 @@ LABEL_8:
   }
 
 LABEL_28:
-  regionLatitude = self->_regionLatitude;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -533,7 +561,6 @@ LABEL_9:
   }
 
 LABEL_29:
-  regionLongitude = self->_regionLongitude;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -548,7 +575,6 @@ LABEL_10:
   }
 
 LABEL_30:
-  regionLatitudeDelta = self->_regionLatitudeDelta;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -563,7 +589,6 @@ LABEL_11:
   }
 
 LABEL_31:
-  regionLongitudeDelta = self->_regionLongitudeDelta;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -578,12 +603,10 @@ LABEL_12:
   }
 
 LABEL_32:
-  providerID = self->_providerID;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_13:
-    businessID = self->_businessID;
     PBDataWriterWriteUint64Field();
   }
 
@@ -595,37 +618,35 @@ LABEL_14:
 
   if ((*&self->_has & 0x80) != 0)
   {
-    directionsMode = self->_directionsMode;
     PBDataWriterWriteInt32Field();
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v9 = self->_places;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v10)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_places;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v11 = v10;
-    v12 = *v23;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v12)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v11);
+    while (v8);
   }
 }
 

@@ -22,55 +22,53 @@
 
 + (id)personAndPetLocalIdentifiersInAssets:(id)assets
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = assetsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        clsPersonAndPetLocalIdentifiers = [*(*(&v13 + 1) + 8 * i) clsPersonAndPetLocalIdentifiers];
+        clsPersonAndPetLocalIdentifiers = [*(*(&v12 + 1) + 8 * i) clsPersonAndPetLocalIdentifiers];
         [v4 addObjectsFromArray:clsPersonAndPetLocalIdentifiers];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)filterImportedAssets:(id)assets byOverlapWithRelevantAssets:(id)relevantAssets withGraph:(id)graph
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   relevantAssetsCopy = relevantAssets;
   graphCopy = graph;
   v11 = objc_alloc(MEMORY[0x277CBEB58]);
-  v39 = relevantAssetsCopy;
+  v38 = relevantAssetsCopy;
   v12 = [self personAndPetLocalIdentifiersInAssets:relevantAssetsCopy];
   v13 = [v11 initWithSet:v12];
 
-  v36 = graphCopy;
+  v35 = graphCopy;
   meNode = [graphCopy meNode];
   localIdentifier = [meNode localIdentifier];
 
@@ -79,72 +77,72 @@
     [v13 addObject:localIdentifier];
   }
 
-  v35 = localIdentifier;
-  v38 = v13;
+  v34 = localIdentifier;
+  v37 = v13;
   v16 = [objc_alloc(MEMORY[0x277D277B8]) initWithSimilarityModelClass:objc_opt_class()];
-  v40 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v39 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   obj = assetsCopy;
-  v17 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+  v17 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
   if (v17)
   {
     v18 = v17;
-    v41 = *v47;
+    v40 = *v46;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v47 != v41)
+        if (*v46 != v40)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v46 + 1) + 8 * i);
+        v20 = *(*(&v45 + 1) + 8 * i);
         v21 = objc_alloc(MEMORY[0x277CBEB98]);
         clsPersonAndPetLocalIdentifiers = [v20 clsPersonAndPetLocalIdentifiers];
         v23 = [v21 initWithArray:clsPersonAndPetLocalIdentifiers];
 
-        if ([v23 count] && objc_msgSend(v23, "isSubsetOfSet:", v38))
+        if ([v23 count] && objc_msgSend(v23, "isSubsetOfSet:", v37))
         {
-          [v40 addObject:v20];
+          [v39 addObject:v20];
         }
 
         else
         {
           clsSimilarityModelVersion = [v20 clsSimilarityModelVersion];
+          v41 = 0u;
           v42 = 0u;
           v43 = 0u;
           v44 = 0u;
-          v45 = 0u;
-          v25 = v39;
-          v26 = [v25 countByEnumeratingWithState:&v42 objects:v50 count:16];
+          v25 = v38;
+          v26 = [v25 countByEnumeratingWithState:&v41 objects:v49 count:16];
           if (v26)
           {
             v27 = v26;
-            v28 = *v43;
+            v28 = *v42;
             while (2)
             {
               for (j = 0; j != v27; ++j)
               {
-                if (*v43 != v28)
+                if (*v42 != v28)
                 {
                   objc_enumerationMutation(v25);
                 }
 
-                [v16 distanceBetweenItem:v20 andItem:*(*(&v42 + 1) + 8 * j)];
+                [v16 distanceBetweenItem:v20 andItem:*(*(&v41 + 1) + 8 * j)];
                 v31 = v30;
                 [v16 distanceThresholdForSimilarity:2 withSimilarityModelVersion:clsSimilarityModelVersion];
                 if (v31 < v32)
                 {
-                  [v40 addObject:v20];
+                  [v39 addObject:v20];
                   goto LABEL_21;
                 }
               }
 
-              v27 = [v25 countByEnumeratingWithState:&v42 objects:v50 count:16];
+              v27 = [v25 countByEnumeratingWithState:&v41 objects:v49 count:16];
               if (v27)
               {
                 continue;
@@ -158,43 +156,41 @@ LABEL_21:
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v18 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
     }
 
     while (v18);
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
-  return v40;
+  return v39;
 }
 
 + (id)filterImportedAssetsWithoutLocationAndWithoutSceneOrPersonOverlapFromAllAssets:(id)assets withGraph:(id)graph
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   graphCopy = graph;
   v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v9 = assetsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * i);
+        v14 = *(*(&v22 + 1) + 8 * i);
         v15 = MEMORY[0x277D3ACD0];
         [v14 locationCoordinate];
         if (([v15 canUseCoordinate:?] & 1) == 0 && objc_msgSend(self, "isImportedAsset:", v14))
@@ -203,7 +199,7 @@ LABEL_21:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
@@ -232,8 +228,6 @@ LABEL_21:
   {
     v20 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v9];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

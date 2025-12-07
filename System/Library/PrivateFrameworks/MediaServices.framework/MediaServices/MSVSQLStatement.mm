@@ -19,6 +19,7 @@
 - (void)_bindVariantArray:(id *)array length:(int64_t)length toParameterAtIndex:(int64_t)index;
 - (void)_bindVariantArray:(id *)array length:(int64_t)length toParameterNamed:(id)named;
 - (void)bindBoolValue:(BOOL)value toParameterAtIndex:(int64_t)index;
+- (void)bindBoolValue:(BOOL)value toParameterNamed:(id)named;
 - (void)bindDataValue:(id)value toParameterAtIndex:(int64_t)index;
 - (void)bindDataValue:(id)value toParameterNamed:(id)named;
 - (void)bindDateValue:(id)value toParameterAtIndex:(int64_t)index;
@@ -325,7 +326,7 @@
 - (BOOL)bindJSONValue:(id)value toParameterAtIndex:(int64_t)index error:(id *)error
 {
   indexCopy = index;
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   valueCopy = value;
   if (!valueCopy)
   {
@@ -354,15 +355,14 @@
   else if (error)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v18 = @"jsonValue";
-    v19[0] = valueCopy;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = @"jsonValue";
+    v18[0] = valueCopy;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     *error = [v12 msv_errorWithDomain:@"MSVSQLDatabaseError" code:2 userInfo:v13 debugDescription:{@"Not valid JSON object: %@", valueCopy}];
 
     LOBYTE(error) = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -463,6 +463,25 @@
   }
 
   [(MSVSQLStatement *)self bindInt64Value:value toParameterAtIndex:index];
+}
+
+- (void)bindBoolValue:(BOOL)value toParameterNamed:(id)named
+{
+  valueCopy = value;
+  namedCopy = named;
+  statementHandle = self->_statementHandle;
+  v11 = namedCopy;
+  if (!statementHandle)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"MSVSQLDatabase.m" lineNumber:361 description:@"Attempt to use invalidated statement."];
+
+    namedCopy = v11;
+    statementHandle = self->_statementHandle;
+  }
+
+  v9 = namedCopy;
+  -[MSVSQLStatement bindBoolValue:toParameterAtIndex:](self, "bindBoolValue:toParameterAtIndex:", valueCopy, sqlite3_bind_parameter_index(statementHandle, [v11 UTF8String]));
 }
 
 - (void)bindBoolValue:(BOOL)value toParameterAtIndex:(int64_t)index

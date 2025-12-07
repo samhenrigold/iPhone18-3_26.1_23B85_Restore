@@ -59,7 +59,7 @@
 
 void __56__HDActiveDataAggregator_initWithDataCollectionManager___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -74,26 +74,24 @@ void __56__HDActiveDataAggregator_initWithDataCollectionManager___block_invoke(u
     }
 
     v3 = [WeakRetained dataCollectionManager];
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __55__HDActiveDataAggregator__reconsiderDelayedAggregation__block_invoke;
-    v6[3] = &unk_27861DC78;
-    v6[4] = WeakRetained;
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __55__HDActiveDataAggregator__reconsiderDelayedAggregation__block_invoke;
+    v5[3] = &unk_27861DC78;
+    v5[4] = WeakRetained;
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v8 = __55__HDActiveDataAggregator__reconsiderDelayedAggregation__block_invoke_3;
-    v9 = &unk_27861DCA0;
-    v10 = WeakRetained;
-    v11 = Current;
-    [v3 performSaveWithMaximumLatency:v6 block:&buf completion:60.0];
+    v7 = __55__HDActiveDataAggregator__reconsiderDelayedAggregation__block_invoke_3;
+    v8 = &unk_27861DCA0;
+    v9 = WeakRetained;
+    v10 = Current;
+    [v3 performSaveWithMaximumLatency:v5 block:&buf completion:60.0];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_aggregateForCollector:(void *)collector device:(void *)device requestedAggregationDate:(uint64_t)date mode:(uint64_t)mode options:
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v11 = a2;
   collectorCopy = collector;
   deviceCopy = device;
@@ -104,97 +102,94 @@ void __56__HDActiveDataAggregator_initWithDataCollectionManager___block_invoke(u
     aBlock[2] = __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggregationDate_mode_options___block_invoke;
     aBlock[3] = &unk_27861CF48;
     aBlock[4] = self;
-    v41 = v11;
+    v39 = v11;
     v14 = v11;
-    v48 = v14;
+    v46 = v14;
     v15 = collectorCopy;
     v16 = collectorCopy;
-    v49 = v16;
-    v40 = deviceCopy;
+    v47 = v16;
+    v38 = deviceCopy;
     v17 = deviceCopy;
-    v50 = v17;
+    v48 = v17;
     dateCopy = date;
     modeCopy = mode;
     v18 = _Block_copy(aBlock);
     v19 = MEMORY[0x277CCC298];
-    v20 = *MEMORY[0x277CCC298];
-    v21 = _HKLogSignpostIDGenerate();
+    v20 = _HKLogSignpostIDGenerate();
     _HKInitializeLogging();
-    v22 = *v19;
-    if (os_signpost_enabled(v22))
+    v21 = *v19;
+    if (os_signpost_enabled(v21))
     {
+      v22 = v21;
       v23 = v22;
-      v24 = v23;
-      if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+      if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
       {
         *buf = 138544130;
         selfCopy = v14;
+        v53 = 2114;
+        v54 = v16;
         v55 = 2114;
-        v56 = v16;
-        v57 = 2114;
-        v58 = v17;
-        v59 = 2048;
+        v56 = v17;
+        v57 = 2048;
         dateCopy2 = date;
-        _os_signpost_emit_with_name_impl(&dword_228986000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v21, "active-aggregation-for-collector", "collector=%{public}@, device=%{public}@, aggregationDate=%{public}@, mode=%ld", buf, 0x2Au);
+        _os_signpost_emit_with_name_impl(&dword_228986000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v20, "active-aggregation-for-collector", "collector=%{public}@, device=%{public}@, aggregationDate=%{public}@, mode=%ld", buf, 0x2Au);
       }
     }
 
     dataCollectionManager = [self dataCollectionManager];
     databaseAssertion = [dataCollectionManager databaseAssertion];
-    v27 = [HDDatabaseTransactionContext contextForAccessibilityAssertion:databaseAssertion];
+    v26 = [HDDatabaseTransactionContext contextForAccessibilityAssertion:databaseAssertion];
 
     dataCollectionManager2 = [self dataCollectionManager];
     profile = [dataCollectionManager2 profile];
     database = [profile database];
-    v46 = 0;
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggregationDate_mode_options___block_invoke_302;
-    v44[3] = &unk_27861A528;
-    v45 = v18;
+    v44 = 0;
     v42[0] = MEMORY[0x277D85DD0];
     v42[1] = 3221225472;
-    v42[2] = __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggregationDate_mode_options___block_invoke_2_304;
-    v42[3] = &unk_278618968;
-    v31 = v45;
-    v43 = v31;
-    v32 = [(HDHealthEntity *)HDDataEntity performWriteTransactionWithHealthDatabase:database context:v27 error:&v46 block:v44 inaccessibilityHandler:v42];
-    v33 = v46;
+    v42[2] = __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggregationDate_mode_options___block_invoke_302;
+    v42[3] = &unk_27861A528;
+    v43 = v18;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggregationDate_mode_options___block_invoke_2_304;
+    v40[3] = &unk_278618968;
+    v30 = v43;
+    v41 = v30;
+    v31 = [(HDHealthEntity *)HDDataEntity performWriteTransactionWithHealthDatabase:database context:v26 error:&v44 block:v42 inaccessibilityHandler:v40];
+    v32 = v44;
 
     _HKInitializeLogging();
-    v34 = MEMORY[0x277CCC298];
-    v35 = *MEMORY[0x277CCC298];
+    v33 = MEMORY[0x277CCC298];
+    v34 = *MEMORY[0x277CCC298];
     collectorCopy = v15;
     if (os_signpost_enabled(*MEMORY[0x277CCC298]))
     {
+      v35 = v34;
       v36 = v35;
-      v37 = v36;
-      if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
+      if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_228986000, v37, OS_SIGNPOST_INTERVAL_END, v21, "active-aggregation-for-collector", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_228986000, v36, OS_SIGNPOST_INTERVAL_END, v20, "active-aggregation-for-collector", "", buf, 2u);
       }
     }
 
-    if (!v32 && (HKIsUnitTesting() & 1) == 0)
+    if (!v31 && (HKIsUnitTesting() & 1) == 0)
     {
       _HKInitializeLogging();
-      v38 = *v34;
-      if (os_log_type_enabled(*v34, OS_LOG_TYPE_ERROR))
+      v37 = *v33;
+      if (os_log_type_enabled(*v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
         selfCopy = self;
-        v55 = 2114;
-        v56 = v33;
-        _os_log_error_impl(&dword_228986000, v38, OS_LOG_TYPE_ERROR, "%{public}@: Failed to perform outer write transaction for aggregation and persistence: %{public}@", buf, 0x16u);
+        v53 = 2114;
+        v54 = v32;
+        _os_log_error_impl(&dword_228986000, v37, OS_LOG_TYPE_ERROR, "%{public}@: Failed to perform outer write transaction for aggregation and persistence: %{public}@", buf, 0x16u);
       }
     }
 
-    deviceCopy = v40;
-    v11 = v41;
+    deviceCopy = v38;
+    v11 = v39;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggregationDate_mode_options___block_invoke(uint64_t a1)
@@ -220,7 +215,7 @@ void __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggrega
 
 void __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggregationDate_mode_options___block_invoke_2(uint64_t a1)
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   v2 = [_HDAggregationStateKey keyForCollector:*(a1 + 40) device:*(a1 + 48) aggregator:?];
   v3 = [*(*(a1 + 48) + 72) objectForKeyedSubscript:v2];
   v4 = *(a1 + 32);
@@ -229,9 +224,9 @@ void __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggrega
   v7 = *(a1 + 56);
   v8 = *(a1 + 64);
   v9 = *(a1 + 72);
-  v80 = 0;
-  v10 = [v6 aggregateForState:v3 collector:v4 device:v5 requestedAggregationDate:v7 mode:v8 options:v9 error:&v80];
-  v11 = v80;
+  v79 = 0;
+  v10 = [v6 aggregateForState:v3 collector:v4 device:v5 requestedAggregationDate:v7 mode:v8 options:v9 error:&v79];
+  v11 = v79;
   v12 = v11;
   if (v10)
   {
@@ -250,13 +245,13 @@ void __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggrega
     v15 = *v14;
     if (os_log_type_enabled(*v14, OS_LOG_TYPE_FAULT))
     {
-      v71 = *(a1 + 48);
+      v70 = *(a1 + 48);
       *buf = 138543874;
-      v82 = v71;
-      v83 = 2112;
-      v84 = v3;
-      v85 = 2114;
-      v86 = v12;
+      v81 = v70;
+      v82 = 2112;
+      v83 = v3;
+      v84 = 2114;
+      v85 = v12;
       _os_log_fault_impl(&dword_228986000, v15, OS_LOG_TYPE_FAULT, "%{public}@: (rdar://63497174) Failed to aggregate with state %@: %{public}@", buf, 0x20u);
     }
   }
@@ -270,18 +265,18 @@ void __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggrega
     {
       v18 = v10;
       v19 = v12;
-      v76 = v2;
-      v77 = [MEMORY[0x277CBEAA8] now];
+      v75 = v2;
+      v76 = [MEMORY[0x277CBEAA8] now];
       v20 = *(a1 + 48);
       v21 = v14;
       v22 = *(a1 + 32);
       v23 = [v18 consumedSensorData];
       v24 = *(a1 + 40);
-      v79 = 0;
-      v75 = v18;
+      v78 = 0;
+      v74 = v18;
       v25 = [v18 persistenceHandler];
-      LODWORD(v24) = [v20 persistForCollector:v22 usedDatums:v23 source:v17 device:v24 error:&v79 persistenceHandler:v25];
-      v26 = v79;
+      LODWORD(v24) = [v20 persistForCollector:v22 usedDatums:v23 source:v17 device:v24 error:&v78 persistenceHandler:v25];
+      v26 = v78;
 
       _HKInitializeLogging();
       v27 = *v21;
@@ -289,49 +284,49 @@ void __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggrega
       if (v24)
       {
         v12 = v19;
-        v10 = v75;
+        v10 = v74;
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          v73 = *(a1 + 48);
+          v72 = *(a1 + 48);
           v29 = v27;
-          v74 = [v75 consumedSensorData];
-          v30 = [v74 count];
-          v31 = [v75 consumedSensorData];
+          v73 = [v74 consumedSensorData];
+          v30 = [v73 count];
+          v31 = [v74 consumedSensorData];
           v32 = [v31 lastObject];
-          [v77 timeIntervalSinceNow];
+          [v76 timeIntervalSinceNow];
           *buf = 138544130;
-          v82 = v73;
-          v83 = 2048;
-          v84 = v30;
-          v85 = 2112;
-          v86 = v32;
-          v87 = 2048;
-          v88 = -v33;
+          v81 = v72;
+          v82 = 2048;
+          v83 = v30;
+          v84 = 2112;
+          v85 = v32;
+          v86 = 2048;
+          v87 = -v33;
           _os_log_impl(&dword_228986000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@: Persisted, consuming %ld datums with last datum: %@ in %0.1f seconds", buf, 0x2Au);
         }
 
-        v34 = [v75 aggregationState];
+        v34 = [v74 aggregationState];
 
-        v2 = v76;
-        [*(*(a1 + 48) + 72) setObject:v34 forKeyedSubscript:v76];
+        v2 = v75;
+        [*(*(a1 + 48) + 72) setObject:v34 forKeyedSubscript:v75];
         v3 = v34;
       }
 
       else
       {
-        v2 = v76;
+        v2 = v75;
         v12 = v19;
         if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
         {
-          v72 = *(a1 + 48);
+          v71 = *(a1 + 48);
           *buf = 138543618;
-          v82 = v72;
-          v83 = 2114;
-          v84 = v19;
+          v81 = v71;
+          v82 = 2114;
+          v83 = v19;
           _os_log_fault_impl(&dword_228986000, v27, OS_LOG_TYPE_FAULT, "%{public}@: (rdar://63497174) Failed to persist aggregated objects: %{public}@", buf, 0x16u);
         }
 
-        v10 = v75;
+        v10 = v74;
       }
 
       v14 = MEMORY[0x277CCC298];
@@ -346,9 +341,9 @@ void __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggrega
         v36 = *(a1 + 32);
         v37 = *(a1 + 48);
         *buf = 138543618;
-        v82 = v36;
-        v83 = 2114;
-        v84 = v37;
+        v81 = v36;
+        v82 = 2114;
+        v83 = v37;
         _os_log_fault_impl(&dword_228986000, v35, OS_LOG_TYPE_FAULT, "Collector %{public}@ failed to return source for aggregator %{public}@", buf, 0x16u);
       }
     }
@@ -421,18 +416,18 @@ void __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggrega
     v66 = [v3 openSeries];
     v67 = "has";
     *buf = 138544130;
-    v82 = v62;
-    v83 = 2048;
+    v81 = v62;
+    v82 = 2048;
     if (!v66)
     {
       v67 = "no";
     }
 
-    v84 = v65;
-    v85 = 2080;
-    v86 = v67;
-    v87 = 2048;
-    v88 = v42;
+    v83 = v65;
+    v84 = 2080;
+    v85 = v67;
+    v86 = 2048;
+    v87 = v42;
     _os_log_impl(&dword_228986000, v63, OS_LOG_TYPE_INFO, "%{public}@: Incomplete aggregation (%ld remaining datums, %s open series); accumulating and will reconsider in %0.2lfs", buf, 0x2Au);
   }
 
@@ -447,7 +442,6 @@ void __94__HDActiveDataAggregator__aggregateForCollector_device_requestedAggrega
   dispatch_async(v69, block);
 
 LABEL_34:
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__HDActiveDataAggregator__reconsiderDelayedAggregation__block_invoke(uint64_t a1)
@@ -464,39 +458,39 @@ uint64_t __55__HDActiveDataAggregator__reconsiderDelayedAggregation__block_invok
 
 - (void)_requestAggregationThroughDate:(uint64_t)date mode:(uint64_t)mode options:(void *)options completion:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v9 = a2;
   optionsCopy = options;
   if (self)
   {
     allCollectors = [self allCollectors];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v12 = [allCollectors countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [allCollectors countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v19;
+      v14 = *v18;
       do
       {
         v15 = 0;
         do
         {
-          if (*v19 != v14)
+          if (*v18 != v14)
           {
             objc_enumerationMutation(allCollectors);
           }
 
-          collector = [*(*(&v18 + 1) + 8 * v15) collector];
+          collector = [*(*(&v17 + 1) + 8 * v15) collector];
           [(HDActiveDataAggregator *)self _aggregateForAllDevicesForCollector:collector date:v9 mode:date options:mode];
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [allCollectors countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v13 = [allCollectors countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v13);
@@ -504,13 +498,11 @@ uint64_t __55__HDActiveDataAggregator__reconsiderDelayedAggregation__block_invok
 
     optionsCopy[2](optionsCopy, 1, 0);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HDActiveDataAggregator__reconsiderDelayedAggregation__block_invoke_3(uint64_t a1, int a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC298];
@@ -522,15 +514,15 @@ void __55__HDActiveDataAggregator__reconsiderDelayedAggregation__block_invoke_3(
       v8 = *(a1 + 32);
       v9 = v6;
       v10 = CFAbsoluteTimeGetCurrent() - *(a1 + 40);
-      v17 = 138543618;
-      v18 = v8;
-      v19 = 2048;
-      v20 = v10;
+      v16 = 138543618;
+      v17 = v8;
+      v18 = 2048;
+      v19 = v10;
       v11 = "%{public}@: Finished reconsidering with latency %0.2lfs.";
       v12 = v9;
       v13 = 22;
 LABEL_6:
-      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, v11, &v17, v13);
+      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, v11, &v16, v13);
     }
   }
 
@@ -539,48 +531,46 @@ LABEL_6:
     v14 = *(a1 + 32);
     v9 = v6;
     v15 = CFAbsoluteTimeGetCurrent() - *(a1 + 40);
-    v17 = 138543874;
-    v18 = v14;
-    v19 = 2048;
-    v20 = v15;
-    v21 = 2114;
-    v22 = v5;
+    v16 = 138543874;
+    v17 = v14;
+    v18 = 2048;
+    v19 = v15;
+    v20 = 2114;
+    v21 = v5;
     v11 = "%{public}@: Failed aggregation reconsideration after %0.2lfs: %{public}@";
     v12 = v9;
     v13 = 32;
     goto LABEL_6;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerDataCollector:(id)collector state:(id)state
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   collectorCopy = collector;
   stateCopy = state;
-  v20 = collectorCopy;
+  v19 = collectorCopy;
   v7 = [collectorCopy identifierForDataAggregator:self];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   allCollectors = [(HDDataAggregator *)self allCollectors];
-  v9 = [allCollectors countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [allCollectors countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(allCollectors);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         collector = [v13 collector];
         v15 = [collector identifierForDataAggregator:self];
 
@@ -592,22 +582,20 @@ LABEL_6:
         }
       }
 
-      v10 = [allCollectors countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [allCollectors countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
   }
 
-  v21.receiver = self;
-  v21.super_class = HDActiveDataAggregator;
-  [(HDDataAggregator *)&v21 registerDataCollector:v20 state:stateCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = HDActiveDataAggregator;
+  [(HDDataAggregator *)&v20 registerDataCollector:v19 state:stateCopy];
 }
 
 - (void)_aggregateForAllDevicesForCollector:(void *)collector date:(uint64_t)date mode:(uint64_t)mode options:
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v9 = a2;
   collectorCopy = collector;
   if (self)
@@ -617,27 +605,27 @@ LABEL_6:
     v12 = [allKeys hk_map:&__block_literal_global_326];
 
     [self[8] unlock];
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     obj = v12;
-    v13 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v13 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v24;
+      v15 = *v23;
       do
       {
         v16 = 0;
         do
         {
-          if (*v24 != v15)
+          if (*v23 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v23 + 1) + 8 * v16);
+          v17 = *(*(&v22 + 1) + 8 * v16);
           null = [MEMORY[0x277CBEB68] null];
           if (v17 == null)
           {
@@ -656,14 +644,12 @@ LABEL_6:
         }
 
         while (v14 != v16);
-        v14 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v14 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v14);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterDataCollector:(id)collector
@@ -754,51 +740,49 @@ LABEL_6:
 
 uint64_t __76__HDActiveDataAggregator_dataCollector_didCollectSensorData_device_options___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = *(a1 + 40);
   if (objc_opt_isKindOfClass())
   {
-    v5 = [*(a1 + 32) doesDatumPredateDatabaseObliteration:v3];
-    if (v5)
+    v4 = [*(a1 + 32) doesDatumPredateDatabaseObliteration:v3];
+    if (v4)
     {
       _HKInitializeLogging();
-      v6 = *MEMORY[0x277CCC298];
+      v5 = *MEMORY[0x277CCC298];
       if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEBUG))
       {
-        v16 = *(a1 + 32);
-        v17 = 138543362;
-        v18 = v16;
-        _os_log_debug_impl(&dword_228986000, v6, OS_LOG_TYPE_DEBUG, "%{public}@: Rejecting sensor datum from pre-obliteration", &v17, 0xCu);
+        v14 = *(a1 + 32);
+        v15 = 138543362;
+        v16 = v14;
+        _os_log_debug_impl(&dword_228986000, v5, OS_LOG_TYPE_DEBUG, "%{public}@: Rejecting sensor datum from pre-obliteration", &v15, 0xCu);
       }
     }
 
-    v7 = v5 ^ 1u;
+    v6 = v4 ^ 1u;
   }
 
   else
   {
     _HKInitializeLogging();
-    v8 = *MEMORY[0x277CCC298];
+    v7 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
     {
-      v11 = v8;
-      v12 = objc_opt_class();
-      v13 = *(a1 + 32);
-      v14 = v12;
-      v17 = 138543618;
-      v18 = v12;
-      v19 = 2114;
-      v20 = [v13 sensorDatumClass];
-      v15 = v20;
-      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "Rejecting sensor datum of unexpected class %{public}@ (expected %{public}@)", &v17, 0x16u);
+      v9 = v7;
+      v10 = objc_opt_class();
+      v11 = *(a1 + 32);
+      v12 = v10;
+      v15 = 138543618;
+      v16 = v10;
+      v17 = 2114;
+      v18 = [v11 sensorDatumClass];
+      v13 = v18;
+      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Rejecting sensor datum of unexpected class %{public}@ (expected %{public}@)", &v15, 0x16u);
     }
 
-    v7 = 0;
+    v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v6;
 }
 
 void __76__HDActiveDataAggregator_dataCollector_didCollectSensorData_device_options___block_invoke_315(uint64_t a1)
@@ -855,7 +839,7 @@ uint64_t __76__HDActiveDataAggregator_dataCollector_didCollectSensorData_device_
 
 void __76__HDActiveDataAggregator_dataCollector_didCollectSensorData_device_options___block_invoke_4(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC298];
@@ -867,16 +851,16 @@ void __76__HDActiveDataAggregator_dataCollector_didCollectSensorData_device_opti
       goto LABEL_6;
     }
 
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     v9 = v6;
-    v13 = CFAbsoluteTimeGetCurrent() - *(a1 + 40);
-    v14 = 138543874;
-    v15 = v12;
-    v16 = 2048;
-    v17 = v13;
-    v18 = 2114;
-    v19 = v5;
-    _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%{public}@: Save failed after %0.2lfs: %{public}@", &v14, 0x20u);
+    v12 = CFAbsoluteTimeGetCurrent() - *(a1 + 40);
+    v13 = 138543874;
+    v14 = v11;
+    v15 = 2048;
+    v16 = v12;
+    v17 = 2114;
+    v18 = v5;
+    _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%{public}@: Save failed after %0.2lfs: %{public}@", &v13, 0x20u);
     goto LABEL_4;
   }
 
@@ -885,17 +869,15 @@ void __76__HDActiveDataAggregator_dataCollector_didCollectSensorData_device_opti
     v8 = *(a1 + 32);
     v9 = v6;
     v10 = CFAbsoluteTimeGetCurrent() - *(a1 + 40);
-    v14 = 138543618;
-    v15 = v8;
-    v16 = 2048;
-    v17 = v10;
-    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished save with latency %0.2lfs.", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v8;
+    v15 = 2048;
+    v16 = v10;
+    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished save with latency %0.2lfs.", &v13, 0x16u);
 LABEL_4:
   }
 
 LABEL_6:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)configurationForCollector:(id)collector
@@ -920,7 +902,7 @@ LABEL_6:
 
 - (BOOL)didPersistObjects:(id)objects lastDatum:(id)datum collector:(id)collector error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   datumCopy = datum;
   collectorCopy = collector;
@@ -936,11 +918,10 @@ LABEL_6:
     }
   }
 
-  v17.receiver = self;
-  v17.super_class = HDActiveDataAggregator;
-  v14 = [(HDDataAggregator *)&v17 didPersistObjects:objectsCopy lastDatum:datumCopy collector:collectorCopy error:error];
+  v16.receiver = self;
+  v16.super_class = HDActiveDataAggregator;
+  v14 = [(HDDataAggregator *)&v16 didPersistObjects:objectsCopy lastDatum:datumCopy collector:collectorCopy error:error];
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -1000,7 +981,7 @@ id __80__HDActiveDataAggregator__aggregateForAllDevicesForCollector_date_mode_op
 {
   v2 = a2;
   v3 = v2;
-  if (v2 && (v4 = *(v2 + 2)) != 0)
+  if (v2 && (v4 = v2[2]) != 0)
   {
     v5 = v4;
   }

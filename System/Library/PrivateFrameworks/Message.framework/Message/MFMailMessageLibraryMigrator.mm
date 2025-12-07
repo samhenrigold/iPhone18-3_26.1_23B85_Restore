@@ -5,7 +5,9 @@
 - (BOOL)migrateWithDatabaseConnection:(id)connection schema:(id)schema;
 - (MFMailMessageLibraryMigrator)initWithDelegate:(id)delegate;
 - (MFMailMessageLibraryMigratorDelegate)delegate;
+- (int64_t)_attachProtectedDatabaseWithConnection:(id)connection forUpgradeStartingFromVersion:(int)version;
 - (int64_t)_checkContentProtectionStateForUpgradeStartingFromVersion:(int)version;
+- (int64_t)_runMigrationStepsFromVersion:(int)version connection:(id)connection schema:(id)schema;
 - (void)addPostMigrationBlock:(id)block;
 - (void)contentProtectionStateChanged:(int64_t)changed previousState:(int64_t)state;
 - (void)detachProtectedDatabaseWithConnection:(id)connection;
@@ -69,14 +71,14 @@ void __35__MFMailMessageLibraryMigrator_log__block_invoke(uint64_t a1)
 
 - (BOOL)migrateWithDatabaseConnection:(id)connection schema:(id)schema
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   schemaCopy = schema;
   if (connectionCopy && ([connectionCopy isValid] & 1) != 0)
   {
-    v29 = 0;
-    v8 = [connectionCopy performWithOptions:6 transactionError:&v29 block:&__block_literal_global_41];
-    v9 = v29;
+    v27 = 0;
+    v8 = [connectionCopy performWithOptions:6 transactionError:&v27 block:&__block_literal_global_41];
+    v9 = v27;
     if (v8)
     {
       v10 = _LibraryVersion([connectionCopy sqlDB]);
@@ -86,7 +88,7 @@ void __35__MFMailMessageLibraryMigrator_log__block_invoke(uint64_t a1)
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v31 = 231002;
+          v29 = 231002;
           v12 = "Database is already at current version %lld. No migration needed.";
           v13 = v11;
           v14 = 12;
@@ -108,13 +110,12 @@ LABEL_32:
       [connectionCopy executeStatementString:@"PRAGMA foreign_keys = OFF;" errorMessage:@"disabling foreign keys"];
       if (!_os_feature_enabled_impl() || v10 <= 224002)
       {
-        contentProtectionQueue = self->_contentProtectionQueue;
         EFRegisterContentProtectionObserver();
       }
 
-      v20 = 0;
+      v19 = 0;
       *&v18 = 134218240;
-      v28 = v18;
+      v26 = v18;
       do
       {
         migrationState = [(MFMailMessageLibraryMigrator *)self migrationState];
@@ -123,31 +124,31 @@ LABEL_32:
         migrationState2 = [(MFMailMessageLibraryMigrator *)self migrationState];
         [migrationState2 unlock];
 
-        v23 = +[MFMailMessageLibraryMigrator log];
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v22 = +[MFMailMessageLibraryMigrator log];
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v28;
-          v31 = v10;
-          v32 = 2048;
-          v33 = v20;
-          _os_log_impl(&dword_1B0389000, v23, OS_LOG_TYPE_DEFAULT, "Starting migration steps from version %lld, attempt %lu", buf, 0x16u);
+          *buf = v26;
+          v29 = v10;
+          v30 = 2048;
+          v31 = v19;
+          _os_log_impl(&dword_1B0389000, v22, OS_LOG_TYPE_DEFAULT, "Starting migration steps from version %lld, attempt %lu", buf, 0x16u);
         }
 
-        v24 = [(MFMailMessageLibraryMigrator *)self _runMigrationStepsFromVersion:v10 connection:connectionCopy schema:schemaCopy];
-        if (v24 != 1)
+        v23 = [(MFMailMessageLibraryMigrator *)self _runMigrationStepsFromVersion:v10 connection:connectionCopy schema:schemaCopy];
+        if (v23 != 1)
         {
           break;
         }
       }
 
-      while (v20++ < 5);
+      while (v19++ < 5);
       if (!_os_feature_enabled_impl() || v10 <= 224002)
       {
         EFUnregisterContentProtectionObserver();
       }
 
       [connectionCopy executeStatementString:@"PRAGMA foreign_keys = ON;" errorMessage:@"reënable foreign keys"];
-      if (!v24)
+      if (!v23)
       {
         v11 = +[MFMailMessageLibraryMigrator log];
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -196,7 +197,6 @@ LABEL_34:
   v15 = 0;
 LABEL_35:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -220,6 +220,99 @@ BOOL __69__MFMailMessageLibraryMigrator_migrateWithDatabaseConnection_schema___b
   return v6;
 }
 
+- (int64_t)_runMigrationStepsFromVersion:(int)version connection:(id)connection schema:(id)schema
+{
+  v6 = *&version;
+  connectionCopy = connection;
+  schemaCopy = schema;
+  v10 = objc_alloc_init(MEMORY[0x1E696AD50]);
+  [v10 addIndex:170010];
+  [v10 addIndex:170054];
+  [v10 addIndex:200006];
+  [v10 addIndex:200009];
+  [v10 addIndex:200010];
+  [v10 addIndex:200011];
+  [v10 addIndex:200012];
+  [v10 addIndex:200019];
+  [v10 addIndex:220004];
+  [v10 addIndex:220005];
+  [v10 addIndex:220008];
+  [v10 addIndex:220019];
+  [v10 addIndex:220020];
+  [v10 addIndex:222001];
+  [v10 addIndex:222005];
+  [v10 addIndex:222006];
+  [v10 addIndex:224001];
+  [v10 addIndex:224002];
+  [v10 addIndex:230001];
+  [v10 addIndex:230002];
+  if (v6 && [v10 indexGreaterThanOrEqualToIndex:v6] != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v11 = [(MFMailMessageLibraryMigrator *)self _attachProtectedDatabaseWithConnection:connectionCopy forUpgradeStartingFromVersion:v6];
+    if (v11)
+    {
+      goto LABEL_14;
+    }
+
+    objc_initWeak(&location, self);
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __80__MFMailMessageLibraryMigrator__runMigrationStepsFromVersion_connection_schema___block_invoke;
+    v32[3] = &unk_1E7AA6530;
+    objc_copyWeak(&v33, &location);
+    [(MFMailMessageLibraryMigrator *)self addPostMigrationBlock:v32];
+    objc_destroyWeak(&v33);
+    objc_destroyWeak(&location);
+  }
+
+  location = 0;
+  p_location = &location;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __80__MFMailMessageLibraryMigrator__runMigrationStepsFromVersion_connection_schema___block_invoke_2;
+  v18 = &unk_1E7AA65A0;
+  v22 = &v24;
+  v23 = &location;
+  v19 = schemaCopy;
+  selfCopy = self;
+  v12 = connectionCopy;
+  v21 = v12;
+  [v12 performWithOptions:7 transactionError:0 block:&v15];
+  [(MFMailMessageLibraryMigrator *)self runPostMigrationBlocksWithConnection:v12, v15, v16, v17, v18];
+  if (*(p_location + 24) == 1 && [(MFMailMessageLibraryMigrator *)self needsSpotlightReindex])
+  {
+    delegate = [(MFMailMessageLibraryMigrator *)self delegate];
+    [delegate mailMessageLibraryMigratorScheduleSpotlightReindex:self];
+  }
+
+  if (p_location[3])
+  {
+    v11 = 0;
+  }
+
+  else if ([v10 containsIndex:*(v25 + 6)])
+  {
+    v11 = [(MFMailMessageLibraryMigrator *)self _checkContentProtectionStateForUpgradeStartingFromVersion:v6];
+  }
+
+  else
+  {
+    v11 = 2;
+  }
+
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&location, 8);
+LABEL_14:
+
+  return v11;
+}
+
 void __80__MFMailMessageLibraryMigrator__runMigrationStepsFromVersion_connection_schema___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -229,7 +322,7 @@ void __80__MFMailMessageLibraryMigrator__runMigrationStepsFromVersion_connection
 
 uint64_t __80__MFMailMessageLibraryMigrator__runMigrationStepsFromVersion_connection_schema___block_invoke_2(uint64_t a1, void *a2)
 {
-  v297 = *MEMORY[0x1E69E9840];
+  v298 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 sqlDB];
   v5 = _LibraryVersion(v4);
@@ -299,9 +392,9 @@ LABEL_704:
               if (_protectedIndexHasBeenInitialized(*(a1 + 48)))
               {
                 v245 = *(a1 + 48);
-                v290 = 0;
-                v246 = [MEMORY[0x1E699B3F0] runWithConnection:v245 protectedDatabaseName:@"protected" error:&v290];
-                v247 = v290;
+                v291 = 0;
+                v246 = [MEMORY[0x1E699B3F0] runWithConnection:v245 protectedDatabaseName:@"protected" error:&v291];
+                v247 = v291;
                 *(*(*(a1 + 64) + 8) + 24) = v246;
                 if ((*(*(*(a1 + 64) + 8) + 24) & 1) == 0)
                 {
@@ -318,13 +411,13 @@ LABEL_704:
                 v249 = [WeakRetained journalManagerForMailMessageLibraryMigrator:*(a1 + 40)];
 
                 v250 = *(a1 + 40);
-                v288[0] = MEMORY[0x1E69E9820];
-                v288[1] = 3221225472;
-                v288[2] = __80__MFMailMessageLibraryMigrator__runMigrationStepsFromVersion_connection_schema___block_invoke_427;
-                v288[3] = &unk_1E7AA6578;
+                v289[0] = MEMORY[0x1E69E9820];
+                v289[1] = 3221225472;
+                v289[2] = __80__MFMailMessageLibraryMigrator__runMigrationStepsFromVersion_connection_schema___block_invoke_427;
+                v289[3] = &unk_1E7AA6578;
                 v251 = v249;
-                v289 = v251;
-                [v250 addPostMigrationBlock:v288];
+                v290 = v251;
+                [v250 addPostMigrationBlock:v289];
               }
 
 LABEL_709:
@@ -506,9 +599,9 @@ LABEL_715:
             }
 
             v255 = *(a1 + 48);
-            v287 = 0;
-            v256 = [MEMORY[0x1E699B448] runWithConnection:v255 error:&v287];
-            v257 = v287;
+            v288 = 0;
+            v256 = [MEMORY[0x1E699B448] runWithConnection:v255 error:&v288];
+            v257 = v288;
             v258 = v257;
             *(*(*(a1 + 64) + 8) + 24) = v256;
             if (*(*(*(a1 + 64) + 8) + 24) != 1)
@@ -580,9 +673,9 @@ LABEL_728:
               }
 
               v263 = *(a1 + 48);
-              v286 = 0;
-              v264 = [MEMORY[0x1E699B440] runWithConnection:v263 error:&v286];
-              v265 = v286;
+              v287 = 0;
+              v264 = [MEMORY[0x1E699B440] runWithConnection:v263 error:&v287];
+              v265 = v287;
               *(*(*(a1 + 64) + 8) + 24) = v264;
               _HandleSQLiteError(v4, @"Adding indexing analytics tables");
               v266 = *(*(*(a1 + 64) + 8) + 24);
@@ -628,9 +721,9 @@ LABEL_731:
               }
 
               v268 = *(a1 + 48);
-              v285 = 0;
-              v269 = [MEMORY[0x1E699B460] runWithConnection:v268 error:&v285];
-              v270 = v285;
+              v286 = 0;
+              v269 = [MEMORY[0x1E699B460] runWithConnection:v268 error:&v286];
+              v270 = v286;
               *(*(*(a1 + 64) + 8) + 24) = v269;
               _HandleSQLiteError(v4, @"Adding messageID header");
               v271 = *(*(*(a1 + 64) + 8) + 24);
@@ -1219,9 +1312,9 @@ LABEL_671:
                         if (v5 > 219999)
                         {
                           v231 = *(a1 + 48);
-                          v291 = 0;
-                          v232 = [MEMORY[0x1E699B570] runWithConnection:v231 error:&v291];
-                          v233 = v291;
+                          v292 = 0;
+                          v232 = [MEMORY[0x1E699B570] runWithConnection:v231 error:&v292];
+                          v233 = v292;
                           *(*(*(a1 + 64) + 8) + 24) = v232;
                           _HandleSQLiteError(v4, @"Failed to force recategorization");
                           v234 = *(*(*(a1 + 64) + 8) + 24);
@@ -2695,10 +2788,10 @@ LABEL_149:
         *buf = "UPDATE mailboxes SET total_count = (SELECT COUNT(DISTINCT(message_id)) FROM messages WHERE (mailbox = mailboxes.ROWID));";
         *&buf[8] = "UPDATE mailboxes SET unread_count = (SELECT COUNT(DISTINCT(message_id)) FROM messages WHERE (flags&1 = 0) AND (mailbox = mailboxes.ROWID));";
         *&buf[16] = "UPDATE mailboxes SET deleted_count = (SELECT COUNT(DISTINCT(message_id)) FROM messages WHERE (flags&2 > 0) AND (mailbox = mailboxes.ROWID));";
-        v294 = "UPDATE mailboxes SET flagged_count = (SELECT COUNT(DISTINCT(message_id)) FROM messages WHERE (flags&16 > 0 AND flags&2 = 0) AND (mailbox = mailboxes.ROWID));";
-        v295 = "UPDATE mailboxes SET attachment_count = (SELECT COUNT(DISTINCT(message_id)) FROM messages WHERE ((((flags&(63<<10))>>10) BETWEEN 1 AND 62) AND flags&1 = 0) AND (mailbox = mailboxes.ROWID));";
-        v296 = "UPDATE mailboxes SET to_cc_count = (SELECT COUNT(DISTINCT(message_id)) FROM messages WHERE ((flags&(3<<39)>>39) > 0 AND flags&1 = 0) AND (mailbox = mailboxes.ROWID));";
-        *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 6, @"updating mailboxes counts");
+        v295 = "UPDATE mailboxes SET flagged_count = (SELECT COUNT(DISTINCT(message_id)) FROM messages WHERE (flags&16 > 0 AND flags&2 = 0) AND (mailbox = mailboxes.ROWID));";
+        v296 = "UPDATE mailboxes SET attachment_count = (SELECT COUNT(DISTINCT(message_id)) FROM messages WHERE ((((flags&(63<<10))>>10) BETWEEN 1 AND 62) AND flags&1 = 0) AND (mailbox = mailboxes.ROWID));";
+        v297 = "UPDATE mailboxes SET to_cc_count = (SELECT COUNT(DISTINCT(message_id)) FROM messages WHERE ((flags&(3<<39)>>39) > 0 AND flags&1 = 0) AND (mailbox = mailboxes.ROWID));";
+        *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 6u, @"updating mailboxes counts");
         if (*(*(*(a1 + 64) + 8) + 24) == 1)
         {
           goto LABEL_152;
@@ -2757,7 +2850,7 @@ LABEL_158:
 
         *buf = "DROP INDEX message_content_index_transaction_id_index;";
         *&buf[8] = "CREATE INDEX message_content_index_transaction_id_index ON messages(content_index_transaction_id, deleted, date_received DESC, ROWID);";
-        *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 2, @"updating message_content_index_transaction_id");
+        *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 2u, @"updating message_content_index_transaction_id");
         if (*(*(*(a1 + 64) + 8) + 24) == 1)
         {
           goto LABEL_161;
@@ -2778,7 +2871,7 @@ LABEL_161:
         }
 
         *buf = "CREATE INDEX message_mailbox_content_index ON messages (mailbox, content_index_transaction_id, flags, date_received ASC)";
-        *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 1, @"adding message_mailbox_content_index");
+        *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 1u, @"adding message_mailbox_content_index");
         if (*(*(*(a1 + 64) + 8) + 24) == 1)
         {
           goto LABEL_164;
@@ -2815,7 +2908,7 @@ LABEL_167:
         *buf = "DROP TABLE IF EXISTS spotlight_tombstones\n";
         *&buf[8] = "CREATE TABLE spotlight_tombstones (ROWID INTEGER PRIMARY KEY AUTOINCREMENT,\n                                   type INTEGER,\n                                   identifier TEXT,\n                                   transaction_id INTEGER,\n                                   UNIQUE(type, identifier))";
         *&buf[16] = "CREATE INDEX spotlight_tombstones_transaction_index ON spotlight_tombstones(transaction_id, type, identifier)";
-        *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 3, @"adding spotlight tombstones table");
+        *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 3u, @"adding spotlight tombstones table");
         if (*(*(*(a1 + 64) + 8) + 24) == 1)
         {
           goto LABEL_170;
@@ -3006,7 +3099,7 @@ LABEL_203:
 
         *buf = "ALTER TABLE mailboxes ADD COLUMN last_sync_status_count INTEGER DEFAULT 0;";
         *&buf[8] = "ALTER TABLE mailboxes ADD COLUMN most_recent_status_count INTEGER DEFAULT 0;";
-        if (_ExecuteQueries(v4, buf, 2, @"adding mailboxes status count columns"))
+        if (_ExecuteQueries(v4, buf, 2u, @"adding mailboxes status count columns"))
         {
           ppStmt = 0xAAAAAAAAAAAAAAAALL;
           v51 = sqlite3_prepare_v2(v4, "SELECT DISTINCT mailbox FROM messages WHERE flags&64 = 64;", -1, &ppStmt, 0);
@@ -3117,7 +3210,7 @@ LABEL_222:
         *buf = "DROP TABLE IF EXISTS spotlight_message_reindex;";
         *&buf[8] = "CREATE TABLE spotlight_message_reindex (message_id INTEGER,\n                                        type INTEGER,\n                                        UNIQUE(message_id),\n                                        FOREIGN KEY (message_id) REFERENCES messages(ROWID) ON DELETE CASCADE);";
         *&buf[16] = "CREATE INDEX spotlight_message_reindex_index ON spotlight_message_reindex(message_id, type);";
-        *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 3, @"adding spotlight message reindex table");
+        *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 3u, @"adding spotlight message reindex table");
         if (*(*(*(a1 + 64) + 8) + 24) == 1)
         {
           goto LABEL_225;
@@ -3167,7 +3260,7 @@ LABEL_231:
         }
 
         *buf = "DROP TABLE IF EXISTS mbl_queue;";
-        *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 1, @"removing mbl_queue table");
+        *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 1u, @"removing mbl_queue table");
         if (*(*(*(a1 + 64) + 8) + 24) == 1)
         {
           goto LABEL_234;
@@ -4140,7 +4233,7 @@ LABEL_389:
   }
 
   *buf = "CREATE TABLE IF NOT EXISTS table_metadata (table_name TEXT COLLATE BINARY NOT NULL,\n                                           largest_deleted_rowid INTEGER NOT NULL DEFAULT 0,\n                                           PRIMARY KEY(table_name)) WITHOUT ROWID;";
-  *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 1, @"creating table_metadata table");
+  *(*(*(a1 + 64) + 8) + 24) = _ExecuteQueries(v4, buf, 1u, @"creating table_metadata table");
   if (*(*(*(a1 + 64) + 8) + 24) != 1)
   {
     goto LABEL_747;
@@ -4390,36 +4483,36 @@ LABEL_747:
           _os_log_impl(&dword_1B0389000, v275, OS_LOG_TYPE_DEFAULT, "Rebuilding triggers", buf, 2u);
         }
 
-        v276 = _SQLFromFile();
-        v277 = _ExecuteSQL(v4, v276, @"performing statements from file triggers.sql");
+        v278 = _SQLFromFile(v276, v277);
+        v279 = _ExecuteSQL(v4, v278, @"performing statements from file triggers.sql");
 
-        *(*(*(a1 + 64) + 8) + 24) = v277;
+        *(*(*(a1 + 64) + 8) + 24) = v279;
       }
     }
   }
 
   if (*(*(*(a1 + 64) + 8) + 24) == 1 && [*(a1 + 40) needsRebuildMessageInfoIndex])
   {
-    v278 = +[MFMailMessageLibraryMigrator log];
-    if (os_log_type_enabled(v278, OS_LOG_TYPE_DEFAULT))
+    v280 = +[MFMailMessageLibraryMigrator log];
+    if (os_log_type_enabled(v280, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B0389000, v278, OS_LOG_TYPE_DEFAULT, "Rebuilding Message Info Index", buf, 2u);
+      _os_log_impl(&dword_1B0389000, v280, OS_LOG_TYPE_DEFAULT, "Rebuilding Message Info Index", buf, 2u);
     }
 
-    v279 = sqlite3_exec(v4, "DROP INDEX IF EXISTS message_infos_index;\nCREATE INDEX message_infos_index ON messages(mailbox, deleted, journaled, sender_vip, flags, conversation_id, date_sent, message_id, date_received DESC, ROWID DESC);", 0, 0, 0);
+    v281 = sqlite3_exec(v4, "DROP INDEX IF EXISTS message_infos_index;\nCREATE INDEX message_infos_index ON messages(mailbox, deleted, journaled, sender_vip, flags, conversation_id, date_sent, message_id, date_received DESC, ROWID DESC);", 0, 0, 0);
     _HandleSQLiteError(v4, @"updating message_infos_index covering index");
-    *(*(*(a1 + 64) + 8) + 24) = v279 == 0;
+    *(*(*(a1 + 64) + 8) + 24) = v281 == 0;
   }
 
-  v280 = *(*(*(a1 + 64) + 8) + 24);
-  if (v280 == 1 && v5 != 231002)
+  v282 = *(*(*(a1 + 64) + 8) + 24);
+  if (v282 == 1 && v5 != 231002)
   {
-    v282 = +[MFMailMessageLibraryMigrator log];
-    if (os_log_type_enabled(v282, OS_LOG_TYPE_DEFAULT))
+    v284 = +[MFMailMessageLibraryMigrator log];
+    if (os_log_type_enabled(v284, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B0389000, v282, OS_LOG_TYPE_DEFAULT, "Updating library version", buf, 2u);
+      _os_log_impl(&dword_1B0389000, v284, OS_LOG_TYPE_DEFAULT, "Updating library version", buf, 2u);
     }
 
     *buf = 0;
@@ -4436,11 +4529,10 @@ LABEL_747:
       sqlite3_finalize(*buf);
     }
 
-    LOBYTE(v280) = *(*(*(a1 + 64) + 8) + 24);
+    LOBYTE(v282) = *(*(*(a1 + 64) + 8) + 24);
   }
 
-  v283 = *MEMORY[0x1E69E9840];
-  return v280 & 1;
+  return v282 & 1;
 }
 
 void __80__MFMailMessageLibraryMigrator__runMigrationStepsFromVersion_connection_schema___block_invoke_427(uint64_t a1, uint64_t a2)
@@ -4539,32 +4631,32 @@ uint64_t __90__MFMailMessageLibraryMigrator__checkContentProtectionStateForUpgra
 
 - (BOOL)_checkForeignKeysWithConnection:(id)connection
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v4 = [connectionCopy preparedStatementForQueryString:@"PRAGMA foreign_key_check"];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
   v5 = +[MFMailMessageLibraryMigrator log];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v16 = __64__MFMailMessageLibraryMigrator__checkForeignKeysWithConnection___block_invoke;
-  v17 = &unk_1E7AA65F0;
-  v20 = &v22;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v15 = __64__MFMailMessageLibraryMigrator__checkForeignKeysWithConnection___block_invoke;
+  v16 = &unk_1E7AA65F0;
+  v19 = &v21;
   v6 = v4;
-  v18 = v6;
-  v21 = &v26;
+  v17 = v6;
+  v20 = &v25;
   v7 = connectionCopy;
-  v19 = v7;
+  v18 = v7;
   v8 = v5;
-  v9 = v15;
+  v9 = v14;
   v10 = mach_absolute_time();
-  v16(v9);
+  v15(v9);
   v11 = mach_absolute_time();
   if (EFGetElapsedTimeSinceAbsoluteTime_onceToken_0 != -1)
   {
@@ -4574,17 +4666,16 @@ uint64_t __90__MFMailMessageLibraryMigrator__checkContentProtectionStateForUpgra
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v31 = @"PRAGMA foreign_key_check";
-    v32 = 2048;
-    v33 = ((v11 - v10) * EFGetElapsedTimeSinceAbsoluteTime_sTimebaseInfo_0 / *algn_1EB70247C) / 1000000000.0;
+    v30 = @"PRAGMA foreign_key_check";
+    v31 = 2048;
+    v32 = ((v11 - v10) * EFGetElapsedTimeSinceAbsoluteTime_sTimebaseInfo_0 / *algn_1EB70247C) / 1000000000.0;
     _os_log_impl(&dword_1B0389000, v8, OS_LOG_TYPE_DEFAULT, "%@ : took %fs", buf, 0x16u);
   }
 
-  v12 = *(v23 + 24) == 1 && v27[3] == 0;
-  _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v26, 8);
+  v12 = *(v22 + 24) == 1 && v26[3] == 0;
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v25, 8);
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -4608,36 +4699,32 @@ void __64__MFMailMessageLibraryMigrator__checkForeignKeysWithConnection___block_
 
 void __64__MFMailMessageLibraryMigrator__checkForeignKeysWithConnection___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, BOOL *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v6 = a2;
   *a4 = ++*(*(*(a1 + 32) + 8) + 24) > 9;
   v7 = +[MFMailMessageLibraryMigrator log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v9 = [v6 objectAtIndexedSubscript:1];
-    v10 = [v9 int64Value];
-    v11 = [v6 objectAtIndexedSubscript:0];
-    v12 = [v11 stringValue];
-    v13 = [v6 objectAtIndexedSubscript:2];
-    v14 = [v13 stringValue];
-    v15 = 134218498;
-    v16 = v10;
-    v17 = 2114;
-    v18 = v12;
-    v19 = 2114;
-    v20 = v14;
-    _os_log_error_impl(&dword_1B0389000, v7, OS_LOG_TYPE_ERROR, "Foreign key violation on row %lld of table %{public}@ with reference to table %{public}@", &v15, 0x20u);
+    v8 = [v6 objectAtIndexedSubscript:1];
+    v9 = [v8 int64Value];
+    v10 = [v6 objectAtIndexedSubscript:0];
+    v11 = [v10 stringValue];
+    v12 = [v6 objectAtIndexedSubscript:2];
+    v13 = [v12 stringValue];
+    v14 = 134218498;
+    v15 = v9;
+    v16 = 2114;
+    v17 = v11;
+    v18 = 2114;
+    v19 = v13;
+    _os_log_error_impl(&dword_1B0389000, v7, OS_LOG_TYPE_ERROR, "Foreign key violation on row %lld of table %{public}@ with reference to table %{public}@", &v14, 0x20u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetTTRPromptAndForceReindex
 {
   MFMobileMailPreferenceDomain();
   MFMobileMailContainerPath();
-  v3 = *MEMORY[0x1E695E8B8];
-  v4 = *MEMORY[0x1E695E898];
   _CFPreferencesSetValueWithContainer();
   _CFPreferencesSetValueWithContainer();
 
@@ -4653,41 +4740,83 @@ void __64__MFMailMessageLibraryMigrator__checkForeignKeysWithConnection___block_
 
 - (void)runPostMigrationBlocksWithConnection:(id)connection
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v5 = [(NSMutableArray *)self->_postMigrationBlocks copy];
   [(NSMutableArray *)self->_postMigrationBlocks removeAllObjects];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        (*(*(*(&v11 + 1) + 8 * v9) + 16))(*(*(&v11 + 1) + 8 * v9));
+        (*(*(*(&v10 + 1) + 8 * v9) + 16))(*(*(&v10 + 1) + 8 * v9));
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (int64_t)_attachProtectedDatabaseWithConnection:(id)connection forUpgradeStartingFromVersion:(int)version
+{
+  v4 = *&version;
+  connectionCopy = connection;
+  delegate = [(MFMailMessageLibraryMigrator *)self delegate];
+  v16 = 0;
+  v8 = [delegate mailMessageLibraryMigrator:self attachProtectedDatabaseWithName:@"protected" connection:connectionCopy error:&v16];
+  v9 = v16;
+
+  if (v8)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v11 = +[MFMailMessageLibraryMigrator log];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      [MFMailMessageLibraryMigrator _attachProtectedDatabaseWithConnection:forUpgradeStartingFromVersion:];
+    }
+
+    domain = [v9 domain];
+    v13 = [domain isEqualToString:*MEMORY[0x1E699B770]];
+
+    if (v13)
+    {
+      code = [v9 code];
+      v10 = 2;
+      if (code <= 0x17 && ((1 << code) & 0x804400) != 0)
+      {
+        v10 = [(MFMailMessageLibraryMigrator *)self _checkContentProtectionStateForUpgradeStartingFromVersion:v4];
+      }
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+  }
+
+  return v10;
 }
 
 - (void)detachProtectedDatabaseWithConnection:(id)connection
@@ -4735,63 +4864,37 @@ void __64__MFMailMessageLibraryMigrator__checkForeignKeysWithConnection___block_
 
 void __80__MFMailMessageLibraryMigrator__runMigrationStepsFromVersion_connection_schema___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __80__MFMailMessageLibraryMigrator__runMigrationStepsFromVersion_connection_schema___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __80__MFMailMessageLibraryMigrator__runMigrationStepsFromVersion_connection_schema___block_invoke_2_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __80__MFMailMessageLibraryMigrator__runMigrationStepsFromVersion_connection_schema___block_invoke_2_cold_4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __80__MFMailMessageLibraryMigrator__runMigrationStepsFromVersion_connection_schema___block_invoke_427_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_runAddBusinessColumnsUpgradeStepForConnection:db:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_attachProtectedDatabaseWithConnection:forUpgradeStartingFromVersion:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

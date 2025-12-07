@@ -361,7 +361,7 @@ uint64_t __48__ATLocalCloudAssetLink__finishAsset_withError___block_invoke(id *a
   dispatch_async(queue, v7);
 }
 
-uint64_t __41__ATLocalCloudAssetLink_prioritizeAsset___block_invoke(uint64_t a1)
+void *__41__ATLocalCloudAssetLink_prioritizeAsset___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 40) containsObject:*(a1 + 40)];
   if (result)
@@ -562,10 +562,10 @@ LABEL_8:
   return v8;
 }
 
-uint64_t __45__ATLocalCloudAssetLink_enqueueAssets_force___block_invoke(uint64_t result)
+void *__45__ATLocalCloudAssetLink_enqueueAssets_force___block_invoke(void *result)
 {
   v15 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (*(v1 + 56) == 1 && *(v1 + 32))
   {
     v2 = result;
@@ -573,7 +573,7 @@ uint64_t __45__ATLocalCloudAssetLink_enqueueAssets_force___block_invoke(uint64_t
     v13 = 0u;
     v10 = 0u;
     v11 = 0u;
-    v3 = *(result + 40);
+    v3 = *(result + 5);
     v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
@@ -589,10 +589,10 @@ LABEL_5:
         }
 
         v8 = *(*(&v10 + 1) + 8 * v7);
-        [*(*(v2 + 32) + 40) addObject:{v8, v10}];
-        [*(*(*(v2 + 48) + 8) + 40) addObject:v8];
-        v9 = [*(*(v2 + 32) + 40) count];
-        if (v9 >= [*(v2 + 32) maximumBatchSize])
+        [*(*(v2 + 4) + 40) addObject:{v8, v10}];
+        [*(*(*(v2 + 6) + 8) + 40) addObject:v8];
+        v9 = [*(*(v2 + 4) + 40) count];
+        if (v9 >= [*(v2 + 4) maximumBatchSize])
         {
           break;
         }
@@ -610,7 +610,7 @@ LABEL_5:
       }
     }
 
-    return [*(v2 + 32) _requestNextDownload];
+    return [*(v2 + 4) _requestNextDownload];
   }
 
   return result;

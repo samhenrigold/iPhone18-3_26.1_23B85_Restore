@@ -47,7 +47,7 @@ LABEL_4:
 
   if (v3)
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSObject, 0x277D82BB8);
     v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
@@ -64,7 +64,7 @@ LABEL_4:
   result = lazy protocol witness table cache variable for type [String : DOCDebugUIScenario.Settings] and conformance <> [A : B];
   if (!lazy protocol witness table cache variable for type [String : DOCDebugUIScenario.Settings] and conformance <> [A : B])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS26DocumentManagerExecutables18DOCDebugUIScenarioV8SettingsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS26DocumentManagerExecutables18DOCDebugUIScenarioV8SettingsVGMd, &_sSDySS26DocumentManagerExecutables18DOCDebugUIScenarioV8SettingsVGMR);
     lazy protocol witness table accessor for type DOCDebugUIScenario.Settings and conformance DOCDebugUIScenario.Settings();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String : DOCDebugUIScenario.Settings] and conformance <> [A : B]);

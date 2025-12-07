@@ -1,518 +1,3 @@
-void *proto::gpsd::RecoveryStatistics::SharedDtor(void *this)
-{
-  if (proto::gpsd::RecoveryStatistics::default_instance_ != this)
-  {
-    this = this[4];
-    if (this)
-    {
-      return (*(*this + 8))();
-    }
-  }
-
-  return this;
-}
-
-uint64_t proto::gpsd::RecoveryStatistics::MergePartialFromCodedStream(proto::gpsd::RecoveryStatistics *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
-{
-  while (1)
-  {
-    while (1)
-    {
-LABEL_1:
-      v5 = *(a2 + 1);
-      if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
-      {
-        TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
-        *(a2 + 8) = TagFallback;
-        if (!TagFallback)
-        {
-          return 1;
-        }
-      }
-
-      else
-      {
-        *(a2 + 8) = TagFallback;
-        *(a2 + 1) = v5 + 1;
-        if (!TagFallback)
-        {
-          return 1;
-        }
-      }
-
-      v7 = TagFallback & 7;
-      if (TagFallback >> 3 != 2)
-      {
-        break;
-      }
-
-      if (v7 != 2)
-      {
-        goto LABEL_30;
-      }
-
-LABEL_33:
-      *(this + 11) |= 2u;
-      v22 = *(this + 4);
-      if (!v22)
-      {
-        operator new();
-      }
-
-      v32 = 0;
-      v23 = *(a2 + 1);
-      if (v23 >= *(a2 + 2) || *v23 < 0)
-      {
-        if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v32))
-        {
-          return 0;
-        }
-      }
-
-      else
-      {
-        v32 = *v23;
-        *(a2 + 1) = v23 + 1;
-      }
-
-      v24 = *(a2 + 14);
-      v25 = *(a2 + 15);
-      *(a2 + 14) = v24 + 1;
-      if (v24 >= v25)
-      {
-        return 0;
-      }
-
-      v26 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2, v32);
-      if (!proto::gpsd::RecoveryStatistics_RecoveryStatus::MergePartialFromCodedStream(v22, a2, v27) || *(a2 + 36) != 1)
-      {
-        return 0;
-      }
-
-      wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2, v26);
-      v28 = *(a2 + 14);
-      v18 = __OFSUB__(v28, 1);
-      v29 = v28 - 1;
-      if (v29 < 0 == v18)
-      {
-        *(a2 + 14) = v29;
-      }
-
-      if (*(a2 + 1) == *(a2 + 2) && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
-      {
-        *(a2 + 8) = 0;
-        result = 1;
-        *(a2 + 36) = 1;
-        return result;
-      }
-    }
-
-    if (TagFallback >> 3 == 1 && v7 == 2)
-    {
-      while (1)
-      {
-        v8 = *(this + 5);
-        v9 = *(this + 4);
-        if (v9 >= v8)
-        {
-          if (v8 == *(this + 6))
-          {
-            wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 8), v8 + 1);
-            v8 = *(this + 5);
-          }
-
-          *(this + 5) = v8 + 1;
-          operator new();
-        }
-
-        v10 = *(this + 1);
-        *(this + 4) = v9 + 1;
-        v11 = *(v10 + 8 * v9);
-        v31 = 0;
-        v12 = *(a2 + 1);
-        if (v12 >= *(a2 + 2) || *v12 < 0)
-        {
-          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v31))
-          {
-            return 0;
-          }
-        }
-
-        else
-        {
-          v31 = *v12;
-          *(a2 + 1) = v12 + 1;
-        }
-
-        v13 = *(a2 + 14);
-        v14 = *(a2 + 15);
-        *(a2 + 14) = v13 + 1;
-        if (v13 >= v14)
-        {
-          return 0;
-        }
-
-        v15 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2, v31);
-        if (!proto::gpsd::RecoveryStatistics_RecoveryPoint::MergePartialFromCodedStream(v11, a2, v16) || *(a2 + 36) != 1)
-        {
-          return 0;
-        }
-
-        wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2, v15);
-        v17 = *(a2 + 14);
-        v18 = __OFSUB__(v17, 1);
-        v19 = v17 - 1;
-        if (v19 < 0 == v18)
-        {
-          *(a2 + 14) = v19;
-        }
-
-        v20 = *(a2 + 1);
-        if (v20 >= *(a2 + 2))
-        {
-          goto LABEL_1;
-        }
-
-        v21 = *v20;
-        if (v21 != 10)
-        {
-          if (v21 != 18)
-          {
-            goto LABEL_1;
-          }
-
-          *(a2 + 1) = v20 + 1;
-          goto LABEL_33;
-        }
-
-        *(a2 + 1) = v20 + 1;
-      }
-    }
-
-LABEL_30:
-    if (v7 == 4)
-    {
-      return 1;
-    }
-
-    if ((wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipField(a2, TagFallback, a3) & 1) == 0)
-    {
-      return 0;
-    }
-  }
-}
-
-uint64_t proto::gpsd::RecoveryStatistics::SerializeWithCachedSizes(uint64_t this, wireless_diagnostics::google::protobuf::io::CodedOutputStream *a2, uint64_t a3, wireless_diagnostics::google::protobuf::io::CodedOutputStream *a4)
-{
-  v5 = this;
-  if (*(this + 16) >= 1)
-  {
-    v6 = 0;
-    do
-    {
-      this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(1, *(*(v5 + 8) + 8 * v6++), a2, a4);
-    }
-
-    while (v6 < *(v5 + 16));
-  }
-
-  if ((*(v5 + 44) & 2) != 0)
-  {
-    v7 = *(v5 + 32);
-    if (!v7)
-    {
-      v7 = *(proto::gpsd::RecoveryStatistics::default_instance_ + 32);
-    }
-
-    return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(2, v7, a2, a4);
-  }
-
-  return this;
-}
-
-uint64_t proto::gpsd::RecoveryStatistics::ByteSize(proto::gpsd::RecoveryStatistics *this, unsigned int a2)
-{
-  if ((*(this + 44) & 2) != 0)
-  {
-    v4 = *(this + 4);
-    if (!v4)
-    {
-      v4 = *(proto::gpsd::RecoveryStatistics::default_instance_ + 32);
-    }
-
-    v5 = proto::gpsd::RecoveryStatistics_RecoveryStatus::ByteSize(v4, a2);
-    v6 = v5;
-    if (v5 >= 0x80)
-    {
-      v7 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5, a2);
-    }
-
-    else
-    {
-      v7 = 1;
-    }
-
-    v3 = v6 + v7 + 1;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v8 = *(this + 4);
-  v9 = (v8 + v3);
-  if (v8 >= 1)
-  {
-    v10 = 0;
-    do
-    {
-      v11 = proto::gpsd::RecoveryStatistics_RecoveryPoint::ByteSize(*(*(this + 1) + 8 * v10), a2);
-      v12 = v11;
-      if (v11 >= 0x80)
-      {
-        v13 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v11, a2);
-      }
-
-      else
-      {
-        v13 = 1;
-      }
-
-      v9 = (v12 + v9 + v13);
-      ++v10;
-    }
-
-    while (v10 < *(this + 4));
-  }
-
-  *(this + 10) = v9;
-  return v9;
-}
-
-void proto::gpsd::RecoveryStatistics::CheckTypeAndMergeFrom(proto::gpsd::RecoveryStatistics *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
-{
-  v4 = **lpsrc;
-  {
-    __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
-  }
-
-  proto::gpsd::RecoveryStatistics::MergeFrom(this, lpsrc);
-}
-
-void proto::gpsd::RecoveryStatistics::CopyFrom(proto::gpsd::RecoveryStatistics *this, const proto::gpsd::RecoveryStatistics *a2)
-{
-  if (a2 != this)
-  {
-    (*(*this + 32))(this);
-
-    proto::gpsd::RecoveryStatistics::MergeFrom(this, a2);
-  }
-}
-
-uint64_t proto::gpsd::RecoveryStatistics::Swap(uint64_t this, proto::gpsd::RecoveryStatistics *a2)
-{
-  if (a2 != this)
-  {
-    v3 = this;
-    this = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Swap((this + 8), (a2 + 8));
-    v4 = *(v3 + 32);
-    *(v3 + 32) = *(a2 + 4);
-    *(a2 + 4) = v4;
-    LODWORD(v4) = *(v3 + 44);
-    *(v3 + 44) = *(a2 + 11);
-    *(a2 + 11) = v4;
-    LODWORD(v4) = *(v3 + 40);
-    *(v3 + 40) = *(a2 + 10);
-    *(a2 + 10) = v4;
-  }
-
-  return this;
-}
-
-uint64_t proto::gpsd::LtlInfoRequest::SharedCtor(uint64_t this)
-{
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  return this;
-}
-
-proto::gpsd::LtlInfoRequest *proto::gpsd::LtlInfoRequest::LtlInfoRequest(proto::gpsd::LtlInfoRequest *this, const proto::gpsd::LtlInfoRequest *a2)
-{
-  *this = off_10017AB88;
-  *(this + 1) = 0;
-  *(this + 4) = 0;
-  proto::gpsd::LtlInfoRequest::MergeFrom(this, a2);
-  return this;
-}
-
-void proto::gpsd::LtlInfoRequest::~LtlInfoRequest(proto::gpsd::LtlInfoRequest *this)
-{
-  *this = off_10017AB88;
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-}
-
-{
-  *this = off_10017AB88;
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-}
-
-{
-  *this = off_10017AB88;
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-
-  operator delete();
-}
-
-uint64_t proto::gpsd::LtlInfoRequest::MergePartialFromCodedStream(proto::gpsd::LtlInfoRequest *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
-{
-  while (1)
-  {
-    while (1)
-    {
-      v5 = *(a2 + 1);
-      if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
-      {
-        TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
-        *(a2 + 8) = TagFallback;
-      }
-
-      else
-      {
-        *(a2 + 8) = TagFallback;
-        *(a2 + 1) = v5 + 1;
-      }
-
-      if (TagFallback != 8)
-      {
-        break;
-      }
-
-      v10 = 0;
-      v7 = *(a2 + 1);
-      if (v7 >= *(a2 + 2) || (v8 = *v7, (v8 & 0x80000000) != 0))
-      {
-        result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v10);
-        if (!result)
-        {
-          return result;
-        }
-
-        v8 = v10;
-      }
-
-      else
-      {
-        *(a2 + 1) = v7 + 1;
-      }
-
-      if (v8 <= 4)
-      {
-        *(this + 4) |= 1u;
-        *(this + 2) = v8;
-      }
-
-      if (*(a2 + 1) == *(a2 + 2) && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
-      {
-        *(a2 + 8) = 0;
-        result = 1;
-        *(a2 + 36) = 1;
-        return result;
-      }
-    }
-
-    if (!TagFallback || (TagFallback & 7) == 4)
-    {
-      break;
-    }
-
-    if ((wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipField(a2, TagFallback, a3) & 1) == 0)
-    {
-      return 0;
-    }
-  }
-
-  return 1;
-}
-
-uint64_t proto::gpsd::LtlInfoRequest::SerializeWithCachedSizes(uint64_t this, wireless_diagnostics::google::protobuf::io::CodedOutputStream *a2, uint64_t a3, wireless_diagnostics::google::protobuf::io::CodedOutputStream *a4)
-{
-  if (*(this + 16))
-  {
-    return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteEnum(1, *(this + 8), a2, a4);
-  }
-
-  return this;
-}
-
-uint64_t proto::gpsd::LtlInfoRequest::ByteSize(proto::gpsd::LtlInfoRequest *this, unsigned int a2)
-{
-  if (*(this + 16))
-  {
-    v4 = *(this + 2);
-    if ((v4 & 0x80000000) != 0)
-    {
-      result = 11;
-    }
-
-    else if (v4 >= 0x80)
-    {
-      result = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v4, a2) + 1;
-    }
-
-    else
-    {
-      result = 2;
-    }
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  *(this + 3) = result;
-  return result;
-}
-
-void proto::gpsd::LtlInfoRequest::CheckTypeAndMergeFrom(proto::gpsd::LtlInfoRequest *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
-{
-  v4 = **lpsrc;
-  {
-    __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
-  }
-
-  proto::gpsd::LtlInfoRequest::MergeFrom(this, lpsrc);
-}
-
-void proto::gpsd::LtlInfoRequest::CopyFrom(proto::gpsd::LtlInfoRequest *this, const proto::gpsd::LtlInfoRequest *a2)
-{
-  if (a2 != this)
-  {
-    (*(*this + 32))(this);
-
-    proto::gpsd::LtlInfoRequest::MergeFrom(this, a2);
-  }
-}
-
-proto::gpsd::LtlInfoRequest *proto::gpsd::LtlInfoRequest::Swap(proto::gpsd::LtlInfoRequest *this, proto::gpsd::LtlInfoRequest *a2)
-{
-  if (a2 != this)
-  {
-    v2 = *(this + 2);
-    *(this + 2) = *(a2 + 2);
-    *(a2 + 2) = v2;
-    v3 = *(this + 4);
-    *(this + 4) = *(a2 + 4);
-    *(a2 + 4) = v3;
-    v4 = *(this + 3);
-    *(this + 3) = *(a2 + 3);
-    *(a2 + 3) = v4;
-  }
-
-  return this;
-}
-
 double proto::gpsd::LtlInfo_LtlLutParams::SharedCtor(proto::gpsd::LtlInfo_LtlLutParams *this)
 {
   result = 0.0;
@@ -560,7 +45,7 @@ void proto::gpsd::LtlInfo_LtlLutParams::MergeFrom(proto::gpsd::LtlInfo_LtlLutPar
   v4 = *(a2 + 6);
   if (v4)
   {
-    wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 2, *(this + 6) + v4);
+    wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 4, *(this + 6) + v4);
     memcpy((*(this + 2) + 4 * *(this + 6)), *(a2 + 2), 4 * *(a2 + 6));
     *(this + 6) += *(a2 + 6);
   }
@@ -568,7 +53,7 @@ void proto::gpsd::LtlInfo_LtlLutParams::MergeFrom(proto::gpsd::LtlInfo_LtlLutPar
   v5 = *(a2 + 10);
   if (v5)
   {
-    wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 4, *(this + 10) + v5);
+    wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 8, *(this + 10) + v5);
     memcpy((*(this + 4) + 4 * *(this + 10)), *(a2 + 4), 4 * *(a2 + 10));
     *(this + 10) += *(a2 + 10);
   }
@@ -593,9 +78,9 @@ void proto::gpsd::LtlInfo_LtlLutParams::MergeFrom(proto::gpsd::LtlInfo_LtlLutPar
   }
 }
 
-void sub_1000FF208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000FF208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -697,7 +182,7 @@ LABEL_1:
 
             if (v8 == 2)
             {
-              result = wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<unsigned int,(wireless_diagnostics::google::protobuf::internal::WireFormatLite::FieldType)13>(a2, this + 32);
+              result = wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<unsigned int,(wireless_diagnostics::google::protobuf::internal::WireFormatLite::FieldType)13>(a2, this + 8);
               if (!result)
               {
                 return result;
@@ -714,7 +199,7 @@ LABEL_1:
         {
           if (v8 == 2)
           {
-            result = wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<int,(wireless_diagnostics::google::protobuf::internal::WireFormatLite::FieldType)5>(a2, this + 16);
+            result = wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<int,(wireless_diagnostics::google::protobuf::internal::WireFormatLite::FieldType)5>(a2, this + 4);
             if (!result)
             {
               return result;
@@ -750,7 +235,7 @@ LABEL_1:
           v21 = *(this + 6);
           if (v21 == *(this + 7))
           {
-            wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 2, v21 + 1);
+            wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 4, v21 + 1);
             v21 = *(this + 6);
           }
 
@@ -841,7 +326,7 @@ LABEL_66:
               v30 = *(this + 10);
               if (v30 == *(this + 11))
               {
-                wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 4, v30 + 1);
+                wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 8, v30 + 1);
                 v30 = *(this + 10);
               }
 
@@ -1010,14 +495,14 @@ LABEL_23:
   }
 }
 
-void sub_1000FF844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000FF844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<int,(wireless_diagnostics::google::protobuf::internal::WireFormatLite::FieldType)5>(wireless_diagnostics::google::protobuf::io::CodedInputStream *this, uint64_t a2)
+uint64_t wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<int,(wireless_diagnostics::google::protobuf::internal::WireFormatLite::FieldType)5>(wireless_diagnostics::google::protobuf::io::CodedInputStream *this, _DWORD *a2)
 {
   v12 = 0;
   v4 = *(this + 1);
@@ -1061,15 +546,15 @@ uint64_t wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadP
         *(this + 1) = v8 + 1;
       }
 
-      v10 = *(a2 + 8);
-      if (v10 == *(a2 + 12))
+      v10 = a2[2];
+      if (v10 == a2[3])
       {
         wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(a2, v10 + 1);
-        v10 = *(a2 + 8);
+        v10 = a2[2];
       }
 
       v11 = *a2;
-      *(a2 + 8) = v10 + 1;
+      a2[2] = v10 + 1;
       *(v11 + 4 * v10) = v9;
     }
 
@@ -1248,7 +733,6 @@ LABEL_14:
 
 void proto::gpsd::LtlInfo_LtlLutParams::CheckTypeAndMergeFrom(proto::gpsd::LtlInfo_LtlLutParams *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -1342,7 +826,7 @@ void proto::gpsd::LtlInfo_LtlCurrentSrcCalibData::MergeFrom(proto::gpsd::LtlInfo
   v4 = *(a2 + 4);
   if (v4)
   {
-    wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 1, *(this + 4) + v4);
+    wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 2, *(this + 4) + v4);
     memcpy((*(this + 1) + 4 * *(this + 4)), *(a2 + 1), 4 * *(a2 + 4));
     *(this + 4) += *(a2 + 4);
   }
@@ -1367,9 +851,9 @@ void proto::gpsd::LtlInfo_LtlCurrentSrcCalibData::MergeFrom(proto::gpsd::LtlInfo
   }
 }
 
-void sub_1000FFEEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000FFEEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1573,7 +1057,7 @@ LABEL_53:
       v15 = *(this + 4);
       if (v15 == *(this + 5))
       {
-        wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 1, v15 + 1);
+        wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 2, v15 + 1);
         v15 = *(this + 4);
       }
 
@@ -1661,7 +1145,7 @@ LABEL_40:
     goto LABEL_16;
   }
 
-  result = wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<int,(wireless_diagnostics::google::protobuf::internal::WireFormatLite::FieldType)5>(a2, this + 8);
+  result = wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<int,(wireless_diagnostics::google::protobuf::internal::WireFormatLite::FieldType)5>(a2, this + 2);
   if (result)
   {
     goto LABEL_40;
@@ -1670,9 +1154,9 @@ LABEL_40:
   return result;
 }
 
-void sub_10010038C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10010038C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1805,7 +1289,6 @@ LABEL_14:
 
 void proto::gpsd::LtlInfo_LtlCurrentSrcCalibData::CheckTypeAndMergeFrom(proto::gpsd::LtlInfo_LtlCurrentSrcCalibData *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -1897,9 +1380,9 @@ void proto::gpsd::LtlInfo_LtlRacPmicAdcPreCalData::MergeFrom(proto::gpsd::LtlInf
   }
 }
 
-void sub_100100810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100100810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2153,7 +1636,6 @@ LABEL_17:
 
 void proto::gpsd::LtlInfo_LtlRacPmicAdcPreCalData::CheckTypeAndMergeFrom(proto::gpsd::LtlInfo_LtlRacPmicAdcPreCalData *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -2393,9 +1875,9 @@ LABEL_17:
   *(this + 12) = v6;
 }
 
-void sub_100101004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100101004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3355,7 +2837,6 @@ LABEL_72:
 
 void proto::gpsd::LtlInfo_LtlInitialParams::CheckTypeAndMergeFrom(proto::gpsd::LtlInfo_LtlInitialParams *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -4228,7 +3709,6 @@ LABEL_46:
 
 void proto::gpsd::LtlInfo::CheckTypeAndMergeFrom(proto::gpsd::LtlInfo *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -4615,7 +4095,6 @@ LABEL_26:
 
 void proto::gpsd::Exception::CheckTypeAndMergeFrom(proto::gpsd::Exception *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -4894,7 +4373,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  v7 = *(v5 + 24);
 
   return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteString();
 }
@@ -4960,7 +4438,6 @@ uint64_t proto::gpsd::AskBasebandReset::ByteSize(wireless_diagnostics::google::p
 
 void proto::gpsd::AskBasebandReset::CheckTypeAndMergeFrom(proto::gpsd::AskBasebandReset *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -5149,9 +4626,9 @@ LABEL_24:
   }
 }
 
-void sub_100103DC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100103DC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5543,7 +5020,6 @@ LABEL_21:
 
 void proto::gpsd::LogEntry::CheckTypeAndMergeFrom(proto::gpsd::LogEntry *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -5701,7 +5177,6 @@ uint64_t proto::gpsd::StartContext::ByteSize(proto::gpsd::StartContext *this, un
 
 void proto::gpsd::StartContext::CheckTypeAndMergeFrom(proto::gpsd::StartContext *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -5761,11 +5236,11 @@ void GpsdResourceWatcher::GpsdResourceWatcher(GpsdResourceWatcher *this)
   v2 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG);
   if (v2)
   {
-    LOWORD(v4) = 0;
-    _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "GpsdResourceWatcher, created timer", &v4, 2u);
+    LOWORD(v3) = 0;
+    _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "GpsdResourceWatcher, created timer", &v3, 2u);
   }
 
-  v3 = *(GpsdRuntime::instance(v2) + 16);
+  GpsdRuntime::instance(v2);
   operator new();
 }
 
@@ -6243,15 +5718,15 @@ void GpsdPerformanceSummary::reportBeiDouConsistencyStats(uint64_t a1, unsigned 
     v7 = *(a2 + 3);
     v8 = *(a2 + 4);
     *buf = 67175681;
-    v13 = v4;
+    v11 = v4;
+    v12 = 2050;
+    v13 = v5;
     v14 = 2050;
-    v15 = v5;
+    v15 = v6;
     v16 = 2050;
-    v17 = v6;
-    v18 = 2050;
-    v19 = v7;
-    v20 = 1026;
-    v21 = v8;
+    v17 = v7;
+    v18 = 1026;
+    v19 = v8;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#rbc,enabled,%{private}d,ttff,%{public}.1f,%{public}.1f,dur,%{public}.1f,numDiverge,%{public}d", buf, 0x2Cu);
   }
 
@@ -6260,8 +5735,6 @@ void GpsdPerformanceSummary::reportBeiDouConsistencyStats(uint64_t a1, unsigned 
     v9 = *(a2 + 4);
     if (*&v9 >= 0.0 || *(&v9 + 1) >= 0.0)
     {
-      v10 = llroundf(*(a2 + 3));
-      v11 = *(a2 + 4);
       AnalyticsSendEventLazy();
     }
   }
@@ -6365,7 +5838,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
         v30 = a1[1];
         if (v29 <= v30)
         {
-          v31 = a1[1];
+          v31 = *(a1 + 1);
           v30 = v29;
         }
 
@@ -6382,7 +5855,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         else
         {
-          v49 = a1[2];
+          v49 = *(a1 + 2);
         }
 
         if (*a1 <= v47)
@@ -6474,16 +5947,16 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         else
         {
-          v7 = a1[1];
+          v7 = *(a1 + 1);
         }
 
         if (*a1 > v6)
         {
-          v5 = a1[1];
+          v5 = *(a1 + 1);
         }
 
         *a1 = v7;
-        a1[1] = v5;
+        *(a1 + 1) = v5;
         v8 = a1[3];
         v9 = *(a2 - 1);
         if (v8 > v9)
@@ -6569,7 +6042,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         if (v22 <= v21)
         {
-          v19 = a1[2];
+          v19 = *(a1 + 2);
           v21 = v22;
         }
 
@@ -7074,13 +6547,13 @@ void GnssWatchdog::GnssWatchdog(GnssWatchdog *this, dispatch_queue_s *a2)
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#wdt,%{public}p,ctor,queue,null,use deviceQueue", &buf, 0xCu);
     }
 
-    v5 = *GpsdRuntime::instance(v4);
+    GpsdRuntime::instance(v4);
   }
 
   operator new();
 }
 
-uint64_t GnssWatchdog::addEvent(uint64_t *a1, uint64_t a2, int a3, uint64_t a4)
+unint64_t GnssWatchdog::addEvent(unint64_t *a1, uint64_t a2, int a3, uint64_t a4)
 {
   v9 = 2000;
   v10 = a3;
@@ -7164,7 +6637,7 @@ uint64_t std::__function::__func<GnssWatchdog::GnssWatchdog(dispatch_queue_s *):
   }
 }
 
-uint64_t std::vector<GnssWatchEvent>::__emplace_back_slow_path<std::optional<unsigned long long> &,int const&,std::function<void ()(unsigned long long)> &>(uint64_t *a1, uint64_t a2, int *a3, uint64_t a4)
+unint64_t std::vector<GnssWatchEvent>::__emplace_back_slow_path<std::optional<unsigned long long> &,int const&,std::function<void ()(unsigned long long)> &>(unint64_t *a1, uint64_t a2, int *a3, uint64_t a4)
 {
   v4 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v5 = v4 + 1;
@@ -7272,9 +6745,9 @@ LABEL_18:
   return v11;
 }
 
-void sub_100107AA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100107AA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<GnssWatchEvent>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7289,9 +6762,9 @@ uint64_t std::allocator<GnssWatchEvent>::construct[abi:ne200100]<GnssWatchEvent,
   return std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v9);
 }
 
-void sub_100107B44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100107B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7538,11 +7011,11 @@ void GpsdRuntime::GpsdRuntime(GpsdRuntime *this)
   *(this + 2) = GpsdRuntime::dispatchQueueInit(0x15, "defaultPriorityQueue", v8);
 }
 
-uint64_t std::__function::__func<GpsdRuntime::bounceExit(std::string const&)::$_0,std::allocator<GpsdRuntime::bounceExit(std::string const&)::$_0>,void ()(void)>::operator()(GpsdSessionHandlerManager *a1)
+uint64_t **std::__function::__func<GpsdRuntime::bounceExit(std::string const&)::$_0,std::allocator<GpsdRuntime::bounceExit(std::string const&)::$_0>,void ()(void)>::operator()(GpsdSessionHandlerManager *a1)
 {
   result = GpsdSessionHandlerManager::instance(a1);
   v2 = *result;
-  v3 = *(result + 8);
+  v3 = result[1];
   while (v2 != v3)
   {
     v4 = *v2++;
@@ -8116,7 +7589,7 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
     v3 = a1 + 40;
   }
 
-  gpsd::util::enumerateFiles(v3, v2 + 2, &v48);
+  gpsd::util::enumerateFiles(v3, (v2 + 16), &v48);
   v4 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v49 - v48) >> 3));
   if (v49 == v48)
   {
@@ -8193,7 +7666,7 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
 
       else
       {
-        v14 = *(v7 + 8);
+        v14 = *(v7 + 1);
       }
 
       v15 = std::string::append(&v52, v13, v14);
@@ -8304,7 +7777,7 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
 
       else
       {
-        v25 = *(v7 + 8);
+        v25 = *(v7 + 1);
       }
 
       v26 = std::string::append(&v51, v24, v25);
@@ -8403,7 +7876,7 @@ LABEL_79:
 
       if (v38 == 3 || !v38)
       {
-        v7 += 24;
+        v7 = (v7 + 24);
         if (v7 != v6)
         {
           continue;
@@ -8448,28 +7921,28 @@ void sub_1001096D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void VendorLogger::closeLogFile(VendorLogger *this)
+void VendorLogger::closeLogFile(std::string::size_type *this)
 {
   VendorLogger::flushCompression(this);
   *(this + 868) = 0;
-  if (*(this + 48))
+  if (this[48])
   {
     std::ostream::flush();
     if (!std::filebuf::close())
     {
-      std::ios_base::clear((this + *(*(this + 32) - 24) + 256), *(this + *(*(this + 32) - 24) + 288) | 4);
+      std::ios_base::clear((this + *(this[32] - 24) + 256), *(this + *(this[32] - 24) + 288) | 4);
     }
 
-    v2 = (this + 824);
+    v2 = (this + 103);
     if (*(this + 847) < 0)
     {
-      std::string::__init_copy_ctor_external(&buf, *(this + 103), *(this + 104));
+      std::string::__init_copy_ctor_external(&buf, this[103], this[104]);
     }
 
     else
     {
       *&buf.__r_.__value_.__l.__data_ = *&v2->__pn_.__r_.__value_.__l.__data_;
-      buf.__r_.__value_.__r.__words[2] = *(this + 105);
+      buf.__r_.__value_.__r.__words[2] = this[105];
     }
 
     std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v28, this + 5, this + 11);
@@ -8590,7 +8063,7 @@ LABEL_25:
       v12 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = (this + 824);
+        v14 = this + 103;
         if (*(this + 847) < 0)
         {
           v14 = v2->__pn_.__r_.__value_.__r.__words[0];
@@ -8640,8 +8113,8 @@ LABEL_25:
 
     if (*(this + 847) < 0)
     {
-      **(this + 103) = 0;
-      *(this + 104) = 0;
+      *this[103] = 0;
+      this[104] = 0;
     }
 
     else
@@ -8865,33 +8338,33 @@ void VendorLogger::VendorLogger(VendorLogger *this, const VendorLogger::Config *
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v44 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdVendorLogger.cpp";
-      v45 = 1026;
-      v46 = 150;
-      v47 = 2082;
-      v48 = "VendorLogger";
+      v46 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdVendorLogger.cpp";
+      v47 = 1026;
+      v48 = 150;
+      v49 = 2082;
+      v50 = "VendorLogger";
       _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v42, "assert");
-    std::string::basic_string[abi:ne200100]<0>(v40, "VendorLogger");
+    std::string::basic_string[abi:ne200100]<0>(v43, "assert");
+    std::string::basic_string[abi:ne200100]<0>(v41, "VendorLogger");
     std::string::basic_string[abi:ne200100]<0>(__p, "#gvl,fQueue,null");
-    gpsd::util::triggerDiagnosticReport(v42, v40, __p);
-    if (v39 < 0)
+    gpsd::util::triggerDiagnosticReport(v43, v41, __p);
+    if (v40 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v41 < 0)
+    if (v42 < 0)
     {
-      operator delete(v40[0]);
+      operator delete(v41[0]);
     }
 
     v29 = "false && #gvl,fQueue,null";
     v30 = 150;
-    if (v42[23] < 0)
+    if (v44 < 0)
     {
-      v31 = v42;
+      v31 = v43;
 LABEL_60:
       operator delete(*v31);
     }
@@ -8914,11 +8387,11 @@ LABEL_61:
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v44 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdVendorLogger.cpp";
-      v45 = 1026;
-      v46 = 151;
-      v47 = 2082;
-      v48 = "VendorLogger";
+      v46 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdVendorLogger.cpp";
+      v47 = 1026;
+      v48 = 151;
+      v49 = 2082;
+      v50 = "VendorLogger";
       _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
@@ -8938,7 +8411,7 @@ LABEL_61:
 
     v29 = "false && #gvl,ctor,isLoggingToFileEnabled,false";
     v30 = 151;
-    if ((v37[23] & 0x80000000) != 0)
+    if (v38 < 0)
     {
       v31 = v37;
       goto LABEL_60;
@@ -9017,7 +8490,7 @@ LABEL_35:
   v27 = "zlib";
 LABEL_38:
   *buf = 136446210;
-  v44 = v27;
+  v46 = v27;
   _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "VendorLogger,compression enabled,%{public}s", buf, 0xCu);
 }
 
@@ -9054,33 +8527,33 @@ id VendorLogger::generateDefaultConfig@<X0>(uint64_t a1@<X8>)
   std::string::basic_string[abi:ne200100]<0>((a1 + 48), &str_33);
   std::string::basic_string[abi:ne200100]<0>((a1 + 72), "log");
   *(a1 + 96) = 0u;
-  v3 = (a1 + 96);
+  v2 = (a1 + 96);
   *(a1 + 141) = 0;
   *(a1 + 112) = 0u;
   *(a1 + 128) = 0u;
   *(a1 + 152) = -1;
-  v4 = GpsdPreferences::instance(0);
-  GpsdPreferences::vendorLogRetentionDays(v4);
-  *(a1 + 120) = ((v5 * 24.0) * 3600.0);
+  v3 = GpsdPreferences::instance(0);
+  GpsdPreferences::vendorLogRetentionDays(v3);
+  *(a1 + 120) = ((v4 * 24.0) * 3600.0);
+  v5 = GpsdPreferences::instance(0);
+  *(a1 + 128) = GpsdPreferences::vendorLogRotationSizeMB(v5) << 20;
   v6 = GpsdPreferences::instance(0);
-  *(a1 + 128) = GpsdPreferences::vendorLogRotationSizeMB(v6) << 20;
+  *(a1 + 136) = GpsdPreferences::vendorLogMaxDirectorySizeMB(v6) << 20;
   v7 = GpsdPreferences::instance(0);
-  *(a1 + 136) = GpsdPreferences::vendorLogMaxDirectorySizeMB(v7) << 20;
+  *(a1 + 144) = GpsdPreferences::vendorLogMaxNumberOfFiles(v7);
   v8 = GpsdPreferences::instance(0);
-  *(a1 + 144) = GpsdPreferences::vendorLogMaxNumberOfFiles(v8);
+  *(a1 + 148) = GpsdPreferences::vendorLogPrefixWithTimestamp(v8);
   v9 = GpsdPreferences::instance(0);
-  *(a1 + 148) = GpsdPreferences::vendorLogPrefixWithTimestamp(v9);
-  v10 = GpsdPreferences::instance(0);
-  GpsdPreferences::vendorLogDirectory(v10, &v13);
+  GpsdPreferences::vendorLogDirectory(v9, &v12);
   if (*(a1 + 119) < 0)
   {
-    operator delete(*v3);
+    operator delete(*v2);
   }
 
-  *v3 = v13;
-  *(a1 + 112) = v14;
-  v11 = GpsdPreferences::instance(0);
-  result = GpsdPreferences::vendorLogBufferSizeAllowedKB(v11);
+  *v2 = v12;
+  *(a1 + 112) = v13;
+  v10 = GpsdPreferences::instance(0);
+  result = GpsdPreferences::vendorLogBufferSizeAllowedKB(v10);
   *(a1 + 152) = result << 10;
   return result;
 }
@@ -9169,8 +8642,8 @@ void VendorLogger::flushCompression(compression_stream *this)
     {
       while (1)
       {
-        v16 = 0;
-        this[5].src_ptr = &v16;
+        v15 = 0;
+        this[5].src_ptr = &v15;
         this[5].src_size = 0;
         src_ptr = this[4].src_ptr;
         v4 = this[4].src_size - src_ptr;
@@ -9179,24 +8652,24 @@ void VendorLogger::flushCompression(compression_stream *this)
         if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134349824;
-          v18 = &v16;
-          v19 = 2050;
-          v20 = 0;
-          v21 = 2050;
-          v22 = src_ptr;
-          v23 = 2050;
-          v24 = v4;
+          v17 = &v15;
+          v18 = 2050;
+          v19 = 0;
+          v20 = 2050;
+          v21 = src_ptr;
+          v22 = 2050;
+          v23 = v4;
           _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "VendorLogger,flushCompression,before,%{public}p,%{public}zu,%{public}p,%{public}zu", buf, 0x2Au);
         }
 
         v5 = compression_stream_process(this + 5, 1);
         if (v5 > COMPRESSION_STATUS_END)
         {
-          v10 = GpsdLogObjectGeneral;
+          v9 = GpsdLogObjectGeneral;
           if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "VendorLogger,flushCompression,failed to finalize stream", buf, 2u);
+            _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "VendorLogger,flushCompression,failed to finalize stream", buf, 2u);
           }
         }
 
@@ -9208,13 +8681,12 @@ void VendorLogger::flushCompression(compression_stream *this)
           if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134349056;
-            v18 = (v6 - dst_size);
+            v17 = (v6 - dst_size);
             _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "VendorLogger,flushCompression,flushed bytes,%{public}zu", buf, 0xCu);
           }
 
           if (v6 != dst_size)
           {
-            v9 = this[4].src_ptr;
             std::ostream::write();
           }
         }
@@ -9231,20 +8703,20 @@ void VendorLogger::flushCompression(compression_stream *this)
         }
       }
 
-      v11 = this[5].src_ptr;
+      v10 = this[5].src_ptr;
       src_size = this[5].src_size;
       dst_ptr = this[5].dst_ptr;
-      v14 = this[5].dst_size;
+      v13 = this[5].dst_size;
       *buf = 134350080;
-      v18 = v11;
-      v19 = 2050;
-      v20 = src_size;
-      v21 = 2050;
-      v22 = dst_ptr;
-      v23 = 2050;
-      v24 = v14;
-      v25 = 1026;
-      v26 = v5;
+      v17 = v10;
+      v18 = 2050;
+      v19 = src_size;
+      v20 = 2050;
+      v21 = dst_ptr;
+      v22 = 2050;
+      v23 = v13;
+      v24 = 1026;
+      v25 = v5;
       _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "VendorLogger,flushCompression,after,%{public}p,%{public}zu,%{public}p,%{public}zu,status,%{public}d", buf, 0x30u);
       v2 = GpsdLogObjectGeneral;
     }
@@ -9260,17 +8732,17 @@ LABEL_17:
 
     if (compression_stream_destroy(this + 5))
     {
-      v15 = GpsdLogObjectGeneral;
+      v14 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "VendorLogger,flushCompression,failed to destroy stream", buf, 2u);
+        _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "VendorLogger,flushCompression,failed to destroy stream", buf, 2u);
       }
     }
   }
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t a1, const void **a2, const void **a3)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t a1, const void **a2, const void **a3)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -9293,7 +8765,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a1, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -9478,7 +8950,7 @@ LABEL_12:
 
       else
       {
-        v18 = *(v9 + 8);
+        v18 = *(v9 + 1);
       }
 
       v19 = std::string::append(&v58, v17, v18);
@@ -9671,7 +9143,7 @@ LABEL_76:
         operator delete(__p[0]);
       }
 
-      v9 += 24;
+      v9 = (v9 + 24);
       if (v9 == v10)
       {
         goto LABEL_89;
@@ -9743,4 +9215,567 @@ void VendorLogger::ensureLogFileIsOpen(VendorLogger *this)
   {
     VendorLogger::openNewLogFile(this);
   }
+}
+
+void VendorLogger::openNewLogFile(VendorLogger *this)
+{
+  VendorLogger::ensureDirectoryExists(this);
+  if (*(this + 868) == 1)
+  {
+    VendorLogger::closeLogFile(this);
+    VendorLogger::pruneLogFiles(this);
+  }
+
+  VendorLogger::initCompression(this);
+  VendorLogger::generateFilename(&v5, this);
+  v2 = (this + 824);
+  if (*(this + 847) < 0)
+  {
+    operator delete(*v2);
+  }
+
+  *v2 = v5;
+  *(this + 105) = v6;
+  std::ofstream::open();
+  v3 = GpsdLogObjectGeneral;
+  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    if (*(this + 847) < 0)
+    {
+      v2 = *v2;
+    }
+
+    LODWORD(v5) = 136446210;
+    *(&v5 + 4) = v2;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "VendorLogger,opening,%{public}s", &v5, 0xCu);
+  }
+
+  if (!*(this + 48))
+  {
+    v4 = GpsdLogObjectGeneral;
+    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v5) = 0;
+      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "VendorLogger,failed to open", &v5, 2u);
+    }
+  }
+
+  *(this + 868) = 1;
+}
+
+void VendorLogger::ensureLogFileIsClosed(std::string::size_type *this)
+{
+  if (*(this + 868) == 1)
+  {
+    VendorLogger::closeLogFile(this);
+
+    VendorLogger::pruneLogFiles(this);
+  }
+}
+
+void VendorLogger::ensureDirectoryExists(VendorLogger *this)
+{
+  v2 = this + 112;
+  v3 = *(this + 135);
+  v4 = this + 112;
+  if (v3 < 0)
+  {
+    v4 = *v2;
+  }
+
+  if (mkdir(v4, 0x1F8u))
+  {
+    v5 = *__error();
+    if (v5 != 17)
+    {
+      v13 = GpsdLogObjectGeneral;
+      if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+      {
+        return;
+      }
+
+      if (*(this + 135) < 0)
+      {
+        v2 = *v2;
+      }
+
+      v14 = 136446466;
+      v15 = v2;
+      v16 = 1026;
+      v17 = v5;
+      v9 = "VendorLogger,could not create directory,%{public}s,%{public}d";
+      v10 = v13;
+      v11 = 18;
+      goto LABEL_18;
+    }
+
+    if (*(this + 135) < 0)
+    {
+      v2 = *v2;
+    }
+
+    v6 = chmod(v2, 0x1F8u);
+    v7 = GpsdLogObjectGeneral;
+    if (v6)
+    {
+      if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+      {
+        return;
+      }
+
+      v8 = *__error();
+      v14 = 67240192;
+      LODWORD(v15) = v8;
+      v9 = "VendorLogger,chmod failed,%{public}d";
+      v10 = v7;
+      v11 = 8;
+LABEL_18:
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, v9, &v14, v11);
+      return;
+    }
+
+    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
+    {
+      v14 = 67240192;
+      LODWORD(v15) = 504;
+      _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "VendorLogger,directory exists,permissions,%{public}x", &v14, 8u);
+    }
+  }
+
+  else
+  {
+    v12 = GpsdLogObjectGeneral;
+    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
+    {
+      if (*(this + 135) < 0)
+      {
+        v2 = *v2;
+      }
+
+      v14 = 136446466;
+      v15 = v2;
+      v16 = 1026;
+      v17 = 504;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "VendorLogger,created directory,%{public}s,permissions,%{public}x", &v14, 0x12u);
+    }
+  }
+}
+
+void VendorLogger::initCompression(VendorLogger *this)
+{
+  if (*(this + 244) == 1)
+  {
+    v10 = v1;
+    v11 = v2;
+    *(this + 31) = 0;
+    v4 = *(this + 22);
+    v5 = *(this + 23) - v4;
+    if (v5 >> 15)
+    {
+      if (v5 != 0x8000)
+      {
+        *(this + 23) = v4 + 0x8000;
+      }
+    }
+
+    else
+    {
+      std::vector<unsigned char>::__append(this + 22, 0x8000 - v5);
+    }
+
+    v6 = GpsdLogObjectGeneral;
+    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "VendorLogger,initCompression", buf, 2u);
+    }
+
+    if (compression_stream_init(this + 5, COMPRESSION_STREAM_ENCODE, *(this + 60)))
+    {
+      v7 = GpsdLogObjectGeneral;
+      if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+      {
+        *v8 = 0;
+        _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "VendorLogger,initCompression,Could not init stream", v8, 2u);
+      }
+
+      *(this + 244) = 0;
+      *(this + 23) = *(this + 22);
+    }
+
+    else
+    {
+      *(this + 245) = 1;
+    }
+  }
+}
+
+void VendorLogger::generateFilename(uint64_t *__return_ptr a1@<X8>, VendorLogger *this@<X0>)
+{
+  snprintf(__str, 8uLL, "%03d", *(this + 216));
+  ++*(this + 216);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  VendorLogger::isoTimestampString(&v50);
+  std::string::basic_string[abi:ne200100]<0>(&v49, __str);
+  if (*GpsdPreferences::instance(0) == 3)
+  {
+    std::string::assign(&v50, "unittest");
+    std::string::assign(&v49, "000");
+  }
+
+  if (*(this + 135) >= 0)
+  {
+    v4 = *(this + 135);
+  }
+
+  else
+  {
+    v4 = *(this + 15);
+  }
+
+  v5 = &v42;
+  std::string::basic_string[abi:ne200100](&v42, v4 + 1);
+  if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    v5 = v42.__r_.__value_.__r.__words[0];
+  }
+
+  if (v4)
+  {
+    if (*(this + 135) >= 0)
+    {
+      v6 = this + 112;
+    }
+
+    else
+    {
+      v6 = *(this + 14);
+    }
+
+    memmove(v5, v6, v4);
+  }
+
+  *(&v5->__r_.__value_.__l.__data_ + v4) = 47;
+  v7 = *(this + 39);
+  if (v7 >= 0)
+  {
+    v8 = this + 16;
+  }
+
+  else
+  {
+    v8 = *(this + 2);
+  }
+
+  if (v7 >= 0)
+  {
+    v9 = *(this + 39);
+  }
+
+  else
+  {
+    v9 = *(this + 3);
+  }
+
+  v10 = std::string::append(&v42, v8, v9);
+  v11 = *&v10->__r_.__value_.__l.__data_;
+  v43.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+  *&v43.__r_.__value_.__l.__data_ = v11;
+  v10->__r_.__value_.__l.__size_ = 0;
+  v10->__r_.__value_.__r.__words[2] = 0;
+  v10->__r_.__value_.__r.__words[0] = 0;
+  if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v12 = &v50;
+  }
+
+  else
+  {
+    v12 = v50.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = HIBYTE(v50.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = v50.__r_.__value_.__l.__size_;
+  }
+
+  v14 = std::string::append(&v43, v12, size);
+  v15 = *&v14->__r_.__value_.__l.__data_;
+  v44.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
+  *&v44.__r_.__value_.__l.__data_ = v15;
+  v14->__r_.__value_.__l.__size_ = 0;
+  v14->__r_.__value_.__r.__words[2] = 0;
+  v14->__r_.__value_.__r.__words[0] = 0;
+  v16 = std::string::append(&v44, "_");
+  v17 = *&v16->__r_.__value_.__l.__data_;
+  v45.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+  *&v45.__r_.__value_.__l.__data_ = v17;
+  v16->__r_.__value_.__l.__size_ = 0;
+  v16->__r_.__value_.__r.__words[2] = 0;
+  v16->__r_.__value_.__r.__words[0] = 0;
+  if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v18 = &v49;
+  }
+
+  else
+  {
+    v18 = v49.__r_.__value_.__r.__words[0];
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(__p, v18);
+  if ((v41 & 0x80u) == 0)
+  {
+    v19 = __p;
+  }
+
+  else
+  {
+    v19 = __p[0];
+  }
+
+  if ((v41 & 0x80u) == 0)
+  {
+    v20 = v41;
+  }
+
+  else
+  {
+    v20 = __p[1];
+  }
+
+  v21 = std::string::append(&v45, v19, v20);
+  v22 = *&v21->__r_.__value_.__l.__data_;
+  v46.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
+  *&v46.__r_.__value_.__l.__data_ = v22;
+  v21->__r_.__value_.__l.__size_ = 0;
+  v21->__r_.__value_.__r.__words[2] = 0;
+  v21->__r_.__value_.__r.__words[0] = 0;
+  v23 = std::string::append(&v46, ".");
+  v24 = *&v23->__r_.__value_.__l.__data_;
+  v47.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
+  *&v47.__r_.__value_.__l.__data_ = v24;
+  v23->__r_.__value_.__l.__size_ = 0;
+  v23->__r_.__value_.__r.__words[2] = 0;
+  v23->__r_.__value_.__r.__words[0] = 0;
+  v25 = *(this + 63);
+  if (v25 >= 0)
+  {
+    v26 = this + 40;
+  }
+
+  else
+  {
+    v26 = *(this + 5);
+  }
+
+  if (v25 >= 0)
+  {
+    v27 = *(this + 63);
+  }
+
+  else
+  {
+    v27 = *(this + 6);
+  }
+
+  v28 = std::string::append(&v47, v26, v27);
+  v29 = *&v28->__r_.__value_.__l.__data_;
+  v48.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
+  *&v48.__r_.__value_.__l.__data_ = v29;
+  v28->__r_.__value_.__l.__size_ = 0;
+  v28->__r_.__value_.__r.__words[2] = 0;
+  v28->__r_.__value_.__r.__words[0] = 0;
+  v30 = *(this + 111);
+  if (v30 >= 0)
+  {
+    v31 = this + 88;
+  }
+
+  else
+  {
+    v31 = *(this + 11);
+  }
+
+  if (v30 >= 0)
+  {
+    v32 = *(this + 111);
+  }
+
+  else
+  {
+    v32 = *(this + 12);
+  }
+
+  v33 = std::string::append(&v48, v31, v32);
+  v34 = v33->__r_.__value_.__r.__words[0];
+  v51[0] = v33->__r_.__value_.__l.__size_;
+  *(v51 + 7) = *(&v33->__r_.__value_.__r.__words[1] + 7);
+  v35 = HIBYTE(v33->__r_.__value_.__r.__words[2]);
+  v33->__r_.__value_.__l.__size_ = 0;
+  v33->__r_.__value_.__r.__words[2] = 0;
+  v33->__r_.__value_.__r.__words[0] = 0;
+  v36 = SHIBYTE(v48.__r_.__value_.__r.__words[2]);
+  *(a1 + 15) = *(v51 + 7);
+  v37 = v51[0];
+  *a1 = v34;
+  a1[1] = v37;
+  *(a1 + 23) = v35;
+  if (v36 < 0)
+  {
+    operator delete(v48.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v47.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v46.__r_.__value_.__l.__data_);
+  }
+
+  if (v41 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v45.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v44.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v43.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v42.__r_.__value_.__l.__data_);
+  }
+
+  if (*(this + 244) == 1)
+  {
+    std::string::append(a1, ".");
+    v38 = *(this + 60);
+    if (v38 > 773)
+    {
+      if (v38 == 774)
+      {
+        v39 = "lzma";
+        goto LABEL_73;
+      }
+
+      if (v38 == 2049)
+      {
+        v39 = "lzfse";
+        goto LABEL_73;
+      }
+    }
+
+    else
+    {
+      if (v38 == 256)
+      {
+        v39 = "lz4";
+        goto LABEL_73;
+      }
+
+      if (v38 == 517)
+      {
+        v39 = "zlib";
+LABEL_73:
+        std::string::append(a1, v39);
+        goto LABEL_74;
+      }
+    }
+
+    v39 = "unk";
+    goto LABEL_73;
+  }
+
+LABEL_74:
+  if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v49.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v50.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_10010BCE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, uint64_t a50, void *__p, uint64_t a52, int a53, __int16 a54, char a55, char a56)
+{
+  if (*(v57 - 137) < 0)
+  {
+    operator delete(*(v57 - 160));
+  }
+
+  if (a56 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a49 < 0)
+  {
+    operator delete(a44);
+  }
+
+  if (a16 < 0)
+  {
+    operator delete(a11);
+  }
+
+  if (a42 < 0)
+  {
+    operator delete(a37);
+  }
+
+  if (a35 < 0)
+  {
+    operator delete(a30);
+  }
+
+  if (a28 < 0)
+  {
+    operator delete(a23);
+  }
+
+  if (a22 < 0)
+  {
+    operator delete(a17);
+  }
+
+  if (*(v57 - 105) < 0)
+  {
+    operator delete(*(v57 - 128));
+  }
+
+  if (*(v57 - 81) < 0)
+  {
+    operator delete(*(v57 - 104));
+  }
+
+  if (*(v56 + 23) < 0)
+  {
+    operator delete(*v56);
+  }
+
+  _Unwind_Resume(exception_object);
 }

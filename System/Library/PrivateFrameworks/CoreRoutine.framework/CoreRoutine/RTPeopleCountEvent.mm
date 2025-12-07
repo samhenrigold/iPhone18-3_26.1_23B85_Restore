@@ -126,11 +126,11 @@ LABEL_10:
 
 - (id)descriptionDictionary
 {
-  v15[6] = *MEMORY[0x1E69E9840];
-  v14[0] = @"EventID";
+  v14[6] = *MEMORY[0x1E69E9840];
+  v13[0] = @"EventID";
   uUIDString = [(NSUUID *)self->_eventID UUIDString];
-  v15[0] = uUIDString;
-  v14[1] = @"StartDate";
+  v14[0] = uUIDString;
+  v13[1] = @"StartDate";
   startDate = self->_startDate;
   if (startDate)
   {
@@ -142,8 +142,8 @@ LABEL_10:
     getFormattedDateString = @"-";
   }
 
-  v15[1] = getFormattedDateString;
-  v14[2] = @"EndDate";
+  v14[1] = getFormattedDateString;
+  v13[2] = @"EndDate";
   endDate = self->_endDate;
   if (endDate)
   {
@@ -155,17 +155,17 @@ LABEL_10:
     getFormattedDateString2 = @"-";
   }
 
-  v15[2] = getFormattedDateString2;
-  v14[3] = @"TotalCount";
+  v14[2] = getFormattedDateString2;
+  v13[3] = @"TotalCount";
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_totalCount];
-  v15[3] = v8;
-  v14[4] = @"FamilyCount";
+  v14[3] = v8;
+  v13[4] = @"FamilyCount";
   v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_familyCount];
-  v15[4] = v9;
-  v14[5] = @"FriendsCount";
+  v14[4] = v9;
+  v13[5] = @"FriendsCount";
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_friendsCount];
-  v15[5] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:6];
+  v14[5] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:6];
 
   if (endDate)
   {
@@ -175,29 +175,27 @@ LABEL_10:
   {
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)description
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   descriptionDictionary = [(RTPeopleCountEvent *)self descriptionDictionary];
-  v12 = 0;
-  v3 = [MEMORY[0x1E696ACB0] JSONStringFromNSDictionary:descriptionDictionary error:&v12];
-  v4 = v12;
+  v11 = 0;
+  v3 = [MEMORY[0x1E696ACB0] JSONStringFromNSDictionary:descriptionDictionary error:&v11];
+  v4 = v11;
   if (v4)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v4;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v4;
       _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "%@ instance failed to create description:%@", buf, 0x16u);
     }
 
@@ -210,8 +208,6 @@ LABEL_10:
   }
 
   v7 = string;
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

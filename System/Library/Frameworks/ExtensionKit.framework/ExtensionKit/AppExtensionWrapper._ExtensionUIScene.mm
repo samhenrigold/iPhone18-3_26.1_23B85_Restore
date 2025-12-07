@@ -7,10 +7,9 @@
 
 - (UISceneDelegate)sceneDelegate
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtCC12ExtensionKit19AppExtensionWrapper17_ExtensionUIScene__sceneDelegate);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (_TtCC12ExtensionKit19AppExtensionWrapper17_ExtensionUIScene)init

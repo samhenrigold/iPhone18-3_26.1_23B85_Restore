@@ -11,7 +11,7 @@
   height = size.height;
   width = size.width;
   v9 = [PLSubstandardPhotoEditSource _imageWithImage:image orientation:?];
-  [v9 extent];
+  objc_msgSend_extent(v9);
   if (width != v10 || height != v11)
   {
     v13 = width / v10;
@@ -23,7 +23,7 @@
     CGAffineTransformMakeScale(&v20, v13, v13);
     v14 = [v9 imageByApplyingTransform:&v20];
 
-    [v14 extent];
+    objc_msgSend_extent(v14);
     v22.origin.x = 0.0;
     v22.origin.y = 0.0;
     v22.size.width = width;

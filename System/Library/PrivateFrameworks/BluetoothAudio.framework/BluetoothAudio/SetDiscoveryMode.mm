@@ -5,13 +5,13 @@
 
 void __manager_SetDiscoveryMode_block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = BluetoothEndpointManagerLogComponent;
   if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v20 = v3;
+    v19 = v3;
     _os_log_impl(&dword_241BB7000, v2, OS_LOG_TYPE_DEFAULT, "Discovery Mode set to %{public}@", buf, 0xCu);
   }
 
@@ -32,7 +32,7 @@ void __manager_SetDiscoveryMode_block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __manager_SetDiscoveryMode_block_invoke_15;
     block[3] = &__block_descriptor_48_e5_v8__0l;
-    v15 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
+    v14 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
     dispatch_async(v7, block);
   }
 
@@ -69,24 +69,25 @@ void __manager_SetDiscoveryMode_block_invoke(uint64_t a1)
     else
     {
       v12 = [*(*(a1 + 48) + 40) queue];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __manager_SetDiscoveryMode_block_invoke_13;
-      v16[3] = &__block_descriptor_49_e5_v8__0l;
-      v18 = 0;
-      v17 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
-      dispatch_async(v12, v16);
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __manager_SetDiscoveryMode_block_invoke_13;
+      v15[3] = &__block_descriptor_49_e5_v8__0l;
+      v17 = 0;
+      v16 = vextq_s8(*(a1 + 40), *(a1 + 40), 8uLL);
+      dispatch_async(v12, v15);
     }
 
     CFRelease(v8);
   }
 
-  if (!CFEqual(*(a1 + 32), v4) && BluetoothEndpointCollectionGetCount(*(*(a1 + 48) + 32)))
+  if (!CFEqual(*(a1 + 32), v4))
   {
-    manager_postEndpointsChangedNotification(*(a1 + 40));
+    if (BluetoothEndpointCollectionGetCount(*(*(a1 + 48) + 32)))
+    {
+      manager_postEndpointsChangedNotification(*(a1 + 40));
+    }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __manager_SetDiscoveryMode_block_invoke_13(uint64_t a1)

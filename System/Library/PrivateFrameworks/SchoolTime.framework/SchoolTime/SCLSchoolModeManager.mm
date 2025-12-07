@@ -24,9 +24,9 @@
 - (SCLSchoolModeManager)initWithConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  v32.receiver = self;
-  v32.super_class = SCLSchoolModeManager;
-  v5 = [(SCLSchoolModeManager *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = SCLSchoolModeManager;
+  v5 = [(SCLSchoolModeManager *)&v31 init];
   if (v5)
   {
     v6 = [configurationCopy copy];
@@ -74,10 +74,9 @@
     [(NSXPCListener *)v5->_listener _setQueue:v5->_queue];
     [(NSXPCListener *)v5->_listener setDelegate:v5];
     objc_initWeak(&location, v5);
-    v28 = v5->_queue;
-    objc_copyWeak(&v30, &location);
+    objc_copyWeak(&v29, &location);
     v5->_stateHandle = os_state_add_handler();
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
   }
 
@@ -172,11 +171,11 @@ id __43__SCLSchoolModeManager_stateDataWithHints___block_invoke_3(uint64_t a1, u
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v3, &state);
-  v4 = scl_framework_log();
-  if (os_signpost_enabled(v4))
+  v5 = scl_framework_log(v4);
+  if (os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_264829000, v4, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Start School Mode Manager", &unk_26485B361, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_264829000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Start School Mode Manager", &unk_26485B361, buf, 2u);
   }
 
   queue = [(SCLSchoolModeManager *)self queue];
@@ -185,8 +184,8 @@ id __43__SCLSchoolModeManager_stateDataWithHints___block_invoke_3(uint64_t a1, u
   block[2] = __29__SCLSchoolModeManager_start__block_invoke;
   block[3] = &unk_279B6C568;
   block[4] = self;
-  v6 = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block);
-  dispatch_async(queue, v6);
+  v7 = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block);
+  dispatch_async(queue, v7);
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel_handleDevicePairedNotification_ name:*MEMORY[0x277D2BC68] object:0];
@@ -217,8 +216,7 @@ void __29__SCLSchoolModeManager_start__block_invoke(uint64_t a1)
   v4 = [*(a1 + 32) transportService];
   [v4 start];
 
-  [*(a1 + 32) _updateActivityRegistration];
-  v5 = scl_framework_log();
+  v5 = scl_framework_log([*(a1 + 32) _updateActivityRegistration]);
   if (os_signpost_enabled(v5))
   {
     *v6 = 0;
@@ -229,56 +227,53 @@ void __29__SCLSchoolModeManager_start__block_invoke(uint64_t a1)
 - (void)dealloc
 {
   [(NSXPCListener *)self->_listener invalidate];
-  stateHandle = self->_stateHandle;
   os_state_remove_handler();
-  v4.receiver = self;
-  v4.super_class = SCLSchoolModeManager;
-  [(SCLSchoolModeManager *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = SCLSchoolModeManager;
+  [(SCLSchoolModeManager *)&v3 dealloc];
 }
 
 - (void)loadPairedDevices
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   eligiblePairedDevices = [(SCLSchoolModeManager *)self eligiblePairedDevices];
-  v4 = scl_pairing_log();
+  v4 = scl_pairing_log(eligiblePairedDevices);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = eligiblePairedDevices;
+    v16 = eligiblePairedDevices;
     _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "Loading devices %@", buf, 0xCu);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = eligiblePairedDevices;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(SCLSchoolModeManager *)self createControllerForDevice:*(*(&v11 + 1) + 8 * v9++), v11];
+        [(SCLSchoolModeManager *)self createControllerForDevice:*(*(&v10 + 1) + 8 * v9++), v10];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)eligiblePairedDevices
@@ -297,10 +292,10 @@ void __29__SCLSchoolModeManager_start__block_invoke(uint64_t a1)
 
 uint64_t __45__SCLSchoolModeManager_eligiblePairedDevices__block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) isEligibleDevice:v3];
-  v5 = scl_pairing_log();
+  v5 = scl_pairing_log(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [v3 pairingID];
@@ -308,22 +303,21 @@ uint64_t __45__SCLSchoolModeManager_eligiblePairedDevices__block_invoke(uint64_t
     v8 = [v3 valueForProperty:*MEMORY[0x277D2BB28]];
     v9 = [v8 BOOLValue];
     v10 = [v3 valueForProperty:*MEMORY[0x277D2BB30]];
-    v13 = 134219266;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v6;
-    v17 = 1024;
-    v18 = v7 != 0;
-    v19 = 1024;
-    v20 = v9;
-    v21 = 1024;
-    v22 = [v10 BOOLValue];
-    v23 = 1024;
-    v24 = v4;
-    _os_log_impl(&dword_264829000, v5, OS_LOG_TYPE_DEFAULT, "<NRDevice %p; pairingID=%@; hasPairingPath=%{BOOL}d; isAltAccount=%{BOOL}d; isArchived=%{BOOL}d> isEligible:%{BOOL}d", &v13, 0x2Eu);
+    v12 = 134219266;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v6;
+    v16 = 1024;
+    v17 = v7 != 0;
+    v18 = 1024;
+    v19 = v9;
+    v20 = 1024;
+    v21 = [v10 BOOLValue];
+    v22 = 1024;
+    v23 = v4;
+    _os_log_impl(&dword_264829000, v5, OS_LOG_TYPE_DEFAULT, "<NRDevice %p; pairingID=%@; hasPairingPath=%{BOOL}d; isAltAccount=%{BOOL}d; isArchived=%{BOOL}d> isEligible:%{BOOL}d", &v12, 0x2Eu);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -338,7 +332,7 @@ uint64_t __45__SCLSchoolModeManager_eligiblePairedDevices__block_invoke(uint64_t
 
 - (void)createControllerForDevice:(id)device
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   dispatch_assert_queue_V2(self->_queue);
   v5 = objc_alloc_init(SCLSchoolModeCoordinatorConfiguration);
@@ -356,19 +350,19 @@ uint64_t __45__SCLSchoolModeManager_eligiblePairedDevices__block_invoke(uint64_t
 
   if (bOOLValue)
   {
-    v55 = v7;
-    v56 = pairingID;
+    v56 = v7;
+    v57 = pairingID;
     array = [MEMORY[0x277CBEB18] array];
     configuration = [(SCLSchoolModeManager *)self configuration];
     service = [configuration service];
-    v15 = [service linkedDevicesWithRelationship:2];
+    v16 = [service linkedDevicesWithRelationship:2];
 
-    if (v15)
+    if (v16)
     {
-      [array addObjectsFromArray:v15];
+      [array addObjectsFromArray:v16];
     }
 
-    v53 = v15;
+    v54 = v16;
     configuration2 = [(SCLSchoolModeManager *)self configuration];
     service2 = [configuration2 service];
     devices = [service2 devices];
@@ -378,52 +372,52 @@ uint64_t __45__SCLSchoolModeManager_eligiblePairedDevices__block_invoke(uint64_t
       [array addObjectsFromArray:devices];
     }
 
-    v52 = devices;
-    v54 = v9;
+    v53 = devices;
+    v55 = v9;
     configuration3 = [(SCLSchoolModeManager *)self configuration];
     deviceRegistry = [configuration3 deviceRegistry];
-    v21 = [deviceRegistry deviceForNRDevice:deviceCopy fromIDSDevices:array];
+    v22 = [deviceRegistry deviceForNRDevice:deviceCopy fromIDSDevices:array];
 
-    v22 = deviceCopy;
-    if (!v21)
+    v24 = deviceCopy;
+    if (!v22)
     {
-      v23 = scl_pairing_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+      v25 = scl_pairing_log(v23);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
       {
         [SCLSchoolModeManager createControllerForDevice:];
       }
 
-      v22 = deviceCopy;
+      v24 = deviceCopy;
     }
 
-    v50 = v22;
-    v51 = array;
-    [(SCLSchoolModeCoordinatorConfiguration *)v5 setIdsDevice:v21];
-    v24 = [SCLTransportController alloc];
+    v51 = v24;
+    v52 = array;
+    [(SCLSchoolModeCoordinatorConfiguration *)v5 setIdsDevice:v22];
+    v26 = [SCLTransportController alloc];
     configuration4 = [(SCLSchoolModeManager *)self configuration];
     deviceRegistry2 = [configuration4 deviceRegistry];
     configuration5 = [(SCLSchoolModeManager *)self configuration];
     service3 = [configuration5 service];
-    uniqueIDOverride = [v21 uniqueIDOverride];
-    v30 = [(SCLTransportController *)v24 initWithNRDevice:v22 deviceRegistry:deviceRegistry2 service:service3 deviceIdentifier:uniqueIDOverride];
+    uniqueIDOverride = [v22 uniqueIDOverride];
+    v32 = [(SCLTransportController *)v26 initWithNRDevice:v24 deviceRegistry:deviceRegistry2 service:service3 deviceIdentifier:uniqueIDOverride];
 
-    [(SCLSchoolModeCoordinatorConfiguration *)v5 setTransportController:v30];
-    v9 = v54;
-    v31 = [v54 URLByAppendingPathComponent:@"UnlockHistory.sqlite3"];
-    v32 = [[SCLUnlockHistoryPersistentStore alloc] initWithURL:v31];
-    [(SCLSchoolModeCoordinatorConfiguration *)v5 setHistoryStore:v32];
+    [(SCLSchoolModeCoordinatorConfiguration *)v5 setTransportController:v32];
+    v9 = v55;
+    v33 = [v55 URLByAppendingPathComponent:@"UnlockHistory.sqlite3"];
+    v34 = [[SCLUnlockHistoryPersistentStore alloc] initWithURL:v33];
+    [(SCLSchoolModeCoordinatorConfiguration *)v5 setHistoryStore:v34];
 
-    deviceCopy = v50;
-    v7 = v55;
-    pairingID = v56;
+    deviceCopy = v51;
+    v7 = v56;
+    pairingID = v57;
   }
 
   else
   {
-    v33 = scl_pairing_log();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+    v35 = scl_pairing_log(v12);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
-      [SCLSchoolModeManager createControllerForDevice:v33];
+      [SCLSchoolModeManager createControllerForDevice:v35];
     }
 
     [(SCLSchoolModeCoordinatorConfiguration *)v5 setSendsRemoteHistoryItems:0];
@@ -436,17 +430,17 @@ uint64_t __45__SCLSchoolModeManager_eligiblePairedDevices__block_invoke(uint64_t
 
   if (managesSchoolTimeSession)
   {
-    v36 = [SCLSchoolModeServer alloc];
+    v38 = [SCLSchoolModeServer alloc];
     queue = [(SCLSchoolModeManager *)self queue];
     supppressionManager = [(SCLSchoolModeManager *)self supppressionManager];
-    v39 = v9;
-    v40 = objc_opt_new();
-    v41 = [(SCLSchoolModeServer *)v36 initWithQueue:queue suppressionManager:supppressionManager wakeScheduler:v40];
+    v41 = v9;
+    v42 = objc_opt_new();
+    v43 = [(SCLSchoolModeServer *)v38 initWithQueue:queue suppressionManager:supppressionManager wakeScheduler:v42];
 
-    v9 = v39;
-    [(SCLSchoolModeCoordinatorConfiguration *)v5 setServer:v41];
+    v9 = v41;
+    [(SCLSchoolModeCoordinatorConfiguration *)v5 setServer:v43];
     interruptBehaviorResolver = [(SCLSchoolModeManager *)self interruptBehaviorResolver];
-    [(SCLSchoolModeServer *)v41 addObserver:interruptBehaviorResolver];
+    [(SCLSchoolModeServer *)v43 addObserver:interruptBehaviorResolver];
   }
 
   transportController = [(SCLSchoolModeCoordinatorConfiguration *)v5 transportController];
@@ -461,17 +455,14 @@ uint64_t __45__SCLSchoolModeManager_eligiblePairedDevices__block_invoke(uint64_t
   queue2 = [(SCLSchoolModeManager *)self queue];
   [(SCLSchoolModeCoordinatorConfiguration *)v5 setTargetQueue:queue2];
 
-  v47 = [[SCLSchoolModeCoordinator alloc] initWithConfiguration:v5];
-  [(NSMapTable *)self->_coordinatorMap setObject:v47 forKey:pairingID];
-  v48 = scl_pairing_log();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+  v49 = [[SCLSchoolModeCoordinator alloc] initWithConfiguration:v5];
+  v50 = scl_pairing_log([(NSMapTable *)self->_coordinatorMap setObject:v49 forKey:pairingID]);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v58 = pairingID;
-    _os_log_impl(&dword_264829000, v48, OS_LOG_TYPE_DEFAULT, "Created pairing for pairingID %@", buf, 0xCu);
+    v59 = pairingID;
+    _os_log_impl(&dword_264829000, v50, OS_LOG_TYPE_DEFAULT, "Created pairing for pairingID %@", buf, 0xCu);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDevicePairedNotification:(id)notification
@@ -490,44 +481,44 @@ uint64_t __45__SCLSchoolModeManager_eligiblePairedDevices__block_invoke(uint64_t
 
 void __55__SCLSchoolModeManager_handleDevicePairedNotification___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = _os_activity_create(&dword_264829000, "Handle Device Paired", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-  v20.opaque[0] = 0;
-  v20.opaque[1] = 0;
-  os_activity_scope_enter(v2, &v20);
-  v3 = scl_pairing_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v21.opaque[0] = 0;
+  v21.opaque[1] = 0;
+  os_activity_scope_enter(v2, &v21);
+  v4 = scl_pairing_log(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
+    v5 = *(a1 + 32);
     *buf = 138412290;
-    v22 = v4;
-    _os_log_impl(&dword_264829000, v3, OS_LOG_TYPE_DEFAULT, "Device paired: %@", buf, 0xCu);
+    v23 = v5;
+    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "Device paired: %@", buf, 0xCu);
   }
 
-  v5 = (a1 + 32);
-  v6 = [*(a1 + 32) userInfo];
-  v7 = [v6 objectForKey:*MEMORY[0x277D2BC38]];
+  v6 = (a1 + 32);
+  v7 = [*(a1 + 32) userInfo];
+  v8 = [v7 objectForKey:*MEMORY[0x277D2BC38]];
 
-  v8 = [v7 pairingID];
-  if (!v8)
+  v9 = [v8 pairingID];
+  if (!v9)
   {
-    v12 = scl_pairing_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = scl_pairing_log(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __55__SCLSchoolModeManager_handleDevicePairedNotification___block_invoke_cold_2(v5, v12, v13, v14, v15, v16, v17, v18);
+      __55__SCLSchoolModeManager_handleDevicePairedNotification___block_invoke_cold_2(v6, v14, v15, v16, v17, v18, v19, v20);
     }
 
     goto LABEL_9;
   }
 
-  v9 = [*(a1 + 40) coordinatorMap];
-  v10 = [v9 objectForKey:v8];
-  v11 = v10 == 0;
+  v10 = [*(a1 + 40) coordinatorMap];
+  v11 = [v10 objectForKey:v9];
+  v12 = v11 == 0;
 
-  if (!v11)
+  if (!v12)
   {
-    v12 = scl_pairing_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = scl_pairing_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       __55__SCLSchoolModeManager_handleDevicePairedNotification___block_invoke_cold_1();
     }
@@ -537,16 +528,15 @@ LABEL_9:
     goto LABEL_13;
   }
 
-  if ([*(a1 + 40) isEligibleDevice:v7])
+  if ([*(a1 + 40) isEligibleDevice:v8])
   {
-    [*(a1 + 40) createControllerForDevice:v7];
+    [*(a1 + 40) createControllerForDevice:v8];
   }
 
   [*(a1 + 40) _updateActivityRegistration];
 LABEL_13:
 
-  os_activity_scope_leave(&v20);
-  v19 = *MEMORY[0x277D85DE8];
+  os_activity_scope_leave(&v21);
 }
 
 - (void)handleDeviceUnpairedNotification:(id)notification
@@ -565,132 +555,134 @@ LABEL_13:
 
 void __57__SCLSchoolModeManager_handleDeviceUnpairedNotification___block_invoke(uint64_t a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
-  v35 = _os_activity_create(&dword_264829000, "Handle Device Unpaired", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v35, &state);
+  v37 = _os_activity_create(&dword_264829000, "Handle Device Unpaired", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+  os_activity_scope_enter(v37, &state);
   v2 = [*(a1 + 32) userInfo];
-  v37 = [v2 objectForKey:*MEMORY[0x277D2BC38]];
+  v39 = [v2 objectForKey:*MEMORY[0x277D2BC38]];
 
-  v38 = [v37 pairingID];
-  if (v38)
+  v3 = [v39 pairingID];
+  v40 = v3;
+  if (v3)
   {
-    v3 = scl_pairing_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = scl_pairing_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = [*(a1 + 32) userInfo];
+      v5 = [*(a1 + 32) userInfo];
       *buf = 138543618;
-      v51 = v38;
-      v52 = 2112;
-      v53 = v4;
-      _os_log_impl(&dword_264829000, v3, OS_LOG_TYPE_DEFAULT, "Device unpaired: %{public}@ - %@", buf, 0x16u);
+      v53 = v40;
+      v54 = 2112;
+      v55 = v5;
+      _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "Device unpaired: %{public}@ - %@", buf, 0x16u);
     }
 
-    v5 = [*(a1 + 40) coordinatorMap];
-    v36 = [v5 objectForKey:v38];
+    v6 = [*(a1 + 40) coordinatorMap];
+    v38 = [v6 objectForKey:v40];
 
-    if (v36)
+    if (v38)
     {
       [*(a1 + 40) removeCoordinator:?];
     }
 
     else
     {
-      v13 = scl_pairing_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = scl_pairing_log(v7);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v51 = v38;
-        _os_log_impl(&dword_264829000, v13, OS_LOG_TYPE_DEFAULT, "No coordinator was found for pairingID %{public}@; attempting to manually remove unpaired coordinators", buf, 0xCu);
+        v53 = v40;
+        _os_log_impl(&dword_264829000, v15, OS_LOG_TYPE_DEFAULT, "No coordinator was found for pairingID %{public}@; attempting to manually remove unpaired coordinators", buf, 0xCu);
       }
 
-      v14 = MEMORY[0x277CBEB58];
-      v15 = [*(a1 + 40) coordinatorMap];
-      v16 = [v15 keyEnumerator];
-      v17 = [v16 allObjects];
-      v18 = [v14 setWithArray:v17];
+      v16 = MEMORY[0x277CBEB58];
+      v17 = [*(a1 + 40) coordinatorMap];
+      v18 = [v17 keyEnumerator];
+      v19 = [v18 allObjects];
+      v20 = [v16 setWithArray:v19];
 
       [*(a1 + 40) eligiblePairedDevices];
+      v47 = 0u;
+      v48 = 0u;
       v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
-      v19 = v44 = 0u;
-      v20 = [v19 countByEnumeratingWithState:&v43 objects:v49 count:16];
-      if (v20)
+      v21 = v46 = 0u;
+      v22 = [v21 countByEnumeratingWithState:&v45 objects:v51 count:16];
+      if (v22)
       {
-        v21 = *v44;
+        v23 = *v46;
         do
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v22; ++i)
           {
-            if (*v44 != v21)
+            if (*v46 != v23)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v21);
             }
 
-            v23 = *(*(&v43 + 1) + 8 * i);
-            v24 = [v23 pairingID];
-            if (v24)
+            v25 = *(*(&v45 + 1) + 8 * i);
+            v26 = [v25 pairingID];
+            if (v26)
             {
-              [v18 removeObject:v24];
+              [v20 removeObject:v26];
             }
 
             else
             {
-              v25 = scl_pairing_log();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+              v27 = scl_pairing_log(0);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v51 = v23;
-                _os_log_error_impl(&dword_264829000, v25, OS_LOG_TYPE_ERROR, "%@ is missing a pairingID", buf, 0xCu);
+                v53 = v25;
+                _os_log_error_impl(&dword_264829000, v27, OS_LOG_TYPE_ERROR, "%@ is missing a pairingID", buf, 0xCu);
               }
             }
           }
 
-          v20 = [v19 countByEnumeratingWithState:&v43 objects:v49 count:16];
+          v22 = [v21 countByEnumeratingWithState:&v45 objects:v51 count:16];
         }
 
-        while (v20);
+        while (v22);
       }
 
-      if ([v18 count])
+      v28 = [v20 count];
+      if (v28)
       {
-        v26 = scl_pairing_log();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v29 = scl_pairing_log(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           __57__SCLSchoolModeManager_handleDeviceUnpairedNotification___block_invoke_cold_1();
         }
 
+        v43 = 0u;
+        v44 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v27 = v18;
-        v28 = [v27 countByEnumeratingWithState:&v39 objects:v48 count:16];
-        if (v28)
+        v30 = v20;
+        v31 = [v30 countByEnumeratingWithState:&v41 objects:v50 count:16];
+        if (v31)
         {
-          v29 = *v40;
+          v32 = *v42;
           do
           {
-            for (j = 0; j != v28; ++j)
+            for (j = 0; j != v31; ++j)
             {
-              if (*v40 != v29)
+              if (*v42 != v32)
               {
-                objc_enumerationMutation(v27);
+                objc_enumerationMutation(v30);
               }
 
-              v31 = *(*(&v39 + 1) + 8 * j);
-              v32 = [*(a1 + 40) coordinatorMap];
-              v33 = [v32 objectForKey:v31];
+              v34 = *(*(&v41 + 1) + 8 * j);
+              v35 = [*(a1 + 40) coordinatorMap];
+              v36 = [v35 objectForKey:v34];
 
-              [*(a1 + 40) removeCoordinator:v33];
+              [*(a1 + 40) removeCoordinator:v36];
             }
 
-            v28 = [v27 countByEnumeratingWithState:&v39 objects:v48 count:16];
+            v31 = [v30 countByEnumeratingWithState:&v41 objects:v50 count:16];
           }
 
-          while (v28);
+          while (v31);
         }
       }
     }
@@ -700,21 +692,20 @@ void __57__SCLSchoolModeManager_handleDeviceUnpairedNotification___block_invoke(
 
   else
   {
-    v6 = scl_pairing_log();
-    v36 = v6;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = scl_pairing_log(0);
+    v38 = v8;
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __57__SCLSchoolModeManager_handleDeviceUnpairedNotification___block_invoke_cold_2((a1 + 32), v6, v7, v8, v9, v10, v11, v12);
+      __57__SCLSchoolModeManager_handleDeviceUnpairedNotification___block_invoke_cold_2((a1 + 32), v8, v9, v10, v11, v12, v13, v14);
     }
   }
 
   os_activity_scope_leave(&state);
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCoordinator:(id)coordinator
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
   configuration = [coordinatorCopy configuration];
   nRDevice = [configuration NRDevice];
@@ -726,12 +717,12 @@ LABEL_2:
     coordinatorMap = [(SCLSchoolModeManager *)self coordinatorMap];
     [coordinatorMap removeObjectForKey:pairingID];
 
-    v9 = scl_pairing_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = scl_pairing_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v29 = pairingID;
-      _os_log_impl(&dword_264829000, v9, OS_LOG_TYPE_DEFAULT, "Removing coordinator for pairingID %{public}@", buf, 0xCu);
+      v31 = pairingID;
+      _os_log_impl(&dword_264829000, v11, OS_LOG_TYPE_DEFAULT, "Removing coordinator for pairingID %{public}@", buf, 0xCu);
     }
 
     configuration2 = [coordinatorCopy configuration];
@@ -746,46 +737,46 @@ LABEL_2:
 
   else
   {
-    v13 = scl_pairing_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = scl_pairing_log(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(SCLSchoolModeManager *)coordinatorCopy removeCoordinator:v13];
+      [(SCLSchoolModeManager *)coordinatorCopy removeCoordinator:v15];
     }
 
+    v28 = 0u;
+    v29 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v24 = 0u;
-    v25 = 0u;
     coordinatorMap2 = [(SCLSchoolModeManager *)self coordinatorMap];
     keyEnumerator = [coordinatorMap2 keyEnumerator];
 
-    v16 = [keyEnumerator countByEnumeratingWithState:&v24 objects:v30 count:16];
-    if (v16)
+    v18 = [keyEnumerator countByEnumeratingWithState:&v26 objects:v32 count:16];
+    if (v18)
     {
-      v17 = v16;
-      v18 = *v25;
+      v19 = v18;
+      v20 = *v27;
 LABEL_11:
-      v19 = 0;
+      v21 = 0;
       while (1)
       {
-        if (*v25 != v18)
+        if (*v27 != v20)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v20 = *(*(&v24 + 1) + 8 * v19);
+        v22 = *(*(&v26 + 1) + 8 * v21);
         coordinatorMap3 = [(SCLSchoolModeManager *)self coordinatorMap];
-        v22 = [coordinatorMap3 objectForKey:v20];
+        v24 = [coordinatorMap3 objectForKey:v22];
 
-        if (v22 == coordinatorCopy)
+        if (v24 == coordinatorCopy)
         {
           break;
         }
 
-        if (v17 == ++v19)
+        if (v19 == ++v21)
         {
-          v17 = [keyEnumerator countByEnumeratingWithState:&v24 objects:v30 count:16];
-          if (v17)
+          v19 = [keyEnumerator countByEnumeratingWithState:&v26 objects:v32 count:16];
+          if (v19)
           {
             goto LABEL_11;
           }
@@ -794,7 +785,7 @@ LABEL_11:
         }
       }
 
-      pairingID = v20;
+      pairingID = v22;
 
       if (pairingID)
       {
@@ -807,14 +798,12 @@ LABEL_11:
 LABEL_17:
     }
 
-    pairingID = scl_pairing_log();
+    pairingID = scl_pairing_log(v25);
     if (os_log_type_enabled(pairingID, OS_LOG_TYPE_FAULT))
     {
       [(SCLSchoolModeManager *)coordinatorCopy removeCoordinator:pairingID];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -861,10 +850,10 @@ LABEL_17:
 
     if (!nextObject)
     {
-      v11 = SCLAutoUpdatingPairingID();
-      v12 = [dCopy isEqual:v11];
+      v12 = SCLAutoUpdatingPairingID();
+      v13 = [dCopy isEqual:v12];
 
-      if (!v12)
+      if (!v13)
       {
         goto LABEL_9;
       }
@@ -874,22 +863,22 @@ LABEL_17:
       nextObject = [objectEnumerator nextObject];
 
       coordinatorMap3 = [(SCLSchoolModeManager *)self coordinatorMap];
-      v16 = [coordinatorMap3 count];
+      v18 = [coordinatorMap3 count];
 
-      if (v16 >= 2)
+      if (v18 >= 2)
       {
-        v17 = scl_pairing_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v19 = scl_pairing_log(v14);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          [SCLSchoolModeManager clientProxy:nextObject didConnectWithPairingID:v17];
+          [SCLSchoolModeManager clientProxy:nextObject didConnectWithPairingID:v19];
         }
       }
 
       if (!nextObject)
       {
 LABEL_9:
-        v18 = scl_pairing_log();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v20 = scl_pairing_log(v14);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           [SCLSchoolModeManager clientProxy:didConnectWithPairingID:];
         }
@@ -903,10 +892,10 @@ LABEL_9:
 
   else
   {
-    nextObject = scl_framework_log();
+    nextObject = scl_framework_log(v9);
     if (os_log_type_enabled(nextObject, OS_LOG_TYPE_ERROR))
     {
-      [(SCLSchoolModeManager *)nextObject clientProxy:v19 didConnectWithPairingID:v20, v21, v22, v23, v24, v25];
+      [(SCLSchoolModeManager *)nextObject clientProxy:v21 didConnectWithPairingID:v22, v23, v24, v25, v26, v27];
     }
   }
 }
@@ -938,16 +927,16 @@ LABEL_9:
     coordinatorMap2 = [(SCLSchoolModeManager *)self coordinatorMap];
     objectEnumerator = [coordinatorMap2 objectEnumerator];
 
-    v7 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v26 count:16];
-    if (v7)
+    v8 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v26 count:16];
+    if (v8)
     {
-      v8 = *v21;
-      v9 = 1;
+      v9 = *v21;
+      v10 = 1;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v21 != v8)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(objectEnumerator);
           }
@@ -955,15 +944,15 @@ LABEL_9:
           configuration = [*(*(&v20 + 1) + 8 * i) configuration];
           isManuallyManagedOnly = [configuration isManuallyManagedOnly];
 
-          v9 &= isManuallyManagedOnly ^ 1;
+          v10 &= isManuallyManagedOnly ^ 1;
         }
 
-        v7 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v8 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v26 count:16];
       }
 
-      while (v7);
+      while (v8);
 
-      if ((v9 & 1) == 0)
+      if ((v10 & 1) == 0)
       {
         goto LABEL_10;
       }
@@ -979,33 +968,31 @@ LABEL_9:
     v17[1] = 3221225472;
     v17[2] = __51__SCLSchoolModeManager__updateActivityRegistration__block_invoke;
     v17[3] = &unk_279B6CAB8;
-    v15 = activityCriteria;
-    v18 = v15;
+    v16 = activityCriteria;
+    v18 = v16;
     objc_copyWeak(&v19, buf);
     xpc_activity_register("com.apple.schooltime.database.maintenance", *MEMORY[0x277D86238], v17);
     objc_destroyWeak(&v19);
 
     objc_destroyWeak(buf);
-    goto LABEL_15;
+    return;
   }
 
 LABEL_10:
-  v13 = scl_persistence_log();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = scl_persistence_log(v5);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
     v25 = "com.apple.schooltime.database.maintenance";
-    _os_log_impl(&dword_264829000, v13, OS_LOG_TYPE_DEFAULT, "No tinker-paired devices available. Unregistering %s", buf, 0xCu);
+    _os_log_impl(&dword_264829000, v14, OS_LOG_TYPE_DEFAULT, "No tinker-paired devices available. Unregistering %s", buf, 0xCu);
   }
 
   xpc_activity_unregister("com.apple.schooltime.database.maintenance");
-LABEL_15:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SCLSchoolModeManager__updateActivityRegistration__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (xpc_activity_get_state(v3))
   {
@@ -1015,23 +1002,23 @@ void __51__SCLSchoolModeManager__updateActivityRegistration__block_invoke(uint64
 
   else
   {
-    v5 = scl_persistence_log();
+    v5 = scl_persistence_log(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_264829000, v5, OS_LOG_TYPE_DEFAULT, "Checked in with activity %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v3;
+      _os_log_impl(&dword_264829000, v5, OS_LOG_TYPE_DEFAULT, "Checked in with activity %@", &v9, 0xCu);
     }
 
     v6 = xpc_activity_copy_criteria(v3);
-    v7 = scl_persistence_log();
+    v7 = scl_persistence_log(v6);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
     if (v6)
     {
       if (v8)
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_DEFAULT, "using old criteria", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_DEFAULT, "using old criteria", &v9, 2u);
       }
     }
 
@@ -1039,196 +1026,153 @@ void __51__SCLSchoolModeManager__updateActivityRegistration__block_invoke(uint64
     {
       if (v8)
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_DEFAULT, "Old criteria doesn't exist - setting new criteria", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_DEFAULT, "Old criteria doesn't exist - setting new criteria", &v9, 2u);
       }
 
       xpc_activity_set_criteria(v3, *(a1 + 32));
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleActivityStarted:(id)started
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   startedCopy = started;
   v5 = _os_activity_create(&dword_264829000, "Database Maintenance", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = scl_persistence_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = scl_persistence_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = startedCopy;
-    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "Performing database maintenance: %@", buf, 0xCu);
+    v16 = startedCopy;
+    _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_DEFAULT, "Performing database maintenance: %@", buf, 0xCu);
   }
 
-  if (!xpc_activity_set_state(startedCopy, 4))
+  v8 = xpc_activity_set_state(startedCopy, 4);
+  if (!v8)
   {
-    v7 = scl_persistence_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = scl_persistence_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [SCLSchoolModeManager _handleActivityStarted:v7];
+      [SCLSchoolModeManager _handleActivityStarted:v9];
     }
   }
 
   queue = [(SCLSchoolModeManager *)self queue];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __47__SCLSchoolModeManager__handleActivityStarted___block_invoke;
-  v11[3] = &unk_279B6C5D8;
-  v11[4] = self;
-  v12 = startedCopy;
-  v9 = startedCopy;
-  dispatch_async(queue, v11);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __47__SCLSchoolModeManager__handleActivityStarted___block_invoke;
+  v12[3] = &unk_279B6C5D8;
+  v12[4] = self;
+  v13 = startedCopy;
+  v11 = startedCopy;
+  dispatch_async(queue, v12);
 
   os_activity_scope_leave(&state);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __47__SCLSchoolModeManager__handleActivityStarted___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v12 = 0u;
+  v18 = *MEMORY[0x277D85DE8];
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
   v2 = [*(a1 + 32) coordinatorMap];
   v3 = [v2 objectEnumerator];
 
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v12 + 1) + 8 * v7++) purgeOldHistoryItems];
+        [*(*(&v13 + 1) + 8 * v7++) purgeOldHistoryItems];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
-  v8 = scl_persistence_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = scl_persistence_log(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_264829000, v8, OS_LOG_TYPE_DEFAULT, "Completed database maintenance", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_264829000, v9, OS_LOG_TYPE_DEFAULT, "Completed database maintenance", v12, 2u);
   }
 
-  if (!xpc_activity_set_state(*(a1 + 40), 5))
+  v10 = xpc_activity_set_state(*(a1 + 40), 5);
+  if (!v10)
   {
-    v9 = scl_persistence_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = scl_persistence_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __47__SCLSchoolModeManager__handleActivityStarted___block_invoke_cold_1(v9);
+      __47__SCLSchoolModeManager__handleActivityStarted___block_invoke_cold_1(v11);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createControllerForDevice:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(&dword_264829000, v0, OS_LOG_TYPE_FAULT, "No linked IDS device for NRDevice with pairingID %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void __55__SCLSchoolModeManager_handleDevicePairedNotification___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_264829000, v0, v1, "Got pairing notification for pairingID %{public}@ but we already have an SCLDPairing", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_264829000, v0, OS_LOG_TYPE_FAULT, "No linked IDS device for NRDevice with pairingID %@", v1, 0xCu);
 }
 
 void __55__SCLSchoolModeManager_handleDevicePairedNotification___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_1_0(&dword_264829000, a2, a3, "Missing pairingID for device paired notification %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __57__SCLSchoolModeManager_handleDeviceUnpairedNotification___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_264829000, v0, v1, "Coordinators have no valid pairingID, but were not the unpaired devices: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_1_0(&dword_264829000, a2, a3, "Missing pairingID for device paired notification %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __57__SCLSchoolModeManager_handleDeviceUnpairedNotification___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_1_0(&dword_264829000, a2, a3, "Missing pairingID for device unpaired notification %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_1_0(&dword_264829000, a2, a3, "Missing pairingID for device unpaired notification %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)removeCoordinator:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 configuration];
   v4 = [v3 NRDevice];
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "%@ is missing a pairingID - %@", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "%@ is missing a pairingID - %@", v5, 0x16u);
 }
 
 - (void)removeCoordinator:(NSObject *)a3 .cold.2(uint64_t a1, void *a2, NSObject *a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v4 = [a2 coordinatorMap];
   OUTLINED_FUNCTION_1_1();
-  _os_log_fault_impl(&dword_264829000, a3, OS_LOG_TYPE_FAULT, "Coordinator %@ is not in the coordinator map: %@", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_264829000, a3, OS_LOG_TYPE_FAULT, "Coordinator %@ is not in the coordinator map: %@", v5, 0x16u);
 }
 
 - (void)clientProxy:(void *)a1 didConnectWithPairingID:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [a1 configuration];
   v4 = [v3 NRDevice];
   v5 = [v4 pairingID];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "AutoUpdatingPairingID used when multiple pairings are present. Linking to %@", v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)clientProxy:didConnectWithPairingID:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_264829000, v0, v1, "No coordinator for pairingID %@. Pending client until pairing.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)clientProxy:(uint64_t)a3 didConnectWithPairingID:(uint64_t)a4 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_264829000, a1, a3, "No pairing for client with pairingID %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "AutoUpdatingPairingID used when multiple pairings are present. Linking to %@", v6, 0xCu);
 }
 
 @end

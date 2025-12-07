@@ -33,7 +33,7 @@
     [array addObject:v16];
   }
 
-  v17 = [array copy];
+  v17 = objc_msgSend_copy(array);
 
   return v17;
 }
@@ -50,7 +50,7 @@
   {
     v11->_enable = enable;
     objc_storeStrong(&v11->_user, user);
-    v13 = [destinationCopy copy];
+    v13 = objc_msgSend_copy(destinationCopy);
     deviceIdsDestination = v12->_deviceIdsDestination;
     v12->_deviceIdsDestination = v13;
   }

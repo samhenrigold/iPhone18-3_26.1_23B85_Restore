@@ -32,7 +32,7 @@
 
 void __58__CSStartOfSpeechDetector_clientSilenceFeaturesAvailable___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   v3 = MEMORY[0x277D015D8];
   v4 = *MEMORY[0x277D015D8];
@@ -41,9 +41,9 @@ void __58__CSStartOfSpeechDetector_clientSilenceFeaturesAvailable___block_invoke
   {
     if (v5)
     {
-      v36 = 136315138;
-      v37 = "[CSStartOfSpeechDetector clientSilenceFeaturesAvailable:]_block_invoke";
-      _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s Start of speech already reported, ignoring !", &v36, 0xCu);
+      v35 = 136315138;
+      v36 = "[CSStartOfSpeechDetector clientSilenceFeaturesAvailable:]_block_invoke";
+      _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s Start of speech already reported, ignoring !", &v35, 0xCu);
     }
   }
 
@@ -59,17 +59,17 @@ void __58__CSStartOfSpeechDetector_clientSilenceFeaturesAvailable___block_invoke
       v11 = v10;
       [*(a1 + 40) processedAudioMs];
       v12 = *(*(a1 + 32) + 48);
-      v36 = 136316162;
-      v37 = "[CSStartOfSpeechDetector clientSilenceFeaturesAvailable:]_block_invoke";
-      v38 = 2050;
-      v39 = v9;
-      v40 = 2050;
-      v41 = v11;
-      v42 = 2050;
-      v43 = v13;
-      v44 = 2050;
-      v45 = v12;
-      _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s silProb= %{public}f, silnfcnt=%{public}f, clientProcessedAudioMs=%{public}f curSpeechFrmCnt=%{public}lu", &v36, 0x34u);
+      v35 = 136316162;
+      v36 = "[CSStartOfSpeechDetector clientSilenceFeaturesAvailable:]_block_invoke";
+      v37 = 2050;
+      v38 = v9;
+      v39 = 2050;
+      v40 = v11;
+      v41 = 2050;
+      v42 = v13;
+      v43 = 2050;
+      v44 = v12;
+      _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s silProb= %{public}f, silnfcnt=%{public}f, clientProcessedAudioMs=%{public}f curSpeechFrmCnt=%{public}lu", &v35, 0x34u);
     }
 
     [*(a1 + 40) silenceFramesCountMs];
@@ -112,17 +112,17 @@ void __58__CSStartOfSpeechDetector_clientSilenceFeaturesAvailable___block_invoke
       v32 = *v3;
       if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = 136316162;
-        v37 = "[CSStartOfSpeechDetector clientSilenceFeaturesAvailable:]_block_invoke";
-        v38 = 2050;
-        v39 = v21;
-        v40 = 2050;
-        v41 = v31;
-        v42 = 2048;
-        v43 = v21 - v31;
-        v44 = 2050;
-        v45 = (v43 / v29);
-        _os_log_impl(&dword_222E4D000, v32, OS_LOG_TYPE_DEFAULT, "%s Speech prob target reached at %{public}lu from %{public}lu, #samples=%lu, secs=%{public}f", &v36, 0x34u);
+        v35 = 136316162;
+        v36 = "[CSStartOfSpeechDetector clientSilenceFeaturesAvailable:]_block_invoke";
+        v37 = 2050;
+        v38 = v21;
+        v39 = 2050;
+        v40 = v31;
+        v41 = 2048;
+        v42 = v21 - v31;
+        v43 = 2050;
+        v44 = (v42 / v29);
+        _os_log_impl(&dword_222E4D000, v32, OS_LOG_TYPE_DEFAULT, "%s Speech prob target reached at %{public}lu from %{public}lu, #samples=%lu, secs=%{public}f", &v35, 0x34u);
         v28 = *(a1 + 32);
       }
 
@@ -137,8 +137,6 @@ void __58__CSStartOfSpeechDetector_clientSilenceFeaturesAvailable___block_invoke
       }
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endAudio
@@ -191,7 +189,7 @@ uint64_t __35__CSStartOfSpeechDetector_endAudio__block_invoke(uint64_t a1)
 
 void __45__CSStartOfSpeechDetector_resetForNewRequest__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277D071E0]) initWithConfigFile:*(*(a1 + 32) + 32) samplingRate:*(*(a1 + 32) + 64) queue:*(*(a1 + 32) + 72)];
   v3 = *(a1 + 32);
   v4 = *(v3 + 24);
@@ -202,26 +200,25 @@ void __45__CSStartOfSpeechDetector_resetForNewRequest__block_invoke(uint64_t a1)
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(*(a1 + 32) + 24);
-    v8 = 136315394;
-    v9 = "[CSStartOfSpeechDetector resetForNewRequest]_block_invoke";
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s Reset: Created EARCaesuraSilencePosteriorGenerator: %{public}@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CSStartOfSpeechDetector resetForNewRequest]_block_invoke";
+    v9 = 2114;
+    v10 = v6;
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s Reset: Created EARCaesuraSilencePosteriorGenerator: %{public}@", &v7, 0x16u);
   }
 
   *(*(a1 + 32) + 48) = 0;
   *(*(a1 + 32) + 8) = 0;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (CSStartOfSpeechDetector)initWithConfig:(id)config samplingRate:(unint64_t)rate minSpeechFrames:(unint64_t)frames numLeadingFrames:(unint64_t)leadingFrames delegate:(id)delegate
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   configCopy = config;
   delegateCopy = delegate;
-  v24.receiver = self;
-  v24.super_class = CSStartOfSpeechDetector;
-  v15 = [(CSStartOfSpeechDetector *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = CSStartOfSpeechDetector;
+  v15 = [(CSStartOfSpeechDetector *)&v23 init];
   v16 = v15;
   if (v15)
   {
@@ -242,14 +239,13 @@ void __45__CSStartOfSpeechDetector_resetForNewRequest__block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v26 = "[CSStartOfSpeechDetector initWithConfig:samplingRate:minSpeechFrames:numLeadingFrames:delegate:]";
-      v27 = 2114;
-      v28 = v16;
+      v25 = "[CSStartOfSpeechDetector initWithConfig:samplingRate:minSpeechFrames:numLeadingFrames:delegate:]";
+      v26 = 2114;
+      v27 = v16;
       _os_log_impl(&dword_222E4D000, v21, OS_LOG_TYPE_DEFAULT, "%s Created CSStartOfSpeechDetector: %{public}@ ", buf, 0x16u);
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

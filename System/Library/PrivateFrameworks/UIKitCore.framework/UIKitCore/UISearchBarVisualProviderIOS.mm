@@ -40,26 +40,26 @@ uint64_t __53___UISearchBarVisualProviderIOS_setEnabled_animated___block_invoke_
   return [v5 updateMagnifyingGlassView];
 }
 
-uint64_t __87___UISearchBarVisualProviderIOS_setShowsCancelButton_animated_protectSearchController___block_invoke(uint64_t result)
+void *__87___UISearchBarVisualProviderIOS_setShowsCancelButton_animated_protectSearchController___block_invoke(void *result)
 {
   v1 = result;
   if (*(result + 48) == 1)
   {
-    result = *(result + 32);
-    if (!*(result + 208))
+    result = result[4];
+    if (!result[26])
     {
       result = [result setUpCancelButton];
     }
 
     if ((*(v1 + 49) & 1) == 0)
     {
-      result = [*(*(v1 + 32) + 208) setAlpha:1.0];
+      result = [*(v1[4] + 208) setAlpha:1.0];
     }
   }
 
   if (*(v1 + 49) == 1)
   {
-    v2 = *(v1 + 40);
+    v2 = v1[5];
 
     return [v2 layoutBelowIfNeeded];
   }
@@ -137,13 +137,13 @@ uint64_t __66___UISearchBarVisualProviderIOS_animateShowsScopeBarAnimatingOut___
   return [UIView addKeyframeWithRelativeStartTime:v2 relativeDuration:v1 animations:0.3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13];
 }
 
-uint64_t __66___UISearchBarVisualProviderIOS_animateShowsScopeBarAnimatingOut___block_invoke_5(uint64_t result)
+id *__66___UISearchBarVisualProviderIOS_animateShowsScopeBarAnimatingOut___block_invoke_5(id *result)
 {
   if (*(result + 48) == 1)
   {
     v2 = result;
-    [*(result + 32) setNeedsLayout];
-    v3 = *(*(v2 + 40) + 56);
+    [result[4] setNeedsLayout];
+    v3 = *(v2[5] + 7);
 
     return [v3 setNeedsLayout];
   }
@@ -299,7 +299,7 @@ void *__68___UISearchBarVisualProviderIOS_driveTransitionToSearchLayoutState___b
   return result;
 }
 
-double __85___UISearchBarVisualProviderIOS__getNavigationTitleLeadingInset_trailingInset_isRTL___block_invoke(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
+CGFloat __85___UISearchBarVisualProviderIOS__getNavigationTitleLeadingInset_trailingInset_isRTL___block_invoke(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
 {
   v9 = *(a1 + 32);
   v10 = *(a1 + 40);
@@ -328,7 +328,7 @@ double __85___UISearchBarVisualProviderIOS__getNavigationTitleLeadingInset_trail
   }
 }
 
-double __85___UISearchBarVisualProviderIOS__getNavigationTitleLeadingInset_trailingInset_isRTL___block_invoke_2(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
+CGFloat __85___UISearchBarVisualProviderIOS__getNavigationTitleLeadingInset_trailingInset_isRTL___block_invoke_2(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
 {
   v9 = *(a1 + 32);
   v10 = *(a1 + 40);

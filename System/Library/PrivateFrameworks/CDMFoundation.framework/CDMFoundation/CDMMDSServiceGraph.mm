@@ -7,21 +7,19 @@
 
 + (id)requiredDAGServices
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v13 = v4;
+  v12 = v4;
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v14 = v6;
+  v13 = v6;
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
-  v15 = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v10 = [v2 setWithArray:{v9, v13, v14}];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v14 = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v10 = [v2 setWithArray:{v9, v12, v13}];
 
   return v10;
 }
@@ -167,13 +165,13 @@
 
 void __32__CDMMDSServiceGraph_buildGraph__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 136315138;
-    v14 = "[CDMMDSServiceGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMTokenizationProtoRequestCommand for use in CDMTokenizerProtoService", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[CDMMDSServiceGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMTokenizationProtoRequestCommand for use in CDMTokenizerProtoService", &v12, 0xCu);
   }
 
   v3 = [*(a1 + 32) currentTurnInput];
@@ -190,19 +188,17 @@ void __32__CDMMDSServiceGraph_buildGraph__block_invoke(uint64_t a1)
   v10 = [*(a1 + 32) requestId];
   v11 = [*(a1 + 64) dataDispatcherContext];
   [CDMDataDispatcher dispatchCurrentTurnTokenizationData:v9 requestId:v10 dataDispatcherContext:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __32__CDMMDSServiceGraph_buildGraph__block_invoke_594(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 136315138;
-    v19 = "[CDMMDSServiceGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMEmbeddingProtoRequestCommand for use in CDMEmbeddingProtoService", &v18, 0xCu);
+    v17 = 136315138;
+    v18 = "[CDMMDSServiceGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMEmbeddingProtoRequestCommand for use in CDMEmbeddingProtoService", &v17, 0xCu);
   }
 
   v3 = objc_alloc_init(MEMORY[0x1E69D12B0]);
@@ -227,8 +223,6 @@ void __32__CDMMDSServiceGraph_buildGraph__block_invoke_594(uint64_t a1)
   v15 = *(*(a1 + 72) + 8);
   v16 = *(v15 + 40);
   *(v15 + 40) = v14;
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __32__CDMMDSServiceGraph_buildGraph__block_invoke_598(uint64_t a1)

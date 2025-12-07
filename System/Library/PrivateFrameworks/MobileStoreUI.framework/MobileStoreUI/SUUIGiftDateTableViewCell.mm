@@ -152,7 +152,7 @@ LABEL_6:
 {
   labelCopy = label;
   label = [(SUUIGiftDateTableViewCell *)self label];
-  if (label != labelCopy && ([label isEqualToString:labelCopy] & 1) == 0)
+  if (label != labelCopy && (objc_msgSend_isEqualToString_(label) & 1) == 0)
   {
     labelLabel = self->_labelLabel;
     if (labelCopy)
@@ -188,7 +188,7 @@ LABEL_6:
 {
   placeholderCopy = placeholder;
   label = [(SUUIGiftDateTableViewCell *)self label];
-  if (label != placeholderCopy && ([label isEqualToString:placeholderCopy] & 1) == 0)
+  if (label != placeholderCopy && (objc_msgSend_isEqualToString_(label) & 1) == 0)
   {
     placeholderLabel = self->_placeholderLabel;
     if (placeholderCopy)

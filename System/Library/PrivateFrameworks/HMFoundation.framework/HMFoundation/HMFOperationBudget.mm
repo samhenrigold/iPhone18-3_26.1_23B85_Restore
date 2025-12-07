@@ -134,37 +134,37 @@ LABEL_9:
 
 - (BOOL)decrementByCount:(unint64_t)count
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   os_unfair_recursive_lock_lock_with_options();
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v7 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = HMFGetOSLogHandle(selfCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v8 = HMFGetLogIdentifier(selfCopy);
-    v26 = 138543618;
-    v27 = v8;
-    v28 = 2048;
+    v9 = HMFGetLogIdentifier(selfCopy);
+    v29 = 138543618;
+    v30 = v9;
+    v31 = 2048;
     countCopy = count;
-    _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Decrementing by %tu", &v26, 0x16u);
+    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Decrementing by %tu", &v29, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   value = selfCopy->_value;
   if (value < count)
   {
-    v20 = objc_autoreleasePoolPush();
-    v21 = selfCopy;
-    v22 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v23 = objc_autoreleasePoolPush();
+    v24 = selfCopy;
+    v26 = HMFGetOSLogHandle(v24, v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
-      v23 = HMFGetLogIdentifier(v21);
-      v26 = 138543362;
-      v27 = v23;
-      _os_log_impl(&dword_22ADEC000, v22, OS_LOG_TYPE_DEBUG, "%{public}@Cannot decrement, not enough budget", &v26, 0xCu);
+      v27 = HMFGetLogIdentifier(v24);
+      v29 = 138543362;
+      v30 = v27;
+      _os_log_impl(&dword_22ADEC000, v26, OS_LOG_TYPE_DEBUG, "%{public}@Cannot decrement, not enough budget", &v29, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v20);
+    objc_autoreleasePoolPop(v23);
   }
 
   else
@@ -173,110 +173,109 @@ LABEL_9:
     __updateValue(selfCopy, selfCopy->_value - count);
     if (isFull)
     {
-      v11 = objc_autoreleasePoolPush();
-      v12 = selfCopy;
-      v13 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v12 = objc_autoreleasePoolPush();
+      v13 = selfCopy;
+      v15 = HMFGetOSLogHandle(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v14 = HMFGetLogIdentifier(v12);
-        v26 = 138543362;
-        v27 = v14;
-        _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Starting timer", &v26, 0xCu);
+        v16 = HMFGetLogIdentifier(v13);
+        v29 = 138543362;
+        v30 = v16;
+        _os_log_impl(&dword_22ADEC000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Starting timer", &v29, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v11);
-      [v12[2] resume];
+      objc_autoreleasePoolPop(v12);
+      [v13[2] resume];
     }
 
-    v15 = objc_autoreleasePoolPush();
-    v16 = selfCopy;
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v17 = objc_autoreleasePoolPush();
+    v18 = selfCopy;
+    v20 = HMFGetOSLogHandle(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v18 = HMFGetLogIdentifier(v16);
-      v19 = selfCopy->_value;
-      v26 = 138543618;
-      v27 = v18;
-      v28 = 2048;
-      countCopy = v19;
-      _os_log_impl(&dword_22ADEC000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Successfully decremented to: %tu", &v26, 0x16u);
+      v21 = HMFGetLogIdentifier(v18);
+      v22 = selfCopy->_value;
+      v29 = 138543618;
+      v30 = v21;
+      v31 = 2048;
+      countCopy = v22;
+      _os_log_impl(&dword_22ADEC000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Successfully decremented to: %tu", &v29, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v15);
+    objc_autoreleasePoolPop(v17);
   }
 
   os_unfair_recursive_lock_unlock();
-  v24 = *MEMORY[0x277D85DE8];
   return value >= count;
 }
 
 uint64_t __33__HMFOperationBudget_logCategory__block_invoke()
 {
-  qword_280AFC2E0 = HMFCreateOSLogHandle(@"OperationBudget", @"com.apple.HMFoundation");
+  v0 = HMFCreateOSLogHandle(@"OperationBudget", @"com.apple.HMFoundation");
+  v1 = qword_280AFC2E0;
+  qword_280AFC2E0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   os_unfair_recursive_lock_lock_with_options();
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v7 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = HMFGetOSLogHandle(selfCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v8 = HMFGetLogIdentifier(selfCopy);
-    v20 = 138543362;
-    v21 = v8;
-    _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Incrementing", &v20, 0xCu);
+    v9 = HMFGetLogIdentifier(selfCopy);
+    v22 = 138543362;
+    v23 = v9;
+    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Incrementing", &v22, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = selfCopy->_rate.value + selfCopy->_value;
-  if (v9 >= selfCopy->_limit)
+  v10 = selfCopy->_rate.value + selfCopy->_value;
+  if (v10 >= selfCopy->_limit)
   {
-    v10 = objc_autoreleasePoolPush();
-    v11 = selfCopy;
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v11 = objc_autoreleasePoolPush();
+    v12 = selfCopy;
+    v14 = HMFGetOSLogHandle(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v13 = HMFGetLogIdentifier(v11);
-      v20 = 138543362;
-      v21 = v13;
-      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Stopping timer", &v20, 0xCu);
+      v15 = HMFGetLogIdentifier(v12);
+      v22 = 138543362;
+      v23 = v15;
+      _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Stopping timer", &v22, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v10);
-    [v11[2] suspend];
-    __updateValue(v11, selfCopy->_limit);
+    objc_autoreleasePoolPop(v11);
+    [v12[2] suspend];
+    __updateValue(v12, selfCopy->_limit);
   }
 
   else
   {
-    __updateValue(selfCopy, v9);
+    __updateValue(selfCopy, v10);
     selfCopy->_value += selfCopy->_rate.value;
   }
 
-  v14 = objc_autoreleasePoolPush();
-  v15 = selfCopy;
-  v16 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v16 = objc_autoreleasePoolPush();
+  v17 = selfCopy;
+  v19 = HMFGetOSLogHandle(v17, v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    v17 = HMFGetLogIdentifier(v15);
+    v20 = HMFGetLogIdentifier(v17);
     value = selfCopy->_value;
-    v20 = 138543618;
-    v21 = v17;
-    v22 = 2048;
-    v23 = value;
-    _os_log_impl(&dword_22ADEC000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Incremented to: %tu", &v20, 0x16u);
+    v22 = 138543618;
+    v23 = v20;
+    v24 = 2048;
+    v25 = value;
+    _os_log_impl(&dword_22ADEC000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Incremented to: %tu", &v22, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v14);
+  objc_autoreleasePoolPop(v16);
   os_unfair_recursive_lock_unlock();
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (_HMFRate)rate

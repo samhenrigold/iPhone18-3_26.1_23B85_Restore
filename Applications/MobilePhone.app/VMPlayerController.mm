@@ -163,7 +163,7 @@ void __37__VMPlayerController_initWithPlayer___block_invoke(uint64_t a1)
     if (v3)
     {
       v4 = [v5 delegate];
-      [v5 currentTime];
+      objc_msgSend_currentTime(v5);
       [v4 playerController:v5 didChangeToCurrentTime:?];
 
       WeakRetained = v5;
@@ -258,7 +258,7 @@ void __37__VMPlayerController_initWithPlayer___block_invoke(uint64_t a1)
   v3 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -278,7 +278,7 @@ void __37__VMPlayerController_initWithPlayer___block_invoke(uint64_t a1)
 
   if (currentItem)
   {
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
   }
 
   v6 = v7;
@@ -599,27 +599,27 @@ void __44__VMPlayerController_deactivateAudioSession__block_invoke(uint64_t a1)
 
   if (WeakRetained)
   {
-    v3 = *(a1 + 32);
-    v4 = +[AVAudioSession sharedInstance];
-    v5 = v4;
-    if (v4)
+    v4 = *(a1 + 32);
+    v5 = +[AVAudioSession sharedInstance];
+    v6 = v5;
+    if (v5)
     {
-      -[NSObject setAudioSessionState:](v3, "setAudioSessionState:", [v4 deactivateVoicemailAudioSession]);
-      [v3 updateAudioSessionNotifications];
-      v7[0] = _NSConcreteStackBlock;
-      v7[1] = 3221225472;
-      v7[2] = __44__VMPlayerController_deactivateAudioSession__block_invoke_123;
-      v7[3] = &unk_100285170;
-      objc_copyWeak(&v8, (a1 + 40));
-      v7[4] = *(a1 + 32);
-      dispatch_sync(&_dispatch_main_q, v7);
-      objc_destroyWeak(&v8);
+      -[NSObject setAudioSessionState:](v4, "setAudioSessionState:", [v5 deactivateVoicemailAudioSession]);
+      [v4 updateAudioSessionNotifications];
+      v8[0] = _NSConcreteStackBlock;
+      v8[1] = 3221225472;
+      v8[2] = __44__VMPlayerController_deactivateAudioSession__block_invoke_123;
+      v8[3] = &unk_100285170;
+      objc_copyWeak(&v9, (a1 + 40));
+      v8[4] = *(a1 + 32);
+      dispatch_sync(&_dispatch_main_q, v8);
+      objc_destroyWeak(&v9);
     }
 
     else
     {
-      v6 = PHDefaultLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = PHDefaultLog(0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __44__VMPlayerController_deactivateAudioSession__block_invoke_cold_1();
       }
@@ -628,8 +628,8 @@ void __44__VMPlayerController_deactivateAudioSession__block_invoke(uint64_t a1)
 
   else
   {
-    v3 = PHDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = PHDefaultLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __44__VMPlayerController_deactivateAudioSession__block_invoke_cold_2();
     }
@@ -642,15 +642,15 @@ void __44__VMPlayerController_deactivateAudioSession__block_invoke_123(uint64_t 
 
   if (WeakRetained)
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
 
-    [v3 updateProximityMonitoring];
+    [v4 updateProximityMonitoring];
   }
 
   else
   {
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PHDefaultLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __44__VMPlayerController_deactivateAudioSession__block_invoke_123_cold_1();
     }
@@ -856,7 +856,7 @@ LABEL_15:
             if (v27)
             {
               delegate2 = [(VMPlayerController *)self delegate];
-              [(VMPlayerController *)self duration];
+              objc_msgSend_duration(self);
               [delegate2 playerController:self willChangeToDuration:?];
 LABEL_32:
             }
@@ -869,7 +869,7 @@ LABEL_32:
             if (v33)
             {
               delegate2 = [(VMPlayerController *)self delegate];
-              [(VMPlayerController *)self duration];
+              objc_msgSend_duration(self);
               [delegate2 playerController:self didChangeToDuration:?];
               goto LABEL_32;
             }
@@ -891,44 +891,44 @@ LABEL_2:
   TUDispatchMainIfNecessary();
 }
 
-void __65__VMPlayerController_handleAudioSessionInterruptionNotification___block_invoke(uint64_t a1)
+void __65__VMPlayerController_handleAudioSessionInterruptionNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_ui_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_ui_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v11 = 138412546;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v11, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v12 = 138412546;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v12, 0x16u);
   }
 
-  v5 = [*(a1 + 40) userInfo];
-  v6 = v5;
-  if (v5)
+  v6 = [*(a1 + 40) userInfo];
+  v7 = v6;
+  if (v6)
   {
-    v7 = [v5 objectForKeyedSubscript:AVAudioSessionInterruptionTypeKey];
+    v8 = [v6 objectForKeyedSubscript:AVAudioSessionInterruptionTypeKey];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v8 = [v7 unsignedIntegerValue];
-      if (v8 == 1)
+      v9 = [v8 unsignedIntegerValue];
+      if (v9 == 1)
       {
         [*(a1 + 32) pause];
         [*(a1 + 32) deactivateAudioSession];
       }
 
-      else if (!v8)
+      else if (!v9)
       {
-        v9 = [v6 objectForKeyedSubscript:AVAudioSessionInterruptionOptionKey];
+        v10 = [v7 objectForKeyedSubscript:AVAudioSessionInterruptionOptionKey];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v10 = [v9 unsignedIntegerValue];
+          v11 = [v10 unsignedIntegerValue];
 
-          if (v10 == 1)
+          if (v11 == 1)
           {
             [*(a1 + 32) play];
           }
@@ -949,27 +949,27 @@ void __65__VMPlayerController_handleAudioSessionInterruptionNotification___block
   TUDispatchMainIfNecessary();
 }
 
-void __64__VMPlayerController_handleAudioSessionRouteChangeNotification___block_invoke(uint64_t a1)
+void __64__VMPlayerController_handleAudioSessionRouteChangeNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_ui_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_ui_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v8 = 138412546;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v8, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v9, 0x16u);
   }
 
-  v5 = [*(a1 + 40) userInfo];
-  v6 = v5;
-  if (v5)
+  v6 = [*(a1 + 40) userInfo];
+  v7 = v6;
+  if (v6)
   {
-    v7 = [v5 objectForKeyedSubscript:AVAudioSessionRouteChangeReasonKey];
+    v8 = [v6 objectForKeyedSubscript:AVAudioSessionRouteChangeReasonKey];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [v7 unsignedIntegerValue] - 1 <= 3)
+    if ((objc_opt_isKindOfClass() & 1) != 0 && [v8 unsignedIntegerValue] - 1 <= 3)
     {
       [*(a1 + 32) updateProximityMonitoring];
     }
@@ -983,18 +983,18 @@ void __64__VMPlayerController_handleAudioSessionRouteChangeNotification___block_
   TUDispatchMainIfNecessary();
 }
 
-id __74__VMPlayerController_handleAudioSessionMediaServicesWereLostNotification___block_invoke(uint64_t a1)
+id __74__VMPlayerController_handleAudioSessionMediaServicesWereLostNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_ui_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_ui_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v6, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v7, 0x16u);
   }
 
   return [*(a1 + 32) stop];
@@ -1007,27 +1007,27 @@ id __74__VMPlayerController_handleAudioSessionMediaServicesWereLostNotification_
   TUDispatchMainIfNecessary();
 }
 
-void __75__VMPlayerController_handleAudioSessionMediaServicesWereResetNotification___block_invoke(uint64_t a1)
+void __75__VMPlayerController_handleAudioSessionMediaServicesWereResetNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_ui_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_ui_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v8 = 138412546;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v8, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v9, 0x16u);
   }
 
-  v5 = [*(a1 + 32) delegate];
-  v6 = objc_opt_respondsToSelector();
+  v6 = [*(a1 + 32) delegate];
+  v7 = objc_opt_respondsToSelector();
 
-  if (v6)
+  if (v7)
   {
-    v7 = [*(a1 + 32) delegate];
-    [v7 playerControllerDidReset:*(a1 + 32)];
+    v8 = [*(a1 + 32) delegate];
+    [v8 playerControllerDidReset:*(a1 + 32)];
   }
 }
 
@@ -1038,27 +1038,27 @@ void __75__VMPlayerController_handleAudioSessionMediaServicesWereResetNotificati
   TUDispatchMainIfNecessary();
 }
 
-void __67__VMPlayerController_handlePlayerItemDidPlayToEndTimeNotification___block_invoke(uint64_t a1)
+void __67__VMPlayerController_handlePlayerItemDidPlayToEndTimeNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_ui_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_ui_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v8 = 138412546;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v8, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v9, 0x16u);
   }
 
-  v5 = [*(a1 + 40) object];
-  if (v5)
+  v6 = [*(a1 + 40) object];
+  if (v6)
   {
-    v6 = [*(a1 + 32) player];
-    v7 = [v6 currentItem];
+    v7 = [*(a1 + 32) player];
+    v8 = [v7 currentItem];
 
-    if (v5 == v7)
+    if (v6 == v8)
     {
       [*(a1 + 32) stop];
     }
@@ -1072,36 +1072,36 @@ void __67__VMPlayerController_handlePlayerItemDidPlayToEndTimeNotification___blo
   TUDispatchMainIfNecessary();
 }
 
-id __82__VMPlayerController_handleDeviceProximityStateDidChangeNotificationNotification___block_invoke(uint64_t a1)
+id __82__VMPlayerController_handleDeviceProximityStateDidChangeNotificationNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_ui_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_ui_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v8 = 138412546;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v8, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v9, 0x16u);
   }
 
   result = [*(a1 + 32) isAudioSessionActive];
   if (result)
   {
-    v6 = +[UIDevice currentDevice];
-    v7 = [v6 proximityState];
+    v7 = +[UIDevice currentDevice];
+    v8 = [v7 proximityState];
 
     result = [*(a1 + 32) timeControlStatus];
     if (result >= 2)
     {
-      if (result == 2 && (v7 & 1) == 0)
+      if (result == 2 && (v8 & 1) == 0)
       {
         return [*(a1 + 32) pause];
       }
     }
 
-    else if (v7)
+    else if (v8)
     {
       return [*(a1 + 32) play];
     }
@@ -1117,41 +1117,41 @@ id __82__VMPlayerController_handleDeviceProximityStateDidChangeNotificationNotif
   TUDispatchMainIfNecessary();
 }
 
-void __72__VMPlayerController_handlePlayerItemFailedToPlayToEndTimeNotification___block_invoke(uint64_t a1)
+void __72__VMPlayerController_handlePlayerItemFailedToPlayToEndTimeNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_ui_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_ui_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v13 = 138412546;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v13, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v14 = 138412546;
+    v15 = v4;
+    v16 = 2112;
+    v17 = v5;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v14, 0x16u);
   }
 
-  v5 = [*(a1 + 40) object];
-  if (v5)
+  v6 = [*(a1 + 40) object];
+  if (v6)
   {
-    v6 = [*(a1 + 32) player];
-    v7 = [v6 currentItem];
+    v7 = [*(a1 + 32) player];
+    v8 = [v7 currentItem];
 
-    if (v5 == v7)
+    if (v6 == v8)
     {
-      v8 = [*(a1 + 40) userInfo];
-      v9 = v8;
-      if (v8)
+      v9 = [*(a1 + 40) userInfo];
+      v10 = v9;
+      if (v9)
       {
-        v10 = [v8 objectForKeyedSubscript:AVPlayerItemFailedToPlayToEndTimeErrorKey];
+        v11 = [v9 objectForKeyedSubscript:AVPlayerItemFailedToPlayToEndTimeErrorKey];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v11 = v10;
-          if (v11)
+          v12 = v11;
+          if (v12)
           {
-            v12 = vm_ui_log();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            v13 = vm_ui_log();
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               __72__VMPlayerController_handlePlayerItemFailedToPlayToEndTimeNotification___block_invoke_cold_1();
             }

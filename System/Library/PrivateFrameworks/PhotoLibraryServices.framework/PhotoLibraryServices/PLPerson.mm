@@ -144,7 +144,7 @@
   [v10 setPropertiesToFetch:propertiesToFetch];
 
   [v10 setIncludesPendingChanges:0];
-  if ([dsCopy count] >= 0x65)
+  if (objc_msgSend_count(dsCopy) >= 0x65)
   {
     [v10 setFetchBatchSize:100];
   }
@@ -152,7 +152,7 @@
   dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"personUUID", dsCopy];
   [v10 setPredicate:dsCopy];
 
-  [v10 setFetchLimit:{objc_msgSend(dsCopy, "count")}];
+  [v10 setFetchLimit:objc_msgSend_count(dsCopy)];
   v17 = 0;
   v13 = [contextCopy executeFetchRequest:v10 error:&v17];
 
@@ -997,7 +997,7 @@ LABEL_25:
       }
     }
 
-    if ([v16 count])
+    if (objc_msgSend_count(v16))
     {
       v24 = v17;
       v20 = [(PLPerson *)self _updateGroupMembershipFromEdges:v16 mergeTarget:targetCopy error:&v24];
@@ -1112,7 +1112,7 @@ LABEL_18:
           }
 
           members = [v17 members];
-          v23 = [members count];
+          v23 = objc_msgSend_count(members);
 
           if (v23 <= 1)
           {
@@ -1167,9 +1167,9 @@ LABEL_22:
     v8 = personUri2;
     personUri3 = [personCopy personUri];
     personUri4 = [(PLPerson *)self personUri];
-    v11 = [personUri3 isEqualToString:personUri4];
+    isEqualToString = objc_msgSend_isEqualToString_(personUri3);
 
-    if (v11)
+    if (isEqualToString)
     {
 LABEL_4:
       contactMatchingDictionary = [personCopy contactMatchingDictionary];
@@ -1346,9 +1346,9 @@ LABEL_16:
         v11 = *(*(&v153 + 1) + 8 * i);
         personUUID = [(PLPerson *)self personUUID];
         personUUID2 = [v11 personUUID];
-        v14 = [personUUID isEqualToString:personUUID2];
+        isEqualToString = objc_msgSend_isEqualToString_(personUUID);
 
-        if (v14)
+        if (isEqualToString)
         {
           if ((*MEMORY[0x1E6994D48] & 1) == 0)
           {
@@ -1478,12 +1478,12 @@ LABEL_16:
     v42 = __CPLAssetsdOSLogDomain();
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = [v21 count];
+      v43 = objc_msgSend_count(v21);
       v44 = v40;
-      v45 = [v116 count];
-      v46 = [v39 count];
+      v45 = objc_msgSend_count(v116);
+      v46 = objc_msgSend_count(v39);
       v47 = v39;
-      v48 = [v111 count];
+      v48 = objc_msgSend_count(v111);
       personUUID5 = [(PLPerson *)self personUUID];
       *buf = 134219010;
       selfCopy = v43;
@@ -1632,7 +1632,7 @@ LABEL_16:
     {
       personUUID6 = [(PLPerson *)self personUUID];
       faceCrops = [(PLPerson *)self faceCrops];
-      v78 = [faceCrops count];
+      v78 = objc_msgSend_count(faceCrops);
       *buf = 138543618;
       selfCopy = personUUID6;
       v166 = 2048;
@@ -1698,7 +1698,7 @@ LABEL_16:
           v92 = __CPLAssetsdOSLogDomain();
           if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
           {
-            v93 = [allObjects count];
+            v93 = objc_msgSend_count(allObjects);
             *buf = 134218242;
             selfCopy = v93;
             v166 = 2112;
@@ -1723,7 +1723,7 @@ LABEL_16:
     if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
     {
       faceCrops4 = [(PLPerson *)self faceCrops];
-      v97 = [faceCrops4 count];
+      v97 = objc_msgSend_count(faceCrops4);
       *buf = 138543618;
       selfCopy = self;
       v166 = 2048;
@@ -2788,7 +2788,7 @@ LABEL_27:
 
   temporalDetectedFaces = [(PLPerson *)self temporalDetectedFaces];
   v10 = v39[3];
-  if (v10 < [temporalDetectedFaces count])
+  if (v10 < objc_msgSend_count(temporalDetectedFaces))
   {
     v27 = 0u;
     v28 = 0u;
@@ -2885,19 +2885,19 @@ void __40__PLPerson_assignDetectionTypeFromFaces__block_invoke(void *a1, void *a
 - (void)resetFacesProcessing
 {
   v39 = *MEMORY[0x1E69E9840];
-  entity = [(PLPerson *)self entity];
+  v3 = objc_msgSend_entity(self, a2);
   v4 = MEMORY[0x1E695D5B8];
   v5 = +[PLDetectedFace entityName];
   managedObjectContext = [(PLPerson *)self managedObjectContext];
   v7 = [v4 entityForName:v5 inManagedObjectContext:managedObjectContext];
 
-  v27 = entity;
+  v27 = v3;
   v28 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  relationshipsByName = [entity relationshipsByName];
+  relationshipsByName = [v3 relationshipsByName];
   allValues = [relationshipsByName allValues];
 
   v10 = [allValues countByEnumeratingWithState:&v33 objects:v38 count:16];
@@ -3021,7 +3021,7 @@ void __40__PLPerson_assignDetectionTypeFromFaces__block_invoke(void *a1, void *a
   }
 
   rejectedFaces = [(PLPerson *)self rejectedFaces];
-  v10 = [rejectedFaces count];
+  v10 = objc_msgSend_count(rejectedFaces);
 
   if (v10)
   {
@@ -3188,7 +3188,7 @@ LABEL_19:
         if ([(PLPerson *)self verifiedType]== -2)
         {
           mergeCandidates = [(PLPerson *)self mergeCandidates];
-          v16 = [mergeCandidates count];
+          v16 = objc_msgSend_count(mergeCandidates);
 
           if (v16)
           {
@@ -3197,7 +3197,7 @@ LABEL_19:
           }
 
           mergeCandidatesWithConfidence = [(PLPerson *)self mergeCandidatesWithConfidence];
-          v19 = [mergeCandidatesWithConfidence count];
+          v19 = objc_msgSend_count(mergeCandidatesWithConfidence);
 
           if (v19)
           {
@@ -3206,7 +3206,7 @@ LABEL_19:
           }
 
           invalidMergeCandidates = [(PLPerson *)self invalidMergeCandidates];
-          v22 = [invalidMergeCandidates count];
+          v22 = objc_msgSend_count(invalidMergeCandidates);
 
           if (v22)
           {
@@ -3215,7 +3215,7 @@ LABEL_19:
           }
 
           detectedFaces = [(PLPerson *)self detectedFaces];
-          v25 = [detectedFaces count];
+          v25 = objc_msgSend_count(detectedFaces);
 
           if (v25)
           {
@@ -3228,7 +3228,7 @@ LABEL_19:
         v27 = v26;
         if (v26)
         {
-          if (![v26 count])
+          if (!objc_msgSend_count(v26))
           {
             [(PLPerson *)self mergeCandidateConfidence];
             if (v28 != 0.0)
@@ -3366,7 +3366,7 @@ LABEL_51:
     v46 = [changedValues objectForKeyedSubscript:@"cloudLocalState"];
     if (v46)
     {
-      v47 = [changedValues count] != 1;
+      v47 = objc_msgSend_count(changedValues) != 1;
     }
 
     else
@@ -3374,7 +3374,7 @@ LABEL_51:
       v47 = 1;
     }
 
-    v48 = [changedValues count] != 0 && v47;
+    v48 = objc_msgSend_count(changedValues) != 0 && v47;
     if ([(PLPerson *)self isDeleted]& 1) == 0 && [(PLPerson *)self isValidForPersistence]&& (([(PLPerson *)self isInserted]| v48))
     {
       v49 = 68;
@@ -3431,8 +3431,8 @@ LABEL_69:
 
 LABEL_75:
   v60 = MEMORY[0x1E695DFA8];
-  entity = [(PLPerson *)self entity];
-  relationshipsByName = [entity relationshipsByName];
+  v61 = objc_msgSend_entity(self);
+  relationshipsByName = [v61 relationshipsByName];
   allKeys = [relationshipsByName allKeys];
   v64 = [v60 setWithArray:allKeys];
 
@@ -3482,7 +3482,7 @@ LABEL_75:
     {
       personUUID = [(PLPerson *)self personUUID];
       detectedFaces = [(PLPerson *)self detectedFaces];
-      v8 = [detectedFaces count];
+      v8 = objc_msgSend_count(detectedFaces);
       personUUID2 = [(PLPerson *)v4 personUUID];
       *buf = 138543874;
       v13 = personUUID;
@@ -3504,7 +3504,7 @@ LABEL_75:
   v45 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   contextCopy = context;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v8 = [objc_opt_class() createUnverifiedPersonInManagedObjectContext:contextCopy];
     v9 = MEMORY[0x1E695D5E0];
@@ -3525,7 +3525,7 @@ LABEL_75:
     v15 = v13;
     v39 = v15;
     v16 = [contextCopy enumerateObjectsFromFetchRequest:v11 usingDefaultBatchSizeWithBlock:v37];
-    if ([v15 count])
+    if (objc_msgSend_count(v15))
     {
       v29 = v14;
       v30 = v11;
@@ -3812,7 +3812,7 @@ void __78__PLPerson_createUnverifiedPersonForRejectedFaceUUIDs_inManagedObjectCo
   allDetectedFaces = [personCopy allDetectedFaces];
   allObjects = [allDetectedFaces allObjects];
 
-  v13 = [allObjects count];
+  v13 = objc_msgSend_count(allObjects);
   v14 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:v13];
   v15 = 0;
   if (reasonCopy == 6 && v13)
@@ -4056,9 +4056,9 @@ void __69__PLPerson__deleteObjectsWithFetchRequest_reason_moc_progress_error___b
     [*(a1 + 32) becomeCurrentWithPendingUnitCount:1];
     v7 = [*(a1 + 40) entityName];
     v8 = +[PLPerson entityName];
-    v9 = [v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (v9 && (v10 = *(a1 + 72), v11 = *(a1 + 64), v12 = *(*(a1 + 56) + 8), obj = *(v12 + 40), v13 = [v11 _detachFacesForPerson:v6 reason:v10 error:&obj], objc_storeStrong((v12 + 40), obj), (v13 & 1) == 0))
+    if (isEqualToString && (v10 = *(a1 + 72), v11 = *(a1 + 64), v12 = *(*(a1 + 56) + 8), obj = *(v12 + 40), v13 = [v11 _detachFacesForPerson:v6 reason:v10 error:&obj], objc_storeStrong((v12 + 40), obj), (v13 & 1) == 0))
     {
       *a4 = 1;
     }
@@ -4412,12 +4412,12 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     v7 = PLBackendGetLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [v5 count];
+      v8 = objc_msgSend_count(v5);
       *buf = 134217984;
       v15 = v8;
       _os_log_impl(&dword_19BF1F000, v7, OS_LOG_TYPE_DEFAULT, "Person reset deleting %lu verified persons", buf, 0xCu);
@@ -4476,12 +4476,12 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     v6 = PLBackendGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [v4 count];
+      v7 = objc_msgSend_count(v4);
       *buf = 134217984;
       v14 = v7;
       _os_log_impl(&dword_19BF1F000, v6, OS_LOG_TYPE_DEFAULT, "Person reset found %lu face crops to delete, these are probably orphaned", buf, 0xCu);
@@ -4702,7 +4702,7 @@ void __101__PLPerson_batchFetchAssociatedPersonByFaceGroupUUIDWithFaceGroupUUIDs
     v20 = v6;
     v21 = v1;
     v22 = v2;
-    v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v7, "count")}];
+    v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(v7)];
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
@@ -5732,7 +5732,7 @@ void __151__PLPerson__batchFetchPersonUUIDsByAssetUUIDWithAssetUUIDs_predicate_i
     v8 = objc_autoreleasePoolPush();
     dCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"personUUID == %@", dCopy];
     v10 = [self personsMatchingPredicate:dCopy fetchLimit:1 sortDescriptors:0 relationshipKeyPathsForPrefetching:0 inManagedObjectContext:contextCopy];
-    if ([v10 count])
+    if (objc_msgSend_count(v10))
     {
       firstObject = [v10 firstObject];
     }
@@ -5999,9 +5999,9 @@ void __66__PLPerson_fetchDuplicatePersonUUIDsInManagedObjectContext_error___bloc
   {
     personUUID = [(PLPerson *)self personUUID];
     personUUID2 = [finalMergeTargetPerson personUUID];
-    v9 = [personUUID isEqualToString:personUUID2];
+    isEqualToString = objc_msgSend_isEqualToString_(personUUID);
 
-    if ((v9 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       keyFace = [(PLPerson *)self keyFace];
       keyFacePickSource = [(PLPerson *)self keyFacePickSource];
@@ -6188,7 +6188,7 @@ LABEL_14:
   v28[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   [(PLPerson *)self setContactMatchingDictionary:dictionaryCopy];
-  if (dictionaryCopy || [0 count])
+  if (dictionaryCopy || objc_msgSend_count(0))
   {
     v5 = objc_alloc_init(MEMORY[0x1E695CE18]);
     v28[0] = *MEMORY[0x1E695C258];
@@ -6198,7 +6198,7 @@ LABEL_14:
     if (v7)
     {
       personUri = [(PLPerson *)self personUri];
-      if (!personUri || (v9 = personUri, -[PLPerson personUri](self, "personUri"), v10 = objc_claimAutoreleasedReturnValue(), [v7 identifier], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqualToString:", v11), v11, v10, v9, (v12 & 1) == 0))
+      if (!personUri || (v9 = personUri, -[PLPerson personUri](self, "personUri"), v10 = objc_claimAutoreleasedReturnValue(), [v7 identifier], v11 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v10), v11, v10, v9, (isEqualToString & 1) == 0))
       {
         if ((*MEMORY[0x1E6994D48] & 1) == 0)
         {
@@ -6261,7 +6261,7 @@ LABEL_14:
 
 - (BOOL)_allowSyncOfChangeWithKey:(id)key
 {
-  if (![key isEqualToString:@"manualOrder"])
+  if (!objc_msgSend_isEqualToString_(key, a2, @"manualOrder"))
   {
     return 1;
   }

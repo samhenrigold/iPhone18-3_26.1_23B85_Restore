@@ -8,6 +8,7 @@
 - (void)dealloc;
 - (void)iterateAttachedConnectionsSync:(id)sync;
 - (void)requestState:(id)state;
+- (void)setEnabled:(id)enabled flag:(BOOL)flag;
 @end
 
 @implementation ACCAssistiveTouchServer
@@ -544,7 +545,7 @@ id __62__ACCAssistiveTouchServer_listener_shouldAcceptNewConnection___block_invo
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCAssistiveTouchServer *)attachedCopy accessoryAssistiveTouchAttached:?];
+    [ACCAssistiveTouchServer accessoryAssistiveTouchAttached:];
   }
 
   remoteObject = [(_ACCAssistiveTouchProviderInfo *)self->_assistiveTouchProviderInfo remoteObject];
@@ -614,11 +615,82 @@ id __62__ACCAssistiveTouchServer_listener_shouldAcceptNewConnection___block_invo
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCAssistiveTouchServer *)detachedCopy accessoryAssistiveTouchDetached:?];
+    [ACCAssistiveTouchServer accessoryAssistiveTouchDetached:];
   }
 
   remoteObject = [(_ACCAssistiveTouchProviderInfo *)self->_assistiveTouchProviderInfo remoteObject];
   [remoteObject accessoryAssistiveTouchDetached:detachedCopy];
+}
+
+- (void)setEnabled:(id)enabled flag:(BOOL)flag
+{
+  flagCopy = flag;
+  enabledCopy = enabled;
+  if (gLogObjects)
+  {
+    v7 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  if (v7)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v9 = &_os_log_default;
+    v8 = &_os_log_default;
+  }
+
+  else
+  {
+    v9 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v14 = 138412546;
+    v15 = enabledCopy;
+    v16 = 1024;
+    v17 = flagCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "AssistiveTouch server, setEnabled: %@, enabled %d", &v14, 0x12u);
+  }
+
+  if (gLogObjects && gNumLogObjects >= 5)
+  {
+    v10 = *(gLogObjects + 32);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v10 = &_os_log_default;
+    v11 = &_os_log_default;
+  }
+
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    assistiveTouchProviderInfo = self->_assistiveTouchProviderInfo;
+    v14 = 138412802;
+    v15 = enabledCopy;
+    v16 = 1024;
+    v17 = flagCopy;
+    v18 = 2112;
+    v19 = assistiveTouchProviderInfo;
+    _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "AssistiveTouch server, setEnabled: %@, enabled %d, _assistiveTouchProviderInfo=%@", &v14, 0x1Cu);
+  }
+
+  remoteObject = [(_ACCAssistiveTouchProviderInfo *)self->_assistiveTouchProviderInfo remoteObject];
+  [remoteObject setEnabled:enabledCopy flag:flagCopy];
 }
 
 - (void)requestState:(id)state
@@ -675,7 +747,7 @@ id __62__ACCAssistiveTouchServer_listener_shouldAcceptNewConnection___block_invo
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCAssistiveTouchServer *)stateCopy requestState:?];
+    [ACCAssistiveTouchServer requestState:];
   }
 
   remoteObject = [(_ACCAssistiveTouchProviderInfo *)self->_assistiveTouchProviderInfo remoteObject];
@@ -704,27 +776,6 @@ uint64_t __39__ACCAssistiveTouchServer_sharedServer__block_invoke(uint64_t a1)
   sharedServer_sharedInstance_8 = [objc_alloc(*(a1 + 32)) initWithXPCServiceName:@"com.apple.accessories.assistivetouch" andFeatureNotification:"com.apple.accessories.assistivetouch.availability-changed"];
 
   return _objc_release_x1();
-}
-
-- (void)accessoryAssistiveTouchAttached:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 56);
-  OUTLINED_FUNCTION_2_35();
-  OUTLINED_FUNCTION_10_18(&_mh_execute_header, v3, v4, "AssistiveTouch server, accessoryAssistiveTouchAttached: %@, _assistiveTouchProviderInfo=%@");
-}
-
-- (void)accessoryAssistiveTouchDetached:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 56);
-  OUTLINED_FUNCTION_2_35();
-  OUTLINED_FUNCTION_10_18(&_mh_execute_header, v3, v4, "AssistiveTouch server, accessoryAssistiveTouchDetached: %@, _assistiveTouchProviderInfo=%@");
-}
-
-- (void)requestState:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 56);
-  OUTLINED_FUNCTION_2_35();
-  OUTLINED_FUNCTION_10_18(&_mh_execute_header, v3, v4, "AssistiveTouch server, requestState: %@, _assistiveTouchProviderInfo=%@");
 }
 
 @end

@@ -22,7 +22,7 @@
 
 - (_SFPBTableHeaderRowCardSection)initWithFacade:(id)facade
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBTableHeaderRowCardSection *)self init];
   if (v5)
@@ -38,33 +38,33 @@
       v7 = 0;
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     punchoutOptions2 = [facadeCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v47 objects:v52 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v46 objects:v51 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v48;
+      v11 = *v47;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v48 != v11)
+          if (*v47 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[_SFPBPunchout alloc] initWithFacade:*(*(&v47 + 1) + 8 * i)];
+          v13 = [[_SFPBPunchout alloc] initWithFacade:*(*(&v46 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
       while (v10);
@@ -154,33 +154,33 @@
       v31 = 0;
     }
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     data2 = [facadeCopy data];
-    v33 = [data2 countByEnumeratingWithState:&v43 objects:v51 count:16];
+    v33 = [data2 countByEnumeratingWithState:&v42 objects:v50 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v44;
+      v35 = *v43;
       do
       {
         for (j = 0; j != v34; ++j)
         {
-          if (*v44 != v35)
+          if (*v43 != v35)
           {
             objc_enumerationMutation(data2);
           }
 
-          v37 = [[_SFPBFormattedText alloc] initWithFacade:*(*(&v43 + 1) + 8 * j)];
+          v37 = [[_SFPBFormattedText alloc] initWithFacade:*(*(&v42 + 1) + 8 * j)];
           if (v37)
           {
             [v31 addObject:v37];
           }
         }
 
-        v34 = [data2 countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v34 = [data2 countByEnumeratingWithState:&v42 objects:v50 count:16];
       }
 
       while (v34);
@@ -218,44 +218,43 @@
     v40 = v5;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBTableHeaderRowCardSection)initWithDictionary:(id)dictionary
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v66.receiver = self;
-  v66.super_class = _SFPBTableHeaderRowCardSection;
-  v5 = [(_SFPBTableHeaderRowCardSection *)&v66 init];
+  v65.receiver = self;
+  v65.super_class = _SFPBTableHeaderRowCardSection;
+  v5 = [(_SFPBTableHeaderRowCardSection *)&v65 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"punchoutOptions"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
       v63 = 0u;
+      v64 = 0u;
+      v61 = 0u;
+      v62 = 0u;
       v7 = v6;
       v8 = v6;
-      v9 = [v8 countByEnumeratingWithState:&v62 objects:v68 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v61 objects:v67 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v63;
+        v11 = *v62;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v63 != v11)
+            if (*v62 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v62 + 1) + 8 * i);
+            v13 = *(*(&v61 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -264,7 +263,7 @@
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v62 objects:v68 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v61 objects:v67 count:16];
         }
 
         while (v10);
@@ -305,7 +304,7 @@
 
     v21 = [dictionaryCopy objectForKeyedSubscript:@"hasBottomPadding"];
     objc_opt_class();
-    v57 = v21;
+    v56 = v21;
     if (objc_opt_isKindOfClass())
     {
       -[_SFPBTableHeaderRowCardSection setHasBottomPadding:](v5, "setHasBottomPadding:", [v21 BOOLValue]);
@@ -313,7 +312,7 @@
 
     v22 = [dictionaryCopy objectForKeyedSubscript:@"type"];
     objc_opt_class();
-    v56 = v22;
+    v55 = v22;
     if (objc_opt_isKindOfClass())
     {
       v23 = [v22 copy];
@@ -322,7 +321,7 @@
 
     v24 = [dictionaryCopy objectForKeyedSubscript:@"separatorStyle"];
     objc_opt_class();
-    v55 = v24;
+    v54 = v24;
     if (objc_opt_isKindOfClass())
     {
       -[_SFPBTableHeaderRowCardSection setSeparatorStyle:](v5, "setSeparatorStyle:", [v24 intValue]);
@@ -330,7 +329,7 @@
 
     v25 = [dictionaryCopy objectForKeyedSubscript:@"backgroundColor"];
     objc_opt_class();
-    v54 = v25;
+    v53 = v25;
     if (objc_opt_isKindOfClass())
     {
       v26 = [[_SFPBColor alloc] initWithDictionary:v25];
@@ -339,15 +338,15 @@
 
     v27 = [dictionaryCopy objectForKeyedSubscript:@"tableIdentifier"];
     objc_opt_class();
-    v53 = v27;
+    v52 = v27;
     if (objc_opt_isKindOfClass())
     {
       v28 = [v27 copy];
       [(_SFPBTableHeaderRowCardSection *)v5 setTableIdentifier:v28];
     }
 
-    v51 = v19;
-    v52 = v17;
+    v50 = v19;
+    v51 = v17;
     v29 = [dictionaryCopy objectForKeyedSubscript:@"alignmentSchema"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -356,33 +355,33 @@
       [(_SFPBTableHeaderRowCardSection *)v5 setAlignmentSchema:v30];
     }
 
-    v49 = v29;
-    v50 = v20;
+    v48 = v29;
+    v49 = v20;
     v31 = [dictionaryCopy objectForKeyedSubscript:@"data"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v48 = v15;
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
+      v47 = v15;
       v59 = 0u;
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
       v32 = v31;
-      v33 = [v32 countByEnumeratingWithState:&v58 objects:v67 count:16];
+      v33 = [v32 countByEnumeratingWithState:&v57 objects:v66 count:16];
       if (v33)
       {
         v34 = v33;
-        v35 = *v59;
+        v35 = *v58;
         do
         {
           for (j = 0; j != v34; ++j)
           {
-            if (*v59 != v35)
+            if (*v58 != v35)
             {
               objc_enumerationMutation(v32);
             }
 
-            v37 = *(*(&v58 + 1) + 8 * j);
+            v37 = *(*(&v57 + 1) + 8 * j);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -391,13 +390,13 @@
             }
           }
 
-          v34 = [v32 countByEnumeratingWithState:&v58 objects:v67 count:16];
+          v34 = [v32 countByEnumeratingWithState:&v57 objects:v66 count:16];
         }
 
         while (v34);
       }
 
-      v15 = v48;
+      v15 = v47;
     }
 
     v39 = [dictionaryCopy objectForKeyedSubscript:@"isSubHeader"];
@@ -439,7 +438,6 @@
     v45 = v5;
   }
 
-  v46 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -479,7 +477,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_alignRowsToHeader)
   {
@@ -528,26 +526,26 @@
   if ([(NSArray *)self->_datas count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     v13 = self->_datas;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v52 objects:v57 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v51 objects:v56 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v53;
+      v16 = *v52;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v53 != v16)
+          if (*v52 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation3 = [*(*(&v52 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v51 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation3)
           {
             [array addObject:dictionaryRepresentation3];
@@ -560,7 +558,7 @@
           }
         }
 
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v52 objects:v57 count:16];
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v51 objects:v56 count:16];
       }
 
       while (v15);
@@ -590,26 +588,26 @@
   if ([(NSArray *)self->_punchoutOptions count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
     v24 = self->_punchoutOptions;
-    v25 = [(NSArray *)v24 countByEnumeratingWithState:&v48 objects:v56 count:16];
+    v25 = [(NSArray *)v24 countByEnumeratingWithState:&v47 objects:v55 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v49;
+      v27 = *v48;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v49 != v27)
+          if (*v48 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          dictionaryRepresentation4 = [*(*(&v48 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v47 + 1) + 8 * j) dictionaryRepresentation];
           if (dictionaryRepresentation4)
           {
             [array2 addObject:dictionaryRepresentation4];
@@ -622,7 +620,7 @@
           }
         }
 
-        v26 = [(NSArray *)v24 countByEnumeratingWithState:&v48 objects:v56 count:16];
+        v26 = [(NSArray *)v24 countByEnumeratingWithState:&v47 objects:v55 count:16];
       }
 
       while (v26);
@@ -703,8 +701,6 @@
 
     [dictionary setObject:v45 forKeyedSubscript:@"verticalAlign"];
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -1073,35 +1069,34 @@ LABEL_53:
 
 - (void)writeTo:(id)to
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   toCopy = to;
   punchoutOptions = [(_SFPBTableHeaderRowCardSection *)self punchoutOptions];
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v6 = [punchoutOptions countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v6 = [punchoutOptions countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v30;
+    v8 = *v27;
     do
     {
       v9 = 0;
       do
       {
-        if (*v30 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(punchoutOptions);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [punchoutOptions countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v7 = [punchoutOptions countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v7);
@@ -1164,35 +1159,34 @@ LABEL_53:
   }
 
   datas = [(_SFPBTableHeaderRowCardSection *)self datas];
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v18 = [datas countByEnumeratingWithState:&v25 objects:v33 count:16];
-  if (v18)
+  v17 = [datas countByEnumeratingWithState:&v22 objects:v30 count:16];
+  if (v17)
   {
-    v19 = v18;
-    v20 = *v26;
+    v18 = v17;
+    v19 = *v23;
     do
     {
-      v21 = 0;
+      v20 = 0;
       do
       {
-        if (*v26 != v20)
+        if (*v23 != v19)
         {
           objc_enumerationMutation(datas);
         }
 
-        v22 = *(*(&v25 + 1) + 8 * v21);
         PBDataWriterWriteSubmessage();
-        ++v21;
+        ++v20;
       }
 
-      while (v19 != v21);
-      v19 = [datas countByEnumeratingWithState:&v25 objects:v33 count:16];
+      while (v18 != v20);
+      v18 = [datas countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
 
   if ([(_SFPBTableHeaderRowCardSection *)self isSubHeader])
@@ -1220,15 +1214,11 @@ LABEL_53:
   {
     PBDataWriterWriteBOOLField();
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTabGroupIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  tabGroupIdentifier = self->_tabGroupIdentifier;
-  self->_tabGroupIdentifier = v4;
+  self->_tabGroupIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -1253,45 +1243,35 @@ LABEL_53:
 
 - (void)setData:(id)data
 {
-  v4 = [data copy];
-  datas = self->_datas;
-  self->_datas = v4;
+  self->_datas = [data copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTableIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  tableIdentifier = self->_tableIdentifier;
-  self->_tableIdentifier = v4;
+  self->_tableIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setType:(id)type
 {
-  v4 = [type copy];
-  type = self->_type;
-  self->_type = v4;
+  self->_type = [type copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPunchoutPickerDismissText:(id)text
 {
-  v4 = [text copy];
-  punchoutPickerDismissText = self->_punchoutPickerDismissText;
-  self->_punchoutPickerDismissText = v4;
+  self->_punchoutPickerDismissText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPunchoutPickerTitle:(id)title
 {
-  v4 = [title copy];
-  punchoutPickerTitle = self->_punchoutPickerTitle;
-  self->_punchoutPickerTitle = v4;
+  self->_punchoutPickerTitle = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -1316,9 +1296,7 @@ LABEL_53:
 
 - (void)setPunchoutOptions:(id)options
 {
-  v4 = [options copy];
-  punchoutOptions = self->_punchoutOptions;
-  self->_punchoutOptions = v4;
+  self->_punchoutOptions = [options copy];
 
   MEMORY[0x1EEE66BB8]();
 }

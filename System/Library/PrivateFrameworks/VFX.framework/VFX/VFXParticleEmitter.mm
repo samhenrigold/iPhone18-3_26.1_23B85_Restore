@@ -31,13 +31,13 @@
 
 - (VFXParticleEmitter)initWithTag:(id)tag
 {
-  v9.receiver = self;
-  v9.super_class = VFXParticleEmitter;
-  v4 = [(VFXParticleEmitter *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = VFXParticleEmitter;
+  v4 = [(VFXParticleEmitter *)&v8 init];
   if (v4)
   {
     v5 = [VFXCoreEntityHandle alloc];
-    v4->_coreHandle = objc_msgSend_initWithTag_(v5, v6, tag, v7);
+    v4->_coreHandle = objc_msgSend_initWithTag_(v5, v6, tag);
     v4->_speed = 1.0;
   }
 
@@ -100,21 +100,21 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  return objc_msgSend_stringWithFormat_(v3, v6, @"<%@: %p>", v7, v5, self);
+  return objc_msgSend_stringWithFormat_(v3, v6, @"<%@: %p>", v5, self);
 }
 
 + (VFXParticleEmitter)particleEmitterWithEntityHandle:(id)handle
 {
   v4 = [self alloc];
-  v7 = objc_msgSend_initWithEntityHandle_(v4, v5, handle, v6);
+  v6 = objc_msgSend_initWithEntityHandle_(v4, v5, handle);
 
-  return v7;
+  return v6;
 }
 
 + (id)presentationParticleEmitterWithEntityHandle:(id)handle
 {
   v4 = [self alloc];
-  inited = objc_msgSend_initPresentationWithEntityHandle_(v4, v5, handle, v6);
+  inited = objc_msgSend_initPresentationWithEntityHandle_(v4, v5, handle);
 
   return inited;
 }
@@ -122,10 +122,10 @@
 + (VFXParticleEmitter)particleEmitterWithEntityObject:(id)object
 {
   v4 = [self alloc];
-  v7 = objc_msgSend_handleWithEntityObject_(VFXCoreEntityHandle, v5, object, v6);
-  v10 = objc_msgSend_initWithEntityHandle_(v4, v8, v7, v9);
+  v6 = objc_msgSend_handleWithEntityObject_(VFXCoreEntityHandle, v5, object);
+  v8 = objc_msgSend_initWithEntityHandle_(v4, v7, v6);
 
-  return v10;
+  return v8;
 }
 
 - (void)killParticles
@@ -153,43 +153,43 @@
   if (self->_speed != speed)
   {
     self->_speed = speed;
-    objc_msgSend___updateCSimulationSpeed(self, a2, v3, v4);
+    objc_msgSend___updateCSimulationSpeed(self, a2, v3);
   }
 }
 
 - (void)__updateCSimulationSpeed
 {
-  objc_msgSend_simulationSpeed(self, a2, v2, v3);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_1AF315620;
-  v7[3] = &unk_1E7A7E270;
-  v7[4] = self;
-  v8 = v5;
-  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v6, self, v7);
+  objc_msgSend_simulationSpeed(self, a2, v2);
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = sub_1AF315620;
+  v6[3] = &unk_1E7A7E270;
+  v6[4] = self;
+  v7 = v4;
+  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v5, self, v6);
 }
 
 - (void)setAnchor:(id)anchor
 {
-  if (objc_msgSend_anchor(self, a2, anchor, v3) != anchor)
+  if (objc_msgSend_anchor(self, a2, anchor) != anchor)
   {
     objc_storeWeak(&self->_simulationAnchor, anchor);
-    objc_msgSend___updateCAnchor(self, v6, v7, v8);
+    objc_msgSend___updateCAnchor(self, v5, v6);
 
-    objc_msgSend_killParticles(self, v9, v10, v11);
+    objc_msgSend_killParticles(self, v7, v8);
   }
 }
 
 - (void)__updateCAnchor
 {
-  v5 = objc_msgSend_anchor(self, a2, v2, v3);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_1AF315770;
-  v7[3] = &unk_1E7A7E220;
-  v7[4] = self;
-  v7[5] = v5;
-  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v6, self, v7);
+  v4 = objc_msgSend_anchor(self, a2, v2);
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = sub_1AF315770;
+  v6[3] = &unk_1E7A7E220;
+  v6[4] = self;
+  v6[5] = v4;
+  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v5, self, v6);
 }
 
 - (void)enumerateReferencesForOperation:(int64_t)operation usingBlock:(id)block
@@ -205,7 +205,7 @@
 {
   if (self->_world != reference)
   {
-    objc_msgSend_setWorld_(self, a2, reference, v3);
+    objc_msgSend_setWorld_(self, a2, reference);
   }
 }
 
@@ -246,7 +246,7 @@
     return self->_world;
   }
 
-  result = objc_msgSend_worldRef(self, a2, v2, v3);
+  result = objc_msgSend_worldRef(self, a2, v2);
   if (result)
   {
 
@@ -258,29 +258,29 @@
 
 - (__CFXWorld)worldRef
 {
-  v4 = objc_msgSend___CFObject(self, a2, v2, v3);
+  v3 = objc_msgSend___CFObject(self, a2, v2);
 
-  return sub_1AF1C3FAC(v4);
+  return sub_1AF1C3FAC(v3, v4);
 }
 
 - (void)coreHandleWasResolved
 {
-  objc_msgSend___updateCSimulationSpeed(self, a2, v2, v3);
+  objc_msgSend___updateCSimulationSpeed(self, a2, v2);
 
-  objc_msgSend___updateCAnchor(self, v5, v6, v7);
+  objc_msgSend___updateCAnchor(self, v4, v5);
 }
 
 - (void)copyTo:(id)to withContext:(id)context
 {
-  objc_msgSend_begin(VFXTransaction, a2, to, context);
-  objc_msgSend_setImmediateMode_(VFXTransaction, v7, 1, v8);
+  objc_msgSend_begin(VFXTransaction, a2, to);
+  objc_msgSend_setImmediateMode_(VFXTransaction, v7, 1);
   *(to + 1) = sub_1AF2BED30(self->_coreHandle, context);
-  *&v9 = self->_speed;
-  objc_msgSend_setSimulationSpeed_(to, v10, v11, v12, v9);
-  v16 = objc_msgSend_anchor(self, v13, v14, v15);
-  objc_msgSend_setAnchor_(to, v17, v16, v18);
+  *&v8 = self->_speed;
+  objc_msgSend_setSimulationSpeed_(to, v9, v10, v8);
+  v13 = objc_msgSend_anchor(self, v11, v12);
+  objc_msgSend_setAnchor_(to, v14, v13);
 
-  objc_msgSend_commitImmediate(VFXTransaction, v19, v20, v21);
+  objc_msgSend_commitImmediate(VFXTransaction, v15, v16);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -295,52 +295,52 @@
   objc_msgSend_encodeObject_forKey_(coder, a2, self->_coreHandle, @"coreHandle");
   if (self->_speed != 1.0)
   {
-    objc_msgSend_encodeFloat_forKey_(coder, v5, @"simulationSpeed", v7);
+    objc_msgSend_encodeFloat_forKey_(coder, v5, @"simulationSpeed");
   }
 
-  v8 = objc_msgSend_anchor(self, v5, v6, v7);
-  if (v8)
+  v7 = objc_msgSend_anchor(self, v5, v6);
+  if (v7)
   {
 
-    objc_msgSend_encodeObject_forKey_(coder, v9, v8, @"simulationSpace");
+    objc_msgSend_encodeObject_forKey_(coder, v8, v7, @"simulationSpace");
   }
 }
 
 - (VFXParticleEmitter)initWithCoder:(id)coder
 {
-  v46.receiver = self;
-  v46.super_class = VFXParticleEmitter;
-  v7 = [(VFXParticleEmitter *)&v46 init];
-  if (!v7)
+  v35.receiver = self;
+  v35.super_class = VFXParticleEmitter;
+  v6 = [(VFXParticleEmitter *)&v35 init];
+  if (!v6)
   {
-    return v7;
+    return v6;
   }
 
-  v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-  objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-  if (objc_msgSend_containsValueForKey_(coder, v11, @"rootIdentifier", v12))
+  v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+  objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+  if (objc_msgSend_containsValueForKey_(coder, v9, @"rootIdentifier"))
   {
-    v13 = objc_opt_class();
-    v15 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v14, v13, @"rootIdentifier");
-    v16 = [VFXCoreEntityHandle alloc];
-    v19 = objc_msgSend_initWithTag_(v16, v17, v15, v18);
+    v10 = objc_opt_class();
+    v12 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v11, v10, @"rootIdentifier");
+    v13 = [VFXCoreEntityHandle alloc];
+    v15 = objc_msgSend_initWithTag_(v13, v14, v12);
   }
 
   else
   {
-    v22 = objc_opt_class();
-    v19 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v23, v22, @"coreHandle");
+    v17 = objc_opt_class();
+    v15 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v18, v17, @"coreHandle");
   }
 
-  v7->_coreHandle = v19;
-  if (objc_msgSend_containsValueForKey_(coder, v20, @"speed", v21))
+  v6->_coreHandle = v15;
+  if (objc_msgSend_containsValueForKey_(coder, v16, @"speed"))
   {
-    objc_msgSend_decodeFloatForKey_(coder, v24, @"speed", v25);
-    objc_msgSend_setSimulationSpeed_(v7, v26, v27, v28);
-    objc_msgSend_simulationSpeed(v7, v29, v30, v31);
-    v35 = *&v36;
-    LODWORD(v36) = 1.0;
-    if (v35 != 0.0)
+    objc_msgSend_decodeFloatForKey_(coder, v19, @"speed");
+    objc_msgSend_setSimulationSpeed_(v6, v20, v21);
+    objc_msgSend_simulationSpeed(v6, v22, v23);
+    v26 = *&v27;
+    LODWORD(v27) = 1.0;
+    if (v26 != 0.0)
     {
       goto LABEL_11;
     }
@@ -348,35 +348,35 @@
 
   else
   {
-    v37 = objc_msgSend_containsValueForKey_(coder, v24, @"simulationSpeed", v25);
-    LODWORD(v36) = 1.0;
-    if (v37)
+    v28 = objc_msgSend_containsValueForKey_(coder, v19, @"simulationSpeed");
+    LODWORD(v27) = 1.0;
+    if (v28)
     {
-      objc_msgSend_decodeFloatForKey_(coder, v32, @"simulationSpeed", v34, v36);
+      objc_msgSend_decodeFloatForKey_(coder, v24, @"simulationSpeed", v27);
     }
   }
 
-  objc_msgSend_setSimulationSpeed_(v7, v32, v33, v34, v36);
+  objc_msgSend_setSimulationSpeed_(v6, v24, v25, v27);
 LABEL_11:
-  if (objc_msgSend_containsValueForKey_(coder, v32, @"simulationSpace", v34, v36))
+  if (objc_msgSend_containsValueForKey_(coder, v24, @"simulationSpace", v27))
   {
-    v40 = objc_opt_class();
-    v42 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v41, v40, @"simulationSpace");
-    objc_msgSend_setAnchor_(v7, v43, v42, v44);
+    v30 = objc_opt_class();
+    v32 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v31, v30, @"simulationSpace");
+    objc_msgSend_setAnchor_(v6, v33, v32);
   }
 
-  objc_msgSend_setImmediateMode_(VFXTransaction, v38, v8, v39);
-  return v7;
+  objc_msgSend_setImmediateMode_(VFXTransaction, v29, v7);
+  return v6;
 }
 
 - (void)retargetWithRemapTable:(__CFDictionary *)table
 {
-  v6 = objc_msgSend_anchor(self, a2, table, v3);
-  Value = CFDictionaryGetValue(table, v6);
+  v5 = objc_msgSend_anchor(self, a2, table);
+  Value = CFDictionaryGetValue(table, v5);
   if (Value)
   {
 
-    objc_msgSend_setAnchor_(self, v8, Value, v9);
+    objc_msgSend_setAnchor_(self, v7, Value);
   }
 }
 

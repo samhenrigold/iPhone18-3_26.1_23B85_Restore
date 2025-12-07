@@ -4,6 +4,7 @@
 - (_DPDatabaseRecorder)initWithKey:(id)key storage:(id)storage systemBlacklistPath:(id)path runtimeBlacklistPath:(id)blacklistPath;
 - (id)description;
 - (void)directUploadRecords:(id)records forKey:(id)key;
+- (void)donateRandomizationEventToBitacoraForKey:(id)key succeeded:(BOOL)succeeded errorCode:(int)code count:(int)count;
 - (void)recordBitValues:(id)values metadata:(id)metadata;
 - (void)recordBitVectors:(id)vectors metadata:(id)metadata;
 - (void)recordFloatVectors:(id)vectors metadata:(id)metadata;
@@ -59,21 +60,21 @@ LABEL_6:
 
 - (void)recordNumbers:(id)numbers metadata:(id)metadata
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   numbersCopy = numbers;
   metadataCopy = metadata;
   v9 = objc_autoreleasePoolPush();
-  v35.receiver = self;
-  v35.super_class = _DPDatabaseRecorder;
-  randomizer = [(_DPDataRecorder *)&v35 randomizer];
+  v34.receiver = self;
+  v34.super_class = _DPDatabaseRecorder;
+  randomizer = [(_DPDataRecorder *)&v34 randomizer];
   v10Randomizer = [randomizer randomizer];
 
   if (v10Randomizer)
   {
-    v28 = v9;
-    v34.receiver = self;
-    v34.super_class = _DPDatabaseRecorder;
-    keyName = [(_DPDataRecorder *)&v34 keyName];
+    v27 = v9;
+    v33.receiver = self;
+    v33.super_class = _DPDatabaseRecorder;
+    keyName = [(_DPDataRecorder *)&v33 keyName];
     v13 = +[_DPSubmissionRateLimiter sharedInstance];
     v14 = [v13 debit:objc_msgSend(numbersCopy forKey:{"count"), keyName}];
     keyName2 = [(_DPDataRecorder *)self keyName];
@@ -143,9 +144,9 @@ LABEL_13:
             v22 = NSStringFromSelector(aSelector);
             v23 = [keyName5 count];
             *buf = 138412546;
-            v37 = v22;
-            v38 = 2048;
-            v39 = v23;
+            v36 = v22;
+            v37 = 2048;
+            v38 = v23;
             _os_log_impl(&dword_22622D000, v21, OS_LOG_TYPE_INFO, "%@: performing direct upload, count: %ld", buf, 0x16u);
           }
 
@@ -155,15 +156,15 @@ LABEL_13:
         else
         {
           db = self->_db;
-          v29[0] = MEMORY[0x277D85DD0];
-          v29[1] = 3221225472;
-          v29[2] = __46___DPDatabaseRecorder_recordNumbers_metadata___block_invoke;
-          v29[3] = &unk_27858B1C0;
-          v32 = aSelector;
-          v30 = v13;
-          v31 = keyName;
-          v33 = v14;
-          [(_DPStorage *)db saveRecords:keyName5 withCompletion:v29];
+          v28[0] = MEMORY[0x277D85DD0];
+          v28[1] = 3221225472;
+          v28[2] = __46___DPDatabaseRecorder_recordNumbers_metadata___block_invoke;
+          v28[3] = &unk_27858B1C0;
+          v31 = aSelector;
+          v29 = v13;
+          v30 = keyName;
+          v32 = v14;
+          [(_DPStorage *)db saveRecords:keyName5 withCompletion:v28];
         }
 
         goto LABEL_25;
@@ -181,7 +182,7 @@ LABEL_13:
 LABEL_25:
 
     numbersCopy = v16;
-    v9 = v28;
+    v9 = v27;
     goto LABEL_26;
   }
 
@@ -190,26 +191,25 @@ LABEL_25:
 LABEL_26:
 
   objc_autoreleasePoolPop(v9);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordNumbersVectors:(id)vectors metadata:(id)metadata
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
   metadataCopy = metadata;
   v9 = objc_autoreleasePoolPush();
-  v35.receiver = self;
-  v35.super_class = _DPDatabaseRecorder;
-  randomizer = [(_DPDataRecorder *)&v35 randomizer];
+  v34.receiver = self;
+  v34.super_class = _DPDatabaseRecorder;
+  randomizer = [(_DPDataRecorder *)&v34 randomizer];
   v10Randomizer = [randomizer randomizer];
 
   if (v10Randomizer)
   {
-    v28 = v9;
-    v34.receiver = self;
-    v34.super_class = _DPDatabaseRecorder;
-    keyName = [(_DPDataRecorder *)&v34 keyName];
+    v27 = v9;
+    v33.receiver = self;
+    v33.super_class = _DPDatabaseRecorder;
+    keyName = [(_DPDataRecorder *)&v33 keyName];
     v13 = +[_DPSubmissionRateLimiter sharedInstance];
     v14 = [v13 debit:objc_msgSend(vectorsCopy forKey:{"count"), keyName}];
     keyName2 = [(_DPDataRecorder *)self keyName];
@@ -279,9 +279,9 @@ LABEL_13:
             v22 = NSStringFromSelector(aSelector);
             v23 = [keyName5 count];
             *buf = 138412546;
-            v37 = v22;
-            v38 = 2048;
-            v39 = v23;
+            v36 = v22;
+            v37 = 2048;
+            v38 = v23;
             _os_log_impl(&dword_22622D000, v21, OS_LOG_TYPE_INFO, "%@: performing direct upload, count: %ld", buf, 0x16u);
           }
 
@@ -291,15 +291,15 @@ LABEL_13:
         else
         {
           db = self->_db;
-          v29[0] = MEMORY[0x277D85DD0];
-          v29[1] = 3221225472;
-          v29[2] = __53___DPDatabaseRecorder_recordNumbersVectors_metadata___block_invoke;
-          v29[3] = &unk_27858B1C0;
-          v32 = aSelector;
-          v30 = v13;
-          v31 = keyName;
-          v33 = v14;
-          [(_DPStorage *)db saveRecords:keyName5 withCompletion:v29];
+          v28[0] = MEMORY[0x277D85DD0];
+          v28[1] = 3221225472;
+          v28[2] = __53___DPDatabaseRecorder_recordNumbersVectors_metadata___block_invoke;
+          v28[3] = &unk_27858B1C0;
+          v31 = aSelector;
+          v29 = v13;
+          v30 = keyName;
+          v32 = v14;
+          [(_DPStorage *)db saveRecords:keyName5 withCompletion:v28];
         }
 
         goto LABEL_25;
@@ -317,7 +317,7 @@ LABEL_13:
 LABEL_25:
 
     vectorsCopy = v16;
-    v9 = v28;
+    v9 = v27;
     goto LABEL_26;
   }
 
@@ -326,26 +326,25 @@ LABEL_25:
 LABEL_26:
 
   objc_autoreleasePoolPop(v9);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordBitValues:(id)values metadata:(id)metadata
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   metadataCopy = metadata;
   v9 = objc_autoreleasePoolPush();
-  v37.receiver = self;
-  v37.super_class = _DPDatabaseRecorder;
-  randomizer = [(_DPDataRecorder *)&v37 randomizer];
+  v36.receiver = self;
+  v36.super_class = _DPDatabaseRecorder;
+  randomizer = [(_DPDataRecorder *)&v36 randomizer];
   v10Randomizer = [randomizer randomizer];
 
   if (v10Randomizer)
   {
-    v30 = v9;
-    v36.receiver = self;
-    v36.super_class = _DPDatabaseRecorder;
-    keyName = [(_DPDataRecorder *)&v36 keyName];
+    v29 = v9;
+    v35.receiver = self;
+    v35.super_class = _DPDatabaseRecorder;
+    keyName = [(_DPDataRecorder *)&v35 keyName];
     v13 = +[_DPSubmissionRateLimiter sharedInstance];
     v14 = [v13 debit:objc_msgSend(valuesCopy forKey:{"count"), keyName}];
     keyName2 = [(_DPDataRecorder *)self keyName];
@@ -417,9 +416,9 @@ LABEL_14:
             v23 = NSStringFromSelector(aSelector);
             v24 = [keyName6 count];
             *buf = 138412546;
-            v39 = v23;
-            v40 = 2048;
-            v41 = v24;
+            v38 = v23;
+            v39 = 2048;
+            v40 = v24;
             _os_log_impl(&dword_22622D000, v22, OS_LOG_TYPE_INFO, "%@: performing direct upload, count: %ld", buf, 0x16u);
           }
 
@@ -429,15 +428,15 @@ LABEL_14:
         else
         {
           db = self->_db;
-          v31[0] = MEMORY[0x277D85DD0];
-          v31[1] = 3221225472;
-          v31[2] = __48___DPDatabaseRecorder_recordBitValues_metadata___block_invoke;
-          v31[3] = &unk_27858B1C0;
-          v34 = aSelector;
-          v32 = v13;
-          v33 = keyName;
-          v35 = v14;
-          [(_DPStorage *)db saveRecords:keyName6 withCompletion:v31];
+          v30[0] = MEMORY[0x277D85DD0];
+          v30[1] = 3221225472;
+          v30[2] = __48___DPDatabaseRecorder_recordBitValues_metadata___block_invoke;
+          v30[3] = &unk_27858B1C0;
+          v33 = aSelector;
+          v31 = v13;
+          v32 = keyName;
+          v34 = v14;
+          [(_DPStorage *)db saveRecords:keyName6 withCompletion:v30];
         }
 
         goto LABEL_26;
@@ -455,7 +454,7 @@ LABEL_14:
 LABEL_26:
 
     valuesCopy = v16;
-    v9 = v30;
+    v9 = v29;
     goto LABEL_27;
   }
 
@@ -471,26 +470,25 @@ LABEL_26:
 LABEL_27:
 
   objc_autoreleasePoolPop(v9);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordBitVectors:(id)vectors metadata:(id)metadata
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
   metadataCopy = metadata;
   v9 = objc_autoreleasePoolPush();
-  v42.receiver = self;
-  v42.super_class = _DPDatabaseRecorder;
-  randomizer = [(_DPDataRecorder *)&v42 randomizer];
+  v41.receiver = self;
+  v41.super_class = _DPDatabaseRecorder;
+  randomizer = [(_DPDataRecorder *)&v41 randomizer];
   v10Randomizer = [randomizer randomizer];
 
   if (v10Randomizer)
   {
-    v35 = v9;
-    v41.receiver = self;
-    v41.super_class = _DPDatabaseRecorder;
-    keyName = [(_DPDataRecorder *)&v41 keyName];
+    v34 = v9;
+    v40.receiver = self;
+    v40.super_class = _DPDatabaseRecorder;
+    keyName = [(_DPDataRecorder *)&v40 keyName];
     v13 = +[_DPSubmissionRateLimiter sharedInstance];
     v14 = [v13 debit:objc_msgSend(vectorsCopy forKey:{"count"), keyName}];
     keyName2 = [(_DPDataRecorder *)self keyName];
@@ -564,9 +562,9 @@ LABEL_13:
             v22 = NSStringFromSelector(aSelectora);
             v23 = [keyName3 count];
             *buf = 138412546;
-            v44 = v22;
-            v45 = 2048;
-            v46 = v23;
+            v43 = v22;
+            v44 = 2048;
+            v45 = v23;
             _os_log_impl(&dword_22622D000, v21, OS_LOG_TYPE_INFO, "%@: performing direct upload, count: %ld", buf, 0x16u);
           }
 
@@ -576,15 +574,15 @@ LABEL_13:
         else
         {
           db = self->_db;
-          v36[0] = MEMORY[0x277D85DD0];
-          v36[1] = 3221225472;
-          v36[2] = __49___DPDatabaseRecorder_recordBitVectors_metadata___block_invoke;
-          v36[3] = &unk_27858B1C0;
-          v39 = aSelectora;
-          v37 = v13;
-          v38 = keyName;
-          v40 = v14;
-          [(_DPStorage *)db saveRecords:keyName3 withCompletion:v36];
+          v35[0] = MEMORY[0x277D85DD0];
+          v35[1] = 3221225472;
+          v35[2] = __49___DPDatabaseRecorder_recordBitVectors_metadata___block_invoke;
+          v35[3] = &unk_27858B1C0;
+          v38 = aSelectora;
+          v36 = v13;
+          v37 = keyName;
+          v39 = v14;
+          [(_DPStorage *)db saveRecords:keyName3 withCompletion:v35];
         }
 
         goto LABEL_29;
@@ -607,7 +605,7 @@ LABEL_28:
 LABEL_29:
 
     vectorsCopy = v16;
-    v9 = v35;
+    v9 = v34;
     goto LABEL_30;
   }
 
@@ -616,26 +614,25 @@ LABEL_29:
 LABEL_30:
 
   objc_autoreleasePoolPop(v9);
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordFloatVectors:(id)vectors metadata:(id)metadata
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
   metadataCopy = metadata;
   v9 = objc_autoreleasePoolPush();
-  v41.receiver = self;
-  v41.super_class = _DPDatabaseRecorder;
-  randomizer = [(_DPDataRecorder *)&v41 randomizer];
+  v40.receiver = self;
+  v40.super_class = _DPDatabaseRecorder;
+  randomizer = [(_DPDataRecorder *)&v40 randomizer];
   v10Randomizer = [randomizer randomizer];
 
   if (v10Randomizer)
   {
-    v34 = v9;
-    v40.receiver = self;
-    v40.super_class = _DPDatabaseRecorder;
-    keyName = [(_DPDataRecorder *)&v40 keyName];
+    v33 = v9;
+    v39.receiver = self;
+    v39.super_class = _DPDatabaseRecorder;
+    keyName = [(_DPDataRecorder *)&v39 keyName];
     v13 = +[_DPSubmissionRateLimiter sharedInstance];
     v14 = [v13 debit:objc_msgSend(vectorsCopy forKey:{"count"), keyName}];
     keyName2 = [(_DPDataRecorder *)self keyName];
@@ -709,9 +706,9 @@ LABEL_13:
             v22 = NSStringFromSelector(aSelectora);
             v23 = [keyName3 count];
             *buf = 138412546;
-            v43 = v22;
-            v44 = 2048;
-            v45 = v23;
+            v42 = v22;
+            v43 = 2048;
+            v44 = v23;
             _os_log_impl(&dword_22622D000, v21, OS_LOG_TYPE_INFO, "%@: performing direct upload, count: %ld", buf, 0x16u);
           }
 
@@ -721,15 +718,15 @@ LABEL_13:
         else
         {
           db = self->_db;
-          v35[0] = MEMORY[0x277D85DD0];
-          v35[1] = 3221225472;
-          v35[2] = __51___DPDatabaseRecorder_recordFloatVectors_metadata___block_invoke;
-          v35[3] = &unk_27858B1C0;
-          v38 = aSelectora;
-          v36 = v13;
-          v37 = keyName;
-          v39 = v14;
-          [(_DPStorage *)db saveRecords:keyName3 withCompletion:v35];
+          v34[0] = MEMORY[0x277D85DD0];
+          v34[1] = 3221225472;
+          v34[2] = __51___DPDatabaseRecorder_recordFloatVectors_metadata___block_invoke;
+          v34[3] = &unk_27858B1C0;
+          v37 = aSelectora;
+          v35 = v13;
+          v36 = keyName;
+          v38 = v14;
+          [(_DPStorage *)db saveRecords:keyName3 withCompletion:v34];
         }
 
         goto LABEL_27;
@@ -752,7 +749,7 @@ LABEL_26:
 LABEL_27:
 
     vectorsCopy = v16;
-    v9 = v34;
+    v9 = v33;
     goto LABEL_28;
   }
 
@@ -761,35 +758,34 @@ LABEL_27:
 LABEL_28:
 
   objc_autoreleasePoolPop(v9);
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordStrings:(id)strings metadata:(id)metadata
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   metadataCopy = metadata;
   v9 = objc_autoreleasePoolPush();
-  v48.receiver = self;
-  v48.super_class = _DPDatabaseRecorder;
-  randomizer = [(_DPDataRecorder *)&v48 randomizer];
+  v47.receiver = self;
+  v47.super_class = _DPDatabaseRecorder;
+  randomizer = [(_DPDataRecorder *)&v47 randomizer];
   v10Randomizer = [randomizer randomizer];
 
   if (v10Randomizer)
   {
-    v40 = v9;
+    v39 = v9;
     v12 = stringsCopy;
     blacklistSet = [(_DPDatabaseRecorder *)self blacklistSet];
 
     v14 = v12;
     if (blacklistSet)
     {
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __46___DPDatabaseRecorder_recordStrings_metadata___block_invoke;
-      v47[3] = &unk_27858AF40;
-      v47[4] = self;
-      v15 = [v12 indexesOfObjectsPassingTest:v47];
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __46___DPDatabaseRecorder_recordStrings_metadata___block_invoke;
+      v46[3] = &unk_27858AF40;
+      v46[4] = self;
+      v15 = [v12 indexesOfObjectsPassingTest:v46];
       v14 = [v12 mutableCopy];
       [v14 removeObjectsAtIndexes:v15];
     }
@@ -797,9 +793,9 @@ LABEL_28:
     keyName = [(_DPDataRecorder *)self keyName];
     -[_DPDatabaseRecorder donateRandomizationEventToBitacoraForKey:succeeded:errorCode:count:](self, "donateRandomizationEventToBitacoraForKey:succeeded:errorCode:count:", keyName, 0, 202, [v12 count] - objc_msgSend(v14, "count"));
 
-    v46.receiver = self;
-    v46.super_class = _DPDatabaseRecorder;
-    keyName2 = [(_DPDataRecorder *)&v46 keyName];
+    v45.receiver = self;
+    v45.super_class = _DPDatabaseRecorder;
+    keyName2 = [(_DPDataRecorder *)&v45 keyName];
     v18 = +[_DPSubmissionRateLimiter sharedInstance];
     v19 = [v18 debit:objc_msgSend(v14 forKey:{"count"), keyName2}];
     keyName3 = [(_DPDataRecorder *)self keyName];
@@ -826,7 +822,7 @@ LABEL_28:
         if (objc_opt_respondsToSelector())
         {
           aSelector = a2;
-          v39 = v18;
+          v38 = v18;
           v22 = [v10Randomizer randomizeStrings:keyName7 metadata:metadataCopy forKey:keyName2];
           goto LABEL_15;
         }
@@ -865,7 +861,7 @@ LABEL_28:
       if (objc_opt_respondsToSelector())
       {
         aSelector = a2;
-        v39 = v18;
+        v38 = v18;
         v22 = [v10Randomizer randomizeStrings:keyName7 forKey:keyName2];
 LABEL_15:
         keyName4 = v22;
@@ -883,29 +879,29 @@ LABEL_15:
             v27 = NSStringFromSelector(aSelector);
             v28 = [keyName4 count];
             *buf = 138412546;
-            v50 = v27;
-            v51 = 2048;
-            v52 = v28;
+            v49 = v27;
+            v50 = 2048;
+            v51 = v28;
             _os_log_impl(&dword_22622D000, v26, OS_LOG_TYPE_INFO, "%@: performing direct upload, count: %ld", buf, 0x16u);
           }
 
           [(_DPDatabaseRecorder *)self directUploadRecords:keyName4 forKey:keyName2];
-          v18 = v39;
+          v18 = v38;
         }
 
         else
         {
           db = self->_db;
-          v41[0] = MEMORY[0x277D85DD0];
-          v41[1] = 3221225472;
-          v41[2] = __46___DPDatabaseRecorder_recordStrings_metadata___block_invoke_33;
-          v41[3] = &unk_27858B1C0;
-          v18 = v39;
-          v44 = aSelector;
-          v42 = v39;
-          v43 = keyName2;
-          v45 = v19;
-          [(_DPStorage *)db saveRecords:keyName4 withCompletion:v41];
+          v40[0] = MEMORY[0x277D85DD0];
+          v40[1] = 3221225472;
+          v40[2] = __46___DPDatabaseRecorder_recordStrings_metadata___block_invoke_33;
+          v40[3] = &unk_27858B1C0;
+          v18 = v38;
+          v43 = aSelector;
+          v41 = v38;
+          v42 = keyName2;
+          v44 = v19;
+          [(_DPStorage *)db saveRecords:keyName4 withCompletion:v40];
         }
 
         goto LABEL_30;
@@ -927,7 +923,7 @@ LABEL_15:
     [(_DPDatabaseRecorder *)selfCopy3 donateRandomizationEventToBitacoraForKey:v32 succeeded:0 errorCode:v33 count:v30];
 LABEL_30:
 
-    v9 = v40;
+    v9 = v39;
     goto LABEL_31;
   }
 
@@ -936,7 +932,6 @@ LABEL_30:
 LABEL_31:
 
   objc_autoreleasePoolPop(v9);
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordWords:(id)words
@@ -950,7 +945,7 @@ LABEL_31:
 
 - (void)directUploadRecords:(id)records forKey:(id)key
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   keyCopy = key;
   v9 = [_DPKeyNames keyPropertiesForKey:keyCopy];
@@ -965,13 +960,13 @@ LABEL_31:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = NSStringFromSelector(a2);
-      v17 = 138412802;
-      v18 = v15;
-      v19 = 2048;
-      v20 = [v13 count];
-      v21 = 2048;
-      v22 = [v10 count];
-      _os_log_impl(&dword_22622D000, v14, OS_LOG_TYPE_DEFAULT, "%@: successfully submitted %ld of %ld records", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = v15;
+      v18 = 2048;
+      v19 = [v13 count];
+      v20 = 2048;
+      v21 = [v10 count];
+      _os_log_impl(&dword_22622D000, v14, OS_LOG_TYPE_DEFAULT, "%@: successfully submitted %ld of %ld records", &v16, 0x20u);
     }
   }
 
@@ -983,8 +978,6 @@ LABEL_31:
       [_DPDatabaseRecorder directUploadRecords:a2 forKey:?];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -1001,60 +994,61 @@ LABEL_31:
 {
   v33 = *MEMORY[0x277D85DE8];
   validCopy = valid;
-  if (_DPMetadataIsV2(validCopy))
+  IsV2 = _DPMetadataIsV2(validCopy);
+  if (IsV2)
   {
-    v4 = _DPMetadataV2RequiredKeys();
-    _DPMetadataV2OptionalKeys();
+    v5 = _DPMetadataV2RequiredKeys(IsV2);
+    _DPMetadataV2OptionalKeys(v5);
   }
 
   else
   {
-    v4 = _DPMetadataRequiredKeys();
-    _DPMetadataOptionalKeys();
+    v5 = _DPMetadataRequiredKeys(IsV2);
+    _DPMetadataOptionalKeys(v5);
   }
-  v5 = ;
+  v6 = ;
   v29 = 0u;
   v30 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v7)
+  v7 = v5;
+  v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v28;
-    v10 = 1;
+    v9 = v8;
+    v10 = *v28;
+    v11 = 1;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v28 != v9)
+        if (*v28 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        if (v10)
+        if (v11)
         {
-          v12 = *(*(&v27 + 1) + 8 * i);
+          v13 = *(*(&v27 + 1) + 8 * i);
           allKeys = [validCopy allKeys];
-          v10 = [allKeys containsObject:v12];
+          v11 = [allKeys containsObject:v13];
         }
 
         else
         {
-          v10 = 0;
+          v11 = 0;
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
   else
   {
-    v10 = 1;
+    v11 = 1;
   }
 
   v25 = 0u;
@@ -1062,147 +1056,176 @@ LABEL_31:
   v23 = 0u;
   v24 = 0u;
   allKeys2 = [validCopy allKeys];
-  v15 = [allKeys2 countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v15)
+  v16 = [allKeys2 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  if (v16)
   {
-    v16 = v15;
-    v17 = *v24;
-    v18 = 1;
+    v17 = v16;
+    v18 = *v24;
+    v19 = 1;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v17; ++j)
       {
-        if (*v24 != v17)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(allKeys2);
         }
 
-        if (v18)
+        if (v19)
         {
-          v20 = *(*(&v23 + 1) + 8 * j);
-          if ([v6 containsObject:v20])
+          v21 = *(*(&v23 + 1) + 8 * j);
+          if ([v7 containsObject:v21])
           {
-            v18 = 1;
+            v19 = 1;
           }
 
           else
           {
-            v18 = [v5 containsObject:v20];
+            v19 = [v6 containsObject:v21];
           }
         }
 
         else
         {
-          v18 = 0;
+          v19 = 0;
         }
       }
 
-      v16 = [allKeys2 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v17 = [allKeys2 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
-    while (v16);
+    while (v17);
   }
 
   else
   {
-    v18 = 1;
+    v19 = 1;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v10 & v18;
+  return v11 & v19;
+}
+
+- (void)donateRandomizationEventToBitacoraForKey:(id)key succeeded:(BOOL)succeeded errorCode:(int)code count:(int)count
+{
+  v7 = *&code;
+  succeededCopy = succeeded;
+  keyCopy = key;
+  if (v7 <= 201)
+  {
+    if (!v7)
+    {
+      v9 = 0;
+      goto LABEL_13;
+    }
+
+    if (v7 == 201)
+    {
+      v9 = @"Failed to create randomizer";
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+    switch(v7)
+    {
+      case 0xCA:
+        v9 = @"Rate limited";
+        goto LABEL_13;
+      case 0xCB:
+        v9 = @"Malformed metadata provided";
+        goto LABEL_13;
+      case 0xD0:
+        v9 = @"Privatization Failed";
+        goto LABEL_13;
+    }
+  }
+
+  v9 = &stru_2839671C8;
+LABEL_13:
+  v10 = [_DPKeyNames keyPropertiesForKey:keyCopy];
+  telemetryAllowed = [v10 telemetryAllowed];
+  v12 = 1;
+  if ((telemetryAllowed & 1) == 0)
+  {
+    v12 = +[_DPDeviceInfo isInternalBuild];
+  }
+
+  LOBYTE(v14) = v12;
+  LODWORD(v13) = 1;
+  HIDWORD(v13) = count;
+  [_DPLHBitacoraLogger donateEventToBitacoraForKey:keyCopy eventPhase:2 uuid:0 succeeded:succeededCopy errorCode:v7 errorMessage:v9 aggregateFunction:v13 count:v14 telemetryAllowed:?];
 }
 
 - (void)recordNumbers:metadata:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  v9 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_6() allKeys];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordNumbers:(const char *)a1 metadata:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordNumbers:(const char *)a1 metadata:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordNumbers:metadata:.cold.4()
 {
   OUTLINED_FUNCTION_4_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_8(v2, v3, v4, v5, v6);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordNumbersVectors:metadata:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  v9 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_6() allKeys];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordBitValues:metadata:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  v9 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_6() allKeys];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordBitValues:(const char *)a1 metadata:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordBitVectors:metadata:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  v10 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_6();
@@ -1210,28 +1233,22 @@ LABEL_31:
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordFloatVectors:metadata:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  v9 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_6() allKeys];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordFloatVectors:metadata:.cold.2()
 {
   OUTLINED_FUNCTION_4_0();
-  v10 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_6();
@@ -1239,14 +1256,11 @@ LABEL_31:
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordFloatVectors:metadata:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  v10 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_6();
@@ -1254,28 +1268,22 @@ LABEL_31:
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordStrings:metadata:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  v9 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_6() allKeys];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordStrings:metadata:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  v10 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_6();
@@ -1283,19 +1291,14 @@ LABEL_31:
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)directUploadRecords:(const char *)a1 forKey:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

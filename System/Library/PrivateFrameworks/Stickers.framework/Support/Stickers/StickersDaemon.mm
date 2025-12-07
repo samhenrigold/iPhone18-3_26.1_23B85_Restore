@@ -17,7 +17,7 @@
   Logger.init(subsystem:category:)();
   *(&self->super.isa + OBJC_IVAR____TtC9stickersd14StickersDaemon_services) = &_swiftEmptyArrayStorage;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for StickersDaemon();
+  v4.super_class = type metadata accessor for StickersDaemon(0);
   return [(StickersDaemon *)&v4 init];
 }
 

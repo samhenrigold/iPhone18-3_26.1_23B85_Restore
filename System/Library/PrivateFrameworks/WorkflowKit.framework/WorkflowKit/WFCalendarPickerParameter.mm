@@ -14,7 +14,7 @@
 
 - (id)enumeration:(id)enumeration accessoryColorForPossibleState:(id)state
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   value = [stateCopy value];
   calendarRGBAValue = [value calendarRGBAValue];
@@ -32,31 +32,31 @@
     v11 = WFGetWorkflowEventStore();
     v12 = [v11 calendarsForEntityType:0];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v13 = v12;
-    v10 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v10 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v10)
     {
-      v14 = *v26;
+      v14 = *v25;
       while (2)
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v26 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(v13);
           }
 
-          v16 = *(*(&v25 + 1) + 8 * i);
+          v16 = *(*(&v24 + 1) + 8 * i);
           title = [v16 title];
           value3 = [stateCopy value];
           calendarTitle = [value3 calendarTitle];
-          v20 = [title isEqualToString:calendarTitle];
+          isEqualToString = objc_msgSend_isEqualToString_(title);
 
-          if (v20)
+          if (isEqualToString)
           {
             v21 = MEMORY[0x1E69E09E0];
             v22 = [MEMORY[0x1E69E09E0] colorWithCGColor:{objc_msgSend(v16, "CGColor")}];
@@ -66,7 +66,7 @@
           }
         }
 
-        v10 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v10 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v10)
         {
           continue;
@@ -78,8 +78,6 @@
 
 LABEL_13:
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -100,9 +98,9 @@ LABEL_7:
 
   value2 = [stateCopy value];
   calendarTitle = [value2 calendarTitle];
-  v10 = [calendarTitle isEqualToString:@"Found in Mail"];
+  isEqualToString = objc_msgSend_isEqualToString_(calendarTitle);
 
-  if (v10)
+  if (isEqualToString)
   {
     v7 = @"Found in Mail";
     goto LABEL_7;
@@ -110,7 +108,7 @@ LABEL_7:
 
   value3 = [stateCopy value];
   calendarTitle2 = [value3 calendarTitle];
-  v13 = [calendarTitle2 isEqualToString:@"Birthdays"];
+  v13 = objc_msgSend_isEqualToString_(calendarTitle2);
 
   if (v13)
   {
@@ -186,115 +184,113 @@ void __97__WFCalendarPickerParameter_loadDefaultSerializedRepresentationForEnume
 
 void __91__WFCalendarPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke(id *a1)
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   v2 = [a1[4] possibleStates];
   if (v2 && ([a1[5] calendarsCollection], v3 = objc_claimAutoreleasedReturnValue(), v3, v2, v3))
   {
     v4 = a1[6];
-    v29 = [a1[5] calendarsCollection];
+    v27 = [a1[5] calendarsCollection];
     v4[2](v4);
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v6 = WFGetWorkflowEventStore();
-    v7 = [v6 defaultCalendarForNewEvents];
-    v8 = objc_opt_new();
-    v9 = [WFCalendarSubstitutableState alloc];
-    v10 = [[WFEKCalendarDescriptor alloc] initWithAllCalendars];
-    v11 = [(WFVariableSubstitutableParameterState *)v9 initWithValue:v10];
+    v5 = WFGetWorkflowEventStore();
+    v6 = [v5 defaultCalendarForNewEvents];
+    v7 = objc_opt_new();
+    v8 = [WFCalendarSubstitutableState alloc];
+    v9 = [[WFEKCalendarDescriptor alloc] initWithAllCalendars];
+    v10 = [(WFVariableSubstitutableParameterState *)v8 initWithValue:v9];
 
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x3032000000;
-    v38 = __Block_byref_object_copy__31932;
-    v39 = __Block_byref_object_dispose__31933;
-    v40 = 0;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x3032000000;
+    v36 = __Block_byref_object_copy__31932;
+    v37 = __Block_byref_object_dispose__31933;
+    v38 = 0;
     if ([a1[5] allowsAllCalendars])
     {
-      v12 = objc_alloc(MEMORY[0x1E696E928]);
-      v42[0] = v11;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
-      v14 = [v12 initWithTitle:0 items:v13];
+      v11 = objc_alloc(MEMORY[0x1E696E928]);
+      v40[0] = v10;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
+      v13 = [v11 initWithTitle:0 items:v12];
 
-      [v8 addObject:v14];
+      [v7 addObject:v13];
     }
 
-    v15 = [v6 sourcesEnabledForEntityType:0];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __91__WFCalendarPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke_184;
-    v32[3] = &unk_1E8378498;
-    v32[4] = a1[5];
-    v16 = v7;
-    v33 = v16;
-    v34 = &v35;
-    v17 = [v15 if_compactMap:v32];
-    v18 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"title" ascending:1 selector:sel_localizedStandardCompare_];
-    v41 = v18;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
-    v20 = [v17 sortedArrayUsingDescriptors:v19];
+    v14 = [v5 sourcesEnabledForEntityType:0];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __91__WFCalendarPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke_184;
+    v30[3] = &unk_1E8378498;
+    v30[4] = a1[5];
+    v15 = v6;
+    v31 = v15;
+    v32 = &v33;
+    v16 = [v14 if_compactMap:v30];
+    v17 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"title" ascending:1 selector:sel_localizedStandardCompare_];
+    v39 = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+    v19 = [v16 sortedArrayUsingDescriptors:v18];
 
-    [v8 addObjectsFromArray:v20];
-    v21 = [objc_alloc(MEMORY[0x1E696E918]) initWithSections:v8];
-    [a1[5] setCalendarsCollection:v21];
+    [v7 addObjectsFromArray:v19];
+    v20 = [objc_alloc(MEMORY[0x1E696E918]) initWithSections:v7];
+    [a1[5] setCalendarsCollection:v20];
 
     if ([a1[5] allowsAllCalendars])
     {
-      v22 = [(WFVariableSubstitutableParameterState *)v11 serializedRepresentation];
-      v23 = a1[5];
-      v24 = v23[42];
-      v23[42] = v22;
+      v21 = [(WFVariableSubstitutableParameterState *)v10 serializedRepresentation];
+      v22 = a1[5];
+      v23 = v22[42];
+      v22[42] = v21;
     }
 
     else
     {
-      v25 = a1[5];
-      v26 = v36[5];
-      v24 = v25[42];
-      v25[42] = v26;
+      v24 = a1[5];
+      v25 = v34[5];
+      v23 = v24[42];
+      v24[42] = v25;
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __91__WFCalendarPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke_4;
     block[3] = &unk_1E837E1F8;
-    v27 = a1[6];
+    v26 = a1[6];
     block[4] = a1[5];
-    v31 = v27;
+    v29 = v26;
     dispatch_async(MEMORY[0x1E69E96A0], block);
 
-    _Block_object_dispose(&v35, 8);
-    v28 = *MEMORY[0x1E69E9840];
+    _Block_object_dispose(&v33, 8);
   }
 }
 
 id __91__WFCalendarPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke_184(uint64_t a1, void *a2)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 calendarsForEntityType:0];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __91__WFCalendarPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke_2;
-  v20[3] = &unk_1E8378448;
-  v20[4] = *(a1 + 32);
-  v5 = [v4 objectsPassingTest:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __91__WFCalendarPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke_2;
+  v19[3] = &unk_1E8378448;
+  v19[4] = *(a1 + 32);
+  v5 = [v4 objectsPassingTest:v19];
   v6 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"title" ascending:1 selector:sel_localizedStandardCompare_];
-  v21[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v20[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
   v8 = [v5 sortedArrayUsingDescriptors:v7];
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __91__WFCalendarPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke_3;
-  v17[3] = &unk_1E8378470;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __91__WFCalendarPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke_3;
+  v16[3] = &unk_1E8378470;
   v9 = *(a1 + 40);
   v10 = *(a1 + 48);
-  v18 = v9;
-  v19 = v10;
-  v11 = [v8 if_map:v17];
+  v17 = v9;
+  v18 = v10;
+  v11 = [v8 if_map:v16];
   if ([v11 count])
   {
     v12 = objc_alloc(MEMORY[0x1E696E928]);
@@ -306,8 +302,6 @@ id __91__WFCalendarPickerParameter_loadPossibleStatesForEnumeration_searchTerm_c
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

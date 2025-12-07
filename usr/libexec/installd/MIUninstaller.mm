@@ -6,6 +6,7 @@
 - (MIUninstaller)initWithIdentitites:(id)identitites options:(id)options forClient:(id)client;
 - (id)_uninstallBundleWithIdentity:(id)identity linkedToChildren:(id)children waitForDeletion:(BOOL)deletion uninstallReason:(id)reason temporaryReference:(id)reference deleteDataContainers:(BOOL)containers wasLastReference:(BOOL *)lastReference error:(id *)self0;
 - (void)_fireCallbackWithStatus:(id)status;
+- (void)_fireCallbackWithStatus:(id)status percentComplete:(unsigned int)complete;
 @end
 
 @implementation MIUninstaller
@@ -37,6 +38,26 @@
   v10 = [objc_alloc(objc_opt_class()) initWithIdentitites:identitiesCopy options:optionsCopy forClient:clientCopy];
 
   return v10;
+}
+
+- (void)_fireCallbackWithStatus:(id)status percentComplete:(unsigned int)complete
+{
+  v4 = *&complete;
+  statusCopy = status;
+  if ([(MIUninstaller *)self percentComplete]< v4)
+  {
+    [(MIUninstaller *)self setPercentComplete:v4];
+  }
+
+  v10[0] = @"Status";
+  v10[1] = @"PercentComplete";
+  v11[0] = statusCopy;
+  v7 = [NSNumber numberWithUnsignedInt:[(MIUninstaller *)self percentComplete]];
+  v11[1] = v7;
+  v8 = [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:2];
+
+  client = [(MIUninstaller *)self client];
+  [client sendProgressWithDictionary:v8];
 }
 
 - (void)_fireCallbackWithStatus:(id)status
@@ -137,29 +158,29 @@ LABEL_7:
   referenceCopy = reference;
   infoCopy = info;
   v16 = +[MIAppReferenceManager defaultManager];
-  v17 = sub_100009864();
-  v77 = 0;
+  v18 = sub_100009864(v16, v17);
+  v78 = 0;
   bundleID = [identityCopy bundleID];
-  v76 = 0;
-  v64 = 3;
-  v19 = [MIBundleContainer appBundleContainerForIdentifier:bundleID inDomain:3 withError:&v76];
-  v20 = v76;
-  v21 = v20;
-  if (!v19)
+  v77 = 0;
+  v65 = 3;
+  v20 = [MIBundleContainer appBundleContainerForIdentifier:bundleID inDomain:3 withError:&v77];
+  v21 = v77;
+  v22 = v21;
+  if (!v20)
   {
-    domain = [v20 domain];
+    domain = [v21 domain];
     if ([domain isEqualToString:MIContainerManagerErrorDomain])
     {
-      code = [v21 code];
+      code = [v22 code];
 
       if (code == 21)
       {
 
-        v75 = 0;
-        v64 = 2;
-        v19 = [MIBundleContainer appBundleContainerForIdentifier:bundleID inDomain:2 withError:&v75];
-        v21 = v75;
-        if (v19)
+        v76 = 0;
+        v65 = 2;
+        v20 = [MIBundleContainer appBundleContainerForIdentifier:bundleID inDomain:2 withError:&v76];
+        v22 = v76;
+        if (v20)
         {
           goto LABEL_2;
         }
@@ -170,212 +191,212 @@ LABEL_7:
     {
     }
 
-    v27 = v21;
+    v28 = v22;
     if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
     {
       MOLogWrite();
     }
 
-    v19 = 0;
+    v20 = 0;
     goto LABEL_22;
   }
 
 LABEL_2:
   if (referenceCopy)
   {
-    v74 = v21;
-    v22 = [v16 revokeTemporaryReference:referenceCopy wasLastReference:&v77 error:&v74];
-    v62 = v74;
+    v75 = v22;
+    v23 = [v16 revokeTemporaryReference:referenceCopy wasLastReference:&v78 error:&v75];
+    v63 = v75;
 
-    if (v22)
+    if (v23)
     {
       lastReferenceCopy2 = lastReference;
-      v23 = 0;
       v24 = 0;
-LABEL_5:
       v25 = 0;
+LABEL_5:
+      v26 = 0;
 LABEL_6:
-      *options = v23;
-      *lastReferenceCopy2 = v77;
-      v26 = 1;
-      v27 = v62;
+      *options = v24;
+      *lastReferenceCopy2 = v78;
+      v27 = 1;
+      v28 = v63;
       goto LABEL_51;
     }
 
     if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
     {
-      v27 = v62;
+      v28 = v63;
       MOLogWrite();
 LABEL_22:
-      v24 = 0;
       v25 = 0;
+      v26 = 0;
       goto LABEL_48;
     }
 
-    v24 = 0;
     v25 = 0;
-    v27 = v62;
+    v26 = 0;
+    v28 = v63;
   }
 
   else
   {
-    v72 = v21;
-    v73 = 0;
-    v30 = [v16 removeReferenceForIdentity:identityCopy inDomain:v64 forUserWithID:v17 wasLastReference:&v77 resultingPersonaUniqueStrings:&v73 error:&v72];
-    v59 = v73;
-    v62 = v72;
+    v73 = v22;
+    v74 = 0;
+    v31 = [v16 removeReferenceForIdentity:identityCopy inDomain:v65 forUserWithID:v18 wasLastReference:&v78 resultingPersonaUniqueStrings:&v74 error:&v73];
+    v60 = v74;
+    v63 = v73;
 
-    if (v30)
+    if (v31)
     {
-      v57 = v19;
-      v58 = bundleID;
+      v58 = v20;
+      v59 = bundleID;
       lastReferenceCopy2 = lastReference;
-      if (v77)
+      if (v78)
       {
+        v25 = 0;
         v24 = 0;
-        v23 = 0;
       }
 
       else
       {
-        v54 = v16;
-        v31 = v19;
-        v32 = objc_opt_new();
-        v56 = identityCopy;
+        v55 = v16;
+        v32 = v20;
+        v33 = objc_opt_new();
+        v57 = identityCopy;
         bundleID2 = [identityCopy bundleID];
-        [v32 setBundleIdentifier:bundleID2];
+        [v33 setBundleIdentifier:bundleID2];
 
-        bundle = [v31 bundle];
-        [v32 setIsPlaceholder:{objc_msgSend(bundle, "isPlaceholder")}];
+        bundle = [v32 bundle];
+        [v33 setIsPlaceholder:{objc_msgSend(bundle, "isPlaceholder")}];
 
-        [v32 setHasParallelPlaceholder:{objc_msgSend(v31, "hasParallelPlaceholder")}];
-        [infoCopy addObject:v32];
-        v70 = 0u;
+        [v33 setHasParallelPlaceholder:{objc_msgSend(v32, "hasParallelPlaceholder")}];
+        [infoCopy addObject:v33];
         v71 = 0u;
-        v68 = 0u;
+        v72 = 0u;
         v69 = 0u;
-        v55 = childrenCopy;
-        v35 = childrenCopy;
-        v36 = [v35 countByEnumeratingWithState:&v68 objects:v78 count:16];
-        if (v36)
+        v70 = 0u;
+        v56 = childrenCopy;
+        v36 = childrenCopy;
+        v37 = [v36 countByEnumeratingWithState:&v69 objects:v79 count:16];
+        if (v37)
         {
-          v37 = v36;
-          v24 = 0;
-          v38 = *v69;
+          v38 = v37;
+          v25 = 0;
+          v39 = *v70;
           do
           {
-            for (i = 0; i != v37; i = i + 1)
+            for (i = 0; i != v38; i = i + 1)
             {
-              v40 = v24;
-              if (*v69 != v38)
+              v41 = v25;
+              if (*v70 != v39)
               {
-                objc_enumerationMutation(v35);
+                objc_enumerationMutation(v36);
               }
 
-              v41 = *(*(&v68 + 1) + 8 * i);
-              v67 = 0;
-              v24 = [MIBundleContainer appBundleContainerForIdentifier:v41 inDomain:v64 withError:&v67, v52, v53];
-              v42 = v67;
+              v42 = *(*(&v69 + 1) + 8 * i);
+              v68 = 0;
+              v25 = [MIBundleContainer appBundleContainerForIdentifier:v42 inDomain:v65 withError:&v68, v53, v54];
+              v43 = v68;
 
-              if (v24)
+              if (v25)
               {
-                bundle2 = [v24 bundle];
-                v44 = objc_opt_new();
+                bundle2 = [v25 bundle];
+                v45 = objc_opt_new();
                 identifier = [bundle2 identifier];
-                [v32 setBundleIdentifier:identifier];
+                [v33 setBundleIdentifier:identifier];
 
-                [v32 setIsPlaceholder:{objc_msgSend(bundle2, "isPlaceholder")}];
-                [v32 setHasParallelPlaceholder:{objc_msgSend(v24, "hasParallelPlaceholder")}];
-                [infoCopy addObject:v44];
+                [v33 setIsPlaceholder:{objc_msgSend(bundle2, "isPlaceholder")}];
+                [v33 setHasParallelPlaceholder:{objc_msgSend(v25, "hasParallelPlaceholder")}];
+                [infoCopy addObject:v45];
               }
 
               else if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
               {
-                v52 = v41;
                 v53 = v42;
+                v54 = v43;
                 MOLogWrite();
               }
             }
 
-            v37 = [v35 countByEnumeratingWithState:&v68 objects:v78 count:16];
+            v38 = [v36 countByEnumeratingWithState:&v69 objects:v79 count:16];
           }
 
-          while (v37);
+          while (v38);
         }
 
         else
         {
-          v24 = 0;
+          v25 = 0;
         }
 
-        v23 = 2;
-        childrenCopy = v55;
-        identityCopy = v56;
-        v16 = v54;
+        v24 = 2;
+        childrenCopy = v56;
+        identityCopy = v57;
+        v16 = v55;
         referenceCopy = 0;
-        v19 = v57;
-        bundleID = v58;
+        v20 = v58;
+        bundleID = v59;
       }
 
-      if (!v59)
+      if (!v60)
       {
         goto LABEL_5;
       }
 
-      v46 = +[MILaunchServicesOperationManager instanceForCurrentUser];
+      v47 = +[MILaunchServicesOperationManager instanceForCurrentUser];
       bundleID3 = [identityCopy bundleID];
-      v66 = v62;
-      v48 = [v46 setPersonaUniqueStrings:v59 forAppBundleID:bundleID3 inDomain:v64 error:&v66];
-      v65 = v66;
+      v67 = v63;
+      v49 = [v47 setPersonaUniqueStrings:v60 forAppBundleID:bundleID3 inDomain:v65 error:&v67];
+      v66 = v67;
 
-      if (v48)
+      if (v49)
       {
-        v62 = v65;
-        v19 = v57;
-        bundleID = v58;
-        v25 = v59;
+        v63 = v66;
+        v20 = v58;
+        bundleID = v59;
+        v26 = v60;
         goto LABEL_6;
       }
 
-      v27 = v65;
-      v19 = v57;
-      bundleID = v58;
+      v28 = v66;
+      v20 = v58;
+      bundleID = v59;
     }
 
     else if (qword_1000A9720 && *(qword_1000A9720 + 44) < 3)
     {
-      v24 = 0;
-      v27 = v62;
+      v25 = 0;
+      v28 = v63;
     }
 
     else
     {
-      v27 = v62;
+      v28 = v63;
       MOLogWrite();
-      v24 = 0;
+      v25 = 0;
     }
 
-    v25 = v59;
+    v26 = v60;
   }
 
 LABEL_48:
   if (error)
   {
-    v49 = v25;
-    v50 = v27;
-    v25 = v49;
-    v26 = 0;
-    *error = v27;
+    v50 = v26;
+    v51 = v28;
+    v26 = v50;
+    v27 = 0;
+    *error = v28;
   }
 
   else
   {
-    v26 = 0;
+    v27 = 0;
   }
 
 LABEL_51:
 
-  return v26;
+  return v27;
 }
 
 - (id)_uninstallBundleWithIdentity:(id)identity linkedToChildren:(id)children waitForDeletion:(BOOL)deletion uninstallReason:(id)reason temporaryReference:(id)reference deleteDataContainers:(BOOL)containers wasLastReference:(BOOL *)lastReference error:(id *)self0
@@ -826,26 +847,26 @@ LABEL_101:
 - (BOOL)performUninstallationByRevokingTemporaryReference:(id)reference error:(id *)error
 {
   referenceCopy = reference;
-  v214 = 0;
-  v215 = &v214;
-  v216 = 0x3032000000;
-  v217 = sub_1000374BC;
-  v218 = sub_1000374CC;
-  v219 = 0;
-  v176 = objc_opt_new();
+  v215 = 0;
+  v216 = &v215;
+  v217 = 0x3032000000;
+  v218 = sub_1000374BC;
+  v219 = sub_1000374CC;
+  v220 = 0;
+  v177 = objc_opt_new();
+  v156 = objc_opt_new();
+  v164 = objc_opt_new();
   v155 = objc_opt_new();
-  v163 = objc_opt_new();
-  v154 = objc_opt_new();
-  v175 = [MIContainerLinkManager sharedInstanceForDomain:2];
+  v176 = [MIContainerLinkManager sharedInstanceForDomain:2];
+  v168 = objc_opt_new();
   v167 = objc_opt_new();
-  v166 = objc_opt_new();
-  v153 = objc_opt_new();
-  v212 = 0u;
+  v154 = objc_opt_new();
   v213 = 0u;
-  v210 = 0u;
+  v214 = 0u;
   v211 = 0u;
+  v212 = 0u;
   identities = [(MIUninstaller *)self identities];
-  v5 = [identities countByEnumeratingWithState:&v210 objects:v226 count:16];
+  v5 = [identities countByEnumeratingWithState:&v211 objects:v227 count:16];
   obj = identities;
   if (!v5)
   {
@@ -861,61 +882,61 @@ LABEL_9:
 
       options3 = [(MIUninstaller *)self options];
       v17 = [options3 objectForKeyedSubscript:@"Placeholder"];
-      v173 = [v17 isEqual:&__kCFBooleanTrue];
+      v174 = [v17 isEqual:&__kCFBooleanTrue];
 
-      if (v173)
+      if (v174)
       {
         v18 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
         {
           client = [(MIUninstaller *)self client];
           clientName = [client clientName];
-          sub_100058D4C(clientName, v225, client);
+          sub_100058D4C(clientName, v226, client);
         }
 
         if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
         {
           client2 = [(MIUninstaller *)self client];
           clientName2 = [client2 clientName];
-          v145 = @"Placeholder";
+          v146 = @"Placeholder";
           MOLogWrite();
         }
       }
 
       v22 = [(MIUninstaller *)self options:clientName2];
       v23 = [v22 objectForKeyedSubscript:@"ParallelPlaceholderOnlyIfExists"];
-      HIDWORD(v172) = [v23 isEqual:&__kCFBooleanTrue];
+      HIDWORD(v173) = [v23 isEqual:&__kCFBooleanTrue];
 
-      if (HIDWORD(v172))
+      if (HIDWORD(v173))
       {
         v24 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
         {
           client3 = [(MIUninstaller *)self client];
           clientName3 = [client3 clientName];
-          sub_100058DC4(clientName3, v224, client3);
+          sub_100058DC4(clientName3, v225, client3);
         }
 
         if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
         {
           client4 = [(MIUninstaller *)self client];
           clientName4 = [client4 clientName];
-          v146 = @"ParallelPlaceholderOnlyIfExists";
+          v147 = @"ParallelPlaceholderOnlyIfExists";
           MOLogWrite();
         }
       }
 
       v28 = [(MIUninstaller *)self options:clientName4];
       v29 = [v28 objectForKeyedSubscript:kMIUninstallParallelPlaceholderKey];
-      LODWORD(v172) = [v29 isEqual:&__kCFBooleanTrue];
+      LODWORD(v173) = [v29 isEqual:&__kCFBooleanTrue];
 
       options4 = [(MIUninstaller *)self options];
       v31 = [options4 objectForKeyedSubscript:@"UninstallPlaceholdersOnly"];
-      v164 = [v31 isEqual:&__kCFBooleanTrue];
+      v165 = [v31 isEqual:&__kCFBooleanTrue];
 
       options5 = [(MIUninstaller *)self options];
       v33 = [options5 objectForKeyedSubscript:@"WaitForStorageDeletion"];
-      v150 = [v33 isEqual:&__kCFBooleanTrue];
+      v151 = [v33 isEqual:&__kCFBooleanTrue];
 
       options6 = [(MIUninstaller *)self options];
       v35 = [options6 objectForKeyedSubscript:@"UninstallReason"];
@@ -923,92 +944,92 @@ LABEL_9:
       v36 = v35;
       if (objc_opt_isKindOfClass())
       {
-        v151 = v36;
+        v152 = v36;
       }
 
       else
       {
-        v151 = 0;
+        v152 = 0;
       }
 
       if (v15)
       {
-        if ((HIDWORD(v172) | v173 | v164 | v172))
+        if ((HIDWORD(v173) | v174 | v165 | v173))
         {
           v38 = sub_100010734("[MIUninstaller performUninstallationByRevokingTemporaryReference:error:]", 492, MIInstallerErrorDomain, 25, 0, 0, @"Illegal option combination passed to MobileInstallationUninstall. Can't uninstall user stuff only and uninstall placeholders.", v37, clientName2);
           allObjects = 0;
           builtInApplicationBundleIDs = 0;
-          obja = v215[5];
-          v215[5] = v38;
+          obja = v216[5];
+          v216[5] = v38;
 
           goto LABEL_180;
         }
 
-        v172 = 0;
         v173 = 0;
-        v164 = 0;
-        v159 = 1;
+        v174 = 0;
+        v165 = 0;
+        v160 = 1;
       }
 
       else
       {
-        v159 = 0;
+        v160 = 0;
       }
     }
 
     else
     {
-      v159 = 0;
-      v172 = 0;
+      v160 = 0;
       v173 = 0;
-      v164 = 0;
-      v150 = 0;
+      v174 = 0;
+      v165 = 0;
       v151 = 0;
+      v152 = 0;
     }
 
-    [v176 addObjectsFromArray:v154];
-    v207 = 0u;
+    [v177 addObjectsFromArray:v155];
     v208 = 0u;
-    v205 = 0u;
+    v209 = 0u;
     v206 = 0u;
-    v177 = v154;
-    v39 = [v177 countByEnumeratingWithState:&v205 objects:v223 count:16];
+    v207 = 0u;
+    v178 = v155;
+    v39 = [v178 countByEnumeratingWithState:&v206 objects:v224 count:16];
     if (v39)
     {
-      v40 = *v206;
+      v40 = *v207;
       do
       {
         for (i = 0; i != v39; i = i + 1)
         {
-          if (*v206 != v40)
+          if (*v207 != v40)
           {
-            objc_enumerationMutation(v177);
+            objc_enumerationMutation(v178);
           }
 
-          v42 = *(*(&v205 + 1) + 8 * i);
-          v204 = 0;
-          v43 = [v175 childrenForParentBundleID:v42 error:{&v204, clientName2}];
-          v44 = v204;
+          v42 = *(*(&v206 + 1) + 8 * i);
+          v205 = 0;
+          v43 = [v176 childrenForParentBundleID:v42 error:{&v205, clientName2}];
+          v44 = v205;
           v45 = v44;
           if (v43)
           {
-            [v167 setObject:v43 forKeyedSubscript:v42];
-            [v176 unionSet:v43];
+            [v168 setObject:v43 forKeyedSubscript:v42];
+            [v177 unionSet:v43];
           }
 
           else if (v44 && (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3))
           {
-            v142 = v42;
-            v145 = v44;
+            v143 = v42;
+            v146 = v44;
             MOLogWrite();
           }
 
-          v145 = [MIContainerLinkManager sharedInstanceForDomain:2, v142, v145];
+          v146 = [MIContainerLinkManager sharedInstanceForDomain:2, v143, v146];
+          v204 = 0;
           v203 = 0;
-          v202 = 0;
-          v47 = [v145 getLinkedParent:&v203 forChild:v42 error:&v202];
-          v48 = v203;
-          v49 = v202;
+          v47 = [v146 getLinkedParent:&v204 forChild:v42 error:&v203];
+          v48 = v204;
+          v49 = v203;
 
           if (v48)
           {
@@ -1022,25 +1043,25 @@ LABEL_9:
 
           if (v50 == 1)
           {
-            [v176 addObject:v48];
-            [v166 setObject:v48 forKeyedSubscript:v42];
+            [v177 addObject:v48];
+            [v167 setObject:v48 forKeyedSubscript:v42];
           }
 
           else if (v49 && (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3))
           {
             clientName2 = v42;
-            v145 = v49;
+            v146 = v49;
             MOLogWrite();
           }
         }
 
-        v39 = [v177 countByEnumeratingWithState:&v205 objects:v223 count:16];
+        v39 = [v178 countByEnumeratingWithState:&v206 objects:v224 count:16];
       }
 
       while (v39);
     }
 
-    allObjects = [v176 allObjects];
+    allObjects = [v177 allObjects];
     v51 = +[MIDaemonConfiguration sharedInstance];
     builtInApplicationBundleIDs = [v51 builtInApplicationBundleIDs];
 
@@ -1060,61 +1081,61 @@ LABEL_9:
       obj = [v54 systemAppPlaceholderBundleIDs];
     }
 
-    v200 = 0u;
     v201 = 0u;
-    v198 = 0u;
+    v202 = 0u;
     v199 = 0u;
+    v200 = 0u;
     identities2 = [(MIUninstaller *)self identities];
-    v56 = [identities2 countByEnumeratingWithState:&v198 objects:v222 count:16];
+    v56 = [identities2 countByEnumeratingWithState:&v199 objects:v223 count:16];
     if (!v56)
     {
 LABEL_175:
 
       [(MIUninstaller *)self _fireCallbackWithStatus:@"GeneratingApplicationMap" percentComplete:90];
-      sub_100054780(allObjects);
+      v133 = sub_100054780(allObjects);
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      LOBYTE(v221) = 0;
-      v187 = 0;
-      v188 = &v187;
-      v189 = 0x2020000000;
-      v190 = 0;
-      v133 = sub_10000998C();
+      LOBYTE(v222) = 0;
+      v188 = 0;
+      v189 = &v188;
+      v190 = 0x2020000000;
+      v191 = 0;
+      v134 = sub_10000998C(v133);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1000374D4;
       block[3] = &unk_100091770;
-      v134 = v155;
-      v180 = v134;
-      v184 = &v214;
-      v185 = &v187;
-      v181 = v153;
+      v135 = v156;
+      v181 = v135;
+      v185 = &v215;
+      v186 = &v188;
+      v182 = v154;
       selfCopy = self;
-      v183 = v163;
-      v186 = buf;
-      dispatch_sync(v133, block);
+      v184 = v164;
+      v187 = buf;
+      dispatch_sync(v134, block);
 
       if (*(*&buf[8] + 24))
       {
 
-        _Block_object_dispose(&v187, 8);
+        _Block_object_dispose(&v188, 8);
         _Block_object_dispose(buf, 8);
       }
 
       else
       {
-        v135 = *(v188 + 24);
+        v136 = *(v189 + 24);
 
-        _Block_object_dispose(&v187, 8);
+        _Block_object_dispose(&v188, 8);
         _Block_object_dispose(buf, 8);
-        if ((v135 ^ 1))
+        if ((v136 ^ 1))
         {
-          v136 = [MIUninstallRecord uninstallRecordArrayToICLUninstallRecordArray:v134];
+          v137 = [MIUninstallRecord uninstallRecordArrayToICLUninstallRecordArray:v135];
           receipt = self->_receipt;
-          self->_receipt = v136;
+          self->_receipt = v137;
 
-          v138 = 1;
+          v139 = 1;
           goto LABEL_182;
         }
       }
@@ -1122,72 +1143,72 @@ LABEL_175:
       goto LABEL_179;
     }
 
-    v170 = BYTE4(v172) | v164 | v173 | v172;
-    v171 = *v199;
+    v171 = BYTE4(v173) | v165 | v174 | v173;
+    v172 = *v200;
     v57 = 11;
-    if (v159)
+    if (v160)
     {
       v57 = 12;
     }
 
-    v169 = v57;
-    v160 = MIContainerManagerErrorDomain;
-    v168 = v173 ^ 1;
-    v162 = (v173 ^ 1) & (v172 | HIDWORD(v172) | v164);
-    v149 = MIInstallerErrorDomain;
-    v165 = identities2;
+    v170 = v57;
+    v161 = MIContainerManagerErrorDomain;
+    v169 = v174 ^ 1;
+    v163 = (v174 ^ 1) & (v173 | HIDWORD(v173) | v165);
+    v150 = MIInstallerErrorDomain;
+    v166 = identities2;
 LABEL_61:
-    v174 = v56;
+    v175 = v56;
     v58 = 0;
     while (1)
     {
-      if (*v199 != v171)
+      if (*v200 != v172)
       {
-        objc_enumerationMutation(v165);
+        objc_enumerationMutation(v166);
       }
 
-      v59 = *(*(&v198 + 1) + 8 * v58);
+      v59 = *(*(&v199 + 1) + 8 * v58);
       v60 = +[MIAppReferenceManager defaultManager];
       bundleID = [v59 bundleID];
-      v178 = [v60 personaUniqueStringsForAppWithBundleID:bundleID domain:2 forUserWithID:sub_100009864() error:0];
+      v179 = [v60 personaUniqueStringsForAppWithBundleID:bundleID domain:2 forUserWithID:sub_100009864(bundleID error:{v62), 0}];
 
-      if (v178 && [v178 count])
+      if (v179 && [v179 count])
       {
         bundleID2 = [v59 bundleID];
-        [v163 addObject:bundleID2];
+        [v164 addObject:bundleID2];
       }
 
       personaUniqueString = [v59 personaUniqueString];
       bundleID3 = [v59 bundleID];
-      if (v170)
+      if (v171)
       {
         break;
       }
 
-      _MILogTransactionStep(v169, 1, 1, bundleID3, personaUniqueString, 0, v64, v65, path);
+      _MILogTransactionStep(v170, 1, 1, bundleID3, personaUniqueString, 0, v65, v66, path);
       isPlaceholder = 0;
       v78 = 0;
       v79 = 0;
-      v80 = v169;
+      v80 = v170;
 LABEL_107:
       v96 = 1;
-      if ((v172 | HIDWORD(v172) & v78))
+      if ((v173 | HIDWORD(v173) & v78))
       {
         goto LABEL_147;
       }
 
-      if (((v168 | isPlaceholder) & 1) == 0)
+      if (((v169 | isPlaceholder) & 1) == 0)
       {
         goto LABEL_147;
       }
 
       v96 = v79;
-      if (v164 & (v78 | isPlaceholder ^ 1))
+      if (v165 & (v78 | isPlaceholder ^ 1))
       {
         goto LABEL_147;
       }
 
-      if ((v159 & 1) == 0)
+      if ((v160 & 1) == 0)
       {
         if (![builtInApplicationBundleIDs containsObject:bundleID3])
         {
@@ -1199,10 +1220,10 @@ LABEL_107:
 
         if (allowsInternalSecurityPolicy)
         {
-          v99 = (v215 + 5);
-          v192 = v215[5];
-          v100 = [MIBundleContainer appBundleContainerForIdentifier:bundleID3 inDomain:2 withError:&v192];
-          objc_storeStrong(v99, v192);
+          v99 = (v216 + 5);
+          v193 = v216[5];
+          v100 = [MIBundleContainer appBundleContainerForIdentifier:bundleID3 inDomain:2 withError:&v193];
+          objc_storeStrong(v99, v193);
           if (!v100)
           {
             if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
@@ -1277,41 +1298,41 @@ LABEL_132:
             goto LABEL_165;
           }
 
-          [v153 setObject:v118 forKeyedSubscript:bundleID3];
+          [v154 setObject:v118 forKeyedSubscript:bundleID3];
           if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
           {
             [v118 path];
-            v145 = path = bundleID3;
+            v146 = path = bundleID3;
             MOLogWrite();
           }
 
 LABEL_141:
           if (!obj || ![obj containsObject:bundleID3])
           {
-            v100 = [v167 objectForKeyedSubscript:{bundleID3, path}];
-            LOBYTE(v187) = 0;
-            v121 = [v153 objectForKeyedSubscript:bundleID3];
+            v100 = [v168 objectForKeyedSubscript:{bundleID3, path}];
+            LOBYTE(v188) = 0;
+            v121 = [v154 objectForKeyedSubscript:bundleID3];
             v122 = v121 == 0;
 
-            v191 = 0;
-            v145 = &v191;
-            v123 = [MIUninstaller _uninstallBundleWithIdentity:"_uninstallBundleWithIdentity:linkedToChildren:waitForDeletion:uninstallReason:temporaryReference:deleteDataContainers:wasLastReference:error:" linkedToChildren:v59 waitForDeletion:v100 uninstallReason:v150 temporaryReference:v151 deleteDataContainers:referenceCopy wasLastReference:v122 error:?];
-            v124 = v191;
-            _MILogTransactionStep(v80, 2, v123 != 0, bundleID3, personaUniqueString, 0, v125, v126, &v187);
+            v192 = 0;
+            v146 = &v192;
+            v123 = [MIUninstaller _uninstallBundleWithIdentity:"_uninstallBundleWithIdentity:linkedToChildren:waitForDeletion:uninstallReason:temporaryReference:deleteDataContainers:wasLastReference:error:" linkedToChildren:v59 waitForDeletion:v100 uninstallReason:v151 temporaryReference:v152 deleteDataContainers:referenceCopy wasLastReference:v122 error:?];
+            v124 = v192;
+            _MILogTransactionStep(v80, 2, v123 != 0, bundleID3, personaUniqueString, 0, v125, v126, &v188);
             if (v123)
             {
               goto LABEL_151;
             }
 
             domain = [(__CFString *)v124 domain];
-            if ([domain isEqualToString:v149] && -[__CFString code](v124, "code") == 26)
+            if ([domain isEqualToString:v150] && -[__CFString code](v124, "code") == 26)
             {
 
 LABEL_159:
               if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
               {
-                v143 = v59;
-                v145 = v124;
+                v144 = v59;
+                v146 = v124;
                 MOLogWrite();
               }
 
@@ -1322,14 +1343,14 @@ LABEL_159:
               [v127 setIsLastReference:1];
               [v127 setHasParallelPlaceholder:1];
               [v127 setDoesNotHaveBundleContainer:1];
-              [v155 addObject:v127];
+              [v156 addObject:v127];
 LABEL_163:
             }
 
             else
             {
               domain2 = [(__CFString *)v124 domain];
-              if ([domain2 isEqualToString:v160])
+              if ([domain2 isEqualToString:v161])
               {
                 v130 = [(__CFString *)v124 code]== 21;
 
@@ -1351,25 +1372,25 @@ LABEL_163:
                 *&buf[12] = 2112;
                 *&buf[14] = v59;
                 *&buf[22] = 2112;
-                v221 = v124;
+                v222 = v124;
                 _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "%s: Failed to uninstall %@ : %@", buf, 0x20u);
               }
 
               if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
               {
-                v143 = v59;
-                v145 = v124;
+                v144 = v59;
+                v146 = v124;
                 MOLogWrite();
               }
 
 LABEL_151:
-              [v155 addObjectsFromArray:{v123, v143}];
-              if (v187 == 1)
+              [v156 addObjectsFromArray:{v123, v144}];
+              if (v188 == 1)
               {
-                v127 = [v166 objectForKeyedSubscript:bundleID3];
+                v127 = [v167 objectForKeyedSubscript:bundleID3];
                 if (v127)
                 {
-                  [v175 unlinkChild:bundleID3 fromParent:v127 error:0];
+                  [v176 unlinkChild:bundleID3 fromParent:v127 error:0];
                 }
 
                 goto LABEL_163;
@@ -1403,10 +1424,10 @@ LABEL_147:
       _MILogTransactionStep(v80, 2, v96, bundleID3, personaUniqueString, 0, v75, v76, path);
 LABEL_148:
 
-      if (v174 == ++v58)
+      if (v175 == ++v58)
       {
-        identities2 = v165;
-        v56 = [v165 countByEnumeratingWithState:&v198 objects:v222 count:16];
+        identities2 = v166;
+        v56 = [v166 countByEnumeratingWithState:&v199 objects:v223 count:16];
         if (!v56)
         {
           goto LABEL_175;
@@ -1416,21 +1437,20 @@ LABEL_148:
       }
     }
 
-    v67 = +[ICLFeatureFlags appReferencesEnabled];
-    v69 = (v215 + 5);
-    v68 = v215[5];
-    if (v67)
+    v68 = +[ICLFeatureFlags appReferencesEnabled];
+    v69 = (v216 + 5);
+    if (v68)
     {
-      v197 = v215[5];
-      v70 = [MIBundleContainer appBundleContainerForIdentifier:bundleID3 inDomain:3 withError:&v197];
-      objc_storeStrong(v69, v197);
+      v198 = v216[5];
+      v70 = [MIBundleContainer appBundleContainerForIdentifier:bundleID3 inDomain:3 withError:&v198];
+      objc_storeStrong(v69, v198);
       if (v70)
       {
 LABEL_76:
         bundle = [v70 bundle];
         isPlaceholder = [bundle isPlaceholder];
 
-        if (v162)
+        if (v163)
         {
           _MILogTransactionStep(9, 1, 1, bundleID3, personaUniqueString, 0, v84, v85, path);
           if (([builtInApplicationBundleIDs containsObject:bundleID3] & isPlaceholder) == 1)
@@ -1439,26 +1459,26 @@ LABEL_76:
             {
               containerURL = [v70 containerURL];
               [containerURL path];
-              v145 = path = bundleID3;
+              v146 = path = bundleID3;
               MOLogWrite();
             }
 
-            v87 = (v215 + 5);
-            v194 = v215[5];
-            v88 = [v70 removeUnderlyingContainerWaitingForDeletion:0 error:{&v194, path, v145}];
-            objc_storeStrong(v87, v194);
+            v87 = (v216 + 5);
+            v195 = v216[5];
+            v88 = [v70 removeUnderlyingContainerWaitingForDeletion:0 error:{&v195, path, v146}];
+            objc_storeStrong(v87, v195);
             if ((v88 & 1) == 0)
             {
               if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
               {
                 path = bundleID3;
-                v145 = v215[5];
+                v146 = v216[5];
                 MOLogWrite();
               }
 
               v79 = 0;
-              parallelPlaceholderURL2 = v215[5];
-              v215[5] = 0;
+              parallelPlaceholderURL2 = v216[5];
+              v216[5] = 0;
               isPlaceholder = 1;
               goto LABEL_93;
             }
@@ -1481,10 +1501,10 @@ LABEL_76:
 
             v90 = +[MIFileManager defaultManager];
             parallelPlaceholderURL = [v70 parallelPlaceholderURL];
-            v92 = (v215 + 5);
-            v193 = v215[5];
-            v93 = [v90 removeItemAtURL:parallelPlaceholderURL error:&v193];
-            objc_storeStrong(v92, v193);
+            v92 = (v216 + 5);
+            v194 = v216[5];
+            v93 = [v90 removeItemAtURL:parallelPlaceholderURL error:&v194];
+            objc_storeStrong(v92, v194);
 
             if ((v93 & 1) == 0)
             {
@@ -1496,7 +1516,7 @@ LABEL_76:
 
               parallelPlaceholderURL2 = [v70 parallelPlaceholderURL];
               path = [parallelPlaceholderURL2 path];
-              v145 = v215[5];
+              v146 = v216[5];
               MOLogWrite();
 
               v79 = 0;
@@ -1514,7 +1534,7 @@ LABEL_105:
           [parallelPlaceholderURL2 setBundleIdentifier:bundleID3];
           [parallelPlaceholderURL2 setHasParallelPlaceholder:1];
           [parallelPlaceholderURL2 setIsPlaceholder:1];
-          [v155 addObject:parallelPlaceholderURL2];
+          [v156 addObject:parallelPlaceholderURL2];
           v79 = 1;
           goto LABEL_93;
         }
@@ -1528,34 +1548,34 @@ LABEL_106:
         goto LABEL_107;
       }
 
-      domain3 = [v215[5] domain];
-      if (([domain3 isEqualToString:v160] & 1) == 0)
+      domain3 = [v216[5] domain];
+      if (([domain3 isEqualToString:v161] & 1) == 0)
       {
 
         goto LABEL_96;
       }
 
-      v72 = [v215[5] code] == 21;
+      v72 = [v216[5] code] == 21;
 
       if (!v72)
       {
         goto LABEL_96;
       }
 
-      v73 = v215[5];
-      v215[5] = 0;
+      v73 = v216[5];
+      v216[5] = 0;
 
-      v69 = (v215 + 5);
-      v196 = v215[5];
-      v70 = [MIBundleContainer appBundleContainerForIdentifier:bundleID3 inDomain:2 withError:&v196];
-      v74 = v196;
+      v69 = (v216 + 5);
+      v197 = v216[5];
+      v70 = [MIBundleContainer appBundleContainerForIdentifier:bundleID3 inDomain:2 withError:&v197];
+      v74 = v197;
     }
 
     else
     {
-      v195 = v215[5];
-      v70 = [MIBundleContainer appBundleContainerWithIdentifier:bundleID3 createIfNeeded:0 created:0 error:&v195];
-      v74 = v195;
+      v196 = v216[5];
+      v70 = [MIBundleContainer appBundleContainerWithIdentifier:bundleID3 createIfNeeded:0 created:0 error:&v196];
+      v74 = v196;
     }
 
     v81 = v74;
@@ -1568,10 +1588,10 @@ LABEL_106:
     }
 
 LABEL_96:
-    domain4 = [v215[5] domain];
-    if ([domain4 isEqualToString:v160])
+    domain4 = [v216[5] domain];
+    if ([domain4 isEqualToString:v161])
     {
-      v95 = [v215[5] code] == 21;
+      v95 = [v216[5] code] == 21;
 
       if (v95)
       {
@@ -1592,39 +1612,39 @@ LABEL_103:
     if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
     {
       path = bundleID3;
-      v145 = v215[5];
+      v146 = v216[5];
       MOLogWrite();
     }
 
     goto LABEL_103;
   }
 
-  v6 = *v211;
+  v6 = *v212;
 LABEL_3:
   v7 = 0;
   while (1)
   {
-    if (*v211 != v6)
+    if (*v212 != v6)
     {
       objc_enumerationMutation(obj);
     }
 
-    v8 = *(*(&v210 + 1) + 8 * v7);
-    v9 = (v215 + 5);
-    v209 = v215[5];
-    v10 = [v8 resolvePersonaWithError:&v209];
-    objc_storeStrong(v9, v209);
+    v8 = *(*(&v211 + 1) + 8 * v7);
+    v9 = (v216 + 5);
+    v210 = v216[5];
+    v10 = [v8 resolvePersonaWithError:&v210];
+    objc_storeStrong(v9, v210);
     if ((v10 & 1) == 0)
     {
       break;
     }
 
     bundleID5 = [v8 bundleID];
-    [v154 addObject:bundleID5];
+    [v155 addObject:bundleID5];
 
     if (v5 == ++v7)
     {
-      v5 = [obj countByEnumeratingWithState:&v210 objects:v226 count:16];
+      v5 = [obj countByEnumeratingWithState:&v211 objects:v227 count:16];
       if (!v5)
       {
         goto LABEL_9;
@@ -1636,20 +1656,20 @@ LABEL_3:
 
   allObjects = 0;
   builtInApplicationBundleIDs = 0;
-  v151 = 0;
+  v152 = 0;
 LABEL_179:
 
 LABEL_180:
-  v138 = 0;
+  v139 = 0;
   if (error)
   {
-    *error = v215[5];
+    *error = v216[5];
   }
 
 LABEL_182:
 
-  _Block_object_dispose(&v214, 8);
-  return v138;
+  _Block_object_dispose(&v215, 8);
+  return v139;
 }
 
 @end

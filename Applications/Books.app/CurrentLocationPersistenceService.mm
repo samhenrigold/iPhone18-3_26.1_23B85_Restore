@@ -14,11 +14,11 @@
 
 - (void)controller:(id)controller didChangeObject:(id)object atIndexPath:(id)path forChangeType:(unint64_t)type newIndexPath:(id)indexPath
 {
-  v12 = sub_1001F1160(&qword_100AECD00);
+  v12 = sub_1001F1160(&qword_100AECD00, &qword_10082F610);
   __chkstk_darwin(v12 - 8);
-  v14 = &v27[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v14 = v27 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v15);
-  v17 = &v27[-v16];
+  v17 = v27 - v16;
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;
@@ -56,8 +56,8 @@
   (*(*(v25 - 8) + 56))(v14, v24, 1, v25);
   CurrentLocationPersistenceService.controller(_:didChange:at:for:newIndexPath:)(controllerCopy, v27, v26, type);
 
-  sub_100007840(v14, &qword_100AECD00);
-  sub_100007840(v17, &qword_100AECD00);
+  sub_100007840(v14, &qword_100AECD00, &qword_10082F610);
+  sub_100007840(v17, &qword_100AECD00, &qword_10082F610);
   sub_1000074E0(v27);
 }
 

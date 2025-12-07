@@ -1,6 +1,8 @@
 @interface NetworkAnalyticsEngine
 + (BOOL)getDNSCountsOn:(unsigned __int8)on total:(int64_t *)total impacted:(int64_t *)impacted;
 + (BOOL)hasAnyNetworkAttachmenOnLOI:(int64_t)i;
++ (BOOL)performNetAttachmentQueryOn:(unsigned __int8)on reply:(id)reply;
++ (BOOL)trainModelAndScore:(BOOL)score lastScoreDate:(id)date output:(id *)output;
 + (id)concurrentEpochs;
 + (id)fetchHashSaltFromJournalUsingImpoExpoService:(id)service;
 + (id)getNetworkExtensionStateRelay;
@@ -9,6 +11,7 @@
 + (id)mapNrFrequencyBandToString:(char)string;
 + (id)mapRadioTechnologyTypeToString:(unsigned __int8)string;
 + (id)queue;
++ (id)skimMemoryJournalFor:(unsigned __int8)for;
 + (int)getLoadedLQMOn:(unsigned __int8)on;
 + (int64_t)mapLinkQuality:(int)quality;
 + (int64_t)mapPowerCost:(unsigned __int8)cost;
@@ -16,8 +19,18 @@
 + (unsigned)_constructRxSignalExemptionsBitmapFromHint:(BOOL)hint reasons:(id)reasons;
 + (void)awdCaptureIn:(id)in replyQueue:(id)queue reply:(id)reply;
 + (void)didReceiveProtocolSnapshot:(id)snapshot;
++ (void)estimatedTransferTimeOn:(unsigned __int8)on forPayloadInfo:(id)info queue:(id)queue reply:(id)reply;
++ (void)getAuditableLoadedLQMOn:(unsigned __int8)on queue:(id)queue reply:(id)reply;
++ (void)hasNetworkAttachmentOn:(unsigned __int8)on isAny:(BOOL)any isBuiltin:(BOOL)builtin scopedToLOI:(int64_t)i hasCustomSignature:(id)signature queue:(id)queue reply:(id)reply;
++ (void)layer2MetricsOn:(unsigned __int8)on queue:(id)queue reply:(id)reply;
 + (void)performPersistentStoreHealthCheckWithReply:(id)reply;
++ (void)refreshLOIForInterfaceType:(unsigned __int8)type;
++ (void)relayAudioVideoStatus:(unsigned int)status rxThroughput:(double)throughput txThroughput:(double)txThroughput reset:(BOOL)reset;
++ (void)relayCellThroughputAdvice:(unsigned int)advice;
++ (void)relayWiFiViability:(unsigned int)viability;
 + (void)setupCoreTelephonyAndBasebandNotificationsOnElevatedPriorityQueue;
++ (void)updateLOI:(int64_t)i forInterfaceType:(unsigned __int8)type;
++ (void)usageToLOICorrelationFor:(unsigned __int8)for scopedToLOI:(int64_t)i queue:(id)queue reply:(id)reply;
 - (BOOL)_appendJournalRecord:(id)record withPreamble:(id *)preamble;
 - (BOOL)_determineIfThisIsWiFiFirstAttachment:(id)attachment;
 - (BOOL)_flushAllJournalRecords;
@@ -29,6 +42,7 @@
 - (BOOL)_populateInterfaceTimelineJournalRecord:(id *)record forInterface:(int64_t)interface fromDict:(id)dict;
 - (BOOL)_populateLIMJournalRecord:(id *)record fromKernelDict:(id)dict;
 - (BOOL)_populateLQMJournalRecord:(id *)record fromCellFingerprint:(BOOL)fingerprint key:(const char *)key atLOI:(int64_t)i ofInterfaceType:(int64_t)type lqm:(int)lqm isFaulty:(unsigned int)faulty;
+- (BOOL)_primaryKeyChange:(id)change interfaceName:(id)name interfaceType:(unsigned __int8)type roamingEvent:(BOOL)event;
 - (BOOL)_recordOfActiveFatalSuspector:(int64_t)suspector;
 - (BOOL)_shouldAcceptRouteSource:(__NStatSource *)source;
 - (BOOL)handlesEntity:(id)entity;
@@ -37,6 +51,8 @@
 - (id)_adviceToNSString:(int)string;
 - (id)_concurrentEpochs;
 - (id)_createNetworkAttachmentIdentifierExclusionList;
+- (id)_determineSporadicForType:(int)type withRetCode:(int *)code;
+- (id)_epochForInterfaceType:(unsigned __int8)type;
 - (id)_hashPrimaryKey:(id)key withSalt:(id)salt;
 - (id)_naIdentifierToMajor:(id)major;
 - (id)_retrieveCellCarrierName;
@@ -50,6 +66,8 @@
 - (int)performQueryOnEntityFromCache:(id)cache pred:(id)pred altpred:(id *)altpred actions:(id)actions found:(id *)found;
 - (int64_t)_processCTCellInfo:(id)info;
 - (int64_t)_retrieveCellId;
+- (void)_actUponCellRrcChangeTo:(int)to;
+- (void)_actUponLoadedLqmChangeFrom:(int)from to:(int)to onInterfaceType:(unsigned __int8)type;
 - (void)_armDOASuspector:(id)suspector;
 - (void)_armFatalSuspector:(id)suspector isActive:(BOOL)active;
 - (void)_armLowQDisconnectSuspector:(id)suspector;
@@ -57,7 +75,9 @@
 - (void)_awdCaptureIn:(id)in replyQueue:(id)queue reply:(id)reply;
 - (void)_awdCaptureInstant:(id)instant replyQueue:(id)queue reply:(id)reply;
 - (void)_captivityRedirects:(id)redirects;
+- (void)_cellNetworkChangeForInterface:(id)interface roamingEvent:(BOOL)event subscription:(id)subscription;
 - (void)_certError:(id)error;
+- (void)_computeAndApplyLoadedLqmFrom:(int)from oldLqm:(int)lqm onInterfaceType:(unsigned __int8)type loadedLqmAuditRecords:(id)records;
 - (void)_createJournalRecordOfType:(unsigned __int8)type forInterface:(int64_t)interface fromDict:(id)dict;
 - (void)_dataStall:(id)stall;
 - (void)_delayedKnownGoodNetworkAlert;
@@ -79,8 +99,10 @@
 - (void)_informKernelOfLIMUplink:(BOOL)uplink downlink:(BOOL)downlink forInterface:(const char *)interface;
 - (void)_initializeInternals;
 - (void)_initializeWorkspace;
+- (void)_insertEpoch:(id)epoch forInterfaceType:(unsigned __int8)type;
 - (void)_layer2MetricsOn:(unsigned __int8)on queue:(id)queue reply:(id)reply;
 - (void)_observeNetworkFramework;
+- (void)_performPeriodicTasks:(BOOL)tasks;
 - (void)_processLIM:(id)m;
 - (void)_processNWActivityMetrics;
 - (void)_recoverFromSystemCriticalErrors;
@@ -95,6 +117,7 @@
 - (void)_relayDataStallState:(unsigned int)state dnsFailureState:(unsigned int)failureState;
 - (void)_relayRebufferState:(unsigned int)state;
 - (void)_relayWiFiViability:(unsigned int)viability;
+- (void)_removeEpochForInterfaceType:(unsigned __int8)type;
 - (void)_removeOldRouteRecords;
 - (void)_retrieveCellId:(id)id;
 - (void)_retrieveDNSServersForEpoch:(id)epoch;
@@ -102,12 +125,16 @@
 - (void)_scoringTrampoline;
 - (void)_sendTrafficClassAndExtendedReportToBaseband;
 - (void)_sendTrafficInfoFlags:(unsigned int)flags changeFlags:(unsigned int)changeFlags foreground:(BOOL)foreground;
+- (void)_setDefrouteMonitoring:(unsigned int)monitoring ofInterfaceType:(unsigned __int8)type roamingEvent:(BOOL)event family:(unsigned __int8)family retries:(int)retries;
+- (void)_setRadioTechnology:(unsigned __int8)technology forInterfaceType:(unsigned __int8)type;
 - (void)_setScalarValueInNetworkAttachments:(id)attachments targetKeyPath:(id)path basedOn:(id)on matchingKeyPath:(id)keyPath matchValue:(id)value noMatchValue:(id)matchValue;
 - (void)_setWiFiRSSIThresholds:(BOOL)thresholds;
 - (void)_setupCoreTelephonyAndBasebandNotificationsOnElevatedPriorityQueue;
 - (void)_trackRealTimeLqmLastUpdatedOnInterfaceType:(unsigned __int8)type;
 - (void)_trainModelAndScore:(BOOL)score;
 - (void)_triggerDisconnectEdge:(id)edge;
+- (void)_updateAdviceForInterfaceType:(unsigned __int8)type;
+- (void)_updateCellInternetStatus:(int)status pdpContext:(int)context;
 - (void)_updateCombinedDNSCounts;
 - (void)_updateICCID:(id)d;
 - (void)_usageToLOICorrelationFor:(unsigned __int8)for scopedToLOI:(int64_t)i queue:(id)queue reply:(id)reply;
@@ -160,7 +187,9 @@
 - (void)startRNFTestWithConnection:(id)connection options:(id)options scenarioName:(id)name reply:(id)reply;
 - (void)stewieActiveChangedTo:(BOOL)to;
 - (void)stopRunningRNFTestWithReply:(id)reply;
+- (void)wifiNetworkChangedForInterface:(id)interface roaming:(BOOL)roaming;
 - (void)wifiShim_BSSIDChangedForInterface:(id)interface;
+- (void)wifiShim_HintForFallback:(BOOL)fallback reasons:(id)reasons;
 - (void)wifiShim_InfraAdminDisable:(id)disable bssid:(id)bssid;
 - (void)wifiShim_L2NewMetrics:(id)metrics forInterface:(id)interface;
 - (void)wifiShim_L2TriggerDisconnectEdge:(BOOL)edge forInterface:(id)interface;
@@ -172,7 +201,7 @@
 
 - (void)_sendTrafficClassAndExtendedReportToBaseband
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = CFDataCreate(0, &tcsBwInfo, trafficClassStructureSize);
@@ -180,41 +209,40 @@
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     _tcsInfoDescription = [(NetworkAnalyticsEngine *)selfCopy _tcsInfoDescription];
-    v13 = 138412546;
-    *v14 = _tcsInfoDescription;
-    *&v14[8] = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Preparing to send %@ data %@", &v13, 0x16u);
+    v11 = 138412546;
+    *v12 = _tcsInfoDescription;
+    *&v12[8] = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Preparing to send %@ data %@", &v11, 0x16u);
   }
 
   dword_2814D2FE8 = 0;
   qword_2814D2FE0 = 0;
   objc_sync_exit(selfCopy);
 
-  serverConnection = selfCopy->serverConnection;
-  v7 = _CTServerConnectionSendEnhancedLinkQualityTrafficInfo();
-  v8 = v7;
-  v9 = HIDWORD(v7);
-  if (HIDWORD(v7))
+  v6 = _CTServerConnectionSendEnhancedLinkQualityTrafficInfo();
+  v7 = v6;
+  v8 = HIDWORD(v6);
+  if (HIDWORD(v6))
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v10 = v7 == 0;
+    v9 = v6 == 0;
   }
 
-  if (!v10)
+  if (!v9)
   {
-    v11 = scoringLogHandle;
+    v10 = scoringLogHandle;
     if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v13 = 67109376;
-      *v14 = v8;
-      *&v14[4] = 1024;
-      *&v14[6] = v9;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Received error (%d, %d) while trying to send traffic and stall info", &v13, 0xEu);
+      v11 = 67109376;
+      *v12 = v7;
+      *&v12[4] = 1024;
+      *&v12[6] = v8;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Received error (%d, %d) while trying to send traffic and stall info", &v11, 0xEu);
     }
   }
 
@@ -222,8 +250,6 @@
   {
     CFRelease(v3);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_tcsInfoDescription
@@ -249,14 +275,13 @@
 
 - (void)_refreshRouteMetrics
 {
-  v3 = netepochsLogHandle;
+  v2 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "SymptomAnalytics ServiceImpl: in refresh codepath", buf, 2u);
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_INFO, "SymptomAnalytics ServiceImpl: in refresh codepath", buf, 2u);
   }
 
-  routeManager = self->routeManager;
   NStatManagerQueryAllSourcesUpdate();
 }
 
@@ -285,26 +310,24 @@ uint64_t __46__NetworkAnalyticsEngine__refreshRouteMetrics__block_invoke(uint64_
 
 - (id)lastScoreExits
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   lastScoreExit = self->lastScoreExit;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->lastScoreExit[0]];
-  v10[0] = v3;
+  v9[0] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:lastScoreExit[1]];
-  v10[1] = v4;
+  v9[1] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:lastScoreExit[2]];
-  v10[2] = v5;
+  v9[2] = v5;
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:lastScoreExit[3]];
-  v10[3] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[3] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
 
   return v7;
 }
 
 - (BOOL)_hashPrimaryKeyInPlace:(char *)place withSalt:(id)salt
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   saltCopy = salt;
   *len = 0;
   v6 = 0;
@@ -361,7 +384,7 @@ uint64_t __46__NetworkAnalyticsEngine__refreshRouteMetrics__block_invoke(uint64_
       }
 
       CC_SHA256(place, v9, md);
-      CC_SHA256(v10, len[0], v24);
+      CC_SHA256(v10, len[0], v23);
       v18 = 0;
       *place = 0u;
       *(place + 1) = 0u;
@@ -371,7 +394,7 @@ uint64_t __46__NetworkAnalyticsEngine__refreshRouteMetrics__block_invoke(uint64_
       do
       {
         snprintf(placeCopy2, 3uLL, "%02x", md[v18]);
-        snprintf(placeCopy2 + 17, 3uLL, "%02x", v24[v18++]);
+        snprintf(placeCopy2 + 17, 3uLL, "%02x", v23[v18++]);
         placeCopy2 += 2;
       }
 
@@ -391,13 +414,12 @@ uint64_t __46__NetworkAnalyticsEngine__refreshRouteMetrics__block_invoke(uint64_
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)_hashPrimaryKey:(id)key withSalt:(id)salt
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   saltCopy = salt;
   if (!keyCopy)
@@ -419,10 +441,10 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  *buf = 0u;
   v31 = 0u;
+  v32 = 0u;
+  *buf = 0u;
+  v30 = 0u;
   uTF8String = [keyCopy UTF8String];
   v9 = uTF8String;
   if (uTF8String && *uTF8String)
@@ -439,7 +461,7 @@ LABEL_19:
       }
     }
 
-    HIBYTE(v33) = 0;
+    HIBYTE(v32) = 0;
 LABEL_17:
     if ([(NetworkAnalyticsEngine *)self _hashPrimaryKeyInPlace:buf withSalt:saltCopy])
     {
@@ -461,24 +483,22 @@ LABEL_20:
     v17 = [v15 localizedNameOfStringEncoding:fastestEncoding];
     v18 = v17;
     v19 = "<empty>";
-    v24 = 138478339;
-    v25 = keyCopy;
+    v23 = 138478339;
+    v24 = keyCopy;
     if (!v9)
     {
       v19 = "NULL";
     }
 
-    v26 = 2112;
-    v27 = v17;
-    v28 = 2080;
-    v29 = v19;
-    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_FAULT, "Non-nil primaryKeyString %{private}@ with encoding %@ has %s UTF-8 representation", &v24, 0x20u);
+    v25 = 2112;
+    v26 = v17;
+    v27 = 2080;
+    v28 = v19;
+    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_FAULT, "Non-nil primaryKeyString %{private}@ with encoding %@ has %s UTF-8 representation", &v23, 0x20u);
   }
 
   v20 = @"HASH-FAILED";
 LABEL_21:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -516,7 +536,7 @@ LABEL_21:
 - (void)_createJournalRecordOfType:(unsigned __int8)type forInterface:(int64_t)interface fromDict:(id)dict
 {
   typeCopy = type;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   switch(typeCopy)
   {
@@ -563,19 +583,19 @@ LABEL_21:
       }
 
       v10 = v9;
-      v34 = [dictCopy objectForKeyedSubscript:@"CellFingerprintTriggered"];
-      bOOLValue = [v34 BOOLValue];
+      v33 = [dictCopy objectForKeyedSubscript:@"CellFingerprintTriggered"];
+      bOOLValue = [v33 BOOLValue];
       v11 = [dictCopy objectForKeyedSubscript:@"PrimaryKey"];
       uTF8String = [v11 UTF8String];
-      v32 = [dictCopy objectForKeyedSubscript:@"LOI"];
-      integerValue = [v32 integerValue];
+      v31 = [dictCopy objectForKeyedSubscript:@"LOI"];
+      integerValue = [v31 integerValue];
       v12 = [dictCopy objectForKeyedSubscript:@"InterfaceType"];
       integerValue2 = [v12 integerValue];
       v14 = [dictCopy objectForKeyedSubscript:@"LoadedLQM"];
       intValue = [v14 intValue];
       v16 = [dictCopy objectForKeyedSubscript:@"NetworkAttachmentFaulty"];
-      LODWORD(v29) = [v16 unsignedIntValue];
-      LOBYTE(integerValue2) = [(NetworkAnalyticsEngine *)self _populateLQMJournalRecord:v10 fromCellFingerprint:bOOLValue key:uTF8String atLOI:integerValue ofInterfaceType:integerValue2 lqm:intValue isFaulty:v29];
+      LODWORD(v28) = [v16 unsignedIntValue];
+      LOBYTE(integerValue2) = [(NetworkAnalyticsEngine *)self _populateLQMJournalRecord:v10 fromCellFingerprint:bOOLValue key:uTF8String atLOI:integerValue ofInterfaceType:integerValue2 lqm:intValue isFaulty:v28];
 
       if ((integerValue2 & 1) == 0)
       {
@@ -594,10 +614,10 @@ LABEL_14:
           v23 = v22;
           LODWORD(buf) = 67109634;
           HIDWORD(buf) = typeCopy;
-          v36 = 2048;
-          v37 = [v20 length];
-          v38 = 2112;
-          v39 = v20;
+          v35 = 2048;
+          v36 = [v20 length];
+          v37 = 2112;
+          v38 = v20;
           v24 = "Appended a new journal record in memory, type: %d length: %lu record: %@";
           v25 = v23;
           v26 = OS_LOG_TYPE_DEBUG;
@@ -611,10 +631,10 @@ LABEL_21:
         v23 = v22;
         LODWORD(buf) = 67109634;
         HIDWORD(buf) = typeCopy;
-        v36 = 2048;
-        v37 = [v20 length];
-        v38 = 2112;
-        v39 = v20;
+        v35 = 2048;
+        v36 = [v20 length];
+        v37 = 2112;
+        v38 = v20;
         v24 = "Failed to append a new journal record in memory, type: %d length: %lu record: %@";
         v25 = v23;
         v26 = OS_LOG_TYPE_ERROR;
@@ -635,20 +655,18 @@ LABEL_23:
 
       break;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_populateLQMJournalRecord:(id *)record fromCellFingerprint:(BOOL)fingerprint key:(const char *)key atLOI:(int64_t)i ofInterfaceType:(int64_t)type lqm:(int)lqm isFaulty:(unsigned int)faulty
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (!key || (v10 = *key) == 0)
   {
     v21 = netepochsLogHandle;
     v22 = os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR);
     if (!v22)
     {
-      goto LABEL_24;
+      return v22;
     }
 
     v23 = "<empty>";
@@ -657,10 +675,10 @@ LABEL_23:
       v23 = "NULL";
     }
 
-    LODWORD(v42[0]) = 136315138;
-    *(v42 + 4) = v23;
+    LODWORD(v41[0]) = 136315138;
+    *(v41 + 4) = v23;
     v24 = "primaryKey is %s. Dropping the LQM journal record.";
-    v25 = v42;
+    v25 = v41;
     v26 = v21;
     v27 = OS_LOG_TYPE_ERROR;
 LABEL_14:
@@ -668,20 +686,20 @@ LABEL_14:
 LABEL_23:
     _os_log_impl(&dword_23255B000, v26, v27, v24, v25, v28);
     LOBYTE(v22) = 0;
-    goto LABEL_24;
+    return v22;
   }
 
   lqmCopy = lqm;
   iCopy = i;
-  v43 = 0u;
-  memset(v42, 0, sizeof(v42));
-  LOBYTE(v42[0]) = v10;
+  v42 = 0u;
+  memset(v41, 0, sizeof(v41));
+  LOBYTE(v41[0]) = v10;
   v16 = 1;
   do
   {
     if (v16 == 63)
     {
-      HIBYTE(v43) = 0;
+      HIBYTE(v42) = 0;
       if (fingerprint)
       {
         goto LABEL_7;
@@ -696,7 +714,7 @@ LABEL_16:
     }
 
     v17 = key[v16];
-    *(v42 + v16++) = v17;
+    *(v41 + v16++) = v17;
   }
 
   while (v17);
@@ -715,18 +733,18 @@ LABEL_7:
   [v18 timeIntervalSince1970];
   v20 = v19;
 LABEL_17:
-  if (![(NetworkAnalyticsEngine *)self _hashPrimaryKeyInPlace:v42 withSalt:self->_hashSalt])
+  if (![(NetworkAnalyticsEngine *)self _hashPrimaryKeyInPlace:v41 withSalt:self->_hashSalt])
   {
     v32 = netepochsLogHandle;
     v22 = os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR);
     if (!v22)
     {
-      goto LABEL_24;
+      return v22;
     }
 
-    LOWORD(v38) = 0;
+    LOWORD(v37) = 0;
     v24 = "Hashing of the primary key failed. Dropping the LQM journal record.";
-    v25 = &v38;
+    v25 = &v37;
     v26 = v32;
     v27 = OS_LOG_TYPE_ERROR;
     v28 = 2;
@@ -739,14 +757,14 @@ LABEL_17:
   {
     if (v22)
     {
-      v38 = 136380931;
+      v37 = 136380931;
       typeCopy = key;
-      v40 = 2081;
-      v41 = v42;
-      _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEFAULT, "Populating a new LQM journal record for primaryKey = %{private}s (%{private}s)", &v38, 0x16u);
+      v39 = 2081;
+      v40 = v41;
+      _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEFAULT, "Populating a new LQM journal record for primaryKey = %{private}s (%{private}s)", &v37, 0x16u);
     }
 
-    v34 = 0;
+    v33 = 0;
     *&record->var0.var0 = 0u;
     *&record->var1[56] = 0;
     *&record->var1[24] = 0u;
@@ -758,14 +776,14 @@ LABEL_17:
     *(&record->var0.var1 + 2) = type;
     while (1)
     {
-      v35 = *(v42 + v34);
-      *(&record->var0.var5 + v34) = v35;
-      if (!v35)
+      v34 = *(v41 + v33);
+      *(&record->var0.var5 + v33) = v34;
+      if (!v34)
       {
         break;
       }
 
-      if (++v34 == 63)
+      if (++v33 == 63)
       {
         record->var1[55] = 0;
         break;
@@ -775,8 +793,8 @@ LABEL_17:
     record->var1[56] = iCopy;
     record->var1[57] = type;
     record->var1[58] = lqmCopy;
-    v36 = +[NetworkStateRelay getStateRelayFor:](NetworkStateRelay, "getStateRelayFor:", [MEMORY[0x277D6B3E0] nwFunctionalInterfaceTypeForNWInterfaceType:type]);
-    record->var1[60] = [v36 radioTechnology];
+    v35 = +[NetworkStateRelay getStateRelayFor:](NetworkStateRelay, "getStateRelayFor:", [MEMORY[0x277D6B3E0] nwFunctionalInterfaceTypeForNWInterfaceType:type]);
+    record->var1[60] = [v35 radioTechnology];
     record->var1[59] = faulty;
 
     LOBYTE(v22) = 1;
@@ -784,23 +802,21 @@ LABEL_17:
 
   else if (v22)
   {
-    v38 = 134217984;
+    v37 = 134217984;
     typeCopy = type;
     v24 = "Interface type %ld is neither cell nor wifi";
-    v25 = &v38;
+    v25 = &v37;
     v26 = v31;
     v27 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_14;
   }
 
-LABEL_24:
-  v33 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (BOOL)_populateLIMJournalRecord:(id *)record fromKernelDict:(id)dict
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   v7 = [dictCopy objectForKeyedSubscript:&unk_2847EF998];
   unsignedIntValue = [v7 unsignedIntValue];
@@ -864,11 +880,11 @@ LABEL_10:
         {
           v22 = v21;
           *buf = 134218496;
-          v59 = [netSignature length];
-          v60 = 2048;
-          v61 = 24;
-          v62 = 2048;
-          v63 = v13;
+          v58 = [netSignature length];
+          v59 = 2048;
+          v60 = 24;
+          v61 = 2048;
+          v62 = v13;
           _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "Failed to read LIM raw signature: size (%lu) greater than allowed (%lu) for interface: %ld", buf, 0x20u);
         }
 
@@ -878,102 +894,102 @@ LABEL_10:
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v59 = netSignature;
+        v58 = netSignature;
         _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_INFO, "limSignature in, journal stage: %@", buf, 0xCu);
       }
 
       memcpy(&record->var0.var5, [netSignature bytes], objc_msgSend(netSignature, "length"));
-      v27 = [dictCopy objectForKeyedSubscript:&unk_2847EF9C8];
-      *&record->var1[16] = [v27 unsignedLongLongValue];
+      v26 = [dictCopy objectForKeyedSubscript:&unk_2847EF9C8];
+      *&record->var1[16] = [v26 unsignedLongLongValue];
 
-      v28 = [dictCopy objectForKeyedSubscript:&unk_2847EF9E0];
-      record->var2 = [v28 unsignedLongLongValue];
+      v27 = [dictCopy objectForKeyedSubscript:&unk_2847EF9E0];
+      record->var2 = [v27 unsignedLongLongValue];
 
-      v29 = [dictCopy objectForKeyedSubscript:&unk_2847EF9F8];
-      record->var3 = [v29 unsignedLongLongValue];
+      v28 = [dictCopy objectForKeyedSubscript:&unk_2847EF9F8];
+      record->var3 = [v28 unsignedLongLongValue];
 
-      v30 = [dictCopy objectForKeyedSubscript:&unk_2847EFA10];
-      record->var4 = [v30 unsignedLongLongValue];
+      v29 = [dictCopy objectForKeyedSubscript:&unk_2847EFA10];
+      record->var4 = [v29 unsignedLongLongValue];
 
-      v31 = [dictCopy objectForKeyedSubscript:&unk_2847EFA28];
-      record->var5 = [v31 unsignedLongLongValue];
+      v30 = [dictCopy objectForKeyedSubscript:&unk_2847EFA28];
+      record->var5 = [v30 unsignedLongLongValue];
 
-      v32 = [dictCopy objectForKeyedSubscript:&unk_2847EFA40];
-      record->var6 = [v32 unsignedLongLongValue];
+      v31 = [dictCopy objectForKeyedSubscript:&unk_2847EFA40];
+      record->var6 = [v31 unsignedLongLongValue];
 
-      v33 = [dictCopy objectForKeyedSubscript:&unk_2847EFA58];
-      record->var7 = [v33 unsignedLongLongValue];
+      v32 = [dictCopy objectForKeyedSubscript:&unk_2847EFA58];
+      record->var7 = [v32 unsignedLongLongValue];
 
-      v34 = [dictCopy objectForKeyedSubscript:&unk_2847EFA70];
-      record->var8 = [v34 unsignedLongLongValue];
+      v33 = [dictCopy objectForKeyedSubscript:&unk_2847EFA70];
+      record->var8 = [v33 unsignedLongLongValue];
 
-      v35 = [dictCopy objectForKeyedSubscript:&unk_2847EFA88];
-      LOBYTE(record->var9) = [v35 unsignedIntValue];
+      v34 = [dictCopy objectForKeyedSubscript:&unk_2847EFA88];
+      LOBYTE(record->var9) = [v34 unsignedIntValue];
 
-      v36 = [dictCopy objectForKeyedSubscript:&unk_2847EFAA0];
-      BYTE1(record->var9) = [v36 unsignedIntValue];
+      v35 = [dictCopy objectForKeyedSubscript:&unk_2847EFAA0];
+      BYTE1(record->var9) = [v35 unsignedIntValue];
 
       BYTE2(record->var9) = v14;
-      v56[0] = @"limDLMaxBandwidthBps";
-      v55 = [dictCopy objectForKeyedSubscript:&unk_2847EF9C8];
-      v57[0] = v55;
-      v56[1] = @"limULMaxBandwidthBps";
-      v54 = [dictCopy objectForKeyedSubscript:&unk_2847EF9E0];
-      v57[1] = v54;
-      v56[2] = @"limPacketLossPercent";
-      v53 = [dictCopy objectForKeyedSubscript:&unk_2847EF9F8];
-      v57[2] = v53;
-      v56[3] = @"limPacketOOOPercent";
-      v52 = [dictCopy objectForKeyedSubscript:&unk_2847EFA10];
-      v57[3] = v52;
-      v56[4] = @"limRTTVarianceMilliseconds";
-      v37 = [dictCopy objectForKeyedSubscript:&unk_2847EFA28];
-      v57[4] = v37;
-      v56[5] = @"limRTTMinMilliseconds";
-      v38 = [dictCopy objectForKeyedSubscript:&unk_2847EFA40];
-      v57[5] = v38;
-      v56[6] = @"limRTTAvgMilliseconds";
-      v39 = [dictCopy objectForKeyedSubscript:&unk_2847EFA58];
-      v57[6] = v39;
-      v56[7] = @"limConnTimeoutPercent";
-      v40 = [dictCopy objectForKeyedSubscript:&unk_2847EFA70];
-      v57[7] = v40;
-      v56[8] = @"limDLDetected";
-      v41 = [dictCopy objectForKeyedSubscript:&unk_2847EFA88];
-      v57[8] = v41;
-      v56[9] = @"limULDetected";
-      v42 = [dictCopy objectForKeyedSubscript:&unk_2847EFAA0];
-      v57[9] = v42;
-      v56[10] = @"limInterfaceType";
-      v43 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
-      v57[10] = v43;
-      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:11];
+      v55[0] = @"limDLMaxBandwidthBps";
+      v54 = [dictCopy objectForKeyedSubscript:&unk_2847EF9C8];
+      v56[0] = v54;
+      v55[1] = @"limULMaxBandwidthBps";
+      v53 = [dictCopy objectForKeyedSubscript:&unk_2847EF9E0];
+      v56[1] = v53;
+      v55[2] = @"limPacketLossPercent";
+      v52 = [dictCopy objectForKeyedSubscript:&unk_2847EF9F8];
+      v56[2] = v52;
+      v55[3] = @"limPacketOOOPercent";
+      v51 = [dictCopy objectForKeyedSubscript:&unk_2847EFA10];
+      v56[3] = v51;
+      v55[4] = @"limRTTVarianceMilliseconds";
+      v36 = [dictCopy objectForKeyedSubscript:&unk_2847EFA28];
+      v56[4] = v36;
+      v55[5] = @"limRTTMinMilliseconds";
+      v37 = [dictCopy objectForKeyedSubscript:&unk_2847EFA40];
+      v56[5] = v37;
+      v55[6] = @"limRTTAvgMilliseconds";
+      v38 = [dictCopy objectForKeyedSubscript:&unk_2847EFA58];
+      v56[6] = v38;
+      v55[7] = @"limConnTimeoutPercent";
+      v39 = [dictCopy objectForKeyedSubscript:&unk_2847EFA70];
+      v56[7] = v39;
+      v55[8] = @"limDLDetected";
+      v40 = [dictCopy objectForKeyedSubscript:&unk_2847EFA88];
+      v56[8] = v40;
+      v55[9] = @"limULDetected";
+      v41 = [dictCopy objectForKeyedSubscript:&unk_2847EFAA0];
+      v56[9] = v41;
+      v55[10] = @"limInterfaceType";
+      v42 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
+      v56[10] = v42;
+      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:11];
 
-      v45 = v44;
-      v46 = AnalyticsSendEventLazy();
-      v47 = netepochsLogHandle;
-      if (v46)
+      v44 = v43;
+      v45 = AnalyticsSendEventLazy();
+      v46 = netepochsLogHandle;
+      if (v45)
       {
         if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v59 = v45;
-          v48 = "Posted LIM kernel metric: %@";
-          v49 = v47;
-          v50 = OS_LOG_TYPE_DEFAULT;
-          v51 = 12;
+          v58 = v44;
+          v47 = "Posted LIM kernel metric: %@";
+          v48 = v46;
+          v49 = OS_LOG_TYPE_DEFAULT;
+          v50 = 12;
 LABEL_27:
-          _os_log_impl(&dword_23255B000, v49, v50, v48, buf, v51);
+          _os_log_impl(&dword_23255B000, v48, v49, v47, buf, v50);
         }
       }
 
       else if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v48 = "Failed to post LIM kernel metric";
-        v49 = v47;
-        v50 = OS_LOG_TYPE_ERROR;
-        v51 = 2;
+        v47 = "Failed to post LIM kernel metric";
+        v48 = v46;
+        v49 = OS_LOG_TYPE_ERROR;
+        v50 = 2;
         goto LABEL_27;
       }
 
@@ -998,7 +1014,7 @@ LABEL_27:
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v59 = v13;
+    v58 = v13;
     v10 = "Failed to read LIM raw signature for interface: %ld";
     v11 = v23;
     v12 = 12;
@@ -1010,13 +1026,12 @@ LABEL_18:
   v24 = 0;
 LABEL_19:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (BOOL)_populateInterfaceTimelineJournalRecord:(id *)record forInterface:(int64_t)interface fromDict:(id)dict
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   *&record->var0.var0 = 0;
   *&record->var0.var3 = 0;
   record->var0.var5 = 0;
@@ -1075,9 +1090,9 @@ LABEL_19:
     v24 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
     {
-      v27 = 134217984;
+      v26 = 134217984;
       interfaceCopy = interface;
-      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_INFO, "Unhandled type: %ld", &v27, 0xCu);
+      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_INFO, "Unhandled type: %ld", &v26, 0xCu);
     }
 
     v20 = 0;
@@ -1088,13 +1103,12 @@ LABEL_19:
   HIWORD(record->var0.var5) = 0;
   *(&record->var0.var5 + 2) = 0;
 
-  v25 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)_appendJournalRecord:(id)record withPreamble:(id *)preamble
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (*(&preamble->var1 + 1))
   {
@@ -1132,11 +1146,11 @@ LABEL_19:
     {
       v11 = self->journalRecords;
       v12 = v10;
-      v23 = 138478083;
-      v24 = recordCopy;
-      v25 = 2048;
-      v26 = [(NSMutableData *)v11 length];
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Appending a new journal record in memory, record = %{private}@, pending records = %lu bytes", &v23, 0x16u);
+      v22 = 138478083;
+      v23 = recordCopy;
+      v24 = 2048;
+      v25 = [(NSMutableData *)v11 length];
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Appending a new journal record in memory, record = %{private}@, pending records = %lu bytes", &v22, 0x16u);
     }
 
     date = [MEMORY[0x277CBEAA8] date];
@@ -1150,9 +1164,9 @@ LABEL_19:
           v16 = self->journalRecords;
           v17 = v15;
           v18 = [(NSMutableData *)v16 length];
-          v23 = 134217984;
-          v24 = v18;
-          _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Failed to flush journal records in the database, float is %lu bytes", &v23, 0xCu);
+          v22 = 134217984;
+          v23 = v18;
+          _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Failed to flush journal records in the database, float is %lu bytes", &v22, 0xCu);
         }
       }
     }
@@ -1161,21 +1175,20 @@ LABEL_19:
   v20 = 1;
 LABEL_16:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (BOOL)_flushAllJournalRecords
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   if ([(NSMutableData *)self->journalRecords length])
   {
     v4 = [JournalTimeStamp getCurrentJournalNameUsingPrefix:@"AnalyticsMixedJournal"];
     ieService = self->ieService;
-    v20 = 0;
-    v6 = [(ImpoExpoService *)ieService exportItemUnderName:v4 lastUpdated:&v20 verificationBlock:&__block_literal_global_26];
-    v7 = v20;
+    v19 = 0;
+    v6 = [(ImpoExpoService *)ieService exportItemUnderName:v4 lastUpdated:&v19 verificationBlock:&__block_literal_global_26];
+    v7 = v19;
     if (v6)
     {
       [(NSMutableData *)v6 appendData:self->journalRecords];
@@ -1188,9 +1201,9 @@ LABEL_16:
       v10 = v8;
       v11 = [(NSMutableData *)journalRecords length];
       *buf = 134218242;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v4;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v4;
       _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Flushing %lu bytes worth of journal records in %@", buf, 0x16u);
     }
 
@@ -1207,7 +1220,7 @@ LABEL_16:
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v22 = v4;
+        v21 = v4;
         _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Flushing internal failure in ImpoExpoService for %@", buf, 0xCu);
       }
     }
@@ -1226,7 +1239,6 @@ LABEL_16:
   }
 
   objc_autoreleasePoolPop(v3);
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1265,6 +1277,18 @@ uint64_t __49__NetworkAnalyticsEngine__flushAllJournalRecords__block_invoke(uint
   return v8;
 }
 
++ (id)skimMemoryJournalFor:(unsigned __int8)for
+{
+  v4 = sharedInstance_3;
+  if (sharedInstance_3)
+  {
+    v4 = [sharedInstance_3 _skimMemoryJournalFor:for];
+    v3 = vars8;
+  }
+
+  return v4;
+}
+
 - (void)_getAuditableLoadedLQMOn:(unsigned __int8)on queue:(id)queue reply:(id)reply
 {
   queueCopy = queue;
@@ -1285,7 +1309,7 @@ uint64_t __49__NetworkAnalyticsEngine__flushAllJournalRecords__block_invoke(uint
 
 void __63__NetworkAnalyticsEngine__getAuditableLoadedLQMOn_queue_reply___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = *(a1 + 56);
   switch(v3)
@@ -1301,7 +1325,7 @@ LABEL_4:
       v4 = [*(a1 + 32) _epochForInterfaceType:?];
       if (v4)
       {
-        [*(a1 + 32) _computeAndApplyLoadedLqmFrom:*(&realTimeLqm + *(a1 + 56)) oldLqm:*(&realTimeLqm + *(a1 + 56)) onInterfaceType:*(a1 + 56) loadedLqmAuditRecords:v2];
+        [*(a1 + 32) _computeAndApplyLoadedLqmFrom:realTimeLqm[*(a1 + 56)] oldLqm:realTimeLqm[*(a1 + 56)] onInterfaceType:*(a1 + 56) loadedLqmAuditRecords:v2];
         v5 = [NetworkAnalyticsEngine getLoadedLQMOn:*(a1 + 56)];
       }
 
@@ -1312,7 +1336,7 @@ LABEL_4:
         {
           v9 = *(a1 + 56);
           *buf = 67109120;
-          v17 = v9;
+          v16 = v9;
           _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "Cannot get auditable loaded LQM on interface type %u as Epoch is nil", buf, 8u);
         }
 
@@ -1326,7 +1350,7 @@ LABEL_4:
       {
         v7 = *(a1 + 56);
         *buf = 67109120;
-        v17 = v7;
+        v16 = v7;
         _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Cannot get auditable loaded LQM on interface type %u (unimplemented)", buf, 8u);
       }
 
@@ -1341,9 +1365,9 @@ LABEL_4:
     block[1] = 3221225472;
     block[2] = __63__NetworkAnalyticsEngine__getAuditableLoadedLQMOn_queue_reply___block_invoke_281;
     block[3] = &unk_27898D960;
-    v14 = *(a1 + 48);
-    v15 = v5;
-    v13 = v2;
+    v13 = *(a1 + 48);
+    v14 = v5;
+    v12 = v2;
     dispatch_async(v10, block);
   }
 
@@ -1351,14 +1375,518 @@ LABEL_4:
   {
     (*(*(a1 + 48) + 16))();
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)_computeAndApplyLoadedLqmFrom:(int)from oldLqm:(int)lqm onInterfaceType:(unsigned __int8)type loadedLqmAuditRecords:(id)records
+{
+  typeCopy = type;
+  v7 = *&lqm;
+  v152 = *MEMORY[0x277D85DE8];
+  recordsCopy = records;
+  if (typeCopy <= 7 && ((1 << typeCopy) & 0xA8) != 0)
+  {
+    v11 = &loadedLqm[typeCopy];
+    v12 = *v11;
+    v129 = v11[8];
+    v13 = typeCopy;
+    *v11 = from;
+    v11[8] = from;
+    selfCopy = self;
+    v14 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:typeCopy];
+    v15 = [NetworkStateRelay getStateRelayFor:typeCopy];
+    durable = [v14 durable];
+    fromCopy = from;
+    if (from == v7)
+    {
+      if (typeCopy != 7)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      v16 = netepochsLogHandle;
+      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = v16;
+        [v14 partial];
+        v19 = v18 = v12;
+        [v19 dataStalls];
+        v13 = typeCopy;
+        *buf = 67110400;
+        *v135 = fromCopy;
+        *&v135[4] = 1024;
+        *&v135[6] = v7;
+        *v136 = 2048;
+        *&v136[2] = v20;
+        *v137 = 1024;
+        *&v137[2] = [durable isKnownGood];
+        *&v137[6] = 1024;
+        *&v137[8] = [durable isHotSpot];
+        *&v137[12] = 1024;
+        *&v137[14] = typeCopy;
+        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Realtime LQM changed: new-lqm %d old-lqm %d data-stalls %.2f known-good %d hot-spot %d interface-type %u", buf, 0x2Au);
+
+        v12 = v18;
+      }
+
+      if (typeCopy != 7)
+      {
+        v23 = netepochsLogHandle;
+        if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+          v24 = v23;
+          [v14 partial];
+          v26 = v25 = v12;
+          [v26 dataStalls];
+          v28 = v27;
+          isKnownGood = [durable isKnownGood];
+          v13 = typeCopy;
+          isHotSpot = [durable isHotSpot];
+          *buf = 67110400;
+          *v135 = fromCopy;
+          *&v135[4] = 1024;
+          *&v135[6] = v7;
+          *v136 = 2048;
+          *&v136[2] = v28;
+          *v137 = 1024;
+          *&v137[2] = isKnownGood;
+          *&v137[6] = 1024;
+          *&v137[8] = isHotSpot;
+          *&v137[12] = 1024;
+          *&v137[14] = typeCopy;
+          _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "Realtime LQM changed: new-lqm %d old-lqm %d data-stalls %.2f known-good %d hot-spot %d interface-type %u", buf, 0x2Au);
+
+          v12 = v25;
+        }
+
+LABEL_14:
+        v21 = 0;
+        if (fromCopy != 100 || typeCopy != 5)
+        {
+          goto LABEL_50;
+        }
+
+        v126 = v12;
+        currentLiveRoutePerf = [v14 currentLiveRoutePerf];
+        [currentLiveRoutePerf dataStalls];
+        v33 = v32;
+
+        if (v33 == 0.0)
+        {
+          v39 = -1.0;
+        }
+
+        else
+        {
+          currentLiveRoutePerf2 = [v14 currentLiveRoutePerf];
+          [currentLiveRoutePerf2 packetsIn];
+          v36 = v35;
+          currentLiveRoutePerf3 = [v14 currentLiveRoutePerf];
+          [currentLiveRoutePerf3 packetsOut];
+          v39 = (v36 + v38) / v33;
+        }
+
+        v40 = netepochsLogHandle;
+        v125 = v15;
+        if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+          loga = v40;
+          primaryKey = [v14 primaryKey];
+          currentLiveRoutePerf4 = [v14 currentLiveRoutePerf];
+          [currentLiveRoutePerf4 dataStalls];
+          v43 = v42;
+          partial = [v14 partial];
+          [partial dataStalls];
+          v45 = v44;
+          currentLiveRoutePerf5 = [v14 currentLiveRoutePerf];
+          [currentLiveRoutePerf5 packetsIn];
+          v47 = v46;
+          partial2 = [v14 partial];
+          [partial2 packetsIn];
+          v49 = v48;
+          currentLiveRoutePerf6 = [v14 currentLiveRoutePerf];
+          [currentLiveRoutePerf6 packetsOut];
+          v52 = v51;
+          partial3 = [v14 partial];
+          [partial3 packetsOut];
+          v55 = v54;
+          v56 = +[NetworkAnalyticsEngine mapRadioTechnologyTypeToString:](NetworkAnalyticsEngine, "mapRadioTechnologyTypeToString:", [v15 radioTechnology]);
+          isLowInternetUL = [durable isLowInternetUL];
+          v13 = typeCopy;
+          isLowInternetDL = [durable isLowInternetDL];
+          *buf = 138480387;
+          *v135 = primaryKey;
+          *&v135[8] = 2048;
+          *v136 = v43;
+          *&v136[8] = 2048;
+          *v137 = v45;
+          *&v137[8] = 2048;
+          *&v137[10] = v47;
+          v138 = 2048;
+          v139 = v49;
+          v140 = 2048;
+          v141 = v52;
+          v142 = 2048;
+          v143 = v55;
+          v144 = 2112;
+          v145 = v56;
+          v146 = 1024;
+          v147 = isLowInternetUL;
+          v148 = 1024;
+          v149 = isLowInternetDL;
+          v150 = 2048;
+          v151 = v39;
+          _os_log_impl(&dword_23255B000, loga, OS_LOG_TYPE_DEFAULT, "Loaded LQM filters for %{private}@: data stalls(lrp/curr) = %f/%f, packetsIn(lrp/curr): %f/%f, packetsOut(lrp/curr): %f/%f, radio = %@, LIM(UL/DL) = (%d/%d), avgPacketsBetweenDataStalls: %.2f", buf, 0x68u);
+
+          v15 = v125;
+        }
+
+        if (v39 >= 0.0 && v39 < 100.0 || -[NetworkAnalyticsEngine _isRadioTechnologySubpar:](selfCopy, "_isRadioTechnologySubpar:", [v15 radioTechnology]))
+        {
+          v59 = &loadedLqm[v13];
+          *v59 = 50;
+          v59[8] = 50;
+          v60 = netepochsLogHandle;
+          if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 67109120;
+            *v135 = 50;
+            _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_DEFAULT, "Depressing both UL/DL loaded LQM to %d", buf, 8u);
+          }
+
+          v61 = 1;
+        }
+
+        else
+        {
+          if ([durable isLowInternetUL])
+          {
+            loadedLqm[v13] = 50;
+            v62 = netepochsLogHandle;
+            if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+            {
+              v63 = loadedLqm[v13];
+              *buf = 67109120;
+              *v135 = v63;
+              _os_log_impl(&dword_23255B000, v62, OS_LOG_TYPE_DEFAULT, "Depressing UL loaded LQM to %d", buf, 8u);
+            }
+          }
+
+          if ([durable isLowInternetDL])
+          {
+            v64 = &loadedLqm[v13];
+            v64[8] = 50;
+            v65 = netepochsLogHandle;
+            if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+            {
+              v66 = v64[8];
+              *buf = 67109120;
+              *v135 = v66;
+              _os_log_impl(&dword_23255B000, v65, OS_LOG_TYPE_DEFAULT, "Depressing DL loaded LQM to %d", buf, 8u);
+            }
+          }
+
+          v61 = 0;
+        }
+
+        v132[0] = @"depressBothLQM";
+        v123 = [MEMORY[0x277CCABB0] numberWithBool:v61];
+        v133[0] = v123;
+        v132[1] = @"depressBothLQMOld";
+        v67 = MEMORY[0x277CCABB0];
+        partial4 = [v14 partial];
+        [partial4 dataStalls];
+        v69 = v68 > 10.0 || -[NetworkAnalyticsEngine _isRadioTechnologySubpar:](selfCopy, "_isRadioTechnologySubpar:", [v15 radioTechnology]);
+        log = [v67 numberWithInt:v69];
+        v133[1] = log;
+        v132[2] = @"isLowInternetUL";
+        v117 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(durable, "isLowInternetUL")}];
+        v133[2] = v117;
+        v132[3] = @"isLowInternetDL";
+        v115 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(durable, "isLowInternetDL")}];
+        v133[3] = v115;
+        v132[4] = @"oldLQM";
+        v70 = [MEMORY[0x277CCABB0] numberWithInt:v7];
+        v133[4] = v70;
+        v132[5] = @"newLQM";
+        v71 = [MEMORY[0x277CCABB0] numberWithInt:100];
+        v133[5] = v71;
+        v132[6] = @"newLoadedLQM";
+        v124 = v14;
+        if (v61 & 1) != 0 || ([durable isLowInternetDL] & 1) != 0 || (objc_msgSend(durable, "isLowInternetUL"))
+        {
+          v72 = 0;
+          v73 = &unk_2847EFAB8;
+        }
+
+        else
+        {
+          v73 = [MEMORY[0x277CCABB0] numberWithInt:100];
+          v72 = 1;
+        }
+
+        v133[6] = v73;
+        v132[7] = @"interfaceType";
+        v74 = [MEMORY[0x277D6B3E0] stringForFunctionalInterfaceType:5];
+        v133[7] = v74;
+        v132[8] = @"radioTechnology";
+        v75 = +[NetworkAnalyticsEngine mapRadioTechnologyTypeToString:](NetworkAnalyticsEngine, "mapRadioTechnologyTypeToString:", [v125 radioTechnology]);
+        v133[8] = v75;
+        v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v133 forKeys:v132 count:9];
+
+        if (v72)
+        {
+        }
+
+        v77 = v76;
+        v78 = AnalyticsSendEventLazy();
+        v79 = netepochsLogHandle;
+        v13 = typeCopy;
+        if (v78)
+        {
+          v14 = v124;
+          v15 = v125;
+          if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            *v135 = v77;
+            v80 = "Posted loaded LQM event: %@";
+            v81 = v79;
+            v82 = OS_LOG_TYPE_DEFAULT;
+            v83 = 12;
+LABEL_48:
+            _os_log_impl(&dword_23255B000, v81, v82, v80, buf, v83);
+          }
+        }
+
+        else
+        {
+          v14 = v124;
+          v15 = v125;
+          if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            v80 = "Failed to post loaded LQM metric";
+            v81 = v79;
+            v82 = OS_LOG_TYPE_ERROR;
+            v83 = 2;
+            goto LABEL_48;
+          }
+        }
+
+        v21 = 0;
+        v12 = v126;
+        goto LABEL_50;
+      }
+    }
+
+    v21 = 1;
+LABEL_50:
+    if (recordsCopy)
+    {
+      if ((v21 & 1) == 0)
+      {
+        v84 = [durable valueForKey:@"isKnownGood"];
+        v127 = v12;
+        if (v84)
+        {
+          [recordsCopy setObject:v84 forKeyedSubscript:@"isKnownGood"];
+        }
+
+        else
+        {
+          null = [MEMORY[0x277CBEB68] null];
+          [recordsCopy setObject:null forKeyedSubscript:@"isKnownGood"];
+        }
+
+        partial5 = [v14 partial];
+        v87 = [partial5 valueForKey:@"dataStalls"];
+        if (v87)
+        {
+          [recordsCopy setObject:v87 forKeyedSubscript:@"dataStalls"];
+        }
+
+        else
+        {
+          null2 = [MEMORY[0x277CBEB68] null];
+          [recordsCopy setObject:null2 forKeyedSubscript:@"dataStalls"];
+        }
+
+        v89 = [durable valueForKey:@"isLowInternetUL"];
+        if (v89)
+        {
+          [recordsCopy setObject:v89 forKeyedSubscript:@"isLowInternetUL"];
+        }
+
+        else
+        {
+          null3 = [MEMORY[0x277CBEB68] null];
+          [recordsCopy setObject:null3 forKeyedSubscript:@"isLowInternetUL"];
+        }
+
+        v91 = [durable valueForKey:@"isLowInternetDL"];
+        if (v91)
+        {
+          [recordsCopy setObject:v91 forKeyedSubscript:@"isLowInternetDL"];
+        }
+
+        else
+        {
+          null4 = [MEMORY[0x277CBEB68] null];
+          [recordsCopy setObject:null4 forKeyedSubscript:@"isLowInternetDL"];
+        }
+
+        netSignature = [durable netSignature];
+        if (netSignature)
+        {
+          netSignature2 = [durable netSignature];
+          v95 = [netSignature2 description];
+          [recordsCopy setObject:v95 forKeyedSubscript:@"netSignature"];
+        }
+
+        else
+        {
+          netSignature2 = [MEMORY[0x277CBEB68] null];
+          [recordsCopy setObject:netSignature2 forKeyedSubscript:@"netSignature"];
+        }
+
+        netSignatureV6 = [durable netSignatureV6];
+        if (netSignatureV6)
+        {
+          netSignatureV62 = [durable netSignatureV6];
+          v98 = [netSignatureV62 description];
+          [recordsCopy setObject:v98 forKeyedSubscript:@"netSignatureV6"];
+        }
+
+        else
+        {
+          netSignatureV62 = [MEMORY[0x277CBEB68] null];
+          [recordsCopy setObject:netSignatureV62 forKeyedSubscript:@"netSignatureV6"];
+        }
+
+        if (v14)
+        {
+          [v14 mapLOIToString];
+        }
+
+        else
+        {
+          [MEMORY[0x277CBEB68] null];
+        }
+        v99 = ;
+        v12 = v127;
+        [recordsCopy setObject:v99 forKeyedSubscript:@"LOI"];
+
+        v100 = +[NetworkAnalyticsEngine mapRadioTechnologyTypeToString:](NetworkAnalyticsEngine, "mapRadioTechnologyTypeToString:", [v15 radioTechnology]);
+        [recordsCopy setObject:v100 forKeyedSubscript:@"radioTechnology"];
+
+        if (typeCopy == 3)
+        {
+          v101 = [v15 valueForKey:@"lastReportedRxSignalStrength"];
+          if (v101)
+          {
+            [recordsCopy setObject:v101 forKeyedSubscript:@"lastReportedRxSignalStrength"];
+          }
+
+          else
+          {
+            null5 = [MEMORY[0x277CBEB68] null];
+            [recordsCopy setObject:null5 forKeyedSubscript:@"lastReportedRxSignalStrength"];
+          }
+        }
+      }
+
+      v103 = [MEMORY[0x277CCABB0] numberWithInt:fromCopy];
+      [recordsCopy setObject:v103 forKeyedSubscript:@"LQM"];
+
+      v104 = netepochsLogHandle;
+      v13 = typeCopy;
+      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412802;
+        *v135 = v14;
+        *&v135[8] = 2048;
+        *v136 = typeCopy;
+        *&v136[8] = 2112;
+        *v137 = recordsCopy;
+        _os_log_impl(&dword_23255B000, v104, OS_LOG_TYPE_INFO, "Epoch: %@ (null for watchOS & Companion Link), loaded LQM audit record for interfaceType %ld: %@", buf, 0x20u);
+      }
+    }
+
+    v105 = &loadedLqm[v13];
+    v106 = v105[8];
+    v107 = *v105;
+    if (v106 <= v107)
+    {
+      v108 = v129;
+    }
+
+    else
+    {
+      v108 = v12;
+    }
+
+    if (v106 >= v107)
+    {
+      v109 = v107;
+    }
+
+    else
+    {
+      v109 = v106;
+    }
+
+    if (v109 != v108)
+    {
+      if (v21)
+      {
+        [v15 setLinkQuality:v109];
+        date = [MEMORY[0x277CBEAA8] date];
+        [date timeIntervalSince1970];
+        linkQualityUpdateDelay[typeCopy] = -(realTimeLqmLastUpdated[typeCopy] - v111 * 1000.0);
+
+        v112 = netepochsLogHandle;
+        if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+          v113 = linkQualityUpdateDelay[typeCopy];
+          *buf = 134218752;
+          *v135 = typeCopy;
+          *&v135[8] = 2048;
+          *v136 = v113;
+          *&v136[8] = 1024;
+          *v137 = v108;
+          *&v137[4] = 1024;
+          *&v137[6] = v109;
+          _os_log_impl(&dword_23255B000, v112, OS_LOG_TYPE_DEFAULT, "linkQuality updated, interface type = %ld, delay = %f ms, (old/new) = (%d/%d)", buf, 0x22u);
+        }
+      }
+
+      else
+      {
+        [(NetworkAnalyticsEngine *)selfCopy _actUponLoadedLqmChangeFrom:v108 to:v109 onInterfaceType:typeCopy];
+      }
+    }
+
+    goto LABEL_92;
+  }
+
+  v22 = netepochsLogHandle;
+  if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 67109120;
+    *v135 = typeCopy;
+    _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "Unexpected interface type %u", buf, 8u);
+  }
+
+LABEL_92:
 }
 
 - (void)_trackRealTimeLqmLastUpdatedOnInterfaceType:(unsigned __int8)type
 {
   typeCopy = type;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSince1970];
   v6 = v5 * 1000.0;
@@ -1367,14 +1895,12 @@ LABEL_4:
   v7 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134218240;
-    v10 = typeCopy;
-    v11 = 2048;
-    v12 = v6;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "realTimeLqm was last updated on interface type %ld at %f", &v9, 0x16u);
+    v8 = 134218240;
+    v9 = typeCopy;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "realTimeLqm was last updated on interface type %ld at %f", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientTransactionsRelease
@@ -1397,77 +1923,71 @@ LABEL_4:
 
 - (void)shutdown
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 134217984;
+    v4 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "network analytics engine: saving context for %p", &v5, 0xCu);
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "network analytics engine: saving context for %p", &v4, 0xCu);
   }
 
   [(NetworkAnalyticsEngine *)self _flushAllJournalRecords];
   [(AnalyticsWorkspace *)self->super.workspace save];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_retrieveCellCarrierName
 {
-  v15 = *MEMORY[0x277D85DE8];
-  serverConnection = self->serverConnection;
-  v3 = _CTServerConnectionCopyProviderNameUsingCarrierBundle();
-  v4 = v3;
-  v5 = HIDWORD(v3);
-  if (HIDWORD(v3))
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = _CTServerConnectionCopyProviderNameUsingCarrierBundle();
+  v3 = v2;
+  v4 = HIDWORD(v2);
+  if (HIDWORD(v2))
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = v3 == 0;
+    v5 = v2 == 0;
   }
 
-  if (!v6)
+  if (!v5)
   {
-    v7 = netepochsLogHandle;
+    v6 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
+      v10 = v3;
+      v11 = 1024;
       v12 = v4;
-      v13 = 1024;
-      v14 = v5;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionCopyProviderNameUsingCarrierBundle returned with error(%d, %d)", buf, 0xEu);
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionCopyProviderNameUsingCarrierBundle returned with error(%d, %d)", buf, 0xEu);
     }
   }
 
-  v8 = 0;
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = 0;
 
-  return v8;
+  return v7;
 }
 
 - (int64_t)_retrieveCellId
 {
-  v12 = *MEMORY[0x277D85DE8];
-  serverConnection = self->serverConnection;
-  v4 = _CTServerConnectionCellMonitorCopyCellInfo();
-  v5 = v4;
-  v6 = HIDWORD(v4);
-  v7 = netepochsLogHandle;
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = _CTServerConnectionCellMonitorCopyCellInfo();
+  v4 = v3;
+  v5 = HIDWORD(v3);
+  v6 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v11[0] = v5;
-    LOWORD(v11[1]) = 1024;
-    *(&v11[1] + 2) = v6;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionCellMonitorCopyCellInfo failed with error(%d, %d)", buf, 0xEu);
+    v9[0] = v4;
+    LOWORD(v9[1]) = 1024;
+    *(&v9[1] + 2) = v5;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionCellMonitorCopyCellInfo failed with error(%d, %d)", buf, 0xEu);
   }
 
   [(NetworkAnalyticsEngine *)self _setRadioTechnology:0 forInterfaceType:5];
-  result = 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)_retrieveCellId:(id)id
@@ -1487,7 +2007,7 @@ LABEL_4:
 
 void __42__NetworkAnalyticsEngine__retrieveCellId___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1495,9 +2015,9 @@ void __42__NetworkAnalyticsEngine__retrieveCellId___block_invoke(uint64_t a1, vo
     v7 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "[CoreTelephonyClient copyCellInfo:completion:] failed with error %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "[CoreTelephonyClient copyCellInfo:completion:] failed with error %@", &v8, 0xCu);
     }
   }
 
@@ -1507,33 +2027,31 @@ void __42__NetworkAnalyticsEngine__retrieveCellId___block_invoke(uint64_t a1, vo
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_processCTCellInfo:(id)info
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v26[0] = 0;
-  v26[1] = v26;
-  v26[2] = 0x2020000000;
-  v27 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x2020000000;
+  v26 = 0;
   v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __45__NetworkAnalyticsEngine__processCTCellInfo___block_invoke;
   aBlock[3] = &unk_27898D9B0;
-  aBlock[4] = &v22;
-  aBlock[5] = &v18;
-  aBlock[6] = v26;
+  aBlock[4] = &v21;
+  aBlock[5] = &v17;
+  aBlock[6] = v25;
   v5 = _Block_copy(aBlock);
   legacyInfo = [infoCopy legacyInfo];
   if (!legacyInfo)
@@ -1544,13 +2062,13 @@ void __42__NetworkAnalyticsEngine__retrieveCellId___block_invoke(uint64_t a1, vo
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __45__NetworkAnalyticsEngine__processCTCellInfo___block_invoke_329;
-    v15[3] = &unk_27898D9D8;
-    v16 = v5;
-    [legacyInfo enumerateObjectsUsingBlock:v15];
-    v7 = v16;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __45__NetworkAnalyticsEngine__processCTCellInfo___block_invoke_329;
+    v14[3] = &unk_27898D9D8;
+    v15 = v5;
+    [legacyInfo enumerateObjectsUsingBlock:v14];
+    v7 = v15;
     goto LABEL_11;
   }
 
@@ -1575,37 +2093,36 @@ LABEL_9:
       v10 = objc_opt_class();
       v11 = NSStringFromClass(v10);
       *buf = 138412546;
-      v29 = v11;
-      v30 = 2112;
-      v31 = legacyInfo;
+      v28 = v11;
+      v29 = 2112;
+      v30 = legacyInfo;
       _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Unexpected object of class %@ returned as legacyInfo: %@", buf, 0x16u);
     }
   }
 
 LABEL_11:
 
-  [(NetworkAnalyticsEngine *)self _setRadioTechnology:*(v19 + 24) forInterfaceType:5];
-  v12 = v23[3];
+  [(NetworkAnalyticsEngine *)self _setRadioTechnology:*(v18 + 24) forInterfaceType:5];
+  v12 = v22[3];
 
-  _Block_object_dispose(&v18, 8);
-  _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(v26, 8);
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(v25, 8);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 void __45__NetworkAnalyticsEngine__processCTCellInfo___block_invoke(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*MEMORY[0x277CC3878]];
   v5 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = v3;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Finding RAT and cell id from cellDict: %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v3;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Finding RAT and cell id from cellDict: %@", &v17, 0xCu);
   }
 
   if (v4)
@@ -1618,9 +2135,9 @@ void __45__NetworkAnalyticsEngine__processCTCellInfo___block_invoke(void *a1, vo
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v18 = 0;
-          [v6 getBytes:&v18 range:{13, 3}];
-          *(*(a1[4] + 8) + 24) = v18;
+          v17 = 0;
+          [v6 getBytes:&v17 range:{13, 3}];
+          *(*(a1[4] + 8) + 24) = v17;
           *(*(a1[5] + 8) + 24) = 6;
         }
       }
@@ -1644,10 +2161,10 @@ void __45__NetworkAnalyticsEngine__processCTCellInfo___block_invoke(void *a1, vo
       }
 
       *(*(a1[4] + 8) + 24) = [v7 intValue];
-      v9 = *(a1[5] + 8);
-      v10 = 5;
+      v8 = *(a1[5] + 8);
+      v9 = 5;
 LABEL_15:
-      *(v9 + 24) = v10;
+      *(v8 + 24) = v9;
 LABEL_9:
 
       goto LABEL_10;
@@ -1668,9 +2185,9 @@ LABEL_9:
     Type = CFNumberGetType(v7);
     if (Type == kCFNumberSInt32Type)
     {
-      v12 = (*(a1[6] + 8) + 24);
-      v13 = v7;
-      v14 = kCFNumberSInt32Type;
+      v11 = (*(a1[6] + 8) + 24);
+      v12 = v7;
+      v13 = kCFNumberSInt32Type;
     }
 
     else
@@ -1681,88 +2198,86 @@ LABEL_9:
 LABEL_24:
         if ([v4 isEqualToString:*MEMORY[0x277CC38E8]])
         {
-          v15 = [v3 objectForKeyedSubscript:*MEMORY[0x277CC3898]];
-          if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v15 intValue] > 0)
+          v14 = [v3 objectForKeyedSubscript:*MEMORY[0x277CC3898]];
+          if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v14 intValue] > 0)
           {
-            v16 = 10;
+            v15 = 10;
           }
 
           else
           {
-            v16 = 2;
+            v15 = 2;
           }
 
-          *(*(a1[5] + 8) + 24) = v16;
+          *(*(a1[5] + 8) + 24) = v15;
 
           goto LABEL_9;
         }
 
         if ([v4 isEqualToString:*MEMORY[0x277CC38F0]])
         {
-          v9 = *(a1[5] + 8);
-          v10 = 11;
+          v8 = *(a1[5] + 8);
+          v9 = 11;
         }
 
         else if ([v4 isEqualToString:*MEMORY[0x277CC38E0]])
         {
-          v9 = *(a1[5] + 8);
-          v10 = 3;
+          v8 = *(a1[5] + 8);
+          v9 = 3;
         }
 
         else if ([v4 isEqualToString:*MEMORY[0x277CC3900]])
         {
-          v9 = *(a1[5] + 8);
-          v10 = 4;
+          v8 = *(a1[5] + 8);
+          v9 = 4;
         }
 
         else if ([v4 isEqualToString:*MEMORY[0x277CC38D8]])
         {
-          v9 = *(a1[5] + 8);
-          v10 = 7;
+          v8 = *(a1[5] + 8);
+          v9 = 7;
         }
 
         else if ([v4 isEqualToString:*MEMORY[0x277CC3908]])
         {
-          v9 = *(a1[5] + 8);
-          v10 = 8;
+          v8 = *(a1[5] + 8);
+          v9 = 8;
         }
 
         else
         {
-          v17 = [v4 isEqualToString:*MEMORY[0x277CC38F8]];
-          v9 = *(a1[5] + 8);
-          if (v17)
+          v16 = [v4 isEqualToString:*MEMORY[0x277CC38F8]];
+          v8 = *(a1[5] + 8);
+          if (v16)
           {
-            v10 = 9;
+            v9 = 9;
           }
 
           else
           {
-            v10 = 1;
+            v9 = 1;
           }
         }
 
         goto LABEL_15;
       }
 
-      v12 = (*(a1[6] + 8) + 24);
-      v13 = v7;
-      v14 = kCFNumberIntType;
+      v11 = (*(a1[6] + 8) + 24);
+      v12 = v7;
+      v13 = kCFNumberIntType;
     }
 
-    CFNumberGetValue(v13, v14, v12);
+    CFNumberGetValue(v12, v13, v11);
     *(*(a1[4] + 8) + 24) = *(*(a1[6] + 8) + 24);
     goto LABEL_24;
   }
 
 LABEL_10:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __45__NetworkAnalyticsEngine__processCTCellInfo___block_invoke_329(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1785,20 +2300,153 @@ void __45__NetworkAnalyticsEngine__processCTCellInfo___block_invoke_329(uint64_t
       v11 = v10;
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
-      v15 = 138412546;
-      v16 = v13;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Unexpected object of class %@ found in legacyInfo array: %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v13;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Unexpected object of class %@ found in legacyInfo array: %@", &v14, 0x16u);
     }
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (void)_updateCellInternetStatus:(int)status pdpContext:(int)context
+{
+  v18 = *MEMORY[0x277D85DE8];
+  if (status == -1)
+  {
+    PacketContextActiveByServiceType = _CTServerConnectionGetPacketContextActiveByServiceType();
+    v6 = PacketContextActiveByServiceType;
+    v7 = HIDWORD(PacketContextActiveByServiceType);
+    if (HIDWORD(PacketContextActiveByServiceType))
+    {
+      v8 = 0;
+    }
+
+    else
+    {
+      v8 = PacketContextActiveByServiceType == 0;
+    }
+
+    if (!v8)
+    {
+      v9 = netepochsLogHandle;
+      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109376;
+        *v16 = v6;
+        *&v16[4] = 1024;
+        *&v16[6] = v7;
+        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionGetPacketContextActiveByServiceType returned with error(%d, %d)", buf, 0xEu);
+      }
+    }
+
+    status = 0;
+    *&context = 0;
+  }
+
+  self->cellInternetStatus = status;
+  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"pdp_ip%d", *&context];
+  cellInternetPDPContext = self->cellInternetPDPContext;
+  self->cellInternetPDPContext = v10;
+
+  v12 = netepochsLogHandle;
+  if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = self->cellInternetPDPContext;
+    cellInternetStatus = self->cellInternetStatus;
+    *buf = 138412546;
+    *v16 = v13;
+    *&v16[8] = 1024;
+    v17 = cellInternetStatus;
+    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Cell Internet status updated, PDP context = %@, status = %d", buf, 0x12u);
+  }
+}
+
+- (void)_cellNetworkChangeForInterface:(id)interface roamingEvent:(BOOL)event subscription:(id)subscription
+{
+  eventCopy = event;
+  v34 = *MEMORY[0x277D85DE8];
+  interfaceCopy = interface;
+  subscriptionCopy = subscription;
+  if (interfaceCopy)
+  {
+    *buf = 0;
+    v29 = buf;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__9;
+    v32 = __Block_byref_object_dispose__9;
+    v33 = 0;
+    v26[0] = 0;
+    v26[1] = v26;
+    v26[2] = 0x3032000000;
+    v26[3] = __Block_byref_object_copy__9;
+    v26[4] = __Block_byref_object_dispose__9;
+    v27 = 0;
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __83__NetworkAnalyticsEngine__cellNetworkChangeForInterface_roamingEvent_subscription___block_invoke;
+    aBlock[3] = &unk_27898DA00;
+    v23 = buf;
+    v24 = v26;
+    v25 = eventCopy;
+    v21 = interfaceCopy;
+    selfCopy = self;
+    v10 = _Block_copy(aBlock);
+    v11 = netepochsLogHandle;
+    v12 = os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT);
+    if (subscriptionCopy)
+    {
+      if (v12)
+      {
+        *v19 = 0;
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Cell network change on CoreTelephonyClient callback path", v19, 2u);
+      }
+
+      v13 = [subscriptionCopy objectForKeyedSubscript:@"carrierName"];
+      v14 = *(v29 + 5);
+      *(v29 + 5) = v13;
+
+      v15 = [subscriptionCopy objectForKeyedSubscript:@"ctCellInfo"];
+      v10[2](v10, [(NetworkAnalyticsEngine *)self _processCTCellInfo:v15]);
+    }
+
+    else
+    {
+      if (v12)
+      {
+        *v19 = 0;
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Cell network change on dual SIM/modern hardware path", v19, 2u);
+      }
+
+      _retrieveCellCarrierName = [(NetworkAnalyticsEngine *)self _retrieveCellCarrierName];
+      v18 = *(v29 + 5);
+      *(v29 + 5) = _retrieveCellCarrierName;
+
+      [(NetworkAnalyticsEngine *)self _retrieveCellId:v10];
+    }
+
+    _Block_object_dispose(v26, 8);
+    _Block_object_dispose(buf, 8);
+  }
+
+  else
+  {
+    v16 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      *&buf[4] = eventCopy;
+      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "Cell network is no longer available, roaming = %d", buf, 8u);
+    }
+
+    [(NetworkAnalyticsEngine *)self _primaryKeyChange:0 interfaceName:0 interfaceType:5 roamingEvent:eventCopy];
+    [(NetworkAnalyticsEngine *)self _setRadioTechnology:0 forInterfaceType:5];
+  }
 }
 
 uint64_t __83__NetworkAnalyticsEngine__cellNetworkChangeForInterface_roamingEvent_subscription___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (a2 >= 1 && *(*(*(a1 + 48) + 8) + 40))
   {
     v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%lld", *(*(*(a1 + 48) + 8) + 40), a2];
@@ -1815,11 +2463,11 @@ uint64_t __83__NetworkAnalyticsEngine__cellNetworkChangeForInterface_roamingEven
       v8 = *(a1 + 32);
       v9 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138412803;
-      v17 = v8;
-      v18 = 2113;
-      v19 = v9;
-      v20 = 2048;
-      v21 = a2;
+      v16 = v8;
+      v17 = 2113;
+      v18 = v9;
+      v19 = 2048;
+      v20 = a2;
       _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Unable to construct primary key on %@, carrier name = %{private}@, cell id = %lld", buf, 0x20u);
     }
   }
@@ -1831,53 +2479,48 @@ uint64_t __83__NetworkAnalyticsEngine__cellNetworkChangeForInterface_roamingEven
     v12 = *(*(*(a1 + 56) + 8) + 40);
     v13 = *(a1 + 64);
     *buf = 138412803;
-    v17 = v11;
-    v18 = 2113;
-    v19 = v12;
-    v20 = 1024;
-    LODWORD(v21) = v13;
+    v16 = v11;
+    v17 = 2113;
+    v18 = v12;
+    v19 = 1024;
+    LODWORD(v20) = v13;
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Cell network changed: interface-name %@ primary-key %{private}@ roaming %d", buf, 0x1Cu);
   }
 
-  result = [*(a1 + 40) _primaryKeyChange:*(*(*(a1 + 56) + 8) + 40) interfaceName:*(a1 + 32) interfaceType:5 roamingEvent:*(a1 + 64)];
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _primaryKeyChange:*(*(*(a1 + 56) + 8) + 40) interfaceName:*(a1 + 32) interfaceType:5 roamingEvent:*(a1 + 64)];
 }
 
 - (void)_retrieveICCID
 {
-  v15 = *MEMORY[0x277D85DE8];
-  serverConnection = self->serverConnection;
-  v4 = _CTServerConnectionCopySIMIdentity();
-  v5 = v4;
-  v6 = HIDWORD(v4);
-  if (HIDWORD(v4))
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = _CTServerConnectionCopySIMIdentity();
+  v4 = v3;
+  v5 = HIDWORD(v3);
+  if (HIDWORD(v3))
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = v4 == 0;
+    v6 = v3 == 0;
   }
 
-  if (!v7)
+  if (!v6)
   {
-    v8 = netepochsLogHandle;
+    v7 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
+      v10 = v4;
+      v11 = 1024;
       v12 = v5;
-      v13 = 1024;
-      v14 = v6;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "_CTServerConnectionCopySIMIdentity returned with error(%d, %d)", buf, 0xEu);
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "_CTServerConnectionCopySIMIdentity returned with error(%d, %d)", buf, 0xEu);
     }
   }
 
-  v9 = 0;
-  [(NetworkAnalyticsEngine *)self _updateICCID:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  [(NetworkAnalyticsEngine *)self _updateICCID:v8];
 }
 
 - (void)_updateICCID:(id)d
@@ -1896,7 +2539,7 @@ uint64_t __83__NetworkAnalyticsEngine__cellNetworkChangeForInterface_roamingEven
 
 void __39__NetworkAnalyticsEngine__updateICCID___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) isEqualToString:*(*(a1 + 40) + 448)] & 1) == 0)
   {
     objc_storeStrong((*(a1 + 40) + 448), *(a1 + 32));
@@ -1905,11 +2548,11 @@ void __39__NetworkAnalyticsEngine__updateICCID___block_invoke(uint64_t a1)
     {
       v3 = *(*(a1 + 40) + 448);
       *buf = 138477827;
-      v12 = v3;
+      v11 = v3;
       _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "Current data SIM ICCID changed to %{private}@", buf, 0xCu);
     }
 
-    v9 = @"ICCID";
+    v8 = @"ICCID";
     v4 = *(*(a1 + 40) + 448);
     v5 = v4;
     if (!v4)
@@ -1917,8 +2560,8 @@ void __39__NetworkAnalyticsEngine__updateICCID___block_invoke(uint64_t a1)
       v5 = [MEMORY[0x277CBEB68] null];
     }
 
-    v10 = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+    v9 = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
     if (!v4)
     {
     }
@@ -1926,13 +2569,11 @@ void __39__NetworkAnalyticsEngine__updateICCID___block_invoke(uint64_t a1)
     v7 = [MEMORY[0x277CCAB98] defaultCenter];
     [v7 postNotificationName:@"kNotificationCurrentICCIDChange" object:*(a1 + 40) userInfo:v6];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processCellLinkStateNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if (notificationCopy)
   {
@@ -1942,31 +2583,31 @@ void __39__NetworkAnalyticsEngine__updateICCID___block_invoke(uint64_t a1)
       v5 = netepochsLogHandle;
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = notificationCopy;
-        _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "eLQM: Received BB link state notification payload = %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = notificationCopy;
+        _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "eLQM: Received BB link state notification payload = %@", &v13, 0xCu);
       }
 
-      v21.location = 1;
-      v21.length = 1;
-      CFDataGetBytes(notificationCopy, v21, &cellStateChangeBitmask);
+      v20.location = 1;
+      v20.length = 1;
+      CFDataGetBytes(notificationCopy, v20, &cellStateChangeBitmask);
       if (cellStateChangeBitmask)
       {
         v6 = 1;
-        v22.location = 2;
-        v22.length = 1;
-        CFDataGetBytes(notificationCopy, v22, &cellLqmState);
+        v21.location = 2;
+        v21.length = 1;
+        CFDataGetBytes(notificationCopy, v21, &cellLqmState);
         if ([(NetworkAnalyticsEngine *)self _getCellInternetStatus])
         {
           goto LABEL_10;
         }
 
-        v13 = netepochsLogHandle;
+        v12 = netepochsLogHandle;
         if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = 138412290;
-          v15 = notificationCopy;
-          _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "eLQM: Not consuming LQM as cell Internet is down: payload = %@", &v14, 0xCu);
+          v13 = 138412290;
+          v14 = notificationCopy;
+          _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "eLQM: Not consuming LQM as cell Internet is down: payload = %@", &v13, 0xCu);
         }
       }
 
@@ -1975,9 +2616,9 @@ LABEL_10:
       if ((cellStateChangeBitmask & 2) != 0 && [(NetworkAnalyticsEngine *)self _getCellInternetStatus])
       {
         v10 = 1;
-        v23.location = 3;
-        v23.length = 1;
-        CFDataGetBytes(notificationCopy, v23, &cellRrcState);
+        v22.location = 3;
+        v22.length = 1;
+        CFDataGetBytes(notificationCopy, v22, &cellRrcState);
       }
 
       else
@@ -1987,9 +2628,9 @@ LABEL_10:
 
       if ((cellStateChangeBitmask & 4) != 0)
       {
-        v24.location = 4;
-        v24.length = 1;
-        CFDataGetBytes(notificationCopy, v24, &cellInterfaceState);
+        v23.location = 4;
+        v23.length = 1;
+        CFDataGetBytes(notificationCopy, v23, &cellInterfaceState);
       }
 
       else if ((v6 | v10) != 1)
@@ -2011,15 +2652,15 @@ LABEL_20:
       v11 = netepochsLogHandle;
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138413058;
-        v15 = notificationCopy;
-        v16 = 1024;
-        *v17 = cellLqmState;
-        *&v17[4] = 1024;
-        *&v17[6] = cellRrcState;
-        v18 = 1024;
-        v19 = cellInterfaceState;
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "eLQM: Updated cell states (payload = %@): (LQM = %d, RRC = %d, INTF = %d)", &v14, 0x1Eu);
+        v13 = 138413058;
+        v14 = notificationCopy;
+        v15 = 1024;
+        *v16 = cellLqmState;
+        *&v16[4] = 1024;
+        *&v16[6] = cellRrcState;
+        v17 = 1024;
+        v18 = cellInterfaceState;
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "eLQM: Updated cell states (payload = %@): (LQM = %d, RRC = %d, INTF = %d)", &v13, 0x1Eu);
       }
 
       goto LABEL_20;
@@ -2030,22 +2671,20 @@ LABEL_20:
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
   {
     v8 = v7;
-    v14 = 134218242;
-    v15 = notificationCopy;
-    v16 = 2112;
-    *v17 = objc_opt_class();
-    v9 = *v17;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "eLQM: Received BB link state notification payload %p or unexpected class %@", &v14, 0x16u);
+    v13 = 134218242;
+    v14 = notificationCopy;
+    v15 = 2112;
+    *v16 = objc_opt_class();
+    v9 = *v16;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "eLQM: Received BB link state notification payload %p or unexpected class %@", &v13, 0x16u);
   }
 
 LABEL_24:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processCellLinkFingerprintNotification:(id)notification
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if (notificationCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -2067,13 +2706,13 @@ LABEL_24:
     *&buf[16] = 0x2020000000;
     Copy = CFDataCreateCopy(*MEMORY[0x277CBECE8], notificationCopy);
     queue = [(AnalyticsEngineCore *)self queue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __65__NetworkAnalyticsEngine_processCellLinkFingerprintNotification___block_invoke;
-    v13[3] = &unk_27898DA28;
-    v13[4] = self;
-    v13[5] = buf;
-    dispatch_async(queue, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __65__NetworkAnalyticsEngine_processCellLinkFingerprintNotification___block_invoke;
+    v12[3] = &unk_27898DA28;
+    v12[4] = self;
+    v12[5] = buf;
+    dispatch_async(queue, v12);
 
     _Block_object_dispose(buf, 8);
   }
@@ -2092,8 +2731,6 @@ LABEL_24:
       _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "eLQM: Received BB link fingerprint notification payload %p or unexpected class %@", buf, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __65__NetworkAnalyticsEngine_processCellLinkFingerprintNotification___block_invoke(uint64_t a1)
@@ -2109,7 +2746,7 @@ void __65__NetworkAnalyticsEngine_processCellLinkFingerprintNotification___block
 
 - (void)processCellTrafficClassNotification:(id)notification
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if (notificationCopy)
   {
@@ -2120,7 +2757,7 @@ void __65__NetworkAnalyticsEngine_processCellLinkFingerprintNotification___block
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v24 = notificationCopy;
+        *v23 = notificationCopy;
         _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "eLQM: Received BB traffic class enable/disable notification: payload = %@", buf, 0xCu);
       }
 
@@ -2128,26 +2765,26 @@ void __65__NetworkAnalyticsEngine_processCellLinkFingerprintNotification___block
       if (Length == 8)
       {
         *buffer = 0;
-        v27.location = 4;
-        v27.length = 4;
-        CFDataGetBytes(notificationCopy, v27, buffer);
+        v26.location = 4;
+        v26.length = 4;
+        CFDataGetBytes(notificationCopy, v26, buffer);
         cellTrafficClassState = *buffer != 0;
         v7 = netepochsLogHandle;
         if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
         {
 LABEL_14:
-          v21 = @"State";
+          v20 = @"State";
           v15 = [MEMORY[0x277CCABB0] numberWithBool:cellTrafficClassState != 0];
-          v22 = v15;
-          v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+          v21 = v15;
+          v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
 
           v17 = netepochsLogHandle;
           if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            *v24 = @"kNotificationCellTrafficClassReportCapable";
-            *&v24[8] = 1024;
-            LODWORD(v25) = cellTrafficClassState;
+            *v23 = @"kNotificationCellTrafficClassReportCapable";
+            *&v23[8] = 1024;
+            LODWORD(v24) = cellTrafficClassState;
             _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "eLQM: Posting SF notification with label = %@, cellTrafficClassState = %d", buf, 0x12u);
           }
 
@@ -2158,9 +2795,9 @@ LABEL_14:
         }
 
         *buf = 67109376;
-        *v24 = *buffer;
-        *&v24[4] = 1024;
-        *&v24[6] = cellTrafficClassState;
+        *v23 = *buffer;
+        *&v23[4] = 1024;
+        *&v23[6] = cellTrafficClassState;
         v8 = "eLQM: Payload size is 8, second word %d, cellTrafficClassState %d";
         v9 = v7;
       }
@@ -2173,9 +2810,9 @@ LABEL_14:
           goto LABEL_14;
         }
 
-        v28.location = 1;
-        v28.length = 1;
-        CFDataGetBytes(notificationCopy, v28, &cellTrafficClassState);
+        v27.location = 1;
+        v27.length = 1;
+        CFDataGetBytes(notificationCopy, v27, &cellTrafficClassState);
         v14 = netepochsLogHandle;
         if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
         {
@@ -2183,9 +2820,9 @@ LABEL_14:
         }
 
         *buf = 67109376;
-        *v24 = v13;
-        *&v24[4] = 1024;
-        *&v24[6] = cellTrafficClassState;
+        *v23 = v13;
+        *&v23[4] = 1024;
+        *&v23[6] = cellTrafficClassState;
         v8 = "eLQM: Payload size is %d, cellTrafficClassState %d";
         v9 = v14;
       }
@@ -2200,21 +2837,19 @@ LABEL_14:
   {
     v11 = v10;
     *buf = 134218242;
-    *v24 = notificationCopy;
-    *&v24[8] = 2112;
-    v25 = objc_opt_class();
-    v12 = v25;
+    *v23 = notificationCopy;
+    *&v23[8] = 2112;
+    v24 = objc_opt_class();
+    v12 = v24;
     _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "eLQM: Received BB traffic class enable/disable notification payload %p or unexpected class %@", buf, 0x16u);
   }
 
 LABEL_17:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processCellDataStallNotification:(id)notification
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if (notificationCopy)
   {
@@ -2225,7 +2860,7 @@ LABEL_17:
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v17 = notificationCopy;
+        *v16 = notificationCopy;
         _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "eLQM: Received BB data stall enable/disable notification: payload = %@", buf, 0xCu);
       }
 
@@ -2233,9 +2868,9 @@ LABEL_17:
       if (Length == 8)
       {
         *buffer = 0;
-        v20.location = 4;
-        v20.length = 4;
-        CFDataGetBytes(notificationCopy, v20, buffer);
+        v19.location = 4;
+        v19.length = 4;
+        CFDataGetBytes(notificationCopy, v19, buffer);
         cellDataStallState = *buffer != 0;
         v6 = netepochsLogHandle;
         if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
@@ -2244,9 +2879,9 @@ LABEL_17:
         }
 
         *buf = 67109376;
-        *v17 = *buffer;
-        *&v17[4] = 1024;
-        *&v17[6] = cellDataStallState;
+        *v16 = *buffer;
+        *&v16[4] = 1024;
+        *&v16[6] = cellDataStallState;
         v7 = "eLQM: Payload size is 8, second word %d, cellDataStallState %d";
         v8 = v6;
       }
@@ -2254,7 +2889,7 @@ LABEL_17:
       else
       {
         v12 = Length;
-        if (Length < 2 || (v21.location = 1, v21.length = 1, CFDataGetBytes(notificationCopy, v21, &cellDataStallState), v13 = netepochsLogHandle, !os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO)))
+        if (Length < 2 || (v20.location = 1, v20.length = 1, CFDataGetBytes(notificationCopy, v20, &cellDataStallState), v13 = netepochsLogHandle, !os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO)))
         {
 LABEL_14:
           if (trafficClassVersionInUse == 1)
@@ -2268,9 +2903,9 @@ LABEL_14:
         }
 
         *buf = 67109376;
-        *v17 = v12;
-        *&v17[4] = 1024;
-        *&v17[6] = cellDataStallState;
+        *v16 = v12;
+        *&v16[4] = 1024;
+        *&v16[6] = cellDataStallState;
         v7 = "eLQM: Payload size is %d, cellDataStallState %d";
         v8 = v13;
       }
@@ -2285,21 +2920,19 @@ LABEL_14:
   {
     v10 = v9;
     *buf = 134218242;
-    *v17 = notificationCopy;
-    *&v17[8] = 2112;
-    v18 = objc_opt_class();
-    v11 = v18;
+    *v16 = notificationCopy;
+    *&v16[8] = 2112;
+    v17 = objc_opt_class();
+    v11 = v17;
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "eLQM: Received BB data stall enable/disable notification payload %p or unexpected class %@", buf, 0x16u);
   }
 
 LABEL_16:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processCellHighThroughputState:(id)state
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v5 = cellHighThroughputState;
   if ([stateCopy unsignedShortValue] == v5)
@@ -2307,9 +2940,9 @@ LABEL_16:
     v6 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
     {
-      v13 = 67109120;
-      LODWORD(v14) = cellHighThroughputState;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "eLQM: Ignoring duplicate high throughput notification of value %d", &v13, 8u);
+      v12 = 67109120;
+      LODWORD(v13) = cellHighThroughputState;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "eLQM: Ignoring duplicate high throughput notification of value %d", &v12, 8u);
     }
   }
 
@@ -2319,9 +2952,9 @@ LABEL_16:
     v7 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 67109120;
-      LODWORD(v14) = cellHighThroughputState;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "eLQM: Processing BB high throughput enable/disable notification: high throughput state = %d", &v13, 8u);
+      v12 = 67109120;
+      LODWORD(v13) = cellHighThroughputState;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "eLQM: Processing BB high throughput enable/disable notification: high throughput state = %d", &v12, 8u);
     }
 
     trafficClassVersionInUse = 3;
@@ -2332,68 +2965,66 @@ LABEL_16:
       dword_2814D2FF8 = 0;
     }
 
-    v17 = @"State";
+    v16 = @"State";
     v8 = [MEMORY[0x277CCABB0] numberWithShort:cellHighThroughputState];
-    v18[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v17[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
 
     v10 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412546;
-      v14 = @"kNotificationCellThroughputAdvisoryCapable";
-      v15 = 1024;
-      v16 = cellHighThroughputState;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "eLQM: Posting throughput advisory  notification with label = %@, cellHighThroughputState = %d", &v13, 0x12u);
+      v12 = 138412546;
+      v13 = @"kNotificationCellThroughputAdvisoryCapable";
+      v14 = 1024;
+      v15 = cellHighThroughputState;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "eLQM: Posting throughput advisory  notification with label = %@, cellHighThroughputState = %d", &v12, 0x12u);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:@"kNotificationCellThroughputAdvisoryCapable" object:self userInfo:v9];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processCellDataTransferTimeNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if (notificationCopy)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v21.location = 3;
-      v21.length = 1;
-      CFDataGetBytes(notificationCopy, v21, &cellEstTransferTimeConfidence);
-      v22.location = 4;
+      v20.location = 3;
+      v20.length = 1;
+      CFDataGetBytes(notificationCopy, v20, &cellEstTransferTimeConfidence);
+      v21.location = 4;
+      v21.length = 4;
+      CFDataGetBytes(notificationCopy, v21, &cellPayloadInfoULKB);
+      v22.location = 8;
       v22.length = 4;
-      CFDataGetBytes(notificationCopy, v22, &cellPayloadInfoULKB);
-      v23.location = 8;
+      CFDataGetBytes(notificationCopy, v22, &cellPayloadInfoDLKB);
+      v23.location = 12;
       v23.length = 4;
-      CFDataGetBytes(notificationCopy, v23, &cellPayloadInfoDLKB);
-      v24.location = 12;
+      CFDataGetBytes(notificationCopy, v23, &cellEstTransferTimeULSecs);
+      v24.location = 16;
       v24.length = 4;
-      CFDataGetBytes(notificationCopy, v24, &cellEstTransferTimeULSecs);
-      v25.location = 16;
-      v25.length = 4;
-      CFDataGetBytes(notificationCopy, v25, &cellEstTransferTimeDLSecs);
+      CFDataGetBytes(notificationCopy, v24, &cellEstTransferTimeDLSecs);
       v5 = netepochsLogHandle;
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138413570;
-        v11 = notificationCopy;
-        v12 = 1024;
-        *v13 = cellPayloadInfoULKB;
-        *&v13[4] = 1024;
-        *&v13[6] = cellPayloadInfoDLKB;
-        v14 = 1024;
-        v15 = cellEstTransferTimeULSecs;
-        v16 = 1024;
-        v17 = cellEstTransferTimeDLSecs;
-        v18 = 1024;
-        v19 = cellEstTransferTimeConfidence;
-        _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "eLQM: Received BB data transfer time notification: payload = %@, UL/DL = (%u, %u) KB, transfer time = (%u, %u) sec, confidence = %u", &v10, 0x2Au);
+        v9 = 138413570;
+        v10 = notificationCopy;
+        v11 = 1024;
+        *v12 = cellPayloadInfoULKB;
+        *&v12[4] = 1024;
+        *&v12[6] = cellPayloadInfoDLKB;
+        v13 = 1024;
+        v14 = cellEstTransferTimeULSecs;
+        v15 = 1024;
+        v16 = cellEstTransferTimeDLSecs;
+        v17 = 1024;
+        v18 = cellEstTransferTimeConfidence;
+        _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "eLQM: Received BB data transfer time notification: payload = %@, UL/DL = (%u, %u) KB, transfer time = (%u, %u) sec, confidence = %u", &v9, 0x2Au);
       }
 
       queue = [(AnalyticsEngineCore *)self queue];
@@ -2406,22 +3037,20 @@ LABEL_16:
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
   {
     queue = v7;
-    v10 = 134218242;
-    v11 = notificationCopy;
-    v12 = 2112;
-    *v13 = objc_opt_class();
-    v8 = *v13;
-    _os_log_impl(&dword_23255B000, queue, OS_LOG_TYPE_ERROR, "eLQM: Received BB data transfer time notification payload %p or unexpected class %@", &v10, 0x16u);
+    v9 = 134218242;
+    v10 = notificationCopy;
+    v11 = 2112;
+    *v12 = objc_opt_class();
+    v8 = *v12;
+    _os_log_impl(&dword_23255B000, queue, OS_LOG_TYPE_ERROR, "eLQM: Received BB data transfer time notification payload %p or unexpected class %@", &v9, 0x16u);
 
 LABEL_8:
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __66__NetworkAnalyticsEngine_processCellDataTransferTimeNotification___block_invoke()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (cellEstTransferTimeCompletionBlock)
   {
     v0 = _Block_copy(cellEstTransferTimeCompletionBlock);
@@ -2436,9 +3065,9 @@ void __66__NetworkAnalyticsEngine_processCellDataTransferTimeNotification___bloc
     {
       v4 = v3;
       v5 = _Block_copy(v0);
-      v8 = 134217984;
-      v9 = v5;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "eLQM: Invoking completion block %p", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = v5;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "eLQM: Invoking completion block %p", &v7, 0xCu);
     }
 
     v0[2](v0);
@@ -2449,31 +3078,29 @@ void __66__NetworkAnalyticsEngine_processCellDataTransferTimeNotification___bloc
     v6 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "eLQM: Couldn't invoke completion block", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "eLQM: Couldn't invoke completion block", &v7, 2u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processCellDataTransferTimeEnabledNotification:(id)notification
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if (notificationCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v4 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = notificationCopy;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "eLQM: Received BB dynamic support for transfer time notification: payload = %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = notificationCopy;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "eLQM: Received BB dynamic support for transfer time notification: payload = %@", &v8, 0xCu);
     }
 
-    v14.location = 1;
-    v14.length = 1;
-    CFDataGetBytes(notificationCopy, v14, cellEstTransferTimeSupportedStatus);
+    v13.location = 1;
+    v13.length = 1;
+    CFDataGetBytes(notificationCopy, v13, cellEstTransferTimeSupportedStatus);
   }
 
   else
@@ -2482,21 +3109,19 @@ void __66__NetworkAnalyticsEngine_processCellDataTransferTimeNotification___bloc
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
       v6 = v5;
-      v9 = 134218242;
-      v10 = notificationCopy;
-      v11 = 2112;
-      v12 = objc_opt_class();
-      v7 = v12;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "eLQM: Received BB data transfer time enabled notification payload %p or unexpected class %@", &v9, 0x16u);
+      v8 = 134218242;
+      v9 = notificationCopy;
+      v10 = 2112;
+      v11 = objc_opt_class();
+      v7 = v11;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "eLQM: Received BB data transfer time enabled notification payload %p or unexpected class %@", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processCellLinkPowerCostNotification:(id)notification
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if (notificationCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -2504,7 +3129,7 @@ void __66__NetworkAnalyticsEngine_processCellDataTransferTimeNotification___bloc
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = notificationCopy;
+      v17 = notificationCopy;
       _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "eLQM: Received BB power cost: payload = %@", buf, 0xCu);
     }
 
@@ -2517,19 +3142,19 @@ void __66__NetworkAnalyticsEngine_processCellDataTransferTimeNotification___bloc
         v12 = v11;
         Length = CFDataGetLength(notificationCopy);
         *buf = 134217984;
-        v18 = Length;
+        v17 = Length;
         _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "eLQM: Received BB power cost, but not enough data in it (%ld bytes)", buf, 0xCu);
       }
     }
 
     else
     {
-      v22.location = 1;
+      v21.location = 1;
+      v21.length = 1;
+      CFDataGetBytes(notificationCopy, v21, buffer);
+      v22.location = 2;
       v22.length = 1;
-      CFDataGetBytes(notificationCopy, v22, buffer);
-      v23.location = 2;
-      v23.length = 1;
-      CFDataGetBytes(notificationCopy, v23, &buffer[1]);
+      CFDataGetBytes(notificationCopy, v22, &buffer[1]);
       v5 = [NetworkStateRelay getStateRelayFor:5];
       v6 = v5;
       if (v5)
@@ -2560,45 +3185,43 @@ void __66__NetworkAnalyticsEngine_processCellDataTransferTimeNotification___bloc
     {
       v9 = v8;
       *buf = 134218242;
-      v18 = notificationCopy;
-      v19 = 2112;
-      v20 = objc_opt_class();
-      v10 = v20;
+      v17 = notificationCopy;
+      v18 = 2112;
+      v19 = objc_opt_class();
+      v10 = v19;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "eLQM: Received BB power cost notification payload %p or unexpected class %@", buf, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRRCChange
 {
-  v26[3] = *MEMORY[0x277D85DE8];
-  v25[0] = @"State";
+  v25[3] = *MEMORY[0x277D85DE8];
+  v24[0] = @"State";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:cellRrcState != 0];
-  v26[0] = v3;
-  v25[1] = @"Detail";
+  v25[0] = v3;
+  v24[1] = @"Detail";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:cellStateChangeBitmask == 7];
-  v26[1] = v4;
-  v25[2] = @"StateChangeTimestamp";
+  v25[1] = v4;
+  v24[2] = @"StateChangeTimestamp";
   v5 = MEMORY[0x277CCABB0];
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSince1970];
   v7 = [v5 numberWithDouble:?];
-  v26[2] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
+  v25[2] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
 
   v9 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v18 = @"kNotificationCellLinkStateChange";
-    v19 = 1024;
-    v20 = cellRrcState;
-    v21 = 1024;
-    v22 = cellStateChangeBitmask;
-    v23 = 2112;
-    v24 = v8;
+    v17 = @"kNotificationCellLinkStateChange";
+    v18 = 1024;
+    v19 = cellRrcState;
+    v20 = 1024;
+    v21 = cellStateChangeBitmask;
+    v22 = 2112;
+    v23 = v8;
     _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "eLQM: Posting RRC change notification with label = %@, state = %d, bitmask = %d, info = %@", buf, 0x22u);
   }
 
@@ -2629,11 +3252,9 @@ void __66__NetworkAnalyticsEngine_processCellDataTransferTimeNotification___bloc
     }
 
     *buf = 136315138;
-    v18 = v14;
+    v17 = v14;
     _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "cellRrcConnected updated to %s", buf, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleLQMChange
@@ -2654,7 +3275,7 @@ void __66__NetworkAnalyticsEngine_processCellDataTransferTimeNotification___bloc
 
 void __41__NetworkAnalyticsEngine_handleLQMChange__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _epochForInterfaceType:5];
   if (v2)
   {
@@ -2663,13 +3284,13 @@ void __41__NetworkAnalyticsEngine_handleLQMChange__block_invoke(uint64_t a1)
     {
       v4 = *(a1 + 44);
       v5 = *(a1 + 40);
-      v10 = 134218496;
-      v11 = v4;
-      v12 = 1024;
-      v13 = v5;
-      v14 = 1024;
-      v15 = cellLqmState;
-      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Computing loaded LQM upon eLQM notification on interface type %ld, LQM(old/new) = (%d/%d)", &v10, 0x18u);
+      v9 = 134218496;
+      v10 = v4;
+      v11 = 1024;
+      v12 = v5;
+      v13 = 1024;
+      v14 = cellLqmState;
+      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Computing loaded LQM upon eLQM notification on interface type %ld, LQM(old/new) = (%d/%d)", &v9, 0x18u);
     }
 
     [*(a1 + 32) _computeAndApplyLoadedLqmFrom:cellLqmState oldLqm:*(a1 + 40) onInterfaceType:*(a1 + 44)];
@@ -2683,17 +3304,15 @@ void __41__NetworkAnalyticsEngine_handleLQMChange__block_invoke(uint64_t a1)
     {
       v7 = *(a1 + 44);
       v8 = *(a1 + 40);
-      v10 = 134218496;
-      v11 = v7;
-      v12 = 1024;
-      v13 = v8;
-      v14 = 1024;
-      v15 = cellLqmState;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Epoch is nil upon eLQM notification, defer computing loaded LQM on interface type %ld, LQM(pended/new) = (%d/%d)", &v10, 0x18u);
+      v9 = 134218496;
+      v10 = v7;
+      v11 = 1024;
+      v12 = v8;
+      v13 = 1024;
+      v14 = cellLqmState;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Epoch is nil upon eLQM notification, defer computing loaded LQM on interface type %ld, LQM(pended/new) = (%d/%d)", &v9, 0x18u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetCellStatesForXCTests
@@ -2716,14 +3335,14 @@ void __41__NetworkAnalyticsEngine_handleLQMChange__block_invoke(uint64_t a1)
 
 - (void)_retrieveDNSServersForEpoch:(id)epoch
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   epochCopy = epoch;
   interfaceName = [epochCopy interfaceName];
   v5 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v35 = interfaceName;
+    v34 = interfaceName;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Determine if %@ has DNS server", buf, 0xCu);
   }
 
@@ -2735,7 +3354,7 @@ void __41__NetworkAnalyticsEngine_handleLQMChange__block_invoke(uint64_t a1)
     if (v8)
     {
       *buf = 138412290;
-      v35 = interfaceName;
+      v34 = interfaceName;
       _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "learning DNS servers for %@ from dns_config", buf, 0xCu);
     }
 
@@ -2745,13 +3364,13 @@ void __41__NetworkAnalyticsEngine_handleLQMChange__block_invoke(uint64_t a1)
 
     if (*(v6 + 12) < 1)
     {
-      v31 = 0;
+      v30 = 0;
     }
 
     else
     {
       v10 = 0;
-      v31 = 0;
+      v30 = 0;
       do
       {
         v11 = *(*(v6 + 16) + 8 * v10);
@@ -2773,9 +3392,9 @@ void __41__NetworkAnalyticsEngine_handleLQMChange__block_invoke(uint64_t a1)
                   if (v16)
                   {
                     v17 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v16 length:*v16];
-                    v33 = 0;
-                    v18 = validateSockAddrToString(v17, 0, &v33);
-                    v19 = v33;
+                    v32 = 0;
+                    v18 = validateSockAddrToString(v17, 0, &v32);
+                    v19 = v32;
 
                     if (v18 && [(__CFString *)v19 length])
                     {
@@ -2790,9 +3409,9 @@ void __41__NetworkAnalyticsEngine_handleLQMChange__block_invoke(uint64_t a1)
                         if (v22)
                         {
                           *buf = 138412547;
-                          v35 = interfaceName;
-                          v36 = 2113;
-                          v37 = v19;
+                          v34 = interfaceName;
+                          v35 = 2113;
+                          v36 = v19;
                           _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "learning that %@ has DNS server over local route: %{private}@", buf, 0x16u);
                         }
                       }
@@ -2802,13 +3421,13 @@ void __41__NetworkAnalyticsEngine_handleLQMChange__block_invoke(uint64_t a1)
                         if (v22)
                         {
                           *buf = 138412547;
-                          v35 = interfaceName;
-                          v36 = 2113;
-                          v37 = v19;
+                          v34 = interfaceName;
+                          v35 = 2113;
+                          v36 = v19;
                           _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "learning that %@ has DNS server over default route: %{private}@", buf, 0x16u);
                         }
 
-                        v31 = 1;
+                        v30 = 1;
                       }
                     }
 
@@ -2843,13 +3462,13 @@ void __41__NetworkAnalyticsEngine_handleLQMChange__block_invoke(uint64_t a1)
 
       v26 = [NetworkStateRelay getStateRelayFor:v25];
       [v26 setDnsOut:0];
-      if (v31)
+      if (v30)
       {
         [v26 setInternetDnsOut:0];
       }
     }
 
-    [epochCopy setHasInternetDNS:v31 & 1];
+    [epochCopy setHasInternetDNS:v30 & 1];
     [(NetworkAnalyticsEngine *)selfCopy _updateCombinedDNSCounts];
     v27 = +[NDFCoreShim sharedInstance];
     hasDNS4 = [epochCopy hasDNS];
@@ -2863,8 +3482,24 @@ void __41__NetworkAnalyticsEngine_handleLQMChange__block_invoke(uint64_t a1)
     *buf = 0;
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "dns_config is NULL", buf, 2u);
   }
+}
 
-  v29 = *MEMORY[0x277D85DE8];
++ (void)updateLOI:(int64_t)i forInterfaceType:(unsigned __int8)type
+{
+  v5 = [NetworkStateRelay getStateRelayFor:type];
+  if (v5)
+  {
+    v6 = v5;
+    [v5 setLoi:i];
+    v5 = v6;
+  }
+}
+
++ (void)refreshLOIForInterfaceType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v4 = +[NetworkAnalyticsEngine sharedInstance];
+  [v4 _refreshLOIForInterfaceType:typeCopy];
 }
 
 - (void)_refreshLOIForInterfaceType:(unsigned __int8)type
@@ -2911,7 +3546,7 @@ void __54__NetworkAnalyticsEngine__refreshLOIForInterfaceType___block_invoke(uin
 
 void __73__NetworkAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isEqual:@"path"])
   {
     v2 = *(a1 + 64);
@@ -2924,24 +3559,24 @@ void __73__NetworkAnalyticsEngine_observeValueForKeyPath_ofObject_change_context
         v5 = *(a1 + 40);
         v6 = *(a1 + 48);
         *buf = 134218498;
-        v118 = v4;
-        v119 = 2112;
-        v120 = v5;
-        v121 = 2112;
-        v122 = v6;
+        v117 = v4;
+        v118 = 2112;
+        v119 = v5;
+        v120 = 2112;
+        v121 = v6;
         _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "Unexpected context %p, object %@, change %@", buf, 0x20u);
       }
 
-      goto LABEL_33;
+      return;
     }
 
     v10 = *(a1 + 40);
-    v100 = v10;
+    v99 = v10;
     if (v10 && ([v10 path], (v11 = objc_claimAutoreleasedReturnValue()) != 0))
     {
       v12 = v11;
       v13 = [v11 status];
-      v99 = v12;
+      v98 = v12;
       if (v13 == 1)
       {
         v14 = [v12 interface];
@@ -2952,17 +3587,17 @@ void __73__NetworkAnalyticsEngine_observeValueForKeyPath_ofObject_change_context
           v17 = [v15 interfaceIndex];
           v18 = [MEMORY[0x277D6B3E0] nwFunctionalInterfaceTypeForNWInterface:v15];
           v19 = [v12 isConstrained];
-          v97 = [v12 isExpensive];
-          LODWORD(v98) = [v12 supportsIPv4];
-          HIDWORD(v98) = [v12 supportsIPv6];
+          v96 = [v12 isExpensive];
+          LODWORD(v97) = [v12 supportsIPv4];
+          HIDWORD(v97) = [v12 supportsIPv6];
           v20 = v17;
         }
 
         else
         {
-          v97 = 0;
+          v96 = 0;
           v19 = 0;
-          v98 = 0;
+          v97 = 0;
           v18 = 0;
           v16 = 0;
           v20 = -1;
@@ -2985,28 +3620,28 @@ LABEL_19:
           }
 
           *buf = 138413058;
-          v118 = v23;
-          v119 = 2112;
-          v120 = v24;
-          v121 = 2112;
-          v122 = v16;
-          v123 = 1024;
-          v124 = v20;
+          v117 = v23;
+          v118 = 2112;
+          v119 = v24;
+          v120 = 2112;
+          v121 = v16;
+          v122 = 1024;
+          v123 = v20;
           _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "NWPath: %@  %@   interfaceName %@ index %d", buf, 0x26u);
         }
 
-        v103 = [NetworkStateRelay getStateRelayFor:5];
-        v102 = [NetworkStateRelay getStateRelayFor:3];
+        v102 = [NetworkStateRelay getStateRelayFor:5];
+        v101 = [NetworkStateRelay getStateRelayFor:3];
         v25 = [NetworkStateRelay getStateRelayFor:2];
         v26 = [NetworkStateRelay getStateRelayFor:7];
         v27 = v26;
-        v101 = v26;
+        v100 = v26;
         if (v2 == 3 && v21 != 1)
         {
           [v25 setActive:0];
-          v115 = @"State";
-          v116 = MEMORY[0x277CBEC28];
-          v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
+          v114 = @"State";
+          v115 = MEMORY[0x277CBEC28];
+          v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
           v29 = [MEMORY[0x277CCAB98] defaultCenter];
           [v29 postNotificationName:@"kNotificationNewConnectivityEpochWired" object:*(a1 + 56) userInfo:v28];
 
@@ -3021,16 +3656,16 @@ LABEL_31:
           v32 = v16;
 LABEL_32:
 
-          goto LABEL_33;
+          return;
         }
 
         if (v2 == 4 && v21 != 1)
         {
           [v26 setInterfaceName:0];
           [v27 setActive:0];
-          v113 = @"State";
-          v114 = MEMORY[0x277CBEC28];
-          v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v114 forKeys:&v113 count:1];
+          v112 = @"State";
+          v113 = MEMORY[0x277CBEC28];
+          v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
           v31 = [MEMORY[0x277CCAB98] defaultCenter];
           [v31 postNotificationName:@"kNotificationNewConnectivityEpochCompanionLink" object:*(a1 + 56) userInfo:v28];
 
@@ -3053,97 +3688,97 @@ LABEL_32:
           {
             if (v2 == 4)
             {
-              v34 = netepochsLogHandle;
+              v33 = netepochsLogHandle;
               if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v118 = v16;
-                _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEFAULT, "companion link interface change to %@", buf, 0xCu);
+                v117 = v16;
+                _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_DEFAULT, "companion link interface change to %@", buf, 0xCu);
               }
 
-              [v101 setInterfaceName:v16];
-              [v101 setInterfaceIndex:v20];
-              [v101 setConstrained:v19];
-              [v101 setExpensive:v97];
-              [v101 setSupportsIPv4:v98];
-              [v101 setSupportsIPv6:HIDWORD(v98)];
-              [v101 setActive:1];
-              v109 = @"State";
-              v110 = MEMORY[0x277CBEC38];
-              v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v110 forKeys:&v109 count:1];
-              v36 = [MEMORY[0x277CCAB98] defaultCenter];
-              [v36 postNotificationName:@"kNotificationNewConnectivityEpochCompanionLink" object:*(a1 + 56) userInfo:v35];
+              [v100 setInterfaceName:v16];
+              [v100 setInterfaceIndex:v20];
+              [v100 setConstrained:v19];
+              [v100 setExpensive:v96];
+              [v100 setSupportsIPv4:v97];
+              [v100 setSupportsIPv6:HIDWORD(v97)];
+              [v100 setActive:1];
+              v108 = @"State";
+              v109 = MEMORY[0x277CBEC38];
+              v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
+              v35 = [MEMORY[0x277CCAB98] defaultCenter];
+              [v35 postNotificationName:@"kNotificationNewConnectivityEpochCompanionLink" object:*(a1 + 56) userInfo:v34];
 
               valuePtr = -1;
               if (v16)
               {
-                v37 = *MEMORY[0x277CE16B0];
+                v36 = *MEMORY[0x277CE16B0];
                 NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(*MEMORY[0x277CBECE8], *MEMORY[0x277CE1648], v16, *MEMORY[0x277CE16B0]);
                 if (NetworkInterfaceEntity)
                 {
-                  v39 = NetworkInterfaceEntity;
-                  v40 = SCDynamicStoreCopyValue(_SCDynamicStore, NetworkInterfaceEntity);
-                  v41 = netepochsLogHandle;
+                  v38 = NetworkInterfaceEntity;
+                  v39 = SCDynamicStoreCopyValue(_SCDynamicStore, NetworkInterfaceEntity);
+                  v40 = netepochsLogHandle;
                   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    v118 = v40;
-                    v119 = 2112;
-                    v120 = v39;
-                    _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_DEFAULT, "SCDynamicStore retrieved value: %@ for key: %@", buf, 0x16u);
+                    v117 = v39;
+                    v118 = 2112;
+                    v119 = v38;
+                    _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEFAULT, "SCDynamicStore retrieved value: %@ for key: %@", buf, 0x16u);
                   }
 
-                  CFRelease(v39);
-                  if (v40)
+                  CFRelease(v38);
+                  if (v39)
                   {
-                    v42 = CFGetTypeID(v40);
-                    if (v42 == CFDictionaryGetTypeID())
+                    v41 = CFGetTypeID(v39);
+                    if (v41 == CFDictionaryGetTypeID())
                     {
-                      Value = CFDictionaryGetValue(v40, v37);
+                      Value = CFDictionaryGetValue(v39, v36);
                       if (Value)
                       {
-                        v44 = Value;
-                        v45 = CFGetTypeID(Value);
-                        if (v45 == CFNumberGetTypeID())
+                        v43 = Value;
+                        v44 = CFGetTypeID(Value);
+                        if (v44 == CFNumberGetTypeID())
                         {
-                          CFNumberGetValue(v44, kCFNumberIntType, &valuePtr);
+                          CFNumberGetValue(v43, kCFNumberIntType, &valuePtr);
                         }
                       }
                     }
 
-                    CFRelease(v40);
+                    CFRelease(v39);
                   }
 
                   goto LABEL_101;
                 }
 
-                v82 = netepochsLogHandle;
+                v81 = netepochsLogHandle;
                 if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412546;
-                  v118 = v16;
-                  v119 = 2112;
-                  v120 = v37;
-                  v75 = "SCDynamicStore failed to create a key on interface: %@ for entity: %@";
-                  v76 = v82;
-                  v77 = OS_LOG_TYPE_DEFAULT;
-                  v78 = 22;
+                  v117 = v16;
+                  v118 = 2112;
+                  v119 = v36;
+                  v74 = "SCDynamicStore failed to create a key on interface: %@ for entity: %@";
+                  v75 = v81;
+                  v76 = OS_LOG_TYPE_DEFAULT;
+                  v77 = 22;
                   goto LABEL_100;
                 }
               }
 
               else
               {
-                v74 = netepochsLogHandle;
+                v73 = netepochsLogHandle;
                 if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  v75 = "retrieve_lqm_for_interface is called with nil ifName";
-                  v76 = v74;
-                  v77 = OS_LOG_TYPE_ERROR;
-                  v78 = 2;
+                  v74 = "retrieve_lqm_for_interface is called with nil ifName";
+                  v75 = v73;
+                  v76 = OS_LOG_TYPE_ERROR;
+                  v77 = 2;
 LABEL_100:
-                  _os_log_impl(&dword_23255B000, v76, v77, v75, buf, v78);
+                  _os_log_impl(&dword_23255B000, v75, v76, v74, buf, v77);
                 }
               }
 
@@ -3151,9 +3786,9 @@ LABEL_101:
               dword_2814D301C = valuePtr;
               dword_2814D3040 = valuePtr;
               dword_2814D3060 = valuePtr;
-              v81 = v101;
+              v80 = v100;
 LABEL_102:
-              [v81 setLinkQuality:?];
+              [v80 setLinkQuality:?];
 
               goto LABEL_32;
             }
@@ -3165,68 +3800,68 @@ LABEL_102:
                 if (v18 != 2)
                 {
 LABEL_109:
-                  v87 = netepochsLogHandle;
+                  v86 = netepochsLogHandle;
                   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    v118 = v16;
-                    v119 = 2048;
-                    v120 = v18;
-                    _os_log_impl(&dword_23255B000, v87, OS_LOG_TYPE_DEFAULT, "primary interface change to %@, type %ld", buf, 0x16u);
+                    v117 = v16;
+                    v118 = 2048;
+                    v119 = v18;
+                    _os_log_impl(&dword_23255B000, v86, OS_LOG_TYPE_DEFAULT, "primary interface change to %@, type %ld", buf, 0x16u);
                   }
 
-                  v88 = [MEMORY[0x277D6B3E0] nwInterfaceTypeForNWFunctionalInterfaceType:v18];
+                  v87 = [MEMORY[0x277D6B3E0] nwInterfaceTypeForNWFunctionalInterfaceType:v18];
                   if (v18 == 7)
                   {
-                    v107[0] = @"Detail";
-                    v89 = [MEMORY[0x277CCABB0] numberWithInteger:v88];
-                    v107[1] = @"kNotificationNewConnectivityEpochCompanionLink";
-                    v108[0] = v89;
-                    v108[1] = MEMORY[0x277CBEC38];
-                    v90 = MEMORY[0x277CBEAC0];
-                    v91 = v108;
-                    v92 = v107;
-                    v93 = 2;
+                    v106[0] = @"Detail";
+                    v88 = [MEMORY[0x277CCABB0] numberWithInteger:v87];
+                    v106[1] = @"kNotificationNewConnectivityEpochCompanionLink";
+                    v107[0] = v88;
+                    v107[1] = MEMORY[0x277CBEC38];
+                    v89 = MEMORY[0x277CBEAC0];
+                    v90 = v107;
+                    v91 = v106;
+                    v92 = 2;
                   }
 
                   else
                   {
-                    v105 = @"Detail";
-                    v89 = [MEMORY[0x277CCABB0] numberWithInteger:v88];
-                    v106 = v89;
-                    v90 = MEMORY[0x277CBEAC0];
-                    v91 = &v106;
-                    v92 = &v105;
-                    v93 = 1;
+                    v104 = @"Detail";
+                    v88 = [MEMORY[0x277CCABB0] numberWithInteger:v87];
+                    v105 = v88;
+                    v89 = MEMORY[0x277CBEAC0];
+                    v90 = &v105;
+                    v91 = &v104;
+                    v92 = 1;
                   }
 
-                  v28 = [v90 dictionaryWithObjects:v91 forKeys:v92 count:v93];
+                  v28 = [v89 dictionaryWithObjects:v90 forKeys:v91 count:v92];
 
-                  v94 = runningRNFTurbo;
-                  if (v94 != +[CellFallbackHandler turboRNF])
+                  v93 = runningRNFTurbo;
+                  if (v93 != +[CellFallbackHandler turboRNF])
                   {
                     __73__NetworkAnalyticsEngine_observeValueForKeyPath_ofObject_change_context___block_invoke_cold_1(a1);
                   }
 
-                  v95 = [MEMORY[0x277CCAB98] defaultCenter];
-                  [v95 postNotificationName:@"kNotificationNewPrimaryInterface" object:*(a1 + 56) userInfo:v28];
+                  v94 = [MEMORY[0x277CCAB98] defaultCenter];
+                  [v94 postNotificationName:@"kNotificationNewPrimaryInterface" object:*(a1 + 56) userInfo:v28];
 
-                  v96 = [MEMORY[0x277CCAB98] defaultCenter];
-                  [v96 postNotificationName:@"stateRelay" object:*(a1 + 56) userInfo:0];
+                  v95 = [MEMORY[0x277CCAB98] defaultCenter];
+                  [v95 postNotificationName:@"stateRelay" object:*(a1 + 56) userInfo:0];
 
                   goto LABEL_31;
                 }
 
-                [v103 setPrimary:0];
                 [v102 setPrimary:0];
-                v67 = v25;
-                v68 = 1;
+                [v101 setPrimary:0];
+                v66 = v25;
+                v67 = 1;
                 goto LABEL_107;
               }
 
-              [v103 setPrimary:0];
-              v83 = v102;
-              v84 = 0;
+              [v102 setPrimary:0];
+              v82 = v101;
+              v83 = 0;
             }
 
             else
@@ -3237,208 +3872,208 @@ LABEL_109:
                 {
                   if (v18 == 5)
                   {
-                    [v103 setPrimary:1];
-                    [v102 setPrimary:0];
-                    [v25 setPrimary:0];
+                    [v102 setPrimary:1];
                     [v101 setPrimary:0];
-                    v57 = netepochsLogHandle;
+                    [v25 setPrimary:0];
+                    [v100 setPrimary:0];
+                    v56 = netepochsLogHandle;
                     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
                     {
-                      v58 = *(a1 + 56);
-                      v59 = v57;
-                      v60 = [v58 _getCellInternetStatus];
-                      v61 = "";
-                      if (!v60)
+                      v57 = *(a1 + 56);
+                      v58 = v56;
+                      v59 = [v57 _getCellInternetStatus];
+                      v60 = "";
+                      if (!v59)
                       {
-                        v61 = "not ";
+                        v60 = "not ";
                       }
 
                       *buf = 136315394;
-                      v118 = v61;
-                      v119 = 2112;
-                      v120 = v16;
-                      _os_log_impl(&dword_23255B000, v59, OS_LOG_TYPE_DEFAULT, "Cellular Internet is %sactive on %@", buf, 0x16u);
+                      v117 = v60;
+                      v118 = 2112;
+                      v119 = v16;
+                      _os_log_impl(&dword_23255B000, v58, OS_LOG_TYPE_DEFAULT, "Cellular Internet is %sactive on %@", buf, 0x16u);
                     }
                   }
 
                   goto LABEL_109;
                 }
 
-                [v103 setPrimary:0];
                 [v102 setPrimary:0];
+                [v101 setPrimary:0];
                 [v25 setPrimary:0];
-                v85 = v101;
-                v86 = 1;
+                v84 = v100;
+                v85 = 1;
                 goto LABEL_108;
               }
 
-              [v103 setPrimary:0];
-              v83 = v102;
-              v84 = 1;
+              [v102 setPrimary:0];
+              v82 = v101;
+              v83 = 1;
             }
 
-            [v83 setPrimary:v84];
-            v67 = v25;
-            v68 = 0;
+            [v82 setPrimary:v83];
+            v66 = v25;
+            v67 = 0;
 LABEL_107:
-            [v67 setPrimary:v68];
-            v85 = v101;
-            v86 = 0;
+            [v66 setPrimary:v67];
+            v84 = v100;
+            v85 = 0;
 LABEL_108:
-            [v85 setPrimary:v86];
+            [v84 setPrimary:v85];
             goto LABEL_109;
           }
 
-          v46 = netepochsLogHandle;
+          v45 = netepochsLogHandle;
           if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v118 = v16;
-            _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_DEFAULT, "wired interface change to %@", buf, 0xCu);
+            v117 = v16;
+            _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEFAULT, "wired interface change to %@", buf, 0xCu);
           }
 
           [v25 setInterfaceName:v16];
           [v25 setInterfaceIndex:v20];
           [v25 setConstrained:v19];
-          [v25 setExpensive:v97];
-          [v25 setSupportsIPv4:v98];
-          [v25 setSupportsIPv6:HIDWORD(v98)];
+          [v25 setExpensive:v96];
+          [v25 setSupportsIPv4:v97];
+          [v25 setSupportsIPv6:HIDWORD(v97)];
           [v25 setActive:1];
-          v111 = @"State";
-          v112 = MEMORY[0x277CBEC38];
-          v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v112 forKeys:&v111 count:1];
-          v47 = [MEMORY[0x277CCAB98] defaultCenter];
-          [v47 postNotificationName:@"kNotificationNewConnectivityEpochWired" object:*(a1 + 56) userInfo:v35];
+          v110 = @"State";
+          v111 = MEMORY[0x277CBEC38];
+          v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
+          v46 = [MEMORY[0x277CCAB98] defaultCenter];
+          [v46 postNotificationName:@"kNotificationNewConnectivityEpochWired" object:*(a1 + 56) userInfo:v34];
 
           valuePtr = -1;
           if (v16)
           {
-            v48 = *MEMORY[0x277CE16B0];
-            v49 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(*MEMORY[0x277CBECE8], *MEMORY[0x277CE1648], v16, *MEMORY[0x277CE16B0]);
-            if (v49)
+            v47 = *MEMORY[0x277CE16B0];
+            v48 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(*MEMORY[0x277CBECE8], *MEMORY[0x277CE1648], v16, *MEMORY[0x277CE16B0]);
+            if (v48)
             {
-              v50 = v49;
-              v51 = SCDynamicStoreCopyValue(_SCDynamicStore, v49);
-              v52 = netepochsLogHandle;
+              v49 = v48;
+              v50 = SCDynamicStoreCopyValue(_SCDynamicStore, v48);
+              v51 = netepochsLogHandle;
               if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v118 = v51;
-                v119 = 2112;
-                v120 = v50;
-                _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_DEFAULT, "SCDynamicStore retrieved value: %@ for key: %@", buf, 0x16u);
+                v117 = v50;
+                v118 = 2112;
+                v119 = v49;
+                _os_log_impl(&dword_23255B000, v51, OS_LOG_TYPE_DEFAULT, "SCDynamicStore retrieved value: %@ for key: %@", buf, 0x16u);
               }
 
-              CFRelease(v50);
-              if (v51)
+              CFRelease(v49);
+              if (v50)
               {
-                v53 = CFGetTypeID(v51);
-                if (v53 == CFDictionaryGetTypeID())
+                v52 = CFGetTypeID(v50);
+                if (v52 == CFDictionaryGetTypeID())
                 {
-                  v54 = CFDictionaryGetValue(v51, v48);
-                  if (v54)
+                  v53 = CFDictionaryGetValue(v50, v47);
+                  if (v53)
                   {
-                    v55 = v54;
-                    v56 = CFGetTypeID(v54);
-                    if (v56 == CFNumberGetTypeID())
+                    v54 = v53;
+                    v55 = CFGetTypeID(v53);
+                    if (v55 == CFNumberGetTypeID())
                     {
-                      CFNumberGetValue(v55, kCFNumberIntType, &valuePtr);
+                      CFNumberGetValue(v54, kCFNumberIntType, &valuePtr);
                     }
                   }
                 }
 
-                CFRelease(v51);
+                CFRelease(v50);
               }
 
               goto LABEL_94;
             }
 
-            v79 = netepochsLogHandle;
+            v78 = netepochsLogHandle;
             if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v118 = v16;
-              v119 = 2112;
-              v120 = v48;
-              v70 = "SCDynamicStore failed to create a key on interface: %@ for entity: %@";
-              v71 = v79;
-              v72 = OS_LOG_TYPE_DEFAULT;
-              v73 = 22;
+              v117 = v16;
+              v118 = 2112;
+              v119 = v47;
+              v69 = "SCDynamicStore failed to create a key on interface: %@ for entity: %@";
+              v70 = v78;
+              v71 = OS_LOG_TYPE_DEFAULT;
+              v72 = 22;
               goto LABEL_93;
             }
           }
 
           else
           {
-            v69 = netepochsLogHandle;
+            v68 = netepochsLogHandle;
             if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              v70 = "retrieve_lqm_for_interface is called with nil ifName";
-              v71 = v69;
-              v72 = OS_LOG_TYPE_ERROR;
-              v73 = 2;
+              v69 = "retrieve_lqm_for_interface is called with nil ifName";
+              v70 = v68;
+              v71 = OS_LOG_TYPE_ERROR;
+              v72 = 2;
 LABEL_93:
-              _os_log_impl(&dword_23255B000, v71, v72, v70, buf, v73);
+              _os_log_impl(&dword_23255B000, v70, v71, v69, buf, v72);
             }
           }
 
 LABEL_94:
           if (valuePtr == -1)
           {
-            v80 = 100;
+            v79 = 100;
           }
 
           else
           {
-            v80 = valuePtr;
+            v79 = valuePtr;
           }
 
-          dword_2814D3008 = v80;
-          dword_2814D302C = v80;
-          dword_2814D304C = v80;
-          v81 = v25;
+          dword_2814D3008 = v79;
+          dword_2814D302C = v79;
+          dword_2814D304C = v79;
+          v80 = v25;
           goto LABEL_102;
         }
 
         if (v2 == 1)
         {
-          [v102 setInterfaceName:v16];
-          [v102 setInterfaceIndex:v20];
-          [v102 setConstrained:v19];
-          [v102 setExpensive:v97];
-          [v102 setSupportsIPv4:v98];
-          [v102 setSupportsIPv6:HIDWORD(v98)];
-          [v102 setNoCostAdvantage:{objc_msgSend(v102, "expensive") ^ objc_msgSend(v103, "expensive") ^ 1}];
+          [v101 setInterfaceName:v16];
+          [v101 setInterfaceIndex:v20];
+          [v101 setConstrained:v19];
+          [v101 setExpensive:v96];
+          [v101 setSupportsIPv4:v97];
+          [v101 setSupportsIPv6:HIDWORD(v97)];
+          [v101 setNoCostAdvantage:{objc_msgSend(v101, "expensive") ^ objc_msgSend(v102, "expensive") ^ 1}];
           [*(a1 + 56) _wifiNetworkChange:v16];
           goto LABEL_32;
         }
 
-        [v103 setInterfaceName:v16];
-        [v103 setInterfaceIndex:v20];
-        [v103 setConstrained:v19];
-        [v103 setExpensive:v97];
-        [v103 setSupportsIPv4:v98];
-        [v103 setSupportsIPv6:HIDWORD(v98)];
-        [v102 setNoCostAdvantage:{objc_msgSend(v102, "expensive") ^ objc_msgSend(v103, "expensive") ^ 1}];
-        v62 = [*(a1 + 56) _epochForInterfaceType:5];
-        v63 = [*(a1 + 56) _getCellInternetPDPContext];
-        v64 = v63;
-        if (v16 && v63 && -[__CFString isEqualToString:](v16, "isEqualToString:", v63) && [*(a1 + 56) _getCellInternetStatus])
+        [v102 setInterfaceName:v16];
+        [v102 setInterfaceIndex:v20];
+        [v102 setConstrained:v19];
+        [v102 setExpensive:v96];
+        [v102 setSupportsIPv4:v97];
+        [v102 setSupportsIPv6:HIDWORD(v97)];
+        [v101 setNoCostAdvantage:{objc_msgSend(v101, "expensive") ^ objc_msgSend(v102, "expensive") ^ 1}];
+        v61 = [*(a1 + 56) _epochForInterfaceType:5];
+        v62 = [*(a1 + 56) _getCellInternetPDPContext];
+        v63 = v62;
+        if (v16 && v62 && -[__CFString isEqualToString:](v16, "isEqualToString:", v62) && [*(a1 + 56) _getCellInternetStatus])
         {
-          if (!v62)
+          if (!v61)
           {
-            v65 = *(a1 + 56);
-            v66 = v16;
+            v64 = *(a1 + 56);
+            v65 = v16;
 LABEL_82:
-            [v65 _cellNetworkChangeForInterface:v66 roamingEvent:0];
+            [v64 _cellNetworkChangeForInterface:v65 roamingEvent:0];
           }
         }
 
-        else if (v62)
+        else if (v61)
         {
-          v65 = *(a1 + 56);
-          v66 = 0;
+          v64 = *(a1 + 56);
+          v65 = 0;
           goto LABEL_82;
         }
 
@@ -3446,18 +4081,18 @@ LABEL_82:
       }
 
       v21 = v13;
-      v97 = 0;
+      v96 = 0;
       v19 = 0;
-      v98 = 0;
+      v97 = 0;
       v18 = 0;
       v16 = 0;
     }
 
     else
     {
-      v98 = 0;
-      v99 = 0;
       v97 = 0;
+      v98 = 0;
+      v96 = 0;
       v19 = 0;
       v18 = 0;
       v16 = 0;
@@ -3482,15 +4117,12 @@ LABEL_82:
         {
           v9 = *(*(a1 + 56) + 385);
           *buf = 67109120;
-          LODWORD(v118) = v9;
+          LODWORD(v117) = v9;
           _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Observed value for autoBugCaptureEnabled is %d", buf, 8u);
         }
       }
     }
   }
-
-LABEL_33:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)infoLinkStateChangedForSubscription:(id)subscription
@@ -3645,7 +4277,7 @@ LABEL_33:
 
 - (void)ctDataStatusChangedForSubscription:(id)subscription
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [subscription copy];
   v4 = [v3 objectForKeyedSubscript:@"ctDataStatus"];
   v5 = v4;
@@ -3698,9 +4330,9 @@ LABEL_33:
     v10 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v13[0] = 67109120;
-      v13[1] = cellNRFrequencyBand;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "NR frequency band set to %d", v13, 8u);
+      v12[0] = 67109120;
+      v12[1] = cellNRFrequencyBand;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "NR frequency band set to %d", v12, 8u);
     }
 
     v11 = [NetworkStateRelay getStateRelayFor:5];
@@ -3712,25 +4344,23 @@ LABEL_33:
     v8 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13[0]) = 0;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "CT data status is nil, cannot set NR frequency band", v13, 2u);
+      LOWORD(v12[0]) = 0;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "CT data status is nil, cannot set NR frequency band", v12, 2u);
     }
   }
 
 LABEL_21:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ratSelectionChangedForSubscription:(id)subscription
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   subscriptionCopy = subscription;
   v5 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 138477827;
-    v13 = subscriptionCopy;
+    v12 = subscriptionCopy;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "RAT selection changed notification with subscription: %{private}@", buf, 0xCu);
   }
 
@@ -3740,11 +4370,9 @@ LABEL_21:
   block[1] = 3221225472;
   block[2] = __61__NetworkAnalyticsEngine_ratSelectionChangedForSubscription___block_invoke;
   block[3] = &unk_27898A0C8;
-  v11 = v6;
+  v10 = v6;
   v8 = v6;
   dispatch_async(queue, block);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __61__NetworkAnalyticsEngine_ratSelectionChangedForSubscription___block_invoke(uint64_t a1)
@@ -3778,7 +4406,7 @@ void __61__NetworkAnalyticsEngine_ratSelectionChangedForSubscription___block_inv
 
 void __57__NetworkAnalyticsEngine_cellInfoChangedForSubscription___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _getCellInternetStatus];
   v3 = [NetworkStateRelay getStateRelayFor:5];
   v4 = v3;
@@ -3804,11 +4432,11 @@ void __57__NetworkAnalyticsEngine_cellInfoChangedForSubscription___block_invoke(
     v8 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = v5;
-      v19 = 1024;
-      v20 = v2;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring CT cell info change notification on interfaceName %@, cell Internet status: %d", &v17, 0x12u);
+      v16 = 138412546;
+      v17 = v5;
+      v18 = 1024;
+      v19 = v2;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring CT cell info change notification on interfaceName %@, cell Internet status: %d", &v16, 0x12u);
     }
   }
 
@@ -3832,14 +4460,12 @@ void __57__NetworkAnalyticsEngine_cellInfoChangedForSubscription___block_invoke(
         v15 = netepochsLogHandle;
         if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Expected to find CTCellInfo but received nil", &v17, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Expected to find CTCellInfo but received nil", &v16, 2u);
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cellularDualSimStatusChangedTo:(int64_t)to
@@ -3939,7 +4565,7 @@ void __60__NetworkAnalyticsEngine_countryCodeChangedForSubscription___block_invo
 
 - (void)signalStrengthChanged:(id)changed cellularRSRP:(id)p cellularSNR:(id)r
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   pCopy = p;
   rCopy = r;
@@ -3949,11 +4575,11 @@ void __60__NetworkAnalyticsEngine_countryCodeChangedForSubscription___block_invo
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v19 = changedCopy;
-      v20 = 2112;
-      v21 = pCopy;
-      v22 = 2112;
-      v23 = rCopy;
+      v18 = changedCopy;
+      v19 = 2112;
+      v20 = pCopy;
+      v21 = 2112;
+      v22 = rCopy;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "Received signal strength changed notification, new signal strength: %@, RSRP: %@, SNR: %@", buf, 0x20u);
     }
 
@@ -3962,13 +4588,11 @@ void __60__NetworkAnalyticsEngine_countryCodeChangedForSubscription___block_invo
     block[1] = 3221225472;
     block[2] = __73__NetworkAnalyticsEngine_signalStrengthChanged_cellularRSRP_cellularSNR___block_invoke;
     block[3] = &unk_27898A328;
-    v15 = changedCopy;
-    v16 = pCopy;
-    v17 = rCopy;
+    v14 = changedCopy;
+    v15 = pCopy;
+    v16 = rCopy;
     dispatch_async(queue, block);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__NetworkAnalyticsEngine_signalStrengthChanged_cellularRSRP_cellularSNR___block_invoke(void *a1)
@@ -4001,27 +4625,25 @@ uint64_t __73__NetworkAnalyticsEngine_signalStrengthChanged_cellularRSRP_cellula
 - (void)networkSlicingActiveChangedTo:(BOOL)to forSliceIndex:(unint64_t)index
 {
   toCopy = to;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v7 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
     indexCopy = index;
-    v14 = 1024;
-    v15 = toCopy;
+    v13 = 1024;
+    v14 = toCopy;
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Received network slicing active changed notification, new status for slice %lu: %{BOOL}d", buf, 0x12u);
   }
 
   queue = [(AnalyticsEngineCore *)self queue];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __70__NetworkAnalyticsEngine_networkSlicingActiveChangedTo_forSliceIndex___block_invoke;
-  v10[3] = &__block_descriptor_41_e5_v8__0l;
-  v10[4] = index;
-  v11 = toCopy;
-  dispatch_async(queue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __70__NetworkAnalyticsEngine_networkSlicingActiveChangedTo_forSliceIndex___block_invoke;
+  v9[3] = &__block_descriptor_41_e5_v8__0l;
+  v9[4] = index;
+  v10 = toCopy;
+  dispatch_async(queue, v9);
 }
 
 void __70__NetworkAnalyticsEngine_networkSlicingActiveChangedTo_forSliceIndex___block_invoke(uint64_t a1)
@@ -4038,12 +4660,12 @@ void __70__NetworkAnalyticsEngine_networkSlicingActiveChangedTo_forSliceIndex___
 - (void)nonTerrestrialNetworkActiveChangedTo:(BOOL)to
 {
   toCopy = to;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v11 = toCopy;
+    v10 = toCopy;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Received GF active changed notification, new status: %{BOOL}d", buf, 8u);
   }
 
@@ -4052,10 +4674,8 @@ void __70__NetworkAnalyticsEngine_networkSlicingActiveChangedTo_forSliceIndex___
   block[1] = 3221225472;
   block[2] = __63__NetworkAnalyticsEngine_nonTerrestrialNetworkActiveChangedTo___block_invoke;
   block[3] = &__block_descriptor_33_e5_v8__0l;
-  v9 = toCopy;
+  v8 = toCopy;
   dispatch_async(queue, block);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __63__NetworkAnalyticsEngine_nonTerrestrialNetworkActiveChangedTo___block_invoke(uint64_t a1)
@@ -4072,12 +4692,12 @@ void __63__NetworkAnalyticsEngine_nonTerrestrialNetworkActiveChangedTo___block_i
 - (void)stewieActiveChangedTo:(BOOL)to
 {
   toCopy = to;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v11 = toCopy;
+    v10 = toCopy;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Received satellite active changed notification, new status: %{BOOL}d", buf, 8u);
   }
 
@@ -4086,10 +4706,8 @@ void __63__NetworkAnalyticsEngine_nonTerrestrialNetworkActiveChangedTo___block_i
   block[1] = 3221225472;
   block[2] = __48__NetworkAnalyticsEngine_stewieActiveChangedTo___block_invoke;
   block[3] = &__block_descriptor_33_e5_v8__0l;
-  v9 = toCopy;
+  v8 = toCopy;
   dispatch_async(queue, block);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __48__NetworkAnalyticsEngine_stewieActiveChangedTo___block_invoke(uint64_t a1)
@@ -4113,7 +4731,7 @@ void __48__NetworkAnalyticsEngine_stewieActiveChangedTo___block_invoke(uint64_t 
 
 - (void)_observeNetworkFramework
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CD91F0]);
   [v3 setRequiredInterfaceType:1];
   [(NetworkAnalyticsEngine *)self setProhibitNetworkAgentsForNWParameters:v3];
@@ -4173,25 +4791,23 @@ void __48__NetworkAnalyticsEngine_stewieActiveChangedTo___block_invoke(uint64_t 
     v22 = self->etherPathEvaluator;
     companionPathEvaluator = self->companionPathEvaluator;
     v24 = self->primaryPathEvaluator;
-    v26 = 134219008;
-    v27 = v20;
-    v28 = 2048;
-    v29 = v21;
-    v30 = 2048;
-    v31 = v22;
-    v32 = 2048;
-    v33 = companionPathEvaluator;
-    v34 = 2048;
-    v35 = v24;
-    _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "PathEvaluators: cell %p wifi %p ether %p companion link %p primary %p", &v26, 0x34u);
+    v25 = 134219008;
+    v26 = v20;
+    v27 = 2048;
+    v28 = v21;
+    v29 = 2048;
+    v30 = v22;
+    v31 = 2048;
+    v32 = companionPathEvaluator;
+    v33 = 2048;
+    v34 = v24;
+    _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "PathEvaluators: cell %p wifi %p ether %p companion link %p primary %p", &v25, 0x34u);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (NetworkAnalyticsEngine)initWithWorkspace:(id)workspace params:(id)params queue:(id)queue
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   workspaceCopy = workspace;
   paramsCopy = params;
   queueCopy = queue;
@@ -4203,9 +4819,9 @@ void __48__NetworkAnalyticsEngine_stewieActiveChangedTo___block_invoke(uint64_t 
     queueCopy = dispatch_queue_create_with_target_V2("com.apple.symptoms.analytics.nets.queue", v12, v13);
   }
 
-  v30.receiver = self;
-  v30.super_class = NetworkAnalyticsEngine;
-  v14 = [(AnalyticsEngineCore *)&v30 initWithWorkspace:0 params:paramsCopy queue:queueCopy];
+  v29.receiver = self;
+  v29.super_class = NetworkAnalyticsEngine;
+  v14 = [(AnalyticsEngineCore *)&v29 initWithWorkspace:0 params:paramsCopy queue:queueCopy];
   if (v14)
   {
     v15 = objc_alloc_init(NWActivityHelper);
@@ -4224,7 +4840,7 @@ void __48__NetworkAnalyticsEngine_stewieActiveChangedTo___block_invoke(uint64_t 
       if (v20)
       {
         *buf = 134217984;
-        v32 = sharedInstance_3;
+        v31 = sharedInstance_3;
         _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "NAE allocates shared instance for helper %p", buf, 0xCu);
       }
 
@@ -4233,8 +4849,8 @@ void __48__NetworkAnalyticsEngine_stewieActiveChangedTo___block_invoke(uint64_t 
       block[1] = 3221225472;
       block[2] = __57__NetworkAnalyticsEngine_initWithWorkspace_params_queue___block_invoke;
       block[3] = &unk_27898A0C8;
-      v22 = &v29;
-      v29 = v14;
+      v22 = &v28;
+      v28 = v14;
       dispatch_async(queue, block);
     }
 
@@ -4243,23 +4859,22 @@ void __48__NetworkAnalyticsEngine_stewieActiveChangedTo___block_invoke(uint64_t 
       if (v20)
       {
         *buf = 134217984;
-        v32 = sharedInstance_3;
+        v31 = sharedInstance_3;
         _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "NAE allocates shared instance %p", buf, 0xCu);
       }
 
       queue = [(AnalyticsEngineCore *)v14 queue];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __57__NetworkAnalyticsEngine_initWithWorkspace_params_queue___block_invoke_389;
-      v26[3] = &unk_27898A0C8;
-      v22 = &v27;
-      v27 = v14;
-      v23 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v26);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __57__NetworkAnalyticsEngine_initWithWorkspace_params_queue___block_invoke_389;
+      v25[3] = &unk_27898A0C8;
+      v22 = &v26;
+      v26 = v14;
+      v23 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v25);
       dispatch_async(queue, v23);
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -4364,7 +4979,7 @@ LABEL_14:
 
 - (void)_initializeInternals
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   v3 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -4383,134 +4998,133 @@ LABEL_14:
   if (self->activeEpochs)
   {
     queue = [(AnalyticsEngineCore *)self queue];
-    v9 = *MEMORY[0x277CBECE8];
     self->routeManager = NStatManagerCreate();
 
     if (self->routeManager)
     {
-      v10 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:2];
+      v9 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:2];
       liveDefaultRoutes = self->liveDefaultRoutes;
-      self->liveDefaultRoutes = v10;
+      self->liveDefaultRoutes = v9;
 
       if (self->liveDefaultRoutes)
       {
-        v12 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:5];
+        v11 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:5];
         snapshots = self->snapshots;
-        self->snapshots = v12;
+        self->snapshots = v11;
 
         if (self->snapshots)
         {
-          v14 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
-          v15 = dispatch_queue_attr_make_with_autorelease_frequency(v14, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-          v16 = SFGetStandardQueue(6);
-          v17 = dispatch_queue_create_with_target_V2("com.apple.symptoms.analytics.nets.priority.queue", v15, v16);
+          v13 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
+          v14 = dispatch_queue_attr_make_with_autorelease_frequency(v13, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+          v15 = SFGetStandardQueue(6);
+          v16 = dispatch_queue_create_with_target_V2("com.apple.symptoms.analytics.nets.priority.queue", v14, v15);
           notificationQueueWithElevatedPriority = self->notificationQueueWithElevatedPriority;
-          self->notificationQueueWithElevatedPriority = v17;
+          self->notificationQueueWithElevatedPriority = v16;
 
-          v81[0] = MEMORY[0x277D85DD0];
-          v81[1] = 3221225472;
-          v81[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_405;
-          v81[3] = &unk_27898A0C8;
-          v81[4] = self;
+          v79[0] = MEMORY[0x277D85DD0];
+          v79[1] = 3221225472;
+          v79[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_405;
+          v79[3] = &unk_27898A0C8;
+          v79[4] = self;
           if (_initializeInternals_pred != -1)
           {
-            dispatch_once(&_initializeInternals_pred, v81);
+            dispatch_once(&_initializeInternals_pred, v79);
           }
 
           resync_tether_state(_SCDynamicStore);
           [(NetworkAnalyticsEngine *)self _observeNetworkFramework];
-          v19 = +[SystemSettingsRelay defaultRelay];
+          v18 = +[SystemSettingsRelay defaultRelay];
           systemSettingsRelay = self->systemSettingsRelay;
-          self->systemSettingsRelay = v19;
+          self->systemSettingsRelay = v18;
 
-          v21 = netepochsLogHandle;
+          v20 = netepochsLogHandle;
           if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             LOWORD(buf) = 0;
-            _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "Fetching IP configuration for all active en* interfaces", &buf, 2u);
+            _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "Fetching IP configuration for all active en* interfaces", &buf, 2u);
           }
 
           queue2 = [(AnalyticsEngineCore *)self queue];
           dispatch_async(queue2, &__block_literal_global_419);
 
           defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-          v80[0] = MEMORY[0x277D85DD0];
-          v80[1] = 3221225472;
-          v80[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_2;
-          v80[3] = &unk_27898A690;
-          v80[4] = self;
-          v24 = [defaultCenter addObserverForName:@"kNotificationDNSsymptoms" object:0 queue:0 usingBlock:v80];
-          dnsObserver = self->dnsObserver;
-          self->dnsObserver = v24;
-
-          v79[0] = MEMORY[0x277D85DD0];
-          v79[1] = 3221225472;
-          v79[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_4;
-          v79[3] = &unk_27898A690;
-          v79[4] = self;
-          v26 = [defaultCenter addObserverForName:@"kNotificationTriggerDisconnectThreshold" object:0 queue:0 usingBlock:v79];
-          tdObserver = self->tdObserver;
-          self->tdObserver = v26;
-
           v78[0] = MEMORY[0x277D85DD0];
           v78[1] = 3221225472;
-          v78[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_2_425;
+          v78[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_2;
           v78[3] = &unk_27898A690;
           v78[4] = self;
-          v28 = [defaultCenter addObserverForName:@"kNotificationDataStall" object:0 queue:0 usingBlock:v78];
-          dataStallObserver = self->dataStallObserver;
-          self->dataStallObserver = v28;
+          v23 = [defaultCenter addObserverForName:@"kNotificationDNSsymptoms" object:0 queue:0 usingBlock:v78];
+          dnsObserver = self->dnsObserver;
+          self->dnsObserver = v23;
 
           v77[0] = MEMORY[0x277D85DD0];
           v77[1] = 3221225472;
-          v77[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_4_427;
+          v77[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_4;
           v77[3] = &unk_27898A690;
           v77[4] = self;
-          v30 = [defaultCenter addObserverForName:@"kNotificationCaptivityRedirects" object:0 queue:0 usingBlock:v77];
-          captivityRedirectsObserver = self->captivityRedirectsObserver;
-          self->captivityRedirectsObserver = v30;
+          v25 = [defaultCenter addObserverForName:@"kNotificationTriggerDisconnectThreshold" object:0 queue:0 usingBlock:v77];
+          tdObserver = self->tdObserver;
+          self->tdObserver = v25;
 
           v76[0] = MEMORY[0x277D85DD0];
           v76[1] = 3221225472;
-          v76[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_6;
+          v76[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_2_425;
           v76[3] = &unk_27898A690;
           v76[4] = self;
-          v32 = [defaultCenter addObserverForName:@"kNotificationCertError" object:0 queue:0 usingBlock:v76];
-          certErrorObserver = self->certErrorObserver;
-          self->certErrorObserver = v32;
+          v27 = [defaultCenter addObserverForName:@"kNotificationDataStall" object:0 queue:0 usingBlock:v76];
+          dataStallObserver = self->dataStallObserver;
+          self->dataStallObserver = v27;
 
           v75[0] = MEMORY[0x277D85DD0];
           v75[1] = 3221225472;
-          v75[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_8;
+          v75[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_4_427;
           v75[3] = &unk_27898A690;
           v75[4] = self;
-          v34 = [defaultCenter addObserverForName:@"kNotificationKernelNewLIMRecord" object:0 queue:0 usingBlock:v75];
+          v29 = [defaultCenter addObserverForName:@"kNotificationCaptivityRedirects" object:0 queue:0 usingBlock:v75];
+          captivityRedirectsObserver = self->captivityRedirectsObserver;
+          self->captivityRedirectsObserver = v29;
+
+          v74[0] = MEMORY[0x277D85DD0];
+          v74[1] = 3221225472;
+          v74[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_6;
+          v74[3] = &unk_27898A690;
+          v74[4] = self;
+          v31 = [defaultCenter addObserverForName:@"kNotificationCertError" object:0 queue:0 usingBlock:v74];
+          certErrorObserver = self->certErrorObserver;
+          self->certErrorObserver = v31;
+
+          v73[0] = MEMORY[0x277D85DD0];
+          v73[1] = 3221225472;
+          v73[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_8;
+          v73[3] = &unk_27898A690;
+          v73[4] = self;
+          v33 = [defaultCenter addObserverForName:@"kNotificationKernelNewLIMRecord" object:0 queue:0 usingBlock:v73];
           limObserver = self->limObserver;
-          self->limObserver = v34;
+          self->limObserver = v33;
 
           [(SystemSettingsRelay *)self->systemSettingsRelay addObserver:self forKeyPath:@"autoBugCaptureEnabled" options:5 context:0];
-          v36 = [NetworkExtensionStateRelay alloc];
+          v35 = [NetworkExtensionStateRelay alloc];
           queue3 = [(AnalyticsEngineCore *)self queue];
-          v38 = [(NetworkExtensionStateRelay *)v36 initWithQueue:queue3];
+          v37 = [(NetworkExtensionStateRelay *)v35 initWithQueue:queue3];
           neStateRelay = self->_neStateRelay;
-          self->_neStateRelay = v38;
+          self->_neStateRelay = v37;
 
           *&self->lastScoreExit[1] = 0x100000001;
-          v40 = +[SystemProperties sharedInstance];
-          self->_isInternalBuild = [v40 internalBuild];
+          v39 = +[SystemProperties sharedInstance];
+          self->_isInternalBuild = [v39 internalBuild];
 
           if (self->_isInternalBuild)
           {
-            v41 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
             memoryJournalRecords = self->memoryJournalRecords;
-            self->memoryJournalRecords = v41;
+            self->memoryJournalRecords = v40;
           }
 
           signal(30, 1);
           queue4 = [(AnalyticsEngineCore *)self queue];
-          v44 = dispatch_source_create(MEMORY[0x277D85D30], 0x1EuLL, 0, queue4);
-          v45 = _initializeInternals_sigusr1;
-          _initializeInternals_sigusr1 = v44;
+          v43 = dispatch_source_create(MEMORY[0x277D85D30], 0x1EuLL, 0, queue4);
+          v44 = _initializeInternals_sigusr1;
+          _initializeInternals_sigusr1 = v43;
 
           if (_initializeInternals_sigusr1)
           {
@@ -4524,18 +5138,18 @@ LABEL_14:
           }
 
           signal(29, 1);
-          v46 = dispatch_source_create(MEMORY[0x277D85D30], 0x1DuLL, 0, MEMORY[0x277D85CD0]);
-          v47 = _initializeInternals_siginfo;
-          _initializeInternals_siginfo = v46;
+          v45 = dispatch_source_create(MEMORY[0x277D85D30], 0x1DuLL, 0, MEMORY[0x277D85CD0]);
+          v46 = _initializeInternals_siginfo;
+          _initializeInternals_siginfo = v45;
 
           if (_initializeInternals_siginfo)
           {
-            v73[0] = MEMORY[0x277D85DD0];
-            v73[1] = 3221225472;
-            v73[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_434;
-            v73[3] = &unk_27898A0C8;
-            v73[4] = self;
-            dispatch_source_set_event_handler(_initializeInternals_siginfo, v73);
+            v71[0] = MEMORY[0x277D85DD0];
+            v71[1] = 3221225472;
+            v71[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_434;
+            v71[3] = &unk_27898A0C8;
+            v71[4] = self;
+            dispatch_source_set_event_handler(_initializeInternals_siginfo, v71);
             dispatch_resume(_initializeInternals_siginfo);
           }
 
@@ -4544,51 +5158,51 @@ LABEL_14:
           location[3] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_2_435;
           location[4] = &unk_27898A820;
           location[5] = self;
-          v48 = MEMORY[0x277D85CD0];
+          v47 = MEMORY[0x277D85CD0];
           os_state_add_handler();
 
           objc_initWeak(location, self);
-          v70[0] = MEMORY[0x277D85DD0];
-          v70[1] = 3221225472;
-          v70[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_3_437;
-          v70[3] = &unk_27898C3B0;
-          objc_copyWeak(&v71, location);
-          [(AnalyticsWorkspace *)self->super.workspace setResetCompletionBlock:v70];
-          *&buf = 0;
-          *(&buf + 1) = &buf;
-          v85 = 0x2020000000;
-          v86 = 0;
-          queue5 = [(AnalyticsEngineCore *)self queue];
           v68[0] = MEMORY[0x277D85DD0];
           v68[1] = 3221225472;
-          v68[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_442;
-          v68[3] = &unk_27898DAB0;
+          v68[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_3_437;
+          v68[3] = &unk_27898C3B0;
           objc_copyWeak(&v69, location);
-          v68[4] = self;
-          v68[5] = &buf;
-          [(PeriodicMaintenanceActivity *)DailyMaintenanceActivity registerPeriodicActivityWithIdentifier:@"NAEngine.Daily" queue:queue5 activity:v68];
+          [(AnalyticsWorkspace *)self->super.workspace setResetCompletionBlock:v68];
+          *&buf = 0;
+          *(&buf + 1) = &buf;
+          v83 = 0x2020000000;
+          v84 = 0;
+          queue5 = [(AnalyticsEngineCore *)self queue];
+          v66[0] = MEMORY[0x277D85DD0];
+          v66[1] = 3221225472;
+          v66[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_442;
+          v66[3] = &unk_27898DAB0;
+          objc_copyWeak(&v67, location);
+          v66[4] = self;
+          v66[5] = &buf;
+          [(PeriodicMaintenanceActivity *)DailyMaintenanceActivity registerPeriodicActivityWithIdentifier:@"NAEngine.Daily" queue:queue5 activity:v66];
 
-          v50 = +[SystemProperties sharedInstance];
-          basebandCapability = [v50 basebandCapability];
+          v49 = +[SystemProperties sharedInstance];
+          basebandCapability = [v49 basebandCapability];
 
           if (basebandCapability)
           {
             self->cellSPIType = 1;
             if (!self->serverConnection)
             {
-              v52 = +[CoreTelephonyShim sharedInstance];
-              self->serverConnection = [v52 ctServerConnection];
+              v51 = +[CoreTelephonyShim sharedInstance];
+              self->serverConnection = [v51 ctServerConnection];
             }
 
             [(NetworkAnalyticsEngine *)self _updateCellInternetStatus:0xFFFFFFFFLL pdpContext:0xFFFFFFFFLL];
           }
 
           [(NetworkAnalyticsEngine *)self setDelegateToProxyAnalytics:1];
-          v53 = [NetworkStateRelay getStateRelayFor:5];
-          [v53 setCellSPIType:self->cellSPIType];
-          v54 = +[WiFiShim sharedInstance];
+          v52 = [NetworkStateRelay getStateRelayFor:5];
+          [v52 setCellSPIType:self->cellSPIType];
+          v53 = +[WiFiShim sharedInstance];
           wifiShim = self->_wifiShim;
-          self->_wifiShim = v54;
+          self->_wifiShim = v53;
 
           [(WiFiShim *)self->_wifiShim addDelegate:self];
           queue6 = [(AnalyticsEngineCore *)self queue];
@@ -4602,42 +5216,41 @@ LABEL_14:
           shared_prefs_store = get_shared_prefs_store();
           if (shared_prefs_store)
           {
-            v66[0] = MEMORY[0x277D85DD0];
-            v66[1] = 3221225472;
-            v66[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_2_451;
-            v66[3] = &unk_27898A0A0;
-            v66[4] = self;
-            prefs_add_client(shared_prefs_store, "rnf_rssi_extra_descent_factor", v66);
+            v64[0] = MEMORY[0x277D85DD0];
+            v64[1] = 3221225472;
+            v64[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_2_451;
+            v64[3] = &unk_27898A0A0;
+            v64[4] = self;
+            prefs_add_client(shared_prefs_store, "rnf_rssi_extra_descent_factor", v64);
           }
 
           queue7 = [(AnalyticsEngineCore *)self queue];
-          v65[0] = MEMORY[0x277D85DD0];
-          v65[1] = 3221225472;
-          v65[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_453;
-          v65[3] = &unk_27898A0C8;
-          v65[4] = self;
-          dispatch_async(queue7, v65);
+          v63[0] = MEMORY[0x277D85DD0];
+          v63[1] = 3221225472;
+          v63[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_453;
+          v63[3] = &unk_27898A0C8;
+          v63[4] = self;
+          dispatch_async(queue7, v63);
 
           [(NetworkAnalyticsEngine *)self scheduleWiFiAssistAnalyticsTask];
-          [defaultCenter postNotificationName:@"stateRelay" object:self userInfo:0];
-          v59 = measureLaunchXPCHandle();
-          if (os_signpost_enabled(v59))
+          v58 = measureLaunchXPCHandle([defaultCenter postNotificationName:@"stateRelay" object:self userInfo:0]);
+          if (os_signpost_enabled(v58))
           {
-            *v64 = 0;
-            _os_signpost_emit_with_name_impl(&dword_23255B000, v59, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NetworkAnalyticsEngineInitialized", "NetworkAnalyticsEngine completed initialization", v64, 2u);
+            *v62 = 0;
+            _os_signpost_emit_with_name_impl(&dword_23255B000, v58, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NetworkAnalyticsEngineInitialized", "NetworkAnalyticsEngine completed initialization", v62, 2u);
           }
 
           markMeasurement(2, 11);
           submitAllMeasurementsToCA();
           defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-          v82 = @"ObjectKey";
+          v80 = @"ObjectKey";
           selfCopy = self;
-          v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&selfCopy forKeys:&v82 count:1];
-          [defaultCenter2 postNotificationName:@"kNotificationOfCompletedInitialization" object:self userInfo:v61];
+          v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&selfCopy forKeys:&v80 count:1];
+          [defaultCenter2 postNotificationName:@"kNotificationOfCompletedInitialization" object:self userInfo:v60];
 
-          objc_destroyWeak(&v69);
+          objc_destroyWeak(&v67);
           _Block_object_dispose(&buf, 8);
-          objc_destroyWeak(&v71);
+          objc_destroyWeak(&v69);
           objc_destroyWeak(location);
         }
       }
@@ -4645,16 +5258,14 @@ LABEL_14:
 
     else
     {
-      v62 = netepochsLogHandle;
+      v61 = netepochsLogHandle;
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&dword_23255B000, v62, OS_LOG_TYPE_ERROR, "failed to allocate routeManager", &buf, 2u);
+        _os_log_impl(&dword_23255B000, v61, OS_LOG_TYPE_ERROR, "failed to allocate routeManager", &buf, 2u);
       }
     }
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke()
@@ -4669,9 +5280,9 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke()
 
 uint64_t __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_405(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  memset(&v16, 0, sizeof(v16));
-  _SCDynamicStore = SCDynamicStoreCreate(0, @"com.apple.symptoms.analytics", config_callback, &v16);
+  v22 = *MEMORY[0x277D85DE8];
+  memset(&v15, 0, sizeof(v15));
+  _SCDynamicStore = SCDynamicStoreCreate(0, @"com.apple.symptoms.analytics", config_callback, &v15);
   objc_storeStrong(&_SCDynamicStoreCaller, *(a1 + 32));
   SCDynamicStoreSetDispatchQueue(_SCDynamicStore, *(*(a1 + 32) + 336));
   v2 = *MEMORY[0x277CBECE8];
@@ -4718,11 +5329,11 @@ uint64_t __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_405(uin
       v13 = "failed";
     }
 
-    v18 = v13;
-    v19 = 2112;
-    v20 = Mutable;
-    v21 = 2112;
-    v22 = v8;
+    v17 = v13;
+    v18 = 2112;
+    v19 = Mutable;
+    v20 = 2112;
+    v21 = v8;
     _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "SCDynamicStore registration %s to monitor changes in keys: %@ and patterns: %@", buf, 0x20u);
   }
 
@@ -4736,14 +5347,12 @@ uint64_t __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_405(uin
     CFRelease(v8);
   }
 
-  result = SCDynamicStoreAddWatchedKey();
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return SCDynamicStoreAddWatchedKey();
 }
 
 void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_417()
 {
-  v60[2] = *MEMORY[0x277D85DE8];
+  v59[2] = *MEMORY[0x277D85DE8];
   v0 = _SCDynamicStore;
   v1 = +[SystemSettingsRelay defaultRelay];
   v2 = [v1 ndfEnabled];
@@ -4757,7 +5366,7 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_417()
       _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "NDF is disabled, not fetching IP configuration", buf, 2u);
     }
 
-    goto LABEL_50;
+    return;
   }
 
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -4770,7 +5379,7 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_417()
   v5 = *MEMORY[0x277CE1648];
   v6 = *MEMORY[0x277CE1688];
   NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(*MEMORY[0x277CBECE8], *MEMORY[0x277CE1648], @"(en)[^/]+", *MEMORY[0x277CE1688]);
-  v47 = *MEMORY[0x277CE1690];
+  v46 = *MEMORY[0x277CE1690];
   v8 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(v4, v5, @"(en)[^/]+", *MEMORY[0x277CE1690]);
   v9 = v8;
   if (NetworkInterfaceEntity)
@@ -4789,18 +5398,18 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_417()
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v57 = NetworkInterfaceEntity;
-      v58 = 2112;
-      v59 = v9;
+      v56 = NetworkInterfaceEntity;
+      v57 = 2112;
+      v58 = v9;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Found IPv4/IPv6 SCDynamicStore keys (%@/%@) to be nil", buf, 0x16u);
     }
 
     goto LABEL_49;
   }
 
-  v60[0] = NetworkInterfaceEntity;
-  v60[1] = v8;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
+  v59[0] = NetworkInterfaceEntity;
+  v59[1] = v8;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
 
   if (![(__CFString *)v12 count])
   {
@@ -4820,44 +5429,44 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_417()
     goto LABEL_45;
   }
 
-  v41 = v13;
-  v42 = v12;
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
+  v40 = v13;
+  v41 = v12;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v14 = v13;
-  v15 = [(__CFDictionary *)v14 countByEnumeratingWithState:&v48 objects:buf count:16];
+  v15 = [(__CFDictionary *)v14 countByEnumeratingWithState:&v47 objects:buf count:16];
   if (!v15)
   {
     goto LABEL_44;
   }
 
   v16 = v15;
-  v17 = *v49;
-  v44 = *MEMORY[0x277CE1728];
-  v43 = *MEMORY[0x277CE1758];
+  v17 = *v48;
+  v43 = *MEMORY[0x277CE1728];
+  v42 = *MEMORY[0x277CE1758];
   p_info = TCPProgressProbe.info;
-  v45 = v6;
+  v44 = v6;
   do
   {
     v19 = 0;
-    v46 = v16;
+    v45 = v16;
     do
     {
-      if (*v49 != v17)
+      if (*v48 != v17)
       {
         objc_enumerationMutation(v14);
       }
 
-      v20 = *(*(&v48 + 1) + 8 * v19);
-      v21 = [(__CFDictionary *)v14 objectForKeyedSubscript:v20, v41, v42];
+      v20 = *(*(&v47 + 1) + 8 * v19);
+      v21 = [(__CFDictionary *)v14 objectForKeyedSubscript:v20, v40, v41];
 
       if (v21)
       {
         v22 = [(__CFDictionary *)v14 objectForKeyedSubscript:v20];
         v23 = [v20 containsString:v6];
-        v24 = [v20 containsString:v47];
+        v24 = [v20 containsString:v46];
         if ((v23 & 1) != 0 || v24)
         {
           v29 = v17;
@@ -4870,9 +5479,9 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_417()
               v32 = netepochsLogHandle;
               if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
               {
-                *v52 = 138412290;
-                v53 = v31;
-                _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_DEFAULT, "Interface %@ is a DirectLink interface, ignoring its IP configuration", v52, 0xCu);
+                *v51 = 138412290;
+                v52 = v31;
+                _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_DEFAULT, "Interface %@ is a DirectLink interface, ignoring its IP configuration", v51, 0xCu);
               }
             }
 
@@ -4881,10 +5490,10 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_417()
               v34 = +[NDFCoreShim sharedInstance];
               [v34 noteInterfaceOfInterest:v31 isRemoved:0];
 
-              v35 = v44;
+              v35 = v43;
               if (!v23)
               {
-                v35 = v43;
+                v35 = v42;
               }
 
               v36 = v35;
@@ -4892,33 +5501,33 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_417()
               v38 = netepochsLogHandle;
               if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
               {
-                *v52 = 138412547;
-                v53 = v31;
-                v54 = 2113;
-                v55 = v37;
-                _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_INFO, "IP configuration for %@ = %{private}@", v52, 0x16u);
+                *v51 = 138412547;
+                v52 = v31;
+                v53 = 2113;
+                v54 = v37;
+                _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_INFO, "IP configuration for %@ = %{private}@", v51, 0x16u);
               }
 
-              v6 = v45;
+              v6 = v44;
             }
 
             p_info = (TCPProgressProbe + 32);
             v17 = v29;
-            v16 = v46;
+            v16 = v45;
           }
 
           else
           {
             v33 = netepochsLogHandle;
-            v16 = v46;
+            v16 = v45;
             if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
             {
-              *v52 = 138412290;
-              v53 = v20;
+              *v51 = 138412290;
+              v52 = v20;
               v26 = v33;
               v27 = "Extracted interfaceName from key %@ is nil";
 LABEL_34:
-              _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, v27, v52, 0xCu);
+              _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, v27, v51, 0xCu);
             }
           }
         }
@@ -4928,8 +5537,8 @@ LABEL_34:
           v25 = netepochsLogHandle;
           if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
           {
-            *v52 = 138412290;
-            v53 = v20;
+            *v51 = 138412290;
+            v52 = v20;
             v26 = v25;
             v27 = "Received callback for unexpected key %@, expecting IPv4 or IPv6";
             goto LABEL_34;
@@ -4942,9 +5551,9 @@ LABEL_34:
       v28 = netepochsLogHandle;
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
       {
-        *v52 = 138412290;
-        v53 = v20;
-        _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_ERROR, "No IP configuration obtained for key %@", v52, 0xCu);
+        *v51 = 138412290;
+        v52 = v20;
+        _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_ERROR, "No IP configuration obtained for key %@", v51, 0xCu);
       }
 
 LABEL_42:
@@ -4952,22 +5561,19 @@ LABEL_42:
     }
 
     while (v16 != v19);
-    v16 = [(__CFDictionary *)v14 countByEnumeratingWithState:&v48 objects:buf count:16];
+    v16 = [(__CFDictionary *)v14 countByEnumeratingWithState:&v47 objects:buf count:16];
   }
 
   while (v16);
 LABEL_44:
 
-  v13 = v41;
-  v12 = v42;
+  v13 = v40;
+  v12 = v41;
 LABEL_45:
 
 LABEL_48:
   NetworkInterfaceEntity = v12;
 LABEL_49:
-
-LABEL_50:
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_2(uint64_t a1, void *a2)
@@ -5003,7 +5609,7 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_4(uint64_t 
 
 void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = [v5 eventData];
@@ -5022,17 +5628,17 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_5(uint64_t 
         v13 = [MEMORY[0x277CBEAA8] date];
         v14 = [v5 creationTimeStamp];
         [v13 timeIntervalSinceDate:v14];
-        v21 = 138413315;
-        v22 = v4;
-        v23 = 2048;
-        v24 = v12;
-        v25 = 1024;
-        v26 = v10;
-        v27 = 2049;
-        v28 = v9;
-        v29 = 2048;
-        v30 = v15;
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "trigger-disconnect: received triggerDisconnectThreshold notification for %@ [#%llu], edge: %d, target bssid: %{private}llx, propagation delay: %f", &v21, 0x30u);
+        v20 = 138413315;
+        v21 = v4;
+        v22 = 2048;
+        v23 = v12;
+        v24 = 1024;
+        v25 = v10;
+        v26 = 2049;
+        v27 = v9;
+        v28 = 2048;
+        v29 = v15;
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "trigger-disconnect: received triggerDisconnectThreshold notification for %@ [#%llu], edge: %d, target bssid: %{private}llx, propagation delay: %f", &v20, 0x30u);
       }
 
       v16 = rnfLogHandle;
@@ -5041,14 +5647,12 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_5(uint64_t 
         v17 = v16;
         v18 = qos_class_self();
         v19 = qos_string(v18);
-        v21 = 136315138;
-        v22 = v19;
-        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "trigger-disconnect: triggerDisconnectThreshold notification: QoS %s", &v21, 0xCu);
+        v20 = 136315138;
+        v21 = v19;
+        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "trigger-disconnect: triggerDisconnectThreshold notification: QoS %s", &v20, 0xCu);
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_2_425(uint64_t a1, void *a2)
@@ -5150,7 +5754,7 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_10(uint64_t
 
 void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_3_437(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -5159,72 +5763,70 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_3_437(uint6
     _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "NetworkAnalyticsEngine: invalidating local caches", buf, 2u);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v3 = [WeakRetained[18] allValues];
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v18 + 1) + 8 * v7++) unloadDurableState];
+        [*(*(&v17 + 1) + 8 * v7++) unloadDurableState];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v5);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = [WeakRetained _concurrentEpochs];
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) unloadDurableState];
+        [*(*(&v13 + 1) + 8 * v12++) unloadDurableState];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_442(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -5238,9 +5840,9 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_442(uint64_
       v6 = *(*(a1 + 32) + 156);
       v5 = *(*(a1 + 32) + 160);
       *buf = 67109376;
-      v19 = v6;
-      v20 = 1024;
-      v21 = v5;
+      v18 = v6;
+      v19 = 1024;
+      v20 = v5;
       _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "scoring: about to start, last scored with exit codes: %d %d", buf, 0xEu);
     }
 
@@ -5272,12 +5874,12 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_442(uint64_
     }
 
     v11 = [v3 queue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_447;
-    v16[3] = &unk_27898A0C8;
-    v17 = v3;
-    [(PeriodicMaintenanceActivity *)WeeklyMaintenanceActivity registerPeriodicActivityWithIdentifier:@"NAEngine.WeeklyStoreCheck" queue:v11 activity:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_447;
+    v15[3] = &unk_27898A0C8;
+    v16 = v3;
+    [(PeriodicMaintenanceActivity *)WeeklyMaintenanceActivity registerPeriodicActivityWithIdentifier:@"NAEngine.WeeklyStoreCheck" queue:v11 activity:v15];
 
     v12 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -5297,8 +5899,6 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_442(uint64_
       _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Finished NWActivityHelper old metric cleanup...", buf, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_447(uint64_t a1)
@@ -5327,7 +5927,7 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_449(uint64_
 
 void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_2_451(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
@@ -5343,10 +5943,10 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_2_451(uint6
       }
 
       v14 = *(*(a1 + 32) + 440);
-      v16 = 134218240;
-      v17 = value;
-      v18 = 2048;
-      v19 = v14;
+      v15 = 134218240;
+      v16 = value;
+      v17 = 2048;
+      v18 = v14;
       v7 = "Got negative value for rnf_rssi_extra_descent_factor (%lld). Maintaining current value (%llu)";
       v8 = v11;
       v9 = 22;
@@ -5356,11 +5956,11 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_2_451(uint6
     if (v12)
     {
       v13 = *(*(a1 + 32) + 440);
-      v16 = 134218240;
-      v17 = v13;
-      v18 = 2048;
-      v19 = value;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Set new value for rnf_rssi_extra_descent_factor (was/is): %lld/%lld", &v16, 0x16u);
+      v15 = 134218240;
+      v16 = v13;
+      v17 = 2048;
+      v18 = value;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Set new value for rnf_rssi_extra_descent_factor (was/is): %lld/%lld", &v15, 0x16u);
     }
 
     *(*(a1 + 32) + 440) = value;
@@ -5372,18 +5972,16 @@ void __46__NetworkAnalyticsEngine__initializeInternals__block_invoke_2_451(uint6
     v6 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
+      LOWORD(v15) = 0;
       v7 = "Got a nil value or wrong type for rnf_rssi_extra_descent_factor. Setting to default value (0)";
       v8 = v6;
       v9 = 2;
 LABEL_5:
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v16, v9);
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v15, v9);
     }
   }
 
 LABEL_12:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processNWActivityMetrics
@@ -5440,13 +6038,13 @@ LABEL_12:
 
 + (id)fetchHashSaltFromJournalUsingImpoExpoService:(id)service
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v4 = serviceCopy;
   if (serviceCopy)
   {
-    v9 = 0;
-    v5 = [serviceCopy exportItemUnderName:@"SymptomHashSalt" lastUpdated:&v9 verificationBlock:&__block_literal_global_455];
+    v8 = 0;
+    v5 = [serviceCopy exportItemUnderName:@"SymptomHashSalt" lastUpdated:&v8 verificationBlock:&__block_literal_global_455];
     if (!v5)
     {
       arc4random_buf(__buf, 0x20uLL);
@@ -5467,8 +6065,6 @@ LABEL_12:
     v5 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
@@ -5483,25 +6079,25 @@ uint64_t __71__NetworkAnalyticsEngine_fetchHashSaltFromJournalUsingImpoExpoServi
 
 - (void)_dumpStats
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 134218240;
-    v20 = netatt_epochs;
-    v21 = 2048;
-    v22 = *&netatt_roamed;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Distinct epochs = %llu, incl. %llu from roaming", &v19, 0x16u);
+    v18 = 134218240;
+    v19 = netatt_epochs;
+    v20 = 2048;
+    v21 = *&netatt_roamed;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Distinct epochs = %llu, incl. %llu from roaming", &v18, 0x16u);
   }
 
   v4 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 134218240;
-    v20 = notif_reqs;
-    v21 = 2048;
-    v22 = *&notif_posted;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Evaluated known-good notif %llu times, %llu times was cleared to send", &v19, 0x16u);
+    v18 = 134218240;
+    v19 = notif_reqs;
+    v20 = 2048;
+    v21 = *&notif_posted;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Evaluated known-good notif %llu times, %llu times was cleared to send", &v18, 0x16u);
   }
 
   v5 = netepochsLogHandle;
@@ -5513,15 +6109,15 @@ uint64_t __71__NetworkAnalyticsEngine_fetchHashSaltFromJournalUsingImpoExpoServi
     [v7 timeIntervalSinceNow];
     v10 = self->lastScoreExit[1];
     v9 = self->lastScoreExit[2];
-    v19 = 134218752;
-    v20 = v6;
-    v21 = 2048;
-    v22 = -v11;
-    v23 = 1024;
-    v24 = v10;
-    v25 = 1024;
-    v26 = v9;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Scored attachms %llu times, not since %f secs, last exit codes were: %d %d", &v19, 0x22u);
+    v18 = 134218752;
+    v19 = v6;
+    v20 = 2048;
+    v21 = -v11;
+    v22 = 1024;
+    v23 = v10;
+    v24 = 1024;
+    v25 = v9;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Scored attachms %llu times, not since %f secs, last exit codes were: %d %d", &v18, 0x22u);
   }
 
   v12 = netepochsLogHandle;
@@ -5531,22 +6127,20 @@ uint64_t __71__NetworkAnalyticsEngine_fetchHashSaltFromJournalUsingImpoExpoServi
     v14 = prune_last;
     v15 = v12;
     [v14 timeIntervalSinceNow];
-    v19 = 134218240;
-    v20 = v13;
-    v21 = 2048;
-    v22 = -v16;
-    _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "Pruned old perf records %llu times, not since %f secs", &v19, 0x16u);
+    v18 = 134218240;
+    v19 = v13;
+    v20 = 2048;
+    v21 = -v16;
+    _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "Pruned old perf records %llu times, not since %f secs", &v18, 0x16u);
   }
 
   v17 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 134217984;
-    v20 = active_probes;
-    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "No backhaul resulted in %llu active probes", &v19, 0xCu);
+    v18 = 134217984;
+    v19 = active_probes;
+    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "No backhaul resulted in %llu active probes", &v18, 0xCu);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_wifiKnownNetworksDeleted:(id)deleted
@@ -5602,38 +6196,37 @@ LABEL_7:
 
 - (void)_setupCoreTelephonyAndBasebandNotificationsOnElevatedPriorityQueue
 {
-  *&v53[5] = *MEMORY[0x277D85DE8];
+  *&v48[5] = *MEMORY[0x277D85DE8];
   v3 = +[CoreTelephonyShim sharedInstance];
   [v3 addDelegate:self];
   [v3 registerSignalStrengthChangedWithDelegate:self];
   queue = [(AnalyticsEngineCore *)self queue];
   block = MEMORY[0x277D85DD0];
-  v46 = 3221225472;
-  v47 = __92__NetworkAnalyticsEngine__setupCoreTelephonyAndBasebandNotificationsOnElevatedPriorityQueue__block_invoke;
-  v48 = &unk_27898A0C8;
+  v41 = 3221225472;
+  v42 = __92__NetworkAnalyticsEngine__setupCoreTelephonyAndBasebandNotificationsOnElevatedPriorityQueue__block_invoke;
+  v43 = &unk_27898A0C8;
   v5 = v3;
-  v49 = v5;
+  v44 = v5;
   dispatch_async(queue, &block);
 
   if (self->serverConnection || (v6 = [v5 ctServerConnection], (self->serverConnection = v6) != 0))
   {
     cf = 0;
-    v7 = *MEMORY[0x277CC3BB8];
-    v8 = _CTServerConnectionRegisterForNotification();
-    v9 = v8;
-    v10 = HIDWORD(v8);
-    v11 = netepochsLogHandle;
-    if (HIDWORD(v8))
+    v7 = _CTServerConnectionRegisterForNotification();
+    v8 = v7;
+    v9 = HIDWORD(v7);
+    v10 = netepochsLogHandle;
+    if (HIDWORD(v7))
     {
-      v12 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v12 = v8 == 0;
+      v11 = v7 == 0;
     }
 
-    if (v12)
+    if (v11)
     {
       if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
@@ -5641,10 +6234,10 @@ LABEL_7:
       }
 
       *buf = 0;
-      v13 = "eLQM: Registered with CT for eLQM supported metrics notification";
-      v14 = v11;
-      v15 = OS_LOG_TYPE_DEFAULT;
-      v16 = 2;
+      v12 = "eLQM: Registered with CT for eLQM supported metrics notification";
+      v13 = v10;
+      v14 = OS_LOG_TYPE_DEFAULT;
+      v15 = 2;
     }
 
     else
@@ -5655,44 +6248,43 @@ LABEL_7:
       }
 
       *buf = 67109376;
-      v53[0] = v9;
-      LOWORD(v53[1]) = 1024;
-      *(&v53[1] + 2) = v10;
-      v13 = "eLQM: Failed to register with CT for eLQM supported metrics notification, error = (%d, %d)";
-      v14 = v11;
-      v15 = OS_LOG_TYPE_ERROR;
-      v16 = 14;
+      v48[0] = v8;
+      LOWORD(v48[1]) = 1024;
+      *(&v48[1] + 2) = v9;
+      v12 = "eLQM: Failed to register with CT for eLQM supported metrics notification, error = (%d, %d)";
+      v13 = v10;
+      v14 = OS_LOG_TYPE_ERROR;
+      v15 = 14;
     }
 
-    _os_log_impl(&dword_23255B000, v14, v15, v13, buf, v16);
+    _os_log_impl(&dword_23255B000, v13, v14, v12, buf, v15);
 LABEL_12:
-    serverConnection = self->serverConnection;
     SupportedEnhancedLinkQualityMetric = _CTServerConnectionGetSupportedEnhancedLinkQualityMetric();
-    v19 = SupportedEnhancedLinkQualityMetric;
-    v20 = HIDWORD(SupportedEnhancedLinkQualityMetric);
+    v17 = SupportedEnhancedLinkQualityMetric;
+    v18 = HIDWORD(SupportedEnhancedLinkQualityMetric);
     if (HIDWORD(SupportedEnhancedLinkQualityMetric))
     {
-      v21 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v21 = SupportedEnhancedLinkQualityMetric == 0;
+      v19 = SupportedEnhancedLinkQualityMetric == 0;
     }
 
-    v22 = v21;
-    if (v21)
+    v20 = v19;
+    if (v19)
     {
-      v23 = 0;
-      v24 = netepochsLogHandle;
+      v21 = 0;
+      v22 = netepochsLogHandle;
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v53 = v23;
-        _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "eLQM: Received payload with eLQM supported metrics %@", buf, 0xCu);
+        *v48 = v21;
+        _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "eLQM: Received payload with eLQM supported metrics %@", buf, 0xCu);
       }
 
-      [(NetworkAnalyticsEngine *)self _registerForLinkQualityNotifications:v23, 0, block, v46, v47, v48];
+      [(NetworkAnalyticsEngine *)self _registerForLinkQualityNotifications:v21, 0, block, v41, v42, v43];
       if (cf)
       {
         CFRelease(cf);
@@ -5702,43 +6294,41 @@ LABEL_12:
 
     else
     {
-      v25 = netepochsLogHandle;
+      v23 = netepochsLogHandle;
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109376;
-        v53[0] = v19;
-        LOWORD(v53[1]) = 1024;
-        *(&v53[1] + 2) = v20;
-        _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_ERROR, "eLQM: Delay registering for eLQM/legacy notifications until CT payload arrives, error = (%d, %d)", buf, 0xEu);
+        v48[0] = v17;
+        LOWORD(v48[1]) = 1024;
+        *(&v48[1] + 2) = v18;
+        _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "eLQM: Delay registering for eLQM/legacy notifications until CT payload arrives, error = (%d, %d)", buf, 0xEu);
       }
     }
 
-    v50 = @"State";
-    v27 = [MEMORY[0x277CCABB0] numberWithBool:{v22, cf}];
-    v51 = v27;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+    v45 = @"State";
+    v25 = [MEMORY[0x277CCABB0] numberWithBool:{v20, cf}];
+    v46 = v25;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    [defaultCenter postNotificationName:@"kNotificationCellLinkStateReportCapable" object:self userInfo:v28];
+    [defaultCenter postNotificationName:@"kNotificationCellLinkStateReportCapable" object:self userInfo:v26];
 
-    v30 = self->serverConnection;
-    v31 = *MEMORY[0x277CC3CB0];
-    v32 = _CTServerConnectionRegisterForNotification();
-    v33 = v32;
-    v34 = HIDWORD(v32);
-    v35 = netepochsLogHandle;
-    if (HIDWORD(v32) || v32)
+    v28 = _CTServerConnectionRegisterForNotification();
+    v29 = v28;
+    v30 = HIDWORD(v28);
+    v31 = netepochsLogHandle;
+    if (HIDWORD(v28) || v28)
     {
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109376;
-        v53[0] = v33;
-        LOWORD(v53[1]) = 1024;
-        *(&v53[1] + 2) = v34;
-        v36 = "Failed to register for cell Internet data status notification, error = (%d, %d)";
-        v37 = v35;
-        v38 = OS_LOG_TYPE_ERROR;
-        v39 = 14;
+        v48[0] = v29;
+        LOWORD(v48[1]) = 1024;
+        *(&v48[1] + 2) = v30;
+        v32 = "Failed to register for cell Internet data status notification, error = (%d, %d)";
+        v33 = v31;
+        v34 = OS_LOG_TYPE_ERROR;
+        v35 = 14;
         goto LABEL_33;
       }
     }
@@ -5746,12 +6336,12 @@ LABEL_12:
     else if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v36 = "Registered for cell Internet data status notification";
-      v37 = v35;
-      v38 = OS_LOG_TYPE_DEFAULT;
-      v39 = 2;
+      v32 = "Registered for cell Internet data status notification";
+      v33 = v31;
+      v34 = OS_LOG_TYPE_DEFAULT;
+      v35 = 2;
 LABEL_33:
-      _os_log_impl(&dword_23255B000, v37, v38, v36, buf, v39);
+      _os_log_impl(&dword_23255B000, v33, v34, v32, buf, v35);
     }
 
     [(NetworkAnalyticsEngine *)self _registerForSIMStatusChangeNotification:v5];
@@ -5760,24 +6350,22 @@ LABEL_33:
     goto LABEL_35;
   }
 
-  v41 = +[SystemProperties sharedInstance];
-  isSymptomsdHelper = [v41 isSymptomsdHelper];
+  v36 = +[SystemProperties sharedInstance];
+  isSymptomsdHelper = [v36 isSymptomsdHelper];
 
   if ((isSymptomsdHelper & 1) == 0)
   {
-    v43 = netepochsLogHandle;
+    v38 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_ERROR, "Failed to establish connection with CoreTelephony", buf, 2u);
+      _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_ERROR, "Failed to establish connection with CoreTelephony", buf, 2u);
     }
 
     [(NetworkAnalyticsEngine *)self _recoverFromSystemCriticalErrors];
   }
 
 LABEL_35:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __92__NetworkAnalyticsEngine__setupCoreTelephonyAndBasebandNotificationsOnElevatedPriorityQueue__block_invoke(uint64_t a1)
@@ -5880,40 +6468,38 @@ void __66__NetworkAnalyticsEngine__registerForSIMStatusChangeNotification___bloc
 
 - (void)_registerForLinkQualityNotifications:(id)notifications
 {
-  *&v26[5] = *MEMORY[0x277D85DE8];
+  *&v22[5] = *MEMORY[0x277D85DE8];
   notificationsCopy = notifications;
   v5 = [notificationsCopy objectForKeyedSubscript:*MEMORY[0x277CC3BC0]];
   if (!v5 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || [v5 intValue] != 1)
   {
     self->cellSPIType = 2;
-    serverConnection = self->serverConnection;
-    v14 = *MEMORY[0x277CC39A0];
-    v15 = _CTServerConnectionRegisterForNotification();
-    v16 = v15;
-    v17 = HIDWORD(v15);
-    v10 = netepochsLogHandle;
-    if (HIDWORD(v15))
+    v12 = _CTServerConnectionRegisterForNotification();
+    v13 = v12;
+    v14 = HIDWORD(v12);
+    v9 = netepochsLogHandle;
+    if (HIDWORD(v12))
     {
-      v18 = 0;
+      v15 = 0;
     }
 
     else
     {
-      v18 = v15 == 0;
+      v15 = v12 == 0;
     }
 
-    if (!v18)
+    if (!v15)
     {
       if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_21;
       }
 
-      v25 = 67109376;
-      v26[0] = v16;
-      LOWORD(v26[1]) = 1024;
-      *(&v26[1] + 2) = v17;
-      v12 = "(Fallback) Failed to register for CT legacy notifications, error = (%d, %d)";
+      v21 = 67109376;
+      v22[0] = v13;
+      LOWORD(v22[1]) = 1024;
+      *(&v22[1] + 2) = v14;
+      v11 = "(Fallback) Failed to register for CT legacy notifications, error = (%d, %d)";
       goto LABEL_16;
     }
 
@@ -5922,84 +6508,79 @@ void __66__NetworkAnalyticsEngine__registerForSIMStatusChangeNotification___bloc
       goto LABEL_21;
     }
 
-    LOWORD(v25) = 0;
-    v12 = "(Fallback) Registered for CT legacy notifications";
+    LOWORD(v21) = 0;
+    v11 = "(Fallback) Registered for CT legacy notifications";
 LABEL_19:
-    v19 = v10;
-    v20 = OS_LOG_TYPE_DEFAULT;
-    v21 = 2;
+    v16 = v9;
+    v17 = OS_LOG_TYPE_DEFAULT;
+    v18 = 2;
     goto LABEL_20;
   }
 
   self->cellSPIType = 3;
-  v6 = self->serverConnection;
-  v7 = _CTServerConnectionRegisterSupportedEnhancedLinkQualityMetric();
-  v8 = v7;
-  v9 = HIDWORD(v7);
-  v10 = netepochsLogHandle;
-  if (HIDWORD(v7))
+  v6 = _CTServerConnectionRegisterSupportedEnhancedLinkQualityMetric();
+  v7 = v6;
+  v8 = HIDWORD(v6);
+  v9 = netepochsLogHandle;
+  if (HIDWORD(v6))
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v11 = v7 == 0;
+    v10 = v6 == 0;
   }
 
-  if (!v11)
+  if (!v10)
   {
     if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_21;
     }
 
-    v25 = 67109376;
-    v26[0] = v8;
-    LOWORD(v26[1]) = 1024;
-    *(&v26[1] + 2) = v9;
-    v12 = "eLQM: Failed to register for BB eLQM supported metrics, error = (%d, %d)";
+    v21 = 67109376;
+    v22[0] = v7;
+    LOWORD(v22[1]) = 1024;
+    *(&v22[1] + 2) = v8;
+    v11 = "eLQM: Failed to register for BB eLQM supported metrics, error = (%d, %d)";
 LABEL_16:
-    v19 = v10;
-    v20 = OS_LOG_TYPE_ERROR;
-    v21 = 14;
+    v16 = v9;
+    v17 = OS_LOG_TYPE_ERROR;
+    v18 = 14;
 LABEL_20:
-    _os_log_impl(&dword_23255B000, v19, v20, v12, &v25, v21);
+    _os_log_impl(&dword_23255B000, v16, v17, v11, &v21, v18);
     goto LABEL_21;
   }
 
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v25) = 0;
-    v12 = "eLQM: Registered for BB eLQM supported metrics";
+    LOWORD(v21) = 0;
+    v11 = "eLQM: Registered for BB eLQM supported metrics";
     goto LABEL_19;
   }
 
 LABEL_21:
-  v22 = netepochsLogHandle;
+  v19 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     cellSPIType = self->cellSPIType;
-    v25 = 134217984;
-    *v26 = cellSPIType;
-    _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "Cell SPI Type identified as: %lu", &v25, 0xCu);
+    v21 = 134217984;
+    *v22 = cellSPIType;
+    _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "Cell SPI Type identified as: %lu", &v21, 0xCu);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 id __56__NetworkAnalyticsEngine_sendWiFiAssistUsage_cellUsage___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"rnfDataUsage";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"rnfDataUsage";
   v2 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 32)];
-  v7[1] = @"cellDataUsage";
-  v8[0] = v2;
+  v6[1] = @"cellDataUsage";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 40)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -6082,16 +6663,14 @@ id __56__NetworkAnalyticsEngine_sendWiFiAssistUsage_cellUsage___block_invoke(uin
 
 id __55__NetworkAnalyticsEngine_sendWiFiAssistState_eligible___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"rnfEligible";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"rnfEligible";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 32)];
-  v7[1] = @"rnfEnabled";
-  v8[0] = v2;
+  v6[1] = @"rnfEnabled";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 33)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -6152,40 +6731,40 @@ void __57__NetworkAnalyticsEngine_scheduleWiFiAssistAnalyticsTask__block_invoke(
 
 - (void)_extractCellLinkFingerprintFrom:(__CFData *)from
 {
-  v69[6] = *MEMORY[0x277D85DE8];
+  v67[6] = *MEMORY[0x277D85DE8];
   if (!from)
   {
-    v40 = netepochsLogHandle;
+    v39 = netepochsLogHandle;
     if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_40;
+      return;
     }
 
     *buf = 0;
-    v41 = "eLQM: link fingerprint payload is nil";
-    v42 = v40;
-    v43 = 2;
+    v40 = "eLQM: link fingerprint payload is nil";
+    v41 = v39;
+    v42 = 2;
 LABEL_39:
-    _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_ERROR, v41, buf, v43);
-    goto LABEL_40;
+    _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_ERROR, v40, buf, v42);
+    return;
   }
 
   fromCopy = from;
   Length = CFDataGetLength(from);
   if (Length != 224)
   {
-    v44 = Length;
-    v45 = netepochsLogHandle;
+    v43 = Length;
+    v44 = netepochsLogHandle;
     if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_40;
+      return;
     }
 
     *buf = 134217984;
-    *v59 = v44;
-    v41 = "eLQM: Dropping unexpected link fingerprint payload, length = %ld bytes";
-    v42 = v45;
-    v43 = 12;
+    *v57 = v43;
+    v40 = "eLQM: Dropping unexpected link fingerprint payload, length = %ld bytes";
+    v41 = v44;
+    v42 = 12;
     goto LABEL_39;
   }
 
@@ -6194,93 +6773,92 @@ LABEL_39:
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  v57 = 0;
+  v55 = 0;
   v10 = &unk_2814D3218;
   v11 = &unk_2814D3228;
   v12 = &unk_2814D3ABC;
   v13 = &unk_2814D3ACC;
-  v48 = fromCopy;
+  v46 = fromCopy;
   do
   {
-    v54 = v11;
+    v52 = v11;
     v14 = &currCellFp + 44 * v7;
-    v55 = (&prevCellFp + 44 * v7);
-    v56 = v14;
-    *v55 = *v14;
-    v70.location = v6 + 4;
-    v70.length = 4;
-    CFDataGetBytes(fromCopy, v70, v14);
+    v53 = (&prevCellFp + 44 * v7);
+    v54 = v14;
+    *v53 = *v14;
+    v68.location = v6 + 4;
+    v68.length = 4;
+    CFDataGetBytes(fromCopy, v68, v14);
     if (!v7)
     {
-      v15 = *(v56 + 1);
-      LODWORD(v57) = *(v56 + 1);
-      HIDWORD(v57) = v55[1];
+      LODWORD(v55) = *(v54 + 1);
+      HIDWORD(v55) = v53[1];
     }
 
-    v16 = 0;
+    v15 = 0;
     for (i = 0; i != 16; i += 4)
     {
       *&v10[i] = *&v12[i];
-      v71.location = v6 + i + 8;
-      v71.length = 4;
-      CFDataGetBytes(fromCopy, v71, &v12[i]);
+      v69.location = v6 + i + 8;
+      v69.length = 4;
+      CFDataGetBytes(fromCopy, v69, &v12[i]);
       if (!v7)
       {
-        v18 = *&v10[i];
-        if (v18 <= HIDWORD(v57))
+        v17 = *&v10[i];
+        if (v17 <= HIDWORD(v55))
         {
-          v19 = HIDWORD(v57);
+          v18 = HIDWORD(v55);
         }
 
         else
         {
-          v19 = *&v10[i];
+          v18 = *&v10[i];
         }
 
-        if (v18 > HIDWORD(v57))
+        if (v17 > HIDWORD(v55))
         {
-          v8 = v16;
+          v8 = v15;
         }
 
-        v20 = *&v12[i];
-        v21 = v57;
-        v22 = v20 > v57;
-        if (v20 > v57)
+        v19 = *&v12[i];
+        v20 = v55;
+        v21 = v19 > v55;
+        if (v19 > v55)
         {
-          v21 = *&v12[i];
+          v20 = *&v12[i];
         }
 
-        v57 = __PAIR64__(v19, v21);
-        if (v22)
+        v55 = __PAIR64__(v18, v20);
+        if (v21)
         {
-          v9 = v16;
+          v9 = v15;
         }
       }
 
-      ++v16;
+      ++v15;
     }
 
-    v53 = v9;
+    v51 = v9;
     for (j = 0; j != 16; j += 4)
     {
-      *&v54[j] = *&v13[j];
-      v72.location = v6 + j + 24;
-      v72.length = 4;
-      CFDataGetBytes(fromCopy, v72, &v13[j]);
+      *&v52[j] = *&v13[j];
+      v70.location = v6 + j + 24;
+      v70.length = 4;
+      CFDataGetBytes(fromCopy, v70, &v13[j]);
     }
 
-    v49 = v10;
-    v52 = v7;
+    v47 = v10;
+    v50 = v7;
     if (!v7)
     {
-      v24 = *&v56[4 * v9 + 20];
-      if (v24 != v55[v8 + 5])
+      v23 = *&v54[4 * v9 + 20];
+      if (v23 != v53[v8 + 5])
       {
-        v25 = [(NetworkAnalyticsEngine *)selfCopy _epochForInterfaceType:5];
-        v26 = v25;
-        if (v25)
+        v24 = [(NetworkAnalyticsEngine *)selfCopy _epochForInterfaceType:5];
+        v25 = v24;
+        if (v24)
         {
-          getMatchingRTLocationOfInterestType = [v25 getMatchingRTLocationOfInterestType];
+          getMatchingRTLocationOfInterestType = [v24 getMatchingRTLocationOfInterestType];
         }
 
         else
@@ -6288,93 +6866,91 @@ LABEL_39:
           getMatchingRTLocationOfInterestType = -1;
         }
 
-        v68[0] = @"PrimaryKey";
-        v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"CELLULAR-RECORD"];
-        v69[0] = v27;
-        v69[1] = &unk_2847EFAD0;
-        v68[1] = @"InterfaceType";
-        v68[2] = @"LoadedLQM";
-        v28 = [MEMORY[0x277CCABB0] numberWithInt:v24];
-        v69[2] = v28;
-        v68[3] = @"LOI";
-        v29 = [MEMORY[0x277CCABB0] numberWithInteger:getMatchingRTLocationOfInterestType];
-        v69[3] = v29;
-        v69[4] = &unk_2847EFAE8;
-        v68[4] = @"NetworkAttachmentFaulty";
-        v68[5] = @"CellFingerprintTriggered";
-        v69[5] = MEMORY[0x277CBEC38];
-        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:6];
+        v66[0] = @"PrimaryKey";
+        v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"CELLULAR-RECORD"];
+        v67[0] = v26;
+        v67[1] = &unk_2847EFAD0;
+        v66[1] = @"InterfaceType";
+        v66[2] = @"LoadedLQM";
+        v27 = [MEMORY[0x277CCABB0] numberWithInt:v23];
+        v67[2] = v27;
+        v66[3] = @"LOI";
+        v28 = [MEMORY[0x277CCABB0] numberWithInteger:getMatchingRTLocationOfInterestType];
+        v67[3] = v28;
+        v67[4] = &unk_2847EFAE8;
+        v66[4] = @"NetworkAttachmentFaulty";
+        v66[5] = @"CellFingerprintTriggered";
+        v67[5] = MEMORY[0x277CBEC38];
+        v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:6];
 
-        [(NetworkAnalyticsEngine *)selfCopy _createJournalRecordOfType:1 forInterface:2 fromDict:v30];
+        [(NetworkAnalyticsEngine *)selfCopy _createJournalRecordOfType:1 forInterface:2 fromDict:v29];
       }
     }
 
-    v51 = v8;
-    v55[9] = *(v56 + 9);
-    v73.location = v6 + 40;
-    v73.length = 4;
-    CFDataGetBytes(fromCopy, v73, v56 + 36);
-    v55[10] = *(v56 + 10);
-    v74.location = v6 + 44;
-    v74.length = 4;
-    CFDataGetBytes(fromCopy, v74, v56 + 40);
+    v49 = v8;
+    v53[9] = *(v54 + 9);
+    v71.location = v6 + 40;
+    v71.length = 4;
+    CFDataGetBytes(fromCopy, v71, v54 + 36);
+    v53[10] = *(v54 + 10);
+    v72.location = v6 + 44;
+    v72.length = 4;
+    CFDataGetBytes(fromCopy, v72, v54 + 40);
+    v30 = objc_msgSend(MEMORY[0x277CCAB68], "stringWithFormat:", @"(");
     v31 = objc_msgSend(MEMORY[0x277CCAB68], "stringWithFormat:", @"(");
-    v32 = objc_msgSend(MEMORY[0x277CCAB68], "stringWithFormat:", @"(");
-    v33 = -16;
+    v32 = -16;
     do
     {
-      v34 = &v13[v33];
-      if (v33 == -4)
+      v33 = &v13[v32];
+      if (v32 == -4)
       {
-        v35 = ")";
+        v34 = ")";
       }
 
       else
       {
-        v35 = ", ";
+        v34 = ", ";
       }
 
-      [v31 appendFormat:@"%d%s", *v34, v35];
-      [v32 appendFormat:@"%d%s", v34[4], v35];
-      v33 += 4;
+      [v30 appendFormat:@"%d%s", *v33, v34];
+      [v31 appendFormat:@"%d%s", v33[4], v34];
+      v32 += 4;
     }
 
-    while (v33);
-    v36 = netepochsLogHandle;
+    while (v32);
+    v35 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = *v56;
-      v38 = *(v56 + 9);
-      v39 = *(v56 + 10);
+      v36 = *v54;
+      v37 = *(v54 + 9);
+      v38 = *(v54 + 10);
       *buf = 67110403;
-      *v59 = v52;
-      *&v59[4] = 1025;
-      *&v59[6] = v37;
+      *v57 = v50;
+      *&v57[4] = 1025;
+      *&v57[6] = v36;
+      v58 = 2112;
+      v59 = v30;
       v60 = 2112;
       v61 = v31;
-      v62 = 2112;
-      v63 = v32;
+      v62 = 1024;
+      v63 = v37;
       v64 = 1024;
       v65 = v38;
-      v66 = 1024;
-      v67 = v39;
-      _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEFAULT, "eLQM: Link fingerprint for Cell %d: Cell Id = %{private}d, Duration = %@, LQM = %@, Throughput(UL, DL) = (%d, %d) Kbps", buf, 0x2Eu);
+      _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEFAULT, "eLQM: Link fingerprint for Cell %d: Cell Id = %{private}d, Duration = %@, LQM = %@, Throughput(UL, DL) = (%d, %d) Kbps", buf, 0x2Eu);
     }
 
-    v7 = v52 + 1;
-    fromCopy = v48;
-    v10 = v49 + 44;
+    v7 = v50 + 1;
+    fromCopy = v46;
+    v10 = v47 + 44;
     v12 += 44;
     v6 += 44;
-    v11 = v54 + 44;
+    v11 = v52 + 44;
     v13 += 44;
-    v8 = v51;
-    v9 = v53;
+    v8 = v49;
+    v9 = v51;
   }
 
-  while (v52 != 4);
-LABEL_40:
-  v46 = *MEMORY[0x277D85DE8];
+  while (v50 != 4);
 }
 
 - (void)_recoverFromSystemCriticalErrors
@@ -6410,18 +6986,16 @@ LABEL_40:
 
 uint64_t __58__NetworkAnalyticsEngine__recoverFromSystemCriticalErrors__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = maxRetryCountCTConnectionSetup;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "Retrying to set up CoreTelephony and Baseband channels, retries left = %d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = maxRetryCountCTConnectionSetup;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "Retrying to set up CoreTelephony and Baseband channels, retries left = %d", v4, 8u);
   }
 
-  result = [*(a1 + 32) _setupCoreTelephonyAndBasebandNotificationsOnElevatedPriorityQueue];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _setupCoreTelephonyAndBasebandNotificationsOnElevatedPriorityQueue];
 }
 
 - (id)_adviceToNSString:(int)string
@@ -6441,7 +7015,7 @@ uint64_t __58__NetworkAnalyticsEngine__recoverFromSystemCriticalErrors__block_in
 
 - (int)_generateAdviceForEpoch:(id)epoch relativeTo:(id)to
 {
-  *&v30[5] = *MEMORY[0x277D85DE8];
+  *&v29[5] = *MEMORY[0x277D85DE8];
   epochCopy = epoch;
   toCopy = to;
   if (!epochCopy)
@@ -6513,9 +7087,9 @@ uint64_t __58__NetworkAnalyticsEngine__recoverFromSystemCriticalErrors__block_in
       {
         v20 = v19;
         uUIDString = [v11 UUIDString];
-        v29 = 138412290;
-        *v30 = uUIDString;
-        _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "relative key %@ not found", &v29, 0xCu);
+        v28 = 138412290;
+        *v29 = uUIDString;
+        _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "relative key %@ not found", &v28, 0xCu);
 
         v10 = 0;
       }
@@ -6528,9 +7102,9 @@ uint64_t __58__NetworkAnalyticsEngine__recoverFromSystemCriticalErrors__block_in
     v10 = 0;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = 138412290;
-      *v30 = toCopy;
-      _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "invalid relative key %@", &v29, 0xCu);
+      v28 = 138412290;
+      *v29 = toCopy;
+      _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "invalid relative key %@", &v28, 0xCu);
       v10 = 0;
     }
   }
@@ -6539,11 +7113,11 @@ LABEL_22:
   v22 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
   {
-    v29 = 67109378;
-    v30[0] = v10;
-    LOWORD(v30[1]) = 2112;
-    *(&v30[1] + 2) = epochCopy;
-    _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_INFO, "Generated advice %d for epoch %@", &v29, 0x12u);
+    v28 = 67109378;
+    v29[0] = v10;
+    LOWORD(v29[1]) = 2112;
+    *(&v29[1] + 2) = epochCopy;
+    _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_INFO, "Generated advice %d for epoch %@", &v28, 0x12u);
   }
 
   if (epochCopy)
@@ -6563,16 +7137,29 @@ LABEL_22:
     [v24 setAdvisory:v10];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v10;
+}
+
+- (void)_updateAdviceForInterfaceType:(unsigned __int8)type
+{
+  v4 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:type];
+  v5 = v4;
+  if (v4)
+  {
+    v6 = v4;
+    v4 = [(NetworkAnalyticsEngine *)self _updateAdviceForEpoch:v4];
+    v5 = v6;
+  }
+
+  MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (void)_informKernelOfCellRrc:(int)rrc forInterface:(id)interface
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   interfaceCopy = interface;
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   uTF8String = [interfaceCopy UTF8String];
   v7 = socket(2, 2, 0);
   if ((v7 & 0x80000000) == 0)
@@ -6584,7 +7171,7 @@ LABEL_22:
       while (1)
       {
         v10 = *(uTF8String + v9);
-        *(&v24 + v9) = v10;
+        *(&v23 + v9) = v10;
         if (!v10)
         {
           break;
@@ -6592,14 +7179,14 @@ LABEL_22:
 
         if (++v9 == 15)
         {
-          HIBYTE(v24) = 0;
+          HIBYTE(v23) = 0;
           break;
         }
       }
 
-      LOBYTE(v25) = 1;
-      BYTE1(v25) = rrc;
-      v11 = ioctl(v7, 0xC02069A9uLL, &v24);
+      LOBYTE(v24) = 1;
+      BYTE1(v24) = rrc;
+      v11 = ioctl(v7, 0xC02069A9uLL, &v23);
       v12 = netepochsLogHandle;
       if (v11)
       {
@@ -6607,8 +7194,8 @@ LABEL_22:
         {
           *buf = 67109378;
           rrcCopy3 = rrc;
-          v22 = 2080;
-          v23 = uTF8String;
+          v21 = 2080;
+          v22 = uTF8String;
           v13 = "RRC ioctl failure to notify kernel of change to %d interface %s";
           v14 = v12;
           v15 = OS_LOG_TYPE_ERROR;
@@ -6622,8 +7209,8 @@ LABEL_16:
       {
         *buf = 67109378;
         rrcCopy3 = rrc;
-        v22 = 2080;
-        v23 = uTF8String;
+        v21 = 2080;
+        v22 = uTF8String;
         v13 = "RRC ioctl sets %d for interface %s";
         v14 = v12;
         v15 = OS_LOG_TYPE_DEFAULT;
@@ -6659,17 +7246,15 @@ LABEL_17:
   }
 
 LABEL_19:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_informKernelOfLIMUplink:(BOOL)uplink downlink:(BOOL)downlink forInterface:(const char *)interface
 {
   downlinkCopy = downlink;
   uplinkCopy = uplink;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v8 = socket(2, 2, 0);
   if ((v8 & 0x80000000) == 0)
   {
@@ -6680,7 +7265,7 @@ LABEL_19:
       while (1)
       {
         v11 = interface[v10];
-        *(&v38 + v10) = v11;
+        *(&v37 + v10) = v11;
         if (!v11)
         {
           break;
@@ -6688,7 +7273,7 @@ LABEL_19:
 
         if (++v10 == 15)
         {
-          HIBYTE(v38) = 0;
+          HIBYTE(v37) = 0;
           break;
         }
       }
@@ -6723,8 +7308,8 @@ LABEL_19:
         v14 = 1;
       }
 
-      LODWORD(v39) = v14;
-      v15 = ioctl(v8, 0xC02069BFuLL, &v38);
+      LODWORD(v38) = v14;
+      v15 = ioctl(v8, 0xC02069BFuLL, &v37);
       v16 = netepochsLogHandle;
       if (v15)
       {
@@ -6733,15 +7318,15 @@ LABEL_19:
           v17 = v16;
           v18 = *__error();
           *buf = 67110146;
-          v29 = v14;
-          v30 = 1024;
-          v31 = uplinkCopy;
-          v32 = 1024;
-          v33 = downlinkCopy;
-          v34 = 2080;
+          v28 = v14;
+          v29 = 1024;
+          v30 = uplinkCopy;
+          v31 = 1024;
+          v32 = downlinkCopy;
+          v33 = 2080;
           interfaceCopy2 = interface;
-          v36 = 1024;
-          v37 = v18;
+          v35 = 1024;
+          v36 = v18;
           _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "ioctl failure to notify kernel of overall LIM state %u with UL/DL (%d/%d) on interface %s, errno %d", buf, 0x24u);
         }
 
@@ -6751,12 +7336,12 @@ LABEL_19:
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109890;
-        v29 = v14;
-        v30 = 1024;
-        v31 = uplinkCopy;
-        v32 = 1024;
-        v33 = downlinkCopy;
-        v34 = 2080;
+        v28 = v14;
+        v29 = 1024;
+        v30 = uplinkCopy;
+        v31 = 1024;
+        v32 = downlinkCopy;
+        v33 = 2080;
         interfaceCopy2 = interface;
         v23 = "ioctl sets overall LIM state %u with UL/DL (%d/%d) for interface %s";
         v24 = v16;
@@ -6772,9 +7357,9 @@ LABEL_19:
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109376;
-        v29 = uplinkCopy;
-        v30 = 1024;
-        v31 = downlinkCopy;
+        v28 = uplinkCopy;
+        v29 = 1024;
+        v30 = downlinkCopy;
         v23 = "interfaceName is NULL, not notifying kernel of LIM UL/DL (%d/%d)";
         v24 = v22;
         v25 = OS_LOG_TYPE_ERROR;
@@ -6786,7 +7371,7 @@ LABEL_25:
 
 LABEL_26:
     close(v9);
-    goto LABEL_27;
+    return;
   }
 
   v19 = netepochsLogHandle;
@@ -6795,17 +7380,273 @@ LABEL_26:
     v20 = v19;
     v21 = *__error();
     *buf = 67109120;
-    v29 = v21;
+    v28 = v21;
     _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "Unable to open a socket for LIM ioctl to kernel, errno %d", buf, 8u);
   }
+}
 
-LABEL_27:
-  v27 = *MEMORY[0x277D85DE8];
+- (void)_actUponLoadedLqmChangeFrom:(int)from to:(int)to onInterfaceType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v6 = *&to;
+  v57 = *MEMORY[0x277D85DE8];
+  v9 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:type];
+  v10 = v9;
+  if (from == -2 && v6 == -1)
+  {
+    goto LABEL_29;
+  }
+
+  if (from == -1 && v6 == -2)
+  {
+    v11 = 1;
+    goto LABEL_30;
+  }
+
+  selfCopy = self;
+  [v9 lqmTransitions];
+  [v10 setLqmTransitions:v12 + 1.0];
+  v13 = netepochsLogHandle;
+  if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = v13;
+    [v10 lqmTransitions];
+    v16 = v15;
+    interfaceName = [v10 interfaceName];
+    primaryKey = [v10 primaryKey];
+    *buf = 134219267;
+    *v49 = v16;
+    *&v49[8] = 2112;
+    *&v49[10] = interfaceName;
+    v50 = 2113;
+    *v51 = primaryKey;
+    *&v51[8] = 1024;
+    fromCopy = from;
+    v53 = 1024;
+    v54 = v6;
+    v55 = 2048;
+    v56 = [v10 loi];
+    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Incrementing loaded LQM transitions = %f, interface = %@, primaryKey = %{private}@, loaded LQM(old/new) = (%d/%d), LOI (extended) = %ld", buf, 0x36u);
+  }
+
+  if (typeCopy == 5)
+  {
+    uTF8String = "CELLULAR-RECORD";
+  }
+
+  else
+  {
+    primaryKey2 = [v10 primaryKey];
+    uTF8String = [primaryKey2 UTF8String];
+  }
+
+  getMatchingRTLocationOfInterestType = [v10 getMatchingRTLocationOfInterestType];
+  v22 = [MEMORY[0x277D6B3E0] nwInterfaceTypeForNWFunctionalInterfaceType:typeCopy];
+  v46[0] = @"PrimaryKey";
+  v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:uTF8String];
+  v47[0] = v23;
+  v46[1] = @"InterfaceType";
+  v24 = [MEMORY[0x277CCABB0] numberWithInteger:v22];
+  v47[1] = v24;
+  v46[2] = @"LoadedLQM";
+  v25 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+  v47[2] = v25;
+  v46[3] = @"LOI";
+  v26 = [MEMORY[0x277CCABB0] numberWithInteger:getMatchingRTLocationOfInterestType];
+  v47[3] = v26;
+  v47[4] = &unk_2847EFAE8;
+  v46[4] = @"NetworkAttachmentFaulty";
+  v46[5] = @"CellFingerprintTriggered";
+  v47[5] = MEMORY[0x277CBEC28];
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:6];
+
+  v11 = 1;
+  [(NetworkAnalyticsEngine *)selfCopy _createJournalRecordOfType:1 forInterface:v22 fromDict:v27];
+
+  if (v6 > 19)
+  {
+    if (v6 != 20)
+    {
+      if (v6 == 100)
+      {
+        if (from > 0x32 || ((1 << from) & 0x4000000100400) == 0)
+        {
+          goto LABEL_29;
+        }
+
+        v32 = netepochsLogHandle;
+        if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+          v33 = v32;
+          primaryKey3 = [v10 primaryKey];
+          *buf = 138477827;
+          *v49 = primaryKey3;
+          _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_DEFAULT, "Stopping lowLqm timer for %{private}@", buf, 0xCu);
+        }
+
+        lowLqm = [v10 lowLqm];
+        [lowLqm stop];
+LABEL_28:
+
+        [(NetworkAnalyticsEngine *)selfCopy _updateAdviceForEpoch:v10];
+        goto LABEL_29;
+      }
+
+      if (v6 != 50)
+      {
+        goto LABEL_29;
+      }
+    }
+
+LABEL_18:
+    if (from < 0xFFFFFFFE && from != 100)
+    {
+      goto LABEL_29;
+    }
+
+    v28 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      v29 = v28;
+      primaryKey4 = [v10 primaryKey];
+      *buf = 138477827;
+      *v49 = primaryKey4;
+      _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEFAULT, "Starting lowLqm timer for %{private}@", buf, 0xCu);
+    }
+
+    lowLqm = [v10 lowLqm];
+    [lowLqm start];
+    goto LABEL_28;
+  }
+
+  if (v6 == -2)
+  {
+    goto LABEL_30;
+  }
+
+  if (v6 == 10)
+  {
+    goto LABEL_18;
+  }
+
+LABEL_29:
+  v11 = 0;
+LABEL_30:
+  v35 = typeCopy;
+  pendedLqm[typeCopy] = v11;
+  v36 = netepochsLogHandle;
+  if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    v37 = pendedLqm[typeCopy];
+    v38 = v36;
+    primaryKey5 = [v10 primaryKey];
+    *buf = 67109379;
+    *v49 = v37;
+    *&v49[4] = 2113;
+    *&v49[6] = primaryKey5;
+    _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_DEFAULT, "pendedLqm = %d, primaryKey = %{private}@", buf, 0x12u);
+  }
+
+  v40 = [NetworkStateRelay getStateRelayFor:typeCopy];
+  [v40 setLinkQuality:v6];
+  date = [MEMORY[0x277CBEAA8] date];
+  [date timeIntervalSince1970];
+  linkQualityUpdateDelay[v35] = -(realTimeLqmLastUpdated[v35] - v42 * 1000.0);
+
+  v43 = netepochsLogHandle;
+  if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    v44 = linkQualityUpdateDelay[v35];
+    *buf = 134218752;
+    *v49 = v35;
+    *&v49[8] = 2048;
+    *&v49[10] = v44;
+    v50 = 1024;
+    *v51 = from;
+    *&v51[4] = 1024;
+    *&v51[6] = v6;
+    _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_DEFAULT, "linkQuality updated, interface type = %ld, delay = %f ms, (old/new) = (%d/%d)", buf, 0x22u);
+  }
+}
+
+- (void)_setRadioTechnology:(unsigned __int8)technology forInterfaceType:(unsigned __int8)type
+{
+  typeCopy = type;
+  technologyCopy = technology;
+  v14 = *MEMORY[0x277D85DE8];
+  v6 = [NetworkStateRelay getStateRelayFor:type];
+  [v6 setRadioTechnology:technologyCopy];
+  v7 = netepochsLogHandle;
+  if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v7;
+    v9 = [NetworkAnalyticsEngine mapRadioTechnologyTypeToString:technologyCopy];
+    v10 = 138412546;
+    v11 = v9;
+    v12 = 2048;
+    v13 = typeCopy;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "RAT changed: radio-technology %@ interface-type %ld", &v10, 0x16u);
+  }
+}
+
+- (void)_actUponCellRrcChangeTo:(int)to
+{
+  v3 = *&to;
+  v22 = *MEMORY[0x277D85DE8];
+  v5 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:5];
+  v6 = netepochsLogHandle;
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    lastReportedRrcValue = self->lastReportedRrcValue;
+    lastReportedRrcInterface = self->lastReportedRrcInterface;
+    if (v5)
+    {
+      interfaceName = [v5 interfaceName];
+    }
+
+    else
+    {
+      interfaceName = @"<not-available>";
+    }
+
+    v15[0] = 67109890;
+    v15[1] = v3;
+    v16 = 1024;
+    v17 = lastReportedRrcValue;
+    v18 = 2112;
+    v19 = lastReportedRrcInterface;
+    v20 = 2112;
+    v21 = interfaceName;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "New RRC %d when previous %d from %@, epoch interface %@", v15, 0x22u);
+    if (v5)
+    {
+    }
+  }
+
+  if (v5)
+  {
+    if (self->lastReportedRrcValue != v3 || (v10 = self->lastReportedRrcInterface, [v5 interfaceName], v11 = objc_claimAutoreleasedReturnValue(), LOBYTE(v10) = -[NSString isEqualToString:](v10, "isEqualToString:", v11), v11, (v10 & 1) == 0))
+    {
+      interfaceName2 = [v5 interfaceName];
+      [(NetworkAnalyticsEngine *)self _informKernelOfCellRrc:v3 forInterface:interfaceName2];
+
+      self->lastReportedRrcValue = v3;
+      interfaceName3 = [v5 interfaceName];
+      v14 = self->lastReportedRrcInterface;
+      self->lastReportedRrcInterface = interfaceName3;
+    }
+  }
+
+  else if (!v3 && self->lastReportedRrcValue)
+  {
+    [(NetworkAnalyticsEngine *)self _informKernelOfCellRrc:0 forInterface:self->lastReportedRrcInterface];
+    self->lastReportedRrcValue = 0;
+  }
 }
 
 - (BOOL)_shouldAcceptRouteSource:(__NStatSource *)source
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   liveDefaultRoutes = self->liveDefaultRoutes;
   v6 = [MEMORY[0x277CCAE60] valueWithPointer:?];
   v7 = [(NSMutableDictionary *)liveDefaultRoutes objectForKeyedSubscript:v6];
@@ -6815,8 +7656,8 @@ LABEL_27:
   {
     *buf = 134218242;
     sourceCopy3 = source;
-    v40 = 2112;
-    v41 = v7;
+    v39 = 2112;
+    v40 = v7;
     _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "description callback for route source %p gives epoch %@", buf, 0x16u);
   }
 
@@ -6828,8 +7669,8 @@ LABEL_27:
     {
       *buf = 134218243;
       sourceCopy3 = source;
-      v40 = 2113;
-      v41 = v9;
+      v39 = 2113;
+      v40 = v9;
       _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "route source %p description callback has snapshot %{private}@", buf, 0x16u);
     }
 
@@ -6846,48 +7687,48 @@ LABEL_27:
     }
 
     v14 = [NetworkStateRelay getStateRelayFor:v13];
-    v35 = 0;
-    v36[0] = 0;
-    v37 = 0;
-    v36[1] = 0;
+    v34 = 0;
+    v35[0] = 0;
+    v36 = 0;
+    v35[1] = 0;
     if (!gateway || [gateway length] > 0x1C)
     {
       goto LABEL_33;
     }
 
-    [gateway getBytes:&v35 length:{objc_msgSend(gateway, "length")}];
-    v15 = v35;
+    [gateway getBytes:&v34 length:{objc_msgSend(gateway, "length")}];
+    v15 = v34;
     if ([gateway length] < v15)
     {
-      LOBYTE(v35) = [gateway length];
+      LOBYTE(v34) = [gateway length];
     }
 
-    memset(v31, 0, 46);
-    if (BYTE1(v35) == 2)
+    memset(v30, 0, 46);
+    if (BYTE1(v34) == 2)
     {
-      v16 = &v35 + 4;
+      v16 = &v34 + 4;
     }
 
     else
     {
-      if (BYTE1(v35) != 30)
+      if (BYTE1(v34) != 30)
       {
         goto LABEL_24;
       }
 
-      v16 = v36;
+      v16 = v35;
     }
 
-    inet_ntop(BYTE1(v35), v16, v31, 0x2Eu);
-    v33 = v31;
-    v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:v31];
+    inet_ntop(BYTE1(v34), v16, v30, 0x2Eu);
+    v32 = v30;
+    v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:v30];
     if (v17)
     {
-      v32[0] = v14;
-      v32[1] = v32;
+      v31[0] = v14;
+      v31[1] = v31;
       v18 = v17;
       hasGW = [v7 hasGW];
-      v34 = v18;
+      v33 = v18;
       [hasGW addObject:v18];
 
       v20 = netepochsLogHandle;
@@ -6898,15 +7739,15 @@ LABEL_27:
         hasGW2 = [v7 hasGW];
         *buf = 134218499;
         sourceCopy3 = source;
-        v40 = 2113;
-        v41 = primaryKey;
-        v42 = 2113;
-        v43 = hasGW2;
+        v39 = 2113;
+        v40 = primaryKey;
+        v41 = 2113;
+        v42 = hasGW2;
         _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_INFO, "new default route %p for %{private}@ has gw set to %{private}@", buf, 0x20u);
       }
 
-      v14 = v32[0];
-      if (v32[0])
+      v14 = v31[0];
+      if (v31[0])
       {
         v24 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:v13];
         v25 = netepochsLogHandle;
@@ -6917,31 +7758,31 @@ LABEL_27:
           {
             v28 = "Wi-Fi";
             *buf = 136381187;
-            sourceCopy3 = v33;
+            sourceCopy3 = v32;
             if (oncell)
             {
               v28 = "Cellular";
             }
 
-            v40 = 2080;
-            v41 = v28;
-            v42 = 2048;
-            v43 = v14;
+            v39 = 2080;
+            v40 = v28;
+            v41 = 2048;
+            v42 = v14;
             _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEFAULT, "Adding a default gateway %{private}s to %s state relay at %p", buf, 0x20u);
           }
 
-          [v14 addDefaultGateway:v34];
+          [v14 addDefaultGateway:v33];
         }
 
         else if (v26)
         {
           *buf = 136380675;
-          sourceCopy3 = v33;
+          sourceCopy3 = v32;
           _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEFAULT, "Received a default gateway %{private}s from stale epoch", buf, 0xCu);
         }
       }
 
-      v27 = v34;
+      v27 = v33;
       goto LABEL_32;
     }
 
@@ -6952,13 +7793,12 @@ LABEL_32:
 LABEL_33:
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)_handleRouteData:(__NStatSource *)data
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   liveDefaultRoutes = self->liveDefaultRoutes;
   v6 = [MEMORY[0x277CCAE60] valueWithPointer:?];
   v7 = [(NSMutableDictionary *)liveDefaultRoutes objectForKeyedSubscript:v6];
@@ -7017,12 +7857,12 @@ LABEL_17:
       {
         *buf = 134218752;
         dataCopy5 = data;
-        v34 = 2048;
-        *v35 = v11;
-        *&v35[8] = 2048;
-        *&v35[10] = v14;
-        v36 = 2048;
-        v37 = v16;
+        v33 = 2048;
+        *v34 = v11;
+        *&v34[8] = 2048;
+        *&v34[10] = v14;
+        v35 = 2048;
+        v36 = v16;
         _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "default route %p counts block, connSucc=%llu, prevSucc=%f, rttMin=%f", buf, 0x2Au);
       }
     }
@@ -7033,12 +7873,12 @@ LABEL_17:
       {
         *buf = 134218752;
         dataCopy5 = data;
-        v34 = 2048;
-        *v35 = v11;
-        *&v35[8] = 2048;
-        *&v35[10] = v14;
-        v36 = 2048;
-        v37 = v16;
+        v33 = 2048;
+        *v34 = v11;
+        *&v34[8] = 2048;
+        *&v34[10] = v14;
+        v35 = 2048;
+        v36 = v16;
         _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "disarming DOA ticker in default route %p counts block, connSucc=%llu, prevSucc=%f, rttMin=%f", buf, 0x2Au);
       }
 
@@ -7056,40 +7896,39 @@ LABEL_17:
       partial2 = [v7 partial];
       *buf = 134218496;
       dataCopy5 = data;
-      v34 = 1024;
-      *v35 = v26;
-      *&v35[4] = 2048;
-      *&v35[6] = partial2;
+      v33 = 1024;
+      *v34 = v26;
+      *&v34[4] = 2048;
+      *&v34[6] = partial2;
       _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_INFO, "default route %p counts block, either no DOA ticker (%d) or no partial (%p)", buf, 0x1Cu);
     }
   }
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __43__NetworkAnalyticsEngine__handleRouteData___block_invoke;
-  v30[3] = &unk_27898DAF8;
-  v30[4] = self;
-  v31 = v7;
-  [v31 updateMetrics:v8 source:data wasProgress:v30];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __43__NetworkAnalyticsEngine__handleRouteData___block_invoke;
+  v29[3] = &unk_27898DAF8;
+  v29[4] = self;
+  v30 = v7;
+  [v30 updateMetrics:v8 source:data wasProgress:v29];
 
 LABEL_18:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __43__NetworkAnalyticsEngine__handleRouteData___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
     v6 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412546;
-      v12 = @"tickerFatal";
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "defusing ticker %@ having seen route progress since %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = @"tickerFatal";
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "defusing ticker %@ having seen route progress since %@", &v10, 0x16u);
     }
 
     v8 = *(a1 + 32);
@@ -7097,13 +7936,11 @@ void __43__NetworkAnalyticsEngine__handleRouteData___block_invoke(uint64_t a1, i
     v9 = [v7 primaryKey];
     [v8 _disarmFatalSuspector:v7 withEventAt:v5 by:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRouteClosing:(__NStatSource *)closing
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCAE60] valueWithPointer:?];
   v6 = [(NSMutableDictionary *)self->liveDefaultRoutes objectForKeyedSubscript:v5];
   v7 = netepochsLogHandle;
@@ -7113,15 +7950,15 @@ void __43__NetworkAnalyticsEngine__handleRouteData___block_invoke(uint64_t a1, i
     if (v8)
     {
       v9 = v7;
-      v11 = 134218752;
+      v10 = 134218752;
       closingCopy2 = closing;
-      v13 = 2048;
-      v14 = v6;
-      v15 = 2048;
+      v12 = 2048;
+      v13 = v6;
+      v14 = 2048;
       defRoute4 = [v6 defRoute4];
-      v17 = 2048;
+      v16 = 2048;
       defRoute6 = [v6 defRoute6];
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "default route %p is closing, epoch %p with v4 route %p, v6 route %p", &v11, 0x2Au);
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "default route %p is closing, epoch %p with v4 route %p, v6 route %p", &v10, 0x2Au);
     }
 
     if ([v6 defRoute4] == closing)
@@ -7139,77 +7976,73 @@ void __43__NetworkAnalyticsEngine__handleRouteData___block_invoke(uint64_t a1, i
 
   else if (v8)
   {
-    v11 = 134217984;
+    v10 = 134217984;
     closingCopy2 = closing;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "default route %p is closing with no associated epoch", &v11, 0xCu);
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "default route %p is closing with no associated epoch", &v10, 0xCu);
   }
 
   if (closing)
   {
     CFRelease(closing);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (__NStatSource)_newDefRouteForInterface:(id)interface saFamily:(unsigned __int8)family
 {
   familyCopy = family;
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   interfaceCopy = interface;
-  v7 = if_nametoindex([interfaceCopy UTF8String]);
-  if (!v7)
+  v6 = if_nametoindex([interfaceCopy UTF8String]);
+  if (!v6)
   {
 LABEL_7:
-    v11 = 0;
+    v9 = 0;
     goto LABEL_8;
   }
 
-  v8 = v7;
-  routeManager = self->routeManager;
+  v7 = v6;
   RouteSource = NStatManagerCreateRouteSource();
   if (!RouteSource)
   {
-    v13 = analyticsLogHandle;
+    v11 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v17 = interfaceCopy;
-      v18 = 1024;
-      v19 = familyCopy;
-      v20 = 1024;
-      LODWORD(v21) = v8;
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "Failed to create default route on %@, family = %d, index = %d", buf, 0x18u);
+      v14 = interfaceCopy;
+      v15 = 1024;
+      v16 = familyCopy;
+      v17 = 1024;
+      LODWORD(v18) = v7;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "Failed to create default route on %@, family = %d, index = %d", buf, 0x18u);
     }
 
     goto LABEL_7;
   }
 
-  v11 = RouteSource;
+  v9 = RouteSource;
   NStatSourceSetEventsBlock();
-  v12 = netepochsLogHandle;
+  v10 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v17 = interfaceCopy;
-    v18 = 1024;
-    v19 = familyCopy;
-    v20 = 2048;
-    v21 = v11;
-    v22 = 1024;
-    v23 = v8;
-    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Created default route on %@, family = %d, src = %p, index = %d", buf, 0x22u);
+    v14 = interfaceCopy;
+    v15 = 1024;
+    v16 = familyCopy;
+    v17 = 2048;
+    v18 = v9;
+    v19 = 1024;
+    v20 = v7;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Created default route on %@, family = %d, src = %p, index = %d", buf, 0x22u);
   }
 
 LABEL_8:
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v9;
 }
 
 void __60__NetworkAnalyticsEngine__newDefRouteForInterface_saFamily___block_invoke(uint64_t a1, uint64_t a2, int a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v6 = objc_autoreleasePoolPush();
   if (a3 == 2)
   {
@@ -7229,9 +8062,9 @@ void __60__NetworkAnalyticsEngine__newDefRouteForInterface_saFamily___block_invo
     v7 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v9[0] = 67109120;
-      v9[1] = a3;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Unknown  NetworkStatistics event %d", v9, 8u);
+      v8[0] = 67109120;
+      v8[1] = a3;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Unknown  NetworkStatistics event %d", v8, 8u);
     }
   }
 
@@ -7241,12 +8074,11 @@ void __60__NetworkAnalyticsEngine__newDefRouteForInterface_saFamily___block_invo
   }
 
   objc_autoreleasePoolPop(v6);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveProtocolSnapshot:(id)snapshot
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -7265,10 +8097,10 @@ void __60__NetworkAnalyticsEngine__newDefRouteForInterface_saFamily___block_invo
           v10 = v9;
           *buf = 134218496;
           sourceIdentifier = [snapshotCopy sourceIdentifier];
-          v47 = 2048;
+          v46 = 2048;
           rxCellularBytes = [snapshotCopy rxCellularBytes];
-          v49 = 2048;
-          v50 = v6;
+          v48 = 2048;
+          v49 = v6;
           _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "NAE receive snapshot %lld a cell flow with %llu downloaded bytes, duration is %f", buf, 0x20u);
         }
 
@@ -7285,10 +8117,10 @@ void __60__NetworkAnalyticsEngine__newDefRouteForInterface_saFamily___block_invo
           rxWiFiBytes = [snapshotCopy rxWiFiBytes];
           *buf = 134218496;
           sourceIdentifier = sourceIdentifier2;
-          v47 = 2048;
+          v46 = 2048;
           rxCellularBytes = rxWiFiBytes;
-          v49 = 2048;
-          v50 = v6;
+          v48 = 2048;
+          v49 = v6;
           _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "NAE receive snapshot %lld a wifi flow with %llu downloaded bytes, duration is %f", buf, 0x20u);
         }
 
@@ -7320,11 +8152,11 @@ void __60__NetworkAnalyticsEngine__newDefRouteForInterface_saFamily___block_invo
             block[1] = 3221225472;
             block[2] = __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke;
             block[3] = &unk_27898DB48;
-            v43 = v7;
+            v42 = v7;
             block[4] = self;
-            v41 = v24;
-            v44 = v15;
-            v42 = v18;
+            v40 = v24;
+            v43 = v15;
+            v41 = v18;
             v26 = v18;
             v27 = v24;
             dispatch_async(queue, block);
@@ -7341,26 +8173,24 @@ void __60__NetworkAnalyticsEngine__newDefRouteForInterface_saFamily___block_invo
           v33 = [v28 stringWithFormat:@"flow %lld for %@, cell rxbytes %lld duration %.3f seconds", sourceIdentifier4, attributedEntity2, rxCellularBytes2, v32];
 
           queue2 = [(AnalyticsEngineCore *)self queue];
-          v37[0] = MEMORY[0x277D85DD0];
-          v37[1] = 3221225472;
-          v37[2] = __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550;
-          v37[3] = &unk_27898BFA0;
-          v39 = v8;
-          v37[4] = self;
-          v38 = v33;
+          v36[0] = MEMORY[0x277D85DD0];
+          v36[1] = 3221225472;
+          v36[2] = __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550;
+          v36[3] = &unk_27898BFA0;
+          v38 = v8;
+          v36[4] = self;
+          v37 = v33;
           v35 = v33;
-          dispatch_async(queue2, v37);
+          dispatch_async(queue2, v36);
         }
       }
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _epochForInterfaceType:3];
   v3 = v2;
   if (v2 && ([v2 defRoute4] || objc_msgSend(v3, "defRoute6")))
@@ -7374,13 +8204,13 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke(uint
         v6 = *(a1 + 40);
         v7 = v4;
         [v3 topDownlRate];
-        v16 = 134218499;
-        v17 = v5;
-        v18 = 2113;
-        v19 = v6;
-        v20 = 2048;
-        v21 = v8;
-        _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "wifi download rate of %.0f Bps reported from %{private}@, epoch's top is %.0f Bps", &v16, 0x20u);
+        v15 = 134218499;
+        v16 = v5;
+        v17 = 2113;
+        v18 = v6;
+        v19 = 2048;
+        v20 = v8;
+        _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "wifi download rate of %.0f Bps reported from %{private}@, epoch's top is %.0f Bps", &v15, 0x20u);
       }
 
       v9 = [v3 partial];
@@ -7414,13 +8244,11 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke(uint
       [*(a1 + 32) _disarmFatalSuspector:v3 withEventAt:*(a1 + 48) by:*(a1 + 40)];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _epochForInterfaceType:5];
   v3 = v2;
   if (v2)
@@ -7436,13 +8264,13 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
         v6 = *(a1 + 48);
         v8 = v5;
         [v3 topDownlRate];
-        v16 = 134218499;
-        v17 = v6;
-        v18 = 2113;
-        v19 = v7;
-        v20 = 2048;
-        v21 = v9;
-        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "cell download rate of %.0f Bps reported from %{private}@, epoch's top is %.0f Bps", &v16, 0x20u);
+        v15 = 134218499;
+        v16 = v6;
+        v17 = 2113;
+        v18 = v7;
+        v19 = 2048;
+        v20 = v9;
+        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "cell download rate of %.0f Bps reported from %{private}@, epoch's top is %.0f Bps", &v15, 0x20u);
       }
 
       v10 = [v3 partial];
@@ -7466,8 +8294,6 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
       [v3 setTopDownlRate:v14];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)didReceiveProtocolSnapshot:(id)snapshot
@@ -7480,36 +8306,36 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
 
 - (void)_dnsWithSymptoms:(id)symptoms
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   userInfo = [symptoms userInfo];
   keyEnumerator = [userInfo keyEnumerator];
-  v88 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:3];
-  v90 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:5];
+  v87 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:3];
+  v89 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:5];
+  v92 = 0u;
   v93 = 0u;
   v94 = 0u;
   v95 = 0u;
-  v96 = 0u;
   obj = keyEnumerator;
-  v6 = [obj countByEnumeratingWithState:&v93 objects:v107 count:16];
+  v6 = [obj countByEnumeratingWithState:&v92 objects:v106 count:16];
   if (v6)
   {
     v7 = v6;
     selfCopy = self;
-    v87 = userInfo;
+    v86 = userInfo;
     v8 = 0;
-    v9 = *v94;
+    v9 = *v93;
     while (2)
     {
       v10 = 0;
       v11 = v8;
       do
       {
-        if (*v94 != v9)
+        if (*v93 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v93 + 1) + 8 * v10);
+        v8 = *(*(&v92 + 1) + 8 * v10);
 
         v12 = [userInfo objectForKeyedSubscript:v8];
         v13 = [SymptomStore keyFromSymptomName:@"SYMPTOM_DNS_NO_REPLIES"];
@@ -7520,21 +8346,21 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
 
         if ((v14 & 1) != 0 || v16)
         {
-          v91 = v12;
+          v90 = v12;
           eventQualifiers = [v12 eventQualifiers];
           v18 = [eventQualifiers objectForKeyedSubscript:@"1"];
-          v92 = 0;
-          v19 = validateSockAddrToString(v18, 0, &v92);
-          v20 = v92;
+          v91 = 0;
+          v19 = validateSockAddrToString(v18, 0, &v91);
+          v20 = v91;
 
-          v21 = v88;
-          if (v88)
+          v21 = v87;
+          if (v87)
           {
             if (v19)
             {
               if ([(__CFString *)v20 length])
               {
-                hasDNS = [v88 hasDNS];
+                hasDNS = [v87 hasDNS];
                 v23 = [hasDNS member:v20];
 
                 if (v23)
@@ -7542,33 +8368,33 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
                   v33 = selfCopy;
                   if (v14)
                   {
-                    impDNS = [v88 impDNS];
+                    impDNS = [v87 impDNS];
                     [impDNS addObject:v20];
 
                     v35 = netepochsLogHandle;
                     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
                     {
                       v36 = v35;
-                      impDNS2 = [v88 impDNS];
+                      impDNS2 = [v87 impDNS];
                       v38 = [impDNS2 count];
-                      hasDNS2 = [v88 hasDNS];
+                      hasDNS2 = [v87 hasDNS];
                       v40 = [hasDNS2 count];
-                      impDNS3 = [v88 impDNS];
-                      hasDNS3 = [v88 hasDNS];
+                      impDNS3 = [v87 impDNS];
+                      hasDNS3 = [v87 hasDNS];
                       *buf = 138478851;
-                      v98 = v20;
-                      v99 = 2048;
-                      v100 = v38;
-                      v101 = 2048;
-                      v102 = v40;
-                      v103 = 2113;
-                      v104 = impDNS3;
-                      v105 = 2113;
-                      v106 = hasDNS3;
+                      v97 = v20;
+                      v98 = 2048;
+                      v99 = v38;
+                      v100 = 2048;
+                      v101 = v40;
+                      v102 = 2113;
+                      v103 = impDNS3;
+                      v104 = 2113;
+                      v105 = hasDNS3;
                       _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEFAULT, "recvd wifi dns symptom, server %{private}@, not responding. %lu/%lu are out: %{private}@/%{private}@", buf, 0x34u);
 
                       v33 = selfCopy;
-                      v21 = v88;
+                      v21 = v87;
                     }
 
                     v43 = +[NDFCoreShim sharedInstance];
@@ -7581,14 +8407,14 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
                     v47 = [impDNS4 count];
 
                     v31 = v45 == v47;
-                    userInfo = v87;
+                    userInfo = v86;
                     if (v31)
                     {
                       internal_symptom_create();
                       internal_symptom_send();
                       v48 = [NetworkStateRelay getStateRelayFor:3];
                       [v48 setDnsOut:1];
-                      if ([v88 hasInternetDNS])
+                      if ([v87 hasInternetDNS])
                       {
                         [v48 setInternetDnsOut:1];
                       }
@@ -7597,16 +8423,16 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
                       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
                       {
                         v50 = v49;
-                        hasDNS5 = [v88 hasDNS];
+                        hasDNS5 = [v87 hasDNS];
                         v52 = [hasDNS5 count];
                         *buf = 134217984;
-                        v98 = v52;
+                        v97 = v52;
                         _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_DEFAULT, "recvd wifi dns symptom, all out (%lu)", buf, 0xCu);
                       }
 
-                      [(NetworkAnalyticsEngine *)v33 _armFatalSuspector:v88 isActive:0];
+                      [(NetworkAnalyticsEngine *)v33 _armFatalSuspector:v87 isActive:0];
                       v53 = +[NDFCoreShim sharedInstance];
-                      impDNS5 = [v88 impDNS];
+                      impDNS5 = [v87 impDNS];
                       [v53 noteDNSAllOutWithServers:impDNS5];
                     }
                   }
@@ -7614,7 +8440,7 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
                   else
                   {
                     v61 = objc_alloc(MEMORY[0x277CBEB58]);
-                    impDNS6 = [v88 impDNS];
+                    impDNS6 = [v87 impDNS];
                     v63 = [v61 initWithSet:impDNS6];
 
                     [v63 removeObject:v20];
@@ -7623,22 +8449,22 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
                     {
                       v65 = v64;
                       v66 = [v63 count];
-                      hasDNS6 = [v88 hasDNS];
+                      hasDNS6 = [v87 hasDNS];
                       v68 = [hasDNS6 count];
-                      hasDNS7 = [v88 hasDNS];
+                      hasDNS7 = [v87 hasDNS];
                       *buf = 138478851;
-                      v98 = v20;
-                      v99 = 2048;
-                      v100 = v66;
-                      v101 = 2048;
-                      v102 = v68;
-                      v103 = 2113;
-                      v104 = v63;
-                      v105 = 2113;
-                      v106 = hasDNS7;
+                      v97 = v20;
+                      v98 = 2048;
+                      v99 = v66;
+                      v100 = 2048;
+                      v101 = v68;
+                      v102 = 2113;
+                      v103 = v63;
+                      v104 = 2113;
+                      v105 = hasDNS7;
                       _os_log_impl(&dword_23255B000, v65, OS_LOG_TYPE_DEFAULT, "recvd wifi dns symptom, server %{private}@, resumed responding. %lu/%lu are out: %{private}@/%{private}@", buf, 0x34u);
 
-                      v21 = v88;
+                      v21 = v87;
                     }
 
                     v70 = +[NDFCoreShim sharedInstance];
@@ -7658,7 +8484,7 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
 
                       v79 = netepochsLogHandle;
                       v80 = os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT);
-                      userInfo = v87;
+                      userInfo = v86;
                       if (v78)
                       {
                         if (v80)
@@ -7673,22 +8499,22 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
                         if (v80)
                         {
                           *buf = 138412290;
-                          v98 = @"tickerFatal";
+                          v97 = @"tickerFatal";
                           _os_log_impl(&dword_23255B000, v79, OS_LOG_TYPE_DEFAULT, "defusing ticker %@ having seen DNS progress", buf, 0xCu);
                         }
 
                         date = [MEMORY[0x277CBEAA8] date];
-                        [(NetworkAnalyticsEngine *)selfCopy _disarmFatalSuspector:v88 withEventAt:date by:v20];
+                        [(NetworkAnalyticsEngine *)selfCopy _disarmFatalSuspector:v87 withEventAt:date by:v20];
                       }
 
                       v83 = [NetworkStateRelay getStateRelayFor:3];
                       [v83 setDnsOut:0];
-                      if ([v88 hasInternetDNS])
+                      if ([v87 hasInternetDNS])
                       {
                         [v83 setInternetDnsOut:0];
                       }
 
-                      impDNS8 = [v88 impDNS];
+                      impDNS8 = [v87 impDNS];
                       [impDNS8 removeObject:v20];
 
                       [(NetworkAnalyticsEngine *)selfCopy _updateCombinedDNSCounts];
@@ -7702,7 +8528,7 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
                       [impDNS9 removeObject:v20];
 
                       [(NetworkAnalyticsEngine *)selfCopy _updateCombinedDNSCounts];
-                      userInfo = v87;
+                      userInfo = v86;
                     }
                   }
 
@@ -7712,28 +8538,28 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
             }
           }
 
-          if (v90)
+          if (v89)
           {
             if (v20)
             {
-              hasDNS10 = [v90 hasDNS];
+              hasDNS10 = [v89 hasDNS];
               v25 = [hasDNS10 member:v20];
 
               if (v25)
               {
                 if (v14)
                 {
-                  impDNS10 = [v90 impDNS];
+                  impDNS10 = [v89 impDNS];
                   [impDNS10 addObject:v20];
 
                   [(NetworkAnalyticsEngine *)selfCopy _updateCombinedDNSCounts];
-                  hasDNS11 = [v90 hasDNS];
+                  hasDNS11 = [v89 hasDNS];
                   v28 = [hasDNS11 count];
-                  impDNS11 = [v90 impDNS];
+                  impDNS11 = [v89 impDNS];
                   v30 = [impDNS11 count];
 
                   v31 = v28 == v30;
-                  userInfo = v87;
+                  userInfo = v86;
                   if (v31)
                   {
                     v32 = [NetworkStateRelay getStateRelayFor:5];
@@ -7743,9 +8569,9 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
 
                 else
                 {
-                  hasDNS12 = [v90 hasDNS];
+                  hasDNS12 = [v89 hasDNS];
                   v56 = [hasDNS12 count];
-                  impDNS12 = [v90 impDNS];
+                  impDNS12 = [v89 impDNS];
                   v58 = [impDNS12 count];
 
                   if (v56 == v58)
@@ -7754,11 +8580,11 @@ void __53__NetworkAnalyticsEngine_didReceiveProtocolSnapshot___block_invoke_550(
                     [v59 setDnsOut:0];
                   }
 
-                  impDNS13 = [v90 impDNS];
+                  impDNS13 = [v89 impDNS];
                   [impDNS13 removeObject:v20];
 
                   [(NetworkAnalyticsEngine *)selfCopy _updateCombinedDNSCounts];
-                  userInfo = v87;
+                  userInfo = v86;
                 }
 
 LABEL_50:
@@ -7768,8 +8594,8 @@ LABEL_50:
             }
           }
 
-          userInfo = v87;
-          v12 = v91;
+          userInfo = v86;
+          v12 = v90;
         }
 
         ++v10;
@@ -7777,7 +8603,7 @@ LABEL_50:
       }
 
       while (v7 != v10);
-      v7 = [obj countByEnumeratingWithState:&v93 objects:v107 count:16];
+      v7 = [obj countByEnumeratingWithState:&v92 objects:v106 count:16];
       if (v7)
       {
         continue;
@@ -7788,13 +8614,11 @@ LABEL_50:
 
 LABEL_51:
   }
-
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerDisconnectEdge:(id)edge
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   edgeCopy = edge;
   v5 = &rnfLogHandle;
   v6 = rnfLogHandle;
@@ -7803,41 +8627,41 @@ LABEL_51:
     v7 = v6;
     v8 = qos_class_self();
     *buf = 136315138;
-    v92 = qos_string(v8);
+    v91 = qos_string(v8);
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "trigger-disconnect: _triggerDisconnectEdge: QoS %s", buf, 0xCu);
   }
 
   userInfo = [edgeCopy userInfo];
   keyEnumerator = [userInfo keyEnumerator];
   v10 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:3];
+  v86 = 0u;
   v87 = 0u;
   v88 = 0u;
   v89 = 0u;
-  v90 = 0u;
   obj = keyEnumerator;
-  v84 = [obj countByEnumeratingWithState:&v87 objects:v103 count:16];
-  if (!v84)
+  v83 = [obj countByEnumeratingWithState:&v86 objects:v102 count:16];
+  if (!v83)
   {
     goto LABEL_41;
   }
 
   v12 = 0;
-  v83 = *v88;
+  v82 = *v87;
   *&v11 = 134218240;
-  v76 = v11;
-  v77 = edgeCopy;
-  v78 = v10;
+  v75 = v11;
+  v76 = edgeCopy;
+  v77 = v10;
   while (2)
   {
-    for (i = 0; i != v84; ++i)
+    for (i = 0; i != v83; ++i)
     {
       v14 = v12;
-      if (*v88 != v83)
+      if (*v87 != v82)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v87 + 1) + 8 * i);
+      v12 = *(*(&v86 + 1) + 8 * i);
 
       v15 = [userInfo objectForKeyedSubscript:v12];
       eventData = [v15 eventData];
@@ -7850,11 +8674,11 @@ LABEL_51:
           v73 = v71;
           uTF8String = [v12 UTF8String];
           *buf = 136315138;
-          v92 = uTF8String;
+          v91 = uTF8String;
           _os_log_impl(&dword_23255B000, v73, OS_LOG_TYPE_ERROR, "TD: ManagedEvent for %s lacks the expected qualifiers. Skip processing", buf, 0xCu);
         }
 
-        edgeCopy = v77;
+        edgeCopy = v76;
         goto LABEL_40;
       }
 
@@ -7864,7 +8688,7 @@ LABEL_51:
       if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
       {
         v20 = v12;
-        v86 = v12;
+        v85 = v12;
         log = v19;
         uTF8String2 = [v12 UTF8String];
         v21 = v18;
@@ -7874,32 +8698,32 @@ LABEL_51:
         selfCopy = self;
         uTF8String3 = [primaryKey UTF8String];
         [MEMORY[0x277CBEAA8] date];
-        v82 = i;
+        v81 = i;
         v28 = v27 = v15;
         creationTimeStamp = [v27 creationTimeStamp];
         [v28 timeIntervalSinceDate:creationTimeStamp];
         *buf = 136316419;
-        v92 = uTF8String2;
-        v93 = 2048;
-        v94 = seqNo;
+        v91 = uTF8String2;
+        v92 = 2048;
+        v93 = seqNo;
         v18 = v21;
-        v95 = 1024;
-        v96 = v17;
-        v97 = 2049;
-        v98 = v21;
-        v99 = 2081;
-        v100 = uTF8String3;
+        v94 = 1024;
+        v95 = v17;
+        v96 = 2049;
+        v97 = v21;
+        v98 = 2081;
+        v99 = uTF8String3;
         self = selfCopy;
         v5 = v24;
-        v101 = 2048;
-        v102 = v30;
+        v100 = 2048;
+        v101 = v30;
         _os_log_impl(&dword_23255B000, log, OS_LOG_TYPE_DEFAULT, "trigger-disconnect: received RSSI notification for %s [#%llu], edge: %d, target bssid: %{private}llx, incumbent: %{private}s, propagation delay: %fs", buf, 0x3Au);
 
-        v12 = v86;
-        v10 = v78;
+        v12 = v85;
+        v10 = v77;
 
         v15 = v27;
-        i = v82;
+        i = v81;
       }
 
       if (v17 == 1)
@@ -8013,10 +8837,10 @@ LABEL_33:
             v67 = v66;
             overall = [v10 overall];
             [overall currentRun];
-            *buf = v76;
-            v92 = v67;
-            v93 = 2048;
-            v94 = v69;
+            *buf = v75;
+            v91 = v67;
+            v92 = 2048;
+            v93 = v69;
             _os_log_impl(&dword_23255B000, v64, OS_LOG_TYPE_DEFAULT, "RSSI ok level restored after %f down-time or the whole epoch stay (%f) prompts evaluating known-good notification", buf, 0x16u);
 
             v15 = v34;
@@ -8033,9 +8857,9 @@ LABEL_33:
           v57 = v55;
           uTF8String4 = [v12 UTF8String];
           *buf = 136315394;
-          v92 = uTF8String4;
-          v93 = 1024;
-          LODWORD(v94) = v17;
+          v91 = uTF8String4;
+          v92 = 1024;
+          LODWORD(v93) = v17;
           _os_log_impl(&dword_23255B000, v57, OS_LOG_TYPE_ERROR, "trigger-disconnect: received RSSI notification for %s with invalid edge: %d", buf, 0x12u);
         }
       }
@@ -8043,9 +8867,9 @@ LABEL_33:
 LABEL_34:
     }
 
-    edgeCopy = v77;
-    v84 = [obj countByEnumeratingWithState:&v87 objects:v103 count:16];
-    if (v84)
+    edgeCopy = v76;
+    v83 = [obj countByEnumeratingWithState:&v86 objects:v102 count:16];
+    if (v83)
     {
       continue;
     }
@@ -8056,37 +8880,36 @@ LABEL_34:
 LABEL_40:
 
 LABEL_41:
-  v75 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dataStall:(id)stall
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   userInfo = [stall userInfo];
   [userInfo keyEnumerator];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  obj = v31 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+  obj = v30 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v4)
   {
     v6 = v4;
     v7 = 0;
-    v8 = *v29;
+    v8 = *v28;
     *&v5 = 138478083;
-    v25 = v5;
+    v24 = v5;
     while (1)
     {
       for (i = 0; i != v6; ++i)
       {
         v10 = v7;
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v28 + 1) + 8 * i);
+        v7 = *(*(&v27 + 1) + 8 * i);
 
         v11 = [userInfo objectForKeyedSubscript:v7];
         v12 = *([v11 eventData] + 24);
@@ -8106,7 +8929,7 @@ LABEL_41:
 
           v14 = 5;
 LABEL_13:
-          v16 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:v14, v25];
+          v16 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:v14, v24];
           if (v16)
           {
             v17 = v16;
@@ -8115,10 +8938,10 @@ LABEL_13:
             {
               v19 = v18;
               primaryKey = [v17 primaryKey];
-              *buf = v25;
-              v33 = primaryKey;
-              v34 = 2048;
-              v35 = v17;
+              *buf = v24;
+              v32 = primaryKey;
+              v33 = 2048;
+              v34 = v17;
               _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Data stall reported on epoch %{private}@, %p", buf, 0x16u);
             }
 
@@ -8134,7 +8957,7 @@ LABEL_17:
               v22 = v21;
               type = [v13 type];
               *buf = 134217984;
-              v33 = type;
+              v32 = type;
               _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEBUG, "Data stall reported on unidentified epoch on interface type %ld, dropping", buf, 0xCu);
             }
           }
@@ -8152,7 +8975,7 @@ LABEL_17:
 LABEL_20:
       }
 
-      v6 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v6 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (!v6)
       {
 
@@ -8160,37 +8983,35 @@ LABEL_20:
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_captivityRedirects:(id)redirects
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   userInfo = [redirects userInfo];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v5 = [userInfo countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v5 = [userInfo countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v5)
   {
     v7 = v5;
     v8 = 0;
-    v9 = *v20;
+    v9 = *v19;
     *&v6 = 138478083;
-    v18 = v6;
+    v17 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
         v11 = v8;
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(userInfo);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
 
         v12 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:3];
         v13 = netepochsLogHandle;
@@ -8201,10 +9022,10 @@ LABEL_20:
           {
             v15 = v13;
             primaryKey = [v12 primaryKey];
-            *buf = v18;
-            v24 = primaryKey;
-            v25 = 2048;
-            v26 = v12;
+            *buf = v17;
+            v23 = primaryKey;
+            v24 = 2048;
+            v25 = v12;
             _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "Captivity redirect reported on epoch %{private}@, %p", buf, 0x16u);
           }
 
@@ -8218,42 +9039,40 @@ LABEL_20:
         }
       }
 
-      v7 = [userInfo countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v7 = [userInfo countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_certError:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   userInfo = [error userInfo];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v5 = [userInfo countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v5 = [userInfo countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v5)
   {
     v7 = v5;
     v8 = 0;
-    v9 = *v20;
+    v9 = *v19;
     *&v6 = 138478083;
-    v18 = v6;
+    v17 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
         v11 = v8;
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(userInfo);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
 
         v12 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:3];
         v13 = netepochsLogHandle;
@@ -8264,10 +9083,10 @@ LABEL_20:
           {
             v15 = v13;
             primaryKey = [v12 primaryKey];
-            *buf = v18;
-            v24 = primaryKey;
-            v25 = 2048;
-            v26 = v12;
+            *buf = v17;
+            v23 = primaryKey;
+            v24 = 2048;
+            v25 = v12;
             _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "Cert error reported on epoch %{private}@, %p", buf, 0x16u);
           }
 
@@ -8281,18 +9100,16 @@ LABEL_20:
         }
       }
 
-      v7 = [userInfo countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v7 = [userInfo countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processLIM:(id)m
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   userInfo = [m userInfo];
   v5 = [userInfo objectForKeyedSubscript:@"kKernelLIMRecord"];
   if (v5)
@@ -8300,15 +9117,13 @@ LABEL_20:
     v6 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "LIM record passed from kernel: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "LIM record passed from kernel: %@", &v7, 0xCu);
     }
 
     [(NetworkAnalyticsEngine *)self _createJournalRecordOfType:2 forInterface:0 fromDict:v5];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)wifiShim_NetworkForgottenWithSSID:(id)d
@@ -8339,22 +9154,20 @@ LABEL_20:
 
 void __60__NetworkAnalyticsEngine_wifiShim_NetworkForgottenWithSSID___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138477827;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "Deleting known Wi-Fi Network %{private}@", buf, 0xCu);
   }
 
   v4 = *(a1 + 40);
-  v7 = *(a1 + 32);
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
+  v6 = *(a1 + 32);
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:1];
   [v4 _wifiKnownNetworksDeleted:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)wifiShim_BSSIDChangedForInterface:(id)interface
@@ -8373,21 +9186,21 @@ void __60__NetworkAnalyticsEngine_wifiShim_NetworkForgottenWithSSID___block_invo
 
 - (void)wifiShim_L2NewMetrics:(id)metrics forInterface:(id)interface
 {
-  v121 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   interfaceCopy = interface;
   v6 = [NetworkStateRelay getStateRelayFor:3];
-  v70 = [metricsCopy objectForKeyedSubscript:@"RSSI"];
-  v79 = [metricsCopy objectForKeyedSubscript:@"SNR"];
-  v78 = [metricsCopy objectForKeyedSubscript:@"CCA"];
-  v73 = [metricsCopy objectForKeyedSubscript:@"TXFAIL"];
-  v72 = [metricsCopy objectForKeyedSubscript:@"TXRETRANS"];
-  v71 = [metricsCopy objectForKeyedSubscript:@"TXFRAMES"];
-  v76 = [metricsCopy objectForKeyedSubscript:@"TXRATE"];
-  v75 = [metricsCopy objectForKeyedSubscript:@"RXRATE"];
-  if (v70 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v69 = [metricsCopy objectForKeyedSubscript:@"RSSI"];
+  v78 = [metricsCopy objectForKeyedSubscript:@"SNR"];
+  v77 = [metricsCopy objectForKeyedSubscript:@"CCA"];
+  v72 = [metricsCopy objectForKeyedSubscript:@"TXFAIL"];
+  v71 = [metricsCopy objectForKeyedSubscript:@"TXRETRANS"];
+  v70 = [metricsCopy objectForKeyedSubscript:@"TXFRAMES"];
+  v75 = [metricsCopy objectForKeyedSubscript:@"TXRATE"];
+  v74 = [metricsCopy objectForKeyedSubscript:@"RXRATE"];
+  if (v69 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    intValue = [v70 intValue];
+    intValue = [v69 intValue];
     if (intValue > 0xFFFFFF9B)
     {
       goto LABEL_9;
@@ -8403,21 +9216,21 @@ void __60__NetworkAnalyticsEngine_wifiShim_NetworkForgottenWithSSID___block_invo
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109378;
-    LODWORD(v88) = intValue;
-    WORD2(v88) = 2112;
-    *(&v88 + 6) = v70;
+    LODWORD(v87) = intValue;
+    WORD2(v87) = 2112;
+    *(&v87 + 6) = v69;
     _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Out of range RSSI value %d (%@), using old one", buf, 0x12u);
   }
 
   intValue = [v6 lastReportedRxSignalStrength];
 LABEL_9:
-  v80 = [metricsCopy objectForKeyedSubscript:@"PER_CORE_RSSI"];
-  if (v80 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v80 count] == 2)
+  v79 = [metricsCopy objectForKeyedSubscript:@"PER_CORE_RSSI"];
+  if (v79 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v79 count] == 2)
   {
-    v9 = [v80 objectAtIndexedSubscript:0];
+    v9 = [v79 objectAtIndexedSubscript:0];
     intValue2 = [v9 intValue];
 
-    v11 = [v80 objectAtIndexedSubscript:1];
+    v11 = [v79 objectAtIndexedSubscript:1];
     intValue3 = [v11 intValue];
 
     if (intValue2 <= 0xFFFFFF9B)
@@ -8430,7 +9243,7 @@ LABEL_9:
       v13 = intValue2;
     }
 
-    v66 = v13;
+    v65 = v13;
     if (intValue3 <= 0xFFFFFF9B)
     {
       v14 = 0;
@@ -8445,10 +9258,10 @@ LABEL_9:
   else
   {
     v14 = -1;
-    v66 = -1;
+    v65 = -1;
   }
 
-  v64 = v14;
+  v63 = v14;
   if (kRSSISignalAlertThreshold)
   {
     v15 = -74;
@@ -8459,18 +9272,18 @@ LABEL_9:
     v15 = -75;
   }
 
-  v74 = intValue;
+  v73 = intValue;
   if (intValue > v15)
   {
     goto LABEL_46;
   }
 
-  if (v66 < 0 && (v64 & 0x80000000) != 0)
+  if (v65 < 0 && (v63 & 0x80000000) != 0)
   {
-    v16 = v66;
-    if (v66 <= v64)
+    v16 = v65;
+    if (v65 <= v63)
     {
-      v16 = v64;
+      v16 = v63;
     }
 
     if (intValue < v16)
@@ -8481,19 +9294,19 @@ LABEL_9:
 
   else
   {
-    if ((v66 & 0x80000000) == 0)
+    if ((v65 & 0x80000000) == 0)
     {
-      v74 = intValue;
-      if ((v64 & 0x80000000) == 0)
+      v73 = intValue;
+      if ((v63 & 0x80000000) == 0)
       {
         goto LABEL_37;
       }
     }
 
-    v16 = v66;
-    if (v66 >= v64)
+    v16 = v65;
+    if (v65 >= v63)
     {
-      v16 = v64;
+      v16 = v63;
     }
 
     if (intValue < v16)
@@ -8502,7 +9315,7 @@ LABEL_9:
     }
   }
 
-  v74 = v16;
+  v73 = v16;
 LABEL_37:
   lastReportedRxSignalStrength = [v6 lastReportedRxSignalStrength];
   if (kRSSISignalAlertThreshold)
@@ -8522,15 +9335,15 @@ LABEL_37:
       memset_pattern16(wifiShim_L2NewMetrics_forInterface__rssiSamples, &unk_232816E00, 0x20uLL);
       wifiShim_L2NewMetrics_forInterface__rssiLastIndex = 0;
       queue = [(AnalyticsEngineCore *)self queue];
-      v84[0] = MEMORY[0x277D85DD0];
-      v84[1] = 3221225472;
-      v84[2] = __61__NetworkAnalyticsEngine_wifiShim_L2NewMetrics_forInterface___block_invoke;
-      v84[3] = &unk_27898A7A8;
-      v84[4] = self;
-      v19 = &v85;
-      v85 = interfaceCopy;
-      v86 = intValue;
-      v20 = v84;
+      v83[0] = MEMORY[0x277D85DD0];
+      v83[1] = 3221225472;
+      v83[2] = __61__NetworkAnalyticsEngine_wifiShim_L2NewMetrics_forInterface___block_invoke;
+      v83[3] = &unk_27898A7A8;
+      v83[4] = self;
+      v19 = &v84;
+      v84 = interfaceCopy;
+      v85 = intValue;
+      v20 = v83;
       goto LABEL_52;
     }
 
@@ -8564,19 +9377,19 @@ LABEL_46:
   block[2] = __61__NetworkAnalyticsEngine_wifiShim_L2NewMetrics_forInterface___block_invoke_595;
   block[3] = &unk_27898A7A8;
   block[4] = self;
-  v19 = &v82;
-  v82 = interfaceCopy;
-  v83 = intValue;
+  v19 = &v81;
+  v81 = interfaceCopy;
+  v82 = intValue;
   v20 = block;
 LABEL_52:
   dispatch_async(queue, v20);
 
 LABEL_53:
   v23 = wifiShim_L2NewMetrics_forInterface__rssiLastIndex++;
-  wifiShim_L2NewMetrics_forInterface__rssiSamples[v23 & 7] = v74;
-  if (v79 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  wifiShim_L2NewMetrics_forInterface__rssiSamples[v23 & 7] = v73;
+  if (v78 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    intValue4 = [v79 intValue];
+    intValue4 = [v78 intValue];
   }
 
   else
@@ -8584,9 +9397,9 @@ LABEL_53:
     intValue4 = 0;
   }
 
-  if (v78 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (v77 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    intValue5 = [v78 intValue];
+    intValue5 = [v77 intValue];
   }
 
   else
@@ -8594,10 +9407,10 @@ LABEL_53:
     intValue5 = 0;
   }
 
-  v77 = [metricsCopy objectForKeyedSubscript:@"CCA_STATS"];
-  if (v77 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v76 = [metricsCopy objectForKeyedSubscript:@"CCA_STATS"];
+  if (v76 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v24 = v77;
+    v24 = v76;
     v25 = [v24 objectForKeyedSubscript:@"CCA_SELF_WAKE"];
     intValue6 = [v25 intValue];
 
@@ -8631,7 +9444,7 @@ LABEL_53:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    unsignedLongLongValue = [v73 unsignedLongLongValue];
+    unsignedLongLongValue = [v72 unsignedLongLongValue];
   }
 
   else
@@ -8642,7 +9455,7 @@ LABEL_53:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    unsignedLongLongValue2 = [v72 unsignedLongLongValue];
+    unsignedLongLongValue2 = [v71 unsignedLongLongValue];
   }
 
   else
@@ -8653,7 +9466,7 @@ LABEL_53:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    unsignedLongLongValue3 = [v71 unsignedLongLongValue];
+    unsignedLongLongValue3 = [v70 unsignedLongLongValue];
   }
 
   else
@@ -8663,22 +9476,22 @@ LABEL_53:
 
   v34 = 0.0;
   v35 = 0.0;
-  if (v76)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      [v76 doubleValue];
-      v35 = v36;
-    }
-  }
-
   if (v75)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [v75 doubleValue];
+      v35 = v36;
+    }
+  }
+
+  if (v74)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      [v74 doubleValue];
       v34 = v37;
     }
   }
@@ -8714,7 +9527,7 @@ LABEL_53:
       v41 = -80;
     }
 
-    v40 = v74 <= v41;
+    v40 = v73 <= v41;
   }
 
   v42 = v40;
@@ -8733,45 +9546,45 @@ LABEL_53:
   {
     txThresholded = [v38 txThresholded];
     *buf = 138417154;
-    *&v88 = interfaceCopy;
-    WORD4(v88) = 1024;
-    *(&v88 + 10) = intValue;
-    HIWORD(v88) = 1024;
-    *v89 = v66;
+    *&v87 = interfaceCopy;
+    WORD4(v87) = 1024;
+    *(&v87 + 10) = intValue;
+    HIWORD(v87) = 1024;
+    *v88 = v65;
+    *&v88[4] = 1024;
+    *v89 = v63;
     *&v89[4] = 1024;
-    *v90 = v64;
-    *&v90[4] = 1024;
-    *&v90[6] = v74;
-    v91 = 1024;
-    v92 = intValue4;
-    v93 = 1024;
-    v94 = intValue6;
-    v95 = 1024;
-    v96 = intValue7;
-    v97 = 1024;
-    v98 = intValue8;
-    v99 = 1024;
-    v100 = intValue9;
-    v101 = 1024;
-    v102 = intValue10;
-    v103 = 1024;
-    v104 = intValue11;
-    v105 = 1024;
-    v106 = intValue5;
-    v107 = 2048;
-    v108 = unsignedLongLongValue3;
-    v109 = 2048;
-    v110 = unsignedLongLongValue2;
-    v111 = 2048;
-    v112 = unsignedLongLongValue;
-    v113 = 1024;
-    v114 = txThresholded;
-    v115 = 1024;
-    v116 = v43;
-    v117 = 2048;
-    v118 = v35;
-    v119 = 2048;
-    v120 = v34;
+    *&v89[6] = v73;
+    v90 = 1024;
+    v91 = intValue4;
+    v92 = 1024;
+    v93 = intValue6;
+    v94 = 1024;
+    v95 = intValue7;
+    v96 = 1024;
+    v97 = intValue8;
+    v98 = 1024;
+    v99 = intValue9;
+    v100 = 1024;
+    v101 = intValue10;
+    v102 = 1024;
+    v103 = intValue11;
+    v104 = 1024;
+    v105 = intValue5;
+    v106 = 2048;
+    v107 = unsignedLongLongValue3;
+    v108 = 2048;
+    v109 = unsignedLongLongValue2;
+    v110 = 2048;
+    v111 = unsignedLongLongValue;
+    v112 = 1024;
+    v113 = txThresholded;
+    v114 = 1024;
+    v115 = v43;
+    v116 = 2048;
+    v117 = v35;
+    v118 = 2048;
+    v119 = v34;
     _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_DEFAULT, "L2 Metrics on %@: rssi: %d [%d,%d] -> %d, snr: %d (cca [wake/total] self/other/intf): [%d,%d]/[%d,%d]/[%d,%d]/%d (txFrames/txReTx/txFail): %llu/%llu/%llu -> (was/is) %d/%d, txRate: %.1f, rxRate: %.1f", buf, 0x92u);
   }
 
@@ -8793,15 +9606,15 @@ LABEL_53:
       v50 = wifiShim_L2NewMetrics_forInterface__rssiSamples[(wifiShim_L2NewMetrics_forInterface__rssiLastIndex - 1) & 7];
       rnfRssiExtraDescentFactor = self->rnfRssiExtraDescentFactor;
       *buf = 67110144;
-      LODWORD(v88) = v47;
-      WORD2(v88) = 1024;
-      *(&v88 + 6) = v48;
-      WORD5(v88) = 1024;
-      HIDWORD(v88) = v49;
-      *v89 = 1024;
-      *&v89[2] = v50;
-      *v90 = 2048;
-      *&v90[2] = rnfRssiExtraDescentFactor;
+      LODWORD(v87) = v47;
+      WORD2(v87) = 1024;
+      *(&v87 + 6) = v48;
+      WORD5(v87) = 1024;
+      HIDWORD(v87) = v49;
+      *v88 = 1024;
+      *&v88[2] = v50;
+      *v89 = 2048;
+      *&v89[2] = rnfRssiExtraDescentFactor;
       _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_DEBUG, "L2 Metrics History (old...last): %d,%d,%d,%d. Extra descent factor: %lld\n", buf, 0x24u);
     }
 
@@ -8821,13 +9634,11 @@ LABEL_53:
       [CellFallbackHandler requestBoost:2];
     }
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 void __61__NetworkAnalyticsEngine_wifiShim_L2NewMetrics_forInterface___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 384) = [*(*(a1 + 32) + 360) fastLQMUpdates];
   v2 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
@@ -8844,21 +9655,19 @@ void __61__NetworkAnalyticsEngine_wifiShim_L2NewMetrics_forInterface___block_inv
     }
 
     v5 = *(a1 + 48);
-    v7 = 138412802;
-    v8 = v3;
-    v9 = 2080;
-    v10 = v4;
-    v11 = 1024;
-    v12 = v5;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "L2 Metrics on: %@, LQM callback interval: %s (rssi=%d)", &v7, 0x1Cu);
+    v6 = 138412802;
+    v7 = v3;
+    v8 = 2080;
+    v9 = v4;
+    v10 = 1024;
+    v11 = v5;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "L2 Metrics on: %@, LQM callback interval: %s (rssi=%d)", &v6, 0x1Cu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __61__NetworkAnalyticsEngine_wifiShim_L2NewMetrics_forInterface___block_invoke_595(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 384) = [*(*(a1 + 32) + 360) fastLQMUpdates];
   v2 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
@@ -8875,22 +9684,20 @@ void __61__NetworkAnalyticsEngine_wifiShim_L2NewMetrics_forInterface___block_inv
     }
 
     v5 = *(a1 + 48);
-    v7 = 138412802;
-    v8 = v3;
-    v9 = 2080;
-    v10 = v4;
-    v11 = 1024;
-    v12 = v5;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "L2 Metrics on: %@, LQM callback interval: %s (rssi=%d)", &v7, 0x1Cu);
+    v6 = 138412802;
+    v7 = v3;
+    v8 = 2080;
+    v9 = v4;
+    v10 = 1024;
+    v11 = v5;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "L2 Metrics on: %@, LQM callback interval: %s (rssi=%d)", &v6, 0x1Cu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)wifiShim_L2TriggerDisconnectEdge:(BOOL)edge forInterface:(id)interface
 {
   edgeCopy = edge;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   interfaceCopy = interface;
   v6 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
@@ -8902,9 +9709,9 @@ void __61__NetworkAnalyticsEngine_wifiShim_L2NewMetrics_forInterface___block_inv
     }
 
     *buf = 138412546;
-    v22 = interfaceCopy;
-    v23 = 2080;
-    v24 = v7;
+    v21 = interfaceCopy;
+    v22 = 2080;
+    v23 = v7;
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "L2 TriggerDisconnect on ifname %@: edge in: %s", buf, 0x16u);
   }
 
@@ -8920,7 +9727,7 @@ void __61__NetworkAnalyticsEngine_wifiShim_L2NewMetrics_forInterface___block_inv
         if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v22 = interfaceCopy;
+          v21 = interfaceCopy;
           _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "L2 TriggerDisconnect on ifname %@: raises rxSignalThresholded", buf, 0xCu);
         }
       }
@@ -8934,7 +9741,7 @@ void __61__NetworkAnalyticsEngine_wifiShim_L2NewMetrics_forInterface___block_inv
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v22 = interfaceCopy;
+        v21 = interfaceCopy;
         _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Received TriggerDisconnect event before receiving any L2 metrics on %@, not raising rxSignalThresholded", buf, 0xCu);
       }
 
@@ -8953,24 +9760,22 @@ void __61__NetworkAnalyticsEngine_wifiShim_L2NewMetrics_forInterface___block_inv
           v14 = @"unknown";
         }
 
-        v18 = *MEMORY[0x277D6B100];
-        v19 = v14;
-        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-        v20 = v15;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+        v17 = *MEMORY[0x277D6B100];
+        v18 = v14;
+        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+        v19 = v15;
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
         [v12 snapshotWithSignature:v13 duration:v16 events:0 payload:0 actions:&__block_literal_global_630 reply:0.0];
       }
     }
 
     objc_sync_exit(v8);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __72__NetworkAnalyticsEngine_wifiShim_L2TriggerDisconnectEdge_forInterface___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 objectForKeyedSubscript:*MEMORY[0x277D6B198]];
   v4 = [v3 BOOLValue];
@@ -8980,13 +9785,11 @@ void __72__NetworkAnalyticsEngine_wifiShim_L2TriggerDisconnectEdge_forInterface_
     v5 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412290;
-      v8 = v2;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "TriggerDisconnect without L2 Metrics ABC case response: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v2;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "TriggerDisconnect without L2 Metrics ABC case response: %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)wifiShim_InfraAdminDisable:(id)disable bssid:(id)bssid
@@ -9021,7 +9824,7 @@ void __72__NetworkAnalyticsEngine_wifiShim_L2TriggerDisconnectEdge_forInterface_
 
 void __59__NetworkAnalyticsEngine_wifiShim_InfraAdminDisable_bssid___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _epochForInterfaceType:3];
   v3 = [v2 primaryKey];
   v4 = [v3 isEqualToString:*(a1 + 40)];
@@ -9034,9 +9837,9 @@ void __59__NetworkAnalyticsEngine_wifiShim_InfraAdminDisable_bssid___block_invok
       v6 = v5;
       v7 = [v2 primaryKey];
       *buf = 138478083;
-      v29 = v7;
-      v30 = 2048;
-      v31 = v2;
+      v28 = v7;
+      v29 = 2048;
+      v30 = v2;
       _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Admin disable reported on epoch %{private}@, %p", buf, 0x16u);
     }
 
@@ -9046,25 +9849,25 @@ void __59__NetworkAnalyticsEngine_wifiShim_InfraAdminDisable_bssid___block_invok
   else
   {
     [*(*(a1 + 32) + 144) allValues];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v9 = v26 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v9 = v25 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v24;
+      v12 = *v23;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * i);
+          v14 = *(*(&v22 + 1) + 8 * i);
           v15 = [v14 primaryKey];
           v16 = [v15 isEqualToString:*(a1 + 40)];
 
@@ -9076,9 +9879,9 @@ void __59__NetworkAnalyticsEngine_wifiShim_InfraAdminDisable_bssid___block_invok
               v18 = v17;
               v19 = [v14 primaryKey];
               *buf = 138478083;
-              v29 = v19;
-              v30 = 2048;
-              v31 = v14;
+              v28 = v19;
+              v29 = 2048;
+              v30 = v14;
               _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "Admin disable reported on recovered epoch %{private}@, %p", buf, 0x16u);
             }
 
@@ -9087,7 +9890,7 @@ void __59__NetworkAnalyticsEngine_wifiShim_InfraAdminDisable_bssid___block_invok
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v11)
         {
           continue;
@@ -9113,12 +9916,22 @@ LABEL_17:
     {
       v21 = *(a1 + 40);
       *buf = 138477827;
-      v29 = v21;
+      v28 = v21;
       _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "Admin disable reported on lost epoch for %{private}@, dropping", buf, 0xCu);
     }
   }
+}
 
-  v22 = *MEMORY[0x277D85DE8];
+- (void)wifiShim_HintForFallback:(BOOL)fallback reasons:(id)reasons
+{
+  fallbackCopy = fallback;
+  reasonsCopy = reasons;
+  v5 = [NetworkStateRelay getStateRelayFor:3];
+  v6 = [NetworkAnalyticsEngine _constructRxSignalExemptionsBitmapFromHint:fallbackCopy reasons:reasonsCopy];
+  v7 = v5;
+  objc_sync_enter(v7);
+  [v7 setRxSignalExemptions:v6];
+  objc_sync_exit(v7);
 }
 
 - (void)wifiShim_LQMAsystoleDetected:(double)detected
@@ -9135,30 +9948,30 @@ LABEL_17:
 
 - (void)startRNFTestWithConnection:(id)connection options:(id)options scenarioName:(id)name reply:(id)reply
 {
-  v196[1] = *MEMORY[0x277D85DE8];
+  v195[1] = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   optionsCopy = options;
   nameCopy = name;
   replyCopy = reply;
-  v181[0] = 0;
-  v181[1] = v181;
-  v181[2] = 0x2020000000;
-  v181[3] = 0;
-  v175 = 0;
-  v176 = &v175;
-  v177 = 0x3032000000;
-  v178 = __Block_byref_object_copy__9;
-  v179 = __Block_byref_object_dispose__9;
-  v180 = 0;
-  v116 = connectionCopy;
+  v180[0] = 0;
+  v180[1] = v180;
+  v180[2] = 0x2020000000;
+  v180[3] = 0;
+  v174 = 0;
+  v175 = &v174;
+  v176 = 0x3032000000;
+  v177 = __Block_byref_object_copy__9;
+  v178 = __Block_byref_object_dispose__9;
+  v179 = 0;
+  v115 = connectionCopy;
   remoteObjectProxy = [connectionCopy remoteObjectProxy];
   if (self->_isInternalBuild)
   {
-    v122 = [NetworkStateRelay getStateRelayFor:3];
-    v118 = [NetworkStateRelay getStateRelayFor:5];
-    if ([v122 active])
+    v121 = [NetworkStateRelay getStateRelayFor:3];
+    v117 = [NetworkStateRelay getStateRelayFor:5];
+    if ([v121 active])
     {
-      if ([v118 active])
+      if ([v117 active])
       {
         selfCopy = self;
         v11 = netepochsLogHandle;
@@ -9170,24 +9983,24 @@ LABEL_17:
           *&buf[12] = 2112;
           *&buf[14] = nameCopy;
           *&buf[22] = 2112;
-          v190 = optionsCopy;
+          v189 = optionsCopy;
           _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "RNFTest: (%@) scenario name: %@ and test parameters is %@", buf, 0x20u);
         }
 
         [(WiFiShim *)self->_wifiShim removeDelegate:self];
-        v131 = [optionsCopy objectForKeyedSubscript:@"interfaceName"];
+        v130 = [optionsCopy objectForKeyedSubscript:@"interfaceName"];
         defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-        v187 = @"kAppStateKeyForegroundActivityState";
-        v188 = MEMORY[0x277CBEC38];
-        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v188 forKeys:&v187 count:1];
+        v186 = @"kAppStateKeyForegroundActivityState";
+        v187 = MEMORY[0x277CBEC38];
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v187 forKeys:&v186 count:1];
         [defaultCenter postNotificationName:@"kAppStateNotificationForegroundActivity" object:self userInfo:v14];
 
         +[CellFallbackHandler startRunningRNFTest];
         runningRNFTest = 1;
-        v114 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
-        queue = dispatch_queue_create("com.apple.symptoms.rnftest.queue", v114);
-        v117 = [optionsCopy objectForKeyedSubscript:@"scenarios"];
-        if ([nameCopy length] && (objc_msgSend(v117, "objectForKeyedSubscript:", nameCopy), (v121 = objc_claimAutoreleasedReturnValue()) != 0))
+        v113 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
+        queue = dispatch_queue_create("com.apple.symptoms.rnftest.queue", v113);
+        v116 = [optionsCopy objectForKeyedSubscript:@"scenarios"];
+        if ([nameCopy length] && (objc_msgSend(v116, "objectForKeyedSubscript:", nameCopy), (v120 = objc_claimAutoreleasedReturnValue()) != 0))
         {
           nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Starting RNF Test for the '%@' scenario", nameCopy];
           [remoteObjectProxy sendRNFTestStatusInformation:nameCopy];
@@ -9205,24 +10018,24 @@ LABEL_17:
           }
 
           v43 = [v39 stringWithFormat:@"RNFTest: (%@) Starting RNF Test for the 'walk-out' scenario because %@", timeOfDayPrecise2, v42];
-          v44 = v176[5];
-          v176[5] = v43;
+          v44 = v175[5];
+          v175[5] = v43;
 
           v45 = netepochsLogHandle;
           if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
           {
-            uTF8String = [v176[5] UTF8String];
+            uTF8String = [v175[5] UTF8String];
             *buf = 136315138;
             *&buf[4] = uTF8String;
             _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
           }
 
-          [remoteObjectProxy sendRNFTestStatusInformation:v176[5]];
-          v121 = [v117 objectForKeyedSubscript:@"walk-out"];
+          [remoteObjectProxy sendRNFTestStatusInformation:v175[5]];
+          v120 = [v116 objectForKeyedSubscript:@"walk-out"];
         }
 
-        v123 = +[CellFallbackHandler sharedInstance];
-        obja = [v121 objectForKeyedSubscript:@"expectedAdvisories"];
+        v122 = +[CellFallbackHandler sharedInstance];
+        obja = [v120 objectForKeyedSubscript:@"expectedAdvisories"];
         v47 = [obja count];
         if (v47 < 1)
         {
@@ -9246,37 +10059,37 @@ LABEL_17:
             v53 = [v50 objectForKeyedSubscript:@"advisory"];
             integerValue2 = [v53 integerValue];
 
-            v190 = integerValue2;
-            v174[0] = 0;
-            v174[1] = v174;
-            v174[2] = 0x2020000000;
+            v189 = integerValue2;
+            v173[0] = 0;
+            v173[1] = v173;
+            v173[2] = 0x2020000000;
             v55 = [v50 objectForKeyedSubscript:@"timeIndexLeeway"];
             integerValue3 = [v55 integerValue];
 
-            v174[3] = integerValue3;
-            v172[0] = 0;
-            v172[1] = v172;
-            v172[2] = 0x2020000000;
-            v173 = v47 == 1;
+            v173[3] = integerValue3;
+            v171[0] = 0;
+            v171[1] = v171;
+            v171[2] = 0x2020000000;
+            v172 = v47 == 1;
             v57 = dispatch_time(0, 1000000 * integerValue);
             block[0] = MEMORY[0x277D85DD0];
             block[1] = 3221225472;
             block[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke;
             block[3] = &unk_27898DBE8;
-            v167 = v181;
-            v162 = v123;
-            v163 = selfCopy;
-            v168 = &v175;
-            v169 = buf;
-            v164 = remoteObjectProxy;
-            v170 = v172;
-            v166 = replyCopy;
-            v171 = v174;
-            v165 = queue;
-            dispatch_after(v57, v165, block);
+            v166 = v180;
+            v161 = v122;
+            v162 = selfCopy;
+            v167 = &v174;
+            v168 = buf;
+            v163 = remoteObjectProxy;
+            v169 = v171;
+            v165 = replyCopy;
+            v170 = v173;
+            v164 = queue;
+            dispatch_after(v57, v164, block);
 
-            _Block_object_dispose(v172, 8);
-            _Block_object_dispose(v174, 8);
+            _Block_object_dispose(v171, 8);
+            _Block_object_dispose(v173, 8);
             _Block_object_dispose(buf, 8);
             ++v48;
             v49 = v50;
@@ -9286,30 +10099,30 @@ LABEL_17:
           while (v47);
         }
 
-        v115 = v50;
-        v58 = [v121 objectForKeyedSubscript:@"l2Metrics"];
+        v114 = v50;
+        v58 = [v120 objectForKeyedSubscript:@"l2Metrics"];
 
-        v159 = 0u;
-        v160 = 0u;
-        v157 = 0u;
         v158 = 0u;
+        v159 = 0u;
+        v156 = 0u;
+        v157 = 0u;
         objb = v58;
         v59 = 0;
-        v60 = [objb countByEnumeratingWithState:&v157 objects:v186 count:16];
+        v60 = [objb countByEnumeratingWithState:&v156 objects:v185 count:16];
         if (v60)
         {
-          v61 = *v158;
+          v61 = *v157;
           v62 = MEMORY[0x277D85DD0];
           do
           {
             for (i = 0; i != v60; ++i)
             {
-              if (*v158 != v61)
+              if (*v157 != v61)
               {
                 objc_enumerationMutation(objb);
               }
 
-              v64 = *(*(&v157 + 1) + 8 * i);
+              v64 = *(*(&v156 + 1) + 8 * i);
               v65 = [v64 objectForKeyedSubscript:@"timeIndex"];
               integerValue4 = [v65 integerValue];
 
@@ -9319,17 +10132,17 @@ LABEL_17:
               }
 
               v67 = dispatch_time(0, 1000000 * integerValue4);
-              v155[0] = v62;
-              v155[1] = 3221225472;
-              v155[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_710;
-              v155[3] = &unk_27898A328;
-              v155[4] = selfCopy;
-              v155[5] = v64;
-              v156 = v131;
-              dispatch_after(v67, queue, v155);
+              v154[0] = v62;
+              v154[1] = 3221225472;
+              v154[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_710;
+              v154[3] = &unk_27898A328;
+              v154[4] = selfCopy;
+              v154[5] = v64;
+              v155 = v130;
+              dispatch_after(v67, queue, v154);
             }
 
-            v60 = [objb countByEnumeratingWithState:&v157 objects:v186 count:16];
+            v60 = [objb countByEnumeratingWithState:&v156 objects:v185 count:16];
           }
 
           while (v60);
@@ -9339,31 +10152,31 @@ LABEL_17:
         rnfTestNLCRunner = selfCopy->rnfTestNLCRunner;
         selfCopy->rnfTestNLCRunner = v68;
 
-        [selfCopy->rnfTestNLCRunner setInterfaceName:v131];
+        [selfCopy->rnfTestNLCRunner setInterfaceName:v130];
         selfCopy->nlcRuleScheduled = 0;
-        v70 = [v121 objectForKeyedSubscript:@"dns"];
+        v70 = [v120 objectForKeyedSubscript:@"dns"];
 
         selfCopy->nlcRuleScheduled |= [v70 count] != 0;
+        v150 = 0u;
         v151 = 0u;
         v152 = 0u;
         v153 = 0u;
-        v154 = 0u;
         objc = v70;
-        v71 = [objc countByEnumeratingWithState:&v151 objects:v185 count:16];
+        v71 = [objc countByEnumeratingWithState:&v150 objects:v184 count:16];
         if (v71)
         {
-          v72 = *v152;
+          v72 = *v151;
           v73 = MEMORY[0x277D85DD0];
           do
           {
             for (j = 0; j != v71; ++j)
             {
-              if (*v152 != v72)
+              if (*v151 != v72)
               {
                 objc_enumerationMutation(objc);
               }
 
-              v75 = *(*(&v151 + 1) + 8 * j);
+              v75 = *(*(&v150 + 1) + 8 * j);
               v76 = [v75 objectForKeyedSubscript:@"timeIndex"];
               integerValue5 = [v76 integerValue];
 
@@ -9373,42 +10186,42 @@ LABEL_17:
               }
 
               v78 = dispatch_time(0, 1000000 * integerValue5);
-              v150[0] = v73;
-              v150[1] = 3221225472;
-              v150[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_718;
-              v150[3] = &unk_27898A7D0;
-              v150[4] = v75;
-              v150[5] = selfCopy;
-              dispatch_after(v78, queue, v150);
+              v149[0] = v73;
+              v149[1] = 3221225472;
+              v149[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_718;
+              v149[3] = &unk_27898A7D0;
+              v149[4] = v75;
+              v149[5] = selfCopy;
+              dispatch_after(v78, queue, v149);
             }
 
-            v71 = [objc countByEnumeratingWithState:&v151 objects:v185 count:16];
+            v71 = [objc countByEnumeratingWithState:&v150 objects:v184 count:16];
           }
 
           while (v71);
         }
 
-        v79 = [v121 objectForKeyedSubscript:@"txPER"];
+        v79 = [v120 objectForKeyedSubscript:@"txPER"];
 
-        v148 = 0u;
-        v149 = 0u;
-        v146 = 0u;
         v147 = 0u;
+        v148 = 0u;
+        v145 = 0u;
+        v146 = 0u;
         v80 = v79;
-        v81 = [v80 countByEnumeratingWithState:&v146 objects:v184 count:16];
+        v81 = [v80 countByEnumeratingWithState:&v145 objects:v183 count:16];
         if (v81)
         {
-          v82 = *v147;
+          v82 = *v146;
           do
           {
             for (k = 0; k != v81; ++k)
             {
-              if (*v147 != v82)
+              if (*v146 != v82)
               {
                 objc_enumerationMutation(v80);
               }
 
-              v84 = [*(*(&v146 + 1) + 8 * k) objectForKeyedSubscript:@"timeIndex"];
+              v84 = [*(*(&v145 + 1) + 8 * k) objectForKeyedSubscript:@"timeIndex"];
               integerValue6 = [v84 integerValue];
 
               if (integerValue6 > v59)
@@ -9420,35 +10233,35 @@ LABEL_17:
               dispatch_after(v86, queue, &__block_literal_global_727);
             }
 
-            v81 = [v80 countByEnumeratingWithState:&v146 objects:v184 count:16];
+            v81 = [v80 countByEnumeratingWithState:&v145 objects:v183 count:16];
           }
 
           while (v81);
         }
 
-        v87 = [v121 objectForKeyedSubscript:@"txLossRate"];
+        v87 = [v120 objectForKeyedSubscript:@"txLossRate"];
 
         selfCopy->nlcRuleScheduled |= [v87 count] != 0;
+        v141 = 0u;
         v142 = 0u;
         v143 = 0u;
         v144 = 0u;
-        v145 = 0u;
         objd = v87;
-        v88 = [objd countByEnumeratingWithState:&v142 objects:v183 count:16];
+        v88 = [objd countByEnumeratingWithState:&v141 objects:v182 count:16];
         if (v88)
         {
-          v89 = *v143;
+          v89 = *v142;
           v90 = MEMORY[0x277D85DD0];
           do
           {
             for (m = 0; m != v88; ++m)
             {
-              if (*v143 != v89)
+              if (*v142 != v89)
               {
                 objc_enumerationMutation(objd);
               }
 
-              v92 = *(*(&v142 + 1) + 8 * m);
+              v92 = *(*(&v141 + 1) + 8 * m);
               v93 = [v92 objectForKeyedSubscript:@"timeIndex"];
               integerValue7 = [v93 integerValue];
 
@@ -9458,44 +10271,44 @@ LABEL_17:
               }
 
               v95 = dispatch_time(0, 1000000 * integerValue7);
-              v141[0] = v90;
-              v141[1] = 3221225472;
-              v141[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_3;
-              v141[3] = &unk_27898A7D0;
-              v141[4] = v92;
-              v141[5] = selfCopy;
-              dispatch_after(v95, queue, v141);
+              v140[0] = v90;
+              v140[1] = 3221225472;
+              v140[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_3;
+              v140[3] = &unk_27898A7D0;
+              v140[4] = v92;
+              v140[5] = selfCopy;
+              dispatch_after(v95, queue, v140);
             }
 
-            v88 = [objd countByEnumeratingWithState:&v142 objects:v183 count:16];
+            v88 = [objd countByEnumeratingWithState:&v141 objects:v182 count:16];
           }
 
           while (v88);
         }
 
-        v96 = [v121 objectForKeyedSubscript:@"rxLossRate"];
+        v96 = [v120 objectForKeyedSubscript:@"rxLossRate"];
 
         selfCopy->nlcRuleScheduled |= [v96 count] != 0;
+        v136 = 0u;
         v137 = 0u;
         v138 = 0u;
         v139 = 0u;
-        v140 = 0u;
         obj = v96;
-        v97 = [obj countByEnumeratingWithState:&v137 objects:v182 count:16];
+        v97 = [obj countByEnumeratingWithState:&v136 objects:v181 count:16];
         if (v97)
         {
-          v98 = *v138;
+          v98 = *v137;
           v99 = MEMORY[0x277D85DD0];
           do
           {
             for (n = 0; n != v97; ++n)
             {
-              if (*v138 != v98)
+              if (*v137 != v98)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v101 = *(*(&v137 + 1) + 8 * n);
+              v101 = *(*(&v136 + 1) + 8 * n);
               v102 = [v101 objectForKeyedSubscript:@"timeIndex"];
               integerValue8 = [v102 integerValue];
 
@@ -9505,16 +10318,16 @@ LABEL_17:
               }
 
               v104 = dispatch_time(0, 1000000 * integerValue8);
-              v136[0] = v99;
-              v136[1] = 3221225472;
-              v136[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_734;
-              v136[3] = &unk_27898A7D0;
-              v136[4] = v101;
-              v136[5] = selfCopy;
-              dispatch_after(v104, queue, v136);
+              v135[0] = v99;
+              v135[1] = 3221225472;
+              v135[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_734;
+              v135[3] = &unk_27898A7D0;
+              v135[4] = v101;
+              v135[5] = selfCopy;
+              dispatch_after(v104, queue, v135);
             }
 
-            v97 = [obj countByEnumeratingWithState:&v137 objects:v182 count:16];
+            v97 = [obj countByEnumeratingWithState:&v136 objects:v181 count:16];
           }
 
           while (v97);
@@ -9525,7 +10338,7 @@ LABEL_17:
           [selfCopy->rnfTestNLCRunner engage];
         }
 
-        v105 = [v121 objectForKeyedSubscript:@"timeout"];
+        v105 = [v120 objectForKeyedSubscript:@"timeout"];
         integerValue9 = [v105 integerValue];
 
         if (integerValue9 <= v59 + 10000)
@@ -9548,13 +10361,13 @@ LABEL_17:
         handler[4] = selfCopy;
         dispatch_source_set_event_handler(v111, handler);
         v112 = selfCopy->rnfTestTimeoutTimer;
-        v134[0] = MEMORY[0x277D85DD0];
-        v134[1] = 3221225472;
-        v134[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_2_739;
-        v134[3] = &unk_27898A848;
-        v134[4] = selfCopy;
-        v134[5] = &v175;
-        dispatch_source_set_cancel_handler(v112, v134);
+        v133[0] = MEMORY[0x277D85DD0];
+        v133[1] = 3221225472;
+        v133[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_2_739;
+        v133[3] = &unk_27898A848;
+        v133[4] = selfCopy;
+        v133[5] = &v174;
+        dispatch_source_set_cancel_handler(v112, v133);
         dispatch_resume(selfCopy->rnfTestTimeoutTimer);
         goto LABEL_79;
       }
@@ -9562,25 +10375,25 @@ LABEL_17:
       v31 = MEMORY[0x277CCACA8];
       timeOfDayPrecise3 = [(NetworkAnalyticsEngine *)self timeOfDayPrecise];
       v33 = [v31 stringWithFormat:@"RNFTest: (%@) RNF Test requires an active Cellular connection", timeOfDayPrecise3];
-      v34 = v176[5];
-      v176[5] = v33;
+      v34 = v175[5];
+      v175[5] = v33;
 
       v35 = netepochsLogHandle;
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
-        uTF8String2 = [v176[5] UTF8String];
+        uTF8String2 = [v175[5] UTF8String];
         *buf = 136315138;
         *&buf[4] = uTF8String2;
         _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
       }
 
-      [remoteObjectProxy sendRNFTestStatusInformation:v176[5]];
-      v191 = @"rnfTestResult";
-      v192 = MEMORY[0x277CBEC28];
-      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v192 forKeys:&v191 count:1];
+      [remoteObjectProxy sendRNFTestStatusInformation:v175[5]];
+      v190 = @"rnfTestResult";
+      v191 = MEMORY[0x277CBEC28];
+      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v191 forKeys:&v190 count:1];
       v38 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:50 userInfo:0];
       (*(replyCopy + 2))(replyCopy, v37, v38);
-      v114 = v37;
+      v113 = v37;
     }
 
     else
@@ -9588,34 +10401,34 @@ LABEL_17:
       v23 = MEMORY[0x277CCACA8];
       timeOfDayPrecise4 = [(NetworkAnalyticsEngine *)self timeOfDayPrecise];
       v25 = [v23 stringWithFormat:@"RNFTest: (%@) RNF Test requires an active Wi-Fi connection", timeOfDayPrecise4];
-      v26 = v176[5];
-      v176[5] = v25;
+      v26 = v175[5];
+      v175[5] = v25;
 
       v27 = netepochsLogHandle;
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        uTF8String3 = [v176[5] UTF8String];
+        uTF8String3 = [v175[5] UTF8String];
         *buf = 136315138;
         *&buf[4] = uTF8String3;
         _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
       }
 
-      [remoteObjectProxy sendRNFTestStatusInformation:v176[5]];
-      v193 = @"rnfTestResult";
-      v194 = MEMORY[0x277CBEC28];
-      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v194 forKeys:&v193 count:1];
+      [remoteObjectProxy sendRNFTestStatusInformation:v175[5]];
+      v192 = @"rnfTestResult";
+      v193 = MEMORY[0x277CBEC28];
+      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v193 forKeys:&v192 count:1];
       v30 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:50 userInfo:0];
       (*(replyCopy + 2))(replyCopy, v29, v30);
-      v114 = v29;
+      v113 = v29;
     }
 
-    v115 = 0;
-    v123 = 0;
-    v121 = 0;
-    v117 = 0;
+    v114 = 0;
+    v122 = 0;
+    v120 = 0;
+    v116 = 0;
     queue = 0;
     obj = 0;
-    v131 = 0;
+    v130 = 0;
 LABEL_79:
 
     goto LABEL_80;
@@ -9624,115 +10437,112 @@ LABEL_79:
   v16 = MEMORY[0x277CCACA8];
   timeOfDayPrecise5 = [(NetworkAnalyticsEngine *)self timeOfDayPrecise];
   v18 = [v16 stringWithFormat:@"RNFTest: (%@) RNF Test is not supported on non-internal builds", timeOfDayPrecise5];
-  v19 = v176[5];
-  v176[5] = v18;
+  v19 = v175[5];
+  v175[5] = v18;
 
   v20 = netepochsLogHandle;
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    uTF8String4 = [v176[5] UTF8String];
+    uTF8String4 = [v175[5] UTF8String];
     *buf = 136315138;
     *&buf[4] = uTF8String4;
     _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  [remoteObjectProxy sendRNFTestStatusInformation:v176[5]];
-  v195 = @"rnfTestResult";
-  v196[0] = MEMORY[0x277CBEC28];
-  v122 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v196 forKeys:&v195 count:1];
+  [remoteObjectProxy sendRNFTestStatusInformation:v175[5]];
+  v194 = @"rnfTestResult";
+  v195[0] = MEMORY[0x277CBEC28];
+  v121 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v195 forKeys:&v194 count:1];
   v22 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:45 userInfo:0];
-  (*(replyCopy + 2))(replyCopy, v122, v22);
-  v117 = 0;
-  v115 = 0;
-  v123 = 0;
-  v121 = 0;
+  (*(replyCopy + 2))(replyCopy, v121, v22);
+  v116 = 0;
+  v114 = 0;
+  v122 = 0;
+  v120 = 0;
   queue = 0;
   obj = 0;
-  v131 = 0;
+  v130 = 0;
 
 LABEL_80:
-  _Block_object_dispose(&v175, 8);
+  _Block_object_dispose(&v174, 8);
 
-  _Block_object_dispose(v181, 8);
-  v113 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v180, 8);
 }
 
 void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke(uint64_t a1)
 {
-  v81[1] = *MEMORY[0x277D85DE8];
+  v78[1] = *MEMORY[0x277D85DE8];
   *(*(*(a1 + 72) + 8) + 24) = [*(a1 + 32) fallbackAdvice];
   v2 = MEMORY[0x277CCACA8];
   v3 = [*(a1 + 40) timeOfDayPrecise];
-  v4 = *(*(*(a1 + 72) + 8) + 24);
-  v5 = [v2 stringWithFormat:@"RNFTest: (%@) Comparing currentAdviceLevel (%ld) against expected level (%ld)", v3, v4, *(*(*(a1 + 88) + 8) + 24)];
-  v6 = *(*(a1 + 80) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v4 = [v2 stringWithFormat:@"RNFTest: (%@) Comparing currentAdviceLevel (%ld) against expected level (%ld)", v3, *(*(*(a1 + 72) + 8) + 24), *(*(*(a1 + 88) + 8) + 24)];
+  v5 = *(*(a1 + 80) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  v8 = netepochsLogHandle;
+  v7 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(*(*(a1 + 80) + 8) + 40);
-    v10 = v9;
-    v11 = v8;
+    v8 = *(*(*(a1 + 80) + 8) + 40);
+    v9 = v8;
+    v10 = v7;
     LODWORD(buf) = 136315138;
-    *(&buf + 4) = [v9 UTF8String];
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "%s", &buf, 0xCu);
+    *(&buf + 4) = [v8 UTF8String];
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "%s", &buf, 0xCu);
   }
 
   [*(a1 + 48) sendRNFTestStatusInformation:*(*(*(a1 + 80) + 8) + 40)];
   if (*(*(*(a1 + 72) + 8) + 24) == *(*(*(a1 + 88) + 8) + 24))
   {
-    v12 = MEMORY[0x277CCACA8];
-    v13 = [*(a1 + 40) timeOfDayPrecise];
-    v14 = *(*(*(a1 + 72) + 8) + 24);
-    v15 = [v12 stringWithFormat:@"RNFTest: (%@) Matched currentAdviceLevel (%ld) to expected level (%ld)", v13, v14, *(*(*(a1 + 88) + 8) + 24)];
-    v16 = *(*(a1 + 80) + 8);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = v15;
+    v11 = MEMORY[0x277CCACA8];
+    v12 = [*(a1 + 40) timeOfDayPrecise];
+    v13 = [v11 stringWithFormat:@"RNFTest: (%@) Matched currentAdviceLevel (%ld) to expected level (%ld)", v12, *(*(*(a1 + 72) + 8) + 24), *(*(*(a1 + 88) + 8) + 24)];
+    v14 = *(*(a1 + 80) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = v13;
 
-    v18 = netepochsLogHandle;
+    v16 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(*(*(a1 + 80) + 8) + 40);
-      v20 = v19;
-      v21 = v18;
-      v22 = [v19 UTF8String];
+      v17 = *(*(*(a1 + 80) + 8) + 40);
+      v18 = v17;
+      v19 = v16;
+      v20 = [v17 UTF8String];
       LODWORD(buf) = 136315138;
-      *(&buf + 4) = v22;
-      _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "%s", &buf, 0xCu);
+      *(&buf + 4) = v20;
+      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "%s", &buf, 0xCu);
     }
 
     [*(a1 + 48) sendRNFTestStatusInformation:*(*(*(a1 + 80) + 8) + 40)];
     if (*(*(*(a1 + 96) + 8) + 24) == 1)
     {
-      v23 = MEMORY[0x277CCACA8];
-      v24 = [*(a1 + 40) timeOfDayPrecise];
-      v25 = [v23 stringWithFormat:@"RNFTest: (%@) Final test was successful (1)", v24];
-      v26 = *(*(a1 + 80) + 8);
-      v27 = *(v26 + 40);
-      *(v26 + 40) = v25;
+      v21 = MEMORY[0x277CCACA8];
+      v22 = [*(a1 + 40) timeOfDayPrecise];
+      v23 = [v21 stringWithFormat:@"RNFTest: (%@) Final test was successful (1)", v22];
+      v24 = *(*(a1 + 80) + 8);
+      v25 = *(v24 + 40);
+      *(v24 + 40) = v23;
 
-      v28 = netepochsLogHandle;
+      v26 = netepochsLogHandle;
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = *(*(*(a1 + 80) + 8) + 40);
-        v30 = v29;
-        v31 = v28;
-        v32 = [v29 UTF8String];
+        v27 = *(*(*(a1 + 80) + 8) + 40);
+        v28 = v27;
+        v29 = v26;
+        v30 = [v27 UTF8String];
         LODWORD(buf) = 136315138;
-        *(&buf + 4) = v32;
-        _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEFAULT, "%s", &buf, 0xCu);
+        *(&buf + 4) = v30;
+        _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEFAULT, "%s", &buf, 0xCu);
       }
 
       [*(a1 + 48) sendRNFTestStatusInformation:*(*(*(a1 + 80) + 8) + 40)];
-      v33 = *(a1 + 64);
-      if (v33)
+      v31 = *(a1 + 64);
+      if (v31)
       {
-        v80 = @"rnfTestResult";
-        v81[0] = MEMORY[0x277CBEC38];
-        v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:&v80 count:1];
-        (*(v33 + 16))(v33, v34, 0);
+        v77 = @"rnfTestResult";
+        v78[0] = MEMORY[0x277CBEC38];
+        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:&v77 count:1];
+        (*(v31 + 16))(v31, v32, 0);
       }
     }
   }
@@ -9741,89 +10551,87 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v76 = 0x3032000000;
-    v77 = __Block_byref_object_copy__9;
-    v78 = __Block_byref_object_dispose__9;
-    v79 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(a1 + 56));
-    v35 = netepochsLogHandle;
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v73 = 0x3032000000;
+    v74 = __Block_byref_object_copy__9;
+    v75 = __Block_byref_object_dispose__9;
+    v76 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(a1 + 56));
+    v33 = netepochsLogHandle;
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = [*(a1 + 40) timeOfDayPrecise];
-      *v71 = 138412290;
-      v72 = v36;
-      _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEFAULT, "RNFTest: (%@) About to start observing kNotificationFallbackRecommendation", v71, 0xCu);
+      v34 = [*(a1 + 40) timeOfDayPrecise];
+      *v68 = 138412290;
+      v69 = v34;
+      _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_DEFAULT, "RNFTest: (%@) About to start observing kNotificationFallbackRecommendation", v68, 0xCu);
     }
 
-    v37 = [MEMORY[0x277CCAB98] defaultCenter];
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_689;
-    v64[3] = &unk_27898DB98;
-    v38 = *(a1 + 56);
-    v67 = *(a1 + 72);
-    v68 = vextq_s8(*(a1 + 80), *(a1 + 80), 8uLL);
-    v57 = *(a1 + 40);
-    v39 = v57.i64[1];
-    v40 = *(a1 + 96);
+    v35 = [MEMORY[0x277CCAB98] defaultCenter];
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_689;
+    v61[3] = &unk_27898DB98;
+    v36 = *(a1 + 56);
+    v64 = *(a1 + 72);
+    v65 = vextq_s8(*(a1 + 80), *(a1 + 80), 8uLL);
+    v54 = *(a1 + 40);
+    v37 = v54.i64[1];
+    v38 = *(a1 + 96);
     p_buf = &buf;
-    v70 = v40;
-    v41 = *(a1 + 64);
-    v42.i64[0] = v38;
-    v42.i64[1] = v41;
-    v43 = vzip2q_s64(v57, v42);
-    v42.i64[1] = v57.i64[0];
-    v66 = v43;
-    v65 = v42;
-    v44 = [v37 addObserverForName:@"fallbackRecommendation" object:0 queue:0 usingBlock:v64];
-    v45 = *(a1 + 40);
-    v46 = *(v45 + 408);
-    *(v45 + 408) = v44;
+    v67 = v38;
+    v39 = *(a1 + 64);
+    v40.i64[0] = v36;
+    v40.i64[1] = v39;
+    v41 = vzip2q_s64(v54, v40);
+    v40.i64[1] = v54.i64[0];
+    v63 = v41;
+    v62 = v40;
+    v42 = [v35 addObserverForName:@"fallbackRecommendation" object:0 queue:0 usingBlock:v61];
+    v43 = *(a1 + 40);
+    v44 = *(v43 + 408);
+    *(v43 + 408) = v42;
 
-    v47 = netepochsLogHandle;
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v45 = netepochsLogHandle;
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
-      v48 = [*(a1 + 40) timeOfDayPrecise];
-      v49 = *(*(*(a1 + 88) + 8) + 24);
-      *v71 = 138412546;
-      v72 = v48;
-      v73 = 2048;
-      v74 = v49;
-      _os_log_impl(&dword_23255B000, v47, OS_LOG_TYPE_DEFAULT, "RNFTest: (%@) About to wait for expected advisory (%ld)", v71, 0x16u);
+      v46 = [*(a1 + 40) timeOfDayPrecise];
+      v47 = *(*(*(a1 + 88) + 8) + 24);
+      *v68 = 138412546;
+      v69 = v46;
+      v70 = 2048;
+      v71 = v47;
+      _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEFAULT, "RNFTest: (%@) About to wait for expected advisory (%ld)", v68, 0x16u);
     }
 
-    v50 = *(*(&buf + 1) + 40);
-    if (v50)
+    v48 = *(*(&buf + 1) + 40);
+    if (v48)
     {
-      v51 = dispatch_time(0, 1000000 * *(*(*(a1 + 104) + 8) + 24));
-      dispatch_source_set_timer(v50, v51, 0xFFFFFFFFFFFFFFFFLL, 0);
-      v52 = *(*(&buf + 1) + 40);
+      v49 = dispatch_time(0, 1000000 * *(*(*(a1 + 104) + 8) + 24));
+      dispatch_source_set_timer(v48, v49, 0xFFFFFFFFFFFFFFFFLL, 0);
+      v50 = *(*(&buf + 1) + 40);
       handler[0] = MEMORY[0x277D85DD0];
       handler[1] = 3221225472;
       handler[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_699;
       handler[3] = &unk_27898DBC0;
-      v53 = *(a1 + 48);
+      v51 = *(a1 + 48);
       handler[4] = *(a1 + 40);
-      v62 = *(a1 + 80);
-      v60 = v53;
-      v61 = *(a1 + 64);
-      v63 = &buf;
-      dispatch_source_set_event_handler(v52, handler);
-      v54 = *(*(&buf + 1) + 40);
-      v58[0] = MEMORY[0x277D85DD0];
-      v58[1] = 3221225472;
-      v58[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_703;
-      v58[3] = &unk_27898A848;
-      v55 = *(a1 + 80);
-      v58[4] = *(a1 + 40);
-      v58[5] = v55;
-      dispatch_source_set_cancel_handler(v54, v58);
+      v59 = *(a1 + 80);
+      v57 = v51;
+      v58 = *(a1 + 64);
+      v60 = &buf;
+      dispatch_source_set_event_handler(v50, handler);
+      v52 = *(*(&buf + 1) + 40);
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_703;
+      v55[3] = &unk_27898A848;
+      v53 = *(a1 + 80);
+      v55[4] = *(a1 + 40);
+      v55[5] = v53;
+      dispatch_source_set_cancel_handler(v52, v55);
       dispatch_resume(*(*(&buf + 1) + 40));
     }
 
     _Block_object_dispose(&buf, 8);
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_689(uint64_t a1, void *a2)
@@ -9849,7 +10657,7 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
 
 void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_2(uint64_t a1)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"detail"];
   *(*(*(a1 + 64) + 8) + 24) = [v3 integerValue];
@@ -9862,9 +10670,9 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
     v7 = [v5 timeOfDayPrecise];
     v8 = *(*(*(a1 + 64) + 8) + 24);
     *buf = 138412546;
-    v50 = v7;
-    v51 = 2048;
-    v52 = v8;
+    v48 = v7;
+    v49 = 2048;
+    v50 = v8;
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "RNFTest: (%@) Received advice level change %ld", buf, 0x16u);
   }
 
@@ -9873,98 +10681,94 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
   v11 = MEMORY[0x277CCACA8];
   v12 = [*(a1 + 40) timeOfDayPrecise];
   v13 = v12;
-  v14 = *(*(*(a1 + 64) + 8) + 24);
-  v15 = *(*(*(a1 + 72) + 8) + 24);
-  if (v9 == v10)
+  v14 = *(*(*(a1 + 72) + 8) + 24);
+  if (v9 != v10)
   {
-    v16 = [v11 stringWithFormat:@"RNFTest: (%@) Matched new currentAdviceLevel (%ld) to expected level (%ld)", v12, *(*(*(a1 + 64) + 8) + 24), v15];
-    v17 = *(*(a1 + 80) + 8);
-    v18 = *(v17 + 40);
-    *(v17 + 40) = v16;
+    v38 = [v11 stringWithFormat:@"RNFTest: (%@) This new advice level (%ld) is not the level we're looking for (%ld)", v12, *(*(*(a1 + 64) + 8) + 24), v14];
+    v39 = *(*(a1 + 80) + 8);
+    v40 = *(v39 + 40);
+    *(v39 + 40) = v38;
 
-    v19 = netepochsLogHandle;
+    v41 = netepochsLogHandle;
+    if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    v42 = *(*(*(a1 + 80) + 8) + 40);
+    v43 = v42;
+    v37 = v41;
+    v44 = [v42 UTF8String];
+    *buf = 136315138;
+    v48 = v44;
+    _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+    goto LABEL_15;
+  }
+
+  v15 = [v11 stringWithFormat:@"RNFTest: (%@) Matched new currentAdviceLevel (%ld) to expected level (%ld)", v12, *(*(*(a1 + 64) + 8) + 24), v14];
+  v16 = *(*(a1 + 80) + 8);
+  v17 = *(v16 + 40);
+  *(v16 + 40) = v15;
+
+  v18 = netepochsLogHandle;
+  if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = *(*(*(a1 + 80) + 8) + 40);
+    v20 = v19;
+    v21 = v18;
+    v22 = [v19 UTF8String];
+    *buf = 136315138;
+    v48 = v22;
+    _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+
+  [*(a1 + 48) sendRNFTestStatusInformation:*(*(*(a1 + 80) + 8) + 40)];
+  v23 = *(*(*(a1 + 88) + 8) + 40);
+  if (v23)
+  {
+    dispatch_source_cancel(v23);
+    v24 = *(*(a1 + 88) + 8);
+    v25 = *(v24 + 40);
+    *(v24 + 40) = 0;
+  }
+
+  if (*(*(*(a1 + 96) + 8) + 24) == 1)
+  {
+    v26 = MEMORY[0x277CCACA8];
+    v27 = [*(a1 + 40) timeOfDayPrecise];
+    v28 = [v26 stringWithFormat:@"RNFTest: (%@) Final test was successful (2)", v27];
+    v29 = *(*(a1 + 80) + 8);
+    v30 = *(v29 + 40);
+    *(v29 + 40) = v28;
+
+    v31 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = *(*(*(a1 + 80) + 8) + 40);
-      v21 = v20;
-      v22 = v19;
-      v23 = [v20 UTF8String];
+      v32 = *(*(*(a1 + 80) + 8) + 40);
+      v33 = v32;
+      v34 = v31;
+      v35 = [v32 UTF8String];
       *buf = 136315138;
-      v50 = v23;
-      _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+      v48 = v35;
+      _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
     [*(a1 + 48) sendRNFTestStatusInformation:*(*(*(a1 + 80) + 8) + 40)];
-    v24 = *(*(*(a1 + 88) + 8) + 40);
-    if (v24)
+    v36 = *(a1 + 56);
+    if (v36)
     {
-      dispatch_source_cancel(v24);
-      v25 = *(*(a1 + 88) + 8);
-      v26 = *(v25 + 40);
-      *(v25 + 40) = 0;
-    }
-
-    if (*(*(*(a1 + 96) + 8) + 24) == 1)
-    {
-      v27 = MEMORY[0x277CCACA8];
-      v28 = [*(a1 + 40) timeOfDayPrecise];
-      v29 = [v27 stringWithFormat:@"RNFTest: (%@) Final test was successful (2)", v28];
-      v30 = *(*(a1 + 80) + 8);
-      v31 = *(v30 + 40);
-      *(v30 + 40) = v29;
-
-      v32 = netepochsLogHandle;
-      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
-      {
-        v33 = *(*(*(a1 + 80) + 8) + 40);
-        v34 = v33;
-        v35 = v32;
-        v36 = [v33 UTF8String];
-        *buf = 136315138;
-        v50 = v36;
-        _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
-      }
-
-      [*(a1 + 48) sendRNFTestStatusInformation:*(*(*(a1 + 80) + 8) + 40)];
-      v37 = *(a1 + 56);
-      if (v37)
-      {
-        v47 = @"rnfTestResult";
-        v48 = MEMORY[0x277CBEC38];
-        v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-        (*(v37 + 16))(v37, v38, 0);
+      v45 = @"rnfTestResult";
+      v46 = MEMORY[0x277CBEC38];
+      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+      (*(v36 + 16))(v36, v37, 0);
 LABEL_15:
-      }
     }
   }
-
-  else
-  {
-    v39 = [v11 stringWithFormat:@"RNFTest: (%@) This new advice level (%ld) is not the level we're looking for (%ld)", v12, *(*(*(a1 + 64) + 8) + 24), v15];
-    v40 = *(*(a1 + 80) + 8);
-    v41 = *(v40 + 40);
-    *(v40 + 40) = v39;
-
-    v42 = netepochsLogHandle;
-    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
-    {
-      v43 = *(*(*(a1 + 80) + 8) + 40);
-      v44 = v43;
-      v38 = v42;
-      v45 = [v43 UTF8String];
-      *buf = 136315138;
-      v50 = v45;
-      _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
-      goto LABEL_15;
-    }
-  }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_699(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   v3 = [*(a1 + 32) timeOfDayPrecise];
   v4 = [v2 stringWithFormat:@"RNFTest: (%@) Timed out waiting for expected advisory (%ld)", v3, *(*(*(a1 + 64) + 8) + 24)];
@@ -9979,7 +10783,7 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
     v9 = v8;
     v10 = v7;
     *buf = 136315138;
-    v23 = [v8 UTF8String];
+    v22 = [v8 UTF8String];
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -9997,9 +10801,9 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
   v14 = *(a1 + 48);
   if (v14)
   {
-    v20 = @"rnfTestResult";
-    v21 = MEMORY[0x277CBEC28];
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v19 = @"rnfTestResult";
+    v20 = MEMORY[0x277CBEC28];
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:60 userInfo:0];
     (*(v14 + 16))(v14, v15, v16);
   }
@@ -10007,13 +10811,11 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
   v17 = *(*(a1 + 72) + 8);
   v18 = *(v17 + 40);
   *(v17 + 40) = 0;
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_703(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   v3 = [*(a1 + 32) timeOfDayPrecise];
   v4 = [v2 stringWithFormat:@"RNFTest: (%@) Canceled adviceWaitingTimer", v3];
@@ -10028,7 +10830,7 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
     v9 = v8;
     v10 = v7;
     *buf = 136315138;
-    v16 = [v8 UTF8String];
+    v15 = [v8 UTF8String];
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -10041,13 +10843,11 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
     v13 = *(v12 + 408);
     *(v12 + 408) = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_710(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -10055,18 +10855,16 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
     v4 = v2;
     v5 = [v3 timeOfDayPrecise];
     v6 = [*(a1 + 40) objectForKeyedSubscript:@"l2Metric"];
-    v10 = 138412546;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "RNFTest: (%@) Sending l2NewMetric %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "RNFTest: (%@) Sending l2NewMetric %@", &v9, 0x16u);
   }
 
   v7 = *(a1 + 32);
   v8 = [*(a1 + 40) objectForKeyedSubscript:@"l2Metric"];
   [v7 wifiShim_L2NewMetrics:v8 forInterface:*(a1 + 48)];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_718(uint64_t a1)
@@ -10090,7 +10888,7 @@ uint64_t __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenari
 
 uint64_t __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_3(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"txLossRate"];
   [v2 floatValue];
   v4 = v3;
@@ -10098,20 +10896,18 @@ uint64_t __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenari
   v5 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
-    v10 = v4;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Setting Uplink TxLossRate to %f", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = v4;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Setting Uplink TxLossRate to %f", &v8, 0xCu);
   }
 
   *&v6 = v4;
-  result = [*(*(a1 + 40) + 424) setUplinkPacketLossRate:v6];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 40) + 424) setUplinkPacketLossRate:v6];
 }
 
 uint64_t __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_734(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"rxLossRate"];
   [v2 floatValue];
   v4 = v3;
@@ -10119,15 +10915,13 @@ uint64_t __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenari
   v5 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
-    v10 = v4;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Setting Uplink RxLossRate to %f", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = v4;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Setting Uplink RxLossRate to %f", &v8, 0xCu);
   }
 
   *&v6 = v4;
-  result = [*(*(a1 + 40) + 424) setDownlinkPacketLossRate:v6];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 40) + 424) setDownlinkPacketLossRate:v6];
 }
 
 uint64_t __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_738(uint64_t a1)
@@ -10143,7 +10937,7 @@ uint64_t __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenari
 
 void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioName_reply___block_invoke_2_739(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   v3 = [*(a1 + 32) timeOfDayPrecise];
   v4 = [v2 stringWithFormat:@"RNFTest: (%@) Canceled rnfTestTimeoutTimer", v3];
@@ -10158,11 +10952,9 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
     v9 = v8;
     v10 = v7;
     *buf = 136315138;
-    v13 = [v8 UTF8String];
+    v12 = [v8 UTF8String];
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)abortRNFTestWithReply:(id)reply
@@ -10188,7 +10980,7 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
 
 - (void)stopRunningRNFTestWithReply:(id)reply
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = replyCopy;
   if (runningRNFTest == 1)
@@ -10204,9 +10996,9 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
     [CellFallbackHandler stopRunningRNFTestWithReply:v5];
     runningRNFTest = 0;
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v17 = @"kAppStateKeyForegroundActivityState";
-    v18[0] = MEMORY[0x277CBEC28];
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = @"kAppStateKeyForegroundActivityState";
+    v17[0] = MEMORY[0x277CBEC28];
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     [defaultCenter postNotificationName:@"kAppStateNotificationForegroundActivity" object:self userInfo:v8];
 
     [(WiFiShim *)self->_wifiShim addDelegate:self];
@@ -10218,34 +11010,31 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = @"RNFTest: RNF Test Abort called when not running an RNFTest";
+      v15 = @"RNFTest: RNF Test Abort called when not running an RNFTest";
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
-    v13[0] = @"rnfTestResult";
-    v13[1] = @"SymptomAnalyticsServiceReason";
-    v14[0] = MEMORY[0x277CBEC28];
-    v14[1] = @"RNFTest: RNF Test Abort called when not running an RNFTest";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v12[0] = @"rnfTestResult";
+    v12[1] = @"SymptomAnalyticsServiceReason";
+    v13[0] = MEMORY[0x277CBEC28];
+    v13[1] = @"RNFTest: RNF Test Abort called when not running an RNFTest";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
     v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:1 userInfo:0];
     (v5)[2](v5, v10, v11);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)timeOfDayPrecise
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5.tv_sec = 0;
-  *&v5.tv_usec = 0;
-  if (!gettimeofday(&v5, 0))
+  v6 = *MEMORY[0x277D85DE8];
+  v4.tv_sec = 0;
+  *&v4.tv_usec = 0;
+  if (!gettimeofday(&v4, 0))
   {
-    snprintf(__str, 0x40uLL, "%ld.%d", v5.tv_sec, v5.tv_usec);
+    snprintf(__str, 0x40uLL, "%ld.%d", v4.tv_sec, v4.tv_usec);
   }
 
   v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:__str];
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -10253,7 +11042,7 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
 - (void)_setWiFiRSSIThresholds:(BOOL)thresholds
 {
   thresholdsCopy = thresholds;
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -10263,20 +11052,893 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
       v5 = "en";
     }
 
-    v7 = 136315138;
-    v8 = v5;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "turbo_rnf (RSSI levels) is %sabled", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = v5;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "turbo_rnf (RSSI levels) is %sabled", &v6, 0xCu);
   }
 
   kMinimumRSSISignalDown = thresholdsCopy;
   kMinimumRSSISignalUp = thresholdsCopy;
   kRSSISignalAlertThreshold = thresholdsCopy;
-  v6 = *MEMORY[0x277D85DE8];
+}
+
+- (void)wifiNetworkChangedForInterface:(id)interface roaming:(BOOL)roaming
+{
+  roamingCopy = roaming;
+  v29 = *MEMORY[0x277D85DE8];
+  interfaceCopy = interface;
+  v7 = [NetworkStateRelay getStateRelayFor:3];
+  v8 = v7;
+  if (!interfaceCopy)
+  {
+    interfaceCopy = [v7 interfaceName];
+    if (!interfaceCopy)
+    {
+      goto LABEL_29;
+    }
+
+    v19 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v24 = interfaceCopy;
+      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "No interface name but stateRelays has one:%@", buf, 0xCu);
+    }
+  }
+
+  if ([interfaceCopy length])
+  {
+    ssid = [(WiFiShim *)self->_wifiShim ssid];
+    bssid = [(WiFiShim *)self->_wifiShim bssid];
+    [v8 setIsHotspot:{-[WiFiShim isHotspot](self->_wifiShim, "isHotspot")}];
+    [v8 setIsApplePersonalHotspot:{-[WiFiShim isApplePersonalHotspot](self->_wifiShim, "isApplePersonalHotspot")}];
+    phyMode = [(WiFiShim *)self->_wifiShim phyMode];
+    if ((phyMode & 0x100) != 0)
+    {
+      v18 = -121;
+    }
+
+    else if ((phyMode & 0x80) != 0)
+    {
+      v18 = -122;
+    }
+
+    else
+    {
+      if ((phyMode & 0x200) != 0)
+      {
+        v12 = -120;
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+
+      if ((phyMode & 2) != 0)
+      {
+        v13 = 0x80;
+      }
+
+      else
+      {
+        v13 = v12;
+      }
+
+      if ((phyMode & 4) != 0)
+      {
+        v14 = -127;
+      }
+
+      else
+      {
+        v14 = v13;
+      }
+
+      if ((phyMode & 8) != 0)
+      {
+        v15 = -126;
+      }
+
+      else
+      {
+        v15 = v14;
+      }
+
+      if ((phyMode & 0x10) != 0)
+      {
+        v16 = -125;
+      }
+
+      else
+      {
+        v16 = v15;
+      }
+
+      if ((phyMode & 0x20) != 0)
+      {
+        v17 = -124;
+      }
+
+      else
+      {
+        v17 = v16;
+      }
+
+      if ((phyMode & 0x40) != 0)
+      {
+        v18 = -123;
+      }
+
+      else
+      {
+        v18 = v17;
+      }
+    }
+
+    v22 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138478339;
+      v24 = ssid;
+      v25 = 2113;
+      v26 = bssid;
+      v27 = 2112;
+      v28 = interfaceCopy;
+      _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "proposing ssid %{private}@, bssid %{private}@ for interface %@", buf, 0x20u);
+    }
+
+    v21 = 0;
+    if (ssid && bssid)
+    {
+      v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", ssid, bssid];
+    }
+
+    goto LABEL_39;
+  }
+
+LABEL_29:
+  v20 = netepochsLogHandle;
+  if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "Not setting primary key because we don't have an interface name", buf, 2u);
+  }
+
+  v18 = 0;
+  bssid = 0;
+  ssid = 0;
+  v21 = 0;
+LABEL_39:
+  [(NetworkAnalyticsEngine *)self _setRadioTechnology:v18 forInterfaceType:3];
+  [(NetworkAnalyticsEngine *)self _primaryKeyChange:v21 interfaceName:interfaceCopy interfaceType:3 roamingEvent:roamingCopy];
+}
+
+- (void)_setDefrouteMonitoring:(unsigned int)monitoring ofInterfaceType:(unsigned __int8)type roamingEvent:(BOOL)event family:(unsigned __int8)family retries:(int)retries
+{
+  familyCopy = family;
+  typeCopy = type;
+  v47 = *MEMORY[0x277D85DE8];
+  v13 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:type];
+  v14 = v13;
+  if (v13 && [v13 seqno] == monitoring)
+  {
+    if (familyCopy == 30)
+    {
+      if ([v14 defRoute6])
+      {
+        goto LABEL_18;
+      }
+    }
+
+    else if ([v14 defRoute4])
+    {
+      goto LABEL_18;
+    }
+
+    interfaceName = [v14 interfaceName];
+    v16 = [(NetworkAnalyticsEngine *)self _newDefRouteForInterface:interfaceName saFamily:familyCopy];
+
+    if (v16)
+    {
+      if (familyCopy == 30)
+      {
+        [v14 setDefRoute6:v16];
+      }
+
+      else
+      {
+        [v14 setDefRoute4:v16];
+      }
+
+      liveDefaultRoutes = self->liveDefaultRoutes;
+      v17 = [MEMORY[0x277CCAE60] valueWithPointer:v16];
+      [(NSMutableDictionary *)liveDefaultRoutes setObject:v14 forKey:v17];
+    }
+
+    else
+    {
+      v17 = [NetworkStateRelay getStateRelayFor:typeCopy];
+      interfaceName2 = [v17 interfaceName];
+
+      if (interfaceName2)
+      {
+        v19 = netepochsLogHandle;
+        if (retries < 2)
+        {
+          if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
+          {
+            v27 = v19;
+            interfaceName3 = [v17 interfaceName];
+            primaryKey = [v14 primaryKey];
+            *buf = 138412803;
+            v40 = interfaceName3;
+            v41 = 2113;
+            v42 = primaryKey;
+            v43 = 1024;
+            v44 = familyCopy;
+            _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_ERROR, "Failed to set default route on interfaceName %@, %{private}@, family = %d, zero retries left", buf, 0x1Cu);
+          }
+
+          if (familyCopy == 2)
+          {
+            v30 = 405513;
+          }
+
+          else
+          {
+            v30 = 405514;
+          }
+
+          internal_symptom_new(v30);
+          [v17 functionalInterfaceType];
+          internal_symptom_set_qualifier();
+          internal_symptom_send();
+        }
+
+        else
+        {
+          v20 = retries - 1;
+          if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+          {
+            log = v19;
+            interfaceName4 = [v17 interfaceName];
+            [v14 primaryKey];
+            v22 = v21 = retries - 1;
+            *buf = 138413059;
+            v40 = interfaceName4;
+            v41 = 2113;
+            v42 = v22;
+            v43 = 1024;
+            v44 = familyCopy;
+            v45 = 1024;
+            v46 = v21;
+            _os_log_impl(&dword_23255B000, log, OS_LOG_TYPE_DEFAULT, "Failed to set default route on interfaceName %@ %{private}@, family = %d, retries left = %d (trying again)", buf, 0x22u);
+
+            v20 = v21;
+          }
+
+          v23 = dispatch_time(0, 2000000000);
+          queue = [(AnalyticsEngineCore *)self queue];
+          block[0] = MEMORY[0x277D85DD0];
+          block[1] = 3221225472;
+          block[2] = __93__NetworkAnalyticsEngine__setDefrouteMonitoring_ofInterfaceType_roamingEvent_family_retries___block_invoke;
+          block[3] = &unk_27898DC10;
+          block[4] = self;
+          v36 = typeCopy;
+          eventCopy = event;
+          v38 = familyCopy;
+          monitoringCopy = monitoring;
+          v35 = v20;
+          dispatch_after(v23, queue, block);
+        }
+      }
+
+      else
+      {
+        v26 = netepochsLogHandle;
+        if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 134217984;
+          v40 = typeCopy;
+          _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "Interface for %ld is down", buf, 0xCu);
+        }
+      }
+    }
+  }
+
+LABEL_18:
+}
+
+- (BOOL)_primaryKeyChange:(id)change interfaceName:(id)name interfaceType:(unsigned __int8)type roamingEvent:(BOOL)event
+{
+  eventCopy = event;
+  typeCopy = type;
+  v124 = *MEMORY[0x277D85DE8];
+  changeCopy = change;
+  nameCopy = name;
+  v11 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:typeCopy];
+  v108 = [NetworkStateRelay getStateRelayFor:typeCopy];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  v13 = netepochsLogHandle;
+  v107 = defaultCenter;
+  selfCopy = self;
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    if (eventCopy)
+    {
+      v14 = @"roaming";
+    }
+
+    else
+    {
+      v14 = @"noroam";
+    }
+
+    if (v11)
+    {
+      primaryKey = [v11 primaryKey];
+      interfaceName = [v11 interfaceName];
+    }
+
+    else
+    {
+      primaryKey = @"-";
+      interfaceName = @"-";
+    }
+
+    *buf = 138479107;
+    v114 = changeCopy;
+    v115 = 2112;
+    *v116 = nameCopy;
+    *&v116[8] = 2048;
+    v117 = typeCopy;
+    v118 = 2112;
+    v119 = v14;
+    v120 = 2113;
+    v121 = primaryKey;
+    v122 = 2112;
+    v123 = interfaceName;
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "_primaryKeyChange new (%{private}@,%@) on %ld, %@,  old (%{private}@,%@)", buf, 0x3Eu);
+    if (v11)
+    {
+    }
+
+    defaultCenter = v107;
+    self = selfCopy;
+  }
+
+  if (!v11)
+  {
+LABEL_46:
+    if (!changeCopy && typeCopy != 5)
+    {
+      v41 = netepochsLogHandle;
+      v20 = v108;
+      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_DEFAULT, "wifi no longer primary, letting others know", buf, 2u);
+      }
+
+      +[FlowAnalyticsEngine endRNFPeriod];
+      date = [MEMORY[0x277CBEAA8] date];
+      [WiFiTriggerHandler triggerAllowedByRSSI:0 receiptTimestamp:date];
+
+      [defaultCenter postNotificationName:@"kNotificationOfFlowDisruptingEvent" object:self userInfo:MEMORY[0x277CBEC10]];
+LABEL_76:
+      [(NetworkAnalyticsEngine *)self _updateCombinedDNSCounts];
+      if (!v11)
+      {
+LABEL_77:
+        v29 = 0;
+LABEL_128:
+        [(NetworkAnalyticsEngine *)self _idleExitTransactionCheck];
+        [(NetworkAnalyticsEngine *)self _updateAdviceForInterfaceType:typeCopy];
+        v98 = +[ConnectionFailureHandler sharedInstance];
+        [v98 postConnectionFailureMetrics:typeCopy];
+
+        goto LABEL_129;
+      }
+
+LABEL_114:
+      v89 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:typeCopy];
+      [v20 setActive:v89 != 0];
+
+      active = [v20 active];
+      if ((active & 1) == 0)
+      {
+        [v20 setKnownGood:0];
+        [v20 setKnownSporadic:0];
+        [v20 setArpOut:0];
+        [v20 setDnsOut:0];
+        [v20 setInternetDnsOut:0];
+        [v20 setStuckDefRoute:0];
+        [v20 setAdvisory:0];
+        if (typeCopy != 5)
+        {
+          [v20 setLoi:-1];
+        }
+      }
+
+      v91 = &stru_2847966D8;
+      if (changeCopy)
+      {
+        v92 = changeCopy;
+      }
+
+      else
+      {
+        v92 = &stru_2847966D8;
+      }
+
+      v93 = v92;
+      v111[0] = @"State";
+      v94 = [MEMORY[0x277CCABB0] numberWithBool:active];
+      v112[0] = v94;
+      v111[1] = @"Roaming";
+      v95 = [MEMORY[0x277CCABB0] numberWithBool:eventCopy];
+      v112[1] = v95;
+      v112[2] = v93;
+      v111[2] = @"Detail";
+      v111[3] = @"HashedPrimaryKey";
+      if (changeCopy)
+      {
+        v91 = [(NetworkAnalyticsEngine *)selfCopy _hashPrimaryKey:changeCopy];
+      }
+
+      v112[3] = v91;
+      v96 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v112 forKeys:v111 count:4];
+      if (changeCopy)
+      {
+      }
+
+      if (typeCopy == 5)
+      {
+        v97 = @"kNotificationNewConnectivityEpochCell";
+      }
+
+      else
+      {
+        v97 = @"kNotificationNewConnectivityEpochWiFi";
+      }
+
+      defaultCenter = v107;
+      self = selfCopy;
+      [v107 postNotificationName:v97 object:selfCopy userInfo:v96];
+
+      v29 = 1;
+      goto LABEL_128;
+    }
+
+    v20 = v108;
+    if (!changeCopy)
+    {
+      goto LABEL_76;
+    }
+
+    v105 = changeCopy;
+    v106 = v11;
+    v43 = realTimeLqm[typeCopy];
+    if (v43 == -1 || typeCopy == 3 && v43 == -2)
+    {
+      [(NetworkAnalyticsEngine *)self _establishLqmBaselineOn:typeCopy == 5 interfaceName:nameCopy lqmPtr:&realTimeLqm[typeCopy]];
+    }
+
+    v102 = v43;
+    v104 = &realTimeLqm[typeCopy];
+    v44 = [v11 loi];
+    supportsIPv4 = [v108 supportsIPv4];
+    supportsIPv6 = [v108 supportsIPv6];
+    workspace = self->super.workspace;
+    queue = [(AnalyticsEngineCore *)self queue];
+    v101 = workspace;
+    BYTE1(v100) = supportsIPv6;
+    LOBYTE(v100) = supportsIPv4;
+    changeCopy = v105;
+    v49 = [NetworkEpoch epochWithPrimaryKey:v105 interfaceName:nameCopy isCell:typeCopy == 5 maxBars:5 roamingEvent:eventCopy roamingAttrs:v44 supportsIPv4:v100 supportsIPv6:v101 inWorkspace:queue andQueue:?];
+
+    if (!v49)
+    {
+      v69 = netepochsLogHandle;
+      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138477827;
+        v114 = v105;
+        _os_log_impl(&dword_23255B000, v69, OS_LOG_TYPE_ERROR, "Unable to create Epoch for primary:%{private}@", buf, 0xCu);
+      }
+
+      self = selfCopy;
+      [(NetworkAnalyticsEngine *)selfCopy _updateCombinedDNSCounts];
+      v11 = v106;
+      defaultCenter = v107;
+      v20 = v108;
+      if (!v106)
+      {
+        goto LABEL_77;
+      }
+
+      goto LABEL_114;
+    }
+
+    v50 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:typeCopy];
+    if (v50)
+    {
+      v51 = netepochsLogHandle;
+      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        v52 = v51;
+        primaryKey2 = [v50 primaryKey];
+        *buf = 138477827;
+        v114 = primaryKey2;
+        _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_DEFAULT, "new active epoch overrides older epoch: %{private}@", buf, 0xCu);
+      }
+    }
+
+    v103 = v50;
+    [(NetworkAnalyticsEngine *)self _insertEpoch:v49 forInterfaceType:typeCopy];
+    v11 = v106;
+    if ([v49 supportsIPv4])
+    {
+      v54 = netepochsLogHandle;
+      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        v55 = v54;
+        interfaceName2 = [v49 interfaceName];
+        primaryKey3 = [v49 primaryKey];
+        *buf = 138412547;
+        v114 = interfaceName2;
+        v115 = 2113;
+        *v116 = primaryKey3;
+        _os_log_impl(&dword_23255B000, v55, OS_LOG_TYPE_DEFAULT, "Enabling support for IPv4, interface = %@, primaryKey = %{private}@", buf, 0x16u);
+      }
+
+      -[NetworkAnalyticsEngine _setDefrouteMonitoring:ofInterfaceType:roamingEvent:family:retries:](self, "_setDefrouteMonitoring:ofInterfaceType:roamingEvent:family:retries:", [v49 seqno], typeCopy, eventCopy, 2, 8);
+    }
+
+    if ([v49 supportsIPv6])
+    {
+      v58 = netepochsLogHandle;
+      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        v59 = v58;
+        interfaceName3 = [v49 interfaceName];
+        primaryKey4 = [v49 primaryKey];
+        *buf = 138412547;
+        v114 = interfaceName3;
+        v115 = 2113;
+        *v116 = primaryKey4;
+        _os_log_impl(&dword_23255B000, v59, OS_LOG_TYPE_DEFAULT, "Enabling support for IPv6, interface = %@, primaryKey = %{private}@", buf, 0x16u);
+      }
+
+      -[NetworkAnalyticsEngine _setDefrouteMonitoring:ofInterfaceType:roamingEvent:family:retries:](self, "_setDefrouteMonitoring:ofInterfaceType:roamingEvent:family:retries:", [v49 seqno], typeCopy, eventCopy, 30, 8);
+    }
+
+    ++netatt_epochs;
+    if (eventCopy)
+    {
+      ++netatt_roamed;
+    }
+
+    v62 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      liveDefaultRoutes = self->liveDefaultRoutes;
+      v64 = v62;
+      v65 = [(NSMutableDictionary *)liveDefaultRoutes count];
+      v66 = *v104;
+      *buf = 134218755;
+      v114 = v49;
+      v115 = 2113;
+      *v116 = v105;
+      *&v116[8] = 2048;
+      v117 = v65;
+      v118 = 1024;
+      LODWORD(v119) = v66;
+      _os_log_impl(&dword_23255B000, v64, OS_LOG_TYPE_DEFAULT, "inserting new epoch (%p) primary key: %{private}@, def routes count: %lu, lqm: %d", buf, 0x26u);
+    }
+
+    [(NetworkAnalyticsEngine *)self _retrieveDNSServersForEpoch:v49];
+    v67 = pendedLqm[typeCopy];
+    if (v67)
+    {
+      v68 = &realTimeLqm[typeCopy];
+      if (v67 == 1 && *v104 != -2)
+      {
+        v67 = 4294967294;
+        pendedLqm[typeCopy] = -2;
+      }
+    }
+
+    else
+    {
+      v67 = v102;
+      v68 = &realTimeLqm[typeCopy];
+    }
+
+    v70 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      v71 = *v68;
+      *buf = 138412802;
+      v114 = nameCopy;
+      v115 = 1024;
+      *v116 = v67;
+      *&v116[4] = 1024;
+      *&v116[6] = v71;
+      _os_log_impl(&dword_23255B000, v70, OS_LOG_TYPE_DEFAULT, "Computing loaded LQM for newly created Epoch on interface %@, LQM(old/new) = (%d/%d)", buf, 0x18u);
+    }
+
+    [(NetworkAnalyticsEngine *)selfCopy _computeAndApplyLoadedLqmFrom:*v68 oldLqm:v67 onInterfaceType:typeCopy];
+    if (typeCopy == 5)
+    {
+      if (cellRrcState)
+      {
+        [(NetworkAnalyticsEngine *)selfCopy _actUponCellRrcChangeTo:1];
+      }
+
+      goto LABEL_110;
+    }
+
+    if (selfCopy->pendedRssiEdge && ([v49 primaryKey], v72 = objc_claimAutoreleasedReturnValue(), has_bssid = primary_key_has_bssid(v72, selfCopy->pendedRssiEdgeTarget), v72, has_bssid))
+    {
+      v74 = rnfLogHandle;
+      if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_23255B000, v74, OS_LOG_TYPE_DEFAULT, "trigger-disconnect: found matching pended RSSI ON, applying it", buf, 2u);
+      }
+
+      [WiFiTriggerHandler triggerAllowedByRSSI:1 receiptTimestamp:selfCopy->pendedRssiEdge];
+    }
+
+    else
+    {
+      date2 = [MEMORY[0x277CBEAA8] date];
+      [WiFiTriggerHandler triggerAllowedByRSSI:0 receiptTimestamp:date2];
+    }
+
+    if (selfCopy->lastScoreExit[1] == 1)
+    {
+      if (v106 && eventCopy)
+      {
+        if ([v106 knownGoodNotified])
+        {
+          goto LABEL_108;
+        }
+
+        goto LABEL_107;
+      }
+    }
+
+    else
+    {
+      durable = [v49 durable];
+      if (([durable isKnownGood] & 1) == 0)
+      {
+
+        goto LABEL_108;
+      }
+
+      if (v106 && eventCopy)
+      {
+        knownGoodNotified = [v106 knownGoodNotified];
+
+        if (knownGoodNotified)
+        {
+LABEL_108:
+          if (!eventCopy)
+          {
+            [v107 postNotificationName:@"kNotificationOfFlowDisruptingEvent" object:selfCopy userInfo:0];
+          }
+
+          goto LABEL_110;
+        }
+
+LABEL_107:
+        [(NetworkAnalyticsEngine *)selfCopy _delayedKnownGoodNetworkAlert];
+        goto LABEL_108;
+      }
+    }
+
+    if (eventCopy)
+    {
+LABEL_110:
+      durable2 = [v49 durable];
+      [v108 setKnownGood:{objc_msgSend(durable2, "isKnownGood")}];
+
+      durable3 = [v49 durable];
+      [v108 setKnownSporadic:{objc_msgSend(durable3, "isKnownSporadic")}];
+
+      if (typeCopy != 5 && !eventCopy)
+      {
+        durable4 = [v49 durable];
+        identifier = [durable4 identifier];
+        [v108 setFirstAttachment:{-[NetworkAnalyticsEngine _determineIfThisIsWiFiFirstAttachment:](selfCopy, "_determineIfThisIsWiFiFirstAttachment:", identifier)}];
+      }
+
+      durable5 = [v49 durable];
+      isLowInternetUL = [durable5 isLowInternetUL];
+      durable6 = [v49 durable];
+      isLowInternetDL = [durable6 isLowInternetDL];
+      interfaceName4 = [v49 interfaceName];
+      uTF8String = [interfaceName4 UTF8String];
+      v88 = isLowInternetDL;
+      self = selfCopy;
+      [(NetworkAnalyticsEngine *)selfCopy _informKernelOfLIMUplink:isLowInternetUL downlink:v88 forInterface:uTF8String];
+
+      [(NetworkAnalyticsEngine *)selfCopy _updateCombinedDNSCounts];
+      v20 = v108;
+      goto LABEL_114;
+    }
+
+    goto LABEL_107;
+  }
+
+  primaryKey5 = [v11 primaryKey];
+  if (([primaryKey5 isEqualToString:changeCopy] & 1) == 0)
+  {
+
+LABEL_31:
+    v30 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      v31 = v30;
+      primaryKey6 = [v11 primaryKey];
+      interfaceName5 = [v11 interfaceName];
+      *buf = 138413315;
+      v114 = v11;
+      v115 = 2113;
+      *v116 = changeCopy;
+      *&v116[8] = 2112;
+      v117 = nameCopy;
+      v118 = 2113;
+      v119 = primaryKey6;
+      v120 = 2112;
+      v121 = interfaceName5;
+      _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEFAULT, "retiring incumbent: %@, new (%{private}@,%@) vs old (%{private}@,%@)", buf, 0x34u);
+    }
+
+    if (typeCopy == 5)
+    {
+      v34 = 5;
+      v35 = 5;
+LABEL_41:
+      [v11 retire];
+      [(NetworkAnalyticsEngine *)selfCopy _removeEpochForInterfaceType:v34];
+      v38 = [NetworkStateRelay getStateRelayFor:v35];
+      v39 = netepochsLogHandle;
+      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
+      {
+        v40 = "Wi-Fi";
+        if (typeCopy == 5)
+        {
+          v40 = "Cellular";
+        }
+
+        *buf = 136315138;
+        v114 = v40;
+        _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_INFO, "Removing all default gateways from %s state relay", buf, 0xCu);
+      }
+
+      [v38 removeAllDefaultGateways];
+
+      self = selfCopy;
+      goto LABEL_46;
+    }
+
+    v35 = 3;
+    if (pendedLqm[typeCopy] != 1)
+    {
+      v34 = typeCopy;
+      if (eventCopy)
+      {
+        goto LABEL_41;
+      }
+
+      dword_2814D300C = -2;
+      [(NetworkAnalyticsEngine *)selfCopy _trackRealTimeLqmLastUpdatedOnInterfaceType:typeCopy];
+      v36 = netepochsLogHandle;
+      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        v37 = pendedLqm[typeCopy];
+        *buf = 138412802;
+        v114 = nameCopy;
+        v115 = 1024;
+        *v116 = v37;
+        *&v116[4] = 1024;
+        *&v116[6] = -2;
+        _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEFAULT, "Computing loaded LQM before retiring Epoch (under race) on interface %@, LQM(old/new) = (%d/%d)", buf, 0x18u);
+      }
+
+      [(NetworkAnalyticsEngine *)selfCopy _computeAndApplyLoadedLqmFrom:4294967294 oldLqm:pendedLqm[typeCopy] onInterfaceType:typeCopy];
+      v35 = 3;
+    }
+
+    v34 = typeCopy;
+    goto LABEL_41;
+  }
+
+  interfaceName6 = [v11 interfaceName];
+  v19 = [interfaceName6 isEqualToString:nameCopy];
+
+  if (!v19)
+  {
+    goto LABEL_31;
+  }
+
+  v20 = v108;
+  if ([v108 supportsIPv4])
+  {
+    supportsIPv42 = [v11 supportsIPv4];
+    if (supportsIPv42 != [v108 supportsIPv4])
+    {
+      v22 = netepochsLogHandle;
+      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "Enabling support for IPv4", buf, 2u);
+      }
+
+      [v11 setSupportsIPv4:{objc_msgSend(v108, "supportsIPv4")}];
+      -[NetworkAnalyticsEngine _setDefrouteMonitoring:ofInterfaceType:roamingEvent:family:retries:](selfCopy, "_setDefrouteMonitoring:ofInterfaceType:roamingEvent:family:retries:", [v11 seqno], typeCopy, eventCopy, 2, 8);
+    }
+  }
+
+  if ([v108 supportsIPv6])
+  {
+    supportsIPv62 = [v11 supportsIPv6];
+    if (supportsIPv62 != [v108 supportsIPv6])
+    {
+      v24 = netepochsLogHandle;
+      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "Enabling support for IPv6", buf, 2u);
+      }
+
+      [v11 setSupportsIPv6:{objc_msgSend(v108, "supportsIPv6")}];
+      -[NetworkAnalyticsEngine _setDefrouteMonitoring:ofInterfaceType:roamingEvent:family:retries:](selfCopy, "_setDefrouteMonitoring:ofInterfaceType:roamingEvent:family:retries:", [v11 seqno], typeCopy, eventCopy, 30, 8);
+    }
+  }
+
+  v25 = &realTimeLqm[typeCopy];
+  if (*v25 == -1)
+  {
+    [(NetworkAnalyticsEngine *)selfCopy _establishLqmBaselineOn:typeCopy == 5 interfaceName:nameCopy lqmPtr:&realTimeLqm[typeCopy]];
+    v26 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      v27 = *v25;
+      *buf = 138412802;
+      v114 = nameCopy;
+      v115 = 1024;
+      *v116 = -1;
+      *&v116[4] = 1024;
+      *&v116[6] = v27;
+      _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "Computing loaded LQM after baselining LQM on interface %@, LQM(old/new) = (%d/%d)", buf, 0x18u);
+    }
+
+    [(NetworkAnalyticsEngine *)selfCopy _computeAndApplyLoadedLqmFrom:*v25 oldLqm:0xFFFFFFFFLL onInterfaceType:typeCopy];
+  }
+
+  v28 = netepochsLogHandle;
+  v29 = 0;
+  if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEFAULT, "duplicate call, bailing out", buf, 2u);
+    v29 = 0;
+  }
+
+LABEL_129:
+
+  return v29;
 }
 
 - (BOOL)_determineIfThisIsWiFiFirstAttachment:(id)attachment
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   attachmentCopy = attachment;
   v5 = [(NetworkAnalyticsEngine *)self _naIdentifierToMajor:attachmentCopy];
   if (v5)
@@ -10284,86 +11946,86 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
     v6 = [objc_alloc(MEMORY[0x277D6B538]) initWithWorkspace:self->super.workspace withCache:0];
     v7 = [v6 networkAttachmentsWithMajorID:v5];
     v8 = objc_autoreleasePoolPush();
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v43 objects:v54 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v42 objects:v53 count:16];
     if (v10)
     {
       v11 = v10;
       context = v8;
-      v36 = v6;
-      v37 = attachmentCopy;
-      v38 = v9;
+      v35 = v6;
+      v36 = attachmentCopy;
+      v37 = v9;
       v12 = 0;
-      v13 = *v44;
-      v34 = *v44;
+      v13 = *v43;
+      v33 = *v43;
       do
       {
         v14 = 0;
         v15 = v12;
         do
         {
-          if (*v44 != v13)
+          if (*v43 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v16 = *(*(&v43 + 1) + 8 * v14);
+          v16 = *(*(&v42 + 1) + 8 * v14);
           identifier = [v16 identifier];
           v12 = [(NetworkAnalyticsEngine *)self _naIdentifierToMajor:identifier];
 
           if ([v12 isEqualToString:v5])
           {
-            v41 = 0u;
-            v42 = 0u;
-            v39 = 0u;
             v40 = 0u;
+            v41 = 0u;
+            v38 = 0u;
+            v39 = 0u;
             hasDefaultRoute = [v16 hasDefaultRoute];
-            v19 = [hasDefaultRoute countByEnumeratingWithState:&v39 objects:v53 count:16];
+            v19 = [hasDefaultRoute countByEnumeratingWithState:&v38 objects:v52 count:16];
             if (v19)
             {
               v20 = v19;
-              v21 = *v40;
+              v21 = *v39;
               while (2)
               {
                 for (i = 0; i != v20; ++i)
                 {
-                  if (*v40 != v21)
+                  if (*v39 != v21)
                   {
                     objc_enumerationMutation(hasDefaultRoute);
                   }
 
-                  [*(*(&v39 + 1) + 8 * i) epochs];
+                  [*(*(&v38 + 1) + 8 * i) epochs];
                   v24 = (v23 + 0.0);
                   if (v24)
                   {
                     v29 = netepochsLogHandle;
-                    v9 = v38;
+                    v9 = v37;
                     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
                     {
                       v30 = v29;
-                      v31 = [v38 count];
+                      v31 = [v37 count];
                       *buf = 67109632;
-                      v48 = 0;
-                      v49 = 2048;
-                      v50 = v31;
-                      v51 = 2048;
-                      v52 = v24;
+                      v47 = 0;
+                      v48 = 2048;
+                      v49 = v31;
+                      v50 = 2048;
+                      v51 = v24;
                       _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEFAULT, "firstAttachment (%d) matched Wi-Fi NA count %lu, epoch count %lu", buf, 0x1Cu);
                     }
 
                     objc_autoreleasePoolPop(context);
                     v26 = 0;
-                    v6 = v36;
-                    attachmentCopy = v37;
+                    v6 = v35;
+                    attachmentCopy = v36;
                     goto LABEL_25;
                   }
                 }
 
-                v20 = [hasDefaultRoute countByEnumeratingWithState:&v39 objects:v53 count:16];
+                v20 = [hasDefaultRoute countByEnumeratingWithState:&v38 objects:v52 count:16];
                 if (v20)
                 {
                   continue;
@@ -10373,8 +12035,8 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
               }
             }
 
-            v9 = v38;
-            v13 = v34;
+            v9 = v37;
+            v13 = v33;
           }
 
           ++v14;
@@ -10382,13 +12044,13 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
         }
 
         while (v14 != v11);
-        v11 = [v9 countByEnumeratingWithState:&v43 objects:v54 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v42 objects:v53 count:16];
       }
 
       while (v11);
 
-      v6 = v36;
-      attachmentCopy = v37;
+      v6 = v35;
+      attachmentCopy = v36;
       v8 = context;
     }
 
@@ -10400,11 +12062,11 @@ void __80__NetworkAnalyticsEngine_startRNFTestWithConnection_options_scenarioNam
       v27 = v25;
       v28 = [v9 count];
       *buf = 67109632;
-      v48 = 1;
-      v49 = 2048;
-      v50 = v28;
-      v51 = 2048;
-      v52 = 0;
+      v47 = 1;
+      v48 = 2048;
+      v49 = v28;
+      v50 = 2048;
+      v51 = 0;
       _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEFAULT, "firstAttachment (%d) matched Wi-Fi NA count %lu, epoch count %lu", buf, 0x1Cu);
     }
 
@@ -10416,14 +12078,13 @@ LABEL_25:
     v26 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 - (void)_establishLqmBaselineOn:(BOOL)on interfaceName:(id)name lqmPtr:(int *)ptr
 {
   onCopy = on;
-  *&v32[5] = *MEMORY[0x277D85DE8];
+  *&v31[5] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v9 = nameCopy;
   if (onCopy && self->cellSPIType == 3)
@@ -10469,9 +12130,9 @@ LABEL_21:
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      *v31 = v9;
-      *&v31[8] = 2112;
-      *v32 = v11;
+      *v30 = v9;
+      *&v30[8] = 2112;
+      *v31 = v11;
       v21 = "SCDynamicStore failed to create a key on interface: %@ for entity: %@";
       v22 = v25;
       v23 = OS_LOG_TYPE_DEFAULT;
@@ -10488,9 +12149,9 @@ LABEL_21:
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    *v31 = v14;
-    *&v31[8] = 2112;
-    *v32 = v13;
+    *v30 = v14;
+    *&v30[8] = 2112;
+    *v31 = v13;
     _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "SCDynamicStore retrieved value: %@ for key: %@", buf, 0x16u);
   }
 
@@ -10523,11 +12184,11 @@ LABEL_22:
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109634;
-    *v31 = dword_2814D300C;
-    *&v31[4] = 1024;
-    *&v31[6] = dword_2814D3014;
-    v32[0] = 2112;
-    *&v32[1] = v9;
+    *v30 = dword_2814D300C;
+    *&v30[4] = 1024;
+    *&v30[6] = dword_2814D3014;
+    v31[0] = 2112;
+    *&v31[1] = v9;
     _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "LQM baseline (re)established: LQM = (%d, %d) interface = %@", buf, 0x18u);
   }
 
@@ -10542,13 +12203,11 @@ LABEL_22:
   }
 
   [(NetworkAnalyticsEngine *)self _trackRealTimeLqmLastUpdatedOnInterfaceType:v27];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_idleExitTransactionCheck
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -10561,7 +12220,7 @@ LABEL_22:
     *&buf[12] = 2048;
     *&buf[14] = lastEpochRemoved;
     *&buf[22] = 1024;
-    v29 = activeEpochTransaction != 0;
+    v28 = activeEpochTransaction != 0;
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Enter, epochs %@, lastEpochRemoved %p   holding os_transaction %d", buf, 0x1Cu);
   }
 
@@ -10613,18 +12272,18 @@ LABEL_22:
     activeEpochTransaction3 = [(NetworkAnalyticsEngine *)self activeEpochTransaction];
     v16 = activeEpochTransaction3 != 0;
 
-    LOBYTE(v29) = v16;
+    LOBYTE(v28) = v16;
     if (*(*&buf[8] + 24) == 1)
     {
       v17 = dispatch_time(0, 10000000000);
       queue = [(AnalyticsEngineCore *)self queue];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke;
-      v27[3] = &unk_27898A848;
-      v27[4] = self;
-      v27[5] = buf;
-      dispatch_after(v17, queue, v27);
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke;
+      v26[3] = &unk_27898A848;
+      v26[4] = self;
+      v26[5] = buf;
+      dispatch_after(v17, queue, v26);
     }
 
     _Block_object_dispose(buf, 8);
@@ -10642,16 +12301,14 @@ LABEL_22:
     *&buf[12] = 2048;
     *&buf[14] = v23;
     *&buf[22] = 1024;
-    v29 = activeEpochTransaction4 != 0;
+    v28 = activeEpochTransaction4 != 0;
     _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "Exit, epochs %@, lastEpochRemoved %p   holding os_transaction %d", buf, 0x1Cu);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void *__51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) activeEpochTransaction];
   *(*(*(a1 + 40) + 8) + 24) = v2 != 0;
 
@@ -10661,9 +12318,9 @@ void *__51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke(uint6
     v4 = *(*(a1 + 32) + 176);
     v5 = *(*(*(a1 + 40) + 8) + 24);
     *buf = 134218240;
-    v14 = v4;
-    v15 = 1024;
-    v16 = v5;
+    v13 = v4;
+    v14 = 1024;
+    v15 = v5;
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Check after last epoch removal, value %p, exit holding os_transaction %d", buf, 0x12u);
   }
 
@@ -10680,23 +12337,22 @@ void *__51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke(uint6
         if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v14 = -v8;
+          v13 = -v8;
           _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Start workspace save after delay of %f", buf, 0xCu);
         }
 
         [*(a1 + 32) _flushAllJournalRecords];
         [*(*(a1 + 32) + 8) save];
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke_762;
-        v11[3] = &unk_27898DA28;
-        v12 = *(a1 + 32);
-        result = [FlowAnalyticsEngine workspaceSaveWithCallback:v11];
+        v10[0] = MEMORY[0x277D85DD0];
+        v10[1] = 3221225472;
+        v10[2] = __51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke_762;
+        v10[3] = &unk_27898DA28;
+        v11 = *(a1 + 32);
+        return [FlowAnalyticsEngine workspaceSaveWithCallback:v10];
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -10713,7 +12369,7 @@ void __51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke_762(ui
 
 void __51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) activeEpochTransaction];
   *(*(*(a1 + 40) + 8) + 24) = v2 != 0;
 
@@ -10722,11 +12378,11 @@ void __51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke_2(uint
   {
     v4 = *(*(a1 + 32) + 176);
     v5 = *(*(*(a1 + 40) + 8) + 24);
-    v10 = 134218240;
-    v11 = v4;
-    v12 = 1024;
-    v13 = v5;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Finished workspace save, value %p, holding os_transaction %d", &v10, 0x12u);
+    v9 = 134218240;
+    v10 = v4;
+    v11 = 1024;
+    v12 = v5;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Finished workspace save, value %p, holding os_transaction %d", &v9, 0x12u);
   }
 
   if (*(*(*(a1 + 40) + 8) + 24) == 1)
@@ -10740,16 +12396,28 @@ void __51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke_2(uint
         v8 = netepochsLogHandle;
         if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v10) = 0;
-          _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "stop holding os_transaction", &v10, 2u);
+          LOWORD(v9) = 0;
+          _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "stop holding os_transaction", &v9, 2u);
         }
 
         [*(a1 + 32) setActiveEpochTransaction:0];
       }
     }
   }
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (id)_epochForInterfaceType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v5 = self->activeEpochs;
+  objc_sync_enter(v5);
+  activeEpochs = self->activeEpochs;
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:typeCopy];
+  v8 = [(NSMutableDictionary *)activeEpochs objectForKeyedSubscript:v7];
+
+  objc_sync_exit(v5);
+
+  return v8;
 }
 
 - (id)_concurrentEpochs
@@ -10762,9 +12430,34 @@ void __51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke_2(uint
   return allValues;
 }
 
+- (void)_insertEpoch:(id)epoch forInterfaceType:(unsigned __int8)type
+{
+  typeCopy = type;
+  epochCopy = epoch;
+  v6 = self->activeEpochs;
+  objc_sync_enter(v6);
+  activeEpochs = self->activeEpochs;
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:typeCopy];
+  [(NSMutableDictionary *)activeEpochs setObject:epochCopy forKeyedSubscript:v8];
+
+  objc_sync_exit(v6);
+}
+
+- (void)_removeEpochForInterfaceType:(unsigned __int8)type
+{
+  typeCopy = type;
+  obj = self->activeEpochs;
+  objc_sync_enter(obj);
+  activeEpochs = self->activeEpochs;
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:typeCopy];
+  [(NSMutableDictionary *)activeEpochs removeObjectForKey:v6];
+
+  objc_sync_exit(obj);
+}
+
 - (void)_armDOASuspector:(id)suspector
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   suspectorCopy = suspector;
   v5 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -10773,31 +12466,31 @@ void __51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke_2(uint
     interfaceName = [suspectorCopy interfaceName];
     primaryKey = [suspectorCopy primaryKey];
     *buf = 138413059;
-    v21 = interfaceName;
-    v22 = 2113;
-    v23 = primaryKey;
-    v24 = 2048;
+    v20 = interfaceName;
+    v21 = 2113;
+    v22 = primaryKey;
+    v23 = 2048;
     defRoute4 = [suspectorCopy defRoute4];
-    v26 = 2048;
+    v25 = 2048;
     defRoute6 = [suspectorCopy defRoute6];
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Arming DOA suspector on %@, primary key = %{private}@, src4 = %p, src6 = %p", buf, 0x2Au);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
   queue = [(AnalyticsEngineCore *)self queue];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke;
-  v18[3] = &unk_27898A0C8;
-  v19 = suspectorCopy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke_2;
-  v15[3] = &unk_27898A7D0;
-  v11 = v19;
-  v16 = v11;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke;
+  v17[3] = &unk_27898A0C8;
+  v18 = suspectorCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke_2;
+  v14[3] = &unk_27898A7D0;
+  v11 = v18;
+  v15 = v11;
   selfCopy = self;
-  v12 = [v11 createCountDown:@"tickerDOA" atTime:date nextTick:4000000000 ticksTotal:7 onQueue:queue withIterationBlock:v18 completionBlock:v15];
+  v12 = [v11 createCountDown:@"tickerDOA" atTime:date nextTick:4000000000 ticksTotal:7 onQueue:queue withIterationBlock:v17 completionBlock:v14];
 
   if ((v12 & 1) == 0)
   {
@@ -10805,15 +12498,13 @@ void __51__NetworkAnalyticsEngine__idleExitTransactionCheck__block_invoke_2(uint
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = @"tickerDOA";
+      v20 = @"tickerDOA";
       _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "failed to start ticker %@", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke(uint64_t a1)
+void *__43__NetworkAnalyticsEngine__armDOASuspector___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) defRoute4])
   {
@@ -10833,7 +12524,7 @@ uint64_t __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke(uint64_t a
 
 void __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke_2(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) fatal];
   v3 = [v2 isRunning];
 
@@ -10853,9 +12544,9 @@ void __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke_2(uint64_t a1)
         v14 = v7;
         v15 = [v13 primaryKey];
         *buf = 138412547;
-        v21 = @"tickerDOA";
-        v22 = 2113;
-        v23 = v15;
+        v20 = @"tickerDOA";
+        v21 = 2113;
+        v22 = v15;
         _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "ticker check %@ FAILED and VOIDED on %{private}@, fatal time not accruing", buf, 0x16u);
       }
     }
@@ -10868,9 +12559,9 @@ void __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke_2(uint64_t a1)
         v10 = v7;
         v11 = [v9 primaryKey];
         *buf = 138412547;
-        v21 = @"tickerDOA";
-        v22 = 2113;
-        v23 = v11;
+        v20 = @"tickerDOA";
+        v21 = 2113;
+        v22 = v11;
         _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "ticker check %@ FAILED on %{private}@, fatal time accruing", buf, 0x16u);
       }
 
@@ -10886,15 +12577,13 @@ void __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke_2(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke_763;
   block[3] = &unk_27898A0C8;
-  v19 = *(a1 + 32);
+  v18 = *(a1 + 32);
   dispatch_async(v16, block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_disarmDOASuspector:(id)suspector
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   suspectorCopy = suspector;
   [suspectorCopy countDownStop:@"tickerDOA" eventTimeStamp:0];
   fatal = [suspectorCopy fatal];
@@ -10908,11 +12597,11 @@ void __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke_2(uint64_t a1)
     {
       v9 = v7;
       primaryKey = [suspectorCopy primaryKey];
-      v15 = 138412547;
-      v16 = @"tickerDOA";
-      v17 = 2113;
-      v18 = primaryKey;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "ticker check %@ PASSED on %{private}@, fatal was running, will stop", &v15, 0x16u);
+      v14 = 138412547;
+      v15 = @"tickerDOA";
+      v16 = 2113;
+      v17 = primaryKey;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "ticker check %@ PASSED on %{private}@, fatal was running, will stop", &v14, 0x16u);
     }
 
     fatal2 = [suspectorCopy fatal];
@@ -10925,19 +12614,17 @@ void __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke_2(uint64_t a1)
   {
     v12 = v7;
     primaryKey2 = [suspectorCopy primaryKey];
-    v15 = 138412547;
-    v16 = @"tickerDOA";
-    v17 = 2113;
-    v18 = primaryKey2;
-    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "ticker check %@ PASSED on %{private}@, fatal wasn't running, no change", &v15, 0x16u);
+    v14 = 138412547;
+    v15 = @"tickerDOA";
+    v16 = 2113;
+    v17 = primaryKey2;
+    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "ticker check %@ PASSED on %{private}@, fatal wasn't running, no change", &v14, 0x16u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_recordOfActiveFatalSuspector:(int64_t)suspector
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (suspector != 1)
   {
     if (suspector == 2)
@@ -10947,26 +12634,26 @@ void __43__NetworkAnalyticsEngine__armDOASuspector___block_invoke_2(uint64_t a1)
       _recordOfActiveFatalSuspector__lastFalsePositives[v4 & 1] = v5;
 LABEL_4:
       LOBYTE(v6) = 1;
-      goto LABEL_16;
+      return v6;
     }
 
     v15 = netepochsLogHandle;
     v6 = os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR);
     if (!v6)
     {
-      goto LABEL_16;
+      return v6;
     }
 
-    v18 = 134217984;
+    v17 = 134217984;
     suspectorCopy = suspector;
     v11 = "unknown action: %ld";
     v12 = v15;
     v13 = OS_LOG_TYPE_ERROR;
     v14 = 12;
 LABEL_15:
-    _os_log_impl(&dword_23255B000, v12, v13, v11, &v18, v14);
+    _os_log_impl(&dword_23255B000, v12, v13, v11, &v17, v14);
     LOBYTE(v6) = 0;
-    goto LABEL_16;
+    return v6;
   }
 
   LOBYTE(v6) = 1;
@@ -10993,13 +12680,13 @@ LABEL_15:
     v6 = os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT);
     if (!v6)
     {
-      goto LABEL_16;
+      return v6;
     }
 
-    v18 = 134218240;
+    v17 = 134218240;
     suspectorCopy = v7;
-    v20 = 2048;
-    v21 = v9;
+    v19 = 2048;
+    v20 = v9;
     v11 = "ticker check, too many false positives in the range: %f vs. now (%f)";
     v12 = v10;
     v13 = OS_LOG_TYPE_DEFAULT;
@@ -11007,15 +12694,13 @@ LABEL_15:
     goto LABEL_15;
   }
 
-LABEL_16:
-  v16 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)_armFatalSuspector:(id)suspector isActive:(BOOL)active
 {
   activeCopy = active;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   suspectorCopy = suspector;
   fatal = [suspectorCopy fatal];
   if ([fatal isRunning])
@@ -11031,7 +12716,7 @@ LABEL_16:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v37 = 0;
+    v36 = 0;
     date = [MEMORY[0x277CBEAA8] date];
     if (activeCopy)
     {
@@ -11046,8 +12731,8 @@ LABEL_16:
       aBlock[2] = __54__NetworkAnalyticsEngine__armFatalSuspector_isActive___block_invoke;
       aBlock[3] = &unk_27898C418;
       aBlock[4] = self;
-      v28 = suspectorCopy;
-      v29 = buf;
+      v27 = suspectorCopy;
+      v28 = buf;
       v13 = _Block_copy(aBlock);
 
       if (!v13)
@@ -11068,13 +12753,13 @@ LABEL_14:
 
           v18 = v16;
           v19 = _Block_copy(v13);
-          *v30 = 138412802;
-          v31 = @"tickerFatal";
-          v32 = 2080;
-          v33 = v17;
-          v34 = 2048;
-          v35 = v19;
-          _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "failed to start ticker %@, %sactive, active probe: %p", v30, 0x20u);
+          *v29 = 138412802;
+          v30 = @"tickerFatal";
+          v31 = 2080;
+          v32 = v17;
+          v33 = 2048;
+          v34 = v19;
+          _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "failed to start ticker %@, %sactive, active probe: %p", v29, 0x20u);
         }
 
         goto LABEL_19;
@@ -11087,17 +12772,17 @@ LABEL_14:
     }
 
     queue = [(AnalyticsEngineCore *)self queue];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __54__NetworkAnalyticsEngine__armFatalSuspector_isActive___block_invoke_772;
-    v21[3] = &unk_27898DC60;
-    v26 = activeCopy;
-    v22 = suspectorCopy;
-    v25 = buf;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __54__NetworkAnalyticsEngine__armFatalSuspector_isActive___block_invoke_772;
+    v20[3] = &unk_27898DC60;
+    v25 = activeCopy;
+    v21 = suspectorCopy;
+    v24 = buf;
     v13 = v13;
     selfCopy = self;
-    v24 = v13;
-    v15 = [v22 createCountDown:@"tickerFatal" atTime:date nextTick:4000000000 ticksTotal:7 onQueue:queue withIterationBlock:v13 completionBlock:v21];
+    v23 = v13;
+    v15 = [v21 createCountDown:@"tickerFatal" atTime:date nextTick:4000000000 ticksTotal:7 onQueue:queue withIterationBlock:v13 completionBlock:v20];
 
     if (v15)
     {
@@ -11126,8 +12811,6 @@ LABEL_4:
   }
 
 LABEL_20:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __54__NetworkAnalyticsEngine__armFatalSuspector_isActive___block_invoke(uint64_t a1)
@@ -11160,15 +12843,15 @@ void __54__NetworkAnalyticsEngine__armFatalSuspector_isActive___block_invoke(uin
 
 void __54__NetworkAnalyticsEngine__armFatalSuspector_isActive___block_invoke_2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = netepochsLogHandle;
   v6 = os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT);
   if (a3 == 1)
   {
     if (v6)
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "ticker check iter, connected!", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "ticker check iter, connected!", &v12, 2u);
     }
 
     *(*(a1[6] + 8) + 24) = 1;
@@ -11180,21 +12863,19 @@ void __54__NetworkAnalyticsEngine__armFatalSuspector_isActive___block_invoke_2(v
 
   else if (v6)
   {
-    v13 = 134217984;
-    v14 = a3;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "ticker check iter, event: %lu", &v13, 0xCu);
+    v12 = 134217984;
+    v13 = a3;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "ticker check iter, event: %lu", &v12, 0xCu);
   }
 
   v10 = *(a1[7] + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = 0;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __54__NetworkAnalyticsEngine__armFatalSuspector_isActive___block_invoke_772(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -11221,15 +12902,15 @@ void __54__NetworkAnalyticsEngine__armFatalSuspector_isActive___block_invoke_772
     }
 
     *buf = 138413315;
-    v19 = @"tickerFatal";
-    v20 = 2113;
-    v21 = v5;
-    v22 = 2080;
-    v23 = v9;
-    v24 = 2080;
-    v25 = v8;
-    v26 = 1024;
-    v27 = v10;
+    v18 = @"tickerFatal";
+    v19 = 2113;
+    v20 = v5;
+    v21 = 2080;
+    v22 = v9;
+    v23 = 2080;
+    v24 = v8;
+    v25 = 1024;
+    v26 = v10;
     _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "ticker check %@ FAILED on %{private}@, fatal %srunning, fatal time accruing, %sactive, active outcome %d", buf, 0x30u);
   }
 
@@ -11275,15 +12956,13 @@ LABEL_16:
   block[1] = 3221225472;
   block[2] = __54__NetworkAnalyticsEngine__armFatalSuspector_isActive___block_invoke_773;
   block[3] = &unk_27898A0C8;
-  v17 = *(a1 + 32);
+  v16 = *(a1 + 32);
   dispatch_async(v14, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_disarmFatalSuspector:(id)suspector withEventAt:(id)at by:(id)by
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   suspectorCopy = suspector;
   atCopy = at;
   byCopy = by;
@@ -11306,15 +12985,15 @@ LABEL_16:
       }
 
       v16 = [byCopy description];
-      v26 = 138413059;
-      v27 = @"tickerFatal";
-      v28 = 2113;
-      v29 = primaryKey;
-      v30 = 2080;
-      v31 = v15;
-      v32 = 2113;
-      v33 = v16;
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "ticker check %@ PASSED on %{private}@, fatal %srunning, event by: %{private}@", &v26, 0x2Au);
+      v25 = 138413059;
+      v26 = @"tickerFatal";
+      v27 = 2113;
+      v28 = primaryKey;
+      v29 = 2080;
+      v30 = v15;
+      v31 = 2113;
+      v32 = v16;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "ticker check %@ PASSED on %{private}@, fatal %srunning, event by: %{private}@", &v25, 0x2Au);
     }
   }
 
@@ -11334,13 +13013,13 @@ LABEL_16:
           v21 = v20;
           primaryKey2 = [suspectorCopy primaryKey];
           v23 = [byCopy description];
-          v26 = 138412803;
-          v27 = @"tickerFatal";
-          v28 = 2113;
-          v29 = primaryKey2;
-          v30 = 2113;
-          v31 = v23;
-          _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "ticker check %@, fatal HALTED on %{private}@, event by: %{private}@", &v26, 0x20u);
+          v25 = 138412803;
+          v26 = @"tickerFatal";
+          v27 = 2113;
+          v28 = primaryKey2;
+          v29 = 2113;
+          v30 = v23;
+          _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "ticker check %@, fatal HALTED on %{private}@, event by: %{private}@", &v25, 0x20u);
         }
 
         fatal4 = [suspectorCopy fatal];
@@ -11354,29 +13033,27 @@ LABEL_16:
     {
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_armLowQDisconnectSuspector:(id)suspector
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   suspectorCopy = suspector;
   date = [MEMORY[0x277CBEAA8] date];
   queue = [(AnalyticsEngineCore *)self queue];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __54__NetworkAnalyticsEngine__armLowQDisconnectSuspector___block_invoke;
-  v13[3] = &unk_27898A0C8;
-  v14 = suspectorCopy;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __54__NetworkAnalyticsEngine__armLowQDisconnectSuspector___block_invoke_2;
-  v11[3] = &unk_27898A7D0;
-  v11[4] = self;
-  v7 = v14;
-  v12 = v7;
-  v8 = [v7 createCountDown:@"tickerLowQ" atTime:date nextTick:3000000000 ticksTotal:20 onQueue:queue withIterationBlock:v13 completionBlock:v11];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __54__NetworkAnalyticsEngine__armLowQDisconnectSuspector___block_invoke;
+  v12[3] = &unk_27898A0C8;
+  v13 = suspectorCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __54__NetworkAnalyticsEngine__armLowQDisconnectSuspector___block_invoke_2;
+  v10[3] = &unk_27898A7D0;
+  v10[4] = self;
+  v7 = v13;
+  v11 = v7;
+  v8 = [v7 createCountDown:@"tickerLowQ" atTime:date nextTick:3000000000 ticksTotal:20 onQueue:queue withIterationBlock:v12 completionBlock:v10];
 
   if ((v8 & 1) == 0)
   {
@@ -11384,12 +13061,10 @@ LABEL_16:
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = @"tickerLowQ";
+      v15 = @"tickerLowQ";
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "failed to start ticker %@", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __54__NetworkAnalyticsEngine__armLowQDisconnectSuspector___block_invoke(uint64_t a1)
@@ -11440,7 +13115,7 @@ void __54__NetworkAnalyticsEngine__armLowQDisconnectSuspector___block_invoke_2(u
 
 - (void)_disarmLowQDisconnectSuspector:(id)suspector
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   suspectorCopy = suspector;
   [suspectorCopy countDownStop:@"tickerLowQ" eventTimeStamp:0];
   v4 = netepochsLogHandle;
@@ -11448,62 +13123,60 @@ void __54__NetworkAnalyticsEngine__armLowQDisconnectSuspector___block_invoke_2(u
   {
     v5 = v4;
     primaryKey = [suspectorCopy primaryKey];
-    v8 = 138412547;
-    v9 = @"tickerLowQ";
-    v10 = 2113;
-    v11 = primaryKey;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "ticker check %@ HALTED on %{private}@", &v8, 0x16u);
+    v7 = 138412547;
+    v8 = @"tickerLowQ";
+    v9 = 2113;
+    v10 = primaryKey;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "ticker check %@ HALTED on %{private}@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scoringTrampoline
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   if (([(AnalyticsWorkspace *)self->super.workspace persistent]& 1) != 0)
   {
-    v65 = objc_autoreleasePoolPush();
-    v73 = 0;
+    v64 = objc_autoreleasePoolPush();
+    v72 = 0;
     date = [MEMORY[0x277CBEAA8] date];
     v3 = [objc_alloc(MEMORY[0x277D6B538]) initWithWorkspace:self->super.workspace withCache:0];
     entityName = [MEMORY[0x277D6B5A8] entityName];
-    v64 = v3;
+    v63 = v3;
     v5 = [v3 getDescriptionForName:entityName];
 
     v6 = objc_alloc_init(MEMORY[0x277CBE428]);
-    v63 = v5;
+    v62 = v5;
     [v6 setEntity:v5];
     [v6 setReturnsObjectsAsFaults:0];
     [v6 setIncludesSubentities:1];
     mainObjectContext = [(AnalyticsWorkspace *)self->super.workspace mainObjectContext];
-    v72 = 0;
-    v61 = v6;
-    v8 = [mainObjectContext executeFetchRequest:v6 error:&v72];
-    v60 = v72;
+    v71 = 0;
+    v60 = v6;
+    v8 = [mainObjectContext executeFetchRequest:v6 error:&v71];
+    v59 = v71;
 
     v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v67 = 0u;
     v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v68 objects:v78 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v67 objects:v77 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v69;
+      v14 = *v68;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v69 != v14)
+          if (*v68 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v68 + 1) + 8 * i);
+          v16 = *(*(&v67 + 1) + 8 * i);
           kind = [v16 kind];
           intValue = [kind intValue];
 
@@ -11523,7 +13196,7 @@ void __54__NetworkAnalyticsEngine__armLowQDisconnectSuspector___block_invoke_2(u
           [v19 addObject:v16];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v68 objects:v78 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v67 objects:v77 count:16];
       }
 
       while (v13);
@@ -11536,27 +13209,27 @@ LABEL_36:
       if (v10)
       {
         v45 = objc_autoreleasePoolPush();
-        v66 = 0;
-        v46 = [(NetworkAnalyticsEngine *)self _scoringDuty:v10 forType:2 withRetCode:&v73 oldestTime:&v66];
-        contexta = v66;
+        v65 = 0;
+        v46 = [(NetworkAnalyticsEngine *)self _scoringDuty:v10 forType:2 withRetCode:&v72 oldestTime:&v65];
+        contexta = v65;
 
         v47 = scoringLogHandle;
         if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          LODWORD(v77) = v73;
+          LODWORD(v76) = v72;
           _os_log_impl(&dword_23255B000, v47, OS_LOG_TYPE_DEBUG, "scoring Cell: completed with return %d", buf, 8u);
         }
 
-        v48 = v73;
-        self->lastScoreExit[2] = v73;
+        v48 = v72;
+        self->lastScoreExit[2] = v72;
         if (!v48)
         {
           v49 = scoringLogHandle;
           if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v77 = v46;
+            v76 = v46;
             _os_log_impl(&dword_23255B000, v49, OS_LOG_TYPE_INFO, "KnownGood state for Cell will be set, excluding these keys: %@", buf, 0xCu);
           }
 
@@ -11576,7 +13249,7 @@ LABEL_36:
       if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v77 = lowInternetModeScoresDL;
+        v76 = lowInternetModeScoresDL;
         _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_INFO, "LIM state for IPv4 DL set: %@", buf, 0xCu);
       }
 
@@ -11585,7 +13258,7 @@ LABEL_36:
       if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v77 = lowInternetModeScoresUL;
+        v76 = lowInternetModeScoresUL;
         _os_log_impl(&dword_23255B000, v51, OS_LOG_TYPE_INFO, "LIM state for IPv4 UL set: %@", buf, 0xCu);
       }
 
@@ -11594,7 +13267,7 @@ LABEL_36:
       if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v77 = lowInternetModeScoresDL;
+        v76 = lowInternetModeScoresDL;
         _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_INFO, "LIM state for IPv6 DL set: %@", buf, 0xCu);
       }
 
@@ -11603,7 +13276,7 @@ LABEL_36:
       if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v77 = lowInternetModeScoresUL;
+        v76 = lowInternetModeScoresUL;
         _os_log_impl(&dword_23255B000, v53, OS_LOG_TYPE_INFO, "LIM state for IPv6 UL set: %@", buf, 0xCu);
       }
 
@@ -11615,46 +13288,46 @@ LABEL_36:
       score_last = date;
       v55 = date;
 
-      objc_autoreleasePoolPop(v65);
-      goto LABEL_54;
+      objc_autoreleasePoolPop(v64);
+      return;
     }
 
     context = objc_autoreleasePoolPush();
-    v67 = 0;
-    v22 = [(NetworkAnalyticsEngine *)self _scoringDuty:v9 forType:1 withRetCode:&v73 oldestTime:&v67];
-    v57 = v67;
+    v66 = 0;
+    v22 = [(NetworkAnalyticsEngine *)self _scoringDuty:v9 forType:1 withRetCode:&v72 oldestTime:&v66];
+    v56 = v66;
     v23 = scoringLogHandle;
     if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      LODWORD(v77) = v73;
+      LODWORD(v76) = v72;
       _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEBUG, "scoring WiFi: completed with return %d", buf, 8u);
     }
 
-    v24 = v73;
-    self->lastScoreExit[1] = v73;
+    v24 = v72;
+    self->lastScoreExit[1] = v72;
     if (!v24)
     {
       v25 = scoringLogHandle;
       if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v77 = v22;
+        v76 = v22;
         _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_INFO, "KnownGood state for WiFi will be set, excluding these keys: %@", buf, 0xCu);
       }
 
       [(NetworkAnalyticsEngine *)self _setScalarValueInNetworkAttachments:v9 targetKeyPath:@"isKnownGood" basedOn:v22 matchingKeyPath:@"identifier" matchValue:MEMORY[0x277CBEC28] noMatchValue:MEMORY[0x277CBEC38]];
     }
 
-    v26 = [(NetworkAnalyticsEngine *)self _determineSporadicForType:1 withRetCode:&v73];
+    v26 = [(NetworkAnalyticsEngine *)self _determineSporadicForType:1 withRetCode:&v72];
 
     v27 = scoringLogHandle;
-    if (v73)
+    if (v72)
     {
       if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v77) = v73;
+        LODWORD(v76) = v72;
         _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_ERROR, "Sporadic for WiFi cannot be set, resetting, cause %d", buf, 8u);
       }
 
@@ -11670,7 +13343,7 @@ LABEL_36:
       if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v77 = v26;
+        v76 = v26;
         _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEFAULT, "Sporadic for WiFi set for identifiers: %@", buf, 0xCu);
       }
 
@@ -11682,13 +13355,13 @@ LABEL_36:
     }
 
     [(NetworkAnalyticsEngine *)selfCopy2 _setScalarValueInNetworkAttachments:v30 targetKeyPath:@"isKnownSporadic" basedOn:v31 matchingKeyPath:@"identifier" matchValue:v28 noMatchValue:v32];
-    v74[0] = @"sporadicCount";
+    v73[0] = @"sporadicCount";
     v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v26, "count")}];
-    v74[1] = @"sporadicRetCode";
-    v75[0] = v34;
-    v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v73];
-    v75[1] = v35;
-    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:2];
+    v73[1] = @"sporadicRetCode";
+    v74[0] = v34;
+    v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v72];
+    v74[1] = v35;
+    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:2];
 
     workspace = self->super.workspace;
     queue = [(AnalyticsEngineCore *)self queue];
@@ -11701,7 +13374,7 @@ LABEL_36:
       if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v77 = v36;
+        v76 = v36;
         v42 = "Scoring sporadic: finalized with record %@";
         v43 = v41;
         v44 = OS_LOG_TYPE_DEBUG;
@@ -11713,7 +13386,7 @@ LABEL_34:
     else if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v77 = v36;
+      v76 = v36;
       v42 = "Scoring sporadic: failed to write record %@";
       v43 = v41;
       v44 = OS_LOG_TYPE_ERROR;
@@ -11730,14 +13403,11 @@ LABEL_34:
     *buf = 0;
     _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_DEBUG, "Workspace is non-persistent, no data for scoring.", buf, 2u);
   }
-
-LABEL_54:
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_naIdentifierToMajor:(id)major
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   majorCopy = major;
   v4 = majorCopy;
   if (!majorCopy)
@@ -11745,18 +13415,18 @@ LABEL_54:
     v16 = scoringLogHandle;
     if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_ERROR))
     {
-      *v27 = 0;
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Got nil NetworkAttachment identifier, returning", v27, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Got nil NetworkAttachment identifier, returning", v26, 2u);
     }
 
     goto LABEL_14;
   }
 
-  v20 = 0;
-  v29 = 0u;
-  v30 = 0u;
-  *v27 = 0u;
+  v19 = 0;
   v28 = 0u;
+  v29 = 0u;
+  *v26 = 0u;
+  v27 = 0u;
   uTF8String = [majorCopy UTF8String];
   v6 = uTF8String;
   if (!uTF8String || !*uTF8String)
@@ -11771,16 +13441,16 @@ LABEL_54:
       v14 = v13;
       v15 = "<empty>";
       *buf = 138478339;
-      v22 = v4;
+      v21 = v4;
       if (!v6)
       {
         v15 = "NULL";
       }
 
-      v23 = 2112;
-      v24 = v13;
-      v25 = 2080;
-      v26 = v15;
+      v22 = 2112;
+      v23 = v13;
+      v24 = 2080;
+      v25 = v15;
       _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_FAULT, "Non-nil identifier %{private}@ with encoding %@ has %s UTF-8 representation", buf, 0x20u);
     }
 
@@ -11789,51 +13459,382 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v27[0] = *uTF8String;
+  v26[0] = *uTF8String;
   v7 = 1;
   while (v7 != 63)
   {
     v8 = uTF8String[v7];
-    v27[v7++] = v8;
+    v26[v7++] = v8;
     if (!v8)
     {
       goto LABEL_19;
     }
   }
 
-  HIBYTE(v30) = 0;
+  HIBYTE(v29) = 0;
 LABEL_19:
   v17 = 0;
-  if ([NetworkEpoch parsePrimaryKeyStr:v27 majorIDLengthInBytes:&v20 + 4 minorIDLengthInBytes:&v20]&& SHIDWORD(v20) <= 63)
+  if ([NetworkEpoch parsePrimaryKeyStr:v26 majorIDLengthInBytes:&v19 + 4 minorIDLengthInBytes:&v19]&& SHIDWORD(v19) <= 63)
   {
-    v27[SHIDWORD(v20)] = 0;
-    v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:v27];
+    v26[SHIDWORD(v19)] = 0;
+    v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:v26];
   }
 
 LABEL_15:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
+}
+
+- (id)_determineSporadicForType:(int)type withRetCode:(int *)code
+{
+  v85 = *&type;
+  v117 = *MEMORY[0x277D85DE8];
+  v5 = objc_alloc(MEMORY[0x277D6B540]);
+  workspace = self->super.workspace;
+  entityName = [MEMORY[0x277D6B5A0] entityName];
+  v87 = [v5 initWithWorkspace:workspace entityName:entityName withCache:0];
+
+  v86 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"timeStamp" ascending:1];
+  v84 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v83 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v9 = (+[NetworkEpoch coalescingFactor]- 1);
+  date = [MEMORY[0x277CBEAA8] date];
+  v11 = [date dateByAddingTimeInterval:-v9];
+  v12 = [DateRounder roundToDayResolutionOnly:v11];
+
+  v13 = 0;
+  v92 = v8;
+  do
+  {
+    v91 = v13;
+    v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v90 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %d AND %K >= %@ AND %K < %@", @"kind", v85, @"timeStamp", v12, @"timeStamp", date];
+    v15 = [v87 fetchEntitiesFreeForm:? sortDesc:?];
+    v16 = scoringLogHandle;
+    if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_INFO))
+    {
+      v17 = v16;
+      v18 = [v15 count];
+      [v12 timeIntervalSince1970];
+      v20 = v19;
+      [date timeIntervalSince1970];
+      *buf = 134218496;
+      *v116 = v18;
+      *&v116[8] = 2048;
+      *&v116[10] = v20;
+      *&v116[18] = 2048;
+      *&v116[20] = v21;
+      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_INFO, "Sporadic analysis: fetched %lu entries from %.0f to %.0f", buf, 0x20u);
+    }
+
+    v88 = v12;
+    v89 = date;
+    v109 = 0u;
+    v110 = 0u;
+    v107 = 0u;
+    v108 = 0u;
+    obj = v15;
+    v22 = [obj countByEnumeratingWithState:&v107 objects:v114 count:16];
+    if (v22)
+    {
+      v23 = v22;
+      v24 = *v108;
+      do
+      {
+        for (i = 0; i != v23; ++i)
+        {
+          if (*v108 != v24)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v26 = *(*(&v107 + 1) + 8 * i);
+          hasNetworkAttachment = [v26 hasNetworkAttachment];
+          identifier = [hasNetworkAttachment identifier];
+          v29 = [(NetworkAnalyticsEngine *)self _naIdentifierToMajor:identifier];
+
+          if (v29)
+          {
+            v30 = [v14 objectForKeyedSubscript:v29];
+
+            if (v30)
+            {
+              v31 = [v14 objectForKeyedSubscript:v29];
+              [v31 doubleValue];
+              v33 = v32;
+            }
+
+            else
+            {
+              v33 = 0.0;
+            }
+
+            v37 = MEMORY[0x277CCABB0];
+            [v26 overallStay];
+            v39 = [v37 numberWithDouble:v33 + v38];
+            [v14 setObject:v39 forKeyedSubscript:v29];
+
+            v35 = [v8 objectForKeyedSubscript:v29];
+            if (v35)
+            {
+              identifier2 = [hasNetworkAttachment identifier];
+              [v35 addObject:identifier2];
+            }
+
+            else
+            {
+              v40 = objc_alloc(MEMORY[0x277CBEB58]);
+              identifier2 = [hasNetworkAttachment identifier];
+              v41 = [v40 initWithObjects:{identifier2, 0}];
+              [v92 setObject:v41 forKeyedSubscript:v29];
+
+              v8 = v92;
+            }
+          }
+
+          else
+          {
+            v34 = scoringLogHandle;
+            if (!os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_ERROR))
+            {
+              goto LABEL_19;
+            }
+
+            v35 = v34;
+            identifier2 = [hasNetworkAttachment identifier];
+            *buf = 138477827;
+            *v116 = identifier2;
+            _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_ERROR, "Sporadic analysis: Failed to parse: %{private}@, ignoring", buf, 0xCu);
+          }
+
+LABEL_19:
+        }
+
+        v23 = [obj countByEnumeratingWithState:&v107 objects:v114 count:16];
+      }
+
+      while (v23);
+    }
+
+    v12 = [v88 dateByAddingTimeInterval:-v9];
+
+    date = [v12 dateByAddingTimeInterval:v9];
+
+    if ([v14 count] > 3)
+    {
+      v44 = [v14 keysSortedByValueUsingSelector:sel_compare_];
+      v46 = [v44 count]>> 2;
+      v47 = objc_alloc(MEMORY[0x277CBEB98]);
+      v48 = [v44 subarrayWithRange:0, v46];
+      v49 = [v47 initWithArray:v48];
+
+      v50 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:v44];
+      [v50 minusSet:v49];
+      v51 = scoringLogHandle;
+      v43 = v91;
+      if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_INFO))
+      {
+        v52 = v51;
+        v53 = [v44 count];
+        *buf = 67109634;
+        *v116 = v91;
+        *&v116[4] = 2048;
+        *&v116[6] = v53;
+        *&v116[14] = 2112;
+        *&v116[16] = v49;
+        _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_INFO, "Sporadic analysis: Week %d with %lu entries, least quartile with: %@", buf, 0x1Cu);
+      }
+
+      v54 = scoringLogHandle;
+      v8 = v92;
+      if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 67109378;
+        *v116 = v91;
+        *&v116[4] = 2112;
+        *&v116[6] = v50;
+        _os_log_impl(&dword_23255B000, v54, OS_LOG_TYPE_DEBUG, "Sporadic analysis: Week %d remainder quartiles with: %@", buf, 0x12u);
+      }
+
+      [v84 addObject:v49];
+      [v83 addObject:v50];
+    }
+
+    else
+    {
+      v42 = scoringLogHandle;
+      v43 = v91;
+      if (!os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_30;
+      }
+
+      v44 = v42;
+      v45 = [v14 count];
+      *buf = 67109634;
+      *v116 = v91;
+      *&v116[4] = 2048;
+      *&v116[6] = v45;
+      *&v116[14] = 2112;
+      *&v116[16] = v14;
+      _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_ERROR, "Sporadic analysis: Ignoring week %d, insufficient count %lu, %@", buf, 0x1Cu);
+    }
+
+LABEL_30:
+    v13 = v43 + 1;
+  }
+
+  while (v13 != 5);
+  v55 = v84;
+  if ([v84 count] > 2)
+  {
+    obja = date;
+    v56 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v57 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v103 = 0u;
+    v104 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v58 = v84;
+    v59 = [v58 countByEnumeratingWithState:&v103 objects:v113 count:16];
+    if (v59)
+    {
+      v60 = v59;
+      v61 = *v104;
+      do
+      {
+        for (j = 0; j != v60; ++j)
+        {
+          if (*v104 != v61)
+          {
+            objc_enumerationMutation(v58);
+          }
+
+          [v56 unionSet:*(*(&v103 + 1) + 8 * j)];
+        }
+
+        v60 = [v58 countByEnumeratingWithState:&v103 objects:v113 count:16];
+      }
+
+      while (v60);
+    }
+
+    v101 = 0u;
+    v102 = 0u;
+    v99 = 0u;
+    v100 = 0u;
+    v63 = v83;
+    v64 = [v63 countByEnumeratingWithState:&v99 objects:v112 count:16];
+    if (v64)
+    {
+      v65 = v64;
+      v66 = *v100;
+      do
+      {
+        for (k = 0; k != v65; ++k)
+        {
+          if (*v100 != v66)
+          {
+            objc_enumerationMutation(v63);
+          }
+
+          [v57 unionSet:*(*(&v99 + 1) + 8 * k)];
+        }
+
+        v65 = [v63 countByEnumeratingWithState:&v99 objects:v112 count:16];
+      }
+
+      while (v65);
+    }
+
+    [v56 minusSet:v57];
+    v68 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    allObjects = [v56 allObjects];
+    v95 = 0u;
+    v96 = 0u;
+    v97 = 0u;
+    v98 = 0u;
+    v70 = [allObjects countByEnumeratingWithState:&v95 objects:v111 count:16];
+    if (v70)
+    {
+      v71 = v70;
+      v72 = *v96;
+      do
+      {
+        for (m = 0; m != v71; ++m)
+        {
+          if (*v96 != v72)
+          {
+            objc_enumerationMutation(allObjects);
+          }
+
+          v74 = [v92 objectForKeyedSubscript:*(*(&v95 + 1) + 8 * m)];
+          allObjects2 = [v74 allObjects];
+          [v68 addObjectsFromArray:allObjects2];
+        }
+
+        v71 = [allObjects countByEnumeratingWithState:&v95 objects:v111 count:16];
+      }
+
+      while (v71);
+    }
+
+    v76 = 0;
+    codeCopy2 = code;
+    v55 = v84;
+    v8 = v92;
+    date = obja;
+    if (!code)
+    {
+      goto LABEL_59;
+    }
+
+LABEL_58:
+    *codeCopy2 = v76;
+    goto LABEL_59;
+  }
+
+  v78 = scoringLogHandle;
+  if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    v79 = v78;
+    v80 = [v84 count];
+    *buf = 134217984;
+    *v116 = v80;
+    _os_log_impl(&dword_23255B000, v79, OS_LOG_TYPE_ERROR, "Sporadic analysis: Insufficient week count %lu", buf, 0xCu);
+  }
+
+  v68 = 0;
+  v76 = 1;
+  codeCopy2 = code;
+  if (code)
+  {
+    goto LABEL_58;
+  }
+
+LABEL_59:
+
+  return v68;
 }
 
 - (BOOL)_isKnowableSporadicForType:(unsigned __int8)type
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (type == 3)
   {
     workspace = self->super.workspace;
     queue = [(AnalyticsEngineCore *)self queue];
     v6 = [ImpoExpoService impoExpoServiceInWorkspace:workspace andQueue:queue];
 
-    v27 = 0;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __53__NetworkAnalyticsEngine__isKnowableSporadicForType___block_invoke;
-    v25[3] = &__block_descriptor_33_e8_B16__0_8l;
-    v26 = 3;
-    v7 = [v6 exportAndUnarchiveItemUnderName:@"WiFiSporadicReport" lastUpdated:&v27 verificationBlock:v25];
-    v8 = v27;
+    v26 = 0;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __53__NetworkAnalyticsEngine__isKnowableSporadicForType___block_invoke;
+    v24[3] = &__block_descriptor_33_e8_B16__0_8l;
+    v25 = 3;
+    v7 = [v6 exportAndUnarchiveItemUnderName:@"WiFiSporadicReport" lastUpdated:&v26 verificationBlock:v24];
+    v8 = v26;
     v9 = scoringLogHandle;
     v10 = os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEFAULT);
     if (v7)
@@ -11841,11 +13842,11 @@ LABEL_15:
       if (v10)
       {
         *buf = 67109634;
-        *v29 = 3;
-        *&v29[4] = 2112;
-        *&v29[6] = v8;
-        v30 = 2112;
-        v31 = v7;
+        *v28 = 3;
+        *&v28[4] = 2112;
+        *&v28[6] = v8;
+        v29 = 2112;
+        v30 = v7;
         _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Sporadic record for type %hhu last updated on %@ is: %@", buf, 0x1Cu);
       }
 
@@ -11858,7 +13859,7 @@ LABEL_15:
       if (v10)
       {
         *buf = 67109120;
-        *v29 = 3;
+        *v28 = 3;
         _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Sporadic record for type %hhu not found", buf, 8u);
       }
 
@@ -11872,9 +13873,9 @@ LABEL_15:
         v20 = v19;
         v21 = [v18 count];
         *buf = 134218240;
-        *v29 = v21;
-        *&v29[8] = 1024;
-        *&v29[10] = 3;
+        *v28 = v21;
+        *&v28[8] = 1024;
+        *&v28[10] = 3;
         _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "Found %lu sporadic NAs for interface type %hhu", buf, 0x12u);
       }
 
@@ -11882,9 +13883,9 @@ LABEL_15:
       if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109378;
-        *v29 = 3;
-        *&v29[4] = 2112;
-        *&v29[6] = v18;
+        *v28 = 3;
+        *&v28[4] = 2112;
+        *&v28[6] = v18;
         _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEBUG, "Sporadic NAs for interface type %hhu: %@", buf, 0x12u);
       }
 
@@ -11901,20 +13902,19 @@ LABEL_15:
     if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      *v29 = typeCopy;
+      *v28 = typeCopy;
       _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Interface type %d always sporadic un-knowable", buf, 8u);
     }
 
-    v12 = 0;
+    return 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t __53__NetworkAnalyticsEngine__isKnowableSporadicForType___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -11944,20 +13944,19 @@ uint64_t __53__NetworkAnalyticsEngine__isKnowableSporadicForType___block_invoke(
     v11 = v10;
     v12 = objc_opt_class();
     v13 = *(a1 + 32);
-    v17 = 138412802;
-    v18 = v12;
-    v19 = 1024;
-    v20 = v13;
-    v21 = 2112;
-    v22 = v3;
+    v16 = 138412802;
+    v17 = v12;
+    v18 = 1024;
+    v19 = v13;
+    v20 = 2112;
+    v21 = v3;
     v14 = v12;
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Sporadic record of type %@ for interface %hhu failed validation: %@", &v17, 0x1Cu);
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Sporadic record of type %@ for interface %hhu failed validation: %@", &v16, 0x1Cu);
   }
 
   v9 = 0;
 LABEL_10:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -11991,7 +13990,7 @@ LABEL_10:
 
 void __124__NetworkAnalyticsEngine__setScalarValueInNetworkAttachments_targetKeyPath_basedOn_matchingKeyPath_matchValue_noMatchValue___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 valueForKey:*(a1 + 32)];
   v5 = [*(a1 + 40) member:v4];
@@ -12007,17 +14006,17 @@ void __124__NetworkAnalyticsEngine__setScalarValueInNetworkAttachments_targetKey
       v10 = *(a1 + 32);
       v11 = v6;
       v12 = [v3 identifier];
-      v20 = 138413314;
-      v21 = v8;
-      v22 = 2112;
-      v23 = v9;
-      v24 = 2112;
-      v25 = v4;
-      v26 = 2112;
-      v27 = v10;
-      v28 = 2112;
-      v29 = v12;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "Set state to %@ for: %@, attribute: %@, matchingKey: %@, in attachment: %@", &v20, 0x34u);
+      v19 = 138413314;
+      v20 = v8;
+      v21 = 2112;
+      v22 = v9;
+      v23 = 2112;
+      v24 = v4;
+      v25 = 2112;
+      v26 = v10;
+      v27 = 2112;
+      v28 = v12;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "Set state to %@ for: %@, attribute: %@, matchingKey: %@, in attachment: %@", &v19, 0x34u);
     }
 
     v13 = 48;
@@ -12032,30 +14031,28 @@ void __124__NetworkAnalyticsEngine__setScalarValueInNetworkAttachments_targetKey
       v16 = *(a1 + 32);
       v17 = v6;
       v18 = [v3 identifier];
-      v20 = 138413314;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v15;
-      v24 = 2112;
-      v25 = v4;
-      v26 = 2112;
-      v27 = v16;
-      v28 = 2112;
-      v29 = v18;
-      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "Set state to %@ for: %@, attribute: %@, matchingKey: %@, in attachment: %@", &v20, 0x34u);
+      v19 = 138413314;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v15;
+      v23 = 2112;
+      v24 = v4;
+      v25 = 2112;
+      v26 = v16;
+      v27 = 2112;
+      v28 = v18;
+      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "Set state to %@ for: %@, attribute: %@, matchingKey: %@, in attachment: %@", &v19, 0x34u);
     }
 
     v13 = 64;
   }
 
   [v3 setValue:*(a1 + v13) forKey:*(a1 + 56)];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_scoringDuty:(id)duty forType:(int)type withRetCode:(int *)code oldestTime:(id *)time
 {
-  v140 = *MEMORY[0x277D85DE8];
+  v139 = *MEMORY[0x277D85DE8];
   dutyCopy = duty;
   v8 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(dutyCopy, "count")}];
   v9 = scoringLogHandle;
@@ -12065,55 +14062,55 @@ void __124__NetworkAnalyticsEngine__setScalarValueInNetworkAttachments_targetKey
     _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "scoring: start", buf, 2u);
   }
 
-  v111 = v8;
+  v110 = v8;
   date = [MEMORY[0x277CBEAA8] date];
   v10 = +[NetworkEpoch coalescingFactor];
+  v124 = 0u;
   v125 = 0u;
   v126 = 0u;
   v127 = 0u;
-  v128 = 0u;
   obj = dutyCopy;
-  v114 = [obj countByEnumeratingWithState:&v125 objects:v139 count:16];
+  v113 = [obj countByEnumeratingWithState:&v124 objects:v138 count:16];
   v11 = 0;
-  if (v114)
+  if (v113)
   {
-    v113 = *v126;
+    v112 = *v125;
     v12 = v10;
     v13 = 0.0;
     v14 = 0.0;
     do
     {
-      for (i = 0; i != v114; i = v58 + 1)
+      for (i = 0; i != v113; i = v58 + 1)
       {
-        if (*v126 != v113)
+        if (*v125 != v112)
         {
           objc_enumerationMutation(obj);
         }
 
-        v116 = i;
-        v16 = *(*(&v125 + 1) + 8 * i);
+        v115 = i;
+        v16 = *(*(&v124 + 1) + 8 * i);
         v17 = objc_alloc_init(Score);
+        v120 = 0u;
         v121 = 0u;
         v122 = 0u;
         v123 = 0u;
-        v124 = 0u;
-        v115 = v16;
+        v114 = v16;
         hasDefaultRoute = [v16 hasDefaultRoute];
-        v19 = [hasDefaultRoute countByEnumeratingWithState:&v121 objects:v138 count:16];
+        v19 = [hasDefaultRoute countByEnumeratingWithState:&v120 objects:v137 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v122;
+          v21 = *v121;
           do
           {
             for (j = 0; j != v20; ++j)
             {
-              if (*v122 != v21)
+              if (*v121 != v21)
               {
                 objc_enumerationMutation(hasDefaultRoute);
               }
 
-              v23 = *(*(&v121 + 1) + 8 * j);
+              v23 = *(*(&v120 + 1) + 8 * j);
               timeStamp = [v23 timeStamp];
               [date timeIntervalSinceDate:timeStamp];
               v26 = (v25 / v12);
@@ -12182,37 +14179,37 @@ void __124__NetworkAnalyticsEngine__setScalarValueInNetworkAttachments_targetKey
               }
             }
 
-            v20 = [hasDefaultRoute countByEnumeratingWithState:&v121 objects:v138 count:16];
+            v20 = [hasDefaultRoute countByEnumeratingWithState:&v120 objects:v137 count:16];
           }
 
           while (v20);
         }
 
         *buf = 0;
-        v120 = 0.0;
+        v119 = 0.0;
         [(Score *)v17 epochs];
         v51 = 0.0;
         v52 = 0.0;
         if (v53 > 1.0)
         {
-          hasDefaultRoute2 = [v115 hasDefaultRoute];
-          combinedStats(hasDefaultRoute2, buf, &v120);
+          hasDefaultRoute2 = [v114 hasDefaultRoute];
+          combinedStats(hasDefaultRoute2, buf, &v119);
 
           v52 = *buf;
-          v51 = v120;
+          v51 = v119;
         }
 
         v55 = [objc_alloc(MEMORY[0x277CCABB0]) initWithDouble:v52];
-        [v115 setOverallStayMean:v55];
+        [v114 setOverallStayMean:v55];
 
         v56 = [objc_alloc(MEMORY[0x277CCABB0]) initWithDouble:v51];
-        [v115 setOverallStayVar:v56];
+        [v114 setOverallStayVar:v56];
 
         [(Score *)v17 epochs];
         if (v57 >= 10.0)
         {
           [(Score *)v17 overallStay];
-          v58 = v116;
+          v58 = v115;
           if (v59 >= 90.0)
           {
             [(Score *)v17 overallStay];
@@ -12241,21 +14238,21 @@ void __124__NetworkAnalyticsEngine__setScalarValueInNetworkAttachments_targetKey
             }
 
             v14 = v14 + v68;
-            identifier = [v115 identifier];
-            [v111 setObject:v17 forKeyedSubscript:identifier];
+            identifier = [v114 identifier];
+            [v110 setObject:v17 forKeyedSubscript:identifier];
           }
         }
 
         else
         {
-          v58 = v116;
+          v58 = v115;
         }
       }
 
-      v114 = [obj countByEnumeratingWithState:&v125 objects:v139 count:16];
+      v113 = [obj countByEnumeratingWithState:&v124 objects:v138 count:16];
     }
 
-    while (v114);
+    while (v113);
   }
 
   else
@@ -12264,14 +14261,14 @@ void __124__NetworkAnalyticsEngine__setScalarValueInNetworkAttachments_targetKey
     v14 = 0.0;
   }
 
-  v71 = v111;
-  if ([v111 count] < 3)
+  v71 = v110;
+  if ([v110 count] < 3)
   {
     v96 = scoringLogHandle;
     if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
     {
       v97 = v96;
-      v98 = [v111 count];
+      v98 = [v110 count];
       *buf = 134217984;
       *&buf[4] = v98;
       _os_log_impl(&dword_23255B000, v97, OS_LOG_TYPE_DEBUG, "scoring: known networks need more significant entries than: %lu", buf, 0xCu);
@@ -12284,25 +14281,25 @@ void __124__NetworkAnalyticsEngine__setScalarValueInNetworkAttachments_targetKey
     goto LABEL_66;
   }
 
-  v72 = v14 / [v111 count];
-  v73 = [v111 count];
+  v72 = v14 / [v110 count];
+  v73 = [v110 count];
   v74 = scoringLogHandle;
   if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218243;
     *&buf[4] = v72;
-    v130 = 2113;
-    v131 = v111;
+    v129 = 2113;
+    v130 = v110;
     _os_log_impl(&dword_23255B000, v74, OS_LOG_TYPE_DEBUG, "scoring: known networks up mean: %f, all roll: %{private}@", buf, 0x16u);
   }
 
   v75 = v73;
-  v118[0] = MEMORY[0x277D85DD0];
-  v118[1] = 3221225472;
-  v118[2] = __70__NetworkAnalyticsEngine__scoringDuty_forType_withRetCode_oldestTime___block_invoke;
-  v118[3] = &__block_descriptor_33_e11_q24__0_8_16l;
-  v119 = type == 2;
-  v76 = [v111 keysSortedByValueUsingComparator:v118];
+  v117[0] = MEMORY[0x277D85DD0];
+  v117[1] = 3221225472;
+  v117[2] = __70__NetworkAnalyticsEngine__scoringDuty_forType_withRetCode_oldestTime___block_invoke;
+  v117[3] = &__block_descriptor_33_e11_q24__0_8_16l;
+  v118 = type == 2;
+  v76 = [v110 keysSortedByValueUsingComparator:v117];
   v77 = scoringLogHandle;
   if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -12318,7 +14315,7 @@ void __124__NetworkAnalyticsEngine__setScalarValueInNetworkAttachments_targetKey
   while (1)
   {
     v82 = [v76 objectAtIndexedSubscript:v80];
-    v83 = [v111 objectForKeyedSubscript:v82];
+    v83 = [v110 objectForKeyedSubscript:v82];
     [v83 upPct];
     if (type == 2)
     {
@@ -12337,10 +14334,10 @@ void __124__NetworkAnalyticsEngine__setScalarValueInNetworkAttachments_targetKey
       [v83 upPct];
       *buf = 138478339;
       *&buf[4] = v82;
-      v130 = 2048;
-      v131 = v95;
-      v132 = 2048;
-      v133 = v72;
+      v129 = 2048;
+      v130 = v95;
+      v131 = 2048;
+      v132 = v72;
       v91 = v87;
       v92 = "scoring: (WiFi) suppress %{private}@ from reliab roll, after median, upPct = %f (mean = %f)";
       v93 = 32;
@@ -12368,14 +14365,14 @@ LABEL_57:
       [v83 lqmTransitionCount];
       *buf = 138478851;
       *&buf[4] = v82;
-      v130 = 2048;
-      v131 = v89;
-      v132 = 2048;
-      v133 = v72;
-      v134 = 2048;
-      v135 = v90;
-      v136 = 2048;
-      v137 = v78;
+      v129 = 2048;
+      v130 = v89;
+      v131 = 2048;
+      v132 = v72;
+      v133 = 2048;
+      v134 = v90;
+      v135 = 2048;
+      v136 = v78;
       v91 = v87;
       v92 = "scoring: (cell) suppress %{private}@ from reliab roll, after median, upPct = %f (mean = %f), LQM trans = %f (mean = %f)";
       v93 = 52;
@@ -12406,7 +14403,7 @@ LABEL_63:
   v100 = 0;
   codeCopy2 = code;
   timeCopy2 = time;
-  v71 = v111;
+  v71 = v110;
 LABEL_66:
   [v71 removeAllObjects];
 
@@ -12420,8 +14417,6 @@ LABEL_66:
     v106 = v11;
     *timeCopy2 = v11;
   }
-
-  v107 = *MEMORY[0x277D85DE8];
 
   return v99;
 }
@@ -12513,7 +14508,7 @@ uint64_t __70__NetworkAnalyticsEngine__scoringDuty_forType_withRetCode_oldestTim
 
 void __55__NetworkAnalyticsEngine__delayedKnownGoodNetworkAlert__block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEAA8] date];
   v4 = [*(a1 + 32) _epochForInterfaceType:3];
   v5 = v4;
@@ -12556,19 +14551,19 @@ LABEL_17:
             v22 = [v5 fatal];
             v23 = [v22 isRunning];
             v24 = [v5 lowq];
-            v28[0] = 67110400;
-            v28[1] = v14;
-            v29 = 1024;
-            v30 = v19;
-            v31 = 2048;
-            v32 = v21;
-            v33 = 1024;
-            v34 = v23;
-            v35 = 1024;
-            v36 = [v24 isRunning];
-            v37 = 1024;
-            v38 = [v5 hasTypicalShortStay];
-            _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "KnownGood evaluation failed, notification withheld (codes: %d, %d, %f, %d, %d, %d)", v28, 0x2Au);
+            v27[0] = 67110400;
+            v27[1] = v14;
+            v28 = 1024;
+            v29 = v19;
+            v30 = 2048;
+            v31 = v21;
+            v32 = 1024;
+            v33 = v23;
+            v34 = 1024;
+            v35 = [v24 isRunning];
+            v36 = 1024;
+            v37 = [v5 hasTypicalShortStay];
+            _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "KnownGood evaluation failed, notification withheld (codes: %d, %d, %f, %d, %d, %d)", v27, 0x2Au);
           }
 
           goto LABEL_19;
@@ -12600,23 +14595,23 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    v26 = [v5 hasTypicalShortStay];
+    v25 = [v5 hasTypicalShortStay];
 
     if (v7 != 1)
     {
     }
 
     v8 = &OBJC_IVAR___CellFallbackHandler_cellFallbackInUse;
-    if (v26)
+    if (v25)
     {
       goto LABEL_17;
     }
 
-    v27 = netepochsLogHandle;
+    v26 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v28[0]) = 0;
-      _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEFAULT, "KnownGood evaluation passed and it's called a KnownGood; symptom posted", v28, 2u);
+      LOWORD(v27[0]) = 0;
+      _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "KnownGood evaluation passed and it's called a KnownGood; symptom posted", v27, 2u);
     }
 
     internal_symptom_create();
@@ -12631,14 +14626,12 @@ LABEL_16:
     v9 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v28[0]) = 0;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "no current network to evaluate for KnownGood", v28, 2u);
+      LOWORD(v27[0]) = 0;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "no current network to evaluate for KnownGood", v27, 2u);
     }
   }
 
 LABEL_19:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeOldRouteRecords
@@ -12720,7 +14713,7 @@ void __82__NetworkAnalyticsEngine__refreshRouteMetricsWithCallbackOnQueue_comple
 
 uint64_t __82__NetworkAnalyticsEngine__refreshRouteMetricsWithCallbackOnQueue_completionBlock___block_invoke_2(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
   {
@@ -12729,23 +14722,21 @@ uint64_t __82__NetworkAnalyticsEngine__refreshRouteMetricsWithCallbackOnQueue_co
     v5 = v2;
     v6 = _Block_copy(v3);
     v7 = a1[4];
-    v10 = 134218496;
-    v11 = v4;
-    v12 = 2048;
-    v13 = v6;
-    v14 = 2048;
-    v15 = v7;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "Invoking block #%llu (%p) on queue %p", &v10, 0x20u);
+    v9 = 134218496;
+    v10 = v4;
+    v11 = 2048;
+    v12 = v6;
+    v13 = 2048;
+    v14 = v7;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "Invoking block #%llu (%p) on queue %p", &v9, 0x20u);
   }
 
-  result = (*(a1[5] + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[5] + 16))();
 }
 
 - (void)performQueryOnEntity:(id)entity fetchRequestProperties:(id)properties pred:(id)pred sort:(id)sort actions:(id)actions service:(id)service connection:(id)connection reply:(id)self0
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   propertiesCopy = properties;
   predCopy = pred;
@@ -12768,17 +14759,17 @@ uint64_t __82__NetworkAnalyticsEngine__refreshRouteMetricsWithCallbackOnQueue_co
       v27 = v25;
     }
 
-    v69 = v27;
-    v70 = 2048;
-    v71 = processIdentifier;
-    v72 = 2112;
-    v73 = entityCopy;
-    v74 = 2112;
-    v75 = predCopy;
-    v76 = 2112;
-    v77 = sortCopy;
-    v78 = 2112;
-    v79 = actionsCopy;
+    v68 = v27;
+    v69 = 2048;
+    v70 = processIdentifier;
+    v71 = 2112;
+    v72 = entityCopy;
+    v73 = 2112;
+    v74 = predCopy;
+    v75 = 2112;
+    v76 = sortCopy;
+    v77 = 2112;
+    v78 = actionsCopy;
     _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "SymptomAnalytics ServiceImpl: NAE perform query for %@ (pid %lld) on %@ predicate %@ sort %@ actions %@", buf, 0x3Eu);
   }
 
@@ -12796,9 +14787,9 @@ uint64_t __82__NetworkAnalyticsEngine__refreshRouteMetricsWithCallbackOnQueue_co
         v33 = v31;
         processIdentifier2 = [connectionCopy processIdentifier];
         *buf = 138412546;
-        v69 = v32;
-        v70 = 1024;
-        LODWORD(v71) = processIdentifier2;
+        v68 = v32;
+        v69 = 1024;
+        LODWORD(v70) = processIdentifier2;
         _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_DEFAULT, "Historical Sweep request from %@ (%d) is not authorized.", buf, 0x12u);
 
         v29 = v32;
@@ -12808,28 +14799,28 @@ uint64_t __82__NetworkAnalyticsEngine__refreshRouteMetricsWithCallbackOnQueue_co
       v36 = objc_alloc_init(MEMORY[0x277D6AFC8]);
       if (v36)
       {
-        v54 = v36;
-        v53 = [v36 signatureWithDomain:*MEMORY[0x277D6B020] type:*MEMORY[0x277D6B228] subType:@"Unauthorized Historical Sweep" subtypeContext:entityCopy detectedProcess:v29 triggerThresholdValues:0];
-        v66[0] = predicateFormat;
+        v53 = v36;
+        v52 = [v36 signatureWithDomain:*MEMORY[0x277D6B020] type:*MEMORY[0x277D6B228] subType:@"Unauthorized Historical Sweep" subtypeContext:entityCopy detectedProcess:v29 triggerThresholdValues:0];
+        v65[0] = predicateFormat;
         v37 = *MEMORY[0x277D6B148];
-        v65[0] = @"predicate";
-        v65[1] = v37;
-        v52 = v29;
+        v64[0] = @"predicate";
+        v64[1] = v37;
+        v51 = v29;
         v38 = MEMORY[0x277CCABB0];
         date = [MEMORY[0x277CBEAA8] date];
         [date timeIntervalSince1970];
-        v48 = [v38 numberWithDouble:?];
-        v66[1] = v48;
-        v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:2];
-        v67 = v39;
-        [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
-        v40 = v51 = predicateFormat;
-        [v54 snapshotWithSignature:v53 duration:v40 events:0 payload:0 actions:&__block_literal_global_814 reply:0.0];
+        v47 = [v38 numberWithDouble:?];
+        v65[1] = v47;
+        v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:2];
+        v66 = v39;
+        [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+        v40 = v50 = predicateFormat;
+        [v53 snapshotWithSignature:v52 duration:v40 events:0 payload:0 actions:&__block_literal_global_814 reply:0.0];
 
-        predicateFormat = v51;
-        v29 = v52;
+        predicateFormat = v50;
+        v29 = v51;
 
-        v36 = v54;
+        v36 = v53;
       }
     }
   }
@@ -12849,25 +14840,25 @@ uint64_t __82__NetworkAnalyticsEngine__refreshRouteMetricsWithCallbackOnQueue_co
       v44 = v43;
       processIdentifier3 = [connectionCopy processIdentifier];
       *buf = 134217984;
-      v69 = processIdentifier3;
+      v68 = processIdentifier3;
       _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_INFO, "SymptomAnalytics ServiceImpl: in refresh codepath on behalf of pid %lld", buf, 0xCu);
     }
 
     queue = [(AnalyticsEngineCore *)self queue];
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __113__NetworkAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_service_connection_reply___block_invoke_815;
-    v57[3] = &unk_27898C938;
-    v57[4] = self;
-    v58 = entityCopy;
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __113__NetworkAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_service_connection_reply___block_invoke_815;
+    v56[3] = &unk_27898C938;
+    v56[4] = self;
+    v57 = entityCopy;
     v46 = propertiesCopy;
-    v59 = propertiesCopy;
-    v60 = predCopy;
-    v61 = sortCopy;
-    v62 = actionsCopy;
-    v63 = serviceCopy;
-    v64 = replyCopy;
-    [(NetworkAnalyticsEngine *)self _refreshRouteMetricsWithCallbackOnQueue:queue completionBlock:v57];
+    v58 = propertiesCopy;
+    v59 = predCopy;
+    v60 = sortCopy;
+    v61 = actionsCopy;
+    v62 = serviceCopy;
+    v63 = replyCopy;
+    [(NetworkAnalyticsEngine *)self _refreshRouteMetricsWithCallbackOnQueue:queue completionBlock:v56];
   }
 
   else
@@ -12875,23 +14866,19 @@ uint64_t __82__NetworkAnalyticsEngine__refreshRouteMetricsWithCallbackOnQueue_co
     v46 = propertiesCopy;
     [(AnalyticsEngineCore *)self performQueryOnEntityCore:entityCopy fetchRequestProperties:propertiesCopy pred:predCopy sort:sortCopy actions:actionsCopy service:serviceCopy reply:replyCopy];
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 void __113__NetworkAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_service_connection_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "SymptomAnalytics ServiceImpl: Unauthorized Sweep Snapshot response: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "SymptomAnalytics ServiceImpl: Unauthorized Sweep Snapshot response: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_performNetAttachmentQueryOn:(unsigned __int8)on reply:(id)reply
@@ -12913,34 +14900,32 @@ void __113__NetworkAnalyticsEngine_performQueryOnEntity_fetchRequestProperties_p
 
 void __61__NetworkAnalyticsEngine__performNetAttachmentQueryOn_reply___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
     *buf = 134217984;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "SymptomAnalytics _performNetAttachmentQueryOn %ld", buf, 0xCu);
   }
 
   v4 = *(a1 + 32);
   v5 = [v4 queue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __61__NetworkAnalyticsEngine__performNetAttachmentQueryOn_reply___block_invoke_819;
-  v8[3] = &unk_27898DD18;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __61__NetworkAnalyticsEngine__performNetAttachmentQueryOn_reply___block_invoke_819;
+  v7[3] = &unk_27898DD18;
   v6 = *(a1 + 40);
-  v8[4] = *(a1 + 32);
-  v10 = *(a1 + 48);
-  v9 = v6;
-  [v4 _refreshRouteMetricsWithCallbackOnQueue:v5 completionBlock:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[4] = *(a1 + 32);
+  v9 = *(a1 + 48);
+  v8 = v6;
+  [v4 _refreshRouteMetricsWithCallbackOnQueue:v5 completionBlock:v7];
 }
 
 void __61__NetworkAnalyticsEngine__performNetAttachmentQueryOn_reply___block_invoke_819(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _epochForInterfaceType:*(a1 + 48)];
   v3 = v2;
   if (v2 && ([v2 partial], v4 = objc_claimAutoreleasedReturnValue(), v4, v4))
@@ -12954,8 +14939,8 @@ void __61__NetworkAnalyticsEngine__performNetAttachmentQueryOn_reply___block_inv
     v10 = [v9 dictionaryWithValuesForKeys:v8];
 
     v11 = *(a1 + 40);
-    v15[0] = v10;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = v10;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     (*(v11 + 16))(v11, v12);
   }
 
@@ -12965,8 +14950,6 @@ void __61__NetworkAnalyticsEngine__performNetAttachmentQueryOn_reply___block_inv
     v8 = objc_alloc_init(MEMORY[0x277CBEA60]);
     (*(v13 + 16))(v13, v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_combinedDNSCountForEpoch:(id)epoch
@@ -12996,7 +14979,7 @@ void __61__NetworkAnalyticsEngine__performNetAttachmentQueryOn_reply___block_inv
 
 - (BOOL)_getDNSCountsOn:(unsigned __int8)on total:(int64_t *)total impacted:(int64_t *)impacted
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (on == 3)
   {
     v8 = &OBJC_IVAR___NetworkAnalyticsEngine_combinedWifiDNSCounts;
@@ -13010,9 +14993,9 @@ void __61__NetworkAnalyticsEngine__performNetAttachmentQueryOn_reply___block_inv
       v12 = netepochsLogHandle;
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v14[0] = 67109120;
-        v14[1] = onCopy;
-        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Can't get DNS counts for interface type %u", v14, 8u);
+        v13[0] = 67109120;
+        v13[1] = onCopy;
+        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Can't get DNS counts for interface type %u", v13, 8u);
       }
 
       goto LABEL_12;
@@ -13031,8 +15014,7 @@ void __61__NetworkAnalyticsEngine__performNetAttachmentQueryOn_reply___block_inv
 
     if (!impacted)
     {
-      result = 1;
-      goto LABEL_17;
+      return 1;
     }
 
     v10 = HIWORD(v9);
@@ -13054,8 +15036,6 @@ LABEL_16:
     *impacted = v10;
   }
 
-LABEL_17:
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -13178,74 +15158,66 @@ void __55__NetworkAnalyticsEngine__layer2MetricsOn_queue_reply___block_invoke(ui
 
 void __55__NetworkAnalyticsEngine__layer2MetricsOn_queue_reply___block_invoke_2(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = *(a1 + 32);
-  v26 = NStatManagerCreate();
-  if (v24[3])
+  v27 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = NStatManagerCreate();
+  if (v16[3])
   {
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
-    v4 = *(a1 + 56);
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2020000000;
     InterfaceSource = NStatManagerCreateInterfaceSource();
-    v5 = netepochsLogHandle;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v2 = netepochsLogHandle;
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 60);
-      v7 = [*(a1 + 40) interfaceName];
-      v8 = *(a1 + 56);
-      v9 = v20[3];
+      v3 = *(a1 + 60);
+      v4 = [*(a1 + 40) interfaceName];
+      v5 = *(a1 + 56);
+      v6 = v12[3];
       *buf = 134218754;
-      v28 = v6;
-      v29 = 2112;
-      v30 = v7;
-      v31 = 1024;
-      v32 = v8;
-      v33 = 2048;
-      v34 = v9;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Looking for L2 metrics for type: %ld, ifName: %@, ifIndex: %d, src: %p", buf, 0x26u);
+      v20 = v3;
+      v21 = 2112;
+      v22 = v4;
+      v23 = 1024;
+      v24 = v5;
+      v25 = 2048;
+      v26 = v6;
+      _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "Looking for L2 metrics for type: %ld, ifName: %@, ifIndex: %d, src: %p", buf, 0x26u);
     }
 
-    v10 = v24[3];
-    if (v20[3])
+    if (v12[3])
     {
-      v18 = *(a1 + 60);
-      v17 = *(a1 + 56);
-      v16 = *(a1 + 48);
+      v10 = *(a1 + 48);
       NStatManagerQueryAllSourcesUpdate();
-      v11 = v16;
+      v7 = v10;
     }
 
     else
     {
-      v13 = v24[3];
       NStatManagerDestroy();
-      v14 = v24[3];
-      if (v14)
+      v9 = v16[3];
+      if (v9)
       {
-        CFRelease(v14);
-        v24[3] = 0;
+        CFRelease(v9);
+        v16[3] = 0;
       }
 
-      v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:50 userInfo:0];
+      v7 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:50 userInfo:0];
       (*(*(a1 + 48) + 16))();
     }
 
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v11, 8);
   }
 
   else
   {
-    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:19 userInfo:0];
+    v8 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:19 userInfo:0];
     (*(*(a1 + 48) + 16))();
   }
 
-  _Block_object_dispose(&v23, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 }
 
 void __55__NetworkAnalyticsEngine__layer2MetricsOn_queue_reply___block_invoke_3()
@@ -13260,43 +15232,38 @@ void __55__NetworkAnalyticsEngine__layer2MetricsOn_queue_reply___block_invoke_3(
 
 void __55__NetworkAnalyticsEngine__layer2MetricsOn_queue_reply___block_invoke_822(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v2 = *(*(*(a1 + 40) + 8) + 24);
-  v3 = NStatSourceCopyProperties();
-  v4 = netepochsLogHandle;
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = NStatSourceCopyProperties();
+  v3 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 60);
-    v6 = *(a1 + 56);
-    v12 = 134218498;
-    v13 = v5;
-    v14 = 1024;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Fetching L2 metrics for type: %ld, ifIndex: %d, Metrics: %@", &v12, 0x1Cu);
+    v4 = *(a1 + 60);
+    v5 = *(a1 + 56);
+    v8 = 134218498;
+    v9 = v4;
+    v10 = 1024;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v2;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Fetching L2 metrics for type: %ld, ifIndex: %d, Metrics: %@", &v8, 0x1Cu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *(*(*(a1 + 40) + 8) + 24);
   NStatSourceRemove();
-  v8 = *(*(*(a1 + 40) + 8) + 24);
-  if (v8)
+  v6 = *(*(*(a1 + 40) + 8) + 24);
+  if (v6)
   {
-    CFRelease(v8);
+    CFRelease(v6);
     *(*(*(a1 + 40) + 8) + 24) = 0;
   }
 
-  v9 = *(*(*(a1 + 48) + 8) + 24);
   NStatManagerDestroy();
-  v10 = *(*(*(a1 + 48) + 8) + 24);
-  if (v10)
+  v7 = *(*(*(a1 + 48) + 8) + 24);
+  if (v7)
   {
-    CFRelease(v10);
+    CFRelease(v7);
     *(*(*(a1 + 48) + 8) + 24) = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __55__NetworkAnalyticsEngine__layer2MetricsOn_queue_reply___block_invoke_823(uint64_t a1)
@@ -13328,19 +15295,19 @@ void __55__NetworkAnalyticsEngine__layer2MetricsOn_queue_reply___block_invoke_82
 
 void __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke(uint64_t a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   if (cellEstTransferTimeSupportedStatus[0] == 1 && *(a1 + 64) == 5)
   {
     if (![*(a1 + 32) _getCellInternetStatus])
     {
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke_3;
-      v36[3] = &unk_27898C670;
-      v31 = *(a1 + 48);
-      v37 = *(a1 + 56);
-      dispatch_async(v31, v36);
-      v5 = v37;
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke_3;
+      v34[3] = &unk_27898C670;
+      v29 = *(a1 + 48);
+      v35 = *(a1 + 56);
+      dispatch_async(v29, v34);
+      v5 = v35;
       goto LABEL_12;
     }
 
@@ -13373,107 +15340,106 @@ void __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_
       v8 = 1;
     }
 
-    v11 = [*(a1 + 40) objectForKey:@"kPayloadInfoDLKB"];
-    v12 = v11;
-    if (v11)
+    v10 = [*(a1 + 40) objectForKey:@"kPayloadInfoDLKB"];
+    v11 = v10;
+    if (v10)
     {
-      v13 = v11;
+      v12 = v10;
     }
 
     else
     {
-      v13 = &unk_2847EFAE8;
+      v12 = &unk_2847EFAE8;
     }
 
-    v14 = v13;
+    v13 = v12;
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || [v14 longLongValue] < 0 || objc_msgSend(v14, "longLongValue") > 0xFFFFFFFFLL)
+    if ((objc_opt_isKindOfClass() & 1) == 0 || [v13 longLongValue] < 0 || objc_msgSend(v13, "longLongValue") > 0xFFFFFFFFLL)
     {
       v7 = 34;
     }
 
     else
     {
-      v15 = [v14 unsignedIntValue];
+      v14 = [v13 unsignedIntValue];
       if (v8)
       {
-        v16 = v15;
+        v15 = v14;
         if ([*(a1 + 32) _newCellTransferTimeEstimateRequired])
         {
           *bytes = 2;
-          v43 = v6;
-          v44 = v16;
-          v17 = CFDataCreate(*MEMORY[0x277CBECE8], bytes, 12);
-          v18 = *(*(a1 + 32) + 312);
-          v19 = _CTServerConnectionSendEnhancedLinkQualityTrafficInfo();
-          v20 = v19;
-          v21 = HIDWORD(v19);
-          if (HIDWORD(v19))
+          v41 = v6;
+          v42 = v15;
+          v16 = CFDataCreate(*MEMORY[0x277CBECE8], bytes, 12);
+          v17 = _CTServerConnectionSendEnhancedLinkQualityTrafficInfo();
+          v18 = v17;
+          v19 = HIDWORD(v17);
+          if (HIDWORD(v17))
           {
-            v22 = 0;
+            v20 = 0;
           }
 
           else
           {
-            v22 = v19 == 0;
+            v20 = v17 == 0;
           }
 
-          v23 = v22;
-          if (v17)
+          v21 = v20;
+          if (v16)
           {
-            CFRelease(v17);
+            CFRelease(v16);
           }
 
-          if (!v23)
+          if (!v21)
           {
-            v32 = netepochsLogHandle;
+            v30 = netepochsLogHandle;
             if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109376;
-              v49 = v20;
-              v50 = 1024;
-              v51 = v21;
-              _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_ERROR, "eLQM: Failed to send payload size info to Baseband, error = (%d, %d)", buf, 0xEu);
+              v47 = v18;
+              v48 = 1024;
+              v49 = v19;
+              _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_ERROR, "eLQM: Failed to send payload size info to Baseband, error = (%d, %d)", buf, 0xEu);
             }
 
-            v40[0] = MEMORY[0x277D85DD0];
-            v40[1] = 3221225472;
-            v40[2] = __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke_824;
-            v40[3] = &unk_27898C670;
-            v33 = *(a1 + 48);
-            v41 = *(a1 + 56);
-            dispatch_async(v33, v40);
-            v29 = v41;
+            v38[0] = MEMORY[0x277D85DD0];
+            v38[1] = 3221225472;
+            v38[2] = __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke_824;
+            v38[3] = &unk_27898C670;
+            v31 = *(a1 + 48);
+            v39 = *(a1 + 56);
+            dispatch_async(v31, v38);
+            v27 = v39;
             goto LABEL_36;
           }
 
-          v24 = [MEMORY[0x277CBEAA8] date];
-          v25 = cellEstTransferTimeRequestTimeStamp;
-          cellEstTransferTimeRequestTimeStamp = v24;
+          v22 = [MEMORY[0x277CBEAA8] date];
+          v23 = cellEstTransferTimeRequestTimeStamp;
+          cellEstTransferTimeRequestTimeStamp = v22;
 
-          v26 = netepochsLogHandle;
+          v24 = netepochsLogHandle;
           if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109632;
-            v49 = cellRrcState;
+            v47 = cellRrcState;
+            v48 = 1024;
+            v49 = v6;
             v50 = 1024;
-            v51 = v6;
-            v52 = 1024;
-            v53 = v16;
-            _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "eLQM: Payload info sent to Baseband for transfer time estimates, RRC = %d, UL/DL = (%u, %u) KB", buf, 0x14u);
+            v51 = v15;
+            _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "eLQM: Payload info sent to Baseband for transfer time estimates, RRC = %d, UL/DL = (%u, %u) KB", buf, 0x14u);
           }
         }
 
-        v27 = *(a1 + 32);
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke_2_825;
-        v38[3] = &unk_27898C670;
-        v28 = *(a1 + 48);
-        v39 = *(a1 + 56);
-        [v27 _awaitEstimatedDataTransferTimeWithCallbackOnQueue:v28 completionBlock:v38];
-        v29 = v39;
+        v25 = *(a1 + 32);
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke_2_825;
+        v36[3] = &unk_27898C670;
+        v26 = *(a1 + 48);
+        v37 = *(a1 + 56);
+        [v25 _awaitEstimatedDataTransferTimeWithCallbackOnQueue:v26 completionBlock:v36];
+        v27 = v37;
 LABEL_36:
 
         goto LABEL_12;
@@ -13484,25 +15450,23 @@ LABEL_36:
     block[1] = 3221225472;
     block[2] = __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke_2;
     block[3] = &unk_27898C440;
-    v47 = v7;
-    v30 = *(a1 + 48);
-    v46 = *(a1 + 56);
-    dispatch_async(v30, block);
-    v29 = v46;
+    v45 = v7;
+    v28 = *(a1 + 48);
+    v44 = *(a1 + 56);
+    dispatch_async(v28, block);
+    v27 = v44;
     goto LABEL_36;
   }
 
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke_4;
-  v34[3] = &unk_27898C670;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke_4;
+  v32[3] = &unk_27898C670;
   v9 = *(a1 + 48);
-  v35 = *(a1 + 56);
-  dispatch_async(v9, v34);
-  v5 = v35;
+  v33 = *(a1 + 56);
+  dispatch_async(v9, v32);
+  v5 = v33;
 LABEL_12:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke_2(uint64_t a1)
@@ -13519,20 +15483,19 @@ void __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_
 
 void __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke_2_825(uint64_t a1)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v7[0] = @"kEstTransferTimeULSecs";
+  v7[3] = *MEMORY[0x277D85DE8];
+  v6[0] = @"kEstTransferTimeULSecs";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:cellEstTransferTimeULSecs];
-  v8[0] = v2;
-  v7[1] = @"kEstTransferTimeDLSecs";
+  v7[0] = v2;
+  v6[1] = @"kEstTransferTimeDLSecs";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:cellEstTransferTimeDLSecs];
-  v8[1] = v3;
-  v7[2] = @"kEstTransferTimeConfidence";
+  v7[1] = v3;
+  v6[2] = @"kEstTransferTimeConfidence";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:cellEstTransferTimeConfidence];
-  v8[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
+  v7[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke_3(uint64_t a1)
@@ -13568,17 +15531,17 @@ void __78__NetworkAnalyticsEngine__estimatedTransferTimeOn_forPayloadInfo_queue_
 
 void __76__NetworkAnalyticsEngine__usageToLOICorrelationFor_scopedToLOI_queue_reply___block_invoke(uint64_t a1)
 {
-  v183[2] = *MEMORY[0x277D85DE8];
+  v182[2] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v5 = v4;
   v6 = *(a1 + 64);
   v7 = v6 == 3 || v6 == 5;
-  v134 = v3;
-  v131 = a1;
-  v132 = v2;
-  v130 = v4;
+  v133 = v3;
+  v130 = a1;
+  v131 = v2;
+  v129 = v4;
   if (!v7)
   {
     v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:19 userInfo:0];
@@ -13606,37 +15569,37 @@ void __76__NetworkAnalyticsEngine__usageToLOICorrelationFor_scopedToLOI_queue_re
 LABEL_12:
     v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"attrs == %d", v12];
     v15 = MEMORY[0x277CCA920];
-    v127 = v14;
-    v128 = v10;
-    v183[0] = v10;
-    v183[1] = v14;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v183 count:2];
+    v126 = v14;
+    v127 = v10;
+    v182[0] = v10;
+    v182[1] = v14;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v182 count:2];
     v17 = [v15 andPredicateWithSubpredicates:v16];
 
-    v129 = v8;
-    v126 = v17;
+    v128 = v8;
+    v125 = v17;
     v18 = [v8 fetchEntitiesFreeForm:v17 sortDesc:0];
-    v166 = 0;
+    v165 = 0;
+    v161 = 0u;
     v162 = 0u;
     v163 = 0u;
     v164 = 0u;
-    v165 = 0u;
-    v19 = [v18 countByEnumeratingWithState:&v162 objects:v178 count:16];
-    v133 = v18;
+    v19 = [v18 countByEnumeratingWithState:&v161 objects:v177 count:16];
+    v132 = v18;
     if (v19)
     {
       v20 = v19;
-      v136 = *v163;
+      v135 = *v162;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v163 != v136)
+          if (*v162 != v135)
           {
             objc_enumerationMutation(v18);
           }
 
-          v22 = *(*(&v162 + 1) + 8 * i);
+          v22 = *(*(&v161 + 1) + 8 * i);
           v23 = [v22 identifier];
 
           if (v23)
@@ -13647,14 +15610,14 @@ LABEL_12:
             if (v25 && *v25)
             {
               v26 = 0;
-              v181 = 0u;
-              v182 = 0u;
-              *v179 = 0u;
               v180 = 0u;
+              v181 = 0u;
+              *v178 = 0u;
+              v179 = 0u;
               while (1)
               {
                 v27 = v25[v26];
-                v179[v26] = v27;
+                v178[v26] = v27;
                 if (!v27)
                 {
                   break;
@@ -13662,15 +15625,15 @@ LABEL_12:
 
                 if (++v26 == 63)
                 {
-                  HIBYTE(v182) = 0;
+                  HIBYTE(v181) = 0;
                   break;
                 }
               }
 
-              if ([NetworkEpoch parsePrimaryKeyStr:v179 majorIDLengthInBytes:&v166 + 4 minorIDLengthInBytes:&v166]&& SHIDWORD(v166) <= 63)
+              if ([NetworkEpoch parsePrimaryKeyStr:v178 majorIDLengthInBytes:&v165 + 4 minorIDLengthInBytes:&v165]&& SHIDWORD(v165) <= 63)
               {
-                v179[SHIDWORD(v166)] = 0;
-                v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:v179];
+                v178[SHIDWORD(v165)] = 0;
+                v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:v178];
                 v29 = [v3 objectForKeyedSubscript:v28];
                 if (!v29)
                 {
@@ -13678,26 +15641,26 @@ LABEL_12:
                   [v3 setObject:v29 forKeyedSubscript:v28];
                 }
 
-                v160 = 0u;
-                v161 = 0u;
-                v158 = 0u;
                 v159 = 0u;
+                v160 = 0u;
+                v157 = 0u;
+                v158 = 0u;
                 v30 = [v22 hasDefaultRoute];
-                v31 = [v30 countByEnumeratingWithState:&v158 objects:v171 count:16];
+                v31 = [v30 countByEnumeratingWithState:&v157 objects:v170 count:16];
                 if (v31)
                 {
                   v32 = v31;
-                  v33 = *v159;
+                  v33 = *v158;
                   do
                   {
                     for (j = 0; j != v32; ++j)
                     {
-                      if (*v159 != v33)
+                      if (*v158 != v33)
                       {
                         objc_enumerationMutation(v30);
                       }
 
-                      v35 = *(*(&v158 + 1) + 8 * j);
+                      v35 = *(*(&v157 + 1) + 8 * j);
                       [v35 overallStay];
                       v37 = v36;
                       [(Score *)v29 overallStay];
@@ -13712,14 +15675,14 @@ LABEL_12:
                       [(Score *)v29 setConnSuccesses:v43 + v44];
                     }
 
-                    v32 = [v30 countByEnumeratingWithState:&v158 objects:v171 count:16];
+                    v32 = [v30 countByEnumeratingWithState:&v157 objects:v170 count:16];
                   }
 
                   while (v32);
                 }
 
-                v18 = v133;
-                v3 = v134;
+                v18 = v132;
+                v3 = v133;
               }
 
               else
@@ -13730,7 +15693,7 @@ LABEL_12:
                   v55 = v54;
                   v56 = [v22 identifier];
                   *buf = 138477827;
-                  v173 = v56;
+                  v172 = v56;
                   _os_log_impl(&dword_23255B000, v55, OS_LOG_TYPE_ERROR, "NOI Scoped query, failed to parse: %{private}@", buf, 0xCu);
                 }
               }
@@ -13755,11 +15718,11 @@ LABEL_12:
                   v52 = "NULL";
                 }
 
-                v173 = v49;
-                v174 = 2112;
-                v175 = v50;
-                v176 = 2080;
-                v177 = v52;
+                v172 = v49;
+                v173 = 2112;
+                v174 = v50;
+                v175 = 2080;
+                v176 = v52;
                 _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_FAULT, "Non-nil identifier %{private}@ with encoding %@ has %s UTF-8 representation", buf, 0x20u);
               }
             }
@@ -13771,13 +15734,13 @@ LABEL_12:
             if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
             {
               *buf = 138477827;
-              v173 = v22;
+              v172 = v22;
               _os_log_impl(&dword_23255B000, v53, OS_LOG_TYPE_ERROR, "NetworkAttachment %{private}@ has nil identifier, skipping", buf, 0xCu);
             }
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v162 objects:v178 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v161 objects:v177 count:16];
       }
 
       while (v20);
@@ -13787,16 +15750,16 @@ LABEL_12:
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v173 = v3;
+      v172 = v3;
       _os_log_impl(&dword_23255B000, v57, OS_LOG_TYPE_INFO, "NOI Scoped query: %@", buf, 0xCu);
     }
 
     v13 = 0;
-    a1 = v131;
-    v2 = v132;
-    v8 = v129;
-    v5 = v130;
-    v10 = v128;
+    a1 = v130;
+    v2 = v131;
+    v8 = v128;
+    v5 = v129;
+    v10 = v127;
     goto LABEL_50;
   }
 
@@ -13821,13 +15784,13 @@ LABEL_51:
 
   else
   {
-    v135 = v13;
-    v156 = 0u;
-    v157 = 0u;
-    v154 = 0u;
+    v134 = v13;
     v155 = 0u;
+    v156 = 0u;
+    v153 = 0u;
+    v154 = 0u;
     v59 = v3;
-    v60 = [v59 countByEnumeratingWithState:&v154 objects:v170 count:16];
+    v60 = [v59 countByEnumeratingWithState:&v153 objects:v169 count:16];
     if (v60)
     {
       v61 = v60;
@@ -13837,17 +15800,17 @@ LABEL_51:
       v65 = 0;
       v66 = 0;
       v67 = 0;
-      v137 = *v155;
+      v136 = *v154;
       do
       {
         for (k = 0; k != v61; ++k)
         {
-          if (*v155 != v137)
+          if (*v154 != v136)
           {
             objc_enumerationMutation(v59);
           }
 
-          v69 = [v59 objectForKeyedSubscript:*(*(&v154 + 1) + 8 * k)];
+          v69 = [v59 objectForKeyedSubscript:*(*(&v153 + 1) + 8 * k)];
           [v69 epochs];
           if (v70 <= v67)
           {
@@ -13910,7 +15873,7 @@ LABEL_51:
           v62 = v77;
         }
 
-        v61 = [v59 countByEnumeratingWithState:&v154 objects:v170 count:16];
+        v61 = [v59 countByEnumeratingWithState:&v153 objects:v169 count:16];
       }
 
       while (v61);
@@ -13926,28 +15889,28 @@ LABEL_51:
       v67 = 0;
     }
 
-    v152 = 0u;
-    v153 = 0u;
-    v150 = 0u;
     v151 = 0u;
+    v152 = 0u;
+    v149 = 0u;
+    v150 = 0u;
     v82 = v59;
-    v83 = [v82 countByEnumeratingWithState:&v150 objects:v169 count:16];
+    v83 = [v82 countByEnumeratingWithState:&v149 objects:v168 count:16];
     if (v83)
     {
       v84 = v83;
       v85 = (v66 - v63);
       v86 = (v67 - v64);
-      v87 = *v151;
+      v87 = *v150;
       do
       {
         for (m = 0; m != v84; ++m)
         {
-          if (*v151 != v87)
+          if (*v150 != v87)
           {
             objc_enumerationMutation(v82);
           }
 
-          v89 = [v82 objectForKeyedSubscript:*(*(&v150 + 1) + 8 * m)];
+          v89 = [v82 objectForKeyedSubscript:*(*(&v149 + 1) + 8 * m)];
           [v89 overallStay];
           [v89 setOverallStay:(v90 - v63) / v85];
           [v89 epochs];
@@ -13956,7 +15919,7 @@ LABEL_51:
           [v89 setConnSuccesses:(v92 - v62) / (v65 - v62)];
         }
 
-        v84 = [v82 countByEnumeratingWithState:&v150 objects:v169 count:16];
+        v84 = [v82 countByEnumeratingWithState:&v149 objects:v168 count:16];
       }
 
       while (v84);
@@ -13965,33 +15928,33 @@ LABEL_51:
     v93 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      *v179 = 138412290;
-      *&v179[4] = v82;
-      _os_log_impl(&dword_23255B000, v93, OS_LOG_TYPE_DEBUG, "NOI Scoped query, normalized: %@", v179, 0xCu);
+      *v178 = 138412290;
+      *&v178[4] = v82;
+      _os_log_impl(&dword_23255B000, v93, OS_LOG_TYPE_DEBUG, "NOI Scoped query, normalized: %@", v178, 0xCu);
     }
 
-    v148 = 0u;
-    v149 = 0u;
     v147 = 0u;
+    v148 = 0u;
     v146 = 0u;
+    v145 = 0u;
     v94 = v82;
-    v95 = [v94 countByEnumeratingWithState:&v146 objects:v168 count:16];
-    v5 = v130;
+    v95 = [v94 countByEnumeratingWithState:&v145 objects:v167 count:16];
+    v5 = v129;
     if (v95)
     {
       v96 = v95;
-      v97 = *v147;
+      v97 = *v146;
       v98 = 0.0;
       do
       {
         for (n = 0; n != v96; ++n)
         {
-          if (*v147 != v97)
+          if (*v146 != v97)
           {
             objc_enumerationMutation(v94);
           }
 
-          v100 = *(*(&v146 + 1) + 8 * n);
+          v100 = *(*(&v145 + 1) + 8 * n);
           v101 = [v94 objectForKeyedSubscript:v100];
           [v101 overallStay];
           v103 = v102 * v102;
@@ -14000,12 +15963,12 @@ LABEL_51:
           [v101 connSuccesses];
           v107 = sqrt(v105 + v106 * v106);
           v108 = [MEMORY[0x277CCABB0] numberWithDouble:v107];
-          [v130 setObject:v108 forKeyedSubscript:v100];
+          [v129 setObject:v108 forKeyedSubscript:v100];
 
           v98 = v98 + v107;
         }
 
-        v96 = [v94 countByEnumeratingWithState:&v146 objects:v168 count:16];
+        v96 = [v94 countByEnumeratingWithState:&v145 objects:v167 count:16];
       }
 
       while (v96);
@@ -14019,40 +15982,40 @@ LABEL_51:
     v109 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      *v179 = 138412290;
-      *&v179[4] = v130;
-      _os_log_impl(&dword_23255B000, v109, OS_LOG_TYPE_DEBUG, "NOI Scoped query, euclidean norms: %@", v179, 0xCu);
+      *v178 = 138412290;
+      *&v178[4] = v129;
+      _os_log_impl(&dword_23255B000, v109, OS_LOG_TYPE_DEBUG, "NOI Scoped query, euclidean norms: %@", v178, 0xCu);
     }
 
-    v144 = 0u;
-    v145 = 0u;
-    v142 = 0u;
     v143 = 0u;
-    v110 = [v130 allKeys];
-    v111 = [v110 countByEnumeratingWithState:&v142 objects:v167 count:16];
+    v144 = 0u;
+    v141 = 0u;
+    v142 = 0u;
+    v110 = [v129 allKeys];
+    v111 = [v110 countByEnumeratingWithState:&v141 objects:v166 count:16];
     if (v111)
     {
       v112 = v111;
-      v113 = *v143;
+      v113 = *v142;
       do
       {
         for (ii = 0; ii != v112; ++ii)
         {
-          if (*v143 != v113)
+          if (*v142 != v113)
           {
             objc_enumerationMutation(v110);
           }
 
-          v115 = *(*(&v142 + 1) + 8 * ii);
-          v116 = [v130 objectForKeyedSubscript:v115];
+          v115 = *(*(&v141 + 1) + 8 * ii);
+          v116 = [v129 objectForKeyedSubscript:v115];
           [v116 doubleValue];
           v118 = v117;
 
           v119 = [MEMORY[0x277CCABB0] numberWithDouble:v118 / v98];
-          [v130 setObject:v119 forKeyedSubscript:v115];
+          [v129 setObject:v119 forKeyedSubscript:v115];
         }
 
-        v112 = [v110 countByEnumeratingWithState:&v142 objects:v167 count:16];
+        v112 = [v110 countByEnumeratingWithState:&v141 objects:v166 count:16];
       }
 
       while (v112);
@@ -14061,32 +16024,31 @@ LABEL_51:
     v120 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      *v179 = 138412290;
-      *&v179[4] = v130;
-      _os_log_impl(&dword_23255B000, v120, OS_LOG_TYPE_DEBUG, "NOI Scoped query, softmax: %@", v179, 0xCu);
+      *v178 = 138412290;
+      *&v178[4] = v129;
+      _os_log_impl(&dword_23255B000, v120, OS_LOG_TYPE_DEBUG, "NOI Scoped query, softmax: %@", v178, 0xCu);
     }
 
-    a1 = v131;
-    v2 = v132;
-    v3 = v134;
-    v13 = v135;
+    a1 = v130;
+    v2 = v131;
+    v3 = v133;
+    v13 = v134;
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __76__NetworkAnalyticsEngine__usageToLOICorrelationFor_scopedToLOI_queue_reply___block_invoke_833;
   block[3] = &unk_27898DE08;
-  v139 = v13;
+  v138 = v13;
   v121 = *(a1 + 40);
   v122 = *(a1 + 48);
-  v140 = v5;
-  v141 = v122;
+  v139 = v5;
+  v140 = v122;
   v123 = v5;
   v124 = v13;
   dispatch_async(v121, block);
 
   objc_autoreleasePoolPop(v2);
-  v125 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __76__NetworkAnalyticsEngine__usageToLOICorrelationFor_scopedToLOI_queue_reply___block_invoke_833(void *a1)
@@ -14167,29 +16129,42 @@ void __93__NetworkAnalyticsEngine__awaitEstimatedDataTransferTimeWithCallbackOnQ
   dispatch_async(v3, block);
 }
 
++ (void)hasNetworkAttachmentOn:(unsigned __int8)on isAny:(BOOL)any isBuiltin:(BOOL)builtin scopedToLOI:(int64_t)i hasCustomSignature:(id)signature queue:(id)queue reply:(id)reply
+{
+  if (sharedInstance_3)
+  {
+    [sharedInstance_3 _hasNetworkAttachmentOn:on isAny:any isBuiltin:builtin scopedToLOI:i hasCustomSignature:signature queue:queue reply:?];
+  }
+
+  else
+  {
+    (*(reply + 2))();
+  }
+}
+
 + (BOOL)hasAnyNetworkAttachmenOnLOI:(int64_t)i
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   +[NetworkAnalyticsEngine concurrentEpochs];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v4 = v22 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v4 = v21 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         if ([v9 oncell])
         {
           v10 = 5;
@@ -14210,8 +16185,8 @@ void __93__NetworkAnalyticsEngine__awaitEstimatedDataTransferTimeWithCallbackOnQ
             primaryKey = [v9 primaryKey];
             *buf = 134218243;
             iCopy2 = i;
-            v25 = 2113;
-            v26 = primaryKey;
+            v24 = 2113;
+            v25 = primaryKey;
             _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_INFO, "LOI %ld match for %{private}@", buf, 0x16u);
           }
 
@@ -14220,7 +16195,7 @@ void __93__NetworkAnalyticsEngine__awaitEstimatedDataTransferTimeWithCallbackOnQ
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (v6)
       {
         continue;
@@ -14241,7 +16216,6 @@ void __93__NetworkAnalyticsEngine__awaitEstimatedDataTransferTimeWithCallbackOnQ
   v13 = 0;
 LABEL_18:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -14256,6 +16230,23 @@ LABEL_18:
   {
     return 0;
   }
+}
+
++ (BOOL)performNetAttachmentQueryOn:(unsigned __int8)on reply:(id)reply
+{
+  onCopy = on;
+  replyCopy = reply;
+  if ((onCopy == 5 || onCopy == 3) && sharedInstance_3)
+  {
+    v6 = [sharedInstance_3 _performNetAttachmentQueryOn:onCopy reply:replyCopy];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
 }
 
 + (id)getNetworkExtensionStateRelay
@@ -14273,10 +16264,10 @@ LABEL_18:
 + (int)getLoadedLQMOn:(unsigned __int8)on
 {
   onCopy = on;
-  *&v13[5] = *MEMORY[0x277D85DE8];
+  *&v12[5] = *MEMORY[0x277D85DE8];
   if (on <= 7u && ((1 << on) & 0xAC) != 0)
   {
-    v4 = (&loadedLqm + 4 * on);
+    v4 = &loadedLqm[on];
     v5 = *v4;
     v6 = v4[8];
     if (v5 >= v6)
@@ -14292,12 +16283,12 @@ LABEL_18:
 
   else
   {
-    v11 = netepochsLogHandle;
+    v10 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v12 = 134217984;
-      *v13 = onCopy;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Unexpected network type: %ld", &v12, 0xCu);
+      v11 = 134217984;
+      *v12 = onCopy;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Unexpected network type: %ld", &v11, 0xCu);
     }
 
     v7 = -2;
@@ -14306,15 +16297,34 @@ LABEL_18:
   v8 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 67109376;
-    v13[0] = v7;
-    LOWORD(v13[1]) = 2048;
-    *(&v13[1] + 2) = onCopy;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "Returning loaded LQM = %d for %ld", &v12, 0x12u);
+    v11 = 67109376;
+    v12[0] = v7;
+    LOWORD(v12[1]) = 2048;
+    *(&v12[1] + 2) = onCopy;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "Returning loaded LQM = %d for %ld", &v11, 0x12u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
+}
+
++ (void)getAuditableLoadedLQMOn:(unsigned __int8)on queue:(id)queue reply:(id)reply
+{
+  v5 = sharedInstance_3;
+  if (sharedInstance_3)
+  {
+    onCopy = on;
+    replyCopy = reply;
+    [v5 _getAuditableLoadedLQMOn:onCopy queue:queue reply:?];
+  }
+
+  else
+  {
+    v8 = MEMORY[0x277CCA9B8];
+    v9 = *MEMORY[0x277CCA5B8];
+    replyCopy2 = reply;
+    replyCopy = [v8 errorWithDomain:v9 code:19 userInfo:0];
+    replyCopy2[2](replyCopy2, 4294967294, 0);
+  }
 }
 
 + (id)concurrentEpochs
@@ -14331,82 +16341,64 @@ LABEL_18:
 
 + (int64_t)mapLinkQuality:(int)quality
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if (quality <= 19)
+  v10 = *MEMORY[0x277D85DE8];
+  if (quality > 19)
   {
-    if (quality >= 0xFFFFFFFE || quality == 10)
+    switch(quality)
     {
-LABEL_12:
-      result = 0;
-      goto LABEL_13;
+      case 20:
+        return 20;
+      case 100:
+        return 100;
+      case 50:
+        return 50;
     }
-
-LABEL_10:
-    v5 = netepochsLogHandle;
-    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
-    {
-      v7 = 134218240;
-      selfCopy = self;
-      v9 = 2048;
-      v10 = 0;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "%p unexpected link quality indicator: %ld", &v7, 0x16u);
-    }
-
-    goto LABEL_12;
   }
 
-  switch(quality)
+  else if (quality >= 0xFFFFFFFE || quality == 10)
   {
-    case 20:
-      result = 20;
-      break;
-    case 100:
-      result = 100;
-      break;
-    case 50:
-      result = 50;
-      break;
-    default:
-      goto LABEL_10;
+    return 0;
   }
 
-LABEL_13:
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = netepochsLogHandle;
+  if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    v6 = 134218240;
+    selfCopy = self;
+    v8 = 2048;
+    v9 = 0;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "%p unexpected link quality indicator: %ld", &v6, 0x16u);
+  }
+
+  return 0;
 }
 
 + (int64_t)mapPowerCost:(unsigned __int8)cost
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if ((cost + 1) >= 4u)
+  v11 = *MEMORY[0x277D85DE8];
+  if ((cost + 1) < 4u)
   {
-    costCopy = cost;
-    v6 = netepochsLogHandle;
-    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
-    {
-      v8 = 134218240;
-      selfCopy = self;
-      v10 = 1024;
-      v11 = costCopy;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "%p unexpected power cost indicator from baseband: %hhu, defaulting to unknown", &v8, 0x12u);
-    }
-
-    result = 0;
+    return (cost + 1);
   }
 
-  else
+  costCopy = cost;
+  v6 = netepochsLogHandle;
+  if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    result = (cost + 1);
+    v7 = 134218240;
+    selfCopy = self;
+    v9 = 1024;
+    v10 = costCopy;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "%p unexpected power cost indicator from baseband: %hhu, defaulting to unknown", &v7, 0x12u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 + (int64_t)mapRadioTechnology:(unsigned __int8)technology
 {
   technologyCopy = technology;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   result = 3;
   if (technology > 127)
   {
@@ -14416,57 +16408,50 @@ LABEL_13:
       {
         if (technology == 136)
         {
-          goto LABEL_9;
+          return result;
         }
 
         goto LABEL_12;
       }
 
-LABEL_15:
-      result = 2;
-      goto LABEL_9;
+      return 2;
     }
 
-LABEL_8:
-    result = 1;
-    goto LABEL_9;
+    return 1;
   }
 
-  if (technology > 0xBu)
+  if (technology <= 0xBu)
   {
-    goto LABEL_12;
-  }
+    if (((1 << technology) & 0x3FA) == 0)
+    {
+      if (((1 << technology) & 0xC00) != 0)
+      {
+        return result;
+      }
 
-  if (((1 << technology) & 0x3FA) != 0)
-  {
-    goto LABEL_8;
-  }
+      if (technology != 2)
+      {
+        goto LABEL_12;
+      }
 
-  if (((1 << technology) & 0xC00) != 0)
-  {
-    goto LABEL_9;
-  }
+      return 2;
+    }
 
-  if (technology == 2)
-  {
-    goto LABEL_15;
+    return 1;
   }
 
 LABEL_12:
-  v7 = netepochsLogHandle;
+  v6 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v8 = 134218240;
+    v7 = 134218240;
     selfCopy = self;
-    v10 = 2048;
-    v11 = technologyCopy;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "%p unexpected radio technology from baseband: %ld, defaulting to unknown", &v8, 0x16u);
+    v9 = 2048;
+    v10 = technologyCopy;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "%p unexpected radio technology from baseband: %ld, defaulting to unknown", &v7, 0x16u);
   }
 
-  result = 0;
-LABEL_9:
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 + (id)mapRadioTechnologyTypeToString:(unsigned __int8)string
@@ -14641,10 +16626,70 @@ LABEL_9:
   }
 }
 
++ (void)layer2MetricsOn:(unsigned __int8)on queue:(id)queue reply:(id)reply
+{
+  v5 = sharedInstance_3;
+  if (sharedInstance_3)
+  {
+    onCopy = on;
+    replyCopy = reply;
+    [v5 _layer2MetricsOn:onCopy queue:queue reply:?];
+  }
+
+  else
+  {
+    v8 = MEMORY[0x277CCA9B8];
+    v9 = *MEMORY[0x277CCA5B8];
+    replyCopy2 = reply;
+    replyCopy = [v8 errorWithDomain:v9 code:19 userInfo:0];
+    replyCopy2[2](replyCopy2, 0);
+  }
+}
+
++ (void)estimatedTransferTimeOn:(unsigned __int8)on forPayloadInfo:(id)info queue:(id)queue reply:(id)reply
+{
+  onCopy = on;
+  replyCopy = reply;
+  if (sharedInstance_3)
+  {
+    [sharedInstance_3 _estimatedTransferTimeOn:onCopy forPayloadInfo:info queue:queue reply:replyCopy];
+  }
+
+  else
+  {
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __77__NetworkAnalyticsEngine_estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke;
+    block[3] = &unk_27898C670;
+    v11 = replyCopy;
+    dispatch_async(queue, block);
+  }
+}
+
 void __77__NetworkAnalyticsEngine_estimatedTransferTimeOn_forPayloadInfo_queue_reply___block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:45 userInfo:0];
   (*(*(a1 + 32) + 16))();
+}
+
++ (void)usageToLOICorrelationFor:(unsigned __int8)for scopedToLOI:(int64_t)i queue:(id)queue reply:(id)reply
+{
+  forCopy = for;
+  replyCopy = reply;
+  if (sharedInstance_3)
+  {
+    [sharedInstance_3 _usageToLOICorrelationFor:forCopy scopedToLOI:i queue:queue reply:replyCopy];
+  }
+
+  else
+  {
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __75__NetworkAnalyticsEngine_usageToLOICorrelationFor_scopedToLOI_queue_reply___block_invoke;
+    block[3] = &unk_27898C670;
+    v11 = replyCopy;
+    dispatch_async(queue, block);
+  }
 }
 
 void __75__NetworkAnalyticsEngine_usageToLOICorrelationFor_scopedToLOI_queue_reply___block_invoke(uint64_t a1)
@@ -14704,13 +16749,13 @@ void __75__NetworkAnalyticsEngine_usageToLOICorrelationFor_scopedToLOI_queue_rep
 
 - (void)_relayCellThroughputAdvice:(unsigned int)advice
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v10) = 67109120;
-    HIDWORD(v10) = advice;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "_relayCellThroughputAdvice called with 0x%x", &v10, 8u);
+    LODWORD(v9) = 67109120;
+    HIDWORD(v9) = advice;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "_relayCellThroughputAdvice called with 0x%x", &v9, 8u);
   }
 
   selfCopy = self;
@@ -14727,10 +16772,10 @@ void __75__NetworkAnalyticsEngine_usageToLOICorrelationFor_scopedToLOI_queue_rep
       goto LABEL_11;
     }
 
-    LOWORD(v10) = 0;
+    LOWORD(v9) = 0;
     v8 = "_relayCellThroughputAdvice skip notification, currently disabled";
 LABEL_10:
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, v8, &v10, 2u);
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, v8, &v9, 2u);
     goto LABEL_11;
   }
 
@@ -14742,7 +16787,7 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    LOWORD(v10) = 0;
+    LOWORD(v9) = 0;
     v8 = "_relayCellThroughputAdvice skip notification, waiting on tcsWiFiViabilitySet";
     goto LABEL_10;
   }
@@ -14751,26 +16796,53 @@ LABEL_10:
   dword_2814D2FD8 = 0;
   [(NetworkAnalyticsEngine *)selfCopy _sendTrafficClassAndExtendedReportToBaseband];
 LABEL_11:
-  [(NetworkAnalyticsEngine *)selfCopy _createJournalRecordOfType:3 forInterface:2 fromDict:0, v10, v11];
-  v9 = *MEMORY[0x277D85DE8];
+  [(NetworkAnalyticsEngine *)selfCopy _createJournalRecordOfType:3 forInterface:2 fromDict:0, v9, v10];
+}
+
++ (void)relayCellThroughputAdvice:(unsigned int)advice
+{
+  v3 = *&advice;
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = flowScrutinyLogHandle;
+  if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = 134217984;
+    v7 = sharedInstance_3;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "NAE relayCellThroughputAdvice: called with sharedInstance %p", &v6, 0xCu);
+  }
+
+  if (sharedInstance_3)
+  {
+    [sharedInstance_3 _relayCellThroughputAdvice:v3];
+  }
+
+  else
+  {
+    v5 = flowScrutinyLogHandle;
+    if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v6) = 0;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "relayCellThroughputAdvice: sharedInstance not available", &v6, 2u);
+    }
+  }
 }
 
 - (void)_relayAudioVideoStatus:(unsigned int)status rxThroughput:(double)throughput txThroughput:(double)txThroughput reset:(BOOL)reset
 {
   resetCopy = reset;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v11 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v16[0] = 67109888;
-    v16[1] = status;
-    v17 = 2048;
+    v15[0] = 67109888;
+    v15[1] = status;
+    v16 = 2048;
     throughputCopy = throughput;
-    v19 = 2048;
+    v18 = 2048;
     txThroughputCopy = txThroughput;
-    v21 = 1024;
-    v22 = resetCopy;
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "_relayAudioVideoStatus:rxThroughputKbps:txThroughputKbps: called with OP %u, RX %.4f, TX %.4f, reset %d", v16, 0x22u);
+    v20 = 1024;
+    v21 = resetCopy;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "_relayAudioVideoStatus:rxThroughputKbps:txThroughputKbps: called with OP %u, RX %.4f, TX %.4f, reset %d", v15, 0x22u);
   }
 
   selfCopy = self;
@@ -14789,8 +16861,8 @@ LABEL_11:
     v13 = flowScrutinyLogHandle;
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16[0]) = 0;
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "_relayAudioVideoRXThroughputKbps:TXThroughputKbps: skip notification, currently disabled", v16, 2u);
+      LOWORD(v15[0]) = 0;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "_relayAudioVideoRXThroughputKbps:TXThroughputKbps: skip notification, currently disabled", v15, 2u);
     }
   }
 
@@ -14803,18 +16875,46 @@ LABEL_11:
   }
 
   [(NetworkAnalyticsEngine *)selfCopy _createJournalRecordOfType:3 forInterface:2 fromDict:0];
-  v15 = *MEMORY[0x277D85DE8];
+}
+
++ (void)relayAudioVideoStatus:(unsigned int)status rxThroughput:(double)throughput txThroughput:(double)txThroughput reset:(BOOL)reset
+{
+  resetCopy = reset;
+  v9 = *&status;
+  v14 = *MEMORY[0x277D85DE8];
+  v10 = flowScrutinyLogHandle;
+  if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = 134217984;
+    v13 = sharedInstance_3;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "NAE relayAudioVideoStatus:rxThroughputKbps:txThroughputKbps: called with sharedInstance %p", &v12, 0xCu);
+  }
+
+  if (sharedInstance_3)
+  {
+    [sharedInstance_3 _relayAudioVideoStatus:v9 rxThroughput:resetCopy txThroughput:throughput reset:txThroughput];
+  }
+
+  else
+  {
+    v11 = flowScrutinyLogHandle;
+    if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "relayAudioVideoStatus:rxThroughputKbps:txThroughputKbps: sharedInstance not available", &v12, 2u);
+    }
+  }
 }
 
 - (void)_relayWiFiViability:(unsigned int)viability
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109120;
-    v10[1] = viability;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "_relayWiFiViability called with 0x%x", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = viability;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "_relayWiFiViability called with 0x%x", v9, 8u);
   }
 
   selfCopy = self;
@@ -14828,34 +16928,52 @@ LABEL_11:
     v7 = flowScrutinyLogHandle;
     if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_11;
+      return;
     }
 
-    LOWORD(v10[0]) = 0;
+    LOWORD(v9[0]) = 0;
     v8 = "_relayWiFiViability skip notification, currently disabled";
-LABEL_10:
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, v8, v10, 2u);
-    goto LABEL_11;
-  }
-
-  if (tcsThroughputAdviceSet != 1)
-  {
-    v7 = flowScrutinyLogHandle;
-    if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_11;
-    }
-
-    LOWORD(v10[0]) = 0;
-    v8 = "_relayWiFiViability skip notification, waiting on tcsThroughputAdviceSet";
     goto LABEL_10;
   }
 
-  dword_2814D2FF8 = currentThroughputFlags;
-  dword_2814D2FD8 = 0;
-  [(NetworkAnalyticsEngine *)selfCopy _sendTrafficClassAndExtendedReportToBaseband];
-LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
+  if (tcsThroughputAdviceSet == 1)
+  {
+    dword_2814D2FF8 = currentThroughputFlags;
+    dword_2814D2FD8 = 0;
+    [(NetworkAnalyticsEngine *)selfCopy _sendTrafficClassAndExtendedReportToBaseband];
+    return;
+  }
+
+  v7 = flowScrutinyLogHandle;
+  if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v9[0]) = 0;
+    v8 = "_relayWiFiViability skip notification, waiting on tcsThroughputAdviceSet";
+LABEL_10:
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
+  }
+}
+
++ (void)relayWiFiViability:(unsigned int)viability
+{
+  v5 = sharedInstance_3;
+  if (sharedInstance_3)
+  {
+
+    [v5 _relayWiFiViability:*&viability];
+  }
+
+  else
+  {
+    v8 = v3;
+    v9 = v4;
+    v6 = flowScrutinyLogHandle;
+    if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      *v7 = 0;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "relayWiFiViability: sharedInstance not available", v7, 2u);
+    }
+  }
 }
 
 + (id)queue
@@ -14897,7 +17015,7 @@ LABEL_11:
 
 void __77__NetworkAnalyticsEngine__constructRxSignalExemptionsBitmapFromHint_reasons___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 integerValue];
   if (v4 > 1)
@@ -14940,23 +17058,21 @@ LABEL_12:
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
   {
     v8 = v7;
-    v10 = 134217984;
-    v11 = [v3 integerValue];
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Unrecognized reason from Wi-Fi: %ld", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = [v3 integerValue];
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Unrecognized reason from Wi-Fi: %ld", &v9, 0xCu);
   }
 
 LABEL_13:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (int)performQueryOnEntityFromCache:(id)cache pred:(id)pred altpred:(id *)altpred actions:(id)actions found:(id *)found
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   predCopy = pred;
   actionsCopy = actions;
-  v46 = 0;
+  v45 = 0;
   v14 = [actionsCopy objectForKey:@"sweepUsage"];
 
   if (v14)
@@ -14972,53 +17088,53 @@ LABEL_2:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v24 = [(AnalyticsEngineCore *)self extractQueryStringFrom:predCopy isGeneric:&v46];
-      if (v24)
+      v23 = [(AnalyticsEngineCore *)self extractQueryStringFrom:predCopy isGeneric:&v45];
+      if (v23)
       {
         goto LABEL_20;
       }
     }
 
 LABEL_16:
-    v25 = netepochsLogHandle;
+    v24 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEFAULT, "SymptomAnalytics ServiceImpl: only 1-result string queries are first tried on the memory cache, giving up", buf, 2u);
+      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "SymptomAnalytics ServiceImpl: only 1-result string queries are first tried on the memory cache, giving up", buf, 2u);
     }
 
     goto LABEL_2;
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   subpredicates = [predCopy subpredicates];
-  v19 = [subpredicates countByEnumeratingWithState:&v42 objects:v51 count:16];
-  if (v19)
+  v18 = [subpredicates countByEnumeratingWithState:&v41 objects:v50 count:16];
+  if (v18)
   {
-    v20 = v19;
-    v21 = *v43;
+    v19 = v18;
+    v20 = *v42;
     while (2)
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v43 != v21)
+        if (*v42 != v20)
         {
           objc_enumerationMutation(subpredicates);
         }
 
-        v23 = [(AnalyticsEngineCore *)self extractQueryStringFrom:*(*(&v42 + 1) + 8 * i) isGeneric:&v46];
-        if (v23)
+        v22 = [(AnalyticsEngineCore *)self extractQueryStringFrom:*(*(&v41 + 1) + 8 * i) isGeneric:&v45];
+        if (v22)
         {
-          v24 = v23;
+          v23 = v22;
           goto LABEL_19;
         }
       }
 
-      v20 = [subpredicates countByEnumeratingWithState:&v42 objects:v51 count:16];
-      if (v20)
+      v19 = [subpredicates countByEnumeratingWithState:&v41 objects:v50 count:16];
+      if (v19)
       {
         continue;
       }
@@ -15027,54 +17143,54 @@ LABEL_16:
     }
   }
 
-  v24 = 0;
+  v23 = 0;
 LABEL_19:
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_16;
   }
 
 LABEL_20:
-  v26 = netepochsLogHandle;
+  v25 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v50 = v24;
-    _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_INFO, "SymptomAnalytics ServiceImpl found key: %ld", buf, 0xCu);
+    v49 = v23;
+    _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_INFO, "SymptomAnalytics ServiceImpl found key: %ld", buf, 0xCu);
   }
 
-  if (([v24 isEqualToString:@"currentWiFi"] & 1) != 0 || objc_msgSend(v24, "isEqualToString:", @"currentCell"))
+  if (([v23 isEqualToString:@"currentWiFi"] & 1) != 0 || objc_msgSend(v23, "isEqualToString:", @"currentCell"))
   {
-    if ([v24 isEqualToString:@"currentWiFi"])
+    if ([v23 isEqualToString:@"currentWiFi"])
     {
-      v27 = 3;
+      v26 = 3;
     }
 
     else
     {
-      v27 = 5;
+      v26 = 5;
     }
 
-    v28 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:v27];
-    v29 = netepochsLogHandle;
+    v27 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:v26];
+    v28 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v50 = v28;
-      _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_INFO, "SymptomAnalytics ServiceImpl: cache hit in NetFlow %@", buf, 0xCu);
+      v49 = v27;
+      _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_INFO, "SymptomAnalytics ServiceImpl: cache hit in NetFlow %@", buf, 0xCu);
     }
 
-    if (v28)
+    if (v27)
     {
       name = [cacheCopy name];
       entityName = [MEMORY[0x277D6B5A8] entityName];
-      v32 = [name isEqualToString:entityName];
+      v31 = [name isEqualToString:entityName];
 
-      if (v32)
+      if (v31)
       {
-        v48 = v28;
-        [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
+        v47 = v27;
+        [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
         *found = v15 = 0;
 LABEL_43:
 
@@ -15083,20 +17199,20 @@ LABEL_43:
 
       name2 = [cacheCopy name];
       entityName2 = [MEMORY[0x277D6B5A0] entityName];
-      v35 = [name2 isEqualToString:entityName2];
+      v34 = [name2 isEqualToString:entityName2];
 
-      if (v35)
+      if (v34)
       {
-        v36 = [actionsCopy objectForKey:@"instant"];
+        v35 = [actionsCopy objectForKey:@"instant"];
 
-        if (v36)
+        if (v35)
         {
-          partial = [v28 partial];
-          v38 = partial;
+          partial = [v27 partial];
+          v37 = partial;
           if (partial)
           {
-            v47 = partial;
-            partial = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+            v46 = partial;
+            partial = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
             v15 = 0;
           }
 
@@ -15110,8 +17226,8 @@ LABEL_43:
 
         else
         {
-          durable = [v28 durable];
-          v38 = durable;
+          durable = [v27 durable];
+          v37 = durable;
           if (durable)
           {
             hasDefaultRoute = [durable hasDefaultRoute];
@@ -15138,22 +17254,21 @@ LABEL_43:
 
   v15 = 1;
 LABEL_44:
-  v41 = netepochsLogHandle;
+  v40 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    LODWORD(v50) = v15;
-    _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_INFO, "SymptomAnalytics ServiceImpl: returning cache code %d", buf, 8u);
+    LODWORD(v49) = v15;
+    _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_INFO, "SymptomAnalytics ServiceImpl: returning cache code %d", buf, 8u);
   }
 
 LABEL_3:
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (void)createSnapshotFor:(id)for pred:(id)pred actions:(id)actions reply:(id)reply
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   forCopy = for;
   predCopy = pred;
   actionsCopy = actions;
@@ -15173,7 +17288,7 @@ LABEL_3:
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v63 = forCopy;
+      v62 = forCopy;
       _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_DEFAULT, "SymptomAnalytics ServiceImpl: network: failed request for entityName:%@", buf, 0xCu);
     }
 
@@ -15181,9 +17296,9 @@ LABEL_3:
   }
 
   v17 = v16;
-  v60 = 0;
-  v18 = [(NetworkAnalyticsEngine *)self performQueryOnEntityFromCache:v16 pred:predCopy altpred:0 actions:actionsCopy found:&v60];
-  v19 = v60;
+  v59 = 0;
+  v18 = [(NetworkAnalyticsEngine *)self performQueryOnEntityFromCache:v16 pred:predCopy altpred:0 actions:actionsCopy found:&v59];
+  v19 = v59;
   v20 = v19;
   if (v18)
   {
@@ -15210,22 +17325,22 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v51 = v17;
-  v52 = v15;
-  v53 = replyCopy;
-  v54 = predCopy;
-  v55 = forCopy;
-  v50 = v20;
-  v49 = [v20 objectAtIndexedSubscript:0];
-  v22 = [v49 copy];
+  v50 = v17;
+  v51 = v15;
+  v52 = replyCopy;
+  v53 = predCopy;
+  v54 = forCopy;
+  v49 = v20;
+  v48 = [v20 objectAtIndexedSubscript:0];
+  v22 = [v48 copy];
   uUID = [MEMORY[0x277CCAD78] UUID];
   [v22 setUuid:uUID];
-  v47 = uUID;
-  v48 = v22;
+  v46 = uUID;
+  v47 = v22;
   [(NSMutableDictionary *)self->snapshots setObject:v22 forKeyedSubscript:uUID];
   allValues = [(NSMutableDictionary *)self->snapshots allValues];
-  v45 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-86400.0];
-  v46 = allValues;
+  v44 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-86400.0];
+  v45 = allValues;
   v25 = [NetworkEpoch snapshotsIn:allValues olderThan:?];
   v26 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -15233,30 +17348,30 @@ LABEL_26:
     v27 = v26;
     v28 = [v25 count];
     *buf = 134217984;
-    v63 = v28;
+    v62 = v28;
     _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEFAULT, "SymptomAnalytics ServiceImpl: network: found %lu old entries", buf, 0xCu);
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v29 = v25;
-  v30 = [v29 countByEnumeratingWithState:&v56 objects:v61 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v55 objects:v60 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v57;
+    v32 = *v56;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v57 != v32)
+        if (*v56 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v56 + 1) + 8 * i);
+        v34 = *(*(&v55 + 1) + 8 * i);
         snapshots = self->snapshots;
         uuid = [v34 uuid];
         [(NSMutableDictionary *)snapshots removeObjectForKey:uuid];
@@ -15268,31 +17383,29 @@ LABEL_26:
           uuid2 = [v34 uuid];
           uUIDString = [uuid2 UUIDString];
           *buf = 138412290;
-          v63 = uUIDString;
+          v62 = uUIDString;
           _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_DEFAULT, "SymptomAnalytics ServiceImpl: network: remove entry for uuid: %@", buf, 0xCu);
         }
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v56 objects:v61 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v55 objects:v60 count:16];
     }
 
     while (v31);
   }
 
-  replyCopy = v53;
-  (v53)[2](v53, v47, 0);
+  replyCopy = v52;
+  (v52)[2](v52, v46, 0);
 
-  predCopy = v54;
-  forCopy = v55;
-  v41 = v52;
+  predCopy = v53;
+  forCopy = v54;
+  v41 = v51;
 LABEL_27:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performQueryPostProcessing:(id)processing actions:(id)actions processOutcome:(id)outcome
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   processingCopy = processing;
   actionsCopy = actions;
   outcomeCopy = outcome;
@@ -15304,7 +17417,7 @@ LABEL_27:
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v43 = processingCopy;
+      v42 = processingCopy;
       _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, "SymptomAnalytics ServiceImpl: compute advisory score over %@", buf, 0xCu);
     }
 
@@ -15326,7 +17439,7 @@ LABEL_27:
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v43 = v16;
+      v42 = v16;
       _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_INFO, "SymptomAnalytics ServiceImpl: returning advisory score: %@", buf, 0xCu);
     }
 
@@ -15340,13 +17453,13 @@ LABEL_27:
     if (durable)
     {
       v20 = durable;
-      v39 = v15;
+      v38 = v15;
       durable2 = [v14 durable];
       kind = [durable2 kind];
       if ([kind shortValue] == 1)
       {
-        v37 = outcomeCopy;
-        v38 = processingCopy;
+        v36 = outcomeCopy;
+        v37 = processingCopy;
         v23 = performQueryPostProcessing_actions_processOutcome__lastNetworkAdvisoryDictionary;
         durable3 = [v14 durable];
         kind2 = [durable3 kind];
@@ -15356,9 +17469,9 @@ LABEL_27:
         if (v27)
         {
           v28 = 0;
-          outcomeCopy = v37;
-          processingCopy = v38;
-          v15 = v39;
+          outcomeCopy = v36;
+          processingCopy = v37;
+          v15 = v38;
 LABEL_21:
           v19 = 0x277CBE000uLL;
           goto LABEL_22;
@@ -15373,12 +17486,12 @@ LABEL_21:
         v33 = [MEMORY[0x277CCABB0] numberWithShort:1];
         v34 = [v32 dictionaryWithObjectsAndKeys:{v16, @"advisoryKey", v33, @"Network Type", 0}];
 
-        outcomeCopy = v37;
-        v15 = v39;
+        outcomeCopy = v36;
+        v15 = v38;
         if (!v34)
         {
           v28 = 0;
-          processingCopy = v38;
+          processingCopy = v37;
           goto LABEL_21;
         }
 
@@ -15387,10 +17500,10 @@ LABEL_21:
         block[2] = __76__NetworkAnalyticsEngine_performQueryPostProcessing_actions_processOutcome___block_invoke_2;
         block[3] = &unk_27898A0C8;
         v28 = v34;
-        v41 = v28;
+        v40 = v28;
         dispatch_async(MEMORY[0x277D85CD0], block);
-        v20 = v41;
-        processingCopy = v38;
+        v20 = v40;
+        processingCopy = v37;
         v19 = 0x277CBE000;
       }
 
@@ -15398,7 +17511,7 @@ LABEL_21:
       {
 
         v28 = 0;
-        v15 = v39;
+        v15 = v38;
       }
     }
 
@@ -15411,8 +17524,6 @@ LABEL_22:
     v35 = [*(v19 + 2752) dictionaryWithObjectsAndKeys:{v16, @"advisoryKey", 0}];
     [outcomeCopy addObject:v35];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __76__NetworkAnalyticsEngine_performQueryPostProcessing_actions_processOutcome___block_invoke()
@@ -15426,7 +17537,7 @@ uint64_t __76__NetworkAnalyticsEngine_performQueryPostProcessing_actions_process
 
 - (id)_createNetworkAttachmentIdentifierExclusionList
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:10];
   v4 = [(NetworkAnalyticsEngine *)self _epochForInterfaceType:3];
   v5 = v4;
@@ -15444,36 +17555,34 @@ uint64_t __76__NetworkAnalyticsEngine_performQueryPostProcessing_actions_process
     [v3 addObject:primaryKey2];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   allValues = [(NSMutableDictionary *)self->liveDefaultRoutes allValues];
-  v10 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(allValues);
         }
 
-        primaryKey3 = [*(*(&v17 + 1) + 8 * i) primaryKey];
+        primaryKey3 = [*(*(&v16 + 1) + 8 * i) primaryKey];
         [v3 addObject:primaryKey3];
       }
 
-      v11 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -15500,7 +17609,7 @@ uint64_t __76__NetworkAnalyticsEngine_performQueryPostProcessing_actions_process
 
 - (void)_awdCaptureInstant:(id)instant replyQueue:(id)queue reply:(id)reply
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   instantCopy = instant;
   queueCopy = queue;
   replyCopy = reply;
@@ -15537,64 +17646,62 @@ uint64_t __76__NetworkAnalyticsEngine_performQueryPostProcessing_actions_process
   }
 
   *buf = 0;
-  v36 = buf;
-  v37 = 0x2020000000;
+  v35 = buf;
+  v36 = 0x2020000000;
   defRoute4 = [v15 defRoute4];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
   defRoute6 = [v15 defRoute6];
-  v17 = *(v36 + 3);
+  v17 = *(v35 + 3);
   if (v17)
   {
     CFRetain(v17);
   }
 
-  v18 = v32[3];
+  v18 = v31[3];
   if (v18)
   {
     CFRetain(v18);
   }
 
-  if (!*(v36 + 3) && !v32[3])
+  if (!*(v35 + 3) && !v31[3])
   {
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v30, 8);
     _Block_object_dispose(buf, 8);
 LABEL_17:
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __62__NetworkAnalyticsEngine__awdCaptureInstant_replyQueue_reply___block_invoke_2;
     block[3] = &unk_27898DD40;
-    v21 = replyCopy;
-    v22 = 0;
+    v20 = replyCopy;
+    v21 = 0;
     dispatch_async(queueCopy, block);
 
     goto LABEL_18;
   }
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __62__NetworkAnalyticsEngine__awdCaptureInstant_replyQueue_reply___block_invoke;
-  v23[3] = &unk_27898DEA8;
-  v24 = v11;
-  v25 = partial;
-  v26 = v15;
-  v29 = buf;
-  v30 = &v31;
-  v27 = queueCopy;
-  v28 = replyCopy;
-  [(NetworkAnalyticsEngine *)self _performNetAttachmentQueryOn:v12 reply:v23];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __62__NetworkAnalyticsEngine__awdCaptureInstant_replyQueue_reply___block_invoke;
+  v22[3] = &unk_27898DEA8;
+  v23 = v11;
+  v24 = partial;
+  v25 = v15;
+  v28 = buf;
+  v29 = &v30;
+  v26 = queueCopy;
+  v27 = replyCopy;
+  [(NetworkAnalyticsEngine *)self _performNetAttachmentQueryOn:v12 reply:v22];
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v30, 8);
   _Block_object_dispose(buf, 8);
 LABEL_18:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __62__NetworkAnalyticsEngine__awdCaptureInstant_replyQueue_reply___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   [*(a1 + 40) bytesIn];
   [*(a1 + 32) setBytesIn:v2];
   [*(a1 + 40) bytesOut];
@@ -15645,7 +17752,7 @@ void __62__NetworkAnalyticsEngine__awdCaptureInstant_replyQueue_reply___block_in
   {
     v17 = *(a1 + 32);
     *buf = 138412290;
-    v23 = v17;
+    v22 = v17;
     _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "AWDAgent: real instant query outcome: %@", buf, 0xCu);
   }
 
@@ -15654,10 +17761,8 @@ void __62__NetworkAnalyticsEngine__awdCaptureInstant_replyQueue_reply___block_in
   block[2] = __62__NetworkAnalyticsEngine__awdCaptureInstant_replyQueue_reply___block_invoke_922;
   block[3] = &unk_27898C670;
   v18 = *(a1 + 56);
-  v21 = *(a1 + 64);
+  v20 = *(a1 + 64);
   dispatch_async(v18, block);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __62__NetworkAnalyticsEngine__awdCaptureInstant_replyQueue_reply___block_invoke_2(uint64_t a1)
@@ -15665,11 +17770,10 @@ uint64_t __62__NetworkAnalyticsEngine__awdCaptureInstant_replyQueue_reply___bloc
   v2 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "AWDAgent: no epoch/lrp", v5, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "AWDAgent: no epoch/lrp", v4, 2u);
   }
 
-  v3 = *(a1 + 40);
   return (*(*(a1 + 32) + 16))();
 }
 
@@ -15695,40 +17799,36 @@ uint64_t __62__NetworkAnalyticsEngine__awdCaptureInstant_replyQueue_reply___bloc
 
 void __57__NetworkAnalyticsEngine__awdCaptureIn_replyQueue_reply___block_invoke(uint64_t *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = a1[4];
+  v13 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = a1[4];
-    v3 = a1[5];
-    v5 = a1[6];
-    v6 = a1[7];
-    v7 = *MEMORY[0x277D85DE8];
+    v3 = a1[4];
+    v2 = a1[5];
+    v4 = a1[6];
+    v5 = a1[7];
 
-    [v3 _awdCaptureInstant:v4 replyQueue:v5 reply:v6];
+    [v2 _awdCaptureInstant:v3 replyQueue:v4 reply:v5];
   }
 
   else
   {
-    v8 = netepochsLogHandle;
+    v6 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v9 = a1[4];
+      v7 = a1[4];
       *buf = 134217984;
-      v15 = v9;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "AWDAgent: unrecognized payload %p", buf, 0xCu);
+      v12 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "AWDAgent: unrecognized payload %p", buf, 0xCu);
     }
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __57__NetworkAnalyticsEngine__awdCaptureIn_replyQueue_reply___block_invoke_925;
     block[3] = &unk_27898C670;
-    v10 = a1[6];
-    v13 = a1[7];
-    dispatch_async(v10, block);
-
-    v11 = *MEMORY[0x277D85DE8];
+    v8 = a1[6];
+    v10 = a1[7];
+    dispatch_async(v8, block);
   }
 }
 
@@ -15752,6 +17852,25 @@ void __57__NetworkAnalyticsEngine__awdCaptureIn_replyQueue_reply___block_invoke(
     }
 
     replyCopy[2](replyCopy, 0);
+  }
+}
+
+- (void)_performPeriodicTasks:(BOOL)tasks
+{
+  [(NetworkAnalyticsEngine *)self _trainModelAndScore:tasks];
+  v4 = analyticsLogHandle;
+  if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Starting NWActivityHelper...", buf, 2u);
+  }
+
+  [(NWActivityHelper *)self->_nwActivityHelper startNWActivitySuperMetricProcessing];
+  v5 = analyticsLogHandle;
+  if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    *v6 = 0;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "NWActivityHelper complete!", v6, 2u);
   }
 }
 
@@ -15803,7 +17922,7 @@ void __64__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreInterrupted__block_
 
 - (void)proxyAnalyticsTrainAndScoreComplete:(id)complete error:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   errorCopy = error;
   v8 = netepochsLogHandle;
@@ -15814,7 +17933,7 @@ void __64__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreInterrupted__block_
       v9 = v8;
       localizedDescription = [errorCopy localizedDescription];
       *buf = 138412290;
-      v16 = localizedDescription;
+      v15 = localizedDescription;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "proxyAnalyticsTrainAndScoreComplete: error:%@", buf, 0xCu);
     }
   }
@@ -15828,39 +17947,37 @@ void __64__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreInterrupted__block_
     }
 
     queue = [(AnalyticsEngineCore *)self queue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __68__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreComplete_error___block_invoke;
-    v13[3] = &unk_27898A7D0;
-    v13[4] = self;
-    v14 = completeCopy;
-    dispatch_async(queue, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __68__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreComplete_error___block_invoke;
+    v12[3] = &unk_27898A7D0;
+    v12[4] = self;
+    v13 = completeCopy;
+    dispatch_async(queue, v12);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __68__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreComplete_error___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 352) processProxyTrain];
   v3 = *(*(a1 + 32) + 156);
   v2 = *(*(a1 + 32) + 160);
   v4 = [*(a1 + 40) objectForKeyedSubscript:@"lastScoreExits"];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __68__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreComplete_error___block_invoke_2;
-  v13[3] = &unk_27898DED0;
-  v13[4] = *(a1 + 32);
-  [v4 enumerateObjectsUsingBlock:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __68__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreComplete_error___block_invoke_2;
+  v12[3] = &unk_27898DED0;
+  v12[4] = *(a1 + 32);
+  [v4 enumerateObjectsUsingBlock:v12];
   v5 = scoringLogHandle;
   if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v6 = *(*(a1 + 32) + 156);
     *buf = 67109376;
-    v15 = v3;
-    v16 = 1024;
-    v17 = v6;
+    v14 = v3;
+    v15 = 1024;
+    v16 = v6;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "lastScoreExit[NWInterfaceTypeWiFi] was %d and is now %d", buf, 0xEu);
   }
 
@@ -15869,9 +17986,9 @@ void __68__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreComplete_error___bl
   {
     v8 = *(*(a1 + 32) + 160);
     *buf = 67109376;
-    v15 = v2;
-    v16 = 1024;
-    v17 = v8;
+    v14 = v2;
+    v15 = 1024;
+    v16 = v8;
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "lastScoreExit[NWInterfaceTypeCellular] was %d and is now %d", buf, 0xEu);
   }
 
@@ -15890,11 +18007,9 @@ void __68__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreComplete_error___bl
 
   v11 = [NetworkStateRelay getStateRelayFor:3];
   [v11 setKnowableSporadic:{objc_msgSend(*(a1 + 32), "_isKnowableSporadicForType:", 3)}];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __68__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreComplete_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__68__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreComplete_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 intValue];
   *(*(a1 + 32) + 152 + 4 * a3) = result;
@@ -15906,39 +18021,87 @@ uint64_t __68__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreComplete_error_
   return result;
 }
 
++ (BOOL)trainModelAndScore:(BOOL)score lastScoreDate:(id)date output:(id *)output
+{
+  scoreCopy = score;
+  dateCopy = date;
+  v8 = sharedInstance_3;
+  if (sharedInstance_3)
+  {
+    _model = [sharedInstance_3 _model];
+    [_model setIsHelper:1];
+
+    [sharedInstance_3 _setLastScoreDate:dateCopy];
+    [sharedInstance_3 _performPeriodicTasks:scoreCopy];
+    if (output && scoreCopy)
+    {
+      v10 = MEMORY[0x277CBEB38];
+      lastScoreExits = [sharedInstance_3 lastScoreExits];
+      lastScoreDate = [sharedInstance_3 lastScoreDate];
+      *output = [v10 dictionaryWithObjectsAndKeys:{lastScoreExits, @"lastScoreExits", lastScoreDate, @"lastScoreDate", 0}];
+    }
+
+    v13 = analyticsLogHandle;
+    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      v21 = 0;
+      v14 = "helper complete!";
+      v15 = &v21;
+      v16 = v13;
+      v17 = OS_LOG_TYPE_DEBUG;
+LABEL_9:
+      _os_log_impl(&dword_23255B000, v16, v17, v14, v15, 2u);
+    }
+  }
+
+  else
+  {
+    v18 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      v14 = "No Shared Instance";
+      v15 = buf;
+      v16 = v18;
+      v17 = OS_LOG_TYPE_ERROR;
+      goto LABEL_9;
+    }
+  }
+
+  return v8 != 0;
+}
+
 - (void)performPersistentStoreHealthCheckComplete:(id)complete error:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   errorCopy = error;
   if (errorCopy)
   {
-    v7 = errorCopy;
-    v8 = netepochsLogHandle;
+    v6 = errorCopy;
+    v7 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: performPersistentStoreHealthCheckCompleted with error:%@", buf, 0xCu);
+      v11 = v6;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: performPersistentStoreHealthCheckCompleted with error:%@", buf, 0xCu);
     }
 
     +[AnalyticsLaunchpad leaveBreadcrumbForIntegrityCheck];
-    v9 = netepochsLogHandle;
+    v8 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "WARNING: Will terminate symptomsd to allow for PersistentStore recovery ***", buf, 2u);
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "WARNING: Will terminate symptomsd to allow for PersistentStore recovery ***", buf, 2u);
     }
 
     exit(0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)performPersistentStoreHealthCheckWithReply:(id)reply
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v4 = replyCopy;
   if (sharedInstance_3)
@@ -15972,7 +18135,7 @@ uint64_t __68__NetworkAnalyticsEngine_proxyAnalyticsTrainAndScoreComplete_error_
       }
 
       *buf = 138412290;
-      v21 = v12;
+      v20 = v12;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Completed integrity check in the helper. PersistentStore is %@", buf, 0xCu);
     }
 
@@ -15997,8 +18160,8 @@ LABEL_16:
     }
 
     v15 = [MEMORY[0x277CCABB0] numberWithBool:{integrityCheckFailed, @"integrityCheckFailed"}];
-    v19 = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v18 = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     (v4)[2](v4, v16, v13);
 
     goto LABEL_16;
@@ -16010,15 +18173,14 @@ LABEL_16:
     (v4)[2](v4, 0, v8);
 LABEL_17:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createJournalRecordOfType:(char *)a1 forInterface:fromDict:.cold.1(char **a1)
 {
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strict allocator failed", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strict allocator failed", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;

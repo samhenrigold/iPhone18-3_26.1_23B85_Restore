@@ -11,6 +11,7 @@
 - (id)connectedBluetoothAddresses;
 - (unint64_t)connectedServicesCountForBluetoothAddress:(id)address;
 - (void)_pairingCompletedForDevice:(id)device;
+- (void)_pairingFailedForDevice:(id)device didTimeout:(BOOL)timeout;
 - (void)_requestConfirmationForDevice:(id)device numericCode:(id)code;
 - (void)addObserver:(id)observer;
 - (void)bluetoothPowerStateChanged:(id)changed;
@@ -23,6 +24,7 @@
 - (void)pairingSuccessHandler:(id)handler;
 - (void)removeObserver:(id)observer;
 - (void)setContactsSyncEnabled:(BOOL)enabled forBluetoothAddress:(id)address;
+- (void)setPowered:(BOOL)powered;
 @end
 
 @implementation CRBluetoothManager
@@ -591,6 +593,13 @@ LABEL_24:
   [v3 connect];
 }
 
+- (void)setPowered:(BOOL)powered
+{
+  poweredCopy = powered;
+  v4 = +[BluetoothManager sharedInstance];
+  [v4 setPowered:poweredCopy];
+}
+
 - (BOOL)isPowered
 {
   v2 = +[BluetoothManager sharedInstance];
@@ -629,6 +638,39 @@ LABEL_24:
     v15 = deviceCopy;
     v16 = address;
     [pairingDelegate bluetoothManager:self requestsConfirmationForDeviceAddress:v16 name:v11 numericCode:codeCopy responseHandler:v14];
+  }
+}
+
+- (void)_pairingFailedForDevice:(id)device didTimeout:(BOOL)timeout
+{
+  timeoutCopy = timeout;
+  deviceCopy = device;
+  address = [deviceCopy address];
+  v8 = objc_opt_class();
+  name = [deviceCopy name];
+
+  v10 = [v8 _sanitizeName:name];
+
+  v11 = CarPairingLogging();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 141558275;
+    v16 = 1752392040;
+    v17 = 2113;
+    v18 = address;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "pairing failed for device %{private, mask.hash}@", &v15, 0x16u);
+  }
+
+  v12 = +[BluetoothManager sharedInstance];
+  [v12 setDevicePairingEnabled:0];
+
+  v13 = +[BluetoothManager sharedInstance];
+  [v13 setConnectable:0];
+
+  pairingDelegate = [(CRBluetoothManager *)self pairingDelegate];
+  if (pairingDelegate && (objc_opt_respondsToSelector() & 1) != 0)
+  {
+    [pairingDelegate bluetoothManager:self failedPairingForDeviceAddress:address name:v10 didTimeout:timeoutCopy];
   }
 }
 

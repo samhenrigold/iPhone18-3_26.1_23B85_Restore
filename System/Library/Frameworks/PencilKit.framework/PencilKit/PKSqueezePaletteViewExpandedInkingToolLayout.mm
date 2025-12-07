@@ -176,7 +176,7 @@ LABEL_27:
         [(PKSqueezePaletteViewExpandedInkingToolLayout *)self setLayoutConstraints:v54];
 
         v55 = objc_loadWeakRetained(&self->_paletteView);
-        [(PKSqueezePaletteView *)v55 updateUIStartAngle:1 endAngle:v80[3] clockwise:v7 animated:?];
+        [(PKSqueezePaletteView *)v55 updateUIStartAngle:v80[3] endAngle:v7 clockwise:1u animated:?];
 
         [v6 addTarget:self action:sel__didTapDrawingTool_ forControlEvents:64];
         _Block_object_dispose(&v79, 8);

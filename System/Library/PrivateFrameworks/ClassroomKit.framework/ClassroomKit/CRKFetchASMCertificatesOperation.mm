@@ -80,19 +80,20 @@ void __42__CRKFetchASMCertificatesOperation_cancel__block_invoke(uint64_t a1)
 
 - (void)main
 {
-  v28 = *MEMORY[0x277D85DE8];
-  if ([MEMORY[0x277CCACC8] isMainThread])
+  v29 = *MEMORY[0x277D85DE8];
+  isMainThread = [MEMORY[0x277CCACC8] isMainThread];
+  if (isMainThread)
   {
-    v4 = _CRKLogASM_4();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _CRKLogASM_4(isMainThread);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = objc_opt_class();
-      v6 = NSStringFromClass(v5);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       *buf = 138543618;
-      v25 = v6;
-      v26 = 2048;
+      v26 = v7;
+      v27 = 2048;
       selfCopy2 = self;
-      _os_log_impl(&dword_243550000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Fetching ASM certificate", buf, 0x16u);
+      _os_log_impl(&dword_243550000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Fetching ASM certificate", buf, 0x16u);
     }
 
     controlGroupIdentifier = [(CRKFetchASMCertificatesOperation *)self controlGroupIdentifier];
@@ -100,37 +101,37 @@ void __42__CRKFetchASMCertificatesOperation_cancel__block_invoke(uint64_t a1)
     sourceRole = [(CRKFetchASMCertificatesOperation *)self sourceRole];
     destinationRole = [(CRKFetchASMCertificatesOperation *)self destinationRole];
     requesterCertificate = [(CRKFetchASMCertificatesOperation *)self requesterCertificate];
-    v12 = [CRKRequestCertificatesIDSMessage messageWithControlGroupIdentifier:controlGroupIdentifier destinationDeviceIdentifier:destinationDeviceIdentifier sourceRole:sourceRole destinationRole:destinationRole requesterCertificate:requesterCertificate];
+    v13 = [CRKRequestCertificatesIDSMessage messageWithControlGroupIdentifier:controlGroupIdentifier destinationDeviceIdentifier:destinationDeviceIdentifier sourceRole:sourceRole destinationRole:destinationRole requesterCertificate:requesterCertificate];
 
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __40__CRKFetchASMCertificatesOperation_main__block_invoke;
-    v22[3] = &unk_278DC12A8;
-    v22[4] = self;
-    v13 = v12;
-    v23 = v13;
-    v14 = MEMORY[0x245D3AAD0](v22);
-    v15 = _CRKLogASM_4();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __40__CRKFetchASMCertificatesOperation_main__block_invoke;
+    v23[3] = &unk_278DC12A8;
+    v23[4] = self;
+    v14 = v13;
+    v24 = v14;
+    v15 = MEMORY[0x245D3AAD0](v23);
+    v16 = _CRKLogASM_4(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
       *buf = 138543618;
-      v25 = v17;
-      v26 = 2048;
+      v26 = v18;
+      v27 = 2048;
       selfCopy2 = self;
-      _os_log_impl(&dword_243550000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Preparing to receive response before sending request", buf, 0x16u);
+      _os_log_impl(&dword_243550000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Preparing to receive response before sending request", buf, 0x16u);
     }
 
     iDSPrimitives = [(CRKFetchASMCertificatesOperation *)self IDSPrimitives];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __40__CRKFetchASMCertificatesOperation_main__block_invoke_5;
-    v20[3] = &unk_278DC12F8;
-    v20[4] = self;
-    v21 = v13;
-    v19 = v13;
-    [iDSPrimitives subscribeToMessagesWithHandler:v14 completion:v20];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __40__CRKFetchASMCertificatesOperation_main__block_invoke_5;
+    v21[3] = &unk_278DC12F8;
+    v21[4] = self;
+    v22 = v14;
+    v20 = v14;
+    [iDSPrimitives subscribeToMessagesWithHandler:v15 completion:v21];
   }
 
   else
@@ -170,66 +171,67 @@ void __40__CRKFetchASMCertificatesOperation_main__block_invoke_5(uint64_t a1, vo
 
 void __40__CRKFetchASMCertificatesOperation_main__block_invoke_2(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) isExecuting])
+  v30 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) isExecuting];
+  if (v2)
   {
     if (*(a1 + 40))
     {
-      v2 = *(a1 + 32);
+      v3 = *(a1 + 32);
 
-      [v2 endOperationWithError:?];
+      [v3 endOperationWithError:?];
     }
 
     else
     {
-      v3 = _CRKLogASM_4();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = _CRKLogASM_4(v2);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = objc_opt_class();
-        v5 = NSStringFromClass(v4);
-        v6 = *(a1 + 32);
+        v5 = objc_opt_class();
+        v6 = NSStringFromClass(v5);
+        v7 = *(a1 + 32);
         *buf = 138543618;
-        v23 = v5;
-        v24 = 2048;
         v25 = v6;
-        _os_log_impl(&dword_243550000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Ready to receive certificate response", buf, 0x16u);
+        v26 = 2048;
+        v27 = v7;
+        _os_log_impl(&dword_243550000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Ready to receive certificate response", buf, 0x16u);
       }
 
       [*(a1 + 32) setMessageReceiveSubscription:*(a1 + 48)];
-      v7 = [CRKIDSMessageCannon alloc];
-      v8 = [*(a1 + 32) IDSPrimitives];
-      v9 = [(CRKIDSMessageCannon *)v7 initWithIDSPrimitives:v8];
+      v8 = [CRKIDSMessageCannon alloc];
+      v9 = [*(a1 + 32) IDSPrimitives];
+      v10 = [(CRKIDSMessageCannon *)v8 initWithIDSPrimitives:v9];
 
-      v10 = _CRKLogASM_4();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = _CRKLogASM_4(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
-        v13 = *(a1 + 32);
-        v14 = [v13 destinationAppleID];
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
+        v15 = *(a1 + 32);
+        v16 = [v15 destinationAppleID];
         *buf = 138543874;
-        v23 = v12;
-        v24 = 2048;
-        v25 = v13;
-        v26 = 2114;
-        v27 = v14;
-        _os_log_impl(&dword_243550000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Sending cert request to (%{public}@)", buf, 0x20u);
+        v25 = v14;
+        v26 = 2048;
+        v27 = v15;
+        v28 = 2114;
+        v29 = v16;
+        _os_log_impl(&dword_243550000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Sending cert request to (%{public}@)", buf, 0x20u);
       }
 
-      v15 = [*(a1 + 32) addressTranslator];
-      v16 = [*(a1 + 32) destinationAppleID];
-      v17 = [v15 destinationAddressForAppleID:v16];
+      v17 = [*(a1 + 32) addressTranslator];
+      v18 = [*(a1 + 32) destinationAppleID];
+      v19 = [v17 destinationAddressForAppleID:v18];
 
-      v18 = objc_opt_new();
-      [v18 setFireAndForget:1];
-      v19 = *(a1 + 56);
-      v20 = [*(a1 + 32) sourceAppleID];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __40__CRKFetchASMCertificatesOperation_main__block_invoke_8;
-      v21[3] = &unk_278DC0F68;
-      v21[4] = *(a1 + 32);
-      [(CRKIDSMessageCannon *)v9 sendIDSMessage:v19 destinationAddress:v17 sourceAppleID:v20 options:v18 completion:v21];
+      v20 = objc_opt_new();
+      [v20 setFireAndForget:1];
+      v21 = *(a1 + 56);
+      v22 = [*(a1 + 32) sourceAppleID];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __40__CRKFetchASMCertificatesOperation_main__block_invoke_8;
+      v23[3] = &unk_278DC0F68;
+      v23[4] = *(a1 + 32);
+      [(CRKIDSMessageCannon *)v10 sendIDSMessage:v21 destinationAddress:v19 sourceAppleID:v22 options:v20 completion:v23];
     }
   }
 }
@@ -247,7 +249,7 @@ void __40__CRKFetchASMCertificatesOperation_main__block_invoke_2(uint64_t a1)
   dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-uint64_t __51__CRKFetchASMCertificatesOperation_didSendMessage___block_invoke(uint64_t a1)
+void *__51__CRKFetchASMCertificatesOperation_didSendMessage___block_invoke(uint64_t a1)
 {
   v2 = (a1 + 32);
   result = [*(a1 + 32) isExecuting];
@@ -257,7 +259,7 @@ uint64_t __51__CRKFetchASMCertificatesOperation_didSendMessage___block_invoke(ui
     v4 = (a1 + 40);
     if (v5)
     {
-      v6 = _CRKLogASM_4();
+      v6 = _CRKLogASM_4(result);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __51__CRKFetchASMCertificatesOperation_didSendMessage___block_invoke_cold_1(v2, v4, v6);
@@ -291,79 +293,80 @@ uint64_t __51__CRKFetchASMCertificatesOperation_didSendMessage___block_invoke(ui
 
 void __83__CRKFetchASMCertificatesOperation_processMessage_senderAppleID_requestIdentifier___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) isExecuting])
+  v34 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) isExecuting];
+  if (v2)
   {
-    v2 = _CRKLogASM_4();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = _CRKLogASM_4(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = objc_opt_class();
-      v4 = NSStringFromClass(v3);
-      v5 = *(a1 + 32);
-      v6 = *(a1 + 40);
-      v26 = 138543874;
-      v27 = v4;
-      v28 = 2048;
+      v4 = objc_opt_class();
+      v5 = NSStringFromClass(v4);
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v28 = 138543874;
       v29 = v5;
-      v30 = 2114;
+      v30 = 2048;
       v31 = v6;
-      _os_log_impl(&dword_243550000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Processing message response from (%{public}@)", &v26, 0x20u);
+      v32 = 2114;
+      v33 = v7;
+      _os_log_impl(&dword_243550000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Processing message response from (%{public}@)", &v28, 0x20u);
     }
 
-    v7 = [*(a1 + 32) destinationAppleID];
-    v8 = [v7 isEqualToString:*(a1 + 40)];
+    v8 = [*(a1 + 32) destinationAppleID];
+    v9 = [v8 isEqualToString:*(a1 + 40)];
 
-    if (v8)
+    if (v9)
     {
-      v9 = [CRKIDSMessagePayload instanceWithDictionary:*(a1 + 48)];
-      v10 = v9;
-      if (v9)
+      v10 = [CRKIDSMessagePayload instanceWithDictionary:*(a1 + 48)];
+      v11 = v10;
+      if (v10)
       {
-        v11 = [v9 messageMetadata];
-        v12 = [v11 messageType];
+        v12 = [v10 messageMetadata];
+        v13 = [v12 messageType];
 
-        if (v12 == 2)
+        if (v13 == 2)
         {
-          v13 = [v10 messageContent];
-          v14 = [CRKRequestCertificatesResponseIDSMessage instanceWithDictionary:v13];
+          v14 = [v11 messageContent];
+          v15 = [CRKRequestCertificatesResponseIDSMessage instanceWithDictionary:v14];
 
-          if (v14)
+          if (v15)
           {
-            v15 = [v14 requestIdentifier];
-            v16 = [v15 isEqual:*(a1 + 56)];
+            v16 = [v15 requestIdentifier];
+            v17 = [v16 isEqual:*(a1 + 56)];
 
-            if (v16)
+            if (v17)
             {
-              v17 = [v14 error];
+              v18 = [v15 error];
 
-              if (v17)
+              if (v18)
               {
-                v18 = *(a1 + 32);
-                v19 = [v14 error];
-                [v18 endOperationWithError:v19];
+                v20 = *(a1 + 32);
+                v21 = [v15 error];
+                [v20 endOperationWithError:v21];
               }
 
               else
               {
-                v20 = _CRKLogASM_4();
-                if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+                v22 = _CRKLogASM_4(v19);
+                if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
                 {
-                  v21 = objc_opt_class();
-                  v22 = NSStringFromClass(v21);
-                  v23 = *(a1 + 32);
-                  v24 = *(a1 + 40);
-                  v26 = 138543874;
-                  v27 = v22;
-                  v28 = 2048;
-                  v29 = v23;
-                  v30 = 2114;
-                  v31 = v24;
-                  _os_log_impl(&dword_243550000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Valid cert response from (%{public}@)", &v26, 0x20u);
+                  v23 = objc_opt_class();
+                  v24 = NSStringFromClass(v23);
+                  v25 = *(a1 + 32);
+                  v26 = *(a1 + 40);
+                  v28 = 138543874;
+                  v29 = v24;
+                  v30 = 2048;
+                  v31 = v25;
+                  v32 = 2114;
+                  v33 = v26;
+                  _os_log_impl(&dword_243550000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Valid cert response from (%{public}@)", &v28, 0x20u);
                 }
 
-                v25 = *(a1 + 32);
-                v19 = [v14 certificateDataCollection];
-                [v25 endOperationWithResultObject:v19];
+                v27 = *(a1 + 32);
+                v21 = [v15 certificateDataCollection];
+                [v27 endOperationWithResultObject:v21];
               }
             }
           }

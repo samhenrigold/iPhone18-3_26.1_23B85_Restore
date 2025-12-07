@@ -47,17 +47,21 @@
 
   if (v3 == self)
   {
-    reusablePlaceholderImageAppearance = [SBHPlaceholderIconImageAppearance alloc];
+    v4 = [SBHPlaceholderIconImageAppearance alloc];
+    v5 = reusablePlaceholderImageAppearance;
+    reusablePlaceholderImageAppearance = v4;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v4, v5);
   }
 }
 
 uint64_t __41__SBHIconImageAppearance_lightAppearance__block_invoke()
 {
-  lightAppearance_lightAppearance = objc_alloc_init(SBHLightIconImageAppearance);
+  v0 = objc_alloc_init(SBHLightIconImageAppearance);
+  v1 = lightAppearance_lightAppearance;
+  lightAppearance_lightAppearance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (SBHIconImageAppearance)darkAppearance

@@ -44,7 +44,7 @@ void __71__ICUlyssesContentMapping_getImageURLQueryString_withInput_parameters__
 
 void __71__ICUlyssesContentMapping_getImageURLQueryString_withInput_parameters___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -53,12 +53,12 @@ void __71__ICUlyssesContentMapping_getImageURLQueryString_withInput_parameters__
     v6 = [v5 base64EncodedStringWithOptions:0];
 
     v7 = MEMORY[0x1E695DFF8];
-    v12[0] = @"image";
-    v12[1] = @"filename";
-    v13[0] = v6;
+    v11[0] = @"image";
+    v11[1] = @"filename";
+    v12[0] = v6;
     v8 = [v4 filename];
-    v13[1] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v12[1] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
     v10 = [v7 dc_queryStringWithQueryDictionary:v9];
 
     (*(*(a1 + 32) + 16))();
@@ -68,8 +68,6 @@ void __71__ICUlyssesContentMapping_getImageURLQueryString_withInput_parameters__
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getTextRepresentation:(id)representation withInput:(id)input parameters:(id)parameters
@@ -78,20 +76,20 @@ void __71__ICUlyssesContentMapping_getImageURLQueryString_withInput_parameters__
   inputCopy = input;
   parametersCopy = parameters;
   v11 = [parametersCopy objectForKey:@"UlyssesTextFormat"];
-  v12 = [v11 isEqualToString:@"Markdown"];
-  v13 = [v11 isEqualToString:@"HTML"];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
+  v13 = objc_msgSend_isEqualToString_(v11);
   items = [inputCopy items];
   v15 = [items objectsMatchingClass:objc_opt_class()];
   firstObject = [v15 firstObject];
 
-  if (firstObject && ((v12 | v13) & 1) != 0)
+  if (firstObject && ((isEqualToString | v13) & 1) != 0)
   {
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
     v18[2] = __70__ICUlyssesContentMapping_getTextRepresentation_withInput_parameters___block_invoke;
     v18[3] = &unk_1E837BB60;
     v19 = representationCopy;
-    v20 = v12;
+    v20 = isEqualToString;
     v17 = [MEMORY[0x1E69E0AF8] typeWithUTType:{*MEMORY[0x1E6982E18], v18[0], 3221225472, __70__ICUlyssesContentMapping_getTextRepresentation_withInput_parameters___block_invoke, &unk_1E837BB60}];
     [firstObject getFileRepresentation:v18 forType:v17];
   }
@@ -153,15 +151,15 @@ LABEL_7:
 
 void __70__ICUlyssesContentMapping_getTextURLQueryString_withInput_parameters___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v4 = MEMORY[0x1E695DFF8];
-    v10 = @"text";
-    v11[0] = a2;
+    v9 = @"text";
+    v10[0] = a2;
     v5 = MEMORY[0x1E695DF20];
     v6 = a2;
-    v7 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v8 = [v4 dc_queryStringWithQueryDictionary:v7];
 
     (*(*(a1 + 32) + 16))();
@@ -172,8 +170,6 @@ void __70__ICUlyssesContentMapping_getTextURLQueryString_withInput_parameters___
     (*(*(a1 + 32) + 16))(*(a1 + 32), 0, a3);
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getStringRepresentation:(id)representation withInput:(id)input parameters:(id)parameters
@@ -182,12 +178,12 @@ void __70__ICUlyssesContentMapping_getTextURLQueryString_withInput_parameters___
   inputCopy = input;
   parametersCopy = parameters;
   v10 = [parametersCopy objectForKey:@"UlyssesAttachmentType"];
-  if ([v10 isEqualToString:@"Keywords"])
+  if (objc_msgSend_isEqualToString_(v10))
   {
     representationCopy[2](representationCopy, &stru_1F4A1C408, 0);
   }
 
-  else if ([v10 isEqualToString:@"Image"])
+  else if (objc_msgSend_isEqualToString_(v10))
   {
     [(ICUlyssesContentMapping *)self getImageURLQueryString:representationCopy withInput:inputCopy parameters:parametersCopy];
   }

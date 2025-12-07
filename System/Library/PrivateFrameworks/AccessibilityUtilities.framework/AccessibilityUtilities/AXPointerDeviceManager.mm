@@ -28,9 +28,11 @@
 
 uint64_t __40__AXPointerDeviceManager_sharedInstance__block_invoke()
 {
-  sharedInstance_deviceManager = [[AXPointerDeviceManager alloc] _init];
+  v0 = [[AXPointerDeviceManager alloc] _init];
+  v1 = sharedInstance_deviceManager;
+  sharedInstance_deviceManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)_init

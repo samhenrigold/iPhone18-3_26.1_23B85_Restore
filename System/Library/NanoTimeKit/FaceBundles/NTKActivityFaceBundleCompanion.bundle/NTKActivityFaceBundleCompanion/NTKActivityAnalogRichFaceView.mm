@@ -1,4 +1,5 @@
 @interface NTKActivityAnalogRichFaceView
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected;
 - (NTKActivityAnalogRichFaceView)initWithFaceStyle:(int64_t)style forDevice:(id)device clientIdentifier:(id)identifier;
 - (id)_newFaceViewFactoryForDevice:(id)device;
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot;
@@ -84,6 +85,38 @@
     faceColorPalette3 = [(NTKActivityAnalogRichFaceView *)self faceColorPalette];
     [v13 applyFaceColorPalette:faceColorPalette3 units:1];
   }
+}
+
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  slotCopy = slot;
+  if (([slotCopy isEqualToString:NTKComplicationSlotTopLeft] & 1) != 0 || objc_msgSend(slotCopy, "isEqualToString:", NTKComplicationSlotTopRight))
+  {
+    [(NTKWhistlerAnalogFaceViewComplicationFactory *)self->_cornerComplicationFactory keylineFrameForCornerComplicationSlot:slotCopy selected:selectedCopy];
+  }
+
+  else
+  {
+    v19.receiver = self;
+    v19.super_class = NTKActivityAnalogRichFaceView;
+    [(NTKActivityAnalogRichFaceView *)&v19 _keylineFrameForComplicationSlot:slotCopy selected:selectedCopy];
+  }
+
+  v11 = v7;
+  v12 = v8;
+  v13 = v9;
+  v14 = v10;
+
+  v15 = v11;
+  v16 = v12;
+  v17 = v13;
+  v18 = v14;
+  result.size.height = v18;
+  result.size.width = v17;
+  result.origin.y = v16;
+  result.origin.x = v15;
+  return result;
 }
 
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot

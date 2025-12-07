@@ -257,7 +257,7 @@ void __80__PXDreamyDiagnosticsViewController_prepareVariantVideoWithProgress_com
   v7 = v6;
   if (v6)
   {
-    [v6 duration];
+    objc_msgSend_duration(v6);
   }
 
   else

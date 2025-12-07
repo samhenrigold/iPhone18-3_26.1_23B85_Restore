@@ -81,11 +81,10 @@
 
 - (void)parentFileIDs
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: this call was not supposed to be made%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: this call was not supposed to be made%@", &v2, 0xCu);
 }
 
 @end

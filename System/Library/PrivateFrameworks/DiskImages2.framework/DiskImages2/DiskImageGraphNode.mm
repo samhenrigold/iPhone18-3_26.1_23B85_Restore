@@ -8,9 +8,11 @@
 - (id)childrenInfoWithExtra:(BOOL)extra error:(id *)error;
 - (id)getDescendants;
 - (id)infoWithExtra:(BOOL)extra error:(id *)error;
+- (id)recursiveInfoWithExtra:(BOOL)extra error:(id *)error;
 - (id)toDIShadowNode;
 - (id)toDictionary;
 - (void)addDecendantsToArray:(id)array;
+- (void)setIsCache:(BOOL)cache;
 - (void)setMetadata:(id)metadata;
 - (void)setParent:(id)parent;
 - (void)setTag:(id)tag;
@@ -207,6 +209,20 @@
   }
 }
 
+- (void)setIsCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  self->_isCache = cache;
+  pstackDict = [(DiskImageGraphNode *)self pstackDict];
+
+  if (pstackDict)
+  {
+    pstackDict2 = [(DiskImageGraphNode *)self pstackDict];
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:cacheCopy];
+    [pstackDict2 setObject:v6 forKey:@"IsCache"];
+  }
+}
+
 - (id)getDescendants
 {
   v3 = MEMORY[0x277CBEB18];
@@ -220,39 +236,37 @@
 
 - (void)addDecendantsToArray:(id)array
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   mutableChildren = [(DiskImageGraphNode *)self mutableChildren];
-  v6 = [mutableChildren countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [mutableChildren countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(mutableChildren);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         [arrayCopy addObject:v10];
         [v10 addDecendantsToArray:arrayCopy];
       }
 
-      v7 = [mutableChildren countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [mutableChildren countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)toDictionary
@@ -368,6 +382,32 @@ void __56__DiskImageGraphNode_Info__childrenInfoWithExtra_error___block_invoke(u
     *a4 = 1;
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
+}
+
+- (id)recursiveInfoWithExtra:(BOOL)extra error:(id *)error
+{
+  extraCopy = extra;
+  v7 = [DiskImageGraphNode infoWithExtra:"infoWithExtra:error:" error:?];
+  v8 = [v7 mutableCopy];
+
+  v9 = [(DiskImageGraphNode *)self childrenInfoWithExtra:extraCopy error:error];
+  v10 = v9;
+  if (v9)
+  {
+    if ([v9 count])
+    {
+      [v8 setObject:v10 forKeyedSubscript:@"Children"];
+    }
+
+    v11 = v8;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
 }
 
 - (id)infoWithExtra:(BOOL)extra error:(id *)error

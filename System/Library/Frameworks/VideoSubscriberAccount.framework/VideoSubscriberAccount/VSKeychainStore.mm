@@ -23,7 +23,7 @@
         goto LABEL_19;
       }
 
-      v9 = VSErrorLogObject();
+      v9 = VSErrorLogObject(v7);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [VSKeychainStore addItem:v9 error:?];
@@ -47,7 +47,7 @@
   if (v10)
   {
     v11 = v10;
-    v12 = VSErrorLogObject();
+    v12 = VSErrorLogObject(v10);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [VSKeychainStore addItem:v11 error:v12];
@@ -69,7 +69,7 @@ LABEL_15:
     goto LABEL_19;
   }
 
-  v16 = VSDefaultLogObject();
+  v16 = VSDefaultLogObject(v10);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *v18 = 0;
@@ -112,7 +112,7 @@ LABEL_19:
       goto LABEL_11;
     }
 
-    v7 = VSErrorLogObject();
+    v7 = VSErrorLogObject(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [VSKeychainStore findItemsMatchingQuery:v7 error:?];
@@ -155,11 +155,11 @@ LABEL_16:
   }
 
   v13 = [(VSKeychainStore *)self _fixUpdateConflictForItemWithAttributes:queryCopy andAttributesToUpdate:attributesCopy];
-  if (count > 4 || !v13)
+  if (count > 4 || (v13 & 1) == 0)
   {
     if (count >= 5)
     {
-      v18 = VSErrorLogObject();
+      v18 = VSErrorLogObject(v13);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
         [VSKeychainStore updateAttributes:v18 ofItemsMatchingQuery:? attemptCount:? error:?];
@@ -197,7 +197,7 @@ LABEL_6:
 
   if (v6 == -25300)
   {
-    v7 = VSDefaultLogObject();
+    v7 = VSDefaultLogObject(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412290;
@@ -226,7 +226,7 @@ LABEL_10:
 
 - (BOOL)_fixUpdateConflictForItemWithAttributes:(id)attributes andAttributesToUpdate:(id)update
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v7 = [attributes mutableCopy];
   [v7 addEntriesFromDictionary:updateCopy];
@@ -234,45 +234,46 @@ LABEL_10:
   [v7 removeObjectForKey:*MEMORY[0x277CDBF90]];
   [v7 removeObjectForKey:*MEMORY[0x277CDC088]];
   [v7 removeObjectForKey:*MEMORY[0x277CDC5E8]];
-  v16 = 0;
-  v8 = [(VSKeychainStore *)self deleteItemsMatchingQuery:v7 error:&v16];
-  v9 = v16;
+  v17 = 0;
+  v8 = [(VSKeychainStore *)self deleteItemsMatchingQuery:v7 error:&v17];
+  v9 = v17;
+  v10 = v9;
   if (v8)
   {
-    v10 = VSDefaultLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = VSDefaultLogObject(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v11 = "Tried to fix an update conflict in Keychain and succeeded.";
+      v12 = "Tried to fix an update conflict in Keychain and succeeded.";
 LABEL_9:
-      v13 = v10;
-      v14 = 2;
+      v14 = v11;
+      v15 = 2;
       goto LABEL_10;
     }
   }
 
   else
   {
-    v10 = VSDefaultLogObject();
-    v12 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (v9)
+    v11 = VSDefaultLogObject(v9);
+    v13 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      if (v12)
+      if (v13)
       {
         *buf = 138412290;
-        v18 = v9;
-        v11 = "Tried to fix an update conflict in Keychain and failed with error: %@";
-        v13 = v10;
-        v14 = 12;
+        v19 = v10;
+        v12 = "Tried to fix an update conflict in Keychain and failed with error: %@";
+        v14 = v11;
+        v15 = 12;
 LABEL_10:
-        _os_log_impl(&dword_23AB8E000, v13, OS_LOG_TYPE_DEFAULT, v11, buf, v14);
+        _os_log_impl(&dword_23AB8E000, v14, OS_LOG_TYPE_DEFAULT, v12, buf, v15);
       }
     }
 
-    else if (v12)
+    else if (v13)
     {
       *buf = 0;
-      v11 = "Tried to fix an update conflict in Keychain and failed.";
+      v12 = "Tried to fix an update conflict in Keychain and failed.";
       goto LABEL_9;
     }
   }

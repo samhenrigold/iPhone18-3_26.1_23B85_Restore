@@ -3,6 +3,8 @@
 - (CKAdopterProcessScopedDaemonProxy)initWithConnection:(id)connection;
 - (CKXPCConnection)connection;
 - (id)globalDeviceIdentifierWithError:(id *)error;
+- (void)_getAdopterProcessScopedDaemonProxyCreatorSynchronous:(BOOL)synchronous completionHandler:(id)handler;
+- (void)_getAdopterProcessScopedDaemonProxySynchronous:(BOOL)synchronous errorHandler:(id)handler daemonProxyHandler:(id)proxyHandler;
 - (void)dealloc;
 @end
 
@@ -100,6 +102,81 @@
   os_activity_scope_leave(&state);
 
   return v8;
+}
+
+- (void)_getAdopterProcessScopedDaemonProxySynchronous:(BOOL)synchronous errorHandler:(id)handler daemonProxyHandler:(id)proxyHandler
+{
+  synchronousCopy = synchronous;
+  handlerCopy = handler;
+  proxyHandlerCopy = proxyHandler;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1885AA68C;
+  v13[3] = &unk_1E70BC5E0;
+  v16 = synchronousCopy;
+  v14 = proxyHandlerCopy;
+  v15 = handlerCopy;
+  v10 = handlerCopy;
+  v11 = proxyHandlerCopy;
+  objc_msgSend__getAdopterProcessScopedDaemonProxyCreatorSynchronous_completionHandler_(self, v12, synchronousCopy, v13);
+}
+
+- (void)_getAdopterProcessScopedDaemonProxyCreatorSynchronous:(BOOL)synchronous completionHandler:(id)handler
+{
+  synchronousCopy = synchronous;
+  handlerCopy = handler;
+  v9 = objc_msgSend_connection(self, v7, v8);
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v13 = objc_msgSend_connectionInterruptedObserver(selfCopy, v11, v12);
+
+  if (!v13)
+  {
+    objc_initWeak(&location, selfCopy);
+    v16 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v14, v15);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = sub_1885AA99C;
+    v29[3] = &unk_1E70BC608;
+    objc_copyWeak(&v30, &location);
+    v18 = objc_msgSend_addObserverForName_object_queue_usingBlock_(v16, v17, @"CKXPCConnectionInterrupted", v9, 0, v29);
+    objc_msgSend_setConnectionInterruptedObserver_(selfCopy, v19, v18);
+
+    objc_destroyWeak(&v30);
+    objc_destroyWeak(&location);
+  }
+
+  objc_sync_exit(selfCopy);
+
+  v20 = selfCopy;
+  objc_sync_enter(v20);
+  if (objc_msgSend_hasValidAdopterProcessScopedDaemonProxyCreator(v20, v21, v22))
+  {
+    v25 = objc_msgSend_adopterProcessScopedDaemonProxyCreator(v20, v23, v24);
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  objc_sync_exit(v20);
+
+  if (v25)
+  {
+    handlerCopy[2](handlerCopy, v25, 0);
+  }
+
+  else
+  {
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = sub_1885AAA8C;
+    v27[3] = &unk_1E70BE718;
+    v27[4] = v20;
+    v28 = handlerCopy;
+    objc_msgSend_getAdopterProcessScopedDaemonProxyCreatorSynchronous_completionHandler_(v9, v26, synchronousCopy, v27);
+  }
 }
 
 - (CKXPCConnection)connection

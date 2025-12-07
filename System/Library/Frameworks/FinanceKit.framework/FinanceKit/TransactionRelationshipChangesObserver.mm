@@ -16,7 +16,7 @@
 {
   notificationCopy = notification;
 
-  sub_1B76B5694();
+  sub_1B76B5694(v4);
 }
 
 @end

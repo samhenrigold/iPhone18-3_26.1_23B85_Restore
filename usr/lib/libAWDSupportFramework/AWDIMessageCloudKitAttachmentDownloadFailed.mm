@@ -169,7 +169,6 @@ LABEL_13:
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -191,7 +190,6 @@ LABEL_13:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -203,7 +201,6 @@ LABEL_11:
       }
 
 LABEL_16:
-      connectionType = self->_connectionType;
       PBDataWriterWriteUint32Field();
       if ((*&self->_has & 2) == 0)
       {
@@ -219,7 +216,6 @@ LABEL_16:
     goto LABEL_11;
   }
 
-  linkQuality = self->_linkQuality;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) != 0)
@@ -234,7 +230,6 @@ LABEL_12:
   }
 
 LABEL_17:
-  attachmentSize = self->_attachmentSize;
 
   PBDataWriterWriteUint32Field();
 }
@@ -381,7 +376,6 @@ LABEL_7:
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 64);
     if (*&self->_has)
     {
       if ((*(equal + 64) & 1) == 0 || self->_timestamp != *(equal + 1))

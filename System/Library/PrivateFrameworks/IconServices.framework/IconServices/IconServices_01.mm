@@ -1,6 +1,8 @@
-void _addContinuousCornerToPath(CGPath *a1, int a2, int a3, int a4, double a5, double a6, double a7, double a8)
+void _addContinuousCornerToPath(CGPath *a1, uint64_t a2, int a3, int a4, __n128 a5, double a6, double a7, double a8)
 {
   v8 = a3;
+  v9 = a2;
+  v10 = a5.n128_f64[0];
   if (a7 >= a8)
   {
     v12 = a8;
@@ -23,125 +25,124 @@ void _addContinuousCornerToPath(CGPath *a1, int a2, int a3, int a4, double a5, d
     v14 = v12 * 0.95;
   }
 
-  v70 = v13;
+  v69 = v13;
   v15 = 0.0;
   if ((a2 - 1) <= 3)
   {
-    v15 = dbl_1A782D050[a2 - 1];
+    v15 = dbl_1A782D050[(a2 - 1)];
   }
 
   v16 = v14 * (1.0 - v13);
-  v17 = *(MEMORY[0x1E695EFF8] + 8);
   if (a3 == 2)
   {
-    v18 = -v16;
-    v69 = 70.0;
-    v19 = *MEMORY[0x1E695EFF8];
+    v17 = -v16;
+    v68 = 70.0;
+    v18 = *MEMORY[0x1E695EFF8];
   }
 
   else if (a3 == 1)
   {
     v15 = v15 + 20.0;
-    v19 = -v16;
-    v69 = 70.0;
-    v18 = *(MEMORY[0x1E695EFF8] + 8);
+    v18 = -v16;
+    v68 = 70.0;
+    v17 = *(MEMORY[0x1E695EFF8] + 8);
   }
 
   else if (a3)
   {
     v15 = v15 + 20.0;
-    v69 = 50.0;
-    v18 = *(MEMORY[0x1E695EFF8] + 8);
-    v19 = *MEMORY[0x1E695EFF8];
+    v68 = 50.0;
+    v17 = *(MEMORY[0x1E695EFF8] + 8);
+    v18 = *MEMORY[0x1E695EFF8];
     v14 = v14 / 1.528665;
   }
 
   else
   {
+    v17 = -v16;
+    v68 = 90.0;
     v18 = -v16;
-    v69 = 90.0;
-    v19 = -v16;
   }
 
-  v20 = _interiorPointForCorner(a2, v19, v18, *MEMORY[0x1E695EFF8]);
-  v67 = v21;
-  v68 = v20;
-  v22 = v14 * 0.33 * 0.666666667;
-  v23 = v22 * 1.05304313 + (v14 / 1.05304313 + v22 * 0.33 / 1.05304313) * 0.67;
-  v24 = v22 * 1.05304313 + v23;
-  v25 = v22 * 1.05304313 + v22 * 1.05304313 + v24;
-  v26 = _interiorPointForCorner(a2, 0.0, v23, a5);
-  v65 = v27;
-  v66 = v26;
-  v28 = _interiorPointForCorner(a2, 0.0, v24, a5);
-  v63 = v29;
-  v64 = v28;
-  v30 = _interiorPointForCorner(a2, 0.0, v25, a5);
-  v61 = v31;
-  v62 = v30;
-  v32 = _interiorPointForCorner(a2, v14, v14, a5);
-  v71 = v33;
-  v72 = v32;
-  v34 = _interiorPointForCorner(a2, 0.0, v12, a5);
-  v59 = v35;
-  v60 = v34;
+  v19 = _interiorPointForCorner(a2, v18, v17, *MEMORY[0x1E695EFF8]);
+  v66 = v20;
+  v67 = v19;
+  v21 = v14 * 0.33 * 0.666666667;
+  v22 = v21 * 1.05304313 + (v14 / 1.05304313 + v21 * 0.33 / 1.05304313) * 0.67;
+  v23 = v21 * 1.05304313 + v22;
+  v24 = v21 * 1.05304313 + v21 * 1.05304313 + v23;
+  v25 = _interiorPointForCorner(v9, 0.0, v22, v10);
+  v64 = v26;
+  v65 = v25;
+  v27 = _interiorPointForCorner(v9, 0.0, v23, v10);
+  v62 = v28;
+  v63 = v27;
+  v29 = _interiorPointForCorner(v9, 0.0, v24, v10);
+  v60 = v30;
+  v61 = v29;
+  v31 = _interiorPointForCorner(v9, v14, v14, v10);
+  v70 = v32;
+  v71 = v31;
+  v33 = _interiorPointForCorner(v9, 0.0, v12, v10);
+  v58 = v34;
+  v59 = v33;
   memset(&m, 0, sizeof(m));
-  CGAffineTransformMakeTranslation(&m, v68, v67);
-  v36 = v70 * v14;
-  v37 = (v15 + 0.0) * 0.0174532925;
-  v38 = (v69 + v15) * 0.0174532925;
+  CGAffineTransformMakeTranslation(&m, v67, v66);
+  v35 = v69 * v14;
+  v36 = (v15 + 0.0) * 0.0174532925;
+  v37 = (v68 + v15) * 0.0174532925;
   if (v8)
   {
-    v47 = __sincos_stret(v37);
-    v48 = _interiorPointForCorner(a2, v23, 0.0, a5);
-    v50 = v49;
-    v39 = _interiorPointForCorner(a2, v24, 0.0, a5);
+    v46 = __sincos_stret(v36);
+    v47 = _interiorPointForCorner(v9, v22, 0.0, v10);
+    v49 = v48;
+    v38 = _interiorPointForCorner(v9, v23, 0.0, v10);
     p_m = &m;
-    v41 = a1;
-    v43 = v48;
-    v44 = v50;
-    v45 = v72 + v36 * v47.__cosval;
-    v46 = v71 + v36 * v47.__sinval;
+    v40 = a1;
+    v42 = v47;
+    v43 = v49;
+    v44 = v71 + v35 * v46.__cosval;
+    v45 = v70 + v35 * v46.__sinval;
   }
 
   else
   {
-    v39 = _interiorPointForCorner(a2, v12, 0.0, a5);
-    v41 = a1;
+    v38 = _interiorPointForCorner(v9, v12, 0.0, v10);
+    v40 = a1;
     p_m = 0;
+    v42 = v38;
     v43 = v39;
-    v44 = v40;
+    v44 = v38;
     v45 = v39;
-    v46 = v40;
   }
 
-  CGPathAddCurveToPoint(v41, p_m, v39, v40, v43, v44, v45, v46);
-  CGPathAddArc(a1, &m, v72, v71, v36, v37, v38, 0);
+  CGPathAddCurveToPoint(v40, p_m, v38, v39, v42, v43, v44, v45);
+  CGPathAddArc(a1, &m, v71, v70, v35, v36, v37, 0);
   if ((v8 & 2) != 0)
   {
-    v52 = &m;
-    v51 = a1;
-    v54 = v65;
-    v53 = v66;
-    v56 = v63;
-    v55 = v64;
-    v58 = v61;
-    v57 = v62;
+    v51 = &m;
+    v50 = a1;
+    v53 = v64;
+    v52 = v65;
+    v55 = v62;
+    v54 = v63;
+    v57 = v60;
+    v56 = v61;
   }
 
   else
   {
-    v51 = a1;
-    v52 = 0;
+    v50 = a1;
+    v51 = 0;
+    v53 = v58;
+    v52 = v59;
     v54 = v59;
-    v53 = v60;
-    v55 = v60;
+    v55 = v58;
     v56 = v59;
-    v57 = v60;
-    v58 = v59;
+    v57 = v58;
   }
 
-  CGPathAddCurveToPoint(v51, v52, v53, v54, v55, v56, v57, v58);
+  CGPathAddCurveToPoint(v50, v51, v52, v53, v54, v55, v56, v57);
 }
 
 double _interiorPointForCorner(int a1, double a2, double a3, double a4)
@@ -183,16 +184,16 @@ double _interiorPointForCorner(int a1, double a2, double a3, double a4)
   return v4;
 }
 
-id hintedShadowBlur()
+id hintedShadowBlur(uint64_t a1)
 {
   if (hintedShadowBlur_onceToken_0 != -1)
   {
     hintedShadowBlur_cold_1();
   }
 
-  v1 = hintedShadowBlur_value_0;
+  v2 = hintedShadowBlur_value_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __hintedShadowBlur_block_invoke()
@@ -207,16 +208,16 @@ uint64_t __hintedShadowBlur_block_invoke()
   return [v2 addHintedFloat:6.0 forSize:{512.0, 512.0}];
 }
 
-id hintedShadowSpread()
+id hintedShadowSpread(uint64_t a1)
 {
   if (hintedShadowSpread_onceToken != -1)
   {
     hintedShadowSpread_cold_1();
   }
 
-  v1 = hintedShadowSpread_value;
+  v2 = hintedShadowSpread_value;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __hintedShadowSpread_block_invoke()
@@ -236,7 +237,7 @@ void sub_1A77FE86C(_Unwind_Exception *exception_object, int a2)
   if (a2 == 1)
   {
     v2 = objc_begin_catch(exception_object);
-    v3 = _ISDefaultLog();
+    v3 = _ISDefaultLog(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [(ISIconResourceLocator *)v2 initWithCoder:v3];
@@ -265,22 +266,20 @@ uint64_t ISIsResourceKey(void *a1)
 
 void __ISIsResourceKey_block_invoke()
 {
-  v5[8] = *MEMORY[0x1E69E9840];
+  v4[8] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"kISPrimaryResourceKey";
-  v5[1] = @"kISSecondaryResourceKey";
-  v5[2] = @"kISTertiaryResourceKey";
-  v5[3] = @"kISPrimaryDarkResourceKey";
-  v5[4] = @"kISBackgroundResourceKey";
-  v5[5] = @"kISTintColorResourceKey";
-  v5[6] = @"kISTextResourceKey";
-  v5[7] = @"kISBadgeResourceKey";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:8];
+  v4[0] = @"kISPrimaryResourceKey";
+  v4[1] = @"kISSecondaryResourceKey";
+  v4[2] = @"kISTertiaryResourceKey";
+  v4[3] = @"kISPrimaryDarkResourceKey";
+  v4[4] = @"kISBackgroundResourceKey";
+  v4[5] = @"kISTintColorResourceKey";
+  v4[6] = @"kISTextResourceKey";
+  v4[7] = @"kISBadgeResourceKey";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:8];
   v2 = [v0 setWithArray:v1];
   v3 = ISIsResourceKey_resourceKeys;
   ISIsResourceKey_resourceKeys = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ISAccelerateIconCreateScaledCGImage(CGImage *a1, int a2, int a3)
@@ -558,9 +557,9 @@ uint64_t ISSegmentationMask_writeMaskValue_xy(uint64_t result, int a2, int a3, c
   return result;
 }
 
-__CFData *ISCreateCGImageMaskUchar(int a1, int a2, uint64_t a3)
+__CFData *ISCreateCGImageMaskUchar(unsigned int a1, unsigned int a2, uint64_t a3)
 {
-  v6 = a2 * a1;
+  v6 = (a2 * a1);
   result = CFDataCreateMutable(*MEMORY[0x1E695E480], v6);
   if (result)
   {
@@ -604,9 +603,9 @@ __CFData *ISCreateCGImageMaskUchar(int a1, int a2, uint64_t a3)
   return result;
 }
 
-__CFData *ISCreateCGImageUchar4AlphaPremultiplied(int a1, int a2, uint64_t a3)
+__CFData *ISCreateCGImageUchar4AlphaPremultiplied(unsigned int a1, unsigned int a2, uint64_t a3)
 {
-  v6 = 4 * a2 * a1;
+  v6 = 4 * (a2 * a1);
   result = CFDataCreateMutable(*MEMORY[0x1E695E480], v6);
   if (result)
   {
@@ -833,16 +832,16 @@ CGImage *ISCreateScaledCGImage(CGImage *result, int a2, int a3)
   return result;
 }
 
-id _ISURLCacheLog()
+id _ISURLCacheLog(uint64_t a1)
 {
   if (_ISURLCacheLog_onceToken != -1)
   {
     _ISURLCacheLog_cold_1();
   }
 
-  v1 = _ISURLCacheLog_log;
+  v2 = _ISURLCacheLog_log;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A780B800(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
@@ -852,16 +851,16 @@ void sub_1A780B800(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A780BA94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1A780BA94(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ISIconCache;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_1A780C168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, id a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, id a55)
+void sub_1A780C168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, id a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, id a55)
 {
   _Block_object_dispose(&a44, 8);
 
@@ -869,27 +868,48 @@ void sub_1A780C168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_1_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x12u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x12u);
 }
 
 void backgroundIsContinuousGradientVertically_cold_1(int a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109376;
-  v4[1] = a2;
-  v5 = 1024;
-  v6 = a1;
-  _os_log_debug_impl(&dword_1A77B8000, log, OS_LOG_TYPE_DEBUG, "# non-continuous at x = %d, y = %d", v4, 0xEu);
-  v3 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109376;
+  v3[1] = a2;
+  v4 = 1024;
+  v5 = a1;
+  _os_log_debug_impl(&dword_1A77B8000, log, OS_LOG_TYPE_DEBUG, "# non-continuous at x = %d, y = %d", v3, 0xEu);
+}
+
+CGRect CGRectApplyAffineTransform(CGRect rect, CGAffineTransform *t)
+{
+  MEMORY[0x1EEDBAD98](t, rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}
+
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x1EEDBAE30](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
 }
 
 simd_float3x3 __invert_f3(simd_float3x3 a1)
@@ -928,7 +948,7 @@ void gotLoadHelper_x21__OBJC_CLASS___AFSystemAssistantExperienceStatusManager(do
   }
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_AssistantServices(double a1)
+double dlopenHelper_AssistantServices(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/AssistantServices.framework/AssistantServices", 0);
   atomic_store(1u, &dlopenHelperFlag_AssistantServices);

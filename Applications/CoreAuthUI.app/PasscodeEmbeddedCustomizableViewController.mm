@@ -7,6 +7,7 @@
 - (id)alphanumericFieldPlaceholder;
 - (void)_verifyTextField:(id)field;
 - (void)setIsVerifyingPasscode:(BOOL)passcode;
+- (void)setPasscodeFocused:(BOOL)focused;
 @end
 
 @implementation PasscodeEmbeddedCustomizableViewController
@@ -50,6 +51,13 @@
   }
 
   return v7;
+}
+
+- (void)setPasscodeFocused:(BOOL)focused
+{
+  v3.receiver = self;
+  v3.super_class = PasscodeEmbeddedCustomizableViewController;
+  [(PasscodeEmbeddedViewController *)&v3 setPasscodeFocused:focused];
 }
 
 - (id)alphanumericFieldPlaceholder

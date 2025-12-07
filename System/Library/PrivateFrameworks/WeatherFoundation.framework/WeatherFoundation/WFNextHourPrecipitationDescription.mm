@@ -149,16 +149,16 @@
   return v10;
 }
 
-uint64_t __52__WFNextHourPrecipitationDescription_initWithCoder___block_invoke()
+uint64_t __52__WFNextHourPrecipitationDescription_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
-  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0}];
-  v4 = initWithCoder__classes_2;
-  initWithCoder__classes_2 = v3;
+  v2 = MEMORY[0x277CBEB98];
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = [v2 setWithObjects:{v3, v4, objc_opt_class(), 0}];
+  v6 = initWithCoder__classes_2;
+  initWithCoder__classes_2 = v5;
 
-  return MEMORY[0x2821F96F8](v3, v4);
+  return MEMORY[0x2821F96F8](v5, v6);
 }
 
 @end

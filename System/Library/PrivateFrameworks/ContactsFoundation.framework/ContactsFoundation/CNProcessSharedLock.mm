@@ -160,7 +160,7 @@ id __53__CNProcessSharedLock_ensureFileDescriptorIsInvalid___block_invoke(uint64
 
 - (BOOL)openLockFile:(id)file
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   self->_fileDescriptor = [(CNFileServices *)self->_fileServices open:[(NSString *)self->_lockFilePath fileSystemRepresentation]];
   os_log = [objc_opt_class() os_log];
@@ -170,26 +170,25 @@ id __53__CNProcessSharedLock_ensureFileDescriptorIsInvalid___block_invoke(uint64
     fileDescriptor = self->_fileDescriptor;
     *buf = 134218498;
     selfCopy = self;
-    v14 = 2112;
-    v15 = lockFilePath;
-    v16 = 1024;
-    v17 = fileDescriptor;
+    v13 = 2112;
+    v14 = lockFilePath;
+    v15 = 1024;
+    v16 = fileDescriptor;
     _os_log_debug_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_DEBUG, "%p: lockFilePath: %@, file descriptor: %d", buf, 0x1Cu);
   }
 
   v6 = self->_fileDescriptor;
   if (v6 < 0)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __36__CNProcessSharedLock_openLockFile___block_invoke;
-    v11[3] = &unk_1E6ED8090;
-    v11[4] = self;
-    fileCopy[2](fileCopy, v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __36__CNProcessSharedLock_openLockFile___block_invoke;
+    v10[3] = &unk_1E6ED8090;
+    v10[4] = self;
+    fileCopy[2](fileCopy, v10);
     self->_fileDescriptor = -1;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6 >= 0;
 }
 
@@ -204,56 +203,56 @@ id __36__CNProcessSharedLock_openLockFile___block_invoke(uint64_t a1)
 
 - (BOOL)ensureFileIsLocal:(id)local
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   localCopy = local;
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  memset(v12, 0, sizeof(v12));
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  memset(v11, 0, sizeof(v11));
   if ([(CNFileServices *)self->_fileServices fstatfs:self->_fileDescriptor]< 0)
   {
-    v5 = v11;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
+    v5 = v10;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
     v6 = __41__CNProcessSharedLock_ensureFileIsLocal___block_invoke;
   }
 
   else
   {
-    if ((BYTE1(v13) & 0x10) != 0)
+    if ((BYTE1(v12) & 0x10) != 0)
     {
       v7 = 1;
       goto LABEL_7;
     }
 
-    v5 = v10;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
+    v5 = v9;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
     v6 = __41__CNProcessSharedLock_ensureFileIsLocal___block_invoke_2;
   }
 
@@ -266,7 +265,6 @@ id __36__CNProcessSharedLock_openLockFile___block_invoke(uint64_t a1)
   self->_fileDescriptor = -1;
 LABEL_7:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -291,37 +289,113 @@ id __41__CNProcessSharedLock_ensureFileIsLocal___block_invoke_2(uint64_t a1)
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2_4();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)lock
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_3_2(&dword_1859F0000, v0, v1, "%p: Locked locks", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  [(NSLocking *)self->_localLock lock];
+  localLockCount = self->_localLockCount;
+  self->_localLockCount = localLockCount + 1;
+  if (!localLockCount)
+  {
+    [(CNProcessSharedLock *)self lockRetryOnEDEADLK];
+  }
+
+  os_log = [objc_opt_class() os_log];
+  if (os_log_type_enabled(os_log, OS_LOG_TYPE_DEBUG))
+  {
+    [CNProcessSharedLock lock];
+  }
 }
 
 - (void)unlock
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)lockRetryOnEDEADLK
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = 0;
+  v28 = *MEMORY[0x1E69E9840];
+  v4 = 0.1;
+  do
+  {
+    os_log = [objc_opt_class() os_log];
+    if (os_log_type_enabled(os_log, OS_LOG_TYPE_DEBUG))
+    {
+      LODWORD(buf) = 134217984;
+      *(&buf + 4) = self;
+      _os_log_debug_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_DEBUG, "%p: Trying to lock file lock", &buf, 0xCu);
+    }
+
+    Current = CFAbsoluteTimeGetCurrent();
+    runningBoardInhibitor = [(CNProcessSharedLock *)self runningBoardInhibitor];
+    [runningBoardInhibitor start];
+
+    v8 = CFAbsoluteTimeGetCurrent();
+    os_log2 = [objc_opt_class() os_log];
+    if (os_log_type_enabled(os_log2, OS_LOG_TYPE_DEBUG))
+    {
+      LODWORD(buf) = 134217984;
+      *(&buf + 4) = v8 - Current;
+      _os_log_debug_impl(&dword_1859F0000, os_log2, OS_LOG_TYPE_DEBUG, "Time to take RunningBoard lock = %2.4f", &buf, 0xCu);
+    }
+
+    buf = 0uLL;
+    v27 = 0;
+    LODWORD(v27) = getpid();
+    WORD2(v27) = 3;
+    v10 = [(CNFileServices *)self->_fileServices fcntl_flock:self->_fileDescriptor];
+    if ((v10 & 0x80000000) == 0)
+    {
+      break;
+    }
+
+    v11 = v10;
+    runningBoardInhibitor2 = [(CNProcessSharedLock *)self runningBoardInhibitor];
+    [runningBoardInhibitor2 stop];
+
+    if (*__error() != 11)
+    {
+      v15 = MEMORY[0x1E696AEC0];
+      v16 = [MEMORY[0x1E696AD98] numberWithInt:v11];
+      v17 = [MEMORY[0x1E696AD98] numberWithInt:*__error()];
+      v18 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+      v19 = [v15 stringWithFormat:@"fcntl F_WRLCK failed (returned %@, errno %@, retries %@)", v16, v17, v18];
+
+      os_log3 = [objc_opt_class() os_log];
+      if (os_log_type_enabled(os_log3, OS_LOG_TYPE_DEBUG))
+      {
+        [CNProcessSharedLock lockRetryOnEDEADLK];
+      }
+
+      v21 = [(CNProcessSharedLock *)self exceptionWithName:*MEMORY[0x1E695D930] reason:v19];
+      [(NSLocking *)self->_localLock unlock];
+      objc_exception_throw(v21);
+    }
+
+    os_log4 = [objc_opt_class() os_log];
+    if (os_log_type_enabled(os_log4, OS_LOG_TYPE_DEBUG))
+    {
+      v14 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+      *v22 = 134218242;
+      selfCopy = self;
+      v24 = 2112;
+      v25 = v14;
+      _os_log_debug_impl(&dword_1859F0000, os_log4, OS_LOG_TYPE_DEBUG, "%p: fcntl F_WRLCK returned EDEADLK; retrying file lock %@", v22, 0x16u);
+    }
+
+    [MEMORY[0x1E696AF00] sleepForTimeInterval:v4];
+    v4 = v4 + v4;
+    v3 = (v3 + 1);
+  }
+
+  while (v3 != 6);
 }
 
 - (id)exceptionWithName:(id)name reason:(id)reason

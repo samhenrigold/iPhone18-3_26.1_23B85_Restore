@@ -119,7 +119,7 @@ uint64_t __46__MXSpinTracerService_sharedSpinTracerService__block_invoke(uint64_
 
 - (BOOL)_updateService
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   [(NSMutableArray *)self->_spinTracerDataPaths removeAllObjects];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v4 = +[MXUtilities containerPath];
@@ -127,9 +127,9 @@ uint64_t __46__MXSpinTracerService_sharedSpinTracerService__block_invoke(uint64_
   v6 = [v4 stringByAppendingPathComponent:v5];
   currentClient = [(MXService *)self currentClient];
   v8 = [v6 stringByAppendingPathComponent:currentClient];
-  v20 = 0;
-  v9 = [defaultManager contentsOfDirectoryAtPath:v8 error:&v20];
-  v10 = v20;
+  v19 = 0;
+  v9 = [defaultManager contentsOfDirectoryAtPath:v8 error:&v19];
+  v10 = v19;
 
   if (v10)
   {
@@ -153,53 +153,52 @@ uint64_t __46__MXSpinTracerService_sharedSpinTracerService__block_invoke(uint64_
     {
       v17 = self->_spinTracerDataPaths;
       *buf = 138412290;
-      v22 = v17;
+      v21 = v17;
       _os_log_impl(&dword_258D95000, v16, OS_LOG_TYPE_DEFAULT, "Found log files: %@", buf, 0xCu);
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10 == 0;
 }
 
 - (void)unarchiveSpinTracerDataForDateString:(id)string
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   stringCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF CONTAINS %@", stringCopy];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   unarchivedSpinTracerData = self->_unarchivedSpinTracerData;
   self->_unarchivedSpinTracerData = v5;
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
-  v35 = stringCopy;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v34 = stringCopy;
   obj = [(NSMutableArray *)self->_spinTracerDataPaths filteredArrayUsingPredicate:stringCopy];
-  v39 = [obj countByEnumeratingWithState:&v42 objects:v54 count:16];
-  if (v39)
+  v38 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
+  if (v38)
   {
-    v38 = *v43;
+    v37 = *v42;
     do
     {
       v7 = 0;
       do
       {
-        if (*v43 != v38)
+        if (*v42 != v37)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v42 + 1) + 8 * v7);
-        v40 = v7;
+        v8 = *(*(&v41 + 1) + 8 * v7);
+        v39 = v7;
         MXSpinTracerServiceLogHandle = self->_MXSpinTracerServiceLogHandle;
         if (os_log_type_enabled(MXSpinTracerServiceLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v47 = v8;
-          v48 = 2112;
-          v49 = stringCopy;
+          v46 = v8;
+          v47 = 2112;
+          v48 = stringCopy;
           _os_log_impl(&dword_258D95000, MXSpinTracerServiceLogHandle, OS_LOG_TYPE_DEFAULT, "Found log file: %@ for date: %@", buf, 0x16u);
         }
 
@@ -217,16 +216,16 @@ uint64_t __46__MXSpinTracerService_sharedSpinTracerService__block_invoke(uint64_
         {
           v19 = MEMORY[0x277CCAAC8];
           v20 = objc_opt_class();
-          v41 = 0;
-          v21 = [v19 unarchivedObjectOfClass:v20 fromData:v17 error:&v41];
-          v22 = v41;
+          v40 = 0;
+          v21 = [v19 unarchivedObjectOfClass:v20 fromData:v17 error:&v40];
+          v22 = v40;
           if (v22)
           {
             v23 = self->_MXSpinTracerServiceLogHandle;
             if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v47 = v22;
+              v46 = v22;
               _os_log_error_impl(&dword_258D95000, v23, OS_LOG_TYPE_ERROR, "Failed to unarchive spin tracer data: %@", buf, 0xCu);
             }
           }
@@ -258,13 +257,13 @@ uint64_t __46__MXSpinTracerService_sharedSpinTracerService__block_invoke(uint64_
                 sourceID = [v21 sourceID];
                 sourceID2 = [(MXService *)self sourceID];
                 *buf = 134218754;
-                v47 = sourceID;
-                v48 = 2048;
-                v49 = sourceID2;
-                v50 = 2112;
-                v51 = v27;
-                v52 = 2112;
-                v53 = stringCopy;
+                v46 = sourceID;
+                v47 = 2048;
+                v48 = sourceID2;
+                v49 = 2112;
+                v50 = v27;
+                v51 = 2112;
+                v52 = stringCopy;
                 _os_log_error_impl(&dword_258D95000, v31, OS_LOG_TYPE_ERROR, "Bad source type: (%ld, expected %ld) or date string: (%@, expected %@)", buf, 0x2Au);
               }
             }
@@ -277,27 +276,25 @@ uint64_t __46__MXSpinTracerService_sharedSpinTracerService__block_invoke(uint64_
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v47 = v8;
+            v46 = v8;
             _os_log_debug_impl(&dword_258D95000, v24, OS_LOG_TYPE_DEBUG, "Failed to read spin tracer data contents: %@", buf, 0xCu);
           }
         }
 
-        v7 = v40 + 1;
+        v7 = v39 + 1;
       }
 
-      while (v39 != v40 + 1);
-      v39 = [obj countByEnumeratingWithState:&v42 objects:v54 count:16];
+      while (v38 != v39 + 1);
+      v38 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
     }
 
-    while (v39);
+    while (v38);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getDiagnosticsForClient:(id)client dateString:(id)string
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   stringCopy = string;
   if (!self->_unarchivedSpinTracerData)
@@ -312,28 +309,28 @@ uint64_t __46__MXSpinTracerService_sharedSpinTracerService__block_invoke(uint64_
     [(MXSpinTracerService *)self unarchiveSpinTracerDataForDateString:stringCopy];
   }
 
-  v31 = stringCopy;
+  v30 = stringCopy;
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v10 = self->_unarchivedSpinTracerData;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v36 objects:v43 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v35 objects:v42 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v37;
+    v13 = *v36;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v37 != v13)
+        if (*v36 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v36 + 1) + 8 * i);
+        v15 = *(*(&v35 + 1) + 8 * i);
         metrics = [v15 metrics];
         v17 = [metrics objectForKey:clientCopy];
 
@@ -345,7 +342,7 @@ uint64_t __46__MXSpinTracerService_sharedSpinTracerService__block_invoke(uint64_
         }
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v36 objects:v43 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v35 objects:v42 count:16];
     }
 
     while (v12);
@@ -357,38 +354,38 @@ uint64_t __46__MXSpinTracerService_sharedSpinTracerService__block_invoke(uint64_
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v42 = clientCopy;
+      v41 = clientCopy;
       _os_log_impl(&dword_258D95000, v20, OS_LOG_TYPE_DEFAULT, "Found spin tracer diagnostics for client: %@", buf, 0xCu);
     }
 
     v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v22 = v9;
-    v23 = [v22 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v33;
+      v25 = *v32;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v33 != v25)
+          if (*v32 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = [(MXService *)self pruneSourceData:*(*(&v32 + 1) + 8 * j)];
+          v27 = [(MXService *)self pruneSourceData:*(*(&v31 + 1) + 8 * j)];
           if (v27)
           {
             [v21 addObject:v27];
           }
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
       while (v24);
@@ -401,8 +398,6 @@ uint64_t __46__MXSpinTracerService_sharedSpinTracerService__block_invoke(uint64_
   {
     v28 = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

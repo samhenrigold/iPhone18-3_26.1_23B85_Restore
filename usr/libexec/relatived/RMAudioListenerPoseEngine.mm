@@ -178,17 +178,12 @@
 - (void)stopProducingDataForObject:(id)object
 {
   objectCopy = object;
-  if (self)
-  {
-    producerQueue = self->_producerQueue;
-  }
-
   sub_100002728();
   sub_1000027C0();
-  v10 = v6;
-  v7 = v6;
-  v8 = sub_1000027CC();
-  dispatch_sync(v8, v9);
+  v9 = v5;
+  v6 = v5;
+  v7 = sub_1000027CC();
+  dispatch_sync(v7, v8);
 }
 
 - (void)externalDisplayDidConnect:(uint64_t)connect
@@ -209,48 +204,33 @@
 - (void)facePoseCaptureSessionDidConfigure:(id)configure
 {
   configureCopy = configure;
-  if (self)
-  {
-    producerQueue = self->_producerQueue;
-  }
-
   sub_100002728();
   sub_1000027C0();
-  v10 = v6;
-  v7 = v6;
-  v8 = sub_1000027CC();
-  dispatch_async(v8, v9);
+  v9 = v5;
+  v6 = v5;
+  v7 = sub_1000027CC();
+  dispatch_async(v7, v8);
 }
 
 - (void)onActiveAudioRouteChanged:(id)changed
 {
-  if (self)
-  {
-    producerQueue = self->_producerQueue;
-  }
-
   sub_100002768();
-  v7 = 3221225472;
-  v8 = sub_100011A28;
-  v9 = &unk_100024948;
-  v10 = v4;
-  dispatch_async(v5, block);
+  v6 = 3221225472;
+  v7 = sub_100011A28;
+  v8 = &unk_100024948;
+  v9 = v3;
+  dispatch_async(v4, block);
 }
 
 - (void)backlight:(id)backlight didCompleteUpdateToState:(int64_t)state forEvent:(id)event
 {
-  if (self)
-  {
-    producerQueue = self->_producerQueue;
-  }
-
   sub_100002788();
-  v9[1] = 3221225472;
-  v9[2] = sub_100011C24;
-  v9[3] = &unk_100024970;
-  v9[4] = v6;
-  v9[5] = v7;
-  dispatch_async(v8, v9);
+  v8[1] = 3221225472;
+  v8[2] = sub_100011C24;
+  v8[3] = &unk_100024970;
+  v8[4] = v5;
+  v8[5] = v6;
+  dispatch_async(v7, v8);
 }
 
 @end

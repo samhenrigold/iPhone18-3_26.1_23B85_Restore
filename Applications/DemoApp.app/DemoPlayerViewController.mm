@@ -3,6 +3,7 @@
 - (void)_prepareMovie;
 - (void)loadView;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation DemoPlayerViewController
@@ -24,6 +25,14 @@
 
   [view addSubview:self->_playerView];
   self->_duration = NAN;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = DemoPlayerViewController;
+  [(DemoPlayerViewController *)&v4 viewDidAppear:appear];
+  [(DemoPlayerViewController *)self _prepareMovie];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

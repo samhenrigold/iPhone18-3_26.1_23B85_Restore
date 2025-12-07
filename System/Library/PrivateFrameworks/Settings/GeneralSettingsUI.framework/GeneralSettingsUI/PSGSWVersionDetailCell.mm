@@ -20,9 +20,9 @@
 - (PSGSWVersionDetailCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier specifier:(id)specifier
 {
   specifierCopy = specifier;
-  v24.receiver = self;
-  v24.super_class = PSGSWVersionDetailCell;
-  v9 = [(PSTableCell *)&v24 initWithStyle:style reuseIdentifier:identifier specifier:specifierCopy];
+  v26.receiver = self;
+  v26.super_class = PSGSWVersionDetailCell;
+  v9 = [(PSTableCell *)&v26 initWithStyle:style reuseIdentifier:identifier specifier:specifierCopy];
   v10 = v9;
   if (v9)
   {
@@ -57,23 +57,23 @@
 
     if (!v10->_documentationData)
     {
-      v19 = _PSGLoggingFacility();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = _PSGLoggingFacility(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [PSGSWVersionDetailCell initWithStyle:v19 reuseIdentifier:? specifier:?];
+        [PSGSWVersionDetailCell initWithStyle:v20 reuseIdentifier:? specifier:?];
       }
     }
 
-    v20 = [(PSGSWVersionDetailCell *)v10 systemVersionValueForKey:@"ProductBuildVersion"];
+    v21 = [(PSGSWVersionDetailCell *)v10 systemVersionValueForKey:@"ProductBuildVersion"];
     buildVersion = v10->_buildVersion;
-    v10->_buildVersion = v20;
+    v10->_buildVersion = v21;
 
     if (!v10->_buildVersion)
     {
-      v22 = _PSGLoggingFacility();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = _PSGLoggingFacility(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [PSGSWVersionDetailCell initWithStyle:v22 reuseIdentifier:? specifier:?];
+        [PSGSWVersionDetailCell initWithStyle:v24 reuseIdentifier:? specifier:?];
       }
     }
 
@@ -86,7 +86,7 @@
 
 - (void)configureContentView
 {
-  v55[3] = *MEMORY[0x277D85DE8];
+  v54[3] = *MEMORY[0x277D85DE8];
   titleLabelView = [(PSGSWVersionDetailCell *)self titleLabelView];
   titleLabelView = self->_titleLabelView;
   self->_titleLabelView = titleLabelView;
@@ -104,27 +104,27 @@
     v6 = 0;
   }
 
-  v39 = MEMORY[0x277CCAAD0];
+  v38 = MEMORY[0x277CCAAD0];
   topAnchor = [(UILabel *)v6 topAnchor];
   contentView2 = [(PSGSWVersionDetailCell *)self contentView];
   layoutMarginsGuide = [contentView2 layoutMarginsGuide];
   topAnchor2 = [layoutMarginsGuide topAnchor];
-  v41 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v55[0] = v41;
+  v40 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v54[0] = v40;
   leadingAnchor = [(UILabel *)self->_titleLabelView leadingAnchor];
   contentView3 = [(PSGSWVersionDetailCell *)self contentView];
   layoutMarginsGuide2 = [contentView3 layoutMarginsGuide];
   leadingAnchor2 = [layoutMarginsGuide2 leadingAnchor];
   v9 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v55[1] = v9;
+  v54[1] = v9;
   trailingAnchor = [(UILabel *)self->_titleLabelView trailingAnchor];
   contentView4 = [(PSGSWVersionDetailCell *)self contentView];
   layoutMarginsGuide3 = [contentView4 layoutMarginsGuide];
   trailingAnchor2 = [layoutMarginsGuide3 trailingAnchor];
   v14 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v55[2] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:3];
-  [v39 activateConstraints:v15];
+  v54[2] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:3];
+  [v38 activateConstraints:v15];
 
   releaseNotesSummaryView = [(PSGSWVersionDetailCell *)self releaseNotesSummaryView];
   releaseNotesSummaryView = self->_releaseNotesSummaryView;
@@ -146,8 +146,8 @@
     bottomAnchor = [(PSWebContainerView *)self->_releaseNotesSummaryView bottomAnchor];
     topAnchor3 = [(UIView *)self->_revokedSplatView topAnchor];
     bottomAnchor2 = [bottomAnchor constraintEqualToAnchor:topAnchor3 constant:-5.0];
-    v54 = bottomAnchor2;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+    v53 = bottomAnchor2;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
     [v21 activateConstraints:v25];
   }
 
@@ -158,39 +158,38 @@
     topAnchor3 = [(PSGSWVersionDetailCell *)self contentView];
     bottomAnchor2 = [topAnchor3 bottomAnchor];
     v25 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-5.0];
-    v53 = v25;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
+    v52 = v25;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
     [v26 activateConstraints:v27];
   }
 
-  v42 = MEMORY[0x277CCAAD0];
+  v41 = MEMORY[0x277CCAAD0];
   topAnchor4 = [(PSWebContainerView *)self->_releaseNotesSummaryView topAnchor];
   bottomAnchor3 = [(UILabel *)self->_titleLabelView bottomAnchor];
-  v48 = [topAnchor4 constraintEqualToAnchor:bottomAnchor3 constant:5.0];
-  v52[0] = v48;
+  v47 = [topAnchor4 constraintEqualToAnchor:bottomAnchor3 constant:5.0];
+  v51[0] = v47;
   leadingAnchor3 = [(PSWebContainerView *)self->_releaseNotesSummaryView leadingAnchor];
   contentView6 = [(PSGSWVersionDetailCell *)self contentView];
   layoutMarginsGuide4 = [contentView6 layoutMarginsGuide];
   leadingAnchor4 = [layoutMarginsGuide4 leadingAnchor];
   v30 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v52[1] = v30;
+  v51[1] = v30;
   trailingAnchor3 = [(PSWebContainerView *)self->_releaseNotesSummaryView trailingAnchor];
   contentView7 = [(PSGSWVersionDetailCell *)self contentView];
   layoutMarginsGuide5 = [contentView7 layoutMarginsGuide];
   trailingAnchor4 = [layoutMarginsGuide5 trailingAnchor];
   v35 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v52[2] = v35;
-  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:3];
-  [v42 activateConstraints:v36];
+  v51[2] = v35;
+  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:3];
+  [v41 activateConstraints:v36];
 
   [(PSGSWVersionDetailCell *)self updateConstraints];
   [(PSGSWVersionDetailCell *)self setNeedsDisplay];
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)revokedSplatView
 {
-  v54[4] = *MEMORY[0x277D85DE8];
+  v53[4] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   [v2 setTranslatesAutoresizingMaskIntoConstraints:0];
   v3 = PSG_LocalizedStringForGeneral(@"REVOKE_SPLAT_INFO");
@@ -241,56 +240,54 @@
 
   [v7 setTranslatesAutoresizingMaskIntoConstraints:0];
   [v7 addSubview:v2];
-  v41 = MEMORY[0x277CCAAD0];
+  v40 = MEMORY[0x277CCAAD0];
   topAnchor = [v2 topAnchor];
   topAnchor2 = [v7 topAnchor];
-  v45 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:10.0];
-  v54[0] = v45;
+  v44 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:10.0];
+  v53[0] = v44;
   leadingAnchor = [v2 leadingAnchor];
   leadingAnchor2 = [v7 leadingAnchor];
   v16 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:10.0];
-  v54[1] = v16;
+  v53[1] = v16;
   trailingAnchor = [v2 trailingAnchor];
   trailingAnchor2 = [v7 trailingAnchor];
   v19 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-10.0];
-  v54[2] = v19;
+  v53[2] = v19;
   [v2 bottomAnchor];
-  v20 = v51 = v2;
+  v20 = v50 = v2;
   bottomAnchor = [v7 bottomAnchor];
   v22 = [v20 constraintEqualToAnchor:bottomAnchor constant:-10.0];
-  v54[3] = v22;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:4];
-  [v41 activateConstraints:v23];
+  v53[3] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:4];
+  [v40 activateConstraints:v23];
 
   contentView = [(PSGSWVersionDetailCell *)self contentView];
   [contentView addSubview:v7];
 
-  v38 = MEMORY[0x277CCAAD0];
+  v37 = MEMORY[0x277CCAAD0];
   topAnchor3 = [v7 topAnchor];
   bottomAnchor2 = [(PSWebContainerView *)self->_releaseNotesSummaryView bottomAnchor];
-  v46 = [topAnchor3 constraintEqualToAnchor:bottomAnchor2 constant:30.0];
-  v53[0] = v46;
+  v45 = [topAnchor3 constraintEqualToAnchor:bottomAnchor2 constant:30.0];
+  v52[0] = v45;
   leadingAnchor3 = [v7 leadingAnchor];
   contentView2 = [(PSGSWVersionDetailCell *)self contentView];
   layoutMarginsGuide = [contentView2 layoutMarginsGuide];
   leadingAnchor4 = [layoutMarginsGuide leadingAnchor];
-  v37 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:10.0];
-  v53[1] = v37;
+  v36 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:10.0];
+  v52[1] = v36;
   trailingAnchor3 = [v7 trailingAnchor];
   contentView3 = [(PSGSWVersionDetailCell *)self contentView];
   layoutMarginsGuide2 = [contentView3 layoutMarginsGuide];
   trailingAnchor4 = [layoutMarginsGuide2 trailingAnchor];
   v28 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-5.0];
-  v53[2] = v28;
+  v52[2] = v28;
   bottomAnchor3 = [v7 bottomAnchor];
   contentView4 = [(PSGSWVersionDetailCell *)self contentView];
   bottomAnchor4 = [contentView4 bottomAnchor];
   v32 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:-15.0];
-  v53[3] = v32;
-  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:4];
-  [v38 activateConstraints:v33];
-
-  v34 = *MEMORY[0x277D85DE8];
+  v52[3] = v32;
+  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:4];
+  [v37 activateConstraints:v33];
 
   return v7;
 }
@@ -569,16 +566,13 @@
 
 - (void)initWithStyle:(unsigned int *)a1 reuseIdentifier:(NSObject *)a2 specifier:.cold.1(unsigned int *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  v4 = SUStringFromOSUpdateType();
-  v6 = 138412546;
-  v7 = v4;
-  v8 = 2112;
-  v9 = 0;
-  _os_log_error_impl(&dword_21CF20000, a2, OS_LOG_TYPE_ERROR, "Failed to get documentation data for %@ update: %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = SUStringFromOSUpdateType();
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = 0;
+  _os_log_error_impl(&dword_21CF20000, a2, OS_LOG_TYPE_ERROR, "Failed to get documentation data for %@ update: %@", &v4, 0x16u);
 }
 
 @end

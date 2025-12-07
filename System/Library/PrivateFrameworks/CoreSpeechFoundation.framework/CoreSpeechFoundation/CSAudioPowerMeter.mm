@@ -5,6 +5,8 @@
 - (void)_savePeaks:(int)peaks averagePower:(int)power maxSample:(int)sample;
 - (void)_scaleDecayConstants:(int)constants;
 - (void)_zapgremlins:(double *)_zapgremlins;
+- (void)processFloatBuffer:(const float *)buffer stride:(int)stride inFrameToProcess:(int)process;
+- (void)processShortBuffer:(const signed __int16 *)buffer stride:(int)stride inFrameToProcess:(int)process;
 @end
 
 @implementation CSAudioPowerMeter
@@ -98,6 +100,154 @@
   if (v13 > maxPeak)
   {
     self->_averagePowerPeak = maxPeak;
+  }
+}
+
+- (void)processFloatBuffer:(const float *)buffer stride:(int)stride inFrameToProcess:(int)process
+{
+  if (process < 1)
+  {
+    return;
+  }
+
+  [(CSAudioPowerMeter *)self _scaleDecayConstants:*&process];
+  averagePowerF = self->_averagePowerF;
+  v11 = process + 1;
+  v12 = 0.0;
+  do
+  {
+    v13 = *buffer;
+    if (*buffer < 0.0)
+    {
+      v13 = -*buffer;
+    }
+
+    if (v13 > v12)
+    {
+      v12 = v13;
+    }
+
+    averagePowerF = averagePowerF + ((v13 * v13) - averagePowerF) * 0.03;
+    buffer += stride;
+    --v11;
+  }
+
+  while (v11 > 1);
+  [(CSAudioUnitMeterClipping *)self->_clipping peakValueSinceLastCall];
+  if (v12 > *&v14)
+  {
+    *&v14 = v12;
+    [(CSAudioUnitMeterClipping *)self->_clipping setPeakValueSinceLastCall:v14];
+  }
+
+  v15 = __fpclassifyd(averagePowerF);
+  if (v15 == 2)
+  {
+    [(CSAudioUnitMeterClipping *)self->_clipping setSawInfinity:1];
+    goto LABEL_15;
+  }
+
+  if (v15 == 1)
+  {
+    [(CSAudioUnitMeterClipping *)self->_clipping setSawNotANumber:1];
+LABEL_15:
+    averagePowerF = 0.0;
+    v12 = 1.0;
+  }
+
+  self->_averagePowerF = averagePowerF;
+  instantaneousMode = self->_instantaneousMode;
+  if (instantaneousMode)
+  {
+    v17 = v12;
+  }
+
+  else
+  {
+    peak = self->_peak;
+    v17 = v12;
+    if (peak > v12)
+    {
+      v17 = peak + (v17 - peak) * self->_decay;
+    }
+  }
+
+  self->_peak = v17;
+  maxPeak = self->_maxPeak;
+  v20 = self->_peakHoldCount + process;
+  self->_peakHoldCount = v20;
+  if (v20 >= (self->_sampleRate * 0.907029478))
+  {
+    maxPeak = maxPeak - maxPeak * self->_peakDecay;
+    self->_maxPeak = maxPeak;
+  }
+
+  v21 = sqrt(averagePowerF);
+  if (maxPeak < v17)
+  {
+    self->_maxPeak = v17;
+    self->_peakHoldCount = 0;
+    maxPeak = v17;
+  }
+
+  v22 = v21 * 1.41421356;
+  if (!instantaneousMode)
+  {
+    averagePowerPeak = self->_averagePowerPeak;
+    if (averagePowerPeak > v22)
+    {
+      v22 = averagePowerPeak + (v22 - averagePowerPeak) * self->_decay;
+    }
+  }
+
+  self->_averagePowerPeak = v22;
+  if (v22 > maxPeak)
+  {
+    self->_averagePowerPeak = maxPeak;
+  }
+
+  [(CSAudioPowerMeter *)self _zapgremlins:&self->_averagePowerF];
+  [(CSAudioPowerMeter *)self _zapgremlins:&self->_averagePowerPeak];
+  [(CSAudioPowerMeter *)self _zapgremlins:&self->_peak];
+
+  [(CSAudioPowerMeter *)self _zapgremlins:&self->_maxPeak];
+}
+
+- (void)processShortBuffer:(const signed __int16 *)buffer stride:(int)stride inFrameToProcess:(int)process
+{
+  if (process >= 1)
+  {
+    v6 = *&process;
+    [(CSAudioPowerMeter *)self _scaleDecayConstants:*&process];
+    LODWORD(v10) = 0;
+    LODWORD(v11) = self->_averagePowerI;
+    v12 = v6 + 1;
+    do
+    {
+      v13 = *buffer;
+      if (v13 < 0)
+      {
+        v13 = -v13;
+      }
+
+      if (v10 <= v13)
+      {
+        v10 = v13;
+      }
+
+      else
+      {
+        v10 = v10;
+      }
+
+      v11 = (v11 + ((v13 * v13 - v11) >> 5));
+      --v12;
+      buffer += stride;
+    }
+
+    while (v12 > 1);
+
+    [(CSAudioPowerMeter *)self _savePeaks:v6 averagePower:v11 maxSample:v10];
   }
 }
 

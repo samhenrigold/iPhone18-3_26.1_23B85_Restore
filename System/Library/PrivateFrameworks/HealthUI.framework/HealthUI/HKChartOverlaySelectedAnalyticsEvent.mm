@@ -235,6 +235,27 @@ LABEL_14:
   return onboardingCompletion;
 }
 
+- (void)makeIHAGatedEventPayloadWithDataSource:(uint64_t)a3 error:(uint64_t)a4 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_3(&dword_1C3942000, a2, a3, "[%{public}@] No error when fetching biological sex but also didn't get object", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)makeIHAGatedEventPayloadWithDataSource:(uint64_t)a3 error:(uint64_t)a4 .cold.4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_3(&dword_1C3942000, a2, a3, "[%{public}@] Attempting to log analytics for previous context item that does not have analytics identifier", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)makeIHAGatedEventPayloadWithDataSource:(uint64_t)a3 error:(uint64_t)a4 .cold.5(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_3(&dword_1C3942000, a2, a3, "[%{public}@] Attempting to log analytics for current context item that does not have analytics identifier", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)determineFeatureVersionWithHealthDataSource:(NSObject *)a3 .cold.2(uint64_t a1, id *a2, NSObject *a3)
 {
   v10 = *MEMORY[0x1E69E9840];

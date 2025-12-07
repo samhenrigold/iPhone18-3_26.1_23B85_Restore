@@ -26,15 +26,15 @@ uint64_t __67___UIKeyboardLayerHostView_initWithKeyboardProxyLayer_owningScene__
   if (WeakRetained)
   {
     v3 = [*(a1 + 32) proxiedKeyboardOwner];
-    v4 = [v3 isEqual:WeakRetained[61]];
+    isEqual = objc_msgSend_isEqual_(v3);
   }
 
   else
   {
-    v4 = 0;
+    isEqual = 0;
   }
 
-  return v4;
+  return isEqual;
 }
 
 uint64_t __62___UIKeyboardLayerHostView_initWithKeyboardLayer_owningScene___block_invoke(uint64_t a1)
@@ -43,15 +43,15 @@ uint64_t __62___UIKeyboardLayerHostView_initWithKeyboardLayer_owningScene___bloc
   if (WeakRetained)
   {
     v3 = [*(a1 + 32) identityToken];
-    v4 = [v3 isEqual:WeakRetained[61]];
+    isEqual = objc_msgSend_isEqual_(v3);
   }
 
   else
   {
-    v4 = 0;
+    isEqual = 0;
   }
 
-  return v4;
+  return isEqual;
 }
 
 void __58___UIKeyboardLayerHostView_setCurrentPresentationContext___block_invoke(uint64_t a1, void *a2)

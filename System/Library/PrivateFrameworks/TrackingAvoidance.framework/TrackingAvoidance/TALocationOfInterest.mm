@@ -86,23 +86,7 @@ LABEL_6:
     {
       v5 = equalCopy;
       type = [(TALocationOfInterest *)self type];
-      if (type != [(TALocationOfInterest *)v5 type])
-      {
-        goto LABEL_12;
-      }
-
-      [(TALocationOfInterest *)self latitude];
-      v8 = v7;
-      [(TALocationOfInterest *)v5 latitude];
-      if (v8 != v9)
-      {
-        goto LABEL_12;
-      }
-
-      [(TALocationOfInterest *)self longitude];
-      v11 = v10;
-      [(TALocationOfInterest *)v5 longitude];
-      if (v11 == v12 && ([(TALocationOfInterest *)self horizontalAccuracy], v14 = v13, [(TALocationOfInterest *)v5 horizontalAccuracy], v14 == v15) && (v16 = [(TALocationOfInterest *)self referenceFrame], v16 == [(TALocationOfInterest *)v5 referenceFrame]))
+      if (type == [(TALocationOfInterest *)v5 type]&& ([(TALocationOfInterest *)self latitude], v8 = v7, [(TALocationOfInterest *)v5 latitude], v8 == v9) && ([(TALocationOfInterest *)self longitude], v11 = v10, [(TALocationOfInterest *)v5 longitude], v11 == v12) && ([(TALocationOfInterest *)self horizontalAccuracy], v14 = v13, [(TALocationOfInterest *)v5 horizontalAccuracy], v14 == v15) && (v16 = [(TALocationOfInterest *)self referenceFrame], v16 == [(TALocationOfInterest *)v5 referenceFrame]))
       {
         date = [(TALocationOfInterest *)self date];
         date2 = [(TALocationOfInterest *)v5 date];
@@ -121,7 +105,6 @@ LABEL_6:
 
       else
       {
-LABEL_12:
         v21 = 0;
       }
     }
@@ -137,12 +120,12 @@ LABEL_12:
 
 - (id)descriptionDictionary
 {
-  v17[7] = *MEMORY[0x277D85DE8];
-  v16[0] = @"EventType";
+  v16[7] = *MEMORY[0x277D85DE8];
+  v15[0] = @"EventType";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v17[0] = v4;
-  v16[1] = @"Type";
+  v16[0] = v4;
+  v15[1] = @"Type";
   type = self->_type;
   if (type > 2)
   {
@@ -154,26 +137,24 @@ LABEL_12:
     v6 = off_279DD1E58[type];
   }
 
-  v17[1] = v6;
-  v16[2] = @"Latitude";
+  v16[1] = v6;
+  v15[2] = @"Latitude";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:self->_latitude];
-  v17[2] = v7;
-  v16[3] = @"Longitude";
+  v16[2] = v7;
+  v15[3] = @"Longitude";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:self->_longitude];
-  v17[3] = v8;
-  v16[4] = @"HorizontalAccuracy";
+  v16[3] = v8;
+  v15[4] = @"HorizontalAccuracy";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:self->_horizontalAccuracy];
-  v17[4] = v9;
-  v16[5] = @"ReferenceFrame";
+  v16[4] = v9;
+  v15[5] = @"ReferenceFrame";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_referenceFrame];
-  v17[5] = v10;
-  v16[6] = @"Date";
+  v16[5] = v10;
+  v15[6] = @"Date";
   date = [(TALocationOfInterest *)self date];
   getDateString = [date getDateString];
-  v17[6] = getDateString;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:7];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v16[6] = getDateString;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:7];
 
   return v13;
 }

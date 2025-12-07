@@ -39,19 +39,19 @@
 
 - (PODeviceConfiguration)init
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = PODeviceConfiguration;
-  v2 = [(PODeviceConfiguration *)&v8 init];
+  v9[2] = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = PODeviceConfiguration;
+  v2 = [(PODeviceConfiguration *)&v7 init];
   v3 = v2;
   if (v2)
   {
     v2->_version = 1;
-    v9[0] = @"AccountName";
-    v9[1] = @"FullName";
-    v10[0] = @"com.apple.PlatformSSO.AccountShortName";
-    v10[1] = @"name";
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+    v8[0] = @"AccountName";
+    v8[1] = @"FullName";
+    v9[0] = @"com.apple.PlatformSSO.AccountShortName";
+    v9[1] = @"name";
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
     tokenToUserMapping = v3->_tokenToUserMapping;
     v3->_tokenToUserMapping = v4;
 
@@ -59,13 +59,12 @@
     objc_storeStrong(&v3->_encryptionAlgorithm, &unk_2870A9198);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (BOOL)supportsTokenUnlock
 {
-  v3 = PO_LOG_PODeviceConfiguration();
+  v3 = PO_LOG_PODeviceConfiguration(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PODeviceConfiguration supportsTokenUnlock];
@@ -82,7 +81,7 @@
 
 - (BOOL)supportsAuthorization
 {
-  v3 = PO_LOG_PODeviceConfiguration();
+  v3 = PO_LOG_PODeviceConfiguration(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PODeviceConfiguration supportsAuthorization];
@@ -99,7 +98,7 @@
 
 - (BOOL)supportsCreateNewUsers
 {
-  v3 = PO_LOG_PODeviceConfiguration();
+  v3 = PO_LOG_PODeviceConfiguration(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PODeviceConfiguration supportsCreateNewUsers];
@@ -116,7 +115,7 @@
 
 - (BOOL)supportsCreateFirstUserDuringSetup
 {
-  v3 = PO_LOG_PODeviceConfiguration();
+  v3 = PO_LOG_PODeviceConfiguration(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PODeviceConfiguration supportsCreateFirstUserDuringSetup];
@@ -133,7 +132,7 @@
 
 - (BOOL)supportsCreateTemporaryUsers
 {
-  v3 = PO_LOG_PODeviceConfiguration();
+  v3 = PO_LOG_PODeviceConfiguration(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(PODeviceConfiguration *)self supportsCreateTemporaryUsers];
@@ -154,7 +153,7 @@
 
 - (BOOL)supportsAccessKey
 {
-  v3 = PO_LOG_PODeviceConfiguration();
+  v3 = PO_LOG_PODeviceConfiguration(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(PODeviceConfiguration *)self supportsAccessKey];
@@ -241,7 +240,7 @@
     deviceSigningKeyData = self->__deviceSigningKeyData;
     self->__deviceSigningKeyData = v4;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, deviceSigningKeyData);
   }
 }
 
@@ -338,7 +337,7 @@
 id __48__PODeviceConfiguration_setDeviceEncryptionKey___block_invoke()
 {
   v0 = [POError errorWithCode:-1001 description:@"Failed to encrypt temporary account credential when updating encryption key."];
-  v1 = PO_LOG_PODeviceConfiguration();
+  v1 = PO_LOG_PODeviceConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -447,7 +446,7 @@ LABEL_18:
 id __52__PODeviceConfiguration_accessTokenTerminalIdentity__block_invoke()
 {
   v0 = [POError errorWithCode:-1001 description:@"Failed to create certificate or key"];
-  v1 = PO_LOG_PODeviceConfiguration();
+  v1 = PO_LOG_PODeviceConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -547,7 +546,7 @@ id __52__PODeviceConfiguration_accessTokenTerminalIdentity__block_invoke()
 id __56__PODeviceConfiguration_setAccessTokenTerminalIdentity___block_invoke(uint64_t a1)
 {
   v2 = [POError errorWithCode:-1001 description:@"Error with SecIdentityCopyCertificate."];
-  v3 = PO_LOG_PODeviceConfiguration();
+  v3 = PO_LOG_PODeviceConfiguration(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __56__PODeviceConfiguration_setAccessTokenTerminalIdentity___block_invoke_cold_1(v2, a1);
@@ -559,7 +558,7 @@ id __56__PODeviceConfiguration_setAccessTokenTerminalIdentity___block_invoke(uin
 id __56__PODeviceConfiguration_setAccessTokenTerminalIdentity___block_invoke_29(uint64_t a1)
 {
   v2 = [POError errorWithCode:-1001 description:@"Error with SecIdentityCopyPrivateKey."];
-  v3 = PO_LOG_PODeviceConfiguration();
+  v3 = PO_LOG_PODeviceConfiguration(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __56__PODeviceConfiguration_setAccessTokenTerminalIdentity___block_invoke_cold_1(v2, a1);
@@ -571,7 +570,7 @@ id __56__PODeviceConfiguration_setAccessTokenTerminalIdentity___block_invoke_29(
 id __56__PODeviceConfiguration_setAccessTokenTerminalIdentity___block_invoke_33()
 {
   v0 = [POError errorWithCode:-1001 description:@"Missing terminal identity key data"];
-  v1 = PO_LOG_PODeviceConfiguration();
+  v1 = PO_LOG_PODeviceConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -591,7 +590,7 @@ id __56__PODeviceConfiguration_setAccessTokenTerminalIdentity___block_invoke_33(
 - (BOOL)encryptAndSaveTemporaryAccountCredential:(id)credential
 {
   credentialCopy = credential;
-  v5 = PO_LOG_PODeviceConfiguration();
+  v5 = PO_LOG_PODeviceConfiguration(credentialCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [PODeviceConfiguration encryptAndSaveTemporaryAccountCredential:v5];
@@ -652,7 +651,7 @@ id __56__PODeviceConfiguration_setAccessTokenTerminalIdentity___block_invoke_33(
 id __66__PODeviceConfiguration_encryptAndSaveTemporaryAccountCredential___block_invoke()
 {
   v0 = [POError errorWithCode:-1005 description:@"Missing device encryption public key."];
-  v1 = PO_LOG_PODeviceConfiguration();
+  v1 = PO_LOG_PODeviceConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -664,7 +663,7 @@ id __66__PODeviceConfiguration_encryptAndSaveTemporaryAccountCredential___block_
 id __66__PODeviceConfiguration_encryptAndSaveTemporaryAccountCredential___block_invoke_44()
 {
   v0 = [POError errorWithCode:-1001 description:@"Encryption algorithm not supported."];
-  v1 = PO_LOG_PODeviceConfiguration();
+  v1 = PO_LOG_PODeviceConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -678,8 +677,8 @@ id __66__PODeviceConfiguration_encryptAndSaveTemporaryAccountCredential___block_
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Failed to encrypt temporary account credential."];
 
-  v3 = PO_LOG_PODeviceConfiguration();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_PODeviceConfiguration(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -689,7 +688,7 @@ id __66__PODeviceConfiguration_encryptAndSaveTemporaryAccountCredential___block_
 
 - (id)decryptTemporaryAccountCredential
 {
-  v3 = PO_LOG_PODeviceConfiguration();
+  v3 = PO_LOG_PODeviceConfiguration(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(PODeviceConfiguration *)v3 decryptTemporaryAccountCredential];
@@ -739,7 +738,7 @@ id __66__PODeviceConfiguration_encryptAndSaveTemporaryAccountCredential___block_
 id __58__PODeviceConfiguration_decryptTemporaryAccountCredential__block_invoke()
 {
   v0 = [POError errorWithCode:-1001 description:@"Encryption algorithm not supported when decrypting pending sso tokens."];
-  v1 = PO_LOG_PODeviceConfiguration();
+  v1 = PO_LOG_PODeviceConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -753,8 +752,8 @@ id __58__PODeviceConfiguration_decryptTemporaryAccountCredential__block_invoke_6
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"failed to decrypt temporary account credential."];
 
-  v3 = PO_LOG_PODeviceConfiguration();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_PODeviceConfiguration(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -1188,7 +1187,7 @@ id __58__PODeviceConfiguration_decryptTemporaryAccountCredential__block_invoke_6
 id __54__PODeviceConfiguration_dataRepresentationForDisplay___block_invoke()
 {
   v0 = [POError errorWithCode:-1001 description:@"Error serializing device config."];
-  v1 = PO_LOG_PODeviceConfiguration();
+  v1 = PO_LOG_PODeviceConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -1803,7 +1802,7 @@ LABEL_98:
 id __38__PODeviceConfiguration_initWithData___block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Error deserializing device config."];
-  v2 = PO_LOG_PODeviceConfiguration();
+  v2 = PO_LOG_PODeviceConfiguration(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -1860,8 +1859,6 @@ void __38__PODeviceConfiguration_initWithData___block_invoke_180(uint64_t a1, vo
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x2Au);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)supportsAuthorization
@@ -1874,8 +1871,6 @@ void __38__PODeviceConfiguration_initWithData___block_invoke_180(uint64_t a1, vo
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x2Au);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)supportsCreateNewUsers
@@ -1888,8 +1883,6 @@ void __38__PODeviceConfiguration_initWithData___block_invoke_180(uint64_t a1, vo
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x2Au);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)supportsCreateFirstUserDuringSetup
@@ -1902,42 +1895,33 @@ void __38__PODeviceConfiguration_initWithData___block_invoke_180(uint64_t a1, vo
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x2Au);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)supportsCreateTemporaryUsers
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(self, "sharedDeviceKeys")}];
   [self createUsersEnabled];
   v3 = [OUTLINED_FUNCTION_7() numberWithBool:?];
-  v10 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "newUserAuthorizationMode")}];
+  v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "newUserAuthorizationMode")}];
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x34u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)supportsAccessKey
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[PODeviceConfiguration supportsAccessKey]";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[PODeviceConfiguration supportsAccessKey]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_debug_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_DEBUG, "%s  on %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_DEBUG, "%s  on %@", &v2, 0x16u);
 }
 
 void __56__PODeviceConfiguration_setAccessTokenTerminalIdentity___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCABB0] numberWithInt:*(a2 + 32)];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25E8B1000, v3, v4, "%{public}@, %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_25E8B1000, v3, v4, "%{public}@, %{public}@", v5, v6, v7, v8);
 }
 
 @end

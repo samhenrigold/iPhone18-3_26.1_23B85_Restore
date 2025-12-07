@@ -57,7 +57,7 @@
 
 - (id)_errorForArchiveStatus:(int64_t)status
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (status <= -11)
   {
     if (status == -30)
@@ -116,12 +116,10 @@ LABEL_14:
 
 LABEL_18:
   v5 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A578];
-  v11[0] = v4;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696A578];
+  v10[0] = v4;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 errorWithDomain:@"MFFileArchiveDomain" code:status userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -204,61 +202,61 @@ void __45__MFFileArchive_compressContents_completion___block_invoke(void *a1)
 
 - (id)compressFolder:(id)folder error:(id *)error
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   folderCopy = folder;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v43 = -86;
+  v42 = -86;
   path = [folderCopy path];
   selfCopy = self;
   errorCopy = error;
-  LODWORD(error) = [defaultManager fileExistsAtPath:path isDirectory:&v43];
-  LODWORD(self) = v43;
+  LODWORD(error) = [defaultManager fileExistsAtPath:path isDirectory:&v42];
+  LODWORD(self) = v42;
 
   if (error & self)
   {
     path2 = [folderCopy path];
-    v36 = [path2 length];
+    v35 = [path2 length];
 
     v8 = +[MFFileArchiveDirectory archiveDirectory];
     v9 = *MEMORY[0x1E695DB78];
-    v47[0] = *MEMORY[0x1E695DB78];
-    v34 = v8;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
+    v46[0] = *MEMORY[0x1E695DB78];
+    v33 = v8;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:1];
     v11 = [defaultManager enumeratorAtURL:folderCopy includingPropertiesForKeys:v10 options:0 errorHandler:0];
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     obj = v11;
     v12 = 0;
-    v13 = [obj countByEnumeratingWithState:&v39 objects:v46 count:16];
+    v13 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
     if (!v13)
     {
       goto LABEL_17;
     }
 
-    v14 = *v40;
+    v14 = *v39;
     while (1)
     {
       v15 = 0;
       v16 = v12;
       do
       {
-        if (*v40 != v14)
+        if (*v39 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v39 + 1) + 8 * v15);
+        v17 = *(*(&v38 + 1) + 8 * v15);
         path3 = [v17 path];
-        v19 = [path3 substringFromIndex:v36 + 1];
+        v19 = [path3 substringFromIndex:v35 + 1];
 
+        v36 = 0;
         v37 = 0;
-        v38 = 0;
-        LOBYTE(path3) = [v17 getResourceValue:&v38 forKey:v9 error:&v37];
-        v20 = v38;
-        v12 = v37;
+        LOBYTE(path3) = [v17 getResourceValue:&v37 forKey:v9 error:&v36];
+        v20 = v37;
+        v12 = v36;
 
         if (path3)
         {
@@ -273,14 +271,14 @@ void __45__MFFileArchive_compressContents_completion___block_invoke(void *a1)
             }
 
             v23 = [[MFFileArchiveEntry alloc] initWithDirectoryPath:v19];
-            [v34 setArchiveEntry:v23];
+            [v33 setArchiveEntry:v23];
           }
 
           else
           {
             v23 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v17 options:3 error:0];
             v25 = [[MFFileArchiveEntry alloc] initWithContents:v23 path:v19];
-            [v34 setArchiveEntry:v25];
+            [v33 setArchiveEntry:v25];
           }
         }
 
@@ -290,7 +288,7 @@ void __45__MFFileArchive_compressContents_completion___block_invoke(void *a1)
           if (os_log_type_enabled(&v23->super, OS_LOG_TYPE_ERROR))
           {
             ef_publicDescription = [v12 ef_publicDescription];
-            [(MFFileArchive *)ef_publicDescription compressFolder:buf error:&v45, &v23->super];
+            [(MFFileArchive *)ef_publicDescription compressFolder:buf error:&v44, &v23->super];
           }
         }
 
@@ -300,14 +298,14 @@ LABEL_15:
       }
 
       while (v13 != v15);
-      v13 = [obj countByEnumeratingWithState:&v39 objects:v46 count:16];
+      v13 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
       if (!v13)
       {
 LABEL_17:
 
-        v26 = [(MFFileArchive *)selfCopy _compressContents:v34 error:errorCopy];
+        v26 = [(MFFileArchive *)selfCopy _compressContents:v33 error:errorCopy];
 
-        v27 = v34;
+        v27 = v33;
         goto LABEL_22;
       }
     }
@@ -322,8 +320,6 @@ LABEL_17:
   v26 = 0;
 LABEL_22:
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v26;
 }
 
@@ -337,26 +333,26 @@ LABEL_22:
 
 - (int)_compressContents:(id)contents withArchive:(archive *)archive error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   archiveEntries = [contents archiveEntries];
-  v9 = [archiveEntries countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [archiveEntries countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v18;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v19 != v10)
+      if (*v18 != v10)
       {
         objc_enumerationMutation(archiveEntries);
       }
 
-      v12 = *(*(&v18 + 1) + 8 * v11);
+      v12 = *(*(&v17 + 1) + 8 * v11);
       if ([v12 isDirectory])
       {
         path = [v12 path];
@@ -377,7 +373,7 @@ LABEL_3:
 
       if (v9 == ++v11)
       {
-        v9 = [archiveEntries countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [archiveEntries countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -388,9 +384,7 @@ LABEL_3:
     }
   }
 
-  result = [(MFFileArchive *)self _compressionCompleteForArchive:archive error:error];
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(MFFileArchive *)self _compressionCompleteForArchive:archive error:error];
 }
 
 - (int)_compressWithArchive:(archive *)archive error:(id *)error

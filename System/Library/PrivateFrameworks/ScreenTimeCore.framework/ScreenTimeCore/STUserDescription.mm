@@ -39,7 +39,7 @@
 
 + (id)currentUser
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   aa_primaryAppleAccount = [v2 aa_primaryAppleAccount];
   v4 = aa_primaryAppleAccount;
@@ -48,8 +48,8 @@
     v12 = +[STLog utility];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_1B831F000, v12, OS_LOG_TYPE_INFO, "No Apple Account", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_1B831F000, v12, OS_LOG_TYPE_INFO, "No Apple Account", &v15, 2u);
     }
 
     aa_firstName = 0;
@@ -68,13 +68,13 @@
   v11 = +[STLog utility];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v16 = 138412802;
-    v17 = v9;
-    v18 = 2112;
-    v19 = aa_firstName;
-    v20 = 2112;
-    v21 = aa_lastName;
-    _os_log_impl(&dword_1B831F000, v11, OS_LOG_TYPE_INFO, "Account DSID %@: %@ %@", &v16, 0x20u);
+    v15 = 138412802;
+    v16 = v9;
+    v17 = 2112;
+    v18 = aa_firstName;
+    v19 = 2112;
+    v20 = aa_lastName;
+    _os_log_impl(&dword_1B831F000, v11, OS_LOG_TYPE_INFO, "Account DSID %@: %@ %@", &v15, 0x20u);
   }
 
   if (!v9)
@@ -84,8 +84,6 @@ LABEL_9:
   }
 
   v13 = [[STUserDescription alloc] initWithGivenName:aa_firstName familyName:aa_lastName userDSID:v9 userAltDSID:aa_altDSID];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -105,7 +103,7 @@ LABEL_9:
 
 void __47__STUserDescription_currentUserWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -113,8 +111,8 @@ void __47__STUserDescription_currentUserWithCompletion___block_invoke(uint64_t a
     v14 = +[STLog utility];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_1B831F000, v14, OS_LOG_TYPE_INFO, "No Apple Account", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_1B831F000, v14, OS_LOG_TYPE_INFO, "No Apple Account", &v16, 2u);
     }
 
     v7 = 0;
@@ -133,13 +131,13 @@ void __47__STUserDescription_currentUserWithCompletion___block_invoke(uint64_t a
   v13 = +[STLog utility];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v17 = 138412802;
-    v18 = v11;
-    v19 = 2112;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v8;
-    _os_log_impl(&dword_1B831F000, v13, OS_LOG_TYPE_INFO, "Account DSID %@: %@ %@", &v17, 0x20u);
+    v16 = 138412802;
+    v17 = v11;
+    v18 = 2112;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v8;
+    _os_log_impl(&dword_1B831F000, v13, OS_LOG_TYPE_INFO, "Account DSID %@: %@ %@", &v16, 0x20u);
   }
 
   if (!v11)
@@ -150,8 +148,6 @@ LABEL_9:
 
   v15 = [[STUserDescription alloc] initWithGivenName:v7 familyName:v8 userDSID:v11 userAltDSID:v12];
   (*(*(a1 + 32) + 16))();
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

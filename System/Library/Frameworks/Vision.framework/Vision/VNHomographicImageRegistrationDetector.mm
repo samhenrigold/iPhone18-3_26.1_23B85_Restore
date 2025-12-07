@@ -177,7 +177,7 @@ LABEL_16:
     memset(v32, 0, sizeof(v32));
     *v36 = buffer;
     v31 = 0;
-    v17 = ImageRegister(context, pixelBuffer, v36, 1u, 1, warpTransform != 0, v32, 0, &v31, 0, 0, 0, 0, 0, 0, &texture, 2);
+    v17 = ImageRegister(context, pixelBuffer, v36, 1, 1, warpTransform != 0, v32, 0, &v31, 0, 0, 0, 0, 0, 0, &texture, 2u);
     v18 = v17 == 0;
     if (error && v17)
     {

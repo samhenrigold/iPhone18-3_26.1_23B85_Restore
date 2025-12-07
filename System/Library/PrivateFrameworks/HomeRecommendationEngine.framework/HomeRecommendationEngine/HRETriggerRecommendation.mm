@@ -146,28 +146,8 @@ id __35__HRETriggerRecommendation_actions__block_invoke(uint64_t a1, void *a2)
     toSet = [actionBuilders toSet];
     composedString = [(HRETriggerRecommendation *)self existingActionBuilder:actionCopy inSet:toSet];
 
-    if (!composedString)
+    if (!composedString && ([actionCopy recommendableObjectsInvolved], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(anonymousActionSetBuilder, "actionBuilders"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "fromSet"), v16 = objc_claimAutoreleasedReturnValue(), v25[0] = MEMORY[0x277D85DD0], v25[1] = 3221225472, v25[2] = __66__HRETriggerRecommendation_addAction_allowEditingExistingActions___block_invoke, v25[3] = &unk_2797767E8, v26 = v14, v17 = v14, objc_msgSend(v16, "na_firstObjectPassingTest:", v25), composedString = objc_claimAutoreleasedReturnValue(), v16, v15, v26, v17, !composedString) || actionsCopy)
     {
-      recommendableObjectsInvolved = [actionCopy recommendableObjectsInvolved];
-      actionBuilders2 = [anonymousActionSetBuilder actionBuilders];
-      fromSet = [actionBuilders2 fromSet];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __66__HRETriggerRecommendation_addAction_allowEditingExistingActions___block_invoke;
-      v25[3] = &unk_2797767E8;
-      v26 = recommendableObjectsInvolved;
-      v17 = recommendableObjectsInvolved;
-      composedString = [fromSet na_firstObjectPassingTest:v25];
-
-      if (!composedString)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    if (actionsCopy)
-    {
-LABEL_7:
       if (composedString)
       {
         triggerActionSets3 = [composedString compareToObject:actionCopy];

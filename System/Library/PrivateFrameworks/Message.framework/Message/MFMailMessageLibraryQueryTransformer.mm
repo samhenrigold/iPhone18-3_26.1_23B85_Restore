@@ -72,72 +72,70 @@ void __43__MFMailMessageLibraryQueryTransformer_log__block_invoke(uint64_t a1)
 
 void __86__MFMailMessageLibraryQueryTransformer_messageCriterionConverter_criterionTypeForKey___block_invoke()
 {
-  v16[24] = *MEMORY[0x1E69E9840];
+  v15[24] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E699A868];
-  v15[0] = *MEMORY[0x1E699AB20];
-  v15[1] = v0;
-  v16[0] = &unk_1F2775A48;
-  v16[1] = &unk_1F2775A60;
+  v14[0] = *MEMORY[0x1E699AB20];
+  v14[1] = v0;
+  v15[0] = &unk_1F2775A48;
+  v15[1] = &unk_1F2775A60;
   v1 = *MEMORY[0x1E699A880];
-  v15[2] = *MEMORY[0x1E699A920];
-  v15[3] = v1;
-  v16[2] = &unk_1F2775A78;
-  v16[3] = &unk_1F2775A90;
+  v14[2] = *MEMORY[0x1E699A920];
+  v14[3] = v1;
+  v15[2] = &unk_1F2775A78;
+  v15[3] = &unk_1F2775A90;
   v2 = *MEMORY[0x1E699A908];
-  v15[4] = *MEMORY[0x1E699A888];
-  v15[5] = v2;
-  v16[4] = &unk_1F2775AA8;
-  v16[5] = &unk_1F2775AC0;
+  v14[4] = *MEMORY[0x1E699A888];
+  v14[5] = v2;
+  v15[4] = &unk_1F2775AA8;
+  v15[5] = &unk_1F2775AC0;
   v3 = *MEMORY[0x1E699A938];
-  v15[6] = *MEMORY[0x1E699A940];
-  v15[7] = v3;
-  v16[6] = &unk_1F2775AD8;
-  v16[7] = &unk_1F2775AF0;
+  v14[6] = *MEMORY[0x1E699A940];
+  v14[7] = v3;
+  v15[6] = &unk_1F2775AD8;
+  v15[7] = &unk_1F2775AF0;
   v4 = *MEMORY[0x1E699A8E0];
-  v15[8] = *MEMORY[0x1E699A948];
-  v15[9] = v4;
-  v16[8] = &unk_1F2775B08;
-  v16[9] = &unk_1F2775B20;
+  v14[8] = *MEMORY[0x1E699A948];
+  v14[9] = v4;
+  v15[8] = &unk_1F2775B08;
+  v15[9] = &unk_1F2775B20;
   v5 = *MEMORY[0x1E699A8F0];
-  v15[10] = *MEMORY[0x1E699A8F8];
-  v15[11] = v5;
-  v16[10] = &unk_1F2775B38;
-  v16[11] = &unk_1F2775B50;
+  v14[10] = *MEMORY[0x1E699A8F8];
+  v14[11] = v5;
+  v15[10] = &unk_1F2775B38;
+  v15[11] = &unk_1F2775B50;
   v6 = *MEMORY[0x1E699A910];
-  v15[12] = *MEMORY[0x1E699A870];
-  v15[13] = v6;
-  v16[12] = &unk_1F2775B68;
-  v16[13] = &unk_1F2775B80;
+  v14[12] = *MEMORY[0x1E699A870];
+  v14[13] = v6;
+  v15[12] = &unk_1F2775B68;
+  v15[13] = &unk_1F2775B80;
   v7 = *MEMORY[0x1E699AB18];
-  v15[14] = *MEMORY[0x1E699AB28];
-  v15[15] = v7;
-  v16[14] = &unk_1F2775B98;
-  v16[15] = &unk_1F2775BB0;
+  v14[14] = *MEMORY[0x1E699AB28];
+  v14[15] = v7;
+  v15[14] = &unk_1F2775B98;
+  v15[15] = &unk_1F2775BB0;
   v8 = *MEMORY[0x1E699A960];
-  v15[16] = *MEMORY[0x1E699A958];
-  v15[17] = v8;
-  v16[16] = &unk_1F2775BC8;
-  v16[17] = &unk_1F2775BE0;
+  v14[16] = *MEMORY[0x1E699A958];
+  v14[17] = v8;
+  v15[16] = &unk_1F2775BC8;
+  v15[17] = &unk_1F2775BE0;
   v9 = *MEMORY[0x1E699A8B8];
-  v15[18] = *MEMORY[0x1E699A978];
-  v15[19] = v9;
-  v16[18] = &unk_1F2775BF8;
-  v16[19] = &unk_1F2775C10;
+  v14[18] = *MEMORY[0x1E699A978];
+  v14[19] = v9;
+  v15[18] = &unk_1F2775BF8;
+  v15[19] = &unk_1F2775C10;
   v10 = *MEMORY[0x1E699A8A8];
-  v15[20] = *MEMORY[0x1E699A8B0];
-  v15[21] = v10;
-  v16[20] = &unk_1F2775C28;
-  v16[21] = &unk_1F2775C40;
+  v14[20] = *MEMORY[0x1E699A8B0];
+  v14[21] = v10;
+  v15[20] = &unk_1F2775C28;
+  v15[21] = &unk_1F2775C40;
   v11 = *MEMORY[0x1E699A850];
-  v15[22] = *MEMORY[0x1E699A9C8];
-  v15[23] = v11;
-  v16[22] = &unk_1F2775C58;
-  v16[23] = &unk_1F2775C70;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:24];
+  v14[22] = *MEMORY[0x1E699A9C8];
+  v14[23] = v11;
+  v15[22] = &unk_1F2775C58;
+  v15[23] = &unk_1F2775C70;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:24];
   v13 = messageCriterionConverter_criterionTypeForKey__mapping;
   messageCriterionConverter_criterionTypeForKey__mapping = v12;
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)messageCriterionConverter:(id)converter expressionForConstantValue:(id)value withCriterionType:(int64_t)type
@@ -176,33 +174,33 @@ void __86__MFMailMessageLibraryQueryTransformer_messageCriterionConverter_criter
 
 - (unsigned)optionsForQuery:(id)query
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   if (optionsForQuery__onceToken != -1)
   {
     [MFMailMessageLibraryQueryTransformer optionsForQuery:];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   sortDescriptors = [queryCopy sortDescriptors];
   v4 = 0;
-  v5 = [sortDescriptors countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [sortDescriptors countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(sortDescriptors);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v16 + 1) + 8 * i);
         v9 = optionsForQuery__mapping;
         v10 = [v8 key];
         v11 = [v9 objectForKeyedSubscript:v10];
@@ -224,34 +222,31 @@ void __86__MFMailMessageLibraryQueryTransformer_messageCriterionConverter_criter
         }
       }
 
-      v5 = [sortDescriptors countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [sortDescriptors countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 void __56__MFMailMessageLibraryQueryTransformer_optionsForQuery___block_invoke()
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v5[4] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E699A880];
-  v5[0] = *MEMORY[0x1E699A888];
-  v5[1] = v0;
-  v6[0] = &unk_1F2775C88;
-  v6[1] = &unk_1F2775CA0;
+  v4[0] = *MEMORY[0x1E699A888];
+  v4[1] = v0;
+  v5[0] = &unk_1F2775C88;
+  v5[1] = &unk_1F2775CA0;
   v1 = *MEMORY[0x1E699A978];
-  v5[2] = *MEMORY[0x1E699A958];
-  v5[3] = v1;
-  v6[2] = &unk_1F2775CB8;
-  v6[3] = &unk_1F2775CD0;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:4];
+  v4[2] = *MEMORY[0x1E699A958];
+  v4[3] = v1;
+  v5[2] = &unk_1F2775CB8;
+  v5[3] = &unk_1F2775CD0;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:4];
   v3 = optionsForQuery__mapping;
   optionsForQuery__mapping = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (EDMessagePersistence)messagePersistence

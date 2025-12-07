@@ -7,7 +7,6 @@
 - (BOOL)imputeFeature:(id)feature network:(id *)network offsetIndex:(unint64_t)index error:(id *)error;
 - (BOOL)setFeatureDataForRow:(id)row offsetIndex:(unint64_t)index featureName:(id)name error:(id *)error;
 - (BOOL)setInputData:(id)data batchSize:(unint64_t)size network:(id *)network reportMissingFeature:(BOOL)feature error:(id *)error;
-- (vector<unsigned)getEspressoBufferShape:(APOdmlEspressoIOBufferController *)self;
 - (void)dealloc;
 - (void)reportMissingFeatureError:(id)error;
 @end
@@ -16,12 +15,12 @@
 
 - (APOdmlEspressoIOBufferController)initWithRequiredFeatures:(id)features recipe:(id)recipe
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   recipeCopy = recipe;
-  v48.receiver = self;
-  v48.super_class = APOdmlEspressoIOBufferController;
-  v6 = [(APOdmlEspressoIOBufferController *)&v48 init];
+  v29.receiver = self;
+  v29.super_class = APOdmlEspressoIOBufferController;
+  v6 = [(APOdmlEspressoIOBufferController *)&v29 init];
   v7 = v6;
   if (v6)
   {
@@ -30,64 +29,61 @@
     v7->_loss = malloc_type_malloc(0xA8uLL, 0x10800403DA0D3ADuLL);
     v7->_isTraining = malloc_type_malloc(0xA8uLL, 0x10800403DA0D3ADuLL);
     v7->_learningRate = malloc_type_malloc(0xA8uLL, 0x10800403DA0D3ADuLL);
-    v10 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v8, v9);
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v11 = featuresCopy;
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v44, v49, 16);
-    if (v13)
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v9 = featuresCopy;
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    if (v10)
     {
-      v14 = *v45;
+      v11 = *v26;
       do
       {
-        v15 = 0;
+        v12 = 0;
         do
         {
-          if (*v45 != v14)
+          if (*v26 != v11)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v9);
           }
 
-          v16 = *(*(&v44 + 1) + 8 * v15);
-          v17 = malloc_type_malloc(0xA8uLL, 0x10800403DA0D3ADuLL);
-          v19 = objc_msgSend_valueWithPointer_(MEMORY[0x277CCAE60], v18, v17);
-          objc_msgSend_setObject_forKeyedSubscript_(v10, v20, v19, v16);
+          v13 = *(*(&v25 + 1) + 8 * v12);
+          v14 = [MEMORY[0x277CCAE60] valueWithPointer:{malloc_type_malloc(0xA8uLL, 0x10800403DA0D3ADuLL)}];
+          [dictionary setObject:v14 forKeyedSubscript:v13];
 
-          ++v15;
+          ++v12;
         }
 
-        while (v13 != v15);
-        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v21, &v44, v49, 16);
+        while (v10 != v12);
+        v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
-      while (v13);
+      while (v10);
     }
 
-    objc_storeStrong(&v7->_inputBuffers, v10);
-    v26 = objc_msgSend_array(MEMORY[0x277CBEB18], v22, v23);
+    objc_storeStrong(&v7->_inputBuffers, dictionary);
+    array = [MEMORY[0x277CBEB18] array];
     for (i = 0; ; ++i)
     {
-      v28 = objc_msgSend_recipe(v7, v24, v25);
-      v31 = objc_msgSend_weightNames(v28, v29, v30);
-      v34 = i < objc_msgSend_count(v31, v32, v33);
+      recipe = [(APOdmlEspressoIOBufferController *)v7 recipe];
+      weightNames = [recipe weightNames];
+      v19 = i < [weightNames count];
 
-      if (!v34)
+      if (!v19)
       {
         break;
       }
 
-      v35 = malloc_type_malloc(0xA8uLL, 0x10800403DA0D3ADuLL);
-      v37 = objc_msgSend_valueWithPointer_(MEMORY[0x277CCAE60], v36, v35);
-      objc_msgSend_addObject_(v26, v38, v37);
+      v20 = [MEMORY[0x277CCAE60] valueWithPointer:{malloc_type_malloc(0xA8uLL, 0x10800403DA0D3ADuLL)}];
+      [(NSArray *)array addObject:v20];
     }
 
     weightBuffers = v7->_weightBuffers;
-    v7->_weightBuffers = v26;
+    v7->_weightBuffers = array;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -95,88 +91,85 @@
 {
   errorCopy = error;
   v5 = 0;
-  v101 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   while (1)
   {
-    v6 = objc_msgSend_recipe(self, a2, to, errorCopy);
-    v9 = objc_msgSend_weightNames(v6, v7, v8);
-    v12 = objc_msgSend_count(v9, v10, v11);
+    recipe = [(APOdmlEspressoIOBufferController *)self recipe];
+    weightNames = [recipe weightNames];
+    v8 = [weightNames count];
 
-    if (v5 >= v12)
+    if (v5 >= v8)
     {
       break;
     }
 
-    var0 = to->var0;
-    v16 = *&to->var1;
-    v17 = objc_msgSend_recipe(self, v13, v14);
-    v20 = objc_msgSend_weightNames(v17, v18, v19);
-    v22 = objc_msgSend_objectAtIndexedSubscript_(v20, v21, v5);
-    v23 = v22;
-    objc_msgSend_UTF8String(v23, v24, v25);
-    v28 = objc_msgSend_weightBuffers(self, v26, v27);
-    v30 = objc_msgSend_objectAtIndexedSubscript_(v28, v29, v5);
-    objc_msgSend_bufferPointer(v30, v31, v32);
-    v33 = espresso_network_bind_buffer_to_global();
+    recipe2 = [(APOdmlEspressoIOBufferController *)self recipe];
+    weightNames2 = [recipe2 weightNames];
+    v11 = [weightNames2 objectAtIndexedSubscript:v5];
+    [v11 UTF8String];
+    weightBuffers = [(APOdmlEspressoIOBufferController *)self weightBuffers];
+    v13 = [weightBuffers objectAtIndexedSubscript:v5];
+    [v13 bufferPointer];
+    v14 = espresso_network_bind_buffer_to_global();
 
     ++v5;
-    if (v33)
+    if (v14)
     {
-      v34 = OdmlLogForCategory(0xBuLL);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v15 = OdmlLogForCategory(0xBuLL);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v100 = v33;
-        _os_log_impl(&dword_260ECB000, v34, OS_LOG_TYPE_ERROR, "Failed initialize weights with status: %d", buf, 8u);
+        v45 = v14;
+        _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_ERROR, "Failed initialize weights with status: %d", buf, 8u);
       }
 
       if (errorCopy)
       {
-        v36 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v35, @"APODMLDESPluginErrorDomain", 8025, 0);
-        v37 = v36;
+        v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APODMLDESPluginErrorDomain" code:8025 userInfo:0];
+        v17 = v16;
         result = 0;
-        *errorCopy = v36;
-        goto LABEL_27;
+        *errorCopy = v16;
+        return result;
       }
 
-      goto LABEL_26;
+      return 0;
     }
   }
 
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
-  v95 = 0u;
-  v39 = objc_msgSend_inputBuffers(self, v13, v14);
-  v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v40, &v94, v98, 16);
-  if (v43)
+  v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  inputBuffers = [(APOdmlEspressoIOBufferController *)self inputBuffers];
+  v20 = [inputBuffers countByEnumeratingWithState:&v39 objects:v43 count:16];
+  if (v20)
   {
-    v44 = *v95;
+    v21 = *v40;
     while (2)
     {
-      for (i = 0; i != v43; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v95 != v44)
+        if (*v40 != v21)
         {
-          objc_enumerationMutation(v39);
+          objc_enumerationMutation(inputBuffers);
         }
 
-        v46 = *(*(&v94 + 1) + 8 * i);
-        v47 = objc_msgSend_inputBuffers(self, v41, v42);
-        v49 = objc_msgSend_objectForKeyedSubscript_(v47, v48, v46);
-        v52 = objc_msgSend_bufferPointer(v49, v50, v51);
+        v23 = *(*(&v39 + 1) + 8 * i);
+        inputBuffers2 = [(APOdmlEspressoIOBufferController *)self inputBuffers];
+        v25 = [inputBuffers2 objectForKeyedSubscript:v23];
+        bufferPointer = [v25 bufferPointer];
 
-        if ((objc_msgSend__bindBuffer_espressoNet_bufferName_bufferType_(self, v53, v52, to, v46, 0) & 1) == 0)
+        if (![(APOdmlEspressoIOBufferController *)self _bindBuffer:bufferPointer espressoNet:to bufferName:v23 bufferType:0])
         {
-          v89 = objc_msgSend_errorForFeatureNotBinded_(MEMORY[0x277CCA9B8], v41, v46);
-          objc_msgSend__setErrorPtr_toError_(self, v90, errorCopy, v89);
+          v36 = [MEMORY[0x277CCA9B8] errorForFeatureNotBinded:v23];
+          [(APOdmlEspressoIOBufferController *)self _setErrorPtr:errorCopy toError:v36];
 
-          goto LABEL_26;
+          return 0;
         }
       }
 
-      v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v41, &v94, v98, 16);
-      if (v43)
+      v20 = [inputBuffers countByEnumeratingWithState:&v39 objects:v43 count:16];
+      if (v20)
       {
         continue;
       }
@@ -185,136 +178,125 @@
     }
   }
 
-  v56 = objc_msgSend_pTTR(self, v54, v55);
-  if (objc_msgSend__bindBuffer_espressoNet_bufferName_bufferType_(self, v57, v56, to, @"pTTR", 1))
+  if ([(APOdmlEspressoIOBufferController *)self _bindBuffer:[(APOdmlEspressoIOBufferController *)self pTTR] espressoNet:to bufferName:@"pTTR" bufferType:1])
   {
-    v60 = objc_msgSend_loss(self, v58, v59);
-    v63 = objc_msgSend_recipe(self, v61, v62);
-    v66 = objc_msgSend_lossName(v63, v64, v65);
-    LOBYTE(v60) = objc_msgSend__bindBuffer_espressoNet_bufferName_bufferType_(self, v67, v60, to, v66, 1);
+    loss = [(APOdmlEspressoIOBufferController *)self loss];
+    recipe3 = [(APOdmlEspressoIOBufferController *)self recipe];
+    lossName = [recipe3 lossName];
+    LOBYTE(loss) = [(APOdmlEspressoIOBufferController *)self _bindBuffer:loss espressoNet:to bufferName:lossName bufferType:1];
 
-    if (v60)
+    if (loss)
     {
-      isTraining = objc_msgSend_isTraining(self, v68, v69);
-      v73 = objc_msgSend_recipe(self, v71, v72);
-      v76 = objc_msgSend_isTrainingName(v73, v74, v75);
-      LOBYTE(isTraining) = objc_msgSend__bindBuffer_espressoNet_bufferName_bufferType_(self, v77, isTraining, to, v76, 2);
+      isTraining = [(APOdmlEspressoIOBufferController *)self isTraining];
+      recipe4 = [(APOdmlEspressoIOBufferController *)self recipe];
+      isTrainingName = [recipe4 isTrainingName];
+      LOBYTE(isTraining) = [(APOdmlEspressoIOBufferController *)self _bindBuffer:isTraining espressoNet:to bufferName:isTrainingName bufferType:2];
 
       if (isTraining)
       {
-        v80 = objc_msgSend_learningRate(self, v78, v79);
-        v83 = objc_msgSend_recipe(self, v81, v82);
-        v86 = objc_msgSend_learningRateName(v83, v84, v85);
-        LOBYTE(v80) = objc_msgSend__bindBuffer_espressoNet_bufferName_bufferType_(self, v87, v80, to, v86, 2);
+        learningRate = [(APOdmlEspressoIOBufferController *)self learningRate];
+        recipe5 = [(APOdmlEspressoIOBufferController *)self recipe];
+        learningRateName = [recipe5 learningRateName];
+        LOBYTE(learningRate) = [(APOdmlEspressoIOBufferController *)self _bindBuffer:learningRate espressoNet:to bufferName:learningRateName bufferType:2];
 
-        if (v80)
+        if (learningRate)
         {
-          result = 1;
-          goto LABEL_27;
+          return 1;
         }
 
-        objc_msgSend__setError_errorCode_(self, v88, errorCopy, 8024);
+        [(APOdmlEspressoIOBufferController *)self _setError:errorCopy errorCode:8024];
       }
 
       else
       {
-        objc_msgSend__setError_errorCode_(self, v78, errorCopy, 8023);
+        [(APOdmlEspressoIOBufferController *)self _setError:errorCopy errorCode:8023];
       }
     }
 
     else
     {
-      objc_msgSend__setError_errorCode_(self, v68, errorCopy, 8022);
+      [(APOdmlEspressoIOBufferController *)self _setError:errorCopy errorCode:8022];
     }
   }
 
   else
   {
-    objc_msgSend__setError_errorCode_(self, v58, errorCopy, 8021);
+    [(APOdmlEspressoIOBufferController *)self _setError:errorCopy errorCode:8021];
   }
 
-LABEL_26:
-  result = 0;
-LABEL_27:
-  v91 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)_bindBuffer:(id *)buffer espressoNet:(id *)net bufferName:(id)name bufferType:(int)type
 {
   nameCopy = name;
-  v9 = nameCopy;
-  objc_msgSend_UTF8String(v9, v10, v11);
+  [nameCopy UTF8String];
   if (type < 2)
   {
-    var0 = net->var0;
-    v16 = *&net->var1;
-    v14 = espresso_network_bind_buffer();
+    v8 = espresso_network_bind_buffer();
   }
 
   else if (type == 2)
   {
-    v12 = net->var0;
-    v13 = *&net->var1;
-    v14 = espresso_network_bind_buffer_to_global();
+    v8 = espresso_network_bind_buffer_to_global();
   }
 
   else
   {
-    v14 = -1;
+    v8 = -1;
   }
 
-  v17 = v14 == 0;
+  v9 = v8 == 0;
 
-  return v17;
+  return v9;
 }
 
 - (BOOL)setInputData:(id)data batchSize:(unint64_t)size network:(id *)network reportMissingFeature:(BOOL)feature error:(id *)error
 {
   featureCopy = feature;
-  v45 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   sizeCopy = size;
   if (size)
   {
-    v35 = 0;
-    v12 = 0;
-    v13 = 0uLL;
+    v25 = 0;
+    v10 = 0;
+    v11 = 0uLL;
     do
     {
-      v42 = v13;
-      v43 = v13;
-      v40 = v13;
-      v41 = v13;
-      v14 = objc_msgSend_inputBuffers(self, v9, v10, sizeCopy);
-      obj = v14;
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v40, v44, 16);
-      if (v17)
+      v32 = v11;
+      v33 = v11;
+      v30 = v11;
+      v31 = v11;
+      inputBuffers = [(APOdmlEspressoIOBufferController *)self inputBuffers];
+      obj = inputBuffers;
+      v13 = [inputBuffers countByEnumeratingWithState:&v30 objects:v34 count:16];
+      if (v13)
       {
-        v18 = *v41;
+        v14 = *v31;
         while (2)
         {
-          for (i = 0; i != v17; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v41 != v18)
+            if (*v31 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v40 + 1) + 8 * i);
-            v21 = objc_msgSend_objectAtIndexedSubscript_(dataCopy, v16, v12);
-            v24 = objc_msgSend_features(v21, v22, v23);
-            v26 = objc_msgSend_objectForKey_(v24, v25, v20);
-            v27 = v26 == 0;
+            v16 = *(*(&v30 + 1) + 8 * i);
+            v17 = [dataCopy objectAtIndexedSubscript:v10];
+            features = [v17 features];
+            v19 = [features objectForKey:v16];
+            v20 = v19 == 0;
 
-            if (v27)
+            if (v20)
             {
               if (featureCopy)
               {
-                objc_msgSend_reportMissingFeatureError_(self, v28, v20);
+                [(APOdmlEspressoIOBufferController *)self reportMissingFeatureError:v16];
               }
 
-              if (!objc_msgSend_imputeFeature_network_offsetIndex_error_(self, v28, v20, network, v12, error))
+              if (![(APOdmlEspressoIOBufferController *)self imputeFeature:v16 network:network offsetIndex:v10 error:error])
               {
 LABEL_18:
 
@@ -324,19 +306,19 @@ LABEL_18:
 
             else
             {
-              v29 = objc_msgSend_objectAtIndexedSubscript_(dataCopy, v28, v12);
-              v31 = objc_msgSend_setFeatureDataForRow_offsetIndex_featureName_error_(self, v30, v29, v12, v20, error);
+              v21 = [dataCopy objectAtIndexedSubscript:v10];
+              v22 = [(APOdmlEspressoIOBufferController *)self setFeatureDataForRow:v21 offsetIndex:v10 featureName:v16 error:error];
 
-              if ((v31 & 1) == 0)
+              if (!v22)
               {
                 goto LABEL_18;
               }
             }
           }
 
-          v14 = obj;
-          v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v40, v44, 16);
-          if (v17)
+          inputBuffers = obj;
+          v13 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+          if (v13)
           {
             continue;
           }
@@ -345,61 +327,60 @@ LABEL_18:
         }
       }
 
-      v35 = ++v12 >= sizeCopy;
-      v13 = 0uLL;
+      v25 = ++v10 >= sizeCopy;
+      v11 = 0uLL;
     }
 
-    while (v12 != sizeCopy);
+    while (v10 != sizeCopy);
   }
 
-  v35 = 1;
+  v25 = 1;
 LABEL_19:
 
-  v32 = *MEMORY[0x277D85DE8];
-  return v35;
+  return v25;
 }
 
 - (BOOL)imputeFeature:(id)feature network:(id *)network offsetIndex:(unint64_t)index error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
-  v12 = objc_msgSend_inputBuffers(self, v10, v11);
-  v14 = objc_msgSend_objectForKeyedSubscript_(v12, v13, featureCopy);
-  v17 = objc_msgSend_bufferPointer(v14, v15, v16);
+  inputBuffers = [(APOdmlEspressoIOBufferController *)self inputBuffers];
+  v11 = [inputBuffers objectForKeyedSubscript:featureCopy];
+  bufferPointer = [v11 bufferPointer];
 
-  objc_msgSend_getEspressoBufferShape_(self, v18, v17);
-  v19 = *(v29 - 8);
-  if (v19)
+  objc_msgSend_getEspressoBufferShape_(self);
+  v13 = *(v20 - 8);
+  if (v13)
   {
-    v20 = __p;
-    v21 = *v17;
-    if (v19 == 1)
+    v14 = __p;
+    v15 = *bufferPointer;
+    if (v13 == 1)
     {
-      *(v21 + 4 * index) = 2143289344;
+      *(v15 + 4 * index) = 2143289344;
     }
 
     else
     {
-      memset_pattern16((v21 + 4 * v19 * index), &unk_260EFB5F0, 4 * v19);
+      memset_pattern16((v15 + 4 * v13 * index), &unk_260EFB5F0, 4 * v13);
     }
 
 LABEL_9:
-    operator delete(v20);
+    operator delete(v14);
     goto LABEL_10;
   }
 
-  v22 = OdmlLogForCategory(0xBuLL);
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v16 = OdmlLogForCategory(0xBuLL);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v31 = featureCopy;
-    _os_log_impl(&dword_260ECB000, v22, OS_LOG_TYPE_ERROR, "Unable to resolve feature name %@", buf, 0xCu);
+    v22 = featureCopy;
+    _os_log_impl(&dword_260ECB000, v16, OS_LOG_TYPE_ERROR, "Unable to resolve feature name %@", buf, 0xCu);
   }
 
-  v24 = objc_msgSend_errorForFeatureNotFound_(MEMORY[0x277CCA9B8], v23, featureCopy);
-  objc_msgSend__setErrorPtr_toError_(self, v25, error, v24);
+  v17 = [MEMORY[0x277CCA9B8] errorForFeatureNotFound:featureCopy];
+  [(APOdmlEspressoIOBufferController *)self _setErrorPtr:error toError:v17];
 
-  v20 = __p;
+  v14 = __p;
   if (__p)
   {
     goto LABEL_9;
@@ -407,47 +388,46 @@ LABEL_9:
 
 LABEL_10:
 
-  v26 = *MEMORY[0x277D85DE8];
-  return v19 != 0;
+  return v13 != 0;
 }
 
 - (BOOL)setFeatureDataForRow:(id)row offsetIndex:(unint64_t)index featureName:(id)name error:(id *)error
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   rowCopy = row;
   nameCopy = name;
-  v14 = objc_msgSend_features(rowCopy, v12, v13);
-  v16 = objc_msgSend_objectForKeyedSubscript_(v14, v15, nameCopy);
-  v19 = objc_msgSend_count(v16, v17, v18);
+  features = [rowCopy features];
+  v13 = [features objectForKeyedSubscript:nameCopy];
+  v14 = [v13 count];
 
-  if (v19)
+  if (v14)
   {
-    v22 = objc_msgSend_inputBuffers(self, v20, v21);
-    v24 = objc_msgSend_objectForKeyedSubscript_(v22, v23, nameCopy);
-    v27 = objc_msgSend_bufferPointer(v24, v25, v26);
+    inputBuffers = [(APOdmlEspressoIOBufferController *)self inputBuffers];
+    v16 = [inputBuffers objectForKeyedSubscript:nameCopy];
+    bufferPointer = [v16 bufferPointer];
 
-    objc_msgSend_getEspressoBufferShape_(self, v28, v27);
-    v31 = *(v63 - 8);
-    v32 = v19 == v31;
-    if (v19 == v31)
+    objc_msgSend_getEspressoBufferShape_(self);
+    v18 = *(v36 - 8);
+    v19 = v14 == v18;
+    if (v14 == v18)
     {
-      if (v19 != 1)
+      if (v14 != 1)
       {
-        v50 = 0;
-        v51 = 4 * v19 * index;
+        v28 = 0;
+        v29 = 4 * v14 * index;
         do
         {
-          v52 = objc_msgSend_features(rowCopy, v29, v30);
-          v54 = objc_msgSend_objectForKeyedSubscript_(v52, v53, nameCopy);
-          v56 = objc_msgSend_objectAtIndexedSubscript_(v54, v55, v50);
+          features2 = [rowCopy features];
+          v31 = [features2 objectForKeyedSubscript:nameCopy];
+          v32 = [v31 objectAtIndexedSubscript:v28];
 
-          objc_msgSend_floatValue(v56, v57, v58);
-          *(*v27 + v51 + 4 * v50) = v59;
+          [v32 floatValue];
+          *(*bufferPointer + v29 + 4 * v28) = v33;
 
-          ++v50;
+          ++v28;
         }
 
-        while (v19 != v50);
+        while (v14 != v28);
 LABEL_15:
         if (__p)
         {
@@ -457,58 +437,57 @@ LABEL_15:
         goto LABEL_17;
       }
 
-      v33 = objc_msgSend_features(rowCopy, v29, v30);
-      v35 = objc_msgSend_objectForKeyedSubscript_(v33, v34, nameCopy);
-      v38 = objc_msgSend_firstObject(v35, v36, v37);
+      features3 = [rowCopy features];
+      v21 = [features3 objectForKeyedSubscript:nameCopy];
+      firstObject = [v21 firstObject];
 
-      objc_msgSend_floatValue(v38, v39, v40);
-      *(*v27 + 4 * index) = v41;
+      [firstObject floatValue];
+      *(*bufferPointer + 4 * index) = v23;
     }
 
     else
     {
-      v46 = OdmlLogForCategory(0xBuLL);
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v26 = OdmlLogForCategory(0xBuLL);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v65 = nameCopy;
-        v66 = 2048;
-        v67 = v19;
-        v68 = 2048;
-        v69 = v31;
-        _os_log_impl(&dword_260ECB000, v46, OS_LOG_TYPE_ERROR, "Device has feature %@ with size %lu but model expects size %lu", buf, 0x20u);
+        v38 = nameCopy;
+        v39 = 2048;
+        v40 = v14;
+        v41 = 2048;
+        v42 = v18;
+        _os_log_impl(&dword_260ECB000, v26, OS_LOG_TYPE_ERROR, "Device has feature %@ with size %lu but model expects size %lu", buf, 0x20u);
       }
 
-      v38 = objc_msgSend_errorForFeatureShapeMismatch_(MEMORY[0x277CCA9B8], v48, nameCopy);
-      objc_msgSend__setErrorPtr_toError_(self, v49, error, v38);
+      firstObject = [MEMORY[0x277CCA9B8] errorForFeatureShapeMismatch:nameCopy];
+      [(APOdmlEspressoIOBufferController *)self _setErrorPtr:error toError:firstObject];
     }
 
     goto LABEL_15;
   }
 
-  v42 = OdmlLogForCategory(0xBuLL);
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+  v24 = OdmlLogForCategory(0xBuLL);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v65 = nameCopy;
-    _os_log_impl(&dword_260ECB000, v42, OS_LOG_TYPE_ERROR, "Unable to resolve feature name %@", buf, 0xCu);
+    v38 = nameCopy;
+    _os_log_impl(&dword_260ECB000, v24, OS_LOG_TYPE_ERROR, "Unable to resolve feature name %@", buf, 0xCu);
   }
 
-  v44 = objc_msgSend_errorForFeatureNotFound_(MEMORY[0x277CCA9B8], v43, nameCopy);
-  objc_msgSend__setErrorPtr_toError_(self, v45, error, v44);
+  v25 = [MEMORY[0x277CCA9B8] errorForFeatureNotFound:nameCopy];
+  [(APOdmlEspressoIOBufferController *)self _setErrorPtr:error toError:v25];
 
-  v32 = 0;
+  v19 = 0;
 LABEL_17:
 
-  v60 = *MEMORY[0x277D85DE8];
-  return v32;
+  return v19;
 }
 
 - (BOOL)_setError:(id *)error errorCode:(int64_t)code
 {
   if (error)
   {
-    *error = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], a2, @"APODMLDESPluginErrorDomain", code, 0);
+    *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"APODMLDESPluginErrorDomain" code:code userInfo:0];
   }
 
   return error != 0;
@@ -527,85 +506,71 @@ LABEL_17:
 - (void)reportMissingFeatureError:(id)error
 {
   errorCopy = error;
-  v4 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v3, @"APODMLDESPluginErrorDomain", 8038, 0);
-  v7 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v5, v6);
-  objc_msgSend_setValue_forKey_(v7, v8, errorCopy, @"featureName");
-  v11 = objc_msgSend_copy(v7, v9, v10);
-  objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsModelTraining, v12, v4, v11);
+  v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APODMLDESPluginErrorDomain" code:8038 userInfo:0];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  [dictionary setValue:errorCopy forKey:@"featureName"];
+  v5 = [dictionary copy];
+  [APOdmlAnalyticsModelTraining sendEvent:v3 additionalDetails:v5];
 }
 
 - (void)dealloc
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_pTTR(self, a2, v2);
-  free(v4);
-  v7 = objc_msgSend_loss(self, v5, v6);
-  free(v7);
-  isTraining = objc_msgSend_isTraining(self, v8, v9);
-  free(isTraining);
-  v13 = objc_msgSend_learningRate(self, v11, v12);
-  free(v13);
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v16 = objc_msgSend_weightBuffers(self, v14, v15);
-  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v32, v36, 16);
-  if (v20)
+  v17 = *MEMORY[0x277D85DE8];
+  free([(APOdmlEspressoIOBufferController *)self pTTR]);
+  free([(APOdmlEspressoIOBufferController *)self loss]);
+  free([(APOdmlEspressoIOBufferController *)self isTraining]);
+  free([(APOdmlEspressoIOBufferController *)self learningRate]);
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  weightBuffers = [(APOdmlEspressoIOBufferController *)self weightBuffers];
+  v4 = [weightBuffers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v4)
   {
-    v21 = *v33;
+    v5 = *v13;
     do
     {
-      v22 = 0;
+      v6 = 0;
       do
       {
-        if (*v33 != v21)
+        if (*v13 != v5)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(weightBuffers);
         }
 
-        v23 = objc_msgSend_bufferPointer(*(*(&v32 + 1) + 8 * v22), v18, v19);
-        if (v23)
+        bufferPointer = [*(*(&v12 + 1) + 8 * v6) bufferPointer];
+        if (bufferPointer)
         {
-          free(v23);
+          free(bufferPointer);
         }
 
         else
         {
-          v24 = OdmlLogForCategory(0xBuLL);
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v8 = OdmlLogForCategory(0xBuLL);
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_260ECB000, v24, OS_LOG_TYPE_ERROR, "Weight buffer is released too early.", buf, 2u);
+            _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "Weight buffer is released too early.", buf, 2u);
           }
         }
 
-        ++v22;
+        ++v6;
       }
 
-      while (v20 != v22);
-      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v18, &v32, v36, 16);
+      while (v4 != v6);
+      v4 = [weightBuffers countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v20);
+    while (v4);
   }
 
-  v27 = objc_msgSend_inputBuffers(self, v25, v26);
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v27, v28, &unk_287367660);
+  inputBuffers = [(APOdmlEspressoIOBufferController *)self inputBuffers];
+  [inputBuffers enumerateKeysAndObjectsUsingBlock:&unk_287367660];
 
-  v30.receiver = self;
-  v30.super_class = APOdmlEspressoIOBufferController;
-  [(APOdmlEspressoIOBufferController *)&v30 dealloc];
-  v29 = *MEMORY[0x277D85DE8];
-}
-
-- (vector<unsigned)getEspressoBufferShape:(APOdmlEspressoIOBufferController *)self
-{
-  v7 = *MEMORY[0x277D85DE8];
-  espresso_buffer_unpack_tensor_shape();
-  result = sub_260ECFE10(retstr, 0);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v10.receiver = self;
+  v10.super_class = APOdmlEspressoIOBufferController;
+  [(APOdmlEspressoIOBufferController *)&v10 dealloc];
 }
 
 @end

@@ -98,7 +98,7 @@
 
       if (dword_1002F6620 <= 10 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001DA2D8();
+        sub_1001DA2D8(v10 == v8, lastSeenConnectedTime);
       }
     }
 

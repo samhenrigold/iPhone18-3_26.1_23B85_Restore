@@ -59,12 +59,12 @@ dispatch_queue_t __53__AVSmartStyleSettingsState__smartStyleSettingsQueue__block
     if (v6)
     {
       v7 = v6;
-      v8 = [(AVCaptureSmartStyle *)v6 objectForKeyedSubscript:AVSmartStyleSettingsCastTypeKey];
-      [-[AVCaptureSmartStyle objectForKeyedSubscript:](v7 objectForKeyedSubscript:{AVSmartStyleSettingsCastIntensityKey), "floatValue"}];
+      v8 = objc_msgSend_objectForKeyedSubscript_(v6);
+      [objc_msgSend_objectForKeyedSubscript_(v7) floatValue];
       v10 = v9;
-      [-[AVCaptureSmartStyle objectForKeyedSubscript:](v7 objectForKeyedSubscript:{AVSmartStyleSettingsToneBiasKey), "floatValue"}];
+      [objc_msgSend_objectForKeyedSubscript_(v7) floatValue];
       v12 = v11;
-      [-[AVCaptureSmartStyle objectForKeyedSubscript:](v7 objectForKeyedSubscript:{AVSmartStyleSettingsColorBiasKey), "floatValue"}];
+      [objc_msgSend_objectForKeyedSubscript_(v7) floatValue];
       LODWORD(v14) = v13;
       LODWORD(v15) = v10;
       LODWORD(v16) = v12;
@@ -73,17 +73,17 @@ dispatch_queue_t __53__AVSmartStyleSettingsState__smartStyleSettingsQueue__block
 
     v4->_systemStyle = v6;
     v17 = [AVCaptureProprietaryDefaultsSingleton objectForKey:v4->_systemStyleEnabledKey];
-    if (v17 && (v18 = v17, [v17 objectForKeyedSubscript:v4->_bundleID]))
+    if (v17 && (v18 = v17, objc_msgSend_objectForKeyedSubscript_(v17)))
     {
-      v19 = [objc_msgSend(v18 objectForKeyedSubscript:{v4->_bundleID), "BOOLValue"}];
+      bOOLValue = [objc_msgSend_objectForKeyedSubscript_(v18) BOOLValue];
     }
 
     else
     {
-      v19 = [sDisallowedFirstPartyAppsInSystemStyleEnabledList containsObject:v4->_bundleID] ^ 1;
+      bOOLValue = [sDisallowedFirstPartyAppsInSystemStyleEnabledList containsObject:v4->_bundleID] ^ 1;
     }
 
-    v4->_systemStyleEnabled = v19;
+    v4->_systemStyleEnabled = bOOLValue;
   }
 
   return v4;
@@ -135,12 +135,12 @@ dispatch_queue_t __53__AVSmartStyleSettingsState__smartStyleSettingsQueue__block
   {
     if (changed)
     {
-      v7 = [changed objectForKeyedSubscript:AVSmartStyleSettingsCastTypeKey];
-      [objc_msgSend(changed objectForKeyedSubscript:{AVSmartStyleSettingsCastIntensityKey), "floatValue"}];
+      v7 = objc_msgSend_objectForKeyedSubscript_(changed);
+      [objc_msgSend_objectForKeyedSubscript_(changed) floatValue];
       v9 = v8;
-      [objc_msgSend(changed objectForKeyedSubscript:{AVSmartStyleSettingsToneBiasKey), "floatValue"}];
+      [objc_msgSend_objectForKeyedSubscript_(changed) floatValue];
       v11 = v10;
-      [objc_msgSend(changed objectForKeyedSubscript:{AVSmartStyleSettingsColorBiasKey), "floatValue"}];
+      [objc_msgSend_objectForKeyedSubscript_(changed) floatValue];
       LODWORD(v13) = v12;
       LODWORD(v14) = v9;
       LODWORD(v15) = v11;
@@ -201,8 +201,8 @@ LABEL_19:
 
   else if ([path isEqualToString:self->_systemStyleEnabledKey])
   {
-    v22 = changed && [changed objectForKeyedSubscript:self->_bundleID] ? objc_msgSend(objc_msgSend(changed, "objectForKeyedSubscript:", self->_bundleID), "BOOLValue") : 1;
-    if ([changed objectForKeyedSubscript:self->_bundleID] && self->_systemStyleEnabled != v22)
+    v22 = changed && objc_msgSend_objectForKeyedSubscript_(changed) ? [objc_msgSend_objectForKeyedSubscript_(changed) BOOLValue] : 1;
+    if (objc_msgSend_objectForKeyedSubscript_(changed) && self->_systemStyleEnabled != v22)
     {
       v17 = AVSmartStyleSettingsSystemStyleEnabledDidChangedNotification;
       v27[1] = [MEMORY[0x1E696AD98] numberWithBool:{v22, AVSmartStyleSettingsBundleIDKey, AVSmartStyleSettingsEnabledKey, self->_bundleID}];
@@ -318,37 +318,37 @@ void __44__AVSmartStyleSettingsState_setSystemStyle___block_invoke(uint64_t a1)
   if ([(NSString *)self->_bundleID isEqualToString:AVSmartStyleSettingsSystemStyle])
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
 
     NSLog(&cfstr_SuppressingExc.isa, v3);
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x2020000000;
-    v13 = 0;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2020000000;
+    v14 = 0;
     objc_initWeak(&location, self);
     queue = self->_queue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __47__AVSmartStyleSettingsState_systemStyleEnabled__block_invoke;
     block[3] = &unk_1E786EB18;
-    objc_copyWeak(&v8, &location);
-    block[4] = &v10;
+    objc_copyWeak(&v9, &location);
+    block[4] = &v11;
     dispatch_sync(queue, block);
-    v4 = *(v11 + 24);
-    objc_destroyWeak(&v8);
+    v5 = *(v12 + 24);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(&location);
-    _Block_object_dispose(&v10, 8);
+    _Block_object_dispose(&v11, 8);
   }
 
-  return v4 & 1;
+  return v5 & 1;
 }
 
 void __47__AVSmartStyleSettingsState_systemStyleEnabled__block_invoke(uint64_t a1)
@@ -365,7 +365,7 @@ void __47__AVSmartStyleSettingsState_systemStyleEnabled__block_invoke(uint64_t a
   if ([(NSString *)self->_bundleID isEqualToString:AVSmartStyleSettingsSystemStyle])
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -381,10 +381,10 @@ void __47__AVSmartStyleSettingsState_systemStyleEnabled__block_invoke(uint64_t a
     block[1] = 3221225472;
     block[2] = __51__AVSmartStyleSettingsState_setSystemStyleEnabled___block_invoke;
     block[3] = &unk_1E786EB68;
-    objc_copyWeak(&v8, &location);
+    objc_copyWeak(&v9, &location);
     enabledCopy = enabled;
     dispatch_async(queue, block);
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(&location);
   }
 }

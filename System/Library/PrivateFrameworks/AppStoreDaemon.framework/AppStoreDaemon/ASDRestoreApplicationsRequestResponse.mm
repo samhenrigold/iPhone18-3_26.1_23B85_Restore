@@ -50,15 +50,15 @@ LABEL_4:
   return v6;
 }
 
-uint64_t __57__ASDRestoreApplicationsRequestResponse_initWithResults___block_invoke(uint64_t result, void *a2, uint64_t a3, _BYTE *a4)
+void *__57__ASDRestoreApplicationsRequestResponse_initWithResults___block_invoke(void *result, void *a2, uint64_t a3, _BYTE *a4)
 {
   v5 = result;
-  v6 = *(*(result + 32) + 8);
+  v6 = *(result[4] + 8);
   if (*(v6 + 24) == 1)
   {
     result = [a2 status];
     v7 = result == 2;
-    v6 = *(*(v5 + 32) + 8);
+    v6 = *(v5[4] + 8);
   }
 
   else
@@ -67,7 +67,7 @@ uint64_t __57__ASDRestoreApplicationsRequestResponse_initWithResults___block_inv
   }
 
   *(v6 + 24) = v7;
-  *a4 = *(*(*(v5 + 32) + 8) + 24) ^ 1;
+  *a4 = *(*(v5[4] + 8) + 24) ^ 1;
   return result;
 }
 

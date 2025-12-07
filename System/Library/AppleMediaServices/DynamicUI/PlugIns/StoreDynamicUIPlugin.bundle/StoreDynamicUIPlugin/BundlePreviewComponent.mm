@@ -9,7 +9,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_5C650();
+  sub_5C650(selfCopy);
 }
 
 - (void)layoutSubviews

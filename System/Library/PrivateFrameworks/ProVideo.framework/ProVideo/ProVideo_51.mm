@@ -2608,7 +2608,7 @@ uint64_t HGStencil::GetDOD(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   Input = HGRenderer::GetInput(a2, this, 0);
   DOD = HGRenderer::GetDOD(a2, Input);
   v10 = v9;
-  v11 = HGRenderer::GetInput(a2, this, 1u);
+  v11 = HGRenderer::GetInput(a2, this, 1);
   v12 = HGRenderer::GetDOD(a2, v11);
   return HGRectIntersection(DOD, v10, v12, v13);
 }
@@ -2775,35 +2775,35 @@ char *HGStencil::RenderPagePlain(HGNode *this, HGRect *a2)
   return Buffer;
 }
 
-void sub_25FDBCF14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FDBCF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGPagePullTexturesGuard::~HGPagePullTexturesGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FDBCF28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FDBCF28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGPagePullTexturesGuard::~HGPagePullTexturesGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FDBCF3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FDBCF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGPagePullTexturesGuard::~HGPagePullTexturesGuard(va);
   _Unwind_Resume(a1);
 }
 
-char *HGStencil::RenderPageMetal(HGNode *this, HGRect *a2)
+HGBitmap *HGStencil::RenderPageMetal(HGNode *this, HGRect *a2)
 {
   (*(*this + 576))(this, 0);
 
   return HGStencil::RenderPagePlainMetal(this, a2);
 }
 
-char *HGStencil::RenderPagePlainMetal(HGNode *this, HGRect *a2)
+HGBitmap *HGStencil::RenderPagePlainMetal(HGNode *this, HGRect *a2)
 {
   HGPagePullMetalTexturesGuard::HGPagePullMetalTexturesGuard(&v17, this, a2);
   Buffer = *&a2->var2;
@@ -2859,23 +2859,23 @@ char *HGStencil::RenderPagePlainMetal(HGNode *this, HGRect *a2)
   return Buffer;
 }
 
-void sub_25FDBD398(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FDBD398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGPagePullMetalTexturesGuard::~HGPagePullMetalTexturesGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FDBD3AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FDBD3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGPagePullMetalTexturesGuard::~HGPagePullMetalTexturesGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FDBD3C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FDBD3C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGPagePullMetalTexturesGuard::~HGPagePullMetalTexturesGuard(va);
   _Unwind_Resume(a1);
 }
@@ -3424,7 +3424,7 @@ uint64_t HgcSMAAEdgeDetect::GetDOD(HgcSMAAEdgeDetect *this, HGRenderer *a2, int 
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  v7 = HGRectMake4i(0xFFFFFFFE, 0xFFFFFFFE, 1u, 1u);
+  v7 = HGRectMake4i(-2, -2, 1, 1);
   return HGRectGrow(v6, v5, v7);
 }
 
@@ -3437,7 +3437,7 @@ uint64_t HgcSMAAEdgeDetect::GetROI(HgcSMAAEdgeDetect *this, HGRenderer *a2, int 
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  v7 = HGRectMake4i(0xFFFFFFFE, 0xFFFFFFFE, 1u, 1u);
+  v7 = HGRectMake4i(-2, -2, 1, 1);
   return HGRectGrow(v6, v5, v7);
 }
 
@@ -4349,7 +4349,7 @@ uint64_t HgcSMAAPatternSearch::RenderTile(HgcSMAAPatternSearch *this, int32x2_t 
   return 0;
 }
 
-uint64_t HgcSMAAPatternSearch::GetDOD(HGNode *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcSMAAPatternSearch::GetDOD(HGNode *this, HGRenderer *a2, signed int a3, HGRect a4)
 {
   v4 = *&a4.var2;
   v5 = *&a4.var0;
@@ -4375,14 +4375,14 @@ uint64_t HgcSMAAPatternSearch::GetDOD(HGNode *this, HGRenderer *a2, unsigned int
 
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v8 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v8 = HGRectMake4i(-1, -1, 1, 1);
     HGRectGrow(v5, v4, v8);
   }
 
   return 0x8000000080000000;
 }
 
-uint64_t HgcSMAAPatternSearch::GetROI(HGNode *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcSMAAPatternSearch::GetROI(HGNode *this, HGRenderer *a2, signed int a3, HGRect a4)
 {
   if (a3 == 2 || a3 == 1)
   {
@@ -4407,7 +4407,7 @@ uint64_t HgcSMAAPatternSearch::GetROI(HGNode *this, HGRenderer *a2, unsigned int
 
     else
     {
-      v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v10 = HGRectMake4i(-1, -1, 1, 1);
       return HGRectGrow(DOD, v9, v10);
     }
   }
@@ -4789,7 +4789,7 @@ uint64_t HgcSMAABlend::GetDOD(HgcSMAABlend *this, HGRenderer *a2, int a3, HGRect
   {
     if (a3 == 1)
     {
-      v6 = HGRectMake4i(0, 0, 1u, 1u);
+      v6 = HGRectMake4i(0, 0, 1, 1);
       return HGRectGrow(v5, v4, v6);
     }
 
@@ -4803,7 +4803,7 @@ uint64_t HgcSMAABlend::GetDOD(HgcSMAABlend *this, HGRenderer *a2, int a3, HGRect
   {
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v8 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v8 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v5, v4, v8);
     }
 
@@ -4819,7 +4819,7 @@ uint64_t HgcSMAABlend::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
     {
       v4 = *&a4.var0;
       v5 = *&a4.var2;
-      v6 = HGRectMake4i(0, 0, 1u, 1u);
+      v6 = HGRectMake4i(0, 0, 1, 1);
       return HGRectGrow(v4, v5, v6);
     }
 
@@ -4841,7 +4841,7 @@ uint64_t HgcSMAABlend::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
 
     else
     {
-      v14 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v14 = HGRectMake4i(-1, -1, 1, 1);
       return HGRectGrow(DOD, v13, v14);
     }
   }
@@ -5153,7 +5153,7 @@ uint64_t HGSMAAPatternSearch::GetROI(HGSMAAPatternSearch *this, HGRenderer *a2, 
 
   v4 = *&a4.var0;
   v5 = *&a4.var2;
-  v6 = HGRectMake4i(0xFFFFFFF5, 0xFFFFFFF5, 0xCu, 0xCu);
+  v6 = HGRectMake4i(-11, -11, 12, 12);
   return HGRectGrow(v4, v5, v6);
 }
 
@@ -5269,29 +5269,29 @@ void *HGAntiAliasLUTEntry::HGAntiAliasLUTEntry(void *a1, const void *a2, uint64_
       }
 
       v15 = HGObject::operator new(0x80uLL);
-      v16 = HGBitmap::HGBitmap(v15, v9, v11, v13);
-      v17 = *v6;
+      HGBitmap::HGBitmap(v15, v9, v11, v13);
+      v16 = *v6;
       if (*v6 == v15)
       {
         if (v15)
         {
-          (*(*v15 + 24))(v15, v16);
+          (*(*v15 + 24))(v15);
         }
       }
 
       else
       {
-        if (v17)
+        if (v16)
         {
-          (*(*v17 + 24))(v17, v16);
+          (*(*v16 + 24))(v16);
         }
 
         *v6 = v15;
       }
 
-      v18 = HGObject::operator new(0x80uLL);
-      HGBitmap::HGBitmap(v18, v9, v11, v13, v12);
-      HGRenderUtils::BufferCopier::BufferCopier(v20);
+      v17 = HGObject::operator new(0x80uLL);
+      HGBitmap::HGBitmap(v17, v9, v11, v13, v12);
+      HGRenderUtils::BufferCopier::BufferCopier(&v19);
     }
   }
 
@@ -5411,11 +5411,11 @@ LABEL_11:
   return *v7;
 }
 
-void sub_25FDC539C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FDC539C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8560,7 +8560,7 @@ uint64_t HGModulatedBlur::GetOutput(HGNode *this, HGRenderer *a2)
   if (*(this + 456) == 1)
   {
     Input = HGRenderer::GetInput(a2, this, 0);
-    HGRenderer::GetInput(a2, this, 1u);
+    HGRenderer::GetInput(a2, this, 1);
     v6 = HGObject::operator new(0x70uLL);
     HGBlurGroup::HGBlurGroup(v6, Input, 0);
     operator new();
@@ -8569,11 +8569,11 @@ uint64_t HGModulatedBlur::GetOutput(HGNode *this, HGRenderer *a2)
   return *(this + 56);
 }
 
-void sub_25FDCDE70(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, void *a16)
+void sub_25FDCDE70(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, void *a16)
 {
   if (v16)
   {
-    (*(*v16 + 24))(v16);
+    (*(*v16 + 24))(v16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v19 = __p;
@@ -8592,7 +8592,7 @@ LABEL_10:
       }
 
 LABEL_9:
-      (*(*v20 + 24))(v20);
+      (*(*v20 + 24))(v20, a2, a3, a4, a5, a6, a7, a8);
       goto LABEL_10;
     }
   }
@@ -8816,7 +8816,7 @@ uint64_t HgcYUV444BiPlanar_chroma_pack2::GetDOD(HgcYUV444BiPlanar_chroma_pack2 *
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  v7 = HGRectMake4i(0, 0, 1u, 1u);
+  v7 = HGRectMake4i(0, 0, 1, 1);
   return HGRectGrow(v6, v5, v7);
 }
 
@@ -8829,7 +8829,7 @@ uint64_t HgcYUV444BiPlanar_chroma_pack2::GetROI(HgcYUV444BiPlanar_chroma_pack2 *
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  v7 = HGRectMake4i(0, 0, 1u, 1u);
+  v7 = HGRectMake4i(0, 0, 1, 1);
   return HGRectGrow(v6, v5, v7);
 }
 
@@ -9362,7 +9362,7 @@ LABEL_10:
   return 0;
 }
 
-uint64_t HgcYUV420TriPlanar_601ToRGB::GetDOD(HgcYUV420TriPlanar_601ToRGB *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcYUV420TriPlanar_601ToRGB::GetDOD(HgcYUV420TriPlanar_601ToRGB *this, HGRenderer *a2, int a3, HGRect a4)
 {
   result = *&a4.var0;
   if (a3 && a3 != 2)
@@ -9371,7 +9371,7 @@ uint64_t HgcYUV420TriPlanar_601ToRGB::GetDOD(HgcYUV420TriPlanar_601ToRGB *this, 
     {
       v5 = *&a4.var0;
       v6 = *&a4.var2;
-      v7 = HGRectMake4i(0, 0, a3, 1u);
+      v7 = HGRectMake4i(0, 0, a3, 1);
       v8 = HGRectGrow(v5, v6, v7);
       v9 = HGRectFloat(v8);
       v13 = HGRectScale(v9, v10, v11, v12, 2.0);
@@ -9399,7 +9399,7 @@ uint64_t HgcYUV420TriPlanar_601ToRGB::GetROI(HgcYUV420TriPlanar_601ToRGB *this, 
       v9 = HGRectScale(v5, v6, v7, v8, 0.5);
       v14 = HGRectIntegral(v10, v9, v11, v12, v13);
       v16 = v15;
-      v17 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 0, 0);
+      v17 = HGRectMake4i(-1, -1, 0, 0);
       v18 = HGRectGrow(v14, v16, v17);
       return HGRectUnion(0, 0, v18, v19);
     }
@@ -9747,7 +9747,7 @@ LABEL_10:
   return 0;
 }
 
-uint64_t HgcYUV420TriPlanar_709ToRGB::GetDOD(HgcYUV420TriPlanar_709ToRGB *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcYUV420TriPlanar_709ToRGB::GetDOD(HgcYUV420TriPlanar_709ToRGB *this, HGRenderer *a2, int a3, HGRect a4)
 {
   result = *&a4.var0;
   if (a3 && a3 != 2)
@@ -9756,7 +9756,7 @@ uint64_t HgcYUV420TriPlanar_709ToRGB::GetDOD(HgcYUV420TriPlanar_709ToRGB *this, 
     {
       v5 = *&a4.var0;
       v6 = *&a4.var2;
-      v7 = HGRectMake4i(0, 0, a3, 1u);
+      v7 = HGRectMake4i(0, 0, a3, 1);
       v8 = HGRectGrow(v5, v6, v7);
       v9 = HGRectFloat(v8);
       v13 = HGRectScale(v9, v10, v11, v12, 2.0);
@@ -9784,7 +9784,7 @@ uint64_t HgcYUV420TriPlanar_709ToRGB::GetROI(HgcYUV420TriPlanar_709ToRGB *this, 
       v9 = HGRectScale(v5, v6, v7, v8, 0.5);
       v14 = HGRectIntegral(v10, v9, v11, v12, v13);
       v16 = v15;
-      v17 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 0, 0);
+      v17 = HGRectMake4i(-1, -1, 0, 0);
       v18 = HGRectGrow(v14, v16, v17);
       return HGRectUnion(0, 0, v18, v19);
     }

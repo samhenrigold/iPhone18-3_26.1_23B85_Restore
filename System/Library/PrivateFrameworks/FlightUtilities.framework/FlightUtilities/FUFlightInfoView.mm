@@ -35,6 +35,7 @@
 - (void)dealloc;
 - (void)didMoveToWindow;
 - (void)flightButtonTapped:(id)tapped;
+- (void)setFlight:(id)flight legIndex:(unint64_t)index multiFlights:(BOOL)flights spotlightMode:(BOOL)mode;
 - (void)setStyle:(unint64_t)style;
 - (void)setupLabelStylesWithStyle:(unint64_t)style;
 - (void)tlk_updateForAppearance:(id)appearance;
@@ -56,39 +57,39 @@
 
 + (id)flightViewForStyle:(unint64_t)style compact:(BOOL)compact
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = [v5 loadNibNamed:@"FUFlightInfoView" owner:0 options:0];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v8 = v11;
-          [v8 setupLabelStylesWithStyle:{style, v14}];
+          [v8 setupLabelStylesWithStyle:{style, v13}];
           goto LABEL_11;
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         continue;
@@ -99,8 +100,6 @@
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -447,16 +446,16 @@ LABEL_5:
 
 - (void)updateFlightButtonIcon
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D755B8] systemImageNamed:@"airplane"];
   v4 = [v3 copy];
 
   [v4 size];
-  v31.width = v7 * 1.69;
-  width = v31.width;
-  v31.height = v8 * 1.69;
-  height = v31.height;
-  UIGraphicsBeginImageContextWithOptions(v31, 0, 0.0);
+  v30.width = v7 * 1.69;
+  width = v30.width;
+  v30.height = v8 * 1.69;
+  height = v30.height;
+  UIGraphicsBeginImageContextWithOptions(v30, 0, 0.0);
   CurrentContext = UIGraphicsGetCurrentContext();
   UIGraphicsPushContext(CurrentContext);
   CGContextSetCompositeOperation();
@@ -486,10 +485,10 @@ LABEL_5:
     v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_displayedLegId];
     v17 = [v15 localizedStringFromNumber:v16 numberStyle:0];
 
-    v29 = *MEMORY[0x277D740A8];
+    v28 = *MEMORY[0x277D740A8];
     v18 = [MEMORY[0x277D74300] systemFontOfSize:11.0 weight:*MEMORY[0x277D74420]];
-    v30[0] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v29[0] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
 
     [v17 sizeWithAttributes:v19];
     v21 = v12 + (14.0 - v20) * 0.5;
@@ -510,8 +509,6 @@ LABEL_5:
 
   flightButton2 = [(FUFlightInfoView *)self flightButton];
   [flightButton2 _setCornerRadius:20.0];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -575,6 +572,80 @@ LABEL_5:
   if (!spotlightMode)
   {
   }
+}
+
+- (void)setFlight:(id)flight legIndex:(unint64_t)index multiFlights:(BOOL)flights spotlightMode:(BOOL)mode
+{
+  modeCopy = mode;
+  flightsCopy = flights;
+  flightCopy = flight;
+  legs = [(FUFlight *)flightCopy legs];
+  v12 = [legs count];
+
+  v13 = flightCopy;
+  if (v12 > index)
+  {
+    if (self->_flight != flightCopy || (v14 = self->_leg, -[FUFlight legs](flightCopy, "legs"), v15 = objc_claimAutoreleasedReturnValue(), [v15 objectAtIndexedSubscript:index], v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v13 = flightCopy, v14 != v16))
+    {
+      if (v12 > 1)
+      {
+        v17 = index + 1;
+      }
+
+      else
+      {
+        v17 = 0;
+      }
+
+      self->_displayedLegId = v17;
+      objc_storeStrong(&self->_flight, flight);
+      legs2 = [(FUFlight *)flightCopy legs];
+      v19 = [legs2 objectAtIndexedSubscript:index];
+      leg = self->_leg;
+      self->_leg = v19;
+
+      self->_multiFlights = flightsCopy;
+      bottomMargin = [(FUFlightInfoView *)self bottomMargin];
+      [bottomMargin constant];
+      v23 = v22;
+
+      if (v12 > 1 || flightsCopy)
+      {
+        v24 = 30.0;
+        if (v23 == 30.0)
+        {
+LABEL_13:
+          [(FUFlightInfoView *)self updateForFollowupContent:modeCopy];
+          [(FUFlightInfoView *)self updateAirlineInformation];
+          [(FUFlightInfoView *)self updateLocationInfo];
+          [(FUFlightInfoView *)self updateFlightTerminalInfo];
+          [(FUFlightInfoView *)self updateFlightStatus];
+          [(FUFlightInfoView *)self updateFlightDates];
+          [(FUFlightInfoView *)self updateDelayInfo];
+          [(FUFlightInfoView *)self updateFlightButtonIcon];
+          [(FUFlightInfoView *)self setNeedsLayout];
+          v13 = flightCopy;
+          goto LABEL_14;
+        }
+      }
+
+      else
+      {
+        v24 = 0.0;
+        if (v23 == 0.0)
+        {
+          goto LABEL_13;
+        }
+      }
+
+      bottomMargin2 = [(FUFlightInfoView *)self bottomMargin];
+      [bottomMargin2 setConstant:v24];
+
+      goto LABEL_13;
+    }
+  }
+
+LABEL_14:
 }
 
 - (void)updateAirlineInformation
@@ -696,17 +767,7 @@ LABEL_5:
   departure2 = [(FUFlightLeg *)self->_leg departure];
   status = [departure2 status];
 
-  if (status != 4)
-  {
-    goto LABEL_4;
-  }
-
-  departure3 = [(FUFlightLeg *)self->_leg departure];
-  delayFromSchedule2 = [departure3 delayFromSchedule];
-  [delayFromSchedule2 doubleValue];
-  v10 = v9;
-
-  if (v10 >= 60.0)
+  if (status == 4 && (-[FUFlightLeg departure](self->_leg, "departure"), v7 = objc_claimAutoreleasedReturnValue(), [v7 delayFromSchedule], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "doubleValue"), v10 = v9, v8, v7, v10 >= 60.0))
   {
     v11 = MEMORY[0x277CCACA8];
     v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -717,7 +778,6 @@ LABEL_5:
 
   else
   {
-LABEL_4:
     v40 = 0;
   }
 
@@ -766,8 +826,8 @@ LABEL_13:
     }
 
     arrival3 = [(FUFlightLeg *)self->_leg arrival];
-    delayFromSchedule3 = [arrival3 delayFromSchedule];
-    [delayFromSchedule3 doubleValue];
+    delayFromSchedule2 = [arrival3 delayFromSchedule];
+    [delayFromSchedule2 doubleValue];
     v18 = fabs(v35);
 
     if (v18 >= 60.0)
@@ -1276,20 +1336,10 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  if (v6 != 1)
+  if (v6 == 1 && (-[FUFlightLeg departure](self->_leg, "departure"), v16 = objc_claimAutoreleasedReturnValue(), [v16 time], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "timeIntervalSinceNow"), v19 = v18, v17, v16, v19 >= 0.0))
   {
-    goto LABEL_15;
-  }
-
-  departure2 = [(FUFlightLeg *)self->_leg departure];
-  time = [departure2 time];
-  [time timeIntervalSinceNow];
-  v19 = v18;
-
-  if (v19 >= 0.0)
-  {
-    departure3 = [(FUFlightLeg *)self->_leg departure];
-    status2 = [departure3 status];
+    departure2 = [(FUFlightLeg *)self->_leg departure];
+    status2 = [departure2 status];
 
     if (status2 == 4)
     {
@@ -1300,8 +1350,8 @@ LABEL_26:
 
     else
     {
-      departure4 = [(FUFlightLeg *)self->_leg departure];
-      status3 = [departure4 status];
+      departure3 = [(FUFlightLeg *)self->_leg departure];
+      status3 = [departure3 status];
 
       v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v26 = v25;
@@ -1323,7 +1373,6 @@ LABEL_26:
 
   else
   {
-LABEL_15:
     v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v21 = [v20 localizedStringForKey:@"Departed" value:@"Departed" table:@"Localizable"];
     labelDepartureTitle3 = [(FUFlightInfoView *)self labelDepartureTitle];
@@ -1336,8 +1385,8 @@ LABEL_15:
   }
 
   arrival = [(FUFlightLeg *)self->_leg arrival];
-  time2 = [arrival time];
-  [time2 timeIntervalSinceNow];
+  time = [arrival time];
+  [time timeIntervalSinceNow];
   v35 = v34;
 
   if (v35 >= 0.0)
@@ -1389,8 +1438,8 @@ LABEL_26:
     goto LABEL_32;
   }
 
-  departure5 = [(FUFlightLeg *)self->_leg departure];
-  taxiing = [departure5 taxiing];
+  departure4 = [(FUFlightLeg *)self->_leg departure];
+  taxiing = [departure4 taxiing];
 
   if (taxiing)
   {

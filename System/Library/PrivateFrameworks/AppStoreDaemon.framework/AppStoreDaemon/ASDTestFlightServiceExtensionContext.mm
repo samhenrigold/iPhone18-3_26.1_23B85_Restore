@@ -19,9 +19,11 @@
 
 uint64_t __71__ASDTestFlightServiceExtensionContext__extensionAuxiliaryHostProtocol__block_invoke()
 {
-  qword_1ED90D570 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F303EE48];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F303EE48];
+  v1 = qword_1ED90D570;
+  qword_1ED90D570 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_extensionAuxiliaryVendorProtocol

@@ -134,15 +134,16 @@
 
 - (CGSize)contentSizeForProposedContentSize:(CGSize)size
 {
+  height = size.height;
   width = size.width;
   selfCopy = self;
-  v5 = sub_21AC11460(width);
-  v7 = v6;
+  v6 = sub_21AC11460(width, height);
+  v8 = v7;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 
@@ -4920,33 +4921,33 @@ LABEL_19:
 {
   if (self->_footerLayout)
   {
+    v6 = 0u;
     v7 = 0u;
-    v8 = 0u;
-    v3 = [(PXPhotosLayout *)self sublayoutDataStore:0];
-    v4 = v3;
-    if (v3)
+    v2 = [(PXPhotosLayout *)self sublayoutDataStore:0];
+    v3 = v2;
+    if (v2)
     {
-      [v3 geometryForSublayout:self->_footerLayout];
+      objc_msgSend_geometryForSublayout_(v2);
     }
 
     else
     {
+      v6 = 0u;
       v7 = 0u;
-      v8 = 0u;
     }
 
-    v5 = *(&v8 + 1);
-    v6 = *(&v7 + 1);
+    v4 = *(&v7 + 1);
+    v5 = *(&v6 + 1);
   }
 
   else
   {
+    v4 = 0.0;
     v5 = 0.0;
-    v6 = 0.0;
   }
 
-  result.var1 = v6;
-  result.var0 = v5;
+  result.var1 = v5;
+  result.var0 = v4;
   return result;
 }
 

@@ -13,7 +13,7 @@
   selfCopy = self;
   sub_20BF2DC84();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0, &unk_20C14F970);
   v3 = sub_20C13CC54();
 
   return v3;
@@ -26,7 +26,7 @@
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for TVSessionSummaryViewController();
+  v9 = type metadata accessor for TVSessionSummaryViewController(0);
   v12.receiver = self;
   v12.super_class = v9;
   selfCopy = self;
@@ -46,14 +46,16 @@
 
 - (void)menuButtonTapped
 {
-  v2 = (*(&self->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI30TVSessionSummaryViewController_presenter))[4];
-  if (v2)
+  v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI30TVSessionSummaryViewController_presenter);
+  v3 = *(v2 + 32);
+  if (v3)
   {
+    v4 = *(v2 + 40);
     selfCopy = self;
-    v4 = sub_20B584050(v2);
-    v2(v4);
+    v6 = sub_20B584050(v3, v4);
+    v3(v6);
 
-    sub_20B583ECC(v2);
+    sub_20B583ECC(v3, v4);
   }
 }
 

@@ -120,25 +120,25 @@ void __53__FAInvokeMessageHook_processObjectModel_completion___block_invoke(uint
   v28 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   completionCopy = completion;
-  v11 = _FALogSystem();
+  v11 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_21BB35000, v11, OS_LOG_TYPE_DEFAULT, "Present messsage invite triggered", buf, 2u);
   }
 
-  v12 = _FALogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _FALogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v27 = attributesCopy;
-    _os_log_impl(&dword_21BB35000, v12, OS_LOG_TYPE_DEFAULT, "Attributes - %@", buf, 0xCu);
+    _os_log_impl(&dword_21BB35000, v13, OS_LOG_TYPE_DEFAULT, "Attributes - %@", buf, 0xCu);
   }
 
-  v13 = [objc_alloc(MEMORY[0x277D082B0]) initWithResults:attributesCopy];
-  v14 = [completionCopy copy];
+  v14 = [objc_alloc(MEMORY[0x277D082B0]) initWithResults:attributesCopy];
+  v15 = [completionCopy copy];
   completion = self->_completion;
-  self->_completion = v14;
+  self->_completion = v15;
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -146,15 +146,13 @@ void __53__FAInvokeMessageHook_processObjectModel_completion___block_invoke(uint
   block[3] = &unk_2782F40E0;
   v24 = completionCopy;
   transportCopy = transport;
-  v21 = v13;
+  v21 = v14;
   selfCopy = self;
   v23 = attributesCopy;
-  v16 = completionCopy;
-  v17 = attributesCopy;
-  v18 = v13;
+  v17 = completionCopy;
+  v18 = attributesCopy;
+  v19 = v14;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __98__FAInvokeMessageHook__presentMessagesInviteWithServerAttributes_transport_sourceView_completion___block_invoke(uint64_t a1)
@@ -163,42 +161,43 @@ void __98__FAInvokeMessageHook__presentMessagesInviteWithServerAttributes_transp
   switch(v2)
   {
     case -1:
-      v19 = _FALogSystem();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = _FALogSystem(a1);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v20 = "Device unknown transport messages";
+        v21 = "Device unknown transport messages";
 LABEL_11:
-        _os_log_impl(&dword_21BB35000, v19, OS_LOG_TYPE_DEFAULT, v20, buf, 2u);
+        _os_log_impl(&dword_21BB35000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, 2u);
       }
 
 LABEL_12:
 
-      v21 = *(a1 + 56);
-      v22 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D080B8] code:-1000 userInfo:0];
-      (*(v21 + 16))(v21, 0, v22);
+      v22 = *(a1 + 56);
+      v23 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D080B8] code:-1000 userInfo:0];
+      (*(v22 + 16))(v22, 0, v23);
 
       break;
     case 0:
-      if (+[FAMessagesInviteConfigurationController isAvailable])
+      v12 = +[FAMessagesInviteConfigurationController isAvailable];
+      if (v12)
       {
-        v12 = [FAMessagesInviteConfigurationController alloc];
-        v13 = *(a1 + 32);
+        v13 = [FAMessagesInviteConfigurationController alloc];
+        v14 = *(a1 + 32);
         WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 40));
-        v15 = [WeakRetained presentationContextForHook:*(a1 + 40)];
-        v16 = [(FAMessagesInviteConfigurationController *)v12 initWithInviteContext:v13 presentingController:v15];
-        v17 = *(a1 + 40);
-        v18 = *(v17 + 8);
-        *(v17 + 8) = v16;
+        v16 = [WeakRetained presentationContextForHook:*(a1 + 40)];
+        v17 = [(FAMessagesInviteConfigurationController *)v13 initWithInviteContext:v14 presentingController:v16];
+        v18 = *(a1 + 40);
+        v19 = *(v18 + 8);
+        *(v18 + 8) = v17;
 
         break;
       }
 
-      v19 = _FALogSystem();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = _FALogSystem(v12);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v20 = "Device cannot send messages";
+        v21 = "Device cannot send messages";
         goto LABEL_11;
       }
 
@@ -224,15 +223,15 @@ LABEL_12:
   }
 
   [*(*(a1 + 40) + 8) setDelegate:?];
-  v23 = *(a1 + 40);
-  v24 = *(v23 + 8);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __98__FAInvokeMessageHook__presentMessagesInviteWithServerAttributes_transport_sourceView_completion___block_invoke_45;
-  v25[3] = &unk_2782F3D08;
-  v25[4] = v23;
-  v26 = *(a1 + 56);
-  [v24 presentWhenReadyWithCompletion:v25];
+  v24 = *(a1 + 40);
+  v25 = *(v24 + 8);
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __98__FAInvokeMessageHook__presentMessagesInviteWithServerAttributes_transport_sourceView_completion___block_invoke_45;
+  v26[3] = &unk_2782F3D08;
+  v26[4] = v24;
+  v27 = *(a1 + 56);
+  [v25 presentWhenReadyWithCompletion:v26];
 }
 
 void __98__FAInvokeMessageHook__presentMessagesInviteWithServerAttributes_transport_sourceView_completion___block_invoke_45(uint64_t a1, char a2, void *a3)
@@ -266,7 +265,7 @@ void __98__FAInvokeMessageHook__presentMessagesInviteWithServerAttributes_transp
   recipientsCopy = recipients;
   infoCopy = info;
   errorCopy = error;
-  v14 = _FALogSystem();
+  v14 = _FALogSystem(errorCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v27 = 134217984;
@@ -274,55 +273,53 @@ void __98__FAInvokeMessageHook__presentMessagesInviteWithServerAttributes_transp
     _os_log_impl(&dword_21BB35000, v14, OS_LOG_TYPE_DEFAULT, "Message Invite Controller did finish with status: %lu", &v27, 0xCu);
   }
 
-  v15 = _FALogSystem();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  v16 = _FALogSystem(v15);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
   if (recipientsCopy)
   {
-    if (v16)
+    if (v17)
     {
       v27 = 138412290;
       statusCopy = recipientsCopy;
-      _os_log_impl(&dword_21BB35000, v15, OS_LOG_TYPE_DEFAULT, "Recipient key is not nil %@", &v27, 0xCu);
+      _os_log_impl(&dword_21BB35000, v16, OS_LOG_TYPE_DEFAULT, "Recipient key is not nil %@", &v27, 0xCu);
     }
 
-    v17 = +[_TtC14FamilyCircleUI21FamilyInviteAnalytics shared];
-    v18 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D080F8]];
-    [v17 sendOtherContactInvitedEventWithInviteTransport:v18 inviteCompletionStatus:status];
+    v18 = +[_TtC14FamilyCircleUI21FamilyInviteAnalytics shared];
+    v19 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D080F8]];
+    [v18 sendOtherContactInvitedEventWithInviteTransport:v19 inviteCompletionStatus:status];
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v15 = dictionary;
+    v16 = dictionary;
     if (infoCopy)
     {
       [dictionary addEntriesFromDictionary:infoCopy];
     }
 
-    v20 = [(FAInvokeMessageHook *)self _stringForCompletionStatus:status];
-    [v15 setObject:v20 forKeyedSubscript:*MEMORY[0x277D080F0]];
+    v21 = [(FAInvokeMessageHook *)self _stringForCompletionStatus:status];
+    [v16 setObject:v21 forKeyedSubscript:*MEMORY[0x277D080F0]];
 
-    [v15 setObject:recipientsCopy forKeyedSubscript:*MEMORY[0x277D080E8]];
-    v21 = objc_alloc_init(MEMORY[0x277D46208]);
+    [v16 setObject:recipientsCopy forKeyedSubscript:*MEMORY[0x277D080E8]];
+    v22 = objc_alloc_init(MEMORY[0x277D46208]);
     serverHookResponse = self->_serverHookResponse;
-    self->_serverHookResponse = v21;
+    self->_serverHookResponse = v22;
 
-    v23 = [v15 copy];
-    [(RUIServerHookResponse *)self->_serverHookResponse setAdditionalPayload:v23];
+    v24 = [v16 copy];
+    [(RUIServerHookResponse *)self->_serverHookResponse setAdditionalPayload:v24];
 
     completion = self->_completion;
     if (completion)
     {
       completion[2](completion, status == 1, errorCopy);
-      v25 = self->_completion;
+      v26 = self->_completion;
       self->_completion = 0;
     }
   }
 
-  else if (v16)
+  else if (v17)
   {
     LOWORD(v27) = 0;
-    _os_log_impl(&dword_21BB35000, v15, OS_LOG_TYPE_DEFAULT, "Recipient key is nil, not sending the invite details to the server", &v27, 2u);
+    _os_log_impl(&dword_21BB35000, v16, OS_LOG_TYPE_DEFAULT, "Recipient key is nil, not sending the invite details to the server", &v27, 2u);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)inviteControllerDidStartAsyncLoading:(id)loading

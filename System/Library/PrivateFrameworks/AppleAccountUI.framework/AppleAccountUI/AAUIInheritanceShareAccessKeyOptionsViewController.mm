@@ -76,9 +76,11 @@ void __65__AAUIInheritanceShareAccessKeyOptionsViewController_viewDidLoad__block
 
 - (void)_setupCancelButtonIfNeeded
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0_7(&dword_1C5355000, v2, v3, "%@ Setting up cancel button", v4, v5, v6, v7, 2u);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_7(&dword_1C5355000, v3, v4, "%@ Setting up cancel button", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)_dismiss
@@ -91,12 +93,12 @@ void __65__AAUIInheritanceShareAccessKeyOptionsViewController_viewDidLoad__block
   [(AAUIInheritanceShareAccessKeyOptionsViewController *)self dismissViewControllerAnimated:1 completion:v2];
 }
 
-void __62__AAUIInheritanceShareAccessKeyOptionsViewController__dismiss__block_invoke()
+void __62__AAUIInheritanceShareAccessKeyOptionsViewController__dismiss__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = _AAUILogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __62__AAUIInheritanceShareAccessKeyOptionsViewController__dismiss__block_invoke_cold_1();
+    __62__AAUIInheritanceShareAccessKeyOptionsViewController__dismiss__block_invoke_cold_1(a1);
   }
 }
 
@@ -202,11 +204,13 @@ LABEL_6:
   return WeakRetained;
 }
 
-void __62__AAUIInheritanceShareAccessKeyOptionsViewController__dismiss__block_invoke_cold_1()
+void __62__AAUIInheritanceShareAccessKeyOptionsViewController__dismiss__block_invoke_cold_1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0_7(&dword_1C5355000, v2, v3, "%@ Dismissed by user tapping Cancel button", v4, v5, v6, v7, 2u);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_7(&dword_1C5355000, v3, v4, "%@ Dismissed by user tapping Cancel button", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

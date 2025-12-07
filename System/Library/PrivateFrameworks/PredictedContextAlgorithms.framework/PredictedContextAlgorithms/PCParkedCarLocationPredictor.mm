@@ -10,7 +10,7 @@
 
 + (void)predictParkedCarLocation:(id)location locationHistory:(id)history locationsOfInterest:(id)interest candidateVisits:(id)visits atTime:(double)time locations:(id *)locations
 {
-  v156 = *MEMORY[0x1E69E9840];
+  v155 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   historyCopy = history;
   interestCopy = interest;
@@ -43,16 +43,16 @@
           v58 = v57;
           [v18 longitudeDeg];
           *buf = 134545921;
-          v147 = v58;
-          v148 = 2053;
-          v149 = v59;
+          v146 = v58;
+          v147 = 2053;
+          v148 = v59;
           _os_log_impl(&dword_1CEE74000, v28, OS_LOG_TYPE_DEFAULT, "current location, lat, %{sensitive}.2f, lon, %{sensitive}.2f", buf, 0x16u);
         }
 
-        v104 = v25;
-        v105 = v18;
-        v115 = visitsCopy;
-        v123 = historyCopy;
+        v103 = v25;
+        v104 = v18;
+        v114 = visitsCopy;
+        v122 = historyCopy;
 
         v60 = _plc_log_get_normal_handle(PCLogCategoryParkedCarPredictor);
         if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
@@ -63,37 +63,37 @@
           location4 = [locationCopy location];
           [location4 locationLongitudeDeg];
           *buf = 134545921;
-          v147 = v63;
-          v148 = 2053;
-          v149 = v65;
+          v146 = v63;
+          v147 = 2053;
+          v148 = v65;
           _os_log_impl(&dword_1CEE74000, v60, OS_LOG_TYPE_DEFAULT, "parked car location, lat, %{sensitive}.2f, lon, %{sensitive}.2f", buf, 0x16u);
         }
 
-        v111 = locationCopy;
+        v110 = locationCopy;
 
         array = [MEMORY[0x1E695DF70] array];
+        v128 = 0u;
         v129 = 0u;
         v130 = 0u;
         v131 = 0u;
-        v132 = 0u;
-        v119 = interestCopy;
+        v118 = interestCopy;
         v67 = interestCopy;
-        v68 = [v67 countByEnumeratingWithState:&v129 objects:v152 count:16];
+        v68 = [v67 countByEnumeratingWithState:&v128 objects:v151 count:16];
         obj = array;
         if (v68)
         {
           v69 = v68;
-          v70 = *v130;
+          v70 = *v129;
           do
           {
             for (i = 0; i != v69; ++i)
             {
-              if (*v130 != v70)
+              if (*v129 != v70)
               {
                 objc_enumerationMutation(v67);
               }
 
-              v72 = *(*(&v129 + 1) + 8 * i);
+              v72 = *(*(&v128 + 1) + 8 * i);
               if ([v72 placeType] == 1)
               {
                 v73 = [PCLatLon alloc];
@@ -117,11 +117,11 @@
                   loiIdentifier = [v72 loiIdentifier];
                   v88 = [PCAlgorithmsCommonUtils uuidStringFromData:loiIdentifier];
                   *buf = 134546179;
-                  v147 = v83;
-                  v148 = 2053;
-                  v149 = v86;
-                  v150 = 2117;
-                  v151 = v88;
+                  v146 = v83;
+                  v147 = 2053;
+                  v148 = v86;
+                  v149 = 2117;
+                  v150 = v88;
                   _os_log_impl(&dword_1CEE74000, v80, OS_LOG_TYPE_DEFAULT, "home location added, lat, %{sensitive}.2f, lon, %{sensitive}.2f, ID, %{sensitive}@", buf, 0x20u);
 
                   array = obj;
@@ -129,7 +129,7 @@
               }
             }
 
-            v69 = [v67 countByEnumeratingWithState:&v129 objects:v152 count:16];
+            v69 = [v67 countByEnumeratingWithState:&v128 objects:v151 count:16];
           }
 
           while (v69);
@@ -137,8 +137,8 @@
 
         if ([selfCopy isUserCloseToCarWithDistance:v27])
         {
-          v25 = v104;
-          if ([selfCopy isCarLocation:v104 awayFromHomeLocations:array])
+          v25 = v103;
+          if ([selfCopy isCarLocation:v103 awayFromHomeLocations:array])
           {
             v89 = 0.8;
           }
@@ -148,32 +148,32 @@
             v89 = 0.1;
           }
 
-          locationCopy = v111;
-          visitsCopy = v115;
+          locationCopy = v110;
+          visitsCopy = v114;
         }
 
         else
         {
           v89 = 0.01;
-          locationCopy = v111;
-          visitsCopy = v115;
-          v25 = v104;
+          locationCopy = v110;
+          visitsCopy = v114;
+          v25 = v103;
         }
 
         v91 = _plc_log_get_normal_handle(PCLogCategoryParkedCarPredictor);
         if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v147 = *&v89;
+          v146 = *&v89;
           _os_log_impl(&dword_1CEE74000, v91, OS_LOG_TYPE_DEFAULT, "probability will be, %f", buf, 0xCu);
         }
 
         v92 = [PCParkedCarLocationPredictor createParkedCarLocationPredictionWithCar:locationCopy probability:visitsCopy distanceFromUser:v89 candidateVisits:v27 currentTime:time];
         [*locationsCopy addObject:v92];
         v93 = _plc_log_get_normal_handle(PCLogCategoryParkedCarPredictor);
-        interestCopy = v119;
-        historyCopy = v123;
-        v18 = v105;
+        interestCopy = v118;
+        historyCopy = v122;
+        v18 = v104;
         if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -187,49 +187,49 @@
           {
             v95 = [*locationsCopy count];
             *buf = 134217984;
-            v147 = v95;
+            v146 = v95;
             _os_log_impl(&dword_1CEE74000, v94, OS_LOG_TYPE_INFO, "--- Location Predictions (%lu) ---", buf, 0xCu);
           }
 
-          v127 = 0u;
-          v128 = 0u;
-          v125 = 0u;
           v126 = 0u;
+          v127 = 0u;
+          v124 = 0u;
+          v125 = 0u;
           v96 = *locationsCopy;
-          v97 = [v96 countByEnumeratingWithState:&v125 objects:v145 count:16];
+          v97 = [v96 countByEnumeratingWithState:&v124 objects:v144 count:16];
           if (v97)
           {
             v98 = v97;
-            v99 = *v126;
+            v99 = *v125;
             do
             {
               for (j = 0; j != v98; ++j)
               {
-                if (*v126 != v99)
+                if (*v125 != v99)
                 {
                   objc_enumerationMutation(v96);
                 }
 
-                v104 = [PCLoggingUtils formattedStringForLocationPrediction:*(*(&v125 + 1) + 8 * j), v104];
+                v103 = [PCLoggingUtils formattedStringForLocationPrediction:*(*(&v124 + 1) + 8 * j), v103];
                 v102 = _plc_log_get_normal_handle(PCLogCategoryParkedCarPredictor);
                 if (os_log_type_enabled(v102, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138739971;
-                  v147 = v104;
+                  v146 = v103;
                   _os_log_impl(&dword_1CEE74000, v102, OS_LOG_TYPE_INFO, "Location Prediction: %{sensitive}@", buf, 0xCu);
                 }
               }
 
-              v98 = [v96 countByEnumeratingWithState:&v125 objects:v145 count:16];
+              v98 = [v96 countByEnumeratingWithState:&v124 objects:v144 count:16];
             }
 
             while (v98);
-            locationCopy = v111;
-            visitsCopy = v115;
-            interestCopy = v119;
-            historyCopy = v123;
-            v25 = v104;
-            v18 = v105;
+            locationCopy = v110;
+            visitsCopy = v114;
+            interestCopy = v118;
+            historyCopy = v122;
+            v25 = v103;
+            v18 = v104;
           }
         }
 
@@ -249,63 +249,63 @@
         if (v29)
         {
           *buf = 136315138;
-          v147 = "+[PCParkedCarLocationPredictor predictParkedCarLocation:locationHistory:locationsOfInterest:candidateVisits:atTime:locations:]";
+          v146 = "+[PCParkedCarLocationPredictor predictParkedCarLocation:locationHistory:locationsOfInterest:candidateVisits:atTime:locations:]";
           _os_log_impl(&dword_1CEE74000, v28, OS_LOG_TYPE_DEFAULT, "%s, car very far, no prediction", buf, 0xCu);
         }
 
         if (*locationsCopy && [*locationsCopy count])
         {
-          v108 = locationCopy;
-          v112 = visitsCopy;
-          v116 = interestCopy;
-          v120 = historyCopy;
+          v107 = locationCopy;
+          v111 = visitsCopy;
+          v115 = interestCopy;
+          v119 = historyCopy;
           v30 = _plc_log_get_normal_handle(PCLogCategoryParkedCarPredictor);
           if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
           {
             v31 = [*locationsCopy count];
             *buf = 134217984;
-            v147 = v31;
+            v146 = v31;
             _os_log_impl(&dword_1CEE74000, v30, OS_LOG_TYPE_INFO, "--- Location Predictions (%lu) ---", buf, 0xCu);
           }
 
-          v135 = 0u;
-          v136 = 0u;
-          v133 = 0u;
           v134 = 0u;
+          v135 = 0u;
+          v132 = 0u;
+          v133 = 0u;
           v32 = *locationsCopy;
-          v33 = [v32 countByEnumeratingWithState:&v133 objects:v153 count:16];
+          v33 = [v32 countByEnumeratingWithState:&v132 objects:v152 count:16];
           obj = v32;
           if (v33)
           {
             v34 = v33;
-            v35 = *v134;
+            v35 = *v133;
             do
             {
               for (k = 0; k != v34; ++k)
               {
-                if (*v134 != v35)
+                if (*v133 != v35)
                 {
                   objc_enumerationMutation(v32);
                 }
 
-                v37 = [PCLoggingUtils formattedStringForLocationPrediction:*(*(&v133 + 1) + 8 * k)];
+                v37 = [PCLoggingUtils formattedStringForLocationPrediction:*(*(&v132 + 1) + 8 * k)];
                 v38 = _plc_log_get_normal_handle(PCLogCategoryParkedCarPredictor);
                 if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138739971;
-                  v147 = v37;
+                  v146 = v37;
                   _os_log_impl(&dword_1CEE74000, v38, OS_LOG_TYPE_INFO, "Location Prediction: %{sensitive}@", buf, 0xCu);
                 }
               }
 
-              v34 = [v32 countByEnumeratingWithState:&v133 objects:v153 count:16];
+              v34 = [v32 countByEnumeratingWithState:&v132 objects:v152 count:16];
             }
 
             while (v34);
-            interestCopy = v116;
-            historyCopy = v120;
-            locationCopy = v108;
-            visitsCopy = v112;
+            interestCopy = v115;
+            historyCopy = v119;
+            locationCopy = v107;
+            visitsCopy = v111;
           }
         }
 
@@ -328,62 +328,62 @@
       if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v147 = "+[PCParkedCarLocationPredictor predictParkedCarLocation:locationHistory:locationsOfInterest:candidateVisits:atTime:locations:]";
+        v146 = "+[PCParkedCarLocationPredictor predictParkedCarLocation:locationHistory:locationsOfInterest:candidateVisits:atTime:locations:]";
         _os_log_impl(&dword_1CEE74000, v48, OS_LOG_TYPE_DEFAULT, "%s, user location not available, no prediction", buf, 0xCu);
       }
 
       if (*locations && [*locations count])
       {
-        v114 = visitsCopy;
-        v118 = interestCopy;
-        v122 = historyCopy;
+        v113 = visitsCopy;
+        v117 = interestCopy;
+        v121 = historyCopy;
         v49 = _plc_log_get_normal_handle(PCLogCategoryParkedCarPredictor);
         if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
         {
           v50 = [*locations count];
           *buf = 134217984;
-          v147 = v50;
+          v146 = v50;
           _os_log_impl(&dword_1CEE74000, v49, OS_LOG_TYPE_INFO, "--- Location Predictions (%lu) ---", buf, 0xCu);
         }
 
-        v139 = 0u;
-        v140 = 0u;
-        v137 = 0u;
         v138 = 0u;
+        v139 = 0u;
+        v136 = 0u;
+        v137 = 0u;
         v25 = *locations;
-        v51 = [v25 countByEnumeratingWithState:&v137 objects:v154 count:16];
+        v51 = [v25 countByEnumeratingWithState:&v136 objects:v153 count:16];
         if (v51)
         {
           v52 = v51;
-          v110 = locationCopy;
-          v53 = *v138;
+          v109 = locationCopy;
+          v53 = *v137;
           do
           {
             for (m = 0; m != v52; ++m)
             {
-              if (*v138 != v53)
+              if (*v137 != v53)
               {
                 objc_enumerationMutation(v25);
               }
 
-              v55 = [PCLoggingUtils formattedStringForLocationPrediction:*(*(&v137 + 1) + 8 * m)];
+              v55 = [PCLoggingUtils formattedStringForLocationPrediction:*(*(&v136 + 1) + 8 * m)];
               v56 = _plc_log_get_normal_handle(PCLogCategoryParkedCarPredictor);
               if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
               {
                 *buf = 138739971;
-                v147 = v55;
+                v146 = v55;
                 _os_log_impl(&dword_1CEE74000, v56, OS_LOG_TYPE_INFO, "Location Prediction: %{sensitive}@", buf, 0xCu);
               }
             }
 
-            v52 = [v25 countByEnumeratingWithState:&v137 objects:v154 count:16];
+            v52 = [v25 countByEnumeratingWithState:&v136 objects:v153 count:16];
           }
 
           while (v52);
-          interestCopy = v118;
-          historyCopy = v122;
-          locationCopy = v110;
-          visitsCopy = v114;
+          interestCopy = v117;
+          historyCopy = v121;
+          locationCopy = v109;
+          visitsCopy = v113;
         }
       }
 
@@ -405,62 +405,62 @@
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v147 = "+[PCParkedCarLocationPredictor predictParkedCarLocation:locationHistory:locationsOfInterest:candidateVisits:atTime:locations:]";
+      v146 = "+[PCParkedCarLocationPredictor predictParkedCarLocation:locationHistory:locationsOfInterest:candidateVisits:atTime:locations:]";
       _os_log_impl(&dword_1CEE74000, v39, OS_LOG_TYPE_DEFAULT, "%s, parked car not found, no prediction", buf, 0xCu);
     }
 
     if (*locations && [*locations count])
     {
-      v113 = visitsCopy;
-      v117 = interestCopy;
-      v121 = historyCopy;
+      v112 = visitsCopy;
+      v116 = interestCopy;
+      v120 = historyCopy;
       v40 = _plc_log_get_normal_handle(PCLogCategoryParkedCarPredictor);
       if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
       {
         v41 = [*locations count];
         *buf = 134217984;
-        v147 = v41;
+        v146 = v41;
         _os_log_impl(&dword_1CEE74000, v40, OS_LOG_TYPE_INFO, "--- Location Predictions (%lu) ---", buf, 0xCu);
       }
 
-      v143 = 0u;
-      v144 = 0u;
-      v141 = 0u;
       v142 = 0u;
+      v143 = 0u;
+      v140 = 0u;
+      v141 = 0u;
       v18 = *locations;
-      v42 = [v18 countByEnumeratingWithState:&v141 objects:v155 count:16];
+      v42 = [v18 countByEnumeratingWithState:&v140 objects:v154 count:16];
       if (v42)
       {
         v43 = v42;
-        v109 = locationCopy;
-        v44 = *v142;
+        v108 = locationCopy;
+        v44 = *v141;
         do
         {
           for (n = 0; n != v43; ++n)
           {
-            if (*v142 != v44)
+            if (*v141 != v44)
             {
               objc_enumerationMutation(v18);
             }
 
-            v46 = [PCLoggingUtils formattedStringForLocationPrediction:*(*(&v141 + 1) + 8 * n)];
+            v46 = [PCLoggingUtils formattedStringForLocationPrediction:*(*(&v140 + 1) + 8 * n)];
             v47 = _plc_log_get_normal_handle(PCLogCategoryParkedCarPredictor);
             if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
             {
               *buf = 138739971;
-              v147 = v46;
+              v146 = v46;
               _os_log_impl(&dword_1CEE74000, v47, OS_LOG_TYPE_INFO, "Location Prediction: %{sensitive}@", buf, 0xCu);
             }
           }
 
-          v43 = [v18 countByEnumeratingWithState:&v141 objects:v155 count:16];
+          v43 = [v18 countByEnumeratingWithState:&v140 objects:v154 count:16];
         }
 
         while (v43);
-        interestCopy = v117;
-        historyCopy = v121;
-        locationCopy = v109;
-        visitsCopy = v113;
+        interestCopy = v116;
+        historyCopy = v120;
+        locationCopy = v108;
+        visitsCopy = v112;
       }
     }
 
@@ -474,52 +474,50 @@
       }
     }
   }
-
-  v103 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isCarLocation:(id)location awayFromHomeLocations:(id)locations
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   locationsCopy = locations;
   if ([locationsCopy count])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
-    v18 = locationsCopy;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v17 = locationsCopy;
     v7 = locationsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       v11 = 1;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [locationCopy distanceTo:*(*(&v19 + 1) + 8 * i)];
+          [locationCopy distanceTo:*(*(&v18 + 1) + 8 * i)];
           v14 = v13;
           v15 = _plc_log_get_normal_handle(PCLogCategoryParkedCarPredictor);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v24 = v14;
+            v23 = v14;
             _os_log_impl(&dword_1CEE74000, v15, OS_LOG_TYPE_DEFAULT, "car distance from home, %f", buf, 0xCu);
           }
 
           v11 &= v14 >= 3220.0;
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v9);
@@ -530,7 +528,7 @@
       v11 = 1;
     }
 
-    locationsCopy = v18;
+    locationsCopy = v17;
   }
 
   else
@@ -538,29 +536,26 @@
     v11 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (BOOL)isUserCloseToCarWithDistance:(double)distance
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = _plc_log_get_normal_handle(PCLogCategoryParkedCarPredictor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
+    v6 = 134217984;
     distanceCopy = distance;
-    _os_log_impl(&dword_1CEE74000, v4, OS_LOG_TYPE_DEFAULT, "user distance from car, %f", &v7, 0xCu);
+    _os_log_impl(&dword_1CEE74000, v4, OS_LOG_TYPE_DEFAULT, "user distance from car, %f", &v6, 0xCu);
   }
 
-  result = distance < 800.0;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return distance < 800.0;
 }
 
 + (id)createParkedCarLocationPredictionWithCar:(id)car probability:(double)probability distanceFromUser:(double)user candidateVisits:(id)visits currentTime:(double)time
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   visitsCopy = visits;
   carCopy = car;
   v13 = objc_alloc_init(PCPPredictedContextLocation);
@@ -594,8 +589,8 @@
   [(PCPPredictedContextSource *)v26 setParkedCar:carCopy];
 
   [(PCPSource *)v23 setPredictedContextSource:v26];
-  v34[0] = v23;
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+  v33[0] = v23;
+  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
   v28 = [v27 mutableCopy];
   predictedContext3 = [(PCPPredictedContextLocation *)v13 predictedContext];
   [predictedContext3 setSources:v28];
@@ -605,14 +600,12 @@
   predictedContext4 = [(PCPPredictedContextLocation *)v13 predictedContext];
   [predictedContext4 setDateInterval:v30];
 
-  v32 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 + (id)createPredictedContextDateIntervalAtTime:(double)time fromCandidateVisits:(id)visits distanceFromUser:(double)user
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   visitsCopy = visits;
   v8 = objc_alloc_init(PCPPredictedContextDateInterval);
   v9 = objc_alloc_init(PCPPredictedContextDate);
@@ -624,16 +617,16 @@
   v11 = user / 1.56;
   if ([visitsCopy count])
   {
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     v12 = visitsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v56 objects:v60 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v55 objects:v59 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v57;
+      v15 = *v56;
       v16 = 1.79769313e308;
       v17 = 1.79769313e308;
       v18 = 1.79769313e308;
@@ -641,12 +634,12 @@
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v57 != v15)
+          if (*v56 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v20 = *(*(&v56 + 1) + 8 * i);
+          v20 = *(*(&v55 + 1) + 8 * i);
           predictedContext = [v20 predictedContext];
           dateInterval = [predictedContext dateInterval];
           endDate = [dateInterval endDate];
@@ -680,7 +673,7 @@
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v56 objects:v60 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v55 objects:v59 count:16];
       }
 
       while (v14);
@@ -728,9 +721,7 @@
     v47 = 3600.0;
   }
 
-  [endDate6 setConfidenceInterval:{v47, v56}];
-
-  v54 = *MEMORY[0x1E69E9840];
+  [endDate6 setConfidenceInterval:{v47, v55}];
 
   return v8;
 }

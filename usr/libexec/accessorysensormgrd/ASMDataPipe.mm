@@ -28,12 +28,12 @@
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v4 = dispatch_queue_create("com.apple.ASMDataPipe.queue", v3);
-    v5 = *(v2 + 7);
-    *(v2 + 7) = v4;
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v4;
 
     if (dword_10001A198 <= 30 && (dword_10001A198 != -1 || _LogCategory_Initialize()))
     {
-      sub_100008508(v2 + 7);
+      sub_100008508(&v2->_dispatchQueue);
     }
 
     v6 = v2;
@@ -76,10 +76,13 @@
     reassemblyInstances = self->_reassemblyInstances;
     self->_reassemblyInstances = v10;
 
-    [(ASMDataPipe *)self subscribeToImagePackets];
-    if (dword_10001A198 <= 30 && (dword_10001A198 != -1 || _LogCategory_Initialize()))
+    subscribeToImagePackets = [(ASMDataPipe *)self subscribeToImagePackets];
+    if (dword_10001A198 <= 30)
     {
-      sub_10000854C();
+      if (dword_10001A198 != -1 || (subscribeToImagePackets = _LogCategory_Initialize(), subscribeToImagePackets))
+      {
+        sub_10000854C(subscribeToImagePackets, v13, v14);
+      }
     }
   }
 }
@@ -97,10 +100,13 @@
 
 - (void)_invalidate
 {
-  [(ASMDataPipe *)self resetAll];
-  if (dword_10001A198 <= 30 && (dword_10001A198 != -1 || _LogCategory_Initialize()))
+  resetAll = [(ASMDataPipe *)self resetAll];
+  if (dword_10001A198 <= 30)
   {
-    sub_100008568();
+    if (dword_10001A198 != -1 || (resetAll = _LogCategory_Initialize(), resetAll))
+    {
+      sub_100008568(resetAll, v4, v5);
+    }
   }
 
   self->_activateCalled = 0;
@@ -224,40 +230,50 @@ LABEL_13:
 
 - (void)subscribeToImagePackets
 {
+  selfCopy = self;
   if (self->_btSession || self->_btSessionAttaching)
   {
-    if (dword_10001A198 <= 30 && (dword_10001A198 != -1 || _LogCategory_Initialize()))
+    if (dword_10001A198 <= 30)
     {
-      sub_100008780();
+      if (dword_10001A198 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_100008780(self, a2, v2);
+      }
     }
 
-    selfCopy = self;
-    btSession = self->_btSession;
-    if (BTAccessoryManagerGetDefault())
+    v4 = selfCopy;
+    Default = BTAccessoryManagerGetDefault();
+    if (Default)
     {
-      if (dword_10001A198 <= 90 && (dword_10001A198 != -1 || _LogCategory_Initialize()))
+      if (dword_10001A198 <= 90)
       {
-        sub_10000879C();
+        v6 = Default;
+        if (dword_10001A198 != -1 || _LogCategory_Initialize())
+        {
+          sub_10000879C(v6);
+        }
       }
 
       return;
     }
 
-    v5 = objc_retainBlock(selfCopy->_activateCompletion);
-    activateCompletion = selfCopy->_activateCompletion;
-    selfCopy->_activateCompletion = 0;
+    v7 = objc_retainBlock(v4->_activateCompletion);
+    activateCompletion = v4->_activateCompletion;
+    v4->_activateCompletion = 0;
 
-    if (BTAccessoryManagerRegisterCustomMessageClient())
+    v9 = BTAccessoryManagerRegisterCustomMessageClient();
+    if (v9)
     {
+      v10 = v9;
       if (dword_10001A198 <= 90 && (dword_10001A198 != -1 || _LogCategory_Initialize()))
       {
-        sub_1000087DC();
+        sub_1000087DC(v10);
       }
 
-      v7 = ASMErrorF();
-      if (v5)
+      v11 = ASMErrorF(4294960534, "Unable to subscribe to AACP image packets %d", v10);
+      if (v7)
       {
-        v5[2](v5, v7);
+        v7[2](v7, v11);
       }
 
       goto LABEL_29;
@@ -266,36 +282,38 @@ LABEL_13:
     if (dword_10001A198 <= 30 && (dword_10001A198 != -1 || _LogCategory_Initialize()))
     {
       sub_10000881C();
-      if (!v5)
+      if (!v7)
       {
         goto LABEL_29;
       }
     }
 
-    else if (!v5)
+    else if (!v7)
     {
 LABEL_29:
 
       return;
     }
 
-    v5[2](v5, 0);
+    v7[2](v7, 0);
     goto LABEL_29;
   }
 
-  if (dword_10001A198 <= 30 && (dword_10001A198 != -1 || _LogCategory_Initialize()))
+  if (dword_10001A198 <= 30)
   {
-    sub_100008764();
+    if (dword_10001A198 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100008764(self, a2, v2);
+    }
   }
 
-  selfCopy2 = self;
-  dispatchQueue = selfCopy2->_dispatchQueue;
+  v12 = selfCopy;
   if (BTSessionAttachWithQueue())
   {
-    CFRelease(selfCopy2);
+    CFRelease(v12);
   }
 
-  self->_btSessionAttaching = 1;
+  selfCopy->_btSessionAttaching = 1;
 }
 
 - (unsigned)getOneSduFrom:(id)from AtPosition:(unint64_t *)position TotalLen:(unint64_t)len
@@ -304,103 +322,89 @@ LABEL_29:
   v9 = fromCopy;
   if (*position + 9 > len)
   {
-    if (dword_10001A198 <= 90)
+    if (dword_10001A198 <= 90 && (dword_10001A198 != -1 || _LogCategory_Initialize()))
     {
-      if (dword_10001A198 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_24;
-        }
-
-        v19 = *position;
-      }
-
-      goto LABEL_12;
+      LogPrintF(&dword_10001A198, "[ASMDataPipe getOneSduFrom:AtPosition:TotalLen:]", 90, "Not enough data received; must have at least SDU header. position -- %d OTA size -- %lu");
     }
 
-LABEL_24:
-    v20 = 0;
     goto LABEL_25;
   }
 
-  v31 = 0;
+  v23 = 0;
   bytes = [fromCopy bytes];
   v11 = *position;
   v12 = &bytes[*position];
   v13 = *v12;
-  v30[8] = v12[8];
-  *v30 = v13;
+  v22[8] = v12[8];
+  *v22 = v13;
   v14 = v11 + 9;
   *position = v11 + 9;
-  v15 = *&v30[7];
-  if (*&v30[7] >= 0xA0EuLL)
+  v15 = *&v22[7];
+  if (*&v22[7] >= 0xA0EuLL)
   {
     if (dword_10001A198 > 90 || dword_10001A198 == -1 && !_LogCategory_Initialize())
     {
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
-    goto LABEL_12;
+    v16 = "Max SDU length exceeded. SDU header length -- %d max -- %d OTA size -- %lu";
+    v14 = 2573;
+    goto LABEL_13;
   }
 
-  if (v14 + *&v30[7] > len)
+  if (v14 + *&v22[7] > len)
   {
     if (dword_10001A198 > 90)
     {
-      goto LABEL_24;
+LABEL_25:
+      v20 = 0;
+      goto LABEL_26;
     }
 
     if (dword_10001A198 == -1)
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_24;
+        goto LABEL_25;
       }
 
-      v22 = *position;
+      v14 = *position;
     }
 
-LABEL_12:
-    LogPrintF();
-    goto LABEL_24;
+    v16 = "Not enough data received. SDU header length -- %d position -- %d OTA size -- %lu";
+LABEL_13:
+    LogPrintF(&dword_10001A198, "[ASMDataPipe getOneSduFrom:AtPosition:TotalLen:]", 90, v16, *&v22[7], v14, len);
+    goto LABEL_25;
   }
 
-  v16 = [v9 subdataWithRange:{v14, *&v30[7]}];
-  v31 = v16;
-  *position += *&v30[7];
+  v17 = [v9 subdataWithRange:{v14, *&v22[7]}];
+  v23 = v17;
+  *position += *&v22[7];
   if (dword_10001A198 <= 10 && (dword_10001A198 != -1 || _LogCategory_Initialize()))
   {
-    v17 = "Left";
-    if ((v30[1] & 1) == 0)
+    v18 = "Left";
+    if ((v22[1] & 1) == 0)
     {
-      v17 = "Right";
+      v18 = "Right";
     }
 
-    if ((v30[0] - 1) > 3u)
+    if ((v22[0] - 1) > 3u)
     {
-      v18 = "Unknown";
+      v19 = "Unknown";
     }
 
     else
     {
-      v18 = off_100014400[(v30[0] - 1)];
+      v19 = off_100014400[(v22[0] - 1)];
     }
 
-    v28 = *&v30[5] & 0x7FFF;
-    v29 = *&v30[5] >> 15;
-    v26 = v17;
-    v27 = v18;
-    v24 = v14;
-    v25 = v15;
-    lenCopy = len;
-    LogPrintF();
+    LogPrintF(&dword_10001A198, "[ASMDataPipe getOneSduFrom:AtPosition:TotalLen:]", 10, "SDU received. OTA size: %lu start pos: %lu length: %lu type: %s-%s seg idx: %d last: %d", len, v14, v15, v18, v19, *&v22[5] & 0x7FFF, *&v22[5] >> 15);
   }
 
-  [(ASMDataPipe *)self updateReassemblyWith:v30, lenCopy, v24, v25, v26, v27, v28, v29];
+  [(ASMDataPipe *)self updateReassemblyWith:v22];
   v20 = *position < len;
 
-LABEL_25:
+LABEL_26:
   return v20;
 }
 
@@ -480,26 +484,21 @@ LABEL_25:
   {
     buffer = [flush buffer];
     debugOutputPath = self->_debugOutputPath;
-    v9 = 0;
-    v6 = [buffer writeToFile:debugOutputPath options:1 error:&v9];
-    v7 = v9;
+    v8 = 0;
+    v6 = [buffer writeToFile:debugOutputPath options:1 error:&v8];
+    v7 = v8;
     if (v6)
     {
-      if (dword_10001A198 > 30 || dword_10001A198 == -1 && !_LogCategory_Initialize())
+      if (dword_10001A198 <= 30 && (dword_10001A198 != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_12;
+        LogPrintF(&dword_10001A198, "[ASMDataPipe flush:]", 30, "SDU buffer written successfully to path %@", self->_debugOutputPath);
       }
-
-      v8 = self->_debugOutputPath;
     }
 
-    else if (dword_10001A198 > 90 || dword_10001A198 == -1 && !_LogCategory_Initialize())
+    else if (dword_10001A198 <= 90 && (dword_10001A198 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_12;
+      LogPrintF(&dword_10001A198, "[ASMDataPipe flush:]", 90, "SDU buffer write to disk failed %@", v7);
     }
-
-    LogPrintF();
-LABEL_12:
   }
 }
 
@@ -514,7 +513,7 @@ LABEL_12:
     if (dword_10001A198 <= 30 && (dword_10001A198 != -1 || _LogCategory_Initialize()))
     {
 
-      LogPrintF();
+      LogPrintF(&dword_10001A198, "[ASMDataPipe _unsubscribeFromImagePackets]", 30, "Unsubscribed from Image Packets");
     }
   }
 }

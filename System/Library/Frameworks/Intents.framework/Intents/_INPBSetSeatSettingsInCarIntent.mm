@@ -3,6 +3,8 @@
 - (_INPBSetSeatSettingsInCarIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)relativeLevelSettingAsString:(int)string;
+- (id)seatAsString:(int)string;
 - (int)StringAsRelativeLevelSetting:(id)setting;
 - (int)StringAsSeat:(id)seat;
 - (unint64_t)hash;
@@ -385,19 +387,16 @@ LABEL_30:
 
   if ([(_INPBSetSeatSettingsInCarIntent *)self hasEnableCooling])
   {
-    enableCooling = self->_enableCooling;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBSetSeatSettingsInCarIntent *)self hasEnableHeating])
   {
-    enableHeating = self->_enableHeating;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBSetSeatSettingsInCarIntent *)self hasEnableMassage])
   {
-    enableMassage = self->_enableMassage;
     PBDataWriterWriteBOOLField();
   }
 
@@ -419,13 +418,11 @@ LABEL_30:
 
   if ([(_INPBSetSeatSettingsInCarIntent *)self hasRelativeLevelSetting])
   {
-    relativeLevelSetting = self->_relativeLevelSetting;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBSetSeatSettingsInCarIntent *)self hasSeat])
   {
-    seat = self->_seat;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -501,6 +498,22 @@ LABEL_30:
   return v4;
 }
 
+- (id)seatAsString:(int)string
+{
+  v4 = string - 1;
+  if (string - 1) < 0x16 && ((0x3F8383u >> v4))
+  {
+    v5 = off_1E7285BE8[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
+}
+
 - (void)setHasSeat:(BOOL)seat
 {
   if (seat)
@@ -557,6 +570,21 @@ LABEL_30:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)relativeLevelSettingAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7285BC8[string - 1];
   }
 
   return v4;

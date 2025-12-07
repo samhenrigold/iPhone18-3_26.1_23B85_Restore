@@ -229,7 +229,6 @@ LABEL_10:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    domain = self->_domain;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -249,7 +248,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  domainVersion = self->_domainVersion;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -264,12 +262,10 @@ LABEL_8:
   }
 
 LABEL_26:
-  state = self->_state;
   PBDataWriterWriteInt32Field();
   if (*&self->_has)
   {
 LABEL_9:
-    flags = self->_flags;
     PBDataWriterWriteUint64Field();
   }
 
@@ -284,33 +280,32 @@ LABEL_10:
     PBDataWriterWriteStringField();
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v7 = self->_infos;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v8)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_infos;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v17;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if (self->_objectId)
@@ -543,7 +538,6 @@ LABEL_6:
     }
   }
 
-  v7 = *(equalCopy + 76);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 76) & 2) == 0 || self->_domain != *(equalCopy + 6))
@@ -555,7 +549,7 @@ LABEL_6:
   else if ((*(equalCopy + 76) & 2) != 0)
   {
 LABEL_34:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_35;
   }
 
@@ -625,17 +619,17 @@ LABEL_34:
   objectId = self->_objectId;
   if (objectId | *(equalCopy + 7))
   {
-    v12 = [(NSString *)objectId isEqual:?];
+    v11 = [(NSString *)objectId isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_35:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

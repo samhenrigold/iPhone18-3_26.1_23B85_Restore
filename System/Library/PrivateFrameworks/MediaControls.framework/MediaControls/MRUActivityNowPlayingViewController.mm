@@ -193,13 +193,13 @@ LABEL_7:
 {
   layoutCopy = layout;
   transitionCopy = transition;
-  v52 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
-  v7 = MCLogCategoryDefault();
+  v7 = MCLogCategoryDefault(reasonCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v49 = reasonCopy;
+    v51 = reasonCopy;
     _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEBUG, "[MRUActivityVC] updateLayoutModes for %@", buf, 0xCu);
   }
 
@@ -242,7 +242,7 @@ LABEL_7:
 
     if ((v20 | v17))
     {
-      v21 = MCLogCategoryDefault();
+      v21 = MCLogCategoryDefault(inactiveTransitionTimer);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
@@ -252,7 +252,7 @@ LABEL_7:
       inactiveTransitionTimer2 = [(MRUActivityNowPlayingViewController *)self inactiveTransitionTimer];
       [inactiveTransitionTimer2 invalidate];
 
-      [(MRUActivityNowPlayingViewController *)self setInactiveTransitionTimer:0];
+      inactiveTransitionTimer = [(MRUActivityNowPlayingViewController *)self setInactiveTransitionTimer:0];
     }
   }
 
@@ -270,39 +270,39 @@ LABEL_7:
       if (!layoutCopy || self->_activeLayoutMode != 4)
       {
         inactiveTransitionTimer3 = [(MRUActivityNowPlayingViewController *)self inactiveTransitionTimer];
-        v31 = inactiveTransitionTimer3 == 0;
+        v32 = inactiveTransitionTimer3 == 0;
 
-        if (v31)
+        if (v32)
         {
-          v32 = MCLogCategoryDefault();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+          v34 = MCLogCategoryDefault(v33);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_1A20FC000, v32, OS_LOG_TYPE_DEBUG, "[MRUActivityVC] Defer update layouts.", buf, 2u);
+            _os_log_impl(&dword_1A20FC000, v34, OS_LOG_TYPE_DEBUG, "[MRUActivityVC] Defer update layouts.", buf, 2u);
           }
 
           objc_initWeak(buf, self);
-          v33 = MEMORY[0x1E69B14D8];
+          v35 = MEMORY[0x1E69B14D8];
           currentSettings = [MEMORY[0x1E69B0B08] currentSettings];
           [currentSettings quickControlsInactiveTimeout];
-          v36 = v35;
-          v37 = MEMORY[0x1E69E96A0];
-          v46[0] = MEMORY[0x1E69E9820];
-          v46[1] = 3221225472;
-          v46[2] = __113__MRUActivityNowPlayingViewController_updateLayoutModesPreferringImmediateTransition_deferInCustomLayout_reason___block_invoke;
-          v46[3] = &unk_1E7663AE8;
-          objc_copyWeak(&v47, buf);
-          v38 = [v33 timerWithInterval:0 repeats:MEMORY[0x1E69E96A0] queue:v46 block:v36];
-          [(MRUActivityNowPlayingViewController *)self setInactiveTransitionTimer:v38];
+          v38 = v37;
+          v39 = MEMORY[0x1E69E96A0];
+          v48[0] = MEMORY[0x1E69E9820];
+          v48[1] = 3221225472;
+          v48[2] = __113__MRUActivityNowPlayingViewController_updateLayoutModesPreferringImmediateTransition_deferInCustomLayout_reason___block_invoke;
+          v48[3] = &unk_1E7663AE8;
+          objc_copyWeak(&v49, buf);
+          v40 = [v35 timerWithInterval:0 repeats:MEMORY[0x1E69E96A0] queue:v48 block:v38];
+          [(MRUActivityNowPlayingViewController *)self setInactiveTransitionTimer:v40];
 
-          objc_destroyWeak(&v47);
+          objc_destroyWeak(&v49);
           objc_destroyWeak(buf);
         }
 
         goto LABEL_19;
       }
 
-      v24 = MCLogCategoryDefault();
+      v24 = MCLogCategoryDefault(inactiveTransitionTimer);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
@@ -317,32 +317,31 @@ LABEL_25:
     inactiveTransitionTimer4 = [(MRUActivityNowPlayingViewController *)self inactiveTransitionTimer];
     [inactiveTransitionTimer4 invalidate];
 
-    [(MRUActivityNowPlayingViewController *)self setInactiveTransitionTimer:0];
-    v26 = MCLogCategoryDefault();
+    v26 = MCLogCategoryDefault([(MRUActivityNowPlayingViewController *)self setInactiveTransitionTimer:0]);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       v27 = SBUISystemApertureLayoutModeDescription();
       v28 = SBUISystemApertureLayoutModeDescription();
       *buf = 138412546;
-      v49 = v27;
-      v50 = 2112;
-      v51 = v28;
+      v51 = v27;
+      v52 = 2112;
+      v53 = v28;
       _os_log_impl(&dword_1A20FC000, v26, OS_LOG_TYPE_DEFAULT, "[MRUActivityVC] Updating preferred layout from %@ to %@.", buf, 0x16u);
     }
 
     self->_preferredLayoutMode = v18;
-    v29 = 4;
+    v30 = 4;
     if ((v17 & 1) == 0)
     {
-      v29 = 1;
+      v30 = 1;
     }
 
-    self->_maximumLayoutMode = v29;
+    self->_maximumLayoutMode = v30;
     if (transitionCopy)
     {
       if (layoutCopy && self->_activeLayoutMode == 4)
       {
-        v24 = MCLogCategoryDefault();
+        v24 = MCLogCategoryDefault(v29);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -352,13 +351,13 @@ LABEL_25:
         goto LABEL_25;
       }
 
-      v39 = MCLogCategoryDefault();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      v41 = MCLogCategoryDefault(v29);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
-        v42 = SBUISystemApertureLayoutModeDescription();
+        v44 = SBUISystemApertureLayoutModeDescription();
         *buf = 138412290;
-        v49 = v42;
-        _os_log_impl(&dword_1A20FC000, v39, OS_LOG_TYPE_DEFAULT, "[MRUActivityVC] requestTransitionToPreferredLayoutMode %@", buf, 0xCu);
+        v51 = v44;
+        _os_log_impl(&dword_1A20FC000, v41, OS_LOG_TYPE_DEFAULT, "[MRUActivityVC] requestTransitionToPreferredLayoutMode %@", buf, 0xCu);
       }
     }
 
@@ -369,13 +368,13 @@ LABEL_25:
         goto LABEL_19;
       }
 
-      v39 = MCLogCategoryDefault();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      v41 = MCLogCategoryDefault(v29);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
-        v40 = SBUISystemApertureLayoutModeDescription();
+        v42 = SBUISystemApertureLayoutModeDescription();
         *buf = 138412290;
-        v49 = v40;
-        _os_log_impl(&dword_1A20FC000, v39, OS_LOG_TYPE_DEFAULT, "[MRUActivityVC] requestTransitionToPreferredLayoutMode %@", buf, 0xCu);
+        v51 = v42;
+        _os_log_impl(&dword_1A20FC000, v41, OS_LOG_TYPE_DEFAULT, "[MRUActivityVC] requestTransitionToPreferredLayoutMode %@", buf, 0xCu);
       }
     }
 
@@ -397,7 +396,7 @@ void __113__MRUActivityNowPlayingViewController_updateLayoutModesPreferringImmed
   v13 = *MEMORY[0x1E69E9840];
   if (self->_activeLayoutMode != mode)
   {
-    v5 = MCLogCategoryDefault();
+    v5 = MCLogCategoryDefault(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v6 = SBUISystemApertureLayoutModeDescription();
@@ -527,8 +526,7 @@ void __113__MRUActivityNowPlayingViewController_updateLayoutModesPreferringImmed
   v16[2] = __84__MRUActivityNowPlayingViewController_transportControlsView_didSelectRoutingButton___block_invoke;
   v16[3] = &unk_1E7663AE8;
   objc_copyWeak(&v17, &location);
-  [(MPMediaControls *)self->_mediaControls setDismissHandler:v16];
-  v14 = MCLogCategoryDefault();
+  v14 = MCLogCategoryDefault([(MPMediaControls *)self->_mediaControls setDismissHandler:v16]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *v15 = 0;
@@ -543,7 +541,7 @@ void __113__MRUActivityNowPlayingViewController_updateLayoutModesPreferringImmed
 
 void __84__MRUActivityNowPlayingViewController_transportControlsView_didSelectRoutingButton___block_invoke(uint64_t a1)
 {
-  v2 = MCLogCategoryDefault();
+  v2 = MCLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -924,7 +922,7 @@ void __58__MRUActivityNowPlayingViewController_updateRoutingButton__block_invoke
 
 - (void)updateVolumeControls
 {
-  *&v33[13] = *MEMORY[0x1E69E9840];
+  *&v34[13] = *MEMORY[0x1E69E9840];
   endpointController = [(MRUNowPlayingController *)self->_controller endpointController];
   route = [endpointController route];
 
@@ -955,58 +953,63 @@ LABEL_5:
   }
 
   volumeControlCapabilities = [v6 volumeControlCapabilities];
-  if (-[MRUActivityNowPlayingViewController isExpanded](self, "isExpanded") && ([route isDeviceRoute] & 1) == 0 && (volumeControlCapabilities & 3) != 0)
+  isExpanded = [(MRUActivityNowPlayingViewController *)self isExpanded];
+  if (isExpanded)
   {
-    v13 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    isExpanded = [route isDeviceRoute];
+    if ((isExpanded & 1) == 0 && (volumeControlCapabilities & 3) != 0)
     {
-      v14 = objc_opt_class();
-      isOnScreen = [(MRUActivityNowPlayingViewController *)self isOnScreen];
-      v16 = MRUNowPlayingContextDescription(7);
-      v26 = 138544386;
-      v27 = v14;
-      v28 = 1024;
-      v29 = isOnScreen;
-      v30 = 2114;
-      v31 = v16;
-      v32 = 1024;
-      *v33 = 1;
-      v33[2] = 2114;
-      *&v33[3] = route;
-      _os_log_impl(&dword_1A20FC000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ taking hardware assertion: on screen: %{BOOL}u | context: %{public}@ | control: %{BOOL}u  | route: %{public}@", &v26, 0x2Cu);
-    }
+      v14 = MCLogCategoryVolume(isExpanded);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = objc_opt_class();
+        isOnScreen = [(MRUActivityNowPlayingViewController *)self isOnScreen];
+        v17 = MRUNowPlayingContextDescription(7);
+        v27 = 138544386;
+        v28 = v15;
+        v29 = 1024;
+        v30 = isOnScreen;
+        v31 = 2114;
+        v32 = v17;
+        v33 = 1024;
+        *v34 = 1;
+        v34[2] = 2114;
+        *&v34[3] = route;
+        _os_log_impl(&dword_1A20FC000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ taking hardware assertion: on screen: %{BOOL}u | context: %{public}@ | control: %{BOOL}u  | route: %{public}@", &v27, 0x2Cu);
+      }
 
-    v17 = +[MRUHardwareVolumeController sharedInstance];
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
-    v20 = [v17 requestControlsForVolumeDataSource:v6 reason:v19];
-    hardwareVolumeControlAssertion = self->_hardwareVolumeControlAssertion;
-    self->_hardwareVolumeControlAssertion = v20;
+      v18 = +[MRUHardwareVolumeController sharedInstance];
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
+      v21 = [v18 requestControlsForVolumeDataSource:v6 reason:v20];
+      hardwareVolumeControlAssertion = self->_hardwareVolumeControlAssertion;
+      self->_hardwareVolumeControlAssertion = v21;
 
 LABEL_16:
-    goto LABEL_17;
+      goto LABEL_17;
+    }
   }
 
   if (self->_hardwareVolumeControlAssertion)
   {
-    v22 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = MCLogCategoryVolume(isExpanded);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = objc_opt_class();
+      v24 = objc_opt_class();
       isOnScreen2 = [(MRUActivityNowPlayingViewController *)self isOnScreen];
-      v25 = MRUNowPlayingContextDescription(7);
-      v26 = 138544130;
-      v27 = v23;
-      v28 = 1024;
-      v29 = isOnScreen2;
-      v30 = 2114;
-      v31 = v25;
-      v32 = 2114;
-      *v33 = route;
-      _os_log_impl(&dword_1A20FC000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ removing hardware assertion: on screen: %{BOOL}u | context: %{public}@ | route: %{public}@", &v26, 0x26u);
+      v26 = MRUNowPlayingContextDescription(7);
+      v27 = 138544130;
+      v28 = v24;
+      v29 = 1024;
+      v30 = isOnScreen2;
+      v31 = 2114;
+      v32 = v26;
+      v33 = 2114;
+      *v34 = route;
+      _os_log_impl(&dword_1A20FC000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@ removing hardware assertion: on screen: %{BOOL}u | context: %{public}@ | route: %{public}@", &v27, 0x26u);
     }
 
-    v17 = self->_hardwareVolumeControlAssertion;
+    v18 = self->_hardwareVolumeControlAssertion;
     self->_hardwareVolumeControlAssertion = 0;
     goto LABEL_16;
   }

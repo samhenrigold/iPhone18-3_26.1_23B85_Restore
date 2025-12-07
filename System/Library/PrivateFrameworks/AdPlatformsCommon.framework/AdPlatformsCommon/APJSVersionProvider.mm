@@ -22,10 +22,10 @@
 
 - (id)getJetPackVersion
 {
-  v7 = objc_msgSend_versionProvider(self, a2, v2, v3, v4, v5, v6);
-  v14 = objc_msgSend_getJetPackVersion(v7, v8, v9, v10, v11, v12, v13);
+  v3 = objc_msgSend_versionProvider(self, a2, v2);
+  v6 = objc_msgSend_getJetPackVersion(v3, v4, v5);
 
-  return v14;
+  return v6;
 }
 
 @end

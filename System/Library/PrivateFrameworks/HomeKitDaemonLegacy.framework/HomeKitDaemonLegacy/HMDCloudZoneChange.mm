@@ -13,6 +13,7 @@
 - (HMDCloudZoneChange)changeWithObjectID:(id)d;
 - (HMDCloudZoneChange)changeWithRecordName:(id)name;
 - (HMDCloudZoneChange)init;
+- (HMDCloudZoneChange)initWithZone:(id)zone temporaryCache:(BOOL)cache;
 - (NSArray)allTransactionStoreRowIDs;
 - (NSArray)objectChanges;
 - (NSArray)processedTransactionStoreRowIDs;
@@ -268,6 +269,55 @@
   v6 = [v3 stringWithFormat:@"%@ %@", shortDescription, identifier];
 
   return v6;
+}
+
+- (HMDCloudZoneChange)initWithZone:(id)zone temporaryCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  v22 = *MEMORY[0x277D85DE8];
+  zoneCopy = zone;
+  v19.receiver = self;
+  v19.super_class = HMDCloudZoneChange;
+  v7 = [(HMDCloudZoneChange *)&v19 init];
+  if (!v7)
+  {
+    goto LABEL_4;
+  }
+
+  uUID = [MEMORY[0x277CCAD78] UUID];
+  identifier = v7->_identifier;
+  v7->_identifier = uUID;
+
+  objc_storeWeak(&v7->_cloudZone, zoneCopy);
+  v7->_temporaryCache = cacheCopy;
+  if (zoneCopy)
+  {
+    v10 = [HMDCloudGroupChange alloc];
+    rootGroup = [zoneCopy rootGroup];
+    v12 = [(HMDCloudGroupChange *)v10 initWithGroup:rootGroup temporaryCache:cacheCopy];
+    rootGroupChange = v7->_rootGroupChange;
+    v7->_rootGroupChange = v12;
+
+LABEL_4:
+    v14 = v7;
+    goto LABEL_8;
+  }
+
+  v15 = objc_autoreleasePoolPush();
+  v16 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  {
+    v17 = HMFGetLogIdentifier();
+    *buf = 138543362;
+    v21 = v17;
+    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Cloud zone must be specified", buf, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v15);
+  v14 = 0;
+LABEL_8:
+
+  return v14;
 }
 
 - (HMDCloudZoneChange)init

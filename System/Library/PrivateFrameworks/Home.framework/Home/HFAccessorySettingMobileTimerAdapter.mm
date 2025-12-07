@@ -22,6 +22,9 @@
 - (void)_notifyObserversOfUpdates;
 - (void)_respondToAlarmManagerUpdate;
 - (void)_setupDebugHandler;
+- (void)_submitAnalyticsForAddedAlarm:(id)alarm success:(BOOL)success;
+- (void)_submitAnalyticsForDeletedAlarm:(id)alarm success:(BOOL)success;
+- (void)_submitAnalyticsForUpdatedAlarm:(id)alarm success:(BOOL)success;
 - (void)addObserver:(id)observer;
 - (void)homeKitSettingWasUpdated:(id)updated value:(id)value;
 - (void)removeObserver:(id)observer;
@@ -31,7 +34,7 @@
 
 - (HFAccessorySettingMobileTimerAdapter)initWithHomeKitSettingsVendor:(id)vendor mode:(unint64_t)mode
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   vendorCopy = vendor;
   if (!vendorCopy)
   {
@@ -39,8 +42,8 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"HFAccessorySettingMobileTimerAdapter.m" lineNumber:84 description:{@"Invalid parameter not satisfying: %@", @"homeKitSettingsVendor"}];
   }
 
-  v43[0] = @"root.mobileTimer.alarms";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
+  v42[0] = @"root.mobileTimer.alarms";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
   v8 = MEMORY[0x277CD1688];
   v9 = MEMORY[0x277CBEB98];
   v10 = objc_opt_class();
@@ -53,9 +56,9 @@
   [v15 setItemValueClasses:v14 forKeyPath:@"root.mobileTimer.alarms"];
 
   v17 = [MEMORY[0x277CBEB98] setWithArray:v7];
-  v42.receiver = self;
-  v42.super_class = HFAccessorySettingMobileTimerAdapter;
-  v18 = [(HFAccessorySettingAdapter *)&v42 initWithHomeKitSettingsVendor:vendorCopy keyPaths:v17 mode:mode updateHandler:0];
+  v41.receiver = self;
+  v41.super_class = HFAccessorySettingMobileTimerAdapter;
+  v18 = [(HFAccessorySettingAdapter *)&v41 initWithHomeKitSettingsVendor:vendorCopy keyPaths:v17 mode:mode updateHandler:0];
 
   v19 = vendorCopy;
   if (v18)
@@ -106,7 +109,6 @@
     }
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -172,17 +174,17 @@
 
 - (void)homeKitSettingWasUpdated:(id)updated value:(id)value
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valueCopy = value;
   v8 = HFLogForCategory(0x3EuLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138412546;
-    v14 = updatedCopy;
-    v15 = 2112;
-    v16 = valueCopy;
-    _os_log_debug_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEBUG, "Setting '%@' was updated to: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = updatedCopy;
+    v14 = 2112;
+    v15 = valueCopy;
+    _os_log_debug_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEBUG, "Setting '%@' was updated to: %@", &v12, 0x16u);
   }
 
   keyPath = [updatedCopy keyPath];
@@ -193,8 +195,6 @@
     [(HFAccessorySettingMobileTimerAdapter *)self _notifyObserversOfUpdates];
     _synchronizeHomeKitToMobileTimer = [(HFAccessorySettingMobileTimerAdapter *)self _synchronizeHomeKitToMobileTimer];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allAlarms
@@ -234,7 +234,7 @@
 
 id __55__HFAccessorySettingMobileTimerAdapter_allAlarmsFuture__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB18] arrayWithArray:a2];
   v4 = [*(a1 + 32) internalAlarmsBeingAdded];
   v5 = [v4 allObjects];
@@ -250,19 +250,17 @@ id __55__HFAccessorySettingMobileTimerAdapter_allAlarmsFuture__block_invoke(uint
     {
       v9 = *(a1 + 32);
       v10 = [v9 internalAlarmsBeingAdded];
-      v14 = 136315650;
-      v15 = "[HFAccessorySettingMobileTimerAdapter allAlarmsFuture]_block_invoke";
-      v16 = 2112;
-      v17 = v9;
-      v18 = 2048;
-      v19 = [v10 count];
-      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%s(%@): reporting %lu new-alarms-being-added to the offical Coordination set", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "[HFAccessorySettingMobileTimerAdapter allAlarmsFuture]_block_invoke";
+      v15 = 2112;
+      v16 = v9;
+      v17 = 2048;
+      v18 = [v10 count];
+      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%s(%@): reporting %lu new-alarms-being-added to the offical Coordination set", &v13, 0x20u);
     }
   }
 
   v11 = [MEMORY[0x277D2C900] futureWithResult:v3];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -331,7 +329,7 @@ id __58__HFAccessorySettingMobileTimerAdapter_alarmManagerAlarms__block_invoke_2
 
 - (id)updateAlarm:(id)alarm
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   alarmCopy = alarm;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   internalAlarmsBeingUpdated = [(HFAccessorySettingMobileTimerAdapter *)self internalAlarmsBeingUpdated];
@@ -341,41 +339,32 @@ id __58__HFAccessorySettingMobileTimerAdapter_alarmManagerAlarms__block_invoke_2
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = alarmCopy;
+    v23 = alarmCopy;
     _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Updating alarm %@", buf, 0xCu);
   }
 
-  if (!_os_feature_enabled_impl())
+  if (!_os_feature_enabled_impl() || (-[HFAccessorySettingMobileTimerAdapter coordinationAlarmManager](self, "coordinationAlarmManager"), (v7 = objc_claimAutoreleasedReturnValue()) == 0) || (v8 = v7, -[HFAccessorySettingMobileTimerAdapter coordinationAlarmManager](self, "coordinationAlarmManager"), v9 = objc_claimAutoreleasedReturnValue(), [v9 updateAlarm:alarmCopy], v10 = objc_claimAutoreleasedReturnValue(), v9, v8, !v10))
   {
-    goto LABEL_6;
-  }
-
-  coordinationAlarmManager = [(HFAccessorySettingMobileTimerAdapter *)self coordinationAlarmManager];
-  if (!coordinationAlarmManager || (v8 = coordinationAlarmManager, -[HFAccessorySettingMobileTimerAdapter coordinationAlarmManager](self, "coordinationAlarmManager"), v9 = objc_claimAutoreleasedReturnValue(), [v9 updateAlarm:alarmCopy], v10 = objc_claimAutoreleasedReturnValue(), v9, v8, !v10))
-  {
-LABEL_6:
     valueManager = [(HFAccessorySettingAdapter *)self valueManager];
     alarmCollectionSettingFuture = [(HFAccessorySettingMobileTimerAdapter *)self alarmCollectionSettingFuture];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __52__HFAccessorySettingMobileTimerAdapter_updateAlarm___block_invoke;
-    v20[3] = &unk_277E00730;
-    v21 = valueManager;
-    v22 = alarmCopy;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __52__HFAccessorySettingMobileTimerAdapter_updateAlarm___block_invoke;
+    v19[3] = &unk_277E00730;
+    v20 = valueManager;
+    v21 = alarmCopy;
     v13 = valueManager;
-    v10 = [alarmCollectionSettingFuture flatMap:v20];
+    v10 = [alarmCollectionSettingFuture flatMap:v19];
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __52__HFAccessorySettingMobileTimerAdapter_updateAlarm___block_invoke_2;
-  v18[3] = &unk_277DF50B0;
-  v18[4] = self;
-  v19 = alarmCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __52__HFAccessorySettingMobileTimerAdapter_updateAlarm___block_invoke_2;
+  v17[3] = &unk_277DF50B0;
+  v17[4] = self;
+  v18 = alarmCopy;
   v14 = alarmCopy;
-  v15 = [v10 addCompletionBlock:v18];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = [v10 addCompletionBlock:v17];
 
   return v10;
 }
@@ -420,7 +409,7 @@ uint64_t __52__HFAccessorySettingMobileTimerAdapter_updateAlarm___block_invoke_2
 
 - (id)removeAlarm:(id)alarm
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   alarmCopy = alarm;
   if (alarmCopy)
   {
@@ -460,23 +449,23 @@ uint64_t __52__HFAccessorySettingMobileTimerAdapter_updateAlarm___block_invoke_2
 LABEL_14:
       valueManager = [(HFAccessorySettingAdapter *)self valueManager];
       alarmCollectionSettingFuture = [(HFAccessorySettingMobileTimerAdapter *)self alarmCollectionSettingFuture];
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __52__HFAccessorySettingMobileTimerAdapter_removeAlarm___block_invoke;
-      v23[3] = &unk_277E00730;
-      v24 = valueManager;
-      v25 = alarmCopy;
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __52__HFAccessorySettingMobileTimerAdapter_removeAlarm___block_invoke;
+      v22[3] = &unk_277E00730;
+      v23 = valueManager;
+      v24 = alarmCopy;
       v16 = valueManager;
-      futureWithNoResult = [alarmCollectionSettingFuture flatMap:v23];
+      futureWithNoResult = [alarmCollectionSettingFuture flatMap:v22];
     }
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __52__HFAccessorySettingMobileTimerAdapter_removeAlarm___block_invoke_2;
-    v21[3] = &unk_277DF50B0;
-    v21[4] = self;
-    v22 = alarmCopy;
-    v17 = [futureWithNoResult addCompletionBlock:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __52__HFAccessorySettingMobileTimerAdapter_removeAlarm___block_invoke_2;
+    v20[3] = &unk_277DF50B0;
+    v20[4] = self;
+    v21 = alarmCopy;
+    v17 = [futureWithNoResult addCompletionBlock:v20];
   }
 
   else
@@ -484,11 +473,11 @@ LABEL_14:
     v11 = HFLogForCategory(0x3EuLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v20 = NSStringFromSelector(a2);
+      v19 = NSStringFromSelector(a2);
       *buf = 138412546;
       selfCopy = self;
-      v28 = 2112;
-      v29 = v20;
+      v27 = 2112;
+      v28 = v19;
       _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "%@:%@ nil alarm. If you can reproduce this, please file a radar!", buf, 0x16u);
     }
 
@@ -501,8 +490,6 @@ LABEL_14:
 
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
@@ -546,7 +533,7 @@ void __52__HFAccessorySettingMobileTimerAdapter_removeAlarm___block_invoke_2(uin
 
 - (id)addAlarm:(id)alarm
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   alarmCopy = alarm;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   internalAlarmsBeingAdded = [(HFAccessorySettingMobileTimerAdapter *)self internalAlarmsBeingAdded];
@@ -556,7 +543,7 @@ void __52__HFAccessorySettingMobileTimerAdapter_removeAlarm___block_invoke_2(uin
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v25 = alarmCopy;
+    v24 = alarmCopy;
     _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Adding alarm %@", buf, 0xCu);
   }
 
@@ -585,27 +572,25 @@ LABEL_8:
     valueManager = [(HFAccessorySettingAdapter *)self valueManager];
     v11 = [MEMORY[0x277CD1690] hf_collectionSettingItemForAlarm:alarmCopy];
     alarmCollectionSettingFuture = [(HFAccessorySettingMobileTimerAdapter *)self alarmCollectionSettingFuture];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __49__HFAccessorySettingMobileTimerAdapter_addAlarm___block_invoke;
-    v21[3] = &unk_277E00730;
-    v22 = valueManager;
-    v23 = v11;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __49__HFAccessorySettingMobileTimerAdapter_addAlarm___block_invoke;
+    v20[3] = &unk_277E00730;
+    v21 = valueManager;
+    v22 = v11;
     v13 = v11;
     v14 = valueManager;
-    v9 = [alarmCollectionSettingFuture flatMap:v21];
+    v9 = [alarmCollectionSettingFuture flatMap:v20];
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __49__HFAccessorySettingMobileTimerAdapter_addAlarm___block_invoke_2;
-  v19[3] = &unk_277DF50B0;
-  v19[4] = self;
-  v20 = alarmCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __49__HFAccessorySettingMobileTimerAdapter_addAlarm___block_invoke_2;
+  v18[3] = &unk_277DF50B0;
+  v18[4] = self;
+  v19 = alarmCopy;
   v15 = alarmCopy;
-  v16 = [v9 addCompletionBlock:v19];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = [v9 addCompletionBlock:v18];
 
   return v9;
 }
@@ -623,19 +608,19 @@ id __49__HFAccessorySettingMobileTimerAdapter_addAlarm___block_invoke(uint64_t a
 
 void __49__HFAccessorySettingMobileTimerAdapter_addAlarm___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = HFLogForCategory(4uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v10 = 136315650;
-    v11 = "[HFAccessorySettingMobileTimerAdapter addAlarm:]_block_invoke_2";
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v4;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s(%@): alarm added with %@ result ", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "[HFAccessorySettingMobileTimerAdapter addAlarm:]_block_invoke_2";
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v4;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s(%@): alarm added with %@ result ", &v9, 0x20u);
   }
 
   if (v4)
@@ -649,7 +634,6 @@ void __49__HFAccessorySettingMobileTimerAdapter_addAlarm___block_invoke_2(uint64
   [v8 removeObject:*(a1 + 40)];
 
   [*(a1 + 32) _notifyObserversOfUpdates];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)alarmCollectionSettingFuture
@@ -764,7 +748,7 @@ id __72__HFAccessorySettingMobileTimerAdapter__synchronizeHomeKitToMobileTimer__
 
 id __72__HFAccessorySettingMobileTimerAdapter__synchronizeHomeKitToMobileTimer__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB98] setWithArray:a2];
   v4 = [MEMORY[0x277CBEB98] setWithArray:*(a1 + 32)];
   v5 = [HFAlarmDiff generateAlarmDiffFromSet:v3 toSet:v4];
@@ -773,7 +757,7 @@ id __72__HFAccessorySettingMobileTimerAdapter__synchronizeHomeKitToMobileTimer__
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v47 = v5;
+    v46 = v5;
     _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Synchronizing HomeKit->MobileTimer: %@", buf, 0xCu);
   }
 
@@ -785,88 +769,88 @@ id __72__HFAccessorySettingMobileTimerAdapter__synchronizeHomeKitToMobileTimer__
   else
   {
     v8 = objc_opt_new();
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v9 = [v5 addedAlarms];
-    v10 = [v9 countByEnumeratingWithState:&v39 objects:v45 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v38 objects:v44 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v40;
+      v12 = *v39;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v40 != v12)
+          if (*v39 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [*(a1 + 40) addAlarm:*(*(&v39 + 1) + 8 * i)];
+          v14 = [*(a1 + 40) addAlarm:*(*(&v38 + 1) + 8 * i)];
           [v8 addObject:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v39 objects:v45 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v38 objects:v44 count:16];
       }
 
       while (v11);
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v15 = [v5 updatedAlarms];
-    v16 = [v15 countByEnumeratingWithState:&v35 objects:v44 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v34 objects:v43 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v36;
+      v18 = *v35;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v36 != v18)
+          if (*v35 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = [*(a1 + 40) updateAlarm:*(*(&v35 + 1) + 8 * j)];
+          v20 = [*(a1 + 40) updateAlarm:*(*(&v34 + 1) + 8 * j)];
           [v8 addObject:v20];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v35 objects:v44 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v34 objects:v43 count:16];
       }
 
       while (v17);
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v21 = [v5 deletedAlarms];
-    v22 = [v21 countByEnumeratingWithState:&v31 objects:v43 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v30 objects:v42 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v32;
+      v24 = *v31;
       do
       {
         for (k = 0; k != v23; ++k)
         {
-          if (*v32 != v24)
+          if (*v31 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = [*(a1 + 40) removeAlarm:*(*(&v31 + 1) + 8 * k)];
+          v26 = [*(a1 + 40) removeAlarm:*(*(&v30 + 1) + 8 * k)];
           [v8 addObject:v26];
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v31 objects:v43 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v30 objects:v42 count:16];
       }
 
       while (v23);
@@ -876,8 +860,6 @@ id __72__HFAccessorySettingMobileTimerAdapter__synchronizeHomeKitToMobileTimer__
     v28 = [MEMORY[0x277D2C938] mainThreadScheduler];
     v7 = [v27 combineAllFutures:v8 ignoringErrors:0 scheduler:v28];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -894,17 +876,15 @@ void __72__HFAccessorySettingMobileTimerAdapter__synchronizeHomeKitToMobileTimer
 
 void __72__HFAccessorySettingMobileTimerAdapter__synchronizeHomeKitToMobileTimer__block_invoke_323(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = HFLogForCategory(0x3EuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "FAILED to Synchronize Alarms to MTAlarmManager: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "FAILED to Synchronize Alarms to MTAlarmManager: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_synchronizeMobileTimerToHomeKitWithChangeType:(unint64_t)type
@@ -958,7 +938,7 @@ id __87__HFAccessorySettingMobileTimerAdapter__synchronizeMobileTimerToHomeKitWi
 
 id __87__HFAccessorySettingMobileTimerAdapter__synchronizeMobileTimerToHomeKitWithChangeType___block_invoke_2(uint64_t a1, void *a2)
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEB98] setWithArray:*(a1 + 32)];
   v5 = MEMORY[0x277CBEB98];
@@ -968,7 +948,7 @@ id __87__HFAccessorySettingMobileTimerAdapter__synchronizeMobileTimerToHomeKitWi
   v8 = *(a1 + 56);
   if (v8 == 1)
   {
-    v51 = v3;
+    v50 = v3;
     v13 = [v3 mutableCopy];
     v14 = v13;
     if (v13)
@@ -983,67 +963,67 @@ id __87__HFAccessorySettingMobileTimerAdapter__synchronizeMobileTimerToHomeKitWi
 
     v16 = v15;
 
-    v49 = v7;
-    v50 = v4;
+    v48 = v7;
+    v49 = v4;
     v17 = [HFAlarmDiff generateAlarmDiffFromSet:v4 toSet:v7];
     v18 = HFLogForCategory(0x3EuLL);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v72 = v17;
+      v71 = v17;
       _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "Atomic Synchronization of Alarms Settings: %@", buf, 0xCu);
     }
 
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     v19 = [v17 addedAlarms];
-    v20 = [v19 countByEnumeratingWithState:&v64 objects:v70 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v63 objects:v69 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v65;
+      v22 = *v64;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v65 != v22)
+          if (*v64 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = [MEMORY[0x277CD1690] hf_collectionSettingItemForAlarm:*(*(&v64 + 1) + 8 * i)];
+          v24 = [MEMORY[0x277CD1690] hf_collectionSettingItemForAlarm:*(*(&v63 + 1) + 8 * i)];
           [v16 addObject:v24];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v64 objects:v70 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v63 objects:v69 count:16];
       }
 
       while (v21);
     }
 
-    v62 = 0u;
-    v63 = 0u;
     v61 = 0u;
+    v62 = 0u;
     v60 = 0u;
-    v48 = v17;
+    v59 = 0u;
+    v47 = v17;
     v25 = [v17 updatedAlarms];
-    v26 = [v25 countByEnumeratingWithState:&v60 objects:v69 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v59 objects:v68 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v61;
+      v28 = *v60;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v61 != v28)
+          if (*v60 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v30 = *(*(&v60 + 1) + 8 * j);
+          v30 = *(*(&v59 + 1) + 8 * j);
           v31 = [MEMORY[0x277CD1690] hf_collectionSettingItemForAlarm:v30];
           v32 = MEMORY[0x277CD1690];
           v33 = [v30 alarmID];
@@ -1053,47 +1033,47 @@ id __87__HFAccessorySettingMobileTimerAdapter__synchronizeMobileTimerToHomeKitWi
           [v16 addObject:v31];
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v60 objects:v69 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v59 objects:v68 count:16];
       }
 
       while (v27);
     }
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
-    v35 = [v48 deletedAlarms];
-    v36 = [v35 countByEnumeratingWithState:&v56 objects:v68 count:16];
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    v35 = [v47 deletedAlarms];
+    v36 = [v35 countByEnumeratingWithState:&v55 objects:v67 count:16];
     if (v36)
     {
       v37 = v36;
-      v38 = *v57;
+      v38 = *v56;
       do
       {
         for (k = 0; k != v37; ++k)
         {
-          if (*v57 != v38)
+          if (*v56 != v38)
           {
             objc_enumerationMutation(v35);
           }
 
           v40 = MEMORY[0x277CD1690];
-          v41 = [*(*(&v56 + 1) + 8 * k) alarmID];
+          v41 = [*(*(&v55 + 1) + 8 * k) alarmID];
           v42 = [v40 hf_alarmItemsMatchingAlarmId:v41 withinItemArray:v16];
           [v16 removeObjectsInArray:v42];
         }
 
-        v37 = [v35 countByEnumeratingWithState:&v56 objects:v68 count:16];
+        v37 = [v35 countByEnumeratingWithState:&v55 objects:v67 count:16];
       }
 
       while (v37);
     }
 
     v12 = [v16 copy];
-    v4 = v50;
-    v3 = v51;
-    v7 = v49;
+    v4 = v49;
+    v3 = v50;
+    v7 = v48;
   }
 
   else if (v8)
@@ -1115,17 +1095,15 @@ id __87__HFAccessorySettingMobileTimerAdapter__synchronizeMobileTimerToHomeKitWi
   }
 
   v43 = [*(a1 + 40) alarmCollectionSettingFuture];
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __87__HFAccessorySettingMobileTimerAdapter__synchronizeMobileTimerToHomeKitWithChangeType___block_invoke_333;
-  v52[3] = &unk_277E007C0;
-  v53 = *(a1 + 48);
-  v54 = v12;
-  v55 = *(a1 + 56);
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __87__HFAccessorySettingMobileTimerAdapter__synchronizeMobileTimerToHomeKitWithChangeType___block_invoke_333;
+  v51[3] = &unk_277E007C0;
+  v52 = *(a1 + 48);
+  v53 = v12;
+  v54 = *(a1 + 56);
   v44 = v12;
-  v45 = [v43 flatMap:v52];
-
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = [v43 flatMap:v51];
 
   return v45;
 }
@@ -1184,6 +1162,117 @@ void __76__HFAccessorySettingMobileTimerAdapter_alarmManagerForSynchronizationFu
   {
     [v8 finishWithNoResult];
   }
+}
+
+- (void)_submitAnalyticsForAddedAlarm:(id)alarm success:(BOOL)success
+{
+  successCopy = success;
+  v20[5] = *MEMORY[0x277D85DE8];
+  v19[0] = @"homePodAlarmID";
+  alarmCopy = alarm;
+  alarmIDString = [alarmCopy alarmIDString];
+  v20[0] = alarmIDString;
+  v19[1] = @"alarmCreatedSuccessfully";
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:successCopy];
+  v20[1] = v7;
+  v19[2] = @"isMusicAlarm";
+  v8 = MEMORY[0x277CCABB0];
+  sound = [alarmCopy sound];
+  v10 = [v8 numberWithInt:sound != 0];
+  v20[2] = v10;
+  v19[3] = @"hasCustomVolume";
+  v11 = MEMORY[0x277CCABB0];
+  sound2 = [alarmCopy sound];
+  v13 = [v11 numberWithInt:sound2 != 0];
+  v20[3] = v13;
+  v19[4] = @"customVolumeLevel";
+  sound3 = [alarmCopy sound];
+
+  soundVolume = [sound3 soundVolume];
+  v16 = soundVolume;
+  v17 = &unk_282525660;
+  if (soundVolume)
+  {
+    v17 = soundVolume;
+  }
+
+  v20[4] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:5];
+  [HFAnalytics sendEvent:15 withData:v18];
+}
+
+- (void)_submitAnalyticsForUpdatedAlarm:(id)alarm success:(BOOL)success
+{
+  successCopy = success;
+  v20[5] = *MEMORY[0x277D85DE8];
+  v19[0] = @"homePodAlarmID";
+  alarmCopy = alarm;
+  alarmIDString = [alarmCopy alarmIDString];
+  v20[0] = alarmIDString;
+  v19[1] = @"alarmUpdatedSuccessfully";
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:successCopy];
+  v20[1] = v7;
+  v19[2] = @"isMusicAlarm";
+  v8 = MEMORY[0x277CCABB0];
+  sound = [alarmCopy sound];
+  v10 = [v8 numberWithInt:sound != 0];
+  v20[2] = v10;
+  v19[3] = @"hasCustomVolume";
+  v11 = MEMORY[0x277CCABB0];
+  sound2 = [alarmCopy sound];
+  v13 = [v11 numberWithInt:sound2 != 0];
+  v20[3] = v13;
+  v19[4] = @"customVolumeLevel";
+  sound3 = [alarmCopy sound];
+
+  soundVolume = [sound3 soundVolume];
+  v16 = soundVolume;
+  v17 = &unk_282525660;
+  if (soundVolume)
+  {
+    v17 = soundVolume;
+  }
+
+  v20[4] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:5];
+  [HFAnalytics sendEvent:16 withData:v18];
+}
+
+- (void)_submitAnalyticsForDeletedAlarm:(id)alarm success:(BOOL)success
+{
+  successCopy = success;
+  v20[5] = *MEMORY[0x277D85DE8];
+  v19[0] = @"homePodAlarmID";
+  alarmCopy = alarm;
+  alarmIDString = [alarmCopy alarmIDString];
+  v20[0] = alarmIDString;
+  v19[1] = @"alarmDeletedSuccessfully";
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:successCopy];
+  v20[1] = v7;
+  v19[2] = @"isMusicAlarm";
+  v8 = MEMORY[0x277CCABB0];
+  sound = [alarmCopy sound];
+  v10 = [v8 numberWithInt:sound != 0];
+  v20[2] = v10;
+  v19[3] = @"hasCustomVolume";
+  v11 = MEMORY[0x277CCABB0];
+  sound2 = [alarmCopy sound];
+  v13 = [v11 numberWithInt:sound2 != 0];
+  v20[3] = v13;
+  v19[4] = @"customVolumeLevel";
+  sound3 = [alarmCopy sound];
+
+  soundVolume = [sound3 soundVolume];
+  v16 = soundVolume;
+  v17 = &unk_282525660;
+  if (soundVolume)
+  {
+    v17 = soundVolume;
+  }
+
+  v20[4] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:5];
+  [HFAnalytics sendEvent:17 withData:v18];
 }
 
 - (void)_alarmWasAdded:(id)added
@@ -1248,7 +1337,7 @@ void __76__HFAccessorySettingMobileTimerAdapter_alarmManagerForSynchronizationFu
 
 void __68__HFAccessorySettingMobileTimerAdapter__respondToAlarmManagerUpdate__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = HFLogForCategory(0x3EuLL);
   v5 = v4;
@@ -1256,19 +1345,17 @@ void __68__HFAccessorySettingMobileTimerAdapter__respondToAlarmManagerUpdate__bl
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Error updating MTAlarmManager -> HomeKit: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Error updating MTAlarmManager -> HomeKit: %@", &v6, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Finished synchronizing MTAlarmManager -> HomeKit", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Finished synchronizing MTAlarmManager -> HomeKit", &v6, 2u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversOfUpdates
@@ -1284,31 +1371,31 @@ void __68__HFAccessorySettingMobileTimerAdapter__respondToAlarmManagerUpdate__bl
 
 void __65__HFAccessorySettingMobileTimerAdapter__notifyObserversOfUpdates__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = [*(a1 + 32) observers];
   v5 = [v4 copy];
 
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 mobileTimerAdapter:*(a1 + 32) didUpdateAlarms:v3];
@@ -1318,13 +1405,11 @@ void __65__HFAccessorySettingMobileTimerAdapter__notifyObserversOfUpdates__block
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_beginMonitoringSettingsKeyPath:(id)path
@@ -1359,30 +1444,30 @@ LABEL_6:
 
 void __72__HFAccessorySettingMobileTimerAdapter__beginMonitoringSettingsKeyPath___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = [*(a1 + 32) observers];
   v3 = [v2 copy];
 
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           [v8 mobileTimerAdapterDidUpdateReadiness:*(a1 + 32)];
@@ -1392,13 +1477,11 @@ void __72__HFAccessorySettingMobileTimerAdapter__beginMonitoringSettingsKeyPath_
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupDebugHandler

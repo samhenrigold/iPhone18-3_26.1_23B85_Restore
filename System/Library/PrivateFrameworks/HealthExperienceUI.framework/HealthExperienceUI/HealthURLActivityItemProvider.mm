@@ -9,11 +9,11 @@
 - (id)item
 {
   v3 = sub_1BA4A15D8();
-  v4 = MEMORY[0x1EEE9AC00](v3);
-  (*(v6 + 16))(&v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), self + OBJC_IVAR____TtC18HealthExperienceUI29HealthURLActivityItemProvider_url, v3, v4);
-  v7 = sub_1BA4A8398();
+  v5 = MEMORY[0x1EEE9AC00](v3, v4);
+  (*(v7 + 16))(&v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), self + OBJC_IVAR____TtC18HealthExperienceUI29HealthURLActivityItemProvider_url, v3, v5);
+  v8 = sub_1BA4A8398();
 
-  return v7;
+  return v8;
 }
 
 - (id)activityViewControllerLinkMetadata:(id)metadata

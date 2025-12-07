@@ -60,23 +60,21 @@
 
 - (id)remoteExecuteOnPlatforms
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277D7CC78];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277D7CC78];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (id)serializationKeysByParameter
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"entity";
-  v5[1] = @"text";
-  v6[0] = @"WFNote";
-  v6[1] = @"WFInput";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"entity";
+  v4[1] = @"text";
+  v5[0] = @"WFNote";
+  v5[1] = @"WFInput";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }

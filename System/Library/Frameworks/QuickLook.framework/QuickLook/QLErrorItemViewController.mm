@@ -85,8 +85,7 @@ LABEL_11:
   }
 
   item = [contextCopy item];
-  [(QLItemViewController *)self isContentManaged];
-  v24 = _QLGetOpenInAppClaimBindingForItem(item);
+  v24 = _QLGetOpenInAppClaimBindingForItem(item, [(QLItemViewController *)self isContentManaged]);
 
   v52 = v24;
   if (v24)

@@ -41,11 +41,10 @@ uint64_t __43__LNFoundationValueType_recurrenceRuleType__block_invoke()
 
 + (id)supportedClassesByTypeIdentifier
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = &unk_1F02FED30;
-  v6[0] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = &unk_1F02FED30;
+  v5[0] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }

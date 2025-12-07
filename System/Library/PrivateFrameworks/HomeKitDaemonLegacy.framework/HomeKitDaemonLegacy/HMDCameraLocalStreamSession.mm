@@ -40,7 +40,7 @@
 
 - (void)updateState:(int64_t)state
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [(HMDCameraLocalStreamSession *)self setStreamState:[(HMDCameraLocalStreamSession *)self streamState]| state];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -50,17 +50,16 @@
     v8 = HMFGetLogIdentifier();
     v9 = HMDCameraLocalStreamSessionStateAsString(state);
     stateDescription = [(HMDCameraLocalStreamSession *)selfCopy stateDescription];
-    v12 = 138543874;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2112;
-    v17 = stateDescription;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updated with state %@ to %@", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v9;
+    v15 = 2112;
+    v16 = stateDescription;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updated with state %@ to %@", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCameraLocalStreamSession)initWithSessionID:(id)d reachabilityPath:(unint64_t)path streamSender:(id)sender remoteCapabilities:(id)capabilities localNetworkConfig:(id)config streamPreference:(id)preference
@@ -117,12 +116,11 @@
 
 uint64_t __42__HMDCameraLocalStreamSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_166370;
-  logCategory__hmf_once_v2_166370 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_166370;
+  logCategory__hmf_once_v2_166370 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

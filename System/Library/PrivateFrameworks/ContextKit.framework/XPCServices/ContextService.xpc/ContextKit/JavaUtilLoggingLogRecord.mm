@@ -1,6 +1,6 @@
 @interface JavaUtilLoggingLogRecord
 + (void)initialize;
-- (id)initSource;
+- (uint64_t)initSource;
 - (void)dealloc;
 - (void)readObjectWithJavaIoObjectInputStream:(id)stream;
 - (void)setLevelWithJavaUtilLoggingLevel:(id)level;
@@ -22,9 +22,9 @@
   JreStrongAssign(p_level, level);
 }
 
-- (id)initSource
+- (uint64_t)initSource
 {
-  if ((result[13] & 1) == 0)
+  if ((*(result + 104) & 1) == 0)
   {
     v1 = result;
     result = [new_JavaLangThrowable_init() getStackTrace];
@@ -35,8 +35,8 @@ LABEL_12:
     }
 
     v2 = 0;
-    v3 = result + 3;
-    v4 = &result[*(result + 2) + 3];
+    v3 = (result + 24);
+    v4 = result + 24 + 8 * *(result + 8);
     while (v3 < v4)
     {
       v6 = *v3++;
@@ -57,8 +57,8 @@ LABEL_12:
       v2 = result | v7;
       if ((result & 1) == 0 && ((v7 ^ 1) & 1) == 0)
       {
-        JreStrongAssign(v1 + 3, [v5 getClassName]);
-        result = JreStrongAssign(v1 + 4, [v5 getMethodName]);
+        JreStrongAssign((v1 + 24), [v5 getClassName]);
+        result = JreStrongAssign((v1 + 32), [v5 getMethodName]);
         break;
       }
     }
@@ -123,37 +123,37 @@ LABEL_12:
   readByte2 = [stream readByte];
   if (readByte != 1)
   {
-    v13 = readByte2;
-    JavaLangByte_valueOfWithByte_(readByte);
-    JavaLangByte_valueOfWithByte_(v13);
-    v21 = JreStrcat("$@C@", v14, v15, v16, v17, v18, v19, v20, @"Different version ");
-    v22 = new_JavaIoIOException_initWithNSString_(v21);
-    objc_exception_throw(v22);
+    v15 = readByte2;
+    JavaLangByte_valueOfWithByte_(readByte, v7);
+    JavaLangByte_valueOfWithByte_(v15, v16);
+    v24 = JreStrcat("$@C@", v17, v18, v19, v20, v21, v22, v23, @"Different version ");
+    v25 = new_JavaIoIOException_initWithNSString_(v24);
+    objc_exception_throw(v25);
   }
 
   readInt = [stream readInt];
   if ((readInt & 0x80000000) == 0)
   {
-    v8 = [IOSObjectArray newArrayWithLength:readInt type:NSObject_class_()];
-    JreStrongAssignAndConsume(&self->parameters_, v8);
+    v10 = [IOSObjectArray newArrayWithLength:readInt type:NSObject_class_(readInt, v9)];
+    JreStrongAssignAndConsume(&self->parameters_, v10);
     parameters = self->parameters_;
     if (parameters->super.size_ >= 1)
     {
-      v10 = 0;
+      v12 = 0;
       do
       {
-        IOSObjectArray_Set(parameters, v10++, [stream readObject]);
+        IOSObjectArray_Set(parameters, v12++, [stream readObject]);
         parameters = self->parameters_;
       }
 
-      while (v10 < parameters->super.size_);
+      while (v12 < parameters->super.size_);
     }
   }
 
   resourceBundleName = self->resourceBundleName_;
   if (resourceBundleName)
   {
-    ResourceBundleWithNSString = JavaUtilLoggingLogger_loadResourceBundleWithNSString_(resourceBundleName);
+    ResourceBundleWithNSString = JavaUtilLoggingLogger_loadResourceBundleWithNSString_(resourceBundleName, v9);
     JreStrongAssign(&self->resourceBundle_, ResourceBundleWithNSString);
   }
 }

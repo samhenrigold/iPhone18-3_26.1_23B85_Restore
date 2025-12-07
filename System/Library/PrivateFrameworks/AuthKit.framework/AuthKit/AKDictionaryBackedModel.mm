@@ -92,7 +92,6 @@ LABEL_8:
 
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x1E69E9840];
   return v34;
 }
 
@@ -140,7 +139,6 @@ id __42__AKDictionaryBackedModel_initWithValues___block_invoke(id *a1, void *a2,
   objc_storeStrong(v10, 0);
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v3 = v13;
 
   return v3;
@@ -220,7 +218,6 @@ id __42__AKDictionaryBackedModel_initWithValues___block_invoke(id *a1, void *a2,
   objc_storeStrong(&v10, 0);
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v5 = v15;
 
   return v5;
@@ -258,7 +255,6 @@ id __42__AKDictionaryBackedModel_initWithValues___block_invoke(id *a1, void *a2,
 
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v3 = v11;
 
   return v3;
@@ -318,37 +314,8 @@ id __42__AKDictionaryBackedModel_initWithValues___block_invoke(id *a1, void *a2,
   v14 = [v3 init];
   selfCopy = v14;
   objc_storeStrong(&selfCopy, v14);
-  if (!v14)
+  if (!v14 || ((v12 = MEMORY[0x1E695DFD8], v11 = objc_opt_class(), v7 = objc_opt_class(), v8 = objc_opt_class(), v9 = objc_opt_class(), v10 = objc_opt_class(), v17 = [v12 setWithObjects:{v11, v7, v8, v9, v10, objc_opt_class(), 0}], (v16 = objc_msgSend(location[0], "decodeObjectOfClasses:forKey:", v17, @"_AKDictionaryBackedModelValues")) != 0) ? (objc_storeStrong(selfCopy + 1, v16), v15 = 0) : (v20 = 0, v15 = 1), obj = 0, objc_storeStrong(&v16, 0), objc_storeStrong(&v17, obj), !v15))
   {
-    goto LABEL_6;
-  }
-
-  v12 = MEMORY[0x1E695DFD8];
-  v11 = objc_opt_class();
-  v7 = objc_opt_class();
-  v8 = objc_opt_class();
-  v9 = objc_opt_class();
-  v10 = objc_opt_class();
-  v17 = [v12 setWithObjects:{v11, v7, v8, v9, v10, objc_opt_class(), 0}];
-  v16 = [location[0] decodeObjectOfClasses:v17 forKey:@"_AKDictionaryBackedModelValues"];
-  if (v16)
-  {
-    objc_storeStrong(selfCopy + 1, v16);
-    v15 = 0;
-  }
-
-  else
-  {
-    v20 = 0;
-    v15 = 1;
-  }
-
-  obj = 0;
-  objc_storeStrong(&v16, 0);
-  objc_storeStrong(&v17, obj);
-  if (!v15)
-  {
-LABEL_6:
     v20 = MEMORY[0x1E69E5928](selfCopy);
     v15 = 1;
   }

@@ -69,73 +69,73 @@
 {
   eventsCopy = events;
   blockCopy = block;
-  if ([eventsCopy count])
+  v10 = [eventsCopy count];
+  if (v10)
   {
-    v10 = __atxlog_handle_default();
-    v11 = os_signpost_id_generate(v10);
+    v11 = __atxlog_handle_default(v10);
+    v12 = os_signpost_id_generate(v11);
 
-    v12 = __atxlog_handle_default();
-    v13 = v12;
-    v14 = v11 - 1;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+    v14 = __atxlog_handle_default(v13);
+    v15 = v14;
+    v16 = v12 - 1;
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_2263AA000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "ATXBiomePredictionContextStream.enumerateNearestContextForEvents", " enableTelemetry=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_2263AA000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "ATXBiomePredictionContextStream.enumerateNearestContextForEvents", " enableTelemetry=YES ", buf, 2u);
     }
 
-    spid = v11;
+    spid = v12;
 
     firstObject = [eventsCopy firstObject];
     eventTime = [firstObject eventTime];
-    v17 = [eventTime dateByAddingTimeInterval:-tolerance];
+    v19 = [eventTime dateByAddingTimeInterval:-tolerance];
 
     lastObject = [eventsCopy lastObject];
     eventTime2 = [lastObject eventTime];
-    v20 = [eventTime2 dateByAddingTimeInterval:tolerance];
+    v22 = [eventTime2 dateByAddingTimeInterval:tolerance];
 
-    v21 = [objc_alloc(MEMORY[0x277CF1A50]) initWithStartDate:v17 endDate:v20 maxEvents:0 lastN:0 reversed:0];
-    v22 = [(ATXBiomePredictionContextStream *)self _publisherWithOptions:v21];
-    v48[0] = 0;
-    v48[1] = v48;
-    v48[2] = 0x2020000000;
-    v48[3] = 0;
+    v23 = [objc_alloc(MEMORY[0x277CF1A50]) initWithStartDate:v19 endDate:v22 maxEvents:0 lastN:0 reversed:0];
+    v24 = [(ATXBiomePredictionContextStream *)self _publisherWithOptions:v23];
+    v49[0] = 0;
+    v49[1] = v49;
+    v49[2] = 0x2020000000;
+    v49[3] = 0;
     *buf = 0;
-    v43 = buf;
-    v44 = 0x3032000000;
-    v45 = __Block_byref_object_copy__72;
-    v46 = __Block_byref_object_dispose__72;
-    v47 = 0;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __84__ATXBiomePredictionContextStream_enumerateNearestContextForEvents_tolerance_block___block_invoke;
-    v35[3] = &unk_27859F2A8;
-    v39 = v48;
-    v40 = buf;
-    v36 = eventsCopy;
+    v44 = buf;
+    v45 = 0x3032000000;
+    v46 = __Block_byref_object_copy__72;
+    v47 = __Block_byref_object_dispose__72;
+    v48 = 0;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __84__ATXBiomePredictionContextStream_enumerateNearestContextForEvents_tolerance_block___block_invoke;
+    v36[3] = &unk_27859F2A8;
+    v40 = v49;
+    v41 = buf;
+    v37 = eventsCopy;
     selfCopy = self;
     toleranceCopy = tolerance;
-    v38 = blockCopy;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __84__ATXBiomePredictionContextStream_enumerateNearestContextForEvents_tolerance_block___block_invoke_27;
-    v28[3] = &unk_27859F2D0;
-    v32 = v48;
-    v33 = buf;
-    v29 = v36;
+    v39 = blockCopy;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __84__ATXBiomePredictionContextStream_enumerateNearestContextForEvents_tolerance_block___block_invoke_27;
+    v29[3] = &unk_27859F2D0;
+    v33 = v49;
+    v34 = buf;
+    v30 = v37;
     selfCopy2 = self;
     toleranceCopy2 = tolerance;
-    v31 = v38;
-    v23 = [v22 sinkWithCompletion:v35 receiveInput:v28];
-    v24 = __atxlog_handle_default();
-    v25 = v24;
-    if (v14 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+    v32 = v39;
+    v25 = __atxlog_handle_default([v24 sinkWithCompletion:v36 receiveInput:v29]);
+    v26 = v25;
+    if (v16 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
-      *v27 = 0;
-      _os_signpost_emit_with_name_impl(&dword_2263AA000, v25, OS_SIGNPOST_INTERVAL_END, spid, "ATXBiomePredictionContextStream.enumerateNearestContextForEvents", " enableTelemetry=YES ", v27, 2u);
+      *v28 = 0;
+      _os_signpost_emit_with_name_impl(&dword_2263AA000, v26, OS_SIGNPOST_INTERVAL_END, spid, "ATXBiomePredictionContextStream.enumerateNearestContextForEvents", " enableTelemetry=YES ", v28, 2u);
     }
 
     _Block_object_dispose(buf, 8);
-    _Block_object_dispose(v48, 8);
+    _Block_object_dispose(v49, 8);
   }
 }
 
@@ -146,36 +146,36 @@ void __84__ATXBiomePredictionContextStream_enumerateNearestContextForEvents_tole
 
   if (v4)
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __84__ATXBiomePredictionContextStream_enumerateNearestContextForEvents_tolerance_block___block_invoke_cold_1(v3, v5);
+      __84__ATXBiomePredictionContextStream_enumerateNearestContextForEvents_tolerance_block___block_invoke_cold_1(v3, v6);
     }
   }
 
   while (1)
   {
-    v12 = *(*(*(a1 + 56) + 8) + 24);
-    if (v12 >= [*(a1 + 32) count])
+    v13 = *(*(*(a1 + 56) + 8) + 24);
+    if (v13 >= [*(a1 + 32) count])
     {
       break;
     }
 
-    v6 = *(*(*(a1 + 64) + 8) + 40);
-    if (!v6)
+    v7 = *(*(*(a1 + 64) + 8) + 40);
+    if (!v7)
     {
       break;
     }
 
-    v7 = *(a1 + 40);
-    v8 = [*(a1 + 32) objectAtIndexedSubscript:*(*(*(a1 + 56) + 8) + 24)];
-    v9 = [v7 _shouldMatchContext:v6 queryEvent:v8 tolerance:*(a1 + 72)];
+    v8 = *(a1 + 40);
+    v9 = [*(a1 + 32) objectAtIndexedSubscript:*(*(*(a1 + 56) + 8) + 24)];
+    v10 = [v8 _shouldMatchContext:v7 queryEvent:v9 tolerance:*(a1 + 72)];
 
-    if (v9)
+    if (v10)
     {
-      v10 = *(a1 + 48);
-      v11 = [*(a1 + 32) objectAtIndexedSubscript:*(*(*(a1 + 56) + 8) + 24)];
-      (*(v10 + 16))(v10, v11, *(*(*(a1 + 64) + 8) + 40));
+      v11 = *(a1 + 48);
+      v12 = [*(a1 + 32) objectAtIndexedSubscript:*(*(*(a1 + 56) + 8) + 24)];
+      (*(v11 + 16))(v11, v12, *(*(*(a1 + 64) + 8) + 40));
     }
 
     ++*(*(*(a1 + 56) + 8) + 24);
@@ -229,13 +229,11 @@ void __84__ATXBiomePredictionContextStream_enumerateNearestContextForEvents_tole
 
 void __84__ATXBiomePredictionContextStream_enumerateNearestContextForEvents_tolerance_block___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXBiomePredictionContextStream: error querying Prediction Context stream: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXBiomePredictionContextStream: error querying Prediction Context stream: %@", &v4, 0xCu);
 }
 
 @end

@@ -111,32 +111,30 @@ LABEL_9:
 
 - (void)cancelTransactionDueToTimeout
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[_INExtensionContext cancelTransactionDueToTimeout]";
-    _os_log_error_impl(&dword_18E991000, v3, OS_LOG_TYPE_ERROR, "%s Deprecated method invoked: [_INExtensionContext cancelTransactionDueToTimeout]", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[_INExtensionContext cancelTransactionDueToTimeout]";
+    _os_log_error_impl(&dword_18E991000, v3, OS_LOG_TYPE_ERROR, "%s Deprecated method invoked: [_INExtensionContext cancelTransactionDueToTimeout]", &v4, 0xCu);
   }
 
   [(_INExtensionContext *)self cancelTransactionDueToTimeoutWithIntentIdentifier:&stru_1F01E0850 completion:&__block_literal_global_22];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)completeTransaction
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[_INExtensionContext completeTransaction]";
-    _os_log_error_impl(&dword_18E991000, v3, OS_LOG_TYPE_ERROR, "%s Deprecated method invoked: [_INExtensionContext completeTransaction]", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[_INExtensionContext completeTransaction]";
+    _os_log_error_impl(&dword_18E991000, v3, OS_LOG_TYPE_ERROR, "%s Deprecated method invoked: [_INExtensionContext completeTransaction]", &v4, 0xCu);
   }
 
   [(_INExtensionContext *)self completeTransactionWithIntentIdentifier:&stru_1F01E0850 completion:&__block_literal_global_53988];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleIntent:(id)intent completionHandler:(id)handler
@@ -377,7 +375,7 @@ LABEL_9:
     v8 = _auxiliaryConnection;
     if (_auxiliaryConnection)
     {
-      [_auxiliaryConnection auditToken];
+      objc_msgSend_auditToken(_auxiliaryConnection);
     }
 
     else

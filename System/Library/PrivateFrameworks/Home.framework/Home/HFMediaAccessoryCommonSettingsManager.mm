@@ -224,14 +224,13 @@ LABEL_14:
 
 - (id)_settingKeyPaths
 {
-  v5[5] = *MEMORY[0x277D85DE8];
-  v5[0] = HFAllowHeySiriSettingKeyPath;
-  v5[1] = HFTapToAccessSiriSettingKeyPath;
-  v5[2] = HFAnnounceEnabledKeyPath;
-  v5[3] = HFAirPlayEnabledSettingKeyPath;
-  v5[4] = HFDoorbellChimeEnabledKeyPath;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:5];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
+  v4[0] = HFAllowHeySiriSettingKeyPath;
+  v4[1] = HFTapToAccessSiriSettingKeyPath;
+  v4[2] = HFAnnounceEnabledKeyPath;
+  v4[3] = HFAirPlayEnabledSettingKeyPath;
+  v4[4] = HFDoorbellChimeEnabledKeyPath;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:5];
 
   return v2;
 }
@@ -245,8 +244,8 @@ LABEL_14:
   _settingKeyPaths = [(HFMediaAccessoryCommonSettingsManager *)self _settingKeyPaths];
   v7 = +[HFHomeKitDispatcher sharedDispatcher];
   accessorySettingsDataSource = [v7 accessorySettingsDataSource];
-  home = [(HFMediaAccessoryCommonSettingsManager *)self home];
-  uniqueIdentifier2 = [home uniqueIdentifier];
+  v9 = objc_msgSend_home(self);
+  uniqueIdentifier2 = [v9 uniqueIdentifier];
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __70__HFMediaAccessoryCommonSettingsManager__subscribeToAccessorySettings__block_invoke;
@@ -260,54 +259,52 @@ LABEL_14:
 
 void __70__HFMediaAccessoryCommonSettingsManager__subscribeToAccessorySettings__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = HFLogForCategory(0x28uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v7 = *(a1 + 40);
-      v8 = 138412802;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Error subscribing to keyPaths [%@] for accessoryIdentifier [%@] - Error - [%@]", &v8, 0x20u);
+      v5 = *(a1 + 32);
+      v6 = *(a1 + 40);
+      v7 = 138412802;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Error subscribing to keyPaths [%@] for accessoryIdentifier [%@] - Error - [%@]", &v7, 0x20u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSettings:(id)settings
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   obj = settings;
-  v4 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+  v4 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v47;
-    v37 = *v47;
+    v6 = *v46;
+    v36 = *v46;
     do
     {
       v7 = 0;
-      v38 = v5;
+      v37 = v5;
       do
       {
-        if (*v47 != v6)
+        if (*v46 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v46 + 1) + 8 * v7);
+        v8 = *(*(&v45 + 1) + 8 * v7);
         keyPath = [v8 keyPath];
         v10 = [keyPath isEqualToString:HFAllowHeySiriSettingKeyPath];
 
@@ -377,37 +374,37 @@ void __70__HFMediaAccessoryCommonSettingsManager__subscribeToAccessorySettings__
 
         if (v23)
         {
-          v40 = v7;
+          v39 = v7;
           value = [v8 value];
-          v41 = v8;
+          v40 = v8;
           keyPath8 = [v8 keyPath];
           [(HFMediaAccessoryCommonSettingsManager *)self _updateCachedValue:value forKeyPath:keyPath8];
 
-          v44 = 0u;
-          v45 = 0u;
-          v42 = 0u;
           v43 = 0u;
+          v44 = 0u;
+          v41 = 0u;
+          v42 = 0u;
           observers = [(HFMediaAccessoryCommonSettingsManager *)self observers];
-          v27 = [observers countByEnumeratingWithState:&v42 objects:v50 count:16];
+          v27 = [observers countByEnumeratingWithState:&v41 objects:v49 count:16];
           if (v27)
           {
             v28 = v27;
-            v29 = *v43;
+            v29 = *v42;
             do
             {
               for (i = 0; i != v28; ++i)
               {
-                if (*v43 != v29)
+                if (*v42 != v29)
                 {
                   objc_enumerationMutation(observers);
                 }
 
-                v31 = *(*(&v42 + 1) + 8 * i);
+                v31 = *(*(&v41 + 1) + 8 * i);
                 if (objc_opt_respondsToSelector())
                 {
                   mediaProfileContainer = [(HFMediaAccessoryCommonSettingsManager *)self mediaProfileContainer];
-                  keyPath9 = [v41 keyPath];
-                  [v41 value];
+                  keyPath9 = [v40 keyPath];
+                  [v40 value];
                   v35 = v34 = self;
                   [v31 mediaProfileContainer:mediaProfileContainer didUpdateSettingKeypath:keyPath9 value:v35];
 
@@ -415,43 +412,41 @@ void __70__HFMediaAccessoryCommonSettingsManager__subscribeToAccessorySettings__
                 }
               }
 
-              v28 = [observers countByEnumeratingWithState:&v42 objects:v50 count:16];
+              v28 = [observers countByEnumeratingWithState:&v41 objects:v49 count:16];
             }
 
             while (v28);
           }
 
-          v6 = v37;
-          v5 = v38;
-          v7 = v40;
+          v6 = v36;
+          v5 = v37;
+          v7 = v39;
         }
 
         ++v7;
       }
 
       while (v7 != v5);
-      v5 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v5 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
     }
 
     while (v5);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCachedValue:(id)value forKeyPath:(id)path
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   pathCopy = path;
   v9 = HFLogForCategory(0x28uLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = pathCopy;
-    v14 = 2112;
-    v15 = valueCopy;
-    _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Updating Cached Value for keyPath [%@] to [%@]", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = pathCopy;
+    v13 = 2112;
+    v14 = valueCopy;
+    _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Updating Cached Value for keyPath [%@] to [%@]", &v11, 0x16u);
   }
 
   if ([pathCopy isEqualToString:HFAnnounceEnabledKeyPath])
@@ -493,8 +488,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveSettingsUpdatesForAccessoryWithIdentifier:(id)identifier settings:(id)settings

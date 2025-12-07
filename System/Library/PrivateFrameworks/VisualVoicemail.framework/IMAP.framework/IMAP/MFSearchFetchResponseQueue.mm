@@ -1,5 +1,7 @@
 @interface MFSearchFetchResponseQueue
+- (BOOL)shouldAddUID:(unsigned int)d;
 - (MFSearchFetchResponseQueue)init;
+- (id)messageToSyncFlagsForUID:(unsigned int)d;
 @end
 
 @implementation MFSearchFetchResponseQueue
@@ -17,6 +19,24 @@
   }
 
   return v3;
+}
+
+- (BOOL)shouldAddUID:(unsigned int)d
+{
+  store = self->super._store;
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u", *&d];
+  v5 = [(MFLibraryIMAPStore *)store messageForRemoteID:v4];
+
+  return v5 == 0;
+}
+
+- (id)messageToSyncFlagsForUID:(unsigned int)d
+{
+  store = self->super._store;
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u", *&d];
+  v5 = [(MFLibraryIMAPStore *)store messageForRemoteID:v4];
+
+  return v5;
 }
 
 @end

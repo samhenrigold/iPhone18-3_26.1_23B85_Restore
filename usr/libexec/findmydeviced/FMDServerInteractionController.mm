@@ -59,21 +59,22 @@
     {
       v7 = objc_opt_class();
       v8 = objc_opt_class();
+      v9 = v8;
       if (authId)
       {
       }
 
-      if (v7 != v8)
+      if (v7 != v9)
       {
-        v9 = sub_100002880();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = sub_100002880(v8);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v44 = objc_opt_class();
-          v45 = 2048;
-          v46 = requestCopy;
-          v10 = v44;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) No credentials found. Not sending the request", buf, 0x16u);
+          v48 = objc_opt_class();
+          v49 = 2048;
+          v50 = requestCopy;
+          v11 = v48;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) No credentials found. Not sending the request", buf, 0x16u);
         }
 
         goto LABEL_14;
@@ -81,117 +82,123 @@
     }
   }
 
-  if ([requestCopy cancelled])
+  cancelled = [requestCopy cancelled];
+  if (cancelled)
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002880(cancelled);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v44 = objc_opt_class();
-      v45 = 2048;
-      v46 = requestCopy;
-      v11 = v44;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Enqueueing request already cancelled", buf, 0x16u);
+      v48 = objc_opt_class();
+      v49 = 2048;
+      v50 = requestCopy;
+      v13 = v48;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Enqueueing request already cancelled", buf, 0x16u);
     }
 
 LABEL_14:
 
-    v12 = 0;
+    v14 = 0;
     goto LABEL_36;
   }
 
   requestModifierLock = [(FMDServerInteractionController *)self requestModifierLock];
   [requestModifierLock lock];
 
-  v14 = sub_100002880();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100002880(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v44 = objc_opt_class();
-    v45 = 2048;
-    v46 = requestCopy;
-    v15 = v44;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Enqueueing request", buf, 0x16u);
+    v48 = objc_opt_class();
+    v49 = 2048;
+    v50 = requestCopy;
+    v18 = v48;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Enqueueing request", buf, 0x16u);
   }
 
-  v16 = +[NSMutableArray array];
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
+  v19 = +[NSMutableArray array];
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   requests = [(FMDServerInteractionController *)self requests];
-  v18 = [requests countByEnumeratingWithState:&v39 objects:v52 count:16];
-  if (v18)
+  v21 = [requests countByEnumeratingWithState:&v43 objects:v56 count:16];
+  if (v21)
   {
-    v19 = *v40;
+    v22 = *v44;
     do
     {
-      for (i = 0; i != v18; i = i + 1)
+      for (i = 0; i != v21; i = i + 1)
       {
-        if (*v40 != v19)
+        if (*v44 != v22)
         {
           objc_enumerationMutation(requests);
         }
 
-        v21 = *(*(&v39 + 1) + 8 * i);
-        if ([requestCopy canReplace:v21])
+        v24 = *(*(&v43 + 1) + 8 * i);
+        if ([requestCopy canReplace:v24])
         {
-          [v16 addObject:v21];
+          [v19 addObject:v24];
         }
       }
 
-      v18 = [requests countByEnumeratingWithState:&v39 objects:v52 count:16];
+      v21 = [requests countByEnumeratingWithState:&v43 objects:v56 count:16];
     }
 
-    while (v18);
+    while (v21);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  obj = v16;
-  v22 = [obj countByEnumeratingWithState:&v35 objects:v51 count:16];
-  if (v22)
+  v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  obj = v19;
+  v25 = [obj countByEnumeratingWithState:&v39 objects:v55 count:16];
+  v26 = v25;
+  if (v25)
   {
-    v23 = *v36;
+    v27 = *v40;
     do
     {
-      for (j = 0; j != v22; j = j + 1)
+      v28 = 0;
+      do
       {
-        if (*v36 != v23)
+        if (*v40 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v35 + 1) + 8 * j);
-        v26 = sub_100002880();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v29 = *(*(&v39 + 1) + 8 * v28);
+        v30 = sub_100002880(v25);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = objc_opt_class();
-          v28 = objc_opt_class();
+          v31 = objc_opt_class();
+          v32 = objc_opt_class();
           *buf = 138413058;
-          v44 = v27;
-          v45 = 2048;
-          v46 = v25;
-          v47 = 2112;
-          v48 = v28;
+          v48 = v31;
           v49 = 2048;
-          v50 = requestCopy;
+          v50 = v29;
+          v51 = 2112;
+          v52 = v32;
+          v53 = 2048;
+          v54 = requestCopy;
           selfCopy = self;
-          v30 = v28;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) is being replaced with %@ (0x%lX)", buf, 0x2Au);
+          v34 = v32;
+          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) is being replaced with %@ (0x%lX)", buf, 0x2Au);
 
           self = selfCopy;
         }
 
-        [(FMDServerInteractionController *)self cancelRequest:v25];
+        v25 = [(FMDServerInteractionController *)self cancelRequest:v29];
+        v28 = v28 + 1;
       }
 
-      v22 = [obj countByEnumeratingWithState:&v35 objects:v51 count:16];
+      while (v26 != v28);
+      v25 = [obj countByEnumeratingWithState:&v39 objects:v55 count:16];
+      v26 = v25;
     }
 
-    while (v22);
+    while (v25);
   }
 
   requests2 = [(FMDServerInteractionController *)self requests];
@@ -201,10 +208,10 @@ LABEL_14:
   [requestModifierLock2 unlock];
 
   [(FMDServerInteractionController *)self _sendRequest:requestCopy];
-  v12 = 1;
+  v14 = 1;
 LABEL_36:
 
-  return v12;
+  return v14;
 }
 
 - (void)cancelAllRequests
@@ -281,26 +288,26 @@ LABEL_36:
   requestCopy = request;
   if (([requestCopy inProgress] & 1) == 0 && (objc_msgSend(requestCopy, "cancelled") & 1) == 0 && (objc_msgSend(requestCopy, "completed") & 1) == 0 && objc_msgSend(requestCopy, "willRetry"))
   {
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     channels = [(FMDServerInteractionController *)self channels];
-    v6 = [channels countByEnumeratingWithState:&v52 objects:v62 count:16];
+    v6 = [channels countByEnumeratingWithState:&v57 objects:v67 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v53;
+      v8 = *v58;
 LABEL_7:
       v9 = 0;
       while (1)
       {
-        if (*v53 != v8)
+        if (*v58 != v8)
         {
           objc_enumerationMutation(channels);
         }
 
-        v10 = *(*(&v52 + 1) + 8 * v9);
+        v10 = *(*(&v57 + 1) + 8 * v9);
         if ([v10 isActive])
         {
           if ([v10 supportsRequestType:{objc_msgSend(requestCopy, "type")}])
@@ -311,7 +318,7 @@ LABEL_7:
 
         if (v7 == ++v9)
         {
-          v7 = [channels countByEnumeratingWithState:&v52 objects:v62 count:16];
+          v7 = [channels countByEnumeratingWithState:&v57 objects:v67 count:16];
           if (v7)
           {
             goto LABEL_7;
@@ -328,19 +335,19 @@ LABEL_7:
         goto LABEL_46;
       }
 
-      v12 = sub_100002880();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100002880(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = objc_opt_class();
-        v14 = v13;
+        v14 = objc_opt_class();
+        v15 = v14;
         fm_logID = [v11 fm_logID];
         *buf = 138412802;
-        v57 = v13;
-        v58 = 2048;
-        v59 = requestCopy;
-        v60 = 2112;
-        v61 = fm_logID;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Sending to channel %@", buf, 0x20u);
+        v62 = v14;
+        v63 = 2048;
+        v64 = requestCopy;
+        v65 = 2112;
+        v66 = fm_logID;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Sending to channel %@", buf, 0x20u);
       }
 
       [requestCopy setInProgress:1];
@@ -354,18 +361,18 @@ LABEL_7:
       }
 
       requestUrl = [requestCopy requestUrl];
-      v19 = [(FMDServerInteractionController *)self redirectedURL:requestUrl];
-      v20 = v19;
-      if (v19)
+      v20 = [(FMDServerInteractionController *)self redirectedURL:requestUrl];
+      v21 = v20;
+      if (v20)
       {
-        v21 = v19;
+        v22 = v20;
       }
 
       else
       {
         urlTemplateType = [requestCopy urlTemplateType];
         udid = [(FMDServerInteractionController *)self udid];
-        v21 = [(FMDServerInteractionController *)self redirectedRequestURLForType:urlTemplateType udid:udid];
+        v22 = [(FMDServerInteractionController *)self redirectedRequestURLForType:urlTemplateType udid:udid];
       }
 
       requestBody = [requestCopy requestBody];
@@ -382,76 +389,77 @@ LABEL_44:
         goto LABEL_45;
       }
 
-      v51 = 0;
-      requestHeaders = [NSJSONSerialization dataWithJSONObject:requestBody options:0 error:&v51];
-      v41 = v51;
-      requestBodyData = v41;
+      v56 = 0;
+      requestHeaders = [NSJSONSerialization dataWithJSONObject:requestBody options:0 error:&v56];
+      v45 = v56;
+      requestBodyData = v45;
       if (requestHeaders)
       {
-        if (!v41)
+        if (!v45)
         {
           requestBodyData = requestHeaders;
 LABEL_24:
-          v26 = v21;
+          v27 = v22;
           requestHeaders = [requestCopy requestHeaders];
-          v28 = [requestHeaders mutableCopy];
-          v29 = [v28 objectForKeyedSubscript:@"Authorization"];
+          v29 = [requestHeaders mutableCopy];
+          v30 = [v29 objectForKeyedSubscript:@"Authorization"];
 
-          if (v29)
+          if (v30)
           {
-            [v28 setObject:@"REDACTED" forKeyedSubscript:@"Authorization"];
+            [v29 setObject:@"REDACTED" forKeyedSubscript:@"Authorization"];
           }
 
-          v30 = [NSJSONSerialization JSONObjectWithData:requestBodyData options:0 error:0];
-          v31 = sub_10000C688();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          v31 = [NSJSONSerialization JSONObjectWithData:requestBodyData options:0 error:0];
+          v32 = sub_10000C688(v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
-            v32 = objc_opt_class();
+            v33 = objc_opt_class();
             *buf = 138412802;
-            v57 = v32;
-            v58 = 2048;
-            v59 = requestCopy;
-            v60 = 2112;
-            v61 = v26;
-            v33 = v32;
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Sending to url %@ ", buf, 0x20u);
+            v62 = v33;
+            v63 = 2048;
+            v64 = requestCopy;
+            v65 = 2112;
+            v66 = v27;
+            v34 = v33;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Sending to url %@ ", buf, 0x20u);
           }
 
-          v34 = sub_10000C688();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v36 = sub_10000C688(v35);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
           {
-            v35 = objc_opt_class();
+            v37 = objc_opt_class();
             *buf = 138412802;
-            v57 = v35;
-            v58 = 2048;
-            v59 = requestCopy;
-            v60 = 2112;
-            v61 = v28;
-            v36 = v35;
-            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Sending headers: \n%@ ", buf, 0x20u);
+            v62 = v37;
+            v63 = 2048;
+            v64 = requestCopy;
+            v65 = 2112;
+            v66 = v29;
+            v38 = v37;
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Sending headers: \n%@ ", buf, 0x20u);
           }
 
-          v37 = sub_10000C688();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          v40 = sub_10000C688(v39);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
-            v38 = objc_opt_class();
+            v41 = objc_opt_class();
             *buf = 138412802;
-            v57 = v38;
-            v58 = 2048;
-            v59 = requestCopy;
-            v60 = 2112;
-            v61 = v30;
-            v39 = v38;
-            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Sending with body dict : \n%@ ", buf, 0x20u);
+            v62 = v41;
+            v63 = 2048;
+            v64 = requestCopy;
+            v65 = 2112;
+            v66 = v31;
+            v42 = v41;
+            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Sending with body dict : \n%@ ", buf, 0x20u);
           }
 
-          if ([requestCopy cancelled])
+          cancelled = [requestCopy cancelled];
+          if (cancelled)
           {
-            v40 = sub_100002880();
-            v21 = v26;
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+            v44 = sub_100002880(cancelled);
+            v22 = v27;
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
             {
-              sub_100225ABC();
+              sub_100225ABC(requestCopy);
             }
           }
 
@@ -461,25 +469,25 @@ LABEL_24:
             retryHelper = [requestCopy retryHelper];
             totalRetryCount = [retryHelper totalRetryCount];
 
-            v21 = v26;
+            v22 = v27;
             if (!totalRetryCount)
             {
               [(FMDServerInteractionController *)self _beginXPCTransactionForRequest:requestCopy];
             }
 
             requestId = [requestCopy requestId];
-            v48[0] = _NSConcreteStackBlock;
-            v48[1] = 3221225472;
-            v48[2] = sub_10012DB58;
-            v48[3] = &unk_1002CD360;
-            v49 = requestCopy;
+            v53[0] = _NSConcreteStackBlock;
+            v53[1] = 3221225472;
+            v53[2] = sub_10012DB58;
+            v53[3] = &unk_1002CD360;
+            v54 = requestCopy;
             selfCopy = self;
-            [v11 sendRequestWithId:requestId toURL:v26 withHeaders:requestHeaders body:requestBodyData completion:v48];
+            [v11 sendRequestWithId:requestId toURL:v27 withHeaders:requestHeaders body:requestBodyData completion:v53];
 
-            v40 = v49;
+            v44 = v54;
           }
 
-          requestBody = v47;
+          requestBody = v52;
 LABEL_43:
 
           goto LABEL_44;
@@ -488,10 +496,10 @@ LABEL_43:
 
       else
       {
-        v45 = sub_100002880();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v49 = sub_100002880(v45);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
-          sub_100225B48();
+          sub_100225B48(requestCopy);
         }
 
         if (!requestBodyData)
@@ -500,14 +508,14 @@ LABEL_43:
         }
       }
 
-      v46 = sub_100002880();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v50 = sub_100002880(v45);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
         sub_100225BDC();
       }
 
-      v40 = sub_10000C688();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v44 = sub_10000C688(v51);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         sub_100225C70();
       }
@@ -530,83 +538,84 @@ LABEL_46:
   bodyCopy = body;
   locationCopy = location;
   errorCopy = error;
-  v16 = sub_10000C688();
+  v16 = sub_10000C688(errorCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v17 = objc_opt_class();
     v18 = v17;
     domain = [errorCopy domain];
     *buf = 138413314;
-    v87 = v17;
-    v88 = 2048;
-    v89 = requestCopy;
-    v90 = 2048;
+    v94 = v17;
+    v95 = 2048;
+    v96 = requestCopy;
+    v97 = 2048;
     statusCopy = status;
-    v92 = 2112;
-    v93 = domain;
-    v94 = 2048;
+    v99 = 2112;
+    v100 = domain;
+    v101 = 2048;
     code = [errorCopy code];
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) received response with status %ld, error %@:%ld", buf, 0x34u);
   }
 
-  v20 = sub_10000C688();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = sub_10000C688(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = objc_opt_class();
-    v22 = v21;
-    v23 = [headersCopy objectForKeyedSubscript:@"X-Apple-Request-UUID"];
-    v24 = [headersCopy objectForKeyedSubscript:@"X-Request-UUID"];
-    v25 = [headersCopy objectForKeyedSubscript:@"X-Responding-Instance"];
+    v22 = objc_opt_class();
+    v23 = v22;
+    v24 = [headersCopy objectForKeyedSubscript:@"X-Apple-Request-UUID"];
+    v25 = [headersCopy objectForKeyedSubscript:@"X-Request-UUID"];
+    v26 = [headersCopy objectForKeyedSubscript:@"X-Responding-Instance"];
     *buf = 138413314;
-    v87 = v21;
-    v88 = 2048;
-    v89 = requestCopy;
-    v90 = 2114;
-    statusCopy = v23;
-    v92 = 2114;
-    v93 = v24;
-    v94 = 2114;
-    code = v25;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) X-Apple-Request-UUID: %{public}@, X-Request-UUID: %{public}@, X-Apple-Responding-Instance : %{public}@", buf, 0x34u);
+    v94 = v22;
+    v95 = 2048;
+    v96 = requestCopy;
+    v97 = 2114;
+    statusCopy = v24;
+    v99 = 2114;
+    v100 = v25;
+    v101 = 2114;
+    code = v26;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) X-Apple-Request-UUID: %{public}@, X-Request-UUID: %{public}@, X-Apple-Responding-Instance : %{public}@", buf, 0x34u);
   }
 
-  v26 = sub_10000C688();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v28 = sub_10000C688(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = objc_opt_class();
-    v28 = v27;
-    v29 = [headersCopy description];
+    v29 = objc_opt_class();
+    v30 = v29;
+    v31 = [headersCopy description];
     *buf = 138412802;
-    v87 = v27;
-    v88 = 2048;
-    v89 = requestCopy;
-    v90 = 2112;
-    statusCopy = v29;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) received headers: \n%@", buf, 0x20u);
+    v94 = v29;
+    v95 = 2048;
+    v96 = requestCopy;
+    v97 = 2112;
+    statusCopy = v31;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) received headers: \n%@", buf, 0x20u);
   }
 
   if (bodyCopy)
   {
-    v30 = [[NSString alloc] initWithData:bodyCopy encoding:4];
+    v32 = [[NSString alloc] initWithData:bodyCopy encoding:4];
+    v33 = v32;
   }
 
   else
   {
-    v30 = 0;
+    v33 = 0;
   }
 
-  v31 = sub_10000C688();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v34 = sub_10000C688(v32);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = objc_opt_class();
+    v35 = objc_opt_class();
     *buf = 138412802;
-    v87 = v32;
-    v88 = 2048;
-    v89 = requestCopy;
-    v90 = 2112;
-    statusCopy = v30;
-    v33 = v32;
-    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) raw response body : %@", buf, 0x20u);
+    v94 = v35;
+    v95 = 2048;
+    v96 = requestCopy;
+    v97 = 2112;
+    statusCopy = v33;
+    v36 = v35;
+    _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) raw response body : %@", buf, 0x20u);
   }
 
   [requestCopy setHttpResponseStatus:status];
@@ -614,40 +623,40 @@ LABEL_46:
   [requestCopy setHttpResponseError:errorCopy];
   if ([bodyCopy length])
   {
-    v85 = 0;
-    v34 = [NSJSONSerialization JSONObjectWithData:bodyCopy options:0 error:&v85];
-    v35 = v85;
-    v36 = v35;
-    if (v34 || !v35)
+    v92 = 0;
+    v37 = [NSJSONSerialization JSONObjectWithData:bodyCopy options:0 error:&v92];
+    v38 = v92;
+    v39 = v38;
+    if (v37 || !v38)
     {
-      [requestCopy setHttpResponseBody:v34];
-      if (!v34)
+      v41 = [requestCopy setHttpResponseBody:v37];
+      if (!v37)
       {
 LABEL_21:
 
         goto LABEL_22;
       }
 
-      v37 = sub_10000C688();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v40 = sub_10000C688(v41);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = objc_opt_class();
-        v39 = v38;
-        v40 = [v34 description];
+        v42 = objc_opt_class();
+        v43 = v42;
+        v44 = [v37 description];
         *buf = 138412802;
-        v87 = v38;
-        v88 = 2048;
-        v89 = requestCopy;
-        v90 = 2112;
-        statusCopy = v40;
-        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) response body dict : \n%@", buf, 0x20u);
+        v94 = v42;
+        v95 = 2048;
+        v96 = requestCopy;
+        v97 = 2112;
+        statusCopy = v44;
+        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) response body dict : \n%@", buf, 0x20u);
       }
     }
 
     else
     {
-      v37 = sub_100002880();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v40 = sub_100002880(v38);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         sub_100225D04();
       }
@@ -658,13 +667,13 @@ LABEL_21:
 
 LABEL_22:
   httpResponseBody = [requestCopy httpResponseBody];
-  v42 = httpResponseBody == 0;
+  v46 = httpResponseBody == 0;
 
-  if (!v42)
+  if (!v46)
   {
     httpResponseBody2 = [requestCopy httpResponseBody];
-    v44 = [httpResponseBody2 objectForKeyedSubscript:@"alert"];
-    fm_nullToNil = [v44 fm_nullToNil];
+    v48 = [httpResponseBody2 objectForKeyedSubscript:@"alert"];
+    fm_nullToNil = [v48 fm_nullToNil];
     [requestCopy setAlertFromServerResponse:fm_nullToNil];
   }
 
@@ -672,37 +681,37 @@ LABEL_22:
   if ([requestCopy responseErrorType] == 1025)
   {
     httpResponseHeaders = [requestCopy httpResponseHeaders];
-    v47 = [httpResponseHeaders stringForCaseInsensitiveStringKey:@"X-Apple-MMe-Host"];
+    v51 = [httpResponseHeaders stringForCaseInsensitiveStringKey:@"X-Apple-MMe-Host"];
 
-    if (v47)
+    if (v51)
     {
       urlTemplateType = [requestCopy urlTemplateType];
       udid = [(FMDServerInteractionController *)self udid];
-      v50 = [(FMDServerInteractionController *)self redirectedRequestURLForType:urlTemplateType udid:udid];
-      host = [v50 host];
+      v54 = [(FMDServerInteractionController *)self redirectedRequestURLForType:urlTemplateType udid:udid];
+      host = [v54 host];
 
       account = [(FMDServerInteractionController *)self account];
       authId = [account authId];
-      [FMDRealmSupport setRedirectedHost:v47 forHost:host withContext:authId];
+      [FMDRealmSupport setRedirectedHost:v51 forHost:host withContext:authId];
 
-      v54 = sub_100002880();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+      v59 = sub_100002880(v58);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
       {
-        v55 = objc_opt_class();
-        v56 = v55;
+        v60 = objc_opt_class();
+        v61 = v60;
         account2 = [(FMDServerInteractionController *)self account];
         authId2 = [account2 authId];
         *buf = 138413314;
-        v87 = v55;
-        v88 = 2048;
-        v89 = requestCopy;
-        v90 = 2112;
+        v94 = v60;
+        v95 = 2048;
+        v96 = requestCopy;
+        v97 = 2112;
         statusCopy = host;
-        v92 = 2112;
-        v93 = v47;
-        v94 = 2112;
+        v99 = 2112;
+        v100 = v51;
+        v101 = 2112;
         code = authId2;
-        _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Realm redirection from %@ to %@ for %@", buf, 0x34u);
+        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Realm redirection from %@ to %@ for %@", buf, 0x34u);
       }
     }
   }
@@ -713,10 +722,10 @@ LABEL_22:
 
   if (completionHandler)
   {
-    v60 = sub_10000C688();
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+    v66 = sub_10000C688(v65);
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
     {
-      sub_100225D9C();
+      sub_100225D9C(requestCopy);
     }
 
     completionHandler2 = [requestCopy completionHandler];
@@ -732,50 +741,51 @@ LABEL_22:
   }
 
   httpResponseHeaders2 = [requestCopy httpResponseHeaders];
-  v65 = [httpResponseHeaders2 stringForCaseInsensitiveStringKey:@"X-Apple-Force-Register"];
-  if ([v65 isEqualToString:@"true"])
+  v71 = [httpResponseHeaders2 stringForCaseInsensitiveStringKey:@"X-Apple-Force-Register"];
+  if ([v71 isEqualToString:@"true"])
   {
   }
 
   else
   {
     httpResponseHeaders3 = [requestCopy httpResponseHeaders];
-    v67 = [httpResponseHeaders3 BOOLForCaseInsensitiveStringKey:@"X-Apple-Force-Register"];
+    v73 = [httpResponseHeaders3 BOOLForCaseInsensitiveStringKey:@"X-Apple-Force-Register"];
 
-    if (!v67)
+    if (!v73)
     {
       goto LABEL_40;
     }
   }
 
-  v68 = +[FMDServiceProvider activeServiceProvider];
-  [v68 registerDeviceWithCause:@"ForcedServerRegister" force:1];
+  v74 = +[FMDServiceProvider activeServiceProvider];
+  [v74 registerDeviceWithCause:@"ForcedServerRegister" force:1];
 
 LABEL_40:
   httpResponseHeaders4 = [requestCopy httpResponseHeaders];
-  v70 = [httpResponseHeaders4 objectForKey:@"X-Apple-Ctx"];
+  v76 = [httpResponseHeaders4 objectForKey:@"X-Apple-Ctx"];
 
-  if (v70)
+  if (v76)
   {
-    v71 = +[FMDProtectedContextManager sharedManager];
-    [v71 cleanupAllContextsForKey:@"serverContextHeaderContext"];
+    v77 = +[FMDProtectedContextManager sharedManager];
+    [v77 cleanupAllContextsForKey:@"serverContextHeaderContext"];
 
-    v72 = +[FMDProtectedContextManager sharedManager];
-    v73 = [v72 saveContext:v70 forContextKey:@"serverContextHeaderContext" dataProtectionClass:4];
+    v78 = +[FMDProtectedContextManager sharedManager];
+    v79 = [v78 saveContext:v76 forContextKey:@"serverContextHeaderContext" dataProtectionClass:4];
   }
 
-  if (([requestCopy willRetry] & 1) == 0)
+  willRetry = [requestCopy willRetry];
+  if ((willRetry & 1) == 0)
   {
-    v74 = sub_100002880();
-    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+    v81 = sub_100002880(willRetry);
+    if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
     {
-      v75 = objc_opt_class();
+      v82 = objc_opt_class();
       *buf = 138412546;
-      v87 = v75;
-      v88 = 2048;
-      v89 = requestCopy;
-      v76 = v75;
-      _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Removing from the queue as it was completed or it exhausted its retries", buf, 0x16u);
+      v94 = v82;
+      v95 = 2048;
+      v96 = requestCopy;
+      v83 = v82;
+      _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Removing from the queue as it was completed or it exhausted its retries", buf, 0x16u);
     }
 
     [requestCopy deinitializeRequest];
@@ -803,7 +813,7 @@ LABEL_40:
 - (void)cancelRequest:(id)request
 {
   requestCopy = request;
-  v5 = sub_100002880();
+  v5 = sub_100002880(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -857,7 +867,7 @@ LABEL_40:
 - (void)_markRequestCancelled:(id)cancelled
 {
   cancelledCopy = cancelled;
-  v5 = sub_100002880();
+  v5 = sub_100002880(cancelledCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 138412546;

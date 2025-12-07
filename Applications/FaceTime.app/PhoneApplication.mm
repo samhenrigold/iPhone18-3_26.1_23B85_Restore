@@ -157,24 +157,24 @@ LABEL_11:
   bundleIdentifier = [v2 bundleIdentifier];
   v4 = [bundleIdentifier isEqualToString:TUBundleIdentifierMobilePhoneApplication];
 
-  v5 = sub_100003B9C();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = sub_100003B9C(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
-    if (v6)
+    if (v7)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "asking to prewarm InCallService...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "asking to prewarm InCallService...", buf, 2u);
     }
 
-    v5 = dispatch_get_global_queue(-32768, 0);
-    dispatch_async(v5, &stru_10010ACE0);
+    v6 = dispatch_get_global_queue(-32768, 0);
+    dispatch_async(v6, &stru_10010ACE0);
   }
 
-  else if (v6)
+  else if (v7)
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "prewarming InCallService...", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "prewarming InCallService...", v8, 2u);
   }
 }
 
@@ -249,12 +249,12 @@ LABEL_11:
 - (void)prepareForDefaultImageSnapshotForScreen:(id)screen
 {
   screenCopy = screen;
-  v5 = sub_100003B9C();
+  v5 = sub_100003B9C(screenCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = screenCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "-prepareForDefaultImageShapshotForScreen:%@", &v14, 0xCu);
+    v16 = 138412290;
+    v17 = screenCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "-prepareForDefaultImageShapshotForScreen:%@", &v16, 0xCu);
   }
 
   v6 = +[UIScreen mainScreen];
@@ -262,31 +262,33 @@ LABEL_11:
   if (v6 == screenCopy)
   {
     shouldSnapshot = [(PhoneApplication *)self shouldSnapshot];
-    v8 = sub_100003B9C();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = shouldSnapshot;
+    v9 = sub_100003B9C(shouldSnapshot);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 67109120;
-      LODWORD(v15) = shouldSnapshot;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "-prepareForDefaultImageShapshotForScreen: is considering snapshotting for main screen, shouldSnapshot=%d", &v14, 8u);
+      v16 = 67109120;
+      LODWORD(v17) = v8;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "-prepareForDefaultImageShapshotForScreen: is considering snapshotting for main screen, shouldSnapshot=%d", &v16, 8u);
     }
 
-    if (shouldSnapshot)
+    if (v8)
     {
       rootViewController = [(PhoneApplication *)self rootViewController];
       baseViewController = [rootViewController baseViewController];
 
       shouldSnapshot2 = [baseViewController shouldSnapshot];
-      v12 = sub_100003B9C();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = shouldSnapshot2;
+      v14 = sub_100003B9C(shouldSnapshot2);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412546;
-        v15 = baseViewController;
-        v16 = 1024;
-        v17 = shouldSnapshot2;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "-prepareForDefaultImageShapshotForScreen: view controller %@ should snapshot=%d", &v14, 0x12u);
+        v16 = 138412546;
+        v17 = baseViewController;
+        v18 = 1024;
+        v19 = v13;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "-prepareForDefaultImageShapshotForScreen: view controller %@ should snapshot=%d", &v16, 0x12u);
       }
 
-      if (shouldSnapshot2)
+      if (v13)
       {
         [baseViewController prepareForSnapshot];
       }
@@ -303,7 +305,7 @@ LABEL_11:
 - (void)handleApplicationFinishedSnapshottingNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100003B9C();
+  v5 = sub_100003B9C(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -413,7 +415,7 @@ LABEL_5:
 
 - (void)didReceiveMemoryWarning
 {
-  v3 = sub_100003B9C();
+  v3 = sub_100003B9C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -434,12 +436,12 @@ LABEL_5:
   object = [appear object];
   currentTabViewType = [object currentTabViewType];
 
-  v6 = sub_100003B9C();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100003B9C(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = currentTabViewType;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "tabBarControllerViewDidAppear with tab: %d", v7, 8u);
+    v8[0] = 67109120;
+    v8[1] = currentTabViewType;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "tabBarControllerViewDidAppear with tab: %d", v8, 8u);
   }
 
   if (currentTabViewType == 2)
@@ -452,7 +454,7 @@ LABEL_5:
 {
   lCopy = l;
   handlerCopy = handler;
-  v8 = sub_100003B9C();
+  v8 = sub_100003B9C(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = @"non-nil";
@@ -476,7 +478,7 @@ LABEL_5:
 - (void)applicationOpenURL:(id)l
 {
   lCopy = l;
-  v5 = sub_100003B9C();
+  v5 = sub_100003B9C(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -540,41 +542,42 @@ LABEL_5:
 
   if ((v10 & 1) == 0)
   {
-    v14 = sub_100003B9C();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100003B9C(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Aborting voicemail call, the device is in airplane mode", v18, 2u);
+      *v20 = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Aborting voicemail call, the device is in airplane mode", v20, 2u);
     }
 
     provider = [v8 provider];
-    v11 = +[UIAlertController networkUnavailableAlertControllerWithCallProvider:dialType:senderIdentityUUID:](UIAlertController, "networkUnavailableAlertControllerWithCallProvider:dialType:senderIdentityUUID:", provider, [v8 dialType], 0);
+    v13 = +[UIAlertController networkUnavailableAlertControllerWithCallProvider:dialType:senderIdentityUUID:](UIAlertController, "networkUnavailableAlertControllerWithCallProvider:dialType:senderIdentityUUID:", provider, [v8 dialType], 0);
 
-    if (!v11)
+    if (!v13)
     {
       goto LABEL_16;
     }
 
     rootViewController = [(PhoneApplication *)self rootViewController];
-    [rootViewController presentViewController:v11 animated:1 completion:0];
+    [rootViewController presentViewController:v13 animated:1 completion:0];
     goto LABEL_15;
   }
 
-  if (![v8 isValid])
+  isValid = [v8 isValid];
+  if (!isValid)
   {
-    v11 = sub_100003B9C();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = sub_100003B9C(isValid);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_1000C41A4(v8, v11);
+      sub_1000C41A4(v8, v13);
     }
 
     goto LABEL_16;
   }
 
-  v11 = [v8 URL];
-  if (!v11)
+  v13 = [v8 URL];
+  if (!v13)
   {
-    rootViewController = sub_100003B9C();
+    rootViewController = sub_100003B9C(0);
     if (os_log_type_enabled(rootViewController, OS_LOG_TYPE_ERROR))
     {
       sub_1000C421C(v8, rootViewController);
@@ -583,17 +586,17 @@ LABEL_5:
 LABEL_15:
 
 LABEL_16:
-    v13 = 0;
+    v15 = 0;
     goto LABEL_17;
   }
 
-  v12 = +[UIApplication sharedApplication];
-  [v12 openURL:v11 withCompletionHandler:0];
+  v14 = +[UIApplication sharedApplication];
+  [v14 openURL:v13 withCompletionHandler:0];
 
-  v13 = 1;
+  v15 = 1;
 LABEL_17:
 
-  return v13;
+  return v15;
 }
 
 - (int)userInterfaceScreenType
@@ -865,7 +868,7 @@ LABEL_17:
 - (BOOL)application:(id)application willContinueUserActivityWithType:(id)type
 {
   typeCopy = type;
-  v5 = sub_100003B9C();
+  v5 = sub_100003B9C(typeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -1081,7 +1084,7 @@ LABEL_17:
   selfCopy = self;
   sub_1000BCDE8();
 
-  sub_100008BA0(0, &qword_1001256A0);
+  sub_100008BA0(0, &qword_1001256A0, UIMenuElement_ptr);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;

@@ -262,7 +262,7 @@ LABEL_3:
 
       v29 = [v14 imageByCroppingToRect:{0.0, 0.0, v26, v28}];
 
-      [v29 extent];
+      objc_msgSend_extent(v29);
       v24 = [v13 createCGImage:v29 fromRect:?];
       if (!v24)
       {

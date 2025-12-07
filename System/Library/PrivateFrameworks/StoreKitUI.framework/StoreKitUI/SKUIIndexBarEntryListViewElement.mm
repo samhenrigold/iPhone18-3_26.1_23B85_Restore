@@ -28,16 +28,16 @@
     }
 
     v13 = [elementCopy getAttribute:@"type"];
-    if ([v13 isEqualToString:@"dynamicElement"])
+    if (objc_msgSend_isEqualToString_(v13))
     {
       v14 = 1;
     }
 
     else
     {
-      v15 = [v13 isEqualToString:@"localeStandard"];
+      isEqualToString = objc_msgSend_isEqualToString_(v13);
       v14 = 2;
-      if (!v15)
+      if (!isEqualToString)
       {
         v14 = 0;
       }

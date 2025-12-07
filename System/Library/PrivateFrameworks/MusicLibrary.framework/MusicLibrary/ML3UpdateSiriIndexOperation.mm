@@ -662,13 +662,13 @@ LABEL_93:
   return v15 & 1;
 }
 
-void __79__ML3UpdateSiriIndexOperation__performIncrementalIndexToRevision_withDonation___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, _BYTE *a7)
+void __79__ML3UpdateSiriIndexOperation__performIncrementalIndexToRevision_withDonation___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, void *a6, _BYTE *a7)
 {
   v34 = *MEMORY[0x277D85DE8];
   v12 = objc_autoreleasePoolPush();
   if (a5)
   {
-    v13 = [(ML3Entity *)ML3Track URLForEntityWithPersistentID:a2 libraryUID:*(a1 + 40)];
+    v13 = [(ML3Entity *)ML3Track URLForEntityWithPersistentID:a2 libraryUID:a1[5]];
     v14 = [v13 absoluteString];
 
     if (v14)
@@ -676,7 +676,7 @@ void __79__ML3UpdateSiriIndexOperation__performIncrementalIndexToRevision_withDo
       v15 = os_log_create("com.apple.amp.medialibrary", "Indexing");
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = *(a1 + 48);
+        v16 = a1[6];
         *buf = 134218242;
         v31 = v16;
         v32 = 2114;
@@ -684,7 +684,7 @@ void __79__ML3UpdateSiriIndexOperation__performIncrementalIndexToRevision_withDo
         _os_log_impl(&dword_22D2FA000, v15, OS_LOG_TYPE_DEFAULT, "ML3UpdateSiriIndexOperation 2.0 %p - attempting to delete item [incremental] with identifier=%{public}@", buf, 0x16u);
       }
 
-      v17 = *(a1 + 56);
+      v17 = a1[7];
       v28 = 0;
       v18 = [v17 removeItemWithSourceItemIdentifier:v14 error:&v28];
       v19 = v28;
@@ -698,7 +698,7 @@ void __79__ML3UpdateSiriIndexOperation__performIncrementalIndexToRevision_withDo
         *a7 = 1;
       }
 
-      *(*(*(a1 + 64) + 8) + 24) = 0;
+      *(*(a1[8] + 8) + 24) = 0;
       v20 = os_log_create("com.apple.amp.medialibrary", "Indexing");
       if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
@@ -708,7 +708,7 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      v21 = *(a1 + 48);
+      v21 = a1[6];
       *buf = 134218242;
       v31 = v21;
       v32 = 2114;
@@ -722,13 +722,13 @@ LABEL_18:
 
   else
   {
-    v14 = _CreateCCItemInstance(*(a1 + 32), *(a1 + 40), a2, a6);
+    v14 = _CreateCCItemInstance(a1[4], a1[5], a2, a6);
     if (v14)
     {
       v23 = os_log_create("com.apple.amp.medialibrary", "Indexing");
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = *(a1 + 48);
+        v24 = a1[6];
         *buf = 134218242;
         v31 = v24;
         v32 = 2114;
@@ -736,7 +736,7 @@ LABEL_18:
         _os_log_impl(&dword_22D2FA000, v23, OS_LOG_TYPE_DEFAULT, "ML3UpdateSiriIndexOperation 2.0 %p - attempting to add or update item [incremental] with identifier=%{public}@", buf, 0x16u);
       }
 
-      v25 = *(a1 + 56);
+      v25 = a1[7];
       v29 = 0;
       v26 = [v25 addOrUpdateItem:v14 error:&v29];
       v19 = v29;
@@ -750,14 +750,14 @@ LABEL_18:
         *a7 = 1;
       }
 
-      *(*(*(a1 + 64) + 8) + 24) = 0;
+      *(*(a1[8] + 8) + 24) = 0;
       v20 = os_log_create("com.apple.amp.medialibrary", "Indexing");
       if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_19;
       }
 
-      v27 = *(a1 + 48);
+      v27 = a1[6];
       *buf = 134218242;
       v31 = v27;
       v32 = 2114;
@@ -831,7 +831,7 @@ LABEL_21:
   return v10 & 1;
 }
 
-void __72__ML3UpdateSiriIndexOperation__performFullIndexToRevision_withDonation___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, _BYTE *a7)
+void __72__ML3UpdateSiriIndexOperation__performFullIndexToRevision_withDonation___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, void *a6, _BYTE *a7)
 {
   v26 = *MEMORY[0x277D85DE8];
   v12 = objc_autoreleasePoolPush();

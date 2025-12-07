@@ -31,59 +31,60 @@
 - (VCPHandGestureImageRequest)initWithOptions:(id)options
 {
   optionsCopy = options;
-  v5 = VCPSignPostLog();
+  v5 = VCPSignPostLog(optionsCopy);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = VCPSignPostLog();
-  v8 = v7;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = VCPSignPostLog(v7);
+  v9 = v8;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "VCPHandGestureImageRequest_initWithOptions", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "VCPHandGestureImageRequest_initWithOptions", "", buf, 2u);
   }
 
-  v23.receiver = self;
-  v23.super_class = VCPHandGestureImageRequest;
-  v9 = [(VCPRequest *)&v23 initWithOptions:optionsCopy];
-  if (v9)
+  v25.receiver = self;
+  v25.super_class = VCPHandGestureImageRequest;
+  v10 = [(VCPRequest *)&v25 initWithOptions:optionsCopy];
+  v11 = v10;
+  if (v10)
   {
-    v10 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:optionsCopy];
-    v11 = [optionsCopy objectForKeyedSubscript:@"handPoseLite"];
+    v12 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:optionsCopy];
+    v13 = [optionsCopy objectForKeyedSubscript:@"handPoseLite"];
 
-    if (!v11)
+    if (!v13)
     {
-      [v10 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"handPoseLite"];
+      [v12 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"handPoseLite"];
     }
 
-    [v10 setObject:&unk_1F49BBF20 forKeyedSubscript:@"revision"];
-    v12 = [[VCPHandPoseImageRequest alloc] initWithOptions:v10];
-    handPoseRequest = v9->handPoseRequest;
-    v9->handPoseRequest = v12;
+    [v12 setObject:&unk_1F49BBF20 forKeyedSubscript:@"revision"];
+    v14 = [[VCPHandPoseImageRequest alloc] initWithOptions:v12];
+    handPoseRequest = v11->handPoseRequest;
+    v11->handPoseRequest = v14;
 
-    v14 = [[VCPCoreMLRequest alloc] initWithModelName:@"hand_gesture_static"];
-    gestureCoreMLRequest = v9->gestureCoreMLRequest;
-    v9->gestureCoreMLRequest = v14;
+    v16 = [[VCPCoreMLRequest alloc] initWithModelName:@"hand_gesture_static"];
+    gestureCoreMLRequest = v11->gestureCoreMLRequest;
+    v11->gestureCoreMLRequest = v16;
 
-    if (!v9->handPoseRequest || !v9->gestureCoreMLRequest || (queue = v9->_queue, v9->_queue = 0, queue, v9->super._useAsync) && (v17 = dispatch_queue_create("VCPHandGestureImageRequestSerialQueue", 0), v18 = v9->_queue, v9->_queue = v17, v18, !v9->_queue))
+    if (!v11->handPoseRequest || !v11->gestureCoreMLRequest || (queue = v11->_queue, v11->_queue = 0, queue, v11->super._useAsync) && (v19 = dispatch_queue_create("VCPHandGestureImageRequestSerialQueue", 0), v20 = v11->_queue, v11->_queue = v19, v20, !v11->_queue))
     {
-      v20 = 0;
+      v22 = 0;
       goto LABEL_17;
     }
   }
 
-  v19 = VCPSignPostLog();
-  v10 = v19;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+  v21 = VCPSignPostLog(v10);
+  v12 = v21;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_END, v6, "VCPHandGestureImageRequest_initWithOptions", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_END, v6, "VCPHandGestureImageRequest_initWithOptions", "", buf, 2u);
   }
 
-  v20 = v9;
+  v22 = v11;
 LABEL_17:
 
-  v21 = v20;
-  return v21;
+  v23 = v22;
+  return v23;
 }
 
 - (id)taxonomyMappingStatic
@@ -577,7 +578,7 @@ LABEL_15:
 
     keypoints2 = [v11 keypoints];
     v28 = [keypoints2 objectAtIndexedSubscript:4];
-    v114 = COERCE_INT32X2_T(keyPointPosition(v28, degrees));
+    v114 = COERCE_FLOAT32X2_T(keyPointPosition(v28, degrees));
 
     v29 = [keypoints2 objectAtIndexedSubscript:2];
     v99 = COERCE_FLOAT32X2_T(keyPointPosition(v29, degrees));
@@ -754,7 +755,7 @@ LABEL_15:
                               goto LABEL_5;
                             }
 
-                            if (v99.f32[1] * 1.1 >= *&v114.i32[1] && *(&v106 + 1) * 1.02 >= *(&v113 + 1) && *(&v105 + 1) * 1.02 >= v111.f32[1] && *(&v101 + 1) * 1.02 >= *(&v108 + 1) && v95 * 1.02 >= *(&v98 + 1) && v100.f32[1] * 1.1 >= v112.f32[1] && *(&v104 + 1) * 1.02 >= *(&v110 + 1) && *(&v103 + 1) * 1.02 >= v109.f32[1] && *(&v102 + 1) * 1.02 >= *(&v107 + 1))
+                            if (v99.f32[1] * 1.1 >= v114.f32[1] && *(&v106 + 1) * 1.02 >= *(&v113 + 1) && *(&v105 + 1) * 1.02 >= v111.f32[1] && *(&v101 + 1) * 1.02 >= *(&v108 + 1) && v95 * 1.02 >= *(&v98 + 1) && v100.f32[1] * 1.1 >= v112.f32[1] && *(&v104 + 1) * 1.02 >= *(&v110 + 1) && *(&v103 + 1) * 1.02 >= v109.f32[1] && *(&v102 + 1) * 1.02 >= *(&v107 + 1))
                             {
                               v12 = v96 * 1.02 >= *(&v97 + 1);
                               goto LABEL_5;
@@ -795,22 +796,22 @@ LABEL_5:
 
 - (id)processImage:(__CVBuffer *)image withOptions:(id)options error:(id *)error
 {
-  v146 = *MEMORY[0x1E69E9840];
+  v147 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v6 = VCPSignPostLog();
+  v6 = VCPSignPostLog(optionsCopy);
   v7 = os_signpost_id_generate(v6);
 
-  v8 = VCPSignPostLog();
-  v9 = v8;
-  v88 = v7 - 1;
+  v9 = VCPSignPostLog(v8);
+  v10 = v9;
+  v89 = v7 - 1;
   spid = v7;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "VCPHandGestureImageRequest_processImage", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "VCPHandGestureImageRequest_processImage", "", buf, 2u);
   }
 
-  v91 = [(VCPHandPoseImageRequest *)self->handPoseRequest processImage:image withOptions:optionsCopy error:error];
+  v92 = [(VCPHandPoseImageRequest *)self->handPoseRequest processImage:image withOptions:optionsCopy error:error];
   RotationInDegrees = getRotationInDegrees(optionsCopy);
   maxNumOfPersons = self->super._maxNumOfPersons;
   if (maxNumOfPersons >= 3)
@@ -823,182 +824,182 @@ LABEL_5:
     maxNumOfPersons = 1;
   }
 
-  v99 = maxNumOfPersons;
+  v100 = maxNumOfPersons;
   array = [MEMORY[0x1E695DF70] array];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v130 = 0u;
   v131 = 0u;
-  v128 = 0u;
+  v132 = 0u;
   v129 = 0u;
-  obj = v91;
-  v12 = [obj countByEnumeratingWithState:&v128 objects:v145 count:16];
-  if (v12)
+  v130 = 0u;
+  obj = v92;
+  v13 = [obj countByEnumeratingWithState:&v129 objects:v146 count:16];
+  if (v13)
   {
-    v13 = *v129;
+    v14 = *v130;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v129 != v13)
+        if (*v130 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v128 + 1) + 8 * i);
-        v16 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v15, "groupID")}];
-        v17 = [dictionary objectForKeyedSubscript:v16];
-        v18 = v17 == 0;
+        v16 = *(*(&v129 + 1) + 8 * i);
+        v17 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v16, "groupID")}];
+        v18 = [dictionary objectForKeyedSubscript:v17];
+        v19 = v18 == 0;
 
-        if (v18)
+        if (v19)
         {
-          v19 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v15, 0}];
-          v20 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v15, "groupID")}];
-          [dictionary setObject:v19 forKeyedSubscript:v20];
+          v20 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v16, 0}];
+          v21 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v16, "groupID")}];
+          [dictionary setObject:v20 forKeyedSubscript:v21];
         }
 
         else
         {
-          v19 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v15, "groupID")}];
-          v20 = [dictionary objectForKeyedSubscript:v19];
-          [v20 addObject:v15];
+          v20 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v16, "groupID")}];
+          v21 = [dictionary objectForKeyedSubscript:v20];
+          [v21 addObject:v16];
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v128 objects:v145 count:16];
+      v13 = [obj countByEnumeratingWithState:&v129 objects:v146 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
   allKeys = [dictionary allKeys];
-  v22 = [allKeys count];
-  v23 = v99;
-  if (v99 >= v22)
+  v23 = [allKeys count];
+  v24 = v100;
+  if (v100 >= v23)
   {
-    v23 = v22;
+    v24 = v23;
   }
 
-  v93 = v23;
+  v94 = v24;
 
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-  v126 = 0u;
   v127 = 0u;
-  v124 = 0u;
+  v128 = 0u;
   v125 = 0u;
+  v126 = 0u;
   allKeys2 = [dictionary allKeys];
-  v24 = [allKeys2 countByEnumeratingWithState:&v124 objects:v144 count:16];
-  if (v24)
+  v25 = [allKeys2 countByEnumeratingWithState:&v125 objects:v145 count:16];
+  if (v25)
   {
-    v25 = *v125;
+    v26 = *v126;
     do
     {
-      for (j = 0; j != v24; ++j)
+      for (j = 0; j != v25; ++j)
       {
-        if (*v125 != v25)
+        if (*v126 != v26)
         {
           objc_enumerationMutation(allKeys2);
         }
 
-        v27 = *(*(&v124 + 1) + 8 * j);
-        v28 = [dictionary objectForKeyedSubscript:v27];
-        if ([v28 count])
+        v28 = *(*(&v125 + 1) + 8 * j);
+        v29 = [dictionary objectForKeyedSubscript:v28];
+        if ([v29 count])
         {
-          v122 = 0u;
           v123 = 0u;
-          v120 = 0u;
+          v124 = 0u;
           v121 = 0u;
-          v29 = v28;
-          v30 = [v29 countByEnumeratingWithState:&v120 objects:v143 count:16];
-          if (v30)
+          v122 = 0u;
+          v30 = v29;
+          v31 = [v30 countByEnumeratingWithState:&v121 objects:v144 count:16];
+          if (v31)
           {
-            v31 = *v121;
-            v32 = 0.0;
+            v32 = *v122;
+            v33 = 0.0;
             do
             {
-              for (k = 0; k != v30; ++k)
+              for (k = 0; k != v31; ++k)
               {
-                if (*v121 != v31)
+                if (*v122 != v32)
                 {
-                  objc_enumerationMutation(v29);
+                  objc_enumerationMutation(v30);
                 }
 
-                v32 = v32 + handArea(*(*(&v120 + 1) + 8 * k));
+                v33 = v33 + handArea(*(*(&v121 + 1) + 8 * k));
               }
 
-              v30 = [v29 countByEnumeratingWithState:&v120 objects:v143 count:16];
+              v31 = [v30 countByEnumeratingWithState:&v121 objects:v144 count:16];
             }
 
-            while (v30);
+            while (v31);
           }
 
           else
           {
-            v32 = 0.0;
+            v33 = 0.0;
           }
 
-          *&v34 = v32 / [v29 count];
-          v35 = [MEMORY[0x1E696AD98] numberWithFloat:v34];
-          [dictionary2 setObject:v35 forKeyedSubscript:v27];
+          *&v35 = v33 / [v30 count];
+          v36 = [MEMORY[0x1E696AD98] numberWithFloat:v35];
+          [dictionary2 setObject:v36 forKeyedSubscript:v28];
         }
       }
 
-      v24 = [allKeys2 countByEnumeratingWithState:&v124 objects:v144 count:16];
+      v25 = [allKeys2 countByEnumeratingWithState:&v125 objects:v145 count:16];
     }
 
-    while (v24);
+    while (v25);
   }
 
-  v36 = [dictionary2 keysSortedByValueUsingComparator:&__block_literal_global_34];
+  v37 = [dictionary2 keysSortedByValueUsingComparator:&__block_literal_global_34];
   if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v138 = v36;
-    v139 = 1024;
-    v140 = v99;
-    v141 = 1024;
-    v142 = v93;
+    v139 = v37;
+    v140 = 1024;
+    v141 = v100;
+    v142 = 1024;
+    v143 = v94;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "VCPHandGestureVideoRequest - sorted groupIDs based on hand size = %@, max number of persons = %d, number of valid persons = %d", buf, 0x18u);
   }
 
-  v37 = 0;
-  for (m = v36; ; v36 = m)
+  v38 = 0;
+  for (m = v37; ; v37 = m)
   {
-    v38 = [v36 count];
-    v39 = v93 >= v38 ? v38 : v93;
-    if (v37 >= v39)
+    v39 = [v37 count];
+    v40 = v94 >= v39 ? v39 : v94;
+    if (v38 >= v40)
     {
       break;
     }
 
-    v40 = [v36 objectAtIndexedSubscript:v37];
-    v90 = v37;
-    v41 = [dictionary objectForKeyedSubscript:v40];
+    v41 = [v37 objectAtIndexedSubscript:v38];
+    v91 = v38;
+    v42 = [dictionary objectForKeyedSubscript:v41];
 
-    v118 = 0u;
     v119 = 0u;
-    v116 = 0u;
+    v120 = 0u;
     v117 = 0u;
-    v96 = v41;
-    v42 = [v96 countByEnumeratingWithState:&v116 objects:v136 count:16];
-    if (!v42)
+    v118 = 0u;
+    v97 = v42;
+    v43 = [v97 countByEnumeratingWithState:&v117 objects:v137 count:16];
+    if (!v43)
     {
       goto LABEL_65;
     }
 
-    v95 = *v117;
+    v96 = *v118;
     while (2)
     {
-      for (n = 0; n != v42; ++n)
+      for (n = 0; n != v43; ++n)
       {
-        if (*v117 != v95)
+        if (*v118 != v96)
         {
-          objc_enumerationMutation(v96);
+          objc_enumerationMutation(v97);
         }
 
-        v44 = *(*(&v116 + 1) + 8 * n);
-        v45 = [[VCPCoreMLFeatureProviderGesture alloc] initWith:v44 rotationInDegrees:RotationInDegrees];
-        v100 = v45;
-        if (!v45)
+        v45 = *(*(&v117 + 1) + 8 * n);
+        v46 = [[VCPCoreMLFeatureProviderGesture alloc] initWith:v45 rotationInDegrees:RotationInDegrees];
+        v101 = v46;
+        if (!v46)
         {
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
@@ -1010,9 +1011,9 @@ LABEL_5:
         }
 
         model = [(VCPCoreMLRequest *)self->gestureCoreMLRequest model];
-        v103 = [model predictionFromFeatures:v45 error:error];
+        v104 = [model predictionFromFeatures:v46 error:error];
 
-        if (!v103)
+        if (!v104)
         {
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
@@ -1023,9 +1024,9 @@ LABEL_5:
           goto LABEL_113;
         }
 
-        v47 = [v103 featureValueForName:@"output"];
-        multiArrayValue = [v47 multiArrayValue];
-        v49 = multiArrayValue;
+        v48 = [v104 featureValueForName:@"output"];
+        multiArrayValue = [v48 multiArrayValue];
+        v50 = multiArrayValue;
         dataPointer = [multiArrayValue dataPointer];
 
         if (!dataPointer)
@@ -1033,7 +1034,7 @@ LABEL_5:
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            v80 = MEMORY[0x1E69E9C10];
+            v81 = MEMORY[0x1E69E9C10];
             goto LABEL_111;
           }
 
@@ -1042,78 +1043,78 @@ LABEL_112:
 LABEL_113:
           if (error)
           {
-            v81 = MEMORY[0x1E696ABC0];
-            v132 = *MEMORY[0x1E696A578];
-            v82 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error: failed to processImage"];
-            v133 = v82;
-            v83 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v133 forKeys:&v132 count:1];
-            *error = [v81 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v83];
+            v82 = MEMORY[0x1E696ABC0];
+            v133 = *MEMORY[0x1E696A578];
+            v83 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error: failed to processImage"];
+            v134 = v83;
+            v84 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
+            *error = [v82 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v84];
           }
 
-          v84 = 0;
-          v36 = m;
+          v85 = 0;
+          v37 = m;
           goto LABEL_116;
         }
 
-        multiArrayValue2 = [v47 multiArrayValue];
-        v52 = [multiArrayValue2 count] == 12;
+        multiArrayValue2 = [v48 multiArrayValue];
+        v53 = [multiArrayValue2 count] == 12;
 
-        if (!v52)
+        if (!v53)
         {
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            v80 = MEMORY[0x1E69E9C10];
+            v81 = MEMORY[0x1E69E9C10];
 LABEL_111:
-            _os_log_impl(&dword_1C9B70000, v80, OS_LOG_TYPE_ERROR, "Failed to get multierarrayvalue", buf, 2u);
+            _os_log_impl(&dword_1C9B70000, v81, OS_LOG_TYPE_ERROR, "Failed to get multierarrayvalue", buf, 2u);
           }
 
           goto LABEL_112;
         }
 
-        v53 = 0;
         v54 = 0;
-        v55 = 0.0;
+        v55 = 0;
+        v56 = 0.0;
         while (1)
         {
-          multiArrayValue3 = [v47 multiArrayValue];
-          v57 = [multiArrayValue3 count] > v53;
+          multiArrayValue3 = [v48 multiArrayValue];
+          v58 = [multiArrayValue3 count] > v54;
 
-          if (!v57)
+          if (!v58)
           {
             break;
           }
 
-          if (*(dataPointer + 4 * v53) <= v55)
+          if (*(dataPointer + 4 * v54) <= v56)
           {
-            v54 = v54;
+            v55 = v55;
           }
 
           else
           {
-            v55 = *(dataPointer + 4 * v53);
-            v54 = v53;
+            v56 = *(dataPointer + 4 * v54);
+            v55 = v54;
           }
 
-          ++v53;
+          ++v54;
         }
 
         taxonomyMappingStatic = [(VCPHandGestureImageRequest *)self taxonomyMappingStatic];
-        v59 = [MEMORY[0x1E696AD98] numberWithInt:v54];
-        v60 = [taxonomyMappingStatic objectForKeyedSubscript:v59];
-        [v44 setGestureType:{objc_msgSend(v60, "intValue")}];
+        v60 = [MEMORY[0x1E696AD98] numberWithInt:v55];
+        v61 = [taxonomyMappingStatic objectForKeyedSubscript:v60];
+        [v45 setGestureType:{objc_msgSend(v61, "intValue")}];
 
-        if ([v44 gestureType] == 9)
+        if ([v45 gestureType] == 9)
         {
-          [v44 setGestureType:{-[VCPHandGestureImageRequest heuristicThumb:rotationInDegrees:](self, "heuristicThumb:rotationInDegrees:", v44, RotationInDegrees)}];
+          [v45 setGestureType:{-[VCPHandGestureImageRequest heuristicThumb:rotationInDegrees:](self, "heuristicThumb:rotationInDegrees:", v45, RotationInDegrees)}];
         }
 
-        *&v61 = v55;
-        [v44 setGestureConfidence:v61];
+        *&v62 = v56;
+        [v45 setGestureConfidence:v62];
       }
 
-      v42 = [v96 countByEnumeratingWithState:&v116 objects:v136 count:16];
-      if (v42)
+      v43 = [v97 countByEnumeratingWithState:&v117 objects:v137 count:16];
+      if (v43)
       {
         continue;
       }
@@ -1123,53 +1124,53 @@ LABEL_111:
 
 LABEL_65:
 
-    if ([v96 count] < 2)
+    if ([v97 count] < 2)
     {
       goto LABEL_90;
     }
 
-    v114 = 0u;
     v115 = 0u;
-    v112 = 0u;
+    v116 = 0u;
     v113 = 0u;
-    v104 = v96;
-    v62 = [v104 countByEnumeratingWithState:&v112 objects:v135 count:16];
-    if (!v62)
+    v114 = 0u;
+    v105 = v97;
+    v63 = [v105 countByEnumeratingWithState:&v113 objects:v136 count:16];
+    if (!v63)
     {
 
+      v65 = 0;
       v64 = 0;
-      v63 = 0;
       goto LABEL_89;
     }
 
-    v63 = 0;
     v64 = 0;
-    v65 = *v113;
+    v65 = 0;
+    v66 = *v114;
     while (2)
     {
-      v66 = 0;
+      v67 = 0;
       while (2)
       {
-        if (*v113 != v65)
+        if (*v114 != v66)
         {
-          objc_enumerationMutation(v104);
+          objc_enumerationMutation(v105);
         }
 
-        v67 = *(*(&v112 + 1) + 8 * v66);
-        if ([(VCPHandObservation *)v67 chirality]!= -1)
+        v68 = *(*(&v113 + 1) + 8 * v67);
+        if ([(VCPHandObservation *)v68 chirality]!= -1)
         {
-          if ([(VCPHandObservation *)v67 chirality]!= 1)
+          if ([(VCPHandObservation *)v68 chirality]!= 1)
           {
             goto LABEL_82;
           }
 
-          if (v64)
+          if (v65)
           {
-            v68 = handArea(v64);
-            v69 = v64;
-            v70 = v63;
-            v71 = v67;
-            if (v68 >= handArea(v67))
+            v69 = handArea(v65);
+            v70 = v65;
+            v71 = v64;
+            v72 = v68;
+            if (v69 >= handArea(v68))
             {
               goto LABEL_82;
             }
@@ -1177,37 +1178,37 @@ LABEL_65:
 
           else
           {
-            v69 = 0;
-            v70 = v63;
-            v71 = v67;
+            v70 = 0;
+            v71 = v64;
+            v72 = v68;
           }
 
           goto LABEL_81;
         }
 
-        if (!v63)
+        if (!v64)
         {
-          v69 = 0;
-          v70 = v67;
-          v71 = v64;
+          v70 = 0;
+          v71 = v68;
+          v72 = v65;
           goto LABEL_81;
         }
 
-        v72 = handArea(v63);
-        v69 = v63;
-        v70 = v67;
-        v71 = v64;
-        if (v72 < handArea(v67))
+        v73 = handArea(v64);
+        v70 = v64;
+        v71 = v68;
+        v72 = v65;
+        if (v73 < handArea(v68))
         {
 LABEL_81:
-          v73 = v67;
+          v74 = v68;
 
-          v63 = v70;
           v64 = v71;
+          v65 = v72;
         }
 
 LABEL_82:
-        if (v62 != ++v66)
+        if (v63 != ++v67)
         {
           continue;
         }
@@ -1215,8 +1216,8 @@ LABEL_82:
         break;
       }
 
-      v62 = [v104 countByEnumeratingWithState:&v112 objects:v135 count:16];
-      if (v62)
+      v63 = [v105 countByEnumeratingWithState:&v113 objects:v136 count:16];
+      if (v63)
       {
         continue;
       }
@@ -1224,61 +1225,61 @@ LABEL_82:
       break;
     }
 
-    if (v63 && v64 && [objc_opt_class() heuristicHeart:v63 andRightHand:v64 rotationInDegrees:RotationInDegrees relax:0])
+    if (v64 && v65 && [objc_opt_class() heuristicHeart:v64 andRightHand:v65 rotationInDegrees:RotationInDegrees relax:0])
     {
-      [(VCPHandObservation *)v63 setGestureType:15];
-      LODWORD(v74) = 0.5;
-      [(VCPHandObservation *)v63 setGestureConfidence:v74];
       [(VCPHandObservation *)v64 setGestureType:15];
       LODWORD(v75) = 0.5;
       [(VCPHandObservation *)v64 setGestureConfidence:v75];
+      [(VCPHandObservation *)v65 setGestureType:15];
+      LODWORD(v76) = 0.5;
+      [(VCPHandObservation *)v65 setGestureConfidence:v76];
     }
 
 LABEL_89:
 
 LABEL_90:
-    v110 = 0u;
     v111 = 0u;
-    v108 = 0u;
+    v112 = 0u;
     v109 = 0u;
-    v76 = v96;
-    v77 = [v76 countByEnumeratingWithState:&v108 objects:v134 count:16];
-    if (v77)
+    v110 = 0u;
+    v77 = v97;
+    v78 = [v77 countByEnumeratingWithState:&v109 objects:v135 count:16];
+    if (v78)
     {
-      v78 = *v109;
+      v79 = *v110;
       do
       {
-        for (ii = 0; ii != v77; ++ii)
+        for (ii = 0; ii != v78; ++ii)
         {
-          if (*v109 != v78)
+          if (*v110 != v79)
           {
-            objc_enumerationMutation(v76);
+            objc_enumerationMutation(v77);
           }
 
-          [array addObject:*(*(&v108 + 1) + 8 * ii)];
+          [array addObject:*(*(&v109 + 1) + 8 * ii)];
         }
 
-        v77 = [v76 countByEnumeratingWithState:&v108 objects:v134 count:16];
+        v78 = [v77 countByEnumeratingWithState:&v109 objects:v135 count:16];
       }
 
-      while (v77);
+      while (v78);
     }
 
-    v37 = v90 + 1;
+    v38 = v91 + 1;
   }
 
-  v86 = VCPSignPostLog();
-  v87 = v86;
-  if (v88 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v86))
+  v87 = VCPSignPostLog(v39);
+  v88 = v87;
+  if (v89 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v87))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v87, OS_SIGNPOST_INTERVAL_END, spid, "VCPHandGestureImageRequest_processImage", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v88, OS_SIGNPOST_INTERVAL_END, spid, "VCPHandGestureImageRequest_processImage", "", buf, 2u);
   }
 
-  v84 = array;
+  v85 = array;
 LABEL_116:
 
-  return v84;
+  return v85;
 }
 
 - (void)updateWithOptions:(id)options completion:(id)completion

@@ -77,7 +77,7 @@
     node = self->_node;
     if (node)
     {
-      [(DOMNode *)node absoluteQuad];
+      objc_msgSend_absoluteQuad(node);
     }
 
     else

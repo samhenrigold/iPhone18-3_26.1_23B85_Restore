@@ -19,7 +19,7 @@
   v8 = v7;
   [changesPayloadCopy hmf_enumerateKeysAndObjectsWithAutoreleasePoolUsingBlock:v11];
 
-  v9 = [v8 copy];
+  v9 = objc_msgSend_copy(v8);
 
   return v9;
 }
@@ -50,7 +50,7 @@ void __115__HMDCharacteristicUpdatesNotificationPayload_mergeCharacteristicChang
     v10 = [v6 mutableCopy];
   }
 
-  v11 = [v10 copy];
+  v11 = objc_msgSend_copy(v10);
   [*(a1 + 32) setObject:v11 forKeyedSubscript:v7];
 }
 
@@ -72,7 +72,7 @@ void __115__HMDCharacteristicUpdatesNotificationPayload_mergeCharacteristicChang
     v10 = [v6 mutableCopy];
   }
 
-  v9 = [v10 copy];
+  v9 = objc_msgSend_copy(v10);
   [*(a1 + 32) setObject:v9 forKeyedSubscript:v7];
 }
 
@@ -109,12 +109,12 @@ void __115__HMDCharacteristicUpdatesNotificationPayload_mergeCharacteristicChang
   v8 = [(HMDCharacteristicUpdatesNotificationPayload *)&v14 init];
   if (v8)
   {
-    v9 = [updatesCopy copy];
+    v9 = objc_msgSend_copy(updatesCopy);
     spiEntitledClientUpdates = v8->_spiEntitledClientUpdates;
     v8->_spiEntitledClientUpdates = v9;
 
     v8->_hasEntitledClientOnlyChanges = [updatesCopy count] != 0;
-    v11 = [clientUpdatesCopy copy];
+    v11 = objc_msgSend_copy(clientUpdatesCopy);
     characteristicUpdatesForAllClients = v8->_characteristicUpdatesForAllClients;
     v8->_characteristicUpdatesForAllClients = v11;
   }

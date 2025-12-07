@@ -22,9 +22,9 @@ id getLPLinkMetadataClass()
   return v1;
 }
 
-void sub_18B35A880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B35A880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -53,9 +53,9 @@ id getSFUILoadedMetadataCollectionClass()
   return v1;
 }
 
-void sub_18B35A960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B35A960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -107,9 +107,9 @@ uint64_t WebPrivacyLibraryCore()
   return WebPrivacyLibraryCore_frameworkLibrary;
 }
 
-void sub_18B35BCA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B35BCA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -139,7 +139,7 @@ Class __getLPLinkMetadataClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -182,7 +182,7 @@ Class __getLPLinkMetadataClass_block_invoke_0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -235,7 +235,7 @@ void LinkPresentationLibrary()
   v0 = v1[0];
   if (!LinkPresentationLibraryCore_frameworkLibrary_1)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -246,9 +246,9 @@ LABEL_7:
   }
 }
 
-void sub_18B35C4AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B35C4AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -283,7 +283,7 @@ uint64_t _ShareSheetSolariumEnabled()
   return result;
 }
 
-uint64_t _ShareSheetHostCanRenderInProcess()
+uint64_t _ShareSheetHostCanRenderInProcess(uint64_t a1, uint64_t a2)
 {
   if (_ShareSheetHostCanUseCustomViewController_onceToken != -1)
   {
@@ -390,7 +390,7 @@ Class __getMCProfileConnectionClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -520,7 +520,7 @@ Class __getSFUILoadedMetadataCollectionClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -937,24 +937,24 @@ uint64_t _UIActivityCanDisplayActivityForApplicationProxy(void *a1)
   return v3;
 }
 
-id _ShareSheetBundleIDFromAuditToken()
+id _ShareSheetBundleIDFromAuditToken(_OWORD *a1)
 {
   if (CPCopyBundleIdentifierAndTeamFromAuditToken())
   {
-    v0 = 0;
+    v1 = 0;
   }
 
   else
   {
-    v0 = CPCopyBundleIdentifierFromAuditToken();
+    v1 = CPCopyBundleIdentifierFromAuditToken();
   }
 
-  if (!v0)
+  if (!v1)
   {
     NSLog(&cfstr_CannotGetBundl.isa);
   }
 
-  return v0;
+  return v1;
 }
 
 uint64_t IsCopyable(void *a1)
@@ -1012,7 +1012,7 @@ void ExtensionKitLibrary()
   v0 = v1[0];
   if (!ExtensionKitLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -1335,7 +1335,7 @@ void ItemTypesSet(void *a1)
         if (objc_opt_isKindOfClass())
         {
           v22 = [v6 allValues];
-          ItemTypesSet();
+          ItemTypesSet(v22);
         }
       }
 
@@ -1445,7 +1445,7 @@ uint64_t initPLLogRegisteredEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   v8 = dlsym(PowerLogLibrary_sLib, "PLLogRegisteredEvent");
   softLinkPLLogRegisteredEvent = v8;
 
-  return (v8)(a1, a2, a3, a4);
+  return v8(a1, a2, a3, a4);
 }
 
 void *__PowerLogLibrary_block_invoke()
@@ -1479,9 +1479,9 @@ id getSFUIShareSheetRemoteSettingsHelperClass()
   return v1;
 }
 
-void sub_18B361D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B361D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1511,7 +1511,7 @@ Class __getSFUIShareSheetRemoteSettingsHelperClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1554,7 +1554,7 @@ Class __getSFUIShareSheetRemoteSettingsHelperClass_block_invoke_0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1607,9 +1607,9 @@ BOOL SHSheetIsPresentedInPopover(void *a1)
   return v2;
 }
 
-void sub_18B364044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18B364044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1640,7 +1640,7 @@ void *__getSFUILinkMetadataSerializationForLocalUseOnlySymbolLoc_block_invoke(ui
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1655,7 +1655,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __SharingUILibraryCore_block_invoke()
+uint64_t __SharingUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SharingUILibraryCore_frameworkLibrary = result;
@@ -2048,16 +2048,16 @@ uint64_t ___payloadItemURLByExtensionMatchingHeuristicInExtractionController_blo
   return v6 & 1;
 }
 
-void sub_18B368CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_18B368CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B368F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_18B368F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2087,7 +2087,7 @@ Class __getSLCollaborationFooterViewModelClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2105,14 +2105,14 @@ LABEL_4:
   return result;
 }
 
-uint64_t __SocialLayerLibraryCore_block_invoke()
+uint64_t __SocialLayerLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SocialLayerLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-uint64_t __LinkPresentationLibraryCore_block_invoke()
+uint64_t __LinkPresentationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   LinkPresentationLibraryCore_frameworkLibrary = result;
@@ -2220,9 +2220,9 @@ LABEL_6:
   return v7;
 }
 
-void sub_18B36BD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B36BD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2234,15 +2234,16 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_18B36EC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B36EC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2291,7 +2292,7 @@ Class __getSFUIActivityImageProviderClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2309,35 +2310,35 @@ LABEL_4:
   return result;
 }
 
-uint64_t __SharingUILibraryCore_block_invoke_0()
+uint64_t __SharingUILibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   SharingUILibraryCore_frameworkLibrary_0 = result;
   return result;
 }
 
-void sub_18B3737E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B3737E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __LinkPresentationLibraryCore_block_invoke_0()
+uint64_t __LinkPresentationLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   LinkPresentationLibraryCore_frameworkLibrary_0 = result;
   return result;
 }
 
-void sub_18B374260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B374260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __SharedWithYouCoreLibraryCore_block_invoke()
+uint64_t __SharedWithYouCoreLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SharedWithYouCoreLibraryCore_frameworkLibrary = result;
@@ -2398,13 +2399,14 @@ void sub_18B375AF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-uint64_t __SharingUILibraryCore_block_invoke_1()
+uint64_t __SharingUILibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   SharingUILibraryCore_frameworkLibrary_1 = result;
@@ -2435,9 +2437,9 @@ id getSFUIShareSheetActivityCellSpecClass()
   return v1;
 }
 
-void sub_18B37C140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B37C140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2488,7 +2490,7 @@ Class __getSFUIShareSheetActivityCellSpecClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2506,16 +2508,16 @@ LABEL_4:
   return result;
 }
 
-uint64_t __SharingUILibraryCore_block_invoke_2()
+uint64_t __SharingUILibraryCore_block_invoke_2(uint64_t a1)
 {
   result = _sl_dlopen();
   SharingUILibraryCore_frameworkLibrary_2 = result;
   return result;
 }
 
-void sub_18B38296C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18B38296C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2695,6 +2697,13 @@ LABEL_18:
   return v6;
 }
 
+void sub_18B383C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -2728,7 +2737,7 @@ void *__getDMPerformMigrationIfNeededSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -2743,7 +2752,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __DataMigrationLibraryCore_block_invoke()
+uint64_t __DataMigrationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   DataMigrationLibraryCore_frameworkLibrary = result;
@@ -2786,6 +2795,13 @@ void sub_18B3845D4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
+void sub_18B38654C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
+{
+  va_start(va, a52);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 Class initMFMailComposeViewController()
 {
   if (MessageUILibrary_sOnce != -1)
@@ -2817,7 +2833,7 @@ uint64_t initQLTypeCopyUTIForURLAndMimeType(void *a1, void *a2)
   }
 
   softLinkQLTypeCopyUTIForURLAndMimeType = dlsym(QuickLookLibrary_sLib, "QLTypeCopyUTIForURLAndMimeType");
-  v6 = (softLinkQLTypeCopyUTIForURLAndMimeType)(v5, v4);
+  v6 = softLinkQLTypeCopyUTIForURLAndMimeType(v5, v4);
 
   return v6;
 }
@@ -2840,7 +2856,7 @@ uint64_t initQLTypeCopyBestMimeTypeForURLAndMimeType(void *a1, void *a2)
   }
 
   softLinkQLTypeCopyBestMimeTypeForURLAndMimeType = dlsym(QuickLookLibrary_sLib, "QLTypeCopyBestMimeTypeForURLAndMimeType");
-  v6 = (softLinkQLTypeCopyBestMimeTypeForURLAndMimeType)(v5, v4);
+  v6 = softLinkQLTypeCopyBestMimeTypeForURLAndMimeType(v5, v4);
 
   return v6;
 }
@@ -2856,7 +2872,7 @@ uint64_t initQLTypeCopyBestMimeTypeForFileNameAndMimeType(void *a1, void *a2)
   }
 
   softLinkQLTypeCopyBestMimeTypeForFileNameAndMimeType = dlsym(QuickLookLibrary_sLib, "QLTypeCopyBestMimeTypeForFileNameAndMimeType");
-  v6 = (softLinkQLTypeCopyBestMimeTypeForFileNameAndMimeType)(v5, v4);
+  v6 = softLinkQLTypeCopyBestMimeTypeForFileNameAndMimeType(v5, v4);
 
   return v6;
 }
@@ -2868,16 +2884,16 @@ void *__MessageLibrary_block_invoke()
   return result;
 }
 
-id initValMCFeatureAccountModificationAllowed()
+id initValMCFeatureAccountModificationAllowed(uint64_t a1)
 {
   if (softLinkOnceMCFeatureAccountModificationAllowed != -1)
   {
     initValMCFeatureAccountModificationAllowed_cold_1();
   }
 
-  v1 = constantValMCFeatureAccountModificationAllowed;
+  v2 = constantValMCFeatureAccountModificationAllowed;
 
-  return v1;
+  return v2;
 }
 
 void __initValMCFeatureAccountModificationAllowed_block_invoke()
@@ -2935,30 +2951,30 @@ id imageLoadingQueue()
 
 void _loadItemProvidersFromActivityItemsStartingAtIndex(void *a1, unint64_t a2, void *a3, int a4, void *a5, void *a6, void *a7)
 {
-  v142 = *MEMORY[0x1E69E9840];
+  v146 = *MEMORY[0x1E69E9840];
   v13 = a1;
   v14 = a3;
   v15 = a5;
   v16 = a6;
   v17 = a7;
-  v18 = _itemLoaderQueue();
+  v18 = _itemLoaderQueue(v17);
   dispatch_assert_queue_V2(v18);
 
-  v121[0] = MEMORY[0x1E69E9820];
-  v121[1] = 3221225472;
-  v121[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke;
-  v121[3] = &unk_1E71F9AC0;
+  v125[0] = MEMORY[0x1E69E9820];
+  v125[1] = 3221225472;
+  v125[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke;
+  v125[3] = &unk_1E71F9AC0;
   v19 = v13;
-  v122 = v19;
-  v126 = a2;
-  v127 = a4;
+  v126 = v19;
+  v130 = a2;
+  v131 = a4;
   v20 = v15;
-  v123 = v20;
+  v127 = v20;
   v21 = v16;
-  v124 = v21;
+  v128 = v21;
   v22 = v17;
-  v125 = v22;
-  v79 = MEMORY[0x18CFF58E0](v121);
+  v129 = v22;
+  v83 = MEMORY[0x18CFF58E0](v125);
   v23 = [v19 count];
   v24 = share_sheet_log();
   v25 = os_log_type_enabled(v24, OS_LOG_TYPE_INFO);
@@ -2967,7 +2983,7 @@ void _loadItemProvidersFromActivityItemsStartingAtIndex(void *a1, unint64_t a2, 
     if (v25)
     {
       *buf = 67240192;
-      v139 = a2;
+      v143 = a2;
       _os_log_impl(&dword_18B359000, v24, OS_LOG_TYPE_INFO, "Examining item at index %{public}d", buf, 8u);
     }
 
@@ -2975,31 +2991,31 @@ void _loadItemProvidersFromActivityItemsStartingAtIndex(void *a1, unint64_t a2, 
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v31 = share_sheet_log();
-      v30 = v79;
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      v32 = share_sheet_log();
+      v31 = v83;
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
         *buf = 67240192;
-        v139 = a2;
-        _os_log_impl(&dword_18B359000, v31, OS_LOG_TYPE_INFO, "Adding item at index %{public}d as-is.", buf, 8u);
+        v143 = a2;
+        _os_log_impl(&dword_18B359000, v32, OS_LOG_TYPE_INFO, "Adding item at index %{public}d as-is.", buf, 8u);
       }
 
-      (*(v21 + 2))(v21, v26, v26);
-      v32 = _itemLoaderQueue();
-      v83[0] = MEMORY[0x1E69E9820];
-      v83[1] = 3221225472;
-      v83[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_521;
-      v83[3] = &unk_1E71F9C28;
-      v85 = v79;
-      v84 = v14;
-      dispatch_async(v32, v83);
+      v33 = (*(v21 + 2))(v21, v26, v26);
+      v34 = _itemLoaderQueue(v33);
+      v87[0] = MEMORY[0x1E69E9820];
+      v87[1] = 3221225472;
+      v87[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_521;
+      v87[3] = &unk_1E71F9C28;
+      v89 = v83;
+      v88 = v14;
+      dispatch_async(v34, v87);
 
-      v33 = v85;
+      v35 = v89;
       goto LABEL_70;
     }
 
     v27 = v26;
-    v77 = v20;
+    v81 = v20;
     if ([v20 isEqualToString:@"com.apple.UIKit.activity.Message"] & 1) != 0 || (objc_msgSend(v20, "isEqualToString:", @"com.apple.UIKit.activity.Mail"))
     {
       v28 = 0;
@@ -3010,166 +3026,166 @@ void _loadItemProvidersFromActivityItemsStartingAtIndex(void *a1, unint64_t a2, 
       v28 = [v20 isEqualToString:@"com.apple.UIKit.activity.SaveToCameraRoll"] ^ 1;
     }
 
-    v78 = v27;
-    v34 = [v27 registeredTypeIdentifiers];
-    v35 = [v34 containsObject:@"com.apple.group-activities.activity"];
+    v82 = v27;
+    v36 = [v27 registeredTypeIdentifiers];
+    v37 = [v36 containsObject:@"com.apple.group-activities.activity"];
 
-    if (v35 && v28)
+    if (v37 && v28)
     {
-      v36 = _itemLoaderQueue();
-      v116[0] = MEMORY[0x1E69E9820];
-      v116[1] = 3221225472;
-      v116[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_503;
-      v116[3] = &unk_1E71F9AE8;
-      v119 = v21;
-      v37 = v78;
-      v117 = v78;
-      v30 = v79;
-      v120 = v79;
-      v118 = v14;
-      dispatch_async(v36, v116);
+      v39 = _itemLoaderQueue(v38);
+      v120[0] = MEMORY[0x1E69E9820];
+      v120[1] = 3221225472;
+      v120[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_503;
+      v120[3] = &unk_1E71F9AE8;
+      v123 = v21;
+      v40 = v82;
+      v121 = v82;
+      v31 = v83;
+      v124 = v83;
+      v122 = v14;
+      dispatch_async(v39, v120);
 
-      v38 = v119;
+      v41 = v123;
 LABEL_18:
-      v20 = v77;
+      v20 = v81;
 LABEL_69:
 
-      v33 = v37;
+      v35 = v40;
 LABEL_70:
 
       goto LABEL_71;
     }
 
-    if (a4 && [MEMORY[0x1E69CDE78] hasiWorkSendCopyRepresentationForItemProvider:v78])
+    if (a4 && [MEMORY[0x1E69CDE78] hasiWorkSendCopyRepresentationForItemProvider:v82])
     {
-      v39 = share_sheet_log();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+      v42 = share_sheet_log();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
       {
         *buf = 67240192;
-        v139 = a2;
-        _os_log_impl(&dword_18B359000, v39, OS_LOG_TYPE_INFO, "Attempting to load item at index %{public}d as URL for copy type identifier", buf, 8u);
+        v143 = a2;
+        _os_log_impl(&dword_18B359000, v42, OS_LOG_TYPE_INFO, "Attempting to load item at index %{public}d as URL for copy type identifier", buf, 8u);
       }
 
-      v40 = MEMORY[0x1E69CDE78];
-      v110[0] = MEMORY[0x1E69E9820];
-      v110[1] = 3221225472;
-      v110[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_505;
-      v110[3] = &unk_1E71F9B38;
-      v115 = a2;
-      v113 = v21;
-      v37 = v78;
-      v111 = v78;
-      v114 = v79;
-      v112 = v14;
-      v30 = v79;
-      [v40 loadiWorkCopyRepresentationURLForItemProvider:v111 completionHandler:v110];
+      v43 = MEMORY[0x1E69CDE78];
+      v114[0] = MEMORY[0x1E69E9820];
+      v114[1] = 3221225472;
+      v114[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_505;
+      v114[3] = &unk_1E71F9B38;
+      v119 = a2;
+      v117 = v21;
+      v40 = v82;
+      v115 = v82;
+      v118 = v83;
+      v116 = v14;
+      v31 = v83;
+      [v43 loadiWorkCopyRepresentationURLForItemProvider:v115 completionHandler:v114];
 
-      v38 = v113;
+      v41 = v117;
       goto LABEL_18;
     }
 
-    v41 = v78;
-    v75 = v22;
-    v76 = v14;
-    if (([v41 canLoadObjectOfClass:objc_opt_class()] & 1) != 0 || (objc_msgSend(v41, "canLoadObjectOfClass:", objc_opt_class()) & 1) == 0 && ((objc_msgSend(v41, "canLoadObjectOfClass:", objc_opt_class()) & 1) != 0 || !objc_msgSend(v41, "canLoadObjectOfClass:", objc_opt_class())))
+    v44 = v82;
+    v79 = v22;
+    v80 = v14;
+    if (([v44 canLoadObjectOfClass:objc_opt_class()] & 1) != 0 || (objc_msgSend(v44, "canLoadObjectOfClass:", objc_opt_class()) & 1) == 0 && ((objc_msgSend(v44, "canLoadObjectOfClass:", objc_opt_class()) & 1) != 0 || !objc_msgSend(v44, "canLoadObjectOfClass:", objc_opt_class())))
     {
-      v42 = [v41 preferredPresentationStyle];
+      v45 = [v44 preferredPresentationStyle];
 
-      if (v42 != 1)
+      if (v45 != 1)
       {
 LABEL_29:
-        v108 = 0u;
-        v109 = 0u;
-        v106 = 0u;
-        v107 = 0u;
-        v73 = v41;
-        v38 = [v41 registeredContentTypes];
-        v44 = [v38 countByEnumeratingWithState:&v106 objects:v132 count:16];
-        if (v44)
+        v112 = 0u;
+        v113 = 0u;
+        v110 = 0u;
+        v111 = 0u;
+        v77 = v44;
+        v41 = [v44 registeredContentTypes];
+        v47 = [v41 countByEnumeratingWithState:&v110 objects:v136 count:16];
+        if (v47)
         {
-          v45 = v44;
-          v46 = *v107;
-          v47 = *MEMORY[0x1E6982D60];
+          v48 = v47;
+          v49 = *v111;
+          v50 = *MEMORY[0x1E6982D60];
           while (2)
           {
-            for (i = 0; i != v45; ++i)
+            for (i = 0; i != v48; ++i)
             {
-              if (*v107 != v46)
+              if (*v111 != v49)
               {
-                objc_enumerationMutation(v38);
+                objc_enumerationMutation(v41);
               }
 
-              v49 = *(*(&v106 + 1) + 8 * i);
-              if ([v49 conformsToType:v47])
+              v52 = *(*(&v110 + 1) + 8 * i);
+              if ([v52 conformsToType:v50])
               {
-                if ([v49 conformsToType:*MEMORY[0x1E6983030]] && (objc_msgSend(v49, "conformsToType:", *MEMORY[0x1E6982DB8]) & 1) == 0 && objc_msgSend(v73, "canLoadObjectOfClass:", objc_opt_class()))
+                if ([v52 conformsToType:*MEMORY[0x1E6983030]] && (objc_msgSend(v52, "conformsToType:", *MEMORY[0x1E6982DB8]) & 1) == 0 && objc_msgSend(v77, "canLoadObjectOfClass:", objc_opt_class()))
                 {
-                  v60 = share_sheet_log();
-                  v20 = v77;
-                  v22 = v75;
-                  if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+                  v63 = share_sheet_log();
+                  v20 = v81;
+                  v22 = v79;
+                  if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
                   {
                     *buf = 67240192;
-                    v139 = a2;
-                    _os_log_impl(&dword_18B359000, v60, OS_LOG_TYPE_INFO, "Attempting to load item at index %{public}d as a URL", buf, 8u);
+                    v143 = a2;
+                    _os_log_impl(&dword_18B359000, v63, OS_LOG_TYPE_INFO, "Attempting to load item at index %{public}d as a URL", buf, 8u);
                   }
 
-                  v61 = objc_opt_class();
-                  v100[0] = MEMORY[0x1E69E9820];
-                  v100[1] = 3221225472;
-                  v100[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_508;
-                  v100[3] = &unk_1E71F9B38;
-                  v105 = a2;
-                  v62 = &v103;
-                  v103 = v21;
-                  v101 = v73;
-                  v104 = v79;
-                  v102 = v76;
-                  v30 = v79;
-                  v63 = [v101 loadObjectOfClass:v61 completionHandler:v100];
+                  v64 = objc_opt_class();
+                  v104[0] = MEMORY[0x1E69E9820];
+                  v104[1] = 3221225472;
+                  v104[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_508;
+                  v104[3] = &unk_1E71F9B38;
+                  v109 = a2;
+                  v65 = &v107;
+                  v107 = v21;
+                  v105 = v77;
+                  v108 = v83;
+                  v106 = v80;
+                  v31 = v83;
+                  v66 = [v105 loadObjectOfClass:v64 completionHandler:v104];
 
-                  v64 = v101;
+                  v67 = v105;
                 }
 
                 else
                 {
-                  v65 = share_sheet_log();
-                  v20 = v77;
-                  v22 = v75;
-                  if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+                  v68 = share_sheet_log();
+                  v20 = v81;
+                  v22 = v79;
+                  if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
                   {
                     *buf = 67240450;
-                    v139 = a2;
-                    v140 = 2114;
-                    v141 = v49;
-                    _os_log_impl(&dword_18B359000, v65, OS_LOG_TYPE_INFO, "Attempting to load item at index %{public}d as a file of type %{public}@", buf, 0x12u);
+                    v143 = a2;
+                    v144 = 2114;
+                    v145 = v52;
+                    _os_log_impl(&dword_18B359000, v68, OS_LOG_TYPE_INFO, "Attempting to load item at index %{public}d as a file of type %{public}@", buf, 0x12u);
                   }
 
-                  v94[0] = MEMORY[0x1E69E9820];
-                  v94[1] = 3221225472;
-                  v94[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_510;
-                  v94[3] = &unk_1E71F9BD8;
-                  v62 = v95;
-                  v66 = v76;
-                  v99 = a2;
-                  v95[0] = v66;
-                  v95[1] = v49;
-                  v30 = v79;
-                  v97 = v79;
-                  v98 = v21;
-                  v96 = v73;
-                  v67 = [v96 loadFileRepresentationForContentType:v49 openInPlace:1 completionHandler:v94];
+                  v98[0] = MEMORY[0x1E69E9820];
+                  v98[1] = 3221225472;
+                  v98[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_510;
+                  v98[3] = &unk_1E71F9BD8;
+                  v65 = v99;
+                  v69 = v80;
+                  v103 = a2;
+                  v99[0] = v69;
+                  v99[1] = v52;
+                  v31 = v83;
+                  v101 = v83;
+                  v102 = v21;
+                  v100 = v77;
+                  v70 = [v100 loadFileRepresentationForContentType:v52 openInPlace:1 completionHandler:v98];
 
-                  v64 = v97;
+                  v67 = v101;
                 }
 
-                v14 = v76;
+                v14 = v80;
                 goto LABEL_68;
               }
             }
 
-            v45 = [v38 countByEnumeratingWithState:&v106 objects:v132 count:16];
-            if (v45)
+            v48 = [v41 countByEnumeratingWithState:&v110 objects:v136 count:16];
+            if (v48)
             {
               continue;
             }
@@ -3178,93 +3194,93 @@ LABEL_29:
           }
         }
 
-        v22 = v75;
-        v14 = v76;
-        v41 = v73;
+        v22 = v79;
+        v14 = v80;
+        v44 = v77;
       }
     }
 
     else
     {
-      v43 = [v41 preferredPresentationStyle];
+      v46 = [v44 preferredPresentationStyle];
 
-      if (v43 == 2)
+      if (v46 == 2)
       {
         goto LABEL_29;
       }
     }
 
-    v89[0] = MEMORY[0x1E69E9820];
-    v89[1] = 3221225472;
-    v89[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_3;
-    v89[3] = &unk_1E71F9C00;
-    v92 = v21;
-    v90 = v41;
-    v30 = v79;
-    v71 = v79;
-    v93 = v71;
-    v70 = v14;
-    v91 = v70;
-    v33 = v90;
-    v74 = v89;
+    v93[0] = MEMORY[0x1E69E9820];
+    v93[1] = 3221225472;
+    v93[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_3;
+    v93[3] = &unk_1E71F9C00;
+    v96 = v21;
+    v94 = v44;
+    v31 = v83;
+    v75 = v83;
+    v97 = v75;
+    v74 = v14;
+    v95 = v74;
+    v35 = v94;
+    v78 = v93;
     if (_loadItemProviderInline_onceToken != -1)
     {
       _loadItemProvidersFromActivityItemsStartingAtIndex_cold_1();
     }
 
-    v20 = v77;
-    v130 = 0u;
-    v131 = 0u;
-    v128 = 0u;
-    v129 = 0u;
-    v50 = _loadItemProviderInline_loadableClasses;
-    v51 = [v50 countByEnumeratingWithState:&v128 objects:buf count:16];
-    if (v51)
+    v20 = v81;
+    v134 = 0u;
+    v135 = 0u;
+    v132 = 0u;
+    v133 = 0u;
+    v53 = _loadItemProviderInline_loadableClasses;
+    v54 = [v53 countByEnumeratingWithState:&v132 objects:buf count:16];
+    if (v54)
     {
-      v52 = v51;
-      v53 = *v129;
+      v55 = v54;
+      v56 = *v133;
       while (2)
       {
-        for (j = 0; j != v52; ++j)
+        for (j = 0; j != v55; ++j)
         {
-          if (*v129 != v53)
+          if (*v133 != v56)
           {
-            objc_enumerationMutation(v50);
+            objc_enumerationMutation(v53);
           }
 
-          v55 = *(*(&v128 + 1) + 8 * j);
-          if ([v33 canLoadObjectOfClass:{v55, v70, v71}])
+          v58 = *(*(&v132 + 1) + 8 * j);
+          if ([v35 canLoadObjectOfClass:{v58, v74, v75}])
           {
-            v56 = share_sheet_log();
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+            v59 = share_sheet_log();
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
             {
-              v57 = NSStringFromClass(v55);
-              *v133 = 67240450;
-              *&v133[4] = MEMORY[0x1E69E98A8];
-              LOWORD(v134) = 2114;
-              *(&v134 + 2) = v57;
-              _os_log_impl(&dword_18B359000, v56, OS_LOG_TYPE_INFO, "Attempting to load item at index %{public}d as class %{public}@", v133, 0x12u);
+              v60 = NSStringFromClass(v58);
+              *v137 = 67240450;
+              *&v137[4] = MEMORY[0x1E69E98A8];
+              LOWORD(v138) = 2114;
+              *(&v138 + 2) = v60;
+              _os_log_impl(&dword_18B359000, v59, OS_LOG_TYPE_INFO, "Attempting to load item at index %{public}d as class %{public}@", v137, 0x12u);
             }
 
-            *v133 = MEMORY[0x1E69E9820];
-            *&v134 = 3221225472;
-            *(&v134 + 1) = ___loadItemProviderInline_block_invoke_531;
-            v135 = &unk_1E71F9C50;
-            v137 = v55;
-            v58 = v74;
-            v136 = v74;
-            v59 = [v33 loadObjectOfClass:v55 completionHandler:v133];
+            *v137 = MEMORY[0x1E69E9820];
+            *&v138 = 3221225472;
+            *(&v138 + 1) = ___loadItemProviderInline_block_invoke_531;
+            v139 = &unk_1E71F9C50;
+            v141 = v58;
+            v61 = v78;
+            v140 = v78;
+            v62 = [v35 loadObjectOfClass:v58 completionHandler:v137];
 
-            v72 = 1;
-            v20 = v77;
-            v22 = v75;
-            v30 = v79;
+            v76 = 1;
+            v20 = v81;
+            v22 = v79;
+            v31 = v83;
             goto LABEL_64;
           }
         }
 
-        v52 = [v50 countByEnumeratingWithState:&v128 objects:buf count:16];
-        if (v52)
+        v55 = [v53 countByEnumeratingWithState:&v132 objects:buf count:16];
+        if (v55)
         {
           continue;
         }
@@ -3272,65 +3288,65 @@ LABEL_29:
         break;
       }
 
-      v72 = 0;
-      v20 = v77;
-      v22 = v75;
-      v30 = v79;
+      v76 = 0;
+      v20 = v81;
+      v22 = v79;
+      v31 = v83;
     }
 
     else
     {
-      v72 = 0;
+      v76 = 0;
     }
 
-    v58 = v74;
+    v61 = v78;
 LABEL_64:
 
-    v14 = v76;
-    if (v72)
+    v14 = v80;
+    if (v76)
     {
       goto LABEL_70;
     }
 
-    v68 = share_sheet_log();
-    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+    v71 = share_sheet_log();
+    if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
     {
-      _loadItemProvidersFromActivityItemsStartingAtIndex_cold_2(a2, v68);
+      _loadItemProvidersFromActivityItemsStartingAtIndex_cold_2(a2, v71);
     }
 
-    v69 = _itemLoaderQueue();
-    v86[0] = MEMORY[0x1E69E9820];
-    v86[1] = 3221225472;
-    v86[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_520;
-    v86[3] = &unk_1E71F9C28;
-    v88 = v71;
-    v87 = v70;
-    dispatch_async(v69, v86);
+    v73 = _itemLoaderQueue(v72);
+    v90[0] = MEMORY[0x1E69E9820];
+    v90[1] = 3221225472;
+    v90[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_520;
+    v90[3] = &unk_1E71F9C28;
+    v92 = v75;
+    v91 = v74;
+    dispatch_async(v73, v90);
 
-    v38 = v88;
+    v41 = v92;
 LABEL_68:
-    v37 = v78;
+    v40 = v82;
     goto LABEL_69;
   }
 
   if (v25)
   {
     *buf = 67240192;
-    v139 = a2;
+    v143 = a2;
     _os_log_impl(&dword_18B359000, v24, OS_LOG_TYPE_INFO, "Finished examining all %{public}d items.", buf, 8u);
   }
 
-  v29 = _itemLoaderQueue();
+  v30 = _itemLoaderQueue(v29);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_522;
   block[3] = &unk_1E71F9C28;
-  v82 = v22;
-  v81 = v14;
-  dispatch_async(v29, block);
+  v86 = v22;
+  v85 = v14;
+  dispatch_async(v30, block);
 
-  v26 = v82;
-  v30 = v79;
+  v26 = v86;
+  v31 = v83;
 LABEL_71:
 }
 
@@ -3422,9 +3438,9 @@ id _UIActivityImageForBundleIdentifier(void *a1, int a2, uint64_t a3)
   return v20;
 }
 
-void sub_18B38C108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B38C108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4114,7 +4130,7 @@ id _UIActivityItemsGetImagesAndVideos(void *a1)
       if (objc_opt_isKindOfClass())
       {
         v9 = [v8 allValues];
-        v10 = _UIActivityItemsGetImagesAndVideos();
+        v10 = _UIActivityItemsGetImagesAndVideos(v9);
 
         if ([v10 count])
         {
@@ -4302,7 +4318,7 @@ id _UIActivityItemsGetAttachments(void *a1)
       if (objc_opt_isKindOfClass())
       {
         v8 = [v7 allValues];
-        v9 = _UIActivityItemsGetAttachments();
+        v9 = _UIActivityItemsGetAttachments(v8);
 
         if ([v9 count])
         {
@@ -4477,28 +4493,29 @@ __CFString *_UIActivityUTIForURL(void *a1)
     if (PreferredIdentifierForTag && UTTypeConformsTo(PreferredIdentifierForTag, *MEMORY[0x1E6963740]))
     {
       v7 = v1;
-      v12 = 0;
-      v13 = &v12;
-      v14 = 0x2020000000;
+      v13 = 0;
+      v14 = &v13;
+      v15 = 0x2020000000;
       v8 = getQLTypeCopyUTIForURLAndMimeTypeSymbolLoc_ptr;
-      v15 = getQLTypeCopyUTIForURLAndMimeTypeSymbolLoc_ptr;
+      v16 = getQLTypeCopyUTIForURLAndMimeTypeSymbolLoc_ptr;
       if (!getQLTypeCopyUTIForURLAndMimeTypeSymbolLoc_ptr)
       {
-        v11[0] = MEMORY[0x1E69E9820];
-        v11[1] = 3221225472;
-        v11[2] = __getQLTypeCopyUTIForURLAndMimeTypeSymbolLoc_block_invoke;
-        v11[3] = &unk_1E71F91F0;
-        v11[4] = &v12;
-        __getQLTypeCopyUTIForURLAndMimeTypeSymbolLoc_block_invoke(v11);
-        v8 = v13[3];
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __getQLTypeCopyUTIForURLAndMimeTypeSymbolLoc_block_invoke;
+        v12[3] = &unk_1E71F91F0;
+        v12[4] = &v13;
+        __getQLTypeCopyUTIForURLAndMimeTypeSymbolLoc_block_invoke(v12);
+        v8 = v14[3];
       }
 
-      _Block_object_dispose(&v12, 8);
+      _Block_object_dispose(&v13, 8);
       if (!v8)
       {
-        v10 = [SHSheetRemoteSceneViewController reloadMetadata:];
-        _Block_object_dispose(&v12, 8);
-        _Unwind_Resume(v10);
+        [SHSheetRemoteSceneViewController reloadMetadata:];
+        v11 = v10;
+        _Block_object_dispose(&v13, 8);
+        _Unwind_Resume(v11);
       }
 
       v4 = v8(v7, 0);
@@ -4513,16 +4530,16 @@ __CFString *_UIActivityUTIForURL(void *a1)
   return v4;
 }
 
-id _itemLoaderQueue()
+id _itemLoaderQueue(uint64_t a1)
 {
   if (_itemLoaderQueue_onceToken != -1)
   {
     _itemLoaderQueue_cold_1();
   }
 
-  v1 = _itemLoaderQueue_queue;
+  v2 = _itemLoaderQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 void ___itemLoaderQueue_block_invoke()
@@ -4543,7 +4560,7 @@ uint64_t ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_503(u
 
 void ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_505(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = share_sheet_log();
@@ -4560,28 +4577,28 @@ void ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_505(uint6
   {
     v9 = *(a1 + 64);
     *buf = 67240192;
-    v23 = v9;
+    v24 = v9;
     _os_log_impl(&dword_18B359000, v8, OS_LOG_TYPE_INFO, "Successfully loaded item at index %{public}d as URL for copy type identifier", buf, 8u);
   }
 
-  v10 = _itemLoaderQueue();
+  v11 = _itemLoaderQueue(v10);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_506;
   block[3] = &unk_1E71F9B10;
-  v19 = v5;
-  v11 = *(a1 + 48);
-  v12 = *(a1 + 32);
-  v13 = *(a1 + 56);
-  v14 = *(a1 + 40);
-  *&v15 = v12;
-  *(&v15 + 1) = v14;
-  *&v16 = v11;
-  *(&v16 + 1) = v13;
-  v20 = v15;
+  v20 = v5;
+  v12 = *(a1 + 48);
+  v13 = *(a1 + 32);
+  v14 = *(a1 + 56);
+  v15 = *(a1 + 40);
+  *&v16 = v13;
+  *(&v16 + 1) = v15;
+  *&v17 = v12;
+  *(&v17 + 1) = v14;
   v21 = v16;
-  v17 = v5;
-  dispatch_async(v10, block);
+  v22 = v17;
+  v18 = v5;
+  dispatch_async(v11, block);
 }
 
 uint64_t ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_506(void *a1)
@@ -4598,7 +4615,7 @@ uint64_t ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_506(v
 
 void ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_508(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = share_sheet_log();
@@ -4615,28 +4632,28 @@ void ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_508(uint6
   {
     v9 = *(a1 + 64);
     *buf = 67240192;
-    v23 = v9;
+    v24 = v9;
     _os_log_impl(&dword_18B359000, v8, OS_LOG_TYPE_INFO, "Successfully loaded item at index %{public}d as a URL", buf, 8u);
   }
 
-  v10 = _itemLoaderQueue();
+  v11 = _itemLoaderQueue(v10);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_509;
   block[3] = &unk_1E71F9B10;
-  v19 = v5;
-  v11 = *(a1 + 48);
-  v12 = *(a1 + 32);
-  v13 = *(a1 + 56);
-  v14 = *(a1 + 40);
-  *&v15 = v12;
-  *(&v15 + 1) = v14;
-  *&v16 = v11;
-  *(&v16 + 1) = v13;
-  v20 = v15;
+  v20 = v5;
+  v12 = *(a1 + 48);
+  v13 = *(a1 + 32);
+  v14 = *(a1 + 56);
+  v15 = *(a1 + 40);
+  *&v16 = v13;
+  *(&v16 + 1) = v15;
+  *&v17 = v12;
+  *(&v17 + 1) = v14;
   v21 = v16;
-  v17 = v5;
-  dispatch_async(v10, block);
+  v22 = v17;
+  v18 = v5;
+  dispatch_async(v11, block);
 }
 
 uint64_t ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_509(void *a1)
@@ -4653,15 +4670,15 @@ uint64_t ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_509(v
 
 void ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_510(uint64_t a1, void *a2, char a3, void *a4)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
-  v40[0] = 0;
-  v40[1] = v40;
-  v40[2] = 0x3032000000;
-  v40[3] = __Block_byref_object_copy__1;
-  v40[4] = __Block_byref_object_dispose__1;
-  v41 = *(a1 + 32);
+  v42[0] = 0;
+  v42[1] = v42;
+  v42[2] = 0x3032000000;
+  v42[3] = __Block_byref_object_copy__1;
+  v42[4] = __Block_byref_object_dispose__1;
+  v43 = *(a1 + 32);
   if (v8)
   {
     v9 = share_sheet_log();
@@ -4670,82 +4687,82 @@ void ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_510(uint6
       ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_510_cold_1();
     }
 
-    v10 = _itemLoaderQueue();
+    v11 = _itemLoaderQueue(v10);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_511;
     block[3] = &unk_1E71F9B60;
-    v38 = *(a1 + 56);
-    v39 = v40;
-    dispatch_async(v10, block);
+    v40 = *(a1 + 56);
+    v41 = v42;
+    dispatch_async(v11, block);
   }
 
   else
   {
-    v11 = share_sheet_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = share_sheet_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = *(a1 + 72);
-      v13 = *(a1 + 40);
+      v13 = *(a1 + 72);
+      v14 = *(a1 + 40);
       *buf = 67240450;
-      *&buf[4] = v12;
-      LOWORD(v43) = 2114;
-      *(&v43 + 2) = v13;
-      _os_log_impl(&dword_18B359000, v11, OS_LOG_TYPE_INFO, "Successfully loaded item at index %{public}d as a file of type %{public}@", buf, 0x12u);
+      *&buf[4] = v13;
+      LOWORD(v45) = 2114;
+      *(&v45 + 2) = v14;
+      _os_log_impl(&dword_18B359000, v12, OS_LOG_TYPE_INFO, "Successfully loaded item at index %{public}d as a file of type %{public}@", buf, 0x12u);
     }
 
     if (v7)
     {
       *buf = 0;
-      *&v43 = buf;
-      *(&v43 + 1) = 0x3032000000;
-      v44 = __Block_byref_object_copy__1;
-      v45 = __Block_byref_object_dispose__1;
-      v46 = 0;
-      v14 = [objc_alloc(MEMORY[0x1E696ABF8]) initWithFilePresenter:0];
-      v15 = v43;
-      obj = *(v43 + 40);
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_513;
-      v28[3] = &unk_1E71F9BB0;
-      v35 = a3;
-      v29 = v7;
-      v32 = v40;
-      v17 = *(a1 + 64);
-      v16 = *(a1 + 72);
-      v33 = buf;
-      v34 = v16;
-      v24 = *(a1 + 40);
-      v18 = v17;
-      v19 = *(a1 + 48);
-      v20 = *(a1 + 56);
-      *&v21 = v18;
-      *(&v21 + 1) = v20;
-      *&v22 = v24;
-      *(&v22 + 1) = v19;
-      v30 = v22;
-      v31 = v21;
-      [v14 coordinateReadingItemAtURL:v29 options:1 error:&obj byAccessor:v28];
-      objc_storeStrong((v15 + 40), obj);
+      *&v45 = buf;
+      *(&v45 + 1) = 0x3032000000;
+      v46 = __Block_byref_object_copy__1;
+      v47 = __Block_byref_object_dispose__1;
+      v48 = 0;
+      v16 = [objc_alloc(MEMORY[0x1E696ABF8]) initWithFilePresenter:0];
+      v17 = v45;
+      obj = *(v45 + 40);
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_513;
+      v30[3] = &unk_1E71F9BB0;
+      v37 = a3;
+      v31 = v7;
+      v34 = v42;
+      v19 = *(a1 + 64);
+      v18 = *(a1 + 72);
+      v35 = buf;
+      v36 = v18;
+      v26 = *(a1 + 40);
+      v20 = v19;
+      v21 = *(a1 + 48);
+      v22 = *(a1 + 56);
+      *&v23 = v20;
+      *(&v23 + 1) = v22;
+      *&v24 = v26;
+      *(&v24 + 1) = v21;
+      v32 = v24;
+      v33 = v23;
+      [v16 coordinateReadingItemAtURL:v31 options:1 error:&obj byAccessor:v30];
+      objc_storeStrong((v17 + 40), obj);
 
       _Block_object_dispose(buf, 8);
     }
 
     else
     {
-      v23 = _itemLoaderQueue();
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_2;
-      v25[3] = &unk_1E71F9B60;
-      v26 = *(a1 + 56);
-      v27 = v40;
-      dispatch_async(v23, v25);
+      v25 = _itemLoaderQueue(v15);
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_2;
+      v27[3] = &unk_1E71F9B60;
+      v28 = *(a1 + 56);
+      v29 = v42;
+      dispatch_async(v25, v27);
     }
   }
 
-  _Block_object_dispose(v40, 8);
+  _Block_object_dispose(v42, 8);
 }
 
 uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
@@ -4762,11 +4779,13 @@ void ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_513(uint6
   if (v3)
   {
     v5 = v3;
+    v6 = v5;
   }
 
   else
   {
     v5 = *(a1 + 32);
+    v6 = v5;
     if (!v5)
     {
       goto LABEL_12;
@@ -4775,39 +4794,39 @@ void ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_513(uint6
 
   if ((*(a1 + 96) & 1) == 0)
   {
-    v6 = [v5 lastPathComponent];
-    v7 = *(*(*(a1 + 72) + 8) + 40);
-    if (!v7)
+    v7 = [v6 lastPathComponent];
+    v8 = *(*(*(a1 + 72) + 8) + 40);
+    if (!v8)
     {
-      v8 = [MEMORY[0x1E696AC08] defaultManager];
-      v9 = [v8 temporaryDirectory];
+      v9 = [MEMORY[0x1E696AC08] defaultManager];
+      v10 = [v9 temporaryDirectory];
 
-      v10 = _newTempDir(v9, @"com.apple.ShareSheet.Activity");
-      v11 = *(*(a1 + 72) + 8);
-      v12 = *(v11 + 40);
-      *(v11 + 40) = v10;
+      v11 = _newTempDir(v10, @"com.apple.ShareSheet.Activity");
+      v12 = *(*(a1 + 72) + 8);
+      v13 = *(v12 + 40);
+      *(v12 + 40) = v11;
 
-      v7 = *(*(*(a1 + 72) + 8) + 40);
+      v8 = *(*(*(a1 + 72) + 8) + 40);
     }
 
-    v13 = _newTempDir(v7, @"com.apple.ShareSheet.representation");
-    v14 = [v13 URLByAppendingPathComponent:v6 isDirectory:0];
-    v15 = [MEMORY[0x1E696AC08] defaultManager];
-    v16 = *(*(a1 + 80) + 8);
-    obj = *(v16 + 40);
-    v17 = [v15 moveItemAtURL:v5 toURL:v14 error:&obj];
-    objc_storeStrong((v16 + 40), obj);
+    v14 = _newTempDir(v8, @"com.apple.ShareSheet.representation");
+    v15 = [v14 URLByAppendingPathComponent:v7 isDirectory:0];
+    v16 = [MEMORY[0x1E696AC08] defaultManager];
+    v17 = *(*(a1 + 80) + 8);
+    obj = *(v17 + 40);
+    v18 = [v16 moveItemAtURL:v6 toURL:v15 error:&obj];
+    objc_storeStrong((v17 + 40), obj);
 
-    if (v17)
+    if (v18)
     {
-      v18 = v5;
-      v5 = v14;
+      v19 = v6;
+      v6 = v15;
     }
 
     else
     {
-      v18 = share_sheet_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = share_sheet_log();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_513_cold_1();
       }
@@ -4815,22 +4834,22 @@ void ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_513(uint6
   }
 
 LABEL_12:
-  v19 = _itemLoaderQueue();
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_517;
-  v25[3] = &unk_1E71F9B88;
-  v26 = v5;
-  v20 = *(a1 + 56);
-  v21 = *(a1 + 48);
-  *&v22 = *(a1 + 64);
-  *(&v22 + 1) = *(a1 + 72);
-  *&v23 = v21;
-  *(&v23 + 1) = v20;
-  v27 = v23;
-  v28 = v22;
-  v24 = v5;
-  dispatch_async(v19, v25);
+  v20 = _itemLoaderQueue(v5);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_517;
+  v26[3] = &unk_1E71F9B88;
+  v27 = v6;
+  v21 = *(a1 + 56);
+  v22 = *(a1 + 48);
+  *&v23 = *(a1 + 64);
+  *(&v23 + 1) = *(a1 + 72);
+  *&v24 = v22;
+  *(&v24 + 1) = v21;
+  v28 = v24;
+  v29 = v23;
+  v25 = v6;
+  dispatch_async(v20, v26);
 }
 
 uint64_t _newTempDir(void *a1, void *a2)
@@ -4895,7 +4914,7 @@ uint64_t ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_517(v
 void ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_3(id *a1, void *a2)
 {
   v3 = a2;
-  v4 = _itemLoaderQueue();
+  v4 = _itemLoaderQueue(v3);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = ___loadItemProvidersFromActivityItemsStartingAtIndex_block_invoke_4;
@@ -4992,7 +5011,7 @@ Class __getSFUIActivityImageProviderClass_block_invoke_0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -5010,7 +5029,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __SharingUILibraryCore_block_invoke_3()
+uint64_t __SharingUILibraryCore_block_invoke_3(uint64_t a1)
 {
   result = _sl_dlopen();
   SharingUILibraryCore_frameworkLibrary_3 = result;
@@ -5043,7 +5062,7 @@ void *__getQLTypeCopyUTIForURLAndMimeTypeSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -5058,16 +5077,16 @@ LABEL_5:
   return result;
 }
 
-uint64_t __QuickLookLibraryCore_block_invoke()
+uint64_t __QuickLookLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   QuickLookLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_18B391244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18B391244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5167,16 +5186,16 @@ void *__LinkPresentationLibrary_block_invoke_0()
   return result;
 }
 
-void sub_18B395A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B395A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B395C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B395C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5216,7 +5235,7 @@ void FrontBoardLibrary()
   v0 = v1[0];
   if (!FrontBoardLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -5227,7 +5246,7 @@ LABEL_7:
   }
 }
 
-uint64_t __FrontBoardLibraryCore_block_invoke()
+uint64_t __FrontBoardLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   FrontBoardLibraryCore_frameworkLibrary = result;
@@ -5246,7 +5265,7 @@ UIActivityContentViewController *__getFBDisplayManagerClass_block_invoke(uint64_
 
   else
   {
-    v3 = __getFBDisplayManagerClass_block_invoke_cold_1();
+    __getFBDisplayManagerClass_block_invoke_cold_1();
     return [(UIActivityContentViewController *)v3 init];
   }
 
@@ -5484,9 +5503,9 @@ void *__SharingUILibrary_block_invoke_1()
   return result;
 }
 
-void sub_18B3AB280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B3AB280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5516,7 +5535,7 @@ Class __getSFUIShareSheetActivityCellSpecClass_block_invoke_0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -5534,7 +5553,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __SharingUILibraryCore_block_invoke_4()
+uint64_t __SharingUILibraryCore_block_invoke_4(uint64_t a1)
 {
   result = _sl_dlopen();
   SharingUILibraryCore_frameworkLibrary_4 = result;
@@ -5640,16 +5659,16 @@ uint64_t _ShareSheetCurrentDeviceClassFromPresentationStyle(int a1)
   }
 }
 
-id magic_head_log()
+id magic_head_log(uint64_t a1)
 {
   if (magic_head_log_onceToken != -1)
   {
     magic_head_log_cold_1();
   }
 
-  v1 = magic_head_log___logger;
+  v2 = magic_head_log___logger;
 
-  return v1;
+  return v2;
 }
 
 void __magic_head_log_block_invoke()
@@ -5666,19 +5685,19 @@ void __share_sheet_log_block_invoke()
   share_sheet_log___logger = v0;
 }
 
-id _UIKitUserDefaults()
+id _UIKitUserDefaults(uint64_t a1)
 {
   if (_UIKitUserDefaults_onceToken != -1)
   {
     _UIKitUserDefaults_cold_1();
   }
 
-  v1 = _UIKitUserDefaults_result;
+  v2 = _UIKitUserDefaults_result;
 
-  return v1;
+  return v2;
 }
 
-uint64_t _ShareSheetIsAppleApp()
+uint64_t _ShareSheetIsAppleApp(uint64_t a1, uint64_t a2)
 {
   if (_ShareSheetIsAppleApp_onceToken != -1)
   {
@@ -5712,14 +5731,14 @@ id getCNContactStoreClass()
   return v1;
 }
 
-void sub_18B3AEF94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B3AEF94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-double _ShareSheetDeviceScreenScale()
+double _ShareSheetDeviceScreenScale(uint64_t a1, uint64_t a2)
 {
   if (_ShareSheetDeviceScreenScale_didCheck != -1)
   {
@@ -5729,7 +5748,7 @@ double _ShareSheetDeviceScreenScale()
   return *&_ShareSheetDeviceScreenScale_scale;
 }
 
-uint64_t _ShareSheetIsCamera()
+uint64_t _ShareSheetIsCamera(uint64_t a1, uint64_t a2)
 {
   if (_ShareSheetIsCamera_didCheck != -1)
   {
@@ -5739,7 +5758,7 @@ uint64_t _ShareSheetIsCamera()
   return _ShareSheetIsCamera_isCamera;
 }
 
-uint64_t _ShareSheetIsSafari()
+uint64_t _ShareSheetIsSafari(uint64_t a1, uint64_t a2)
 {
   if (_ShareSheetIsSafari_didCheck != -1)
   {
@@ -5749,7 +5768,7 @@ uint64_t _ShareSheetIsSafari()
   return _ShareSheetIsSafari_isSafari;
 }
 
-uint64_t _ShareSheetIsBrowser()
+uint64_t _ShareSheetIsBrowser(uint64_t a1, uint64_t a2)
 {
   if (_ShareSheetIsBrowser_onceToken != -1)
   {
@@ -5759,7 +5778,7 @@ uint64_t _ShareSheetIsBrowser()
   return _ShareSheetIsBrowser_hostHasEntitlement;
 }
 
-uint64_t _ShareSheetIsRealityLauncher()
+uint64_t _ShareSheetIsRealityLauncher(uint64_t a1, uint64_t a2)
 {
   if (_ShareSheetIsRealityLauncher_onceToken != -1)
   {
@@ -5769,7 +5788,7 @@ uint64_t _ShareSheetIsRealityLauncher()
   return _ShareSheetIsRealityLauncher_isRealityLauncher;
 }
 
-uint64_t _ShareSheetIsPhotos()
+uint64_t _ShareSheetIsPhotos(uint64_t a1, uint64_t a2)
 {
   if (_ShareSheetIsPhotos_didCheck != -1)
   {
@@ -5779,7 +5798,7 @@ uint64_t _ShareSheetIsPhotos()
   return _ShareSheetIsPhotos_isPhotos;
 }
 
-uint64_t _ShareSheetImageAnalysisAllowed()
+uint64_t _ShareSheetImageAnalysisAllowed(uint64_t a1, uint64_t a2)
 {
   if (_ShareSheetIsMessagesApp_didCheck != -1)
   {
@@ -5789,7 +5808,7 @@ uint64_t _ShareSheetImageAnalysisAllowed()
   return _ShareSheetIsMessagesApp_isMessages;
 }
 
-uint64_t _ShareSheetCanUseCustomViewController()
+uint64_t _ShareSheetCanUseCustomViewController(uint64_t IsPhotos_cold_1, uint64_t a2)
 {
   if (_ShareSheetIsPhotos_didCheck != -1)
   {
@@ -5869,7 +5888,7 @@ uint64_t _ShareSheetCanUseCustomViewController()
   if (_ShareSheetIsInCallService_IsInCallService)
   {
 LABEL_25:
-    v0 = 1;
+    v2 = 1;
   }
 
   else
@@ -5879,10 +5898,10 @@ LABEL_25:
       _ShareSheetHostCanRenderInProcess_cold_1();
     }
 
-    v0 = _ShareSheetHostCanUseCustomViewController_hostHasEntitlement;
+    v2 = _ShareSheetHostCanUseCustomViewController_hostHasEntitlement;
   }
 
-  return v0 & 1;
+  return v2 & 1;
 }
 
 uint64_t _ShareSheetIsSupportedPrintActivity(void *a1)
@@ -5923,11 +5942,11 @@ uint64_t _ShareSheetCanAccessPeopleSuggestions(_BYTE *a1)
   }
 
   v2 = [getCNContactStoreClass() authorizationStatusForEntityType:0];
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
   v3 = v2 == 3;
-  v40 = v2 == 3;
+  v42 = v2 == 3;
   if (v2)
   {
 LABEL_27:
@@ -5939,108 +5958,108 @@ LABEL_27:
       }
     }
 
-    _Block_object_dispose(&v37, 8);
+    _Block_object_dispose(&v39, 8);
     return v3 & 1;
   }
 
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
   v4 = getkTCCServiceAddressBookSymbolLoc_ptr;
-  v49 = getkTCCServiceAddressBookSymbolLoc_ptr;
+  v51 = getkTCCServiceAddressBookSymbolLoc_ptr;
   if (!getkTCCServiceAddressBookSymbolLoc_ptr)
   {
-    v41 = MEMORY[0x1E69E9820];
-    v42 = 3221225472;
-    v43 = __getkTCCServiceAddressBookSymbolLoc_block_invoke;
-    v44 = &unk_1E71F91F0;
-    v45 = &v46;
+    v43 = MEMORY[0x1E69E9820];
+    v44 = 3221225472;
+    v45 = __getkTCCServiceAddressBookSymbolLoc_block_invoke;
+    v46 = &unk_1E71F91F0;
+    v47 = &v48;
     v5 = TCCLibrary();
     v6 = dlsym(v5, "kTCCServiceAddressBook");
-    *(v45[1] + 24) = v6;
-    getkTCCServiceAddressBookSymbolLoc_ptr = *(v45[1] + 24);
-    v4 = v47[3];
+    *(v47[1] + 24) = v6;
+    getkTCCServiceAddressBookSymbolLoc_ptr = *(v47[1] + 24);
+    v4 = v49[3];
   }
 
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v48, 8);
   if (!v4)
   {
     goto LABEL_36;
   }
 
   v7 = *v4;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
   v8 = gettcc_service_singleton_for_CF_nameSymbolLoc_ptr;
-  v49 = gettcc_service_singleton_for_CF_nameSymbolLoc_ptr;
+  v51 = gettcc_service_singleton_for_CF_nameSymbolLoc_ptr;
   if (!gettcc_service_singleton_for_CF_nameSymbolLoc_ptr)
   {
-    v41 = MEMORY[0x1E69E9820];
-    v42 = 3221225472;
-    v43 = __gettcc_service_singleton_for_CF_nameSymbolLoc_block_invoke;
-    v44 = &unk_1E71F91F0;
-    v45 = &v46;
+    v43 = MEMORY[0x1E69E9820];
+    v44 = 3221225472;
+    v45 = __gettcc_service_singleton_for_CF_nameSymbolLoc_block_invoke;
+    v46 = &unk_1E71F91F0;
+    v47 = &v48;
     v9 = TCCLibrary();
     v10 = dlsym(v9, "tcc_service_singleton_for_CF_name");
-    *(v45[1] + 24) = v10;
-    gettcc_service_singleton_for_CF_nameSymbolLoc_ptr = *(v45[1] + 24);
-    v8 = v47[3];
+    *(v47[1] + 24) = v10;
+    gettcc_service_singleton_for_CF_nameSymbolLoc_ptr = *(v47[1] + 24);
+    v8 = v49[3];
   }
 
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v48, 8);
   if (!v8)
   {
     goto LABEL_36;
   }
 
   v11 = v8(v7);
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
   v12 = gettcc_message_options_createSymbolLoc_ptr;
-  v49 = gettcc_message_options_createSymbolLoc_ptr;
+  v51 = gettcc_message_options_createSymbolLoc_ptr;
   if (!gettcc_message_options_createSymbolLoc_ptr)
   {
-    v41 = MEMORY[0x1E69E9820];
-    v42 = 3221225472;
-    v43 = __gettcc_message_options_createSymbolLoc_block_invoke;
-    v44 = &unk_1E71F91F0;
-    v45 = &v46;
+    v43 = MEMORY[0x1E69E9820];
+    v44 = 3221225472;
+    v45 = __gettcc_message_options_createSymbolLoc_block_invoke;
+    v46 = &unk_1E71F91F0;
+    v47 = &v48;
     v13 = TCCLibrary();
     v14 = dlsym(v13, "tcc_message_options_create");
-    *(v45[1] + 24) = v14;
-    gettcc_message_options_createSymbolLoc_ptr = *(v45[1] + 24);
-    v12 = v47[3];
+    *(v47[1] + 24) = v14;
+    gettcc_message_options_createSymbolLoc_ptr = *(v47[1] + 24);
+    v12 = v49[3];
   }
 
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v48, 8);
   if (!v12)
   {
     goto LABEL_36;
   }
 
   v15 = v12();
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
   v16 = gettcc_message_options_set_reply_handler_policySymbolLoc_ptr;
-  v49 = gettcc_message_options_set_reply_handler_policySymbolLoc_ptr;
+  v51 = gettcc_message_options_set_reply_handler_policySymbolLoc_ptr;
   if (!gettcc_message_options_set_reply_handler_policySymbolLoc_ptr)
   {
-    v41 = MEMORY[0x1E69E9820];
-    v42 = 3221225472;
-    v43 = __gettcc_message_options_set_reply_handler_policySymbolLoc_block_invoke;
-    v44 = &unk_1E71F91F0;
-    v45 = &v46;
+    v43 = MEMORY[0x1E69E9820];
+    v44 = 3221225472;
+    v45 = __gettcc_message_options_set_reply_handler_policySymbolLoc_block_invoke;
+    v46 = &unk_1E71F91F0;
+    v47 = &v48;
     v17 = TCCLibrary();
     v18 = dlsym(v17, "tcc_message_options_set_reply_handler_policy");
-    *(v45[1] + 24) = v18;
-    gettcc_message_options_set_reply_handler_policySymbolLoc_ptr = *(v45[1] + 24);
-    v16 = v47[3];
+    *(v47[1] + 24) = v18;
+    gettcc_message_options_set_reply_handler_policySymbolLoc_ptr = *(v47[1] + 24);
+    v16 = v49[3];
   }
 
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v48, 8);
   if (!v16)
   {
     goto LABEL_36;
@@ -6048,120 +6067,120 @@ LABEL_27:
 
   v16(v15, 1);
 
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
   v19 = gettcc_credential_singleton_for_selfSymbolLoc_ptr;
-  v49 = gettcc_credential_singleton_for_selfSymbolLoc_ptr;
+  v51 = gettcc_credential_singleton_for_selfSymbolLoc_ptr;
   if (!gettcc_credential_singleton_for_selfSymbolLoc_ptr)
   {
-    v41 = MEMORY[0x1E69E9820];
-    v42 = 3221225472;
-    v43 = __gettcc_credential_singleton_for_selfSymbolLoc_block_invoke;
-    v44 = &unk_1E71F91F0;
-    v45 = &v46;
+    v43 = MEMORY[0x1E69E9820];
+    v44 = 3221225472;
+    v45 = __gettcc_credential_singleton_for_selfSymbolLoc_block_invoke;
+    v46 = &unk_1E71F91F0;
+    v47 = &v48;
     v20 = TCCLibrary();
     v21 = dlsym(v20, "tcc_credential_singleton_for_self");
-    *(v45[1] + 24) = v21;
-    gettcc_credential_singleton_for_selfSymbolLoc_ptr = *(v45[1] + 24);
-    v19 = v47[3];
+    *(v47[1] + 24) = v21;
+    gettcc_credential_singleton_for_selfSymbolLoc_ptr = *(v47[1] + 24);
+    v19 = v49[3];
   }
 
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v48, 8);
   if (v19)
   {
     v22 = v19();
-    v46 = 0;
-    v47 = &v46;
-    v48 = 0x2020000000;
+    v48 = 0;
+    v49 = &v48;
+    v50 = 0x2020000000;
     v23 = gettcc_server_singleton_defaultSymbolLoc_ptr;
-    v49 = gettcc_server_singleton_defaultSymbolLoc_ptr;
+    v51 = gettcc_server_singleton_defaultSymbolLoc_ptr;
     if (!gettcc_server_singleton_defaultSymbolLoc_ptr)
     {
-      v41 = MEMORY[0x1E69E9820];
-      v42 = 3221225472;
-      v43 = __gettcc_server_singleton_defaultSymbolLoc_block_invoke;
-      v44 = &unk_1E71F91F0;
-      v45 = &v46;
+      v43 = MEMORY[0x1E69E9820];
+      v44 = 3221225472;
+      v45 = __gettcc_server_singleton_defaultSymbolLoc_block_invoke;
+      v46 = &unk_1E71F91F0;
+      v47 = &v48;
       v24 = TCCLibrary();
       v25 = dlsym(v24, "tcc_server_singleton_default");
-      *(v45[1] + 24) = v25;
-      gettcc_server_singleton_defaultSymbolLoc_ptr = *(v45[1] + 24);
-      v23 = v47[3];
+      *(v47[1] + 24) = v25;
+      gettcc_server_singleton_defaultSymbolLoc_ptr = *(v47[1] + 24);
+      v23 = v49[3];
     }
 
-    _Block_object_dispose(&v46, 8);
+    _Block_object_dispose(&v48, 8);
     if (v23)
     {
       v26 = v23();
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = ___ShareSheetCanAccessPeopleSuggestions_block_invoke_2;
-      v36[3] = &unk_1E71FA180;
-      v36[4] = &v37;
-      v36[5] = v7;
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = ___ShareSheetCanAccessPeopleSuggestions_block_invoke_2;
+      v38[3] = &unk_1E71FA180;
+      v38[4] = &v39;
+      v38[5] = v7;
       v27 = v26;
       v28 = v15;
       v29 = v22;
       v30 = v11;
-      v31 = v36;
-      v46 = 0;
-      v47 = &v46;
-      v48 = 0x2020000000;
+      v31 = v38;
+      v48 = 0;
+      v49 = &v48;
+      v50 = 0x2020000000;
       v32 = gettcc_server_message_request_authorizationSymbolLoc_ptr;
-      v49 = gettcc_server_message_request_authorizationSymbolLoc_ptr;
+      v51 = gettcc_server_message_request_authorizationSymbolLoc_ptr;
       if (!gettcc_server_message_request_authorizationSymbolLoc_ptr)
       {
-        v41 = MEMORY[0x1E69E9820];
-        v42 = 3221225472;
-        v43 = __gettcc_server_message_request_authorizationSymbolLoc_block_invoke;
-        v44 = &unk_1E71F91F0;
-        v45 = &v46;
+        v43 = MEMORY[0x1E69E9820];
+        v44 = 3221225472;
+        v45 = __gettcc_server_message_request_authorizationSymbolLoc_block_invoke;
+        v46 = &unk_1E71F91F0;
+        v47 = &v48;
         v33 = TCCLibrary();
         v34 = dlsym(v33, "tcc_server_message_request_authorization");
-        *(v45[1] + 24) = v34;
-        gettcc_server_message_request_authorizationSymbolLoc_ptr = *(v45[1] + 24);
-        v32 = v47[3];
+        *(v47[1] + 24) = v34;
+        gettcc_server_message_request_authorizationSymbolLoc_ptr = *(v47[1] + 24);
+        v32 = v49[3];
       }
 
-      _Block_object_dispose(&v46, 8);
+      _Block_object_dispose(&v48, 8);
       if (v32)
       {
         (v32)(v27, v28, v29, v30, 0, v31);
 
-        v3 = *(v38 + 24);
+        v3 = *(v40 + 24);
         goto LABEL_27;
       }
     }
 
-    dlerror();
-    result = abort_report_np();
+    v36 = dlerror();
+    result = abort_report_np("%s", v36);
   }
 
   else
   {
 LABEL_36:
-    dlerror();
-    result = abort_report_np();
+    v37 = dlerror();
+    result = abort_report_np("%s", v37);
   }
 
   __break(1u);
   return result;
 }
 
-void sub_18B3AFD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_18B3AFD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
   v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -6214,7 +6233,7 @@ void _ShareSheetLogCallStack()
   }
 }
 
-uint64_t _ShareSheetHostCanPerformActivitySkippingShareSheet()
+uint64_t _ShareSheetHostCanPerformActivitySkippingShareSheet(uint64_t a1, uint64_t a2)
 {
   if (_ShareSheetHostCanPerformActivitySkippingShareSheet_onceToken != -1)
   {
@@ -6416,7 +6435,7 @@ LABEL_12:
   return v6;
 }
 
-uint64_t _ShareSheetCachedActiveInterfaceOrientation()
+void *_ShareSheetCachedActiveInterfaceOrientation()
 {
   if ([MEMORY[0x1E696AF00] isMainThread])
   {
@@ -6465,7 +6484,7 @@ Class __getCNContactStoreClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -6483,7 +6502,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __ContactsLibraryCore_block_invoke()
+uint64_t __ContactsLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary = result;
@@ -6519,7 +6538,7 @@ uint64_t TCCLibrary()
   v1 = v3[0];
   if (!TCCLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -6532,7 +6551,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __TCCLibraryCore_block_invoke()
+uint64_t __TCCLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   TCCLibraryCore_frameworkLibrary = result;
@@ -6713,10 +6732,11 @@ id __ItemsFromUIActivityItems(void *a1)
   return v21;
 }
 
-void sub_18B3B1630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
+void sub_18B3B1630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, ...)
 {
+  va_start(va, a51);
   _Block_object_dispose(&a46, 8);
-  _Block_object_dispose(&a52, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6958,7 +6978,7 @@ id _NSItemProviderForUIActivityItem(void *a1, void *a2, void *a3)
   return v9;
 }
 
-id _UIActivityGetTypeIdentifier(void *a1, void *a2, uint64_t a3)
+__CFString *_UIActivityGetTypeIdentifier(void *a1, void *a2, uint64_t a3)
 {
   v5 = a1;
   v6 = a2;
@@ -7027,14 +7047,14 @@ LABEL_14:
   return v7;
 }
 
-void sub_18B3B320C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_18B3B320C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _UICanExcludeExtensionActivities()
+uint64_t _UICanExcludeExtensionActivities(uint64_t a1, uint64_t a2)
 {
   if (_UICanExcludeExtensionActivities_onceToken != -1)
   {
@@ -7069,9 +7089,9 @@ uint64_t _UIShouldExcludeExtensionWithActivityType(void *a1)
   return v2;
 }
 
-void sub_18B3B4768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18B3B4768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7100,9 +7120,9 @@ id getCSAddParticipantsViewControllerClass()
   return v1;
 }
 
-void sub_18B3B4B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B3B4B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7132,7 +7152,7 @@ Class __getSFAirDropViewControllerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -7150,7 +7170,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __SharingUILibraryCore_block_invoke_5()
+uint64_t __SharingUILibraryCore_block_invoke_5(uint64_t a1)
 {
   result = _sl_dlopen();
   SharingUILibraryCore_frameworkLibrary_5 = result;
@@ -7192,7 +7212,7 @@ void CloudSharingUILibrary()
   v0 = v1[0];
   if (!CloudSharingUILibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -7203,7 +7223,7 @@ LABEL_7:
   }
 }
 
-uint64_t __CloudSharingUILibraryCore_block_invoke()
+uint64_t __CloudSharingUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CloudSharingUILibraryCore_frameworkLibrary = result;
@@ -7222,21 +7242,21 @@ SHSheetRemoteCustomViewController *__getCSAddParticipantsViewControllerClass_blo
 
   else
   {
-    v3 = __getCSAddParticipantsViewControllerClass_block_invoke_cold_1();
+    __getCSAddParticipantsViewControllerClass_block_invoke_cold_1();
     return [(SHSheetRemoteCustomViewController *)v3 initWithSessionIdentifier:v4, v5];
   }
 
   return result;
 }
 
-void sub_18B3B5418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18B3B5418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __SharingUILibraryCore_block_invoke_6()
+uint64_t __SharingUILibraryCore_block_invoke_6(uint64_t a1)
 {
   result = _sl_dlopen();
   SharingUILibraryCore_frameworkLibrary_6 = result;
@@ -7394,7 +7414,7 @@ LABEL_8:
 
 void __SanitizeStringForUseAsFileName_block_invoke()
 {
-  v0 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"/\"];
+  v0 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"/\""];
   v1 = SanitizeStringForUseAsFileName___illegalFileNameCharacters;
   SanitizeStringForUseAsFileName___illegalFileNameCharacters = v0;
 }
@@ -7467,16 +7487,16 @@ Class ___isUnitTesting_block_invoke()
   return result;
 }
 
-void sub_18B3BE730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_18B3BE730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
 
-void sub_18B3BE810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_18B3BE810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -7641,9 +7661,9 @@ void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_18B3D0E30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B3D0E30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7841,26 +7861,33 @@ void sub_18B3D2F74(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id SHQuickNoteLog()
+id SHQuickNoteLog(uint64_t a1)
 {
   if (SHQuickNoteLog_onceToken != -1)
   {
     SHQuickNoteLog_cold_1();
   }
 
-  v1 = SHQuickNoteLog___logger;
+  v2 = SHQuickNoteLog___logger;
 
-  return v1;
+  return v2;
 }
 
-uint64_t __ManagedConfigurationLibraryCore_block_invoke()
+void sub_18B3D4450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __ManagedConfigurationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ManagedConfigurationLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-uint64_t __ExtensionKitLibraryCore_block_invoke()
+uint64_t __ExtensionKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ExtensionKitLibraryCore_frameworkLibrary = result;
@@ -7896,7 +7923,7 @@ uint64_t SynapseLibrary()
   v1 = v3[0];
   if (!SynapseLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -7909,7 +7936,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __SynapseLibraryCore_block_invoke()
+uint64_t __SynapseLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SynapseLibraryCore_frameworkLibrary = result;
@@ -7961,9 +7988,9 @@ Class __getSYNotesActivationCommandClass_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_18B3D5B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B3D5B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7996,13 +8023,14 @@ id SHSheetUISpecPlaceholderColor(uint64_t a1)
   return v4;
 }
 
-id UIActivityContentHelperOptionsButtonAction(int a1, void *a2, void *a3)
+id UIActivityContentHelperOptionsButtonAction(uint64_t a1, void *a2, void *a3)
 {
+  v4 = a1;
   v5 = getLPButtonActionClass;
   v6 = a3;
   v7 = a2;
   v8 = v5();
-  v9 = UIActivityContentHelperOptionsButtonText(a1, v7);
+  v9 = UIActivityContentHelperOptionsButtonText(v4, v7);
 
   v10 = [(objc_class *)v8 actionWithTitle:v9 image:0 handler:v6];
 
@@ -8181,9 +8209,9 @@ void sub_18B3D7A18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_18B3D99E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B3D99E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8224,16 +8252,16 @@ void _UIShareServiceProxyRaiseInvocationUnsupportedForInstance(void *a1, const c
   [v3 raise:v4 format:{@"Attempt to invoke -%@ on %@, which is not supported for proxies to out-of-process activities.", v6, v5}];
 }
 
-id _UIActivityGetPrintingBasedActivities()
+id _UIActivityGetPrintingBasedActivities(uint64_t a1)
 {
   if (_UIActivityGetPrintingBasedActivities_once != -1)
   {
     _UIActivityGetPrintingBasedActivities_cold_1();
   }
 
-  v1 = _UIActivityGetPrintingBasedActivities___printingBasedActivities;
+  v2 = _UIActivityGetPrintingBasedActivities___printingBasedActivities;
 
-  return v1;
+  return v2;
 }
 
 __CFString *SHSheetActivityPerformerStateDescription(unint64_t a1)
@@ -8418,9 +8446,9 @@ LABEL_16:
 LABEL_32:
 }
 
-void sub_18B3E6B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18B3E6B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8451,7 +8479,7 @@ void *__getSFUILinkMetadataSerializationForLocalUseOnlySymbolLoc_block_invoke_0(
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -8466,7 +8494,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __SharingUILibraryCore_block_invoke_7()
+uint64_t __SharingUILibraryCore_block_invoke_7(uint64_t a1)
 {
   result = _sl_dlopen();
   SharingUILibraryCore_frameworkLibrary_7 = result;
@@ -8532,14 +8560,14 @@ double _UISecureDecodeCGSizeWithKeyAndDefaultSize(void *a1, void *a2, double a3)
   return a3;
 }
 
-void sub_18B3E83A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B3E83A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __LinkPresentationLibraryCore_block_invoke_1()
+uint64_t __LinkPresentationLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   LinkPresentationLibraryCore_frameworkLibrary_1 = result;
@@ -8558,7 +8586,7 @@ Class __getLPImageClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getLPImageClass_block_invoke_cold_1();
+    __getLPImageClass_block_invoke_cold_1();
     return +[(UIAddToReadingListActivity *)v3];
   }
 
@@ -8599,9 +8627,9 @@ void sub_18B3ED4C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_18B3EDC70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B3EDC70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8771,9 +8799,9 @@ void sub_18B3F1A9C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_18B3F2364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B3F2364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8799,16 +8827,16 @@ void sub_18B3F3218(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_18B3F371C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B3F371C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B3F3C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B3F3C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8824,7 +8852,7 @@ void __genericDocumentIcons_block_invoke()
   genericDocumentIcons_icons = v2;
 }
 
-void __passKitIconsIfIsPassKitDocument_block_invoke()
+void __passKitIconsIfIsPassKitDocument_block_invoke(uint64_t a1)
 {
   if (PassKitLibrary_sOnce != -1)
   {
@@ -8836,10 +8864,10 @@ void __passKitIconsIfIsPassKitDocument_block_invoke()
     __passKitIconsIfIsPassKitDocument_block_invoke_cold_2();
   }
 
-  v2 = objc_alloc_init(NSClassFromString(&cfstr_Pkpass.isa));
-  v0 = [v2 mailAttachmentIcon];
-  v1 = passKitIconsIfIsPassKitDocument_genericPassIcon;
-  passKitIconsIfIsPassKitDocument_genericPassIcon = v0;
+  v3 = objc_alloc_init(NSClassFromString(&cfstr_Pkpass.isa));
+  v1 = [v3 mailAttachmentIcon];
+  v2 = passKitIconsIfIsPassKitDocument_genericPassIcon;
+  passKitIconsIfIsPassKitDocument_genericPassIcon = v1;
 }
 
 void *__PassKitLibrary_block_invoke()
@@ -8902,9 +8930,9 @@ id tempURLForJobName(void *a1)
   return v6;
 }
 
-void sub_18B3F899C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B3F899C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8916,14 +8944,14 @@ uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_18B3FA838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B3FA838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -8936,7 +8964,7 @@ void sub_18B3FB088(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t __SharingUILibraryCore_block_invoke_8()
+uint64_t __SharingUILibraryCore_block_invoke_8(uint64_t a1)
 {
   result = _sl_dlopen();
   SharingUILibraryCore_frameworkLibrary_8 = result;
@@ -8998,16 +9026,16 @@ void *__TelephonyUtilitiesLibrary_block_invoke()
   return result;
 }
 
-void sub_18B3FC1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B3FC1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B3FC820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B3FC820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9047,7 +9075,7 @@ void FrontBoardLibrary_0()
   v0 = v1[0];
   if (!FrontBoardLibraryCore_frameworkLibrary_0)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -9058,7 +9086,7 @@ LABEL_7:
   }
 }
 
-uint64_t __FrontBoardLibraryCore_block_invoke_0()
+uint64_t __FrontBoardLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   FrontBoardLibraryCore_frameworkLibrary_0 = result;
@@ -9076,7 +9104,7 @@ void __getFBDisplayManagerClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v2 = __getFBDisplayManagerClass_block_invoke_cold_1();
+    __getFBDisplayManagerClass_block_invoke_cold_1();
     __UIEnumerateApplicationsInPreferredOrderForOpeningDocument(v2, v3);
   }
 }
@@ -9214,28 +9242,29 @@ uint64_t _UIApplicationCanOpenInPlaceForReadOnlyOpenInPlaceFile(void *a1, void *
     goto LABEL_6;
   }
 
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
   v5 = getFPURLMightBeInFileProviderSymbolLoc_ptr;
-  v17 = getFPURLMightBeInFileProviderSymbolLoc_ptr;
+  v18 = getFPURLMightBeInFileProviderSymbolLoc_ptr;
   if (!getFPURLMightBeInFileProviderSymbolLoc_ptr)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __getFPURLMightBeInFileProviderSymbolLoc_block_invoke;
-    v13[3] = &unk_1E71F91F0;
-    v13[4] = &v14;
-    __getFPURLMightBeInFileProviderSymbolLoc_block_invoke(v13);
-    v5 = v15[3];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __getFPURLMightBeInFileProviderSymbolLoc_block_invoke;
+    v14[3] = &unk_1E71F91F0;
+    v14[4] = &v15;
+    __getFPURLMightBeInFileProviderSymbolLoc_block_invoke(v14);
+    v5 = v16[3];
   }
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v15, 8);
   if (!v5)
   {
-    v12 = [SHSheetRemoteSceneViewController reloadMetadata:];
-    _Block_object_dispose(&v14, 8);
-    _Unwind_Resume(v12);
+    [SHSheetRemoteSceneViewController reloadMetadata:];
+    v13 = v12;
+    _Block_object_dispose(&v15, 8);
+    _Unwind_Resume(v13);
   }
 
   if ((v5(v4) & 1) == 0)
@@ -9378,45 +9407,4 @@ id _UIActivityDefaultOpenApplicationLaunchServiceOptions()
   v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
 
   return v1;
-}
-
-void *__getFPURLMightBeInFileProviderSymbolLoc_block_invoke(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
-  if (!FileProviderLibraryCore_frameworkLibrary)
-  {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __FileProviderLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E71FB3A8;
-    v7 = 0;
-    FileProviderLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v5[0];
-    v2 = FileProviderLibraryCore_frameworkLibrary;
-    if (FileProviderLibraryCore_frameworkLibrary)
-    {
-      if (!v5[0])
-      {
-        goto LABEL_5;
-      }
-    }
-
-    else
-    {
-      v3 = abort_report_np();
-    }
-
-    free(v3);
-    goto LABEL_5;
-  }
-
-  v2 = FileProviderLibraryCore_frameworkLibrary;
-LABEL_5:
-  result = dlsym(v2, "FPURLMightBeInFileProvider");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getFPURLMightBeInFileProviderSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
 }

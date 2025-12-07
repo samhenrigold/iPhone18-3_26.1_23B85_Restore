@@ -9,7 +9,7 @@
 
 + (id)buildLmWithConfig:(id)config root:(id)root data:(id)data dir:(id)dir shouldStop:(id)stop
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   configCopy = config;
   rootCopy = root;
   dataCopy = data;
@@ -22,7 +22,7 @@
   {
     if (configCopy)
     {
-      [configCopy ear_toString];
+      objc_msgSend_ear_toString(configCopy);
       if (!rootCopy)
       {
         goto LABEL_9;
@@ -32,24 +32,24 @@
     else
     {
       buf = 0uLL;
-      v21 = 0;
+      v22 = 0;
       if (!rootCopy)
       {
 LABEL_9:
-        quasar::makeLmBuildConfig();
+        quasar::makeLmBuildConfig(&buf);
       }
     }
 
-    [rootCopy ear_toString];
+    objc_msgSend_ear_toString(rootCopy);
     goto LABEL_9;
   }
 
-  v18 = EarLmLogger();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = EarLmLogger(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = configCopy;
-    _os_log_impl(&dword_1B501D000, v18, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
+    _os_log_impl(&dword_1B501D000, v19, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
   }
 
   return 0;
@@ -59,11 +59,11 @@ LABEL_9:
 {
   v17 = *MEMORY[0x1E69E9840];
   dirCopy = dir;
-  v14 = 0;
-  v15 = 0;
+  v15[0] = 0;
+  v15[1] = 0;
   v16 = 0;
-  LOBYTE(v9) = 0;
-  v11 = 0;
+  LOBYTE(v10) = 0;
+  v12 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v5 = [defaultManager fileExistsAtPath:dirCopy];
 
@@ -71,35 +71,35 @@ LABEL_9:
   {
     if (dirCopy)
     {
-      [dirCopy ear_toString];
+      objc_msgSend_ear_toString(dirCopy);
     }
 
     else
     {
       buf = 0uLL;
-      v13 = 0;
+      v14 = 0;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&__p, "");
-    quasar::loadLmFromDirectory(&buf);
+    std::string::basic_string[abi:ne200100]<0>(__p, "");
+    quasar::loadLmFromDirectory(&buf, __p, v15, &v10);
   }
 
-  v6 = EarLmLogger();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = EarLmLogger(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = dirCopy;
-    _os_log_impl(&dword_1B501D000, v6, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
+    _os_log_impl(&dword_1B501D000, v7, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
   }
 
-  if (v11 == 1 && v10)
+  if (v12 == 1 && v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
   if (SHIBYTE(v16) < 0)
   {
-    operator delete(v14);
+    operator delete(v15[0]);
   }
 
   return 0;
@@ -111,7 +111,7 @@ LABEL_9:
   dirCopy = dir;
   if (dirCopy)
   {
-    [dirCopy ear_toString];
+    objc_msgSend_ear_toString(dirCopy);
   }
 
   else
@@ -124,25 +124,30 @@ LABEL_9:
 
 + (id)generateNgramCountsWithConfig:(id)config root:(id)root data:(id)data
 {
+  v11[3] = *MEMORY[0x1E69E9840];
   configCopy = config;
   rootCopy = root;
   dataCopy = data;
   if (configCopy)
   {
-    [configCopy ear_toString];
+    objc_msgSend_ear_toString(configCopy);
     if (!rootCopy)
     {
       goto LABEL_5;
     }
   }
 
-  else if (!rootCopy)
+  else
   {
+    memset(v11, 0, 24);
+    if (!rootCopy)
+    {
 LABEL_5:
-    quasar::makeLmBuildConfig();
+      quasar::makeLmBuildConfig(v11);
+    }
   }
 
-  [rootCopy ear_toString];
+  objc_msgSend_ear_toString(rootCopy);
   goto LABEL_5;
 }
 

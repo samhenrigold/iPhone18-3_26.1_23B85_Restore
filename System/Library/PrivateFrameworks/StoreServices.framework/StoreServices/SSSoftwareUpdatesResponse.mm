@@ -165,16 +165,16 @@
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v8.receiver = self;
-    v8.super_class = SSSoftwareUpdatesResponse;
-    v5 = [(SSSoftwareUpdatesResponse *)&v8 init];
+    v9.receiver = self;
+    v9.super_class = SSSoftwareUpdatesResponse;
+    v5 = [(SSSoftwareUpdatesResponse *)&v9 init];
     if (v5)
     {
       v5->_error = [objc_alloc(MEMORY[0x1E696ABC0]) initWithXPCEncoding:{xpc_dictionary_get_value(encoding, "0")}];
       v5->_failed = xpc_dictionary_get_BOOL(encoding, "1");
-      objc_opt_class();
-      v7 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2");
-      [(SSSoftwareUpdatesResponse *)v5 setUpdateItemsWithItemDictionaries:v7];
+      v7 = objc_opt_class();
+      v8 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2", v7);
+      [(SSSoftwareUpdatesResponse *)v5 setUpdateItemsWithItemDictionaries:v8];
     }
   }
 

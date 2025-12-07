@@ -40,23 +40,28 @@
 
 - (int)deflateWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
 {
+  v5 = *&withInt;
+  v6 = *&int;
   objc_sync_enter(self);
-  v9 = sub_100152374(self, array, int, withInt, self->flushParm_);
+  LODWORD(v5) = sub_100152374(self, array, v6, v5, self->flushParm_);
   objc_sync_exit(self);
-  return v9;
+  return v5;
 }
 
 - (int)deflateWithByteArray:(id)array withInt:(int)int withInt:(int)withInt withInt:(int)a6
 {
+  v6 = *&a6;
+  v7 = *&withInt;
+  v8 = *&int;
   objc_sync_enter(self);
-  if ((a6 - 2) >= 2 && a6)
+  if ((v6 - 2) >= 2 && v6)
   {
     v20 = JreStrcat("$I", v11, v12, v13, v14, v15, v16, v17, @"Bad flush value: ");
     v21 = new_JavaLangIllegalArgumentException_initWithNSString_(v20);
     objc_exception_throw(v21);
   }
 
-  v18 = sub_100152374(self, array, int, withInt, a6);
+  v18 = sub_100152374(self, array, v8, v7, v6);
   objc_sync_exit(self);
   return v18;
 }
@@ -215,6 +220,7 @@
 
 - (void)setDictionaryWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
 {
+  v6 = *&int;
   objc_sync_enter(self);
   [JavaUtilZipDeflater checkOpen]_0(self);
   if (!array)
@@ -222,8 +228,8 @@
     JreThrowNullPointerException();
   }
 
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
-  sub_100152BBC(array, int, withInt, self->streamHandle_);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), v6, withInt);
+  sub_100152BBC(array, v6, withInt, self->streamHandle_);
 
   objc_sync_exit(self);
 }
@@ -242,6 +248,7 @@
 
 - (void)setInputWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
 {
+  v6 = *&int;
   objc_sync_enter(self);
   [JavaUtilZipDeflater checkOpen]_0(self);
   if (!array)
@@ -249,7 +256,7 @@
     JreThrowNullPointerException();
   }
 
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), v6, withInt);
   inputBuffer = self->inputBuffer_;
   self->inRead_ = 0;
   self->inLength_ = withInt;
@@ -259,7 +266,7 @@
   }
 
   JreStrongAssign(&self->inputBuffer_, array);
-  sub_100152D7C(self, array, int, withInt, self->streamHandle_);
+  sub_100152D7C(self, array, v6, withInt, self->streamHandle_);
 
   objc_sync_exit(self);
 }

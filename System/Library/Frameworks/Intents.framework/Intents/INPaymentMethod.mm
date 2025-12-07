@@ -188,10 +188,9 @@ id __87__INPaymentMethod_INCodableAttributeRelationComparing___intents_compareVa
 uint64_t __77__INPaymentMethod_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) setIcon:a2];
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 - (void)_intents_updateContainerWithCache:(id)cache
@@ -250,11 +249,11 @@ uint64_t __77__INPaymentMethod_INImageProxyInjecting___injectProxiesForImages_co
 
 - (id)_dictionaryRepresentation
 {
-  v14[4] = *MEMORY[0x1E69E9840];
-  v13[0] = @"type";
+  v13[4] = *MEMORY[0x1E69E9840];
+  v12[0] = @"type";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_type];
-  v14[0] = v3;
-  v13[1] = @"name";
+  v13[0] = v3;
+  v12[1] = @"name";
   name = self->_name;
   null = name;
   if (!name)
@@ -262,8 +261,8 @@ uint64_t __77__INPaymentMethod_INImageProxyInjecting___injectProxiesForImages_co
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[1] = null;
-  v13[2] = @"icon";
+  v13[1] = null;
+  v12[2] = @"icon";
   icon = self->_icon;
   null2 = icon;
   if (!icon)
@@ -271,8 +270,8 @@ uint64_t __77__INPaymentMethod_INImageProxyInjecting___injectProxiesForImages_co
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[2] = null2;
-  v13[3] = @"identificationHint";
+  v13[2] = null2;
+  v12[3] = @"identificationHint";
   identificationHint = self->_identificationHint;
   null3 = identificationHint;
   if (!identificationHint)
@@ -280,8 +279,8 @@ uint64_t __77__INPaymentMethod_INImageProxyInjecting___injectProxiesForImages_co
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[3] = null3;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v13[3] = null3;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
   if (identificationHint)
   {
     if (icon)
@@ -313,7 +312,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

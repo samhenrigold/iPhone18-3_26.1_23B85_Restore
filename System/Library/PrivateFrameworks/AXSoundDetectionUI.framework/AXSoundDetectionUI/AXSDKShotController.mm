@@ -10,6 +10,7 @@
 - (void)kickoffTrainingForDetector:(id)detector;
 - (void)listenEngineDidStartWithInputFormat:(id)format;
 - (void)listenEngineFailedToStartWithError:(id)error;
+- (void)receivedBuffer:(id)buffer atTime:(id)time isFile:(BOOL)file;
 - (void)receivedCompletion:(id)completion;
 - (void)receivedError:(id)error fromDetector:(id)detector;
 - (void)registerListener:(id)listener forRecordingUpdates:(id)updates;
@@ -115,14 +116,14 @@ void __27__AXSDKShotController_init__block_invoke(uint64_t a1)
 
 - (void)registerListener:(id)listener forRecordingUpdates:(id)updates
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   updatesCopy = updates;
   v8 = AXLogUltronKShot();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = listenerCopy;
+    v17 = listenerCopy;
     _os_log_impl(&dword_23D62D000, v8, OS_LOG_TYPE_DEFAULT, "Register recording listener: %@", buf, 0xCu);
   }
 
@@ -132,14 +133,12 @@ void __27__AXSDKShotController_init__block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __60__AXSDKShotController_registerListener_forRecordingUpdates___block_invoke;
   block[3] = &unk_278BDD360;
-  v15 = v9;
-  v16 = updatesCopy;
+  v14 = v9;
+  v15 = updatesCopy;
   block[4] = self;
   v11 = v9;
   v12 = updatesCopy;
   dispatch_async(listenerQueue, block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __60__AXSDKShotController_registerListener_forRecordingUpdates___block_invoke(uint64_t a1)
@@ -152,28 +151,26 @@ void __60__AXSDKShotController_registerListener_forRecordingUpdates___block_invo
 
 - (void)deregisterListener:(id)listener
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   v5 = AXLogUltronKShot();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = listenerCopy;
+    v12 = listenerCopy;
     _os_log_impl(&dword_23D62D000, v5, OS_LOG_TYPE_DEFAULT, "Deregister audio listener: %@", buf, 0xCu);
   }
 
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:listenerCopy];
   listenerQueue = self->_listenerQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __42__AXSDKShotController_deregisterListener___block_invoke;
-  v10[3] = &unk_278BDD2C0;
-  v10[4] = self;
-  v11 = v6;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __42__AXSDKShotController_deregisterListener___block_invoke;
+  v9[3] = &unk_278BDD2C0;
+  v9[4] = self;
+  v10 = v6;
   v8 = v6;
-  dispatch_async(listenerQueue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(listenerQueue, v9);
 }
 
 - (void)startListening
@@ -198,14 +195,14 @@ void __60__AXSDKShotController_registerListener_forRecordingUpdates___block_invo
 
 - (void)startListeningToTrainDetector:(id)detector
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   detectorCopy = detector;
   v5 = AXLogUltronKShot();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = detectorCopy;
-    _os_log_impl(&dword_23D62D000, v5, OS_LOG_TYPE_DEFAULT, "KShot Controller: Start listening to train detector: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = detectorCopy;
+    _os_log_impl(&dword_23D62D000, v5, OS_LOG_TYPE_DEFAULT, "KShot Controller: Start listening to train detector: %@", &v7, 0xCu);
   }
 
   if (detectorCopy)
@@ -223,8 +220,6 @@ void __60__AXSDKShotController_registerListener_forRecordingUpdates___block_invo
       [AXSDKShotController startListeningToTrainDetector:];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopListening
@@ -289,20 +284,20 @@ void __43__AXSDKShotController_removeAllListenTypes__block_invoke(uint64_t a1)
 
 - (void)kickoffTrainingForDetector:(id)detector
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   detectorCopy = detector;
   v5 = AXLogUltron();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = detectorCopy;
+    v11 = detectorCopy;
     _os_log_impl(&dword_23D62D000, v5, OS_LOG_TYPE_DEFAULT, "KShot Controller: Kicking off training of detector: %@", buf, 0xCu);
   }
 
   trainingController = self->_trainingController;
-  v10 = 0;
-  [(AXSDKShotRecordingImplementation *)trainingController kickoffMLTrainingOfDetector:detectorCopy error:&v10];
-  v7 = v10;
+  v9 = 0;
+  [(AXSDKShotRecordingImplementation *)trainingController kickoffMLTrainingOfDetector:detectorCopy error:&v9];
+  v7 = v9;
   if (v7)
   {
     v8 = AXLogUltronKShot();
@@ -311,8 +306,6 @@ void __43__AXSDKShotController_removeAllListenTypes__block_invoke(uint64_t a1)
       [AXSDKShotController kickoffTrainingForDetector:];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)retrainModelWithIdentifier:(id)identifier
@@ -354,11 +347,9 @@ LABEL_9:
 
 - (void)_retrainModelIdentifierUpdated
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listenEngineDidStartWithInputFormat:(id)format
@@ -410,6 +401,17 @@ void __59__AXSDKShotController_listenEngineDidStartWithInputFormat___block_invok
   }
 }
 
+- (void)receivedBuffer:(id)buffer atTime:(id)time isFile:(BOOL)file
+{
+  fileCopy = file;
+  timeCopy = time;
+  bufferCopy = buffer;
+  detectorManager = [(AXSDKShotController *)self detectorManager];
+  [detectorManager processAudioBuffer:bufferCopy atTime:timeCopy];
+
+  [(AXSDKShotRecordingManager *)self->_kShotRecordingManager trackBuffer:bufferCopy atTime:timeCopy isFile:fileCopy];
+}
+
 - (BOOL)listenEngineShouldResumeAfterAudioSessionInterruption
 {
   mEMORY[0x277CE6F98] = [MEMORY[0x277CE6F98] sharedInstance];
@@ -420,17 +422,15 @@ void __59__AXSDKShotController_listenEngineDidStartWithInputFormat___block_invok
 
 - (void)receivedCompletion:(id)completion
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v4 = AXLogUltronKShot();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = completionCopy;
-    _os_log_impl(&dword_23D62D000, v4, OS_LOG_TYPE_DEFAULT, "Received Completion for: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = completionCopy;
+    _os_log_impl(&dword_23D62D000, v4, OS_LOG_TYPE_DEFAULT, "Received Completion for: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedError:(id)error fromDetector:(id)detector
@@ -446,40 +446,40 @@ void __59__AXSDKShotController_listenEngineDidStartWithInputFormat___block_invok
 
 - (void)savedTrainingRecordingForDetector:(id)detector
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   detectorCopy = detector;
   if (detectorCopy)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     allKeys = [(NSMutableDictionary *)self->_listenerHanders allKeys];
-    v6 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         v9 = 0;
         do
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v10 = [(NSMutableDictionary *)self->_listenerHanders objectForKey:*(*(&v19 + 1) + 8 * v9), v13, v14, v15, v16];
+          v10 = [(NSMutableDictionary *)self->_listenerHanders objectForKey:*(*(&v18 + 1) + 8 * v9), v12, v13, v14, v15];
           v11 = v10;
           if (v10)
           {
-            v13 = MEMORY[0x277D85DD0];
-            v14 = 3221225472;
-            v15 = __57__AXSDKShotController_savedTrainingRecordingForDetector___block_invoke;
-            v16 = &unk_278BDD388;
-            v18 = v10;
-            v17 = detectorCopy;
+            v12 = MEMORY[0x277D85DD0];
+            v13 = 3221225472;
+            v14 = __57__AXSDKShotController_savedTrainingRecordingForDetector___block_invoke;
+            v15 = &unk_278BDD388;
+            v17 = v10;
+            v16 = detectorCopy;
             AXPerformBlockOnMainThread();
           }
 
@@ -487,14 +487,12 @@ void __59__AXSDKShotController_listenEngineDidStartWithInputFormat___block_invok
         }
 
         while (v7 != v9);
-        v7 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hearingMLHelperService:(id)service eventOccurred:(int64_t)occurred
@@ -521,61 +519,44 @@ void __59__AXSDKShotController_listenEngineDidStartWithInputFormat___block_invok
   }
 }
 
-- (void)kickoffTrainingForDetector:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_23D62D000, v0, v1, "KShot Controller: Error kicking off training for detector: %@. Error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)retrainModelWithIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrainModelWithIdentifier:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listenEngineFailedToStartWithError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedError:(NSObject *)a3 fromDetector:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = [a1 soundIdentifier];
   OUTLINED_FUNCTION_0_0();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_23D62D000, a3, OS_LOG_TYPE_ERROR, "Received Error for %@: %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_23D62D000, a3, OS_LOG_TYPE_ERROR, "Received Error for %@: %@", v6, 0x16u);
 }
 
 - (void)hearingMLHelperService:(NSObject *)a3 eventOccurred:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = a2;
-  *&v4[12] = 2112;
-  *&v4[14] = *(a1 + 56);
-  OUTLINED_FUNCTION_1(&dword_23D62D000, a2, a3, "HearingMLHelperService: Invaidation event occured - code: %ld - detector: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 134218242;
+  *&v3[4] = a2;
+  *&v3[12] = 2112;
+  *&v3[14] = *(a1 + 56);
+  OUTLINED_FUNCTION_1(&dword_23D62D000, a2, a3, "HearingMLHelperService: Invaidation event occured - code: %ld - detector: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

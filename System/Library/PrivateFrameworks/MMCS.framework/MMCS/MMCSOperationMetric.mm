@@ -75,36 +75,36 @@
 
 - (void)rangesCompleted
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   ranges = [(MMCSOperationMetric *)self ranges];
-  v4 = [ranges countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [ranges countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     v7 = 0.0;
     v8 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(ranges);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         [v10 queueing];
         v8 = v8 + v11;
         [v10 executing];
         v7 = v7 + v12;
       }
 
-      v5 = [ranges countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [ranges countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -118,7 +118,6 @@
 
   [(MMCSOperationMetric *)self setQueueing:v8];
   [(MMCSOperationMetric *)self setExecuting:v7];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)rangesCopy

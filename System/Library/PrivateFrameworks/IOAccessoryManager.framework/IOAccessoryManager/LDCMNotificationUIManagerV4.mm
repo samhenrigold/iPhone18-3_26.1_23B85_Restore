@@ -3,6 +3,7 @@
 - (IOPortLDCMManagerV4)ldcmManager;
 - (LDCMNotificationUIManagerV4)initWithParams:(__CFRunLoop *)params :(id)a4;
 - (void)setLiquidNotificationContext:(id *)context;
+- (void)setOverride:(unsigned __int8)override;
 @end
 
 @implementation LDCMNotificationUIManagerV4
@@ -20,6 +21,13 @@
   objc_storeWeak(&self->_ldcmManager, v6);
 
   return self;
+}
+
+- (void)setOverride:(unsigned __int8)override
+{
+  overrideCopy = override;
+  WeakRetained = objc_loadWeakRetained(&self->_ldcmManager);
+  [WeakRetained setOverride:overrideCopy];
 }
 
 - (IOPortLDCMManagerV4)ldcmManager
@@ -49,7 +57,6 @@
   *&self->_liquidNotificationContext.isNotificationPosted = v3;
   var6 = context->var6;
   context->var6 = 0;
-  notificationUIManager = self->_liquidNotificationContext.notificationUIManager;
   self->_liquidNotificationContext.notificationUIManager = var6;
   MEMORY[0x2821F96F8]();
 }

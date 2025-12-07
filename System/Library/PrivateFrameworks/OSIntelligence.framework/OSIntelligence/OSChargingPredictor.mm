@@ -145,59 +145,45 @@ void __52___OSChargingPredictor_unfixModelOutputWithHandler___block_invoke(uint6
 void __65___OSChargingPredictor_chargePredictionOutputOfScheme_withError___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(v0 + 48));
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25D171000, v2, v3, "Error executing %@: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25D171000, v2, v3, "Error executing %@: %@", v4, v5, v6, v7);
 }
 
 void __65___OSChargingPredictor_chargePredictionOutputOfScheme_withError___block_invoke_62_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(v0 + 56));
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25D171000, v2, v3, "Error executing %@: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25D171000, v2, v3, "Error executing %@: %@", v4, v5, v6, v7);
 }
 
 void __39___OSChargingPredictor_fixModelOutput___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __51___OSChargingPredictor_fixModelOutput_withHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __40___OSChargingPredictor_unfixModelOutput__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __52___OSChargingPredictor_unfixModelOutputWithHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

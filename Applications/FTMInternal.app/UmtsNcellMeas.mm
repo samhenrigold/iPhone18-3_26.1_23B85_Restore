@@ -166,7 +166,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    cellType = self->_cellType;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -186,7 +185,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  cpichSc = self->_cpichSc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -201,7 +199,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  dlUarfcn = self->_dlUarfcn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -216,12 +213,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  cpichRscp = self->_cpichRscp;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    cpichEcn0 = self->_cpichEcn0;
     PBDataWriterWriteUint32Field();
   }
 

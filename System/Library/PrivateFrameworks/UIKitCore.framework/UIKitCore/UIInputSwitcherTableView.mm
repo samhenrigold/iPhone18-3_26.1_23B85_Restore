@@ -19,36 +19,36 @@
     textLabel = [v7 textLabel];
     [textLabel setTextColor:v10];
 
-    menu2 = +[UIColor secondaryLabelColor];
+    v12 = +[UIColor secondaryLabelColor];
     detailTextLabel = [v7 detailTextLabel];
-    [detailTextLabel setTextColor:menu2];
+    [detailTextLabel setTextColor:v12];
   }
 
   else
   {
-    menu = [(UIInputSwitcherTableView *)self menu];
-    if ([menu usesDarkTheme])
+    v14 = objc_msgSend_menu(self);
+    if ([v14 usesDarkTheme])
     {
       +[UIColor whiteColor];
     }
 
     else
     {
-      +[UIColor blackColor];
+      objc_msgSend_blackColor(UIColor);
     }
     v15 = ;
     textLabel2 = [v7 textLabel];
     [textLabel2 setTextColor:v15];
 
-    menu2 = [(UIInputSwitcherTableView *)self menu];
-    if ([menu2 usesDarkTheme])
+    v12 = objc_msgSend_menu(self);
+    if ([v12 usesDarkTheme])
     {
       +[UIColor whiteColor];
     }
 
     else
     {
-      +[UIColor blackColor];
+      objc_msgSend_blackColor(UIColor);
     }
     detailTextLabel = ;
     detailTextLabel2 = [v7 detailTextLabel];

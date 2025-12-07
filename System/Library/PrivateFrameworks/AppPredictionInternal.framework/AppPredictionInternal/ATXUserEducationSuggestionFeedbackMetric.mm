@@ -22,8 +22,8 @@
 
 - (id)coreAnalyticsDictionary
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"feedbackType";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"feedbackType";
   [(ATXUserEducationSuggestionFeedback *)self->_feedback feedbackType];
   v2 = ATXUserEducationSuggestionFeedbackTypeToString();
   null = v2;
@@ -32,13 +32,11 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v8[0] = null;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = null;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   if (!v2)
   {
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

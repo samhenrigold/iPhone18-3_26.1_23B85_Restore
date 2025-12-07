@@ -146,7 +146,7 @@
   v170 = v7;
   [(CIBicubicScaleTransform *)self _scale];
   v9 = v8;
-  LODWORD(v10) = LODWORD(v8.f64[0]);
+  LODWORD(v10.f64[0]) = LODWORD(v8.f64[0]);
   if (fabsf(*v8.f64) >= 0.00001)
   {
     __asm { FMOV            V1.2S, #1.0 }
@@ -216,7 +216,7 @@
     v38 = v34;
     v146 = v38;
     v147 = v37;
-    if (*&v10 > 0.5 || *(v9.f64 + 1) > 0.5)
+    if (*v10.f64 > 0.5 || *(v9.f64 + 1) > 0.5)
     {
       v171 = v10;
     }
@@ -306,8 +306,8 @@
           v189.var3 = 0.0;
         }
 
-        Rectangle::inset(&v189, -2.0, -2.0, &v190);
-        Rectangle::integralize(&v190, 0.0001, &v191);
+        Rectangle::inset(&v190, &v189, -2.0, -2.0);
+        Rectangle::integralize(&v191, &v190, 0.0001);
         v164 = *&v191.var2;
         v177 = *&v191.var0;
         v53 = [CIKernel kernelWithInternalRepresentation:&CI::_cubicDownsample2];
@@ -337,7 +337,7 @@
     }
 
     v178 = v9;
-    if (*&v171 <= 0.5)
+    if (*v171.f64 <= 0.5)
     {
       v150 = vdupq_n_s64(0x7FF0000000000000uLL);
       v153 = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
@@ -427,8 +427,8 @@
           v189.var3 = 0.0;
         }
 
-        Rectangle::inset(&v189, -2.0, -0.0, &v190);
-        Rectangle::integralize(&v190, 0.0001, &v191);
+        Rectangle::inset(&v190, &v189, -2.0, -0.0);
+        Rectangle::integralize(&v191, &v190, 0.0001);
         v161 = *&v191.var2;
         v165 = *&v191.var0;
         v68 = [CIKernel kernelWithInternalRepresentation:&CI::_cubicDownsample2h];
@@ -451,13 +451,13 @@
         inputImage = -[CIKernel applyWithExtent:roiCallback:arguments:](v68, "applyWithExtent:roiCallback:arguments:", &__block_literal_global_36_0, [MEMORY[0x1E695DEC8] arrayWithObjects:v198 count:2], v165.f64[0], v69, v161.f64[0], v70);
         v72 = v171;
         v71 = v178;
-        *&v72 = *&v72 + *&v72;
-        LODWORD(v71.f64[0]) = v72;
+        *v72.f64 = *v72.f64 + *v72.f64;
+        LODWORD(v71.f64[0]) = LODWORD(v72.f64[0]);
         v171 = v72;
         v178 = v71;
       }
 
-      while (*&v72 <= 0.5);
+      while (*v72.f64 <= 0.5);
     }
 
     v73 = v178;
@@ -553,8 +553,8 @@
           v189.var3 = 0.0;
         }
 
-        Rectangle::inset(&v189, -0.0, -2.0, &v190);
-        Rectangle::integralize(&v190, 0.0001, &v191);
+        Rectangle::inset(&v190, &v189, -0.0, -2.0);
+        Rectangle::integralize(&v191, &v190, 0.0001);
         v166 = *&v191.var2;
         v172 = *&v191.var0;
         v86 = [CIKernel kernelWithInternalRepresentation:&CI::_cubicDownsample2v];
@@ -646,8 +646,8 @@ LABEL_117:
       v189.var3 = v95;
     }
 
-    Rectangle::inset(&v189, -2.0, -0.0, &v190);
-    Rectangle::integralize(&v190, 0.0001, &v191);
+    Rectangle::inset(&v190, &v189, -2.0, -0.0);
+    Rectangle::integralize(&v191, &v190, 0.0001);
     v167 = *&v191.var2;
     v173 = *&v191.var0;
     v99 = [CIKernel kernelWithInternalRepresentation:&CI::_cubicDownsampleH];
@@ -738,8 +738,8 @@ LABEL_137:
       v189.var3 = v105 * v106;
     }
 
-    Rectangle::inset(&v189, -0.0, -2.0, &v190);
-    Rectangle::integralize(&v190, 0.0001, &v191);
+    Rectangle::inset(&v190, &v189, -0.0, -2.0);
+    Rectangle::integralize(&v191, &v190, 0.0001);
     v163 = *&v191.var2;
     v168 = *&v191.var0;
     v108 = [CIKernel kernelWithInternalRepresentation:&CI::_cubicDownsampleV];
@@ -808,7 +808,7 @@ LABEL_150:
         }
       }
 
-      Rectangle::inset(&v191, -2.0, -2.0, &v185);
+      Rectangle::inset(&v185, &v191, -2.0, -2.0);
       v115.f64[0] = v185.f64[0];
       if (fabs(v185.f64[0]) == INFINITY || fabs(v185.f64[1]) == INFINITY)
       {
@@ -836,7 +836,7 @@ LABEL_150:
         }
       }
 
-      Rectangle::integralize(&v189, 0.0001, &v190);
+      Rectangle::integralize(&v190, &v189, 0.0001);
       v191 = v190;
       v116 = COERCE_DOUBLE(vdiv_f32(v142, v180));
       v181 = v116;
@@ -946,7 +946,7 @@ void __38__CIBicubicScaleTransform_outputImage__block_invoke(CGFloat a1, CGFloat
     }
   }
 
-  Rectangle::inset(&v11, -2.0, -2.0, &v12);
+  Rectangle::inset(&v12, &v11, -2.0, -2.0);
   v8.f64[0] = v12.f64[0];
   if (fabs(v12.f64[0]) == INFINITY || fabs(v12.f64[1]) == INFINITY)
   {
@@ -973,7 +973,7 @@ void __38__CIBicubicScaleTransform_outputImage__block_invoke(CGFloat a1, CGFloat
     }
   }
 
-  Rectangle::integralize(&v14, 0.0001, &v15);
+  Rectangle::integralize(&v15, &v14, 0.0001);
 }
 
 @end

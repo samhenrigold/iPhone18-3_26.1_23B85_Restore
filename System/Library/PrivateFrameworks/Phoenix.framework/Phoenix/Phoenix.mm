@@ -72,7 +72,7 @@ uint64_t __os_log_helper_16_2_2_8_32_8_64(uint64_t result, uint64_t a2, uint64_t
   return result;
 }
 
-id PolicyOptionToString(int a1)
+id PolicyOptionToString(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
   v4 = a1;
@@ -100,7 +100,6 @@ id PolicyOptionToString(int a1)
       break;
   }
 
-  *MEMORY[0x277D85DE8];
   v1 = v5;
 
   return v1;
@@ -223,7 +222,7 @@ uint64_t __getCMWakeGestureManagerClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "CMWakeGestureManager");
   }
 
   getCMWakeGestureManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -236,7 +235,7 @@ uint64_t CoreMotionLibrary()
   v1 = CoreMotionLibraryCore(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -268,11 +267,8 @@ uint64_t CoreMotionLibraryCore(uint64_t a1)
 
 uint64_t __CoreMotionLibraryCore_block_invoke(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreMotionLibraryCore_frameworkLibrary = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -289,7 +285,7 @@ uint64_t __os_log_helper_16_2_2_8_32_8_66(uint64_t result, uint64_t a2, uint64_t
   return result;
 }
 
-id PolicyOptionToString_0(int a1)
+id PolicyOptionToString_0(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
   v4 = a1;
@@ -317,7 +313,6 @@ id PolicyOptionToString_0(int a1)
       break;
   }
 
-  *MEMORY[0x277D85DE8];
   v1 = v5;
 
   return v1;
@@ -362,7 +357,6 @@ void sub_25E4C5754(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, 
   *(v11 - 100) = a2;
   objc_destroyWeak(location);
   objc_destroyWeak((v11 - 80));
-  v12 = *(v11 - 96);
   JUMPOUT(0x25E4C5798);
 }
 
@@ -382,7 +376,7 @@ uint64_t __os_log_helper_16_2_3_8_32_8_0_8_64(uint64_t result, uint64_t a2, uint
   return result;
 }
 
-id PolicyOptionToString_1(int a1)
+id PolicyOptionToString_1(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
   v4 = a1;
@@ -410,7 +404,6 @@ id PolicyOptionToString_1(int a1)
       break;
   }
 
-  *MEMORY[0x277D85DE8];
   v1 = v5;
 
   return v1;

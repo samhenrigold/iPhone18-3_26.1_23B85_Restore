@@ -48,7 +48,7 @@
       bundleID = __biome_log_for_category();
       if (os_log_type_enabled(bundleID, OS_LOG_TYPE_FAULT))
       {
-        [BMAppLaunchEvent initWithProto:];
+        [BMAppLaunchEvent initWithProto:?];
       }
 
       selfCopy = 0;

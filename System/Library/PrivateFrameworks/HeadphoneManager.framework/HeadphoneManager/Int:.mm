@@ -1,17 +1,9 @@
 @interface Int:
-- (uint64_t)String;
 - (unint64_t)String;
 - (void)String;
 @end
 
 @implementation Int:
-
-- (uint64_t)String
-{
-  v1 = *self;
-
-  return self;
-}
 
 - (unint64_t)String
 {

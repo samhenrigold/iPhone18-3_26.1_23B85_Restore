@@ -14,6 +14,7 @@
 - (NSURL)stagingBaseDir;
 - (id)description;
 - (void)_internal_setStagedPath:(id)path;
+- (void)_onQueue_purgeStagingBaseDirKeepingBaseDir:(BOOL)dir;
 - (void)_remote_getStagedPath:(id)path;
 - (void)_remote_getTargetLastPathComponent:(id)component;
 - (void)_remote_setStagedPath:(id)path;
@@ -21,6 +22,7 @@
 - (void)decommission;
 - (void)encodeWithCoder:(id)coder;
 - (void)reset;
+- (void)setComplete:(BOOL)complete;
 - (void)setRelativeStagedPath:(id)path;
 - (void)setStagedPath:(id)path;
 - (void)setStagedPathMayNotExistWhenAwakening:(BOOL)awakening;
@@ -127,6 +129,59 @@
 LABEL_20:
 
   return v19;
+}
+
+- (void)_onQueue_purgeStagingBaseDirKeepingBaseDir:(BOOL)dir
+{
+  dirCopy = dir;
+  accessQueue = [(IXSDataPromise *)self accessQueue];
+  dispatch_assert_queue_V2(accessQueue);
+
+  v6 = +[IXFileManager defaultManager];
+  stagingBaseDir = [(IXSOwnedDataPromise *)self stagingBaseDir];
+  v19 = 0;
+  v8 = [v6 removeItemAtURL:stagingBaseDir keepParent:dirCopy error:&v19];
+  v9 = v19;
+
+  v10 = sub_1000031B0(off_100121958);
+  v11 = v10;
+  if (v8)
+  {
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      seed = [(IXSDataPromise *)self seed];
+      stagingBaseDir2 = [seed stagingBaseDir];
+      path = [stagingBaseDir2 path];
+      *buf = 136315394;
+      v21 = "[IXSOwnedDataPromise _onQueue_purgeStagingBaseDirKeepingBaseDir:]";
+      v22 = 2112;
+      v23 = path;
+      v15 = "%s: Destroyed %@";
+      v16 = v11;
+      v17 = OS_LOG_TYPE_INFO;
+      v18 = 22;
+LABEL_6:
+      _os_log_impl(&_mh_execute_header, v16, v17, v15, buf, v18);
+    }
+  }
+
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    seed = [(IXSDataPromise *)self seed];
+    stagingBaseDir2 = [seed stagingBaseDir];
+    path = [stagingBaseDir2 path];
+    *buf = 136315650;
+    v21 = "[IXSOwnedDataPromise _onQueue_purgeStagingBaseDirKeepingBaseDir:]";
+    v22 = 2112;
+    v23 = path;
+    v24 = 2112;
+    v25 = v9;
+    v15 = "%s: Failed to remove staged content at %@: %@";
+    v16 = v11;
+    v17 = OS_LOG_TYPE_DEFAULT;
+    v18 = 32;
+    goto LABEL_6;
+  }
 }
 
 - (BOOL)_onQueue_initWithSeedWithError:(id *)error
@@ -342,6 +397,37 @@ LABEL_6:
 LABEL_12:
 
   return v14;
+}
+
+- (void)setComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  accessQueue = [(IXSDataPromise *)self accessQueue];
+  dispatch_assert_queue_V2(accessQueue);
+
+  if ([(IXSDataPromise *)self isComplete]!= completeCopy)
+  {
+    if (!completeCopy)
+    {
+LABEL_5:
+      v9.receiver = self;
+      v9.super_class = IXSOwnedDataPromise;
+      [(IXSDataPromise *)&v9 setComplete:completeCopy];
+      return;
+    }
+
+    v10 = 0;
+    v6 = [(IXSOwnedDataPromise *)self validateStagedPathWithError:&v10];
+    v7 = v10;
+    v8 = v7;
+    if (v6)
+    {
+
+      goto LABEL_5;
+    }
+
+    [(IXSOwnedDataPromise *)self cancelForReason:v7 client:15 error:0];
+  }
 }
 
 - (void)decommission

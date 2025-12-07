@@ -35,25 +35,25 @@
     v7 = v6;
     if (v5 == v6)
     {
-      v8 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v8 = 0;
+      isEqual = 0;
       if (v6 && v5)
       {
-        v8 = [(NSString *)v5 isEqual:v6];
+        isEqual = objc_msgSend_isEqual_(v5);
       }
     }
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
   }
 
-  return v8;
+  return isEqual;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -115,9 +115,9 @@
           goto LABEL_14;
         }
 
-        v12 = [(NSString *)v9 isEqual:v10];
+        isEqual = objc_msgSend_isEqual_(v9);
 
-        if (!v12)
+        if (!isEqual)
         {
           goto LABEL_14;
         }

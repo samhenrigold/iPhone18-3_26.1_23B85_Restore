@@ -25,8 +25,7 @@
 
 - (void)synchronize
 {
-  localDomain = self->_localDomain;
-  v3 = [MEMORY[0x277CBEB98] setWithObjects:{@"FeatureVersion", @"UpdateVersion", @"UDIDeviceIdentifier", @"YearOfRelease", @"AvailableRegions", @"AvailableRegionsVersion", @"AvailableRegionsContentVersion", @"CountrySetProvenance", 0}];
+  v2 = [MEMORY[0x277CBEB98] setWithObjects:{@"FeatureVersion", @"UpdateVersion", @"UDIDeviceIdentifier", @"YearOfRelease", @"AvailableRegions", @"AvailableRegionsVersion", @"AvailableRegionsContentVersion", @"CountrySetProvenance", 0}];
   HKSynchronizeNanoPreferencesUserDefaults();
 }
 

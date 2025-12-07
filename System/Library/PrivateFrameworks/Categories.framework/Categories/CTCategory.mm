@@ -365,24 +365,22 @@ uint64_t __20__CTCategory_client__block_invoke()
 
 + (void)categoryForBundleID:(id)d platform:(id)platform withCompletionHandler:(id)handler
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
-  v19[0] = dCopy;
+  v18[0] = dCopy;
   v10 = MEMORY[0x277CBEA60];
   platformCopy = platform;
-  v12 = [v10 arrayWithObjects:v19 count:1];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __65__CTCategory_categoryForBundleID_platform_withCompletionHandler___block_invoke;
-  v16[3] = &unk_278DAAED8;
-  v17 = dCopy;
-  v18 = handlerCopy;
+  v12 = [v10 arrayWithObjects:v18 count:1];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __65__CTCategory_categoryForBundleID_platform_withCompletionHandler___block_invoke;
+  v15[3] = &unk_278DAAED8;
+  v16 = dCopy;
+  v17 = handlerCopy;
   v13 = handlerCopy;
   v14 = dCopy;
-  [self categoryForBundleIdentifiers:v12 platform:platformCopy withCompletionHandler:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [self categoryForBundleIdentifiers:v12 platform:platformCopy withCompletionHandler:v15];
 }
 
 void __65__CTCategory_categoryForBundleID_platform_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -542,25 +540,17 @@ void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandle
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_3;
-  v17[3] = &unk_278DAAF28;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_3;
+  v16[3] = &unk_278DAAF28;
   v8 = v5;
-  v18 = v8;
-  v19 = *(a1 + 48);
-  [v7 enumerateKeysAndObjectsUsingBlock:v17];
-  if (v6)
+  v17 = v8;
+  v18 = *(a1 + 48);
+  [v7 enumerateKeysAndObjectsUsingBlock:v16];
+  if (v6 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_2_cold_1(v6, v9, v10, v11, v12, v13, v14, v15);
-    }
-  }
-
-  else
-  {
-    v16 = *(*(*(a1 + 48) + 8) + 40);
+    __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_2_cold_1(v6, v9, v10, v11, v12, v13, v14, v15);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -696,18 +686,18 @@ void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandle
 
 void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_208(uint64_t a1, void *a2, void *a3)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v7 = *(a1 + 32);
     *buf = 138412803;
-    v51 = v7;
-    v52 = 2113;
-    v53 = v5;
-    v54 = 2112;
-    v55 = v6;
+    v49 = v7;
+    v50 = 2113;
+    v51 = v5;
+    v52 = 2112;
+    v53 = v6;
     _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "genreIDsAndCounterpartIdentifiersForInstalledBundleIDs:completionHandler: platform: %@, %{private}@ error:%@", buf, 0x20u);
   }
 
@@ -733,7 +723,7 @@ void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandle
   {
     v16 = *(*(*(a1 + 72) + 8) + 40);
     *buf = 138477827;
-    v51 = v16;
+    v49 = v16;
     _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "notInstalledBundleIdentifiers: %{private}@", buf, 0xCu);
   }
 
@@ -742,96 +732,93 @@ void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandle
 
   if (v18)
   {
-    v35 = v5;
-    v46 = 0u;
-    v47 = 0u;
+    v33 = v5;
     v44 = 0u;
     v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v19 = *(*(*(a1 + 72) + 8) + 40);
-    v20 = [v19 countByEnumeratingWithState:&v44 objects:v49 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v42 objects:v47 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v45;
+      v22 = *v43;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v45 != v22)
+          if (*v43 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v44 + 1) + 8 * i);
-          v48 = @"DH1009";
-          v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:{1, v35}];
+          v24 = *(*(&v42 + 1) + 8 * i);
+          v46 = @"DH1009";
+          v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:{1, v33}];
           [*(*(*(a1 + 56) + 8) + 40) setObject:v25 forKeyedSubscript:v24];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v42 objects:v47 count:16];
       }
 
       while (v21);
     }
 
-    v26 = *(*(*(a1 + 56) + 8) + 40);
     (*(*(a1 + 48) + 16))();
-    v5 = v35;
+    v5 = v33;
   }
 
   else if ([*(*(*(a1 + 72) + 8) + 40) count])
   {
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_209;
-    v41[3] = &unk_278DAAFC8;
-    v43 = *(a1 + 56);
-    v42 = *(a1 + 40);
-    v27 = MEMORY[0x245D2FDE0](v41);
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_209;
+    v39[3] = &unk_278DAAFC8;
+    v41 = *(a1 + 56);
+    v40 = *(a1 + 40);
+    v26 = MEMORY[0x245D2FDE0](v39);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v28 = *(*(*(a1 + 72) + 8) + 40);
+      v27 = *(*(*(a1 + 72) + 8) + 40);
       *buf = 138477827;
-      v51 = v28;
+      v49 = v27;
       _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "NotInstalledBundleIdentifiers: %{private}@ ", buf, 0xCu);
     }
 
-    v29 = *(a1 + 80);
-    v30 = *(*(*(a1 + 72) + 8) + 40);
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_211;
-    v37[3] = &unk_278DAAFF0;
-    v39 = v27;
-    v36 = *(a1 + 48);
-    v31 = v36;
-    v40 = v36;
-    v38 = *(a1 + 32);
-    v32 = v27;
-    [v29 _lookupAppStoreUsing:v30 platform:@"CTOSPlatformAll" withCompletionHandler:v37];
+    v28 = *(a1 + 80);
+    v29 = *(*(*(a1 + 72) + 8) + 40);
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_211;
+    v35[3] = &unk_278DAAFF0;
+    v37 = v26;
+    v34 = *(a1 + 48);
+    v30 = v34;
+    v38 = v34;
+    v36 = *(a1 + 32);
+    v31 = v26;
+    [v28 _lookupAppStoreUsing:v29 platform:@"CTOSPlatformAll" withCompletionHandler:v35];
   }
 
   else
   {
     if (*(*(*(a1 + 64) + 8) + 40))
     {
-      v33 = 0;
+      v32 = 0;
     }
 
     else
     {
-      v33 = *(*(*(a1 + 56) + 8) + 40);
+      v32 = *(*(*(a1 + 56) + 8) + 40);
     }
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), v33);
+    (*(*(a1 + 48) + 16))(*(a1 + 48), v32);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_209(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(*(*(a1 + 40) + 8) + 40) count];
   if (v2 != [*(a1 + 32) count])
   {
@@ -845,36 +832,36 @@ void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandle
     v9 = [v7 setWithArray:v8];
 
     [v6 minusSet:v9];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v10 = v6;
-    v11 = [v10 countByEnumeratingWithState:&v18 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v17 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v19;
+      v13 = *v18;
       do
       {
         v14 = 0;
         do
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v18 + 1) + 8 * v14);
-          v24 = @"DH1009";
-          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:{1, v18}];
+          v15 = *(*(&v17 + 1) + 8 * v14);
+          v23 = @"DH1009";
+          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:{1, v17}];
           [*(*(*(a1 + 40) + 8) + 40) setObject:v16 forKeyedSubscript:v15];
 
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v18 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v17 objects:v24 count:16];
       }
 
       while (v12);
@@ -883,24 +870,21 @@ void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandle
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 138477827;
-      v23 = v10;
+      v22 = v10;
       _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "fallbackToDefaultValueHandler - notInstalledBundleIdentifiers: %{private}@", buf, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_211(uint64_t a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   [*(*(*(a1 + 56) + 8) + 40) addEntriesFromDictionary:a3];
   if ([v5 code] == -3001)
   {
     (*(*(a1 + 40) + 16))();
-    v6 = *(*(*(a1 + 56) + 8) + 40);
-    v7 = *(*(a1 + 48) + 16);
+    v6 = *(*(a1 + 48) + 16);
   }
 
   else
@@ -909,28 +893,21 @@ void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandle
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v8 = *(*(*(a1 + 56) + 8) + 40);
-        v11 = 138412546;
-        v12 = v5;
-        v13 = 2112;
-        v14 = v8;
-        _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "ERROR %@ categoryForBundleIdentifiers: %@", &v11, 0x16u);
+        v7 = *(*(*(a1 + 56) + 8) + 40);
+        v8 = 138412546;
+        v9 = v5;
+        v10 = 2112;
+        v11 = v7;
+        _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "ERROR %@ categoryForBundleIdentifiers: %@", &v8, 0x16u);
       }
 
       (*(*(a1 + 40) + 16))();
     }
 
-    if (!v5)
-    {
-      v9 = *(*(*(a1 + 56) + 8) + 40);
-    }
-
-    v7 = *(*(a1 + 48) + 16);
+    v6 = *(*(a1 + 48) + 16);
   }
 
-  v7();
-
-  v10 = *MEMORY[0x277D85DE8];
+  v6();
 }
 
 + (void)categoryForBundleID:(id)d withCompletionHandler:(id)handler
@@ -943,20 +920,18 @@ void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandle
 
 + (void)categoryForDomainURL:(id)l withCompletionHandler:(id)handler
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   absoluteString = [l absoluteString];
-  v13[0] = absoluteString;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __57__CTCategory_categoryForDomainURL_withCompletionHandler___block_invoke;
-  v11[3] = &unk_278DAACD8;
-  v12 = handlerCopy;
+  v12[0] = absoluteString;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __57__CTCategory_categoryForDomainURL_withCompletionHandler___block_invoke;
+  v10[3] = &unk_278DAACD8;
+  v11 = handlerCopy;
   v9 = handlerCopy;
-  [self categoryForDomainNames:v8 withCompletionHandler:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [self categoryForDomainNames:v8 withCompletionHandler:v10];
 }
 
 void __57__CTCategory_categoryForDomainURL_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -970,7 +945,7 @@ void __57__CTCategory_categoryForDomainURL_withCompletionHandler___block_invoke(
 
 + (void)categoryForDomainURLs:(id)ls withCompletionHandler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   handlerCopy = handler;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -983,33 +958,33 @@ void __57__CTCategory_categoryForDomainURL_withCompletionHandler___block_invoke(
   }
 
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(lsCopy, "count")}];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v9 = lsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v10)
   {
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       v12 = 0;
       do
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        host = [*(*(&v21 + 1) + 8 * v12) host];
+        host = [*(*(&v20 + 1) + 8 * v12) host];
         [v8 addObject:host];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v10);
@@ -1018,49 +993,46 @@ void __57__CTCategory_categoryForDomainURL_withCompletionHandler___block_invoke(
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v26 = __Block_byref_object_copy__0;
-  v27 = __Block_byref_object_dispose__0;
+  v25 = __Block_byref_object_copy__0;
+  v26 = __Block_byref_object_dispose__0;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __58__CTCategory_categoryForDomainURLs_withCompletionHandler___block_invoke;
-  v17[3] = &unk_278DAB068;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __58__CTCategory_categoryForDomainURLs_withCompletionHandler___block_invoke;
+  v16[3] = &unk_278DAB068;
   v14 = v9;
-  v18 = v14;
-  v20 = buf;
+  v17 = v14;
+  v19 = buf;
   v15 = handlerCopy;
-  v19 = v15;
-  [self categoryForDomainNames:v8 withCompletionHandler:v17];
+  v18 = v15;
+  [self categoryForDomainNames:v8 withCompletionHandler:v16];
 
   _Block_object_dispose(buf, 8);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __58__CTCategory_categoryForDomainURLs_withCompletionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __58__CTCategory_categoryForDomainURLs_withCompletionHandler___block_invoke_2;
-  v12[3] = &unk_278DAB040;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __58__CTCategory_categoryForDomainURLs_withCompletionHandler___block_invoke_2;
+  v11[3] = &unk_278DAB040;
   v7 = a1[6];
-  v13 = v5;
-  v14 = v7;
+  v12 = v5;
+  v13 = v7;
   v8 = v5;
   v9 = a3;
-  [v6 enumerateObjectsUsingBlock:v12];
+  [v6 enumerateObjectsUsingBlock:v11];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v16 = "+[CTCategory categoryForDomainURLs:withCompletionHandler:]_block_invoke";
+    v15 = "+[CTCategory categoryForDomainURLs:withCompletionHandler:]_block_invoke";
     _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "DONE %s", buf, 0xCu);
   }
 
   (*(a1[5] + 16))(a1[5], *(*(a1[6] + 8) + 40), v9, v10);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __58__CTCategory_categoryForDomainURLs_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -1079,21 +1051,19 @@ void __58__CTCategory_categoryForDomainURLs_withCompletionHandler___block_invoke
 
 + (void)categoryForDomainName:(id)name withCompletionHandler:(id)handler
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v14[0] = name;
+  v13[0] = name;
   v7 = MEMORY[0x277CBEA60];
   nameCopy = name;
-  v9 = [v7 arrayWithObjects:v14 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __58__CTCategory_categoryForDomainName_withCompletionHandler___block_invoke;
-  v12[3] = &unk_278DAACD8;
-  v13 = handlerCopy;
+  v9 = [v7 arrayWithObjects:v13 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __58__CTCategory_categoryForDomainName_withCompletionHandler___block_invoke;
+  v11[3] = &unk_278DAACD8;
+  v12 = handlerCopy;
   v10 = handlerCopy;
-  [self categoryForDomainNames:v9 withCompletionHandler:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [self categoryForDomainNames:v9 withCompletionHandler:v11];
 }
 
 void __58__CTCategory_categoryForDomainName_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1107,7 +1077,7 @@ void __58__CTCategory_categoryForDomainName_withCompletionHandler___block_invoke
 
 + (void)categoryForDomainNames:(id)names withCompletionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   handlerCopy = handler;
   if ([namesCopy count])
@@ -1115,9 +1085,9 @@ void __58__CTCategory_categoryForDomainName_withCompletionHandler___block_invoke
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v18 = "+[CTCategory categoryForDomainNames:withCompletionHandler:]";
-      v19 = 2048;
-      v20 = [namesCopy count];
+      v17 = "+[CTCategory categoryForDomainNames:withCompletionHandler:]";
+      v18 = 2048;
+      v19 = [namesCopy count];
       _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "START %s :%lu", buf, 0x16u);
     }
 
@@ -1130,16 +1100,16 @@ void __58__CTCategory_categoryForDomainName_withCompletionHandler___block_invoke
 
     [newRequest setIncludeHigherLevelTopics:1];
     objc_initWeak(buf, self);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __59__CTCategory_categoryForDomainNames_withCompletionHandler___block_invoke;
-    v13[3] = &unk_278DAB0E0;
-    objc_copyWeak(&v16, buf);
-    v15 = handlerCopy;
-    v14 = namesCopy;
-    [newRequest executeCategorizationRequestWithReply:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __59__CTCategory_categoryForDomainNames_withCompletionHandler___block_invoke;
+    v12[3] = &unk_278DAB0E0;
+    objc_copyWeak(&v15, buf);
+    v14 = handlerCopy;
+    v13 = namesCopy;
+    [newRequest executeCategorizationRequestWithReply:v12];
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
 
@@ -1147,24 +1117,22 @@ void __58__CTCategory_categoryForDomainName_withCompletionHandler___block_invoke
   {
     (*(handlerCopy + 2))(handlerCopy, 0, 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __59__CTCategory_categoryForDomainNames_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v69 = *MEMORY[0x277D85DE8];
-  v41 = a2;
+  v62 = *MEMORY[0x277D85DE8];
+  v38 = a2;
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v35 = v5;
+  v32 = v5;
   if (!WeakRetained)
   {
     v6 = *(a1 + 40);
     goto LABEL_5;
   }
 
-  v34 = a1;
+  v31 = a1;
   if (v5)
   {
     v6 = *(a1 + 40);
@@ -1173,43 +1141,43 @@ LABEL_5:
     goto LABEL_31;
   }
 
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = __Block_byref_object_copy__0;
-  v63 = __Block_byref_object_dispose__0;
-  v64 = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__0;
-  v57 = __Block_byref_object_dispose__0;
-  v58 = [MEMORY[0x277CBEB38] dictionary];
-  v36 = [MEMORY[0x277CBEB38] dictionary];
-  v51 = 0u;
-  v52 = 0u;
+  v56[0] = 0;
+  v56[1] = v56;
+  v56[2] = 0x3032000000;
+  v56[3] = __Block_byref_object_copy__0;
+  v56[4] = __Block_byref_object_dispose__0;
+  v57 = 0;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy__0;
+  v54 = __Block_byref_object_dispose__0;
+  v55 = [MEMORY[0x277CBEB38] dictionary];
+  v33 = [MEMORY[0x277CBEB38] dictionary];
+  v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = *(a1 + 32);
-  v7 = [obj countByEnumeratingWithState:&v49 objects:v68 count:16];
+  v7 = [obj countByEnumeratingWithState:&v46 objects:v61 count:16];
   v8 = WeakRetained;
   if (v7)
   {
-    v40 = *v50;
+    v37 = *v47;
     do
     {
-      v42 = v7;
-      for (i = 0; i != v42; ++i)
+      v39 = v7;
+      for (i = 0; i != v39; ++i)
       {
-        if (*v50 != v40)
+        if (*v47 != v37)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v49 + 1) + 8 * i);
-        v11 = [v8 _urlComponentsForHostName:{v10, v34, v35}];
+        v10 = *(*(&v46 + 1) + 8 * i);
+        v11 = [v8 _urlComponentsForHostName:{v10, v31, v32}];
         v12 = [v11 string];
-        v13 = [v41 objectForKeyedSubscript:v12];
+        v13 = [v38 objectForKeyedSubscript:v12];
         v14 = v13;
         if (v13)
         {
@@ -1227,10 +1195,10 @@ LABEL_5:
               v20 = v17;
             }
 
-            v39 = v20;
+            v36 = v20;
             if ([v18 length])
             {
-              [v36 setObject:v19 forKeyedSubscript:v10];
+              [v33 setObject:v19 forKeyedSubscript:v10];
             }
 
             if (![v19 length])
@@ -1247,18 +1215,18 @@ LABEL_5:
                 v23 = v10;
               }
 
-              v37 = v23;
+              v34 = v23;
 
-              v67 = v37;
-              v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
+              v60 = v34;
+              v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
               v25 = [WeakRetained _getAssociatedDomainsForHostNames:v24];
 
               v26 = [CTCategory alloc];
               v27 = [v25 array];
               v28 = [v25 firstObject];
-              v29 = [(CTCategory *)v26 initWithIdentifier:v39 webDomains:v27 bundleIdentifier:0 primaryWebDomain:v28];
+              v29 = [(CTCategory *)v26 initWithIdentifier:v36 webDomains:v27 bundleIdentifier:0 primaryWebDomain:v28];
 
-              [v54[5] setObject:v29 forKeyedSubscript:v10];
+              [v51[5] setObject:v29 forKeyedSubscript:v10];
             }
           }
         }
@@ -1266,24 +1234,24 @@ LABEL_5:
         v8 = WeakRetained;
       }
 
-      v7 = [obj countByEnumeratingWithState:&v49 objects:v68 count:16];
+      v7 = [obj countByEnumeratingWithState:&v46 objects:v61 count:16];
     }
 
     while (v7);
   }
 
-  if ([v36 count])
+  if ([v33 count])
   {
-    v30 = [v36 allValues];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __59__CTCategory_categoryForDomainNames_withCompletionHandler___block_invoke_214;
-    v44[3] = &unk_278DAB0B8;
-    v45 = v36;
-    v47 = &v53;
-    v48 = &v59;
-    v46 = *(v34 + 40);
-    [WeakRetained categoryForBundleIdentifiers:v30 platform:@"CTOSPlatformAll" withCompletionHandler:v44];
+    v30 = [v33 allValues];
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __59__CTCategory_categoryForDomainNames_withCompletionHandler___block_invoke_214;
+    v41[3] = &unk_278DAB0B8;
+    v42 = v33;
+    v44 = &v50;
+    v45 = v56;
+    v43 = *(v31 + 40);
+    [WeakRetained categoryForBundleIdentifiers:v30 platform:@"CTOSPlatformAll" withCompletionHandler:v41];
   }
 
   else
@@ -1291,48 +1259,43 @@ LABEL_5:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v66 = "+[CTCategory categoryForDomainNames:withCompletionHandler:]_block_invoke";
+      v59 = "+[CTCategory categoryForDomainNames:withCompletionHandler:]_block_invoke";
       _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "DONE %s", buf, 0xCu);
     }
 
-    v31 = v54[5];
-    v32 = v60[5];
-    (*(*(v34 + 40) + 16))();
+    (*(*(v31 + 40) + 16))();
   }
 
-  _Block_object_dispose(&v53, 8);
-  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(v56, 8);
 
 LABEL_31:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __59__CTCategory_categoryForDomainNames_withCompletionHandler___block_invoke_214(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __59__CTCategory_categoryForDomainNames_withCompletionHandler___block_invoke_2;
-  v12[3] = &unk_278DAB090;
-  v15 = *(a1 + 48);
-  v13 = v5;
-  v14 = v6;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __59__CTCategory_categoryForDomainNames_withCompletionHandler___block_invoke_2;
+  v11[3] = &unk_278DAB090;
+  v14 = *(a1 + 48);
+  v12 = v5;
+  v13 = v6;
   v8 = v6;
   v9 = v5;
-  [v7 enumerateKeysAndObjectsUsingBlock:v12];
+  [v7 enumerateKeysAndObjectsUsingBlock:v11];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v17 = "+[CTCategory categoryForDomainNames:withCompletionHandler:]_block_invoke";
+    v16 = "+[CTCategory categoryForDomainNames:withCompletionHandler:]_block_invoke";
     _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "DONE %s", buf, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), *(*(*(a1 + 48) + 8) + 40), *(*(*(a1 + 56) + 8) + 40), v10);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __59__CTCategory_categoryForDomainNames_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -1394,7 +1357,7 @@ void __59__CTCategory_categoryForDomainNames_withCompletionHandler___block_invok
 
 + (id)_overrideEquivalentIdentifiers:(id)identifiers forBundleID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   dCopy = d;
   v7 = identifiersCopy;
@@ -1411,17 +1374,15 @@ void __59__CTCategory_categoryForDomainNames_withCompletionHandler___block_invok
     [v9 removeObjectsInArray:v8];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v12 = 136315651;
-      v13 = "+[CTCategory _overrideEquivalentIdentifiers:forBundleID:]";
-      v14 = 2113;
-      v15 = v7;
-      v16 = 2113;
-      v17 = v9;
-      _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s %{private}@ -> %{private}@", &v12, 0x20u);
+      v11 = 136315651;
+      v12 = "+[CTCategory _overrideEquivalentIdentifiers:forBundleID:]";
+      v13 = 2113;
+      v14 = v7;
+      v15 = 2113;
+      v16 = v9;
+      _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s %{private}@ -> %{private}@", &v11, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1454,13 +1415,13 @@ void __57__CTCategory__overrideEquivalentIdentifiers_forBundleID___block_invoke(
 
 + (void)_getCategoryTypeForDomainName:(id)name withCompletionHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   handlerCopy = handler;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v17 = "+[CTCategory _getCategoryTypeForDomainName:withCompletionHandler:]";
+    v16 = "+[CTCategory _getCategoryTypeForDomainName:withCompletionHandler:]";
     _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -1473,21 +1434,19 @@ void __57__CTCategory__overrideEquivalentIdentifiers_forBundleID___block_invoke(
 
     [newRequest setIncludeHigherLevelTopics:1];
     [newRequest setUrl:string];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __66__CTCategory__getCategoryTypeForDomainName_withCompletionHandler___block_invoke;
-    v13[3] = &unk_278DAAED8;
-    v14 = string;
-    v15 = handlerCopy;
-    [newRequest executeCategorizationRequestWithReply:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __66__CTCategory__getCategoryTypeForDomainName_withCompletionHandler___block_invoke;
+    v12[3] = &unk_278DAAED8;
+    v13 = string;
+    v14 = handlerCopy;
+    [newRequest executeCategorizationRequestWithReply:v12];
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, 5001, 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __66__CTCategory__getCategoryTypeForDomainName_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1531,42 +1490,40 @@ void __66__CTCategory__getCategoryTypeForDomainName_withCompletionHandler___bloc
 
 void __43__CTCategory__DHIDtoCategoryDisplayNameMap__block_invoke()
 {
-  v4[15] = *MEMORY[0x277D85DE8];
-  v3[0] = @"DH1001";
-  v3[1] = @"DH1002";
-  v4[0] = @"Games";
-  v4[1] = @"Social Networking";
-  v3[2] = @"DH1003";
-  v3[3] = @"DH1004";
-  v4[2] = @"Entertainment";
-  v4[3] = @"Creativity";
-  v3[4] = @"DH1005";
-  v3[5] = @"DH1006";
-  v4[4] = @"Productivity";
-  v4[5] = @"Education";
-  v3[6] = @"DH1007";
-  v3[7] = @"DH1008";
-  v4[6] = @"Reading & Reference";
-  v4[7] = @"Health & Fitness";
-  v3[8] = @"DH1009";
-  v3[9] = @"DH1011";
-  v4[8] = @"Other";
-  v4[9] = @"Utilities";
-  v3[10] = @"DH1012";
-  v3[11] = @"DH1013";
-  v4[10] = @"Shopping & Food";
-  v4[11] = @"Travel";
-  v3[12] = @"DH0013";
-  v3[13] = @"DH0012";
-  v4[12] = @"System Unblockable Applications";
-  v4[13] = @"System Blockable Applications";
-  v3[14] = @"DH0011";
-  v4[14] = @"System Hidden Applications";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:15];
+  v3[15] = *MEMORY[0x277D85DE8];
+  v2[0] = @"DH1001";
+  v2[1] = @"DH1002";
+  v3[0] = @"Games";
+  v3[1] = @"Social Networking";
+  v2[2] = @"DH1003";
+  v2[3] = @"DH1004";
+  v3[2] = @"Entertainment";
+  v3[3] = @"Creativity";
+  v2[4] = @"DH1005";
+  v2[5] = @"DH1006";
+  v3[4] = @"Productivity";
+  v3[5] = @"Education";
+  v2[6] = @"DH1007";
+  v2[7] = @"DH1008";
+  v3[6] = @"Reading & Reference";
+  v3[7] = @"Health & Fitness";
+  v2[8] = @"DH1009";
+  v2[9] = @"DH1011";
+  v3[8] = @"Other";
+  v3[9] = @"Utilities";
+  v2[10] = @"DH1012";
+  v2[11] = @"DH1013";
+  v3[10] = @"Shopping & Food";
+  v3[11] = @"Travel";
+  v2[12] = @"DH0013";
+  v2[13] = @"DH0012";
+  v3[12] = @"System Unblockable Applications";
+  v3[13] = @"System Blockable Applications";
+  v2[14] = @"DH0011";
+  v3[14] = @"System Hidden Applications";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:15];
   v1 = _DHIDtoCategoryDisplayNameMap_DHCategories;
   _DHIDtoCategoryDisplayNameMap_DHCategories = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)schemeStringForPlatform:(id)platform
@@ -1689,87 +1646,85 @@ void __56__CTCategory_bundleIDForPlatform_fromBundleID_platform___block_invoke(u
 
 void __40__CTCategory__DHToAppStoreCategoriesMap__block_invoke()
 {
-  v28[12] = *MEMORY[0x277D85DE8];
+  v27[12] = *MEMORY[0x277D85DE8];
+  v25[0] = @"Games";
+  v25[1] = @"Stickers";
   v26[0] = @"Games";
-  v26[1] = @"Stickers";
-  v27[0] = @"Games";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
-  v28[0] = v14;
-  v27[1] = @"Social Networking";
-  v25 = @"Social Networking";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
-  v28[1] = v13;
-  v27[2] = @"Entertainment";
-  v24[0] = @"Entertainment";
-  v24[1] = @"Music";
-  v24[2] = @"Sports";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
-  v28[2] = v0;
-  v27[3] = @"Creativity";
-  v23[0] = @"Photo & Video";
-  v23[1] = @"Graphics & Design";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
-  v28[3] = v1;
-  v27[4] = @"Productivity";
-  v22[0] = @"Productivity";
-  v22[1] = @"Business";
-  v22[2] = @"Finance";
-  v22[3] = @"Developer Tools";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
-  v28[4] = v2;
-  v27[5] = @"Education";
-  v21[0] = @"Education";
-  v21[1] = @"Kids";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
-  v28[5] = v3;
-  v27[6] = @"Reading & Reference";
-  v20[0] = @"Book";
-  v20[1] = @"Reference";
-  v20[2] = @"News";
-  v20[3] = @"Weather";
-  v20[4] = @"Magazines & Newspapers";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:5];
-  v28[6] = v4;
-  v27[7] = @"Health & Fitness";
-  v19[0] = @"Health & Fitness";
-  v19[1] = @"Medical";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
-  v28[7] = v5;
-  v27[8] = @"Other";
-  v18 = @"Miscellaneous";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-  v28[8] = v6;
-  v27[9] = @"Utilities";
-  v17 = @"Utilities";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
-  v28[9] = v7;
-  v27[10] = @"Shopping & Food";
-  v16[0] = @"Food & Drink";
-  v16[1] = @"Shopping";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
-  v28[10] = v8;
-  v27[11] = @"Travel";
-  v15[0] = @"Travel";
-  v15[1] = @"Navigation";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
-  v28[11] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:12];
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  v27[0] = v13;
+  v26[1] = @"Social Networking";
+  v24 = @"Social Networking";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+  v27[1] = v12;
+  v26[2] = @"Entertainment";
+  v23[0] = @"Entertainment";
+  v23[1] = @"Music";
+  v23[2] = @"Sports";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
+  v27[2] = v0;
+  v26[3] = @"Creativity";
+  v22[0] = @"Photo & Video";
+  v22[1] = @"Graphics & Design";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v27[3] = v1;
+  v26[4] = @"Productivity";
+  v21[0] = @"Productivity";
+  v21[1] = @"Business";
+  v21[2] = @"Finance";
+  v21[3] = @"Developer Tools";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+  v27[4] = v2;
+  v26[5] = @"Education";
+  v20[0] = @"Education";
+  v20[1] = @"Kids";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v27[5] = v3;
+  v26[6] = @"Reading & Reference";
+  v19[0] = @"Book";
+  v19[1] = @"Reference";
+  v19[2] = @"News";
+  v19[3] = @"Weather";
+  v19[4] = @"Magazines & Newspapers";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:5];
+  v27[6] = v4;
+  v26[7] = @"Health & Fitness";
+  v18[0] = @"Health & Fitness";
+  v18[1] = @"Medical";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v27[7] = v5;
+  v26[8] = @"Other";
+  v17 = @"Miscellaneous";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v27[8] = v6;
+  v26[9] = @"Utilities";
+  v16 = @"Utilities";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+  v27[9] = v7;
+  v26[10] = @"Shopping & Food";
+  v15[0] = @"Food & Drink";
+  v15[1] = @"Shopping";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v27[10] = v8;
+  v26[11] = @"Travel";
+  v14[0] = @"Travel";
+  v14[1] = @"Navigation";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v27[11] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:12];
   v11 = _DHToAppStoreCategoriesMap_DHToAppStoreCategoriesMap;
   _DHToAppStoreCategoriesMap_DHToAppStoreCategoriesMap = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_lookupAppStoreUsing:(id)using platform:(id)platform withCompletionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   usingCopy = using;
   platformCopy = platform;
   handlerCopy = handler;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v19 = platformCopy;
+    v18 = platformCopy;
     _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "_lookupAppStoreUsing %@", buf, 0xCu);
   }
 
@@ -1777,15 +1732,13 @@ void __40__CTCategory__DHToAppStoreCategoriesMap__block_invoke()
   activity_block[1] = 3221225472;
   activity_block[2] = __66__CTCategory__lookupAppStoreUsing_platform_withCompletionHandler___block_invoke;
   activity_block[3] = &unk_278DAB130;
-  v16 = platformCopy;
-  v17 = handlerCopy;
-  v15 = usingCopy;
+  v15 = platformCopy;
+  v16 = handlerCopy;
+  v14 = usingCopy;
   v10 = platformCopy;
   v11 = usingCopy;
   v12 = handlerCopy;
   _os_activity_initiate(&dword_24331E000, "CTCategory _lookupAppStoreUsing:withCompletionHandler:", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __66__CTCategory__lookupAppStoreUsing_platform_withCompletionHandler___block_invoke(uint64_t a1)
@@ -1810,33 +1763,31 @@ void __66__CTCategory__lookupAppStoreUsing_platform_withCompletionHandler___bloc
 
 void __66__CTCategory__lookupAppStoreUsing_platform_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "lookupAppStoreForBundleID:completionHandler: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "lookupAppStoreForBundleID:completionHandler: %@", &v4, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __66__CTCategory__lookupAppStoreUsing_platform_withCompletionHandler___block_invoke_266(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v7 = *(a1 + 32);
-    v10 = 138412547;
-    v11 = v7;
-    v12 = 2113;
-    v13 = v5;
-    _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "lookupAppStoreForBundleID:completionHandler: platform: %@, %{private}@", &v10, 0x16u);
+    v9 = 138412547;
+    v10 = v7;
+    v11 = 2113;
+    v12 = v5;
+    _os_log_impl(&dword_24331E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "lookupAppStoreForBundleID:completionHandler: platform: %@, %{private}@", &v9, 0x16u);
   }
 
   if (v6)
@@ -1850,8 +1801,6 @@ void __66__CTCategory__lookupAppStoreUsing_platform_withCompletionHandler___bloc
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v6, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_getEquivalentBundleIdentifiers:(id)identifiers
@@ -1889,38 +1838,38 @@ uint64_t __46__CTCategory__getEquivalentBundleIdentifiers___block_invoke(uint64_
 
 + (id)equivalentIdentifiersForBundleID:(id)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v4 = +[CTCategory _equivalentBundleIDsWithSchemesRemovedMapping];
   v5 = [v4 objectForKey:dCopy];
   if (v5)
   {
-    v19 = v4;
+    v18 = v4;
     v6 = [objc_alloc(MEMORY[0x277CBEB40]) initWithCapacity:{objc_msgSend(v5, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v18 = v5;
+    v17 = v5;
     obj = v5;
-    v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (!v7)
     {
       goto LABEL_14;
     }
 
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     while (1)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = [MEMORY[0x277CBEBC0] URLWithString:*(*(&v21 + 1) + 8 * i)];
+        v11 = [MEMORY[0x277CBEBC0] URLWithString:*(*(&v20 + 1) + 8 * i)];
         host = [v11 host];
         if (([host isEqualToString:dCopy] & 1) == 0)
         {
@@ -1943,13 +1892,13 @@ LABEL_11:
 LABEL_12:
       }
 
-      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (!v8)
       {
 LABEL_14:
 
-        v5 = v18;
-        v4 = v19;
+        v5 = v17;
+        v4 = v18;
         goto LABEL_16;
       }
     }
@@ -1957,8 +1906,6 @@ LABEL_14:
 
   v6 = 0;
 LABEL_16:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -2191,53 +2138,53 @@ void __60__CTCategory__equivalentBundleIDsMappingForWatchOSBundleID___block_invo
 
 void __41__CTCategory__equivalentBundleIDsMapping__block_invoke()
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v1 = [&unk_2856108C0 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v1 = [&unk_2856108C0 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v1)
   {
     v2 = v1;
-    v3 = *v18;
+    v3 = *v17;
     do
     {
       v4 = 0;
       do
       {
-        if (*v18 != v3)
+        if (*v17 != v3)
         {
           objc_enumerationMutation(&unk_2856108C0);
         }
 
-        v5 = *(*(&v17 + 1) + 8 * v4);
+        v5 = *(*(&v16 + 1) + 8 * v4);
+        v12 = 0u;
         v13 = 0u;
         v14 = 0u;
         v15 = 0u;
-        v16 = 0u;
         v6 = v5;
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v21 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v20 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v14;
+          v9 = *v13;
           do
           {
             v10 = 0;
             do
             {
-              if (*v14 != v9)
+              if (*v13 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              [v0 setObject:v6 forKeyedSubscript:*(*(&v13 + 1) + 8 * v10++)];
+              [v0 setObject:v6 forKeyedSubscript:*(*(&v12 + 1) + 8 * v10++)];
             }
 
             while (v8 != v10);
-            v8 = [v6 countByEnumeratingWithState:&v13 objects:v21 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v12 objects:v20 count:16];
           }
 
           while (v8);
@@ -2247,7 +2194,7 @@ void __41__CTCategory__equivalentBundleIDsMapping__block_invoke()
       }
 
       while (v4 != v2);
-      v2 = [&unk_2856108C0 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v2 = [&unk_2856108C0 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v2);
@@ -2255,8 +2202,6 @@ void __41__CTCategory__equivalentBundleIDsMapping__block_invoke()
 
   v11 = _equivalentBundleIDsMapping__mapping;
   _equivalentBundleIDsMapping__mapping = v0;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_equivalentBundleIDsWithSchemesRemovedMapping
@@ -2428,7 +2373,7 @@ LABEL_21:
 
 + (id)parentAppBundleIdentifierForAppRecord:(id)record
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v4 = recordCopy;
   if (!recordCopy)
@@ -2461,14 +2406,14 @@ LABEL_21:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       bundleIdentifier = [v4 bundleIdentifier];
-      v23 = 138478083;
-      v24 = bundleIdentifier;
-      v25 = 2113;
-      v26 = v11;
+      v22 = 138478083;
+      v23 = bundleIdentifier;
+      v24 = 2113;
+      v25 = v11;
       v17 = MEMORY[0x277D86220];
       v18 = "APPSHACK CLIP app %{private}@ parentAppIDs: %{private}@";
 LABEL_16:
-      _os_log_impl(&dword_24331E000, v17, OS_LOG_TYPE_DEFAULT, v18, &v23, 0x16u);
+      _os_log_impl(&dword_24331E000, v17, OS_LOG_TYPE_DEFAULT, v18, &v22, 0x16u);
 
       goto LABEL_10;
     }
@@ -2491,10 +2436,10 @@ LABEL_9:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     bundleIdentifier = [v4 bundleIdentifier];
-    v23 = 138478083;
-    v24 = bundleIdentifier;
-    v25 = 2113;
-    v26 = v11;
+    v22 = 138478083;
+    v23 = bundleIdentifier;
+    v24 = 2113;
+    v25 = v11;
     v17 = MEMORY[0x277D86220];
     v18 = "CLIP app %{private}@ parentAppIDs: %{private}@";
     goto LABEL_16;
@@ -2503,38 +2448,37 @@ LABEL_9:
 LABEL_10:
 
 LABEL_11:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 + (id)_identifierForContextResponse:(id)response
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v4 = responseCopy;
   if (responseCopy && ([responseCopy error], v5 = objc_claimAutoreleasedReturnValue(), v5, !v5))
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     level1Topics = [v4 level1Topics];
-    v8 = [level1Topics countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [level1Topics countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(level1Topics);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           topicId = [v12 topicId];
           v14 = [topicId hasPrefix:@"DH"];
 
@@ -2545,7 +2489,7 @@ LABEL_11:
           }
         }
 
-        v9 = [level1Topics countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [level1Topics countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v9)
         {
           continue;
@@ -2563,8 +2507,6 @@ LABEL_14:
   {
     topicId2 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return topicId2;
 }
@@ -2628,30 +2570,30 @@ uint64_t __50__CTCategory__bundleIdentifierForContextResponse___block_invoke(uin
 
 + (id)_relatedItemsForContextResponse:(id)response
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v4 = responseCopy;
   if (responseCopy && ([responseCopy error], v5 = objc_claimAutoreleasedReturnValue(), v5, !v5))
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     level2Topics = [v4 level2Topics];
-    relatedItems2 = [level2Topics countByEnumeratingWithState:&v15 objects:v19 count:16];
+    relatedItems2 = [level2Topics countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (relatedItems2)
     {
-      v8 = *v16;
+      v8 = *v15;
       while (2)
       {
         for (i = 0; i != relatedItems2; i = i + 1)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(level2Topics);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           relatedItems = [v10 relatedItems];
           v12 = [relatedItems count];
 
@@ -2662,7 +2604,7 @@ uint64_t __50__CTCategory__bundleIdentifierForContextResponse___block_invoke(uin
           }
         }
 
-        relatedItems2 = [level2Topics countByEnumeratingWithState:&v15 objects:v19 count:16];
+        relatedItems2 = [level2Topics countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (relatedItems2)
         {
           continue;
@@ -2680,36 +2622,34 @@ LABEL_14:
     relatedItems2 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return relatedItems2;
 }
 
 + (id)_urlStringsForHostNames:(id)names
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = namesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [self _urlComponentsForHostName:{*(*(&v15 + 1) + 8 * i), v15}];
+        v11 = [self _urlComponentsForHostName:{*(*(&v14 + 1) + 8 * i), v14}];
         string = [v11 string];
         if ([string length])
         {
@@ -2717,13 +2657,11 @@ LABEL_14:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -2748,23 +2686,23 @@ LABEL_14:
 
 void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_24331E000, MEMORY[0x277D86220], a3, "Failed to get category for bundle identifiers: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_24331E000, MEMORY[0x277D86220], a3, "Failed to get category for bundle identifiers: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_24331E000, MEMORY[0x277D86220], a3, "Error querying ContextKit: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_24331E000, MEMORY[0x277D86220], a3, "Error querying ContextKit: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __74__CTCategory_categoryForBundleIdentifiers_platform_withCompletionHandler___block_invoke_206_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_24331E000, MEMORY[0x277D86220], a3, "remoteObjectProxyWithErrorHandler: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_24331E000, MEMORY[0x277D86220], a3, "remoteObjectProxyWithErrorHandler: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

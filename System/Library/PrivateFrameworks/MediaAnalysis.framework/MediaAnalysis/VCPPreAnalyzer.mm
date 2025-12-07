@@ -29,7 +29,7 @@
 
 + (unint64_t)_getSHRevision
 {
-  if ((atomic_load_explicit(&qword_1ED942840, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED942840, memory_order_acquire) & 1) == 0)
   {
     +[VCPPreAnalyzer _getSHRevision];
   }
@@ -54,26 +54,26 @@
   return v2;
 }
 
-void __43__VCPPreAnalyzer__nonPanoPreWarmDimensions__block_invoke()
+void __43__VCPPreAnalyzer__nonPanoPreWarmDimensions__block_invoke(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E695DF70] array];
-  v1 = [MEMORY[0x1E696B098] valueWithSize:{299.0, 299.0}];
-  [v0 addObject:v1];
+  v1 = [MEMORY[0x1E695DF70] array];
+  v2 = [MEMORY[0x1E696B098] valueWithSize:{299.0, 299.0}];
+  [v1 addObject:v2];
 
   if ([objc_opt_class() _includeMeme])
   {
-    v2 = [MEMORY[0x1E696B098] valueWithSize:{360.0, 360.0}];
-    [v0 addObject:v2];
+    v3 = [MEMORY[0x1E696B098] valueWithSize:{360.0, 360.0}];
+    [v1 addObject:v3];
   }
 
   if ([objc_opt_class() _includeDocument])
   {
-    v3 = [MEMORY[0x1E696B098] valueWithSize:{256.0, 256.0}];
-    [v0 addObject:v3];
+    v4 = [MEMORY[0x1E696B098] valueWithSize:{256.0, 256.0}];
+    [v1 addObject:v4];
   }
 
-  v4 = +[VCPPreAnalyzer _nonPanoPreWarmDimensions]::cachedDimensions;
-  +[VCPPreAnalyzer _nonPanoPreWarmDimensions]::cachedDimensions = v0;
+  v5 = +[VCPPreAnalyzer _nonPanoPreWarmDimensions]::cachedDimensions;
+  +[VCPPreAnalyzer _nonPanoPreWarmDimensions]::cachedDimensions = v1;
 }
 
 - (VCPPreAnalyzer)init
@@ -116,8 +116,8 @@ id __22__VCPPreAnalyzer_init__block_invoke()
 {
   requestCopy = request;
   [requestCopy setMetalContextPriority:1];
-  [requestCopy setPreferBackgroundProcessing:1];
-  if (DeviceHasANE() && [objc_opt_class() _allowANE])
+  v3 = [requestCopy setPreferBackgroundProcessing:1];
+  if (DeviceHasANE(v3, v4) && [objc_opt_class() _allowANE])
   {
     defaultANEDevice = [MEMORY[0x1E6984608] defaultANEDevice];
     [requestCopy setProcessingDevice:defaultANEDevice];
@@ -2099,13 +2099,13 @@ LABEL_25:
 
 - (int)_performSceneAnalysis:(id *)analysis image:(id)image mediaType:(int64_t)type mediaSubtypes:(unint64_t)subtypes abnormalDimension:(unint64_t)dimension
 {
-  v151 = *MEMORY[0x1E69E9840];
+  v166 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   v9 = objc_alloc_init(VCPPreAnalysisRequests);
   v10 = [(VCPPreAnalyzer *)self _createRequests:v9 withMediaType:type];
   if (!v10)
   {
-    v116 = v9;
+    v131 = v9;
     getObject = [(VCPObjectPool *)self->_sessionPool getObject];
     selfCopy = self;
     if (dimension)
@@ -2115,46 +2115,46 @@ LABEL_25:
       object = [getObject object];
       v14 = [v11 initWithCVPixelBuffer:sourcePixelBuffer options:MEMORY[0x1E695E0F8] session:object];
 
-      v15 = VCPSignPostLog();
-      v16 = os_signpost_id_generate(v15);
+      v16 = VCPSignPostLog(v15);
+      v17 = os_signpost_id_generate(v16);
 
-      v17 = VCPSignPostLog();
-      v18 = v17;
-      if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+      v19 = VCPSignPostLog(v18);
+      v20 = v19;
+      if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "VCPSceneAnalyzerImageRequestHandlerPerformRequest", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v17, "VCPSceneAnalyzerImageRequestHandlerPerformRequest", "", buf, 2u);
       }
 
       gatherAvailableRequests = [(VCPPreAnalysisRequests *)v9 gatherAvailableRequests];
-      v146 = 0;
-      v20 = [v14 performRequests:gatherAvailableRequests error:&v146];
-      v21 = v146;
+      v161 = 0;
+      v22 = [v14 performRequests:gatherAvailableRequests error:&v161];
+      v23 = v161;
 
-      v22 = VCPSignPostLog();
-      v23 = v22;
-      if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+      v25 = VCPSignPostLog(v24);
+      v26 = v25;
+      if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_END, v16, "VCPSceneAnalyzerImageRequestHandlerPerformRequest", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_END, v17, "VCPSceneAnalyzerImageRequestHandlerPerformRequest", "", buf, 2u);
       }
 
-      if ((v20 & 1) == 0)
+      if ((v22 & 1) == 0)
       {
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          *v149 = v21;
+          *v164 = v23;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to run VNImageRequestHandler::performRequests: %@", buf, 0xCu);
         }
 
-        v39 = 0;
+        v45 = 0;
         goto LABEL_124;
       }
 
       if ([objc_opt_class() _includeIVS])
       {
-        v24 = objc_autoreleasePoolPush();
+        v27 = objc_autoreleasePoolPush();
         safetyTypeNPool = [(MADSceneResources *)selfCopy->_resources safetyTypeNPool];
         getObject2 = [safetyTypeNPool getObject];
 
@@ -2165,73 +2165,73 @@ LABEL_25:
         {
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v66 = objc_opt_class();
+            v75 = objc_opt_class();
             *buf = 138412290;
-            *v149 = v66;
-            v67 = v66;
+            *v164 = v75;
+            v76 = v75;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ unavailable for IVS", buf, 0xCu);
           }
 
-          v39 = 0;
-          v36 = 0;
+          v45 = 0;
+          v42 = 0;
           v10 = -18;
         }
 
         else
         {
-          v27 = VCPSignPostLog();
-          v28 = os_signpost_id_generate(v27);
+          v31 = VCPSignPostLog(v30);
+          v32 = os_signpost_id_generate(v31);
 
-          v29 = VCPSignPostLog();
-          v30 = v29;
-          if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
+          v34 = VCPSignPostLog(v33);
+          v35 = v34;
+          if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v30, OS_SIGNPOST_INTERVAL_BEGIN, v28, "SCMLHandler_analyzePixelBufferN", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_BEGIN, v32, "SCMLHandler_analyzePixelBufferN", "", buf, 2u);
           }
 
           object3 = [getObject2 object];
-          v145 = v21;
-          v32 = [object3 analyzePixelBuffer:objc_msgSend(imageCopy error:{"sourcePixelBuffer"), &v145}];
-          v33 = v145;
+          v160 = v23;
+          v37 = [object3 analyzePixelBuffer:objc_msgSend(imageCopy error:{"sourcePixelBuffer"), &v160}];
+          v38 = v160;
 
-          v34 = VCPSignPostLog();
-          v35 = v34;
-          if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
+          v40 = VCPSignPostLog(v39);
+          v41 = v40;
+          if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_END, v28, "SCMLHandler_analyzePixelBufferN", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v41, OS_SIGNPOST_INTERVAL_END, v32, "SCMLHandler_analyzePixelBufferN", "", buf, 2u);
           }
 
-          v36 = v33 == 0;
-          if (v33)
+          v42 = v38 == 0;
+          if (v38)
           {
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              v37 = objc_opt_class();
-              v38 = [v33 description];
+              v43 = objc_opt_class();
+              v44 = [v38 description];
               *buf = 138412546;
-              *v149 = v37;
-              *&v149[8] = 2112;
-              v150 = v38;
+              *v164 = v43;
+              *&v164[8] = 2112;
+              v165 = v44;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to run %@::analyzePixelBuffer:error: %@", buf, 0x16u);
             }
 
-            v39 = 0;
+            v45 = 0;
             v10 = -18;
           }
 
           else
           {
-            v39 = v32;
+            v45 = v37;
             v10 = 0;
           }
 
-          v21 = v33;
+          v23 = v38;
         }
 
-        objc_autoreleasePoolPop(v24);
-        if (!v36)
+        objc_autoreleasePoolPop(v27);
+        if (!v42)
         {
           goto LABEL_125;
         }
@@ -2239,26 +2239,26 @@ LABEL_25:
 
       else
       {
-        v39 = 0;
+        v45 = 0;
         v10 = 0;
       }
 
 LABEL_100:
-      v84 = v116;
+      v96 = v131;
       if ([objc_opt_class() _includeWP])
       {
-        sceneprintRequest = [(VCPPreAnalysisRequests *)v116 sceneprintRequest];
+        sceneprintRequest = [(VCPPreAnalysisRequests *)v131 sceneprintRequest];
         results = [sceneprintRequest results];
 
         firstObject = [results firstObject];
         sceneprints = [firstObject sceneprints];
         firstObject2 = [sceneprints firstObject];
 
-        v126 = 0;
-        [(VCPPreAnalyzer *)selfCopy _performWallpaperAnalysis:&v126 withSceneprint:firstObject2];
-        v14 = v126;
+        v141 = 0;
+        [(VCPPreAnalyzer *)selfCopy _performWallpaperAnalysis:&v141 withSceneprint:firstObject2];
+        v14 = v141;
 
-        v84 = v116;
+        v96 = v131;
       }
 
       else
@@ -2268,15 +2268,15 @@ LABEL_100:
 
       if (!_os_feature_enabled_impl())
       {
-        v21 = 0;
+        v23 = 0;
 LABEL_118:
-        v10 = [(VCPPreAnalyzer *)selfCopy _collectSceneAnalysisResults:analysis fromRequests:v84 wpResults:v14 safetyNResults:v39 safetyGVResults:v21 abnormalDimension:dimension];
+        v10 = [(VCPPreAnalyzer *)selfCopy _collectSceneAnalysisResults:analysis fromRequests:v96 wpResults:v14 safetyNResults:v45 safetyGVResults:v23 abnormalDimension:dimension];
 LABEL_125:
 
         goto LABEL_126;
       }
 
-      sceneprintRequest2 = [(VCPPreAnalysisRequests *)v84 sceneprintRequest];
+      sceneprintRequest2 = [(VCPPreAnalysisRequests *)v96 sceneprintRequest];
       results2 = [sceneprintRequest2 results];
 
       firstObject3 = [results2 firstObject];
@@ -2293,52 +2293,52 @@ LABEL_125:
 
         if (!safetyTypeGVPool)
         {
-          v95 = VCPSignPostLog();
-          v96 = os_signpost_id_generate(v95);
+          v108 = VCPSignPostLog(v107);
+          v109 = os_signpost_id_generate(v108);
 
-          v97 = VCPSignPostLog();
-          v98 = v97;
-          if (v96 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v97))
+          v111 = VCPSignPostLog(v110);
+          v112 = v111;
+          if (v109 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v111))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v98, OS_SIGNPOST_INTERVAL_BEGIN, v96, "SCMLHandler_analyzePixelBufferGV", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v112, OS_SIGNPOST_INTERVAL_BEGIN, v109, "SCMLHandler_analyzePixelBufferGV", "", buf, 2u);
           }
 
           object5 = [obja object];
           descriptorData = [firstObject4 descriptorData];
-          v125 = 0;
-          v101 = [object5 analyzePixelBuffer:0 scenePrint:descriptorData error:&v125];
-          v102 = v125;
+          v140 = 0;
+          v115 = [object5 analyzePixelBuffer:0 scenePrint:descriptorData error:&v140];
+          v116 = v140;
 
-          v103 = VCPSignPostLog();
-          v104 = v103;
-          if (v96 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v103))
+          v118 = VCPSignPostLog(v117);
+          v119 = v118;
+          if (v109 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v118))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v104, OS_SIGNPOST_INTERVAL_END, v96, "SCMLHandler_analyzePixelBufferGV", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v119, OS_SIGNPOST_INTERVAL_END, v109, "SCMLHandler_analyzePixelBufferGV", "", buf, 2u);
           }
 
-          if (v102)
+          if (v116)
           {
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              v105 = [v102 description];
+              v120 = [v116 description];
               *buf = 138412290;
-              *v149 = v105;
+              *v164 = v120;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Safety (type GV) failed (%@)", buf, 0xCu);
             }
 
-            v21 = 0;
+            v23 = 0;
             v10 = -18;
           }
 
           else
           {
-            v21 = v101;
+            v23 = v115;
           }
 
-          v84 = v116;
-          if (v102)
+          v96 = v131;
+          if (v116)
           {
             goto LABEL_125;
           }
@@ -2348,15 +2348,15 @@ LABEL_125:
 
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v106 = objc_opt_class();
+          v121 = objc_opt_class();
           *buf = 138412290;
-          *v149 = v106;
-          v107 = v106;
+          *v164 = v121;
+          v122 = v121;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ unavailable for safety (type GV)", buf, 0xCu);
         }
       }
 
-      v21 = 0;
+      v23 = 0;
 LABEL_124:
       v10 = -18;
       goto LABEL_125;
@@ -2364,44 +2364,44 @@ LABEL_124:
 
     cf = 0;
     [(VCPPreAnalysisRequests *)v9 mapAvailableRequestsToResolution];
-    v142 = 0u;
-    v143 = 0u;
-    v140 = 0u;
-    v122 = v141 = 0u;
-    obj = [v122 allKeys];
-    v40 = 0;
-    v41 = [obj countByEnumeratingWithState:&v140 objects:v147 count:16];
-    if (v41)
+    v157 = 0u;
+    v158 = 0u;
+    v155 = 0u;
+    v137 = v156 = 0u;
+    obj = [v137 allKeys];
+    v46 = 0;
+    v47 = [obj countByEnumeratingWithState:&v155 objects:v162 count:16];
+    if (v47)
     {
-      v118 = *v141;
-      v110 = v130;
-      v111 = v135;
-      *&v42 = 67109376;
-      v109 = v42;
+      v133 = *v156;
+      v125 = v145;
+      v126 = v150;
+      *&v48 = 67109376;
+      v124 = v48;
       while (2)
       {
-        v43 = 0;
-        v44 = v40;
+        v49 = 0;
+        v50 = v46;
         do
         {
-          if (*v141 != v118)
+          if (*v156 != v133)
           {
             objc_enumerationMutation(obj);
           }
 
-          v45 = *(*(&v140 + 1) + 8 * v43);
-          if ([VCPPreAnalysisRequests isDimensionUnknown:v45, v109, v110, v111])
+          v51 = *(*(&v155 + 1) + 8 * v49);
+          if ([VCPPreAnalysisRequests isDimensionUnknown:v51, v124, v125, v126])
           {
             Width = CVPixelBufferGetWidth([imageCopy sourcePixelBuffer]);
             Height = CVPixelBufferGetHeight([imageCopy sourcePixelBuffer]);
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
-            v135[0] = __88__VCPPreAnalyzer__performSceneAnalysis_image_mediaType_mediaSubtypes_abnormalDimension___block_invoke;
-            v135[1] = &unk_1E8350720;
-            v136 = v122;
-            v137 = v45;
-            v138 = Width;
-            v139 = Height;
+            v150[0] = __88__VCPPreAnalyzer__performSceneAnalysis_image_mediaType_mediaSubtypes_abnormalDimension___block_invoke;
+            v150[1] = &unk_1E8350720;
+            v151 = v137;
+            v152 = v51;
+            v153 = Width;
+            v154 = Height;
             if ([VCPPreAnalyzer _performSceneAnalysis:image:mediaType:mediaSubtypes:abnormalDimension:]::once != -1)
             {
               dispatch_once(&[VCPPreAnalyzer _performSceneAnalysis:image:mediaType:mediaSubtypes:abnormalDimension:]::once, block);
@@ -2410,9 +2410,9 @@ LABEL_124:
 
           else
           {
-            [v45 sizeValue];
-            Width = v48;
-            Height = v49;
+            [v51 sizeValue];
+            Width = v54;
+            Height = v55;
           }
 
           if (cf)
@@ -2424,71 +2424,72 @@ LABEL_124:
           v10 = [imageCopy pixelBuffer:&cf width:Width height:Height];
           if (v10)
           {
-            v40 = v44;
+            v46 = v50;
 LABEL_67:
 
-            v39 = 0;
-            v65 = 0;
-            v62 = v122;
+            v45 = 0;
+            v74 = 0;
+            v71 = v137;
             goto LABEL_99;
           }
 
-          v50 = objc_alloc(MEMORY[0x1E69845B8]);
-          v51 = cf;
+          v56 = objc_alloc(MEMORY[0x1E69845B8]);
+          v57 = cf;
           object6 = [getObject object];
-          v53 = [v50 initWithCVPixelBuffer:v51 options:MEMORY[0x1E695E0F8] session:object6];
+          v59 = [v56 initWithCVPixelBuffer:v57 options:MEMORY[0x1E695E0F8] session:object6];
 
-          v54 = [v122 objectForKeyedSubscript:v45];
-          if ([v54 count] == 1)
+          v60 = [v137 objectForKeyedSubscript:v51];
+          v61 = [v60 count];
+          if (v61 == 1)
           {
-            v129[0] = MEMORY[0x1E69E9820];
-            v129[1] = 3221225472;
-            v130[0] = __88__VCPPreAnalyzer__performSceneAnalysis_image_mediaType_mediaSubtypes_abnormalDimension___block_invoke_404;
-            v130[1] = &unk_1E8350748;
-            v131 = v54;
-            v132 = Width;
-            v133 = Height;
+            v144[0] = MEMORY[0x1E69E9820];
+            v144[1] = 3221225472;
+            v145[0] = __88__VCPPreAnalyzer__performSceneAnalysis_image_mediaType_mediaSubtypes_abnormalDimension___block_invoke_404;
+            v145[1] = &unk_1E8350748;
+            v146 = v60;
+            v147 = Width;
+            v148 = Height;
             if ([VCPPreAnalyzer _performSceneAnalysis:image:mediaType:mediaSubtypes:abnormalDimension:]::once != -1)
             {
-              dispatch_once(&[VCPPreAnalyzer _performSceneAnalysis:image:mediaType:mediaSubtypes:abnormalDimension:]::once, v129);
+              dispatch_once(&[VCPPreAnalyzer _performSceneAnalysis:image:mediaType:mediaSubtypes:abnormalDimension:]::once, v144);
             }
           }
 
-          v55 = VCPSignPostLog();
-          v56 = os_signpost_id_generate(v55);
+          v62 = VCPSignPostLog(v61);
+          v63 = os_signpost_id_generate(v62);
 
-          v57 = VCPSignPostLog();
-          v58 = v57;
-          if (v56 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v57))
+          v65 = VCPSignPostLog(v64);
+          v66 = v65;
+          if (v63 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v65))
           {
-            *buf = v109;
-            *v149 = Width;
-            *&v149[4] = 1024;
-            *&v149[6] = Height;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v58, OS_SIGNPOST_INTERVAL_BEGIN, v56, "VCPSceneAnalyzerImageRequestHandlerPerformRequest", "%dx%d", buf, 0xEu);
+            *buf = v124;
+            *v164 = Width;
+            *&v164[4] = 1024;
+            *&v164[6] = Height;
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v66, OS_SIGNPOST_INTERVAL_BEGIN, v63, "VCPSceneAnalyzerImageRequestHandlerPerformRequest", "%dx%d", buf, 0xEu);
           }
 
-          v128 = v44;
-          v59 = [v53 performRequests:v54 error:&v128];
-          v40 = v128;
+          v143 = v50;
+          v67 = [v59 performRequests:v60 error:&v143];
+          v46 = v143;
 
-          v60 = VCPSignPostLog();
-          v61 = v60;
-          if (v56 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v60))
+          v69 = VCPSignPostLog(v68);
+          v70 = v69;
+          if (v63 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v69))
           {
-            *buf = v109;
-            *v149 = Width;
-            *&v149[4] = 1024;
-            *&v149[6] = Height;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v61, OS_SIGNPOST_INTERVAL_END, v56, "VCPSceneAnalyzerImageRequestHandlerPerformRequest", "%dx%d", buf, 0xEu);
+            *buf = v124;
+            *v164 = Width;
+            *&v164[4] = 1024;
+            *&v164[6] = Height;
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v70, OS_SIGNPOST_INTERVAL_END, v63, "VCPSceneAnalyzerImageRequestHandlerPerformRequest", "%dx%d", buf, 0xEu);
           }
 
-          if ((v59 & 1) == 0)
+          if ((v67 & 1) == 0)
           {
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *v149 = v40;
+              *v164 = v46;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to run VNImageRequestHandler::performRequests: %@", buf, 0xCu);
             }
 
@@ -2496,13 +2497,13 @@ LABEL_67:
             goto LABEL_67;
           }
 
-          ++v43;
-          v44 = v40;
+          ++v49;
+          v50 = v46;
         }
 
-        while (v41 != v43);
-        v41 = [obj countByEnumeratingWithState:&v140 objects:v147 count:16];
-        if (v41)
+        while (v47 != v49);
+        v47 = [obj countByEnumeratingWithState:&v155 objects:v162 count:16];
+        if (v47)
         {
           continue;
         }
@@ -2511,11 +2512,11 @@ LABEL_67:
       }
     }
 
-    v62 = v122;
+    v71 = v137;
     if ([objc_opt_class() _includeIVS])
     {
-      v63 = objc_autoreleasePoolPush();
-      v62 = v122;
+      v72 = objc_autoreleasePoolPush();
+      v71 = v137;
       if (cf)
       {
         CFRelease(cf);
@@ -2525,8 +2526,8 @@ LABEL_67:
       v10 = [imageCopy pixelBuffer:&cf width:299 height:299];
       if (v10)
       {
-        v39 = 0;
-        v64 = 0;
+        v45 = 0;
+        v73 = 0;
       }
 
       else
@@ -2541,86 +2542,86 @@ LABEL_67:
         {
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v82 = objc_opt_class();
+            v94 = objc_opt_class();
             *buf = 138412290;
-            *v149 = v82;
-            v83 = v82;
+            *v164 = v94;
+            v95 = v94;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ unavailable for IVS", buf, 0xCu);
           }
 
-          v39 = 0;
-          v64 = 0;
+          v45 = 0;
+          v73 = 0;
           v10 = -18;
         }
 
         else
         {
-          v71 = VCPSignPostLog();
-          v72 = os_signpost_id_generate(v71);
+          v81 = VCPSignPostLog(v80);
+          v82 = os_signpost_id_generate(v81);
 
-          v73 = VCPSignPostLog();
-          v74 = v73;
-          if (v72 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v73))
+          v84 = VCPSignPostLog(v83);
+          v85 = v84;
+          if (v82 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v84))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v74, OS_SIGNPOST_INTERVAL_BEGIN, v72, "SCMLHandler_analyzePixelBufferN", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v85, OS_SIGNPOST_INTERVAL_BEGIN, v82, "SCMLHandler_analyzePixelBufferN", "", buf, 2u);
           }
 
           object8 = [getObject3 object];
-          v127 = v40;
-          v76 = [object8 analyzePixelBuffer:cf error:&v127];
-          v77 = v127;
+          v142 = v46;
+          v87 = [object8 analyzePixelBuffer:cf error:&v142];
+          v88 = v142;
 
-          v78 = VCPSignPostLog();
-          v79 = v78;
-          if (v72 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v78))
+          v90 = VCPSignPostLog(v89);
+          v91 = v90;
+          if (v82 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v90))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v79, OS_SIGNPOST_INTERVAL_END, v72, "SCMLHandler_analyzePixelBufferN", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v91, OS_SIGNPOST_INTERVAL_END, v82, "SCMLHandler_analyzePixelBufferN", "", buf, 2u);
           }
 
-          v64 = v77 == 0;
-          if (v77)
+          v73 = v88 == 0;
+          if (v88)
           {
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              v80 = objc_opt_class();
-              v81 = [v77 description];
+              v92 = objc_opt_class();
+              v93 = [v88 description];
               *buf = 138412546;
-              *v149 = v80;
-              *&v149[8] = 2112;
-              v150 = v81;
+              *v164 = v92;
+              *&v164[8] = 2112;
+              v165 = v93;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to run %@::analyzePixelBuffer:error: %@", buf, 0x16u);
             }
 
-            v39 = 0;
+            v45 = 0;
             v10 = -18;
           }
 
           else
           {
-            v39 = v76;
+            v45 = v87;
             v10 = 0;
           }
 
-          v40 = v77;
+          v46 = v88;
         }
 
-        v62 = v122;
+        v71 = v137;
       }
 
-      objc_autoreleasePoolPop(v63);
-      if (!v64)
+      objc_autoreleasePoolPop(v72);
+      if (!v73)
       {
-        v65 = 0;
+        v74 = 0;
 LABEL_99:
 
         CF<__CVBuffer *>::~CF(&cf);
-        if ((v65 & 1) == 0)
+        if ((v74 & 1) == 0)
         {
 LABEL_126:
 
-          v9 = v116;
+          v9 = v131;
           goto LABEL_127;
         }
 
@@ -2630,11 +2631,11 @@ LABEL_126:
 
     else
     {
-      v39 = 0;
+      v45 = 0;
       v10 = 0;
     }
 
-    v65 = 1;
+    v74 = 1;
     goto LABEL_99;
   }
 
@@ -2858,59 +2859,59 @@ LABEL_41:
 
 - (int)_performBlurAnalysis:(id *)analysis withLumaPixelBuffer:(__CVBuffer *)buffer abnormalDimension:(unint64_t)dimension isSDOF:(BOOL)f
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   if (!buffer)
   {
-    v29 = @"BlurResults";
-    v26 = @"attributes";
-    v24 = @"sharpness";
-    v25 = &unk_1F49BB208;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:{1, f}];
-    v27 = v16;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-    v28 = v18;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
-    v30[0] = v19;
-    *analysis = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v30 = @"BlurResults";
+    v27 = @"attributes";
+    v25 = @"sharpness";
+    v26 = &unk_1F49BB208;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:{1, f}];
+    v28 = v17;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v29 = v19;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
+    v31[0] = v20;
+    *analysis = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
 
 LABEL_13:
-    v20 = 0;
+    v21 = 0;
     goto LABEL_14;
   }
 
   fCopy = f;
-  v11 = VCPSignPostLog();
+  v11 = VCPSignPostLog(self);
   v12 = os_signpost_id_generate(v11);
 
-  v13 = VCPSignPostLog();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = VCPSignPostLog(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
-    *v23 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "VCPSceneAnalyzerImageBlurAnalysis", "", v23, 2u);
+    *v24 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "VCPSceneAnalyzerImageBlurAnalysis", "", v24, 2u);
   }
 
-  v15 = -[VCPImageBlurAnalyzer initWithFaceResults:sdof:revision:]([VCPImageBlurAnalyzer alloc], "initWithFaceResults:sdof:revision:", 0, fCopy, [objc_opt_class() _getSHRevision]);
-  v16 = v15;
+  v16 = -[VCPImageBlurAnalyzer initWithFaceResults:sdof:revision:]([VCPImageBlurAnalyzer alloc], "initWithFaceResults:sdof:revision:", 0, fCopy, [objc_opt_class() _getSHRevision]);
+  v17 = v16;
   if (dimension)
   {
-    v17 = [(VCPPreAnalyzer *)self _performBlurAnalysis:analysis withPixelBuffer:buffer usingAnalyzer:v15];
+    v18 = [(VCPPreAnalyzer *)self _performBlurAnalysis:analysis withPixelBuffer:buffer usingAnalyzer:v16];
   }
 
   else
   {
-    v17 = [(VCPImageBlurAnalyzer *)v15 analyzePixelBuffer:buffer flags:0 results:analysis cancel:&__block_literal_global_413];
+    v18 = [(VCPImageBlurAnalyzer *)v16 analyzePixelBuffer:buffer flags:0 results:analysis cancel:&__block_literal_global_413];
   }
 
-  v20 = v17;
-  if (!v17)
+  v21 = v18;
+  if (!v18)
   {
-    v21 = VCPSignPostLog();
-    v18 = v21;
-    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+    v22 = VCPSignPostLog(v18);
+    v19 = v22;
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
     {
-      *v23 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_END, v12, "VCPSceneAnalyzerImageBlurAnalysis", "", v23, 2u);
+      *v24 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_END, v12, "VCPSceneAnalyzerImageBlurAnalysis", "", v24, 2u);
     }
 
     goto LABEL_13;
@@ -2918,49 +2919,50 @@ LABEL_13:
 
 LABEL_14:
 
-  return v20;
+  return v21;
 }
 
 - (int)_performExposureAnalysis:(id *)analysis withLumaPixelBuffer:(__CVBuffer *)buffer
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   if (!buffer)
   {
-    v19 = @"ExposureResults";
-    v16 = @"quality";
-    v17 = &unk_1F49BB208;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-    v18 = v10;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
-    v20[0] = v13;
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-    *analysis = v11 = 0;
+    v21 = @"ExposureResults";
+    v18 = @"quality";
+    v19 = &unk_1F49BB208;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v20 = v11;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+    v22[0] = v15;
+    [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    *analysis = v13 = 0;
 LABEL_10:
 
     goto LABEL_11;
   }
 
-  v6 = VCPSignPostLog();
+  v6 = VCPSignPostLog(self);
   v7 = os_signpost_id_generate(v6);
 
-  v8 = VCPSignPostLog();
-  v9 = v8;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v9 = VCPSignPostLog(v8);
+  v10 = v9;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    *v15 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "VCPSceneAnalyzerExposureAnalysis", "", v15, 2u);
+    *v17 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "VCPSceneAnalyzerExposureAnalysis", "", v17, 2u);
   }
 
-  v10 = objc_alloc_init(VCPImageExposurePreAnalyzer);
-  v11 = [(VCPImageExposurePreAnalyzer *)v10 analyzePixelBuffer:buffer flags:0 results:analysis cancel:&__block_literal_global_417_0];
-  if (!v11)
+  v11 = objc_alloc_init(VCPImageExposurePreAnalyzer);
+  v12 = [(VCPImageExposurePreAnalyzer *)v11 analyzePixelBuffer:buffer flags:0 results:analysis cancel:&__block_literal_global_417_0];
+  v13 = v12;
+  if (!v12)
   {
-    v12 = VCPSignPostLog();
-    v13 = v12;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+    v14 = VCPSignPostLog(v12);
+    v15 = v14;
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
-      *v15 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_END, v7, "VCPSceneAnalyzerExposureAnalysis", "", v15, 2u);
+      *v17 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_END, v7, "VCPSceneAnalyzerExposureAnalysis", "", v17, 2u);
     }
 
     goto LABEL_10;
@@ -2968,348 +2970,169 @@ LABEL_10:
 
 LABEL_11:
 
-  return v11;
+  return v13;
 }
 
 - (int)_performRotationAnalysis:(id *)analysis withColorPixelBuffer:(__CVBuffer *)buffer
 {
-  v73[1] = *MEMORY[0x1E69E9840];
+  v78[1] = *MEMORY[0x1E69E9840];
   if (buffer)
   {
-    v7 = VCPSignPostLog();
+    v7 = VCPSignPostLog(self);
     v8 = os_signpost_id_generate(v7);
 
-    v9 = VCPSignPostLog();
-    v10 = v9;
-    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+    v10 = VCPSignPostLog(v9);
+    v11 = v10;
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
     {
       LOWORD(buf.data) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPSceneAnalyzerRotationAnalysisScaling", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPSceneAnalyzerRotationAnalysisScaling", "", &buf, 2u);
     }
 
     cf = 0;
     rotationBufferCreator = [(MADSceneResources *)self->_resources rotationBufferCreator];
-    v12 = [rotationBufferCreator createPixelBuffer:&cf];
+    v13 = [rotationBufferCreator createPixelBuffer:&cf];
 
-    if (!v12)
+    if (!v13)
     {
       pixelBuffer = buffer;
       unlockFlags = 1;
-      v12 = CVPixelBufferLockBaseAddress(buffer, 1uLL);
-      v54 = v12;
-      if (!v12 || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (LODWORD(buf.data) = 134218240, *(&buf.data + 4) = pixelBuffer, WORD2(buf.height) = 1024, *(&buf.height + 6) = v12, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", &buf, 0x12u), (v12 = v54) == 0))
+      v13 = CVPixelBufferLockBaseAddress(buffer, 1uLL);
+      v59 = v13;
+      if (!v13 || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (LODWORD(buf.data) = 134218240, *(&buf.data + 4) = pixelBuffer, WORD2(buf.height) = 1024, *(&buf.height + 6) = v13, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", &buf, 0x12u), (v13 = v59) == 0))
       {
         buf.data = CVPixelBufferGetBaseAddress(buffer);
         buf.height = CVPixelBufferGetHeight(buffer);
         buf.width = CVPixelBufferGetWidth(buffer);
         buf.rowBytes = CVPixelBufferGetBytesPerRow(buffer);
-        v51 = 0;
-        v52 = cf;
-        v53 = 0;
+        v56 = 0;
+        v57 = cf;
+        v58 = 0;
         if (cf)
         {
-          v12 = CVPixelBufferLockBaseAddress(cf, 0);
-          v51 = v12;
-          if (!v12 || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (LODWORD(v65.data) = 134218240, *(&v65.data + 4) = v52, WORD2(v65.height) = 1024, *(&v65.height + 6) = v12, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", &v65, 0x12u), (v12 = v51) == 0))
+          v13 = CVPixelBufferLockBaseAddress(cf, 0);
+          v56 = v13;
+          if (!v13 || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (LODWORD(v70.data) = 134218240, *(&v70.data + 4) = v57, WORD2(v70.height) = 1024, *(&v70.height + 6) = v13, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", &v70, 0x12u), (v13 = v56) == 0))
           {
-            v65.data = CVPixelBufferGetBaseAddress(cf);
-            v65.height = CVPixelBufferGetHeight(cf);
-            v65.width = CVPixelBufferGetWidth(cf);
-            v65.rowBytes = CVPixelBufferGetBytesPerRow(cf);
-            v12 = vImageScale_ARGB8888(&buf, &v65, 0, 0x20u);
-            if (!v12)
+            v70.data = CVPixelBufferGetBaseAddress(cf);
+            v70.height = CVPixelBufferGetHeight(cf);
+            v70.width = CVPixelBufferGetWidth(cf);
+            v70.rowBytes = CVPixelBufferGetBytesPerRow(cf);
+            v13 = vImageScale_ARGB8888(&buf, &v70, 0, 0x20u);
+            if (!v13)
             {
-              v12 = CVPixelBufferLock::Unlock(&v51);
-              if (!v12)
+              v13 = CVPixelBufferLock::Unlock(&v56);
+              if (!v13)
               {
-                v12 = CVPixelBufferLock::Unlock(&v54);
-                if (!v12)
+                v18 = CVPixelBufferLock::Unlock(&v59);
+                v13 = v18;
+                if (!v18)
                 {
-                  v17 = VCPSignPostLog();
-                  v18 = v17;
-                  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+                  v19 = VCPSignPostLog(v18);
+                  v20 = v19;
+                  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
                   {
-                    *v50 = 0;
-                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_END, v8, "VCPSceneAnalyzerRotationAnalysisScaling", "", v50, 2u);
+                    *v55 = 0;
+                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_END, v8, "VCPSceneAnalyzerRotationAnalysisScaling", "", v55, 2u);
                   }
 
-                  v19 = VCPSignPostLog();
-                  spid = os_signpost_id_generate(v19);
+                  v22 = VCPSignPostLog(v21);
+                  spid = os_signpost_id_generate(v22);
 
-                  v20 = VCPSignPostLog();
-                  v21 = v20;
-                  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+                  v24 = VCPSignPostLog(v23);
+                  v25 = v24;
+                  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
                   {
-                    *v50 = 0;
-                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPSceneAnalyzerRotationAnalysisInference", "", v50, 2u);
+                    *v55 = 0;
+                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPSceneAnalyzerRotationAnalysisInference", "", v55, 2u);
                   }
 
                   rotationModel = [(MADSceneResources *)self->_resources rotationModel];
-                  v23 = cf;
+                  v27 = cf;
                   inputFeatureName = [rotationModel inputFeatureName];
-                  v25 = [VCPMAMLFeatureProvider featureProviderWithCVPixelBuffer:v23 andFeatureName:inputFeatureName];
+                  v29 = [VCPMAMLFeatureProvider featureProviderWithCVPixelBuffer:v27 andFeatureName:inputFeatureName];
 
                   model = [rotationModel model];
-                  v49 = 0;
-                  v47 = [model predictionFromFeatures:v25 error:&v49];
-                  v45 = v49;
+                  v54 = 0;
+                  v52 = [model predictionFromFeatures:v29 error:&v54];
+                  v50 = v54;
 
                   outputFeatureName = [rotationModel outputFeatureName];
-                  v48 = [v47 featureValueForName:outputFeatureName];
+                  v53 = [v52 featureValueForName:outputFeatureName];
 
-                  multiArrayValue = [v48 multiArrayValue];
+                  multiArrayValue = [v53 multiArrayValue];
                   if ([multiArrayValue count] == 4)
                   {
-                    v29 = 0;
-                    LOWORD(v30) = 0;
-                    v31 = 0.0;
-                    v44 = v25;
+                    v33 = 0;
+                    LOWORD(v34) = 0;
+                    v35 = 0.0;
+                    v49 = v29;
                     do
                     {
-                      v32 = [multiArrayValue objectAtIndexedSubscript:{v29, v44, v45}];
-                      [v32 floatValue];
-                      v34 = v33;
+                      v36 = [multiArrayValue objectAtIndexedSubscript:{v33, v49, v50}];
+                      [v36 floatValue];
+                      v38 = v37;
 
-                      if (v34 <= v31)
+                      if (v38 <= v35)
                       {
-                        v35 = v30;
+                        v39 = v34;
                       }
 
                       else
                       {
-                        v31 = v34;
-                        v35 = v29;
+                        v35 = v38;
+                        v39 = v33;
                       }
 
-                      v30 = v35;
-                      ++v29;
+                      v34 = v39;
+                      ++v33;
                     }
 
-                    while (v29 != 4);
-                    v63 = @"RotationAnalysisResults";
-                    v60 = @"attributes";
-                    v58[0] = @"probableRotation";
-                    v36 = [MEMORY[0x1E696AD98] numberWithShort:v30];
-                    v59[0] = v36;
-                    v58[1] = @"probableRotationConfidence";
-                    *&v37 = v31;
-                    v38 = [MEMORY[0x1E696AD98] numberWithFloat:v37];
-                    v59[1] = v38;
-                    v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:2];
-                    v61 = v39;
-                    v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-                    v62 = v40;
-                    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v62 count:1];
-                    v64 = v41;
-                    [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
-                    *analysis = v25 = v44;
+                    while (v33 != 4);
+                    v68 = @"RotationAnalysisResults";
+                    v65 = @"attributes";
+                    v63[0] = @"probableRotation";
+                    v40 = [MEMORY[0x1E696AD98] numberWithShort:v34];
+                    v64[0] = v40;
+                    v63[1] = @"probableRotationConfidence";
+                    *&v41 = v35;
+                    v42 = [MEMORY[0x1E696AD98] numberWithFloat:v41];
+                    v64[1] = v42;
+                    v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:2];
+                    v66 = v43;
+                    v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+                    v67 = v44;
+                    v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
+                    v69 = v45;
+                    [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+                    *analysis = v29 = v49;
 
-                    v42 = VCPSignPostLog();
-                    v43 = v42;
-                    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
+                    v47 = VCPSignPostLog(v46);
+                    v48 = v47;
+                    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
                     {
-                      *v50 = 0;
-                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v43, OS_SIGNPOST_INTERVAL_END, spid, "VCPSceneAnalyzerRotationAnalysisInference", "", v50, 2u);
+                      *v55 = 0;
+                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v48, OS_SIGNPOST_INTERVAL_END, spid, "VCPSceneAnalyzerRotationAnalysisInference", "", v55, 2u);
                     }
 
-                    v12 = 0;
+                    v13 = 0;
                   }
 
                   else
                   {
                     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                     {
-                      *v50 = 0;
-                      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[ProbableRotation] invalid coreML results", v50, 2u);
+                      *v55 = 0;
+                      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[ProbableRotation] invalid coreML results", v55, 2u);
                     }
 
-                    v12 = -18;
+                    v13 = -18;
                   }
                 }
               }
             }
 
-            if (v52 && !v51 && CVPixelBufferUnlockBaseAddress(v52, v53) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-            {
-              [VCPMoFlowSingleEspresso copyImage:toData:withChannels:];
-            }
-          }
-        }
-
-        else
-        {
-          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-          {
-            [VCPVideoCNNAnalyzer copyImage:withChannels:settling:];
-          }
-
-          v12 = -50;
-        }
-
-        if (pixelBuffer && !v54 && CVPixelBufferUnlockBaseAddress(pixelBuffer, unlockFlags) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-        {
-          [VCPMoFlowSingleEspresso copyImage:toData:withChannels:];
-        }
-      }
-    }
-
-    CF<__CVBuffer *>::~CF(&cf);
-  }
-
-  else
-  {
-    v72 = @"RotationAnalysisResults";
-    v69 = @"attributes";
-    v67[0] = @"probableRotation";
-    v67[1] = @"probableRotationConfidence";
-    v68[0] = &unk_1F49BDE88;
-    v68[1] = &unk_1F49BB218;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:v67 count:2];
-    v70 = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-    v71 = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v71 count:1];
-    v73[0] = v15;
-    *analysis = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:&v72 count:1];
-
-    return 0;
-  }
-
-  return v12;
-}
-
-- (int)_performEmbeddingAnalysis:(id *)analysis withColorPixelBuffer:(__CVBuffer *)buffer
-{
-  v41 = *MEMORY[0x1E69E9840];
-  v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[VCPPreAnalyzer][Embedding]"];
-  v8 = VCPSignPostLog();
-  v9 = os_signpost_id_generate(v8);
-
-  v10 = VCPSignPostLog();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
-  {
-    LOWORD(buf.data) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPSceneAnalyzerEmbeddingAnalysisScaling", "", &buf, 2u);
-  }
-
-  cf = 0;
-  embeddingBufferCreator = [(MADSceneResources *)self->_resources embeddingBufferCreator];
-  v13 = [embeddingBufferCreator createPixelBuffer:&cf];
-
-  if (!v13)
-  {
-    v33 = 0;
-    pixelBuffer = buffer;
-    unlockFlags = 1;
-    if (buffer)
-    {
-      v13 = CVPixelBufferLockBaseAddress(buffer, 1uLL);
-      v33 = v13;
-      if (!v13 || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (LODWORD(buf.data) = 134218240, *(&buf.data + 4) = pixelBuffer, WORD2(buf.height) = 1024, *(&buf.height + 6) = v13, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", &buf, 0x12u), (v13 = v33) == 0))
-      {
-        buf.data = CVPixelBufferGetBaseAddress(buffer);
-        buf.height = CVPixelBufferGetHeight(buffer);
-        buf.width = CVPixelBufferGetWidth(buffer);
-        buf.rowBytes = CVPixelBufferGetBytesPerRow(buffer);
-        v30 = 0;
-        v31 = cf;
-        v32 = 0;
-        if (cf)
-        {
-          v13 = CVPixelBufferLockBaseAddress(cf, 0);
-          v30 = v13;
-          if (!v13 || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (LODWORD(v39.data) = 134218240, *(&v39.data + 4) = v31, WORD2(v39.height) = 1024, *(&v39.height + 6) = v13, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", &v39, 0x12u), (v13 = v30) == 0))
-          {
-            v39.data = CVPixelBufferGetBaseAddress(cf);
-            v39.height = CVPixelBufferGetHeight(cf);
-            v39.width = CVPixelBufferGetWidth(cf);
-            v39.rowBytes = CVPixelBufferGetBytesPerRow(cf);
-            v13 = vImageScale_ARGB8888(&buf, &v39, 0, 0x20u);
-            if (!v13)
-            {
-              v13 = CVPixelBufferLock::Unlock(&v30);
-              if (!v13)
-              {
-                v13 = CVPixelBufferLock::Unlock(&v33);
-                if (!v13)
-                {
-                  v15 = VCPSignPostLog();
-                  v16 = v15;
-                  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
-                  {
-                    *v37 = 0;
-                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v9, "VCPSceneAnalyzerEmbeddingAnalysisScaling", "", v37, 2u);
-                  }
-
-                  v17 = VCPSignPostLog();
-                  v18 = os_signpost_id_generate(v17);
-
-                  v19 = VCPSignPostLog();
-                  v20 = v19;
-                  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
-                  {
-                    *v37 = 0;
-                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v18, "VCPSceneAnalyzerEmbeddingAnalysisInference", "", v37, 2u);
-                  }
-
-                  v21 = [VCPImageBackboneAnalyzer alloc];
-                  v22 = [MEMORY[0x1E696AD98] numberWithInteger:{+[VCPVideoTransformerBackbone revision](VCPVideoTransformerBackbone, "revision")}];
-                  v23 = [(VCPImageBackboneAnalyzer *)v21 initWithRequestedAnalyses:0x1000000000000 andRevision:v22 useSharedModel:1];
-
-                  v13 = [(VCPImageBackboneAnalyzer *)v23 analyzePixelBuffer:cf flags:0 results:analysis cancel:&__block_literal_global_432];
-                  if (!v13)
-                  {
-                    v24 = VCPSignPostLog();
-                    v25 = v24;
-                    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
-                    {
-                      *v37 = 0;
-                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v18, "VCPSceneAnalyzerEmbeddingAnalysisInference", "", v37, 2u);
-                    }
-
-                    v26 = [*analysis objectForKeyedSubscript:@"ImageEmbeddingResults"];
-                    if ([v26 count])
-                    {
-                      firstObject = [v26 firstObject];
-                      v28 = [firstObject objectForKeyedSubscript:@"attributes"];
-                      v29 = [v28 objectForKeyedSubscript:@"embeddings"];
-
-                      if (v29)
-                      {
-                        v13 = 0;
-                      }
-
-                      else
-                      {
-                        if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-                        {
-                          *v37 = 138412290;
-                          v38 = v7;
-                          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Empty embedding data", v37, 0xCu);
-                        }
-
-                        v13 = -18;
-                      }
-                    }
-
-                    else
-                    {
-                      if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-                      {
-                        *v37 = 138412290;
-                        v38 = v7;
-                        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Empty embedding results", v37, 0xCu);
-                      }
-
-                      v13 = -18;
-                    }
-                  }
-                }
-              }
-            }
-
-            if (v31 && !v30 && CVPixelBufferUnlockBaseAddress(v31, v32) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+            if (v57 && !v56 && CVPixelBufferUnlockBaseAddress(v57, v58) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
               [VCPMoFlowSingleEspresso copyImage:toData:withChannels:];
             }
@@ -3326,7 +3149,189 @@ LABEL_11:
           v13 = -50;
         }
 
-        if (pixelBuffer && !v33 && CVPixelBufferUnlockBaseAddress(pixelBuffer, unlockFlags) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        if (pixelBuffer && !v59 && CVPixelBufferUnlockBaseAddress(pixelBuffer, unlockFlags) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          [VCPMoFlowSingleEspresso copyImage:toData:withChannels:];
+        }
+      }
+    }
+
+    CF<__CVBuffer *>::~CF(&cf);
+  }
+
+  else
+  {
+    v77 = @"RotationAnalysisResults";
+    v74 = @"attributes";
+    v72[0] = @"probableRotation";
+    v72[1] = @"probableRotationConfidence";
+    v73[0] = &unk_1F49BDE88;
+    v73[1] = &unk_1F49BB218;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:2];
+    v75 = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+    v76 = v15;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1];
+    v78[0] = v16;
+    *analysis = [MEMORY[0x1E695DF20] dictionaryWithObjects:v78 forKeys:&v77 count:1];
+
+    return 0;
+  }
+
+  return v13;
+}
+
+- (int)_performEmbeddingAnalysis:(id *)analysis withColorPixelBuffer:(__CVBuffer *)buffer
+{
+  v46 = *MEMORY[0x1E69E9840];
+  v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[VCPPreAnalyzer][Embedding]"];
+  v8 = VCPSignPostLog(v7);
+  v9 = os_signpost_id_generate(v8);
+
+  v11 = VCPSignPostLog(v10);
+  v12 = v11;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  {
+    LOWORD(buf.data) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPSceneAnalyzerEmbeddingAnalysisScaling", "", &buf, 2u);
+  }
+
+  cf = 0;
+  embeddingBufferCreator = [(MADSceneResources *)self->_resources embeddingBufferCreator];
+  v14 = [embeddingBufferCreator createPixelBuffer:&cf];
+
+  if (!v14)
+  {
+    v38 = 0;
+    pixelBuffer = buffer;
+    unlockFlags = 1;
+    if (buffer)
+    {
+      v14 = CVPixelBufferLockBaseAddress(buffer, 1uLL);
+      v38 = v14;
+      if (!v14 || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (LODWORD(buf.data) = 134218240, *(&buf.data + 4) = pixelBuffer, WORD2(buf.height) = 1024, *(&buf.height + 6) = v14, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", &buf, 0x12u), (v14 = v38) == 0))
+      {
+        buf.data = CVPixelBufferGetBaseAddress(buffer);
+        buf.height = CVPixelBufferGetHeight(buffer);
+        buf.width = CVPixelBufferGetWidth(buffer);
+        buf.rowBytes = CVPixelBufferGetBytesPerRow(buffer);
+        v35 = 0;
+        v36 = cf;
+        v37 = 0;
+        if (cf)
+        {
+          v14 = CVPixelBufferLockBaseAddress(cf, 0);
+          v35 = v14;
+          if (!v14 || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (LODWORD(v44.data) = 134218240, *(&v44.data + 4) = v36, WORD2(v44.height) = 1024, *(&v44.height + 6) = v14, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", &v44, 0x12u), (v14 = v35) == 0))
+          {
+            v44.data = CVPixelBufferGetBaseAddress(cf);
+            v44.height = CVPixelBufferGetHeight(cf);
+            v44.width = CVPixelBufferGetWidth(cf);
+            v44.rowBytes = CVPixelBufferGetBytesPerRow(cf);
+            v14 = vImageScale_ARGB8888(&buf, &v44, 0, 0x20u);
+            if (!v14)
+            {
+              v14 = CVPixelBufferLock::Unlock(&v35);
+              if (!v14)
+              {
+                v16 = CVPixelBufferLock::Unlock(&v38);
+                v14 = v16;
+                if (!v16)
+                {
+                  v17 = VCPSignPostLog(v16);
+                  v18 = v17;
+                  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+                  {
+                    *v42 = 0;
+                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_END, v9, "VCPSceneAnalyzerEmbeddingAnalysisScaling", "", v42, 2u);
+                  }
+
+                  v20 = VCPSignPostLog(v19);
+                  v21 = os_signpost_id_generate(v20);
+
+                  v23 = VCPSignPostLog(v22);
+                  v24 = v23;
+                  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+                  {
+                    *v42 = 0;
+                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v21, "VCPSceneAnalyzerEmbeddingAnalysisInference", "", v42, 2u);
+                  }
+
+                  v25 = [VCPImageBackboneAnalyzer alloc];
+                  v26 = [MEMORY[0x1E696AD98] numberWithInteger:{+[VCPVideoTransformerBackbone revision](VCPVideoTransformerBackbone, "revision")}];
+                  v27 = [(VCPImageBackboneAnalyzer *)v25 initWithRequestedAnalyses:0x1000000000000 andRevision:v26 useSharedModel:1];
+
+                  v28 = [(VCPImageBackboneAnalyzer *)v27 analyzePixelBuffer:cf flags:0 results:analysis cancel:&__block_literal_global_432];
+                  v14 = v28;
+                  if (!v28)
+                  {
+                    v29 = VCPSignPostLog(v28);
+                    v30 = v29;
+                    if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
+                    {
+                      *v42 = 0;
+                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v30, OS_SIGNPOST_INTERVAL_END, v21, "VCPSceneAnalyzerEmbeddingAnalysisInference", "", v42, 2u);
+                    }
+
+                    v31 = [*analysis objectForKeyedSubscript:@"ImageEmbeddingResults"];
+                    if ([v31 count])
+                    {
+                      firstObject = [v31 firstObject];
+                      v33 = [firstObject objectForKeyedSubscript:@"attributes"];
+                      v34 = [v33 objectForKeyedSubscript:@"embeddings"];
+
+                      if (v34)
+                      {
+                        v14 = 0;
+                      }
+
+                      else
+                      {
+                        if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+                        {
+                          *v42 = 138412290;
+                          v43 = v7;
+                          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Empty embedding data", v42, 0xCu);
+                        }
+
+                        v14 = -18;
+                      }
+                    }
+
+                    else
+                    {
+                      if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+                      {
+                        *v42 = 138412290;
+                        v43 = v7;
+                        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Empty embedding results", v42, 0xCu);
+                      }
+
+                      v14 = -18;
+                    }
+                  }
+                }
+              }
+            }
+
+            if (v36 && !v35 && CVPixelBufferUnlockBaseAddress(v36, v37) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+            {
+              [VCPMoFlowSingleEspresso copyImage:toData:withChannels:];
+            }
+          }
+        }
+
+        else
+        {
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+          {
+            [VCPVideoCNNAnalyzer copyImage:withChannels:settling:];
+          }
+
+          v14 = -50;
+        }
+
+        if (pixelBuffer && !v38 && CVPixelBufferUnlockBaseAddress(pixelBuffer, unlockFlags) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           [VCPMoFlowSingleEspresso copyImage:toData:withChannels:];
         }
@@ -3340,66 +3345,68 @@ LABEL_11:
         [VCPVideoCNNAnalyzer copyImage:withChannels:settling:];
       }
 
-      v13 = -50;
+      v14 = -50;
     }
   }
 
   CF<__CVBuffer *>::~CF(&cf);
 
-  return v13;
+  return v14;
 }
 
 - (int)_performWallpaperAnalysis:(id *)analysis withSceneprint:(id)sceneprint
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   sceneprintCopy = sceneprint;
+  v6 = sceneprintCopy;
   if (!sceneprintCopy)
   {
     if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "No sceneprint data for WP analysis; return default value", v15, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "No sceneprint data for WP analysis; return default value", v18, 2u);
     }
 
-    v19 = @"WPResults";
-    v16 = @"wallpaperScore";
-    v17 = &unk_1F49BB208;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-    v18 = v10;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
-    v20[0] = v13;
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-    *analysis = v11 = 0;
+    v22 = @"WPResults";
+    v19 = @"wallpaperScore";
+    v20 = &unk_1F49BB208;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v21 = v12;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+    v23[0] = v16;
+    [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    *analysis = v14 = 0;
     goto LABEL_13;
   }
 
-  v6 = VCPSignPostLog();
-  v7 = os_signpost_id_generate(v6);
+  v7 = VCPSignPostLog(sceneprintCopy);
+  v8 = os_signpost_id_generate(v7);
 
-  v8 = VCPSignPostLog();
-  v9 = v8;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v10 = VCPSignPostLog(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    *v15 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "VCPWallpaperAnalysis", "", v15, 2u);
+    *v18 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPWallpaperAnalysis", "", v18, 2u);
   }
 
-  v10 = objc_alloc_init(VCPWallpaperAnalyzer);
-  v11 = [(VCPWallpaperAnalyzer *)v10 analyzeWithSceneprint:sceneprintCopy results:analysis cancel:&__block_literal_global_436];
-  if (!v11)
+  v12 = objc_alloc_init(VCPWallpaperAnalyzer);
+  v13 = [(VCPWallpaperAnalyzer *)v12 analyzeWithSceneprint:v6 results:analysis cancel:&__block_literal_global_436];
+  v14 = v13;
+  if (!v13)
   {
-    v12 = VCPSignPostLog();
-    v13 = v12;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+    v15 = VCPSignPostLog(v13);
+    v16 = v15;
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
-      *v15 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_END, v7, "VCPWallpaperAnalysis", "", v15, 2u);
+      *v18 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v8, "VCPWallpaperAnalysis", "", v18, 2u);
     }
 
 LABEL_13:
   }
 
-  return v11;
+  return v14;
 }
 
 - (int)_performAnalysis:(id *)analysis mediaType:(int64_t)type mediaSubtypes:(unint64_t)subtypes abnormalDimension:(unint64_t)dimension colorPixelBuffer:(__CVBuffer *)buffer andLumaPixelBuffer:(__CVBuffer *)pixelBuffer image:(id)image
@@ -3608,166 +3615,170 @@ LABEL_14:
 
 - (void)analyzeWithImageURL:(id)l mediaType:(int64_t)type mediaSubtypes:(unint64_t)subtypes abnormalDimension:(unint64_t)dimension completionHandler:(id)handler
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   lCopy = l;
   handlerCopy = handler;
   context = objc_autoreleasePoolPush();
-  v13 = VCPSignPostLog();
+  v13 = VCPSignPostLog(context);
   v14 = os_signpost_id_generate(v13);
 
-  v15 = VCPSignPostLog();
-  v16 = v15;
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v16 = VCPSignPostLog(v15);
+  v17 = v16;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "VCPSceneAnalyzerLoadImageRequestHandler", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v14, "VCPSceneAnalyzerLoadImageRequestHandler", "", buf, 2u);
   }
 
-  v47 = 0;
-  v48 = 0;
+  v51 = 0;
+  v52 = 0;
   imageLoader = [(MADSceneResources *)self->_resources imageLoader];
   _nonPanoPreWarmDimensions = [objc_opt_class() _nonPanoPreWarmDimensions];
-  v46 = 0;
-  v19 = [imageLoader loadImageURL:lCopy abnormalDimension:dimension withNonPanoPreWarmSizes:_nonPanoPreWarmDimensions toColorPixelBuffer:&v47 lumaPixelBuffer:&v48 andImage:&v46];
-  v20 = v46;
+  v50 = 0;
+  v20 = [imageLoader loadImageURL:lCopy abnormalDimension:dimension withNonPanoPreWarmSizes:_nonPanoPreWarmDimensions toColorPixelBuffer:&v51 lumaPixelBuffer:&v52 andImage:&v50];
+  v21 = v50;
 
-  v21 = VCPSignPostLog();
-  v22 = v21;
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+  v23 = VCPSignPostLog(v22);
+  v24 = v23;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_END, v14, "VCPSceneAnalyzerLoadImageRequestHandler", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v14, "VCPSceneAnalyzerLoadImageRequestHandler", "", buf, 2u);
   }
 
-  if (v19)
+  if (v20)
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v50 = lCopy;
+      v54 = lCopy;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to load imageURL: %@", buf, 0xCu);
     }
 
-    handlerCopy[2](handlerCopy, v19, 0);
-  }
-
-  else if ([objc_opt_class() _enableSceneAssetConcurrency])
-  {
-    if (v48)
-    {
-      v23 = CFRetain(v48);
-    }
-
-    else
-    {
-      v23 = 0;
-    }
-
-    if (v47)
-    {
-      v32 = CFRetain(v47);
-    }
-
-    else
-    {
-      v32 = 0;
-    }
-
-    dispatch_group_wait(self->_processingGroup, 0xFFFFFFFFFFFFFFFFLL);
-    processingGroup = self->_processingGroup;
-    processingQueue = self->_processingQueue;
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = __98__VCPPreAnalyzer_analyzeWithImageURL_mediaType_mediaSubtypes_abnormalDimension_completionHandler___block_invoke;
-    block[3] = &unk_1E8350798;
-    block[4] = self;
-    typeCopy = type;
-    subtypesCopy = subtypes;
-    dimensionCopy = dimension;
-    v44 = v32;
-    v45 = v23;
-    v39 = v20;
-    v40 = handlerCopy;
-    dispatch_group_async(processingGroup, processingQueue, block);
+    handlerCopy[2](handlerCopy, v20, 0);
   }
 
   else
   {
-    v24 = VCPSignPostLog();
-    v25 = os_signpost_id_generate(v24);
-
-    v26 = VCPSignPostLog();
-    v27 = v26;
-    if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+    _enableSceneAssetConcurrency = [objc_opt_class() _enableSceneAssetConcurrency];
+    if (_enableSceneAssetConcurrency)
     {
-      *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v25, "VCPSceneAnalyzerPerformAnalysis", "", buf, 2u);
+      if (v52)
+      {
+        v26 = CFRetain(v52);
+      }
+
+      else
+      {
+        v26 = 0;
+      }
+
+      if (v51)
+      {
+        v36 = CFRetain(v51);
+      }
+
+      else
+      {
+        v36 = 0;
+      }
+
+      dispatch_group_wait(self->_processingGroup, 0xFFFFFFFFFFFFFFFFLL);
+      processingGroup = self->_processingGroup;
+      processingQueue = self->_processingQueue;
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = __98__VCPPreAnalyzer_analyzeWithImageURL_mediaType_mediaSubtypes_abnormalDimension_completionHandler___block_invoke;
+      block[3] = &unk_1E8350798;
+      block[4] = self;
+      typeCopy = type;
+      subtypesCopy = subtypes;
+      dimensionCopy = dimension;
+      v48 = v36;
+      v49 = v26;
+      v43 = v21;
+      v44 = handlerCopy;
+      dispatch_group_async(processingGroup, processingQueue, block);
     }
 
-    v37 = 0;
-    v28 = [(VCPPreAnalyzer *)self _performAnalysis:&v37 mediaType:type mediaSubtypes:subtypes abnormalDimension:dimension colorPixelBuffer:v47 andLumaPixelBuffer:v48 image:v20];
-    v29 = v37;
-    v30 = VCPSignPostLog();
-    v31 = v30;
-    if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+    else
     {
-      *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v31, OS_SIGNPOST_INTERVAL_END, v25, "VCPSceneAnalyzerPerformAnalysis", "", buf, 2u);
-    }
+      v27 = VCPSignPostLog(_enableSceneAssetConcurrency);
+      v28 = os_signpost_id_generate(v27);
 
-    (handlerCopy)[2](handlerCopy, v28, v29);
+      v30 = VCPSignPostLog(v29);
+      v31 = v30;
+      if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v31, OS_SIGNPOST_INTERVAL_BEGIN, v28, "VCPSceneAnalyzerPerformAnalysis", "", buf, 2u);
+      }
+
+      v41 = 0;
+      v32 = [(VCPPreAnalyzer *)self _performAnalysis:&v41 mediaType:type mediaSubtypes:subtypes abnormalDimension:dimension colorPixelBuffer:v51 andLumaPixelBuffer:v52 image:v21];
+      v33 = v41;
+      v34 = VCPSignPostLog(v33);
+      v35 = v34;
+      if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_END, v28, "VCPSceneAnalyzerPerformAnalysis", "", buf, 2u);
+      }
+
+      (handlerCopy)[2](handlerCopy, v32, v33);
+    }
   }
 
-  CF<__CVBuffer *>::~CF(&v47);
-  CF<__CVBuffer *>::~CF(&v48);
+  CF<__CVBuffer *>::~CF(&v51);
+  CF<__CVBuffer *>::~CF(&v52);
   objc_autoreleasePoolPop(context);
 }
 
 void __98__VCPPreAnalyzer_analyzeWithImageURL_mediaType_mediaSubtypes_abnormalDimension_completionHandler___block_invoke(uint64_t a1)
 {
-  v2 = VCPSignPostLog();
+  v2 = VCPSignPostLog(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = VCPSignPostLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = VCPSignPostLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "VCPSceneAnalyzerPerformAnalysis", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "VCPSceneAnalyzerPerformAnalysis", "", buf, 2u);
   }
 
-  v12 = 0;
-  [*(a1 + 32) _performAnalysis:&v12 mediaType:*(a1 + 56) mediaSubtypes:*(a1 + 64) abnormalDimension:*(a1 + 72) colorPixelBuffer:*(a1 + 80) andLumaPixelBuffer:*(a1 + 88) image:*(a1 + 40)];
-  v6 = v12;
-  v7 = VCPSignPostLog();
-  v8 = v7;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v13 = 0;
+  [*(a1 + 32) _performAnalysis:&v13 mediaType:*(a1 + 56) mediaSubtypes:*(a1 + 64) abnormalDimension:*(a1 + 72) colorPixelBuffer:*(a1 + 80) andLumaPixelBuffer:*(a1 + 88) image:*(a1 + 40)];
+  v7 = v13;
+  v8 = VCPSignPostLog(v7);
+  v9 = v8;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    *v11 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_END, v3, "VCPSceneAnalyzerPerformAnalysis", "", v11, 2u);
+    *v12 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_END, v3, "VCPSceneAnalyzerPerformAnalysis", "", v12, 2u);
   }
 
   (*(*(a1 + 48) + 16))();
-  v9 = *(a1 + 88);
-  if (v9)
-  {
-    CFRelease(v9);
-  }
-
-  v10 = *(a1 + 80);
+  v10 = *(a1 + 88);
   if (v10)
   {
     CFRelease(v10);
+  }
+
+  v11 = *(a1 + 80);
+  if (v11)
+  {
+    CFRelease(v11);
   }
 }
 
 + (void)_getSHRevision
 {
-  if (__cxa_guard_acquire(&qword_1ED942840))
+  if (__cxa_guard_acquire(byte_1ED942840))
   {
     _MergedGlobals_3 = 2;
 
-    __cxa_guard_release(&qword_1ED942840);
+    __cxa_guard_release(byte_1ED942840);
   }
 }
 

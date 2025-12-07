@@ -1,15 +1,15 @@
-void sub_182408DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_182408DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  if ((v13 & 1) == 0)
+  va_start(va1, a18);
+  va_start(va, a18);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  if ((v20 & 1) == 0)
   {
     nw::release_if_needed<nw_protocol *>(va);
   }
 
-  if ((v12 & 1) == 0)
+  if ((v19 & 1) == 0)
   {
     nw::release_if_needed<nw_protocol *>(va1);
   }
@@ -108,7 +108,7 @@ LABEL_14:
     v20 = __nwlog_obj();
     *buf = 136446210;
     v37 = "__nw_protocol_notify";
-    v21 = _os_log_send_and_compose_impl();
+    v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s called with null type", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v30 = 0;
@@ -238,7 +238,7 @@ void nw_protocol_instance_drop_outbound(void *a1, void *a2)
     v6 = __nwlog_obj();
     *buf = 136446210;
     v23 = "nw_protocol_instance_drop_outbound";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null instance", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v20 = 0;
@@ -322,7 +322,7 @@ LABEL_37:
   v10 = __nwlog_obj();
   *buf = 136446210;
   v23 = "nw_protocol_instance_drop_outbound";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null data", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;
@@ -403,7 +403,7 @@ void nw_protocol_instance_set_flow_is_datagram(void *a1, uint64_t a2, int a3, in
     v24 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_protocol_instance_set_flow_is_datagram";
-    v25 = _os_log_send_and_compose_impl();
+    v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s called with null instance", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v38 = 0;
@@ -481,7 +481,7 @@ LABEL_68:
     v28 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_protocol_instance_set_flow_is_datagram";
-    v25 = _os_log_send_and_compose_impl();
+    v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v28, 16, "%{public}s called with null (flow != NW_PROTOCOL_ALL_FLOWS)", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v38 = 0;
@@ -566,19 +566,19 @@ LABEL_70:
       v10 = 0;
     }
 
-    *(node + 84) = *(node + 84) & 0xF7FF | v10;
-    *(node + 76) = a4;
+    *(node + 42) = *(node + 42) & 0xF7FF | v10;
+    *(node + 19) = a4;
     if (!a3)
     {
       goto LABEL_19;
     }
 
-    if (*(*(v8 + 1) + 64) != 3)
+    if (*(v8[1] + 64) != 3)
     {
       goto LABEL_19;
     }
 
-    v11 = *(node + 16);
+    v11 = node[2];
     if (!v11)
     {
       goto LABEL_19;
@@ -615,14 +615,14 @@ LABEL_24:
         *buf = v11;
         buf[8] = v15;
         v19 = *(v8 - 7);
-        v20 = v8 - 96;
+        v20 = v8 - 12;
         if (v19 == &nw_protocol_ref_counted_handle || v19 == &nw_protocol_ref_counted_additional_handle && (v20 = *(v8 - 4)) != 0)
         {
-          v23 = *(v20 + 11);
+          v23 = v20[11];
           v22 = 0;
           if (v23)
           {
-            *(v20 + 11) = v23 + 1;
+            v20[11] = v23 + 1;
           }
 
           v21 = -1;
@@ -634,7 +634,7 @@ LABEL_24:
           v22 = 1;
         }
 
-        *type = v8 - 96;
+        *type = v8 - 12;
         v40 = v21;
         v13();
         if ((v22 & 1) == 0)
@@ -662,7 +662,7 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  if ((v8[413] & 0x80000000) == 0)
+  if ((*(v8 + 413) & 0x80000000) == 0)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
@@ -684,18 +684,18 @@ LABEL_24:
 LABEL_19:
 }
 
-void sub_182409E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_182409E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  if ((v9 & 1) == 0)
+  va_start(va1, a13);
+  va_start(va, a13);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  if ((v15 & 1) == 0)
   {
     nw::release_if_needed<nw_protocol *>(va);
   }
 
-  if ((v8 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
     nw::release_if_needed<nw_protocol *>(va1);
   }
@@ -764,7 +764,7 @@ void nw_protocol_instance_enumerate_flow_keys(void *a1, void *a2)
   if (v3)
   {
     v5 = *(v3 + 30);
-    if (v5 && *(v5 + 48))
+    if (v5 && v5[12]._os_unfair_lock_opaque)
     {
       v15[0] = MEMORY[0x1E69E9820];
       v15[1] = 3221225472;
@@ -798,7 +798,7 @@ void nw_protocol_instance_enumerate_flow_keys(void *a1, void *a2)
   v7 = __nwlog_obj();
   *buf = 136446210;
   v21 = "nw_protocol_instance_enumerate_flow_keys";
-  v8 = _os_log_send_and_compose_impl();
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null instance", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v18 = 0;
@@ -907,7 +907,7 @@ uint64_t __nw_protocol_instance_enumerate_flow_keys_block_invoke(uint64_t a1, ui
     v37 = v9;
     v38 = 2080;
     v39 = v10;
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s %{public}s%sFound null node when enumerating custom flow mapping table", buf, 32);
 
     type = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -1090,7 +1090,7 @@ void nw_protocol_instance_set_wakeup_handler(void *a1, void *a2)
     v8 = __nwlog_obj();
     *buf = 136446210;
     v25 = "nw_protocol_instance_set_wakeup_handler";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null instance", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -1177,7 +1177,7 @@ LABEL_37:
   v12 = __nwlog_obj();
   *buf = 136446210;
   v25 = "nw_protocol_instance_set_wakeup_handler";
-  v9 = _os_log_send_and_compose_impl();
+  v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null wakeup_handler", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v22 = 0;
@@ -1287,7 +1287,7 @@ void nw_protocol_instance_set_link_flow_controlled(void *a1, uint64_t a2)
   v9 = __nwlog_obj();
   *buf = 136446210;
   v20 = "nw_protocol_instance_set_link_flow_controlled";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null instance", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v17 = 0;
@@ -1370,7 +1370,7 @@ void nw_protocol_implementation_output_available(nw_protocol *a1, nw_protocol *a
         v5 = __nwlog_obj();
         *buf = 136446210;
         v110 = "nw_protocol_implementation_output_available";
-        v6 = _os_log_send_and_compose_impl();
+        v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null instance", buf, 12);
 
         type[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v104) = 0;
@@ -1556,7 +1556,7 @@ LABEL_59:
               v113 = 2048;
               v56 = v53;
               v114 = v53;
-              v57 = _os_log_send_and_compose_impl();
+              v57 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v54, 16, "%{public}s protocol %{public}s (%p) has invalid finalize_output_frames callback", buf, 32);
 
               v108 = OS_LOG_TYPE_ERROR;
               v105 = 0;
@@ -1677,7 +1677,7 @@ LABEL_195:
             v71 = __nwlog_obj();
             *buf = 136446210;
             v110 = "__nw_protocol_finalize_output_frames";
-            v72 = _os_log_send_and_compose_impl();
+            v72 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v71, 16, "%{public}s called with null protocol", buf, 12);
 
             type[0] = OS_LOG_TYPE_ERROR;
             v108 = OS_LOG_TYPE_DEFAULT;
@@ -1789,7 +1789,7 @@ LABEL_60:
           v81 = __nwlog_obj();
           *buf = 136446210;
           v110 = "__nw_protocol_finalize_output_frames";
-          v72 = _os_log_send_and_compose_impl();
+          v72 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v81, 16, "%{public}s called with null protocol", buf, 12);
 
           type[0] = OS_LOG_TYPE_ERROR;
           v108 = OS_LOG_TYPE_DEFAULT;
@@ -1920,7 +1920,7 @@ LABEL_56:
         v113 = 2048;
         v66 = v63;
         v114 = v63;
-        v67 = _os_log_send_and_compose_impl();
+        v67 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v64, 16, "%{public}s protocol %{public}s (%p) has invalid finalize_output_frames callback", buf, 32);
 
         v108 = OS_LOG_TYPE_ERROR;
         v105 = 0;
@@ -2039,7 +2039,7 @@ LABEL_207:
       v41 = __nwlog_obj();
       *buf = 136446210;
       v110 = "nw_protocol_implementation_output_available";
-      v38 = _os_log_send_and_compose_impl();
+      v38 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v41, 16, "%{public}s called with null instance->parent_definition->extended_state", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v104) = 0;
@@ -2112,7 +2112,7 @@ LABEL_207:
       v37 = __nwlog_obj();
       *buf = 136446210;
       v110 = "nw_protocol_implementation_output_available";
-      v38 = _os_log_send_and_compose_impl();
+      v38 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v37, 16, "%{public}s called with null instance->parent_definition", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v104) = 0;
@@ -2189,7 +2189,7 @@ LABEL_175:
   v33 = __nwlog_obj();
   *buf = 136446210;
   v110 = "nw_protocol_implementation_output_available";
-  v34 = _os_log_send_and_compose_impl();
+  v34 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v33, 16, "%{public}s called with null protocol", buf, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
   LOBYTE(v104) = 0;
@@ -2332,7 +2332,7 @@ void nw_protocol_instance_set_preferred_addresses(void *a1, void *a2, void *a3)
   v8 = __nwlog_obj();
   *buf = 136446210;
   v19 = "nw_protocol_instance_set_preferred_addresses";
-  v9 = _os_log_send_and_compose_impl();
+  v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null instance", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -2424,7 +2424,7 @@ void nw_protocol_definition_set_multipath(void *a1, int a2)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_protocol_definition_set_multipath";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null definition", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -2507,7 +2507,7 @@ uint64_t nw_protocol_definition_get_multipath(void *a1)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_protocol_definition_get_multipath";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null definition", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -2603,7 +2603,7 @@ void nw_protocol_definition_set_supports_discontiguous_data(void *a1, int a2)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_protocol_definition_set_supports_discontiguous_data";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null definition", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -2686,7 +2686,7 @@ uint64_t nw_protocol_definition_get_supports_discontiguous_data(void *a1)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_protocol_definition_get_supports_discontiguous_data";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null definition", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -2772,7 +2772,7 @@ uint64_t nw_protocol_definition_get_options_serializer(void *a1)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_protocol_definition_get_options_serializer";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null definition", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -2858,7 +2858,7 @@ uint64_t nw_protocol_definition_get_metadata_comparator(void *a1)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_protocol_definition_get_metadata_comparator";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null definition", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -2941,7 +2941,7 @@ void nw_protocol_definition_set_metadata_serializer(void *a1, uint64_t a2, uint6
     v7 = __nwlog_obj();
     *buf = 136446210;
     v28 = "nw_protocol_definition_set_metadata_serializer";
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null definition", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v25 = 0;
@@ -3015,7 +3015,7 @@ LABEL_35:
     v11 = __nwlog_obj();
     *buf = 136446210;
     v28 = "nw_protocol_definition_set_metadata_serializer";
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null serialize_function", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v25 = 0;
@@ -3091,7 +3091,7 @@ LABEL_35:
   v13 = __nwlog_obj();
   *buf = 136446210;
   v28 = "nw_protocol_definition_set_metadata_serializer";
-  v8 = _os_log_send_and_compose_impl();
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s called with null deserialize_function", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v25 = 0;
@@ -3173,7 +3173,7 @@ void *nw_protocol_copy_definition_for_identifier(void *a1)
     v10 = __nwlog_obj();
     *buf = 136446210;
     v20 = "nw_protocol_copy_definition_for_identifier";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null identifier", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v17 = 0;
@@ -3296,7 +3296,7 @@ BOOL nw_protocol_implementation_accept(uint64_t a1, void *a2, void *a3)
         v8 = __nwlog_obj();
         *buf = 136446210;
         v56 = "nw_protocol_implementation_accept";
-        v9 = _os_log_send_and_compose_impl();
+        v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null instance", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
         v53 = 0;
@@ -3387,7 +3387,7 @@ LABEL_28:
         v29 = __nwlog_obj();
         *buf = 136446210;
         v56 = "nw_protocol_implementation_accept";
-        v26 = _os_log_send_and_compose_impl();
+        v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s called with null instance->parent_definition->extended_state", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
         v53 = 0;
@@ -3458,7 +3458,7 @@ LABEL_28:
         v31 = __nwlog_obj();
         *buf = 136446210;
         v56 = "nw_protocol_implementation_accept";
-        v26 = _os_log_send_and_compose_impl();
+        v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v31, 16, "%{public}s called with null endpoint", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
         v53 = 0;
@@ -3535,7 +3535,7 @@ LABEL_30:
       v33 = __nwlog_obj();
       *buf = 136446210;
       v56 = "nw_protocol_implementation_accept";
-      v26 = _os_log_send_and_compose_impl();
+      v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v33, 16, "%{public}s called with null parameters", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v53 = 0;
@@ -3614,7 +3614,7 @@ LABEL_81:
       v25 = __nwlog_obj();
       *buf = 136446210;
       v56 = "nw_protocol_implementation_accept";
-      v26 = _os_log_send_and_compose_impl();
+      v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s called with null instance->parent_definition", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v53 = 0;
@@ -3696,7 +3696,7 @@ LABEL_117:
   v20 = __nwlog_obj();
   *buf = 136446210;
   v56 = "nw_protocol_implementation_accept";
-  v21 = _os_log_send_and_compose_impl();
+  v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s called with null many_to_one_handler", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v53 = 0;
@@ -3779,7 +3779,7 @@ uint64_t nw_protocol_flow_for_protocol(NWConcrete_nw_protocol_instance *a1, uint
   return a2;
 }
 
-void nw_protocol_implementation_error(nw_protocol *a1, nw_protocol *a2, int a3)
+void nw_protocol_implementation_error(nw_protocol *a1, nw_protocol *a2, uint64_t a3)
 {
   v97 = *MEMORY[0x1E69E9840];
   if (a1)
@@ -3793,7 +3793,7 @@ void nw_protocol_implementation_error(nw_protocol *a1, nw_protocol *a2, int a3)
         v7 = __nwlog_obj();
         *buf = 136446210;
         *&buf[4] = "nw_protocol_implementation_error";
-        v8 = _os_log_send_and_compose_impl();
+        v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null instance", buf, 12);
 
         type[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v86) = 0;
@@ -4026,7 +4026,7 @@ LABEL_56:
             v93 = 2048;
             v60 = v57;
             v94 = v57;
-            v61 = _os_log_send_and_compose_impl();
+            v61 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v58, 16, "%{public}s protocol %{public}s (%p) has invalid error callback", buf, 32);
 
             v85 = OS_LOG_TYPE_ERROR;
             v84 = 0;
@@ -4155,7 +4155,7 @@ LABEL_60:
           v68 = __nwlog_obj();
           *buf = 136446210;
           *&buf[4] = "__nw_protocol_error";
-          v38 = _os_log_send_and_compose_impl();
+          v38 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v68, 16, "%{public}s called with null protocol", buf, 12);
 
           type[0] = OS_LOG_TYPE_ERROR;
           LOBYTE(v86) = 0;
@@ -4223,7 +4223,7 @@ LABEL_60:
           v43 = __nwlog_obj();
           *buf = 136446210;
           *&buf[4] = "nw_protocol_implementation_error";
-          v38 = _os_log_send_and_compose_impl();
+          v38 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v43, 16, "%{public}s called with null other_protocol", buf, 12);
 
           type[0] = OS_LOG_TYPE_ERROR;
           LOBYTE(v86) = 0;
@@ -4292,7 +4292,7 @@ LABEL_60:
         v41 = __nwlog_obj();
         *buf = 136446210;
         *&buf[4] = "nw_protocol_implementation_error";
-        v38 = _os_log_send_and_compose_impl();
+        v38 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v41, 16, "%{public}s called with null instance->parent_definition->extended_state", buf, 12);
 
         type[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v86) = 0;
@@ -4367,7 +4367,7 @@ LABEL_60:
     v37 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_protocol_implementation_error";
-    v38 = _os_log_send_and_compose_impl();
+    v38 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v37, 16, "%{public}s called with null instance->parent_definition", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v86) = 0;
@@ -4445,7 +4445,7 @@ LABEL_174:
   v33 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_protocol_implementation_error";
-  v34 = _os_log_send_and_compose_impl();
+  v34 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v33, 16, "%{public}s called with null protocol", buf, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
   LOBYTE(v86) = 0;
@@ -4648,7 +4648,7 @@ LABEL_26:
     v44 = v23;
     v45 = 2048;
     v46 = v3;
-    v24 = _os_log_send_and_compose_impl();
+    v24 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s protocol %{public}s (%p) has invalid updated_path callback", buf, 32);
 
     type = OS_LOG_TYPE_ERROR;
     v35 = 0;
@@ -4768,18 +4768,18 @@ LABEL_62:
   return 1;
 }
 
-void sub_182410774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_182410774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  if ((v9 & 1) == 0)
+  va_start(va1, a13);
+  va_start(va, a13);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  if ((v15 & 1) == 0)
   {
     nw::release_if_needed<nw_protocol *>(va);
   }
 
-  if ((v8 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
     nw::release_if_needed<nw_protocol *>(va1);
   }
@@ -4922,7 +4922,7 @@ LABEL_25:
       v58 = 2048;
       v20 = v17;
       v59 = v17;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s protocol %{public}s (%p) has invalid error callback", buf, 32);
 
       type = OS_LOG_TYPE_ERROR;
       v48 = 0;
@@ -5034,7 +5034,7 @@ LABEL_82:
     v29 = __nwlog_obj();
     *buf = 136446210;
     v55 = "__nw_protocol_error";
-    v30 = _os_log_send_and_compose_impl();
+    v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s called with null other_protocol", buf, 12);
 
     v49[0] = OS_LOG_TYPE_ERROR;
     type = OS_LOG_TYPE_DEFAULT;
@@ -5106,7 +5106,7 @@ LABEL_92:
   v25 = __nwlog_obj();
   *buf = 136446210;
   v55 = "__nw_protocol_error";
-  v26 = _os_log_send_and_compose_impl();
+  v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s called with null protocol", buf, 12);
 
   v52[0] = OS_LOG_TYPE_ERROR;
   v49[0] = OS_LOG_TYPE_DEFAULT;
@@ -5205,7 +5205,7 @@ void nw_protocol_implementation_output_finished(nw_protocol *a1, nw_protocol *a2
         v5 = __nwlog_obj();
         *buf = 136446210;
         v108 = "nw_protocol_implementation_output_finished";
-        v6 = _os_log_send_and_compose_impl();
+        v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null instance", buf, 12);
 
         type[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v103) = 0;
@@ -5292,7 +5292,7 @@ LABEL_78:
       v56 = __nwlog_obj();
       *buf = 136446210;
       v108 = "nw_protocol_implementation_output_finished";
-      v17 = _os_log_send_and_compose_impl();
+      v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v56, 16, "%{public}s called with null instance->parent_definition", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v103) = 0;
@@ -5362,7 +5362,7 @@ LABEL_78:
       v58 = __nwlog_obj();
       *buf = 136446210;
       v108 = "nw_protocol_implementation_output_finished";
-      v17 = _os_log_send_and_compose_impl();
+      v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v58, 16, "%{public}s called with null instance->parent_definition->extended_state", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v103) = 0;
@@ -5432,7 +5432,7 @@ LABEL_78:
       v60 = __nwlog_obj();
       *buf = 136446210;
       v108 = "nw_protocol_implementation_output_finished";
-      v17 = _os_log_send_and_compose_impl();
+      v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v60, 16, "%{public}s called with null input_protocol", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v103) = 0;
@@ -5530,7 +5530,7 @@ LABEL_130:
         v16 = gLogObj;
         *buf = 136446210;
         v108 = "nw_protocol_implementation_output_finished";
-        v17 = _os_log_send_and_compose_impl();
+        v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s Cannot defer stop of NW_PROTOCOL_DEFAULT_FLOW", buf, 12);
 
         type[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v103) = 0;
@@ -5604,7 +5604,7 @@ LABEL_130:
         v29 = gLogObj;
         *buf = 136446210;
         v108 = "nw_protocol_implementation_output_finished";
-        v17 = _os_log_send_and_compose_impl();
+        v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s called with null instance->parent_definition->stop", buf, 12);
 
         type[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v103) = 0;
@@ -5713,7 +5713,7 @@ LABEL_130:
       v27 = gLogObj;
       *buf = 136446210;
       v108 = "nw_protocol_implementation_output_finished";
-      v17 = _os_log_send_and_compose_impl();
+      v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s called with null instance->parent_definition->stop", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v103) = 0;
@@ -5800,7 +5800,7 @@ LABEL_84:
       v31 = gLogObj;
       *buf = 136446210;
       v108 = "nw_protocol_implementation_output_finished";
-      v17 = _os_log_send_and_compose_impl();
+      v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v31, 16, "%{public}s called with null nw_protocol_get_output_handler(&instance->protocol)", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v103) = 0;
@@ -5884,7 +5884,7 @@ LABEL_84:
         v86 = __nwlog_obj();
         *buf = 136446210;
         v108 = "__nw_protocol_output_finished";
-        v17 = _os_log_send_and_compose_impl();
+        v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v86, 16, "%{public}s called with null protocol", buf, 12);
 
         type[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v103) = 0;
@@ -6048,7 +6048,7 @@ LABEL_97:
     v111 = 2048;
     v76 = v73;
     v112 = v73;
-    v77 = _os_log_send_and_compose_impl();
+    v77 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v74, 16, "%{public}s protocol %{public}s (%p) has invalid output_finished callback", buf, 32);
 
     v102 = OS_LOG_TYPE_ERROR;
     v101 = 0;
@@ -6177,7 +6177,7 @@ LABEL_101:
   v52 = __nwlog_obj();
   *buf = 136446210;
   v108 = "nw_protocol_implementation_output_finished";
-  v53 = _os_log_send_and_compose_impl();
+  v53 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v52, 16, "%{public}s called with null protocol", buf, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
   LOBYTE(v103) = 0;
@@ -6273,7 +6273,7 @@ void nw_protocol_implementation_input_finished(nw_protocol *a1, nw_protocol *a2)
         v5 = __nwlog_obj();
         *buf = 136446210;
         v109 = "nw_protocol_implementation_input_finished";
-        v6 = _os_log_send_and_compose_impl();
+        v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null instance", buf, 12);
 
         type[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v104) = 0;
@@ -6387,7 +6387,7 @@ LABEL_78:
               v29 = gLogObj;
               *buf = 136446210;
               v109 = "nw_protocol_implementation_input_finished";
-              v14 = _os_log_send_and_compose_impl();
+              v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s called with null instance->parent_definition->stop", buf, 12);
 
               type[0] = OS_LOG_TYPE_ERROR;
               LOBYTE(v104) = 0;
@@ -6463,7 +6463,7 @@ LABEL_78:
               v18 = gLogObj;
               *buf = 136446210;
               v109 = "nw_protocol_implementation_input_finished";
-              v14 = _os_log_send_and_compose_impl();
+              v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s Cannot defer stop of NW_PROTOCOL_DEFAULT_FLOW", buf, 12);
 
               type[0] = OS_LOG_TYPE_ERROR;
               LOBYTE(v104) = 0;
@@ -6545,7 +6545,7 @@ LABEL_78:
               v27 = gLogObj;
               *buf = 136446210;
               v109 = "nw_protocol_implementation_input_finished";
-              v14 = _os_log_send_and_compose_impl();
+              v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s called with null instance->parent_definition->stop", buf, 12);
 
               type[0] = OS_LOG_TYPE_ERROR;
               LOBYTE(v104) = 0;
@@ -6621,7 +6621,7 @@ LABEL_78:
               v13 = gLogObj;
               *buf = 136446210;
               v109 = "nw_protocol_implementation_input_finished";
-              v14 = _os_log_send_and_compose_impl();
+              v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s Cannot defer stop of NW_PROTOCOL_ALL_FLOWS", buf, 12);
 
               type[0] = OS_LOG_TYPE_ERROR;
               LOBYTE(v104) = 0;
@@ -6713,7 +6713,7 @@ LABEL_140:
             v31 = gLogObj;
             *buf = 136446210;
             v109 = "nw_protocol_implementation_input_finished";
-            v14 = _os_log_send_and_compose_impl();
+            v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v31, 16, "%{public}s called with null nw_protocol_get_input_handler(&instance->protocol)", buf, 12);
 
             type[0] = OS_LOG_TYPE_ERROR;
             LOBYTE(v104) = 0;
@@ -6887,7 +6887,7 @@ LABEL_102:
             v112 = 2048;
             v79 = v76;
             v113 = v76;
-            v80 = _os_log_send_and_compose_impl();
+            v80 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v77, 16, "%{public}s protocol %{public}s (%p) has invalid input_finished callback", buf, 32);
 
             v103 = OS_LOG_TYPE_ERROR;
             v102 = 0;
@@ -7016,7 +7016,7 @@ LABEL_106:
           v89 = __nwlog_obj();
           *buf = 136446210;
           v109 = "__nw_protocol_input_finished";
-          v14 = _os_log_send_and_compose_impl();
+          v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v89, 16, "%{public}s called with null protocol", buf, 12);
 
           type[0] = OS_LOG_TYPE_ERROR;
           LOBYTE(v104) = 0;
@@ -7084,7 +7084,7 @@ LABEL_106:
           v63 = __nwlog_obj();
           *buf = 136446210;
           v109 = "nw_protocol_implementation_input_finished";
-          v14 = _os_log_send_and_compose_impl();
+          v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v63, 16, "%{public}s called with null output_protocol", buf, 12);
 
           type[0] = OS_LOG_TYPE_ERROR;
           LOBYTE(v104) = 0;
@@ -7153,7 +7153,7 @@ LABEL_106:
         v61 = __nwlog_obj();
         *buf = 136446210;
         v109 = "nw_protocol_implementation_input_finished";
-        v14 = _os_log_send_and_compose_impl();
+        v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v61, 16, "%{public}s called with null instance->parent_definition->extended_state", buf, 12);
 
         type[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v104) = 0;
@@ -7222,7 +7222,7 @@ LABEL_106:
       v59 = __nwlog_obj();
       *buf = 136446210;
       v109 = "nw_protocol_implementation_input_finished";
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v59, 16, "%{public}s called with null instance->parent_definition", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v104) = 0;
@@ -7299,7 +7299,7 @@ LABEL_139:
   v55 = __nwlog_obj();
   *buf = 136446210;
   v109 = "nw_protocol_implementation_input_finished";
-  v56 = _os_log_send_and_compose_impl();
+  v56 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v55, 16, "%{public}s called with null protocol", buf, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
   LOBYTE(v104) = 0;
@@ -7404,7 +7404,7 @@ uint64_t nw_protocol_data_get_size(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_protocol_data_get_size";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null data", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -7594,13 +7594,13 @@ uint64_t __nw_protocol_request_outbound_data_block_invoke(uint64_t a1, void *a2,
 
 uint64_t ___ZL47nw_protocol_implementation_service_input_framesP11nw_protocolS0_jjjP16nw_frame_array_s_block_invoke_276(void *a1, void *a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!*(*(a1[4] + 8) + 24) || !*(*(a1[5] + 8) + 24))
   {
     v7 = 0;
-LABEL_16:
+LABEL_19:
 
     return v7;
   }
@@ -7609,193 +7609,214 @@ LABEL_16:
   v6 = *(*(a1[5] + 8) + 24);
   if (v5 <= v6)
   {
-    v15 = v5;
-    v16 = v4;
-    v12 = v16;
-    v17 = (a1[8] + 24);
-    v18 = v16[4];
-    v19 = v16[5];
-    if (v18)
+    v17 = v5;
+    v18 = v4;
+    v14 = v18;
+    v19 = (a1[8] + 24);
+    v20 = v18[4];
+    v21 = v18[5];
+    if (v20)
     {
-      v17 = (v18 + 40);
+      v19 = (v20 + 40);
     }
 
-    *v17 = v19;
-    *v19 = v18;
-    v16[4] = 0;
-    v16[5] = 0;
-    *(*(a1[5] + 8) + 24) -= v15;
+    *v19 = v21;
+    *v21 = v20;
+    v18[4] = 0;
+    v18[5] = 0;
+    *(*(a1[5] + 8) + 24) -= v17;
     --*(*(a1[4] + 8) + 24);
-    v20 = a1[8];
-    v21 = *(v20 + 36) - v15;
-    --*(v20 + 32);
-    *(v20 + 36) = v21;
-    goto LABEL_14;
+    v22 = a1[8];
+    v23 = *(v22 + 36) - v17;
+    --*(v22 + 32);
+    *(v22 + 36) = v23;
+    goto LABEL_17;
   }
 
   if (!v6)
   {
-    v24 = __nwlog_obj();
-    os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
-    *buf = 136446210;
-    v37 = "nw_protocol_implementation_service_input_frames_block_invoke";
-    v25 = _os_log_send_and_compose_impl();
-
-    result = __nwlog_should_abort(v25);
-    if (result)
+    v26 = __nwlog_obj();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_40;
+      v27 = 3;
     }
 
-    free(v25);
+    else
+    {
+      v27 = 2;
+    }
+
+    *buf = 136446210;
+    v41 = "nw_protocol_implementation_service_input_frames_block_invoke";
+    v28 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_181A37000, v26, 16, "%{public}s strict_calloc called with size 0", buf, 12);
+
+    result = __nwlog_should_abort(v28);
+    if (result)
+    {
+      goto LABEL_46;
+    }
+
+    free(v28);
   }
 
   v7 = malloc_type_calloc(1uLL, v6, 0xA4BFCB0BuLL);
   if (v7)
   {
-    goto LABEL_8;
+    goto LABEL_11;
   }
 
   pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
   networkd_settings_init();
   v8 = gLogObj;
-  os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
   *buf = 136446722;
-  v37 = "nw_protocol_implementation_service_input_frames_block_invoke";
-  v38 = 2048;
-  v39 = 1;
-  v40 = 2048;
-  v41 = v6;
-  v9 = _os_log_send_and_compose_impl();
+  v41 = "nw_protocol_implementation_service_input_frames_block_invoke";
+  if (v9)
+  {
+    v10 = 3;
+  }
 
-  result = __nwlog_should_abort(v9);
+  else
+  {
+    v10 = 2;
+  }
+
+  v42 = 2048;
+  v43 = 1;
+  v44 = 2048;
+  v45 = v6;
+  LODWORD(v37) = 32;
+  v11 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s strict_calloc(%zu, %zu) failed", buf, v37);
+
+  result = __nwlog_should_abort(v11);
   if (!result)
   {
-    free(v9);
-LABEL_8:
-    v11 = nw_frame_create(0, v7, *(*(a1[5] + 8) + 24), nw_protocol_implementation_partial_input_frame_finalizer, 0);
-    if (v11)
+    free(v11);
+LABEL_11:
+    v13 = nw_frame_create(0, v7, *(*(a1[5] + 8) + 24), nw_protocol_implementation_partial_input_frame_finalizer, 0);
+    if (v13)
     {
-      v11[102] |= 1u;
-      v12 = v11;
-      nw_frame_inherit_metadata(v4, v12, 0);
-      v13 = nw_frame_unclaimed_bytes(v4, 0);
-      memcpy(v7, v13, *(*(a1[5] + 8) + 24));
-      nw_frame_claim(v4, v14, *(*(a1[5] + 8) + 24), 0);
+      v13[102] |= 1u;
+      v14 = v13;
+      nw_frame_inherit_metadata(v4, v14, 0);
+      v15 = nw_frame_unclaimed_bytes(v4, 0);
+      memcpy(v7, v15, *(*(a1[5] + 8) + 24));
+      nw_frame_claim(v4, v16, *(*(a1[5] + 8) + 24), 0);
       *(a1[8] + 36) -= *(*(a1[5] + 8) + 24);
       *(*(a1[5] + 8) + 24) = 0;
-LABEL_14:
+LABEL_17:
       ++*(*(a1[6] + 8) + 24);
-      v22 = a1[9];
-      v12[4] = 0;
-      v23 = *(v22 + 8);
-      v12[5] = v23;
-      *v23 = v12;
-      *(v22 + 8) = v12 + 4;
+      v24 = a1[9];
+      v14[4] = 0;
+      v25 = *(v24 + 8);
+      v14[5] = v25;
+      *v25 = v14;
+      *(v24 + 8) = v14 + 4;
       v7 = 1;
-LABEL_15:
+LABEL_18:
 
-      goto LABEL_16;
+      goto LABEL_19;
     }
 
-    v26 = __nwlog_obj();
+    v29 = __nwlog_obj();
     *buf = 136446210;
-    v37 = "nw_protocol_implementation_service_input_frames_block_invoke";
-    v27 = _os_log_send_and_compose_impl();
+    v41 = "nw_protocol_implementation_service_input_frames_block_invoke";
+    LODWORD(v37) = 12;
+    v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s nw_frame_create with partial data failed", buf, v37);
 
     type = OS_LOG_TYPE_ERROR;
-    v34 = 0;
-    if (__nwlog_fault(v27, &type, &v34))
+    v38 = 0;
+    if (__nwlog_fault(v30, &type, &v38))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
-        v28 = __nwlog_obj();
-        v29 = type;
-        if (os_log_type_enabled(v28, type))
+        v31 = __nwlog_obj();
+        v32 = type;
+        if (os_log_type_enabled(v31, type))
         {
           *buf = 136446210;
-          v37 = "nw_protocol_implementation_service_input_frames_block_invoke";
-          _os_log_impl(&dword_181A37000, v28, v29, "%{public}s nw_frame_create with partial data failed", buf, 0xCu);
+          v41 = "nw_protocol_implementation_service_input_frames_block_invoke";
+          _os_log_impl(&dword_181A37000, v31, v32, "%{public}s nw_frame_create with partial data failed", buf, 0xCu);
         }
       }
 
-      else if (v34 == 1)
+      else if (v38 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
-        v28 = __nwlog_obj();
-        v31 = type;
-        v32 = os_log_type_enabled(v28, type);
+        v31 = __nwlog_obj();
+        v34 = type;
+        v35 = os_log_type_enabled(v31, type);
         if (backtrace_string)
         {
-          if (v32)
+          if (v35)
           {
             *buf = 136446466;
-            v37 = "nw_protocol_implementation_service_input_frames_block_invoke";
-            v38 = 2082;
-            v39 = backtrace_string;
-            _os_log_impl(&dword_181A37000, v28, v31, "%{public}s nw_frame_create with partial data failed, dumping backtrace:%{public}s", buf, 0x16u);
+            v41 = "nw_protocol_implementation_service_input_frames_block_invoke";
+            v42 = 2082;
+            v43 = backtrace_string;
+            _os_log_impl(&dword_181A37000, v31, v34, "%{public}s nw_frame_create with partial data failed, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
           free(backtrace_string);
-          goto LABEL_35;
+          goto LABEL_41;
         }
 
-        if (v32)
+        if (v35)
         {
           *buf = 136446210;
-          v37 = "nw_protocol_implementation_service_input_frames_block_invoke";
-          _os_log_impl(&dword_181A37000, v28, v31, "%{public}s nw_frame_create with partial data failed, no backtrace", buf, 0xCu);
+          v41 = "nw_protocol_implementation_service_input_frames_block_invoke";
+          _os_log_impl(&dword_181A37000, v31, v34, "%{public}s nw_frame_create with partial data failed, no backtrace", buf, 0xCu);
         }
       }
 
       else
       {
-        v28 = __nwlog_obj();
-        v33 = type;
-        if (os_log_type_enabled(v28, type))
+        v31 = __nwlog_obj();
+        v36 = type;
+        if (os_log_type_enabled(v31, type))
         {
           *buf = 136446210;
-          v37 = "nw_protocol_implementation_service_input_frames_block_invoke";
-          _os_log_impl(&dword_181A37000, v28, v33, "%{public}s nw_frame_create with partial data failed, backtrace limit exceeded", buf, 0xCu);
+          v41 = "nw_protocol_implementation_service_input_frames_block_invoke";
+          _os_log_impl(&dword_181A37000, v31, v36, "%{public}s nw_frame_create with partial data failed, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
 
-LABEL_35:
-    if (v27)
+LABEL_41:
+    if (v30)
     {
-      free(v27);
+      free(v30);
     }
 
     if (v7)
     {
       free(v7);
-      v12 = 0;
+      v14 = 0;
       v7 = 0;
     }
 
     else
     {
-      v12 = 0;
+      v14 = 0;
     }
 
-    goto LABEL_15;
+    goto LABEL_18;
   }
 
-LABEL_40:
+LABEL_46:
   __break(1u);
   return result;
 }
 
 uint64_t ___ZL47nw_protocol_implementation_service_input_framesP11nw_protocolS0_jjjP16nw_frame_array_s_block_invoke_277(void *a1, void *a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!*(*(a1[5] + 8) + 24) || !*(*(a1[6] + 8) + 24))
   {
     v7 = 0;
-LABEL_16:
+LABEL_19:
 
     return v7;
   }
@@ -7804,178 +7825,199 @@ LABEL_16:
   v6 = *(*(a1[6] + 8) + 24);
   if (v5 <= v6)
   {
-    v15 = v5;
-    v16 = v4;
-    v12 = v16;
-    v17 = (a1[4] + 192);
-    v18 = v16[4];
-    v19 = v16[5];
-    if (v18)
+    v17 = v5;
+    v18 = v4;
+    v14 = v18;
+    v19 = (a1[4] + 192);
+    v20 = v18[4];
+    v21 = v18[5];
+    if (v20)
     {
-      v17 = (v18 + 40);
+      v19 = (v20 + 40);
     }
 
-    *v17 = v19;
-    *v19 = v18;
-    v16[4] = 0;
-    v16[5] = 0;
-    *(*(a1[6] + 8) + 24) -= v15;
+    *v19 = v21;
+    *v21 = v20;
+    v18[4] = 0;
+    v18[5] = 0;
+    *(*(a1[6] + 8) + 24) -= v17;
     --*(*(a1[5] + 8) + 24);
-    *(a1[4] + 204) -= v15;
+    *(a1[4] + 204) -= v17;
     --*(a1[4] + 200);
-    goto LABEL_14;
+    goto LABEL_17;
   }
 
   if (!v6)
   {
-    v22 = __nwlog_obj();
-    os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
-    *buf = 136446210;
-    v35 = "nw_protocol_implementation_service_input_frames_block_invoke";
-    v23 = _os_log_send_and_compose_impl();
-
-    result = __nwlog_should_abort(v23);
-    if (result)
+    v24 = __nwlog_obj();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_40;
+      v25 = 3;
     }
 
-    free(v23);
+    else
+    {
+      v25 = 2;
+    }
+
+    *buf = 136446210;
+    v39 = "nw_protocol_implementation_service_input_frames_block_invoke";
+    v26 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s strict_calloc called with size 0", buf, 12);
+
+    result = __nwlog_should_abort(v26);
+    if (result)
+    {
+      goto LABEL_46;
+    }
+
+    free(v26);
   }
 
   v7 = malloc_type_calloc(1uLL, v6, 0x22DF841FuLL);
   if (v7)
   {
-    goto LABEL_8;
+    goto LABEL_11;
   }
 
   pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
   networkd_settings_init();
   v8 = gLogObj;
-  os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
   *buf = 136446722;
-  v35 = "nw_protocol_implementation_service_input_frames_block_invoke";
-  v36 = 2048;
-  v37 = 1;
-  v38 = 2048;
-  v39 = v6;
-  v9 = _os_log_send_and_compose_impl();
+  v39 = "nw_protocol_implementation_service_input_frames_block_invoke";
+  if (v9)
+  {
+    v10 = 3;
+  }
 
-  result = __nwlog_should_abort(v9);
+  else
+  {
+    v10 = 2;
+  }
+
+  v40 = 2048;
+  v41 = 1;
+  v42 = 2048;
+  v43 = v6;
+  LODWORD(v35) = 32;
+  v11 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s strict_calloc(%zu, %zu) failed", buf, v35);
+
+  result = __nwlog_should_abort(v11);
   if (!result)
   {
-    free(v9);
-LABEL_8:
-    v11 = nw_frame_create(0, v7, *(*(a1[6] + 8) + 24), nw_protocol_implementation_partial_input_frame_finalizer, 0);
-    if (v11)
+    free(v11);
+LABEL_11:
+    v13 = nw_frame_create(0, v7, *(*(a1[6] + 8) + 24), nw_protocol_implementation_partial_input_frame_finalizer, 0);
+    if (v13)
     {
-      v11[102] |= 1u;
-      v12 = v11;
-      nw_frame_inherit_metadata(v4, v12, 0);
-      v13 = nw_frame_unclaimed_bytes(v4, 0);
-      memcpy(v7, v13, *(*(a1[6] + 8) + 24));
-      nw_frame_claim(v4, v14, *(*(a1[6] + 8) + 24), 0);
+      v13[102] |= 1u;
+      v14 = v13;
+      nw_frame_inherit_metadata(v4, v14, 0);
+      v15 = nw_frame_unclaimed_bytes(v4, 0);
+      memcpy(v7, v15, *(*(a1[6] + 8) + 24));
+      nw_frame_claim(v4, v16, *(*(a1[6] + 8) + 24), 0);
       *(a1[4] + 204) -= *(*(a1[6] + 8) + 24);
       *(*(a1[6] + 8) + 24) = 0;
-LABEL_14:
+LABEL_17:
       ++*(*(a1[7] + 8) + 24);
-      v20 = a1[9];
-      v12[4] = 0;
-      v21 = *(v20 + 8);
-      v12[5] = v21;
-      *v21 = v12;
-      *(v20 + 8) = v12 + 4;
+      v22 = a1[9];
+      v14[4] = 0;
+      v23 = *(v22 + 8);
+      v14[5] = v23;
+      *v23 = v14;
+      *(v22 + 8) = v14 + 4;
       v7 = 1;
-LABEL_15:
+LABEL_18:
 
-      goto LABEL_16;
+      goto LABEL_19;
     }
 
-    v24 = __nwlog_obj();
+    v27 = __nwlog_obj();
     *buf = 136446210;
-    v35 = "nw_protocol_implementation_service_input_frames_block_invoke";
-    v25 = _os_log_send_and_compose_impl();
+    v39 = "nw_protocol_implementation_service_input_frames_block_invoke";
+    LODWORD(v35) = 12;
+    v28 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s nw_frame_create with partial data failed", buf, v35);
 
     type = OS_LOG_TYPE_ERROR;
-    v32 = 0;
-    if (__nwlog_fault(v25, &type, &v32))
+    v36 = 0;
+    if (__nwlog_fault(v28, &type, &v36))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
-        v26 = __nwlog_obj();
-        v27 = type;
-        if (os_log_type_enabled(v26, type))
+        v29 = __nwlog_obj();
+        v30 = type;
+        if (os_log_type_enabled(v29, type))
         {
           *buf = 136446210;
-          v35 = "nw_protocol_implementation_service_input_frames_block_invoke";
-          _os_log_impl(&dword_181A37000, v26, v27, "%{public}s nw_frame_create with partial data failed", buf, 0xCu);
+          v39 = "nw_protocol_implementation_service_input_frames_block_invoke";
+          _os_log_impl(&dword_181A37000, v29, v30, "%{public}s nw_frame_create with partial data failed", buf, 0xCu);
         }
       }
 
-      else if (v32 == 1)
+      else if (v36 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
-        v26 = __nwlog_obj();
-        v29 = type;
-        v30 = os_log_type_enabled(v26, type);
+        v29 = __nwlog_obj();
+        v32 = type;
+        v33 = os_log_type_enabled(v29, type);
         if (backtrace_string)
         {
-          if (v30)
+          if (v33)
           {
             *buf = 136446466;
-            v35 = "nw_protocol_implementation_service_input_frames_block_invoke";
-            v36 = 2082;
-            v37 = backtrace_string;
-            _os_log_impl(&dword_181A37000, v26, v29, "%{public}s nw_frame_create with partial data failed, dumping backtrace:%{public}s", buf, 0x16u);
+            v39 = "nw_protocol_implementation_service_input_frames_block_invoke";
+            v40 = 2082;
+            v41 = backtrace_string;
+            _os_log_impl(&dword_181A37000, v29, v32, "%{public}s nw_frame_create with partial data failed, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
           free(backtrace_string);
-          goto LABEL_35;
+          goto LABEL_41;
         }
 
-        if (v30)
+        if (v33)
         {
           *buf = 136446210;
-          v35 = "nw_protocol_implementation_service_input_frames_block_invoke";
-          _os_log_impl(&dword_181A37000, v26, v29, "%{public}s nw_frame_create with partial data failed, no backtrace", buf, 0xCu);
+          v39 = "nw_protocol_implementation_service_input_frames_block_invoke";
+          _os_log_impl(&dword_181A37000, v29, v32, "%{public}s nw_frame_create with partial data failed, no backtrace", buf, 0xCu);
         }
       }
 
       else
       {
-        v26 = __nwlog_obj();
-        v31 = type;
-        if (os_log_type_enabled(v26, type))
+        v29 = __nwlog_obj();
+        v34 = type;
+        if (os_log_type_enabled(v29, type))
         {
           *buf = 136446210;
-          v35 = "nw_protocol_implementation_service_input_frames_block_invoke";
-          _os_log_impl(&dword_181A37000, v26, v31, "%{public}s nw_frame_create with partial data failed, backtrace limit exceeded", buf, 0xCu);
+          v39 = "nw_protocol_implementation_service_input_frames_block_invoke";
+          _os_log_impl(&dword_181A37000, v29, v34, "%{public}s nw_frame_create with partial data failed, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
 
-LABEL_35:
-    if (v25)
+LABEL_41:
+    if (v28)
     {
-      free(v25);
+      free(v28);
     }
 
     if (v7)
     {
       free(v7);
-      v12 = 0;
+      v14 = 0;
       v7 = 0;
     }
 
     else
     {
-      v12 = 0;
+      v14 = 0;
     }
 
-    goto LABEL_15;
+    goto LABEL_18;
   }
 
-LABEL_40:
+LABEL_46:
   __break(1u);
   return result;
 }
@@ -7989,7 +8031,7 @@ void nw_protocol_implementation_link_state(uint64_t a1, nw_protocol *a2, void *a
     v30 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_protocol_implementation_link_state";
-    v31 = _os_log_send_and_compose_impl();
+    v31 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v30, 16, "%{public}s called with null link_info", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v58 = 0;
@@ -8075,7 +8117,7 @@ LABEL_107:
         v8 = __nwlog_obj();
         *buf = 136446210;
         *&buf[4] = "nw_protocol_implementation_link_state";
-        v9 = _os_log_send_and_compose_impl();
+        v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null instance", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
         v58 = 0;
@@ -8236,7 +8278,7 @@ LABEL_46:
       v40 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_protocol_implementation_link_state";
-      v37 = _os_log_send_and_compose_impl();
+      v37 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v40, 16, "%{public}s called with null instance->parent_definition->extended_state", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v58 = 0;
@@ -8309,7 +8351,7 @@ LABEL_46:
       v36 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_protocol_implementation_link_state";
-      v37 = _os_log_send_and_compose_impl();
+      v37 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v36, 16, "%{public}s called with null instance->parent_definition", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v58 = 0;
@@ -8386,7 +8428,7 @@ LABEL_117:
   v34 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_protocol_implementation_link_state";
-  v31 = _os_log_send_and_compose_impl();
+  v31 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v34, 16, "%{public}s called with null protocol", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v58 = 0;
@@ -8471,7 +8513,7 @@ void nw_protocol_implementation_disconnected(nw_protocol *a1, nw_protocol *a2)
         v6 = __nwlog_obj();
         *buf = 136446210;
         *&buf[4] = "nw_protocol_implementation_disconnected";
-        v7 = _os_log_send_and_compose_impl();
+        v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null instance", buf, 12);
 
         type[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v85) = 0;
@@ -8759,7 +8801,7 @@ LABEL_67:
           *&buf[22] = 2048;
           v54 = v50;
           v90 = v50;
-          v55 = _os_log_send_and_compose_impl();
+          v55 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v51, 16, "%{public}s protocol %{public}s (%p) has invalid disconnected callback", buf, 32);
 
           v84 = OS_LOG_TYPE_ERROR;
           v83 = 0;
@@ -8871,7 +8913,7 @@ LABEL_167:
         v66 = __nwlog_obj();
         *buf = 136446210;
         *&buf[4] = "__nw_protocol_disconnected";
-        v41 = _os_log_send_and_compose_impl();
+        v41 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v66, 16, "%{public}s called with null protocol", buf, 12);
 
         type[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v85) = 0;
@@ -8948,7 +8990,7 @@ LABEL_146:
       v44 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_protocol_implementation_disconnected";
-      v41 = _os_log_send_and_compose_impl();
+      v41 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v44, 16, "%{public}s called with null instance->parent_definition->extended_state", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v85) = 0;
@@ -9015,7 +9057,7 @@ LABEL_146:
       v40 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_protocol_implementation_disconnected";
-      v41 = _os_log_send_and_compose_impl();
+      v41 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v40, 16, "%{public}s called with null instance->parent_definition", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v85) = 0;
@@ -9092,7 +9134,7 @@ LABEL_173:
   v36 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_protocol_implementation_disconnected";
-  v37 = _os_log_send_and_compose_impl();
+  v37 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v36, 16, "%{public}s called with null protocol", buf, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
   LOBYTE(v85) = 0;
@@ -9275,7 +9317,7 @@ LABEL_22:
       v58 = 2048;
       v20 = v17;
       v59 = v17;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s protocol %{public}s (%p) has invalid disconnected callback", buf, 32);
 
       type = OS_LOG_TYPE_ERROR;
       v48 = 0;
@@ -9387,7 +9429,7 @@ LABEL_78:
     v29 = __nwlog_obj();
     *buf = 136446210;
     v55 = "__nw_protocol_disconnected";
-    v30 = _os_log_send_and_compose_impl();
+    v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s called with null other_protocol", buf, 12);
 
     v49[0] = OS_LOG_TYPE_ERROR;
     type = OS_LOG_TYPE_DEFAULT;
@@ -9459,7 +9501,7 @@ LABEL_88:
   v25 = __nwlog_obj();
   *buf = 136446210;
   v55 = "__nw_protocol_disconnected";
-  v26 = _os_log_send_and_compose_impl();
+  v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s called with null protocol", buf, 12);
 
   v52[0] = OS_LOG_TYPE_ERROR;
   v49[0] = OS_LOG_TYPE_DEFAULT;

@@ -85,20 +85,18 @@ LABEL_12:
 
 void __65__HFHeaterCoolerThresholdControlItem_readOnlyCharacteristicTypes__block_invoke_2()
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CCF748];
-  v7[0] = *MEMORY[0x277CCFB18];
-  v7[1] = v1;
+  v6[0] = *MEMORY[0x277CCFB18];
+  v6[1] = v1;
   v2 = *MEMORY[0x277CCF810];
-  v7[2] = *MEMORY[0x277CCF868];
-  v7[3] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  v6[2] = *MEMORY[0x277CCF868];
+  v6[3] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
   v4 = [v0 setWithArray:v3];
   v5 = qword_27C84C4B0;
   qword_27C84C4B0 = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)numberValueFormatter

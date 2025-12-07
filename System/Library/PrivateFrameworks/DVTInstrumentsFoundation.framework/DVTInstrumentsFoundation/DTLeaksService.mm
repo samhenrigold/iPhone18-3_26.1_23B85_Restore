@@ -3,6 +3,8 @@
 - (DTLeaksService)initWithChannel:(id)channel;
 - (id)_preserveDict:(id)dict forPid:(int)pid;
 - (id)requestGraph:(unint64_t)graph options:(id)options;
+- (id)requestMallocStackLog:(int)log forAddress:(unint64_t *)address size:(unint64_t)size isLiteZone:(unsigned int)zone;
+- (id)requestVMregionStackLog:(int)log forAddress:(unint64_t *)address size:(unint64_t)size;
 - (int)setMallocStackLoggingMode:(int)mode forPid:(int)pid;
 - (void)_internalRequestForPid:(int)pid message:(id)message completion:(id)completion;
 - (void)_lookupGraphByToken:(unint64_t)token response:(id)response;
@@ -139,7 +141,7 @@
 
 - (id)requestGraph:(unint64_t)graph options:(id)options
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v7 = objc_opt_new();
   if (graph)
@@ -162,47 +164,80 @@
       }
 
       v13 = [MEMORY[0x277D03668] messageWithSelector:sel_serializedGraphWithOptions_ objectArguments:{v12, 0}];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = sub_247FC2104;
-      v16[3] = &unk_278EF32C0;
-      v17 = optionsCopy;
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = sub_247FC2104;
+      v15[3] = &unk_278EF32C0;
+      v16 = optionsCopy;
       selfCopy = self;
       graphCopy = graph;
-      v19 = v7;
-      [(DTLeaksService *)self _internalRequestForPid:graph message:v13 completion:v16];
+      v18 = v7;
+      [(DTLeaksService *)self _internalRequestForPid:graph message:v13 completion:v15];
     }
   }
 
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA450];
+    v20 = *MEMORY[0x277CCA450];
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"invalid target specified (%llx)", 0];
-    v22[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v21[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v11 = [v8 errorWithDomain:@"DTLeaksService" code:-1 userInfo:v10];
     [v7 invokeCompletionWithReturnValue:0 error:v11];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v7;
+}
+
+- (id)requestMallocStackLog:(int)log forAddress:(unint64_t *)address size:(unint64_t)size isLiteZone:(unsigned int)zone
+{
+  v9 = *&log;
+  v11 = objc_opt_new();
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:address];
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:size];
+  v14 = [MEMORY[0x277CCABB0] numberWithBool:zone != 0];
+  v15 = [MEMORY[0x277D03668] messageWithSelector:sel_mallocStackLogForAddress_size_isLiteZone_ objectArguments:{v12, v13, v14, 0}];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = sub_247FC2340;
+  v18[3] = &unk_278EF32E8;
+  v16 = v11;
+  v19 = v16;
+  [(DTLeaksService *)self _internalRequestForPid:v9 message:v15 completion:v18];
+
+  return v16;
+}
+
+- (id)requestVMregionStackLog:(int)log forAddress:(unint64_t *)address size:(unint64_t)size
+{
+  v7 = *&log;
+  v9 = objc_opt_new();
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:address];
+  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:size];
+  v12 = [MEMORY[0x277D03668] messageWithSelector:sel_vmRegionStackLogForAddress_size_ objectArguments:{v10, v11, 0}];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_247FC2510;
+  v15[3] = &unk_278EF32E8;
+  v13 = v9;
+  v16 = v13;
+  [(DTLeaksService *)self _internalRequestForPid:v7 message:v12 completion:v15];
+
+  return v13;
 }
 
 - (int)setMallocStackLoggingMode:(int)mode forPid:(int)pid
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = pid;
-    _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received request to disable MSL for pid [%d]", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = pid;
+    _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received request to disable MSL for pid [%d]", v6, 8u);
   }
 
-  result = msl_set_mode_for_pid();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return msl_set_mode_for_pid();
 }
 
 - (void)cancelAllRequests

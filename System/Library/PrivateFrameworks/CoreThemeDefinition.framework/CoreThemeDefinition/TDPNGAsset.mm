@@ -11,7 +11,7 @@
 
 - (CGSize)sourceImageSizeWithDocument:(id)document
 {
-  v37[3] = *MEMORY[0x277D85DE8];
+  v36[3] = *MEMORY[0x277D85DE8];
   Width = *MEMORY[0x277CBF3A8];
   Height = *(MEMORY[0x277CBF3A8] + 8);
   valuePtr = 0;
@@ -33,14 +33,14 @@
       valuePtr = v7;
       v24 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &valuePtr);
       v25 = *MEMORY[0x277CD3618];
-      v36[0] = *MEMORY[0x277CD35D0];
-      v36[1] = v25;
+      v35[0] = *MEMORY[0x277CD35D0];
+      v35[1] = v25;
       v26 = *MEMORY[0x277CBED10];
-      v37[0] = v24;
-      v37[1] = v26;
-      v36[2] = *MEMORY[0x277CD3648];
-      v37[2] = *MEMORY[0x277CBED28];
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
+      v36[0] = v24;
+      v36[1] = v26;
+      v35[2] = *MEMORY[0x277CD3648];
+      v36[2] = *MEMORY[0x277CBED28];
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:3];
       CFRelease(v24);
       v28 = CGImageSourceCreateWithURL(v6, 0);
       if (v28)
@@ -143,31 +143,30 @@ LABEL_27:
     Height = [-[TDPNGAsset scaledHeight](self "scaledHeight")];
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-  v33 = Width;
-  v34 = Height;
-  result.height = v34;
-  result.width = v33;
+  v32 = Width;
+  v33 = Height;
+  result.height = v33;
+  result.width = v32;
   return result;
 }
 
 - (id)sourceImageWithDocument:(id)document
 {
-  v31[4] = *MEMORY[0x277D85DE8];
+  v30[4] = *MEMORY[0x277D85DE8];
   v4 = [(TDAsset *)self fileURLWithDocument:document];
   v5 = CGImageSourceCreateWithURL(v4, 0);
   if ([-[TDPNGAsset scaledWidth](self "scaledWidth")] || objc_msgSend(-[TDPNGAsset scaledHeight](self, "scaledHeight"), "intValue"))
   {
     v6 = *MEMORY[0x277CBED28];
     v7 = *MEMORY[0x277CD3578];
-    v30[0] = *MEMORY[0x277CD3568];
-    v30[1] = v7;
-    v31[0] = v6;
-    v31[1] = v6;
-    v31[2] = v6;
+    v29[0] = *MEMORY[0x277CD3568];
+    v29[1] = v7;
+    v30[0] = v6;
+    v30[1] = v6;
+    v30[2] = v6;
     v8 = *MEMORY[0x277CD3660];
-    v30[2] = *MEMORY[0x277CD3620];
-    v30[3] = v8;
+    v29[2] = *MEMORY[0x277CD3620];
+    v29[3] = v8;
     v9 = MEMORY[0x277CCABB0];
     v10 = [-[TDPNGAsset scaledWidth](self "scaledWidth")];
     if (v10 <= [-[TDPNGAsset scaledHeight](self "scaledHeight")])
@@ -180,8 +179,8 @@ LABEL_27:
       scaledHeight = [(TDPNGAsset *)self scaledWidth];
     }
 
-    v31[3] = [v9 numberWithInteger:{objc_msgSend(scaledHeight, "intValue")}];
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
+    v30[3] = [v9 numberWithInteger:{objc_msgSend(scaledHeight, "intValue")}];
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
     if (!v5)
     {
       goto LABEL_19;
@@ -193,21 +192,21 @@ LABEL_27:
 
   else
   {
-    v24 = *MEMORY[0x277CBED28];
-    v25 = *MEMORY[0x277CD3618];
-    v28[0] = *MEMORY[0x277CD3648];
+    v23 = *MEMORY[0x277CBED28];
+    v24 = *MEMORY[0x277CD3618];
+    v27[0] = *MEMORY[0x277CD3648];
+    v27[1] = v24;
+    v25 = *MEMORY[0x277CBED10];
+    v28[0] = v23;
     v28[1] = v25;
-    v26 = *MEMORY[0x277CBED10];
-    v29[0] = v24;
-    v29[1] = v26;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
     if (!v5)
     {
       goto LABEL_19;
     }
 
-    v13 = v27;
-    ThumbnailAtIndex = CGImageSourceCreateImageAtIndex(v5, 0, v27);
+    v13 = v26;
+    ThumbnailAtIndex = CGImageSourceCreateImageAtIndex(v5, 0, v26);
   }
 
   v15 = ThumbnailAtIndex;
@@ -216,8 +215,7 @@ LABEL_27:
     CFRelease(v5);
 LABEL_19:
     -[TDPNGAsset _logError:](self, "_logError:", [MEMORY[0x277CCACA8] stringWithFormat:@"CoreThemeDefinition: Unable to create image for %@", v4]);
-    v21 = 0;
-    goto LABEL_20;
+    return 0;
   }
 
   *(&self->super._scaleFactor + 1) = 1;
@@ -244,8 +242,6 @@ LABEL_19:
   CFRelease(v5);
   v21 = [MEMORY[0x277D02678] imageWithCGImage:v15];
   CGImageRelease(v15);
-LABEL_20:
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)featuresAsString:(int)string;
 - (int)StringAsFeatures:(id)features;
 - (int)features;
 - (unint64_t)hash;
@@ -142,35 +143,86 @@ LABEL_23:
   return dictionary;
 }
 
+- (id)featuresAsString:(int)string
+{
+  if (string > 3)
+  {
+    switch(string)
+    {
+      case 4:
+        v4 = @"Video";
+
+        break;
+      case 8:
+        v4 = @"RemoteControl";
+
+        break;
+      case 256:
+        v4 = @"Companion";
+
+        break;
+      default:
+LABEL_20:
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+    }
+  }
+
+  else if (string)
+  {
+    if (string != 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"Screen";
+
+        return v4;
+      }
+
+      goto LABEL_20;
+    }
+
+    v4 = @"Audio";
+  }
+
+  else
+  {
+    v4 = @"None";
+  }
+
+  return v4;
+}
+
 - (int)StringAsFeatures:(id)features
 {
   featuresCopy = features;
-  if ([featuresCopy isEqualToString:@"None"])
+  if (objc_msgSend_isEqualToString_(featuresCopy))
   {
     v4 = 0;
   }
 
-  else if ([featuresCopy isEqualToString:@"Audio"])
+  else if (objc_msgSend_isEqualToString_(featuresCopy))
   {
     v4 = 1;
   }
 
-  else if ([featuresCopy isEqualToString:@"Screen"])
+  else if (objc_msgSend_isEqualToString_(featuresCopy))
   {
     v4 = 2;
   }
 
-  else if ([featuresCopy isEqualToString:@"Video"])
+  else if (objc_msgSend_isEqualToString_(featuresCopy))
   {
     v4 = 4;
   }
 
-  else if ([featuresCopy isEqualToString:@"RemoteControl"])
+  else if (objc_msgSend_isEqualToString_(featuresCopy))
   {
     v4 = 8;
   }
 
-  else if ([featuresCopy isEqualToString:@"Companion"])
+  else if (objc_msgSend_isEqualToString_(featuresCopy))
   {
     v4 = 256;
   }
@@ -275,7 +327,6 @@ LABEL_23:
   toCopy = to;
   if (*&self->_has)
   {
-    features = self->_features;
     PBDataWriterWriteInt32Field();
   }
 
@@ -287,7 +338,6 @@ LABEL_23:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    enableThrottling = self->_enableThrottling;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -307,12 +357,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  alwaysAllowUpdates = self->_alwaysAllowUpdates;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_8:
-    populatesExternalDevice = self->_populatesExternalDevice;
     PBDataWriterWriteBOOLField();
   }
 
@@ -322,17 +370,15 @@ LABEL_9:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 2) != 0)
+  v5 = self->_has;
+  if ((v5 & 2) != 0)
   {
-    targetSessionID = self->_targetSessionID;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v7 & 8) != 0)
+  if ((v5 & 8) != 0)
   {
-    cachedDiscoveryEnabled = self->_cachedDiscoveryEnabled;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -484,7 +530,6 @@ LABEL_7:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 40);
   if (has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_features != *(equalCopy + 2))
@@ -509,7 +554,6 @@ LABEL_7:
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 40);
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 40) & 0x10) == 0)
@@ -517,7 +561,6 @@ LABEL_7:
       goto LABEL_46;
     }
 
-    v10 = *(equalCopy + 38);
     if (self->_enableThrottling)
     {
       if ((*(equalCopy + 38) & 1) == 0)
@@ -544,7 +587,6 @@ LABEL_7:
       goto LABEL_46;
     }
 
-    v11 = *(equalCopy + 36);
     if (self->_alwaysAllowUpdates)
     {
       if ((*(equalCopy + 36) & 1) == 0)
@@ -571,7 +613,6 @@ LABEL_7:
       goto LABEL_46;
     }
 
-    v12 = *(equalCopy + 39);
     if (self->_populatesExternalDevice)
     {
       if ((*(equalCopy + 39) & 1) == 0)
@@ -615,7 +656,7 @@ LABEL_7:
     goto LABEL_46;
   }
 
-  v13 = (*(equalCopy + 40) & 8) == 0;
+  v8 = (*(equalCopy + 40) & 8) == 0;
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 40) & 8) != 0)
@@ -631,18 +672,18 @@ LABEL_7:
       else if (!*(equalCopy + 37))
       {
 LABEL_49:
-        v13 = 1;
+        v8 = 1;
         goto LABEL_47;
       }
     }
 
 LABEL_46:
-    v13 = 0;
+    v8 = 0;
   }
 
 LABEL_47:
 
-  return v13;
+  return v8;
 }
 
 - (unint64_t)hash

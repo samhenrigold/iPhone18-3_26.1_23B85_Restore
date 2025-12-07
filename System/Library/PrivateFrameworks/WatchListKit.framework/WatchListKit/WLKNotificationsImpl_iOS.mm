@@ -342,11 +342,11 @@ LABEL_8:
 
     if (isNetworkReachable)
     {
-      v9 = WLKPushNotificationsLogObject();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = WLKPushNotificationsLogObject(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKNotificationsImpl - reachability changed, will refresh topics", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "WLKNotificationsImpl - reachability changed, will refresh topics", v11, 2u);
       }
 
       [(WLKNotificationsImpl_iOS *)selfCopy _initializeTopics];
@@ -356,7 +356,7 @@ LABEL_8:
 
 - (void)_accountChangedNotification:(id)notification
 {
-  v4 = WLKPushNotificationsLogObject();
+  v4 = WLKPushNotificationsLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -374,7 +374,7 @@ LABEL_8:
 
 - (void)_storeFrontChangedNotification:(id)notification
 {
-  v4 = WLKPushNotificationsLogObject();
+  v4 = WLKPushNotificationsLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -392,15 +392,15 @@ LABEL_8:
 
 - (void)userNotificationCenter:(id)center willPresentNotification:(id)notification withCompletionHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   handlerCopy = handler;
-  v8 = WLKPushNotificationsLogObject();
+  v8 = WLKPushNotificationsLogObject(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = notificationCopy;
-    _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKNotificationsImpl - willPresentNotification. %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = notificationCopy;
+    _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKNotificationsImpl - willPresentNotification. %@", &v14, 0xCu);
   }
 
   request = [notificationCopy request];
@@ -421,8 +421,6 @@ LABEL_8:
   }
 
   handlerCopy[2](handlerCopy, v13);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
@@ -430,7 +428,7 @@ LABEL_8:
   v20 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   handlerCopy = handler;
-  v9 = WLKPushNotificationsLogObject();
+  v9 = WLKPushNotificationsLogObject(handlerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -438,76 +436,71 @@ LABEL_8:
     _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKNotificationsImpl - didReceiveNotificationResponse. %@", buf, 0xCu);
   }
 
-  if ([MEMORY[0x277CEE710] shouldHandleNotificationResponse:responseCopy])
+  v10 = [MEMORY[0x277CEE710] shouldHandleNotificationResponse:responseCopy];
+  if (v10)
   {
-    v10 = WLKPushNotificationsLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = WLKPushNotificationsLogObject(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "WLKNotificationsImpl - didReceiveNotificationResponse will be handled by AMS", buf, 2u);
+      _os_log_impl(&dword_272A0F000, v11, OS_LOG_TYPE_DEFAULT, "WLKNotificationsImpl - didReceiveNotificationResponse will be handled by AMS", buf, 2u);
     }
 
-    v11 = MEMORY[0x277CEE710];
+    v12 = MEMORY[0x277CEE710];
     wlk_defaultBag = [MEMORY[0x277CEE3F8] wlk_defaultBag];
-    v13 = [v11 handleNotificationResponse:responseCopy bag:wlk_defaultBag];
+    v14 = [v12 handleNotificationResponse:responseCopy bag:wlk_defaultBag];
 
     v16[0] = MEMORY[0x277D85DD0];
     v16[1] = 3221225472;
     v16[2] = __104__WLKNotificationsImpl_iOS_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke;
     v16[3] = &unk_279E5EA68;
     v17 = handlerCopy;
-    [v13 addFinishBlock:v16];
+    [v14 addFinishBlock:v16];
   }
 
   else
   {
-    v13 = [objc_opt_class() _JSONDictForResponse:responseCopy];
+    v14 = [objc_opt_class() _JSONDictForResponse:responseCopy];
     delegate = [(WLKNotificationsImpl_iOS *)self delegate];
-    [delegate handleAction:v13];
+    [delegate handleAction:v14];
 
     handlerCopy[2](handlerCopy);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNotificationCenter:(id)center didOpenApplicationForResponse:(id)response
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   responseCopy = response;
-  v6 = WLKPushNotificationsLogObject();
+  v6 = WLKPushNotificationsLogObject(responseCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = responseCopy;
-    _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKNotificationsImpl - didOpenApplicationForResponse. %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = responseCopy;
+    _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKNotificationsImpl - didOpenApplicationForResponse. %@", &v9, 0xCu);
   }
 
   v7 = [objc_opt_class() _JSONDictForResponse:responseCopy];
   delegate = [(WLKNotificationsImpl_iOS *)self delegate];
   [delegate handleAction:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNotificationCenter:(id)center didChangeSettings:(id)settings
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   centerCopy = center;
   settingsCopy = settings;
-  v7 = WLKPushNotificationsLogObject();
+  v7 = WLKPushNotificationsLogObject(settingsCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = settingsCopy;
-    _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKNotificationsImpl - didChangeSettings. %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = settingsCopy;
+    _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKNotificationsImpl - didChangeSettings. %@", &v11, 0xCu);
   }
 
   v8 = MEMORY[0x277CEE710];
   wlk_defaultBag = [MEMORY[0x277CEE3F8] wlk_defaultBag];
   v10 = [v8 notificationCenter:centerCopy didChangeSettings:settingsCopy bag:wlk_defaultBag];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_JSONDictForResponse:(id)response

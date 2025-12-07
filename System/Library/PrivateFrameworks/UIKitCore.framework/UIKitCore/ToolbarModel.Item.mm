@@ -51,7 +51,7 @@
 {
   preferenceCopy = preference;
   selfCopy = self;
-  sub_1890A9288(preferenceCopy, &selRef__requiresOwnSection, &unk_18A663B40, &OBJC_IVAR____TtCC5UIKit12ToolbarModel4Item__requiresOwnSection);
+  sub_1890A9288(preferenceCopy, &selRef__requiresOwnSection, &unk_18A663B40, &OBJC_IVAR____TtCC5UIKit12ToolbarModel4Item__requiresOwnSection, sub_1890A943C);
 }
 
 - (_TtCC5UIKit12ToolbarModel4Item)init
@@ -80,7 +80,7 @@
 {
   stateCopy = state;
   selfCopy = self;
-  sub_1890A9288(stateCopy, &selRef_isHidden, &unk_18A663BB8, &OBJC_IVAR____TtCC5UIKit12ToolbarModel4Item__isHidden);
+  sub_1890A9288(stateCopy, &selRef_isHidden, &unk_18A663BB8, &OBJC_IVAR____TtCC5UIKit12ToolbarModel4Item__isHidden, sub_1890A9424);
 }
 
 - (id)_contextMenuInteractionForItem:(id)item

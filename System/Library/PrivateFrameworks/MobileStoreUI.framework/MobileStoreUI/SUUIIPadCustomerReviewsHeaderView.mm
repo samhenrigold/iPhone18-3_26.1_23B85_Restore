@@ -121,10 +121,10 @@
     v7->_separatorView = v33;
 
     v35 = v7->_separatorView;
-    primaryTextColor = [(SUUIColorScheme *)v7->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v36 = objc_msgSend_primaryTextColor(v7->_colorScheme);
+    if (v36)
     {
-      [(UIView *)v35 setBackgroundColor:primaryTextColor];
+      [(UIView *)v35 setBackgroundColor:v36];
     }
 
     else
@@ -172,8 +172,8 @@
     }
 
     sortLabel = self->_sortLabel;
-    primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-    v11 = SUUIColorWithAlpha(primaryTextColor, 0.6);
+    v10 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    v11 = SUUIColorWithAlpha(v10, 0.6);
     if (v11)
     {
       [(UILabel *)sortLabel setTextColor:v11];
@@ -186,10 +186,10 @@
     }
 
     separatorView = self->_separatorView;
-    primaryTextColor2 = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor2)
+    v14 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v14)
     {
-      [(UIView *)separatorView setBackgroundColor:primaryTextColor2];
+      [(UIView *)separatorView setBackgroundColor:v14];
     }
 
     else
@@ -451,8 +451,8 @@
       [(UILabel *)v15 setFont:v16];
 
       v17 = self->_sortLabel;
-      primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-      v19 = SUUIColorWithAlpha(primaryTextColor, 0.6);
+      v18 = objc_msgSend_primaryTextColor(self->_colorScheme);
+      v19 = SUUIColorWithAlpha(v18, 0.6);
       if (v19)
       {
         [(UILabel *)v17 setTextColor:v19];

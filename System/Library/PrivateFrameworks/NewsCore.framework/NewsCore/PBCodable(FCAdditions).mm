@@ -17,28 +17,28 @@
 
 - (id)logMessageDictionaryFromProtobufDictionary:()FCAdditions
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:?];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   allKeys = [v2 allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v16 + 1) + 8 * i);
         v9 = [v2 objectForKeyedSubscript:v8];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -67,13 +67,11 @@
         [v2 setObject:v12 forKeyedSubscript:v8];
       }
 
-      v5 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

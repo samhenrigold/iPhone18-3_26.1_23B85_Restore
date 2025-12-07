@@ -87,7 +87,7 @@ LABEL_5:
     goto LABEL_9;
   }
 
-  v5 = sa_default_log();
+  v5 = sa_default_log(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(SACriticalNotification *)v5 _createNotification];
@@ -103,7 +103,7 @@ LABEL_9:
 {
   responseCopy = response;
   handlerCopy = handler;
-  v9 = sa_default_log();
+  v9 = sa_default_log(handlerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [SACriticalNotification userNotificationCenter:responseCopy didReceiveNotificationResponse:v9 withCompletionHandler:?];
@@ -114,11 +114,11 @@ LABEL_9:
 
   if (v11)
   {
-    v12 = sa_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sa_default_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_23AA4D000, v12, OS_LOG_TYPE_DEFAULT, "Launching app in foreground because of 3P notification interaction", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_23AA4D000, v13, OS_LOG_TYPE_DEFAULT, "Launching app in foreground because of 3P notification interaction", v14, 2u);
     }
 
     [(SABundleManager *)self->_bundleManager wakeApprovedAppsWithReason:2 completion:0];
@@ -129,22 +129,19 @@ LABEL_9:
 
 - (void)_createNotification
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = 0;
-  _os_log_error_impl(&dword_23AA4D000, log, OS_LOG_TYPE_ERROR, "Unable to get Bundle for currently authorized app: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = 0;
+  _os_log_error_impl(&dword_23AA4D000, log, OS_LOG_TYPE_ERROR, "Unable to get Bundle for currently authorized app: %@", &v1, 0xCu);
 }
 
 - (void)userNotificationCenter:(void *)a1 didReceiveNotificationResponse:(NSObject *)a2 withCompletionHandler:.cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 actionIdentifier];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_23AA4D000, a2, OS_LOG_TYPE_DEBUG, "Notification response: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_23AA4D000, a2, OS_LOG_TYPE_DEBUG, "Notification response: %@", &v4, 0xCu);
 }
 
 @end

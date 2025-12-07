@@ -6,11 +6,11 @@
 
 - (id)_uufrShownRequestedByInstrumentationManager:()SiriUIUUFRShowable
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v33.receiver = self;
-  v33.super_class = &off_287A263A8;
-  v5 = objc_msgSendSuper2(&v33, sel__uufrShownRequestedByInstrumentationManager_, v4);
+  v32.receiver = self;
+  v32.super_class = &off_287A263A8;
+  v5 = objc_msgSendSuper2(&v32, sel__uufrShownRequestedByInstrumentationManager_, v4);
   aceId = [self aceId];
   v7 = [v4 cardIDforSnippetAceID:aceId];
 
@@ -44,25 +44,25 @@
     {
       array = [MEMORY[0x277CBEB18] array];
       cardSections2 = [firstObject cardSections];
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
-      v19 = [cardSections2 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v19 = [cardSections2 countByEnumeratingWithState:&v28 objects:v33 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v30;
+        v21 = *v29;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v30 != v21)
+            if (*v29 != v21)
             {
               objc_enumerationMutation(cardSections2);
             }
 
-            v23 = *(*(&v29 + 1) + 8 * i);
+            v23 = *(*(&v28 + 1) + 8 * i);
             resultIdentifier = [v23 resultIdentifier];
 
             if (resultIdentifier)
@@ -72,7 +72,7 @@
             }
           }
 
-          v20 = [cardSections2 countByEnumeratingWithState:&v29 objects:v34 count:16];
+          v20 = [cardSections2 countByEnumeratingWithState:&v28 objects:v33 count:16];
         }
 
         while (v20);
@@ -83,8 +83,6 @@
       [v5 setGridCardSection:v26];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

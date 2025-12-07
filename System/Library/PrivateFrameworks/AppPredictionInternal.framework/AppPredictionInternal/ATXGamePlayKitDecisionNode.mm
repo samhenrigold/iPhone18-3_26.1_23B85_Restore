@@ -187,7 +187,7 @@ LABEL_24:
     _ZNSt3__115allocate_sharedB8ne200100I27ATXGamePlayKitCDecisionNodeNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
-  objc_storeStrong(v22 + 7, attribute);
+  objc_storeStrong((v22 + 56), attribute);
   v28 = self->_node.__ptr_;
   v29 = branchCopy;
   v43 = v22;
@@ -206,12 +206,12 @@ LABEL_24:
   }
 
   v42 = 0;
-  v45[0] = v29;
-  v45[1] = v31;
+  *&v45 = v29;
+  *(&v45 + 1) = v31;
   v46 = v30;
   v43 = 0;
   v44 = 0;
-  std::vector<std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayKitCDecisionNode>>>::push_back[abi:ne200100](v28, v45);
+  std::vector<std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayKitCDecisionNode>>>::push_back[abi:ne200100](v28, &v45);
   if (v46)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v46);

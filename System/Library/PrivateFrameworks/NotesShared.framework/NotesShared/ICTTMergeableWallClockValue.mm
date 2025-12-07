@@ -98,7 +98,8 @@
   dataCopy = data;
   topotext::WallClockMergeableValue::WallClockMergeableValue(v10);
   bytes = [dataCopy bytes];
-  v6 = ICTTBoundedCheckedCastNSUIntegerToUInt32([dataCopy length]);
+  [dataCopy length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
   if (google::protobuf::MessageLite::ParseFromArray(v10, bytes, v6))
   {
     self = [(ICTTMergeableWallClockValue *)self initWithArchive:v10];
@@ -296,14 +297,16 @@ LABEL_42:
 
 - (id)serialize
 {
-  [(ICTTMergeableWallClockValue *)self saveToArchive:v6, topotext::WallClockMergeableValue::WallClockMergeableValue(v6)];
-  v2 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:topotext::WallClockMergeableValue::ByteSize(v6)];
-  mutableBytes = [v2 mutableBytes];
-  v4 = ICTTBoundedCheckedCastNSUIntegerToUInt32([v2 length]);
-  google::protobuf::MessageLite::SerializeToArray(v6, mutableBytes, v4);
-  topotext::WallClockMergeableValue::~WallClockMergeableValue(v6);
+  [(ICTTMergeableWallClockValue *)self saveToArchive:v8, topotext::WallClockMergeableValue::WallClockMergeableValue(v8)];
+  v2 = objc_alloc(MEMORY[0x277CBEB28]);
+  v4 = [v2 initWithLength:{topotext::WallClockMergeableValue::ByteSize(v8, v3)}];
+  mutableBytes = [v4 mutableBytes];
+  [v4 length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
+  google::protobuf::MessageLite::SerializeToArray(v8, mutableBytes, v6);
+  topotext::WallClockMergeableValue::~WallClockMergeableValue(v8);
 
-  return v2;
+  return v4;
 }
 
 - (void)saveToArchive:(void *)archive
@@ -519,7 +522,8 @@ LABEL_51:
   dataCopy = data;
   topotext::WallClockMergeableValue::WallClockMergeableValue(v7);
   bytes = [dataCopy bytes];
-  v5 = ICTTBoundedCheckedCastNSUIntegerToUInt32([dataCopy length]);
+  [dataCopy length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
   LOBYTE(bytes) = google::protobuf::MessageLite::ParseFromArray(v7, bytes, v5);
   topotext::WallClockMergeableValue::~WallClockMergeableValue(v7);
 

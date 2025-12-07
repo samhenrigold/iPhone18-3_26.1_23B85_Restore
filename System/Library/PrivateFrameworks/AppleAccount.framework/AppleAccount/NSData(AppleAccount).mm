@@ -32,7 +32,7 @@
   v5 = [self length];
   if (v5 < 0)
   {
-    v11 = _AALogSystem();
+    v11 = _AALogSystem(v5);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(NSData(AppleAccount) *)v11 aa_compressedData:v12, v13, v14, v15, v16, v17, v18];
@@ -45,7 +45,7 @@
   v7 = malloc_type_malloc(2 * v5, 0xEF6CA7B6uLL);
   if (!v7)
   {
-    v11 = _AALogSystem();
+    v11 = _AALogSystem(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(NSData(AppleAccount) *)v11 aa_compressedData:v19, v20, v21, v22, v23, v24, v25];
@@ -64,7 +64,7 @@ LABEL_9:
     goto LABEL_11;
   }
 
-  v27 = _AALogSystem();
+  v27 = _AALogSystem(0);
   if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
     [(NSData(AppleAccount) *)v27 aa_compressedData:v28, v29, v30, v31, v32, v33, v34];

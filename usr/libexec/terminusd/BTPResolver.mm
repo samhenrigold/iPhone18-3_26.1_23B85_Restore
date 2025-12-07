@@ -10,6 +10,7 @@
 
 - (void)handleReplyFullName:(id)name hostTarget:(id)target port:(unsigned __int16)port txtRecord:(id)record ifIndex:(unsigned int)index
 {
+  portCopy = port;
   nameCopy = name;
   targetCopy = target;
   recordCopy = record;
@@ -27,13 +28,10 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      bonjourDomain = self->_bonjourDomain;
-      v17 = *&self->_bonjourName;
-      v16 = "";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 2, "%s%.30s:%-4d received result for %@.%@.%@ : fullName %@ hostTarget %@ port %d txtRecord %@", ", "[BTPResolver handleReplyFullName:hostTarget:port:txtRecord:ifIndex:]"", 345, self->_bonjourName, self->_bonjourType, self->_bonjourDomain, nameCopy, targetCopy, __rev16(portCopy), recordCopy);
     }
 
-    LOWORD(v16) = port;
+    LOWORD(v16) = portCopy;
     v14 = [[BTPAdvertiser alloc] initWithSrcIfIndex:self->_srcIfIndex dstIfIndex:self->_dstIfIndex name:self->_bonjourName type:self->_bonjourType domain:self->_bonjourDomain hostTarget:targetCopy port:v16 txtRecord:recordCopy];
     v15 = v14;
     if (v14)
@@ -57,8 +55,7 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      srcIfIndex = self->_srcIfIndex;
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d received update with invalid ifIndex %u != %u", ", "[BTPResolver handleReplyFullName:hostTarget:port:txtRecord:ifIndex:]"", 341, index, self->_srcIfIndex);
     }
   }
 }
@@ -79,18 +76,15 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      v5 = 329;
-      v3 = "";
-      v4 = "[BTPResolver dealloc]";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d _sdRefResolve is still active", ", "[BTPResolver dealloc]"", 329);
     }
 
-    [(BTPResolver *)self stop:v3];
+    [(BTPResolver *)self stop];
   }
 
-  v6.receiver = self;
-  v6.super_class = BTPResolver;
-  [(BTPResolver *)&v6 dealloc];
+  v3.receiver = self;
+  v3.super_class = BTPResolver;
+  [(BTPResolver *)&v3 dealloc];
 }
 
 - (void)stop
@@ -158,9 +152,7 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      bonjourDomain = self->_bonjourDomain;
-      v14 = *&self->_bonjourName;
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d DNSServiceResolve for %@.%@.%@ failed %d", ", "[BTPResolver start]"", 300, self->_bonjourName, self->_bonjourType, self->_bonjourDomain, v5);
     }
 
     result = 0;
@@ -191,10 +183,7 @@
           dispatch_once(&qword_100228F30, &stru_1001FA700);
         }
 
-        v17 = self->_bonjourDomain;
-        srcIfIndex = self->_srcIfIndex;
-        v15 = *&self->_bonjourName;
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_100228F28, 2, "%s%.30s:%-4d Successfully started resolving for %@.%@.%@ over %u", ", "[BTPResolver start]"", 311, self->_bonjourName, self->_bonjourType, self->_bonjourDomain, self->_srcIfIndex);
       }
 
       return 1;
@@ -213,14 +202,10 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      v12 = 306;
-      v13 = v8;
-      v10 = "";
-      v11 = "[BTPResolver start]";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d DNSServiceSetDispatchQueue failed %d", ", "[BTPResolver start]"", 306, v8);
     }
 
-    [(BTPResolver *)self stop:v10];
+    [(BTPResolver *)self stop];
     return 0;
   }
 
@@ -265,7 +250,7 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d super init failed", ", "[BTPResolver initWithSrcIfIndex:dstIfIndex:name:type:domain:]"", 275);
     }
   }
 

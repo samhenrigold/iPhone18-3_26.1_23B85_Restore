@@ -33,8 +33,8 @@
 
   v6 = PXDisplayRect.isEqual(_:)(v8);
 
-  sub_1B3F92F94(v8, &qword_1EB87C120);
-  return v6 & 1;
+  sub_1B3F92F94(v8, &qword_1EB87C120, &unk_1B4070A30);
+  return v6;
 }
 
 - (CGRect)rectInCoordinateSpace:(id)space

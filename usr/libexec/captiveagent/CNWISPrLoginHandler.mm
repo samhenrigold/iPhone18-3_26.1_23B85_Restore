@@ -162,37 +162,36 @@
   interfaceName = [(CNWISPrLoginHandler *)self interfaceName];
   [v9 setBoundInterfaceIdentifier:interfaceName];
 
-  interfaceName = self->_interfaceName;
-  v14 = CFDictionaryCreate(kCFAllocatorDefault, &kSCProxiesNoGlobal, &kCFBooleanTrue, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  if (v14)
+  v13 = CFDictionaryCreate(kCFAllocatorDefault, &kSCProxiesNoGlobal, &kCFBooleanTrue, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  if (v13)
   {
-    v15 = v14;
-    v16 = SCDynamicStoreCopyProxiesWithOptions();
-    if (!v16)
+    v14 = v13;
+    v15 = SCDynamicStoreCopyProxiesWithOptions();
+    if (!v15)
     {
-      ValueAtIndex = v15;
+      ValueAtIndex = v14;
 LABEL_13:
       CFRelease(ValueAtIndex);
       goto LABEL_14;
     }
 
-    v17 = v16;
-    v18 = SCNetworkProxiesCopyMatching();
-    if (v18)
+    v16 = v15;
+    v17 = SCNetworkProxiesCopyMatching();
+    if (v17)
     {
-      v19 = v18;
-      if (CFArrayGetCount(v18) < 1)
+      v18 = v17;
+      if (CFArrayGetCount(v17) < 1)
       {
         ValueAtIndex = 0;
       }
 
       else
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v19, 0);
+        ValueAtIndex = CFArrayGetValueAtIndex(v18, 0);
         CFRetain(ValueAtIndex);
       }
 
-      CFRelease(v19);
+      CFRelease(v18);
     }
 
     else
@@ -200,8 +199,8 @@ LABEL_13:
       ValueAtIndex = 0;
     }
 
-    CFRelease(v17);
-    CFRelease(v15);
+    CFRelease(v16);
+    CFRelease(v14);
     if (ValueAtIndex)
     {
       if (CFDictionaryGetCount(ValueAtIndex) >= 1)
@@ -217,20 +216,20 @@ LABEL_13:
 LABEL_14:
   objc_initWeak(&location, self);
   session = self->_session;
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_100001AA0;
-  v26[3] = &unk_10001C768;
-  objc_copyWeak(&v27, &location);
-  v26[4] = self;
-  v23 = [(NSURLSession *)session dataTaskWithRequest:v9 completionHandler:v26];
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_100001AA0;
+  v25[3] = &unk_10001C768;
+  objc_copyWeak(&v26, &location);
+  v25[4] = self;
+  v22 = [(NSURLSession *)session dataTaskWithRequest:v9 completionHandler:v25];
   loginDataTask = self->_loginDataTask;
-  self->_loginDataTask = v23;
+  self->_loginDataTask = v22;
 
   loginDataTask = [(CNWISPrLoginHandler *)self loginDataTask];
   [loginDataTask resume];
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
 }
 

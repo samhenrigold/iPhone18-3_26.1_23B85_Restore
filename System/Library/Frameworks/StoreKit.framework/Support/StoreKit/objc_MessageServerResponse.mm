@@ -21,7 +21,7 @@
 
 - (_TtC9storekitd26objc_MessageServerResponse)initWithUrl:(id)url shouldAllowDevloperControl:(BOOL)control messageType:(id)type
 {
-  v8 = sub_100080FB4(&unk_1003D0540);
+  v8 = sub_100080FB4(&unk_1003D0540, &unk_1002EDD50);
   __chkstk_darwin(v8 - 8);
   v10 = &v15 - v9;
   if (url)

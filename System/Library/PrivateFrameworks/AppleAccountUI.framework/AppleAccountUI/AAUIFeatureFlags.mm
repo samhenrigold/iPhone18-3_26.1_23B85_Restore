@@ -39,7 +39,7 @@
 + (BOOL)isNewSignInProgressEnabled
 {
   v2 = _os_feature_enabled_impl();
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[AAUIFeatureFlags isNewSignInProgressEnabled];
@@ -50,65 +50,66 @@
 
 + (BOOL)isLCInviteAcceptanceEnabled
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698DDF8] = [MEMORY[0x1E698DDF8] sharedBag];
   v3 = [mEMORY[0x1E698DDF8] configurationAtKey:@"inheritanceCfgs"];
 
-  v4 = _AAUILogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _AAUILogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v3;
-    _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "LCInvite: inheritanceCfgs from urlbag: %@", &v11, 0xCu);
+    v14 = 138412290;
+    v15 = v3;
+    _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "LCInvite: inheritanceCfgs from urlbag: %@", &v14, 0xCu);
   }
 
-  v5 = [v3 objectForKeyedSubscript:@"inviteAcceptance"];
+  v6 = [v3 objectForKeyedSubscript:@"inviteAcceptance"];
   isLCInviteAcceptanceEnabled = [MEMORY[0x1E698B950] isLCInviteAcceptanceEnabled];
-  v7 = _AAUILogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = isLCInviteAcceptanceEnabled;
+  v9 = _AAUILogSystem(isLCInviteAcceptanceEnabled);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 67109120;
-    LODWORD(v12) = isLCInviteAcceptanceEnabled;
-    _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "LCInvite: isEnabled in Defaults: %{BOOL}d", &v11, 8u);
+    v14 = 67109120;
+    LODWORD(v15) = v8;
+    _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "LCInvite: isEnabled in Defaults: %{BOOL}d", &v14, 8u);
   }
 
-  if (isLCInviteAcceptanceEnabled)
+  if (v8)
   {
-    LOBYTE(v8) = 1;
+    LOBYTE(v11) = 1;
   }
 
-  else if (v5)
+  else if (v6)
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v11 = _AAUILogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "LCInvite: Returning LCInviteAcceptance from urlbag: %@", &v11, 0xCu);
+      v14 = 138412290;
+      v15 = v6;
+      _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "LCInvite: Returning LCInviteAcceptance from urlbag: %@", &v14, 0xCu);
     }
 
-    LOBYTE(v8) = [v5 BOOLValue];
+    LOBYTE(v11) = [v6 BOOLValue];
   }
 
   else
   {
-    LODWORD(v8) = _os_feature_enabled_impl();
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = _os_feature_enabled_impl();
+    v12 = _AAUILogSystem(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 67109120;
-      LODWORD(v12) = v8;
-      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "LCInvite: No IdMS feature flag found. is OS FeatureFlag Enabled %d", &v11, 8u);
+      v14 = 67109120;
+      LODWORD(v15) = v11;
+      _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "LCInvite: No IdMS feature flag found. is OS FeatureFlag Enabled %d", &v14, 8u);
     }
   }
 
-  return v8;
+  return v11;
 }
 
 + (BOOL)isConvertToMAIDEnabled
 {
   v2 = _os_feature_enabled_impl();
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[AAUIFeatureFlags isConvertToMAIDEnabled];
@@ -120,7 +121,7 @@
 + (BOOL)isAccountDataclassListRedesignEnabled
 {
   v2 = _os_feature_enabled_impl();
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[AAUIFeatureFlags isAccountDataclassListRedesignEnabled];
@@ -132,7 +133,7 @@
 + (BOOL)isShowDataclassDetailFromAppsEnabled
 {
   v2 = _os_feature_enabled_impl();
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[AAUIFeatureFlags isShowDataclassDetailFromAppsEnabled];
@@ -145,7 +146,7 @@
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = _os_feature_enabled_impl();
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;
@@ -160,7 +161,7 @@
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = _os_feature_enabled_impl();
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;
@@ -174,7 +175,7 @@
 + (BOOL)isSignOutRedesignEnabled
 {
   v2 = _os_feature_enabled_impl();
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[AAUIFeatureFlags isSignOutRedesignEnabled];
@@ -186,7 +187,7 @@
 + (BOOL)isU13InferPromptEnabled
 {
   v2 = _os_feature_enabled_impl();
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[AAUIFeatureFlags isU13InferPromptEnabled];
@@ -198,7 +199,7 @@
 + (BOOL)isCallExperiencesRedesignEnabled
 {
   v2 = _os_feature_enabled_impl();
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[AAUIFeatureFlags isCallExperiencesRedesignEnabled];
@@ -210,7 +211,7 @@
 + (BOOL)isSolariumEnabled
 {
   v2 = _os_feature_enabled_impl();
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[AAUIFeatureFlags isSolariumEnabled];
@@ -222,13 +223,14 @@
 + (BOOL)isNaturalUIEnabled
 {
   v3 = _os_feature_enabled_impl();
-  v4 = _AAUILogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v4 = v3;
+  v5 = _AAUILogSystem(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     +[AAUIFeatureFlags isNaturalUIEnabled];
   }
 
-  if (v3)
+  if (v4)
   {
     return [self isSolariumEnabled];
   }
@@ -243,7 +245,7 @@
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = _os_feature_enabled_impl();
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;
@@ -258,7 +260,7 @@
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = _os_feature_enabled_impl();
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;

@@ -28,11 +28,11 @@
 
 - (ANSTDescriptor)initWithName:(id)name error:(id *)error
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v19.receiver = self;
-  v19.super_class = ANSTDescriptor;
-  v9 = [(ANSTDescriptor *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = ANSTDescriptor;
+  v9 = [(ANSTDescriptor *)&v18 init];
   if (!v9)
   {
     goto LABEL_4;
@@ -51,18 +51,17 @@ LABEL_4:
 
   if (error)
   {
-    v16 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CCA068];
-    v21[0] = @"Descriptor name should not be empty.";
-    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v10, v21, &v20, 1);
-    *error = objc_msgSend_errorWithDomain_code_userInfo_(v16, v18, @"ANSTErrorDomain", 7, v17);
+    v15 = MEMORY[0x277CCA9B8];
+    v19 = *MEMORY[0x277CCA068];
+    v20[0] = @"Descriptor name should not be empty.";
+    v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v10, v20, &v19, 1);
+    *error = objc_msgSend_errorWithDomain_code_userInfo_(v15, v17, @"ANSTErrorDomain", 7, v16);
 
     error = 0;
   }
 
 LABEL_5:
 
-  v14 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -129,7 +128,7 @@ LABEL_5:
 
 - (ANSTDescriptor)initWithCoder:(id)coder
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_name);
@@ -137,9 +136,9 @@ LABEL_5:
 
   if (v8)
   {
-    v24.receiver = self;
-    v24.super_class = ANSTDescriptor;
-    v12 = [(ANSTDescriptor *)&v24 init];
+    v23.receiver = self;
+    v23.super_class = ANSTDescriptor;
+    v12 = [(ANSTDescriptor *)&v23 init];
     if (v12)
     {
       v13 = objc_msgSend_copy(v8, v10, v11);
@@ -155,16 +154,15 @@ LABEL_5:
   {
     v16 = MEMORY[0x277CCA9B8];
     v17 = *MEMORY[0x277CCA050];
-    v25 = *MEMORY[0x277CCA068];
-    v26[0] = @"Descriptor name was not encoded.";
-    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v26, &v25, 1);
+    v24 = *MEMORY[0x277CCA068];
+    v25[0] = @"Descriptor name was not encoded.";
+    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v25, &v24, 1);
     v20 = objc_msgSend_errorWithDomain_code_userInfo_(v16, v19, v17, 4865, v18);
     objc_msgSend_failWithError_(coderCopy, v21, v20);
 
     selfCopy = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

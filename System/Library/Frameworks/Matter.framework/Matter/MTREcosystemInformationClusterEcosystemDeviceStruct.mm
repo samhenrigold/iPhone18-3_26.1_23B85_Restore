@@ -68,8 +68,8 @@
   uniqueLocationIDsLastEdit = [(MTREcosystemInformationClusterEcosystemDeviceStruct *)self uniqueLocationIDsLastEdit];
   [(MTREcosystemInformationClusterEcosystemDeviceStruct *)v4 setUniqueLocationIDsLastEdit:uniqueLocationIDsLastEdit];
 
-  fabricIndex = [(MTREcosystemInformationClusterEcosystemDeviceStruct *)self fabricIndex];
-  [(MTREcosystemInformationClusterEcosystemDeviceStruct *)v4 setFabricIndex:fabricIndex];
+  v12 = objc_msgSend_fabricIndex(self);
+  [(MTREcosystemInformationClusterEcosystemDeviceStruct *)v4 setFabricIndex:v12];
 
   return v4;
 }

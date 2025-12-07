@@ -113,44 +113,44 @@
 
 - (BOOL)writeToURL:(id)l error:(id *)error
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   lastUpdateDate = self->_lastUpdateDate;
   if (lastUpdateDate)
   {
     configuration = self->_configuration;
-    v28[0] = @"configuration";
-    v28[1] = @"lastUpdate";
-    v29[0] = configuration;
-    v29[1] = lastUpdateDate;
+    v27[0] = @"configuration";
+    v27[1] = @"lastUpdate";
+    v28[0] = configuration;
+    v28[1] = lastUpdateDate;
     v9 = MEMORY[0x1E695DF20];
-    v10 = v29;
-    v11 = v28;
+    v10 = v28;
+    v11 = v27;
     v12 = 2;
   }
 
   else
   {
     v13 = self->_configuration;
-    v26 = @"configuration";
-    v27 = v13;
+    v25 = @"configuration";
+    v26 = v13;
     v9 = MEMORY[0x1E695DF20];
-    v10 = &v27;
-    v11 = &v26;
+    v10 = &v26;
+    v11 = &v25;
     v12 = 1;
   }
 
   v14 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:v12];
   v15 = objc_autoreleasePoolPush();
-  v25 = 0;
-  v16 = [MEMORY[0x1E696AE40] dataWithPropertyList:v14 format:200 options:0 error:&v25];
-  v17 = v25;
+  v24 = 0;
+  v16 = [MEMORY[0x1E696AE40] dataWithPropertyList:v14 format:200 options:0 error:&v24];
+  v17 = v24;
   v18 = v17;
   if (v16)
   {
-    v24 = v17;
-    v19 = [v16 writeToURL:lCopy options:1 error:&v24];
-    v20 = v24;
+    v23 = v17;
+    v19 = [v16 writeToURL:lCopy options:1 error:&v23];
+    v20 = v23;
 
     objc_autoreleasePoolPop(v15);
     if (error && v19)
@@ -169,7 +169,6 @@
     LOBYTE(v19) = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -229,7 +228,7 @@
 
 - (CPLConfigurationDictionary)initWithConfigurationName:(id)name refreshIntervalKey:(id)key minRefreshInterval:(double)interval
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   keyCopy = key;
   v11 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
@@ -239,57 +238,56 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v18 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v19 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+        v18 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
         *buf = 138412546;
-        v31 = v19;
-        v32 = 2112;
-        v33 = objc_opt_class();
-        v20 = v33;
-        _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_ERROR, "Can't find configuration in %@ for %@", buf, 0x16u);
+        v30 = v18;
+        v31 = 2112;
+        v32 = objc_opt_class();
+        v19 = v32;
+        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "Can't find configuration in %@ for %@", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLConfigurationDictionary.m"];
-    v23 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    [currentHandler handleFailureInMethod:a2 object:self file:v22 lineNumber:60 description:{@"Can't find configuration in %@ for %@", v23, objc_opt_class()}];
+    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLConfigurationDictionary.m"];
+    v22 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    [currentHandler handleFailureInMethod:a2 object:self file:v21 lineNumber:60 description:{@"Can't find configuration in %@ for %@", v22, objc_opt_class()}];
 
     abort();
   }
 
-  v29 = 0;
-  v13 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:v12 error:&v29];
-  v14 = v29;
+  v28 = 0;
+  v13 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:v12 error:&v28];
+  v14 = v28;
   if (!v13)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v24 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v23 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         path = [v12 path];
         *buf = 138412546;
-        v31 = path;
-        v32 = 2112;
-        v33 = v14;
-        _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_ERROR, "Unable to load configuration from %@: %@", buf, 0x16u);
+        v30 = path;
+        v31 = 2112;
+        v32 = v14;
+        _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_ERROR, "Unable to load configuration from %@: %@", buf, 0x16u);
       }
     }
 
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLConfigurationDictionary.m"];
+    v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLConfigurationDictionary.m"];
     path2 = [v12 path];
-    [currentHandler2 handleFailureInMethod:a2 object:self file:v27 lineNumber:63 description:{@"Unable to load configuration from %@: %@", path2, v14}];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:v26 lineNumber:63 description:{@"Unable to load configuration from %@: %@", path2, v14}];
 
     abort();
   }
 
   v15 = [(CPLConfigurationDictionary *)self initWithConfiguration:v13 refreshIntervalKey:keyCopy minRefreshInterval:0 lastUpdateDate:interval];
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

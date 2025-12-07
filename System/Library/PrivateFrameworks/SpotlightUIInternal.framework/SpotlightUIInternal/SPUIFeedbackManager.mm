@@ -57,28 +57,28 @@ void __89__SPUIFeedbackManager_didAppearFromSource_withQueryId_queryString_devic
 
 void __89__SPUIFeedbackManager_didAppearFromSource_withQueryId_queryString_deviceIsAuthenticated___block_invoke_3(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   didAppearFromSource_withQueryId_queryString_deviceIsAuthenticated__isCurrentlyOverApp = 0;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v1 = [*(a1 + 32) elements];
-  v2 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v13;
+    v4 = *v12;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v13 != v4)
+        if (*v12 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v12 + 1) + 8 * i);
+        v6 = *(*(&v11 + 1) + 8 * i);
         v7 = [v6 bundleIdentifier];
         if (v7)
         {
@@ -93,13 +93,11 @@ void __89__SPUIFeedbackManager_didAppearFromSource_withQueryId_queryString_devic
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v3);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __89__SPUIFeedbackManager_didAppearFromSource_withQueryId_queryString_deviceIsAuthenticated___block_invoke_4(uint64_t a1)

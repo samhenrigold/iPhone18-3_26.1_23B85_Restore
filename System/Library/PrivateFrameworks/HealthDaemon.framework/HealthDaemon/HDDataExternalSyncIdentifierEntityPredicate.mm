@@ -12,7 +12,7 @@
 
 + (id)predicateWithMetadataKey:(id)key allowedValues:(id)values
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   keyCopy = key;
   v8 = objc_alloc_init(self);
@@ -24,34 +24,34 @@
   {
     [(HDDataExternalSyncIdentifierEntityPredicate *)v11 _valueClassForKey:v9];
     v13 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v24 = v10;
+    v23 = v10;
     v14 = v10;
-    v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v26;
+      v17 = *v25;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v25 + 1) + 8 * i);
+          v19 = *(*(&v24 + 1) + 8 * i);
           if (objc_opt_isKindOfClass())
           {
             [v13 addObject:v19];
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v16);
@@ -68,7 +68,7 @@
     }
     falsePredicate = ;
 
-    v10 = v24;
+    v10 = v23;
   }
 
   else
@@ -80,7 +80,6 @@
   v8[1] = falsePredicate;
 
   *(v8 + 16) = 0;
-  v22 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -260,25 +259,17 @@ LABEL_10:
 {
   v2 = a2;
   objc_opt_self();
-  if ([v2 isEqualToString:*MEMORY[0x277CCC520]])
+  if (([v2 isEqualToString:*MEMORY[0x277CCC520]] & 1) != 0 || objc_msgSend(v2, "isEqualToString:", *MEMORY[0x277CCC528]))
   {
-    v3 = 0x277CCACA8;
-LABEL_5:
-    v4 = *v3;
-    v5 = objc_opt_class();
-    goto LABEL_7;
+    v3 = objc_opt_class();
   }
 
-  if ([v2 isEqualToString:*MEMORY[0x277CCC528]])
+  else
   {
-    v3 = 0x277CCABB0;
-    goto LABEL_5;
+    v3 = 0;
   }
 
-  v5 = 0;
-LABEL_7:
-
-  return v5;
+  return v3;
 }
 
 @end

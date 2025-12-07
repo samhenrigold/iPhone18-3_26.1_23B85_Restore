@@ -41,7 +41,7 @@
 
 - (id)currentClientStateWithError:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (qword_1EBA53B98 != -1)
   {
     sub_1B7CF8D54();
@@ -69,38 +69,38 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v27 = 0x3032000000;
-  v28 = sub_1B7AE1A34;
-  v29 = sub_1B7AE2530;
-  v30 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = sub_1B7AE1A34;
-  v24 = sub_1B7AE2530;
-  v25 = 0;
+  v28 = 0x3032000000;
+  v29 = sub_1B7AE1A34;
+  v30 = sub_1B7AE2530;
+  v31 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = sub_1B7AE1A34;
+  v25 = sub_1B7AE2530;
+  v26 = 0;
   v7 = dispatch_semaphore_create(0);
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_1B7B8FA8C;
-  v16[3] = &unk_1E7CBB588;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_1B7B8FA8C;
+  v17[3] = &unk_1E7CBB588;
   p_buf = &buf;
-  v19 = &v20;
+  v20 = &v21;
   v8 = v7;
-  v17 = v8;
-  objc_msgSend__currentClientStateWithCompletion_(self, v9, v16);
-  v10 = dispatch_time(0, 10000000000);
-  if (dispatch_semaphore_wait(v8, v10))
+  v18 = v8;
+  objc_msgSend__currentClientStateWithCompletion_(self, v9, v17, v10);
+  v11 = dispatch_time(0, 10000000000);
+  if (dispatch_semaphore_wait(v8, v11))
   {
     if (error)
     {
-      objc_msgSend__timeoutError(self, v11, v12);
-      *error = v13 = 0;
+      objc_msgSend__timeoutError(self, v12, v13, v14);
+      *error = v15 = 0;
     }
 
     else
     {
-      v13 = 0;
+      v15 = 0;
     }
   }
 
@@ -108,30 +108,28 @@
   {
     if (error)
     {
-      *error = v21[5];
+      *error = v22[5];
     }
 
-    v13 = *(*(&buf + 1) + 40);
+    v15 = *(*(&buf + 1) + 40);
   }
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v21, 8);
   _Block_object_dispose(&buf, 8);
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v15;
 }
 
 - (void)currentClientStateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_1B7B8FBBC;
-  v7[3] = &unk_1E7CBB5D8;
-  v8 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_1B7B8FBBC;
+  v8[3] = &unk_1E7CBB5D8;
+  v9 = completionCopy;
   v5 = completionCopy;
-  objc_msgSend__currentClientStateWithCompletion_(self, v6, v7);
+  objc_msgSend__currentClientStateWithCompletion_(self, v6, v8, v7);
 }
 
 - (void)_currentClientStateWithCompletion:(id)completion
@@ -143,11 +141,11 @@
 
 - (void)saveClientState:(id)state
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stateCopy = state;
-  v9 = 0;
-  objc_msgSend_saveClientState_withError_(self, v5, stateCopy, &v9);
-  v6 = v9;
+  v8 = 0;
+  objc_msgSend_saveClientState_withError_(self, v5, stateCopy, &v8);
+  v6 = v8;
   if (v6 && IMOSLoggingEnabled())
   {
     v7 = OSLogHandleForIMFoundationCategory();
@@ -155,28 +153,24 @@
     {
       *buf = 138412802;
       selfCopy = self;
-      v12 = 2112;
-      v13 = v6;
-      v14 = 2112;
-      v15 = stateCopy;
+      v11 = 2112;
+      v12 = v6;
+      v13 = 2112;
+      v14 = stateCopy;
       _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "Failed to save client state to %@ with error: %@ client state: %@", buf, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_timeoutError
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E696ABC0]);
   v3 = *MEMORY[0x1E69A7C30];
-  v10 = *MEMORY[0x1E696A278];
-  v11[0] = @"Timed out talking to Spotlight.";
-  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v4, v11, &v10, 1);
+  v9 = *MEMORY[0x1E696A278];
+  v10[0] = @"Timed out talking to Spotlight.";
+  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v4, v10, &v9, 1);
   v7 = objc_msgSend_initWithDomain_code_userInfo_(v2, v6, v3, 2, v5);
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -230,20 +224,19 @@
   {
     if (error)
     {
-      v15 = objc_msgSend__timeoutError(self, v13, v14, v17, v18, v19, v20);
+      v16 = objc_msgSend__timeoutError(self, v13, v14, v15, v17, v18, v19, v20);
 LABEL_14:
-      *error = v15;
+      *error = v16;
     }
   }
 
   else if (error)
   {
-    v15 = *(*(&buf + 1) + 40);
+    v16 = *(*(&buf + 1) + 40);
     goto LABEL_14;
   }
 
   _Block_object_dispose(&buf, 8);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveClientState:(id)state withCompletion:(id)completion
@@ -271,9 +264,9 @@ LABEL_14:
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v7 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@ %p>", v5, self);
+  v8 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@ %p>", v7, v5, self);
 
-  return v7;
+  return v8;
 }
 
 @end

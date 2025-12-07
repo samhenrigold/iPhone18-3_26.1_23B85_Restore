@@ -13,9 +13,9 @@
   }
 
   v8 = sub_303658();
-  __swift_allocate_boxed_opaque_existential_0(v7);
+  __swift_allocate_boxed_opaque_existential_0(&v7);
   sub_303648();
-  sub_250C9C(v7, (self + OBJC_IVAR___MAAIRBMobileAssetOperationMetadata_nativeObject));
+  sub_250C9C(&v7, (self + OBJC_IVAR___MAAIRBMobileAssetOperationMetadata_nativeObject));
   v6.receiver = self;
   v6.super_class = MAAIRBMobileAssetOperationMetadata;
   return [(MAAIRBMobileAssetOperationMetadata *)&v6 init];

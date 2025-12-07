@@ -84,4 +84,25 @@ LABEL_12:
   [(CLKUIMmapFile *)&v3 dealloc];
 }
 
++ (void)mmapFileWithPath:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_4_4(&dword_1BC940000, a2, a3, "Failed to mmap image %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)mmapFileWithPath:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_4_4(&dword_1BC940000, a2, a3, "Invalid file length %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)mmapFileWithPath:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_4_4(&dword_1BC940000, a2, a3, "Failed to open image %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

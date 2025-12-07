@@ -6,7 +6,6 @@
 - (id)valueOfPersistentProperty:(id)property;
 - (id)valueOfProperty:(id)property;
 - (int64_t)_numberOfChatsToLoadDuringInitialSetupFromContext:(id)context;
-- (int64_t)_precacheChatCountWithCapabilities:(unint64_t)capabilities;
 - (unint64_t)_broadcastedUncachedAttachmentCountForChatWithGUID:(id)d chatIdentifiers:(id)identifiers services:(id)services broadcaster:(id)broadcaster;
 - (void)_addAccountsToSetupInfo:(id)info capabilities:(unint64_t)capabilities context:(id)context;
 - (void)_addApprovedCapabilitiesToSetupInfo:(id)info capabilities:(unint64_t)capabilities context:(id)context;
@@ -18,12 +17,16 @@
 - (void)_addKeyTransparencyToSetupInfo:(id)info capabilities:(unint64_t)capabilities context:(id)context;
 - (void)_addTransfersToSetupInfo:(id)info capabilities:(unint64_t)capabilities context:(id)context;
 - (void)_cacheChatsWithPinningIdentifiers:(id)identifiers;
+- (void)_downloadPurgedAttachmentsForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services chatID:(id)d retryCount:(unint64_t)count broadcaster:(id)broadcaster;
+- (void)_initiateScreenSharingWithID:(id)d isContact:(BOOL)contact sharingMyScreen:(BOOL)screen;
 - (void)acceptPendingNicknameForHandleID:(id)d updateType:(unint64_t)type;
+- (void)allowHandleIDsForNicknameSharing:(id)sharing onChatGUIDs:(id)ds fromHandle:(id)handle forceSend:(BOOL)send;
 - (void)clearPendingNicknamePhotoUpdateForHandleIDs:(id)ds;
 - (void)clearPendingNicknameUpdatesForHandleIDs:(id)ds;
 - (void)conference:(id)conference account:(id)account notifyInvitationCancelledFromPerson:(id)person;
 - (void)consumeCodeWithMessageGUID:(id)d;
 - (void)denyHandleIDsForNicknameSharing:(id)sharing;
+- (void)downloadPurgedAttachmentsForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services chatID:(id)d;
 - (void)downloadStickerPackWithGUID:(id)d isIncomingMessage:(BOOL)message ignoreCache:(BOOL)cache;
 - (void)downloadStickerWithGUID:(id)d;
 - (void)eagerUploadCancel:(id)cancel;
@@ -45,8 +48,10 @@
 - (void)locationUpdateSent;
 - (void)markAllNicknamesAsPending;
 - (void)markMessageAsReadWithGUID:(id)d callerOrigin:(int64_t)origin reply:(id)reply;
+- (void)markNicknamesAsTransitionedForHandleIDs:(id)ds isAutoUpdate:(BOOL)update;
 - (void)markPlayedForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services message:(id)message;
 - (void)markPlayedForMessageGUID:(id)d;
+- (void)markProfileRecords:(id)records asActive:(BOOL)active;
 - (void)markProfileRecordsAsIgnored:(id)ignored;
 - (void)markReadForMessageGUID:(id)d callerOrigin:(int64_t)origin queryID:(id)iD;
 - (void)markUnreadForMessageGUID:(id)d IDs:(id)ds style:(unsigned __int8)style services:(id)services;
@@ -74,6 +79,7 @@
 - (void)sendNotice:(id)notice toHandles:(id)handles fromHandle:(id)handle reply:(id)reply;
 - (void)sendNotificationMessageToUniqueID:(id)d withCommand:(int64_t)command;
 - (void)sendQuestionnaire:(id)questionnaire;
+- (void)setAutoDeletionPreference:(BOOL)preference;
 - (void)setNewPersonalNickname:(id)nickname;
 - (void)setValue:(id)value ofPersistentProperty:(id)property;
 - (void)setValue:(id)value ofProperty:(id)property;
@@ -778,18 +784,6 @@ LABEL_4:
   {
     CFDictionarySetValue(theDict, IMSetupInfoForceLegacyChatVersion, v6);
   }
-}
-
-- (int64_t)_precacheChatCountWithCapabilities:(unint64_t)capabilities
-{
-  v3 = &IMDChatPrecacheCountClientVeryRecent;
-  if ((capabilities & 0x2000000) == 0)
-  {
-    v3 = &IMDChatPrecacheCountClientRecent;
-  }
-
-  v4 = *v3;
-  return IMGetCachedDomainIntForKeyWithDefaultValue();
 }
 
 - (void)_cacheChatsWithPinningIdentifiers:(id)identifiers
@@ -1668,6 +1662,13 @@ LABEL_25:
   [v7 onboardDeleteVerificationCodesIfNeededWithMessage:messageCopy completionHandler:replyCopy];
 }
 
+- (void)setAutoDeletionPreference:(BOOL)preference
+{
+  preferenceCopy = preference;
+  v4 = +[IMDOneTimeCodeManager sharedInstance];
+  [v4 setAutoDeletionPreference:preferenceCopy];
+}
+
 - (void)fetchAutoDeletionPreferenceWithReply:(id)reply
 {
   if (reply)
@@ -1710,6 +1711,56 @@ LABEL_25:
   _objc_release_x2();
 }
 
+- (void)downloadPurgedAttachmentsForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services chatID:(id)d
+{
+  styleCopy = style;
+  dsCopy = ds;
+  servicesCopy = services;
+  dCopy = d;
+  if (IMOSLoggingEnabled())
+  {
+    v13 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      v14 = [NSNumber numberWithUnsignedChar:styleCopy];
+      v23 = 138413058;
+      v24 = dsCopy;
+      v25 = 2112;
+      v26 = v14;
+      v27 = 2112;
+      v28 = servicesCopy;
+      v29 = 2112;
+      v30 = dCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Request to download attachments for chatIdentifiers %@ style %@ services %@ chat guid %@", &v23, 0x2Au);
+    }
+  }
+
+  v15 = +[IMDClientRequestContext currentContext];
+  replyProxy = [v15 replyProxy];
+
+  v17 = [IMDChatUtilities _stringForChatIDs:dsCopy onServices:servicesCopy];
+  v18 = [(IMDaemonAnyRequestHandler *)self _broadcastedUncachedAttachmentCountForChatWithGUID:dCopy chatIdentifiers:dsCopy services:servicesCopy broadcaster:replyProxy];
+  if (IMOSLoggingEnabled())
+  {
+    v19 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    {
+      v20 = [NSNumber numberWithUnsignedInteger:v18];
+      v23 = 138412546;
+      v24 = v20;
+      v25 = 2112;
+      v26 = v17;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Purged count starts at %@ for key %@", &v23, 0x16u);
+    }
+  }
+
+  downloadingCountDictionary = self->_downloadingCountDictionary;
+  v22 = [NSNumber numberWithUnsignedInteger:v18];
+  [(NSMutableDictionary *)downloadingCountDictionary setObject:v22 forKey:v17];
+
+  [(IMDaemonAnyRequestHandler *)self _downloadPurgedAttachmentsForIDs:dsCopy style:styleCopy onServices:servicesCopy chatID:dCopy retryCount:0 broadcaster:replyProxy];
+}
+
 - (BOOL)_shouldContinueDownloadingPurgedAttachments:(unint64_t)attachments
 {
   v4 = [IDSServerBag sharedInstanceForBagType:1];
@@ -1738,6 +1789,57 @@ LABEL_25:
   }
 
   return intValue > attachments;
+}
+
+- (void)_downloadPurgedAttachmentsForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services chatID:(id)d retryCount:(unint64_t)count broadcaster:(id)broadcaster
+{
+  styleCopy = style;
+  dsCopy = ds;
+  servicesCopy = services;
+  dCopy = d;
+  broadcasterCopy = broadcaster;
+  if (IMOSLoggingEnabled())
+  {
+    v18 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      v19 = [NSNumber numberWithUnsignedChar:styleCopy];
+      *buf = 138413058;
+      v38 = dsCopy;
+      v39 = 2112;
+      v40 = v19;
+      v41 = 2112;
+      v42 = servicesCopy;
+      v43 = 2112;
+      v44 = dCopy;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Request to download attachments for chatIdentifiers %@ style %@ services %@ chat guid %@", buf, 0x2Au);
+    }
+  }
+
+  v20 = [IMDChatUtilities _stringForChatIDs:dsCopy onServices:servicesCopy];
+  v21 = +[IMDChatUtilities sharedUtilities];
+  currentlyDownloadingSet = [v21 currentlyDownloadingSet];
+  [currentlyDownloadingSet addObject:v20];
+
+  v23 = +[IMDCKAttachmentSyncController sharedInstance];
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_100017370;
+  v29[3] = &unk_100081AC0;
+  v29[4] = self;
+  v30 = dCopy;
+  v31 = dsCopy;
+  v32 = servicesCopy;
+  v33 = broadcasterCopy;
+  v34 = v20;
+  countCopy = count;
+  v36 = styleCopy;
+  v24 = v20;
+  v25 = broadcasterCopy;
+  v26 = servicesCopy;
+  v27 = dsCopy;
+  v28 = dCopy;
+  [v23 downloadAttachmentAssetsForChatIDs:v27 services:v26 style:styleCopy completion:v29];
 }
 
 - (unint64_t)_broadcastedUncachedAttachmentCountForChatWithGUID:(id)d chatIdentifiers:(id)identifiers services:(id)services broadcaster:(id)broadcaster
@@ -1998,11 +2100,37 @@ LABEL_25:
   }
 }
 
+- (void)allowHandleIDsForNicknameSharing:(id)sharing onChatGUIDs:(id)ds fromHandle:(id)handle forceSend:(BOOL)send
+{
+  sendCopy = send;
+  handleCopy = handle;
+  dsCopy = ds;
+  sharingCopy = sharing;
+  v12 = +[IMDNicknameController sharedInstance];
+  [v12 allowHandlesForSharing:sharingCopy onChatGUIDs:dsCopy fromHandle:handleCopy forceSend:sendCopy];
+}
+
 - (void)denyHandleIDsForNicknameSharing:(id)sharing
 {
   sharingCopy = sharing;
   v4 = +[IMDNicknameController sharedInstance];
   [v4 denyHandlesForSharing:sharingCopy];
+}
+
+- (void)markNicknamesAsTransitionedForHandleIDs:(id)ds isAutoUpdate:(BOOL)update
+{
+  updateCopy = update;
+  dsCopy = ds;
+  v6 = +[IMDNicknameController sharedInstance];
+  [v6 markNicknamesAsTransitionedForHandleIDs:dsCopy isAutoUpdate:updateCopy];
+}
+
+- (void)markProfileRecords:(id)records asActive:(BOOL)active
+{
+  activeCopy = active;
+  recordsCopy = records;
+  v6 = +[IMDNicknameController sharedInstance];
+  [v6 markProfileRecords:recordsCopy asActive:activeCopy];
 }
 
 - (void)markProfileRecordsAsIgnored:(id)ignored
@@ -2585,6 +2713,54 @@ LABEL_7:
 
   v8 = +[IMMessageNotificationController sharedInstance];
   [v8 sendNotificationMessageToUniqueID:dCopy withCommmand:command];
+}
+
+- (void)_initiateScreenSharingWithID:(id)d isContact:(BOOL)contact sharingMyScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  contactCopy = contact;
+  dCopy = d;
+  if (qword_10008B7D0 != -1)
+  {
+    sub_100053B74();
+  }
+
+  if (off_10008B7C8)
+  {
+    v8 = dCopy;
+    v9 = v8;
+    if (contactCopy)
+    {
+      v10 = [NSCharacterSet characterSetWithCharactersInString:@":"];
+      invertedSet = [v10 invertedSet];
+      v9 = [v8 stringByAddingPercentEncodingWithAllowedCharacters:invertedSet];
+    }
+
+    if (IMOSLoggingEnabled())
+    {
+      v12 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        v16 = 138412290;
+        v17 = v8;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Initiating screen sharing with %@", &v16, 0xCu);
+      }
+    }
+
+    v13 = off_10008B7C8;
+    v14 = v9;
+    v13([v9 UTF8String], contactCopy, screenCopy);
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      LOWORD(v16) = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Unable to weak link RFBStartAppleIDScreenSharingConnection. Screen sharing will be unavailable.", &v16, 2u);
+    }
+  }
 }
 
 - (void)requestPendingVCInvites

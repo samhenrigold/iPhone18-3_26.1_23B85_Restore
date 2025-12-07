@@ -14,7 +14,7 @@
 
 + (id)bestEventComponentsForResult:(__DDResult *)result withNaturalLanguageContext:(id)context suggestionsContext:(id)suggestionsContext context:(id)a6
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   suggestionsContextCopy = suggestionsContext;
   v12 = a6;
@@ -52,9 +52,9 @@ LABEL_8:
   v18 = v17;
   [v17 objectForKey:{@"ReferenceDate", 0}];
   [MEMORY[0x277CBEBB0] defaultTimeZone];
-  if (DDResultCopyExtractedDateFromReferenceDate() && v30)
+  if (DDResultCopyExtractedDateFromReferenceDate() && v29)
   {
-    [v18 setObject:v30 forKey:@"_ActionResultTimeZone"];
+    [v18 setObject:v29 forKey:@"_ActionResultTimeZone"];
   }
 
   Range = DDResultGetRange();
@@ -113,8 +113,8 @@ LABEL_14:
     }
 
     v26 = [self _eventComponents:v24 withSuggestedTitleFromNaturalLanguageContext:contextCopy context:v18];
-    v31[0] = v26;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+    v30[0] = v26;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
 
     v23 = v26;
 LABEL_22:
@@ -130,7 +130,6 @@ LABEL_23:
   }
 
 LABEL_27:
-  v28 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -262,7 +261,7 @@ void __61__DDEventComponents__eventComponents_matchingResult_context___block_inv
 
 + (id)_eventsFromNaturalLanguageText:(id)text context:(id)context
 {
-  v84[1] = *MEMORY[0x277D85DE8];
+  v83[1] = *MEMORY[0x277D85DE8];
   textCopy = text;
   contextCopy = context;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -273,32 +272,32 @@ void __61__DDEventComponents__eventComponents_matchingResult_context___block_inv
   messageUnits = [v11 messageUnits];
   firstObject = [messageUnits firstObject];
 
-  v78 = firstObject;
+  v77 = firstObject;
   if (firstObject)
   {
-    v73 = v11;
+    v72 = v11;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       [DDEventComponents _eventsFromNaturalLanguageText:textCopy context:v10];
     }
 
-    v74 = v10;
-    v81 = 0;
-    associatedResults = [textCopy associatedResults];
+    v73 = v10;
     v80 = 0;
-    v77 = dd_beginDateOfEventResultsRespectingSpecificEndDates(associatedResults, 1, contextCopy, &v81, &v80);
-    v76 = v80;
+    associatedResults = [textCopy associatedResults];
+    v79 = 0;
+    v76 = dd_beginDateOfEventResultsRespectingSpecificEndDates(associatedResults, 1, contextCopy, &v80, &v79);
+    v75 = v79;
 
     [textCopy result];
     IsApprox = DDResultTimeIsApprox();
     v16 = objc_alloc(MEMORY[0x277CBEA80]);
-    v75 = [v16 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
+    v74 = [v16 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
     v17 = [contextCopy objectForKey:@"_ActionResultDate"];
     v18 = [contextCopy objectForKey:@"_ActionResultTimeZone"];
     v19 = objc_alloc_init(DDEventComponents);
     [(DDEventComponents *)v19 setSource:2];
     Helper_x8__OBJC_CLASS___IPEventClassificationType = gotLoadHelper_x8__OBJC_CLASS___IPEventClassificationType(v20);
-    v23 = [*(v22 + 728) eventClassificationTypeFromMessageUnit:v78 detectedStartDate:{v17, Helper_x8__OBJC_CLASS___IPEventClassificationType}];
+    v23 = [*(v22 + 728) eventClassificationTypeFromMessageUnit:v77 detectedStartDate:{v17, Helper_x8__OBJC_CLASS___IPEventClassificationType}];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       +[DDEventComponents _eventsFromNaturalLanguageText:context:];
@@ -324,7 +323,7 @@ LABEL_6:
 LABEL_10:
     [v23 defaultDuration];
     v26 = v25;
-    v27 = v81 | IsApprox;
+    v27 = v80 | IsApprox;
     v28 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
     if (v27)
     {
@@ -341,19 +340,19 @@ LABEL_13:
             if (v18)
             {
 LABEL_15:
-              [v75 setTimeZone:v18];
-              if (v77)
+              [v74 setTimeZone:v18];
+              if (v76)
               {
 LABEL_16:
-                v30 = v75;
-                v31 = [v75 components:62 fromDate:?];
+                v30 = v74;
+                v31 = [v74 components:62 fromDate:?];
                 goto LABEL_34;
               }
 
 LABEL_33:
               date = [MEMORY[0x277CBEAA8] date];
-              v30 = v75;
-              v31 = [v75 components:62 fromDate:date];
+              v30 = v74;
+              v31 = [v74 components:62 fromDate:date];
 
 LABEL_34:
               [v31 setHour:{objc_msgSend(v23, "defaultStartingTimeHour")}];
@@ -361,11 +360,11 @@ LABEL_34:
               [v31 setMinute:defaultStartingTimeMinutes & ~(defaultStartingTimeMinutes >> 31)];
               v37 = [v30 dateFromComponents:v31];
               v38 = v37;
-              if (v26 <= 0.0 || v76)
+              if (v26 <= 0.0 || v75)
               {
-                if (v76)
+                if (v75)
                 {
-                  v39 = v76;
+                  v39 = v75;
                 }
 
                 else
@@ -373,13 +372,13 @@ LABEL_34:
                   v39 = [v37 dateByAddingTimeInterval:3600.0];
                 }
 
-                v72 = v39;
+                v71 = v39;
               }
 
               else
               {
                 [v23 defaultDuration];
-                v72 = [v38 dateByAddingTimeInterval:?];
+                v71 = [v38 dateByAddingTimeInterval:?];
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
                 {
                   +[DDEventComponents _eventsFromNaturalLanguageText:context:];
@@ -397,9 +396,9 @@ LABEL_34:
           }
 
           defaultTimeZone = [MEMORY[0x277CBEBB0] defaultTimeZone];
-          [v75 setTimeZone:defaultTimeZone];
+          [v74 setTimeZone:defaultTimeZone];
 
-          if (v77)
+          if (v76)
           {
             goto LABEL_16;
           }
@@ -422,7 +421,7 @@ LABEL_34:
         +[DDEventComponents _eventsFromNaturalLanguageText:context:];
       }
 
-      v72 = 0;
+      v71 = 0;
       v32 = 0;
 LABEL_43:
       v40 = [MEMORY[0x277CBEB18] arrayWithObject:@"com.apple.MobileSMS"];
@@ -431,7 +430,7 @@ LABEL_43:
         [v40 addObject:@"com.apple.mobilemail"];
       }
 
-      v71 = v40;
+      v70 = v40;
       if (_os_feature_enabled_impl())
       {
         bundleIdentifier = [textCopy bundleIdentifier];
@@ -443,15 +442,15 @@ LABEL_43:
         v42 = 0;
       }
 
-      v79 = 0;
-      v84[0] = v78;
-      v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:1];
-      v44 = [v23 adjustedEventTitleForMessageUnits:v43 subject:v9 dateInSubject:0 eventStartDate:0 useTitleGenerationModel:v42 isGeneratedFromSubject:0 isGeneratedFromTitleGenerationModel:&v79];
+      v78 = 0;
+      v83[0] = v77;
+      v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:1];
+      v44 = [v23 adjustedEventTitleForMessageUnits:v43 subject:v9 dateInSubject:0 eventStartDate:0 useTitleGenerationModel:v42 isGeneratedFromSubject:0 isGeneratedFromTitleGenerationModel:&v78];
       if (v44)
       {
         [(DDEventComponents *)v19 setTitle:v44];
 
-        if (v79 != 1)
+        if (v78 != 1)
         {
           goto LABEL_54;
         }
@@ -460,7 +459,7 @@ LABEL_43:
       else
       {
         [v23 defaultTitle];
-        v70 = v23;
+        v69 = v23;
         v45 = contextCopy;
         v46 = textCopy;
         v47 = v32;
@@ -473,9 +472,9 @@ LABEL_43:
         v32 = v47;
         textCopy = v46;
         contextCopy = v45;
-        v23 = v70;
+        v23 = v69;
 
-        if (v79 != 1)
+        if (v78 != 1)
         {
 LABEL_54:
           if (((v23 == 0) & v42) == 1)
@@ -487,8 +486,8 @@ LABEL_54:
 
             v53 = gotLoadHelper_x8__OBJC_CLASS___IPEventClassificationType(v52);
             v55 = *(v54 + 728);
-            v83 = v78;
-            v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v83 count:{1, v53}];
+            v82 = v77;
+            v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v82 count:{1, v53}];
             v57 = [v55 titleGenerationModelPredictionForMessageUnits:v56];
             [(DDEventComponents *)v19 setTitle:v57];
 
@@ -504,7 +503,7 @@ LABEL_54:
           [(DDEventComponents *)v19 setEventTypeIdentifier:identifier];
 
           [(DDEventComponents *)v19 setStartDate:v32];
-          [(DDEventComponents *)v19 setEndDate:v72];
+          [(DDEventComponents *)v19 setEndDate:v71];
           [v23 defaultDuration];
           [(DDEventComponents *)v19 setDuration:?];
           [(DDEventComponents *)v19 setOriginRange:0x7FFFFFFFFFFFFFFFLL, 0];
@@ -513,23 +512,23 @@ LABEL_60:
           title2 = [(DDEventComponents *)v19 title];
           if ([title2 length])
           {
-            v10 = v74;
-            v61 = v75;
+            v10 = v73;
+            v61 = v74;
           }
 
           else
           {
             v62 = [v9 length];
 
-            v10 = v74;
-            v61 = v75;
+            v10 = v73;
+            v61 = v74;
             if (!v62)
             {
 LABEL_67:
               [v8 addObject:v19];
               firstObject = v8;
 
-              v11 = v73;
+              v11 = v72;
               goto LABEL_68;
             }
 
@@ -540,8 +539,8 @@ LABEL_67:
 
             v64 = gotLoadHelper_x8__OBJC_CLASS___IPEventClassificationType(v63);
             v66 = *(v65 + 728);
-            v82 = v78;
-            v67 = [MEMORY[0x277CBEA60] arrayWithObjects:&v82 count:{1, v64}];
+            v81 = v77;
+            v67 = [MEMORY[0x277CBEA60] arrayWithObjects:&v81 count:{1, v64}];
             title2 = [v66 fallbackEventTitleForMessageUnits:v67 subject:v9 checkForDateInSubject:1];
 
             [(DDEventComponents *)v19 setTitle:title2];
@@ -565,12 +564,12 @@ LABEL_67:
     if (v28)
     {
       +[DDEventComponents _eventsFromNaturalLanguageText:context:];
-      v32 = v77;
-      v33 = v76;
-      if (v76)
+      v32 = v76;
+      v33 = v75;
+      if (v75)
       {
 LABEL_19:
-        v72 = v33;
+        v71 = v33;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
           +[DDEventComponents _eventsFromNaturalLanguageText:context:];
@@ -582,9 +581,9 @@ LABEL_19:
 
     else
     {
-      v32 = v77;
-      v33 = v76;
-      if (v76)
+      v32 = v76;
+      v33 = v75;
+      if (v75)
       {
         goto LABEL_19;
       }
@@ -592,7 +591,7 @@ LABEL_19:
 
     if (v26 <= 0.0)
     {
-      v72 = [v32 dateByAddingTimeInterval:3600.0];
+      v71 = [v32 dateByAddingTimeInterval:3600.0];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
         +[DDEventComponents _eventsFromNaturalLanguageText:context:];
@@ -602,7 +601,7 @@ LABEL_19:
     else
     {
       [v23 defaultDuration];
-      v72 = [v32 dateByAddingTimeInterval:?];
+      v71 = [v32 dateByAddingTimeInterval:?];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
         +[DDEventComponents _eventsFromNaturalLanguageText:context:];
@@ -613,8 +612,6 @@ LABEL_19:
   }
 
 LABEL_68:
-
-  v68 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -713,7 +710,7 @@ LABEL_15:
 
 void __55__DDEventComponents__eventsFromIntelligentSuggestions___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = a4;
@@ -731,37 +728,37 @@ void __55__DDEventComponents__eventsFromIntelligentSuggestions___block_invoke(ui
   if (!v6)
   {
 LABEL_6:
-    v47 = v7;
-    v48 = v6;
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
+    v46 = v7;
+    v47 = v6;
     v52 = 0u;
-    v46 = v8;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v45 = v8;
     obj = v8;
-    v9 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+    v9 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
     if (!v9)
     {
 LABEL_30:
 
-      v7 = v47;
-      v6 = v48;
-      v8 = v46;
+      v7 = v46;
+      v6 = v47;
+      v8 = v45;
       goto LABEL_31;
     }
 
     v10 = v9;
-    v11 = *v52;
+    v11 = *v51;
 LABEL_9:
     v12 = 0;
     while (1)
     {
-      if (*v52 != v11)
+      if (*v51 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v51 + 1) + 8 * v12);
+      v13 = *(*(&v50 + 1) + 8 * v12);
       v14 = objc_alloc_init(DDEventComponents);
       [(DDEventComponents *)v14 setSource:1];
       v15 = [v13 event];
@@ -867,7 +864,7 @@ LABEL_18:
 
       if (v10 == ++v12)
       {
-        v10 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+        v10 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
         if (!v10)
         {
           goto LABEL_30;
@@ -886,8 +883,6 @@ LABEL_3:
 
 LABEL_31:
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_eventComponents:(id)components withSuggestedTitleFromNaturalLanguageContext:(id)context context:(id)a5
@@ -923,7 +918,7 @@ LABEL_31:
 
 + (id)_messageWithNaturalLanguageContext:(id)context context:(id)a4
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v6 = a4;
   [contextCopy result];
@@ -1000,62 +995,60 @@ LABEL_3:
       v23 = [bundleIdentifier isEqualToString:@"com.apple.mobilemail"];
 
       Helper_x8__IPMessageTypeEmail = gotLoadHelper_x8__IPMessageTypeEmail(v24);
-      v27 = *(v26 + 712);
       gotLoadHelper_x9__IPMessageTypeShortMessage(Helper_x8__IPMessageTypeEmail);
-      v30 = *(v29 + 720);
+      v28 = *(v27 + 720);
       if (!v23)
       {
-        v28 = v30;
+        v26 = v28;
       }
 
-      v31 = *v28;
+      v29 = *v26;
     }
 
     else
     {
-      v31 = 0;
+      v29 = 0;
     }
 
     gotLoadHelper_x8__OBJC_CLASS___IPMessage(v21);
-    v35 = objc_alloc(*(v34 + 752));
+    v33 = objc_alloc(*(v32 + 752));
     if (v9)
     {
-      v36 = v9;
+      v34 = v9;
     }
 
     else
     {
-      v36 = &stru_282C1E0A8;
+      v34 = &stru_282C1E0A8;
     }
 
-    v17 = [v35 initWithIdentifier:v20 subject:v36 sender:0 recipients:MEMORY[0x277CBEBF8] dateSent:v18 type:v31];
+    v17 = [v33 initWithIdentifier:v20 subject:v34 sender:0 recipients:MEMORY[0x277CBEBF8] dateSent:v18 type:v29];
   }
 
   else
   {
     gotLoadHelper_x8__OBJC_CLASS___IPMessage(v19);
-    v17 = [objc_alloc(*(v32 + 752)) initWithDateSent:v18 subject:v9];
+    v17 = [objc_alloc(*(v30 + 752)) initWithDateSent:v18 subject:v9];
   }
 
-  gotLoadHelper_x8__OBJC_CLASS___IPMessageUnit(v33);
-  v38 = [objc_alloc(*(v37 + 760)) initWithText:v8 originalMessage:v17 index:0];
-  v39 = [v6 objectForKey:@"_ActionResultRange"];
-  v40 = v39;
-  if (v39 && [v39 rangeValue] != 0x7FFFFFFFFFFFFFFFLL)
+  gotLoadHelper_x8__OBJC_CLASS___IPMessageUnit(v31);
+  v36 = [objc_alloc(*(v35 + 760)) initWithText:v8 originalMessage:v17 index:0];
+  v37 = [v6 objectForKey:@"_ActionResultRange"];
+  v38 = v37;
+  if (v37 && [v37 rangeValue] != 0x7FFFFFFFFFFFFFFFLL)
   {
-    rangeValue = [v40 rangeValue];
-    [v38 setInteractedDateRange:{rangeValue, v42}];
+    rangeValue = [v38 rangeValue];
+    [v36 setInteractedDateRange:{rangeValue, v40}];
   }
 
-  if (v38)
+  if (v36)
   {
-    v46[0] = v38;
-    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
-    [v17 setMessageUnits:v43];
+    v43[0] = v36;
+    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
+    [v17 setMessageUnits:v41];
   }
 
 LABEL_28:
-  v44 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -1071,45 +1064,36 @@ LABEL_28:
 
 + (void)bestEventComponentsForResult:withNaturalLanguageContext:suggestionsContext:context:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)bestEventComponentsForResult:(void *)a1 withNaturalLanguageContext:suggestionsContext:context:.cold.2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)bestEventComponentsForResult:withNaturalLanguageContext:suggestionsContext:context:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_eventComponents:(void *)a1 matchingResult:(void *)a2 context:.cold.1(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 count];
   [a2 count];
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_eventsFromNaturalLanguageText:(void *)a1 context:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = [a1 leadingText];
   [v4 length];
   [a2 length];
@@ -1117,49 +1101,38 @@ LABEL_28:
   [v5 length];
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x20u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_eventsFromNaturalLanguageText:context:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_eventsFromIntelligentSuggestions:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 coreSpotlightUniqueIdentifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __55__DDEventComponents__eventsFromIntelligentSuggestions___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __55__DDEventComponents__eventsFromIntelligentSuggestions___block_invoke_cold_2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) coreSpotlightUniqueIdentifier];
   OUTLINED_FUNCTION_1_1();
-  v6 = a2;
-  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Retrieving events from Suggestions for identifier '%@' failed with error: %@", v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Retrieving events from Suggestions for identifier '%@' failed with error: %@", v4, 0x16u);
 }
 
 @end

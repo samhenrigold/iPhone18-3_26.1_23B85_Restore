@@ -23,52 +23,50 @@
 
 - (void)enumerateValuesUsingBlock:(id)block
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (blockCopy)
   {
     allKeys = [(NSDictionary *)self->_dictionary allKeys];
     v6 = [allKeys mutableCopy];
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __55__REExportedDictionaryValue_enumerateValuesUsingBlock___block_invoke_2;
-    v20[3] = &unk_2785FAB80;
-    v21 = &__block_literal_global_72;
-    [v6 sortUsingComparator:v20];
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __55__REExportedDictionaryValue_enumerateValuesUsingBlock___block_invoke_2;
+    v19[3] = &unk_2785FAB80;
+    v20 = &__block_literal_global_72;
+    [v6 sortUsingComparator:v19];
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * i);
-          v13 = [(NSDictionary *)self->_dictionary objectForKeyedSubscript:v12, v16];
+          v12 = *(*(&v15 + 1) + 8 * i);
+          v13 = [(NSDictionary *)self->_dictionary objectForKeyedSubscript:v12, v15];
           v14 = __55__REExportedDictionaryValue_enumerateValuesUsingBlock___block_invoke(v13, v12);
           blockCopy[2](blockCopy, v14, v13);
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
       }
 
       while (v9);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id __55__REExportedDictionaryValue_enumerateValuesUsingBlock___block_invoke(uint64_t a1, void *a2)

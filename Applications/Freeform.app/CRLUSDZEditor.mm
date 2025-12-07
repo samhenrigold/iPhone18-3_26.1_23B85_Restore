@@ -57,7 +57,7 @@
 
   v8 = sub_1008EB8B0(action, v10);
 
-  sub_10000CAAC(v10, &unk_1019F4D00);
+  sub_10000CAAC(v10, &unk_1019F4D00, &unk_10146E7F0);
   return v8;
 }
 
@@ -79,7 +79,7 @@
 
   sub_1008EBBC4();
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (_TtC8Freeform13CRLUSDZEditor)initWithInteractiveCanvasController:(id)controller
@@ -137,7 +137,7 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_1008F1E0C(v8, v9, string, v7, v11);
-  sub_1000C1014(v7);
+  sub_1000C1014(v7, v11);
 }
 
 - (void)replaceCanvasElementInfo:(id)info withFilesAtURLs:(id)ls allowedTypes:(id)types actionString:(id)string completion:(id)completion
@@ -178,7 +178,7 @@ LABEL_8:
   swift_unknownObjectRetain();
   selfCopy = self;
   sub_1008F2044(info, v12, types, v13, string, v11, v15);
-  sub_1000C1014(v11);
+  sub_1000C1014(v11, v15);
   swift_unknownObjectRelease();
 }
 
@@ -187,7 +187,7 @@ LABEL_8:
   selfCopy = self;
   boardItems = [(CRLBoardItemEditor *)selfCopy boardItems];
   type metadata accessor for CRLBoardItem(0);
-  sub_1008F2AD4(&qword_1019FCB80, type metadata accessor for CRLBoardItem);
+  sub_1008F2AD4(&qword_1019FCB80, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
   v4.super.isa = Set._bridgeToObjectiveC()().super.isa;

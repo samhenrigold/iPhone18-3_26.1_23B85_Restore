@@ -49,9 +49,9 @@
 
 - (MPSNNInitialGradient)initWithCoder:(id)coder device:(id)device
 {
-  v24.receiver = self;
-  v24.super_class = MPSNNInitialGradient;
-  v5 = [(MPSCNNKernel *)&v24 initWithCoder:coder device:?];
+  v28.receiver = self;
+  v28.super_class = MPSNNInitialGradient;
+  v5 = [(MPSCNNKernel *)&v28 initWithCoder:coder device:?];
   v6 = v5;
   if (!v5)
   {
@@ -77,7 +77,7 @@
   {
     v23 = objc_opt_class();
     NSStringFromClass(v23);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0x1031, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v24, v25, v26, v27);
   }
 
   return 0;

@@ -2,6 +2,7 @@
 - (SDShareSheetProxyLoaderManager)initWithSessionIdentifier:(id)identifier;
 - (SDShareSheetProxyLoaderManagerDelegate)delegate;
 - (id)_existingLoaderForSectionType:(int64_t)type;
+- (void)_didFinishLoadingLoader:(id)loader cancelled:(BOOL)cancelled;
 - (void)_scheduleLoadingBlock:(id)block synchronously:(BOOL)synchronously;
 - (void)loadProxySection:(id)section;
 - (void)proxyLoader:(id)loader didLoadProxiesWithResult:(id)result;
@@ -43,46 +44,47 @@
 {
   sectionCopy = section;
   v5 = -[SDShareSheetProxyLoaderManager _existingLoaderForSectionType:](self, "_existingLoaderForSectionType:", [sectionCopy type]);
+  v6 = v5;
   if (v5)
   {
-    v6 = share_sheet_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = share_sheet_log(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "cancelling existing loader with same type:%@", buf, 0xCu);
+      v20 = v6;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "cancelling existing loader with same type:%@", buf, 0xCu);
     }
 
-    [v5 cancel];
+    [v6 cancel];
   }
 
-  v7 = [[SDShareSheetProxyLoader alloc] initWithProxySection:sectionCopy];
-  [(SDShareSheetProxyLoader *)v7 setDelegate:self];
+  v8 = [[SDShareSheetProxyLoader alloc] initWithProxySection:sectionCopy];
+  [(SDShareSheetProxyLoader *)v8 setDelegate:self];
   loaders = [(SDShareSheetProxyLoaderManager *)self loaders];
-  [loaders addObject:v7];
+  [loaders addObject:v8];
 
   initialBatchSize = [sectionCopy initialBatchSize];
-  v10 = +[SDStatusMonitor sharedMonitor];
-  asynchronousProxyLoadingEnabled = [v10 asynchronousProxyLoadingEnabled];
+  v11 = +[SDStatusMonitor sharedMonitor];
+  asynchronousProxyLoadingEnabled = [v11 asynchronousProxyLoadingEnabled];
 
-  v12 = share_sheet_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = share_sheet_log(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v18 = initialBatchSize;
-    v19 = 2112;
-    v20 = v7;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "new proxy loader with initial batch size:%ld %@", buf, 0x16u);
+    v20 = initialBatchSize;
+    v21 = 2112;
+    v22 = v8;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "new proxy loader with initial batch size:%ld %@", buf, 0x16u);
   }
 
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_1001BD280;
-  v14[3] = &unk_1008CFD30;
-  v15 = v7;
-  v16 = initialBatchSize;
-  v13 = v7;
-  [(SDShareSheetProxyLoaderManager *)self _scheduleLoadingBlock:v14 synchronously:(initialBatchSize != 0) & ~asynchronousProxyLoadingEnabled];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_1001BD280;
+  v16[3] = &unk_1008CFD30;
+  v17 = v8;
+  v18 = initialBatchSize;
+  v15 = v8;
+  [(SDShareSheetProxyLoaderManager *)self _scheduleLoadingBlock:v16 synchronously:(initialBatchSize != 0) & ~asynchronousProxyLoadingEnabled];
 }
 
 - (id)_existingLoaderForSectionType:(int64_t)type
@@ -144,6 +146,52 @@ LABEL_11:
   else
   {
     dispatch_async(loadingQueue, block);
+  }
+}
+
+- (void)_didFinishLoadingLoader:(id)loader cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  loaderCopy = loader;
+  v7 = share_sheet_log(loaderCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = NSStringFromBOOL();
+    v16 = 138412546;
+    v17 = loaderCopy;
+    v18 = 2112;
+    v19 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "did finish loading all proxies from loader:%@ cancelled:%@", &v16, 0x16u);
+  }
+
+  loaders = [(SDShareSheetProxyLoaderManager *)self loaders];
+  v10 = [loaders indexOfObject:loaderCopy];
+
+  v12 = share_sheet_log(v11);
+  delegate = v12;
+  if (v10 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      sub_1001BDA28(loaderCopy, delegate);
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = 138412290;
+      v17 = loaderCopy;
+      _os_log_impl(&_mh_execute_header, delegate, OS_LOG_TYPE_DEFAULT, "remove proxy loader%@", &v16, 0xCu);
+    }
+
+    loaders2 = [(SDShareSheetProxyLoaderManager *)self loaders];
+    [loaders2 removeObject:loaderCopy];
+
+    delegate = [(SDShareSheetProxyLoaderManager *)self delegate];
+    proxySection = [loaderCopy proxySection];
+    [delegate proxyLoaderManagerDidFinishLoadingProxySection:proxySection cancelled:cancelledCopy];
   }
 }
 

@@ -19,13 +19,13 @@
   return v3;
 }
 
-uint64_t __47__ATXNotificationsDedupeTracker_sharedInstance__block_invoke()
+uint64_t __47__ATXNotificationsDedupeTracker_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = sharedInstance_instance_5;
-  sharedInstance_instance_5 = v0;
+  v2 = objc_opt_new();
+  v3 = sharedInstance_instance_5;
+  sharedInstance_instance_5 = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (ATXNotificationsDedupeTracker)init
@@ -74,7 +74,7 @@ uint64_t __47__ATXNotificationsDedupeTracker_sharedInstance__block_invoke()
   return queue;
 }
 
-uint64_t __51__ATXNotificationsDedupeTracker_addNotificationId___block_invoke(uint64_t a1)
+void *__51__ATXNotificationsDedupeTracker_addNotificationId___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) length];
   if (result)

@@ -11,7 +11,7 @@ void __58__NSObject_QSExtras__accessibilitySpeakLanguageSelection___block_invoke
   [v1 speakAction:v2 withPreferredLanguage:v3];
 }
 
-uint64_t __64__NSObject_QSExtras__accessibilitySystemShouldShowSpeakSpellOut__block_invoke(uint64_t a1, void *a2)
+void *__64__NSObject_QSExtras__accessibilitySystemShouldShowSpeakSpellOut__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isEqualToString:*MEMORY[0x29EDB9ED0]];
   if (result)

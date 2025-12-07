@@ -25,7 +25,7 @@
     [view setFrame:{0.0, 0.0, 100.0, 100.0}];
 
     v5.receiver = selfCopy;
-    v5.super_class = type metadata accessor for FMUTContentViewController();
+    v5.super_class = type metadata accessor for FMUTContentViewController(0);
     [(FMBaseContentViewController *)&v5 viewDidLoad];
   }
 
@@ -38,13 +38,13 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for FMUTContentViewController();
-  v4 = v5.receiver;
-  [(FMUTContentViewController *)&v5 viewWillAppear:appearCopy];
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for FMUTContentViewController(0);
+  v4 = v8.receiver;
+  [(FMUTContentViewController *)&v8 viewWillAppear:appearCopy];
   *(*&v4[OBJC_IVAR____TtC6FindMy25FMUTContentViewController_dataSource] + OBJC_IVAR____TtC6FindMy20FMUTDetailDataSource_updatesEnabled) = 1;
 
-  sub_10028B38C();
+  sub_10028B38C(v5, v6, v7);
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -109,7 +109,7 @@
   swift_unknownObjectRelease();
   sub_100307724();
 
-  sub_100006060(&v5);
+  sub_100006060(v5);
 }
 
 @end

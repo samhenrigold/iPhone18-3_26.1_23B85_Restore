@@ -10,7 +10,7 @@
 
 - (void)makeAvailableWithUserInterface:(id)interface completionHandler:(id)handler
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   interfaceCopy = interface;
   handlerCopy = handler;
   mEMORY[0x277CFC248] = [MEMORY[0x277CFC248] sharedContext];
@@ -34,30 +34,28 @@
     [v12 setHost:@"x-callback-url"];
     [v12 setPath:@"/authorize"];
     v14 = [MEMORY[0x277CCAD18] queryItemWithName:@"appname" value:@"Shortcuts"];
-    v25[0] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     [v12 setQueryItems:v15];
 
     v16 = MEMORY[0x277D7C558];
     v17 = [v12 URL];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __76__WFUlyssesAccessResource_makeAvailableWithUserInterface_completionHandler___block_invoke;
-    v23[3] = &unk_278C1AC70;
-    v23[4] = self;
-    v24 = handlerCopy;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __76__WFUlyssesAccessResource_makeAvailableWithUserInterface_completionHandler___block_invoke_2;
-    v21[3] = &unk_278C20008;
-    v22 = v24;
-    v18 = [v16 requestWithURL:v17 scheme:wfUnsupportedUserInterfaceError userInterface:interfaceCopy bundleIdentifier:@"com.ulyssesapp.ios" successHandler:v23 failureHandler:v21];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __76__WFUlyssesAccessResource_makeAvailableWithUserInterface_completionHandler___block_invoke;
+    v22[3] = &unk_278C1AC70;
+    v22[4] = self;
+    v23 = handlerCopy;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __76__WFUlyssesAccessResource_makeAvailableWithUserInterface_completionHandler___block_invoke_2;
+    v20[3] = &unk_278C20008;
+    v21 = v23;
+    v18 = [v16 requestWithURL:v17 scheme:wfUnsupportedUserInterfaceError userInterface:interfaceCopy bundleIdentifier:@"com.ulyssesapp.ios" successHandler:v22 failureHandler:v20];
 
     mEMORY[0x277D7C548] = [MEMORY[0x277D7C548] sharedManager];
     [mEMORY[0x277D7C548] performRequest:v18];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __76__WFUlyssesAccessResource_makeAvailableWithUserInterface_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -131,40 +129,40 @@ void __76__WFUlyssesAccessResource_makeAvailableWithUserInterface_completionHand
 
 - (WFUlyssesAccessResource)initWithDefinition:(id)definition
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   definitionCopy = definition;
-  v28.receiver = self;
-  v28.super_class = WFUlyssesAccessResource;
-  v5 = [(WFAccessResource *)&v28 initWithDefinition:definitionCopy];
+  v27.receiver = self;
+  v27.super_class = WFUlyssesAccessResource;
+  v5 = [(WFAccessResource *)&v27 initWithDefinition:definitionCopy];
   if (v5)
   {
     v6 = [definitionCopy objectForKeyedSubscript:*MEMORY[0x277D7CCF0]];
     v7 = [definitionCopy objectForKeyedSubscript:*MEMORY[0x277D7CCE8]];
     mEMORY[0x277D7C540] = [MEMORY[0x277D7C540] sharedRegistry];
-    v23 = v7;
+    v22 = v7;
     v9 = [mEMORY[0x277D7C540] appWithIdentifier:v7];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v22 = v9;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v21 = v9;
     schemes = [v9 schemes];
-    v11 = [schemes countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v11 = [schemes countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v25;
+      v13 = *v24;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v25 != v13)
+          if (*v24 != v13)
           {
             objc_enumerationMutation(schemes);
           }
 
-          v15 = *(*(&v24 + 1) + 8 * i);
+          v15 = *(*(&v23 + 1) + 8 * i);
           scheme = [v15 scheme];
           v17 = [scheme isEqualToString:v6];
 
@@ -175,7 +173,7 @@ void __76__WFUlyssesAccessResource_makeAvailableWithUserInterface_completionHand
           }
         }
 
-        v12 = [schemes countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v12 = [schemes countByEnumeratingWithState:&v23 objects:v28 count:16];
         if (v12)
         {
           continue;
@@ -193,7 +191,6 @@ LABEL_12:
     v19 = v5;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -162,30 +162,35 @@
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v6 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      v36 = 138543362;
-      v37 = objc_opt_class();
-      LODWORD(v32) = 12;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v39 = 138543362;
+      v40 = objc_opt_class();
+      v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@] Purchase failed, not sending purchase succeeded notification", &v39, 12);
+      if (v10)
       {
-        v10 = v9;
-        [NSString stringWithCString:v9 encoding:4, &v36, v32];
-        free(v10);
+        v11 = v10;
+        [NSString stringWithCString:v10 encoding:4];
+        free(v11);
         SSFileLog();
       }
     }
@@ -201,99 +206,109 @@
     shouldLog2 = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v12 = shouldLog2 | 2;
+      LODWORD(v13) = shouldLog2 | 2;
     }
 
     else
     {
-      v12 = shouldLog2;
+      LODWORD(v13) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject2 = [v6 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
     {
-      v12 &= 2u;
+      v13 = v13;
     }
 
-    if (v12)
+    else
     {
-      v36 = 138543362;
-      v37 = objc_opt_class();
-      LODWORD(v32) = 12;
-      v31 = &v36;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      v13 &= 2u;
+    }
+
+    if (v13)
+    {
+      v39 = 138543362;
+      v40 = objc_opt_class();
+      v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject2, 2, "[%{public}@] Will send purchase succeeded notification", &v39, 12);
+      if (v15)
       {
-        v14 = v13;
-        v15 = [NSString stringWithCString:v13 encoding:4, &v36, v32];
-        free(v14);
-        v31 = v15;
+        v16 = v15;
+        v17 = [NSString stringWithCString:v15 encoding:4];
+        free(v16);
+        v34 = v17;
         SSFileLog();
       }
     }
 
-    v16 = objc_opt_class();
-    v17 = NSStringFromClass(v16);
-    [NSKeyedArchiver setClassName:v17 forClass:objc_opt_class()];
-    v33 = 0;
-    v18 = [NSKeyedArchiver archivedDataWithRootObject:response requiringSecureCoding:1 error:&v33];
-    if (v33)
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [NSKeyedArchiver setClassName:v19 forClass:objc_opt_class()];
+    v36 = 0;
+    v20 = [NSKeyedArchiver archivedDataWithRootObject:response requiringSecureCoding:1 error:&v36];
+    if (v36)
     {
-      v19 = +[SSLogConfig sharedStoreServicesConfig];
-      if (!v19)
+      v21 = +[SSLogConfig sharedStoreServicesConfig];
+      if (!v21)
       {
-        v19 = +[SSLogConfig sharedConfig];
+        v21 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog3 = [v19 shouldLog];
-      if ([v19 shouldLogToDisk])
+      shouldLog3 = [v21 shouldLog];
+      if ([v21 shouldLogToDisk])
       {
-        v21 = shouldLog3 | 2;
+        LODWORD(v23) = shouldLog3 | 2;
       }
 
       else
       {
-        v21 = shouldLog3;
+        LODWORD(v23) = shouldLog3;
       }
 
-      if (!os_log_type_enabled([v19 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject3 = [v21 OSLogObject];
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
       {
-        v21 &= 2u;
+        v23 = v23;
       }
 
-      if (v21)
+      else
       {
-        v22 = objc_opt_class();
-        v36 = 138543618;
-        v37 = v22;
-        v38 = 2114;
-        v39 = v33;
-        LODWORD(v32) = 22;
-        v23 = _os_log_send_and_compose_impl();
-        if (v23)
+        v23 &= 2u;
+      }
+
+      if (v23)
+      {
+        v25 = objc_opt_class();
+        v39 = 138543618;
+        v40 = v25;
+        v41 = 2114;
+        v42 = v36;
+        LODWORD(v35) = 22;
+        v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject3, 16, "%{public}@: Failed to archive response. Error = %{public}@", &v39, v35);
+        if (v26)
         {
-          v24 = v23;
-          [NSString stringWithCString:v23 encoding:4, &v36, v32];
-          free(v24);
+          v27 = v26;
+          [NSString stringWithCString:v26 encoding:4];
+          free(v27);
           SSFileLog();
         }
       }
     }
 
-    v25 = [NSMutableDictionary alloc];
-    v34 = @"response";
-    v35 = v18;
-    v26 = [v25 initWithDictionary:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v35, &v34, 1)}];
-    v27 = +[AMSBuyParams buyParamsWithString:](AMSBuyParams, "buyParamsWithString:", [objc_msgSend(response "purchase")]);
-    v28 = [(AMSBuyParams *)v27 propertyForKey:AMSBuyParamPropertyClientCorrelationKey];
-    if (v28)
+    v28 = [NSMutableDictionary alloc];
+    v37 = @"response";
+    v38 = v20;
+    v29 = [v28 initWithDictionary:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v38, &v37, 1)}];
+    v30 = +[AMSBuyParams buyParamsWithString:](AMSBuyParams, "buyParamsWithString:", [objc_msgSend(response "purchase")]);
+    v31 = [(AMSBuyParams *)v30 propertyForKey:AMSBuyParamPropertyClientCorrelationKey];
+    if (v31)
     {
-      [v26 setObject:v28 forKeyedSubscript:@"clientCorrelationKey"];
+      [v29 setObject:v31 forKeyedSubscript:@"clientCorrelationKey"];
     }
 
     DistributedCenter = CFNotificationCenterGetDistributedCenter();
-    CFNotificationCenterPostNotification(DistributedCenter, kSSPurchaseRequestSucceededNotification, 0, [v26 copy], 1u);
-    v30 = +[EventDispatcher eventDispatcher];
-    [v30 postEventWithName:SSEventNamePurchaseSucceeded userInfo:v26];
+    CFNotificationCenterPostNotification(DistributedCenter, kSSPurchaseRequestSucceededNotification, 0, [v29 copy], 1u);
+    v33 = +[EventDispatcher eventDispatcher];
+    [v33 postEventWithName:SSEventNamePurchaseSucceeded userInfo:v29];
   }
 }
 

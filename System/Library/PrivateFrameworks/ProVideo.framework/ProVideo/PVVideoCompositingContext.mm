@@ -39,7 +39,7 @@
 uint64_t __53__PVVideoCompositingContext_dotGraphLoggingDirectory__block_invoke(PVRenderManager *a1)
 {
   v1 = MEMORY[0x277CCACA8];
-  v2 = PVRenderManager::INSTANCE(a1, &v7);
+  v2 = PVRenderManager::INSTANCE(&v7);
   PVRenderManager::DotGraphLoggingDirectory(v2, &__p);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {

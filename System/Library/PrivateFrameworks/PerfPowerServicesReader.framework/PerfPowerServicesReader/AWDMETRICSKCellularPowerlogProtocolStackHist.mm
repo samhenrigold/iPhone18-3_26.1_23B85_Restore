@@ -1020,7 +1020,6 @@ LABEL_38:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x200000000) == 0)
@@ -1040,7 +1039,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  durationMs = self->_durationMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1055,7 +1053,6 @@ LABEL_4:
   }
 
 LABEL_43:
-  durBin0 = self->_durBin0;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1070,7 +1067,6 @@ LABEL_5:
   }
 
 LABEL_44:
-  durBin1 = self->_durBin1;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1085,7 +1081,6 @@ LABEL_6:
   }
 
 LABEL_45:
-  durBin2 = self->_durBin2;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1100,7 +1095,6 @@ LABEL_7:
   }
 
 LABEL_46:
-  durBin3 = self->_durBin3;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1115,7 +1109,6 @@ LABEL_8:
   }
 
 LABEL_47:
-  durBin4 = self->_durBin4;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -1130,7 +1123,6 @@ LABEL_9:
   }
 
 LABEL_48:
-  durBin5 = self->_durBin5;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -1145,7 +1137,6 @@ LABEL_10:
   }
 
 LABEL_49:
-  durBin6 = self->_durBin6;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
@@ -1160,7 +1151,6 @@ LABEL_11:
   }
 
 LABEL_50:
-  durBin7 = self->_durBin7;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -1175,7 +1165,6 @@ LABEL_12:
   }
 
 LABEL_51:
-  durBin8 = self->_durBin8;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000000) == 0)
@@ -1190,7 +1179,6 @@ LABEL_13:
   }
 
 LABEL_52:
-  durBin9 = self->_durBin9;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1205,7 +1193,6 @@ LABEL_14:
   }
 
 LABEL_53:
-  durBin10 = self->_durBin10;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1220,7 +1207,6 @@ LABEL_15:
   }
 
 LABEL_54:
-  durBin11 = self->_durBin11;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1235,7 +1221,6 @@ LABEL_16:
   }
 
 LABEL_55:
-  durBin12 = self->_durBin12;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1250,7 +1235,6 @@ LABEL_17:
   }
 
 LABEL_56:
-  durBin13 = self->_durBin13;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1265,7 +1249,6 @@ LABEL_18:
   }
 
 LABEL_57:
-  durBin14 = self->_durBin14;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1280,7 +1263,6 @@ LABEL_19:
   }
 
 LABEL_58:
-  durBin15 = self->_durBin15;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1295,7 +1277,6 @@ LABEL_20:
   }
 
 LABEL_59:
-  durBin16 = self->_durBin16;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1310,7 +1291,6 @@ LABEL_21:
   }
 
 LABEL_60:
-  durBin17 = self->_durBin17;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1325,7 +1305,6 @@ LABEL_22:
   }
 
 LABEL_61:
-  durBin18 = self->_durBin18;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1340,7 +1319,6 @@ LABEL_23:
   }
 
 LABEL_62:
-  durBin19 = self->_durBin19;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1355,7 +1333,6 @@ LABEL_24:
   }
 
 LABEL_63:
-  durBin20 = self->_durBin20;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1370,7 +1347,6 @@ LABEL_25:
   }
 
 LABEL_64:
-  durBin21 = self->_durBin21;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1385,7 +1361,6 @@ LABEL_26:
   }
 
 LABEL_65:
-  durBin22 = self->_durBin22;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1400,7 +1375,6 @@ LABEL_27:
   }
 
 LABEL_66:
-  durBin23 = self->_durBin23;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1415,7 +1389,6 @@ LABEL_28:
   }
 
 LABEL_67:
-  durBin24 = self->_durBin24;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1430,7 +1403,6 @@ LABEL_29:
   }
 
 LABEL_68:
-  durBin25 = self->_durBin25;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1445,7 +1417,6 @@ LABEL_30:
   }
 
 LABEL_69:
-  durBin26 = self->_durBin26;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1460,7 +1431,6 @@ LABEL_31:
   }
 
 LABEL_70:
-  durBin27 = self->_durBin27;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1475,7 +1445,6 @@ LABEL_32:
   }
 
 LABEL_71:
-  durBin28 = self->_durBin28;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1490,7 +1459,6 @@ LABEL_33:
   }
 
 LABEL_72:
-  durBin29 = self->_durBin29;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -1505,7 +1473,6 @@ LABEL_34:
   }
 
 LABEL_73:
-  durBin30 = self->_durBin30;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1520,7 +1487,6 @@ LABEL_35:
   }
 
 LABEL_74:
-  durBin31 = self->_durBin31;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000000) == 0)
@@ -1535,12 +1501,10 @@ LABEL_36:
   }
 
 LABEL_75:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x800000000) != 0)
   {
 LABEL_37:
-    version = self->_version;
     PBDataWriterWriteUint32Field();
   }
 

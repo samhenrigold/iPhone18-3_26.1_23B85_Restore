@@ -27,12 +27,12 @@
 - (void)setIsDimmed:(BOOL)dimmed
 {
   selfCopy = self;
-  sub_1B38779F4(dimmed);
+  sub_1B38779F4(dimmed, selfCopy);
 }
 
 - (CGImage)foregroundMask
 {
-  v2 = sub_1B3877B64();
+  v2 = sub_1B3877B64(self);
 
   return v2;
 }
@@ -46,7 +46,7 @@
 
 - (CGImage)backgroundMask
 {
-  v2 = sub_1B3877E78();
+  v2 = sub_1B3877E78(self);
 
   return v2;
 }
@@ -60,7 +60,7 @@
 
 - (CGImage)sourceImage
 {
-  v2 = sub_1B3878230();
+  v2 = sub_1B3878230(self);
 
   return v2;
 }
@@ -87,7 +87,7 @@
 - (void)setBlendImages:(id)images ctx:(id)ctx format:(int)format colorSpace:(CGColorSpace *)space
 {
   v7 = *&format;
-  sub_1B3710718(0, &qword_1EB857820);
+  sub_1B3710718(0, &qword_1EB857820, 0x1E695F658);
   v10 = sub_1B3C9C788();
   ctxCopy = ctx;
   spaceCopy = space;

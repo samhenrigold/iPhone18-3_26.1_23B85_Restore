@@ -5,11 +5,23 @@
 - (unsigned)_softwareUpdateCheckingState;
 - (void)_didReceiveSoftwareUpdateCheckingStateChanged:(BOOL)changed;
 - (void)_didReceiveSoftwareUpdateCheckingStateChangedInQueue:(BOOL)queue;
+- (void)_notifyObserver:(id)observer withSoftwareUpdateCheckingRunning:(BOOL)running;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
 @end
 
 @implementation CSSoftwareUpdateCheckingMonitor
+
+- (void)_notifyObserver:(id)observer withSoftwareUpdateCheckingRunning:(BOOL)running
+{
+  runningCopy = running;
+  observerCopy = observer;
+  [(CSSoftwareUpdateCheckingMonitor *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy CSSoftwareUpdateCheckingMonitor:self didReceiveStateChanged:runningCopy];
+  }
+}
 
 - (void)_didReceiveSoftwareUpdateCheckingStateChanged:(BOOL)changed
 {

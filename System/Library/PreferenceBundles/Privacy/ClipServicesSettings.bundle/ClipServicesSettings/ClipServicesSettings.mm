@@ -81,19 +81,19 @@ void sub_23B0(uint64_t a1, void *a2, void *a3)
 
   if (v8)
   {
-    v9 = CPSErrorDomain;
-    v23 = NSLocalizedDescriptionKey;
-    v24 = @"Unable to obtain developer support URL (forced for testing).";
-    v10 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    v11 = [NSError errorWithDomain:v9 code:1 userInfo:v10];
+    v11 = CPSErrorDomain;
+    v26 = NSLocalizedDescriptionKey;
+    v27 = @"Unable to obtain developer support URL (forced for testing).";
+    v12 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v13 = [NSError errorWithDomain:v11 code:1 userInfo:v12];
 
-    v6 = v11;
+    v6 = v13;
   }
 
   if (v6)
   {
-    v12 = sub_59B0();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = sub_59B0(v9, v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_9E4C();
     }
@@ -103,21 +103,21 @@ void sub_23B0(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v13 = [v5 responseDataItems];
-    v14 = [v13 firstObject];
+    v15 = [v5 responseDataItems];
+    v16 = [v15 firstObject];
 
-    v15 = [v14 safari_dictionaryForKey:@"attributes"];
-    v16 = [v15 safari_dictionaryForKey:@"platformAttributes"];
-    v17 = [v16 safari_dictionaryForKey:@"ios"];
+    v17 = [v16 safari_dictionaryForKey:@"attributes"];
+    v18 = [v17 safari_dictionaryForKey:@"platformAttributes"];
+    v19 = [v18 safari_dictionaryForKey:@"ios"];
 
-    v18 = [v17 safari_stringForKey:@"supportURLForLanguage"];
-    v19 = [NSURL URLWithString:v18];
-    v20 = sub_59B0();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v20 = [v19 safari_stringForKey:@"supportURLForLanguage"];
+    v21 = [NSURL URLWithString:v20];
+    v23 = sub_59B0(v21, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = v19;
-      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "RAP: Obtained developer support URL: %@", &v21, 0xCu);
+      v24 = 138412290;
+      v25 = v21;
+      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "RAP: Obtained developer support URL: %@", &v24, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -133,20 +133,20 @@ void sub_2750(uint64_t a1, void *a2, uint64_t a3, void *a4)
 
   if (v9)
   {
-    v10 = CPSErrorDomain;
-    v44 = NSLocalizedDescriptionKey;
-    v45 = @"Unable to obtain bag values (forced for testing).";
-    v11 = [NSDictionary dictionaryWithObjects:&v45 forKeys:&v44 count:1];
-    v12 = [NSError errorWithDomain:v10 code:1 userInfo:v11];
+    v12 = CPSErrorDomain;
+    v46 = NSLocalizedDescriptionKey;
+    v47 = @"Unable to obtain bag values (forced for testing).";
+    v13 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+    v14 = [NSError errorWithDomain:v12 code:1 userInfo:v13];
 
-    v7 = v12;
+    v7 = v14;
   }
 
-  v13 = sub_59B0();
-  v14 = v13;
+  v15 = sub_59B0(v10, v11);
+  v16 = v15;
   if (v7)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_9EB4();
     }
@@ -156,77 +156,77 @@ void sub_2750(uint64_t a1, void *a2, uint64_t a3, void *a4)
 
   else
   {
-    v35 = a1;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v37 = a1;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v43 = v6;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "RAP: Obtained problem types: %@", buf, 0xCu);
+      v45 = v6;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "RAP: Obtained problem types: %@", buf, 0xCu);
     }
 
-    v34 = v6;
+    v36 = v6;
     [v6 safari_arrayForKey:{@"types", 0}];
-    v37 = 0u;
-    v38 = 0u;
     v39 = 0u;
-    obj = v40 = 0u;
-    v15 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
-    if (v15)
+    v40 = 0u;
+    v41 = 0u;
+    obj = v42 = 0u;
+    v17 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+    if (v17)
     {
-      v16 = v15;
-      v17 = *v38;
+      v18 = v17;
+      v19 = *v40;
       do
       {
-        for (i = 0; i != v16; i = i + 1)
+        for (i = 0; i != v18; i = i + 1)
         {
-          if (*v38 != v17)
+          if (*v40 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v37 + 1) + 8 * i);
-          v20 = [v19 safari_stringForKey:@"name"];
-          v21 = [v19 safari_stringForKey:@"nameUpperCase"];
-          v22 = [v19 safari_stringForKey:@"label"];
-          v23 = [v19 safari_numberForKey:@"id"];
-          v24 = [v19 safari_BOOLForKey:@"offerDeveloperWebsite"];
-          if (v20)
+          v21 = *(*(&v39 + 1) + 8 * i);
+          v22 = [v21 safari_stringForKey:@"name"];
+          v23 = [v21 safari_stringForKey:@"nameUpperCase"];
+          v24 = [v21 safari_stringForKey:@"label"];
+          v25 = [v21 safari_numberForKey:@"id"];
+          v26 = [v21 safari_BOOLForKey:@"offerDeveloperWebsite"];
+          if (v22)
           {
-            v25 = v21 == 0;
+            v27 = v23 == 0;
           }
 
           else
           {
-            v25 = 1;
+            v27 = 1;
           }
 
-          if (!v25 && v22 != 0 && v23 != 0)
+          if (!v27 && v24 != 0 && v25 != 0)
           {
-            v28 = [[CPSReportProblemProblemType alloc] initWithLocalizedTitle:v20 localizedUpperCaseTitle:v21 label:v22 identifier:v23 offerDeveloperWebsite:v24];
-            if (v28)
+            v30 = [[CPSReportProblemProblemType alloc] initWithLocalizedTitle:v22 localizedUpperCaseTitle:v23 label:v24 identifier:v25 offerDeveloperWebsite:v26];
+            if (v30)
             {
-              [*(v35 + 32) addObject:v28];
+              [*(v37 + 32) addObject:v30];
             }
           }
         }
 
-        v16 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v18 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
-      while (v16);
+      while (v18);
     }
 
-    v6 = v34;
-    v29 = [v34 safari_stringForKey:@"url"];
-    v30 = [NSURL URLWithString:v29];
-    v31 = *(v35 + 40);
-    if (v31)
+    v6 = v36;
+    v31 = [v36 safari_stringForKey:@"url"];
+    v32 = [NSURL URLWithString:v31];
+    v33 = *(v37 + 40);
+    if (v33)
     {
-      v32 = [*(v35 + 32) copy];
-      (*(v31 + 16))(v31, v32, v30, 0);
+      v34 = [*(v37 + 32) copy];
+      (*(v33 + 16))(v33, v34, v32, 0);
     }
 
-    v7 = v33;
+    v7 = v35;
   }
 }
 
@@ -240,19 +240,19 @@ void sub_2C10(uint64_t a1, void *a2)
   [v5 setClientInfo:v6];
 
   [v5 setDuration:2592000.0];
-  v55[0] = @"contentid";
+  v57[0] = @"contentid";
   v7 = [NSNumber numberWithUnsignedLongLong:*(*(a1 + 32) + 16)];
   v8 = [v7 stringValue];
-  v55[1] = @"bundleid";
+  v57[1] = @"bundleid";
   v9 = *(*(a1 + 32) + 8);
-  v56[0] = v8;
-  v56[1] = v9;
-  v55[2] = @"metricsidentifier";
-  v43 = v5;
+  v58[0] = v8;
+  v58[1] = v9;
+  v57[2] = @"metricsidentifier";
+  v45 = v5;
   v10 = [v5 generateIdentifier];
-  v56[2] = v10;
-  v55[3] = @"invocationurl";
-  v44 = v4;
+  v58[2] = v10;
+  v57[3] = @"invocationurl";
+  v46 = v4;
   v11 = [v4 absoluteString];
   v12 = v11;
   if (v11)
@@ -265,122 +265,121 @@ void sub_2C10(uint64_t a1, void *a2)
     v13 = &stru_14F50;
   }
 
-  v56[3] = v13;
-  v55[4] = @"concernid";
+  v58[3] = v13;
+  v57[4] = @"concernid";
   v14 = [*(a1 + 40) identifier];
   v15 = [v14 stringValue];
   v16 = v15;
-  v45 = a1;
+  v47 = a1;
   v17 = *(a1 + 48);
   if (!v17)
   {
     v17 = &stru_14F50;
   }
 
-  v56[4] = v15;
-  v56[5] = v17;
-  v55[5] = @"usernote";
-  v55[6] = @"version";
-  v56[6] = @"report";
-  v18 = [NSDictionary dictionaryWithObjects:v56 forKeys:v55 count:7];
+  v58[4] = v15;
+  v58[5] = v17;
+  v57[5] = @"usernote";
+  v57[6] = @"version";
+  v58[6] = @"report";
+  v18 = [NSDictionary dictionaryWithObjects:v58 forKeys:v57 count:7];
 
-  v19 = sub_59B0();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v21 = sub_59B0(v19, v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v54 = v18;
-    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "RAP: Asked to submit problem with parameters: %@", buf, 0xCu);
+    v56 = v18;
+    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "RAP: Asked to submit problem with parameters: %@", buf, 0xCu);
   }
 
-  v20 = [NSMutableURLRequest requestWithURL:*(*(a1 + 32) + 24)];
-  [v20 setHTTPMethod:@"POST"];
-  [v20 setCachePolicy:0];
-  [v20 setTimeoutInterval:10.0];
-  v42 = v20;
-  [v20 setAllHTTPHeaderFields:&off_15A28];
-  v21 = [v18 allKeys];
-  v22 = [v21 mutableCopy];
+  v22 = [NSMutableURLRequest requestWithURL:*(*(a1 + 32) + 24)];
+  [v22 setHTTPMethod:@"POST"];
+  [v22 setCachePolicy:0];
+  [v22 setTimeoutInterval:10.0];
+  v44 = v22;
+  [v22 setAllHTTPHeaderFields:&off_15A28];
+  v23 = [v18 allKeys];
+  v24 = [v23 mutableCopy];
 
-  v23 = objc_alloc_init(NSMutableString);
-  v48 = 0u;
-  v49 = 0u;
+  v25 = objc_alloc_init(NSMutableString);
   v50 = 0u;
   v51 = 0u;
-  v24 = v18;
-  v25 = [v24 countByEnumeratingWithState:&v48 objects:v52 count:16];
-  if (v25)
+  v52 = 0u;
+  v53 = 0u;
+  v26 = v18;
+  v27 = [v26 countByEnumeratingWithState:&v50 objects:v54 count:16];
+  if (v27)
   {
-    v26 = v25;
-    v27 = *v49;
+    v28 = v27;
+    v29 = *v51;
     do
     {
-      for (i = 0; i != v26; i = i + 1)
+      for (i = 0; i != v28; i = i + 1)
       {
-        if (*v49 != v27)
+        if (*v51 != v29)
         {
-          objc_enumerationMutation(v24);
+          objc_enumerationMutation(v26);
         }
 
-        v29 = *(*(&v48 + 1) + 8 * i);
-        [v22 removeObject:v29];
-        v30 = [v24 objectForKeyedSubscript:v29];
-        v31 = +[NSCharacterSet URLQueryAllowedCharacterSet];
-        v32 = [v30 stringByAddingPercentEncodingWithAllowedCharacters:v31];
-        [v23 appendFormat:@"%@=%@", v29, v32];
+        v31 = *(*(&v50 + 1) + 8 * i);
+        [v24 removeObject:v31];
+        v32 = [v26 objectForKeyedSubscript:v31];
+        v33 = +[NSCharacterSet URLQueryAllowedCharacterSet];
+        v34 = [v32 stringByAddingPercentEncodingWithAllowedCharacters:v33];
+        [v25 appendFormat:@"%@=%@", v31, v34];
 
-        if ([v22 count])
+        if ([v24 count])
         {
-          [v23 appendString:@"&"];
+          [v25 appendString:@"&"];
         }
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v50 objects:v54 count:16];
     }
 
-    while (v26);
+    while (v28);
   }
 
-  v33 = [v23 dataUsingEncoding:4];
-  [v42 setHTTPBody:v33];
+  v35 = [v25 dataUsingEncoding:4];
+  [v44 setHTTPBody:v35];
 
-  v34 = [AMSURLRequestEncoder alloc];
-  v35 = *(v45 + 32);
-  v36 = [objc_opt_class() sharedAMSBag];
-  v37 = [v34 initWithBag:v36];
+  v36 = [AMSURLRequestEncoder alloc];
+  v37 = [objc_opt_class() sharedAMSBag];
+  v38 = [v36 initWithBag:v37];
 
-  [v37 setAnisetteType:2];
-  [v37 setMescalType:0];
-  [v37 setIncludeClientVersions:0];
-  v38 = +[ACAccountStore ams_sharedAccountStore];
-  v39 = [v38 ams_activeiTunesAccount];
-  [v37 setAccount:v39];
+  [v38 setAnisetteType:2];
+  [v38 setMescalType:0];
+  [v38 setIncludeClientVersions:0];
+  v39 = +[ACAccountStore ams_sharedAccountStore];
+  v40 = [v39 ams_activeiTunesAccount];
+  [v38 setAccount:v40];
 
-  v40 = [v37 requestByEncodingRequest:v42 parameters:0];
-  v41 = sub_59B0();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  v41 = [v38 requestByEncodingRequest:v44 parameters:0];
+  v43 = sub_59B0(v41, v42);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v54 = v42;
-    _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "RAP: Encoding request: %@", buf, 0xCu);
+    v56 = v44;
+    _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "RAP: Encoding request: %@", buf, 0xCu);
   }
 
-  v46[0] = _NSConcreteStackBlock;
-  v46[1] = 3221225472;
-  v46[2] = sub_31B0;
-  v46[3] = &unk_14870;
-  v47 = *(v45 + 56);
-  [v40 addFinishBlock:v46];
+  v48[0] = _NSConcreteStackBlock;
+  v48[1] = 3221225472;
+  v48[2] = sub_31B0;
+  v48[3] = &unk_14870;
+  v49 = *(v47 + 56);
+  [v41 addFinishBlock:v48];
 }
 
 void sub_31B0(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_59B0();
-  v8 = v7;
+  v8 = sub_59B0(v6, v7);
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_9F1C();
     }
@@ -389,30 +388,30 @@ void sub_31B0(uint64_t a1, void *a2, void *a3)
     block[1] = 3221225472;
     block[2] = sub_33A0;
     block[3] = &unk_14820;
-    v15 = *(a1 + 32);
-    v14 = v6;
+    v16 = *(a1 + 32);
+    v15 = v6;
     dispatch_async(&_dispatch_main_q, block);
 
-    v9 = v15;
+    v10 = v16;
   }
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = v5;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "RAP: Submitting encoded request: %@", buf, 0xCu);
+      v18 = v5;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "RAP: Submitting encoded request: %@", buf, 0xCu);
     }
 
-    v9 = +[AMSURLSession defaultSession];
-    v10 = [v9 dataTaskPromiseWithRequest:v5];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_33C0;
-    v11[3] = &unk_14848;
-    v12 = *(a1 + 32);
-    [v10 addFinishBlock:v11];
+    v10 = +[AMSURLSession defaultSession];
+    v11 = [v10 dataTaskPromiseWithRequest:v5];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_33C0;
+    v12[3] = &unk_14848;
+    v13 = *(a1 + 32);
+    [v11 addFinishBlock:v12];
   }
 }
 
@@ -436,43 +435,43 @@ void sub_33C0(uint64_t a1, void *a2, void *a3)
 
   if (v8)
   {
-    v9 = CPSErrorDomain;
-    v23 = NSLocalizedDescriptionKey;
-    v24 = @"Unable to submit response (forced for testing).";
-    v10 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    v11 = [NSError errorWithDomain:v9 code:1 userInfo:v10];
+    v11 = CPSErrorDomain;
+    v25 = NSLocalizedDescriptionKey;
+    v26 = @"Unable to submit response (forced for testing).";
+    v12 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v13 = [NSError errorWithDomain:v11 code:1 userInfo:v12];
 
-    v6 = v11;
+    v6 = v13;
   }
 
-  v12 = sub_59B0();
-  v13 = v12;
+  v14 = sub_59B0(v9, v10);
+  v15 = v14;
   if (v6)
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_9F84();
     }
   }
 
-  else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = v13;
-    v15 = [v5 response];
+    v16 = v15;
+    v17 = [v5 response];
     *buf = 138412290;
-    v22 = v15;
-    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "RAP: Submitted request. Result response: %@", buf, 0xCu);
+    v24 = v17;
+    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "RAP: Submitted request. Result response: %@", buf, 0xCu);
   }
 
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_35DC;
-  v18[3] = &unk_14820;
-  v16 = *(a1 + 32);
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_35DC;
+  v20[3] = &unk_14820;
+  v18 = *(a1 + 32);
+  v21 = v6;
+  v22 = v18;
   v19 = v6;
-  v20 = v16;
-  v17 = v6;
-  dispatch_async(&_dispatch_main_q, v18);
+  dispatch_async(&_dispatch_main_q, v20);
 }
 
 uint64_t sub_35DC(uint64_t a1)
@@ -486,15 +485,16 @@ uint64_t sub_35DC(uint64_t a1)
   return result;
 }
 
-void sub_37EC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_37EC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_3ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -553,7 +553,6 @@ Class sub_4068(uint64_t a1)
 
 uint64_t sub_4194(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1A068 = result;
   return result;
@@ -680,19 +679,20 @@ void sub_4C28(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = sub_59B0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sub_59B0(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_A1E8(v6, v7);
+      sub_A1E8(v8, v9);
     }
   }
 
-  v8 = *(a1 + 32);
-  if (v8)
+  v10 = *(a1 + 32);
+  if (v10)
   {
-    (*(v8 + 16))(v8, v6);
+    (*(v10 + 16))(v10, v8);
   }
 }
 
@@ -830,7 +830,7 @@ uint64_t sub_552C(uint64_t a1)
   return result;
 }
 
-uint64_t sub_59B0()
+uint64_t sub_59B0(uint64_t a1, uint64_t a2)
 {
   if (qword_1A078 != -1)
   {
@@ -887,9 +887,9 @@ void sub_61E0(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_6C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_6C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -941,7 +941,6 @@ Class sub_6DC0(uint64_t a1)
 
 uint64_t sub_6EEC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1A088 = result;
   return result;
@@ -1037,13 +1036,12 @@ unint64_t sub_98A8()
 
 uint64_t sub_9918()
 {
-  v0 = *(*(sub_A460() - 8) + 64);
+  sub_A460();
   __chkstk_darwin();
-  v1 = sub_A440();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
+  v0 = sub_A440();
+  v1 = *(v0 - 8);
   __chkstk_darwin();
-  v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v11 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_A4D0();
   sub_A4C0();
   sub_A4B0();
@@ -1059,17 +1057,17 @@ uint64_t sub_9918()
   sub_9D20(0, &qword_1A030, NSBundle_ptr);
   if (!sub_A4E0())
   {
-    v6 = [objc_opt_self() mainBundle];
+    v4 = [objc_opt_self() mainBundle];
   }
 
-  v7 = sub_A480();
+  v5 = sub_A480();
+  v7 = v6;
   v9 = v8;
-  v11 = v10;
   sub_9CC8();
   sub_A490();
-  sub_9D68(v7, v9, v11 & 1);
+  sub_9D68(v5, v7, v9 & 1);
 
-  (*(v2 + 8))(v5, v1);
+  (*(v1 + 8))(v3, v0);
 }
 
 uint64_t sub_9BD8()
@@ -1086,7 +1084,6 @@ uint64_t sub_9C80(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1107,12 +1104,11 @@ unint64_t sub_9CC8()
   return result;
 }
 
-uint64_t sub_9D20(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_9D20(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -1150,7 +1146,6 @@ uint64_t sub_9DF0(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

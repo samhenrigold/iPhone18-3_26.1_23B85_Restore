@@ -1,5 +1,6 @@
 @interface FMFAccount
 - (id)description;
+- (void)applyPropertiesFromACAccount:(id)account includingTokens:(BOOL)tokens;
 - (void)copyInfoFromAccount:(id)account;
 @end
 
@@ -78,6 +79,38 @@
   v13 = [NSString stringWithFormat:@"FMFAccount(0x%lx) %@, %@, %@, %ld, %@, %ld, %@, %@, %@, %@, %@", self, dsid, username, v15, appAuthTokenStatus, v6, internalAuthTokenStatus, serverHost, appServerHost, serverProtocolScheme, apsEnvironment, additionalInfo];
 
   return v13;
+}
+
+- (void)applyPropertiesFromACAccount:(id)account includingTokens:(BOOL)tokens
+{
+  tokensCopy = tokens;
+  v14 = [account fmfAccountInfoWithTokens:tokens];
+  v6 = [v14 objectForKeyedSubscript:@"username"];
+  [(FindBaseAccount *)self setUsername:v6];
+
+  v7 = [v14 objectForKeyedSubscript:@"dsid"];
+  [(FMFAccount *)self setDsid:v7];
+
+  if (tokensCopy)
+  {
+    v8 = [v14 objectForKeyedSubscript:@"appToken"];
+    [(FMFAccount *)self setAppAuthToken:v8];
+
+    v9 = [v14 objectForKeyedSubscript:@"internalToken"];
+    [(FMFAccount *)self setInternalAuthToken:v9];
+  }
+
+  v10 = [v14 objectForKeyedSubscript:@"appHostname"];
+  [(FMFAccount *)self setAppServerHost:v10];
+
+  v11 = [v14 objectForKeyedSubscript:@"hostname"];
+  [(FindBaseAccount *)self setServerHost:v11];
+
+  v12 = [v14 objectForKeyedSubscript:@"scheme"];
+  [(FindBaseAccount *)self setServerProtocolScheme:v12];
+
+  v13 = [v14 objectForKeyedSubscript:@"apsEnv"];
+  [(FindBaseAccount *)self setApsEnvironment:v13];
 }
 
 @end

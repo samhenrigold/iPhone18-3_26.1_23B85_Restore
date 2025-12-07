@@ -358,7 +358,7 @@ void __89__VNEspressoModelClassifier_createHierarchicalModelForOriginatingReques
           v11 = v10 + 1;
         }
 
-        if (v22 - v20 >= 0x7FFFFFFFFFFFFFE0)
+        if ((v22 - v20) >= 0x7FFFFFFFFFFFFFE0)
         {
           v12 = 0x7FFFFFFFFFFFFFFLL;
         }
@@ -417,7 +417,7 @@ void __89__VNEspressoModelClassifier_createHierarchicalModelForOriginatingReques
   }
 
   v19.__r_.__value_.__r.__words[0] = [*(v18 + 40) UTF8String];
-  std::allocate_shared[abi:ne200100]<vision::mod::ImageClassifier_HierarchicalModel,std::allocator<vision::mod::ImageClassifier_HierarchicalModel>,char const*,decltype(nullptr),std::vector<std::pair<std::string,BOOL>> &,0>();
+  std::allocate_shared[abi:ne200100]<vision::mod::ImageClassifier_HierarchicalModel,std::allocator<vision::mod::ImageClassifier_HierarchicalModel>,char const*,decltype(nullptr),std::vector<std::pair<std::string,BOOL>> &,0>(v25, &v19.__r_.__value_.__l.__data_, &v20);
 }
 
 + (shared_ptr<vision::mod::ImageDescriptorProcessorAbstract>)createDescriprorProcessorWithModelPath:(const char *)path nBatch:(int)batch computePlatform:(int)platform computePath:(int)computePath options:(Options *)options
@@ -461,9 +461,9 @@ void __89__VNEspressoModelClassifier_createHierarchicalModelForOriginatingReques
   v10 = 0;
   std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v10, *(ptr + 1), *(ptr + 2), 0xAAAAAAAAAAAAAAABLL * ((*(ptr + 2) - *(ptr + 1)) >> 3));
   v3 = objc_alloc(MEMORY[0x1E695DF70]);
-  v4 = [v3 initWithCapacity:0xAAAAAAAAAAAAAAABLL * (v11 - v10)];
+  v4 = [v3 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v11 - v10) >> 3)];
   v5 = v10;
-  for (i = v11; v5 != i; v5 += 3)
+  for (i = v11; v5 != i; v5 += 24)
   {
     v7 = v5;
     if (*(v5 + 23) < 0)
@@ -1197,21 +1197,19 @@ LABEL_22:
 
 uint64_t __68__VNEspressoModelClassifier_completeInitializationForSession_error___block_invoke(uint64_t a1, void *a2)
 {
-  v55 = 1;
-  if (![VNValidationUtilities getMTLGPUPriority:&v55 forKey:@"VNDetectorOption_MetalContextPriority" inOptions:*(a1 + 32) withDefaultValue:1 error:a2])
+  v50 = 1;
+  if (![VNValidationUtilities getMTLGPUPriority:&v50 forKey:@"VNDetectorOption_MetalContextPriority" inOptions:*(a1 + 32) withDefaultValue:1 error:a2])
   {
 LABEL_25:
-    v18 = 0;
+    v14 = 0;
     goto LABEL_26;
   }
 
   if ([VNComputeDeviceUtilities isCPUComputeDevice:*(*(a1 + 40) + 88)])
   {
-    v43 = 0;
+    v38 = 0;
     v4 = 0;
-    v5 = 0;
-    v6 = 1;
-    v7 = 1;
+    v5 = 1;
     goto LABEL_8;
   }
 
@@ -1219,182 +1217,180 @@ LABEL_25:
   {
     if (a2)
     {
-      v27 = [VNError errorForUnsupportedComputeDevice:*(*(a1 + 40) + 88)];
-      v18 = 0;
+      v22 = [VNError errorForUnsupportedComputeDevice:*(*(a1 + 40) + 88)];
+      v14 = 0;
       goto LABEL_24;
     }
 
     goto LABEL_25;
   }
 
-  v8 = [*(a1 + 40) metalContext];
-  v9 = objc_alloc(MEMORY[0x1E699BC20]);
-  if (v8)
+  v6 = [*(a1 + 40) metalContext];
+  v7 = objc_alloc(MEMORY[0x1E699BC20]);
+  if (v6)
   {
-    v10 = *(v8 + 8);
-    v11 = *(v8 + 40);
+    v8 = *(v6 + 8);
+    v9 = *(v6 + 40);
   }
 
   else
   {
-    v10 = 0;
-    v11 = 0;
+    v8 = 0;
+    v9 = 0;
   }
 
-  v12 = v11;
-  v13 = [v9 initWithDevice:v10 andWisdomParams:v12];
+  v10 = v9;
+  v11 = [v7 initWithDevice:v8 andWisdomParams:v10];
 
-  v43 = v13;
+  v38 = v11;
   v4 = *(a1 + 80);
-  v6 = v55;
+  v5 = v50;
 
-  v5 = 1;
-  v7 = 2;
 LABEL_8:
-  v14 = *(a1 + 72);
-  v53 = 0;
-  v54 = 0;
-  v15 = [*(a1 + 48) UTF8String];
-  v16 = [*(a1 + 56) UTF8String];
-  v49[0] = v4;
-  v50 = v6;
-  v17 = v43;
-  v18 = v17;
-  v51 = v17;
-  v52 = 0;
-  if (v14)
+  v12 = *(a1 + 72);
+  v48 = 0;
+  v49 = 0;
+  [*(a1 + 48) UTF8String];
+  [*(a1 + 56) UTF8String];
+  v44[0] = v4;
+  v45 = v5;
+  v13 = v38;
+  v14 = v13;
+  v46 = v13;
+  v47 = 0;
+  if (v12)
   {
-    [v14 createClassifierWithDescriptor:&v53 classifierAbsolutePath:v15 computePlatform:v5 computePath:v7 labelsFilename:v16 options:v49];
-    v19 = *v44;
+    objc_msgSend_createClassifierWithDescriptor_classifierAbsolutePath_computePlatform_computePath_labelsFilename_options_(v12);
+    v15 = *v39;
   }
 
   else
   {
 
-    v19 = 0uLL;
+    v15 = 0uLL;
   }
 
-  v20 = *(a1 + 40) + 72;
-  memset(v44, 0, sizeof(v44));
-  v21 = *(v20 + 8);
-  *v20 = v19;
-  if (v21)
+  v16 = *(a1 + 40) + 72;
+  memset(v39, 0, sizeof(v39));
+  v17 = *(v16 + 8);
+  *v16 = v15;
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
-  if (*&v44[8])
+  if (*&v39[8])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*&v44[8]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](*&v39[8]);
   }
 
-  if (v54)
+  if (v49)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v54);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v49);
   }
 
   if (!*(*(a1 + 40) + 72))
   {
     if (a2)
     {
-      v27 = +[VNError errorForMemoryAllocationFailure];
+      v22 = +[VNError errorForMemoryAllocationFailure];
 LABEL_24:
-      v28 = 0;
-      *a2 = v27;
+      v23 = 0;
+      *a2 = v22;
       goto LABEL_44;
     }
 
 LABEL_26:
-    v28 = 0;
+    v23 = 0;
     goto LABEL_44;
   }
 
-  v22 = *(a1 + 72);
-  v23 = [*(a1 + 64) UTF8String];
-  v45[0] = v4;
-  v46 = v6;
-  v24 = v18;
-  v25 = v24;
-  v47 = v24;
-  v48 = 0;
-  if (v22)
+  v18 = *(a1 + 72);
+  [*(a1 + 64) UTF8String];
+  v40[0] = v4;
+  v41 = v5;
+  v19 = v14;
+  v20 = v19;
+  v42 = v19;
+  v43 = 0;
+  if (v18)
   {
-    [v22 createDescriprorProcessorWithModelPath:v23 nBatch:v5 computePlatform:v5 computePath:2 options:v45];
-    v26 = *v44;
+    objc_msgSend_createDescriprorProcessorWithModelPath_nBatch_computePlatform_computePath_options_(v18);
+    v21 = *v39;
   }
 
   else
   {
 
-    v26 = 0uLL;
+    v21 = 0uLL;
   }
 
-  v29 = *(a1 + 40) + 56;
-  memset(v44, 0, sizeof(v44));
-  v30 = *(v29 + 8);
-  *v29 = v26;
-  if (v30)
+  v24 = *(a1 + 40) + 56;
+  memset(v39, 0, sizeof(v39));
+  v25 = *(v24 + 8);
+  *v24 = v21;
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
-  if (*&v44[8])
+  if (*&v39[8])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*&v44[8]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](*&v39[8]);
   }
 
-  v31 = *(a1 + 40);
-  if (*(v31 + 56))
+  v26 = *(a1 + 40);
+  if (*(v26 + 56))
   {
-    (*(**(v31 + 72) + 32))(*(v31 + 72), v31 + 56);
+    (*(**(v26 + 72) + 32))(*(v26 + 72), v26 + 56);
     *(*(*(a1 + 40) + 72) + 112) = 2;
     *(*(*(a1 + 40) + 72) + 96) = 1;
-    ImageClassifier_loadLabelsAndBooleanFlags(v44, [*(a1 + 56) UTF8String]);
-    v32 = objc_autoreleasePoolPush();
-    v33 = [MEMORY[0x1E695DFA8] setWithCapacity:0xAAAAAAAAAAAAAAABLL * ((*&v44[8] - *v44) >> 4)];
-    v34 = *v44;
-    for (i = *&v44[8]; v34 != i; v34 += 6)
+    ImageClassifier_loadLabelsAndBooleanFlags(v39, [*(a1 + 56) UTF8String]);
+    v27 = objc_autoreleasePoolPush();
+    v28 = [MEMORY[0x1E695DFA8] setWithCapacity:0xAAAAAAAAAAAAAAABLL * ((*&v39[8] - *v39) >> 4)];
+    v29 = *v39;
+    for (i = *&v39[8]; v29 != i; v29 += 6)
     {
-      if ((*v34[3] & 1) == 0)
+      if ((*v29[3] & 1) == 0)
       {
-        v36 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v37 = v34;
-        if (*(v34 + 23) < 0)
+        v31 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v32 = v29;
+        if (*(v29 + 23) < 0)
         {
-          v37 = *v34;
+          v32 = *v29;
         }
 
-        v38 = [v36 initWithUTF8String:v37];
-        [v33 addObject:v38];
+        v33 = [v31 initWithUTF8String:v32];
+        [v28 addObject:v33];
       }
     }
 
-    v39 = [v33 copy];
-    v40 = *(a1 + 40);
-    v41 = *(v40 + 96);
-    *(v40 + 96) = v39;
+    v34 = [v28 copy];
+    v35 = *(a1 + 40);
+    v36 = *(v35 + 96);
+    *(v35 + 96) = v34;
 
-    objc_autoreleasePoolPop(v32);
-    v56 = v44;
-    std::vector<std::pair<std::string,std::vector<BOOL>>>::__destroy_vector::operator()[abi:ne200100](&v56);
-    v28 = 1;
+    objc_autoreleasePoolPop(v27);
+    v51 = v39;
+    std::vector<std::pair<std::string,std::vector<BOOL>>>::__destroy_vector::operator()[abi:ne200100](&v51);
+    v23 = 1;
   }
 
   else if (a2)
   {
     +[VNError errorForMemoryAllocationFailure];
-    *a2 = v28 = 0;
+    *a2 = v23 = 0;
   }
 
   else
   {
-    v28 = 0;
+    v23 = 0;
   }
 
-  v18 = v25;
+  v14 = v20;
 LABEL_44:
 
-  return v28;
+  return v23;
 }
 
 - (id)boundComputeStageDevices

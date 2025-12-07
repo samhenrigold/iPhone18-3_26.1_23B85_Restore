@@ -22,7 +22,7 @@
 - (void)performUserInteractionTask
 {
   selfCopy = self;
-  sub_1A48F6EE0();
+  sub_1A48F6EE0(v2);
 }
 
 + (id)localizedTitleForUseCase:(unint64_t)case assetCollectionReference:(id)reference withInputs:(id)inputs
@@ -59,17 +59,18 @@
 
 + (id)makeCustomMenuElementForUseCase:(unint64_t)case assetCollectionReference:(id)reference withInput:(id)input handler:(id)handler
 {
-  v7 = _Block_copy(handler);
-  *(swift_allocObject() + 16) = v7;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
   referenceCopy = reference;
   swift_unknownObjectRetain();
-  sub_1A48F7EE4();
+  sub_1A48F7EE4(referenceCopy, input, sub_1A3E79128, v9);
 }
 
 - (_TtC12PhotosUICore49PXPhotoKitAssetCollectionCustomizeActionPerformer)initWithActionType:(id)type assetCollectionReference:(id)reference parameters:(id)parameters
 {
   type metadata accessor for PXActionParameterKey();
-  sub_1A48F7C80(&unk_1EB1356B0, type metadata accessor for PXActionParameterKey);
+  sub_1A48F7C80(&unk_1EB1356B0, type metadata accessor for PXActionParameterKey, &unk_1A5377DC0);
   sub_1A524C3E4();
   typeCopy = type;
   referenceCopy = reference;

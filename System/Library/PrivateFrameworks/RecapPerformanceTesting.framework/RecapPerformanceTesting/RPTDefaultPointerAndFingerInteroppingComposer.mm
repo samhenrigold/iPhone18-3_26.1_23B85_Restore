@@ -99,8 +99,7 @@
   {
     v11 = at.x + delta.dx * 0.5;
     v12 = at.y + delta.dy * 0.5;
-    [(RPTDefaultPointerAndFingerInteroppingComposer *)self pointerMoveToPoint:v11 duration:v12, 0.01];
-    v13 = RPTLogTestRunning();
+    v13 = RPTLogTestRunning([(RPTDefaultPointerAndFingerInteroppingComposer *)self pointerMoveToPoint:v11 duration:v12, 0.01]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v32.x = v11;
@@ -126,7 +125,7 @@
     v16 = 0.5 - duration;
     v11 = at.x + delta.dx;
     v12 = at.y + delta.dy;
-    v17 = RPTLogTestRunning();
+    v17 = RPTLogTestRunning(self);
     v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
     if (v16 >= 0.0)
     {

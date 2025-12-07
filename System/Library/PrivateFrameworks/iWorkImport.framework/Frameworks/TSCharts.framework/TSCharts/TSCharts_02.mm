@@ -1067,6 +1067,13 @@ void sub_27624F1F4(uint64_t a1)
   objc_msgSend_applyFromIntToIntDictionary_(v4, v6, v7, v8, v9, v5);
 }
 
+void sub_2762561D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, ...)
+{
+  va_start(va, a43);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 double sub_276256200(uint64_t a1, void *a2)
 {
   if ((*(a1 + 72) & 1) == 0)
@@ -1075,22 +1082,22 @@ double sub_276256200(uint64_t a1, void *a2)
   }
 
   v3 = a2;
-  objc_msgSend_offset(v3, v4, v5, v6, v7);
-  v9 = fabs(v8);
-  objc_msgSend_radius(v3, v10, v8, v11, v12);
-  v14 = v13;
+  objc_msgSend_offset(v3, v4, v5, v6);
+  v8 = fabs(v7);
+  objc_msgSend_radius(v3, v9, v7, v10, v11);
+  v13 = v12;
 
-  v15 = -(v9 + fabs(v14));
-  v21 = CGRectInset(*(a1 + 32), v15, v15);
-  v21.origin.x = v21.size.width + v21.size.width;
-  v21.origin.y = 0.0;
-  v16 = CGContextConvertSizeToDeviceSpace(*(a1 + 64), v21.origin);
-  v20.width = ceil(v16.width);
-  v20.height = ceil(v16.height);
-  v17 = CGContextConvertSizeToUserSpace(*(a1 + 64), v20);
-  width = v17.width;
+  v14 = -(v8 + fabs(v13));
+  v20 = CGRectInset(*(a1 + 32), v14, v14);
+  v20.origin.x = v20.size.width + v20.size.width;
+  v20.origin.y = 0.0;
+  v15 = CGContextConvertSizeToDeviceSpace(*(a1 + 64), v20.origin);
+  v19.width = ceil(v15.width);
+  v19.height = ceil(v15.height);
+  v16 = CGContextConvertSizeToUserSpace(*(a1 + 64), v19);
+  width = v16.width;
   CGContextClipToRectSafe();
-  CGContextTranslateCTM(*(a1 + 64), -v17.width, v17.height);
+  CGContextTranslateCTM(*(a1 + 64), -v16.width, v16.height);
   return width;
 }
 
@@ -1258,186 +1265,186 @@ void sub_2762567E8(uint64_t a1, double a2, double a3, double a4, double a5, uint
 {
   if (!CGRectIsNull(*&a2))
   {
-    if (*(*(*(a1 + 88) + 8) + 40) && (!objc_msgSend_hasShadow_(TSCHStyleUtilities, v22, v23, v24, v25) ? (objc_msgSend_defaultShadow(MEMORY[0x277D803A8], v26, v27, v28, v29), v30 = objc_claimAutoreleasedReturnValue()) : (v30 = *(*(*(a1 + 88) + 8) + 40)), (v31 = v30) != 0))
+    if (*(*(*(a1 + 88) + 8) + 40) && (!objc_msgSend_hasShadow_(TSCHStyleUtilities, v21, v22, v23, v24) ? (objc_msgSend_defaultShadow(MEMORY[0x277D803A8], v25, v26, v27, v28), v29 = objc_claimAutoreleasedReturnValue()) : (v29 = *(*(*(a1 + 88) + 8) + 40)), (v30 = v29) != 0))
+    {
+      v202.origin.x = a12;
+      v202.origin.y = a13;
+      v202.size.width = a14;
+      v202.size.height = a15;
+      v216.origin.x = a16;
+      v216.origin.y = a17;
+      v216.size.width = a18;
+      v216.size.height = a19;
+      v203 = CGRectUnion(v202, v216);
+      objc_msgSend_shadowBoundsForRect_(v30, v31, v203.origin.x, v203.origin.y, v203.size.width, v203.size.height);
+      x = v32;
+      y = v34;
+      width = v36;
+      height = v38;
+    }
+
+    else
     {
       v204.origin.x = a12;
       v204.origin.y = a13;
       v204.size.width = a14;
       v204.size.height = a15;
-      v218.origin.x = a16;
-      v218.origin.y = a17;
-      v218.size.width = a18;
-      v218.size.height = a19;
-      v205 = CGRectUnion(v204, v218);
-      objc_msgSend_shadowBoundsForRect_(v31, v32, v205.origin.x, v205.origin.y, v205.size.width, v205.size.height);
-      x = v33;
-      y = v35;
-      width = v37;
-      height = v39;
+      v217.origin.x = a16;
+      v217.origin.y = a17;
+      v217.size.width = a18;
+      v217.size.height = a19;
+      v205 = CGRectUnion(v204, v217);
+      x = v205.origin.x;
+      y = v205.origin.y;
+      width = v205.size.width;
+      height = v205.size.height;
+      v30 = 0;
     }
 
-    else
-    {
-      v206.origin.x = a12;
-      v206.origin.y = a13;
-      v206.size.width = a14;
-      v206.size.height = a15;
-      v219.origin.x = a16;
-      v219.origin.y = a17;
-      v219.size.width = a18;
-      v219.size.height = a19;
-      v207 = CGRectUnion(v206, v219);
-      x = v207.origin.x;
-      y = v207.origin.y;
-      width = v207.size.width;
-      height = v207.size.height;
-      v31 = 0;
-    }
-
-    v208.origin.x = x;
-    v208.origin.y = y;
-    v208.size.width = width;
-    v208.size.height = height;
-    if (!CGRectIntersectsRect(v208, *(a1 + 104)))
+    v206.origin.x = x;
+    v206.origin.y = y;
+    v206.size.width = width;
+    v206.size.height = height;
+    if (!CGRectIntersectsRect(v206, *(a1 + 104)))
     {
       goto LABEL_66;
     }
 
-    v209.origin.x = x;
-    v209.origin.y = y;
-    v209.size.width = width;
-    v209.size.height = height;
-    v210 = CGRectIntersection(v209, *(a1 + 104));
+    v207.origin.x = x;
+    v207.origin.y = y;
+    v207.size.width = width;
+    v207.size.height = height;
+    v208 = CGRectIntersection(v207, *(a1 + 104));
     if ((*(a1 + 216) & 1) != 0 || *(a1 + 217) != 1)
     {
-      v189 = 0;
+      v187 = 0;
     }
 
     else
     {
-      CGContextBeginTransparencyLayerWithRect(*(a1 + 136), v210, 0);
-      v189 = 1;
+      CGContextBeginTransparencyLayerWithRect(*(a1 + 136), v208, 0);
+      v187 = 1;
     }
 
     CGContextSaveGState(*(a1 + 136));
     CGContextClipToRectSafe();
-    v211.origin.x = a12;
-    v211.origin.y = a13;
-    v211.size.width = a14;
-    v211.size.height = a15;
-    v212 = CGRectStandardize(v211);
-    v41 = v212.origin.x;
-    v42 = v212.origin.y;
-    v187 = *(MEMORY[0x277CBF398] + 16);
-    v188 = *MEMORY[0x277CBF398];
-    v202 = *MEMORY[0x277CBF398];
-    *v203 = v187;
-    v192 = v212.size.height;
-    v193 = v212.size.width;
-    v44 = objc_msgSend_newCGLayerForUserSpaceRect_inContext_outUserSpaceLayerBounds_(TSCHRenderUtilities, v43, v212.origin.x, v212.origin.y, v212.size.width, *(a1 + 136), &v202);
-    v45 = v44;
-    if (v44 && (c = CGLayerGetContext(v44)) != 0)
+    v209.origin.x = a12;
+    v209.origin.y = a13;
+    v209.size.width = a14;
+    v209.size.height = a15;
+    v210 = CGRectStandardize(v209);
+    v40 = v210.origin.x;
+    v41 = v210.origin.y;
+    v185 = *(MEMORY[0x277CBF398] + 16);
+    v186 = *MEMORY[0x277CBF398];
+    v200 = *MEMORY[0x277CBF398];
+    v201[0] = v185;
+    v190 = v210.size.height;
+    v191 = v210.size.width;
+    v43 = objc_msgSend_newCGLayerForUserSpaceRect_inContext_outUserSpaceLayerBounds_(TSCHRenderUtilities, v42, v210.origin.x, v210.origin.y, v210.size.width, *(a1 + 136), &v200);
+    v44 = v43;
+    if (v43 && (c = CGLayerGetContext(v43)) != 0)
     {
       TSDCGContextShouldRenderHDRContent();
       TSDCGContextSetShouldRenderHDRContent();
-      v46 = 0;
+      v45 = 0;
     }
 
     else
     {
       c = 0;
-      v46 = 1;
+      v45 = 1;
     }
 
-    v48 = sub_2762A1E88(*(a1 + 136), v193, v192);
+    v47 = sub_2762A1E88(*(a1 + 136), v191, v190);
+    v50 = v47;
     v51 = v48;
-    v52 = v49;
     if (!*(*(a1 + 32) + 24))
     {
-      v48 = v49;
+      v47 = v48;
     }
 
-    v190 = v48;
-    if (!v45)
+    v188 = v47;
+    if (!v44)
     {
-      v53 = MEMORY[0x277D81150];
-      v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v48, v49, v50, "[TSCHChartBarElementsRenderer p_drawBars:visible:]_block_invoke_2");
-      v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, v56, v57, v58, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartBarElementsRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v53, v60, v61, v62, v63, v54, v59, 339, 0, "invalid NULL value for fillLayer");
+      v52 = MEMORY[0x277D81150];
+      v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v46, v47, v48, v49, "[TSCHChartBarElementsRenderer p_drawBars:visible:]_block_invoke_2");
+      v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, v55, v56, v57, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartBarElementsRenderer.m");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v52, v59, v60, v61, v62, v53, v58, 339, 0, "invalid NULL value for fillLayer");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v64, v65, v66, v67);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v63, v64, v65, v66);
     }
 
-    if (v46)
+    if (v45)
     {
-      v68 = MEMORY[0x277D81150];
-      v69 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v48, v49, v50, "[TSCHChartBarElementsRenderer p_drawBars:visible:]_block_invoke_2");
-      v74 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v70, v71, v72, v73, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartBarElementsRenderer.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v68, v75, v76, v77, v78, v69, v74, 340, 0, "invalid NULL value for fillLayerContext");
+      v67 = MEMORY[0x277D81150];
+      v68 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v46, v47, v48, v49, "[TSCHChartBarElementsRenderer p_drawBars:visible:]_block_invoke_2");
+      v73 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v69, v70, v71, v72, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartBarElementsRenderer.m");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v67, v74, v75, v76, v77, v68, v73, 340, 0, "invalid NULL value for fillLayerContext");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v79, v80, v81, v82);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v78, v79, v80, v81);
     }
 
-    v200 = 0u;
-    v201 = 0u;
-    objc_msgSend_barElementsRendererValueRangeForModelCache_groupIndex_(TSCHRenderUtilities, v47, 0.0, v49, v50, *(a1 + 40), a7);
-    if (objc_msgSend_shouldRender(*(a1 + 48), v83, v84, v85, v86) && !*(*(*(a1 + 96) + 8) + 40))
+    v198 = 0u;
+    v199 = 0u;
+    objc_msgSend_barElementsRendererValueRangeForModelCache_groupIndex_(TSCHRenderUtilities, 0.0, v48, v49);
+    if (objc_msgSend_shouldRender(*(a1 + 48), v82, v83, v84, v85) && !*(*(*(a1 + 96) + 8) + 40))
     {
-      v185 = v42;
-      v91 = v41;
-      objc_msgSend_width(*(a1 + 48), v87, v88, v89, v90);
-      v93 = v92;
-      objc_msgSend_width(*(a1 + 48), v94, v92, v95, v96);
-      v99 = sub_2762A1E88(*(a1 + 136), v93 + v93, v97 + v97);
+      v183 = v41;
+      v90 = v40;
+      objc_msgSend_width(*(a1 + 48), v86, v87, v88, v89);
+      v92 = v91;
+      objc_msgSend_width(*(a1 + 48), v93, v91, v94, v95);
+      v98 = sub_2762A1E88(*(a1 + 136), v92 + v92, v96 + v96);
       if (*(*(a1 + 32) + 24))
       {
-        v101 = v51;
+        v100 = v50;
       }
 
       else
       {
-        v101 = v52;
+        v100 = v51;
       }
 
-      if (v101 <= v99)
+      if (v100 <= v98)
       {
-        v102 = 1;
+        v101 = 1;
       }
 
       else
       {
-        v100 = fabs(v99 * 0.000000999999997);
-        v99 = vabdd_f64(v101, v99);
-        v102 = v99 < v100;
+        v99 = fabs(v98 * 0.000000999999997);
+        v98 = vabdd_f64(v100, v98);
+        v101 = v98 < v99;
       }
 
-      v41 = v91;
-      v103 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v98, v99, v101, v100, v102);
-      v42 = v185;
-      v104 = *(*(a1 + 96) + 8);
-      v105 = *(v104 + 40);
-      *(v104 + 40) = v103;
+      v40 = v90;
+      v102 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v97, v98, v100, v99, v101);
+      v41 = v183;
+      v103 = *(*(a1 + 96) + 8);
+      v104 = *(v103 + 40);
+      *(v103 + 40) = v102;
     }
 
-    v220.origin.x = x;
-    v220.origin.y = y;
-    v220.size.width = width;
-    v220.size.height = height;
-    v213 = CGRectIntersection(*(a1 + 176), v220);
-    if (CGRectIsNull(v213))
+    v218.origin.x = x;
+    v218.origin.y = y;
+    v218.size.width = width;
+    v218.size.height = height;
+    v211 = CGRectIntersection(*(a1 + 176), v218);
+    if (CGRectIsNull(v211))
     {
 LABEL_61:
-      if (objc_msgSend_shouldRender(*(a1 + 48), v106, v107, v108, v109) && (objc_msgSend_BOOLValue(*(*(*(a1 + 96) + 8) + 40), v179, v180, v181, v182) & 1) == 0)
+      if (objc_msgSend_shouldRender(*(a1 + 48), v105, v106, v107, v108) && (objc_msgSend_BOOLValue(*(*(*(a1 + 96) + 8) + 40), v177, v178, v179, v180) & 1) == 0)
       {
-        LOBYTE(v183) = v190 <= 1.5;
-        objc_msgSend_renderElementStroke_intoContext_usingElementRenderRect_inGroupIndex_series_relativelyPositive_stackRects_forceRoundedCornersOff_(*(a1 + 32), v179, *&v202, *(&v202 + 1), v203[0], *(a1 + 48), c, a7, *(a1 + 72), 0, *(a1 + 80), v203[1], v183);
+        LOBYTE(v181) = v188 <= 1.5;
+        objc_msgSend_renderElementStroke_intoContext_usingElementRenderRect_inGroupIndex_series_relativelyPositive_stackRects_forceRoundedCornersOff_(*(a1 + 32), v177, *&v200, *(&v200 + 1), *v201, *(a1 + 48), c, a7, *(a1 + 72), 0, *(a1 + 80), *(v201 + 1), v181);
       }
 
-      LOBYTE(v183) = v190 <= 1.5;
-      objc_msgSend_p_drawLayer_intoContext_contextRect_groupIndex_series_relativelyPositive_stackRects_forceRoundedCornersOff_(*(a1 + 32), v179, v41, v42, v193, v45, *(a1 + 136), a7, *(a1 + 72), 0, *(a1 + 80), v192, v183);
-      CGLayerRelease(v45);
+      LOBYTE(v181) = v188 <= 1.5;
+      objc_msgSend_p_drawLayer_intoContext_contextRect_groupIndex_series_relativelyPositive_stackRects_forceRoundedCornersOff_(*(a1 + 32), v177, v40, v41, v191, v44, *(a1 + 136), a7, *(a1 + 72), 0, *(a1 + 80), v190, v181);
+      CGLayerRelease(v44);
       CGContextRestoreGState(*(a1 + 136));
-      if (v189)
+      if (v187)
       {
         CGContextEndTransparencyLayer(*(a1 + 136));
       }
@@ -1448,10 +1455,10 @@ LABEL_66:
     }
 
     objc_opt_class();
-    v110 = TSUDynamicCast();
-    if (objc_msgSend_isMultiData(*(a1 + 64), v111, v112, v113, v114) && BYTE8(v201) != *(*(a1 + 32) + 24) && v110 && objc_msgSend_technique(v110, v115, v116, v117, v118) == 2)
+    v109 = TSUDynamicCast();
+    if (objc_msgSend_isMultiData(*(a1 + 64), v110, v111, v112, v113) && BYTE8(v199) != *(*(a1 + 32) + 24) && v109 && objc_msgSend_technique(v109, v114, v115, v116, v117) == 2)
     {
-      objc_msgSend_fillSize(v110, v115, v116, v117, v118);
+      objc_msgSend_fillSize(v109, v114, v115, v116, v117);
       if (TSUSizeIsEmpty())
       {
 LABEL_60:
@@ -1459,118 +1466,118 @@ LABEL_60:
         goto LABEL_61;
       }
 
-      v198 = 0u;
-      v199 = 0u;
       v196 = 0u;
       v197 = 0u;
-      v120 = sub_27628C4A4(c, &v196);
-      v123 = *(a1 + 32);
-      if (!v123[1])
+      v194 = 0u;
+      v195 = 0u;
+      v119 = sub_27628C4A4(c, &v194);
+      v122 = *(a1 + 32);
+      if (!v122[1])
       {
-        v184 = MEMORY[0x277D81150];
-        v186 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v119, v120, v121, v122, "[TSCHChartBarElementsRenderer p_drawBars:visible:]_block_invoke_2");
-        v128 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v124, v125, v126, v127, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartBarElementsRenderer.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v184, v129, v130, v131, v132, v186, v128, 363, 0, "invalid nil value for '%{public}s'", "_layoutItem");
+        v182 = MEMORY[0x277D81150];
+        v184 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v118, v119, v120, v121, "[TSCHChartBarElementsRenderer p_drawBars:visible:]_block_invoke_2");
+        v127 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v123, v124, v125, v126, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartBarElementsRenderer.m");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v182, v128, v129, v130, v131, v184, v127, 363, 0, "invalid nil value for '%{public}s'", "_layoutItem");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v133, v134, v135, v136);
-        v123 = *(a1 + 32);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v132, v133, v134, v135);
+        v122 = *(a1 + 32);
       }
 
-      v195[0] = v188;
-      v195[1] = v187;
-      objc_msgSend_rootedLayoutRect(v123[1], v119, *&v187, *&v188, v122);
-      v137 = *(a1 + 40);
-      v138 = *(a1 + 48);
-      v194[0] = v196;
-      v194[1] = v197;
-      v194[2] = v198;
-      v194[3] = v199;
-      objc_msgSend_renderingElementFrameForBarElementFrame_groupIndex_modelCache_stroke_viewScale_contextInfo_returningFillRect_strokeRect_(v123, v139, v140, v141, v142, a7, v137, v138, v194, v195, 0);
+      v193[0] = v186;
+      v193[1] = v185;
+      objc_msgSend_rootedLayoutRect(v122[1], v118, *&v185, *&v186, v121);
+      v136 = *(a1 + 40);
+      v137 = *(a1 + 48);
+      v192[0] = v194;
+      v192[1] = v195;
+      v192[2] = v196;
+      v192[3] = v197;
+      objc_msgSend_renderingElementFrameForBarElementFrame_groupIndex_modelCache_stroke_viewScale_contextInfo_returningFillRect_strokeRect_(v122, v138, v139, v140, v141, a7, v136, v137, v192, v193, 0);
       TSUCeilSize();
       TSURectWithOriginAndSize();
-      v215 = CGContextConvertRectToDeviceSpace(c, v214);
-      v143 = v215.origin.x;
-      v144 = v215.origin.y;
-      sub_27628CEF8();
-      v216.size.width = v145;
-      v216.size.height = v146;
-      v216.origin.x = v143;
-      v216.origin.y = v144;
-      v217 = CGContextConvertRectToUserSpace(c, v216);
+      v213 = CGContextConvertRectToDeviceSpace(c, v212);
+      v142 = v213.origin.x;
+      v143 = v213.origin.y;
+      sub_27628CEF8(v144, v213.size.width, v213.size.height);
+      v214.size.width = v145;
+      v214.size.height = v146;
+      v214.origin.x = v142;
+      v214.origin.y = v143;
+      v215 = CGContextConvertRectToUserSpace(c, v214);
       v147 = *(*(a1 + 32) + 24);
       if (v147 == 1)
       {
-        v148 = v41;
+        v148 = v40;
       }
 
       else
       {
-        v148 = v41 - (v217.size.width - v193);
+        v148 = v40 - (v215.size.width - v191);
       }
 
       if (v147 == 1)
       {
-        v149 = v42 - (v217.size.height - v192);
+        v149 = v41 - (v215.size.height - v190);
       }
 
       else
       {
-        v149 = v42;
+        v149 = v41;
       }
 
       if (v147 == 1)
       {
-        v150 = v193;
+        v150 = v191;
       }
 
       else
       {
-        v150 = v217.size.width;
+        v150 = v215.size.width;
       }
 
       if (v147 == 1)
       {
-        v151 = v217.size.height;
+        v151 = v215.size.height;
       }
 
       else
       {
-        v151 = v192;
+        v151 = v190;
       }
 
       CGContextSaveGState(c);
       CGContextClipToRectSafe();
       if (objc_msgSend_BOOLValue(*(*(*(a1 + 96) + 8) + 40), v152, v153, v154, v155))
       {
-        v160 = MEMORY[0x277D801F8];
-        v161 = objc_msgSend_color(*(a1 + 48), v156, v157, v158, v159);
-        v166 = objc_msgSend_colorWithColor_(v160, v162, v163, v164, v165, v161);
+        v159 = MEMORY[0x277D801F8];
+        v160 = objc_msgSend_color(*(a1 + 48), v156, v157, v158);
+        v165 = objc_msgSend_colorWithColor_(v159, v161, v162, v163, v164, v160);
       }
 
       else
       {
-        v166 = sub_2762A1EB8(*(a1 + 56), c, v148, v149, v150, v151);
+        v165 = sub_2762A1EB8(*(a1 + 56), c, v148, v149, v150, v151);
       }
 
-      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v167, v148, v149, v150, v166, c, v151);
+      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v166, v148, v149, v150, v165, c, v151);
       CGContextRestoreGState(c);
     }
 
     else
     {
-      if (objc_msgSend_BOOLValue(*(*(*(a1 + 96) + 8) + 40), v115, v116, v117, v118))
+      if (objc_msgSend_BOOLValue(*(*(*(a1 + 96) + 8) + 40), v114, v115, v116, v117))
       {
-        v172 = MEMORY[0x277D801F8];
-        v173 = objc_msgSend_color(*(a1 + 48), v168, v169, v170, v171);
-        v166 = objc_msgSend_colorWithColor_(v172, v174, v175, v176, v177, v173);
+        v170 = MEMORY[0x277D801F8];
+        v171 = objc_msgSend_color(*(a1 + 48), v167, v168, v169);
+        v165 = objc_msgSend_colorWithColor_(v170, v172, v173, v174, v175, v171);
       }
 
       else
       {
-        v166 = sub_2762A1EB8(*(a1 + 56), c, *&v202, *(&v202 + 1), v203[0], v203[1]);
+        v165 = sub_2762A1EB8(*(a1 + 56), c, *&v200, *(&v200 + 1), *v201, *(v201 + 1));
       }
 
-      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v178, *&v202, *(&v202 + 1), v203[0], v166, c, v203[1]);
+      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v176, *&v200, *(&v200 + 1), *v201, v165, c, *(v201 + 1));
     }
 
     goto LABEL_60;
@@ -1657,9 +1664,9 @@ void sub_276257D74(uint64_t a1, const char *a2, double a3, double a4, double a5)
   }
 }
 
-void sub_276258744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_276258744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1725,7 +1732,7 @@ void sub_27625B768(uint64_t a1, uint64_t a2)
 {
   v4 = objc_autoreleasePoolPush();
   v9 = objc_msgSend_renderGroupIndexSetForSeriesIndex_(*(a1 + 32), v5, v6, v7, v8, a2);
-  v235[0] = 0;
+  v233[0] = 0;
   if (objc_msgSend_count(v9, v10, v11, v12, v13))
   {
     v18 = objc_msgSend_seriesAtIndex_(*(a1 + 40), v14, v15, v16, v17, a2);
@@ -1736,8 +1743,8 @@ LABEL_82:
       goto LABEL_83;
     }
 
-    v212 = v4;
-    v216 = a2;
+    v209 = v4;
+    v213 = a2;
     v31 = objc_msgSend_lineAreaModelCacheForSeries_(*(a1 + 40), v27, v28, v29, v30, a2);
     objc_opt_class();
     v36 = objc_msgSend_seriesType(v18, v32, v33, v34, v35);
@@ -1757,335 +1764,334 @@ LABEL_82:
 
     if (*(a1 + 152))
     {
-      v217 = 0;
+      v214 = 0;
     }
 
     else
     {
-      v217 = objc_msgSend_seriesShadow(v31, v43, v44, v45, v46);
+      v214 = objc_msgSend_seriesShadow(v31, v43, v44, v45, v46);
     }
 
     v62 = *MEMORY[0x277CBF398];
     v63 = *(MEMORY[0x277CBF398] + 16);
-    v234.origin = *MEMORY[0x277CBF398];
-    v234.size = v63;
-    v233 = 0;
+    v232.origin = *MEMORY[0x277CBF398];
+    v232.size = v63;
+    v231 = 0;
     v64 = 0uLL;
-    memset(&v232[4], 0, 48);
+    memset(&v230, 0, sizeof(v230));
     if (v42)
     {
-      v220 = v63;
+      v217 = v63;
       *contexta = v62;
-      objc_msgSend_transformForRenderingSeriesElementTopStrokeForSeries_forGroups_forBodyLayout_outElementSize_outClipRect_outNewElementPath_(v42, v43, v62.x, v63.width, 0.0, v18, v9, *(a1 + 48), 0, &v234, &v233);
-      *v232 = *contexta;
-      *&v232[2] = v220;
+      objc_msgSend_transformForRenderingSeriesElementTopStrokeForSeries_forGroups_forBodyLayout_outElementSize_outClipRect_outNewElementPath_(v42, v62.x, v63.width, 0.0);
+      v229.origin = *contexta;
+      v229.size = v217;
       path = 0;
-      memset(&v230, 0, sizeof(v230));
-      objc_msgSend_transformForRenderingSeriesElementForSeries_forGroups_forBodyLayout_outElementSize_outClipRect_outNewElementPath_(v42, v65, 0.0, *contexta, v66, v18, v9, *(a1 + 48), 0, v232, &path);
-      v63 = v220;
+      memset(&v227, 0, sizeof(v227));
+      objc_msgSend_transformForRenderingSeriesElementForSeries_forGroups_forBodyLayout_outElementSize_outClipRect_outNewElementPath_(v42, 0.0, *contexta, v65);
+      v63 = v217;
       v62 = *contexta;
     }
 
     else
     {
-      *v232 = v62;
-      *&v232[2] = v63;
+      v229.origin = v62;
+      v229.size = v63;
       path = 0;
-      memset(&v230, 0, sizeof(v230));
+      memset(&v227, 0, sizeof(v227));
     }
 
-    v229.origin = v62;
-    v229.size = v63;
-    v227 = 0;
-    v228 = 0;
-    v226 = 0;
-    v67 = objc_msgSend_countOfPointsForSeries_forGroups_forBodyLayout_outElementSize_outClipRect_outUnitSymbolPath_outNewTransformArray_outNewGroupIndexArray_(v42, v43, v62.x, v63.width, *&v64, v18, v9, *(a1 + 48), 0, &v229, &v228, &v227, &v226);
-    v72 = objc_msgSend_showLabelsInFront(v31, v68, v69, v70, v71);
-    if (v226)
+    v226.origin = v62;
+    v226.size = v63;
+    v224 = 0;
+    v225 = 0;
+    v223 = 0;
+    v66 = objc_msgSend_countOfPointsForSeries_forGroups_forBodyLayout_outElementSize_outClipRect_outUnitSymbolPath_outNewTransformArray_outNewGroupIndexArray_(v42, v43, v62.x, v63.width, *&v64, v18, v9, *(a1 + 48), 0, &v226, &v225, &v224, &v223);
+    v71 = objc_msgSend_showLabelsInFront(v31, v67, v68, v69, v70);
+    if (v223)
     {
-      v77 = v72;
+      v76 = v71;
     }
 
     else
     {
-      v77 = 1;
+      v76 = 1;
     }
 
-    v221 = v77;
-    if (((objc_msgSend_renderLabels(*(a1 + 32), v73, v74, v75, v76) & 1) != 0 || !v221) && objc_msgSend_showValueLabels(v31, v78, v79, v80, v81))
+    v218 = v76;
+    if (((objc_msgSend_renderLabels(*(a1 + 32), v72, v73, v74, v75) & 1) != 0 || !v218) && objc_msgSend_showValueLabels(v31, v77, v78, v79, v80))
     {
       if (!*(*(*(a1 + 64) + 8) + 40))
       {
-        v82 = objc_alloc_init(MEMORY[0x277CCAB58]);
-        v83 = *(*(a1 + 64) + 8);
-        v84 = *(v83 + 40);
-        *(v83 + 40) = v82;
+        v81 = objc_alloc_init(MEMORY[0x277CCAB58]);
+        v82 = *(*(a1 + 64) + 8);
+        v83 = *(v82 + 40);
+        *(v82 + 40) = v81;
       }
 
-      if (v221)
+      if (v218)
       {
-        objc_msgSend_addIndex_(*(*(*(a1 + 64) + 8) + 40), v78, v79, v80, v81, v216);
+        objc_msgSend_addIndex_(*(*(*(a1 + 64) + 8) + 40), v77, v78, v79, v80, v213);
       }
     }
 
-    v213 = objc_msgSend_seriesFill(v31, v78, v79, v80, v81);
-    v89 = objc_msgSend_seriesStroke(v31, v85, v86, v87, v88);
+    v210 = objc_msgSend_seriesFill(v31, v77, v78, v79, v80);
+    v88 = objc_msgSend_seriesStroke(v31, v84, v85, v86, v87);
     if (*(a1 + 152) == 1)
     {
-      v94 = v89;
-      if (v89 && (objc_msgSend_shouldRender(v89, v90, v91, v92, v93) & 1) != 0)
+      v93 = v88;
+      if (v88 && (objc_msgSend_shouldRender(v88, v89, v90, v91, v92) & 1) != 0)
       {
-        v214 = v94;
+        v211 = v93;
       }
 
       else
       {
-        v95 = MEMORY[0x277D803C0];
-        v96 = objc_msgSend_blackColor(MEMORY[0x277D81180], v90, v91, v92, v93);
-        v100 = objc_msgSend_strokeWithColor_width_(v95, v97, 1.0, v98, v99, v96);
+        v94 = MEMORY[0x277D803C0];
+        v95 = objc_msgSend_blackColor(MEMORY[0x277D81180], v89, v90, v91, v92);
+        v99 = objc_msgSend_strokeWithColor_width_(v94, v96, 1.0, v97, v98, v95);
 
-        v214 = v100;
+        v211 = v99;
       }
     }
 
     else
     {
-      v214 = v89;
+      v211 = v88;
     }
 
-    v101 = objc_msgSend_seriesType(v18, v90, v91, v92, v93);
-    v102 = v18;
-    v107 = objc_msgSend_intValueForProperty_defaultValue_(v102, v103, v104, v105, v106, 1179, 0);
-    v208 = v101;
-    v113 = objc_msgSend_defaultSymbolType(v101, v108, v109, v110, v111);
-    if (v107)
+    v100 = objc_msgSend_seriesType(v18, v89, v90, v91, v92);
+    v101 = v18;
+    v106 = objc_msgSend_intValueForProperty_defaultValue_(v101, v102, v103, v104, v105, 1179, 0);
+    v205 = v100;
+    v112 = objc_msgSend_defaultSymbolType(v100, v107, v108, v109, v110);
+    if (v106)
     {
-      v113 = objc_msgSend_intValueForProperty_defaultValue_(v102, v112, v114, v115, v116, 1190, v113);
+      v112 = objc_msgSend_intValueForProperty_defaultValue_(v101, v111, v113, v114, v115, 1190, v112);
     }
 
-    LODWORD(v121) = 1;
-    if (path && v213 && objc_msgSend_symbolTypeIsClosed_(v42, v117, v118, v119, v120, v113) && !CGRectIsNull(*v232) && !CGPathIsEmpty(path))
+    LODWORD(v120) = 1;
+    if (path && v210 && objc_msgSend_symbolTypeIsClosed_(v42, v116, v117, v118, v119, v112) && !CGRectIsNull(v229) && !CGPathIsEmpty(path))
     {
-      objc_msgSend_p_setupContextForRendering_layerRect_modelCache_shadow_outDidEnableTransparencyLayer_(*(a1 + 56), v117, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 80), v31, v217, v235, *(a1 + 112));
-      memset(&v225, 0, sizeof(v225));
-      v123 = *(a1 + 56);
-      if (v123)
+      objc_msgSend_p_setupContextForRendering_layerRect_modelCache_shadow_outDidEnableTransparencyLayer_(*(a1 + 56), v116, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 80), v31, v214, v233, *(a1 + 112));
+      memset(&v222, 0, sizeof(v222));
+      v121 = *(a1 + 56);
+      if (v121)
       {
-        v124 = *(a1 + 80);
-        transform = v230;
-        objc_msgSend_p_adjustTransformForAADefeatInContext_inTransform_forSeriesShape_inBodyBounds_(v123, v122, *(a1 + 120), *(a1 + 128), *(a1 + 136), v124, &transform, path, *(a1 + 144));
+        transform = v227;
+        objc_msgSend_p_adjustTransformForAADefeatInContext_inTransform_forSeriesShape_inBodyBounds_(v121, *(a1 + 120), *(a1 + 128), *(a1 + 136), *(a1 + 144));
       }
 
       CGContextSaveGState(*(a1 + 80));
       sub_27628CB34(*(a1 + 80), *(a1 + 120), *(a1 + 128), *(a1 + 136), *(a1 + 144), 0.0);
       CGContextClipToRectSafe();
-      v125 = *(a1 + 80);
-      transform = v225;
-      CGContextConcatCTM(v125, &transform);
+      v122 = *(a1 + 80);
+      transform = v222;
+      CGContextConcatCTM(v122, &transform);
       CGContextClipToRectSafe();
-      objc_msgSend_drawFill_inContext_path_(TSCHRenderUtilities, v126, v127, v128, v129, v213, *(a1 + 80), path);
+      objc_msgSend_drawFill_inContext_path_(TSCHRenderUtilities, v123, v124, v125, v126, v210, *(a1 + 80), path);
       if (*(a1 + 152) == 1)
       {
-        objc_msgSend_paintPath_inContext_(v214, v130, v131, v132, v133, path, *(a1 + 80));
+        objc_msgSend_paintPath_inContext_(v211, v127, v128, v129, v130, path, *(a1 + 80));
       }
 
       CGContextRestoreGState(*(a1 + 80));
-      LODWORD(v121) = 0;
+      LODWORD(v120) = 0;
     }
 
-    v135 = objc_msgSend_lineType(v31, v117, v118, v119, v120);
-    v209 = v42;
-    if (v214 && objc_msgSend_shouldRender(v214, v134, v136, v137, v138) && v135)
+    v132 = objc_msgSend_lineType(v31, v116, v117, v118, v119);
+    v206 = v42;
+    if (v211 && objc_msgSend_shouldRender(v211, v131, v133, v134, v135) && v132)
     {
-      v139 = v67;
-      if (v233 && !CGRectIsNull(v234) && !CGPathIsEmpty(v233))
+      v136 = v66;
+      if (v231 && !CGRectIsNull(v232) && !CGPathIsEmpty(v231))
       {
-        if (v121)
+        if (v120)
         {
-          objc_msgSend_p_setupContextForRendering_layerRect_modelCache_shadow_outDidEnableTransparencyLayer_(*(a1 + 56), v134, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 80), v31, v217, v235, *(a1 + 112));
+          objc_msgSend_p_setupContextForRendering_layerRect_modelCache_shadow_outDidEnableTransparencyLayer_(*(a1 + 56), v131, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 80), v31, v214, v233, *(a1 + 112));
         }
 
         CGContextSaveGState(*(a1 + 80));
-        v225 = *&v232[4];
-        v236 = CGRectApplyAffineTransform(v234, &v225);
-        x = v236.origin.x;
-        y = v236.origin.y;
-        width = v236.size.width;
-        height = v236.size.height;
-        if (!CGRectIsNull(v229) && v135 == 2)
+        v222 = v230;
+        v234 = CGRectApplyAffineTransform(v232, &v222);
+        x = v234.origin.x;
+        y = v234.origin.y;
+        width = v234.size.width;
+        height = v234.size.height;
+        if (!CGRectIsNull(v226) && v132 == 2)
         {
-          v237.origin.x = x;
-          v237.origin.y = y;
-          v237.size.width = width;
-          v237.size.height = height;
-          CGRectInset(v237, -v229.size.width, -v229.size.height);
+          v235.origin.x = x;
+          v235.origin.y = y;
+          v235.size.width = width;
+          v235.size.height = height;
+          CGRectInset(v235, -v226.size.width, -v226.size.height);
         }
 
         CGContextClipToRectSafe();
-        objc_msgSend_p_clipOutSymbolsInContext_withTransformArray_withCount_forSeries_(*(a1 + 56), v144, v145, v146, v147, *(a1 + 80), v227, v67, v102);
+        objc_msgSend_p_clipOutSymbolsInContext_withTransformArray_withCount_forSeries_(*(a1 + 56), v141, v142, v143, v144, *(a1 + 80), v224, v66, v101);
         CGContextBeginPath(*(a1 + 80));
-        v148 = *(a1 + 80);
-        v225 = *&v232[4];
-        CGContextConcatCTM(v148, &v225);
-        objc_msgSend_applyToContext_(v214, v149, v150, v151, v152, *(a1 + 80));
+        v145 = *(a1 + 80);
+        v222 = v230;
+        CGContextConcatCTM(v145, &v222);
+        objc_msgSend_applyToContext_(v211, v146, v147, v148, v149, *(a1 + 80));
         CGContextAddPathSafe();
         CGContextStrokePath(*(a1 + 80));
         CGContextRestoreGState(*(a1 + 80));
-        LODWORD(v121) = 0;
+        LODWORD(v120) = 0;
       }
     }
 
     else
     {
-      v139 = v67;
+      v136 = v66;
     }
 
-    v153 = objc_msgSend_symbolFill(v31, v134, v136, v137, v138);
-    v218 = objc_msgSend_symbolStroke(v31, v154, v155, v156, v157);
-    v211 = v9;
+    v150 = objc_msgSend_symbolFill(v31, v131, v133, v134, v135);
+    v215 = objc_msgSend_symbolStroke(v31, v151, v152, v153, v154);
+    v208 = v9;
     if (*(a1 + 152) == 1)
     {
-      if (v218 && (objc_msgSend_shouldRender(v218, v158, v159, v160, v161) & 1) != 0)
+      if (v215 && (objc_msgSend_shouldRender(v215, v155, v156, v157, v158) & 1) != 0)
       {
         goto LABEL_60;
       }
 
-      if (v121)
+      if (v120)
       {
-        objc_msgSend_p_setupContextForRendering_layerRect_modelCache_shadow_outDidEnableTransparencyLayer_(*(a1 + 56), v158, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 80), v31, v217, v235, *(a1 + 112));
+        objc_msgSend_p_setupContextForRendering_layerRect_modelCache_shadow_outDidEnableTransparencyLayer_(*(a1 + 56), v155, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 80), v31, v214, v233, *(a1 + 112));
       }
 
-      v162 = MEMORY[0x277D803C0];
-      v121 = objc_msgSend_blackColor(MEMORY[0x277D81180], v158, v159, v160, v161);
-      v166 = objc_msgSend_strokeWithColor_width_(v162, v163, 1.0, v164, v165, v121);
+      v159 = MEMORY[0x277D803C0];
+      v120 = objc_msgSend_blackColor(MEMORY[0x277D81180], v155, v156, v157, v158);
+      v163 = objc_msgSend_strokeWithColor_width_(v159, v160, 1.0, v161, v162, v120);
 
-      LOBYTE(v121) = 0;
-      v218 = v166;
+      LOBYTE(v120) = 0;
+      v215 = v163;
     }
 
-    if (!v218)
+    if (!v215)
     {
-      v218 = 0;
+      v215 = 0;
       shouldRender = 0;
 LABEL_62:
-      v210 = v18;
-      if (v227 && v139)
+      v207 = v18;
+      if (v224 && v136)
       {
-        v168 = 0;
-        v169 = 0;
-        v215 = v139;
+        v165 = 0;
+        v166 = 0;
+        v212 = v136;
         do
         {
           context = objc_autoreleasePoolPush();
-          if (v121)
+          if (v120)
           {
-            objc_msgSend_p_setupContextForRendering_layerRect_modelCache_shadow_outDidEnableTransparencyLayer_(*(a1 + 56), v170, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 80), v31, v217, v235, *(a1 + 112));
+            objc_msgSend_p_setupContextForRendering_layerRect_modelCache_shadow_outDidEnableTransparencyLayer_(*(a1 + 56), v167, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 80), v31, v214, v233, *(a1 + 112));
           }
 
-          memset(&v225.c, 0, 32);
-          *&v225.a = 0u;
-          v172 = *(v227 + v168 + 16);
-          v171 = *(v227 + v168 + 32);
-          *&v225.a = *(v227 + v168);
-          *&v225.c = v172;
-          *&v225.tx = v171;
+          memset(&v222.c, 0, 32);
+          *&v222.a = 0u;
+          v169 = *(v224 + v165 + 16);
+          v168 = *(v224 + v165 + 32);
+          *&v222.a = *(v224 + v165);
+          *&v222.c = v169;
+          *&v222.tx = v168;
           CGContextSaveGState(*(a1 + 80));
           CopyByTransformingPathSafe = CGPathCreateCopyByTransformingPathSafe();
-          v178 = CopyByTransformingPathSafe;
-          if (v153)
+          v175 = CopyByTransformingPathSafe;
+          if (v150)
           {
             PathBoundingBox = CGPathGetPathBoundingBox(CopyByTransformingPathSafe);
-            v239 = CGContextConvertRectToDeviceSpace(*(a1 + 80), PathBoundingBox);
-            objc_msgSend_integralFillRenderingRectFromElementRect_(TSCHRenderUtilities, v179, v239.origin.x, v239.origin.y, v239.size.width, v239.size.height);
-            v241 = CGContextConvertRectToUserSpace(*(a1 + 80), v240);
-            v180 = v241.origin.x;
-            v181 = v241.origin.y;
-            v182 = v241.size.width;
-            v183 = v241.size.height;
+            v237 = CGContextConvertRectToDeviceSpace(*(a1 + 80), PathBoundingBox);
+            objc_msgSend_integralFillRenderingRectFromElementRect_(TSCHRenderUtilities, v176, v237.origin.x, v237.origin.y, v237.size.width, v237.size.height);
+            v239 = CGContextConvertRectToUserSpace(*(a1 + 80), v238);
+            v177 = v239.origin.x;
+            v178 = v239.origin.y;
+            v179 = v239.size.width;
+            v180 = v239.size.height;
             CGContextSaveGState(*(a1 + 80));
             CGContextBeginPath(*(a1 + 80));
             CGContextAddPathSafe();
             CGContextClip(*(a1 + 80));
-            v184 = sub_2762A1EB8(v153, *(a1 + 80), v180, v181, v182, v183);
+            v181 = sub_2762A1EB8(v150, *(a1 + 80), v177, v178, v179, v180);
 
-            objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v185, v180, v181, v182, v184, *(a1 + 80), v183);
+            objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v182, v177, v178, v179, v181, *(a1 + 80), v180);
             CGContextRestoreGState(*(a1 + 80));
-            v153 = v184;
+            v150 = v181;
           }
 
           if (shouldRender)
           {
-            objc_msgSend_applyToContext_(v218, v174, v175, v176, v177, *(a1 + 80));
+            objc_msgSend_applyToContext_(v215, v171, v172, v173, v174, *(a1 + 80));
             CGContextBeginPath(*(a1 + 80));
             CGContextAddPathSafe();
             CGContextStrokePath(*(a1 + 80));
           }
 
-          CGPathRelease(v178);
-          if ((v221 & 1) == 0)
+          CGPathRelease(v175);
+          if ((v218 & 1) == 0)
           {
-            v190 = *(a1 + 80);
-            v191 = shouldRender;
-            v192 = v31;
-            v193 = *(a1 + 40);
-            v219 = v153;
-            v195 = *(a1 + 48);
-            v194 = *(a1 + 56);
-            objc_msgSend_indexSetWithIndex_(MEMORY[0x277CCAA78], v186, v187, v188, v189, *(v226 + v169));
-            v197 = v196 = v168;
-            v198 = v193;
-            v31 = v192;
-            shouldRender = v191;
-            v199 = v195;
-            v139 = v215;
-            v153 = v219;
-            objc_msgSend_p_renderLabelsIntoContext_seriesIndex_model_modelCache_bodyLayoutItem_groupIndexSet_(v194, v200, v201, v202, v203, v190, v216, v198, v31, v199, v197);
+            v187 = *(a1 + 80);
+            v188 = shouldRender;
+            v189 = v31;
+            v190 = *(a1 + 40);
+            v216 = v150;
+            v192 = *(a1 + 48);
+            v191 = *(a1 + 56);
+            objc_msgSend_indexSetWithIndex_(MEMORY[0x277CCAA78], v183, v184, v185, v186, *(v223 + v166));
+            v194 = v193 = v165;
+            v195 = v190;
+            v31 = v189;
+            shouldRender = v188;
+            v196 = v192;
+            v136 = v212;
+            v150 = v216;
+            objc_msgSend_p_renderLabelsIntoContext_seriesIndex_model_modelCache_bodyLayoutItem_groupIndexSet_(v191, v197, v198, v199, v200, v187, v213, v195, v31, v196, v194);
 
-            v168 = v196;
+            v165 = v193;
           }
 
           CGContextRestoreGState(*(a1 + 80));
           objc_autoreleasePoolPop(context);
-          LOBYTE(v121) = 0;
-          if (!v227)
+          LOBYTE(v120) = 0;
+          if (!v224)
           {
             break;
           }
 
-          ++v169;
-          v168 += 48;
+          ++v166;
+          v165 += 48;
         }
 
-        while (v169 < v139);
+        while (v166 < v136);
       }
 
       CGPathRelease(path);
-      CGPathRelease(v233);
-      if (v227)
+      CGPathRelease(v231);
+      if (v224)
       {
-        free(v227);
-        v227 = 0;
+        free(v224);
+        v224 = 0;
       }
 
-      v18 = v210;
-      v9 = v211;
-      if (v226)
+      v18 = v207;
+      v9 = v208;
+      if (v223)
       {
-        free(v226);
-        v226 = 0;
+        free(v223);
+        v223 = 0;
       }
 
-      if ((v121 & 1) == 0)
+      if ((v120 & 1) == 0)
       {
-        objc_msgSend_p_finishContextAfterRendering_modelCache_didEnableTransparencyLayer_(*(a1 + 56), v204, v205, v206, v207, *(a1 + 80), v31, v235[0]);
+        objc_msgSend_p_finishContextAfterRendering_modelCache_didEnableTransparencyLayer_(*(a1 + 56), v201, v202, v203, v204, *(a1 + 80), v31, v233[0]);
       }
 
-      v4 = v212;
+      v4 = v209;
       goto LABEL_82;
     }
 
 LABEL_60:
-    shouldRender = objc_msgSend_shouldRender(v218, v158, v159, v160, v161);
+    shouldRender = objc_msgSend_shouldRender(v215, v155, v156, v157, v158);
     goto LABEL_62;
   }
 
@@ -2213,12 +2219,12 @@ void sub_27625DA84(uint64_t a1, uint64_t a2)
     v190 = v193;
     v191 = v194;
     v192 = v195;
-    v46 = sub_27625E1DC(v45, &v190, v44);
+    v46 = sub_27625E1DC(v45, &v190, v44, *&v196, *(&v196 + 1));
     v47 = *(a1 + 64);
     v190 = v199;
     v191 = v200;
     v192 = v201;
-    v48 = sub_27625E1DC(v47, &v190, v32);
+    v48 = sub_27625E1DC(v47, &v190, v32, *&v202, *(&v202 + 1));
     CGPathGetPathBoundingBox(v46);
     PathBoundingBox = CGPathGetPathBoundingBox(v48);
     x = PathBoundingBox.origin.x;
@@ -2405,37 +2411,37 @@ LABEL_41:
   objc_autoreleasePoolPop(v4);
 }
 
-CGMutablePathRef sub_27625E1DC(CGContext *a1, _OWORD *a2, uint64_t a3)
+CGMutablePathRef sub_27625E1DC(CGContext *a1, _OWORD *a2, uint64_t a3, double a4, double a5)
 {
   if (!a3)
   {
     return 0;
   }
 
-  v4 = a2[1];
-  *&v21.a = *a2;
-  *&v21.c = v4;
-  *&v21.tx = a2[2];
+  v6 = a2[1];
+  *&v23.a = *a2;
+  *&v23.c = v6;
+  *&v23.tx = a2[2];
   if (a1)
   {
-    a = v21.a;
-    b = v21.b;
-    c = v21.c;
-    d = v21.d;
-    tx = v21.tx;
-    ty = v21.ty;
+    a = v23.a;
+    b = v23.b;
+    c = v23.c;
+    d = v23.d;
+    tx = v23.tx;
+    ty = v23.ty;
     TSURectWithOriginAndSize();
-    sub_27628CB34(a1, v11, v12, v13, v14, 0.0);
-    v19 = v21;
-    CGAffineTransformInvert(&v20, &v19);
+    sub_27628CB34(a1, v13, v14, v15, v16, 0.0);
+    v21 = v23;
+    CGAffineTransformInvert(&v22, &v21);
     TSUSubtractPoints();
-    v20.a = a;
-    v20.b = b;
-    v20.c = c;
-    v20.d = d;
-    v20.tx = tx;
-    v20.ty = ty;
-    CGAffineTransformTranslate(&v21, &v20, v15, v16);
+    v22.a = a;
+    v22.b = b;
+    v22.c = c;
+    v22.d = d;
+    v22.tx = tx;
+    v22.ty = ty;
+    CGAffineTransformTranslate(&v23, &v22, v17, v18);
   }
 
   Mutable = CGPathCreateMutable();
@@ -2586,9 +2592,9 @@ void sub_27625E308(uint64_t a1, const char *a2, double a3, double a4, double a5)
   }
 }
 
-void sub_27625EFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_27625EFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3012,7 +3018,7 @@ void sub_27626AD74(double a1, double a2, double a3, uint64_t a4, const char *a5)
   qword_280A47220 = v68;
 }
 
-uint64_t sub_27626B504(void *a1, void *a2, unint64_t a3, int a4)
+uint64_t sub_27626B504(void *a1, void *a2, void *a3, int a4)
 {
   v7 = a1;
   v8 = a2;
@@ -3076,7 +3082,7 @@ uint64_t sub_27626B504(void *a1, void *a2, unint64_t a3, int a4)
   return isKindOfClass & 1;
 }
 
-void sub_27626B5EC(void *a1, void *a2, unint64_t a3, int a4)
+void sub_27626B5EC(void *a1, void *a2, char *a3, int a4)
 {
   v80 = a1;
   v7 = a2;
@@ -3116,7 +3122,7 @@ LABEL_10:
 
     else
     {
-      if (v38 - 1 == a3)
+      if ((v38 - 1) == a3)
       {
         objc_msgSend_removeLastObject(v12, 0, v14, v15, v16);
         goto LABEL_22;
@@ -3183,9 +3189,9 @@ LABEL_17:
 LABEL_22:
 }
 
-void sub_27626BB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_27626BB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3306,9 +3312,9 @@ void sub_27626BC90(void *a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_27626C26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_27626C26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3502,7 +3508,7 @@ void sub_276273CD4(uint64_t a1, const char *a2, double a3, double a4, double a5)
   }
 }
 
-void sub_276274064(void **a1, const char *a2, double a3, double a4, double a5)
+void sub_276274064(id *a1, const char *a2, double a3, double a4, double a5)
 {
   v7 = objc_msgSend_intForKey_(a1[4], a2, a3, a4, a5, a2);
   objc_opt_class();
@@ -3512,7 +3518,7 @@ void sub_276274064(void **a1, const char *a2, double a3, double a4, double a5)
   objc_msgSend_p_listenForDataChangesIfAppropriateForFill_forProperty_(a1[6], v13, v14, v15, v16, v17, a2);
 }
 
-void sub_276274368(void **a1, const char *a2, double a3, double a4, double a5)
+void sub_276274368(id *a1, const char *a2, double a3, double a4, double a5)
 {
   v6 = objc_msgSend_intForKey_(a1[4], a2, a3, a4, a5, a2);
   objc_opt_class();
@@ -3662,10 +3668,12 @@ void sub_276277CC4()
   qword_280A47230 = v5;
 }
 
-void sub_27627B084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_27627B084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
+
   _Block_object_dispose(&a17, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3715,7 +3723,7 @@ void sub_27627B0D4(uint64_t a1, void *a2)
   *(*(*(a1 + 48) + 8) + 48) = CGRectUnion(v31, v33);
 }
 
-void sub_27627D330(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43)
+void sub_27627D330(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43)
 {
   _Block_object_dispose(&a27, 8);
   if (__p)
@@ -3744,14 +3752,12 @@ void sub_27627D330(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 sub_27627D3F4(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -3768,14 +3774,12 @@ void sub_27627D418(uint64_t a1)
 
 __n128 sub_27627D430(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -4159,100 +4163,100 @@ void sub_2762828C8(uint64_t a1, unint64_t a2)
   sub_2761617D0();
 }
 
-void sub_276283170(CGFloat *a1, CGFloat *a2, void *a3, CGFloat *a4)
+void sub_276283170(CGFloat *a1, CGFloat *a2, double *a3, double *a4, __n128 a5, __n128 a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13)
 {
   TSURectWithSize();
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
+  v18 = v17;
+  v20 = v19;
+  v22 = v21;
+  v24 = v23;
   TSUSubtractPoints();
   TSURectWithOriginAndSize();
-  v49 = v17;
-  v50 = v16;
-  v43 = v19;
-  v44 = v18;
+  v58 = v26;
+  v59 = v25;
+  v52 = v28;
+  v53 = v27;
   TSUSubtractPoints();
   TSURectWithOriginAndSize();
-  v21 = v20;
-  v23 = v22;
-  v25 = v24;
-  v26 = v9;
-  v51.origin.x = v9;
-  v28 = v27;
-  v47 = v15;
-  v51.origin.y = v11;
-  v48 = v13;
-  v51.size.width = v13;
-  v51.size.height = v15;
-  v53.origin.x = v21;
-  v53.origin.y = v23;
-  v53.size.width = v28;
-  v53.size.height = v25;
-  v52 = CGRectUnion(v51, v53);
-  v29 = v25;
-  if (*MEMORY[0x277CBF3A8] == v28 && *(MEMORY[0x277CBF3A8] + 8) == v25)
+  v30 = v29;
+  v32 = v31;
+  v34 = v33;
+  v35 = v18;
+  v60.origin.x = v18;
+  v37 = v36;
+  v56 = v24;
+  v60.origin.y = v20;
+  v57 = v22;
+  v60.size.width = v22;
+  v60.size.height = v24;
+  v62.origin.x = v30;
+  v62.origin.y = v32;
+  v62.size.width = v37;
+  v62.size.height = v34;
+  v61 = CGRectUnion(v60, v62);
+  v38 = v34;
+  if (*MEMORY[0x277CBF3A8] == v37 && *(MEMORY[0x277CBF3A8] + 8) == v34)
   {
-    v21 = *MEMORY[0x277CBF3A0];
-    v23 = *(MEMORY[0x277CBF3A0] + 8);
-    v28 = *(MEMORY[0x277CBF3A0] + 16);
-    v29 = *(MEMORY[0x277CBF3A0] + 24);
-    height = v15;
-    width = v13;
-    v52.origin.x = v26;
-    v33 = v11;
-    v52.origin.y = v11;
+    v30 = *MEMORY[0x277CBF3A0];
+    v32 = *(MEMORY[0x277CBF3A0] + 8);
+    v37 = *(MEMORY[0x277CBF3A0] + 16);
+    v38 = *(MEMORY[0x277CBF3A0] + 24);
+    height = v24;
+    width = v22;
+    v61.origin.x = v35;
+    v42 = v20;
+    v61.origin.y = v20;
   }
 
   else
   {
-    width = v52.size.width;
-    height = v52.size.height;
-    v33 = v11;
+    width = v61.size.width;
+    height = v61.size.height;
+    v42 = v20;
   }
 
-  if (*MEMORY[0x277CBF348] != v52.origin.x || *(MEMORY[0x277CBF348] + 8) != v52.origin.y)
+  if (*MEMORY[0x277CBF348] != v61.origin.x || *(MEMORY[0x277CBF348] + 8) != v61.origin.y)
   {
-    v45 = height;
-    v46 = width;
-    v35 = v29;
+    v54 = height;
+    v55 = width;
+    v44 = v38;
     TSUSubtractPoints();
-    v37 = v36;
-    v33 = v38;
+    v46 = v45;
+    v42 = v47;
     TSUSubtractPoints();
-    v49 = v40;
-    v50 = v39;
+    v58 = v49;
+    v59 = v48;
     TSUSubtractPoints();
-    v29 = v35;
-    height = v45;
-    width = v46;
-    v26 = v37;
-    v21 = v41;
-    v23 = v42;
+    v38 = v44;
+    height = v54;
+    width = v55;
+    v35 = v46;
+    v30 = v50;
+    v32 = v51;
   }
 
   if (a4)
   {
-    *a4 = v21;
-    a4[1] = v23;
-    a4[2] = v28;
-    a4[3] = v29;
+    *a4 = v30;
+    a4[1] = v32;
+    a4[2] = v37;
+    a4[3] = v38;
   }
 
   if (a3)
   {
-    *a3 = v50;
-    a3[1] = v49;
-    a3[2] = v44;
-    a3[3] = v43;
+    *a3 = v59;
+    *(a3 + 1) = v58;
+    *(a3 + 2) = v53;
+    *(a3 + 3) = v52;
   }
 
   if (a2)
   {
-    *a2 = v26;
-    a2[1] = v33;
-    a2[2] = v48;
-    a2[3] = v47;
+    *a2 = v35;
+    a2[1] = v42;
+    a2[2] = v57;
+    a2[3] = v56;
   }
 
   if (a1)
@@ -4262,33 +4266,33 @@ void sub_276283170(CGFloat *a1, CGFloat *a2, void *a3, CGFloat *a4)
   }
 }
 
-void sub_2762833A4(CGFloat *a1, CGFloat *a2, void *a3, CGFloat *a4)
+void sub_2762833A4(CGFloat *a1, CGFloat *a2, double *a3, double *a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, double a14)
 {
   TSUCenterOfRect();
   TSUAddPoints();
   TSURectWithOriginAndSize();
+  v29 = v22.n128_f64[0];
+  v22.n128_f64[0] = a5;
+  v23.n128_f64[0] = a6;
 
-  sub_276283170(a1, a2, a3, a4);
+  sub_276283170(a1, a2, a3, a4, v22, v23, a7, a8, a9, a10, a11, a12, v29);
 }
 
-uint64_t sub_27628348C(uint64_t result, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_27628348C(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, double a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
-  v12 = result;
   if (a2)
   {
-    *a2 = a11;
-    a2[1] = a12;
+    *a2 = a19;
+    a2[1] = a20;
   }
 
-  if (result)
+  if (a1)
   {
     TSUCenterOfRect();
-    result = TSUSubtractPoints();
-    *v12 = v13;
-    v12[1] = v14;
+    TSUSubtractPoints();
+    *a1 = v21;
+    a1[1] = v22;
   }
-
-  return result;
 }
 
 uint64_t sub_276283878(uint64_t a1, uint64_t a2)
@@ -4349,9 +4353,9 @@ uint64_t sub_2762839BC(uint64_t *a1, void *a2)
   return isEqual;
 }
 
-void sub_276285AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_276285AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4393,9 +4397,9 @@ LABEL_8:
   }
 }
 
-void sub_276285CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_276285CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4428,9 +4432,9 @@ void sub_276285CE0(uint64_t a1, void *a2, double a3, double a4, double a5)
   }
 }
 
-void sub_276285E84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_276285E84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4456,9 +4460,9 @@ void sub_276285E9C(uint64_t a1, void *a2, double a3, double a4, double a5)
   }
 }
 
-void sub_276285FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_276285FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4748,41 +4752,42 @@ uint64_t sub_27628AE54(void *a1, signed int a2)
   return v104;
 }
 
-double sub_27628B14C(uint64_t a1, const char *a2, double a3, __n128 a4, double a5)
+double sub_27628B14C(uint64_t a1, __n128 a2, __n128 a3, const char *a4, double a5)
 {
-  v5 = a3;
-  if (a3 < 0.0 && a1 != 2)
+  v5 = a2.n128_f64[0];
+  if (a2.n128_f64[0] < 0.0 && a1 != 2)
   {
-    return -sub_27628B250(a1, a2, fabs(a3), a4, a5);
+    a2.n128_f64[0] = fabs(a2.n128_f64[0]);
+    return -sub_27628B250(a1, a2, a3, a4, a5);
   }
 
   if (a1 == 3)
   {
-    a3 = sub_27628B650(a3, a4.n128_f64[0]);
+    a2.n128_f64[0] = sub_27628B650(a2.n128_f64[0], a3.n128_f64[0]);
   }
 
   else if (a1 == 2)
   {
-    a3 = sub_27628B850(a3, a4.n128_f64[0], a5, a1, a2);
+    a2.n128_f64[0] = sub_27628B850(a2.n128_f64[0], a3.n128_f64[0], a5, a1, a4);
   }
 
   else
   {
-    v7 = a3;
+    v7 = a2.n128_f64[0];
     if (a1 != 1)
     {
       goto LABEL_13;
     }
 
-    a3 = sub_27628B47C(a3, a4.n128_f64[0]);
+    a2.n128_f64[0] = sub_27628B47C(a2.n128_f64[0], a3.n128_f64[0]);
   }
 
-  v7 = a3;
+  v7 = a2.n128_f64[0];
 LABEL_13:
   if (v7 > v5)
   {
     v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, a3, a4.n128_f64[0], a5, "double TSCHMathRoundDownWithRange(double, double, TSCHChartGridValueType)");
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a4, a2.n128_f64[0], a3.n128_f64[0], a5, "double TSCHMathRoundDownWithRange(double, double, TSCHChartGridValueType)");
     v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHMathUtilities.m");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v15, v16, v17, v18, v9, v14, 244, 0, "Round down rounded up!");
 
@@ -4792,20 +4797,22 @@ LABEL_13:
   return v7;
 }
 
-double sub_27628B250(uint64_t a1, const char *a2, double a3, __n128 a4, double a5)
+double sub_27628B250(uint64_t a1, __n128 a2, __n128 a3, const char *a4, double a5)
 {
-  v5 = a4.n128_u64[0];
-  if (a3 < 0.0 && a1 != 2)
+  v5 = a3.n128_u64[0];
+  v6 = a2.n128_f64[0];
+  if (a2.n128_f64[0] < 0.0 && a1 != 2)
   {
-    return -sub_27628B14C(fabs(a3), a4);
+    a2.n128_f64[0] = fabs(a2.n128_f64[0]);
+    return -sub_27628B14C(a1, a2, a3.n128_f64[0]);
   }
 
   switch(a1)
   {
     case 3:
-      v48 = sub_27628BD5C(a3, a4.n128_f64[0]);
+      v48 = sub_27628BD5C(a2.n128_f64[0], a3.n128_f64[0]);
       v23 = v48;
-      if (v48 >= a3)
+      if (v48 >= v6)
       {
         return v23;
       }
@@ -4813,42 +4820,42 @@ double sub_27628B250(uint64_t a1, const char *a2, double a3, __n128 a4, double a
       v51 = MEMORY[0x277D81150];
       v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v48, v49, v50, "double TSCHMathRoundUpWithRange(double, double, TSCHChartGridValueType)");
       v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v52, v53, v54, v55, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHMathUtilities.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v51, v56, v57, v58, v59, v13, v18, 262, 0, "duration value rounded down instead of up. value: %{public}f, range: %{public}f, result: %{public}f", *&a3, v5, *&v23);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v51, v56, v57, v58, v59, v13, v18, 262, 0, "duration value rounded down instead of up. value: %{public}f, range: %{public}f, result: %{public}f", *&v6, v5, *&v23);
 LABEL_16:
 
       objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v60, v61, v62, v63);
       return v23;
     case 2:
-      v23 = sub_27628BF3C(a3, a4.n128_f64[0], a5, a1, a2);
+      v23 = sub_27628BF3C(a2.n128_f64[0], a3.n128_f64[0], a5, a1, a4);
       v27 = objc_msgSend_distantFuture(MEMORY[0x277CBEAA8], v24, v23, v25, v26);
       objc_msgSend_timeIntervalSinceReferenceDate(v27, v28, v29, v30, v31);
       v33 = v32;
 
-      if (v23 < a3 && v33 > a3)
+      if (v23 < v6 && v33 > v6)
       {
         v38 = MEMORY[0x277D81150];
         v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, v35, v36, v37, "double TSCHMathRoundUpWithRange(double, double, TSCHChartGridValueType)");
         v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, v40, v41, v42, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHMathUtilities.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v38, v43, v44, v45, v46, v13, v18, 266, 0, "date value rounded down instead of up. value: %{public}f, range: %{public}f, result: %{public}f, distantFutureToReferenceDate: %{public}f", *&a3, v5, *&v23, *&v33);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v38, v43, v44, v45, v46, v13, v18, 266, 0, "date value rounded down instead of up. value: %{public}f, range: %{public}f, result: %{public}f, distantFutureToReferenceDate: %{public}f", *&v6, v5, *&v23, *&v33);
         goto LABEL_16;
       }
 
       break;
     case 1:
-      v9 = sub_27628BBB4(a3, a4.n128_f64[0]);
+      v9 = sub_27628BBB4(a2.n128_f64[0], a3.n128_f64[0]);
       v23 = v9;
-      if (v9 < a3)
+      if (v9 < v6)
       {
         v12 = MEMORY[0x277D81150];
         v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v9, v10, v11, "double TSCHMathRoundUpWithRange(double, double, TSCHChartGridValueType)");
         v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHMathUtilities.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v19, v20, v21, v22, v13, v18, 259, 0, "number value rounded down instead of up. value: %{public}f, range: %{public}f, result: %{public}f", *&a3, v5, *&v23);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v19, v20, v21, v22, v13, v18, 259, 0, "number value rounded down instead of up. value: %{public}f, range: %{public}f, result: %{public}f", *&v6, v5, *&v23);
         goto LABEL_16;
       }
 
       break;
     default:
-      return a3;
+      return a2.n128_f64[0];
   }
 
   return v23;
@@ -5541,12 +5548,12 @@ double sub_27628BF3C(double a1, double a2, double a3, uint64_t a4, const char *a
   return v71;
 }
 
-float sub_27628C1E0(uint64_t a1, const char *a2, double a3, double a4, double a5)
+float sub_27628C1E0(__n128 a1, __n128 a2, __n128 a3, __n128 a4, uint64_t a5, const char *a6)
 {
-  v5 = *&a5;
-  LODWORD(a5) = LODWORD(a4);
-  LODWORD(a4) = 1135869952;
-  return sub_27628C1F4(a3, a4, a5, v5, a1, a2);
+  v6 = a3.n128_f32[0];
+  a3.n128_u32[0] = a2.n128_u32[0];
+  a2.n128_u32[0] = 1135869952;
+  return sub_27628C1F4(a1.n128_f64[0], a2.n128_f64[0], a3.n128_f64[0], v6, a5, a6);
 }
 
 float sub_27628C1F4(double a1, double a2, double a3, float a4, uint64_t a5, const char *a6)
@@ -5619,12 +5626,12 @@ LABEL_5:
   return v9;
 }
 
-float sub_27628C490(uint64_t a1, const char *a2, double a3, double a4, double a5)
+float sub_27628C490(double a1, double a2, double a3, uint64_t a4, const char *a5)
 {
-  v5 = *&a5;
-  LODWORD(a5) = LODWORD(a4);
-  LODWORD(a4) = 1086918619;
-  return sub_27628C1F4(a3, a4, a5, v5, a1, a2);
+  v5 = *&a3;
+  LODWORD(a3) = LODWORD(a2);
+  LODWORD(a2) = 1086918619;
+  return sub_27628C1F4(a1, a2, a3, v5, a4, a5);
 }
 
 CGFloat sub_27628C4A4@<D0>(CGContext *a1@<X0>, _OWORD *a2@<X8>)
@@ -5654,7 +5661,7 @@ __n128 sub_27628C514@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_27628C534(__int128 *a1, double a2, double a3, double a4, double a5, double a6)
+CGAffineTransform *sub_27628C534(__int128 *a1, double a2, double a3, double a4, double a5, double a6)
 {
   v6 = a1[1];
   v9[0] = *a1;
@@ -5665,7 +5672,7 @@ uint64_t sub_27628C534(__int128 *a1, double a2, double a3, double a4, double a5,
   return sub_27628C568(v9, a2, a3, a4, a5, a6);
 }
 
-uint64_t sub_27628C568(__int128 *a1, double a2, double a3, double a4, double a5, double a6)
+CGAffineTransform *sub_27628C568(__int128 *a1, double a2, double a3, double a4, double a5, double a6)
 {
   result = CGRectIsNull(*&a2);
   if (!result)
@@ -5696,18 +5703,19 @@ uint64_t sub_27628C568(__int128 *a1, double a2, double a3, double a4, double a5,
   return result;
 }
 
-uint64_t sub_27628C654(CGContext *a1, double *a2, double *a3, int a4, double a5)
+CGAffineTransform *sub_27628C654(CGContext *a1, double *a2, double *a3, uint64_t a4, double a5)
 {
+  v5 = a4;
   memset(&v13, 0, sizeof(v13));
   CGContextGetUserSpaceToDeviceSpaceTransform(&v13, a1);
   v12 = *MEMORY[0x277CBF348];
   TSDCGContextHasTileOffset();
   v10 = v13;
   v11 = v12;
-  return sub_27628C6F8(&v10.a, a2, a3, a4, a5);
+  return sub_27628C6F8(&v10.a, a2, a3, v5, a5);
 }
 
-uint64_t sub_27628C6F8(double *a1, double *a2, double *a3, int a4, double a5)
+CGAffineTransform *sub_27628C6F8(double *a1, double *a2, double *a3, int a4, double a5)
 {
   a = *a1;
   b = a1[1];
@@ -5930,7 +5938,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t sub_27628CB34(CGContext *a1, double a2, double a3, double a4, double a5, double a6)
+CGAffineTransform *sub_27628CB34(CGContext *a1, double a2, double a3, double a4, double a5, double a6)
 {
   memset(&v15, 0, sizeof(v15));
   CGContextGetUserSpaceToDeviceSpaceTransform(&v15, a1);
@@ -5941,7 +5949,7 @@ uint64_t sub_27628CB34(CGContext *a1, double a2, double a3, double a4, double a5
   return sub_27628C568(&v12, a2, a3, a4, a5, a6);
 }
 
-uint64_t sub_27628CBE8(uint64_t result, char *a2, unint64_t a3, unsigned int a4, int a5, double a6, double a7, double a8)
+CGContext *sub_27628CBE8(CGContext *result, char *a2, unint64_t a3, int a4, uint64_t a5, double a6, double a7, double a8)
 {
   v13 = result;
   if (a4 >= 3)
@@ -6041,19 +6049,19 @@ CGAffineTransform *sub_27628CF0C@<X0>(CGAffineTransform *result@<X0>, uint64_t a
   if (a2)
   {
     v6 = a2;
-    p_a = &result->a;
+    v7 = result;
     do
     {
       v8 = *(a3 + 16);
       *&t1.a = *a3;
       *&t1.c = v8;
       *&t1.tx = *(a3 + 32);
-      v9 = p_a[1];
-      *&v10.a = *p_a;
+      v9 = *&v7->c;
+      *&v10.a = *&v7->a;
       *&v10.c = v9;
-      *&v10.tx = p_a[2];
+      *&v10.tx = *&v7->tx;
       result = CGAffineTransformConcat(a3, &t1, &v10);
-      p_a += 3;
+      ++v7;
       --v6;
     }
 
@@ -6499,9 +6507,8 @@ void sub_276297B0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276297C38(uint64_t result, _BYTE *a2)
+void sub_276297C38(uint64_t result, _BYTE *a2)
 {
-  v3 = result;
   v4 = *(result + 8);
   v5 = *(result + 16);
   if (v4 == v5 << 6)
@@ -6527,26 +6534,25 @@ uint64_t sub_276297C38(uint64_t result, _BYTE *a2)
       v7 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    result = sub_276299E50(result, v7);
-    v4 = v3[1];
+    sub_276299E50(result, v7);
+    v4 = *(result + 8);
   }
 
-  v3[1] = v4 + 1;
-  v8 = *v3;
+  *(result + 8) = v4 + 1;
+  v8 = *result;
   v9 = v4 >> 6;
   v10 = 1 << v4;
   if (*a2 == 1)
   {
-    v11 = *(v8 + 8 * v9) | v10;
+    v11 = *&v8[8 * v9] | v10;
   }
 
   else
   {
-    v11 = *(v8 + 8 * v9) & ~v10;
+    v11 = *&v8[8 * v9] & ~v10;
   }
 
-  *(v8 + 8 * v9) = v11;
-  return result;
+  *&v8[8 * v9] = v11;
 }
 
 void sub_276298798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46, void *a47, void *a48)
@@ -6751,7 +6757,7 @@ void sub_276299B3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_276299D70(const void **a1, void *a2)
+void sub_276299D70(const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -6800,15 +6806,15 @@ void sub_276299D70(const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
 }
 
-uint64_t sub_276299E50(uint64_t result, unint64_t a2)
+void sub_276299E50(char **a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > a1[2] << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -6819,8 +6825,6 @@ uint64_t sub_276299E50(uint64_t result, unint64_t a2)
 
     sub_276161760();
   }
-
-  return result;
 }
 
 void sub_276299EF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p)
@@ -6833,7 +6837,7 @@ void sub_276299EF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_276299F0C(uint64_t a1, uint64_t a2)
+void sub_276299F0C(uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -6853,7 +6857,7 @@ void sub_276299F0C(uint64_t a1, uint64_t a2)
   sub_276161760();
 }
 
-void sub_276299F50(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_276299F50(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   v6 = a1[1];
   v7 = v6 + a4;
@@ -6875,9 +6879,9 @@ void sub_276299F50(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   v20 = v4;
   v21 = v5;
-  v9 = *(a2 + 8);
+  v9 = *(a2 + 2);
   v10 = *a3;
-  v11 = *(a3 + 8);
+  v11 = *(a3 + 2);
   v12 = *a1 + 8 * (v6 >> 6);
   v18 = *a2;
   v19 = v9;
@@ -6885,7 +6889,7 @@ void sub_276299F50(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v17 = v11;
   v14 = v12;
   v15 = v6 & 0x3F;
-  sub_276299FF4(&v18, &v16, &v14, &v13);
+  sub_276299FF4(&v18, &v16, &v14, v13);
 }
 
 void sub_276299FF4(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
@@ -7117,7 +7121,7 @@ void sub_27629E8F4(void *a1, uint64_t a2)
 LABEL_13:
 }
 
-uint64_t sub_2762A0DC0(uint64_t a1, uint64_t a2)
+void sub_2762A0DC0(uint64_t a1, uint64_t a2)
 {
   v4 = 100 * a2;
   v5 = 100 * a2 + 100;
@@ -7125,23 +7129,22 @@ uint64_t sub_2762A0DC0(uint64_t a1, uint64_t a2)
   {
     (*(*(a1 + 32) + 16))();
     v6 = (*(a1 + 40) + 16 * a2);
-    result = TSUSizeMax();
-    *v6 = v8;
-    v6[1] = v9;
+    TSUSizeMax();
+    *v6 = v7;
+    v6[1] = v8;
     ++v4;
   }
 
   while (v4 < v5);
-  return result;
 }
 
-BOOL sub_2762A1784(uint64_t a1, float64x2_t *a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10)
+BOOL sub_2762A1784(float64x2_t *a1, float64x2_t *a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10)
 {
   v64[5] = *MEMORY[0x277D85DE8];
-  v15 = *(a1 + 16);
+  v15 = a1[1];
   v61 = *a1;
   v62[0] = v15;
-  v62[1] = *(a1 + 32);
+  v62[1] = a1[2];
   sub_2762A1A0C(&v61, &v63, a3, a4, a5, a6);
   v16 = a2[1];
   v60[0] = *a2;
@@ -7304,18 +7307,18 @@ CGFloat sub_2762A1A7C(_OWORD *a1, CGFloat a2, CGFloat a3)
   return v7.size.width;
 }
 
-CGPath *sub_2762A1ACC(uint64_t a1, unint64_t a2, char a3)
+CGPath *sub_2762A1ACC(double *a1, unint64_t a2, char a3)
 {
   Mutable = CGPathCreateMutable();
   if (a2 >= 3)
   {
-    v7 = a1 + 24;
+    v7 = a1 + 3;
     CGPathMoveToPointSafe();
     v8 = a2 - 1;
     do
     {
       CGPathAddLineToPointSafe();
-      v7 += 16;
+      v7 += 2;
       --v8;
     }
 
@@ -7329,11 +7332,11 @@ CGPath *sub_2762A1ACC(uint64_t a1, unint64_t a2, char a3)
   return Mutable;
 }
 
-CGPathRef sub_2762A1B4C(uint64_t a1, const char *a2, double a3, double a4, double a5, double a6)
+CGPathRef sub_2762A1B4C(uint64_t a1, double a2, double a3, double a4, double a5, const char *a6)
 {
   v32[2] = *MEMORY[0x277D85DE8];
-  v10 = objc_msgSend_bezierPathWithCGPath_(MEMORY[0x277D81160], a2, a3, a4, a5, a1);
-  v12 = objc_msgSend_bezierPathWithRect_(MEMORY[0x277D81160], v11, a3, a4, a5, a6);
+  v10 = objc_msgSend_bezierPathWithCGPath_(MEMORY[0x277D81160], a6, a2, a3, a4, a1);
+  v12 = objc_msgSend_bezierPathWithRect_(MEMORY[0x277D81160], v11, a2, a3, a4, a5);
   v13 = MEMORY[0x277D81160];
   v32[0] = v10;
   v32[1] = v12;
@@ -8785,7 +8788,7 @@ id sub_2762A84E8(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   return v11;
 }
 
-uint64_t sub_2762A8554(void *a1, const char *a2, uint64_t a3, double a4, double a5, double a6)
+void *sub_2762A8554(void *a1, const char *a2, uint64_t a3, double a4, double a5, double a6)
 {
   result = objc_msgSend_doubleValue(a1, a2, a4, a5, a6);
   *(a3 + 16) |= 1u;
@@ -8829,16 +8832,16 @@ void sub_2762A85C8(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
   }
 }
 
-id sub_2762A867C(double a1, double a2, double a3, uint64_t a4, const char *a5, uint64_t a6)
+id sub_2762A867C(uint64_t a1, const char *a2, uint64_t a3, double a4, double a5, double a6)
 {
-  if (*(a6 + 16))
+  if (*(a3 + 16))
   {
-    objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], a5, *(a6 + 24), a2, a3);
+    objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], a2, *(a3 + 24), a5, a6);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], a5, a1, a2, a3);
+    objc_msgSend_null(MEMORY[0x277CBEB68], a2, a4, a5, a6);
   }
   v6 = ;
 
@@ -9118,14 +9121,14 @@ void sub_2762A9678(uint64_t a1, uint64_t a2)
   JUMPOUT(0x277C97C70);
 }
 
-void sub_2762A98E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2762A98E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_2762A9900(uint64_t a1, const char *a2, double a3, double a4, double a5)
+void *sub_2762A9900(uint64_t a1, const char *a2, double a3, double a4, double a5)
 {
   result = objc_msgSend_p_calcMinSizeForModel_(*(a1 + 32), a2, a3, a4, a5, a2);
   v9 = *(*(a1 + 40) + 8);

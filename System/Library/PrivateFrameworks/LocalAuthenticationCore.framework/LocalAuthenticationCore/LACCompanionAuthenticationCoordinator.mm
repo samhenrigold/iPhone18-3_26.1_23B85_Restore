@@ -52,10 +52,9 @@
 
 - (LACCompanionAuthenticationProviding)authProvider
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___LACCompanionAuthenticationCoordinator_authProvider);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)notificationCenter:(id)center didReceiveNotification:(const __CFString *)notification
@@ -70,7 +69,6 @@
 
 - (void)setAuthProvider:(id)provider
 {
-  v3 = *(&self->super.isa + OBJC_IVAR___LACCompanionAuthenticationCoordinator_authProvider);
   *(&self->super.isa + OBJC_IVAR___LACCompanionAuthenticationCoordinator_authProvider) = provider;
   swift_unknownObjectRetain();
 
@@ -79,7 +77,6 @@
 
 - (void)setMockedAuthProvider:(id)provider
 {
-  v3 = *(&self->super.isa + OBJC_IVAR___LACCompanionAuthenticationCoordinator____lazy_storage___mockedAuthProvider);
   *(&self->super.isa + OBJC_IVAR___LACCompanionAuthenticationCoordinator____lazy_storage___mockedAuthProvider) = provider;
   swift_unknownObjectRetain();
 
@@ -160,17 +157,16 @@
 {
   v7 = type metadata accessor for UUID();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x1EEE9AC00](v7);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   swift_unknownObjectRetain();
   errorCopy = error;
   selfCopy = self;
-  specialized LACCompanionAuthenticationCoordinator.authenticationProvider(_:didFailAuthenticationWith:error:)(v11, errorCopy);
+  specialized LACCompanionAuthenticationCoordinator.authenticationProvider(_:didFailAuthenticationWith:error:)(v10, errorCopy);
   swift_unknownObjectRelease();
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 @end

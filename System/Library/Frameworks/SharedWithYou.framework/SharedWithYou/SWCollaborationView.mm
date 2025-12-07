@@ -7,6 +7,7 @@
 - (id)cloudSharingDelegate;
 - (id)delegate;
 - (void)dismissPopover:(void *)completion;
+- (void)dismissPopoverAnimated:(BOOL)animated completion:(id)completion;
 - (void)setActiveParticipantCount:(NSUInteger)activeParticipantCount;
 - (void)setContentView:(UIView *)detailViewListContentView;
 - (void)setDelegate:(id)delegate;
@@ -14,6 +15,7 @@
 - (void)setHeaderSubtitle:(NSString *)headerSubtitle;
 - (void)setHeaderTitle:(NSString *)headerTitle;
 - (void)setManageButtonTitle:(NSString *)manageButtonTitle;
+- (void)setShowManageButton:(BOOL)showManageButton;
 - (void)updatePlaceholderGlyphScale:(int64_t)scale weight:(int64_t)weight pointSize:(double)size;
 @end
 
@@ -21,42 +23,41 @@
 
 - (SWCollaborationView)initWithButtonView:(id)view
 {
-  v25[4] = *MEMORY[0x1E69E9840];
+  v24[4] = *MEMORY[0x1E69E9840];
   viewCopy = view;
-  v24.receiver = self;
-  v24.super_class = SWCollaborationView;
-  v6 = [(SWCollaborationView *)&v24 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v23.receiver = self;
+  v23.super_class = SWCollaborationView;
+  v6 = [(SWCollaborationView *)&v23 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   if (v6)
   {
     [viewCopy setOuterButton:v6];
-    v23 = viewCopy;
+    v22 = viewCopy;
     objc_storeStrong(&v6->_typeErasedButtonView, view);
     [(SWCollaborationView *)v6 addSubview:v6->_typeErasedButtonView];
     [(UIView *)v6->_typeErasedButtonView setTranslatesAutoresizingMaskIntoConstraints:0];
-    v18 = MEMORY[0x1E696ACD8];
+    v17 = MEMORY[0x1E696ACD8];
     leadingAnchor = [(UIView *)v6->_typeErasedButtonView leadingAnchor];
     leadingAnchor2 = [(SWCollaborationView *)v6 leadingAnchor];
-    v20 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v25[0] = v20;
+    v19 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v24[0] = v19;
     trailingAnchor = [(UIView *)v6->_typeErasedButtonView trailingAnchor];
     trailingAnchor2 = [(SWCollaborationView *)v6 trailingAnchor];
     v8 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v25[1] = v8;
+    v24[1] = v8;
     topAnchor = [(UIView *)v6->_typeErasedButtonView topAnchor];
     topAnchor2 = [(SWCollaborationView *)v6 topAnchor];
     v11 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v25[2] = v11;
+    v24[2] = v11;
     bottomAnchor = [(UIView *)v6->_typeErasedButtonView bottomAnchor];
     bottomAnchor2 = [(SWCollaborationView *)v6 bottomAnchor];
     v14 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v25[3] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:4];
-    [v18 activateConstraints:v15];
+    v24[3] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:4];
+    [v17 activateConstraints:v15];
 
-    viewCopy = v23;
+    viewCopy = v22;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -117,6 +118,14 @@
   [v5 setDetailViewListContent:v4];
 }
 
+- (void)dismissPopoverAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  v7 = sub_1BBC2EF14(self, "buttonView");
+  [v7 dismissPopoverAnimated:animatedCopy completion:completionCopy];
+}
+
 - (void)setActiveParticipantCount:(NSUInteger)activeParticipantCount
 {
   v4 = sub_1BBC2EF14(self, "buttonView");
@@ -137,6 +146,13 @@
 
   v7 = self->_manageButtonTitle;
   self->_manageButtonTitle = v4;
+}
+
+- (void)setShowManageButton:(BOOL)showManageButton
+{
+  v3 = showManageButton;
+  v4 = sub_1BBC2EF14(self, "buttonView");
+  [v4 setShowManageButton:v3];
 }
 
 - (void)setHeaderTitle:(NSString *)headerTitle

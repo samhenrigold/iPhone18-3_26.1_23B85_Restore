@@ -6,6 +6,7 @@
 - (id)specifiers;
 - (void)setAccountBooleanProperty:(id)property withSpecifier:(id)specifier;
 - (void)setAccountProperty:(id)property withSpecifier:(id)specifier;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation DAVSettingsAdvancedController
@@ -214,6 +215,17 @@ LABEL_7:
   v7 = [NSNumber numberWithBool:useSSL];
 
   return v7;
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  firstResponder = [*&self->PSListController_opaque[OBJC_IVAR___PSListController__table] firstResponder];
+  [firstResponder resignFirstResponder];
+
+  v6.receiver = self;
+  v6.super_class = DAVSettingsAdvancedController;
+  [(DAVSettingsAdvancedController *)&v6 viewWillDisappear:disappearCopy];
 }
 
 - (DAAccount)account

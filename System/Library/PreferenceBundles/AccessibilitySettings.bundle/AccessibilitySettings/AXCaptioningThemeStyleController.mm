@@ -116,7 +116,7 @@
 
       else
       {
-        AXCaptionResetDefaultActiveProfile();
+        AXCaptionResetDefaultActiveProfile(0);
       }
     }
 
@@ -282,48 +282,48 @@ void __51__AXCaptioningThemeStyleController_viewWillAppear___block_invoke(uint64
 
 - (id)textFont:(id)font
 {
-  v21 = -1;
+  v24 = -1;
   [(AXCaptioningThemeStyleController *)self profileId];
   MACaptionAppearancePrefIsSystemFont();
   [(AXCaptioningThemeStyleController *)self profileId];
   v4 = MACaptionAppearancePrefCopyFontForStyle();
   if (v4)
   {
-    v5 = v4;
-    v6 = CGFontCopyPostScriptName(v4);
-    CFRelease(v5);
-    v19 = 0u;
+    v6 = v4;
+    v7 = CGFontCopyPostScriptName(v4);
+    CFRelease(v6);
+    v22 = 0u;
+    v23 = 0u;
     v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v7 = AXCaptionFonts();
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
-    if (v8)
+    v21 = 0u;
+    v10 = AXCaptionFonts(v8, v9);
+    v11 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    if (v11)
     {
-      v9 = v8;
-      v10 = *v18;
+      v12 = v11;
+      v13 = *v21;
       while (2)
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v12; i = i + 1)
         {
-          if (*v18 != v10)
+          if (*v21 != v13)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v10);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
-          v13 = [v12 objectForKeyedSubscript:{@"name", v17}];
-          v14 = [v13 isEqualToString:v6];
+          v15 = *(*(&v20 + 1) + 8 * i);
+          v16 = [v15 objectForKeyedSubscript:{@"name", v20}];
+          v17 = [v16 isEqualToString:v7];
 
-          if (v14)
+          if (v17)
           {
-            v15 = [v12 objectForKeyedSubscript:@"displayName"];
+            v18 = [v15 objectForKeyedSubscript:@"displayName"];
             goto LABEL_12;
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
-        if (v9)
+        v12 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        if (v12)
         {
           continue;
         }
@@ -332,17 +332,17 @@ void __51__AXCaptioningThemeStyleController_viewWillAppear___block_invoke(uint64
       }
     }
 
-    v15 = 0;
+    v18 = 0;
 LABEL_12:
   }
 
   else
   {
-    v6 = AXCaptionDefaultFontForCategory(0);
-    v15 = [v6 objectForKeyedSubscript:@"displayName"];
+    v7 = AXCaptionDefaultFontForCategory(0, v5);
+    v18 = [v7 objectForKeyedSubscript:@"displayName"];
   }
 
-  return v15;
+  return v18;
 }
 
 - (id)captionSize:(id)size
@@ -350,7 +350,7 @@ LABEL_12:
   sizeCopy = size;
   [(AXCaptioningThemeStyleController *)self profileId];
   RelativeCharSize = MACaptionAppearancePrefGetRelativeCharSize();
-  AXCaptionTextSizes();
+  AXCaptionTextSizes(RelativeCharSize);
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
@@ -508,46 +508,47 @@ LABEL_11:
 {
   [(AXCaptioningThemeStyleController *)self profileId];
   v3 = MACaptionAppearancePrefCopyTextEdgeStyle();
+  v4 = v3;
   if (!v3)
   {
-    v4 = AXCaptionTextEdgeStyleDefault();
-    v3 = [v4 objectForKey:@"edgeKey"];
+    v5 = AXCaptionTextEdgeStyleDefault(0);
+    v4 = [v5 objectForKey:@"edgeKey"];
   }
 
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v5 = AXCaptionTextEdgeStyles();
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v6)
+  v18 = 0u;
+  v6 = AXCaptionTextEdgeStyles(v3);
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v7)
   {
-    v7 = v6;
-    v8 = *v17;
+    v8 = v7;
+    v9 = *v18;
     while (2)
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v8; i = i + 1)
       {
-        if (*v17 != v8)
+        if (*v18 != v9)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
-        v11 = [v10 objectForKeyedSubscript:{@"edgeKey", v16}];
-        v12 = [v11 isEqual:v3];
+        v11 = *(*(&v17 + 1) + 8 * i);
+        v12 = [v11 objectForKeyedSubscript:{@"edgeKey", v17}];
+        v13 = [v12 isEqual:v4];
 
-        if (v12)
+        if (v13)
         {
-          v14 = [v10 objectForKeyedSubscript:@"name"];
-          v13 = settingsLocString(v14, @"CaptioningStyle");
+          v15 = [v11 objectForKeyedSubscript:@"name"];
+          v14 = settingsLocString(v15, @"CaptioningStyle");
 
           goto LABEL_13;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
-      if (v7)
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      if (v8)
       {
         continue;
       }
@@ -556,10 +557,10 @@ LABEL_11:
     }
   }
 
-  v13 = 0;
+  v14 = 0;
 LABEL_13:
 
-  return v13;
+  return v14;
 }
 
 - (id)_nameForColor:(CGColor *)color colorType:(int)type

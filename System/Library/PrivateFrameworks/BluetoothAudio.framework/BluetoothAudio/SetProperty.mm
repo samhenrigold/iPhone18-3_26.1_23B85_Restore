@@ -5,39 +5,38 @@
 
 void __endpoint_SetProperty_block_invoke(void *a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v2 = a1[5];
-  v4 = a1[6];
-  v3 = a1[7];
+  v33 = *MEMORY[0x277D85DE8];
+  v3 = a1[6];
+  v2 = a1[7];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  if (CFEqual(v4, *MEMORY[0x277CC1420]))
+  if (CFEqual(v3, *MEMORY[0x277CC1420]))
   {
     valuePtr = 0;
-    if (CFNumberGetValue(v3, kCFNumberIntType, &valuePtr))
+    if (CFNumberGetValue(v2, kCFNumberIntType, &valuePtr))
     {
-      v6 = +[BluetoothBridge sharedBluetoothBridge];
-      v7 = [v6 deviceFromIdentifier:DerivedStorage[5]];
+      v5 = +[BluetoothBridge sharedBluetoothBridge];
+      v6 = [v5 deviceFromIdentifier:DerivedStorage[5]];
 
-      v8 = objc_alloc_init(MEMORY[0x277CBE028]);
-      [v8 setListeningMode:valuePtr];
-      v9 = BluetoothEndpointManagerLogComponent;
+      v7 = objc_alloc_init(MEMORY[0x277CBE028]);
+      [v7 setListeningMode:valuePtr];
+      v8 = BluetoothEndpointManagerLogComponent;
       if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109378;
         *&buf[4] = valuePtr;
-        LOWORD(v32) = 2112;
-        *(&v32 + 2) = v7;
-        _os_log_impl(&dword_241BB7000, v9, OS_LOG_TYPE_DEFAULT, "Set listening mode to %d for %@", buf, 0x12u);
+        LOWORD(v30) = 2112;
+        *(&v30 + 2) = v6;
+        _os_log_impl(&dword_241BB7000, v8, OS_LOG_TYPE_DEFAULT, "Set listening mode to %d for %@", buf, 0x12u);
       }
 
-      v10 = objc_alloc_init(MEMORY[0x277CBE010]);
+      v9 = objc_alloc_init(MEMORY[0x277CBE010]);
       *buf = MEMORY[0x277D85DD0];
-      *&v32 = 3221225472;
-      *(&v32 + 1) = ___endpoint_SetProperty_block_invoke;
-      v33 = &unk_278D10448;
-      v34 = v10;
-      v11 = v10;
-      [v11 modifyDevice:v7 settings:v8 completion:buf];
+      *&v30 = 3221225472;
+      *(&v30 + 1) = ___endpoint_SetProperty_block_invoke;
+      v31 = &unk_278D10448;
+      v32 = v9;
+      v10 = v9;
+      [v10 modifyDevice:v6 settings:v7 completion:buf];
     }
 
     else if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_ERROR))
@@ -48,84 +47,84 @@ void __endpoint_SetProperty_block_invoke(void *a1)
     goto LABEL_16;
   }
 
-  if (CFEqual(v4, @"ConversationDetectEnable"))
+  if (CFEqual(v3, @"ConversationDetectEnable"))
   {
-    Value = CFBooleanGetValue(v3);
-    v13 = +[BluetoothBridge sharedBluetoothBridge];
-    v14 = [v13 deviceFromIdentifier:DerivedStorage[5]];
+    Value = CFBooleanGetValue(v2);
+    v12 = +[BluetoothBridge sharedBluetoothBridge];
+    v13 = [v12 deviceFromIdentifier:DerivedStorage[5]];
 
-    [v14 setIdentifier:DerivedStorage[5]];
-    v15 = objc_alloc_init(MEMORY[0x277CBE028]);
-    v16 = v15;
+    [v13 setIdentifier:DerivedStorage[5]];
+    v14 = objc_alloc_init(MEMORY[0x277CBE028]);
+    v15 = v14;
     if (Value)
     {
-      v17 = 1;
+      v16 = 1;
     }
 
     else
     {
-      v17 = 2;
+      v16 = 2;
     }
 
-    [v15 setConversationDetectConfig:v17];
-    v18 = BluetoothEndpointManagerLogComponent;
+    [v14 setConversationDetectConfig:v16];
+    v17 = BluetoothEndpointManagerLogComponent;
     if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
       *&buf[4] = Value != 0;
-      LOWORD(v32) = 2112;
-      *(&v32 + 2) = v14;
-      _os_log_impl(&dword_241BB7000, v18, OS_LOG_TYPE_DEFAULT, "Set conversationDetect mode to %d for %@", buf, 0x12u);
+      LOWORD(v30) = 2112;
+      *(&v30 + 2) = v13;
+      _os_log_impl(&dword_241BB7000, v17, OS_LOG_TYPE_DEFAULT, "Set conversationDetect mode to %d for %@", buf, 0x12u);
     }
 
-    v19 = objc_alloc_init(MEMORY[0x277CBE010]);
+    v18 = objc_alloc_init(MEMORY[0x277CBE010]);
     *buf = MEMORY[0x277D85DD0];
-    *&v32 = 3221225472;
-    v20 = ___endpoint_SetProperty_block_invoke_68;
+    *&v30 = 3221225472;
+    v19 = ___endpoint_SetProperty_block_invoke_68;
 LABEL_13:
-    *(&v32 + 1) = v20;
-    v33 = &unk_278D10448;
-    v34 = v19;
-    v21 = v19;
-    [v21 modifyDevice:v14 settings:v16 completion:buf];
+    *(&v30 + 1) = v19;
+    v31 = &unk_278D10448;
+    v32 = v18;
+    v20 = v18;
+    [v20 modifyDevice:v13 settings:v15 completion:buf];
 
     goto LABEL_16;
   }
 
-  if (CFEqual(v4, *MEMORY[0x277CC1248]))
+  if (CFEqual(v3, *MEMORY[0x277CC1248]))
   {
-    v24 = CFGetTypeID(v3);
-    if (v24 != CFBooleanGetTypeID())
+    v22 = CFGetTypeID(v2);
+    if (v22 != CFBooleanGetTypeID())
     {
       goto LABEL_16;
     }
 
-    v25 = CFBooleanGetValue(v3);
-    v14 = objc_alloc_init(MEMORY[0x277CBE020]);
-    [v14 setIdentifier:DerivedStorage[5]];
-    v16 = objc_alloc_init(MEMORY[0x277CBE028]);
-    [v16 setSpatialAudioAllowed:v25 != 0];
-    v26 = BluetoothEndpointManagerLogComponent;
+    v23 = CFBooleanGetValue(v2);
+    v13 = objc_alloc_init(MEMORY[0x277CBE020]);
+    [v13 setIdentifier:DerivedStorage[5]];
+    v15 = objc_alloc_init(MEMORY[0x277CBE028]);
+    [v15 setSpatialAudioAllowed:v23 != 0];
+    v24 = BluetoothEndpointManagerLogComponent;
     if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      *&buf[4] = v25 != 0;
-      LOWORD(v32) = 2112;
-      *(&v32 + 2) = v14;
-      _os_log_impl(&dword_241BB7000, v26, OS_LOG_TYPE_DEFAULT, "Set setSpatialAudioAllowed mode to %d for %@", buf, 0x12u);
+      *&buf[4] = v23 != 0;
+      LOWORD(v30) = 2112;
+      *(&v30 + 2) = v13;
+      _os_log_impl(&dword_241BB7000, v24, OS_LOG_TYPE_DEFAULT, "Set setSpatialAudioAllowed mode to %d for %@", buf, 0x12u);
     }
 
-    v19 = objc_alloc_init(MEMORY[0x277CBE010]);
+    v18 = objc_alloc_init(MEMORY[0x277CBE010]);
     *buf = MEMORY[0x277D85DD0];
-    *&v32 = 3221225472;
-    v20 = ___endpoint_SetProperty_block_invoke_70;
+    *&v30 = 3221225472;
+    v19 = ___endpoint_SetProperty_block_invoke_70;
     goto LABEL_13;
   }
 
-  if (CFEqual(v4, *MEMORY[0x277CC1358]))
+  if (CFEqual(v3, *MEMORY[0x277CC1358]))
   {
     valuePtr = 0;
-    if (!CFNumberGetValue(v3, kCFNumberSInt32Type, &valuePtr))
+    if (!CFNumberGetValue(v2, kCFNumberSInt32Type, &valuePtr))
     {
       if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_ERROR))
       {
@@ -135,45 +134,44 @@ LABEL_13:
       goto LABEL_16;
     }
 
-    v14 = objc_alloc_init(MEMORY[0x277CBE020]);
-    [v14 setIdentifier:DerivedStorage[5]];
-    v16 = objc_alloc_init(MEMORY[0x277CBE028]);
-    [v16 setSpatialAudioMode:valuePtr];
-    v27 = BluetoothEndpointManagerLogComponent;
+    v13 = objc_alloc_init(MEMORY[0x277CBE020]);
+    [v13 setIdentifier:DerivedStorage[5]];
+    v15 = objc_alloc_init(MEMORY[0x277CBE028]);
+    [v15 setSpatialAudioMode:valuePtr];
+    v25 = BluetoothEndpointManagerLogComponent;
     if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
       *&buf[4] = valuePtr;
-      LOWORD(v32) = 2112;
-      *(&v32 + 2) = v14;
-      _os_log_impl(&dword_241BB7000, v27, OS_LOG_TYPE_DEFAULT, "Set setSpatialAudioMode mode to %d for %@", buf, 0x12u);
+      LOWORD(v30) = 2112;
+      *(&v30 + 2) = v13;
+      _os_log_impl(&dword_241BB7000, v25, OS_LOG_TYPE_DEFAULT, "Set setSpatialAudioMode mode to %d for %@", buf, 0x12u);
     }
 
-    v19 = objc_alloc_init(MEMORY[0x277CBE010]);
+    v18 = objc_alloc_init(MEMORY[0x277CBE010]);
     *buf = MEMORY[0x277D85DD0];
-    *&v32 = 3221225472;
-    v20 = ___endpoint_SetProperty_block_invoke_71;
+    *&v30 = 3221225472;
+    v19 = ___endpoint_SetProperty_block_invoke_71;
     goto LABEL_13;
   }
 
-  if (!CFEqual(v4, @"UserPickedRoute"))
+  if (!CFEqual(v3, @"UserPickedRoute"))
   {
-    v22 = -12787;
+    v21 = -12787;
     goto LABEL_17;
   }
 
-  v28 = CFGetTypeID(v3);
-  if (v28 == CFBooleanGetTypeID())
+  v26 = CFGetTypeID(v2);
+  if (v26 == CFBooleanGetTypeID())
   {
-    v29 = CFBooleanGetValue(v3) != 0;
-    endpoint_SetUserRouted(DerivedStorage, v29);
+    v27 = CFBooleanGetValue(v2) != 0;
+    endpoint_SetUserRouted(DerivedStorage, v27);
   }
 
 LABEL_16:
-  v22 = 0;
+  v21 = 0;
 LABEL_17:
-  *(*(a1[4] + 8) + 24) = v22;
-  v23 = *MEMORY[0x277D85DE8];
+  *(*(a1[4] + 8) + 24) = v21;
 }
 
 void ___endpoint_SetProperty_block_invoke(uint64_t a1, void *a2)

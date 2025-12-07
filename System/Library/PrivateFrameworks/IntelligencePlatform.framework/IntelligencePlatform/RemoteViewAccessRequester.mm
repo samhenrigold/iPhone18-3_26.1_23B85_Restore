@@ -62,11 +62,12 @@
 
 - (id)requestAssertionForViewName:(id)name error:(id *)error
 {
-  sub_1ABF23C04();
+  v5 = sub_1ABF23C04();
+  v7 = v6;
   selfCopy = self;
-  v6 = RemoteViewAccessRequester.requestAssertion(forViewName:)();
+  v9 = RemoteViewAccessRequester.requestAssertion(forViewName:)(v5, v7);
 
-  return v6;
+  return v9;
 }
 
 @end

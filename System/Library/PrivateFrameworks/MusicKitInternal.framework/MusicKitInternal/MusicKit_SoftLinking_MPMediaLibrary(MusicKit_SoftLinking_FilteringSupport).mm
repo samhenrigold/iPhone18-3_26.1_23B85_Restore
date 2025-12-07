@@ -6,7 +6,7 @@
 
 - (uint64_t)filterAvailableContentGroups:()MusicKit_SoftLinking_FilteringSupport withOptions:
 {
-  v6 = [MEMORY[0x1E69775F8] _underlyingContentGroupsForSoftLinkingContentGroups:?];
+  v6 = [MEMORY[0x1E69775F8] _underlyingContentGroupsForSoftLinkingContentGroups:a3];
   v7 = [MEMORY[0x1E69775F8] _underlyingFilteringOptionsForSoftLinkingFilteringOptions:a4];
   _underlyingMediaLibrary = [self _underlyingMediaLibrary];
   v9 = [_underlyingMediaLibrary filterAvailableContentGroups:v6 withOptions:v7];

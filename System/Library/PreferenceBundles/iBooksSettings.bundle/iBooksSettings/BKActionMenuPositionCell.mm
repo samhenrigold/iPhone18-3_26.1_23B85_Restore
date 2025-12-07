@@ -3,6 +3,8 @@
 - (BKImageRadioButtonView)leftView;
 - (BKImageRadioButtonView)rightView;
 - (id)accessibilityElements;
+- (void)_selectOnLeft:(BOOL)left;
+- (void)_updateSelection:(BOOL)selection;
 @end
 
 @implementation BKActionMenuPositionCell
@@ -15,13 +17,13 @@
   if (v4)
   {
     v5 = [BKImageRadioButtonView alloc];
-    v6 = BKSettingsBundle();
+    v6 = BKSettingsBundle(v5);
     v7 = [v6 localizedStringForKey:@"Left" value:&stru_14E68 table:@"Settings"];
     v8 = [(BKImageRadioButtonView *)v5 initWithImageName:@"ActionMenuSettingLeft" title:v7];
 
     objc_storeWeak(&v4->_leftView, v8);
     v9 = [BKImageRadioButtonView alloc];
-    v10 = BKSettingsBundle();
+    v10 = BKSettingsBundle(v9);
     v11 = [v10 localizedStringForKey:@"Right" value:&stru_14E68 table:@"Settings"];
     v12 = [(BKImageRadioButtonView *)v9 initWithImageName:@"ActionMenuSettingRight" title:v11];
 
@@ -159,6 +161,25 @@
   }
 
   return v4;
+}
+
+- (void)_updateSelection:(BOOL)selection
+{
+  selectionCopy = selection;
+  WeakRetained = objc_loadWeakRetained(&self->_leftView);
+  [WeakRetained setSelected:selectionCopy];
+
+  v6 = objc_loadWeakRetained(&self->_rightView);
+  [v6 setSelected:selectionCopy ^ 1];
+}
+
+- (void)_selectOnLeft:(BOOL)left
+{
+  leftCopy = left;
+  v5 = +[BooksSettings shared];
+  [v5 setMenuOnLeft:leftCopy];
+
+  [(BKActionMenuPositionCell *)self _updateSelection:leftCopy];
 }
 
 - (id)accessibilityElements

@@ -22,7 +22,7 @@
   return v3;
 }
 
-uint64_t __33__CRKSystemInfo_sharedSystemInfo__block_invoke()
+uint64_t __33__CRKSystemInfo_sharedSystemInfo__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedSystemInfo_info = objc_opt_new();
 

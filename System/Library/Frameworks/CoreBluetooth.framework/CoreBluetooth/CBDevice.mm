@@ -17,6 +17,7 @@
 - (BOOL)decryptNearbyInfoV2PayloadPtr:(const char *)ptr payloadLength:(unint64_t)length key:(const char *)key keyLength:(unint64_t)keyLength decryptedPtr:(void *)decryptedPtr;
 - (BOOL)discoveryTypesContainCBDiscovery:(id)discovery;
 - (BOOL)discoveryTypesContainType:(int)type;
+- (BOOL)isEqualToDevice:(id)device exactMatch:(BOOL)match;
 - (BOOL)isEquivalentToCBDevice:(id)device compareFlags:(unsigned int)flags;
 - (BOOL)isLowerThanAgeLimit:(id)limit compareTimestamp:(unint64_t)timestamp;
 - (CBDevice)initWithCoder:(id)coder;
@@ -70,9 +71,6 @@
 - (OS_xpc_object)xpcEventCompleteRepresentation;
 - (OS_xpc_object)xpcEventRepresentation;
 - (char)rssi;
-- (double)accessoryStatusOBCTime;
-- (double)bleAdvertisementTimestamp;
-- (double)nearbyInfoStatusProgress;
 - (id)bleAdvertisementTimestampString;
 - (id)descriptionWithLevel:(int)level;
 - (id)dictionaryRepresentation;
@@ -123,18 +121,113 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)encodeWithXPCObject:(id)object;
 - (void)resetNearbyInfoV2SensitiveProperties;
+- (void)setAccessoryStatusFlags:(unsigned int)flags;
+- (void)setAccessoryStatusLidOpenCount:(unsigned __int8)count;
 - (void)setAccessoryStatusOBCTime:(double)time;
+- (void)setAclLinkState:(unsigned __int8)state;
+- (void)setAdaptiveVolumeCapability:(unsigned __int8)capability;
+- (void)setAdaptiveVolumeConfig:(unsigned __int8)config;
+- (void)setAirdropConfigData:(unsigned __int8)data;
+- (void)setAirdropFlags:(unsigned __int8)flags;
+- (void)setAirdropHash1:(unsigned __int16)hash1;
+- (void)setAirdropHash2:(unsigned __int16)hash2;
+- (void)setAirdropHash3:(unsigned __int16)hash3;
+- (void)setAirdropHash4:(unsigned __int16)hash4;
+- (void)setAirdropModel:(unsigned __int8)model;
+- (void)setAirdropVersion:(unsigned __int8)version;
+- (void)setAirplaySourceFlags:(unsigned __int8)flags;
+- (void)setAirplayTargetConfigSeed:(unsigned __int8)seed;
+- (void)setAirplayTargetFlags:(unsigned __int8)flags;
+- (void)setAirplayTargetIPv4:(unsigned int)pv4;
+- (void)setAirplayTargetPort:(unsigned __int16)port;
+- (void)setAppearanceValue:(unsigned int)value;
+- (void)setAudioStreamState:(int)state;
+- (void)setAutoAncCapability:(unsigned __int8)capability;
+- (void)setBatteryInfoCase:(unsigned __int16)case;
+- (void)setBatteryInfoLeft:(unsigned __int16)left;
+- (void)setBatteryInfoMain:(unsigned __int16)main;
+- (void)setBatteryInfoRight:(unsigned __int16)right;
 - (void)setBleAdvertisementTimestamp:(double)timestamp;
 - (void)setBleAdvertisementTimestampMachContinuous:(unint64_t)continuous;
+- (void)setBleChannel:(int)channel;
+- (void)setBleRSSI:(int)i;
+- (void)setClassicRSSI:(char)i;
+- (void)setClickHoldModeLeft:(unsigned __int8)left;
+- (void)setClickHoldModeRight:(unsigned __int8)right;
+- (void)setColorInfo:(unsigned __int16)info;
+- (void)setConnectedServices:(unsigned int)services;
+- (void)setConversationDetectCapability:(unsigned __int8)capability;
+- (void)setConversationDetectConfig:(unsigned __int8)config;
+- (void)setCrownRotationDirection:(unsigned __int8)direction;
+- (void)setDoubleTapActionLeft:(char)left;
+- (void)setDoubleTapActionRight:(char)right;
+- (void)setDoubleTapCapability:(char)capability;
+- (void)setDsActionFlags:(unsigned __int8)flags;
+- (void)setDsActionMeasuredPower:(char)power;
+- (void)setDsActionTieBreaker:(unsigned __int8)breaker;
+- (void)setDsInfoVehicleConfidence:(unsigned __int8)confidence;
+- (void)setDsInfoVehicleState:(unsigned __int8)state;
+- (void)setEndCallCapability:(unsigned __int8)capability;
+- (void)setEndCallConfig:(unsigned __int8)config;
+- (void)setFrequencyBand:(unsigned __int8)band;
+- (void)setGapaFlags:(unsigned int)flags;
 - (void)setGfpModelID:(unsigned int)d;
+- (void)setHeySiriConfidence:(unsigned __int8)confidence;
+- (void)setHeySiriDeviceClass:(unsigned __int16)class;
+- (void)setHeySiriPerceptualHash:(unsigned __int16)hash;
+- (void)setHeySiriProductType:(unsigned __int8)type;
+- (void)setHeySiriRandom:(unsigned __int8)random;
+- (void)setHeySiriSNR:(unsigned __int8)r;
+- (void)setHomeKitV1Category:(unsigned __int16)category;
+- (void)setHomeKitV1CompatibleVersion:(unsigned __int8)version;
+- (void)setHomeKitV1ConfigurationNumber:(unsigned __int8)number;
+- (void)setHomeKitV1Flags:(unsigned __int8)flags;
+- (void)setHomeKitV1SetupHash:(unsigned int)hash;
+- (void)setHomeKitV1StateNumber:(unsigned __int16)number;
+- (void)setHomeKitV2InstanceID:(unsigned __int16)d;
+- (void)setHomeKitV2StateNumber:(unsigned __int16)number;
 - (void)setHomeKitV2Value:(unint64_t)value;
+- (void)setListeningMode:(int)mode;
+- (void)setListeningModeConfigs:(unsigned int)configs;
 - (void)setMspDeviceClass:(unsigned int)class;
 - (void)setMspSubScenario:(unsigned __int8)scenario;
+- (void)setMuteControlConfig:(unsigned __int8)config;
+- (void)setNearbyActionColorCode:(unsigned __int8)code;
 - (void)setNearbyActionDeviceClass:(unsigned __int8)class;
+- (void)setNearbyActionFlags:(unsigned int)flags;
+- (void)setNearbyActionNoWakeType:(unsigned __int8)type;
+- (void)setNearbyActionType:(unsigned __int8)type;
 - (void)setNearbyActionV2Flags:(unsigned int)flags;
 - (void)setNearbyActionV2Type:(unsigned __int8)type;
+- (void)setNearbyInfoFlags:(unsigned int)flags;
 - (void)setNearbyInfoStatusProgress:(double)progress;
+- (void)setNearbyInfoStatusTime:(unsigned __int8)time;
+- (void)setNearbyInfoStatusType:(unsigned __int8)type;
+- (void)setNearbyInfoV2DecryptedFlags:(unsigned __int8)flags;
+- (void)setNearbyInfoV2EncryptedFlags:(unsigned __int8)flags;
+- (void)setNearbyInfoV2Flags:(unsigned __int8)flags;
+- (void)setObjectSetupBatteryPerformance:(unsigned __int8)performance;
+- (void)setObjectSetupBatteryState:(unsigned __int8)state;
+- (void)setObjectSetupColorCode:(unsigned __int8)code;
+- (void)setObjectSetupFlags:(unsigned int)flags;
+- (void)setPeerStatusFlag:(unsigned __int8)flag;
+- (void)setPrimaryBudSide:(unsigned __int8)side;
+- (void)setProximityPairingPrimaryPlacement:(int)placement;
+- (void)setProximityPairingSecondaryPlacement:(int)placement;
+- (void)setProximityServiceCategory:(unsigned __int8)category;
+- (void)setProximityServiceFlags:(unsigned __int8)flags;
+- (void)setProximityServiceMeasuredPower:(char)power;
+- (void)setProximityServicePSM:(unsigned __int16)m;
+- (void)setProximityServiceProductID:(unsigned int)d;
+- (void)setProximityServiceSubType:(unsigned __int8)type;
+- (void)setProximityServiceVendorID:(unsigned __int16)d;
+- (void)setProximityServiceVersion:(unsigned __int8)version;
+- (void)setSelectiveSpeechListeningConfig:(unsigned __int8)config;
+- (void)setSpatialAudioMode:(int)mode;
+- (void)setSpatialInteractionConfigFlags:(unsigned __int8)flags;
 - (void)setSpatialInteractionDeviceTimestampArrayForClientID:(id)d clientID:(id)iD;
+- (void)setSpatialInteractionFlags:(unsigned __int8)flags;
+- (void)setSpatialInteractionPeerID:(unsigned int)d;
 - (void)updateWithCBDeviceIdentity:(id)identity;
 - (void)updateWithRPIdentity:(id)identity;
 - (void)updateWithReceivedAuthTag:(id)tag forType:(unsigned __int8)type;
@@ -164,7 +257,6 @@
 
 - (NSData)bleAddressData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -172,22 +264,13 @@
 
 - (NSData)bleAdvertisementData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
 }
 
-- (double)bleAdvertisementTimestamp
-{
-  deviceInfo = self->_deviceInfo;
-  CFDictionaryGetDouble();
-  return result;
-}
-
 - (NSData)btAddressData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -195,7 +278,6 @@
 
 - (NSData)bleAppleManufacturerData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -203,7 +285,6 @@
 
 - (NSString)modelUser
 {
-  deviceInfo = self->_deviceInfo;
   CFStringGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -211,7 +292,6 @@
 
 - (NSString)btVersion
 {
-  deviceInfo = self->_deviceInfo;
   CFStringGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -219,7 +299,6 @@
 
 - (NSString)caseVersion
 {
-  deviceInfo = self->_deviceInfo;
   CFStringGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -227,7 +306,6 @@
 
 - (NSString)findMyCaseIdentifier
 {
-  deviceInfo = self->_deviceInfo;
   CFStringGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -235,7 +313,6 @@
 
 - (NSString)findMyGroupIdentifier
 {
-  deviceInfo = self->_deviceInfo;
   CFStringGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -243,7 +320,6 @@
 
 - (NSData)dockKitAccessoryPayloadData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -251,7 +327,6 @@
 
 - (NSData)fidoPayloadData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -259,7 +334,6 @@
 
 - (NSData)gfpPayloadData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -302,7 +376,6 @@
 
 - (NSData)homeKitV2AccessoryIDData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -310,7 +383,6 @@
 
 - (NSData)homeKitV1DeviceIDData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -318,7 +390,6 @@
 
 - (NSData)airdropTempAuthTagData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -326,7 +397,6 @@
 
 - (NSData)proximityServiceData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -334,7 +404,6 @@
 
 - (NSData)nearbyActionExtraData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -342,7 +411,6 @@
 
 - (NSData)nearbyInfoAuthTag
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -350,7 +418,6 @@
 
 - (NSData)nearbyActionAuthTag
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -358,22 +425,13 @@
 
 - (NSData)nearbyActionTargetAuthTag
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
 }
 
-- (double)nearbyInfoStatusProgress
-{
-  deviceInfo = self->_deviceInfo;
-  CFDictionaryGetDouble();
-  return result;
-}
-
 - (NSData)nearbyInfoV2AuthTagData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -381,7 +439,6 @@
 
 - (NSData)nearbyInfoV2AuthIntegrityTagData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -389,7 +446,6 @@
 
 - (NSData)proximityServiceClassicAddress
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -397,7 +453,6 @@
 
 - (NSData)proximityServiceSetupHash
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -405,7 +460,6 @@
 
 - (NSArray)spatialInteractionIdentifiers
 {
-  deviceInfo = self->_deviceInfo;
   CFArrayGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -413,7 +467,6 @@
 
 - (NSData)spatialInteractionTokenData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -421,7 +474,6 @@
 
 - (NSDictionary)spatialInteractionUserInfo
 {
-  deviceInfo = self->_deviceInfo;
   CFDictionaryGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -429,7 +481,6 @@
 
 - (NSData)spatialInteractionPresenceConfigData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -437,7 +488,6 @@
 
 - (NSData)spatialInteractionUWBConfigData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -445,7 +495,6 @@
 
 - (NSData)watchSetupData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -461,16 +510,16 @@
   nearbyInfoV2AuthTagData = [(CBDevice *)self nearbyInfoV2AuthTagData];
   if (nearbyInfoV2AuthTagData)
   {
-    v5 = self->_changedTypesInternal.bitArray[0];
+    v6 = self->_changedTypesInternal.bitArray[0];
 
-    if ((v5 & 0x10) != 0)
+    if ((v6 & 0x10) != 0)
     {
       return 1;
     }
   }
 
-  v6 = CBDiscoveryTypesNeedsIdentify();
-  if (CBDiscoveryTypesContainTypes(self->_changedTypesInternal.bitArray, v6))
+  v7 = CBDiscoveryTypesNeedsIdentify(nearbyInfoV2AuthTagData, v5);
+  if (CBDiscoveryTypesContainTypes(self->_changedTypesInternal.bitArray, v7))
   {
     return 1;
   }
@@ -489,7 +538,6 @@
 
 - (NSData)nearbyInfoV2EncryptedData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -772,7 +820,6 @@ LABEL_19:
 
 - (NSData)airplaySourceAuthTagData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -780,16 +827,16 @@ LABEL_19:
 
 - (OS_xpc_object)xpcEventRepresentation
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = xpc_dictionary_create(0, 0, 0);
   btAddressData = [(CBDevice *)self btAddressData];
   v5 = btAddressData;
   if (btAddressData && [btAddressData length] == 6)
   {
-    LOWORD(v11) = 0;
+    LOWORD(v10) = 0;
     [v5 bytes];
     HardwareAddressToCString();
-    xpc_dictionary_set_string(v3, "btAddress", &v10);
+    xpc_dictionary_set_string(v3, "btAddress", &v9);
   }
 
   uTF8String = [(NSString *)self->_identifier UTF8String];
@@ -804,21 +851,11 @@ LABEL_19:
     xpc_dictionary_set_int64(v3, "deviceClass", nearbyActionDeviceClass);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v3;
-}
-
-- (double)accessoryStatusOBCTime
-{
-  deviceInfo = self->_deviceInfo;
-  CFDictionaryGetDouble();
-  return result;
 }
 
 - (NSData)airplayTargetIPv6
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -951,7 +988,6 @@ LABEL_11:
     xpc_dictionary_set_string(v11, "cnID", uTF8String2);
   }
 
-  controllerInfo = self->_controllerInfo;
   CUXPCEncodeObject();
   deviceFlags = self->_deviceFlags;
   if (deviceFlags)
@@ -965,13 +1001,13 @@ LABEL_11:
     xpc_dictionary_set_uint64(v11, "dvIF", *&internalFlags & 0x20000);
   }
 
-  v16 = self->_deviceInfo;
-  if (v16)
+  v15 = self->_deviceInfo;
+  if (v15)
   {
-    v17 = _CFXPCCreateXPCObjectFromCFObject();
-    if (v17)
+    v16 = _CFXPCCreateXPCObjectFromCFObject();
+    if (v16)
     {
-      xpc_dictionary_set_value(v11, "dvIn", v17);
+      xpc_dictionary_set_value(v11, "dvIn", v16);
     }
   }
 
@@ -988,163 +1024,163 @@ LABEL_11:
 
   if (*self->_discoveryTypesInternal.bitArray | *&self->_discoveryTypesInternal.bitArray[4])
   {
-    v19 = 6;
+    v18 = 6;
   }
 
   else
   {
-    v19 = 1;
+    v18 = 1;
   }
 
-  xpc_dictionary_set_data(v11, "dsTy", &self->_discoveryTypesInternal, v19);
+  xpc_dictionary_set_data(v11, "dsTy", &self->_discoveryTypesInternal, v18);
   firmwareVersion = self->_firmwareVersion;
-  v21 = v11;
+  v20 = v11;
   uTF8String3 = [(NSString *)firmwareVersion UTF8String];
   if (uTF8String3)
   {
-    xpc_dictionary_set_string(v21, "frmV", uTF8String3);
+    xpc_dictionary_set_string(v20, "frmV", uTF8String3);
   }
 
   identifier = self->_identifier;
-  v24 = v21;
+  v23 = v20;
   uTF8String4 = [(NSString *)identifier UTF8String];
   if (uTF8String4)
   {
-    xpc_dictionary_set_string(v24, "id", uTF8String4);
+    xpc_dictionary_set_string(v23, "id", uTF8String4);
   }
 
   if (self->_interval)
   {
-    xpc_dictionary_set_uint64(v24, "inV", self->_interval);
+    xpc_dictionary_set_uint64(v23, "inV", self->_interval);
   }
 
   idsDeviceID = self->_idsDeviceID;
-  v27 = v24;
+  v26 = v23;
   uTF8String5 = [(NSString *)idsDeviceID UTF8String];
   if (uTF8String5)
   {
-    xpc_dictionary_set_string(v27, "idsI", uTF8String5);
+    xpc_dictionary_set_string(v26, "idsI", uTF8String5);
   }
 
   leAdvName = self->_leAdvName;
-  v30 = v27;
+  v29 = v26;
   uTF8String6 = [(NSString *)leAdvName UTF8String];
   if (uTF8String6)
   {
-    xpc_dictionary_set_string(v30, "leNm", uTF8String6);
+    xpc_dictionary_set_string(v29, "leNm", uTF8String6);
   }
 
   if (self->_microphoneMode)
   {
-    xpc_dictionary_set_int64(v30, "micM", self->_microphoneMode);
+    xpc_dictionary_set_int64(v29, "micM", self->_microphoneMode);
   }
 
   model = self->_model;
-  v33 = v30;
+  v32 = v29;
   uTF8String7 = [(NSString *)model UTF8String];
   if (uTF8String7)
   {
-    xpc_dictionary_set_string(v33, "md", uTF8String7);
+    xpc_dictionary_set_string(v32, "md", uTF8String7);
   }
 
   if (self->_muteControlCapability)
   {
-    xpc_dictionary_set_uint64(v33, "mCCp", self->_muteControlCapability);
+    xpc_dictionary_set_uint64(v32, "mCCp", self->_muteControlCapability);
   }
 
   name = self->_name;
-  v36 = v33;
+  v35 = v32;
   uTF8String8 = [(NSString *)name UTF8String];
   if (uTF8String8)
   {
-    xpc_dictionary_set_string(v36, "nm", uTF8String8);
+    xpc_dictionary_set_string(v35, "nm", uTF8String8);
   }
 
   primaryPlacement = self->_primaryPlacement;
   if (primaryPlacement)
   {
-    xpc_dictionary_set_int64(v36, "dPrP", primaryPlacement);
+    xpc_dictionary_set_int64(v35, "dPrP", primaryPlacement);
   }
 
   secondaryPlacement = self->_secondaryPlacement;
   if (secondaryPlacement)
   {
-    xpc_dictionary_set_int64(v36, "dScP", secondaryPlacement);
+    xpc_dictionary_set_int64(v35, "dScP", secondaryPlacement);
   }
 
   if (self->_placementMode)
   {
-    xpc_dictionary_set_int64(v36, "dPlM", self->_placementMode);
+    xpc_dictionary_set_int64(v35, "dPlM", self->_placementMode);
   }
 
   productID = self->_productID;
   if (productID)
   {
-    xpc_dictionary_set_uint64(v36, "pid", productID);
+    xpc_dictionary_set_uint64(v35, "pid", productID);
   }
 
   productName = self->_productName;
-  v42 = v36;
+  v41 = v35;
   uTF8String9 = [(NSString *)productName UTF8String];
   if (uTF8String9)
   {
-    xpc_dictionary_set_string(v42, "prN", uTF8String9);
+    xpc_dictionary_set_string(v41, "prN", uTF8String9);
   }
 
   if (self->_selectiveSpeechListeningCapability)
   {
-    xpc_dictionary_set_uint64(v42, "ssCp", self->_selectiveSpeechListeningCapability);
+    xpc_dictionary_set_uint64(v41, "ssCp", self->_selectiveSpeechListeningCapability);
   }
 
   txAddressData = self->_txAddressData;
   if (txAddressData)
   {
-    v45 = txAddressData;
-    v46 = v42;
-    bytes = [(NSData *)v45 bytes];
+    v44 = txAddressData;
+    v45 = v41;
+    bytes = [(NSData *)v44 bytes];
     if (bytes)
     {
-      v48 = bytes;
+      v47 = bytes;
     }
 
     else
     {
-      v48 = "";
+      v47 = "";
     }
 
-    v49 = [(NSData *)v45 length];
+    v48 = [(NSData *)v44 length];
 
-    xpc_dictionary_set_data(v46, "TxAd", v48, v49);
+    xpc_dictionary_set_data(v45, "TxAd", v47, v48);
   }
 
   if (self->_hearingAidSupport)
   {
-    xpc_dictionary_set_int64(v42, "HaSp", self->_hearingAidSupport);
+    xpc_dictionary_set_int64(v41, "HaSp", self->_hearingAidSupport);
   }
 
   if (self->_hearingTestSupport)
   {
-    xpc_dictionary_set_int64(v42, "HtSp", self->_hearingTestSupport);
+    xpc_dictionary_set_int64(v41, "HtSp", self->_hearingTestSupport);
   }
 
   serialNumber = self->_serialNumber;
-  v51 = v42;
+  v50 = v41;
   uTF8String10 = [(NSString *)serialNumber UTF8String];
   if (uTF8String10)
   {
-    xpc_dictionary_set_string(v51, "sn", uTF8String10);
+    xpc_dictionary_set_string(v50, "sn", uTF8String10);
   }
 
   serialNumberLeft = self->_serialNumberLeft;
-  v54 = v51;
+  v53 = v50;
   uTF8String11 = [(NSString *)serialNumberLeft UTF8String];
   if (uTF8String11)
   {
-    xpc_dictionary_set_string(v54, "snLe", uTF8String11);
+    xpc_dictionary_set_string(v53, "snLe", uTF8String11);
   }
 
   serialNumberRight = self->_serialNumberRight;
-  xdict = v54;
+  xdict = v53;
   uTF8String12 = [(NSString *)serialNumberRight UTF8String];
   if (uTF8String12)
   {
@@ -1190,22 +1226,22 @@ LABEL_11:
   nearbyInfoV2NearbyFaceTimeData = self->_nearbyInfoV2NearbyFaceTimeData;
   if (nearbyInfoV2NearbyFaceTimeData)
   {
-    v60 = nearbyInfoV2NearbyFaceTimeData;
-    v61 = xdict;
-    bytes2 = [(NSData *)v60 bytes];
+    v59 = nearbyInfoV2NearbyFaceTimeData;
+    v60 = xdict;
+    bytes2 = [(NSData *)v59 bytes];
     if (bytes2)
     {
-      v63 = bytes2;
+      v62 = bytes2;
     }
 
     else
     {
-      v63 = "";
+      v62 = "";
     }
 
-    v64 = [(NSData *)v60 length];
+    v63 = [(NSData *)v59 length];
 
-    xpc_dictionary_set_data(v61, "nb2FT", v63, v64);
+    xpc_dictionary_set_data(v60, "nb2FT", v62, v63);
   }
 
   if (self->_nearbyActionNWPrecisionFindingStatus)
@@ -1216,43 +1252,43 @@ LABEL_11:
   nearbyActionNoWakeAuthTagData = self->_nearbyActionNoWakeAuthTagData;
   if (nearbyActionNoWakeAuthTagData)
   {
-    v66 = nearbyActionNoWakeAuthTagData;
-    v67 = xdict;
-    bytes3 = [(NSData *)v66 bytes];
+    v65 = nearbyActionNoWakeAuthTagData;
+    v66 = xdict;
+    bytes3 = [(NSData *)v65 bytes];
     if (bytes3)
     {
-      v69 = bytes3;
+      v68 = bytes3;
     }
 
     else
     {
-      v69 = "";
+      v68 = "";
     }
 
-    v70 = [(NSData *)v66 length];
+    v69 = [(NSData *)v65 length];
 
-    xpc_dictionary_set_data(v67, "nawA", v69, v70);
+    xpc_dictionary_set_data(v66, "nawA", v68, v69);
   }
 
   nearbyActionNoWakeConfigData = self->_nearbyActionNoWakeConfigData;
   if (nearbyActionNoWakeConfigData)
   {
-    v72 = nearbyActionNoWakeConfigData;
-    v73 = xdict;
-    bytes4 = [(NSData *)v72 bytes];
+    v71 = nearbyActionNoWakeConfigData;
+    v72 = xdict;
+    bytes4 = [(NSData *)v71 bytes];
     if (bytes4)
     {
-      v75 = bytes4;
+      v74 = bytes4;
     }
 
     else
     {
-      v75 = "";
+      v74 = "";
     }
 
-    v76 = [(NSData *)v72 length];
+    v75 = [(NSData *)v71 length];
 
-    xpc_dictionary_set_data(v73, "nawC", v75, v76);
+    xpc_dictionary_set_data(v72, "nawC", v74, v75);
   }
 
   if (self->_objectDiscoveryBatteryState)
@@ -1268,22 +1304,22 @@ LABEL_11:
   objectDiscoveryNearOwnerID = self->_objectDiscoveryNearOwnerID;
   if (objectDiscoveryNearOwnerID)
   {
-    v78 = objectDiscoveryNearOwnerID;
-    v79 = xdict;
-    bytes5 = [(NSData *)v78 bytes];
+    v77 = objectDiscoveryNearOwnerID;
+    v78 = xdict;
+    bytes5 = [(NSData *)v77 bytes];
     if (bytes5)
     {
-      v81 = bytes5;
+      v80 = bytes5;
     }
 
     else
     {
-      v81 = "";
+      v80 = "";
     }
 
-    v82 = [(NSData *)v78 length];
+    v81 = [(NSData *)v77 length];
 
-    xpc_dictionary_set_data(v79, "odNO", v81, v82);
+    xpc_dictionary_set_data(v78, "odNO", v80, v81);
   }
 
   objectDiscoveryProductID = self->_objectDiscoveryProductID;
@@ -1295,22 +1331,22 @@ LABEL_11:
   objectDiscoveryPublicKeyData = self->_objectDiscoveryPublicKeyData;
   if (objectDiscoveryPublicKeyData)
   {
-    v85 = objectDiscoveryPublicKeyData;
-    v86 = xdict;
-    bytes6 = [(NSData *)v85 bytes];
+    v84 = objectDiscoveryPublicKeyData;
+    v85 = xdict;
+    bytes6 = [(NSData *)v84 bytes];
     if (bytes6)
     {
-      v88 = bytes6;
+      v87 = bytes6;
     }
 
     else
     {
-      v88 = "";
+      v87 = "";
     }
 
-    v89 = [(NSData *)v85 length];
+    v88 = [(NSData *)v84 length];
 
-    xpc_dictionary_set_data(v86, "odPK", v88, v89);
+    xpc_dictionary_set_data(v85, "odPK", v87, v88);
   }
 
   proximityPairingProductID = self->_proximityPairingProductID;
@@ -1342,64 +1378,64 @@ LABEL_11:
   safetyAlertsAlertData = self->_safetyAlertsAlertData;
   if (safetyAlertsAlertData)
   {
-    v92 = safetyAlertsAlertData;
-    v93 = xdict;
-    bytes7 = [(NSData *)v92 bytes];
+    v91 = safetyAlertsAlertData;
+    v92 = xdict;
+    bytes7 = [(NSData *)v91 bytes];
     if (bytes7)
     {
-      v95 = bytes7;
+      v94 = bytes7;
     }
 
     else
     {
-      v95 = "";
+      v94 = "";
     }
 
-    v96 = [(NSData *)v92 length];
+    v95 = [(NSData *)v91 length];
 
-    xpc_dictionary_set_data(v93, "saAd", v95, v96);
+    xpc_dictionary_set_data(v92, "saAd", v94, v95);
   }
 
   safetyAlertsAlertID = self->_safetyAlertsAlertID;
   if (safetyAlertsAlertID)
   {
-    v98 = safetyAlertsAlertID;
-    v99 = xdict;
-    bytes8 = [(NSData *)v98 bytes];
+    v97 = safetyAlertsAlertID;
+    v98 = xdict;
+    bytes8 = [(NSData *)v97 bytes];
     if (bytes8)
     {
-      v101 = bytes8;
+      v100 = bytes8;
     }
 
     else
     {
-      v101 = "";
+      v100 = "";
     }
 
-    v102 = [(NSData *)v98 length];
+    v101 = [(NSData *)v97 length];
 
-    xpc_dictionary_set_data(v99, "saAi", v101, v102);
+    xpc_dictionary_set_data(v98, "saAi", v100, v101);
   }
 
   safetyAlertsSignature = self->_safetyAlertsSignature;
   if (safetyAlertsSignature)
   {
-    v104 = safetyAlertsSignature;
-    v105 = xdict;
-    bytes9 = [(NSData *)v104 bytes];
+    v103 = safetyAlertsSignature;
+    v104 = xdict;
+    bytes9 = [(NSData *)v103 bytes];
     if (bytes9)
     {
-      v107 = bytes9;
+      v106 = bytes9;
     }
 
     else
     {
-      v107 = "";
+      v106 = "";
     }
 
-    v108 = [(NSData *)v104 length];
+    v107 = [(NSData *)v103 length];
 
-    xpc_dictionary_set_data(v105, "saSg", v107, v108);
+    xpc_dictionary_set_data(v104, "saSg", v106, v107);
   }
 
   if (self->_safetyAlertsVersion)
@@ -1415,22 +1451,22 @@ LABEL_11:
   softwareUpdateData = self->_softwareUpdateData;
   if (softwareUpdateData)
   {
-    v110 = softwareUpdateData;
-    v111 = xdict;
-    bytes10 = [(NSData *)v110 bytes];
+    v109 = softwareUpdateData;
+    v110 = xdict;
+    bytes10 = [(NSData *)v109 bytes];
     if (bytes10)
     {
-      v113 = bytes10;
+      v112 = bytes10;
     }
 
     else
     {
-      v113 = "";
+      v112 = "";
     }
 
-    v114 = [(NSData *)v110 length];
+    v113 = [(NSData *)v109 length];
 
-    xpc_dictionary_set_data(v111, "blb", v113, v114);
+    xpc_dictionary_set_data(v110, "blb", v112, v113);
   }
 
   if (self->_tipiConnectionStatus)
@@ -1438,7 +1474,6 @@ LABEL_11:
     xpc_dictionary_set_uint64(xdict, "tpCS", self->_tipiConnectionStatus);
   }
 
-  tipiDevices = self->_tipiDevices;
   CUXPCEncodeNSArrayOfObjects();
   if (self->_tipiState)
   {
@@ -1448,9 +1483,10 @@ LABEL_11:
 
 - (CBDevice)initWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
+  v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = objc_opt_class();
@@ -1459,14 +1495,12 @@ LABEL_11:
   v17 = objc_opt_class();
   v18 = objc_opt_class();
   v19 = objc_opt_class();
-  v20 = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:9];
-  v7 = [v4 setWithArray:{v6, v12, v13, v14, v15, v16, v17, v18, v19}];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:9];
+  v7 = [v4 setWithArray:{v6, v11, v12, v13, v14, v15, v16, v17, v18}];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"devi"];
 
   v9 = [(CBDevice *)self initWithDictionary:v8 error:0];
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1527,104 +1561,95 @@ LABEL_11:
 - (id)descriptionWithLevel:(int)level
 {
   internalFlags = self->_internalFlags;
-  v763 = 0;
-  v764 = &v763;
-  v765 = 0x3032000000;
-  v766 = __Block_byref_object_copy__5;
-  v767 = __Block_byref_object_dispose__5;
-  v768 = 0;
-  v762 = 0;
-  identifier = self->_identifier;
-  NSAppendPrintF_safe();
-  objc_storeStrong(&v768, 0);
+  v737 = 0;
+  v738 = &v737;
+  v739 = 0x3032000000;
+  v740 = __Block_byref_object_copy__5;
+  v741 = __Block_byref_object_dispose__5;
+  v742 = 0;
+  v736 = 0;
+  NSAppendPrintF_safe(&v736, "CBDevice %@", self->_identifier);
+  objc_storeStrong(&v742, v736);
   btAddressData = [(CBDevice *)self btAddressData];
   if (btAddressData)
   {
-    v8 = v764 + 5;
-    v7 = v764[5];
+    v7 = v738 + 5;
     if ((internalFlags & 0x20000) != 0)
     {
-      v761 = v764[5];
-      v10 = CUPrintNSDataAddress();
-      v451 = v10;
-      NSAppendPrintF_safe();
-      objc_storeStrong(v8, v761);
+      v735 = v738[5];
+      v9 = CUPrintNSDataAddress();
+      NSAppendPrintF_safe(&v735, ", BDA %@", v9);
+      objc_storeStrong(v7, v735);
     }
 
     else
     {
-      v760 = v764[5];
-      NSAppendPrintF_safe();
-      v9 = v760;
-      v10 = *v8;
-      *v8 = v9;
+      v734 = v738[5];
+      NSAppendPrintF_safe(&v734, ", BDA <private>");
+      v8 = v734;
+      v9 = *v7;
+      *v7 = v8;
     }
   }
 
-  v11 = self->_txAddressData;
-  if (v11)
+  v10 = self->_txAddressData;
+  if (v10)
   {
-    v12 = v764;
-    v759 = v764[5];
-    v451 = CUPrintNSDataAddress();
-    NSAppendPrintF_safe();
-    objc_storeStrong(v12 + 5, v759);
+    v11 = v738;
+    v733 = v738[5];
+    v12 = CUPrintNSDataAddress();
+    NSAppendPrintF_safe(&v733, ", OTA %@", v12);
+    objc_storeStrong(v11 + 5, v733);
   }
 
   v13 = self->_name;
   v14 = v13;
   if (v13)
   {
-    v16 = v764 + 5;
-    v15 = v764[5];
+    v15 = v738 + 5;
     if ((internalFlags & 0x20000) != 0)
     {
-      v758 = v764[5];
-      v17 = &v758;
-      v451 = v13;
-      NSAppendPrintF_safe();
+      v732 = v738[5];
+      v16 = &v732;
+      NSAppendPrintF_safe(&v732, ", Nm '%@'", v13);
     }
 
     else
     {
-      v757 = v764[5];
-      v17 = &v757;
-      NSAppendPrintF_safe();
+      v731 = v738[5];
+      v16 = &v731;
+      NSAppendPrintF_safe(&v731, ", Nm <private> ");
     }
 
-    objc_storeStrong(v16, *v17);
+    objc_storeStrong(v15, *v16);
   }
 
-  v18 = self->_model;
-  v19 = v18;
-  if (v18)
+  v17 = self->_model;
+  v18 = v17;
+  if (v17)
   {
-    v20 = v764;
-    v756 = v764[5];
-    v451 = v18;
-    NSAppendPrintF_safe();
-    objc_storeStrong(v20 + 5, v756);
+    v19 = v738;
+    v730 = v738[5];
+    NSAppendPrintF_safe(&v730, ", Md %@", v17);
+    objc_storeStrong(v19 + 5, v730);
   }
 
   productID = self->_productID;
   if (productID)
   {
-    v22 = CBProductIDToString_0(self->_productID);
-    v23 = v764;
-    v755 = v764[5];
-    v451 = productID;
-    v545 = v22;
-    NSAppendPrintF_safe();
-    objc_storeStrong(v23 + 5, v755);
-    v24 = CBProductIDToNSLocalizedProductNameString(productID);
-    v25 = v24;
-    if (v24)
+    v21 = CBProductIDToString_0(self->_productID);
+    v22 = v738;
+    v729 = v738[5];
+    NSAppendPrintF_safe(&v729, ", PID 0x%04X (%s)", productID, v21);
+    objc_storeStrong(v22 + 5, v729);
+    v23 = CBProductIDToNSLocalizedProductNameString(productID);
+    v24 = v23;
+    if (v23)
     {
-      v26 = v764;
-      v754 = v764[5];
-      v451 = v24;
-      NSAppendPrintF_safe();
-      objc_storeStrong(v26 + 5, v754);
+      v25 = v738;
+      v728 = v738[5];
+      NSAppendPrintF_safe(&v728, ", PrNm %@", v23);
+      objc_storeStrong(v25 + 5, v728);
     }
   }
 
@@ -1634,158 +1659,148 @@ LABEL_11:
     vendorID = self->_vendorID;
     if (self->_vendorID)
     {
-      v29 = v764;
-      v753 = v764[5];
-      v451 = vendorID;
-      NSAppendPrintF_safe();
-      objc_storeStrong(v29 + 5, v753);
+      v28 = v738;
+      v727 = v738[5];
+      NSAppendPrintF_safe(&v727, ", VID 0x%04X", vendorID);
+      objc_storeStrong(v28 + 5, v727);
     }
 
     vendorIDSource = self->_vendorIDSource;
     if (self->_vendorIDSource)
     {
-      v31 = v764;
-      v752 = v764[5];
-      v451 = vendorIDSource;
-      NSAppendPrintF_safe();
-      objc_storeStrong(v31 + 5, v752);
+      v30 = v738;
+      v726 = v738[5];
+      NSAppendPrintF_safe(&v726, ", VS %d", vendorIDSource);
+      objc_storeStrong(v30 + 5, v726);
     }
 
-    v32 = self->_idsDeviceID;
-    v33 = v32;
-    if (v32)
+    v31 = self->_idsDeviceID;
+    v32 = v31;
+    if (v31)
     {
-      v34 = v764;
-      v751 = v764[5];
-      v451 = v32;
-      NSAppendPrintF_safe();
-      objc_storeStrong(v34 + 5, v751);
+      v33 = v738;
+      v725 = v738[5];
+      NSAppendPrintF_safe(&v725, ", IDS %@", v31);
+      objc_storeStrong(v33 + 5, v725);
     }
 
-    v35 = self->_accountID;
-    v36 = v35;
-    if (v35)
+    v34 = self->_accountID;
+    v35 = v34;
+    if (v34)
     {
-      v38 = v764 + 5;
-      v37 = v764[5];
+      v36 = v738 + 5;
       if ((internalFlags & 0x20000) != 0)
       {
-        v750 = v764[5];
-        v39 = &v750;
-        v451 = v35;
-        NSAppendPrintF_safe();
+        v724 = v738[5];
+        v37 = &v724;
+        NSAppendPrintF_safe(&v724, ", AcID %@", v34);
       }
 
       else
       {
-        v749 = v764[5];
-        v39 = &v749;
-        NSAppendPrintF_safe();
+        v723 = v738[5];
+        v37 = &v723;
+        NSAppendPrintF_safe(&v723, ", AcID <private> ");
       }
 
-      objc_storeStrong(v38, *v39);
+      objc_storeStrong(v36, *v37);
     }
 
     adaptiveVolumeCapability = [(CBDevice *)self adaptiveVolumeCapability];
     if (adaptiveVolumeCapability)
     {
-      v41 = v764;
-      obj = v764[5];
-      v451 = adaptiveVolumeCapability;
-      NSAppendPrintF_safe();
-      objc_storeStrong(v41 + 5, obj);
+      v39 = v738;
+      obj = v738[5];
+      NSAppendPrintF_safe(&obj, ", avCp %u", adaptiveVolumeCapability);
+      objc_storeStrong(v39 + 5, obj);
     }
 
-    v42 = [(CBDevice *)self adaptiveVolumeConfig:v451];
+    adaptiveVolumeConfig = [(CBDevice *)self adaptiveVolumeConfig];
+    if (adaptiveVolumeConfig)
+    {
+      v41 = v738;
+      v721 = v738[5];
+      NSAppendPrintF_safe(&v721, ", AVC %u", adaptiveVolumeConfig);
+      objc_storeStrong(v41 + 5, v721);
+    }
+
+    v42 = self->_contactID;
+    v43 = v42;
     if (v42)
     {
-      v43 = v764;
-      v747 = v764[5];
-      v452 = v42;
-      NSAppendPrintF_safe();
-      objc_storeStrong(v43 + 5, v747);
-    }
-
-    v44 = self->_contactID;
-    v45 = v44;
-    if (v44)
-    {
-      v46 = v764;
-      v746 = v764[5];
-      v452 = v44;
-      NSAppendPrintF_safe();
-      objc_storeStrong(v46 + 5, v746);
+      v44 = v738;
+      v720 = v738[5];
+      NSAppendPrintF_safe(&v720, ", CnID %@", v42);
+      objc_storeStrong(v44 + 5, v720);
     }
 
     stableIdentifier = [(CBDevice *)self stableIdentifier];
-    v48 = stableIdentifier;
+    v46 = stableIdentifier;
     if (stableIdentifier)
     {
-      v49 = v764;
-      v745 = v764[5];
-      v452 = stableIdentifier;
-      NSAppendPrintF_safe();
-      objc_storeStrong(v49 + 5, v745);
+      v47 = v738;
+      v719 = v738[5];
+      NSAppendPrintF_safe(&v719, ", stID %@", stableIdentifier);
+      objc_storeStrong(v47 + 5, v719);
     }
 
     if (self->_discoveryFlags)
     {
-      v50 = v764;
-      v744 = v764[5];
-      v452 = CUPrintFlags64();
-      NSAppendPrintF_safe();
-      objc_storeStrong(v50 + 5, v744);
+      v48 = v738;
+      v718 = v738[5];
+      v49 = CUPrintFlags64();
+      NSAppendPrintF_safe(&v718, ", DsFl %@", v49);
+      objc_storeStrong(v48 + 5, v718);
     }
 
-    v51 = v764;
-    v743 = v764[5];
-    CBDiscoveryTypesAppendString(&v743, ", DsTy", &self->_discoveryTypesInternal);
-    objc_storeStrong(v51 + 5, v743);
+    v50 = v738;
+    v717 = v738[5];
+    CBDiscoveryTypesAppendString(&v717, ", DsTy", &self->_discoveryTypesInternal);
+    objc_storeStrong(v50 + 5, v717);
     if (self->_deviceFlags)
     {
-      v52 = v764;
-      v742 = v764[5];
-      v452 = CUPrintFlags64();
-      NSAppendPrintF_safe();
-      objc_storeStrong(v52 + 5, v742);
+      v51 = v738;
+      v716 = v738[5];
+      v52 = CUPrintFlags64();
+      NSAppendPrintF_safe(&v716, ", DvF %@", v52);
+      objc_storeStrong(v51 + 5, v716);
     }
 
     deviceType = self->_deviceType;
     if (self->_deviceType)
     {
-      v54 = v764;
-      v741 = v764[5];
-      v452 = CBDeviceTypeToString(deviceType);
-      NSAppendPrintF_safe();
-      objc_storeStrong(v54 + 5, v741);
+      v54 = v738;
+      v715 = v738[5];
+      v55 = CBDeviceTypeToString(deviceType);
+      NSAppendPrintF_safe(&v715, ", DvT %s", v55);
+      objc_storeStrong(v54 + 5, v715);
     }
 
     rssi = [(CBDevice *)self rssi];
     if (rssi)
     {
-      v56 = v764;
-      v740 = v764[5];
-      v453 = rssi;
-      NSAppendPrintF_safe();
-      objc_storeStrong(v56 + 5, v740);
+      v57 = v738;
+      v714 = v738[5];
+      NSAppendPrintF_safe(&v714, ", RSSI %d", rssi);
+      objc_storeStrong(v57 + 5, v714);
     }
 
     if ([(CBDevice *)self connectedServices])
     {
-      v57 = v764;
-      v739 = v764[5];
-      v454 = CUPrintFlags32();
-      NSAppendPrintF_safe();
-      objc_storeStrong(v57 + 5, v739);
+      v58 = v738;
+      v713 = v738[5];
+      v59 = CUPrintFlags32();
+      NSAppendPrintF_safe(&v713, ", CnS %@", v59);
+      objc_storeStrong(v58 + 5, v713);
     }
 
     if (self->_supportedServices)
     {
-      v58 = v764;
-      v738 = v764[5];
-      v454 = CUPrintFlags32();
-      NSAppendPrintF_safe();
-      objc_storeStrong(v58 + 5, v738);
+      v60 = v738;
+      v712 = v738[5];
+      v61 = CUPrintFlags32();
+      NSAppendPrintF_safe(&v712, ", SupS %@", v61);
+      objc_storeStrong(v60 + 5, v712);
     }
 
     appearanceValue = [(CBDevice *)self appearanceValue];
@@ -1795,62 +1810,58 @@ LABEL_87:
       audioStreamState = [(CBDevice *)self audioStreamState];
       if (audioStreamState)
       {
-        v63 = v764 + 5;
-        v736 = v764[5];
+        v66 = v738 + 5;
+        v710 = v738[5];
         if (audioStreamState > 3)
         {
-          v64 = "?";
+          v67 = "?";
         }
 
         else
         {
-          v64 = off_1E8122020[audioStreamState - 1];
+          v67 = off_1E8122020[audioStreamState - 1];
         }
 
-        v456 = v64;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v63, v736);
+        NSAppendPrintF_safe(&v710, ", AStS %s", v67);
+        objc_storeStrong(v66, v710);
       }
 
       frequencyBand = [(CBDevice *)self frequencyBand];
       if (frequencyBand)
       {
-        v66 = "2.4";
+        v69 = "2.4";
         if (frequencyBand != 1)
         {
-          v66 = "?";
+          v69 = "?";
         }
 
         if (frequencyBand == 2)
         {
-          v66 = "5";
+          v69 = "5";
         }
 
-        v67 = v764;
-        v735 = v764[5];
-        v457 = v66;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v67 + 5, v735);
+        v70 = v738;
+        v709 = v738[5];
+        NSAppendPrintF_safe(&v709, ", Freq %s", v69);
+        objc_storeStrong(v70 + 5, v709);
       }
 
       bleChannel = [(CBDevice *)self bleChannel];
       if (bleChannel)
       {
-        v69 = v764;
-        v734 = v764[5];
-        v458 = bleChannel;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v69 + 5, v734);
+        v72 = v738;
+        v708 = v738[5];
+        NSAppendPrintF_safe(&v708, ", Ch %d", bleChannel);
+        objc_storeStrong(v72 + 5, v708);
       }
 
       autoAncCapability = [(CBDevice *)self autoAncCapability];
       if (autoAncCapability)
       {
-        v71 = v764;
-        v733 = v764[5];
-        v459 = autoAncCapability;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v71 + 5, v733);
+        v74 = v738;
+        v707 = v738[5];
+        NSAppendPrintF_safe(&v707, ", aaCp %u", autoAncCapability);
+        objc_storeStrong(v74 + 5, v707);
       }
 
       batteryInfoMain = [(CBDevice *)self batteryInfoMain];
@@ -1858,431 +1869,405 @@ LABEL_87:
       levelCopy2 = level;
       batteryInfoRight = [(CBDevice *)self batteryInfoRight];
       batteryInfoCase = [(CBDevice *)self batteryInfoCase];
-      v77 = batteryInfoCase;
+      v80 = batteryInfoCase;
       if (batteryInfoMain || batteryInfoLeft || batteryInfoRight || batteryInfoCase)
       {
-        v78 = v764;
-        v732 = v764[5];
-        NSAppendPrintF_safe();
-        objc_storeStrong(v78 + 5, v732);
+        v81 = v738;
+        v706 = v738[5];
+        NSAppendPrintF_safe(&v706, ", Battery");
+        objc_storeStrong(v81 + 5, v706);
         if (batteryInfoMain)
         {
-          v79 = v764 + 5;
-          v731 = v764[5];
-          v80 = (batteryInfoMain >> 8) & 7;
-          if (v80 == 2)
+          v82 = v738 + 5;
+          v705 = v738[5];
+          v83 = (batteryInfoMain >> 8) & 7;
+          if (v83 == 2)
           {
-            v81 = "-";
+            v84 = "-";
           }
 
           else
           {
-            v81 = "";
+            v84 = "";
           }
 
-          v441 = v80 == 1;
-          v82 = "+";
-          if (!v441)
+          v515 = v83 == 1;
+          v85 = "+";
+          if (!v515)
           {
-            v82 = v81;
+            v85 = v84;
           }
 
-          v460 = v82;
-          v546 = (((batteryInfoMain & 0x7F) / 100.0) * 100.0);
-          NSAppendPrintF_safe();
-          objc_storeStrong(v79, v731);
+          NSAppendPrintF_safe(&v705, " M %s%u%%", v85, (((batteryInfoMain & 0x7F) / 100.0) * 100.0));
+          objc_storeStrong(v82, v705);
         }
 
         if (batteryInfoLeft)
         {
-          v83 = v764 + 5;
-          v730 = v764[5];
-          v84 = (batteryInfoLeft >> 8) & 7;
-          if (v84 == 2)
+          v86 = v738 + 5;
+          v704 = v738[5];
+          v87 = (batteryInfoLeft >> 8) & 7;
+          if (v87 == 2)
           {
-            v85 = "-";
+            v88 = "-";
           }
 
           else
           {
-            v85 = "";
+            v88 = "";
           }
 
-          v441 = v84 == 1;
-          v86 = "+";
-          if (!v441)
+          v515 = v87 == 1;
+          v89 = "+";
+          if (!v515)
           {
-            v86 = v85;
+            v89 = v88;
           }
 
-          v460 = v86;
-          v546 = (((batteryInfoLeft & 0x7F) / 100.0) * 100.0);
-          NSAppendPrintF_safe();
-          objc_storeStrong(v83, v730);
+          NSAppendPrintF_safe(&v704, " L %s%u%%", v89, (((batteryInfoLeft & 0x7F) / 100.0) * 100.0));
+          objc_storeStrong(v86, v704);
         }
 
         if (batteryInfoRight)
         {
-          v87 = v764 + 5;
-          v729 = v764[5];
-          v88 = (batteryInfoRight >> 8) & 7;
-          if (v88 == 2)
+          v90 = v738 + 5;
+          v703 = v738[5];
+          v91 = (batteryInfoRight >> 8) & 7;
+          if (v91 == 2)
           {
-            v89 = "-";
+            v92 = "-";
           }
 
           else
           {
-            v89 = "";
+            v92 = "";
           }
 
-          v441 = v88 == 1;
-          v90 = "+";
-          if (!v441)
+          v515 = v91 == 1;
+          v93 = "+";
+          if (!v515)
           {
-            v90 = v89;
+            v93 = v92;
           }
 
-          v460 = v90;
-          v546 = (((batteryInfoRight & 0x7F) / 100.0) * 100.0);
-          NSAppendPrintF_safe();
-          objc_storeStrong(v87, v729);
+          NSAppendPrintF_safe(&v703, " R %s%u%%", v93, (((batteryInfoRight & 0x7F) / 100.0) * 100.0));
+          objc_storeStrong(v90, v703);
         }
 
-        if (v77)
+        if (v80)
         {
-          v91 = v764 + 5;
-          v728 = v764[5];
-          v92 = (v77 >> 8) & 7;
-          if (v92 == 2)
+          v94 = v738 + 5;
+          v702 = v738[5];
+          v95 = (v80 >> 8) & 7;
+          if (v95 == 2)
           {
-            v93 = "-";
+            v96 = "-";
           }
 
           else
           {
-            v93 = "";
+            v96 = "";
           }
 
-          v441 = v92 == 1;
-          v94 = "+";
-          if (!v441)
+          v515 = v95 == 1;
+          v97 = "+";
+          if (!v515)
           {
-            v94 = v93;
+            v97 = v96;
           }
 
-          v460 = v94;
-          v546 = (((v77 & 0x7F) / 100.0) * 100.0);
-          NSAppendPrintF_safe();
-          objc_storeStrong(v91, v728);
+          NSAppendPrintF_safe(&v702, " C %s%u%%", v97, (((v80 & 0x7F) / 100.0) * 100.0));
+          objc_storeStrong(v94, v702);
         }
       }
 
-      v95 = [(CBDevice *)self clickHoldModeLeft:v460];
+      clickHoldModeLeft = [(CBDevice *)self clickHoldModeLeft];
       clickHoldModeRight = [(CBDevice *)self clickHoldModeRight];
-      if (v95 | clickHoldModeRight)
+      if (clickHoldModeLeft | clickHoldModeRight)
       {
-        v97 = v764;
-        v727 = v764[5];
-        NSAppendPrintF_safe();
-        objc_storeStrong(v97 + 5, v727);
-        if (v95)
+        v100 = v738;
+        v701 = v738[5];
+        NSAppendPrintF_safe(&v701, ", ClkH");
+        objc_storeStrong(v100 + 5, v701);
+        if (clickHoldModeLeft)
         {
-          v98 = v764 + 5;
-          v726 = v764[5];
-          if (v95 > 7)
+          v101 = v738 + 5;
+          v700 = v738[5];
+          if (clickHoldModeLeft > 7)
           {
-            v99 = @"?";
+            v102 = @"?";
           }
 
           else
           {
-            v99 = *(&off_1E81215C0 + v95 - 1);
+            v102 = *(&off_1E81215C0 + clickHoldModeLeft - 1);
           }
 
-          v461 = v99;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v98, v726);
+          NSAppendPrintF_safe(&v700, " L %@", v102);
+          objc_storeStrong(v101, v700);
         }
 
         if (clickHoldModeRight)
         {
-          v100 = v764 + 5;
-          v725 = v764[5];
+          v103 = v738 + 5;
+          v699 = v738[5];
           if (clickHoldModeRight > 7)
           {
-            v101 = @"?";
+            v104 = @"?";
           }
 
           else
           {
-            v101 = *(&off_1E81215C0 + clickHoldModeRight - 1);
+            v104 = *(&off_1E81215C0 + clickHoldModeRight - 1);
           }
 
-          v461 = v101;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v100, v725);
+          NSAppendPrintF_safe(&v699, " R %@", v104);
+          objc_storeStrong(v103, v699);
         }
       }
 
       endCallCapability = [(CBDevice *)self endCallCapability];
       if (endCallCapability)
       {
-        v103 = v764;
-        v724 = v764[5];
-        v462 = endCallCapability;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v103 + 5, v724);
+        v106 = v738;
+        v698 = v738[5];
+        NSAppendPrintF_safe(&v698, ", ECCp %u", endCallCapability);
+        objc_storeStrong(v106 + 5, v698);
       }
 
       endCallConfig = [(CBDevice *)self endCallConfig];
       if (endCallConfig)
       {
-        v105 = v764;
-        v723 = v764[5];
-        v463 = endCallConfig;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v105 + 5, v723);
+        v108 = v738;
+        v697 = v738[5];
+        NSAppendPrintF_safe(&v697, ", ECC %u", endCallConfig);
+        objc_storeStrong(v108 + 5, v697);
       }
 
       muteControlCapability = self->_muteControlCapability;
       if (self->_muteControlCapability)
       {
-        v107 = v764;
-        v722 = v764[5];
-        v463 = muteControlCapability;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v107 + 5, v722);
+        v110 = v738;
+        v696 = v738[5];
+        NSAppendPrintF_safe(&v696, ", MCCp %u", muteControlCapability);
+        objc_storeStrong(v110 + 5, v696);
       }
 
       muteControlConfig = [(CBDevice *)self muteControlConfig];
       if (muteControlConfig)
       {
-        v109 = v764;
-        v721 = v764[5];
-        v464 = muteControlConfig;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v109 + 5, v721);
+        v112 = v738;
+        v695 = v738[5];
+        NSAppendPrintF_safe(&v695, ", MCC %u", muteControlConfig);
+        objc_storeStrong(v112 + 5, v695);
       }
 
       caseVersion = [(CBDevice *)self caseVersion];
-      v111 = caseVersion;
+      v114 = caseVersion;
       if (caseVersion)
       {
-        v112 = v764;
-        v720 = v764[5];
-        colorCodeBest = caseVersion;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v112 + 5, v720);
+        v115 = v738;
+        v694 = v738[5];
+        NSAppendPrintF_safe(&v694, ", CVer'%@'", caseVersion);
+        objc_storeStrong(v115 + 5, v694);
       }
 
       if (([(CBDevice *)self colorInfo]& 0x100) != 0)
       {
-        v113 = v764;
-        v719 = v764[5];
-        colorCodeBest = [(CBDevice *)self colorCodeBest];
-        NSAppendPrintF_safe();
-        objc_storeStrong(v113 + 5, v719);
+        v116 = v738;
+        v693 = v738[5];
+        NSAppendPrintF_safe(&v693, ", Color %d", [(CBDevice *)self colorCodeBest]);
+        objc_storeStrong(v116 + 5, v693);
       }
 
-      v114 = self->_controllerInfo;
-      v115 = v114;
-      if (v114)
+      v117 = self->_controllerInfo;
+      v118 = v117;
+      if (v117)
       {
-        v116 = v764;
-        v718 = v764[5];
-        colorCodeBest = v114;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v116 + 5, v718);
+        v119 = v738;
+        v692 = v738[5];
+        NSAppendPrintF_safe(&v692, ", CtInfo %@", v117);
+        objc_storeStrong(v119 + 5, v692);
       }
 
       conversationDetectCapability = [(CBDevice *)self conversationDetectCapability];
       if (conversationDetectCapability)
       {
-        v118 = v764;
-        v717 = v764[5];
-        colorCodeBest = conversationDetectCapability;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v118 + 5, v717);
+        v121 = v738;
+        v691 = v738[5];
+        NSAppendPrintF_safe(&v691, ", cdCp %u", conversationDetectCapability);
+        objc_storeStrong(v121 + 5, v691);
       }
 
       conversationDetectConfig = [(CBDevice *)self conversationDetectConfig];
       if (conversationDetectConfig)
       {
-        v120 = v764;
-        v716 = v764[5];
-        v466 = conversationDetectConfig;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v120 + 5, v716);
+        v123 = v738;
+        v690 = v738[5];
+        NSAppendPrintF_safe(&v690, ", cDC %u", conversationDetectConfig);
+        objc_storeStrong(v123 + 5, v690);
       }
 
       crownRotationDirection = [(CBDevice *)self crownRotationDirection];
       if (crownRotationDirection)
       {
-        v122 = @"?";
+        v125 = @"?";
         if (crownRotationDirection == 1)
         {
-          v122 = @"BackToFront";
+          v125 = @"BackToFront";
         }
 
         if (crownRotationDirection == 2)
         {
-          v122 = @"FrontToBack";
+          v125 = @"FrontToBack";
         }
 
-        v123 = v764;
-        v715 = v764[5];
-        v467 = v122;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v123 + 5, v715);
+        v126 = v738;
+        v689 = v738[5];
+        v127 = v125;
+        NSAppendPrintF_safe(&v689, ", CrRD %@", v127);
+        objc_storeStrong(v126 + 5, v689);
       }
 
       doubleTapActionLeft = [(CBDevice *)self doubleTapActionLeft];
       doubleTapActionRight = [(CBDevice *)self doubleTapActionRight];
       doubleTapCapability = [(CBDevice *)self doubleTapCapability];
-      v127 = doubleTapCapability;
+      v131 = doubleTapCapability;
       if (doubleTapActionLeft || doubleTapActionRight || doubleTapCapability)
       {
-        v128 = v764;
-        v714 = v764[5];
-        NSAppendPrintF_safe();
-        objc_storeStrong(v128 + 5, v714);
+        v132 = v738;
+        v688 = v738[5];
+        NSAppendPrintF_safe(&v688, ", DbTp");
+        objc_storeStrong(v132 + 5, v688);
         if (doubleTapActionLeft)
         {
-          v129 = v764 + 5;
-          v713 = v764[5];
+          v133 = v738 + 5;
+          v687 = v738[5];
           if (doubleTapActionLeft > 5)
-          {
-            v130 = "?";
-          }
-
-          else
-          {
-            v130 = off_1E8122038[doubleTapActionLeft - 1];
-          }
-
-          v468 = v130;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v129, v713);
-        }
-
-        if (doubleTapActionRight)
-        {
-          v131 = v764 + 5;
-          v712 = v764[5];
-          if (doubleTapActionRight > 5)
-          {
-            v132 = "?";
-          }
-
-          else
-          {
-            v132 = off_1E8122038[doubleTapActionRight - 1];
-          }
-
-          v468 = v132;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v131, v712);
-        }
-
-        if (v127)
-        {
-          v133 = v764 + 5;
-          v711 = v764[5];
-          if (v127 > 3)
           {
             v134 = "?";
           }
 
           else
           {
-            v134 = off_1E8122060[v127 - 1];
+            v134 = off_1E8122038[doubleTapActionLeft - 1];
           }
 
-          v468 = v134;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v133, v711);
+          NSAppendPrintF_safe(&v687, " L %s", v134);
+          objc_storeStrong(v133, v687);
+        }
+
+        if (doubleTapActionRight)
+        {
+          v135 = v738 + 5;
+          v686 = v738[5];
+          if (doubleTapActionRight > 5)
+          {
+            v136 = "?";
+          }
+
+          else
+          {
+            v136 = off_1E8122038[doubleTapActionRight - 1];
+          }
+
+          NSAppendPrintF_safe(&v686, " R %s", v136);
+          objc_storeStrong(v135, v686);
+        }
+
+        if (v131)
+        {
+          v137 = v738 + 5;
+          v685 = v738[5];
+          if (v131 > 3)
+          {
+            v138 = "?";
+          }
+
+          else
+          {
+            v138 = off_1E8122060[v131 - 1];
+          }
+
+          NSAppendPrintF_safe(&v685, " C %s", v138);
+          objc_storeStrong(v137, v685);
         }
       }
 
       if ([(CBDevice *)self gapaFlags])
       {
-        v135 = v764;
-        v710 = v764[5];
-        v469 = CUPrintFlags32();
-        NSAppendPrintF_safe();
-        objc_storeStrong(v135 + 5, v710);
+        v139 = v738;
+        v684 = v738[5];
+        v140 = CUPrintFlags32();
+        NSAppendPrintF_safe(&v684, ", GAPA %@", v140);
+        objc_storeStrong(v139 + 5, v684);
       }
 
-      v136 = self->_firmwareVersion;
-      v137 = v136;
-      if (v136)
+      v141 = self->_firmwareVersion;
+      v142 = v141;
+      if (v141)
       {
-        v138 = v764;
-        v709 = v764[5];
-        v469 = v136;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v138 + 5, v709);
+        v143 = v738;
+        v683 = v738[5];
+        NSAppendPrintF_safe(&v683, ", FV '%@'", v141);
+        objc_storeStrong(v143 + 5, v683);
       }
 
       listeningMode = [(CBDevice *)self listeningMode];
       if (listeningMode)
       {
-        v140 = v764 + 5;
-        v708 = v764[5];
+        v145 = v738 + 5;
+        v682 = v738[5];
         if (listeningMode > 4)
         {
-          v141 = "?";
+          v146 = "?";
         }
 
         else
         {
-          v141 = off_1E8122078[listeningMode - 1];
+          v146 = off_1E8122078[listeningMode - 1];
         }
 
-        v469 = v141;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v140, v708);
+        NSAppendPrintF_safe(&v682, ", LsnM %s", v146);
+        objc_storeStrong(v145, v682);
       }
 
       if ([(CBDevice *)self listeningModeConfigs])
       {
-        v142 = v764;
-        v707 = v764[5];
-        v470 = CUPrintFlags32();
-        NSAppendPrintF_safe();
-        objc_storeStrong(v142 + 5, v707);
+        v147 = v738;
+        v681 = v738[5];
+        v148 = CUPrintFlags32();
+        NSAppendPrintF_safe(&v681, ", LsMC %@", v148);
+        objc_storeStrong(v147 + 5, v681);
       }
 
       btVersion = [(CBDevice *)self btVersion];
-      v144 = btVersion;
+      v150 = btVersion;
       if (btVersion)
       {
-        v145 = v764;
-        v706 = v764[5];
-        v471 = [btVersion cStringUsingEncoding:4];
-        NSAppendPrintF_safe();
-        objc_storeStrong(v145 + 5, v706);
+        v151 = v738;
+        v680 = v738[5];
+        NSAppendPrintF_safe(&v680, ", BTv %s", [btVersion cStringUsingEncoding:4]);
+        objc_storeStrong(v151 + 5, v680);
       }
 
       microphoneMode = self->_microphoneMode;
       if (self->_microphoneMode)
       {
-        v147 = v764 + 5;
-        v705 = v764[5];
+        v153 = v738 + 5;
+        v679 = v738[5];
         if (microphoneMode > 3)
         {
-          v148 = "?";
+          v154 = "?";
         }
 
         else
         {
-          v148 = off_1E8122098[microphoneMode - 1];
+          v154 = off_1E8122098[microphoneMode - 1];
         }
 
-        v471 = v148;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v147, v705);
+        NSAppendPrintF_safe(&v679, ", MicM %s", v154);
+        objc_storeStrong(v153, v679);
       }
 
       primaryPlacement = self->_primaryPlacement;
@@ -2290,122 +2275,115 @@ LABEL_87:
       placementMode = self->_placementMode;
       if (__PAIR64__(secondaryPlacement, primaryPlacement) || self->_placementMode)
       {
-        v152 = v764;
-        v704 = v764[5];
-        NSAppendPrintF_safe();
-        objc_storeStrong(v152 + 5, v704);
+        v158 = v738;
+        v678 = v738[5];
+        NSAppendPrintF_safe(&v678, ", Plcm");
+        objc_storeStrong(v158 + 5, v678);
         if (primaryPlacement)
         {
-          v153 = v764 + 5;
-          v703 = v764[5];
+          v159 = v738 + 5;
+          v677 = v738[5];
           if (primaryPlacement > 7)
           {
-            v154 = "?";
+            v160 = "?";
           }
 
           else
           {
-            v154 = off_1E8121B70[primaryPlacement - 1];
+            v160 = off_1E8121B70[primaryPlacement - 1];
           }
 
-          v471 = v154;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v153, v703);
+          NSAppendPrintF_safe(&v677, " P %s", v160);
+          objc_storeStrong(v159, v677);
         }
 
         if (secondaryPlacement)
         {
-          v155 = v764 + 5;
-          v702 = v764[5];
+          v161 = v738 + 5;
+          v676 = v738[5];
           if (secondaryPlacement > 7)
           {
-            v156 = "?";
+            v162 = "?";
           }
 
           else
           {
-            v156 = off_1E8121B70[secondaryPlacement - 1];
+            v162 = off_1E8121B70[secondaryPlacement - 1];
           }
 
-          v471 = v156;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v155, v702);
+          NSAppendPrintF_safe(&v676, " S %s", v162);
+          objc_storeStrong(v161, v676);
         }
 
         if (placementMode)
         {
-          v157 = v764 + 5;
-          v701 = v764[5];
-          v158 = "Enabled";
+          v163 = v738 + 5;
+          v675 = v738[5];
+          v164 = "Enabled";
           if (placementMode != 1)
           {
-            v158 = "?";
+            v164 = "?";
           }
 
           if (placementMode == 2)
           {
-            v158 = "Disabled";
+            v164 = "Disabled";
           }
 
-          v471 = v158;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v157, v701);
+          NSAppendPrintF_safe(&v675, " M %s", v164);
+          objc_storeStrong(v163, v675);
         }
       }
 
       primaryBudSide = [(CBDevice *)self primaryBudSide];
       if (primaryBudSide)
       {
-        v160 = v764 + 5;
-        v700 = v764[5];
+        v166 = v738 + 5;
+        v674 = v738[5];
         if (primaryBudSide > 3)
         {
-          v161 = "?";
+          v167 = "?";
         }
 
         else
         {
-          v161 = off_1E81215F8[primaryBudSide - 1];
+          v167 = off_1E81215F8[primaryBudSide - 1];
         }
 
-        v472 = v161;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v160, v700);
+        NSAppendPrintF_safe(&v674, ", Prim %s", v167);
+        objc_storeStrong(v166, v674);
       }
 
       findMyCaseIdentifier = [(CBDevice *)self findMyCaseIdentifier];
-      v163 = findMyCaseIdentifier;
+      v169 = findMyCaseIdentifier;
       if (findMyCaseIdentifier)
       {
-        v164 = v764;
-        v699 = v764[5];
-        v473 = *&findMyCaseIdentifier;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v164 + 5, v699);
+        v170 = v738;
+        v673 = v738[5];
+        NSAppendPrintF_safe(&v673, ", fmCI %@", findMyCaseIdentifier);
+        objc_storeStrong(v170 + 5, v673);
       }
 
       findMyGroupIdentifier = [(CBDevice *)self findMyGroupIdentifier];
-      v166 = findMyGroupIdentifier;
+      v172 = findMyGroupIdentifier;
       if (findMyGroupIdentifier)
       {
-        v167 = v764;
-        v698 = v764[5];
-        v473 = *&findMyGroupIdentifier;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v167 + 5, v698);
+        v173 = v738;
+        v672 = v738[5];
+        NSAppendPrintF_safe(&v672, ", fmGI %@", findMyGroupIdentifier);
+        objc_storeStrong(v173 + 5, v672);
       }
 
       interval = [(CBDevice *)self interval];
       if (interval && ([(CBDevice *)self discoveryFlags]& 0x200000) != 0)
       {
-        v169 = interval;
+        v175 = interval;
         if (([(CBDevice *)self deviceFlags]& 0x4000) != 0)
         {
-          v170 = v764 + 5;
-          v697 = v764[5];
-          v473 = v169 * 0.625;
-          NSAppendPrintF_safe();
-          v171 = v697;
+          v176 = v738 + 5;
+          v671 = v738[5];
+          NSAppendPrintF_safe(&v671, ", Invl %gms", v175 * 0.625);
+          v177 = v671;
         }
 
         else
@@ -2415,127 +2393,120 @@ LABEL_87:
             goto LABEL_239;
           }
 
-          v170 = v764 + 5;
-          v696 = v764[5];
-          v473 = v169 * 1.25;
-          NSAppendPrintF_safe();
-          v171 = v696;
+          v176 = v738 + 5;
+          v670 = v738[5];
+          NSAppendPrintF_safe(&v670, ", Invl %gms", v175 * 1.25);
+          v177 = v670;
         }
 
-        v172 = v171;
-        v173 = *v170;
-        *v170 = v172;
+        v178 = v177;
+        v179 = *v176;
+        *v176 = v178;
       }
 
 LABEL_239:
       modelUser = [(CBDevice *)self modelUser];
-      v175 = modelUser;
+      v181 = modelUser;
       if (modelUser)
       {
-        v176 = v764;
-        v695 = v764[5];
-        v474 = modelUser;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v176 + 5, v695);
+        v182 = v738;
+        v669 = v738[5];
+        NSAppendPrintF_safe(&v669, ", modU %@", modelUser);
+        objc_storeStrong(v182 + 5, v669);
       }
 
-      v177 = self->_serialNumber;
-      v178 = v177;
-      if (v177)
-      {
-        v179 = v764;
-        v694 = v764[5];
-        v474 = v177;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v179 + 5, v694);
-      }
-
-      v180 = self->_serialNumberLeft;
-      v181 = v180;
-      if (v180)
-      {
-        v182 = v764;
-        v693 = v764[5];
-        v474 = v180;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v182 + 5, v693);
-      }
-
-      v183 = self->_serialNumberRight;
+      v183 = self->_serialNumber;
       v184 = v183;
       if (v183)
       {
-        v185 = v764;
-        v692 = v764[5];
-        v474 = v183;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v185 + 5, v692);
+        v185 = v738;
+        v668 = v738[5];
+        NSAppendPrintF_safe(&v668, ", SN '%@'", v183);
+        objc_storeStrong(v185 + 5, v668);
+      }
+
+      v186 = self->_serialNumberLeft;
+      v187 = v186;
+      if (v186)
+      {
+        v188 = v738;
+        v667 = v738[5];
+        NSAppendPrintF_safe(&v667, ", SN Left'%@'", v186);
+        objc_storeStrong(v188 + 5, v667);
+      }
+
+      v189 = self->_serialNumberRight;
+      v190 = v189;
+      if (v189)
+      {
+        v191 = v738;
+        v666 = v738[5];
+        NSAppendPrintF_safe(&v666, ", SN Right '%@'", v189);
+        objc_storeStrong(v191 + 5, v666);
       }
 
       smartRoutingMode = self->_smartRoutingMode;
       if (self->_smartRoutingMode)
       {
-        v187 = "Enabled";
+        v193 = "Enabled";
         if (smartRoutingMode != 1)
         {
-          v187 = "?";
+          v193 = "?";
         }
 
         if (smartRoutingMode == 2)
         {
-          v188 = "Disabled";
+          v194 = "Disabled";
         }
 
         else
         {
-          v188 = v187;
+          v194 = v193;
         }
 
-        v189 = v764;
-        v691 = v764[5];
-        v474 = v188;
-        NSAppendPrintF_safe();
-        objc_storeStrong(v189 + 5, v691);
+        v195 = v738;
+        v665 = v738[5];
+        NSAppendPrintF_safe(&v665, ", srMd %s", v194);
+        objc_storeStrong(v195 + 5, v665);
       }
 
       spatialAudioMode = [(CBDevice *)self spatialAudioMode];
       if (!spatialAudioMode)
       {
 LABEL_266:
-        v193 = CBDiscoveryTypesBuffer();
-        if (CBDiscoveryTypesContainTypes(self->_discoveryTypesInternal.bitArray, v193))
+        v200 = CBDiscoveryTypesBuffer(spatialAudioMode, v197);
+        if (CBDiscoveryTypesContainTypes(self->_discoveryTypesInternal.bitArray, v200))
         {
           if (IsAppleInternalBuild())
           {
             [(CBDevice *)self bleAdvertisementTimestamp];
-            if (v194 != 0.0)
+            if (v201 != 0.0)
             {
-              v195 = v764;
-              v689 = v764[5];
+              v202 = v738;
+              v663 = v738[5];
               bleAdvertisementTimestampString = [(CBDevice *)self bleAdvertisementTimestampString];
-              NSAppendPrintF_safe();
-              objc_storeStrong(v195 + 5, v689);
+              NSAppendPrintF_safe(&v663, ", AdTs <%@>", bleAdvertisementTimestampString);
+              objc_storeStrong(v202 + 5, v663);
             }
           }
         }
 
         if ([(CBDevice *)self bleAdvertisementTimestampMachContinuous])
         {
-          v196 = v764;
-          v688 = v764[5];
-          bleAdvertisementTimestampMachContinuous = [(CBDevice *)self bleAdvertisementTimestampMachContinuous];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v196 + 5, v688);
+          v204 = v738;
+          v662 = v738[5];
+          NSAppendPrintF_safe(&v662, ", AdTsMC <%llu>", [(CBDevice *)self bleAdvertisementTimestampMachContinuous]);
+          objc_storeStrong(v204 + 5, v662);
         }
 
         bleAppleManufacturerData = [(CBDevice *)self bleAppleManufacturerData];
         if (bleAppleManufacturerData)
         {
-          v198 = v764;
-          v687 = v764[5];
-          v477 = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v198 + 5, v687);
+          v206 = v738;
+          v661 = v738[5];
+          v207 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v661, ", AMfD <%@>", v207);
+          objc_storeStrong(v206 + 5, v661);
         }
 
         if ((levelCopy2 & 0x800000) != 0)
@@ -2543,143 +2514,136 @@ LABEL_266:
           linkKeyData = [(CBDevice *)self linkKeyData];
           if (linkKeyData)
           {
-            v200 = v764;
-            v686 = v764[5];
-            v477 = CUPrintNSDataHex();
-            NSAppendPrintF_safe();
-            objc_storeStrong(v200 + 5, v686);
+            v209 = v738;
+            v660 = v738[5];
+            v210 = CUPrintNSDataHex();
+            NSAppendPrintF_safe(&v660, ", LinkKey <%@>", v210);
+            objc_storeStrong(v209 + 5, v660);
           }
 
           irkData = [(CBDevice *)self irkData];
           if (irkData)
           {
-            v202 = v764;
-            v685 = v764[5];
-            v477 = CUPrintNSDataHex();
-            NSAppendPrintF_safe();
-            objc_storeStrong(v202 + 5, v685);
+            v212 = v738;
+            v659 = v738[5];
+            v213 = CUPrintNSDataHex();
+            NSAppendPrintF_safe(&v659, ", IRK <%@>", v213);
+            objc_storeStrong(v212 + 5, v659);
           }
 
           ltkData = [(CBDevice *)self ltkData];
           if (ltkData)
           {
-            v204 = v764;
-            v684 = v764[5];
-            v477 = CUPrintNSDataHex();
-            NSAppendPrintF_safe();
-            objc_storeStrong(v204 + 5, v684);
+            v215 = v738;
+            v658 = v738[5];
+            v216 = CUPrintNSDataHex();
+            NSAppendPrintF_safe(&v658, ", LTK <%@>", v216);
+            objc_storeStrong(v215 + 5, v658);
           }
         }
 
         discoveryFlags = self->_discoveryFlags;
         if ((discoveryFlags & 0x80) != 0)
         {
-          v206 = v764;
-          v683 = v764[5];
+          v218 = v738;
+          v657 = v738[5];
           [(CBDevice *)self accessoryStatusFlags];
-          v478 = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v206 + 5, v683);
+          v219 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v657, ", asFl %@", v219);
+          objc_storeStrong(v218 + 5, v657);
 
-          v207 = v764;
-          v682 = v764[5];
-          accessoryStatusLidOpenCount = [(CBDevice *)self accessoryStatusLidOpenCount];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v207 + 5, v682);
-          v208 = v764;
-          v681 = v764[5];
+          v220 = v738;
+          v656 = v738[5];
+          NSAppendPrintF_safe(&v656, ", asLO %u", [(CBDevice *)self accessoryStatusLidOpenCount]);
+          objc_storeStrong(v220 + 5, v656);
+          v221 = v738;
+          v655 = v738[5];
           [(CBDevice *)self accessoryStatusOBCTime];
-          v477 = CUPrintDurationDouble();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v208 + 5, v681);
+          v222 = CUPrintDurationDouble();
+          NSAppendPrintF_safe(&v655, ", asOT %@", v222);
+          objc_storeStrong(v221 + 5, v655);
         }
 
         if ([(CBDevice *)self airdropFlags])
         {
-          v209 = v764;
-          v680 = v764[5];
-          v480 = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v209 + 5, v680);
+          v223 = v738;
+          v654 = v738[5];
+          v224 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v654, ", adFl %@", v224);
+          objc_storeStrong(v223 + 5, v654);
         }
 
         airdropTempAuthTagData = [(CBDevice *)self airdropTempAuthTagData];
         if (airdropTempAuthTagData)
         {
-          v211 = v764;
-          v679 = v764[5];
-          v481 = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v211 + 5, v679);
+          v226 = v738;
+          v653 = v738[5];
+          v227 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v653, ", adTa <%@>", v227);
+          objc_storeStrong(v226 + 5, v653);
         }
 
         airdropModel = [(CBDevice *)self airdropModel];
         if (airdropModel)
         {
-          v213 = v764;
-          v678 = v764[5];
-          v481 = airdropModel;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v213 + 5, v678);
+          v229 = v738;
+          v652 = v738[5];
+          NSAppendPrintF_safe(&v652, ", adMl 0x%02X", airdropModel);
+          objc_storeStrong(v229 + 5, v652);
         }
 
         airdropVersion = [(CBDevice *)self airdropVersion];
         if (airdropVersion)
         {
-          v215 = v764;
-          v677 = v764[5];
-          v482 = airdropVersion;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v215 + 5, v677);
+          v231 = v738;
+          v651 = v738[5];
+          NSAppendPrintF_safe(&v651, ", adVr %d", airdropVersion);
+          objc_storeStrong(v231 + 5, v651);
         }
 
         airdropHash1 = [(CBDevice *)self airdropHash1];
         if (airdropHash1)
         {
-          v217 = v764;
-          v676 = v764[5];
-          v483 = airdropHash1;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v217 + 5, v676);
+          v233 = v738;
+          v650 = v738[5];
+          NSAppendPrintF_safe(&v650, ", adH1 0x%04X", airdropHash1);
+          objc_storeStrong(v233 + 5, v650);
         }
 
         airdropHash2 = [(CBDevice *)self airdropHash2];
         if (airdropHash2)
         {
-          v219 = v764;
-          v675 = v764[5];
-          v484 = airdropHash2;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v219 + 5, v675);
+          v235 = v738;
+          v649 = v738[5];
+          NSAppendPrintF_safe(&v649, ", adH2 0x%04X", airdropHash2);
+          objc_storeStrong(v235 + 5, v649);
         }
 
         airdropHash3 = [(CBDevice *)self airdropHash3];
         if (airdropHash3)
         {
-          v221 = v764;
-          v674 = v764[5];
-          v485 = airdropHash3;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v221 + 5, v674);
+          v237 = v738;
+          v648 = v738[5];
+          NSAppendPrintF_safe(&v648, ", adH3 0x%04X", airdropHash3);
+          objc_storeStrong(v237 + 5, v648);
         }
 
         airdropHash4 = [(CBDevice *)self airdropHash4];
         if (airdropHash4)
         {
-          v223 = v764;
-          v673 = v764[5];
-          v486 = airdropHash4;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v223 + 5, v673);
+          v239 = v738;
+          v647 = v738[5];
+          NSAppendPrintF_safe(&v647, ", adH4 0x%04X", airdropHash4);
+          objc_storeStrong(v239 + 5, v647);
         }
 
         if ([(CBDevice *)self airdropConfigData])
         {
-          v224 = v764;
-          v672 = v764[5];
-          airplayTargetPort = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v224 + 5, v672);
+          v240 = v738;
+          v646 = v738[5];
+          v241 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v646, ", adCd %@", v241);
+          objc_storeStrong(v240 + 5, v646);
         }
 
         if ((discoveryFlags & 0x4000000000) != 0)
@@ -2687,277 +2651,256 @@ LABEL_266:
           airplaySourceAuthTagData = [(CBDevice *)self airplaySourceAuthTagData];
           if (airplaySourceAuthTagData)
           {
-            v226 = v764;
-            v671 = v764[5];
-            v488 = CUPrintNSDataHex();
-            NSAppendPrintF_safe();
-            objc_storeStrong(v226 + 5, v671);
+            v243 = v738;
+            v645 = v738[5];
+            v244 = CUPrintNSDataHex();
+            NSAppendPrintF_safe(&v645, ", apAT <%@>", v244);
+            objc_storeStrong(v243 + 5, v645);
           }
 
-          v227 = v764;
-          v670 = v764[5];
+          v245 = v738;
+          v644 = v738[5];
           [(CBDevice *)self airplaySourceFlags];
-          v489 = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v227 + 5, v670);
+          v246 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v644, ", apSF %@", v246);
+          objc_storeStrong(v245 + 5, v644);
 
           airplaySourceUWBConfigData = [(CBDevice *)self airplaySourceUWBConfigData];
           if (airplaySourceUWBConfigData)
           {
-            v229 = v764;
-            v669 = v764[5];
-            airplayTargetPort = CUPrintNSDataHex();
-            NSAppendPrintF_safe();
-            objc_storeStrong(v229 + 5, v669);
+            v248 = v738;
+            v643 = v738[5];
+            v249 = CUPrintNSDataHex();
+            NSAppendPrintF_safe(&v643, ", apUW %@", v249);
+            objc_storeStrong(v248 + 5, v643);
           }
         }
 
         if ((discoveryFlags & 0x8000000000) != 0)
         {
-          v230 = v764;
-          v668 = v764[5];
-          airplayTargetConfigSeed = [(CBDevice *)self airplayTargetConfigSeed];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v230 + 5, v668);
-          v231 = v764;
-          v667 = v764[5];
+          v250 = v738;
+          v642 = v738[5];
+          NSAppendPrintF_safe(&v642, ", apTC %d", [(CBDevice *)self airplayTargetConfigSeed]);
+          objc_storeStrong(v250 + 5, v642);
+          v251 = v738;
+          v641 = v738[5];
           [(CBDevice *)self airplayTargetFlags];
-          v491 = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v231 + 5, v667);
+          v252 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v641, ", apTF %@", v252);
+          objc_storeStrong(v251 + 5, v641);
 
           if ([(CBDevice *)self airplayTargetIPv4])
           {
-            v232 = v764;
-            v665 = v764[5];
-            v492 = CUPrintAddress();
-            NSAppendPrintF_safe();
-            objc_storeStrong(v232 + 5, v665);
+            v253 = v738;
+            v639 = v738[5];
+            v254 = CUPrintAddress();
+            NSAppendPrintF_safe(&v639, ", apTI %@", v254);
+            objc_storeStrong(v253 + 5, v639);
           }
 
           if (([(CBDevice *)self airplayTargetFlags]& 0x20) != 0)
           {
-            v233 = v764;
-            v664 = v764[5];
+            v255 = v738;
+            v638 = v738[5];
             airplayTargetIPv6 = [(CBDevice *)self airplayTargetIPv6];
-            NSAppendPrintF_safe();
-            objc_storeStrong(v233 + 5, v664);
+            NSAppendPrintF_safe(&v638, ", apTI6 %@", airplayTargetIPv6);
+            objc_storeStrong(v255 + 5, v638);
           }
 
           if (([(CBDevice *)self airplayTargetFlags]& 0x10) != 0)
           {
-            v234 = v764;
-            v663 = v764[5];
-            airplayTargetPort = [(CBDevice *)self airplayTargetPort];
-            NSAppendPrintF_safe();
-            objc_storeStrong(v234 + 5, v663);
+            v257 = v738;
+            v637 = v738[5];
+            NSAppendPrintF_safe(&v637, ", apTP %u", [(CBDevice *)self airplayTargetPort]);
+            objc_storeStrong(v257 + 5, v637);
           }
         }
 
         dockKitAccessoryPayloadData = [(CBDevice *)self dockKitAccessoryPayloadData];
         if (dockKitAccessoryPayloadData)
         {
-          v236 = v764;
-          v662 = v764[5];
-          dsActionTieBreaker = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v236 + 5, v662);
+          v259 = v738;
+          v636 = v738[5];
+          v260 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v636, ", dKAPD <%@>", v260);
+          objc_storeStrong(v259 + 5, v636);
         }
 
         if ((discoveryFlags & 0x1000000000000000) != 0)
         {
-          v237 = v764;
-          v661 = v764[5];
+          v261 = v738;
+          v635 = v738[5];
           [(CBDevice *)self dsActionFlags];
-          v495 = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v237 + 5, v661);
+          v262 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v635, ", dsAF %@", v262);
+          objc_storeStrong(v261 + 5, v635);
 
-          v238 = v764;
-          v660 = v764[5];
-          dsActionMeasuredPower = [(CBDevice *)self dsActionMeasuredPower];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v238 + 5, v660);
-          v239 = v764;
-          v659 = v764[5];
-          dsActionTieBreaker = [(CBDevice *)self dsActionTieBreaker];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v239 + 5, v659);
+          v263 = v738;
+          v634 = v738[5];
+          NSAppendPrintF_safe(&v634, ", dsAP %d", [(CBDevice *)self dsActionMeasuredPower]);
+          objc_storeStrong(v263 + 5, v634);
+          v264 = v738;
+          v633 = v738[5];
+          NSAppendPrintF_safe(&v633, ", dsAT 0x%02X", [(CBDevice *)self dsActionTieBreaker]);
+          objc_storeStrong(v264 + 5, v633);
         }
 
         if ((discoveryFlags & 0x800000000000000) != 0)
         {
-          v240 = v764;
-          v658 = v764[5];
-          dsInfoVehicleConfidence = [(CBDevice *)self dsInfoVehicleConfidence];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v240 + 5, v658);
-          v241 = v764 + 5;
-          v657 = v764[5];
+          v265 = v738;
+          v632 = v738[5];
+          NSAppendPrintF_safe(&v632, ", dsVC %u", [(CBDevice *)self dsInfoVehicleConfidence]);
+          objc_storeStrong(v265 + 5, v632);
+          v266 = v738 + 5;
+          v631 = v738[5];
           dsInfoVehicleState = [(CBDevice *)self dsInfoVehicleState];
           if (dsInfoVehicleState > 2)
           {
-            v243 = "?";
+            v268 = "?";
           }
 
           else
           {
-            v243 = off_1E8121610[dsInfoVehicleState];
+            v268 = off_1E8121610[dsInfoVehicleState];
           }
 
-          dsActionTieBreaker = v243;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v241, v657);
+          NSAppendPrintF_safe(&v631, ", dsVS %s", v268);
+          objc_storeStrong(v266, v631);
         }
 
         gfpPayloadData = [(CBDevice *)self gfpPayloadData];
         if (gfpPayloadData)
         {
-          v245 = v764;
-          v656 = v764[5];
-          heySiriSNR = CUPrintNSDataHex();
-          gfpModelID = [(CBDevice *)self gfpModelID];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v245 + 5, v656);
+          v270 = v738;
+          v630 = v738[5];
+          v271 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v630, ", gfpD <%@>, gfpM 0x%X", v271, [(CBDevice *)self gfpModelID]);
+          objc_storeStrong(v270 + 5, v630);
         }
 
         fidoPayloadData = [(CBDevice *)self fidoPayloadData];
         if (fidoPayloadData)
         {
-          v247 = v764;
-          v655 = v764[5];
-          heySiriSNR = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v247 + 5, v655);
+          v273 = v738;
+          v629 = v738[5];
+          v274 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v629, ", fdPD <%@>", v274);
+          objc_storeStrong(v273 + 5, v629);
         }
 
         if ((discoveryFlags & 0x400000000000000) != 0)
         {
-          v248 = v764;
-          v654 = v764[5];
-          heySiriConfidence = [(CBDevice *)self heySiriConfidence];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v248 + 5, v654);
-          v249 = v764 + 5;
-          v653 = v764[5];
+          v275 = v738;
+          v628 = v738[5];
+          NSAppendPrintF_safe(&v628, ", hsCf %u", [(CBDevice *)self heySiriConfidence]);
+          objc_storeStrong(v275 + 5, v628);
+          v276 = v738 + 5;
+          v627 = v738[5];
           heySiriDeviceClass = [(CBDevice *)self heySiriDeviceClass];
           if (heySiriDeviceClass > 0xA)
           {
-            v251 = "?";
+            v278 = "?";
           }
 
           else
           {
-            v251 = off_1E8121BA8[heySiriDeviceClass];
+            v278 = off_1E8121BA8[heySiriDeviceClass];
           }
 
-          v500 = v251;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v249, v653);
-          v252 = v764;
-          v652 = v764[5];
-          heySiriPerceptualHash = [(CBDevice *)self heySiriPerceptualHash];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v252 + 5, v652);
-          v253 = v764 + 5;
-          v651 = v764[5];
+          NSAppendPrintF_safe(&v627, ", hsDC %s", v278);
+          objc_storeStrong(v276, v627);
+          v279 = v738;
+          v626 = v738[5];
+          NSAppendPrintF_safe(&v626, ", hsPH 0x%04X", [(CBDevice *)self heySiriPerceptualHash]);
+          objc_storeStrong(v279 + 5, v626);
+          v280 = v738 + 5;
+          v625 = v738[5];
           heySiriProductType = [(CBDevice *)self heySiriProductType];
           if (heySiriProductType > 4)
           {
-            v255 = "?";
+            v282 = "?";
           }
 
           else
           {
-            v255 = off_1E8121628[heySiriProductType];
+            v282 = off_1E8121628[heySiriProductType];
           }
 
-          v502 = v255;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v253, v651);
-          v256 = v764;
-          v650 = v764[5];
-          heySiriRandom = [(CBDevice *)self heySiriRandom];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v256 + 5, v650);
-          v257 = v764;
-          v649 = v764[5];
-          heySiriSNR = [(CBDevice *)self heySiriSNR];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v257 + 5, v649);
+          NSAppendPrintF_safe(&v625, ", hsPT %s", v282);
+          objc_storeStrong(v280, v625);
+          v283 = v738;
+          v624 = v738[5];
+          NSAppendPrintF_safe(&v624, ", hsRn 0x%02X", [(CBDevice *)self heySiriRandom]);
+          objc_storeStrong(v283 + 5, v624);
+          v284 = v738;
+          v623 = v738[5];
+          NSAppendPrintF_safe(&v623, ", hsSN %u", [(CBDevice *)self heySiriSNR]);
+          objc_storeStrong(v284 + 5, v623);
         }
 
         if ((discoveryFlags & 0x400000) != 0)
         {
-          v258 = v764;
-          v648 = v764[5];
-          homeKitV1Category = [(CBDevice *)self homeKitV1Category];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v258 + 5, v648);
-          v259 = v764;
-          v647 = v764[5];
-          homeKitV1CompatibleVersion = [(CBDevice *)self homeKitV1CompatibleVersion];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v259 + 5, v647);
-          v260 = v764;
-          v646 = v764[5];
-          homeKitV1ConfigurationNumber = [(CBDevice *)self homeKitV1ConfigurationNumber];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v260 + 5, v646);
-          v261 = v764;
-          v645 = v764[5];
+          v285 = v738;
+          v622 = v738[5];
+          NSAppendPrintF_safe(&v622, ", hkCa %d", [(CBDevice *)self homeKitV1Category]);
+          objc_storeStrong(v285 + 5, v622);
+          v286 = v738;
+          v621 = v738[5];
+          NSAppendPrintF_safe(&v621, ", hkCV %d", [(CBDevice *)self homeKitV1CompatibleVersion]);
+          objc_storeStrong(v286 + 5, v621);
+          v287 = v738;
+          v620 = v738[5];
+          NSAppendPrintF_safe(&v620, ", hkCN %d", [(CBDevice *)self homeKitV1ConfigurationNumber]);
+          objc_storeStrong(v287 + 5, v620);
+          v288 = v738;
+          v619 = v738[5];
           homeKitV1DeviceIDData = [(CBDevice *)self homeKitV1DeviceIDData];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v261 + 5, v645);
+          NSAppendPrintF_safe(&v619, ", hkDI %@", homeKitV1DeviceIDData);
+          objc_storeStrong(v288 + 5, v619);
 
-          v262 = v764;
-          v644 = v764[5];
+          v290 = v738;
+          v618 = v738[5];
           [(CBDevice *)self homeKitV1Flags];
-          v508 = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v262 + 5, v644);
+          v291 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v618, ", hkFl %@", v291);
+          objc_storeStrong(v290 + 5, v618);
 
-          v263 = v764;
-          v643 = v764[5];
-          homeKitV1StateNumber = [(CBDevice *)self homeKitV1StateNumber];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v263 + 5, v643);
-          v264 = v764;
-          v642 = v764[5];
-          heySiriSNR = [(CBDevice *)self homeKitV1SetupHash];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v264 + 5, v642);
+          v292 = v738;
+          v617 = v738[5];
+          NSAppendPrintF_safe(&v617, ", hkS1 %d", [(CBDevice *)self homeKitV1StateNumber]);
+          objc_storeStrong(v292 + 5, v617);
+          v293 = v738;
+          v616 = v738[5];
+          NSAppendPrintF_safe(&v616, ", hkSH 0x%X", [(CBDevice *)self homeKitV1SetupHash]);
+          objc_storeStrong(v293 + 5, v616);
         }
 
         if ((discoveryFlags & 0x1000000) != 0)
         {
-          v265 = v764;
-          v641 = v764[5];
+          v294 = v738;
+          v615 = v738[5];
           homeKitV2AccessoryIDData = [(CBDevice *)self homeKitV2AccessoryIDData];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v265 + 5, v641);
+          NSAppendPrintF_safe(&v615, ", hkAI %@", homeKitV2AccessoryIDData);
+          objc_storeStrong(v294 + 5, v615);
 
-          v266 = v764;
-          v640 = v764[5];
+          v296 = v738;
+          v614 = v738[5];
           homeKitV2AuthTagData = [(CBDevice *)self homeKitV2AuthTagData];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v266 + 5, v640);
+          NSAppendPrintF_safe(&v614, ", hkAT %@", homeKitV2AuthTagData);
+          objc_storeStrong(v296 + 5, v614);
 
-          v267 = v764;
-          v639 = v764[5];
-          homeKitV2InstanceID = [(CBDevice *)self homeKitV2InstanceID];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v267 + 5, v639);
-          v268 = v764;
-          v638 = v764[5];
-          homeKitV2StateNumber = [(CBDevice *)self homeKitV2StateNumber];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v268 + 5, v638);
-          v269 = v764;
-          v637 = v764[5];
-          heySiriSNR = [(CBDevice *)self homeKitV2Value];
-          NSAppendPrintF_safe();
-          objc_storeStrong(v269 + 5, v637);
+          v298 = v738;
+          v613 = v738[5];
+          NSAppendPrintF_safe(&v613, ", hkII %d", [(CBDevice *)self homeKitV2InstanceID]);
+          objc_storeStrong(v298 + 5, v613);
+          v299 = v738;
+          v612 = v738[5];
+          NSAppendPrintF_safe(&v612, ", hkS2 %d", [(CBDevice *)self homeKitV2StateNumber]);
+          objc_storeStrong(v299 + 5, v612);
+          v300 = v738;
+          v611 = v738[5];
+          NSAppendPrintF_safe(&v611, ", hkVa %llu", [(CBDevice *)self homeKitV2Value]);
+          objc_storeStrong(v300 + 5, v611);
         }
 
         if ((discoveryFlags & 0x80000000000000) != 0)
@@ -2965,551 +2908,539 @@ LABEL_266:
           mspAddressData = [(CBDevice *)self mspAddressData];
           if (mspAddressData)
           {
-            v271 = v764;
-            v636 = v764[5];
-            heySiriSNR = CUPrintNSDataAddress();
-            NSAppendPrintF_safe();
-            objc_storeStrong(v271 + 5, v636);
+            v302 = v738;
+            v610 = v738[5];
+            v303 = CUPrintNSDataAddress();
+            NSAppendPrintF_safe(&v610, ", mspA %@", v303);
+            objc_storeStrong(v302 + 5, v610);
           }
 
           mspDeviceClass = [(CBDevice *)self mspDeviceClass];
           if (mspDeviceClass)
           {
-            v273 = v764;
-            v635 = v764[5];
-            heySiriSNR = mspDeviceClass;
-            NSAppendPrintF_safe();
-            objc_storeStrong(v273 + 5, v635);
+            v305 = v738;
+            v609 = v738[5];
+            NSAppendPrintF_safe(&v609, ", mspD 0x%X", mspDeviceClass);
+            objc_storeStrong(v305 + 5, v609);
           }
 
-          v274 = [(CBDevice *)self mspDisplayName:heySiriSNR];
-          if (v274)
+          mspDisplayName = [(CBDevice *)self mspDisplayName];
+          v307 = mspDisplayName;
+          if (mspDisplayName)
           {
-            v275 = v764;
-            v634 = v764[5];
-            NSAppendPrintF_safe();
-            objc_storeStrong(v275 + 5, v634);
+            v308 = v738;
+            v608 = v738[5];
+            NSAppendPrintF_safe(&v608, ", mspN %@", mspDisplayName);
+            objc_storeStrong(v308 + 5, v608);
           }
 
-          v276 = v764 + 5;
-          v633 = v764[5];
+          v309 = v738 + 5;
+          v607 = v738[5];
           mspSubScenario = [(CBDevice *)self mspSubScenario];
           if (mspSubScenario > 2)
           {
-            v278 = "?";
+            v311 = "?";
           }
 
           else
           {
-            v278 = off_1E8121650[mspSubScenario];
+            v311 = off_1E8121650[mspSubScenario];
           }
 
-          heySiriSNR = v278;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v276, v633);
+          NSAppendPrintF_safe(&v607, ", mspS %s", v311);
+          objc_storeStrong(v309, v607);
         }
 
         nearbyActionColorCode = [(CBDevice *)self nearbyActionColorCode];
         if (nearbyActionColorCode)
         {
-          v280 = v764;
-          v632 = v764[5];
-          v514 = nearbyActionColorCode;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v280 + 5, v632);
+          v313 = v738;
+          v606 = v738[5];
+          NSAppendPrintF_safe(&v606, ", naCC %u", nearbyActionColorCode);
+          objc_storeStrong(v313 + 5, v606);
         }
 
         nearbyActionExtraData = [(CBDevice *)self nearbyActionExtraData];
         if (nearbyActionExtraData)
         {
-          v282 = v764;
-          v631 = v764[5];
-          v515 = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v282 + 5, v631);
+          v315 = v738;
+          v605 = v738[5];
+          v316 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v605, ", naED <%@>", v316);
+          objc_storeStrong(v315 + 5, v605);
         }
 
         if ([(CBDevice *)self nearbyActionFlags])
         {
-          v283 = v764;
-          v630 = v764[5];
-          v515 = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v283 + 5, v630);
+          v317 = v738;
+          v604 = v738[5];
+          v318 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v604, ", nbAF %@", v318);
+          objc_storeStrong(v317 + 5, v604);
         }
 
         nearbyActionType = [(CBDevice *)self nearbyActionType];
         if (nearbyActionType)
         {
-          v285 = v764 + 5;
-          v629 = v764[5];
+          v320 = v738 + 5;
+          v603 = v738[5];
           if (nearbyActionType >= 0x60)
           {
-            v286 = "?";
+            v321 = "?";
           }
 
           else
           {
-            v286 = off_1E81216B0[nearbyActionType - 1];
+            v321 = off_1E81216B0[nearbyActionType - 1];
           }
 
-          v516 = v286;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v285, v629);
+          NSAppendPrintF_safe(&v603, ", nbAc %s", v321);
+          objc_storeStrong(v320, v603);
         }
 
         nearbyActionAuthTag = [(CBDevice *)self nearbyActionAuthTag];
         if (nearbyActionAuthTag)
         {
-          v288 = v764;
-          v628 = v764[5];
-          v517 = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v288 + 5, v628);
+          v323 = v738;
+          v602 = v738[5];
+          v324 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v602, ", nbAa <%@>", v324);
+          objc_storeStrong(v323 + 5, v602);
         }
 
         nearbyActionTargetAuthTag = [(CBDevice *)self nearbyActionTargetAuthTag];
         if (nearbyActionTargetAuthTag)
         {
-          v290 = v764;
-          v627 = v764[5];
-          v517 = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v290 + 5, v627);
+          v326 = v738;
+          v601 = v738[5];
+          v327 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v601, ", nbTg <%@>", v327);
+          objc_storeStrong(v326 + 5, v601);
         }
 
         nearbyActionDeviceClass = [(CBDevice *)self nearbyActionDeviceClass];
         if (nearbyActionDeviceClass)
         {
-          v292 = v764 + 5;
-          v626 = v764[5];
+          v329 = v738 + 5;
+          v600 = v738[5];
           if (nearbyActionDeviceClass > 9)
           {
-            v293 = "?";
+            v330 = "?";
           }
 
           else
           {
-            v293 = off_1E8121668[nearbyActionDeviceClass - 1];
+            v330 = off_1E8121668[nearbyActionDeviceClass - 1];
           }
 
-          v517 = v293;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v292, v626);
+          NSAppendPrintF_safe(&v600, ", nbDC %s", v330);
+          objc_storeStrong(v329, v600);
         }
 
         if ([(CBDevice *)self nearbyActionV2Flags])
         {
-          v294 = v764;
-          v625 = v764[5];
-          v518 = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v294 + 5, v625);
+          v331 = v738;
+          v599 = v738[5];
+          v332 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v599, ", n2Fl %@", v332);
+          objc_storeStrong(v331 + 5, v599);
         }
 
         nearbyActionV2Type = [(CBDevice *)self nearbyActionV2Type];
         if (nearbyActionV2Type)
         {
-          v296 = v764 + 5;
-          v624 = v764[5];
+          v334 = v738 + 5;
+          v598 = v738[5];
           if (nearbyActionV2Type >= 0x60)
           {
-            v297 = "?";
+            v335 = "?";
           }
 
           else
           {
-            v297 = off_1E81216B0[nearbyActionV2Type - 1];
+            v335 = off_1E81216B0[nearbyActionV2Type - 1];
           }
 
-          v519 = v297;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v296, v624);
+          NSAppendPrintF_safe(&v598, ", n2Ac %s", v335);
+          objc_storeStrong(v334, v598);
         }
 
         nearbyActionV2TargetData = [(CBDevice *)self nearbyActionV2TargetData];
         if (nearbyActionV2TargetData)
         {
-          v299 = v764;
-          v623 = v764[5];
-          v520 = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v299 + 5, v623);
+          v337 = v738;
+          v597 = v738[5];
+          v338 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v597, ", n2Tg %@", v338);
+          objc_storeStrong(v337 + 5, v597);
         }
 
         nearbyInfoAuthTag = [(CBDevice *)self nearbyInfoAuthTag];
         if (nearbyInfoAuthTag)
         {
-          v301 = v764;
-          v622 = v764[5];
-          v520 = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v301 + 5, v622);
+          v340 = v738;
+          v596 = v738[5];
+          v341 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v596, ", nbIAT <%@>", v341);
+          objc_storeStrong(v340 + 5, v596);
         }
 
         if ([(CBDevice *)self nearbyInfoFlags])
         {
-          v302 = v764;
-          v621 = v764[5];
-          v520 = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v302 + 5, v621);
+          v342 = v738;
+          v595 = v738[5];
+          v343 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v595, ", nbIF %@", v343);
+          objc_storeStrong(v342 + 5, v595);
         }
 
         [(CBDevice *)self nearbyInfoStatusProgress];
-        if (v303 != 0.0)
+        if (v344 != 0.0)
         {
-          v304 = v764;
-          v620 = v764[5];
-          v521 = v303 * 100.0;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v304 + 5, v620);
+          v345 = v738;
+          v594 = v738[5];
+          NSAppendPrintF_safe(&v594, ", nsPr %.0f%%", v344 * 100.0);
+          objc_storeStrong(v345 + 5, v594);
         }
 
         nearbyInfoStatusTime = [(CBDevice *)self nearbyInfoStatusTime];
         if (nearbyInfoStatusTime)
         {
-          v306 = v764 + 5;
-          v619 = v764[5];
+          v347 = v738 + 5;
+          v593 = v738[5];
           if (nearbyInfoStatusTime > 0xE)
           {
-            v307 = "?";
+            v348 = "?";
           }
 
           else
           {
-            v307 = off_1E81219A8[nearbyInfoStatusTime - 1];
+            v348 = off_1E81219A8[nearbyInfoStatusTime - 1];
           }
 
-          v522 = v307;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v306, v619);
+          NSAppendPrintF_safe(&v593, ", nsTi %s", v348);
+          objc_storeStrong(v347, v593);
         }
 
         nearbyInfoStatusType = [(CBDevice *)self nearbyInfoStatusType];
         if (nearbyInfoStatusType)
         {
-          v309 = v764 + 5;
-          v618 = v764[5];
+          v350 = v738 + 5;
+          v592 = v738[5];
           if (nearbyInfoStatusType > 0xD)
           {
-            v310 = "?";
+            v351 = "?";
           }
 
           else
           {
-            v310 = off_1E8121A18[nearbyInfoStatusType - 1];
+            v351 = off_1E8121A18[nearbyInfoStatusType - 1];
           }
 
-          v523 = v310;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v309, v618);
+          NSAppendPrintF_safe(&v592, ", nsPr %s", v351);
+          objc_storeStrong(v350, v592);
         }
 
         if ([(CBDevice *)self nearbyInfoV2Flags])
         {
-          v311 = v764;
-          v617 = v764[5];
-          v524 = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v311 + 5, v617);
+          v352 = v738;
+          v591 = v738[5];
+          v353 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v591, ", nb2F %@", v353);
+          objc_storeStrong(v352 + 5, v591);
         }
 
         if ([(CBDevice *)self nearbyInfoV2DecryptedFlags])
         {
-          v312 = v764;
-          v616 = v764[5];
-          v525 = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v312 + 5, v616);
+          v354 = v738;
+          v590 = v738[5];
+          v355 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v590, ", nb2Fe %@", v355);
+          objc_storeStrong(v354 + 5, v590);
         }
 
         nearbyInfoV2AuthTagData = [(CBDevice *)self nearbyInfoV2AuthTagData];
         if (nearbyInfoV2AuthTagData)
         {
-          v314 = v764;
-          v615 = v764[5];
-          objectDiscoveryPublicKeyData = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v314 + 5, v615);
+          v357 = v738;
+          v589 = v738[5];
+          v358 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v589, ", nb2A <%@>", v358);
+          objc_storeStrong(v357 + 5, v589);
         }
 
         nearbyInfoV2AuthIntegrityTagData = [(CBDevice *)self nearbyInfoV2AuthIntegrityTagData];
         if (nearbyInfoV2AuthIntegrityTagData)
         {
-          v316 = v764;
-          v614 = v764[5];
-          objectDiscoveryPublicKeyData = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v316 + 5, v614);
+          v360 = v738;
+          v588 = v738[5];
+          v361 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v588, ", nb2Ai <%@>", v361);
+          objc_storeStrong(v360 + 5, v588);
         }
 
         nearbyInfoV2InvitationCounter = self->_nearbyInfoV2InvitationCounter;
         if (self->_nearbyInfoV2InvitationCounter)
         {
-          v318 = v764;
-          v613 = v764[5];
-          objectDiscoveryPublicKeyData = nearbyInfoV2InvitationCounter;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v318 + 5, v613);
+          v363 = v738;
+          v587 = v738[5];
+          NSAppendPrintF_safe(&v587, ", nb2Ic %u", nearbyInfoV2InvitationCounter);
+          objc_storeStrong(v363 + 5, v587);
         }
 
         if (self->_nearbyInfoV2InvitationTypes)
         {
-          v319 = v764;
-          v612 = v764[5];
-          objectDiscoveryPublicKeyData = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v319 + 5, v612);
+          v364 = v738;
+          v586 = v738[5];
+          v365 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v586, ", nb2It %@", v365);
+          objc_storeStrong(v364 + 5, v586);
         }
 
         nearbyInfoV2InvitationRouteType = self->_nearbyInfoV2InvitationRouteType;
         if (self->_nearbyInfoV2InvitationRouteType)
         {
-          v321 = v764 + 5;
-          v611 = v764[5];
+          v367 = v738 + 5;
+          v585 = v738[5];
           if (nearbyInfoV2InvitationRouteType > 0xB)
           {
-            v322 = "?";
+            v368 = "?";
           }
 
           else
           {
-            v322 = off_1E8121A80[nearbyInfoV2InvitationRouteType - 1];
+            v368 = off_1E8121A80[nearbyInfoV2InvitationRouteType - 1];
           }
 
-          objectDiscoveryPublicKeyData = v322;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v321, v611);
+          NSAppendPrintF_safe(&v585, ", nb2Ir %s", v368);
+          objc_storeStrong(v367, v585);
         }
 
-        v323 = self->_nearbyInfoV2NearbyFaceTimeData;
-        if (v323)
+        v369 = self->_nearbyInfoV2NearbyFaceTimeData;
+        if (v369)
         {
-          v324 = v764;
-          v610 = v764[5];
-          objectDiscoveryPublicKeyData = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v324 + 5, v610);
+          v370 = v738;
+          v584 = v738[5];
+          v371 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v584, ", nb2FT <%@>", v371);
+          objc_storeStrong(v370 + 5, v584);
         }
 
         nearbyActionNoWakeType = [(CBDevice *)self nearbyActionNoWakeType];
         if (nearbyActionNoWakeType)
         {
-          v326 = "PrecisionFinding";
+          v373 = "PrecisionFinding";
           if (nearbyActionNoWakeType != 1)
           {
-            v326 = "?";
+            v373 = "?";
           }
 
-          v327 = v764;
-          v609 = v764[5];
-          objectDiscoveryPublicKeyData = v326;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v327 + 5, v609);
+          v374 = v738;
+          v583 = v738[5];
+          NSAppendPrintF_safe(&v583, ", nawT %s", v373);
+          objc_storeStrong(v374 + 5, v583);
         }
 
         if (self->_nearbyActionNWPrecisionFindingStatus)
         {
-          v328 = v764;
-          v608 = v764[5];
-          objectDiscoveryPublicKeyData = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v328 + 5, v608);
+          v375 = v738;
+          v582 = v738[5];
+          v376 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v582, ", nawS %@", v376);
+          objc_storeStrong(v375 + 5, v582);
         }
 
-        v329 = self->_nearbyActionNoWakeAuthTagData;
-        if (v329)
+        v377 = self->_nearbyActionNoWakeAuthTagData;
+        if (v377)
         {
-          v330 = v764;
-          v607 = v764[5];
-          objectDiscoveryPublicKeyData = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v330 + 5, v607);
+          v378 = v738;
+          v581 = v738[5];
+          v379 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v581, ", nawA <%@>", v379);
+          objc_storeStrong(v378 + 5, v581);
         }
 
-        v331 = self->_nearbyActionNoWakeConfigData;
-        if (v331)
+        v380 = self->_nearbyActionNoWakeConfigData;
+        if (v380)
         {
-          v332 = v764;
-          v606 = v764[5];
-          objectDiscoveryPublicKeyData = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v332 + 5, v606);
+          v381 = v738;
+          v580 = v738[5];
+          v382 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v580, ", nawC <%@>", v382);
+          objc_storeStrong(v381 + 5, v580);
         }
 
         if ((discoveryFlags & 0x60000000000) != 0)
         {
-          v333 = v764 + 5;
-          v605 = v764[5];
+          v383 = v738 + 5;
+          v579 = v738[5];
           objectDiscoveryBatteryState = self->_objectDiscoveryBatteryState;
-          if (objectDiscoveryBatteryState <= 3)
+          if (objectDiscoveryBatteryState > 3)
           {
-            v335 = off_1E8121AD8[objectDiscoveryBatteryState];
+            v385 = "?";
           }
 
-          NSAppendPrintF_safe();
-          objc_storeStrong(v333, v605);
-          v336 = v764 + 5;
-          v604 = v764[5];
+          else
+          {
+            v385 = off_1E8121AD8[objectDiscoveryBatteryState];
+          }
+
+          NSAppendPrintF_safe(&v579, ", odBS %s", v385);
+          objc_storeStrong(v383, v579);
+          v386 = v738 + 5;
+          v578 = v738[5];
           objectDiscoveryMode = self->_objectDiscoveryMode;
-          if (objectDiscoveryMode <= 2)
+          if (objectDiscoveryMode > 2)
           {
-            v338 = off_1E8121AF8[objectDiscoveryMode];
+            v388 = "?";
           }
 
-          NSAppendPrintF_safe();
-          objc_storeStrong(v336, v604);
-          v339 = v764;
-          v603 = v764[5];
-          objectDiscoveryNearOwnerID = self->_objectDiscoveryNearOwnerID;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v339 + 5, v603);
-          v340 = v764;
-          v602 = v764[5];
-          CBProductIDToString_0(self->_objectDiscoveryProductID);
-          NSAppendPrintF_safe();
-          objc_storeStrong(v340 + 5, v602);
-          v341 = v764;
-          v601 = v764[5];
-          objectDiscoveryPublicKeyData = self->_objectDiscoveryPublicKeyData;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v341 + 5, v601);
+          else
+          {
+            v388 = off_1E8121AF8[objectDiscoveryMode];
+          }
+
+          NSAppendPrintF_safe(&v578, ", odMd %s", v388);
+          objc_storeStrong(v386, v578);
+          v389 = v738;
+          v577 = v738[5];
+          NSAppendPrintF_safe(&v577, ", odNO %@", self->_objectDiscoveryNearOwnerID);
+          objc_storeStrong(v389 + 5, v577);
+          v390 = v738;
+          v576 = v738[5];
+          v391 = CBProductIDToString_0(self->_objectDiscoveryProductID);
+          NSAppendPrintF_safe(&v576, ", odPI %s", v391);
+          objc_storeStrong(v390 + 5, v576);
+          v392 = v738;
+          v575 = v738[5];
+          NSAppendPrintF_safe(&v575, ", odPK %@", self->_objectDiscoveryPublicKeyData);
+          objc_storeStrong(v392 + 5, v575);
         }
 
         proximityServiceData = [(CBDevice *)self proximityServiceData];
         if (proximityServiceData)
         {
-          v343 = v764;
-          v600 = v764[5];
-          v528 = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v343 + 5, v600);
+          v394 = v738;
+          v574 = v738[5];
+          v395 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v574, ", psDa <%@>", v395);
+          objc_storeStrong(v394 + 5, v574);
         }
 
         proximityServiceCategory = [(CBDevice *)self proximityServiceCategory];
         if (proximityServiceCategory)
         {
-          v345 = v764;
-          v599 = v764[5];
-          v528 = proximityServiceCategory;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v345 + 5, v599);
+          v397 = v738;
+          v573 = v738[5];
+          NSAppendPrintF_safe(&v573, ", psCa %d", proximityServiceCategory);
+          objc_storeStrong(v397 + 5, v573);
         }
 
         proximityServiceClassicAddress = [(CBDevice *)self proximityServiceClassicAddress];
         if (proximityServiceClassicAddress)
         {
-          v347 = v764;
-          v598 = v764[5];
-          v529 = CUPrintNSDataAddress();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v347 + 5, v598);
+          v399 = v738;
+          v572 = v738[5];
+          v400 = CUPrintNSDataAddress();
+          NSAppendPrintF_safe(&v572, ", psCl %@", v400);
+          objc_storeStrong(v399 + 5, v572);
         }
 
         if ([(CBDevice *)self proximityServiceFlags])
         {
-          v348 = v764;
-          v597 = v764[5];
-          v529 = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v348 + 5, v597);
+          v401 = v738;
+          v571 = v738[5];
+          v402 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v571, ", psFl %@", v402);
+          objc_storeStrong(v401 + 5, v571);
         }
 
         proximityServiceMeasuredPower = [(CBDevice *)self proximityServiceMeasuredPower];
         if (proximityServiceMeasuredPower)
         {
-          v350 = v764;
-          v596 = v764[5];
-          v530 = proximityServiceMeasuredPower;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v350 + 5, v596);
+          v404 = v738;
+          v570 = v738[5];
+          NSAppendPrintF_safe(&v570, ", psMP %d", proximityServiceMeasuredPower);
+          objc_storeStrong(v404 + 5, v570);
         }
 
         proximityServiceProductID = [(CBDevice *)self proximityServiceProductID];
-        v352 = proximityServiceProductID;
+        v406 = proximityServiceProductID;
         if (proximityServiceProductID)
         {
-          v353 = CBProductIDToString_0(proximityServiceProductID);
-          v354 = v764;
-          v595 = v764[5];
-          v531 = v352;
-          gfpModelID = v353;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v354 + 5, v595);
+          v407 = CBProductIDToString_0(proximityServiceProductID);
+          v408 = v738;
+          v569 = v738[5];
+          NSAppendPrintF_safe(&v569, ", psPI 0x%04X (%s)", v406, v407);
+          objc_storeStrong(v408 + 5, v569);
         }
 
-        v355 = [(CBDevice *)self proximityServicePSM:v531];
-        if (v355)
+        proximityServicePSM = [(CBDevice *)self proximityServicePSM];
+        if (proximityServicePSM)
         {
-          v356 = v764;
-          v594 = v764[5];
-          v532 = v355;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v356 + 5, v594);
+          v410 = v738;
+          v568 = v738[5];
+          NSAppendPrintF_safe(&v568, ", psPS 0x%X", proximityServicePSM);
+          objc_storeStrong(v410 + 5, v568);
         }
 
         proximityServiceSetupHash = [(CBDevice *)self proximityServiceSetupHash];
         if (proximityServiceSetupHash)
         {
-          v358 = v764;
-          v593 = v764[5];
-          v533 = CUPrintNSDataHex();
-          NSAppendPrintF_safe();
-          objc_storeStrong(v358 + 5, v593);
+          v412 = v738;
+          v567 = v738[5];
+          v413 = CUPrintNSDataHex();
+          NSAppendPrintF_safe(&v567, ", psSH <%@>", v413);
+          objc_storeStrong(v412 + 5, v567);
         }
 
         proximityServiceSubType = [(CBDevice *)self proximityServiceSubType];
         if (proximityServiceSubType)
         {
-          v360 = v764 + 5;
-          v592 = v764[5];
+          v415 = v738 + 5;
+          v566 = v738[5];
           if (proximityServiceSubType > 6)
           {
-            v361 = "?";
+            v416 = "?";
           }
 
           else
           {
-            v361 = off_1E8122118[proximityServiceSubType - 1];
+            v416 = off_1E8122118[proximityServiceSubType - 1];
           }
 
-          v533 = v361;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v360, v592);
+          NSAppendPrintF_safe(&v566, ", psST %s", v416);
+          objc_storeStrong(v415, v566);
         }
 
         proximityServiceVendorID = [(CBDevice *)self proximityServiceVendorID];
         if (!proximityServiceVendorID)
         {
-          goto LABEL_468;
+          goto LABEL_470;
         }
 
-        v363 = v764 + 5;
-        v591 = v764[5];
-        v364 = "Apple";
+        v418 = v738 + 5;
+        v565 = v738[5];
+        v419 = "Apple";
         if (proximityServiceVendorID <= 300)
         {
           switch(proximityServiceVendorID)
           {
             case 6:
-              v364 = "MS";
-              goto LABEL_467;
-            case 0x4C:
-LABEL_467:
-              v534 = proximityServiceVendorID;
-              v548 = v364;
-              NSAppendPrintF_safe();
-              objc_storeStrong(v363, v591);
-LABEL_468:
-              v365 = [(CBDevice *)self proximityServiceVersion:v534];
-              if (v365)
+              v419 = "MS";
+              goto LABEL_469;
+            case 76:
+LABEL_469:
+              NSAppendPrintF_safe(&v565, ", psVI 0x%04X (%s)", proximityServiceVendorID, v419);
+              objc_storeStrong(v418, v565);
+LABEL_470:
+              proximityServiceVersion = [(CBDevice *)self proximityServiceVersion];
+              if (proximityServiceVersion)
               {
-                v366 = v764;
-                v590 = v764[5];
-                v535 = v365;
-                NSAppendPrintF_safe();
-                objc_storeStrong(v366 + 5, v590);
+                v421 = v738;
+                v564 = v738[5];
+                NSAppendPrintF_safe(&v564, ", psVs %d", proximityServiceVersion);
+                objc_storeStrong(v421 + 5, v564);
               }
 
               if ((discoveryFlags & 0xC080) != 0)
@@ -3517,74 +3448,68 @@ LABEL_468:
                 proximityPairingProductID = self->_proximityPairingProductID;
                 if (proximityPairingProductID)
                 {
-                  v368 = CBProductIDToString_0(self->_proximityPairingProductID);
-                  v369 = v764;
-                  v589 = v764[5];
-                  v535 = proximityPairingProductID;
-                  v549 = v368;
-                  NSAppendPrintF_safe();
-                  objc_storeStrong(v369 + 5, v589);
+                  v423 = CBProductIDToString_0(self->_proximityPairingProductID);
+                  v424 = v738;
+                  v563 = v738[5];
+                  NSAppendPrintF_safe(&v563, ", ppPI 0x%04X (%s)", proximityPairingProductID, v423);
+                  objc_storeStrong(v424 + 5, v563);
                 }
 
                 proximityPairingSubType = self->_proximityPairingSubType;
                 if (self->_proximityPairingSubType)
                 {
-                  v371 = v764 + 5;
-                  v588 = v764[5];
+                  v426 = v738 + 5;
+                  v562 = v738[5];
                   if (proximityPairingSubType > 9)
                   {
-                    v372 = "?";
+                    v427 = "?";
                   }
 
                   else
                   {
-                    v372 = off_1E8121B10[proximityPairingSubType - 1];
+                    v427 = off_1E8121B10[proximityPairingSubType - 1];
                   }
 
-                  v535 = proximityPairingSubType;
-                  v549 = v372;
-                  NSAppendPrintF_safe();
-                  objc_storeStrong(v371, v588);
+                  NSAppendPrintF_safe(&v562, ", ppST 0x%02X (%s)", proximityPairingSubType, v427);
+                  objc_storeStrong(v426, v562);
                 }
 
-                v373 = [(CBDevice *)self proximityPairingPrimaryPlacement:v535];
-                if (v373)
+                proximityPairingPrimaryPlacement = [(CBDevice *)self proximityPairingPrimaryPlacement];
+                if (proximityPairingPrimaryPlacement)
                 {
-                  v374 = v764 + 5;
-                  v587 = v764[5];
-                  if (v373 > 7)
+                  v429 = v738 + 5;
+                  v561 = v738[5];
+                  if (proximityPairingPrimaryPlacement > 7)
                   {
-                    v375 = "?";
+                    v430 = "?";
                   }
 
                   else
                   {
-                    v375 = off_1E8121B70[v373 - 1];
+                    v430 = off_1E8121B70[proximityPairingPrimaryPlacement - 1];
                   }
 
-                  v536 = v375;
-                  NSAppendPrintF_safe();
-                  objc_storeStrong(v374, v587);
+                  NSAppendPrintF_safe(&v561, ", ppPP %s", v430);
+                  objc_storeStrong(v429, v561);
                 }
 
                 proximityPairingSecondaryPlacement = [(CBDevice *)self proximityPairingSecondaryPlacement];
                 if (proximityPairingSecondaryPlacement)
                 {
-                  v377 = v764 + 5;
-                  v586 = v764[5];
+                  v432 = v738 + 5;
+                  v560 = v738[5];
                   if (proximityPairingSecondaryPlacement > 7)
                   {
-                    v378 = "?";
+                    v433 = "?";
                   }
 
                   else
                   {
-                    v378 = off_1E8121B70[proximityPairingSecondaryPlacement - 1];
+                    v433 = off_1E8121B70[proximityPairingSecondaryPlacement - 1];
                   }
 
-                  v535 = v378;
-                  NSAppendPrintF_safe();
-                  objc_storeStrong(v377, v586);
+                  NSAppendPrintF_safe(&v560, ", ppSP %s", v433);
+                  objc_storeStrong(v432, v560);
                 }
               }
 
@@ -3592,39 +3517,38 @@ LABEL_468:
               {
                 if (self->_selectiveSpeechListeningCapability == 1)
                 {
-                  v379 = @"Enabled";
+                  v434 = @"Enabled";
                 }
 
                 else
                 {
-                  v379 = @"?";
+                  v434 = @"?";
                 }
 
-                v380 = v764;
-                v585 = v764[5];
-                v535 = v379;
-                NSAppendPrintF_safe();
-                objc_storeStrong(v380 + 5, v585);
+                v435 = v738;
+                v559 = v738[5];
+                v436 = v434;
+                NSAppendPrintF_safe(&v559, ", ssCp %@", v436);
+                objc_storeStrong(v435 + 5, v559);
               }
 
               selectiveSpeechListeningConfig = [(CBDevice *)self selectiveSpeechListeningConfig];
               if (selectiveSpeechListeningConfig)
               {
-                v382 = v764 + 5;
-                v584 = v764[5];
+                v438 = v738 + 5;
+                v558 = v738[5];
                 if (selectiveSpeechListeningConfig > 3)
                 {
-                  v383 = @"?";
+                  v439 = @"?";
                 }
 
                 else
                 {
-                  v383 = *(&off_1E8121B58 + selectiveSpeechListeningConfig - 1);
+                  v439 = *(&off_1E8121B58 + selectiveSpeechListeningConfig - 1);
                 }
 
-                v537 = v383;
-                NSAppendPrintF_safe();
-                objc_storeStrong(v382, v584);
+                NSAppendPrintF_safe(&v558, ", ssLC %@", v439);
+                objc_storeStrong(v438, v558);
               }
 
               hearingAidSupport = self->_hearingAidSupport;
@@ -3632,29 +3556,28 @@ LABEL_468:
               {
                 if (hearingAidSupport == 1)
                 {
-                  v385 = "Yes";
+                  v441 = "Yes";
                 }
 
                 else
                 {
-                  v385 = "?";
+                  v441 = "?";
                 }
 
                 if (hearingAidSupport == 2)
                 {
-                  v386 = "No";
+                  v442 = "No";
                 }
 
                 else
                 {
-                  v386 = v385;
+                  v442 = v441;
                 }
 
-                v387 = v764;
-                v583 = v764[5];
-                v537 = v386;
-                NSAppendPrintF_safe();
-                objc_storeStrong(v387 + 5, v583);
+                v443 = v738;
+                v557 = v738[5];
+                NSAppendPrintF_safe(&v557, ", HaSp %s", v442);
+                objc_storeStrong(v443 + 5, v557);
               }
 
               hearingTestSupport = self->_hearingTestSupport;
@@ -3662,354 +3585,345 @@ LABEL_468:
               {
                 if (hearingTestSupport == 1)
                 {
-                  v389 = "Yes";
+                  v445 = "Yes";
                 }
 
                 else
                 {
-                  v389 = "?";
+                  v445 = "?";
                 }
 
                 if (hearingTestSupport == 2)
                 {
-                  v390 = "No";
+                  v446 = "No";
                 }
 
                 else
                 {
-                  v390 = v389;
+                  v446 = v445;
                 }
 
-                v391 = v764;
-                v582 = v764[5];
-                v537 = v390;
-                NSAppendPrintF_safe();
-                objc_storeStrong(v391 + 5, v582);
+                v447 = v738;
+                v556 = v738[5];
+                NSAppendPrintF_safe(&v556, ", HtSp %s", v446);
+                objc_storeStrong(v447 + 5, v556);
               }
 
-              v392 = self->_safetyAlertsAlertData;
-              if (v392)
+              v448 = self->_safetyAlertsAlertData;
+              if (v448)
               {
-                v393 = v764;
-                v581 = v764[5];
-                v537 = CUPrintNSDataHex();
-                NSAppendPrintF_safe();
-                objc_storeStrong(v393 + 5, v581);
+                v449 = v738;
+                v555 = v738[5];
+                v450 = CUPrintNSDataHex();
+                NSAppendPrintF_safe(&v555, ", saAd <%@>", v450);
+                objc_storeStrong(v449 + 5, v555);
               }
 
-              v394 = self->_safetyAlertsAlertID;
-              if (v394)
+              v451 = self->_safetyAlertsAlertID;
+              if (v451)
               {
-                v395 = v764;
-                v580 = v764[5];
-                v537 = CUPrintNSDataHex();
-                NSAppendPrintF_safe();
-                objc_storeStrong(v395 + 5, v580);
+                v452 = v738;
+                v554 = v738[5];
+                v453 = CUPrintNSDataHex();
+                NSAppendPrintF_safe(&v554, ", saAi <%@>", v453);
+                objc_storeStrong(v452 + 5, v554);
               }
 
-              v396 = self->_safetyAlertsSignature;
-              if (v396)
+              v454 = self->_safetyAlertsSignature;
+              if (v454)
               {
-                v397 = v764;
-                v579 = v764[5];
-                v537 = CUPrintNSDataHex();
-                NSAppendPrintF_safe();
-                objc_storeStrong(v397 + 5, v579);
+                v455 = v738;
+                v553 = v738[5];
+                v456 = CUPrintNSDataHex();
+                NSAppendPrintF_safe(&v553, ", saSg <%@>", v456);
+                objc_storeStrong(v455 + 5, v553);
               }
 
               if (self->_safetyAlertsVersion)
               {
                 if (self->_safetyAlertsVersion == 1)
                 {
-                  v398 = "1";
+                  v457 = "1";
                 }
 
                 else
                 {
-                  v398 = "?";
+                  v457 = "?";
                 }
 
-                v399 = v764;
-                v578 = v764[5];
-                v537 = v398;
-                NSAppendPrintF_safe();
-                objc_storeStrong(v399 + 5, v578);
+                v458 = v738;
+                v552 = v738[5];
+                NSAppendPrintF_safe(&v552, ", saVs %s", v457);
+                objc_storeStrong(v458 + 5, v552);
               }
 
               if ((self->_internalFlags & 0x4000) != 0)
               {
-                v400 = self->_safetyAlertsSegmentAlertData;
-                if (v400)
+                v459 = self->_safetyAlertsSegmentAlertData;
+                if (v459)
                 {
-                  v401 = v764;
-                  v577 = v764[5];
-                  v537 = CUPrintNSDataHex();
-                  NSAppendPrintF_safe();
-                  objc_storeStrong(v401 + 5, v577);
+                  v460 = v738;
+                  v551 = v738[5];
+                  v461 = CUPrintNSDataHex();
+                  NSAppendPrintF_safe(&v551, ", saSAd <%@>", v461);
+                  objc_storeStrong(v460 + 5, v551);
                 }
 
                 safetyAlertsSegmentSegmentNumber = self->_safetyAlertsSegmentSegmentNumber;
                 if (self->_safetyAlertsSegmentSegmentNumber)
                 {
-                  v403 = v764;
-                  v576 = v764[5];
-                  v537 = safetyAlertsSegmentSegmentNumber;
-                  NSAppendPrintF_safe();
-                  objc_storeStrong(v403 + 5, v576);
+                  v463 = v738;
+                  v550 = v738[5];
+                  NSAppendPrintF_safe(&v550, ", saSSn %d", safetyAlertsSegmentSegmentNumber);
+                  objc_storeStrong(v463 + 5, v550);
                 }
 
                 safetyAlertsSegmentSegmentsTotal = self->_safetyAlertsSegmentSegmentsTotal;
                 if (self->_safetyAlertsSegmentSegmentsTotal)
                 {
-                  v405 = v764;
-                  v575 = v764[5];
-                  v537 = safetyAlertsSegmentSegmentsTotal;
-                  NSAppendPrintF_safe();
-                  objc_storeStrong(v405 + 5, v575);
+                  v465 = v738;
+                  v549 = v738[5];
+                  NSAppendPrintF_safe(&v549, ", saSTs %d", safetyAlertsSegmentSegmentsTotal);
+                  objc_storeStrong(v465 + 5, v549);
                 }
 
-                v406 = self->_safetyAlertsSegmentServiceData;
-                if (v406)
+                v466 = self->_safetyAlertsSegmentServiceData;
+                if (v466)
                 {
-                  v407 = v764;
-                  v574 = v764[5];
-                  v537 = CUPrintNSDataHex();
-                  NSAppendPrintF_safe();
-                  objc_storeStrong(v407 + 5, v574);
+                  v467 = v738;
+                  v548 = v738[5];
+                  v468 = CUPrintNSDataHex();
+                  NSAppendPrintF_safe(&v548, ", saSSvcD <%@>", v468);
+                  objc_storeStrong(v467 + 5, v548);
                 }
 
-                v408 = self->_safetyAlertsSegmentSignature;
-                if (v408)
+                v469 = self->_safetyAlertsSegmentSignature;
+                if (v469)
                 {
-                  v409 = v764;
-                  v573 = v764[5];
-                  v537 = CUPrintNSDataHex();
-                  NSAppendPrintF_safe();
-                  objc_storeStrong(v409 + 5, v573);
+                  v470 = v738;
+                  v547 = v738[5];
+                  v471 = CUPrintNSDataHex();
+                  NSAppendPrintF_safe(&v547, ", saSSg <%@>", v471);
+                  objc_storeStrong(v470 + 5, v547);
                 }
               }
 
               softwareUpdateActionType = self->_softwareUpdateActionType;
               if (self->_softwareUpdateActionType)
               {
-                v411 = v764;
-                v572 = v764[5];
-                v537 = softwareUpdateActionType;
-                NSAppendPrintF_safe();
-                objc_storeStrong(v411 + 5, v572);
+                v473 = v738;
+                v546 = v738[5];
+                NSAppendPrintF_safe(&v546, ", suA %d", softwareUpdateActionType);
+                objc_storeStrong(v473 + 5, v546);
               }
 
-              v412 = self->_softwareUpdateData;
-              if (v412)
+              v474 = self->_softwareUpdateData;
+              if (v474)
               {
-                v413 = v764;
-                v571 = v764[5];
-                v537 = CUPrintNSDataHex();
-                NSAppendPrintF_safe();
-                objc_storeStrong(v413 + 5, v571);
+                v475 = v738;
+                v545 = v738[5];
+                v476 = CUPrintNSDataHex();
+                NSAppendPrintF_safe(&v545, ", suD <%@>", v476);
+                objc_storeStrong(v475 + 5, v545);
               }
 
               spatialInteractionIdentifiers = [(CBDevice *)self spatialInteractionIdentifiers];
               if (spatialInteractionIdentifiers)
               {
-                v415 = v764;
-                v570 = v764[5];
-                v537 = CUPrintNSObjectOneLine();
-                NSAppendPrintF_safe();
-                objc_storeStrong(v415 + 5, v570);
+                v478 = v738;
+                v544 = v738[5];
+                v479 = CUPrintNSObjectOneLine();
+                NSAppendPrintF_safe(&v544, ", siId %@", v479);
+                objc_storeStrong(v478 + 5, v544);
               }
 
               if ([(CBDevice *)self spatialInteractionFlags])
               {
-                v416 = v764;
-                v569 = v764[5];
-                v537 = CUPrintFlags32();
-                NSAppendPrintF_safe();
-                objc_storeStrong(v416 + 5, v569);
+                v480 = v738;
+                v543 = v738[5];
+                v481 = CUPrintFlags32();
+                NSAppendPrintF_safe(&v543, ", siFl %@", v481);
+                objc_storeStrong(v480 + 5, v543);
               }
 
               if ([(CBDevice *)self spatialInteractionConfigFlags])
               {
-                v417 = v764;
-                v568 = v764[5];
-                v538 = CUPrintFlags32();
-                NSAppendPrintF_safe();
-                objc_storeStrong(v417 + 5, v568);
+                v482 = v738;
+                v542 = v738[5];
+                v483 = CUPrintFlags32();
+                NSAppendPrintF_safe(&v542, ", siCl %@", v483);
+                objc_storeStrong(v482 + 5, v542);
               }
 
               spatialInteractionTokenData = [(CBDevice *)self spatialInteractionTokenData];
               if (spatialInteractionTokenData)
               {
-                v419 = v764;
-                v567 = v764[5];
-                v539 = CUPrintNSObjectMasked();
-                NSAppendPrintF_safe();
-                objc_storeStrong(v419 + 5, v567);
+                v485 = v738;
+                v541 = v738[5];
+                v486 = CUPrintNSObjectMasked();
+                NSAppendPrintF_safe(&v541, ", siTD <%@>", v486);
+                objc_storeStrong(v485 + 5, v541);
               }
 
               spatialInteractionUserInfo = [(CBDevice *)self spatialInteractionUserInfo];
               if (spatialInteractionUserInfo)
               {
-                v421 = v764;
-                v566 = v764[5];
-                v539 = CUPrintNSObjectOneLineEx();
-                NSAppendPrintF_safe();
-                objc_storeStrong(v421 + 5, v566);
+                v488 = v738;
+                v540 = v738[5];
+                v489 = CUPrintNSObjectOneLineEx();
+                NSAppendPrintF_safe(&v540, ", siUI %@", v489);
+                objc_storeStrong(v488 + 5, v540);
               }
 
               spatialInteractionUWBConfigData = [(CBDevice *)self spatialInteractionUWBConfigData];
-              v423 = spatialInteractionUWBConfigData;
+              v491 = spatialInteractionUWBConfigData;
               if (spatialInteractionUWBConfigData)
               {
-                v424 = v764;
-                v565 = v764[5];
-                v539 = spatialInteractionUWBConfigData;
-                NSAppendPrintF_safe();
-                objc_storeStrong(v424 + 5, v565);
+                v492 = v738;
+                v539 = v738[5];
+                NSAppendPrintF_safe(&v539, ", siUC <%@>", spatialInteractionUWBConfigData);
+                objc_storeStrong(v492 + 5, v539);
               }
 
               spatialInteractionUWBTokenFlags = [(CBDevice *)self spatialInteractionUWBTokenFlags];
               if (spatialInteractionUWBTokenFlags)
               {
-                v426 = v764;
-                v564 = v764[5];
-                v539 = spatialInteractionUWBTokenFlags;
-                NSAppendPrintF_safe();
-                objc_storeStrong(v426 + 5, v564);
+                v494 = v738;
+                v538 = v738[5];
+                NSAppendPrintF_safe(&v538, ", siUF 0x%X", spatialInteractionUWBTokenFlags);
+                objc_storeStrong(v494 + 5, v538);
               }
 
               spatialInteractionPresenceConfigData = [(CBDevice *)self spatialInteractionPresenceConfigData];
-              v428 = spatialInteractionPresenceConfigData;
+              v496 = spatialInteractionPresenceConfigData;
               if (spatialInteractionPresenceConfigData)
               {
-                v429 = v764;
-                v563 = v764[5];
-                v540 = spatialInteractionPresenceConfigData;
-                NSAppendPrintF_safe();
-                objc_storeStrong(v429 + 5, v563);
+                v497 = v738;
+                v537 = v738[5];
+                NSAppendPrintF_safe(&v537, ", siPC <%@>", spatialInteractionPresenceConfigData);
+                objc_storeStrong(v497 + 5, v537);
               }
 
-              v430 = self->_tipiDevices;
-              if (v430)
+              v498 = self->_tipiDevices;
+              if (v498)
               {
-                v431 = v764;
-                v562 = v764[5];
-                v540 = CUPrintNSObjectOneLine();
-                NSAppendPrintF_safe();
-                objc_storeStrong(v431 + 5, v562);
+                v499 = v738;
+                v536 = v738[5];
+                v500 = CUPrintNSObjectOneLine();
+                NSAppendPrintF_safe(&v536, ", tpDv %@", v500);
+                objc_storeStrong(v499 + 5, v536);
               }
 
               tipiConnectionStatus = self->_tipiConnectionStatus;
               if (self->_tipiConnectionStatus)
               {
-                v433 = v764 + 5;
-                v561 = v764[5];
+                v502 = v738 + 5;
+                v535 = v738[5];
                 if (tipiConnectionStatus > 3)
                 {
-                  v434 = "?";
+                  v503 = "?";
                 }
 
                 else
                 {
-                  v434 = off_1E81220C8[tipiConnectionStatus - 1];
+                  v503 = off_1E81220C8[tipiConnectionStatus - 1];
                 }
 
-                v540 = v434;
-                NSAppendPrintF_safe();
-                objc_storeStrong(v433, v561);
+                NSAppendPrintF_safe(&v535, ", tpCS %s", v503);
+                objc_storeStrong(v502, v535);
               }
 
               if (self->_tipiState)
               {
-                v435 = v764;
-                v560 = v764[5];
-                v540 = CUPrintFlags32();
-                NSAppendPrintF_safe();
-                objc_storeStrong(v435 + 5, v560);
+                v504 = v738;
+                v534 = v738[5];
+                v505 = CUPrintFlags32();
+                NSAppendPrintF_safe(&v534, ", tpSt %@", v505);
+                objc_storeStrong(v504 + 5, v534);
               }
 
               watchSetupData = [(CBDevice *)self watchSetupData];
               if (watchSetupData)
               {
-                v437 = v764;
-                v559 = v764[5];
-                v541 = CUPrintNSDataHex();
-                NSAppendPrintF_safe();
-                objc_storeStrong(v437 + 5, v559);
+                v507 = v738;
+                v533 = v738[5];
+                v508 = CUPrintNSDataHex();
+                NSAppendPrintF_safe(&v533, ", wsDa <%@>", v508);
+                objc_storeStrong(v507 + 5, v533);
               }
 
               if (levelCopy < 0x1F)
               {
                 if (self->_internalFlags)
                 {
-                  v438 = v764;
-                  v558 = v764[5];
-                  v542 = CUPrintFlags32();
-                  NSAppendPrintF_safe();
-                  objc_storeStrong(v438 + 5, v558);
+                  v509 = v738;
+                  v532 = v738[5];
+                  v510 = CUPrintFlags32();
+                  NSAppendPrintF_safe(&v532, ", IntF %@", v510);
+                  objc_storeStrong(v509 + 5, v532);
                 }
 
                 if (self->_attributeInternalFlags)
                 {
-                  v439 = v764;
-                  v557 = v764[5];
-                  v543 = CUPrintFlags32();
-                  NSAppendPrintF_safe();
-                  objc_storeStrong(v439 + 5, v557);
+                  v511 = v738;
+                  v531 = v738[5];
+                  v512 = CUPrintFlags32();
+                  NSAppendPrintF_safe(&v531, ", IntF %@", v512);
+                  objc_storeStrong(v511 + 5, v531);
                 }
               }
 
               if (self->_changeFlags != self->_discoveryFlags)
               {
-                v440 = v764;
-                v556 = v764[5];
-                v544 = CUPrintFlags64();
-                NSAppendPrintF_safe();
-                objc_storeStrong(v440 + 5, v556);
+                v513 = v738;
+                v530 = v738[5];
+                v514 = CUPrintFlags64();
+                NSAppendPrintF_safe(&v530, ", CF %@", v514);
+                objc_storeStrong(v513 + 5, v530);
               }
 
-              v441 = *self->_changedTypesInternal.bitArray == *self->_discoveryTypesInternal.bitArray && *&self->_changedTypesInternal.bitArray[4] == *&self->_discoveryTypesInternal.bitArray[4];
-              if (!v441)
+              v515 = *self->_changedTypesInternal.bitArray == *self->_discoveryTypesInternal.bitArray && *&self->_changedTypesInternal.bitArray[4] == *&self->_discoveryTypesInternal.bitArray[4];
+              if (!v515)
               {
-                v442 = v764;
-                v555 = v764[5];
-                CBDiscoveryTypesAppendString(&v555, ", ChTy", &self->_changedTypesInternal);
-                objc_storeStrong(v442 + 5, v555);
+                v516 = v738;
+                v529 = v738[5];
+                CBDiscoveryTypesAppendString(&v529, ", ChTy", &self->_changedTypesInternal);
+                objc_storeStrong(v516 + 5, v529);
               }
 
               if (levelCopy <= 0x14)
               {
-                v443 = v764;
-                v554 = v764[5];
-                NSAppendPrintF_safe();
-                objc_storeStrong(v443 + 5, v554);
+                v517 = v738;
+                v528 = v738[5];
+                NSAppendPrintF_safe(&v528, "\n");
+                objc_storeStrong(v517 + 5, v528);
               }
 
-              v444 = self->_spatialInteractionDeviceTimestampArrayDictionary;
-              if (v444)
+              v518 = self->_spatialInteractionDeviceTimestampArrayDictionary;
+              if (v518)
               {
-                v445 = v764;
-                v553 = v764[5];
-                NSAppendPrintF_safe();
-                objc_storeStrong(v445 + 5, v553);
+                v519 = v738;
+                v527 = v738[5];
+                NSAppendPrintF_safe(&v527, ", siTAD <{");
+                objc_storeStrong(v519 + 5, v527);
                 spatialInteractionDeviceTimestampArrayDictionary = self->_spatialInteractionDeviceTimestampArrayDictionary;
-                v551[0] = MEMORY[0x1E69E9820];
-                v551[1] = 3221225472;
-                v551[2] = __33__CBDevice_descriptionWithLevel___block_invoke;
-                v551[3] = &unk_1E8121528;
-                v551[4] = &v763;
-                v552 = levelCopy2;
-                [(NSMutableDictionary *)spatialInteractionDeviceTimestampArrayDictionary enumerateKeysAndObjectsUsingBlock:v551];
-                v447 = v764;
-                v550 = v764[5];
-                NSAppendPrintF_safe();
-                objc_storeStrong(v447 + 5, v550);
+                v525[0] = MEMORY[0x1E69E9820];
+                v525[1] = 3221225472;
+                v525[2] = __33__CBDevice_descriptionWithLevel___block_invoke;
+                v525[3] = &unk_1E8121528;
+                v525[4] = &v737;
+                v526 = levelCopy2;
+                [(NSMutableDictionary *)spatialInteractionDeviceTimestampArrayDictionary enumerateKeysAndObjectsUsingBlock:v525];
+                v521 = v738;
+                v524 = v738[5];
+                NSAppendPrintF_safe(&v524, " }>");
+                objc_storeStrong(v521 + 5, v524);
               }
 
-              goto LABEL_585;
-            case 0xC4:
-              v364 = "LG";
-              goto LABEL_467;
+              goto LABEL_587;
+            case 196:
+              v419 = "LG";
+              goto LABEL_469;
           }
         }
 
@@ -4017,39 +3931,39 @@ LABEL_468:
         {
           if (proximityServiceVendorID == 1452)
           {
-            goto LABEL_467;
+            goto LABEL_469;
           }
 
           if (proximityServiceVendorID == 2956)
           {
-            v364 = "SmartTech";
-            goto LABEL_467;
+            v419 = "SmartTech";
+            goto LABEL_469;
           }
         }
 
         else if (proximityServiceVendorID == 301 || proximityServiceVendorID == 1356)
         {
-          v364 = "Sony";
-          goto LABEL_467;
+          v419 = "Sony";
+          goto LABEL_469;
         }
 
-        v364 = "?";
-        goto LABEL_467;
+        v419 = "?";
+        goto LABEL_469;
       }
 
-      v191 = v764 + 5;
-      v690 = v764[5];
+      v198 = v738 + 5;
+      v664 = v738[5];
       if (spatialAudioMode > 2)
       {
         if (spatialAudioMode == 3)
         {
-          v192 = "NoStereoUpSample";
+          v199 = "NoStereoUpSample";
           goto LABEL_265;
         }
 
         if (spatialAudioMode == 255)
         {
-          v192 = "Unknown";
+          v199 = "Unknown";
           goto LABEL_265;
         }
       }
@@ -4058,27 +3972,26 @@ LABEL_468:
       {
         if (spatialAudioMode == 1)
         {
-          v192 = "ContentDriven";
+          v199 = "ContentDriven";
           goto LABEL_265;
         }
 
         if (spatialAudioMode == 2)
         {
-          v192 = "Always";
+          v199 = "Always";
 LABEL_265:
-          bleAdvertisementTimestampString = v192;
-          NSAppendPrintF_safe();
-          objc_storeStrong(v191, v690);
+          NSAppendPrintF_safe(&v664, ", spAM %s", v199);
+          objc_storeStrong(v198, v664);
           goto LABEL_266;
         }
       }
 
-      v192 = "?";
+      v199 = "?";
       goto LABEL_265;
     }
 
-    v60 = v764 + 5;
-    v737 = v764[5];
+    v63 = v738 + 5;
+    v711 = v738[5];
     if (appearanceValue > 2113)
     {
       if (appearanceValue > 2368)
@@ -4087,12 +4000,12 @@ LABEL_265:
         {
           if (appearanceValue == 2369)
           {
-            v61 = @"Earbud";
+            v64 = @"Earbud";
           }
 
           else
           {
-            v61 = @"Headset";
+            v64 = @"Headset";
           }
 
           goto LABEL_86;
@@ -4100,13 +4013,13 @@ LABEL_265:
 
         if (appearanceValue == 2371)
         {
-          v61 = @"Headphones";
+          v64 = @"Headphones";
           goto LABEL_86;
         }
 
         if (appearanceValue == 2625)
         {
-          v61 = @"Hearing Aid";
+          v64 = @"Hearing Aid";
           goto LABEL_86;
         }
       }
@@ -4117,12 +4030,12 @@ LABEL_265:
         {
           if (appearanceValue == 2114)
           {
-            v61 = @"Soundbar";
+            v64 = @"Soundbar";
           }
 
           else
           {
-            v61 = @"Bookshelf Speaker";
+            v64 = @"Bookshelf Speaker";
           }
 
           goto LABEL_86;
@@ -4130,19 +4043,19 @@ LABEL_265:
 
         if (appearanceValue == 2116)
         {
-          v61 = @"Standmounted Speaker";
+          v64 = @"Standmounted Speaker";
           goto LABEL_86;
         }
 
         if (appearanceValue == 2117)
         {
-          v61 = @"Speakerphone";
+          v64 = @"Speakerphone";
           goto LABEL_86;
         }
       }
 
 LABEL_84:
-      v61 = @"?";
+      v64 = @"?";
       goto LABEL_86;
     }
 
@@ -4150,13 +4063,13 @@ LABEL_84:
     {
       if (appearanceValue == 961)
       {
-        v61 = @"Keyboard";
+        v64 = @"Keyboard";
         goto LABEL_86;
       }
 
       if (appearanceValue == 962)
       {
-        v61 = @"Mouse";
+        v64 = @"Mouse";
         goto LABEL_86;
       }
 
@@ -4165,7 +4078,7 @@ LABEL_84:
         goto LABEL_84;
       }
 
-      v61 = @"Joystick";
+      v64 = @"Joystick";
     }
 
     else
@@ -4174,12 +4087,12 @@ LABEL_84:
       {
         if (appearanceValue == 2112)
         {
-          v61 = @"Generic Audio Sink";
+          v64 = @"Generic Audio Sink";
         }
 
         else
         {
-          v61 = @"Standalone Speaker";
+          v64 = @"Standalone Speaker";
         }
 
         goto LABEL_86;
@@ -4187,7 +4100,7 @@ LABEL_84:
 
       if (appearanceValue == 964)
       {
-        v61 = @"Gamepad";
+        v64 = @"Gamepad";
         goto LABEL_86;
       }
 
@@ -4196,35 +4109,33 @@ LABEL_84:
         goto LABEL_84;
       }
 
-      v61 = @"Touchpad";
+      v64 = @"Touchpad";
     }
 
 LABEL_86:
-    v455 = v61;
-    NSAppendPrintF_safe();
-    objc_storeStrong(v60, v737);
+    NSAppendPrintF_safe(&v711, ", Aprc %@", v64);
+    objc_storeStrong(v63, v711);
     goto LABEL_87;
   }
 
-LABEL_585:
-  v448 = v764[5];
-  _Block_object_dispose(&v763, 8);
+LABEL_587:
+  v522 = v738[5];
+  _Block_object_dispose(&v737, 8);
 
-  return v448;
+  return v522;
 }
 
 void __33__CBDevice_descriptionWithLevel___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v5 = *(*(a1 + 32) + 8);
-  obj = *(v5 + 40);
-  v6 = a3;
-  [a2 unsignedIntValue];
-  v7 = *(a1 + 40);
-  v8 = CUDescriptionWithLevel();
+  v4 = *(*(a1 + 32) + 8);
+  obj = *(v4 + 40);
+  v5 = a3;
+  v6 = [a2 unsignedIntValue];
+  v7 = CUDescriptionWithLevel();
 
-  v9 = CUPrintNSObjectOneLine();
-  NSAppendPrintF_safe();
-  objc_storeStrong((v5 + 40), obj);
+  v8 = CUPrintNSObjectOneLine();
+  NSAppendPrintF_safe(&obj, " CID 0x%X : %@", v6, v8);
+  objc_storeStrong((v4 + 40), obj);
 }
 
 - (unsigned)colorCodeBest
@@ -4263,6 +4174,78 @@ void __33__CBDevice_descriptionWithLevel___block_invoke(uint64_t a1, void *a2, v
   }
 }
 
+- (void)setAdaptiveVolumeCapability:(unsigned __int8)capability
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:capability];
+  [(CBDevice *)self _setDeviceInfoKey:@"adVC" value:v4];
+}
+
+- (void)setAdaptiveVolumeConfig:(unsigned __int8)config
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:config];
+  [(CBDevice *)self _setDeviceInfoKey:@"aVC" value:v4];
+}
+
+- (void)setAclLinkState:(unsigned __int8)state
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:state];
+  [(CBDevice *)self _setDeviceInfoKey:@"aLS" value:v4];
+}
+
+- (void)setAppearanceValue:(unsigned int)value
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&value];
+  [(CBDevice *)self _setDeviceInfoKey:@"a" value:v4];
+}
+
+- (void)setAudioStreamState:(int)state
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&state];
+  [(CBDevice *)self _setDeviceInfoKey:@"adSt" value:v4];
+}
+
+- (void)setAutoAncCapability:(unsigned __int8)capability
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:capability];
+  [(CBDevice *)self _setDeviceInfoKey:@"aaCp" value:v4];
+}
+
+- (void)setBatteryInfoMain:(unsigned __int16)main
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:main];
+  [(CBDevice *)self _setDeviceInfoKey:@"batM" value:v4];
+}
+
+- (void)setBatteryInfoLeft:(unsigned __int16)left
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:left];
+  [(CBDevice *)self _setDeviceInfoKey:@"batL" value:v4];
+}
+
+- (void)setBatteryInfoRight:(unsigned __int16)right
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:right];
+  [(CBDevice *)self _setDeviceInfoKey:@"batR" value:v4];
+}
+
+- (void)setBatteryInfoCase:(unsigned __int16)case
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:case];
+  [(CBDevice *)self _setDeviceInfoKey:@"batC" value:v4];
+}
+
+- (void)setBleChannel:(int)channel
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&channel];
+  [(CBDevice *)self _setDeviceInfoKey:@"blCH" value:v4];
+}
+
+- (void)setBleRSSI:(int)i
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&i];
+  [(CBDevice *)self _setDeviceInfoKey:@"blRS" value:v4];
+}
+
 - (void)setBleAdvertisementTimestamp:(double)timestamp
 {
   v4 = [MEMORY[0x1E696AD98] numberWithDouble:timestamp];
@@ -4275,9 +4258,98 @@ void __33__CBDevice_descriptionWithLevel___block_invoke(uint64_t a1, void *a2, v
   [(CBDevice *)self _setDeviceInfoKey:@"bTMC" value:v4];
 }
 
+- (void)setClassicRSSI:(char)i
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithChar:i];
+  [(CBDevice *)self _setDeviceInfoKey:@"clRS" value:v4];
+}
+
+- (void)setClickHoldModeLeft:(unsigned __int8)left
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:left];
+  [(CBDevice *)self _setDeviceInfoKey:@"clHL" value:v4];
+}
+
+- (void)setClickHoldModeRight:(unsigned __int8)right
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:right];
+  [(CBDevice *)self _setDeviceInfoKey:@"clHR" value:v4];
+}
+
+- (void)setColorInfo:(unsigned __int16)info
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:info];
+  [(CBDevice *)self _setDeviceInfoKey:@"clIN" value:v4];
+}
+
+- (void)setConnectedServices:(unsigned int)services
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&services];
+  [(CBDevice *)self _setDeviceInfoKey:@"coSE" value:v4];
+}
+
+- (void)setConversationDetectCapability:(unsigned __int8)capability
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:capability];
+  [(CBDevice *)self _setDeviceInfoKey:@"cdCA" value:v4];
+}
+
+- (void)setConversationDetectConfig:(unsigned __int8)config
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:config];
+  [(CBDevice *)self _setDeviceInfoKey:@"cDC" value:v4];
+}
+
+- (void)setCrownRotationDirection:(unsigned __int8)direction
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:direction];
+  [(CBDevice *)self _setDeviceInfoKey:@"crRD" value:v4];
+}
+
+- (void)setDoubleTapActionLeft:(char)left
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithChar:left];
+  [(CBDevice *)self _setDeviceInfoKey:@"dtAL" value:v4];
+}
+
+- (void)setDoubleTapActionRight:(char)right
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithChar:right];
+  [(CBDevice *)self _setDeviceInfoKey:@"dtAR" value:v4];
+}
+
+- (void)setDoubleTapCapability:(char)capability
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithChar:capability];
+  [(CBDevice *)self _setDeviceInfoKey:@"dtCA" value:v4];
+}
+
+- (void)setEndCallCapability:(unsigned __int8)capability
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:capability];
+  [(CBDevice *)self _setDeviceInfoKey:@"ecCA" value:v4];
+}
+
+- (void)setEndCallConfig:(unsigned __int8)config
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:config];
+  [(CBDevice *)self _setDeviceInfoKey:@"eCC" value:v4];
+}
+
+- (void)setFrequencyBand:(unsigned __int8)band
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:band];
+  [(CBDevice *)self _setDeviceInfoKey:@"bndI" value:v4];
+}
+
+- (void)setGapaFlags:(unsigned int)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"gapa" value:v4];
+}
+
 - (NSData)irkData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -4285,18 +4357,58 @@ void __33__CBDevice_descriptionWithLevel___block_invoke(uint64_t a1, void *a2, v
 
 - (NSData)linkKeyData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
 }
 
+- (void)setListeningMode:(int)mode
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&mode];
+  [(CBDevice *)self _setDeviceInfoKey:@"lsnM" value:v4];
+}
+
+- (void)setListeningModeConfigs:(unsigned int)configs
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&configs];
+  [(CBDevice *)self _setDeviceInfoKey:@"lsMC" value:v4];
+}
+
 - (NSData)ltkData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
+}
+
+- (void)setMuteControlConfig:(unsigned __int8)config
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:config];
+  [(CBDevice *)self _setDeviceInfoKey:@"mCC" value:v4];
+}
+
+- (void)setPeerStatusFlag:(unsigned __int8)flag
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:flag];
+  [(CBDevice *)self _setDeviceInfoKey:@"fmPS" value:v4];
+}
+
+- (void)setSpatialAudioMode:(int)mode
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&mode];
+  [(CBDevice *)self _setDeviceInfoKey:@"spAM" value:v4];
+}
+
+- (void)setAccessoryStatusLidOpenCount:(unsigned __int8)count
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:count];
+  [(CBDevice *)self _setDeviceInfoKey:@"asLO" value:v4];
+}
+
+- (void)setAccessoryStatusFlags:(unsigned int)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"asFl" value:v4];
 }
 
 - (void)setAccessoryStatusOBCTime:(double)time
@@ -4305,12 +4417,119 @@ void __33__CBDevice_descriptionWithLevel___block_invoke(uint64_t a1, void *a2, v
   [(CBDevice *)self _setDeviceInfoKey:@"asOT" value:v4];
 }
 
+- (void)setAirdropFlags:(unsigned __int8)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"adFl" value:v4];
+}
+
+- (void)setAirdropModel:(unsigned __int8)model
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:model];
+  [(CBDevice *)self _setDeviceInfoKey:@"adMO" value:v4];
+}
+
+- (void)setAirdropVersion:(unsigned __int8)version
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:version];
+  [(CBDevice *)self _setDeviceInfoKey:@"adVE" value:v4];
+}
+
+- (void)setAirdropHash1:(unsigned __int16)hash1
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:hash1];
+  [(CBDevice *)self _setDeviceInfoKey:@"adH1" value:v4];
+}
+
+- (void)setAirdropHash2:(unsigned __int16)hash2
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:hash2];
+  [(CBDevice *)self _setDeviceInfoKey:@"adH2" value:v4];
+}
+
+- (void)setAirdropHash3:(unsigned __int16)hash3
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:hash3];
+  [(CBDevice *)self _setDeviceInfoKey:@"adH3" value:v4];
+}
+
+- (void)setAirdropHash4:(unsigned __int16)hash4
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:hash4];
+  [(CBDevice *)self _setDeviceInfoKey:@"adH4" value:v4];
+}
+
+- (void)setAirdropConfigData:(unsigned __int8)data
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:data];
+  [(CBDevice *)self _setDeviceInfoKey:@"adCD" value:v4];
+}
+
+- (void)setAirplaySourceFlags:(unsigned __int8)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"apSF" value:v4];
+}
+
 - (NSData)airplaySourceUWBConfigData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
+}
+
+- (void)setAirplayTargetConfigSeed:(unsigned __int8)seed
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:seed];
+  [(CBDevice *)self _setDeviceInfoKey:@"apTC" value:v4];
+}
+
+- (void)setAirplayTargetFlags:(unsigned __int8)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"apTF" value:v4];
+}
+
+- (void)setAirplayTargetIPv4:(unsigned int)pv4
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&pv4];
+  [(CBDevice *)self _setDeviceInfoKey:@"apTI" value:v4];
+}
+
+- (void)setAirplayTargetPort:(unsigned __int16)port
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:port];
+  [(CBDevice *)self _setDeviceInfoKey:@"apTP" value:v4];
+}
+
+- (void)setDsActionFlags:(unsigned __int8)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"dsAF" value:v4];
+}
+
+- (void)setDsActionMeasuredPower:(char)power
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithChar:power];
+  [(CBDevice *)self _setDeviceInfoKey:@"dsAP" value:v4];
+}
+
+- (void)setDsActionTieBreaker:(unsigned __int8)breaker
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:breaker];
+  [(CBDevice *)self _setDeviceInfoKey:@"dsAT" value:v4];
+}
+
+- (void)setDsInfoVehicleConfidence:(unsigned __int8)confidence
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:confidence];
+  [(CBDevice *)self _setDeviceInfoKey:@"b" value:v4];
+}
+
+- (void)setDsInfoVehicleState:(unsigned __int8)state
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:state];
+  [(CBDevice *)self _setDeviceInfoKey:@"c" value:v4];
 }
 
 - (void)setGfpModelID:(unsigned int)d
@@ -4328,12 +4547,95 @@ void __33__CBDevice_descriptionWithLevel___block_invoke(uint64_t a1, void *a2, v
   }
 }
 
+- (void)setHeySiriConfidence:(unsigned __int8)confidence
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:confidence];
+  [(CBDevice *)self _setDeviceInfoKey:@"g" value:v4];
+}
+
+- (void)setHeySiriDeviceClass:(unsigned __int16)class
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:class];
+  [(CBDevice *)self _setDeviceInfoKey:@"h" value:v4];
+}
+
+- (void)setHeySiriPerceptualHash:(unsigned __int16)hash
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:hash];
+  [(CBDevice *)self _setDeviceInfoKey:@"i" value:v4];
+}
+
+- (void)setHeySiriProductType:(unsigned __int8)type
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:type];
+  [(CBDevice *)self _setDeviceInfoKey:@"j" value:v4];
+}
+
+- (void)setHeySiriRandom:(unsigned __int8)random
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:random];
+  [(CBDevice *)self _setDeviceInfoKey:@"k" value:v4];
+}
+
+- (void)setHeySiriSNR:(unsigned __int8)r
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:r];
+  [(CBDevice *)self _setDeviceInfoKey:@"l" value:v4];
+}
+
+- (void)setHomeKitV1Category:(unsigned __int16)category
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:category];
+  [(CBDevice *)self _setDeviceInfoKey:@"h1Ca" value:v4];
+}
+
+- (void)setHomeKitV1CompatibleVersion:(unsigned __int8)version
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:version];
+  [(CBDevice *)self _setDeviceInfoKey:@"h1CV" value:v4];
+}
+
+- (void)setHomeKitV1ConfigurationNumber:(unsigned __int8)number
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:number];
+  [(CBDevice *)self _setDeviceInfoKey:@"h1CN" value:v4];
+}
+
+- (void)setHomeKitV1Flags:(unsigned __int8)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"h1Fl" value:v4];
+}
+
+- (void)setHomeKitV1StateNumber:(unsigned __int16)number
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:number];
+  [(CBDevice *)self _setDeviceInfoKey:@"h1SN" value:v4];
+}
+
+- (void)setHomeKitV1SetupHash:(unsigned int)hash
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&hash];
+  [(CBDevice *)self _setDeviceInfoKey:@"h1SH" value:v4];
+}
+
 - (NSData)homeKitV2AuthTagData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
+}
+
+- (void)setHomeKitV2InstanceID:(unsigned __int16)d
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:d];
+  [(CBDevice *)self _setDeviceInfoKey:@"h2II" value:v4];
+}
+
+- (void)setHomeKitV2StateNumber:(unsigned __int16)number
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:number];
+  [(CBDevice *)self _setDeviceInfoKey:@"h2SN" value:v4];
 }
 
 - (void)setHomeKitV2Value:(unint64_t)value
@@ -4344,7 +4646,6 @@ void __33__CBDevice_descriptionWithLevel___block_invoke(uint64_t a1, void *a2, v
 
 - (NSData)mspAddressData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -4367,7 +4668,6 @@ void __33__CBDevice_descriptionWithLevel___block_invoke(uint64_t a1, void *a2, v
 
 - (NSString)mspDisplayName
 {
-  deviceInfo = self->_deviceInfo;
   CFStringGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -4388,6 +4688,12 @@ void __33__CBDevice_descriptionWithLevel___block_invoke(uint64_t a1, void *a2, v
   }
 }
 
+- (void)setNearbyActionColorCode:(unsigned __int8)code
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:code];
+  [(CBDevice *)self _setDeviceInfoKey:@"naCC" value:v4];
+}
+
 - (void)setNearbyActionDeviceClass:(unsigned __int8)class
 {
   if (class)
@@ -4401,6 +4707,24 @@ void __33__CBDevice_descriptionWithLevel___block_invoke(uint64_t a1, void *a2, v
 
     [(CBDevice *)self _setDeviceInfoKey:@"z" value:0];
   }
+}
+
+- (void)setNearbyActionFlags:(unsigned int)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"naFl" value:v4];
+}
+
+- (void)setNearbyActionNoWakeType:(unsigned __int8)type
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:type];
+  [(CBDevice *)self _setDeviceInfoKey:@"nant" value:v4];
+}
+
+- (void)setNearbyActionType:(unsigned __int8)type
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:type];
+  [(CBDevice *)self _setDeviceInfoKey:@"naTy" value:v4];
 }
 
 - (void)setNearbyActionV2Flags:(unsigned int)flags
@@ -4439,9 +4763,68 @@ void __33__CBDevice_descriptionWithLevel___block_invoke(uint64_t a1, void *a2, v
   [(CBDevice *)self _setDeviceInfoKey:@"w" value:v4];
 }
 
+- (void)setNearbyInfoStatusTime:(unsigned __int8)time
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:time];
+  [(CBDevice *)self _setDeviceInfoKey:@"x" value:v4];
+}
+
+- (void)setNearbyInfoStatusType:(unsigned __int8)type
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:type];
+  [(CBDevice *)self _setDeviceInfoKey:@"y" value:v4];
+}
+
+- (void)setNearbyInfoFlags:(unsigned int)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"niIF" value:v4];
+}
+
+- (void)setNearbyInfoV2DecryptedFlags:(unsigned __int8)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"n2DF" value:v4];
+}
+
+- (void)setNearbyInfoV2EncryptedFlags:(unsigned __int8)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"n2EF" value:v4];
+}
+
+- (void)setNearbyInfoV2Flags:(unsigned __int8)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"n2Fl" value:v4];
+}
+
+- (void)setObjectSetupBatteryPerformance:(unsigned __int8)performance
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:performance];
+  [(CBDevice *)self _setDeviceInfoKey:@"osBP" value:v4];
+}
+
+- (void)setObjectSetupBatteryState:(unsigned __int8)state
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:state];
+  [(CBDevice *)self _setDeviceInfoKey:@"osBS" value:v4];
+}
+
+- (void)setObjectSetupColorCode:(unsigned __int8)code
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:code];
+  [(CBDevice *)self _setDeviceInfoKey:@"osCC" value:v4];
+}
+
+- (void)setObjectSetupFlags:(unsigned int)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"osFl" value:v4];
+}
+
 - (NSString)objectSetupFontCode
 {
-  deviceInfo = self->_deviceInfo;
   CFStringGetTypeID();
 
   return CFDictionaryGetTypedValue();
@@ -4449,18 +4832,106 @@ void __33__CBDevice_descriptionWithLevel___block_invoke(uint64_t a1, void *a2, v
 
 - (NSString)objectSetupMessage
 {
-  deviceInfo = self->_deviceInfo;
   CFStringGetTypeID();
 
   return CFDictionaryGetTypedValue();
 }
 
+- (void)setPrimaryBudSide:(unsigned __int8)side
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:side];
+  [(CBDevice *)self _setDeviceInfoKey:@"pBSd" value:v4];
+}
+
 - (NSData)proximityPairingPayloadData
 {
-  deviceInfo = self->_deviceInfo;
   CFDataGetTypeID();
 
   return CFDictionaryGetTypedValue();
+}
+
+- (void)setProximityPairingPrimaryPlacement:(int)placement
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&placement];
+  [(CBDevice *)self _setDeviceInfoKey:@"ppPP" value:v4];
+}
+
+- (void)setProximityPairingSecondaryPlacement:(int)placement
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&placement];
+  [(CBDevice *)self _setDeviceInfoKey:@"ppSP" value:v4];
+}
+
+- (void)setProximityServiceCategory:(unsigned __int8)category
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:category];
+  [(CBDevice *)self _setDeviceInfoKey:@"psCA" value:v4];
+}
+
+- (void)setProximityServiceFlags:(unsigned __int8)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"psFl" value:v4];
+}
+
+- (void)setProximityServiceMeasuredPower:(char)power
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithChar:power];
+  [(CBDevice *)self _setDeviceInfoKey:@"psMP" value:v4];
+}
+
+- (void)setProximityServiceProductID:(unsigned int)d
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&d];
+  [(CBDevice *)self _setDeviceInfoKey:@"psPI" value:v4];
+}
+
+- (void)setProximityServicePSM:(unsigned __int16)m
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:m];
+  [(CBDevice *)self _setDeviceInfoKey:@"psPS" value:v4];
+}
+
+- (void)setProximityServiceSubType:(unsigned __int8)type
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:type];
+  [(CBDevice *)self _setDeviceInfoKey:@"psST" value:v4];
+}
+
+- (void)setProximityServiceVendorID:(unsigned __int16)d
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:d];
+  [(CBDevice *)self _setDeviceInfoKey:@"psVI" value:v4];
+}
+
+- (void)setProximityServiceVersion:(unsigned __int8)version
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:version];
+  [(CBDevice *)self _setDeviceInfoKey:@"psVE" value:v4];
+}
+
+- (void)setSelectiveSpeechListeningConfig:(unsigned __int8)config
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:config];
+  [(CBDevice *)self _setDeviceInfoKey:@"ssLC" value:v4];
+}
+
+- (void)setSpatialInteractionConfigFlags:(unsigned __int8)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"siCF" value:v4];
+}
+
+- (void)setSpatialInteractionFlags:(unsigned __int8)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:flags];
+  [(CBDevice *)self _setDeviceInfoKey:@"siFl" value:v4];
+}
+
+- (void)setSpatialInteractionPeerID:(unsigned int)d
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&d];
+  [(CBDevice *)self _setDeviceInfoKey:@"siPI" value:v4];
 }
 
 - (id)bleAdvertisementTimestampString
@@ -4520,110 +4991,109 @@ uint64_t __43__CBDevice_bleAdvertisementTimestampString__block_invoke()
 
 - (void)decryptNearbyInfoV2PayloadWithIdentity:(id)identity error:(id *)error
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
-  v82 = 0;
-  v83 = &v82;
-  v84 = 0x3032000000;
-  v85 = __Block_byref_object_copy__5;
-  v86 = __Block_byref_object_dispose__5;
-  v87 = 0;
-  v81[0] = MEMORY[0x1E69E9820];
-  v81[1] = 3221225472;
-  v81[2] = __57__CBDevice_decryptNearbyInfoV2PayloadWithIdentity_error___block_invoke;
-  v81[3] = &unk_1E8121550;
-  v81[4] = &v82;
-  v81[5] = error;
-  v74 = MEMORY[0x1C68DF720](v81);
+  v80 = 0;
+  v81 = &v80;
+  v82 = 0x3032000000;
+  v83 = __Block_byref_object_copy__5;
+  v84 = __Block_byref_object_dispose__5;
+  v85 = 0;
+  v79[0] = MEMORY[0x1E69E9820];
+  v79[1] = 3221225472;
+  v79[2] = __57__CBDevice_decryptNearbyInfoV2PayloadWithIdentity_error___block_invoke;
+  v79[3] = &unk_1E8121550;
+  v79[4] = &v80;
+  v79[5] = error;
+  v72 = MEMORY[0x1C68DF720](v79);
   nearbyInfoV2AuthTagData = [(CBDevice *)self nearbyInfoV2AuthTagData];
   deviceIRKData = [identityCopy deviceIRKData];
   v14 = deviceIRKData;
   if (!nearbyInfoV2AuthTagData)
   {
-    v65 = CBErrorF(-6705, "Unable to decrypt AuthTag data is not available", v8, v9, v10, v11, v12, v13, v73);
-    v66 = v83[5];
-    v83[5] = v65;
+    v63 = CBErrorF(-6705, "Unable to decrypt AuthTag data is not available", v8, v9, v10, v11, v12, v13, v71);
+    v64 = v81[5];
+    v81[5] = v63;
 
     goto LABEL_58;
   }
 
   if (!deviceIRKData)
   {
-    v67 = CBErrorF(-6705, "Unable to decrypt IRK data is not available", v8, v9, v10, v11, v12, v13, v73);
-    v68 = v83[5];
-    v83[5] = v67;
+    v65 = CBErrorF(-6705, "Unable to decrypt IRK data is not available", v8, v9, v10, v11, v12, v13, v71);
+    v66 = v81[5];
+    v81[5] = v65;
 
     goto LABEL_58;
   }
 
-  memset(v90, 0, 32);
+  memset(v88, 0, 32);
   v15 = deviceIRKData;
   [v14 bytes];
   [v14 length];
   v16 = nearbyInfoV2AuthTagData;
   [nearbyInfoV2AuthTagData bytes];
   [nearbyInfoV2AuthTagData length];
-  v17 = *MEMORY[0x1E69995A0];
   CryptoHKDF();
-  v80 = 0;
+  v78 = 0;
   nearbyInfoV2EncryptedFlags = [(CBDevice *)self nearbyInfoV2EncryptedFlags];
-  if (![(CBDevice *)self decryptNearbyInfoV2PayloadPtr:&nearbyInfoV2EncryptedFlags payloadLength:1 key:v90 keyLength:32 decryptedPtr:&v80])
+  if (![(CBDevice *)self decryptNearbyInfoV2PayloadPtr:&nearbyInfoV2EncryptedFlags payloadLength:1 key:v88 keyLength:32 decryptedPtr:&v78])
   {
-    v69 = CBErrorF(-6777, "Unable to decrypt NearbyInfoV2 sensitive flags", v18, v19, v20, v21, v22, v23, v90);
+    v67 = CBErrorF(-6777, "Unable to decrypt NearbyInfoV2 sensitive flags", v17, v18, v19, v20, v21, v22, v88);
 LABEL_63:
-    v63 = v83[5];
-    v83[5] = v69;
+    v62 = v81[5];
+    v81[5] = v67;
     goto LABEL_57;
   }
 
-  v24 = v80 & 0x1F;
-  v80 &= 0x1Fu;
-  if (!v24)
+  v23 = v78 & 0x1F;
+  v78 &= 0x1Fu;
+  if (!v23)
   {
-    v69 = CBErrorF(-6777, "Unable to verify NearbyInfoV2 sensitive flags mask", v18, v19, v20, v21, v22, v23, v90);
+    v67 = CBErrorF(-6777, "Unable to verify NearbyInfoV2 sensitive flags mask", v17, v18, v19, v20, v21, v22, v88);
     goto LABEL_63;
   }
 
   nearbyInfoV2DecryptedFlags = [(CBDevice *)self nearbyInfoV2DecryptedFlags];
-  [(CBDevice *)self setNearbyInfoV2DecryptedFlags:v80];
-  v26 = v80;
-  if (v80)
+  [(CBDevice *)self setNearbyInfoV2DecryptedFlags:v78];
+  v25 = v78;
+  if (v78)
   {
-    if (v24 == nearbyInfoV2DecryptedFlags)
+    if (v23 == nearbyInfoV2DecryptedFlags)
     {
-      if ((v80 & 1) == 0)
+      if ((v78 & 1) == 0)
       {
 LABEL_12:
-        if ((v26 & 2) != 0)
+        if ((v25 & 2) != 0)
         {
-          v27 = 15;
+          v26 = 15;
           if ((self->_internalFlags & 0x800) != 0)
           {
-            v28 = 32;
+            v27 = 32;
           }
 
           else
           {
-            v27 = 16;
-            v28 = 64;
+            v26 = 16;
+            v27 = 64;
           }
 
-          if (v24 != nearbyInfoV2DecryptedFlags)
+          if (v23 != nearbyInfoV2DecryptedFlags)
           {
-            v29 = 9;
+            v28 = 9;
             if ((self->_internalFlags & 0x800) == 0)
             {
-              v29 = 10;
+              v28 = 10;
             }
 
-            *(&self->super.isa + v29) |= v28;
+            *(&self->super.isa + v28) |= v27;
           }
 
-          *(&self->super.isa + v27) |= v28;
-          if ((v26 & 4) == 0)
+          *(&self->super.isa + v26) |= v27;
+          if ((v25 & 4) == 0)
           {
 LABEL_14:
-            if ((v26 & 8) == 0)
+            if ((v25 & 8) == 0)
             {
               goto LABEL_35;
             }
@@ -4632,73 +5102,73 @@ LABEL_14:
           }
         }
 
-        else if ((v26 & 4) == 0)
+        else if ((v25 & 4) == 0)
         {
           goto LABEL_14;
         }
 
-        v30 = 18;
+        v29 = 18;
         if ((self->_internalFlags & 0x800) != 0)
         {
-          v31 = 8;
+          v30 = 8;
         }
 
         else
         {
-          v30 = 16;
-          v31 = 32;
+          v29 = 16;
+          v30 = 32;
         }
 
-        if (v24 != nearbyInfoV2DecryptedFlags)
+        if (v23 != nearbyInfoV2DecryptedFlags)
         {
-          v32 = 12;
+          v31 = 12;
           if ((self->_internalFlags & 0x800) == 0)
           {
-            v32 = 10;
+            v31 = 10;
           }
 
-          *(&self->super.isa + v32) |= v31;
+          *(&self->super.isa + v31) |= v30;
         }
 
-        *(&self->super.isa + v30) |= v31;
-        if ((v26 & 8) == 0)
+        *(&self->super.isa + v29) |= v30;
+        if ((v25 & 8) == 0)
         {
 LABEL_35:
           nearbyInfoV2EncryptedData = [(CBDevice *)self nearbyInfoV2EncryptedData];
-          v33 = self->_nearbyInfoV2NearbyFaceTimeEncryptedData;
-          if ((v80 & 1) != 0 && [nearbyInfoV2EncryptedData length] == 2)
+          v32 = self->_nearbyInfoV2NearbyFaceTimeEncryptedData;
+          if ((v78 & 1) != 0 && [nearbyInfoV2EncryptedData length] == 2)
           {
-            v88 = 0u;
-            v89 = 0u;
-            v34 = v14;
+            v86 = 0u;
+            v87 = 0u;
+            v33 = v14;
             [v14 bytes];
             [v14 length];
-            v35 = nearbyInfoV2AuthTagData;
+            v34 = nearbyInfoV2AuthTagData;
             [nearbyInfoV2AuthTagData bytes];
             [nearbyInfoV2AuthTagData length];
             CryptoHKDF();
-            LOWORD(v77) = 0;
-            v36 = nearbyInfoV2EncryptedData;
-            if (!-[CBDevice decryptNearbyInfoV2PayloadPtr:payloadLength:key:keyLength:decryptedPtr:](self, "decryptNearbyInfoV2PayloadPtr:payloadLength:key:keyLength:decryptedPtr:", [nearbyInfoV2EncryptedData bytes], objc_msgSend(nearbyInfoV2EncryptedData, "length"), &v88, 32, &v77))
+            LOWORD(v75) = 0;
+            v35 = nearbyInfoV2EncryptedData;
+            if (!-[CBDevice decryptNearbyInfoV2PayloadPtr:payloadLength:key:keyLength:decryptedPtr:](self, "decryptNearbyInfoV2PayloadPtr:payloadLength:key:keyLength:decryptedPtr:", [nearbyInfoV2EncryptedData bytes], objc_msgSend(nearbyInfoV2EncryptedData, "length"), &v86, 32, &v75))
             {
-              v70 = CBErrorF(-6777, "Unable to decrypt NearbyInfoV2 sensitive data1", v37, v38, v39, v40, v41, v42, &v88);
-              v71 = v83[5];
-              v83[5] = v70;
+              v68 = CBErrorF(-6777, "Unable to decrypt NearbyInfoV2 sensitive data1", v36, v37, v38, v39, v40, v41, &v86);
+              v69 = v81[5];
+              v81[5] = v68;
 
               goto LABEL_56;
             }
 
-            v43 = v77;
-            v44 = BYTE1(v77);
+            v42 = v75;
+            v43 = BYTE1(v75);
             nearbyInfoV2InvitationCounter = [(CBDevice *)self nearbyInfoV2InvitationCounter];
-            if (v43 != nearbyInfoV2InvitationCounter)
+            if (v42 != nearbyInfoV2InvitationCounter)
             {
-              self->_nearbyInfoV2InvitationCounter = v43;
+              self->_nearbyInfoV2InvitationCounter = v42;
             }
 
-            if (v44 == [(CBDevice *)self nearbyInfoV2InvitationRouteType])
+            if (v43 == [(CBDevice *)self nearbyInfoV2InvitationRouteType])
             {
-              if (v43 == nearbyInfoV2InvitationCounter)
+              if (v42 == nearbyInfoV2InvitationCounter)
               {
                 goto LABEL_42;
               }
@@ -4706,50 +5176,50 @@ LABEL_35:
 
             else
             {
-              self->_nearbyInfoV2InvitationRouteType = v44;
+              self->_nearbyInfoV2InvitationRouteType = v43;
             }
 
             self->_changedTypesInternal.bitArray[2] |= 8u;
-            if ((v80 & 0x10) == 0)
+            if ((v78 & 0x10) == 0)
             {
               goto LABEL_56;
             }
 
 LABEL_43:
-            if ([(NSData *)v33 length]== 5)
+            if ([(NSData *)v32 length]== 5)
             {
-              v88 = 0u;
-              v89 = 0u;
-              v46 = v14;
+              v86 = 0u;
+              v87 = 0u;
+              v45 = v14;
               [v14 bytes];
               [v14 length];
-              v47 = nearbyInfoV2AuthTagData;
+              v46 = nearbyInfoV2AuthTagData;
               [nearbyInfoV2AuthTagData bytes];
               [nearbyInfoV2AuthTagData length];
               CryptoHKDF();
-              v78 = 0;
-              v77 = 0;
-              v48 = v33;
-              bytes = [(NSData *)v33 bytes];
-              v50 = [(NSData *)v33 length];
-              if ([(CBDevice *)self decryptNearbyInfoV2PayloadPtr:bytes payloadLength:v50 key:&v88 keyLength:32 decryptedPtr:&v77])
+              v76 = 0;
+              v75 = 0;
+              v47 = v32;
+              bytes = [(NSData *)v32 bytes];
+              v49 = [(NSData *)v32 length];
+              if ([(CBDevice *)self decryptNearbyInfoV2PayloadPtr:bytes payloadLength:v49 key:&v86 keyLength:32 decryptedPtr:&v75])
               {
-                v57 = [MEMORY[0x1E695DEF0] dataWithBytes:&v77 length:{v50, &v88}];
+                v56 = [MEMORY[0x1E695DEF0] dataWithBytes:&v75 length:{v49, &v86}];
                 nearbyInfoV2NearbyFaceTimeData = [(CBDevice *)self nearbyInfoV2NearbyFaceTimeData];
-                v59 = v57;
-                v60 = nearbyInfoV2NearbyFaceTimeData;
-                v61 = v60;
-                if (v59 == v60)
+                v58 = v56;
+                v59 = nearbyInfoV2NearbyFaceTimeData;
+                v60 = v59;
+                if (v58 == v59)
                 {
                 }
 
                 else
                 {
-                  if ((v59 != 0) != (v60 == 0))
+                  if ((v58 != 0) != (v59 == 0))
                   {
-                    v62 = [v59 isEqual:v60];
+                    v61 = [v58 isEqual:v59];
 
-                    if (v62)
+                    if (v61)
                     {
                       goto LABEL_55;
                     }
@@ -4759,15 +5229,15 @@ LABEL_43:
                   {
                   }
 
-                  [(CBDevice *)self decryptNearbyInfoV2PayloadWithIdentity:v59 error:v24 == nearbyInfoV2DecryptedFlags];
+                  [(CBDevice *)self decryptNearbyInfoV2PayloadWithIdentity:v58 error:v23 == nearbyInfoV2DecryptedFlags];
                 }
               }
 
               else
               {
-                v72 = CBErrorF(-6777, "Unable to decrypt NearbyInfoV2 sensitive data2", v51, v52, v53, v54, v55, v56, &v88);
-                v59 = v83[5];
-                v83[5] = v72;
+                v70 = CBErrorF(-6777, "Unable to decrypt NearbyInfoV2 sensitive data2", v50, v51, v52, v53, v54, v55, &v86);
+                v58 = v81[5];
+                v81[5] = v70;
               }
 
 LABEL_55:
@@ -4775,14 +5245,14 @@ LABEL_55:
 
 LABEL_56:
 
-            v63 = nearbyInfoV2EncryptedData;
+            v62 = nearbyInfoV2EncryptedData;
 LABEL_57:
 
             goto LABEL_58;
           }
 
 LABEL_42:
-          if ((v80 & 0x10) == 0)
+          if ((v78 & 0x10) == 0)
           {
             goto LABEL_56;
           }
@@ -4791,7 +5261,7 @@ LABEL_42:
         }
 
 LABEL_32:
-        if (v24 != nearbyInfoV2DecryptedFlags)
+        if (v23 != nearbyInfoV2DecryptedFlags)
         {
           self->_changedTypesInternal.bitArray[4] |= 2u;
         }
@@ -4804,7 +5274,7 @@ LABEL_32:
     else
     {
       self->_changedTypesInternal.bitArray[0] |= 0x10u;
-      if ((v26 & 1) == 0)
+      if ((v25 & 1) == 0)
       {
         goto LABEL_12;
       }
@@ -4814,16 +5284,14 @@ LABEL_32:
 
     self->_discoveryTypesInternal.bitArray[2] |= 8u;
     [(CBDevice *)self setNearbyInfoV2Flags:[(CBDevice *)self nearbyInfoV2Flags]| 4];
-    v26 = v80;
+    v25 = v78;
     goto LABEL_12;
   }
 
 LABEL_58:
 
-  v74[2](v74);
-  _Block_object_dispose(&v82, 8);
-
-  v64 = *MEMORY[0x1E69E9840];
+  v72[2](v72);
+  _Block_object_dispose(&v80, 8);
 }
 
 id __57__CBDevice_decryptNearbyInfoV2PayloadWithIdentity_error___block_invoke(uint64_t a1)
@@ -4887,33 +5355,33 @@ id __57__CBDevice_decryptNearbyInfoV2PayloadWithIdentity_error___block_invoke(ui
 
 - (BOOL)isLowerThanAgeLimit:(id)limit compareTimestamp:(unint64_t)timestamp
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   limitCopy = limit;
   bufferedAdvConfigsForAOP = [limitCopy bufferedAdvConfigsForAOP];
 
   if (bufferedAdvConfigsForAOP)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     bufferedAdvConfigsForAOP2 = [limitCopy bufferedAdvConfigsForAOP];
-    v8 = [bufferedAdvConfigsForAOP2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [bufferedAdvConfigsForAOP2 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
       LOBYTE(maxAge) = 0;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(bufferedAdvConfigsForAOP2);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           maxAge = maxAge;
           if (maxAge < [v13 maxAge])
           {
@@ -4921,7 +5389,7 @@ id __57__CBDevice_decryptNearbyInfoV2PayloadWithIdentity_error___block_invoke(ui
           }
         }
 
-        v9 = [bufferedAdvConfigsForAOP2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [bufferedAdvConfigsForAOP2 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
@@ -4956,7 +5424,6 @@ id __57__CBDevice_decryptNearbyInfoV2PayloadWithIdentity_error___block_invoke(ui
     v14 = 1;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -5224,7 +5691,8 @@ LABEL_52:
     if ([(CBDevice *)self classicRSSI]== 0 || v9)
     {
 LABEL_30:
-      if ([(CBDevice *)self connectedServices]== 0 || v9)
+      connectedServices = [(CBDevice *)self connectedServices];
+      if (connectedServices == 0 || v9)
       {
         goto LABEL_32;
       }
@@ -5240,20 +5708,21 @@ LABEL_30:
 
   [(CBDevice *)self setClassicRSSI:0];
   v5 |= 0x200000000uLL;
-  if ([(CBDevice *)self connectedServices]!= 0 && !v9)
+  connectedServices = [(CBDevice *)self connectedServices];
+  if (connectedServices != 0 && !v9)
   {
 LABEL_31:
-    [(CBDevice *)self setConnectedServices:0];
+    connectedServices = [(CBDevice *)self setConnectedServices:0];
     v5 |= 0x80000000000uLL;
   }
 
 LABEL_32:
   deviceFlags = self->_deviceFlags;
-  v18 = deviceFlags & 0xFFFFF87F00000F80;
-  v19 = (deviceFlags & 0xFFFFF87F00000F80) == deviceFlags || v9;
-  if ((v19 & 1) == 0)
+  v20 = deviceFlags & 0xFFFFF87F00000F80;
+  v21 = (deviceFlags & 0xFFFFF87F00000F80) == deviceFlags || v9;
+  if ((v21 & 1) == 0)
   {
-    self->_deviceFlags = v18;
+    self->_deviceFlags = v20;
     v5 |= 0x80000000000uLL;
   }
 
@@ -5264,25 +5733,25 @@ LABEL_32:
   }
 
   discoveryFlags = self->_discoveryFlags;
-  v21 = discoveryFlags & 0x8305593A4EB00000;
+  v23 = discoveryFlags & 0x8305593A4EB00000;
   if ((v10 & 1) == 0)
   {
-    v21 = self->_discoveryFlags;
+    v23 = self->_discoveryFlags;
   }
 
-  v22 = ((v7 << 7) | 0xFF7FFFFF) & 0xFFFBFFFFFFDFFFFFLL;
+  v24 = ((v7 << 7) | 0xFF7FFFFF) & 0xFFFBFFFFFFDFFFFFLL;
   if (v9)
   {
-    v22 = 0xFFFBFFFFFFFFFFFFLL;
+    v24 = 0xFFFBFFFFFFFFFFFFLL;
   }
 
   if (v8)
   {
-    v22 = -1;
+    v24 = -1;
   }
 
-  v23 = v21 & v22;
-  if (v23 == discoveryFlags)
+  v25 = v23 & v24;
+  if (v25 == discoveryFlags)
   {
     if ((v10 & 1) == 0)
     {
@@ -5292,10 +5761,10 @@ LABEL_32:
 
   else
   {
-    self->_discoveryFlags = v23;
-    v25 = v23 ^ discoveryFlags | 0x800000000;
-    self->_changeFlags |= v25;
-    v5 |= v25;
+    self->_discoveryFlags = v25;
+    v27 = v25 ^ discoveryFlags | 0x800000000;
+    self->_changeFlags |= v27;
+    v5 |= v27;
     if ((v10 & 1) == 0)
     {
 LABEL_47:
@@ -5308,8 +5777,8 @@ LABEL_47:
     }
   }
 
-  v26 = CBDiscoveryTypesBLEScan();
-  CBDiscoveryTypesRemoveTypesAndReportChanges(&self->_discoveryTypesInternal, v26, self->_changedTypesInternal.bitArray);
+  v28 = CBDiscoveryTypesBLEScan(connectedServices, v18);
+  CBDiscoveryTypesRemoveTypesAndReportChanges(&self->_discoveryTypesInternal, v28, self->_changedTypesInternal.bitArray);
   if ([(CBDevice *)self doubleTapActionLeft]== 0 || v9)
   {
 LABEL_48:
@@ -5473,7 +5942,7 @@ LABEL_57:
   changeFlags = self->_changeFlags;
   discoveryFlags = self->_discoveryFlags;
   accountID = [deviceCopy accountID];
-  v354 = accountID;
+  v358 = accountID;
   if (!accountID)
   {
 LABEL_5:
@@ -5570,7 +6039,7 @@ LABEL_13:
     }
   }
 
-  v369 = internalFlags & 0x84;
+  v373 = internalFlags & 0x84;
   audioStreamState = [deviceCopy audioStreamState];
   if (audioStreamState)
   {
@@ -5681,7 +6150,7 @@ LABEL_50:
   {
 
     bleAdvertisementData = [deviceCopy bleAdvertisementData];
-    v349 = bleAdvertisementData;
+    v353 = bleAdvertisementData;
     if (!bleAdvertisementData)
     {
       goto LABEL_65;
@@ -5698,7 +6167,7 @@ LABEL_50:
     {
 LABEL_54:
       bleAdvertisementData = [deviceCopy bleAdvertisementData];
-      v349 = bleAdvertisementData;
+      v353 = bleAdvertisementData;
       if (!bleAdvertisementData)
       {
         goto LABEL_65;
@@ -5715,7 +6184,7 @@ LABEL_54:
   [(CBDevice *)self setBleAddressData:v37];
   v13 |= 0x80000000000uLL;
   bleAdvertisementData = [deviceCopy bleAdvertisementData];
-  v349 = bleAdvertisementData;
+  v353 = bleAdvertisementData;
   if (!bleAdvertisementData)
   {
     goto LABEL_65;
@@ -5781,7 +6250,7 @@ LABEL_71:
   }
 
   bleAppleManufacturerData = [deviceCopy bleAppleManufacturerData];
-  v348 = bleAppleManufacturerData;
+  v352 = bleAppleManufacturerData;
   if (!bleAppleManufacturerData)
   {
     goto LABEL_80;
@@ -5844,7 +6313,7 @@ LABEL_86:
   }
 
   btAddressData = [deviceCopy btAddressData];
-  v346 = btAddressData;
+  v350 = btAddressData;
   if (btAddressData)
   {
     v64 = btAddressData;
@@ -5872,7 +6341,7 @@ LABEL_97:
         [(CBDevice *)self setBtAddressData:v66];
         v13 |= 0x80000000000uLL;
         btVersion = [deviceCopy btVersion];
-        v344 = btVersion;
+        v348 = btVersion;
         if (!btVersion)
         {
           goto LABEL_105;
@@ -5884,7 +6353,7 @@ LABEL_97:
   }
 
   btVersion = [deviceCopy btVersion];
-  v344 = btVersion;
+  v348 = btVersion;
   if (!btVersion)
   {
     goto LABEL_105;
@@ -5919,7 +6388,7 @@ LABEL_104:
 
 LABEL_105:
   caseVersion = [deviceCopy caseVersion];
-  v342 = caseVersion;
+  v346 = caseVersion;
   if ([caseVersion length])
   {
     caseVersion2 = [(CBDevice *)self caseVersion];
@@ -6011,7 +6480,7 @@ LABEL_113:
   {
 LABEL_129:
     controllerInfo = [deviceCopy controllerInfo];
-    v358 = controllerInfo;
+    v362 = controllerInfo;
     if (!controllerInfo)
     {
       goto LABEL_143;
@@ -6028,7 +6497,7 @@ LABEL_129:
   {
 
     controllerInfo = [deviceCopy controllerInfo];
-    v358 = controllerInfo;
+    v362 = controllerInfo;
     if (!controllerInfo)
     {
       goto LABEL_143;
@@ -6054,7 +6523,7 @@ LABEL_129:
   objc_storeStrong(&self->_contactID, obj);
   v13 |= 0x80000000000uLL;
   controllerInfo = [deviceCopy controllerInfo];
-  v358 = controllerInfo;
+  v362 = controllerInfo;
   if (!controllerInfo)
   {
     goto LABEL_143;
@@ -6081,7 +6550,7 @@ LABEL_138:
     {
     }
 
-    objc_storeStrong(&self->_controllerInfo, v358);
+    objc_storeStrong(&self->_controllerInfo, v362);
     v13 |= 0x80000000000uLL;
     conversationDetectCapability = [deviceCopy conversationDetectCapability];
     if (!conversationDetectCapability)
@@ -6326,7 +6795,7 @@ LABEL_195:
   }
 
   fidoPayloadData = [deviceCopy fidoPayloadData];
-  v365 = fidoPayloadData;
+  v369 = fidoPayloadData;
   if ((internalFlags & 2) == 0)
   {
     goto LABEL_207;
@@ -6355,7 +6824,7 @@ LABEL_195:
   {
 LABEL_207:
     findMyCaseIdentifier = [deviceCopy findMyCaseIdentifier];
-    v340 = findMyCaseIdentifier;
+    v344 = findMyCaseIdentifier;
     if (!findMyCaseIdentifier)
     {
       goto LABEL_216;
@@ -6368,7 +6837,7 @@ LABEL_215:
   [(CBDevice *)self setFidoPayloadData:v137];
   v13 |= 0x8000000000000uLL;
   findMyCaseIdentifier = [deviceCopy findMyCaseIdentifier];
-  v340 = findMyCaseIdentifier;
+  v344 = findMyCaseIdentifier;
   if (!findMyCaseIdentifier)
   {
     goto LABEL_216;
@@ -6384,7 +6853,7 @@ LABEL_208:
   {
 
     findMyGroupIdentifier = [deviceCopy findMyGroupIdentifier];
-    v338 = findMyGroupIdentifier;
+    v342 = findMyGroupIdentifier;
     if (!findMyGroupIdentifier)
     {
       goto LABEL_225;
@@ -6401,7 +6870,7 @@ LABEL_208:
       {
 LABEL_216:
         findMyGroupIdentifier = [deviceCopy findMyGroupIdentifier];
-        v338 = findMyGroupIdentifier;
+        v342 = findMyGroupIdentifier;
         if (!findMyGroupIdentifier)
         {
           goto LABEL_225;
@@ -6418,7 +6887,7 @@ LABEL_216:
     [(CBDevice *)self setFindMyCaseIdentifier:v144];
     v13 |= 0x80000000000uLL;
     findMyGroupIdentifier = [deviceCopy findMyGroupIdentifier];
-    v338 = findMyGroupIdentifier;
+    v342 = findMyGroupIdentifier;
     if (!findMyGroupIdentifier)
     {
       goto LABEL_225;
@@ -6485,7 +6954,7 @@ LABEL_231:
   }
 
   gfpPayloadData = [deviceCopy gfpPayloadData];
-  v364 = gfpPayloadData;
+  v368 = gfpPayloadData;
   if ((internalFlags & 2) != 0)
   {
     v159 = gfpPayloadData;
@@ -6553,7 +7022,7 @@ LABEL_246:
 
 LABEL_247:
   firmwareVersion = [deviceCopy firmwareVersion];
-  v362 = firmwareVersion;
+  v366 = firmwareVersion;
   if (![firmwareVersion length])
   {
     goto LABEL_251;
@@ -6566,7 +7035,7 @@ LABEL_247:
   {
 
     identifier = [deviceCopy identifier];
-    v357 = identifier;
+    v361 = identifier;
     if (!identifier)
     {
       goto LABEL_262;
@@ -6584,7 +7053,7 @@ LABEL_247:
     {
 LABEL_251:
       identifier = [deviceCopy identifier];
-      v357 = identifier;
+      v361 = identifier;
       if (!identifier)
       {
         goto LABEL_262;
@@ -6601,7 +7070,7 @@ LABEL_251:
   objc_storeStrong(&self->_firmwareVersion, firmwareVersion);
   v13 |= 0x80000000000uLL;
   identifier = [deviceCopy identifier];
-  v357 = identifier;
+  v361 = identifier;
   if (!identifier)
   {
     goto LABEL_262;
@@ -6628,10 +7097,10 @@ LABEL_257:
     {
     }
 
-    objc_storeStrong(&self->_identifier, v357);
+    objc_storeStrong(&self->_identifier, v361);
     v13 |= 0x80000000000uLL;
     idsDeviceID = [deviceCopy idsDeviceID];
-    v356 = idsDeviceID;
+    v360 = idsDeviceID;
     if (!idsDeviceID)
     {
       goto LABEL_273;
@@ -6642,7 +7111,7 @@ LABEL_257:
 
 LABEL_262:
   idsDeviceID = [deviceCopy idsDeviceID];
-  v356 = idsDeviceID;
+  v360 = idsDeviceID;
   if (!idsDeviceID)
   {
     goto LABEL_273;
@@ -6673,7 +7142,7 @@ LABEL_266:
     {
     }
 
-    objc_storeStrong(&self->_idsDeviceID, v356);
+    objc_storeStrong(&self->_idsDeviceID, v360);
     v13 |= 0x80000000000uLL;
   }
 
@@ -6726,7 +7195,7 @@ LABEL_273:
   }
 
   model = [deviceCopy model];
-  v361 = model;
+  v365 = model;
   if ([model length])
   {
     model = self->_model;
@@ -6759,7 +7228,7 @@ LABEL_273:
 
 LABEL_295:
   modelUser = [deviceCopy modelUser];
-  v336 = modelUser;
+  v340 = modelUser;
   if (![modelUser length])
   {
     goto LABEL_299;
@@ -6847,7 +7316,7 @@ LABEL_309:
   }
 
   leAdvName = [deviceCopy leAdvName];
-  v368 = leAdvName;
+  v372 = leAdvName;
   if ([leAdvName length])
   {
     leAdvName = self->_leAdvName;
@@ -6879,7 +7348,7 @@ LABEL_309:
         goto LABEL_322;
       }
 
-      objc_storeStrong(&self->_leAdvName, v368);
+      objc_storeStrong(&self->_leAdvName, v372);
       v13 |= 0x80000000000uLL;
       v215 = name;
       name = self->_name;
@@ -6889,7 +7358,7 @@ LABEL_309:
 
 LABEL_322:
   name = [deviceCopy name];
-  v363 = name;
+  v367 = name;
   if (![name length])
   {
     goto LABEL_331;
@@ -6907,7 +7376,7 @@ LABEL_322:
   if ((v218 != 0) == (v219 == 0))
   {
 
-    v222 = v363;
+    v222 = v367;
     if ((internalFlags & 2) != 0)
     {
       goto LABEL_331;
@@ -6921,7 +7390,7 @@ LABEL_322:
 
   if ((v221 & 1) == 0)
   {
-    v222 = v363;
+    v222 = v367;
     if ((internalFlags & 2) == 0)
     {
 LABEL_330:
@@ -6991,7 +7460,7 @@ LABEL_336:
 
   proximityServiceData = [deviceCopy proximityServiceData];
   v229 = proximityServiceData;
-  v355 = proximityServiceData;
+  v359 = proximityServiceData;
   if ((internalFlags & 2) != 0 || proximityServiceData)
   {
     proximityServiceData2 = [(CBDevice *)self proximityServiceData];
@@ -7002,10 +7471,10 @@ LABEL_336:
     if (v232 == v233)
     {
 
-      v367 = 0;
-      v353 = discoveryFlags;
-      v351 = internalFlags;
-      v350 = bleAddressData;
+      v371 = 0;
+      v357 = discoveryFlags;
+      v355 = internalFlags;
+      v354 = bleAddressData;
       v236 = deviceCopy;
       if ((internalFlags & 0x4000) != 0)
       {
@@ -7029,20 +7498,20 @@ LABEL_336:
       {
       }
 
-      [(CBDevice *)self setProximityServiceData:v232];
+      v245 = [(CBDevice *)self setProximityServiceData:v232];
       v13 |= 0x80000000uLL;
       self->_discoveryFlags &= 0xFFFFFFFE7FFFFFFFLL;
-      v245 = CBDiscoveryTypesProximityService();
-      CBDiscoveryTypesRemoveTypes(self->_discoveryTypesInternal.bitArray, v245);
-      if (v355)
+      v247 = CBDiscoveryTypesProximityService(v245, v246);
+      CBDiscoveryTypesRemoveTypes(self->_discoveryTypesInternal.bitArray, v247);
+      if (v359)
       {
         [(CBDevice *)self _parseProximityServiceData:v232];
       }
 
-      v367 = 1;
-      v353 = discoveryFlags;
-      v351 = internalFlags;
-      v350 = bleAddressData;
+      v371 = 1;
+      v357 = discoveryFlags;
+      v355 = internalFlags;
+      v354 = bleAddressData;
       v236 = deviceCopy;
       if ((internalFlags & 0x4000) != 0)
       {
@@ -7080,37 +7549,37 @@ LABEL_348:
       {
       }
 
-      v252 = v239;
+      v254 = v239;
       v244 = self->_safetyAlertsAlertData;
-      self->_safetyAlertsAlertData = v252;
+      self->_safetyAlertsAlertData = v254;
     }
 
 LABEL_370:
     safetyAlertsAlertID = [deviceCopy safetyAlertsAlertID];
     safetyAlertsAlertID = self->_safetyAlertsAlertID;
-    v255 = safetyAlertsAlertID;
-    v256 = safetyAlertsAlertID;
-    if (v255 == v256)
+    v257 = safetyAlertsAlertID;
+    v258 = safetyAlertsAlertID;
+    if (v257 == v258)
     {
 
-      v259 = v255;
+      v261 = v257;
     }
 
     else
     {
-      if ((v255 != 0) != (v256 == 0))
+      if ((v257 != 0) != (v258 == 0))
       {
-        v257 = v256;
-        v258 = [(NSData *)v255 isEqual:v256];
+        v259 = v258;
+        v260 = [(NSData *)v257 isEqual:v258];
 
-        if (v258)
+        if (v260)
         {
 LABEL_382:
           safetyAlertsSignature = [deviceCopy safetyAlertsSignature];
           safetyAlertsSignature = self->_safetyAlertsSignature;
-          v263 = safetyAlertsSignature;
-          v264 = safetyAlertsSignature;
-          if (v263 == v264)
+          v265 = safetyAlertsSignature;
+          v266 = safetyAlertsSignature;
+          if (v265 == v266)
           {
 
             safetyAlertsVersion = [deviceCopy safetyAlertsVersion];
@@ -7123,12 +7592,12 @@ LABEL_382:
 
           else
           {
-            if ((v263 != 0) != (v264 == 0))
+            if ((v265 != 0) != (v266 == 0))
             {
-              v265 = v264;
-              v266 = [(NSData *)v263 isEqual:v264];
+              v267 = v266;
+              v268 = [(NSData *)v265 isEqual:v266];
 
-              if (v266)
+              if (v268)
               {
                 safetyAlertsVersion = [deviceCopy safetyAlertsVersion];
                 p_safetyAlertsVersion = &self->_safetyAlertsVersion;
@@ -7158,29 +7627,29 @@ LABEL_388:
             {
 LABEL_393:
               self->_changedTypesInternal.bitArray[3] |= 0x40u;
-              v367 = 1;
+              v371 = 1;
 LABEL_394:
               if (safetyAlertsVersion)
               {
-                v269 = v263 == 0;
+                v271 = v265 == 0;
               }
 
               else
               {
-                v269 = 1;
+                v271 = 1;
               }
 
-              if (v269 || v255 == 0 || v239 == 0)
+              if (v271 || v257 == 0 || v239 == 0)
               {
-                v272 = 0;
+                v274 = 0;
               }
 
               else
               {
-                v272 = 64;
+                v274 = 64;
               }
 
-              self->_discoveryTypesInternal.bitArray[3] = self->_discoveryTypesInternal.bitArray[3] & 0xBF | v272;
+              self->_discoveryTypesInternal.bitArray[3] = self->_discoveryTypesInternal.bitArray[3] & 0xBF | v274;
 
               safetyAlertsSegmentServiceData = [deviceCopy safetyAlertsSegmentServiceData];
               goto LABEL_407;
@@ -7197,9 +7666,9 @@ LABEL_392:
       {
       }
 
-      v260 = v255;
-      v259 = self->_safetyAlertsAlertID;
-      self->_safetyAlertsAlertID = v260;
+      v262 = v257;
+      v261 = self->_safetyAlertsAlertID;
+      self->_safetyAlertsAlertID = v262;
       v241 = 1;
     }
 
@@ -7207,10 +7676,10 @@ LABEL_392:
   }
 
 LABEL_347:
-  v367 = 0;
-  v353 = discoveryFlags;
-  v351 = internalFlags;
-  v350 = bleAddressData;
+  v371 = 0;
+  v357 = discoveryFlags;
+  v355 = internalFlags;
+  v354 = bleAddressData;
   v236 = deviceCopy;
   if ((internalFlags & 0x4000) == 0)
   {
@@ -7221,19 +7690,19 @@ LABEL_362:
   safetyAlertsSegmentServiceData2 = [v236 safetyAlertsSegmentServiceData];
   safetyAlertsSegmentServiceData = self->_safetyAlertsSegmentServiceData;
   safetyAlertsSegmentServiceData = safetyAlertsSegmentServiceData2;
-  v249 = safetyAlertsSegmentServiceData;
-  if (safetyAlertsSegmentServiceData == v249)
+  v251 = safetyAlertsSegmentServiceData;
+  if (safetyAlertsSegmentServiceData == v251)
   {
   }
 
   else
   {
-    if ((safetyAlertsSegmentServiceData != 0) != (v249 == 0))
+    if ((safetyAlertsSegmentServiceData != 0) != (v251 == 0))
     {
-      v250 = v249;
-      v251 = [(NSData *)safetyAlertsSegmentServiceData isEqual:v249];
+      v252 = v251;
+      v253 = [(NSData *)safetyAlertsSegmentServiceData isEqual:v251];
 
-      if (v251)
+      if (v253)
       {
         goto LABEL_407;
       }
@@ -7251,7 +7720,7 @@ LABEL_362:
       [(CBDevice *)self _parseSafetyAlertsSegmentServiceData:safetyAlertsSegmentServiceData];
     }
 
-    v367 = 1;
+    v371 = 1;
   }
 
 LABEL_407:
@@ -7265,10 +7734,10 @@ LABEL_407:
   selectiveSpeechListeningConfig = [deviceCopy selectiveSpeechListeningConfig];
   if (selectiveSpeechListeningConfig)
   {
-    v275 = selectiveSpeechListeningConfig;
+    v277 = selectiveSpeechListeningConfig;
     if (selectiveSpeechListeningConfig != [(CBDevice *)self selectiveSpeechListeningConfig])
     {
-      [(CBDevice *)self setSelectiveSpeechListeningConfig:v275];
+      [(CBDevice *)self setSelectiveSpeechListeningConfig:v277];
       v13 |= 0x80000000000uLL;
     }
   }
@@ -7291,24 +7760,24 @@ LABEL_407:
   if ([serialNumber length])
   {
     serialNumber = self->_serialNumber;
-    v280 = serialNumber;
-    v281 = serialNumber;
-    if (v280 == v281)
+    v282 = serialNumber;
+    v283 = serialNumber;
+    if (v282 == v283)
     {
     }
 
     else
     {
-      if ((v280 != 0) == (v281 == 0))
+      if ((v282 != 0) == (v283 == 0))
       {
 
         goto LABEL_428;
       }
 
-      v282 = v281;
-      v283 = [(NSString *)v280 isEqual:v281];
+      v284 = v283;
+      v285 = [(NSString *)v282 isEqual:v283];
 
-      if ((v283 & 1) == 0)
+      if ((v285 & 1) == 0)
       {
 LABEL_428:
         objc_storeStrong(&self->_serialNumber, serialNumber);
@@ -7332,24 +7801,24 @@ LABEL_428:
 
 LABEL_429:
   serialNumberLeft = self->_serialNumberLeft;
-  v286 = serialNumberLeft;
-  v287 = serialNumberLeft;
-  if (v286 == v287)
+  v288 = serialNumberLeft;
+  v289 = serialNumberLeft;
+  if (v288 == v289)
   {
 
     goto LABEL_436;
   }
 
-  if ((v286 != 0) == (v287 == 0))
+  if ((v288 != 0) == (v289 == 0))
   {
 
     goto LABEL_435;
   }
 
-  v288 = v287;
-  v289 = [(NSString *)v286 isEqual:v287];
+  v290 = v289;
+  v291 = [(NSString *)v288 isEqual:v289];
 
-  if ((v289 & 1) == 0)
+  if ((v291 & 1) == 0)
   {
 LABEL_435:
     objc_storeStrong(&self->_serialNumberLeft, serialNumberLeft);
@@ -7358,31 +7827,31 @@ LABEL_435:
 
 LABEL_436:
   serialNumberRight = [deviceCopy serialNumberRight];
-  v360 = serialNumberRight;
+  v364 = serialNumberRight;
   if (![serialNumberRight length])
   {
     goto LABEL_442;
   }
 
   serialNumberRight = self->_serialNumberRight;
-  v292 = serialNumberRight;
-  v293 = serialNumberRight;
-  if (v292 == v293)
+  v294 = serialNumberRight;
+  v295 = serialNumberRight;
+  if (v294 == v295)
   {
 
     goto LABEL_442;
   }
 
-  if ((v292 != 0) == (v293 == 0))
+  if ((v294 != 0) == (v295 == 0))
   {
 
     goto LABEL_445;
   }
 
-  v294 = v293;
-  v295 = [(NSString *)v292 isEqual:v293];
+  v296 = v295;
+  v297 = [(NSString *)v294 isEqual:v295];
 
-  if (v295)
+  if (v297)
   {
 LABEL_442:
     smartRoutingMode = [deviceCopy smartRoutingMode];
@@ -7395,7 +7864,7 @@ LABEL_442:
   }
 
 LABEL_445:
-  objc_storeStrong(&self->_serialNumberRight, v360);
+  objc_storeStrong(&self->_serialNumberRight, v364);
   v13 |= 0x80000000000uLL;
   smartRoutingMode = [deviceCopy smartRoutingMode];
   if (smartRoutingMode)
@@ -7409,8 +7878,8 @@ LABEL_446:
   }
 
 LABEL_448:
-  v334 = safetyAlertsSegmentServiceData;
-  if (v369)
+  v338 = safetyAlertsSegmentServiceData;
+  if (v373)
   {
     spatialAudioMode = [deviceCopy spatialAudioMode];
     if (spatialAudioMode != [(CBDevice *)self spatialAudioMode])
@@ -7428,31 +7897,31 @@ LABEL_448:
   }
 
   txAddressData = [deviceCopy txAddressData];
-  v300 = txAddressData;
+  v302 = txAddressData;
   if (!txAddressData)
   {
     goto LABEL_459;
   }
 
   txAddressData = self->_txAddressData;
-  v302 = txAddressData;
-  v303 = txAddressData;
-  v304 = v303;
-  if (v302 == v303)
+  v304 = txAddressData;
+  v305 = txAddressData;
+  v306 = v305;
+  if (v304 == v305)
   {
 
     goto LABEL_459;
   }
 
-  if (!v303)
+  if (!v305)
   {
 
     goto LABEL_462;
   }
 
-  v305 = [(NSData *)v302 isEqual:v303];
+  v307 = [(NSData *)v304 isEqual:v305];
 
-  if (v305)
+  if (v307)
   {
 LABEL_459:
     vendorID = [deviceCopy vendorID];
@@ -7465,7 +7934,7 @@ LABEL_459:
   }
 
 LABEL_462:
-  objc_storeStrong(&self->_txAddressData, v300);
+  objc_storeStrong(&self->_txAddressData, v302);
   v13 |= 0x80000000000uLL;
   vendorID = [deviceCopy vendorID];
   if (!vendorID)
@@ -7486,17 +7955,17 @@ LABEL_465:
   if (!vendorIDSource)
   {
     vendorIDSource = self->_vendorIDSource;
-    v332 = serialNumberLeft;
+    v336 = serialNumberLeft;
     if (vendorIDSource != 1)
     {
       goto LABEL_469;
     }
 
 LABEL_472:
-    v309 = 76;
+    v311 = 76;
 LABEL_473:
-    v310 = self->_vendorID == v309;
-    proximityPairingProductID = [(CBDevice *)self productID:v332];
+    v312 = self->_vendorID == v311;
+    proximityPairingProductID = [(CBDevice *)self productID:v336];
     if (proximityPairingProductID)
     {
       goto LABEL_474;
@@ -7511,7 +7980,7 @@ LABEL_473:
     v13 |= 0x80000000000uLL;
   }
 
-  v332 = serialNumberLeft;
+  v336 = serialNumberLeft;
   if (vendorIDSource == 1)
   {
     goto LABEL_472;
@@ -7520,24 +7989,24 @@ LABEL_473:
 LABEL_469:
   if (vendorIDSource == 2)
   {
-    v309 = 1452;
+    v311 = 1452;
     goto LABEL_473;
   }
 
-  v310 = 0;
-  proximityPairingProductID = [(CBDevice *)self productID:v332];
+  v312 = 0;
+  proximityPairingProductID = [(CBDevice *)self productID:v336];
   if (proximityPairingProductID)
   {
 LABEL_474:
-    v370 = serialNumber;
-    if (proximityPairingProductID != 0 && v310)
+    v374 = serialNumber;
+    if (proximityPairingProductID != 0 && v312)
     {
       goto LABEL_475;
     }
 
 LABEL_482:
-    v318 = CBDeviceTypeToNSLocalizedString(self->_deviceType);
-    if (!v310)
+    v320 = CBDeviceTypeToNSLocalizedString(self->_deviceType);
+    if (!v312)
     {
       goto LABEL_495;
     }
@@ -7547,39 +8016,39 @@ LABEL_482:
 
 LABEL_481:
   proximityPairingProductID = [(CBDevice *)self proximityPairingProductID];
-  v370 = serialNumber;
-  if (proximityPairingProductID == 0 || !v310)
+  v374 = serialNumber;
+  if (proximityPairingProductID == 0 || !v312)
   {
     goto LABEL_482;
   }
 
 LABEL_475:
-  v312 = [CBProductInfo productInfoWithProductID:proximityPairingProductID];
-  productName = [v312 productName];
+  v314 = [CBProductInfo productInfoWithProductID:proximityPairingProductID];
+  productName = [v314 productName];
 
   if (!productName)
   {
     goto LABEL_485;
   }
 
-  v314 = self->_productName;
-  v315 = productName;
-  v316 = v315;
-  if (v314 == v315)
+  v316 = self->_productName;
+  v317 = productName;
+  v318 = v317;
+  if (v316 == v317)
   {
 
     goto LABEL_485;
   }
 
-  if (!v314)
+  if (!v316)
   {
 
 LABEL_488:
     objc_storeStrong(&self->_productName, productName);
     v13 |= 0x80000000000uLL;
 
-    v318 = CBDeviceTypeToNSLocalizedString(self->_deviceType);
-    if (!v310)
+    v320 = CBDeviceTypeToNSLocalizedString(self->_deviceType);
+    if (!v312)
     {
       goto LABEL_495;
     }
@@ -7587,36 +8056,36 @@ LABEL_488:
     goto LABEL_489;
   }
 
-  v317 = [(NSString *)v314 isEqual:v315];
+  v319 = [(NSString *)v316 isEqual:v317];
 
-  if ((v317 & 1) == 0)
+  if ((v319 & 1) == 0)
   {
     goto LABEL_488;
   }
 
 LABEL_485:
 
-  v318 = CBDeviceTypeToNSLocalizedString(self->_deviceType);
-  if (!v310)
+  v320 = CBDeviceTypeToNSLocalizedString(self->_deviceType);
+  if (!v312)
   {
     goto LABEL_495;
   }
 
 LABEL_489:
-  v319 = self->_name;
-  if (!v319 || [(NSString *)v319 isEqualToString:v318])
+  v321 = self->_name;
+  if (!v321 || [(NSString *)v321 isEqualToString:v320])
   {
-    v320 = CBProductIDToNSLocalizedProductNameString(proximityPairingProductID);
-    v322 = v348;
-    v321 = v349;
-    if (v320)
+    v322 = CBProductIDToNSLocalizedProductNameString(proximityPairingProductID);
+    v324 = v352;
+    v323 = v353;
+    if (v322)
     {
-      objc_storeStrong(&self->_name, v320);
+      objc_storeStrong(&self->_name, v322);
       v13 |= 0x80000000000uLL;
     }
 
     p_name = &self->_name;
-    v324 = v368;
+    v326 = v372;
     if (!self->_name)
     {
       goto LABEL_496;
@@ -7626,29 +8095,34 @@ LABEL_489:
   }
 
 LABEL_495:
-  v322 = v348;
-  v321 = v349;
+  v324 = v352;
+  v323 = v353;
   p_name = &self->_name;
-  v324 = v368;
+  v326 = v372;
   if (!self->_name)
   {
 LABEL_496:
-    objc_storeStrong(p_name, v318);
-    v324 = v368;
+    objc_storeStrong(p_name, v320);
+    v326 = v372;
     v13 |= 0x80000000000uLL;
   }
 
 LABEL_497:
-  if ([v324 length] && -[NSString isEqualToString:](*p_name, "isEqualToString:", v318))
+  v327 = [v326 length];
+  if (v327)
   {
-    objc_storeStrong(p_name, v368);
-    objc_storeStrong(&self->_leAdvName, v368);
-    v13 |= 0x80000000000uLL;
+    v327 = [(NSString *)*p_name isEqualToString:v320];
+    if (v327)
+    {
+      objc_storeStrong(p_name, v372);
+      objc_storeStrong(&self->_leAdvName, v372);
+      v13 |= 0x80000000000uLL;
+    }
   }
 
   if ((v13 & 0x40000000) == 0)
   {
-    if ((v351 & 2) != 0)
+    if ((v355 & 2) != 0)
     {
       goto LABEL_502;
     }
@@ -7663,26 +8137,26 @@ LABEL_507:
   }
 
   self->_discoveryFlags &= 0x8305793BCEB00040;
-  v371 = *self->_discoveryTypesInternal.bitArray;
-  v372 = *&self->_discoveryTypesInternal.bitArray[4];
-  v325 = CBDiscoveryTypesBLEScan();
-  CBDiscoveryTypesRemoveTypes(self->_discoveryTypesInternal.bitArray, v325);
-  bytes2 = [v322 bytes];
+  v375 = *self->_discoveryTypesInternal.bitArray;
+  v376 = *&self->_discoveryTypesInternal.bitArray[4];
+  v329 = CBDiscoveryTypesBLEScan(v327, v328);
+  CBDiscoveryTypesRemoveTypes(self->_discoveryTypesInternal.bitArray, v329);
+  bytes2 = [v324 bytes];
   if (bytes2)
   {
-    -[CBDevice _parseManufacturerPtr:end:](self, "_parseManufacturerPtr:end:", bytes2, bytes2 + [v322 length]);
+    -[CBDevice _parseManufacturerPtr:end:](self, "_parseManufacturerPtr:end:", bytes2, bytes2 + [v324 length]);
   }
 
-  CBDiscoveryTypesAddChangedTypes(self->_changedTypesInternal.bitArray, &v371, self->_discoveryTypesInternal.bitArray);
-  v367 = 1;
-  if ((v351 & 2) == 0)
+  CBDiscoveryTypesAddChangedTypes(self->_changedTypesInternal.bitArray, &v375, self->_discoveryTypesInternal.bitArray);
+  v371 = 1;
+  if ((v355 & 2) == 0)
   {
     goto LABEL_507;
   }
 
 LABEL_502:
   self->_discoveryFlags = self->_discoveryFlags & 0xFFFDFFFFFFFFFFFFLL | ((([deviceCopy discoveryFlags] >> 49) & 1) << 49);
-  self->_discoveryFlags = ((v365 != 0) << 51) | ((v364 != 0) << 54) | self->_discoveryFlags & 0xFFB7FFFF9FFFFFFFLL | [deviceCopy discoveryFlags] & 0x20000000 | v13 & 0x40000000;
+  self->_discoveryFlags = ((v369 != 0) << 51) | ((v368 != 0) << 54) | self->_discoveryFlags & 0xFFB7FFFF9FFFFFFFLL | [deviceCopy discoveryFlags] & 0x20000000 | v13 & 0x40000000;
   self->_discoveryTypesInternal.bitArray[1] = self->_discoveryTypesInternal.bitArray[1] & 0xEF | (16 * (dockKitAccessoryPayloadData != 0));
   if ((*([deviceCopy discoveryTypesInternalPtr] + 3) & 0x20) == 0)
   {
@@ -7697,7 +8171,7 @@ LABEL_508:
   }
 
 LABEL_510:
-  if (v367)
+  if (v371)
   {
     [(CBDevice *)self _clearUnparsedProperties];
   }
@@ -7707,18 +8181,18 @@ LABEL_510:
     self->_discoveryTypesInternal.bitArray[3] |= 0x80u;
   }
 
-  v327 = self->_discoveryFlags;
-  v328 = v13 | 0x800000000;
-  if (v327 == v353)
+  v331 = self->_discoveryFlags;
+  v332 = v13 | 0x800000000;
+  if (v331 == v357)
   {
-    v328 = v13;
+    v332 = v13;
   }
 
-  v329 = self->_changeFlags;
-  v330 = v329 ^ changeFlags | v327 ^ v353 | v328;
-  self->_changeFlags = v330 | v329;
+  v333 = self->_changeFlags;
+  v334 = v333 ^ changeFlags | v331 ^ v357 | v332;
+  self->_changeFlags = v334 | v333;
 
-  return v330;
+  return v334;
 }
 
 - (void)updateWithCBDeviceIdentity:(id)identity
@@ -7866,13 +8340,13 @@ LABEL_27:
 
 - (unsigned)updateWithCBPowerSource:(id)source
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   v5 = sourceCopy;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
   if (!self->_identifier)
   {
     accessoryID = [sourceCopy accessoryID];
@@ -7882,27 +8356,27 @@ LABEL_27:
 
   if ([v5 partID] == 1)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     components = [v5 components];
     allValues = [components allValues];
 
-    v10 = [allValues countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v10 = [allValues countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v10)
     {
-      v11 = *v28;
+      v11 = *v27;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v28 != v11)
+          if (*v27 != v11)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v13 = *(*(&v27 + 1) + 8 * i);
+          v13 = *(*(&v26 + 1) + 8 * i);
           partID = [v13 partID];
           batteryInfo = [v13 batteryInfo];
           v16 = batteryInfo;
@@ -7912,7 +8386,7 @@ LABEL_27:
             {
               if (![(CBDevice *)self batteryInfoLeft])
               {
-                *(v32 + 6) |= 8u;
+                *(v31 + 6) |= 8u;
               }
 
               [(CBDevice *)self setBatteryInfoLeft:v16];
@@ -7926,7 +8400,7 @@ LABEL_27:
             {
               if (![(CBDevice *)self batteryInfoRight])
               {
-                *(v32 + 6) |= 8u;
+                *(v31 + 6) |= 8u;
               }
 
               [(CBDevice *)self setBatteryInfoRight:v16];
@@ -7941,18 +8415,18 @@ LABEL_27:
             {
               if (![(CBDevice *)self batteryInfoCase])
               {
-                *(v32 + 6) |= 8u;
+                *(v31 + 6) |= 8u;
               }
 
               [(CBDevice *)self setBatteryInfoCase:v16];
 LABEL_8:
-              *(v32 + 6) |= 6u;
+              *(v31 + 6) |= 6u;
               continue;
             }
           }
         }
 
-        v10 = [allValues countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v10 = [allValues countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v10);
@@ -7961,7 +8435,7 @@ LABEL_8:
     if ([(CBDevice *)self batteryInfoMain])
     {
       [(CBDevice *)self setBatteryInfoMain:0];
-      *(v32 + 6) |= 4u;
+      *(v31 + 6) |= 4u;
     }
   }
 
@@ -7972,11 +8446,11 @@ LABEL_8:
     {
       if (![(CBDevice *)self batteryInfoMain])
       {
-        *(v32 + 6) |= 8u;
+        *(v31 + 6) |= 8u;
       }
 
       [(CBDevice *)self setBatteryInfoMain:batteryInfo2];
-      *(v32 + 6) |= 2u;
+      *(v31 + 6) |= 2u;
       transportType = [v5 transportType];
       if (transportType == @"USB" || (v20 = transportType) != 0 && (v21 = [(__CFString *)transportType isEqual:@"USB"], v20, v20, v21))
       {
@@ -7985,20 +8459,19 @@ LABEL_8:
     }
 
     components2 = [v5 components];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __36__CBDevice_updateWithCBPowerSource___block_invoke;
-    v26[3] = &unk_1E8121578;
-    v26[4] = self;
-    v26[5] = &v31;
-    [components2 enumerateKeysAndObjectsUsingBlock:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __36__CBDevice_updateWithCBPowerSource___block_invoke;
+    v25[3] = &unk_1E8121578;
+    v25[4] = self;
+    v25[5] = &v30;
+    [components2 enumerateKeysAndObjectsUsingBlock:v25];
   }
 
   self->_internalFlags |= 0x8000u;
-  v23 = *(v32 + 6);
-  _Block_object_dispose(&v31, 8);
+  v23 = *(v31 + 6);
+  _Block_object_dispose(&v30, 8);
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -12730,22 +13203,4894 @@ LABEL_99:
   self->_changeFlags |= v9;
 }
 
+- (BOOL)isEqualToDevice:(id)device exactMatch:(BOOL)match
+{
+  matchCopy = match;
+  deviceCopy = device;
+  accessoryStatusFlags = [(CBDevice *)self accessoryStatusFlags];
+  v8 = [(CBDevice *)self connectedServices]| accessoryStatusFlags;
+  discoveryFlags = self->_discoveryFlags;
+  v10 = self->_deviceFlags | v8;
+  v11 = v10 | discoveryFlags | [(CBDevice *)self gapaFlags];
+  v12 = [(CBDevice *)self listeningModeConfigs]| self->_supportedServices;
+  v13 = v11 | v12 | [(CBDevice *)self airdropFlags];
+  airplaySourceFlags = [(CBDevice *)self airplaySourceFlags];
+  v15 = airplaySourceFlags | [(CBDevice *)self airplayTargetFlags];
+  v16 = v15 | [(CBDevice *)self dsActionFlags];
+  v17 = v16 | [(CBDevice *)self peerStatusFlag];
+  v18 = v13 | v17 | [(CBDevice *)self homeKitV1Flags];
+  nearbyActionFlags = [(CBDevice *)self nearbyActionFlags];
+  v20 = nearbyActionFlags | [(CBDevice *)self nearbyActionV2Flags];
+  v21 = v20 | [(CBDevice *)self nearbyInfoFlags];
+  v22 = v21 | [(CBDevice *)self nearbyInfoV2Flags];
+  v23 = v22 | [(CBDevice *)self nearbyInfoV2InvitationTypes];
+  v24 = v18 | v23 | [(CBDevice *)self proximityServiceFlags];
+  spatialInteractionFlags = [(CBDevice *)self spatialInteractionFlags];
+  if (!(v24 | spatialInteractionFlags | [(CBDevice *)self tipiState]))
+  {
+    LOBYTE(v27) = 0;
+    bleAddressData = self->_accountID;
+    if (bleAddressData)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_12;
+  }
+
+  v26 = [(CBDevice *)self _matchingFlags:deviceCopy exactMatch:matchCopy];
+  LOBYTE(v27) = v26;
+  if (!matchCopy || v26)
+  {
+    bleAddressData = self->_accountID;
+    if (bleAddressData)
+    {
+LABEL_5:
+      accountID = [deviceCopy accountID];
+      v30 = accountID;
+      if (accountID)
+      {
+        if (bleAddressData == accountID)
+        {
+          if (!matchCopy)
+          {
+            if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+            {
+              goto LABEL_368;
+            }
+
+            goto LABEL_151;
+          }
+
+          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+          {
+            v356 = bleAddressData;
+            v375 = v30;
+            LogPrintF_safe();
+          }
+
+LABEL_26:
+          LOBYTE(v27) = 1;
+
+          adaptiveVolumeCapability = [(CBDevice *)self adaptiveVolumeCapability];
+          if (!adaptiveVolumeCapability)
+          {
+            goto LABEL_41;
+          }
+
+          goto LABEL_27;
+        }
+
+        v31 = bleAddressData;
+        v32 = [(NSString *)v31 isEqual:v30];
+
+        if (v32)
+        {
+          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+          {
+            v356 = v31;
+            v375 = v30;
+            LogPrintF_safe();
+          }
+
+          if (!matchCopy)
+          {
+            goto LABEL_368;
+          }
+
+          goto LABEL_26;
+        }
+
+        LOBYTE(v27) = 0;
+      }
+
+      adaptiveVolumeCapability = [(CBDevice *)self adaptiveVolumeCapability];
+      if (!adaptiveVolumeCapability)
+      {
+        goto LABEL_41;
+      }
+
+LABEL_27:
+      v34 = adaptiveVolumeCapability;
+      adaptiveVolumeCapability2 = [deviceCopy adaptiveVolumeCapability];
+      if (matchCopy)
+      {
+        if (!adaptiveVolumeCapability2)
+        {
+          goto LABEL_41;
+        }
+
+        if (adaptiveVolumeCapability2 == v34)
+        {
+          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+          {
+            [CBDevice isEqualToDevice:exactMatch:];
+          }
+
+          LOBYTE(v27) = 1;
+LABEL_41:
+          v36 = [(CBDevice *)self adaptiveVolumeConfig:v356];
+          if (!v36)
+          {
+            goto LABEL_56;
+          }
+
+          v37 = v36;
+          adaptiveVolumeConfig = [deviceCopy adaptiveVolumeConfig];
+          if (matchCopy)
+          {
+            if (!adaptiveVolumeConfig)
+            {
+              goto LABEL_56;
+            }
+
+            if (adaptiveVolumeConfig == v37)
+            {
+              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+              {
+                [CBDevice isEqualToDevice:exactMatch:];
+              }
+
+              LOBYTE(v27) = 1;
+LABEL_56:
+              appearanceValue = [(CBDevice *)self appearanceValue];
+              if (appearanceValue)
+              {
+                v40 = appearanceValue;
+                appearanceValue2 = [deviceCopy appearanceValue];
+                if (appearanceValue2)
+                {
+                  if (v40 == appearanceValue2)
+                  {
+                    if (gLogCategory_CBDevice >= 31)
+                    {
+                      LOBYTE(v27) = 1;
+                      if (!matchCopy)
+                      {
+                        goto LABEL_1235;
+                      }
+                    }
+
+                    else if (gLogCategory_CBDevice != -1 || _LogCategory_Initialize())
+                    {
+                      [CBDevice isEqualToDevice:v40 exactMatch:?];
+                      LOBYTE(v27) = 1;
+                      if (!matchCopy)
+                      {
+                        goto LABEL_1235;
+                      }
+                    }
+
+                    else
+                    {
+                      LOBYTE(v27) = 1;
+                      if (!matchCopy)
+                      {
+                        goto LABEL_1235;
+                      }
+                    }
+                  }
+
+                  else
+                  {
+                    LOBYTE(v27) = 0;
+                  }
+                }
+              }
+
+              audioStreamState = [(CBDevice *)self audioStreamState];
+              if (audioStreamState)
+              {
+                v43 = audioStreamState;
+                audioStreamState2 = [deviceCopy audioStreamState];
+                if (matchCopy)
+                {
+                  if (!audioStreamState2)
+                  {
+                    goto LABEL_80;
+                  }
+
+                  if (v43 == audioStreamState2)
+                  {
+                    if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                    {
+                      [CBDevice isEqualToDevice:exactMatch:];
+                    }
+
+                    LOBYTE(v27) = 1;
+                    goto LABEL_80;
+                  }
+                }
+
+                else
+                {
+                  if (!audioStreamState2)
+                  {
+                    goto LABEL_80;
+                  }
+
+                  if (v43 == audioStreamState2)
+                  {
+                    if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                    {
+                      [CBDevice isEqualToDevice:exactMatch:];
+                    }
+
+                    goto LABEL_1234;
+                  }
+                }
+
+                LOBYTE(v27) = 0;
+              }
+
+LABEL_80:
+              autoAncCapability = [(CBDevice *)self autoAncCapability];
+              if (!autoAncCapability)
+              {
+                goto LABEL_95;
+              }
+
+              v46 = autoAncCapability;
+              autoAncCapability2 = [deviceCopy autoAncCapability];
+              if (matchCopy)
+              {
+                if (!autoAncCapability2)
+                {
+                  goto LABEL_95;
+                }
+
+                if (autoAncCapability2 == v46)
+                {
+                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                  {
+                    [CBDevice isEqualToDevice:exactMatch:];
+                  }
+
+                  LOBYTE(v27) = 1;
+LABEL_95:
+                  bleAddressData = [(CBDevice *)self bleAddressData];
+                  if (!bleAddressData)
+                  {
+                    goto LABEL_113;
+                  }
+
+                  bleAddressData2 = [deviceCopy bleAddressData];
+                  v30 = bleAddressData2;
+                  if (bleAddressData2)
+                  {
+                    if (bleAddressData == bleAddressData2)
+                    {
+                      if (!matchCopy)
+                      {
+                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                        {
+                          [CBDevice isEqualToDevice:bleAddressData exactMatch:v30];
+                        }
+
+                        goto LABEL_368;
+                      }
+
+                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                      {
+                        [CBDevice isEqualToDevice:bleAddressData exactMatch:v30];
+                      }
+                    }
+
+                    else
+                    {
+                      v49 = bleAddressData;
+                      v50 = [(NSString *)v49 isEqual:v30];
+
+                      if (!v50)
+                      {
+                        LOBYTE(v27) = 0;
+                        goto LABEL_112;
+                      }
+
+                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                      {
+                        [CBDevice isEqualToDevice:v49 exactMatch:v30];
+                        if (!matchCopy)
+                        {
+                          goto LABEL_368;
+                        }
+                      }
+
+                      else if (!matchCopy)
+                      {
+                        goto LABEL_368;
+                      }
+                    }
+
+                    LOBYTE(v27) = 1;
+                  }
+
+LABEL_112:
+
+LABEL_113:
+                  bleAddressData = [(CBDevice *)self btAddressData];
+                  if (!bleAddressData)
+                  {
+LABEL_129:
+
+                    bleAddressData = [(CBDevice *)self caseVersion];
+                    if (!bleAddressData)
+                    {
+LABEL_160:
+
+                      clickHoldModeLeft = [(CBDevice *)self clickHoldModeLeft];
+                      if (clickHoldModeLeft)
+                      {
+                        v58 = clickHoldModeLeft;
+                        clickHoldModeLeft2 = [deviceCopy clickHoldModeLeft];
+                        if (clickHoldModeLeft2)
+                        {
+                          if (clickHoldModeLeft2 == v58)
+                          {
+                            if (gLogCategory_CBDevice >= 31)
+                            {
+                              LOBYTE(v27) = 1;
+                              if (!matchCopy)
+                              {
+                                goto LABEL_1235;
+                              }
+                            }
+
+                            else if (gLogCategory_CBDevice != -1 || _LogCategory_Initialize())
+                            {
+                              [CBDevice isEqualToDevice:exactMatch:];
+                              LOBYTE(v27) = 1;
+                              if (!matchCopy)
+                              {
+                                goto LABEL_1235;
+                              }
+                            }
+
+                            else
+                            {
+                              LOBYTE(v27) = 1;
+                              if (!matchCopy)
+                              {
+                                goto LABEL_1235;
+                              }
+                            }
+                          }
+
+                          else
+                          {
+                            LOBYTE(v27) = 0;
+                          }
+                        }
+                      }
+
+                      v60 = [(CBDevice *)self clickHoldModeRight:v357];
+                      if (v60)
+                      {
+                        v61 = v60;
+                        clickHoldModeRight = [deviceCopy clickHoldModeRight];
+                        if (clickHoldModeRight)
+                        {
+                          if (clickHoldModeRight == v61)
+                          {
+                            if (gLogCategory_CBDevice >= 31)
+                            {
+                              LOBYTE(v27) = 1;
+                              if (!matchCopy)
+                              {
+                                goto LABEL_1235;
+                              }
+                            }
+
+                            else if (gLogCategory_CBDevice != -1 || _LogCategory_Initialize())
+                            {
+                              [CBDevice isEqualToDevice:exactMatch:];
+                              LOBYTE(v27) = 1;
+                              if (!matchCopy)
+                              {
+                                goto LABEL_1235;
+                              }
+                            }
+
+                            else
+                            {
+                              LOBYTE(v27) = 1;
+                              if (!matchCopy)
+                              {
+                                goto LABEL_1235;
+                              }
+                            }
+                          }
+
+                          else
+                          {
+                            LOBYTE(v27) = 0;
+                          }
+                        }
+                      }
+
+                      v63 = self->_contactID;
+                      if (!v63)
+                      {
+LABEL_201:
+
+                        conversationDetectCapability = [(CBDevice *)self conversationDetectCapability];
+                        if (!conversationDetectCapability)
+                        {
+                          goto LABEL_216;
+                        }
+
+                        v70 = conversationDetectCapability;
+                        conversationDetectCapability2 = [deviceCopy conversationDetectCapability];
+                        if (matchCopy)
+                        {
+                          if (!conversationDetectCapability2)
+                          {
+                            goto LABEL_216;
+                          }
+
+                          if (conversationDetectCapability2 == v70)
+                          {
+                            if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                            {
+                              [CBDevice isEqualToDevice:exactMatch:];
+                            }
+
+                            LOBYTE(v27) = 1;
+LABEL_216:
+                            v72 = [(CBDevice *)self conversationDetectConfig:v358];
+                            if (!v72)
+                            {
+                              goto LABEL_231;
+                            }
+
+                            v73 = v72;
+                            conversationDetectConfig = [deviceCopy conversationDetectConfig];
+                            if (matchCopy)
+                            {
+                              if (!conversationDetectConfig)
+                              {
+                                goto LABEL_231;
+                              }
+
+                              if (conversationDetectConfig == v73)
+                              {
+                                if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                {
+                                  [CBDevice isEqualToDevice:exactMatch:];
+                                }
+
+                                LOBYTE(v27) = 1;
+LABEL_231:
+                                crownRotationDirection = [(CBDevice *)self crownRotationDirection];
+                                if (crownRotationDirection == 1)
+                                {
+                                  v76 = @"BackToFront";
+                                }
+
+                                else
+                                {
+                                  v76 = @"?";
+                                }
+
+                                if (crownRotationDirection == 2)
+                                {
+                                  v77 = @"FrontToBack";
+                                }
+
+                                else
+                                {
+                                  v77 = v76;
+                                }
+
+                                if (!crownRotationDirection)
+                                {
+                                  goto LABEL_264;
+                                }
+
+                                v78 = crownRotationDirection;
+                                crownRotationDirection2 = [deviceCopy crownRotationDirection];
+                                if (matchCopy)
+                                {
+                                  if (!crownRotationDirection2)
+                                  {
+                                    goto LABEL_264;
+                                  }
+
+                                  if (crownRotationDirection2 == 1)
+                                  {
+                                    v80 = @"BackToFront";
+                                  }
+
+                                  else
+                                  {
+                                    v80 = @"?";
+                                  }
+
+                                  if (crownRotationDirection2 == 2)
+                                  {
+                                    v81 = @"FrontToBack";
+                                  }
+
+                                  else
+                                  {
+                                    v81 = v80;
+                                  }
+
+                                  if (crownRotationDirection2 == v78)
+                                  {
+                                    if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                    {
+                                      [CBDevice isEqualToDevice:v77 exactMatch:v81];
+                                    }
+
+                                    LOBYTE(v27) = 1;
+LABEL_264:
+                                    deviceType = self->_deviceType;
+                                    if (!deviceType)
+                                    {
+                                      goto LABEL_279;
+                                    }
+
+                                    deviceType = [deviceCopy deviceType];
+                                    if (matchCopy)
+                                    {
+                                      if (!deviceType)
+                                      {
+                                        goto LABEL_279;
+                                      }
+
+                                      if (deviceType == deviceType)
+                                      {
+                                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                        {
+                                          [CBDevice isEqualToDevice:? exactMatch:?];
+                                        }
+
+                                        LOBYTE(v27) = 1;
+LABEL_279:
+                                        doubleTapActionLeft = [(CBDevice *)self doubleTapActionLeft];
+                                        if (!doubleTapActionLeft)
+                                        {
+                                          goto LABEL_294;
+                                        }
+
+                                        v87 = doubleTapActionLeft;
+                                        doubleTapActionLeft2 = [deviceCopy doubleTapActionLeft];
+                                        if (matchCopy)
+                                        {
+                                          if (!doubleTapActionLeft2)
+                                          {
+                                            goto LABEL_294;
+                                          }
+
+                                          if (v87 == doubleTapActionLeft2)
+                                          {
+                                            if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                            {
+                                              [CBDevice isEqualToDevice:exactMatch:];
+                                            }
+
+                                            LOBYTE(v27) = 1;
+LABEL_294:
+                                            doubleTapActionRight = [(CBDevice *)self doubleTapActionRight];
+                                            if (!doubleTapActionRight)
+                                            {
+                                              goto LABEL_309;
+                                            }
+
+                                            v90 = doubleTapActionRight;
+                                            doubleTapActionRight2 = [deviceCopy doubleTapActionRight];
+                                            if (matchCopy)
+                                            {
+                                              if (!doubleTapActionRight2)
+                                              {
+                                                goto LABEL_309;
+                                              }
+
+                                              if (v90 == doubleTapActionRight2)
+                                              {
+                                                if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                {
+                                                  [CBDevice isEqualToDevice:exactMatch:];
+                                                }
+
+                                                LOBYTE(v27) = 1;
+LABEL_309:
+                                                doubleTapCapability = [(CBDevice *)self doubleTapCapability];
+                                                if (!doubleTapCapability)
+                                                {
+                                                  goto LABEL_324;
+                                                }
+
+                                                v93 = doubleTapCapability;
+                                                doubleTapCapability2 = [deviceCopy doubleTapCapability];
+                                                if (matchCopy)
+                                                {
+                                                  if (!doubleTapCapability2)
+                                                  {
+                                                    goto LABEL_324;
+                                                  }
+
+                                                  if (v93 == doubleTapCapability2)
+                                                  {
+                                                    if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                    {
+                                                      [CBDevice isEqualToDevice:exactMatch:];
+                                                    }
+
+                                                    LOBYTE(v27) = 1;
+LABEL_324:
+                                                    endCallCapability = [(CBDevice *)self endCallCapability];
+                                                    if (!endCallCapability)
+                                                    {
+                                                      goto LABEL_339;
+                                                    }
+
+                                                    v96 = endCallCapability;
+                                                    endCallCapability2 = [deviceCopy endCallCapability];
+                                                    if (matchCopy)
+                                                    {
+                                                      if (!endCallCapability2)
+                                                      {
+                                                        goto LABEL_339;
+                                                      }
+
+                                                      if (endCallCapability2 == v96)
+                                                      {
+                                                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                        {
+                                                          [CBDevice isEqualToDevice:exactMatch:];
+                                                        }
+
+                                                        LOBYTE(v27) = 1;
+LABEL_339:
+                                                        endCallConfig = [(CBDevice *)self endCallConfig];
+                                                        if (endCallConfig)
+                                                        {
+                                                          v99 = endCallConfig;
+                                                          endCallConfig2 = [deviceCopy endCallConfig];
+                                                          if (endCallConfig2)
+                                                          {
+                                                            if (endCallConfig2 == v99)
+                                                            {
+                                                              if (gLogCategory_CBDevice >= 31)
+                                                              {
+                                                                LOBYTE(v27) = 1;
+                                                                if (!matchCopy)
+                                                                {
+                                                                  goto LABEL_1235;
+                                                                }
+                                                              }
+
+                                                              else if (gLogCategory_CBDevice != -1 || _LogCategory_Initialize())
+                                                              {
+                                                                [CBDevice isEqualToDevice:exactMatch:];
+                                                                LOBYTE(v27) = 1;
+                                                                if (!matchCopy)
+                                                                {
+                                                                  goto LABEL_1235;
+                                                                }
+                                                              }
+
+                                                              else
+                                                              {
+                                                                LOBYTE(v27) = 1;
+                                                                if (!matchCopy)
+                                                                {
+                                                                  goto LABEL_1235;
+                                                                }
+                                                              }
+                                                            }
+
+                                                            else
+                                                            {
+                                                              LOBYTE(v27) = 0;
+                                                            }
+                                                          }
+                                                        }
+
+                                                        v101 = self->_firmwareVersion;
+                                                        if (!v101)
+                                                        {
+LABEL_381:
+
+                                                          frequencyBand = [(CBDevice *)self frequencyBand];
+                                                          if (frequencyBand == 1)
+                                                          {
+                                                            v106 = "2.4";
+                                                          }
+
+                                                          else
+                                                          {
+                                                            v106 = "?";
+                                                          }
+
+                                                          if (frequencyBand == 2)
+                                                          {
+                                                            v107 = "5";
+                                                          }
+
+                                                          else
+                                                          {
+                                                            v107 = v106;
+                                                          }
+
+                                                          if (!frequencyBand)
+                                                          {
+                                                            goto LABEL_418;
+                                                          }
+
+                                                          v108 = frequencyBand;
+                                                          frequencyBand2 = [deviceCopy frequencyBand];
+                                                          if (matchCopy)
+                                                          {
+                                                            if (!frequencyBand2)
+                                                            {
+                                                              goto LABEL_418;
+                                                            }
+
+                                                            if (frequencyBand2 == 1)
+                                                            {
+                                                              v110 = "2.4";
+                                                            }
+
+                                                            else
+                                                            {
+                                                              v110 = "?";
+                                                            }
+
+                                                            if (frequencyBand2 == 2)
+                                                            {
+                                                              v111 = "5";
+                                                            }
+
+                                                            else
+                                                            {
+                                                              v111 = v110;
+                                                            }
+
+                                                            if (frequencyBand2 == v108)
+                                                            {
+                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                              {
+                                                                v359 = v107;
+                                                                v378 = v111;
+                                                                LogPrintF_safe();
+                                                              }
+
+                                                              LOBYTE(v27) = 1;
+LABEL_418:
+                                                              v112 = [(CBDevice *)self gfpModelID:v359];
+                                                              if (!v112)
+                                                              {
+                                                                goto LABEL_433;
+                                                              }
+
+                                                              v113 = v112;
+                                                              gfpModelID = [deviceCopy gfpModelID];
+                                                              if (matchCopy)
+                                                              {
+                                                                if (!gfpModelID)
+                                                                {
+                                                                  goto LABEL_433;
+                                                                }
+
+                                                                if (v113 == gfpModelID)
+                                                                {
+                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                  {
+                                                                    [CBDevice isEqualToDevice:exactMatch:];
+                                                                  }
+
+                                                                  LOBYTE(v27) = 1;
+LABEL_433:
+                                                                  hearingAidSupport = [(CBDevice *)self hearingAidSupport];
+                                                                  if (hearingAidSupport == 1)
+                                                                  {
+                                                                    v116 = "Yes";
+                                                                  }
+
+                                                                  else
+                                                                  {
+                                                                    v116 = "?";
+                                                                  }
+
+                                                                  if (hearingAidSupport == 2)
+                                                                  {
+                                                                    v117 = "No";
+                                                                  }
+
+                                                                  else
+                                                                  {
+                                                                    v117 = v116;
+                                                                  }
+
+                                                                  if (!hearingAidSupport)
+                                                                  {
+                                                                    goto LABEL_463;
+                                                                  }
+
+                                                                  v118 = hearingAidSupport;
+                                                                  hearingAidSupport2 = [deviceCopy hearingAidSupport];
+                                                                  if (matchCopy)
+                                                                  {
+                                                                    if (hearingAidSupport2)
+                                                                    {
+                                                                      if (hearingAidSupport2 == 1)
+                                                                      {
+                                                                        v120 = "Yes";
+                                                                      }
+
+                                                                      else
+                                                                      {
+                                                                        v120 = "?";
+                                                                      }
+
+                                                                      if (hearingAidSupport2 == 2)
+                                                                      {
+                                                                        v121 = "No";
+                                                                      }
+
+                                                                      else
+                                                                      {
+                                                                        v121 = v120;
+                                                                      }
+
+                                                                      if (v118 == hearingAidSupport2)
+                                                                      {
+                                                                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                        {
+                                                                          v360 = v117;
+                                                                          v379 = v121;
+                                                                          LogPrintF_safe();
+                                                                        }
+
+                                                                        LOBYTE(v27) = 1;
+                                                                        goto LABEL_463;
+                                                                      }
+
+                                                                      goto LABEL_454;
+                                                                    }
+                                                                  }
+
+                                                                  else if (hearingAidSupport2)
+                                                                  {
+                                                                    if (v118 == hearingAidSupport2)
+                                                                    {
+                                                                      goto LABEL_484;
+                                                                    }
+
+LABEL_454:
+                                                                    LOBYTE(v27) = 0;
+                                                                  }
+
+LABEL_463:
+                                                                  v122 = [(CBDevice *)self hearingTestSupport:v360];
+                                                                  if (v122 == 1)
+                                                                  {
+                                                                    v123 = "Yes";
+                                                                  }
+
+                                                                  else
+                                                                  {
+                                                                    v123 = "?";
+                                                                  }
+
+                                                                  if (v122 == 2)
+                                                                  {
+                                                                    v124 = "No";
+                                                                  }
+
+                                                                  else
+                                                                  {
+                                                                    v124 = v123;
+                                                                  }
+
+                                                                  if (!v122)
+                                                                  {
+                                                                    goto LABEL_493;
+                                                                  }
+
+                                                                  v125 = v122;
+                                                                  hearingTestSupport = [deviceCopy hearingTestSupport];
+                                                                  if (matchCopy)
+                                                                  {
+                                                                    if (!hearingTestSupport)
+                                                                    {
+                                                                      goto LABEL_493;
+                                                                    }
+
+                                                                    if (hearingTestSupport == 1)
+                                                                    {
+                                                                      v127 = "Yes";
+                                                                    }
+
+                                                                    else
+                                                                    {
+                                                                      v127 = "?";
+                                                                    }
+
+                                                                    if (hearingTestSupport == 2)
+                                                                    {
+                                                                      v128 = "No";
+                                                                    }
+
+                                                                    else
+                                                                    {
+                                                                      v128 = v127;
+                                                                    }
+
+                                                                    if (v125 == hearingTestSupport)
+                                                                    {
+                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                      {
+                                                                        v361 = v124;
+                                                                        v380 = v128;
+                                                                        LogPrintF_safe();
+                                                                      }
+
+                                                                      LOBYTE(v27) = 1;
+LABEL_493:
+                                                                      v129 = self->_identifier;
+                                                                      if (!v129)
+                                                                      {
+                                                                        goto LABEL_512;
+                                                                      }
+
+                                                                      identifier = [deviceCopy identifier];
+                                                                      if (identifier)
+                                                                      {
+                                                                        v65 = v129;
+                                                                        v131 = identifier;
+                                                                        v67 = v131;
+                                                                        if (v129 == identifier)
+                                                                        {
+
+                                                                          if (!matchCopy)
+                                                                          {
+                                                                            if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                            {
+                                                                              goto LABEL_1233;
+                                                                            }
+
+                                                                            goto LABEL_1232;
+                                                                          }
+
+                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                          {
+                                                                            v361 = v65;
+                                                                            v380 = v67;
+                                                                            LogPrintF_safe();
+                                                                          }
+
+                                                                          goto LABEL_510;
+                                                                        }
+
+                                                                        v132 = [(NSString *)v65 isEqual:v131];
+
+                                                                        if (v132)
+                                                                        {
+                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                          {
+                                                                            v361 = v65;
+                                                                            v380 = v67;
+                                                                            LogPrintF_safe();
+                                                                          }
+
+                                                                          if (!matchCopy)
+                                                                          {
+                                                                            goto LABEL_1233;
+                                                                          }
+
+LABEL_510:
+                                                                          LOBYTE(v27) = 1;
+                                                                          goto LABEL_511;
+                                                                        }
+
+                                                                        LOBYTE(v27) = 0;
+                                                                      }
+
+LABEL_511:
+
+LABEL_512:
+                                                                      v133 = self->_idsDeviceID;
+                                                                      if (!v133)
+                                                                      {
+                                                                        goto LABEL_531;
+                                                                      }
+
+                                                                      idsDeviceID = [deviceCopy idsDeviceID];
+                                                                      if (idsDeviceID)
+                                                                      {
+                                                                        v65 = v133;
+                                                                        v135 = idsDeviceID;
+                                                                        v67 = v135;
+                                                                        if (v133 == idsDeviceID)
+                                                                        {
+
+                                                                          if (!matchCopy)
+                                                                          {
+                                                                            if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                            {
+                                                                              goto LABEL_1233;
+                                                                            }
+
+                                                                            goto LABEL_1232;
+                                                                          }
+
+                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                          {
+                                                                            v361 = v65;
+                                                                            v380 = v67;
+                                                                            LogPrintF_safe();
+                                                                          }
+
+                                                                          goto LABEL_529;
+                                                                        }
+
+                                                                        v136 = [(NSString *)v65 isEqual:v135];
+
+                                                                        if (v136)
+                                                                        {
+                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                          {
+                                                                            v361 = v65;
+                                                                            v380 = v67;
+                                                                            LogPrintF_safe();
+                                                                          }
+
+                                                                          if (!matchCopy)
+                                                                          {
+                                                                            goto LABEL_1233;
+                                                                          }
+
+LABEL_529:
+                                                                          LOBYTE(v27) = 1;
+                                                                          goto LABEL_530;
+                                                                        }
+
+                                                                        LOBYTE(v27) = 0;
+                                                                      }
+
+LABEL_530:
+
+LABEL_531:
+                                                                      interval = self->_interval;
+                                                                      if (!self->_interval)
+                                                                      {
+                                                                        goto LABEL_551;
+                                                                      }
+
+                                                                      interval = [deviceCopy interval];
+                                                                      v139 = interval;
+                                                                      if (matchCopy)
+                                                                      {
+                                                                        if (!interval)
+                                                                        {
+                                                                          goto LABEL_551;
+                                                                        }
+
+                                                                        if (interval == interval)
+                                                                        {
+                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                          {
+                                                                            v361 = interval;
+                                                                            v380 = v139;
+                                                                            LogPrintF_safe();
+                                                                          }
+
+                                                                          LOBYTE(v27) = 1;
+LABEL_551:
+                                                                          v140 = [(CBDevice *)self leAdvName:v361];
+                                                                          if (!v140)
+                                                                          {
+                                                                            goto LABEL_570;
+                                                                          }
+
+                                                                          leAdvName = [deviceCopy leAdvName];
+                                                                          if (leAdvName)
+                                                                          {
+                                                                            v65 = v140;
+                                                                            v142 = leAdvName;
+                                                                            v67 = v142;
+                                                                            if (v140 == leAdvName)
+                                                                            {
+
+                                                                              if (!matchCopy)
+                                                                              {
+                                                                                if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                {
+                                                                                  goto LABEL_1233;
+                                                                                }
+
+                                                                                goto LABEL_1232;
+                                                                              }
+
+                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                              {
+                                                                                v362 = v65;
+                                                                                v381 = v67;
+                                                                                LogPrintF_safe();
+                                                                              }
+
+                                                                              goto LABEL_568;
+                                                                            }
+
+                                                                            v143 = [(NSString *)v65 isEqual:v142];
+
+                                                                            if (v143)
+                                                                            {
+                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                              {
+                                                                                v362 = v65;
+                                                                                v381 = v67;
+                                                                                LogPrintF_safe();
+                                                                              }
+
+                                                                              if (!matchCopy)
+                                                                              {
+                                                                                goto LABEL_1233;
+                                                                              }
+
+LABEL_568:
+                                                                              LOBYTE(v27) = 1;
+                                                                              goto LABEL_569;
+                                                                            }
+
+                                                                            LOBYTE(v27) = 0;
+                                                                          }
+
+LABEL_569:
+
+LABEL_570:
+                                                                          listeningMode = [(CBDevice *)self listeningMode];
+                                                                          if (!listeningMode)
+                                                                          {
+                                                                            goto LABEL_585;
+                                                                          }
+
+                                                                          v145 = listeningMode;
+                                                                          listeningMode2 = [deviceCopy listeningMode];
+                                                                          if (matchCopy)
+                                                                          {
+                                                                            if (!listeningMode2)
+                                                                            {
+                                                                              goto LABEL_585;
+                                                                            }
+
+                                                                            if (v145 == listeningMode2)
+                                                                            {
+                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                              {
+                                                                                [CBDevice isEqualToDevice:exactMatch:];
+                                                                              }
+
+                                                                              LOBYTE(v27) = 1;
+LABEL_585:
+                                                                              v147 = [(CBDevice *)self microphoneMode:v362];
+                                                                              if (!v147)
+                                                                              {
+                                                                                goto LABEL_600;
+                                                                              }
+
+                                                                              v148 = v147;
+                                                                              microphoneMode = [deviceCopy microphoneMode];
+                                                                              if (matchCopy)
+                                                                              {
+                                                                                if (!microphoneMode)
+                                                                                {
+                                                                                  goto LABEL_600;
+                                                                                }
+
+                                                                                if (v148 == microphoneMode)
+                                                                                {
+                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                  {
+                                                                                    [CBDevice isEqualToDevice:exactMatch:];
+                                                                                  }
+
+                                                                                  LOBYTE(v27) = 1;
+LABEL_600:
+                                                                                  model = [(CBDevice *)self model];
+                                                                                  if (!model)
+                                                                                  {
+                                                                                    goto LABEL_629;
+                                                                                  }
+
+                                                                                  model2 = [deviceCopy model];
+                                                                                  if (model2)
+                                                                                  {
+                                                                                    v65 = model;
+                                                                                    v152 = model2;
+                                                                                    v67 = v152;
+                                                                                    if (model == model2)
+                                                                                    {
+
+                                                                                      if (!matchCopy)
+                                                                                      {
+                                                                                        if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                        {
+                                                                                          goto LABEL_1233;
+                                                                                        }
+
+                                                                                        goto LABEL_1232;
+                                                                                      }
+
+                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                      {
+                                                                                        v363 = v65;
+                                                                                        v382 = v67;
+                                                                                        LogPrintF_safe();
+                                                                                      }
+
+                                                                                      goto LABEL_627;
+                                                                                    }
+
+                                                                                    v153 = [(NSString *)v65 isEqual:v152];
+
+                                                                                    if (v153)
+                                                                                    {
+                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                      {
+                                                                                        v363 = v65;
+                                                                                        v382 = v67;
+                                                                                        LogPrintF_safe();
+                                                                                      }
+
+                                                                                      if (!matchCopy)
+                                                                                      {
+                                                                                        goto LABEL_1233;
+                                                                                      }
+
+LABEL_627:
+                                                                                      LOBYTE(v27) = 1;
+                                                                                      goto LABEL_628;
+                                                                                    }
+
+                                                                                    LOBYTE(v27) = 0;
+                                                                                  }
+
+LABEL_628:
+
+LABEL_629:
+                                                                                  modelUser = [(CBDevice *)self modelUser];
+                                                                                  if (!modelUser)
+                                                                                  {
+                                                                                    goto LABEL_649;
+                                                                                  }
+
+                                                                                  modelUser2 = [deviceCopy modelUser];
+                                                                                  if (modelUser2)
+                                                                                  {
+                                                                                    v65 = modelUser;
+                                                                                    v156 = modelUser2;
+                                                                                    v67 = v156;
+                                                                                    if (modelUser == modelUser2)
+                                                                                    {
+
+                                                                                      if (!matchCopy)
+                                                                                      {
+                                                                                        if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                        {
+                                                                                          goto LABEL_1233;
+                                                                                        }
+
+                                                                                        goto LABEL_1232;
+                                                                                      }
+
+                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                      {
+                                                                                        v363 = v65;
+                                                                                        v382 = v67;
+                                                                                        LogPrintF_safe();
+                                                                                      }
+
+                                                                                      goto LABEL_647;
+                                                                                    }
+
+                                                                                    v157 = [(NSString *)v65 isEqual:v156];
+
+                                                                                    if (v157)
+                                                                                    {
+                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                      {
+                                                                                        v363 = v65;
+                                                                                        v382 = v67;
+                                                                                        LogPrintF_safe();
+                                                                                      }
+
+                                                                                      if (!matchCopy)
+                                                                                      {
+                                                                                        goto LABEL_1233;
+                                                                                      }
+
+LABEL_647:
+                                                                                      LOBYTE(v27) = 1;
+                                                                                      goto LABEL_648;
+                                                                                    }
+
+                                                                                    LOBYTE(v27) = 0;
+                                                                                  }
+
+LABEL_648:
+
+LABEL_649:
+                                                                                  mspAddressData = [(CBDevice *)self mspAddressData];
+                                                                                  if (!mspAddressData)
+                                                                                  {
+                                                                                    goto LABEL_665;
+                                                                                  }
+
+                                                                                  mspAddressData2 = [deviceCopy mspAddressData];
+                                                                                  if (mspAddressData2)
+                                                                                  {
+                                                                                    v65 = mspAddressData;
+                                                                                    v160 = mspAddressData2;
+                                                                                    v67 = v160;
+                                                                                    if (mspAddressData == mspAddressData2)
+                                                                                    {
+
+                                                                                      if (!matchCopy)
+                                                                                      {
+                                                                                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                        {
+                                                                                          [CBDevice isEqualToDevice:v65 exactMatch:v67];
+                                                                                        }
+
+                                                                                        goto LABEL_1233;
+                                                                                      }
+
+                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                      {
+                                                                                        [CBDevice isEqualToDevice:v65 exactMatch:v67];
+                                                                                      }
+                                                                                    }
+
+                                                                                    else
+                                                                                    {
+                                                                                      v161 = [(NSString *)v65 isEqual:v160];
+
+                                                                                      if (!v161)
+                                                                                      {
+                                                                                        LOBYTE(v27) = 0;
+                                                                                        goto LABEL_664;
+                                                                                      }
+
+                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                      {
+                                                                                        [CBDevice isEqualToDevice:v65 exactMatch:v67];
+                                                                                        if (!matchCopy)
+                                                                                        {
+                                                                                          goto LABEL_1233;
+                                                                                        }
+                                                                                      }
+
+                                                                                      else if (!matchCopy)
+                                                                                      {
+                                                                                        goto LABEL_1233;
+                                                                                      }
+                                                                                    }
+
+                                                                                    LOBYTE(v27) = 1;
+                                                                                  }
+
+LABEL_664:
+
+LABEL_665:
+                                                                                  mspDeviceClass = [(CBDevice *)self mspDeviceClass];
+                                                                                  if (!mspDeviceClass)
+                                                                                  {
+                                                                                    goto LABEL_680;
+                                                                                  }
+
+                                                                                  v163 = mspDeviceClass;
+                                                                                  mspDeviceClass2 = [deviceCopy mspDeviceClass];
+                                                                                  if (matchCopy)
+                                                                                  {
+                                                                                    if (!mspDeviceClass2)
+                                                                                    {
+                                                                                      goto LABEL_680;
+                                                                                    }
+
+                                                                                    if (v163 == mspDeviceClass2)
+                                                                                    {
+                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                      {
+                                                                                        [CBDevice isEqualToDevice:exactMatch:];
+                                                                                      }
+
+                                                                                      LOBYTE(v27) = 1;
+LABEL_680:
+                                                                                      v165 = [(CBDevice *)self mspDisplayName:v363];
+                                                                                      if (!v165)
+                                                                                      {
+                                                                                        goto LABEL_715;
+                                                                                      }
+
+                                                                                      mspDisplayName = [deviceCopy mspDisplayName];
+                                                                                      if (mspDisplayName)
+                                                                                      {
+                                                                                        v65 = v165;
+                                                                                        v167 = mspDisplayName;
+                                                                                        v67 = v167;
+                                                                                        if (v165 == mspDisplayName)
+                                                                                        {
+
+                                                                                          if (!matchCopy)
+                                                                                          {
+                                                                                            if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                            {
+                                                                                              goto LABEL_1233;
+                                                                                            }
+
+                                                                                            goto LABEL_1232;
+                                                                                          }
+
+                                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                          {
+                                                                                            v364 = v65;
+                                                                                            v383 = v67;
+                                                                                            LogPrintF_safe();
+                                                                                          }
+
+                                                                                          goto LABEL_713;
+                                                                                        }
+
+                                                                                        v168 = [(NSString *)v65 isEqual:v167];
+
+                                                                                        if (v168)
+                                                                                        {
+                                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                          {
+                                                                                            v364 = v65;
+                                                                                            v383 = v67;
+                                                                                            LogPrintF_safe();
+                                                                                          }
+
+                                                                                          if (!matchCopy)
+                                                                                          {
+                                                                                            goto LABEL_1233;
+                                                                                          }
+
+LABEL_713:
+                                                                                          LOBYTE(v27) = 1;
+                                                                                          goto LABEL_714;
+                                                                                        }
+
+                                                                                        LOBYTE(v27) = 0;
+                                                                                      }
+
+LABEL_714:
+
+LABEL_715:
+                                                                                      mspSubScenario = [(CBDevice *)self mspSubScenario];
+                                                                                      if (mspSubScenario == 1)
+                                                                                      {
+                                                                                        v170 = "Clsc";
+                                                                                      }
+
+                                                                                      else
+                                                                                      {
+                                                                                        v170 = "?";
+                                                                                      }
+
+                                                                                      if (mspSubScenario == 2)
+                                                                                      {
+                                                                                        v171 = "B+C";
+                                                                                      }
+
+                                                                                      else
+                                                                                      {
+                                                                                        v171 = v170;
+                                                                                      }
+
+                                                                                      if (!mspSubScenario)
+                                                                                      {
+                                                                                        goto LABEL_747;
+                                                                                      }
+
+                                                                                      v172 = mspSubScenario;
+                                                                                      mspSubScenario2 = [deviceCopy mspSubScenario];
+                                                                                      if (matchCopy)
+                                                                                      {
+                                                                                        if (!mspSubScenario2)
+                                                                                        {
+                                                                                          goto LABEL_747;
+                                                                                        }
+
+                                                                                        if (mspSubScenario2 == 1)
+                                                                                        {
+                                                                                          v174 = "Clsc";
+                                                                                        }
+
+                                                                                        else
+                                                                                        {
+                                                                                          v174 = "?";
+                                                                                        }
+
+                                                                                        if (mspSubScenario2 == 2)
+                                                                                        {
+                                                                                          v175 = "B+C";
+                                                                                        }
+
+                                                                                        else
+                                                                                        {
+                                                                                          v175 = v174;
+                                                                                        }
+
+                                                                                        if (mspSubScenario2 == v172)
+                                                                                        {
+                                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                          {
+                                                                                            v364 = v171;
+                                                                                            v383 = v175;
+                                                                                            LogPrintF_safe();
+                                                                                          }
+
+                                                                                          LOBYTE(v27) = 1;
+LABEL_747:
+                                                                                          v176 = [(CBDevice *)self muteControlCapability:v364];
+                                                                                          if (!v176)
+                                                                                          {
+                                                                                            goto LABEL_762;
+                                                                                          }
+
+                                                                                          v177 = v176;
+                                                                                          muteControlCapability = [deviceCopy muteControlCapability];
+                                                                                          if (matchCopy)
+                                                                                          {
+                                                                                            if (!muteControlCapability)
+                                                                                            {
+                                                                                              goto LABEL_762;
+                                                                                            }
+
+                                                                                            if (muteControlCapability == v177)
+                                                                                            {
+                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                              {
+                                                                                                [CBDevice isEqualToDevice:exactMatch:];
+                                                                                              }
+
+                                                                                              LOBYTE(v27) = 1;
+LABEL_762:
+                                                                                              muteControlConfig = [(CBDevice *)self muteControlConfig];
+                                                                                              if (muteControlConfig)
+                                                                                              {
+                                                                                                v180 = muteControlConfig;
+                                                                                                muteControlConfig2 = [deviceCopy muteControlConfig];
+                                                                                                if (muteControlConfig2)
+                                                                                                {
+                                                                                                  if (muteControlConfig2 == v180)
+                                                                                                  {
+                                                                                                    if (gLogCategory_CBDevice >= 31)
+                                                                                                    {
+                                                                                                      LOBYTE(v27) = 1;
+                                                                                                      if (!matchCopy)
+                                                                                                      {
+                                                                                                        goto LABEL_1235;
+                                                                                                      }
+                                                                                                    }
+
+                                                                                                    else if (gLogCategory_CBDevice != -1 || _LogCategory_Initialize())
+                                                                                                    {
+                                                                                                      [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                      LOBYTE(v27) = 1;
+                                                                                                      if (!matchCopy)
+                                                                                                      {
+                                                                                                        goto LABEL_1235;
+                                                                                                      }
+                                                                                                    }
+
+                                                                                                    else
+                                                                                                    {
+                                                                                                      LOBYTE(v27) = 1;
+                                                                                                      if (!matchCopy)
+                                                                                                      {
+                                                                                                        goto LABEL_1235;
+                                                                                                      }
+                                                                                                    }
+                                                                                                  }
+
+                                                                                                  else
+                                                                                                  {
+                                                                                                    LOBYTE(v27) = 0;
+                                                                                                  }
+                                                                                                }
+                                                                                              }
+
+                                                                                              v182 = self->_name;
+                                                                                              if (!v182)
+                                                                                              {
+LABEL_794:
+
+                                                                                                placementMode = [(CBDevice *)self placementMode];
+                                                                                                v187 = "Enabled";
+                                                                                                if (placementMode != 1)
+                                                                                                {
+                                                                                                  v187 = "?";
+                                                                                                }
+
+                                                                                                if (placementMode == 2)
+                                                                                                {
+                                                                                                  v188 = "Disabled";
+                                                                                                }
+
+                                                                                                else
+                                                                                                {
+                                                                                                  v188 = v187;
+                                                                                                }
+
+                                                                                                if (placementMode)
+                                                                                                {
+                                                                                                  v189 = placementMode;
+                                                                                                  placementMode2 = [deviceCopy placementMode];
+                                                                                                  if (matchCopy)
+                                                                                                  {
+                                                                                                    if (!placementMode2)
+                                                                                                    {
+                                                                                                      goto LABEL_824;
+                                                                                                    }
+
+                                                                                                    v191 = "Enabled";
+                                                                                                    if (placementMode2 != 1)
+                                                                                                    {
+                                                                                                      v191 = "?";
+                                                                                                    }
+
+                                                                                                    if (placementMode2 == 2)
+                                                                                                    {
+                                                                                                      v192 = "Disabled";
+                                                                                                    }
+
+                                                                                                    else
+                                                                                                    {
+                                                                                                      v192 = v191;
+                                                                                                    }
+
+                                                                                                    if (v189 == placementMode2)
+                                                                                                    {
+                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                      {
+                                                                                                        v365 = v188;
+                                                                                                        v384 = v192;
+                                                                                                        LogPrintF_safe();
+                                                                                                      }
+
+                                                                                                      LOBYTE(v27) = 1;
+                                                                                                      goto LABEL_824;
+                                                                                                    }
+                                                                                                  }
+
+                                                                                                  else
+                                                                                                  {
+                                                                                                    if (!placementMode2)
+                                                                                                    {
+                                                                                                      goto LABEL_824;
+                                                                                                    }
+
+                                                                                                    if (v189 == placementMode2)
+                                                                                                    {
+                                                                                                      if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                      {
+                                                                                                        goto LABEL_1234;
+                                                                                                      }
+
+                                                                                                      goto LABEL_1627;
+                                                                                                    }
+                                                                                                  }
+
+                                                                                                  LOBYTE(v27) = 0;
+                                                                                                }
+
+LABEL_824:
+                                                                                                v193 = [(CBDevice *)self primaryBudSide:v365];
+                                                                                                if (v193 == 2)
+                                                                                                {
+                                                                                                  v194 = "Right";
+                                                                                                }
+
+                                                                                                else
+                                                                                                {
+                                                                                                  v194 = "?";
+                                                                                                }
+
+                                                                                                if (v193 == 1)
+                                                                                                {
+                                                                                                  v195 = "Left";
+                                                                                                }
+
+                                                                                                else
+                                                                                                {
+                                                                                                  v195 = v194;
+                                                                                                }
+
+                                                                                                if (!v193 || v193 == 3)
+                                                                                                {
+                                                                                                  goto LABEL_832;
+                                                                                                }
+
+                                                                                                v199 = v193;
+                                                                                                primaryBudSide = [deviceCopy primaryBudSide];
+                                                                                                if (primaryBudSide == 2)
+                                                                                                {
+                                                                                                  v201 = "Right";
+                                                                                                }
+
+                                                                                                else
+                                                                                                {
+                                                                                                  v201 = "?";
+                                                                                                }
+
+                                                                                                if (primaryBudSide == 1)
+                                                                                                {
+                                                                                                  v202 = "Left";
+                                                                                                }
+
+                                                                                                else
+                                                                                                {
+                                                                                                  v202 = v201;
+                                                                                                }
+
+                                                                                                if (matchCopy)
+                                                                                                {
+                                                                                                  if (!primaryBudSide || primaryBudSide == 3)
+                                                                                                  {
+                                                                                                    goto LABEL_832;
+                                                                                                  }
+
+                                                                                                  if (primaryBudSide == v199)
+                                                                                                  {
+                                                                                                    if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                    {
+                                                                                                      v366 = v195;
+                                                                                                      v385 = v202;
+                                                                                                      LogPrintF_safe();
+                                                                                                    }
+
+                                                                                                    LOBYTE(v27) = 1;
+LABEL_832:
+                                                                                                    v196 = [(CBDevice *)self primaryPlacement:v366];
+                                                                                                    if (!v196)
+                                                                                                    {
+                                                                                                      goto LABEL_860;
+                                                                                                    }
+
+                                                                                                    v197 = v196;
+                                                                                                    primaryPlacement = [deviceCopy primaryPlacement];
+                                                                                                    if (matchCopy)
+                                                                                                    {
+                                                                                                      if (!primaryPlacement)
+                                                                                                      {
+                                                                                                        goto LABEL_860;
+                                                                                                      }
+
+                                                                                                      if (v197 == primaryPlacement)
+                                                                                                      {
+                                                                                                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                        {
+                                                                                                          [CBDevice isEqualToDevice:v197 exactMatch:?];
+                                                                                                        }
+
+                                                                                                        LOBYTE(v27) = 1;
+LABEL_860:
+                                                                                                        productID = self->_productID;
+                                                                                                        if (!productID)
+                                                                                                        {
+                                                                                                          goto LABEL_875;
+                                                                                                        }
+
+                                                                                                        productID = [deviceCopy productID];
+                                                                                                        if (matchCopy)
+                                                                                                        {
+                                                                                                          if (!productID)
+                                                                                                          {
+                                                                                                            goto LABEL_875;
+                                                                                                          }
+
+                                                                                                          if (productID == productID)
+                                                                                                          {
+                                                                                                            if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                            {
+                                                                                                              [CBDevice isEqualToDevice:? exactMatch:?];
+                                                                                                            }
+
+                                                                                                            LOBYTE(v27) = 1;
+LABEL_875:
+                                                                                                            v205 = self->_productName;
+                                                                                                            if (!v205)
+                                                                                                            {
+                                                                                                              goto LABEL_905;
+                                                                                                            }
+
+                                                                                                            productName = [deviceCopy productName];
+                                                                                                            v207 = productName;
+                                                                                                            if (matchCopy)
+                                                                                                            {
+                                                                                                              if (productName)
+                                                                                                              {
+                                                                                                                v208 = v205;
+                                                                                                                v209 = v207;
+                                                                                                                v210 = v209;
+                                                                                                                if (v205 == v207)
+                                                                                                                {
+                                                                                                                }
+
+                                                                                                                else
+                                                                                                                {
+                                                                                                                  v211 = [(NSString *)v208 isEqual:v209];
+
+                                                                                                                  if (!v211)
+                                                                                                                  {
+                                                                                                                    LOBYTE(v27) = 0;
+                                                                                                                    goto LABEL_904;
+                                                                                                                  }
+                                                                                                                }
+
+                                                                                                                if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                {
+                                                                                                                  v367 = v208;
+                                                                                                                  v386 = v210;
+                                                                                                                  LogPrintF_safe();
+                                                                                                                }
+
+                                                                                                                LOBYTE(v27) = 1;
+                                                                                                              }
+
+LABEL_904:
+
+LABEL_905:
+                                                                                                              secondaryPlacement = [(CBDevice *)self secondaryPlacement];
+                                                                                                              if (!secondaryPlacement)
+                                                                                                              {
+                                                                                                                goto LABEL_920;
+                                                                                                              }
+
+                                                                                                              v216 = secondaryPlacement;
+                                                                                                              secondaryPlacement2 = [deviceCopy secondaryPlacement];
+                                                                                                              if (matchCopy)
+                                                                                                              {
+                                                                                                                if (!secondaryPlacement2)
+                                                                                                                {
+                                                                                                                  goto LABEL_920;
+                                                                                                                }
+
+                                                                                                                if (v216 == secondaryPlacement2)
+                                                                                                                {
+                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                  {
+                                                                                                                    [CBDevice isEqualToDevice:v216 exactMatch:?];
+                                                                                                                  }
+
+                                                                                                                  LOBYTE(v27) = 1;
+LABEL_920:
+                                                                                                                  v218 = [(CBDevice *)self selectiveSpeechListeningCapability:v367];
+                                                                                                                  if (v218 == 1)
+                                                                                                                  {
+                                                                                                                    v219 = @"Enabled";
+                                                                                                                  }
+
+                                                                                                                  else
+                                                                                                                  {
+                                                                                                                    v219 = @"?";
+                                                                                                                  }
+
+                                                                                                                  if (!v218)
+                                                                                                                  {
+                                                                                                                    goto LABEL_944;
+                                                                                                                  }
+
+                                                                                                                  v220 = v218;
+                                                                                                                  selectiveSpeechListeningCapability = [deviceCopy selectiveSpeechListeningCapability];
+                                                                                                                  if (matchCopy)
+                                                                                                                  {
+                                                                                                                    if (!selectiveSpeechListeningCapability)
+                                                                                                                    {
+                                                                                                                      goto LABEL_944;
+                                                                                                                    }
+
+                                                                                                                    if (selectiveSpeechListeningCapability == 1)
+                                                                                                                    {
+                                                                                                                      v222 = @"Enabled";
+                                                                                                                    }
+
+                                                                                                                    else
+                                                                                                                    {
+                                                                                                                      v222 = @"?";
+                                                                                                                    }
+
+                                                                                                                    if (selectiveSpeechListeningCapability == v220)
+                                                                                                                    {
+                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                      {
+                                                                                                                        [CBDevice isEqualToDevice:v219 exactMatch:v222];
+                                                                                                                      }
+
+                                                                                                                      LOBYTE(v27) = 1;
+LABEL_944:
+                                                                                                                      selectiveSpeechListeningConfig = [(CBDevice *)self selectiveSpeechListeningConfig];
+                                                                                                                      if (!selectiveSpeechListeningConfig)
+                                                                                                                      {
+                                                                                                                        goto LABEL_959;
+                                                                                                                      }
+
+                                                                                                                      v225 = selectiveSpeechListeningConfig;
+                                                                                                                      selectiveSpeechListeningConfig2 = [deviceCopy selectiveSpeechListeningConfig];
+                                                                                                                      if (matchCopy)
+                                                                                                                      {
+                                                                                                                        if (!selectiveSpeechListeningConfig2)
+                                                                                                                        {
+                                                                                                                          goto LABEL_959;
+                                                                                                                        }
+
+                                                                                                                        if (selectiveSpeechListeningConfig2 == v225)
+                                                                                                                        {
+                                                                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                          {
+                                                                                                                            [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                          }
+
+                                                                                                                          LOBYTE(v27) = 1;
+LABEL_959:
+                                                                                                                          serialNumber = [(CBDevice *)self serialNumber];
+                                                                                                                          if (!serialNumber)
+                                                                                                                          {
+                                                                                                                            goto LABEL_987;
+                                                                                                                          }
+
+                                                                                                                          serialNumber2 = [deviceCopy serialNumber];
+                                                                                                                          if (serialNumber2)
+                                                                                                                          {
+                                                                                                                            v65 = serialNumber;
+                                                                                                                            v229 = serialNumber2;
+                                                                                                                            v67 = v229;
+                                                                                                                            if (serialNumber == serialNumber2)
+                                                                                                                            {
+
+                                                                                                                              if (!matchCopy)
+                                                                                                                              {
+                                                                                                                                if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                {
+                                                                                                                                  goto LABEL_1233;
+                                                                                                                                }
+
+                                                                                                                                goto LABEL_1232;
+                                                                                                                              }
+
+                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                              {
+                                                                                                                                v368 = v65;
+                                                                                                                                v387 = v67;
+                                                                                                                                LogPrintF_safe();
+                                                                                                                              }
+
+                                                                                                                              goto LABEL_985;
+                                                                                                                            }
+
+                                                                                                                            v230 = [(NSString *)v65 isEqual:v229];
+
+                                                                                                                            if (v230)
+                                                                                                                            {
+                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                              {
+                                                                                                                                v368 = v65;
+                                                                                                                                v387 = v67;
+                                                                                                                                LogPrintF_safe();
+                                                                                                                              }
+
+                                                                                                                              if (!matchCopy)
+                                                                                                                              {
+                                                                                                                                goto LABEL_1233;
+                                                                                                                              }
+
+LABEL_985:
+                                                                                                                              LOBYTE(v27) = 1;
+                                                                                                                              goto LABEL_986;
+                                                                                                                            }
+
+                                                                                                                            LOBYTE(v27) = 0;
+                                                                                                                          }
+
+LABEL_986:
+
+LABEL_987:
+                                                                                                                          serialNumberLeft = [(CBDevice *)self serialNumberLeft];
+                                                                                                                          if (!serialNumberLeft)
+                                                                                                                          {
+                                                                                                                            goto LABEL_1008;
+                                                                                                                          }
+
+                                                                                                                          serialNumberLeft2 = [deviceCopy serialNumberLeft];
+                                                                                                                          if (serialNumberLeft2)
+                                                                                                                          {
+                                                                                                                            v65 = serialNumberLeft;
+                                                                                                                            v233 = serialNumberLeft2;
+                                                                                                                            v67 = v233;
+                                                                                                                            if (serialNumberLeft == serialNumberLeft2)
+                                                                                                                            {
+
+                                                                                                                              if (!matchCopy)
+                                                                                                                              {
+                                                                                                                                if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                {
+                                                                                                                                  goto LABEL_1233;
+                                                                                                                                }
+
+                                                                                                                                goto LABEL_1232;
+                                                                                                                              }
+
+                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                              {
+                                                                                                                                v368 = v65;
+                                                                                                                                v387 = v67;
+                                                                                                                                LogPrintF_safe();
+                                                                                                                              }
+
+                                                                                                                              goto LABEL_1006;
+                                                                                                                            }
+
+                                                                                                                            v234 = [(NSString *)v65 isEqual:v233];
+
+                                                                                                                            if (v234)
+                                                                                                                            {
+                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                              {
+                                                                                                                                v368 = v65;
+                                                                                                                                v387 = v67;
+                                                                                                                                LogPrintF_safe();
+                                                                                                                              }
+
+                                                                                                                              if (!matchCopy)
+                                                                                                                              {
+                                                                                                                                goto LABEL_1233;
+                                                                                                                              }
+
+LABEL_1006:
+                                                                                                                              LOBYTE(v27) = 1;
+                                                                                                                              goto LABEL_1007;
+                                                                                                                            }
+
+                                                                                                                            LOBYTE(v27) = 0;
+                                                                                                                          }
+
+LABEL_1007:
+
+LABEL_1008:
+                                                                                                                          serialNumberRight = [(CBDevice *)self serialNumberRight];
+                                                                                                                          if (!serialNumberRight)
+                                                                                                                          {
+                                                                                                                            goto LABEL_1029;
+                                                                                                                          }
+
+                                                                                                                          serialNumberRight2 = [deviceCopy serialNumberRight];
+                                                                                                                          if (serialNumberRight2)
+                                                                                                                          {
+                                                                                                                            v65 = serialNumberRight;
+                                                                                                                            v237 = serialNumberRight2;
+                                                                                                                            v67 = v237;
+                                                                                                                            if (serialNumberRight == serialNumberRight2)
+                                                                                                                            {
+
+                                                                                                                              if (!matchCopy)
+                                                                                                                              {
+                                                                                                                                if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                {
+                                                                                                                                  goto LABEL_1233;
+                                                                                                                                }
+
+                                                                                                                                goto LABEL_1232;
+                                                                                                                              }
+
+                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                              {
+                                                                                                                                v368 = v65;
+                                                                                                                                v387 = v67;
+                                                                                                                                LogPrintF_safe();
+                                                                                                                              }
+
+                                                                                                                              goto LABEL_1027;
+                                                                                                                            }
+
+                                                                                                                            v238 = [(NSString *)v65 isEqual:v237];
+
+                                                                                                                            if (v238)
+                                                                                                                            {
+                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                              {
+                                                                                                                                v368 = v65;
+                                                                                                                                v387 = v67;
+                                                                                                                                LogPrintF_safe();
+                                                                                                                              }
+
+                                                                                                                              if (!matchCopy)
+                                                                                                                              {
+                                                                                                                                goto LABEL_1233;
+                                                                                                                              }
+
+LABEL_1027:
+                                                                                                                              LOBYTE(v27) = 1;
+                                                                                                                              goto LABEL_1028;
+                                                                                                                            }
+
+                                                                                                                            LOBYTE(v27) = 0;
+                                                                                                                          }
+
+LABEL_1028:
+
+LABEL_1029:
+                                                                                                                          smartRoutingMode = [(CBDevice *)self smartRoutingMode];
+                                                                                                                          v240 = "Enabled";
+                                                                                                                          if (smartRoutingMode != 1)
+                                                                                                                          {
+                                                                                                                            v240 = "?";
+                                                                                                                          }
+
+                                                                                                                          if (smartRoutingMode == 2)
+                                                                                                                          {
+                                                                                                                            v241 = "Disabled";
+                                                                                                                          }
+
+                                                                                                                          else
+                                                                                                                          {
+                                                                                                                            v241 = v240;
+                                                                                                                          }
+
+                                                                                                                          if (smartRoutingMode)
+                                                                                                                          {
+                                                                                                                            v242 = smartRoutingMode;
+                                                                                                                            smartRoutingMode2 = [deviceCopy smartRoutingMode];
+                                                                                                                            if (matchCopy)
+                                                                                                                            {
+                                                                                                                              if (!smartRoutingMode2)
+                                                                                                                              {
+                                                                                                                                goto LABEL_1064;
+                                                                                                                              }
+
+                                                                                                                              v244 = "Enabled";
+                                                                                                                              if (smartRoutingMode2 != 1)
+                                                                                                                              {
+                                                                                                                                v244 = "?";
+                                                                                                                              }
+
+                                                                                                                              if (smartRoutingMode2 == 2)
+                                                                                                                              {
+                                                                                                                                v245 = "Disabled";
+                                                                                                                              }
+
+                                                                                                                              else
+                                                                                                                              {
+                                                                                                                                v245 = v244;
+                                                                                                                              }
+
+                                                                                                                              if (v242 == smartRoutingMode2)
+                                                                                                                              {
+                                                                                                                                if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                {
+                                                                                                                                  v368 = v241;
+                                                                                                                                  v387 = v245;
+                                                                                                                                  LogPrintF_safe();
+                                                                                                                                }
+
+                                                                                                                                LOBYTE(v27) = 1;
+                                                                                                                                goto LABEL_1064;
+                                                                                                                              }
+                                                                                                                            }
+
+                                                                                                                            else
+                                                                                                                            {
+                                                                                                                              if (!smartRoutingMode2)
+                                                                                                                              {
+                                                                                                                                goto LABEL_1064;
+                                                                                                                              }
+
+                                                                                                                              if (v242 == smartRoutingMode2)
+                                                                                                                              {
+                                                                                                                                if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                {
+                                                                                                                                  goto LABEL_1234;
+                                                                                                                                }
+
+                                                                                                                                goto LABEL_1627;
+                                                                                                                              }
+                                                                                                                            }
+
+                                                                                                                            LOBYTE(v27) = 0;
+                                                                                                                          }
+
+LABEL_1064:
+                                                                                                                          v246 = [(CBDevice *)self spatialAudioMode:v368];
+                                                                                                                          if (!v246 || v246 == 255)
+                                                                                                                          {
+                                                                                                                            goto LABEL_1066;
+                                                                                                                          }
+
+                                                                                                                          v250 = v246;
+                                                                                                                          spatialAudioMode = [deviceCopy spatialAudioMode];
+                                                                                                                          if (matchCopy)
+                                                                                                                          {
+                                                                                                                            if (!spatialAudioMode || spatialAudioMode == 255)
+                                                                                                                            {
+                                                                                                                              goto LABEL_1066;
+                                                                                                                            }
+
+                                                                                                                            if (v250 == spatialAudioMode)
+                                                                                                                            {
+                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                              {
+                                                                                                                                [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                              }
+
+                                                                                                                              LOBYTE(v27) = 1;
+LABEL_1066:
+                                                                                                                              tipiConnectionStatus = [(CBDevice *)self tipiConnectionStatus];
+                                                                                                                              if (!tipiConnectionStatus)
+                                                                                                                              {
+                                                                                                                                goto LABEL_1089;
+                                                                                                                              }
+
+                                                                                                                              v248 = tipiConnectionStatus;
+                                                                                                                              tipiConnectionStatus2 = [deviceCopy tipiConnectionStatus];
+                                                                                                                              if (matchCopy)
+                                                                                                                              {
+                                                                                                                                if (!tipiConnectionStatus2)
+                                                                                                                                {
+                                                                                                                                  goto LABEL_1089;
+                                                                                                                                }
+
+                                                                                                                                if (tipiConnectionStatus2 == v248)
+                                                                                                                                {
+                                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                  {
+                                                                                                                                    [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                                  }
+
+                                                                                                                                  LOBYTE(v27) = 1;
+LABEL_1089:
+                                                                                                                                  txAddressData = [(CBDevice *)self txAddressData];
+                                                                                                                                  if (!txAddressData)
+                                                                                                                                  {
+                                                                                                                                    goto LABEL_1112;
+                                                                                                                                  }
+
+                                                                                                                                  txAddressData2 = [deviceCopy txAddressData];
+                                                                                                                                  if (txAddressData2)
+                                                                                                                                  {
+                                                                                                                                    v65 = txAddressData;
+                                                                                                                                    v254 = txAddressData2;
+                                                                                                                                    v67 = v254;
+                                                                                                                                    if (txAddressData == txAddressData2)
+                                                                                                                                    {
+
+                                                                                                                                      if (!matchCopy)
+                                                                                                                                      {
+                                                                                                                                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                        {
+                                                                                                                                          [CBDevice isEqualToDevice:v65 exactMatch:v67];
+                                                                                                                                        }
+
+                                                                                                                                        goto LABEL_1233;
+                                                                                                                                      }
+
+                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                      {
+                                                                                                                                        [CBDevice isEqualToDevice:v65 exactMatch:v67];
+                                                                                                                                      }
+                                                                                                                                    }
+
+                                                                                                                                    else
+                                                                                                                                    {
+                                                                                                                                      v255 = [(NSString *)v65 isEqual:v254];
+
+                                                                                                                                      if (!v255)
+                                                                                                                                      {
+                                                                                                                                        LOBYTE(v27) = 0;
+                                                                                                                                        goto LABEL_1111;
+                                                                                                                                      }
+
+                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                      {
+                                                                                                                                        [CBDevice isEqualToDevice:v65 exactMatch:v67];
+                                                                                                                                        if (!matchCopy)
+                                                                                                                                        {
+                                                                                                                                          goto LABEL_1233;
+                                                                                                                                        }
+                                                                                                                                      }
+
+                                                                                                                                      else if (!matchCopy)
+                                                                                                                                      {
+                                                                                                                                        goto LABEL_1233;
+                                                                                                                                      }
+                                                                                                                                    }
+
+                                                                                                                                    LOBYTE(v27) = 1;
+                                                                                                                                  }
+
+LABEL_1111:
+
+LABEL_1112:
+                                                                                                                                  vendorID = self->_vendorID;
+                                                                                                                                  if (!vendorID)
+                                                                                                                                  {
+                                                                                                                                    goto LABEL_1127;
+                                                                                                                                  }
+
+                                                                                                                                  vendorID = [deviceCopy vendorID];
+                                                                                                                                  if (matchCopy)
+                                                                                                                                  {
+                                                                                                                                    if (!vendorID)
+                                                                                                                                    {
+                                                                                                                                      goto LABEL_1127;
+                                                                                                                                    }
+
+                                                                                                                                    if (vendorID == vendorID)
+                                                                                                                                    {
+                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                      {
+                                                                                                                                        [CBDevice isEqualToDevice:? exactMatch:?];
+                                                                                                                                      }
+
+                                                                                                                                      LOBYTE(v27) = 1;
+LABEL_1127:
+                                                                                                                                      vendorIDSource = self->_vendorIDSource;
+                                                                                                                                      if (vendorIDSource == 1)
+                                                                                                                                      {
+                                                                                                                                        v259 = "Bluetooth";
+                                                                                                                                      }
+
+                                                                                                                                      else
+                                                                                                                                      {
+                                                                                                                                        v259 = "?";
+                                                                                                                                      }
+
+                                                                                                                                      if (vendorIDSource == 2)
+                                                                                                                                      {
+                                                                                                                                        v260 = "USB";
+                                                                                                                                      }
+
+                                                                                                                                      else
+                                                                                                                                      {
+                                                                                                                                        v260 = v259;
+                                                                                                                                      }
+
+                                                                                                                                      if (!self->_vendorIDSource)
+                                                                                                                                      {
+                                                                                                                                        goto LABEL_1170;
+                                                                                                                                      }
+
+                                                                                                                                      vendorIDSource = [deviceCopy vendorIDSource];
+                                                                                                                                      if (matchCopy)
+                                                                                                                                      {
+                                                                                                                                        if (!vendorIDSource)
+                                                                                                                                        {
+                                                                                                                                          goto LABEL_1170;
+                                                                                                                                        }
+
+                                                                                                                                        if (vendorIDSource == 1)
+                                                                                                                                        {
+                                                                                                                                          v262 = "Bluetooth";
+                                                                                                                                        }
+
+                                                                                                                                        else
+                                                                                                                                        {
+                                                                                                                                          v262 = "?";
+                                                                                                                                        }
+
+                                                                                                                                        if (vendorIDSource == 2)
+                                                                                                                                        {
+                                                                                                                                          v263 = "USB";
+                                                                                                                                        }
+
+                                                                                                                                        else
+                                                                                                                                        {
+                                                                                                                                          v263 = v262;
+                                                                                                                                        }
+
+                                                                                                                                        if (vendorIDSource == vendorIDSource)
+                                                                                                                                        {
+                                                                                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                          {
+                                                                                                                                            v369 = v260;
+                                                                                                                                            v388 = v263;
+                                                                                                                                            LogPrintF_safe();
+                                                                                                                                          }
+
+                                                                                                                                          LOBYTE(v27) = 1;
+LABEL_1170:
+                                                                                                                                          v264 = [(CBDevice *)self dsInfoVehicleState:v369];
+                                                                                                                                          if (v264 == 1)
+                                                                                                                                          {
+                                                                                                                                            v265 = "InVehicle";
+                                                                                                                                          }
+
+                                                                                                                                          else
+                                                                                                                                          {
+                                                                                                                                            v265 = "?";
+                                                                                                                                          }
+
+                                                                                                                                          if (v264 == 2)
+                                                                                                                                          {
+                                                                                                                                            v266 = "NotInVehicle";
+                                                                                                                                          }
+
+                                                                                                                                          else
+                                                                                                                                          {
+                                                                                                                                            v266 = v265;
+                                                                                                                                          }
+
+                                                                                                                                          if (!v264)
+                                                                                                                                          {
+                                                                                                                                            goto LABEL_1199;
+                                                                                                                                          }
+
+                                                                                                                                          v267 = v264;
+                                                                                                                                          dsInfoVehicleState = [deviceCopy dsInfoVehicleState];
+                                                                                                                                          if (matchCopy)
+                                                                                                                                          {
+                                                                                                                                            if (!dsInfoVehicleState)
+                                                                                                                                            {
+                                                                                                                                              goto LABEL_1199;
+                                                                                                                                            }
+
+                                                                                                                                            if (dsInfoVehicleState == 1)
+                                                                                                                                            {
+                                                                                                                                              v269 = "InVehicle";
+                                                                                                                                            }
+
+                                                                                                                                            else
+                                                                                                                                            {
+                                                                                                                                              v269 = "?";
+                                                                                                                                            }
+
+                                                                                                                                            if (dsInfoVehicleState == 2)
+                                                                                                                                            {
+                                                                                                                                              v270 = "NotInVehicle";
+                                                                                                                                            }
+
+                                                                                                                                            else
+                                                                                                                                            {
+                                                                                                                                              v270 = v269;
+                                                                                                                                            }
+
+                                                                                                                                            if (dsInfoVehicleState == v267)
+                                                                                                                                            {
+                                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                              {
+                                                                                                                                                v370 = v266;
+                                                                                                                                                v389 = v270;
+                                                                                                                                                LogPrintF_safe();
+                                                                                                                                              }
+
+                                                                                                                                              LOBYTE(v27) = 1;
+LABEL_1199:
+                                                                                                                                              v271 = [(CBDevice *)self findMyCaseIdentifier:v370];
+                                                                                                                                              if (!v271)
+                                                                                                                                              {
+LABEL_1218:
+
+                                                                                                                                                findMyGroupIdentifier = [(CBDevice *)self findMyGroupIdentifier];
+                                                                                                                                                if (!findMyGroupIdentifier)
+                                                                                                                                                {
+                                                                                                                                                  goto LABEL_1242;
+                                                                                                                                                }
+
+                                                                                                                                                findMyGroupIdentifier2 = [deviceCopy findMyGroupIdentifier];
+                                                                                                                                                if (!findMyGroupIdentifier2)
+                                                                                                                                                {
+                                                                                                                                                  goto LABEL_1241;
+                                                                                                                                                }
+
+                                                                                                                                                v65 = findMyGroupIdentifier;
+                                                                                                                                                v277 = findMyGroupIdentifier2;
+                                                                                                                                                v67 = v277;
+                                                                                                                                                if (findMyGroupIdentifier != findMyGroupIdentifier2)
+                                                                                                                                                {
+                                                                                                                                                  v278 = [(NSString *)v65 isEqual:v277];
+
+                                                                                                                                                  if (v278)
+                                                                                                                                                  {
+                                                                                                                                                    if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                    {
+                                                                                                                                                      v371 = v65;
+                                                                                                                                                      v390 = v67;
+                                                                                                                                                      LogPrintF_safe();
+                                                                                                                                                    }
+
+                                                                                                                                                    if (!matchCopy)
+                                                                                                                                                    {
+                                                                                                                                                      goto LABEL_1233;
+                                                                                                                                                    }
+
+                                                                                                                                                    goto LABEL_1240;
+                                                                                                                                                  }
+
+                                                                                                                                                  LOBYTE(v27) = 0;
+LABEL_1241:
+
+LABEL_1242:
+                                                                                                                                                  heySiriDeviceClass = [(CBDevice *)self heySiriDeviceClass];
+                                                                                                                                                  if (!heySiriDeviceClass)
+                                                                                                                                                  {
+                                                                                                                                                    goto LABEL_1257;
+                                                                                                                                                  }
+
+                                                                                                                                                  v281 = heySiriDeviceClass;
+                                                                                                                                                  heySiriDeviceClass2 = [deviceCopy heySiriDeviceClass];
+                                                                                                                                                  if (matchCopy)
+                                                                                                                                                  {
+                                                                                                                                                    if (!heySiriDeviceClass2)
+                                                                                                                                                    {
+                                                                                                                                                      goto LABEL_1257;
+                                                                                                                                                    }
+
+                                                                                                                                                    if (heySiriDeviceClass2 == v281)
+                                                                                                                                                    {
+                                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                      {
+                                                                                                                                                        [CBDevice isEqualToDevice:v281 exactMatch:?];
+                                                                                                                                                      }
+
+                                                                                                                                                      LOBYTE(v27) = 1;
+LABEL_1257:
+                                                                                                                                                      v283 = [(CBDevice *)self heySiriProductType:v371];
+                                                                                                                                                      if (!v283)
+                                                                                                                                                      {
+                                                                                                                                                        goto LABEL_1272;
+                                                                                                                                                      }
+
+                                                                                                                                                      v284 = v283;
+                                                                                                                                                      heySiriProductType = [deviceCopy heySiriProductType];
+                                                                                                                                                      if (matchCopy)
+                                                                                                                                                      {
+                                                                                                                                                        if (!heySiriProductType)
+                                                                                                                                                        {
+                                                                                                                                                          goto LABEL_1272;
+                                                                                                                                                        }
+
+                                                                                                                                                        if (heySiriProductType == v284)
+                                                                                                                                                        {
+                                                                                                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                          {
+                                                                                                                                                            [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                                                          }
+
+                                                                                                                                                          LOBYTE(v27) = 1;
+LABEL_1272:
+                                                                                                                                                          nearbyActionDeviceClass = [(CBDevice *)self nearbyActionDeviceClass];
+                                                                                                                                                          v287 = nearbyActionDeviceClass;
+                                                                                                                                                          if (!nearbyActionDeviceClass)
+                                                                                                                                                          {
+                                                                                                                                                            goto LABEL_1298;
+                                                                                                                                                          }
+
+                                                                                                                                                          nearbyActionDeviceClass2 = [deviceCopy nearbyActionDeviceClass];
+                                                                                                                                                          v289 = nearbyActionDeviceClass2;
+                                                                                                                                                          if (matchCopy)
+                                                                                                                                                          {
+                                                                                                                                                            if (!nearbyActionDeviceClass2)
+                                                                                                                                                            {
+                                                                                                                                                              goto LABEL_1298;
+                                                                                                                                                            }
+
+                                                                                                                                                            if (v287 == nearbyActionDeviceClass2)
+                                                                                                                                                            {
+                                                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                              {
+                                                                                                                                                                v372 = v287;
+                                                                                                                                                                v391 = v289;
+                                                                                                                                                                LogPrintF_safe();
+                                                                                                                                                              }
+
+                                                                                                                                                              LOBYTE(v27) = 1;
+LABEL_1298:
+                                                                                                                                                              v290 = [(CBDevice *)self nearbyActionType:v372];
+                                                                                                                                                              if (!v290)
+                                                                                                                                                              {
+                                                                                                                                                                goto LABEL_1313;
+                                                                                                                                                              }
+
+                                                                                                                                                              v291 = v290;
+                                                                                                                                                              nearbyActionType = [deviceCopy nearbyActionType];
+                                                                                                                                                              if (matchCopy)
+                                                                                                                                                              {
+                                                                                                                                                                if (!nearbyActionType)
+                                                                                                                                                                {
+                                                                                                                                                                  goto LABEL_1313;
+                                                                                                                                                                }
+
+                                                                                                                                                                if (nearbyActionType == v291)
+                                                                                                                                                                {
+                                                                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                  {
+                                                                                                                                                                    [CBDevice isEqualToDevice:v291 exactMatch:?];
+                                                                                                                                                                  }
+
+                                                                                                                                                                  LOBYTE(v27) = 1;
+LABEL_1313:
+                                                                                                                                                                  nearbyActionV2Type = [(CBDevice *)self nearbyActionV2Type];
+                                                                                                                                                                  if (!nearbyActionV2Type)
+                                                                                                                                                                  {
+                                                                                                                                                                    goto LABEL_1328;
+                                                                                                                                                                  }
+
+                                                                                                                                                                  v294 = nearbyActionV2Type;
+                                                                                                                                                                  nearbyActionV2Type2 = [deviceCopy nearbyActionV2Type];
+                                                                                                                                                                  if (matchCopy)
+                                                                                                                                                                  {
+                                                                                                                                                                    if (!nearbyActionV2Type2)
+                                                                                                                                                                    {
+                                                                                                                                                                      goto LABEL_1328;
+                                                                                                                                                                    }
+
+                                                                                                                                                                    if (nearbyActionV2Type2 == v294)
+                                                                                                                                                                    {
+                                                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                      {
+                                                                                                                                                                        [CBDevice isEqualToDevice:v294 exactMatch:?];
+                                                                                                                                                                      }
+
+                                                                                                                                                                      LOBYTE(v27) = 1;
+LABEL_1328:
+                                                                                                                                                                      nearbyActionNoWakeType = [(CBDevice *)self nearbyActionNoWakeType];
+                                                                                                                                                                      if (nearbyActionNoWakeType == 1)
+                                                                                                                                                                      {
+                                                                                                                                                                        v297 = "PrecisionFinding";
+                                                                                                                                                                      }
+
+                                                                                                                                                                      else
+                                                                                                                                                                      {
+                                                                                                                                                                        v297 = "?";
+                                                                                                                                                                      }
+
+                                                                                                                                                                      if (!nearbyActionNoWakeType)
+                                                                                                                                                                      {
+                                                                                                                                                                        goto LABEL_1353;
+                                                                                                                                                                      }
+
+                                                                                                                                                                      v298 = nearbyActionNoWakeType;
+                                                                                                                                                                      nearbyActionNoWakeType2 = [deviceCopy nearbyActionNoWakeType];
+                                                                                                                                                                      if (matchCopy)
+                                                                                                                                                                      {
+                                                                                                                                                                        if (!nearbyActionNoWakeType2)
+                                                                                                                                                                        {
+                                                                                                                                                                          goto LABEL_1353;
+                                                                                                                                                                        }
+
+                                                                                                                                                                        if (nearbyActionNoWakeType2 == 1)
+                                                                                                                                                                        {
+                                                                                                                                                                          v300 = "PrecisionFinding";
+                                                                                                                                                                        }
+
+                                                                                                                                                                        else
+                                                                                                                                                                        {
+                                                                                                                                                                          v300 = "?";
+                                                                                                                                                                        }
+
+                                                                                                                                                                        if (nearbyActionNoWakeType2 == v298)
+                                                                                                                                                                        {
+                                                                                                                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                          {
+                                                                                                                                                                            v373 = v297;
+                                                                                                                                                                            v392 = v300;
+                                                                                                                                                                            LogPrintF_safe();
+                                                                                                                                                                          }
+
+                                                                                                                                                                          LOBYTE(v27) = 1;
+LABEL_1353:
+                                                                                                                                                                          v301 = [(CBDevice *)self nearbyInfoStatusType:v373];
+                                                                                                                                                                          if (!v301)
+                                                                                                                                                                          {
+                                                                                                                                                                            goto LABEL_1368;
+                                                                                                                                                                          }
+
+                                                                                                                                                                          v302 = v301;
+                                                                                                                                                                          nearbyInfoStatusType = [deviceCopy nearbyInfoStatusType];
+                                                                                                                                                                          if (matchCopy)
+                                                                                                                                                                          {
+                                                                                                                                                                            if (!nearbyInfoStatusType)
+                                                                                                                                                                            {
+                                                                                                                                                                              goto LABEL_1368;
+                                                                                                                                                                            }
+
+                                                                                                                                                                            if (nearbyInfoStatusType == v302)
+                                                                                                                                                                            {
+                                                                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                              {
+                                                                                                                                                                                [CBDevice isEqualToDevice:v302 exactMatch:?];
+                                                                                                                                                                              }
+
+                                                                                                                                                                              LOBYTE(v27) = 1;
+LABEL_1368:
+                                                                                                                                                                              nearbyInfoV2InvitationRouteType = [(CBDevice *)self nearbyInfoV2InvitationRouteType];
+                                                                                                                                                                              if (!nearbyInfoV2InvitationRouteType)
+                                                                                                                                                                              {
+                                                                                                                                                                                goto LABEL_1383;
+                                                                                                                                                                              }
+
+                                                                                                                                                                              v305 = nearbyInfoV2InvitationRouteType;
+                                                                                                                                                                              nearbyInfoV2InvitationRouteType2 = [deviceCopy nearbyInfoV2InvitationRouteType];
+                                                                                                                                                                              if (matchCopy)
+                                                                                                                                                                              {
+                                                                                                                                                                                if (!nearbyInfoV2InvitationRouteType2)
+                                                                                                                                                                                {
+                                                                                                                                                                                  goto LABEL_1383;
+                                                                                                                                                                                }
+
+                                                                                                                                                                                if (nearbyInfoV2InvitationRouteType2 == v305)
+                                                                                                                                                                                {
+                                                                                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                  {
+                                                                                                                                                                                    [CBDevice isEqualToDevice:v305 exactMatch:?];
+                                                                                                                                                                                  }
+
+                                                                                                                                                                                  LOBYTE(v27) = 1;
+LABEL_1383:
+                                                                                                                                                                                  objectDiscoveryBatteryState = [(CBDevice *)self objectDiscoveryBatteryState];
+                                                                                                                                                                                  if (!objectDiscoveryBatteryState)
+                                                                                                                                                                                  {
+                                                                                                                                                                                    goto LABEL_1398;
+                                                                                                                                                                                  }
+
+                                                                                                                                                                                  v308 = objectDiscoveryBatteryState;
+                                                                                                                                                                                  objectDiscoveryBatteryState2 = [deviceCopy objectDiscoveryBatteryState];
+                                                                                                                                                                                  if (matchCopy)
+                                                                                                                                                                                  {
+                                                                                                                                                                                    if (!objectDiscoveryBatteryState2)
+                                                                                                                                                                                    {
+                                                                                                                                                                                      goto LABEL_1398;
+                                                                                                                                                                                    }
+
+                                                                                                                                                                                    if (objectDiscoveryBatteryState2 == v308)
+                                                                                                                                                                                    {
+                                                                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                      {
+                                                                                                                                                                                        [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      LOBYTE(v27) = 1;
+LABEL_1398:
+                                                                                                                                                                                      objectDiscoveryMode = [(CBDevice *)self objectDiscoveryMode];
+                                                                                                                                                                                      if (objectDiscoveryMode == 1)
+                                                                                                                                                                                      {
+                                                                                                                                                                                        v311 = "NearOwner";
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      else
+                                                                                                                                                                                      {
+                                                                                                                                                                                        v311 = "?";
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      if (objectDiscoveryMode == 2)
+                                                                                                                                                                                      {
+                                                                                                                                                                                        v312 = "Wild";
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      else
+                                                                                                                                                                                      {
+                                                                                                                                                                                        v312 = v311;
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      if (!objectDiscoveryMode)
+                                                                                                                                                                                      {
+                                                                                                                                                                                        goto LABEL_1429;
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      v313 = objectDiscoveryMode;
+                                                                                                                                                                                      objectDiscoveryMode2 = [deviceCopy objectDiscoveryMode];
+                                                                                                                                                                                      if (matchCopy)
+                                                                                                                                                                                      {
+                                                                                                                                                                                        if (!objectDiscoveryMode2)
+                                                                                                                                                                                        {
+                                                                                                                                                                                          goto LABEL_1429;
+                                                                                                                                                                                        }
+
+                                                                                                                                                                                        if (objectDiscoveryMode2 == 1)
+                                                                                                                                                                                        {
+                                                                                                                                                                                          v315 = "NearOwner";
+                                                                                                                                                                                        }
+
+                                                                                                                                                                                        else
+                                                                                                                                                                                        {
+                                                                                                                                                                                          v315 = "?";
+                                                                                                                                                                                        }
+
+                                                                                                                                                                                        if (objectDiscoveryMode2 == 2)
+                                                                                                                                                                                        {
+                                                                                                                                                                                          v316 = "Wild";
+                                                                                                                                                                                        }
+
+                                                                                                                                                                                        else
+                                                                                                                                                                                        {
+                                                                                                                                                                                          v316 = v315;
+                                                                                                                                                                                        }
+
+                                                                                                                                                                                        if (objectDiscoveryMode2 == v313)
+                                                                                                                                                                                        {
+                                                                                                                                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                          {
+                                                                                                                                                                                            v374 = v312;
+                                                                                                                                                                                            v393 = v316;
+                                                                                                                                                                                            LogPrintF_safe();
+                                                                                                                                                                                          }
+
+                                                                                                                                                                                          LOBYTE(v27) = 1;
+LABEL_1429:
+                                                                                                                                                                                          v317 = [(CBDevice *)self objectDiscoveryNearOwnerID:v374];
+                                                                                                                                                                                          if (!v317)
+                                                                                                                                                                                          {
+                                                                                                                                                                                            goto LABEL_1445;
+                                                                                                                                                                                          }
+
+                                                                                                                                                                                          objectDiscoveryNearOwnerID = [deviceCopy objectDiscoveryNearOwnerID];
+                                                                                                                                                                                          if (objectDiscoveryNearOwnerID)
+                                                                                                                                                                                          {
+                                                                                                                                                                                            v65 = v317;
+                                                                                                                                                                                            v319 = objectDiscoveryNearOwnerID;
+                                                                                                                                                                                            v67 = v319;
+                                                                                                                                                                                            if (v317 == objectDiscoveryNearOwnerID)
+                                                                                                                                                                                            {
+
+                                                                                                                                                                                              if (!matchCopy)
+                                                                                                                                                                                              {
+                                                                                                                                                                                                if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  [CBDevice isEqualToDevice:v65 exactMatch:v67];
+                                                                                                                                                                                                }
+
+                                                                                                                                                                                                goto LABEL_1233;
+                                                                                                                                                                                              }
+
+                                                                                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                              {
+                                                                                                                                                                                                [CBDevice isEqualToDevice:v65 exactMatch:v67];
+                                                                                                                                                                                              }
+                                                                                                                                                                                            }
+
+                                                                                                                                                                                            else
+                                                                                                                                                                                            {
+                                                                                                                                                                                              v320 = [(NSString *)v65 isEqual:v319];
+
+                                                                                                                                                                                              if (!v320)
+                                                                                                                                                                                              {
+                                                                                                                                                                                                LOBYTE(v27) = 0;
+                                                                                                                                                                                                goto LABEL_1444;
+                                                                                                                                                                                              }
+
+                                                                                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                              {
+                                                                                                                                                                                                [CBDevice isEqualToDevice:v65 exactMatch:v67];
+                                                                                                                                                                                                if (!matchCopy)
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  goto LABEL_1233;
+                                                                                                                                                                                                }
+                                                                                                                                                                                              }
+
+                                                                                                                                                                                              else if (!matchCopy)
+                                                                                                                                                                                              {
+                                                                                                                                                                                                goto LABEL_1233;
+                                                                                                                                                                                              }
+                                                                                                                                                                                            }
+
+                                                                                                                                                                                            LOBYTE(v27) = 1;
+                                                                                                                                                                                          }
+
+LABEL_1444:
+
+LABEL_1445:
+                                                                                                                                                                                          objectDiscoveryProductID = [(CBDevice *)self objectDiscoveryProductID];
+                                                                                                                                                                                          if (!objectDiscoveryProductID)
+                                                                                                                                                                                          {
+                                                                                                                                                                                            goto LABEL_1460;
+                                                                                                                                                                                          }
+
+                                                                                                                                                                                          v322 = objectDiscoveryProductID;
+                                                                                                                                                                                          objectDiscoveryProductID2 = [deviceCopy objectDiscoveryProductID];
+                                                                                                                                                                                          if (matchCopy)
+                                                                                                                                                                                          {
+                                                                                                                                                                                            if (!objectDiscoveryProductID2)
+                                                                                                                                                                                            {
+                                                                                                                                                                                              goto LABEL_1460;
+                                                                                                                                                                                            }
+
+                                                                                                                                                                                            if (v322 == objectDiscoveryProductID2)
+                                                                                                                                                                                            {
+                                                                                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                              {
+                                                                                                                                                                                                [CBDevice isEqualToDevice:v322 exactMatch:?];
+                                                                                                                                                                                              }
+
+                                                                                                                                                                                              LOBYTE(v27) = 1;
+LABEL_1460:
+                                                                                                                                                                                              proximityPairingOtherBudProductID = [(CBDevice *)self proximityPairingOtherBudProductID];
+                                                                                                                                                                                              if (!proximityPairingOtherBudProductID)
+                                                                                                                                                                                              {
+                                                                                                                                                                                                goto LABEL_1475;
+                                                                                                                                                                                              }
+
+                                                                                                                                                                                              v325 = proximityPairingOtherBudProductID;
+                                                                                                                                                                                              proximityPairingOtherBudProductID2 = [deviceCopy proximityPairingOtherBudProductID];
+                                                                                                                                                                                              if (matchCopy)
+                                                                                                                                                                                              {
+                                                                                                                                                                                                if (!proximityPairingOtherBudProductID2)
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  goto LABEL_1475;
+                                                                                                                                                                                                }
+
+                                                                                                                                                                                                if (v325 == proximityPairingOtherBudProductID2)
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                  {
+                                                                                                                                                                                                    [CBDevice isEqualToDevice:v325 exactMatch:?];
+                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                  LOBYTE(v27) = 1;
+LABEL_1475:
+                                                                                                                                                                                                  proximityPairingProductID = [(CBDevice *)self proximityPairingProductID];
+                                                                                                                                                                                                  if (!proximityPairingProductID)
+                                                                                                                                                                                                  {
+                                                                                                                                                                                                    goto LABEL_1490;
+                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                  v328 = proximityPairingProductID;
+                                                                                                                                                                                                  proximityPairingProductID2 = [deviceCopy proximityPairingProductID];
+                                                                                                                                                                                                  if (matchCopy)
+                                                                                                                                                                                                  {
+                                                                                                                                                                                                    if (!proximityPairingProductID2)
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      goto LABEL_1490;
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    if (v328 == proximityPairingProductID2)
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                      {
+                                                                                                                                                                                                        [CBDevice isEqualToDevice:v328 exactMatch:?];
+                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                      LOBYTE(v27) = 1;
+LABEL_1490:
+                                                                                                                                                                                                      proximityPairingPrimaryPlacement = [(CBDevice *)self proximityPairingPrimaryPlacement];
+                                                                                                                                                                                                      if (!proximityPairingPrimaryPlacement)
+                                                                                                                                                                                                      {
+                                                                                                                                                                                                        goto LABEL_1505;
+                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                      v331 = proximityPairingPrimaryPlacement;
+                                                                                                                                                                                                      proximityPairingPrimaryPlacement2 = [deviceCopy proximityPairingPrimaryPlacement];
+                                                                                                                                                                                                      if (matchCopy)
+                                                                                                                                                                                                      {
+                                                                                                                                                                                                        if (!proximityPairingPrimaryPlacement2)
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                          goto LABEL_1505;
+                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                        if (v331 == proximityPairingPrimaryPlacement2)
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                          {
+                                                                                                                                                                                                            [CBDevice isEqualToDevice:v331 exactMatch:?];
+                                                                                                                                                                                                          }
+
+                                                                                                                                                                                                          LOBYTE(v27) = 1;
+LABEL_1505:
+                                                                                                                                                                                                          proximityPairingSecondaryPlacement = [(CBDevice *)self proximityPairingSecondaryPlacement];
+                                                                                                                                                                                                          if (!proximityPairingSecondaryPlacement)
+                                                                                                                                                                                                          {
+                                                                                                                                                                                                            goto LABEL_1520;
+                                                                                                                                                                                                          }
+
+                                                                                                                                                                                                          v334 = proximityPairingSecondaryPlacement;
+                                                                                                                                                                                                          proximityPairingSecondaryPlacement2 = [deviceCopy proximityPairingSecondaryPlacement];
+                                                                                                                                                                                                          if (matchCopy)
+                                                                                                                                                                                                          {
+                                                                                                                                                                                                            if (!proximityPairingSecondaryPlacement2)
+                                                                                                                                                                                                            {
+                                                                                                                                                                                                              goto LABEL_1520;
+                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                            if (v334 == proximityPairingSecondaryPlacement2)
+                                                                                                                                                                                                            {
+                                                                                                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                              {
+                                                                                                                                                                                                                [CBDevice isEqualToDevice:v334 exactMatch:?];
+                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                              LOBYTE(v27) = 1;
+LABEL_1520:
+                                                                                                                                                                                                              proximityPairingSubType = [(CBDevice *)self proximityPairingSubType];
+                                                                                                                                                                                                              if (!proximityPairingSubType)
+                                                                                                                                                                                                              {
+                                                                                                                                                                                                                goto LABEL_1535;
+                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                              v337 = proximityPairingSubType;
+                                                                                                                                                                                                              proximityPairingSubType2 = [deviceCopy proximityPairingSubType];
+                                                                                                                                                                                                              if (matchCopy)
+                                                                                                                                                                                                              {
+                                                                                                                                                                                                                if (!proximityPairingSubType2)
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                  goto LABEL_1535;
+                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                if (proximityPairingSubType2 == v337)
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                    [CBDevice isEqualToDevice:v337 exactMatch:?];
+                                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                                  LOBYTE(v27) = 1;
+LABEL_1535:
+                                                                                                                                                                                                                  proximityServiceCategory = [(CBDevice *)self proximityServiceCategory];
+                                                                                                                                                                                                                  if (!proximityServiceCategory)
+                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                    goto LABEL_1550;
+                                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                                  v340 = proximityServiceCategory;
+                                                                                                                                                                                                                  proximityServiceCategory2 = [deviceCopy proximityServiceCategory];
+                                                                                                                                                                                                                  if (matchCopy)
+                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                    if (!proximityServiceCategory2)
+                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                      goto LABEL_1550;
+                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                    if (proximityServiceCategory2 == v340)
+                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                        [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                                      LOBYTE(v27) = 1;
+LABEL_1550:
+                                                                                                                                                                                                                      proximityServiceClassicAddress = [(CBDevice *)self proximityServiceClassicAddress];
+                                                                                                                                                                                                                      if (!proximityServiceClassicAddress)
+                                                                                                                                                                                                                      {
+LABEL_1570:
+
+                                                                                                                                                                                                                        proximityServiceProductID = [(CBDevice *)self proximityServiceProductID];
+                                                                                                                                                                                                                        if (!proximityServiceProductID)
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                          goto LABEL_1585;
+                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                        productID = proximityServiceProductID;
+                                                                                                                                                                                                                        productID2 = [deviceCopy productID];
+                                                                                                                                                                                                                        if (matchCopy)
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                          if (!productID2)
+                                                                                                                                                                                                                          {
+                                                                                                                                                                                                                            goto LABEL_1585;
+                                                                                                                                                                                                                          }
+
+                                                                                                                                                                                                                          if (productID == productID2)
+                                                                                                                                                                                                                          {
+                                                                                                                                                                                                                            if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                              [CBDevice isEqualToDevice:? exactMatch:?];
+                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                            LOBYTE(v27) = 1;
+LABEL_1585:
+                                                                                                                                                                                                                            proximityServiceSubType = [(CBDevice *)self proximityServiceSubType];
+                                                                                                                                                                                                                            if (!proximityServiceSubType)
+                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                              goto LABEL_1600;
+                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                            v349 = proximityServiceSubType;
+                                                                                                                                                                                                                            proximityServiceSubType2 = [deviceCopy proximityServiceSubType];
+                                                                                                                                                                                                                            if (matchCopy)
+                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                              if (!proximityServiceSubType2)
+                                                                                                                                                                                                                              {
+                                                                                                                                                                                                                                goto LABEL_1600;
+                                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                                              if (proximityServiceSubType2 == v349)
+                                                                                                                                                                                                                              {
+                                                                                                                                                                                                                                if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                  [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                LOBYTE(v27) = 1;
+LABEL_1600:
+                                                                                                                                                                                                                                proximityServiceVendorID = [(CBDevice *)self proximityServiceVendorID];
+                                                                                                                                                                                                                                if (proximityServiceVendorID)
+                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                  v352 = proximityServiceVendorID;
+                                                                                                                                                                                                                                  proximityServiceVendorID2 = [deviceCopy proximityServiceVendorID];
+                                                                                                                                                                                                                                  if (matchCopy)
+                                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                                    if (proximityServiceVendorID2)
+                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                      if (proximityServiceVendorID2 == v352)
+                                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                          [CBDevice isEqualToDevice:v352 exactMatch:?];
+                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                        LOBYTE(v27) = 1;
+                                                                                                                                                                                                                                        goto LABEL_1615;
+                                                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                                                      goto LABEL_1614;
+                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                                                  else if (proximityServiceVendorID2)
+                                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                                    if (proximityServiceVendorID2 == v352)
+                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                                        [CBDevice isEqualToDevice:v352 exactMatch:?];
+                                                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                                                      goto LABEL_1234;
+                                                                                                                                                                                                                                    }
+
+LABEL_1614:
+                                                                                                                                                                                                                                    LOBYTE(v27) = 0;
+                                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                                }
+
+LABEL_1615:
+                                                                                                                                                                                                                                proximityServiceVersion = [(CBDevice *)self proximityServiceVersion];
+                                                                                                                                                                                                                                if (!proximityServiceVersion)
+                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                  goto LABEL_1235;
+                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                proximityServiceVersion2 = [deviceCopy proximityServiceVersion];
+                                                                                                                                                                                                                                if (matchCopy)
+                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                  if (!proximityServiceVersion2)
+                                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                                    goto LABEL_1235;
+                                                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                                                  if (proximityServiceVersion == proximityServiceVersion2)
+                                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                                    if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                      goto LABEL_1234;
+                                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                                    goto LABEL_1627;
+                                                                                                                                                                                                                                  }
+
+LABEL_1628:
+                                                                                                                                                                                                                                  LOBYTE(v27) = 0;
+                                                                                                                                                                                                                                  goto LABEL_1235;
+                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                if (!proximityServiceVersion2)
+                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                  goto LABEL_1235;
+                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                if (proximityServiceVersion != proximityServiceVersion2)
+                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                  goto LABEL_1628;
+                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                  goto LABEL_1234;
+                                                                                                                                                                                                                                }
+
+LABEL_1627:
+                                                                                                                                                                                                                                LogPrintF_safe();
+                                                                                                                                                                                                                                goto LABEL_1234;
+                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                            else
+                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                              if (!proximityServiceSubType2)
+                                                                                                                                                                                                                              {
+                                                                                                                                                                                                                                goto LABEL_1600;
+                                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                                              if (proximityServiceSubType2 == v349)
+                                                                                                                                                                                                                              {
+                                                                                                                                                                                                                                if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                  [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                goto LABEL_1234;
+                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                            LOBYTE(v27) = 0;
+                                                                                                                                                                                                                            goto LABEL_1600;
+                                                                                                                                                                                                                          }
+
+LABEL_1584:
+                                                                                                                                                                                                                          LOBYTE(v27) = 0;
+                                                                                                                                                                                                                          goto LABEL_1585;
+                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                        if (!productID2)
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                          goto LABEL_1585;
+                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                        if (productID != productID2)
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                          goto LABEL_1584;
+                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                        if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                          goto LABEL_1234;
+                                                                                                                                                                                                                        }
+
+LABEL_873:
+                                                                                                                                                                                                                        [CBDevice isEqualToDevice:? exactMatch:?];
+                                                                                                                                                                                                                        goto LABEL_1234;
+                                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                                      proximityServiceClassicAddress2 = [deviceCopy proximityServiceClassicAddress];
+                                                                                                                                                                                                                      if (!proximityServiceClassicAddress2)
+                                                                                                                                                                                                                      {
+LABEL_1569:
+
+                                                                                                                                                                                                                        goto LABEL_1570;
+                                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                                      v65 = proximityServiceClassicAddress;
+                                                                                                                                                                                                                      v344 = proximityServiceClassicAddress2;
+                                                                                                                                                                                                                      v67 = v344;
+                                                                                                                                                                                                                      if (proximityServiceClassicAddress == proximityServiceClassicAddress2)
+                                                                                                                                                                                                                      {
+
+                                                                                                                                                                                                                        if (!matchCopy)
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                                          {
+                                                                                                                                                                                                                            [CBDevice isEqualToDevice:v65 exactMatch:v67];
+                                                                                                                                                                                                                          }
+
+                                                                                                                                                                                                                          goto LABEL_1233;
+                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                          [CBDevice isEqualToDevice:v65 exactMatch:v67];
+                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                        goto LABEL_1567;
+                                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                                      v345 = [(NSString *)v65 isEqual:v344];
+
+                                                                                                                                                                                                                      if (!v345)
+                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                        LOBYTE(v27) = 0;
+                                                                                                                                                                                                                        goto LABEL_1569;
+                                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                        [CBDevice isEqualToDevice:v65 exactMatch:v67];
+                                                                                                                                                                                                                        if (matchCopy)
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                          goto LABEL_1567;
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                                      else if (matchCopy)
+                                                                                                                                                                                                                      {
+LABEL_1567:
+                                                                                                                                                                                                                        LOBYTE(v27) = 1;
+                                                                                                                                                                                                                        goto LABEL_1569;
+                                                                                                                                                                                                                      }
+
+LABEL_1233:
+
+                                                                                                                                                                                                                      goto LABEL_1234;
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                                  else
+                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                    if (!proximityServiceCategory2)
+                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                      goto LABEL_1550;
+                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                    if (proximityServiceCategory2 == v340)
+                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                        [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                                      goto LABEL_1234;
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                                  LOBYTE(v27) = 0;
+                                                                                                                                                                                                                  goto LABEL_1550;
+                                                                                                                                                                                                                }
+                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                              else
+                                                                                                                                                                                                              {
+                                                                                                                                                                                                                if (!proximityPairingSubType2)
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                  goto LABEL_1535;
+                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                if (proximityPairingSubType2 == v337)
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                    [CBDevice isEqualToDevice:v337 exactMatch:?];
+                                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                                  goto LABEL_1234;
+                                                                                                                                                                                                                }
+                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                              LOBYTE(v27) = 0;
+                                                                                                                                                                                                              goto LABEL_1535;
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                          }
+
+                                                                                                                                                                                                          else
+                                                                                                                                                                                                          {
+                                                                                                                                                                                                            if (!proximityPairingSecondaryPlacement2)
+                                                                                                                                                                                                            {
+                                                                                                                                                                                                              goto LABEL_1520;
+                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                            if (v334 == proximityPairingSecondaryPlacement2)
+                                                                                                                                                                                                            {
+                                                                                                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                              {
+                                                                                                                                                                                                                [CBDevice isEqualToDevice:v334 exactMatch:?];
+                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                              goto LABEL_1234;
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                          }
+
+                                                                                                                                                                                                          LOBYTE(v27) = 0;
+                                                                                                                                                                                                          goto LABEL_1520;
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                      else
+                                                                                                                                                                                                      {
+                                                                                                                                                                                                        if (!proximityPairingPrimaryPlacement2)
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                          goto LABEL_1505;
+                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                        if (v331 == proximityPairingPrimaryPlacement2)
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                          {
+                                                                                                                                                                                                            [CBDevice isEqualToDevice:v331 exactMatch:?];
+                                                                                                                                                                                                          }
+
+                                                                                                                                                                                                          goto LABEL_1234;
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                      LOBYTE(v27) = 0;
+                                                                                                                                                                                                      goto LABEL_1505;
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                  else
+                                                                                                                                                                                                  {
+                                                                                                                                                                                                    if (!proximityPairingProductID2)
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      goto LABEL_1490;
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    if (v328 == proximityPairingProductID2)
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                      {
+                                                                                                                                                                                                        [CBDevice isEqualToDevice:v328 exactMatch:?];
+                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                      goto LABEL_1234;
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                  LOBYTE(v27) = 0;
+                                                                                                                                                                                                  goto LABEL_1490;
+                                                                                                                                                                                                }
+                                                                                                                                                                                              }
+
+                                                                                                                                                                                              else
+                                                                                                                                                                                              {
+                                                                                                                                                                                                if (!proximityPairingOtherBudProductID2)
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  goto LABEL_1475;
+                                                                                                                                                                                                }
+
+                                                                                                                                                                                                if (v325 == proximityPairingOtherBudProductID2)
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                                  {
+                                                                                                                                                                                                    [CBDevice isEqualToDevice:v325 exactMatch:?];
+                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                  goto LABEL_1234;
+                                                                                                                                                                                                }
+                                                                                                                                                                                              }
+
+                                                                                                                                                                                              LOBYTE(v27) = 0;
+                                                                                                                                                                                              goto LABEL_1475;
+                                                                                                                                                                                            }
+                                                                                                                                                                                          }
+
+                                                                                                                                                                                          else
+                                                                                                                                                                                          {
+                                                                                                                                                                                            if (!objectDiscoveryProductID2)
+                                                                                                                                                                                            {
+                                                                                                                                                                                              goto LABEL_1460;
+                                                                                                                                                                                            }
+
+                                                                                                                                                                                            if (v322 == objectDiscoveryProductID2)
+                                                                                                                                                                                            {
+                                                                                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                              {
+                                                                                                                                                                                                [CBDevice isEqualToDevice:v322 exactMatch:?];
+                                                                                                                                                                                              }
+
+                                                                                                                                                                                              goto LABEL_1234;
+                                                                                                                                                                                            }
+                                                                                                                                                                                          }
+
+                                                                                                                                                                                          LOBYTE(v27) = 0;
+                                                                                                                                                                                          goto LABEL_1460;
+                                                                                                                                                                                        }
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      else
+                                                                                                                                                                                      {
+                                                                                                                                                                                        if (!objectDiscoveryMode2)
+                                                                                                                                                                                        {
+                                                                                                                                                                                          goto LABEL_1429;
+                                                                                                                                                                                        }
+
+                                                                                                                                                                                        if (objectDiscoveryMode2 == v313)
+                                                                                                                                                                                        {
+                                                                                                                                                                                          if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                                                                          {
+                                                                                                                                                                                            goto LABEL_1234;
+                                                                                                                                                                                          }
+
+                                                                                                                                                                                          goto LABEL_1627;
+                                                                                                                                                                                        }
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      LOBYTE(v27) = 0;
+                                                                                                                                                                                      goto LABEL_1429;
+                                                                                                                                                                                    }
+                                                                                                                                                                                  }
+
+                                                                                                                                                                                  else
+                                                                                                                                                                                  {
+                                                                                                                                                                                    if (!objectDiscoveryBatteryState2)
+                                                                                                                                                                                    {
+                                                                                                                                                                                      goto LABEL_1398;
+                                                                                                                                                                                    }
+
+                                                                                                                                                                                    if (objectDiscoveryBatteryState2 == v308)
+                                                                                                                                                                                    {
+                                                                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                      {
+                                                                                                                                                                                        [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      goto LABEL_1234;
+                                                                                                                                                                                    }
+                                                                                                                                                                                  }
+
+                                                                                                                                                                                  LOBYTE(v27) = 0;
+                                                                                                                                                                                  goto LABEL_1398;
+                                                                                                                                                                                }
+                                                                                                                                                                              }
+
+                                                                                                                                                                              else
+                                                                                                                                                                              {
+                                                                                                                                                                                if (!nearbyInfoV2InvitationRouteType2)
+                                                                                                                                                                                {
+                                                                                                                                                                                  goto LABEL_1383;
+                                                                                                                                                                                }
+
+                                                                                                                                                                                if (nearbyInfoV2InvitationRouteType2 == v305)
+                                                                                                                                                                                {
+                                                                                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                                  {
+                                                                                                                                                                                    [CBDevice isEqualToDevice:v305 exactMatch:?];
+                                                                                                                                                                                  }
+
+                                                                                                                                                                                  goto LABEL_1234;
+                                                                                                                                                                                }
+                                                                                                                                                                              }
+
+                                                                                                                                                                              LOBYTE(v27) = 0;
+                                                                                                                                                                              goto LABEL_1383;
+                                                                                                                                                                            }
+                                                                                                                                                                          }
+
+                                                                                                                                                                          else
+                                                                                                                                                                          {
+                                                                                                                                                                            if (!nearbyInfoStatusType)
+                                                                                                                                                                            {
+                                                                                                                                                                              goto LABEL_1368;
+                                                                                                                                                                            }
+
+                                                                                                                                                                            if (nearbyInfoStatusType == v302)
+                                                                                                                                                                            {
+                                                                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                              {
+                                                                                                                                                                                [CBDevice isEqualToDevice:v302 exactMatch:?];
+                                                                                                                                                                              }
+
+                                                                                                                                                                              goto LABEL_1234;
+                                                                                                                                                                            }
+                                                                                                                                                                          }
+
+                                                                                                                                                                          LOBYTE(v27) = 0;
+                                                                                                                                                                          goto LABEL_1368;
+                                                                                                                                                                        }
+                                                                                                                                                                      }
+
+                                                                                                                                                                      else
+                                                                                                                                                                      {
+                                                                                                                                                                        if (!nearbyActionNoWakeType2)
+                                                                                                                                                                        {
+                                                                                                                                                                          goto LABEL_1353;
+                                                                                                                                                                        }
+
+                                                                                                                                                                        if (nearbyActionNoWakeType2 == v298)
+                                                                                                                                                                        {
+                                                                                                                                                                          if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                                                          {
+                                                                                                                                                                            goto LABEL_1234;
+                                                                                                                                                                          }
+
+                                                                                                                                                                          goto LABEL_1627;
+                                                                                                                                                                        }
+                                                                                                                                                                      }
+
+                                                                                                                                                                      LOBYTE(v27) = 0;
+                                                                                                                                                                      goto LABEL_1353;
+                                                                                                                                                                    }
+                                                                                                                                                                  }
+
+                                                                                                                                                                  else
+                                                                                                                                                                  {
+                                                                                                                                                                    if (!nearbyActionV2Type2)
+                                                                                                                                                                    {
+                                                                                                                                                                      goto LABEL_1328;
+                                                                                                                                                                    }
+
+                                                                                                                                                                    if (nearbyActionV2Type2 == v294)
+                                                                                                                                                                    {
+                                                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                      {
+                                                                                                                                                                        [CBDevice isEqualToDevice:v294 exactMatch:?];
+                                                                                                                                                                      }
+
+                                                                                                                                                                      goto LABEL_1234;
+                                                                                                                                                                    }
+                                                                                                                                                                  }
+
+                                                                                                                                                                  LOBYTE(v27) = 0;
+                                                                                                                                                                  goto LABEL_1328;
+                                                                                                                                                                }
+                                                                                                                                                              }
+
+                                                                                                                                                              else
+                                                                                                                                                              {
+                                                                                                                                                                if (!nearbyActionType)
+                                                                                                                                                                {
+                                                                                                                                                                  goto LABEL_1313;
+                                                                                                                                                                }
+
+                                                                                                                                                                if (nearbyActionType == v291)
+                                                                                                                                                                {
+                                                                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                                  {
+                                                                                                                                                                    [CBDevice isEqualToDevice:v291 exactMatch:?];
+                                                                                                                                                                  }
+
+                                                                                                                                                                  goto LABEL_1234;
+                                                                                                                                                                }
+                                                                                                                                                              }
+
+                                                                                                                                                              LOBYTE(v27) = 0;
+                                                                                                                                                              goto LABEL_1313;
+                                                                                                                                                            }
+                                                                                                                                                          }
+
+                                                                                                                                                          else
+                                                                                                                                                          {
+                                                                                                                                                            if (!nearbyActionDeviceClass2)
+                                                                                                                                                            {
+                                                                                                                                                              goto LABEL_1298;
+                                                                                                                                                            }
+
+                                                                                                                                                            if (v287 == nearbyActionDeviceClass2)
+                                                                                                                                                            {
+                                                                                                                                                              if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                                              {
+                                                                                                                                                                goto LABEL_1234;
+                                                                                                                                                              }
+
+                                                                                                                                                              goto LABEL_1627;
+                                                                                                                                                            }
+                                                                                                                                                          }
+
+                                                                                                                                                          LOBYTE(v27) = 0;
+                                                                                                                                                          goto LABEL_1298;
+                                                                                                                                                        }
+                                                                                                                                                      }
+
+                                                                                                                                                      else
+                                                                                                                                                      {
+                                                                                                                                                        if (!heySiriProductType)
+                                                                                                                                                        {
+                                                                                                                                                          goto LABEL_1272;
+                                                                                                                                                        }
+
+                                                                                                                                                        if (heySiriProductType == v284)
+                                                                                                                                                        {
+                                                                                                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                          {
+                                                                                                                                                            [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                                                          }
+
+                                                                                                                                                          goto LABEL_1234;
+                                                                                                                                                        }
+                                                                                                                                                      }
+
+                                                                                                                                                      LOBYTE(v27) = 0;
+                                                                                                                                                      goto LABEL_1272;
+                                                                                                                                                    }
+                                                                                                                                                  }
+
+                                                                                                                                                  else
+                                                                                                                                                  {
+                                                                                                                                                    if (!heySiriDeviceClass2)
+                                                                                                                                                    {
+                                                                                                                                                      goto LABEL_1257;
+                                                                                                                                                    }
+
+                                                                                                                                                    if (heySiriDeviceClass2 == v281)
+                                                                                                                                                    {
+                                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                      {
+                                                                                                                                                        [CBDevice isEqualToDevice:v281 exactMatch:?];
+                                                                                                                                                      }
+
+                                                                                                                                                      goto LABEL_1234;
+                                                                                                                                                    }
+                                                                                                                                                  }
+
+                                                                                                                                                  LOBYTE(v27) = 0;
+                                                                                                                                                  goto LABEL_1257;
+                                                                                                                                                }
+
+                                                                                                                                                if (matchCopy)
+                                                                                                                                                {
+                                                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                  {
+                                                                                                                                                    v371 = v65;
+                                                                                                                                                    v390 = v67;
+                                                                                                                                                    LogPrintF_safe();
+                                                                                                                                                  }
+
+LABEL_1240:
+                                                                                                                                                  LOBYTE(v27) = 1;
+                                                                                                                                                  goto LABEL_1241;
+                                                                                                                                                }
+
+                                                                                                                                                if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                                {
+                                                                                                                                                  goto LABEL_1233;
+                                                                                                                                                }
+
+LABEL_1232:
+                                                                                                                                                LogPrintF_safe();
+                                                                                                                                                goto LABEL_1233;
+                                                                                                                                              }
+
+                                                                                                                                              findMyCaseIdentifier = [deviceCopy findMyCaseIdentifier];
+                                                                                                                                              if (findMyCaseIdentifier)
+                                                                                                                                              {
+                                                                                                                                                v65 = v271;
+                                                                                                                                                v273 = findMyCaseIdentifier;
+                                                                                                                                                v67 = v273;
+                                                                                                                                                if (v271 == findMyCaseIdentifier)
+                                                                                                                                                {
+
+                                                                                                                                                  if (!matchCopy)
+                                                                                                                                                  {
+                                                                                                                                                    if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                                    {
+                                                                                                                                                      goto LABEL_1233;
+                                                                                                                                                    }
+
+                                                                                                                                                    goto LABEL_1232;
+                                                                                                                                                  }
+
+                                                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                  {
+                                                                                                                                                    v371 = v65;
+                                                                                                                                                    v390 = v67;
+                                                                                                                                                    LogPrintF_safe();
+                                                                                                                                                  }
+
+                                                                                                                                                  goto LABEL_1216;
+                                                                                                                                                }
+
+                                                                                                                                                v274 = [(NSString *)v65 isEqual:v273];
+
+                                                                                                                                                if (v274)
+                                                                                                                                                {
+                                                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                                  {
+                                                                                                                                                    v371 = v65;
+                                                                                                                                                    v390 = v67;
+                                                                                                                                                    LogPrintF_safe();
+                                                                                                                                                  }
+
+                                                                                                                                                  if (!matchCopy)
+                                                                                                                                                  {
+                                                                                                                                                    goto LABEL_1233;
+                                                                                                                                                  }
+
+LABEL_1216:
+                                                                                                                                                  LOBYTE(v27) = 1;
+                                                                                                                                                  goto LABEL_1217;
+                                                                                                                                                }
+
+                                                                                                                                                LOBYTE(v27) = 0;
+                                                                                                                                              }
+
+LABEL_1217:
+
+                                                                                                                                              goto LABEL_1218;
+                                                                                                                                            }
+                                                                                                                                          }
+
+                                                                                                                                          else
+                                                                                                                                          {
+                                                                                                                                            if (!dsInfoVehicleState)
+                                                                                                                                            {
+                                                                                                                                              goto LABEL_1199;
+                                                                                                                                            }
+
+                                                                                                                                            if (dsInfoVehicleState == v267)
+                                                                                                                                            {
+                                                                                                                                              if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                              {
+                                                                                                                                                goto LABEL_1234;
+                                                                                                                                              }
+
+                                                                                                                                              goto LABEL_1627;
+                                                                                                                                            }
+                                                                                                                                          }
+
+                                                                                                                                          LOBYTE(v27) = 0;
+                                                                                                                                          goto LABEL_1199;
+                                                                                                                                        }
+                                                                                                                                      }
+
+                                                                                                                                      else
+                                                                                                                                      {
+                                                                                                                                        if (!vendorIDSource)
+                                                                                                                                        {
+                                                                                                                                          goto LABEL_1170;
+                                                                                                                                        }
+
+                                                                                                                                        if (vendorIDSource == vendorIDSource)
+                                                                                                                                        {
+                                                                                                                                          if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                                                          {
+                                                                                                                                            goto LABEL_1234;
+                                                                                                                                          }
+
+                                                                                                                                          goto LABEL_1627;
+                                                                                                                                        }
+                                                                                                                                      }
+
+                                                                                                                                      LOBYTE(v27) = 0;
+                                                                                                                                      goto LABEL_1170;
+                                                                                                                                    }
+                                                                                                                                  }
+
+                                                                                                                                  else
+                                                                                                                                  {
+                                                                                                                                    if (!vendorID)
+                                                                                                                                    {
+                                                                                                                                      goto LABEL_1127;
+                                                                                                                                    }
+
+                                                                                                                                    if (vendorID == vendorID)
+                                                                                                                                    {
+                                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                      {
+                                                                                                                                        [CBDevice isEqualToDevice:? exactMatch:?];
+                                                                                                                                      }
+
+                                                                                                                                      goto LABEL_1234;
+                                                                                                                                    }
+                                                                                                                                  }
+
+                                                                                                                                  LOBYTE(v27) = 0;
+                                                                                                                                  goto LABEL_1127;
+                                                                                                                                }
+                                                                                                                              }
+
+                                                                                                                              else
+                                                                                                                              {
+                                                                                                                                if (!tipiConnectionStatus2)
+                                                                                                                                {
+                                                                                                                                  goto LABEL_1089;
+                                                                                                                                }
+
+                                                                                                                                if (tipiConnectionStatus2 == v248)
+                                                                                                                                {
+                                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                                  {
+                                                                                                                                    [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                                  }
+
+                                                                                                                                  goto LABEL_1234;
+                                                                                                                                }
+                                                                                                                              }
+
+                                                                                                                              LOBYTE(v27) = 0;
+                                                                                                                              goto LABEL_1089;
+                                                                                                                            }
+                                                                                                                          }
+
+                                                                                                                          else
+                                                                                                                          {
+                                                                                                                            if (!spatialAudioMode || spatialAudioMode == 255)
+                                                                                                                            {
+                                                                                                                              goto LABEL_1066;
+                                                                                                                            }
+
+                                                                                                                            if (v250 == spatialAudioMode)
+                                                                                                                            {
+                                                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                              {
+                                                                                                                                [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                              }
+
+                                                                                                                              goto LABEL_1234;
+                                                                                                                            }
+                                                                                                                          }
+
+                                                                                                                          LOBYTE(v27) = 0;
+                                                                                                                          goto LABEL_1066;
+                                                                                                                        }
+                                                                                                                      }
+
+                                                                                                                      else
+                                                                                                                      {
+                                                                                                                        if (!selectiveSpeechListeningConfig2)
+                                                                                                                        {
+                                                                                                                          goto LABEL_959;
+                                                                                                                        }
+
+                                                                                                                        if (selectiveSpeechListeningConfig2 == v225)
+                                                                                                                        {
+                                                                                                                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                          {
+                                                                                                                            [CBDevice isEqualToDevice:exactMatch:];
+                                                                                                                          }
+
+                                                                                                                          goto LABEL_1234;
+                                                                                                                        }
+                                                                                                                      }
+
+                                                                                                                      LOBYTE(v27) = 0;
+                                                                                                                      goto LABEL_959;
+                                                                                                                    }
+                                                                                                                  }
+
+                                                                                                                  else
+                                                                                                                  {
+                                                                                                                    if (!selectiveSpeechListeningCapability)
+                                                                                                                    {
+                                                                                                                      goto LABEL_944;
+                                                                                                                    }
+
+                                                                                                                    if (selectiveSpeechListeningCapability == 1)
+                                                                                                                    {
+                                                                                                                      v223 = @"Enabled";
+                                                                                                                    }
+
+                                                                                                                    else
+                                                                                                                    {
+                                                                                                                      v223 = @"?";
+                                                                                                                    }
+
+                                                                                                                    if (selectiveSpeechListeningCapability == v220)
+                                                                                                                    {
+                                                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                      {
+                                                                                                                        [CBDevice isEqualToDevice:v219 exactMatch:v223];
+                                                                                                                      }
+
+                                                                                                                      goto LABEL_1234;
+                                                                                                                    }
+                                                                                                                  }
+
+                                                                                                                  LOBYTE(v27) = 0;
+                                                                                                                  goto LABEL_944;
+                                                                                                                }
+                                                                                                              }
+
+                                                                                                              else
+                                                                                                              {
+                                                                                                                if (!secondaryPlacement2)
+                                                                                                                {
+                                                                                                                  goto LABEL_920;
+                                                                                                                }
+
+                                                                                                                if (v216 == secondaryPlacement2)
+                                                                                                                {
+                                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                                  {
+                                                                                                                    [CBDevice isEqualToDevice:v216 exactMatch:?];
+                                                                                                                  }
+
+                                                                                                                  goto LABEL_1234;
+                                                                                                                }
+                                                                                                              }
+
+                                                                                                              LOBYTE(v27) = 0;
+                                                                                                              goto LABEL_920;
+                                                                                                            }
+
+                                                                                                            if (!productName)
+                                                                                                            {
+                                                                                                              goto LABEL_905;
+                                                                                                            }
+
+                                                                                                            v212 = v205;
+                                                                                                            v213 = v207;
+                                                                                                            v214 = v213;
+                                                                                                            if (v205 == v207)
+                                                                                                            {
+                                                                                                            }
+
+                                                                                                            else
+                                                                                                            {
+                                                                                                              v27 = [(NSString *)v212 isEqual:v213];
+
+                                                                                                              if (!v27)
+                                                                                                              {
+LABEL_976:
+
+                                                                                                                goto LABEL_1235;
+                                                                                                              }
+                                                                                                            }
+
+                                                                                                            if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                            {
+                                                                                                              LogPrintF_safe();
+                                                                                                            }
+
+                                                                                                            LOBYTE(v27) = 1;
+                                                                                                            goto LABEL_976;
+                                                                                                          }
+                                                                                                        }
+
+                                                                                                        else
+                                                                                                        {
+                                                                                                          if (!productID)
+                                                                                                          {
+                                                                                                            goto LABEL_875;
+                                                                                                          }
+
+                                                                                                          if (productID == productID)
+                                                                                                          {
+                                                                                                            if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                            {
+                                                                                                              goto LABEL_1234;
+                                                                                                            }
+
+                                                                                                            goto LABEL_873;
+                                                                                                          }
+                                                                                                        }
+
+                                                                                                        LOBYTE(v27) = 0;
+                                                                                                        goto LABEL_875;
+                                                                                                      }
+                                                                                                    }
+
+                                                                                                    else
+                                                                                                    {
+                                                                                                      if (!primaryPlacement)
+                                                                                                      {
+                                                                                                        goto LABEL_860;
+                                                                                                      }
+
+                                                                                                      if (v197 == primaryPlacement)
+                                                                                                      {
+                                                                                                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                        {
+                                                                                                          [CBDevice isEqualToDevice:v197 exactMatch:?];
+                                                                                                        }
+
+                                                                                                        goto LABEL_1234;
+                                                                                                      }
+                                                                                                    }
+
+                                                                                                    LOBYTE(v27) = 0;
+                                                                                                    goto LABEL_860;
+                                                                                                  }
+                                                                                                }
+
+                                                                                                else
+                                                                                                {
+                                                                                                  if (!primaryBudSide || primaryBudSide == 3)
+                                                                                                  {
+                                                                                                    goto LABEL_832;
+                                                                                                  }
+
+                                                                                                  if (primaryBudSide == v199)
+                                                                                                  {
+                                                                                                    if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                    {
+                                                                                                      goto LABEL_1234;
+                                                                                                    }
+
+                                                                                                    goto LABEL_1627;
+                                                                                                  }
+                                                                                                }
+
+                                                                                                LOBYTE(v27) = 0;
+                                                                                                goto LABEL_832;
+                                                                                              }
+
+                                                                                              name = [deviceCopy name];
+                                                                                              if (name)
+                                                                                              {
+                                                                                                v65 = v182;
+                                                                                                v184 = name;
+                                                                                                v67 = v184;
+                                                                                                if (v182 == name)
+                                                                                                {
+
+                                                                                                  if (!matchCopy)
+                                                                                                  {
+                                                                                                    if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                                    {
+                                                                                                      goto LABEL_1233;
+                                                                                                    }
+
+                                                                                                    goto LABEL_1232;
+                                                                                                  }
+
+                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                  {
+                                                                                                    v365 = v65;
+                                                                                                    v384 = v67;
+                                                                                                    LogPrintF_safe();
+                                                                                                  }
+
+                                                                                                  goto LABEL_792;
+                                                                                                }
+
+                                                                                                v185 = [(NSString *)v65 isEqual:v184];
+
+                                                                                                if (v185)
+                                                                                                {
+                                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                                  {
+                                                                                                    v365 = v65;
+                                                                                                    v384 = v67;
+                                                                                                    LogPrintF_safe();
+                                                                                                  }
+
+                                                                                                  if (!matchCopy)
+                                                                                                  {
+                                                                                                    goto LABEL_1233;
+                                                                                                  }
+
+LABEL_792:
+                                                                                                  LOBYTE(v27) = 1;
+                                                                                                  goto LABEL_793;
+                                                                                                }
+
+                                                                                                LOBYTE(v27) = 0;
+                                                                                              }
+
+LABEL_793:
+
+                                                                                              goto LABEL_794;
+                                                                                            }
+                                                                                          }
+
+                                                                                          else
+                                                                                          {
+                                                                                            if (!muteControlCapability)
+                                                                                            {
+                                                                                              goto LABEL_762;
+                                                                                            }
+
+                                                                                            if (muteControlCapability == v177)
+                                                                                            {
+                                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                              {
+                                                                                                [CBDevice isEqualToDevice:exactMatch:];
+                                                                                              }
+
+                                                                                              goto LABEL_1234;
+                                                                                            }
+                                                                                          }
+
+                                                                                          LOBYTE(v27) = 0;
+                                                                                          goto LABEL_762;
+                                                                                        }
+                                                                                      }
+
+                                                                                      else
+                                                                                      {
+                                                                                        if (!mspSubScenario2)
+                                                                                        {
+                                                                                          goto LABEL_747;
+                                                                                        }
+
+                                                                                        if (mspSubScenario2 == v172)
+                                                                                        {
+                                                                                          if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                                          {
+                                                                                            goto LABEL_1234;
+                                                                                          }
+
+                                                                                          goto LABEL_1627;
+                                                                                        }
+                                                                                      }
+
+                                                                                      LOBYTE(v27) = 0;
+                                                                                      goto LABEL_747;
+                                                                                    }
+                                                                                  }
+
+                                                                                  else
+                                                                                  {
+                                                                                    if (!mspDeviceClass2)
+                                                                                    {
+                                                                                      goto LABEL_680;
+                                                                                    }
+
+                                                                                    if (v163 == mspDeviceClass2)
+                                                                                    {
+                                                                                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                      {
+                                                                                        [CBDevice isEqualToDevice:exactMatch:];
+                                                                                      }
+
+                                                                                      goto LABEL_1234;
+                                                                                    }
+                                                                                  }
+
+                                                                                  LOBYTE(v27) = 0;
+                                                                                  goto LABEL_680;
+                                                                                }
+                                                                              }
+
+                                                                              else
+                                                                              {
+                                                                                if (!microphoneMode)
+                                                                                {
+                                                                                  goto LABEL_600;
+                                                                                }
+
+                                                                                if (v148 == microphoneMode)
+                                                                                {
+                                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                                  {
+                                                                                    [CBDevice isEqualToDevice:exactMatch:];
+                                                                                  }
+
+                                                                                  goto LABEL_1234;
+                                                                                }
+                                                                              }
+
+                                                                              LOBYTE(v27) = 0;
+                                                                              goto LABEL_600;
+                                                                            }
+                                                                          }
+
+                                                                          else
+                                                                          {
+                                                                            if (!listeningMode2)
+                                                                            {
+                                                                              goto LABEL_585;
+                                                                            }
+
+                                                                            if (v145 == listeningMode2)
+                                                                            {
+                                                                              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                              {
+                                                                                [CBDevice isEqualToDevice:exactMatch:];
+                                                                              }
+
+                                                                              goto LABEL_1234;
+                                                                            }
+                                                                          }
+
+                                                                          LOBYTE(v27) = 0;
+                                                                          goto LABEL_585;
+                                                                        }
+                                                                      }
+
+                                                                      else
+                                                                      {
+                                                                        if (!interval)
+                                                                        {
+                                                                          goto LABEL_551;
+                                                                        }
+
+                                                                        if (interval == interval)
+                                                                        {
+                                                                          if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                          {
+                                                                            goto LABEL_1234;
+                                                                          }
+
+                                                                          goto LABEL_1627;
+                                                                        }
+                                                                      }
+
+                                                                      LOBYTE(v27) = 0;
+                                                                      goto LABEL_551;
+                                                                    }
+
+LABEL_487:
+                                                                    LOBYTE(v27) = 0;
+                                                                    goto LABEL_493;
+                                                                  }
+
+                                                                  if (!hearingTestSupport)
+                                                                  {
+                                                                    goto LABEL_493;
+                                                                  }
+
+                                                                  if (v125 != hearingTestSupport)
+                                                                  {
+                                                                    goto LABEL_487;
+                                                                  }
+
+LABEL_484:
+                                                                  if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                                  {
+                                                                    goto LABEL_1234;
+                                                                  }
+
+                                                                  goto LABEL_1627;
+                                                                }
+                                                              }
+
+                                                              else
+                                                              {
+                                                                if (!gfpModelID)
+                                                                {
+                                                                  goto LABEL_433;
+                                                                }
+
+                                                                if (v113 == gfpModelID)
+                                                                {
+                                                                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                                  {
+                                                                    [CBDevice isEqualToDevice:exactMatch:];
+                                                                  }
+
+                                                                  goto LABEL_1234;
+                                                                }
+                                                              }
+
+                                                              LOBYTE(v27) = 0;
+                                                              goto LABEL_433;
+                                                            }
+                                                          }
+
+                                                          else
+                                                          {
+                                                            if (!frequencyBand2)
+                                                            {
+                                                              goto LABEL_418;
+                                                            }
+
+                                                            if (frequencyBand2 == v108)
+                                                            {
+                                                              if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                              {
+                                                                goto LABEL_1234;
+                                                              }
+
+                                                              goto LABEL_1627;
+                                                            }
+                                                          }
+
+                                                          LOBYTE(v27) = 0;
+                                                          goto LABEL_418;
+                                                        }
+
+                                                        firmwareVersion = [deviceCopy firmwareVersion];
+                                                        if (firmwareVersion)
+                                                        {
+                                                          v65 = v101;
+                                                          v103 = firmwareVersion;
+                                                          v67 = v103;
+                                                          if (v101 == firmwareVersion)
+                                                          {
+
+                                                            if (!matchCopy)
+                                                            {
+                                                              if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                                                              {
+                                                                goto LABEL_1233;
+                                                              }
+
+                                                              goto LABEL_1232;
+                                                            }
+
+                                                            if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                            {
+                                                              v359 = v65;
+                                                              v378 = v67;
+                                                              LogPrintF_safe();
+                                                            }
+
+                                                            goto LABEL_379;
+                                                          }
+
+                                                          v104 = [(NSString *)v65 isEqual:v103];
+
+                                                          if (v104)
+                                                          {
+                                                            if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                            {
+                                                              v359 = v65;
+                                                              v378 = v67;
+                                                              LogPrintF_safe();
+                                                            }
+
+                                                            if (!matchCopy)
+                                                            {
+                                                              goto LABEL_1233;
+                                                            }
+
+LABEL_379:
+                                                            LOBYTE(v27) = 1;
+                                                            goto LABEL_380;
+                                                          }
+
+                                                          LOBYTE(v27) = 0;
+                                                        }
+
+LABEL_380:
+
+                                                        goto LABEL_381;
+                                                      }
+                                                    }
+
+                                                    else
+                                                    {
+                                                      if (!endCallCapability2)
+                                                      {
+                                                        goto LABEL_339;
+                                                      }
+
+                                                      if (endCallCapability2 == v96)
+                                                      {
+                                                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                        {
+                                                          [CBDevice isEqualToDevice:exactMatch:];
+                                                        }
+
+                                                        goto LABEL_1234;
+                                                      }
+                                                    }
+
+                                                    LOBYTE(v27) = 0;
+                                                    goto LABEL_339;
+                                                  }
+                                                }
+
+                                                else
+                                                {
+                                                  if (!doubleTapCapability2)
+                                                  {
+                                                    goto LABEL_324;
+                                                  }
+
+                                                  if (v93 == doubleTapCapability2)
+                                                  {
+                                                    if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                    {
+                                                      [CBDevice isEqualToDevice:exactMatch:];
+                                                    }
+
+                                                    goto LABEL_1234;
+                                                  }
+                                                }
+
+                                                LOBYTE(v27) = 0;
+                                                goto LABEL_324;
+                                              }
+                                            }
+
+                                            else
+                                            {
+                                              if (!doubleTapActionRight2)
+                                              {
+                                                goto LABEL_309;
+                                              }
+
+                                              if (v90 == doubleTapActionRight2)
+                                              {
+                                                if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                                {
+                                                  [CBDevice isEqualToDevice:exactMatch:];
+                                                }
+
+                                                goto LABEL_1234;
+                                              }
+                                            }
+
+                                            LOBYTE(v27) = 0;
+                                            goto LABEL_309;
+                                          }
+                                        }
+
+                                        else
+                                        {
+                                          if (!doubleTapActionLeft2)
+                                          {
+                                            goto LABEL_294;
+                                          }
+
+                                          if (v87 == doubleTapActionLeft2)
+                                          {
+                                            if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                            {
+                                              [CBDevice isEqualToDevice:exactMatch:];
+                                            }
+
+                                            goto LABEL_1234;
+                                          }
+                                        }
+
+                                        LOBYTE(v27) = 0;
+                                        goto LABEL_294;
+                                      }
+                                    }
+
+                                    else
+                                    {
+                                      if (!deviceType)
+                                      {
+                                        goto LABEL_279;
+                                      }
+
+                                      if (deviceType == deviceType)
+                                      {
+                                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                        {
+                                          [CBDevice isEqualToDevice:? exactMatch:?];
+                                        }
+
+                                        goto LABEL_1234;
+                                      }
+                                    }
+
+                                    LOBYTE(v27) = 0;
+                                    goto LABEL_279;
+                                  }
+                                }
+
+                                else
+                                {
+                                  if (!crownRotationDirection2)
+                                  {
+                                    goto LABEL_264;
+                                  }
+
+                                  if (crownRotationDirection2 == 1)
+                                  {
+                                    v82 = @"BackToFront";
+                                  }
+
+                                  else
+                                  {
+                                    v82 = @"?";
+                                  }
+
+                                  if (crownRotationDirection2 == 2)
+                                  {
+                                    v83 = @"FrontToBack";
+                                  }
+
+                                  else
+                                  {
+                                    v83 = v82;
+                                  }
+
+                                  if (crownRotationDirection2 == v78)
+                                  {
+                                    if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                    {
+                                      [CBDevice isEqualToDevice:v77 exactMatch:v83];
+                                    }
+
+                                    goto LABEL_1234;
+                                  }
+                                }
+
+                                LOBYTE(v27) = 0;
+                                goto LABEL_264;
+                              }
+                            }
+
+                            else
+                            {
+                              if (!conversationDetectConfig)
+                              {
+                                goto LABEL_231;
+                              }
+
+                              if (conversationDetectConfig == v73)
+                              {
+                                if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                                {
+                                  [CBDevice isEqualToDevice:exactMatch:];
+                                }
+
+                                goto LABEL_1234;
+                              }
+                            }
+
+                            LOBYTE(v27) = 0;
+                            goto LABEL_231;
+                          }
+                        }
+
+                        else
+                        {
+                          if (!conversationDetectCapability2)
+                          {
+                            goto LABEL_216;
+                          }
+
+                          if (conversationDetectCapability2 == v70)
+                          {
+                            if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                            {
+                              [CBDevice isEqualToDevice:exactMatch:];
+                            }
+
+                            goto LABEL_1234;
+                          }
+                        }
+
+                        LOBYTE(v27) = 0;
+                        goto LABEL_216;
+                      }
+
+                      contactID = [deviceCopy contactID];
+                      if (contactID)
+                      {
+                        v65 = v63;
+                        v66 = contactID;
+                        v67 = v66;
+                        if (v63 == contactID)
+                        {
+
+                          if (!matchCopy)
+                          {
+                            if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                            {
+                              goto LABEL_1233;
+                            }
+
+                            goto LABEL_1232;
+                          }
+
+                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                          {
+                            v358 = v65;
+                            v377 = v67;
+                            LogPrintF_safe();
+                          }
+
+                          goto LABEL_199;
+                        }
+
+                        v68 = [(NSString *)v65 isEqual:v66];
+
+                        if (v68)
+                        {
+                          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                          {
+                            v358 = v65;
+                            v377 = v67;
+                            LogPrintF_safe();
+                          }
+
+                          if (!matchCopy)
+                          {
+                            goto LABEL_1233;
+                          }
+
+LABEL_199:
+                          LOBYTE(v27) = 1;
+                          goto LABEL_200;
+                        }
+
+                        LOBYTE(v27) = 0;
+                      }
+
+LABEL_200:
+
+                      goto LABEL_201;
+                    }
+
+                    caseVersion = [deviceCopy caseVersion];
+                    v30 = caseVersion;
+                    if (!caseVersion)
+                    {
+                      goto LABEL_159;
+                    }
+
+                    if (bleAddressData != caseVersion)
+                    {
+                      v55 = bleAddressData;
+                      v56 = [(NSString *)v55 isEqual:v30];
+
+                      if (v56)
+                      {
+                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                        {
+                          v357 = v55;
+                          v376 = v30;
+                          LogPrintF_safe();
+                        }
+
+                        if (!matchCopy)
+                        {
+                          goto LABEL_368;
+                        }
+
+                        goto LABEL_158;
+                      }
+
+                      LOBYTE(v27) = 0;
+LABEL_159:
+
+                      goto LABEL_160;
+                    }
+
+                    if (matchCopy)
+                    {
+                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                      {
+                        v357 = bleAddressData;
+                        v376 = v30;
+                        LogPrintF_safe();
+                      }
+
+LABEL_158:
+                      LOBYTE(v27) = 1;
+                      goto LABEL_159;
+                    }
+
+                    if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+                    {
+                      goto LABEL_368;
+                    }
+
+LABEL_151:
+                    LogPrintF_safe();
+LABEL_368:
+
+LABEL_1234:
+                    LOBYTE(v27) = 1;
+                    goto LABEL_1235;
+                  }
+
+                  btAddressData = [deviceCopy btAddressData];
+                  v30 = btAddressData;
+                  if (btAddressData)
+                  {
+                    if (bleAddressData == btAddressData)
+                    {
+                      if (!matchCopy)
+                      {
+                        if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                        {
+                          [CBDevice isEqualToDevice:bleAddressData exactMatch:v30];
+                        }
+
+                        goto LABEL_368;
+                      }
+
+                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                      {
+                        [CBDevice isEqualToDevice:bleAddressData exactMatch:v30];
+                      }
+                    }
+
+                    else
+                    {
+                      v52 = bleAddressData;
+                      v53 = [(NSString *)v52 isEqual:v30];
+
+                      if (!v53)
+                      {
+                        LOBYTE(v27) = 0;
+                        goto LABEL_128;
+                      }
+
+                      if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                      {
+                        [CBDevice isEqualToDevice:v52 exactMatch:v30];
+                        if (!matchCopy)
+                        {
+                          goto LABEL_368;
+                        }
+                      }
+
+                      else if (!matchCopy)
+                      {
+                        goto LABEL_368;
+                      }
+                    }
+
+                    LOBYTE(v27) = 1;
+                  }
+
+LABEL_128:
+
+                  goto LABEL_129;
+                }
+              }
+
+              else
+              {
+                if (!autoAncCapability2)
+                {
+                  goto LABEL_95;
+                }
+
+                if (autoAncCapability2 == v46)
+                {
+                  if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+                  {
+                    [CBDevice isEqualToDevice:exactMatch:];
+                  }
+
+                  goto LABEL_1234;
+                }
+              }
+
+              LOBYTE(v27) = 0;
+              goto LABEL_95;
+            }
+          }
+
+          else
+          {
+            if (!adaptiveVolumeConfig)
+            {
+              goto LABEL_56;
+            }
+
+            if (adaptiveVolumeConfig == v37)
+            {
+              if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+              {
+                [CBDevice isEqualToDevice:exactMatch:];
+              }
+
+              goto LABEL_1234;
+            }
+          }
+
+          LOBYTE(v27) = 0;
+          goto LABEL_56;
+        }
+      }
+
+      else
+      {
+        if (!adaptiveVolumeCapability2)
+        {
+          goto LABEL_41;
+        }
+
+        if (adaptiveVolumeCapability2 == v34)
+        {
+          if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
+          {
+            [CBDevice isEqualToDevice:exactMatch:];
+          }
+
+          goto LABEL_1234;
+        }
+      }
+
+      LOBYTE(v27) = 0;
+      goto LABEL_41;
+    }
+
+LABEL_12:
+
+    adaptiveVolumeCapability = [(CBDevice *)self adaptiveVolumeCapability];
+    if (!adaptiveVolumeCapability)
+    {
+      goto LABEL_41;
+    }
+
+    goto LABEL_27;
+  }
+
+LABEL_1235:
+
+  return v27;
+}
+
 - (BOOL)_matchingFlags:(id)flags exactMatch:(BOOL)match
 {
   flagsCopy = flags;
-  v180 = 0;
-  v181 = &v180;
-  v182 = 0x3032000000;
-  v183 = __Block_byref_object_copy__5;
-  v184 = __Block_byref_object_dispose__5;
-  v185 = @"?";
-  v178[0] = MEMORY[0x1E69E9820];
-  v178[1] = 3221225472;
-  v178[2] = __38__CBDevice__matchingFlags_exactMatch___block_invoke;
-  v178[3] = &unk_1E81215A0;
-  v178[4] = &v180;
+  v175 = 0;
+  v176 = &v175;
+  v177 = 0x3032000000;
+  v178 = __Block_byref_object_copy__5;
+  v179 = __Block_byref_object_dispose__5;
+  v180 = @"?";
+  v173[0] = MEMORY[0x1E69E9820];
+  v173[1] = 3221225472;
+  v173[2] = __38__CBDevice__matchingFlags_exactMatch___block_invoke;
+  v173[3] = &unk_1E81215A0;
+  v173[4] = &v175;
   matchCopy = match;
-  v7 = MEMORY[0x1C68DF720](v178);
+  v7 = MEMORY[0x1C68DF720](v173);
   accessoryStatusFlags = [(CBDevice *)self accessoryStatusFlags];
   if (!accessoryStatusFlags)
   {
@@ -12763,11 +18108,10 @@ LABEL_99:
         goto LABEL_358;
       }
 
-      v14 = v181[5];
       [(CBDevice *)self accessoryStatusFlags];
-      v15 = CUPrintFlags32();
+      v14 = CUPrintFlags32();
       [flagsCopy accessoryStatusFlags];
-      v16 = CUPrintFlags32();
+      v15 = CUPrintFlags32();
       LogPrintF_safe();
       goto LABEL_357;
     }
@@ -12779,51 +18123,51 @@ LABEL_99:
   if (!accessoryStatusFlags3 || !v7[2](v7, v9, accessoryStatusFlags3))
   {
 LABEL_13:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_14;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v11 = v181[5];
+    v11 = v176[5];
     [(CBDevice *)self accessoryStatusFlags];
     v12 = CUPrintFlags32();
     [flagsCopy accessoryStatusFlags];
     CUPrintFlags32();
-    v161 = v144 = v12;
-    v127 = v11;
+    v156 = v139 = v12;
+    v122 = v11;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_14:
-  v18 = [(CBDevice *)self connectedServices:v127];
-  if (!v18)
+  v17 = [(CBDevice *)self connectedServices:v122];
+  if (!v17)
   {
     goto LABEL_29;
   }
 
-  v20 = v18;
+  v19 = v17;
   if (!match)
   {
     connectedServices = [flagsCopy connectedServices];
     if (connectedServices)
     {
-      if (v7[2](v7, v20, connectedServices))
+      v25 = connectedServices;
+      if (v7[2](v7, v19, connectedServices))
       {
         if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
         {
           goto LABEL_358;
         }
 
-        v25 = v181[5];
-        v15 = CBServiceFlagsToString();
-        v16 = CBServiceFlagsToString();
+        v14 = CBServiceFlagsToString(v19);
+        v15 = CBServiceFlagsToString(v25);
         LogPrintF_safe();
         goto LABEL_357;
       }
 
-      v17 = 0;
+      v16 = 0;
     }
 
 LABEL_29:
@@ -12842,9 +18186,10 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  if (!v7[2](v7, v20, connectedServices2))
+  v21 = connectedServices2;
+  if (!v7[2](v7, v19, connectedServices2))
   {
-    v17 = 0;
+    v16 = 0;
     deviceFlags = self->_deviceFlags;
     if (!deviceFlags)
     {
@@ -12864,17 +18209,15 @@ LABEL_30:
       {
         if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
         {
-          v27 = v181[5];
-          v28 = self->_deviceFlags;
-          v29 = CBDeviceFlagsToString();
-          [flagsCopy deviceFlags];
-          CBDeviceFlagsToString();
-          v162 = v145 = v29;
-          v128 = v27;
+          v27 = v176[5];
+          v28 = CBDeviceFlagsToString(self->_deviceFlags);
+          CBDeviceFlagsToString([flagsCopy deviceFlags]);
+          v157 = v140 = v28;
+          v123 = v27;
           LogPrintF_safe();
         }
 
-        v17 = 1;
+        v16 = 1;
         goto LABEL_53;
       }
     }
@@ -12894,31 +18237,28 @@ LABEL_30:
           goto LABEL_358;
         }
 
-        v30 = v181[5];
-        v31 = self->_deviceFlags;
-        v15 = CBDeviceFlagsToString();
-        [flagsCopy deviceFlags];
-        v16 = CBDeviceFlagsToString();
+        v14 = CBDeviceFlagsToString(self->_deviceFlags);
+        v15 = CBDeviceFlagsToString([flagsCopy deviceFlags]);
         LogPrintF_safe();
         goto LABEL_357;
       }
     }
 
-    v17 = 0;
+    v16 = 0;
     goto LABEL_53;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v22 = v181[5];
-    v23 = CBServiceFlagsToString();
-    CBServiceFlagsToString();
-    v162 = v145 = v23;
-    v128 = v22;
+    v22 = v176[5];
+    v23 = CBServiceFlagsToString(v19);
+    CBServiceFlagsToString(v21);
+    v157 = v140 = v23;
+    v123 = v22;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
   deviceFlags = self->_deviceFlags;
   if (deviceFlags)
   {
@@ -12947,9 +18287,8 @@ LABEL_53:
         goto LABEL_358;
       }
 
-      v37 = v181[5];
-      v15 = CBDiscoveryFlagsToString();
-      v16 = CBDiscoveryFlagsToString();
+      v14 = CBDiscoveryFlagsToString(discoveryFlags);
+      v15 = CBDiscoveryFlagsToString(discoveryFlags);
       LogPrintF_safe();
       goto LABEL_357;
     }
@@ -12966,29 +18305,29 @@ LABEL_53:
   if (!v7[2](v7, discoveryFlags, discoveryFlags2))
   {
 LABEL_65:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_70;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v34 = v181[5];
-    v35 = CBDiscoveryFlagsToString();
-    CBDiscoveryFlagsToString();
-    v162 = v145 = v35;
-    v128 = v34;
+    v31 = v176[5];
+    v32 = CBDiscoveryFlagsToString(discoveryFlags);
+    CBDiscoveryFlagsToString(discoveryFlags2);
+    v157 = v140 = v32;
+    v123 = v31;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_70:
-  v38 = [(CBDevice *)self gapaFlags:deviceFlags];
-  if (!v38)
+  v34 = [(CBDevice *)self gapaFlags:deviceFlags];
+  if (!v34)
   {
     goto LABEL_87;
   }
 
-  v39 = v38;
+  v35 = v34;
   if (!match)
   {
     gapaFlags = [flagsCopy gapaFlags];
@@ -12997,14 +18336,14 @@ LABEL_70:
       goto LABEL_87;
     }
 
-    if (v7[2](v7, v39, gapaFlags))
+    if (v7[2](v7, v35, gapaFlags))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_358;
       }
 
-      goto LABEL_339;
+      goto LABEL_356;
     }
 
     goto LABEL_82;
@@ -13016,38 +18355,38 @@ LABEL_70:
     goto LABEL_87;
   }
 
-  if (!v7[2](v7, v39, gapaFlags2))
+  if (!v7[2](v7, v35, gapaFlags2))
   {
 LABEL_82:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_87;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v41 = v181[5];
-    v42 = CUPrintFlags32();
+    v37 = v176[5];
+    v38 = CUPrintFlags32();
     CUPrintFlags32();
-    v163 = v146 = v42;
-    v129 = v41;
+    v158 = v141 = v38;
+    v124 = v37;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_87:
-  v44 = [(CBDevice *)self listeningModeConfigs:v129];
-  if (!v44)
+  v40 = [(CBDevice *)self listeningModeConfigs:v124];
+  if (!v40)
   {
     goto LABEL_102;
   }
 
-  v45 = v44;
+  v41 = v40;
   if (!match)
   {
     listeningModeConfigs = [flagsCopy listeningModeConfigs];
     if (listeningModeConfigs)
     {
-      if (v7[2](v7, v45, listeningModeConfigs))
+      if (v7[2](v7, v41, listeningModeConfigs))
       {
         if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
         {
@@ -13057,7 +18396,7 @@ LABEL_87:
         goto LABEL_356;
       }
 
-      v17 = 0;
+      v16 = 0;
     }
 
 LABEL_102:
@@ -13076,9 +18415,9 @@ LABEL_102:
     goto LABEL_102;
   }
 
-  if (!v7[2](v7, v45, listeningModeConfigs2))
+  if (!v7[2](v7, v41, listeningModeConfigs2))
   {
-    v17 = 0;
+    v16 = 0;
     supportedServices = self->_supportedServices;
     if (!supportedServices)
     {
@@ -13098,15 +18437,15 @@ LABEL_103:
       {
         if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
         {
-          v51 = v181[5];
-          v52 = CUPrintFlags32();
+          v47 = v176[5];
+          v48 = CUPrintFlags32();
           CUPrintFlags32();
-          v164 = v147 = v52;
-          v130 = v51;
+          v159 = v142 = v48;
+          v125 = v47;
           LogPrintF_safe();
         }
 
-        v17 = 1;
+        v16 = 1;
         goto LABEL_124;
       }
     }
@@ -13126,23 +18465,23 @@ LABEL_103:
           goto LABEL_358;
         }
 
-        goto LABEL_339;
+        goto LABEL_356;
       }
     }
 
-    v17 = 0;
+    v16 = 0;
     goto LABEL_124;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v47 = CUPrintFlags32();
+    v43 = CUPrintFlags32();
     CUPrintFlags32();
-    v147 = v130 = v47;
+    v142 = v125 = v43;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
   supportedServices = self->_supportedServices;
   if (supportedServices)
   {
@@ -13150,8 +18489,8 @@ LABEL_103:
   }
 
 LABEL_124:
-  v54 = [(CBDevice *)self airdropFlags:v130];
-  if (!v54)
+  v50 = [(CBDevice *)self airdropFlags:v125];
+  if (!v50)
   {
     goto LABEL_141;
   }
@@ -13164,14 +18503,14 @@ LABEL_124:
       goto LABEL_141;
     }
 
-    if (v7[2](v7, v54, airdropFlags))
+    if (v7[2](v7, v50, airdropFlags))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_358;
       }
 
-      goto LABEL_339;
+      goto LABEL_356;
     }
 
     goto LABEL_136;
@@ -13183,27 +18522,27 @@ LABEL_124:
     goto LABEL_141;
   }
 
-  if (!v7[2](v7, v54, airdropFlags2))
+  if (!v7[2](v7, v50, airdropFlags2))
   {
 LABEL_136:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_141;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v56 = v181[5];
-    v57 = CUPrintFlags32();
+    v52 = v176[5];
+    v53 = CUPrintFlags32();
     CUPrintFlags32();
-    v165 = v148 = v57;
-    v131 = v56;
+    v160 = v143 = v53;
+    v126 = v52;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_141:
-  v59 = [(CBDevice *)self airplaySourceFlags:v131];
-  if (!v59)
+  v55 = [(CBDevice *)self airplaySourceFlags:v126];
+  if (!v55)
   {
     goto LABEL_158;
   }
@@ -13216,14 +18555,14 @@ LABEL_141:
       goto LABEL_158;
     }
 
-    if (v7[2](v7, v59, airplaySourceFlags))
+    if (v7[2](v7, v55, airplaySourceFlags))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_358;
       }
 
-      goto LABEL_339;
+      goto LABEL_356;
     }
 
     goto LABEL_153;
@@ -13235,27 +18574,27 @@ LABEL_141:
     goto LABEL_158;
   }
 
-  if (!v7[2](v7, v59, airplaySourceFlags2))
+  if (!v7[2](v7, v55, airplaySourceFlags2))
   {
 LABEL_153:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_158;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v61 = v181[5];
-    v62 = CUPrintFlags32();
+    v57 = v176[5];
+    v58 = CUPrintFlags32();
     CUPrintFlags32();
-    v166 = v149 = v62;
-    v132 = v61;
+    v161 = v144 = v58;
+    v127 = v57;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_158:
-  v64 = [(CBDevice *)self airplayTargetFlags:v132];
-  if (!v64)
+  v60 = [(CBDevice *)self airplayTargetFlags:v127];
+  if (!v60)
   {
     goto LABEL_175;
   }
@@ -13268,14 +18607,14 @@ LABEL_158:
       goto LABEL_175;
     }
 
-    if (v7[2](v7, v64, airplayTargetFlags))
+    if (v7[2](v7, v60, airplayTargetFlags))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_358;
       }
 
-      goto LABEL_339;
+      goto LABEL_356;
     }
 
     goto LABEL_170;
@@ -13287,27 +18626,27 @@ LABEL_158:
     goto LABEL_175;
   }
 
-  if (!v7[2](v7, v64, airplayTargetFlags2))
+  if (!v7[2](v7, v60, airplayTargetFlags2))
   {
 LABEL_170:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_175;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v66 = v181[5];
-    v67 = CUPrintFlags32();
+    v62 = v176[5];
+    v63 = CUPrintFlags32();
     CUPrintFlags32();
-    v167 = v150 = v67;
-    v133 = v66;
+    v162 = v145 = v63;
+    v128 = v62;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_175:
-  v69 = [(CBDevice *)self dsActionFlags:v133];
-  if (!v69)
+  v65 = [(CBDevice *)self dsActionFlags:v128];
+  if (!v65)
   {
     goto LABEL_192;
   }
@@ -13320,14 +18659,14 @@ LABEL_175:
       goto LABEL_192;
     }
 
-    if (v7[2](v7, v69, dsActionFlags))
+    if (v7[2](v7, v65, dsActionFlags))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_358;
       }
 
-      goto LABEL_339;
+      goto LABEL_356;
     }
 
     goto LABEL_187;
@@ -13339,27 +18678,27 @@ LABEL_175:
     goto LABEL_192;
   }
 
-  if (!v7[2](v7, v69, dsActionFlags2))
+  if (!v7[2](v7, v65, dsActionFlags2))
   {
 LABEL_187:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_192;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v71 = v181[5];
-    v72 = CUPrintFlags32();
+    v67 = v176[5];
+    v68 = CUPrintFlags32();
     CUPrintFlags32();
-    v168 = v151 = v72;
-    v134 = v71;
+    v163 = v146 = v68;
+    v129 = v67;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_192:
-  v74 = [(CBDevice *)self peerStatusFlag:v134];
-  if (!v74)
+  v70 = [(CBDevice *)self peerStatusFlag:v129];
+  if (!v70)
   {
     goto LABEL_209;
   }
@@ -13372,14 +18711,14 @@ LABEL_192:
       goto LABEL_209;
     }
 
-    if (v7[2](v7, v74, peerStatusFlag))
+    if (v7[2](v7, v70, peerStatusFlag))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_358;
       }
 
-      goto LABEL_339;
+      goto LABEL_356;
     }
 
     goto LABEL_204;
@@ -13391,27 +18730,27 @@ LABEL_192:
     goto LABEL_209;
   }
 
-  if (!v7[2](v7, v74, peerStatusFlag2))
+  if (!v7[2](v7, v70, peerStatusFlag2))
   {
 LABEL_204:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_209;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v76 = v181[5];
-    v77 = CUPrintFlags32();
+    v72 = v176[5];
+    v73 = CUPrintFlags32();
     CUPrintFlags32();
-    v169 = v152 = v77;
-    v135 = v76;
+    v164 = v147 = v73;
+    v130 = v72;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_209:
-  v79 = [(CBDevice *)self homeKitV1Flags:v135];
-  if (!v79)
+  v75 = [(CBDevice *)self homeKitV1Flags:v130];
+  if (!v75)
   {
     goto LABEL_226;
   }
@@ -13424,14 +18763,14 @@ LABEL_209:
       goto LABEL_226;
     }
 
-    if (v7[2](v7, v79, homeKitV1Flags))
+    if (v7[2](v7, v75, homeKitV1Flags))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_358;
       }
 
-      goto LABEL_339;
+      goto LABEL_356;
     }
 
     goto LABEL_221;
@@ -13443,32 +18782,32 @@ LABEL_209:
     goto LABEL_226;
   }
 
-  if (!v7[2](v7, v79, homeKitV1Flags2))
+  if (!v7[2](v7, v75, homeKitV1Flags2))
   {
 LABEL_221:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_226;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v81 = v181[5];
-    v82 = CUPrintFlags32();
+    v77 = v176[5];
+    v78 = CUPrintFlags32();
     CUPrintFlags32();
-    v170 = v153 = v82;
-    v136 = v81;
+    v165 = v148 = v78;
+    v131 = v77;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_226:
-  v84 = [(CBDevice *)self nearbyActionFlags:v136];
-  if (!v84)
+  v80 = [(CBDevice *)self nearbyActionFlags:v131];
+  if (!v80)
   {
     goto LABEL_243;
   }
 
-  v85 = v84;
+  v81 = v80;
   if (!match)
   {
     nearbyActionFlags = [flagsCopy nearbyActionFlags];
@@ -13477,14 +18816,14 @@ LABEL_226:
       goto LABEL_243;
     }
 
-    if (v7[2](v7, v85, nearbyActionFlags))
+    if (v7[2](v7, v81, nearbyActionFlags))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_358;
       }
 
-      goto LABEL_339;
+      goto LABEL_356;
     }
 
     goto LABEL_238;
@@ -13496,32 +18835,32 @@ LABEL_226:
     goto LABEL_243;
   }
 
-  if (!v7[2](v7, v85, nearbyActionFlags2))
+  if (!v7[2](v7, v81, nearbyActionFlags2))
   {
 LABEL_238:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_243;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v87 = v181[5];
-    v88 = CUPrintFlags32();
+    v83 = v176[5];
+    v84 = CUPrintFlags32();
     CUPrintFlags32();
-    v171 = v154 = v88;
-    v137 = v87;
+    v166 = v149 = v84;
+    v132 = v83;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_243:
-  v90 = [(CBDevice *)self nearbyActionV2Flags:v137];
-  if (!v90)
+  v86 = [(CBDevice *)self nearbyActionV2Flags:v132];
+  if (!v86)
   {
     goto LABEL_260;
   }
 
-  v91 = v90;
+  v87 = v86;
   if (!match)
   {
     nearbyActionV2Flags = [flagsCopy nearbyActionV2Flags];
@@ -13530,14 +18869,14 @@ LABEL_243:
       goto LABEL_260;
     }
 
-    if (v7[2](v7, v91, nearbyActionV2Flags))
+    if (v7[2](v7, v87, nearbyActionV2Flags))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_358;
       }
 
-      goto LABEL_339;
+      goto LABEL_356;
     }
 
     goto LABEL_255;
@@ -13549,32 +18888,32 @@ LABEL_243:
     goto LABEL_260;
   }
 
-  if (!v7[2](v7, v91, nearbyActionV2Flags2))
+  if (!v7[2](v7, v87, nearbyActionV2Flags2))
   {
 LABEL_255:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_260;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v93 = v181[5];
-    v94 = CUPrintFlags32();
+    v89 = v176[5];
+    v90 = CUPrintFlags32();
     CUPrintFlags32();
-    v172 = v155 = v94;
-    v138 = v93;
+    v167 = v150 = v90;
+    v133 = v89;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_260:
-  v96 = [(CBDevice *)self nearbyInfoFlags:v138];
-  if (!v96)
+  v92 = [(CBDevice *)self nearbyInfoFlags:v133];
+  if (!v92)
   {
     goto LABEL_277;
   }
 
-  v97 = v96;
+  v93 = v92;
   if (!match)
   {
     nearbyInfoFlags = [flagsCopy nearbyInfoFlags];
@@ -13583,14 +18922,14 @@ LABEL_260:
       goto LABEL_277;
     }
 
-    if (v7[2](v7, v97, nearbyInfoFlags))
+    if (v7[2](v7, v93, nearbyInfoFlags))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_358;
       }
 
-      goto LABEL_339;
+      goto LABEL_356;
     }
 
     goto LABEL_272;
@@ -13602,27 +18941,27 @@ LABEL_260:
     goto LABEL_277;
   }
 
-  if (!v7[2](v7, v97, nearbyInfoFlags2))
+  if (!v7[2](v7, v93, nearbyInfoFlags2))
   {
 LABEL_272:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_277;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v99 = v181[5];
-    v100 = CUPrintFlags32();
+    v95 = v176[5];
+    v96 = CUPrintFlags32();
     CUPrintFlags32();
-    v173 = v156 = v100;
-    v139 = v99;
+    v168 = v151 = v96;
+    v134 = v95;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_277:
-  v102 = [(CBDevice *)self nearbyInfoV2Flags:v139];
-  if (!v102)
+  v98 = [(CBDevice *)self nearbyInfoV2Flags:v134];
+  if (!v98)
   {
     goto LABEL_294;
   }
@@ -13635,14 +18974,14 @@ LABEL_277:
       goto LABEL_294;
     }
 
-    if (v7[2](v7, v102, nearbyInfoV2Flags))
+    if (v7[2](v7, v98, nearbyInfoV2Flags))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_358;
       }
 
-      goto LABEL_339;
+      goto LABEL_356;
     }
 
     goto LABEL_289;
@@ -13654,27 +18993,27 @@ LABEL_277:
     goto LABEL_294;
   }
 
-  if (!v7[2](v7, v102, nearbyInfoV2Flags2))
+  if (!v7[2](v7, v98, nearbyInfoV2Flags2))
   {
 LABEL_289:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_294;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v104 = v181[5];
-    v105 = CUPrintFlags32();
+    v100 = v176[5];
+    v101 = CUPrintFlags32();
     CUPrintFlags32();
-    v174 = v157 = v105;
-    v140 = v104;
+    v169 = v152 = v101;
+    v135 = v100;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_294:
-  v107 = [(CBDevice *)self nearbyInfoV2InvitationTypes:v140];
-  if (!v107)
+  v103 = [(CBDevice *)self nearbyInfoV2InvitationTypes:v135];
+  if (!v103)
   {
     goto LABEL_311;
   }
@@ -13687,14 +19026,14 @@ LABEL_294:
       goto LABEL_311;
     }
 
-    if (v7[2](v7, v107, nearbyInfoV2InvitationTypes))
+    if (v7[2](v7, v103, nearbyInfoV2InvitationTypes))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_358;
       }
 
-      goto LABEL_339;
+      goto LABEL_356;
     }
 
     goto LABEL_306;
@@ -13706,27 +19045,27 @@ LABEL_294:
     goto LABEL_311;
   }
 
-  if (!v7[2](v7, v107, nearbyInfoV2InvitationTypes2))
+  if (!v7[2](v7, v103, nearbyInfoV2InvitationTypes2))
   {
 LABEL_306:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_311;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v109 = v181[5];
-    v110 = CUPrintFlags32();
+    v105 = v176[5];
+    v106 = CUPrintFlags32();
     CUPrintFlags32();
-    v175 = v158 = v110;
-    v141 = v109;
+    v170 = v153 = v106;
+    v136 = v105;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_311:
-  v112 = [(CBDevice *)self proximityServiceFlags:v141];
-  if (!v112)
+  v108 = [(CBDevice *)self proximityServiceFlags:v136];
+  if (!v108)
   {
     goto LABEL_328;
   }
@@ -13739,14 +19078,14 @@ LABEL_311:
       goto LABEL_328;
     }
 
-    if (v7[2](v7, v112, proximityServiceFlags))
+    if (v7[2](v7, v108, proximityServiceFlags))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_358;
       }
 
-      goto LABEL_339;
+      goto LABEL_356;
     }
 
     goto LABEL_323;
@@ -13758,27 +19097,27 @@ LABEL_311:
     goto LABEL_328;
   }
 
-  if (!v7[2](v7, v112, proximityServiceFlags2))
+  if (!v7[2](v7, v108, proximityServiceFlags2))
   {
 LABEL_323:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_328;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v114 = v181[5];
-    v115 = CUPrintFlags32();
+    v110 = v176[5];
+    v111 = CUPrintFlags32();
     CUPrintFlags32();
-    v176 = v159 = v115;
-    v142 = v114;
+    v171 = v154 = v111;
+    v137 = v110;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_328:
-  v117 = [(CBDevice *)self spatialInteractionFlags:v142];
-  if (!v117)
+  v113 = [(CBDevice *)self spatialInteractionFlags:v137];
+  if (!v113)
   {
     goto LABEL_345;
   }
@@ -13791,26 +19130,17 @@ LABEL_328:
       goto LABEL_345;
     }
 
-    if (!v7[2](v7, v117, spatialInteractionFlags))
+    if (v7[2](v7, v113, spatialInteractionFlags))
     {
-      goto LABEL_340;
+      if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
+      {
+        goto LABEL_358;
+      }
+
+      goto LABEL_356;
     }
 
-    if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_358;
-    }
-
-LABEL_339:
-    v122 = v181[5];
-    v15 = CUPrintFlags32();
-    v16 = CUPrintFlags32();
-    LogPrintF_safe();
-LABEL_357:
-
-LABEL_358:
-    v17 = 1;
-    goto LABEL_359;
+    goto LABEL_340;
   }
 
   spatialInteractionFlags2 = [flagsCopy spatialInteractionFlags];
@@ -13819,27 +19149,27 @@ LABEL_358:
     goto LABEL_345;
   }
 
-  if (!v7[2](v7, v117, spatialInteractionFlags2))
+  if (!v7[2](v7, v113, spatialInteractionFlags2))
   {
 LABEL_340:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_345;
   }
 
   if (gLogCategory_CBDevice <= 30 && (gLogCategory_CBDevice != -1 || _LogCategory_Initialize()))
   {
-    v119 = v181[5];
-    v120 = CUPrintFlags32();
+    v115 = v176[5];
+    v116 = CUPrintFlags32();
     CUPrintFlags32();
-    v177 = v160 = v120;
-    v143 = v119;
+    v172 = v155 = v116;
+    v138 = v115;
     LogPrintF_safe();
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_345:
-  v123 = [(CBDevice *)self tipiState:v143];
-  if (!v123)
+  v118 = [(CBDevice *)self tipiState:v138];
+  if (!v118)
   {
     goto LABEL_359;
   }
@@ -13852,7 +19182,7 @@ LABEL_345:
       goto LABEL_359;
     }
 
-    if (!v7[2](v7, v123, tipiState))
+    if (!v7[2](v7, v118, tipiState))
     {
       goto LABEL_360;
     }
@@ -13863,16 +19193,20 @@ LABEL_345:
     }
 
 LABEL_356:
+    v14 = CUPrintFlags32();
     v15 = CUPrintFlags32();
-    v16 = CUPrintFlags32();
     LogPrintF_safe();
-    goto LABEL_357;
+LABEL_357:
+
+LABEL_358:
+    v16 = 1;
+    goto LABEL_359;
   }
 
   tipiState2 = [flagsCopy tipiState];
   if (tipiState2)
   {
-    if (v7[2](v7, v123, tipiState2))
+    if (v7[2](v7, v118, tipiState2))
     {
       if (gLogCategory_CBDevice > 30 || gLogCategory_CBDevice == -1 && !_LogCategory_Initialize())
       {
@@ -13883,16 +19217,16 @@ LABEL_356:
     }
 
 LABEL_360:
-    v17 = 0;
+    v16 = 0;
   }
 
 LABEL_359:
 
-  _Block_object_dispose(&v180, 8);
-  return v17;
+  _Block_object_dispose(&v175, 8);
+  return v16;
 }
 
-uint64_t __38__CBDevice__matchingFlags_exactMatch___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL __38__CBDevice__matchingFlags_exactMatch___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == a3)
   {
@@ -14063,9 +19397,9 @@ LABEL_3:
 - (CBDevice)initWithXPCObject:(id)object error:(id *)error
 {
   objectCopy = object;
-  v80.receiver = self;
-  v80.super_class = CBDevice;
-  v7 = [(CBDevice *)&v80 init];
+  v219.receiver = self;
+  v219.super_class = CBDevice;
+  v7 = [(CBDevice *)&v219 init];
 
   if (!v7)
   {
@@ -14074,10 +19408,10 @@ LABEL_3:
       goto LABEL_148;
     }
 
-    v76 = "CBDevice super init failed";
+    v215 = "CBDevice super init failed";
 LABEL_147:
-    CBErrorF(-6756, v76, v8, v9, v10, v11, v12, v13, v79);
-    *error = v74 = 0;
+    CBErrorF(-6756, v215, v8, v9, v10, v11, v12, v13, v218);
+    *error = v213 = 0;
     goto LABEL_142;
   }
 
@@ -14090,7 +19424,7 @@ LABEL_147:
       goto LABEL_148;
     }
 
-    v76 = "XPC non-dict";
+    v215 = "XPC non-dict";
     goto LABEL_147;
   }
 
@@ -14100,12 +19434,12 @@ LABEL_147:
     goto LABEL_148;
   }
 
-  v81 = 0;
+  v220 = 0;
   OUTLINED_FUNCTION_1_10();
   v16 = CUXPCDecodeUInt64RangedEx();
   if (v16 == 6)
   {
-    v7->_changeFlags = v81;
+    v7->_changeFlags = v220;
   }
 
   else if (v16 == 5)
@@ -14131,12 +19465,12 @@ LABEL_147:
     goto LABEL_148;
   }
 
-  v81 = 0;
+  v220 = 0;
   OUTLINED_FUNCTION_1_10();
   v20 = CUXPCDecodeUInt64RangedEx();
   if (v20 == 6)
   {
-    v7->_deviceFlags = v81;
+    v7->_deviceFlags = v220;
   }
 
   else if (v20 == 5)
@@ -14144,51 +19478,51 @@ LABEL_147:
     goto LABEL_148;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v21 = OUTLINED_FUNCTION_14();
-  if (v21 == 6)
+  v220 = 0;
+  v21 = OUTLINED_FUNCTION_1_10();
+  v26 = OUTLINED_FUNCTION_14(v21, v22, v23, v24, v25);
+  if (v26 == 6)
   {
-    v7->_internalFlags = v81;
+    v7->_internalFlags = v220;
     goto LABEL_16;
   }
 
-  if (v21 == 5)
+  if (v26 == 5)
   {
 LABEL_148:
-    v74 = 0;
+    v213 = 0;
     goto LABEL_142;
   }
 
 LABEL_16:
-  v22 = xpc_dictionary_get_value(objectCopy, "dvIn");
-  v23 = v22;
-  if (!v22)
+  v27 = xpc_dictionary_get_value(objectCopy, "dvIn");
+  v28 = v27;
+  if (!v27)
   {
     goto LABEL_21;
   }
 
-  if (MEMORY[0x1C68DFDD0](v22) != v15)
+  if (MEMORY[0x1C68DFDD0](v27) != v15)
   {
     if (error)
     {
-      CBErrorF(-6756, "Bad DeviceInfo XPC type", v24, v25, v26, v27, v28, v29, v79);
-      *error = v74 = 0;
+      CBErrorF(-6756, "Bad DeviceInfo XPC type", v29, v30, v31, v32, v33, v34, v218);
+      *error = v213 = 0;
       goto LABEL_141;
     }
 
     goto LABEL_157;
   }
 
-  v36 = CUXPCCreateCFObjectFromXPCObject();
-  if (!v36)
+  v41 = CUXPCCreateCFObjectFromXPCObject();
+  if (!v41)
   {
     if (error)
     {
-      v77 = "XPC->CF failed";
-      v78 = -6732;
+      v216 = "XPC->CF failed";
+      v217 = -6732;
 LABEL_155:
-      *error = CBErrorF(v78, v77, v30, v31, v32, v33, v34, v35, v79);
+      *error = CBErrorF(v217, v216, v35, v36, v37, v38, v39, v40, v218);
     }
 
 LABEL_156:
@@ -14201,154 +19535,25 @@ LABEL_156:
   {
     if (error)
     {
-      v77 = "Bad DeviceInfo NS type";
-      v78 = -6756;
+      v216 = "Bad DeviceInfo NS type";
+      v217 = -6756;
       goto LABEL_155;
     }
 
     goto LABEL_156;
   }
 
-  v37 = [v36 mutableCopy];
+  v42 = [v41 mutableCopy];
   deviceInfo = v7->_deviceInfo;
-  v7->_deviceInfo = v37;
+  v7->_deviceInfo = v42;
 
 LABEL_21:
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v39 = OUTLINED_FUNCTION_8_3();
-  if (v39 == 6)
-  {
-    v7->_deviceType = v81;
-  }
-
-  else if (v39 == 5)
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v40 = CUXPCDecodeUInt64RangedEx();
-  if (v40 == 6)
-  {
-    v7->_discoveryFlags = v81;
-  }
-
-  else if (v40 == 5)
-  {
-    goto LABEL_157;
-  }
-
-  v41 = OUTLINED_FUNCTION_4_7();
-  if (!CBXPCDecodeDiscoveryTypes(v41, v42, v43))
-  {
-    goto LABEL_157;
-  }
-
-  OUTLINED_FUNCTION_4_7();
-  if (!CUXPCDecodeNSString())
-  {
-    goto LABEL_157;
-  }
-
-  OUTLINED_FUNCTION_4_7();
-  if (!CUXPCDecodeNSString())
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v44 = CUXPCDecodeUInt64RangedEx();
-  if (v44 == 6)
-  {
-    v7->_interval = v81;
-  }
-
-  else if (v44 == 5)
-  {
-    goto LABEL_157;
-  }
-
-  OUTLINED_FUNCTION_4_7();
-  if (!CUXPCDecodeNSString())
-  {
-    goto LABEL_157;
-  }
-
-  OUTLINED_FUNCTION_4_7();
-  if (!CUXPCDecodeNSString())
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
-  v45 = OUTLINED_FUNCTION_3_9();
-  if (v45 == 6)
-  {
-    v7->_microphoneMode = v81;
-  }
-
-  else if (v45 == 5)
-  {
-    goto LABEL_157;
-  }
-
-  OUTLINED_FUNCTION_4_7();
-  if (!CUXPCDecodeNSString())
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v46 = OUTLINED_FUNCTION_8_3();
-  if (v46 == 6)
-  {
-    v7->_muteControlCapability = v81;
-  }
-
-  else if (v46 == 5)
-  {
-    goto LABEL_157;
-  }
-
-  OUTLINED_FUNCTION_4_7();
-  if (!CUXPCDecodeNSString())
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
-  v47 = OUTLINED_FUNCTION_13_0();
-  if (v47 == 6)
-  {
-    v7->_primaryPlacement = v81;
-  }
-
-  else if (v47 == 5)
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
-  v48 = OUTLINED_FUNCTION_13_0();
-  if (v48 == 6)
-  {
-    v7->_secondaryPlacement = v81;
-  }
-
-  else if (v48 == 5)
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
-  v49 = OUTLINED_FUNCTION_3_9();
+  v220 = 0;
+  v44 = OUTLINED_FUNCTION_1_10();
+  v49 = OUTLINED_FUNCTION_8_3(v44, v45, v46, v47, v48);
   if (v49 == 6)
   {
-    v7->_placementMode = v81;
+    v7->_deviceType = v220;
   }
 
   else if (v49 == 5)
@@ -14356,12 +19561,12 @@ LABEL_21:
     goto LABEL_157;
   }
 
-  v81 = 0;
+  v220 = 0;
   OUTLINED_FUNCTION_1_10();
-  v50 = OUTLINED_FUNCTION_14();
+  v50 = CUXPCDecodeUInt64RangedEx();
   if (v50 == 6)
   {
-    v7->_productID = v81;
+    v7->_discoveryFlags = v220;
   }
 
   else if (v50 == 5)
@@ -14369,8 +19574,8 @@ LABEL_21:
     goto LABEL_157;
   }
 
-  OUTLINED_FUNCTION_4_7();
-  if (!CUXPCDecodeNSString())
+  v51 = OUTLINED_FUNCTION_4_7();
+  if (!CBXPCDecodeDiscoveryTypes(v51, v52, v53))
   {
     goto LABEL_157;
   }
@@ -14387,33 +19592,165 @@ LABEL_21:
     goto LABEL_157;
   }
 
-  OUTLINED_FUNCTION_4_7();
-  if (!CUXPCDecodeNSString())
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
-  v51 = OUTLINED_FUNCTION_3_9();
-  if (v51 == 6)
-  {
-    v7->_smartRoutingMode = v81;
-  }
-
-  else if (v51 == 5)
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
+  v220 = 0;
   OUTLINED_FUNCTION_1_10();
-  v52 = OUTLINED_FUNCTION_14();
-  if (v52 == 6)
+  v54 = CUXPCDecodeUInt64RangedEx();
+  if (v54 == 6)
   {
-    v7->_supportedServices = v81;
+    v7->_interval = v220;
   }
 
-  else if (v52 == 5)
+  else if (v54 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  OUTLINED_FUNCTION_4_7();
+  if (!CUXPCDecodeNSString())
+  {
+    goto LABEL_157;
+  }
+
+  OUTLINED_FUNCTION_4_7();
+  v55 = CUXPCDecodeNSString();
+  if (!v55)
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v59 = OUTLINED_FUNCTION_3_9(v55, "micM", v56, v57, v58);
+  if (v59 == 6)
+  {
+    v7->_microphoneMode = v220;
+  }
+
+  else if (v59 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  OUTLINED_FUNCTION_4_7();
+  if (!CUXPCDecodeNSString())
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v60 = OUTLINED_FUNCTION_1_10();
+  v65 = OUTLINED_FUNCTION_8_3(v60, v61, v62, v63, v64);
+  if (v65 == 6)
+  {
+    v7->_muteControlCapability = v220;
+  }
+
+  else if (v65 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  OUTLINED_FUNCTION_4_7();
+  v66 = CUXPCDecodeNSString();
+  if (!v66)
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v70 = OUTLINED_FUNCTION_13_0(v66, "dPrP", v67, v68, v69);
+  if (v70 == 6)
+  {
+    v7->_primaryPlacement = v220;
+  }
+
+  else if (v70 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v74 = OUTLINED_FUNCTION_13_0(v70, "dScP", v71, v72, v73);
+  if (v74 == 6)
+  {
+    v7->_secondaryPlacement = v220;
+  }
+
+  else if (v74 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v78 = OUTLINED_FUNCTION_3_9(v74, "dPlM", v75, v76, v77);
+  if (v78 == 6)
+  {
+    v7->_placementMode = v220;
+  }
+
+  else if (v78 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v79 = OUTLINED_FUNCTION_1_10();
+  v84 = OUTLINED_FUNCTION_14(v79, v80, v81, v82, v83);
+  if (v84 == 6)
+  {
+    v7->_productID = v220;
+  }
+
+  else if (v84 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  OUTLINED_FUNCTION_4_7();
+  if (!CUXPCDecodeNSString())
+  {
+    goto LABEL_157;
+  }
+
+  OUTLINED_FUNCTION_4_7();
+  if (!CUXPCDecodeNSString())
+  {
+    goto LABEL_157;
+  }
+
+  OUTLINED_FUNCTION_4_7();
+  if (!CUXPCDecodeNSString())
+  {
+    goto LABEL_157;
+  }
+
+  OUTLINED_FUNCTION_4_7();
+  v85 = CUXPCDecodeNSString();
+  if (!v85)
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v89 = OUTLINED_FUNCTION_3_9(v85, "srMd", v86, v87, v88);
+  if (v89 == 6)
+  {
+    v7->_smartRoutingMode = v220;
+  }
+
+  else if (v89 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v90 = OUTLINED_FUNCTION_1_10();
+  v95 = OUTLINED_FUNCTION_14(v90, v91, v92, v93, v94);
+  if (v95 == 6)
+  {
+    v7->_supportedServices = v220;
+  }
+
+  else if (v95 == 5)
   {
     goto LABEL_157;
   }
@@ -14423,67 +19760,67 @@ LABEL_21:
     goto LABEL_157;
   }
 
-  v81 = 0;
+  v220 = 0;
   OUTLINED_FUNCTION_1_10();
-  v53 = CUXPCDecodeUInt64RangedEx();
-  if (v53 == 6)
+  v96 = CUXPCDecodeUInt64RangedEx();
+  if (v96 == 6)
   {
-    v7->_vendorID = v81;
+    v7->_vendorID = v220;
   }
 
-  else if (v53 == 5)
+  else if (v96 == 5)
   {
     goto LABEL_157;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v54 = OUTLINED_FUNCTION_8_3();
-  if (v54 == 6)
+  v220 = 0;
+  v97 = OUTLINED_FUNCTION_1_10();
+  v102 = OUTLINED_FUNCTION_8_3(v97, v98, v99, v100, v101);
+  if (v102 == 6)
   {
-    v7->_vendorIDSource = v81;
+    v7->_vendorIDSource = v220;
   }
 
-  else if (v54 == 5)
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v55 = OUTLINED_FUNCTION_8_3();
-  if (v55 == 6)
-  {
-    v7->_nearbyInfoV2InvitationCounter = v81;
-  }
-
-  else if (v55 == 5)
+  else if (v102 == 5)
   {
     goto LABEL_157;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v56 = OUTLINED_FUNCTION_8_3();
-  if (v56 == 6)
+  v220 = 0;
+  v103 = OUTLINED_FUNCTION_1_10();
+  v108 = OUTLINED_FUNCTION_8_3(v103, v104, v105, v106, v107);
+  if (v108 == 6)
   {
-    v7->_nearbyInfoV2InvitationTypes = v81;
+    v7->_nearbyInfoV2InvitationCounter = v220;
   }
 
-  else if (v56 == 5)
+  else if (v108 == 5)
   {
     goto LABEL_157;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v57 = OUTLINED_FUNCTION_8_3();
-  if (v57 == 6)
+  v220 = 0;
+  v109 = OUTLINED_FUNCTION_1_10();
+  v114 = OUTLINED_FUNCTION_8_3(v109, v110, v111, v112, v113);
+  if (v114 == 6)
   {
-    v7->_nearbyInfoV2InvitationRouteType = v81;
+    v7->_nearbyInfoV2InvitationTypes = v220;
   }
 
-  else if (v57 == 5)
+  else if (v114 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v115 = OUTLINED_FUNCTION_1_10();
+  v120 = OUTLINED_FUNCTION_8_3(v115, v116, v117, v118, v119);
+  if (v120 == 6)
+  {
+    v7->_nearbyInfoV2InvitationRouteType = v220;
+  }
+
+  else if (v120 == 5)
   {
     goto LABEL_157;
   }
@@ -14494,47 +19831,28 @@ LABEL_21:
     goto LABEL_157;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v58 = OUTLINED_FUNCTION_8_3();
-  if (v58 == 6)
+  v220 = 0;
+  v121 = OUTLINED_FUNCTION_1_10();
+  v126 = OUTLINED_FUNCTION_8_3(v121, v122, v123, v124, v125);
+  if (v126 == 6)
   {
-    v7->_objectDiscoveryBatteryState = v81;
+    v7->_objectDiscoveryBatteryState = v220;
   }
 
-  else if (v58 == 5)
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v59 = OUTLINED_FUNCTION_8_3();
-  if (v59 == 6)
-  {
-    v7->_objectDiscoveryMode = v81;
-  }
-
-  else if (v59 == 5)
+  else if (v126 == 5)
   {
     goto LABEL_157;
   }
 
-  OUTLINED_FUNCTION_4_7();
-  if (!CUXPCDecodeNSData())
+  v220 = 0;
+  v127 = OUTLINED_FUNCTION_1_10();
+  v132 = OUTLINED_FUNCTION_8_3(v127, v128, v129, v130, v131);
+  if (v132 == 6)
   {
-    goto LABEL_157;
+    v7->_objectDiscoveryMode = v220;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v60 = OUTLINED_FUNCTION_14();
-  if (v60 == 6)
-  {
-    v7->_objectDiscoveryProductID = v81;
-  }
-
-  else if (v60 == 5)
+  else if (v132 == 5)
   {
     goto LABEL_157;
   }
@@ -14545,67 +19863,86 @@ LABEL_21:
     goto LABEL_157;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v61 = OUTLINED_FUNCTION_14();
-  if (v61 == 6)
+  v220 = 0;
+  v133 = OUTLINED_FUNCTION_1_10();
+  v138 = OUTLINED_FUNCTION_14(v133, v134, v135, v136, v137);
+  if (v138 == 6)
   {
-    v7->_proximityPairingProductID = v81;
+    v7->_objectDiscoveryProductID = v220;
   }
 
-  else if (v61 == 5)
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v62 = OUTLINED_FUNCTION_8_3();
-  if (v62 == 6)
-  {
-    v7->_proximityPairingSubType = v81;
-  }
-
-  else if (v62 == 5)
+  else if (v138 == 5)
   {
     goto LABEL_157;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v63 = OUTLINED_FUNCTION_8_3();
-  if (v63 == 6)
-  {
-    v7->_transmitPowerOne = v81;
-  }
-
-  else if (v63 == 5)
+  OUTLINED_FUNCTION_4_7();
+  if (!CUXPCDecodeNSData())
   {
     goto LABEL_157;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v64 = OUTLINED_FUNCTION_8_3();
-  if (v64 == 6)
+  v220 = 0;
+  v139 = OUTLINED_FUNCTION_1_10();
+  v144 = OUTLINED_FUNCTION_14(v139, v140, v141, v142, v143);
+  if (v144 == 6)
   {
-    v7->_transmitPowerTwo = v81;
+    v7->_proximityPairingProductID = v220;
   }
 
-  else if (v64 == 5)
+  else if (v144 == 5)
   {
     goto LABEL_157;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v65 = OUTLINED_FUNCTION_8_3();
-  if (v65 == 6)
+  v220 = 0;
+  v145 = OUTLINED_FUNCTION_1_10();
+  v150 = OUTLINED_FUNCTION_8_3(v145, v146, v147, v148, v149);
+  if (v150 == 6)
   {
-    v7->_transmitPowerThree = v81;
+    v7->_proximityPairingSubType = v220;
   }
 
-  else if (v65 == 5)
+  else if (v150 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v151 = OUTLINED_FUNCTION_1_10();
+  v156 = OUTLINED_FUNCTION_8_3(v151, v152, v153, v154, v155);
+  if (v156 == 6)
+  {
+    v7->_transmitPowerOne = v220;
+  }
+
+  else if (v156 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v157 = OUTLINED_FUNCTION_1_10();
+  v162 = OUTLINED_FUNCTION_8_3(v157, v158, v159, v160, v161);
+  if (v162 == 6)
+  {
+    v7->_transmitPowerTwo = v220;
+  }
+
+  else if (v162 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v163 = OUTLINED_FUNCTION_1_10();
+  v168 = OUTLINED_FUNCTION_8_3(v163, v164, v165, v166, v167);
+  if (v168 == 6)
+  {
+    v7->_transmitPowerThree = v220;
+  }
+
+  else if (v168 == 5)
   {
     goto LABEL_157;
   }
@@ -14616,65 +19953,65 @@ LABEL_21:
     goto LABEL_157;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v66 = OUTLINED_FUNCTION_8_3();
-  if (v66 == 6)
+  v220 = 0;
+  v169 = OUTLINED_FUNCTION_1_10();
+  v174 = OUTLINED_FUNCTION_8_3(v169, v170, v171, v172, v173);
+  if (v174 == 6)
   {
-    v7->_safetyAlertsVersion = v81;
+    v7->_safetyAlertsVersion = v220;
   }
 
-  else if (v66 == 5)
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v67 = OUTLINED_FUNCTION_8_3();
-  if (v67 == 6)
-  {
-    v7->_selectiveSpeechListeningCapability = v81;
-  }
-
-  else if (v67 == 5)
+  else if (v174 == 5)
   {
     goto LABEL_157;
   }
 
-  v81 = 0;
-  v68 = OUTLINED_FUNCTION_3_9();
-  if (v68 == 6)
+  v220 = 0;
+  v175 = OUTLINED_FUNCTION_1_10();
+  v180 = OUTLINED_FUNCTION_8_3(v175, v176, v177, v178, v179);
+  if (v180 == 6)
   {
-    v7->_hearingAidSupport = v81;
+    v7->_selectiveSpeechListeningCapability = v220;
   }
 
-  else if (v68 == 5)
-  {
-    goto LABEL_157;
-  }
-
-  v81 = 0;
-  v69 = OUTLINED_FUNCTION_3_9();
-  if (v69 == 6)
-  {
-    v7->_hearingTestSupport = v81;
-  }
-
-  else if (v69 == 5)
+  else if (v180 == 5)
   {
     goto LABEL_157;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v70 = OUTLINED_FUNCTION_8_3();
-  if (v70 == 6)
+  v220 = 0;
+  v184 = OUTLINED_FUNCTION_3_9(v180, "HaSp", v181, v182, v183);
+  if (v184 == 6)
   {
-    v7->_softwareUpdateActionType = v81;
+    v7->_hearingAidSupport = v220;
   }
 
-  else if (v70 == 5)
+  else if (v184 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v188 = OUTLINED_FUNCTION_3_9(v184, "HtSp", v185, v186, v187);
+  if (v188 == 6)
+  {
+    v7->_hearingTestSupport = v220;
+  }
+
+  else if (v188 == 5)
+  {
+    goto LABEL_157;
+  }
+
+  v220 = 0;
+  v189 = OUTLINED_FUNCTION_1_10();
+  v194 = OUTLINED_FUNCTION_8_3(v189, v190, v191, v192, v193);
+  if (v194 == 6)
+  {
+    v7->_softwareUpdateActionType = v220;
+  }
+
+  else if (v194 == 5)
   {
     goto LABEL_157;
   }
@@ -14685,15 +20022,15 @@ LABEL_21:
     goto LABEL_157;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v71 = OUTLINED_FUNCTION_8_3();
-  if (v71 == 6)
+  v220 = 0;
+  v195 = OUTLINED_FUNCTION_1_10();
+  v200 = OUTLINED_FUNCTION_8_3(v195, v196, v197, v198, v199);
+  if (v200 == 6)
   {
-    v7->_tipiConnectionStatus = v81;
+    v7->_tipiConnectionStatus = v220;
   }
 
-  else if (v71 == 5)
+  else if (v200 == 5)
   {
     goto LABEL_157;
   }
@@ -14704,35 +20041,35 @@ LABEL_21:
     goto LABEL_157;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v72 = OUTLINED_FUNCTION_8_3();
-  if (v72 == 6)
+  v220 = 0;
+  v201 = OUTLINED_FUNCTION_1_10();
+  v206 = OUTLINED_FUNCTION_8_3(v201, v202, v203, v204, v205);
+  if (v206 == 6)
   {
-    v7->_tipiState = v81;
+    v7->_tipiState = v220;
   }
 
-  else if (v72 == 5)
+  else if (v206 == 5)
   {
     goto LABEL_157;
   }
 
-  v81 = 0;
-  OUTLINED_FUNCTION_1_10();
-  v73 = OUTLINED_FUNCTION_8_3();
-  if (v73 != 6)
+  v220 = 0;
+  v207 = OUTLINED_FUNCTION_1_10();
+  v212 = OUTLINED_FUNCTION_8_3(v207, v208, v209, v210, v211);
+  if (v212 != 6)
   {
-    if (v73 != 5)
+    if (v212 != 5)
     {
       goto LABEL_137;
     }
 
 LABEL_157:
-    v74 = 0;
+    v213 = 0;
     goto LABEL_141;
   }
 
-  v7->_nearbyActionNWPrecisionFindingStatus = v81;
+  v7->_nearbyActionNWPrecisionFindingStatus = v220;
 LABEL_137:
   if (!CUXPCDecodeNSDataOfLength())
   {
@@ -14750,17 +20087,17 @@ LABEL_137:
     goto LABEL_157;
   }
 
-  v74 = v7;
+  v213 = v7;
 LABEL_141:
 
 LABEL_142:
-  return v74;
+  return v213;
 }
 
 - (BOOL)decryptNearbyInfoV2PayloadPtr:(const char *)ptr payloadLength:(unint64_t)length key:(const char *)key keyLength:(unint64_t)keyLength decryptedPtr:(void *)decryptedPtr
 {
   result = 0;
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (ptr && length)
   {
     if (length >= 7)
@@ -14778,10 +20115,17 @@ LABEL_142:
     __memcpy_chk();
     ccaes_ecb_encrypt_mode();
     v10 = ccecb_context_size();
-    bzero(v12 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), (v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-    if (ccecb_init() || (v13 = 0, memset(v12, 0, sizeof(v12)), cclr_aes_init()) || cclr_decrypt_block())
+    bzero(v11 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), (v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    if (ccecb_init())
     {
-      result = 0;
+      return 0;
+    }
+
+    v12 = 0;
+    memset(v11, 0, sizeof(v11));
+    if (cclr_aes_init() || cclr_decrypt_block())
+    {
+      return 0;
     }
 
     else
@@ -14789,11 +20133,10 @@ LABEL_142:
       memcpy(decryptedPtr, __src, lengthCopy);
       ccecb_context_size();
       cc_clear();
-      result = 1;
+      return 1;
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -15100,7 +20443,7 @@ LABEL_9:
 
 - (void)_parseObjectDiscoveryPtr:(const char *)ptr end:(const char *)end
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (end - ptr >= 1)
   {
     v8 = ptr + 1;
@@ -15111,19 +20454,20 @@ LABEL_9:
     {
 LABEL_14:
 
-      goto LABEL_15;
+      return;
     }
 
     v11 = v7 >> 6;
     if (end - v8 < 22)
     {
-      OUTLINED_FUNCTION_16_0([btAddressData bytes]);
+      [btAddressData bytes];
+      OUTLINED_FUNCTION_16_0();
       if (end - v8 >= 1)
       {
-        v18[0] = v18[0] & 0x3F | (*v8 << 6);
+        v17[0] = v17[0] & 0x3F | (*v8 << 6);
       }
 
-      v12 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v18 length:6];
+      v12 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v17 length:6];
       self->_objectDiscoveryBatteryState = v11;
       self->_objectDiscoveryMode = 1;
       self->_objectDiscoveryProductID = v9;
@@ -15138,15 +20482,16 @@ LABEL_14:
 
     else
     {
-      OUTLINED_FUNCTION_16_0([btAddressData bytes]);
-      *v19 = *v8;
-      *&v19[14] = *(v8 + 14);
+      [btAddressData bytes];
+      OUTLINED_FUNCTION_16_0();
+      *v18 = *v8;
+      *&v18[14] = *(v8 + 14);
       if (end - (ptr + 23) >= 1)
       {
-        v18[0] = v18[0] & 0x3F | (ptr[23] << 6);
+        v17[0] = v17[0] & 0x3F | (ptr[23] << 6);
       }
 
-      v12 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v18 length:28];
+      v12 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v17 length:28];
       self->_objectDiscoveryBatteryState = v11;
       self->_objectDiscoveryMode = 2;
       self->_objectDiscoveryProductID = v9;
@@ -15167,9 +20512,6 @@ LABEL_13:
     self->_discoveryFlags |= v13;
     goto LABEL_14;
   }
-
-LABEL_15:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_parseSoftwareUpdatePtr:(const char *)ptr end:(const char *)end
@@ -15530,26 +20872,6 @@ LABEL_23:
   return result;
 }
 
-- (uint64_t)isEqualToDevice:(char)a1 exactMatch:.cold.3(char a1)
-{
-  if ((a1 - 1) <= 2u)
-  {
-    v1 = off_1E8122148[(a1 - 1)];
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(char)a1 exactMatch:.cold.4(char a1)
-{
-  if ((a1 - 1) <= 2u)
-  {
-    v1 = off_1E8122160[(a1 - 1)];
-  }
-
-  return LogPrintF_safe();
-}
-
 - (uint64_t)isEqualToDevice:(int)a1 exactMatch:.cold.5(int a1)
 {
   if (!(!v2 & v1))
@@ -15566,16 +20888,6 @@ LABEL_23:
       default:
         JUMPOUT(0);
     }
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(unsigned int)a1 exactMatch:.cold.6(unsigned int a1)
-{
-  if (a1 <= 3)
-  {
-    v1 = off_1E8122020[a1 - 1];
   }
 
   return LogPrintF_safe();
@@ -15601,46 +20913,6 @@ LABEL_23:
   LogPrintF_safe();
 }
 
-- (uint64_t)isEqualToDevice:(char)a1 exactMatch:.cold.16(char a1)
-{
-  if ((a1 - 1) <= 6u)
-  {
-    v1 = off_1E8122178[(a1 - 1)];
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(char)a1 exactMatch:.cold.17(char a1)
-{
-  if ((a1 - 1) <= 6u)
-  {
-    v1 = off_1E81221B0[(a1 - 1)];
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(char)a1 exactMatch:.cold.20(char a1)
-{
-  if ((a1 - 1) <= 2u)
-  {
-    v1 = off_1E81221E8[(a1 - 1)];
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(char)a1 exactMatch:.cold.21(char a1)
-{
-  if ((a1 - 1) <= 2u)
-  {
-    v1 = off_1E8122200[(a1 - 1)];
-  }
-
-  return LogPrintF_safe();
-}
-
 - (void)isEqualToDevice:(void *)a1 exactMatch:(void *)a2 .cold.22(void *a1, void *a2)
 {
   v14 = a1;
@@ -15656,66 +20928,6 @@ LABEL_23:
   return LogPrintF_safe();
 }
 
-- (uint64_t)isEqualToDevice:(unsigned __int8)a1 exactMatch:.cold.26(unsigned __int8 a1)
-{
-  if (a1 <= 5u)
-  {
-    v1 = off_1E8122038[a1 - 1];
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(unsigned __int8)a1 exactMatch:.cold.28(unsigned __int8 a1)
-{
-  if (a1 <= 5u)
-  {
-    v1 = off_1E8122038[a1 - 1];
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(unsigned __int8)a1 exactMatch:.cold.30(unsigned __int8 a1)
-{
-  if (a1 <= 3u)
-  {
-    v1 = off_1E8122060[a1 - 1];
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(char)a1 exactMatch:.cold.34(char a1)
-{
-  if ((a1 - 1) <= 3u)
-  {
-    v1 = off_1E8122218[(a1 - 1)];
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(unsigned int)a1 exactMatch:.cold.37(unsigned int a1)
-{
-  if (a1 <= 4)
-  {
-    v1 = off_1E8122078[a1 - 1];
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(unsigned __int8)a1 exactMatch:.cold.39(unsigned __int8 a1)
-{
-  if (a1 <= 3u)
-  {
-    v1 = off_1E8122098[a1 - 1];
-  }
-
-  return LogPrintF_safe();
-}
-
 - (void)isEqualToDevice:(uint64_t)a1 exactMatch:(void *)a2 .cold.41(uint64_t a1, void *a2)
 {
   CUPrintNSDataAddress();
@@ -15726,62 +20938,12 @@ LABEL_23:
   LogPrintF_safe();
 }
 
-- (uint64_t)isEqualToDevice:(char)a1 exactMatch:.cold.48(char a1)
-{
-  if ((a1 - 1) <= 3u)
-  {
-    v1 = off_1E8122238[(a1 - 1)];
-  }
-
-  return LogPrintF_safe();
-}
-
 - (void)isEqualToDevice:(void *)a1 exactMatch:(void *)a2 .cold.55(void *a1, void *a2)
 {
   v14 = a1;
   v3 = a2;
   OUTLINED_FUNCTION_0_7(v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14);
   LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(char)a1 exactMatch:.cold.57(char a1)
-{
-  if ((a1 - 1) <= 2u)
-  {
-    v1 = off_1E8122258[(a1 - 1)];
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(char)a1 exactMatch:.cold.58(char a1)
-{
-  if ((a1 - 1) <= 2u)
-  {
-    v1 = off_1E8122270[(a1 - 1)];
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(int)a1 exactMatch:.cold.59(int a1)
-{
-  if ((a1 - 1) <= 2)
-  {
-    v1 = off_1E81220B0[a1 - 1];
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(unsigned __int8)a1 exactMatch:.cold.61(unsigned __int8 a1)
-{
-  if (a1 <= 3u)
-  {
-    v1 = off_1E81220C8[a1 - 1];
-  }
-
-  return LogPrintF_safe();
 }
 
 - (void)isEqualToDevice:(uint64_t)a1 exactMatch:(void *)a2 .cold.63(uint64_t a1, void *a2)
@@ -15792,26 +20954,6 @@ LABEL_23:
   v3 = CUPrintNSDataAddress();
   OUTLINED_FUNCTION_0_7(v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14);
   LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(unsigned __int8)a1 exactMatch:.cold.70(unsigned __int8 a1)
-{
-  if (a1 <= 4u)
-  {
-    v1 = off_1E81220E0[a1 - 1];
-  }
-
-  return LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(unsigned __int8)a1 exactMatch:.cold.80(unsigned __int8 a1)
-{
-  if (a1 <= 3u)
-  {
-    v1 = off_1E8122100[a1 - 1];
-  }
-
-  return LogPrintF_safe();
 }
 
 - (void)isEqualToDevice:(uint64_t)a1 exactMatch:(void *)a2 .cold.82(uint64_t a1, void *a2)
@@ -15834,16 +20976,6 @@ LABEL_23:
   v3 = CUPrintNSDataAddress();
   OUTLINED_FUNCTION_0_7(v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14);
   LogPrintF_safe();
-}
-
-- (uint64_t)isEqualToDevice:(unsigned __int8)a1 exactMatch:.cold.104(unsigned __int8 a1)
-{
-  if (a1 <= 6u)
-  {
-    v1 = off_1E8122118[a1 - 1];
-  }
-
-  return LogPrintF_safe();
 }
 
 @end

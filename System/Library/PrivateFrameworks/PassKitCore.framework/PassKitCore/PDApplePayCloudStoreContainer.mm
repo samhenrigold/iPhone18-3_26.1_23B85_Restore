@@ -10031,7 +10031,7 @@ LABEL_17:
       appleBalanceDetails = [accountCopy appleBalanceDetails];
       currencyCode = [appleBalanceDetails currencyCode];
 
-      [v26 decimalValue];
+      objc_msgSend_decimalValue(v26);
       v29 = [NSDecimalNumber decimalNumberWithDecimal:&v32];
       v30 = PKCurrencyAmountMake();
 

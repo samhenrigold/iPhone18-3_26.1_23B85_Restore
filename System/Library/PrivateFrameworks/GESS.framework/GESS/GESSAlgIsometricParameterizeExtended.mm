@@ -19,7 +19,7 @@
 
 - (BOOL)run:(id)run
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   runCopy = run;
   objc_msgSend_setAlgStatus_(self, v5, 1, v6);
@@ -36,12 +36,12 @@
       options = self->_options;
     }
 
-    v79 = 10;
-    v80 = 1036831949;
-    v81 = 0;
-    v82 = 100000;
-    v83 = 0;
-    v89 = 256;
+    v78 = 10;
+    v79 = 1036831949;
+    v80 = 0;
+    v81 = 100000;
+    v82 = 0;
+    v88 = 256;
     if (objc_msgSend_packingMethod(options, v16, v17, v18) == 1)
     {
       v26 = 2;
@@ -52,38 +52,38 @@
       v26 = 1;
     }
 
-    v86 = v26;
-    v87 = 2 * (objc_msgSend_overlapCheckMode(self->_options, v23, v24, v25) == 1);
-    v88 = objc_msgSend_enableUVUtilizationOptimization(self->_options, v27, v28, v29);
-    v84 = objc_msgSend_textureResolution(self->_options, v30, v31, v32);
-    v85 = objc_msgSend_numOfTextures(self->_options, v33, v34, v35);
+    v85 = v26;
+    v86 = 2 * (objc_msgSend_overlapCheckMode(self->_options, v23, v24, v25) == 1);
+    v87 = objc_msgSend_enableUVUtilizationOptimization(self->_options, v27, v28, v29);
+    v83 = objc_msgSend_textureResolution(self->_options, v30, v31, v32);
+    v84 = objc_msgSend_numOfTextures(self->_options, v33, v34, v35);
     objc_msgSend_gutter(self->_options, v36, v37, v38);
-    v90 = v39;
-    v79 = objc_msgSend_targetNumOfCharts(self->_options, v40, v41, v42);
+    v89 = v39;
+    v78 = objc_msgSend_targetNumOfCharts(self->_options, v40, v41, v42);
     objc_msgSend_maximumStretchRatio(self->_options, v43, v44, v45);
-    v80 = v46;
-    HIBYTE(v89) = objc_msgSend_enableParallel(self->_options, v47, v48, v49);
-    v81 = objc_msgSend_skipInitialStretchOptimization(self->_options, v50, v51, v52);
-    v82 = objc_msgSend_optimizeBoundaryIfFaceNumberLessThan(self->_options, v53, v54, v55);
-    v83 = objc_msgSend_repairUVSelfIntersection(self->_options, v56, v57, v58);
+    v79 = v46;
+    HIBYTE(v88) = objc_msgSend_enableParallel(self->_options, v47, v48, v49);
+    v80 = objc_msgSend_skipInitialStretchOptimization(self->_options, v50, v51, v52);
+    v81 = objc_msgSend_optimizeBoundaryIfFaceNumberLessThan(self->_options, v53, v54, v55);
+    v82 = objc_msgSend_repairUVSelfIntersection(self->_options, v56, v57, v58);
     faceIntensityData = self->_faceIntensityData;
     if (faceIntensityData)
     {
       v63 = objc_msgSend_bytes(faceIntensityData, v59, v60, v61);
-      sub_24BC836D4(v96, "f:imt");
+      sub_24BC836D4(v95, "f:imt");
+      v101 = 0;
       v102 = 0;
-      v103 = 0;
-      v64 = sub_24BCB6470((v19 + 56), &v102, v96);
-      v78 = v64;
-      if (v97 < 0)
+      v64 = sub_24BCB6470((v19 + 56), &v101, v95);
+      v77 = v64;
+      if (v96 < 0)
       {
-        operator delete(v96[0]);
+        operator delete(v95[0]);
       }
 
       if (v64 == -1)
       {
-        sub_24BC836D4(v96, "f:imt");
-        sub_24BCB3C88(v19);
+        sub_24BC836D4(v95, "f:imt");
+        sub_24BCB3C88(v19, &v77, v95);
       }
 
       if (*(v19 + 112) != *(v19 + 104))
@@ -93,15 +93,15 @@
         do
         {
           LODWORD(v65) = *(v63 + 4 * v66);
-          v68 = (*(v19 + 56) + 16 * v78);
+          v68 = (*(v19 + 56) + 16 * v77);
           v70 = *v68;
           v69 = v68[1];
           if (v69)
           {
             atomic_fetch_add_explicit(&v69->__shared_owners_, 1uLL, memory_order_relaxed);
-            v77 = v65;
+            v76 = v65;
             sub_24BC9EC78(v69);
-            v65 = v77;
+            v65 = v76;
           }
 
           *&v71 = v65;
@@ -113,46 +113,46 @@
         while (v66 < (*(v19 + 112) - *(v19 + 104)) >> 2);
       }
 
-      LOBYTE(v89) = 1;
+      LOBYTE(v88) = 1;
     }
 
     else
     {
-      LOBYTE(v89) = 0;
+      LOBYTE(v88) = 0;
     }
 
-    v98 = 0;
+    v97 = 0;
+    v98[3] = 0;
     v99[3] = 0;
     v100[3] = 0;
-    v101[3] = 0;
-    v102 = &unk_285F95D48;
-    v103 = &selfCopy;
-    v104 = &v102;
-    sub_24BD55BF0(&v102, v101);
-    sub_24BD55A9C(&v102);
-    sub_24BCA1524(v92, v96);
-    sub_24BCA2D38(v93, v99);
-    sub_24BCA2DD0(v94, v100);
-    sub_24BD55A04(v95, v101);
-    v72 = sub_24BE4D100(v19, &v79, v92);
-    sub_24BD55A9C(v95);
-    sub_24BC9F10C(v94);
-    sub_24BC9F08C(v93);
-    sub_24BC9F00C(v92);
+    v101 = &unk_285F95D48;
+    v102 = &selfCopy;
+    v103 = &v101;
+    sub_24BD55BF0(&v101, v100);
+    sub_24BD55A9C(&v101);
+    sub_24BCA1524(v91, v95);
+    sub_24BCA2D38(v92, v98);
+    sub_24BCA2DD0(v93, v99);
+    sub_24BD55A04(v94, v100);
+    v72 = sub_24BE4D100(v19, &v78, v91);
+    sub_24BD55A9C(v94);
+    sub_24BC9F10C(v93);
+    sub_24BC9F08C(v92);
+    sub_24BC9F00C(v91);
     if (v72)
     {
-      objc_msgSend_setAlgStatus_(selfCopy, v73, 3, v74, v77);
+      objc_msgSend_setAlgStatus_(selfCopy, v73, 3, v74, v76);
     }
 
     else
     {
-      objc_msgSend_setAlgStatus_(selfCopy, v73, 2, v74, v77);
+      objc_msgSend_setAlgStatus_(selfCopy, v73, 2, v74, v76);
     }
 
-    sub_24BD55A9C(v101);
-    sub_24BC9F10C(v100);
-    sub_24BC9F08C(v99);
-    sub_24BC9F00C(v96);
+    sub_24BD55A9C(v100);
+    sub_24BC9F10C(v99);
+    sub_24BC9F08C(v98);
+    sub_24BC9F00C(v95);
   }
 
   else
@@ -160,7 +160,6 @@
     LOBYTE(v72) = 0;
   }
 
-  v75 = *MEMORY[0x277D85DE8];
   return v72;
 }
 
@@ -186,40 +185,40 @@
     objc_msgSend_setAverageStretchRatio_(v3, v44, v45, v46, v43);
     *&v47 = p_report->self_intersect_ratio;
     objc_msgSend_setSelfIntersectionRatio_(v3, v48, v49, v50, v47);
-    v51 = sub_24BD6A604(0x190u);
-    if (p_report->error_code.__cat_ == v52 && p_report->error_code.__val_ == v51)
+    v52 = sub_24BD6A604(400, v51);
+    if (p_report->error_code.__cat_ == v53 && p_report->error_code.__val_ == v52)
     {
-      objc_msgSend_setParameterizeStatus_(v3, v52, 0, v53);
+      objc_msgSend_setParameterizeStatus_(v3, v53, 0, v54);
     }
 
     else
     {
-      v54 = sub_24BD6A604(0x16u);
-      if (p_report->error_code.__cat_ == v55 && p_report->error_code.__val_ == v54)
+      v55 = sub_24BD6A604(22, v53);
+      if (p_report->error_code.__cat_ == v56 && p_report->error_code.__val_ == v55)
       {
-        objc_msgSend_setParameterizeStatus_(v3, v55, 1, v56);
+        objc_msgSend_setParameterizeStatus_(v3, v56, 1, v57);
       }
 
       else
       {
-        v57 = sub_24BD6A604(0x191u);
-        if (p_report->error_code.__cat_ == v58 && p_report->error_code.__val_ == v57 || (v60 = sub_24BD6A604(0x193u), p_report->error_code.__cat_ == v58) && p_report->error_code.__val_ == v60)
+        v58 = sub_24BD6A604(401, v56);
+        if (p_report->error_code.__cat_ == v59 && p_report->error_code.__val_ == v58 || (v61 = sub_24BD6A604(403, v59), p_report->error_code.__cat_ == v59) && p_report->error_code.__val_ == v61)
         {
-          objc_msgSend_setParameterizeStatus_(v3, v58, 2, v59);
+          objc_msgSend_setParameterizeStatus_(v3, v59, 2, v60);
         }
 
         else
         {
-          v62 = sub_24BD6A604(0);
-          if (p_report->error_code.__cat_ == v63 && p_report->error_code.__val_ == v62)
+          v63 = sub_24BD6A604(0, v59);
+          if (p_report->error_code.__cat_ == v64 && p_report->error_code.__val_ == v63)
           {
-            objc_msgSend_setParameterizeStatus_(v3, v63, 3, v64);
+            objc_msgSend_setParameterizeStatus_(v3, v64, 3, v65);
           }
 
           else
           {
-            sub_24BD6A604(0x192u);
-            objc_msgSend_setParameterizeStatus_(v3, v65, 4, v66);
+            sub_24BD6A604(402, v64);
+            objc_msgSend_setParameterizeStatus_(v3, v66, 4, v67);
           }
         }
       }

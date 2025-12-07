@@ -102,18 +102,8 @@
 {
   whereClauseToFindSelf = [(CKKSSQLDatabaseObject *)self whereClauseToFindSelf];
   originalSelfWhereClause = [(CKKSSQLDatabaseObject *)self originalSelfWhereClause];
-  if (!originalSelfWhereClause)
+  if (!originalSelfWhereClause || (v9 = originalSelfWhereClause, -[CKKSSQLDatabaseObject originalSelfWhereClause](self, "originalSelfWhereClause"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 isEqualToDictionary:whereClauseToFindSelf], v10, v9, (v11 & 1) != 0) || (objc_msgSend(objc_opt_class(), "sqlTable"), v12 = objc_claimAutoreleasedReturnValue(), -[CKKSSQLDatabaseObject originalSelfWhereClause](self, "originalSelfWhereClause"), v13 = objc_claimAutoreleasedReturnValue(), v14 = +[CKKSSQLDatabaseObject deleteFromTable:where:connection:error:](CKKSSQLDatabaseObject, "deleteFromTable:where:connection:error:", v12, v13, connection, error), v13, v12, v14))
   {
-    goto LABEL_4;
-  }
-
-  v9 = originalSelfWhereClause;
-  originalSelfWhereClause2 = [(CKKSSQLDatabaseObject *)self originalSelfWhereClause];
-  v11 = [originalSelfWhereClause2 isEqualToDictionary:whereClauseToFindSelf];
-
-  if ((v11 & 1) != 0 || ([objc_opt_class() sqlTable], v12 = objc_claimAutoreleasedReturnValue(), -[CKKSSQLDatabaseObject originalSelfWhereClause](self, "originalSelfWhereClause"), v13 = objc_claimAutoreleasedReturnValue(), v14 = +[CKKSSQLDatabaseObject deleteFromTable:where:connection:error:](CKKSSQLDatabaseObject, "deleteFromTable:where:connection:error:", v12, v13, connection, error), v13, v12, v14))
-  {
-LABEL_4:
     sqlTable = [objc_opt_class() sqlTable];
     sqlValues = [(CKKSSQLDatabaseObject *)self sqlValues];
     v17 = [CKKSSQLDatabaseObject saveToDatabaseTable:sqlTable row:sqlValues connection:connection error:error];

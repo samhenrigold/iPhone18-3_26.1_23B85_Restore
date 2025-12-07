@@ -449,26 +449,8 @@ LABEL_33:
           else
           {
             identifier = [v10 identifier];
-            if (!identifier)
+            if (!identifier || (v14 = identifier, -[RDCoreSpotlightDelegateManager earlyStoppedStoreIdentifiers](self, "earlyStoppedStoreIdentifiers"), v15 = objc_claimAutoreleasedReturnValue(), [v10 identifier], v16 = v7, v17 = p_name, v18 = persistentStores, v19 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v15, "containsObject:", v19), v19, persistentStores = v18, p_name = v17, v7 = v16, v15, v14, (v25 & 1) == 0))
             {
-              goto LABEL_13;
-            }
-
-            v14 = identifier;
-            earlyStoppedStoreIdentifiers = [(RDCoreSpotlightDelegateManager *)self earlyStoppedStoreIdentifiers];
-            [v10 identifier];
-            v16 = v7;
-            v17 = p_name;
-            v19 = v18 = persistentStores;
-            v25 = [earlyStoppedStoreIdentifiers containsObject:v19];
-
-            persistentStores = v18;
-            p_name = v17;
-            v7 = v16;
-
-            if ((v25 & 1) == 0)
-            {
-LABEL_13:
               v20 = +[REMLogStore search];
               if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
               {
@@ -558,27 +540,8 @@ LABEL_13:
           else
           {
             identifier = [v12 identifier];
-            if (!identifier)
+            if (!identifier || (v16 = identifier, -[RDCoreSpotlightDelegateManager earlyStoppedStoreIdentifiers](selfCopy, "earlyStoppedStoreIdentifiers"), v17 = persistentStores, v18 = identifiersCopy, v19 = objc_claimAutoreleasedReturnValue(), [v12 identifier], v20 = v9, v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v19, "containsObject:", v21), v21, v9 = v20, v19, identifiersCopy = v18, persistentStores = v17, v10 = v27, v16, (v22 & 1) == 0))
             {
-              goto LABEL_13;
-            }
-
-            v16 = identifier;
-            [(RDCoreSpotlightDelegateManager *)selfCopy earlyStoppedStoreIdentifiers];
-            v17 = persistentStores;
-            v19 = v18 = identifiersCopy;
-            [v12 identifier];
-            v21 = v20 = v9;
-            v22 = [v19 containsObject:v21];
-
-            v9 = v20;
-            identifiersCopy = v18;
-            persistentStores = v17;
-            v10 = v27;
-
-            if ((v22 & 1) == 0)
-            {
-LABEL_13:
               v23 = +[REMLogStore search];
               if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
               {

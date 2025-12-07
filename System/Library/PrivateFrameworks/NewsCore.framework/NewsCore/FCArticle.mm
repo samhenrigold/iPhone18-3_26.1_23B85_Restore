@@ -64,12 +64,12 @@
 - (FCArticle)initWithContext:(id)context articleID:(id)d forceArticleUpdate:(BOOL)update qualityOfService:(int64_t)service relativePriority:(int64_t)priority
 {
   updateCopy = update;
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   dCopy = d;
-  v33.receiver = self;
-  v33.super_class = FCArticle;
-  v14 = [(FCArticle *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = FCArticle;
+  v14 = [(FCArticle *)&v32 init];
   if (v14)
   {
     v15 = [dCopy copy];
@@ -77,8 +77,8 @@
     v14->_articleID = v15;
 
     articleController = [contextCopy articleController];
-    v34[0] = dCopy;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+    v33[0] = dCopy;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
     v19 = [articleController headlinesFetchOperationForArticleIDs:v18];
 
     [v19 setQualityOfService:service];
@@ -94,24 +94,23 @@
     v20 = dispatch_group_create();
     objc_initWeak(&location, v14);
     dispatch_group_enter(v20);
-    v25 = MEMORY[0x1E69E9820];
-    v26 = 3221225472;
-    v27 = __92__FCArticle_initWithContext_articleID_forceArticleUpdate_qualityOfService_relativePriority___block_invoke;
-    v28 = &unk_1E7C42068;
-    objc_copyWeak(&v31, &location);
-    v29 = contextCopy;
+    v24 = MEMORY[0x1E69E9820];
+    v25 = 3221225472;
+    v26 = __92__FCArticle_initWithContext_articleID_forceArticleUpdate_qualityOfService_relativePriority___block_invoke;
+    v27 = &unk_1E7C42068;
+    objc_copyWeak(&v30, &location);
+    v28 = contextCopy;
     v21 = v20;
-    v30 = v21;
-    [(FCFetchOperation *)v14->_headlineFetchOperation setFetchCompletionBlock:&v25];
+    v29 = v21;
+    [(FCFetchOperation *)v14->_headlineFetchOperation setFetchCompletionBlock:&v24];
     objc_storeStrong(&v14->_fetchGroup, v20);
     fc_sharedConcurrentQueue = [MEMORY[0x1E696ADC8] fc_sharedConcurrentQueue];
     [fc_sharedConcurrentQueue addOperation:v14->_headlineFetchOperation];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(&location);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -149,19 +148,19 @@ void __92__FCArticle_initWithContext_articleID_forceArticleUpdate_qualityOfServi
 
 - (void)performBlockWhenFullyLoaded:(id)loaded
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   loadedCopy = loaded;
   if (!loadedCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
     *location = 136315906;
     *&location[4] = "[FCArticle performBlockWhenFullyLoaded:]";
-    v19 = 2080;
-    v20 = "FCArticle.m";
-    v21 = 1024;
-    v22 = 103;
-    v23 = 2114;
-    v24 = v11;
+    v18 = 2080;
+    v19 = "FCArticle.m";
+    v20 = 1024;
+    v21 = 103;
+    v22 = 2114;
+    v23 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", location, 0x26u);
   }
 
@@ -171,15 +170,15 @@ void __92__FCArticle_initWithContext_articleID_forceArticleUpdate_qualityOfServi
 
   if (IsEmpty)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __41__FCArticle_performBlockWhenFullyLoaded___block_invoke;
-    v15[3] = &unk_1E7C42090;
-    v16 = loadedCopy;
-    v7 = &v17;
-    objc_copyWeak(&v17, location);
-    __41__FCArticle_performBlockWhenFullyLoaded___block_invoke(v15);
-    v8 = &v16;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __41__FCArticle_performBlockWhenFullyLoaded___block_invoke;
+    v14[3] = &unk_1E7C42090;
+    v15 = loadedCopy;
+    v7 = &v16;
+    objc_copyWeak(&v16, location);
+    __41__FCArticle_performBlockWhenFullyLoaded___block_invoke(v14);
+    v8 = &v15;
   }
 
   else
@@ -189,18 +188,17 @@ void __92__FCArticle_initWithContext_articleID_forceArticleUpdate_qualityOfServi
     block[1] = 3221225472;
     block[2] = __41__FCArticle_performBlockWhenFullyLoaded___block_invoke_2;
     block[3] = &unk_1E7C42090;
-    v13 = loadedCopy;
-    v7 = &v14;
-    objc_copyWeak(&v14, location);
+    v12 = loadedCopy;
+    v7 = &v13;
+    objc_copyWeak(&v13, location);
     dispatch_group_notify(fetchGroup2, MEMORY[0x1E69E96A0], block);
 
-    v8 = &v13;
+    v8 = &v12;
   }
 
   objc_destroyWeak(v7);
 
   objc_destroyWeak(location);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __41__FCArticle_performBlockWhenFullyLoaded___block_invoke(uint64_t a1)
@@ -221,19 +219,19 @@ void __41__FCArticle_performBlockWhenFullyLoaded___block_invoke_2(uint64_t a1)
 
 - (void)performBlockWhenContentIsLoaded:(id)loaded
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   loadedCopy = loaded;
   if (!loadedCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
     *location = 136315906;
     *&location[4] = "[FCArticle performBlockWhenContentIsLoaded:]";
-    v19 = 2080;
-    v20 = "FCArticle.m";
-    v21 = 1024;
-    v22 = 113;
-    v23 = 2114;
-    v24 = v11;
+    v18 = 2080;
+    v19 = "FCArticle.m";
+    v20 = 1024;
+    v21 = 113;
+    v22 = 2114;
+    v23 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", location, 0x26u);
   }
 
@@ -243,15 +241,15 @@ void __41__FCArticle_performBlockWhenFullyLoaded___block_invoke_2(uint64_t a1)
 
   if (IsEmpty)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __45__FCArticle_performBlockWhenContentIsLoaded___block_invoke;
-    v15[3] = &unk_1E7C42090;
-    v16 = loadedCopy;
-    v7 = &v17;
-    objc_copyWeak(&v17, location);
-    __45__FCArticle_performBlockWhenContentIsLoaded___block_invoke(v15);
-    v8 = &v16;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __45__FCArticle_performBlockWhenContentIsLoaded___block_invoke;
+    v14[3] = &unk_1E7C42090;
+    v15 = loadedCopy;
+    v7 = &v16;
+    objc_copyWeak(&v16, location);
+    __45__FCArticle_performBlockWhenContentIsLoaded___block_invoke(v14);
+    v8 = &v15;
   }
 
   else
@@ -261,18 +259,17 @@ void __41__FCArticle_performBlockWhenFullyLoaded___block_invoke_2(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __45__FCArticle_performBlockWhenContentIsLoaded___block_invoke_2;
     block[3] = &unk_1E7C42090;
-    v13 = loadedCopy;
-    v7 = &v14;
-    objc_copyWeak(&v14, location);
+    v12 = loadedCopy;
+    v7 = &v13;
+    objc_copyWeak(&v13, location);
     dispatch_group_notify(fetchGroup2, MEMORY[0x1E69E96A0], block);
 
-    v8 = &v13;
+    v8 = &v12;
   }
 
   objc_destroyWeak(v7);
 
   objc_destroyWeak(location);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __45__FCArticle_performBlockWhenContentIsLoaded___block_invoke(uint64_t a1)

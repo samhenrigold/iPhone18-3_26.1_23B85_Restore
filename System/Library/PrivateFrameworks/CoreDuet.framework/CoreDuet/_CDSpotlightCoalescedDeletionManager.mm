@@ -56,12 +56,12 @@
 
 - (void)deleteKnowledgeEventsMatchingPredicate:(id)predicate withCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   knowledgeStore = self->_knowledgeStore;
-  v17 = 0;
-  v8 = [(_DKKnowledgeEventStreamDeleting *)knowledgeStore deleteAllEventsMatchingPredicate:predicate error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [(_DKKnowledgeEventStreamDeleting *)knowledgeStore deleteAllEventsMatchingPredicate:predicate error:&v16];
+  v9 = v16;
   if (v9)
   {
     v10 = +[_CDLogging spotlightReceiverChannel];
@@ -83,7 +83,7 @@
       }
 
       *buf = 134217984;
-      v19 = v8;
+      v18 = v8;
       v12 = "_CDSpotlightCoalescedDeletionManager Successfully deleted %tu knowledge events.";
       v13 = v10;
       v14 = OS_LOG_TYPE_DEFAULT;
@@ -113,17 +113,14 @@ LABEL_10:
   {
     completionCopy[2](completionCopy, v9 == 0, v9);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteKnowledgeEventsMatchingPredicate:(uint64_t)a1 withCompletion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "_CDSpotlightCoalescedDeletionManager Failed to delete knowledge events. Error = %{public}@.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "_CDSpotlightCoalescedDeletionManager Failed to delete knowledge events. Error = %{public}@.", &v2, 0xCu);
 }
 
 @end

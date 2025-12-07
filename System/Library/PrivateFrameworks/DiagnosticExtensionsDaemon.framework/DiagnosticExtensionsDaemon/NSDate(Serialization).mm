@@ -7,7 +7,7 @@
 
 - (id)serialize
 {
-  v2 = formatter();
+  v2 = formatter(self);
   v3 = [v2 stringFromDate:self];
 
   return v3;
@@ -16,7 +16,7 @@
 + (id)_dateWithString:()Serialization
 {
   v3 = a3;
-  v4 = formatter();
+  v4 = formatter(v3);
   v5 = [v4 dateFromString:v3];
 
   return v5;

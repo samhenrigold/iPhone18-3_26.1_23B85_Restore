@@ -7,11 +7,11 @@
 
 + (BOOL)workflowNeedsMigration:(id)migration fromClientVersion:(id)version
 {
-  sub_1CA94C1C8();
-  sub_1CA94C3A8();
-  v4 = static SplitScreenActionMigration.workflowNeedsMigration(_:fromClientVersion:)();
+  v4 = sub_1CA94C1C8();
+  v5 = sub_1CA94C3A8();
+  v6 = static SplitScreenActionMigration.workflowNeedsMigration(_:fromClientVersion:)(v4, v5);
 
-  return v4 & 1;
+  return v6 & 1;
 }
 
 - (void)migrateWorkflow

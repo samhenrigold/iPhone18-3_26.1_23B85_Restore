@@ -355,7 +355,7 @@ LABEL_6:
     v13 = zoomablePhotosViewModel;
     if (zoomablePhotosViewModel)
     {
-      [zoomablePhotosViewModel zoomState];
+      objc_msgSend_zoomState(zoomablePhotosViewModel);
       v14 = v31;
     }
 
@@ -1983,7 +1983,7 @@ void __60__PXCuratedLibraryLayout__updateStatusBarGradientVisibility__block_invo
       {
         if (zoomablePhotosViewModel)
         {
-          [zoomablePhotosViewModel zoomState];
+          objc_msgSend_zoomState(zoomablePhotosViewModel);
           if (v19 >= 1.0)
           {
             v17 |= 8uLL;
@@ -2006,7 +2006,7 @@ void __60__PXCuratedLibraryLayout__updateStatusBarGradientVisibility__block_invo
   return v17;
 }
 
-uint64_t __60__PXCuratedLibraryLayout__updateStatusBarGradientVisibility__block_invoke_2(uint64_t a1, double a2)
+void *__60__PXCuratedLibraryLayout__updateStatusBarGradientVisibility__block_invoke_2(uint64_t a1, double a2)
 {
   result = [*(*(a1 + 32) + 1104) value];
   if (v5 != a2)
@@ -2469,7 +2469,7 @@ LABEL_11:
   [(PXCuratedLibraryLayout *)self enumerateSpritesInRect:v14 usingBlock:v6, v8, v10, v12];
 }
 
-void __68__PXCuratedLibraryLayout_enumerateVisibleAssetReferencesUsingBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
+void __68__PXCuratedLibraryLayout_enumerateVisibleAssetReferencesUsingBlock___block_invoke(uint64_t a1, uint64_t a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
 {
   v10 = a7;
   if (*(a6 + 1) == 2)
@@ -2980,7 +2980,7 @@ void __64__PXCuratedLibraryLayout__createAnchorForTransitionToZoomLevel___block_
       v15 = [v14 objectReferenceNearestToObjectReference:v5];
       if (v14)
       {
-        [v14 indexPathForObjectReference:v15];
+        objc_msgSend_indexPathForObjectReference_(v14);
       }
 
       if (*off_1E7721F68)
@@ -3171,7 +3171,7 @@ LABEL_46:
   if (zoomablePhotosViewModel)
   {
     v9 = zoomablePhotosViewModel;
-    [zoomablePhotosViewModel zoomState];
+    objc_msgSend_zoomState(zoomablePhotosViewModel);
 
     if (BYTE8(v15))
     {
@@ -3342,9 +3342,9 @@ uint64_t __73__PXCuratedLibraryLayout_enumerateScrollablePagesWithOptions_usingB
 
     v7 = [off_1E7721520 alloc];
     identifier = [v3 spriteReference];
-    layout = [v3 layout];
+    v8 = objc_msgSend_layout(v3);
     userData2 = [v3 userData];
-    v10 = [v7 initWithControl:1 spriteReference:identifier layout:layout assetReference:userData2];
+    v10 = [v7 initWithControl:1 spriteReference:identifier layout:v8 assetReference:userData2];
 
     v3 = v10;
   }

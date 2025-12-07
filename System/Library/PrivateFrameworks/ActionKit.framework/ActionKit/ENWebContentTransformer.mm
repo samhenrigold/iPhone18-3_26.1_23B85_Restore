@@ -66,7 +66,7 @@ LABEL_6:
 
 - (void)parser:(id)parser didStartElement:(id)element attributes:(id)attributes
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   attributesCopy = attributes;
   baseURL = [(ENWebContentTransformer *)self baseURL];
@@ -128,27 +128,27 @@ LABEL_12:
     }
 
     v18 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:attributesCopy];
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
-    v59 = attributesCopy;
+    v58 = attributesCopy;
     v19 = attributesCopy;
-    v20 = [v19 countByEnumeratingWithState:&v66 objects:v71 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v65 objects:v70 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v67;
+      v22 = *v66;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v67 != v22)
+          if (*v66 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v66 + 1) + 8 * i);
+          v24 = *(*(&v65 + 1) + 8 * i);
           ignorableAttributes = [(ENWebContentTransformer *)self ignorableAttributes];
           v26 = [ignorableAttributes containsObject:v24];
 
@@ -158,7 +158,7 @@ LABEL_12:
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v66 objects:v71 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v65 objects:v70 count:16];
       }
 
       while (v21);
@@ -168,45 +168,45 @@ LABEL_12:
     if ([(__CFString *)v27 isEqualToString:@"img"])
     {
       enmlWriter2 = [v18 objectForKeyedSubscript:@"src"];
-      v61 = [(ENWebContentTransformer *)self sanitizeURLAttribute:enmlWriter2];
-      if (!v61)
+      v60 = [(ENWebContentTransformer *)self sanitizeURLAttribute:enmlWriter2];
+      if (!v60)
       {
         [(ENWebContentTransformer *)self setIgnoreElementCount:1];
-        attributesCopy = v59;
+        attributesCopy = v58;
 LABEL_48:
 
         goto LABEL_53;
       }
 
-      v56 = enmlWriter2;
-      v57 = v27;
-      v58 = elementCopy;
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
+      v55 = enmlWriter2;
+      v56 = v27;
+      v57 = elementCopy;
       v63 = 0u;
+      v64 = 0u;
+      v61 = 0u;
+      v62 = 0u;
       webArchive = [(ENWebContentTransformer *)self webArchive];
       subresources = [webArchive subresources];
 
       obj = subresources;
-      v31 = [subresources countByEnumeratingWithState:&v62 objects:v70 count:16];
+      v31 = [subresources countByEnumeratingWithState:&v61 objects:v69 count:16];
       if (v31)
       {
         v32 = v31;
-        v33 = *v63;
+        v33 = *v62;
         while (2)
         {
           for (j = 0; j != v32; ++j)
           {
-            if (*v63 != v33)
+            if (*v62 != v33)
             {
               objc_enumerationMutation(obj);
             }
 
-            v35 = *(*(&v62 + 1) + 8 * j);
+            v35 = *(*(&v61 + 1) + 8 * j);
             v36 = [v35 URL];
             absoluteString = [v36 absoluteString];
-            absoluteString2 = [v61 absoluteString];
+            absoluteString2 = [v60 absoluteString];
             v39 = [absoluteString isEqualToString:absoluteString2];
 
             if (v39)
@@ -225,16 +225,16 @@ LABEL_48:
                 [enmlWriter writeResourceWithDataHash:dataHash mime:mimeType attributes:v18];
 
                 [(ENWebContentTransformer *)self setIgnoreElementCount:1];
-                elementCopy = v58;
-                attributesCopy = v59;
-                enmlWriter2 = v56;
-                v27 = v57;
+                elementCopy = v57;
+                attributesCopy = v58;
+                enmlWriter2 = v55;
+                v27 = v56;
                 goto LABEL_48;
               }
             }
           }
 
-          v32 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
+          v32 = [obj countByEnumeratingWithState:&v61 objects:v69 count:16];
           if (v32)
           {
             continue;
@@ -244,18 +244,18 @@ LABEL_48:
         }
       }
 
-      absoluteString3 = [v61 absoluteString];
+      absoluteString3 = [v60 absoluteString];
       [v18 setObject:absoluteString3 forKeyedSubscript:@"src"];
 
-      elementCopy = v58;
-      attributesCopy = v59;
-      v27 = v57;
+      elementCopy = v57;
+      attributesCopy = v58;
+      v27 = v56;
     }
 
     else if ([(__CFString *)v27 isEqualToString:@"a"])
     {
       v42 = [v19 objectForKey:@"href"];
-      attributesCopy = v59;
+      attributesCopy = v58;
       if (v42)
       {
         v43 = [(ENWebContentTransformer *)self sanitizeURLAttribute:v42];
@@ -294,7 +294,7 @@ LABEL_48:
         }
       }
 
-      attributesCopy = v59;
+      attributesCopy = v58;
     }
 
     enmlWriter2 = [(ENWebContentTransformer *)self enmlWriter];
@@ -307,8 +307,6 @@ LABEL_53:
   [(ENWebContentTransformer *)self setInTitleElement:1];
   [(ENWebContentTransformer *)self setTitle:&stru_2850323E8];
 LABEL_54:
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resourceFromWebResource:(id)resource
@@ -378,7 +376,7 @@ LABEL_54:
 
 - (id)sanitizeURLAttribute:(id)attribute
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   attributeCopy = attribute;
   v5 = attributeCopy;
   if (attributeCopy)
@@ -400,26 +398,26 @@ LABEL_54:
       subresources = [webArchive subresources];
 
       v14 = [MEMORY[0x277CBEBC0] URLWithString:v5];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       v15 = subresources;
-      v11 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v11)
       {
-        v22 = v6;
-        v16 = *v24;
+        v21 = v6;
+        v16 = *v23;
         while (2)
         {
           for (i = 0; i != v11; i = i + 1)
           {
-            if (*v24 != v16)
+            if (*v23 != v16)
             {
               objc_enumerationMutation(v15);
             }
 
-            v18 = [*(*(&v23 + 1) + 8 * i) URL];
+            v18 = [*(*(&v22 + 1) + 8 * i) URL];
             v19 = [v18 isEqual:v14];
 
             if (v19)
@@ -429,7 +427,7 @@ LABEL_54:
             }
           }
 
-          v11 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v11 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v11)
           {
             continue;
@@ -439,7 +437,7 @@ LABEL_54:
         }
 
 LABEL_15:
-        v6 = v22;
+        v6 = v21;
       }
     }
   }
@@ -448,8 +446,6 @@ LABEL_15:
   {
     v11 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

@@ -110,52 +110,49 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_anchorType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    score = self->_score;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_candidateType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    secondsAfterAnchorStart = self->_secondsAfterAnchorStart;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    secondsAfterAnchorEnd = self->_secondsAfterAnchorEnd;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_abGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_executableObject)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -268,7 +265,6 @@
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 56);
   if (has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_score != *(equalCopy + 1))
@@ -288,14 +284,13 @@
     if (![(NSString *)candidateType isEqual:?])
     {
 LABEL_26:
-      v12 = 0;
+      v10 = 0;
       goto LABEL_27;
     }
 
     has = self->_has;
   }
 
-  v9 = *(equalCopy + 56);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 56) & 4) == 0 || self->_secondsAfterAnchorStart != *(equalCopy + 13))
@@ -331,17 +326,17 @@ LABEL_26:
   executableObject = self->_executableObject;
   if (executableObject | *(equalCopy + 5))
   {
-    v12 = [(NSString *)executableObject isEqual:?];
+    v10 = [(NSString *)executableObject isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v10 = 1;
   }
 
 LABEL_27:
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)hash

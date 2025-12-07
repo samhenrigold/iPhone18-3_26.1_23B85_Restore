@@ -5,7 +5,7 @@
 
 void __61___CDUserActivityCache_hashArrayForSourceID_bundleID_itemID___block_invoke(void *a1, void *a2)
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 computeHashesForString:a1[4] reuse:*(*(a1[7] + 8) + 40)];
   v5 = *(a1[7] + 8);
@@ -13,9 +13,9 @@ void __61___CDUserActivityCache_hashArrayForSourceID_bundleID_itemID___block_inv
   *(v5 + 40) = v4;
 
   v7 = a1[5];
-  v22[0] = a1[4];
-  v22[1] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+  v21[0] = a1[4];
+  v21[1] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
   v9 = [v8 componentsJoinedByString:@":"];
   v10 = [v3 computeHashesForString:v9 reuse:*(*(a1[7] + 8) + 40)];
   v11 = *(a1[7] + 8);
@@ -26,28 +26,26 @@ void __61___CDUserActivityCache_hashArrayForSourceID_bundleID_itemID___block_inv
   if (v13)
   {
     v14 = a1[5];
-    v21[0] = a1[4];
-    v21[1] = v14;
-    v21[2] = v13;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
+    v20[0] = a1[4];
+    v20[1] = v14;
+    v20[2] = v13;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
     v16 = [v15 componentsJoinedByString:@":"];
     v17 = [v3 computeHashesForString:v16 reuse:*(*(a1[7] + 8) + 40)];
     v18 = *(a1[7] + 8);
     v19 = *(v18 + 40);
     *(v18 + 40) = v17;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __52___CDUserActivityCache_addSourceID_bundleID_itemID___block_invoke(uint64_t a1, void *a2)
+void *__52___CDUserActivityCache_addSourceID_bundleID_itemID___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 setWithHashes:*(a1 + 32)];
   ++*(*(a1 + 40) + 24);
   return result;
 }
 
-uint64_t __66___CDUserActivityCache_containsObjectForSourceID_bundleID_itemID___block_invoke(uint64_t a1, void *a2)
+void *__66___CDUserActivityCache_containsObjectForSourceID_bundleID_itemID___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 getWithHashes:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;

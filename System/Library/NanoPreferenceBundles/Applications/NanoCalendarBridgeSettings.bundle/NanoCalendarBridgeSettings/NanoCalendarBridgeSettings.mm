@@ -1,13 +1,13 @@
-id ncs_log_error()
+id ncs_log_error(uint64_t a1)
 {
   if (qword_15388 != -1)
   {
     sub_7F04();
   }
 
-  v1 = qword_15380;
+  v2 = qword_15380;
 
-  return v1;
+  return v2;
 }
 
 void sub_1214(id a1)
@@ -24,16 +24,16 @@ void sub_1214(id a1)
   }
 }
 
-id ncs_log_lifecycle()
+id ncs_log_lifecycle(uint64_t a1)
 {
   if (qword_15398 != -1)
   {
     sub_7F18();
   }
 
-  v1 = qword_15390;
+  v2 = qword_15390;
 
-  return v1;
+  return v2;
 }
 
 void sub_12DC(id a1)
@@ -50,16 +50,16 @@ void sub_12DC(id a1)
   }
 }
 
-id ncs_log_snapshot()
+id ncs_log_snapshot(uint64_t a1)
 {
   if (qword_153A8 != -1)
   {
     sub_7F2C();
   }
 
-  v1 = qword_153A0;
+  v2 = qword_153A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_13A4(id a1)
@@ -76,16 +76,16 @@ void sub_13A4(id a1)
   }
 }
 
-id ncs_log_snapshot_creation()
+id ncs_log_snapshot_creation(uint64_t a1)
 {
   if (qword_153B8 != -1)
   {
     sub_7F40();
   }
 
-  v1 = qword_153B0;
+  v2 = qword_153B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_146C(id a1)
@@ -102,16 +102,16 @@ void sub_146C(id a1)
   }
 }
 
-id ncs_log_snapshot_vending()
+id ncs_log_snapshot_vending(uint64_t a1)
 {
   if (qword_153C8 != -1)
   {
     sub_7F54();
   }
 
-  v1 = qword_153C0;
+  v2 = qword_153C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1534(id a1)
@@ -128,16 +128,16 @@ void sub_1534(id a1)
   }
 }
 
-id ncs_log_selected_calendars()
+id ncs_log_selected_calendars(uint64_t a1)
 {
   if (qword_153D8 != -1)
   {
     sub_7F68();
   }
 
-  v1 = qword_153D0;
+  v2 = qword_153D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_15FC(id a1)
@@ -154,16 +154,16 @@ void sub_15FC(id a1)
   }
 }
 
-id ncs_log_data_loading()
+id ncs_log_data_loading(uint64_t a1)
 {
   if (qword_153E8 != -1)
   {
     sub_7F7C();
   }
 
-  v1 = qword_153E0;
+  v2 = qword_153E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_16C4(id a1)
@@ -180,16 +180,16 @@ void sub_16C4(id a1)
   }
 }
 
-id ncs_log_data_loading_verbose()
+id ncs_log_data_loading_verbose(uint64_t a1)
 {
   if (qword_153F8 != -1)
   {
     sub_7F90();
   }
 
-  v1 = qword_153F0;
+  v2 = qword_153F0;
 
-  return v1;
+  return v2;
 }
 
 void sub_178C(id a1)
@@ -206,16 +206,16 @@ void sub_178C(id a1)
   }
 }
 
-id ncs_log_data_display()
+id ncs_log_data_display(uint64_t a1)
 {
   if (qword_15408 != -1)
   {
     sub_7FA4();
   }
 
-  v1 = qword_15400;
+  v2 = qword_15400;
 
-  return v1;
+  return v2;
 }
 
 void sub_1854(id a1)
@@ -232,16 +232,16 @@ void sub_1854(id a1)
   }
 }
 
-id ncs_log_always_on_display()
+id ncs_log_always_on_display(uint64_t a1)
 {
   if (qword_15418 != -1)
   {
     sub_7FB8();
   }
 
-  v1 = qword_15410;
+  v2 = qword_15410;
 
-  return v1;
+  return v2;
 }
 
 void sub_191C(id a1)
@@ -258,16 +258,16 @@ void sub_191C(id a1)
   }
 }
 
-id ncs_log_user_interaction()
+id ncs_log_user_interaction(uint64_t a1)
 {
   if (qword_15428 != -1)
   {
     sub_7FCC();
   }
 
-  v1 = qword_15420;
+  v2 = qword_15420;
 
-  return v1;
+  return v2;
 }
 
 void sub_19E4(id a1)
@@ -284,16 +284,16 @@ void sub_19E4(id a1)
   }
 }
 
-id ncs_log_user_data_change()
+id ncs_log_user_data_change(uint64_t a1)
 {
   if (qword_15438 != -1)
   {
     sub_7FE0();
   }
 
-  v1 = qword_15430;
+  v2 = qword_15430;
 
-  return v1;
+  return v2;
 }
 
 void sub_1AAC(id a1)
@@ -310,16 +310,16 @@ void sub_1AAC(id a1)
   }
 }
 
-id ncs_log_icon_generation()
+id ncs_log_icon_generation(uint64_t a1)
 {
   if (qword_15448 != -1)
   {
     sub_7FF4();
   }
 
-  v1 = qword_15440;
+  v2 = qword_15440;
 
-  return v1;
+  return v2;
 }
 
 void sub_1B74(id a1)
@@ -336,16 +336,16 @@ void sub_1B74(id a1)
   }
 }
 
-id ncs_log_metrics()
+id ncs_log_metrics(uint64_t a1)
 {
   if (qword_15458 != -1)
   {
     sub_8008();
   }
 
-  v1 = qword_15450;
+  v2 = qword_15450;
 
-  return v1;
+  return v2;
 }
 
 void sub_1C3C(id a1)
@@ -362,16 +362,16 @@ void sub_1C3C(id a1)
   }
 }
 
-id ncs_log_utility()
+id ncs_log_utility(uint64_t a1)
 {
   if (qword_15468 != -1)
   {
     sub_801C();
   }
 
-  v1 = qword_15460;
+  v2 = qword_15460;
 
-  return v1;
+  return v2;
 }
 
 void sub_1D04(id a1)
@@ -388,16 +388,16 @@ void sub_1D04(id a1)
   }
 }
 
-id ncs_log_settings()
+id ncs_log_settings(uint64_t a1)
 {
   if (qword_15478 != -1)
   {
     sub_8030();
   }
 
-  v1 = qword_15470;
+  v2 = qword_15470;
 
-  return v1;
+  return v2;
 }
 
 void sub_1DCC(id a1)
@@ -414,16 +414,16 @@ void sub_1DCC(id a1)
   }
 }
 
-id ncs_log_status_bar()
+id ncs_log_status_bar(uint64_t a1)
 {
   if (qword_15488 != -1)
   {
     sub_8044();
   }
 
-  v1 = qword_15480;
+  v2 = qword_15480;
 
-  return v1;
+  return v2;
 }
 
 void sub_1E94(id a1)
@@ -440,16 +440,16 @@ void sub_1E94(id a1)
   }
 }
 
-id ncs_log_complication()
+id ncs_log_complication(uint64_t a1)
 {
   if (qword_15498 != -1)
   {
     sub_8058();
   }
 
-  v1 = qword_15490;
+  v2 = qword_15490;
 
-  return v1;
+  return v2;
 }
 
 void sub_1F5C(id a1)
@@ -466,16 +466,16 @@ void sub_1F5C(id a1)
   }
 }
 
-id ncs_log_event_creation()
+id ncs_log_event_creation(uint64_t a1)
 {
   if (qword_154A8 != -1)
   {
     sub_806C();
   }
 
-  v1 = qword_154A0;
+  v2 = qword_154A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_2024(id a1)
@@ -492,16 +492,16 @@ void sub_2024(id a1)
   }
 }
 
-id ncs_log_alerts_ttl()
+id ncs_log_alerts_ttl(uint64_t a1)
 {
   if (qword_154B8 != -1)
   {
     sub_8080();
   }
 
-  v1 = qword_154B0;
+  v2 = qword_154B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_20EC(id a1)
@@ -518,16 +518,16 @@ void sub_20EC(id a1)
   }
 }
 
-id ncs_log_bulletin_ui()
+id ncs_log_bulletin_ui(uint64_t a1)
 {
   if (qword_154C8 != -1)
   {
     sub_8094();
   }
 
-  v1 = qword_154C0;
+  v2 = qword_154C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_21B4(id a1)
@@ -544,16 +544,16 @@ void sub_21B4(id a1)
   }
 }
 
-id ncs_log_reminders_snapshot()
+id ncs_log_reminders_snapshot(uint64_t a1)
 {
   if (qword_154D8 != -1)
   {
     sub_80A8();
   }
 
-  v1 = qword_154D0;
+  v2 = qword_154D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_227C(id a1)
@@ -570,16 +570,16 @@ void sub_227C(id a1)
   }
 }
 
-id ncs_log_reminders_demo()
+id ncs_log_reminders_demo(uint64_t a1)
 {
   if (qword_154E8 != -1)
   {
     sub_80BC();
   }
 
-  v1 = qword_154E0;
+  v2 = qword_154E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_2344(id a1)
@@ -596,16 +596,16 @@ void sub_2344(id a1)
   }
 }
 
-id ncs_log_debugging()
+id ncs_log_debugging(uint64_t a1)
 {
   if (qword_154F8 != -1)
   {
     sub_80D0();
   }
 
-  v1 = qword_154F0;
+  v2 = qword_154F0;
 
-  return v1;
+  return v2;
 }
 
 void sub_240C(id a1)
@@ -622,7 +622,7 @@ void sub_240C(id a1)
   }
 }
 
-uint64_t _actsLikeCustomerBuild()
+uint64_t _actsLikeCustomerBuild(uint64_t a1, uint64_t a2)
 {
   if (qword_15508 != -1)
   {
@@ -658,7 +658,7 @@ uint64_t _isInternalBuild()
   return v0 & 1;
 }
 
-uint64_t NCSLoggingConfidentionInformationAllowed()
+uint64_t NCSLoggingConfidentionInformationAllowed(uint64_t a1, uint64_t a2)
 {
   if (qword_15510 != -1)
   {

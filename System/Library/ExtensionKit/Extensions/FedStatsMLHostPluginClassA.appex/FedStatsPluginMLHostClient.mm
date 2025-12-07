@@ -32,12 +32,11 @@
 
 - (id)recipeIdentifiers
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC26FedStatsMLHostPluginClassA26FedStatsPluginMLHostClient_experimentCfgs);
 
-  sub_10000D740(v3);
-  v4.super.isa = sub_100013880().super.isa;
+  sub_10000D740(v2);
+  v3.super.isa = sub_100013880().super.isa;
 
-  return v4.super.isa;
+  return v3.super.isa;
 }
 
 - (BOOL)fetchAssets:(id)assets error:(id *)error
@@ -69,21 +68,20 @@
 {
   v6 = sub_1000135D0();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_1000137E0();
-  v13 = v12;
-  v14 = sub_1000137E0();
-  v16 = v15;
+  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_1000137E0();
+  v12 = v11;
+  v13 = sub_1000137E0();
+  v15 = v14;
   selfCopy = self;
-  FedStatsPluginMLHostClient.assetURL(forRecipe:forKey:)(v11, v13, v14, v16, v10);
+  FedStatsPluginMLHostClient.assetURL(forRecipe:forKey:)(v10, v12, v13, v15, v9);
 
-  sub_1000135A0(v18);
-  v20 = v19;
-  (*(v7 + 8))(v10, v6);
+  sub_1000135A0(v17);
+  v19 = v18;
+  (*(v7 + 8))(v9, v6);
 
-  return v20;
+  return v19;
 }
 
 - (void)removeAssets

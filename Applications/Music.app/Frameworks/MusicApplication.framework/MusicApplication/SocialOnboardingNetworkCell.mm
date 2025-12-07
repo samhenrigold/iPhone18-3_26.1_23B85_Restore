@@ -39,7 +39,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_36DDA8();
+  sub_36DDA8(selfCopy);
 }
 
 - (BOOL)isHighlighted

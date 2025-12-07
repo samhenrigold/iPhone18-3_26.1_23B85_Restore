@@ -43,7 +43,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  SSKDisplayProfile.appendDescription(toFormatter:)();
+  SSKDisplayProfile.appendDescription(toFormatter:)(formatter);
   swift_unknownObjectRelease();
 }
 

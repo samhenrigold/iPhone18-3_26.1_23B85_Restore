@@ -33,6 +33,7 @@
   selfCopy = self;
   v8 = sub_22B7CDB5C(v4, v6);
 
+  v6, v9, v10, v11, v12, v13, v14, v15, v17, v18;
   return v8;
 }
 

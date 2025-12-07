@@ -166,8 +166,7 @@
       v76 = 2112;
       v77 = v17;
       LODWORD(v61) = 22;
-      v60 = &v74;
-      v18 = _os_log_send_and_compose_impl();
+      v18 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Running operation with bag key: %@", &v74, v61);
 
       v4 = v16;
       v5 = &CFDictionaryGetValue_ptr;
@@ -177,7 +176,7 @@
         goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v18 encoding:4, &v74, v61];
+      oSLogObject = [NSString stringWithCString:v18 encoding:4];
       free(v18);
       v60 = oSLogObject;
       SSFileLog();
@@ -196,7 +195,7 @@ LABEL_16:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        goto LABEL_49;
+        goto LABEL_50;
       }
 
       oSLogObject4 = SSVSubscriptionBagForDictionary();
@@ -230,19 +229,24 @@ LABEL_16:
           sharedDaemonConfig2 = [v5[412] sharedConfig];
         }
 
-        shouldLog2 = [sharedDaemonConfig2 shouldLog];
+        LODWORD(v31) = [sharedDaemonConfig2 shouldLog];
         if ([sharedDaemonConfig2 shouldLogToDisk])
         {
-          shouldLog2 |= 2u;
+          LODWORD(v31) = v31 | 2;
         }
 
         oSLogObject2 = [sharedDaemonConfig2 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
         {
-          shouldLog2 &= 2u;
+          v31 = v31;
         }
 
-        if (shouldLog2)
+        else
+        {
+          v31 &= 2u;
+        }
+
+        if (v31)
         {
           v33 = objc_opt_class();
           v74 = 138412546;
@@ -252,13 +256,12 @@ LABEL_16:
           v34 = v4;
           v35 = v33;
           LODWORD(v61) = 22;
-          v60 = &v74;
-          v36 = _os_log_send_and_compose_impl();
+          v36 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Received error status=%@", &v74, v61);
 
           v4 = v34;
           if (!v36)
           {
-LABEL_32:
+LABEL_33:
 
             response = [v8 response];
             v38 = [(SubscriptionOperation *)self _newMachineDataOperationWithAccount:v69 response:response];
@@ -278,7 +281,7 @@ LABEL_32:
                 {
                   v42 = 1;
                   v65 = syncState;
-                  goto LABEL_66;
+                  goto LABEL_68;
                 }
 
                 oSLogObject4 = authenticatedAccountDSID;
@@ -287,7 +290,7 @@ LABEL_32:
                 v65 = syncState;
                 v66 = oSLogObject4;
                 v44 = v43;
-                goto LABEL_65;
+                goto LABEL_67;
               }
             }
 
@@ -306,18 +309,18 @@ LABEL_32:
 
             v42 = 0;
             v20 = v51;
-LABEL_65:
+LABEL_67:
 
-            goto LABEL_66;
+            goto LABEL_68;
           }
 
-          oSLogObject2 = [NSString stringWithCString:v36 encoding:4, &v74, v61];
+          oSLogObject2 = [NSString stringWithCString:v36 encoding:4];
           free(v36);
           v60 = oSLogObject2;
           SSFileLog();
         }
 
-        goto LABEL_32;
+        goto LABEL_33;
       }
 
       sharedDaemonConfig3 = [v5[412] sharedDaemonConfig];
@@ -326,19 +329,24 @@ LABEL_65:
         sharedDaemonConfig3 = [v5[412] sharedConfig];
       }
 
-      shouldLog3 = [sharedDaemonConfig3 shouldLog];
+      LODWORD(v53) = [sharedDaemonConfig3 shouldLog];
       if ([sharedDaemonConfig3 shouldLogToDisk])
       {
-        shouldLog3 |= 2u;
+        LODWORD(v53) = v53 | 2;
       }
 
       oSLogObject3 = [sharedDaemonConfig3 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
       {
-        shouldLog3 &= 2u;
+        v53 = v53;
       }
 
-      if (shouldLog3)
+      else
+      {
+        v53 &= 2u;
+      }
+
+      if (v53)
       {
         v55 = objc_opt_class();
         v74 = 138412290;
@@ -346,28 +354,27 @@ LABEL_65:
         v56 = v4;
         v57 = v55;
         LODWORD(v61) = 12;
-        v60 = &v74;
-        v58 = _os_log_send_and_compose_impl();
+        v58 = _os_log_send_and_compose_impl(v53, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Received valid status=0", &v74, v61);
 
         v4 = v56;
         if (!v58)
         {
-LABEL_64:
+LABEL_66:
 
           v42 = 0;
           v62 = 1;
           v5 = &CFDictionaryGetValue_ptr;
           v44 = v63;
-          goto LABEL_65;
+          goto LABEL_67;
         }
 
-        oSLogObject3 = [NSString stringWithCString:v58 encoding:4, &v74, v61];
+        oSLogObject3 = [NSString stringWithCString:v58 encoding:4];
         free(v58);
         v60 = oSLogObject3;
         SSFileLog();
       }
 
-      goto LABEL_64;
+      goto LABEL_66;
     }
 
     output = [v5[412] sharedDaemonConfig];
@@ -376,15 +383,15 @@ LABEL_64:
       output = [v5[412] sharedConfig];
     }
 
-    shouldLog4 = [output shouldLog];
+    shouldLog2 = [output shouldLog];
     if ([output shouldLogToDisk])
     {
-      v46 = shouldLog4 | 2;
+      v46 = shouldLog2 | 2;
     }
 
     else
     {
-      v46 = shouldLog4;
+      v46 = shouldLog2;
     }
 
     oSLogObject4 = [output OSLogObject];
@@ -407,26 +414,25 @@ LABEL_64:
       v77 = v20;
       v49 = v48;
       LODWORD(v61) = 22;
-      v60 = &v74;
-      v50 = _os_log_send_and_compose_impl();
+      v50 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%@: Failed with error: %@", &v74, v61);
 
       if (!v50)
       {
-LABEL_49:
+LABEL_50:
         v42 = 0;
-        goto LABEL_67;
+        goto LABEL_69;
       }
 
-      oSLogObject4 = [NSString stringWithCString:v50 encoding:4, &v74, v61];
+      oSLogObject4 = [NSString stringWithCString:v50 encoding:4];
       free(v50);
       v60 = oSLogObject4;
       SSFileLog();
     }
 
     v42 = 0;
-LABEL_66:
+LABEL_68:
 
-LABEL_67:
+LABEL_69:
     v3 = v20;
 
     [v8 setDelegate:0];
@@ -511,10 +517,10 @@ LABEL_6:
     [v14 setObject:&__kCFBooleanTrue forKey:@"isRequestingSlot"];
   }
 
-  v52 = 0;
-  v53 = 0;
   v51 = 0;
-  sub_1002442DC(-1, &v53, &v51 + 4, &v52, &v51);
+  v52 = 0;
+  v50 = 0;
+  sub_1002442DC(-1, &v52, &v50 + 4, &v51, &v50);
   if (v17)
   {
     v18 = v17;
@@ -524,48 +530,51 @@ LABEL_6:
       v19 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v19 shouldLog];
+    LODWORD(v20) = [v19 shouldLog];
     if ([v19 shouldLogToDisk])
     {
-      shouldLog |= 2u;
+      LODWORD(v20) = v20 | 2;
     }
 
     oSLogObject = [v19 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      shouldLog &= 2u;
+      v20 = v20;
     }
 
-    if (shouldLog)
+    else
+    {
+      v20 &= 2u;
+    }
+
+    if (v20)
     {
       v22 = objc_opt_class();
-      v54 = 138412546;
-      v55 = v22;
-      v56 = 2048;
-      v57 = v18;
+      v53 = 138412546;
+      v54 = v22;
+      v55 = 2048;
+      v56 = v18;
       v23 = v22;
-      LODWORD(v44) = 22;
-      v43 = &v54;
-      v24 = _os_log_send_and_compose_impl();
+      v24 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%@: Skipping OTP after return code: %ld", &v53, 22);
 
       if (!v24)
       {
-        goto LABEL_44;
+        goto LABEL_46;
       }
 
-      oSLogObject = [NSString stringWithCString:v24 encoding:4, &v54, v44];
+      oSLogObject = [NSString stringWithCString:v24 encoding:4];
       free(v24);
       v43 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_43;
+    goto LABEL_45;
   }
 
-  if (HIDWORD(v51))
+  if (HIDWORD(v50))
   {
     v25 = [NSData alloc];
-    v26 = [v25 initWithBytesNoCopy:v53 length:HIDWORD(v51) freeWhenDone:0];
+    v26 = [v25 initWithBytesNoCopy:v52 length:HIDWORD(v50) freeWhenDone:0];
     v19 = v26;
     if (v26)
     {
@@ -579,10 +588,10 @@ LABEL_6:
     v19 = 0;
   }
 
-  if (v52)
+  if (v51)
   {
     v28 = [NSData alloc];
-    v29 = [v28 initWithBytesNoCopy:v52 length:v51 freeWhenDone:0];
+    v29 = [v28 initWithBytesNoCopy:v51 length:v50 freeWhenDone:0];
     v30 = [v29 base64EncodedStringWithOptions:0];
     [v10 setValue:v30 forHTTPHeaderField:SSHTTPHeaderXAppleAMD];
   }
@@ -592,11 +601,11 @@ LABEL_6:
     uniqueIdentifier = [accountCopy uniqueIdentifier];
     unsignedLongLongValue = [uniqueIdentifier unsignedLongLongValue];
 
+    v48 = 0;
     v49 = 0;
-    v50 = 0;
-    [controllerCopy generateSubscriptionBagRequestWithAccountUniqueIdentifier:unsignedLongLongValue transactionType:v13 machineIDData:v19 returningSubscriptionBagData:&v50 error:&v49];
-    oSLogObject = v50;
-    v33 = v49;
+    [controllerCopy generateSubscriptionBagRequestWithAccountUniqueIdentifier:unsignedLongLongValue transactionType:v13 machineIDData:v19 returningSubscriptionBagData:&v49 error:&v48];
+    oSLogObject = v49;
+    v33 = v48;
     v34 = v33;
     if (!v33)
     {
@@ -606,30 +615,35 @@ LABEL_6:
         [v14 setObject:v35 forKey:@"sbsync"];
       }
 
-      goto LABEL_42;
+      goto LABEL_44;
     }
 
-    v46 = accountCopy;
-    v47 = v33;
+    v45 = accountCopy;
+    v46 = v33;
     v35 = +[SSLogConfig sharedDaemonConfig];
     if (!v35)
     {
       v35 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v35 shouldLog];
+    shouldLog = [v35 shouldLog];
     if ([v35 shouldLogToDisk])
     {
-      v37 = shouldLog2 | 2;
+      LODWORD(v37) = shouldLog | 2;
     }
 
     else
     {
-      v37 = shouldLog2;
+      LODWORD(v37) = shouldLog;
     }
 
     oSLogObject2 = [v35 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v37 = v37;
+    }
+
+    else
     {
       v37 &= 2u;
     }
@@ -637,46 +651,44 @@ LABEL_6:
     if (v37)
     {
       v39 = objc_opt_class();
-      v54 = 138412546;
-      v55 = v39;
-      v56 = 2112;
-      v57 = v47;
-      v45 = v39;
-      LODWORD(v44) = 22;
-      v43 = &v54;
-      v40 = _os_log_send_and_compose_impl();
+      v53 = 138412546;
+      v54 = v39;
+      v55 = 2112;
+      v56 = v46;
+      v44 = v39;
+      v40 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Skipping bag data after error: %@", &v53, 22);
 
       if (!v40)
       {
-        accountCopy = v46;
-        v34 = v47;
-        goto LABEL_42;
+        accountCopy = v45;
+        v34 = v46;
+        goto LABEL_44;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v40 encoding:4, &v54, v44];
+      oSLogObject2 = [NSString stringWithCString:v40 encoding:4];
       free(v40);
       v43 = oSLogObject2;
       SSFileLog();
     }
 
-    accountCopy = v46;
+    accountCopy = v45;
 
-    v34 = v47;
-LABEL_42:
-
-LABEL_43:
-  }
-
+    v34 = v46;
 LABEL_44:
 
-  if (v53)
-  {
-    sub_100255DC4(v53);
+LABEL_45:
   }
+
+LABEL_46:
 
   if (v52)
   {
     sub_100255DC4(v52);
+  }
+
+  if (v51)
+  {
+    sub_100255DC4(v51);
   }
 
   v41 = [NSJSONSerialization dataWithJSONObject:v14 options:0 error:0, v43];

@@ -7,6 +7,7 @@
 - (id)fetchSongsWithOptions:(id)options;
 - (void)_createCloudManagerOfType:(int64_t)type;
 - (void)_loadBundledSongs;
+- (void)_notifySongDownloadInProgressChanged:(BOOL)changed;
 - (void)_notifySongsChanged:(id)changed;
 - (void)_setupReachability;
 - (void)_updateFromCloud;
@@ -56,11 +57,11 @@
 
 - (FMSongLibrary)initWithOptions:(id)options
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
-  v50.receiver = self;
-  v50.super_class = FMSongLibrary;
-  v6 = [(FMSongLibrary *)&v50 init];
+  v49.receiver = self;
+  v49.super_class = FMSongLibrary;
+  v6 = [(FMSongLibrary *)&v49 init];
   v7 = v6;
   if (v6)
   {
@@ -100,12 +101,11 @@
       v43 = objc_msgSend_date(MEMORY[0x277CBEAA8], v39, v40, v41, v42);
       objc_msgSend_timeIntervalSinceDate_(v43, v44, v33, v45, v46);
       *buf = 134217984;
-      v52 = v47;
+      v51 = v47;
       _os_log_impl(&dword_24B7E5000, v38, OS_LOG_TYPE_DEFAULT, "library initialized in %.2f seconds\n", buf, 0xCu);
     }
   }
 
-  v48 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -163,7 +163,7 @@
 
 - (id)fetchSongsWithOptions:(id)options
 {
-  v108[2] = *MEMORY[0x277D85DE8];
+  v107[2] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v9 = objc_msgSend_date(MEMORY[0x277CBEAA8], v5, v6, v7, v8);
   v14 = objc_msgSend_set(MEMORY[0x277CBEB58], v10, v11, v12, v13);
@@ -177,10 +177,10 @@
     if (v24)
     {
       v25 = MEMORY[0x277CCA920];
-      v108[0] = v22;
+      v107[0] = v22;
       v26 = objc_msgSend_predicate(optionsCopy, v18, v19, v20, v21);
-      v108[1] = v26;
-      v29 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v27, v108, 2, v28);
+      v107[1] = v26;
+      v29 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v27, v107, 2, v28);
       v23 = objc_msgSend_andPredicateWithSubpredicates_(v25, v30, v29, v31, v32);
     }
   }
@@ -218,21 +218,19 @@
   {
     v94 = objc_msgSend_date(MEMORY[0x277CBEAA8], v90, v91, v92, v93);
     objc_msgSend_timeIntervalSinceDate_(v94, v95, v9, v96, v97);
-    v106 = 134217984;
-    v107 = v98;
-    _os_log_impl(&dword_24B7E5000, v89, OS_LOG_TYPE_DEFAULT, "fetchSongsWithOptions fetched in %.2f seconds\n", &v106, 0xCu);
+    v105 = 134217984;
+    v106 = v98;
+    _os_log_impl(&dword_24B7E5000, v89, OS_LOG_TYPE_DEFAULT, "fetchSongsWithOptions fetched in %.2f seconds\n", &v105, 0xCu);
   }
 
   v103 = objc_msgSend_allObjects(v14, v99, v100, v101, v102);
-
-  v104 = *MEMORY[0x277D85DE8];
 
   return v103;
 }
 
 - (void)_loadBundledSongs
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_objectForKey_(self->_options, a2, @"FMSongLibraryInitOption_CustomBundledSongsPath", v2, v3);
   v9 = v5;
   if (v5)
@@ -252,31 +250,31 @@
   v21 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v17, v18, v19, v20);
   objc_msgSend_setBundledSongs_(selfCopy, v22, v21, v23, v24);
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v25 = v15;
-  v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v55, v63, 16);
+  v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v54, v62, 16);
   if (v31)
   {
-    v32 = *v56;
+    v32 = *v55;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v56 != v32)
+        if (*v55 != v32)
         {
           objc_enumerationMutation(v25);
         }
 
-        v34 = *(*(&v55 + 1) + 8 * i);
-        v35 = objc_msgSend_bundledSongs(selfCopy, v27, v28, v29, v30, v55);
+        v34 = *(*(&v54 + 1) + 8 * i);
+        v35 = objc_msgSend_bundledSongs(selfCopy, v27, v28, v29, v30, v54);
         v40 = objc_msgSend_uid(v34, v36, v37, v38, v39);
         objc_msgSend_setObject_forKeyedSubscript_(v35, v41, v34, v40, v42);
       }
 
-      v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v27, &v55, v63, 16);
+      v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v27, &v54, v62, 16);
     }
 
     while (v31);
@@ -289,13 +287,11 @@
     v48 = objc_msgSend_bundledSongs(selfCopy, v44, v45, v46, v47);
     v53 = objc_msgSend_count(v48, v49, v50, v51, v52);
     *buf = 134218242;
-    v60 = v53;
-    v61 = 2112;
-    v62 = v14;
+    v59 = v53;
+    v60 = 2112;
+    v61 = v14;
     _os_log_impl(&dword_24B7E5000, v43, OS_LOG_TYPE_DEFAULT, "loading %lu songs from %@", buf, 0x16u);
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupReachability
@@ -362,6 +358,16 @@
   objc_msgSend_postNotificationName_object_userInfo_(v7, v6, @"FMSongLibraryAvailableSongsChanged", self, 0);
 }
 
+- (void)_notifySongDownloadInProgressChanged:(BOOL)changed
+{
+  v6 = MEMORY[0x277CBEAC0];
+  v7 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], a2, changed, v3, v4);
+  v16 = objc_msgSend_dictionaryWithObject_forKey_(v6, v8, v7, @"FMSongLibrarySongDownloadInProgressState", v9);
+
+  v14 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v10, v11, v12, v13);
+  objc_msgSend_postNotificationName_object_userInfo_(v14, v15, @"FMSongLibrarySongDownloadInProgressChanged", self, v16);
+}
+
 - (void)_updateFromCloud
 {
   objc_initWeak(&location, self);
@@ -387,95 +393,93 @@
 
 - (void)requestDownloadOfAllAssetsWithIDs:(id)ds withOptions:(id)options
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   optionsCopy = options;
   v11 = objc_msgSend_fetchSongsWithOptions_(self, v8, 0, v9, v10);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v20, v24, 16);
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v19, v23, 16);
   if (v13)
   {
     v16 = v13;
-    v17 = *v21;
+    v17 = *v20;
     do
     {
       v18 = 0;
       do
       {
-        if (*v21 != v17)
+        if (*v20 != v17)
         {
           objc_enumerationMutation(v11);
         }
 
-        objc_msgSend_requestDownloadOfAllAssetsWithIDs_withOptions_(*(*(&v20 + 1) + 8 * v18++), v14, dsCopy, optionsCopy, v15);
+        objc_msgSend_requestDownloadOfAllAssetsWithIDs_withOptions_(*(*(&v19 + 1) + 8 * v18++), v14, dsCopy, optionsCopy, v15);
       }
 
       while (v16 != v18);
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v20, v24, 16);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v19, v23, 16);
     }
 
     while (v16);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purgeAllLocalCachedAssetsWithIDs:(id)ds
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   objc_msgSend_fetchSongsWithOptions_(self, v5, 0, v6, v7);
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  obj = v38 = 0u;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v35, v40, 16);
+  obj = v37 = 0u;
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v34, v39, 16);
   if (v9)
   {
     v10 = v9;
-    v11 = *v36;
+    v11 = *v35;
     do
     {
       v12 = 0;
       do
       {
-        if (*v36 != v11)
+        if (*v35 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v35 + 1) + 8 * v12);
+        v13 = *(*(&v34 + 1) + 8 * v12);
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
         v14 = dsCopy;
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v31, v39, 16);
+        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v30, v38, 16);
         if (v16)
         {
           v20 = v16;
-          v21 = *v32;
+          v21 = *v31;
           do
           {
             v22 = 0;
             do
             {
-              if (*v32 != v21)
+              if (*v31 != v21)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v23 = objc_msgSend_assetWithID_(v13, v17, *(*(&v31 + 1) + 8 * v22), v18, v19);
+              v23 = objc_msgSend_assetWithID_(v13, v17, *(*(&v30 + 1) + 8 * v22), v18, v19);
               objc_msgSend_purgeLocalCache(v23, v24, v25, v26, v27);
 
               ++v22;
             }
 
             while (v20 != v22);
-            v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v31, v39, 16);
+            v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v30, v38, 16);
           }
 
           while (v20);
@@ -485,13 +489,11 @@
       }
 
       while (v12 != v10);
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v28, &v35, v40, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v28, &v34, v39, 16);
     }
 
     while (v10);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)supportForCloud

@@ -8,14 +8,14 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-id MTLoggingPreferenceProvider()
+id MTLoggingPreferenceProvider(uint64_t a1)
 {
   if (MTLoggingPreferenceProvider_onceToken != -1)
   {
     MTLoggingPreferenceProvider_cold_1();
   }
 
-  v1 = MTLoggingPreferenceProvider___logObj;
+  v2 = MTLoggingPreferenceProvider___logObj;
 
-  return v1;
+  return v2;
 }

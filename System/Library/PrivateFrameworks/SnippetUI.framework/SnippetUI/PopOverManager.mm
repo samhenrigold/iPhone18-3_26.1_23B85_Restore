@@ -8,7 +8,7 @@
 {
   popoverCopy = popover;
   selfCopy = self;
-  sub_26A4F4FE4();
+  sub_26A4F4FE4(selfCopy);
 
   return 1;
 }

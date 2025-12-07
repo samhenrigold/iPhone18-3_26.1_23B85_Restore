@@ -7,7 +7,7 @@
 
 + (id)queryFastPathsForPrimaryPersona:(id)persona
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   personaCopy = persona;
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
@@ -22,11 +22,11 @@
       fp_lmdURL = [MEMORY[0x1E695DFF8] fp_lmdURL];
       br_realpathURL2 = [fp_lmdURL br_realpathURL];
 
-      v15 = 0;
+      v14 = 0;
       v10 = 0;
-      if ([MEMORY[0x1E695DFF8] br_isURL:br_realpathURL2 syncRootOwnedByICloudDrive:&v15 withError:0])
+      if ([MEMORY[0x1E695DFF8] br_isURL:br_realpathURL2 syncRootOwnedByICloudDrive:&v14 withError:0])
       {
-        if (br_realpathURL2 && (v15 & 1) != 0)
+        if (br_realpathURL2 && (v14 & 1) != 0)
         {
           v10 = objc_opt_new();
           [v10 setObject:br_realpathURL forKeyedSubscript:@"home"];
@@ -35,9 +35,9 @@
 
         else
         {
-          v16 = @"home";
-          v17[0] = br_realpathURL;
-          v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+          v15 = @"home";
+          v16[0] = br_realpathURL;
+          v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
         }
       }
     }
@@ -52,8 +52,6 @@
   {
     v10 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -72,11 +70,10 @@
 
 - (void)queryPathsForPersona:(uint64_t)a1 withError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: you should subclass%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: you should subclass%@", &v2, 0xCu);
 }
 
 @end

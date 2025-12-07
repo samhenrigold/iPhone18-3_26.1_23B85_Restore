@@ -13,30 +13,30 @@
 
 - (void)fetchWidgetMigrationForDescriptor:(CLKComplicationDescriptor *)descriptor family:(int64_t)family completion:(id)completion
 {
-  v9 = (*(*(sub_3230(&qword_C378, &qword_4310) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_3230(&qword_C378, &qword_4310);
   __chkstk_darwin();
-  v11 = &v19 - v10;
-  v12 = _Block_copy(completion);
-  v13 = swift_allocObject();
-  v13[2] = descriptor;
-  v13[3] = family;
-  v13[4] = v12;
-  v13[5] = self;
-  v14 = sub_3930();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v10 = &v18 - v9;
+  v11 = _Block_copy(completion);
+  v12 = swift_allocObject();
+  v12[2] = descriptor;
+  v12[3] = family;
+  v12[4] = v11;
+  v12[5] = self;
+  v13 = sub_3930();
+  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_4320;
+  v14[5] = v12;
   v15 = swift_allocObject();
   v15[2] = 0;
   v15[3] = 0;
-  v15[4] = &unk_4320;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_4330;
-  v16[5] = v15;
+  v15[4] = &unk_4330;
+  v15[5] = v14;
   descriptorCopy = descriptor;
   selfCopy = self;
-  sub_1F84(0, 0, v11, &unk_4340, v16);
+  sub_1F84(0, 0, v10, &unk_4340, v15);
 }
 
 + (NSString)bundleIdentifier
@@ -66,7 +66,7 @@
   v4.super.isa = v3;
   v11._countAndFlagsBits = 0;
   v11._object = 0xE000000000000000;
-  sub_3860(v9, v10, v4, v11, v7);
+  sub_3860(v9, v10, v4, v11, 0, v7);
 
   v5 = sub_38C0();
 
@@ -85,21 +85,20 @@
 {
   v5 = sub_3890();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin();
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = _Block_copy(handler);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = _Block_copy(handler);
   selfCopy = self;
-  v12 = sub_2F0C([(ComplicationsDataSource *)selfCopy family]);
+  v11 = sub_2F0C([(ComplicationsDataSource *)selfCopy family]);
   sub_3880();
-  v13 = v12;
+  v12 = v11;
   isa = sub_3870().super.isa;
-  v15 = [objc_opt_self() entryWithDate:isa complicationTemplate:v13];
+  v14 = [objc_opt_self() entryWithDate:isa complicationTemplate:v12];
 
-  (*(v6 + 8))(v9, v5);
-  v10[2](v10, v15);
+  (*(v6 + 8))(v8, v5);
+  v9[2](v9, v14);
 
-  _Block_release(v10);
+  _Block_release(v9);
 }
 
 - (_TtC33com_apple_finditems_complications23ComplicationsDataSource)initWithComplication:(id)complication family:(int64_t)family forDevice:(id)device

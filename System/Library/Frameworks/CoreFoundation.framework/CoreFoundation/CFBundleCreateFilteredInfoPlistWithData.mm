@@ -16,21 +16,21 @@ CFTypeID ___CFBundleCreateFilteredInfoPlistWithData_block_invoke(int a1, CFTypeR
 
 void ___CFBundleCreateFilteredInfoPlistWithData_block_invoke_2(uint64_t a1, CFStringRef theString)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   result.location = 0;
   result.length = 0;
-  v19.length = CFStringGetLength(theString);
-  v19.location = 0;
-  if (CFStringFindWithOptions(theString, @":", v19, 0, &result))
+  v18.length = CFStringGetLength(theString);
+  v18.location = 0;
+  if (CFStringFindWithOptions(theString, @":", v18, 0, &result))
   {
-    v20.length = result.location;
-    v20.location = 0;
-    v4 = CFStringCreateWithSubstring(&__kCFAllocatorSystemDefault, theString, v20);
+    v19.length = result.location;
+    v19.location = 0;
+    v4 = CFStringCreateWithSubstring(&__kCFAllocatorSystemDefault, theString, v19);
     location = result.location;
     Length = CFStringGetLength(theString);
-    v21.location = location + 1;
-    v21.length = Length + ~result.location;
-    v7 = CFStringCreateWithSubstring(&__kCFAllocatorSystemDefault, theString, v21);
+    v20.location = location + 1;
+    v20.length = Length + ~result.location;
+    v7 = CFStringCreateWithSubstring(&__kCFAllocatorSystemDefault, theString, v20);
   }
 
   else
@@ -90,8 +90,6 @@ void ___CFBundleCreateFilteredInfoPlistWithData_block_invoke_2(uint64_t a1, CFSt
   {
     CFRelease(v7);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void ___CFBundleCreateFilteredInfoPlistWithData_block_invoke_3(uint64_t a1, uint64_t a2)

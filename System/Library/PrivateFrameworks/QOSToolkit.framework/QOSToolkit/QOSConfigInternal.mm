@@ -10,18 +10,16 @@
 {
   if (*(self + OBJC_IVAR___QOSConfigInternal_locale + 8))
   {
-    v2 = *(self + OBJC_IVAR___QOSConfigInternal_locale);
-    v3 = *(self + OBJC_IVAR___QOSConfigInternal_locale + 8);
 
-    v4 = sub_261464920();
+    v2 = sub_261464920();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (QOSConfigInternal)initWithAppTarget:(int64_t)target locale:(id)locale

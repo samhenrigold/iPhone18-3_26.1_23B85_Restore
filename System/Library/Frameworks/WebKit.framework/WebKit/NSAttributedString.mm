@@ -5,30 +5,30 @@
 
 void __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke(uint64_t a1)
 {
-  v70 = 0;
-  v71 = &v70;
-  v72 = 0x2020000000;
-  v73 = 0;
+  v71 = 0;
+  v72 = &v71;
+  v73 = 0x2020000000;
+  v74 = 0;
   [_WKAttributedStringWebViewCache invalidateGlobalConfigurationIfNeeded:*(a1 + 32)];
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x3812000000;
-  v66 = __Block_byref_object_copy__3;
-  v67 = __Block_byref_object_dispose__3;
-  +[_WKAttributedStringWebViewCache retrieveOrCreateWebView];
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x3812000000;
+  v67 = __Block_byref_object_copy__3;
+  v68 = __Block_byref_object_dispose__3;
+  objc_msgSend_retrieveOrCreateWebView(_WKAttributedStringWebViewCache);
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x3812000000;
+  v60 = __Block_byref_object_copy__203;
+  v61 = __Block_byref_object_dispose__204;
+  v63 = objc_alloc_init(_WKAttributedStringNavigationDelegate);
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3812000000;
+  v53 = __Block_byref_object_copy__207;
+  v54 = __Block_byref_object_dispose__208;
   v56 = 0;
-  v57 = &v56;
-  v58 = 0x3812000000;
-  v59 = __Block_byref_object_copy__203;
-  v60 = __Block_byref_object_dispose__204;
-  v62 = objc_alloc_init(_WKAttributedStringNavigationDelegate);
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3812000000;
-  v52 = __Block_byref_object_copy__207;
-  v53 = __Block_byref_object_dispose__208;
-  v55 = 0;
-  [v64[6] setNavigationDelegate:v57[6]];
+  [v65[6] setNavigationDelegate:v58[6]];
   v2 = WTF::dynamic_objc_cast<NSNumber>([*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E69DB730]]);
   if (v2)
   {
@@ -40,63 +40,63 @@ void __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_
     v3 = 1.0;
   }
 
-  [v64[6] _setTextZoomFactor:v3];
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3812000000;
-  v45 = __Block_byref_object_copy__210;
-  v46 = __Block_byref_object_dispose__211;
-  v47 = &unk_19EA2799F;
-  v48 = 0;
+  [v65[6] _setTextZoomFactor:v3];
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3812000000;
+  v46 = __Block_byref_object_copy__210;
+  v47 = __Block_byref_object_dispose__211;
+  v48 = &unk_19EA2799F;
+  v49 = 0;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_213;
+  v36[3] = &unk_1E7631078;
+  v38 = &v71;
+  v39 = &v43;
+  v40 = &v64;
+  v41 = &v57;
+  v42 = &v50;
+  v37 = *(a1 + 40);
+  v34[4] = &v50;
   v35[0] = MEMORY[0x1E69E9820];
   v35[1] = 3221225472;
-  v35[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_213;
-  v35[3] = &unk_1E7631078;
-  v37 = &v70;
-  v38 = &v42;
-  v39 = &v63;
-  v40 = &v56;
-  v41 = &v49;
-  v36 = *(a1 + 40);
-  v33[4] = &v49;
+  v35[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_2;
+  v35[3] = &unk_1E76310A0;
+  v35[4] = v36;
   v34[0] = MEMORY[0x1E69E9820];
   v34[1] = 3221225472;
-  v34[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_2;
-  v34[3] = &unk_1E76310A0;
-  v34[4] = v35;
+  v34[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_3;
+  v34[3] = &unk_1E76310C8;
+  [v58[6] setDecidePolicyForNavigationAction:v34];
   v33[0] = MEMORY[0x1E69E9820];
   v33[1] = 3221225472;
-  v33[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_3;
-  v33[3] = &unk_1E76310C8;
-  [v57[6] setDecidePolicyForNavigationAction:v33];
+  v33[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_4;
+  v33[3] = &unk_1E76310F0;
+  v33[4] = v35;
+  [v58[6] setWebContentProcessDidTerminate:v33];
   v32[0] = MEMORY[0x1E69E9820];
   v32[1] = 3221225472;
-  v32[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_4;
-  v32[3] = &unk_1E76310F0;
-  v32[4] = v34;
-  [v57[6] setWebContentProcessDidTerminate:v32];
+  v32[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_5;
+  v32[3] = &unk_1E7631118;
+  v32[4] = v35;
+  [v58[6] setDidFailProvisionalNavigation:v32];
   v31[0] = MEMORY[0x1E69E9820];
   v31[1] = 3221225472;
-  v31[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_5;
+  v31[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_6;
   v31[3] = &unk_1E7631118;
-  v31[4] = v34;
-  [v57[6] setDidFailProvisionalNavigation:v31];
+  v31[4] = v35;
+  [v58[6] setDidFailNavigation:v31];
   v30[0] = MEMORY[0x1E69E9820];
   v30[1] = 3221225472;
-  v30[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_6;
-  v30[3] = &unk_1E7631118;
-  v30[4] = v34;
-  [v57[6] setDidFailNavigation:v30];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_7;
-  v29[3] = &unk_1E7631168;
-  v29[6] = &v70;
-  v29[7] = &v56;
-  v29[8] = &v63;
-  v29[4] = v34;
-  v29[5] = v35;
-  [v57[6] setDidFinishNavigation:v29];
+  v30[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_7;
+  v30[3] = &unk_1E7631168;
+  v30[6] = &v71;
+  v30[7] = &v57;
+  v30[8] = &v64;
+  v30[4] = v35;
+  v30[5] = v36;
+  [v58[6] setDidFinishNavigation:v30];
   v4 = WTF::dynamic_objc_cast<NSNumber>([*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E69DB740]]);
   v5 = v4;
   v6 = 60000000000;
@@ -115,12 +115,12 @@ void __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_
   block[1] = 3221225472;
   block[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_9;
   block[3] = &unk_1E7631190;
-  block[4] = v34;
-  block[5] = &v70;
+  block[4] = v35;
+  block[5] = &v71;
   dispatch_after(v9, MEMORY[0x1E69E96A0], block);
   v10 = (*(*(a1 + 56) + 16))();
   v11 = v10;
-  v12 = v50;
+  v12 = v51;
   if (v10)
   {
     v13 = v10;
@@ -132,10 +132,10 @@ void __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_
   {
   }
 
-  if ((v71[3] & 1) == 0)
+  if ((v72[3] & 1) == 0)
   {
-    [v64[6] _protectedPage];
-    v16 = *(v27 + 352);
+    objc_msgSend__protectedPage(v65[6]);
+    v16 = *(v28 + 352);
     atomic_fetch_add((v16 + 16), 1u);
     v17 = *(*(v16 + 160) + 8);
     if (!v17)
@@ -147,51 +147,51 @@ void __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_
     atomic_fetch_add((v17 + 16), 1u);
     v18 = WebKit::ProcessThrottlerActivity::operator new(0x30, v15);
     v19 = WebKit::ProcessThrottlerActivity::ProcessThrottlerActivity(v18, v16 + 144, "NSAttributedString serialization", 33, 1, 0);
-    v21 = v43[6];
-    v43[6] = v19;
+    v21 = v44[6];
+    v44[6] = v19;
     if (v21)
     {
       WTF::RefCounted<WebKit::ProcessThrottlerActivity>::deref((v21 + 8), v20);
     }
 
-    WebKit::ProcessThrottler::deref((v16 + 144));
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v16 + 16));
-    if (v27)
+    WebKit::ProcessThrottler::deref((v16 + 144), v20);
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v16 + 16), v22);
+    if (v28)
     {
-      CFRelease(*(v27 + 8));
+      CFRelease(*(v28 + 8));
     }
   }
 
-  _Block_object_dispose(&v42, 8);
-  v23 = v48;
-  v48 = 0;
-  if (v23)
-  {
-    WTF::RefCounted<WebKit::ProcessThrottlerActivity>::deref((v23 + 8), v22);
-  }
-
-  _Block_object_dispose(&v49, 8);
-  v24 = v55;
-  v55 = 0;
+  _Block_object_dispose(&v43, 8);
+  v24 = v49;
+  v49 = 0;
   if (v24)
   {
+    WTF::RefCounted<WebKit::ProcessThrottlerActivity>::deref((v24 + 8), v23);
   }
 
-  _Block_object_dispose(&v56, 8);
-  v25 = v62;
-  v62 = 0;
+  _Block_object_dispose(&v50, 8);
+  v25 = v56;
+  v56 = 0;
   if (v25)
   {
   }
 
-  _Block_object_dispose(&v63, 8);
-  v26 = v69;
-  v69 = 0;
+  _Block_object_dispose(&v57, 8);
+  v26 = v63;
+  v63 = 0;
   if (v26)
   {
   }
 
-  _Block_object_dispose(&v70, 8);
+  _Block_object_dispose(&v64, 8);
+  v27 = v70;
+  v70 = 0;
+  if (v27)
+  {
+  }
+
+  _Block_object_dispose(&v71, 8);
 }
 
 void __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_213(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -279,7 +279,7 @@ void __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_
 void __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_2(uint64_t a1, WKErrorCode a2, const __CFString *a3)
 {
   v3 = *(a1 + 32);
-  createNSError(a2, a3, &v5);
+  createNSError(&v5, a2, a3);
   (*(v3 + 16))(v3, 0, 0, v5);
   v4 = v5;
   v5 = 0;
@@ -296,24 +296,24 @@ uint64_t __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoa
   return v5(a3, v4);
 }
 
-uint64_t __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_7(uint64_t result)
+void *__90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_7(void *result)
 {
-  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
+  if ((*(*(result[6] + 8) + 24) & 1) == 0)
   {
     v1 = result;
-    v2 = *(*(result + 56) + 8);
+    v2 = *(result[7] + 8);
     v3 = *(v2 + 48);
     *(v2 + 48) = 0;
     if (v3)
     {
     }
 
-    v4 = *(*(*(v1 + 64) + 8) + 48);
+    v4 = *(*(v1[8] + 8) + 48);
     v5[0] = MEMORY[0x1E69E9820];
     v5[1] = 3221225472;
     v5[2] = __90__NSAttributedString_WKPrivate___loadFromHTMLWithOptions_contentLoader_completionHandler___block_invoke_8;
     v5[3] = &unk_1E7631140;
-    v6 = *(v1 + 32);
+    v6 = *(v1 + 2);
     return [v4 _getContentsAsAttributedStringWithCompletionHandler:v5];
   }
 

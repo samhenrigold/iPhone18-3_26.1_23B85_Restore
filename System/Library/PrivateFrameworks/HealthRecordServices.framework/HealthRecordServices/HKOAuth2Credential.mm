@@ -390,13 +390,11 @@ LABEL_38:
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  accessToken = self->_accessToken;
+  v6 = HKStringFromBool();
   v7 = HKStringFromBool();
-  refreshToken = self->_refreshToken;
-  v9 = HKStringFromBool();
-  v10 = [v3 stringWithFormat:@"<%@ %p has access token: %@, has refresh token: %@, expiration: %@, scopes: %lu>", v5, self, v7, v9, self->_expiration, -[NSSet count](self->_scopes, "count")];;
+  v8 = [v3 stringWithFormat:@"<%@ %p has access token: %@, has refresh token: %@, expiration: %@, scopes: %lu>", v5, self, v6, v7, self->_expiration, -[NSSet count](self->_scopes, "count")];;
 
-  return v10;
+  return v8;
 }
 
 + (id)scopeStringFromScopes:(id)scopes

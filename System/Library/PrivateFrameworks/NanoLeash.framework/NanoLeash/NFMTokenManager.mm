@@ -7,26 +7,26 @@
 
 + (void)getTokenWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(sub_100006144(&qword_100011080, "D*") - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_100006144(&qword_100011080, "D*");
   __chkstk_darwin();
-  v7 = &v13 - v6;
-  v8 = _Block_copy(handler);
-  v9 = swift_allocObject();
-  *(v9 + 16) = v8;
-  *(v9 + 24) = self;
-  v10 = type metadata accessor for TaskPriority();
-  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v6 = &v12 - v5;
+  v7 = _Block_copy(handler);
+  v8 = swift_allocObject();
+  *(v8 + 16) = v7;
+  *(v8 + 24) = self;
+  v9 = type metadata accessor for TaskPriority();
+  (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = &unk_100007EF8;
+  v10[5] = v8;
   v11 = swift_allocObject();
   v11[2] = 0;
   v11[3] = 0;
-  v11[4] = &unk_100007EF8;
-  v11[5] = v9;
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = &unk_100007F08;
-  v12[5] = v11;
-  sub_10000565C(0, 0, v7, &unk_100007F18, v12);
+  v11[4] = &unk_100007F08;
+  v11[5] = v10;
+  sub_10000565C(0, 0, v6, &unk_100007F18, v11);
 }
 
 - (NFMTokenManager)init

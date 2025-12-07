@@ -6,6 +6,7 @@
 - (FINode)targetNode;
 - (FINodePropertyList)nodePropertyList;
 - (FIOperationRecord)initWithOperationRecord:(const void *)record;
+- (FIOperationRecord)initWithSource:(id)source destination:(id)destination nodePropertyList:(id)list requestedOperation:(unsigned int)operation;
 - (FIOperationRecord)initWithSource:(id)source destination:(id)destination propertyList:(OpaquePropertyListRef *)list requestedOperation:(unsigned int)operation;
 - (id).cxx_construct;
 - (shared_ptr<TDSOperationRecord>)operationRecord;
@@ -52,9 +53,20 @@
   std::allocate_shared[abi:ne200100]<TDSOperationRecord,std::allocator<TDSOperationRecord>,TNode *,TNode *,OpaquePropertyListRef *&,OperationType &,0>();
 }
 
+- (FIOperationRecord)initWithSource:(id)source destination:(id)destination nodePropertyList:(id)list requestedOperation:(unsigned int)operation
+{
+  v6 = *&operation;
+  sourceCopy = source;
+  destinationCopy = destination;
+  listCopy = list;
+  v13 = -[FIOperationRecord initWithSource:destination:propertyList:requestedOperation:](self, "initWithSource:destination:propertyList:requestedOperation:", sourceCopy, destinationCopy, [listCopy propertyListRef], v6);
+
+  return v13;
+}
+
 - (FINode)source
 {
-  TDSOperationRecord::GetSource(self->_operationRecord.__ptr_, &v5);
+  TDSOperationRecord::GetSource(&v5, self->_operationRecord.__ptr_);
   v2 = TNodeFromFINode(v5);
   v3 = FINodeFromTNode(v2);
 
@@ -63,7 +75,7 @@
 
 - (FINode)destination
 {
-  TDSOperationRecord::GetDestination(self->_operationRecord.__ptr_, &v5);
+  TDSOperationRecord::GetDestination(&v5, self->_operationRecord.__ptr_);
   v2 = TNodeFromFINode(v5);
   v3 = FINodeFromTNode(v2);
 
@@ -85,7 +97,7 @@
 
 - (FINode)originalSourceParent
 {
-  TDSOperationRecord::GetOriginalSourceParent(self->_operationRecord.__ptr_, &v5);
+  TDSOperationRecord::GetOriginalSourceParent(&v5, self->_operationRecord.__ptr_);
   v2 = TNodeFromFINode(v5);
   v3 = FINodeFromTNode(v2);
 
@@ -94,7 +106,7 @@
 
 - (FINode)resolvedDestination
 {
-  TDSOperationRecord::GetResolvedDestination(self->_operationRecord.__ptr_, &v5);
+  TDSOperationRecord::GetResolvedDestination(&v5, self->_operationRecord.__ptr_);
   v2 = TNodeFromFINode(v5);
   v3 = FINodeFromTNode(v2);
 
@@ -103,7 +115,7 @@
 
 - (FINode)targetNode
 {
-  TDSOperationRecord::GetTargetNode(self->_operationRecord.__ptr_, &v5);
+  TDSOperationRecord::GetTargetNode(&v5, self->_operationRecord.__ptr_);
   v2 = TNodeFromFINode(v5);
   v3 = FINodeFromTNode(v2);
 

@@ -71,8 +71,9 @@
 
 - (void)_updateRightLabelWithValue:(double)value
 {
-  v4 = AXFormatFloatWithPercentage();
-  [(ASTMotionTrackingSmoothingSliderCell *)self setLabelText:v4];
+  v4 = (value - kAXSAssistiveTouchMotionTrackerSmoothingBufferSizeMinUserPreference) / (kAXSAssistiveTouchMotionTrackerSmoothingBufferSizeMaxUserPreference - kAXSAssistiveTouchMotionTrackerSmoothingBufferSizeMinUserPreference);
+  v5 = AXFormatFloatWithPercentage(v4);
+  [(ASTMotionTrackingSmoothingSliderCell *)self setLabelText:v5];
 }
 
 - (void)handleSliderDidFinishDrag:(id)drag

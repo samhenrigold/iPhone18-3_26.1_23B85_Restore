@@ -37,7 +37,7 @@
   timing = self->_timing;
   if (timing)
   {
-    [(RoutePlanningTiming *)timing timepoint];
+    objc_msgSend_timepoint(timing);
   }
 
   else

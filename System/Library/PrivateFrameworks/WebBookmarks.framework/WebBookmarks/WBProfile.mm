@@ -12,6 +12,7 @@
 - (WBProfile)initWithTitle:(id)title symbolImageName:(id)name favoritesFolderServerID:(id)d deviceIdentifier:(id)identifier;
 - (WBSCRDTPosition)syncPosition;
 - (WBSNamedColorOption)color;
+- (id)_copyWithZone:(_NSZone *)zone isMutable:(BOOL)mutable;
 - (id)_defaultSettingForKey:(id)key;
 - (id)differenceFromProfile:(id)profile;
 - (id)settingForKey:(id)key;
@@ -236,7 +237,7 @@ LABEL_8:
 
 - (id)differenceFromProfile:(id)profile
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   if (profileCopy && WBSIsEqual())
   {
@@ -294,8 +295,8 @@ LABEL_8:
     settingsDictionary = self->_settingsDictionary;
     if (settingsDictionary && ([(NSMutableDictionary *)settingsDictionary isEqualToDictionary:profileCopy[3]]& 1) == 0)
     {
-      v43 = v8 | 0x40;
-      v44 = profileCopy;
+      v42 = v8 | 0x40;
+      v43 = profileCopy;
       v26 = profileCopy[3];
       v27 = MEMORY[0x277CBEB98];
       allKeys = [(NSMutableDictionary *)self->_settingsDictionary allKeys];
@@ -303,27 +304,27 @@ LABEL_8:
       allKeys2 = [v26 allKeys];
       v31 = [v29 setByAddingObjectsFromArray:allKeys2];
 
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
       v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
       v32 = v31;
-      v33 = [v32 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v33 = [v32 countByEnumeratingWithState:&v44 objects:v48 count:16];
       if (v33)
       {
         v34 = v33;
-        v35 = *v46;
+        v35 = *v45;
         do
         {
           for (i = 0; i != v34; ++i)
           {
-            if (*v46 != v35)
+            if (*v45 != v35)
             {
               objc_enumerationMutation(v32);
             }
 
-            v37 = *(*(&v45 + 1) + 8 * i);
-            v38 = [(NSMutableDictionary *)self->_settingsDictionary objectForKeyedSubscript:v37, v43, v44, v45];
+            v37 = *(*(&v44 + 1) + 8 * i);
+            v38 = [(NSMutableDictionary *)self->_settingsDictionary objectForKeyedSubscript:v37, v42, v43, v44];
             v39 = [v26 objectForKeyedSubscript:v37];
             if ((WBSIsEqual() & 1) == 0)
             {
@@ -331,14 +332,14 @@ LABEL_8:
             }
           }
 
-          v34 = [v32 countByEnumeratingWithState:&v45 objects:v49 count:16];
+          v34 = [v32 countByEnumeratingWithState:&v44 objects:v48 count:16];
         }
 
         while (v34);
       }
 
-      v8 = v43;
-      profileCopy = v44;
+      v8 = v42;
+      profileCopy = v43;
     }
 
     v40 = [[WBProfileDifference alloc] initWithResult:v8 settingsKeys:v24];
@@ -348,8 +349,6 @@ LABEL_8:
   {
     v40 = 0;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v40;
 }
@@ -404,14 +403,12 @@ LABEL_8:
 
 void __35__WBProfile__defaultSettingForKey___block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277D4A478];
-  v4[0] = MEMORY[0x277CBEC38];
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D4A478];
+  v3[0] = MEMORY[0x277CBEC38];
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = _defaultSettingForKey__defaultSettingValues;
   _defaultSettingForKey__defaultSettingValues = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void *__41__WBProfile_modifiedSettingsFieldsByName__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -444,16 +441,29 @@ void *__41__WBProfile_modifiedSettingsFieldsByName__block_invoke(uint64_t a1, ui
 
 - (Class)_copyClassIsMutable:(BOOL)mutable
 {
-  v3 = off_279E749D8;
-  if (!mutable)
+  v3 = objc_opt_class();
+
+  return v3;
+}
+
+- (id)_copyWithZone:(_NSZone *)zone isMutable:(BOOL)mutable
+{
+  v7 = [(WBProfile *)self _copyClassIsMutable:mutable];
+  if (mutable || ![(WBProfile *)self isMemberOfClass:v7])
   {
-    v3 = off_279E749F0;
+    v9 = [(WebBookmark *)self->_bookmark copy];
+    selfCopy = [[(objc_class *)v7 allocWithZone:zone] initWithBookmark:v9 kind:self->_kind];
+    safari_mutableDeepCopy = [(NSMutableDictionary *)self->_settingsDictionary safari_mutableDeepCopy];
+    settingsDictionary = selfCopy->_settingsDictionary;
+    selfCopy->_settingsDictionary = safari_mutableDeepCopy;
   }
 
-  v4 = *v3;
-  v5 = objc_opt_class();
+  else
+  {
+    selfCopy = self;
+  }
 
-  return v5;
+  return selfCopy;
 }
 
 - (NSString)description

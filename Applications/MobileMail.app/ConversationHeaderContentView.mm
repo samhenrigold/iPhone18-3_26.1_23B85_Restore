@@ -202,30 +202,32 @@
     v14 = v13;
 
     [(ConversationHeaderContentView *)self topToFirstBaseline];
+    v16 = v15;
     textLabel3 = [(ConversationHeaderContentView *)self textLabel];
     [textLabel3 _firstLineBaseline];
+    v19 = v16 - v18;
 
-    UIRoundToViewScale();
-    v17 = v16;
+    v20 = UIRoundToViewScale(v19);
     [(ConversationHeaderContentView *)self layoutMargins];
-    v19 = v18;
+    v22 = v21;
     textLabel4 = [(ConversationHeaderContentView *)self textLabel];
-    [textLabel4 setFrame:{v19, v17, v11, v14}];
+    [textLabel4 setFrame:{v22, v20, v11, v14}];
 
     [(ConversationHeaderContentView *)self lastBaselineToBottom];
+    v25 = v24;
     textLabel5 = [(ConversationHeaderContentView *)self textLabel];
     [textLabel5 _lastLineBaseline];
+    v28 = v25 + v27 - v14;
 
-    UIRoundToViewScale();
-    v23 = v22;
+    v29 = UIRoundToViewScale(v28);
     y = CGRectZero.origin.y;
     [(ConversationHeaderContentView *)self contentWidth];
-    v26 = v25;
-    v28.origin.x = v19;
-    v28.origin.y = v17;
-    v28.size.width = v11;
-    v28.size.height = v14;
-    [(ConversationHeaderContentView *)self setBounds:CGRectZero.origin.x, y, v26, v23 + CGRectGetMaxY(v28)];
+    v32 = v31;
+    v34.origin.x = v22;
+    v34.origin.y = v20;
+    v34.size.width = v11;
+    v34.size.height = v14;
+    [(ConversationHeaderContentView *)self setBounds:CGRectZero.origin.x, y, v32, v29 + CGRectGetMaxY(v34)];
 
     [(ConversationHeaderContentView *)self _updateAnchorPoint];
   }
@@ -267,18 +269,18 @@
   v10 = v9;
   [(ConversationHeaderContentView *)self topToFirstBaseline];
   v12 = v11;
-  v17.origin.x = v4;
-  v17.origin.y = v6;
-  v17.size.width = v8;
-  v17.size.height = v10;
-  v13 = v12 / CGRectGetHeight(v17);
+  v18.origin.x = v4;
+  v18.origin.y = v6;
+  v18.size.width = v8;
+  v18.size.height = v10;
+  v13 = v12 / CGRectGetHeight(v18);
   layer = [(ConversationHeaderContentView *)self layer];
   [layer setAnchorPoint:{CGPointZero.x, v13}];
 
   [(ConversationHeaderContentView *)self topToFirstBaseline];
-  UIRoundToViewScale();
+  v16 = UIRoundToViewScale(v15);
 
-  [(ConversationHeaderContentView *)self setCenter:0.0, v15];
+  [(ConversationHeaderContentView *)self setCenter:0.0, v16];
 }
 
 @end

@@ -170,7 +170,7 @@ LABEL_11:
 
   if (target)
   {
-    [target transform];
+    objc_msgSend_transform(target);
   }
 
   else

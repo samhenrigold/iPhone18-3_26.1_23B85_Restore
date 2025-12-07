@@ -28,11 +28,15 @@
 - (int64_t)outputAudioPowerSpectrumToken;
 - (int64_t)spatialAudioSourceIdentifier;
 - (void)answerWithRequest:(id)request;
+- (void)askProviderToAllowAudioInjection:(BOOL)injection;
 - (void)becomeEndpointForPullFromRemoteDevice;
 - (void)dialWithRequest:(id)request displayContext:(id)context;
+- (void)disconnectWithReason:(int)reason;
 - (void)groupWithOtherCall:(id)call;
 - (void)hold;
 - (void)joinConversationWithRequest:(id)request;
+- (void)performUplinkMuted:(BOOL)muted;
+- (void)playLocalDTMFToneForKey:(unsigned __int8)key;
 - (void)sendHardPauseDigits;
 - (void)setAnnounceProviderIdentifier:(id)identifier;
 - (void)setBluetoothAudioFormat:(int64_t)format;
@@ -46,16 +50,21 @@
 - (void)setHardPauseDigits:(id)digits;
 - (void)setHardPauseDigitsState:(int)state;
 - (void)setInjectingAudio:(BOOL)audio;
+- (void)setIsSendingAudio:(BOOL)audio;
 - (void)setLocallyConnected;
 - (void)setLocallyConnecting;
+- (void)setLocallyDisconnectedWithReasonIfNone:(int)none stopConference:(BOOL)conference;
 - (void)setLocallyHasSentInvitation;
 - (void)setLocallyHasStartedOutgoing;
 - (void)setNeedsManualInCallSounds:(BOOL)sounds;
 - (void)setRemoteUplinkMuted:(BOOL)muted;
 - (void)setScreenShareAttributes:(id)attributes;
+- (void)setSharingScreen:(BOOL)screen;
+- (void)setSharingScreen:(BOOL)screen attributes:(id)attributes;
 - (void)setSupportsEmergencyFallback:(BOOL)fallback;
 - (void)setSupportsTTYWithVoice:(BOOL)voice;
 - (void)setTtyType:(int)type;
+- (void)setUplinkMuted:(BOOL)muted userInitiated:(BOOL)initiated;
 - (void)startConferenceForAnsweredCallWithTransport:(id)transport remoteInviteDictionary:(id)dictionary;
 - (void)startConferenceForDialedCallWithTransport:(id)transport remoteInviteDictionary:(id)dictionary;
 - (void)startConferenceForPulledCallWithTransport:(id)transport remoteInviteDictionary:(id)dictionary;
@@ -821,12 +830,12 @@
 
   if (callGroupUUID)
   {
-    relayDelegate = sub_100004778();
+    relayDelegate = sub_100004778(v6);
     if (os_log_type_enabled(relayDelegate, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
+      v11 = 138412290;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, relayDelegate, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to group call because it is already grouped: %@", &v10, 0xCu);
+      _os_log_impl(&_mh_execute_header, relayDelegate, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to group call because it is already grouped: %@", &v11, 0xCu);
     }
   }
 
@@ -836,8 +845,8 @@
 
     if (!callGroupUUID2)
     {
-      v8 = +[NSUUID UUID];
-      [callCopy setCallGroupUUID:v8];
+      v9 = +[NSUUID UUID];
+      [callCopy setCallGroupUUID:v9];
     }
 
     callGroupUUID3 = [callCopy callGroupUUID];
@@ -861,34 +870,35 @@
 
   else
   {
-    v4 = sub_100004778();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004778(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to ungroup call because it isn't grouped: %@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to ungroup call because it isn't grouped: %@", buf, 0xCu);
     }
   }
 }
 
 - (BOOL)shouldOwnMuteHandler
 {
-  if ([(CSDRelayCall *)self isConferenceActive])
+  isConferenceActive = [(CSDRelayCall *)self isConferenceActive];
+  if (isConferenceActive)
   {
-    v6.receiver = self;
-    v6.super_class = CSDRelayCall;
-    return [(CSDCall *)&v6 shouldOwnMuteHandler];
+    v7.receiver = self;
+    v7.super_class = CSDRelayCall;
+    return [(CSDCall *)&v7 shouldOwnMuteHandler];
   }
 
   else
   {
-    v4 = sub_100004778();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004778(isConferenceActive);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       uniqueProxyIdentifier = [(CSDRelayCall *)self uniqueProxyIdentifier];
       *buf = 138412290;
-      v8 = uniqueProxyIdentifier;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Call with UPI %@ cannot handle mute control requests since it is a relay call without conference active", buf, 0xCu);
+      v9 = uniqueProxyIdentifier;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Call with UPI %@ cannot handle mute control requests since it is a relay call without conference active", buf, 0xCu);
     }
 
     return 0;
@@ -960,6 +970,37 @@
   return v3;
 }
 
+- (void)setSharingScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  v5 = sub_100004778(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v11 = screenCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[CSDRelayCall] setSharingScreen: %d", buf, 8u);
+  }
+
+  v9.receiver = self;
+  v9.super_class = CSDRelayCall;
+  v6 = [(CSDCall *)&v9 setSharingScreen:screenCopy];
+  self->_sharingScreen = screenCopy;
+  if (!screenCopy)
+  {
+    v7 = sub_100004778(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[CSDRelayCall] Clearing _screenShareAttributes", buf, 2u);
+    }
+
+    screenShareAttributes = self->_screenShareAttributes;
+    self->_screenShareAttributes = 0;
+  }
+
+  [(CSDCall *)self propertiesChanged];
+}
+
 - (void)setScreenShareAttributes:(id)attributes
 {
   attributesCopy = attributes;
@@ -977,34 +1018,182 @@
   [(CSDCall *)self propertiesChanged:v6];
 }
 
+- (void)setSharingScreen:(BOOL)screen attributes:(id)attributes
+{
+  screenCopy = screen;
+  attributesCopy = attributes;
+  v8.receiver = self;
+  v8.super_class = CSDRelayCall;
+  [(CSDCall *)&v8 setSharingScreen:screenCopy attributes:attributesCopy];
+  self->_sharingScreen = screenCopy;
+  screenShareAttributes = self->_screenShareAttributes;
+  self->_screenShareAttributes = attributesCopy;
+
+  [(CSDCall *)self propertiesChanged];
+}
+
+- (void)performUplinkMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  v5 = sub_100004778(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v7[0] = 67109120;
+    v7[1] = mutedCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Asked to perform uplinkMuted: %d", v7, 8u);
+  }
+
+  [(CSDCall *)self setUplinkMuted:mutedCopy];
+  relayDelegate = [(CSDRelayCall *)self relayDelegate];
+  [relayDelegate relayCallDidPerformUplinkMuted:self uplinkMuted:mutedCopy];
+}
+
+- (void)setUplinkMuted:(BOOL)muted userInitiated:(BOOL)initiated
+{
+  mutedCopy = muted;
+  v19.receiver = self;
+  v19.super_class = CSDRelayCall;
+  v6 = [(CSDCall *)&v19 setUplinkMuted:muted userInitiated:initiated];
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109378;
+    LODWORD(v21[0]) = mutedCopy;
+    WORD2(v21[0]) = 2112;
+    *(v21 + 6) = self;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Setting uplinkMuted to %d for call %@", buf, 0x12u);
+  }
+
+  relayConferenceInterface = [(CSDRelayCall *)self relayConferenceInterface];
+  uniqueProxyIdentifier = [(CSDRelayCall *)self uniqueProxyIdentifier];
+  v10 = [relayConferenceInterface activeConferenceConnectionForIdentifier:uniqueProxyIdentifier];
+
+  if (v10)
+  {
+    relayConferenceInterface2 = [(CSDRelayCall *)self relayConferenceInterface];
+    uniqueProxyIdentifier2 = [(CSDRelayCall *)self uniqueProxyIdentifier];
+    v14 = [relayConferenceInterface2 isMutedForIdentifier:uniqueProxyIdentifier2];
+
+    if (v14 != mutedCopy)
+    {
+      relayConferenceInterface3 = [(CSDRelayCall *)self relayConferenceInterface];
+      uniqueProxyIdentifier3 = [(CSDRelayCall *)self uniqueProxyIdentifier];
+      [relayConferenceInterface3 setMuted:mutedCopy forIdentifier:uniqueProxyIdentifier3];
+
+      [(CSDCall *)self updateUplinkMuted:mutedCopy];
+    }
+  }
+
+  else
+  {
+    v17 = sub_100004778(v11);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = @"NO";
+      if (mutedCopy)
+      {
+        v18 = @"YES";
+      }
+
+      *buf = 138412290;
+      v21[0] = v18;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Ignoring set uplinkMuted: %@, since there is no connection", buf, 0xCu);
+    }
+  }
+}
+
 - (void)setInjectingAudio:(BOOL)audio
 {
   audioCopy = audio;
-  if ([(CSDRelayCall *)self isInjectingAudio]!= audio)
+  isInjectingAudio = [(CSDRelayCall *)self isInjectingAudio];
+  if (isInjectingAudio != audioCopy)
   {
     self->_injectingAudio = audioCopy;
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = 67109120;
-      v10 = audioCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "setting injecting audio to %d", &v9, 8u);
-    }
-
-    v6 = sub_100004778();
+    v6 = sub_100004778(isInjectingAudio);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      isInjectingAudio = [(CSDRelayCall *)self isInjectingAudio];
-      v9 = 67109378;
-      v10 = isInjectingAudio;
-      v11 = 2112;
+      v11 = 67109120;
+      v12 = audioCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "setting injecting audio to %d", &v11, 8u);
+    }
+
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      isInjectingAudio2 = [(CSDRelayCall *)self isInjectingAudio];
+      v11 = 67109378;
+      v12 = isInjectingAudio2;
+      v13 = 2112;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Posting notification injecting audio changed: %d %@", &v9, 0x12u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Posting notification injecting audio changed: %d %@", &v11, 0x12u);
     }
 
     notificationCenter = [(CSDRelayCall *)self notificationCenter];
     [notificationCenter postNotificationName:@"CSDCallInjectingAudioChangedNotification" object:self];
   }
+}
+
+- (void)askProviderToAllowAudioInjection:(BOOL)injection
+{
+  injectionCopy = injection;
+  featureFlags = [(CSDRelayCall *)self featureFlags];
+  if ([featureFlags relayCallRecordingEnabled])
+  {
+  }
+
+  else
+  {
+    featureFlags2 = [(CSDRelayCall *)self featureFlags];
+    audioCallTranslationEnabled = [featureFlags2 audioCallTranslationEnabled];
+
+    if ((audioCallTranslationEnabled & 1) == 0)
+    {
+      v11 = sub_100004778(v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v16) = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "relay recording is not enabled. Not allowing audio injection", &v16, 2u);
+      }
+
+      goto LABEL_14;
+    }
+  }
+
+  if ([(CSDRelayCall *)self isInjectingAudio]== injectionCopy)
+  {
+    return;
+  }
+
+  relayConferenceInterface = [(CSDRelayCall *)self relayConferenceInterface];
+  uniqueProxyIdentifier = [(CSDRelayCall *)self uniqueProxyIdentifier];
+  v11 = [relayConferenceInterface activeConferenceConnectionForIdentifier:uniqueProxyIdentifier];
+
+  if (v11)
+  {
+    conference = [v11 conference];
+    [conference setAudioInjectionAllowed:injectionCopy];
+
+    [(CSDRelayCall *)self setInjectingAudio:injectionCopy];
+  }
+
+  else
+  {
+    v14 = sub_100004778(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = @"NO";
+      if (injectionCopy)
+      {
+        v15 = @"YES";
+      }
+
+      v16 = 138412290;
+      v17 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Ignoring request to allow audio injection: %@, since there is no connection", &v16, 0xCu);
+    }
+  }
+
+LABEL_14:
 }
 
 - (id)tokens
@@ -1026,6 +1215,14 @@
   v5 = [relayConferenceInterface isSendingAudioForIdentifier:uniqueProxyIdentifier];
 
   return v5;
+}
+
+- (void)setIsSendingAudio:(BOOL)audio
+{
+  audioCopy = audio;
+  relayConferenceInterface = [(CSDRelayCall *)self relayConferenceInterface];
+  uniqueProxyIdentifier = [(CSDRelayCall *)self uniqueProxyIdentifier];
+  [relayConferenceInterface setSendingAudio:audioCopy forIdentifier:uniqueProxyIdentifier];
 }
 
 - (int64_t)inputAudioPowerSpectrumToken
@@ -1092,7 +1289,7 @@
 - (void)joinConversationWithRequest:(id)request
 {
   requestCopy = request;
-  v5 = sub_100004778();
+  v5 = sub_100004778(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -1153,6 +1350,24 @@ LABEL_11:
   }
 
 LABEL_12:
+}
+
+- (void)disconnectWithReason:(int)reason
+{
+  v3 = *&reason;
+  if ([(CSDRelayCall *)self status]!= 6)
+  {
+    v8.receiver = self;
+    v8.super_class = CSDRelayCall;
+    [(CSDRelayCall *)&v8 disconnectWithReason:v3];
+    [(CSDRelayCall *)self setCallStatus:6];
+    relayDelegate = [(CSDRelayCall *)self relayDelegate];
+    [relayDelegate relayCallDidDisconnect:self];
+
+    relayConferenceInterface = [(CSDRelayCall *)self relayConferenceInterface];
+    uniqueProxyIdentifier = [(CSDRelayCall *)self uniqueProxyIdentifier];
+    [relayConferenceInterface stopConferenceForIdentifier:uniqueProxyIdentifier];
+  }
 }
 
 - (void)startConferenceForAnsweredCallWithTransport:(id)transport remoteInviteDictionary:(id)dictionary
@@ -1221,9 +1436,10 @@ LABEL_12:
 
 - (void)hold
 {
-  if ([(CSDRelayCall *)self status]== 2)
+  status = [(CSDRelayCall *)self status];
+  if (status == 2)
   {
-    relayDelegate = sub_100004778();
+    relayDelegate = sub_100004778(status);
     if (os_log_type_enabled(relayDelegate, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1234,12 +1450,12 @@ LABEL_12:
 
   else
   {
-    v4[0] = _NSConcreteStackBlock;
-    v4[1] = 3221225472;
-    v4[2] = sub_10011CCD0;
-    v4[3] = &unk_100619D38;
-    v4[4] = self;
-    [(CSDCall *)self handleUpdatedPropertiesAfterChangesInBlock:v4];
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_10011CCD0;
+    v5[3] = &unk_100619D38;
+    v5[4] = self;
+    [(CSDCall *)self handleUpdatedPropertiesAfterChangesInBlock:v5];
     relayDelegate = [(CSDRelayCall *)self relayDelegate];
     [relayDelegate relayCallDidHold:self];
   }
@@ -1247,21 +1463,22 @@ LABEL_12:
 
 - (void)unhold
 {
-  if ([(CSDRelayCall *)self status]== 2)
+  status = [(CSDRelayCall *)self status];
+  if (status == 2)
   {
-    v4[0] = _NSConcreteStackBlock;
-    v4[1] = 3221225472;
-    v4[2] = sub_10011CDFC;
-    v4[3] = &unk_100619D38;
-    v4[4] = self;
-    [(CSDCall *)self handleUpdatedPropertiesAfterChangesInBlock:v4];
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_10011CDFC;
+    v5[3] = &unk_100619D38;
+    v5[4] = self;
+    [(CSDCall *)self handleUpdatedPropertiesAfterChangesInBlock:v5];
     relayDelegate = [(CSDRelayCall *)self relayDelegate];
     [relayDelegate relayCallDidUnhold:self];
   }
 
   else
   {
-    relayDelegate = sub_100004778();
+    relayDelegate = sub_100004778(status);
     if (os_log_type_enabled(relayDelegate, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1269,6 +1486,13 @@ LABEL_12:
       _os_log_impl(&_mh_execute_header, relayDelegate, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to unhold call because it isn't held: %@", buf, 0xCu);
     }
   }
+}
+
+- (void)playLocalDTMFToneForKey:(unsigned __int8)key
+{
+  keyCopy = key;
+  relayDelegate = [(CSDRelayCall *)self relayDelegate];
+  [relayDelegate relayCall:self didPlayLocalDTMFToneForKey:keyCopy];
 }
 
 - (void)sendHardPauseDigits
@@ -1287,7 +1511,7 @@ LABEL_12:
 - (void)updateWithOverrideCallProperties:(id)properties
 {
   propertiesCopy = properties;
-  v5 = sub_100004778();
+  v5 = sub_100004778(propertiesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1307,7 +1531,7 @@ LABEL_12:
     {
       if (self->_screenShareAttributes)
       {
-        v8 = sub_100004778();
+        v8 = sub_100004778(isSharingScreen);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -1369,6 +1593,32 @@ LABEL_12:
   {
     v4 = +[NSDate date];
     [(CSDCall *)self setDateConnected:v4];
+  }
+}
+
+- (void)setLocallyDisconnectedWithReasonIfNone:(int)none stopConference:(BOOL)conference
+{
+  conferenceCopy = conference;
+  v5 = *&none;
+  if ([(CSDRelayCall *)self status]!= 6)
+  {
+    if (![(CSDRelayCall *)self disconnectedReason])
+    {
+      [(CSDCall *)self setDisconnectedReason:v5];
+    }
+
+    [(CSDRelayCall *)self setCallStatus:6];
+    relayConferenceInterface = [(CSDRelayCall *)self relayConferenceInterface];
+    uniqueProxyIdentifier = [(CSDRelayCall *)self uniqueProxyIdentifier];
+    if (conferenceCopy)
+    {
+      [relayConferenceInterface stopConferenceForIdentifier:uniqueProxyIdentifier];
+    }
+
+    else
+    {
+      [relayConferenceInterface prepareToStopConferenceForIdentifier:uniqueProxyIdentifier];
+    }
   }
 }
 

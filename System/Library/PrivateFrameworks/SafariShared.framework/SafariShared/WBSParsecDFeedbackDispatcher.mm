@@ -93,17 +93,18 @@
 - (void)postFeedback:(id)feedback forQueryID:(int64_t)d
 {
   feedbackCopy = feedback;
-  v7 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(feedbackCopy, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+  if (v9)
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Posting feedback to parsecd", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Posting feedback to parsecd", buf, 2u);
   }
 
-  v8 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v11 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    [WBSParsecDFeedbackDispatcher postFeedback:feedbackCopy forQueryID:v8];
+    [WBSParsecDFeedbackDispatcher postFeedback:feedbackCopy forQueryID:v11];
     if (!feedbackCopy)
     {
       goto LABEL_7;
@@ -123,7 +124,7 @@
     block[2] = __56__WBSParsecDFeedbackDispatcher_postFeedback_forQueryID___block_invoke;
     block[3] = &unk_1E7FC9E88;
     block[4] = self;
-    v11 = feedbackCopy;
+    v14 = feedbackCopy;
     dCopy = d;
     dispatch_async(feedbackQueue, block);
   }
@@ -397,38 +398,40 @@ void __80__WBSParsecDFeedbackDispatcher_didDisplayCompletionListItems_forQuery_f
 
 - (void)didReceiveResultsForQuery:(id)query searchType:(int64_t)type
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   v7 = [(WBSParsecDFeedbackDispatcher *)self _takeStartSearchFeedbackForSearchOfType:type forQuery:queryCopy];
   if (v7)
   {
     v8 = [objc_alloc(MEMORY[0x1E69CA058]) initWithStartSearch:v7];
+    v10 = v8;
     if (v8)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v11 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v8, v9);
+      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+      if (v12)
       {
-        v11 = 134218240;
-        v12 = v8;
-        v13 = 2048;
-        v14 = v7;
-        _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Sending search end feedback to parsecd: %p (paired with search start feedback: %p)", &v11, 0x16u);
+        v15 = 134218240;
+        v16 = v10;
+        v17 = 2048;
+        v18 = v7;
+        _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "Sending search end feedback to parsecd: %p (paired with search start feedback: %p)", &v15, 0x16u);
       }
 
-      v10 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v14 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         [WBSParsecDFeedbackDispatcher didReceiveResultsForQuery:searchType:];
       }
 
-      -[WBSParsecDFeedbackDispatcher postFeedback:forQueryID:](self, "postFeedback:forQueryID:", v8, [queryCopy queryID]);
+      -[WBSParsecDFeedbackDispatcher postFeedback:forQueryID:](self, "postFeedback:forQueryID:", v10, [queryCopy queryID]);
     }
   }
 }
 
 - (void)didBeginSearchOfType:(int64_t)type withQuery:(id)query urlString:(id)string endpoint:(unint64_t)endpoint
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   stringCopy = string;
   triggerEvent = [queryCopy triggerEvent];
@@ -477,17 +480,18 @@ void __80__WBSParsecDFeedbackDispatcher_didDisplayCompletionListItems_forQuery_f
 
   if (v20)
   {
-    [(WBSParsecDFeedbackDispatcher *)self _setStartSearchFeedback:v20 forSearchOfType:type withQuery:queryCopy];
-    v24 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v24 = [(WBSParsecDFeedbackDispatcher *)self _setStartSearchFeedback:v20 forSearchOfType:type withQuery:queryCopy];
+    v26 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v24, v25);
+    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_INFO);
+    if (v27)
     {
-      v26 = 138543362;
-      v27 = v21;
-      _os_log_impl(&dword_1BB6F3000, v24, OS_LOG_TYPE_INFO, "Sending %{public}@ search start feedback to parsecd.", &v26, 0xCu);
+      v30 = 138543362;
+      v31 = v21;
+      _os_log_impl(&dword_1BB6F3000, v26, OS_LOG_TYPE_INFO, "Sending %{public}@ search start feedback to parsecd.", &v30, 0xCu);
     }
 
-    v25 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v29 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v27, v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       [WBSParsecDFeedbackDispatcher didBeginSearchOfType:withQuery:urlString:endpoint:];
     }
@@ -827,32 +831,33 @@ LABEL_5:
 
 - (id)_customFeedbackOfType:(unint64_t)type JSONDictionary:(id)dictionary
 {
-  v10 = 0;
-  v5 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:0 error:&v10];
-  v6 = v10;
+  v12 = 0;
+  v5 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:0 error:&v12];
+  v6 = v12;
+  v8 = v6;
   if (v5)
   {
-    v7 = [objc_alloc(MEMORY[0x1E69CA008]) initWithType:type data:v5];
+    v9 = [objc_alloc(MEMORY[0x1E69CA008]) initWithType:type data:v5];
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXParsec();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXParsec(v6, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(WBSParsecDFeedbackDispatcher *)v8 _customFeedbackOfType:v6 JSONDictionary:type];
+      [(WBSParsecDFeedbackDispatcher *)v10 _customFeedbackOfType:v8 JSONDictionary:type];
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 - (void)sendNewTabFeedback:(BOOL)feedback
 {
   feedbackCopy = feedback;
-  v5 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
+  v5 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [WBSParsecDFeedbackDispatcher sendNewTabFeedback:v5];
@@ -863,7 +868,7 @@ LABEL_5:
 
 - (void)sendClearInputFeedbackWithTriggerEvent:(unint64_t)event forQueryID:(int64_t)d
 {
-  v7 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
+  v7 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [WBSParsecDFeedbackDispatcher sendClearInputFeedbackWithTriggerEvent:v7 forQueryID:?];

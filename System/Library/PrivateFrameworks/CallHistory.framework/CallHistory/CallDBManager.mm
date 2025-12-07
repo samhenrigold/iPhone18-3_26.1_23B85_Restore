@@ -74,7 +74,7 @@
 
 - (void)createDataStore
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   deviceObserver = [(CallDBManager *)selfCopy deviceObserver];
@@ -86,12 +86,12 @@
     {
       dbManager = [(CallDBManager *)selfCopy dbManager];
       fPersistentStoreCoordinator = [dbManager fPersistentStoreCoordinator];
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __32__CallDBManager_createDataStore__block_invoke;
-      v18[3] = &unk_1E81DBF38;
-      v18[4] = selfCopy;
-      [fPersistentStoreCoordinator performBlockAndWait:v18];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __32__CallDBManager_createDataStore__block_invoke;
+      v17[3] = &unk_1E81DBF38;
+      v17[4] = selfCopy;
+      [fPersistentStoreCoordinator performBlockAndWait:v17];
 
       v7 = +[CHLogServer sharedInstance];
       v8 = [v7 logHandleForDomain:"ch.calldbm"];
@@ -101,7 +101,7 @@
       {
         v10 = getBoolAsString([(CallDBManager *)selfCopy dataStoreType]== 0);
         *buf = 138543362;
-        v20 = v10;
+        v19 = v10;
         _os_log_impl(&dword_1C3E90000, v9, OS_LOG_TYPE_DEFAULT, "Initialized temporary data store: %{public}@", buf, 0xCu);
       }
 
@@ -113,12 +113,12 @@ LABEL_8:
   {
     dbManager2 = [(CallDBManager *)selfCopy dbManager];
     fPersistentStoreCoordinator2 = [dbManager2 fPersistentStoreCoordinator];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __32__CallDBManager_createDataStore__block_invoke_42;
-    v17[3] = &unk_1E81DBF38;
-    v17[4] = selfCopy;
-    [fPersistentStoreCoordinator2 performBlockAndWait:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __32__CallDBManager_createDataStore__block_invoke_42;
+    v16[3] = &unk_1E81DBF38;
+    v16[4] = selfCopy;
+    [fPersistentStoreCoordinator2 performBlockAndWait:v16];
 
     v13 = +[CHLogServer sharedInstance];
     v14 = [v13 logHandleForDomain:"ch.calldbm"];
@@ -128,7 +128,7 @@ LABEL_8:
     {
       v15 = getBoolAsString([(CallDBManager *)selfCopy dataStoreType]== 1);
       *buf = 138543362;
-      v20 = v15;
+      v19 = v15;
       _os_log_impl(&dword_1C3E90000, v9, OS_LOG_TYPE_DEFAULT, "Initialized permanent data store: %{public}@", buf, 0xCu);
     }
 
@@ -136,8 +136,6 @@ LABEL_8:
   }
 
   objc_sync_exit(selfCopy);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handlePermanentCreated
@@ -213,12 +211,9 @@ LABEL_11:
 
 - (void)createPermanent
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(self);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1C3E90000, v2, v3, "%{public}@ in a subclass is not overridden", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C3E90000, v2, v3, "%{public}@ in a subclass is not overridden", v4, v5, v6, v7);
 }
 
 - (void)createTemporary
@@ -279,7 +274,7 @@ LABEL_11:
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   if (sandboxed)
   {
-    getAppSupportDirSandboxed(@"CallHistoryDB", error);
+    getAppSupportDirSandboxed();
   }
 
   else

@@ -50,7 +50,7 @@
 
     else
     {
-      v11 = [v9 copy];
+      v11 = objc_msgSend_copy(v9);
     }
 
     _Block_object_dispose(&v18, 8);
@@ -129,7 +129,7 @@ void __70__HMDCoreDataTransformerHMCameraActivityZoneSet_valueFromOPACK_error___
 
   else
   {
-    v9 = [v7 copy];
+    v9 = objc_msgSend_copy(v7, v11, v12, v13, v14);
   }
 
   _Block_object_dispose(&v17, 8);

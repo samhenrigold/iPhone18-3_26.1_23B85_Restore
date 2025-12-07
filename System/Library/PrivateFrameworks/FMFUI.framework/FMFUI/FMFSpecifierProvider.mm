@@ -28,7 +28,7 @@
 
 - (NSArray)specifiers
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   specifiers = self->_specifiers;
   if (!specifiers)
   {
@@ -55,8 +55,8 @@
       }
 
       [v7 setProperty:v9 forKey:*MEMORY[0x277D3FF38]];
-      v16[0] = v7;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+      v15[0] = v7;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
       v11 = self->_specifiers;
       self->_specifiers = v10;
     }
@@ -71,21 +71,20 @@
   }
 
   v13 = specifiers;
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (void)locationSharingSpecifierWasTapped:(id)tapped
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   tappedCopy = tapped;
-  v5 = LogCategory_Daemon();
+  v5 = LogCategory_Daemon(tappedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[FMFSpecifierProvider locationSharingSpecifierWasTapped:]";
-    _os_log_impl(&dword_24A4E3000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[FMFSpecifierProvider locationSharingSpecifierWasTapped:]";
+    _os_log_impl(&dword_24A4E3000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v8, 0xCu);
   }
 
   v6 = objc_alloc_init(FMFLocationSharingViewController);
@@ -93,8 +92,6 @@
 
   delegate = [(FMFSpecifierProvider *)self delegate];
   [delegate specifierProvider:self showViewController:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldEnableLocationSharingSpecifier

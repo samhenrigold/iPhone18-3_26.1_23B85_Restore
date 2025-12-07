@@ -1,10 +1,13 @@
 @interface TSPFileManager
 + (BOOL)copyDataFromReadChannel:(id)channel decryptionInfo:(id)info size:(unint64_t)size toWriteChannel:(id)writeChannel encryptionInfo:(id)encryptionInfo encodedLength:(unint64_t *)length error:(id *)error;
 + (BOOL)linkOrCloneItemAtURL:(id)l toURL:(id)rL canLink:(BOOL)link canClone:(BOOL)clone error:(id *)error;
++ (BOOL)linkOrCloneItemAtURL:(id)l toURL:(id)rL canLink:(BOOL)link error:(id *)error;
 + (BOOL)linkOrCopyItemAtURL:(id)l decryptionInfo:(id)info toURL:(id)rL encryptionInfo:(id)encryptionInfo canLink:(BOOL)link encodedLength:(unint64_t *)length error:(id *)error;
 + (id)errorWithDomain:(id)domain code:(int64_t)code sourcePath:(id)path targetPath:(id)targetPath;
 + (id)ioCompletionQueue;
++ (void)copyDataFromReadChannel:(id)channel decryptionInfo:(id)info size:(unint64_t)size toWriteChannel:(id)writeChannel encryptionInfo:(id)encryptionInfo synchronous:(BOOL)synchronous completion:(id)completion;
 + (void)copyDataFromReadChannel:(id)channel size:(unint64_t)size toWriteChannel:(id)writeChannel synchronous:(BOOL)synchronous completion:(id)completion;
++ (void)transcodeReadChannel:(id)channel decryptionInfo:(id)info size:(unint64_t)size toWriteChannel:(id)writeChannel encryptionInfo:(id)encryptionInfo synchronous:(BOOL)synchronous completion:(id)completion;
 @end
 
 @implementation TSPFileManager
@@ -38,6 +41,18 @@
   v15 = [NSError errorWithDomain:domainCopy code:code userInfo:v14];
 
   return v15;
+}
+
++ (BOOL)linkOrCloneItemAtURL:(id)l toURL:(id)rL canLink:(BOOL)link error:(id *)error
+{
+  linkCopy = link;
+  rLCopy = rL;
+  lCopy = l;
+  v12 = +[NSFileManager defaultManager];
+  v13 = [v12 tsu_canCloneItemAtURL:lCopy toURL:rLCopy];
+
+  LOBYTE(error) = [self linkOrCloneItemAtURL:lCopy toURL:rLCopy canLink:linkCopy canClone:v13 error:error];
+  return error;
 }
 
 + (BOOL)linkOrCloneItemAtURL:(id)l toURL:(id)rL canLink:(BOOL)link canClone:(BOOL)clone error:(id *)error
@@ -352,6 +367,57 @@ LABEL_33:
 
   _Block_object_dispose(&v29, 8);
   return v20;
+}
+
++ (void)copyDataFromReadChannel:(id)channel decryptionInfo:(id)info size:(unint64_t)size toWriteChannel:(id)writeChannel encryptionInfo:(id)encryptionInfo synchronous:(BOOL)synchronous completion:(id)completion
+{
+  synchronousCopy = synchronous;
+  channelCopy = channel;
+  infoCopy = info;
+  writeChannelCopy = writeChannel;
+  encryptionInfoCopy = encryptionInfo;
+  completionCopy = completion;
+  if (channelCopy && writeChannelCopy)
+  {
+    if (UnsafePointer(infoCopy, encryptionInfoCopy))
+    {
+      [self transcodeReadChannel:channelCopy decryptionInfo:infoCopy size:size toWriteChannel:writeChannelCopy encryptionInfo:encryptionInfoCopy synchronous:synchronousCopy completion:completionCopy];
+    }
+
+    else
+    {
+      [self copyDataFromReadChannel:channelCopy size:size toWriteChannel:writeChannelCopy synchronous:synchronousCopy completion:completionCopy];
+    }
+  }
+
+  else if (completionCopy)
+  {
+    v19 = [NSError tsp_unknownReadErrorWithUserInfo:0];
+    completionCopy[2](completionCopy, 0, v19);
+  }
+}
+
++ (void)transcodeReadChannel:(id)channel decryptionInfo:(id)info size:(unint64_t)size toWriteChannel:(id)writeChannel encryptionInfo:(id)encryptionInfo synchronous:(BOOL)synchronous completion:(id)completion
+{
+  synchronousCopy = synchronous;
+  writeChannelCopy = writeChannel;
+  completionCopy = completion;
+  encryptionInfoCopy = encryptionInfo;
+  infoCopy = info;
+  channelCopy = channel;
+  v19 = [[TSPCryptoTranscodeReadChannel alloc] initWithReadChannel:channelCopy decryptionInfo:infoCopy encryptionInfo:encryptionInfoCopy];
+
+  if (v19)
+  {
+    [self copyDataFromReadChannel:v19 size:size toWriteChannel:writeChannelCopy synchronous:synchronousCopy completion:completionCopy];
+    [(TSPCryptoTranscodeReadChannel *)v19 close];
+  }
+
+  else if (completionCopy)
+  {
+    v20 = [NSError tsp_unknownReadErrorWithUserInfo:0];
+    completionCopy[2](completionCopy, 0, v20);
+  }
 }
 
 + (id)ioCompletionQueue

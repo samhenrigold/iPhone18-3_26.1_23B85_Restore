@@ -12,11 +12,11 @@
 
 - (TPSCondition)initWithDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v20.receiver = self;
-  v20.super_class = TPSCondition;
-  v5 = [(TPSCondition *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = TPSCondition;
+  v5 = [(TPSCondition *)&v19 init];
   if (v5)
   {
     v6 = [dictionaryCopy TPSSafeStringForKey:@"id"];
@@ -39,7 +39,7 @@
       if (os_log_type_enabled(targeting, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v23 = dictionaryCopy;
+        v22 = dictionaryCopy;
         _os_log_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_DEFAULT, "Missing condition id %@", buf, 0xCu);
       }
     }
@@ -72,8 +72,8 @@
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v21 = v14;
-        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+        v20 = v14;
+        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
 
         v14 = v15;
       }
@@ -84,7 +84,6 @@
     v5->_values = v16;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -288,13 +287,11 @@
 
 + (void)conditionFromDictionary:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 TPSSafeStringForKey:@"type"];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Unsupported condition type: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Unsupported condition type: %@", &v4, 0xCu);
 }
 
 @end

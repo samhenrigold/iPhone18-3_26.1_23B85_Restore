@@ -42,9 +42,9 @@
   v14 = MCErrorArray();
   v15 = MCErrorTypeFatal;
   v16 = [NSError MCErrorWithDomain:v13 code:44000 descriptionArray:v14 errorType:MCErrorTypeFatal, 0];
-  mCCopyAsPrimaryError = [v16 MCCopyAsPrimaryError];
+  v17 = objc_msgSend_MCCopyAsPrimaryError(v16);
 
-  if (!mCCopyAsPrimaryError)
+  if (!v17)
   {
 LABEL_14:
     MCSendUserNotificationsSettingsChangedNotification();
@@ -58,7 +58,7 @@ LABEL_14:
   [payload2 friendlyName];
   v21 = v20 = error;
   v22 = MCErrorArray();
-  v23 = [NSError MCErrorWithDomain:v18 code:4001 descriptionArray:v22 underlyingError:mCCopyAsPrimaryError errorType:v15, v21, 0];
+  v23 = [NSError MCErrorWithDomain:v18 code:4001 descriptionArray:v22 underlyingError:v17 errorType:v15, v21, 0];
 
   if (v20)
   {

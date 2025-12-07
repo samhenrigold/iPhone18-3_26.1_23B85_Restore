@@ -41,21 +41,21 @@
 
 - (DDMLTaggerModel)initWithEmbeddingLocale:(id)locale modelDictionary:(id)dictionary baseURL:(id)l
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   dictionaryCopy = dictionary;
   lCopy = l;
-  v28.receiver = self;
-  v28.super_class = DDMLTaggerModel;
-  v12 = [(DDMLTaggerModel *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = DDMLTaggerModel;
+  v12 = [(DDMLTaggerModel *)&v27 init];
   v13 = v12;
   if (v12)
   {
     objc_storeStrong(&v12->_embeddingLocale, locale);
-    v27 = 0;
-    v14 = [objc_opt_class() _buildTokenToLabelMap:dictionaryCopy supportedTypes:&v27];
-    v15 = v27;
-    v16 = v27;
+    v26 = 0;
+    v14 = [objc_opt_class() _buildTokenToLabelMap:dictionaryCopy supportedTypes:&v26];
+    v15 = v26;
+    v16 = v26;
     tokenLabelMap = v13->_tokenLabelMap;
     v13->_tokenLabelMap = v14;
 
@@ -65,14 +65,13 @@
     if (v19)
     {
       Helper_x8__kMRLNeuralNetworkOptionModelURLKey = gotLoadHelper_x8__kMRLNeuralNetworkOptionModelURLKey(v20);
-      v29 = **(v22 + 2080);
-      v30[0] = v19;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:{1, Helper_x8__kMRLNeuralNetworkOptionModelURLKey}];
+      v28 = **(v22 + 2080);
+      v29[0] = v19;
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:{1, Helper_x8__kMRLNeuralNetworkOptionModelURLKey}];
       v13->_taggerModel = MRLNeuralNetworkCreate_delayInitStub(v24);
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -113,7 +112,7 @@
 
 void __56__DDMLTaggerModel__buildTokenToLabelMap_supportedTypes___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v6 isEqualToString:@"b-address"] & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"B-ADDR"))
@@ -228,12 +227,12 @@ void __56__DDMLTaggerModel__buildTokenToLabelMap_supportedTypes___block_invoke(u
                   dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
                 }
 
-                v17 = DDLogHandle_error_log_handle;
-                if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+                v16 = DDLogHandle_error_log_handle;
+                if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
                 {
-                  v18 = 138412290;
-                  v19 = v6;
-                  _os_log_error_impl(&dword_1BCFDD000, v17, OS_LOG_TYPE_ERROR, "unexpected ML tag type %@", &v18, 0xCu);
+                  v17 = 138412290;
+                  v18 = v6;
+                  _os_log_error_impl(&dword_1BCFDD000, v16, OS_LOG_TYPE_ERROR, "unexpected ML tag type %@", &v17, 0xCu);
                 }
               }
 
@@ -270,8 +269,6 @@ LABEL_6:
       [v14 addObject:v15];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

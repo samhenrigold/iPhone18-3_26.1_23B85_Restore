@@ -60,7 +60,7 @@ uint64_t __84__WFGetDropboxFileActionUIKitUserInterface_cancelPresentationWithCo
 
 - (void)showWithServiceName:(id)name directoryPath:(id)path options:(unint64_t)options completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   pathCopy = path;
   handlerCopy = handler;
@@ -75,9 +75,9 @@ uint64_t __84__WFGetDropboxFileActionUIKitUserInterface_cancelPresentationWithCo
     {
       currentConnection = [MEMORY[0x277CCAE80] currentConnection];
       *buf = 136315394;
-      v30 = "[WFGetDropboxFileActionUIKitUserInterface showWithServiceName:directoryPath:options:completionHandler:]";
-      v31 = 2112;
-      v32 = currentConnection;
+      v29 = "[WFGetDropboxFileActionUIKitUserInterface showWithServiceName:directoryPath:options:completionHandler:]";
+      v30 = 2112;
+      v31 = currentConnection;
       _os_log_impl(&dword_23E342000, v15, OS_LOG_TYPE_FAULT, "%s Could not get bundle identifier for the calling process. +[NSXPCConnection currentConnection] is %@", buf, 0x16u);
     }
 
@@ -90,17 +90,15 @@ uint64_t __84__WFGetDropboxFileActionUIKitUserInterface_cancelPresentationWithCo
   block[1] = 3221225472;
   block[2] = __104__WFGetDropboxFileActionUIKitUserInterface_showWithServiceName_directoryPath_options_completionHandler___block_invoke;
   block[3] = &unk_278C36960;
-  v27 = handlerCopy;
+  v26 = handlerCopy;
   optionsCopy = options;
-  v24 = v18;
+  v23 = v18;
   selfCopy = self;
-  v26 = pathCopy;
+  v25 = pathCopy;
   v19 = pathCopy;
   v20 = handlerCopy;
   v21 = v18;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __104__WFGetDropboxFileActionUIKitUserInterface_showWithServiceName_directoryPath_options_completionHandler___block_invoke(uint64_t a1)

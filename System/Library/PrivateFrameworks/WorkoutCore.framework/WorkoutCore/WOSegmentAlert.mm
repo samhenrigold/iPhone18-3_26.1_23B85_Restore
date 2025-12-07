@@ -33,14 +33,13 @@
 
 - (id)segmentDescription
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___WOSegmentAlert_segmentMarker);
   selfCopy = self;
-  v4 = NLSessionActivitySegmentMarker.segmentDescription(alertType:)([(NLWorkoutAlert *)selfCopy type]);
-  v6 = v5;
+  v3 = NLSessionActivitySegmentMarker.segmentDescription(alertType:)([(NLWorkoutAlert *)selfCopy type]);
+  v5 = v4;
 
-  v7 = MEMORY[0x20F2E6C00](v4, v6);
+  v6 = MEMORY[0x20F2E6C00](v3, v5);
 
-  return v7;
+  return v6;
 }
 
 - (WOSegmentAlert)init

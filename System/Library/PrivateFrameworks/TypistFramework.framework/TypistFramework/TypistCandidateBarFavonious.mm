@@ -36,55 +36,55 @@
 
 void __54__TypistCandidateBarFavonious_candidateUIInformation___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277D75DA0] allWindowsIncludingInternalWindows:1 onlyVisibleWindows:0];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  obj = v41 = 0u;
-  v1 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+  obj = v40 = 0u;
+  v1 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
   if (v1)
   {
     v2 = v1;
-    v3 = *v39;
-    v28 = *v39;
+    v3 = *v38;
+    v27 = *v38;
     do
     {
       v4 = 0;
-      v29 = v2;
+      v28 = v2;
       do
       {
-        if (*v39 != v3)
+        if (*v38 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v38 + 1) + 8 * v4);
+        v5 = *(*(&v37 + 1) + 8 * v4);
         NSClassFromString(&cfstr_Uiremotekeyboa.isa);
         if (objc_opt_isKindOfClass())
         {
-          v31 = v5;
-          v32 = v4;
-          v36 = 0u;
-          v37 = 0u;
-          v34 = 0u;
+          v30 = v5;
+          v31 = v4;
           v35 = 0u;
+          v36 = 0u;
+          v33 = 0u;
+          v34 = 0u;
           v6 = [v5 allSubViews];
-          v7 = [v6 countByEnumeratingWithState:&v34 objects:v44 count:16];
+          v7 = [v6 countByEnumeratingWithState:&v33 objects:v43 count:16];
           if (v7)
           {
             v8 = v7;
-            v9 = *v35;
+            v9 = *v34;
             while (2)
             {
               for (i = 0; i != v8; ++i)
               {
-                if (*v35 != v9)
+                if (*v34 != v9)
                 {
                   objc_enumerationMutation(v6);
                 }
 
-                v11 = *(*(&v34 + 1) + 8 * i);
+                v11 = *(*(&v33 + 1) + 8 * i);
                 NSClassFromString(&cfstr_Uimorphinglabe.isa);
                 if (objc_opt_isKindOfClass())
                 {
@@ -96,24 +96,24 @@ void __54__TypistCandidateBarFavonious_candidateUIInformation___block_invoke(uin
                   {
                     v15 = [v11 superview];
                     [v11 frame];
-                    [v15 convertRect:v31 toView:?];
+                    [v15 convertRect:v30 toView:?];
                     UIRectGetCenter();
                     v17 = v16;
                     v19 = v18;
 
                     v20 = [v11 performSelector:sel_isFocused] != 0;
-                    v43[0] = *(a1 + 32);
-                    v42[0] = @"candidateString";
-                    v42[1] = @"isFocused";
+                    v42[0] = *(a1 + 32);
+                    v41[0] = @"candidateString";
+                    v41[1] = @"isFocused";
                     v21 = [MEMORY[0x277CCABB0] numberWithBool:v20];
-                    v43[1] = v21;
-                    v42[2] = @"centerX";
+                    v42[1] = v21;
+                    v41[2] = @"centerX";
                     v22 = [MEMORY[0x277CCABB0] numberWithDouble:v17];
-                    v43[2] = v22;
-                    v42[3] = @"centerY";
+                    v42[2] = v22;
+                    v41[3] = @"centerY";
                     v23 = [MEMORY[0x277CCABB0] numberWithDouble:v19];
-                    v43[3] = v23;
-                    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:4];
+                    v42[3] = v23;
+                    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:4];
                     v25 = *(*(a1 + 40) + 8);
                     v26 = *(v25 + 40);
                     *(v25 + 40) = v24;
@@ -123,7 +123,7 @@ void __54__TypistCandidateBarFavonious_candidateUIInformation___block_invoke(uin
                 }
               }
 
-              v8 = [v6 countByEnumeratingWithState:&v34 objects:v44 count:16];
+              v8 = [v6 countByEnumeratingWithState:&v33 objects:v43 count:16];
               if (v8)
               {
                 continue;
@@ -135,22 +135,20 @@ void __54__TypistCandidateBarFavonious_candidateUIInformation___block_invoke(uin
 
 LABEL_19:
 
-          v3 = v28;
-          v2 = v29;
-          v4 = v32;
+          v3 = v27;
+          v2 = v28;
+          v4 = v31;
         }
 
         ++v4;
       }
 
       while (v4 != v2);
-      v2 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+      v2 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
     }
 
     while (v2);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getAllCandidates
@@ -217,30 +215,30 @@ LABEL_6:
 
 - (BOOL)hasVisibleCandidate:(id)candidate
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
   [(TypistCandidateBarFavonious *)self getVisibleCandidates];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v5 = v26 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = v25 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v6)
   {
     goto LABEL_17;
   }
 
-  v7 = *v24;
+  v7 = *v23;
   while (2)
   {
     for (i = 0; i != v6; ++i)
     {
-      if (*v24 != v7)
+      if (*v23 != v7)
       {
         objc_enumerationMutation(v5);
       }
 
-      v9 = *(*(&v23 + 1) + 8 * i);
+      v9 = *(*(&v22 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -272,7 +270,7 @@ LABEL_12:
       }
     }
 
-    v6 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v6)
     {
       continue;
@@ -283,7 +281,6 @@ LABEL_12:
 
 LABEL_17:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -309,7 +306,7 @@ LABEL_17:
     while (![(TypistCandidateBarFavonious *)self hasVisibleCandidate:candidateCopy]&& v7 < 2.0);
     if (v7 >= 2.0)
     {
-      TYLogl(OS_LOG_TYPE_ERROR, @"TypistCandidateBar: Failed to find %@ in the favonious candidate bar after %fs.", v8, v9, v10, v11, v12, v13, candidateCopy);
+      TYLogl(OS_LOG_TYPE_ERROR, @"TypistCandidateBar: Failed to find %@ in the favonious candidate bar after %fs.", v8, v9, v10, v11, v12, v13, candidateCopy, 0x4000000000000000);
 LABEL_9:
       v14 = -1;
       goto LABEL_10;
@@ -346,8 +343,8 @@ void __54__TypistCandidateBarFavonious_selectCandidateAtIndex___block_invoke(uin
   x = v18.x;
   y = v18.y;
   v7 = *(a1 + 32);
-  v15 = NSStringFromCGPoint(v18);
-  TYLog(@"Tapping index %li candidate center at: %@", v8, v9, v10, v11, v12, v13, v14, v7);
+  v8 = NSStringFromCGPoint(v18);
+  TYLog(@"Tapping index %li candidate center at: %@", v9, v10, v11, v12, v13, v14, v15, v7, v8);
 
   [v16 tap:{x, y}];
 }

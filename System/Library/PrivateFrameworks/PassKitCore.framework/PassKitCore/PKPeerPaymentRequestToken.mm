@@ -48,7 +48,7 @@
   }
 
   v11 = tokenCopy;
-  if (v11 == @"PKPeerPaymentInformalRequestToken" || (v12 = v11, v13 = [(__CFString *)v11 isEqualToString:@"PKPeerPaymentInformalRequestToken"], v12, v13))
+  if (v11 == @"PKPeerPaymentInformalRequestToken" || (v12 = v11, isEqualToString = objc_msgSend_isEqualToString_(v11), v12, isEqualToString))
   {
     v14 = +[PKPeerPaymentInformalRequestToken token];
 LABEL_8:

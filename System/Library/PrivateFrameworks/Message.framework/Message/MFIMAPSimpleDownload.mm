@@ -1,4 +1,5 @@
 @interface MFIMAPSimpleDownload
+- (MFIMAPSimpleDownload)initWithUid:(unsigned int)uid section:(id)section length:(unint64_t)length lengthIsKnown:(BOOL)known range:(_NSRange)range consumer:(id)consumer;
 - (unint64_t)bytesFetched;
 - (void)addCommandsToPipeline:(id)pipeline withCache:(id)cache;
 - (void)handleFetchResult:(id)result;
@@ -7,6 +8,43 @@
 @end
 
 @implementation MFIMAPSimpleDownload
+
+- (MFIMAPSimpleDownload)initWithUid:(unsigned int)uid section:(id)section length:(unint64_t)length lengthIsKnown:(BOOL)known range:(_NSRange)range consumer:(id)consumer
+{
+  length = range.length;
+  location = range.location;
+  v12 = *&uid;
+  v27[2] = *MEMORY[0x1E69E9840];
+  sectionCopy = section;
+  consumerCopy = consumer;
+  v26.receiver = self;
+  v26.super_class = MFIMAPSimpleDownload;
+  v16 = [(MFIMAPDownload *)&v26 initWithUid:v12];
+  if (v16)
+  {
+    v17 = [sectionCopy copy];
+    section = v16->_section;
+    v16->_section = v17;
+
+    v16->_length = length;
+    *(v16 + 72) = *(v16 + 72) & 0xFE | known;
+    v16->_range.location = location;
+    v16->_range.length = length;
+    v19 = objc_alloc_init(MEMORY[0x1E69AD6A8]);
+    countingConsumer = v16->super._countingConsumer;
+    v16->super._countingConsumer = v19;
+
+    v21 = objc_alloc(MEMORY[0x1E69AD688]);
+    v27[0] = v16->super._countingConsumer;
+    v27[1] = consumerCopy;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+    v23 = [v21 initWithConsumers:v22];
+    mainConsumer = v16->super._mainConsumer;
+    v16->super._mainConsumer = v23;
+  }
+
+  return v16;
+}
 
 - (unint64_t)bytesFetched
 {
@@ -67,7 +105,7 @@ LABEL_12:
 
 - (void)processResults
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   [(MFIMAPSimpleDownload *)self mf_lock];
   if ((*(self + 72) & 2) == 0)
   {
@@ -77,7 +115,7 @@ LABEL_12:
     if (v4)
     {
       *&v5 = 138543874;
-      v17 = v5;
+      v16 = v5;
       do
       {
         if ((*(self + 72) & 2) != 0)
@@ -97,12 +135,12 @@ LABEL_12:
           {
             section = self->_section;
             length = self->_length;
-            *buf = v17;
-            v19 = section;
-            v20 = 2048;
-            v21 = v7;
-            v22 = 2048;
-            v23 = length;
+            *buf = v16;
+            v18 = section;
+            v19 = 2048;
+            v20 = v7;
+            v21 = 2048;
+            v22 = length;
             _os_log_error_impl(&dword_1B0389000, v9, OS_LOG_TYPE_ERROR, "Server returned less bytes than expected for part %{public}@ (%lu versus %lu)", buf, 0x20u);
           }
 
@@ -148,7 +186,6 @@ LABEL_12:
   }
 
   [(MFIMAPSimpleDownload *)self mf_unlock];
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addCommandsToPipeline:(id)pipeline withCache:(id)cache
@@ -177,13 +214,12 @@ LABEL_12:
         if (v8)
         {
           [v5 appendString:@"<"];
-          location = self->_range.location;
-          v10 = EFStringWithUnsignedInteger();
-          [v5 appendString:v10];
+          v9 = EFStringWithUnsignedInteger();
+          [v5 appendString:v9];
 
           [v5 appendString:@"."];
-          v11 = EFStringWithUnsignedInteger();
-          [v5 appendString:v11];
+          v10 = EFStringWithUnsignedInteger();
+          [v5 appendString:v10];
 
           [v5 appendString:@">"];
         }

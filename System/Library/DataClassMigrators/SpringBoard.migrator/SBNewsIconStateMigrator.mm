@@ -463,131 +463,125 @@ LABEL_11:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v27 = 0;
+    v25 = 0;
     goto LABEL_28;
   }
 
   v4 = objc_alloc_init(NSMutableArray);
+  v34 = 0u;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
   v5 = listCopy;
-  v6 = [v5 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (!v6)
   {
 
-    v26 = 0;
+    v24 = 0;
     goto LABEL_27;
   }
 
   v7 = v6;
-  v29 = listCopy;
-  v30 = 0;
-  v8 = *v37;
+  v27 = listCopy;
+  v28 = 0;
+  v8 = *v35;
   v9 = kSBIconStateCustomIconElementTypeKey;
   v10 = kSBIconStateCustomIconElementTypeWidget;
-  v34 = kSBIconStateGridSizeClassIdentifier;
-  v31 = kSBIconStateIconBundleIdentifier;
-  v32 = kSBIconStateCustomIconElementTypeWidget;
-  v11 = &SBLogCommon_ptr;
+  v32 = kSBIconStateGridSizeClassIdentifier;
+  v29 = kSBIconStateIconBundleIdentifier;
+  v30 = kSBIconStateCustomIconElementTypeWidget;
   do
   {
     for (i = 0; i != v7; i = i + 1)
     {
-      if (*v37 != v8)
+      if (*v35 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v13 = *(*(&v36 + 1) + 8 * i);
-      v14 = v11[159];
+      v12 = *(*(&v34 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        [v4 addObject:v13];
+        [v4 addObject:v12];
         continue;
       }
 
-      v15 = v13;
-      v16 = [v15 objectForKey:v9];
-      if (![v16 isEqualToString:v10])
+      v13 = v12;
+      v14 = [v13 objectForKey:v9];
+      if (![v14 isEqualToString:v10])
       {
         goto LABEL_16;
       }
 
-      v17 = [v15 objectForKey:v34];
-      if (([v17 isEqualToString:@"extraLarge"] & 1) == 0)
+      v15 = [v13 objectForKey:v32];
+      if (([v15 isEqualToString:@"extraLarge"] & 1) == 0)
       {
 
-        v11 = &SBLogCommon_ptr;
 LABEL_16:
-
         goto LABEL_17;
       }
 
-      [v15 objectForKey:v31];
-      v18 = v7;
-      v19 = v8;
-      v20 = v4;
-      v21 = v9;
-      v23 = v22 = v5;
-      v33 = [v23 hasPrefix:@"com.apple.news"];
+      [v13 objectForKey:v29];
+      v16 = v7;
+      v17 = v8;
+      v18 = v4;
+      v19 = v9;
+      v21 = v20 = v5;
+      v31 = [v21 hasPrefix:@"com.apple.news"];
 
-      v5 = v22;
-      v9 = v21;
-      v4 = v20;
-      v8 = v19;
-      v7 = v18;
-      v10 = v32;
+      v5 = v20;
+      v9 = v19;
+      v4 = v18;
+      v8 = v17;
+      v7 = v16;
+      v10 = v30;
 
-      v11 = &SBLogCommon_ptr;
-      if (v33)
+      if (v31)
       {
-        v24 = SBLogCommon();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v22 = SBLogCommon();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "[NewsIconStateMigration] Found news widget to migrate...", buf, 2u);
+          _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "[NewsIconStateMigration] Found news widget to migrate...", buf, 2u);
         }
 
-        v25 = [v15 mutableCopy];
-        [v25 setObject:@"newsLargeTall" forKeyedSubscript:v34];
-        [v4 addObject:v25];
+        v23 = [v13 mutableCopy];
+        [v23 setObject:@"newsLargeTall" forKeyedSubscript:v32];
+        [v4 addObject:v23];
 
-        v30 = 1;
-        v10 = v32;
-        v11 = &SBLogCommon_ptr;
+        v28 = 1;
+        v10 = v30;
         goto LABEL_18;
       }
 
 LABEL_17:
-      [v4 addObject:{v15, v29}];
+      [v4 addObject:{v13, v27}];
 LABEL_18:
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v34 objects:v38 count:16];
   }
 
   while (v7);
 
-  if (v30)
+  if (v28)
   {
-    v26 = v4;
+    v24 = v4;
   }
 
   else
   {
-    v26 = 0;
+    v24 = 0;
   }
 
-  listCopy = v29;
+  listCopy = v27;
 LABEL_27:
-  v27 = v26;
+  v25 = v24;
 
 LABEL_28:
 
-  return v27;
+  return v25;
 }
 
 @end

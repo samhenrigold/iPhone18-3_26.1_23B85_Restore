@@ -29,7 +29,7 @@ void sub_1DF10FE80(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -43,13 +43,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -95,7 +95,7 @@ uint64_t CFRetained::getTypeID(uint64_t a1)
 
     v8 = v3;
     v9 = v4;
-    std::__tree<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<unsigned long,__CFRuntimeClass *>>>(v2, &__p.__r_.__value_.__l.__data_);
+    std::__tree<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<unsigned long,__CFRuntimeClass *>>>(v2, &__p.__r_.__value_.__l.__data_, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -147,12 +147,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -166,22 +166,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -215,13 +215,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -263,9 +263,9 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<unsigned long,__CFRuntimeClass *>>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<unsigned long,__CFRuntimeClass *>>>(uint64_t a1, const void **a2, uint64_t a3)
 {
-  result = *std::__tree<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>>>::__find_equal<std::string>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<unsigned long,__CFRuntimeClass *>>>>::__construct_node<std::pair<std::string const,std::pair<unsigned long,__CFRuntimeClass *>>>();
@@ -274,7 +274,7 @@ uint64_t std::__tree<std::__value_type<std::string,std::pair<unsigned long,__CFR
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAtom::Name>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAtom::Name>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAtom::Name>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAtom::Name>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -507,7 +507,7 @@ void sub_1DF1106FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void SVGNode::SVGNode(SVGNode *this, const char *a2)
+void SVGNode::SVGNode(SVGNode *this, char *a2)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, SVGNode::kSVGNodeClassName);
   CFRetained::CFRetained(this, __p);
@@ -575,11 +575,11 @@ void sub_1DF11083C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void SVGAttributeMap::setAttribute(uint64_t a1, uint64_t a2, int a3)
+void SVGAttributeMap::setAttribute(uint64_t a1, CFRetained *a2, int a3)
 {
   v6 = *(a1 + 56);
   v7 = (a1 + 48);
-  v8 = *(a2 + 48);
+  v8 = *(a2 + 12);
   if (v6)
   {
     v9 = a1 + 56;
@@ -602,13 +602,13 @@ void SVGAttributeMap::setAttribute(uint64_t a1, uint64_t a2, int a3)
       CFRetained::release(*(v9 + 40));
       std::__tree<std::__value_type<SVGAtom::Name,SVGAttribute *>,std::__map_value_compare<SVGAtom::Name,std::__value_type<SVGAtom::Name,SVGAttribute *>,std::less<SVGAtom::Name>,true>,std::allocator<std::__value_type<SVGAtom::Name,SVGAttribute *>>>::__remove_node_pointer(v7, v9);
       operator delete(v9);
-      v8 = *(a2 + 48);
+      v8 = *(a2 + 12);
     }
   }
 
-  v14 = v8;
-  v15 = a2;
-  std::__tree<std::__value_type<SVGAtom::Name,SVGAttribute *>,std::__map_value_compare<SVGAtom::Name,std::__value_type<SVGAtom::Name,SVGAttribute *>,std::less<SVGAtom::Name>,true>,std::allocator<std::__value_type<SVGAtom::Name,SVGAttribute *>>>::__emplace_unique_key_args<SVGAtom::Name,std::pair<SVGAtom::Name const,SVGAttribute *>>(v7, &v14);
+  LODWORD(v14) = v8;
+  *(&v14 + 1) = a2;
+  std::__tree<std::__value_type<SVGAtom::Name,SVGAttribute *>,std::__map_value_compare<SVGAtom::Name,std::__value_type<SVGAtom::Name,SVGAttribute *>,std::less<SVGAtom::Name>,true>,std::allocator<std::__value_type<SVGAtom::Name,SVGAttribute *>>>::__emplace_unique_key_args<SVGAtom::Name,std::pair<SVGAtom::Name const,SVGAttribute *>>(v7, &v14, &v14);
   if (!a3)
   {
     CFRetained::retain(a2);
@@ -632,26 +632,27 @@ uint64_t std::map<std::string,std::pair<unsigned long,__CFRuntimeClass *>>::at(u
   return v2 + 56;
 }
 
-_BYTE *SVGParser::FormatString@<X0>(SVGParser *this@<X0>, va_list *a2@<X1>, _BYTE *a3@<X8>)
+void *SVGParser::FormatString@<X0>(SVGParser *this@<X0>, va_list *a2@<X1>, void *a3@<X8>)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (vsnprintf(__str, 0x400uLL, this, *a2) >= 0x401)
   {
-    SVGUtilities::error("Invalid format string or arguments provided", v5);
+    SVGUtilities::error("Invalid format string or arguments provided", v4);
   }
 
   return std::string::basic_string[abi:ne200100]<0>(a3, __str);
 }
 
-_BYTE *SVGParser::FormatString@<X0>(SVGParser *this@<X0>, _BYTE *a2@<X8>, ...)
+void *SVGParser::FormatString@<X0>(SVGParser *this@<X0>, void *a2@<X8>, ...)
 {
   va_start(va, a2);
-  va_copy(v4, va);
-  return SVGParser::FormatString(this, v4, a2);
+  va_copy(v3, va);
+  return SVGParser::FormatString(this, v3, a2);
 }
 
-void *SVGAtom::ToString(unsigned int a1)
+void *SVGAtom::ToString(uint64_t a1)
 {
+  v1 = a1;
   if (SVGAtom::SharedInstance(void)::onceToken != -1)
   {
     SVGAtom::HasAtom();
@@ -659,12 +660,12 @@ void *SVGAtom::ToString(unsigned int a1)
 
   v2 = SVGAtom::SharedInstance(void)::instance;
 
-  return SVGAtom::toString(v2, a1);
+  return SVGAtom::toString(v2, v1);
 }
 
-BOOL SVGColor::GetColorWithString(SVGColor *this, double *a2, SVGColor *a3)
+BOOL SVGColor::GetColorWithString(SVGColor *this, SVGColor *a2, SVGColor *a3)
 {
-  *&v59[58] = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v5 = strlen(this);
   if (!SVGParser::StripLeadingTrailingWhitespace(this, v5, &__s, 0x40))
   {
@@ -693,8 +694,8 @@ BOOL SVGColor::GetColorWithString(SVGColor *this, double *a2, SVGColor *a3)
     *a2 = vdivq_f64(vcvtq_f64_u64(v10), vdupq_n_s64(0x406FE00000000000uLL));
     v11 = v8 / 255.0;
 LABEL_8:
-    a2[2] = v11;
-    a2[3] = 1.0;
+    *(a2 + 2) = v11;
+    *(a2 + 3) = 0x3FF0000000000000;
     return 1;
   }
 
@@ -734,10 +735,10 @@ LABEL_8:
     }
   }
 
-  *a2 = 0.0;
-  a2[1] = 0.0;
-  a2[2] = 0.0;
-  a2[3] = 1.0;
+  *a2 = 0;
+  *(a2 + 1) = 0;
+  *(a2 + 2) = 0;
+  *(a2 + 3) = 0x3FF0000000000000;
   if (SVGParser::StringBeginsWith(&__s, "rgb(", v14))
   {
     ColorValues = ReadColorValues(&v57, a2, 255.0);
@@ -766,7 +767,7 @@ LABEL_8:
         {
           if (SVGParser::StringBeginsWith(&__s, "none", v26))
           {
-            a2[3] = 0.0;
+            *(a2 + 3) = 0;
             return 1;
           }
 
@@ -780,8 +781,8 @@ LABEL_8:
       }
 
       v27 = *a2;
-      v28 = a2[1];
-      v29 = a2[2];
+      v28 = *(a2 + 1);
+      v29 = *(a2 + 2);
       v30 = v28 + v29 - v29 * v28;
       v31 = v29 * (v28 + 1.0);
       if (v29 > 0.5)
@@ -834,7 +835,7 @@ LABEL_8:
       __asm { FMOV            V4.2D, #-1.0 }
 
       *a2 = vbslq_s8(vcltzq_f64(vaddq_f64(v45, _Q4)), vmlaq_n_f64(v48, v45, v33), v51);
-      a2[2] = v37;
+      *(a2 + 2) = v37;
       return 1;
     }
 
@@ -880,167 +881,12 @@ void sub_1DF111034(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SVGAttribute::SVGAttribute(uint64_t a1, int a2)
+void SVGAttribute::SVGAttribute(uint64_t a1, int a2, __int128 *a3)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
   CFRetained::CFRetained(a1, __p);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  *a1 = &unk_1F5A43F60;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 48) = a2;
-  *(a1 + 80) = 1;
-  operator new();
-}
-
-{
-  v6 = *MEMORY[0x1E69E9840];
-  std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
-  CFRetained::CFRetained(a1, __p);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  *a1 = &unk_1F5A43F60;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 48) = a2;
-  *(a1 + 80) = 1;
-  operator new();
-}
-
-{
-  std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
-  CFRetained::CFRetained(a1, __p);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  *a1 = &unk_1F5A43F60;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 48) = a2;
-  *(a1 + 80) = 1;
-  operator new();
-}
-
-{
-  v6 = *MEMORY[0x1E69E9840];
-  std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
-  CFRetained::CFRetained(a1, __p);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  *a1 = &unk_1F5A43F60;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 48) = a2;
-  *(a1 + 80) = 1;
-  operator new();
-}
-
-{
-  std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
-  CFRetained::CFRetained(a1, __p);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  *a1 = &unk_1F5A43F60;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 48) = a2;
-  *(a1 + 80) = 3;
-  operator new();
-}
-
-{
-  std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
-  CFRetained::CFRetained(a1, __p);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  *a1 = &unk_1F5A43F60;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 48) = a2;
-  *(a1 + 80) = 3;
-  operator new();
-}
-
-{
-  std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
-  CFRetained::CFRetained(a1, __p);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  *a1 = &unk_1F5A43F60;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 48) = a2;
-  *(a1 + 80) = 3;
-  operator new();
-}
-
-{
-  v6 = *MEMORY[0x1E69E9840];
-  std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
-  CFRetained::CFRetained(a1, __p);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  *a1 = &unk_1F5A43F60;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 48) = a2;
-  *(a1 + 80) = 1;
-  operator new();
-}
-
-{
-  std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
-  CFRetained::CFRetained(a1, __p);
-  if (v5 < 0)
+  if (v6 < 0)
   {
     operator delete(__p[0]);
   }
@@ -1072,7 +918,7 @@ void sub_1DF1111A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1111,7 +957,7 @@ void sub_1DF111324(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SVGViewBoxNode::SVGViewBoxNode(SVGNode *a1, const char *a2)
+void SVGViewBoxNode::SVGViewBoxNode(SVGNode *a1, char *a2)
 {
   if (a2[23] < 0)
   {
@@ -1121,48 +967,48 @@ void SVGViewBoxNode::SVGViewBoxNode(SVGNode *a1, const char *a2)
   SVGNode::SVGNode(a1, a2);
 }
 
-uint64_t *std::__tree<std::__value_type<SVGAtom::Name,SVGAttribute *>,std::__map_value_compare<SVGAtom::Name,std::__value_type<SVGAtom::Name,SVGAttribute *>,std::less<SVGAtom::Name>,true>,std::allocator<std::__value_type<SVGAtom::Name,SVGAttribute *>>>::__emplace_unique_key_args<SVGAtom::Name,std::pair<SVGAtom::Name const,SVGAttribute *>>(uint64_t a1, unsigned int *a2)
+uint64_t **std::__tree<std::__value_type<SVGAtom::Name,SVGAttribute *>,std::__map_value_compare<SVGAtom::Name,std::__value_type<SVGAtom::Name,SVGAttribute *>,std::less<SVGAtom::Name>,true>,std::allocator<std::__value_type<SVGAtom::Name,SVGAttribute *>>>::__emplace_unique_key_args<SVGAtom::Name,std::pair<SVGAtom::Name const,SVGAttribute *>>(uint64_t **a1, unsigned int *a2, _OWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 8);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1352,14 +1198,14 @@ uint64_t SVGAtom::toName(os_unfair_lock_s *this, char *a2)
     return SVGAtom::insert(this, a2, 0);
   }
 
-  v5 = v4[14];
+  os_unfair_lock_opaque = v4[14]._os_unfair_lock_opaque;
   os_unfair_lock_unlock(this + 22);
-  if (!v5)
+  if (!os_unfair_lock_opaque)
   {
     return SVGAtom::insert(this, a2, 0);
   }
 
-  return v5;
+  return os_unfair_lock_opaque;
 }
 
 void sub_1DF111DA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1445,16 +1291,17 @@ void SVGReader::parseXMLNodeAttributes(SVGReader *this, _xmlNode *a2, SVGAttribu
 {
   for (i = a2->properties; i; i = i->next)
   {
-    v6 = SVGAtom::ToName(i->name, a2);
-    if (*this && *(*this + 8) == 1 && v6 >= 0x9F)
+    v7 = SVGAtom::ToName(i->name, a2);
+    v9 = v7;
+    if (*this && *(*this + 8) == 1 && v7 >= 0x9F)
     {
-      SVGReader::report(v6, "Attribute: '%s' is not allowed in strict mode", a2->line, v7, i->name);
+      SVGReader::report(v7, "Attribute: '%s' is not allowed in strict mode", a2->line, v8, i->name);
     }
 
-    else if (v6)
+    else if (v7)
     {
-      std::string::basic_string[abi:ne200100]<0>(&__p, i->children->content);
-      SVGAttributeMap::setAttribute();
+      std::string::basic_string[abi:ne200100]<0>(__p, i->children->content);
+      SVGAttributeMap::setAttribute(a3, v9, __p);
     }
   }
 }
@@ -1481,7 +1328,7 @@ uint64_t SVGAtom::ToName(SVGAtom *this, const char *a2)
   return SVGAtom::toName(v3, this);
 }
 
-void SVGReader::parseXMLNode(SVGReader *this, _xmlNode *a2, SVGNode *a3)
+void SVGReader::parseXMLNode(uint64_t this, _xmlNode *a2, SVGNode *a3)
 {
   if (a2->type != XML_COMMENT_NODE && !xmlNodeIsText(a2))
   {
@@ -1572,12 +1419,12 @@ locale_t ___ZL10GetLocaleCv_block_invoke()
   return result;
 }
 
-SVGAttribute *SVGReader::applyStyleToAttributes(SVGReader *this, SVGNode *a2, SVGAttributeMap *a3)
+void SVGReader::applyStyleToAttributes(SVGReader *this, SVGNode *a2, SVGAttributeMap *a3)
 {
-  result = SVGAttributeMap::attribute(a3, 0x3Cu);
-  if (result)
+  v4 = SVGAttributeMap::attribute(a3, 0x3Cu);
+  if (v4)
   {
-    v5 = SVGAttribute::stringValue(result);
+    v5 = SVGAttribute::stringValue(v4);
     if (*(v5 + 23) < 0)
     {
       std::string::__init_copy_ctor_external(&v9, *v5, *(v5 + 8));
@@ -1600,7 +1447,7 @@ SVGAttribute *SVGReader::applyStyleToAttributes(SVGReader *this, SVGNode *a2, SV
       v7 = v9;
     }
 
-    SVGParser::ParseDeclarationBlockFromRuleset(&v7, 1, &v8);
+    SVGParser::ParseDeclarationBlockFromRuleset(&v8, &v7, 1);
     if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v7.__r_.__value_.__l.__data_);
@@ -1613,8 +1460,6 @@ SVGAttribute *SVGReader::applyStyleToAttributes(SVGReader *this, SVGNode *a2, SV
   {
     operator new();
   }
-
-  return result;
 }
 
 void sub_1DF112F14(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29)
@@ -1632,7 +1477,7 @@ uint64_t SVGAtom::_mapInit(os_unfair_lock_s *a1, char *a2, uint64_t a3)
   os_unfair_lock_lock(a1 + 22);
   std::string::basic_string[abi:ne200100]<0>(&__p, a2);
   v10 = a3;
-  std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAtom::Name>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAtom::Name>>>::__emplace_unique_key_args<std::string,std::pair<std::string,SVGAtom::Name>>(a1, &__p);
+  std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAtom::Name>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAtom::Name>>>::__emplace_unique_key_args<std::string,std::pair<std::string,SVGAtom::Name>>(a1, &__p, &__p);
   if (v9 < 0)
   {
     operator delete(__p);
@@ -1640,7 +1485,7 @@ uint64_t SVGAtom::_mapInit(os_unfair_lock_s *a1, char *a2, uint64_t a3)
 
   LODWORD(__p) = a3;
   std::string::basic_string[abi:ne200100]<0>(&v8, a2);
-  std::__tree<std::__value_type<SVGAtom::Name,std::string>,std::__map_value_compare<SVGAtom::Name,std::__value_type<SVGAtom::Name,std::string>,std::less<SVGAtom::Name>,true>,std::allocator<std::__value_type<SVGAtom::Name,std::string>>>::__emplace_unique_key_args<SVGAtom::Name,std::pair<SVGAtom::Name,std::string>>(&a1[6], &__p);
+  std::__tree<std::__value_type<SVGAtom::Name,std::string>,std::__map_value_compare<SVGAtom::Name,std::__value_type<SVGAtom::Name,std::string>,std::less<SVGAtom::Name>,true>,std::allocator<std::__value_type<SVGAtom::Name,std::string>>>::__emplace_unique_key_args<SVGAtom::Name,std::pair<SVGAtom::Name,std::string>>(&a1[6], &__p, &__p);
   if (v11 < 0)
   {
     operator delete(v8);
@@ -1664,507 +1509,507 @@ uint64_t *SVGAtom::initializeTable(os_unfair_lock_s *this)
 {
   SVGAtom::_mapInit(this, "accumulate", 142);
   v3 = 142;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "additive", 141);
   v3 = 141;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "animate", 131);
   v3 = 131;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "animateMotion", 133);
   v3 = 133;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "animateTransform", 134);
   v3 = 134;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "attributeName", 135);
   v3 = 135;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "attributeType", 136);
   v3 = 136;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "baseProfile", 106);
   v3 = 106;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "begin", 137);
   v3 = 137;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "bevel", 1);
   v3 = 1;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "bias", 124);
   v3 = 124;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "butt", 2);
   v3 = 2;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "by", 144);
   v3 = 144;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "calcMode", 152);
   v3 = 152;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "circle", 3);
   v3 = 3;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "class", 4);
   v3 = 4;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "clipPath", 5);
   v3 = 5;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "clip-path", 6);
   v3 = 6;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "clipPathUnits", 7);
   v3 = 7;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "clip-rule", 8);
   v3 = 8;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "color", 158);
   v3 = 158;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "cx", 9);
   v3 = 9;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "cy", 10);
   v3 = 10;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "d", 11);
   v3 = 11;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "defs", 14);
   v3 = 14;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "display-p3", 15);
   v3 = 15;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "divisor", 123);
   v3 = 123;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "dur", 138);
   v3 = 138;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "dx", 96);
   v3 = 96;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "dy", 97);
   v3 = 97;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "edgeMode", 127);
   v3 = 127;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "editable", 113);
   v3 = 113;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "ellipse", 16);
   v3 = 16;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "end", 146);
   v3 = 146;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "evenodd", 17);
   v3 = 17;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "extended-srgb", 73);
   v3 = 73;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "externalResourcesRequired", 108);
   v3 = 108;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "feBlend", 101);
   v3 = 101;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "feComposite", 114);
   v3 = 114;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "feConvolveMatrix", 120);
   v3 = 120;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "feFlood", 91);
   v3 = 91;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "feGaussianBlur", 103);
   v3 = 103;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "feImage", 94);
   v3 = 94;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "feMerge", 98);
   v3 = 98;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "feMergeNode", 99);
   v3 = 99;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "feOffset", 95);
   v3 = 95;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "feTile", 100);
   v3 = 100;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "fill", 18);
   v3 = 18;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "fill-opacity", 19);
   v3 = 19;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "fill-rule", 20);
   v3 = 20;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "fill-stroke", 21);
   v3 = 21;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "filter", 84);
   v3 = 84;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "filterRes", 87);
   v3 = 87;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "filterUnits", 85);
   v3 = 85;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "flood-color", 92);
   v3 = 92;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "flood-opacity", 93);
   v3 = 93;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "focusable", 109);
   v3 = 109;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "font", 22);
   v3 = 22;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "font-family", 23);
   v3 = 23;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "font-size", 24);
   v3 = 24;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "font-weight", 25);
   v3 = 25;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "from", 139);
   v3 = 139;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "fx", 26);
   v3 = 26;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "fy", 27);
   v3 = 27;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "g", 29);
   v3 = 29;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "gradientTransform", 78);
   v3 = 78;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "gradientUnits", 28);
   v3 = 28;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "spreadMethod", 130);
   v3 = 130;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "height", 30);
   v3 = 30;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "id", 31);
   v3 = 31;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "image", 77);
   v3 = 77;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "in", 88);
   v3 = 88;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "in2", 89);
   v3 = 89;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "k1", 116);
   v3 = 116;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "k2", 117);
   v3 = 117;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "k3", 118);
   v3 = 118;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "k4", 119);
   v3 = 119;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "kernelMatrix", 122);
   v3 = 122;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "kernelUnitLength", 128);
   v3 = 128;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "keySplines", 154);
   v3 = 154;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "keyTimes", 153);
   v3 = 153;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "keyPoints", 156);
   v3 = 156;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "line", 32);
   v3 = 32;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "linearGradient", 33);
   v3 = 33;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "mask", 74);
   v3 = 74;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "maskUnits", 75);
   v3 = 75;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "maskContentUnits", 76);
   v3 = 76;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "max", 148);
   v3 = 148;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "mesh", 36);
   v3 = 36;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "min", 147);
   v3 = 147;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "miter", 37);
   v3 = 37;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "mode", 102);
   v3 = 102;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "mpath", 155);
   v3 = 155;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "nonzero", 39);
   v3 = 39;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "offset", 40);
   v3 = 40;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "opacity", 41);
   v3 = 41;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "operator", 115);
   v3 = 115;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "order", 121);
   v3 = 121;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "path", 42);
   v3 = 42;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "pattern", 79);
   v3 = 79;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "patternContentUnits", 81);
   v3 = 81;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "patternTransform", 82);
   v3 = 82;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "patternUnits", 80);
   v3 = 80;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "playbackOrder", 111);
   v3 = 111;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "points", 43);
   v3 = 43;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "polygon", 44);
   v3 = 44;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "polyline", 45);
   v3 = 45;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "preserveAspectRatio", 46);
   v3 = 46;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "preserveAlpha", 129);
   v3 = 129;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "primitiveUnits", 86);
   v3 = 86;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "r", 47);
   v3 = 47;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "radialGradient", 48);
   v3 = 48;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "rect", 49);
   v3 = 49;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "repeatDuration", 151);
   v3 = 151;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "repeatCount", 150);
   v3 = 150;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "restart", 149);
   v3 = 149;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "result", 90);
   v3 = 90;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "round", 50);
   v3 = 50;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "rx", 51);
   v3 = 51;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "ry", 52);
   v3 = 52;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "set", 132);
   v3 = 132;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "srgb", 53);
   v3 = 53;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "stdDeviation", 104);
   v3 = 104;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "square", 54);
   v3 = 54;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "stop", 55);
   v3 = 55;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "stop-color", 56);
   v3 = 56;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "stop-opacity", 83);
   v3 = 83;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "stroke", 57);
   v3 = 57;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "stroke-dasharray", 12);
   v3 = 12;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "stroke-dashoffset", 13);
   v3 = 13;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "stroke-linecap", 34);
   v3 = 34;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "stroke-linejoin", 35);
   v3 = 35;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "stroke-miterlimit", 38);
   v3 = 38;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "stroke-opacity", 58);
   v3 = 58;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "stroke-width", 59);
   v3 = 59;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "style", 60);
   v3 = 60;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "svg", 61);
   v3 = 61;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "snapShotTime", 110);
   v3 = 110;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "symbol", 62);
   v3 = 62;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "targetX", 125);
   v3 = 125;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "targetY", 126);
   v3 = 126;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "text-anchor", 157);
   v3 = 157;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "timelineBegin", 112);
   v3 = 112;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "to", 140);
   v3 = 140;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "transform", 63);
   v3 = 63;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "type", 143);
   v3 = 143;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "values", 145);
   v3 = 145;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "version", 64);
   v3 = 64;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "viewBox", 65);
   v3 = 65;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "width", 66);
   v3 = 66;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "x", 67);
   v3 = 67;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "xmlns", 105);
   v3 = 105;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "x1", 68);
   v3 = 68;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "x2", 69);
   v3 = 69;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "y", 70);
   v3 = 70;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "y1", 71);
   v3 = 71;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "y2", 72);
   v3 = 72;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "zoomAndPan", 107);
   v3 = 107;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "text", 10001);
   v3 = 10001;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "letter-spacing", 10000);
   v3 = 10000;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "href", 20000);
   v3 = 20000;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "use", 20001);
   v3 = 20001;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "xlink:href", 20000);
   v3 = 20000;
-  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
   SVGAtom::_mapInit(this, "unknown", 0);
   v3 = 0;
-  return std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3);
+  return std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(&this[12]._os_unfair_lock_opaque, &v3, &v3);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAtom::Name>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAtom::Name>>>::__emplace_unique_key_args<std::string,std::pair<std::string,SVGAtom::Name>>(uint64_t a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAtom::Name>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAtom::Name>>>::__emplace_unique_key_args<std::string,std::pair<std::string,SVGAtom::Name>>(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAtom::Name>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAtom::Name>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAtom::Name>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAtom::Name>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,CaseInsensitiveStringLess,true>::operator()[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2323,15 +2168,15 @@ void sub_1DF116424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     v12 += 32;
     if (!v12)
     {
-      MEMORY[0x1E12CE5D0](a9, 0x1020C4062D53EE8);
+      MEMORY[0x1E12CE5D0](a9, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(a1);
     }
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(void *a1, void *a2, uint64_t a3)
+uint64_t *std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(uint64_t **a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__construct_node<std::pair<std::string const,unsigned int> const&>();
@@ -2340,18 +2185,18 @@ uint64_t std::__tree<std::__value_type<std::string,unsigned int>,std::__map_valu
   return result;
 }
 
-void *std::map<std::string,unsigned int,CaseInsensitiveStringLess,std::allocator<std::pair<std::string const,unsigned int>>>::map[abi:ne200100](void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string,unsigned int,CaseInsensitiveStringLess,std::allocator<std::pair<std::string const,unsigned int>>>::map[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a3)
   {
     v6 = 32 * a3;
     do
     {
-      std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(a1, v4, a2, a2);
       a2 += 32;
       v6 -= 32;
     }
@@ -2628,7 +2473,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t SVGAttribute::SVGAttribute(uint64_t a1, int a2, uint64_t a3)
+uint64_t SVGAttribute::SVGAttribute(uint64_t a1, int a2, CFRetained *a3)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
   CFRetained::CFRetained(a1, __p);
@@ -2650,6 +2495,135 @@ uint64_t SVGAttribute::SVGAttribute(uint64_t a1, int a2, uint64_t a3)
   return a1;
 }
 
+void sub_1DF116D8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (*(v15 + 79) < 0)
+  {
+    operator delete(*v16);
+  }
+
+  *v15 = &unk_1F5A44010;
+  if (*(v15 + 31) < 0)
+  {
+    operator delete(*(v15 + 8));
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t CFRetained::retain(uint64_t a1)
+{
+  if (a1)
+  {
+    CFRetain(*(a1 + 40));
+  }
+
+  return a1;
+}
+
+void SVGAttribute::SVGAttribute(uint64_t a1, int a2, double a3)
+{
+  v7 = *MEMORY[0x1E69E9840];
+  std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
+  CFRetained::CFRetained(a1, __p);
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  *a1 = &unk_1F5A43F60;
+  *(a1 + 56) = 0;
+  *(a1 + 64) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 96) = 0;
+  *(a1 + 104) = 0;
+  *(a1 + 48) = a2;
+  *(a1 + 80) = 1;
+  operator new();
+}
+
+void sub_1DF116F30(_Unwind_Exception *a1)
+{
+  v4 = v2;
+  MEMORY[0x1E12CE5D0](v4, 0x80C40D6874129);
+  if (*(v1 + 79) < 0)
+  {
+    operator delete(*v3);
+  }
+
+  *v1 = &unk_1F5A44010;
+  if (*(v1 + 31) < 0)
+  {
+    operator delete(*(v1 + 8));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t SVGAttribute::SVGAttribute(uint64_t a1, uint64_t a2, int a3)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
+  CFRetained::CFRetained(a1, __p);
+  if (v9 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  *a1 = &unk_1F5A43F60;
+  *(a1 + 56) = 0;
+  *(a1 + 64) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 96) = 0;
+  *(a1 + 104) = 0;
+  *(a1 + 48) = a2;
+  *(a1 + 80) = 2;
+  v6 = SVGAtom::ToString(a2);
+  MEMORY[0x1E12CE540](a1 + 56, v6);
+  *(a1 + 88) = a3;
+  return a1;
+}
+
+void sub_1DF117074(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void SVGPaint::SVGPaint(SVGPaint *this, const SVGColor *a2)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, SVGPaint::kSVGPaintClassName);
+  CFRetained::CFRetained(this, __p);
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  *this = &unk_1F5A44460;
+  *(this + 12) = 1;
+  SVGColor::SVGColor(this + 56, 3u, 0.0, 0.0, 0.0, 1.0);
+  *(this + 13) = 0;
+  *(this + 14) = 0;
+  *(this + 12) = 0x3FF0000000000000;
+  SVGColor::SVGColor(v4, a2);
+  SVGColor::operator=(this + 56, v4);
+}
+
+void sub_1DF1171BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+{
+  *v19 = &unk_1F5A44010;
+  if (*(v19 + 31) < 0)
+  {
+    operator delete(*(v19 + 8));
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t SVGAttribute::SVGAttribute(uint64_t a1, int a2, uint64_t a3)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
   CFRetained::CFRetained(a1, __p);
@@ -2754,113 +2728,6 @@ uint64_t SVGAttribute::SVGAttribute(uint64_t a1, int a2, uint64_t a3)
   return a1;
 }
 
-void sub_1DF116D8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (*(v15 + 79) < 0)
-  {
-    operator delete(*v16);
-  }
-
-  *v15 = &unk_1F5A44010;
-  if (*(v15 + 31) < 0)
-  {
-    operator delete(*(v15 + 8));
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t CFRetained::retain(uint64_t a1)
-{
-  if (a1)
-  {
-    CFRetain(*(a1 + 40));
-  }
-
-  return a1;
-}
-
-void sub_1DF116F30(_Unwind_Exception *a1)
-{
-  v4 = v2;
-  MEMORY[0x1E12CE5D0](v4, 0x80C40D6874129);
-  if (*(v1 + 79) < 0)
-  {
-    operator delete(*v3);
-  }
-
-  *v1 = &unk_1F5A44010;
-  if (*(v1 + 31) < 0)
-  {
-    operator delete(*(v1 + 8));
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t SVGAttribute::SVGAttribute(uint64_t a1, unsigned int a2, int a3)
-{
-  std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
-  CFRetained::CFRetained(a1, __p);
-  if (v9 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  *a1 = &unk_1F5A43F60;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 48) = a2;
-  *(a1 + 80) = 2;
-  v6 = SVGAtom::ToString(a2);
-  MEMORY[0x1E12CE540](a1 + 56, v6);
-  *(a1 + 88) = a3;
-  return a1;
-}
-
-void sub_1DF117074(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(a10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void SVGPaint::SVGPaint(SVGPaint *this, const SVGColor *a2)
-{
-  std::string::basic_string[abi:ne200100]<0>(__p, SVGPaint::kSVGPaintClassName);
-  CFRetained::CFRetained(this, __p);
-  if (v6 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  *this = &unk_1F5A44460;
-  *(this + 12) = 1;
-  SVGColor::SVGColor(this + 56, 3u, 0.0, 0.0, 0.0, 1.0);
-  *(this + 13) = 0;
-  *(this + 14) = 0;
-  *(this + 12) = 0x3FF0000000000000;
-  SVGColor::SVGColor(v4, a2);
-  SVGColor::operator=(this + 56, v4);
-}
-
-void sub_1DF1171BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, int a16, __int16 a17, char a18, char a19)
-{
-  *v19 = &unk_1F5A44010;
-  if (*(v19 + 31) < 0)
-  {
-    operator delete(*(v19 + 8));
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
 void sub_1DF1172BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (*(v15 + 79) < 0)
@@ -2877,74 +2744,74 @@ void sub_1DF1172BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__tree<std::__value_type<SVGAtom::Name,std::string>,std::__map_value_compare<SVGAtom::Name,std::__value_type<SVGAtom::Name,std::string>,std::less<SVGAtom::Name>,true>,std::allocator<std::__value_type<SVGAtom::Name,std::string>>>::__emplace_unique_key_args<SVGAtom::Name,std::pair<SVGAtom::Name,std::string>>(uint64_t a1, unsigned int *a2)
+uint64_t **std::__tree<std::__value_type<SVGAtom::Name,std::string>,std::__map_value_compare<SVGAtom::Name,std::__value_type<SVGAtom::Name,std::string>,std::less<SVGAtom::Name>,true>,std::allocator<std::__value_type<SVGAtom::Name,std::string>>>::__emplace_unique_key_args<SVGAtom::Name,std::pair<SVGAtom::Name,std::string>>(uint64_t **a1, unsigned int *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 8);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__emplace_unique_key_args<SVGAtom::Name,SVGAtom::Name>(float *a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -2952,44 +2819,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::__do_rehash<true>(uint64_t a1, unint64_t a2)
@@ -3336,7 +3203,7 @@ uint64_t CGSVGNodeGetType(uint64_t a1, const char *a2)
       v4 = *v4;
     }
 
-    v5 = SVGAtom::ToString(0x4Du);
+    v5 = SVGAtom::ToString(77);
     if (!strcmp(v4, v5))
     {
       return 9;
@@ -3350,7 +3217,7 @@ uint64_t CGSVGNodeGetType(uint64_t a1, const char *a2)
       v6 = *v6;
     }
 
-    v7 = SVGAtom::ToString(0x4Fu);
+    v7 = SVGAtom::ToString(79);
     if (!strcmp(v6, v7))
     {
       return 8;
@@ -3372,7 +3239,7 @@ uint64_t CGSVGNodeGetType(uint64_t a1, const char *a2)
     v10 = *v9;
   }
 
-  v11 = SVGAtom::ToString(0x1Du);
+  v11 = SVGAtom::ToString(29);
   if (!strcmp(v10, v11))
   {
     return 1;
@@ -3384,7 +3251,7 @@ uint64_t CGSVGNodeGetType(uint64_t a1, const char *a2)
     v12 = *v9;
   }
 
-  v13 = SVGAtom::ToString(0x21u);
+  v13 = SVGAtom::ToString(33);
   if (!strcmp(v12, v13))
   {
     return 4;
@@ -3396,7 +3263,7 @@ uint64_t CGSVGNodeGetType(uint64_t a1, const char *a2)
     v14 = *v9;
   }
 
-  v15 = SVGAtom::ToString(0x30u);
+  v15 = SVGAtom::ToString(48);
   if (!strcmp(v14, v15))
   {
     return 5;
@@ -3408,7 +3275,7 @@ uint64_t CGSVGNodeGetType(uint64_t a1, const char *a2)
     v16 = *v9;
   }
 
-  v17 = SVGAtom::ToString(5u);
+  v17 = SVGAtom::ToString(5);
   if (!strcmp(v16, v17))
   {
     return 6;
@@ -3420,7 +3287,7 @@ uint64_t CGSVGNodeGetType(uint64_t a1, const char *a2)
     v18 = *v9;
   }
 
-  v19 = SVGAtom::ToString(0x4Au);
+  v19 = SVGAtom::ToString(74);
   if (!strcmp(v18, v19))
   {
     return 7;
@@ -3432,7 +3299,7 @@ uint64_t CGSVGNodeGetType(uint64_t a1, const char *a2)
     v20 = *v9;
   }
 
-  v21 = SVGAtom::ToString(0x54u);
+  v21 = SVGAtom::ToString(84);
   if (!strcmp(v20, v21))
   {
     return 10;
@@ -3455,27 +3322,27 @@ uint64_t CGSVGNodeGetType(uint64_t a1, const char *a2)
   }
 }
 
-uint64_t CGSVGNodeFindAttribute(uint64_t a1, const char *a2)
+void *CGSVGNodeFindAttribute(uint64_t a1, const char *a2)
 {
-  v2 = a2;
   result = CFRetained::getObject<SVGNode>(a1, a2);
   if (result)
   {
-    result = SVGNode::findAttribute(result, v2);
+    result = SVGNode::findAttribute(result, a2);
     if (result)
     {
-      return *(result + 40);
+      return result[5];
     }
   }
 
   return result;
 }
 
-uint64_t SVGNode::findAttribute(uint64_t a1, unsigned int a2)
+uint64_t SVGNode::findAttribute(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   do
   {
-    result = SVGAttributeMap::attribute(*(a1 + 56), a2);
+    result = SVGAttributeMap::attribute(*(a1 + 56), v2);
     if (result)
     {
       break;
@@ -3585,7 +3452,7 @@ void *SVGAtom::toString(uint64_t a1, unsigned int a2)
           __p = v17;
         }
 
-        std::__tree<std::__value_type<SVGAtom::Name,std::string>,std::__map_value_compare<SVGAtom::Name,std::__value_type<SVGAtom::Name,std::string>,std::less<SVGAtom::Name>,true>,std::allocator<std::__value_type<SVGAtom::Name,std::string>>>::__emplace_unique_key_args<SVGAtom::Name,std::pair<SVGAtom::Name,std::string>>(a1 + 24, &v15);
+        std::__tree<std::__value_type<SVGAtom::Name,std::string>,std::__map_value_compare<SVGAtom::Name,std::__value_type<SVGAtom::Name,std::string>,std::less<SVGAtom::Name>,true>,std::allocator<std::__value_type<SVGAtom::Name,std::string>>>::__emplace_unique_key_args<SVGAtom::Name,std::pair<SVGAtom::Name,std::string>>((a1 + 24), &v15, &v15);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -3750,7 +3617,7 @@ void sub_1DF118614(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-SVGStyle *std::unique_ptr<SVGStyle>::reset[abi:ne200100](SVGStyle **a1, SVGStyle *a2)
+char **std::unique_ptr<SVGStyle>::reset[abi:ne200100](char ***a1, char **a2)
 {
   result = *a1;
   *a1 = a2;
@@ -3774,7 +3641,7 @@ void SVGStyle::SVGStyle(SVGStyle *this)
 
 void SVGStyle::addDefinitionsFromCSS(SVGStyle *this, SVGParser *a2)
 {
-  SVGParser::ParseRulesetList(a2, v9);
+  SVGParser::ParseRulesetList(v9, a2);
   if (v9[0] != v9[1])
   {
     if (*(v9[0] + 23) < 0)
@@ -3799,7 +3666,7 @@ void SVGStyle::addDefinitionsFromCSS(SVGStyle *this, SVGParser *a2)
       v6 = v8;
     }
 
-    SVGParser::ParseSelectorListFromRuleset(&v6, &v7);
+    SVGParser::ParseSelectorListFromRuleset(&v7, &v6);
     if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v6.__r_.__value_.__l.__data_);
@@ -3815,7 +3682,7 @@ void SVGStyle::addDefinitionsFromCSS(SVGStyle *this, SVGParser *a2)
       v4 = v8;
     }
 
-    SVGParser::ParseDeclarationBlockFromRuleset(&v4, 0, &v5);
+    SVGParser::ParseDeclarationBlockFromRuleset(&v5, &v4, 0);
     if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v4.__r_.__value_.__l.__data_);
@@ -3835,121 +3702,121 @@ void sub_1DF118AC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void SVGParser::ParseRulesetList(SVGParser *this@<X0>, void *a2@<X8>)
+void SVGParser::ParseRulesetList(uint64_t *__return_ptr a1@<X8>, SVGParser *this@<X0>)
 {
-  v3 = this;
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v5 = strlen(this);
-  if (v5 >= 1)
+  v2 = this;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v4 = strlen(this);
+  if (v4 >= 1)
   {
-    v6 = (v3 + v5);
-    v7 = (v3 + v5);
-    v8 = v3 + v5 - 1;
-    v9 = MEMORY[0x1E69E9830];
+    v5 = (v2 + v4);
+    v6 = (v2 + v4);
+    v7 = v2 + v4 - 1;
+    v8 = MEMORY[0x1E69E9830];
     do
     {
-      v10 = v3;
+      v9 = v2;
       do
       {
-        v11 = *v10;
-        if ((v11 & 0x80000000) != 0)
+        v10 = *v9;
+        if ((v10 & 0x80000000) != 0)
         {
-          v12 = __maskrune(v11, 0x4000uLL);
+          v11 = __maskrune(v10, 0x4000uLL);
         }
 
         else
         {
-          v12 = *(v9 + 4 * v11 + 60) & 0x4000;
+          v11 = *(v8 + 4 * v10 + 60) & 0x4000;
         }
 
-        if (!v12)
+        if (!v11)
         {
           break;
         }
 
-        v10 = (v10 + 1);
+        v9 = (v9 + 1);
       }
 
-      while (v10 < v6);
-      if (v10 < v6)
+      while (v9 < v5);
+      if (v9 < v5)
       {
-        v13 = v7 - v10;
-        while (*v10 != 123)
+        v12 = v6 - v9;
+        while (*v9 != 123)
         {
-          v10 = (v10 + 1);
-          if (!--v13)
+          v9 = (v9 + 1);
+          if (!--v12)
           {
-            v10 = v7;
+            v9 = v6;
             break;
           }
         }
       }
 
-      if (v10 >= v6)
+      if (v9 >= v5)
       {
-        v14 = 0;
+        v13 = 0;
       }
 
-      else if (*v10 == 125)
+      else if (*v9 == 125)
       {
-        v14 = 1;
+        v13 = 1;
       }
 
       else
       {
-        v15 = v7;
-        v16 = (v10 + 1);
-        v17 = v8 - v10;
+        v14 = v6;
+        v15 = (v9 + 1);
+        v16 = v7 - v9;
         while (1)
         {
-          v18 = v16;
-          if (!v17)
+          v17 = v15;
+          if (!v16)
           {
             break;
           }
 
-          v16 = (v16 + 1);
-          --v17;
-          if (*v18 == 125)
+          v15 = (v15 + 1);
+          --v16;
+          if (*v17 == 125)
           {
-            v15 = v18;
+            v14 = v17;
             break;
           }
         }
 
-        v14 = v18 < v6;
-        v10 = v15;
+        v13 = v17 < v5;
+        v9 = v14;
       }
 
-      v19 = (v10 + v14);
-      std::string::basic_string[abi:ne200100](&__p, v3, v19 - v3);
+      v18 = (v9 + v13);
+      std::string::basic_string[abi:ne200100](&__p, v2, v18 - v2);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v22, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v21, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v22 = __p;
+        v21 = __p;
       }
 
-      SVGParser::StripLeadingTrailingWhitespace(&v22, &v23);
+      SVGParser::StripLeadingTrailingWhitespace(&v22, &v21);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      __p = v23;
-      *(&v23.__r_.__value_.__s + 23) = 0;
-      v23.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+      __p = v22;
+      *(&v22.__r_.__value_.__s + 23) = 0;
+      v22.__r_.__value_.__s.__data_[0] = 0;
+      if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v22.__r_.__value_.__l.__data_);
+        operator delete(v21.__r_.__value_.__l.__data_);
       }
 
-      v20 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      v19 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         if (!__p.__r_.__value_.__l.__size_)
@@ -3982,20 +3849,20 @@ LABEL_37:
         }
       }
 
-      std::vector<std::string>::push_back[abi:ne200100](a2, &__p);
-      v20 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      std::vector<std::string>::push_back[abi:ne200100](a1, &__p);
+      v19 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
 LABEL_39:
-      if (v20 < 0)
+      if (v19 < 0)
       {
 LABEL_40:
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
 LABEL_41:
-      v3 = v19;
+      v2 = v18;
     }
 
-    while (v19 < v6);
+    while (v18 < v5);
   }
 }
 
@@ -4010,95 +3877,95 @@ void sub_1DF118DF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void SVGParser::ParseDeclarationBlockIntoAttributeMap(__int128 **a1)
+void SVGParser::ParseDeclarationBlockIntoAttributeMap(__int128 **a1, uint64_t a2)
 {
-  v1 = *a1;
-  v2 = a1[1];
-  if (*a1 == v2)
+  v2 = *a1;
+  v3 = a1[1];
+  if (*a1 == v3)
   {
     return;
   }
 
-  v3 = MEMORY[0x1E69E9830];
+  v4 = MEMORY[0x1E69E9830];
   while (1)
   {
-    if (*(v1 + 23) < 0)
+    if (*(v2 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v23, *v1, *(v1 + 1));
+      std::string::__init_copy_ctor_external(&v24, *v2, *(v2 + 1));
     }
 
     else
     {
-      v4 = *v1;
-      v23.__r_.__value_.__r.__words[2] = *(v1 + 2);
-      *&v23.__r_.__value_.__l.__data_ = v4;
+      v5 = *v2;
+      v24.__r_.__value_.__r.__words[2] = *(v2 + 2);
+      *&v24.__r_.__value_.__l.__data_ = v5;
     }
 
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      v5 = v23.__r_.__value_.__r.__words[0];
-      v6 = strlen(v23.__r_.__value_.__l.__data_);
-      if (!v6)
+      v6 = v24.__r_.__value_.__r.__words[0];
+      v7 = strlen(v24.__r_.__value_.__l.__data_);
+      if (!v7)
       {
-        v17 = v23.__r_.__value_.__r.__words[0];
+        v18 = v24.__r_.__value_.__r.__words[0];
         goto LABEL_54;
       }
     }
 
     else
     {
-      v5 = &v23;
-      v6 = strlen(&v23);
-      if (!v6)
+      v6 = &v24;
+      v7 = strlen(&v24);
+      if (!v7)
       {
         return;
       }
     }
 
-    v7 = v6;
-    v8 = (v5 + v6);
-    v9 = v5;
-    if (v6 >= 1)
+    v8 = v7;
+    v9 = (v6 + v7);
+    v10 = v6;
+    if (v7 >= 1)
     {
       do
       {
-        v10 = v9->__r_.__value_.__s.__data_[0];
-        if ((v10 & 0x80000000) != 0)
+        v11 = v10->__r_.__value_.__s.__data_[0];
+        if ((v11 & 0x80000000) != 0)
         {
-          v11 = __maskrune(v10, 0x4000uLL);
+          v12 = __maskrune(v11, 0x4000uLL);
         }
 
         else
         {
-          v11 = *(v3 + 4 * v10 + 60) & 0x4000;
+          v12 = *(v4 + 4 * v11 + 60) & 0x4000;
         }
 
-        if (v11)
+        if (v12)
         {
           break;
         }
 
-        if (v9->__r_.__value_.__s.__data_[0] == 58)
+        if (v10->__r_.__value_.__s.__data_[0] == 58)
         {
           break;
         }
 
-        v9 = (v9 + 1);
+        v10 = (v10 + 1);
       }
 
-      while (v9 < v8);
+      while (v10 < v9);
     }
 
-    std::string::basic_string[abi:ne200100](__dst, v5, v9 - v5);
-    if (v9 < v8)
+    std::string::basic_string[abi:ne200100](__dst, v6, v10 - v6);
+    if (v10 < v9)
     {
-      v12 = v5 + v7 - v9;
-      while (v9->__r_.__value_.__s.__data_[0] != 58)
+      v13 = v6 + v8 - v10;
+      while (v10->__r_.__value_.__s.__data_[0] != 58)
       {
-        v9 = (v9 + 1);
-        if (!--v12)
+        v10 = (v10 + 1);
+        if (!--v13)
         {
-          v9 = (v5 + v7);
+          v10 = (v6 + v8);
           goto LABEL_22;
         }
       }
@@ -4107,49 +3974,49 @@ void SVGParser::ParseDeclarationBlockIntoAttributeMap(__int128 **a1)
     }
 
 LABEL_22:
-    if (!v9->__r_.__value_.__s.__data_[0])
+    if (!v10->__r_.__value_.__s.__data_[0])
     {
       break;
     }
 
 LABEL_23:
-    std::string::basic_string[abi:ne200100](&__p, &v9->__r_.__value_.__l.__data_ + 1, v8 + ~v9);
+    std::string::basic_string[abi:ne200100](&__p, &v10->__r_.__value_.__l.__data_ + 1, v9 + ~v10);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v18, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v19, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v18 = __p;
+      v19 = __p;
     }
 
-    SVGParser::StripLeadingTrailingWhitespace(&v18, &v19);
+    SVGParser::StripLeadingTrailingWhitespace(&v20, &v19);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    __p = v19;
-    *(&v19.__r_.__value_.__s + 23) = 0;
-    v19.__r_.__value_.__s.__data_[0] = 0;
-    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+    __p = v20;
+    *(&v20.__r_.__value_.__s + 23) = 0;
+    v20.__r_.__value_.__s.__data_[0] = 0;
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v18.__r_.__value_.__l.__data_);
+      operator delete(v19.__r_.__value_.__l.__data_);
     }
 
-    if ((v22 & 0x80u) == 0)
+    if ((v23 & 0x80u) == 0)
     {
-      v14 = v22;
+      v15 = v23;
     }
 
     else
     {
-      v14 = __dst[1];
+      v15 = __dst[1];
     }
 
     size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-    if (v14)
+    if (v15)
     {
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
@@ -4158,17 +4025,17 @@ LABEL_23:
 
       if (size)
       {
-        if ((v22 & 0x80u) == 0)
+        if ((v23 & 0x80u) == 0)
         {
-          v16 = __dst;
+          v17 = __dst;
         }
 
         else
         {
-          v16 = __dst[0];
+          v17 = __dst[0];
         }
 
-        SVGAtom::ToName(v16, v13);
+        SVGAtom::ToName(v17, v14);
         operator new();
       }
     }
@@ -4178,33 +4045,33 @@ LABEL_23:
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v22 < 0)
+    if (v23 < 0)
     {
       operator delete(__dst[0]);
     }
 
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v23.__r_.__value_.__l.__data_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
 
-    v1 = (v1 + 24);
-    if (v1 == v2)
+    v2 = (v2 + 24);
+    if (v2 == v3)
     {
       return;
     }
   }
 
-  if (v22 < 0)
+  if (v23 < 0)
   {
     operator delete(__dst[0]);
   }
 
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
   {
-    v17 = v23.__r_.__value_.__r.__words[0];
+    v18 = v24.__r_.__value_.__r.__words[0];
 LABEL_54:
-    operator delete(v17);
+    operator delete(v18);
   }
 }
 
@@ -4228,7 +4095,7 @@ void sub_1DF119114(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL ___ZN8SVGStyle21addDefinitionsFromCSSEPKc_block_invoke_2(uint64_t a1, unsigned int a2)
+BOOL ___ZN8SVGStyle21addDefinitionsFromCSSEPKc_block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
   v3 = SVGAtom::ToString(a2);
@@ -4241,24 +4108,11 @@ BOOL ___ZN8SVGStyle21addDefinitionsFromCSSEPKc_block_invoke_2(uint64_t a1, unsig
   return result;
 }
 
-void SVGNode::SVGNode(void *a1)
+void SVGNode::SVGNode(void *a1, uint64_t a2)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, SVGNode::kSVGNodeClassName);
   CFRetained::CFRetained(a1, __p);
-  if (v3 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  *a1 = &unk_1F5A443F8;
-  a1[6] = 0;
-  operator new();
-}
-
-{
-  std::string::basic_string[abi:ne200100]<0>(__p, SVGNode::kSVGNodeClassName);
-  CFRetained::CFRetained(a1, __p);
-  if (v3 < 0)
+  if (v4 < 0)
   {
     operator delete(__p[0]);
   }
@@ -4280,8 +4134,9 @@ void sub_1DF119330(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-BOOL SVGAtom::IsKnown(unsigned int a1)
+BOOL SVGAtom::IsKnown(uint64_t a1)
 {
+  v1 = a1;
   if (SVGAtom::SharedInstance(void)::onceToken != -1)
   {
     SVGAtom::HasAtom();
@@ -4289,7 +4144,7 @@ BOOL SVGAtom::IsKnown(unsigned int a1)
 
   v2 = SVGAtom::SharedInstance(void)::instance;
 
-  return SVGAtom::isKnown(v2, a1);
+  return SVGAtom::isKnown(v2, v1);
 }
 
 void SVGReader::resolveUseDefinition(SVGNode **this, SVGNode *a2)
@@ -4447,64 +4302,64 @@ void sub_1DF119954(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void SVGParser::ParseClassPropertyValue(SVGParser *this@<X0>, void *a2@<X8>)
 {
-  v3 = this;
+  v2 = this;
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  v5 = strlen(this);
-  if (v5 >= 1)
+  v4 = strlen(this);
+  if (v4 >= 1)
   {
-    v6 = v3 + v5;
-    v7 = (v3 + v5);
-    v8 = MEMORY[0x1E69E9830];
+    v5 = v2 + v4;
+    v6 = (v2 + v4);
+    v7 = MEMORY[0x1E69E9830];
     do
     {
       do
       {
-        v9 = *v3;
-        if ((v9 & 0x80000000) != 0)
+        v8 = *v2;
+        if ((v8 & 0x80000000) != 0)
         {
-          v10 = __maskrune(v9, 0x4000uLL);
+          v9 = __maskrune(v8, 0x4000uLL);
         }
 
         else
         {
-          v10 = *(v8 + 4 * v9 + 60) & 0x4000;
+          v9 = *(v7 + 4 * v8 + 60) & 0x4000;
         }
 
-        if (!v10)
+        if (!v9)
         {
           break;
         }
 
-        v3 = (v3 + 1);
+        v2 = (v2 + 1);
       }
 
-      while (v3 < v6);
-      v11 = v3;
-      if (v3 < v6)
+      while (v2 < v5);
+      v10 = v2;
+      if (v2 < v5)
       {
-        v12 = v7 - v3;
-        v11 = v3;
+        v11 = v6 - v2;
+        v10 = v2;
         while (1)
         {
-          v13 = *v11;
-          v14 = (v13 & 0x80000000) != 0 ? __maskrune(v13, 0x4000uLL) : *(v8 + 4 * v13 + 60) & 0x4000;
-          if (v14 || *v11 == 44)
+          v12 = *v10;
+          v13 = (v12 & 0x80000000) != 0 ? __maskrune(v12, 0x4000uLL) : *(v7 + 4 * v12 + 60) & 0x4000;
+          if (v13 || *v10 == 44)
           {
             break;
           }
 
-          v11 = (v11 + 1);
-          if (!--v12)
+          v10 = (v10 + 1);
+          if (!--v11)
           {
-            v11 = v7;
+            v10 = v6;
             break;
           }
         }
       }
 
-      std::string::basic_string[abi:ne200100](&__dst, v3, v11 - v3);
+      std::string::basic_string[abi:ne200100](&__dst, v2, v10 - v2);
       std::string::insert(&__dst, 0, ".");
       std::vector<std::string>::push_back[abi:ne200100](a2, &__dst);
       if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
@@ -4512,14 +4367,14 @@ void SVGParser::ParseClassPropertyValue(SVGParser *this@<X0>, void *a2@<X8>)
         operator delete(__dst.__r_.__value_.__l.__data_);
       }
 
-      v3 = (v11 + 1);
+      v2 = (v10 + 1);
     }
 
-    while (v11 + 1 < v6);
+    while (v10 + 1 < v5);
   }
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string[abi:ne200100](void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -4531,13 +4386,13 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
@@ -4704,8 +4559,9 @@ void sub_1DF119D8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SVGReader::ResolveAttributeDefinition(uint64_t a1, uint64_t a2, signed int a3)
+void SVGReader::ResolveAttributeDefinition(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = SVGAttributeMap::attribute(*(a2 + 56), a3);
   if (v6)
   {
@@ -4763,9 +4619,9 @@ void SVGReader::ResolveAttributeDefinition(uint64_t a1, uint64_t a2, signed int 
           goto LABEL_34;
         }
 
-        if (a3 <= 56)
+        if (v3 <= 56)
         {
-          if (a3 == 6)
+          if (v3 == 6)
           {
             {
               operator new();
@@ -4774,7 +4630,7 @@ void SVGReader::ResolveAttributeDefinition(uint64_t a1, uint64_t a2, signed int 
             goto LABEL_34;
           }
 
-          if (a3 != 18)
+          if (v3 != 18)
           {
             goto LABEL_34;
           }
@@ -4782,7 +4638,7 @@ void SVGReader::ResolveAttributeDefinition(uint64_t a1, uint64_t a2, signed int 
 
         else
         {
-          if (a3 == 84)
+          if (v3 == 84)
           {
             {
               operator new();
@@ -4791,7 +4647,7 @@ void SVGReader::ResolveAttributeDefinition(uint64_t a1, uint64_t a2, signed int 
             goto LABEL_34;
           }
 
-          if (a3 == 74)
+          if (v3 == 74)
           {
             {
               operator new();
@@ -4800,7 +4656,7 @@ void SVGReader::ResolveAttributeDefinition(uint64_t a1, uint64_t a2, signed int 
             goto LABEL_34;
           }
 
-          if (a3 != 57)
+          if (v3 != 57)
           {
             goto LABEL_34;
           }
@@ -4826,9 +4682,9 @@ LABEL_34:
   }
 }
 
-void sub_1DF11A160(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+void sub_1DF11A160(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
 {
-  MEMORY[0x1E12CE5D0](v19, 0x10B3C405B4D0908);
+  MEMORY[0x1E12CE5D0](v19, 0x10B3C405B4D0908, a3, a4, a5, a6, a7, a8);
   if (a19 < 0)
   {
     operator delete(__p);
@@ -4885,7 +4741,7 @@ uint64_t SVGAttribute::stringValue(SVGAttribute *this)
         return this + 56;
     }
 
-    SVGMask::createStringRepresentation(v4, &__p);
+    SVGMask::createStringRepresentation(&__p, v4);
     goto LABEL_27;
   }
 
@@ -4915,7 +4771,7 @@ uint64_t SVGAttribute::stringValue(SVGAttribute *this)
         return this + 56;
       }
 
-      SVGPath::createStringRepresentation(v3, &__p);
+      SVGPath::createStringRepresentation(&__p, v3);
     }
 
 LABEL_27:
@@ -4995,7 +4851,7 @@ LABEL_42:
     v14 = *(this + 56);
   }
 
-  SVGParser::StripLeadingTrailingWhitespace(&v14, &__p);
+  SVGParser::StripLeadingTrailingWhitespace(&__p, &v14);
   if (*(this + 79) < 0)
   {
     operator delete(*(this + 7));
@@ -5077,7 +4933,7 @@ uint64_t std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_val
   return v6;
 }
 
-void SVGNode::updatedAttribute(SVGNode *this, SVGAttribute *a2)
+void SVGNode::updatedAttribute(char *this, SVGAttribute *a2)
 {
   if (*(a2 + 12) == 31)
   {
@@ -5183,7 +5039,7 @@ void std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_c
   }
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5273,50 +5129,51 @@ BOOL SVGDocument::read(SVGDocument *this, const __CFData *a2, SVGReaderOptions *
   if (!v6)
   {
 LABEL_7:
-    SVGReader::SVGReader(v17, a2, a3);
-    v8 = v18;
-    *(this + 6) = v18;
+    SVGReader::SVGReader(v18, a2, a3);
+    v8 = v19;
+    *(this + 6) = v19;
     CFRetained::retain(v8);
-    if (v19)
+    v9 = v20;
+    if (v20)
     {
-      std::map<std::string,SVGAttributeMap *,CaseInsensitiveStringLess,std::allocator<std::pair<std::string const,SVGAttributeMap *>>>::map[abi:ne200100](&v15, v19);
-      v9 = v15;
-      if (v15 != v16)
+      std::map<std::string,SVGAttributeMap *,CaseInsensitiveStringLess,std::allocator<std::pair<std::string const,SVGAttributeMap *>>>::map[abi:ne200100](&v16, v20);
+      v10 = v16;
+      if (v16 != v17)
       {
         do
         {
-          SVGDocument::addNamedStyle(this, (v9 + 4), v9[7]);
-          v10 = v9[1];
-          if (v10)
+          SVGDocument::addNamedStyle(this, (v10 + 4), v10[7]);
+          v11 = v10[1];
+          if (v11)
           {
             do
             {
-              v11 = v10;
-              v10 = *v10;
+              v12 = v11;
+              v11 = *v11;
             }
 
-            while (v10);
+            while (v11);
           }
 
           else
           {
             do
             {
-              v11 = v9[2];
-              v12 = *v11 == v9;
-              v9 = v11;
+              v12 = v10[2];
+              v13 = *v12 == v10;
+              v10 = v12;
             }
 
-            while (!v12);
+            while (!v13);
           }
 
-          v9 = v11;
+          v10 = v12;
         }
 
-        while (v11 != v16);
+        while (v12 != v17);
       }
 
-      std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAtom::Name>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAtom::Name>>>::destroy(&v15, v16[0]);
+      std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAtom::Name>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAtom::Name>>>::destroy(&v16, v17[0]);
     }
 
     if (a3)
@@ -5327,16 +5184,16 @@ LABEL_7:
         goto LABEL_22;
       }
 
-      v13 = *(a3 + 9);
-      if (v13 != 3)
+      v14 = *(a3 + 9);
+      if (v14 != 3)
       {
-        *(this + 18) = v13;
+        *(this + 18) = v14;
       }
     }
 
     v7 = *(this + 6) != 0;
 LABEL_22:
-    SVGReader::~SVGReader(v17);
+    SVGReader::~SVGReader(v18, v9);
     return v7;
   }
 
@@ -5350,11 +5207,31 @@ LABEL_22:
   return 0;
 }
 
-void sub_1DF11AC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1DF11AC40(_Unwind_Exception *a1, CFRetained *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  SVGReader::~SVGReader(va);
+  va_start(va, a9);
+  SVGReader::~SVGReader(va, a2);
   _Unwind_Resume(a1);
+}
+
+void SVGAttribute::SVGAttribute(uint64_t a1, int a2, uint64_t a3)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, SVGAttribute::kSVGAttributeClassName);
+  CFRetained::CFRetained(a1, __p);
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  *a1 = &unk_1F5A43F60;
+  *(a1 + 56) = 0;
+  *(a1 + 64) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 96) = 0;
+  *(a1 + 104) = 0;
+  *(a1 + 48) = a2;
+  *(a1 + 80) = 1;
+  operator new();
 }
 
 void sub_1DF11AD48(_Unwind_Exception *a1)
@@ -5384,7 +5261,7 @@ uint64_t SVGViewBoxNode::updatedAttributes(uint64_t a1, uint64_t a2)
   return SVGAttributeMap::enumerate(a2, v3);
 }
 
-void ___ZN14SVGViewBoxNode17updatedAttributesEP15SVGAttributeMap_block_invoke(uint64_t a1, signed int a2, SVGAttribute *a3)
+void ___ZN14SVGViewBoxNode17updatedAttributesEP15SVGAttributeMap_block_invoke(uint64_t a1, uint64_t a2, SVGAttribute *a3)
 {
   v5 = *(a1 + 32);
   if (((*(*v5 + 64))(v5) & 1) == 0)
@@ -5443,33 +5320,33 @@ LABEL_18:
   }
 }
 
-const __CFDictionary *CreateReadOptions@<X0>(const __CFDictionary *result@<X0>, uint64_t a2@<X8>)
+const __CFDictionary *CreateReadOptions@<X0>(SVGAttributeMap **__return_ptr a1@<X8>, const __CFDictionary *result@<X0>)
 {
   if (result)
   {
     result = CFDictionaryGetCount(result);
     if (result)
     {
-      *a2 = 0u;
-      *(a2 + 16) = 0u;
-      *(a2 + 28) = 1;
-      *(a2 + 32) = 0;
-      *(a2 + 36) = 0;
-      *(a2 + 40) = 1;
+      *a1 = 0u;
+      *(a1 + 1) = 0u;
+      *(a1 + 28) = 1;
+      *(a1 + 8) = 0;
+      *(a1 + 9) = 0;
+      *(a1 + 40) = 1;
       operator new();
     }
   }
 
-  *a2 = 0;
-  *(a2 + 40) = 0;
+  *a1 = 0;
+  *(a1 + 40) = 0;
   return result;
 }
 
-void sub_1DF11B178(_Unwind_Exception *exception_object)
+void sub_1DF11B178(_Unwind_Exception *exception_object, CFRetained *a2)
 {
-  if (*(v1 + 40) == 1)
+  if (*(v2 + 40) == 1)
   {
-    SVGReaderOptions::~SVGReaderOptions(v1);
+    SVGReaderOptions::~SVGReaderOptions(v2, a2);
   }
 
   _Unwind_Resume(exception_object);
@@ -5621,14 +5498,14 @@ uint64_t SVGAttribute::rectValue(os_unfair_lock_s *this, CGRect *a2)
   return v6;
 }
 
-void sub_1DF11B410(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DF11B410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SVGScopedUnfairLock::~SVGScopedUnfairLock(va);
   _Unwind_Resume(a1);
 }
 
-BOOL SVGParser::ParseCGFloatList(char *a1, void *a2, uint64_t a3)
+BOOL SVGParser::ParseCGFloatList(char *a1, void *a2, const void **a3)
 {
   v3 = 0;
   if (!a1 || !a3)
@@ -5691,7 +5568,7 @@ LABEL_9:
     *a2 = v12;
   }
 
-  return *(a3 + 8) != *a3;
+  return a3[1] != *a3;
 }
 
 uint64_t SVGParser::ParseCGFloat(char *a1, double *a2, char **a3, _DWORD *a4)
@@ -5774,7 +5651,7 @@ uint64_t SVGParser::ParseCGFloat(char *a1, double *a2, char **a3, _DWORD *a4)
   return result;
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5823,26 +5700,26 @@ void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
 }
 
-void SVGRootNode::~SVGRootNode(SVGRootNode *this)
+void SVGRootNode::~SVGRootNode(SVGRootNode *this, CFRetained *a2)
 {
   *this = &unk_1F5A444B8;
-  v2 = *(this + 35);
-  if (v2)
+  v3 = *(this + 35);
+  if (v3)
   {
-    CFRelease(v2);
+    CFRelease(v3);
   }
 
-  SVGMask::~SVGMask(this);
+  SVGMask::~SVGMask(this, a2);
 }
 
 {
-  SVGRootNode::~SVGRootNode(this);
+  SVGRootNode::~SVGRootNode(this, a2);
 
   JUMPOUT(0x1E12CE5D0);
 }
@@ -5872,8 +5749,8 @@ void SVGReader::parseXMLNodeXmlNS(SVGReader *this, _xmlNode *a2, SVGAttributeMap
     nsDef = a2->nsDef;
     if (nsDef)
     {
-      std::string::basic_string[abi:ne200100]<0>(&__p, nsDef->href);
-      SVGAttributeMap::setAttribute();
+      std::string::basic_string[abi:ne200100]<0>(__p, nsDef->href);
+      SVGAttributeMap::setAttribute(a3, 105, __p);
     }
   }
 }
@@ -6533,14 +6410,14 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
@@ -6568,7 +6445,7 @@ LABEL_8:
     v17 = *v7;
     if (*v7 && *(v17 + 24) != 1)
     {
-      v18 = v7[1];
+      v18 = *(v7 + 8);
       if (!v18)
       {
         goto LABEL_55;
@@ -6580,18 +6457,18 @@ LABEL_54:
 LABEL_55:
         *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v26 = v17[1];
+        v26 = *(v17 + 8);
         *v7 = v26;
         if (v26)
         {
           *(v26 + 16) = v7;
         }
 
-        v27 = v7[2];
-        v17[2] = v27;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
         v27[*v27 != v7] = v17;
-        v17[1] = v7;
-        v7[2] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
         v18 = v7;
       }
 
@@ -6600,7 +6477,7 @@ LABEL_55:
         v17 = v7;
       }
 
-      v28 = v17[2];
+      v28 = *(v17 + 16);
       *(v17 + 24) = *(v28 + 24);
       *(v28 + 24) = 1;
       *(v18 + 24) = 1;
@@ -6619,14 +6496,14 @@ LABEL_55:
       goto LABEL_72;
     }
 
-    v18 = v7[1];
+    v18 = *(v7 + 8);
     if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
@@ -6636,11 +6513,11 @@ LABEL_49:
     v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v20 = v13[1];
+    v20 = *(v13 + 8);
     *v12 = v20;
     if (v20)
     {
@@ -6648,11 +6525,11 @@ LABEL_49:
     }
 
     v21 = v12[2];
-    v13[2] = v21;
+    *(v13 + 16) = v21;
     v21[*v21 != v12] = v13;
-    v13[1] = v12;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v22 = v7[1];
+    v22 = *(v7 + 8);
     if (result == v22)
     {
       result = v7;
@@ -6667,11 +6544,11 @@ LABEL_49:
     goto LABEL_68;
   }
 
-  v24 = v7[1];
+  v24 = *(v7 + 8);
   if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
@@ -6687,24 +6564,24 @@ LABEL_52:
     goto LABEL_65;
   }
 
-  if (v23[3])
+  if (*(v23 + 24))
   {
-    v24 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
     *(v24 + 24) = 1;
     *(v7 + 24) = 0;
     v32 = *v24;
-    v7[1] = *v24;
+    *(v7 + 8) = *v24;
     if (v32)
     {
       *(v32 + 16) = v7;
     }
 
-    v33 = v7[2];
-    v24[2] = v33;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
     v33[*v33 != v7] = v24;
     *v24 = v7;
-    v7[2] = v24;
+    *(v7 + 16) = v24;
     v23 = v7;
   }
 
@@ -6714,7 +6591,7 @@ LABEL_68:
     v24 = v7;
   }
 
-  v28 = v24[2];
+  v28 = *(v24 + 16);
   *(v24 + 24) = *(v28 + 24);
   *(v28 + 24) = 1;
   *(v23 + 24) = 1;
@@ -6831,9 +6708,9 @@ uint64_t SVGShapeNode::updatedAttributes(uint64_t a1, uint64_t a2)
   return SVGAttributeMap::enumerate(a2, v3);
 }
 
-void ___ZN12SVGShapeNode17updatedAttributesEP15SVGAttributeMap_block_invoke(uint64_t a1, signed int a2, os_unfair_lock_s *this)
+void ___ZN12SVGShapeNode17updatedAttributesEP15SVGAttributeMap_block_invoke(uint64_t result, uint64_t a2, os_unfair_lock_s *this)
 {
-  v4 = *(a1 + 32);
+  v4 = *(result + 32);
   if (a2 <= 65)
   {
     if (a2 > 46)
@@ -6861,10 +6738,10 @@ void ___ZN12SVGShapeNode17updatedAttributesEP15SVGAttributeMap_block_invoke(uint
         case 9:
           v5 = v4 + 34;
           break;
-        case 10:
+        case 0xA:
           v5 = v4 + 35;
           break;
-        case 30:
+        case 0x1E:
           v5 = v4 + 31;
           break;
         default:
@@ -6935,9 +6812,9 @@ char *SVGNode::identifier(SVGNode *this)
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGNode *>>(uint64_t a1, uint64_t a2)
+uint64_t *std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGNode *>>(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  result = *std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__find_equal<std::string>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__construct_node<std::pair<std::string const,SVGNode *>>();
@@ -7062,16 +6939,16 @@ void SVGReader::resolveDefinitions(SVGNode **this, SVGNode *a2)
   }
 }
 
-void *std::map<std::string,SVGAttributeMap *,CaseInsensitiveStringLess,std::allocator<std::pair<std::string const,SVGAttributeMap *>>>::map[abi:ne200100](void *a1, uint64_t a2)
+uint64_t *std::map<std::string,SVGAttributeMap *,CaseInsensitiveStringLess,std::allocator<std::pair<std::string const,SVGAttributeMap *>>>::map[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   std::map<std::string,SVGAttributeMap *,CaseInsensitiveStringLess,std::allocator<std::pair<std::string const,SVGAttributeMap *>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,SVGAttributeMap *>,std::__tree_node<std::__value_type<std::string,SVGAttributeMap *>,void *> *,long>>>(a1, *a2, (a2 + 8));
   return a1;
 }
 
-uint64_t std::map<std::string,SVGAttributeMap *,CaseInsensitiveStringLess,std::allocator<std::pair<std::string const,SVGAttributeMap *>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,SVGAttributeMap *>,std::__tree_node<std::__value_type<std::string,SVGAttributeMap *>,void *> *,long>>>(uint64_t result, void *a2, void *a3)
+uint64_t *std::map<std::string,SVGAttributeMap *,CaseInsensitiveStringLess,std::allocator<std::pair<std::string const,SVGAttributeMap *>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,SVGAttributeMap *>,std::__tree_node<std::__value_type<std::string,SVGAttributeMap *>,void *> *,long>>>(uint64_t *result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -7079,7 +6956,7 @@ uint64_t std::map<std::string,SVGAttributeMap *,CaseInsensitiveStringLess,std::a
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,SVGAttributeMap *> const&>(v5, v5 + 1, (v4 + 4));
+      result = std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,SVGAttributeMap *> const&>(v5, (v5 + 8), (v4 + 4), (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -7113,11 +6990,11 @@ uint64_t std::map<std::string,SVGAttributeMap *,CaseInsensitiveStringLess,std::a
   return result;
 }
 
-void SVGDocument::addNamedStyle(uint64_t a1, uint64_t a2, CFTypeRef *a3)
+void SVGDocument::addNamedStyle(uint64_t result, uint64_t a2, CFTypeRef *a3)
 {
   if (a3)
   {
-    v3 = *(a1 + 64);
+    v3 = *(result + 64);
     if (!v3)
     {
       operator new();
@@ -7149,7 +7026,7 @@ void SVGStyle::addNamedStyle(uint64_t **a1, uint64_t a2, CFTypeRef *a3)
   }
 
   v9 = a3;
-  std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGAttributeMap *>>(a1, &__p);
+  std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGAttributeMap *>>(a1, &__p, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -7166,9 +7043,9 @@ void sub_1DF11D7EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGAttributeMap *>>(uint64_t a1, uint64_t a2)
+uint64_t *std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGAttributeMap *>>(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  result = *std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__find_equal<std::string>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__construct_node<std::pair<std::string const,SVGAttributeMap *>>();
@@ -7362,12 +7239,12 @@ void SVGAttributeMap::filter(uint64_t a1, uint64_t (*a2)(void, void))
   }
 }
 
-BOOL SVGAtom::isKnown(uint64_t a1, unsigned int a2)
+BOOL SVGAtom::isKnown(os_unfair_lock_s *a1, int a2)
 {
   v5 = a2;
-  os_unfair_lock_lock((a1 + 88));
-  v3 = std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::find<SVGAtom::Name>((a1 + 48), &v5) != 0;
-  os_unfair_lock_unlock((a1 + 88));
+  os_unfair_lock_lock(a1 + 22);
+  v3 = std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to<SVGAtom::Name>,std::allocator<SVGAtom::Name>>::find<SVGAtom::Name>(&a1[12]._os_unfair_lock_opaque, &v5) != 0;
+  os_unfair_lock_unlock(a1 + 22);
   return v3;
 }
 
@@ -7438,7 +7315,7 @@ uint64_t *std::__hash_table<SVGAtom::Name,std::hash<SVGAtom::Name>,std::equal_to
   return result;
 }
 
-void SVGNode::addChild(CFTypeRef *this, CFTypeRef *a2)
+void SVGNode::addChild(uint64_t **this, CFTypeRef *a2)
 {
   v8 = a2;
   if (a2 == this)
@@ -7460,7 +7337,7 @@ void SVGNode::addChild(CFTypeRef *this, CFTypeRef *a2)
         v4 = SVGNode::identifier(v8);
         std::string::basic_string[abi:ne200100]<0>(__p, v4);
         v7 = v8;
-        std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGNode *>>((this + 17), __p);
+        std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGNode *>>(this + 17, __p, __p);
         if (v6 < 0)
         {
           operator delete(__p[0]);
@@ -7549,9 +7426,9 @@ void std::vector<SVGPathCommand *>::push_back[abi:ne200100](uint64_t a1, void *a
   *(a1 + 8) = v6;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,SVGAttributeMap *> const&>(void *a1, void *a2, uint64_t a3)
+uint64_t *std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,SVGAttributeMap *> const&>(uint64_t **a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,SVGAttributeMap *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAttributeMap *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAttributeMap *>>>::__construct_node<std::pair<std::string const,SVGAttributeMap *> const&>();
@@ -7697,30 +7574,30 @@ void SVGReader::~SVGReader(SVGReader *this, CFRetained *a2)
 
 void SVGStyle::~SVGStyle(char **this)
 {
-  v2 = (this + 1);
+  v2 = this + 1;
   v3 = *this;
   if (*this != (this + 1))
   {
     do
     {
-      if (v3[55] < 0)
+      if (*(v3 + 55) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, *(v3 + 4), *(v3 + 5));
+        std::string::__init_copy_ctor_external(&__p, v3[4], v3[5]);
       }
 
       else
       {
-        __p = *(v3 + 32);
+        __p = *(v3 + 4);
       }
 
-      v8 = *(v3 + 7);
+      v8 = v3[7];
       CFRetained::release(v8);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      v4 = *(v3 + 1);
+      v4 = v3[1];
       if (v4)
       {
         do
@@ -7736,7 +7613,7 @@ void SVGStyle::~SVGStyle(char **this)
       {
         do
         {
-          v5 = *(v3 + 2);
+          v5 = v3[2];
           v6 = *v5 == v3;
           v3 = v5;
         }
@@ -7753,7 +7630,7 @@ void SVGStyle::~SVGStyle(char **this)
   std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAtom::Name>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAtom::Name>>>::destroy(this, this[1]);
 }
 
-std::string *SVGParser::StripLeadingTrailingWhitespace@<X0>(std::string *this@<X0>, std::string *a2@<X8>)
+std::string *SVGParser::StripLeadingTrailingWhitespace@<X0>(std::string *__return_ptr a1@<X8>, std::string *this@<X0>)
 {
   v2 = this;
   size = SHIBYTE(this->__r_.__value_.__r.__words[2]);
@@ -7765,7 +7642,7 @@ std::string *SVGParser::StripLeadingTrailingWhitespace@<X0>(std::string *this@<X
     }
 
 LABEL_15:
-    *a2 = *this;
+    *a1 = *this;
     *&this->__r_.__value_.__r.__words[1] = 0uLL;
     this->__r_.__value_.__r.__words[0] = 0;
     return this;
@@ -7824,13 +7701,13 @@ LABEL_10:
     }
 
     while (v11);
-    return std::string::basic_string(a2, v2, v5, v9, &v12);
+    return std::string::basic_string(a1, v2, v5, v9, &v12);
   }
 
   else
   {
 
-    return std::string::basic_string[abi:ne200100]<0>(a2, &unk_1DF145996);
+    return std::string::basic_string[abi:ne200100]<0>(a1, &unk_1DF145996);
   }
 }
 
@@ -7852,12 +7729,12 @@ void std::vector<std::string>::__construct_one_at_end[abi:ne200100]<std::string 
   *(a1 + 8) = v3 + 24;
 }
 
-void SVGParser::ParseSelectorListFromRuleset(char *__s@<X0>, void *a2@<X8>)
+void SVGParser::ParseSelectorListFromRuleset(uint64_t *__return_ptr a1@<X8>, char *__s@<X0>)
 {
   v2 = __s;
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (__s[23] < 0)
   {
     v2 = *__s;
@@ -7913,7 +7790,7 @@ void SVGParser::ParseSelectorListFromRuleset(char *__s@<X0>, void *a2@<X8>)
 
       while (v8);
       std::string::basic_string[abi:ne200100](__p, v2, v9 - v2);
-      std::vector<std::string>::push_back[abi:ne200100](a2, __p);
+      std::vector<std::string>::push_back[abi:ne200100](a1, __p);
       if (v9 < v5)
       {
         v13 = v6 - v9;
@@ -7975,12 +7852,12 @@ void sub_1DF11E5D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void SVGParser::ParseDeclarationBlockFromRuleset(char *__s@<X0>, char a2@<W1>, void *a3@<X8>)
+void SVGParser::ParseDeclarationBlockFromRuleset(uint64_t *__return_ptr a1@<X8>, char *__s@<X0>, char a3@<W1>)
 {
   v4 = __s;
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (__s[23] < 0)
   {
     v4 = *__s;
@@ -7990,7 +7867,7 @@ void SVGParser::ParseDeclarationBlockFromRuleset(char *__s@<X0>, char a2@<W1>, v
   if (v6)
   {
     v7 = &v4[v6];
-    if ((a2 & 1) == 0)
+    if ((a3 & 1) == 0)
     {
       v8 = v4;
       if (v6 >= 1)
@@ -8099,7 +7976,7 @@ LABEL_14:
         }
 
         std::string::basic_string[abi:ne200100](__p, v4, v20);
-        std::vector<std::string>::push_back[abi:ne200100](a3, __p);
+        std::vector<std::string>::push_back[abi:ne200100](a1, __p);
         v23 = v16 + 1;
         do
         {
@@ -8126,7 +8003,7 @@ LABEL_14:
   }
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8143,7 +8020,7 @@ void sub_1DF11E8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8260,7 +8137,7 @@ LABEL_10:
 LABEL_15:
   std::string::basic_string[abi:ne200100]<0>(&__p, a2);
   v13 = a3;
-  std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAtom::Name>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAtom::Name>>>::__emplace_unique_key_args<std::string,std::pair<std::string,SVGAtom::Name>>(a1, &__p);
+  std::__tree<std::__value_type<std::string,SVGAtom::Name>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGAtom::Name>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGAtom::Name>>>::__emplace_unique_key_args<std::string,std::pair<std::string,SVGAtom::Name>>(a1, &__p, &__p);
   if (v12 < 0)
   {
     operator delete(__p);
@@ -8268,7 +8145,7 @@ LABEL_15:
 
   LODWORD(__p) = a3;
   std::string::basic_string[abi:ne200100]<0>(&v11, a2);
-  std::__tree<std::__value_type<SVGAtom::Name,std::string>,std::__map_value_compare<SVGAtom::Name,std::__value_type<SVGAtom::Name,std::string>,std::less<SVGAtom::Name>,true>,std::allocator<std::__value_type<SVGAtom::Name,std::string>>>::__emplace_unique_key_args<SVGAtom::Name,std::pair<SVGAtom::Name,std::string>>(a1 + 24, &__p);
+  std::__tree<std::__value_type<SVGAtom::Name,std::string>,std::__map_value_compare<SVGAtom::Name,std::__value_type<SVGAtom::Name,std::string>,std::less<SVGAtom::Name>,true>,std::allocator<std::__value_type<SVGAtom::Name,std::string>>>::__emplace_unique_key_args<SVGAtom::Name,std::pair<SVGAtom::Name,std::string>>((a1 + 24), &__p, &__p);
   if (v14 < 0)
   {
     operator delete(v11);
@@ -8335,15 +8212,12 @@ BOOL SVGParser::StringBeginsWith(SVGParser *this, const char *a2, const char *a3
   return result;
 }
 
-uint64_t ___ZL33ApplyUniqueAttributesToAttributesP15SVGAttributeMapS0__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void ___ZL33ApplyUniqueAttributesToAttributesP15SVGAttributeMapS0__block_invoke(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
-  result = SVGAttributeMap::attribute(*(a1 + 32), *(a3 + 48));
-  if (!result)
+  if (!SVGAttributeMap::attribute(*(a1 + 32), a3[12]))
   {
     operator new();
   }
-
-  return result;
 }
 
 SVGNode *CGSVGNodeFindChildWithStringIdentifier(uint64_t a1, const __CFString *this)
@@ -8353,7 +8227,7 @@ SVGNode *CGSVGNodeFindChildWithStringIdentifier(uint64_t a1, const __CFString *t
     return 0;
   }
 
-  SVGUtilities::StringWithCFString(this, __p);
+  SVGUtilities::StringWithCFString(__p, this);
   if (v7 >= 0)
   {
     v3 = __p;
@@ -8383,36 +8257,36 @@ void sub_1DF11EEEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SVGUtilities::StringWithCFString(const __CFString *this@<X0>, _BYTE *a2@<X8>)
+void SVGUtilities::StringWithCFString(uint64_t *__return_ptr a1@<X8>, const __CFString *this@<X0>)
 {
-  if (!this || (v5 = CFGetTypeID(this), v5 != CFStringGetTypeID()))
+  if (!this || (v4 = CFGetTypeID(this), v4 != CFStringGetTypeID()))
   {
-    v7 = &unk_1DF145996;
+    v6 = &unk_1DF145996;
     goto LABEL_6;
   }
 
   CStringPtr = CFStringGetCStringPtr(this, 0x8000100u);
   if (CStringPtr)
   {
-    v7 = CStringPtr;
+    v6 = CStringPtr;
 LABEL_6:
 
-    std::string::basic_string[abi:ne200100]<0>(a2, v7);
+    std::string::basic_string[abi:ne200100]<0>(a1, v6);
     return;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(a2, &unk_1DF145996);
+  std::string::basic_string[abi:ne200100]<0>(a1, &unk_1DF145996);
   Length = CFStringGetLength(this);
   MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-  v10 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x100004077774924uLL);
-  if (v10)
+  v9 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x100004077774924uLL);
+  if (v9)
   {
-    if (CFStringGetCString(this, v10, MaximumSizeForEncoding + 1, 0x8000100u))
+    if (CFStringGetCString(this, v9, MaximumSizeForEncoding + 1, 0x8000100u))
     {
-      MEMORY[0x1E12CE550](a2, v10, MaximumSizeForEncoding + 1);
+      MEMORY[0x1E12CE550](a1, v9, MaximumSizeForEncoding + 1);
     }
 
-    free(v10);
+    free(v9);
   }
 }
 
@@ -8661,7 +8535,7 @@ BOOL SVGAttribute::stringValueBeginsWith(SVGAttribute *this, const char *a2, con
   return SVGParser::StringBeginsWith(v4, a2, a3);
 }
 
-const __CFString *CGSVGDocumentGetNamedStyle(uint64_t a1, const char *a2)
+const __CFString *CGSVGDocumentGetNamedStyle(uint64_t a1, const __CFString *a2)
 {
   v2 = a2;
   v3 = CFRetained::getObject<SVGDocument>(a1, a2);
@@ -8671,7 +8545,7 @@ const __CFString *CGSVGDocumentGetNamedStyle(uint64_t a1, const char *a2)
   }
 
   v4 = v3;
-  SVGUtilities::StringWithCFString(v2, __p);
+  SVGUtilities::StringWithCFString(__p, v2);
   NamedStyle = SVGDocument::findNamedStyle(v4, __p);
   v6 = NamedStyle;
   if (NamedStyle)
@@ -8726,9 +8600,9 @@ uint64_t SVGAttribute::floatValue(os_unfair_lock_s *this, double *a2)
   return v5;
 }
 
-void sub_1DF11F404(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DF11F404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SVGScopedUnfairLock::~SVGScopedUnfairLock(va);
   _Unwind_Resume(a1);
 }
@@ -8873,9 +8747,9 @@ uint64_t SVGAttribute::transformValue(os_unfair_lock_s *this, CGAffineTransform 
   return v7;
 }
 
-void sub_1DF11F660(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DF11F660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SVGScopedUnfairLock::~SVGScopedUnfairLock(va);
   _Unwind_Resume(a1);
 }
@@ -8892,7 +8766,7 @@ os_unfair_lock_s *CGSVGAttributeGetTransform(uint64_t a1, char *a2)
   return result;
 }
 
-BOOL ParseTransformPrefix(uint64_t a1, char *__s, void *a3, uint64_t a4)
+BOOL ParseTransformPrefix(uint64_t a1, char *__s, void *a3, const void **a4)
 {
   if (!a1)
   {
@@ -9354,9 +9228,9 @@ uint64_t SVGAttribute::pathValue(os_unfair_lock_s *this, SVGPath **a2)
   return v5;
 }
 
-void sub_1DF11FFD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DF11FFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SVGScopedUnfairLock::~SVGScopedUnfairLock(va);
   _Unwind_Resume(a1);
 }
@@ -9579,7 +9453,8 @@ char *std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<dou
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }

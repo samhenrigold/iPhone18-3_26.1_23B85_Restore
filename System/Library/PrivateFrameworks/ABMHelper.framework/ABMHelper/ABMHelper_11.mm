@@ -1,573 +1,8 @@
-__n128 ___ZNK3ctu20SharedSynchronizableI5TraceE20execute_wrapped_syncIZN8DALTrace11getPropertyERKNSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEERSB_E3__0EEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOSG__block_invoke(uint64_t a1)
-{
-  v27 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
-  v2 = *v1;
-  v3 = *(v1 + 8);
-  if (v3[23] < 0)
-  {
-    v4 = *v3;
-    if (strcasecmp(*v3, "Enabled"))
-    {
-      if (strcasecmp(v4, "History"))
-      {
-        if (strcasecmp(v4, "Mode"))
-        {
-          if (strcasecmp(v4, "Reset_Mode_Boot"))
-          {
-            if (strcasecmp(v4, "TraceOwnership"))
-            {
-              if (strcasecmp(v4, "State"))
-              {
-                if (strcasecmp(v4, "Log_Mode"))
-                {
-                  if (strcasecmp(v4, "Log_Level"))
-                  {
-                    if (strcasecmp(v4, "Sleep_Log_Mode"))
-                    {
-                      if (strcasecmp(v4, "Sleep_Log_Level"))
-                      {
-                        if (strcasecmp(v4, "FileSize"))
-                        {
-                          if (strcasecmp(v4, "MaxMemoryFileCount"))
-                          {
-                            if (strcasecmp(v4, "Error_Handling"))
-                            {
-                              if (strcasecmp(v4, "PeakBandwidthMbps"))
-                              {
-                                if (strcasecmp(v4, "Retain_Previous_Trace"))
-                                {
-                                  goto LABEL_17;
-                                }
-
-LABEL_37:
-                                util::to_str<BOOL>(*(v2 + 296), &buf);
-                                goto LABEL_61;
-                              }
-
-LABEL_59:
-                              util::to_str<unsigned int>(*(v2 + 320), &buf);
-                              goto LABEL_61;
-                            }
-
-LABEL_58:
-                            util::to_str<BOOL>(*(v2 + 264), &buf);
-                            goto LABEL_61;
-                          }
-
-LABEL_57:
-                          util::to_str<unsigned int>(*(v2 + 116), &buf);
-                          goto LABEL_61;
-                        }
-
-LABEL_56:
-                        util::to_str<unsigned int>(*(v2 + 112), &buf);
-                        goto LABEL_61;
-                      }
-
-LABEL_55:
-                      v21 = trace::toLogLevel(v2 + 240);
-                      util::to_str<BOOL>(v21, &buf);
-                      goto LABEL_61;
-                    }
-
-LABEL_54:
-                    util::to_str<BOOL>(*(v2 + 232), &buf);
-                    goto LABEL_61;
-                  }
-
-LABEL_53:
-                  v20 = trace::toLogLevel(v2 + 208);
-                  util::to_str<BOOL>(v20, &buf);
-                  goto LABEL_61;
-                }
-
-                goto LABEL_47;
-              }
-
-LABEL_43:
-              v25 = 14;
-              strcpy(__p, "Get dump state");
-              DALTrace::dumpState_sync(v2, __p, &buf);
-              v13 = *(v1 + 24);
-              if (*(v13 + 23) < 0)
-              {
-                operator delete(*v13);
-              }
-
-              result.n128_u64[0] = buf.__r_.__value_.__r.__words[0];
-              *v13 = buf;
-              if (v25 < 0)
-              {
-                operator delete(__p[0]);
-                v14 = *MEMORY[0x277D85DE8];
-                return result;
-              }
-
-              goto LABEL_51;
-            }
-
-            goto LABEL_42;
-          }
-
-          goto LABEL_41;
-        }
-
-        goto LABEL_40;
-      }
-
-      goto LABEL_39;
-    }
-
-LABEL_38:
-    v8 = *(v2 + 104);
-    __p[0] = 0;
-    *(__p + 7) = 0;
-    std::to_string(&buf, v8);
-LABEL_48:
-    __p[0] = buf.__r_.__value_.__l.__size_;
-    v16 = buf.__r_.__value_.__r.__words[0];
-    *(__p + 7) = *(&buf.__r_.__value_.__r.__words[1] + 7);
-    v17 = HIBYTE(buf.__r_.__value_.__r.__words[2]);
-    v18 = *(v1 + 24);
-    if (*(v18 + 23) < 0)
-    {
-      operator delete(*v18);
-    }
-
-    *v18 = v16;
-    *(v18 + 8) = __p[0];
-    *(v18 + 15) = *(__p + 7);
-    *(v18 + 23) = v17;
-    goto LABEL_51;
-  }
-
-  if (!strcasecmp(*(v1 + 8), "Enabled"))
-  {
-    goto LABEL_38;
-  }
-
-  if (!strcasecmp(v3, "History"))
-  {
-LABEL_39:
-    v9 = *(v2 + 108);
-    __p[0] = 0;
-    *(__p + 7) = 0;
-    std::to_string(&buf, v9);
-    goto LABEL_48;
-  }
-
-  if (!strcasecmp(v3, "Mode"))
-  {
-LABEL_40:
-    v10 = *(v2 + 96);
-    __p[0] = 0;
-    *(__p + 7) = 0;
-    std::to_string(&buf, v10);
-    goto LABEL_48;
-  }
-
-  if (!strcasecmp(v3, "Reset_Mode_Boot"))
-  {
-LABEL_41:
-    v11 = *(v2 + 100);
-    __p[0] = 0;
-    *(__p + 7) = 0;
-    std::to_string(&buf, v11);
-    goto LABEL_48;
-  }
-
-  if (!strcasecmp(v3, "TraceOwnership"))
-  {
-LABEL_42:
-    v12 = *(v2 + 120);
-    __p[0] = 0;
-    *(__p + 7) = 0;
-    std::to_string(&buf, v12);
-    goto LABEL_48;
-  }
-
-  if (!strcasecmp(v3, "State"))
-  {
-    goto LABEL_43;
-  }
-
-  if (!strcasecmp(v3, "Log_Mode"))
-  {
-LABEL_47:
-    v15 = *(v2 + 200);
-    __p[0] = 0;
-    *(__p + 7) = 0;
-    std::to_string(&buf, v15);
-    goto LABEL_48;
-  }
-
-  if (!strcasecmp(v3, "Log_Level"))
-  {
-    goto LABEL_53;
-  }
-
-  if (!strcasecmp(v3, "Sleep_Log_Mode"))
-  {
-    goto LABEL_54;
-  }
-
-  if (!strcasecmp(v3, "Sleep_Log_Level"))
-  {
-    goto LABEL_55;
-  }
-
-  if (!strcasecmp(v3, "FileSize"))
-  {
-    goto LABEL_56;
-  }
-
-  if (!strcasecmp(v3, "MaxMemoryFileCount"))
-  {
-    goto LABEL_57;
-  }
-
-  if (!strcasecmp(v3, "Error_Handling"))
-  {
-    goto LABEL_58;
-  }
-
-  if (!strcasecmp(v3, "PeakBandwidthMbps"))
-  {
-    goto LABEL_59;
-  }
-
-  v4 = v3;
-  if (!strcasecmp(v3, "Retain_Previous_Trace"))
-  {
-    goto LABEL_37;
-  }
-
-LABEL_17:
-  if (strcasecmp(v4, "TraceFlushTimerInterval"))
-  {
-    **(v1 + 16) = 0;
-    v5 = *(v2 + 40);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      if (v3[23] < 0)
-      {
-        v3 = *v3;
-      }
-
-      LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
-      *(buf.__r_.__value_.__r.__words + 4) = v3;
-      _os_log_error_impl(&dword_23C1C4000, v5, OS_LOG_TYPE_ERROR, "Key not handled: %s", &buf, 0xCu);
-      v7 = *MEMORY[0x277D85DE8];
-      return result;
-    }
-
-LABEL_51:
-    v19 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  util::to_str<unsigned int>(*(v2 + 328), &buf);
-LABEL_61:
-  v22 = *(v1 + 24);
-  if (*(v22 + 23) < 0)
-  {
-    operator delete(*v22);
-  }
-
-  result = *&buf.__r_.__value_.__l.__data_;
-  *(v22 + 16) = *(&buf.__r_.__value_.__l + 2);
-  *v22 = result;
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_23C24938C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a2)
-  {
-    __cxa_begin_catch(exception_object);
-    __cxa_end_catch();
-    if (*(*(v15 + 24) + 23) < 0)
-    {
-      JUMPOUT(0x23C24927CLL);
-    }
-
-    JUMPOUT(0x23C249284);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<DALTrace::createTraceReader_sync(void)::$_0,std::allocator<DALTrace::createTraceReader_sync(void)::$_0>,void ()(xpc::dict const&)>::~__func(uint64_t result)
-{
-  *result = &unk_284EFB638;
-  if (*(result + 24))
-  {
-    v1 = result;
-    std::__shared_weak_count::__release_weak(*(result + 24));
-    return v1;
-  }
-
-  return result;
-}
-
-void std::__function::__func<DALTrace::createTraceReader_sync(void)::$_0,std::allocator<DALTrace::createTraceReader_sync(void)::$_0>,void ()(xpc::dict const&)>::~__func(std::__shared_weak_count **a1)
-{
-  *a1 = &unk_284EFB638;
-  if (a1[3])
-  {
-    v2 = a1;
-    std::__shared_weak_count::__release_weak(a1[3]);
-    a1 = v2;
-    v1 = vars8;
-  }
-
-  operator delete(a1);
-}
-
-char *std::__function::__func<DALTrace::createTraceReader_sync(void)::$_0,std::allocator<DALTrace::createTraceReader_sync(void)::$_0>,void ()(xpc::dict const&)>::__clone(uint64_t a1)
-{
-  result = operator new(0x20uLL);
-  *result = &unk_284EFB638;
-  *(result + 8) = *(a1 + 8);
-  v3 = *(a1 + 24);
-  *(result + 3) = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 16), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-uint64_t std::__function::__func<DALTrace::createTraceReader_sync(void)::$_0,std::allocator<DALTrace::createTraceReader_sync(void)::$_0>,void ()(xpc::dict const&)>::__clone(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_284EFB638;
-  *(a2 + 8) = *(result + 8);
-  v2 = *(result + 24);
-  *(a2 + 24) = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<DALTrace::createTraceReader_sync(void)::$_0,std::allocator<DALTrace::createTraceReader_sync(void)::$_0>,void ()(xpc::dict const&)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 24);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_weak(v1);
-  }
-}
-
-void std::__function::__func<DALTrace::createTraceReader_sync(void)::$_0,std::allocator<DALTrace::createTraceReader_sync(void)::$_0>,void ()(xpc::dict const&)>::destroy_deallocate(std::__shared_weak_count **a1)
-{
-  if (a1[3])
-  {
-    v2 = a1;
-    std::__shared_weak_count::__release_weak(a1[3]);
-    a1 = v2;
-    v1 = vars8;
-  }
-
-  operator delete(a1);
-}
-
-void std::__function::__func<DALTrace::createTraceReader_sync(void)::$_0,std::allocator<DALTrace::createTraceReader_sync(void)::$_0>,void ()(xpc::dict const&)>::operator()(void *a1, xpc_object_t *a2)
-{
-  v3 = a1[3];
-  if (v3)
-  {
-    v5 = a1[1];
-    v6 = std::__shared_weak_count::lock(v3);
-    if (v6)
-    {
-      v7 = v6;
-      if (a1[2])
-      {
-        v8 = *a2;
-        if (v8)
-        {
-          xpc_retain(v8);
-          v9 = v5[2];
-          if (!v9)
-          {
-LABEL_20:
-            std::__throw_bad_weak_ptr[abi:ne200100]();
-          }
-        }
-
-        else
-        {
-          v8 = xpc_null_create();
-          v9 = v5[2];
-          if (!v9)
-          {
-            goto LABEL_20;
-          }
-        }
-
-        v10 = v5[1];
-        v11 = std::__shared_weak_count::lock(v9);
-        if (!v11)
-        {
-          goto LABEL_20;
-        }
-
-        v12 = v11;
-        v13 = operator new(0x10uLL);
-        *v13 = v5;
-        v13[1] = v8;
-        if (v8)
-        {
-          xpc_retain(v8);
-        }
-
-        else
-        {
-          v13[1] = xpc_null_create();
-        }
-
-        v14 = v5[3];
-        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-        v15 = operator new(0x18uLL);
-        *v15 = v13;
-        v15[1] = v10;
-        v15[2] = v12;
-        dispatch_async_f(v14, v15, dispatch::async<void ctu::SharedSynchronizable<Trace>::execute_wrapped<DALTrace::createTraceReader_sync(void)::$_0::operator() const(xpc::dict const&)::{lambda(void)#1}>(DALTrace::createTraceReader_sync(void)::$_0::operator() const(xpc::dict const&)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<DALTrace::createTraceReader_sync(void)::$_0::operator() const(xpc::dict const&)::{lambda(void)#1},dispatch_queue_s *::default_delete<DALTrace::createTraceReader_sync(void)::$_0::operator() const(xpc::dict const&)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
-        if (!atomic_fetch_add(&v12->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v12->__on_zero_shared)(v12);
-          std::__shared_weak_count::__release_weak(v12);
-        }
-
-        xpc_release(v8);
-      }
-
-      if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v7->__on_zero_shared)(v7);
-
-        std::__shared_weak_count::__release_weak(v7);
-      }
-    }
-  }
-}
-
-uint64_t std::__function::__func<DALTrace::createTraceReader_sync(void)::$_0,std::allocator<DALTrace::createTraceReader_sync(void)::$_0>,void ()(xpc::dict const&)>::target(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 8);
-  if (v2 == "ZN8DALTrace22createTraceReader_syncEvE3$_0")
-  {
-    return a1 + 8;
-  }
-
-  if (((v2 & "ZN8DALTrace22createTraceReader_syncEvE3$_0" & 0x8000000000000000) != 0) == __OFSUB__(v2, "ZN8DALTrace22createTraceReader_syncEvE3$_0"))
-  {
-    return 0;
-  }
-
-  v4 = a1;
-  v5 = strcmp((v2 & 0x7FFFFFFFFFFFFFFFLL), ("ZN8DALTrace22createTraceReader_syncEvE3$_0" & 0x7FFFFFFFFFFFFFFFLL));
-  a1 = v4;
-  if (!v5)
-  {
-    return a1 + 8;
-  }
-
-  return 0;
-}
-
-void dispatch::async<void ctu::SharedSynchronizable<Trace>::execute_wrapped<DALTrace::createTraceReader_sync(void)::$_0::operator() const(xpc::dict const&)::{lambda(void)#1}>(DALTrace::createTraceReader_sync(void)::$_0::operator() const(xpc::dict const&)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<DALTrace::createTraceReader_sync(void)::$_0::operator() const(xpc::dict const&)::{lambda(void)#1},dispatch_queue_s *::default_delete<DALTrace::createTraceReader_sync(void)::$_0::operator() const(xpc::dict const&)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke(std::__shared_weak_count **a1)
-{
-  v1 = *a1;
-  v12 = *a1;
-  v2 = (*a1)->__vftable;
-  v3 = v2[2].~__shared_weak_count;
-  if (!v3)
-  {
-    goto LABEL_9;
-  }
-
-  v4 = std::__shared_weak_count::lock(v3);
-  object[2] = v4;
-  if (!v4)
-  {
-    goto LABEL_9;
-  }
-
-  v5 = v4;
-  on_zero_shared_weak = v2[1].__on_zero_shared_weak;
-  object[1] = on_zero_shared_weak;
-  if (on_zero_shared_weak)
-  {
-    shared_owners = v1->__shared_owners_;
-    object[0] = shared_owners;
-    if (shared_owners)
-    {
-      xpc_retain(shared_owners);
-    }
-
-    else
-    {
-      object[0] = xpc_null_create();
-    }
-
-    abm::BasebandTracingTask::commandReportStatsAWD(on_zero_shared_weak, object);
-    xpc_release(object[0]);
-    object[0] = 0;
-  }
-
-  if (atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-LABEL_9:
-    v8 = v12;
-    if (!v12)
-    {
-      goto LABEL_11;
-    }
-
-    goto LABEL_10;
-  }
-
-  (v5->__on_zero_shared)(v5);
-  std::__shared_weak_count::__release_weak(v5);
-  v8 = v12;
-  if (v12)
-  {
-LABEL_10:
-    xpc_release(v8[1]);
-    operator delete(v8);
-  }
-
-LABEL_11:
-  v9 = a1;
-  if (a1)
-  {
-    v10 = a1[2];
-    if (v10)
-    {
-      if (!atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v10->__on_zero_shared)(v10);
-        std::__shared_weak_count::__release_weak(v10);
-        v9 = a1;
-      }
-    }
-
-    operator delete(v9);
-  }
-}
-
-void sub_23C2499D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, xpc_object_t *a11, xpc_object_t object, char a13)
+void sub_23C2499D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, xpc_object_t *a11, xpc_object_t object, char a15)
 {
   xpc_release(object);
   object = 0;
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a13);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a15);
   std::unique_ptr<DALTrace::createTraceReader_sync(void)::$_0::operator() const(xpc::dict const&)::{lambda(void)#1},std::default_delete<DALTrace::createTraceReader_sync(void)::$_0::operator() const(xpc::dict const&)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&a11);
   std::unique_ptr<void ctu::SharedSynchronizable<Trace>::execute_wrapped<KernelPCITrace::flushLogsCompletion(KernelPCITrace::BuffContext *,unsigned long,int)::$_0>(KernelPCITrace::flushLogsCompletion(KernelPCITrace::BuffContext *,unsigned long,int)::$_0 &&)::{lambda(void)#1},std::default_delete<KernelPCITrace::flushLogsCompletion(KernelPCITrace::BuffContext *,unsigned long,int)::$_0 &&>>::~unique_ptr[abi:ne200100](&a10);
   _Unwind_Resume(a1);
@@ -774,7 +209,7 @@ LABEL_23:
   return std::unique_ptr<DALTrace::stop_sync(dispatch::group,dispatch::callback<void({block_pointer})(void)>)::$_0,std::default_delete<DALTrace::stop_sync(dispatch::group,dispatch::callback<void({block_pointer})(void)>)::$_0>>::~unique_ptr[abi:ne200100](&v14);
 }
 
-void sub_23C249E20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, void *a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
+void sub_23C249E20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
   if (a16 < 0)
   {
@@ -838,9 +273,9 @@ void ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFError
   }
 }
 
-void sub_23C249F60(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C249F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::CFSharedRef<__CFError>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -938,7 +373,7 @@ uint64_t support::fs::toString@<X0>(uint64_t result@<X0>, char *a2@<X8>)
   return result;
 }
 
-uint64_t support::fs::updateOwner(const char *a1, uint64_t a2, uint64_t a3)
+uint64_t support::fs::updateOwner(char *a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1;
   v6.tv_sec = 0xAAAAAAAAAAAAAAAALL;
@@ -968,16 +403,16 @@ uint64_t support::fs::updateOwner(const char *a1, uint64_t a2, uint64_t a3)
       closedir(v18);
       if (v19)
       {
+        v57 = 0;
         v58 = 0;
         v59 = 0;
-        v60 = 0;
-        support::fs::readDir(v5, &v58);
-        v20 = v58;
-        v54 = v59;
-        if (v58 == v59)
+        support::fs::readDir(v5, &v57);
+        v20 = v57;
+        v53 = v58;
+        if (v57 == v58)
         {
           updated = 0;
-          if (v58)
+          if (v57)
           {
             goto LABEL_108;
           }
@@ -985,27 +420,27 @@ uint64_t support::fs::updateOwner(const char *a1, uint64_t a2, uint64_t a3)
           return updated;
         }
 
-        v21 = (v58 + 24);
+        v21 = (v57 + 24);
         while (1)
         {
-          memset(&v57, 170, sizeof(v57));
+          memset(&v56, 170, sizeof(v56));
           if (*(v21 - 1) < 0)
           {
-            std::string::__init_copy_ctor_external(&v57, *(v21 - 3), *(v21 - 2));
+            std::string::__init_copy_ctor_external(&v56, *(v21 - 3), *(v21 - 2));
           }
 
           else
           {
             v23 = *(v21 - 3);
-            v57.__r_.__value_.__r.__words[2] = *(v21 - 1);
-            *&v57.__r_.__value_.__l.__data_ = v23;
+            v56.__r_.__value_.__r.__words[2] = *(v21 - 1);
+            *&v56.__r_.__value_.__l.__data_ = v23;
           }
 
           memset(&__p, 170, sizeof(__p));
           v24 = v5[23];
           if (v24 >= 0)
           {
-            v25 = *(v5 + 23);
+            v25 = v5[23];
           }
 
           else
@@ -1048,63 +483,62 @@ uint64_t support::fs::updateOwner(const char *a1, uint64_t a2, uint64_t a3)
             *&__dst.st_dev = p_dst;
           }
 
-          v29 = *v5;
           if (v24 >= 0)
           {
-            v30 = v5;
+            v29 = v5;
           }
 
           else
           {
-            v30 = *v5;
+            v29 = *v5;
           }
 
-          memmove(p_dst, v30, v25);
+          memmove(p_dst, v29, v25);
 LABEL_48:
           *&p_dst[v25] = 47;
-          if ((v57.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v31 = &v57;
+            v30 = &v56;
           }
 
           else
           {
-            v31 = v57.__r_.__value_.__r.__words[0];
+            v30 = v56.__r_.__value_.__r.__words[0];
           }
 
-          if ((v57.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            size = HIBYTE(v57.__r_.__value_.__r.__words[2]);
+            size = HIBYTE(v56.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            size = v57.__r_.__value_.__l.__size_;
+            size = v56.__r_.__value_.__l.__size_;
           }
 
-          v33 = std::string::append(&__dst, v31, size);
-          v34 = *&v33->__r_.__value_.__l.__data_;
-          __p.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
-          *&__p.__r_.__value_.__l.__data_ = v34;
-          v33->__r_.__value_.__l.__size_ = 0;
-          v33->__r_.__value_.__r.__words[2] = 0;
-          v33->__r_.__value_.__r.__words[0] = 0;
+          v32 = std::string::append(&__dst, v30, size);
+          v33 = *&v32->__r_.__value_.__l.__data_;
+          __p.__r_.__value_.__r.__words[2] = v32->__r_.__value_.__r.__words[2];
+          *&__p.__r_.__value_.__l.__data_ = v33;
+          v32->__r_.__value_.__l.__size_ = 0;
+          v32->__r_.__value_.__r.__words[2] = 0;
+          v32->__r_.__value_.__r.__words[0] = 0;
           if (SHIBYTE(__dst.st_gid) < 0)
           {
             operator delete(*&__dst.st_dev);
-            v35 = HIBYTE(v57.__r_.__value_.__r.__words[2]);
-            if ((*(&v57.__r_.__value_.__s + 23) & 0x80) == 0)
+            v34 = HIBYTE(v56.__r_.__value_.__r.__words[2]);
+            if ((*(&v56.__r_.__value_.__s + 23) & 0x80) == 0)
             {
 LABEL_56:
-              if (v35 == 1)
+              if (v34 == 1)
               {
-                if (v57.__r_.__value_.__s.__data_[0] == 46)
+                if (v56.__r_.__value_.__s.__data_[0] == 46)
                 {
                   goto LABEL_72;
                 }
               }
 
-              else if (v35 == 2 && LOWORD(v57.__r_.__value_.__l.__data_) == 11822)
+              else if (v34 == 2 && LOWORD(v56.__r_.__value_.__l.__data_) == 11822)
               {
                 goto LABEL_72;
               }
@@ -1115,38 +549,38 @@ LABEL_56:
 
           else
           {
-            v35 = HIBYTE(v57.__r_.__value_.__r.__words[2]);
-            if ((*(&v57.__r_.__value_.__s + 23) & 0x80) == 0)
+            v34 = HIBYTE(v56.__r_.__value_.__r.__words[2]);
+            if ((*(&v56.__r_.__value_.__s + 23) & 0x80) == 0)
             {
               goto LABEL_56;
             }
           }
 
-          if (v57.__r_.__value_.__l.__size_ == 1)
+          if (v56.__r_.__value_.__l.__size_ == 1)
           {
-            if (*v57.__r_.__value_.__l.__data_ == 46)
+            if (*v56.__r_.__value_.__l.__data_ == 46)
             {
               goto LABEL_72;
             }
           }
 
-          else if (v57.__r_.__value_.__l.__size_ == 2 && *v57.__r_.__value_.__l.__data_ == 11822)
+          else if (v56.__r_.__value_.__l.__size_ == 2 && *v56.__r_.__value_.__l.__data_ == 11822)
           {
             goto LABEL_72;
           }
 
 LABEL_68:
-          v36.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-          v36.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-          *&__dst.st_blksize = v36;
-          *__dst.st_qspare = v36;
-          __dst.st_birthtimespec = v36;
-          *&__dst.st_size = v36;
-          __dst.st_mtimespec = v36;
-          __dst.st_ctimespec = v36;
-          *&__dst.st_uid = v36;
-          __dst.st_atimespec = v36;
-          *&__dst.st_dev = v36;
+          v35.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+          v35.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+          *&__dst.st_blksize = v35;
+          *__dst.st_qspare = v35;
+          __dst.st_birthtimespec = v35;
+          *&__dst.st_size = v35;
+          __dst.st_mtimespec = v35;
+          __dst.st_ctimespec = v35;
+          *&__dst.st_uid = v35;
+          __dst.st_atimespec = v35;
+          *&__dst.st_dev = v35;
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
             p_p = &__p;
@@ -1157,70 +591,70 @@ LABEL_68:
             p_p = __p.__r_.__value_.__r.__words[0];
           }
 
-          if (stat(p_p, &__dst) || ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v47 = &__p) : (v47 = __p.__r_.__value_.__r.__words[0]), (v48 = opendir(v47), (v49 = v48) == 0) || (v50 = readdir(v48), closedir(v49), !v50)))
+          if (stat(p_p, &__dst) || ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v46 = &__p) : (v46 = __p.__r_.__value_.__r.__words[0]), (v47 = opendir(v46), (v48 = v47) == 0) || (v49 = readdir(v47), closedir(v48), !v49)))
           {
 LABEL_72:
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v38 = &__p;
+              v37 = &__p;
             }
 
             else
             {
-              v38 = __p.__r_.__value_.__r.__words[0];
+              v37 = __p.__r_.__value_.__r.__words[0];
             }
 
-            v39 = strlen(v38);
-            if (v39 > 0x7FFFFFFFFFFFFFF7)
+            v38 = strlen(v37);
+            if (v38 > 0x7FFFFFFFFFFFFFF7)
             {
               std::string::__throw_length_error[abi:ne200100]();
             }
 
-            v40 = v39;
-            if (v39 >= 0x17)
+            v39 = v38;
+            if (v38 >= 0x17)
             {
-              if ((v39 | 7) == 0x17)
+              if ((v38 | 7) == 0x17)
               {
-                v42 = 25;
+                v41 = 25;
               }
 
               else
               {
-                v42 = (v39 | 7) + 1;
+                v41 = (v38 | 7) + 1;
               }
 
-              v41 = operator new(v42);
-              __dst.st_ino = v40;
-              *&__dst.st_uid = v42 | 0x8000000000000000;
-              *&__dst.st_dev = v41;
+              v40 = operator new(v41);
+              __dst.st_ino = v39;
+              *&__dst.st_uid = v41 | 0x8000000000000000;
+              *&__dst.st_dev = v40;
             }
 
             else
             {
-              HIBYTE(__dst.st_gid) = v39;
-              v41 = &__dst;
-              if (!v39)
+              HIBYTE(__dst.st_gid) = v38;
+              v40 = &__dst;
+              if (!v38)
               {
 LABEL_84:
-                v41[v40] = 0;
+                v40[v39] = 0;
                 st_gid_high = SHIBYTE(__dst.st_gid);
-                v44 = *&__dst.st_dev;
+                v43 = *&__dst.st_dev;
                 if ((__dst.st_gid & 0x80000000) == 0)
                 {
-                  v45 = &__dst;
+                  v44 = &__dst;
                 }
 
                 else
                 {
-                  v45 = *&__dst.st_dev;
+                  v44 = *&__dst.st_dev;
                 }
 
-                updated = chown(v45, a2, a3) == 0;
+                updated = chown(v44, a2, a3) == 0;
                 if (st_gid_high < 0)
                 {
-                  v46 = v44;
+                  v45 = v43;
 LABEL_89:
-                  operator delete(v46);
+                  operator delete(v45);
                   goto LABEL_90;
                 }
 
@@ -1228,24 +662,24 @@ LABEL_89:
               }
             }
 
-            memmove(v41, v38, v40);
+            memmove(v40, v37, v39);
             goto LABEL_84;
           }
 
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(&v55, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(&v54, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
           }
 
           else
           {
-            v55 = __p;
+            v54 = __p;
           }
 
-          updated = support::fs::updateOwner(&v55, a2, a3);
-          if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
+          updated = support::fs::updateOwner(&v54, a2, a3);
+          if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
           {
-            v46 = v55.__r_.__value_.__r.__words[0];
+            v45 = v54.__r_.__value_.__r.__words[0];
             goto LABEL_89;
           }
 
@@ -1253,19 +687,19 @@ LABEL_90:
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
-            if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
             {
 LABEL_94:
-              operator delete(v57.__r_.__value_.__l.__data_);
+              operator delete(v56.__r_.__value_.__l.__data_);
             }
           }
 
-          else if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+          else if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
           {
             goto LABEL_94;
           }
 
-          if (v21 == v54)
+          if (v21 == v53)
           {
             v22 = 0;
           }
@@ -1278,32 +712,32 @@ LABEL_94:
           v21 += 3;
           if ((v22 & 1) == 0)
           {
-            v20 = v58;
-            if (!v58)
+            v20 = v57;
+            if (!v57)
             {
               return updated;
             }
 
 LABEL_108:
-            v51 = v59;
+            v50 = v58;
             v15 = v20;
-            if (v59 != v20)
+            if (v58 != v20)
             {
               do
               {
-                v52 = *(v51 - 1);
-                v51 -= 3;
-                if (v52 < 0)
+                v51 = *(v50 - 1);
+                v50 -= 3;
+                if (v51 < 0)
                 {
-                  operator delete(*v51);
+                  operator delete(*v50);
                 }
               }
 
-              while (v51 != v20);
-              v15 = v58;
+              while (v50 != v20);
+              v15 = v57;
             }
 
-            v59 = v20;
+            v58 = v20;
 LABEL_115:
             operator delete(v15);
             return updated;
@@ -1548,7 +982,7 @@ void sub_23C24A954(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t support::fs::getUidGid(int a1, uid_t *a2, gid_t *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   memset(__p, 170, sizeof(__p));
   if (a1 == 1)
   {
@@ -1559,71 +993,66 @@ uint64_t support::fs::getUidGid(int a1, uid_t *a2, gid_t *a3)
     {
       goto LABEL_4;
     }
-
-    goto LABEL_6;
   }
 
-  if (a1)
+  else
   {
-    goto LABEL_12;
-  }
-
-  HIBYTE(__p[2]) = 6;
-  strcpy(__p, "mobile");
-  v5 = getpwnam(__p);
-  if (!v5)
-  {
-LABEL_6:
-    if ((atomic_load_explicit(&qword_280C05D60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280C05D60))
+    if (a1)
     {
-      qword_280C05D68 = 0;
-      qword_280C05D70 = 0;
-      __cxa_guard_release(&qword_280C05D60);
+      return 0;
     }
 
-    if (_MergedGlobals_4 != -1)
+    HIBYTE(__p[2]) = 6;
+    strcpy(__p, "mobile");
+    v5 = getpwnam(__p);
+    if (v5)
     {
-      dispatch_once(&_MergedGlobals_4, &__block_literal_global_1);
-    }
-
-    v7 = qword_280C05D70;
-    if (os_log_type_enabled(qword_280C05D70, OS_LOG_TYPE_ERROR))
-    {
-      v9 = __p;
-      if (SHIBYTE(__p[2]) < 0)
-      {
-        v9 = __p[0];
-      }
-
-      *buf = 136315138;
-      v12 = v9;
-      _os_log_error_impl(&dword_23C1C4000, v7, OS_LOG_TYPE_ERROR, "Getting uid and gid: failed to get passwd for %s", buf, 0xCu);
-      if ((HIBYTE(__p[2]) & 0x80) == 0)
-      {
-        goto LABEL_12;
-      }
-
-      goto LABEL_11;
-    }
-
-    if ((HIBYTE(__p[2]) & 0x80) != 0)
-    {
-LABEL_11:
-      operator delete(__p[0]);
-    }
-
-LABEL_12:
-    result = 0;
-    goto LABEL_13;
-  }
-
 LABEL_4:
-  *a2 = v5->pw_uid;
-  *a3 = v5->pw_gid;
-  result = 1;
-LABEL_13:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+      *a2 = v5->pw_uid;
+      *a3 = v5->pw_gid;
+      return 1;
+    }
+  }
+
+  if ((atomic_load_explicit(&qword_280C05D60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280C05D60))
+  {
+    qword_280C05D68 = 0;
+    qword_280C05D70 = 0;
+    __cxa_guard_release(&qword_280C05D60);
+  }
+
+  if (_MergedGlobals_4 != -1)
+  {
+    dispatch_once(&_MergedGlobals_4, &__block_literal_global_1);
+  }
+
+  v7 = qword_280C05D70;
+  if (os_log_type_enabled(qword_280C05D70, OS_LOG_TYPE_ERROR))
+  {
+    v8 = __p;
+    if (SHIBYTE(__p[2]) < 0)
+    {
+      v8 = __p[0];
+    }
+
+    *buf = 136315138;
+    v11 = v8;
+    _os_log_error_impl(&dword_23C1C4000, v7, OS_LOG_TYPE_ERROR, "Getting uid and gid: failed to get passwd for %s", buf, 0xCu);
+    if ((HIBYTE(__p[2]) & 0x80) == 0)
+    {
+      return 0;
+    }
+
+    goto LABEL_11;
+  }
+
+  if ((HIBYTE(__p[2]) & 0x80) != 0)
+  {
+LABEL_11:
+    operator delete(__p[0]);
+  }
+
+  return 0;
 }
 
 BOOL support::fs::writeToCompletion(support::fs *this, char *__buf, size_t __nbyte)
@@ -1693,7 +1122,7 @@ BOOL support::fs::closeFile(support::fs *this)
 
 BOOL support::fs::copyFile(const char *a1, const char *a2, int a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (a1[23] >= 0)
   {
     v6 = a1;
@@ -1771,9 +1200,7 @@ LABEL_26:
       v18 = qword_280C05D70;
       if (!os_log_type_enabled(qword_280C05D70, OS_LOG_TYPE_ERROR))
       {
-LABEL_29:
-        v19 = 0;
-        goto LABEL_60;
+        return 0;
       }
     }
 
@@ -1783,24 +1210,24 @@ LABEL_29:
       v18 = qword_280C05D70;
       if (!os_log_type_enabled(qword_280C05D70, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_29;
+        return 0;
       }
     }
 
     if (a1[23] >= 0)
     {
-      v31 = a1;
+      v30 = a1;
     }
 
     else
     {
-      v31 = *a1;
+      v30 = *a1;
     }
 
     *__dst = 136315138;
-    *&__dst[4] = v31;
+    *&__dst[4] = v30;
     _os_log_error_impl(&dword_23C1C4000, v18, OS_LOG_TYPE_ERROR, "Failed to open the source file %s", __dst, 0xCu);
-    goto LABEL_29;
+    return 0;
   }
 
   operator delete(*__dst);
@@ -1960,16 +1387,16 @@ LABEL_46:
 LABEL_67:
     if (a2[23] >= 0)
     {
-      v32 = a2;
+      v31 = a2;
     }
 
     else
     {
-      v32 = *a2;
+      v31 = *a2;
     }
 
     *__dst = 136315138;
-    *&__dst[4] = v32;
+    *&__dst[4] = v31;
     _os_log_error_impl(&dword_23C1C4000, v28, OS_LOG_TYPE_ERROR, "Failed to open the destination file %s", __dst, 0xCu);
     goto LABEL_54;
   }
@@ -1986,8 +1413,6 @@ LABEL_58:
     ;
   }
 
-LABEL_60:
-  v29 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -2002,33 +1427,33 @@ void sub_23C24B160(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL support::fs::loadFile(uint64_t *a1, char **a2)
+BOOL support::fs::loadFile(uint64_t *a1, void **a2)
 {
-  v19[89] = *MEMORY[0x277D85DE8];
-  memset(v19, 170, 0x240uLL);
-  std::ifstream::basic_ifstream(v19, a1);
-  if (v19[17] && (std::istream::tellg(), std::istream::seekg(), std::istream::tellg(), v4 = v19[88], std::istream::seekg(), v4) && !*(&v19[4] + *(v19[0] - 24)))
+  v17[89] = *MEMORY[0x277D85DE8];
+  memset(v17, 170, 0x240uLL);
+  std::ifstream::basic_ifstream(v17, a1, 12);
+  if (v17[17] && (std::istream::tellg(), std::istream::seekg(), std::istream::tellg(), v4 = v17[88], std::istream::seekg(), v4) && !*(&v17[4] + *(v17[0] - 24)))
   {
-    v9 = *a2;
-    v8 = a2[1];
-    v10 = v8 - *a2;
-    v11 = v4 - v10;
-    if (v4 <= v10)
+    v8 = *a2;
+    v7 = a2[1];
+    v9 = v7 - *a2;
+    v10 = v4 - v9;
+    if (v4 <= v9)
     {
-      if (v4 < v10)
+      if (v4 < v9)
       {
-        a2[1] = &v9[v4];
+        a2[1] = &v8[v4];
       }
     }
 
     else
     {
-      v12 = a2[2];
-      if (v12 - v8 >= v11)
+      v11 = a2[2];
+      if (v11 - v7 >= v10)
       {
-        v17 = &v8[v11];
-        bzero(v8, v4 - v10);
-        a2[1] = v17;
+        v16 = &v7[v10];
+        bzero(v7, v4 - v9);
+        a2[1] = v16;
       }
 
       else
@@ -2038,42 +1463,41 @@ BOOL support::fs::loadFile(uint64_t *a1, char **a2)
           std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
         }
 
-        v13 = v12 - v9;
-        v14 = 2 * v13;
-        if (2 * v13 <= v4)
+        v12 = v11 - v8;
+        v13 = 2 * v12;
+        if (2 * v12 <= v4)
         {
-          v14 = v4;
+          v13 = v4;
         }
 
-        if (v13 >= 0x3FFFFFFFFFFFFFFFLL)
+        if (v12 >= 0x3FFFFFFFFFFFFFFFLL)
         {
-          v15 = 0x7FFFFFFFFFFFFFFFLL;
+          v14 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v15 = v14;
+          v14 = v13;
         }
 
-        v16 = operator new(v15);
-        bzero(&v16[v10], v4 - v10);
-        memcpy(v16, v9, v10);
-        *a2 = v16;
-        a2[1] = &v16[v4];
-        a2[2] = &v16[v15];
-        if (v9)
+        v15 = operator new(v14);
+        bzero(&v15[v9], v4 - v9);
+        memcpy(v15, v8, v9);
+        *a2 = v15;
+        a2[1] = &v15[v4];
+        a2[2] = &v15[v14];
+        if (v8)
         {
-          operator delete(v9);
+          operator delete(v8);
         }
       }
     }
 
-    v18 = *a2;
     std::istream::read();
-    v5 = v19[1] == v4;
+    v5 = v17[1] == v4;
     if (!std::filebuf::close())
     {
-      std::ios_base::clear((v19 + *(v19[0] - 24)), *(&v19[4] + *(v19[0] - 24)) | 4);
+      std::ios_base::clear((v17 + *(v17[0] - 24)), *(&v17[4] + *(v17[0] - 24)) | 4);
     }
   }
 
@@ -2082,16 +1506,15 @@ BOOL support::fs::loadFile(uint64_t *a1, char **a2)
     v5 = 0;
   }
 
-  v19[0] = *MEMORY[0x277D82808];
-  *(v19 + *(v19[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-  MEMORY[0x23EECDE40](&v19[2]);
+  v17[0] = *MEMORY[0x277D82808];
+  *(v17 + *(v17[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+  MEMORY[0x23EECDE40](&v17[2]);
   std::istream::~istream();
-  MEMORY[0x23EECE150](&v19[53]);
-  v6 = *MEMORY[0x277D85DE8];
+  MEMORY[0x23EECE150](&v17[53]);
   return v5;
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2, int a3)
 {
   a1[59] = 0;
   v4 = MEMORY[0x277D82858] + 64;
@@ -2109,11 +1532,6 @@ uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2)
   *a1 = v8;
   a1[53] = v4;
   MEMORY[0x23EECDE30](a1 + 2);
-  if (*(a2 + 23) < 0)
-  {
-    v9 = *a2;
-  }
-
   if (!std::filebuf::open())
   {
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
@@ -2131,62 +1549,53 @@ void sub_23C24B608(_Unwind_Exception *a1)
 
 BOOL support::fs::getFileSize(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 136);
   if (v2)
   {
     std::istream::tellg();
     std::istream::seekg();
     std::istream::tellg();
-    *a2 = v6;
+    *a2 = v5;
     std::istream::seekg();
   }
 
-  result = v2 != 0;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return v2 != 0;
 }
 
 {
-  v9[89] = *MEMORY[0x277D85DE8];
+  v7[89] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 23);
   if ((v2 & 0x80u) != 0)
   {
     v2 = *(a1 + 8);
   }
 
-  if (v2)
+  if (!v2)
   {
-    memset(v9, 170, 0x240uLL);
-    std::ifstream::basic_ifstream(v9, a1);
-    v5 = v9[17] != 0;
-    if (v9[17])
+    return 0;
+  }
+
+  memset(v7, 170, 0x240uLL);
+  std::ifstream::basic_ifstream(v7, a1, 8);
+  v5 = v7[17] != 0;
+  if (v7[17])
+  {
+    std::istream::tellg();
+    std::istream::seekg();
+    std::istream::tellg();
+    *a2 = v7[88];
+    std::istream::seekg();
+    if (!std::filebuf::close())
     {
-      std::istream::tellg();
-      std::istream::seekg();
-      std::istream::tellg();
-      *a2 = v9[88];
-      std::istream::seekg();
-      if (!std::filebuf::close())
-      {
-        std::ios_base::clear((v9 + *(v9[0] - 24)), *(&v9[4] + *(v9[0] - 24)) | 4);
-      }
+      std::ios_base::clear((v7 + *(v7[0] - 24)), *(&v7[4] + *(v7[0] - 24)) | 4);
     }
-
-    v9[0] = *MEMORY[0x277D82808];
-    *(v9 + *(v9[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-    MEMORY[0x23EECDE40](&v9[2]);
-    std::istream::~istream();
-    MEMORY[0x23EECE150](&v9[53]);
-    v6 = *MEMORY[0x277D85DE8];
   }
 
-  else
-  {
-    v5 = 0;
-    v8 = *MEMORY[0x277D85DE8];
-  }
-
+  v7[0] = *MEMORY[0x277D82808];
+  *(v7 + *(v7[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+  MEMORY[0x23EECDE40](&v7[2]);
+  std::istream::~istream();
+  MEMORY[0x23EECE150](&v7[53]);
   return v5;
 }
 
@@ -2558,9 +1967,9 @@ LABEL_54:
   std::locale::~locale(&v30.__traits_.__loc_);
 }
 
-void sub_23C24BD7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23C24BD7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   std::basic_regex<char,std::regex_traits<char>>::~basic_regex(va);
   _Unwind_Resume(a1);
 }
@@ -2589,7 +1998,7 @@ void sub_23C24BD90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void support::fs::createUniquePath(const char *a1@<X0>, std::string *a2@<X8>)
 {
   v2 = a1;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v4.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
   *&__src.st_blksize = v4;
@@ -2610,14 +2019,14 @@ void support::fs::createUniquePath(const char *a1@<X0>, std::string *a2@<X8>)
   {
     v5.tv_sec = 0xAAAAAAAAAAAAAAAALL;
     v5.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-    v27 = v5;
-    v28 = v5;
-    v25 = v5;
     v26 = v5;
-    v23 = v5;
+    v27 = v5;
     v24 = v5;
-    *__src.st_qspare = v5;
+    v25 = v5;
     v22 = v5;
+    v23 = v5;
+    *__src.st_qspare = v5;
+    v21 = v5;
     *&__src.st_size = v5;
     *&__src.st_blksize = v5;
     __src.st_ctimespec = v5;
@@ -2704,7 +2113,7 @@ LABEL_17:
 
       if (stat(v18, &__dst))
       {
-        goto LABEL_32;
+        return;
       }
 
       if (SHIBYTE(a2->__r_.__value_.__r.__words[2]) < 0)
@@ -2714,14 +2123,14 @@ LABEL_17:
 
       v9.tv_sec = 0xAAAAAAAAAAAAAAAALL;
       v9.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-      v27 = v9;
-      v28 = v9;
-      v25 = v9;
       v26 = v9;
-      v23 = v9;
+      v27 = v9;
       v24 = v9;
-      *__src.st_qspare = v9;
+      v25 = v9;
       v22 = v9;
+      v23 = v9;
+      *__src.st_qspare = v9;
+      v21 = v9;
       *&__src.st_size = v9;
       *&__src.st_blksize = v9;
       __src.st_ctimespec = v9;
@@ -2769,9 +2178,6 @@ LABEL_16:
     *&a2->__r_.__value_.__l.__data_ = *v2;
     a2->__r_.__value_.__r.__words[2] = *(v2 + 2);
   }
-
-LABEL_32:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23C24C0AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -3020,45 +2426,44 @@ BOOL support::fs::chmod(const char *a1, mode_t a2)
 BOOL support::fs::removeDir(const char *a1)
 {
   v1 = a1;
-  v58[2] = *MEMORY[0x277D85DE8];
+  v56[2] = *MEMORY[0x277D85DE8];
   v2.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v2.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v57.st_blksize = v2;
-  *v57.st_qspare = v2;
-  v57.st_birthtimespec = v2;
-  *&v57.st_size = v2;
-  v57.st_mtimespec = v2;
-  v57.st_ctimespec = v2;
-  *&v57.st_uid = v2;
-  v57.st_atimespec = v2;
-  *&v57.st_dev = v2;
+  *&v55.st_blksize = v2;
+  *v55.st_qspare = v2;
+  v55.st_birthtimespec = v2;
+  *&v55.st_size = v2;
+  v55.st_mtimespec = v2;
+  v55.st_ctimespec = v2;
+  *&v55.st_uid = v2;
+  v55.st_atimespec = v2;
+  *&v55.st_dev = v2;
   if (a1[23] < 0)
   {
     a1 = *a1;
   }
 
-  if (stat(a1, &v57))
+  if (stat(a1, &v55))
   {
-    v3 = 1;
-    goto LABEL_112;
+    return 1;
   }
 
+  v52 = 0;
+  v53 = 0;
   v54 = 0;
-  v55 = 0;
-  v56 = 0;
-  support::fs::readDir(v1, &v54);
+  support::fs::readDir(v1, &v52);
   v5 = 0;
   while (1)
   {
     v6 = v5;
-    v7 = 0xAAAAAAAAAAAAAAABLL * ((v55 - v54) >> 3);
+    v7 = 0xAAAAAAAAAAAAAAABLL * ((v53 - v52) >> 3);
     v3 = v7 <= v5;
     if (v7 <= v5)
     {
       break;
     }
 
-    v8 = v54 + 24 * v5;
+    v8 = v52 + 24 * v5;
     memset(&__p, 170, sizeof(__p));
     if (v8[23] < 0)
     {
@@ -3102,29 +2507,29 @@ BOOL support::fs::removeDir(const char *a1)
       goto LABEL_61;
     }
 
-    v11 = SHIBYTE(v1->__pn_.__r_.__value_.__r.__words[2]);
+    v11 = v1[23];
     if (v11 >= 0)
     {
-      size = HIBYTE(v1->__pn_.__r_.__value_.__r.__words[2]);
+      v12 = *(v1 + 23);
     }
 
     else
     {
-      size = v1->__pn_.__r_.__value_.__l.__size_;
+      v12 = *(v1 + 1);
     }
 
-    v13 = size + 1;
-    if (size + 1 > 0x7FFFFFFFFFFFFFF7)
+    v13 = v12 + 1;
+    if (v12 + 1 > 0x7FFFFFFFFFFFFFF7)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
     if (v13 < 0x17)
     {
-      memset(&v57, 0, 24);
-      v15 = &v57;
-      HIBYTE(v57.st_gid) = size + 1;
-      if (!size)
+      memset(&v55, 0, 24);
+      v15 = &v55;
+      HIBYTE(v55.st_gid) = v12 + 1;
+      if (!v12)
       {
         goto LABEL_38;
       }
@@ -3143,25 +2548,24 @@ BOOL support::fs::removeDir(const char *a1)
       }
 
       v15 = operator new(v14);
-      v57.st_ino = size + 1;
-      *&v57.st_uid = v14 | 0x8000000000000000;
-      *&v57.st_dev = v15;
+      v55.st_ino = v12 + 1;
+      *&v55.st_uid = v14 | 0x8000000000000000;
+      *&v55.st_dev = v15;
     }
 
-    v16 = v1->__pn_.__r_.__value_.__r.__words[0];
     if (v11 >= 0)
     {
-      v17 = v1;
+      v16 = v1;
     }
 
     else
     {
-      v17 = v1->__pn_.__r_.__value_.__r.__words[0];
+      v16 = *v1;
     }
 
-    memmove(v15, v17, size);
+    memmove(v15, v16, v12);
 LABEL_38:
-    *&v15[size] = 47;
+    *&v15[v12] = 47;
     if ((v10 & 0x80000000) == 0)
     {
       p_p = &__p;
@@ -3174,173 +2578,173 @@ LABEL_38:
 
     if ((v10 & 0x80000000) == 0)
     {
-      v19 = v10;
+      size = v10;
     }
 
     else
     {
-      v19 = __p.__r_.__value_.__l.__size_;
+      size = __p.__r_.__value_.__l.__size_;
     }
 
-    v20 = std::string::append(&v57, p_p, v19);
-    v21 = v20->__r_.__value_.__r.__words[0];
-    v58[0] = v20->__r_.__value_.__l.__size_;
-    *(v58 + 7) = *(&v20->__r_.__value_.__r.__words[1] + 7);
-    v22 = HIBYTE(v20->__r_.__value_.__r.__words[2]);
-    v20->__r_.__value_.__l.__size_ = 0;
-    v20->__r_.__value_.__r.__words[2] = 0;
-    v20->__r_.__value_.__r.__words[0] = 0;
+    v19 = std::string::append(&v55, p_p, size);
+    v20 = v19->__r_.__value_.__r.__words[0];
+    v56[0] = v19->__r_.__value_.__l.__size_;
+    *(v56 + 7) = *(&v19->__r_.__value_.__r.__words[1] + 7);
+    v21 = HIBYTE(v19->__r_.__value_.__r.__words[2]);
+    v19->__r_.__value_.__l.__size_ = 0;
+    v19->__r_.__value_.__r.__words[2] = 0;
+    v19->__r_.__value_.__r.__words[0] = 0;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    __p.__r_.__value_.__r.__words[0] = v21;
-    __p.__r_.__value_.__l.__size_ = v58[0];
-    *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v58 + 7);
-    *(&__p.__r_.__value_.__s + 23) = v22;
-    if (SHIBYTE(v57.st_gid) < 0)
+    __p.__r_.__value_.__r.__words[0] = v20;
+    __p.__r_.__value_.__l.__size_ = v56[0];
+    *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v56 + 7);
+    *(&__p.__r_.__value_.__s + 23) = v21;
+    if (SHIBYTE(v55.st_gid) < 0)
     {
-      operator delete(*&v57.st_dev);
-      v22 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-      v21 = __p.__r_.__value_.__r.__words[0];
+      operator delete(*&v55.st_dev);
+      v21 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      v20 = __p.__r_.__value_.__r.__words[0];
     }
 
-    v23.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-    v23.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-    *&v57.st_blksize = v23;
-    *v57.st_qspare = v23;
-    v57.st_birthtimespec = v23;
-    *&v57.st_size = v23;
-    v57.st_mtimespec = v23;
-    v57.st_ctimespec = v23;
-    *&v57.st_uid = v23;
-    v57.st_atimespec = v23;
-    if (v22 >= 0)
+    v22.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+    v22.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+    *&v55.st_blksize = v22;
+    *v55.st_qspare = v22;
+    v55.st_birthtimespec = v22;
+    *&v55.st_size = v22;
+    v55.st_mtimespec = v22;
+    v55.st_ctimespec = v22;
+    *&v55.st_uid = v22;
+    v55.st_atimespec = v22;
+    if (v21 >= 0)
     {
-      v24 = &__p;
+      v23 = &__p;
     }
 
     else
     {
-      v24 = v21;
+      v23 = v20;
     }
 
-    *&v57.st_dev = v23;
-    if (!stat(v24, &v57))
+    *&v55.st_dev = v22;
+    if (!stat(v23, &v55))
     {
-      v29 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
-      v30 = opendir(v29);
-      v31 = v30;
-      if (v30)
+      v28 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
+      v29 = opendir(v28);
+      v30 = v29;
+      if (v29)
       {
-        v32 = readdir(v30);
-        closedir(v31);
-        if (v32)
+        v31 = readdir(v29);
+        closedir(v30);
+        if (v31)
         {
-          v33 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v32 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
           {
-            v33 = __p.__r_.__value_.__l.__size_;
-            v35 = __p.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL;
-            v36 = (__p.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL) - 1;
-            if (v36 != __p.__r_.__value_.__l.__size_)
+            v32 = __p.__r_.__value_.__l.__size_;
+            v34 = __p.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL;
+            v35 = (__p.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL) - 1;
+            if (v35 != __p.__r_.__value_.__l.__size_)
             {
-              v34 = __p.__r_.__value_.__r.__words[0];
+              v33 = __p.__r_.__value_.__r.__words[0];
               goto LABEL_89;
             }
 
-            if (v35 == 0x7FFFFFFFFFFFFFF7)
+            if (v34 == 0x7FFFFFFFFFFFFFF7)
             {
               std::string::__throw_length_error[abi:ne200100]();
             }
 
-            v34 = __p.__r_.__value_.__r.__words[0];
-            if (v36 > 0x3FFFFFFFFFFFFFF2)
+            v33 = __p.__r_.__value_.__r.__words[0];
+            if (v35 > 0x3FFFFFFFFFFFFFF2)
             {
-              v40 = 0;
-              v39 = 0x7FFFFFFFFFFFFFF7;
+              v39 = 0;
+              v38 = 0x7FFFFFFFFFFFFFF7;
             }
 
             else
             {
 LABEL_74:
-              v37 = 2 * v36;
-              if (v35 > 2 * v36)
+              v36 = 2 * v35;
+              if (v34 > 2 * v35)
               {
-                v37 = v35;
+                v36 = v34;
               }
 
-              if ((v37 | 7) == 0x17)
+              if ((v36 | 7) == 0x17)
               {
-                v38 = 25;
-              }
-
-              else
-              {
-                v38 = (v37 | 7) + 1;
-              }
-
-              if (v37 >= 0x17)
-              {
-                v39 = v38;
+                v37 = 25;
               }
 
               else
               {
-                v39 = 23;
+                v37 = (v36 | 7) + 1;
               }
 
-              v40 = v36 == 22;
+              if (v36 >= 0x17)
+              {
+                v38 = v37;
+              }
+
+              else
+              {
+                v38 = 23;
+              }
+
+              v39 = v35 == 22;
             }
 
-            v41 = operator new(v39);
-            v42 = v41;
-            if (v36)
+            v40 = operator new(v38);
+            v41 = v40;
+            if (v35)
             {
-              memmove(v41, v34, v36);
+              memmove(v40, v33, v35);
             }
 
-            *(v42 + v36) = 47;
-            if (!v40)
+            *(v41 + v35) = 47;
+            if (!v39)
             {
-              operator delete(v34);
+              operator delete(v33);
             }
 
-            __p.__r_.__value_.__l.__size_ = v35;
-            __p.__r_.__value_.__r.__words[2] = v39 | 0x8000000000000000;
-            __p.__r_.__value_.__r.__words[0] = v42;
-            v43 = (v42 + v35);
+            __p.__r_.__value_.__l.__size_ = v34;
+            __p.__r_.__value_.__r.__words[2] = v38 | 0x8000000000000000;
+            __p.__r_.__value_.__r.__words[0] = v41;
+            v42 = (v41 + v34);
           }
 
           else
           {
-            v34 = &__p;
+            v33 = &__p;
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) == 22)
             {
-              v35 = 23;
-              v36 = 22;
+              v34 = 23;
+              v35 = 22;
               goto LABEL_74;
             }
 
 LABEL_89:
-            v34->__r_.__value_.__s.__data_[v33] = 47;
-            v44 = v33 + 1;
+            v33->__r_.__value_.__s.__data_[v32] = 47;
+            v43 = v32 + 1;
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
-              __p.__r_.__value_.__l.__size_ = v44;
+              __p.__r_.__value_.__l.__size_ = v43;
             }
 
             else
             {
-              *(&__p.__r_.__value_.__s + 23) = v44 & 0x7F;
+              *(&__p.__r_.__value_.__s + 23) = v43 & 0x7F;
             }
 
-            v43 = v34 + v44;
+            v42 = v33 + v43;
           }
 
-          *v43 = 0;
-          v28 = support::fs::removeDir(&__p);
+          *v42 = 0;
+          v27 = support::fs::removeDir(&__p);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
             goto LABEL_7;
@@ -3353,18 +2757,18 @@ LABEL_89:
 
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v26 = &__p;
+      v25 = &__p;
     }
 
     else
     {
-      v26 = __p.__r_.__value_.__r.__words[0];
+      v25 = __p.__r_.__value_.__r.__words[0];
     }
 
-    if (!remove(v26, v25))
+    if (!remove(v25, v24))
     {
 LABEL_61:
-      v28 = 1;
+      v27 = 1;
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_7;
@@ -3375,15 +2779,15 @@ LABEL_61:
 
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v27 = &__p;
+      v26 = &__p;
     }
 
     else
     {
-      v27 = __p.__r_.__value_.__r.__words[0];
+      v26 = __p.__r_.__value_.__r.__words[0];
     }
 
-    v28 = unlink(v27) == 0;
+    v27 = unlink(v26) == 0;
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_7;
@@ -3393,65 +2797,63 @@ LABEL_6:
     operator delete(__p.__r_.__value_.__l.__data_);
 LABEL_7:
     v5 = v6 + 1;
-    if ((v28 & 1) == 0)
+    if ((v27 & 1) == 0)
     {
       goto LABEL_104;
     }
   }
 
-  if ((v1->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if (v1[23] >= 0)
   {
-    v45 = v1;
+    v44 = v1;
   }
 
   else
   {
-    v45 = v1->__pn_.__r_.__value_.__r.__words[0];
+    v44 = *v1;
   }
 
-  if (remove(v45, v4))
+  if (remove(v44, v4))
   {
-    if ((v1->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if (v1[23] >= 0)
     {
-      v46 = v1;
+      v45 = v1;
     }
 
     else
     {
-      v46 = v1->__pn_.__r_.__value_.__r.__words[0];
+      v45 = *v1;
     }
 
-    unlink(v46);
+    unlink(v45);
   }
 
 LABEL_104:
-  v47 = v54;
-  if (v54)
+  v46 = v52;
+  if (v52)
   {
-    v48 = v55;
-    v49 = v54;
-    if (v55 != v54)
+    v47 = v53;
+    v48 = v52;
+    if (v53 != v52)
     {
       do
       {
-        v50 = *(v48 - 1);
-        v48 -= 3;
-        if (v50 < 0)
+        v49 = *(v47 - 1);
+        v47 -= 3;
+        if (v49 < 0)
         {
-          operator delete(*v48);
+          operator delete(*v47);
         }
       }
 
-      while (v48 != v47);
-      v49 = v54;
+      while (v47 != v46);
+      v48 = v52;
     }
 
-    v55 = v47;
-    operator delete(v49);
+    v53 = v46;
+    operator delete(v48);
   }
 
-LABEL_112:
-  v51 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -3497,56 +2899,56 @@ BOOL support::fs::removeFile(const std::__fs::filesystem::path *a1, std::error_c
 uint64_t support::fs::removeDirContents(const char *a1, unint64_t a2)
 {
   v3 = a1;
+  v57 = 0;
+  v58 = 0;
   v59 = 0;
-  v60 = 0;
-  v61 = 0;
-  support::fs::readDir(a1, &v59);
-  v54 = time(0);
-  v5 = v59;
-  v4 = v60;
-  if (v59 == v60)
+  support::fs::readDir(a1, &v57);
+  v52 = time(0);
+  v5 = v57;
+  v4 = v58;
+  if (v57 == v58)
   {
-    v49 = 1;
-    if (v59)
+    v47 = 1;
+    if (v57)
     {
       goto LABEL_108;
     }
 
-    return v49 & 1;
+    return v47 & 1;
   }
 
   v6 = a2;
-  v55 = 1;
+  v53 = 1;
   while (1)
   {
-    memset(&v58, 170, sizeof(v58));
+    memset(&v56, 170, sizeof(v56));
     if (*(v5 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v58, *v5, v5[1]);
+      std::string::__init_copy_ctor_external(&v56, *v5, v5[1]);
     }
 
     else
     {
       v7 = *v5;
-      v58.__r_.__value_.__r.__words[2] = v5[2];
-      *&v58.__r_.__value_.__l.__data_ = v7;
+      v56.__r_.__value_.__r.__words[2] = v5[2];
+      *&v56.__r_.__value_.__l.__data_ = v7;
     }
 
-    v8 = SHIBYTE(v58.__r_.__value_.__r.__words[2]);
-    if ((SHIBYTE(v58.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+    v8 = SHIBYTE(v56.__r_.__value_.__r.__words[2]);
+    if ((SHIBYTE(v56.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
     {
       break;
     }
 
-    if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) == 1)
+    if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) == 1)
     {
-      if (v58.__r_.__value_.__s.__data_[0] == 46)
+      if (v56.__r_.__value_.__s.__data_[0] == 46)
       {
         goto LABEL_98;
       }
     }
 
-    else if (HIBYTE(v58.__r_.__value_.__r.__words[2]) == 2 && LOWORD(v58.__r_.__value_.__l.__data_) == 11822)
+    else if (HIBYTE(v56.__r_.__value_.__r.__words[2]) == 2 && LOWORD(v56.__r_.__value_.__l.__data_) == 11822)
     {
       goto LABEL_98;
     }
@@ -3572,9 +2974,9 @@ LABEL_19:
 
     if (v11 < 0x17)
     {
-      memset(&v62, 0, 24);
-      v16 = &v62;
-      HIBYTE(v62.st_gid) = v10 + 1;
+      memset(&v60, 0, 24);
+      v16 = &v60;
+      HIBYTE(v60.st_gid) = v10 + 1;
       if (!v10)
       {
         goto LABEL_33;
@@ -3597,36 +2999,35 @@ LABEL_19:
       }
 
       v16 = operator new(v15);
-      v62.st_ino = v10 + 1;
-      *&v62.st_uid = v15 | 0x8000000000000000;
-      *&v62.st_dev = v16;
+      v60.st_ino = v10 + 1;
+      *&v60.st_uid = v15 | 0x8000000000000000;
+      *&v60.st_dev = v16;
       a2 = v14;
       v4 = v13;
       v3 = v12;
     }
 
-    v17 = *v3;
     if (v9 >= 0)
     {
-      v18 = v3;
+      v17 = v3;
     }
 
     else
     {
-      v18 = *v3;
+      v17 = *v3;
     }
 
-    memmove(v16, v18, v10);
+    memmove(v16, v17, v10);
 LABEL_33:
     *&v16[v10] = 47;
     if ((v8 & 0x80000000) == 0)
     {
-      v19 = &v58;
+      v18 = &v56;
     }
 
     else
     {
-      v19 = v58.__r_.__value_.__r.__words[0];
+      v18 = v56.__r_.__value_.__r.__words[0];
     }
 
     if ((v8 & 0x80000000) == 0)
@@ -3636,19 +3037,19 @@ LABEL_33:
 
     else
     {
-      size = v58.__r_.__value_.__l.__size_;
+      size = v56.__r_.__value_.__l.__size_;
     }
 
-    v21 = std::string::append(&v62, v19, size);
-    v22 = *&v21->__r_.__value_.__l.__data_;
-    __p[2] = v21->__r_.__value_.__r.__words[2];
-    *__p = v22;
-    v21->__r_.__value_.__l.__size_ = 0;
-    v21->__r_.__value_.__r.__words[2] = 0;
-    v21->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v62.st_gid) < 0)
+    v20 = std::string::append(&v60, v18, size);
+    v21 = *&v20->__r_.__value_.__l.__data_;
+    __p[2] = v20->__r_.__value_.__r.__words[2];
+    *__p = v21;
+    v20->__r_.__value_.__l.__size_ = 0;
+    v20->__r_.__value_.__r.__words[2] = 0;
+    v20->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v60.st_gid) < 0)
     {
-      operator delete(*&v62.st_dev);
+      operator delete(*&v60.st_dev);
       if (!a2)
       {
         goto LABEL_50;
@@ -3660,69 +3061,69 @@ LABEL_33:
       goto LABEL_50;
     }
 
-    v23.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-    v23.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-    *&v62.st_blksize = v23;
-    *v62.st_qspare = v23;
-    v62.st_birthtimespec = v23;
-    *&v62.st_size = v23;
-    v62.st_mtimespec = v23;
-    v62.st_ctimespec = v23;
-    v62.st_atimespec = v23;
-    *&v62.st_dev = v23;
-    *&v62.st_uid = v23;
+    v22.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+    v22.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+    *&v60.st_blksize = v22;
+    *v60.st_qspare = v22;
+    v60.st_birthtimespec = v22;
+    *&v60.st_size = v22;
+    v60.st_mtimespec = v22;
+    v60.st_ctimespec = v22;
+    v60.st_atimespec = v22;
+    *&v60.st_dev = v22;
+    *&v60.st_uid = v22;
     if (SHIBYTE(__p[2]) >= 0)
     {
-      v24 = __p;
+      v23 = __p;
     }
 
     else
     {
-      v24 = __p[0];
+      v23 = __p[0];
     }
 
-    if (!stat(v24, &v62) && difftime(v54, v62.st_ctimespec.tv_sec) >= v6)
+    if (!stat(v23, &v60) && difftime(v52, v60.st_ctimespec.tv_sec) >= v6)
     {
 LABEL_50:
-      v27.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-      v27.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-      *&v62.st_blksize = v27;
-      *v62.st_qspare = v27;
-      v62.st_birthtimespec = v27;
-      *&v62.st_size = v27;
-      v62.st_mtimespec = v27;
-      v62.st_ctimespec = v27;
-      v62.st_atimespec = v27;
-      *&v62.st_dev = v27;
-      *&v62.st_uid = v27;
+      v26.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+      v26.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+      *&v60.st_blksize = v26;
+      *v60.st_qspare = v26;
+      v60.st_birthtimespec = v26;
+      *&v60.st_size = v26;
+      v60.st_mtimespec = v26;
+      v60.st_ctimespec = v26;
+      v60.st_atimespec = v26;
+      *&v60.st_dev = v26;
+      *&v60.st_uid = v26;
       if (SHIBYTE(__p[2]) >= 0)
       {
-        v28 = __p;
+        v27 = __p;
       }
 
       else
       {
-        v28 = __p[0];
+        v27 = __p[0];
       }
 
-      if (stat(v28, &v62) || (SHIBYTE(__p[2]) >= 0 ? (v32 = __p) : (v32 = __p[0]), (v33 = opendir(v32), (v34 = v33) == 0) || (v35 = readdir(v33), closedir(v34), !v35)))
+      if (stat(v27, &v60) || (SHIBYTE(__p[2]) >= 0 ? (v31 = __p) : (v31 = __p[0]), (v32 = opendir(v31), (v33 = v32) == 0) || (v34 = readdir(v32), closedir(v33), !v34)))
       {
         if (SHIBYTE(__p[2]) >= 0)
         {
-          v30 = __p;
+          v29 = __p;
         }
 
         else
         {
-          v30 = __p[0];
+          v29 = __p[0];
         }
 
-        if (!remove(v30, v29) || (SHIBYTE(__p[2]) >= 0 ? (v31 = __p) : (v31 = __p[0]), !unlink(v31)))
+        if (!remove(v29, v28) || (SHIBYTE(__p[2]) >= 0 ? (v30 = __p) : (v30 = __p[0]), !unlink(v30)))
         {
 LABEL_92:
-          v26 = 0;
-          v55 = 1;
-          v25 = 1;
+          v25 = 0;
+          v53 = 1;
+          v24 = 1;
           if ((SHIBYTE(__p[2]) & 0x80000000) == 0)
           {
             goto LABEL_94;
@@ -3734,29 +3135,29 @@ LABEL_92:
         goto LABEL_62;
       }
 
-      v36 = v3[23];
-      if (v36 >= 0)
+      v35 = v3[23];
+      if (v35 >= 0)
       {
-        v37 = *(v3 + 23);
+        v36 = *(v3 + 23);
       }
 
       else
       {
-        v37 = *(v3 + 1);
+        v36 = *(v3 + 1);
       }
 
-      v38 = v37 + 1;
-      if (v37 + 1 > 0x7FFFFFFFFFFFFFF7)
+      v37 = v36 + 1;
+      if (v36 + 1 > 0x7FFFFFFFFFFFFFF7)
       {
         std::string::__throw_length_error[abi:ne200100]();
       }
 
-      if (v38 < 0x17)
+      if (v37 < 0x17)
       {
-        memset(&v56, 0, sizeof(v56));
-        v41 = &v56;
-        *(&v56.__r_.__value_.__s + 23) = v37 + 1;
-        if (v37)
+        memset(&v54, 0, sizeof(v54));
+        v40 = &v54;
+        *(&v54.__r_.__value_.__s + 23) = v36 + 1;
+        if (v36)
         {
           goto LABEL_79;
         }
@@ -3764,87 +3165,86 @@ LABEL_92:
 
       else
       {
-        v39 = a2;
-        if ((v38 | 7) == 0x17)
+        v38 = a2;
+        if ((v37 | 7) == 0x17)
         {
-          v40 = 25;
+          v39 = 25;
         }
 
         else
         {
-          v40 = (v38 | 7) + 1;
+          v39 = (v37 | 7) + 1;
         }
 
-        v41 = operator new(v40);
-        v56.__r_.__value_.__l.__size_ = v37 + 1;
-        v56.__r_.__value_.__r.__words[2] = v40 | 0x8000000000000000;
-        v56.__r_.__value_.__r.__words[0] = v41;
-        a2 = v39;
+        v40 = operator new(v39);
+        v54.__r_.__value_.__l.__size_ = v36 + 1;
+        v54.__r_.__value_.__r.__words[2] = v39 | 0x8000000000000000;
+        v54.__r_.__value_.__r.__words[0] = v40;
+        a2 = v38;
 LABEL_79:
-        v42 = *v3;
-        if (v36 >= 0)
+        if (v35 >= 0)
         {
-          v43 = v3;
+          v41 = v3;
         }
 
         else
         {
-          v43 = *v3;
+          v41 = *v3;
         }
 
-        memmove(v41, v43, v37);
+        memmove(v40, v41, v36);
       }
 
-      *&v41[v37] = 47;
-      if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      *&v40[v36] = 47;
+      if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v44 = &v58;
-      }
-
-      else
-      {
-        v44 = v58.__r_.__value_.__r.__words[0];
-      }
-
-      if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v45 = HIBYTE(v58.__r_.__value_.__r.__words[2]);
+        v42 = &v56;
       }
 
       else
       {
-        v45 = v58.__r_.__value_.__l.__size_;
+        v42 = v56.__r_.__value_.__r.__words[0];
       }
 
-      v46 = std::string::append(&v56, v44, v45);
-      v47 = *&v46->__r_.__value_.__l.__data_;
-      *&v62.st_uid = *(&v46->__r_.__value_.__l + 2);
-      *&v62.st_dev = v47;
-      v46->__r_.__value_.__l.__size_ = 0;
-      v46->__r_.__value_.__r.__words[2] = 0;
-      v46->__r_.__value_.__r.__words[0] = 0;
-      v48 = support::fs::removeDir(&v62);
-      if (SHIBYTE(v62.st_gid) < 0)
+      if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        operator delete(*&v62.st_dev);
-        if ((SHIBYTE(v56.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        v43 = HIBYTE(v56.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v43 = v56.__r_.__value_.__l.__size_;
+      }
+
+      v44 = std::string::append(&v54, v42, v43);
+      v45 = *&v44->__r_.__value_.__l.__data_;
+      *&v60.st_uid = *(&v44->__r_.__value_.__l + 2);
+      *&v60.st_dev = v45;
+      v44->__r_.__value_.__l.__size_ = 0;
+      v44->__r_.__value_.__r.__words[2] = 0;
+      v44->__r_.__value_.__r.__words[0] = 0;
+      v46 = support::fs::removeDir(&v60);
+      if (SHIBYTE(v60.st_gid) < 0)
+      {
+        operator delete(*&v60.st_dev);
+        if ((SHIBYTE(v54.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_91;
         }
       }
 
-      else if ((SHIBYTE(v56.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      else if ((SHIBYTE(v54.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_91:
-        if (v48)
+        if (v46)
         {
           goto LABEL_92;
         }
 
 LABEL_62:
-        v55 = 0;
-        v25 = 0;
-        v26 = 2;
+        v53 = 0;
+        v24 = 0;
+        v25 = 2;
         if ((SHIBYTE(__p[2]) & 0x80000000) == 0)
         {
           goto LABEL_94;
@@ -3853,8 +3253,8 @@ LABEL_62:
         goto LABEL_93;
       }
 
-      operator delete(v56.__r_.__value_.__l.__data_);
-      if (v48)
+      operator delete(v54.__r_.__value_.__l.__data_);
+      if (v46)
       {
         goto LABEL_92;
       }
@@ -3862,8 +3262,8 @@ LABEL_62:
       goto LABEL_62;
     }
 
-    v25 = 0;
-    v26 = 3;
+    v24 = 0;
+    v25 = 3;
     if ((SHIBYTE(__p[2]) & 0x80000000) == 0)
     {
       goto LABEL_94;
@@ -3872,19 +3272,19 @@ LABEL_62:
 LABEL_93:
     operator delete(__p[0]);
 LABEL_94:
-    if (v25)
+    if (v24)
     {
       goto LABEL_98;
     }
 
-    if ((SHIBYTE(v58.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v56.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_96;
     }
 
 LABEL_99:
-    operator delete(v58.__r_.__value_.__l.__data_);
-    if (v26 != 3)
+    operator delete(v56.__r_.__value_.__l.__data_);
+    if (v25 != 3)
     {
       goto LABEL_100;
     }
@@ -3897,9 +3297,9 @@ LABEL_3:
     }
   }
 
-  if (v58.__r_.__value_.__l.__size_ == 1)
+  if (v56.__r_.__value_.__l.__size_ == 1)
   {
-    if (*v58.__r_.__value_.__l.__data_ == 46)
+    if (*v56.__r_.__value_.__l.__data_ == 46)
     {
       goto LABEL_98;
     }
@@ -3907,60 +3307,60 @@ LABEL_3:
     goto LABEL_19;
   }
 
-  if (v58.__r_.__value_.__l.__size_ != 2 || *v58.__r_.__value_.__l.__data_ != 11822)
+  if (v56.__r_.__value_.__l.__size_ != 2 || *v56.__r_.__value_.__l.__data_ != 11822)
   {
     goto LABEL_19;
   }
 
 LABEL_98:
-  v26 = 0;
-  if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
+  v25 = 0;
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_99;
   }
 
 LABEL_96:
-  if (v26 == 3)
+  if (v25 == 3)
   {
     goto LABEL_3;
   }
 
 LABEL_100:
-  if (!v26)
+  if (!v25)
   {
     goto LABEL_3;
   }
 
 LABEL_105:
-  v5 = v59;
-  v49 = v55;
-  if (!v59)
+  v5 = v57;
+  v47 = v53;
+  if (!v57)
   {
-    return v49 & 1;
+    return v47 & 1;
   }
 
 LABEL_108:
-  v50 = v60;
-  v51 = v5;
-  if (v60 != v5)
+  v48 = v58;
+  v49 = v5;
+  if (v58 != v5)
   {
     do
     {
-      v52 = *(v50 - 1);
-      v50 -= 3;
-      if (v52 < 0)
+      v50 = *(v48 - 1);
+      v48 -= 3;
+      if (v50 < 0)
       {
-        operator delete(*v50);
+        operator delete(*v48);
       }
     }
 
-    while (v50 != v5);
-    v51 = v59;
+    while (v48 != v5);
+    v49 = v57;
   }
 
-  v60 = v5;
-  operator delete(v51);
-  return v49 & 1;
+  v58 = v5;
+  operator delete(v49);
+  return v47 & 1;
 }
 
 void sub_23C24CFAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, void **a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39)
@@ -4003,7 +3403,7 @@ void support::fs::moveDirUnique(const char *a1@<X0>, uint64_t a2@<X1>, uint64_t 
     goto LABEL_4;
   }
 
-  v7 = (v4->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? v4 : v4->__pn_.__r_.__value_.__r.__words[0];
+  v7 = v4[23] >= 0 ? v4 : *v4;
   v8 = opendir(v7);
   if (!v8)
   {
@@ -4035,14 +3435,14 @@ void support::fs::moveDirUnique(const char *a1@<X0>, uint64_t a2@<X1>, uint64_t 
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if ((v4->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if (v4[23] >= 0)
   {
     v12 = v4;
   }
 
   else
   {
-    v12 = v4->__pn_.__r_.__value_.__r.__words[0];
+    v12 = *v4;
   }
 
   if (*(a3 + 23) >= 0)
@@ -4079,49 +3479,49 @@ void sub_23C24D1BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void support::fs::getFileName(std::string *a1@<X8>)
+void support::fs::getFileName(std::string *a2@<X8>)
 {
   memset(__p, 170, sizeof(__p));
   ctu::tokenize();
   if (*(__p[1] - 1) < 0)
   {
-    std::string::__init_copy_ctor_external(a1, *(__p[1] - 3), *(__p[1] - 2));
+    std::string::__init_copy_ctor_external(a2, *(__p[1] - 3), *(__p[1] - 2));
   }
 
   else
   {
-    v2 = *(__p[1] - 24);
-    a1->__r_.__value_.__r.__words[2] = *(__p[1] - 1);
-    *&a1->__r_.__value_.__l.__data_ = v2;
+    v3 = *(__p[1] - 24);
+    a2->__r_.__value_.__r.__words[2] = *(__p[1] - 1);
+    *&a2->__r_.__value_.__l.__data_ = v3;
   }
 
   if (__p[0])
   {
-    v3 = __p[1];
-    v4 = __p[0];
+    v4 = __p[1];
+    v5 = __p[0];
     if (__p[1] != __p[0])
     {
       do
       {
-        v5 = *(v3 - 1);
-        v3 -= 3;
-        if (v5 < 0)
+        v6 = *(v4 - 1);
+        v4 -= 3;
+        if (v6 < 0)
         {
-          operator delete(*v3);
+          operator delete(*v4);
         }
       }
 
-      while (v3 != __p[0]);
-      v4 = __p[0];
+      while (v4 != __p[0]);
+      v5 = __p[0];
     }
 
-    operator delete(v4);
+    operator delete(v5);
   }
 }
 
-void sub_23C24D290(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C24D290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4166,7 +3566,7 @@ BOOL support::fs::unlockDir(support::fs *this)
 
 uint64_t support::fs::getFilteredFiles(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   *__error() = 0;
   if (a1[23] < 0)
   {
@@ -4186,19 +3586,19 @@ LABEL_69:
 
     if (_MergedGlobals_4 == -1)
     {
-      v36 = qword_280C05D70;
+      v35 = qword_280C05D70;
       if (!os_log_type_enabled(qword_280C05D70, OS_LOG_TYPE_ERROR))
       {
 LABEL_72:
-        v37 = 0;
-        goto LABEL_75;
+        v36 = 0;
+        return v36 & 1;
       }
     }
 
     else
     {
       dispatch_once(&_MergedGlobals_4, &__block_literal_global_1);
-      v36 = qword_280C05D70;
+      v35 = qword_280C05D70;
       if (!os_log_type_enabled(qword_280C05D70, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_72;
@@ -4210,13 +3610,13 @@ LABEL_72:
       a1 = *a1;
     }
 
-    v40 = __error();
-    v41 = strerror(*v40);
-    v48.st_dev = 136315394;
-    *&v48.st_mode = a1;
-    WORD2(v48.st_ino) = 2080;
-    *(&v48.st_ino + 6) = v41;
-    _os_log_error_impl(&dword_23C1C4000, v36, OS_LOG_TYPE_ERROR, "Failed to open base directory %s (%s)", &v48, 0x16u);
+    v38 = __error();
+    v39 = strerror(*v38);
+    v46.st_dev = 136315394;
+    *&v46.st_mode = a1;
+    WORD2(v46.st_ino) = 2080;
+    *(&v46.st_ino + 6) = v39;
+    _os_log_error_impl(&dword_23C1C4000, v35, OS_LOG_TYPE_ERROR, "Failed to open base directory %s (%s)", &v46, 0x16u);
     goto LABEL_72;
   }
 
@@ -4232,7 +3632,7 @@ LABEL_3:
   if (v9)
   {
     v10 = v9;
-    v42 = 0;
+    v40 = 0;
     while (1)
     {
       memset(__dst, 170, sizeof(__dst));
@@ -4325,15 +3725,15 @@ LABEL_25:
       v18 = a4;
       v19.tv_sec = 0xAAAAAAAAAAAAAAAALL;
       v19.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-      *&v48.st_blksize = v19;
-      *v48.st_qspare = v19;
-      v48.st_birthtimespec = v19;
-      *&v48.st_size = v19;
-      v48.st_ctimespec = v19;
-      v48.st_atimespec = v19;
-      v48.st_mtimespec = v19;
-      *&v48.st_dev = v19;
-      *&v48.st_uid = v19;
+      *&v46.st_blksize = v19;
+      *v46.st_qspare = v19;
+      v46.st_birthtimespec = v19;
+      *&v46.st_size = v19;
+      v46.st_ctimespec = v19;
+      v46.st_atimespec = v19;
+      v46.st_mtimespec = v19;
+      *&v46.st_dev = v19;
+      *&v46.st_uid = v19;
       v20 = a1[23];
       v21 = a1;
       if (v20 >= 0)
@@ -4354,9 +3754,9 @@ LABEL_25:
 
       if (v23 < 0x17)
       {
-        memset(&v44, 0, sizeof(v44));
-        v25 = &v44;
-        *(&v44.__r_.__value_.__s + 23) = v22 + 1;
+        memset(&v42, 0, sizeof(v42));
+        v25 = &v42;
+        *(&v42.__r_.__value_.__s + 23) = v22 + 1;
         if (!v22)
         {
           a4 = v18;
@@ -4378,74 +3778,73 @@ LABEL_25:
         }
 
         v25 = operator new(v24);
-        v44.__r_.__value_.__l.__size_ = v22 + 1;
-        v44.__r_.__value_.__r.__words[2] = v24 | 0x8000000000000000;
-        v44.__r_.__value_.__r.__words[0] = v25;
+        v42.__r_.__value_.__l.__size_ = v22 + 1;
+        v42.__r_.__value_.__r.__words[2] = v24 | 0x8000000000000000;
+        v42.__r_.__value_.__r.__words[0] = v25;
       }
 
       a1 = v21;
-      v26 = *v21;
       if (v20 >= 0)
       {
-        v27 = v21;
+        v26 = v21;
       }
 
       else
       {
-        v27 = *v21;
+        v26 = *v21;
       }
 
-      memmove(v25, v27, v22);
+      memmove(v25, v26, v22);
       a4 = v18;
 LABEL_40:
       *&v25[v22] = 47;
       if ((v14 & 0x80000000) == 0)
       {
-        v28 = __dst;
+        v27 = __dst;
       }
 
       else
       {
-        v28 = *__dst;
+        v27 = *__dst;
       }
 
       if ((v14 & 0x80000000) == 0)
       {
-        v29 = v14;
+        v28 = v14;
       }
 
       else
       {
-        v29 = *&__dst[8];
+        v28 = *&__dst[8];
       }
 
-      v30 = std::string::append(&v44, v28, v29);
+      v29 = std::string::append(&v42, v27, v28);
       a3 = v17;
-      v31 = *&v30->__r_.__value_.__l.__data_;
-      v46 = v30->__r_.__value_.__r.__words[2];
-      *__p = v31;
-      v30->__r_.__value_.__l.__size_ = 0;
-      v30->__r_.__value_.__r.__words[2] = 0;
-      v30->__r_.__value_.__r.__words[0] = 0;
-      if (v46 >= 0)
+      v30 = *&v29->__r_.__value_.__l.__data_;
+      v44 = v29->__r_.__value_.__r.__words[2];
+      *__p = v30;
+      v29->__r_.__value_.__l.__size_ = 0;
+      v29->__r_.__value_.__r.__words[2] = 0;
+      v29->__r_.__value_.__r.__words[0] = 0;
+      if (v44 >= 0)
       {
-        v32 = __p;
+        v31 = __p;
       }
 
       else
       {
-        v32 = __p[0];
+        v31 = __p[0];
       }
 
-      lstat(v32, &v48);
+      lstat(v31, &v46);
       v8 = v16;
-      if (SHIBYTE(v46) < 0)
+      if (SHIBYTE(v44) < 0)
       {
         operator delete(__p[0]);
-        if ((SHIBYTE(v44.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v42.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
 LABEL_51:
-          if ((v48.st_mode & 0xF000) != 0xA000)
+          if ((v46.st_mode & 0xF000) != 0xA000)
           {
             goto LABEL_55;
           }
@@ -4454,21 +3853,21 @@ LABEL_51:
         }
       }
 
-      else if ((SHIBYTE(v44.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      else if ((SHIBYTE(v42.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_51;
       }
 
-      operator delete(v44.__r_.__value_.__l.__data_);
-      if ((v48.st_mode & 0xF000) != 0xA000)
+      operator delete(v42.__r_.__value_.__l.__data_);
+      if ((v46.st_mode & 0xF000) != 0xA000)
       {
 LABEL_55:
         if (std::regex_match[abi:ne200100]<std::char_traits<char>,std::allocator<char>,char,std::regex_traits<char>>(__dst, a2, 0))
         {
-          v33 = *(a3 + 8);
-          if (v33 >= *(a3 + 16))
+          v32 = *(a3 + 8);
+          if (v32 >= *(a3 + 16))
           {
-            v35 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(a3, __dst);
+            v34 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(a3, __dst);
           }
 
           else
@@ -4480,17 +3879,17 @@ LABEL_55:
 
             else
             {
-              v34 = *__dst;
-              *(v33 + 16) = *&__dst[16];
-              *v33 = v34;
+              v33 = *__dst;
+              *(v32 + 16) = *&__dst[16];
+              *v32 = v33;
             }
 
-            v35 = (v33 + 24);
-            *(a3 + 8) = v33 + 24;
+            v34 = (v32 + 24);
+            *(a3 + 8) = v32 + 24;
           }
 
-          *(a3 + 8) = v35;
-          v42 = 1;
+          *(a3 + 8) = v34;
+          v40 = 1;
         }
       }
 
@@ -4508,13 +3907,11 @@ LABEL_64:
     }
   }
 
-  v42 = 0;
+  v40 = 0;
 LABEL_74:
   closedir(v8);
-  v37 = v42;
-LABEL_75:
-  v38 = *MEMORY[0x277D85DE8];
-  return v37 & 1;
+  v36 = v40;
+  return v36 & 1;
 }
 
 void sub_23C24D878(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -5497,13 +4894,13 @@ LABEL_7:
 
 void *support::fs::readCurrentLine@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
   std::istream::tellg();
-  v4 = v11;
-  if (v11 >= 2)
+  v4 = v10;
+  if (v10 >= 2)
   {
     do
     {
@@ -5519,12 +4916,10 @@ void *support::fs::readCurrentLine@<X0>(void *a1@<X0>, void *a2@<X8>)
 
   std::istream::seekg();
   std::ios_base::getloc((a1 + *(*a1 - 24)));
-  v6 = std::locale::use_facet(v10, MEMORY[0x277D82680]);
+  v6 = std::locale::use_facet(v9, MEMORY[0x277D82680]);
   v7 = (v6->__vftable[2].~facet_0)(v6, 10);
-  std::locale::~locale(v10);
-  result = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a1, a2, v7);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  std::locale::~locale(v9);
+  return std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a1, a2, v7);
 }
 
 void sub_23C24E940(_Unwind_Exception *exception_object)
@@ -5835,7 +5230,7 @@ std::string *std::match_results<std::__wrap_iter<char const*>>::format<std::back
       return this;
     }
 
-    v53 = (a1 + 3);
+    v53 = a1 + 3;
     while (1)
     {
       v30 = *v6;
@@ -6230,13 +5625,13 @@ void sub_23C24F408(void *a1)
 
 void *Capabilities::create_default_global@<X0>(void *a1@<X8>)
 {
-  v3 = operator new(1uLL);
-  *a1 = v3;
+  v2 = operator new(1uLL);
+  *a1 = v2;
   result = operator new(0x20uLL);
   *result = &unk_284EFB748;
   result[1] = 0;
   result[2] = 0;
-  result[3] = v3;
+  result[3] = v2;
   a1[1] = result;
   return result;
 }
@@ -6750,7 +6145,7 @@ void KernelPCIRestoreTrace::dumpPCIEState(uint64_t *a1, dispatch_object_t *a2)
 
 BOOL KernelPCIRestoreTrace::registerWithKernel_sync(KernelPCIRestoreTrace *this)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v2 = **(this + 13);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
   if (v3)
@@ -6812,12 +6207,16 @@ LABEL_9:
     result = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_28;
+      return result;
     }
 
     *buf = 0;
     v19 = "error: failed to create kernel trace obj";
-    goto LABEL_26;
+LABEL_26:
+    v20 = v22;
+LABEL_77:
+    v21 = 2;
+    goto LABEL_78;
   }
 
   if (!*(this + 2))
@@ -6826,14 +6225,12 @@ LABEL_9:
     result = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_28;
+      return result;
     }
 
     *buf = 0;
     v19 = "error: empty queue";
-LABEL_26:
-    v20 = v22;
-    goto LABEL_77;
+    goto LABEL_26;
   }
 
   v9 = (*(*v8 + 24))(v8);
@@ -6844,15 +6241,13 @@ LABEL_26:
     result = os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_28;
+      return result;
     }
 
     *buf = 0;
     v19 = "error: failed to start kernel trace";
     v20 = v11;
-LABEL_77:
-    v21 = 2;
-    goto LABEL_78;
+    goto LABEL_77;
   }
 
   if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
@@ -6861,22 +6256,22 @@ LABEL_77:
     _os_log_impl(&dword_23C1C4000, v11, OS_LOG_TYPE_DEFAULT, "ABP kernel interface started", buf, 2u);
   }
 
-  LODWORD(v49) = 0;
-  (*(**(this + 5) + 112))(*(this + 5), &v49);
-  v12 = v49;
-  if (!v49)
+  LODWORD(v46) = 0;
+  (*(**(this + 5) + 112))(*(this + 5), &v46);
+  v12 = v46;
+  if (!v46)
   {
-    v24 = **(this + 13);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v23 = **(this + 13);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_23C1C4000, v24, OS_LOG_TYPE_ERROR, "error: failed to get buffer constraints from kernel", buf, 2u);
+      _os_log_error_impl(&dword_23C1C4000, v23, OS_LOG_TYPE_ERROR, "error: failed to get buffer constraints from kernel", buf, 2u);
     }
 
-    goto LABEL_79;
+    return 0;
   }
 
-  *(this + 34) = v49;
+  *(this + 34) = v46;
   v13 = **(this + 13);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
@@ -6885,49 +6280,44 @@ LABEL_77:
     _os_log_impl(&dword_23C1C4000, v13, OS_LOG_TYPE_INFO, "set buffer size to %d KB", buf, 8u);
   }
 
-  v52 = 0;
-  (*(**(this + 5) + 136))(*(this + 5), &v52);
-  v14 = v52;
+  v49 = 0;
+  (*(**(this + 5) + 136))(*(this + 5), &v49);
+  v14 = v49;
   if (v14 < *(this + 35) * (*(**(this + 5) + 40))())
   {
     v15 = **(this + 13);
     result = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-    if (result)
+    if (!result)
     {
-      v17 = v52;
-      v18 = *(this + 35) * (*(**(this + 5) + 40))(*(this + 5));
-      *buf = 67109376;
-      *&buf[4] = v17;
-      *&buf[8] = 1024;
-      *&buf[10] = v18;
-      v19 = "error: buffer count exceeded kernel limits (param: %u, assigned buffer: %u)";
-      v20 = v15;
-      v21 = 14;
-LABEL_78:
-      _os_log_error_impl(&dword_23C1C4000, v20, OS_LOG_TYPE_ERROR, v19, buf, v21);
-      goto LABEL_79;
+      return result;
     }
 
-LABEL_28:
-    v23 = *MEMORY[0x277D85DE8];
-    return result;
+    v17 = v49;
+    v18 = *(this + 35) * (*(**(this + 5) + 40))(*(this + 5));
+    *buf = 67109376;
+    *&buf[4] = v17;
+    *&buf[8] = 1024;
+    *&buf[10] = v18;
+    v19 = "error: buffer count exceeded kernel limits (param: %u, assigned buffer: %u)";
+    v20 = v15;
+    v21 = 14;
+LABEL_78:
+    _os_log_error_impl(&dword_23C1C4000, v20, OS_LOG_TYPE_ERROR, v19, buf, v21);
+    return 0;
   }
 
   if (!(*(**(this + 5) + 40))(*(this + 5)))
   {
-LABEL_75:
-    result = 1;
-    v45 = *MEMORY[0x277D85DE8];
-    return result;
+    return 1;
   }
 
-  v25 = 0;
-  v26 = this + 200;
-  v48 = (this + 184);
+  v24 = 0;
+  v25 = this + 200;
+  v45 = (this + 184);
   while (1)
   {
-    v51 = -1431655766;
-    if (!(*(**(this + 5) + 48))(*(this + 5), v25, &v51, &KernelPCIRestoreTrace::registerWithKernel_sync(void)::name, 256))
+    v48 = -1431655766;
+    if (!(*(**(this + 5) + 48))(*(this + 5), v24, &v48, &KernelPCIRestoreTrace::registerWithKernel_sync(void)::name, 256))
     {
       goto LABEL_74;
     }
@@ -6938,57 +6328,57 @@ LABEL_75:
       goto LABEL_74;
     }
 
-    v28 = operator new(0x68uLL);
-    v28->__shared_owners_ = 0;
-    p_shared_owners = &v28->__shared_owners_;
-    v28->__shared_weak_owners_ = 0;
-    v28->__vftable = &unk_284EFB868;
-    v30 = v51;
-    v31 = *(this + 28);
-    if (!v31)
+    v27 = operator new(0x68uLL);
+    v27->__shared_owners_ = 0;
+    p_shared_owners = &v27->__shared_owners_;
+    v27->__shared_weak_owners_ = 0;
+    v27->__vftable = &unk_284EFB868;
+    v29 = v48;
+    v30 = *(this + 28);
+    if (!v30)
     {
       goto LABEL_41;
     }
 
-    if (v31 != v26)
+    if (v30 != v25)
     {
-      v31 = (*(*v31 + 16))(v31);
+      v30 = (*(*v30 + 16))(v30);
 LABEL_41:
-      v54 = v31;
+      v51 = v30;
       goto LABEL_43;
     }
 
-    v54 = buf;
-    (*(*v31 + 24))(v31, buf);
+    v51 = buf;
+    (*(*v30 + 24))(v30, buf);
 LABEL_43:
-    v32 = strlen(&KernelPCIRestoreTrace::registerWithKernel_sync(void)::name);
-    if (v32 >= 0x7FFFFFFFFFFFFFF8)
+    v31 = strlen(&KernelPCIRestoreTrace::registerWithKernel_sync(void)::name);
+    if (v31 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v33 = v32;
-    v34 = v26;
-    v35 = v28 + 1;
-    if (v32 >= 0x17)
+    v32 = v31;
+    v33 = v25;
+    v34 = v27 + 1;
+    if (v31 >= 0x17)
     {
-      v38 = (v32 | 7) == 0x17 ? 25 : (v32 | 7) + 1;
-      v36 = operator new(v38);
-      v28[1].__shared_owners_ = v33;
-      v28[1].__shared_weak_owners_ = v38 | 0x8000000000000000;
-      v28[1].__vftable = v36;
+      v37 = (v31 | 7) == 0x17 ? 25 : (v31 | 7) + 1;
+      v35 = operator new(v37);
+      v27[1].__shared_owners_ = v32;
+      v27[1].__shared_weak_owners_ = v37 | 0x8000000000000000;
+      v27[1].__vftable = v35;
     }
 
     else
     {
-      HIBYTE(v28[1].__shared_weak_owners_) = v32;
-      v36 = &v28[1];
-      if (!v32)
+      HIBYTE(v27[1].__shared_weak_owners_) = v31;
+      v35 = &v27[1];
+      if (!v31)
       {
-        LOBYTE(v35->__vftable) = 0;
-        LODWORD(v28[2].__vftable) = v30;
-        v37 = v54;
-        if (!v54)
+        LOBYTE(v34->__vftable) = 0;
+        LODWORD(v27[2].__vftable) = v29;
+        v36 = v51;
+        if (!v51)
         {
           goto LABEL_54;
         }
@@ -6997,78 +6387,78 @@ LABEL_43:
       }
     }
 
-    memcpy(v36, &KernelPCIRestoreTrace::registerWithKernel_sync(void)::name, v33);
-    *(&v36->~__shared_weak_count + v33) = 0;
-    LODWORD(v28[2].__vftable) = v30;
-    v37 = v54;
-    if (!v54)
+    memcpy(v35, &KernelPCIRestoreTrace::registerWithKernel_sync(void)::name, v32);
+    *(&v35->~__shared_weak_count + v32) = 0;
+    LODWORD(v27[2].__vftable) = v29;
+    v36 = v51;
+    if (!v51)
     {
 LABEL_54:
-      v26 = v34;
-      v28[3].__shared_owners_ = v37;
+      v25 = v33;
+      v27[3].__shared_owners_ = v36;
       goto LABEL_56;
     }
 
 LABEL_47:
-    v26 = v34;
-    if (v37 == buf)
+    v25 = v33;
+    if (v36 == buf)
     {
-      v28[3].__shared_owners_ = &v28[2].__shared_owners_;
-      (*(*v37 + 24))(v37);
+      v27[3].__shared_owners_ = &v27[2].__shared_owners_;
+      (*(*v36 + 24))(v36);
     }
 
     else
     {
-      v28[3].__shared_owners_ = (*(*v37 + 16))(v37);
+      v27[3].__shared_owners_ = (*(*v36 + 16))(v36);
     }
 
 LABEL_56:
-    v28[3].__shared_weak_owners_ = 0;
-    v28[4].__vftable = 0;
-    if (v54 == buf)
+    v27[3].__shared_weak_owners_ = 0;
+    v27[4].__vftable = 0;
+    if (v51 == buf)
     {
-      (*(*v54 + 32))(v54);
-      v49 = v28 + 1;
-      v50 = v28;
+      (*(*v51 + 32))(v51);
+      v46 = v27 + 1;
+      v47 = v27;
+      v38 = (this + 184);
       v39 = (this + 184);
-      v40 = (this + 184);
-      v41 = *v48;
-      if (*v48)
+      v40 = *v45;
+      if (*v45)
       {
         goto LABEL_64;
       }
 
 LABEL_68:
-      v43 = operator new(0x30uLL);
-      v43[4] = v35;
-      v43[5] = v28;
-      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-      *v43 = 0;
-      v43[1] = 0;
-      v43[2] = v40;
-      *v39 = v43;
-      v44 = **(this + 22);
-      if (v44)
+      v42 = operator new(0x30uLL);
+      v42[4] = v34;
+      v42[5] = v27;
+      atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
+      *v42 = 0;
+      v42[1] = 0;
+      v42[2] = v39;
+      *v38 = v42;
+      v43 = **(this + 22);
+      if (v43)
       {
-        *(this + 22) = v44;
+        *(this + 22) = v43;
       }
 
-      std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(*(this + 23), v43);
+      std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(*(this + 23), v42);
       ++*(this + 24);
       goto LABEL_71;
     }
 
-    if (v54)
+    if (v51)
     {
-      (*(*v54 + 40))();
+      (*(*v51 + 40))();
     }
 
-    v49 = v28 + 1;
-    v50 = v28;
+    v46 = v27 + 1;
+    v47 = v27;
+    v38 = (this + 184);
     v39 = (this + 184);
-    v40 = (this + 184);
-    v41 = *v48;
-    if (!*v48)
+    v40 = *v45;
+    if (!*v45)
     {
       goto LABEL_68;
     }
@@ -7078,64 +6468,64 @@ LABEL_68:
 LABEL_64:
       while (1)
       {
-        v40 = v41;
-        v42 = v41[4];
-        if (v35 >= v42)
+        v39 = v40;
+        v41 = v40[4];
+        if (v34 >= v41)
         {
           break;
         }
 
-        v41 = *v40;
-        v39 = v40;
-        if (!*v40)
+        v40 = *v39;
+        v38 = v39;
+        if (!*v39)
         {
           goto LABEL_68;
         }
       }
 
-      if (v42 >= v35)
+      if (v41 >= v34)
       {
         break;
       }
 
-      v41 = v40[1];
-      if (!v41)
+      v40 = v39[1];
+      if (!v40)
       {
-        v39 = v40 + 1;
+        v38 = v39 + 1;
         goto LABEL_68;
       }
     }
 
 LABEL_71:
-    if ((KernelPCIRestoreTrace::allocateBuffQueue_sync(this, &v49) & 1) == 0)
+    if ((KernelPCIRestoreTrace::allocateBuffQueue_sync(this, &v46) & 1) == 0)
     {
       break;
     }
 
     if (!atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v28->__on_zero_shared)(v28);
-      std::__shared_weak_count::__release_weak(v28);
+      (v27->__on_zero_shared)(v27);
+      std::__shared_weak_count::__release_weak(v27);
     }
 
 LABEL_74:
-    v25 = (v25 + 1);
-    if (v25 >= (*(**(this + 5) + 40))(*(this + 5)))
+    v24 = (v24 + 1);
+    if (v24 >= (*(**(this + 5) + 40))(*(this + 5)))
     {
-      goto LABEL_75;
+      return 1;
     }
   }
 
-  v47 = **(this + 13);
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+  v44 = **(this + 13);
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&dword_23C1C4000, v47, OS_LOG_TYPE_ERROR, "error: failed to allocate buffer", buf, 2u);
+    _os_log_error_impl(&dword_23C1C4000, v44, OS_LOG_TYPE_ERROR, "error: failed to allocate buffer", buf, 2u);
     if (!atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
 LABEL_82:
-      (v28->__on_zero_shared)(v28);
-      std::__shared_weak_count::__release_weak(v28);
+      (v27->__on_zero_shared)(v27);
+      std::__shared_weak_count::__release_weak(v27);
     }
   }
 
@@ -7144,149 +6534,134 @@ LABEL_82:
     goto LABEL_82;
   }
 
-LABEL_79:
-  result = 0;
-  v46 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-void sub_23C250C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23C250C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::function<void ()(unsigned char const*,long)>::~function(va);
-  std::__shared_weak_count::~__shared_weak_count(v5);
-  operator delete(v7);
+  std::__shared_weak_count::~__shared_weak_count(v9);
+  operator delete(v11);
   _Unwind_Resume(a1);
 }
 
-void sub_23C250C6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C250C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t KernelPCIRestoreTrace::allocateBuffQueue_sync(uint64_t a1, uint64_t *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = **(a1 + 104);
-  if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    if (*a2)
+    *buf = 136315138;
+    *v17 = "allocateBuffQueue_sync";
+    _os_log_debug_impl(&dword_23C1C4000, v4, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
+    if (!*a2)
     {
-      goto LABEL_3;
+      return 0;
     }
-
-LABEL_13:
-    result = 0;
-    goto LABEL_14;
   }
 
-  *buf = 136315138;
-  *v18 = "allocateBuffQueue_sync";
-  _os_log_debug_impl(&dword_23C1C4000, v4, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
-  if (!*a2)
+  else if (!*a2)
   {
-    goto LABEL_13;
+    return 0;
   }
 
-LABEL_3:
-  if (*(a1 + 140))
+  if (!*(a1 + 140))
   {
-    v5 = 0;
-    while (1)
-    {
-      v6 = *(a1 + 136);
-      v16 = 0;
-      v7 = KernelPCIRestoreTrace::createBuffContext_sync(a1, v6, a2, &v16);
-      v8 = (*(**(a1 + 40) + 72))(*(a1 + 40), *(*a2 + 24), *v7, *(v7 + 2), 0, readLogsCompletionCB, v7);
-      v9 = *(a1 + 104);
-      v10 = *v9;
-      if (v8)
-      {
-        break;
-      }
-
-      ++v5;
-      if (os_log_type_enabled(*v9, OS_LOG_TYPE_INFO))
-      {
-        v11 = *(a1 + 136) >> 10;
-        *buf = 67109376;
-        *v18 = v5;
-        *&v18[4] = 1024;
-        *&v18[6] = v11;
-        _os_log_impl(&dword_23C1C4000, v10, OS_LOG_TYPE_INFO, "pre-assigned buffer # %u of size %u KB to fetch logs", buf, 0xEu);
-      }
-
-      if (v5 >= *(a1 + 140))
-      {
-        goto LABEL_9;
-      }
-    }
-
-    v13 = v8;
-    if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
-    {
-      v15 = *(a1 + 136) >> 10;
-      *buf = 67109632;
-      *v18 = v5 + 1;
-      *&v18[4] = 1024;
-      *&v18[6] = v15;
-      v19 = 1024;
-      v20 = v13;
-      _os_log_error_impl(&dword_23C1C4000, v10, OS_LOG_TYPE_ERROR, "error: failed to pre-assign buffer # %u of size %u KB to fetch logs (error [0x%x])", buf, 0x14u);
-    }
-
-    KernelPCIRestoreTrace::deleteBuffContext_sync(a1, v7);
-    goto LABEL_13;
+    return 1;
   }
 
-LABEL_9:
-  result = 1;
-LABEL_14:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = 0;
+  while (1)
+  {
+    v6 = *(a1 + 136);
+    v15 = 0;
+    v7 = KernelPCIRestoreTrace::createBuffContext_sync(a1, v6, a2, &v15);
+    v8 = (*(**(a1 + 40) + 72))(*(a1 + 40), *(*a2 + 24), *v7, *(v7 + 2), 0, readLogsCompletionCB, v7);
+    v9 = *(a1 + 104);
+    v10 = *v9;
+    if (v8)
+    {
+      break;
+    }
+
+    ++v5;
+    if (os_log_type_enabled(*v9, OS_LOG_TYPE_INFO))
+    {
+      v11 = *(a1 + 136) >> 10;
+      *buf = 67109376;
+      *v17 = v5;
+      *&v17[4] = 1024;
+      *&v17[6] = v11;
+      _os_log_impl(&dword_23C1C4000, v10, OS_LOG_TYPE_INFO, "pre-assigned buffer # %u of size %u KB to fetch logs", buf, 0xEu);
+    }
+
+    if (v5 >= *(a1 + 140))
+    {
+      return 1;
+    }
+  }
+
+  v13 = v8;
+  if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
+  {
+    v14 = *(a1 + 136) >> 10;
+    *buf = 67109632;
+    *v17 = v5 + 1;
+    *&v17[4] = 1024;
+    *&v17[6] = v14;
+    v18 = 1024;
+    v19 = v13;
+    _os_log_error_impl(&dword_23C1C4000, v10, OS_LOG_TYPE_ERROR, "error: failed to pre-assign buffer # %u of size %u KB to fetch logs (error [0x%x])", buf, 0x14u);
+  }
+
+  KernelPCIRestoreTrace::deleteBuffContext_sync(a1, v7);
+  return 0;
 }
 
 void KernelPCIRestoreTrace::deregisterWithKernel_sync(KernelPCIRestoreTrace *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = **(this + 13);
-  if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
+    v7 = 136315138;
+    v8 = "deregisterWithKernel_sync";
+    _os_log_debug_impl(&dword_23C1C4000, v2, OS_LOG_TYPE_DEBUG, "%s", &v7, 0xCu);
+    v2 = **(this + 13);
     if (!os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_3;
-    }
-
-LABEL_6:
-    LOWORD(v8) = 0;
-    _os_log_impl(&dword_23C1C4000, v2, OS_LOG_TYPE_INFO, "stopping kernel trace interface", &v8, 2u);
-    v4 = (this + 40);
-    v3 = *(this + 5);
-    if (!v3)
-    {
-      goto LABEL_14;
-    }
-
-    goto LABEL_7;
-  }
-
-  v8 = 136315138;
-  v9 = "deregisterWithKernel_sync";
-  _os_log_debug_impl(&dword_23C1C4000, v2, OS_LOG_TYPE_DEBUG, "%s", &v8, 0xCu);
-  v2 = **(this + 13);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-  {
-    goto LABEL_6;
-  }
-
 LABEL_3:
+      v4 = (this + 40);
+      v3 = *(this + 5);
+      if (!v3)
+      {
+        return;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if (!os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  {
+    goto LABEL_3;
+  }
+
+  LOWORD(v7) = 0;
+  _os_log_impl(&dword_23C1C4000, v2, OS_LOG_TYPE_INFO, "stopping kernel trace interface", &v7, 2u);
   v4 = (this + 40);
   v3 = *(this + 5);
   if (!v3)
   {
-    goto LABEL_14;
+    return;
   }
 
 LABEL_7:
@@ -7305,10 +6680,13 @@ LABEL_7:
     v6 = *(this + 6);
     *v4 = 0;
     v4[1] = 0;
-    if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v6)
     {
-      (v6->__on_zero_shared)(v6);
-      std::__shared_weak_count::__release_weak(v6);
+      if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v6->__on_zero_shared)(v6);
+        std::__shared_weak_count::__release_weak(v6);
+      }
     }
   }
 
@@ -7317,20 +6695,17 @@ LABEL_7:
     *v4 = 0;
     v4[1] = 0;
   }
-
-LABEL_14:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void *KernelPCIRestoreTrace::createBuffContext_sync(uint64_t *a1, uint64_t a2, uint64_t *a3, NSObject **a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v8 = *a1[13];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v28 = 136315138;
-    v29 = "createBuffContext_sync";
-    _os_log_debug_impl(&dword_23C1C4000, v8, OS_LOG_TYPE_DEBUG, "%s", &v28, 0xCu);
+    v27 = 136315138;
+    v28 = "createBuffContext_sync";
+    _os_log_debug_impl(&dword_23C1C4000, v8, OS_LOG_TYPE_DEBUG, "%s", &v27, 0xCu);
   }
 
   v9 = operator new(0x38uLL);
@@ -7407,7 +6782,7 @@ LABEL_33:
 
   std::__shared_weak_count::__release_weak(v14);
   std::__shared_weak_count::__release_weak(v13);
-  v21 = (a1 + 20);
+  v21 = a1 + 20;
   v20 = a1[20];
   if (v20)
   {
@@ -7416,7 +6791,7 @@ LABEL_33:
       while (1)
       {
         v22 = v20;
-        v23 = v20[4];
+        v23 = *(v20 + 32);
         if (v9 >= v23)
         {
           break;
@@ -7446,7 +6821,7 @@ LABEL_33:
 
   else
   {
-    v22 = (a1 + 20);
+    v22 = a1 + 20;
 LABEL_27:
     v24 = operator new(0x28uLL);
     v24[4] = v9;
@@ -7464,7 +6839,6 @@ LABEL_27:
     ++a1[21];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -7520,22 +6894,22 @@ LABEL_7:
 
 void KernelPCIRestoreTrace::deleteBuffContext_sync(uint64_t a1, unint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = **(a1 + 104);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v20 = 136315138;
-    v21 = "deleteBuffContext_sync";
-    _os_log_debug_impl(&dword_23C1C4000, v4, OS_LOG_TYPE_DEBUG, "%s", &v20, 0xCu);
+    v19 = 136315138;
+    v20 = "deleteBuffContext_sync";
+    _os_log_debug_impl(&dword_23C1C4000, v4, OS_LOG_TYPE_DEBUG, "%s", &v19, 0xCu);
     if (!a2)
     {
-      goto LABEL_32;
+      return;
     }
   }
 
   else if (!a2)
   {
-    goto LABEL_32;
+    return;
   }
 
   v5 = *(a1 + 160);
@@ -7545,7 +6919,7 @@ void KernelPCIRestoreTrace::deleteBuffContext_sync(uint64_t a1, unint64_t a2)
     v7 = *(a1 + 160);
     do
     {
-      v8 = v7[4];
+      v8 = *(v7 + 32);
       v9 = v8 >= a2;
       v10 = v8 < a2;
       if (v9)
@@ -7553,7 +6927,7 @@ void KernelPCIRestoreTrace::deleteBuffContext_sync(uint64_t a1, unint64_t a2)
         v6 = v7;
       }
 
-      v7 = v7[v10];
+      v7 = *(v7 + 8 * v10);
     }
 
     while (v7);
@@ -7624,29 +6998,26 @@ void KernelPCIRestoreTrace::deleteBuffContext_sync(uint64_t a1, unint64_t a2)
       operator delete(a2);
     }
   }
-
-LABEL_32:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void KernelPCIRestoreTrace::dumpPCIEState_sync(uint64_t a1, NSObject **a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v4 = **(a1 + 104);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    LODWORD(v40) = 136315138;
-    *(&v40 + 4) = "dumpPCIEState_sync";
-    _os_log_debug_impl(&dword_23C1C4000, v4, OS_LOG_TYPE_DEBUG, "%s", &v40, 0xCu);
+    LODWORD(v39) = 136315138;
+    *(&v39 + 4) = "dumpPCIEState_sync";
+    _os_log_debug_impl(&dword_23C1C4000, v4, OS_LOG_TYPE_DEBUG, "%s", &v39, 0xCu);
     if (!*(a1 + 40))
     {
-      goto LABEL_48;
+      return;
     }
   }
 
   else if (!*(a1 + 40))
   {
-    goto LABEL_48;
+    return;
   }
 
   v5 = dispatch_group_create();
@@ -7657,7 +7028,7 @@ void KernelPCIRestoreTrace::dumpPCIEState_sync(uint64_t a1, NSObject **a2)
   *v6 = &unk_284EFB8B8;
   v6[3] = v5;
   v8 = v6 + 3;
-  v31 = a2;
+  v30 = a2;
   if (v5)
   {
     dispatch_retain(v5);
@@ -7665,8 +7036,8 @@ void KernelPCIRestoreTrace::dumpPCIEState_sync(uint64_t a1, NSObject **a2)
     v7[5] = 0;
     v7[6] = 0;
     dispatch_release(v5);
-    *&v40 = v8;
-    *(&v40 + 1) = v7;
+    *&v39 = v8;
+    *(&v39 + 1) = v7;
     v9 = *(a1 + 176);
     v10 = (a1 + 184);
     if (v9 != (a1 + 184))
@@ -7680,8 +7051,8 @@ void KernelPCIRestoreTrace::dumpPCIEState_sync(uint64_t a1, NSObject **a2)
   v6[4] = 0;
   v6[5] = 0;
   v6[6] = 0;
-  *&v40 = v6 + 3;
-  *(&v40 + 1) = v6;
+  *&v39 = v6 + 3;
+  *(&v39 + 1) = v6;
   v9 = *(a1 + 176);
   v10 = (a1 + 184);
   if (v9 != (a1 + 184))
@@ -7691,28 +7062,28 @@ void KernelPCIRestoreTrace::dumpPCIEState_sync(uint64_t a1, NSObject **a2)
 LABEL_9:
       v12 = v9[4];
       v11 = v9[5];
-      v39[0] = v12;
-      v39[1] = v11;
+      v38[0] = v12;
+      v38[1] = v11;
       if (v11)
       {
         atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v13 = v40;
+      v13 = v39;
       if (*(v12 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v37, *v12, *(v12 + 8));
+        std::string::__init_copy_ctor_external(&v36, *v12, *(v12 + 8));
       }
 
       else
       {
         v14 = *v12;
-        v37.__r_.__value_.__r.__words[2] = *(v12 + 16);
-        *&v37.__r_.__value_.__l.__data_ = v14;
+        v36.__r_.__value_.__r.__words[2] = *(v12 + 16);
+        *&v36.__r_.__value_.__l.__data_ = v14;
       }
 
-      ctu::TrackedGroup::fork(v13, &v37, &group);
-      v15 = KernelPCIRestoreTrace::createBuffContext_sync(a1, 0, v39, &group);
+      ctu::TrackedGroup::fork(v13, &v36, &group);
+      v15 = KernelPCIRestoreTrace::createBuffContext_sync(a1, 0, v38, &group);
       if (group)
       {
         dispatch_group_leave(group);
@@ -7722,9 +7093,9 @@ LABEL_9:
         }
       }
 
-      if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v37.__r_.__value_.__l.__data_);
+        operator delete(v36.__r_.__value_.__l.__data_);
       }
 
       v16 = (*(**(a1 + 40) + 80))(*(a1 + 40), *(v12 + 24), 1, flushLogsCompletionCB, v15);
@@ -7805,13 +7176,13 @@ LABEL_34:
     std::__shared_weak_count::__release_weak(v25);
   }
 
-  v26 = *v40;
+  v26 = *v39;
   v27 = *(a1 + 16);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 1174405120;
   block[2] = ___ZN21KernelPCIRestoreTrace18dumpPCIEState_syncEN8dispatch13group_sessionE_block_invoke;
   block[3] = &__block_descriptor_tmp_26;
-  v28 = *v31;
+  v28 = *v30;
   block[4] = a1;
   object = v28;
   if (v28)
@@ -7820,13 +7191,13 @@ LABEL_34:
     dispatch_group_enter(object);
   }
 
-  v34 = v23;
-  v35 = v25;
+  v33 = v23;
+  v34 = v25;
   atomic_fetch_add_explicit(&v25->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   dispatch_group_notify(v26, v27, block);
-  if (v35)
+  if (v34)
   {
-    std::__shared_weak_count::__release_weak(v35);
+    std::__shared_weak_count::__release_weak(v34);
   }
 
   if (object)
@@ -7839,15 +7210,15 @@ LABEL_34:
   }
 
   std::__shared_weak_count::__release_weak(v25);
-  v29 = *(&v40 + 1);
-  if (*(&v40 + 1) && !atomic_fetch_add((*(&v40 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v29 = *(&v39 + 1);
+  if (*(&v39 + 1))
   {
-    (v29->__on_zero_shared)(v29);
-    std::__shared_weak_count::__release_weak(v29);
+    if (!atomic_fetch_add((*(&v39 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v29->__on_zero_shared)(v29);
+      std::__shared_weak_count::__release_weak(v29);
+    }
   }
-
-LABEL_48:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23C251AE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, dispatch_group_t group, char a28)
@@ -7863,21 +7234,21 @@ void sub_23C251AE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ctu::TrackedGroup::fork(uint64_t a1@<X0>, uint64_t a2@<X1>, NSObject **a3@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *__p = *a2;
-  v7 = *(a2 + 16);
+  v6 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
   *object = 0u;
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   ctu::TrackedGroup::fork(a1, __p, object, a3);
-  if (*(&v12 + 1) && object[0])
+  if (*(&v11 + 1) && object[0])
   {
-    v8 = object[0];
-    v9 = object[1];
-    (*(**(&v12 + 1) + 48))();
+    v7 = object[0];
+    v8 = object[1];
+    (*(**(&v11 + 1) + 48))();
   }
 
   if (object[1])
@@ -7885,17 +7256,35 @@ void ctu::TrackedGroup::fork(uint64_t a1@<X0>, uint64_t a2@<X1>, NSObject **a3@<
     os_release(object[1]);
   }
 
-  v3 = *(&v12 + 1);
+  v3 = *(&v11 + 1);
   object[1] = 0;
-  *(&v12 + 1) = 0;
-  if (v3 == &v11)
+  *(&v11 + 1) = 0;
+  if (v3 == &v10)
   {
     (*(*v3 + 32))(v3);
-    v4 = *(&v12 + 1);
+    v4 = *(&v11 + 1);
     object[0] = 0;
-    if (*(&v12 + 1) != &v11)
+    if (*(&v11 + 1) != &v10)
     {
-      goto LABEL_9;
+LABEL_9:
+      if (v4)
+      {
+        (*(*v4 + 40))(v4);
+        if ((SHIBYTE(v6) & 0x80000000) == 0)
+        {
+          return;
+        }
+
+        goto LABEL_15;
+      }
+
+LABEL_14:
+      if ((SHIBYTE(v6) & 0x80000000) == 0)
+      {
+        return;
+      }
+
+      goto LABEL_15;
     }
 
 LABEL_13:
@@ -7903,46 +7292,25 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if (!v3)
+  if (v3)
   {
+    (*(*v3 + 40))(v3);
+    v4 = *(&v11 + 1);
     object[0] = 0;
-    if ((SHIBYTE(v7) & 0x80000000) == 0)
+    if (*(&v11 + 1) != &v10)
     {
-      goto LABEL_16;
+      goto LABEL_9;
     }
 
-    goto LABEL_15;
-  }
-
-  (*(*v3 + 40))(v3);
-  v4 = *(&v12 + 1);
-  object[0] = 0;
-  if (*(&v12 + 1) == &v11)
-  {
     goto LABEL_13;
   }
 
-LABEL_9:
-  if (v4)
-  {
-    (*(*v4 + 40))(v4);
-    if (SHIBYTE(v7) < 0)
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_16;
-  }
-
-LABEL_14:
-  if (SHIBYTE(v7) < 0)
+  object[0] = 0;
+  if (SHIBYTE(v6) < 0)
   {
 LABEL_15:
     operator delete(__p[0]);
   }
-
-LABEL_16:
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23C251D28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
@@ -7955,6 +7323,35 @@ void sub_23C251D28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   _Unwind_Resume(a1);
+}
+
+void flushLogsCompletionCB(void *a1, uint64_t a2, uint64_t a3)
+{
+  if (a1)
+  {
+    v4 = a1[3];
+    if (v4)
+    {
+      v5 = a2;
+      v7 = std::__shared_weak_count::lock(v4);
+      if (v7)
+      {
+        v8 = a3;
+        v9 = v7;
+        v10 = a1[2];
+        if (v10)
+        {
+          KernelPCIRestoreTrace::flushLogsCompletion(v10, a1, v8, v5);
+        }
+
+        if (!atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v9->__on_zero_shared)(v9);
+          std::__shared_weak_count::__release_weak(v9);
+        }
+      }
+    }
+  }
 }
 
 void ___ZN21KernelPCIRestoreTrace18dumpPCIEState_syncEN8dispatch13group_sessionE_block_invoke(void *a1)
@@ -8126,13 +7523,13 @@ void __destroy_helper_block_e8_40c30_ZTSN8dispatch13group_sessionE48c46_ZTSNSt3_
 
 void KernelPCIRestoreTrace::readLogsCompletion(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v8 = *a1[13];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v17 = 136315138;
-    v18 = "readLogsCompletion";
-    _os_log_debug_impl(&dword_23C1C4000, v8, OS_LOG_TYPE_DEBUG, "%s", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "readLogsCompletion";
+    _os_log_debug_impl(&dword_23C1C4000, v8, OS_LOG_TYPE_DEBUG, "%s", &v16, 0xCu);
     v9 = a1[1];
     if (!v9)
     {
@@ -8175,8 +7572,6 @@ LABEL_8:
     (v12->__on_zero_shared)(v12);
     std::__shared_weak_count::__release_weak(v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23C2522D0(_Unwind_Exception *a1, int a2)
@@ -8191,13 +7586,13 @@ void sub_23C2522D0(_Unwind_Exception *a1, int a2)
 
 void KernelPCIRestoreTrace::flushLogsCompletion(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v8 = *a1[13];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v17 = 136315138;
-    v18 = "flushLogsCompletion";
-    _os_log_debug_impl(&dword_23C1C4000, v8, OS_LOG_TYPE_DEBUG, "%s", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "flushLogsCompletion";
+    _os_log_debug_impl(&dword_23C1C4000, v8, OS_LOG_TYPE_DEBUG, "%s", &v16, 0xCu);
     v9 = a1[1];
     if (!v9)
     {
@@ -8240,8 +7635,6 @@ LABEL_8:
     (v12->__on_zero_shared)(v12);
     std::__shared_weak_count::__release_weak(v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23C252464(_Unwind_Exception *a1, int a2)
@@ -8256,7 +7649,7 @@ void sub_23C252464(_Unwind_Exception *a1, int a2)
 
 void ctu::TrackedGroup::fork(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, NSObject **a4@<X8>)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v8 = dispatch_group_create();
   v9 = v8;
   *a4 = v8;
@@ -8276,8 +7669,8 @@ void ctu::TrackedGroup::fork(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  *&v33 = v10 + 24;
-  *(&v33 + 1) = v10;
+  *&v32 = v10 + 24;
+  *(&v32 + 1) = v10;
   v11 = *a1;
   if (*a1)
   {
@@ -8292,10 +7685,10 @@ void ctu::TrackedGroup::fork(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X
     dispatch_retain(global_queue);
   }
 
-  *&v34 = v10 + 24;
-  *(&v34 + 1) = v10;
+  *&v33 = v10 + 24;
+  *(&v33 + 1) = v10;
   atomic_fetch_add_explicit(v10 + 1, 1uLL, memory_order_relaxed);
-  v35 = v11;
+  v34 = v11;
   if (v11)
   {
     dispatch_retain(v11);
@@ -8303,28 +7696,28 @@ void ctu::TrackedGroup::fork(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X
   }
 
   v14 = a3[1];
-  v36 = *a3;
-  v37 = v14;
+  v35 = *a3;
+  v36 = v14;
   v15 = a3 + 2;
   v16 = a3[5];
   if (v16)
   {
     if (v16 == v15)
     {
-      v39 = &v38;
+      v38 = &v37;
       (*(*v16 + 24))(v16);
     }
 
     else
     {
-      v39 = a3[5];
+      v38 = a3[5];
       a3[5] = 0;
     }
   }
 
   else
   {
-    v39 = 0;
+    v38 = 0;
   }
 
   *a3 = 0;
@@ -8341,8 +7734,8 @@ void ctu::TrackedGroup::fork(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X
     (*(*v17 + 40))(v17);
   }
 
-  dispatch::detail::group_notify<ctu::TrackedGroup::fork(std::string,ctu::os::signpost_interval)::{lambda(void)#1}>(v9, v13, &v34);
-  ctu::TrackedGroup::fork(std::string,ctu::os::signpost_interval)::{lambda(void)#1}::~signpost_interval(&v34);
+  dispatch::detail::group_notify<ctu::TrackedGroup::fork(std::string,ctu::os::signpost_interval)::{lambda(void)#1}>(v9, v13, &v33);
+  ctu::TrackedGroup::fork(std::string,ctu::os::signpost_interval)::{lambda(void)#1}::~signpost_interval(&v33);
   if (v13)
   {
     dispatch_release(v13);
@@ -8352,10 +7745,10 @@ void ctu::TrackedGroup::fork(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X
   v19 = *(a1 + 24);
   if (v18 < v19)
   {
-    *v18 = v33;
-    if (*(&v33 + 1))
+    *v18 = v32;
+    if (*(&v32 + 1))
     {
-      atomic_fetch_add_explicit((*(&v33 + 1) + 16), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((*(&v32 + 1) + 16), 1uLL, memory_order_relaxed);
     }
 
     v20 = v18 + 16;
@@ -8397,9 +7790,9 @@ void ctu::TrackedGroup::fork(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X
     v27 = operator new(16 * v26);
     v28 = &v27[16 * v23];
     v29 = &v27[16 * v26];
-    *v28 = v33;
-    v30 = *(&v33 + 1);
-    if (!*(&v33 + 1))
+    *v28 = v32;
+    v30 = *(&v32 + 1);
+    if (!*(&v32 + 1))
     {
       goto LABEL_34;
     }
@@ -8409,9 +7802,9 @@ void ctu::TrackedGroup::fork(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X
 
   v28 = (16 * v23);
   v29 = 0;
-  *(16 * v23) = v33;
-  v30 = *(&v33 + 1);
-  if (*(&v33 + 1))
+  *(16 * v23) = v32;
+  v30 = *(&v32 + 1);
+  if (*(&v32 + 1))
   {
 LABEL_33:
     atomic_fetch_add_explicit((v30 + 16), 1uLL, memory_order_relaxed);
@@ -8440,13 +7833,14 @@ LABEL_36:
     dispatch_release(v11);
   }
 
-  if (*(&v33 + 1) && !atomic_fetch_add((*(&v33 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+  if (*(&v32 + 1))
   {
-    (*(**(&v33 + 1) + 16))(*(&v33 + 1));
-    std::__shared_weak_count::__release_weak(*(&v33 + 1));
+    if (!atomic_fetch_add((*(&v32 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (*(**(&v32 + 1) + 16))(*(&v32 + 1));
+      std::__shared_weak_count::__release_weak(*(&v32 + 1));
+    }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23C252958(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
@@ -8483,15 +7877,15 @@ void dispatch::detail::group_notify<ctu::TrackedGroup::fork(std::string,ctu::os:
   *a3 = 0;
   *(a3 + 1) = 0;
   *v6 = v7;
-  *(v6 + 1) = v8;
+  v6[1] = v8;
   *(a3 + 2) = 0;
   *(v6 + 4) = *(a3 + 4);
   v9 = a3 + 40;
-  v11 = (a3 + 4);
+  v11 = a3 + 4;
   v10 = *(a3 + 8);
   if (!v10)
   {
-    v12 = v6 + 64;
+    v12 = v6 + 4;
     goto LABEL_5;
   }
 
@@ -8675,9 +8069,9 @@ void std::__tree<std::shared_ptr<PipeContext>>::destroy(void *a1)
 
 void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::start(dispatch::group_session)::$_0>(KernelPCIRestoreTrace::start(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::start(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::start(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(std::__shared_weak_count **a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v1 = *a1;
-  v25 = *a1;
+  v24 = *a1;
   v2 = (*a1)->__vftable;
   v3 = *v2[2].__get_deleter;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -8742,8 +8136,8 @@ LABEL_50:
   {
     v8 = on_zero_shared[4];
     v7 = on_zero_shared[5];
-    v31 = v8;
-    v32 = v7;
+    v30 = v8;
+    v31 = v7;
     if (v7)
     {
       atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -8770,46 +8164,46 @@ LABEL_50:
 
     *&v9 = 0xAAAAAAAAAAAAAAAALL;
     *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v36 = v9;
     v37 = v9;
-    v38 = v9;
-    v35 = v9;
-    *v36 = v9;
+    v34 = v9;
+    *v35 = v9;
     *buf = v9;
-    *v34 = v9;
+    *v33 = v9;
     if (*(v8 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v30, *v8, *(v8 + 1));
+      std::string::__init_copy_ctor_external(&v29, *v8, *(v8 + 1));
     }
 
     else
     {
       v10 = *v8;
-      v30.__r_.__value_.__r.__words[2] = *(v8 + 2);
-      *&v30.__r_.__value_.__l.__data_ = v10;
+      v29.__r_.__value_.__r.__words[2] = *(v8 + 2);
+      *&v29.__r_.__value_.__l.__data_ = v10;
     }
 
-    v29 = 0;
+    v28 = 0;
     LOBYTE(__p) = 0;
     get_deleter = v2[3].__get_deleter;
-    capabilities::ipc::ABPLogExtension(v26, v5);
-    if (v27 >= 0)
+    capabilities::ipc::ABPLogExtension(v25, v5);
+    if (v26 >= 0)
     {
-      v13 = v26;
+      v13 = v25;
     }
 
     else
     {
-      v13 = *v26;
+      v13 = *v25;
     }
 
-    CircularFileLogWriter::Params::Params(buf, &v30, &__p, (get_deleter << 20), 0x100000uLL, v13, 0);
-    if (v27 < 0)
+    CircularFileLogWriter::Params::Params(buf, &v29, &__p, (get_deleter << 20), 0x100000uLL, v13, 0);
+    if (v26 < 0)
     {
-      operator delete(*v26);
-      if ((v29 & 0x80000000) == 0)
+      operator delete(*v25);
+      if ((v28 & 0x80000000) == 0)
       {
 LABEL_24:
-        if ((SHIBYTE(v30.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v29.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_25;
         }
@@ -8818,13 +8212,13 @@ LABEL_24:
       }
     }
 
-    else if ((v29 & 0x80000000) == 0)
+    else if ((v28 & 0x80000000) == 0)
     {
       goto LABEL_24;
     }
 
     operator delete(__p);
-    if ((SHIBYTE(v30.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v29.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_25:
       v14 = *v2[2].__get_deleter;
@@ -8834,13 +8228,13 @@ LABEL_25:
       }
 
 LABEL_26:
-      *v26 = 0;
-      _os_log_impl(&dword_23C1C4000, v14, OS_LOG_TYPE_INFO, "creating and opening log writer", v26, 2u);
+      *v25 = 0;
+      _os_log_impl(&dword_23C1C4000, v14, OS_LOG_TYPE_INFO, "creating and opening log writer", v25, 2u);
       goto LABEL_27;
     }
 
 LABEL_35:
-    operator delete(v30.__r_.__value_.__l.__data_);
+    operator delete(v29.__r_.__value_.__l.__data_);
     v14 = *v2[2].__get_deleter;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
@@ -8849,13 +8243,13 @@ LABEL_35:
 
 LABEL_27:
     PipeContext::start(v8, buf);
-    if (SBYTE7(v37) < 0)
+    if (SBYTE7(v36) < 0)
     {
-      operator delete(v36[0]);
-      if ((SHIBYTE(v35) & 0x80000000) == 0)
+      operator delete(v35[0]);
+      if ((SHIBYTE(v34) & 0x80000000) == 0)
       {
 LABEL_29:
-        if (SHIBYTE(v34[0]) < 0)
+        if (SHIBYTE(v33[0]) < 0)
         {
           goto LABEL_39;
         }
@@ -8864,13 +8258,13 @@ LABEL_29:
       }
     }
 
-    else if ((SHIBYTE(v35) & 0x80000000) == 0)
+    else if ((SHIBYTE(v34) & 0x80000000) == 0)
     {
       goto LABEL_29;
     }
 
-    operator delete(v34[1]);
-    if (SHIBYTE(v34[0]) < 0)
+    operator delete(v33[1]);
+    if (SHIBYTE(v33[0]) < 0)
     {
 LABEL_39:
       operator delete(*buf);
@@ -8924,8 +8318,8 @@ LABEL_40:
   }
 
   while (v16 != &v2[4].__get_deleter);
-  v1 = v25;
-  if (v25)
+  v1 = v24;
+  if (v24)
   {
     goto LABEL_50;
   }
@@ -8935,17 +8329,18 @@ LABEL_54:
   if (a1)
   {
     v22 = a1[2];
-    if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v22)
     {
-      (v22->__on_zero_shared)(v22);
-      std::__shared_weak_count::__release_weak(v22);
-      v21 = a1;
+      if (!atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v22->__on_zero_shared)(v22);
+        std::__shared_weak_count::__release_weak(v22);
+        v21 = a1;
+      }
     }
 
     operator delete(v21);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23C2534E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10)
@@ -8955,7 +8350,7 @@ void sub_23C2534E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_23C2534FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, char a30, uint64_t a31, char a32)
+void sub_23C2534FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
 {
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a30);
   std::unique_ptr<KernelPCITrace::start(dispatch::group,ctu::cf::CFSharedRef<__CFDictionary const>)::$_0,std::default_delete<KernelPCITrace::start(dispatch::group,ctu::cf::CFSharedRef<__CFDictionary const>)::$_0>>::~unique_ptr[abi:ne200100](&a10);
@@ -9022,9 +8417,9 @@ void sub_23C253680(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0>(KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0>(KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = **a1;
   v4 = **(v3 + 104);
@@ -9074,10 +8469,10 @@ LABEL_8:
 
 LABEL_3:
   v6 = v5;
-  v15 = v5;
+  v14 = v5;
   dispatch_retain(v5);
   dispatch_group_enter(v6);
-  KernelPCIRestoreTrace::dumpPCIEState_sync(v3, &v15);
+  KernelPCIRestoreTrace::dumpPCIEState_sync(v3, &v14);
   dispatch_group_leave(v6);
   dispatch_release(v6);
   v7 = v2[1];
@@ -9109,7 +8504,7 @@ LABEL_10:
 
 LABEL_12:
   operator delete(v2);
-  v13 = *(a1 + 2);
+  v13 = a1[2];
   if (v13 && !atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v13->__on_zero_shared)(v13);
@@ -9117,20 +8512,19 @@ LABEL_12:
   }
 
   operator delete(a1);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-void sub_23C253910(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C253910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void *);
   va_copy(va2, va1);
-  v6 = va_arg(va2, void *);
-  v8 = va_arg(va2, void);
+  v7 = va_arg(va2, void *);
+  v9 = va_arg(va2, void);
   KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}::~(va2);
-  dispatch_release(v2);
+  dispatch_release(v3);
   std::unique_ptr<KernelPCITrace::start(dispatch::group,ctu::cf::CFSharedRef<__CFDictionary const>)::$_0,std::default_delete<KernelPCITrace::start(dispatch::group,ctu::cf::CFSharedRef<__CFDictionary const>)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<Trace>::execute_wrapped<KernelPCITrace::flushLogsCompletion(KernelPCITrace::BuffContext *,unsigned long,int)::$_0>(KernelPCITrace::flushLogsCompletion(KernelPCITrace::BuffContext *,unsigned long,int)::$_0 &&)::{lambda(void)#1},std::default_delete<KernelPCITrace::flushLogsCompletion(KernelPCITrace::BuffContext *,unsigned long,int)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -9251,26 +8645,26 @@ LABEL_10:
   }
 }
 
-void sub_23C253B70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C253B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<KernelPCITrace::start(dispatch::group,ctu::cf::CFSharedRef<__CFDictionary const>)::$_0,std::default_delete<KernelPCITrace::start(dispatch::group,ctu::cf::CFSharedRef<__CFDictionary const>)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_23C253B84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C253B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va1);
   std::unique_ptr<KernelPCITrace::start(dispatch::group,ctu::cf::CFSharedRef<__CFDictionary const>)::$_0,std::default_delete<KernelPCITrace::start(dispatch::group,ctu::cf::CFSharedRef<__CFDictionary const>)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::dumpPCIEState(dispatch::group_session)::$_0>(KernelPCIRestoreTrace::dumpPCIEState(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::dumpPCIEState(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::dumpPCIEState(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::dumpPCIEState(dispatch::group_session)::$_0>(KernelPCIRestoreTrace::dumpPCIEState(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::dumpPCIEState(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::dumpPCIEState(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = **a1;
   v4 = **(v3 + 104);
@@ -9318,7 +8712,7 @@ LABEL_4:
   }
 
   operator delete(v2);
-  v8 = *(a1 + 2);
+  v8 = a1[2];
   if (v8 && !atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v8->__on_zero_shared)(v8);
@@ -9326,7 +8720,6 @@ LABEL_4:
   }
 
   operator delete(a1);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23C253D1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
@@ -9478,12 +8871,12 @@ void std::__shared_ptr_emplace<ctu::TrackedGroup>::__on_zero_shared(void *a1)
   }
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0>(KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0>(KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   if (!v4)
   {
     v13 = **(v3 + 104);
@@ -9497,7 +8890,7 @@ void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::exec
 LABEL_33:
     _os_log_error_impl(&dword_23C1C4000, v13, OS_LOG_TYPE_ERROR, v14, buf, 2u);
     operator delete(v2);
-    v23 = *(a1 + 2);
+    v23 = a1[2];
     if (!v23)
     {
       goto LABEL_31;
@@ -9555,9 +8948,9 @@ LABEL_33:
     v21 = *(v17 + 56);
     if (v21)
     {
-      v26 = v19;
+      v25 = v19;
       *buf = v18;
-      (*(*v21 + 48))(v21, buf, &v26);
+      (*(*v21 + 48))(v21, buf, &v25);
     }
   }
 
@@ -9590,18 +8983,18 @@ LABEL_33:
     v12 = v9;
     if (os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
     {
-      v25 = *(v7 + 8) >> 10;
+      v24 = *(v7 + 8) >> 10;
       *buf = 134218240;
-      *&buf[4] = v25;
-      v28 = 1024;
-      v29 = v12;
+      *&buf[4] = v24;
+      v27 = 1024;
+      v28 = v12;
       _os_log_error_impl(&dword_23C1C4000, v11, OS_LOG_TYPE_ERROR, "error: failed re-assigning new buffer of size %zu KB to fetch logs (error [0x%x])", buf, 0x12u);
     }
 
     KernelPCIRestoreTrace::deleteBuffContext_sync(v3, v7);
 LABEL_28:
     operator delete(v2);
-    v23 = *(a1 + 2);
+    v23 = a1[2];
     if (!v23)
     {
       goto LABEL_31;
@@ -9620,7 +9013,7 @@ LABEL_28:
   *&buf[4] = v22;
   _os_log_debug_impl(&dword_23C1C4000, v11, OS_LOG_TYPE_DEBUG, "assigning new buffer of size %zu KB to fetch logs", buf, 0xCu);
   operator delete(v2);
-  v23 = *(a1 + 2);
+  v23 = a1[2];
   if (!v23)
   {
     goto LABEL_31;
@@ -9635,7 +9028,6 @@ LABEL_29:
 
 LABEL_31:
   operator delete(a1);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23C25448C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
@@ -9645,12 +9037,12 @@ void sub_23C25448C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0>(KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0>(KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   if (v4)
   {
     if (*v4)
@@ -9694,9 +9086,9 @@ LABEL_21:
         v17 = *(v13 + 56);
         if (v17)
         {
-          v20 = v15;
+          v19 = v15;
           *buf = v14;
-          (*(*v17 + 48))(v17, buf, &v20);
+          (*(*v17 + 48))(v17, buf, &v19);
         }
 
         goto LABEL_21;
@@ -9758,7 +9150,7 @@ LABEL_8:
 
 LABEL_22:
   operator delete(v2);
-  v18 = *(a1 + 2);
+  v18 = a1[2];
   if (v18 && !atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v18->__on_zero_shared)(v18);
@@ -9766,7 +9158,6 @@ LABEL_22:
   }
 
   operator delete(a1);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23C2547C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
@@ -9824,4 +9215,574 @@ uint64_t abm::debug::registerLogHandlers(abm::debug *this)
   }
 
   return MEMORY[0x2821F0CA0](0, abm::debug::handleDebugPrintBBU);
+}
+
+void abm::debug::handleDebugPrintBinaryTelephonyUtil(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+{
+  v4 = "misc";
+  if (!a2)
+  {
+    v4 = "send";
+  }
+
+  if (a2 == 1)
+  {
+    v5 = "recv";
+  }
+
+  else
+  {
+    v5 = v4;
+  }
+
+  abm::debug::handleDebugPrintBinary(0, v5, a3, a4);
+}
+
+void abm::debug::handleDebugPrintBinaryKTL(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
+{
+  if (a2 > 3)
+  {
+    v4 = "";
+  }
+
+  else
+  {
+    v4 = off_278BB8CE8[a2];
+  }
+
+  abm::debug::handleDebugPrintBinary(2, v4, a3, a4);
+}
+
+void abm::debug::handleDebugPrintBinaryETL(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+{
+  v4 = "misc";
+  if (!a2)
+  {
+    v4 = "send";
+  }
+
+  if (a2 == 1)
+  {
+    v5 = "recv";
+  }
+
+  else
+  {
+    v5 = v4;
+  }
+
+  abm::debug::handleDebugPrintBinary(1, v5, a3, a4);
+}
+
+uint64_t abm::debug::handleDebugPrintBBU(abm::debug *this, void *a2, const char *a3, const char *a4)
+{
+  v30 = 0xAAAAAAAAAAAAAAAALL;
+  *&v6 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v29[7] = v6;
+  v29[8] = v6;
+  v29[5] = v6;
+  v29[6] = v6;
+  v29[3] = v6;
+  v29[4] = v6;
+  v29[1] = v6;
+  v29[2] = v6;
+  v29[0] = v6;
+  v27 = v6;
+  v28 = v6;
+  v25 = v6;
+  *__p = v6;
+  v23 = v6;
+  v24 = v6;
+  v22 = v6;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v22);
+  v7 = MEMORY[0x23EECDF30](&v22, a2);
+  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ":", 1);
+  v9 = strlen(a3);
+  v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, a3, v9);
+  memset(__dst, 170, sizeof(__dst));
+  if ((BYTE8(v28) & 0x10) != 0)
+  {
+    v16 = v28;
+    if (v28 < *(&v25 + 1))
+    {
+      *&v28 = *(&v25 + 1);
+      v16 = *(&v25 + 1);
+    }
+
+    v17 = v25;
+    v14 = v16 - v25;
+    if ((v16 - v25) >= 0x7FFFFFFFFFFFFFF8)
+    {
+      goto LABEL_23;
+    }
+  }
+
+  else
+  {
+    if ((BYTE8(v28) & 8) == 0)
+    {
+      v14 = 0;
+      HIBYTE(__dst[2]) = 0;
+      v15 = __dst;
+      goto LABEL_15;
+    }
+
+    v17 = *(&v23 + 1);
+    v14 = *(&v24 + 1) - *(&v23 + 1);
+    if (*(&v24 + 1) - *(&v23 + 1) >= 0x7FFFFFFFFFFFFFF8uLL)
+    {
+LABEL_23:
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+  }
+
+  if (v14 >= 0x17)
+  {
+    if ((v14 | 7) == 0x17)
+    {
+      v18 = 25;
+    }
+
+    else
+    {
+      v18 = (v14 | 7) + 1;
+    }
+
+    v15 = operator new(v18);
+    __dst[1] = v14;
+    __dst[2] = (v18 | 0x8000000000000000);
+    __dst[0] = v15;
+    goto LABEL_14;
+  }
+
+  HIBYTE(__dst[2]) = v14;
+  v15 = __dst;
+  if (v14)
+  {
+LABEL_14:
+    v10 = memmove(v15, v17, v14);
+  }
+
+LABEL_15:
+  *(v15 + v14) = 0;
+  v19 = __dst;
+  if (SHIBYTE(__dst[2]) < 0)
+  {
+    v19 = __dst[0];
+  }
+
+  abm::debug::handleDebugPrintBBUHelper(v10, v11, v12, v13, v19);
+  if (SHIBYTE(__dst[2]) < 0)
+  {
+    operator delete(__dst[0]);
+  }
+
+  *&v22 = *MEMORY[0x277D82828];
+  *(&v22 + *(v22 - 24)) = *(MEMORY[0x277D82828] + 24);
+  *(&v22 + 1) = MEMORY[0x277D82878] + 16;
+  if (SHIBYTE(v27) < 0)
+  {
+    operator delete(__p[1]);
+  }
+
+  *(&v22 + 1) = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(&v23);
+  std::ostream::~ostream();
+  return MEMORY[0x23EECE150](v29);
+}
+
+void sub_23C254CD8(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  if (SHIBYTE(a12) < 0)
+  {
+    operator delete(a10);
+  }
+
+  std::ostringstream::~ostringstream(&a13, MEMORY[0x277D82828]);
+  MEMORY[0x23EECE150](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t abm::debug::handleDebugPrint(uint64_t a1, int a2, _BYTE *a3, uint64_t a4, uint64_t a5)
+{
+  v49 = *MEMORY[0x277D85DE8];
+  v46 = 0xAAAAAAAAAAAAAAAALL;
+  *&v9 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v45[1] = v9;
+  v45[2] = v9;
+  v45[0] = v9;
+  ctu::LogMessageBuffer::LogMessageBuffer(v45);
+  if (a3 && *a3)
+  {
+    v10 = MEMORY[0x23EECDAD0](v45, a3);
+    MEMORY[0x23EECDAD0](v10, ": ");
+  }
+
+  MEMORY[0x23EECD870](&v43, a4, a5);
+  ctu::operator<<();
+  v11 = MEMORY[0x23EECD890](&v43);
+  ctu::Clock::now_in_nanoseconds(v11);
+  v12 = operator new(0x60uLL);
+  v13 = abm::debug::kLogDomainMap[a2];
+  v14 = strlen(v13);
+  if (v14 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v15 = v14;
+  if (v14 >= 0x17)
+  {
+    if ((v14 | 7) == 0x17)
+    {
+      v17 = 25;
+    }
+
+    else
+    {
+      v17 = (v14 | 7) + 1;
+    }
+
+    v16 = operator new(v17);
+    __p[1] = v15;
+    v42 = v17 | 0x8000000000000000;
+    __p[0] = v16;
+    goto LABEL_12;
+  }
+
+  HIBYTE(v42) = v14;
+  v16 = __p;
+  if (v14)
+  {
+LABEL_12:
+    memmove(v16, v13, v15);
+  }
+
+  *(v15 + v16) = 0;
+  MEMORY[0x23EECD850](v45);
+  ctu::LogMessageBuffer::takeMetadata(v45);
+  ctu::LogMessage::LogMessage();
+  v43 = v12;
+  v18 = operator new(0x20uLL);
+  v18->__vftable = &unk_284EFB970;
+  v18->__shared_owners_ = 0;
+  v18->__shared_weak_owners_ = 0;
+  v18[1].__vftable = v12;
+  v44 = v18;
+  if (SHIBYTE(v42) < 0)
+  {
+    operator delete(__p[0]);
+    v19 = v12 + 2;
+    v20 = SHIBYTE(v12[2].__r_.__value_.__r.__words[2]);
+    if ((v20 & 0x8000000000000000) == 0)
+    {
+      goto LABEL_15;
+    }
+  }
+
+  else
+  {
+    v19 = v12 + 2;
+    v20 = SHIBYTE(v12[2].__r_.__value_.__r.__words[2]);
+    if ((v20 & 0x8000000000000000) == 0)
+    {
+LABEL_15:
+      data = v19;
+      size = v20;
+      goto LABEL_18;
+    }
+  }
+
+  data = v12[2].__r_.__value_.__l.__data_;
+  size = v12[2].__r_.__value_.__l.__size_;
+LABEL_18:
+  v23 = data + size;
+  v24 = memchr(data, 10, size);
+  if (v24)
+  {
+    v25 = v24;
+  }
+
+  else
+  {
+    v25 = v23;
+  }
+
+  if (v25 == v23 || (v26 = v25 + 1, v25 + 1 == v23))
+  {
+    if ((v20 & 0x80) == 0)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+    do
+    {
+      v29 = *v26;
+      if (v29 != 10)
+      {
+        *v25++ = v29;
+      }
+
+      ++v26;
+    }
+
+    while (v26 != v23);
+    LOBYTE(v20) = *(&v12[2].__r_.__value_.__s + 23);
+    if ((v20 & 0x80) == 0)
+    {
+LABEL_24:
+      v27 = v19 + v20;
+      v28 = v25 - v19;
+      if (v20 >= (v25 - v19))
+      {
+        goto LABEL_25;
+      }
+
+LABEL_32:
+      std::string::__throw_out_of_range[abi:ne200100]();
+    }
+  }
+
+  v31 = v12[2].__r_.__value_.__l.__data_;
+  v30 = v12[2].__r_.__value_.__l.__size_;
+  v27 = &v31[v30];
+  v28 = v25 - v31;
+  if (v30 < v25 - v31)
+  {
+    goto LABEL_32;
+  }
+
+LABEL_25:
+  if (v27 - v25 == -1)
+  {
+    if ((v20 & 0x80) != 0)
+    {
+      v36 = v12[2].__r_.__value_.__l.__data_;
+      v12[2].__r_.__value_.__l.__size_ = v28;
+      v36[v28] = 0;
+      if (a2 <= 1)
+      {
+        goto LABEL_36;
+      }
+
+      goto LABEL_48;
+    }
+
+    *(&v12[2].__r_.__value_.__s + 23) = v28 & 0x7F;
+    v19->__r_.__value_.__s.__data_[v28] = 0;
+  }
+
+  else
+  {
+    std::string::__erase_external_with_move(v19, v28, v27 - v25);
+  }
+
+  if (a2 <= 1)
+  {
+LABEL_36:
+    if (!a2)
+    {
+      v32 = _MergedGlobals_5;
+      if (_MergedGlobals_5 && os_log_type_enabled(_MergedGlobals_5, OS_LOG_TYPE_DEFAULT))
+      {
+        v33 = &v43[2];
+        if (SHIBYTE(v43[2].__r_.__value_.__r.__words[2]) < 0)
+        {
+          v33 = v33->__words[0];
+        }
+
+        *buf = 136315138;
+        v48 = v33;
+LABEL_60:
+        _os_log_impl(&dword_23C1C4000, v32, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+        goto LABEL_61;
+      }
+
+      goto LABEL_61;
+    }
+
+    v34 = qword_280C05D88;
+    if (!qword_280C05D88 || !os_log_type_enabled(qword_280C05D88, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_61;
+    }
+
+    v35 = &v43[2];
+    if (SHIBYTE(v43[2].__r_.__value_.__r.__words[2]) < 0)
+    {
+      v35 = v35->__words[0];
+    }
+
+    *buf = 136315138;
+    v48 = v35;
+LABEL_54:
+    _os_log_debug_impl(&dword_23C1C4000, v34, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
+    goto LABEL_61;
+  }
+
+LABEL_48:
+  if (a2 == 2)
+  {
+    v34 = qword_280C05D80;
+    if (!qword_280C05D80 || !os_log_type_enabled(qword_280C05D80, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_61;
+    }
+
+    v37 = &v43[2];
+    if (SHIBYTE(v43[2].__r_.__value_.__r.__words[2]) < 0)
+    {
+      v37 = v37->__words[0];
+    }
+
+    *buf = 136315138;
+    v48 = v37;
+    goto LABEL_54;
+  }
+
+  v32 = qword_280C05D90;
+  if (qword_280C05D90 && os_log_type_enabled(qword_280C05D90, OS_LOG_TYPE_DEFAULT))
+  {
+    v38 = &v43[2];
+    if (SHIBYTE(v43[2].__r_.__value_.__r.__words[2]) < 0)
+    {
+      v38 = v38->__words[0];
+    }
+
+    *buf = 136315138;
+    v48 = v38;
+    goto LABEL_60;
+  }
+
+LABEL_61:
+  v39 = v44;
+  if (v44 && !atomic_fetch_add(&v44->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v39->__on_zero_shared)(v39);
+    std::__shared_weak_count::__release_weak(v39);
+  }
+
+  return MEMORY[0x23EECD890](v45);
+}
+
+void std::__shared_ptr_pointer<ctu::LogMessage *,std::shared_ptr<ctu::LogMessage>::__shared_ptr_default_delete<ctu::LogMessage,ctu::LogMessage>,std::allocator<ctu::LogMessage>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  operator delete(v1);
+}
+
+uint64_t std::__shared_ptr_pointer<ctu::LogMessage *,std::shared_ptr<ctu::LogMessage>::__shared_ptr_default_delete<ctu::LogMessage,ctu::LogMessage>,std::allocator<ctu::LogMessage>>::__on_zero_shared(uint64_t a1)
+{
+  result = *(a1 + 24);
+  if (result)
+  {
+    return (*(*result + 8))();
+  }
+
+  return result;
+}
+
+uint64_t std::__shared_ptr_pointer<ctu::LogMessage *,std::shared_ptr<ctu::LogMessage>::__shared_ptr_default_delete<ctu::LogMessage,ctu::LogMessage>,std::allocator<ctu::LogMessage>>::__get_deleter(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 8);
+  if (v2 != 0x800000023C32E251)
+  {
+    if (((v2 & 0x800000023C32E251 & 0x8000000000000000) != 0) == __OFSUB__(v2, 0x800000023C32E251))
+    {
+      return 0;
+    }
+
+    v3 = result;
+    v4 = strcmp((v2 & 0x7FFFFFFFFFFFFFFFLL), (0x800000023C32E251 & 0x7FFFFFFFFFFFFFFFLL));
+    result = v3;
+    if (v4)
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void abm::debug::handleDebugPrintBinary(int a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = a4;
+  v17 = *MEMORY[0x277D85DE8];
+  __p[1] = 0xAAAAAAAAAAAAAAAALL;
+  v10 = 0xAAAAAAAAAAAAAALL;
+  __p[0] = 0xAAAAAAAAAAAAAA00;
+  ctu::assign();
+  if (a1)
+  {
+    if (a1 == 1)
+    {
+      v7 = qword_280C05D88;
+      if (qword_280C05D88 && os_log_type_enabled(qword_280C05D88, OS_LOG_TYPE_DEBUG))
+      {
+        v8 = __p;
+        if (v10 < 0)
+        {
+          v8 = __p[0];
+        }
+
+        goto LABEL_20;
+      }
+
+LABEL_15:
+      if ((SHIBYTE(v10) & 0x80000000) == 0)
+      {
+        return;
+      }
+
+      goto LABEL_16;
+    }
+
+    v7 = qword_280C05D80;
+    if (!qword_280C05D80 || !os_log_type_enabled(qword_280C05D80, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_15;
+    }
+
+    v8 = __p;
+    if (v10 < 0)
+    {
+      v8 = __p[0];
+    }
+  }
+
+  else
+  {
+    v7 = _MergedGlobals_5;
+    if (!_MergedGlobals_5 || !os_log_type_enabled(_MergedGlobals_5, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_15;
+    }
+
+    v8 = __p;
+    if (v10 < 0)
+    {
+      v8 = __p[0];
+    }
+  }
+
+LABEL_20:
+  *buf = 67109634;
+  v12 = v4;
+  v13 = 2080;
+  v14 = a2;
+  v15 = 2080;
+  v16 = v8;
+  _os_log_debug_impl(&dword_23C1C4000, v7, OS_LOG_TYPE_DEBUG, "(%d) %s: %s", buf, 0x1Cu);
+  if (SHIBYTE(v10) < 0)
+  {
+LABEL_16:
+    operator delete(__p[0]);
+  }
 }

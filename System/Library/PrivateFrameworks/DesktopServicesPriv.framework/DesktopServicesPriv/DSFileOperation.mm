@@ -87,7 +87,7 @@
 
 - (UTType)utType
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   utType = self->_utType;
   if (!utType)
   {
@@ -95,16 +95,15 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       uuid = [(DSFileOperationID *)self->_operationID uuid];
-      v9 = 138543362;
-      v10 = uuid;
-      _os_log_impl(&dword_1E5674000, v4, OS_LOG_TYPE_ERROR, "Operation %{public}@ missing UTType, using generic type instead", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = uuid;
+      _os_log_impl(&dword_1E5674000, v4, OS_LOG_TYPE_ERROR, "Operation %{public}@ missing UTType, using generic type instead", &v8, 0xCu);
     }
 
     utType = *MEMORY[0x1E6982E48];
   }
 
   v6 = utType;
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

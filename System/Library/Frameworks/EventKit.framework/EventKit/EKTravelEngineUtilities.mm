@@ -29,7 +29,7 @@
 
 + (int64_t)geoRouteHypothesisTravelStateForString:(id)string
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = stringCopy;
   if (!stringCopy)
@@ -75,12 +75,12 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    v8 = EKTravelEngineLogHandle;
+    v7 = EKTravelEngineLogHandle;
     if (os_log_type_enabled(EKTravelEngineLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v4;
-      _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_DEFAULT, "Unknown travel state given: [%@].  Will not find a corresponding travel state.", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v4;
+      _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_DEFAULT, "Unknown travel state given: [%@].  Will not find a corresponding travel state.", &v8, 0xCu);
     }
 
     goto LABEL_7;
@@ -89,7 +89,6 @@ LABEL_7:
   v5 = 1;
 LABEL_8:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -156,7 +155,7 @@ LABEL_11:
 
 + (int)geoTransportTypeForString:(id)string
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = stringCopy;
   if (!stringCopy)
@@ -199,12 +198,12 @@ LABEL_6:
         goto LABEL_13;
       }
 
-      v8 = EKTravelEngineLogHandle;
+      v7 = EKTravelEngineLogHandle;
       if (os_log_type_enabled(EKTravelEngineLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 138412290;
-        v10 = v4;
-        _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_DEFAULT, "Unknown transport type given: [%@].  Will not find a corresponding transport type.", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = v4;
+        _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_DEFAULT, "Unknown transport type given: [%@].  Will not find a corresponding transport type.", &v8, 0xCu);
       }
     }
 
@@ -214,7 +213,6 @@ LABEL_6:
   v5 = 0;
 LABEL_13:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -233,7 +231,7 @@ LABEL_13:
 
 + (unint64_t)geoTrafficDensityForString:(id)string
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = stringCopy;
   if (!stringCopy)
@@ -267,12 +265,12 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    v8 = EKTravelEngineLogHandle;
+    v7 = EKTravelEngineLogHandle;
     if (os_log_type_enabled(EKTravelEngineLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v4;
-      _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_DEFAULT, "Unknown traffic density given: [%@].  Will not find a corresponding traffic density.", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v4;
+      _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_DEFAULT, "Unknown traffic density given: [%@].  Will not find a corresponding traffic density.", &v8, 0xCu);
     }
 
     goto LABEL_7;
@@ -281,7 +279,6 @@ LABEL_7:
   v5 = 1;
 LABEL_8:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -58,7 +58,7 @@
 
     v11 = [dataCopy objectForKeyedSubscript:@"version"];
     v12 = v11;
-    if (v11 == &unk_1EFE33F70 || v11 && (v13 = [v11 isEqual:&unk_1EFE33F70], v12, v13))
+    if (v11 == &unk_1EFE33F70 || v11 && (isEqual = objc_msgSend_isEqual_(v11), v12, isEqual))
     {
       v14 = [dataCopy objectForKey:@"includedItems"];
       v15 = v14;

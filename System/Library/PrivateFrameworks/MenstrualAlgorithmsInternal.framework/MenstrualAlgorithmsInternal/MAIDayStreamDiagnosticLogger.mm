@@ -9,83 +9,80 @@
 
 - (MAIDayStreamDiagnosticLogger)initWithConfig:(id)config
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   configCopy = config;
-  v14.receiver = self;
-  v14.super_class = MAIDayStreamDiagnosticLogger;
-  if ([(MAIDiagnosticLogger *)&v14 init])
+  v13.receiver = self;
+  v13.super_class = MAIDayStreamDiagnosticLogger;
+  if ([(MAIDiagnosticLogger *)&v13 init])
   {
     v5 = configCopy;
-    v12[0] = 0;
-    v13 = 0;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v12);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v12);
+    v11[0] = 0;
+    v12 = 0;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
     userReportedCycleLength = [v5 userReportedCycleLength];
     if (userReportedCycleLength)
     {
-      v15[0] = [userReportedCycleLength intValue];
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::emplace<char const(&)[24],int>(v12);
+      v14[0] = [userReportedCycleLength intValue];
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::emplace<char const(&)[24],int>(v11);
     }
 
     julianDayOfUserReportedCycleLength = [v5 julianDayOfUserReportedCycleLength];
     if (julianDayOfUserReportedCycleLength)
     {
-      v15[0] = [julianDayOfUserReportedCycleLength intValue];
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::emplace<char const(&)[35],int>(v12);
+      v14[0] = [julianDayOfUserReportedCycleLength intValue];
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::emplace<char const(&)[35],int>(v11);
     }
 
     userReportedMenstruationLength = [v5 userReportedMenstruationLength];
     if (userReportedMenstruationLength)
     {
-      v15[0] = [userReportedMenstruationLength intValue];
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::emplace<char const(&)[31],int>(v12);
+      v14[0] = [userReportedMenstruationLength intValue];
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::emplace<char const(&)[31],int>(v11);
     }
 
     julianDayOfUserReportedMenstruationLength = [v5 julianDayOfUserReportedMenstruationLength];
     if (julianDayOfUserReportedMenstruationLength)
     {
-      v15[0] = [julianDayOfUserReportedMenstruationLength intValue];
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::emplace<char const(&)[42],int>(v12);
+      v14[0] = [julianDayOfUserReportedMenstruationLength intValue];
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::emplace<char const(&)[42],int>(v11);
     }
 
     [v5 birthDateComponents];
     if (objc_claimAutoreleasedReturnValue())
     {
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[5],char [5],0>(v15);
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[5],char [5],0>(v14, "year");
     }
 
-    v15[0] = [v5 todayAsJulianDay];
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::emplace<char const(&)[17],unsigned int>(v12);
+    v14[0] = [v5 todayAsJulianDay];
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::emplace<char const(&)[17],unsigned int>(v11);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)finalizeDayStreamInputWithDay:(unsigned int)day
 {
-  v12 = *MEMORY[0x277D85DE8];
-  [(MAIDiagnosticLogger *)self inputJson];
-  if (v11)
+  v11 = *MEMORY[0x277D85DE8];
+  objc_msgSend_inputJson(self, a2);
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v11);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v10);
   }
 
   if (*buf)
   {
-    [(MAIDiagnosticLogger *)self inputJson];
-    [(MAIDayStreamDiagnosticLogger *)self jsonObjectName];
-    v4 = std::string::append(&v7, ".analyze", 8uLL);
+    objc_msgSend_inputJson(self);
+    objc_msgSend_jsonObjectName(self);
+    v4 = std::string::append(&v6, ".analyze", 8uLL);
     v5 = *&v4->__r_.__value_.__l.__data_;
-    v9 = v4->__r_.__value_.__r.__words[2];
+    v8 = v4->__r_.__value_.__r.__words[2];
     *__p = v5;
     v4->__r_.__value_.__l.__size_ = 0;
     v4->__r_.__value_.__r.__words[2] = 0;
     v4->__r_.__value_.__r.__words[0] = 0;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string,std::string,0>(buf);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string,std::string,0>(buf, __p);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logDayStreamProcessorOutput:(MAIDayStreamProcessorOutput *)output
@@ -99,7 +96,7 @@
 {
   v4 = *MEMORY[0x277D85DE8];
   uTF8String = [@"julianDayOfAnalysisWindowStart" UTF8String];
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const*,char const*,0>(v3);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const*,char const*,0>(v3, &uTF8String);
 }
 
 @end

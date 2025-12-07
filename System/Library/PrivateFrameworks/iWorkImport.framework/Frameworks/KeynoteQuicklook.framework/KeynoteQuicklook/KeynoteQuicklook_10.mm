@@ -1,4 +1,4 @@
-uint64_t *sub_275E4E94C(uint64_t *result, uint64_t *a2)
+google::protobuf::UnknownFieldSet *sub_275E4E94C(google::protobuf::UnknownFieldSet *result, google::protobuf::UnknownFieldSet *a2)
 {
   if (a2 != result)
   {
@@ -1202,7 +1202,7 @@ void sub_275E4F2D4(uint64_t *a1)
   JUMPOUT(0x277C8F960);
 }
 
-uint64_t *sub_275E4F314(uint64_t *result)
+google::protobuf::UnknownFieldSet *sub_275E4F314(google::protobuf::UnknownFieldSet *result)
 {
   v1 = result;
   v2 = *(result + 4);
@@ -1210,17 +1210,17 @@ uint64_t *sub_275E4F314(uint64_t *result)
   {
     if (v2)
     {
-      result = TSDSOS::SpecFillArchive::Clear(result[3]);
+      result = TSDSOS::SpecFillArchive::Clear(*(result + 3));
     }
 
     if ((v2 & 2) != 0)
     {
-      result = sub_275E3E338(v1[4]);
+      result = sub_275E3E338(*(v1 + 4));
     }
   }
 
   v4 = *(v1 + 8);
-  v3 = v1 + 1;
+  v3 = v1 + 8;
   *(v3 + 16) = 0;
   *(v3 + 2) = 0;
   if (v4)
@@ -1234,15 +1234,15 @@ uint64_t *sub_275E4F314(uint64_t *result)
 
 google::protobuf::internal *sub_275E4F388(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v31 = a2;
+  v30 = a2;
   v5 = 0;
-  if ((sub_275E221E8(a3, &v31) & 1) == 0)
+  if ((sub_275E221E8(a3, &v30, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
-      v7 = (v31 + 1);
-      v8 = *v31;
-      if ((*v31 & 0x80000000) == 0)
+      v7 = (v30 + 1);
+      v8 = *v30;
+      if ((*v30 & 0x80000000) == 0)
       {
         goto LABEL_6;
       }
@@ -1254,15 +1254,15 @@ google::protobuf::internal *sub_275E4F388(uint64_t a1, google::protobuf::interna
         break;
       }
 
-      TagFallback = google::protobuf::internal::ReadTagFallback(v31, (v9 - 128));
-      v31 = TagFallback;
+      TagFallback = google::protobuf::internal::ReadTagFallback(v30, (v9 - 128));
+      v30 = TagFallback;
       if (!TagFallback)
       {
         goto LABEL_54;
       }
 
       v7 = TagFallback;
-      v8 = v26;
+      v8 = v25;
 LABEL_7:
       v10 = v8 >> 3;
       if (v8 >> 3 > 2)
@@ -1272,36 +1272,36 @@ LABEL_7:
           if (v8 == 26)
           {
             *(a1 + 16) |= 2u;
-            v22 = *(a1 + 32);
-            if (!v22)
+            v21 = *(a1 + 32);
+            if (!v21)
             {
-              v23 = *(a1 + 8);
-              if (v23)
+              v22 = *(a1 + 8);
+              if (v22)
               {
-                v23 = *(v23 & 0xFFFFFFFFFFFFFFFELL);
+                v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
               }
 
-              v22 = sub_275E4FCA8(v23);
-              *(a1 + 32) = v22;
-              v7 = v31;
+              v21 = sub_275E4FCA8(v22);
+              *(a1 + 32) = v21;
+              v7 = v30;
             }
 
-            v21 = sub_275E60EF4(a3, v22, v7);
+            v20 = sub_275E60EF4(a3, v21, v7);
             goto LABEL_44;
           }
 
 LABEL_37:
           if (v8)
           {
-            v24 = (v8 & 7) == 4;
+            v23 = (v8 & 7) == 4;
           }
 
           else
           {
-            v24 = 1;
+            v23 = 1;
           }
 
-          if (v24)
+          if (v23)
           {
             *(a3 + 80) = v8 - 1;
             goto LABEL_2;
@@ -1312,10 +1312,10 @@ LABEL_37:
             sub_275E22260((a1 + 8));
           }
 
-          v21 = google::protobuf::internal::UnknownFieldParse();
+          v20 = google::protobuf::internal::UnknownFieldParse();
 LABEL_44:
-          v31 = v21;
-          if (!v21)
+          v30 = v20;
+          if (!v20)
           {
             goto LABEL_54;
           }
@@ -1342,15 +1342,15 @@ LABEL_44:
         {
           v16 = (v7 + 2);
 LABEL_24:
-          v31 = v16;
+          v30 = v16;
           *(a1 + 41) = v15 != 0;
           goto LABEL_45;
         }
 
-        v27 = google::protobuf::internal::VarintParseSlow64(v7, v15);
-        v31 = v27;
-        *(a1 + 41) = v28 != 0;
-        if (!v27)
+        v26 = google::protobuf::internal::VarintParseSlow64(v7, v15);
+        v30 = v26;
+        *(a1 + 41) = v27 != 0;
+        if (!v26)
         {
           goto LABEL_54;
         }
@@ -1372,13 +1372,12 @@ LABEL_24:
                 v19 = *(v19 & 0xFFFFFFFFFFFFFFFELL);
               }
 
-              v20 = MEMORY[0x277C8F100](v19);
-              LODWORD(v18) = v20;
-              *(a1 + 24) = v20;
-              v7 = v31;
+              v18 = MEMORY[0x277C8F100](v19);
+              *(a1 + 24) = v18;
+              v7 = v30;
             }
 
-            v21 = sub_275E60AE4(a3, v18, v7);
+            v20 = sub_275E60AE4(a3, v18, v7);
             goto LABEL_44;
           }
 
@@ -1404,38 +1403,38 @@ LABEL_24:
         {
           v13 = (v7 + 2);
 LABEL_17:
-          v31 = v13;
+          v30 = v13;
           *(a1 + 40) = v12 != 0;
           goto LABEL_45;
         }
 
-        v29 = google::protobuf::internal::VarintParseSlow64(v7, v12);
-        v31 = v29;
-        *(a1 + 40) = v30 != 0;
-        if (!v29)
+        v28 = google::protobuf::internal::VarintParseSlow64(v7, v12);
+        v30 = v28;
+        *(a1 + 40) = v29 != 0;
+        if (!v28)
         {
 LABEL_54:
-          v31 = 0;
+          v30 = 0;
           goto LABEL_2;
         }
       }
 
 LABEL_45:
-      if (sub_275E221E8(a3, &v31))
+      if (sub_275E221E8(a3, &v30, *(a3 + 92)))
       {
         goto LABEL_2;
       }
     }
 
-    v7 = (v31 + 2);
+    v7 = (v30 + 2);
 LABEL_6:
-    v31 = v7;
+    v30 = v7;
     goto LABEL_7;
   }
 
 LABEL_2:
   *(a1 + 16) |= v5;
-  return v31;
+  return v30;
 }
 
 unsigned __int8 *sub_275E4F648(uint64_t a1, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -1586,7 +1585,7 @@ LABEL_32:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v20 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v20 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t sub_275E4F850(uint64_t a1)
@@ -1759,7 +1758,7 @@ LABEL_27:
   return result;
 }
 
-uint64_t *sub_275E4FB08(uint64_t *result, uint64_t *a2)
+google::protobuf::UnknownFieldSet *sub_275E4FB08(google::protobuf::UnknownFieldSet *result, google::protobuf::UnknownFieldSet *a2)
 {
   if (a2 != result)
   {
@@ -1992,30 +1991,30 @@ LABEL_3:
 void sub_275E517EC(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v20 = v3;
+  v11 = v3;
   if (v3)
   {
-    objc_msgSend_setDrawable_(*(a1 + 32), v3, v3);
-    v5 = *(a1 + 32);
-    if (!*(v5 + 104))
+    [*(a1 + 32) setDrawable:v3];
+    v4 = *(a1 + 32);
+    if (!*(v4 + 104))
     {
-      v6 = MEMORY[0x277D81150];
-      v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNBuild(PersistenceAdditions) loadFromArchive:unarchiver:]_block_invoke");
-      v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildPersistenceAdditions.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v10, v7, v9, 52, 0, "Something is wrong with the setDrawable: method.");
+      v5 = MEMORY[0x277D81150];
+      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(PersistenceAdditions) loadFromArchive:unarchiver:]_block_invoke"];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildPersistenceAdditions.mm"];
+      [v5 handleFailureInFunction:v6 file:v7 lineNumber:52 isFatal:0 description:"Something is wrong with the setDrawable: method."];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
-      v5 = *(a1 + 32);
+      [MEMORY[0x277D81150] logBacktraceThrottled];
+      v4 = *(a1 + 32);
     }
 
-    if (!*(v5 + 64))
+    if (!*(v4 + 64))
     {
-      v13 = MEMORY[0x277D81150];
-      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNBuild(PersistenceAdditions) loadFromArchive:unarchiver:]_block_invoke");
-      v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildPersistenceAdditions.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v17, v14, v16, 53, 0, "Something is wrong with the setDrawable: method.");
+      v8 = MEMORY[0x277D81150];
+      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(PersistenceAdditions) loadFromArchive:unarchiver:]_block_invoke"];
+      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildPersistenceAdditions.mm"];
+      [v8 handleFailureInFunction:v9 file:v10 lineNumber:53 isFatal:0 description:"Something is wrong with the setDrawable: method."];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19);
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
   }
 
@@ -2085,53 +2084,53 @@ void sub_275E51EB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_275E51ECC(uint64_t a1, const char *a2, uint64_t a3)
+void sub_275E51ECC(uint64_t a1)
 {
-  v4 = objc_msgSend_attributes(*(a1 + 32), a2, a3);
-  v6 = *(a1 + 48);
-  *(v6 + 16) |= 4u;
-  v7 = *(v6 + 40);
-  v9 = v4;
-  if (!v7)
+  v2 = [*(a1 + 32) attributes];
+  v3 = *(a1 + 48);
+  *(v3 + 16) |= 4u;
+  v4 = *(v3 + 40);
+  v6 = v2;
+  if (!v4)
   {
-    v8 = *(v6 + 8);
-    if (v8)
+    v5 = *(v3 + 8);
+    if (v5)
     {
-      v8 = *(v8 & 0xFFFFFFFFFFFFFFFELL);
+      v5 = *(v5 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v7 = sub_275E1FA84(v8);
-    *(v6 + 40) = v7;
-    v4 = v9;
+    v4 = sub_275E1FA84(v5);
+    *(v3 + 40) = v4;
+    v2 = v6;
   }
 
-  objc_msgSend_encodeToArchive_archiver_(v4, v5, v7, *(a1 + 40));
+  [v2 encodeToArchive:v4 archiver:*(a1 + 40)];
 }
 
 uint64_t sub_275E521FC(void *a1, void *a2)
 {
   v3 = a2;
-  ChunkIndexOnSlide = objc_msgSend_firstChunkIndexOnSlide(a1, v4, v5);
-  v9 = objc_msgSend_firstChunkIndexOnSlide(v3, v7, v8);
+  v4 = [a1 firstChunkIndexOnSlide];
+  v5 = [v3 firstChunkIndexOnSlide];
 
-  if (ChunkIndexOnSlide < v9)
+  if (v4 < v5)
   {
     return -1;
   }
 
   else
   {
-    return ChunkIndexOnSlide > v9;
+    return v4 > v5;
   }
 }
 
-uint64_t sub_275E526D4(uint64_t a1, void *a2, uint64_t a3)
+uint64_t sub_275E526D4(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = objc_msgSend_build(a2, a2, a3);
-  v6 = objc_msgSend_containsObject_(v3, v5, v4);
+  v2 = *(a1 + 32);
+  v3 = [a2 build];
+  v4 = [v2 containsObject:v3];
 
-  return v6;
+  return v4;
 }
 
 id sub_275E535D0(uint64_t a1, void *a2)
@@ -2140,30 +2139,30 @@ id sub_275E535D0(uint64_t a1, void *a2)
   objc_opt_class();
   v3 = TSUCheckedDynamicCast();
 
-  v6 = objc_msgSend_chunkIdentifier(v3, v4, v5);
+  v4 = [v3 chunkIdentifier];
 
-  return v6;
+  return v4;
 }
 
-id sub_275E53AFC(void *a1, const char *a2, uint64_t a3)
+id sub_275E53AFC(void *a1)
 {
-  v3 = objc_msgSend_context(a1, a2, a3);
-  v6 = objc_msgSend_documentObject(v3, v4, v5);
+  v1 = [a1 context];
+  v2 = [v1 documentObject];
 
   objc_opt_class();
-  v7 = TSUDynamicCast();
+  v3 = TSUDynamicCast();
 
-  return v7;
+  return v3;
 }
 
 uint64_t sub_275E54F70(uint64_t a1, void *a2, void *a3)
 {
   v4 = a3;
-  v7 = objc_msgSend_objectUUID(a2, v5, v6);
-  v10 = objc_msgSend_objectUUID(v4, v8, v9);
-  v12 = objc_msgSend_tsu_compare_(v7, v11, v10);
+  v5 = [a2 objectUUID];
+  v6 = [v4 objectUUID];
+  v7 = [v5 tsu_compare:v6];
 
-  return v12;
+  return v7;
 }
 
 void sub_275E54FE0(_Unwind_Exception *a1)
@@ -2221,7 +2220,7 @@ uint64_t sub_275E55770(uint64_t result, int a2, int a3)
   return result;
 }
 
-uint64_t sub_275E557D4()
+uint64_t sub_275E557D4(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getWitnessTable();
 
@@ -2259,40 +2258,40 @@ uint64_t sub_275E55984()
   return v1;
 }
 
-uint64_t sub_275E559C0()
+uint64_t sub_275E559C0(uint64_t a1)
 {
   sub_275E611E8();
   sub_275E611F8();
 }
 
-uint64_t sub_275E55A14()
+uint64_t sub_275E55A14(uint64_t a1)
 {
   sub_275E611E8();
   sub_275E61308();
   sub_275E611F8();
-  v0 = sub_275E61328();
+  v1 = sub_275E61328();
 
-  return v0;
+  return v1;
 }
 
-uint64_t sub_275E55A88()
+uint64_t sub_275E55A88(void *a1, uint64_t *a2)
 {
-  v0 = sub_275E611E8();
-  v2 = v1;
-  if (v0 == sub_275E611E8() && v2 == v3)
+  v2 = sub_275E611E8();
+  v4 = v3;
+  if (v2 == sub_275E611E8() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = sub_275E612E8();
+    v7 = sub_275E612E8();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
-uint64_t sub_275E55BB4()
+uint64_t sub_275E55BB4(uint64_t a1, uint64_t a2)
 {
   sub_275E61308();
   swift_getWitnessTable();
@@ -2300,11 +2299,11 @@ uint64_t sub_275E55BB4()
   return sub_275E61328();
 }
 
-uint64_t sub_275E55C1C@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_275E55C1C@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = sub_275E611B8();
+  v3 = sub_275E611B8();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
@@ -2316,12 +2315,12 @@ uint64_t sub_275E55C64@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-void sub_275E55CCC(uint64_t a1, unint64_t *a2)
+void sub_275E55CCC(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -2330,14 +2329,14 @@ void sub_275E55CCC(uint64_t a1, unint64_t *a2)
 
 uint64_t sub_275E55D18(uint64_t a1)
 {
-  v2 = sub_275E55E64(&qword_280A3BE40, type metadata accessor for Key);
-  v3 = sub_275E55E64(&qword_280A3BE48, type metadata accessor for Key);
+  v2 = sub_275E55E64(&qword_280A3BE40, type metadata accessor for Key, &unk_275E7C234);
+  v3 = sub_275E55E64(&qword_280A3BE48, type metadata accessor for Key, &unk_275E7C0DC);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
 }
 
-uint64_t sub_275E55E64(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_275E55E64(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2366,7 +2365,7 @@ void sub_275E55FAC(void **a1, void **a2)
   *a2 = v9;
 }
 
-uint64_t sub_275E560BC(uint64_t isEscapingClosureAtFileLocation)
+id sub_275E560BC(uint64_t isEscapingClosureAtFileLocation)
 {
   type metadata accessor for SymbolTintColorIdentifier(0);
   if ((isEscapingClosureAtFileLocation - 2) >= 4 && isEscapingClosureAtFileLocation)
@@ -2466,24 +2465,24 @@ LABEL_17:
 LABEL_18:
   v27 = v16;
   v28 = objc_opt_self();
+  v61 = [v28 grayColor];
   v60 = [v28 grayColor];
-  v59 = [v28 grayColor];
   v29 = objc_opt_self();
   if (isEscapingClosureAtFileLocation == 1)
   {
     v30 = [v29 traitCollectionWithUserInterfaceStyle_];
     v31 = swift_allocObject();
-    *(v31 + 16) = &v60;
-    *(v31 + 24) = &v59;
+    *(v31 + 16) = &v61;
+    *(v31 + 24) = &v60;
     v32 = swift_allocObject();
     *(v32 + 16) = sub_275E568EC;
     *(v32 + 24) = v31;
-    v57 = sub_275E568F0;
-    v58 = v32;
+    v58 = sub_275E568F0;
+    v59 = v32;
     aBlock = MEMORY[0x277D85DD0];
-    v54 = 1107296256;
-    v55 = sub_275E55F84;
-    v56 = &unk_2884D8C08;
+    v55 = 1107296256;
+    v56 = sub_275E55F84;
+    v57 = &unk_2884D8C08;
     v33 = _Block_copy(&aBlock);
 
     [v30 performAsCurrentTraitCollection_];
@@ -2498,28 +2497,29 @@ LABEL_18:
       v36 = v7;
       v37 = v4;
       v38 = sub_275E568EC;
-      v51 = 0;
+      v52 = 0;
+      v39 = 0;
 LABEL_23:
-      v42 = v59;
       v43 = v60;
-      v44 = type metadata accessor for KNLiveVideoSourceSymbolTintColorSet();
-      v45 = objc_allocWithZone(v44);
-      v46 = &v45[OBJC_IVAR____TtC16KeynoteQuicklook35KNLiveVideoSourceSymbolTintColorSet_storage];
-      *v46 = v37;
-      *(v46 + 1) = v36;
-      *(v46 + 2) = v35;
-      *(v46 + 3) = v34;
-      *(v46 + 4) = v43;
-      *(v46 + 5) = v42;
-      v52.receiver = v45;
-      v52.super_class = v44;
-      v47 = v43;
-      v48 = v42;
-      v49 = objc_msgSendSuper2(&v52, sel_init);
+      v44 = v61;
+      v45 = type metadata accessor for KNLiveVideoSourceSymbolTintColorSet();
+      v46 = objc_allocWithZone(v45);
+      v47 = &v46[OBJC_IVAR____TtC16KeynoteQuicklook35KNLiveVideoSourceSymbolTintColorSet_storage];
+      *v47 = v37;
+      *(v47 + 1) = v36;
+      *(v47 + 2) = v35;
+      *(v47 + 3) = v34;
+      *(v47 + 4) = v44;
+      *(v47 + 5) = v43;
+      v53.receiver = v46;
+      v53.super_class = v45;
+      v48 = v44;
+      v49 = v43;
+      v50 = objc_msgSendSuper2(&v53, sel_init);
 
-      sub_275E568CC(v38);
-      sub_275E568CC(v51);
-      return v49;
+      sub_275E568CC(v38, v31);
+      sub_275E568CC(v52, v39);
+      return v50;
     }
 
     __break(1u);
@@ -2527,34 +2527,36 @@ LABEL_23:
 
   else
   {
-    v39 = [v29 traitCollectionWithUserInterfaceStyle_];
+    v40 = [v29 traitCollectionWithUserInterfaceStyle_];
     isEscapingClosureAtFileLocation = swift_allocObject();
-    *(isEscapingClosureAtFileLocation + 16) = &v60;
-    *(isEscapingClosureAtFileLocation + 24) = &v59;
-    v40 = swift_allocObject();
-    *(v40 + 16) = sub_275E56870;
-    *(v40 + 24) = isEscapingClosureAtFileLocation;
-    v57 = sub_275E5688C;
-    v58 = v40;
+    *(isEscapingClosureAtFileLocation + 16) = &v61;
+    *(isEscapingClosureAtFileLocation + 24) = &v60;
+    v41 = swift_allocObject();
+    *(v41 + 16) = sub_275E56870;
+    *(v41 + 24) = isEscapingClosureAtFileLocation;
+    v58 = sub_275E5688C;
+    v59 = v41;
     aBlock = MEMORY[0x277D85DD0];
-    v54 = 1107296256;
-    v55 = sub_275E55F84;
-    v56 = &unk_2884D8B90;
-    v41 = _Block_copy(&aBlock);
+    v55 = 1107296256;
+    v56 = sub_275E55F84;
+    v57 = &unk_2884D8B90;
+    v42 = _Block_copy(&aBlock);
 
-    [v39 performAsCurrentTraitCollection_];
+    [v40 performAsCurrentTraitCollection_];
 
-    _Block_release(v41);
-    LOBYTE(v39) = swift_isEscapingClosureAtFileLocation();
+    _Block_release(v42);
+    LOBYTE(v40) = swift_isEscapingClosureAtFileLocation();
 
-    if ((v39 & 1) == 0)
+    if ((v40 & 1) == 0)
     {
-      v51 = sub_275E56870;
+      v52 = sub_275E56870;
       v34 = v23;
       v35 = v22;
       v36 = v7;
       v37 = v4;
+      v39 = isEscapingClosureAtFileLocation;
       v38 = 0;
+      v31 = 0;
       goto LABEL_23;
     }
   }
@@ -2574,7 +2576,7 @@ uint64_t sub_275E568B4(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_275E568CC(uint64_t result)
+uint64_t sub_275E568CC(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -2602,16 +2604,16 @@ uint64_t sub_275E56A10()
   return sub_275E61328();
 }
 
-uint64_t sub_275E56AD8()
+uint64_t sub_275E56AD8(uint64_t a1)
 {
-  v1 = *(v0 + 24);
+  v2 = *(v1 + 24);
   sub_275E61278();
   sub_275E61278();
   sub_275E61278();
   sub_275E61318();
-  if (v1)
+  if (v2)
   {
-    v2 = v1;
+    v3 = v2;
     sub_275E61278();
   }
 
@@ -2619,17 +2621,17 @@ uint64_t sub_275E56AD8()
   return sub_275E61278();
 }
 
-uint64_t sub_275E56B88()
+uint64_t sub_275E56B88(uint64_t a1)
 {
-  v1 = *(v0 + 24);
+  v2 = *(v1 + 24);
   sub_275E61308();
   sub_275E61278();
   sub_275E61278();
   sub_275E61278();
   sub_275E61318();
-  if (v1)
+  if (v2)
   {
-    v2 = v1;
+    v3 = v2;
     sub_275E61278();
   }
 
@@ -2656,10 +2658,10 @@ uint64_t sub_275E56C4C(_OWORD *a1, __int128 *a2)
 uint64_t sub_275E56C94(uint64_t a1)
 {
   swift_getObjectType();
-  sub_275E57348(a1, &v17, &qword_280A3BE70);
+  sub_275E57348(a1, &v17, &qword_280A3BE70, &qword_275E7C450);
   if (!*(&v18 + 1))
   {
-    sub_275E573B0(&v17, &qword_280A3BE70);
+    sub_275E573B0(&v17, &qword_280A3BE70, &qword_275E7C450);
     goto LABEL_5;
   }
 
@@ -2685,20 +2687,20 @@ LABEL_5:
   v8 = v17;
   v9 = v5;
   v10 = v6;
-  sub_275E57348(&v20, v15, &qword_280A3BE78);
+  sub_275E57348(&v20, v15, &qword_280A3BE78, qword_275E7C458);
   v11 = v7;
   v12 = *(&v7 + 1);
   v13 = sub_275E571A0(v16, &v17);
 
-  sub_275E573B0(&v20, &qword_280A3BE78);
+  sub_275E573B0(&v20, &qword_280A3BE78, qword_275E7C458);
   return v13 & 1;
 }
 
-id sub_275E56FC8()
+id sub_275E56FC8(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for KNLiveVideoSourceSymbolTintColorSet();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for KNLiveVideoSourceSymbolTintColorSet();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 __n128 sub_275E57090(uint64_t a1, uint64_t a2)
@@ -2782,16 +2784,16 @@ unint64_t sub_275E5714C()
   return result;
 }
 
-uint64_t sub_275E571A0(uint64_t a1, uint64_t a2)
+uint64_t sub_275E571A0(void *a1, void *a2)
 {
-  sub_275E572B8(0, &qword_280A3BE60);
+  sub_275E572B8(0, &qword_280A3BE60, 0x277D82BB8);
   if ((sub_275E61268() & 1) == 0 || (sub_275E61268() & 1) == 0 || (sub_275E61268() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = *(a1 + 24);
-  v5 = *(a2 + 24);
+  v4 = a1[3];
+  v5 = a2[3];
   if (v4)
   {
     if (!v5)
@@ -2799,7 +2801,7 @@ uint64_t sub_275E571A0(uint64_t a1, uint64_t a2)
       return 0;
     }
 
-    sub_275E572B8(0, &qword_280A3BE68);
+    sub_275E572B8(0, &qword_280A3BE68, 0x277D81180);
     v6 = v5;
     v7 = v4;
     v8 = sub_275E61268();
@@ -2823,7 +2825,7 @@ uint64_t sub_275E571A0(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t sub_275E572B8(uint64_t a1, unint64_t *a2)
+uint64_t sub_275E572B8(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -2836,7 +2838,7 @@ uint64_t sub_275E572B8(uint64_t a1, unint64_t *a2)
   return result;
 }
 
-uint64_t sub_275E57300(uint64_t *a1)
+uint64_t sub_275E57300(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -2848,17 +2850,17 @@ uint64_t sub_275E57300(uint64_t *a1)
   return result;
 }
 
-uint64_t sub_275E57348(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_275E57348(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = sub_275E57300(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = sub_275E57300(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t sub_275E573B0(uint64_t a1, uint64_t *a2)
+uint64_t sub_275E573B0(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = sub_275E57300(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = sub_275E57300(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -2885,20 +2887,24 @@ id sub_275E57410(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return objc_msgSendSuper2(&v14, sel_init);
 }
 
-void sub_275E575F8(CGContext *a1, char a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
+void sub_275E575F8(CGContext *a1, char a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
 {
+  v9 = a6.n128_f64[0];
+  v10 = a5.n128_f64[0];
+  v11 = a4.n128_f64[0];
+  v12 = a3.n128_f64[0];
   if (a2)
   {
-    sub_275E579C4(a1, a3, a4, a5, a6);
+    sub_275E579C4(a1, a3.n128_f64[0], a4.n128_f64[0], a5.n128_f64[0], a6.n128_f64[0]);
   }
 
-  v42.origin.x = a3;
-  v42.origin.y = a4;
-  v42.size.width = a5;
-  v42.size.height = a6;
+  v42.origin.x = v12;
+  v42.origin.y = v11;
+  v42.size.width = v10;
+  v42.size.height = v9;
   Width = CGRectGetWidth(v42);
   TSDDefaultResampledImageSize();
-  if (v14 < Width || (v43.origin.x = a3, v43.origin.y = a4, v43.size.width = a5, v43.size.height = a6, Height = CGRectGetHeight(v43), TSDDefaultResampledImageSize(), v16 < Height))
+  if (v14 < Width || (v43.origin.x = v12, v43.origin.y = v11, v43.size.width = v10, v43.size.height = v9, Height = CGRectGetHeight(v43), TSDDefaultResampledImageSize(), v16 < Height))
   {
     TSDDefaultResampledImageSize();
     TSUShrinkSizeToFitInSize();
@@ -2918,10 +2924,10 @@ void sub_275E575F8(CGContext *a1, char a2, CGFloat a3, CGFloat a4, CGFloat a5, C
   }
 
   v25 = a1;
-  x = a3;
-  y = a4;
-  v22 = a5;
-  v24 = a6;
+  x = v12;
+  y = v11;
+  v22 = v10;
+  v24 = v9;
 LABEL_8:
   v26 = *(v6 + OBJC_IVAR____TtC16KeynoteQuicklook36KNLiveVideoSourceSymbolDrawingHelper_abbreviationText + 8);
   v40 = v25;
@@ -2951,10 +2957,10 @@ LABEL_8:
       }
 
       v29 = v28 / 90.0 * 8.0;
-      v46.origin.x = a3;
-      v46.origin.y = a4;
-      v46.size.width = a5;
-      v46.size.height = a6;
+      v46.origin.x = v12;
+      v46.origin.y = v11;
+      v46.size.width = v10;
+      v46.size.height = v9;
       v47 = CGRectInset(v46, v29, v29);
       v25 = v40;
       x = v47.origin.x;
@@ -2967,7 +2973,7 @@ LABEL_8:
   }
 
   type metadata accessor for CGContext(0);
-  sub_275E59C48(&qword_280A3BEF8, type metadata accessor for CGContext);
+  sub_275E59C48(&qword_280A3BEF8, type metadata accessor for CGContext, &unk_275E7C208);
   v30 = sub_275E61178();
 
   if (v30)
@@ -3033,7 +3039,7 @@ void sub_275E579C4(CGContext *a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5
   sub_275E61238();
   v33 = *(v12 + 8);
   v33(v14, v11);
-  sub_275E57300(&qword_280A3BEC8);
+  sub_275E57300(&qword_280A3BEC8, &qword_275E7C4B8);
   v18 = swift_allocObject();
   *(v18 + 16) = xmmword_275E7C470;
   v34 = v15;
@@ -3207,7 +3213,7 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  sub_275E572B8(0, &qword_280A3BE68);
+  sub_275E572B8(0, &qword_280A3BE68, 0x277D81180);
   v59 = a1;
   v33 = v26;
   v34 = v32;
@@ -3597,7 +3603,7 @@ unint64_t sub_275E591EC(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    sub_275E57300(&qword_280A3BEF0);
+    sub_275E57300(&qword_280A3BEF0, &unk_275E7C4D0);
     v3 = sub_275E612C8();
     v4 = a1 + 32;
 
@@ -3646,17 +3652,17 @@ LABEL_10:
 
 CTLineRef sub_275E592F4(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  sub_275E57300(&qword_280A3BED0);
+  sub_275E57300(&qword_280A3BED0, &qword_275E7C4C0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_275E7C480;
   v7 = *MEMORY[0x277D740A8];
   *(inited + 32) = *MEMORY[0x277D740A8];
-  v8 = sub_275E572B8(0, &qword_280A3BED8);
+  v8 = sub_275E572B8(0, &qword_280A3BED8, 0x277D74300);
   *(inited + 40) = a3;
   v9 = *MEMORY[0x277D740C0];
   *(inited + 64) = v8;
   *(inited + 72) = v9;
-  *(inited + 104) = sub_275E572B8(0, &qword_280A3BEE0);
+  *(inited + 104) = sub_275E572B8(0, &qword_280A3BEE0, 0x277D75348);
   *(inited + 80) = a4;
   v10 = v7;
   v11 = a3;
@@ -3664,12 +3670,12 @@ CTLineRef sub_275E592F4(uint64_t a1, uint64_t a2, void *a3, void *a4)
   v13 = a4;
   sub_275E591EC(inited);
   swift_setDeallocating();
-  sub_275E57300(&qword_280A3BEE8);
+  sub_275E57300(&qword_280A3BEE8, &qword_275E7C4C8);
   swift_arrayDestroy();
   v14 = objc_allocWithZone(MEMORY[0x277CCA898]);
   v15 = sub_275E611B8();
   type metadata accessor for Key(0);
-  sub_275E59C48(&qword_280A3BE40, type metadata accessor for Key);
+  sub_275E59C48(&qword_280A3BE40, type metadata accessor for Key, &unk_275E7C234);
   v16 = sub_275E611A8();
 
   v17 = [v14 initWithString:v15 attributes:v16];
@@ -3726,12 +3732,12 @@ LABEL_32:
         v45 = [v11 fontWithSize_];
 
         v70[0] = v41;
-        v70[4] = sub_275E572B8(0, &qword_280A3BED8);
+        v70[4] = sub_275E572B8(0, &qword_280A3BED8, 0x277D74300);
         v71[0] = v42;
         v70[1] = v45;
-        v71[4] = sub_275E572B8(0, &qword_280A3BEE0);
+        v71[4] = sub_275E572B8(0, &qword_280A3BEE0, 0x277D75348);
         v71[1] = a3;
-        sub_275E57300(&qword_280A3BEF0);
+        sub_275E57300(&qword_280A3BEF0, &unk_275E7C4D0);
         v46 = sub_275E612C8();
         v47 = v45;
         v48 = a3;
@@ -3782,12 +3788,12 @@ LABEL_37:
         }
 
         v46[2] = v58;
-        sub_275E57300(&qword_280A3BEE8);
+        sub_275E57300(&qword_280A3BEE8, &qword_275E7C4C8);
         swift_arrayDestroy();
         v59 = objc_allocWithZone(MEMORY[0x277CCA898]);
         v60 = sub_275E611B8();
         type metadata accessor for Key(0);
-        sub_275E59C48(&qword_280A3BE40, type metadata accessor for Key);
+        sub_275E59C48(&qword_280A3BE40, type metadata accessor for Key, &unk_275E7C234);
         v61 = sub_275E611A8();
 
         v62 = [v59 initWithString:v60 attributes:v61];
@@ -3817,12 +3823,12 @@ LABEL_37:
         v18 = [v11 fontWithSize_];
 
         v66[0] = v14;
-        v66[4] = sub_275E572B8(0, &qword_280A3BED8);
+        v66[4] = sub_275E572B8(0, &qword_280A3BED8, 0x277D74300);
         v67[0] = v15;
         v66[1] = v18;
-        v67[4] = sub_275E572B8(0, &qword_280A3BEE0);
+        v67[4] = sub_275E572B8(0, &qword_280A3BEE0, 0x277D75348);
         v67[1] = a3;
-        sub_275E57300(&qword_280A3BEF0);
+        sub_275E57300(&qword_280A3BEF0, &unk_275E7C4D0);
         v19 = sub_275E612C8();
         v17 = v18;
         v20 = v14;
@@ -3872,12 +3878,12 @@ LABEL_35:
         }
 
         v19[2] = v32;
-        sub_275E57300(&qword_280A3BEE8);
+        sub_275E57300(&qword_280A3BEE8, &qword_275E7C4C8);
         swift_arrayDestroy();
         v33 = objc_allocWithZone(MEMORY[0x277CCA898]);
         v34 = sub_275E611B8();
         type metadata accessor for Key(0);
-        sub_275E59C48(&qword_280A3BE40, type metadata accessor for Key);
+        sub_275E59C48(&qword_280A3BE40, type metadata accessor for Key, &unk_275E7C234);
         v35 = sub_275E611A8();
 
         v36 = [v33 initWithString:v34 attributes:v35];
@@ -3907,7 +3913,7 @@ LABEL_35:
 
 uint64_t sub_275E59BAC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_275E57300(&qword_280A3BEE8);
+  v4 = sub_275E57300(&qword_280A3BEE8, &qword_275E7C4C8);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -3920,7 +3926,7 @@ _OWORD *sub_275E59C1C(_OWORD *a1, _OWORD *a2)
   return a2;
 }
 
-uint64_t sub_275E59C48(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_275E59C48(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3935,11 +3941,11 @@ uint64_t sub_275E59C48(unint64_t *a1, void (*a2)(uint64_t))
 
 void sub_275E59E08()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d resetTemplateSlideBackgroundObjects will not work with different numbers of template background objects", "[KNSlide setTemplateSlide:resetTemplateSlideBackgroundObjects:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m", 138);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlide setTemplateSlide:resetTemplateSlideBackgroundObjects:]", "[KNSlide setTemplateSlide:resetTemplateSlideBackgroundObjects:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m", 138);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 138, 1, "resetTemplateSlideBackgroundObjects will not work with different numbers of template background objects");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlide setTemplateSlide:resetTemplateSlideBackgroundObjects:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:138 isFatal:1 description:"resetTemplateSlideBackgroundObjects will not work with different numbers of template background objects"];
 
   TSUCrashBreakpoint();
   abort();
@@ -3947,11 +3953,11 @@ void sub_275E59E08()
 
 void sub_275E59EAC()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d resetTemplateSlideBackgroundObjects will not work when templates don't have the same value for slideObjectsLayerWithTemplate", "[KNSlide setTemplateSlide:resetTemplateSlideBackgroundObjects:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m", 134);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlide setTemplateSlide:resetTemplateSlideBackgroundObjects:]", "[KNSlide setTemplateSlide:resetTemplateSlideBackgroundObjects:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m", 134);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 134, 1, "resetTemplateSlideBackgroundObjects will not work when templates don't have the same value for slideObjectsLayerWithTemplate");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlide setTemplateSlide:resetTemplateSlideBackgroundObjects:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:134 isFatal:1 description:"resetTemplateSlideBackgroundObjects will not work when templates don't have the same value for slideObjectsLayerWithTemplate"];
 
   TSUCrashBreakpoint();
   abort();
@@ -3959,26 +3965,26 @@ void sub_275E59EAC()
 
 void sub_275E59F50()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d template slide must not be nil in infosToDisplay", "[KNSlide infosToDisplay]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m", 421);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlide infosToDisplay]", "[KNSlide infosToDisplay]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m", 421);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 421, 1, "template slide must not be nil in infosToDisplay");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlide infosToDisplay]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:421 isFatal:1 description:"template slide must not be nil in infosToDisplay"];
 
   TSUCrashBreakpoint();
   abort();
 }
 
-void sub_275E59FF4(void *a1, const char *a2, uint64_t a3)
+void sub_275E59FF4(void *a1)
 {
-  v13 = objc_msgSend_objectUUID(a1, a2, a3);
-  TSUSetCrashReporterInfo();
+  v2 = [a1 objectUUID];
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d template slide must not be nil for slide %@", "[KNSlide p_checkTemplateSlide]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m", 624, v2);
 
-  v4 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNSlide p_checkTemplateSlide]", "[KNSlide p_checkTemplateSlide]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m", 624, v13);
-  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m");
-  v11 = objc_msgSend_objectUUID(a1, v9, v10);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v12, v6, v8, 624, 1, "template slide must not be nil for slide %@", v11);
+  v3 = MEMORY[0x277D81150];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlide p_checkTemplateSlide]"];
+  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlide.m"];
+  v6 = [a1 objectUUID];
+  [v3 handleFailureInFunction:v4 file:v5 lineNumber:624 isFatal:1 description:{"template slide must not be nil for slide %@", v6}];
 
   TSUCrashBreakpoint();
   abort();
@@ -3986,11 +3992,11 @@ void sub_275E59FF4(void *a1, const char *a2, uint64_t a3)
 
 void sub_275E5A140()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", "[KNLiveVideoInfo setStyle:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfo.m", 333, "mediaStyle");
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNLiveVideoInfo setStyle:]", "[KNLiveVideoInfo setStyle:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfo.m", 333, "mediaStyle");
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfo.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 333, 1, "invalid nil value for '%{public}s'", "mediaStyle");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoInfo setStyle:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfo.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:333 isFatal:1 description:{"invalid nil value for '%{public}s'", "mediaStyle"}];
 
   TSUCrashBreakpoint();
   abort();
@@ -3998,71 +4004,59 @@ void sub_275E5A140()
 
 uint64_t sub_275E5A1F4()
 {
-  v2 = sub_275D7B770();
-  objc_msgSend_stringWithUTF8String_(v2, v3, "[KNLiveVideoInfo intValueForProperty:]");
+  [sub_275D7B770() stringWithUTF8String:"-[KNLiveVideoInfo intValueForProperty:]"];
   objc_claimAutoreleasedReturnValue();
-  v4 = sub_275D7B794();
-  v6 = objc_msgSend_stringWithUTF8String_(v4, v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfo.m");
-  v7 = sub_275D7B784();
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v8, v9);
+  v2 = [sub_275D7B794() stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfo.m"];
+  [sub_275D7B784() handleFailureInFunction:? file:? lineNumber:? isFatal:? description:?];
 
-  v12 = *(v1 + 336);
+  v3 = *(v1 + 336);
 
-  return objc_msgSend_logBacktraceThrottled(v12, v10, v11);
+  return [v3 logBacktraceThrottled];
 }
 
 uint64_t sub_275E5A278()
 {
-  v2 = sub_275D7B770();
-  objc_msgSend_stringWithUTF8String_(v2, v3, "[KNLiveVideoInfo intValueForProperty:]");
+  [sub_275D7B770() stringWithUTF8String:"-[KNLiveVideoInfo intValueForProperty:]"];
   objc_claimAutoreleasedReturnValue();
-  v4 = sub_275D7B794();
-  v6 = objc_msgSend_stringWithUTF8String_(v4, v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfo.m");
-  v7 = sub_275D7B784();
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v8, v9);
+  v2 = [sub_275D7B794() stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfo.m"];
+  [sub_275D7B784() handleFailureInFunction:? file:? lineNumber:? isFatal:? description:?];
 
-  v12 = *(v1 + 336);
+  v3 = *(v1 + 336);
 
-  return objc_msgSend_logBacktraceThrottled(v12, v10, v11);
+  return [v3 logBacktraceThrottled];
 }
 
 uint64_t sub_275E5A2FC()
 {
-  v2 = sub_275D7B770();
-  objc_msgSend_stringWithUTF8String_(v2, v3, "[KNLiveVideoInfo intValueForProperty:]");
+  [sub_275D7B770() stringWithUTF8String:"-[KNLiveVideoInfo intValueForProperty:]"];
   objc_claimAutoreleasedReturnValue();
-  v4 = sub_275D7B794();
-  v6 = objc_msgSend_stringWithUTF8String_(v4, v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfo.m");
-  v7 = sub_275D7B784();
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v8, v9);
+  v2 = [sub_275D7B794() stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfo.m"];
+  [sub_275D7B784() handleFailureInFunction:? file:? lineNumber:? isFatal:? description:?];
 
-  v12 = *(v1 + 336);
+  v3 = *(v1 + 336);
 
-  return objc_msgSend_logBacktraceThrottled(v12, v10, v11);
+  return [v3 logBacktraceThrottled];
 }
 
 uint64_t sub_275E5A380()
 {
-  v2 = sub_275D7B770();
-  objc_msgSend_stringWithUTF8String_(v2, v3, "[KNLiveVideoInfo intValueForProperty:]");
+  [sub_275D7B770() stringWithUTF8String:"-[KNLiveVideoInfo intValueForProperty:]"];
   objc_claimAutoreleasedReturnValue();
-  v4 = sub_275D7B794();
-  v6 = objc_msgSend_stringWithUTF8String_(v4, v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfo.m");
-  v7 = sub_275D7B784();
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v8, v9);
+  v2 = [sub_275D7B794() stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfo.m"];
+  [sub_275D7B784() handleFailureInFunction:? file:? lineNumber:? isFatal:? description:?];
 
-  v12 = *(v1 + 336);
+  v3 = *(v1 + 336);
 
-  return objc_msgSend_logBacktraceThrottled(v12, v10, v11);
+  return [v3 logBacktraceThrottled];
 }
 
 void sub_275E5A440()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d The input depth should be less than or equal to the maximum slide depth limit, input depth.", "+[KNSlideTree slideNodeDepthMapToCleanUpSlideNodes:atDepths:minimumValidDepth:canExceedSlideTreeMaxDepth:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 135);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "+[KNSlideTree slideNodeDepthMapToCleanUpSlideNodes:atDepths:minimumValidDepth:canExceedSlideTreeMaxDepth:]", "+[KNSlideTree slideNodeDepthMapToCleanUpSlideNodes:atDepths:minimumValidDepth:canExceedSlideTreeMaxDepth:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 135);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 135, 1, "The input depth should be less than or equal to the maximum slide depth limit, input depth.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNSlideTree slideNodeDepthMapToCleanUpSlideNodes:atDepths:minimumValidDepth:canExceedSlideTreeMaxDepth:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:135 isFatal:1 description:{"The input depth should be less than or equal to the maximum slide depth limit, input depth."}];
 
   TSUCrashBreakpoint();
   abort();
@@ -4070,11 +4064,11 @@ void sub_275E5A440()
 
 void sub_275E5A4E4()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Depth cannot be more than one greater than the last slide node's depth.", "[KNSlideTree addSlideNode:atDepth:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 283);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree addSlideNode:atDepth:dolcContext:]", "[KNSlideTree addSlideNode:atDepth:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 283);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 283, 1, "Depth cannot be more than one greater than the last slide node's depth.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree addSlideNode:atDepth:dolcContext:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:283 isFatal:1 description:"Depth cannot be more than one greater than the last slide node's depth."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4082,26 +4076,26 @@ void sub_275E5A4E4()
 
 void sub_275E5A588()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Assigning a slide node to an invalid depth.", "[KNSlideTree addSlideNode:atDepth:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 286);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree addSlideNode:atDepth:dolcContext:]", "[KNSlideTree addSlideNode:atDepth:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 286);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 286, 1, "Assigning a slide node to an invalid depth.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree addSlideNode:atDepth:dolcContext:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:286 isFatal:1 description:"Assigning a slide node to an invalid depth."];
 
   TSUCrashBreakpoint();
   abort();
 }
 
-void sub_275E5A62C(uint64_t a1, const char *a2, uint64_t a3)
+void sub_275E5A62C()
 {
-  v12 = objc_msgSend_objectUUIDPath(0, a2, a3);
-  TSUSetCrashReporterInfo();
+  v0 = [0 objectUUIDPath];
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d First slide node, %{public}@ %{public}@, must be at depth one.", "[KNSlideTree addSlideNode:atDepth:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 276, 0, v0);
 
-  v3 = MEMORY[0x277D81150];
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNSlideTree addSlideNode:atDepth:dolcContext:]", "[KNSlideTree addSlideNode:atDepth:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 276, 0, v12);
-  v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  v10 = objc_msgSend_objectUUIDPath(0, v8, v9);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v3, v11, v5, v7, 276, 1, "First slide node, %{public}@ %{public}@, must be at depth one.", 0, v10);
+  v1 = MEMORY[0x277D81150];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree addSlideNode:atDepth:dolcContext:]"];
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  v4 = [0 objectUUIDPath];
+  [v1 handleFailureInFunction:v2 file:v3 lineNumber:276 isFatal:1 description:{"First slide node, %{public}@ %{public}@, must be at depth one.", 0, v4}];
 
   TSUCrashBreakpoint();
   abort();
@@ -4109,11 +4103,11 @@ void sub_275E5A62C(uint64_t a1, const char *a2, uint64_t a3)
 
 void sub_275E5A700()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d The slide nodes inserted count must match the count of the indexes we insert them at.", "[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 317);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]", "[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 317);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 317, 1, "The slide nodes inserted count must match the count of the indexes we insert them at.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:317 isFatal:1 description:"The slide nodes inserted count must match the count of the indexes we insert them at."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4121,11 +4115,11 @@ void sub_275E5A700()
 
 void sub_275E5A7A4()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Slides must be inserted within the bounds of the deck.", "[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 325);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]", "[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 325);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 325, 1, "Slides must be inserted within the bounds of the deck.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:325 isFatal:1 description:"Slides must be inserted within the bounds of the deck."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4133,11 +4127,11 @@ void sub_275E5A7A4()
 
 void sub_275E5A848()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d The slide nodes changing depth count must match the count of the depths we set them to.", "[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 341);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]", "[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 341);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 341, 1, "The slide nodes changing depth count must match the count of the depths we set them to.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:341 isFatal:1 description:"The slide nodes changing depth count must match the count of the depths we set them to."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4145,11 +4139,11 @@ void sub_275E5A848()
 
 void sub_275E5A8EC()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Assigning a slide node to an invalid depth.", "[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 348);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]", "[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 348);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 348, 1, "Assigning a slide node to an invalid depth.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree insertSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:dolcContext:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:348 isFatal:1 description:"Assigning a slide node to an invalid depth."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4157,11 +4151,11 @@ void sub_275E5A8EC()
 
 void sub_275E5A990()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d The slide nodes moved count must match the count of the indexes we move them from.", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 378);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 378);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 378, 1, "The slide nodes moved count must match the count of the indexes we move them from.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:378 isFatal:1 description:"The slide nodes moved count must match the count of the indexes we move them from."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4169,29 +4163,28 @@ void sub_275E5A990()
 
 void sub_275E5AA34()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d The slide nodes moved count must match the count of the indexes we move them to.", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 379);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 379);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 379, 1, "The slide nodes moved count must match the count of the indexes we move them to.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:379 isFatal:1 description:"The slide nodes moved count must match the count of the indexes we move them to."];
 
   TSUCrashBreakpoint();
   abort();
 }
 
-void sub_275E5AAD8(void *a1, char *a2, uint64_t a3, uint64_t a4)
+void sub_275E5AAD8(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v8 = objc_msgSend_objectUUIDPath(a1, a2, a3);
-  v24 = objc_msgSend_objectUUIDPath(a2, v9, v10);
-  v23 = v8;
-  TSUSetCrashReporterInfo();
+  v8 = [a1 objectUUIDPath];
+  v9 = [a2 objectUUIDPath];
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Expected to move slide node %{public}@ %{public}@ from index %ld to index %ld, and instead got: %{public}@ %{public}@", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 393, a1, v8, a3, a4, a2, v9);
 
-  v11 = MEMORY[0x277D81150];
-  v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 393, a1, v23, a3, a4, a2, v24);
-  v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  v18 = objc_msgSend_objectUUIDPath(a1, v16, v17);
-  v21 = objc_msgSend_objectUUIDPath(a2, v19, v20);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v13, v15, 393, 1, "Expected to move slide node %{public}@ %{public}@ from index %ld to index %ld, and instead got: %{public}@ %{public}@", a1, v18, a3, a4, a2, v21);
+  v10 = MEMORY[0x277D81150];
+  v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]"];
+  v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  v13 = [a1 objectUUIDPath];
+  v14 = [a2 objectUUIDPath];
+  [v10 handleFailureInFunction:v11 file:v12 lineNumber:393 isFatal:1 description:{"Expected to move slide node %{public}@ %{public}@ from index %ld to index %ld, and instead got: %{public}@ %{public}@", a1, v13, a3, a4, a2, v14}];
 
   TSUCrashBreakpoint();
   abort();
@@ -4199,11 +4192,11 @@ void sub_275E5AAD8(void *a1, char *a2, uint64_t a3, uint64_t a4)
 
 void sub_275E5ABFC()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d To index invalid; slides must be moved within the bounds of the deck.", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 389);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 389);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 389, 1, "To index invalid; slides must be moved within the bounds of the deck.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:389 isFatal:1 description:"To index invalid; slides must be moved within the bounds of the deck."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4211,11 +4204,11 @@ void sub_275E5ABFC()
 
 void sub_275E5ACA0()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d From index invalid; slides must be within the bounds of the deck.", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 388);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 388);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 388, 1, "From index invalid; slides must be within the bounds of the deck.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:388 isFatal:1 description:"From index invalid; slides must be within the bounds of the deck."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4223,11 +4216,11 @@ void sub_275E5ACA0()
 
 void sub_275E5AD44()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d The slide nodes changing depth count must match the count of the depths we set them to.", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 414);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 414);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 414, 1, "The slide nodes changing depth count must match the count of the depths we set them to.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:414 isFatal:1 description:"The slide nodes changing depth count must match the count of the depths we set them to."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4235,11 +4228,11 @@ void sub_275E5AD44()
 
 void sub_275E5ADE8()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Assigning a slide node to an invalid depth.", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 421);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 421);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 421, 1, "Assigning a slide node to an invalid depth.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree moveSlideNodes:fromIndexes:toIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:421 isFatal:1 description:"Assigning a slide node to an invalid depth."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4247,29 +4240,28 @@ void sub_275E5ADE8()
 
 void sub_275E5AE8C()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d The slide nodes being removed count must match the count of the indexes we are removing.", "[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 453);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 453);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 453, 1, "The slide nodes being removed count must match the count of the indexes we are removing.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:453 isFatal:1 description:"The slide nodes being removed count must match the count of the indexes we are removing."];
 
   TSUCrashBreakpoint();
   abort();
 }
 
-void sub_275E5AF30(void *a1, char *a2, uint64_t a3)
+void sub_275E5AF30(void *a1, void *a2, uint64_t a3)
 {
-  v6 = objc_msgSend_objectUUIDPath(a1, a2, a3);
-  v22 = objc_msgSend_objectUUIDPath(a2, v7, v8);
-  v21 = v6;
-  TSUSetCrashReporterInfo();
+  v6 = [a1 objectUUIDPath];
+  v7 = [a2 objectUUIDPath];
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Expected to remove slide node %{public}@ %{public}@ at target index %ld, and instead got: %{public}@ %{public}@ at the target index.", "[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 462, a1, v6, a3, a2, v7);
 
-  v9 = MEMORY[0x277D81150];
-  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 462, a1, v21, a3, a2, v22);
-  v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  v16 = objc_msgSend_objectUUIDPath(a1, v14, v15);
-  v19 = objc_msgSend_objectUUIDPath(a2, v17, v18);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v20, v11, v13, 462, 1, "Expected to remove slide node %{public}@ %{public}@ at target index %ld, and instead got: %{public}@ %{public}@ at the target index.", a1, v16, a3, a2, v19);
+  v8 = MEMORY[0x277D81150];
+  v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]"];
+  v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  v11 = [a1 objectUUIDPath];
+  v12 = [a2 objectUUIDPath];
+  [v8 handleFailureInFunction:v9 file:v10 lineNumber:462 isFatal:1 description:{"Expected to remove slide node %{public}@ %{public}@ at target index %ld, and instead got: %{public}@ %{public}@ at the target index.", a1, v11, a3, a2, v12}];
 
   TSUCrashBreakpoint();
   abort();
@@ -4277,11 +4269,11 @@ void sub_275E5AF30(void *a1, char *a2, uint64_t a3)
 
 void sub_275E5B048()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d The slide nodes changing depth count must match the count of the depths we set them to.", "[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 480);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 480);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 480, 1, "The slide nodes changing depth count must match the count of the depths we set them to.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:480 isFatal:1 description:"The slide nodes changing depth count must match the count of the depths we set them to."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4289,11 +4281,11 @@ void sub_275E5B048()
 
 void sub_275E5B0EC()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Assigning a slide node to an invalid depth.", "[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 487);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 487);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 487, 1, "Assigning a slide node to an invalid depth.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree removeSlideNodes:atIndexes:slideNodesChangingDepths:depthsOfSlideNodesChangingDepths:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:487 isFatal:1 description:"Assigning a slide node to an invalid depth."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4301,11 +4293,11 @@ void sub_275E5B0EC()
 
 void sub_275E5B190()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Depth cannot be more than one greater than the last slide node's depth.", "[KNSlideTree addSlideNodeForDocumentUpgrade:atDepth:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 971);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree addSlideNodeForDocumentUpgrade:atDepth:]", "[KNSlideTree addSlideNodeForDocumentUpgrade:atDepth:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 971);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 971, 1, "Depth cannot be more than one greater than the last slide node's depth.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree addSlideNodeForDocumentUpgrade:atDepth:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:971 isFatal:1 description:"Depth cannot be more than one greater than the last slide node's depth."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4313,11 +4305,11 @@ void sub_275E5B190()
 
 void sub_275E5B234()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Assigning a slide node to an invalid depth.", "[KNSlideTree addSlideNodeForDocumentUpgrade:atDepth:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 974);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNSlideTree addSlideNodeForDocumentUpgrade:atDepth:]", "[KNSlideTree addSlideNodeForDocumentUpgrade:atDepth:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m", 974);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 974, 1, "Assigning a slide node to an invalid depth.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideTree addSlideNodeForDocumentUpgrade:atDepth:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideTree.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:974 isFatal:1 description:"Assigning a slide node to an invalid depth."];
 
   TSUCrashBreakpoint();
   abort();
@@ -4325,11 +4317,11 @@ void sub_275E5B234()
 
 void sub_275E5B2D8()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Keynote theme has no template slides", "[KNTheme p_findFallbackDefaultTemplateSlide]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNTheme.m", 2220);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNTheme p_findFallbackDefaultTemplateSlide]", "[KNTheme p_findFallbackDefaultTemplateSlide]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNTheme.m", 2220);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNTheme.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 2220, 1, "Keynote theme has no template slides");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNTheme p_findFallbackDefaultTemplateSlide]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNTheme.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:2220 isFatal:1 description:"Keynote theme has no template slides"];
 
   TSUCrashBreakpoint();
   abort();
@@ -4337,17 +4329,17 @@ void sub_275E5B2D8()
 
 void sub_275E5B37C()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d A document must have at least one template slide.", "[KNTheme p_findDefaultTemplateSlideWithoutLoadingSlides]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNTheme.m", 2294);
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNTheme p_findDefaultTemplateSlideWithoutLoadingSlides]", "[KNTheme p_findDefaultTemplateSlideWithoutLoadingSlides]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNTheme.m", 2294);
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNTheme.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 2294, 1, "A document must have at least one template slide.");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNTheme p_findDefaultTemplateSlideWithoutLoadingSlides]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNTheme.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:2294 isFatal:1 description:"A document must have at least one template slide."];
 
   TSUCrashBreakpoint();
   abort();
 }
 
-uint64_t sub_275E5B69C(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5B69C(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -4398,7 +4390,7 @@ uint64_t sub_275E5B69C(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E5B76C(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5B76C(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -4551,7 +4543,7 @@ google::protobuf::internal *sub_275E5B90C(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E5B9DC(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5B9DC(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -4653,7 +4645,7 @@ google::protobuf::internal *sub_275E5BAAC(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E5BB7C(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5BB7C(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -4806,7 +4798,7 @@ google::protobuf::internal *sub_275E5BD1C(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E5BDEC(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5BDEC(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -4857,7 +4849,7 @@ uint64_t sub_275E5BDEC(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E5BEBC(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5BEBC(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -5061,7 +5053,7 @@ google::protobuf::internal *sub_275E5C12C(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E5C1FC(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5C1FC(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -5112,7 +5104,7 @@ uint64_t sub_275E5C1FC(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E5C2CC(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5C2CC(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -5163,7 +5155,7 @@ uint64_t sub_275E5C2CC(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E5C39C(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5C39C(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -5316,7 +5308,7 @@ google::protobuf::internal *sub_275E5C53C(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E5C60C(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5C60C(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -5367,7 +5359,7 @@ uint64_t sub_275E5C60C(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E5C6DC(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5C6DC(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -5520,7 +5512,7 @@ google::protobuf::internal *sub_275E5C87C(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E5C94C(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5C94C(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -5571,7 +5563,7 @@ uint64_t sub_275E5C94C(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E5CA1C(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5CA1C(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -5622,7 +5614,7 @@ uint64_t sub_275E5CA1C(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E5CAEC(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5CAEC(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -5724,7 +5716,7 @@ google::protobuf::internal *sub_275E5CBBC(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E5CC8C(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5CC8C(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -5780,7 +5772,7 @@ google::protobuf::internal *sub_275E5CD5C(uint64_t a1, google::protobuf::interna
   v11 = a2;
   while (1)
   {
-    if (sub_275E221E8(a3, &v11))
+    if (sub_275E221E8(a3, &v11, *(a3 + 92)))
     {
       return v11;
     }
@@ -5832,7 +5824,7 @@ LABEL_7:
   return TagFallback;
 }
 
-uint64_t sub_275E5CE60(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5CE60(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -5985,7 +5977,7 @@ google::protobuf::internal *sub_275E5D000(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E5D0D0(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5D0D0(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -6036,7 +6028,7 @@ uint64_t sub_275E5D0D0(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E5D1A0(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5D1A0(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -6087,7 +6079,7 @@ uint64_t sub_275E5D1A0(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E5D270(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5D270(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -6189,7 +6181,7 @@ google::protobuf::internal *sub_275E5D340(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E5D410(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5D410(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -6291,7 +6283,7 @@ google::protobuf::internal *sub_275E5D4E0(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E5D5B0(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5D5B0(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -6750,7 +6742,7 @@ google::protobuf::internal *sub_275E5DC30(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E5DD00(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5DD00(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -6852,7 +6844,7 @@ google::protobuf::internal *sub_275E5DDD0(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E5DEA0(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5DEA0(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -6903,7 +6895,7 @@ uint64_t sub_275E5DEA0(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E5DF70(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5DF70(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -6954,7 +6946,7 @@ uint64_t sub_275E5DF70(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E5E040(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E5E040(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -7109,9 +7101,9 @@ google::protobuf::internal *sub_275E5E1E0(uint64_t a1, uint64_t a2, google::prot
 
 void sub_275E5E2B0(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v106 = a2;
-  v5 = sub_275E221E8(a3, &v106);
-  v6 = v106;
+  v100 = a2;
+  v5 = sub_275E221E8(a3, &v100, *(a3 + 92));
+  v6 = v100;
   if ((v5 & 1) == 0)
   {
     while (1)
@@ -7124,7 +7116,7 @@ void sub_275E5E2B0(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
         if (*v7 < 0)
         {
           TagFallback = google::protobuf::internal::ReadTagFallback(v6, v8);
-          v106 = TagFallback;
+          v100 = TagFallback;
           if (!TagFallback)
           {
             return;
@@ -7137,7 +7129,7 @@ void sub_275E5E2B0(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
         v7 = (v6 + 2);
       }
 
-      v106 = v7;
+      v100 = v7;
 LABEL_7:
       switch(v8 >> 3)
       {
@@ -7161,7 +7153,7 @@ LABEL_7:
           }
 
           sub_275E2736C(*(a1 + 16) | 2);
-          if (v44)
+          if (v40)
           {
             sub_275E27360();
           }
@@ -7174,22 +7166,21 @@ LABEL_7:
           }
 
           *(a1 + 16) |= 0x40u;
-          v30 = *(a1 + 88);
-          if (!v30)
+          v27 = *(a1 + 88);
+          if (!v27)
           {
-            v31 = *(a1 + 8);
-            if (v31)
+            v28 = *(a1 + 8);
+            if (v28)
             {
-              sub_275E27354(v31);
+              sub_275E27354(v28);
             }
 
-            v32 = MEMORY[0x277C8EF70]();
-            LODWORD(v30) = v32;
-            *(a1 + 88) = v32;
-            v7 = v106;
+            v27 = MEMORY[0x277C8EF70]();
+            *(a1 + 88) = v27;
+            v7 = v100;
           }
 
-          v33 = sub_275E5D1A0(a3, v30, v7);
+          v29 = sub_275E5D1A0(a3, v27, v7);
           goto LABEL_206;
         case 0xAu:
           if (v8 != 80)
@@ -7198,20 +7189,20 @@ LABEL_7:
           }
 
           *(a1 + 20) |= 0x800u;
-          v48 = (v7 + 1);
-          LODWORD(v47) = *v7;
-          if ((v47 & 0x80) == 0)
+          v44 = (v7 + 1);
+          LODWORD(v43) = *v7;
+          if ((v43 & 0x80) == 0)
           {
             goto LABEL_173;
           }
 
           sub_275E272E0();
-          if (v50 < 0)
+          if (v46 < 0)
           {
-            v92 = google::protobuf::internal::VarintParseSlow64(v49, v47);
-            v106 = v92;
-            *(a1 + 384) = v93;
-            if (!v92)
+            v86 = google::protobuf::internal::VarintParseSlow64(v45, v43);
+            v100 = v86;
+            *(a1 + 384) = v87;
+            if (!v86)
             {
               return;
             }
@@ -7219,10 +7210,10 @@ LABEL_7:
 
           else
           {
-            v48 = (v49 + 2);
+            v44 = (v45 + 2);
 LABEL_173:
-            v106 = v48;
-            *(a1 + 384) = v47;
+            v100 = v44;
+            *(a1 + 384) = v43;
           }
 
           goto LABEL_292;
@@ -7260,21 +7251,21 @@ LABEL_173:
           goto LABEL_291;
         case 0xFu:
           sub_275E273B0();
-          if (!v85)
+          if (!v79)
           {
             goto LABEL_294;
           }
 
-          *(a1 + 168) = sub_275E2730C(v52, *(a1 + 16) | 0x10000u);
+          *(a1 + 168) = sub_275E2730C(v48, *(a1 + 16) | 0x10000u);
           goto LABEL_291;
         case 0x10u:
           sub_275E273A4();
-          if (!v85)
+          if (!v79)
           {
             goto LABEL_294;
           }
 
-          *(a1 + 176) = sub_275E2730C(v51, *(a1 + 16) | 0x20000u);
+          *(a1 + 176) = sub_275E2730C(v47, *(a1 + 16) | 0x20000u);
           goto LABEL_291;
         case 0x11u:
           if (v8 != 137)
@@ -7291,12 +7282,12 @@ LABEL_173:
           }
 
           sub_275E27338(*(a1 + 20) | 0x1000);
-          if (v34 < 0 && (sub_275E27270(), v37 < 0))
+          if (v30 < 0 && (sub_275E27270(), v33 < 0))
           {
-            google::protobuf::internal::VarintParseSlow64(v36, v35);
+            google::protobuf::internal::VarintParseSlow64(v32, v31);
             sub_275E272C0();
-            *(a1 + 388) = v88;
-            if (!v89)
+            *(a1 + 388) = v82;
+            if (!v83)
             {
               return;
             }
@@ -7305,7 +7296,7 @@ LABEL_173:
           else
           {
             sub_275E272D0();
-            *(a1 + 388) = v38;
+            *(a1 + 388) = v34;
           }
 
           goto LABEL_292;
@@ -7316,7 +7307,7 @@ LABEL_173:
           }
 
           sub_275E2736C(*(a1 + 16) | 4);
-          if (v27)
+          if (v25)
           {
             sub_275E27360();
           }
@@ -7329,7 +7320,7 @@ LABEL_173:
           }
 
           sub_275E2736C(*(a1 + 16) | 8);
-          if (v23)
+          if (v22)
           {
             sub_275E27360();
           }
@@ -7342,7 +7333,7 @@ LABEL_173:
           }
 
           sub_275E2736C(*(a1 + 16) | 0x10);
-          if (v45)
+          if (v41)
           {
             sub_275E27360();
           }
@@ -7355,14 +7346,14 @@ LABEL_173:
           }
 
           sub_275E2736C(*(a1 + 16) | 0x20);
-          if (v46)
+          if (v42)
           {
             sub_275E27360();
           }
 
 LABEL_164:
           google::protobuf::internal::ArenaStringPtr::Mutable();
-          v33 = google::protobuf::internal::InlineGreedyStringParser();
+          v29 = google::protobuf::internal::InlineGreedyStringParser();
           goto LABEL_206;
         case 0x17u:
           if (v8 != 186)
@@ -7377,15 +7368,14 @@ LABEL_164:
             goto LABEL_205;
           }
 
-          v55 = *(a1 + 8);
-          if (v55)
+          v50 = *(a1 + 8);
+          if (v50)
           {
-            sub_275E27354(v55);
+            sub_275E27354(v50);
           }
 
-          v56 = MEMORY[0x277C8F010]();
-          LODWORD(v20) = v56;
-          *(a1 + 96) = v56;
+          v20 = MEMORY[0x277C8F010]();
+          *(a1 + 96) = v20;
           goto LABEL_204;
         case 0x18u:
           if (v8 != 194)
@@ -7400,15 +7390,14 @@ LABEL_164:
             goto LABEL_205;
           }
 
-          v53 = *(a1 + 8);
-          if (v53)
+          v49 = *(a1 + 8);
+          if (v49)
           {
-            sub_275E27354(v53);
+            sub_275E27354(v49);
           }
 
-          v54 = MEMORY[0x277C8F010]();
-          LODWORD(v20) = v54;
-          *(a1 + 104) = v54;
+          v20 = MEMORY[0x277C8F010]();
+          *(a1 + 104) = v20;
           goto LABEL_204;
         case 0x19u:
           if (v8 != 202)
@@ -7429,9 +7418,8 @@ LABEL_164:
             sub_275E27354(v21);
           }
 
-          v22 = MEMORY[0x277C8F010]();
-          LODWORD(v20) = v22;
-          *(a1 + 112) = v22;
+          v20 = MEMORY[0x277C8F010]();
+          *(a1 + 112) = v20;
           goto LABEL_204;
         case 0x1Au:
           if (v8 != 210)
@@ -7446,15 +7434,14 @@ LABEL_164:
             goto LABEL_205;
           }
 
-          v28 = *(a1 + 8);
-          if (v28)
+          v26 = *(a1 + 8);
+          if (v26)
           {
-            sub_275E27354(v28);
+            sub_275E27354(v26);
           }
 
-          v29 = MEMORY[0x277C8F010]();
-          LODWORD(v20) = v29;
-          *(a1 + 120) = v29;
+          v20 = MEMORY[0x277C8F010]();
+          *(a1 + 120) = v20;
           goto LABEL_204;
         case 0x1Bu:
           if (v8 != 217)
@@ -7618,21 +7605,21 @@ LABEL_164:
           goto LABEL_291;
         case 0x2Fu:
           sub_275E273B0();
-          if (!v85)
+          if (!v79)
           {
             goto LABEL_294;
           }
 
-          *(a1 + 352) = sub_275E272B4(v26, *(a1 + 20) | 0x80u);
+          *(a1 + 352) = sub_275E272B4(v24, *(a1 + 20) | 0x80u);
           goto LABEL_291;
         case 0x30u:
           sub_275E273A4();
-          if (!v85)
+          if (!v79)
           {
             goto LABEL_294;
           }
 
-          *(a1 + 360) = sub_275E272B4(v43, *(a1 + 20) | 0x100u);
+          *(a1 + 360) = sub_275E272B4(v39, *(a1 + 20) | 0x100u);
           goto LABEL_291;
         case 0x31u:
           if (v8 != 137)
@@ -7837,8 +7824,8 @@ LABEL_164:
           {
             google::protobuf::internal::VarintParseSlow64(v15, v14);
             sub_275E272C0();
-            *(a1 + 389) = v86;
-            if (!v87)
+            *(a1 + 389) = v80;
+            if (!v81)
             {
               return;
             }
@@ -7858,12 +7845,12 @@ LABEL_164:
           }
 
           sub_275E27338(*(a1 + 20) | 0x4000);
-          if (v65 < 0 && (sub_275E27270(), v68 < 0))
+          if (v59 < 0 && (sub_275E27270(), v62 < 0))
           {
-            google::protobuf::internal::VarintParseSlow64(v67, v66);
+            google::protobuf::internal::VarintParseSlow64(v61, v60);
             sub_275E272C0();
-            *(a1 + 390) = v98;
-            if (!v99)
+            *(a1 + 390) = v92;
+            if (!v93)
             {
               return;
             }
@@ -7872,7 +7859,7 @@ LABEL_164:
           else
           {
             sub_275E272D0();
-            *(a1 + 390) = v69;
+            *(a1 + 390) = v63;
           }
 
           goto LABEL_292;
@@ -7883,12 +7870,12 @@ LABEL_164:
           }
 
           sub_275E27338(*(a1 + 20) | 0x8000);
-          if (v70 < 0 && (sub_275E27270(), v73 < 0))
+          if (v64 < 0 && (sub_275E27270(), v67 < 0))
           {
-            google::protobuf::internal::VarintParseSlow64(v72, v71);
+            google::protobuf::internal::VarintParseSlow64(v66, v65);
             sub_275E272C0();
-            *(a1 + 391) = v100;
-            if (!v101)
+            *(a1 + 391) = v94;
+            if (!v95)
             {
               return;
             }
@@ -7897,7 +7884,7 @@ LABEL_164:
           else
           {
             sub_275E272D0();
-            *(a1 + 391) = v74;
+            *(a1 + 391) = v68;
           }
 
           goto LABEL_292;
@@ -7908,20 +7895,20 @@ LABEL_164:
           }
 
           *(a1 + 24) |= 0x40u;
-          v39 = (v7 + 1);
-          LODWORD(v40) = *v7;
+          v35 = (v7 + 1);
+          LODWORD(v36) = *v7;
           if ((*v7 & 0x80000000) == 0)
           {
             goto LABEL_141;
           }
 
           sub_275E272E0();
-          if (v42 < 0)
+          if (v38 < 0)
           {
-            v90 = google::protobuf::internal::VarintParseSlow32(v41, v40);
-            v106 = v90;
-            *(a1 + 568) = v91;
-            if (!v90)
+            v84 = google::protobuf::internal::VarintParseSlow32(v37, v36);
+            v100 = v84;
+            *(a1 + 568) = v85;
+            if (!v84)
             {
               return;
             }
@@ -7929,10 +7916,10 @@ LABEL_164:
 
           else
           {
-            v39 = (v41 + 2);
+            v35 = (v37 + 2);
 LABEL_141:
-            v106 = v39;
-            *(a1 + 568) = v40;
+            v100 = v35;
+            *(a1 + 568) = v36;
           }
 
           goto LABEL_292;
@@ -7943,12 +7930,12 @@ LABEL_141:
           }
 
           *(a1 + 24) |= 0x80u;
-          if ((*v7 & 0x8000000000000000) != 0 && (sub_275E27270(), v78 < 0))
+          if ((*v7 & 0x8000000000000000) != 0 && (sub_275E27270(), v72 < 0))
           {
-            google::protobuf::internal::VarintParseSlow64(v77, v76);
+            google::protobuf::internal::VarintParseSlow64(v71, v70);
             sub_275E272C0();
-            *(a1 + 572) = v102;
-            if (!v103)
+            *(a1 + 572) = v96;
+            if (!v97)
             {
               return;
             }
@@ -7957,7 +7944,7 @@ LABEL_141:
           else
           {
             sub_275E272D0();
-            *(a1 + 572) = v79;
+            *(a1 + 572) = v73;
           }
 
           goto LABEL_292;
@@ -7968,12 +7955,12 @@ LABEL_141:
           }
 
           *(a1 + 24) |= 0x100u;
-          if ((*v7 & 0x8000000000000000) != 0 && (sub_275E27270(), v63 < 0))
+          if ((*v7 & 0x8000000000000000) != 0 && (sub_275E27270(), v57 < 0))
           {
-            google::protobuf::internal::VarintParseSlow64(v62, v61);
+            google::protobuf::internal::VarintParseSlow64(v56, v55);
             sub_275E272C0();
-            *(a1 + 573) = v96;
-            if (!v97)
+            *(a1 + 573) = v90;
+            if (!v91)
             {
               return;
             }
@@ -7982,13 +7969,13 @@ LABEL_141:
           else
           {
             sub_275E272D0();
-            *(a1 + 573) = v64;
+            *(a1 + 573) = v58;
           }
 
           goto LABEL_292;
         case 0x4Fu:
           sub_275E273B0();
-          if (!v85)
+          if (!v79)
           {
             goto LABEL_294;
           }
@@ -7997,7 +7984,7 @@ LABEL_141:
           goto LABEL_291;
         case 0x50u:
           sub_275E273A4();
-          if (!v85)
+          if (!v79)
           {
             goto LABEL_294;
           }
@@ -8049,19 +8036,18 @@ LABEL_141:
             goto LABEL_205;
           }
 
-          v24 = *(a1 + 8);
-          if (v24)
+          v23 = *(a1 + 8);
+          if (v23)
           {
-            sub_275E27354(v24);
+            sub_275E27354(v23);
           }
 
-          v25 = MEMORY[0x277C8F010]();
-          LODWORD(v20) = v25;
-          *(a1 + 128) = v25;
+          v20 = MEMORY[0x277C8F010]();
+          *(a1 + 128) = v20;
 LABEL_204:
-          v7 = v106;
+          v7 = v100;
 LABEL_205:
-          v33 = sub_275E5B69C(a3, v20, v7);
+          v29 = sub_275E5B69C(a3, v20, v7);
           goto LABEL_206;
         case 0x56u:
           if (v8 != 177)
@@ -8206,20 +8192,20 @@ LABEL_205:
           }
 
           *(a1 + 28) |= 0x20u;
-          v81 = (v7 + 1);
-          LODWORD(v80) = *v7;
-          if ((v80 & 0x80) == 0)
+          v75 = (v7 + 1);
+          LODWORD(v74) = *v7;
+          if ((v74 & 0x80) == 0)
           {
             goto LABEL_276;
           }
 
           sub_275E272E0();
-          if (v83 < 0)
+          if (v77 < 0)
           {
-            v104 = google::protobuf::internal::VarintParseSlow64(v82, v80);
-            v106 = v104;
-            *(a1 + 800) = v105;
-            if (!v104)
+            v98 = google::protobuf::internal::VarintParseSlow64(v76, v74);
+            v100 = v98;
+            *(a1 + 800) = v99;
+            if (!v98)
             {
               return;
             }
@@ -8227,10 +8213,10 @@ LABEL_205:
 
           else
           {
-            v81 = (v82 + 2);
+            v75 = (v76 + 2);
 LABEL_276:
-            v106 = v81;
-            *(a1 + 800) = v80;
+            v100 = v75;
+            *(a1 + 800) = v74;
           }
 
           goto LABEL_292;
@@ -8292,23 +8278,23 @@ LABEL_276:
           goto LABEL_291;
         case 0x6Fu:
           sub_275E273B0();
-          if (!v85)
+          if (!v79)
           {
             goto LABEL_294;
           }
 
-          *(a1 + 824) = sub_275E27348(v75, *(a1 + 28) | 0x200u);
+          *(a1 + 824) = sub_275E27348(v69, *(a1 + 28) | 0x200u);
           goto LABEL_291;
         case 0x70u:
           sub_275E273A4();
-          if (!v85)
+          if (!v79)
           {
             goto LABEL_294;
           }
 
           *(a1 + 832) = sub_275E27348(v12, *(a1 + 28) | 0x400u);
 LABEL_291:
-          v106 = v11;
+          v100 = v11;
           goto LABEL_292;
         case 0x71u:
           if (v8 != 136)
@@ -8317,20 +8303,20 @@ LABEL_291:
           }
 
           *(a1 + 28) |= 0x40u;
-          v58 = (v7 + 1);
-          LODWORD(v57) = *v7;
-          if ((v57 & 0x80) == 0)
+          v52 = (v7 + 1);
+          LODWORD(v51) = *v7;
+          if ((v51 & 0x80) == 0)
           {
             goto LABEL_214;
           }
 
           sub_275E272E0();
-          if (v60 < 0)
+          if (v54 < 0)
           {
-            v94 = google::protobuf::internal::VarintParseSlow64(v59, v57);
-            v106 = v94;
-            *(a1 + 804) = v95;
-            if (!v94)
+            v88 = google::protobuf::internal::VarintParseSlow64(v53, v51);
+            v100 = v88;
+            *(a1 + 804) = v89;
+            if (!v88)
             {
               return;
             }
@@ -8338,10 +8324,10 @@ LABEL_291:
 
           else
           {
-            v58 = (v59 + 2);
+            v52 = (v53 + 2);
 LABEL_214:
-            v106 = v58;
-            *(a1 + 804) = v57;
+            v100 = v52;
+            *(a1 + 804) = v51;
           }
 
           goto LABEL_292;
@@ -8349,15 +8335,15 @@ LABEL_214:
 LABEL_294:
           if (v8)
           {
-            v85 = (v8 & 7) == 4;
+            v79 = (v8 & 7) == 4;
           }
 
           else
           {
-            v85 = 1;
+            v79 = 1;
           }
 
-          if (v85)
+          if (v79)
           {
             *(a3 + 80) = v8 - 1;
             return;
@@ -8368,18 +8354,18 @@ LABEL_294:
             sub_275E22260((a1 + 8));
           }
 
-          v33 = google::protobuf::internal::UnknownFieldParse();
+          v29 = google::protobuf::internal::UnknownFieldParse();
 LABEL_206:
-          v106 = v33;
-          if (!v33)
+          v100 = v29;
+          if (!v29)
           {
             return;
           }
 
 LABEL_292:
-          v84 = sub_275E221E8(a3, &v106);
-          v6 = v106;
-          if (v84)
+          v78 = sub_275E221E8(a3, &v100, *(a3 + 92));
+          v6 = v100;
+          if (v78)
           {
             return;
           }
@@ -8668,46 +8654,40 @@ void sub_275E5F85C(int *a1, void *a2)
 
 uint64_t sub_275E605F8()
 {
-  v2 = sub_275D7B770();
-  v4 = objc_msgSend_stringWithUTF8String_(v2, v3, "[KNBuildAttributeValue initWithIntegerValue:]");
-  v6 = objc_msgSend_stringWithUTF8String_(*(v0 + 3240), v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m");
-  v7 = sub_275D7B784();
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v8, v9);
+  v2 = [sub_275D7B770() stringWithUTF8String:"-[KNBuildAttributeValue initWithIntegerValue:]"];
+  v3 = [*(v0 + 3240) stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m"];
+  [sub_275D7B784() handleFailureInFunction:? file:? lineNumber:? isFatal:? description:?];
 
-  return objc_msgSend_logBacktraceThrottled(*(v1 + 336), v10, v11);
+  return [*(v1 + 336) logBacktraceThrottled];
 }
 
 uint64_t sub_275E60674()
 {
-  v2 = sub_275D7B770();
-  v4 = objc_msgSend_stringWithUTF8String_(v2, v3, "[KNBuildAttributeValue initWithIntegerValue:]");
-  v6 = objc_msgSend_stringWithUTF8String_(*(v0 + 3240), v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m");
-  v7 = sub_275D7B784();
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v8, v9);
+  v2 = [sub_275D7B770() stringWithUTF8String:"-[KNBuildAttributeValue initWithIntegerValue:]"];
+  v3 = [*(v0 + 3240) stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m"];
+  [sub_275D7B784() handleFailureInFunction:? file:? lineNumber:? isFatal:? description:?];
 
-  return objc_msgSend_logBacktraceThrottled(*(v1 + 336), v10, v11);
+  return [*(v1 + 336) logBacktraceThrottled];
 }
 
 uint64_t sub_275E606F0()
 {
-  v2 = sub_275D7B770();
-  v4 = objc_msgSend_stringWithUTF8String_(v2, v3, "[KNBuildAttributeValue integerValue]");
-  v6 = objc_msgSend_stringWithUTF8String_(*(v0 + 3240), v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m");
-  v7 = sub_275D7B784();
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v8, v9);
+  v2 = [sub_275D7B770() stringWithUTF8String:"-[KNBuildAttributeValue integerValue]"];
+  v3 = [*(v0 + 3240) stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m"];
+  [sub_275D7B784() handleFailureInFunction:? file:? lineNumber:? isFatal:? description:?];
 
-  v12 = *(v1 + 336);
+  v4 = *(v1 + 336);
 
-  return objc_msgSend_logBacktraceThrottled(v12, v10, v11);
+  return [v4 logBacktraceThrottled];
 }
 
 void sub_275E6082C()
 {
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", "[KNBuildAttributeTuple initWithBuild:chunk:property:value:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeTuple.m", 41, "context");
   v0 = MEMORY[0x277D81150];
-  v2 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v1, "[KNBuildAttributeTuple initWithBuild:chunk:property:value:]", "[KNBuildAttributeTuple initWithBuild:chunk:property:value:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeTuple.m", 41, "context");
-  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeTuple.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v0, v5, v2, v4, 41, 1, "invalid nil value for '%{public}s'", "context");
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildAttributeTuple initWithBuild:chunk:property:value:]"];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeTuple.m"];
+  [v0 handleFailureInFunction:v1 file:v2 lineNumber:41 isFatal:1 description:{"invalid nil value for '%{public}s'", "context"}];
 
   TSUCrashBreakpoint();
   abort();
@@ -8764,7 +8744,7 @@ google::protobuf::internal *sub_275E60944(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E60A14(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E60A14(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -8815,7 +8795,7 @@ uint64_t sub_275E60A14(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E60AE4(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E60AE4(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -8866,7 +8846,7 @@ uint64_t sub_275E60AE4(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E60BB4(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E60BB4(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -8917,7 +8897,7 @@ uint64_t sub_275E60BB4(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E60C84(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E60C84(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -8968,7 +8948,7 @@ uint64_t sub_275E60C84(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E60D54(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E60D54(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -9019,7 +8999,7 @@ uint64_t sub_275E60D54(uint64_t a1, int a2, google::protobuf::internal *this)
   return result;
 }
 
-uint64_t sub_275E60E24(uint64_t a1, int a2, google::protobuf::internal *this)
+char *sub_275E60E24(uint64_t a1, uint64_t a2, google::protobuf::internal *this)
 {
   v4 = *this;
   if (*this < 0)
@@ -9121,7 +9101,7 @@ google::protobuf::internal *sub_275E60EF4(uint64_t a1, uint64_t a2, google::prot
   return result;
 }
 
-uint64_t sub_275E60FC4(int a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+uint64_t sub_275E60FC4(unsigned int a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   if (!a1 || (a1 & 7) == 4)
   {

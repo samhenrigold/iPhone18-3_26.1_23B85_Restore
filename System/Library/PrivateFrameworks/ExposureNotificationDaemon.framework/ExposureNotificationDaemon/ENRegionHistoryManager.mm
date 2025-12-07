@@ -145,8 +145,14 @@ void __63__ENRegionHistoryManager_initWithDelegate_queue_directoryPath___block_i
 {
   v3 = NSStringFromSelector(self);
   defaultManager = [MEMORY[0x277CCAA08] defaultManager];
-  [defaultManager fileExistsAtPath:a2];
-  LogPrintF_safe();
+  v5 = [defaultManager fileExistsAtPath:a2];
+  v6 = "no";
+  if (v5)
+  {
+    v6 = "yes";
+  }
+
+  LogPrintF_safe(&gLogCategory_ENRegionHistoryManager, "[ENRegionHistoryManager setupPersistedRegionHistory]", 30, "%@, %@ exists, %s", v3, a2, v6);
 }
 
 - (void)setFileStatus:(int64_t)status
@@ -232,7 +238,7 @@ LABEL_17:
       v10 = v11;
       if (!v9 && gLogCategory__ENRegionHistoryManager <= 90 && (gLogCategory__ENRegionHistoryManager != -1 || _LogCategory_Initialize()))
       {
-        [ENRegionHistoryManager addRegionVisit:];
+        [ENRegionHistoryManager addRegionVisit:v10];
       }
     }
   }
@@ -275,38 +281,38 @@ LABEL_17:
   v3 = v4;
   if (!v2 && gLogCategory_ENRegionHistoryManager <= 90 && (gLogCategory_ENRegionHistoryManager != -1 || _LogCategory_Initialize()))
   {
-    [ENRegionHistoryManager resetRegionHistory];
+    [(ENRegionHistoryManager *)v3 resetRegionHistory];
   }
 }
 
 - (BOOL)purgeRegionsOlderThanDate:(id)date error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (self->_fileStatus == 2)
   {
     errorCopy = error;
     selfCopy = self;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     getRegionVisits = [(ENRegionHistory *)self->_regionHistory getRegionVisits];
-    v8 = [getRegionVisits countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v8 = [getRegionVisits countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v28;
+      v10 = *v27;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v28 != v10)
+          if (*v27 != v10)
           {
             objc_enumerationMutation(getRegionVisits);
           }
 
-          v12 = *(*(&v27 + 1) + 8 * i);
+          v12 = *(*(&v26 + 1) + 8 * i);
           date = [v12 date];
           v14 = [date earlierDate:dateCopy];
           date2 = [v12 date];
@@ -318,7 +324,7 @@ LABEL_17:
           }
         }
 
-        v9 = [getRegionVisits countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v9 = [getRegionVisits countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v9);
@@ -326,9 +332,9 @@ LABEL_17:
 
     regionHistoryFileWrapper = selfCopy->_regionHistoryFileWrapper;
     regionHistory = selfCopy->_regionHistory;
-    v26 = 0;
-    v19 = [(ENSecureArchiveFileWrapper *)regionHistoryFileWrapper saveObject:regionHistory error:&v26];
-    v20 = v26;
+    v25 = 0;
+    v19 = [(ENSecureArchiveFileWrapper *)regionHistoryFileWrapper saveObject:regionHistory error:&v25];
+    v20 = v25;
     if (v19)
     {
       goto LABEL_17;
@@ -336,7 +342,7 @@ LABEL_17:
 
     if (gLogCategory_ENRegionHistoryManager <= 90 && (gLogCategory_ENRegionHistoryManager != -1 || _LogCategory_Initialize()))
     {
-      [ENRegionHistoryManager purgeRegionsOlderThanDate:error:];
+      [ENRegionHistoryManager purgeRegionsOlderThanDate:v20 error:?];
       if (!errorCopy)
       {
         goto LABEL_17;
@@ -363,7 +369,6 @@ LABEL_17:
   v19 = 0;
 LABEL_22:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -378,7 +383,7 @@ LABEL_22:
   v9 = v15;
   if (!v8 && gLogCategory_ENRegionHistoryManager <= 90 && (gLogCategory_ENRegionHistoryManager != -1 || _LogCategory_Initialize()))
   {
-    [ENRegionHistoryManager setRegionHistory:];
+    [ENRegionHistoryManager setRegionHistory:v9];
   }
 
   getRegionVisits = [(ENRegionHistory *)self->_regionHistory getRegionVisits];
@@ -389,7 +394,7 @@ LABEL_22:
 
   if (isSensitiveLoggingAllowed && gLogCategory_ENRegionHistoryManager <= 30 && (gLogCategory_ENRegionHistoryManager != -1 || _LogCategory_Initialize()))
   {
-    [ENRegionHistoryManager setRegionHistory:];
+    [ENRegionHistoryManager setRegionHistory:lastObject];
   }
 
   delegate = [(ENRegionHistoryManager *)self delegate];
@@ -398,7 +403,7 @@ LABEL_22:
 
 - (id)mergeRegionHistoryOnDisk:(id)disk inMemory:(id)memory
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   diskCopy = disk;
   memoryCopy = memory;
   v7 = memoryCopy;
@@ -426,36 +431,34 @@ LABEL_3:
 
   if (isSensitiveLoggingAllowed && gLogCategory_ENRegionHistoryManager <= 30 && (gLogCategory_ENRegionHistoryManager != -1 || _LogCategory_Initialize()))
   {
-    v21 = diskCopy;
-    v22 = v7;
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENRegionHistoryManager, "[ENRegionHistoryManager mergeRegionHistoryOnDisk:inMemory:]", 30, "Merging region history, onDisk, <%@>, inMemory, <%@>", diskCopy, v7);
   }
 
   getRegionVisits = [v7 getRegionVisits];
   v11 = [diskCopy copy];
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v12 = getRegionVisits;
-  v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v24;
+    v15 = *v21;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v24 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [v11 addRegionVisit:*(*(&v23 + 1) + 8 * i)];
+        [v11 addRegionVisit:*(*(&v20 + 1) + 8 * i)];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v14);
@@ -466,10 +469,8 @@ LABEL_3:
 
   if (isSensitiveLoggingAllowed2 && gLogCategory_ENRegionHistoryManager <= 30 && (gLogCategory_ENRegionHistoryManager != -1 || _LogCategory_Initialize()))
   {
-    [ENRegionHistoryManager mergeRegionHistoryOnDisk:inMemory:];
+    [ENRegionHistoryManager mergeRegionHistoryOnDisk:v11 inMemory:?];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -511,35 +512,35 @@ LABEL_3:
   v5 = [v8 path];
   v6 = [objc_opt_class() regionHistoryFileStatusToString:*a2];
   v7 = [objc_opt_class() regionHistoryFileStatusToString:a3];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENRegionHistoryManager, "[ENRegionHistoryManager setFileStatus:]", 30, "%@, file status changed from, %@, to %@", v5, v6, v7);
 }
 
 - (void)setFileStatus:(void *)a3 .cold.2(void *a1, uint64_t a2, void *a3)
 {
-  v4 = [a1 regionHistoryFileWrapper];
-  *a3 = v4;
-  v5 = [v4 path];
-  LogPrintF_safe();
+  v5 = [a1 regionHistoryFileWrapper];
+  *a3 = v5;
+  v6 = [v5 path];
+  LogPrintF_safe(&gLogCategory_ENRegionHistoryManager, "[ENRegionHistoryManager setFileStatus:]", 90, "unable to read on disk cache, %@, error,%@", v6, a2);
 }
 
 - (void)setFileStatus:(void *)a1 .cold.3(void *a1)
 {
   v1 = [a1 regionHistoryFileWrapper];
   v2 = [v1 path];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENRegionHistoryManager, "[ENRegionHistoryManager setFileStatus:]", 30, "%@, onDisk region history empty", v2);
 }
 
 - (void)addRegionVisit:.cold.1()
 {
   OUTLINED_FUNCTION_1_5();
-  v1 = [objc_opt_class() regionHistoryFileStatusToString:{objc_msgSend(v0, "fileStatus")}];
-  LogPrintF_safe();
+  v2 = [objc_opt_class() regionHistoryFileStatusToString:{objc_msgSend(v1, "fileStatus")}];
+  LogPrintF_safe(&gLogCategory_ENRegionHistoryManager, "[ENRegionHistoryManager addRegionVisit:]", 30, "adding region to cache, %@, on disk file status, %@", v0, v2);
 }
 
 - (void)purgeAllRegionHistoryWithError:(void *)a1 .cold.1(void *a1)
 {
   v1 = [objc_opt_class() regionHistoryFileStatusToString:{objc_msgSend(a1, "fileStatus")}];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENRegionHistoryManager, "[ENRegionHistoryManager purgeAllRegionHistoryWithError:]", 30, "purging region history, on disk file status, %@", v1);
 }
 
 - (void)mergeRegionHistoryOnDisk:inMemory:.cold.1()

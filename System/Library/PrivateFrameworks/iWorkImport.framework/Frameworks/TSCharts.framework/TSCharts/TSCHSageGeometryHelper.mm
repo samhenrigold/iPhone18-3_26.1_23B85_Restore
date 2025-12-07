@@ -113,7 +113,7 @@
 
 - (CGSize)naturalSize
 {
-  objc_msgSend_size(self->_importedInfoGeometry, a2, v2, v3, v4);
+  objc_msgSend_size(self->_importedInfoGeometry, v2, v3, v4, a2);
   result.height = v6;
   result.width = v5;
   return result;

@@ -1,5 +1,6 @@
-uint64_t CNEncode(unsigned int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t *a6)
+uint64_t CNEncode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
+  v6 = a1;
   result = 4294962996;
   if (a3)
   {
@@ -8,7 +9,7 @@ uint64_t CNEncode(unsigned int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5
       if (a6)
       {
         v15 = 0;
-        result = CNEncoderCreate(a1, a2, &v15);
+        result = CNEncoderCreate(v6, a2, &v15);
         if (!result)
         {
           v12 = *a6;
@@ -387,7 +388,7 @@ void *ccdigest_process(void *result, uint64_t a2, uint64_t a3, uint64_t a4, size
     v11 = result;
     do
     {
-      v12 = *(v11 + 16);
+      v12 = v11[2];
       if (a4 || v7 < v12)
       {
         v15 = v12 - a4;
@@ -403,9 +404,9 @@ void *ccdigest_process(void *result, uint64_t a2, uint64_t a3, uint64_t a4, size
 
         result = memcpy((a2 + a4), __src, v14);
         a4 += v14;
-        if (a4 == *(v11 + 16))
+        if (a4 == v11[2])
         {
-          result = (*(v11 + 48))(a3, 1, a2);
+          result = (v11[6])(a3, 1, a2);
           a4 = 0;
         }
       }
@@ -413,9 +414,9 @@ void *ccdigest_process(void *result, uint64_t a2, uint64_t a3, uint64_t a4, size
       else
       {
         v13 = v7 / v12;
-        result = (*(v11 + 48))(a3, v7 / v12, __src);
+        result = (v11[6])(a3, v7 / v12, __src);
         a4 = 0;
-        v14 = *(v11 + 16) * v13;
+        v14 = v11[2] * v13;
       }
 
       __src += v14;
@@ -758,17 +759,15 @@ unsigned __int8 *__cdecl CC_SHA1(const void *data, CC_LONG len, unsigned __int8 
 
 int CC_MD5_Init(CC_MD5_CTX *c)
 {
-  v8[1] = *MEMORY[0x29EDCA608];
+  v7[1] = *MEMORY[0x29EDCA608];
   DigestInfo = CCDigestGetDigestInfo(3u);
-  v3 = (((*(DigestInfo + 8) + *(DigestInfo + 16) + 19) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x2A1C7C4A8]();
-  v5 = (v8 - v4);
+  MEMORY[0x2A1C7C4A8](DigestInfo, v3);
+  v5 = (v7 - v4);
   ccdigest_init();
   memcpy(c, v5 + 1, *(DigestInfo + 8));
   memcpy(c->data, v5 + *(DigestInfo + 8) + 8, *(DigestInfo + 16));
   *&c->Nl = *v5;
   c->num = *(v5 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
-  v6 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
@@ -882,20 +881,19 @@ int CC_MD5_Update(CC_MD5_CTX *c, const void *data, CC_LONG len)
   DigestInfo = CCDigestGetDigestInfo(3u);
   v5 = *(DigestInfo + 8);
   v6 = *(DigestInfo + 16);
-  MEMORY[0x2A1C7C4A8]();
-  v8 = (v13 - v7);
-  v9 = &v13[1] - v7;
-  memcpy(v9, c, v5);
-  v10 = &v9[v5];
-  memcpy(v10, c->data, v6);
-  *v8 = *&c->Nl;
-  *&v10[v6] = c->num;
+  MEMORY[0x2A1C7C4A8](DigestInfo, v7);
+  v9 = (v13 - v8);
+  v10 = &v13[1] - v8;
+  memcpy(v10, c, v5);
+  v11 = &v10[v5];
+  memcpy(v11, c->data, v6);
+  *v9 = *&c->Nl;
+  *&v11[v6] = c->num;
   ccdigest_update();
-  memcpy(c, v9, *(DigestInfo + 8));
-  memcpy(c->data, &v9[*(DigestInfo + 8)], *(DigestInfo + 16));
-  *&c->Nl = *v8;
-  c->num = *(v8 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
-  v11 = *MEMORY[0x29EDCA608];
+  memcpy(c, v10, *(DigestInfo + 8));
+  memcpy(c->data, &v10[*(DigestInfo + 8)], *(DigestInfo + 16));
+  *&c->Nl = *v9;
+  c->num = *(v9 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
   return 1;
 }
 
@@ -905,26 +903,25 @@ int CC_MD5_Final(unsigned __int8 *md, CC_MD5_CTX *c)
   DigestInfo = CCDigestGetDigestInfo(3u);
   v5 = *(DigestInfo + 8);
   v6 = *(DigestInfo + 16);
-  MEMORY[0x2A1C7C4A8]();
-  v8 = (v13 - v7);
-  v9 = &v13[1] - v7;
-  memcpy(v9, c, v5);
-  v10 = &v9[v5];
-  memcpy(v10, c->data, v6);
-  *v8 = *&c->Nl;
-  *&v10[v6] = c->num;
-  (*(DigestInfo + 56))(DigestInfo, v8, md);
-  memcpy(c, v9, *(DigestInfo + 8));
-  memcpy(c->data, &v9[*(DigestInfo + 8)], *(DigestInfo + 16));
-  *&c->Nl = *v8;
-  c->num = *(v8 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
-  v11 = *MEMORY[0x29EDCA608];
+  MEMORY[0x2A1C7C4A8](DigestInfo, v7);
+  v9 = (v13 - v8);
+  v10 = &v13[1] - v8;
+  memcpy(v10, c, v5);
+  v11 = &v10[v5];
+  memcpy(v11, c->data, v6);
+  *v9 = *&c->Nl;
+  *&v11[v6] = c->num;
+  (*(DigestInfo + 56))(DigestInfo, v9, md);
+  memcpy(c, v10, *(DigestInfo + 8));
+  memcpy(c->data, &v10[*(DigestInfo + 8)], *(DigestInfo + 16));
+  *&c->Nl = *v9;
+  c->num = *(v9 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
   return 1;
 }
 
 CCCryptorStatus CCCryptorCreateWithMode(CCOperation op, CCMode mode, CCAlgorithm alg, CCPadding padding, const void *iv, const void *key, size_t keyLength, const void *tweak, size_t tweakLength, int numRounds, CCModeOptions options, CCCryptorRef *cryptorRef)
 {
-  v40[2] = *MEMORY[0x29EDCA608];
+  v39[2] = *MEMORY[0x29EDCA608];
   v12 = -4300;
   if (key && cryptorRef)
   {
@@ -934,19 +931,18 @@ CCCryptorStatus CCCryptorCreateWithMode(CCOperation op, CCMode mode, CCAlgorithm
       v20 = malloc_type_malloc(keyLength, 0x7941071FuLL);
       if (!v20)
       {
-        v12 = -4302;
-        goto LABEL_22;
+        return -4302;
       }
 
       v21 = v20;
-      v38 = tweak;
+      v37 = tweak;
       memcpy(v20, v15, keyLength);
       v15 = v21;
     }
 
     else
     {
-      v38 = tweak;
+      v37 = tweak;
       v21 = 0;
     }
 
@@ -978,17 +974,17 @@ CCCryptorStatus CCCryptorCreateWithMode(CCOperation op, CCMode mode, CCAlgorithm
         *(v22 + 14) = 0;
         if (op < 2)
         {
-          v37 = (v22 + 26);
+          v36 = (v22 + 26);
           v24 = setCryptorCipherMode(v22, alg, mode, op);
           if (v24)
           {
             goto LABEL_16;
           }
 
-          v31 = (**(v23 + 96))(*(v23 + 8 * op + 80));
-          v32 = malloc_type_malloc(v31, 0x6D6FC5BBuLL);
-          *&v37[8 * op] = v32;
-          if (!v32)
+          v30 = (**(v23 + 96))(*(v23 + 8 * op + 80));
+          v31 = malloc_type_malloc(v30, 0x6D6FC5BBuLL);
+          *&v36[8 * op] = v31;
+          if (!v31)
           {
 LABEL_30:
             v12 = -4302;
@@ -998,28 +994,28 @@ LABEL_30:
 LABEL_32:
           if (padding == 12)
           {
-            v33 = cccts3_pad;
+            v32 = cccts3_pad;
           }
 
           else if (padding == 1)
           {
             if (mode == 2)
             {
-              v33 = ccpkcs7_pad;
+              v32 = ccpkcs7_pad;
             }
 
             else
             {
-              v33 = ccpkcs7_ecb_pad;
+              v32 = ccpkcs7_ecb_pad;
             }
           }
 
           else
           {
-            v33 = ccnopad_pad;
+            v32 = ccnopad_pad;
           }
 
-          *(v23 + 120) = v33;
+          *(v23 + 120) = v32;
           *(v23 + 64) = alg;
           if (alg > 3)
           {
@@ -1112,7 +1108,7 @@ LABEL_17:
               free(v23);
               if (!v21)
               {
-                goto LABEL_22;
+                return v12;
               }
 
               goto LABEL_20;
@@ -1129,24 +1125,24 @@ LABEL_17:
           }
 
 LABEL_59:
-          v40[0] = 0;
-          v40[1] = 0;
+          v39[0] = 0;
+          v39[1] = 0;
           if (iv)
           {
-            v34 = iv;
+            v33 = iv;
           }
 
           else
           {
-            v34 = v40;
+            v33 = v39;
           }
 
-          v35 = *(v23 + 68);
-          if (v35 > 8 || ((1 << v35) & 0x106) == 0)
+          v34 = *(v23 + 68);
+          if (v34 > 8 || ((1 << v34) & 0x106) == 0)
           {
             if (op < 2)
             {
-              if ((*(*(v23 + 96) + 16))(*(v23 + 8 * op + 80), v34, v15, keyLength, v38, 0, 0, *(v23 + 8 * op + 104)))
+              if ((*(*(v23 + 96) + 16))(*(v23 + 8 * op + 80), v33, v15, keyLength, v37, 0, 0, *(v23 + 8 * op + 104)))
               {
                 goto LABEL_65;
               }
@@ -1160,8 +1156,8 @@ LABEL_59:
             }
           }
 
-          v36 = (*(*(v23 + 96) + 16))(*(v23 + 80), v34, v15, keyLength, v38, 0, 0, *(v23 + 104));
-          if ((*(*(v23 + 96) + 16))(*(v23 + 88), v34, v15, keyLength, v38, 0, 0, *(v23 + 112)) | v36)
+          v35 = (*(*(v23 + 96) + 16))(*(v23 + 80), v33, v15, keyLength, v37, 0, 0, *(v23 + 104));
+          if ((*(*(v23 + 96) + 16))(*(v23 + 88), v33, v15, keyLength, v37, 0, 0, *(v23 + 112)) | v35)
           {
 LABEL_65:
             if (*(v23 + 64) != 2 && *(v23 + 68) != 8)
@@ -1176,7 +1172,7 @@ LABEL_72:
           *cryptorRef = v23;
           if (!v21)
           {
-            goto LABEL_22;
+            return v12;
           }
 
           goto LABEL_20;
@@ -1196,10 +1192,10 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      v27 = (**(v23 + 96))(*(v23 + 80));
-      v28 = malloc_type_malloc(v27, 0x852E10A9uLL);
-      *(v23 + 104) = v28;
-      if (!v28)
+      v26 = (**(v23 + 96))(*(v23 + 80));
+      v27 = malloc_type_malloc(v26, 0x852E10A9uLL);
+      *(v23 + 104) = v27;
+      if (!v27)
       {
         goto LABEL_30;
       }
@@ -1210,10 +1206,10 @@ LABEL_16:
         goto LABEL_16;
       }
 
-      v29 = (**(v23 + 96))(*(v23 + 88));
-      v30 = malloc_type_malloc(v29, 0x1FF1E7E4uLL);
-      *(v23 + 112) = v30;
-      if (!v30)
+      v28 = (**(v23 + 96))(*(v23 + 88));
+      v29 = malloc_type_malloc(v28, 0x1FF1E7E4uLL);
+      *(v23 + 112) = v29;
+      if (!v29)
       {
         goto LABEL_30;
       }
@@ -1231,8 +1227,6 @@ LABEL_20:
     }
   }
 
-LABEL_22:
-  v25 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
@@ -1374,7 +1368,7 @@ LABEL_31:
   return 4294962991;
 }
 
-uint64_t CCCryptorGCM(CCOperation a1, CCAlgorithm alg, void *key, size_t keyLength, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t *a13)
+uint64_t CCCryptorGCM(CCOperation a1, CCAlgorithm alg, void *key, size_t keyLength, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
 {
   cryptorRef = 0;
   v17 = CCCryptorCreateWithMode(a1, 0xBu, alg, 0, 0, key, keyLength, 0, 0, 0, 0, &cryptorRef);
@@ -1429,7 +1423,7 @@ LABEL_5:
   return v2 + 32 * a1;
 }
 
-uint64_t CNCRC(unsigned int a1, _BYTE *a2, uint64_t a3, uint64_t *a4)
+uint64_t CNCRC(unsigned int a1, _BYTE *a2, uint64_t a3, unint64_t *a4)
 {
   Desc = getDesc(a1);
   v8 = Desc[1];
@@ -1865,17 +1859,15 @@ uint64_t ccSimpleUpdate(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t *a4, un
 
 int CC_SHA1_Init(CC_SHA1_CTX *c)
 {
-  v8[1] = *MEMORY[0x29EDCA608];
+  v7[1] = *MEMORY[0x29EDCA608];
   DigestInfo = CCDigestGetDigestInfo(8u);
-  v3 = (((*(DigestInfo + 8) + *(DigestInfo + 16) + 19) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x2A1C7C4A8]();
-  v5 = (v8 - v4);
+  MEMORY[0x2A1C7C4A8](DigestInfo, v3);
+  v5 = (v7 - v4);
   ccdigest_init();
   memcpy(c, v5 + 1, *(DigestInfo + 8));
   memcpy(c->data, v5 + *(DigestInfo + 8) + 8, *(DigestInfo + 16));
   *&c->Nl = *v5;
   c->num = *(v5 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
-  v6 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
@@ -1885,20 +1877,19 @@ int CC_SHA1_Update(CC_SHA1_CTX *c, const void *data, CC_LONG len)
   DigestInfo = CCDigestGetDigestInfo(8u);
   v5 = *(DigestInfo + 8);
   v6 = *(DigestInfo + 16);
-  MEMORY[0x2A1C7C4A8]();
-  v8 = (v13 - v7);
-  v9 = &v13[1] - v7;
-  memcpy(v9, c, v5);
-  v10 = &v9[v5];
-  memcpy(v10, c->data, v6);
-  *v8 = *&c->Nl;
-  *&v10[v6] = c->num;
+  MEMORY[0x2A1C7C4A8](DigestInfo, v7);
+  v9 = (v13 - v8);
+  v10 = &v13[1] - v8;
+  memcpy(v10, c, v5);
+  v11 = &v10[v5];
+  memcpy(v11, c->data, v6);
+  *v9 = *&c->Nl;
+  *&v11[v6] = c->num;
   ccdigest_update();
-  memcpy(c, v9, *(DigestInfo + 8));
-  memcpy(c->data, &v9[*(DigestInfo + 8)], *(DigestInfo + 16));
-  *&c->Nl = *v8;
-  c->num = *(v8 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
-  v11 = *MEMORY[0x29EDCA608];
+  memcpy(c, v10, *(DigestInfo + 8));
+  memcpy(c->data, &v10[*(DigestInfo + 8)], *(DigestInfo + 16));
+  *&c->Nl = *v9;
+  c->num = *(v9 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
   return 1;
 }
 
@@ -1908,20 +1899,19 @@ int CC_SHA1_Final(unsigned __int8 *md, CC_SHA1_CTX *c)
   DigestInfo = CCDigestGetDigestInfo(8u);
   v5 = *(DigestInfo + 8);
   v6 = *(DigestInfo + 16);
-  MEMORY[0x2A1C7C4A8]();
-  v8 = (v13 - v7);
-  v9 = &v13[1] - v7;
-  memcpy(v9, c, v5);
-  v10 = &v9[v5];
-  memcpy(v10, c->data, v6);
-  *v8 = *&c->Nl;
-  *&v10[v6] = c->num;
-  (*(DigestInfo + 56))(DigestInfo, v8, md);
-  memcpy(c, v9, *(DigestInfo + 8));
-  memcpy(c->data, &v9[*(DigestInfo + 8)], *(DigestInfo + 16));
-  *&c->Nl = *v8;
-  c->num = *(v8 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
-  v11 = *MEMORY[0x29EDCA608];
+  MEMORY[0x2A1C7C4A8](DigestInfo, v7);
+  v9 = (v13 - v8);
+  v10 = &v13[1] - v8;
+  memcpy(v10, c, v5);
+  v11 = &v10[v5];
+  memcpy(v11, c->data, v6);
+  *v9 = *&c->Nl;
+  *&v11[v6] = c->num;
+  (*(DigestInfo + 56))(DigestInfo, v9, md);
+  memcpy(c, v10, *(DigestInfo + 8));
+  memcpy(c->data, &v10[*(DigestInfo + 8)], *(DigestInfo + 16));
+  *&c->Nl = *v9;
+  c->num = *(v9 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
   return 1;
 }
 
@@ -1998,29 +1988,20 @@ uint64_t CCCryptorGCMAddIV(void *a1, uint64_t a2, uint64_t a3)
   v3 = 4294962996;
   if (a2 || !a3)
   {
-    v4 = *a1;
-    if (!*a1)
+    v4 = ccgcm_set_iv_legacy();
+    if (v4 == -7)
     {
-      v4 = a1;
-    }
-
-    v5 = &v4[*(v4 + 18)];
-    v6 = v5[10];
-    v7 = v5[13];
-    v8 = ccgcm_set_iv_legacy();
-    if (v8 == -7)
-    {
-      v9 = -4300;
+      v5 = -4300;
     }
 
     else
     {
-      v9 = -4308;
+      v5 = -4308;
     }
 
-    if (v8)
+    if (v4)
     {
-      return v9;
+      return v5;
     }
 
     else
@@ -2064,34 +2045,31 @@ uint64_t ccClearCryptor(uint64_t a1)
     goto LABEL_5;
   }
 
-  v12 = *(a1 + 72);
-  if (v12 < 2)
+  v10 = *(a1 + 72);
+  if (v10 < 2)
   {
-    (**(a1 + 96))(*(a1 + 8 * v12 + 80));
-    v13 = *(a1 + 104 + 8 * *(a1 + 72));
+    (**(a1 + 96))(*(a1 + 8 * v10 + 80));
     cc_clear();
     free(*(a1 + 104 + 8 * *(a1 + 72)));
     goto LABEL_7;
   }
 
-  if (v12 == 3)
+  if (v10 == 3)
   {
 LABEL_5:
     v6 = 0;
-    v7 = a1 + 104;
-    v8 = 1;
+    v7 = 1;
     do
     {
-      v9 = v8;
+      v8 = v7;
       (**(a1 + 96))(*(a1 + 80 + 8 * v6));
-      v10 = *(v7 + 8 * v6);
       cc_clear();
-      free(*(v7 + 8 * v6));
-      v8 = 0;
+      free(*(a1 + 104 + 8 * v6));
+      v7 = 0;
       v6 = 1;
     }
 
-    while ((v9 & 1) != 0);
+    while ((v8 & 1) != 0);
   }
 
 LABEL_7:
@@ -2109,29 +2087,20 @@ uint64_t CCCryptorGCMAddAAD(void *a1, uint64_t a2, uint64_t a3)
   v3 = 4294962996;
   if (a2 || !a3)
   {
-    v4 = *a1;
-    if (!*a1)
+    v4 = ccgcm_aad();
+    if (v4 == -7)
     {
-      v4 = a1;
-    }
-
-    v5 = &v4[*(v4 + 18)];
-    v6 = v5[10];
-    v7 = v5[13];
-    v8 = ccgcm_aad();
-    if (v8 == -7)
-    {
-      v9 = -4300;
+      v5 = -4300;
     }
 
     else
     {
-      v9 = -4308;
+      v5 = -4308;
     }
 
-    if (v8)
+    if (v4)
     {
-      return v9;
+      return v5;
     }
 
     else
@@ -2150,42 +2119,33 @@ uint64_t gcm_update(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4)
     return 4294962996;
   }
 
-  v4 = a1;
   if (a3)
   {
-    v5 = a2 == 0;
+    v4 = a2 == 0;
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   result = 4294962996;
-  if (!v5 && a4)
+  if (!v4 && a4)
   {
-    if (*v4)
+    v6 = ccgcm_update();
+    if (v6 == -7)
     {
-      v4 = *v4;
-    }
-
-    v7 = &v4[*(v4 + 18)];
-    v8 = v7[10];
-    v9 = v7[13];
-    v10 = ccgcm_update();
-    if (v10 == -7)
-    {
-      v11 = -4300;
+      v7 = -4300;
     }
 
     else
     {
-      v11 = -4308;
+      v7 = -4308;
     }
 
-    if (v10)
+    if (v6)
     {
-      return v11;
+      return v7;
     }
 
     else
@@ -2197,26 +2157,16 @@ uint64_t gcm_update(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return result;
 }
 
-uint64_t CCCryptorGCMFinal(uint64_t **a1, uint64_t a2, uint64_t *a3)
+uint64_t CCCryptorGCMFinal(uint64_t **a1, uint64_t a2, void *a3)
 {
   if (!a1)
   {
     return 4294962996;
   }
 
-  v3 = a1;
   result = 4294962996;
   if (a2 && a3)
   {
-    if (*v3)
-    {
-      v3 = *v3;
-    }
-
-    v5 = &v3[*(v3 + 18)];
-    v6 = v5[10];
-    v7 = v5[13];
-    v8 = *a3;
     if (ccgcm_finalize() == -1)
     {
       return 4294962988;
@@ -2244,7 +2194,7 @@ unsigned __int8 *__cdecl CC_SHA512(const void *data, CC_LONG len, unsigned __int
   }
 }
 
-uint64_t CCDeriveKey(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t CCDeriveKey(int *a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   DigestInfo = CCDigestGetDigestInfo(a2);
   v12 = 4294962996;
@@ -2264,19 +2214,12 @@ uint64_t CCDeriveKey(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uin
             return v12;
           }
 
-          v19 = *(a1 + 8);
-          v18 = *(a1 + 16);
-          v21 = *(a1 + 24);
-          v20 = *(a1 + 32);
-          v17 = ccnistkdf_ctr_hmac();
+          v15 = ccnistkdf_ctr_hmac();
         }
 
         else
         {
-          v29 = *(a1 + 16);
-          v28 = *(a1 + 24);
-          v30 = *(a1 + 8);
-          v17 = ccpbkdf2_hmac();
+          v15 = ccpbkdf2_hmac();
         }
       }
 
@@ -2285,28 +2228,20 @@ uint64_t CCDeriveKey(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uin
         switch(v14)
         {
           case 2:
-            v23 = *(a1 + 8);
-            v22 = *(a1 + 16);
-            v17 = ccnistkdf_ctr_hmac_fixed();
+            v15 = ccnistkdf_ctr_hmac_fixed();
             break;
           case 6:
-            v25 = *(a1 + 8);
-            v24 = *(a1 + 16);
-            v27 = *(a1 + 24);
-            v26 = *(a1 + 32);
-            v17 = cchkdf();
+            v15 = cchkdf();
             break;
           case 7:
-            v16 = *(a1 + 8);
-            v15 = *(a1 + 16);
-            v17 = ccansikdf_x963();
+            v15 = ccansikdf_x963();
             break;
           default:
             return v12;
         }
       }
 
-      if (v17)
+      if (v15)
       {
         return 4294962996;
       }
@@ -2350,14 +2285,12 @@ void CCDigestDestroy(void *a1)
   }
 }
 
-uint64_t CCHKDFExtract(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t CCHKDFExtract(_DWORD *a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   DigestInfo = CCDigestGetDigestInfo(a2);
   result = 4294962996;
   if (a5 && DigestInfo && *DigestInfo == a6 && (a3 || !a4) && *a1 == 6)
   {
-    v14 = *(a1 + 8);
-    v13 = *(a1 + 16);
     if (cchkdf_extract())
     {
       return 4294962988;
@@ -2372,7 +2305,7 @@ uint64_t CCHKDFExtract(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, u
   return result;
 }
 
-uint64_t CCHKDFExpand(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t CCHKDFExpand(_DWORD *a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   DigestInfo = CCDigestGetDigestInfo(a2);
   if (!DigestInfo)
@@ -2384,8 +2317,6 @@ uint64_t CCHKDFExpand(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, ui
   result = 4294962996;
   if (a3 && a5 && a6 && *v12 == a4 && *a1 == 6)
   {
-    v15 = *(a1 + 24);
-    v14 = *(a1 + 32);
     if (cchkdf_expand())
     {
       return 4294962988;
@@ -2398,6 +2329,38 @@ uint64_t CCHKDFExpand(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, ui
   }
 
   return result;
+}
+
+size_t CCCryptorGetOutputLength(CCCryptorRef cryptorRef, size_t inputLength, BOOL final)
+{
+  if (!cryptorRef)
+  {
+    return -4300;
+  }
+
+  v3 = final;
+  if (*cryptorRef)
+  {
+    v5 = *cryptorRef;
+  }
+
+  else
+  {
+    v5 = cryptorRef;
+  }
+
+  if ((*(*(v5 + 12) + 8))(*(v5 + *(v5 + 18) + 10)) == 1)
+  {
+    return inputLength;
+  }
+
+  v6 = *(*(v5 + 15) + 16);
+  v7 = *(v5 + 18) == 0;
+  v8 = *(v5 + *(v5 + 18) + 10);
+  v9 = *(v5 + 12);
+  v10 = *(v5 + 5) + inputLength;
+
+  return v6(v7, v9, v8, v10, v3);
 }
 
 CCCryptorStatus CCCrypt(CCOperation op, CCAlgorithm alg, CCOptions options, const void *key, size_t keyLength, const void *iv, const void *dataIn, size_t dataInLength, void *dataOut, size_t dataOutAvailable, size_t *dataOutMoved)
@@ -2460,10 +2423,10 @@ CCCryptorStatus CCCrypt(CCOperation op, CCAlgorithm alg, CCOptions options, cons
 
 CCCryptorStatus CCCryptorFinal(CCCryptorRef cryptorRef, void *dataOut, size_t dataOutAvailable, size_t *dataOutMoved)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if (!cryptorRef)
   {
-    goto LABEL_23;
+    return cryptorRef;
   }
 
   if (*cryptorRef)
@@ -2507,7 +2470,7 @@ CCCryptorStatus CCCryptorFinal(CCCryptorRef cryptorRef, void *dataOut, size_t da
 LABEL_18:
           LODWORD(cryptorRef) = 0;
           *(v7 + 5) = 0;
-          goto LABEL_23;
+          return cryptorRef;
         }
 
         goto LABEL_22;
@@ -2533,11 +2496,11 @@ LABEL_18:
 
 LABEL_22:
       LODWORD(cryptorRef) = -4301;
-      goto LABEL_23;
+      return cryptorRef;
     }
 
     LODWORD(cryptorRef) = -4303;
-    goto LABEL_23;
+    return cryptorRef;
   }
 
   v10 = *(*(v7 + 12) + 56);
@@ -2547,8 +2510,6 @@ LABEL_22:
   }
 
   LODWORD(cryptorRef) = 0;
-LABEL_23:
-  v14 = *MEMORY[0x29EDCA608];
   return cryptorRef;
 }
 
@@ -2608,44 +2569,44 @@ uint64_t adler32_oneshot(uint64_t a1, unsigned __int8 *a2)
   return v3 | (v2 << 16);
 }
 
-uint64_t CCCryptorChaCha20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t CCCryptorChaCha20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a4 == 12)
   {
-    LODWORD(v4) = 0;
+    LODWORD(v8) = 0;
   }
 
   else
   {
-    LODWORD(v4) = -4300;
+    LODWORD(v8) = -4300;
   }
 
   if (a2 == 32)
   {
-    v4 = v4;
+    v8 = v8;
   }
 
   else
   {
-    v4 = 4294962986;
+    v8 = 4294962986;
   }
 
   if (a2 == 32 && a4 == 12)
   {
-    v5 = ccchacha20();
-    if (v5 == -7)
+    v9 = ccchacha20();
+    if (v9 == -7)
     {
-      LODWORD(v4) = -4300;
+      LODWORD(v8) = -4300;
     }
 
     else
     {
-      LODWORD(v4) = -4308;
+      LODWORD(v8) = -4308;
     }
 
-    if (v5)
+    if (v9)
     {
-      return v4;
+      return v8;
     }
 
     else
@@ -2654,7 +2615,7 @@ uint64_t CCCryptorChaCha20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     }
   }
 
-  return v4;
+  return v8;
 }
 
 uint64_t CCCryptorChaCha20Poly1305OneshotEncrypt(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
@@ -3143,81 +3104,77 @@ unint64_t gen_std_crc_table(uint64_t a1)
 
 void dump_crc_table(uint64_t a1)
 {
-  v2 = *(a1 + 8);
-  v3 = *(v2 + 16);
-  v4 = *v2;
-  v5 = strnlen(*v2, 0x40uLL);
-  v6 = malloc_type_malloc(v5 + 1, 0x1AC0E8ACuLL);
-  memcpy(v6, v4, v5);
-  v6[v5] = 0;
-  if (*v6)
+  v1 = *(a1 + 8);
+  v2 = *(v1 + 16);
+  v3 = *v1;
+  v4 = strnlen(*v1, 0x40uLL);
+  v5 = malloc_type_malloc(v4 + 1, 0x1AC0E8ACuLL);
+  memcpy(v5, v3, v4);
+  v5[v4] = 0;
+  if (*v5)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      if (v6[v7] == 45)
+      if (v5[v6] == 45)
       {
-        v6[v7] = 95;
+        v5[v6] = 95;
       }
 
-      ++v7;
+      ++v6;
     }
 
-    while (v7 < strlen(v6));
+    while (v6 < strlen(v5));
   }
 
-  v8 = v3 - 1;
-  if (v3 - 1) < 8 && ((0x8Bu >> v8))
+  v7 = v2 - 1;
+  if (v2 - 1) < 8 && ((0x8Bu >> v7))
   {
-    v9 = dword_299C5FF50[v8];
-    printf(off_29F286BC0[v8], v6);
+    v8 = dword_299C5FF50[v7];
+    printf(off_29F286BC0[v7], v5);
   }
 
   else
   {
-    v9 = 7;
+    v8 = 7;
   }
 
-  v10 = 0;
+  v9 = 0;
   do
   {
-    if (v3 > 3)
+    if (v2 > 3)
     {
-      if (v3 == 4)
+      if (v2 == 4)
       {
-        v14 = *(*(a1 + 24) + 4 * v10);
         printf(" 0x%08x,");
       }
 
-      else if (v3 == 8)
+      else if (v2 == 8)
       {
-        v12 = *(*(a1 + 24) + 8 * v10);
         printf(" 0x%016llx,");
       }
     }
 
-    else if (v3 == 1)
+    else if (v2 == 1)
     {
-      v13 = *(*(a1 + 24) + v10);
       printf(" 0x%02x,");
     }
 
-    else if (v3 == 2)
+    else if (v2 == 2)
     {
-      v11 = *(*(a1 + 24) + 2 * v10);
       printf(" 0x%04x,");
     }
 
-    if ((v9 & ++v10) == 0)
+    if ((v8 & ++v9) == 0)
     {
       putchar(10);
     }
   }
 
-  while (v10 != 256);
+  while (v9 != 256);
   puts("};\n");
 
-  free(v6);
+  free(v5);
 }
 
 uint64_t crc_normal_init(dispatch_once_t *predicate)
@@ -3230,7 +3187,7 @@ uint64_t crc_normal_init(dispatch_once_t *predicate)
   return *(predicate[1] + 40);
 }
 
-uint64_t crc_normal_update(uint64_t a1, _BYTE *a2, uint64_t a3, unint64_t a4)
+unint64_t crc_normal_update(uint64_t a1, _BYTE *a2, uint64_t a3, unint64_t a4)
 {
   for (i = *(*(a1 + 8) + 16); a3; --a3)
   {
@@ -3292,7 +3249,7 @@ uint64_t crc_normal_final(uint64_t a1, uint64_t a2)
   return v5 & (v3 ^ a2);
 }
 
-uint64_t crc_normal_oneshot(dispatch_once_t *predicate, _BYTE *a2, uint64_t a3)
+unint64_t crc_normal_oneshot(dispatch_once_t *predicate, _BYTE *a2, uint64_t a3)
 {
   if (*predicate != -1)
   {
@@ -3381,33 +3338,33 @@ void CCBigNumFree(void *a1)
   free(a1);
 }
 
-void *CCBigNumCopy(int *a1)
+void *CCBigNumCopy(int *a1, uint64_t a2)
 {
-  v1 = CCCreateBigNum(a1);
-  if (v1)
+  v2 = CCCreateBigNum(a1);
+  if (v2)
   {
     ccz_set();
   }
 
-  return v1;
+  return v2;
 }
 
-void *CCBigNumFromData(int *a1)
+void *CCBigNumFromData(int *a1, uint64_t a2, uint64_t a3)
 {
-  v1 = CCCreateBigNum(a1);
-  if (v1)
+  v3 = CCCreateBigNum(a1);
+  if (v3)
   {
     ccz_read_uint();
   }
 
-  return v1;
+  return v3;
 }
 
-uint64_t CCBigNumToData()
+uint64_t CCBigNumToData(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = ccz_write_uint_size();
+  v3 = ccz_write_uint_size();
   ccz_write_uint();
-  return v0;
+  return v3;
 }
 
 void *CCBigNumFromHexString(int *a1, const char *a2)
@@ -3439,39 +3396,39 @@ LABEL_6:
   return v5;
 }
 
-void *CCBigNumToHexString(int *a1)
+void *CCBigNumToHexString(int *a1, uint64_t a2)
 {
-  v2 = ccz_write_radix_size();
-  if (!v2)
+  v3 = ccz_write_radix_size();
+  if (!v3)
   {
-    v4 = 0;
-    v5 = -4300;
+    v5 = 0;
+    v6 = -4300;
 LABEL_7:
-    *a1 = v5;
-    return v4;
+    *a1 = v6;
+    return v5;
   }
 
-  v3 = v2;
-  v4 = malloc_type_malloc(v2 + 1, 0x7371D778uLL);
-  if (!v4)
+  v4 = v3;
+  v5 = malloc_type_malloc(v3 + 1, 0x7371D778uLL);
+  if (!v5)
   {
-    v5 = -4302;
+    v6 = -4302;
     goto LABEL_7;
   }
 
   if (ccz_write_radix())
   {
     *a1 = -4300;
-    free(v4);
+    free(v5);
     return 0;
   }
 
   else
   {
-    *(v4 + v3) = 0;
+    *(v5 + v4) = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 void *CCBigNumFromDecimalString(int *a1, const char *a2)
@@ -3503,47 +3460,47 @@ LABEL_6:
   return v5;
 }
 
-void *CCBigNumToDecimalString(int *a1)
+void *CCBigNumToDecimalString(int *a1, uint64_t a2)
 {
-  v2 = ccz_write_radix_size();
-  if (!v2)
+  v3 = ccz_write_radix_size();
+  if (!v3)
   {
-    v4 = 0;
-    v5 = -4300;
+    v5 = 0;
+    v6 = -4300;
 LABEL_7:
-    *a1 = v5;
-    return v4;
+    *a1 = v6;
+    return v5;
   }
 
-  v3 = v2;
-  v4 = malloc_type_malloc(v2 + 1, 0x403202A5uLL);
-  if (!v4)
+  v4 = v3;
+  v5 = malloc_type_malloc(v3 + 1, 0x403202A5uLL);
+  if (!v5)
   {
-    v5 = -4302;
+    v6 = -4302;
     goto LABEL_7;
   }
 
   if (ccz_write_radix())
   {
     *a1 = -4300;
-    free(v4);
+    free(v5);
     return 0;
   }
 
   else
   {
-    *(v4 + v3) = 0;
+    *(v5 + v4) = 0;
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t CCBigNumGetI(_DWORD *a1)
+uint64_t CCBigNumGetI(_DWORD *a1, uint64_t a2)
 {
   if (ccz_write_int_size() < 5)
   {
     ccz_write_uint();
-    result = bswap32(v3);
+    result = bswap32(v4);
     if (a1)
     {
       *a1 = 0;
@@ -3579,31 +3536,31 @@ void *CCBigNumCreateRandom(int *a1, uint64_t a2, int a3, int a4)
   return v8;
 }
 
-uint64_t CCBigNumModI(_DWORD *a1)
+uint64_t CCBigNumModI(_DWORD *a1, uint64_t a2, unsigned int a3)
 {
-  v7 = 0;
-  v2 = CCCreateBigNum(&v7);
-  if (v2)
+  v9 = 0;
+  v4 = CCCreateBigNum(&v9);
+  if (v4)
   {
-    v3 = v2;
-    v4 = CCCreateBigNum(&v7);
-    if (v4)
+    v5 = v4;
+    v6 = CCCreateBigNum(&v9);
+    if (v6)
     {
-      v5 = v4;
+      v7 = v6;
       ccz_seti();
-      v7 = 0;
+      v9 = 0;
       ccz_mod();
-      *a1 = CCBigNumGetI(&v7);
+      *a1 = CCBigNumGetI(&v9, v5);
       ccz_free();
-      free(v3);
-      v3 = v5;
+      free(v5);
+      v5 = v7;
     }
 
     ccz_free();
-    free(v3);
+    free(v5);
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t CCBigNumModExp()
@@ -3672,37 +3629,37 @@ uint64_t CCAESCmac(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return MEMORY[0x2A1C74200](v8, 16, a1, a3, a2, 16, a4);
 }
 
-void **CCAESCmacCreate(uint64_t a1)
+void **CCAESCmacCreate(uint64_t a1, uint64_t a2)
 {
-  v2 = malloc_type_malloc(8uLL, 0x2004093837F09uLL);
-  if (v2)
+  v3 = malloc_type_malloc(8uLL, 0x2004093837F09uLL);
+  if (v3)
   {
-    v3 = ccaes_cbc_encrypt_mode();
-    v4 = malloc_type_malloc(v3[1] + *v3 + 80, 0x10600403EE1B117uLL);
-    *v2 = v4;
-    if (!v4)
+    v4 = ccaes_cbc_encrypt_mode();
+    v5 = malloc_type_malloc(v4[1] + *v4 + 80, 0x10600403EE1B117uLL);
+    *v3 = v5;
+    if (!v5)
     {
 LABEL_7:
-      free(v2);
+      free(v3);
       return 0;
     }
 
-    v5 = v4;
+    v6 = v5;
     if (!a1)
     {
 LABEL_6:
-      free(v5);
+      free(v6);
       goto LABEL_7;
     }
 
     if (cccmac_init())
     {
-      v5 = *v2;
+      v6 = *v3;
       goto LABEL_6;
     }
   }
 
-  return v2;
+  return v3;
 }
 
 void CCAESCmacDestroy(void **a1)
@@ -3754,13 +3711,14 @@ uint64_t CCCKGGetOpeningSize(uint64_t a1, unsigned int a2)
   }
 }
 
-uint64_t CCCKGContributorCreate(uint64_t a1, unsigned int a2, uint64_t **a3)
+uint64_t CCCKGContributorCreate(uint64_t a1, uint64_t a2, void *a3)
 {
   if (!a3)
   {
     return 4294962996;
   }
 
+  v4 = a2;
   v6 = malloc_type_malloc(8uLL, 0x2004093837F09uLL);
   if (!v6)
   {
@@ -3768,7 +3726,7 @@ uint64_t CCCKGContributorCreate(uint64_t a1, unsigned int a2, uint64_t **a3)
   }
 
   v7 = v6;
-  v8 = CCCKGContextCreate(a1, a2, v6);
+  v8 = CCCKGContextCreate(a1, v4, v6);
   if (v8)
   {
     free(v7);
@@ -3782,7 +3740,7 @@ uint64_t CCCKGContributorCreate(uint64_t a1, unsigned int a2, uint64_t **a3)
   return v8;
 }
 
-uint64_t CCCKGContextCreate(uint64_t a1, unsigned int a2, uint64_t *a3)
+uint64_t CCCKGContextCreate(uint64_t a1, unsigned int a2, void *a3)
 {
   if (!ccec_keysize_is_supported() || !ccec_get_cp() || !CCDigestGetDigestInfo(a2))
   {
@@ -3798,12 +3756,11 @@ uint64_t CCCKGContextCreate(uint64_t a1, unsigned int a2, uint64_t *a3)
   }
 
   ccDRBGGetRngState();
-  v7 = *a3;
   ccckg_init();
   return 0;
 }
 
-uint64_t CCCKGOwnerCreate(uint64_t a1, unsigned int a2, uint64_t **a3)
+uint64_t CCCKGOwnerCreate(uint64_t a1, unsigned int a2, void *a3)
 {
   if (!a3)
   {
@@ -3845,12 +3802,11 @@ void CCCKGOwnerDestroy(void **a1)
   free(a1);
 }
 
-uint64_t CCCKGContributorCommit(uint64_t *a1, uint64_t a2)
+uint64_t CCCKGContributorCommit(void *a1, uint64_t a2, uint64_t a3)
 {
   result = 4294962996;
   if (a1 && a2)
   {
-    v4 = *a1;
     result = ccckg_contributor_commit();
     if (result > -3)
     {
@@ -3884,12 +3840,11 @@ uint64_t CCCKGContributorCommit(uint64_t *a1, uint64_t a2)
   return result;
 }
 
-uint64_t CCCKGOwnerGenerateShare(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t CCCKGOwnerGenerateShare(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   result = 4294962996;
   if (a1 && a2 && a4)
   {
-    v6 = *a1;
     result = ccckg_owner_generate_share();
     if (result > -3)
     {
@@ -3923,30 +3878,27 @@ uint64_t CCCKGOwnerGenerateShare(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_
   return result;
 }
 
-uint64_t CCCKGContributorFinish(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8)
+uint64_t CCCKGContributorFinish(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void ***a8)
 {
-  v23[1] = *MEMORY[0x29EDCA608];
+  v17[1] = *MEMORY[0x29EDCA608];
   v8 = 4294962996;
   if (a1 && a2 && a4 && a6 && a8)
   {
-    v11 = *a1;
-    v12 = ccckg_ctx_cp();
-    v23[0] = v23;
-    v13 = (24 * *v12 + 31) & 0xFFFFFFFFFFFFFFF0;
-    v15 = MEMORY[0x2A1C7C4A8](v12, v14);
-    v17 = v23 - v16;
-    *(v23 - v16) = v15;
-    v18 = *a1;
-    v19 = ccckg_contributor_finish();
-    if (v19 > -3)
+    v10 = ccckg_ctx_cp();
+    v17[0] = v17;
+    v12 = MEMORY[0x2A1C7C4A8](v10, v11);
+    v14 = v17 - v13;
+    *(v17 - v13) = v12;
+    v15 = ccckg_contributor_finish();
+    if (v15 > -3)
     {
-      if (!v19)
+      if (!v15)
       {
-        v8 = CCCKGConvertNativeToECCryptor(v12, v17, 0, a8);
+        v8 = CCCKGConvertNativeToECCryptor(v10, v14, 0, a8);
         goto LABEL_16;
       }
 
-      if (v19 == -2)
+      if (v15 == -2)
       {
         v8 = 4294962992;
         goto LABEL_16;
@@ -3955,19 +3907,18 @@ uint64_t CCCKGContributorFinish(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t
 
     else
     {
-      if (v19 == -86)
+      if (v15 == -86)
       {
         v8 = 4294962987;
         goto LABEL_16;
       }
 
-      if (v19 == -7)
+      if (v15 == -7)
       {
         v8 = 4294962996;
 LABEL_16:
-        v20 = *v12;
         cc_clear();
-        goto LABEL_17;
+        return v8;
       }
     }
 
@@ -3975,16 +3926,15 @@ LABEL_16:
     goto LABEL_16;
   }
 
-LABEL_17:
-  v21 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
-uint64_t CCCKGConvertNativeToECCryptor(uint64_t a1, uint64_t a2, int a3, uint64_t *a4)
+uint64_t CCCKGConvertNativeToECCryptor(uint64_t a1, uint64_t a2, uint64_t a3, void ***a4)
 {
+  v5 = a3;
   v6 = (cczp_bitlen() + 7) >> 3;
   v7 = 2;
-  if (a3 == 1)
+  if (v5 == 1)
   {
     v7 = 3;
   }
@@ -3998,35 +3948,32 @@ uint64_t CCCKGConvertNativeToECCryptor(uint64_t a1, uint64_t a2, int a3, uint64_
 
   v10 = v9;
   ccec_x963_export();
-  v11 = CCECCryptorImportKey(0, v10, v8, a3, a4);
+  v11 = CCECCryptorImportKey(0, v10, v8, v5, a4);
   cc_clear();
   free(v10);
   return v11;
 }
 
-uint64_t CCCKGOwnerFinish(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
+uint64_t CCCKGOwnerFinish(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void ***a6)
 {
-  v21[1] = *MEMORY[0x29EDCA608];
+  v15[1] = *MEMORY[0x29EDCA608];
   v6 = 4294962996;
   if (a1 && a2 && a4 && a6)
   {
-    v9 = *a1;
-    v10 = ccckg_ctx_cp();
-    v11 = (32 * *v10) | 0x10;
-    v13 = MEMORY[0x2A1C7C4A8](v10, v12);
-    v15 = v21 - v14;
-    *(v21 - v14) = v13;
-    v16 = *a1;
-    v17 = ccckg_owner_finish();
-    if (v17 > -3)
+    v8 = ccckg_ctx_cp();
+    v10 = MEMORY[0x2A1C7C4A8](v8, v9);
+    v12 = v15 - v11;
+    *(v15 - v11) = v10;
+    v13 = ccckg_owner_finish();
+    if (v13 > -3)
     {
-      if (!v17)
+      if (!v13)
       {
-        v6 = CCCKGConvertNativeToECCryptor(v10, v15, 1, a6);
+        v6 = CCCKGConvertNativeToECCryptor(v8, v12, 1, a6);
         goto LABEL_15;
       }
 
-      if (v17 != -2)
+      if (v13 != -2)
       {
 LABEL_12:
         v6 = 4294962988;
@@ -4038,24 +3985,22 @@ LABEL_12:
 
     else
     {
-      if (v17 == -86)
+      if (v13 == -86)
       {
         v6 = 4294962987;
         goto LABEL_15;
       }
 
-      if (v17 != -7)
+      if (v13 != -7)
       {
         goto LABEL_12;
       }
     }
 
 LABEL_15:
-    v18 = *v10;
     cc_clear();
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -4171,13 +4116,12 @@ void CCCKG2OwnerDestroy(void **a1)
   free(a1);
 }
 
-uint64_t CCCKG2ContributorCommit(uint64_t *a1, uint64_t a2)
+uint64_t CCCKG2ContributorCommit(void *a1, uint64_t a2, uint64_t a3)
 {
   result = 4294962996;
   if (a1 && a2)
   {
     ccDRBGGetRngState();
-    v4 = *a1;
     result = ccckg2_contributor_commit();
     if (result > -3)
     {
@@ -4213,13 +4157,12 @@ uint64_t CCCKG2ContributorCommit(uint64_t *a1, uint64_t a2)
   return result;
 }
 
-uint64_t CCCKG2OwnerGenerateShare(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t CCCKG2OwnerGenerateShare(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   result = 4294962996;
   if (a1 && a2 && a4)
   {
     ccDRBGGetRngState();
-    v6 = *a1;
     result = ccckg2_owner_generate_share();
     if (result > -3)
     {
@@ -4255,31 +4198,28 @@ uint64_t CCCKG2OwnerGenerateShare(uint64_t *a1, uint64_t a2, uint64_t a3, uint64
   return result;
 }
 
-uint64_t CCCKG2ContributorFinish(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8)
+uint64_t CCCKG2ContributorFinish(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void ***a8)
 {
-  v23[1] = *MEMORY[0x29EDCA608];
+  v17[1] = *MEMORY[0x29EDCA608];
   v8 = 4294962996;
   if (a1 && a2 && a4 && a6 && a8)
   {
-    v11 = *a1;
-    v12 = ccckg2_ctx_cp();
-    v23[0] = v23;
-    v13 = (24 * *v12 + 31) & 0xFFFFFFFFFFFFFFF0;
-    v15 = MEMORY[0x2A1C7C4A8](v12, v14);
-    v17 = v23 - v16;
-    *(v23 - v16) = v15;
+    v10 = ccckg2_ctx_cp();
+    v17[0] = v17;
+    v12 = MEMORY[0x2A1C7C4A8](v10, v11);
+    v14 = v17 - v13;
+    *(v17 - v13) = v12;
     ccDRBGGetRngState();
-    v18 = *a1;
-    v19 = ccckg2_contributor_finish();
-    if (v19 > -3)
+    v15 = ccckg2_contributor_finish();
+    if (v15 > -3)
     {
-      if (!v19)
+      if (!v15)
       {
-        v8 = CCCKGConvertNativeToECCryptor(v12, v17, 0, a8);
+        v8 = CCCKGConvertNativeToECCryptor(v10, v14, 0, a8);
         goto LABEL_16;
       }
 
-      if (v19 == -2)
+      if (v15 == -2)
       {
         v8 = 4294962992;
         goto LABEL_16;
@@ -4288,19 +4228,18 @@ uint64_t CCCKG2ContributorFinish(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_
 
     else
     {
-      if (v19 == -86)
+      if (v15 == -86)
       {
         v8 = 4294962987;
         goto LABEL_16;
       }
 
-      if (v19 == -7)
+      if (v15 == -7)
       {
         v8 = 4294962996;
 LABEL_16:
-        v20 = *v12;
         cc_clear();
-        goto LABEL_17;
+        return v8;
       }
     }
 
@@ -4308,35 +4247,30 @@ LABEL_16:
     goto LABEL_16;
   }
 
-LABEL_17:
-  v21 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
-uint64_t CCCKG2OwnerFinish(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
+uint64_t CCCKG2OwnerFinish(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void ***a6)
 {
-  v21[1] = *MEMORY[0x29EDCA608];
+  v15[1] = *MEMORY[0x29EDCA608];
   v6 = 4294962996;
   if (a1 && a2 && a4 && a6)
   {
-    v9 = *a1;
-    v10 = ccckg2_ctx_cp();
-    v11 = (32 * *v10) | 0x10;
-    v13 = MEMORY[0x2A1C7C4A8](v10, v12);
-    v15 = v21 - v14;
-    *(v21 - v14) = v13;
+    v8 = ccckg2_ctx_cp();
+    v10 = MEMORY[0x2A1C7C4A8](v8, v9);
+    v12 = v15 - v11;
+    *(v15 - v11) = v10;
     ccDRBGGetRngState();
-    v16 = *a1;
-    v17 = ccckg2_owner_finish();
-    if (v17 > -3)
+    v13 = ccckg2_owner_finish();
+    if (v13 > -3)
     {
-      if (!v17)
+      if (!v13)
       {
-        v6 = CCCKGConvertNativeToECCryptor(v10, v15, 1, a6);
+        v6 = CCCKGConvertNativeToECCryptor(v8, v12, 1, a6);
         goto LABEL_15;
       }
 
-      if (v17 != -2)
+      if (v13 != -2)
       {
 LABEL_12:
         v6 = 4294962988;
@@ -4348,24 +4282,22 @@ LABEL_12:
 
     else
     {
-      if (v17 == -86)
+      if (v13 == -86)
       {
         v6 = 4294962987;
         goto LABEL_15;
       }
 
-      if (v17 != -7)
+      if (v13 != -7)
       {
         goto LABEL_12;
       }
     }
 
 LABEL_15:
-    v18 = *v10;
     cc_clear();
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -4516,11 +4448,10 @@ uint64_t CCCryptorCreateFromDataWithMode(CCOperation a1, CCMode a2, CCAlgorithm 
 
 uint64_t CCCryptorReset_binary_compatibility(void *a1, void *a2)
 {
-  v15[2] = *MEMORY[0x29EDCA608];
+  v14[2] = *MEMORY[0x29EDCA608];
   if (!a1)
   {
-    result = 4294962996;
-    goto LABEL_24;
+    return 4294962996;
   }
 
   v2 = *a1;
@@ -4533,8 +4464,8 @@ uint64_t CCCryptorReset_binary_compatibility(void *a1, void *a2)
   v2[6] = 0;
   if (!a2)
   {
-    v15[0] = 0;
-    v15[1] = 0;
+    v14[0] = 0;
+    v14[1] = 0;
     v6 = *(v2 + 16) - 1;
     if (v6 > 5)
     {
@@ -4558,13 +4489,11 @@ uint64_t CCCryptorReset_binary_compatibility(void *a1, void *a2)
       v13 = &v2[v12];
       v10 = v13[10];
       v11 = v13[13];
-      a2 = v15;
+      a2 = v14;
       goto LABEL_20;
     }
 
-LABEL_23:
-    result = 0;
-    goto LABEL_24;
+    return 0;
   }
 
   v3 = *(v2 + 16) - 1;
@@ -4581,7 +4510,7 @@ LABEL_23:
   v7 = *(v2[12] + 64);
   if (!v7)
   {
-    goto LABEL_23;
+    return 0;
   }
 
   v8 = *(v2 + 18);
@@ -4596,22 +4525,18 @@ LABEL_23:
 LABEL_20:
   if (v7(v10, a2, v4, v11))
   {
-    result = 4294962994;
+    return 4294962994;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-LABEL_24:
-  v14 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 CCCryptorStatus CCCryptorReset(CCCryptorRef cryptorRef, const void *iv)
 {
-  v21[2] = *MEMORY[0x29EDCA608];
+  v19[2] = *MEMORY[0x29EDCA608];
   if (dyld_program_sdk_at_least())
   {
     if (cryptorRef)
@@ -4625,10 +4550,7 @@ CCCryptorStatus CCCryptorReset(CCCryptorRef cryptorRef, const void *iv)
       v5 = *(v4 + 17);
       if (v5 != 4 && v5 != 2)
       {
-        result = -4305;
-LABEL_32:
-        v20 = *MEMORY[0x29EDCA608];
-        return result;
+        return -4305;
       }
 
       *(v4 + 5) = 0;
@@ -4646,72 +4568,67 @@ LABEL_32:
           v8 = dword_299C600E0[v7];
         }
 
-        v12 = *(*(v4 + 12) + 64);
-        if (v12)
+        v11 = *(*(v4 + 12) + 64);
+        if (v11)
         {
-          v13 = *(v4 + 18);
-          if (v13 == 3)
+          v12 = *(v4 + 18);
+          if (v12 == 3)
           {
-            v13 = 0;
+            v12 = 0;
           }
 
-          v14 = v4 + 8 * v13;
-          v15 = *(v14 + 10);
-          v16 = *(v14 + 13);
-          v17 = iv;
+          v13 = v4 + 8 * v12;
+          v14 = *(v13 + 10);
+          v15 = *(v13 + 13);
+          v16 = iv;
 LABEL_28:
-          if (v12(v15, v17, v8, v16))
+          if (v11(v14, v16, v8, v15))
           {
-            result = -4302;
+            return -4302;
           }
 
           else
           {
-            result = 0;
+            return 0;
           }
-
-          goto LABEL_32;
         }
       }
 
       else
       {
-        v21[0] = 0;
-        v21[1] = 0;
-        v11 = *(v4 + 16) - 1;
-        if (v11 > 5)
+        v19[0] = 0;
+        v19[1] = 0;
+        v10 = *(v4 + 16) - 1;
+        if (v10 > 5)
         {
           v8 = 16;
         }
 
         else
         {
-          v8 = dword_299C600E0[v11];
+          v8 = dword_299C600E0[v10];
         }
 
-        v12 = *(*(v4 + 12) + 64);
-        if (v12)
+        v11 = *(*(v4 + 12) + 64);
+        if (v11)
         {
-          v18 = *(v4 + 18);
-          if (v18 == 3)
+          v17 = *(v4 + 18);
+          if (v17 == 3)
           {
-            v18 = 0;
+            v17 = 0;
           }
 
-          v19 = v4 + 8 * v18;
-          v15 = *(v19 + 10);
-          v16 = *(v19 + 13);
-          v17 = v21;
+          v18 = v4 + 8 * v17;
+          v14 = *(v18 + 10);
+          v15 = *(v18 + 13);
+          v16 = v19;
           goto LABEL_28;
         }
       }
     }
 
-    result = -4300;
-    goto LABEL_32;
+    return -4300;
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 
   return CCCryptorReset_binary_compatibility(cryptorRef, iv);
 }
@@ -4938,24 +4855,21 @@ uint64_t CCCryptorAddParameter(void *a1, int a2, void *__src, size_t __n)
 
   if (!a2)
   {
-    v10 = *(v4 + 17);
-    if (v10 == 12)
+    v7 = *(v4 + 17);
+    if (v7 == 12)
     {
-      v18 = v4[*(v4 + 18) + 13];
-      *(v18 + 16) = __n;
-      memcpy((v18 + 32), __src, __n);
+      v9 = v4[*(v4 + 18) + 13];
+      *(v9 + 16) = __n;
+      memcpy((v9 + 32), __src, __n);
     }
 
     else
     {
-      if (v10 != 11)
+      if (v7 != 11)
       {
         return 4294962991;
       }
 
-      v11 = &v4[*(v4 + 18)];
-      v12 = v11[10];
-      v13 = v11[13];
       if (ccgcm_set_iv_legacy())
       {
         return 4294962996;
@@ -4975,9 +4889,6 @@ uint64_t CCCryptorAddParameter(void *a1, int a2, void *__src, size_t __n)
   {
     if (v6 == 11)
     {
-      v7 = &v4[*(v4 + 18)];
-      v8 = v7[10];
-      v9 = v7[13];
       if (ccgcm_aad())
       {
         return 4294962987;
@@ -4989,15 +4900,12 @@ uint64_t CCCryptorAddParameter(void *a1, int a2, void *__src, size_t __n)
     return 4294962991;
   }
 
-  v14 = &v4[*(v4 + 18)];
-  v15 = v14[13];
-  if (v15[1] != -1 && v15[2] != -1 && *v15 != -1)
+  v8 = v4[*(v4 + 18) + 13];
+  if (v8[1] != -1 && v8[2] != -1 && *v8 != -1)
   {
-    v16 = v14[10];
-    v15[3] = __n;
+    v8[3] = __n;
     if (!ccccm_set_iv())
     {
-      v17 = v15[3];
       if (ccccm_cbcmac())
       {
         return 4294962987;
@@ -5047,7 +4955,6 @@ uint64_t CCDHGenerateKey(uint64_t *a1, uint64_t a2, unint64_t *a3)
   result = 4294962996;
   if (a1 && a2 && a3)
   {
-    v6 = *a1;
     ccDRBGGetRngState();
     if (ccdh_generate_key())
     {
@@ -5055,10 +4962,10 @@ uint64_t CCDHGenerateKey(uint64_t *a1, uint64_t a2, unint64_t *a3)
     }
 
     ccdh_ctx_public();
-    v7 = ccdh_export_pub_size();
-    v8 = *a3;
-    *a3 = v7;
-    if (v7 > v8)
+    v6 = ccdh_export_pub_size();
+    v7 = *a3;
+    *a3 = v6;
+    if (v6 > v7)
     {
       return 0xFFFFFFFFLL;
     }
@@ -5074,24 +4981,20 @@ uint64_t CCDHGenerateKey(uint64_t *a1, uint64_t a2, unint64_t *a3)
   return result;
 }
 
-uint64_t CCDHComputeKey(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t CCDHComputeKey(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v16 = *MEMORY[0x29EDCA608];
   result = 4294962996;
   if (a1 && a2 && a3 && a5)
   {
-    v9 = *a5;
-    v10 = ccdh_ccn_size();
-    MEMORY[0x2A1C7C4A8](v10, v11);
-    v12 = *a5;
-    v13 = (cczp_bitlen() + 7) >> 3;
-    if (v13 <= *a2)
+    v8 = ccdh_ccn_size();
+    MEMORY[0x2A1C7C4A8](v8, v9);
+    v10 = (cczp_bitlen() + 7) >> 3;
+    if (v10 <= *a2)
     {
-      v14 = *a5;
       if (ccdh_import_pub())
       {
-        *a2 = v13;
-        result = 4294967294;
+        *a2 = v10;
+        return 4294967294;
       }
 
       else
@@ -5099,28 +5002,27 @@ uint64_t CCDHComputeKey(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, ui
         ccrng();
         if (ccdh_compute_shared_secret())
         {
-          result = 4294967293;
+          return 4294967293;
         }
 
         else
         {
-          result = 0;
+          return 0;
         }
       }
     }
 
     else
     {
-      *a2 = v13;
-      result = 0xFFFFFFFFLL;
+      *a2 = v10;
+      return 0xFFFFFFFFLL;
     }
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t CCDigestUpdate(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t CCDigestUpdate(void *a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -5142,7 +5044,6 @@ uint64_t CCDigestUpdate(uint64_t *a1, uint64_t a2, uint64_t a3)
     return 4294962991;
   }
 
-  v3 = *a1;
   ccdigest_update();
   return 0;
 }
@@ -5276,29 +5177,27 @@ unsigned __int8 *__cdecl CC_MD2(const void *data, CC_LONG len, unsigned __int8 *
 
 int CC_MD4_Init(CC_MD4_CTX *c)
 {
-  v9[1] = *MEMORY[0x29EDCA608];
+  v7[1] = *MEMORY[0x29EDCA608];
   DigestInfo = CCDigestGetDigestInfo(2u);
-  v3 = (*(DigestInfo + 8) + *(DigestInfo + 16) + 19) & 0xFFFFFFFFFFFFFFF8;
-  MEMORY[0x2A1C7C4A8](DigestInfo, v4);
-  v6 = (v9 - v5);
+  MEMORY[0x2A1C7C4A8](DigestInfo, v3);
+  v5 = (v7 - v4);
   ccdigest_init();
-  memcpy(c, v6 + 1, *(DigestInfo + 8));
-  memcpy(c->data, v6 + *(DigestInfo + 8) + 8, *(DigestInfo + 16));
-  *&c->Nl = *v6;
-  c->num = *(v6 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
-  v7 = *MEMORY[0x29EDCA608];
+  memcpy(c, v5 + 1, *(DigestInfo + 8));
+  memcpy(c->data, v5 + *(DigestInfo + 8) + 8, *(DigestInfo + 16));
+  *&c->Nl = *v5;
+  c->num = *(v5 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
   return 1;
 }
 
 int CC_MD4_Update(CC_MD4_CTX *c, const void *data, CC_LONG len)
 {
-  v14[1] = *MEMORY[0x29EDCA608];
+  v13[1] = *MEMORY[0x29EDCA608];
   DigestInfo = CCDigestGetDigestInfo(2u);
   v5 = *(DigestInfo + 8);
   v6 = *(DigestInfo + 16);
   MEMORY[0x2A1C7C4A8](DigestInfo, v7);
-  v9 = (v14 - v8);
-  v10 = &v14[1] - v8;
+  v9 = (v13 - v8);
+  v10 = &v13[1] - v8;
   memcpy(v10, c, v5);
   v11 = &v10[v5];
   memcpy(v11, c->data, v6);
@@ -5309,19 +5208,18 @@ int CC_MD4_Update(CC_MD4_CTX *c, const void *data, CC_LONG len)
   memcpy(c->data, &v10[*(DigestInfo + 8)], *(DigestInfo + 16));
   *&c->Nl = *v9;
   c->num = *(v9 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
-  v12 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
 int CC_MD4_Final(unsigned __int8 *md, CC_MD4_CTX *c)
 {
-  v14[1] = *MEMORY[0x29EDCA608];
+  v13[1] = *MEMORY[0x29EDCA608];
   DigestInfo = CCDigestGetDigestInfo(2u);
   v5 = *(DigestInfo + 8);
   v6 = *(DigestInfo + 16);
   MEMORY[0x2A1C7C4A8](DigestInfo, v7);
-  v9 = (v14 - v8);
-  v10 = &v14[1] - v8;
+  v9 = (v13 - v8);
+  v10 = &v13[1] - v8;
   memcpy(v10, c, v5);
   v11 = &v10[v5];
   memcpy(v11, c->data, v6);
@@ -5332,7 +5230,6 @@ int CC_MD4_Final(unsigned __int8 *md, CC_MD4_CTX *c)
   memcpy(c->data, &v10[*(DigestInfo + 8)], *(DigestInfo + 16));
   *&c->Nl = *v9;
   c->num = *(v9 + *(DigestInfo + 8) + *(DigestInfo + 16) + 8);
-  v12 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
@@ -5377,61 +5274,53 @@ unsigned __int8 *__cdecl CC_SHA384(const void *data, CC_LONG len, unsigned __int
 
 int CC_MD2_Init(CC_MD2_CTX *c)
 {
-  v9[1] = *MEMORY[0x29EDCA608];
+  v7[1] = *MEMORY[0x29EDCA608];
   DigestInfo = CCDigestGetDigestInfo(1u);
-  v3 = (*(DigestInfo + 8) + *(DigestInfo + 16) + 19) & 0xFFFFFFFFFFFFFFF8;
-  MEMORY[0x2A1C7C4A8](DigestInfo, v4);
-  v6 = v9 - v5;
+  MEMORY[0x2A1C7C4A8](DigestInfo, v3);
+  v5 = v7 - v4;
   ccdigest_init();
-  *c->cksm = *(v6 + 56);
-  *c->state = *(v6 + 8);
-  *c->data = *&v6[*(DigestInfo + 8) + 8];
-  c->num = *&v6[*(DigestInfo + 8) + 8 + *(DigestInfo + 16)];
-  v7 = *MEMORY[0x29EDCA608];
+  *c->cksm = *(v5 + 56);
+  *c->state = *(v5 + 8);
+  *c->data = *&v5[*(DigestInfo + 8) + 8];
+  c->num = *&v5[*(DigestInfo + 8) + 8 + *(DigestInfo + 16)];
   return 1;
 }
 
 int CC_MD2_Update(CC_MD2_CTX *c, const void *data, CC_LONG len)
 {
-  v15[1] = *MEMORY[0x29EDCA608];
+  v12[1] = *MEMORY[0x29EDCA608];
   DigestInfo = CCDigestGetDigestInfo(1u);
-  v5 = *(DigestInfo + 8);
-  v6 = *(DigestInfo + 16);
-  MEMORY[0x2A1C7C4A8](DigestInfo, v7);
-  v9 = v15 - v8;
-  *(v9 + 56) = *c->cksm;
-  *(v9 + 8) = *c->state;
-  v11 = (&v15[1] + v10 - v8);
-  *v11 = *c->data;
-  *(v11 + v12) = c->num;
+  MEMORY[0x2A1C7C4A8](DigestInfo, v5);
+  v7 = v12 - v6;
+  *(v7 + 56) = *c->cksm;
+  *(v7 + 8) = *c->state;
+  v9 = (&v12[1] + v8 - v6);
+  *v9 = *c->data;
+  *(v9 + v10) = c->num;
   ccdigest_update();
-  *c->cksm = *(v9 + 56);
-  *c->state = *(v9 + 8);
-  *c->data = *&v9[*(DigestInfo + 8) + 8];
-  c->num = *&v9[*(DigestInfo + 8) + 8 + *(DigestInfo + 16)];
-  v13 = *MEMORY[0x29EDCA608];
+  *c->cksm = *(v7 + 56);
+  *c->state = *(v7 + 8);
+  *c->data = *&v7[*(DigestInfo + 8) + 8];
+  c->num = *&v7[*(DigestInfo + 8) + 8 + *(DigestInfo + 16)];
   return 1;
 }
 
 int CC_MD2_Final(unsigned __int8 *md, CC_MD2_CTX *c)
 {
-  v16[1] = *MEMORY[0x29EDCA608];
+  v13[1] = *MEMORY[0x29EDCA608];
   DigestInfo = CCDigestGetDigestInfo(1u);
-  v5 = *(DigestInfo + 8);
-  v6 = *(DigestInfo + 16);
-  v8 = MEMORY[0x2A1C7C4A8](DigestInfo, v7);
-  v10 = v16 - v9;
-  *(v10 + 56) = *c->cksm;
-  *(v10 + 8) = *c->state;
-  v12 = (&v16[1] + v11 - v9);
-  *v12 = *c->data;
-  *(v12 + v13) = c->num;
-  (*(v8 + 56))(v8, v16 - v9, md);
-  *c->cksm = *(v10 + 56);
-  *c->state = *(v10 + 8);
-  *c->data = *&v10[*(DigestInfo + 8) + 8];
-  c->num = *&v10[*(DigestInfo + 8) + 8 + *(DigestInfo + 16)];
-  v14 = *MEMORY[0x29EDCA608];
+  v6 = MEMORY[0x2A1C7C4A8](DigestInfo, v5);
+  v8 = v13 - v7;
+  *(v8 + 56) = *c->cksm;
+  *(v8 + 8) = *c->state;
+  v10 = (&v13[1] + v9 - v7);
+  *v10 = *c->data;
+  *(v10 + v11) = c->num;
+  (*(v6 + 56))(v6, v13 - v7, md);
+  *c->cksm = *(v8 + 56);
+  *c->state = *(v8 + 8);
+  *c->data = *&v8[*(DigestInfo + 8) + 8];
+  c->num = *&v8[*(DigestInfo + 8) + 8 + *(DigestInfo + 16)];
   return 1;
 }
 
@@ -5447,11 +5336,10 @@ int CC_SHA224_Init(CC_SHA256_CTX *c)
 
 int CC_SHA224_Final(unsigned __int8 *md, CC_SHA256_CTX *c)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   CC_SHA256_Final(mda, c);
   *md = *mda;
   *(md + 12) = *&mda[12];
-  v3 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
@@ -5468,23 +5356,23 @@ int CC_SHA384_Init(CC_SHA512_CTX *c)
 
 int CC_SHA384_Final(unsigned __int8 *md, CC_SHA512_CTX *c)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   CC_SHA512_Final(mda, c);
-  v3 = v7;
+  v3 = v6;
   *md = *mda;
   *(md + 1) = v3;
-  *(md + 2) = v8;
-  v4 = *MEMORY[0x29EDCA608];
+  *(md + 2) = v7;
   return 1;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0x20u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0x20u);
 }
 
-uint64_t CCECCryptorGeneratePair(uint64_t a1, uint64_t *a2, uint64_t *a3)
+uint64_t CCECCryptorGeneratePair(uint64_t a1, void ***a2, uint64_t *a3)
 {
   ccDRBGGetRngState();
   if (!ccec_keysize_is_supported())
@@ -5498,19 +5386,18 @@ uint64_t CCECCryptorGeneratePair(uint64_t a1, uint64_t *a2, uint64_t *a3)
   {
     v7 = v6;
     v6[1] = a1;
-    v8 = *v6;
     if (ccec_generate_key() || (*(v7 + 16) = 1, (PublicKeyFromPrivateKey = CCECCryptorGetPublicKeyFromPrivateKey(v7)) == 0))
     {
-      v10 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v10 = PublicKeyFromPrivateKey;
-      if (ccECpairwiseConsistencyCheck())
+      v9 = PublicKeyFromPrivateKey;
+      if (ccECpairwiseConsistencyCheck(v7, PublicKeyFromPrivateKey))
       {
         result = 0;
-        *a2 = v10;
+        *a2 = v9;
         *a3 = v7;
         return result;
       }
@@ -5518,7 +5405,7 @@ uint64_t CCECCryptorGeneratePair(uint64_t a1, uint64_t *a2, uint64_t *a3)
       ccECCryptorFree(v7);
     }
 
-    ccECCryptorFree(v10);
+    ccECCryptorFree(v9);
   }
 
   *a3 = 0;
@@ -5574,46 +5461,41 @@ LABEL_9:
   return v7;
 }
 
-uint64_t ccECpairwiseConsistencyCheck()
+uint64_t ccECpairwiseConsistencyCheck(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x2A1C7C4A8]();
-  v2 = v1;
+  v2 = MEMORY[0x2A1C7C4A8](a1, a2);
+  v4 = v3;
   v9[3] = *MEMORY[0x29EDCA608];
   v6 = 4096;
   memset(v9, 10, 20);
-  if (CCECCryptorSignHash(v0, v9, 20, v8, &v6) || (v7 = 0, !v2))
+  if (CCECCryptorSignHash(v2, v9, 20, v8, &v6))
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  v7 = 0;
+  if (!v4)
   {
-    v4 = *v2;
-    if (ccec_verify())
-    {
-      result = 0;
-    }
-
-    else
-    {
-      result = v7;
-    }
+    return 0;
   }
 
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  if (ccec_verify())
+  {
+    return 0;
+  }
+
+  return v7;
 }
 
-void ccECCryptorFree(uint64_t a1)
+void ccECCryptorFree(void **a1)
 {
-  v2 = *(a1 + 8);
-  v3 = *ccec_get_cp();
-  v4 = *(a1 + 16);
-  if (v4 <= 96)
+  v2 = *ccec_get_cp();
+  v3 = *(a1 + 4);
+  if (v3 <= 96)
   {
-    if (v4)
+    if (v3)
     {
-      if (v4 != 1)
+      if (v3 != 1)
       {
         goto LABEL_11;
       }
@@ -5624,10 +5506,10 @@ void ccECCryptorFree(uint64_t a1)
     goto LABEL_8;
   }
 
-  if (v4 == 97)
+  if (v3 == 97)
   {
 LABEL_8:
-    if (24 * v3 == -16)
+    if (24 * v2 == -16)
     {
       goto LABEL_11;
     }
@@ -5635,7 +5517,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if (v4 != 98)
+  if (v3 != 98)
   {
     goto LABEL_11;
   }
@@ -5653,12 +5535,11 @@ LABEL_11:
   free(a1);
 }
 
-uint64_t CCECCryptorGetKeyComponents(uint64_t *a1)
+uint64_t CCECCryptorGetKeyComponents(void *a1)
 {
   v1 = *(a1 + 4);
   if (v1 == 1)
   {
-    v4 = *a1;
     if (ccec_get_fullkey_components())
     {
       return 4294962994;
@@ -5669,7 +5550,6 @@ uint64_t CCECCryptorGetKeyComponents(uint64_t *a1)
 
   if (!v1)
   {
-    v2 = *a1;
     if (ccec_get_pubkey_components())
     {
       return 4294962994;
@@ -5681,7 +5561,7 @@ uint64_t CCECCryptorGetKeyComponents(uint64_t *a1)
   return 4294962996;
 }
 
-uint64_t CCECCryptorCreateFromData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
+uint64_t CCECCryptorCreateFromData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void ***a6)
 {
   *a6 = 0;
   v7 = ccMallocECCryptor(a1, 0);
@@ -5691,7 +5571,6 @@ uint64_t CCECCryptorCreateFromData(uint64_t a1, uint64_t a2, uint64_t a3, uint64
   }
 
   v8 = v7;
-  v9 = *v7;
   result = ccec_make_pub();
   if (result)
   {
@@ -5701,7 +5580,7 @@ uint64_t CCECCryptorCreateFromData(uint64_t a1, uint64_t a2, uint64_t a3, uint64
 
   else
   {
-    *(v8 + 16) = 0;
+    *(v8 + 4) = 0;
     *a6 = v8;
   }
 
@@ -5740,7 +5619,7 @@ uint64_t CCECGetKeySize(uint64_t a1)
   }
 }
 
-uint64_t CCECCryptorImportKey(int a1, uint64_t a2, uint64_t a3, int a4, uint64_t *a5)
+uint64_t CCECCryptorImportKey(int a1, uint64_t a2, uint64_t a3, int a4, void ***a5)
 {
   if (!a2)
   {
@@ -5754,20 +5633,19 @@ uint64_t CCECCryptorImportKey(int a1, uint64_t a2, uint64_t a3, int a4, uint64_t
       return 4294962996;
     }
 
-    v13 = ccec_compact_import_pub_size();
-    v14 = ccMallocECCryptor(v13, 0);
-    if (!v14)
+    v12 = ccec_compact_import_pub_size();
+    v13 = ccMallocECCryptor(v12, 0);
+    if (!v13)
     {
       return 4294962994;
     }
 
-    v9 = v14;
+    v9 = v13;
     ccec_get_cp();
-    v15 = *v9;
     result = ccec_compact_import_pub();
     if (!result)
     {
-      *(v9 + 8) = v13;
+      *(v9 + 8) = v12;
       *(v9 + 16) = 0;
 LABEL_23:
       *a5 = v9;
@@ -5801,7 +5679,6 @@ LABEL_16:
       {
         v9 = v8;
         ccec_get_cp();
-        v10 = *v9;
         if (!ccec_x963_import_priv())
         {
           PublicKeyFromPrivateKey = CCECCryptorGetPublicKeyFromPrivateKey(v9);
@@ -5826,15 +5703,14 @@ LABEL_22:
   }
 
   v7 = ccec_x963_import_pub_size();
-  v16 = ccMallocECCryptor(v7, 0);
-  if (!v16)
+  v14 = ccMallocECCryptor(v7, 0);
+  if (!v14)
   {
     return 4294962994;
   }
 
-  v9 = v16;
+  v9 = v14;
   ccec_get_cp();
-  v17 = *v9;
   if (!ccec_x963_import_pub())
   {
     goto LABEL_22;
@@ -5846,7 +5722,7 @@ LABEL_25:
   return 4294962985;
 }
 
-uint64_t CCECCryptorExportPublicKey(uint64_t **a1, uint64_t a2, unint64_t *a3)
+uint64_t CCECCryptorExportPublicKey(void **a1, uint64_t a2, unint64_t *a3)
 {
   if (a1 && a2)
   {
@@ -5859,7 +5735,7 @@ uint64_t CCECCryptorExportPublicKey(uint64_t **a1, uint64_t a2, unint64_t *a3)
   }
 }
 
-uint64_t CCECCryptorExportKey(int a1, uint64_t a2, unint64_t *a3, int a4, uint64_t **a5)
+uint64_t CCECCryptorExportKey(int a1, uint64_t a2, unint64_t *a3, int a4, void **a5)
 {
   result = 4294962996;
   if (a2 && a5)
@@ -5868,13 +5744,11 @@ uint64_t CCECCryptorExportKey(int a1, uint64_t a2, unint64_t *a3, int a4, uint64
     {
       if (a4 != 1)
       {
-        v16 = **a5;
-        v17 = (cczp_bitlen() + 7) >> 3;
-        v18 = *a3;
-        *a3 = v17;
-        if (v17 <= v18)
+        v13 = (cczp_bitlen() + 7) >> 3;
+        v14 = *a3;
+        *a3 = v13;
+        if (v13 <= v14)
         {
-          v19 = *a5;
           ccec_compact_export_pub();
           return 0;
         }
@@ -5890,25 +5764,23 @@ uint64_t CCECCryptorExportKey(int a1, uint64_t a2, unint64_t *a3, int a4, uint64
         return 4294962996;
       }
 
-      v10 = **a5;
-      v11 = cczp_bitlen();
-      v12 = 2;
+      v9 = cczp_bitlen();
+      v10 = 2;
       if (a4 == 1)
       {
-        v12 = 3;
+        v10 = 3;
       }
 
-      v13 = ((v11 + 7) >> 3) * v12;
-      v14 = v13 + 1;
-      if (v13 < *a3)
+      v11 = ((v9 + 7) >> 3) * v10;
+      v12 = v11 + 1;
+      if (v11 < *a3)
       {
-        *a3 = v14;
-        v15 = *a5;
+        *a3 = v12;
         ccec_x963_export();
         return 0;
       }
 
-      *a3 = v14;
+      *a3 = v12;
       return 4294962994;
     }
 
@@ -5918,13 +5790,12 @@ uint64_t CCECCryptorExportKey(int a1, uint64_t a2, unint64_t *a3, int a4, uint64
   return result;
 }
 
-uint64_t CCECCryptorSignHash(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t CCECCryptorSignHash(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   result = 4294962996;
   if (a1 && a2 && a4 && a5)
   {
     ccDRBGGetRngState();
-    v7 = *a1;
     if (ccec_sign())
     {
       return 4294962992;
@@ -5939,12 +5810,11 @@ uint64_t CCECCryptorSignHash(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4
   return result;
 }
 
-uint64_t CCECCryptorVerifyHash(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6)
+uint64_t CCECCryptorVerifyHash(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6)
 {
   result = 4294962996;
   if (a1 && a2 && a4)
   {
-    v9 = *a1;
     if (ccec_verify())
     {
       result = 4294962946;
@@ -5961,13 +5831,11 @@ uint64_t CCECCryptorVerifyHash(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t 
   return result;
 }
 
-uint64_t CCECCryptorComputeSharedSecret(uint64_t *a1, uint64_t *a2, uint64_t a3)
+uint64_t CCECCryptorComputeSharedSecret(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = 4294962996;
   if (a1 && a2 && a3)
   {
-    v5 = *a1;
-    v6 = *a2;
     ccrng();
     if (ccecdh_compute_shared_secret())
     {
@@ -5983,41 +5851,38 @@ uint64_t CCECCryptorComputeSharedSecret(uint64_t *a1, uint64_t *a2, uint64_t a3)
   return result;
 }
 
-uint64_t CCECCryptorTwinDiversifyKey(unsigned int a1, uint64_t **a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t CCECCryptorTwinDiversifyKey(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t a4, void ***a5)
 {
-  v8 = **a2;
+  v7 = a1;
   ccDRBGGetRngState();
-  if (a1 > 1)
+  if (v7 > 1)
   {
     return 4294962996;
   }
 
-  v10 = ccMallocECCryptor(a2[1], a1);
-  if (!v10)
+  v9 = ccMallocECCryptor(a2[1], v7);
+  if (!v9)
   {
     return 4294962994;
   }
 
-  v11 = v10;
-  if (a1)
+  v10 = v9;
+  if (v7)
   {
-    v12 = &(*a2)[3 * ***a2];
-    v13 = *v10;
-    v14 = ccec_diversify_priv_twin();
+    v11 = ccec_diversify_priv_twin();
   }
 
   else
   {
-    v15 = *v10;
-    v14 = ccec_diversify_pub_twin();
+    v11 = ccec_diversify_pub_twin();
   }
 
-  v16 = v14;
-  if (v14)
+  v12 = v11;
+  if (v11)
   {
     *a5 = 0;
-    ccECCryptorFree(v11);
-    if (v16 == -7)
+    ccECCryptorFree(v10);
+    if (v12 == -7)
     {
       return 4294962996;
     }
@@ -6031,15 +5896,15 @@ uint64_t CCECCryptorTwinDiversifyKey(unsigned int a1, uint64_t **a2, uint64_t a3
   else
   {
     result = 0;
-    *(v11 + 8) = a2[1];
-    *(v11 + 16) = a1;
-    *a5 = v11;
+    v10[1] = a2[1];
+    *(v10 + 4) = v7;
+    *a5 = v10;
   }
 
   return result;
 }
 
-uint64_t CCECCryptorH2C(int a1)
+void **CCECCryptorH2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a1 == 2)
   {
@@ -6048,7 +5913,7 @@ uint64_t CCECCryptorH2C(int a1)
 
   else if (a1 == 1)
   {
-    MEMORY[0x29C2AF880]();
+    MEMORY[0x29C2AF880](a1, a2, a3, a4, a5);
   }
 
   else
@@ -6058,26 +5923,21 @@ uint64_t CCECCryptorH2C(int a1)
       return 0;
     }
 
-    MEMORY[0x29C2AF870]();
+    MEMORY[0x29C2AF870](a1, a2, a3, a4, a5);
   }
 
-  v1 = cczp_bitlen();
-  v2 = ccMallocECCryptor(v1, 0);
-  v3 = v2;
-  if (v2)
+  v5 = cczp_bitlen();
+  v6 = ccMallocECCryptor(v5, 0);
+  if (v6 && cch2c())
   {
-    v4 = *v2;
-    if (cch2c())
-    {
-      ccECCryptorFree(v3);
-      return 0;
-    }
+    ccECCryptorFree(v6);
+    return 0;
   }
 
-  return v3;
+  return v6;
 }
 
-void *CCECCryptorGenerateBlindingKeys(uint64_t a1)
+void ***CCECCryptorGenerateBlindingKeys(void **a1)
 {
   if (!ccec_get_cp())
   {
@@ -6112,8 +5972,6 @@ LABEL_8:
   }
 
   ccDRBGGetRngState();
-  v6 = *v3[1];
-  v7 = *v3[2];
   if (ccec_generate_blinding_keys())
   {
     goto LABEL_8;
@@ -6122,7 +5980,7 @@ LABEL_8:
   return v3;
 }
 
-void CCECCryptorBlindingKeysRelease(void *a1)
+void CCECCryptorBlindingKeysRelease(void ***a1)
 {
   if (a1)
   {
@@ -6133,42 +5991,36 @@ void CCECCryptorBlindingKeysRelease(void *a1)
   free(a1);
 }
 
-uint64_t *CCECCryptorBlind(uint64_t a1, uint64_t *a2)
+void **CCECCryptorBlind(uint64_t *a1, void *a2)
 {
-  v4 = ccMallocECCryptor(*a1, 0);
-  if (v4)
+  v2 = ccMallocECCryptor(*a1, 0);
+  if (v2)
   {
     ccDRBGGetRngState();
-    v5 = **(a1 + 8);
-    v6 = *a2;
-    v7 = *v4;
     if (ccec_blind())
     {
-      ccECCryptorFree(v4);
+      ccECCryptorFree(v2);
       return 0;
     }
   }
 
-  return v4;
+  return v2;
 }
 
-uint64_t *CCECCryptorUnblind(uint64_t a1, uint64_t *a2)
+void **CCECCryptorUnblind(uint64_t *a1, void *a2)
 {
-  v4 = ccMallocECCryptor(*a1, 0);
-  if (v4)
+  v2 = ccMallocECCryptor(*a1, 0);
+  if (v2)
   {
     ccDRBGGetRngState();
-    v5 = **(a1 + 16);
-    v6 = *a2;
-    v7 = *v4;
     if (ccec_unblind())
     {
-      ccECCryptorFree(v4);
+      ccECCryptorFree(v2);
       return 0;
     }
   }
 
-  return v4;
+  return v2;
 }
 
 uint64_t CCCryptorGCMSetIV(uint64_t **a1, uint64_t a2, unint64_t a3)
@@ -6178,32 +6030,23 @@ uint64_t CCCryptorGCMSetIV(uint64_t **a1, uint64_t a2, unint64_t a3)
     return 4294962996;
   }
 
-  v3 = a1;
   result = 4294962996;
   if (a2 && a3 >= 0xC)
   {
-    if (*v3)
+    v4 = ccgcm_set_iv();
+    if (v4 == -7)
     {
-      v3 = *v3;
-    }
-
-    v5 = &v3[*(v3 + 18)];
-    v6 = v5[10];
-    v7 = v5[13];
-    v8 = ccgcm_set_iv();
-    if (v8 == -7)
-    {
-      v9 = -4300;
+      v5 = -4300;
     }
 
     else
     {
-      v9 = -4308;
+      v5 = -4308;
     }
 
-    if (v8)
+    if (v4)
     {
-      return v9;
+      return v5;
     }
 
     else
@@ -6215,63 +6058,45 @@ uint64_t CCCryptorGCMSetIV(uint64_t **a1, uint64_t a2, unint64_t a3)
   return result;
 }
 
-uint64_t CCCryptorGCMFinalize(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t CCCryptorGCMFinalize(uint64_t *a1, _BYTE *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x29EDCA608];
-  if (a1)
+  if (!a1)
   {
-    if (*a1)
-    {
-      v4 = *a1;
-    }
+    return 4294962996;
+  }
 
-    else
+  v4 = 4294962996;
+  if (a2)
+  {
+    if ((a3 - 17) >= 0xFFFFFFFFFFFFFFF7)
     {
-      v4 = a1;
-    }
-
-    v5 = 4294962996;
-    if (a2)
-    {
-      if ((a3 - 17) >= 0xFFFFFFFFFFFFFFF7)
+      v5 = *(a1 + 18);
+      if (v5 <= 1)
       {
-        v6 = *(a1 + 18);
-        if (v6 <= 1)
+        if (v5 == 1)
         {
-          if (v6 == 1)
-          {
-            __memcpy_chk();
-          }
+          __memcpy_chk();
+        }
 
-          v7 = &v4[*(v4 + 18)];
-          v8 = v7[10];
-          v9 = v7[13];
-          if (ccgcm_finalize())
-          {
-            v5 = 4294962988;
-          }
+        if (ccgcm_finalize())
+        {
+          v4 = 4294962988;
+        }
 
-          else
-          {
-            v5 = 0;
-          }
+        else
+        {
+          v4 = 0;
+        }
 
-          if (*(a1 + 18) == 1)
-          {
-            cc_clear();
-          }
+        if (*(a1 + 18) == 1)
+        {
+          cc_clear();
         }
       }
     }
   }
 
-  else
-  {
-    v5 = 4294962996;
-  }
-
-  v10 = *MEMORY[0x29EDCA608];
-  return v5;
+  return v4;
 }
 
 uint64_t CCCryptorGCMReset(void *a1)
@@ -6279,29 +6104,20 @@ uint64_t CCCryptorGCMReset(void *a1)
   v1 = 4294962996;
   if (a1)
   {
-    v2 = *a1;
-    if (!*a1)
+    v2 = ccgcm_reset();
+    if (v2 == -7)
     {
-      v2 = a1;
-    }
-
-    v3 = &v2[*(v2 + 18)];
-    v4 = v3[10];
-    v5 = v3[13];
-    v6 = ccgcm_reset();
-    if (v6 == -7)
-    {
-      v7 = -4300;
+      v3 = -4300;
     }
 
     else
     {
-      v7 = -4308;
+      v3 = -4308;
     }
 
-    if (v6)
+    if (v2)
     {
-      return v7;
+      return v3;
     }
 
     else
@@ -6355,53 +6171,48 @@ uint64_t CCCryptorGCMOneshotEncrypt(int a1, uint64_t a2, unint64_t a3, uint64_t 
 
 uint64_t CCCryptorGCMOneshotDecrypt(int a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
-  v16 = *MEMORY[0x29EDCA608];
   if (a1)
   {
-    result = 4294962996;
+    return 4294962996;
   }
 
-  else
+  result = 4294962986;
+  if (a3 <= 0x20 && ((1 << a3) & 0x101010000) != 0)
   {
-    result = 4294962986;
-    if (a3 <= 0x20 && ((1 << a3) & 0x101010000) != 0)
+    result = 4294962996;
+    if (a5 >= 0xC && (a12 - 17) >= 0xFFFFFFFFFFFFFFF7 && a2 && a4 && a11 && (!a9 || a10))
     {
-      result = 4294962996;
-      if (a5 >= 0xC && (a12 - 17) >= 0xFFFFFFFFFFFFFFF7 && a2 && a4 && a11 && (!a9 || a10))
+      __memcpy_chk();
+      ccaes_gcm_decrypt_mode();
+      v13 = ccgcm_one_shot();
+      if (v13)
       {
-        __memcpy_chk();
-        ccaes_gcm_decrypt_mode();
-        v14 = ccgcm_one_shot();
-        if (v14)
-        {
-          cc_clear();
-        }
-
         cc_clear();
-        if (v14 == -7)
-        {
-          v15 = -4300;
-        }
+      }
 
-        else
-        {
-          v15 = -4308;
-        }
+      cc_clear();
+      if (v13 == -7)
+      {
+        v14 = -4300;
+      }
 
-        if (v14)
-        {
-          result = v15;
-        }
+      else
+      {
+        v14 = -4308;
+      }
 
-        else
-        {
-          result = 0;
-        }
+      if (v13)
+      {
+        return v14;
+      }
+
+      else
+      {
+        return 0;
       }
     }
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -6439,14 +6250,14 @@ void CCHmacDestroy(void *a1)
   free(a1);
 }
 
-void *CCHmacCreate(unsigned int a1)
+void *CCHmacCreate(unsigned int a1, uint64_t a2, uint64_t a3)
 {
-  v2 = malloc_type_malloc(0x118uLL, 0x1060040072DDC3AuLL);
-  if (v2)
+  v4 = malloc_type_malloc(0x118uLL, 0x1060040072DDC3AuLL);
+  if (v4)
   {
     cc_clear();
     DigestInfo = CCDigestGetDigestInfo(a1);
-    *v2 = DigestInfo;
+    *v4 = DigestInfo;
     if (DigestInfo)
     {
       cchmac_init();
@@ -6454,12 +6265,12 @@ void *CCHmacCreate(unsigned int a1)
 
     else
     {
-      free(v2);
+      free(v4);
       return 0;
     }
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t CCHmacOneShot(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -6674,7 +6485,7 @@ unint64_t to_msec(unint64_t a1)
   return (a1 * v2 / v3 / 1000000.0);
 }
 
-uint64_t CCRandomUniform()
+uint64_t CCRandomUniform(uint64_t a1, uint64_t a2)
 {
   ccrng();
   if (ccrng_uniform())
@@ -6708,28 +6519,26 @@ void *ccMallocRSACryptor(unint64_t a1)
 
 void *CCRSACryptorCreatePublicKeyFromPrivateKey(unint64_t *a1)
 {
-  v2 = ccMallocRSACryptor(*a1);
-  if (v2)
+  v1 = ccMallocRSACryptor(*a1);
+  if (v1)
   {
     ccrsa_ctx_public();
-    v3 = &a1[2 * a1[2] + 5];
     inited = ccrsa_init_pub();
-    *(v2 + 2) = 0;
+    *(v1 + 2) = 0;
     if (inited)
     {
-      ccRSACryptorClear(v2);
+      ccRSACryptorClear(v1);
       return 0;
     }
   }
 
-  return v2;
+  return v1;
 }
 
 void ccRSACryptorClear(void *a1)
 {
   if (a1)
   {
-    v2 = (((*a1 + 63) >> 1) & 0x7FFFFFFFFFFFFFE0) - (((*a1 + 63) >> 4) & 0xFFFFFFFFFFFFFF8) + 8 * (((*a1 + 63) >> 4) & 0xFFFFFFFFFFFFFF8);
     cc_clear();
 
     free(a1);
@@ -6820,10 +6629,9 @@ LABEL_10:
 
       *(v11 + 2) = v8;
       *a3 = v11;
-      v12 = v11[2];
-      v13 = ccn_bitlen();
+      v12 = ccn_bitlen();
       result = 0;
-      *v11 = v13;
+      *v11 = v12;
     }
 
     else
@@ -6975,17 +6783,16 @@ uint64_t CCRSACryptorCreateFromData(int a1, uint64_t a2, uint64_t a3, uint64_t a
       goto LABEL_28;
     }
 
-    v15 = a9 + a7 + 7;
-    if (v15 >= 8)
+    v14 = a9 + a7 + 7;
+    if (v14 >= 8)
     {
-      v16 = ccMallocRSACryptor(8 * (a9 + a7));
-      v13 = v16;
-      if (v16)
+      v15 = ccMallocRSACryptor(8 * (a9 + a7));
+      v13 = v15;
+      if (v15)
       {
-        v16[2] = v15 >> 3;
+        v15[2] = v14 >> 3;
         if (!ccrsa_make_priv())
         {
-          v17 = v13[2];
           v10 = 0;
           *v13 = ccn_bitlen();
           *(v13 + 2) = 1;
@@ -7021,7 +6828,6 @@ LABEL_28:
         ccrsa_ctx_public();
         if (!ccrsa_make_pub())
         {
-          v14 = v13[2];
           v10 = 0;
           *v13 = ccn_bitlen();
           *(v13 + 2) = 0;
@@ -7080,17 +6886,17 @@ LABEL_15:
   return v8;
 }
 
-uint64_t CCRSAGetKeyComponents(uint64_t a1)
+uint64_t CCRSAGetKeyComponents(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = *(a1 + 8);
-  if (v1 == 1)
+  v5 = *(a1 + 8);
+  if (v5 == 1)
   {
     fullkey_components = ccrsa_get_fullkey_components();
   }
 
   else
   {
-    if (v1)
+    if (v5)
     {
       return 4294962996;
     }
@@ -7119,52 +6925,51 @@ uint64_t CCRSAGetCRTComponentsSizes(uint64_t a1, uint64_t *a2, uint64_t *a3, uin
 
   ccrsa_ctx_private_zp();
   cczp_n();
-  v7 = ccrsa_ctx_private_zp();
-  v8 = v7 + 16 * *ccrsa_ctx_private_zp();
-  v9 = v8 + 16 * *ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
   *a2 = ccn_write_uint_size();
-  v10 = ccrsa_ctx_private_zp();
-  v11 = v10 + 16 * *ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
   cczp_n();
-  v12 = ccrsa_ctx_private_zp();
-  v13 = v12 + 16 * *ccrsa_ctx_private_zp();
-  v14 = v13 + 16 * *ccrsa_ctx_private_zp();
-  v15 = v14 + 8 * *ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
   *a3 = ccn_write_uint_size();
   ccrsa_ctx_private_zp();
   cczp_n();
-  v16 = ccrsa_ctx_private_zp();
-  v17 = v16 + 16 * *ccrsa_ctx_private_zp();
-  v18 = v17 + 16 * *ccrsa_ctx_private_zp();
-  v19 = v18 + 8 * *ccrsa_ctx_private_zp();
-  v20 = v19 + 8 * *ccrsa_ctx_private_zp();
-  v21 = ccn_write_uint_size();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  v7 = ccn_write_uint_size();
   result = 0;
-  *a4 = v21;
+  *a4 = v7;
   return result;
 }
 
-uint64_t CCRSACryptorSign(uint64_t a1, int a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7)
+uint64_t CCRSACryptorSign(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = validate_sign_verify_params(a1, a2, a3, a5, a7, a7);
-  if (!v8)
+  v8 = a2;
+  if (!validate_sign_verify_params(a1, a2, a3, a5, a7, a7))
   {
     return 4294962996;
   }
 
-  if (a2 == 1001)
+  if (v8 == 1001)
   {
-    v9 = *(v8 + 32);
-    v10 = ccrsa_sign_pkcs1v15();
+    v9 = ccrsa_sign_pkcs1v15();
   }
 
   else
   {
     ccDRBGGetRngState();
-    v10 = ccrsa_sign_pss();
+    v9 = ccrsa_sign_pss();
   }
 
-  if (v10)
+  if (v9)
   {
     return 4294962992;
   }
@@ -7214,66 +7019,59 @@ uint64_t validate_sign_verify_params(uint64_t a1, int a2, uint64_t a3, unsigned 
   }
 }
 
-uint64_t CCRSACryptorVerify(uint64_t a1, int a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7)
+uint64_t CCRSACryptorVerify(uint64_t a1, int a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  if (a5 - 13 >= 0xFFFFFFFB)
+  if (a5 - 13 < 0xFFFFFFFB)
   {
-    DigestInfo = CCDigestGetDigestInfo(a5);
-    v13 = DigestInfo;
-    if ((a2 & 0xFFFFFFFB) == 0x3E9)
-    {
-      v14 = DigestInfo;
-    }
+    return 4294962996;
+  }
 
-    else
-    {
-      v14 = 0;
-    }
-
-    result = 4294962996;
-    if (a1 && a3 && a7 && v14)
-    {
-      ccrsa_ctx_public();
-      if (a2 == 1001)
-      {
-        v15 = *(v13 + 32);
-        v16 = ccrsa_verify_pkcs1v15_digest();
-      }
-
-      else
-      {
-        v16 = ccrsa_verify_pss_digest();
-      }
-
-      if (cc_cmp_safe())
-      {
-        v17 = -146;
-      }
-
-      else
-      {
-        v17 = v16;
-      }
-
-      if (v17)
-      {
-        result = 4294962992;
-      }
-
-      else
-      {
-        result = 0;
-      }
-    }
+  DigestInfo = CCDigestGetDigestInfo(a5);
+  if ((a2 & 0xFFFFFFFB) == 0x3E9)
+  {
+    v14 = DigestInfo;
   }
 
   else
   {
-    result = 4294962996;
+    v14 = 0;
   }
 
-  v18 = *MEMORY[0x29EDCA608];
+  result = 4294962996;
+  if (a1 && a3 && a7 && v14)
+  {
+    ccrsa_ctx_public();
+    if (a2 == 1001)
+    {
+      v15 = ccrsa_verify_pkcs1v15_digest();
+    }
+
+    else
+    {
+      v15 = ccrsa_verify_pss_digest();
+    }
+
+    if (cc_cmp_safe())
+    {
+      v16 = -146;
+    }
+
+    else
+    {
+      v16 = v15;
+    }
+
+    if (v16)
+    {
+      return 4294962992;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
   return result;
 }
 
@@ -7285,30 +7083,26 @@ uint64_t OUTLINED_FUNCTION_0_0()
 
 int CCSymmetricKeyWrap(CCWrappingAlgorithm algorithm, const uint8_t *iv, const size_t ivLen, const uint8_t *kek, size_t kekLen, const uint8_t *rawKey, size_t rawKeyLen, uint8_t *wrappedKey, size_t *wrappedKeyLen)
 {
-  v25[0] = rawKey;
-  v25[1] = *MEMORY[0x29EDCA608];
+  v21[0] = rawKey;
+  v21[1] = *MEMORY[0x29EDCA608];
   CipherMode = getCipherMode(0, 1, 0);
-  v14 = (*CipherMode + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x2A1C7C4A8](CipherMode, v15);
-  v17 = v25 - v16;
-  v18 = (kekLen & 0xFFFFFFFFFFFFFFF7) == 0x10 || kekLen == 32;
-  if (!v18 || !wrappedKeyLen || (v19 = *wrappedKeyLen, v19 < ccwrap_wrapped_size()) || iv && ivLen < 8 || (*(CipherMode + 16))(CipherMode, v17, kekLen, kek) || ccwrap_auth_encrypt_withiv())
+  MEMORY[0x2A1C7C4A8](CipherMode, v14);
+  v16 = v21 - v15;
+  v17 = (kekLen & 0xFFFFFFFFFFFFFFF7) == 0x10 || kekLen == 32;
+  if (!v17 || !wrappedKeyLen || (v18 = *wrappedKeyLen, v18 < ccwrap_wrapped_size()) || iv && ivLen < 8 || (*(CipherMode + 16))(CipherMode, v16, kekLen, kek) || ccwrap_auth_encrypt_withiv())
   {
-    v20 = *wrappedKeyLen;
     cc_clear();
     *wrappedKeyLen = 0;
-    v21 = -4300;
+    v19 = -4300;
   }
 
   else
   {
-    v21 = 0;
+    v19 = 0;
   }
 
-  v22 = *CipherMode;
   cc_clear();
-  v23 = *MEMORY[0x29EDCA608];
-  return v21;
+  return v19;
 }
 
 uint64_t cccbc_setiv(uint64_t a1, const void *a2, size_t __n, void *__dst)
@@ -7352,29 +7146,27 @@ uint64_t ccctr_setiv(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t ccxts_mode_encrypt_tweak(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v15[1] = *MEMORY[0x29EDCA608];
+  v14[1] = *MEMORY[0x29EDCA608];
   v9 = ccxts_context_size();
   MEMORY[0x2A1C7C4A8](v9, v10);
-  v12 = (*(a1 + 40))(a6, v15 - v11, a5);
+  v12 = (*(a1 + 40))(a6, v14 - v11, a5);
   ccpad_xts_encrypt();
-  v13 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
 uint64_t ccxts_mode_decrypt_tweak(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v15[1] = *MEMORY[0x29EDCA608];
+  v14[1] = *MEMORY[0x29EDCA608];
   v9 = ccxts_context_size();
   MEMORY[0x2A1C7C4A8](v9, v10);
-  v12 = (*(a1 + 40))(a6, v15 - v11, a5);
+  v12 = (*(a1 + 40))(a6, v14 - v11, a5);
   ccpad_xts_decrypt();
-  v13 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
 __n128 ccccm_mode_setup(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, __n128 *a8)
 {
-  (*(a1 + 24))(a1, a8 + 10, a4, a3);
+  (*(a1 + 24))(a1, a8 + 10, a4, a3, a5, a6, a7);
   result.n128_u64[0] = -1;
   result.n128_u64[1] = -1;
   *a8 = result;
@@ -7978,23 +7770,32 @@ void CCDigestGetDigestInfo_cold_1()
   v6 = MEMORY[0x29EDCA698];
   if (v0)
   {
-    v17 = *(MEMORY[0x29EDCA698] + 80);
-    v20 = *(MEMORY[0x29EDCA698] + 88);
-    OUTLINED_FUNCTION_0(&dword_299C53000, MEMORY[0x29EDCA988], v1, "slot=%p once=%li, ptr=%p", v2, v3, v4, v5, 0);
+    *v17 = 134218496;
+    *&v17[4] = MEMORY[0x29EDCA698] + 80;
+    *&v17[12] = 2048;
+    *&v17[14] = *(MEMORY[0x29EDCA698] + 80);
+    *&v17[22] = 2048;
+    OUTLINED_FUNCTION_0(&dword_299C53000, MEMORY[0x29EDCA988], v1, "slot=%p once=%li, ptr=%p", v2, v3, v4, v5, *v17, *&v17[8], *&v17[16], *(MEMORY[0x29EDCA698] + 88));
   }
 
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT))
   {
-    v18 = v6[12];
-    v21 = v6[13];
-    OUTLINED_FUNCTION_0(&dword_299C53000, MEMORY[0x29EDCA988], v7, "slot=%p once=%li, ptr=%p", v8, v9, v10, v11, 0);
+    *v18 = 134218496;
+    *&v18[4] = v6 + 12;
+    *&v18[12] = 2048;
+    *&v18[14] = v6[12];
+    *&v18[22] = 2048;
+    OUTLINED_FUNCTION_0(&dword_299C53000, MEMORY[0x29EDCA988], v7, "slot=%p once=%li, ptr=%p", v8, v9, v10, v11, *v18, *&v18[8], *&v18[16], v6[13]);
   }
 
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT))
   {
-    v19 = v6[14];
-    v22 = v6[15];
-    OUTLINED_FUNCTION_0(&dword_299C53000, MEMORY[0x29EDCA988], v12, "slot=%p once=%li, ptr=%p", v13, v14, v15, v16, 0);
+    *v19 = 134218496;
+    *&v19[4] = v6 + 14;
+    *&v19[12] = 2048;
+    *&v19[14] = v6[14];
+    *&v19[22] = 2048;
+    OUTLINED_FUNCTION_0(&dword_299C53000, MEMORY[0x29EDCA988], v12, "slot=%p once=%li, ptr=%p", v13, v14, v15, v16, *v19, *&v19[8], *&v19[16], v6[15]);
   }
 
   _os_crash();
@@ -8006,12 +7807,11 @@ void *CCECCryptorGetPublicKeyFromPrivateKey(uint64_t a1)
   v2 = ccMallocECCryptor(*(a1 + 8), 0);
   if (v2)
   {
-    v3 = *(a1 + 8);
     cp = ccec_get_cp();
     memcpy(*v2, *a1, 24 * *cp + 16);
     v2[1] = *(a1 + 8);
     *(v2 + 4) = 0;
-    if ((ccECpairwiseConsistencyCheck() & 1) == 0)
+    if ((ccECpairwiseConsistencyCheck(a1, v2) & 1) == 0)
     {
       ccECCryptorFree(v2);
       return 0;
@@ -8021,7 +7821,7 @@ void *CCECCryptorGetPublicKeyFromPrivateKey(uint64_t a1)
   return v2;
 }
 
-uint64_t CCRSACryptorGeneratePair(unint64_t a1, uint64_t a2, void *a3, void *a4)
+uint64_t CCRSACryptorGeneratePair(unint64_t a1, unsigned int a2, void *a3, void *a4)
 {
   *a4 = 0;
   *a3 = 0;
@@ -8149,12 +7949,12 @@ uint64_t CCRSAGetCRTComponents(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t 
     return 4294962996;
   }
 
-  v35[11] = v7;
-  v35[12] = v8;
-  v34 = 0;
-  v35[0] = 0;
-  v33 = 0;
-  if (CCRSAGetCRTComponentsSizes(a1, v35, &v34, &v33))
+  v18[11] = v7;
+  v18[12] = v8;
+  v17 = 0;
+  v18[0] = 0;
+  v16 = 0;
+  if (CCRSAGetCRTComponentsSizes(a1, v18, &v17, &v16))
   {
     return 4294962996;
   }
@@ -8163,117 +7963,113 @@ uint64_t CCRSAGetCRTComponents(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t 
   cczp_n();
   ccrsa_ctx_private_zp();
   cczp_prime();
-  v13 = ccrsa_ctx_private_zp();
-  v14 = v13 + 16 * *ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
   cczp_n();
   ccrsa_ctx_private_zp();
-  v15 = a6 + 16 * *OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_0_0();
   cczp_prime();
-  v16 = ccn_cmpn() < 1 || v35[0] > a3;
-  v17 = v16 || v34 > a5;
-  if (v17 || v33 > a7)
+  v12 = ccn_cmpn() < 1 || v18[0] > a3;
+  v13 = v12 || v17 > a5;
+  if (v13 || v16 > a7)
   {
     return 4294962996;
   }
 
   ccrsa_ctx_private_zp();
   cczp_n();
-  v19 = OUTLINED_FUNCTION_0_0();
-  v20 = v19 + 16 * *ccrsa_ctx_private_zp();
-  v21 = v20 + 16 * *ccrsa_ctx_private_zp();
+  OUTLINED_FUNCTION_0_0();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
   ccn_write_uint();
   ccrsa_ctx_private_zp();
-  v22 = a6 + 16 * *OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_0_0();
   cczp_n();
-  v23 = OUTLINED_FUNCTION_0_0();
-  v24 = v23 + 16 * *ccrsa_ctx_private_zp();
-  v25 = v24 + 16 * *ccrsa_ctx_private_zp();
-  v26 = v25 + 8 * *ccrsa_ctx_private_zp();
+  OUTLINED_FUNCTION_0_0();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
   ccn_write_uint();
   ccrsa_ctx_private_zp();
   cczp_n();
-  v27 = OUTLINED_FUNCTION_0_0();
-  v28 = v27 + 16 * *ccrsa_ctx_private_zp();
-  v29 = v28 + 16 * *ccrsa_ctx_private_zp();
-  v30 = v29 + 8 * *ccrsa_ctx_private_zp();
-  v31 = v30 + 8 * *ccrsa_ctx_private_zp();
+  OUTLINED_FUNCTION_0_0();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
+  ccrsa_ctx_private_zp();
   ccn_write_uint();
   return 0;
 }
 
 int CCSymmetricKeyUnwrap(CCWrappingAlgorithm algorithm, const uint8_t *iv, const size_t ivLen, const uint8_t *kek, size_t kekLen, const uint8_t *wrappedKey, size_t wrappedKeyLen, uint8_t *rawKey, size_t *rawKeyLen)
 {
-  v30[0] = rawKey;
-  v32 = *MEMORY[0x29EDCA608];
-  v31 = 0;
+  v26[0] = rawKey;
+  v28 = *MEMORY[0x29EDCA608];
+  v27 = 0;
   CipherMode = getCipherMode(0, 1, 1u);
-  v30[1] = v30;
-  v14 = (*CipherMode + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x2A1C7C4A8](CipherMode, v15);
-  v17 = v30 - v16;
-  v18 = 0;
-  v19 = (kekLen & 0xFFFFFFFFFFFFFFF7) == 0x10 || kekLen == 32;
-  v20 = -4300;
-  if (v19 && rawKeyLen)
+  v26[1] = v26;
+  MEMORY[0x2A1C7C4A8](CipherMode, v14);
+  v16 = v26 - v15;
+  v17 = 0;
+  v18 = (kekLen & 0xFFFFFFFFFFFFFFF7) == 0x10 || kekLen == 32;
+  v19 = -4300;
+  if (v18 && rawKeyLen)
   {
-    v21 = *rawKeyLen;
-    if (v21 < ccwrap_unwrapped_size() || iv && ivLen < 8 || (*(CipherMode + 16))(CipherMode, v17, kekLen, kek))
+    v20 = *rawKeyLen;
+    if (v20 < ccwrap_unwrapped_size() || iv && ivLen < 8 || (*(CipherMode + 16))(CipherMode, v16, kekLen, kek))
     {
-      v18 = 0;
-      v20 = -4300;
+      v17 = 0;
+      v19 = -4300;
     }
 
     else
     {
-      v22 = malloc_type_malloc(*rawKeyLen, 0x7F6BFBA0uLL);
-      if (v22)
+      v21 = malloc_type_malloc(*rawKeyLen, 0x7F6BFBA0uLL);
+      if (v21)
       {
-        v23 = v22;
-        v24 = 1;
+        v22 = v21;
+        v23 = 1;
         while (1)
         {
-          v25 = v24;
+          v24 = v23;
           if (iv)
           {
-            v31 = *rawKeyLen;
+            v27 = *rawKeyLen;
             if (!ccwrap_auth_decrypt_withiv())
             {
               break;
             }
           }
 
-          v24 = 0;
+          v23 = 0;
           iv = &rfc3394_iv_data;
-          if ((v25 & 1) == 0)
+          if ((v24 & 1) == 0)
           {
             cc_clear();
-            v20 = -4304;
+            v19 = -4304;
             goto LABEL_18;
           }
         }
 
-        memcpy(v30[0], v23, v31);
-        v20 = 0;
+        memcpy(v26[0], v22, v27);
+        v19 = 0;
 LABEL_18:
-        v26 = *rawKeyLen;
         cc_clear();
-        free(v23);
-        v18 = v31;
+        free(v22);
+        v17 = v27;
       }
 
       else
       {
-        v18 = 0;
-        v20 = -4302;
+        v17 = 0;
+        v19 = -4302;
       }
     }
   }
 
-  *rawKeyLen = v18;
-  v27 = *CipherMode;
+  *rawKeyLen = v17;
   cc_clear();
-  v28 = *MEMORY[0x29EDCA608];
-  return v20;
+  return v19;
 }
 
 unint64_t CNEncoderGetOutputLength(unint64_t result, uint64_t a2)

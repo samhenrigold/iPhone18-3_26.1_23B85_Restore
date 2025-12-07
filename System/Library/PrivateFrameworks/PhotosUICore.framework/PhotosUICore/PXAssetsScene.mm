@@ -96,18 +96,18 @@
           dataSource = [layoutCopy dataSource];
           dataSourceManager = [(PXAssetsScene *)selfCopy dataSourceManager];
           changeHistory = [dataSourceManager changeHistory];
-          [assetReference indexPath];
-          v22 = [changeHistory changeDetailsFromDataSourceIdentifier:v50 toDataSourceIdentifier:{objc_msgSend(dataSource, "identifier")}];
+          objc_msgSend_indexPath(assetReference);
+          v22 = [changeHistory changeDetailsFromDataSourceIdentifier:v50[0] toDataSourceIdentifier:{objc_msgSend(dataSource, "identifier")}];
 
           memset(v49, 0, sizeof(v49));
-          [assetReference indexPath];
-          [off_1E77218B0 indexPathAfterApplyingChanges:v22 toIndexPath:&v37 hasIncrementalChanges:0 objectChanged:0];
+          objc_msgSend_indexPath(assetReference);
+          objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(off_1E77218B0);
           v23 = *&v49[0];
           if (*&v49[0] == v15)
           {
             if (dataSource)
             {
-              [dataSource indexPathForObjectReference:assetReference];
+              objc_msgSend_indexPathForObjectReference_(dataSource);
             }
 
             else
@@ -303,10 +303,10 @@ LABEL_8:
   }
 }
 
-void __33__PXAssetsScene__saveAnchorAsset__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
+void __33__PXAssetsScene__saveAnchorAsset__block_invoke(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v6 = a5;
-  if (*a2 == 5 && a2[1] == 6432423)
+  if (*a2 == __PAIR128__(6432423, 5))
   {
     PXDistanceBetweenPoints();
   }

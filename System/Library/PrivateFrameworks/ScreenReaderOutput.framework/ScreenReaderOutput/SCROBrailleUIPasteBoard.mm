@@ -29,9 +29,10 @@
 
 uint64_t __38__SCROBrailleUIPasteBoard_sharedBoard__block_invoke(uint64_t a1)
 {
-  sharedBoard__sharedBoard = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  sharedBoard__sharedBoard = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1);
 }
 
 - (void)writeText:(id)text
@@ -69,7 +70,7 @@ uint64_t __38__SCROBrailleUIPasteBoard_sharedBoard__block_invoke(uint64_t a1)
 
 - (NSString)text
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   textRepresentation = [(SCROBrailleUIPasteBoard *)self textRepresentation];
 
   if (textRepresentation)
@@ -88,26 +89,26 @@ uint64_t __38__SCROBrailleUIPasteBoard_sharedBoard__block_invoke(uint64_t a1)
       v8 = [brailleRepresentation2 componentsSeparatedByCharactersInSet:newlineCharacterSet];
 
       v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       v10 = v8;
-      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v22;
+        v13 = *v21;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v22 != v13)
+            if (*v21 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v21 + 1) + 8 * i);
+            v15 = *(*(&v20 + 1) + 8 * i);
             v16 = +[SCROBrailleTranslationManager inputManager];
             v17 = [v16 textForPrintBraille:v15 language:0 mode:1 locations:0];
 
@@ -117,7 +118,7 @@ uint64_t __38__SCROBrailleUIPasteBoard_sharedBoard__block_invoke(uint64_t a1)
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v12);
@@ -135,14 +136,12 @@ uint64_t __38__SCROBrailleUIPasteBoard_sharedBoard__block_invoke(uint64_t a1)
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return textRepresentation2;
 }
 
 - (NSString)braille
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   brailleRepresentation = [(SCROBrailleUIPasteBoard *)self brailleRepresentation];
 
   if (brailleRepresentation)
@@ -161,32 +160,32 @@ uint64_t __38__SCROBrailleUIPasteBoard_sharedBoard__block_invoke(uint64_t a1)
       v8 = [textRepresentation2 componentsSeparatedByCharactersInSet:newlineCharacterSet];
 
       v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       v10 = v8;
-      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v22;
+        v13 = *v21;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v22 != v13)
+            if (*v21 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v21 + 1) + 8 * i);
+            v15 = *(*(&v20 + 1) + 8 * i);
             v16 = +[SCROBrailleTranslationManager sharedManager];
             v17 = [v16 printBrailleForText:v15 language:0 mode:1 textPositionsRange:0x7FFFFFFFFFFFFFFFLL locations:0 textFormattingRanges:{0, 0}];
             [v9 addObject:v17];
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v12);
@@ -203,8 +202,6 @@ uint64_t __38__SCROBrailleUIPasteBoard_sharedBoard__block_invoke(uint64_t a1)
       brailleRepresentation2 = 0;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return brailleRepresentation2;
 }

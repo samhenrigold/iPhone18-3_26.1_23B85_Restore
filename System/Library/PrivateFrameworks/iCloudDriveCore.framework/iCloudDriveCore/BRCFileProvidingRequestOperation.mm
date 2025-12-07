@@ -122,37 +122,37 @@ void __103__BRCFileProvidingRequestOperation_initWithDocumentItem_client_session
 
 - (void)_detachAllTrackedDocID:(id)d error:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   errorCopy = error;
   if ([dCopy count])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = dCopy;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           fileObjectID = [v13 fileObjectID];
           etagIfLoser = [v13 etagIfLoser];
           [(BRCFileProvidingRequestOperation *)self downloadTrackedForFileObjectID:fileObjectID withEtagIfLoser:etagIfLoser didFinishWithError:errorCopy];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -163,13 +163,11 @@ void __103__BRCFileProvidingRequestOperation_initWithDocumentItem_client_session
   {
     [(BRCFileProvidingRequestOperation *)self downloadTrackedForFileObjectID:0 withEtagIfLoser:0 didFinishWithError:errorCopy];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_provideDocument:(id)document
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   documentCopy = document;
   fileObjectID = [documentCopy fileObjectID];
   if (self->_client)
@@ -185,9 +183,9 @@ void __103__BRCFileProvidingRequestOperation_initWithDocumentItem_client_session
   options = self->_options;
   etagIfLoser = self->_etagIfLoser;
   stageFileName = self->_stageFileName;
-  v29 = 0;
-  v10 = [documentCopy startDownloadInTask:0 options:options etagIfLoser:etagIfLoser stageFileName:stageFileName error:&v29];
-  v11 = v29;
+  v28 = 0;
+  v10 = [documentCopy startDownloadInTask:0 options:options etagIfLoser:etagIfLoser stageFileName:stageFileName error:&v28];
+  v11 = v28;
   if ((v10 & 1) == 0)
   {
     v15 = brc_bread_crumbs();
@@ -195,11 +193,11 @@ void __103__BRCFileProvidingRequestOperation_initWithDocumentItem_client_session
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v31 = documentCopy;
-      v32 = 2112;
-      v33 = v11;
-      v34 = 2112;
-      v35 = v15;
+      v30 = documentCopy;
+      v31 = 2112;
+      v32 = v11;
+      v33 = 2112;
+      v34 = v15;
       _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] Failed to start downloading item %@: %@%@", buf, 0x20u);
     }
 
@@ -228,15 +226,15 @@ void __103__BRCFileProvidingRequestOperation_initWithDocumentItem_client_session
 
       analyticsReporter = [(BRCSessionContext *)selfCopy->super.super._sessionContext analyticsReporter];
       operationID = [(_BRCOperation *)selfCopy operationID];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __53__BRCFileProvidingRequestOperation__provideDocument___block_invoke;
-      v26[3] = &unk_278504BE8;
-      v27 = fileObjectID;
-      v28 = documentCopy;
-      [analyticsReporter lookupUserDownloadEventByOperationID:operationID accessor:v26];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __53__BRCFileProvidingRequestOperation__provideDocument___block_invoke;
+      v25[3] = &unk_278504BE8;
+      v26 = fileObjectID;
+      v27 = documentCopy;
+      [analyticsReporter lookupUserDownloadEventByOperationID:operationID accessor:v25];
 
-      v23 = v27;
+      v23 = v26;
     }
 
     else
@@ -276,8 +274,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __53__BRCFileProvidingRequestOperation__provideDocument___block_invoke(uint64_t a1, void *a2)
@@ -293,25 +289,22 @@ void __53__BRCFileProvidingRequestOperation__provideDocument___block_invoke(uint
 
 - (void)_provideItem
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _documentItem != nil%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: _documentItem != nil%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = self;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = self;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] %@ was cancelled%@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] %@ was cancelled%@", v3, DWORD2(v3));
 }
 
 void __40__BRCFileProvidingRequestOperation_main__block_invoke(uint64_t a1)
@@ -337,65 +330,63 @@ void __40__BRCFileProvidingRequestOperation_main__block_invoke(uint64_t a1)
 
 - (void)networkReachabilityChanged:(BOOL)changed
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (!changed)
   {
-    memset(v21, 0, sizeof(v21));
-    __brc_create_section(0, "[BRCFileProvidingRequestOperation networkReachabilityChanged:]", 208, 0, v21);
+    memset(v20, 0, sizeof(v20));
+    __brc_create_section(0, "[BRCFileProvidingRequestOperation networkReachabilityChanged:]", 208, 0, v20);
     v4 = brc_bread_crumbs();
     v5 = brc_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [BRCFileProvidingRequestOperation networkReachabilityChanged:v21];
+      [BRCFileProvidingRequestOperation networkReachabilityChanged:v20];
     }
 
     v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA050] code:4355 userInfo:0];
     callbackQueue = [(_BRCOperation *)self callbackQueue];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __63__BRCFileProvidingRequestOperation_networkReachabilityChanged___block_invoke;
-    v19[3] = &unk_2784FF478;
-    v19[4] = self;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __63__BRCFileProvidingRequestOperation_networkReachabilityChanged___block_invoke;
+    v18[3] = &unk_2784FF478;
+    v18[4] = self;
     v8 = v6;
-    v20 = v8;
+    v19 = v8;
     v9 = callbackQueue;
-    v10 = v19;
+    v10 = v18;
     v11 = objc_autoreleasePoolPush();
-    v22 = 0uLL;
-    v23 = 0;
-    __brc_create_section(0, "dispatch_async_with_logs", 283, 0, &v22);
+    v21 = 0uLL;
+    v22 = 0;
+    __brc_create_section(0, "dispatch_async_with_logs", 283, 0, &v21);
     v12 = brc_bread_crumbs();
     v13 = brc_default_log();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v17 = v22;
+      v16 = v21;
       label = dispatch_queue_get_label(v9);
       *block = 134218498;
-      *&block[4] = v17;
+      *&block[4] = v16;
       *&block[12] = 2080;
       *&block[14] = label;
       *&block[22] = 2112;
-      v25 = v12;
+      v24 = v12;
       _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx dispatching to %s%@", block, 0x20u);
     }
 
+    v27 = v21;
     v28 = v22;
-    v29 = v23;
     *block = MEMORY[0x277D85DD0];
     *&block[8] = 3221225472;
     *&block[16] = __dispatch_async_with_logs_block_invoke_12;
-    v25 = &unk_2784FF568;
+    v24 = &unk_2784FF568;
     v14 = v9;
-    v26 = v14;
+    v25 = v14;
     v15 = v10;
-    v27 = v15;
+    v26 = v15;
     dispatch_async(v14, block);
 
     objc_autoreleasePoolPop(v11);
-    __brc_leave_section(v21);
+    __brc_leave_section(v20);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __63__BRCFileProvidingRequestOperation_networkReachabilityChanged___block_invoke(uint64_t a1)
@@ -458,7 +449,7 @@ void __63__BRCFileProvidingRequestOperation_networkReachabilityChanged___block_i
 
 - (void)finishWithResult:(id)result error:(id)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
   if (errorCopy)
@@ -483,43 +474,43 @@ void __63__BRCFileProvidingRequestOperation_networkReachabilityChanged___block_i
 
   analyticsReporter = [(BRCSessionContext *)self->super.super._sessionContext analyticsReporter];
   operationID = [(_BRCOperation *)self operationID];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __59__BRCFileProvidingRequestOperation_finishWithResult_error___block_invoke;
-  v37[3] = &unk_278504BE8;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __59__BRCFileProvidingRequestOperation_finishWithResult_error___block_invoke;
+  v36[3] = &unk_278504BE8;
   v12 = errorCopy;
-  v38 = v12;
+  v37 = v12;
   selfCopy = self;
-  [analyticsReporter lookupUserDownloadEventByOperationID:operationID accessor:v37];
+  [analyticsReporter lookupUserDownloadEventByOperationID:operationID accessor:v36];
 
   if (!errorCopy)
   {
     [(BRCSessionContext *)self->super.super._sessionContext performSyncOnClientReadWriteDatabaseSerialQueue:&__block_literal_global_12];
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v13 = self->_appLibrariesMonitored;
-  v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v34;
+    v16 = *v33;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v34 != v16)
+        if (*v33 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [(BRCXPCClient *)self->_client removeAppLibrary:*(*(&v33 + 1) + 8 * i)];
+        [(BRCXPCClient *)self->_client removeAppLibrary:*(*(&v32 + 1) + 8 * i)];
       }
 
-      v15 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v15 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v15);
@@ -536,33 +527,33 @@ void __63__BRCFileProvidingRequestOperation_networkReachabilityChanged___block_i
   selfCopy2->_callbacks = 0;
 
   objc_sync_exit(selfCopy2);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v22 = v20;
-  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v29 objects:v40 count:16];
+  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v28 objects:v39 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v30;
+    v25 = *v29;
 LABEL_17:
     v26 = 0;
     while (1)
     {
-      if (*v30 != v25)
+      if (*v29 != v25)
       {
         objc_enumerationMutation(v22);
       }
 
-      if (!(*(*(*(&v29 + 1) + 8 * v26) + 16))())
+      if (!(*(*(*(&v28 + 1) + 8 * v26) + 16))())
       {
         break;
       }
 
       if (v24 == ++v26)
       {
-        v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v29 objects:v40 count:16];
+        v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v28 objects:v39 count:16];
         if (v24)
         {
           goto LABEL_17;
@@ -573,11 +564,9 @@ LABEL_17:
     }
   }
 
-  v28.receiver = selfCopy2;
-  v28.super_class = BRCFileProvidingRequestOperation;
-  [(_BRCFrameworkOperation *)&v28 finishWithResult:resultCopy error:v12];
-
-  v27 = *MEMORY[0x277D85DE8];
+  v27.receiver = selfCopy2;
+  v27.super_class = BRCFileProvidingRequestOperation;
+  [(_BRCFrameworkOperation *)&v27 finishWithResult:resultCopy error:v12];
 }
 
 void __59__BRCFileProvidingRequestOperation_finishWithResult_error___block_invoke(uint64_t a1, void *a2)
@@ -603,41 +592,34 @@ void __59__BRCFileProvidingRequestOperation_finishWithResult_error___block_invok
 
 void __40__BRCFileProvidingRequestOperation_main__block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] %@ was cancelled%@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] %@ was cancelled%@", v3, DWORD2(v3));
 }
 
 - (void)networkReachabilityChanged:(void *)a1 .cold.1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 134218242;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 134218242;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx network becomes not reachable, finishing the providing request%@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx network becomes not reachable, finishing the providing request%@", v3, DWORD2(v3));
 }
 
 - (void)finishWithResult:(uint64_t)a1 error:.cold.1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = a1;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] failing coordinated read with %@%@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] failing coordinated read with %@%@", v3, DWORD2(v3));
 }
 
 - (void)finishWithResult:(uint64_t)a1 error:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] granting coordinated read%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] granting coordinated read%@", &v2, 0xCu);
 }
 
 @end

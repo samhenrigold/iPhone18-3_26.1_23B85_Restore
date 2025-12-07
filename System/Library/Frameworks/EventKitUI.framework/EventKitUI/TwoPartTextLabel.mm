@@ -188,14 +188,14 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v41[1] = *MEMORY[0x1E69E9840];
-  v39.receiver = self;
-  v39.super_class = TwoPartTextLabel;
-  [(TwoPartTextLabel *)&v39 drawRect:?];
+  v43[1] = *MEMORY[0x1E69E9840];
+  v41.receiver = self;
+  v41.super_class = TwoPartTextLabel;
+  [(TwoPartTextLabel *)&v41 drawRect:?];
   [(TwoPartTextLabel *)self textPart2Size];
   if (v8 <= 0.0)
   {
-    v18 = *MEMORY[0x1E695EFF8];
+    v20 = *MEMORY[0x1E695EFF8];
   }
 
   else
@@ -203,67 +203,67 @@
     v9 = v8;
     v10 = *(MEMORY[0x1E695EFF8] + 8);
     text = [(TwoPartTextLabel *)self text];
-    v40 = *MEMORY[0x1E69DB648];
+    v42 = *MEMORY[0x1E69DB648];
     font = [(TwoPartTextLabel *)self font];
-    v41[0] = font;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+    v43[0] = font;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
     [text sizeWithAttributes:v13];
     v15 = v14;
 
-    if (CalInterfaceIsLeftToRight())
+    if (CalInterfaceIsLeftToRight(v16, v17))
     {
-      v16 = x + v15;
-      CalRoundToScreenScale(v16 + 18.0 + fmax(self->_minPart2Width - v9, 0.0));
-      v18 = v17;
-      if (v9 + v17 > width)
+      v18 = x + v15;
+      CalRoundToScreenScale(v18 + 18.0 + fmax(self->_minPart2Width - v9, 0.0));
+      v20 = v19;
+      if (v9 + v19 > width)
       {
-        if (v16 + 4.0 >= width - v9)
+        if (v18 + 4.0 >= width - v9)
         {
-          v18 = v16 + 4.0;
+          v20 = v18 + 4.0;
         }
 
         else
         {
-          v18 = width - v9;
+          v20 = width - v9;
         }
       }
     }
 
     else
     {
-      v42.origin.x = x;
-      v42.origin.y = y;
-      v42.size.width = width;
-      v42.size.height = height;
-      MaxX = CGRectGetMaxX(v42);
+      v44.origin.x = x;
+      v44.origin.y = y;
+      v44.size.width = width;
+      v44.size.height = height;
+      MaxX = CGRectGetMaxX(v44);
       CalRoundToScreenScale(MaxX - v15 + -18.0 - fmax(self->_minPart2Width - v9, 0.0) - v9);
-      if (v20 >= 0.0)
+      if (v22 >= 0.0)
       {
-        v18 = v20;
+        v20 = v22;
       }
 
       else
       {
-        v43.origin.x = x;
-        v43.origin.y = y;
-        v43.size.width = width;
-        v43.size.height = height;
-        v18 = fmin(CGRectGetMaxX(v43) - v15 + -4.0 - v9, 0.0);
+        v45.origin.x = x;
+        v45.origin.y = y;
+        v45.size.width = width;
+        v45.size.height = height;
+        v20 = fmin(CGRectGetMaxX(v45) - v15 + -4.0 - v9, 0.0);
       }
     }
 
-    v21 = v10 + CalFloorToScreenScale(0.4);
+    v23 = v10 + CalFloorToScreenScale(0.4);
     currentTextColor = [(TwoPartTextLabel *)self currentTextColor];
     [currentTextColor set];
 
     secondTextPart = self->_secondTextPart;
-    v44.origin.x = x;
-    v44.origin.y = y;
-    v44.size.width = width;
-    v44.size.height = height;
-    v24 = CGRectGetMaxX(v44) - v18;
+    v46.origin.x = x;
+    v46.origin.y = y;
+    v46.size.width = width;
+    v46.size.height = height;
+    v26 = CGRectGetMaxX(v46) - v20;
     font2 = [(TwoPartTextLabel *)self font];
-    [(NSString *)secondTextPart _legacy_drawAtPoint:font2 forWidth:[(TwoPartTextLabel *)self lineBreakMode] withFont:v18 lineBreakMode:v21, v24];
+    [(NSString *)secondTextPart _legacy_drawAtPoint:font2 forWidth:[(TwoPartTextLabel *)self lineBreakMode] withFont:v20 lineBreakMode:v23, v26];
   }
 
   if ([(TwoPartTextLabel *)self strikethroughPart1]|| [(TwoPartTextLabel *)self strikethroughPart2])
@@ -271,36 +271,36 @@
     CurrentContext = UIGraphicsGetCurrentContext();
     font3 = [(TwoPartTextLabel *)self font];
     [font3 lineHeight];
-    v29 = v28;
+    v31 = v30;
 
     if ([(TwoPartTextLabel *)self strikethroughPart1])
     {
-      v30 = 0.0;
+      v32 = 0.0;
     }
 
     else
     {
-      v30 = v18;
+      v32 = v20;
     }
 
     [(TwoPartTextLabel *)self bounds];
-    v31 = CGRectGetMaxX(v45) - v30 + -2.0;
+    v33 = CGRectGetMaxX(v47) - v32 + -2.0;
     CalRoundToScreenScale(0.5);
-    v33 = v32;
+    v35 = v34;
     font4 = [(TwoPartTextLabel *)self font];
     [font4 xHeight];
-    CalRoundToScreenScale(y + v29 - v33 - v35);
-    v37 = v36;
+    CalRoundToScreenScale(y + v31 - v35 - v37);
+    v39 = v38;
 
     CGContextSaveGState(CurrentContext);
     textColor = [(TwoPartTextLabel *)self textColor];
     CGContextSetFillColorWithColor(CurrentContext, [textColor CGColor]);
 
-    v46.origin.x = v30;
-    v46.origin.y = v37;
-    v46.size.width = v31;
-    v46.size.height = v33;
-    CGContextFillRect(CurrentContext, v46);
+    v48.origin.x = v32;
+    v48.origin.y = v39;
+    v48.size.width = v33;
+    v48.size.height = v35;
+    CGContextFillRect(CurrentContext, v48);
     CGContextRestoreGState(CurrentContext);
   }
 }

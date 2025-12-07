@@ -46,6 +46,7 @@
 - (id)errorWithMessage:(id)message;
 - (id)executeQuery:(id)query;
 - (id)executeQuery:(id)query values:(id)values error:(id *)error;
+- (id)executeQuery:(id)query withArgumentsInArray:(id)array orDictionary:(id)dictionary orVAList:(char *)list shouldBind:(BOOL)bind;
 - (id)executeQueryWithFormat:(id)format;
 - (id)getTableSchema:(id)schema;
 - (id)inSavePoint:(id)point;
@@ -71,9 +72,12 @@
 - (void)resultError:(id)error context:(void *)context;
 - (void)resultSetDidClose:(id)close;
 - (void)resultString:(id)string context:(void *)context;
+- (void)setApplicationID:(unsigned int)d;
 - (void)setCachedStatement:(id)statement forQuery:(id)query;
 - (void)setMaxBusyRetryTimeInterval:(double)interval;
 - (void)setShouldCacheStatements:(BOOL)statements;
+- (void)setShouldCacheStatementsWithoutClearingExistingStatements:(BOOL)statements;
+- (void)setUserVersion:(unsigned int)version;
 - (void)warnInUse;
 @end
 
@@ -485,6 +489,17 @@
   v14 = [(_bmFMDatabase *)self executeUpdate:v7 withArgumentsInArray:v8];
 
   return v14;
+}
+
+- (void)setShouldCacheStatementsWithoutClearingExistingStatements:(BOOL)statements
+{
+  statementsCopy = statements;
+  cachedStatements = [(_bmFMDatabase *)self cachedStatements];
+  [(_bmFMDatabase *)self setShouldCacheStatements:statementsCopy];
+  if (!statementsCopy)
+  {
+    [(_bmFMDatabase *)self setCachedStatements:cachedStatements];
+  }
 }
 
 + (_bmFMDatabase)databaseWithPath:(id)path
@@ -1469,6 +1484,119 @@ LABEL_60:
   }
 }
 
+- (id)executeQuery:(id)query withArgumentsInArray:(id)array orDictionary:(id)dictionary orVAList:(char *)list shouldBind:(BOOL)bind
+{
+  bindCopy = bind;
+  queryCopy = query;
+  arrayCopy = array;
+  dictionaryCopy = dictionary;
+  if (![(_bmFMDatabase *)self databaseExists])
+  {
+    goto LABEL_4;
+  }
+
+  if (self->_isExecutingStatement)
+  {
+    [(_bmFMDatabase *)self warnInUse];
+LABEL_4:
+    v16 = 0;
+    goto LABEL_28;
+  }
+
+  self->_isExecutingStatement = 1;
+  ppStmt = 0;
+  if (queryCopy && self->_traceExecution)
+  {
+    NSLog(@"%@ executeQuery: %@", self, queryCopy);
+  }
+
+  if (self->_shouldCacheStatements)
+  {
+    v17 = [(_bmFMDatabase *)self cachedStatementForQuery:queryCopy];
+    v18 = v17;
+    if (v17)
+    {
+      ppStmt = [(_bmFMStatement *)v17 statement];
+      [(_bmFMStatement *)v18 reset];
+      if (ppStmt)
+      {
+LABEL_19:
+        if (bindCopy && ![(_bmFMDatabase *)self bindStatement:ppStmt WithArgumentsInArray:arrayCopy orDictionary:dictionaryCopy orVAList:list])
+        {
+          v16 = 0;
+        }
+
+        else
+        {
+          if (!v18)
+          {
+            v18 = objc_alloc_init(_bmFMStatement);
+            [(_bmFMStatement *)v18 setStatement:ppStmt];
+            if (queryCopy)
+            {
+              if (self->_shouldCacheStatements)
+              {
+                [(_bmFMDatabase *)self setCachedStatement:v18 forQuery:queryCopy];
+              }
+            }
+          }
+
+          v21 = [_bmFMResultSet resultSetWithStatement:v18 usingParentDatabase:self shouldAutoClose:bindCopy];
+          [v21 setQuery:queryCopy];
+          v22 = [NSValue valueWithNonretainedObject:v21];
+          [(NSMutableSet *)self->_openResultSets addObject:v22];
+          [(_bmFMStatement *)v18 setUseCount:[(_bmFMStatement *)v18 useCount]+ 1];
+          self->_isExecutingStatement = 0;
+          v16 = v21;
+        }
+
+        goto LABEL_27;
+      }
+    }
+
+    else
+    {
+      ppStmt = 0;
+      [0 reset];
+    }
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  if (!sqlite3_prepare_v2(self->_db, [queryCopy UTF8String], -1, &ppStmt, 0))
+  {
+    goto LABEL_19;
+  }
+
+  if (self->_logsErrors)
+  {
+    lastErrorCode = [(_bmFMDatabase *)self lastErrorCode];
+    lastErrorMessage = [(_bmFMDatabase *)self lastErrorMessage];
+    NSLog(@"DB Error: %d %@", lastErrorCode, lastErrorMessage);
+
+    NSLog(@"DB Query: %@", queryCopy);
+    NSLog(@"DB Path: %@", self->_databasePath);
+  }
+
+  if (self->_crashOnErrors)
+  {
+    sub_100043788(self, a2);
+  }
+
+  sqlite3_finalize(ppStmt);
+  v16 = 0;
+  ppStmt = 0;
+  self->_isExecutingStatement = 0;
+LABEL_27:
+
+LABEL_28:
+
+  return v16;
+}
+
 - (BOOL)bindStatement:(sqlite3_stmt *)statement WithArgumentsInArray:(id)array orDictionary:(id)dictionary orVAList:(char *)list
 {
   arrayCopy = array;
@@ -2177,6 +2305,14 @@ LABEL_38:
   return v3;
 }
 
+- (void)setApplicationID:(unsigned int)d
+{
+  v5 = [[NSString alloc] initWithFormat:@"pragma application_id=%d", *&d];
+  v4 = [(_bmFMDatabase *)self executeQuery:v5];
+  [v4 next];
+  [v4 close];
+}
+
 - (unsigned)userVersion
 {
   v2 = [(_bmFMDatabase *)self executeQuery:@"pragma user_version"];
@@ -2193,6 +2329,14 @@ LABEL_38:
   [v2 close];
 
   return v3;
+}
+
+- (void)setUserVersion:(unsigned int)version
+{
+  v5 = [[NSString alloc] initWithFormat:@"pragma user_version = %d", *&version];
+  v4 = [(_bmFMDatabase *)self executeQuery:v5];
+  [v4 next];
+  [v4 close];
 }
 
 - (BOOL)validateSQL:(id)l error:(id *)error

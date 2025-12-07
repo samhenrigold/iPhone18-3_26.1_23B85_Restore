@@ -33,7 +33,7 @@
 {
   lCopy = l;
   optionsCopy = options;
-  v9 = sub_100002CBC();
+  v9 = sub_100002CBC(optionsCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412546;

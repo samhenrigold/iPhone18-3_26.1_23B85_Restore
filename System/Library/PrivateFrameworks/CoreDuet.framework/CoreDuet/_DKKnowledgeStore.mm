@@ -1083,7 +1083,7 @@ LABEL_6:
 
 - (id)_sanitizeObjectsBeforeSaving:(id *)saving
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (saving)
   {
@@ -1095,11 +1095,11 @@ LABEL_6:
       v6 = +[_CDLogging knowledgeChannel];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v10 = 134218240;
-        v11 = [v3 count];
-        v12 = 2048;
-        v13 = [saving count];
-        _os_log_impl(&dword_191750000, v6, OS_LOG_TYPE_INFO, "Save of %lu objects filtered/sanitized to %lu objects.", &v10, 0x16u);
+        v9 = 134218240;
+        v10 = [v3 count];
+        v11 = 2048;
+        v12 = [saving count];
+        _os_log_impl(&dword_191750000, v6, OS_LOG_TYPE_INFO, "Save of %lu objects filtered/sanitized to %lu objects.", &v9, 0x16u);
       }
     }
 
@@ -1108,20 +1108,18 @@ LABEL_6:
       v7 = +[_CDLogging knowledgeChannel];
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_191750000, v7, OS_LOG_TYPE_INFO, "Early out because no valid objects were provided.", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_191750000, v7, OS_LOG_TYPE_INFO, "Early out because no valid objects were provided.", &v9, 2u);
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return saving;
 }
 
 - (id)knowledgeSynchronizingHandleWithError:(id *)error
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if (error)
   {
     errorCopy = error;
@@ -1135,17 +1133,15 @@ LABEL_6:
       if (a2)
       {
         v4 = MEMORY[0x1E696ABC0];
-        v8 = *MEMORY[0x1E696A278];
-        v9[0] = @"knowledge store does not implement knowledge synchronizing protocol";
-        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+        v7 = *MEMORY[0x1E696A278];
+        v8[0] = @"knowledge store does not implement knowledge synchronizing protocol";
+        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
         *a2 = [v4 errorWithDomain:@"com.apple.coreduet.knowledge" code:5 userInfo:v5];
       }
 
       error = 0;
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return error;
 }

@@ -292,19 +292,19 @@ LABEL_25:
 
 - (void)_writeLocalData:(id)data dataPath:(id)path to:(id)to
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   pathCopy = path;
   toCopy = to;
   if ([(GTShaderProfilerStreamData *)self supportsFileFormatV2])
   {
-    v31 = objc_opt_new();
+    v30 = objc_opt_new();
     if ([dataCopy count])
     {
       v10 = 0;
       v11 = 0;
       v12 = @"APSTraceData";
-      v29 = dataCopy;
+      v28 = dataCopy;
       do
       {
         v13 = [dataCopy objectAtIndexedSubscript:v11];
@@ -327,15 +327,15 @@ LABEL_25:
 
           v12 = v16;
           [v14 setObject:0 forKeyedSubscript:v16];
-          [v31 addObject:v14];
+          [v30 addObject:v14];
 
           v10 = 1;
-          dataCopy = v29;
+          dataCopy = v28;
         }
 
         else
         {
-          [v31 addObject:v14];
+          [v30 addObject:v14];
         }
 
         ++v11;
@@ -345,33 +345,33 @@ LABEL_25:
       if (v10)
       {
         [toCopy removeAllObjects];
-        v34 = 0u;
-        v35 = 0u;
-        v32 = 0u;
         v33 = 0u;
-        v22 = v31;
-        v23 = [v22 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v34 = 0u;
+        v31 = 0u;
+        v32 = 0u;
+        v22 = v30;
+        v23 = [v22 countByEnumeratingWithState:&v31 objects:v35 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v33;
+          v25 = *v32;
           do
           {
             for (i = 0; i != v24; ++i)
             {
-              if (*v33 != v25)
+              if (*v32 != v25)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v27 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:*(*(&v32 + 1) + 8 * i) requiringSecureCoding:1 error:0];
+              v27 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:*(*(&v31 + 1) + 8 * i) requiringSecureCoding:1 error:0];
               if (v27)
               {
                 [toCopy addObject:v27];
               }
             }
 
-            v24 = [v22 countByEnumeratingWithState:&v32 objects:v36 count:16];
+            v24 = [v22 countByEnumeratingWithState:&v31 objects:v35 count:16];
           }
 
           while (v24);
@@ -379,8 +379,6 @@ LABEL_25:
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)encode:(id)encode error:(id *)error
@@ -811,7 +809,7 @@ LABEL_19:
 
 - (NSArray)unarchivedBatchIdFilteredCounterData
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_archivedBatchIdFilteredCounterData count])
   {
     unarchivedBatchIdFilteredCounterData = self->_unarchivedBatchIdFilteredCounterData;
@@ -822,30 +820,30 @@ LABEL_19:
       self->_unarchivedBatchIdFilteredCounterData = v4;
 
       streamDataClasses = [objc_opt_class() streamDataClasses];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v7 = self->_archivedBatchIdFilteredCounterData;
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v19;
         do
         {
           v11 = 0;
           do
           {
-            if (*v20 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * v11);
-            v18 = 0;
-            v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:streamDataClasses fromData:v12 error:&v18];
-            v14 = v18;
+            v12 = *(*(&v18 + 1) + 8 * v11);
+            v17 = 0;
+            v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:streamDataClasses fromData:v12 error:&v17];
+            v14 = v17;
             if (v13)
             {
               [(NSMutableArray *)self->_unarchivedBatchIdFilteredCounterData addObject:v13];
@@ -855,7 +853,7 @@ LABEL_19:
           }
 
           while (v9 != v11);
-          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v9);
@@ -864,7 +862,6 @@ LABEL_19:
   }
 
   v15 = self->_unarchivedBatchIdFilteredCounterData;
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -908,7 +905,7 @@ LABEL_19:
 
 - (NSArray)unarchivedAPSTimelineData
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_archivedAPSTimelineData count])
   {
     unarchivedAPSTimelineData = self->_unarchivedAPSTimelineData;
@@ -919,30 +916,30 @@ LABEL_19:
       self->_unarchivedAPSTimelineData = v4;
 
       streamDataClasses = [objc_opt_class() streamDataClasses];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v7 = self->_archivedAPSTimelineData;
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v19;
         do
         {
           v11 = 0;
           do
           {
-            if (*v20 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * v11);
-            v18 = 0;
-            v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:streamDataClasses fromData:v12 error:&v18];
-            v14 = v18;
+            v12 = *(*(&v18 + 1) + 8 * v11);
+            v17 = 0;
+            v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:streamDataClasses fromData:v12 error:&v17];
+            v14 = v17;
             if (v13)
             {
               [(NSMutableArray *)self->_unarchivedAPSTimelineData addObject:v13];
@@ -952,7 +949,7 @@ LABEL_19:
           }
 
           while (v9 != v11);
-          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v9);
@@ -961,14 +958,13 @@ LABEL_19:
   }
 
   v15 = self->_unarchivedAPSTimelineData;
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (NSArray)unarchivedAPSCounterData
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_archivedAPSCounterData count])
   {
     unarchivedAPSCounterData = self->_unarchivedAPSCounterData;
@@ -979,30 +975,30 @@ LABEL_19:
       self->_unarchivedAPSCounterData = v4;
 
       streamDataClasses = [objc_opt_class() streamDataClasses];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v7 = self->_archivedAPSCounterData;
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v19;
         do
         {
           v11 = 0;
           do
           {
-            if (*v20 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * v11);
-            v18 = 0;
-            v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:streamDataClasses fromData:v12 error:&v18];
-            v14 = v18;
+            v12 = *(*(&v18 + 1) + 8 * v11);
+            v17 = 0;
+            v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:streamDataClasses fromData:v12 error:&v17];
+            v14 = v17;
             if (v13)
             {
               [(NSMutableArray *)self->_unarchivedAPSCounterData addObject:v13];
@@ -1012,7 +1008,7 @@ LABEL_19:
           }
 
           while (v9 != v11);
-          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v9);
@@ -1021,14 +1017,13 @@ LABEL_19:
   }
 
   v15 = self->_unarchivedAPSCounterData;
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (NSArray)unarchivedAPSData
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_archivedAPSData count])
   {
     unarchivedAPSData = self->_unarchivedAPSData;
@@ -1039,30 +1034,30 @@ LABEL_19:
       self->_unarchivedAPSData = v4;
 
       streamDataClasses = [objc_opt_class() streamDataClasses];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v7 = self->_archivedAPSData;
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v19;
         do
         {
           v11 = 0;
           do
           {
-            if (*v20 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * v11);
-            v18 = 0;
-            v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:streamDataClasses fromData:v12 error:&v18];
-            v14 = v18;
+            v12 = *(*(&v18 + 1) + 8 * v11);
+            v17 = 0;
+            v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:streamDataClasses fromData:v12 error:&v17];
+            v14 = v17;
             if (v13)
             {
               [(NSMutableArray *)self->_unarchivedAPSData addObject:v13];
@@ -1072,7 +1067,7 @@ LABEL_19:
           }
 
           while (v9 != v11);
-          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v9);
@@ -1081,14 +1076,13 @@ LABEL_19:
   }
 
   v15 = self->_unarchivedAPSData;
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (NSArray)unarchivedGPUTimelineData
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_archivedGPUTimelineData count])
   {
     unarchivedGPUTimelineData = self->_unarchivedGPUTimelineData;
@@ -1099,30 +1093,30 @@ LABEL_19:
       self->_unarchivedGPUTimelineData = v4;
 
       streamDataClasses = [objc_opt_class() streamDataClasses];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v7 = self->_archivedGPUTimelineData;
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v19;
         do
         {
           v11 = 0;
           do
           {
-            if (*v20 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * v11);
-            v18 = 0;
-            v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:streamDataClasses fromData:v12 error:&v18];
-            v14 = v18;
+            v12 = *(*(&v18 + 1) + 8 * v11);
+            v17 = 0;
+            v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:streamDataClasses fromData:v12 error:&v17];
+            v14 = v17;
             if (v13)
             {
               [(NSMutableArray *)self->_unarchivedGPUTimelineData addObject:v13];
@@ -1132,7 +1126,7 @@ LABEL_19:
           }
 
           while (v9 != v11);
-          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v9);
@@ -1141,51 +1135,48 @@ LABEL_19:
   }
 
   v15 = self->_unarchivedGPUTimelineData;
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (void)enumerateUnarchivedGPUTimelineData:(id)data
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dataCopy = data;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   unarchivedGPUTimelineData = [(GTShaderProfilerStreamData *)self unarchivedGPUTimelineData];
-  v6 = [unarchivedGPUTimelineData countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [unarchivedGPUTimelineData countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(unarchivedGPUTimelineData);
         }
 
-        dataCopy[2](dataCopy, *(*(&v11 + 1) + 8 * v9++));
+        dataCopy[2](dataCopy, *(*(&v10 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [unarchivedGPUTimelineData countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [unarchivedGPUTimelineData countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)unarchivedShaderProfilerData
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_archivedShaderProfilerData count])
   {
     unarchivedShaderProfilerData = self->_unarchivedShaderProfilerData;
@@ -1196,30 +1187,30 @@ LABEL_19:
       self->_unarchivedShaderProfilerData = v4;
 
       streamDataClasses = [objc_opt_class() streamDataClasses];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v7 = self->_archivedShaderProfilerData;
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v19;
         do
         {
           v11 = 0;
           do
           {
-            if (*v20 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * v11);
-            v18 = 0;
-            v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:streamDataClasses fromData:v12 error:&v18];
-            v14 = v18;
+            v12 = *(*(&v18 + 1) + 8 * v11);
+            v17 = 0;
+            v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:streamDataClasses fromData:v12 error:&v17];
+            v14 = v17;
             if (v13)
             {
               [(NSMutableArray *)self->_unarchivedShaderProfilerData addObject:v13];
@@ -1229,7 +1220,7 @@ LABEL_19:
           }
 
           while (v9 != v11);
-          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v9);
@@ -1238,46 +1229,43 @@ LABEL_19:
   }
 
   v15 = self->_unarchivedShaderProfilerData;
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (void)enumerateUnarchivedShaderProfilerData:(id)data
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dataCopy = data;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   unarchivedShaderProfilerData = [(GTShaderProfilerStreamData *)self unarchivedShaderProfilerData];
-  v6 = [unarchivedShaderProfilerData countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [unarchivedShaderProfilerData countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(unarchivedShaderProfilerData);
         }
 
-        dataCopy[2](dataCopy, *(*(&v11 + 1) + 8 * v9++));
+        dataCopy[2](dataCopy, *(*(&v10 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [unarchivedShaderProfilerData countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [unarchivedShaderProfilerData countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dataFromUnarchvedMetadata:(id)metadata
@@ -1500,37 +1488,37 @@ LABEL_19:
 
 - (void)encodeAPSArrayForOldHost:(id)host array:(id)array
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   hostCopy = host;
   arrayCopy = array;
   if ([hostCopy count])
   {
     [arrayCopy removeAllObjects];
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
-    v26 = hostCopy;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v25 = hostCopy;
     v8 = hostCopy;
-    v9 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v31;
+      v11 = *v30;
       selfCopy = self;
-      v28 = arrayCopy;
+      v27 = arrayCopy;
       do
       {
         v12 = 0;
-        v29 = v10;
+        v28 = v10;
         do
         {
-          if (*v31 != v11)
+          if (*v30 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v30 + 1) + 8 * v12);
+          v13 = *(*(&v29 + 1) + 8 * v12);
           v14 = objc_autoreleasePoolPush();
           v15 = [v13 mutableCopy];
           v16 = [v15 objectForKeyedSubscript:@"APSTraceDataFile"];
@@ -1558,15 +1546,15 @@ LABEL_19:
 
               v8 = v18;
               self = selfCopy;
-              arrayCopy = v28;
+              arrayCopy = v27;
             }
 
             v11 = v17;
 
-            v10 = v29;
+            v10 = v28;
           }
 
-          v23 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v15 requiringSecureCoding:1 error:{0, v26}];
+          v23 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v15 requiringSecureCoding:1 error:{0, v25}];
           if (v23)
           {
             [arrayCopy addObject:v23];
@@ -1584,16 +1572,14 @@ LABEL_19:
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v10);
     }
 
-    hostCopy = v26;
+    hostCopy = v25;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (GTShaderProfilerStreamData)initWithPreSiBundle:(id)bundle
@@ -1618,11 +1604,11 @@ LABEL_19:
 
 - (GTShaderProfilerStreamData)initWithCoder:(id)coder
 {
-  v66[2] = *MEMORY[0x277D85DE8];
+  v65[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v65.receiver = self;
-  v65.super_class = GTShaderProfilerStreamData;
-  v5 = [(GTShaderProfilerStreamData *)&v65 init];
+  v64.receiver = self;
+  v64.super_class = GTShaderProfilerStreamData;
+  v5 = [(GTShaderProfilerStreamData *)&v64 init];
   if (!v5)
   {
 LABEL_27:
@@ -1642,9 +1628,9 @@ LABEL_27:
   if (v6 != 1 || (v9 = [coderCopy decodeIntegerForKey:@"gpuCommandInfoSize"], v10 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"encoderInfoSize"), v11 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"pipelineStateInfoSize"), v12 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"commandBufferInfoSize"), v13 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"functionInfoSize"), v8 = 0, v9 == 32) && v10 == 40 && v11 == 40 && v12 == 32 && v13 == 48)
   {
     v14 = MEMORY[0x277CBEB98];
-    v66[0] = objc_opt_class();
-    v66[1] = objc_opt_class();
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
+    v65[0] = objc_opt_class();
+    v65[1] = objc_opt_class();
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
     v16 = [v14 setWithArray:v15];
 
     streamDataClasses = [objc_opt_class() streamDataClasses];
@@ -1787,7 +1773,6 @@ LABEL_27:
 
 LABEL_28:
 
-  v63 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1831,7 +1816,7 @@ LABEL_28:
 
 + (id)savedStreamDataFromCaptureArchive:(id)archive
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   archiveCopy = archive;
   v4 = objc_opt_new();
   path = [archiveCopy path];
@@ -1840,30 +1825,30 @@ LABEL_28:
 
   if (v7)
   {
-    v21 = archiveCopy;
+    v20 = archiveCopy;
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
     v9 = [defaultManager2 enumeratorAtPath:path];
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v23;
+      v13 = *v22;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v23 != v13)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v22 + 1) + 8 * i);
+          v15 = *(*(&v21 + 1) + 8 * i);
           if ([v15 hasSuffix:@".gpuprofiler_raw"])
           {
             v16 = [path stringByAppendingPathComponent:v15];
@@ -1872,18 +1857,16 @@ LABEL_28:
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v12);
     }
 
-    archiveCopy = v21;
+    archiveCopy = v20;
   }
 
   v18 = [v4 sortedArrayUsingComparator:&__block_literal_global];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -2083,8 +2066,9 @@ LABEL_18:
 
 + (id)streamDataClasses
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
+  v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
@@ -2093,11 +2077,8 @@ LABEL_18:
   v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = objc_opt_class();
-  v15 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:9];
-  v4 = [v2 setWithArray:{v3, v7, v8, v9, v10, v11, v12, v13, v14}];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:9];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11, v12, v13}];
 
   return v4;
 }

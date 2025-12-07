@@ -175,7 +175,7 @@ LABEL_10:
 
 void __45__ATXClipboardContents_contentsWithCallback___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = __atxlog_handle_heuristic();
@@ -244,9 +244,9 @@ LABEL_33:
   {
     v20 = *(a1 + 40);
     *buf = 138412546;
-    v57 = sLastPasteboardChangeCount;
-    v58 = 2112;
-    v59 = v20;
+    v56 = sLastPasteboardChangeCount;
+    v57 = 2112;
+    v58 = v20;
     _os_log_impl(&dword_23E3EA000, v19, OS_LOG_TYPE_INFO, "sLastPasteboardChangeCount is now: %@ - %@", buf, 0x16u);
   }
 
@@ -255,8 +255,8 @@ LABEL_33:
   {
     v22 = v21;
     v23 = [v5 originatorBundleID];
-    v55 = v23;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+    v54 = v23;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
     CanLearnFromApp = ATXHeuristicCanLearnFromApp(v24);
 
     if ((CanLearnFromApp & 1) == 0)
@@ -269,56 +269,56 @@ LABEL_33:
   v27 = [v26 firstObject];
 
   v28 = [*MEMORY[0x277CE1E90] identifier];
-  v54[0] = v28;
+  v53[0] = v28;
   v29 = [*MEMORY[0x277CE1EB0] identifier];
-  v54[1] = v29;
+  v53[1] = v29;
   v30 = [*MEMORY[0x277CE1EA8] identifier];
-  v54[2] = v30;
+  v53[2] = v30;
   v31 = [*MEMORY[0x277CE1E88] identifier];
-  v54[3] = v31;
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:4];
+  v53[3] = v31;
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:4];
 
   v33 = sLastPasteboardContents;
   sLastPasteboardContents = 0;
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v34 = v32;
-  v35 = [v34 countByEnumeratingWithState:&v49 objects:v53 count:16];
+  v35 = [v34 countByEnumeratingWithState:&v48 objects:v52 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v50;
+    v37 = *v49;
     while (2)
     {
       for (i = 0; i != v36; ++i)
       {
-        if (*v50 != v37)
+        if (*v49 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = *(*(&v49 + 1) + 8 * i);
+        v39 = *(*(&v48 + 1) + 8 * i);
         if ([v27 hasRepresentationConformingToType:v39])
         {
           v40 = [v27 representationConformingToType:v39];
-          v44[0] = MEMORY[0x277D85DD0];
-          v44[1] = 3221225472;
-          v44[2] = __45__ATXClipboardContents_contentsWithCallback___block_invoke_48;
-          v44[3] = &unk_278C3D240;
-          v45 = v5;
-          v46 = v39;
-          v48 = vextq_s8(*(a1 + 48), *(a1 + 48), 8uLL);
-          v47 = *(a1 + 32);
-          v41 = [v40 loadDataWithCompletion:v44];
+          v43[0] = MEMORY[0x277D85DD0];
+          v43[1] = 3221225472;
+          v43[2] = __45__ATXClipboardContents_contentsWithCallback___block_invoke_48;
+          v43[3] = &unk_278C3D240;
+          v44 = v5;
+          v45 = v39;
+          v47 = vextq_s8(*(a1 + 48), *(a1 + 48), 8uLL);
+          v46 = *(a1 + 32);
+          v41 = [v40 loadDataWithCompletion:v43];
 
           goto LABEL_28;
         }
       }
 
-      v36 = [v34 countByEnumeratingWithState:&v49 objects:v53 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v48 objects:v52 count:16];
       if (v36)
       {
         continue;
@@ -332,12 +332,11 @@ LABEL_33:
 LABEL_28:
 
 LABEL_34:
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __45__ATXClipboardContents_contentsWithCallback___block_invoke_48(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -356,9 +355,9 @@ void __45__ATXClipboardContents_contentsWithCallback___block_invoke_48(uint64_t 
       if (v17)
       {
         v19 = *(a1 + 40);
-        v33 = 0;
-        v20 = [MEMORY[0x277CBEBC0] objectWithItemProviderData:v5 typeIdentifier:v19 error:&v33];
-        v21 = v33;
+        v32 = 0;
+        v20 = [MEMORY[0x277CBEBC0] objectWithItemProviderData:v5 typeIdentifier:v19 error:&v32];
+        v21 = v32;
         if (v20)
         {
           v11 = [v20 absoluteString];
@@ -370,7 +369,7 @@ void __45__ATXClipboardContents_contentsWithCallback___block_invoke_48(uint64_t 
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v35 = v21;
+            v34 = v21;
             _os_log_impl(&dword_23E3EA000, v22, OS_LOG_TYPE_DEFAULT, "Error decoding URL: %@", buf, 0xCu);
           }
 
@@ -408,11 +407,11 @@ void __45__ATXClipboardContents_contentsWithCallback___block_invoke_48(uint64_t 
         v30 = [*(*(*(a1 + 56) + 8) + 40) creationDate];
         v31 = [*(*(*(a1 + 56) + 8) + 40) originatorBundleId];
         *buf = 138740483;
-        v35 = v29;
-        v36 = 2112;
-        v37 = v30;
-        v38 = 2112;
-        v39 = v31;
+        v34 = v29;
+        v35 = 2112;
+        v36 = v30;
+        v37 = 2112;
+        v38 = v31;
         _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, "Found clipboard content: %{sensitive}@, creationDate: %@, originatorBundleID: %@", buf, 0x20u);
       }
     }
@@ -429,7 +428,7 @@ LABEL_20:
 
       v12 = [*(a1 + 32) creationDate];
       *buf = 138412290;
-      v35 = v12;
+      v34 = v12;
       _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, "Not returning pasteboard content as pasteboard creation date is more than 30 minutes ago. Creation Date: %@", buf, 0xCu);
     }
 
@@ -441,9 +440,9 @@ LABEL_20:
   {
     v14 = *(a1 + 40);
     *buf = 138412546;
-    v35 = v14;
-    v36 = 2112;
-    v37 = v6;
+    v34 = v14;
+    v35 = 2112;
+    v36 = v6;
     _os_log_impl(&dword_23E3EA000, v13, OS_LOG_TYPE_DEFAULT, "Error getting text representation from pasteboard. Type = %@, Error: %@", buf, 0x16u);
   }
 
@@ -454,26 +453,22 @@ LABEL_20:
 LABEL_21:
 
   dispatch_semaphore_signal(*(a1 + 48));
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __47__ATXClipboardContents__observeLocalPasteboard__block_invoke_40_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   [sLastPasteboardChangeCount integerValue];
   [a1 changeCount];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_5(&dword_23E3EA000, v2, v3, "PasteBoard .changeCount - previous: %ld - current: %ld", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_23E3EA000, v2, v3, "PasteBoard .changeCount - previous: %ld - current: %ld", v4, v5, v6, v7);
 }
 
 void __45__ATXClipboardContents_contentsWithCallback___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "Error getting pasteboard contents: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "Error getting pasteboard contents: %@", &v2, 0xCu);
 }
 
 @end

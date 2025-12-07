@@ -8,7 +8,7 @@
 
 - (void)_destroyMapping
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   sharedRegion = self->_sharedRegion;
   if (sharedRegion)
   {
@@ -22,11 +22,11 @@
         v7 = AFSiriLogContextUtility;
         if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
         {
-          v9 = 136315394;
-          v10 = "[_AFAudioPowerXPCSharedMemory _destroyMapping]";
-          v11 = 1024;
-          v12 = v6;
-          _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, "%s %d", &v9, 0x12u);
+          v8 = 136315394;
+          v9 = "[_AFAudioPowerXPCSharedMemory _destroyMapping]";
+          v10 = 1024;
+          v11 = v6;
+          _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, "%s %d", &v8, 0x12u);
         }
       }
     }
@@ -34,7 +34,6 @@
 
   self->_mappedLength = 0;
   self->_sharedRegion = 0;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -47,11 +46,11 @@
 
 - (_AFAudioPowerXPCSharedMemory)initWithXPCObject:(id)object
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v18.receiver = self;
-  v18.super_class = _AFAudioPowerXPCSharedMemory;
-  v6 = [(_AFAudioPowerXPCSharedMemory *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = _AFAudioPowerXPCSharedMemory;
+  v6 = [(_AFAudioPowerXPCSharedMemory *)&v17 init];
   if (!v6)
   {
     goto LABEL_21;
@@ -65,7 +64,7 @@
       if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v20 = "[_AFAudioPowerXPCSharedMemory initWithXPCObject:]";
+        v19 = "[_AFAudioPowerXPCSharedMemory initWithXPCObject:]";
         v8 = "%s Unexpectec XPC object type.";
 LABEL_8:
         _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, v8, buf, 0xCu);
@@ -98,7 +97,7 @@ LABEL_8:
         if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v20 = "[_AFAudioPowerXPCSharedMemory initWithXPCObject:]";
+          v19 = "[_AFAudioPowerXPCSharedMemory initWithXPCObject:]";
           _os_log_error_impl(&dword_1912FE000, v13, OS_LOG_TYPE_ERROR, "%s Mapping failed due to nil shared region.", buf, 0xCu);
           mappedLength = v6->_mappedLength;
         }
@@ -110,9 +109,9 @@ LABEL_8:
         if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v20 = "[_AFAudioPowerXPCSharedMemory initWithXPCObject:]";
-          v21 = 2048;
-          v22 = mappedLength;
+          v19 = "[_AFAudioPowerXPCSharedMemory initWithXPCObject:]";
+          v20 = 2048;
+          v21 = mappedLength;
           _os_log_error_impl(&dword_1912FE000, v14, OS_LOG_TYPE_ERROR, "%s Mapping failed due to unexpected mapped length (mappedLength = %zd).", buf, 0x16u);
         }
       }
@@ -130,7 +129,7 @@ LABEL_21:
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v20 = "[_AFAudioPowerXPCSharedMemory initWithXPCObject:]";
+    v19 = "[_AFAudioPowerXPCSharedMemory initWithXPCObject:]";
     v8 = "%s XPC object is nil.";
     goto LABEL_8;
   }
@@ -139,7 +138,6 @@ LABEL_20:
   v15 = 0;
 LABEL_22:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

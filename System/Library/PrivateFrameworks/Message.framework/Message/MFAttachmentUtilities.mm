@@ -22,15 +22,15 @@
 
 + (id)_temporaryDirectoryUniqueURL
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFF8];
   temporaryDirectory = [self temporaryDirectory];
   v6 = [v4 fileURLWithPath:temporaryDirectory isDirectory:1];
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v24 = 0;
-  v8 = [defaultManager createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v24];
-  v9 = v24;
+  v23 = 0;
+  v8 = [defaultManager createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v23];
+  v9 = v23;
 
   if ((v8 & 1) == 0)
   {
@@ -53,7 +53,7 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       v15 = v11;
-      +[MFAttachmentUtilities _temporaryDirectoryUniqueURL].cold.2([v11 fileSystemRepresentation], v26);
+      +[MFAttachmentUtilities _temporaryDirectoryUniqueURL].cold.2([v11 fileSystemRepresentation], v25);
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -88,8 +88,6 @@
 
     v19 = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -136,7 +134,7 @@
 
 + (id)writeData:(id)data toTemporaryFileURLWithFileName:(id)name
 {
-  v22[6] = *MEMORY[0x1E69E9840];
+  v21[6] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   nameCopy = name;
   _temporaryDirectoryUniqueURL = [self _temporaryDirectoryUniqueURL];
@@ -144,9 +142,9 @@
   if (_temporaryDirectoryUniqueURL)
   {
     v10 = [_temporaryDirectoryUniqueURL URLByAppendingPathComponent:nameCopy isDirectory:0];
-    v22[0] = 0;
-    v11 = [dataCopy writeToURL:v10 options:2 error:v22];
-    v12 = v22[0];
+    v21[0] = 0;
+    v11 = [dataCopy writeToURL:v10 options:2 error:v21];
+    v12 = v21[0];
     if (v11)
     {
       v13 = v10;
@@ -165,9 +163,9 @@
 
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
       [defaultManager removeItemAtURL:v10 error:0];
-      v21 = v12;
-      v16 = [dataCopy writeToURL:v10 options:2 error:&v21];
-      v17 = v21;
+      v20 = v12;
+      v16 = [dataCopy writeToURL:v10 options:2 error:&v20];
+      v17 = v20;
 
       if (v16)
       {
@@ -201,8 +199,6 @@
 
     v13 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -270,19 +266,17 @@ id __79__MFAttachmentUtilities_makeAttachmentPlaceholder_fileSize_mimeType_conte
 
 id __79__MFAttachmentUtilities_makeAttachmentPlaceholder_fileSize_mimeType_contentID___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [MFAttachmentPlaceholder placeholderFromSerializedRepresentation:*(a1 + 32)];
   v4 = v3;
   if (a2 && !v3)
   {
     v5 = MEMORY[0x1E696ABC0];
-    v9 = *MEMORY[0x1E696A578];
-    v10[0] = @"Invalid placeholder";
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = *MEMORY[0x1E696A578];
+    v9[0] = @"Invalid placeholder";
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     *a2 = [v5 errorWithDomain:@"MFMessageErrorDomain" code:1030 userInfo:v6];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -355,20 +349,16 @@ id __49__MFAttachmentUtilities_securityScopeForFileURL___block_invoke(uint64_t a
 
 + (void)makeAttachmentPlaceholder:fileSize:mimeType:contentID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)securityScopeForFileURL:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

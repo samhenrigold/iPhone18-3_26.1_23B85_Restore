@@ -22,7 +22,7 @@
 
 - (id)mailtoURLForEvent:(id)event
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   organizer = [eventCopy organizer];
   v6 = organizer;
@@ -38,7 +38,7 @@ LABEL_20:
 
     externalURL = [eventCopy externalURL];
     *buf = 138543362;
-    v26 = externalURL;
+    v25 = externalURL;
     _os_log_impl(&dword_242909000, v7, OS_LOG_TYPE_INFO, "Could not get mailto url for event. Event does not have an organizer that is not the current user. In other words, there is no organizer for this event or the current user is the organizer. event external URL = %{public}@", buf, 0xCu);
 LABEL_19:
 
@@ -57,7 +57,7 @@ LABEL_19:
 
     externalURL2 = [eventCopy externalURL];
     *buf = 138543362;
-    v26 = externalURL2;
+    v25 = externalURL2;
     v20 = "Could not get mailto url because could not find organizer's email address. event external URL = %{public}@";
     v21 = externalURL;
     v22 = OS_LOG_TYPE_INFO;
@@ -80,7 +80,7 @@ LABEL_18:
 
     externalURL2 = [eventCopy externalURL];
     *buf = 138543362;
-    v26 = externalURL2;
+    v25 = externalURL2;
     v20 = "Could not get mailto url because cannot send mail. event external URL = %{public}@";
     v21 = externalURL;
     v22 = OS_LOG_TYPE_DEFAULT;
@@ -107,7 +107,6 @@ LABEL_18:
   v18 = [MEMORY[0x277CBEBC0] URLWithString:v17];
 
 LABEL_21:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

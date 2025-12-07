@@ -22,6 +22,7 @@
 - (void)_nextStateFromState:(unint64_t)state completion:(id)completion;
 - (void)_presentEraseConfirmation:(id)confirmation;
 - (void)_registerForAnalyticsNotifications;
+- (void)_sendTerminatedAnalyticsEventWithState:(unint64_t)state willErase:(BOOL)erase reason:(id)reason;
 - (void)_signOutAndEraseDevice;
 - (void)_startFlow;
 - (void)_startNonInteractiveCloudUpload;
@@ -110,8 +111,7 @@
 void __37__DKEraseFlow_initWithConfiguration___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = objc_alloc_init(MEMORY[0x277D072B0]);
-  [v3 setEraseDataPlan:a2];
-  v4 = _DKLogSystem();
+  v4 = _DKLogSystem([v3 setEraseDataPlan:a2]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -126,7 +126,7 @@ void __37__DKEraseFlow_initWithConfiguration___block_invoke(uint64_t a1, uint64_
 void __37__DKEraseFlow_initWithConfiguration___block_invoke_34(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _DKLogSystem();
+  v3 = _DKLogSystem(v2);
   v4 = v3;
   if (v2)
   {
@@ -155,7 +155,6 @@ BOOL __37__DKEraseFlow_initWithConfiguration___block_invoke_43(uint64_t a1)
 
 uint64_t __37__DKEraseFlow_initWithConfiguration___block_invoke_2()
 {
-  v0 = *MEMORY[0x277CBECE8];
   _CTServerConnectionCreateWithIdentifier();
   _CTServerConnectionGetRadioModuleIsDead();
   return 0;
@@ -201,7 +200,7 @@ void __37__DKEraseFlow_initWithConfiguration___block_invoke_3()
 - (void)prepareFlow:(id)flow
 {
   flowCopy = flow;
-  v5 = _DKLogSystem();
+  v5 = _DKLogSystem(flowCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -293,7 +292,7 @@ void __27__DKEraseFlow_prepareFlow___block_invoke_5(uint64_t a1, char a2, void *
 uint64_t __27__DKEraseFlow_prepareFlow___block_invoke_6(uint64_t a1)
 {
   v11 = *MEMORY[0x277D85DE8];
-  v2 = _DKLogSystem();
+  v2 = _DKLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v9) = 0;
@@ -301,14 +300,14 @@ uint64_t __27__DKEraseFlow_prepareFlow___block_invoke_6(uint64_t a1)
   }
 
   v3 = *(a1 + 64);
-  v4 = _DKLogSystem();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = _DKLogSystem(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v3 == 1)
   {
-    if (v5)
+    if (v6)
     {
       LOWORD(v9) = 0;
-      _os_log_impl(&dword_248D68000, v4, OS_LOG_TYPE_DEFAULT, "Starting non-interactive cloud upload...", &v9, 2u);
+      _os_log_impl(&dword_248D68000, v5, OS_LOG_TYPE_DEFAULT, "Starting non-interactive cloud upload...", &v9, 2u);
     }
 
     [*(a1 + 32) _startNonInteractiveCloudUpload];
@@ -316,19 +315,17 @@ uint64_t __27__DKEraseFlow_prepareFlow___block_invoke_6(uint64_t a1)
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      v6 = *(a1 + 40);
+      v7 = *(a1 + 40);
       v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_248D68000, v4, OS_LOG_TYPE_DEFAULT, "Unable to start non-interactive cloud upload (%{public}@)", &v9, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_248D68000, v5, OS_LOG_TYPE_DEFAULT, "Unable to start non-interactive cloud upload (%{public}@)", &v9, 0xCu);
     }
   }
 
   [*(a1 + 32) setNotableUserData:*(a1 + 48)];
-  result = (*(*(a1 + 56) + 16))();
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (void)showFlowContainerFromParentViewController:(id)controller completion:(id)completion
@@ -380,6 +377,34 @@ uint64_t __27__DKEraseFlow_prepareFlow___block_invoke_6(uint64_t a1)
   [defaultCenter removeObserver:self name:*MEMORY[0x277D76E50] object:0];
 }
 
+- (void)_sendTerminatedAnalyticsEventWithState:(unint64_t)state willErase:(BOOL)erase reason:(id)reason
+{
+  eraseCopy = erase;
+  v18[3] = *MEMORY[0x277D85DE8];
+  v17[0] = @"lastPaneShown";
+  reasonCopy = reason;
+  v8 = [objc_opt_class() _stringForState:state];
+  v18[0] = v8;
+  v17[1] = @"successful";
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:eraseCopy];
+  v17[2] = @"reason";
+  v18[1] = v9;
+  v18[2] = reasonCopy;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+
+  v12 = _DKLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = 138412546;
+    v14 = @"com.apple.disembarkUI.exited";
+    v15 = 2112;
+    v16 = v10;
+    _os_log_impl(&dword_248D68000, v12, OS_LOG_TYPE_DEFAULT, "Sending event for %@ with payload %@", &v13, 0x16u);
+  }
+
+  AnalyticsSendEvent();
+}
+
 - (void)_hostWillTerminate
 {
   [(DKEraseFlow *)self _unregisterForAnalyticsNotifications];
@@ -423,7 +448,7 @@ void __50__DKEraseFlow__supportsNonInteractiveCloudUpload___block_invoke_2(uint6
   v2 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = _DKLogSystem();
+    v3 = _DKLogSystem(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __50__DKEraseFlow__supportsNonInteractiveCloudUpload___block_invoke_2_cold_1(v2, v3);
@@ -434,23 +459,22 @@ void __50__DKEraseFlow__supportsNonInteractiveCloudUpload___block_invoke_2(uint6
 
   else if (*(a1 + 56) == 1)
   {
-    v4 = *(a1 + 48);
-    v5 = *(*(a1 + 48) + 16);
+    v4 = *(*(a1 + 48) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = [*(a1 + 40) cloudProvider];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __50__DKEraseFlow__supportsNonInteractiveCloudUpload___block_invoke_92;
-    v8[3] = &unk_278F7E058;
-    v7 = *(a1 + 48);
-    v8[4] = *(a1 + 40);
-    v9 = v7;
-    [v6 hasDataToUpload:v8];
+    v5 = [*(a1 + 40) cloudProvider];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __50__DKEraseFlow__supportsNonInteractiveCloudUpload___block_invoke_92;
+    v7[3] = &unk_278F7E058;
+    v6 = *(a1 + 48);
+    v7[4] = *(a1 + 40);
+    v8 = v6;
+    [v5 hasDataToUpload:v7];
   }
 }
 
@@ -473,17 +497,17 @@ void __50__DKEraseFlow__supportsNonInteractiveCloudUpload___block_invoke_92(uint
 
       else
       {
-        v9 = [*(a1 + 32) cloudProvider];
-        v10 = [v9 isUploadSupportedForCurrentNetwork];
+        v8 = [*(a1 + 32) cloudProvider];
+        v9 = [v8 isUploadSupportedForCurrentNetwork];
 
-        if (!v10 || v10 == 2)
+        if (!v9 || v9 == 2)
         {
           v7 = *(*(a1 + 40) + 16);
         }
 
         else
         {
-          if (v10 != 1)
+          if (v9 != 1)
           {
             return;
           }
@@ -501,7 +525,6 @@ void __50__DKEraseFlow__supportsNonInteractiveCloudUpload___block_invoke_92(uint
 
   else
   {
-    v8 = *(a1 + 40);
     v7 = *(*(a1 + 40) + 16);
   }
 
@@ -601,7 +624,7 @@ void __46__DKEraseFlow__startNonInteractiveCloudUpload__block_invoke_5(uint64_t 
 
 - (void)_startFlow
 {
-  v3 = _DKLogSystem();
+  v3 = _DKLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -634,7 +657,7 @@ void __46__DKEraseFlow__startNonInteractiveCloudUpload__block_invoke_5(uint64_t 
 
 - (void)_endFlow
 {
-  v3 = _DKLogSystem();
+  v3 = _DKLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -730,36 +753,36 @@ uint64_t __33__DKEraseFlow__advanceFromState___block_invoke(uint64_t a1, uint64_
     [DKEraseFlow _advanceFromInternetWarningAfterPresentedNetworkSettingsDismisses:];
   }
 
-  v6 = _DKLogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _DKLogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_248D68000, v6, OS_LOG_TYPE_DEFAULT, "Waiting for network settings dismissal", buf, 2u);
+    _os_log_impl(&dword_248D68000, v7, OS_LOG_TYPE_DEFAULT, "Waiting for network settings dismissal", buf, 2u);
   }
 
   [dismissesCopy showBusy];
-  v7 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
-  dispatch_source_set_timer(v7, 0, 0x5F5E100uLL, 0x989680uLL);
+  v8 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
+  dispatch_source_set_timer(v8, 0, 0x5F5E100uLL, 0x989680uLL);
   *buf = 0;
-  v15 = buf;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy_;
-  v18 = __Block_byref_object_dispose_;
-  v19 = 0;
+  v16 = buf;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy_;
+  v19 = __Block_byref_object_dispose_;
+  v20 = 0;
   objc_initWeak(&location, dismissesCopy);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __81__DKEraseFlow__advanceFromInternetWarningAfterPresentedNetworkSettingsDismisses___block_invoke;
   handler[3] = &unk_278F7E198;
-  objc_copyWeak(&v12, &location);
-  v10 = v7;
-  v11 = buf;
+  objc_copyWeak(&v13, &location);
+  v11 = v8;
+  v12 = buf;
   handler[4] = self;
-  v8 = v7;
-  dispatch_source_set_event_handler(v8, handler);
-  dispatch_activate(v8);
+  v9 = v8;
+  dispatch_source_set_event_handler(v9, handler);
+  dispatch_activate(v9);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
   _Block_object_dispose(buf, 8);
 }
@@ -770,11 +793,11 @@ void __81__DKEraseFlow__advanceFromInternetWarningAfterPresentedNetworkSettingsD
   v3 = WeakRetained;
   if (!WeakRetained)
   {
-    v12 = _DKLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = _DKLogSystem(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_248D68000, v12, OS_LOG_TYPE_DEFAULT, "Detected internet warning release", v20, 2u);
+      *v23 = 0;
+      _os_log_impl(&dword_248D68000, v14, OS_LOG_TYPE_DEFAULT, "Detected internet warning release", v23, 2u);
     }
 
 LABEL_14:
@@ -788,29 +811,29 @@ LABEL_14:
   {
     if (!*(*(*(a1 + 48) + 8) + 40))
     {
-      v5 = _DKLogSystem();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = _DKLogSystem(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_248D68000, v5, OS_LOG_TYPE_DEFAULT, "Detected network settings dismissal", buf, 2u);
+        _os_log_impl(&dword_248D68000, v6, OS_LOG_TYPE_DEFAULT, "Detected network settings dismissal", buf, 2u);
       }
 
-      v6 = [MEMORY[0x277CBEAA8] now];
-      v7 = *(*(a1 + 48) + 8);
-      v8 = *(v7 + 40);
-      *(v7 + 40) = v6;
+      v7 = [MEMORY[0x277CBEAA8] now];
+      v8 = *(*(a1 + 48) + 8);
+      v9 = *(v8 + 40);
+      *(v8 + 40) = v7;
     }
 
-    v9 = [*(a1 + 32) hasInternetConnectivity];
-    v10 = v9[2]();
+    v10 = [*(a1 + 32) hasInternetConnectivity];
+    v11 = v10[2]();
 
-    if (v10)
+    if (v11)
     {
-      v11 = _DKLogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = _DKLogSystem(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 0;
-        _os_log_impl(&dword_248D68000, v11, OS_LOG_TYPE_DEFAULT, "Detected network settings connectivity", v18, 2u);
+        *v21 = 0;
+        _os_log_impl(&dword_248D68000, v13, OS_LOG_TYPE_DEFAULT, "Detected network settings connectivity", v21, 2u);
       }
 
       [v3 showAvailable];
@@ -819,20 +842,20 @@ LABEL_14:
 
     else
     {
-      v13 = [MEMORY[0x277CBEAA8] now];
-      [v13 timeIntervalSinceDate:*(*(*(a1 + 48) + 8) + 40)];
-      v15 = v14;
+      v15 = [MEMORY[0x277CBEAA8] now];
+      [v15 timeIntervalSinceDate:*(*(*(a1 + 48) + 8) + 40)];
+      v17 = v16;
 
-      if (v15 < 2.0)
+      if (v17 < 2.0)
       {
         goto LABEL_15;
       }
 
-      v16 = _DKLogSystem();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v19 = _DKLogSystem(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        *v17 = 0;
-        _os_log_impl(&dword_248D68000, v16, OS_LOG_TYPE_DEFAULT, "Network settings did not change connectivity after delay", v17, 2u);
+        *v20 = 0;
+        _os_log_impl(&dword_248D68000, v19, OS_LOG_TYPE_DEFAULT, "Network settings did not change connectivity after delay", v20, 2u);
       }
 
       [v3 showAvailable];
@@ -847,7 +870,7 @@ LABEL_15:
 - (void)_advanceToState:(unint64_t)state
 {
   v36 = *MEMORY[0x277D85DE8];
-  v5 = _DKLogSystem();
+  v5 = _DKLogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [objc_opt_class() _stringForState:state];
@@ -867,14 +890,15 @@ LABEL_15:
   }
 
   v7 = [(DKEraseFlow *)self _viewControllerForState:state];
+  v8 = v7;
   if (v7)
   {
-    v8 = _DKLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _DKLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v35 = v7;
-      _os_log_impl(&dword_248D68000, v8, OS_LOG_TYPE_DEFAULT, "Pushing to %{public}@...", buf, 0xCu);
+      v35 = v8;
+      _os_log_impl(&dword_248D68000, v9, OS_LOG_TYPE_DEFAULT, "Pushing to %{public}@...", buf, 0xCu);
     }
 
     if (state != 4)
@@ -882,30 +906,30 @@ LABEL_15:
       goto LABEL_23;
     }
 
-    v9 = v7;
+    v10 = v8;
     objc_initWeak(buf, self);
     v32[0] = MEMORY[0x277D85DD0];
     v32[1] = 3221225472;
     v32[2] = __31__DKEraseFlow__advanceToState___block_invoke;
     v32[3] = &unk_278F7E120;
-    v10 = v9;
-    v33 = v10;
+    v11 = v10;
+    v33 = v11;
     [(DKEraseFlow *)self setCloudUploadProgressHandler:v32];
     v29[0] = MEMORY[0x277D85DD0];
     v29[1] = 3221225472;
     v29[2] = __31__DKEraseFlow__advanceToState___block_invoke_2;
     v29[3] = &unk_278F7E1C0;
     objc_copyWeak(&v31, buf);
-    v11 = v10;
-    v30 = v11;
+    v12 = v11;
+    v30 = v12;
     [(DKEraseFlow *)self setCloudUploadCompletion:v29];
     if ([(DKEraseFlow *)self isCloudUploadInProgress])
     {
       cloudUploadProgressHandler = [(DKEraseFlow *)self cloudUploadProgressHandler];
       [(DKEraseFlow *)self cloudUploadProgress];
-      v14 = v13;
+      v15 = v14;
       [(DKEraseFlow *)self cloudUploadTimeRemaining];
-      cloudUploadProgressHandler[2](cloudUploadProgressHandler, v14, v15);
+      cloudUploadProgressHandler[2](cloudUploadProgressHandler, v15, v16);
 
       cloudUploadResults = [(DKEraseFlow *)self cloudUploadResults];
 
@@ -946,12 +970,12 @@ LABEL_23:
     if (navigationController)
     {
       navigationController2 = [(DKEraseFlow *)self navigationController];
-      [navigationController2 pushViewController:v7 animated:1];
+      [navigationController2 pushViewController:v8 animated:1];
     }
 
     else
     {
-      [(DKEraseFlow *)self setInitialViewController:v7];
+      [(DKEraseFlow *)self setInitialViewController:v8];
     }
 
     goto LABEL_31;
@@ -1003,8 +1027,6 @@ LABEL_27:
   }
 
 LABEL_31:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __31__DKEraseFlow__advanceToState___block_invoke_2(uint64_t a1, void *a2)
@@ -1038,64 +1060,59 @@ void __31__DKEraseFlow__advanceToState___block_invoke_3(uint64_t a1, char a2, vo
 
 uint64_t __31__DKEraseFlow__advanceToState___block_invoke_4(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) == 1)
   {
     v3 = *(a1 + 32);
-    v4 = *MEMORY[0x277D85DE8];
 
     return [v3 _advanceFromState:6];
   }
 
   else
   {
-    v6 = _DKLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = _DKLogSystem(a1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = _DKIsInternalInstall();
-      v9 = *(a1 + 40);
-      if ((v8 & 1) == 0 && v9)
+      v6 = _DKIsInternalInstall();
+      v7 = *(a1 + 40);
+      if ((v6 & 1) == 0 && v7)
       {
-        v11 = MEMORY[0x277CCACA8];
+        v9 = MEMORY[0x277CCACA8];
         v1 = [*(a1 + 40) domain];
-        v9 = [v11 stringWithFormat:@"<Error domain: %@, code %ld>", v1, objc_msgSend(*(a1 + 40), "code")];
-        v10 = 1;
+        v7 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v1, objc_msgSend(*(a1 + 40), "code")];
+        v8 = 1;
       }
 
       else
       {
-        v10 = 0;
+        v8 = 0;
       }
 
       *buf = 138412290;
-      v13 = v9;
-      _os_log_error_impl(&dword_248D68000, v6, OS_LOG_TYPE_ERROR, "Failed to prepare primary Apple Account for sign out: %@", buf, 0xCu);
-      if (v10)
+      v11 = v7;
+      _os_log_error_impl(&dword_248D68000, v5, OS_LOG_TYPE_ERROR, "Failed to prepare primary Apple Account for sign out: %@", buf, 0xCu);
+      if (v8)
       {
       }
     }
 
-    result = [*(a1 + 32) _endFlowWithReason:@"Primary Apple Account Preparation Failure"];
-    v7 = *MEMORY[0x277D85DE8];
+    return [*(a1 + 32) _endFlowWithReason:@"Primary Apple Account Preparation Failure"];
   }
-
-  return result;
 }
 
 - (Class)_viewControllerClassForState:(unint64_t)state
 {
   if (state <= 7 && ((0x9Fu >> state) & 1) != 0)
   {
-    v4 = *off_278F7E398[state];
-    v5 = objc_opt_class();
+    v4 = objc_opt_class();
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)_viewControllerForState:(unint64_t)state
@@ -1161,8 +1178,8 @@ uint64_t __31__DKEraseFlow__advanceToState___block_invoke_4(uint64_t a1)
         {
           +[DKInternetWarningViewController standardConfiguration];
         }
-        v17 = ;
-        v4 = [[DKInternetWarningViewController alloc] initWithConfiguration:v17];
+        v18 = ;
+        v4 = [[DKInternetWarningViewController alloc] initWithConfiguration:v18];
         notableUserData = [(DKEraseFlow *)self notableUserData];
         [(DKPromptCloudUploadViewController *)v4 setNotableUserData:notableUserData];
 
@@ -1238,13 +1255,13 @@ uint64_t __31__DKEraseFlow__advanceToState___block_invoke_4(uint64_t a1)
     notableUserData2 = [(DKEraseFlow *)self notableUserData];
     [(DKPromptCloudUploadViewController *)v4 setNotableUserData:notableUserData2];
 
-    v8 = _DKLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _DKLogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       notableUserData3 = [(DKPromptCloudUploadViewController *)v4 notableUserData];
       *buf = 138412290;
       v39 = notableUserData3;
-      _os_log_impl(&dword_248D68000, v8, OS_LOG_TYPE_DEFAULT, "viewController.notableUserData %@", buf, 0xCu);
+      _os_log_impl(&dword_248D68000, v9, OS_LOG_TYPE_DEFAULT, "viewController.notableUserData %@", buf, 0xCu);
     }
 
     hasInternetConnectivity = [(DKEraseFlow *)self hasInternetConnectivity];
@@ -1281,8 +1298,6 @@ uint64_t __31__DKEraseFlow__advanceToState___block_invoke_4(uint64_t a1)
     v34[4] = self;
     [(DKPromptCloudUploadViewController *)v4 setEraseLaterBlock:v34];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1394,7 +1409,7 @@ uint64_t __39__DKEraseFlow__viewControllerForState___block_invoke_9(uint64_t a1)
 
 void __39__DKEraseFlow__viewControllerForState___block_invoke_10(uint64_t a1)
 {
-  v2 = _DKLogSystem();
+  v2 = _DKLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -1426,7 +1441,7 @@ void __39__DKEraseFlow__viewControllerForState___block_invoke_10(uint64_t a1)
 
 uint64_t __39__DKEraseFlow__viewControllerForState___block_invoke_137(uint64_t a1)
 {
-  v2 = _DKLogSystem();
+  v2 = _DKLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1631,31 +1646,28 @@ void __46__DKEraseFlow__nextStateFromState_completion___block_invoke(uint64_t a1
 
 uint64_t __46__DKEraseFlow__nextStateFromState_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = _DKLogSystem();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = _DKLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 56);
     v4 = *(a1 + 32);
-    v9[0] = 67109378;
-    v9[1] = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_248D68000, v2, OS_LOG_TYPE_DEFAULT, "Requires adp specific internet warning %d error %@", v9, 0x12u);
+    v8[0] = 67109378;
+    v8[1] = v3;
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_248D68000, v2, OS_LOG_TYPE_DEFAULT, "Requires adp specific internet warning %d error %@", v8, 0x12u);
   }
 
   if (!*(a1 + 32) && (([*(a1 + 40) setRequiresADPSpecificInternetWarning:*(a1 + 56)], (*(a1 + 56) & 1) != 0) || (objc_msgSend(*(a1 + 40), "notableUserData"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "findMyEnabled"), v6, v7)))
   {
-    result = (*(*(a1 + 48) + 16))();
+    return (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    result = [*(a1 + 40) _nextStateFromState:7 completion:*(a1 + 48)];
+    return [*(a1 + 40) _nextStateFromState:7 completion:*(a1 + 48)];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t __46__DKEraseFlow__nextStateFromState_completion___block_invoke_147(uint64_t a1, int a2)
@@ -1693,16 +1705,16 @@ uint64_t __46__DKEraseFlow__nextStateFromState_completion___block_invoke_147(uin
 
   if (!homeButtonConsumer)
   {
-    v4 = _DKLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _DKLogSystem(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_248D68000, v4, OS_LOG_TYPE_DEFAULT, "Disallowing home button use...", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_248D68000, v5, OS_LOG_TYPE_DEFAULT, "Disallowing home button use...", v8, 2u);
     }
 
     mEMORY[0x277D66AA0] = [MEMORY[0x277D66AA0] sharedInstance];
-    v6 = [mEMORY[0x277D66AA0] beginConsumingPressesForButtonKind:1 eventConsumer:self priority:0];
-    [(DKEraseFlow *)self setHomeButtonConsumer:v6];
+    v7 = [mEMORY[0x277D66AA0] beginConsumingPressesForButtonKind:1 eventConsumer:self priority:0];
+    [(DKEraseFlow *)self setHomeButtonConsumer:v7];
   }
 }
 
@@ -1712,11 +1724,11 @@ uint64_t __46__DKEraseFlow__nextStateFromState_completion___block_invoke_147(uin
 
   if (homeButtonConsumer)
   {
-    v4 = _DKLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _DKLogSystem(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_248D68000, v4, OS_LOG_TYPE_DEFAULT, "Allowing home button use...", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_248D68000, v5, OS_LOG_TYPE_DEFAULT, "Allowing home button use...", v7, 2u);
     }
 
     homeButtonConsumer2 = [(DKEraseFlow *)self homeButtonConsumer];
@@ -1766,22 +1778,22 @@ uint64_t __46__DKEraseFlow__nextStateFromState_completion___block_invoke_147(uin
     [DKEraseFlow _signOutAndEraseDevice];
   }
 
-  v7 = _DKLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _DKLogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_248D68000, v7, OS_LOG_TYPE_DEFAULT, "Starting sign out of primary Apple account...", buf, 2u);
+    _os_log_impl(&dword_248D68000, v8, OS_LOG_TYPE_DEFAULT, "Starting sign out of primary Apple account...", buf, 2u);
   }
 
   accountProvider2 = [(DKEraseFlow *)self accountProvider];
   navigationController2 = [(DKEraseFlow *)self navigationController];
   topViewController2 = [navigationController2 topViewController];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __37__DKEraseFlow__signOutAndEraseDevice__block_invoke;
-  v11[3] = &unk_278F7E210;
-  v11[4] = self;
-  [accountProvider2 signOutPrimaryAppleAccountWithPresentingViewController:topViewController2 completion:v11];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __37__DKEraseFlow__signOutAndEraseDevice__block_invoke;
+  v12[3] = &unk_278F7E210;
+  v12[4] = self;
+  [accountProvider2 signOutPrimaryAppleAccountWithPresentingViewController:topViewController2 completion:v12];
 }
 
 void __37__DKEraseFlow__signOutAndEraseDevice__block_invoke(uint64_t a1, char a2, void *a3)
@@ -1810,7 +1822,7 @@ void __37__DKEraseFlow__signOutAndEraseDevice__block_invoke_2(uint64_t a1)
 
   else
   {
-    v3 = _DKLogSystem();
+    v3 = _DKLogSystem(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __37__DKEraseFlow__signOutAndEraseDevice__block_invoke_2_cold_1(a1, v3);
@@ -1830,7 +1842,7 @@ void __37__DKEraseFlow__signOutAndEraseDevice__block_invoke_2(uint64_t a1)
 
 void __37__DKEraseFlow_initWithConfiguration___block_invoke_34_cold_1(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = _DKIsInternalInstall();
   if ((v5 & 1) == 0)
   {
@@ -1840,33 +1852,29 @@ void __37__DKEraseFlow_initWithConfiguration___block_invoke_34_cold_1(void *a1, 
   }
 
   *buf = 138543362;
-  v9 = a1;
+  v8 = a1;
   _os_log_error_impl(&dword_248D68000, a2, OS_LOG_TYPE_ERROR, "Failed to erase: %{public}@", buf, 0xCu);
   if (!v5)
   {
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __50__DKEraseFlow__supportsNonInteractiveCloudUpload___block_invoke_2_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_248D68000, a2, OS_LOG_TYPE_ERROR, "Failed to determine preparation requirements for primary Apple Account: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_248D68000, a2, OS_LOG_TYPE_ERROR, "Failed to determine preparation requirements for primary Apple Account: %@", &v3, 0xCu);
 }
 
 void __37__DKEraseFlow__signOutAndEraseDevice__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_248D68000, a2, OS_LOG_TYPE_ERROR, "Failed to sign out of primary Apple account: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_248D68000, a2, OS_LOG_TYPE_ERROR, "Failed to sign out of primary Apple account: %@", &v3, 0xCu);
 }
 
 @end

@@ -111,41 +111,40 @@
 
 - (PFPosterCollection)initWithPosters:(id)posters
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   postersCopy = posters;
   v5 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = postersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v5 addObject:{*(*(&v14 + 1) + 8 * v10++), v14}];
+        [v5 addObject:{*(*(&v13 + 1) + 8 * v10++), v13}];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
   v11 = [(PFPosterCollection *)self initWithSet:v5];
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -159,7 +158,7 @@
 
 - (PFPosterCollection)initWithSet:(id)set
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   setCopy = set;
   if (!setCopy)
   {
@@ -167,34 +166,34 @@
   }
 
   v6 = setCopy;
-  v25.receiver = self;
-  v25.super_class = PFPosterCollection;
-  v7 = [(PFPosterCollection *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = PFPosterCollection;
+  v7 = [(PFPosterCollection *)&v24 init];
   if (v7)
   {
     v8 = objc_opt_new();
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       do
       {
         v13 = 0;
         do
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * v13);
-          if ([objc_opt_class() validatePoster:{v14, v21}])
+          v14 = *(*(&v20 + 1) + 8 * v13);
+          if ([objc_opt_class() validatePoster:{v14, v20}])
           {
             [v8 addObject:v14];
           }
@@ -203,7 +202,7 @@
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v11);
@@ -218,7 +217,6 @@
     v7->_postersByUUID = v17;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -532,30 +530,30 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
 
 + (id)postersByUUID:(id)d
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v6 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = dCopy;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
-        v13 = [self posterUUIDForPoster:{v12, v18}];
+        v12 = *(*(&v17 + 1) + 8 * i);
+        v13 = [self posterUUIDForPoster:{v12, v17}];
         if (v13)
         {
           v14 = [v6 objectForKey:v13];
@@ -569,44 +567,43 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
 
   v15 = [v6 copy];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 + (id)postersByProvider:(id)provider
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   v5 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = providerCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
-        v12 = [self providerForPoster:{v11, v17}];
+        v11 = *(*(&v16 + 1) + 8 * i);
+        v12 = [self providerForPoster:{v11, v16}];
         if (v12)
         {
           v13 = [v5 objectForKey:v12];
@@ -620,43 +617,42 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
   v14 = [v5 copy];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 + (id)postersByDescriptorIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = identifierCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         descriptorIdentifier = [v10 descriptorIdentifier];
         if (descriptorIdentifier)
         {
@@ -664,14 +660,13 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [v4 copy];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -698,7 +693,7 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
 
 + (void)validatePoster:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"poster"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -706,7 +701,7 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"poster", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -716,7 +711,7 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
 
 + (void)providerForPoster:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"poster"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -724,7 +719,7 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"poster", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -734,7 +729,7 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
 
 + (void)posterUUIDForPoster:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"poster"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -742,7 +737,7 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"poster", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -752,7 +747,7 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
 
 - (void)initWithSet:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"posters"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -760,7 +755,7 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"posters", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -770,7 +765,7 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
 
 + (void)postersByUUID:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"NO == [postersByUUID objectForKey:posterUUID]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -778,7 +773,7 @@ uint64_t __50__PFPosterCollection_postersOrderedByCreationDate__block_invoke(uin
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"NO == [postersByUUID objectForKey:posterUUID]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

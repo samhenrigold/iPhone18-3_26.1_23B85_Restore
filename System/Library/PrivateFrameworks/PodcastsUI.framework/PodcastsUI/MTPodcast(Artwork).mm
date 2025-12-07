@@ -158,9 +158,9 @@
     +[MTPodcast(Artwork) _imageFetchQueue];
   }
 
-  v1 = _imageFetchQueue_queue;
+  v2 = _imageFetchQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 + (id)colorFromHexString:()Artwork

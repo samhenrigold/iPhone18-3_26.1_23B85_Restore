@@ -182,18 +182,8 @@
 - (id)processVisitEvent:(id)event
 {
   eventCopy = event;
-  if ([eventCopy category] != 1)
+  if ([eventCopy category] != 1 || (objc_msgSend(eventCopy, "startDate"), v5 = objc_claimAutoreleasedReturnValue(), -[MOFSM lastProcessedDate](self, "lastProcessedDate"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "isBeforeDate:", v6), v6, v5, (v7 & 1) != 0) || (v8 = -[MOFSM tripStateFromVisitEvent:](self, "tripStateFromVisitEvent:", eventCopy)) == 0)
   {
-    goto LABEL_11;
-  }
-
-  startDate = [eventCopy startDate];
-  lastProcessedDate = [(MOFSM *)self lastProcessedDate];
-  v7 = [startDate isBeforeDate:lastProcessedDate];
-
-  if ((v7 & 1) != 0 || (v8 = [(MOFSM *)self tripStateFromVisitEvent:eventCopy]) == 0)
-  {
-LABEL_11:
     v20 = 0;
     goto LABEL_12;
   }
@@ -308,8 +298,8 @@ LABEL_31:
   [(MOFSM *)self setState:v9];
   [(MOFSM *)self setSubstate:v10];
   [(MOFSM *)self setDestination:v11];
-  startDate2 = [eventCopy startDate];
-  [(MOFSM *)self setTimeRangeStartDate:startDate2];
+  startDate = [eventCopy startDate];
+  [(MOFSM *)self setTimeRangeStartDate:startDate];
 
 LABEL_32:
   endDate = [eventCopy endDate];

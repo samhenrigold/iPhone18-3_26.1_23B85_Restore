@@ -9,7 +9,7 @@
 
 - (MOInteraction)initWithIdentifier:(id)identifier startDate:(id)date endDate:(id)endDate mechanism:(int64_t)mechanism direction:(int64_t)direction bundleId:(id)id groupName:(id)name sender:(id)self0 recipients:(id)self1
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dateCopy = date;
   dateCopy2 = date;
@@ -20,11 +20,11 @@
   nameCopy = name;
   senderCopy = sender;
   recipientsCopy = recipients;
-  v54 = recipientsCopy;
+  v53 = recipientsCopy;
   if (identifierCopy)
   {
     v22 = recipientsCopy;
-    v47 = identifierCopy;
+    v46 = identifierCopy;
     currentHandler = objc_alloc_init(MEMORY[0x277CBEB18]);
     if (senderCopy)
     {
@@ -50,32 +50,32 @@ LABEL_10:
     }
 
 LABEL_11:
-    v44 = idCopy2;
-    v45 = endDateCopy2;
-    v46 = dateCopy2;
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
+    v43 = idCopy2;
+    v44 = endDateCopy2;
+    v45 = dateCopy2;
     v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     v30 = v22;
-    v31 = [v30 countByEnumeratingWithState:&v57 objects:v61 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v56 objects:v60 count:16];
     if (!v31)
     {
       goto LABEL_23;
     }
 
     v32 = v31;
-    v33 = *v58;
+    v33 = *v57;
     while (1)
     {
       for (i = 0; i != v32; ++i)
       {
-        if (*v58 != v33)
+        if (*v57 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        v35 = *(*(&v57 + 1) + 8 * i);
+        v35 = *(*(&v56 + 1) + 8 * i);
         personId3 = [v35 personId];
 
         if (personId3)
@@ -99,17 +99,17 @@ LABEL_11:
         [currentHandler addObject:personId4];
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v56 objects:v60 count:16];
       if (!v32)
       {
 LABEL_23:
 
-        v56.receiver = self;
-        v56.super_class = MOInteraction;
-        v40 = [(MOGenericInteraction *)&v56 initWithParticipants:currentHandler];
+        v55.receiver = self;
+        v55.super_class = MOInteraction;
+        v40 = [(MOGenericInteraction *)&v55 initWithParticipants:currentHandler];
         v41 = v40;
-        identifierCopy = v47;
-        idCopy2 = v44;
+        identifierCopy = v46;
+        idCopy2 = v43;
         if (v40)
         {
           objc_storeStrong(&v40->_identifier, identifier);
@@ -125,8 +125,8 @@ LABEL_23:
 
         self = v41;
         selfCopy = self;
-        endDateCopy2 = v45;
-        dateCopy2 = v46;
+        endDateCopy2 = v44;
+        dateCopy2 = v45;
         goto LABEL_26;
       }
     }
@@ -143,51 +143,50 @@ LABEL_23:
   selfCopy = 0;
 LABEL_26:
 
-  v42 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (id)description
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sender = [(MOInteraction *)self sender];
-  v23 = [sender description];
+  v22 = [sender description];
 
   v4 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   recipients = [(MOInteraction *)self recipients];
-  v6 = [recipients countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v6 = [recipients countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(recipients);
         }
 
-        v10 = [*(*(&v24 + 1) + 8 * i) description];
+        v10 = [*(*(&v23 + 1) + 8 * i) description];
         if (v10)
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [recipients countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v7 = [recipients countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v7);
   }
 
   v11 = [v4 componentsJoinedByString:@""];;
-  v22 = MEMORY[0x277CCACA8];
+  v21 = MEMORY[0x277CCACA8];
   identifier = [(MOInteraction *)self identifier];
   startDate = [(MOInteraction *)self startDate];
   endDate = [(MOInteraction *)self endDate];
@@ -195,9 +194,7 @@ LABEL_26:
   direction = [(MOInteraction *)self direction];
   bundleId = [(MOInteraction *)self bundleId];
   groupName = [(MOInteraction *)self groupName];
-  v19 = [v22 stringWithFormat:@"identifier, %@, startDate, %@, endDate, %@, mechanism, %lu, direction, %lu, bundleId, %@, group name, %@, sender, <%@>, receipts, <%@>", identifier, startDate, endDate, mechanism, direction, bundleId, groupName, v23, v11];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [v21 stringWithFormat:@"identifier, %@, startDate, %@, endDate, %@, mechanism, %lu, direction, %lu, bundleId, %@, group name, %@, sender, <%@>, receipts, <%@>", identifier, startDate, endDate, mechanism, direction, bundleId, groupName, v22, v11];
 
   return v19;
 }

@@ -86,45 +86,37 @@ void *std::__hash_table<std::__hash_value_type<long,std::unordered_map<long,std:
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -160,77 +152,69 @@ void *std::__hash_table<std::__hash_value_type<long,std::unordered_map<long,std:
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v3 == v8)
     {
-      v8 = result[1];
-      if (v3 == v8)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>,std::__unordered_map_hasher<long,std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>>>::__emplace_unique_key_args<long,long &,std::unordered_map<long,std::vector<std::string>>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>,std::__unordered_map_hasher<long,std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>>>::__emplace_unique_key_args<long,long &,std::unordered_map<long,std::vector<std::string>>>(void *a1, unint64_t *a2, void *a3, uint64_t a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -238,54 +222,54 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_1C65CA894(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65CA894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long,std::unordered_map<long,std::vector<std::string>>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -373,33 +357,33 @@ void std::__hash_table<std::__hash_value_type<long,std::vector<std::string>>,std
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<long,std::vector<std::string>>,std::__unordered_map_hasher<long,std::__hash_value_type<long,std::vector<std::string>>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,std::vector<std::string>>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,std::vector<std::string>>>>::__emplace_unique_key_args<long,long &,std::vector<std::string>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long,std::vector<std::string>>,std::__unordered_map_hasher<long,std::__hash_value_type<long,std::vector<std::string>>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,std::vector<std::string>>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,std::vector<std::string>>>>::__emplace_unique_key_args<long,long &,std::vector<std::string>>(void *a1, unint64_t *a2, void *a3, uint64_t a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -407,44 +391,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long,std::vector<std::string>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void **__p)
@@ -461,7 +445,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   }
 }
 
-uint64_t std::unordered_set<std::string>::unordered_set(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t std::unordered_set<std::string>::unordered_set(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -471,7 +455,7 @@ uint64_t std::unordered_set<std::string>::unordered_set(uint64_t a1, const void 
     v5 = 24 * a3;
     do
     {
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, a2);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, a2, a2);
       a2 += 3;
       v5 -= 24;
     }
@@ -482,35 +466,35 @@ uint64_t std::unordered_set<std::string>::unordered_set(uint64_t a1, const void 
   return a1;
 }
 
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__construct_node_hash<std::string const&>();
@@ -518,44 +502,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_1C65CAF78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -568,9 +552,9 @@ void sub_1C65CAF78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -792,9 +776,9 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::string,voi
   operator delete(__p);
 }
 
-uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -826,7 +810,7 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
   }
 }
 
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -998,16 +982,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (LOBYTE(v13[0]) == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x1E69E5318]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -1030,9 +1014,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_1C65CBB1C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1C65CBB1C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x1C695B6F0](&a10);
+  MEMORY[0x1C695B6F0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -1125,11 +1109,11 @@ void sub_1C65CBD58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::stringbuf::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *std::stringbuf::str[abi:ne200100]@<X0>(void *a1@<X8>, uint64_t a2@<X0>)
 {
-  v5[0] = std::stringbuf::view[abi:ne200100](a1);
+  v5[0] = std::stringbuf::view[abi:ne200100](a2);
   v5[1] = v3;
-  return std::string::basic_string<std::string_view,0>(a2, v5);
+  return std::string::basic_string<std::string_view,0>(a1, v5);
 }
 
 uint64_t std::stringbuf::view[abi:ne200100](uint64_t a1)
@@ -1148,19 +1132,16 @@ uint64_t std::stringbuf::view[abi:ne200100](uint64_t a1)
 
   else if ((v1 & 8) != 0)
   {
-    v2 = *(a1 + 16);
-    v4 = *(a1 + 32);
+    return *(a1 + 16);
   }
 
   else
   {
     return 0;
   }
-
-  return v2;
 }
 
-_BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, uint64_t a2)
+void *std::string::basic_string<std::string_view,0>(void *__dst, uint64_t a2)
 {
   v2 = *(a2 + 8);
   if (v2 >= 0x7FFFFFFFFFFFFFF8)
@@ -1174,13 +1155,13 @@ _BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, uint64_t a2)
     operator new();
   }
 
-  __dst[23] = v2;
+  *(__dst + 23) = v2;
   if (v2)
   {
     memmove(__dst, v4, v2);
   }
 
-  __dst[v2] = 0;
+  *(__dst + v2) = 0;
   return __dst;
 }
 
@@ -1240,16 +1221,15 @@ void *std::__shared_ptr_emplace<QP::ParseAttribute>::__shared_ptr_emplace[abi:ne
   return a1;
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeValue>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::string,CFRange &,std::allocator<QP::LexemeValue>,0>(std::string *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+std::string *std::__shared_ptr_emplace<QP::LexemeValue>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::string,CFRange &,std::allocator<QP::LexemeValue>,0>(std::string *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1->__r_.__value_.__r.__words[0] = &unk_1F45E86C8;
   std::construct_at[abi:ne200100]<QP::LexemeValue,std::string &,std::string,CFRange &,QP::LexemeValue*>(a1 + 1, a2, a3, a4);
   return a1;
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeValue,std::string &,std::string,CFRange &,QP::LexemeValue*>(std::string *this, uint64_t a2, uint64_t a3, uint64_t a4)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeValue,std::string &,std::string,CFRange &,QP::LexemeValue*>(std::string *this, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (*(a2 + 23) < 0)
   {
@@ -1266,7 +1246,7 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeValue,std::string &,std::
   *(a3 + 8) = 0;
   *(a3 + 16) = 0;
   *a3 = 0;
-  QP::LexemeValue::LexemeValue(this, &v10, __p, *a4, *(a4 + 8));
+  QP::LexemeValue::LexemeValue(this, &v10, __p, *a4, a4[1]);
   if (SHIBYTE(v9) < 0)
   {
     operator delete(__p[0]);
@@ -1291,7 +1271,7 @@ void sub_1C65CC2EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeGroundedPerson>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::vector<std::string> &,std::vector<std::pair<double,double>> &,CFRange &,std::allocator<QP::LexemeGroundedPerson>,0>(std::string *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+std::string *std::__shared_ptr_emplace<QP::LexemeGroundedPerson>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::vector<std::string> &,std::vector<std::pair<double,double>> &,CFRange &,std::allocator<QP::LexemeGroundedPerson>,0>(std::string *a1, uint64_t a2, void *a3, __int128 **a4, uint64_t *a5)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -1322,7 +1302,7 @@ void std::__shared_ptr_emplace<QP::LexemeGroundedPerson>::__on_zero_shared(uint6
   QP::Lexeme::~Lexeme((a1 + 24));
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeGroundedPerson,std::string &,std::vector<std::string> &,std::vector<std::pair<double,double>> &,CFRange &,QP::LexemeGroundedPerson*>(std::string *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeGroundedPerson,std::string &,std::vector<std::string> &,std::vector<std::pair<double,double>> &,CFRange &,QP::LexemeGroundedPerson*>(std::string *a1, uint64_t a2, void *a3, __int128 **a4, uint64_t *a5)
 {
   if (*(a2 + 23) < 0)
   {
@@ -1339,8 +1319,8 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeGroundedPerson,std::strin
   __p = 0;
   v11 = 0;
   v12 = 0;
-  std::vector<std::pair<double,double>>::__init_with_size[abi:ne200100]<std::pair<double,double>*,std::pair<double,double>*>(&__p, *a4, a4[1], (a4[1] - *a4) >> 4);
-  QP::LexemeGroundedPerson::LexemeGroundedPerson(a1, &v14, v13, &__p, *a5, *(a5 + 8));
+  std::vector<std::pair<double,double>>::__init_with_size[abi:ne200100]<std::pair<double,double>*,std::pair<double,double>*>(&__p, *a4, a4[1], a4[1] - *a4);
+  QP::LexemeGroundedPerson::LexemeGroundedPerson(a1, &v14, v13, &__p, *a5, a5[1]);
   if (__p)
   {
     v11 = __p;
@@ -1374,7 +1354,7 @@ void sub_1C65CC5B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::string *QP::LexemeGroundedPerson::LexemeGroundedPerson(std::string *this, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, std::string::size_type a6)
+std::string *QP::LexemeGroundedPerson::LexemeGroundedPerson(std::string *this, uint64_t a2, void *a3, __int128 **a4, uint64_t a5, uint64_t a6)
 {
   if (*(a2 + 23) < 0)
   {
@@ -1399,7 +1379,7 @@ std::string *QP::LexemeGroundedPerson::LexemeGroundedPerson(std::string *this, u
   this[6].__r_.__value_.__r.__words[0] = 0;
   this[6].__r_.__value_.__l.__size_ = 0;
   this[6].__r_.__value_.__r.__words[2] = 0;
-  std::vector<std::pair<double,double>>::__init_with_size[abi:ne200100]<std::pair<double,double>*,std::pair<double,double>*>(&this[6], *a4, a4[1], (a4[1] - *a4) >> 4);
+  std::vector<std::pair<double,double>>::__init_with_size[abi:ne200100]<std::pair<double,double>*,std::pair<double,double>*>(&this[6], *a4, a4[1], a4[1] - *a4);
   return this;
 }
 
@@ -1410,7 +1390,7 @@ void sub_1C65CC6E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeValue>::__shared_ptr_emplace[abi:ne200100]<std::string &,char const*,CFRange &,std::allocator<QP::LexemeValue>,0>(std::string *a1, uint64_t a2, char **a3, uint64_t a4)
+std::string *std::__shared_ptr_emplace<QP::LexemeValue>::__shared_ptr_emplace[abi:ne200100]<std::string &,char const*,CFRange &,std::allocator<QP::LexemeValue>,0>(std::string *a1, uint64_t a2, char **a3, uint64_t *a4)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -1419,7 +1399,7 @@ std::string *std::__shared_ptr_emplace<QP::LexemeValue>::__shared_ptr_emplace[ab
   return a1;
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeValue,std::string &,char const*,CFRange &,QP::LexemeValue*>(std::string *a1, uint64_t a2, char **a3, uint64_t a4)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeValue,std::string &,char const*,CFRange &,QP::LexemeValue*>(std::string *a1, uint64_t a2, char **a3, uint64_t *a4)
 {
   if (*(a2 + 23) < 0)
   {
@@ -1432,7 +1412,7 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeValue,std::string &,char 
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, *a3);
-  QP::LexemeValue::LexemeValue(a1, &v10, __p, *a4, *(a4 + 8));
+  QP::LexemeValue::LexemeValue(a1, &v10, __p, *a4, a4[1]);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1461,7 +1441,7 @@ void sub_1C65CC8B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeStatus>::__shared_ptr_emplace[abi:ne200100]<std::string &,char const*&,CFRange &,std::allocator<QP::LexemeStatus>,0>(std::string *a1, uint64_t a2, char **a3, uint64_t a4)
+std::string *std::__shared_ptr_emplace<QP::LexemeStatus>::__shared_ptr_emplace[abi:ne200100]<std::string &,char const*&,CFRange &,std::allocator<QP::LexemeStatus>,0>(std::string *a1, uint64_t a2, char **a3, uint64_t *a4)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -1470,7 +1450,7 @@ std::string *std::__shared_ptr_emplace<QP::LexemeStatus>::__shared_ptr_emplace[a
   return a1;
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeStatus,std::string &,char const*&,CFRange &,QP::LexemeStatus*>(std::string *a1, uint64_t a2, char **a3, uint64_t a4)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeStatus,std::string &,char const*&,CFRange &,QP::LexemeStatus*>(std::string *a1, uint64_t a2, char **a3, uint64_t *a4)
 {
   if (*(a2 + 23) < 0)
   {
@@ -1483,7 +1463,7 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeStatus,std::string &,char
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, *a3);
-  QP::LexemeStatus::LexemeStatus(a1, &v10, __p, *a4, *(a4 + 8));
+  QP::LexemeStatus::LexemeStatus(a1, &v10, __p, *a4, a4[1]);
   if (v9 < 0)
   {
     operator delete(__p[0]);
@@ -1521,7 +1501,7 @@ void *std::map<std::string,std::map<std::string,std::set<std::string>>>::map[abi
   return a1;
 }
 
-void *std::map<std::string,std::map<std::string,std::set<std::string>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__tree_node<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,void *> *,long>>>(void *result, void **a2, void **a3)
+void *std::map<std::string,std::map<std::string,std::set<std::string>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__tree_node<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,void *> *,long>>>(void *result, char *a2, char *a3)
 {
   if (a2 != a3)
   {
@@ -1529,8 +1509,8 @@ void *std::map<std::string,std::map<std::string,std::set<std::string>>>::insert[
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::map<std::string,std::set<std::string>>> const&>(v5, (v5 + 1), v4 + 4);
-      v6 = v4[1];
+      result = std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::map<std::string,std::set<std::string>>> const&>(v5, (v5 + 8), v4 + 32, (v4 + 32));
+      v6 = *(v4 + 1);
       if (v6)
       {
         do
@@ -1546,7 +1526,7 @@ void *std::map<std::string,std::map<std::string,std::set<std::string>>>::insert[
       {
         do
         {
-          v7 = v4[2];
+          v7 = *(v4 + 2);
           v8 = *v7 == v4;
           v4 = v7;
         }
@@ -1563,26 +1543,26 @@ void *std::map<std::string,std::map<std::string,std::set<std::string>>>::insert[
   return result;
 }
 
-void *std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::map<std::string,std::set<std::string>>> const&>(void *a1, uint64_t a2, void **a3)
+void *std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::map<std::string,std::set<std::string>>> const&>(uint64_t **a1, uint64_t *a2, char *a3, uint64_t a4)
 {
-  v8 = 0;
   v9 = 0;
-  v3 = *std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__find_equal<std::string>(a1, a2, &v9, &v8, a3);
-  if (!v3)
+  v10 = 0;
+  v4 = *std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__find_equal<std::string>(a1, a2, &v10, &v9, a3);
+  if (!v4)
   {
-    v5 = 0;
     v6 = 0;
     v7 = 0;
+    v8 = 0;
     std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__construct_node<std::pair<std::string const,std::map<std::string,std::set<std::string>>> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
-void **std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__find_equal<std::string>(void *a1, uint64_t a2, void ***a3, uint64_t *a4, void **a5)
+char *std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__find_equal<std::string>(uint64_t **a1, uint64_t *a2, char **a3, uint64_t *a4, char *a5)
 {
   v9 = (a1 + 1);
-  if (a1 + 1 == a2 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, (a2 + 32)) & 0x80) != 0)
+  if (a1 + 1 == a2 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, a2 + 32) & 0x80) != 0)
   {
     if (*a1 == a2)
     {
@@ -1635,18 +1615,18 @@ void **std::__tree<std::__value_type<std::string,std::map<std::string,std::set<s
     }
   }
 
-  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a2 + 32), a5) & 0x80) == 0)
+  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2 + 4, a5) & 0x80) == 0)
   {
     *a3 = a2;
     *a4 = a2;
     return a4;
   }
 
-  a4 = (a2 + 8);
-  v13 = *(a2 + 8);
+  a4 = a2 + 1;
+  v13 = a2[1];
   if (v13)
   {
-    v14 = *(a2 + 8);
+    v14 = a2[1];
     do
     {
       v15 = v14;
@@ -1686,7 +1666,7 @@ LABEL_29:
     return a4;
   }
 
-  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, v15 + 4) & 0x80) != 0)
+  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, v15 + 32) & 0x80) != 0)
   {
     v13 = *a4;
     goto LABEL_29;
@@ -1697,7 +1677,7 @@ LABEL_17:
   return std::__tree<std::string>::__find_equal<std::string>(a1, a3, a5);
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -1751,7 +1731,7 @@ void *std::map<std::string,std::set<std::string>>::map[abi:ne200100](void *a1, u
   return a1;
 }
 
-void *std::map<std::string,std::set<std::string>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::set<std::string>>,std::__tree_node<std::__value_type<std::string,std::set<std::string>>,void *> *,long>>>(void *result, void **a2, void **a3)
+void *std::map<std::string,std::set<std::string>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::set<std::string>>,std::__tree_node<std::__value_type<std::string,std::set<std::string>>,void *> *,long>>>(void *result, char *a2, char *a3)
 {
   if (a2 != a3)
   {
@@ -1759,8 +1739,8 @@ void *std::map<std::string,std::set<std::string>>::insert[abi:ne200100]<std::__m
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::set<std::string>> const&>(v5, (v5 + 1), v4 + 4);
-      v6 = v4[1];
+      result = std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::set<std::string>> const&>(v5, (v5 + 8), v4 + 32, (v4 + 32));
+      v6 = *(v4 + 1);
       if (v6)
       {
         do
@@ -1776,7 +1756,7 @@ void *std::map<std::string,std::set<std::string>>::insert[abi:ne200100]<std::__m
       {
         do
         {
-          v7 = v4[2];
+          v7 = *(v4 + 2);
           v8 = *v7 == v4;
           v4 = v7;
         }
@@ -1793,23 +1773,23 @@ void *std::map<std::string,std::set<std::string>>::insert[abi:ne200100]<std::__m
   return result;
 }
 
-void *std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::set<std::string>> const&>(void *a1, uint64_t a2, void **a3)
+void *std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::set<std::string>> const&>(uint64_t **a1, uint64_t *a2, char *a3, uint64_t a4)
 {
-  v8 = 0;
   v9 = 0;
-  v3 = *std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__find_equal<std::string>(a1, a2, &v9, &v8, a3);
-  if (!v3)
+  v10 = 0;
+  v4 = *std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__find_equal<std::string>(a1, a2, &v10, &v9, a3);
+  if (!v4)
   {
-    v5 = 0;
     v6 = 0;
     v7 = 0;
+    v8 = 0;
     std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__construct_node<std::pair<std::string const,std::set<std::string>> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::set<std::string>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::set<std::string>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::set<std::string>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::set<std::string>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -1863,7 +1843,7 @@ void *std::set<std::string>::set[abi:ne200100](void *a1, uint64_t a2)
   return a1;
 }
 
-void *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(void *result, void **a2, void **a3)
+uint64_t std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(uint64_t result, char *a2, char *a3)
 {
   if (a2 != a3)
   {
@@ -1871,8 +1851,8 @@ void *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std
     v5 = result;
     do
     {
-      result = std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(v5, (v5 + 1), v4 + 4);
-      v6 = v4[1];
+      result = std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(v5, (v5 + 8), v4 + 32, (v4 + 32));
+      v6 = *(v4 + 1);
       if (v6)
       {
         do
@@ -1888,7 +1868,7 @@ void *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std
       {
         do
         {
-          v7 = v4[2];
+          v7 = *(v4 + 2);
           v8 = *v7 == v4;
           v4 = v7;
         }
@@ -1905,11 +1885,11 @@ void *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std
   return result;
 }
 
-void *std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(void *a1, uint64_t a2, void **a3)
+uint64_t std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(uint64_t **a1, uint64_t *a2, char *a3, uint64_t a4)
 {
-  v4 = 0;
   v5 = 0;
-  result = *std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  v6 = 0;
+  result = *std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::string>::__construct_node<std::string const&>();
@@ -1973,7 +1953,7 @@ void *std::map<std::string,std::string>::map[abi:ne200100](void *a1, uint64_t a2
   return a1;
 }
 
-void *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(void *result, void **a2, void **a3)
+void *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(void *result, char *a2, char *a3)
 {
   if (a2 != a3)
   {
@@ -1981,8 +1961,8 @@ void *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_i
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(v5, (v5 + 1), v4 + 4);
-      v6 = v4[1];
+      result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(v5, (v5 + 8), v4 + 32, (v4 + 32));
+      v6 = *(v4 + 1);
       if (v6)
       {
         do
@@ -1998,7 +1978,7 @@ void *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_i
       {
         do
         {
-          v7 = v4[2];
+          v7 = *(v4 + 2);
           v8 = *v7 == v4;
           v4 = v7;
         }
@@ -2015,23 +1995,23 @@ void *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_i
   return result;
 }
 
-void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, uint64_t a2, void **a3)
+void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(uint64_t **a1, uint64_t *a2, char *a3, uint64_t a4)
 {
-  v8 = 0;
   v9 = 0;
-  v3 = *std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__find_equal<std::string>(a1, a2, &v9, &v8, a3);
-  if (!v3)
+  v10 = 0;
+  v4 = *std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__find_equal<std::string>(a1, a2, &v10, &v9, a3);
+  if (!v4)
   {
-    v5 = 0;
     v6 = 0;
     v7 = 0;
+    v8 = 0;
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::pair<std::string const,std::string> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -2114,7 +2094,7 @@ void std::__tree<std::__value_type<std::string,std::string>,std::__map_value_com
   }
 }
 
-void *std::__shared_ptr_emplace<QP::Parse>::__shared_ptr_emplace[abi:ne200100]<__CFString *&,unsigned long,long &,std::vector<std::shared_ptr<QP::ParseAttribute>> &,__CFDictionary const*&,std::allocator<QP::Parse>,0>(void *a1, const void **a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
+void *std::__shared_ptr_emplace<QP::Parse>::__shared_ptr_emplace[abi:ne200100]<__CFString *&,unsigned long,long &,std::vector<std::shared_ptr<QP::ParseAttribute>> &,__CFDictionary const*&,std::allocator<QP::Parse>,0>(void *a1, const void **a2, uint64_t *a3, uint64_t *a4, void **a5, uint64_t *a6)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -2131,7 +2111,7 @@ void std::__shared_ptr_emplace<QP::Parse>::~__shared_ptr_emplace(std::__shared_w
   JUMPOUT(0x1C695B850);
 }
 
-uint64_t std::construct_at[abi:ne200100]<QP::Parse,__CFString *&,unsigned long,long &,std::vector<std::shared_ptr<QP::ParseAttribute>> &,__CFDictionary const*&,QP::Parse*>(uint64_t a1, const void **a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
+uint64_t std::construct_at[abi:ne200100]<QP::Parse,__CFString *&,unsigned long,long &,std::vector<std::shared_ptr<QP::ParseAttribute>> &,__CFDictionary const*&,QP::Parse*>(uint64_t a1, const void **a2, uint64_t *a3, uint64_t *a4, void **a5, uint64_t *a6)
 {
   v8 = *a2;
   v9 = *a3;
@@ -2144,14 +2124,14 @@ uint64_t std::construct_at[abi:ne200100]<QP::Parse,__CFString *&,unsigned long,l
   return a1;
 }
 
-void sub_1C65CDA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65CDA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::shared_ptr<QP::ParseAttribute>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::ParseAttribute>*,std::shared_ptr<QP::ParseAttribute>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<QP::ParseAttribute>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::ParseAttribute>*,std::shared_ptr<QP::ParseAttribute>*>(uint64_t *result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2168,11 +2148,11 @@ void sub_1C65CDA98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t QP::Parse::Parse(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, char a7)
+uint64_t QP::Parse::Parse(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, void **a5, uint64_t a6, char a7)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
-  std::vector<std::shared_ptr<QP::ParseAttribute>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::ParseAttribute>*,std::shared_ptr<QP::ParseAttribute>*>(a1 + 8, *a5, a5[1], (a5[1] - *a5) >> 4);
+  std::vector<std::shared_ptr<QP::ParseAttribute>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::ParseAttribute>*,std::shared_ptr<QP::ParseAttribute>*>((a1 + 8), *a5, a5[1], (a5[1] - *a5) >> 4);
   *(a1 + 88) = a6;
   *(a1 + 32) = a3;
   *(a1 + 40) = 0;
@@ -2222,7 +2202,7 @@ uint64_t QP::Parse::Parse(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4,
         *(a1 + 82) = 1;
       }
 
-      v18 += 16;
+      v18 += 2;
     }
 
     while (v18 != v17);
@@ -2240,12 +2220,12 @@ uint64_t QP::Parse::Parse(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4,
   return a1;
 }
 
-void sub_1C65CDC14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65CDC14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  nlp::CFScopedPtr<__CFDictionary const*>::reset(v3, 0);
+  va_start(va, a3);
+  nlp::CFScopedPtr<__CFDictionary const*>::reset(v4, 0);
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](va);
-  nlp::CFScopedPtr<__CFString const*>::reset(v2, 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(v3, 0);
   _Unwind_Resume(a1);
 }
 
@@ -2376,35 +2356,35 @@ LABEL_34:
   return 0;
 }
 
-const __CFLocale *QP::NumericConverter::localeIdentifier@<X0>(const __CFLocale **this@<X0>, char *a2@<X8>)
+const __CFLocale *QP::NumericConverter::localeIdentifier@<X0>(const __CFLocale **this@<X0>, uint64_t a2@<X8>)
 {
   result = *this;
   if (result)
   {
     Value = CFLocaleGetValue(result, *MEMORY[0x1E695E6F0]);
 
-    return QP::getUTF8StringFromCFString(Value, a2);
+    return QP::getUTF8StringFromCFString(a2, Value);
   }
 
   else
   {
-    a2[23] = 2;
+    *(a2 + 23) = 2;
     strcpy(a2, "en");
   }
 
   return result;
 }
 
-void QP::NumericConverter::numericValueForTypeWithValues(QP::NumericConverter *this@<X0>, const __CFString *a2@<X1>, CFDictionaryRef theDict@<X2>, void *a4@<X8>)
+void QP::NumericConverter::numericValueForTypeWithValues(uint64_t *__return_ptr a1@<X8>, const __CFLocale **this@<X0>, const __CFString *a3@<X1>, CFDictionaryRef theDict@<X2>)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  if (!a2 || !theDict || !*this)
+  v25 = *MEMORY[0x1E69E9840];
+  if (!a3 || !theDict || !*this)
   {
-    *a4 = 0;
-    goto LABEL_18;
+    *a1 = 0;
+    return;
   }
 
-  v25 = 0;
+  v24 = 0;
   if (CFDictionaryContainsKey(theDict, @"DIGITS"))
   {
     v8 = @"DIGITS";
@@ -2416,7 +2396,7 @@ void QP::NumericConverter::numericValueForTypeWithValues(QP::NumericConverter *t
     {
       Value = CFDictionaryGetValue(theDict, @"SPELLED");
       v10 = copyTranslatedRomanNumberFromChineseNumberString(Value);
-      v25 = v10;
+      v24 = v10;
       if (v10)
       {
         goto LABEL_9;
@@ -2445,7 +2425,7 @@ LABEL_7:
   if (Value)
   {
     v10 = CFRetain(Value);
-    v25 = v10;
+    v24 = v10;
   }
 
 LABEL_9:
@@ -2457,7 +2437,7 @@ LABEL_9:
   }
 
   MEMORY[0x1EEE9AC00](Count);
-  v14 = (v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v14 = (v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
   bzero(v14, v13);
   CFDictionaryGetKeysAndValues(theDict, v14, 0);
   if (v12 < 1)
@@ -2488,42 +2468,39 @@ LABEL_9:
   {
     for (i = 0; i != 5; ++i)
     {
-      if (CFStringHasPrefix(a2, QP::NumericConverter::numericValueForTypeWithValues(__CFString const*,__CFDictionary const*)const::intTypes[i]))
+      if (CFStringHasPrefix(a3, QP::NumericConverter::numericValueForTypeWithValues(__CFString const*,__CFDictionary const*)const::intTypes[i]))
       {
-        QP::getUTF8StringFromCFString(v16, v23);
-        UTF8StringFromCFString = QP::getUTF8StringFromCFString(v25, v21);
-        QP::NumericConverter::numericIntForType(UTF8StringFromCFString, v20, v21);
+        QP::getUTF8StringFromCFString(v22, v16);
+        UTF8StringFromCFString = QP::getUTF8StringFromCFString(v20, v24);
+        QP::NumericConverter::numericIntForType(UTF8StringFromCFString, v19, v20);
       }
     }
 
-    QP::getUTF8StringFromCFString(v16, v23);
-    v10 = v25;
-    QP::getUTF8StringFromCFString(v25, v21);
-    QP::NumericConverter::numericDoubleForType(this, v23, v21, a4);
-    if (v22 < 0)
+    QP::getUTF8StringFromCFString(v22, v16);
+    v10 = v24;
+    QP::getUTF8StringFromCFString(v20, v24);
+    QP::NumericConverter::numericDoubleForType(this, v22, v20, a1);
+    if (v21 < 0)
     {
-      operator delete(v21[0]);
+      operator delete(v20[0]);
     }
 
-    if (v24 < 0)
+    if (v23 < 0)
     {
-      operator delete(v23[0]);
+      operator delete(v22[0]);
     }
   }
 
   else
   {
 LABEL_14:
-    *a4 = 0;
+    *a1 = 0;
   }
 
   if (v10)
   {
     CFRelease(v10);
   }
-
-LABEL_18:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C65CE22C(_Unwind_Exception *a1)
@@ -2542,17 +2519,17 @@ void sub_1C65CE22C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void QP::NumericConverter::numericIntForType(uint64_t a1, uint64_t a2, uint64_t a3)
+void QP::NumericConverter::numericIntForType(void x0_0, void x1_0, uint64_t a1)
 {
   memset(&__str, 0, sizeof(__str));
-  if (*(a3 + 23) < 0)
+  if (*(a1 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&__str, *a3, *(a3 + 8));
+    std::string::__init_copy_ctor_external(&__str, *a1, *(a1 + 8));
   }
 
   else
   {
-    __str = *a3;
+    __str = *a1;
   }
 
   size = HIBYTE(__str.__r_.__value_.__r.__words[2]);
@@ -2571,49 +2548,49 @@ void QP::NumericConverter::numericIntForType(uint64_t a1, uint64_t a2, uint64_t 
     size = __str.__r_.__value_.__l.__size_;
   }
 
-  v11 = ", ";
-  v5 = std::remove_if[abi:ne200100]<std::__wrap_iter<char *>,QP::ValidNumChars>(p_str, p_str + size, &v11);
-  v6 = &__str + HIBYTE(__str.__r_.__value_.__r.__words[2]);
+  v10 = ", ";
+  v4 = std::remove_if[abi:ne200100]<std::__wrap_iter<char *>,QP::ValidNumChars>(p_str, p_str + size, &v10);
+  v5 = &__str + HIBYTE(__str.__r_.__value_.__r.__words[2]);
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v7 = &__str;
+    v6 = &__str;
   }
 
   else
   {
-    v6 = (__str.__r_.__value_.__r.__words[0] + __str.__r_.__value_.__l.__size_);
-    v7 = __str.__r_.__value_.__r.__words[0];
+    v5 = (__str.__r_.__value_.__r.__words[0] + __str.__r_.__value_.__l.__size_);
+    v6 = __str.__r_.__value_.__r.__words[0];
   }
 
-  std::string::erase(&__str, v5 - v7, v6 - v5);
-  v8 = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
+  std::string::erase(&__str, v4 - v6, v5 - v4);
+  v7 = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
   if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
   {
-    v8 = __str.__r_.__value_.__l.__size_;
+    v7 = __str.__r_.__value_.__l.__size_;
     if (__str.__r_.__value_.__l.__size_)
     {
-      v9 = __str.__r_.__value_.__r.__words[0];
+      v8 = __str.__r_.__value_.__r.__words[0];
       goto LABEL_17;
     }
   }
 
   else if (*(&__str.__r_.__value_.__s + 23))
   {
-    v9 = &__str;
+    v8 = &__str;
     do
     {
 LABEL_17:
-      v10 = v9->__r_.__value_.__s.__data_[0];
-      if (v10 < 0 || (*(MEMORY[0x1E69E9830] + 4 * v10 + 60) & 0x400) == 0)
+      v9 = v8->__r_.__value_.__s.__data_[0];
+      if (v9 < 0 || (*(MEMORY[0x1E69E9830] + 4 * v9 + 60) & 0x400) == 0)
       {
         goto LABEL_21;
       }
 
-      v9 = (v9 + 1);
-      --v8;
+      v8 = (v8 + 1);
+      --v7;
     }
 
-    while (v8);
+    while (v7);
     std::stoi(&__str, 0, 10);
   }
 
@@ -2621,9 +2598,9 @@ LABEL_21:
   operator new();
 }
 
-void QP::NumericConverter::numericDoubleForType(const __CFLocale **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void QP::NumericConverter::numericDoubleForType(const __CFLocale **a1@<X0>, char **a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   *pErrorCode = 0;
   v8 = *(a3 + 23);
   if ((v8 & 0x80u) != 0)
@@ -2633,8 +2610,8 @@ void QP::NumericConverter::numericDoubleForType(const __CFLocale **a1@<X0>, uint
 
   v9 = v8 + 1;
   MEMORY[0x1EEE9AC00](a1);
-  v11 = (&v27 - v10);
-  bzero(&v27 - v10, v12);
+  v11 = (&v26 - v10);
+  bzero(&v26 - v10, v12);
   v13 = *(a3 + 23);
   if (v13 >= 0)
   {
@@ -2658,11 +2635,11 @@ void QP::NumericConverter::numericDoubleForType(const __CFLocale **a1@<X0>, uint
 
   u_strFromUTF8(v11, v9, pErrorCode, v14, v15, &pErrorCode[1]);
   v11[pErrorCode[0]] = 0;
-  QP::NumericConverter::localeIdentifier(a1, &v28);
+  QP::NumericConverter::localeIdentifier(a1, &v27);
   v16 = unum_open();
-  if (v29 < 0)
+  if (v28 < 0)
   {
-    operator delete(v28);
+    operator delete(v27);
   }
 
   if (pErrorCode[1] < U_ILLEGAL_ARGUMENT_ERROR)
@@ -2674,82 +2651,82 @@ void QP::NumericConverter::numericDoubleForType(const __CFLocale **a1@<X0>, uint
       goto LABEL_15;
     }
 
-    v18 = *(a2 + 23);
-    if (v18 >= 0)
+    v17 = *(a2 + 23);
+    if (v17 >= 0)
     {
-      v19 = a2;
+      v18 = a2;
     }
 
     else
     {
-      v19 = *a2;
+      v18 = *a2;
     }
 
-    if (v18 >= 0)
+    if (v17 >= 0)
     {
-      v20 = *(a2 + 23);
+      v19 = *(a2 + 23);
     }
 
     else
     {
-      v20 = *(a2 + 8);
+      v19 = a2[1];
     }
 
-    if (v20 < 4)
+    if (v19 < 4)
     {
       goto LABEL_37;
     }
 
-    v21 = (v19 + v20);
-    v22 = v20;
-    v23 = v19;
+    v20 = v18 + v19;
+    v21 = v19;
+    v22 = v18;
     while (1)
     {
-      v24 = memchr(v23, 102, v22 - 3);
-      if (!v24)
+      v23 = memchr(v22, 102, v21 - 3);
+      if (!v23)
       {
         goto LABEL_30;
       }
 
-      if (*v24 == 1952802150)
+      if (*v23 == 1952802150)
       {
         break;
       }
 
-      v23 = v24 + 1;
-      v22 = v21 - v23;
-      if (v21 - v23 < 4)
+      v22 = (v23 + 1);
+      v21 = v20 - v22;
+      if (v20 - v22 < 4)
       {
         goto LABEL_30;
       }
     }
 
-    if (v24 == v21 || &v24[-v19] == -1)
+    if (v23 == v20 || v23 - v18 == -1)
     {
 LABEL_30:
-      v25 = v19;
+      v24 = v18;
       while (1)
       {
-        v26 = memchr(v25, 105, v20 - 3);
-        if (!v26)
+        v25 = memchr(v24, 105, v19 - 3);
+        if (!v25)
         {
           goto LABEL_37;
         }
 
-        if (*v26 == 1751346793)
+        if (*v25 == 1751346793)
         {
           break;
         }
 
-        v25 = v26 + 1;
-        v20 = v21 - v25;
-        if (v21 - v25 < 4)
+        v24 = (v25 + 1);
+        v19 = v20 - v24;
+        if (v20 - v24 < 4)
         {
           goto LABEL_37;
         }
       }
 
-      if (v26 == v21 || &v26[-v19] == -1)
+      if (v25 == v20 || v25 - v18 == -1)
       {
 LABEL_37:
         if (std::string::find[abi:ne200100](a2, "meter", 0) == -1 && std::string::find[abi:ne200100](a2, "centimeter", 0) == -1 && std::string::find[abi:ne200100](a2, "Second", 0) == -1 && std::string::find[abi:ne200100](a2, "Minute", 0) == -1 && std::string::find[abi:ne200100](a2, "Hour", 0) == -1 && std::string::find[abi:ne200100](a2, "Day", 0) == -1 && std::string::find[abi:ne200100](a2, "Week", 0) == -1 && std::string::find[abi:ne200100](a2, "Byte", 0) == -1 && std::string::find[abi:ne200100](a2, "Kilobyte", 0) == -1 && std::string::find[abi:ne200100](a2, "Megabyte", 0) == -1)
@@ -2769,7 +2746,6 @@ LABEL_37:
 
 LABEL_15:
   *a4 = 0;
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C65CE9F0(_Unwind_Exception *a1)
@@ -2837,7 +2813,7 @@ unsigned __int8 *std::remove_if[abi:ne200100]<std::__wrap_iter<char *>,QP::Valid
   return result;
 }
 
-unint64_t std::string::find[abi:ne200100](uint64_t *a1, char *__s, unint64_t a3)
+int64_t std::string::find[abi:ne200100](uint64_t *a1, char *__s, unint64_t a3)
 {
   v5 = a1;
   v6 = *(a1 + 23);
@@ -2857,10 +2833,10 @@ unint64_t std::string::find[abi:ne200100](uint64_t *a1, char *__s, unint64_t a3)
   v9 = v7;
   if (v7)
   {
-    v10 = (v5 + v6);
+    v10 = v5 + v6;
     if (v8 >= v7)
     {
-      v13 = (v5 + a3);
+      v13 = v5 + a3;
       v14 = *__s;
       do
       {
@@ -2898,7 +2874,7 @@ LABEL_8:
 
     else
     {
-      return &v11[-v5];
+      return v11 - v5;
     }
   }
 
@@ -2954,18 +2930,18 @@ void sub_1C65CEC70(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::shared_ptr<QP::NumericInterval<double>>::shared_ptr[abi:ne200100]<QP::NumericInterval<double>,std::default_delete<QP::NumericInterval<double>>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<QP::NumericInterval<double>>::shared_ptr[abi:ne200100]<QP::NumericInterval<double>,std::default_delete<QP::NumericInterval<double>>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<QP::NumericInterval<double> *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -3212,7 +3188,7 @@ void sub_1C65CF078(_Unwind_Exception *a1)
 
 BOOL QP::Parser::mergeDates(uint64_t a1, QP::ParseAttribute ***a2, void **a3, int a4)
 {
-  v235[0] = 1;
+  v224[0] = 1;
   v7 = *a2;
   v6 = a2[1];
   if ((v6 - *a2) <= 0x10)
@@ -3225,14 +3201,14 @@ BOOL QP::Parser::mergeDates(uint64_t a1, QP::ParseAttribute ***a2, void **a3, in
     while (1)
     {
       v8 = *v7;
-      v9 = std::__shared_weak_count::lock(*(*v7 + 23));
+      v9 = std::__shared_weak_count::lock(*(*v7 + 184));
       if (*(*(v8 + 22) + 88) - 1 > 3)
       {
         goto LABEL_31;
       }
 
       v10 = *v7;
-      v11 = *(*v7 + 23);
+      v11 = *(*v7 + 184);
       if (!v11)
       {
         goto LABEL_31;
@@ -3253,7 +3229,7 @@ BOOL QP::Parser::mergeDates(uint64_t a1, QP::ParseAttribute ***a2, void **a3, in
       }
 
 LABEL_32:
-      v7 += 2;
+      v7 += 16;
       if (v7 == v6)
       {
         return 1;
@@ -3261,7 +3237,7 @@ LABEL_32:
     }
 
     v14 = *v7;
-    v9 = std::__shared_weak_count::lock(*(*v7 + 23));
+    v9 = std::__shared_weak_count::lock(*(*v7 + 184));
     v15 = *(v14 + 22);
     v16 = *(v15 + 120);
     v17 = *(v15 + 128);
@@ -3283,41 +3259,41 @@ LABEL_32:
       }
 
       *(v16 + 20) = v18;
-      v234 = 0uLL;
+      v223 = 0uLL;
       v19 = *(a1 + 32);
       v20 = *v7;
-      v232 = 0;
-      v233 = 0;
+      v221 = 0;
+      v222 = 0;
       v21 = *(v20 + 23);
       if (v21)
       {
-        v233 = std::__shared_weak_count::lock(v21);
-        if (v233)
+        v222 = std::__shared_weak_count::lock(v21);
+        if (v222)
         {
-          v232 = *(v20 + 22);
+          v221 = *(v20 + 22);
         }
       }
 
-      QP::Lexer::resolve(v19, &v232, *(*v7 + 18), v235, a4, &v234);
-      if (v233)
+      QP::Lexer::resolve(v19, &v221, *(*v7 + 36), v224, a4, &v223);
+      if (v222)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v233);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v222);
       }
 
-      v22 = v234;
-      if (v234)
+      v22 = v223;
+      if (v223)
       {
         if ((a4 & 1) == 0)
         {
-          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v234);
-          v22 = v234;
+          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v223);
+          v22 = v223;
         }
 
         v23 = *v7;
-        v24 = *(&v234 + 1);
-        if (*(&v234 + 1))
+        v24 = *(&v223 + 1);
+        if (*(&v223 + 1))
         {
-          atomic_fetch_add_explicit((*(&v234 + 1) + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((*(&v223 + 1) + 8), 1uLL, memory_order_relaxed);
           atomic_fetch_add_explicit(&v24->__shared_weak_owners_, 1uLL, memory_order_relaxed);
         }
 
@@ -3335,9 +3311,9 @@ LABEL_32:
         }
       }
 
-      if (*(&v234 + 1))
+      if (*(&v223 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v234 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v223 + 1));
       }
     }
 
@@ -3353,50 +3329,50 @@ LABEL_31:
 
   if (v7 == v6)
   {
-    v123 = 0;
-    v193 = 0;
-    v183 = 0;
-    v184 = 0;
-    v124 = 0;
-    v119 = 0;
-    v116 = 0;
-    v115 = 0;
+    v114 = 0;
     v182 = 0;
+    v172 = 0;
+    v173 = 0;
+    v115 = 0;
+    v110 = 0;
+    v108 = 0;
+    v107 = 0;
+    v171 = 0;
     v27 = 0;
     v28 = 0;
-    v185 = 0;
+    v174 = 0;
     goto LABEL_457;
   }
 
-  v189 = 0;
-  v167 = 0;
-  v168 = 0;
-  v180 = 0;
-  v182 = 0;
-  v171 = 0;
-  v172 = 0;
-  v184 = 0;
-  v185 = 0;
-  v174 = 0;
-  v176 = 0;
   v178 = 0;
+  v156 = 0;
+  v157 = 0;
   v169 = 0;
-  v170 = 0;
+  v171 = 0;
+  v160 = 0;
+  v161 = 0;
+  v173 = 0;
+  v174 = 0;
+  v163 = 0;
+  v165 = 0;
+  v167 = 0;
+  v158 = 0;
+  v159 = 0;
   v27 = 0;
-  v186 = 0;
-  v187 = 0;
+  v175 = 0;
+  v176 = 0;
   v28 = 0;
   v29 = 0;
   v30 = 0;
-  v183 = 0;
+  v172 = 0;
   do
   {
     v31 = *v7;
-    v32 = std::__shared_weak_count::lock(*(*v7 + 23));
+    v32 = std::__shared_weak_count::lock(*(*v7 + 184));
     if (*(*(v31 + 22) + 88) - 1 <= 3)
     {
       v33 = *v7;
-      v34 = *(*v7 + 23);
+      v34 = *(*v7 + 184);
       if (v34)
       {
         v35 = std::__shared_weak_count::lock(v34);
@@ -3410,11 +3386,11 @@ LABEL_31:
             goto LABEL_76;
           }
 
-          v192 = v30;
+          v181 = v30;
           v37 = QP::ParseAttribute::flag(*v7);
           v38 = QP::ParseAttribute::flag(*v7);
           v39 = *v7;
-          v32 = std::__shared_weak_count::lock(*(*v7 + 23));
+          v32 = std::__shared_weak_count::lock(*(*v7 + 184));
           v40 = *(v39 + 22);
           v41 = *(v40 + 120);
           v42 = *(v40 + 128);
@@ -3428,77 +3404,76 @@ LABEL_31:
             goto LABEL_69;
           }
 
-          v43 = v189 + 1;
+          v43 = v178 + 1;
           if (v38 == 3)
           {
             if (v29)
             {
-              v234 = 0uLL;
+              v223 = 0uLL;
               v44 = *(a1 + 32);
               v45 = *v7;
-              v230 = 0;
-              v231 = 0;
+              v219 = 0;
+              v220 = 0;
               v46 = *(v45 + 23);
               if (v46)
               {
-                v231 = std::__shared_weak_count::lock(v46);
-                if (v231)
+                v220 = std::__shared_weak_count::lock(v46);
+                if (v220)
                 {
-                  v230 = *(v45 + 22);
+                  v219 = *(v45 + 22);
                 }
               }
 
-              v228 = 0;
-              v229 = 0;
+              v217 = 0;
+              v218 = 0;
               v47 = *(v29 + 23);
               if (v47)
               {
-                v229 = std::__shared_weak_count::lock(v47);
-                if (v229)
+                v218 = std::__shared_weak_count::lock(v47);
+                if (v218)
                 {
-                  v228 = *(v29 + 22);
+                  v217 = *(v29 + 22);
                 }
               }
 
-              v48 = *(*v7 + 18);
-              QP::Lexer::merge(v44, &v230, &v228, a4, &v234);
-              if (v229)
+              QP::Lexer::merge(v44, &v219, &v217, a4, &v223);
+              if (v218)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v229);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v218);
               }
 
-              if (v231)
+              if (v220)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v231);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v220);
               }
 
-              v49 = v234;
-              if (v234)
+              v48 = v223;
+              if (v223)
               {
                 if ((a4 & 1) == 0)
                 {
-                  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v234);
-                  v49 = v234;
+                  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v223);
+                  v48 = v223;
                 }
 
-                v50 = *(&v234 + 1);
-                if (*(&v234 + 1))
+                v49 = *(&v223 + 1);
+                if (*(&v223 + 1))
                 {
-                  atomic_fetch_add_explicit((*(&v234 + 1) + 8), 1uLL, memory_order_relaxed);
-                  atomic_fetch_add_explicit(&v50->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit((*(&v223 + 1) + 8), 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(&v49->__shared_weak_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                v51 = *(v29 + 23);
-                *(v29 + 22) = v49;
-                *(v29 + 23) = v50;
-                if (v51)
-                {
-                  std::__shared_weak_count::__release_weak(v51);
-                }
-
+                v50 = *(v29 + 23);
+                *(v29 + 22) = v48;
+                *(v29 + 23) = v49;
                 if (v50)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v50);
+                  std::__shared_weak_count::__release_weak(v50);
+                }
+
+                if (v49)
+                {
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v49);
                 }
 
                 QP::ParseAttribute::setShouldIgnore(*v7, 1);
@@ -3510,8 +3485,8 @@ LABEL_31:
 
               else
               {
-                v235[0] = 0;
-                ++v189;
+                v224[0] = 0;
+                ++v178;
                 if (!v27)
                 {
                   goto LABEL_66;
@@ -3520,125 +3495,124 @@ LABEL_31:
 
               std::__shared_weak_count::__release_shared[abi:ne200100](v27);
 LABEL_66:
-              if (*(&v234 + 1))
+              if (*(&v223 + 1))
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](*(&v234 + 1));
+                std::__shared_weak_count::__release_shared[abi:ne200100](*(&v223 + 1));
               }
 
-              v187 = 0;
+              v176 = 0;
               v27 = 0;
 LABEL_69:
-              v52 = v29;
+              v51 = v29;
 LABEL_70:
-              v53 = v28;
+              v52 = v28;
 LABEL_71:
               if (v42)
               {
                 std::__shared_weak_count::__release_shared[abi:ne200100](v42);
               }
 
-              v30 = v192;
+              v30 = v181;
               goto LABEL_75;
             }
 
-            v74 = v7[1];
-            v187 = *v7;
-            if (v74)
+            v69 = *(v7 + 1);
+            v176 = *v7;
+            if (v69)
             {
-              atomic_fetch_add_explicit(&v74->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v69->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
             if (v27)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v27);
-              v52 = 0;
-              v53 = v28;
-              v27 = v74;
-              ++v189;
+              v51 = 0;
+              v52 = v28;
+              v27 = v69;
+              ++v178;
               goto LABEL_71;
             }
 
-            v52 = 0;
-            v53 = v28;
-            v27 = v74;
+            v51 = 0;
+            v52 = v28;
+            v27 = v69;
 LABEL_188:
-            v189 = v43;
+            v178 = v43;
             goto LABEL_71;
           }
 
           if (v37 == 2)
           {
-            if (!v187)
+            if (!v176)
             {
-              if (v186)
+              if (v175)
               {
                 if (v29)
                 {
-                  v234 = 0uLL;
-                  v75 = *(a1 + 32);
-                  v222 = 0;
-                  v223 = 0;
-                  v76 = *(v186 + 23);
-                  if (v76)
+                  v223 = 0uLL;
+                  v70 = *(a1 + 32);
+                  v211 = 0;
+                  v212 = 0;
+                  v71 = *(v175 + 23);
+                  if (v71)
                   {
-                    v223 = std::__shared_weak_count::lock(v76);
-                    if (v223)
+                    v212 = std::__shared_weak_count::lock(v71);
+                    if (v212)
                     {
-                      v222 = *(v186 + 22);
+                      v211 = *(v175 + 22);
                     }
                   }
 
-                  v220 = 0;
-                  v221 = 0;
-                  v77 = *(v29 + 23);
-                  if (v77)
+                  v209 = 0;
+                  v210 = 0;
+                  v72 = *(v29 + 23);
+                  if (v72)
                   {
-                    v221 = std::__shared_weak_count::lock(v77);
-                    if (v221)
+                    v210 = std::__shared_weak_count::lock(v72);
+                    if (v210)
                     {
-                      v220 = *(v29 + 22);
+                      v209 = *(v29 + 22);
                     }
                   }
 
-                  v78 = *(v186 + 18);
-                  QP::Lexer::merge(v75, &v222, &v220, a4, &v234);
-                  if (v221)
+                  QP::Lexer::merge(v70, &v211, &v209, a4, &v223);
+                  if (v210)
                   {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v221);
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v210);
                   }
 
+                  if (v212)
+                  {
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v212);
+                  }
+
+                  v73 = v223;
                   if (v223)
-                  {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v223);
-                  }
-
-                  v79 = v234;
-                  if (v234)
                   {
                     if ((a4 & 1) == 0)
                     {
-                      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v234);
-                      v79 = v234;
+                      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v223);
+                      v73 = v223;
                     }
 
-                    v80 = *(&v234 + 1);
-                    if (*(&v234 + 1))
+                    v74 = *(&v223 + 1);
+                    if (*(&v223 + 1))
                     {
-                      atomic_fetch_add_explicit((*(&v234 + 1) + 8), 1uLL, memory_order_relaxed);
-                      atomic_fetch_add_explicit(&v80->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+                      atomic_fetch_add_explicit((*(&v223 + 1) + 8), 1uLL, memory_order_relaxed);
+                      atomic_fetch_add_explicit(&v74->__shared_weak_owners_, 1uLL, memory_order_relaxed);
                     }
 
-                    v81 = *(v186 + 23);
-                    *(v186 + 22) = v79;
-                    *(v186 + 23) = v80;
-                    if (v81)
+                    v75 = *(v175 + 23);
+                    *(v175 + 22) = v73;
+                    *(v175 + 23) = v74;
+                    if (v75)
                     {
-                      std::__shared_weak_count::__release_weak(v81);
+                      std::__shared_weak_count::__release_weak(v75);
                     }
 
-                    if (v80)
+                    if (v74)
                     {
-                      std::__shared_weak_count::__release_shared[abi:ne200100](v80);
+                      std::__shared_weak_count::__release_shared[abi:ne200100](v74);
                     }
 
                     QP::ParseAttribute::setShouldIgnore(v29, 1);
@@ -3646,20 +3620,20 @@ LABEL_188:
 
                   else
                   {
-                    v235[0] = 0;
-                    ++v189;
+                    v224[0] = 0;
+                    ++v178;
                   }
 
-                  if (v185)
+                  if (v174)
                   {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v185);
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v174);
                   }
 
-                  v52 = *v7;
-                  v53 = v7[1];
-                  if (v53)
+                  v51 = *v7;
+                  v52 = *(v7 + 1);
+                  if (v52)
                   {
-                    atomic_fetch_add_explicit(&v53->__shared_owners_, 1uLL, memory_order_relaxed);
+                    atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
                   }
 
                   if (v28)
@@ -3667,124 +3641,123 @@ LABEL_188:
                     std::__shared_weak_count::__release_shared[abi:ne200100](v28);
                   }
 
-                  if (*(&v234 + 1))
+                  if (*(&v223 + 1))
                   {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v234 + 1));
+                    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v223 + 1));
                   }
 
-                  v185 = 0;
-                  v186 = 0;
-                  v187 = 0;
+                  v174 = 0;
+                  v175 = 0;
+                  v176 = 0;
                   goto LABEL_71;
                 }
 
-                v52 = *v7;
-                if (*(*v7 + 18) > 3u)
+                v51 = *v7;
+                if (*(*v7 + 36) > 3u)
                 {
-                  v109 = v7[1];
-                  if (v109)
+                  v101 = *(v7 + 1);
+                  if (v101)
                   {
-                    atomic_fetch_add_explicit(&v109->__shared_owners_, 1uLL, memory_order_relaxed);
+                    atomic_fetch_add_explicit(&v101->__shared_owners_, 1uLL, memory_order_relaxed);
                   }
 
                   if (v28)
                   {
                     std::__shared_weak_count::__release_shared[abi:ne200100](v28);
-                    v43 = v189 + 1;
+                    v43 = v178 + 1;
                   }
 
-                  v110 = v7[1];
-                  v172 = *v7;
-                  if (v110)
+                  v102 = *(v7 + 1);
+                  v161 = *v7;
+                  if (v102)
                   {
-                    atomic_fetch_add_explicit(&v110->__shared_owners_, 1uLL, memory_order_relaxed);
+                    atomic_fetch_add_explicit(&v102->__shared_owners_, 1uLL, memory_order_relaxed);
                   }
 
-                  if (v184)
+                  if (v173)
                   {
-                    v111 = v43;
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v184);
-                    v28 = v109;
-                    v184 = v110;
-                    v189 = v111;
+                    v103 = v43;
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v173);
+                    v28 = v101;
+                    v173 = v102;
+                    v178 = v103;
                   }
 
                   else
                   {
-                    v28 = v109;
-                    v184 = v110;
-                    v189 = v43;
+                    v28 = v101;
+                    v173 = v102;
+                    v178 = v43;
                   }
                 }
 
                 else
                 {
-                  v234 = 0uLL;
-                  v90 = *(a1 + 32);
-                  v218 = 0;
-                  v219 = 0;
-                  v91 = *(v186 + 23);
-                  if (v91)
+                  v223 = 0uLL;
+                  v83 = *(a1 + 32);
+                  v207 = 0;
+                  v208 = 0;
+                  v84 = *(v175 + 23);
+                  if (v84)
                   {
-                    v219 = std::__shared_weak_count::lock(v91);
-                    if (v219)
+                    v208 = std::__shared_weak_count::lock(v84);
+                    if (v208)
                     {
-                      v218 = *(v186 + 22);
+                      v207 = *(v175 + 22);
                     }
                   }
 
-                  v92 = *v7;
-                  v216 = 0;
-                  v217 = 0;
-                  v93 = *(v92 + 23);
-                  if (v93)
+                  v85 = *v7;
+                  v205 = 0;
+                  v206 = 0;
+                  v86 = *(v85 + 23);
+                  if (v86)
                   {
-                    v217 = std::__shared_weak_count::lock(v93);
-                    if (v217)
+                    v206 = std::__shared_weak_count::lock(v86);
+                    if (v206)
                     {
-                      v216 = *(v92 + 22);
+                      v205 = *(v85 + 22);
                     }
                   }
 
-                  v94 = *(v186 + 18);
-                  QP::Lexer::merge(v90, &v218, &v216, a4, &v234);
-                  if (v217)
+                  QP::Lexer::merge(v83, &v207, &v205, a4, &v223);
+                  if (v206)
                   {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v206);
                   }
 
-                  if (v219)
+                  if (v208)
                   {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v219);
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v208);
                   }
 
-                  v95 = v234;
-                  if (v234)
+                  v87 = v223;
+                  if (v223)
                   {
                     if ((a4 & 1) == 0)
                     {
-                      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v234);
-                      v95 = v234;
+                      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v223);
+                      v87 = v223;
                     }
 
-                    v96 = *(&v234 + 1);
-                    if (*(&v234 + 1))
+                    v88 = *(&v223 + 1);
+                    if (*(&v223 + 1))
                     {
-                      atomic_fetch_add_explicit((*(&v234 + 1) + 8), 1uLL, memory_order_relaxed);
-                      atomic_fetch_add_explicit(&v96->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+                      atomic_fetch_add_explicit((*(&v223 + 1) + 8), 1uLL, memory_order_relaxed);
+                      atomic_fetch_add_explicit(&v88->__shared_weak_owners_, 1uLL, memory_order_relaxed);
                     }
 
-                    v97 = *(v186 + 23);
-                    *(v186 + 22) = v95;
-                    *(v186 + 23) = v96;
-                    if (v97)
+                    v89 = *(v175 + 23);
+                    *(v175 + 22) = v87;
+                    *(v175 + 23) = v88;
+                    if (v89)
                     {
-                      std::__shared_weak_count::__release_weak(v97);
+                      std::__shared_weak_count::__release_weak(v89);
                     }
 
-                    if (v96)
+                    if (v88)
                     {
-                      std::__shared_weak_count::__release_shared[abi:ne200100](v96);
+                      std::__shared_weak_count::__release_shared[abi:ne200100](v88);
                     }
 
                     QP::ParseAttribute::setShouldIgnore(*v7, 1);
@@ -3792,26 +3765,26 @@ LABEL_188:
 
                   else
                   {
-                    v235[0] = 0;
-                    ++v189;
+                    v224[0] = 0;
+                    ++v178;
                   }
 
-                  if (*(&v234 + 1))
+                  if (*(&v223 + 1))
                   {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v234 + 1));
+                    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v223 + 1));
                   }
 
-                  v52 = 0;
+                  v51 = 0;
                 }
 
-                if (v185)
+                if (v174)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v185);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v174);
                 }
 
-                v185 = 0;
-                v186 = 0;
-                v187 = 0;
+                v174 = 0;
+                v175 = 0;
+                v176 = 0;
                 goto LABEL_70;
               }
 
@@ -3822,152 +3795,147 @@ LABEL_188:
                   atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                if (v184)
+                if (v173)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v184);
-                  v43 = v189 + 1;
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v173);
+                  v43 = v178 + 1;
                 }
 
-                v52 = *v7;
-                v53 = v7[1];
-                if (v53)
+                v51 = *v7;
+                v52 = *(v7 + 1);
+                if (v52)
                 {
-                  atomic_fetch_add_explicit(&v53->__shared_owners_, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
                 if (v28)
                 {
-                  v89 = v43;
+                  v82 = v43;
                   std::__shared_weak_count::__release_shared[abi:ne200100](v28);
-                  v186 = 0;
-                  v187 = 0;
-                  v184 = v28;
-                  v172 = v29;
-                  v189 = v89;
+                  v175 = 0;
+                  v176 = 0;
+                  v173 = v28;
+                  v161 = v29;
+                  v178 = v82;
                   goto LABEL_71;
                 }
 
-                v186 = 0;
-                v187 = 0;
-                v184 = 0;
-                v172 = v29;
+                v175 = 0;
+                v176 = 0;
+                v173 = 0;
+                v161 = v29;
               }
 
               else
               {
-                v52 = *v7;
-                v53 = v7[1];
-                if (v53)
+                v51 = *v7;
+                v52 = *(v7 + 1);
+                if (v52)
                 {
-                  atomic_fetch_add_explicit(&v53->__shared_owners_, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
                 if (v28)
                 {
                   std::__shared_weak_count::__release_shared[abi:ne200100](v28);
-                  v43 = v189 + 1;
+                  v43 = v178 + 1;
                 }
 
-                v107 = v7[1];
-                v172 = *v7;
-                if (v107)
+                v99 = *(v7 + 1);
+                v161 = *v7;
+                if (v99)
                 {
-                  atomic_fetch_add_explicit(&v107->__shared_owners_, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(&v99->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                if (v184)
+                if (v173)
                 {
-                  v108 = v43;
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v184);
-                  v186 = 0;
-                  v187 = 0;
-                  v184 = v107;
-                  v189 = v108;
+                  v100 = v43;
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v173);
+                  v175 = 0;
+                  v176 = 0;
+                  v173 = v99;
+                  v178 = v100;
                   goto LABEL_71;
                 }
 
-                v186 = 0;
-                v187 = 0;
-                v184 = v107;
+                v175 = 0;
+                v176 = 0;
+                v173 = v99;
               }
 
               goto LABEL_188;
             }
 
-            v234 = 0uLL;
-            v54 = *(a1 + 32);
-            v55 = *v7;
-            v226 = 0;
-            v227 = 0;
-            v56 = *(v55 + 23);
+            v223 = 0uLL;
+            v53 = *(a1 + 32);
+            v54 = *v7;
+            v215 = 0;
+            v216 = 0;
+            v55 = *(v54 + 23);
+            if (v55)
+            {
+              v216 = std::__shared_weak_count::lock(v55);
+              if (v216)
+              {
+                v215 = *(v54 + 22);
+              }
+            }
+
+            v213 = 0;
+            v214 = 0;
+            v56 = *(v176 + 23);
             if (v56)
             {
-              v227 = std::__shared_weak_count::lock(v56);
-              if (v227)
+              v214 = std::__shared_weak_count::lock(v56);
+              if (v214)
               {
-                v226 = *(v55 + 22);
+                v213 = *(v176 + 22);
               }
             }
 
-            v224 = 0;
-            v225 = 0;
-            v57 = v187;
-            v58 = *(v187 + 23);
-            if (v58)
+            QP::Lexer::merge(v53, &v215, &v213, a4, &v223);
+            if (v214)
             {
-              v59 = std::__shared_weak_count::lock(v58);
-              v57 = v187;
-              v225 = v59;
-              if (v59)
-              {
-                v224 = *(v187 + 22);
-                v57 = v187;
-              }
+              std::__shared_weak_count::__release_shared[abi:ne200100](v214);
             }
 
-            v60 = *(v57 + 18);
-            QP::Lexer::merge(v54, &v226, &v224, a4, &v234);
-            if (v225)
+            if (v216)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v225);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v216);
             }
 
-            if (v227)
-            {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v227);
-            }
-
-            v61 = v234;
-            if (v234)
+            v57 = v223;
+            if (v223)
             {
               if ((a4 & 1) == 0)
               {
-                std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v234);
-                v61 = v234;
+                std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v223);
+                v57 = v223;
               }
 
-              v62 = *v7;
-              v63 = *(&v234 + 1);
-              if (*(&v234 + 1))
+              v58 = *v7;
+              v59 = *(&v223 + 1);
+              if (*(&v223 + 1))
               {
-                atomic_fetch_add_explicit((*(&v234 + 1) + 8), 1uLL, memory_order_relaxed);
-                atomic_fetch_add_explicit(&v63->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit((*(&v223 + 1) + 8), 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit(&v59->__shared_weak_owners_, 1uLL, memory_order_relaxed);
               }
 
-              v64 = *(v62 + 23);
-              *(v62 + 22) = v61;
-              *(v62 + 23) = v63;
-              if (v64)
+              v60 = *(v58 + 23);
+              *(v58 + 22) = v57;
+              *(v58 + 23) = v59;
+              if (v60)
               {
-                std::__shared_weak_count::__release_weak(v64);
+                std::__shared_weak_count::__release_weak(v60);
               }
 
-              if (v63)
+              if (v59)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v63);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v59);
               }
 
-              QP::ParseAttribute::setShouldIgnore(v187, 1);
+              QP::ParseAttribute::setShouldIgnore(v176, 1);
               if (!v27)
               {
                 goto LABEL_101;
@@ -3976,8 +3944,8 @@ LABEL_188:
 
             else
             {
-              v235[0] = 0;
-              ++v189;
+              v224[0] = 0;
+              ++v178;
               if (!v27)
               {
                 goto LABEL_101;
@@ -3986,11 +3954,11 @@ LABEL_188:
 
             std::__shared_weak_count::__release_shared[abi:ne200100](v27);
 LABEL_101:
-            v52 = *v7;
-            v53 = v7[1];
-            if (v53)
+            v51 = *v7;
+            v52 = *(v7 + 1);
+            if (v52)
             {
-              atomic_fetch_add_explicit(&v53->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
             if (v28)
@@ -3998,126 +3966,125 @@ LABEL_101:
               std::__shared_weak_count::__release_shared[abi:ne200100](v28);
             }
 
-            if (*(&v234 + 1))
+            if (*(&v223 + 1))
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](*(&v234 + 1));
+              std::__shared_weak_count::__release_shared[abi:ne200100](*(&v223 + 1));
             }
 
-            v187 = 0;
+            v176 = 0;
             v27 = 0;
             goto LABEL_71;
           }
 
           if (v29)
           {
-            v65 = *v7;
-            if (*(*v7 + 18) > 3u)
+            v61 = *v7;
+            if (*(*v7 + 36) > 3u)
             {
               if (v28)
               {
                 atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              if (v184)
+              if (v173)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v184);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v173);
               }
 
-              v184 = v28;
-              v172 = v29;
-              ++v189;
+              v173 = v28;
+              v161 = v29;
+              ++v178;
             }
 
             else
             {
-              v234 = 0uLL;
-              v66 = *(a1 + 32);
-              v214 = 0;
-              v215 = 0;
-              v67 = *(v65 + 23);
-              if (v67)
+              v223 = 0uLL;
+              v62 = *(a1 + 32);
+              v203 = 0;
+              v204 = 0;
+              v63 = *(v61 + 23);
+              if (v63)
               {
-                v215 = std::__shared_weak_count::lock(v67);
-                if (v215)
+                v204 = std::__shared_weak_count::lock(v63);
+                if (v204)
                 {
-                  v214 = *(v65 + 22);
+                  v203 = *(v61 + 22);
                 }
               }
 
-              v212 = 0;
-              v213 = 0;
-              v68 = *(v29 + 23);
-              if (v68)
+              v201 = 0;
+              v202 = 0;
+              v64 = *(v29 + 23);
+              if (v64)
               {
-                v213 = std::__shared_weak_count::lock(v68);
-                if (v213)
+                v202 = std::__shared_weak_count::lock(v64);
+                if (v202)
                 {
-                  v212 = *(v29 + 22);
+                  v201 = *(v29 + 22);
                 }
               }
 
-              v69 = *(v29 + 18);
-              QP::Lexer::merge(v66, &v214, &v212, a4, &v234);
-              if (v213)
+              QP::Lexer::merge(v62, &v203, &v201, a4, &v223);
+              if (v202)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v213);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v202);
               }
 
-              if (v215)
+              if (v204)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v215);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v204);
               }
 
-              v70 = v234;
-              if (v234)
+              v65 = v223;
+              if (v223)
               {
                 if ((a4 & 1) == 0)
                 {
-                  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v234);
-                  v70 = v234;
+                  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v223);
+                  v65 = v223;
                 }
 
-                v71 = *v7;
-                v72 = *(&v234 + 1);
-                if (*(&v234 + 1))
+                v66 = *v7;
+                v67 = *(&v223 + 1);
+                if (*(&v223 + 1))
                 {
-                  atomic_fetch_add_explicit((*(&v234 + 1) + 8), 1uLL, memory_order_relaxed);
-                  atomic_fetch_add_explicit(&v72->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit((*(&v223 + 1) + 8), 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(&v67->__shared_weak_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                v73 = *(v71 + 23);
-                *(v71 + 22) = v70;
-                *(v71 + 23) = v72;
-                if (v73)
+                v68 = *(v66 + 23);
+                *(v66 + 22) = v65;
+                *(v66 + 23) = v67;
+                if (v68)
                 {
-                  std::__shared_weak_count::__release_weak(v73);
+                  std::__shared_weak_count::__release_weak(v68);
                 }
 
-                if (v72)
+                if (v67)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v72);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v67);
                 }
 
                 QP::ParseAttribute::setModifier(*v7, *(v29 + 18));
                 QP::ParseAttribute::setShouldIgnore(v29, 1);
-                if (v184)
+                if (v173)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v184);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v173);
                 }
 
-                v184 = 0;
-                v172 = 0;
+                v173 = 0;
+                v161 = 0;
               }
 
               else
               {
-                v235[0] = 0;
-                ++v189;
+                v224[0] = 0;
+                ++v178;
               }
 
-              if (*(&v234 + 1))
+              if (*(&v223 + 1))
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](*(&v234 + 1));
+                std::__shared_weak_count::__release_shared[abi:ne200100](*(&v223 + 1));
               }
             }
 
@@ -4130,84 +4097,83 @@ LABEL_101:
 
           else
           {
-            if (v186)
+            if (v175)
             {
-              if (v187)
+              if (v176)
               {
-                v234 = 0uLL;
-                v82 = *(a1 + 32);
-                v210 = 0;
-                v211 = 0;
-                v83 = *(v186 + 23);
-                if (v83)
+                v223 = 0uLL;
+                v76 = *(a1 + 32);
+                v199 = 0;
+                v200 = 0;
+                v77 = *(v175 + 23);
+                if (v77)
                 {
-                  v211 = std::__shared_weak_count::lock(v83);
-                  if (v211)
+                  v200 = std::__shared_weak_count::lock(v77);
+                  if (v200)
                   {
-                    v210 = *(v186 + 22);
+                    v199 = *(v175 + 22);
                   }
                 }
 
-                v208 = 0;
-                v209 = 0;
-                v84 = *(v187 + 23);
-                if (v84)
+                v197 = 0;
+                v198 = 0;
+                v78 = *(v176 + 23);
+                if (v78)
                 {
-                  v209 = std::__shared_weak_count::lock(v84);
-                  if (v209)
+                  v198 = std::__shared_weak_count::lock(v78);
+                  if (v198)
                   {
-                    v208 = *(v187 + 22);
+                    v197 = *(v176 + 22);
                   }
                 }
 
-                v85 = *(v186 + 18);
-                QP::Lexer::merge(v82, &v210, &v208, a4, &v234);
-                if (v209)
+                QP::Lexer::merge(v76, &v199, &v197, a4, &v223);
+                if (v198)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v209);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v198);
                 }
 
-                if (v211)
+                if (v200)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v211);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v200);
                 }
 
-                v86 = v234;
-                if (v234)
+                v79 = v223;
+                if (v223)
                 {
                   if ((a4 & 1) == 0)
                   {
-                    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v234);
-                    v86 = v234;
+                    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v223);
+                    v79 = v223;
                   }
 
-                  v87 = *(&v234 + 1);
-                  if (*(&v234 + 1))
+                  v80 = *(&v223 + 1);
+                  if (*(&v223 + 1))
                   {
-                    atomic_fetch_add_explicit((*(&v234 + 1) + 8), 1uLL, memory_order_relaxed);
-                    atomic_fetch_add_explicit(&v87->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+                    atomic_fetch_add_explicit((*(&v223 + 1) + 8), 1uLL, memory_order_relaxed);
+                    atomic_fetch_add_explicit(&v80->__shared_weak_owners_, 1uLL, memory_order_relaxed);
                   }
 
-                  v88 = *(v186 + 23);
-                  *(v186 + 22) = v86;
-                  *(v186 + 23) = v87;
-                  if (v88)
+                  v81 = *(v175 + 23);
+                  *(v175 + 22) = v79;
+                  *(v175 + 23) = v80;
+                  if (v81)
                   {
-                    std::__shared_weak_count::__release_weak(v88);
+                    std::__shared_weak_count::__release_weak(v81);
                   }
 
-                  if (v87)
+                  if (v80)
                   {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v87);
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v80);
                   }
 
-                  QP::ParseAttribute::setShouldIgnore(v187, 1);
+                  QP::ParseAttribute::setShouldIgnore(v176, 1);
                 }
 
                 else
                 {
-                  v235[0] = 0;
-                  ++v189;
+                  v224[0] = 0;
+                  ++v178;
                 }
 
                 if (v27)
@@ -4215,875 +4181,872 @@ LABEL_101:
                   std::__shared_weak_count::__release_shared[abi:ne200100](v27);
                 }
 
-                if (*(&v234 + 1))
+                if (*(&v223 + 1))
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](*(&v234 + 1));
+                  std::__shared_weak_count::__release_shared[abi:ne200100](*(&v223 + 1));
                 }
 
-                v187 = 0;
+                v176 = 0;
                 v27 = 0;
                 goto LABEL_245;
               }
 
-              v187 = 0;
+              v176 = 0;
             }
 
-            ++v189;
+            ++v178;
           }
 
 LABEL_245:
-          v98 = v7[1];
-          v186 = *v7;
-          if (v98)
+          v90 = *(v7 + 1);
+          v175 = *v7;
+          if (v90)
           {
-            atomic_fetch_add_explicit(&v98->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v90->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          if (v185)
+          if (v174)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v185);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v174);
           }
 
-          v52 = 0;
-          v99 = *v7;
-          v100 = *(*v7 + 18);
-          if (v100 > 5)
+          v51 = 0;
+          v91 = *v7;
+          v92 = *(*v7 + 36);
+          if (v92 > 5)
           {
-            switch(v100)
+            switch(v92)
             {
               case 6u:
-                v104 = v7[1];
-                if (v104)
+                v96 = *(v7 + 1);
+                if (v96)
                 {
-                  atomic_fetch_add_explicit(&v104->__shared_owners_, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(&v96->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                if (v180)
+                if (v169)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v180);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v169);
                 }
 
-                v52 = 0;
-                v185 = v98;
-                v53 = v28;
-                v180 = v104;
-                v167 = v99;
+                v51 = 0;
+                v174 = v90;
+                v52 = v28;
+                v169 = v96;
+                v156 = v91;
                 goto LABEL_71;
               case 7u:
-                v106 = v7[1];
-                if (v106)
+                v98 = *(v7 + 1);
+                if (v98)
                 {
-                  atomic_fetch_add_explicit(&v106->__shared_owners_, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(&v98->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                if (v183)
+                if (v172)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v183);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v172);
                 }
 
-                v52 = 0;
-                v183 = v106;
-                v185 = v98;
-                v53 = v28;
-                v169 = v99;
+                v51 = 0;
+                v172 = v98;
+                v174 = v90;
+                v52 = v28;
+                v158 = v91;
                 goto LABEL_71;
               case 8u:
-                v102 = v7[1];
-                if (v102)
+                v94 = *(v7 + 1);
+                if (v94)
                 {
-                  atomic_fetch_add_explicit(&v102->__shared_owners_, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(&v94->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                if (v192)
+                if (v181)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v192);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v181);
                 }
 
-                v52 = 0;
-                v171 = v99;
-                v192 = v102;
+                v51 = 0;
+                v160 = v91;
+                v181 = v94;
                 break;
             }
           }
 
           else
           {
-            if (v100 - 2 < 2)
+            if (v92 - 2 < 2)
             {
-              v103 = v7[1];
-              if (v103)
+              v95 = *(v7 + 1);
+              if (v95)
               {
-                atomic_fetch_add_explicit(&v103->__shared_owners_, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit(&v95->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              if (v178)
+              if (v167)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v178);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v167);
               }
 
-              v52 = 0;
-              v185 = v98;
-              v53 = v28;
-              v178 = v103;
-              v174 = v99;
+              v51 = 0;
+              v174 = v90;
+              v52 = v28;
+              v167 = v95;
+              v163 = v91;
               goto LABEL_71;
             }
 
-            if (v100 == 1)
+            if (v92 == 1)
             {
-              v105 = v7[1];
-              if (v105)
+              v97 = *(v7 + 1);
+              if (v97)
               {
-                atomic_fetch_add_explicit(&v105->__shared_owners_, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit(&v97->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              if (v182)
+              if (v171)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v182);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v171);
               }
 
-              v52 = 0;
-              v185 = v98;
-              v53 = v28;
-              v182 = v105;
-              v168 = v99;
+              v51 = 0;
+              v174 = v90;
+              v52 = v28;
+              v171 = v97;
+              v157 = v91;
               goto LABEL_71;
             }
 
-            if (v100 == 5)
+            if (v92 == 5)
             {
-              v101 = v7[1];
-              if (v101)
+              v93 = *(v7 + 1);
+              if (v93)
               {
-                atomic_fetch_add_explicit(&v101->__shared_owners_, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit(&v93->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              if (v176)
+              if (v165)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v176);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v165);
               }
 
-              v52 = 0;
-              v185 = v98;
-              v53 = v28;
-              v176 = v101;
-              v170 = v99;
+              v51 = 0;
+              v174 = v90;
+              v52 = v28;
+              v165 = v93;
+              v159 = v91;
               goto LABEL_71;
             }
           }
 
-          v185 = v98;
+          v174 = v90;
           goto LABEL_70;
         }
       }
     }
 
-    v52 = v29;
-    v53 = v28;
+    v51 = v29;
+    v52 = v28;
 LABEL_75:
     std::__shared_weak_count::__release_shared[abi:ne200100](v32);
-    v29 = v52;
-    v28 = v53;
+    v29 = v51;
+    v28 = v52;
 LABEL_76:
-    v7 += 2;
+    v7 += 16;
   }
 
   while (v7 != v6);
-  if (v186)
+  if (v175)
   {
-    v193 = v30;
+    v182 = v30;
     if (v29)
     {
-      v234 = 0uLL;
-      v112 = *(a1 + 32);
-      v206 = 0;
-      v207 = 0;
-      v113 = *(v186 + 23);
-      if (v113)
+      v223 = 0uLL;
+      v104 = *(a1 + 32);
+      v195 = 0;
+      v196 = 0;
+      v105 = *(v175 + 23);
+      if (v105)
       {
-        v207 = std::__shared_weak_count::lock(v113);
-        if (v207)
+        v196 = std::__shared_weak_count::lock(v105);
+        if (v196)
         {
-          v206 = *(v186 + 22);
+          v195 = *(v175 + 22);
         }
       }
 
-      v204 = 0;
-      v205 = 0;
-      v114 = *(v29 + 23);
-      v116 = v176;
-      v115 = v178;
-      v117 = v171;
-      if (v114)
+      v193 = 0;
+      v194 = 0;
+      v106 = *(v29 + 23);
+      v108 = v165;
+      v107 = v167;
+      v109 = v160;
+      if (v106)
       {
-        v205 = std::__shared_weak_count::lock(v114);
-        if (v205)
+        v194 = std::__shared_weak_count::lock(v106);
+        if (v194)
         {
-          v204 = *(v29 + 22);
+          v193 = *(v29 + 22);
         }
       }
 
-      v118 = *(v186 + 18);
-      QP::Lexer::merge(v112, &v206, &v204, a4, &v234);
-      v119 = v180;
-      if (v205)
+      QP::Lexer::merge(v104, &v195, &v193, a4, &v223);
+      v110 = v169;
+      if (v194)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v205);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v194);
       }
 
-      if (v207)
+      if (v196)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v207);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v196);
       }
 
-      v120 = v234;
-      if (v234)
+      v111 = v223;
+      if (v223)
       {
         if ((a4 & 1) == 0)
         {
-          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v234);
-          v120 = v234;
+          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v223);
+          v111 = v223;
         }
 
-        v121 = *(&v234 + 1);
-        if (*(&v234 + 1))
+        v112 = *(&v223 + 1);
+        if (*(&v223 + 1))
         {
-          atomic_fetch_add_explicit((*(&v234 + 1) + 8), 1uLL, memory_order_relaxed);
-          atomic_fetch_add_explicit(&v121->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((*(&v223 + 1) + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v112->__shared_weak_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v122 = *(v186 + 23);
-        *(v186 + 22) = v120;
-        *(v186 + 23) = v121;
-        if (v122)
+        v113 = *(v175 + 23);
+        *(v175 + 22) = v111;
+        *(v175 + 23) = v112;
+        if (v113)
         {
-          std::__shared_weak_count::__release_weak(v122);
+          std::__shared_weak_count::__release_weak(v113);
         }
 
-        if (v121)
+        if (v112)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v121);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v112);
         }
 
-        v119 = v180;
+        v110 = v169;
         QP::ParseAttribute::setShouldIgnore(v29, 1);
         goto LABEL_358;
       }
 
 LABEL_359:
-      v235[0] = 0;
+      v224[0] = 0;
       goto LABEL_360;
     }
 
-    v116 = v176;
-    v115 = v178;
-    v117 = v171;
-    if (v187)
+    v108 = v165;
+    v107 = v167;
+    v109 = v160;
+    if (v176)
     {
-      v234 = 0uLL;
-      v125 = *(a1 + 32);
-      v202 = 0;
-      v203 = 0;
-      v126 = *(v186 + 23);
-      if (v126)
+      v223 = 0uLL;
+      v116 = *(a1 + 32);
+      v191 = 0;
+      v192 = 0;
+      v117 = *(v175 + 23);
+      if (v117)
       {
-        v203 = std::__shared_weak_count::lock(v126);
-        if (v203)
+        v192 = std::__shared_weak_count::lock(v117);
+        if (v192)
         {
-          v202 = *(v186 + 22);
+          v191 = *(v175 + 22);
         }
       }
 
-      v200 = 0;
-      v201 = 0;
-      v127 = *(v187 + 23);
-      if (v127)
+      v189 = 0;
+      v190 = 0;
+      v118 = *(v176 + 23);
+      if (v118)
       {
-        v201 = std::__shared_weak_count::lock(v127);
-        if (v201)
+        v190 = std::__shared_weak_count::lock(v118);
+        if (v190)
         {
-          v200 = *(v187 + 22);
+          v189 = *(v176 + 22);
         }
       }
 
-      v128 = *(v186 + 18);
-      QP::Lexer::merge(v125, &v202, &v200, a4, &v234);
-      v119 = v180;
-      if (v201)
+      QP::Lexer::merge(v116, &v191, &v189, a4, &v223);
+      v110 = v169;
+      if (v190)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v201);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v190);
       }
 
-      if (v203)
+      if (v192)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v203);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v192);
       }
 
-      v129 = v234;
-      if (!v234)
+      v119 = v223;
+      if (!v223)
       {
         goto LABEL_359;
       }
 
       if ((a4 & 1) == 0)
       {
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v234);
-        v129 = v234;
+        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v223);
+        v119 = v223;
       }
 
-      v130 = *(&v234 + 1);
-      if (*(&v234 + 1))
+      v120 = *(&v223 + 1);
+      if (*(&v223 + 1))
       {
-        atomic_fetch_add_explicit((*(&v234 + 1) + 8), 1uLL, memory_order_relaxed);
-        atomic_fetch_add_explicit(&v130->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((*(&v223 + 1) + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v120->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v131 = *(v186 + 23);
-      *(v186 + 22) = v129;
-      *(v186 + 23) = v130;
-      if (v131)
+      v121 = *(v175 + 23);
+      *(v175 + 22) = v119;
+      *(v175 + 23) = v120;
+      if (v121)
       {
-        std::__shared_weak_count::__release_weak(v131);
+        std::__shared_weak_count::__release_weak(v121);
       }
 
-      if (v130)
+      if (v120)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v130);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v120);
       }
 
-      v119 = v180;
-      QP::ParseAttribute::setShouldIgnore(v187, 1);
+      v110 = v169;
+      QP::ParseAttribute::setShouldIgnore(v176, 1);
 LABEL_358:
-      --v189;
+      --v178;
 LABEL_360:
-      if (*(&v234 + 1))
+      if (*(&v223 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v234 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v223 + 1));
       }
     }
 
     else
     {
-      v119 = v180;
+      v110 = v169;
     }
   }
 
   else
   {
-    v193 = v30;
-    v116 = v176;
-    v115 = v178;
-    v119 = v180;
-    v117 = v171;
+    v182 = v30;
+    v108 = v165;
+    v107 = v167;
+    v110 = v169;
+    v109 = v160;
   }
 
-  v132 = v174;
-  if (!v174)
+  v122 = v163;
+  if (!v163)
   {
-    v134 = v117 != 0;
-    if (v117)
+    v124 = v109 != 0;
+    if (v109)
     {
-      if (v172)
+      if (v161)
       {
-        if (v184)
+        if (v173)
         {
-          atomic_fetch_add_explicit(&v184->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v173->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v124 = v193;
-        if (!v193)
+        v115 = v182;
+        if (!v182)
         {
-          v193 = 0;
-          v123 = v184;
-          v135 = v172;
+          v182 = 0;
+          v114 = v173;
+          v125 = v161;
           goto LABEL_432;
         }
 
-        v133 = v193;
-        v123 = v184;
-        v132 = v172;
+        v123 = v182;
+        v114 = v173;
+        v122 = v161;
         goto LABEL_430;
       }
 
-      if (v169)
+      if (v158)
       {
-        if (v183)
+        if (v172)
         {
-          atomic_fetch_add_explicit(&v183->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v172->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v124 = v193;
-        if (!v193)
+        v115 = v182;
+        if (!v182)
         {
-          v193 = 0;
-          v123 = v183;
-          v135 = v169;
+          v182 = 0;
+          v114 = v172;
+          v125 = v158;
           goto LABEL_432;
         }
 
-        v133 = v193;
-        v123 = v183;
-        v132 = v169;
+        v123 = v182;
+        v114 = v172;
+        v122 = v158;
         goto LABEL_430;
       }
 
-      v172 = 0;
+      v161 = 0;
       goto LABEL_410;
     }
 
-    if (!v169)
+    if (!v158)
     {
-      v117 = 0;
+      v109 = 0;
 LABEL_410:
-      if (!v170)
+      if (!v159)
       {
         goto LABEL_416;
       }
 
-      if (v167)
+      if (v156)
       {
-        if (v119)
+        if (v110)
         {
-          atomic_fetch_add_explicit(&v119->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v110->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v117 = v170;
-        if (!v116)
+        v109 = v159;
+        if (!v108)
         {
-          v124 = v193;
-          v123 = v119;
-          v135 = v167;
+          v115 = v182;
+          v114 = v110;
+          v125 = v156;
           goto LABEL_536;
         }
 
-        v133 = v116;
-        v123 = v119;
-        v132 = v167;
+        v123 = v108;
+        v114 = v110;
+        v122 = v156;
         goto LABEL_429;
       }
 
-      if (!v172)
+      if (!v161)
       {
         goto LABEL_408;
       }
 
-      if (v119)
+      if (v110)
       {
-        atomic_fetch_add_explicit(&v119->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v110->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      if (v184)
+      if (v173)
       {
-        atomic_fetch_add_explicit(&v184->__shared_owners_, 1uLL, memory_order_relaxed);
-        v124 = v193;
-        v193 = v184;
-        v123 = v119;
+        atomic_fetch_add_explicit(&v173->__shared_owners_, 1uLL, memory_order_relaxed);
+        v115 = v182;
+        v182 = v173;
+        v114 = v110;
         goto LABEL_455;
       }
 
-      v184 = 0;
-      v124 = v193;
-      v123 = v119;
+      v173 = 0;
+      v115 = v182;
+      v114 = v110;
 LABEL_523:
-      v193 = 0;
+      v182 = 0;
       goto LABEL_455;
     }
 
-    v117 = v170;
-    if (v170)
+    v109 = v159;
+    if (v159)
     {
-      if (v183)
+      if (v172)
       {
-        atomic_fetch_add_explicit(&v183->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v172->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      if (v116)
+      if (v108)
       {
-        v133 = v116;
+        v123 = v108;
 LABEL_406:
-        v123 = v183;
-        v132 = v169;
+        v114 = v172;
+        v122 = v158;
 LABEL_429:
-        v124 = v193;
+        v115 = v182;
         goto LABEL_430;
       }
 
-      v124 = v193;
+      v115 = v182;
     }
 
     else
     {
-      v134 = v172;
-      if (!v172)
+      v124 = v161;
+      if (!v161)
       {
         goto LABEL_407;
       }
 
-      if (v183)
+      if (v172)
       {
-        atomic_fetch_add_explicit(&v183->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v172->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v133 = v184;
-      if (v184)
+      v123 = v173;
+      if (v173)
       {
-        v117 = v172;
+        v109 = v161;
         goto LABEL_406;
       }
 
-      v184 = 0;
-      v124 = v193;
-      v117 = v172;
+      v173 = 0;
+      v115 = v182;
+      v109 = v161;
     }
 
-    v123 = v183;
-    v135 = v169;
+    v114 = v172;
+    v125 = v158;
     goto LABEL_536;
   }
 
-  if (v117)
+  if (v109)
   {
-    if (v115)
+    if (v107)
     {
-      atomic_fetch_add_explicit(&v115->__shared_owners_, 1uLL, memory_order_relaxed);
-      v132 = v174;
+      atomic_fetch_add_explicit(&v107->__shared_owners_, 1uLL, memory_order_relaxed);
+      v122 = v163;
     }
 
-    v124 = v193;
-    if (v193)
+    v115 = v182;
+    if (v182)
     {
-      v133 = v193;
-      v123 = v115;
+      v123 = v182;
+      v114 = v107;
       goto LABEL_430;
     }
 
-    v193 = 0;
-    v123 = v115;
+    v182 = 0;
+    v114 = v107;
 LABEL_431:
-    v135 = v132;
+    v125 = v122;
 LABEL_432:
-    v234 = 0uLL;
-    v136 = *(a1 + 32);
-    v198 = 0;
-    v199 = 0;
-    v137 = v135;
-    v138 = *(v135 + 23);
-    if (v138)
+    v223 = 0uLL;
+    v126 = *(a1 + 32);
+    v187 = 0;
+    v188 = 0;
+    v127 = v125;
+    v128 = *(v125 + 23);
+    if (v128)
     {
-      v199 = std::__shared_weak_count::lock(v138);
-      if (v199)
+      v188 = std::__shared_weak_count::lock(v128);
+      if (v188)
       {
-        v198 = *(v137 + 22);
+        v187 = *(v127 + 22);
       }
     }
 
     size = 0;
-    v197 = 0;
-    v139 = v117[7].__r_.__value_.__r.__words[2];
-    if (v139)
+    v186 = 0;
+    v129 = v109[7].__r_.__value_.__r.__words[2];
+    if (v129)
     {
-      v197 = std::__shared_weak_count::lock(v139);
-      if (v197)
+      v186 = std::__shared_weak_count::lock(v129);
+      if (v186)
       {
-        size = v117[7].__r_.__value_.__l.__size_;
+        size = v109[7].__r_.__value_.__l.__size_;
       }
     }
 
-    v140 = *(v137 + 18);
-    QP::Lexer::merge(v136, &v198, &size, a4, &v234);
-    if (v197)
+    QP::Lexer::merge(v126, &v187, &size, a4, &v223);
+    if (v186)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v197);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v186);
     }
 
-    if (v199)
+    if (v188)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v199);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v188);
     }
 
-    v141 = v234;
-    if (v234)
+    v130 = v223;
+    if (v223)
     {
       if ((a4 & 1) == 0)
       {
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v234);
-        v141 = v234;
+        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v223);
+        v130 = v223;
       }
 
-      v142 = *(&v234 + 1);
-      if (*(&v234 + 1))
+      v131 = *(&v223 + 1);
+      if (*(&v223 + 1))
       {
-        atomic_fetch_add_explicit((*(&v234 + 1) + 8), 1uLL, memory_order_relaxed);
-        atomic_fetch_add_explicit(&v142->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((*(&v223 + 1) + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v131->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v143 = *(v137 + 23);
-      *(v137 + 22) = v141;
-      *(v137 + 23) = v142;
-      if (v143)
+      v132 = *(v127 + 23);
+      *(v127 + 22) = v130;
+      *(v127 + 23) = v131;
+      if (v132)
       {
-        std::__shared_weak_count::__release_weak(v143);
+        std::__shared_weak_count::__release_weak(v132);
       }
 
-      if (v142)
+      if (v131)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v142);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v131);
       }
 
-      QP::ParseAttribute::setShouldIgnore(v117, 1);
-      --v189;
+      QP::ParseAttribute::setShouldIgnore(v109, 1);
+      --v178;
     }
 
     else
     {
-      v235[0] = 0;
+      v224[0] = 0;
     }
 
-    if (*(&v234 + 1))
+    if (*(&v223 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v234 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v223 + 1));
     }
 
     goto LABEL_455;
   }
 
-  v117 = v170;
-  if (v170)
+  v109 = v159;
+  if (v159)
   {
-    if (v115)
+    if (v107)
     {
-      atomic_fetch_add_explicit(&v115->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v107->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    if (v116)
+    if (v108)
     {
-      v133 = v116;
+      v123 = v108;
       goto LABEL_397;
     }
 
-    v124 = v193;
+    v115 = v182;
 LABEL_527:
-    v123 = v115;
-    v135 = v174;
+    v114 = v107;
+    v125 = v163;
 LABEL_536:
-    v193 = 0;
+    v182 = 0;
     goto LABEL_432;
   }
 
-  v134 = v172;
-  if (v172)
+  v124 = v161;
+  if (v161)
   {
-    if (v115)
+    if (v107)
     {
-      atomic_fetch_add_explicit(&v115->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v107->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v133 = v184;
-    if (!v184)
+    v123 = v173;
+    if (!v173)
     {
-      v184 = 0;
-      v124 = v193;
-      v117 = v172;
+      v173 = 0;
+      v115 = v182;
+      v109 = v161;
       goto LABEL_527;
     }
 
-    v117 = v172;
+    v109 = v161;
 LABEL_397:
-    v123 = v115;
-    v124 = v193;
-    v132 = v174;
+    v114 = v107;
+    v115 = v182;
+    v122 = v163;
 LABEL_430:
-    atomic_fetch_add_explicit(&v133->__shared_owners_, 1uLL, memory_order_relaxed);
-    v193 = v133;
+    atomic_fetch_add_explicit(&v123->__shared_owners_, 1uLL, memory_order_relaxed);
+    v182 = v123;
     goto LABEL_431;
   }
 
 LABEL_407:
-  v117 = 0;
+  v109 = 0;
 LABEL_408:
-  v172 = 0;
+  v161 = 0;
 LABEL_416:
-  if (!v168)
+  if (!v157)
   {
 LABEL_522:
-    v123 = 0;
-    v124 = v193;
+    v114 = 0;
+    v115 = v182;
     goto LABEL_523;
   }
 
-  if (!v134)
+  if (!v124)
   {
-    if (v172)
+    if (v161)
     {
-      if (v182)
+      if (v171)
       {
-        atomic_fetch_add_explicit(&v182->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v171->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v133 = v184;
-      if (!v184)
+      v123 = v173;
+      if (!v173)
       {
-        v184 = 0;
-        v124 = v193;
-        v117 = v172;
-        v123 = v182;
-        v193 = 0;
-        v135 = v168;
+        v173 = 0;
+        v115 = v182;
+        v109 = v161;
+        v114 = v171;
+        v182 = 0;
+        v125 = v157;
         goto LABEL_432;
       }
 
-      v117 = v172;
-      v123 = v182;
-      v132 = v168;
+      v109 = v161;
+      v114 = v171;
+      v122 = v157;
       goto LABEL_429;
     }
 
     goto LABEL_522;
   }
 
+  if (v171)
+  {
+    atomic_fetch_add_explicit(&v171->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v115 = v182;
   if (v182)
   {
     atomic_fetch_add_explicit(&v182->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v124 = v193;
-  if (v193)
-  {
-    atomic_fetch_add_explicit(&v193->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v123 = v182;
-  v135 = v168;
-  if (v117)
+  v114 = v171;
+  v125 = v157;
+  if (v109)
   {
     goto LABEL_432;
   }
 
-  v123 = v182;
+  v114 = v171;
 LABEL_455:
-  if (v189 >= 2)
+  if (v178 >= 2)
   {
     v26 = 0;
-    v235[0] = 0;
+    v224[0] = 0;
     goto LABEL_497;
   }
 
 LABEL_457:
-  if (v235[0])
+  if (v224[0])
   {
-    v190 = v124;
-    v145 = *a2;
-    v144 = a2[1];
-    if (v144 != *a2)
+    v179 = v115;
+    v134 = *a2;
+    v133 = a2[1];
+    if (v133 != *a2)
     {
-      v179 = v115;
-      v181 = v119;
-      v177 = v116;
-      v146 = 0;
+      v168 = v107;
+      v170 = v110;
+      v166 = v108;
+      v135 = 0;
       while (1)
       {
-        v147 = *v145;
-        if (!v146)
+        v136 = *v134;
+        if (!v135)
         {
-          v146 = *(v147 + 36);
+          v135 = *(v136 + 18);
         }
 
-        if ((*(v147 + 74) & 1) == 0)
+        if ((*(v136 + 74) & 1) == 0)
         {
-          v148 = std::__shared_weak_count::lock(*(v147 + 184));
-          if (*(*(v147 + 176) + 88) - 1 <= 3 && (v149 = *v145, (v150 = *(*v145 + 184)) != 0) && (v151 = std::__shared_weak_count::lock(v150)) != 0)
+          v137 = std::__shared_weak_count::lock(*(v136 + 23));
+          if (*(*(v136 + 22) + 88) - 1 <= 3 && (v138 = *v134, (v139 = *(*v134 + 23)) != 0) && (v140 = std::__shared_weak_count::lock(v139)) != 0)
           {
-            v152 = *(v149 + 176);
-            std::__shared_weak_count::__release_shared[abi:ne200100](v151);
-            std::__shared_weak_count::__release_shared[abi:ne200100](v148);
-            if (v152)
+            v141 = *(v138 + 22);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v140);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v137);
+            if (v141)
             {
-              v153 = *v145;
-              v154 = std::__shared_weak_count::lock(*(*v145 + 184));
-              v155 = *(v153 + 176);
-              v156 = *(v155 + 120);
-              v157 = *(v155 + 128);
-              if (v157)
+              v142 = *v134;
+              v143 = std::__shared_weak_count::lock(*(*v134 + 23));
+              v144 = *(v142 + 22);
+              v145 = *(v144 + 120);
+              v146 = *(v144 + 128);
+              if (v146)
               {
-                atomic_fetch_add_explicit(&v157->__shared_owners_, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit(&v146->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              if (v156)
+              if (v145)
               {
-                v234 = 0uLL;
-                v158 = *(a1 + 32);
-                v159 = *v145;
-                v194 = 0;
-                v195 = 0;
-                v160 = *(v159 + 184);
-                if (v160)
+                v223 = 0uLL;
+                v147 = *(a1 + 32);
+                v148 = *v134;
+                v183 = 0;
+                v184 = 0;
+                v149 = *(v148 + 23);
+                if (v149)
                 {
-                  v195 = std::__shared_weak_count::lock(v160);
-                  if (v195)
+                  v184 = std::__shared_weak_count::lock(v149);
+                  if (v184)
                   {
-                    v194 = *(v159 + 176);
+                    v183 = *(v148 + 22);
                   }
                 }
 
-                QP::Lexer::resolve(v158, &v194, v146, v235, a4, &v234);
-                if (v195)
+                QP::Lexer::resolve(v147, &v183, v135, v224, a4, &v223);
+                if (v184)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v195);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v184);
                 }
 
-                v161 = v234;
-                if (v234)
+                v150 = v223;
+                if (v223)
                 {
                   if ((a4 & 1) == 0)
                   {
-                    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v234);
-                    v161 = v234;
+                    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, &v223);
+                    v150 = v223;
                   }
 
-                  v162 = *v145;
-                  v163 = *(&v234 + 1);
-                  if (*(&v234 + 1))
+                  v151 = *v134;
+                  v152 = *(&v223 + 1);
+                  if (*(&v223 + 1))
                   {
-                    atomic_fetch_add_explicit((*(&v234 + 1) + 8), 1uLL, memory_order_relaxed);
-                    atomic_fetch_add_explicit(&v163->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+                    atomic_fetch_add_explicit((*(&v223 + 1) + 8), 1uLL, memory_order_relaxed);
+                    atomic_fetch_add_explicit(&v152->__shared_weak_owners_, 1uLL, memory_order_relaxed);
                   }
 
-                  v164 = *(v162 + 184);
-                  *(v162 + 176) = v161;
-                  *(v162 + 184) = v163;
-                  if (v164)
+                  v153 = *(v151 + 23);
+                  *(v151 + 22) = v150;
+                  *(v151 + 23) = v152;
+                  if (v153)
                   {
-                    std::__shared_weak_count::__release_weak(v164);
+                    std::__shared_weak_count::__release_weak(v153);
                   }
 
-                  if (v163)
+                  if (v152)
                   {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v163);
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v152);
                   }
                 }
 
-                if (*(&v234 + 1))
+                if (*(&v223 + 1))
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](*(&v234 + 1));
+                  std::__shared_weak_count::__release_shared[abi:ne200100](*(&v223 + 1));
                 }
 
-                v146 = 0;
+                v135 = 0;
               }
 
-              v165 = v235[0];
-              if (v157)
+              v154 = v224[0];
+              if (v146)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v157);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v146);
               }
 
-              std::__shared_weak_count::__release_shared[abi:ne200100](v154);
-              if (!v165)
+              std::__shared_weak_count::__release_shared[abi:ne200100](v143);
+              if (!v154)
               {
 LABEL_493:
-                v26 = v235[0];
-                v116 = v177;
-                v115 = v179;
-                v119 = v181;
+                v26 = v224[0];
+                v108 = v166;
+                v107 = v168;
+                v110 = v170;
                 goto LABEL_496;
               }
             }
@@ -5091,12 +5054,12 @@ LABEL_493:
 
           else
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v148);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v137);
           }
         }
 
-        v145 += 2;
-        if (v145 == v144)
+        v134 += 2;
+        if (v134 == v133)
         {
           goto LABEL_493;
         }
@@ -5105,7 +5068,7 @@ LABEL_493:
 
     v26 = 1;
 LABEL_496:
-    v124 = v190;
+    v115 = v179;
   }
 
   else
@@ -5114,14 +5077,14 @@ LABEL_496:
   }
 
 LABEL_497:
-  if (v193)
+  if (v182)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v193);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v182);
   }
 
-  if (v123)
+  if (v114)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v123);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v114);
   }
 
   if (v27)
@@ -5134,29 +5097,9 @@ LABEL_497:
     std::__shared_weak_count::__release_shared[abi:ne200100](v28);
   }
 
-  if (v185)
+  if (v174)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v185);
-  }
-
-  if (v124)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v124);
-  }
-
-  if (v183)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v183);
-  }
-
-  if (v119)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v119);
-  }
-
-  if (v116)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v116);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v174);
   }
 
   if (v115)
@@ -5164,14 +5107,34 @@ LABEL_497:
     std::__shared_weak_count::__release_shared[abi:ne200100](v115);
   }
 
-  if (v184)
+  if (v172)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v184);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v172);
   }
 
-  if (v182)
+  if (v110)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v182);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v110);
+  }
+
+  if (v108)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v108);
+  }
+
+  if (v107)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v107);
+  }
+
+  if (v173)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v173);
+  }
+
+  if (v171)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v171);
   }
 
   return v26;
@@ -5244,7 +5207,7 @@ void sub_1C65D0880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void QP::ParseAttribute::setShouldIgnore(std::string *this, int a2)
+void QP::ParseAttribute::setShouldIgnore(std::string *this, const __CFString *a2)
 {
   this[3].__r_.__value_.__s.__data_[2] = a2;
   if (a2)
@@ -5261,7 +5224,7 @@ void QP::ParseAttribute::setShouldIgnore(std::string *this, int a2)
           v6 = *(size + 88);
           if ((v6 - 1) <= 3)
           {
-            QP::getUTF8StringFromCFString(kQPParseAttributeDateExtensionKey, &__str);
+            QP::getUTF8StringFromCFString(&__str, kQPParseAttributeDateExtensionKey);
             std::string::operator=(this + 2, &__str);
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
             {
@@ -5276,7 +5239,7 @@ LABEL_17:
 
           if (v6 == 7)
           {
-            QP::getUTF8StringFromCFString(kQPParseAttributeNumberExtensionKey, &v9);
+            QP::getUTF8StringFromCFString(&v9, kQPParseAttributeNumberExtensionKey);
             std::string::operator=(this + 2, &v9);
             if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
             {
@@ -5297,7 +5260,7 @@ LABEL_12:
       v4 = 0;
     }
 
-    QP::getUTF8StringFromCFString(kQPParseAttributeExtensionKey, &v8);
+    QP::getUTF8StringFromCFString(&v8, kQPParseAttributeExtensionKey);
     std::string::operator=(this + 2, &v8);
     if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -5372,7 +5335,7 @@ void QP::ParseAttribute::setModifier(uint64_t a1, __int16 a2)
   }
 }
 
-uint64_t QP::Parser::mergeNumbers(uint64_t a1, QP::ParseAttribute ***a2)
+uint64_t QP::Parser::mergeNumbers(uint64_t a1, std::string ***a2)
 {
   v2 = *a2;
   v3 = a2[1];
@@ -5411,34 +5374,32 @@ uint64_t QP::Parser::mergeNumbers(uint64_t a1, QP::ParseAttribute ***a2)
                   v15 = *(v5 + 22);
                   if (v15)
                   {
-                    v17 = *(v15 + 120);
                     v16 = *(v15 + 128);
                     if (v16)
                     {
                       atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
                     }
 
-                    v18 = *v2;
-                    v19 = *(*v2 + 23);
-                    if (v19)
+                    v17 = *v2;
+                    v18 = *(*v2 + 23);
+                    if (v18)
                     {
-                      v20 = std::__shared_weak_count::lock(v19);
-                      if (v20)
+                      v19 = std::__shared_weak_count::lock(v18);
+                      if (v19)
                       {
-                        v21 = *(v18 + 22);
-                        if (v21)
+                        v20 = *(v17 + 22);
+                        if (v20)
                         {
-                          v23 = *(v21 + 120);
-                          v22 = *(v21 + 128);
-                          if (v22)
+                          v21 = *(v20 + 128);
+                          if (v21)
                           {
-                            atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
+                            atomic_fetch_add_explicit((v21 + 8), 1uLL, memory_order_relaxed);
                           }
 
                           operator new();
                         }
 
-                        std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+                        std::__shared_weak_count::__release_shared[abi:ne200100](v19);
                       }
                     }
 
@@ -5492,10 +5453,10 @@ void sub_1C65D10E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a11)
   {
-    MEMORY[0x1C695B850](a11, 0x1000C40504FFAC1);
+    MEMORY[0x1C695B850](a11, 0x1000C40504FFAC1, a3, a4, a5, a6, a7, a8);
   }
 
-  MEMORY[0x1C695B850](v14, 0x20C40DC1BFBCFLL);
+  MEMORY[0x1C695B850](v14, 0x20C40DC1BFBCFLL, a3, a4, a5, a6, a7, a8);
   if (a9)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a9);
@@ -5529,7 +5490,7 @@ BOOL QP::Parser::merge(uint64_t a1, uint64_t *a2, void **a3, int a4)
   return v9;
 }
 
-BOOL QP::Parser::validate(uint64_t a1, uint64_t *a2, void **a3, int a4)
+BOOL QP::Parser::validate(uint64_t *a1, uint64_t *a2, void **a3, int a4)
 {
   result = QP::Parser::merge(a1, a2, a3, a4);
   if (result)
@@ -5964,11 +5925,11 @@ LABEL_47:
     do
     {
       memset(&__p, 0, sizeof(__p));
-      QP::ParseAttribute::description(*v41, &__p);
-      if (&v63 == std::__tree<std::string>::find<std::string>(&v62, &__p.__r_.__value_.__l.__data_) && (*(*v41 + 74) & 1) == 0)
+      QP::ParseAttribute::description(&__p, *v41);
+      if (&v63 == std::__tree<std::string>::find<std::string>(&v62, &__p) && (*(*v41 + 74) & 1) == 0)
       {
         std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, v41);
-        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v62, &__p.__r_.__value_.__l.__data_);
+        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v62, &__p, &__p);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5990,7 +5951,7 @@ LABEL_47:
   std::vector<std::vector<CFRange>>::__destroy_vector::operator()[abi:ne200100](&v62);
 }
 
-void sub_1C65D1AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *__p, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57)
+void sub_1C65D1AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *__p, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char *a57)
 {
   if (a50 < 0)
   {
@@ -6006,23 +5967,21 @@ void sub_1C65D1AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *___ZN2QP6Parser13parseLLMLexerERNSt3__16vectorINS1_10shared_ptrINS_6LexemeEEENS1_9allocatorIS5_EEEE_block_invoke(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, CFIndex a5, CFIndex a6)
+void ___ZN2QP6Parser13parseLLMLexerERNSt3__16vectorINS1_10shared_ptrINS_6LexemeEEENS1_9allocatorIS5_EEEE_block_invoke(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, CFIndex a5, CFIndex a6)
 {
   v11 = a1[6];
   v12 = QP::ParserGrammar::symbolID(*(v11 + 16), *a2);
-  v13 = *(*v11 + 31);
-  v16.location = a5;
-  v16.length = a6;
-  result = QP::GraphStructureStack::add(*(v11 + 64), v12, a3, a4, v16);
-  v15 = *(a1[4] + 8);
-  if (*(v15 + 24) < a3)
+  v14.location = a5;
+  v14.length = a6;
+  QP::GraphStructureStack::add(*(v11 + 64), v12, a3, a4, v14, *(*v11 + 31));
+  v13 = *(a1[4] + 8);
+  if (*(v13 + 24) < a3)
   {
     ++*(*(a1[5] + 8) + 24);
-    v15 = *(a1[4] + 8);
+    v13 = *(a1[4] + 8);
   }
 
-  *(v15 + 24) = a3;
-  return result;
+  *(v13 + 24) = a3;
 }
 
 __n128 __Block_byref_object_copy__9(void *a1, uint64_t a2)
@@ -6064,63 +6023,61 @@ void *__Block_byref_object_copy__1(void *result, void *a2)
   return result;
 }
 
-void ___ZN2QP6Parser13parseLLMLexerERNSt3__16vectorINS1_10shared_ptrINS_6LexemeEEENS1_9allocatorIS5_EEEE_block_invoke_3(uint64_t a1, _WORD **a2)
+void ___ZN2QP6Parser13parseLLMLexerERNSt3__16vectorINS1_10shared_ptrINS_6LexemeEEENS1_9allocatorIS5_EEEE_block_invoke_3(uint64_t a1, unsigned __int16 **a2)
 {
-  v4 = *(a1 + 48);
-  v5 = *a2;
-  v21 = *(*a2 + 12);
-  v20 = *(v5 + 8);
-  v18 = 0;
-  v19 = 0uLL;
-  v6 = *(v4 + 32);
+  v4 = *a2;
+  v19 = *(*a2 + 12);
+  v18 = *(v4 + 8);
+  v16 = 0;
+  v17 = 0uLL;
   __p[0] = 0;
   __p[1] = 0;
-  v17 = 0;
-  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(__p, *(v5 + 40), *(v5 + 48), (*(v5 + 48) - *(v5 + 40)) >> 3);
-  v7 = *(a1 + 56);
-  memset(v15, 0, sizeof(v15));
-  std::vector<std::shared_ptr<QP::Lexeme>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::Lexeme>*,std::shared_ptr<QP::Lexeme>*>(v15, *v7, v7[1], (v7[1] - *v7) >> 4);
-  QP::Lexer::lexemeFromLocationsAndLexemes(__p, v15, &v18);
-  v11 = v15;
-  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v11);
+  v15 = 0;
+  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(__p, *(v4 + 40), *(v4 + 48), (*(v4 + 48) - *(v4 + 40)) >> 3);
+  v5 = *(a1 + 56);
+  memset(v13, 0, sizeof(v13));
+  std::vector<std::shared_ptr<QP::Lexeme>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::Lexeme>*,std::shared_ptr<QP::Lexeme>*>(v13, *v5, v5[1], (v5[1] - *v5) >> 4);
+  QP::Lexer::lexemeFromLocationsAndLexemes(__p, v13, &v16);
+  v9 = v13;
+  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v9);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  v8 = v18;
-  v9 = v19;
-  v14 = v19;
-  if (*(&v19 + 1))
+  v6 = v16;
+  v7 = v17;
+  v12 = v17;
+  if (*(&v17 + 1))
   {
-    atomic_fetch_add_explicit((*(&v19 + 1) + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((*(&v17 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
-  if (v8 && v9)
+  if (v6 && v7)
   {
-    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](*(a1 + 56), &v14);
-    v9 = v14;
+    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](*(a1 + 56), &v12);
+    v7 = v12;
   }
 
-  if (v9)
+  if (v7)
   {
-    v12 = 0;
-    v13 = 0;
-    v10 = *a2;
+    v10 = 0;
+    v11 = 0;
+    v8 = *a2;
     LOWORD(__p[0]) = **a2;
-    LOWORD(v11) = *(v10 + 2);
+    LOWORD(v9) = *(v8 + 2);
     std::allocate_shared[abi:ne200100]<QP::ParseAttribute,std::allocator<QP::ParseAttribute>,CFRange &,CFRange &,unsigned short,unsigned short,0>();
   }
 
-  if (*(&v14 + 1))
+  if (*(&v12 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v14 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v12 + 1));
   }
 
-  if (*(&v19 + 1))
+  if (*(&v17 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v19 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v17 + 1));
   }
 }
 
@@ -6155,122 +6112,121 @@ void sub_1C65D2038(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QP::ParseAttribute::description(QP::ParseAttribute *this@<X0>, std::string *a2@<X8>)
+void QP::ParseAttribute::description(std::string *__return_ptr a1@<X8>, QP::ParseAttribute *this@<X0>)
 {
-  v3 = *(this + 12);
-  v4 = *(this + 25);
-  v5 = *(this + 24);
-  if (v4 != v5)
+  v3 = *(this + 25);
+  v4 = *(this + 24);
+  if (v3 != v4)
   {
-    v6 = 0;
-    a2->__r_.__value_.__r.__words[0] = 0;
-    a2->__r_.__value_.__l.__size_ = 0;
-    a2->__r_.__value_.__r.__words[2] = 0;
+    v5 = 0;
+    a1->__r_.__value_.__r.__words[0] = 0;
+    a1->__r_.__value_.__l.__size_ = 0;
+    a1->__r_.__value_.__r.__words[2] = 0;
     while (1)
     {
-      v8 = *v5;
-      v7 = *(v5 + 8);
-      if (v7)
-      {
-        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
+      v7 = *v4;
+      v6 = *(v4 + 8);
       if (v6)
       {
-        std::string::append(a2, "|", 1uLL);
+        atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      QP::ParseAttribute::description(&v43, v8);
-      v9 = (v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v43 : v43.__r_.__value_.__r.__words[0];
-      v10 = (v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v43.__r_.__value_.__r.__words[2]) : v43.__r_.__value_.__l.__size_;
-      std::string::append(a2, v9, v10);
-      if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+      if (v5)
+      {
+        std::string::append(a1, "|", 1uLL);
+      }
+
+      QP::ParseAttribute::description(&v42, v7);
+      v8 = (v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v42 : v42.__r_.__value_.__r.__words[0];
+      v9 = (v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v42.__r_.__value_.__r.__words[2]) : v42.__r_.__value_.__l.__size_;
+      std::string::append(a1, v8, v9);
+      if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
       {
         break;
       }
 
-      if (v7)
+      if (v6)
       {
         goto LABEL_15;
       }
 
 LABEL_16:
-      v5 += 16;
-      v6 = 1;
-      if (v5 == v4)
+      v4 += 16;
+      v5 = 1;
+      if (v4 == v3)
       {
         return;
       }
     }
 
-    operator delete(v43.__r_.__value_.__l.__data_);
-    if (!v7)
+    operator delete(v42.__r_.__value_.__l.__data_);
+    if (!v6)
     {
       goto LABEL_16;
     }
 
 LABEL_15:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     goto LABEL_16;
   }
 
-  std::to_string(&v39, *(this + 16));
-  std::to_string(&v38, *(this + 17));
-  if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v12 = &v38;
-  }
-
-  else
-  {
-    v12 = v38.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(v38.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    size = v38.__r_.__value_.__l.__size_;
-  }
-
-  v14 = std::string::append(&v39, v12, size);
-  v15 = *&v14->__r_.__value_.__l.__data_;
-  v40.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
-  *&v40.__r_.__value_.__l.__data_ = v15;
-  v14->__r_.__value_.__l.__size_ = 0;
-  v14->__r_.__value_.__r.__words[2] = 0;
-  v14->__r_.__value_.__r.__words[0] = 0;
-  std::to_string(&v37, *(this + 2));
+  std::to_string(&v38, *(this + 16));
+  std::to_string(&v37, *(this + 17));
   if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v16 = &v37;
+    v11 = &v37;
   }
 
   else
   {
-    v16 = v37.__r_.__value_.__r.__words[0];
+    v11 = v37.__r_.__value_.__r.__words[0];
   }
 
   if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v17 = HIBYTE(v37.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v37.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v17 = v37.__r_.__value_.__l.__size_;
+    size = v37.__r_.__value_.__l.__size_;
   }
 
-  v18 = std::string::append(&v40, v16, v17);
-  v19 = *&v18->__r_.__value_.__l.__data_;
-  v41.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
-  *&v41.__r_.__value_.__l.__data_ = v19;
-  v18->__r_.__value_.__l.__size_ = 0;
-  v18->__r_.__value_.__r.__words[2] = 0;
-  v18->__r_.__value_.__r.__words[0] = 0;
+  v13 = std::string::append(&v38, v11, size);
+  v14 = *&v13->__r_.__value_.__l.__data_;
+  v39.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
+  *&v39.__r_.__value_.__l.__data_ = v14;
+  v13->__r_.__value_.__l.__size_ = 0;
+  v13->__r_.__value_.__r.__words[2] = 0;
+  v13->__r_.__value_.__r.__words[0] = 0;
+  std::to_string(&v36, *(this + 2));
+  if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v15 = &v36;
+  }
+
+  else
+  {
+    v15 = v36.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v16 = HIBYTE(v36.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v16 = v36.__r_.__value_.__l.__size_;
+  }
+
+  v17 = std::string::append(&v39, v15, v16);
+  v18 = *&v17->__r_.__value_.__l.__data_;
+  v40.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+  *&v40.__r_.__value_.__l.__data_ = v18;
+  v17->__r_.__value_.__l.__size_ = 0;
+  v17->__r_.__value_.__r.__words[2] = 0;
+  v17->__r_.__value_.__r.__words[0] = 0;
   std::to_string(&__p, *(this + 3));
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
@@ -6284,75 +6240,65 @@ LABEL_15:
 
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v21 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    v20 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v21 = __p.__r_.__value_.__l.__size_;
+    v20 = __p.__r_.__value_.__l.__size_;
   }
 
-  v22 = std::string::append(&v41, p_p, v21);
-  v23 = *&v22->__r_.__value_.__l.__data_;
-  v42.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
-  *&v42.__r_.__value_.__l.__data_ = v23;
-  v22->__r_.__value_.__l.__size_ = 0;
-  v22->__r_.__value_.__r.__words[2] = 0;
-  v22->__r_.__value_.__r.__words[0] = 0;
-  v24 = std::string::append(&v42, "_", 1uLL);
-  v25 = *&v24->__r_.__value_.__l.__data_;
-  v43.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
-  *&v43.__r_.__value_.__l.__data_ = v25;
-  v24->__r_.__value_.__l.__size_ = 0;
-  v24->__r_.__value_.__r.__words[2] = 0;
-  v24->__r_.__value_.__r.__words[0] = 0;
-  v26 = std::__shared_weak_count::lock(*(this + 23));
-  v27 = *(this + 22);
-  v30 = *(v27 + 48);
-  v28 = v27 + 48;
-  v29 = v30;
-  v31 = *(v28 + 23);
-  if (v31 >= 0)
+  v21 = std::string::append(&v40, p_p, v20);
+  v22 = *&v21->__r_.__value_.__l.__data_;
+  v41.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
+  *&v41.__r_.__value_.__l.__data_ = v22;
+  v21->__r_.__value_.__l.__size_ = 0;
+  v21->__r_.__value_.__r.__words[2] = 0;
+  v21->__r_.__value_.__r.__words[0] = 0;
+  v23 = std::string::append(&v41, "_", 1uLL);
+  v24 = *&v23->__r_.__value_.__l.__data_;
+  v42.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
+  *&v42.__r_.__value_.__l.__data_ = v24;
+  v23->__r_.__value_.__l.__size_ = 0;
+  v23->__r_.__value_.__r.__words[2] = 0;
+  v23->__r_.__value_.__r.__words[0] = 0;
+  v25 = std::__shared_weak_count::lock(*(this + 23));
+  v26 = *(this + 22);
+  v29 = *(v26 + 48);
+  v27 = v26 + 48;
+  v28 = v29;
+  v30 = *(v27 + 23);
+  if (v30 >= 0)
   {
-    v32 = v28;
+    v31 = v27;
   }
 
   else
   {
-    v32 = v29;
+    v31 = v28;
   }
 
-  if (v31 >= 0)
+  if (v30 >= 0)
   {
-    v33 = *(v28 + 23);
+    v32 = *(v27 + 23);
   }
 
   else
   {
-    v33 = *(v28 + 8);
+    v32 = *(v27 + 8);
   }
 
-  v34 = std::string::append(&v43, v32, v33);
-  v35 = *&v34->__r_.__value_.__l.__data_;
-  a2->__r_.__value_.__r.__words[2] = v34->__r_.__value_.__r.__words[2];
-  *&a2->__r_.__value_.__l.__data_ = v35;
-  v34->__r_.__value_.__l.__size_ = 0;
-  v34->__r_.__value_.__r.__words[2] = 0;
-  v34->__r_.__value_.__r.__words[0] = 0;
-  std::__shared_weak_count::__release_shared[abi:ne200100](v26);
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v43.__r_.__value_.__l.__data_);
-  }
-
+  v33 = std::string::append(&v42, v31, v32);
+  v34 = *&v33->__r_.__value_.__l.__data_;
+  a1->__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
+  *&a1->__r_.__value_.__l.__data_ = v34;
+  v33->__r_.__value_.__l.__size_ = 0;
+  v33->__r_.__value_.__r.__words[2] = 0;
+  v33->__r_.__value_.__r.__words[0] = 0;
+  std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v42.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
@@ -6360,9 +6306,9 @@ LABEL_15:
     operator delete(v41.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v37.__r_.__value_.__l.__data_);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
@@ -6370,14 +6316,24 @@ LABEL_15:
     operator delete(v40.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v38.__r_.__value_.__l.__data_);
+    operator delete(v36.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v39.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v37.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v38.__r_.__value_.__l.__data_);
   }
 }
 
@@ -6427,22 +6383,22 @@ void sub_1C65D23D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void QP::updateParseAttributes(uint64_t a1, uint64_t a2)
+void QP::updateParseAttributes(uint64_t **result, QP::ParseAttribute ***a2)
 {
   v2 = *a2;
-  v11 = *(a2 + 8);
-  if (v11 != *a2)
+  v8 = a2[1];
+  if (v8 != *a2)
   {
-    v15 = 0;
-    v16 = 0;
-    v17 = 0;
-    v14[0] = 0;
-    v14[1] = 0;
-    v13 = v14;
+    v12 = 0;
+    v13 = 0;
+    v14 = 0;
+    v11[0] = 0;
+    v11[1] = 0;
+    v10 = v11;
     do
     {
-      QP::ParseAttribute::description(*v2, &__p);
-      v3 = std::__tree<std::string>::__count_unique<std::string>(&v13, &__p.__r_.__value_.__l.__data_);
+      QP::ParseAttribute::description(&__p, *v2);
+      v3 = std::__tree<std::string>::__count_unique<std::string>(&v10, &__p);
       v4 = v3;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -6450,28 +6406,25 @@ void QP::updateParseAttributes(uint64_t a1, uint64_t a2)
         if (!v4)
         {
 LABEL_7:
-          QP::ParseAttribute::description(*v2, &__p);
-          std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v13, &__p.__r_.__value_.__l.__data_);
+          QP::ParseAttribute::description(&__p, *v2);
+          std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v10, &__p, &__p);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          v5 = *a1;
-          if (*(a1 + 8) != *a1)
+          v5 = *result;
+          if (result[1] != *result)
           {
             memset(&__p, 0, sizeof(__p));
             if (*v5 != v5[1])
             {
-              v6 = **v5;
               std::allocate_shared[abi:ne200100]<QP::ParseAttribute,std::allocator<QP::ParseAttribute>,CFRange &,CFRange &,unsigned short &,unsigned short &,0>();
             }
 
-            v7 = *v2;
             std::allocate_shared[abi:ne200100]<QP::ParseAttribute,std::allocator<QP::ParseAttribute>,CFRange &,CFRange &,unsigned short &,unsigned short &,0>();
           }
 
-          v8 = *v2;
           std::allocate_shared[abi:ne200100]<QP::ParseAttribute,std::allocator<QP::ParseAttribute>,CFRange &,CFRange &,unsigned short &,unsigned short &,0>();
         }
       }
@@ -6484,13 +6437,13 @@ LABEL_7:
       v2 += 2;
     }
 
-    while (v2 != v11);
-    std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::erase(a1, *a1, *(a1 + 8));
-    std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::vector<std::shared_ptr<QP::ParseAttribute>>*>,std::__wrap_iter<std::vector<std::shared_ptr<QP::ParseAttribute>>*>>(a1, *(a1 + 8), v15, v16, 0xAAAAAAAAAAAAAAABLL * ((v16 - v15) >> 3));
-    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(a2, *a2, *(a2 + 8));
-    std::__tree<std::string>::destroy(&v13, v14[0]);
-    v13 = &v15;
-    std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__destroy_vector::operator()[abi:ne200100](&v13);
+    while (v2 != v8);
+    std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::erase(result, *result, result[1]);
+    std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::vector<std::shared_ptr<QP::ParseAttribute>>*>,std::__wrap_iter<std::vector<std::shared_ptr<QP::ParseAttribute>>*>>(result, result[1], v12, v13, 0xAAAAAAAAAAAAAAABLL * (v13 - v12));
+    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(a2, *a2, a2[1]);
+    std::__tree<std::string>::destroy(&v10, v11[0]);
+    v10 = &v12;
+    std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__destroy_vector::operator()[abi:ne200100](&v10);
   }
 }
 
@@ -6514,125 +6467,123 @@ void QP::Parser::parseLexer(QP::Parser *this)
       v4 = 1;
     }
 
-    v23 = v4;
+    v22 = v4;
     while (1)
     {
-      v47[0] = 0;
-      v47[1] = v47;
-      v47[2] = 0x2000000000;
-      v47[3] = 0;
-      v46[0] = 0;
-      v46[1] = v46;
-      v46[2] = 0x2000000000;
-      v46[3] = -1;
+      v45[0] = 0;
+      v45[1] = v45;
+      v45[2] = 0x2000000000;
+      v45[3] = 0;
+      v44[0] = 0;
+      v44[1] = v44;
+      v44[2] = 0x2000000000;
+      v44[3] = -1;
       QP::GraphStructureStack::clear(*(this + 8));
       v5 = *(this + 4);
-      memset(v45, 0, sizeof(v45));
-      std::vector<std::shared_ptr<QP::Lexeme>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::Lexeme>*,std::shared_ptr<QP::Lexeme>*>(v45, v5[63], v5[64], (v5[64] - v5[63]) >> 4);
-      v44[0] = MEMORY[0x1E69E9820];
-      v44[1] = 0x40000000;
-      v44[2] = ___ZN2QP6Parser10parseLexerEv_block_invoke;
-      v44[3] = &unk_1E8267020;
-      v44[4] = v46;
-      v44[5] = v47;
-      v44[6] = this;
-      QP::Lexer::enumerateLexemesAtParseIndex(v5, v3, v45, v44);
-      v38 = v45;
-      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v38);
+      memset(v43, 0, sizeof(v43));
+      std::vector<std::shared_ptr<QP::Lexeme>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::Lexeme>*,std::shared_ptr<QP::Lexeme>*>(v43, v5[63], v5[64], (v5[64] - v5[63]) >> 4);
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 0x40000000;
+      v42[2] = ___ZN2QP6Parser10parseLexerEv_block_invoke;
+      v42[3] = &unk_1E8267020;
+      v42[4] = v44;
+      v42[5] = v45;
+      v42[6] = this;
+      QP::Lexer::enumerateLexemesAtParseIndex(v5, v3, v43, v42);
+      v36 = v43;
+      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v36);
       QP::GraphStructureStack::close(*(this + 8));
-      v24 = v3;
-      v26 = (*(*(this + 8) + 24) - *(*(this + 8) + 16)) >> 4;
-      if (v26 >= 1)
+      v23 = v3;
+      v25 = (*(*(this + 8) + 24) - *(*(this + 8) + 16)) >> 4;
+      if (v25 >= 1)
       {
         break;
       }
 
 LABEL_30:
-      _Block_object_dispose(v46, 8);
-      _Block_object_dispose(v47, 8);
-      v3 = v24 + 1;
-      if (v24 + 1 == v23)
+      _Block_object_dispose(v44, 8);
+      _Block_object_dispose(v45, 8);
+      v3 = v23 + 1;
+      if (v23 + 1 == v22)
       {
         return;
       }
     }
 
     v6 = 0;
-    v25 = MEMORY[0x1E69E9820];
+    v24 = MEMORY[0x1E69E9820];
     while (1)
     {
-      v38 = 0;
-      v39 = &v38;
-      v40 = 0x4002000000;
-      v41 = __Block_byref_object_copy__9;
-      v42 = __Block_byref_object_dispose__9;
-      memset(v43, 0, sizeof(v43));
+      v36 = 0;
+      v37 = &v36;
+      v38 = 0x4002000000;
+      v39 = __Block_byref_object_copy__9;
+      v40 = __Block_byref_object_dispose__9;
+      memset(v41, 0, sizeof(v41));
+      v33[0] = 0;
+      v33[1] = v33;
+      v33[2] = 0x4002000000;
+      v33[3] = __Block_byref_object_copy__1;
+      v33[4] = __Block_byref_object_dispose__2;
       v35[0] = 0;
-      v35[1] = v35;
-      v35[2] = 0x4002000000;
-      v35[3] = __Block_byref_object_copy__1;
-      v35[4] = __Block_byref_object_dispose__2;
-      v37[0] = 0;
-      v37[1] = 0;
-      v36 = v37;
+      v35[1] = 0;
+      v34 = v35;
       v7 = *(this + 8);
-      v34[0] = v25;
-      v34[1] = 0x40000000;
-      v34[2] = ___ZN2QP6Parser10parseLexerEv_block_invoke_2;
-      v34[3] = &unk_1E8267048;
-      v34[4] = v35;
-      v34[5] = &v38;
-      v34[6] = this;
-      QP::GraphStructureStack::enumerateBranchesAtStateIndex(v7, v6, v34);
-      v8 = v39[5];
-      v9 = v39[6];
+      v32[0] = v24;
+      v32[1] = 0x40000000;
+      v32[2] = ___ZN2QP6Parser10parseLexerEv_block_invoke_2;
+      v32[3] = &unk_1E8267048;
+      v32[4] = v33;
+      v32[5] = &v36;
+      v32[6] = this;
+      QP::GraphStructureStack::enumerateBranchesAtStateIndex(v7, v6, v32);
+      v8 = v37[5];
+      v9 = v37[6];
       v10 = 126 - 2 * __clz((v9 - v8) >> 4);
-      v33[0] = QP::parse_attr_less_than_range;
+      v31[0] = QP::parse_attr_less_than_range;
       v11 = v9 == v8 ? 0 : v10;
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*,false>(v8, v9, v33, v11, 1);
-      memset(v33, 0, sizeof(v33));
+      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*,false>(v8, v9, v31, v11, 1);
+      memset(v31, 0, sizeof(v31));
+      v28 = 0;
+      v29 = 0;
       v30 = 0;
-      v31 = 0;
-      v32 = 0;
-      v13 = v39[5];
-      v12 = v39[6];
+      v13 = v37[5];
+      v12 = v37[6];
       if (v13 != v12)
       {
         break;
       }
 
 LABEL_23:
-      QP::updateParseAttributes(&v30, v33);
-      v20 = v30;
-      v19 = v31;
+      QP::updateParseAttributes(&v28, v31);
+      v20 = v28;
+      v19 = v29;
       while (v20 != v19)
       {
-        memset(v29, 0, sizeof(v29));
-        if (QP::Parser::validate(this, v20, v29, 1))
+        memset(v27, 0, sizeof(v27));
+        if (QP::Parser::validate(this, v20, v27, 1))
         {
-          v28[0] = 0;
-          v28[1] = 0;
-          v21 = *(*(this + 8) + 96);
-          v27 = 0xAAAAAAAAAAAAAAABLL * ((*(*(this + 4) + 464) - *(*(this + 4) + 456)) >> 3);
+          v26[0] = 0;
+          v26[1] = 0;
           std::allocate_shared[abi:ne200100]<QP::Parse,std::allocator<QP::Parse>,nlp::CFScopedPtr<__CFString const*> &,long,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),0>();
         }
 
-        v28[0] = v29;
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v28);
+        v26[0] = v27;
+        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v26);
         v20 += 3;
       }
 
-      v22 = *(this + 12) - *(this + 11);
-      v29[0] = &v30;
-      std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__destroy_vector::operator()[abi:ne200100](v29);
-      v30 = v33;
-      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v30);
-      _Block_object_dispose(v35, 8);
-      std::__tree<std::string>::destroy(&v36, v37[0]);
-      _Block_object_dispose(&v38, 8);
-      v35[0] = v43;
-      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v35);
-      if (v22 <= 0x40 && ++v6 < v26)
+      v21 = *(this + 12) - *(this + 11);
+      v27[0] = &v28;
+      std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__destroy_vector::operator()[abi:ne200100](v27);
+      v28 = v31;
+      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v28);
+      _Block_object_dispose(v33, 8);
+      std::__tree<std::string>::destroy(&v34, v35[0]);
+      _Block_object_dispose(&v36, 8);
+      v33[0] = v41;
+      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v33);
+      if (v21 <= 0x40 && ++v6 < v25)
       {
         continue;
       }
@@ -6656,10 +6607,10 @@ LABEL_23:
 
       else
       {
-        QP::updateParseAttributes(&v30, v33);
+        QP::updateParseAttributes(&v28, v31);
       }
 
-      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](v33, v13);
+      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](v31, v13);
       v15 = *(*v13 + 16);
       v14 = *(*v13 + 24);
 LABEL_22:
@@ -6680,56 +6631,52 @@ void sub_1C65D3008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *___ZN2QP6Parser10parseLexerEv_block_invoke(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, CFIndex a5, CFIndex a6)
+void ___ZN2QP6Parser10parseLexerEv_block_invoke(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, CFIndex a5, CFIndex a6)
 {
   v11 = a1[6];
   v12 = QP::ParserGrammar::symbolID(*(v11 + 16), *a2);
-  v13 = *(*v11 + 31);
-  v16.location = a5;
-  v16.length = a6;
-  result = QP::GraphStructureStack::add(*(v11 + 64), v12, a3, a4, v16);
-  v15 = *(a1[4] + 8);
-  if (*(v15 + 24) < a3)
+  v14.location = a5;
+  v14.length = a6;
+  QP::GraphStructureStack::add(*(v11 + 64), v12, a3, a4, v14, *(*v11 + 31));
+  v13 = *(a1[4] + 8);
+  if (*(v13 + 24) < a3)
   {
     ++*(*(a1[5] + 8) + 24);
-    v15 = *(a1[4] + 8);
+    v13 = *(a1[4] + 8);
   }
 
-  *(v15 + 24) = a3;
-  return result;
+  *(v13 + 24) = a3;
 }
 
-void ___ZN2QP6Parser10parseLexerEv_block_invoke_2(uint64_t a1, _WORD **a2)
+void ___ZN2QP6Parser10parseLexerEv_block_invoke_2(void *a1, unsigned __int16 **a2)
 {
-  v3 = *(a1 + 48);
+  v3 = a1[6];
   v4 = *a2;
-  v13 = *(*a2 + 12);
-  v12 = *(v4 + 8);
-  v10 = 0;
-  v11 = 0;
+  v11 = *(*a2 + 12);
+  v10 = *(v4 + 8);
+  v8 = 0;
+  v9 = 0;
   v5 = *(v3 + 32);
   __p[0] = 0;
   __p[1] = 0;
-  v9 = 0;
+  v7 = 0;
   std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(__p, *(v4 + 40), *(v4 + 48), (*(v4 + 48) - *(v4 + 40)) >> 3);
-  QP::Lexer::lexemeFromLocations(v5, __p, &v10);
+  QP::Lexer::lexemeFromLocations(v5, __p, &v8);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  if (v10)
+  if (v8)
   {
-    v6 = *a2;
     LOWORD(__p[0]) = **a2;
-    v7 = *(v6 + 2);
     std::allocate_shared[abi:ne200100]<QP::ParseAttribute,std::allocator<QP::ParseAttribute>,CFRange &,CFRange &,unsigned short,unsigned short,0>();
   }
 
-  if (v11)
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 }
 
@@ -6763,22 +6710,21 @@ void QP::Parser::addAndSortParse(QP::Parser *this)
   v2 = *(this + 11);
   v3 = *(this + 12);
   v4 = (this + 88);
+  v13 = 0;
   v14 = 0;
   v15 = 0;
-  v16 = 0;
   if (v3 == v2)
   {
-    memset(v13, 0, sizeof(v13));
-    v12[0] = 0;
-    v12[1] = 0;
-    v11 = 0xAAAAAAAAAAAAAAABLL * ((*(*(this + 4) + 464) - *(*(this + 4) + 456)) >> 3);
+    memset(v12, 0, sizeof(v12));
+    v11[0] = 0;
+    v11[1] = 0;
     std::allocate_shared[abi:ne200100]<QP::Parse,std::allocator<QP::Parse>,nlp::CFScopedPtr<__CFString const*> &,int,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),0>();
   }
 
-  std::vector<std::shared_ptr<QP::Parse>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::Parse>*>,std::__wrap_iter<std::shared_ptr<QP::Parse>*>>(&v14, 0, v2, v3, (v3 - v2) >> 4);
-  v5 = 126 - 2 * __clz(v15 - v14);
-  v12[0] = QP::best_parse;
-  if (v15 == v14)
+  std::vector<std::shared_ptr<QP::Parse>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::Parse>*>,std::__wrap_iter<std::shared_ptr<QP::Parse>*>>(&v13, 0, v2, v3, (v3 - v2) >> 4);
+  v5 = 126 - 2 * __clz(v14 - v13);
+  v11[0] = QP::best_parse;
+  if (v14 == v13)
   {
     v6 = 0;
   }
@@ -6788,11 +6734,11 @@ void QP::Parser::addAndSortParse(QP::Parser *this)
     v6 = v5;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*,false>(v14, v15, v12, v6, 1);
+  std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*,false>(v13, v14, v11, v6, 1);
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(v4, *(this + 11), *(this + 12));
-  v7 = v14;
-  v8 = v15;
-  if (v14 != v15)
+  v7 = v13;
+  v8 = v14;
+  if (v13 != v14)
   {
     v9 = 0;
     do
@@ -6810,8 +6756,8 @@ void QP::Parser::addAndSortParse(QP::Parser *this)
     while (v7 != v8);
   }
 
-  v13[0] = &v14;
-  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v13);
+  v12[0] = &v13;
+  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v12);
 }
 
 void sub_1C65D35F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void ***a12, std::__shared_weak_count *a13, void **a14, uint64_t a15, uint64_t a16, char a17)
@@ -6842,55 +6788,53 @@ void QP::Parser::addU2Parse(QP::Parser *this, const __CFDictionary *a2)
 
 void QP::Parser::addEntitiyParse(QP::Parser *this)
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x4002000000;
-  v11 = __Block_byref_object_copy__9;
-  v12 = __Block_byref_object_dispose__9;
-  memset(v13, 0, 24);
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x4002000000;
+  v9 = __Block_byref_object_copy__9;
+  v10 = __Block_byref_object_dispose__9;
+  memset(v11, 0, 24);
   v2 = *(this + 4);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 0x40000000;
-  v7[2] = ___ZN2QP6Parser15addEntitiyParseEv_block_invoke;
-  v7[3] = &unk_1E82670B0;
-  v7[4] = &v8;
-  QP::Lexer::enumerateEntityLexemes(v2, v7);
-  memset(v6, 0, sizeof(v6));
-  if (v9[6] != v9[5] && QP::Parser::validate(this, v9 + 5, v6, 1))
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZN2QP6Parser15addEntitiyParseEv_block_invoke;
+  v5[3] = &unk_1E82670B0;
+  v5[4] = &v6;
+  QP::Lexer::enumerateEntityLexemes(v2, v5);
+  memset(v4, 0, sizeof(v4));
+  if (v7[6] != v7[5] && QP::Parser::validate(this, v7 + 5, v4, 1))
   {
-    v5[0] = 0;
-    v5[1] = 0;
-    v3 = 0xAAAAAAAAAAAAAAABLL * ((*(*(this + 4) + 464) - *(*(this + 4) + 456)) >> 3);
-    v4 = (v9[6] - v9[5]) >> 4;
+    v3[0] = 0;
+    v3[1] = 0;
     std::allocate_shared[abi:ne200100]<QP::Parse,std::allocator<QP::Parse>,nlp::CFScopedPtr<__CFString const*> &,unsigned long,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),BOOL,0>();
   }
 
-  v5[0] = v6;
-  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v5);
-  _Block_object_dispose(&v8, 8);
-  v6[0] = v13;
-  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v6);
+  v3[0] = v4;
+  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v3);
+  _Block_object_dispose(&v6, 8);
+  v4[0] = v11;
+  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v4);
 }
 
-void sub_1C65D387C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C65D387C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v8 = va_arg(va1, void **);
-  v10 = va_arg(va1, std::__shared_weak_count *);
-  if (v10)
+  va_start(va1, a11);
+  va_start(va, a11);
+  v13 = va_arg(va1, void **);
+  v15 = va_arg(va1, std::__shared_weak_count *);
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
-  va_copy(v8, va1);
+  va_copy(v13, va1);
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](va);
-  _Block_object_dispose((v6 - 88), 8);
+  _Block_object_dispose((v11 - 88), 8);
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](va1);
   _Unwind_Resume(a1);
 }
 
-void ___ZN2QP6Parser15addEntitiyParseEv_block_invoke(uint64_t a1, uint64_t a2)
+void ___ZN2QP6Parser15addEntitiyParseEv_block_invoke(uint64_t a1, void *a2)
 {
   v5 = 0;
   v6 = 0;
@@ -6915,7 +6859,7 @@ void sub_1C65D39D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QP::Parser::addEmptyParse(QP::Parser *this)
+void QP::Parser::addEmptyParse(const void **this)
 {
   v5 = 0;
   v6 = 0;
@@ -6965,6 +6909,20 @@ void QP::Parser::addTokenCompletions(QP::Parser *this)
   }
 }
 
+void ___ZN2QP6Parser19addTokenCompletionsEv_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v17 = a3;
+  v18 = a2;
+  v16 = a4;
+  v14 = a6;
+  v15 = a5;
+  v12 = a8;
+  v13 = a7;
+  v10 = 0;
+  v11 = 0;
+  std::allocate_shared[abi:ne200100]<QP::Completion,std::allocator<QP::Completion>,__CFString const*&,__CFString const*&,__CFString const*&,__CFString const*&,__CFString const*&,__CFString const*&,__CFString const*&,__CFString const*&,QPSymbolFlag &,0>(&v19, &v18, &v17, &v16, &v15, &v14, &v13, &v12, &a9, &a10);
+}
+
 void sub_1C65D3C64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
 {
   if (a12)
@@ -6973,6 +6931,20 @@ void sub_1C65D3C64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void ___ZN2QP6Parser19addTokenCompletionsEv_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, uint64_t a11)
+{
+  v18 = a3;
+  v19 = a2;
+  v16 = a5;
+  v17 = a4;
+  v14 = a7;
+  v15 = a6;
+  v12 = 0;
+  v13 = a8;
+  v11 = 0;
+  std::allocate_shared[abi:ne200100]<QP::Completion,std::allocator<QP::Completion>,__CFString const*&,__CFString const*&,__CFString const*&,__CFString const*&,__CFString const*&,__CFString const*&,__CFString const*&,__CFString const*&,QPSymbolFlag &,0>(&v20, &v19, &v18, &v17, &v16, &v15, &v14, &v13, &a9, &a11);
 }
 
 void sub_1C65D3D34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
@@ -6985,12 +6957,12 @@ void sub_1C65D3D34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QP::Parser::parse(QP::Parser *this, int a2, BOOL a3, int a4, int a5, const __CFDictionary *a6)
+void QP::Parser::parse(const __CFString **this, int a2, BOOL a3, int a4, int a5, const __CFDictionary *a6)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   QP::Parser::clear(this);
   QP::Parser::retainCurrentString(this);
-  if (*(*this + 56) != 1)
+  if (LOBYTE((*this)[1].length) != 1)
   {
     if (qpparserLogger(void)::token != -1)
     {
@@ -7000,13 +6972,13 @@ void QP::Parser::parse(QP::Parser *this, int a2, BOOL a3, int a4, int a5, const 
     v15 = qpparserLogger(void)::log;
     if (os_log_type_enabled(qpparserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(*this + 48);
-      v17 = *(*this + 112);
-      *v19 = 134218242;
-      *&v19[4] = v16;
-      *&v19[12] = 2112;
-      *&v19[14] = v17;
-      _os_log_impl(&dword_1C6584000, v15, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] nlp parsing disabled for locale=%@", v19, 0x16u);
+      data = (*this)[1].data;
+      v17 = (*this)[3].data;
+      *v18 = 134218242;
+      *&v18[4] = data;
+      *&v18[12] = 2112;
+      *&v18[14] = v17;
+      _os_log_impl(&dword_1C6584000, v15, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] nlp parsing disabled for locale=%@", v18, 0x16u);
     }
 
     QP::Parser::addEmptyParse(this);
@@ -7023,10 +6995,10 @@ void QP::Parser::parse(QP::Parser *this, int a2, BOOL a3, int a4, int a5, const 
     v11 = qpparserLogger(void)::log;
     if (os_log_type_enabled(qpparserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(*this + 48);
-      *v19 = 134217984;
-      *&v19[4] = v12;
-      _os_log_impl(&dword_1C6584000, v11, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Using u2parser", v19, 0xCu);
+      v12 = (*this)[1].data;
+      *v18 = 134217984;
+      *&v18[4] = v12;
+      _os_log_impl(&dword_1C6584000, v11, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] Using u2parser", v18, 0xCu);
     }
 
     QP::Parser::addU2Parse(this, a6);
@@ -7035,22 +7007,20 @@ void QP::Parser::parse(QP::Parser *this, int a2, BOOL a3, int a4, int a5, const 
   QP::Parser::addAndSortParse(this);
   if (a5)
   {
-    v13 = *(this + 2);
-    v14 = *(this + 9);
-    *v19 = MEMORY[0x1E69E9820];
-    *&v19[8] = 0x40000000;
-    *&v19[16] = ___ZN2QP6Parser14addCompletionsEv_block_invoke;
-    v20 = &__block_descriptor_tmp_9_0;
-    v21 = this;
-    QP::ParserGrammar::completions(v13, v14, v19);
+    v13 = this[2];
+    v14 = this[9];
+    *v18 = MEMORY[0x1E69E9820];
+    *&v18[8] = 0x40000000;
+    *&v18[16] = ___ZN2QP6Parser14addCompletionsEv_block_invoke;
+    v19 = &__block_descriptor_tmp_9_0;
+    v20 = this;
+    QP::ParserGrammar::completions(v13, v14, v18);
   }
 
   if (a4)
   {
     QP::Parser::addEntitiyParse(this);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void QP::Parser::clear(QP::Parser *this)
@@ -7162,7 +7132,7 @@ void sub_1C65D41B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QP::Parser::preheat(QP::Parser *this)
+void QP::Parser::preheat(QP::U2Parser *this)
 {
   if (*(*this + 63) == 1)
   {
@@ -7174,7 +7144,7 @@ void QP::Parser::preheat(QP::Parser *this)
   }
 }
 
-void QP::Parser::cooldown(QP::Parser *this)
+void QP::Parser::cooldown(QP::U2Parser *this)
 {
   if (*(*this + 63) == 1)
   {
@@ -7188,7 +7158,7 @@ void QP::Parser::cooldown(QP::Parser *this)
 
 uint64_t QP::Parser::hasResourcesLoaded(QP::Parser *this)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = *(this + 2) && *(this + 4) && (v2 = *(this + 8)) != 0 && *v2 != 0;
   if (qpparserLogger(void)::token != -1)
   {
@@ -7213,11 +7183,11 @@ uint64_t QP::Parser::hasResourcesLoaded(QP::Parser *this)
       }
     }
 
-    v12 = 134218240;
-    v13 = v5;
-    v14 = 1024;
-    v15 = v6;
-    _os_log_impl(&dword_1C6584000, v4, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] hasResourcesLoaded hasResources=%d", &v12, 0x12u);
+    v11 = 134218240;
+    v12 = v5;
+    v13 = 1024;
+    v14 = v6;
+    _os_log_impl(&dword_1C6584000, v4, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] hasResourcesLoaded hasResources=%d", &v11, 0x12u);
   }
 
   if (*(*this + 63) == 1 && *(this + 6))
@@ -7232,24 +7202,23 @@ uint64_t QP::Parser::hasResourcesLoaded(QP::Parser *this)
     {
       v8 = *(*this + 48);
       v9 = QP::U2Parser::resourcesLoaded(*(this + 6));
-      v12 = 134218240;
-      v13 = v8;
-      v14 = 1024;
-      v15 = v9;
-      _os_log_impl(&dword_1C6584000, v7, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] hasResourcesLoaded u2ResourcesLoaded=%d", &v12, 0x12u);
+      v11 = 134218240;
+      v12 = v8;
+      v13 = 1024;
+      v14 = v9;
+      _os_log_impl(&dword_1C6584000, v7, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] hasResourcesLoaded u2ResourcesLoaded=%d", &v11, 0x12u);
     }
 
     if (v3)
     {
-      v3 = QP::U2Parser::resourcesLoaded(*(this + 6));
+      return QP::U2Parser::resourcesLoaded(*(this + 6));
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
-uint64_t std::vector<std::vector<CFRange>>::__init_with_size[abi:ne200100]<std::vector<CFRange>*,std::vector<CFRange>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<CFRange>>::__init_with_size[abi:ne200100]<std::vector<CFRange>*,std::vector<CFRange>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7266,7 +7235,7 @@ void sub_1C65D4444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::vector<CFRange>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<CFRange>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -7276,7 +7245,7 @@ void std::vector<std::vector<CFRange>>::__vallocate[abi:ne200100](uint64_t a1, u
   std::vector<QP::GeoLocation>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<CFRange>>,std::vector<CFRange>*,std::vector<CFRange>*,std::vector<CFRange>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<CFRange>>,std::vector<CFRange>*,std::vector<CFRange>*,std::vector<CFRange>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -7293,8 +7262,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(v4, *v6, v6[1], (v6[1] - *v6) >> 4);
-      v6 += 3;
+      std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 4);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -7342,7 +7311,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<CFRange>>,std
   }
 }
 
-uint64_t std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7364,19 +7333,19 @@ void sub_1C65D4648(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*,false>(uint64_t *a1, __int128 *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*,false>(uint64_t *result, __int128 *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
 {
 LABEL_1:
   v8 = (a2 - 1);
   v95 = a2 - 1;
   v97 = (a2 - 3);
   v98 = (a2 - 2);
-  v9 = a1;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
     v12 = (a2 - v9) >> 4;
     if (v12 <= 2)
@@ -7546,16 +7515,16 @@ LABEL_10:
       v96 = v13;
       if (v16)
       {
-        v19 = a1 + 1;
-        v18 = *a1;
+        v19 = result + 1;
+        v18 = *result;
         if (v17)
         {
-          *a1 = *v8;
+          *result = *v8;
           goto LABEL_27;
         }
 
-        v32 = a1[1];
-        *a1 = *v14;
+        v32 = result[1];
+        *result = *v14;
         v14[1] = v32;
         v19 = v14 + 1;
         *v14 = v18;
@@ -7582,26 +7551,26 @@ LABEL_28:
         v25 = v14[1];
         v14[1] = *(a2 - 1);
         *(a2 - 1) = v25;
-        if ((*a3)(v14, a1))
+        if ((*a3)(v14, result))
         {
-          v27 = *a1;
-          *a1 = *v14;
-          v19 = a1 + 1;
+          v27 = *result;
+          *result = *v14;
+          v19 = result + 1;
           *v14 = v27;
           goto LABEL_28;
         }
       }
 
       v34 = v14 - 2;
-      v35 = (*a3)(v14 - 2, a1 + 2);
+      v35 = (*a3)(v14 - 2, result + 2);
       v36 = (*a3)(v98, v14 - 2);
       if (v35)
       {
-        v37 = a1[2];
-        v38 = a1 + 3;
+        v37 = result[2];
+        v38 = result + 3;
         if (v36)
         {
-          a1[2] = *v98;
+          result[2] = *v98;
           *v98 = v37;
           v39 = a2 - 3;
           v40 = v96;
@@ -7609,7 +7578,7 @@ LABEL_28:
         }
 
         v45 = *v38;
-        *(a1 + 1) = *v34;
+        *(result + 1) = *v34;
         *(v14 - 1) = v45;
         v38 = v14 - 1;
         *v34 = v37;
@@ -7639,42 +7608,42 @@ LABEL_40:
           v42 = *(v14 - 1);
           *(v14 - 1) = *(a2 - 3);
           *(a2 - 3) = v42;
-          if ((*a3)(v14 - 2, a1 + 2))
+          if ((*a3)(v14 - 2, result + 2))
           {
-            v43 = a1[2];
-            a1[2] = *v34;
+            v43 = result[2];
+            result[2] = *v34;
             *v34 = v43;
-            v38 = a1 + 3;
+            v38 = result + 3;
             goto LABEL_40;
           }
         }
       }
 
       v48 = v40 + 1;
-      v49 = &a1[2 * v40 + 2];
-      v50 = (*a3)(v49, a1 + 4);
+      v49 = &result[2 * v40 + 2];
+      v50 = (*a3)(v49, result + 4);
       v51 = (*a3)(v97, v49);
       v52 = v8;
       if (v50)
       {
-        v53 = a1[4];
-        v54 = a1 + 5;
+        v53 = result[4];
+        v54 = result + 5;
         if (v51)
         {
-          v55 = a2 - 3;
-          a1[4] = *v97;
+          v55 = (a2 - 3);
+          result[4] = *v97;
           goto LABEL_49;
         }
 
         v60 = *v54;
-        *(a1 + 2) = *v49;
+        *(result + 2) = *v49;
         v49[1] = v60;
         v54 = v49 + 1;
         *v49 = v53;
         if ((*a3)(v97, v49))
         {
           v53 = *v49;
-          v55 = a2 - 3;
+          v55 = (a2 - 3);
           *v49 = *v97;
 LABEL_49:
           *v55 = v53;
@@ -7695,12 +7664,12 @@ LABEL_50:
         v57 = v49[1];
         v49[1] = *(a2 - 5);
         *(a2 - 5) = v57;
-        if ((*a3)(v49, a1 + 4))
+        if ((*a3)(v49, result + 4))
         {
-          v59 = a1[4];
-          a1[4] = *v49;
+          v59 = result[4];
+          result[4] = *v49;
           *v49 = v59;
-          v54 = a1 + 5;
+          v54 = result + 5;
           goto LABEL_50;
         }
       }
@@ -7730,7 +7699,7 @@ LABEL_50:
           *v49 = v69;
           v65 = v14 + 1;
 LABEL_59:
-          v70 = &a1[2 * v48];
+          v70 = &result[2 * v48];
           v71 = *v65;
           *v65 = v70[1];
           v70[1] = v71;
@@ -7757,9 +7726,9 @@ LABEL_59:
         }
       }
 
-      v72 = *a1;
-      *a1 = *v14;
-      v23 = a1 + 1;
+      v72 = *result;
+      *result = *v14;
+      v23 = result + 1;
       *v14 = v72;
       v31 = v14 + 1;
 LABEL_61:
@@ -7817,21 +7786,21 @@ LABEL_37:
     }
 
 LABEL_62:
-    if ((a5 & 1) == 0 && ((*a3)(a1 - 2, a1) & 1) == 0)
+    if ((a5 & 1) == 0 && ((*a3)(result - 2, result) & 1) == 0)
     {
-      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::ParseAttribute> *,BOOL (*&)(std::shared_ptr<QP::ParseAttribute>&,std::shared_ptr<QP::ParseAttribute>&)>(a1, a2, a3);
+      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::ParseAttribute> *,BOOL (*&)(std::shared_ptr<QP::ParseAttribute>&,std::shared_ptr<QP::ParseAttribute>&)>(result, a2, a3);
       v75 = v100;
       goto LABEL_69;
     }
 
-    v74 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::ParseAttribute> *,BOOL (*&)(std::shared_ptr<QP::ParseAttribute>&,std::shared_ptr<QP::ParseAttribute>&)>(a1, a2, a3);
+    v74 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::ParseAttribute> *,BOOL (*&)(std::shared_ptr<QP::ParseAttribute>&,std::shared_ptr<QP::ParseAttribute>&)>(result, a2, a3);
     v75 = v100;
     if ((v76 & 1) == 0)
     {
       goto LABEL_67;
     }
 
-    v77 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*>(a1, v74, a3);
+    v77 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*>(result, v74, a3);
     v9 = v74 + 2;
     if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*>(v74 + 2, a2, a3))
     {
@@ -7849,7 +7818,7 @@ LABEL_62:
     if (!v77)
     {
 LABEL_67:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*,false>(a1, v74, a3, -v100, a5 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*,false>(result, v74, a3, -v100, a5 & 1);
       v9 = v74 + 2;
 LABEL_69:
       a5 = 0;
@@ -8012,18 +7981,17 @@ void sub_1C65D51A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::ParseAttribute> *,BOOL (*&)(std::shared_ptr<QP::ParseAttribute>&,std::shared_ptr<QP::ParseAttribute>&)>(__int128 *a1, void *a2, uint64_t (**a3)(__int128 *, void *))
+__int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::ParseAttribute> *,BOOL (*&)(std::shared_ptr<QP::ParseAttribute>&,std::shared_ptr<QP::ParseAttribute>&)>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   v4 = a2;
   v17 = *a1;
-  *a1 = 0;
-  *(a1 + 1) = 0;
-  if ((*a3)(&v17, a2 - 2))
+  *a1 = 0uLL;
+  if ((*a3)(&v17, a2 - 1))
   {
     v6 = a1;
     do
     {
-      v6 += 2;
+      ++v6;
     }
 
     while (((*a3)(&v17, v6) & 1) == 0);
@@ -8041,7 +8009,7 @@ void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,
       }
 
       v8 = (*a3)(&v17, v7);
-      v7 = v6 + 2;
+      v7 = v6 + 1;
     }
 
     while (!v8);
@@ -8051,7 +8019,7 @@ void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,
   {
     do
     {
-      v4 -= 2;
+      --v4;
     }
 
     while (((*a3)(&v17, v4) & 1) != 0);
@@ -8062,25 +8030,25 @@ void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,
     v9 = *v6;
     *v6 = *v4;
     *v4 = v9;
-    v10 = v6[1];
-    v6[1] = v4[1];
-    v4[1] = v10;
+    v10 = *(v6 + 1);
+    *(v6 + 1) = *(v4 + 1);
+    *(v4 + 1) = v10;
     do
     {
-      v6 += 2;
+      ++v6;
     }
 
     while (!(*a3)(&v17, v6));
     do
     {
-      v4 -= 2;
+      --v4;
     }
 
     while (((*a3)(&v17, v4) & 1) != 0);
   }
 
-  v11 = (v6 - 2);
-  if (v6 - 2 != a1)
+  v11 = v6 - 1;
+  if (v6 - 1 != a1)
   {
     v12 = *v11;
     *v11 = 0;
@@ -8124,8 +8092,7 @@ __int128 *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
 {
   v6 = 0;
   v19 = *a1;
-  *a1 = 0;
-  *(a1 + 1) = 0;
+  *a1 = 0uLL;
   do
   {
     v7 = (*a3)(&a1[++v6], &v19);
@@ -8452,7 +8419,7 @@ LABEL_35:
         v37 -= 16;
         if ((v41 & 1) == 0)
         {
-          v42 = a1 + v37 + 48;
+          v42 = (a1 + v37 + 48);
           goto LABEL_45;
         }
       }
@@ -8461,7 +8428,7 @@ LABEL_35:
 LABEL_45:
       v43 = v46;
       v46 = 0uLL;
-      v44 = *(v42 + 8);
+      v44 = v42[1];
       *v42 = v43;
       if (v44)
       {
@@ -8499,7 +8466,7 @@ void sub_1C65D5900(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*,std::shared_ptr<QP::ParseAttribute>*>(uint64_t a1, uint64_t a2, __int128 *a3, unsigned int (**a4)(__int128 *, uint64_t))
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*,std::shared_ptr<QP::ParseAttribute>*>(char *a1, char *a2, char *a3, uint64_t (**a4)(uint64_t, __int128 *))
 {
   if (a1 != a2)
   {
@@ -8509,7 +8476,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = (a1 + 16 * v9);
+      v11 = &a1[16 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*>(a1, a4, v8, v11--);
@@ -8531,12 +8498,12 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
           *v12 = *a1;
           *a1 = v13;
           v14 = *(v12 + 1);
-          *(v12 + 1) = *(a1 + 8);
-          *(a1 + 8) = v14;
+          *(v12 + 1) = *(a1 + 1);
+          *(a1 + 1) = v14;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*>(a1, a4, v8, a1);
         }
 
-        ++v12;
+        v12 += 16;
       }
 
       while (v12 != a3);
@@ -8559,7 +8526,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
   return a3;
 }
 
-void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*>(uint64_t a1, unsigned int (**a2)(__int128 *, uint64_t), uint64_t a3, __int128 *a4)
+void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*>(uint64_t a1, uint64_t (**a2)(uint64_t, __int128 *), uint64_t a3, __int128 *a4)
 {
   v4 = a3 - 2;
   if (a3 >= 2)
@@ -8570,11 +8537,11 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
     {
       v10 = (a4 - a1) >> 3;
       v11 = v10 + 1;
-      v12 = (a1 + 16 * (v10 + 1));
+      v12 = a1 + 16 * (v10 + 1);
       v13 = v10 + 2;
-      if (v10 + 2 < a3 && (*a2)(v12, (v12 + 1)))
+      if (v10 + 2 < a3 && (*a2)(v12, (v12 + 16)))
       {
-        ++v12;
+        v12 += 16;
         v11 = v13;
       }
 
@@ -8588,7 +8555,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
           v14 = v12;
           v15 = *v12;
           *v12 = 0;
-          *(v12 + 1) = 0;
+          *(v12 + 8) = 0;
           v16 = *(v5 + 1);
           *v5 = v15;
           if (v16)
@@ -8602,16 +8569,16 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
           }
 
           v17 = (2 * v11) | 1;
-          v12 = (a1 + 16 * v17);
+          v12 = a1 + 16 * v17;
           v11 = 2 * v11 + 2;
           if (v11 >= a3)
           {
             v11 = v17;
           }
 
-          else if ((*a2)((a1 + 16 * v17), (v12 + 1)))
+          else if ((*a2)(a1 + 16 * v17, (v12 + 16)))
           {
-            ++v12;
+            v12 += 16;
           }
 
           else
@@ -8625,7 +8592,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
         while (!(*a2)(v12, &v20));
         v18 = v20;
         v20 = 0uLL;
-        v19 = *(v14 + 1);
+        v19 = *(v14 + 8);
         *v14 = v18;
         if (v19)
         {
@@ -8651,14 +8618,13 @@ void sub_1C65D5BA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*>(uint64_t a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::shared_ptr<QP::ParseAttribute> &,std::shared_ptr<QP::ParseAttribute> &),std::shared_ptr<QP::ParseAttribute>*>(__int128 *a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
 {
   if (a4 >= 2)
   {
     v8 = *a1;
-    v7 = *(a1 + 8);
-    *a1 = 0;
-    *(a1 + 8) = 0;
+    v7 = *(a1 + 1);
+    *a1 = 0uLL;
     v9 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*>(a1, a3, a4);
     v10 = v9;
     if (v9 == (a2 - 16))
@@ -8772,7 +8738,7 @@ void sub_1C65D5DA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::push_back[abi:ne200100](uint64_t a1, void **a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -8783,14 +8749,14 @@ uint64_t std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::push_bac
   else
   {
     std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__construct_one_at_end[abi:ne200100]<std::vector<std::shared_ptr<QP::ParseAttribute>> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t *std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::erase(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t *std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::erase(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
   if (a3 != a2)
   {
@@ -8815,7 +8781,7 @@ uint64_t *std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::erase(u
   return a2;
 }
 
-uint64_t std::__tree<std::string>::__count_unique<std::string>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::string>::__count_unique<std::string>(uint64_t a1, char *a2)
 {
   v2 = *(a1 + 8);
   if (v2)
@@ -8823,7 +8789,7 @@ uint64_t std::__tree<std::string>::__count_unique<std::string>(uint64_t a1, void
     v4 = 1;
     do
     {
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v2 + 4) & 0x80) == 0)
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v2 + 32) & 0x80) == 0)
       {
         if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v2 + 4, a2) & 0x80) == 0)
         {
@@ -8851,7 +8817,7 @@ void *std::__shared_ptr_emplace<QP::ParseAttribute>::__shared_ptr_emplace[abi:ne
   return a1;
 }
 
-uint64_t std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__construct_one_at_end[abi:ne200100]<std::vector<std::shared_ptr<QP::ParseAttribute>> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__construct_one_at_end[abi:ne200100]<std::vector<std::shared_ptr<QP::ParseAttribute>> const&>(uint64_t a1, void **a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -8862,21 +8828,21 @@ uint64_t std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__constr
   return result;
 }
 
-uint64_t std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__emplace_back_slow_path<std::vector<std::shared_ptr<QP::ParseAttribute>> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__emplace_back_slow_path<std::vector<std::shared_ptr<QP::ParseAttribute>> const&>(char **a1, void **a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<QP::GeoLocation>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -8900,16 +8866,16 @@ uint64_t std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__emplac
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<std::shared_ptr<QP::ParseAttribute>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::ParseAttribute>*,std::shared_ptr<QP::ParseAttribute>*>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 4);
+  std::vector<std::shared_ptr<QP::ParseAttribute>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::ParseAttribute>*,std::shared_ptr<QP::ParseAttribute>*>((24 * v2), *a2, a2[1], (a2[1] - *a2) >> 4);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -8918,9 +8884,9 @@ uint64_t std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__emplac
   return v8;
 }
 
-void sub_1C65D6164(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65D6164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<std::shared_ptr<QP::ParseAttribute>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8972,7 +8938,7 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std:
   return v5;
 }
 
-uint64_t *std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::vector<std::shared_ptr<QP::ParseAttribute>>*>,std::__wrap_iter<std::vector<std::shared_ptr<QP::ParseAttribute>>*>>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, uint64_t a5)
+uint64_t **std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::vector<std::shared_ptr<QP::ParseAttribute>>*>,std::__wrap_iter<std::vector<std::shared_ptr<QP::ParseAttribute>>*>>(char **a1, uint64_t **a2, uint64_t **a3, void **a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -9078,11 +9044,11 @@ void *std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__move_rang
       v8[1] = 0;
       v8[2] = 0;
       *v8 = *v9;
-      v8[2] = v9[2];
+      v8[2] = *(v9 + 16);
       *v9 = 0;
-      v9[1] = 0;
-      v9[2] = 0;
-      v9 += 3;
+      *(v9 + 8) = 0;
+      *(v9 + 16) = 0;
+      v9 += 24;
       v8 += 3;
     }
 
@@ -9093,10 +9059,10 @@ void *std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__move_rang
   return std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::vector<std::shared_ptr<QP::ParseAttribute>> *,std::vector<std::shared_ptr<QP::ParseAttribute>> *,std::vector<std::shared_ptr<QP::ParseAttribute>> *>(&v11, a2, v7, v6);
 }
 
-uint64_t std::__split_buffer<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__construct_at_end_with_size<std::__wrap_iter<std::vector<std::shared_ptr<QP::ParseAttribute>>*>>(uint64_t result, uint64_t *a2, uint64_t a3)
+uint64_t *std::__split_buffer<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__construct_at_end_with_size<std::__wrap_iter<std::vector<std::shared_ptr<QP::ParseAttribute>>*>>(uint64_t *result, void **a2, uint64_t a3)
 {
   v3 = result;
-  v4 = *(result + 16);
+  v4 = result[2];
   if (a3)
   {
     v6 = &v4[3 * a3];
@@ -9116,11 +9082,11 @@ uint64_t std::__split_buffer<std::vector<std::shared_ptr<QP::ParseAttribute>>>::
     v4 = v6;
   }
 
-  *(v3 + 16) = v4;
+  v3[2] = v4;
   return result;
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<std::shared_ptr<QP::ParseAttribute>>>,std::vector<std::shared_ptr<QP::ParseAttribute>>*,std::vector<std::shared_ptr<QP::ParseAttribute>>*,std::vector<std::shared_ptr<QP::ParseAttribute>>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<std::shared_ptr<QP::ParseAttribute>>>,std::vector<std::shared_ptr<QP::ParseAttribute>>*,std::vector<std::shared_ptr<QP::ParseAttribute>>*,std::vector<std::shared_ptr<QP::ParseAttribute>>*>(uint64_t a1, void **a2, void **a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -9198,7 +9164,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
   return a3;
 }
 
-uint64_t **std::__copy_impl::operator()[abi:ne200100]<std::vector<std::shared_ptr<QP::ParseAttribute>> *,std::vector<std::shared_ptr<QP::ParseAttribute>> *,std::vector<std::shared_ptr<QP::ParseAttribute>> *>(uint64_t a1, uint64_t **a2, uint64_t **a3, uint64_t *a4)
+uint64_t **std::__copy_impl::operator()[abi:ne200100]<std::vector<std::shared_ptr<QP::ParseAttribute>> *,std::vector<std::shared_ptr<QP::ParseAttribute>> *,std::vector<std::shared_ptr<QP::ParseAttribute>> *>(uint64_t a1, uint64_t **a2, uint64_t **a3, uint64_t **a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -9221,7 +9187,7 @@ uint64_t **std::__copy_impl::operator()[abi:ne200100]<std::vector<std::shared_pt
   return v5;
 }
 
-void std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -9247,7 +9213,7 @@ void std::vector<std::vector<std::shared_ptr<QP::ParseAttribute>>>::__destroy_ve
   }
 }
 
-void *std::vector<std::shared_ptr<QP::Parse>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::Parse>*>,std::__wrap_iter<std::shared_ptr<QP::Parse>*>>(void *a1, void *a2, uint64_t *a3, void *a4, uint64_t a5)
+uint64_t *std::vector<std::shared_ptr<QP::Parse>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::Parse>*>,std::__wrap_iter<std::shared_ptr<QP::Parse>*>>(void *a1, uint64_t *a2, uint64_t *a3, void *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -9399,19 +9365,19 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*,false>(uint64_t *a1, __int128 *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*,false>(uint64_t *result, __int128 *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
 {
 LABEL_1:
   v8 = (a2 - 1);
   v95 = a2 - 1;
   v97 = (a2 - 3);
   v98 = (a2 - 2);
-  v9 = a1;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
     v12 = (a2 - v9) >> 4;
     if (v12 <= 2)
@@ -9581,16 +9547,16 @@ LABEL_10:
       v96 = v13;
       if (v16)
       {
-        v19 = a1 + 1;
-        v18 = *a1;
+        v19 = result + 1;
+        v18 = *result;
         if (v17)
         {
-          *a1 = *v8;
+          *result = *v8;
           goto LABEL_27;
         }
 
-        v32 = a1[1];
-        *a1 = *v14;
+        v32 = result[1];
+        *result = *v14;
         v14[1] = v32;
         v19 = v14 + 1;
         *v14 = v18;
@@ -9617,26 +9583,26 @@ LABEL_28:
         v25 = v14[1];
         v14[1] = *(a2 - 1);
         *(a2 - 1) = v25;
-        if ((*a3)(v14, a1))
+        if ((*a3)(v14, result))
         {
-          v27 = *a1;
-          *a1 = *v14;
-          v19 = a1 + 1;
+          v27 = *result;
+          *result = *v14;
+          v19 = result + 1;
           *v14 = v27;
           goto LABEL_28;
         }
       }
 
       v34 = v14 - 2;
-      v35 = (*a3)(v14 - 2, a1 + 2);
+      v35 = (*a3)(v14 - 2, result + 2);
       v36 = (*a3)(v98, v14 - 2);
       if (v35)
       {
-        v37 = a1[2];
-        v38 = a1 + 3;
+        v37 = result[2];
+        v38 = result + 3;
         if (v36)
         {
-          a1[2] = *v98;
+          result[2] = *v98;
           *v98 = v37;
           v39 = a2 - 3;
           v40 = v96;
@@ -9644,7 +9610,7 @@ LABEL_28:
         }
 
         v45 = *v38;
-        *(a1 + 1) = *v34;
+        *(result + 1) = *v34;
         *(v14 - 1) = v45;
         v38 = v14 - 1;
         *v34 = v37;
@@ -9674,42 +9640,42 @@ LABEL_40:
           v42 = *(v14 - 1);
           *(v14 - 1) = *(a2 - 3);
           *(a2 - 3) = v42;
-          if ((*a3)(v14 - 2, a1 + 2))
+          if ((*a3)(v14 - 2, result + 2))
           {
-            v43 = a1[2];
-            a1[2] = *v34;
+            v43 = result[2];
+            result[2] = *v34;
             *v34 = v43;
-            v38 = a1 + 3;
+            v38 = result + 3;
             goto LABEL_40;
           }
         }
       }
 
       v48 = v40 + 1;
-      v49 = &a1[2 * v40 + 2];
-      v50 = (*a3)(v49, a1 + 4);
+      v49 = &result[2 * v40 + 2];
+      v50 = (*a3)(v49, result + 4);
       v51 = (*a3)(v97, v49);
       v52 = v8;
       if (v50)
       {
-        v53 = a1[4];
-        v54 = a1 + 5;
+        v53 = result[4];
+        v54 = result + 5;
         if (v51)
         {
-          v55 = a2 - 3;
-          a1[4] = *v97;
+          v55 = (a2 - 3);
+          result[4] = *v97;
           goto LABEL_49;
         }
 
         v60 = *v54;
-        *(a1 + 2) = *v49;
+        *(result + 2) = *v49;
         v49[1] = v60;
         v54 = v49 + 1;
         *v49 = v53;
         if ((*a3)(v97, v49))
         {
           v53 = *v49;
-          v55 = a2 - 3;
+          v55 = (a2 - 3);
           *v49 = *v97;
 LABEL_49:
           *v55 = v53;
@@ -9730,12 +9696,12 @@ LABEL_50:
         v57 = v49[1];
         v49[1] = *(a2 - 5);
         *(a2 - 5) = v57;
-        if ((*a3)(v49, a1 + 4))
+        if ((*a3)(v49, result + 4))
         {
-          v59 = a1[4];
-          a1[4] = *v49;
+          v59 = result[4];
+          result[4] = *v49;
           *v49 = v59;
-          v54 = a1 + 5;
+          v54 = result + 5;
           goto LABEL_50;
         }
       }
@@ -9765,7 +9731,7 @@ LABEL_50:
           *v49 = v69;
           v65 = v14 + 1;
 LABEL_59:
-          v70 = &a1[2 * v48];
+          v70 = &result[2 * v48];
           v71 = *v65;
           *v65 = v70[1];
           v70[1] = v71;
@@ -9792,9 +9758,9 @@ LABEL_59:
         }
       }
 
-      v72 = *a1;
-      *a1 = *v14;
-      v23 = a1 + 1;
+      v72 = *result;
+      *result = *v14;
+      v23 = result + 1;
       *v14 = v72;
       v31 = v14 + 1;
 LABEL_61:
@@ -9852,21 +9818,21 @@ LABEL_37:
     }
 
 LABEL_62:
-    if ((a5 & 1) == 0 && ((*a3)(a1 - 2, a1) & 1) == 0)
+    if ((a5 & 1) == 0 && ((*a3)(result - 2, result) & 1) == 0)
     {
-      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::Parse> *,BOOL (*&)(std::shared_ptr<QP::Parse>&,std::shared_ptr<QP::Parse>&)>(a1, a2, a3);
+      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::Parse> *,BOOL (*&)(std::shared_ptr<QP::Parse>&,std::shared_ptr<QP::Parse>&)>(result, a2, a3);
       v75 = v100;
       goto LABEL_69;
     }
 
-    v74 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::Parse> *,BOOL (*&)(std::shared_ptr<QP::Parse>&,std::shared_ptr<QP::Parse>&)>(a1, a2, a3);
+    v74 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::Parse> *,BOOL (*&)(std::shared_ptr<QP::Parse>&,std::shared_ptr<QP::Parse>&)>(result, a2, a3);
     v75 = v100;
     if ((v76 & 1) == 0)
     {
       goto LABEL_67;
     }
 
-    v77 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*>(a1, v74, a3);
+    v77 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*>(result, v74, a3);
     v9 = v74 + 2;
     if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*>(v74 + 2, a2, a3))
     {
@@ -9884,7 +9850,7 @@ LABEL_62:
     if (!v77)
     {
 LABEL_67:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*,false>(a1, v74, a3, -v100, a5 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*,false>(result, v74, a3, -v100, a5 & 1);
       v9 = v74 + 2;
 LABEL_69:
       a5 = 0;

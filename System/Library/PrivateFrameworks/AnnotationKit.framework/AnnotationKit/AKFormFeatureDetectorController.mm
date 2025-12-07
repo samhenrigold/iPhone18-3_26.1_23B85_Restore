@@ -78,7 +78,7 @@
   [controllerCopy convertPointFromOverlayToModel:{x, y}];
   v9 = [(AKFormFeatureDetector *)v8 featureAtPoint:controllerCopy onPage:1 mode:?];
 
-  AKLog(@"Detected feature: %@");
+  AKLog();
 
   return v9;
 }
@@ -201,7 +201,7 @@ LABEL_17:
   v43 = j__NSStringFromCGRect(v49);
   [v17 drawingBounds];
   v44 = j__NSStringFromCGRect(v50);
-  AKLog(@"Placed detected feature\n%@ has annotation drawing bounds - rect:%@, drawingBounds:%@");
+  AKLog();
 }
 
 - (BOOL)formFeature:(id)feature intersectsAnnotationsOnPage:(id)page
@@ -275,7 +275,7 @@ LABEL_17:
   v17.width = v13;
   v17.height = v11;
   v16 = j__NSStringFromCGSize(v17);
-  AKLog(@"%s %@");
+  AKLog();
 
   v14 = v13;
   v15 = v11;
@@ -295,7 +295,7 @@ LABEL_17:
     v4 = 100.0;
   }
 
-  AKLog(@"%s %f");
+  AKLog();
   return v4;
 }
 

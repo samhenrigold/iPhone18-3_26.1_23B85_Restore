@@ -17,13 +17,13 @@
 void __56__BKSWindowServerHitTestSecurityAnalysis_protobufSchema__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_cumulativeLayerTransform"];
-  [v2 addField:"_cumulativeOpacity"];
-  [v2 addField:"_hasInsecureFilter"];
-  [v2 addField:"_parentsHaveInsecureLayerProperties"];
-  [v2 addField:"_occlusionMask"];
-  [v2 addField:"_occlusionPercentage"];
-  [v2 addField:"_occlusionType"];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
 }
 
 - (void)_initWithCopyOf:(void *)of
@@ -73,7 +73,7 @@ void __56__BKSWindowServerHitTestSecurityAnalysis_protobufSchema__block_invoke(u
       if (v3 != objc_opt_class())
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        [currentHandler handleFailureInMethod:sel__init object:v1 file:@"BKSWindowServerHitTestSecurityAnalysis.m" lineNumber:144 description:@"BKSWindowServerHitTestSecurityAnalysis cannot be subclassed"];
+        [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
       }
     }
 
@@ -118,16 +118,16 @@ void __56__BKSWindowServerHitTestSecurityAnalysis_protobufSchema__block_invoke(u
   v20 = *&self->_cumulativeLayerTransform.m21;
   v21 = v8;
   formatterCopy = formatter;
-  v10 = [v4 valueWithCATransform3D:&v18];
-  v11 = [formatterCopy appendObject:v10 withName:{@"cumulativeLayerTransform", v18, v19, v20, v21, v22, v23, v24, v25}];
+  v10 = [v4 valueWithCATransform3D:{v18, v19, v20, v21, v22, v23, v24, v25}];
+  v11 = [formatterCopy appendObject:? withName:?];
 
-  v12 = [formatterCopy appendFloat:@"cumulativeOpacity" withName:self->_cumulativeOpacity];
-  v13 = [formatterCopy appendBool:self->_hasInsecureFilter withName:@"hasInsecureFilter"];
-  v14 = [formatterCopy appendBool:self->_parentsHaveInsecureLayerProperties withName:@"parentsHaveInsecureLayerProperties"];
-  v15 = [formatterCopy appendInt:self->_occlusionMask withName:@"occlusionMask"];
-  v16 = [formatterCopy appendFloat:@"occlusionPercentage" withName:self->_occlusionPercentage];
+  v12 = [formatterCopy appendFloat:? withName:?];
+  v13 = [formatterCopy appendBool:? withName:?];
+  v14 = [formatterCopy appendBool:? withName:?];
+  v15 = [formatterCopy appendInt:? withName:?];
+  v16 = [formatterCopy appendFloat:? withName:?];
   v17 = NSStringFromBKSWindowServerHitTestOcclusionType(self->_occlusionType);
-  [formatterCopy appendString:v17 withName:@"occlusionType"];
+  [formatterCopy appendString:? withName:?];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -144,58 +144,42 @@ void __56__BKSWindowServerHitTestSecurityAnalysis_protobufSchema__block_invoke(u
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    v6 = v5;
-    v11 = (vminvq_u8(vuzp1q_s8(vuzp1q_s16(vuzp1q_s32(vceqq_f64(*(v5 + 8), *&self->_cumulativeLayerTransform.m11), vceqq_f64(*(v5 + 24), *&self->_cumulativeLayerTransform.m13)), vuzp1q_s32(vceqq_f64(*(v5 + 40), *&self->_cumulativeLayerTransform.m21), vceqq_f64(*(v5 + 56), *&self->_cumulativeLayerTransform.m23))), vuzp1q_s16(vuzp1q_s32(vceqq_f64(*(v5 + 72), *&self->_cumulativeLayerTransform.m31), vceqq_f64(*(v5 + 88), *&self->_cumulativeLayerTransform.m33)), vuzp1q_s32(vceqq_f64(*(v5 + 104), *&self->_cumulativeLayerTransform.m41), vceqq_f64(*(v5 + 120), *&self->_cumulativeLayerTransform.m43))))) & 1) != 0 && (v7 = *(v5 + 34), cumulativeOpacity = self->_cumulativeOpacity, BSFloatEqualToFloat()) && *(v6 + 140) == self->_hasInsecureFilter && *(v6 + 141) == self->_parentsHaveInsecureLayerProperties && *(v6 + 36) == self->_occlusionMask && (v9 = v6[37], occlusionPercentage = self->_occlusionPercentage, BSFloatEqualToFloat()) && *(v6 + 19) == self->_occlusionType;
+    v6 = (vminvq_u8(vuzp1q_s8(vuzp1q_s16(vuzp1q_s32(vceqq_f64(*(v5 + 8), *&self->_cumulativeLayerTransform.m11), vceqq_f64(*(v5 + 24), *&self->_cumulativeLayerTransform.m13)), vuzp1q_s32(vceqq_f64(*(v5 + 40), *&self->_cumulativeLayerTransform.m21), vceqq_f64(*(v5 + 56), *&self->_cumulativeLayerTransform.m23))), vuzp1q_s16(vuzp1q_s32(vceqq_f64(*(v5 + 72), *&self->_cumulativeLayerTransform.m31), vceqq_f64(*(v5 + 88), *&self->_cumulativeLayerTransform.m33)), vuzp1q_s32(vceqq_f64(*(v5 + 104), *&self->_cumulativeLayerTransform.m41), vceqq_f64(*(v5 + 120), *&self->_cumulativeLayerTransform.m43))))) & 1) != 0 && BSFloatEqualToFloat() && v5[140] == self->_hasInsecureFilter && v5[141] == self->_parentsHaveInsecureLayerProperties && *(v5 + 36) == self->_occlusionMask && BSFloatEqualToFloat() && *(v5 + 19) == self->_occlusionType;
   }
 
   else
   {
-    v11 = 0;
+    v6 = 0;
   }
 
-  return v11;
+  return v6;
 }
 
 - (unint64_t)hash
 {
-  v3 = *&self->_cumulativeLayerTransform.m33;
-  v16[4] = *&self->_cumulativeLayerTransform.m31;
-  v16[5] = v3;
-  v4 = *&self->_cumulativeLayerTransform.m43;
-  v16[6] = *&self->_cumulativeLayerTransform.m41;
-  v16[7] = v4;
-  v5 = *&self->_cumulativeLayerTransform.m13;
-  v16[0] = *&self->_cumulativeLayerTransform.m11;
-  v16[1] = v5;
-  v6 = *&self->_cumulativeLayerTransform.m23;
-  v16[2] = *&self->_cumulativeLayerTransform.m21;
-  v16[3] = v6;
-  v7 = [MEMORY[0x1E696B098] valueWithBytes:v16 objCType:"{CATransform3D=dddddddddddddddd}"];
-  [v7 hash];
+  v2 = [MEMORY[0x1E696B098] valueWithBytes:*&self->_cumulativeLayerTransform.m11 objCType:{*&self->_cumulativeLayerTransform.m13, *&self->_cumulativeLayerTransform.m21, *&self->_cumulativeLayerTransform.m23, *&self->_cumulativeLayerTransform.m24, *&self->_cumulativeLayerTransform.m31, *&self->_cumulativeLayerTransform.m33, *&self->_cumulativeLayerTransform.m41, *&self->_cumulativeLayerTransform.m43}];
+  [v2 hash];
 
-  *&v8 = self->_cumulativeOpacity;
-  v9 = [MEMORY[0x1E696AD98] numberWithFloat:v8];
-  [v9 hash];
+  v3 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  [v3 hash];
 
-  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_occlusionMask];
-  [v10 hash];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+  [v4 hash];
 
-  *&v11 = self->_occlusionPercentage;
-  v12 = [MEMORY[0x1E696AD98] numberWithFloat:v11];
-  [v12 hash];
+  v5 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  [v5 hash];
 
-  v13 = [MEMORY[0x1E696AD98] numberWithInteger:self->_occlusionType];
-  [v13 hash];
+  v6 = [MEMORY[0x1E696AD98] numberWithInteger:?];
+  [v6 hash];
 
-  v14 = (self->_parentsHaveInsecureLayerProperties + self->_hasInsecureFilter) & 3;
   return BSHashPurifyNS();
 }
 
 - (BKSWindowServerHitTestSecurityAnalysis)init
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BKSWindowServerHitTestSecurityAnalysis init]"];
-  [currentHandler handleFailureInFunction:v4 file:@"BKSWindowServerHitTestSecurityAnalysis.m" lineNumber:133 description:@"cannot directly allocate BKSWindowServerHitTestSecurityAnalysis"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+  [currentHandler handleFailureInFunction:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -203,8 +187,8 @@ void __56__BKSWindowServerHitTestSecurityAnalysis_protobufSchema__block_invoke(u
 + (BKSWindowServerHitTestSecurityAnalysis)new
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[BKSWindowServerHitTestSecurityAnalysis new]"];
-  [currentHandler handleFailureInFunction:v3 file:@"BKSWindowServerHitTestSecurityAnalysis.m" lineNumber:138 description:@"cannot directly allocate BKSWindowServerHitTestSecurityAnalysis"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+  [currentHandler handleFailureInFunction:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -224,398 +208,322 @@ void __56__BKSWindowServerHitTestSecurityAnalysis_protobufSchema__block_invoke(u
 {
   dictionaryCopy = dictionary;
   *string = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
   v6 = getkCAWindowServerHitTestSecurityAnalysisOcclusionTypeSymbolLoc_ptr;
-  v43 = getkCAWindowServerHitTestSecurityAnalysisOcclusionTypeSymbolLoc_ptr;
+  v31 = getkCAWindowServerHitTestSecurityAnalysisOcclusionTypeSymbolLoc_ptr;
   if (!getkCAWindowServerHitTestSecurityAnalysisOcclusionTypeSymbolLoc_ptr)
   {
-    v35 = MEMORY[0x1E69E9820];
-    v36 = 3221225472;
-    v37 = __getkCAWindowServerHitTestSecurityAnalysisOcclusionTypeSymbolLoc_block_invoke;
-    v38 = &unk_1E6F476B0;
-    v39 = &v40;
     v7 = QuartzCoreLibrary_11890();
-    v41[3] = dlsym(v7, "kCAWindowServerHitTestSecurityAnalysisOcclusionType");
-    getkCAWindowServerHitTestSecurityAnalysisOcclusionTypeSymbolLoc_ptr = *(v39[1] + 24);
-    v6 = v41[3];
+    v29[3] = dlsym(v7, "kCAWindowServerHitTestSecurityAnalysisOcclusionType");
+    getkCAWindowServerHitTestSecurityAnalysisOcclusionTypeSymbolLoc_ptr = v29[3];
+    v6 = v29[3];
   }
 
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v28, 8);
   if (!v6)
   {
-    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkCAWindowServerHitTestSecurityAnalysisOcclusionType(void)"];
-    [currentHandler handleFailureInFunction:v29 file:@"BKSWindowServerHitTestSecurityAnalysis.m" lineNumber:28 description:{@"%s", dlerror()}];
-    goto LABEL_44;
+    goto LABEL_38;
   }
 
-  v8 = [dictionaryCopy objectForKeyedSubscript:*v6];
+  v8 = [dictionaryCopy objectForKeyedSubscript:?];
   if (v8)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    if (objc_opt_isKindOfClass())
     {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v28 = 0;
+      v29 = &v28;
+      v30 = 0x2020000000;
+      v9 = getkCAWindowServerOcclusionTypeLayerSymbolLoc_ptr;
+      v31 = getkCAWindowServerOcclusionTypeLayerSymbolLoc_ptr;
+      if (!getkCAWindowServerOcclusionTypeLayerSymbolLoc_ptr)
       {
-        unsignedIntValue = [v8 unsignedIntValue];
-        v40 = 0;
-        v41 = &v40;
-        v42 = 0x2020000000;
-        v15 = getkCAWindowServerHitTestSecurityAnalysisOcclusionPercentSymbolLoc_ptr;
-        v43 = getkCAWindowServerHitTestSecurityAnalysisOcclusionPercentSymbolLoc_ptr;
-        if (!getkCAWindowServerHitTestSecurityAnalysisOcclusionPercentSymbolLoc_ptr)
+        v10 = QuartzCoreLibrary_11890();
+        v29[3] = dlsym(v10, "kCAWindowServerOcclusionTypeLayer");
+        getkCAWindowServerOcclusionTypeLayerSymbolLoc_ptr = v29[3];
+        v9 = v29[3];
+      }
+
+      _Block_object_dispose(&v28, 8);
+      if (v9)
+      {
+        if ([v8 isEqual:?])
         {
-          v35 = MEMORY[0x1E69E9820];
-          v36 = 3221225472;
-          v37 = __getkCAWindowServerHitTestSecurityAnalysisOcclusionPercentSymbolLoc_block_invoke;
-          v38 = &unk_1E6F476B0;
-          v39 = &v40;
-          v16 = QuartzCoreLibrary_11890();
-          v41[3] = dlsym(v16, "kCAWindowServerHitTestSecurityAnalysisOcclusionPercent");
-          getkCAWindowServerHitTestSecurityAnalysisOcclusionPercentSymbolLoc_ptr = *(v39[1] + 24);
-          v15 = v41[3];
+          goto LABEL_32;
         }
 
-        _Block_object_dispose(&v40, 8);
-        if (!v15)
+        v28 = 0;
+        v29 = &v28;
+        v30 = 0x2020000000;
+        v19 = getkCAWindowServerOcclusionTypeClippedSymbolLoc_ptr;
+        v31 = getkCAWindowServerOcclusionTypeClippedSymbolLoc_ptr;
+        if (!getkCAWindowServerOcclusionTypeClippedSymbolLoc_ptr)
         {
-          currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-          v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkCAWindowServerHitTestSecurityAnalysisOcclusionPercent(void)"];
-          [currentHandler handleFailureInFunction:v29 file:@"BKSWindowServerHitTestSecurityAnalysis.m" lineNumber:29 description:{@"%s", dlerror()}];
-          goto LABEL_44;
+          v20 = QuartzCoreLibrary_11890();
+          v29[3] = dlsym(v20, "kCAWindowServerOcclusionTypeClipped");
+          getkCAWindowServerOcclusionTypeClippedSymbolLoc_ptr = v29[3];
+          v19 = v29[3];
         }
 
-        v17 = [dictionaryCopy objectForKeyedSubscript:*v15];
-        v18 = objc_opt_class();
-        v19 = v17;
-        if (v18)
+        _Block_object_dispose(&v28, 8);
+        if (v19)
         {
-          if (objc_opt_isKindOfClass())
+          if ([v8 isEqual:?])
           {
-            v20 = v19;
+LABEL_32:
+            v27 = dictionaryCopy;
+            v11 = [(BKSWindowServerHitTestSecurityAnalysis *)BKSMutableWindowServerHitTestSecurityAnalysis build:?];
+
+            goto LABEL_35;
           }
 
-          else
+          v28 = 0;
+          v29 = &v28;
+          v30 = 0x2020000000;
+          v21 = getkCAWindowServerOcclusionTypeBorderSymbolLoc_ptr;
+          v31 = getkCAWindowServerOcclusionTypeBorderSymbolLoc_ptr;
+          if (!getkCAWindowServerOcclusionTypeBorderSymbolLoc_ptr)
           {
-            v20 = 0;
+            v22 = QuartzCoreLibrary_11890();
+            v29[3] = dlsym(v22, "kCAWindowServerOcclusionTypeBorder");
+            getkCAWindowServerOcclusionTypeBorderSymbolLoc_ptr = v29[3];
+            v21 = v29[3];
           }
+
+          _Block_object_dispose(&v28, 8);
+          if (v21)
+          {
+            [v8 isEqual:?];
+            goto LABEL_32;
+          }
+        }
+      }
+
+LABEL_38:
+      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+      v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+      [currentHandler handleFailureInFunction:dlerror() file:? lineNumber:? description:?];
+
+      __break(1u);
+      return result;
+    }
+
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      unsignedIntValue = [v8 unsignedIntValue];
+      v28 = 0;
+      v29 = &v28;
+      v30 = 0x2020000000;
+      v13 = getkCAWindowServerHitTestSecurityAnalysisOcclusionPercentSymbolLoc_ptr;
+      v31 = getkCAWindowServerHitTestSecurityAnalysisOcclusionPercentSymbolLoc_ptr;
+      if (!getkCAWindowServerHitTestSecurityAnalysisOcclusionPercentSymbolLoc_ptr)
+      {
+        v14 = QuartzCoreLibrary_11890();
+        v29[3] = dlsym(v14, "kCAWindowServerHitTestSecurityAnalysisOcclusionPercent");
+        getkCAWindowServerHitTestSecurityAnalysisOcclusionPercentSymbolLoc_ptr = v29[3];
+        v13 = v29[3];
+      }
+
+      _Block_object_dispose(&v28, 8);
+      if (!v13)
+      {
+        goto LABEL_38;
+      }
+
+      v15 = [dictionaryCopy objectForKeyedSubscript:?];
+      v16 = objc_opt_class();
+      v17 = v15;
+      if (v16)
+      {
+        if (objc_opt_isKindOfClass())
+        {
+          v18 = v17;
         }
 
         else
         {
-          v20 = 0;
+          v18 = 0;
         }
-
-        v25 = v20;
-
-        if (v25)
-        {
-          [v25 floatValue];
-          v11 = v26;
-
-          v13 = 0;
-          goto LABEL_33;
-        }
-
-        [MEMORY[0x1E696AEC0] stringWithFormat:@"occlusionTypeMask is %X, but there is no percentage", unsignedIntValue];
       }
 
       else
       {
-        [MEMORY[0x1E696AEC0] stringWithFormat:@"occlusionType is unexpected class:%@", objc_opt_class()];
+        v18 = 0;
       }
 
-      *string = v14 = 0;
-      goto LABEL_36;
-    }
+      v23 = v18;
 
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x2020000000;
-    v9 = getkCAWindowServerOcclusionTypeLayerSymbolLoc_ptr;
-    v43 = getkCAWindowServerOcclusionTypeLayerSymbolLoc_ptr;
-    if (!getkCAWindowServerOcclusionTypeLayerSymbolLoc_ptr)
-    {
-      v35 = MEMORY[0x1E69E9820];
-      v36 = 3221225472;
-      v37 = __getkCAWindowServerOcclusionTypeLayerSymbolLoc_block_invoke;
-      v38 = &unk_1E6F476B0;
-      v39 = &v40;
-      v10 = QuartzCoreLibrary_11890();
-      v41[3] = dlsym(v10, "kCAWindowServerOcclusionTypeLayer");
-      getkCAWindowServerOcclusionTypeLayerSymbolLoc_ptr = *(v39[1] + 24);
-      v9 = v41[3];
-    }
-
-    _Block_object_dispose(&v40, 8);
-    if (v9)
-    {
-      v11 = 0;
-      if ([v8 isEqual:*v9])
+      if (v23)
       {
-        LODWORD(unsignedIntValue) = 0;
-        v13 = 3;
-LABEL_33:
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __94__BKSWindowServerHitTestSecurityAnalysis_securityAnalysisFromCAHitTestDictionary_errorString___block_invoke;
-        v30[3] = &unk_1E6F47688;
-        v32 = v13;
-        v33 = unsignedIntValue;
-        v34 = v11;
-        v31 = dictionaryCopy;
-        v14 = [(BKSWindowServerHitTestSecurityAnalysis *)BKSMutableWindowServerHitTestSecurityAnalysis build:v30];
+        [v23 floatValue];
 
-        goto LABEL_36;
+        goto LABEL_32;
       }
 
-      v40 = 0;
-      v41 = &v40;
-      v42 = 0x2020000000;
-      v21 = getkCAWindowServerOcclusionTypeClippedSymbolLoc_ptr;
-      v43 = getkCAWindowServerOcclusionTypeClippedSymbolLoc_ptr;
-      if (!getkCAWindowServerOcclusionTypeClippedSymbolLoc_ptr)
-      {
-        v35 = MEMORY[0x1E69E9820];
-        v36 = 3221225472;
-        v37 = __getkCAWindowServerOcclusionTypeClippedSymbolLoc_block_invoke;
-        v38 = &unk_1E6F476B0;
-        v39 = &v40;
-        v22 = QuartzCoreLibrary_11890();
-        v41[3] = dlsym(v22, "kCAWindowServerOcclusionTypeClipped");
-        getkCAWindowServerOcclusionTypeClippedSymbolLoc_ptr = *(v39[1] + 24);
-        v21 = v41[3];
-      }
-
-      _Block_object_dispose(&v40, 8);
-      if (v21)
-      {
-        if ([v8 isEqual:*v21])
-        {
-          LODWORD(unsignedIntValue) = 0;
-          v13 = 2;
-          goto LABEL_33;
-        }
-
-        v40 = 0;
-        v41 = &v40;
-        v42 = 0x2020000000;
-        unsignedIntValue = getkCAWindowServerOcclusionTypeBorderSymbolLoc_ptr;
-        v43 = getkCAWindowServerOcclusionTypeBorderSymbolLoc_ptr;
-        if (!getkCAWindowServerOcclusionTypeBorderSymbolLoc_ptr)
-        {
-          v35 = MEMORY[0x1E69E9820];
-          v36 = 3221225472;
-          v37 = __getkCAWindowServerOcclusionTypeBorderSymbolLoc_block_invoke;
-          v38 = &unk_1E6F476B0;
-          v39 = &v40;
-          v23 = QuartzCoreLibrary_11890();
-          v41[3] = dlsym(v23, "kCAWindowServerOcclusionTypeBorder");
-          getkCAWindowServerOcclusionTypeBorderSymbolLoc_ptr = *(v39[1] + 24);
-          unsignedIntValue = v41[3];
-        }
-
-        _Block_object_dispose(&v40, 8);
-        if (unsignedIntValue)
-        {
-          v24 = [v8 isEqual:*unsignedIntValue];
-          LODWORD(unsignedIntValue) = 0;
-          v13 = v24;
-          goto LABEL_33;
-        }
-
-        currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkCAWindowServerOcclusionTypeBorder(void)"];
-        [currentHandler handleFailureInFunction:v29 file:@"BKSWindowServerHitTestSecurityAnalysis.m" lineNumber:27 description:{@"%s", dlerror()}];
-      }
-
-      else
-      {
-        currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkCAWindowServerOcclusionTypeClipped(void)"];
-        [currentHandler handleFailureInFunction:v29 file:@"BKSWindowServerHitTestSecurityAnalysis.m" lineNumber:26 description:{@"%s", dlerror()}];
-      }
+      [MEMORY[0x1E696AEC0] stringWithFormat:unsignedIntValue];
     }
 
     else
     {
-      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkCAWindowServerOcclusionTypeLayer(void)"];
-      [currentHandler handleFailureInFunction:v29 file:@"BKSWindowServerHitTestSecurityAnalysis.m" lineNumber:25 description:{@"%s", dlerror()}];
+      [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
     }
 
-LABEL_44:
-
-    __break(1u);
-    return result;
+    *string = v11 = 0;
+    goto LABEL_35;
   }
 
-  v14 = 0;
-LABEL_36:
+  v11 = 0;
+LABEL_35:
 
-  return v14;
+  return v11;
 }
 
 void __94__BKSWindowServerHitTestSecurityAnalysis_securityAnalysisFromCAHitTestDictionary_errorString___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  [v3 setOcclusionType:*(a1 + 40)];
-  [v3 setOcclusionMask:*(a1 + 48)];
-  LODWORD(v4) = *(a1 + 52);
-  [v3 setOcclusionPercentage:v4];
-  v5 = *(a1 + 32);
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v6 = getkCAWindowServerHitTestSecurityAnalysisCumulativeLayerTransformSymbolLoc_ptr;
-  v38 = getkCAWindowServerHitTestSecurityAnalysisCumulativeLayerTransformSymbolLoc_ptr;
+  [v3 setOcclusionType:?];
+  [v3 setOcclusionMask:?];
+  [v3 setOcclusionPercentage:?];
+  v4 = *(a1 + 32);
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v5 = getkCAWindowServerHitTestSecurityAnalysisCumulativeLayerTransformSymbolLoc_ptr;
+  v36 = getkCAWindowServerHitTestSecurityAnalysisCumulativeLayerTransformSymbolLoc_ptr;
   if (!getkCAWindowServerHitTestSecurityAnalysisCumulativeLayerTransformSymbolLoc_ptr)
   {
-    *&v27 = MEMORY[0x1E69E9820];
-    *(&v27 + 1) = 3221225472;
-    *&v28 = __getkCAWindowServerHitTestSecurityAnalysisCumulativeLayerTransformSymbolLoc_block_invoke;
-    *(&v28 + 1) = &unk_1E6F476B0;
-    *&v29 = &v35;
-    v7 = QuartzCoreLibrary_11890();
-    v36[3] = dlsym(v7, "kCAWindowServerHitTestSecurityAnalysisCumulativeLayerTransform");
-    getkCAWindowServerHitTestSecurityAnalysisCumulativeLayerTransformSymbolLoc_ptr = *(*(v29 + 8) + 24);
-    v6 = v36[3];
+    *&v25 = MEMORY[0x1E69E9820];
+    *(&v25 + 1) = 3221225472;
+    *&v26 = __getkCAWindowServerHitTestSecurityAnalysisCumulativeLayerTransformSymbolLoc_block_invoke;
+    *(&v26 + 1) = &unk_1E6F476B0;
+    *&v27 = &v33;
+    v6 = QuartzCoreLibrary_11890();
+    v34[3] = dlsym(v6, "kCAWindowServerHitTestSecurityAnalysisCumulativeLayerTransform");
+    getkCAWindowServerHitTestSecurityAnalysisCumulativeLayerTransformSymbolLoc_ptr = *(*(v27 + 8) + 24);
+    v5 = v34[3];
   }
 
-  _Block_object_dispose(&v35, 8);
-  if (v6)
+  _Block_object_dispose(&v33, 8);
+  if (v5)
   {
-    v8 = [v5 objectForKeyedSubscript:*v6];
-    v9 = v8;
-    if (v8)
+    v7 = [v4 objectForKeyedSubscript:?];
+    if (v7)
     {
-      [v8 CATransform3DValue];
+      [&v25 CATransform3DValue];
     }
 
     else
     {
-      v33 = 0u;
-      v34 = 0u;
       v31 = 0u;
       v32 = 0u;
       v29 = 0u;
       v30 = 0u;
       v27 = 0u;
       v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
     }
 
-    [v3 setCumulativeLayerTransform:&v27];
-    v10 = *(a1 + 32);
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
-    v11 = getkCAWindowServerHitTestSecurityAnalysisCumulativeOpacitySymbolLoc_ptr;
-    v38 = getkCAWindowServerHitTestSecurityAnalysisCumulativeOpacitySymbolLoc_ptr;
+    [v3 setCumulativeLayerTransform:?];
+    v8 = *(a1 + 32);
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2020000000;
+    v9 = getkCAWindowServerHitTestSecurityAnalysisCumulativeOpacitySymbolLoc_ptr;
+    v36 = getkCAWindowServerHitTestSecurityAnalysisCumulativeOpacitySymbolLoc_ptr;
     if (!getkCAWindowServerHitTestSecurityAnalysisCumulativeOpacitySymbolLoc_ptr)
     {
-      *&v27 = MEMORY[0x1E69E9820];
-      *(&v27 + 1) = 3221225472;
-      *&v28 = __getkCAWindowServerHitTestSecurityAnalysisCumulativeOpacitySymbolLoc_block_invoke;
-      *(&v28 + 1) = &unk_1E6F476B0;
-      *&v29 = &v35;
-      v12 = QuartzCoreLibrary_11890();
-      v13 = dlsym(v12, "kCAWindowServerHitTestSecurityAnalysisCumulativeOpacity");
-      *(*(v29 + 8) + 24) = v13;
-      getkCAWindowServerHitTestSecurityAnalysisCumulativeOpacitySymbolLoc_ptr = *(*(v29 + 8) + 24);
-      v11 = v36[3];
+      *&v25 = MEMORY[0x1E69E9820];
+      *(&v25 + 1) = 3221225472;
+      *&v26 = __getkCAWindowServerHitTestSecurityAnalysisCumulativeOpacitySymbolLoc_block_invoke;
+      *(&v26 + 1) = &unk_1E6F476B0;
+      *&v27 = &v33;
+      v10 = QuartzCoreLibrary_11890();
+      v11 = dlsym(v10, "kCAWindowServerHitTestSecurityAnalysisCumulativeOpacity");
+      *(*(v27 + 8) + 24) = v11;
+      getkCAWindowServerHitTestSecurityAnalysisCumulativeOpacitySymbolLoc_ptr = *(*(v27 + 8) + 24);
+      v9 = v34[3];
     }
 
-    _Block_object_dispose(&v35, 8);
-    if (v11)
+    _Block_object_dispose(&v33, 8);
+    if (v9)
     {
-      v14 = [v10 objectForKeyedSubscript:*v11];
-      [v14 floatValue];
+      v12 = [v8 objectForKeyedSubscript:?];
+      [v12 floatValue];
       [v3 setCumulativeOpacity:?];
 
-      v15 = *(a1 + 32);
-      v35 = 0;
-      v36 = &v35;
-      v37 = 0x2020000000;
-      v16 = getkCAWindowServerHitTestSecurityAnalysisParentsHaveInsecureLayerPropertiesSymbolLoc_ptr;
-      v38 = getkCAWindowServerHitTestSecurityAnalysisParentsHaveInsecureLayerPropertiesSymbolLoc_ptr;
+      v13 = *(a1 + 32);
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x2020000000;
+      v14 = getkCAWindowServerHitTestSecurityAnalysisParentsHaveInsecureLayerPropertiesSymbolLoc_ptr;
+      v36 = getkCAWindowServerHitTestSecurityAnalysisParentsHaveInsecureLayerPropertiesSymbolLoc_ptr;
       if (!getkCAWindowServerHitTestSecurityAnalysisParentsHaveInsecureLayerPropertiesSymbolLoc_ptr)
       {
-        *&v27 = MEMORY[0x1E69E9820];
-        *(&v27 + 1) = 3221225472;
-        *&v28 = __getkCAWindowServerHitTestSecurityAnalysisParentsHaveInsecureLayerPropertiesSymbolLoc_block_invoke;
-        *(&v28 + 1) = &unk_1E6F476B0;
-        *&v29 = &v35;
-        v17 = QuartzCoreLibrary_11890();
-        v18 = dlsym(v17, "kCAWindowServerHitTestSecurityAnalysisParentsHaveInsecureLayerProperties");
-        *(*(v29 + 8) + 24) = v18;
-        getkCAWindowServerHitTestSecurityAnalysisParentsHaveInsecureLayerPropertiesSymbolLoc_ptr = *(*(v29 + 8) + 24);
-        v16 = v36[3];
+        *&v25 = MEMORY[0x1E69E9820];
+        *(&v25 + 1) = 3221225472;
+        *&v26 = __getkCAWindowServerHitTestSecurityAnalysisParentsHaveInsecureLayerPropertiesSymbolLoc_block_invoke;
+        *(&v26 + 1) = &unk_1E6F476B0;
+        *&v27 = &v33;
+        v15 = QuartzCoreLibrary_11890();
+        v16 = dlsym(v15, "kCAWindowServerHitTestSecurityAnalysisParentsHaveInsecureLayerProperties");
+        *(*(v27 + 8) + 24) = v16;
+        getkCAWindowServerHitTestSecurityAnalysisParentsHaveInsecureLayerPropertiesSymbolLoc_ptr = *(*(v27 + 8) + 24);
+        v14 = v34[3];
       }
 
-      _Block_object_dispose(&v35, 8);
-      if (v16)
+      _Block_object_dispose(&v33, 8);
+      if (v14)
       {
-        v19 = [v15 objectForKeyedSubscript:*v16];
-        [v3 setParentsHaveInsecureLayerProperties:{objc_msgSend(v19, "BOOLValue")}];
+        v17 = [v13 objectForKeyedSubscript:?];
+        [v17 BOOLValue];
+        [v3 setParentsHaveInsecureLayerProperties:?];
 
-        v20 = *(a1 + 32);
-        v35 = 0;
-        v36 = &v35;
-        v37 = 0x2020000000;
-        v21 = getkCAWindowServerHitTestSecurityAnalysisIsInsecureFilteredSymbolLoc_ptr;
-        v38 = getkCAWindowServerHitTestSecurityAnalysisIsInsecureFilteredSymbolLoc_ptr;
+        v18 = *(a1 + 32);
+        v33 = 0;
+        v34 = &v33;
+        v35 = 0x2020000000;
+        v19 = getkCAWindowServerHitTestSecurityAnalysisIsInsecureFilteredSymbolLoc_ptr;
+        v36 = getkCAWindowServerHitTestSecurityAnalysisIsInsecureFilteredSymbolLoc_ptr;
         if (!getkCAWindowServerHitTestSecurityAnalysisIsInsecureFilteredSymbolLoc_ptr)
         {
-          *&v27 = MEMORY[0x1E69E9820];
-          *(&v27 + 1) = 3221225472;
-          *&v28 = __getkCAWindowServerHitTestSecurityAnalysisIsInsecureFilteredSymbolLoc_block_invoke;
-          *(&v28 + 1) = &unk_1E6F476B0;
-          *&v29 = &v35;
-          v22 = QuartzCoreLibrary_11890();
-          v23 = dlsym(v22, "kCAWindowServerHitTestSecurityAnalysisIsInsecureFiltered");
-          *(*(v29 + 8) + 24) = v23;
-          getkCAWindowServerHitTestSecurityAnalysisIsInsecureFilteredSymbolLoc_ptr = *(*(v29 + 8) + 24);
-          v21 = v36[3];
+          *&v25 = MEMORY[0x1E69E9820];
+          *(&v25 + 1) = 3221225472;
+          *&v26 = __getkCAWindowServerHitTestSecurityAnalysisIsInsecureFilteredSymbolLoc_block_invoke;
+          *(&v26 + 1) = &unk_1E6F476B0;
+          *&v27 = &v33;
+          v20 = QuartzCoreLibrary_11890();
+          v21 = dlsym(v20, "kCAWindowServerHitTestSecurityAnalysisIsInsecureFiltered");
+          *(*(v27 + 8) + 24) = v21;
+          getkCAWindowServerHitTestSecurityAnalysisIsInsecureFilteredSymbolLoc_ptr = *(*(v27 + 8) + 24);
+          v19 = v34[3];
         }
 
-        _Block_object_dispose(&v35, 8);
-        if (v21)
+        _Block_object_dispose(&v33, 8);
+        if (v19)
         {
-          v24 = [v20 objectForKeyedSubscript:*v21];
-          [v3 setHasInsecureFilter:{objc_msgSend(v24, "BOOLValue")}];
+          v22 = [v18 objectForKeyedSubscript:?];
+          [v22 BOOLValue];
+          [v3 setHasInsecureFilter:?];
 
           return;
         }
-
-        v25 = [MEMORY[0x1E696AAA8] currentHandler];
-        v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkCAWindowServerHitTestSecurityAnalysisIsInsecureFiltered(void)"];
-        [v25 handleFailureInFunction:v26 file:@"BKSWindowServerHitTestSecurityAnalysis.m" lineNumber:33 description:{@"%s", dlerror()}];
-      }
-
-      else
-      {
-        v25 = [MEMORY[0x1E696AAA8] currentHandler];
-        v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkCAWindowServerHitTestSecurityAnalysisParentsHaveInsecureLayerProperties(void)"];
-        [v25 handleFailureInFunction:v26 file:@"BKSWindowServerHitTestSecurityAnalysis.m" lineNumber:32 description:{@"%s", dlerror()}];
       }
     }
 
-    else
-    {
-      v25 = [MEMORY[0x1E696AAA8] currentHandler];
-      v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkCAWindowServerHitTestSecurityAnalysisCumulativeOpacity(void)"];
-      [v25 handleFailureInFunction:v26 file:@"BKSWindowServerHitTestSecurityAnalysis.m" lineNumber:31 description:{@"%s", dlerror()}];
-    }
+    v23 = [MEMORY[0x1E696AAA8] currentHandler];
+    v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+    [v23 handleFailureInFunction:dlerror() file:? lineNumber:? description:?];
   }
 
   else
   {
-    v25 = [MEMORY[0x1E696AAA8] currentHandler];
-    v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkCAWindowServerHitTestSecurityAnalysisCumulativeLayerTransform(void)"];
-    [v25 handleFailureInFunction:v26 file:@"BKSWindowServerHitTestSecurityAnalysis.m" lineNumber:30 description:{@"%s", dlerror()}];
+    v23 = [MEMORY[0x1E696AAA8] currentHandler];
+    v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+    [v23 handleFailureInFunction:dlerror() file:? lineNumber:? description:?];
   }
 
   __break(1u);

@@ -28,7 +28,7 @@
   selfCopy = [(CBModule *)&v43 initWithQueue:queue];
   if (!selfCopy)
   {
-    goto LABEL_41;
+    return selfCopy;
   }
 
   if (displayCopy)
@@ -153,48 +153,41 @@
   *(selfCopy + 15) = -1.0;
   if (CBEDRServerStartServer())
   {
-LABEL_41:
-    v50 = selfCopy;
+    return selfCopy;
+  }
+
+  if (*(selfCopy + 2))
+  {
+    v18 = *(selfCopy + 2);
   }
 
   else
   {
-    if (*(selfCopy + 2))
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v18 = *(selfCopy + 2);
+      v17 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      if (_COREBRIGHTNESS_LOG_DEFAULT)
-      {
-        v17 = _COREBRIGHTNESS_LOG_DEFAULT;
-      }
-
-      else
-      {
-        v17 = init_default_corebrightness_log();
-      }
-
-      v18 = v17;
+      v17 = init_default_corebrightness_log();
     }
 
-    v32 = v18;
-    v31 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-    {
-      v15 = v32;
-      v16 = v31;
-      __os_log_helper_16_0_0(v30);
-      _os_log_impl(&dword_1DE8E5000, v15, v16, "Lib EDR missing. Not creating CBEDRModule", v30, 2u);
-    }
-
-    MEMORY[0x1E69E5920](selfCopy);
-    v50 = 0;
+    v18 = v17;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v50;
+  v32 = v18;
+  v31 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = v32;
+    v16 = v31;
+    __os_log_helper_16_0_0(v30);
+    _os_log_impl(&dword_1DE8E5000, v15, v16, "Lib EDR missing. Not creating CBEDRModule", v30, 2u);
+  }
+
+  MEMORY[0x1E69E5920](selfCopy);
+  return 0;
 }
 
 - (void)dealloc
@@ -467,7 +460,6 @@ LABEL_41:
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -537,10 +529,9 @@ LABEL_41:
   }
 
   MEMORY[0x1E69E5920](v14);
-  *MEMORY[0x1E69E9840];
 }
 
-uint64_t __35__CBEDRModule_handleHIDEvent_from___block_invoke(uint64_t a1, void *a2)
+void *__35__CBEDRModule_handleHIDEvent_from___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 conformsToHIDServiceClient:*(a1 + 40)];
   if (result)
@@ -574,7 +565,7 @@ uint64_t __35__CBEDRModule_handleHIDEvent_from___block_invoke(uint64_t a1, void 
   return 1;
 }
 
-uint64_t __38__CBEDRModule_removeHIDServiceClient___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__38__CBEDRModule_removeHIDServiceClient___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 conformsToHIDServiceClient:*(a1 + 40)];
   if (result)
@@ -652,8 +643,6 @@ uint64_t __38__CBEDRModule_removeHIDServiceClient___block_invoke(uint64_t a1, vo
 
     CBEDRServerDisplayBrightness([(CADisplay *)self->_cadisplay displayId], self->_currentNits, self->_maxNits, self->_currentLux, self->_Ycomp);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 @end

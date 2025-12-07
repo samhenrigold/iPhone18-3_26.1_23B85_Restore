@@ -21,7 +21,7 @@
 {
   v5 = sub_AB4E30();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB4E00();
   stateCopy = state;
@@ -34,7 +34,7 @@
 - (void)setIsDisabled:(BOOL)disabled
 {
   selfCopy = self;
-  sub_200620(disabled);
+  sub_200620(disabled, v4);
 }
 
 - (void)setShowsContextMenu:(BOOL)menu
@@ -71,14 +71,14 @@
 - (void)prepareForReuse
 {
   v2.receiver = self;
-  v2.super_class = type metadata accessor for HorizontalLockupCollectionViewCell();
+  v2.super_class = type metadata accessor for HorizontalLockupCollectionViewCell(0);
   [(HorizontalLockupCollectionViewCell *)&v2 prepareForReuse];
 }
 
 - (void)setEditing:(BOOL)editing
 {
   editingCopy = editing;
-  v5 = type metadata accessor for HorizontalLockupCollectionViewCell();
+  v5 = type metadata accessor for HorizontalLockupCollectionViewCell(0);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;
@@ -117,17 +117,18 @@
 
 - (void)music_inheritedLayoutInsetsDidChange
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for HorizontalLockupCollectionViewCell();
-  v2 = v4.receiver;
-  [(HorizontalLockupCollectionViewCell *)&v4 music_inheritedLayoutInsetsDidChange];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for HorizontalLockupCollectionViewCell(0);
+  v2 = v5.receiver;
+  [(HorizontalLockupCollectionViewCell *)&v5 music_inheritedLayoutInsetsDidChange];
   [v2 setNeedsLayout];
   v3 = *&v2[OBJC_IVAR____TtC16MusicApplication34HorizontalLockupCollectionViewCell_layoutInvalidationHandler];
   if (v3)
   {
+    v4 = *&v2[OBJC_IVAR____TtC16MusicApplication34HorizontalLockupCollectionViewCell_layoutInvalidationHandler + 8];
 
     v3(v2);
-    sub_17654(v3);
+    sub_17654(v3, v4);
   }
 }
 
@@ -141,7 +142,7 @@
   }
 
   v6.receiver = self;
-  v6.super_class = type metadata accessor for HorizontalLockupCollectionViewCell();
+  v6.super_class = type metadata accessor for HorizontalLockupCollectionViewCell(0);
   [(HorizontalLockupCollectionViewCell *)&v6 applyLayoutAttributes:attributes];
 }
 

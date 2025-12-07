@@ -1,5 +1,7 @@
 @interface TRIAssetPurger
 - (TRIAssetPurger)initWithPaths:(id)paths assetStore:(id)store purgeableNamespacesProvider:(id)provider purgeableFactorPacksEnumerator:(id)enumerator purgeableExperimentAndRolloutProvider:(id)rolloutProvider taskQueue:(id)queue loggingClient:(id)client;
+- (unint64_t)purgeAssetsForPurgeabilityLevel:(int)level requestedPurgeAmount:(int64_t)amount;
+- (unint64_t)purgeableAssetSizeForPurgeabilityLevel:(int)level;
 - (void)_enumeratePurgeCandidatesForPurgeableConstructs:(id)constructs block:(id)block;
 - (void)_logDeactivationsMetricWithConcludedInTime:(BOOL)time;
 @end
@@ -33,29 +35,81 @@
   return v19;
 }
 
+- (unint64_t)purgeableAssetSizeForPurgeabilityLevel:(int)level
+{
+  v3 = *&level;
+  v5 = objc_opt_new();
+  v6 = [[TRIPurgeableConstructs alloc] initWithPurgeabilityLevel:v3 purgeableNamespacesProvider:self->_purgeableNamespacesProvider paths:self->_paths];
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __57__TRIAssetPurger_purgeableAssetSizeForPurgeabilityLevel___block_invoke;
+  v32[3] = &unk_279DDFD38;
+  v7 = v5;
+  v33 = v7;
+  v8 = MEMORY[0x2743948D0](v32);
+  [(TRIAssetPurger *)self _enumeratePurgeCandidatesForPurgeableConstructs:v6 block:v8];
+  v9 = TRILogCategory_Server();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEFAULT, "Looking for regular purgeable factors.", buf, 2u);
+  }
+
+  purgeableExperimentAndRolloutProvider = self->_purgeableExperimentAndRolloutProvider;
+  namespaceNamesPurgeableAtNamespaceLevel = [(TRIPurgeableConstructs *)v6 namespaceNamesPurgeableAtNamespaceLevel];
+  eagerPurgeableFactorsByNamespaceName = [(TRIPurgeableConstructs *)v6 eagerPurgeableFactorsByNamespaceName];
+  cacheDeleteableFactorsByNamespaceName = [(TRIPurgeableConstructs *)v6 cacheDeleteableFactorsByNamespaceName];
+  v14 = [(TRIPurgeableExperimentAndRolloutProviding *)purgeableExperimentAndRolloutProvider purgeableExperimentAssetsFromNamespaces:namespaceNamesPurgeableAtNamespaceLevel eagerFactors:eagerPurgeableFactorsByNamespaceName overriddenFactors:cacheDeleteableFactorsByNamespaceName];
+
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __57__TRIAssetPurger_purgeableAssetSizeForPurgeabilityLevel___block_invoke_119;
+  v29[3] = &unk_279DDFD60;
+  v15 = v7;
+  v30 = v15;
+  [v14 enumerateKeysAndObjectsUsingBlock:v29];
+
+  v16 = self->_purgeableExperimentAndRolloutProvider;
+  namespaceNamesPurgeableAtNamespaceLevel2 = [(TRIPurgeableConstructs *)v6 namespaceNamesPurgeableAtNamespaceLevel];
+  eagerPurgeableFactorsByNamespaceName2 = [(TRIPurgeableConstructs *)v6 eagerPurgeableFactorsByNamespaceName];
+  cacheDeleteableFactorsByNamespaceName2 = [(TRIPurgeableConstructs *)v6 cacheDeleteableFactorsByNamespaceName];
+  v20 = [(TRIPurgeableExperimentAndRolloutProviding *)v16 purgeableRolloutAssetsFromNamespaces:namespaceNamesPurgeableAtNamespaceLevel2 eagerFactors:eagerPurgeableFactorsByNamespaceName2 overriddenFactors:cacheDeleteableFactorsByNamespaceName2];
+
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 3221225472;
+  v26 = __57__TRIAssetPurger_purgeableAssetSizeForPurgeabilityLevel___block_invoke_2;
+  v27 = &unk_279DDFD60;
+  v28 = v15;
+  v21 = v15;
+  [v20 enumerateKeysAndObjectsUsingBlock:&v24];
+
+  v22 = [(TRIAssetStore *)self->_assetStore removableAssetsSizeOlderThanNumScans:0 includedCacheDeletableAssetIds:v21, v24, v25, v26, v27];
+  return v22;
+}
+
 void __57__TRIAssetPurger_purgeableAssetSizeForPurgeabilityLevel___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [v4 objectForKeyedSubscript:v9];
         v11 = [*(a1 + 32) objectForKeyedSubscript:v9];
         if (v11)
@@ -73,13 +127,11 @@ void __57__TRIAssetPurger_purgeableAssetSizeForPurgeabilityLevel___block_invoke(
         [v13 unionSet:v10];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __57__TRIAssetPurger_purgeableAssetSizeForPurgeabilityLevel___block_invoke_119(uint64_t a1, void *a2, void *a3)
@@ -124,9 +176,272 @@ void __57__TRIAssetPurger_purgeableAssetSizeForPurgeabilityLevel___block_invoke_
   [v9 unionSet:v6];
 }
 
+- (unint64_t)purgeAssetsForPurgeabilityLevel:(int)level requestedPurgeAmount:(int64_t)amount
+{
+  v84 = *MEMORY[0x277D85DE8];
+  v74 = 0;
+  v75 = &v74;
+  v76 = 0x2020000000;
+  v77 = 0;
+  if (amount)
+  {
+    v5 = *&level;
+    if (level == 2)
+    {
+      v7 = 1;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v73 = 0;
+    [(TRIAssetStore *)self->_assetStore collectGarbageOlderThanNumScans:0 deletedAssetSize:&v73];
+    v8 = v75[3] + v73;
+    v75[3] = v8;
+    if (v8 < amount)
+    {
+      v58 = [[TRIPurgeableConstructs alloc] initWithPurgeabilityLevel:v5 purgeableNamespacesProvider:self->_purgeableNamespacesProvider paths:self->_paths];
+      v71[0] = MEMORY[0x277D85DD0];
+      v71[1] = 3221225472;
+      v71[2] = __71__TRIAssetPurger_purgeAssetsForPurgeabilityLevel_requestedPurgeAmount___block_invoke;
+      v71[3] = &unk_279DDFD88;
+      v72 = v7;
+      v71[4] = self;
+      v71[5] = &v74;
+      v71[6] = amount;
+      v57 = MEMORY[0x2743948D0](v71);
+      [(TRIAssetPurger *)self _enumeratePurgeCandidatesForPurgeableConstructs:v58 block:v57];
+      if (v75[3] >= amount)
+      {
+        v45 = TRILogCategory_Server();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        {
+          v46 = v75[3];
+          *buf = 134218240;
+          v81 = v46;
+          v82 = 2048;
+          amountCopy = amount;
+          _os_log_impl(&dword_26F567000, v45, OS_LOG_TYPE_DEFAULT, "Found %llu bytes to purge. Cache delete only requested %llu so no need to look for regular assets to purge.", buf, 0x16u);
+        }
+
+        v8 = v75[3];
+        goto LABEL_47;
+      }
+
+      purgeableExperimentAndRolloutProvider = self->_purgeableExperimentAndRolloutProvider;
+      namespaceNamesPurgeableAtNamespaceLevel = [(TRIPurgeableConstructs *)v58 namespaceNamesPurgeableAtNamespaceLevel];
+      eagerPurgeableFactorsByNamespaceName = [(TRIPurgeableConstructs *)v58 eagerPurgeableFactorsByNamespaceName];
+      cacheDeleteableFactorsByNamespaceName = [(TRIPurgeableConstructs *)v58 cacheDeleteableFactorsByNamespaceName];
+      v56 = [(TRIPurgeableExperimentAndRolloutProviding *)purgeableExperimentAndRolloutProvider purgeableExperimentsFromNamespaces:namespaceNamesPurgeableAtNamespaceLevel eagerFactors:eagerPurgeableFactorsByNamespaceName overriddenFactors:cacheDeleteableFactorsByNamespaceName];
+
+      v13 = self->_purgeableExperimentAndRolloutProvider;
+      namespaceNamesPurgeableAtNamespaceLevel2 = [(TRIPurgeableConstructs *)v58 namespaceNamesPurgeableAtNamespaceLevel];
+      eagerPurgeableFactorsByNamespaceName2 = [(TRIPurgeableConstructs *)v58 eagerPurgeableFactorsByNamespaceName];
+      cacheDeleteableFactorsByNamespaceName2 = [(TRIPurgeableConstructs *)v58 cacheDeleteableFactorsByNamespaceName];
+      v55 = [(TRIPurgeableExperimentAndRolloutProviding *)v13 purgeableRolloutsFromNamespaces:namespaceNamesPurgeableAtNamespaceLevel2 eagerFactors:eagerPurgeableFactorsByNamespaceName2 overriddenFactors:cacheDeleteableFactorsByNamespaceName2];
+
+      v17 = TRILogCategory_Server();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        v18 = [v56 count];
+        v19 = [v55 count];
+        *buf = 134218240;
+        v81 = v18;
+        v82 = 2048;
+        amountCopy = v19;
+        _os_log_impl(&dword_26F567000, v17, OS_LOG_TYPE_DEFAULT, "Found %lu experiments and %lu rollouts to deactivate in response to cache delete request.", buf, 0x16u);
+      }
+
+      if ([v56 count] || objc_msgSend(v55, "count"))
+      {
+        v20 = +[TRISequenceTask task];
+        v69 = 0u;
+        v70 = 0u;
+        v68 = 0u;
+        v67 = 0u;
+        v21 = v56;
+        v22 = [v21 countByEnumeratingWithState:&v67 objects:v79 count:16];
+        if (v22)
+        {
+          v23 = *v68;
+          do
+          {
+            for (i = 0; i != v22; ++i)
+            {
+              if (*v68 != v23)
+              {
+                objc_enumerationMutation(v21);
+              }
+
+              v25 = *(*(&v67 + 1) + 8 * i);
+              experimentId = [v25 experimentId];
+              v27 = +[TRIDeactivateTreatmentTask taskWithExperimentId:deploymentId:failOnUnrecognizedExperiment:triggerEvent:taskAttribution:](TRIDeactivateTreatmentTask, "taskWithExperimentId:deploymentId:failOnUnrecognizedExperiment:triggerEvent:taskAttribution:", experimentId, [v25 deploymentId], 1, 24, 0);
+
+              [v20 addTaskToEndOfSequence:v27];
+            }
+
+            v22 = [v21 countByEnumeratingWithState:&v67 objects:v79 count:16];
+          }
+
+          while (v22);
+        }
+
+        v65 = 0u;
+        v66 = 0u;
+        v63 = 0u;
+        v64 = 0u;
+        v28 = v55;
+        v29 = [v28 countByEnumeratingWithState:&v63 objects:v78 count:16];
+        if (v29)
+        {
+          v30 = *v64;
+          do
+          {
+            for (j = 0; j != v29; ++j)
+            {
+              if (*v64 != v30)
+              {
+                objc_enumerationMutation(v28);
+              }
+
+              v32 = [TRIDisenrollRolloutTask taskWithRolloutId:*(*(&v63 + 1) + 8 * j) triggerEvent:1];
+              [v20 addTaskToEndOfSequence:v32];
+            }
+
+            v29 = [v28 countByEnumeratingWithState:&v63 objects:v78 count:16];
+          }
+
+          while (v29);
+        }
+
+        v33 = +[TRIMaintenanceTask task];
+        [v20 addTaskToEndOfSequence:v33];
+
+        v34 = dispatch_semaphore_create(0);
+        if (qword_2815976D0 != -1)
+        {
+          dispatch_once(&qword_2815976D0, &__block_literal_global_4);
+        }
+
+        v35 = _MergedGlobals_30;
+        out_token = 0;
+        handler[0] = MEMORY[0x277D85DD0];
+        handler[1] = 3221225472;
+        handler[2] = __71__TRIAssetPurger_purgeAssetsForPurgeabilityLevel_requestedPurgeAmount___block_invoke_2;
+        handler[3] = &unk_279DDFDB0;
+        v36 = v34;
+        v61 = v36;
+        notify_register_dispatch("com.apple.trial.TaskQueueComplete", &out_token, v35, handler);
+        taskQueue = self->_taskQueue;
+        v38 = +[TRITaskQueuingOptions defaultOptionsWithIgnoreDuplicates];
+        v39 = [(TRITaskQueuing *)taskQueue addTask:v20 options:v38];
+
+        if (v39 == 2)
+        {
+          v40 = TRILogCategory_Server();
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            _os_log_error_impl(&dword_26F567000, v40, OS_LOG_TYPE_ERROR, "Failed to queue cache delete deactivation tasks.", buf, 2u);
+          }
+        }
+
+        v41 = self->_taskQueue;
+        v42 = [[TRIRunningXPCActivityDescriptor alloc] initForImmediateWorkWithCapabilities:0];
+        [(TRITaskQueuing *)v41 resumeWithXPCActivityDescriptor:v42 executeWhenSuspended:0];
+
+        LODWORD(v42) = [MEMORY[0x277D425A0] waitForSemaphore:v36 timeoutSeconds:30.0];
+        v43 = TRILogCategory_Server();
+        v44 = os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT);
+        if (v42)
+        {
+          if (v44)
+          {
+            *buf = 0;
+            _os_log_impl(&dword_26F567000, v43, OS_LOG_TYPE_DEFAULT, "Timeout while waiting for cache delete deactivation tasks to be completed.", buf, 2u);
+          }
+
+          [(TRIAssetPurger *)self _logDeactivationsMetricWithConcludedInTime:0];
+        }
+
+        else
+        {
+          if (v44)
+          {
+            *buf = 0;
+            _os_log_impl(&dword_26F567000, v43, OS_LOG_TYPE_DEFAULT, "Cache delete deactivation tasks completed successfuly. Starting garbage collection to remove newly unreferenced assets.", buf, 2u);
+          }
+
+          v59 = 0;
+          [(TRIAssetStore *)self->_assetStore collectGarbageOlderThanNumScans:0 deletedAssetSize:&v59];
+          v47 = TRILogCategory_Server();
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 134217984;
+            v81 = v59;
+            _os_log_impl(&dword_26F567000, v47, OS_LOG_TYPE_DEFAULT, "Cache delete update: Purged %llu bytes from regular factors.", buf, 0xCu);
+          }
+
+          [(TRIAssetPurger *)self _logDeactivationsMetricWithConcludedInTime:1];
+          v75[3] += v59;
+        }
+      }
+
+      else
+      {
+        if (v5 != 2)
+        {
+          goto LABEL_46;
+        }
+
+        v49 = TRILogCategory_Server();
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_26F567000, v49, OS_LOG_TYPE_DEFAULT, "Queuing maintenance task with no experiments or rollouts to deactivate.", buf, 2u);
+        }
+
+        v50 = self->_taskQueue;
+        v51 = objc_opt_new();
+        v52 = +[TRITaskQueuingOptions defaultOptionsWithIgnoreDuplicates];
+        LOBYTE(v50) = [(TRITaskQueuing *)v50 addTask:v51 options:v52];
+
+        if (v50 == 2)
+        {
+          v53 = TRILogCategory_Server();
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            _os_log_error_impl(&dword_26F567000, v53, OS_LOG_TYPE_ERROR, "Failed to queue maintenance task.", buf, 2u);
+          }
+        }
+
+        v54 = self->_taskQueue;
+        v20 = [[TRIRunningXPCActivityDescriptor alloc] initForImmediateWorkWithCapabilities:0];
+        [(TRITaskQueuing *)v54 resumeWithXPCActivityDescriptor:v20 executeWhenSuspended:0];
+      }
+
+LABEL_46:
+      v8 = v75[3];
+
+LABEL_47:
+    }
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  _Block_object_dispose(&v74, 8);
+  return v8;
+}
+
 void __71__TRIAssetPurger_purgeAssetsForPurgeabilityLevel_requestedPurgeAmount___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [v6 factorPackId];
   v8 = @"factor pack";
@@ -157,13 +472,13 @@ void __71__TRIAssetPurger_purgeAssetsForPurgeabilityLevel_requestedPurgeAmount__
     v15 = [v6 namespaceName];
     v16 = [v6 purgeableAssetFactorNames];
     *buf = 138413058;
-    v64 = v9;
-    v65 = 2114;
-    v66 = v13;
-    v67 = 2114;
-    v68 = v15;
-    v69 = 2048;
-    v70 = [v16 count];
+    v63 = v9;
+    v64 = 2114;
+    v65 = v13;
+    v66 = 2114;
+    v67 = v15;
+    v68 = 2048;
+    v69 = [v16 count];
     _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_DEFAULT, "Found purgeable %@ %{public}@ for namespace %{public}@ with %lu purgeable factors", buf, 0x2Au);
   }
 
@@ -176,7 +491,7 @@ void __71__TRIAssetPurger_purgeAssetsForPurgeabilityLevel_requestedPurgeAmount__
 
     if (v19)
     {
-      v61 = v13;
+      v60 = v13;
       v20 = [[TRIFactorPackStorage alloc] initWithPaths:*(*(a1 + 32) + 8)];
       v21 = [v6 factorPackId];
       v22 = [v6 namespaceName];
@@ -185,7 +500,7 @@ void __71__TRIAssetPurger_purgeAssetsForPurgeabilityLevel_requestedPurgeAmount__
 
       if (_os_feature_enabled_impl())
       {
-        v60 = v9;
+        v59 = v9;
         v25 = [v6 factorPackId];
         v26 = [v6 namespaceName];
         v27 = [(TRIFactorPackStorage *)v20 pathForFactorPackWithId:v25 namespaceName:v26];
@@ -194,13 +509,13 @@ void __71__TRIAssetPurger_purgeAssetsForPurgeabilityLevel_requestedPurgeAmount__
         v29 = [v27 stringByAppendingPathComponent:@"factorPack.fb"];
         if ([v28 fileExistsAtPath:v29])
         {
-          v58 = v27;
-          v59 = a4;
+          v57 = v27;
+          v58 = a4;
           v30 = [[TRIFBFactorPackStorage alloc] initWithPaths:*(*(a1 + 32) + 8)];
           v31 = [v6 factorPackId];
           v32 = [v6 namespaceName];
           v33 = [v6 purgeableAssetFactorNames];
-          v57 = v30;
+          v56 = v30;
           LOBYTE(v30) = [(TRIFBFactorPackStorage *)v30 updateSavedFactorLevelsWithFactorPackId:v31 namespaceName:v32 deletingAssetsWithFactorNames:v33 inUseAssetBehavior:*(a1 + 56)];
 
           if ((v30 & 1) == 0)
@@ -208,23 +523,23 @@ void __71__TRIAssetPurger_purgeAssetsForPurgeabilityLevel_requestedPurgeAmount__
             v34 = TRILogCategory_Server();
             if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
-              v56 = [v6 factorPackId];
+              v55 = [v6 factorPackId];
               *buf = 138412290;
-              v64 = v56;
+              v63 = v55;
               _os_log_error_impl(&dword_26F567000, v34, OS_LOG_TYPE_ERROR, "Flatbuffer Factor Storage: Not able to delete assets in FactorPack %@", buf, 0xCu);
             }
           }
 
-          v27 = v58;
-          a4 = v59;
+          v27 = v57;
+          a4 = v58;
         }
 
-        v9 = v60;
+        v9 = v59;
       }
 
       v35 = a4;
 
-      v13 = v61;
+      v13 = v60;
     }
 
     else
@@ -262,11 +577,11 @@ LABEL_24:
         v43 = [v6 purgeableAssetFactorNames];
         v44 = [v43 count];
         *buf = 134218498;
-        v64 = v44;
-        v65 = 2112;
-        v66 = v9;
-        v67 = 2114;
-        v68 = v13;
+        v63 = v44;
+        v64 = 2112;
+        v65 = v9;
+        v66 = 2114;
+        v67 = v13;
         _os_log_impl(&dword_26F567000, v42, OS_LOG_TYPE_DEFAULT, "Successfully removed %lu factors from %@ %{public}@", buf, 0x20u);
       }
 
@@ -274,10 +589,10 @@ LABEL_24:
       v46 = [v6 namespaceName];
       [v45 notifyUpdateForNamespaceName:v46];
 
-      v62 = 0;
-      [*(*(a1 + 32) + 48) collectGarbageOlderThanNumScans:0 deletedAssetSize:&v62];
-      v47 = v62;
-      if (!v62)
+      v61 = 0;
+      [*(*(a1 + 32) + 48) collectGarbageOlderThanNumScans:0 deletedAssetSize:&v61];
+      v47 = v61;
+      if (!v61)
       {
         v48 = TRILogCategory_Server();
         if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
@@ -286,7 +601,7 @@ LABEL_24:
           _os_log_error_impl(&dword_26F567000, v48, OS_LOG_TYPE_ERROR, "Running garbage collection after removing factors from factor pack did not result in any purged assets", buf, 2u);
         }
 
-        v47 = v62;
+        v47 = v61;
       }
 
       *(*(*(a1 + 40) + 8) + 24) += v47;
@@ -295,7 +610,7 @@ LABEL_24:
       {
         v50 = *(*(*(a1 + 40) + 8) + 24);
         *buf = 134217984;
-        v64 = v50;
+        v63 = v50;
         _os_log_impl(&dword_26F567000, v49, OS_LOG_TYPE_DEFAULT, "Cache delete update: Purged %llu bytes so far", buf, 0xCu);
       }
 
@@ -307,9 +622,9 @@ LABEL_24:
           v52 = *(a1 + 48);
           v53 = *(*(*(a1 + 40) + 8) + 24);
           *buf = 134218240;
-          v64 = v53;
-          v65 = 2048;
-          v66 = v52;
+          v63 = v53;
+          v64 = 2048;
+          v65 = v52;
           _os_log_impl(&dword_26F567000, v51, OS_LOG_TYPE_DEFAULT, "Found %llu bytes to purge. Cache delete only requested %llu so no need to continue purging.", buf, 0x16u);
         }
 
@@ -323,16 +638,14 @@ LABEL_24:
     if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v64 = v9;
-      v65 = 2112;
-      v66 = v13;
+      v63 = v9;
+      v64 = 2112;
+      v65 = v13;
       _os_log_impl(&dword_26F567000, v54, OS_LOG_TYPE_DEFAULT, "Not able to delete assets in %@ %@, moving on to next object", buf, 0x16u);
     }
   }
 
 LABEL_40:
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 void __71__TRIAssetPurger_purgeAssetsForPurgeabilityLevel_requestedPurgeAmount___block_invoke_141()
@@ -359,15 +672,13 @@ intptr_t __71__TRIAssetPurger_purgeAssetsForPurgeabilityLevel_requestedPurgeAmou
 
 - (void)_logDeactivationsMetricWithConcludedInTime:(BOOL)time
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277D73B40] metricWithName:@"cache_delete_deactivations_concluded_in_time" integerValue:time];
   logger = [(TRIClient *)self->_loggingClient logger];
   trackingId = [(TRIClient *)self->_loggingClient trackingId];
-  v9[0] = v4;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v4;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   [logger logWithTrackingId:trackingId metrics:v7 dimensions:0 trialSystemTelemetry:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enumeratePurgeCandidatesForPurgeableConstructs:(id)constructs block:(id)block

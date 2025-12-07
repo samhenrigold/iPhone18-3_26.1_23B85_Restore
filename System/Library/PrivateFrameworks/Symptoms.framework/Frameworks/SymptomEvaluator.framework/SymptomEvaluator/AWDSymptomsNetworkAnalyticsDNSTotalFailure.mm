@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)networkTypeAsString:(int)string;
 - (int)StringAsNetworkType:(id)type;
 - (int)networkType;
 - (unint64_t)hash;
@@ -41,6 +42,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)networkTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898CDA8[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsNetworkType:(id)type
@@ -154,12 +170,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -178,15 +193,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  networkType = self->_networkType;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    dnsServers = self->_dnsServers;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

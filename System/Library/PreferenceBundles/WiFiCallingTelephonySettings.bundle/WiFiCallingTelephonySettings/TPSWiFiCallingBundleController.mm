@@ -204,15 +204,15 @@
 - (void)handleTPSWiFiCallingControllerSubscriptionCapabilitiesChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = TPSWiFiCallingLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSWiFiCallingLog(notificationCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = objc_opt_class();
-    v10 = 2112;
-    v11 = notificationCopy;
-    v6 = v9;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling %@.", &v8, 0x16u);
+    v9 = 138412546;
+    v10 = objc_opt_class();
+    v11 = 2112;
+    v12 = notificationCopy;
+    v7 = v10;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling %@.", &v9, 0x16u);
   }
 
   parentListController = [(TPSWiFiCallingBundleController *)self parentListController];

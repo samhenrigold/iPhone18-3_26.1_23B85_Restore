@@ -117,9 +117,9 @@
     goto LABEL_27;
   }
 
-  startTime = [record startTime];
+  v4 = objc_msgSend_startTime(record);
 
-  if (!startTime)
+  if (!v4)
   {
     v15 = NUAssertLogger_16186();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -169,9 +169,9 @@ LABEL_27:
     goto LABEL_29;
   }
 
-  endTime = [record endTime];
+  v5 = objc_msgSend_endTime(record);
 
-  if (endTime)
+  if (v5)
   {
     v20 = NUAssertLogger_16186();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))

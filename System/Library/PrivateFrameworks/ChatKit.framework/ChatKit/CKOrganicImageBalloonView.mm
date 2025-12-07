@@ -71,7 +71,7 @@
       [(CKOrganicImageBalloonView *)self setDashedBorder:layer2];
 
       v10 = MEMORY[0x1E69DC888];
-      [(CKOrganicImageBalloonView *)self balloonDescriptor];
+      objc_msgSend_balloonDescriptor(self);
       v11 = [v10 ck_colorWithIMColorComponents:{v48, v49, v50, v51}];
       cgColor = [v11 cgColor];
       dashedBorder3 = [(CKOrganicImageBalloonView *)self dashedBorder];
@@ -274,7 +274,7 @@
     v18 = 0u;
     v19 = 0u;
     v17 = 0u;
-    [(CKOrganicImageBalloonView *)self transform];
+    objc_msgSend_transform(self);
     v12 = *(MEMORY[0x1E695EFD0] + 16);
     v14 = *MEMORY[0x1E695EFD0];
     v15 = v12;
@@ -319,15 +319,15 @@
       v7 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        *v19 = 0;
-        _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_DEBUG, "Cannot have two backdrop filter layers", v19, 2u);
+        *v24 = 0;
+        _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_DEBUG, "Cannot have two backdrop filter layers", v24, 2u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
       backdropFilterLayer = [(CKBalloonView *)self backdropFilterLayer];
-      _CKAssert(backdropFilterLayer == 0);
+      _CKAssert(backdropFilterLayer == 0, 0x2Bu, @"Cannot have two backdrop filter layers", v9, v10, v11, v12, v13, *v24);
     }
 
     backdropFilterLayer2 = [(CKBalloonView *)self backdropFilterLayer];
@@ -344,22 +344,22 @@
     layer = [(CKOrganicImageBalloonView *)self layer];
     [layer setAllowsGroupBlending:0];
 
-    v12 = objc_alloc_init(MEMORY[0x1E6979310]);
+    v17 = objc_alloc_init(MEMORY[0x1E6979310]);
     [(CKOrganicImageBalloonView *)self bounds];
-    [v12 setFrame:?];
-    [v12 setGroupName:@"FSMBackdropGroup"];
+    [v17 setFrame:?];
+    [v17 setGroupName:@"FSMBackdropGroup"];
     balloonBackdropFilters2 = [filterCopy balloonBackdropFilters];
-    [v12 setFilters:balloonBackdropFilters2];
+    [v17 setFilters:balloonBackdropFilters2];
 
-    [v12 setScale:0.25];
-    [v12 setCornerRadius:20.0];
-    [v12 setCornerCurve:*MEMORY[0x1E69796E8]];
-    [v12 setMasksToBounds:1];
+    [v17 setScale:0.25];
+    [v17 setCornerRadius:20.0];
+    [v17 setCornerCurve:*MEMORY[0x1E69796E8]];
+    [v17 setMasksToBounds:1];
     [(CKOrganicImageBalloonView *)self bounds];
-    [v12 setFrame:?];
-    [(CKBalloonView *)self setBackdropFilterLayer:v12];
+    [v17 setFrame:?];
+    [(CKBalloonView *)self setBackdropFilterLayer:v17];
     layer2 = [(CKOrganicImageBalloonView *)self layer];
-    [layer2 addSublayer:v12];
+    [layer2 addSublayer:v17];
 
     [(CKBalloonView *)self setInvisibleInkEffectEnabled:0];
   }

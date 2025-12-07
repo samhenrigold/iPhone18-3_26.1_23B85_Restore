@@ -9,7 +9,7 @@
   v17 = *MEMORY[0x1E69E9840];
   definitionCopy = definition;
   handlerCopy = handler;
-  v8 = SBLogCoverSheet();
+  v8 = SBLogCoverSheet(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     userInfo = [definitionCopy userInfo];

@@ -1,4 +1,5 @@
 @interface TIKeyboardInputManager_zh_SegmentAdjust
+- (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity;
 - (TIKeyboardInputManager_zh_SegmentAdjust)initWithConfig:(id)config keyboardState:(id)state segments:(id)segments inputManager:(id)manager wordSearch:(id)search;
 - (id)convertString;
 - (id)didAcceptCandidate:(id)candidate;
@@ -47,7 +48,7 @@
 - (id)handleKeyboardInput:(id)input
 {
   selfCopy = self;
-  v55 = *MEMORY[0x29EDCA608];
+  v54 = *MEMORY[0x29EDCA608];
   inputManager = [(TIKeyboardInputManager_zh_SegmentAdjust *)self inputManager];
   composedText = [inputManager composedText];
 
@@ -71,26 +72,26 @@
 
   if (cursorLocation < [composedText length] && v12 < objc_msgSend(inputBuffer, "length"))
   {
-    v47 = cursorLocation;
-    v41 = inputBuffer;
-    v42 = composedText;
+    v46 = cursorLocation;
+    v40 = inputBuffer;
+    v41 = composedText;
     v13 = MEMORY[0x29EDB8DE8];
     segments = [(TIKeyboardInputManager_zh_SegmentAdjust *)selfCopy segments];
-    v48 = [v13 arrayWithCapacity:{objc_msgSend(segments, "count") + 1}];
+    v47 = [v13 arrayWithCapacity:{objc_msgSend(segments, "count") + 1}];
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
-    v43 = selfCopy;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v42 = selfCopy;
     obj = [(TIKeyboardInputManager_zh_SegmentAdjust *)selfCopy segments];
-    v49 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
-    if (v49)
+    v48 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+    if (v48)
     {
       v15 = 0;
       v16 = 0;
-      v46 = *v51;
-      v44 = v12;
+      v45 = *v50;
+      v43 = v12;
       do
       {
         v17 = 0;
@@ -98,12 +99,12 @@
         v19 = v16;
         do
         {
-          if (*v51 != v46)
+          if (*v50 != v45)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v50 + 1) + 8 * v17);
+          v20 = *(*(&v49 + 1) + 8 * v17);
           surface = [v20 surface];
           v22 = [surface length];
 
@@ -112,8 +113,8 @@
 
           v16 = v22 + v19;
           v15 = v24 + v18;
-          v25 = v47 - v19;
-          if (v47 > v19 && (v47 < v16 ? (v26 = v12 <= v18) : (v26 = 1), !v26 ? (v27 = v12 < v15) : (v27 = 0), v27))
+          v25 = v46 - v19;
+          if (v46 > v19 && (v46 < v16 ? (v26 = v12 <= v18) : (v26 = 1), !v26 ? (v27 = v12 < v15) : (v27 = 0), v27))
           {
             v28 = objc_alloc_init(MEMORY[0x29EDC7250]);
             surface2 = [v20 surface];
@@ -125,7 +126,7 @@
             v33 = [reading2 substringToIndex:v12 - v18];
             [v28 setReading:v33];
 
-            [v48 addObject:v28];
+            [v47 addObject:v28];
             v34 = objc_alloc_init(MEMORY[0x29EDC7250]);
             surface3 = [v20 surface];
             v36 = [surface3 substringFromIndex:v25];
@@ -135,13 +136,13 @@
             v38 = [reading3 substringFromIndex:v32];
             [v34 setReading:v38];
 
-            v12 = v44;
-            [v48 addObject:v34];
+            v12 = v43;
+            [v47 addObject:v34];
           }
 
           else
           {
-            [v48 addObject:v20];
+            [v47 addObject:v20];
           }
 
           ++v17;
@@ -149,23 +150,22 @@
           v19 = v16;
         }
 
-        while (v49 != v17);
-        v49 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
+        while (v48 != v17);
+        v48 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
       }
 
-      while (v49);
+      while (v48);
     }
 
-    selfCopy = v43;
-    [(TIKeyboardInputManager_zh_SegmentAdjust *)v43 setSegments:v48];
+    selfCopy = v42;
+    [(TIKeyboardInputManager_zh_SegmentAdjust *)v42 setSegments:v47];
 
-    inputBuffer = v41;
-    composedText = v42;
+    inputBuffer = v40;
+    composedText = v41;
   }
 
   [(TIKeyboardInputManagerMecabra *)selfCopy completeComposition];
 
-  v39 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -244,7 +244,7 @@
 
 - (id)didAcceptCandidate:(id)candidate
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   candidateCopy = candidate;
   convertString = [(TIKeyboardInputManager_zh_SegmentAdjust *)self convertString];
   v6 = [convertString length];
@@ -253,11 +253,11 @@
 
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 136315394;
-    v25 = "[TIKeyboardInputManager_zh_SegmentAdjust didAcceptCandidate:]";
-    v26 = 1024;
-    v27 = v6 > v8;
-    _os_log_impl(&dword_29EA88000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s  candidate is partial: %d", &v24, 0x12u);
+    v23 = 136315394;
+    v24 = "[TIKeyboardInputManager_zh_SegmentAdjust didAcceptCandidate:]";
+    v25 = 1024;
+    v26 = v6 > v8;
+    _os_log_impl(&dword_29EA88000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s  candidate is partial: %d", &v23, 0x12u);
   }
 
   candidate = [candidateCopy candidate];
@@ -307,19 +307,49 @@
   [(TIKeyboardInputManagerMecabra *)self setRemainingInput:v21];
 
   [(TIKeyboardInputManagerMecabra *)self completeComposition];
-  v22 = *MEMORY[0x29EDCA608];
   return 0;
+}
+
+- (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity
+{
+  v4 = *&granularity;
+  directionCopy = direction;
+  if (TICanLogMessageAtLevel())
+  {
+    v7 = TIOSLogFacility();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      [(TIKeyboardInputManager_zh_SegmentAdjust *)directionCopy _adjustPhraseBoundaryInForwardDirection:v4 granularity:v7];
+    }
+  }
+
+  v11.receiver = self;
+  v11.super_class = TIKeyboardInputManager_zh_SegmentAdjust;
+  if (![(TIKeyboardInputManagerMecabra *)&v11 _adjustPhraseBoundaryInForwardDirection:directionCopy granularity:v4])
+  {
+    inputManager = [(TIKeyboardInputManager_zh_SegmentAdjust *)self inputManager];
+    v9 = inputManager;
+    if (directionCopy)
+    {
+      [inputManager moveCursorForward];
+    }
+
+    else
+    {
+      [inputManager moveCursorBackward];
+    }
+  }
+
+  return 1;
 }
 
 - (void)_adjustPhraseBoundaryInForwardDirection:(NSObject *)a3 granularity:.cold.1(char a1, uint64_t a2, NSObject *a3)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v4 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s adjust phrase: %d %d", "-[TIKeyboardInputManager_zh_SegmentAdjust _adjustPhraseBoundaryInForwardDirection:granularity:]", a1 & 1, a2];
   *buf = 138412290;
-  v7 = v4;
+  v6 = v4;
   _os_log_debug_impl(&dword_29EA88000, a3, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
-
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 @end

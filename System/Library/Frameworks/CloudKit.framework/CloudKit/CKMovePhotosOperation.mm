@@ -58,7 +58,7 @@
 - (void)setPerRecordProgressBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -89,7 +89,7 @@ LABEL_9:
 
 - (id)perRecordProgressBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -126,7 +126,7 @@ LABEL_9:
 - (void)setPerRecordMoveBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -157,7 +157,7 @@ LABEL_9:
 
 - (id)perRecordMoveBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -194,7 +194,7 @@ LABEL_9:
 - (void)setMovePhotosCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -225,7 +225,7 @@ LABEL_9:
 
 - (id)movePhotosCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -334,13 +334,13 @@ LABEL_9:
 
 - (BOOL)CKOperationShouldRun:(id *)run
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_moveChanges(self, a2, run);
   v8 = objc_msgSend_count(v5, v6, v7);
 
   if (!v8)
   {
-    goto LABEL_45;
+    return v8;
   }
 
   v11 = objc_msgSend_sourceDatabase(self, v9, v10);
@@ -355,33 +355,33 @@ LABEL_9:
     }
 
     LOBYTE(v8) = 0;
-    goto LABEL_45;
+    return v8;
   }
 
-  v94 = objc_opt_new();
+  v93 = objc_opt_new();
+  v96 = 0u;
   v97 = 0u;
   v98 = 0u;
   v99 = 0u;
-  v100 = 0u;
   obj = objc_msgSend_moveChanges(self, v12, v13);
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v97, v102, 16);
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v96, v101, 16);
   if (!v15)
   {
     goto LABEL_18;
   }
 
   v18 = v15;
-  v19 = *v98;
+  v19 = *v97;
   while (2)
   {
     for (i = 0; i != v18; ++i)
     {
-      if (*v98 != v19)
+      if (*v97 != v19)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = objc_msgSend_destinationRecord(*(*(&v97 + 1) + 8 * i), v16, v17);
+      v21 = objc_msgSend_destinationRecord(*(*(&v96 + 1) + 8 * i), v16, v17);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -431,14 +431,14 @@ LABEL_33:
       }
 
       v36 = objc_msgSend_valueStore(v21, v34, v35);
-      v101 = objc_opt_class();
-      v38 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v37, &v101, 1);
-      v96[0] = MEMORY[0x1E69E9820];
-      v96[1] = 3221225472;
-      v96[2] = sub_1885E0CB8;
-      v96[3] = &unk_1E70BECB8;
-      v96[4] = self;
-      v40 = objc_msgSend_containsValueOfClasses_passingTest_(v36, v39, v38, v96);
+      v100 = objc_opt_class();
+      v38 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v37, &v100, 1);
+      v95[0] = MEMORY[0x1E69E9820];
+      v95[1] = 3221225472;
+      v95[2] = sub_1885E0CB8;
+      v95[3] = &unk_1E70BECB8;
+      v95[4] = self;
+      v40 = objc_msgSend_containsValueOfClasses_passingTest_(v36, v39, v38, v95);
 
       if (v40)
       {
@@ -477,7 +477,7 @@ LABEL_37:
       }
 
       v50 = objc_msgSend_recordID(v21, v48, v49);
-      v52 = objc_msgSend_containsObject_(v94, v51, v50);
+      v52 = objc_msgSend_containsObject_(v93, v51, v50);
 
       if (v52)
       {
@@ -490,10 +490,10 @@ LABEL_37:
       }
 
       v55 = objc_msgSend_recordID(v21, v53, v54);
-      objc_msgSend_addObject_(v94, v56, v55);
+      objc_msgSend_addObject_(v93, v56, v55);
     }
 
-    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v97, v102, 16);
+    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v96, v101, 16);
     if (v18)
     {
       continue;
@@ -536,57 +536,55 @@ LABEL_43:
       goto LABEL_24;
     }
 
-    v95.receiver = self;
-    v95.super_class = CKMovePhotosOperation;
-    LOBYTE(v8) = [(CKDatabaseOperation *)&v95 CKOperationShouldRun:run];
+    v94.receiver = self;
+    v94.super_class = CKMovePhotosOperation;
+    LOBYTE(v8) = [(CKDatabaseOperation *)&v94 CKOperationShouldRun:run];
   }
 
-LABEL_45:
-  v91 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)_trackAssetsToUpload
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   selfCopy = self;
   obj = objc_msgSend_moveChanges(self, v4, v5);
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v32, v37, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v31, v36, 16);
   if (v7)
   {
     v10 = v7;
-    v11 = *v33;
+    v11 = *v32;
     do
     {
       v12 = 0;
       do
       {
-        if (*v33 != v11)
+        if (*v32 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = objc_msgSend_destinationRecord(*(*(&v32 + 1) + 8 * v12), v8, v9);
+        v13 = objc_msgSend_destinationRecord(*(*(&v31 + 1) + 8 * v12), v8, v9);
         v16 = objc_msgSend_valueStore(v13, v14, v15);
-        v36 = objc_opt_class();
-        v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v17, &v36, 1);
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = sub_1885E1030;
-        v30[3] = &unk_1E70BED00;
-        v31 = v3;
-        objc_msgSend_enumerateKeysAndValuesOfClasses_usingBlock_(v16, v19, v18, v30);
+        v35 = objc_opt_class();
+        v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v17, &v35, 1);
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = sub_1885E1030;
+        v29[3] = &unk_1E70BED00;
+        v30 = v3;
+        objc_msgSend_enumerateKeysAndValuesOfClasses_usingBlock_(v16, v19, v18, v29);
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v32, v37, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v31, v36, 16);
     }
 
     while (v10);
@@ -595,8 +593,6 @@ LABEL_45:
   v22 = objc_msgSend_deviceContext(selfCopy, v20, v21);
   v25 = objc_msgSend_deviceScopedStateManager(v22, v23, v24);
   objc_msgSend_trackAssets_(v25, v26, v3);
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performCKOperation
@@ -617,7 +613,7 @@ LABEL_45:
 
 - (void)handleMoveForSourceRecordID:(id)d destinationMetadata:(id)metadata moveMarkerMetadata:(id)markerMetadata error:(id)error
 {
-  v200 = *MEMORY[0x1E69E9840];
+  v199 = *MEMORY[0x1E69E9840];
   dCopy = d;
   metadataCopy = metadata;
   markerMetadataCopy = markerMetadata;
@@ -761,8 +757,8 @@ LABEL_45:
 
     if (v168)
     {
-      v188 = markerMetadataCopy;
-      v189 = errorCopy;
+      v187 = markerMetadataCopy;
+      v188 = errorCopy;
       if (v26)
       {
         v169 = 0;
@@ -785,30 +781,30 @@ LABEL_45:
       v173 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
       {
-        v186 = v173;
-        v185 = objc_msgSend_operationID(self, v178, v179);
-        v187 = objc_msgSend_recordID(v21, v180, v181);
-        v184 = objc_msgSend_recordID(v29, v182, v183);
+        v185 = v173;
+        v184 = objc_msgSend_operationID(self, v177, v178);
+        v186 = objc_msgSend_recordID(v21, v179, v180);
+        v183 = objc_msgSend_recordID(v29, v181, v182);
         *buf = 138544386;
-        v191 = v185;
-        v192 = 2112;
-        v193 = v172;
-        v194 = 2112;
-        v195 = v187;
-        v196 = 2112;
-        v197 = v184;
-        v198 = 2112;
-        v199 = v26;
-        _os_log_debug_impl(&dword_1883EA000, v186, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about moved record with source ID %@ destination ID %@ moveMarker ID %@: %@", buf, 0x34u);
+        v190 = v184;
+        v191 = 2112;
+        v192 = v172;
+        v193 = 2112;
+        v194 = v186;
+        v195 = 2112;
+        v196 = v183;
+        v197 = 2112;
+        v198 = v26;
+        _os_log_debug_impl(&dword_1883EA000, v185, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about moved record with source ID %@ destination ID %@ moveMarker ID %@: %@", buf, 0x34u);
       }
 
-      v176 = objc_msgSend_perRecordMoveBlock(self, v174, v175, v184);
+      v176 = objc_msgSend_perRecordMoveBlock(self, v174, v175, v183);
       dCopy = v172;
       (v176)[2](v176, v172, v169, v170, v26);
 
       v18 = v171;
-      markerMetadataCopy = v188;
-      errorCopy = v189;
+      markerMetadataCopy = v187;
+      errorCopy = v188;
     }
   }
 
@@ -823,17 +819,15 @@ LABEL_45:
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v191 = dCopy;
+      v190 = dCopy;
       _os_log_error_impl(&dword_1883EA000, v30, OS_LOG_TYPE_ERROR, "Received progress callback for unknown move source recordID %@", buf, 0xCu);
     }
   }
-
-  v177 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleRecordUploadForRecordID:(id)d recordKey:(id)key arrayIndex:(int64_t)index signature:(id)signature size:(unint64_t)size paddedFileSize:(unint64_t)fileSize uploaded:(BOOL)uploaded uploadReceipt:(id)self0 uploadReceiptExpiration:(double)self1 wrappedAssetKey:(id)self2 clearAssetKey:(id)self3 referenceSignature:(id)self4
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   dCopy = d;
   keyCopy = key;
   signatureCopy = signature;
@@ -900,17 +894,17 @@ LABEL_22:
         v44 = assetKeyCopy;
         if (v57)
         {
-          v61 = v33;
-          v62 = v56;
-          v65 = objc_msgSend_recordID(v32, v63, v64);
+          v60 = v33;
+          v61 = v56;
+          v64 = objc_msgSend_recordID(v32, v62, v63);
           *buf = 134218242;
           indexCopy2 = index;
-          v78 = 2112;
-          v79 = v65;
-          _os_log_error_impl(&dword_1883EA000, v62, OS_LOG_TYPE_ERROR, "Invalid arrayIndex %ld for record %@", buf, 0x16u);
+          v77 = 2112;
+          v78 = v64;
+          _os_log_error_impl(&dword_1883EA000, v61, OS_LOG_TYPE_ERROR, "Invalid arrayIndex %ld for record %@", buf, 0x16u);
 
-          v58 = v61;
-          v33 = v61;
+          v58 = v60;
+          v33 = v60;
         }
       }
 
@@ -932,28 +926,28 @@ LABEL_22:
         }
 
         v40 = receiptCopy;
-        v70 = v54;
+        v69 = v54;
         if (ck_log_initialization_predicate != -1)
         {
           dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
         }
 
         v44 = assetKeyCopy;
-        v60 = ck_log_facility_ck;
+        v59 = ck_log_facility_ck;
         if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
         {
-          v66 = v60;
-          v69 = objc_msgSend_recordID(v32, v67, v68);
+          v65 = v59;
+          v68 = objc_msgSend_recordID(v32, v66, v67);
           *buf = 134218242;
           indexCopy2 = index;
-          v78 = 2112;
-          v79 = v69;
-          _os_log_error_impl(&dword_1883EA000, v66, OS_LOG_TYPE_ERROR, "Invalid asset at arrayIndex %ld for record %@", buf, 0x16u);
+          v77 = 2112;
+          v78 = v68;
+          _os_log_error_impl(&dword_1883EA000, v65, OS_LOG_TYPE_ERROR, "Invalid asset at arrayIndex %ld for record %@", buf, 0x16u);
 
           v44 = assetKeyCopy;
         }
 
-        v58 = v70;
+        v58 = v69;
       }
 
       v49 = 0;
@@ -983,16 +977,14 @@ LABEL_21:
   {
     *buf = 134218498;
     indexCopy2 = v32;
-    v78 = 2114;
-    v79 = keyCopy;
-    v80 = 2112;
-    v81 = dCopy;
+    v77 = 2114;
+    v78 = keyCopy;
+    v79 = 2112;
+    v80 = dCopy;
     _os_log_error_impl(&dword_1883EA000, v50, OS_LOG_TYPE_ERROR, "Received upload completion callback with nil record %p or recordKey %{public}@ for recordID %@", buf, 0x20u);
   }
 
 LABEL_23:
-
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleDeleteForRecordID:(id)d error:(id)error

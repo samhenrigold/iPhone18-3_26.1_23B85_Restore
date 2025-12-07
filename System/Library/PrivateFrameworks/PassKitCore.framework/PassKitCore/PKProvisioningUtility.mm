@@ -705,7 +705,7 @@ void __169__PKProvisioningUtility__requestProvisioning_externalizedAuth_cloudSto
         shouldSignFidoChallenge = [v14 shouldSignFidoChallenge];
         targetDevice2 = [(PKPaymentWebService *)self->_destinationWebService targetDevice];
         deviceName = [targetDevice2 deviceName];
-        v20 = [deviceName isEqualToString:@"Apple Watch"];
+        isEqualToString = objc_msgSend_isEqualToString_(deviceName);
 
         if (authCopy)
         {
@@ -714,7 +714,7 @@ void __169__PKProvisioningUtility__requestProvisioning_externalizedAuth_cloudSto
 
         else
         {
-          v21 = v20;
+          v21 = isEqualToString;
         }
 
         if ((v21 & 1) == 0 && ((shouldSignFidoChallenge ^ 1) & 1) == 0)
@@ -2383,9 +2383,9 @@ LABEL_28:
         goto LABEL_20;
       }
 
-      v18 = [v15 isEqualToString:v16];
+      isEqualToString = objc_msgSend_isEqualToString_(v15);
 
-      if ((v18 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
 LABEL_20:
         v27 = PKLogFacilityTypeGetObject(0x28uLL);

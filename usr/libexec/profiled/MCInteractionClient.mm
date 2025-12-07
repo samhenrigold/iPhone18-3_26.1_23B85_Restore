@@ -1,4 +1,5 @@
 @interface MCInteractionClient
+- (BOOL)_requestCurrentPasscodeExtractable:(BOOL)extractable outPasscodeContext:(id *)context;
 - (BOOL)didBeginInstallingNextProfileData:(id)data;
 - (BOOL)didFinishInstallationWithIdentifier:(id)identifier error:(id)error;
 - (BOOL)didUpdateStatus:(id)status;
@@ -391,6 +392,71 @@ LABEL_6:
   }
 
   return [(MCInteractionClient *)self _requestCurrentPasscodeExtractable:1 outPasscodeContext:context];
+}
+
+- (BOOL)_requestCurrentPasscodeExtractable:(BOOL)extractable outPasscodeContext:(id *)context
+{
+  extractableCopy = extractable;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = sub_100016C3C;
+  v39 = sub_100016C4C;
+  v40 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = sub_100016C3C;
+  v33 = sub_100016C4C;
+  v34 = 0;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_1000182A8;
+  v27[3] = &unk_10011BEE0;
+  v7 = dispatch_semaphore_create(0);
+  v28 = v7;
+  v8 = objc_retainBlock(v27);
+  xpcConnection = [(MCInteractionClient *)self xpcConnection];
+  v10 = [xpcConnection remoteObjectProxyWithErrorHandler:v8];
+  v18 = _NSConcreteStackBlock;
+  v19 = 3221225472;
+  v20 = sub_10001838C;
+  v21 = &unk_10011C030;
+  v11 = v8;
+  v23 = v11;
+  v24 = &v29;
+  v25 = &v35;
+  v26 = &v41;
+  v12 = v7;
+  v22 = v12;
+  [v10 doMCICDidRequestCurrentPasscodeNeedsExtractable:extractableCopy withCompletion:&v18];
+
+  v13 = dispatch_time(0, 300000000000);
+  dispatch_semaphore_wait(v12, v13);
+  if (v36[5])
+  {
+    [(MCInteractionClient *)self setPasscodeContextWrapper:v18, v19, v20, v21];
+    externalizedContext = [v36[5] externalizedContext];
+    v15 = v30[5];
+    v30[5] = externalizedContext;
+  }
+
+  v16 = *(v42 + 24);
+  if (context && (v42[3] & 1) != 0)
+  {
+    *context = v30[5];
+    v16 = *(v42 + 24);
+  }
+
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v35, 8);
+
+  _Block_object_dispose(&v41, 8);
+  return v16 & 1;
 }
 
 - (void)waitForEnrollmentToFinishWithPersonaID:(id)d

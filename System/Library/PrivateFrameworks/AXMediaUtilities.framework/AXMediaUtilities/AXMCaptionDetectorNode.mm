@@ -1257,20 +1257,20 @@ LABEL_49:
     if (overrideScaleMethod == 3)
     {
 LABEL_15:
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x2020000000;
+      v14 = 0;
+      v15 = &v14;
+      v16 = 0x2020000000;
       v5 = getCVNLPCaptionScaleMethodCGInterpolationMediumSymbolLoc_ptr;
-      v16 = getCVNLPCaptionScaleMethodCGInterpolationMediumSymbolLoc_ptr;
+      v17 = getCVNLPCaptionScaleMethodCGInterpolationMediumSymbolLoc_ptr;
       if (!getCVNLPCaptionScaleMethodCGInterpolationMediumSymbolLoc_ptr)
       {
         v8 = CVNLPLibrary();
-        v14[3] = dlsym(v8, "CVNLPCaptionScaleMethodCGInterpolationMedium");
-        getCVNLPCaptionScaleMethodCGInterpolationMediumSymbolLoc_ptr = v14[3];
-        v5 = v14[3];
+        v15[3] = dlsym(v8, "CVNLPCaptionScaleMethodCGInterpolationMedium");
+        getCVNLPCaptionScaleMethodCGInterpolationMediumSymbolLoc_ptr = v15[3];
+        v5 = v15[3];
       }
 
-      _Block_object_dispose(&v13, 8);
+      _Block_object_dispose(&v14, 8);
       if (v5)
       {
         goto LABEL_26;
@@ -1283,20 +1283,20 @@ LABEL_15:
     if (overrideScaleMethod == 4)
     {
 LABEL_19:
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x2020000000;
+      v14 = 0;
+      v15 = &v14;
+      v16 = 0x2020000000;
       v5 = getCVNLPCaptionScaleMethodCGInterpolationHighSymbolLoc_ptr;
-      v16 = getCVNLPCaptionScaleMethodCGInterpolationHighSymbolLoc_ptr;
+      v17 = getCVNLPCaptionScaleMethodCGInterpolationHighSymbolLoc_ptr;
       if (!getCVNLPCaptionScaleMethodCGInterpolationHighSymbolLoc_ptr)
       {
         v9 = CVNLPLibrary();
-        v14[3] = dlsym(v9, "CVNLPCaptionScaleMethodCGInterpolationHigh");
-        getCVNLPCaptionScaleMethodCGInterpolationHighSymbolLoc_ptr = v14[3];
-        v5 = v14[3];
+        v15[3] = dlsym(v9, "CVNLPCaptionScaleMethodCGInterpolationHigh");
+        getCVNLPCaptionScaleMethodCGInterpolationHighSymbolLoc_ptr = v15[3];
+        v5 = v15[3];
       }
 
-      _Block_object_dispose(&v13, 8);
+      _Block_object_dispose(&v14, 8);
       if (v5)
       {
         goto LABEL_26;
@@ -1311,50 +1311,51 @@ LABEL_19:
       goto LABEL_27;
     }
 
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
     v5 = getCVNLPCaptionScaleMethodvImageSymbolLoc_ptr;
-    v16 = getCVNLPCaptionScaleMethodvImageSymbolLoc_ptr;
+    v17 = getCVNLPCaptionScaleMethodvImageSymbolLoc_ptr;
     if (!getCVNLPCaptionScaleMethodvImageSymbolLoc_ptr)
     {
       v6 = CVNLPLibrary();
-      v14[3] = dlsym(v6, "CVNLPCaptionScaleMethodvImage");
-      getCVNLPCaptionScaleMethodvImageSymbolLoc_ptr = v14[3];
-      v5 = v14[3];
+      v15[3] = dlsym(v6, "CVNLPCaptionScaleMethodvImage");
+      getCVNLPCaptionScaleMethodvImageSymbolLoc_ptr = v15[3];
+      v5 = v15[3];
     }
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v14, 8);
     if (v5)
     {
       goto LABEL_26;
     }
 
-    v3 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
   }
 
   if (overrideScaleMethod == 1)
   {
 LABEL_23:
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
     v5 = getCVNLPCaptionScaleMethodCGInterpolationNoneSymbolLoc_ptr;
-    v16 = getCVNLPCaptionScaleMethodCGInterpolationNoneSymbolLoc_ptr;
+    v17 = getCVNLPCaptionScaleMethodCGInterpolationNoneSymbolLoc_ptr;
     if (!getCVNLPCaptionScaleMethodCGInterpolationNoneSymbolLoc_ptr)
     {
       v10 = CVNLPLibrary();
-      v14[3] = dlsym(v10, "CVNLPCaptionScaleMethodCGInterpolationNone");
-      getCVNLPCaptionScaleMethodCGInterpolationNoneSymbolLoc_ptr = v14[3];
-      v5 = v14[3];
+      v15[3] = dlsym(v10, "CVNLPCaptionScaleMethodCGInterpolationNone");
+      getCVNLPCaptionScaleMethodCGInterpolationNoneSymbolLoc_ptr = v15[3];
+      v5 = v15[3];
     }
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v14, 8);
     if (!v5)
     {
-      v12 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-      _Block_object_dispose(&v13, 8);
-      _Unwind_Resume(v12);
+      __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+      v13 = v12;
+      _Block_object_dispose(&v14, 8);
+      _Unwind_Resume(v13);
     }
 
     goto LABEL_26;
@@ -1365,20 +1366,20 @@ LABEL_23:
     goto LABEL_27;
   }
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
   v5 = getCVNLPCaptionScaleMethodCGInterpolationLowSymbolLoc_ptr;
-  v16 = getCVNLPCaptionScaleMethodCGInterpolationLowSymbolLoc_ptr;
+  v17 = getCVNLPCaptionScaleMethodCGInterpolationLowSymbolLoc_ptr;
   if (!getCVNLPCaptionScaleMethodCGInterpolationLowSymbolLoc_ptr)
   {
     v7 = CVNLPLibrary();
-    v14[3] = dlsym(v7, "CVNLPCaptionScaleMethodCGInterpolationLow");
-    getCVNLPCaptionScaleMethodCGInterpolationLowSymbolLoc_ptr = v14[3];
-    v5 = v14[3];
+    v15[3] = dlsym(v7, "CVNLPCaptionScaleMethodCGInterpolationLow");
+    getCVNLPCaptionScaleMethodCGInterpolationLowSymbolLoc_ptr = v15[3];
+    v5 = v15[3];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
   if (!v5)
   {
     __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
@@ -1396,29 +1397,29 @@ LABEL_27:
 {
   metricsCopy = metrics;
   v10 = metricsCopy;
-  v22 = 0;
+  v23 = 0;
   if (buffer)
   {
     v11 = [metricsCopy startMeasure:@"CVNLPCaptionCopyForCVPixelBuffer"];
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
     v12 = getCVNLPCaptionCopyForCVPixelBufferSymbolLoc_ptr;
-    v31 = getCVNLPCaptionCopyForCVPixelBufferSymbolLoc_ptr;
+    v32 = getCVNLPCaptionCopyForCVPixelBufferSymbolLoc_ptr;
     if (!getCVNLPCaptionCopyForCVPixelBufferSymbolLoc_ptr)
     {
-      v23 = MEMORY[0x1E69E9820];
-      v24 = 3221225472;
-      v25 = __getCVNLPCaptionCopyForCVPixelBufferSymbolLoc_block_invoke;
-      v26 = &unk_1E7A1C700;
-      v27 = &v28;
+      v24 = MEMORY[0x1E69E9820];
+      v25 = 3221225472;
+      v26 = __getCVNLPCaptionCopyForCVPixelBufferSymbolLoc_block_invoke;
+      v27 = &unk_1E7A1C700;
+      v28 = &v29;
       v13 = CVNLPLibrary();
-      v29[3] = dlsym(v13, "CVNLPCaptionCopyForCVPixelBuffer");
-      getCVNLPCaptionCopyForCVPixelBufferSymbolLoc_ptr = *(v27[1] + 24);
-      v12 = v29[3];
+      v30[3] = dlsym(v13, "CVNLPCaptionCopyForCVPixelBuffer");
+      getCVNLPCaptionCopyForCVPixelBufferSymbolLoc_ptr = *(v28[1] + 24);
+      v12 = v30[3];
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v29, 8);
     if (v12)
     {
       handlerCopy2 = handler;
@@ -1428,31 +1429,32 @@ LABEL_27:
 
     __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
 LABEL_19:
-    v21 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v28, 8);
-    _Unwind_Resume(v21);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v22 = v21;
+    _Block_object_dispose(&v29, 8);
+    _Unwind_Resume(v22);
   }
 
   v11 = [metricsCopy startMeasure:@"CVNLPCaptionCreateForImage"];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
   v12 = getCVNLPCaptionCopyForImageSymbolLoc_ptr;
-  v31 = getCVNLPCaptionCopyForImageSymbolLoc_ptr;
+  v32 = getCVNLPCaptionCopyForImageSymbolLoc_ptr;
   if (!getCVNLPCaptionCopyForImageSymbolLoc_ptr)
   {
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = __getCVNLPCaptionCopyForImageSymbolLoc_block_invoke;
-    v26 = &unk_1E7A1C700;
-    v27 = &v28;
+    v24 = MEMORY[0x1E69E9820];
+    v25 = 3221225472;
+    v26 = __getCVNLPCaptionCopyForImageSymbolLoc_block_invoke;
+    v27 = &unk_1E7A1C700;
+    v28 = &v29;
     v16 = CVNLPLibrary();
-    v29[3] = dlsym(v16, "CVNLPCaptionCopyForImage");
-    getCVNLPCaptionCopyForImageSymbolLoc_ptr = *(v27[1] + 24);
-    v12 = v29[3];
+    v30[3] = dlsym(v16, "CVNLPCaptionCopyForImage");
+    getCVNLPCaptionCopyForImageSymbolLoc_ptr = *(v28[1] + 24);
+    v12 = v30[3];
   }
 
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v29, 8);
   if (!v12)
   {
     goto LABEL_19;
@@ -1461,9 +1463,9 @@ LABEL_19:
   handlerCopy2 = handler;
   imageCopy = image;
 LABEL_10:
-  v17 = v12(handlerCopy2, imageCopy, 0, &v22);
+  v17 = v12(handlerCopy2, imageCopy, 0, &v23);
   [v11 endMeasurement];
-  if (v22)
+  if (v23)
   {
     v18 = AXMediaLogCommon();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))

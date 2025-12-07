@@ -110,9 +110,6 @@ void __101__TIMecabraWrapper_initWithInputMethodType_learningDictionaryDirectory
 
 uint64_t __91__TIMecabraWrapper_initWithInputMethodType_learningDictionaryDirectoryURL_creationOptions___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
   result = MecabraCreateWithOptions();
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;

@@ -1,10 +1,10 @@
 @interface CMAttitude(CAMLevelViewModel)
-- (uint64_t)cam_getDistanceFromFlat:()CAMLevelViewModel relativeRoll:;
+- (void)cam_getDistanceFromFlat:()CAMLevelViewModel relativeRoll:;
 @end
 
 @implementation CMAttitude(CAMLevelViewModel)
 
-- (uint64_t)cam_getDistanceFromFlat:()CAMLevelViewModel relativeRoll:
+- (void)cam_getDistanceFromFlat:()CAMLevelViewModel relativeRoll:
 {
   [self pitch];
   v8 = v7;

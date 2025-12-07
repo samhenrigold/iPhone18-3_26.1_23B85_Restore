@@ -11,7 +11,7 @@
 
 - (void)cdpContext:(id)context persistRecoveryKey:(id)key keyType:(unint64_t)type completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   keyCopy = key;
@@ -19,13 +19,13 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     altDSID = [contextCopy altDSID];
-    v19 = 134218498;
+    v18 = 134218498;
     typeCopy = type;
-    v21 = 2160;
-    v22 = 1752392040;
-    v23 = 2112;
-    v24 = altDSID;
-    _os_log_impl(&dword_24510B000, v13, OS_LOG_TYPE_DEFAULT, "Attempting to persist verifier for keyType: %ld for %{mask.hash}@", &v19, 0x20u);
+    v20 = 2160;
+    v21 = 1752392040;
+    v22 = 2112;
+    v23 = altDSID;
+    _os_log_impl(&dword_24510B000, v13, OS_LOG_TYPE_DEFAULT, "Attempting to persist verifier for keyType: %ld for %{mask.hash}@", &v18, 0x20u);
   }
 
   v15 = [(CDPDAuthProxyImpl *)self _authContextFromCDPContext:contextCopy];
@@ -36,13 +36,11 @@
   [v16 setKeyType:0];
   v17 = objc_alloc_init(MEMORY[0x277CF0178]);
   [v17 persistRecoveryKeyWithContext:v16 authContext:v15 completion:completionCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cdpContext:(id)context persistMasterKeyVerifier:(id)verifier completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   verifierCopy = verifier;
   completionCopy = completion;
@@ -50,21 +48,19 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     altDSID = [contextCopy altDSID];
-    v16 = 138412802;
-    v17 = verifierCopy;
-    v18 = 2160;
-    v19 = 1752392040;
-    v20 = 2112;
-    v21 = altDSID;
-    _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "Attempting to persist verifier: %@ for %{mask.hash}@", &v16, 0x20u);
+    v15 = 138412802;
+    v16 = verifierCopy;
+    v17 = 2160;
+    v18 = 1752392040;
+    v19 = 2112;
+    v20 = altDSID;
+    _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "Attempting to persist verifier: %@ for %{mask.hash}@", &v15, 0x20u);
   }
 
   v13 = [(CDPDAuthProxyImpl *)self _authContextFromCDPContext:contextCopy];
   [v13 setAuthenticationType:1];
   v14 = objc_alloc_init(MEMORY[0x277CF0178]);
   [v14 persistMasterKeyVerifier:verifierCopy context:v13 completion:completionCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cdpContext:(id)context verifyMasterKey:(id)key completion:(id)completion

@@ -128,10 +128,10 @@ uint64_t __38__SBTouchRegionManager_sharedInstance__block_invoke()
   [(SBTouchRegionManager *)&v9 dealloc];
 }
 
-id __31__SBTouchRegionManager_dealloc__block_invoke()
+id __31__SBTouchRegionManager_dealloc__block_invoke(void *a1)
 {
-  v0 = objc_opt_self();
   v1 = objc_opt_self();
+  v2 = objc_opt_self();
   return objc_opt_self();
 }
 
@@ -1258,24 +1258,24 @@ uint64_t __72__SBTouchRegionManager__queue_handleChamoisOrFlexibleWindowingUILay
 
 - (id)_queue_transformHitTestRegions:(id)regions withDisplayLayout:(id)layout
 {
-  v16 = 0u;
-  v17 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v14 = 0u;
   regionsCopy = regions;
-  [(SBTouchRegionManager *)self _queue_hitTestRegionTransformWithDisplayLayout:layout];
-  v7 = [MEMORY[0x277CBEB58] set];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
+  objc_msgSend__queue_hitTestRegionTransformWithDisplayLayout_(self);
+  v6 = [MEMORY[0x277CBEB58] set];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v11 = v14;
   v12 = v15;
+  v9[2] = __73__SBTouchRegionManager__queue_transformHitTestRegions_withDisplayLayout___block_invoke;
+  v9[3] = &unk_2783B7628;
   v13 = v16;
-  v10[2] = __73__SBTouchRegionManager__queue_transformHitTestRegions_withDisplayLayout___block_invoke;
-  v10[3] = &unk_2783B7628;
-  v14 = v17;
-  v8 = v7;
-  v11 = v8;
-  [regionsCopy enumerateObjectsUsingBlock:v10];
+  v7 = v6;
+  v10 = v7;
+  [regionsCopy enumerateObjectsUsingBlock:v9];
 
-  return v8;
+  return v7;
 }
 
 void __73__SBTouchRegionManager__queue_transformHitTestRegions_withDisplayLayout___block_invoke(uint64_t a1, void *a2)
@@ -1311,7 +1311,7 @@ void __73__SBTouchRegionManager__queue_transformHitTestRegions_withDisplayLayout
   v12 = v11;
   v14 = v13;
 
-  [(SBTouchRegionManager *)self _queue_hitTestRegionTransformWithDisplayLayout:layoutCopy];
+  objc_msgSend__queue_hitTestRegionTransformWithDisplayLayout_(self);
   v53.origin.x = v8;
   v48 = v12;
   v49 = v10;

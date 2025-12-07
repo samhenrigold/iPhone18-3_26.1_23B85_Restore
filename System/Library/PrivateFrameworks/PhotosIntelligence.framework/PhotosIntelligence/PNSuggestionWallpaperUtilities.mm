@@ -2027,7 +2027,7 @@ LABEL_12:
     [v6 addObject:v14];
   }
 
-  [MEMORY[0x1E69C07A8] facePositionLimits];
+  objc_msgSend_facePositionLimits(MEMORY[0x1E69C07A8]);
   v15 = 0.0 * ratio;
   v36 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K >= %K AND $face.%K >= %f AND $face.%K < %f", @"height", @"width", @"size", 0, @"size", *&v15];
   v35 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K < %K AND $face.%K >= (%f * %d / %d) AND $face.%K < (%f * %d / %d)", @"height", @"width", @"size", 0, @"width", @"height", @"size", *&v15, @"width", @"height"];

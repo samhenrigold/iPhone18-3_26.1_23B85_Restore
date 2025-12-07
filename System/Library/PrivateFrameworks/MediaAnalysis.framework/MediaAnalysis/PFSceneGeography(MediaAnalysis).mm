@@ -11,9 +11,9 @@
     +[PFSceneGeography(MediaAnalysis) vcp_sharedSceneGeography];
   }
 
-  v1 = +[PFSceneGeography(MediaAnalysis) vcp_sharedSceneGeography]::instance;
+  v2 = +[PFSceneGeography(MediaAnalysis) vcp_sharedSceneGeography]::instance;
 
-  return v1;
+  return v2;
 }
 
 @end

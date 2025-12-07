@@ -28,24 +28,20 @@
 
 - (id)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   personUUID = [(HMITorsoClassification *)self personUUID];
-  v5 = [v3 initWithName:@"Person UUID" value:personUUID];
-  v16[0] = v5;
-  v6 = objc_alloc(MEMORY[0x277D0F778]);
+  v13 = [v3 initWithName:? value:?];
+  v5 = objc_alloc(MEMORY[0x277D0F778]);
   sourceUUID = [(HMITorsoClassification *)self sourceUUID];
-  v8 = [v6 initWithName:@"Source UUID" value:sourceUUID];
-  v16[1] = v8;
-  v9 = objc_alloc(MEMORY[0x277D0F778]);
-  v10 = MEMORY[0x277CCACA8];
+  v14 = [v5 initWithName:? value:?];
+  v7 = objc_alloc(MEMORY[0x277D0F778]);
+  v8 = MEMORY[0x277CCACA8];
   [(HMITorsoClassification *)self confidence];
-  v12 = [v10 stringWithFormat:@"%.4lf", v11];
-  v13 = [v9 initWithName:@"Confidence" value:v12];
-  v16[2] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v10 = [v8 stringWithFormat:v9];
+  v15 = [v7 initWithName:? value:?];
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  return v14;
+  return v11;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -92,26 +88,27 @@
 - (HMITorsoClassification)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMITC.su"];
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMITC.pu"];
-  [coderCopy decodeDoubleForKey:@"HMITC.conf"];
-  v8 = v7;
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
+  [coderCopy decodeDoubleForKey:?];
 
-  v9 = [(HMITorsoClassification *)self initWithPersonUUID:v6 sourceUUID:v5 confidence:v8];
-  return v9;
+  v7 = [HMITorsoClassification initWithPersonUUID:"initWithPersonUUID:sourceUUID:confidence:" sourceUUID:? confidence:?];
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
   sourceUUID = [(HMITorsoClassification *)self sourceUUID];
-  [coderCopy encodeObject:sourceUUID forKey:@"HMITC.su"];
+  [coderCopy encodeObject:? forKey:?];
 
   personUUID = [(HMITorsoClassification *)self personUUID];
-  [coderCopy encodeObject:personUUID forKey:@"HMITC.pu"];
+  [coderCopy encodeObject:? forKey:?];
 
   [(HMITorsoClassification *)self confidence];
-  [coderCopy encodeDouble:@"HMITC.conf" forKey:?];
+  [coderCopy encodeDouble:? forKey:?];
 }
 
 @end

@@ -626,7 +626,7 @@ LABEL_59:
   return v78.f64[0];
 }
 
-double GVSComputeSmoothedHorizonQuaternion(uint64_t a1, int a2, float a3)
+double GVSComputeSmoothedHorizonQuaternion(uint64_t a1, int a2, __n128 a3)
 {
   v3 = *(a1 + 60);
   if (*(a1 + 56) + a2 <= v3)
@@ -649,13 +649,13 @@ double GVSComputeSmoothedHorizonQuaternion(uint64_t a1, int a2, float a3)
   if (*(a1 + 68) <= 1)
   {
     v41 = *(*a1 + 16 * v4);
-    GVSComputeSmoothedHorizonQuaternion_cold_2();
+    GVSComputeSmoothedHorizonQuaternion_cold_2(a3);
 LABEL_28:
     v6 = v41;
     goto LABEL_25;
   }
 
-  if (a3 <= 0.001)
+  if (a3.n128_f32[0] <= 0.001)
   {
     v41 = *(*a1 + 16 * v4);
     GVSComputeSmoothedHorizonQuaternion_cold_1();
@@ -674,16 +674,16 @@ LABEL_28:
   if (v12 < v3)
   {
     v16 = v10 - *(v9 + 8 * v3);
-    v17 = fminf(fmaxf((v16 + (*(*(a1 + 48) + 4 * v3) * 0.5)) / a3, 0.0), 1.0);
-    v14 = (0.6 - ((v17 - ((v17 * v17) * (v17 * v17))) + ((v17 * ((v17 * v17) * (v17 * v17))) * 0.6))) * a3;
+    v17 = fminf(fmaxf((v16 + (*(*(a1 + 48) + 4 * v3) * 0.5)) / a3.n128_f32[0], 0.0), 1.0);
+    v14 = (0.6 - ((v17 - ((v17 * v17) * (v17 * v17))) + ((v17 * ((v17 * v17) * (v17 * v17))) * 0.6))) * a3.n128_f32[0];
     v15 = *(a1 + 60);
   }
 
   if (v13 > v5)
   {
     v18 = *(v9 + 8 * v5) - v10;
-    v19 = fminf(fmaxf((v18 + (*(*(a1 + 48) + 4 * v5) * 0.5)) / a3, 0.0), 1.0);
-    v40 = (0.6 - ((v19 - ((v19 * v19) * (v19 * v19))) + ((v19 * ((v19 * v19) * (v19 * v19))) * 0.6))) * a3;
+    v19 = fminf(fmaxf((v18 + (*(*(a1 + 48) + 4 * v5) * 0.5)) / a3.n128_f32[0], 0.0), 1.0);
+    v40 = (0.6 - ((v19 - ((v19 * v19) * (v19 * v19))) + ((v19 * ((v19 * v19) * (v19 * v19))) * 0.6))) * a3.n128_f32[0];
     v13 = *(a1 + 64);
   }
 
@@ -702,7 +702,7 @@ LABEL_28:
     v25 = 16 * v3;
     v26 = v13 - v3 + 1;
     v27 = 0.0;
-    v28 = 1.0 / a3;
+    v28 = 1.0 / a3.n128_f32[0];
     do
     {
       v29 = *(*(a1 + 40) + v23 + 8 * v20) - v10;
@@ -760,7 +760,7 @@ void GVSComputeSmoothRamp(float a1, float a2, float a3)
   }
 }
 
-float GVSComputeSmoothedDigitalZoomFactor(uint64_t a1, int a2, float a3)
+float GVSComputeSmoothedDigitalZoomFactor(uint64_t a1, int a2, __n128 a3)
 {
   v3 = *(a1 + 28);
   v4 = *(a1 + 24) + a2;
@@ -784,10 +784,10 @@ float GVSComputeSmoothedDigitalZoomFactor(uint64_t a1, int a2, float a3)
   v8 = v7[1];
   if (*(a1 + 36) <= 1)
   {
-    GVSComputeSmoothedDigitalZoomFactor_cold_2();
+    GVSComputeSmoothedDigitalZoomFactor_cold_2(a3);
   }
 
-  else if ((a3 * 3.0) <= 0.01)
+  else if ((a3.n128_f32[0] * 3.0) <= 0.01)
   {
     GVSComputeSmoothedDigitalZoomFactor_cold_1();
   }
@@ -817,7 +817,7 @@ float GVSComputeSmoothedDigitalZoomFactor(uint64_t a1, int a2, float a3)
       v16 = (v14 + 8 * v3);
       v17 = (*a1 + 20 * v3);
       v18 = v5 - v3 + 1;
-      v19 = 30.0 / a3;
+      v19 = 30.0 / a3.n128_f32[0];
       v13 = v9;
       do
       {
@@ -935,7 +935,7 @@ float GVSComputeDilatedTotalZoomFactor(uint64_t a1, int a2, int a3)
   return v7;
 }
 
-float GVSComputeSmoothedDilatedDigitalZoomFactor(uint64_t a1, int a2, int a3)
+float GVSComputeSmoothedDilatedDigitalZoomFactor(uint64_t a1, unsigned int a2, int a3)
 {
   v5 = *(a1 + 28);
   v4 = *(a1 + 32);
@@ -971,12 +971,12 @@ float GVSComputeSmoothedDilatedDigitalZoomFactor(uint64_t a1, int a2, int a3)
 
   else
   {
-    if (v8 - a2 > v5)
+    if ((v8 - a2) > v5)
     {
       v5 = v8 - a2;
     }
 
-    if (v8 + a2 < v4)
+    if ((v8 + a2) < v4)
     {
       v4 = v8 + a2;
     }
@@ -1377,14 +1377,14 @@ uint64_t sbp_gvs_invalidate()
   return 0;
 }
 
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization(const __CFDictionary *a1, void *a2)
+uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization(const __CFDictionary *a1, CFTypeRef *a2)
 {
-  v316 = 0;
+  v321 = 0;
   valuePtr = 0;
   if (!a2)
   {
     FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_69(&rect);
-    goto LABEL_419;
+    goto LABEL_418;
   }
 
   v3 = a2;
@@ -1405,7 +1405,7 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization(const __CFDicti
   if (!*(DerivedStorage + 48))
   {
     FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_68(&rect);
-    goto LABEL_419;
+    goto LABEL_418;
   }
 
   v9 = objc_alloc_init(NSMutableDictionary);
@@ -1415,7 +1415,7 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization(const __CFDicti
   if (!*(DerivedStorage + 56))
   {
     FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_67(&rect);
-    goto LABEL_419;
+    goto LABEL_418;
   }
 
   v11 = objc_alloc_init(NSMutableDictionary);
@@ -1425,7 +1425,7 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization(const __CFDicti
   if (!*(DerivedStorage + 64))
   {
     FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_66(&rect);
-    goto LABEL_419;
+    goto LABEL_418;
   }
 
   v13 = DerivedStorage + 27108;
@@ -1433,7 +1433,7 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization(const __CFDicti
   *(DerivedStorage + 28) = 1028443341;
   *(DerivedStorage + 212) = 1;
   *(DerivedStorage + 28137) = 0;
-  v306 = (DerivedStorage + 10680);
+  v311 = (DerivedStorage + 10680);
   *(DerivedStorage + 10684) = 0;
   v14 = objc_alloc_init(GVSGravityDataContext);
   v15 = *(DerivedStorage + 27128);
@@ -1444,9 +1444,10 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization(const __CFDicti
   {
     FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_65();
     v111 = 0;
-    goto LABEL_381;
+    goto LABEL_380;
   }
 
+  LODWORD(v308) = DerivedStorage + 10684;
   [v16 setExtractGravityData:0];
   LODWORD(v17) = 10.0;
   [*(DerivedStorage + 27128) setGravityFilterTimescale:v17];
@@ -1465,12 +1466,12 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization(const __CFDicti
   *(DerivedStorage + 196) = 1065353216;
   *(DerivedStorage + 28808) = -1082130432;
   *(DerivedStorage + 27148) = 0;
-  v311 = (DerivedStorage + 27148);
+  v316 = (DerivedStorage + 27148);
   *(DerivedStorage + 29460) = 0xF3F000000;
-  v309 = (DerivedStorage + 29536);
+  v314 = (DerivedStorage + 29536);
   *(DerivedStorage + 29536) = 0x4000000000000000;
   v18 = (DerivedStorage + 29544);
-  +[GVSMotionBlurFilter defaultSettings];
+  objc_msgSend_defaultSettings(GVSMotionBlurFilter);
   origin = rect.origin;
   *(DerivedStorage + 29560) = rect.size.width;
   *(DerivedStorage + 29544) = origin;
@@ -1480,7 +1481,7 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization(const __CFDicti
   *v13 = 1065252553;
   *(DerivedStorage + 29776) = 0;
   *(DerivedStorage + 28800) = 1;
-  v308 = v3;
+  v313 = v3;
   if (a1)
   {
     Value = CFDictionaryGetValue(a1, kFigCaptureSampleBufferProcessorOption_SensorIDDictionary);
@@ -1495,59 +1496,61 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization(const __CFDicti
     v23 = v21;
     v24 = v22;
     v25 = objc_alloc_init(NSMutableDictionary);
-    v302 = v23;
+    v307 = v23;
     if (v25)
     {
-      v301 = a1;
-      v327 = 0u;
-      v328 = 0u;
-      v325 = 0u;
-      v326 = 0u;
+      v306 = a1;
+      v332 = 0u;
+      v333 = 0u;
+      v330 = 0u;
+      v331 = 0u;
       v26 = v23;
-      v27 = [v26 countByEnumeratingWithState:&v325 objects:&rect count:16];
+      v27 = [v26 countByEnumeratingWithState:&v330 objects:&rect count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v326;
+        v29 = *v331;
         do
         {
           for (i = 0; i != v28; i = i + 1)
           {
-            if (*v326 != v29)
+            if (*v331 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            [v25 setObject:&off_55C00 forKeyedSubscript:*(*(&v325 + 1) + 8 * i)];
+            [v25 setObject:&off_55C00 forKeyedSubscript:*(*(&v330 + 1) + 8 * i)];
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v325 objects:&rect count:16];
+          v28 = [v26 countByEnumeratingWithState:&v330 objects:&rect count:16];
         }
 
         while (v28);
       }
 
-      v323 = 0u;
-      v324 = 0u;
-      v321 = 0u;
-      v322 = 0u;
-      v300 = v24;
+      v305 = (DerivedStorage + 44);
+
+      v328 = 0u;
+      v329 = 0u;
+      v326 = 0u;
+      v327 = 0u;
+      v303 = v24;
       v31 = v24;
-      v32 = [v31 countByEnumeratingWithState:&v321 objects:&v317 count:16];
+      v32 = [v31 countByEnumeratingWithState:&v326 objects:&v322 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v322;
+        v34 = *v327;
         while (2)
         {
           for (j = 0; j != v33; j = j + 1)
           {
-            if (*v322 != v34)
+            if (*v327 != v34)
             {
               objc_enumerationMutation(v31);
             }
 
-            v36 = *(*(&v321 + 1) + 8 * j);
+            v36 = *(*(&v326 + 1) + 8 * j);
             v37 = [v25 allKeys];
             v38 = [v37 containsObject:v36];
 
@@ -1561,7 +1564,7 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization(const __CFDicti
             [v25 setObject:&off_55C18 forKeyedSubscript:v36];
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v321 objects:&v317 count:16];
+          v33 = [v31 countByEnumeratingWithState:&v326 objects:&v322 count:16];
           if (v33)
           {
             continue;
@@ -1573,10 +1576,10 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization(const __CFDicti
 
       v39 = v25;
 LABEL_28:
-      v3 = v308;
+      v3 = v313;
       v13 = DerivedStorage + 27108;
-      a1 = v301;
-      v24 = v300;
+      a1 = v306;
+      v24 = v303;
     }
 
     else
@@ -1606,7 +1609,7 @@ LABEL_28:
           if (!v45)
           {
             FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_4(&rect);
-            goto LABEL_430;
+            goto LABEL_429;
           }
 
           v46 = v45;
@@ -1630,13 +1633,13 @@ LABEL_28:
         FigCFDictionaryGetBooleanIfPresent();
         *(DerivedStorage + 328) = *(DerivedStorage + 224);
         FigCFDictionaryGetBooleanIfPresent();
-        LOBYTE(v317) = 0;
-        if (FigCFDictionaryGetBooleanIfPresent() && v317)
+        LOBYTE(v322) = 0;
+        if (FigCFDictionaryGetBooleanIfPresent() && v322)
         {
-          if (*v311 != 4)
+          if (*v316 != 4)
           {
-            FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_5(&v317, &rect);
-            goto LABEL_430;
+            FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_5(&v322, &rect);
+            goto LABEL_429;
           }
 
           *(DerivedStorage + 200) = 0;
@@ -1651,9 +1654,9 @@ LABEL_28:
           rect.size = size;
           if (!CGRectMakeWithDictionaryRepresentation(v48, &rect))
           {
-            FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_6(&rect, &v317);
-            x_low = v317;
-LABEL_431:
+            FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_6(&rect, &v322);
+            x_low = v322;
+LABEL_430:
 
             goto LABEL_120;
           }
@@ -1698,7 +1701,7 @@ LABEL_51:
           *(v13 + 2998) = 0;
           if (!*(v13 + 2997) || *(v13 + 2996))
           {
-            v303 = v41;
+            v308 = v41;
             *(v13 + 2999) = 257;
             *(v13 + 3060) = *(v13 + 2356) + 1;
             *(v13 + 3064) = xmmword_43590;
@@ -1902,7 +1905,7 @@ LABEL_120:
                       if (CFArrayGetCount(v95) < 1)
                       {
                         FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_10(&rect);
-                        goto LABEL_438;
+                        goto LABEL_437;
                       }
 
                       ValueAtIndex = CFArrayGetValueAtIndex(v95, 0);
@@ -2009,13 +2012,13 @@ LABEL_112:
               FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_17(&rect);
             }
 
-LABEL_438:
+LABEL_437:
             x_low = LODWORD(rect.origin.x);
             goto LABEL_119;
           }
 
           FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_9(&rect);
-          goto LABEL_430;
+          goto LABEL_429;
         }
 
         if (FigCFDictionaryGetCountOfKey())
@@ -2025,9 +2028,9 @@ LABEL_438:
             LODWORD(rect.origin.x) = 0;
             FigCFDictionaryGetInt32IfPresent();
             *(DerivedStorage + 30112) = SLODWORD(rect.origin.x);
-            LODWORD(v317) = 0;
+            LODWORD(v322) = 0;
             FigCFDictionaryGetInt32IfPresent();
-            *(DerivedStorage + 30120) = v317;
+            *(DerivedStorage + 30120) = v322;
             goto LABEL_51;
           }
 
@@ -2045,13 +2048,13 @@ LABEL_438:
         FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_18(&rect);
       }
 
-LABEL_430:
+LABEL_429:
       x_low = LODWORD(rect.origin.x);
-      goto LABEL_431;
+      goto LABEL_430;
     }
 
     FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_19(&rect);
-LABEL_419:
+LABEL_418:
     v111 = 0;
     x_low = LODWORD(rect.origin.x);
     goto LABEL_358;
@@ -2063,8 +2066,8 @@ LABEL_113:
     *(DerivedStorage + 120) = CFDictionaryGetValue(a1, kFigVideoStabilizationSampleBufferProcessorOption_IspProcessingSession);
   }
 
-  v109 = *v309;
-  if (*v309)
+  v109 = *v314;
+  if (*v314)
   {
     if (v109 == 1)
     {
@@ -2085,7 +2088,7 @@ LABEL_113:
   v113 = !v112;
   LOBYTE(v18->x) = v113;
 LABEL_127:
-  *v306 = FigMotionHardwareAvailable() == 0;
+  *v311 = FigMotionHardwareAvailable() == 0;
   *(v13 + 32) = -1;
   *(v13 + 1172) = *(v13 + 1172);
   v114 = 0.0 * 0.0174532925;
@@ -2111,7 +2114,7 @@ LABEL_127:
   }
 
   *(v13 + 2044) = v115;
-  if (*v306)
+  if (*v311)
   {
     *(DerivedStorage + 84) = 1;
   }
@@ -2122,8 +2125,8 @@ LABEL_127:
   if (v116)
   {
     v117 = v13;
-    v119 = v316;
-    v118 = HIDWORD(v316);
+    v119 = v321;
+    v118 = HIDWORD(v321);
     v120 = [v116 objectForKeyedSubscript:@"BrightLightMitigationParameters"];
     v121 = [v111 objectForKeyedSubscript:@"LowLightMitigationParameters"];
     *(v117 + 2940) = 1;
@@ -2161,13 +2164,13 @@ LABEL_127:
     }
 
     LODWORD(rect.origin.x) = 0;
-    LODWORD(v317) = 0;
+    LODWORD(v322) = 0;
     if (FigCFDictionaryGetIntIfPresent() && FigCFDictionaryGetIntIfPresent())
     {
       [*(DerivedStorage + 30080) setSensorBinningFactorHorizontal:LODWORD(rect.origin.x)];
-      [*(DerivedStorage + 30080) setSensorBinningFactorVertical:v317];
+      [*(DerivedStorage + 30080) setSensorBinningFactorVertical:v322];
       [*(DerivedStorage + 30072) setSensorBinningFactorHorizontal:LODWORD(rect.origin.x)];
-      [*(DerivedStorage + 30072) setSensorBinningFactorVertical:v317];
+      [*(DerivedStorage + 30072) setSensorBinningFactorVertical:v322];
     }
 
     v13 = DerivedStorage + 27108;
@@ -2184,10 +2187,10 @@ LABEL_127:
   }
 
   _resetFirstFrameParameters(DerivedStorage);
-  v123 = v316;
-  v122 = HIDWORD(v316);
-  v124 = *v311;
-  if (*v311 == 5)
+  v123 = v321;
+  v122 = HIDWORD(v321);
+  v124 = *v316;
+  if (*v316 == 5)
   {
     if (*(DerivedStorage + 172))
     {
@@ -2227,18 +2230,16 @@ LABEL_127:
   if ((v124 - 1) >= 3 && *(v13 + 1020))
   {
     fig_log_get_emitter();
-    v299 = v2;
-    LODWORD(v298) = 0;
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v303, v305, v306, v307, v2, v308);
     fig_log_get_emitter();
-    x_low = FigSignalErrorAtGM();
+    x_low = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v300, v302, v304);
     goto LABEL_158;
   }
 
-  v332 = 0uLL;
-  v331 = 0uLL;
-  sbp_configureOverscanParameters(DerivedStorage, v122, v123, &v331, &v332);
-  if (DWORD2(v332) + 2 * v332 != v122 || HIDWORD(v332) + 2 * DWORD1(v332) != v123)
+  v337 = 0uLL;
+  v336 = 0uLL;
+  sbp_configureOverscanParameters(DerivedStorage, v122, v123, &v336, &v337);
+  if (DWORD2(v337) + 2 * v337 != v122 || HIDWORD(v337) + 2 * DWORD1(v337) != v123)
   {
     FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_26(&rect);
 LABEL_364:
@@ -2248,8 +2249,8 @@ LABEL_364:
 
   *(DerivedStorage + 128) = v122;
   *(DerivedStorage + 132) = v123;
-  *(DerivedStorage + 136) = v332;
-  *(DerivedStorage + 152) = v331;
+  *(DerivedStorage + 136) = v337;
+  *(DerivedStorage + 152) = v336;
   v125 = *(DerivedStorage + 168);
   if ((v125 - 1) > 1)
   {
@@ -2325,7 +2326,7 @@ LABEL_175:
 LABEL_179:
   v133 = (v13 + 1172);
   *(DerivedStorage + 205) = *(DerivedStorage + 328);
-  if (*(v13 + 2612) || *v311 == 5)
+  if (*(v13 + 2612) || *v316 == 5)
   {
     v134 = malloc_type_malloc(36 * v132 * v130 + 36, 0x10000408AA14F5FuLL);
     *(DerivedStorage + 29728) = v134;
@@ -2355,18 +2356,18 @@ LABEL_179:
       if (!v147)
       {
         FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_31(&rect);
-LABEL_417:
+LABEL_416:
         x_low = LODWORD(rect.origin.x);
-        goto LABEL_418;
+        goto LABEL_417;
       }
 
       AffineTransformSetOptions(v147, (*(DerivedStorage + 44) > 0));
       sbp_initializeGPUWithRenderMethod(DerivedStorage);
       if (*(DerivedStorage + 224))
       {
-        LODWORD(v317) = 0;
-        v330 = 0;
-        AffineTransformGetBlurBuffersDimensions(*(DerivedStorage + 88), *(v13 + 2580), *(v13 + 2584), &v317, &v330);
+        LODWORD(v322) = 0;
+        v335 = 0;
+        AffineTransformGetBlurBuffersDimensions(*(DerivedStorage + 88), *(v13 + 2580), *(v13 + 2584), &v322, &v335);
         *(DerivedStorage + 228) = 4;
         v148 = (DerivedStorage + 288);
         v149 = 32;
@@ -2377,7 +2378,7 @@ LABEL_417:
           if (!PixelBuffer)
           {
             FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_30(&rect);
-            goto LABEL_417;
+            goto LABEL_416;
           }
 
           if (*(v13 + 2997))
@@ -2404,12 +2405,12 @@ LABEL_417:
         }
 
         FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_29(&rect);
-        goto LABEL_417;
+        goto LABEL_416;
       }
 
 LABEL_197:
       AffineTransformConfigureBlurBorderPixels(*(DerivedStorage + 88), (DerivedStorage + 224));
-      if (*v311 == 3)
+      if (*v316 == 3)
       {
         goto LABEL_200;
       }
@@ -2418,7 +2419,7 @@ LABEL_197:
     }
 
 LABEL_199:
-    if (*v311 != 3)
+    if (*v316 != 3)
     {
       v155 = *(DerivedStorage + 28864);
       if (v155 && (CFDictionaryGetValue(v155, kFigCapturePortType_BackFacingTelephotoCamera) || CFDictionaryGetValue(*(DerivedStorage + 28864), kFigCapturePortType_BackFacingSuperWideCamera)) && !FigMotionGetBravoDataFromDictionary(*(DerivedStorage + 28864), v13 + 1172))
@@ -2450,7 +2451,7 @@ LABEL_200:
 
     v154 = 1;
 LABEL_212:
-    if (*(v13 + 1692) == 1 && (((*v311 - 4) > 0xFFFFFFFC) & ~v154) == 0)
+    if (*(v13 + 1692) == 1 && (((*v316 - 4) > 0xFFFFFFFC) & ~v154) == 0)
     {
       *(v13 + 1692) = 0;
     }
@@ -2485,7 +2486,7 @@ LABEL_222:
       }
 
       v164 = *(v13 + 1772);
-      v3 = v308;
+      v3 = v313;
       if (v164 < 1)
       {
         if (v164)
@@ -2522,31 +2523,31 @@ LABEL_222:
       *(DerivedStorage + 29136) = v165;
 
 LABEL_237:
-      v319 = 0u;
-      v320 = 0u;
-      v317 = 0u;
-      v318 = 0u;
+      v324 = 0u;
+      v325 = 0u;
+      v322 = 0u;
+      v323 = 0u;
       v171 = *(DerivedStorage + 29136);
-      v172 = [v171 countByEnumeratingWithState:&v317 objects:&rect count:16];
+      v172 = [v171 countByEnumeratingWithState:&v322 objects:&rect count:16];
       if (v172)
       {
         v173 = v172;
         v174 = 0;
-        v175 = *v318;
+        v175 = *v323;
         do
         {
           for (k = 0; k != v173; k = k + 1)
           {
-            if (*v318 != v175)
+            if (*v323 != v175)
             {
               objc_enumerationMutation(v171);
             }
 
-            v177 = [*(DerivedStorage + 29136) objectForKeyedSubscript:*(*(&v317 + 1) + 8 * k)];
+            v177 = [*(DerivedStorage + 29136) objectForKeyedSubscript:*(*(&v322 + 1) + 8 * k)];
             v174 |= [v177 unsignedIntValue];
           }
 
-          v173 = [v171 countByEnumeratingWithState:&v317 objects:&rect count:16];
+          v173 = [v171 countByEnumeratingWithState:&v322 objects:&rect count:16];
         }
 
         while (v173);
@@ -2582,8 +2583,7 @@ LABEL_257:
         v186 = *(DerivedStorage + 180);
         if (v186 < 1 || (v187 = *(DerivedStorage + 184), v187 < 1))
         {
-          FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_35();
-          if (v296)
+          if (FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_35(&rect, &v322))
           {
 LABEL_263:
             v190 = *(DerivedStorage + 152);
@@ -2668,10 +2668,10 @@ LABEL_273:
                 if (!v208)
                 {
                   fig_log_get_emitter();
-                  v297 = FigSignalErrorAtGM();
-                  if (v297)
+                  v298 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v299, v301, v303);
+                  if (v298)
                   {
-                    x_low = v297;
+                    x_low = v298;
                     goto LABEL_372;
                   }
 
@@ -2687,7 +2687,7 @@ LABEL_273:
                 *(DerivedStorage + 29408) = v209;
                 if (!v209)
                 {
-                  FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_44();
+                  FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_44(&rect);
                   goto LABEL_371;
                 }
 
@@ -2695,7 +2695,7 @@ LABEL_273:
                 *(DerivedStorage + 29416) = v210;
                 if (!v210)
                 {
-                  FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_43();
+                  FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_43(&rect);
                   goto LABEL_371;
                 }
 
@@ -2708,7 +2708,7 @@ LABEL_273:
                     *(*(DerivedStorage + 29408) + 8 * v212) = malloc_type_malloc(8 * *(DerivedStorage + 180), 0x100004000313F17uLL);
                     if (!*(*(DerivedStorage + 29408) + 8 * v212))
                     {
-                      FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_42();
+                      FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_42(&rect);
                       goto LABEL_371;
                     }
 
@@ -2726,7 +2726,7 @@ LABEL_273:
                     }
                   }
 
-                  FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_41();
+                  FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_41(&rect);
                   goto LABEL_371;
                 }
 
@@ -2737,7 +2737,7 @@ LABEL_287:
                   *(DerivedStorage + 29424) = v213;
                   if (!v213)
                   {
-                    FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_39();
+                    FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_39(&rect);
                     goto LABEL_371;
                   }
 
@@ -2757,7 +2757,7 @@ LABEL_287:
 
                         if (!*(*(DerivedStorage + 29424) + v214))
                         {
-                          FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_37();
+                          FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_37(&rect);
                           goto LABEL_371;
                         }
                       }
@@ -2784,7 +2784,7 @@ LABEL_287:
                       }
                     }
 
-                    FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_38();
+                    FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_38(&rect);
                     goto LABEL_371;
                   }
                 }
@@ -2796,7 +2796,7 @@ LABEL_297:
                   *(DerivedStorage + 29432) = v222;
                   if (!v222)
                   {
-                    FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_40();
+                    FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_40(&rect);
                     goto LABEL_371;
                   }
                 }
@@ -2835,7 +2835,7 @@ LABEL_297:
               if (*(DerivedStorage + 29400))
               {
 LABEL_308:
-                if ((*v311 & 0xFFFFFFFE) == 2)
+                if ((*v316 & 0xFFFFFFFE) == 2)
                 {
                   *(DerivedStorage + 10681) = 1;
                 }
@@ -2870,33 +2870,34 @@ LABEL_308:
                   FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_47();
                 }
 
-LABEL_374:
-                FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_62();
+LABEL_373:
+                FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_62(x_low);
                 goto LABEL_358;
               }
 
-              FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_45();
+              FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_45(&rect);
             }
 
             else
             {
-              FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_48();
+              FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_48(&rect);
             }
 
 LABEL_371:
             x_low = 4294954510;
 LABEL_372:
             _cinematic_freeRingBuffers(DerivedStorage);
-            fig_log_get_emitter();
-LABEL_373:
-            FigDebugAssert3();
-            goto LABEL_374;
+            emitter = fig_log_get_emitter();
+            LODWORD(v299) = x_low;
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", emitter, "<<<< GyroVideoStabilizationV2 >>>> Fig", "err == 0 ", "bail", 0, "GVSGyroStabilizationV2.m", 3221, v299);
+            goto LABEL_373;
           }
 
-          x_low = v317;
-LABEL_434:
+          x_low = v322;
+LABEL_433:
           sbp_gvs_freeDerivedVectorsAndSphereLensMovements(DerivedStorage);
-          fig_log_get_emitter();
+          v297 = fig_log_get_emitter();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v297, "<<<< GyroVideoStabilizationV2 >>>> Fig", "err == 0 ", "bail", 0, "GVSGyroStabilizationV2.m", 3212, x_low);
           goto LABEL_373;
         }
 
@@ -2906,10 +2907,10 @@ LABEL_434:
           *(DerivedStorage + 28144) = v188;
           if (!v188)
           {
-            FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_33();
-LABEL_433:
+            FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_33(&rect);
+LABEL_432:
             x_low = 4294954510;
-            goto LABEL_434;
+            goto LABEL_433;
           }
 
           LODWORD(v186) = *(DerivedStorage + 180);
@@ -2923,8 +2924,8 @@ LABEL_433:
           goto LABEL_263;
         }
 
-        FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_34();
-        goto LABEL_433;
+        FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_34(&rect);
+        goto LABEL_432;
       }
 
       v181 = [GVSMotionBlurFilter alloc];
@@ -2938,7 +2939,7 @@ LABEL_433:
       v185 = *(DerivedStorage + 29568);
       if (v185)
       {
-        if (*v309 == 11)
+        if (*v314 == 11)
         {
           [v185 suspend];
         }
@@ -2950,17 +2951,17 @@ LABEL_433:
       goto LABEL_364;
     }
 
-    if ((*v311 - 1) > 3)
+    if ((*v316 - 1) > 3)
     {
       *(DerivedStorage + 392) = 0;
       goto LABEL_222;
     }
 
     v157 = *(DerivedStorage + 28864);
-    v329 = 0;
-    x_low = GVSExtractCameraGeometryFromCameraInfoByPortType(v157, &v329);
-    v158 = v329;
-    v159 = v329;
+    v334 = 0;
+    x_low = GVSExtractCameraGeometryFromCameraInfoByPortType(v157, &v334);
+    v158 = v334;
+    v159 = v334;
     if (!x_low)
     {
       objc_storeStrong((DerivedStorage + 400), v158);
@@ -2977,16 +2978,16 @@ LABEL_433:
     FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_32();
 LABEL_366:
     v111 = v131;
-    goto LABEL_374;
+    goto LABEL_373;
   }
 
-  *&v321 = &off_55C30;
-  *(&v321 + 1) = &off_55C60;
-  *&v325 = &off_55C48;
-  *(&v325 + 1) = &off_55C78;
-  *&v322 = &off_55C90;
-  *&v326 = &off_55CA8;
-  v135 = [NSDictionary dictionaryWithObjects:&v325 forKeys:&v321 count:3];
+  *&v326 = &off_55C30;
+  *(&v326 + 1) = &off_55C60;
+  *&v330 = &off_55C48;
+  *(&v330 + 1) = &off_55C78;
+  *&v327 = &off_55C90;
+  *&v331 = &off_55CA8;
+  v135 = [NSDictionary dictionaryWithObjects:&v330 forKeys:&v326 count:3];
   v136 = [VISISPRendererV2 alloc];
   v137 = *(DerivedStorage + 120);
   v138 = [*(DerivedStorage + 96) commandQueue];
@@ -2997,16 +2998,16 @@ LABEL_366:
   v141 = *(DerivedStorage + 112);
   if (v141)
   {
-    HIWORD(v314) = v123;
-    LOWORD(v314) = v122;
-    [v141 setInputSize:v314];
-    HIWORD(v313) = WORD2(*(DerivedStorage + 29688));
-    LOWORD(v313) = *(DerivedStorage + 29688);
-    [*(DerivedStorage + 112) setOutputSize:v313];
+    HIWORD(v319) = v123;
+    LOWORD(v319) = v122;
+    [v141 setInputSize:v319];
+    HIWORD(v318) = WORD2(*(DerivedStorage + 29688));
+    LOWORD(v318) = *(DerivedStorage + 29688);
+    [*(DerivedStorage + 112) setOutputSize:v318];
     v142 = vrev64_s32(*(DerivedStorage + 188));
-    HIWORD(v312) = v142.i16[2];
-    LOWORD(v312) = v142.i16[0];
-    [*(DerivedStorage + 112) setGridSize:v312];
+    HIWORD(v317) = v142.i16[2];
+    LOWORD(v317) = v142.i16[0];
+    [*(DerivedStorage + 112) setGridSize:v317];
     [*(DerivedStorage + 112) setExtendedOutputRowsToFill:*(DerivedStorage + 44)];
     v143 = *(DerivedStorage + 112);
     v144 = [NSNumber numberWithInt:*(DerivedStorage + 172)];
@@ -3020,7 +3021,7 @@ LABEL_366:
       goto LABEL_199;
     }
 
-    FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_27();
+    FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_27(x_low);
   }
 
   else
@@ -3029,25 +3030,25 @@ LABEL_366:
     x_low = LODWORD(rect.origin.x);
   }
 
-LABEL_418:
+LABEL_417:
   v111 = v131;
-  v3 = v308;
+  v3 = v313;
 LABEL_158:
   if (x_low)
   {
-    goto LABEL_374;
+    goto LABEL_373;
   }
 
 LABEL_315:
   if (*(v13 + 2996) || *(v13 + 2997))
   {
-    v307 = v111;
+    v312 = v111;
     v232 = [*(DerivedStorage + 96) commandQueue];
     v233 = [NSString stringWithFormat:@"%@V%d", @"SmartStyle", 1];
     v234 = [NSString stringWithFormat:@"%@/%@.bundle", @"/System/Library/VideoProcessors", v233];
-    v310 = [NSString stringWithFormat:@"CMI%@V%d", @"SmartStyleProcessor", 1];
+    v315 = [NSString stringWithFormat:@"CMI%@V%d", @"SmartStyleProcessor", 1];
     v235 = [NSBundle bundleWithPath:v234];
-    v305 = v233;
+    v310 = v233;
     if (v235)
     {
       v236 = v235;
@@ -3104,8 +3105,8 @@ LABEL_315:
                 [v245 setAllocatorBackend:v242];
                 v247 = v246;
 
-                v248 = v310;
-                v249 = [objc_alloc(objc_msgSend(v236 classNamed:{v310)), "initWithOptionalMetalCommandQueue:", v232}];
+                v248 = v315;
+                v249 = [objc_alloc(objc_msgSend(v236 classNamed:{v315)), "initWithOptionalMetalCommandQueue:", v232}];
                 v250 = *(DerivedStorage + 30128);
                 *(DerivedStorage + 30128) = v249;
 
@@ -3117,10 +3118,10 @@ LABEL_315:
                   goto LABEL_351;
                 }
 
-                v304 = v234;
+                v309 = v234;
                 [v251 setInstanceLabel:@"VIS-Integrate"];
                 v252 = *(DerivedStorage + 30112);
-                v253 = [v236 classNamed:v310];
+                v253 = [v236 classNamed:v315];
                 v254 = v232;
                 if (v252 == 7)
                 {
@@ -3139,10 +3140,10 @@ LABEL_315:
                 if (v256)
                 {
                   [*(DerivedStorage + 30128) setExternalMemoryResource:v247];
-                  *&v317 = @"MemoryPoolId";
+                  *&v322 = @"MemoryPoolId";
                   v257 = [NSNumber numberWithUnsignedLongLong:*(DerivedStorage + 30240)];
                   *&rect.origin.x = v257;
-                  v258 = [NSDictionary dictionaryWithObjects:&rect forKeys:&v317 count:1];
+                  v258 = [NSDictionary dictionaryWithObjects:&rect forKeys:&v322 count:1];
                   v259 = [*(DerivedStorage + 30128) tuningParameters];
                   v260 = [v258 cmi_dictionaryMergedWithDefaultDict:v259];
                   [*(DerivedStorage + 30128) setTuningParameters:v260];
@@ -3155,13 +3156,13 @@ LABEL_315:
                     v268 = 0;
                     v13 = DerivedStorage + 27108;
                     v232 = v254;
-                    v234 = v304;
+                    v234 = v309;
                     goto LABEL_350;
                   }
 
                   v262 = [*(DerivedStorage + 30128) prepareToProcess:2];
                   v232 = v254;
-                  v248 = v310;
+                  v248 = v315;
                   if (v262)
                   {
                     x_low = v262;
@@ -3171,7 +3172,7 @@ LABEL_315:
 
                   else
                   {
-                    v263 = [objc_alloc(objc_msgSend(v236 classNamed:{v310)), "initWithOptionalMetalCommandQueue:", v254}];
+                    v263 = [objc_alloc(objc_msgSend(v236 classNamed:{v315)), "initWithOptionalMetalCommandQueue:", v254}];
                     v264 = *(DerivedStorage + 30136);
                     *(DerivedStorage + 30136) = v263;
 
@@ -3180,7 +3181,7 @@ LABEL_315:
                     {
                       [v265 setInstanceLabel:@"VIS-Apply"];
                       v266 = *(DerivedStorage + 30112);
-                      v267 = [v236 classNamed:v310];
+                      v267 = [v236 classNamed:v315];
                       if (v266 == 7)
                       {
                         [v267 getDefaultProcessorConfigurationForStreamingSquareAspectRatio];
@@ -3194,20 +3195,20 @@ LABEL_315:
                       if (v268)
                       {
                         [*(DerivedStorage + 30136) setExternalMemoryResource:v247];
-                        *&v321 = @"MemoryPoolId";
+                        *&v326 = @"MemoryPoolId";
                         v269 = [NSNumber numberWithUnsignedLongLong:*(DerivedStorage + 30240)];
-                        *&v325 = v269;
-                        v270 = [NSDictionary dictionaryWithObjects:&v325 forKeys:&v321 count:1];
+                        *&v330 = v269;
+                        v270 = [NSDictionary dictionaryWithObjects:&v330 forKeys:&v326 count:1];
                         v271 = [*(DerivedStorage + 30136) tuningParameters];
                         v272 = [v270 cmi_dictionaryMergedWithDefaultDict:v271];
                         [*(DerivedStorage + 30136) setTuningParameters:v272];
 
-                        v248 = v310;
+                        v248 = v315;
                         v13 = DerivedStorage + 27108;
                         LODWORD(v269) = *(DerivedStorage + 30168);
-                        if (v269 <= [objc_msgSend(v236 classNamed:{v310), "getRequiredInputBufferSizeForFilterType:", 3}])
+                        if (v269 <= [objc_msgSend(v236 classNamed:{v315), "getRequiredInputBufferSizeForFilterType:", 3}])
                         {
-                          v273 = [objc_msgSend(v236 classNamed:{v310), "getRequiredInputBufferSizeForFilterType:", 3}];
+                          v273 = [objc_msgSend(v236 classNamed:{v315), "getRequiredInputBufferSizeForFilterType:", 3}];
                         }
 
                         else
@@ -3222,7 +3223,7 @@ LABEL_315:
                         if (!v274)
                         {
                           v275 = [*(DerivedStorage + 30136) prepareToProcess:4];
-                          v234 = v304;
+                          v234 = v309;
                           if (!v275)
                           {
                             v276 = *(DerivedStorage + 30120);
@@ -3247,12 +3248,12 @@ LABEL_315:
                               {
                                 x_low = 0;
 LABEL_350:
-                                v248 = v310;
+                                v248 = v315;
                                 goto LABEL_351;
                               }
                             }
 
-LABEL_401:
+LABEL_400:
                             x_low = 4294954510;
                             goto LABEL_350;
                           }
@@ -3261,11 +3262,11 @@ LABEL_401:
                           FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_54();
 LABEL_351:
 
-                          v111 = v307;
-                          v3 = v308;
+                          v111 = v312;
+                          v3 = v313;
                           if (x_low)
                           {
-                            FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_59();
+                            FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_59(x_low);
                             goto LABEL_358;
                           }
 
@@ -3274,16 +3275,16 @@ LABEL_351:
 
                         x_low = v274;
                         FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_53();
-LABEL_410:
-                        v234 = v304;
+LABEL_409:
+                        v234 = v309;
                         goto LABEL_351;
                       }
 
-LABEL_404:
+LABEL_403:
                       x_low = 4294954510;
                       v13 = DerivedStorage + 27108;
                       v232 = v254;
-                      goto LABEL_410;
+                      goto LABEL_409;
                     }
 
                     v268 = 0;
@@ -3291,11 +3292,11 @@ LABEL_404:
                   }
 
                   v13 = DerivedStorage + 27108;
-                  goto LABEL_410;
+                  goto LABEL_409;
                 }
 
                 v268 = 0;
-                goto LABEL_404;
+                goto LABEL_403;
               }
 
               FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_55(v244);
@@ -3317,13 +3318,13 @@ LABEL_404:
 
     v247 = 0;
     v268 = 0;
-    goto LABEL_401;
+    goto LABEL_400;
   }
 
 LABEL_352:
   if (*(v13 + 3140) == 1)
   {
-    if (*v311 == 1)
+    if (*v316 == 1)
     {
       v283 = objc_alloc_init(GVSFaceStabilizationProcessor);
       v284 = *(DerivedStorage + 30288);
@@ -3332,7 +3333,7 @@ LABEL_352:
       if (!*(DerivedStorage + 30288))
       {
         FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_60();
-LABEL_381:
+LABEL_380:
         x_low = 4294954510;
         goto LABEL_358;
       }
@@ -3377,9 +3378,9 @@ uint64_t sbp_gvs_setPostOutputCallback(uint64_t a1, uint64_t a2, uint64_t a3)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*(DerivedStorage + 24))
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954511, "<<<< GyroVideoStabilizationV2 >>>>", 9097, v3);
   }
 
   else
@@ -3534,204 +3535,210 @@ uint64_t sbp_gvs_setProperty(uint64_t a1, const void *a2, void *a3)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!*(DerivedStorage + 24))
   {
-    v6 = DerivedStorage;
-    if (!CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_VideoStabilizationDisabled))
+    v11 = DerivedStorage;
+    if (CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_VideoStabilizationDisabled))
     {
-      v9 = v6 + 27148;
-      if (CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_SphereVideoEnabled))
+      if (!a3 || (TypeID = CFBooleanGetTypeID(), TypeID != CFGetTypeID(a3)))
       {
-        if (!a3)
+        emitter = fig_log_get_emitter();
+        v8 = v3;
+        v9 = 4294954516;
+        v10 = 8795;
+        goto LABEL_16;
+      }
+
+      Value = CFBooleanGetValue(a3);
+      a3 = 0;
+      *(v11 + 84) = Value;
+      return a3;
+    }
+
+    v14 = v11 + 27148;
+    if (CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_SphereVideoEnabled))
+    {
+      if (!a3 || (v15 = CFBooleanGetTypeID(), v15 != CFGetTypeID(a3)))
+      {
+        emitter = fig_log_get_emitter();
+        v8 = v3;
+        v9 = 4294954516;
+        v10 = 8816;
+        goto LABEL_16;
+      }
+
+      v16 = CFBooleanGetValue(a3);
+      if (*(v11 + 32))
+      {
+        if (!v16 || *(v11 + 28137))
         {
-          goto LABEL_14;
+          a3 = 0;
+          *(v11 + 28136) = v16;
+          return a3;
         }
 
-        TypeID = CFBooleanGetTypeID();
-        if (TypeID != CFGetTypeID(a3))
-        {
-          goto LABEL_14;
-        }
+        sbp_gvs_setProperty_cold_1(&v30);
+      }
 
-        Value = CFBooleanGetValue(a3);
-        if (*(v6 + 32))
+      else
+      {
+        sbp_gvs_setProperty_cold_2(&v30);
+      }
+    }
+
+    else
+    {
+      if (CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_FrameRateConversionEnabled))
+      {
+        if (a3)
         {
-          if (!Value || *(v6 + 28137))
+          v18 = CFBooleanGetTypeID();
+          if (v18 == CFGetTypeID(a3) && (v19 = CFBooleanGetValue(a3)) != 0 && *v14 == 1)
           {
             a3 = 0;
-            *(v6 + 28136) = Value;
-            return a3;
+            *(v14 + 2630) = v19;
+            *(v14 + 2640) = 0;
+            *(v14 + 2632) = 0xFFFFFFFFLL;
+            *(v14 + 2648) = 1;
           }
 
-          sbp_gvs_setProperty_cold_1(&v22);
+          else
+          {
+            return 0;
+          }
+        }
+
+        return a3;
+      }
+
+      if (CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_LongPressModeEnabled))
+      {
+        if (a3 && (v20 = CFBooleanGetTypeID(), v20 == CFGetTypeID(a3)))
+        {
+          if (*(v11 + 32))
+          {
+            if (*(v11 + 328))
+            {
+              if (*(v11 + 29504) > 0.0 && *(v11 + 29512) > 0.0)
+              {
+                v21 = CFBooleanGetValue(a3) != 0;
+                v22 = sbp_enableLongPressMode(v11, v21);
+                a3 = v22;
+                if (v22)
+                {
+                  sbp_gvs_setProperty_cold_3(v22);
+                }
+
+                return a3;
+              }
+
+              sbp_gvs_setProperty_cold_4(&v30);
+            }
+
+            else
+            {
+              sbp_gvs_setProperty_cold_5(&v30);
+            }
+          }
+
+          else
+          {
+            sbp_gvs_setProperty_cold_6(&v30);
+          }
         }
 
         else
         {
-          sbp_gvs_setProperty_cold_2(&v22);
+          sbp_gvs_setProperty_cold_7(&v30);
+        }
+      }
+
+      else if (CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_P3ToBT2020ConversionEnabled) && !*(v11 + 172))
+      {
+        if (a3 && (v25 = CFBooleanGetTypeID(), v25 == CFGetTypeID(a3)))
+        {
+          if (*(v11 + 32))
+          {
+            v26 = CFBooleanGetValue(a3) != 0;
+            v27 = sbp_enableP3ToBT2020Conversion(v11, v26);
+            a3 = v27;
+            if (v27)
+            {
+              sbp_gvs_setProperty_cold_8(v27);
+            }
+
+            return a3;
+          }
+
+          sbp_gvs_setProperty_cold_9(&v30);
+        }
+
+        else
+        {
+          sbp_gvs_setProperty_cold_10(&v30);
+        }
+      }
+
+      else if (CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_FlipHorizontalOrientation))
+      {
+        if (a3 && (v23 = CFBooleanGetTypeID(), v23 == CFGetTypeID(a3)))
+        {
+          v24 = CFBooleanGetValue(a3);
+          if (!v24 || !*(v11 + 172))
+          {
+            a3 = 0;
+            *(v11 + 203) = v24;
+            return a3;
+          }
+
+          sbp_gvs_setProperty_cold_11(&v30);
+        }
+
+        else
+        {
+          sbp_gvs_setProperty_cold_12(&v30);
         }
       }
 
       else
       {
-        if (CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_FrameRateConversionEnabled))
+        if (!CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_IMUToCameraExtrinsic))
         {
-          if (a3)
-          {
-            v13 = CFBooleanGetTypeID();
-            if (v13 == CFGetTypeID(a3) && (v14 = CFBooleanGetValue(a3)) != 0 && *v9 == 1)
-            {
-              a3 = 0;
-              *(v9 + 2630) = v14;
-              *(v9 + 2640) = 0;
-              *(v9 + 2632) = 0xFFFFFFFFLL;
-              *(v9 + 2648) = 1;
-            }
-
-            else
-            {
-              return 0;
-            }
-          }
-
-          return a3;
+          return 4294954512;
         }
 
-        if (CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_LongPressModeEnabled))
+        if (a3 && (v28 = CFDataGetTypeID(), v28 == CFGetTypeID(a3)))
         {
-          if (a3 && (v15 = CFBooleanGetTypeID(), v15 == CFGetTypeID(a3)))
+          if (*(v11 + 32))
           {
-            if (*(v6 + 32))
+            v29 = sbp_setCameraExtrinsicAlignment(v11, a3);
+            a3 = v29;
+            if (v29)
             {
-              if (*(v6 + 328))
-              {
-                if (*(v6 + 29504) > 0.0 && *(v6 + 29512) > 0.0)
-                {
-                  v16 = CFBooleanGetValue(a3) != 0;
-                  a3 = sbp_enableLongPressMode(v6, v16);
-                  if (a3)
-                  {
-                    sbp_gvs_setProperty_cold_3();
-                  }
-
-                  return a3;
-                }
-
-                sbp_gvs_setProperty_cold_4(&v22);
-              }
-
-              else
-              {
-                sbp_gvs_setProperty_cold_5(&v22);
-              }
+              sbp_gvs_setProperty_cold_13(v29);
             }
 
-            else
-            {
-              sbp_gvs_setProperty_cold_6(&v22);
-            }
+            return a3;
           }
 
-          else
-          {
-            sbp_gvs_setProperty_cold_7(&v22);
-          }
-        }
-
-        else if (CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_P3ToBT2020ConversionEnabled) && !*(v6 + 172))
-        {
-          if (a3 && (v19 = CFBooleanGetTypeID(), v19 == CFGetTypeID(a3)))
-          {
-            if (*(v6 + 32))
-            {
-              v20 = CFBooleanGetValue(a3) != 0;
-              a3 = sbp_enableP3ToBT2020Conversion(v6, v20);
-              if (a3)
-              {
-                sbp_gvs_setProperty_cold_8();
-              }
-
-              return a3;
-            }
-
-            sbp_gvs_setProperty_cold_9(&v22);
-          }
-
-          else
-          {
-            sbp_gvs_setProperty_cold_10(&v22);
-          }
-        }
-
-        else if (CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_FlipHorizontalOrientation))
-        {
-          if (a3 && (v17 = CFBooleanGetTypeID(), v17 == CFGetTypeID(a3)))
-          {
-            v18 = CFBooleanGetValue(a3);
-            if (!v18 || !*(v6 + 172))
-            {
-              a3 = 0;
-              *(v6 + 203) = v18;
-              return a3;
-            }
-
-            sbp_gvs_setProperty_cold_11(&v22);
-          }
-
-          else
-          {
-            sbp_gvs_setProperty_cold_12(&v22);
-          }
+          sbp_gvs_setProperty_cold_14(&v30);
         }
 
         else
         {
-          if (!CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_IMUToCameraExtrinsic))
-          {
-            return 4294954512;
-          }
-
-          if (a3 && (v21 = CFDataGetTypeID(), v21 == CFGetTypeID(a3)))
-          {
-            if (*(v6 + 32))
-            {
-              a3 = sbp_setCameraExtrinsicAlignment(v6, a3);
-              if (a3)
-              {
-                sbp_gvs_setProperty_cold_13();
-              }
-
-              return a3;
-            }
-
-            sbp_gvs_setProperty_cold_14(&v22);
-          }
-
-          else
-          {
-            sbp_gvs_setProperty_cold_15(&v22);
-          }
+          sbp_gvs_setProperty_cold_15(&v30);
         }
       }
-
-      return v22;
     }
 
-    if (a3)
-    {
-      v7 = CFBooleanGetTypeID();
-      if (v7 == CFGetTypeID(a3))
-      {
-        v8 = CFBooleanGetValue(a3);
-        a3 = 0;
-        *(v6 + 84) = v8;
-        return a3;
-      }
-    }
+    return v30;
   }
 
-LABEL_14:
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
+  v8 = v3;
+  v9 = 4294954511;
+  v10 = 8786;
+LABEL_16:
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v9, "<<<< GyroVideoStabilizationV2 >>>>", v10, v8);
 }
 
 uint64_t sbp_gvs_processSampleBuffer(uint64_t a1, opaqueCMSampleBuffer *a2)
@@ -3743,17 +3750,17 @@ uint64_t sbp_gvs_processSampleBuffer(uint64_t a1, opaqueCMSampleBuffer *a2)
     sbp_gvs_processSampleBuffer_cold_1(time);
 LABEL_335:
     a2 = 0;
-    StabilizedSampleBuffer = LODWORD(time[0]);
+    x_low = LODWORD(time[0]);
     goto LABEL_451;
   }
 
-  v12 = ImageBuffer;
+  v13 = ImageBuffer;
   if (!ImageBuffer)
   {
     sbp_gvs_processSampleBuffer_cold_2();
   }
 
-  if (!*(DerivedStorage + 29720) && !sbp_gvs_verifyInputBuffer(v12))
+  if (!*(DerivedStorage + 29720) && !sbp_gvs_verifyInputBuffer(v13))
   {
     sbp_gvs_processSampleBuffer_cold_57();
     goto LABEL_341;
@@ -3761,22 +3768,22 @@ LABEL_335:
 
   if (gGMFigKTraceEnabled == 1)
   {
-    _getPresentationTimeStampForSampleBuffer(a2, 0, v6, v7, v8, v9, v10, v11, v300, v301, v302, v303, v304, v305, v306, v309, v311, sbuf);
+    _getPresentationTimeStampForSampleBuffer(a2, 0, v7, v8, v9, v10, v11, v12, v311, v312, v313, v314, v315, v316, v317, v320, v322, sbuf);
     time[0] = origin;
-    *&time[1] = v325.width;
+    *&time[1] = v336.width;
     CMTimeGetSeconds(time);
     kdebug_trace();
   }
 
   if (CMGetAttachment(a2, kFigVideoStabilizationSampleBufferAttachmentKey_DepthSampleBuffer, 0))
   {
-    v13 = CMSampleBufferGetImageBuffer(a2);
-    if (sbp_gvs_verifyInputBuffer(v13))
+    v15 = CMSampleBufferGetImageBuffer(a2);
+    if (sbp_gvs_verifyInputBuffer(v15))
     {
       if (*(DerivedStorage + 32) && !*(DerivedStorage + 29536))
       {
         *(DerivedStorage + 29544) = 0;
-        v14 = *(DerivedStorage + 29568);
+        v16 = *(DerivedStorage + 29568);
         *(DerivedStorage + 29568) = 0;
       }
 
@@ -3786,45 +3793,45 @@ LABEL_335:
     sbp_gvs_processSampleBuffer_cold_3();
 LABEL_341:
     a2 = 0;
-    StabilizedSampleBuffer = 4294954514;
+    x_low = 4294954514;
     goto LABEL_451;
   }
 
 LABEL_13:
-  MetadataDictionary = _getMetadataDictionary(a2);
+  MetadataDictionary = _getMetadataDictionary(a2, v14);
   if (!MetadataDictionary)
   {
     sbp_gvs_processSampleBuffer_cold_56(time);
     goto LABEL_335;
   }
 
-  v16 = MetadataDictionary;
-  v17 = *(DerivedStorage + 27148);
-  if (v17 != 5 && v17 != 2)
+  v19 = MetadataDictionary;
+  v20 = *(DerivedStorage + 27148);
+  if (v20 != 5 && v20 != 2)
   {
     goto LABEL_28;
   }
 
-  v18 = kFigCaptureSampleBufferAttachmentKey_SmartStyleFutureLearnedCoefficientsArray;
-  v19 = CMGetAttachment(a2, kFigCaptureSampleBufferAttachmentKey_SmartStyleFutureLearnedCoefficientsArray, 0);
-  if (v19)
+  v21 = kFigCaptureSampleBufferAttachmentKey_SmartStyleFutureLearnedCoefficientsArray;
+  v22 = CMGetAttachment(a2, kFigCaptureSampleBufferAttachmentKey_SmartStyleFutureLearnedCoefficientsArray, 0);
+  if (v22)
   {
-    *(DerivedStorage + 30192) = CFRetain(v19);
-    v20 = *(DerivedStorage + 27148);
-    if (v20 != 5)
+    *(DerivedStorage + 30192) = CFRetain(v22);
+    v23 = *(DerivedStorage + 27148);
+    if (v23 != 5)
     {
       goto LABEL_20;
     }
 
-    CMRemoveAttachment(a2, v18);
+    CMRemoveAttachment(a2, v21);
   }
 
-  v20 = *(DerivedStorage + 27148);
+  v23 = *(DerivedStorage + 27148);
 LABEL_20:
-  if (v20 == 2)
+  if (v23 == 2)
   {
-    Value = CFDictionaryGetValue(v16, kFigCaptureVideoStabilizationMetadata_CinematicFutureMetadataInitializationArray);
-    v22 = Value;
+    Value = CFDictionaryGetValue(v19, kFigCaptureVideoStabilizationMetadata_CinematicFutureMetadataInitializationArray);
+    v25 = Value;
     if (*(DerivedStorage + 32))
     {
       if (!Value)
@@ -3839,7 +3846,7 @@ LABEL_20:
         goto LABEL_335;
       }
 
-      *(DerivedStorage + 29472) = CFRetain(v22);
+      *(DerivedStorage + 29472) = CFRetain(v25);
     }
 
     else
@@ -3857,85 +3864,85 @@ LABEL_20:
       }
     }
 
-    v16 = CFDictionaryGetValue(v16, kFigCaptureVideoStabilizationMetadata_CinematicFutureMetadata);
+    v19 = CFDictionaryGetValue(v19, kFigCaptureVideoStabilizationMetadata_CinematicFutureMetadata);
   }
 
 LABEL_28:
   if (*(DerivedStorage + 32))
   {
-    ValueAtIndex = v16;
+    ValueAtIndex = v19;
     if (*(DerivedStorage + 29472))
     {
       ValueAtIndex = CFArrayGetValueAtIndex(*(DerivedStorage + 29472), 0);
     }
 
-    v24 = CFDictionaryGetValue(ValueAtIndex, kFigCaptureStreamMetadata_PortType);
+    v27 = CFDictionaryGetValue(ValueAtIndex, kFigCaptureStreamMetadata_PortType);
     if (*(DerivedStorage + 28280))
     {
-      v25 = bravoTransitionCameraIndexFromPortType(v24, (DerivedStorage + 28724));
-      if (v25)
+      v28 = bravoTransitionCameraIndexFromPortType(v27, (DerivedStorage + 28724));
+      if (v28)
       {
-        StabilizedSampleBuffer = v25;
+        x_low = v28;
         sbp_gvs_processSampleBuffer_cold_8();
         a2 = 0;
         goto LABEL_451;
       }
     }
 
-    v26 = *(DerivedStorage + 128);
-    v27.i64[0] = v26;
-    v27.i64[1] = SHIDWORD(v26);
+    v29 = *(DerivedStorage + 128);
+    v30.i64[0] = v29;
+    v30.i64[1] = SHIDWORD(v29);
     __asm { FMOV            V1.2D, #-1.0 }
 
-    v32 = vaddq_f64(vcvtq_f64_s64(v27), _Q1);
+    v35 = vaddq_f64(vcvtq_f64_s64(v30), _Q1);
     __asm { FMOV            V1.2D, #0.5 }
 
-    *(DerivedStorage + 336) = vmulq_f64(v32, _Q1);
+    *(DerivedStorage + 336) = vmulq_f64(v35, _Q1);
     if (FigCFEqual())
     {
-      v34 = 1;
+      v37 = 1;
     }
 
     else
     {
-      v34 = FigCFEqual() != 0;
+      v37 = FigCFEqual() != 0;
     }
 
-    *(DerivedStorage + 352) = v34;
+    *(DerivedStorage + 352) = v37;
     if ((*(DerivedStorage + 329) & 1) == 0)
     {
-      *(DerivedStorage + 360) = GVSGetDefaultExtrinsicToIMU(v34);
-      *(DerivedStorage + 368) = v35;
-      *(DerivedStorage + 376) = v36;
-      *(DerivedStorage + 384) = v37;
-      v34 = *(DerivedStorage + 352);
+      *(DerivedStorage + 360) = GVSGetDefaultExtrinsicToIMU(v37);
+      *(DerivedStorage + 368) = v38;
+      *(DerivedStorage + 376) = v39;
+      *(DerivedStorage + 384) = v40;
+      v37 = *(DerivedStorage + 352);
     }
 
-    v38 = *(DerivedStorage + 27148);
-    v40 = (v38 - 1) < 3 && v34 == 0;
-    *(DerivedStorage + 27136) = v40;
-    v41 = *(DerivedStorage + 27140);
-    if (v41 <= 1)
+    v41 = *(DerivedStorage + 27148);
+    v43 = (v41 - 1) < 3 && v37 == 0;
+    *(DerivedStorage + 27136) = v43;
+    v44 = *(DerivedStorage + 27140);
+    if (v44 <= 1)
     {
-      *(DerivedStorage + 27136) = v41 == 1;
+      *(DerivedStorage + 27136) = v44 == 1;
     }
 
     if (*(DerivedStorage + 28136))
     {
-      v42 = 1;
+      v45 = 1;
     }
 
     else
     {
-      v42 = v38 == 3;
+      v45 = v41 == 3;
     }
 
-    v43 = v42;
-    *(DerivedStorage + 27106) = v43;
+    v46 = v45;
+    *(DerivedStorage + 27106) = v46;
   }
 
   origin.x = 0.0;
-  if (!_getMetadataDictionary(a2))
+  if (!_getMetadataDictionary(a2, v18))
   {
     sbp_gvs_processSampleBuffer_cold_55(&origin, time);
     goto LABEL_335;
@@ -3950,46 +3957,46 @@ LABEL_28:
     goto LABEL_62;
   }
 
-  FrameRateConversionStatus = _getFrameRateConversionStatus(a2);
+  FrameRateConversionStatus = _getFrameRateConversionStatus(a2, v47);
   if (!FrameRateConversionStatus)
   {
     goto LABEL_62;
   }
 
-  v45 = FrameRateConversionStatus;
+  v49 = FrameRateConversionStatus;
   if (!*(DerivedStorage + 32))
   {
-    v72 = (DerivedStorage + 29780);
-    v73 = *(DerivedStorage + 29784);
+    v77 = (DerivedStorage + 29780);
+    v78 = *(DerivedStorage + 29784);
     if (FrameRateConversionStatus != *(DerivedStorage + 29800))
     {
-      if (!v73)
+      if (!v78)
       {
-        *v72 = *(DerivedStorage + 29388);
+        *v77 = *(DerivedStorage + 29388);
       }
 
-      *(DerivedStorage + 29784) = ++v73;
+      *(DerivedStorage + 29784) = ++v78;
     }
 
-    if (v73 == 2)
+    if (v78 == 2)
     {
       sbuf = a2;
-      v113 = *v72;
-      if (*v72 == *(DerivedStorage + 29388))
+      v119 = *v77;
+      if (*v77 == *(DerivedStorage + 29388))
       {
-        v46 = 0;
+        v50 = 0;
       }
 
       else
       {
-        v319 = a1;
-        v143 = kFigCaptureSampleBufferAttachmentKey_MetadataDictionary;
+        v330 = a1;
+        v150 = kFigCaptureSampleBufferAttachmentKey_MetadataDictionary;
         do
         {
-          v144 = *(*(DerivedStorage + 29368) + 8 * v113);
-          if (v144)
+          v151 = *(*(DerivedStorage + 29368) + 8 * v119);
+          if (v151)
           {
-            if (CMGetAttachment(v144, v143, 0))
+            if (CMGetAttachment(v151, v150, 0))
             {
               FigCFDictionarySetInt32();
             }
@@ -4000,353 +4007,354 @@ LABEL_28:
             }
           }
 
-          v145 = *(DerivedStorage + 29396);
-          v113 += v145 + 1;
+          v152 = *(DerivedStorage + 29396);
+          v119 += v152 + 1;
           do
           {
-            v113 -= v145;
+            v119 -= v152;
           }
 
-          while (v113 >= v145);
+          while (v119 >= v152);
         }
 
-        while (*(DerivedStorage + 29388) != v113);
-        v46 = 0;
-        a1 = v319;
+        while (*(DerivedStorage + 29388) != v119);
+        v50 = 0;
+        a1 = v330;
       }
 
       a2 = sbuf;
       goto LABEL_58;
     }
 
-    if (v73 == 1)
+    if (v78 == 1)
     {
       ++*(DerivedStorage + 29788);
     }
   }
 
-  v46 = 1;
+  v50 = 1;
 LABEL_58:
   if (*(DerivedStorage + 29780) == *(DerivedStorage + 29384) || *(DerivedStorage + 29788) == *(DerivedStorage + 29792))
   {
-    *(DerivedStorage + 29800) = v45;
+    *(DerivedStorage + 29800) = v49;
 LABEL_61:
     *(DerivedStorage + 29788) = 0;
     *(DerivedStorage + 29780) = 0xFFFFFFFFLL;
     goto LABEL_62;
   }
 
-  *(DerivedStorage + 29800) = v45;
-  if ((v46 & 1) == 0)
+  *(DerivedStorage + 29800) = v49;
+  if ((v50 & 1) == 0)
   {
     goto LABEL_61;
   }
 
 LABEL_62:
-  v47 = *(DerivedStorage + 27148);
-  if ((v47 - 1) < 3)
+  v51 = *(DerivedStorage + 27148);
+  if ((v51 - 1) < 3)
   {
-    v320 = DerivedStorage;
-    v48 = CMBaseObjectGetDerivedStorage();
-    v49 = v48;
-    v50 = v48 + 27148;
-    *&v343 = 0;
-    v51 = *(v48 + 29396);
-    if (!*(v48 + 32))
+    v331 = DerivedStorage;
+    v52 = CMBaseObjectGetDerivedStorage();
+    v53 = v52;
+    v54 = v52 + 27148;
+    *&v354 = 0;
+    v55 = *(v52 + 29396);
+    if (!*(v52 + 32))
     {
       goto LABEL_385;
     }
 
-    v316 = a1;
-    v52 = *(v48 + 104);
-    v53 = *v50;
-    if (*v50 == 3)
+    v327 = a1;
+    v56 = *(v52 + 104);
+    v57 = *v54;
+    if (*v54 == 3)
     {
-      v54 = 1071644672;
+      v58 = 1071644672;
       goto LABEL_113;
     }
 
-    if (v53 != 2)
+    if (v57 != 2)
     {
-      if (v53 == 1)
+      if (v57 == 1)
       {
-        v54 = 1050253722;
+        v58 = 1050253722;
 LABEL_113:
-        *(v48 + 29528) = v54;
-        v83 = 1.0;
+        *(v52 + 29528) = v58;
+        v89 = 1.0;
         goto LABEL_373;
       }
 
       fig_log_get_emitter();
-      StabilizedSampleBuffer = 4294954515;
-      FigDebugAssert3();
+      x_low = 4294954515;
+      LODWORD(v311) = -12781;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v311, v2, v313, v314, v315, v316, v317, v320);
 LABEL_115:
       a2 = 0;
-      a1 = v316;
-      DerivedStorage = v320;
+      a1 = v327;
+      DerivedStorage = v331;
       goto LABEL_486;
     }
 
-    *(v48 + 29528) = 1050253722;
-    v74 = *(v48 + 29472);
+    *(v52 + 29528) = 1050253722;
+    v79 = *(v52 + 29472);
     sbuf = a2;
-    if (v74)
+    if (v79)
     {
-      Count = CFArrayGetCount(v74);
+      Count = CFArrayGetCount(v79);
       if (Count > 0)
       {
-        if (*(v50 + 2316) < Count)
+        if (*(v54 + 2316) < Count)
         {
           sbp_gvs_processSampleBuffer_cold_25(time);
 LABEL_328:
-          StabilizedSampleBuffer = LODWORD(time[0]);
+          x_low = LODWORD(time[0]);
         }
 
         else
         {
-          v76 = 0;
-          v77 = Count & 0x7FFFFFFF;
+          v81 = 0;
+          v82 = Count & 0x7FFFFFFF;
           while (1)
           {
-            v78 = CFArrayGetValueAtIndex(v74, v76);
-            if (!v78)
+            v83 = CFArrayGetValueAtIndex(v79, v81);
+            if (!v83)
             {
               sbp_gvs_processSampleBuffer_cold_24(time);
               goto LABEL_328;
             }
 
-            v79 = sbp_gvs_cinematicAddMetadataToQuaternionAndSphereRingBuffers(v49, v78);
-            if (v79)
+            v84 = sbp_gvs_cinematicAddMetadataToQuaternionAndSphereRingBuffers(v53, v83);
+            if (v84)
             {
               break;
             }
 
-            if (v77 == ++v76)
+            if (v82 == ++v81)
             {
-              StabilizedSampleBuffer = 0;
+              x_low = 0;
               goto LABEL_104;
             }
           }
 
-          StabilizedSampleBuffer = v79;
+          x_low = v84;
           sbp_gvs_processSampleBuffer_cold_23();
         }
 
 LABEL_104:
-        v80 = *(v49 + 29472);
-        if (v80)
+        v85 = *(v53 + 29472);
+        if (v85)
         {
-          CFRelease(v80);
-          *(v49 + 29472) = 0;
+          CFRelease(v85);
+          *(v53 + 29472) = 0;
         }
 
-        if (StabilizedSampleBuffer)
+        if (x_low)
         {
-          sbp_gvs_processSampleBuffer_cold_28();
+          sbp_gvs_processSampleBuffer_cold_28(x_low);
           goto LABEL_115;
         }
 
-        v81 = *(v49 + 29400);
-        if (v81)
+        v86 = *(v53 + 29400);
+        if (v86)
         {
-          [v81 getSmoothingAnalysisArrays];
-          if (SHIDWORD(v336) < v337)
+          SmoothingAnalysisArrays = objc_msgSend_getSmoothingAnalysisArrays(v86);
+          if (SHIDWORD(v347) < v348)
           {
-            v82 = *(v334 + 8 * v337) - *(v334 + 8 * SHIDWORD(v336));
-            if (v82 > 0.0)
+            v88 = *(v345 + 8 * v348) - *(v345 + 8 * SHIDWORD(v347));
+            if (v88 > 0.0)
             {
-              v83 = (*(*(&time[1] + 1) + 144 * v337 + 72) - *(*(&time[1] + 1) + 144 * SHIDWORD(v336) + 72)) / v82;
-              *(v50 + 2372) = v83 > 2.0;
-              if (v83 > 2.0)
+              v89 = (*(*(&time[1] + 1) + 144 * v348 + 72) - *(*(&time[1] + 1) + 144 * SHIDWORD(v347) + 72)) / v88;
+              *(v54 + 2372) = v89 > 2.0;
+              if (v89 > 2.0)
               {
-                v52 = 0;
+                v56 = 0;
                 goto LABEL_373;
               }
 
               goto LABEL_371;
             }
 
-            sbp_gvs_processSampleBuffer_cold_29();
+            sbp_gvs_processSampleBuffer_cold_29(SmoothingAnalysisArrays);
           }
         }
 
-        *(v50 + 2372) = 0;
-        v83 = 1.0;
+        *(v54 + 2372) = 0;
+        v89 = 1.0;
 LABEL_371:
-        if (!*(v49 + 416))
+        if (!*(v53 + 416))
         {
           sbp_gvs_processSampleBuffer_cold_30();
         }
 
 LABEL_373:
-        if (*(v49 + 88))
+        if (*(v53 + 88))
         {
-          [*(v49 + 96) setQueuePriority:v52];
-          AffineTransformContextSetPriority(*(v49 + 88), v52);
+          [*(v53 + 96) setQueuePriority:v56];
+          AffineTransformContextSetPriority(*(v53 + 88), v56);
         }
 
-        v257 = *(v50 + 2380);
-        v258 = *(v50 + 2312);
-        v259 = 16.0;
-        if (v258 < 1.0)
+        v267 = *(v54 + 2380);
+        v268 = *(v54 + 2312);
+        v269 = 16.0;
+        if (v268 < 1.0)
         {
-          v259 = 20.0;
-          if (v258 > 0.5)
+          v269 = 20.0;
+          if (v268 > 0.5)
           {
-            v259 = ((v258 + -0.5) * -8.0) + 20.0;
+            v269 = ((v268 + -0.5) * -8.0) + 20.0;
           }
         }
 
-        v260 = fmaxf(v257, v258 * v259);
-        a1 = v316;
-        if (v83 > 30.0)
+        v270 = fmaxf(v267, v268 * v269);
+        a1 = v327;
+        if (v89 > 30.0)
         {
-          v260 = fmaxf(v257, v260 + (((v260 - v257) / -190.0) * (v83 + -30.0)));
+          v270 = fmaxf(v267, v270 + (((v270 - v267) / -190.0) * (v89 + -30.0)));
         }
 
-        *(v50 + 2376) = v260;
-        *(v50 + 2308) = v260;
-        if (*(v50 + 3100) == 1)
+        *(v54 + 2376) = v270;
+        *(v54 + 2308) = v270;
+        if (*(v54 + 3100) == 1)
         {
-          v261 = v260 * *(v50 + 3104);
-          *(v50 + 3136) = v261;
-          v262 = v260 * *(v50 + 3108);
-          v263 = *(v50 + 3116) * (v262 - v261);
-          if ((v261 - v263) > v257)
+          v271 = v270 * *(v54 + 3104);
+          *(v54 + 3136) = v271;
+          v272 = v270 * *(v54 + 3108);
+          v273 = *(v54 + 3116) * (v272 - v271);
+          if ((v271 - v273) > v267)
           {
-            v257 = v261 - v263;
+            v267 = v271 - v273;
           }
 
-          *(v50 + 3120) = v257;
-          v264 = v262 + v263;
-          *(v50 + 3124) = v264;
-          if (v257 >= v264)
+          *(v54 + 3120) = v267;
+          v274 = v272 + v273;
+          *(v54 + 3124) = v274;
+          if (v267 >= v274)
           {
             sbp_gvs_processSampleBuffer_cold_31();
             goto LABEL_488;
           }
 
-          *(v50 + 3128) = v261;
-          *(v50 + 3132) = fminf(fmaxf(v262, v261), v260);
+          *(v54 + 3128) = v271;
+          *(v54 + 3132) = fminf(fmaxf(v272, v271), v270);
         }
 
 LABEL_385:
-        if (*v50 != 1)
+        if (*v54 != 1)
         {
           goto LABEL_391;
         }
 
         if (a2)
         {
-          v265 = CMGetAttachment(a2, kFigVideoStabilizationSampleBufferAttachmentKey_OutputBiasRotationQuaternion, 0);
-          if (v265)
+          v275 = CMGetAttachment(a2, kFigVideoStabilizationSampleBufferAttachmentKey_OutputBiasRotationQuaternion, 0);
+          if (v275)
           {
-            v266 = v265;
-            if ([v265 length] == &dword_10)
+            v276 = v275;
+            if ([v275 length] == &dword_10)
             {
-              v267 = [v266 bytes];
-              *(v49 + 28256) = *v267;
-              *(v49 + 28264) = v267[1];
-              *(v49 + 28272) = v267[2];
-              *(v49 + 28248) = v267[3];
+              v277 = [v276 bytes];
+              *(v53 + 28256) = *v277;
+              *(v53 + 28264) = v277[1];
+              *(v53 + 28272) = v277[2];
+              *(v53 + 28248) = v277[3];
 
-              v268 = 1;
+              v278 = 1;
 LABEL_390:
-              *(v50 + 1092) = v268;
+              *(v54 + 1092) = v278;
 LABEL_391:
-              if (v16)
+              if (v19)
               {
-                v269 = sbp_gvs_cinematicAddMetadataToQuaternionAndSphereRingBuffers(v49, v16);
-                if (v269)
+                v279 = sbp_gvs_cinematicAddMetadataToQuaternionAndSphereRingBuffers(v53, v19);
+                if (v279)
                 {
-                  StabilizedSampleBuffer = v269;
+                  x_low = v279;
                   sbp_gvs_processSampleBuffer_cold_34();
                   goto LABEL_480;
                 }
 
-                if (!*(v50 + 2464))
+                if (!*(v54 + 2464))
                 {
                   goto LABEL_429;
                 }
 
-                if (*(v50 + 2493) == 1 && (*(v50 + 2526) & 1) == 0)
+                if (*(v54 + 2493) == 1 && (*(v54 + 2526) & 1) == 0)
                 {
-                  v276 = CMGetAttachment(a2, kFigVideoStabilizationSampleBufferProcessorOption_SystemPressure, 0);
-                  v277 = [v276 intValue];
-                  *(v50 + 2496) = v277;
-                  *(v50 + 2526) |= v277 > 2;
+                  v286 = CMGetAttachment(a2, kFigVideoStabilizationSampleBufferProcessorOption_SystemPressure, 0);
+                  v287 = [v286 intValue];
+                  *(v54 + 2496) = v287;
+                  *(v54 + 2526) |= v287 > 2;
                 }
 
-                if (*(v50 + 2527))
+                if (*(v54 + 2527))
                 {
                   goto LABEL_407;
                 }
 
-                if (CFDictionaryContainsKey(v16, kFigCaptureStreamMetadata_LTMLookUpTables))
+                if (CFDictionaryContainsKey(v19, kFigCaptureStreamMetadata_LTMLookUpTables))
                 {
-                  if ([*(v49 + 29648) prepareToProcessWithMetadata:v16])
+                  if ([*(v53 + 29648) prepareToProcessWithMetadata:v19])
                   {
                     sbp_gvs_processSampleBuffer_cold_35();
                   }
 
-                  *(v50 + 2527) = 1;
+                  *(v54 + 2527) = 1;
                   goto LABEL_407;
                 }
 
-                v278 = *(v50 + 2532);
-                *(v50 + 2532) = v278 + 1;
-                if (v278 < 3)
+                v288 = *(v54 + 2532);
+                *(v54 + 2532) = v288 + 1;
+                if (v288 < 3)
                 {
 LABEL_407:
-                  if (!*(v49 + 29656) && !*(v50 + 2532) && *(v50 + 2527) == 1)
+                  if (!*(v53 + 29656) && !*(v54 + 2532) && *(v54 + 2527) == 1)
                   {
-                    v279 = [*(v49 + 29648) allocateLTCsCorrectionTex:*(v50 + 2492) forISPProcessing:*(v49 + 172) == 3];
-                    v280 = *(v49 + 29656);
-                    *(v49 + 29656) = v279;
+                    v289 = [*(v53 + 29648) allocateLTCsCorrectionTex:*(v54 + 2492) forISPProcessing:*(v53 + 172) == 3];
+                    v290 = *(v53 + 29656);
+                    *(v53 + 29656) = v289;
 
-                    if (!*(v49 + 29656))
+                    if (!*(v53 + 29656))
                     {
                       sbp_gvs_processSampleBuffer_cold_36();
                     }
 
-                    if (sbp_ltm_checkPerVideoDisablement(v49, v16))
+                    if (sbp_ltm_checkPerVideoDisablement(v53, v19))
                     {
                       sbp_gvs_processSampleBuffer_cold_37();
                     }
                   }
 
-                  if ((*(v50 + 2526) & 1) != 0 || *(v50 + 2527) != 1)
+                  if ((*(v54 + 2526) & 1) != 0 || *(v54 + 2527) != 1)
                   {
-                    if (*(v50 + 2496) >= 3)
+                    if (*(v54 + 2496) >= 3)
                     {
-                      *(v50 + 2536) = 0;
+                      *(v54 + 2536) = 0;
                     }
 
-                    if (*(v50 + 2525) == 1)
+                    if (*(v54 + 2525) == 1)
                     {
-                      *(v50 + 2536) = 1;
+                      *(v54 + 2536) = 1;
                     }
 
-                    *(v50 + 2528) = 0;
+                    *(v54 + 2528) = 0;
                   }
 
                   else
                   {
-                    if (!*(v49 + 29648))
+                    if (!*(v53 + 29648))
                     {
-                      sbp_gvs_processSampleBuffer_cold_38(v49);
+                      sbp_gvs_processSampleBuffer_cold_38(v53);
                     }
 
                     if (gGMFigKTraceEnabled == 1)
                     {
-                      _getPresentationTimeStampForSampleBuffer(a2, 0, v270, v271, v272, v273, v274, v275, v300, v301, v302, v303, v304, v305, v306, v309, v311, sbuf);
+                      _getPresentationTimeStampForSampleBuffer(a2, 0, v280, v281, v282, v283, v284, v285, v311, v312, v313, v314, v315, v316, v317, v320, v322, sbuf);
                       time[0] = origin;
-                      *&time[1] = v325.width;
+                      *&time[1] = v336.width;
                       CMTimeGetSeconds(time);
                       kdebug_trace();
                     }
 
-                    if ([*(v49 + 29648) bufferFrame:a2])
+                    if ([*(v53 + 29648) bufferFrame:a2])
                     {
                       sbp_gvs_processSampleBuffer_cold_39();
                     }
@@ -4361,65 +4369,65 @@ LABEL_407:
                 }
               }
 
-              else if (!*(v50 + 2464))
+              else if (!*(v54 + 2464))
               {
 LABEL_429:
                 _setAttachedMediaToSampleBuffer(a2, kFigCaptureStreamMetadataOutputKey_PreLTMThumbnail, 0);
                 _setAttachedMediaToSampleBuffer(a2, kFigCaptureStreamMetadataOutputKey_LTMThumbnail, 0);
                 _setAttachedMediaToSampleBuffer(a2, kFigCaptureStreamMetadataOutputKey_WeightSegmentMap, 0);
-                v281 = CFRetain(a2);
-                v282 = *(v50 + 2240);
-                *(*(v49 + 29368) + 8 * v282) = v281;
+                v291 = CFRetain(a2);
+                v292 = *(v54 + 2240);
+                *(*(v53 + 29368) + 8 * v292) = v291;
                 do
                 {
-                  v283 = v282 - v51;
-                  v284 = v282 + 1;
-                  LODWORD(v282) = v282 - v51;
+                  v293 = v292 - v55;
+                  v294 = v292 + 1;
+                  LODWORD(v292) = v292 - v55;
                 }
 
-                while (v284 >= v51);
-                *(v50 + 2240) = v51 + v283 + 1;
-                v285 = *(v50 + 2244);
-                if (v285 < v51)
+                while (v294 >= v55);
+                *(v54 + 2240) = v55 + v293 + 1;
+                v295 = *(v54 + 2244);
+                if (v295 < v55)
                 {
-                  *(v50 + 2244) = ++v285;
+                  *(v54 + 2244) = ++v295;
                 }
 
-                if (*(v50 + 2900) == 1)
+                if (*(v54 + 2900) == 1)
                 {
-                  v286 = (v51 + v283 + *(v50 + 2248)) % v51;
-                  if (*(v49 + 32))
+                  v296 = (v55 + v293 + *(v54 + 2248)) % v55;
+                  if (*(v53 + 32))
                   {
                     *&time[0] = 0;
                     FigCFDictionaryGetDoubleIfPresent();
-                    if (*time > *(v50 + 2904) && (v287 = *(v49 + 30072)) != 0 || (v287 = *(v49 + 30080)) != 0)
+                    if (*time > *(v54 + 2904) && (v297 = *(v53 + 30072)) != 0 || (v297 = *(v53 + 30080)) != 0)
                     {
-                      objc_storeStrong((v49 + 30064), v287);
+                      objc_storeStrong((v53 + 30064), v297);
                     }
 
-                    v285 = *(v50 + 2244);
+                    v295 = *(v54 + 2244);
                   }
 
-                  *(*(v49 + 29376) + 24 * v286 + 16) = 0;
-                  if (v285 >= 3)
+                  *(*(v53 + 29376) + 24 * v296 + 16) = 0;
+                  if (v295 >= 3)
                   {
-                    _runVideoDeghostingDetection(*(v49 + 30064), v49 + 29368);
+                    _runVideoDeghostingDetection(*(v53 + 30064), v53 + 29368);
                   }
                 }
 
-                if (!*(v50 + 2956))
+                if (!*(v54 + 2956))
                 {
                   goto LABEL_443;
                 }
 
                 if (_shouldBypassSmartStyle(a2))
                 {
-                  if (*v50 != 2)
+                  if (*v54 != 2)
                   {
-                    v292 = _removeSmartStyleAttachments(v49, a2);
-                    if (v292)
+                    v303 = _removeSmartStyleAttachments(v53, a2);
+                    if (v303)
                     {
-                      StabilizedSampleBuffer = v292;
+                      x_low = v303;
                       sbp_gvs_processSampleBuffer_cold_45();
 LABEL_480:
                       a2 = 0;
@@ -4430,86 +4438,92 @@ LABEL_480:
                   goto LABEL_443;
                 }
 
-                if (!*(v50 + 2960))
+                if (!*(v54 + 2960))
                 {
-                  if (*(v49 + 172) == 3)
+                  if (*(v53 + 172) == 3)
                   {
-                    v295 = _runSmartStyleApplyOnUnstabilizedImage(v49, a2);
-                    if (v295)
+                    v306 = _runSmartStyleApplyOnUnstabilizedImage(v53, a2);
+                    if (v306)
                     {
-                      StabilizedSampleBuffer = v295;
+                      x_low = v306;
                       sbp_gvs_processSampleBuffer_cold_44();
                       goto LABEL_480;
                     }
                   }
 
 LABEL_443:
-                  if (*(v50 + 2244) < v51)
+                  if (*(v54 + 2244) < v55)
                   {
-                    v288 = *(v49 + 88);
-                    DerivedStorage = v320;
-                    if (v288)
+                    v298 = *(v53 + 88);
+                    DerivedStorage = v331;
+                    if (v298)
                     {
-                      v289 = CMSampleBufferGetImageBuffer(a2);
-                      AffineTransformCacheSourcePixelBuffer(v288, v289);
+                      v299 = CMSampleBufferGetImageBuffer(a2);
+                      AffineTransformCacheSourcePixelBuffer(v298, v299);
                     }
 
                     a2 = 0;
-                    StabilizedSampleBuffer = 0;
+                    x_low = 0;
                     goto LABEL_450;
                   }
 
-                  DerivedStorage = v320;
-                  if (!sbp_gvs_gaussianAverageGetStabilizedSampleBuffer(v49, &v343))
+                  StabilizedSampleBuffer = sbp_gvs_gaussianAverageGetStabilizedSampleBuffer(v53, &v354);
+                  DerivedStorage = v331;
+                  if (!StabilizedSampleBuffer)
                   {
-                    StabilizedSampleBuffer = 0;
-LABEL_449:
-                    a2 = v343;
+                    x_low = 0;
+                    goto LABEL_449;
+                  }
+
+                  sbp_gvs_processSampleBuffer_cold_46(StabilizedSampleBuffer, &v354, time, &origin);
+                  a2 = *&time[0];
+LABEL_485:
+                  x_low = LODWORD(origin.x);
+                  if (!LODWORD(origin.x))
+                  {
                     goto LABEL_450;
                   }
 
-                  sbp_gvs_processSampleBuffer_cold_46();
-                  a2 = *&time[0];
-                  goto LABEL_485;
+                  goto LABEL_486;
                 }
 
-                if (*v50 != 2)
+                if (*v54 != 2)
                 {
-                  v293 = _enqueueCoefficientsForSmartStyleFilterForwardLearning(v49, a2);
-                  if (v293)
+                  v304 = _enqueueCoefficientsForSmartStyleFilterForwardLearning(v53, a2);
+                  if (v304)
                   {
-                    StabilizedSampleBuffer = v293;
+                    x_low = v304;
                     sbp_gvs_processSampleBuffer_cold_40();
                     goto LABEL_480;
                   }
                 }
 
-                if (*(v49 + 172) != 3)
+                if (*(v53 + 172) != 3)
                 {
                   goto LABEL_443;
                 }
 
-                v294 = *(v50 + 3036);
-                if (*(v50 + 3028) < *(v50 + 3024) && v294 < *(v50 + 3032))
+                v305 = *(v54 + 3036);
+                if (*(v54 + 3028) < *(v54 + 3024) && v305 < *(v54 + 3032))
                 {
-                  *(v50 + 3036) = v294 + 1;
+                  *(v54 + 3036) = v305 + 1;
                   goto LABEL_443;
                 }
 
-                v296 = (*(v50 + 2240) + *(v50 + 2248) + ~v294) % *(v50 + 2248);
-                v297 = *(v49 + 29368);
-                v298 = *(v297 + 8 * v296);
-                if (v298)
+                v307 = (*(v54 + 2240) + *(v54 + 2248) + ~v305) % *(v54 + 2248);
+                v308 = *(v53 + 29368);
+                v309 = *(v308 + 8 * v307);
+                if (v309)
                 {
-                  if (_runSmartStyleFilterForwardLearning(v49, *(v297 + 8 * v296)))
+                  if (_runSmartStyleFilterForwardLearning(v53, *(v308 + 8 * v307)))
                   {
                     sbp_gvs_processSampleBuffer_cold_41();
                   }
 
-                  v299 = _runSmartStyleApplyOnUnstabilizedImage(v49, v298);
-                  if (v299)
+                  v310 = _runSmartStyleApplyOnUnstabilizedImage(v53, v309);
+                  if (v310)
                   {
-                    StabilizedSampleBuffer = v299;
+                    x_low = v310;
                     sbp_gvs_processSampleBuffer_cold_42();
                     goto LABEL_480;
                   }
@@ -4520,10 +4534,10 @@ LABEL_449:
                 sbp_gvs_processSampleBuffer_cold_43();
 LABEL_488:
                 a2 = 0;
-                StabilizedSampleBuffer = 4294954516;
+                x_low = 4294954516;
 LABEL_404:
-                DerivedStorage = v320;
-                if (StabilizedSampleBuffer)
+                DerivedStorage = v331;
+                if (x_low)
                 {
                   goto LABEL_486;
                 }
@@ -4531,13 +4545,13 @@ LABEL_404:
                 goto LABEL_450;
               }
 
-              sbp_ltm_deallocateLtcCorrectionTexture(v49);
+              sbp_ltm_deallocateLtcCorrectionTexture(v53);
               a2 = 0;
-              StabilizedSampleBuffer = 0;
+              x_low = 0;
               goto LABEL_404;
             }
 
-            sbp_gvs_processSampleBuffer_cold_32(v266);
+            sbp_gvs_processSampleBuffer_cold_32(v276);
           }
         }
 
@@ -4546,7 +4560,7 @@ LABEL_404:
           sbp_gvs_processSampleBuffer_cold_33();
         }
 
-        v268 = 0;
+        v278 = 0;
         goto LABEL_390;
       }
 
@@ -4558,72 +4572,79 @@ LABEL_404:
       sbp_gvs_processSampleBuffer_cold_27(time);
     }
 
-    StabilizedSampleBuffer = LODWORD(time[0]);
+    x_low = LODWORD(time[0]);
     goto LABEL_104;
   }
 
-  if (v47 == 4)
+  if (v51 == 4)
   {
-    v58 = CMBaseObjectGetDerivedStorage();
-    v59 = v58;
-    v60 = v58 + 3393;
-    v341 = 0;
-    v342 = 0;
-    v61 = v58[22].i32[0];
+    v63 = CMBaseObjectGetDerivedStorage();
+    v64 = v63;
+    v65 = v63 + 3393;
+    v352 = 0;
+    v353 = 0;
+    v66 = v63[22].i32[0];
     origin = 0;
-    v325 = 0;
-    v326 = 0u;
-    v327 = 0u;
-    v328 = 0u;
-    v329 = 0u;
-    v330 = 0u;
-    v331 = 0u;
-    v332 = 0u;
-    v62 = &v58[1336];
-    if (v58[3517].i8[1])
+    v336 = 0;
+    v337 = 0u;
+    v338 = 0u;
+    v339 = 0u;
+    v340 = 0u;
+    v341 = 0u;
+    v342 = 0u;
+    v343 = 0u;
+    v67 = &v63[1336];
+    if (v63[3517].i8[1])
     {
-      v63 = &v58[1336];
+      v68 = &v63[1336];
     }
 
     else
     {
-      v63 = 0;
+      v68 = 0;
     }
 
-    if (v58[3517].i8[1])
+    if (v63[3517].i8[1])
     {
-      v64 = v58[3518];
+      v69 = v63[3518];
     }
 
     else
     {
-      v64 = 0;
+      v69 = 0;
     }
 
-    v84 = GVSExtractMetadataFromTopToBottomRows(v16, &v58[53], *&v58[3391], v63, &v58[42], v58 + 16, &origin, time, 0, &v341, v64, 0, v61);
-    if (v84)
+    v90 = GVSExtractMetadataFromTopToBottomRows(v19, &v63[53], *&v63[3391], v68, &v63[42], v63 + 16, &origin, time, 0, &v352, v69, 0, v66);
+    if (v90)
     {
-      StabilizedSampleBuffer = v84;
+      x_low = v90;
       sbp_gvs_processSampleBuffer_cold_13();
-      goto LABEL_345;
+LABEL_345:
+      a2 = 0;
+      if (x_low)
+      {
+        goto LABEL_486;
+      }
+
+      goto LABEL_450;
     }
 
-    v317 = a1;
-    *(v59 + 28232) = vdiv_f32(vneg_f32(v341), vdup_lane_s32(*(&origin.x + 4), 0));
-    if (v60->i8[0])
+    v328 = a1;
+    *(v64 + 28232) = vdiv_f32(vneg_f32(v352), vdup_lane_s32(*(&origin.x + 4), 0));
+    if (v65->i8[0])
     {
-      v85 = &time[2 * v61];
-      v86 = *v85;
-      *(v59 + 28112) = v85[1];
-      *(v59 + 28096) = v86;
-      if (v60[124].i8[1])
+      v91 = &time[2 * v66];
+      v92 = *v91;
+      *(v64 + 28112) = v91[1];
+      *(v64 + 28096) = v92;
+      if (v65[124].i8[1])
       {
         if (BYTE4(origin.y))
         {
-          *&v343 = 0;
-          v87 = FigMotionComputeLensMovementForTimeStamp(v62, &v343, SDWORD2(v332), *(&v328 + 1), *&v325.width);
-          *(v59 + 28232) = vsub_f32(*(v59 + 28232), vdiv_f32(*&v343, vdup_lane_s32(*(&origin.x + 4), 0)));
-          if (v87)
+          *&v354 = 0;
+          v93 = FigMotionComputeLensMovementForTimeStamp(v67, &v354, DWORD2(v343), *(&v339 + 1), *&v336.width);
+          *(v64 + 28232) = vsub_f32(*(v64 + 28232), vdiv_f32(*&v354, vdup_lane_s32(*(&origin.x + 4), 0)));
+          if (v93)
           {
             goto LABEL_166;
           }
@@ -4633,135 +4654,135 @@ LABEL_404:
       goto LABEL_163;
     }
 
-    if (*(v59 + 392) != 1)
+    if (*(v64 + 392) != 1)
     {
       if (a2)
       {
-        v121 = CMGetAttachment(a2, kFigVideoStabilizationSampleBufferAttachmentKey_StabilizedOutputCenterQuaternion, 0);
-        if (v121)
+        v127 = CMGetAttachment(a2, kFigVideoStabilizationSampleBufferAttachmentKey_StabilizedOutputCenterQuaternion, 0);
+        if (v127)
         {
-          v122 = v121;
-          BytePtr = CFDataGetBytePtr(v121);
-          if (CFDataGetLength(v122) == 32)
+          v128 = v127;
+          BytePtr = CFDataGetBytePtr(v127);
+          if (CFDataGetLength(v128) == 32)
           {
-            v124 = *(BytePtr + 1);
-            *(v59 + 28096) = *BytePtr;
-            *(v59 + 28112) = v124;
-            if (FigMotionGetQuaternionLength((v59 + 28096)) > 0.00000001)
+            v130 = *(BytePtr + 1);
+            *(v64 + 28096) = *BytePtr;
+            *(v64 + 28112) = v130;
+            if (FigMotionGetQuaternionLength((v64 + 28096)) > 0.00000001)
             {
               goto LABEL_163;
             }
 
-            sbp_gvs_processSampleBuffer_cold_15(&v343);
+            sbp_gvs_processSampleBuffer_cold_15(&v354);
           }
 
           else
           {
-            sbp_gvs_processSampleBuffer_cold_14(&v343);
+            sbp_gvs_processSampleBuffer_cold_14(&v354);
           }
         }
 
         else
         {
-          sbp_gvs_processSampleBuffer_cold_16(&v343);
+          sbp_gvs_processSampleBuffer_cold_16(&v354);
         }
       }
 
       else
       {
-        sbp_gvs_processSampleBuffer_cold_17(&v343);
+        sbp_gvs_processSampleBuffer_cold_17(&v354);
       }
 
-      if (v343)
+      if (v354)
       {
         goto LABEL_137;
       }
 
 LABEL_163:
-      if (*(v59 + 10682))
+      if (*(v64 + 10682))
       {
-        v125 = *(v59 + 84);
-        *(v59 + 202) = *(v59 + 84) != 0;
-        if (!v125)
+        v131 = *(v64 + 84);
+        *(v64 + 202) = *(v64 + 84) != 0;
+        if (!v131)
         {
 LABEL_168:
-          if (v60[124].i8[1])
+          if (v65[124].i8[1])
           {
-            v128 = *(v59 + 176);
-            v129 = *(v59 + 28144);
-            v130 = (v59 + 28152);
-            if (v128 == 1)
+            v134 = *(v64 + 176);
+            v135 = *(v64 + 28144);
+            v136 = (v64 + 28152);
+            if (v134 == 1)
             {
-              *v130 = *v129;
+              *v136 = *v135;
             }
 
-            else if (v128 >= 1)
+            else if (v134 >= 1)
             {
-              v131 = 0;
-              v132 = (*(v59 + 180) - 1);
+              v137 = 0;
+              v138 = (*(v64 + 180) - 1);
               do
               {
-                v130[v131] = v129[((v132 * v131) / (v128 - 1))];
-                ++v131;
+                v136[v137] = v135[((v138 * v137) / (v134 - 1))];
+                ++v137;
               }
 
-              while (v128 != v131);
+              while (v134 != v137);
             }
           }
 
-          v133 = *(v59 + 28896);
-          if (v133 || *(v59 + 28904))
+          v139 = *(v64 + 28896);
+          if (v139 || *(v64 + 28904))
           {
-            [v133 reset];
-            [*(v59 + 28904) reset];
-            sbp_gvs_extractDistortionData(*(v59 + 28864), v16, &origin, *(v59 + 29136), v59 + 28896, vsubq_f64(*(v59 + 336), vcvtq_f64_f32(vmul_n_f32(*(v59 + 28232), *(&origin.x + 1)))));
+            [v139 reset];
+            [*(v64 + 28904) reset];
+            sbp_gvs_extractDistortionData(*(v64 + 28864), v19, &origin, *(v64 + 29136), v64 + 28896, vsubq_f64(*(v64 + 336), vcvtq_f64_f32(vmul_n_f32(*(v64 + 28232), *(&origin.x + 1)))));
           }
 
-          if (*(v59 + 10682))
+          if (*(v64 + 10682))
           {
             sbufb = a2;
-            *&v343 = vmul_n_f32(*(v59 + 28232), *(&origin.x + 1));
-            *(v59 + 196) = 1065353216;
-            if (v61 >= 1)
+            *&v354 = vmul_n_f32(*(v64 + 28232), *(&origin.x + 1));
+            *(v64 + 196) = 1065353216;
+            if (v66 >= 1)
             {
-              v134 = v59 + 27872;
-              v135 = v59 + 28152;
-              v136 = (v59 + 27152);
-              v137 = time;
+              v140 = v64 + 27872;
+              v141 = v64 + 28152;
+              v142 = (v64 + 27152);
+              v143 = time;
               while (1)
               {
-                *v134 = FigMotionMultiplyByInverseOfQuaternion((v59 + 28096), v137);
-                *(v134 + 8) = v138;
-                *(v134 + 16) = v139;
-                *(v134 + 24) = v140;
-                v141 = v60[124].i8[1] ? v135 : 0;
-                v142 = GVSComputeTransformFromCameraMotion(v134, (v59 + 336), &origin, v141, &v343, v136);
-                if (v142)
+                *v140 = FigMotionMultiplyByInverseOfQuaternion((v64 + 28096), v143);
+                *(v140 + 8) = v144;
+                *(v140 + 16) = v145;
+                *(v140 + 24) = v146;
+                v147 = v65[124].i8[1] ? v141 : 0;
+                v148 = GVSComputeTransformFromCameraMotion(v140, (v64 + 336), &origin, v147, &v354, v142);
+                if (v148)
                 {
                   break;
                 }
 
-                if (*(v59 + 200))
+                if (*(v64 + 200))
                 {
-                  limitTransformToOverscan(v59 + 128, &v330 + 1, v136, *(&v325.width + 1));
+                  limitTransformToOverscan(v64 + 128, &v341 + 1, v142, *(&v336.width + 1));
                 }
 
-                v136 += 9;
-                v135 += 8;
-                v137 += 4;
-                v134 += 32;
-                if (!--v61)
+                v142 += 9;
+                v141 += 8;
+                v143 += 4;
+                v140 += 32;
+                if (!--v66)
                 {
                   goto LABEL_186;
                 }
               }
 
-              StabilizedSampleBuffer = v142;
-              sbp_gvs_processSampleBuffer_cold_21();
+              x_low = v148;
+              sbp_gvs_processSampleBuffer_cold_21(v148, &v354);
               a2 = 0;
 LABEL_189:
-              a1 = v317;
-              if (StabilizedSampleBuffer)
+              a1 = v328;
+              if (x_low)
               {
                 goto LABEL_486;
               }
@@ -4776,69 +4797,70 @@ LABEL_186:
             a2 = sbufb;
           }
 
-          if (sbp_gvs_createStabilizedSampleBuffer(v59, a2, &origin, &v342))
+          v149 = sbp_gvs_createStabilizedSampleBuffer(v64, a2, &origin, &v353);
+          if (v149)
           {
-            sbp_gvs_processSampleBuffer_cold_22();
-            a2 = v343;
-            StabilizedSampleBuffer = v346;
+            sbp_gvs_processSampleBuffer_cold_22(v149, &v353, &v354, v357);
+            a2 = v354;
+            x_low = *v357;
           }
 
           else
           {
-            StabilizedSampleBuffer = 0;
-            a2 = v342;
+            x_low = 0;
+            a2 = v353;
           }
 
           goto LABEL_189;
         }
 
 LABEL_167:
-        v126 = &time[2 * ((*(v59 + 176) + (*(v59 + 176) >> 31)) >> 1)];
-        v127 = v126[1];
-        *(v59 + 28096) = *v126;
-        *(v59 + 28112) = v127;
+        v132 = &time[2 * ((*(v64 + 176) + (*(v64 + 176) >> 31)) >> 1)];
+        v133 = v132[1];
+        *(v64 + 28096) = *v132;
+        *(v64 + 28112) = v133;
         goto LABEL_168;
       }
 
 LABEL_166:
-      *(v59 + 202) = 1;
+      *(v64 + 202) = 1;
       goto LABEL_167;
     }
 
-    v343 = 0u;
-    v344 = 0u;
+    v354 = 0u;
+    v355 = 0u;
     if (a2)
     {
-      v92 = CMGetAttachment(a2, kFigVideoStabilizationSampleBufferAttachmentKey_StabilizedOutputCameraGeometry, 0);
-      v93 = v92;
-      if (v92 && [v92 length] == &stru_20.segname[8])
+      v98 = CMGetAttachment(a2, kFigVideoStabilizationSampleBufferAttachmentKey_StabilizedOutputCameraGeometry, 0);
+      v99 = v98;
+      if (v98 && [v98 length] == &stru_20.segname[8])
       {
-        v94 = [v93 bytes];
-        v343 = *v94;
-        v344 = *(v94 + 1);
-        v95 = *(v94 + 32);
+        v100 = [v99 bytes];
+        v354 = *v100;
+        v355 = *(v100 + 1);
+        v101 = *(v100 + 32);
 
-        v96 = 0;
+        v102 = 0;
         goto LABEL_136;
       }
 
-      sbp_gvs_processSampleBuffer_cold_18();
-      v96 = v346;
+      sbp_gvs_processSampleBuffer_cold_18(v99, v357);
+      v102 = *v357;
     }
 
     else
     {
       sbp_gvs_processSampleBuffer_cold_19();
-      v96 = 0;
+      v102 = 0;
     }
 
-    v95 = 0;
+    v101 = 0;
 LABEL_136:
-    v97 = v344;
-    *(v59 + 28096) = v343;
-    *(v59 + 28112) = v97;
-    *(v59 + 28232) = vneg_f32(v95);
-    if (v96)
+    v103 = v355;
+    *(v64 + 28096) = v354;
+    *(v64 + 28112) = v103;
+    *(v64 + 28232) = vneg_f32(v101);
+    if (v102)
     {
 LABEL_137:
       sbp_gvs_processSampleBuffer_cold_20();
@@ -4848,66 +4870,66 @@ LABEL_137:
     goto LABEL_163;
   }
 
-  if (v47 != 5)
+  if (v51 != 5)
   {
-    v65 = CMBaseObjectGetDerivedStorage();
-    v66 = v65;
-    v67 = v65 + 3392;
-    v68 = &v65[1335] + 2;
-    v341 = 0;
-    v331 = 0u;
-    v332 = 0u;
-    v329 = 0u;
-    v330 = 0u;
-    v327 = 0u;
-    v328 = 0u;
-    v325 = 0;
-    v326 = 0u;
+    v70 = CMBaseObjectGetDerivedStorage();
+    v71 = v70;
+    v72 = v70 + 3392;
+    v73 = &v70[1335] + 2;
+    v352 = 0;
+    v342 = 0u;
+    v343 = 0u;
+    v340 = 0u;
+    v341 = 0u;
+    v338 = 0u;
+    v339 = 0u;
+    v336 = 0;
+    v337 = 0u;
     origin = 0;
-    v69 = v65[22].i32[0];
-    if (v65[3517].i8[1])
+    v74 = v70[22].i32[0];
+    if (v70[3517].i8[1])
     {
-      v70 = &v65[1336];
+      v75 = &v70[1336];
     }
 
     else
     {
-      v70 = 0;
+      v75 = 0;
     }
 
-    if (v65[3517].i8[1])
+    if (v70[3517].i8[1])
     {
-      v71 = v65[3518];
+      v76 = v70[3518];
     }
 
     else
     {
-      v71 = 0;
+      v76 = 0;
     }
 
-    v88 = &v65[3535];
-    if (!v65[3535].i32[0])
+    v94 = &v70[3535];
+    if (!v70[3535].i32[0])
     {
-      v88 = 0;
+      v94 = 0;
     }
 
-    v89 = GVSExtractMetadataFromTopToBottomRows(v16, &v65[53], *&v65[3391], v70, &v65[42], v65 + 16, &origin, time, 0, 0, v71, v88, v69);
-    if (v89)
+    v95 = GVSExtractMetadataFromTopToBottomRows(v19, &v70[53], *&v70[3391], v75, &v70[42], v70 + 16, &origin, time, 0, 0, v76, v94, v74);
+    if (v95)
     {
-      StabilizedSampleBuffer = v89;
+      x_low = v95;
       sbp_gvs_processSampleBuffer_cold_47();
       a2 = 0;
       goto LABEL_325;
     }
 
-    v90 = *v68;
-    v321 = DerivedStorage;
-    if (*v68)
+    v96 = *v73;
+    v332 = DerivedStorage;
+    if (*v73)
     {
-      *(v66 + 202) = *(v66 + 84) != 0;
-      v310 = (v66 + 202);
-      v91 = (v66 + 32);
-      if (!*(v66 + 32) && v68[1])
+      *(v71 + 202) = *(v71 + 84) != 0;
+      v321 = (v71 + 202);
+      v97 = (v71 + 32);
+      if (!*(v71 + 32) && v73[1])
       {
         goto LABEL_142;
       }
@@ -4915,502 +4937,502 @@ LABEL_137:
 
     else
     {
-      *(v66 + 202) = 1;
-      v310 = (v66 + 202);
-      v91 = (v66 + 32);
-      if (!*(v66 + 32))
+      *(v71 + 202) = 1;
+      v321 = (v71 + 202);
+      v97 = (v71 + 32);
+      if (!*(v71 + 32))
       {
         goto LABEL_142;
       }
     }
 
-    v98 = &time[2 * v69];
-    v99 = *v98;
-    *(v66 + 28112) = v98[1];
-    *(v66 + 28096) = v99;
-    if (v69 >= 1)
+    v104 = &time[2 * v74];
+    v105 = *v104;
+    *(v71 + 28112) = v104[1];
+    *(v71 + 28096) = v105;
+    if (v74 >= 1)
     {
-      v100 = (v66 + 27648);
-      v101 = time;
-      v102 = v69;
+      v106 = (v71 + 27648);
+      v107 = time;
+      v108 = v74;
       do
       {
-        v103 = v101[1];
-        *(v100 - 14) = *v101;
-        *(v100 - 13) = v103;
-        v104 = *v101;
-        v105 = v101[1];
-        v101 += 2;
-        *v100 = v104;
-        v100[1] = v105;
-        v100 += 2;
-        --v102;
+        v109 = v107[1];
+        *(v106 - 14) = *v107;
+        *(v106 - 13) = v109;
+        v110 = *v107;
+        v111 = v107[1];
+        v107 += 2;
+        *v106 = v110;
+        v106[1] = v111;
+        v106 += 2;
+        --v108;
       }
 
-      while (v102);
+      while (v108);
     }
 
 LABEL_142:
     sbufa = a2;
-    if (v67[125].i8[1])
+    if (v72[125].i8[1])
     {
-      v106 = *(v66 + 176);
-      v107 = *(v66 + 28144);
-      v108 = (v66 + 28152);
-      if (v106 == 1)
+      v112 = *(v71 + 176);
+      v113 = *(v71 + 28144);
+      v114 = (v71 + 28152);
+      if (v112 == 1)
       {
-        *v108 = *v107;
+        *v114 = *v113;
       }
 
-      else if (v106 >= 1)
+      else if (v112 >= 1)
       {
-        v109 = 0;
-        v110 = (*(v66 + 180) - 1);
+        v115 = 0;
+        v116 = (*(v71 + 180) - 1);
         do
         {
-          v108[v109] = v107[((v110 * v109) / (v106 - 1))];
-          ++v109;
+          v114[v115] = v113[((v116 * v115) / (v112 - 1))];
+          ++v115;
         }
 
-        while (v106 != v109);
+        while (v112 != v115);
       }
     }
 
-    v323 = v69;
-    v312 = v68;
-    v318 = a1;
-    if (!v90)
+    v334 = v74;
+    v323 = v73;
+    v329 = a1;
+    if (!v96)
     {
       goto LABEL_321;
     }
 
-    if (*v91)
+    if (*v97)
     {
-      v111 = *&v67[252].i32[1];
-      v112 = v69;
+      v117 = *&v72[252].i32[1];
+      v118 = v74;
       goto LABEL_310;
     }
 
-    v114 = *(&v328 + 1) - *(v66 + 29360);
-    if (v114 <= 0.0)
+    v120 = *(&v339 + 1) - *(v71 + 29360);
+    if (v120 <= 0.0)
     {
-      v115 = 1.0;
+      v121 = 1.0;
     }
 
     else
     {
-      v115 = 0.0333333333 / v114;
+      v121 = 0.0333333333 / v120;
     }
 
-    *(v66 + 29352) = v115;
-    v116 = *(v66 + 176);
-    v117 = v115 * 0.0192 + 0.7808;
-    v118 = v117;
+    *(v71 + 29352) = v121;
+    v122 = *(v71 + 176);
+    v123 = v121 * 0.0192 + 0.7808;
+    v124 = v123;
     if (BYTE4(origin.y))
     {
-      v119 = v115 * 0.005 + 0.945;
-      if (v67[125].i8[0])
+      v125 = v121 * 0.005 + 0.945;
+      if (v72[125].i8[0])
       {
-        v119 = v119 + 0.02;
-        v118 = v118 + 0.1;
-        v120 = 1;
+        v125 = v125 + 0.02;
+        v124 = v124 + 0.1;
+        v126 = 1;
       }
 
       else
       {
-        v120 = 0;
+        v126 = 0;
       }
     }
 
     else
     {
-      v120 = 0;
-      v119 = v115 * 0.005 + 0.945;
+      v126 = 0;
+      v125 = v121 * 0.005 + 0.945;
     }
 
-    v146 = fminf(v118, 0.999);
-    v308 = fminf(v119, 0.999);
-    v147 = (v308 - v146);
-    v148 = v146;
-    if (v67[265].i32[0])
+    v153 = fminf(v124, 0.999);
+    v319 = fminf(v125, 0.999);
+    v154 = (v319 - v153);
+    v155 = v153;
+    if (v72[265].i32[0])
     {
-      v148 = *&v67[252].i32[1];
+      v155 = *&v72[252].i32[1];
     }
 
-    v322 = v148;
-    v149 = fmin(v117, 0.999);
-    v150 = v147 / (v115 * 30.0);
-    v151 = v147 / (v115 * 10.0);
-    if (v116 < 1)
+    v333 = v155;
+    v156 = fmin(v123, 0.999);
+    v157 = v154 / (v121 * 30.0);
+    v158 = v154 / (v121 * 10.0);
+    if (v122 < 1)
     {
-      v153 = 0.0;
-      v157 = 2.0;
-      v154 = 2.0;
+      v160 = 0.0;
+      v164 = 2.0;
+      v161 = 2.0;
     }
 
     else
     {
-      v343 = 0u;
-      v344 = 0u;
-      v152 = (v66 + 27648);
-      v153 = 0.0;
-      v154 = 2.0;
-      v155 = time;
-      v156 = v116;
-      v157 = 2.0;
+      v354 = 0u;
+      v355 = 0u;
+      v159 = (v71 + 27648);
+      v160 = 0.0;
+      v161 = 2.0;
+      v162 = time;
+      v163 = v122;
+      v164 = 2.0;
       do
       {
-        *&v343 = FigMotionMultiplyByInverseOfQuaternion(v155, v152 - 28);
-        *(&v343 + 1) = v158;
-        *&v344 = v159;
-        *(&v344 + 1) = v160;
-        v161 = fabs(*&v343);
-        if (v161 < v154)
+        *&v354 = FigMotionMultiplyByInverseOfQuaternion(v162, v159 - 28);
+        *(&v354 + 1) = v165;
+        *&v355 = v166;
+        *(&v355 + 1) = v167;
+        v168 = fabs(*&v354);
+        if (v168 < v161)
         {
-          v154 = v161;
+          v161 = v168;
         }
 
-        *&v343 = FigMotionMultiplyByInverseOfQuaternion(v155, v152);
-        *(&v343 + 1) = v162;
-        *&v344 = v163;
-        *(&v344 + 1) = v164;
-        v165 = fabs(*&v343);
-        if (v165 < v157)
+        *&v354 = FigMotionMultiplyByInverseOfQuaternion(v162, v159);
+        *(&v354 + 1) = v169;
+        *&v355 = v170;
+        *(&v355 + 1) = v171;
+        v172 = fabs(*&v354);
+        if (v172 < v164)
         {
-          v157 = v165;
+          v164 = v172;
         }
 
-        v342 = 0;
-        GVSComputeTranslationFromCameraMotion(&v343, &v342, *(&origin.x + 1));
-        HIDWORD(v117) = HIDWORD(v342);
-        v153 = COERCE_DOUBLE(vadd_f32(*&v153, v342));
-        v152 += 4;
-        v155 += 4;
-        --v156;
+        v353 = 0;
+        GVSComputeTranslationFromCameraMotion(&v354, &v353, *(&origin.x + 1));
+        HIDWORD(v123) = HIDWORD(v353);
+        v160 = COERCE_DOUBLE(vadd_f32(*&v160, v353));
+        v159 += 4;
+        v162 += 4;
+        --v163;
       }
 
-      while (v156);
+      while (v163);
     }
 
-    v166 = v149;
-    *&v117 = v150;
-    v307 = *&v117;
-    v167 = v151;
-    *&v117 = v116;
-    v168 = v67 + 257;
-    v169 = COERCE_DOUBLE(vdiv_f32(*&v153, vdup_lane_s32(*&v117, 0)));
-    if (v116)
+    v173 = v156;
+    *&v123 = v157;
+    v318 = *&v123;
+    v174 = v158;
+    *&v123 = v122;
+    v175 = v72 + 257;
+    v176 = COERCE_DOUBLE(vdiv_f32(*&v160, vdup_lane_s32(*&v123, 0)));
+    if (v122)
     {
-      v170 = v169;
+      v177 = v176;
     }
 
     else
     {
-      v170 = v153;
+      v177 = v160;
     }
 
-    v171 = acos(v157);
-    v172 = *(v66 + 29352);
-    v173 = acos(v154);
-    v174 = sqrt(v172);
-    v175 = v67[275].i32[1];
-    *(v66 + 29260 + 8 * v175) = v170;
-    v176 = v67[276].i32[0];
-    v112 = v323;
-    if (v176 <= 9)
+    v178 = acos(v164);
+    v179 = *(v71 + 29352);
+    v180 = acos(v161);
+    v181 = sqrt(v179);
+    v182 = v72[275].i32[1];
+    *(v71 + 29260 + 8 * v182) = v177;
+    v183 = v72[276].i32[0];
+    v118 = v334;
+    if (v183 <= 9)
     {
-      v67[276].i32[0] = ++v176;
+      v72[276].i32[0] = ++v183;
     }
 
-    v177 = v171 * v172;
-    v178 = v173 * v174;
-    LOBYTE(v343) = 0;
-    LOBYTE(v342) = 0;
-    if (v176 == 10)
+    v184 = v178 * v179;
+    v185 = v180 * v181;
+    LOBYTE(v354) = 0;
+    LOBYTE(v353) = 0;
+    if (v183 == 10)
     {
-      v179 = 0;
-      v180 = 0.0;
-      v181 = &v343;
-      v182 = 1;
+      v186 = 0;
+      v187 = 0.0;
+      v188 = &v354;
+      v189 = 1;
       do
       {
-        v183 = 0;
-        v184 = v182;
-        v185 = 10;
-        v186 = 0.0;
-        v187 = v175;
+        v190 = 0;
+        v191 = v189;
+        v192 = 10;
+        v193 = 0.0;
+        v194 = v182;
         do
         {
-          v188 = *(v66 + 29260 + 8 * v187 + 4 * v179);
-          v186 = v186 + v188;
-          if (v188 >= 0.0)
+          v195 = *(v71 + 29260 + 8 * v194 + 4 * v186);
+          v193 = v193 + v195;
+          if (v195 >= 0.0)
           {
-            ++v183;
+            ++v190;
           }
 
           else
           {
-            --v183;
+            --v190;
           }
 
-          v187 = (v187 + 9) % 10;
-          --v185;
+          v194 = (v194 + 9) % 10;
+          --v192;
         }
 
-        while (v185);
-        if (v183 >= 0)
+        while (v192);
+        if (v190 >= 0)
         {
-          v189 = v183;
+          v196 = v190;
         }
 
         else
         {
-          v189 = -v183;
+          v196 = -v190;
         }
 
-        if (v189 == 10)
+        if (v196 == 10)
         {
-          v190 = fabsf(v186) / 10.0;
-          if (v190 >= 0.75)
+          v197 = fabsf(v193) / 10.0;
+          if (v197 >= 0.75)
           {
-            v181->i8[0] = 1;
-            v180 = fmaxf(v180, v190);
+            *v188 = 1;
+            v187 = fmaxf(v187, v197);
           }
         }
 
-        v182 = 0;
-        v181 = &v342;
-        v179 = 1;
+        v189 = 0;
+        v188 = &v353;
+        v186 = 1;
       }
 
-      while ((v184 & 1) != 0);
-      v191 = v343 | v342;
+      while ((v191 & 1) != 0);
+      v198 = v354 | v353;
     }
 
     else
     {
-      v191 = 0;
-      v180 = 0.0;
+      v198 = 0;
+      v187 = 0.0;
     }
 
-    v67[253].i8[2] = v191 & 1;
-    v192 = v177 <= 0.00447213968;
-    v67[253].i8[1] = v177 <= 0.00447213968;
-    v67[253].i8[0] = v178 <= 0.0109545059;
-    v193 = v67[264].i32[1];
-    if (v178 > 0.0109545059)
+    v72[253].i8[2] = v198 & 1;
+    v199 = v184 <= 0.00447213968;
+    v72[253].i8[1] = v184 <= 0.00447213968;
+    v72[253].i8[0] = v185 <= 0.0109545059;
+    v200 = v72[264].i32[1];
+    if (v185 > 0.0109545059)
     {
-      v192 = 0;
+      v199 = 0;
     }
 
-    v168->i8[v193] = v192;
-    v194 = v67[265].i32[0];
-    if (v194 > 59)
+    v175->i8[v200] = v199;
+    v201 = v72[265].i32[0];
+    if (v201 > 59)
     {
-      v195 = v67[265].u32[0];
+      v202 = v72[265].u32[0];
     }
 
     else
     {
-      v195 = v194 + 1;
-      v67[265].i32[0] = v194 + 1;
-      if (v194 < 0)
+      v202 = v201 + 1;
+      v72[265].i32[0] = v201 + 1;
+      if (v201 < 0)
       {
         goto LABEL_240;
       }
     }
 
-    if (!v168->i8[0])
+    if (!v175->i8[0])
     {
-      v67[253].i8[3] = 0;
+      v72[253].i8[3] = 0;
 LABEL_250:
-      if (v120)
+      if (v126)
       {
-        if (v67[253].i8[2] == 1 && *(v66 + 201))
+        if (v72[253].i8[2] == 1 && *(v71 + 201))
         {
-          v200 = v322 - v167;
+          v207 = v333 - v174;
         }
 
         else
         {
-          v200 = fminf(v146, v322 + v307);
-          v201 = fmaxf(v146, v322 - v167);
-          if (v322 > v146)
+          v207 = fminf(v153, v333 + v318);
+          v208 = fmaxf(v153, v333 - v174);
+          if (v333 > v153)
           {
-            v200 = v201;
+            v207 = v208;
           }
         }
 
 LABEL_259:
-        v202 = fminf(v308, fmaxf(v166, v200));
-        v67[275].i32[1] = (v175 + 1) % 10;
-        v67[264].i32[1] = (v193 + 1) % 60;
-        if (v177 >= *(v66 + 29184))
+        v209 = fminf(v319, fmaxf(v173, v207));
+        v72[275].i32[1] = (v182 + 1) % 10;
+        v72[264].i32[1] = (v200 + 1) % 60;
+        if (v184 >= *(v71 + 29184))
         {
-          v208 = 0.08 / v115 + v322;
-          v207 = fminf(v202, v208);
-          v67[253].i32[1] = 0;
-          v209 = 0.005 / v115;
-          *v67[254].i32 = v209;
+          v215 = 0.08 / v121 + v333;
+          v214 = fminf(v209, v215);
+          v72[253].i32[1] = 0;
+          v216 = 0.005 / v121;
+          *v72[254].i32 = v216;
         }
 
         else
         {
-          v203 = v67[253].i32[1];
-          v204 = llround(v115);
-          if (v204 <= 1)
+          v210 = v72[253].i32[1];
+          v211 = llround(v121);
+          if (v211 <= 1)
           {
-            v204 = 1;
+            v211 = 1;
           }
 
-          if (v203 < v204 || v177 >= 0.00019999999)
+          if (v210 < v211 || v184 >= 0.00019999999)
           {
-            v207 = fminf(v202, v322);
+            v214 = fminf(v209, v333);
           }
 
           else
           {
-            v205 = fminf(*v67[254].i32 * 1.3, 1.0);
-            *v67[254].i32 = v205;
-            v206 = v322 - v205 / v115;
-            v207 = fmaxf(*&v67[254].i32[1], v206);
+            v212 = fminf(*v72[254].i32 * 1.3, 1.0);
+            *v72[254].i32 = v212;
+            v213 = v333 - v212 / v121;
+            v214 = fmaxf(*&v72[254].i32[1], v213);
           }
 
-          v67[253].i32[1] = v203 + 1;
+          v72[253].i32[1] = v210 + 1;
         }
 
-        if (v67->i8[0])
+        if (v72->i8[0])
         {
-          v210 = *(v66 + 27416);
-          v211 = fabs(FigMotionMultiplyByInverseOfQuaternion((v66 + 28096), &time[2 * v116]));
-          if (v211 >= v210 || (v212 = acos(v210), v213 = acos(v211), v111 = v212 / (v213 + v213), v207 < v111))
+          v217 = *(v71 + 27416);
+          v218 = fabs(FigMotionMultiplyByInverseOfQuaternion((v71 + 28096), &time[2 * v122]));
+          if (v218 >= v217 || (v219 = acos(v217), v220 = acos(v218), v117 = v219 / (v220 + v220), v214 < v117))
           {
-            v111 = v207;
+            v117 = v214;
           }
 
           goto LABEL_309;
         }
 
-        if (v116 < 1)
+        if (v122 < 1)
         {
-          v111 = 1.0;
+          v117 = 1.0;
         }
 
         else
         {
-          v214 = (v66 + 27424);
-          v111 = 1.0;
-          v215 = time;
+          v221 = (v71 + 27424);
+          v117 = 1.0;
+          v222 = time;
           do
           {
-            v216 = *(v66 + 27416);
-            v217 = fabs(FigMotionMultiplyByInverseOfQuaternion(v214, v215));
-            if (v217 >= v216 || (v218 = acos(v216), v219 = acos(v217), v220 = v218 / (v219 + v219), v207 < v220))
+            v223 = *(v71 + 27416);
+            v224 = fabs(FigMotionMultiplyByInverseOfQuaternion(v221, v222));
+            if (v224 >= v223 || (v225 = acos(v223), v226 = acos(v224), v227 = v225 / (v226 + v226), v214 < v227))
             {
-              v220 = v207;
+              v227 = v214;
             }
 
-            if (v220 < v111)
+            if (v227 < v117)
             {
-              v111 = v220;
+              v117 = v227;
             }
 
-            v214 += 4;
-            v215 += 4;
-            v207 = v220;
-            --v116;
+            v221 += 4;
+            v222 += 4;
+            v214 = v227;
+            --v122;
           }
 
-          while (v116);
+          while (v122);
         }
 
-        v221 = v120 ^ 1;
-        if (!*(v66 + 200))
+        v228 = v126 ^ 1;
+        if (!*(v71 + 200))
         {
-          v221 = 1;
+          v228 = 1;
         }
 
-        if ((v221 & 1) == 0)
+        if ((v228 & 1) == 0)
         {
-          v112 = v323;
-          if (v111 <= 0.7808)
+          v118 = v334;
+          if (v117 <= 0.7808)
           {
 LABEL_309:
-            *&v67[252].i32[1] = v111;
+            *&v72[252].i32[1] = v117;
 LABEL_310:
-            FigMotionInterpolateQuaternionsByAngle(&time[2 * v112], (v66 + 28096), v111);
-            *(v66 + 28096) = v229;
-            *(v66 + 28104) = v230;
-            *(v66 + 28112) = v231;
-            *(v66 + 28120) = v232;
-            *(v66 + 196) = 1065353216;
-            if (v112 >= 1)
+            FigMotionInterpolateQuaternionsByAngle(&time[2 * v118], (v71 + 28096), v117);
+            *(v71 + 28096) = v238;
+            *(v71 + 28104) = v239;
+            *(v71 + 28112) = v240;
+            *(v71 + 28120) = v241;
+            *(v71 + 196) = 1065353216;
+            if (v118 >= 1)
             {
-              v233 = time;
-              v234 = 27872;
-              v235 = 28152;
-              v236 = 27152;
-              v237 = 27648;
-              v238 = 27424;
+              v242 = time;
+              v243 = 27872;
+              v244 = 28152;
+              v245 = 27152;
+              v246 = 27648;
+              v247 = 27424;
               while (1)
               {
-                v239 = v66 + 28096;
-                if (!v67->i8[0])
+                v248 = v71 + 28096;
+                if (!v72->i8[0])
                 {
-                  v239 = v66 + v238;
-                  FigMotionInterpolateQuaternionsByAngle(v233, (v66 + v238), *&v67[252].i32[1]);
-                  *v239 = v240;
-                  *(v239 + 8) = v241;
-                  *(v239 + 16) = v242;
-                  *(v239 + 24) = v243;
-                  FigMotionInterpolateQuaternionsByAngle(v233, (v66 + v237), 0.05);
-                  *(v239 + 224) = v244;
-                  *(v239 + 232) = v245;
-                  *(v239 + 240) = v246;
-                  *(v239 + 248) = v247;
+                  v248 = v71 + v247;
+                  FigMotionInterpolateQuaternionsByAngle(v242, (v71 + v247), *&v72[252].i32[1]);
+                  *v248 = v249;
+                  *(v248 + 8) = v250;
+                  *(v248 + 16) = v251;
+                  *(v248 + 24) = v252;
+                  FigMotionInterpolateQuaternionsByAngle(v242, (v71 + v246), 0.05);
+                  *(v248 + 224) = v253;
+                  *(v248 + 232) = v254;
+                  *(v248 + 240) = v255;
+                  *(v248 + 248) = v256;
                 }
 
-                v248 = v67;
-                v249 = v66 + v238;
-                *(v249 + 448) = FigMotionMultiplyByInverseOfQuaternion(v239, v233);
-                *(v249 + 456) = v250;
-                *(v249 + 464) = v251;
-                *(v249 + 472) = v252;
-                v67 = v248;
-                v253 = v248[125].i8[1] ? (v66 + v235) : 0;
-                v254 = GVSComputeTransformFromCameraMotion((v66 + v234), (v66 + 336), &origin, v253, 0, (v66 + v236));
-                if (v254)
+                v257 = v72;
+                v258 = v71 + v247;
+                *(v258 + 448) = FigMotionMultiplyByInverseOfQuaternion(v248, v242);
+                *(v258 + 456) = v259;
+                *(v258 + 464) = v260;
+                *(v258 + 472) = v261;
+                v72 = v257;
+                v262 = v257[125].i8[1] ? (v71 + v244) : 0;
+                v263 = GVSComputeTransformFromCameraMotion((v71 + v243), (v71 + 336), &origin, v262, 0, (v71 + v245));
+                if (v263)
                 {
                   break;
                 }
 
-                if (*(v66 + 200))
+                if (*(v71 + 200))
                 {
-                  limitTransformToOverscan(v66 + 128, &v330 + 1, v66 + v236, *(&v325.width + 1));
+                  limitTransformToOverscan(v71 + 128, &v341 + 1, v71 + v245, *(&v336.width + 1));
                 }
 
-                v233 += 4;
-                v234 += 32;
-                v235 += 8;
-                v236 += 36;
-                v237 += 32;
-                v238 += 32;
-                if (!--v323)
+                v242 += 4;
+                v243 += 32;
+                v244 += 8;
+                v245 += 36;
+                v246 += 32;
+                v247 += 32;
+                if (!--v334)
                 {
                   goto LABEL_321;
                 }
               }
 
-              StabilizedSampleBuffer = v254;
+              x_low = v263;
               sbp_gvs_processSampleBuffer_cold_52();
               a2 = 0;
-              a1 = v318;
-              DerivedStorage = v321;
-              v68 = v312;
+              a1 = v329;
+              DerivedStorage = v332;
+              v73 = v323;
 LABEL_325:
-              v68[1] = *v68;
-              *(v66 + 29360) = *(&v328 + 1);
-              if (StabilizedSampleBuffer)
+              v73[1] = *v73;
+              *(v71 + 29360) = *(&v339 + 1);
+              if (x_low)
               {
                 goto LABEL_486;
               }
@@ -5419,116 +5441,121 @@ LABEL_325:
             }
 
 LABEL_321:
-            if (*v310)
+            if (*v321)
             {
-              v255 = &time[2 * ((*(v66 + 176) + (*(v66 + 176) >> 31)) >> 1)];
-              v256 = v255[1];
-              *(v66 + 28096) = *v255;
-              *(v66 + 28112) = v256;
+              v264 = &time[2 * ((*(v71 + 176) + (*(v71 + 176) >> 31)) >> 1)];
+              v265 = v264[1];
+              *(v71 + 28096) = *v264;
+              *(v71 + 28112) = v265;
             }
 
-            a1 = v318;
-            DerivedStorage = v321;
-            v68 = v312;
-            if (sbp_gvs_createStabilizedSampleBuffer(v66, sbufa, &origin, &v341))
+            v266 = sbp_gvs_createStabilizedSampleBuffer(v71, sbufa, &origin, &v352);
+            a1 = v329;
+            DerivedStorage = v332;
+            v73 = v323;
+            if (v266)
             {
-              sbp_gvs_processSampleBuffer_cold_53();
-              a2 = v343;
-              StabilizedSampleBuffer = v342;
+              sbp_gvs_processSampleBuffer_cold_53(v266, &v352, &v354, &v353);
+              a2 = v354;
+              x_low = v353;
             }
 
             else
             {
-              StabilizedSampleBuffer = 0;
-              a2 = v341;
+              x_low = 0;
+              a2 = v352;
             }
 
             goto LABEL_325;
           }
 
-          v345 = 1;
-          v222 = *(v66 + 176);
-          *(v66 + 201) = 0;
-          if (v222 < 1)
+          v356 = 1;
+          v229 = *(v71 + 176);
+          *(v71 + 201) = 0;
+          if (v229 < 1)
           {
-            v227 = v111;
+            v234 = v117;
 LABEL_307:
-            v111 = v227;
+            v117 = v234;
           }
 
           else
           {
-            v223 = 0;
-            v224 = v66 + 27424;
-            v225 = v111;
+            v230 = 0;
+            v231 = v71 + 27424;
+            v232 = v117;
             while (1)
             {
-              v226 = v67[125].i8[1] ? (v66 + 28152 + 8 * v223) : 0;
-              if (sbp_gvs_iir_ComputeCorrection(v66, &time[2 * v223], (v224 + 32 * v223), &origin, v226, &v345, v225))
+              v233 = v72[125].i8[1] ? (v71 + 28152 + 8 * v230) : 0;
+              if (sbp_gvs_iir_ComputeCorrection(v71, &time[2 * v230], v232, (v231 + 32 * v230), &origin, v233, &v356))
               {
                 break;
               }
 
-              if (v345)
+              if (v356)
               {
-                v227 = v225;
+                v234 = v232;
               }
 
               else
               {
-                *(v66 + 201) = 1;
-                if (v225 < 0.7808)
+                *(v71 + 201) = 1;
+                if (v232 < 0.7808)
                 {
-                  sbp_gvs_processSampleBuffer_cold_50();
-                  v227 = 0.7808;
-                  if ((v228 & 1) == 0)
+                  v234 = 0.7808;
+                  if ((sbp_gvs_processSampleBuffer_cold_50(&v354, &v353) & 1) == 0)
                   {
-                    goto LABEL_337;
+                    v236 = v354;
+                    v237 = v353;
+LABEL_337:
+                    sbp_gvs_processSampleBuffer_cold_51(v237, v236);
+                    goto LABEL_308;
                   }
                 }
 
                 else
                 {
-                  v227 = 0.7808;
-                  if ((v225 + -0.7808) > 0.01)
+                  v234 = 0.7808;
+                  if ((v232 + -0.7808) > 0.01)
                   {
-                    v227 = 0.7808;
+                    v234 = 0.7808;
                     while (1)
                     {
-                      LOBYTE(v346) = 0;
-                      if (sbp_gvs_iir_ComputeCorrection(v66, &time[2 * v223], (v224 + 32 * v223), &origin, v226, &v346, (v227 + v225) * 0.5))
+                      v357[0] = 0;
+                      v235 = sbp_gvs_iir_ComputeCorrection(v71, &time[2 * v230], (v234 + v232) * 0.5, (v231 + 32 * v230), &origin, v233, v357);
+                      if (v235)
                       {
                         break;
                       }
 
-                      if (v346)
+                      if (v357[0])
                       {
-                        v227 = (v227 + v225) * 0.5;
+                        v234 = (v234 + v232) * 0.5;
                       }
 
                       else
                       {
-                        v225 = (v227 + v225) * 0.5;
+                        v232 = (v234 + v232) * 0.5;
                       }
 
-                      if ((v225 - v227) <= 0.01)
+                      if ((v232 - v234) <= 0.01)
                       {
                         goto LABEL_302;
                       }
                     }
 
-                    sbp_gvs_processSampleBuffer_cold_49();
-LABEL_337:
-                    sbp_gvs_processSampleBuffer_cold_51();
-                    goto LABEL_308;
+                    v237 = v235;
+                    sbp_gvs_processSampleBuffer_cold_49(v235);
+                    v236 = v354;
+                    goto LABEL_337;
                   }
                 }
               }
 
 LABEL_302:
-              ++v223;
-              v225 = v227;
-              if (v223 == v222)
+              ++v230;
+              v232 = v234;
+              if (v230 == v229)
               {
                 goto LABEL_307;
               }
@@ -5539,24 +5566,24 @@ LABEL_302:
         }
 
 LABEL_308:
-        v112 = v323;
+        v118 = v334;
         goto LABEL_309;
       }
 
-      v199 = v322 - v167;
+      v206 = v333 - v174;
 LABEL_256:
-      v200 = fmaxf(v146, v199);
+      v207 = fmaxf(v153, v206);
       goto LABEL_259;
     }
 
-    v196 = 0;
-    while (v195 - 1 != v196)
+    v203 = 0;
+    while (v202 - 1 != v203)
     {
-      v197 = *(v66 + 29193 + v196++);
-      if ((v197 & 1) == 0)
+      v204 = *(v71 + 29193 + v203++);
+      if ((v204 & 1) == 0)
       {
-        v67[253].i8[3] = v196 >= v195;
-        if (v196 < v195)
+        v72[253].i8[3] = v203 >= v202;
+        if (v203 < v202)
         {
           goto LABEL_250;
         }
@@ -5566,89 +5593,80 @@ LABEL_256:
     }
 
 LABEL_240:
-    v67[253].i8[3] = 1;
+    v72[253].i8[3] = 1;
 LABEL_247:
-    if (v67[253].i8[2] != 1)
+    if (v72[253].i8[2] != 1)
     {
-      v200 = v322 + v307;
+      v207 = v333 + v318;
       goto LABEL_259;
     }
 
-    v198 = fminf(v180 / *v67[255].i32, 1.0);
-    v199 = v322 - ((v198 * (v198 * v198)) * v167);
+    v205 = fminf(v187 / *v72[255].i32, 1.0);
+    v206 = v333 - ((v205 * (v205 * v205)) * v174);
     goto LABEL_256;
   }
 
-  *&v343 = 0;
-  if (a2)
-  {
-    if (a1)
-    {
-      v55 = CMBaseObjectGetDerivedStorage();
-      v339 = 0u;
-      v340 = 0u;
-      memset(time, 0, sizeof(time));
-      v334 = 0u;
-      v335 = 0u;
-      v336 = 0u;
-      v337 = 0u;
-      v338 = 0u;
-      *&v338 = *(v55 + 128);
-      if (*(v55 + 224))
-      {
-        CMGetAttachment(a2, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
-        size = CGRectZero.size;
-        origin = CGRectZero.origin;
-        v325 = size;
-        if (FigCFDictionaryGetCGRectIfPresent())
-        {
-          DWORD2(v337) = llround(origin.x);
-          HIDWORD(v337) = llround(origin.y);
-          LODWORD(v338) = llround(v325.width);
-          DWORD1(v338) = llround(v325.height);
-        }
-      }
-
-      StabilizedSampleBuffer = sbp_gvs_createStabilizedSampleBuffer(v55, a2, time, &v343);
-      if (!StabilizedSampleBuffer)
-      {
-        goto LABEL_449;
-      }
-
-      sbp_gvs_processSampleBuffer_cold_10();
-LABEL_345:
-      a2 = 0;
-      if (StabilizedSampleBuffer)
-      {
-        goto LABEL_486;
-      }
-
-      goto LABEL_450;
-    }
-
-    sbp_gvs_processSampleBuffer_cold_11(&origin);
-    a2 = 0;
-  }
-
-  else
+  *&v354 = 0;
+  if (!a2)
   {
     sbp_gvs_processSampleBuffer_cold_12(&origin);
+    goto LABEL_485;
   }
 
-LABEL_485:
-  StabilizedSampleBuffer = LODWORD(origin.x);
-  if (!LODWORD(origin.x))
+  if (!a1)
+  {
+    sbp_gvs_processSampleBuffer_cold_11(&origin);
+    a2 = 0;
+    goto LABEL_485;
+  }
+
+  v59 = CMBaseObjectGetDerivedStorage();
+  v350 = 0u;
+  v351 = 0u;
+  memset(time, 0, sizeof(time));
+  v345 = 0u;
+  v346 = 0u;
+  v347 = 0u;
+  v348 = 0u;
+  v349 = 0u;
+  *&v349 = *(v59 + 128);
+  if (*(v59 + 224))
+  {
+    CMGetAttachment(a2, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
+    size = CGRectZero.size;
+    origin = CGRectZero.origin;
+    v336 = size;
+    if (FigCFDictionaryGetCGRectIfPresent())
+    {
+      DWORD2(v348) = llround(origin.x);
+      HIDWORD(v348) = llround(origin.y);
+      LODWORD(v349) = llround(v336.width);
+      DWORD1(v349) = llround(v336.height);
+    }
+  }
+
+  v61 = sbp_gvs_createStabilizedSampleBuffer(v59, a2, time, &v354);
+  x_low = v61;
+  if (v61)
+  {
+    sbp_gvs_processSampleBuffer_cold_10(v61);
+    goto LABEL_345;
+  }
+
+LABEL_449:
+  a2 = v354;
+  if (!x_low)
   {
     goto LABEL_450;
   }
 
 LABEL_486:
-  sbp_gvs_processSampleBuffer_cold_54();
+  sbp_gvs_processSampleBuffer_cold_54(x_low);
 LABEL_451:
   if (*(DerivedStorage + 8))
   {
-    sbp_emitPendingFrames(a1, StabilizedSampleBuffer, a2);
-    StabilizedSampleBuffer = 0;
+    sbp_emitPendingFrames(a1, x_low, a2);
+    x_low = 0;
   }
 
   if (a2)
@@ -5656,10 +5674,10 @@ LABEL_451:
     CFRelease(a2);
   }
 
-  v290 = *(DerivedStorage + 30192);
-  if (v290)
+  v301 = *(DerivedStorage + 30192);
+  if (v301)
   {
-    CFRelease(v290);
+    CFRelease(v301);
     *(DerivedStorage + 30192) = 0;
   }
 
@@ -5668,7 +5686,7 @@ LABEL_451:
     kdebug_trace();
   }
 
-  return StabilizedSampleBuffer;
+  return x_low;
 }
 
 uint64_t sbp_enableLongPressMode(uint64_t a1, int a2)
@@ -6043,7 +6061,7 @@ double _resetFirstFrameParameters(uint64_t a1)
     v8 = *(a1 + 29400);
     if (v8)
     {
-      [v8 getQuaternionSmoothingArrays];
+      objc_msgSend_getQuaternionSmoothingArrays(v8, 0, 0, 0, 0);
     }
 
     v5 = *(v2 + 44);
@@ -6114,79 +6132,89 @@ __CFString *sbp_gvs_copyDebugDescription(uint64_t a1)
 uint64_t sbp_gvs_copyProperty(uint64_t a1, const void *a2, uint64_t a3, __CFDictionary **a4)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  if (*(DerivedStorage + 24) || !a4)
+  if (*(DerivedStorage + 24))
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v9 = v4;
+    v10 = 4294954511;
+    v11 = 8755;
+LABEL_3:
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v10, "<<<< GyroVideoStabilizationV2 >>>>", v11, v9);
+  }
+
+  if (!a4)
+  {
+    emitter = fig_log_get_emitter();
+    v9 = v4;
+    v10 = 4294954516;
+    v11 = 8759;
+    goto LABEL_3;
+  }
+
+  v13 = DerivedStorage;
+  if (CFEqual(a2, kFigSampleBufferProcessorProperty_SourcePixelBufferAttributes))
+  {
+    Mutable = CFDictionaryCreateMutable(0, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    qmemcpy(v26, "v024f024024x02fx024p02fp0v8&0f8&0vx&0fx&0v8-0f8-0v8/0f8/0v8|0f8|0vx-0fx-0vx/0fx/0vx|0fx|", 88);
+    IOSurfacePropertiesDictionary = FigCreateIOSurfacePropertiesDictionary();
+    valuePtr = 0;
+    v16 = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
+    for (i = 0; i != 88; i += 4)
+    {
+      v18 = *(v13 + 40);
+      if (!v18 || v18 == *(v26 + i))
+      {
+        v19 = CFNumberCreate(0, kCFNumberSInt32Type, v26 + i);
+        CFArrayAppendValue(v16, v19);
+        CFRelease(v19);
+      }
+    }
+
+    CFDictionaryAddValue(Mutable, kCVPixelBufferPixelFormatTypeKey, v16);
+    CFRelease(v16);
+    CFDictionaryAddValue(Mutable, kCVPixelBufferIOSurfacePropertiesKey, IOSurfacePropertiesDictionary);
+    Value = CFDictionaryGetValue(IOSurfacePropertiesDictionary, kIOSurfaceCacheMode);
+    if (Value)
+    {
+      CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr);
+      PixelBufferCacheModeArray = FigCreatePixelBufferCacheModeArray();
+      CFDictionaryAddValue(Mutable, kCVPixelBufferCacheModeKey, PixelBufferCacheModeArray);
+      CFRelease(PixelBufferCacheModeArray);
+    }
+
+    CFRelease(IOSurfacePropertiesDictionary);
+    result = 0;
+    *a4 = Mutable;
   }
 
   else
   {
-    v8 = DerivedStorage;
-    if (CFEqual(a2, kFigSampleBufferProcessorProperty_SourcePixelBufferAttributes))
+    if (CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_VideoStabilizationDisabled))
     {
-      Mutable = CFDictionaryCreateMutable(0, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-      qmemcpy(v21, "v024f024024x02fx024p02fp0v8&0f8&0vx&0fx&0v8-0f8-0v8/0f8/0v8|0f8|0vx-0fx-0vx/0fx/0vx|0fx|", 88);
-      IOSurfacePropertiesDictionary = FigCreateIOSurfacePropertiesDictionary();
-      valuePtr = 0;
-      v11 = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-      for (i = 0; i != 88; i += 4)
-      {
-        v13 = *(v8 + 40);
-        if (!v13 || v13 == *(v21 + i))
-        {
-          v14 = CFNumberCreate(0, kCFNumberSInt32Type, v21 + i);
-          CFArrayAppendValue(v11, v14);
-          CFRelease(v14);
-        }
-      }
-
-      CFDictionaryAddValue(Mutable, kCVPixelBufferPixelFormatTypeKey, v11);
-      CFRelease(v11);
-      CFDictionaryAddValue(Mutable, kCVPixelBufferIOSurfacePropertiesKey, IOSurfacePropertiesDictionary);
-      Value = CFDictionaryGetValue(IOSurfacePropertiesDictionary, kIOSurfaceCacheMode);
-      if (Value)
-      {
-        CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr);
-        PixelBufferCacheModeArray = FigCreatePixelBufferCacheModeArray();
-        CFDictionaryAddValue(Mutable, kCVPixelBufferCacheModeKey, PixelBufferCacheModeArray);
-        CFRelease(PixelBufferCacheModeArray);
-      }
-
-      CFRelease(IOSurfacePropertiesDictionary);
-      result = 0;
-      *a4 = Mutable;
+      v22 = &kCFBooleanTrue;
+      v23 = *(v13 + 84);
     }
 
     else
     {
-      if (CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_VideoStabilizationDisabled))
+      if (!CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_FlipHorizontalOrientation))
       {
-        v17 = &kCFBooleanTrue;
-        v18 = *(v8 + 84);
+        return 4294954512;
       }
 
-      else
-      {
-        if (!CFEqual(a2, kFigVideoStabilizationSampleBufferProcessorProperty_FlipHorizontalOrientation))
-        {
-          return 4294954512;
-        }
-
-        v17 = &kCFBooleanTrue;
-        v18 = *(v8 + 203);
-      }
-
-      if (!v18)
-      {
-        v17 = &kCFBooleanFalse;
-      }
-
-      v19 = CFRetain(*v17);
-      result = 0;
-      *a4 = v19;
+      v22 = &kCFBooleanTrue;
+      v23 = *(v13 + 203);
     }
+
+    if (!v23)
+    {
+      v22 = &kCFBooleanFalse;
+    }
+
+    v24 = CFRetain(*v22);
+    result = 0;
+    *a4 = v24;
   }
 
   return result;
@@ -6194,109 +6222,109 @@ uint64_t sbp_gvs_copyProperty(uint64_t a1, const void *a2, uint64_t a3, __CFDict
 
 uint64_t sbp_configureOverscanParameters(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t *a5)
 {
-  v5 = a2 - *(a1 + 29688);
-  v6 = (v5 >> 1);
-  if ((v6 & 0x80000000) != 0 || (v8 = a3 - *(a1 + 29692), v9 = (v8 >> 1), (v9 & 0x80000000) != 0))
+  v6 = a2 - *(a1 + 29688);
+  v7 = (v6 >> 1);
+  if ((v7 & 0x80000000) != 0 || (v9 = a3 - *(a1 + 29692), v10 = (v9 >> 1), (v10 & 0x80000000) != 0))
   {
-    sbp_configureOverscanParameters_cold_10(&v25);
-    return v25;
+    sbp_configureOverscanParameters_cold_10(&v27 + 1);
+    return HIDWORD(v27);
   }
 
-  v12 = (a2 - (v5 & 0xFFFFFFFE)) | ((a3 - (v8 & 0xFFFFFFFE)) << 32);
-  v13 = v6 | (v9 << 32);
-  *a5 = v13;
-  a5[1] = v12;
+  v13 = (a2 - (v6 & 0xFFFFFFFE)) | ((a3 - (v9 & 0xFFFFFFFE)) << 32);
+  v14 = v7 | (v10 << 32);
+  *a5 = v14;
+  a5[1] = v13;
   *a4 = *a5;
   if (*(a1 + 29480))
   {
-    v15 = *(a1 + 29688);
-    v16 = *(a1 + 29692);
-    v17 = *(a1 + 29488);
-    v18 = *(a1 + 29496);
-    v19 = *(a1 + 29504);
-    v20 = *(a1 + 29512);
-    v26.origin.x = v17;
-    v26.origin.y = v18;
-    v26.size.width = v19;
-    v26.size.height = v20;
-    if (CGRectIsEmpty(v26))
+    v16 = *(a1 + 29688);
+    v17 = *(a1 + 29692);
+    v18 = *(a1 + 29488);
+    v19 = *(a1 + 29496);
+    v20 = *(a1 + 29504);
+    v21 = *(a1 + 29512);
+    v32.origin.x = v18;
+    v32.origin.y = v19;
+    v32.size.width = v20;
+    v32.size.height = v21;
+    if (CGRectIsEmpty(v32))
     {
-      sbp_configureOverscanParameters_cold_9(&v25);
+      sbp_configureOverscanParameters_cold_9(&v27 + 1);
     }
 
     else
     {
-      v21 = v19;
-      if (v15 < v19)
+      v22 = v20;
+      if (v16 < v20)
       {
-        sbp_configureOverscanParameters_cold_8(&v25);
+        sbp_configureOverscanParameters_cold_8(&v27 + 1);
       }
 
       else
       {
-        v22 = v20;
-        if (v16 < v20)
+        v23 = v21;
+        if (v17 < v21)
         {
-          sbp_configureOverscanParameters_cold_7(&v25);
-        }
-
-        else if (v17)
-        {
-          sbp_configureOverscanParameters_cold_1(&v25);
+          sbp_configureOverscanParameters_cold_7(&v27 + 1);
         }
 
         else if (v18)
         {
-          sbp_configureOverscanParameters_cold_2(&v25);
+          sbp_configureOverscanParameters_cold_1(&v27 + 1);
         }
 
-        else if (v21)
+        else if (v19)
         {
-          sbp_configureOverscanParameters_cold_3(&v25);
+          sbp_configureOverscanParameters_cold_2(&v27 + 1);
         }
 
         else if (v22)
         {
-          sbp_configureOverscanParameters_cold_4(&v25);
+          sbp_configureOverscanParameters_cold_3(&v27 + 1);
         }
 
-        else if (v21 + 2 * v17 == v15)
+        else if (v23)
         {
-          if (v22 + 2 * v18 == v16)
+          sbp_configureOverscanParameters_cold_4(&v27 + 1);
+        }
+
+        else if (v22 + 2 * v18 == v16)
+        {
+          if (v23 + 2 * v19 == v17)
           {
 LABEL_13:
-            v6 = (v6 + *(a1 + 29488));
-            v9 = (v9 + *(a1 + 29496));
-            v13 = v6 | (v9 << 32);
+            v7 = (v7 + *(a1 + 29488));
+            v10 = (v10 + *(a1 + 29496));
+            v14 = v7 | (v10 << 32);
             goto LABEL_14;
           }
 
-          sbp_configureOverscanParameters_cold_6(&v25);
+          sbp_configureOverscanParameters_cold_6(&v27 + 1);
         }
 
         else
         {
-          sbp_configureOverscanParameters_cold_5(&v25);
+          sbp_configureOverscanParameters_cold_5(&v27 + 1);
         }
       }
     }
 
-    v23 = v25;
-    if (v25)
+    v24 = HIDWORD(v27);
+    if (HIDWORD(v27))
     {
       fig_log_get_emitter();
-      FigDebugAssert3();
-      return v23;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v5, v26, v27, v28, v29, v30, v31);
+      return v24;
     }
 
     goto LABEL_13;
   }
 
 LABEL_14:
-  v23 = 0;
-  *a4 = v13;
-  *(a4 + 8) = (a2 - 2 * v6) | ((a3 - 2 * v9) << 32);
-  return v23;
+  v24 = 0;
+  *a4 = v14;
+  *(a4 + 8) = (a2 - 2 * v7) | ((a3 - 2 * v10) << 32);
+  return v24;
 }
 
 id sbp_initializeGPUWithRenderMethod(uint64_t a1)
@@ -6574,18 +6602,18 @@ LABEL_63:
   return result;
 }
 
-CFTypeRef _getMetadataDictionary(const void *a1)
+CFTypeRef _getMetadataDictionary(const void *a1, uint64_t a2)
 {
   if (a1)
   {
-    v2 = kFigCaptureSampleBufferAttachmentKey_MetadataDictionary;
+    v3 = kFigCaptureSampleBufferAttachmentKey_MetadataDictionary;
 
-    return CMGetAttachment(a1, v2, 0);
+    return CMGetAttachment(a1, v3, 0);
   }
 
   else
   {
-    _getMetadataDictionary_cold_1();
+    _getMetadataDictionary_cold_1(a1, a2);
     return 0;
   }
 }
@@ -6612,9 +6640,9 @@ uint64_t sbp_emitPendingFrames(uint64_t a1, uint64_t a2, uint64_t a3)
   return v7(v6, a2, a3);
 }
 
-uint64_t _getFrameRateConversionStatus(const void *a1)
+uint64_t _getFrameRateConversionStatus(const void *a1, uint64_t a2)
 {
-  if (_getMetadataDictionary(a1))
+  if (_getMetadataDictionary(a1, a2))
   {
     FigCFDictionaryGetInt32IfPresent();
     return 0;
@@ -6675,7 +6703,7 @@ uint64_t sbp_gvs_cinematicAddMetadataToQuaternionAndSphereRingBuffers(uint64_t a
   v10 = (v4 + 1132);
   if (*(v4 + 1132))
   {
-    v11 = v4 + 1132;
+    v11 = (v4 + 1132);
   }
 
   else
@@ -7147,7 +7175,7 @@ LABEL_53:
     memset(point, 0, sizeof(point));
     if (v7)
     {
-      [v7 getSmoothingAnalysisArrays];
+      objc_msgSend_getSmoothingAnalysisArrays(v7);
     }
 
     [v7 outputFrameTimeInput];
@@ -7161,7 +7189,7 @@ LABEL_53:
       v133 = (*&v134 + v133) * 0.5;
     }
 
-    if (((*&v134 = v133, [v7 setFrameDurationPrevious:v134], *v10) || *(a1 + 392) == 1) && ((v135 = *(*&point[1].y + 144 * v203 + 136), !v7) ? (v136 = 0) : (objc_msgSend(v7, "cameraMetadataInput"), v136 = v197), v136 != v135))
+    if (((*&v134 = v133, [v7 setFrameDurationPrevious:v134], *v10) || *(a1 + 392) == 1) && ((v135 = *(*&point[1].y + 144 * v203 + 136), !v7) ? (v136 = 0) : (objc_msgSend_cameraMetadataInput(v7), v136 = v197), v136 != v135))
     {
       v140 = 0;
     }
@@ -7185,7 +7213,7 @@ LABEL_99:
         memset(point, 0, sizeof(point));
         if (v138)
         {
-          [v138 getSmoothingAnalysisArrays];
+          objc_msgSend_getSmoothingAnalysisArrays(v138);
           v139 = v203;
         }
 
@@ -7320,7 +7348,7 @@ LABEL_99:
         memset(point, 0, sizeof(point));
         if (v179)
         {
-          [v179 getSmoothingAnalysisArrays];
+          objc_msgSend_getSmoothingAnalysisArrays(v179);
           v181 = v203;
         }
 
@@ -7523,12 +7551,12 @@ uint64_t _enqueueCoefficientsForSmartStyleFilterForwardLearning(uint64_t a1, CMA
 {
   if (!a1)
   {
-    _enqueueCoefficientsForSmartStyleFilterForwardLearning_cold_7();
+    _enqueueCoefficientsForSmartStyleFilterForwardLearning_cold_7(0, target);
     v2 = 0;
 LABEL_15:
     v4 = 0;
 LABEL_19:
-    v7 = 4294954516;
+    v8 = 4294954516;
     goto LABEL_10;
   }
 
@@ -7569,9 +7597,10 @@ LABEL_19:
   }
 
   v7 = _enqueueCoefficientsForSmartStyleFilterForwardLearningFromCoefficientsSampleBuffer(a1, v6, v4);
+  v8 = v7;
   if (v7)
   {
-    _enqueueCoefficientsForSmartStyleFilterForwardLearning_cold_2();
+    _enqueueCoefficientsForSmartStyleFilterForwardLearning_cold_2(v7);
   }
 
 LABEL_10:
@@ -7580,14 +7609,14 @@ LABEL_10:
     kdebug_trace();
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t _removeSmartStyleAttachments(uint64_t a1, CMAttachmentBearerRef target)
 {
   if (!a1)
   {
-    _removeSmartStyleAttachments_cold_2();
+    _removeSmartStyleAttachments_cold_2(0, target);
     return 4294954516;
   }
 
@@ -7648,46 +7677,46 @@ uint64_t _removeSmartStyleAttachments(uint64_t a1, CMAttachmentBearerRef target)
   return result;
 }
 
-uint64_t sbp_gvs_gaussianAverageGetStabilizedSampleBuffer(uint64_t a1, void *a2)
+uint64_t sbp_gvs_gaussianAverageGetStabilizedSampleBuffer(uint64_t a1, char *a2)
 {
   v4 = a1 + 27148;
-  v266 = 0;
-  v5 = *(a1 + 29400);
-  if (v5 && ([v5 getQuaternionSmoothingArrays], v6 = *(a1 + 29400), v265 = 0u, v264 = 0u, v263 = 0u, v6))
+  v264 = 0;
+  SmoothingAnalysisArrays = *(a1 + 29400);
+  if (SmoothingAnalysisArrays && (objc_msgSend_getQuaternionSmoothingArrays(SmoothingAnalysisArrays), SmoothingAnalysisArrays = *(a1 + 29400), v263 = 0u, v262 = 0u, v261 = 0u, SmoothingAnalysisArrays))
   {
-    [v6 getSmoothingAnalysisArrays];
+    SmoothingAnalysisArrays = objc_msgSend_getSmoothingAnalysisArrays(SmoothingAnalysisArrays);
   }
 
   else
   {
-    DWORD2(v265) = 0;
-    *(&v264 + 1) = 0;
-    *(&v263 + 1) = 0;
+    DWORD2(v263) = 0;
+    *(&v262 + 1) = 0;
+    *(&v261 + 1) = 0;
   }
 
   if (!a2)
   {
-    sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_17();
+    sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_17(SmoothingAnalysisArrays);
     v13 = 0;
-    StabilizedSampleBuffer = 4294954516;
+    v126 = 4294954516;
     goto LABEL_293;
   }
 
-  v258 = a2;
+  v256 = a2;
   if (([*(a1 + 29400) centerIndex] & 0x80000000) != 0)
   {
-    sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_16(&v269);
+    sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_16(&v267);
 LABEL_144:
     v13 = 0;
 LABEL_321:
-    StabilizedSampleBuffer = v269;
+    v126 = v267;
     goto LABEL_292;
   }
 
-  v7 = [*(a1 + 29400) centerIndex];
-  if (v7 >= [*(a1 + 29400) size])
+  v6 = [*(a1 + 29400) centerIndex];
+  if (v6 >= [*(a1 + 29400) size])
   {
-    sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_1(&v269);
+    sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_1(&v267);
     goto LABEL_144;
   }
 
@@ -7697,6 +7726,7 @@ LABEL_321:
   }
 
   sbuf = *(*(a1 + 29368) + 8 * *(v4 + 2236));
+  v255 = DWORD2(v263);
   v13 = -49;
   if (*(v4 + 989))
   {
@@ -7711,28 +7741,28 @@ LABEL_321:
     }
   }
 
-  v317 = 0;
+  v315 = 0;
   v15 = 0uLL;
-  v316 = 0u;
-  v315 = 0u;
   v314 = 0u;
   v313 = 0u;
   v312 = 0u;
+  v311 = 0u;
+  v310 = 0u;
   v16 = *(a1 + 29400);
-  if (v16 && ([v16 getQuaternionSmoothingArrays], v17 = *(a1 + 29400), v15 = 0uLL, v311 = 0u, v310 = 0u, v308 = 0u, v309 = 0u, v307 = 0u, v17))
+  if (v16 && (objc_msgSend_getQuaternionSmoothingArrays(v16), v17 = *(a1 + 29400), v15 = 0uLL, v309 = 0u, v308 = 0u, v306 = 0u, v307 = 0u, v305 = 0u, v17))
   {
-    [v17 getRollSmoothingArraysForBaseTransform:*(a1 + 176)];
+    objc_msgSend_getRollSmoothingArraysForBaseTransform_(v17);
     v18 = *(a1 + 29400);
     v15 = 0uLL;
-    v305 = 0u;
-    v306 = 0u;
     v303 = 0u;
     v304 = 0u;
     v301 = 0u;
     v302 = 0u;
+    v299 = 0u;
+    v300 = 0u;
     if (v18)
     {
-      [v18 getSmoothingAnalysisArrays];
+      objc_msgSend_getSmoothingAnalysisArrays(v18);
       v19 = *(a1 + 29400);
       goto LABEL_19;
     }
@@ -7740,35 +7770,34 @@ LABEL_321:
 
   else
   {
-    v311 = v15;
-    v310 = v15;
-    v308 = v15;
     v309 = v15;
+    v308 = v15;
+    v306 = v15;
     v307 = v15;
+    v305 = v15;
   }
 
   v19 = 0;
-  v305 = v15;
-  v306 = v15;
   v303 = v15;
   v304 = v15;
   v301 = v15;
   v302 = v15;
+  v299 = v15;
+  v300 = v15;
 LABEL_19:
-  v300 = 1;
+  v298 = 1;
   v20 = *(v4 + 2308);
-  v284 = 0u;
-  v285 = 0u;
-  v268 = 0;
-  memset(v267, 0, sizeof(v267));
+  v282 = 0u;
+  v283 = 0u;
+  v266 = 0;
+  memset(v265, 0, sizeof(v265));
   if (v19)
   {
-    [v19 getFaceSmoothingArrays];
+    objc_msgSend_getFaceSmoothingArrays(v19);
   }
 
   v21 = *(v4 + 2380);
-  v256 = DWORD1(v316);
-  v257 = v316;
+  v254 = __PAIR64__(v314, DWORD1(v314));
   if (gGMFigKTraceEnabled == 1)
   {
     kdebug_trace();
@@ -7779,13 +7808,13 @@ LABEL_19:
     v22 = *(a1 + 29400);
     if (v22)
     {
-      v326 = 0u;
-      v325 = 0u;
       v324 = 0u;
       v323 = 0u;
       v322 = 0u;
       v321 = 0u;
-      [v22 getSmoothingAnalysisArrays];
+      v320 = 0u;
+      v319 = 0u;
+      objc_msgSend_getSmoothingAnalysisArrays(v22);
       v23 = llroundf(1 * 0.8);
       if (v23 <= 1)
       {
@@ -7798,10 +7827,10 @@ LABEL_19:
       }
 
       v25 = v24 - 1;
-      v26 = *(v323 + 8 * SDWORD2(v325));
+      v26 = *(v321 + 8 * SDWORD2(v323));
       if (v26 <= v26 + 1.01)
       {
-        v27 = (v323 + 8 * SDWORD2(v325) + 8);
+        v27 = (v321 + 8 * SDWORD2(v323) + 8);
         v28 = v24 - 1;
         v29 = -1;
         while (v28)
@@ -7828,32 +7857,35 @@ LABEL_34:
         v31 = 0;
       }
 
-      v32 = *(&v322 + 1);
+      v32 = *(&v320 + 1);
+      v33.n128_u32[1] = 0;
+      v33.n128_u64[1] = 0;
+      v316 = 0u;
+      v317 = 0u;
       v318 = 0u;
-      v319 = 0u;
-      v320 = 0u;
-      v33 = *(a1 + 29400);
-      if (v33)
+      v34 = *(a1 + 29400);
+      if (v34)
       {
-        [v33 getZoomSmoothingArrays];
+        objc_msgSend_getZoomSmoothingArrays(v34);
       }
 
       if ((v31 & 0x80000000) == 0)
       {
         for (i = 0; ; ++i)
         {
-          v35 = i + DWORD2(v319);
-          v36 = GVSComputeSmoothedDigitalZoomFactor(&v318, i, *(v4 + 2660));
-          v37 = v318 + 20 * v35;
+          v36 = i + DWORD2(v317);
+          v33.n128_u32[0] = *(v4 + 2660);
+          v33.n128_f32[0] = GVSComputeSmoothedDigitalZoomFactor(&v316, i, v33);
+          v37 = v316 + 20 * v36;
           LODWORD(v8) = *(v37 + 4);
-          if (v36 < *&v8)
+          if (v33.n128_f32[0] < *&v8)
           {
-            GVSComputeSmoothRamp(v36, *(v37 + 8), *&v8);
+            GVSComputeSmoothRamp(v33.n128_f32[0], *(v37 + 8), *&v8);
           }
 
           if (*(v4 + 2672) < 1)
           {
-            *(v32 + 144 * v35 + 20) = v36;
+            *(v32 + 144 * v36 + 20) = v33.n128_u32[0];
             if (v31 == i)
             {
               goto LABEL_56;
@@ -7862,17 +7894,17 @@ LABEL_34:
 
           else
           {
-            v38 = (v318 + 20 * v35);
+            v38 = (v316 + 20 * v36);
             v39 = *v38;
-            v38[3] = v39 + logf(v36 / v38[1]);
+            v38[3] = v39 + logf(v33.n128_f32[0] / v38[1]);
             if (v31 == i)
             {
               v40 = 0;
               do
               {
-                v41 = v40 + DWORD2(v319);
-                v42 = GVSComputeDilatedTotalZoomFactor(&v318, *(v4 + 2672), v40);
-                *(v318 + 20 * v41 + 16) = v42;
+                v41 = v40 + DWORD2(v317);
+                v42 = GVSComputeDilatedTotalZoomFactor(&v316, *(v4 + 2672), v40);
+                *(v316 + 20 * v41 + 16) = v42;
                 ++v40;
               }
 
@@ -7892,9 +7924,9 @@ LABEL_51:
           v44 = v29 + 1;
           do
           {
-            v45 = v43 + DWORD2(v319);
-            v46 = GVSComputeSmoothedDilatedDigitalZoomFactor(&v318, *(v4 + 2672), v43);
-            v47 = v318 + 20 * v45;
+            v45 = v43 + DWORD2(v317);
+            v46 = GVSComputeSmoothedDilatedDigitalZoomFactor(&v316, *(v4 + 2672), v43);
+            v47 = v316 + 20 * v45;
             if (v46 < *(v47 + 8))
             {
               v46 = *(v47 + 8);
@@ -7912,43 +7944,43 @@ LABEL_56:
       v13 = -49;
     }
 
-    else if ((sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_2(&v321, &v318, &v269) & 1) == 0)
+    else if ((sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_2(&v319, &v316, &v267) & 1) == 0)
     {
-      v130 = v269;
+      v127 = v267;
       goto LABEL_237;
     }
   }
 
-  v48 = HIDWORD(v305);
-  v49 = v306;
-  if (SHIDWORD(v305) > v306)
+  v48 = HIDWORD(v303);
+  v49 = v304;
+  if (SHIDWORD(v303) > v304)
   {
 LABEL_61:
-    if (SDWORD1(v306) >= 2)
+    if (SDWORD1(v304) >= 2)
     {
-      if (SHIDWORD(v305) <= DWORD2(v305) - DWORD2(v306))
+      if (SHIDWORD(v303) <= DWORD2(v303) - DWORD2(v304))
       {
-        v48 = DWORD2(v305) - DWORD2(v306);
+        v48 = DWORD2(v303) - DWORD2(v304);
       }
 
-      if (v306 >= DWORD2(v305) + DWORD2(v306))
+      if (v304 >= DWORD2(v303) + DWORD2(v304))
       {
-        v49 = DWORD2(v305) + DWORD2(v306);
+        v49 = DWORD2(v303) + DWORD2(v304);
       }
 
       v53 = v48;
-      v54 = (*(&v301 + 1) + 32 * v48);
-      v55 = v49;
-      v56 = 32 * v48 + 32;
-      v57 = v53 - 1;
-      while (++v57 < v55)
+      v7 = *(&v299 + 1) + 32 * v48;
+      v54 = v49;
+      v55 = 32 * v48 + 32;
+      v56 = v53 - 1;
+      while (++v56 < v54)
       {
-        v58 = v56 + 32;
-        v59 = (*(&v301 + 1) + v56);
-        v60 = FigMotionMultiplyByInverseOfQuaternion((*(&v301 + 1) + v56), v54);
-        v56 = v58;
-        v54 = v59;
-        if (fabs(v60) < 0.999999244)
+        v57 = v55 + 32;
+        v58 = *(&v299 + 1) + v55;
+        v59 = FigMotionMultiplyByInverseOfQuaternion((*(&v299 + 1) + v55), v7);
+        v55 = v57;
+        v7 = v58;
+        if (fabs(v59) < 0.999999244)
         {
           if (*(v4 + 2016) >= 1)
           {
@@ -7961,25 +7993,25 @@ LABEL_61:
     }
 
     *(v4 + 2308) = 1050253722;
-    v61 = *(v4 + 2016);
-    if (v61 < 255)
+    v60 = *(v4 + 2016);
+    if (v60 < 255)
     {
-      v62 = v61 + 1;
+      v61 = v60 + 1;
     }
 
     else
     {
-      v62 = 255;
+      v61 = 255;
     }
 
-    *(v4 + 2016) = v62;
+    *(v4 + 2016) = v61;
     v21 = 0.3;
   }
 
   else
   {
-    v50 = v306 - HIDWORD(v305) + 1;
-    v51 = (*(&v303 + 1) + SHIDWORD(v305));
+    v50 = v304 - HIDWORD(v303) + 1;
+    v51 = (*(&v301 + 1) + SHIDWORD(v303));
     while (1)
     {
       v52 = *v51++;
@@ -7998,225 +8030,225 @@ LABEL_71:
     *(v4 + 2016) = 0;
   }
 
-  v63 = *(v4 + 2588);
-  if (v63 > 0.0)
+  v62 = *(v4 + 2588);
+  if (v62 > 0.0)
   {
     if (*(a1 + 29744))
     {
-      v64 = *(a1 + 29752);
-      if (v64)
+      v63 = *(a1 + 29752);
+      if (v63)
       {
-        v253 = v20;
-        v65 = v64;
-        [v65 reset];
-        v66 = v311;
-        v67 = SHIDWORD(v310);
-        if (v311 >= SHIDWORD(v310))
+        v252 = v20;
+        v64 = v63;
+        [v64 reset];
+        v65 = v309;
+        v66 = SHIDWORD(v308);
+        if (v309 >= SHIDWORD(v308))
         {
-          k = *(*(&v308 + 1) + 4 * v311);
-          v69 = *(*(&v309 + 1) + 8 * v311);
-          HIDWORD(v70) = -1073143301;
+          k = *(*(&v306 + 1) + 4 * v309);
+          v68 = *(*(&v307 + 1) + 8 * v309);
+          HIDWORD(v69) = -1073143301;
           do
           {
-            for (j = *(*(&v308 + 1) + 4 * v66); ; j = j + -6.2832)
+            for (j = *(*(&v306 + 1) + 4 * v65); ; j = j + -6.2832)
             {
-              v72 = k + 3.14159265;
-              if (j <= v72)
+              v71 = k + 3.14159265;
+              if (j <= v71)
               {
                 break;
               }
             }
 
-            v73 = k + -3.14159265;
+            v72 = k + -3.14159265;
               ;
             }
 
-            v74 = *(*(&v309 + 1) + 8 * v66);
-            v75 = v69 - v74;
-            *&v75 = v75;
-            *&v70 = 0.3 / (*&v75 + 0.3);
-            *&v75 = k;
-            [v65 updateValue:v75 withPole:v70];
-            v77 = v76;
-            v78 = v308;
-            if (*(v308 + 8 * v66 + 4) >= 1.0472)
+            v73 = *(*(&v307 + 1) + 8 * v65);
+            v74 = v68 - v73;
+            *&v74 = v74;
+            *&v69 = 0.3 / (*&v74 + 0.3);
+            *&v74 = k;
+            [v64 updateValue:v74 withPole:v69];
+            v76 = v75;
+            v77 = v306;
+            if (*(v306 + 8 * v65 + 4) >= 1.0472)
             {
-              [v65 reset];
-              v78 = v308;
+              [v64 reset];
+              v77 = v306;
             }
 
-            v79 = (v78 + 8 * v66);
-            v80 = *v79;
-            v81 = _computeAdjustedRollForHorizonCorrection(*v79, v79[1], v77, v63);
-            v82 = v307;
-            *&v87 = _adjustQuaternionForRollCorrection((*(&v307 + 1) + 32 * v66), v81 - v80, v83, v84, v85, v86);
-            *(v82 + 16 * v66) = v87;
-            v69 = v74;
-            v120 = v66-- <= v67;
+            v78 = (v77 + 8 * v65);
+            v79 = *v78;
+            v80 = _computeAdjustedRollForHorizonCorrection(*v78, v78[1], v76, v62);
+            v81 = v305;
+            *&v86 = _adjustQuaternionForRollCorrection((*(&v305 + 1) + 32 * v65), v80 - v79, v82, v83, v84, v85);
+            *(v81 + 16 * v65) = v86;
+            v68 = v73;
+            v117 = v65-- <= v66;
           }
 
-          while (!v120);
+          while (!v117);
         }
 
-        v20 = v253;
+        v20 = v252;
       }
     }
   }
 
   if (!*(a1 + 29568))
   {
-    if (v306 <= 0)
+    if (v304 <= 0)
     {
       sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_3();
     }
 
     else
     {
-      v88 = v306;
-      v89 = SHIDWORD(v305);
-      v90 = v306 - 4;
-      if (SDWORD2(v305) > v306 - 4)
+      v87 = v304;
+      v88 = SHIDWORD(v303);
+      v89 = v304 - 4;
+      if (SDWORD2(v303) > v304 - 4)
       {
-        v90 = DWORD2(v305);
+        v89 = DWORD2(v303);
       }
 
-      if (DWORD2(v305) == HIDWORD(v305))
+      if (DWORD2(v303) == HIDWORD(v303))
       {
-        LODWORD(v91) = HIDWORD(v305);
+        LODWORD(v90) = HIDWORD(v303);
       }
 
       else
       {
-        LODWORD(v91) = v90;
+        LODWORD(v90) = v89;
       }
 
-      if (v91 <= v306)
+      if (v90 <= v304)
       {
-        v92 = v91 - 4;
-        v93 = *(&v302 + 1);
-        v94 = v305;
-        v91 = v91;
-        v95 = v306 + 1;
-        v96 = *(&v302 + 1) + 84;
+        v91 = v90 - 4;
+        v92 = *(&v300 + 1);
+        v93 = v303;
+        v90 = v90;
+        v94 = v304 + 1;
+        v95 = *(&v300 + 1) + 84;
         do
         {
-          if (v92 <= v89)
+          if (v91 <= v88)
           {
-            v97 = v89;
+            v7 = v88;
           }
 
           else
           {
-            v97 = v92;
+            v7 = v91;
           }
 
-          v98 = v91 - 4;
-          if (v91 - 4 <= v89)
+          v96 = v90 - 4;
+          if (v90 - 4 <= v88)
           {
-            v98 = v89;
+            v96 = v88;
           }
 
-          if (v91 + 4 >= v88)
+          if (v90 + 4 >= v87)
           {
-            v99 = v88;
+            v97 = v87;
           }
 
           else
           {
-            v99 = v91 + 4;
+            v97 = v90 + 4;
           }
 
-          v100 = 0.0;
-          v101 = 0.0;
-          v102 = __OFSUB__(v99, v98);
-          v103 = v99 - v98;
-          if (v103 < 0 == v102)
+          v98 = 0.0;
+          v99 = 0.0;
+          v100 = __OFSUB__(v97, v96);
+          v101 = v97 - v96;
+          if (v101 < 0 == v100)
           {
-            v104 = v97 - 1;
-            v105 = (v96 + 144 * v97);
+            v102 = v7 - 1;
+            v7 = v95 + 144 * v7;
             do
             {
-              v100 = v100 + *(v105 - 1);
-              v101 = v101 + *v105;
-              ++v104;
-              v105 += 36;
+              v98 = v98 + *(v7 - 4);
+              v99 = v99 + *v7;
+              ++v102;
+              v7 += 144;
             }
 
-            while (v104 < v99);
+            while (v102 < v97);
           }
 
-          v106 = (v103 + 1);
-          v107 = v100 / v106;
-          v108 = v101 / v106;
-          v109 = v93 + 144 * v91;
-          LODWORD(v8) = *(v109 + 80);
-          LODWORD(v9) = *(v109 + 84);
-          *(v94 + 4 * v91++) = sqrtf(((*&v9 - v108) * (*&v9 - v108)) + ((*&v8 - v107) * (*&v8 - v107)));
-          ++v92;
+          v103 = (v101 + 1);
+          v104 = v98 / v103;
+          v105 = v99 / v103;
+          v106 = v92 + 144 * v90;
+          LODWORD(v8) = *(v106 + 80);
+          LODWORD(v9) = *(v106 + 84);
+          *(v93 + 4 * v90++) = sqrtf(((*&v9 - v105) * (*&v9 - v105)) + ((*&v8 - v104) * (*&v8 - v104)));
+          ++v91;
         }
 
-        while (v95 != v91);
+        while (v94 != v90);
       }
     }
   }
 
-  if (SDWORD1(v306) < 1)
+  if (SDWORD1(v304) < 1)
   {
     goto LABEL_152;
   }
 
-  v110 = SDWORD2(v305);
-  v111 = (v303 + 8 * SDWORD2(v305));
-  v112 = *v111 + 0.75;
-  if (v306 - DWORD2(v305) >= 15)
+  v107 = SDWORD2(v303);
+  v108 = (v301 + 8 * SDWORD2(v303));
+  v109 = *v108 + 0.75;
+  if (v304 - DWORD2(v303) >= 15)
   {
-    v113 = 15;
+    v110 = 15;
   }
 
   else
   {
-    v113 = v306 - DWORD2(v305);
+    v110 = v304 - DWORD2(v303);
   }
 
-  if (v111[v113] <= v112)
+  if (v108[v110] <= v109)
   {
-    v114 = 1 - v113;
-    v115 = (8 * v113 + 8 * SDWORD2(v305) + v303 + 8);
-    v116 = v306 - DWORD2(v305) - v113;
-    while (v116)
+    v111 = 1 - v110;
+    v112 = (8 * v110 + 8 * SDWORD2(v303) + v301 + 8);
+    v113 = v304 - DWORD2(v303) - v110;
+    while (v113)
     {
-      v117 = *v115++;
-      --v114;
-      --v116;
-      if (v117 > v112)
+      v114 = *v112++;
+      --v111;
+      --v113;
+      if (v114 > v109)
       {
-        v113 = -v114;
+        v110 = -v111;
         goto LABEL_122;
       }
     }
 
-    v113 = v306 - DWORD2(v305);
+    v110 = v304 - DWORD2(v303);
   }
 
 LABEL_122:
-  v118 = *(v4 + 2308);
-  v119 = 1.0;
+  v115 = *(v4 + 2308);
+  v116 = 1.0;
   if (*(a1 + 352))
   {
-    v120 = v306 <= SHIDWORD(v305);
+    v117 = v304 <= SHIDWORD(v303);
   }
 
   else
   {
-    v120 = 1;
+    v117 = 1;
   }
 
-  if (v120)
+  if (v117)
   {
 LABEL_128:
     LODWORD(v8) = 1156579328;
-    v123 = (1920.0 / *(a1 + 144)) * v119;
-    if ((v113 & 0x80000000) == 0)
+    v120 = (1920.0 / *(a1 + 144)) * v116;
+    if ((v110 & 0x80000000) == 0)
     {
       goto LABEL_129;
     }
@@ -8224,564 +8256,564 @@ LABEL_128:
     goto LABEL_149;
   }
 
-  v121 = *(v303 + 8 * v306) - *(v303 + 8 * SHIDWORD(v305));
-  if (v121 > 0.0)
+  v118 = *(v301 + 8 * v304) - *(v301 + 8 * SHIDWORD(v303));
+  if (v118 > 0.0)
   {
-    v122 = v121;
-    v119 = fminf(fmaxf((((v306 - HIDWORD(v305)) / v122) * 0.042088) + -1.5505, 1.0), 3.5);
+    v119 = v118;
+    v116 = fminf(fmaxf((((v304 - HIDWORD(v303)) / v119) * 0.042088) + -1.5505, 1.0), 3.5);
     goto LABEL_128;
   }
 
   sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_4();
-  v123 = 1.0;
-  if ((v113 & 0x80000000) == 0)
+  v120 = 1.0;
+  if ((v110 & 0x80000000) == 0)
   {
 LABEL_129:
-    v124 = 0;
-    v125 = (*(&v302 + 1) + 144 * v110 + 12);
-    v126 = 0.0;
+    v121 = 0;
+    v122 = (*(&v300 + 1) + 144 * v107 + 12);
+    v123 = 0.0;
     LODWORD(v8) = 10.0;
     LODWORD(v9) = 1.75;
     LODWORD(v10) = 0.5;
     LODWORD(v11) = 2.0;
-    *&v12 = v118;
+    *&v12 = v115;
     do
     {
-      v127 = (*(v305 + 4 * v110 + 4 * v124) * v123) - *(v4 + 2392);
-      if (v127 <= 0.0 || (!*(v4 + 988) ? (v128 = 2.0) : *v125 ? (v128 = 0.5) : (v128 = 2.0), v118 = fmaxf(fminf(*(v4 + 2376), 10.0) - (v128 * v127), 1.75), v118 >= *&v12))
+      v124 = (*(v303 + 4 * v107 + 4 * v121) * v120) - *(v4 + 2392);
+      if (v124 <= 0.0 || (!*(v4 + 988) ? (v125 = 2.0) : *v122 ? (v125 = 0.5) : (v125 = 2.0), v115 = fmaxf(fminf(*(v4 + 2376), 10.0) - (v125 * v124), 1.75), v115 >= *&v12))
       {
-        v118 = *&v12;
+        v115 = *&v12;
       }
 
       else
       {
-        v126 = fmaxf(v126, vabds_f32(*(v4 + 2308), v118) / (v124 + 1));
+        v123 = fmaxf(v123, vabds_f32(*(v4 + 2308), v115) / (v121 + 1));
       }
 
-      v125 += 144;
-      ++v124;
-      *&v12 = v118;
+      v122 += 144;
+      ++v121;
+      *&v12 = v115;
     }
 
-    while (v113 + 1 != v124);
+    while (v110 + 1 != v121);
     goto LABEL_150;
   }
 
 LABEL_149:
-  v126 = 0.0;
+  v123 = 0.0;
 LABEL_150:
-  if (v257 != v256)
+  if (HIDWORD(v254) != v254)
   {
     goto LABEL_153;
   }
 
-  *(v4 + 2308) = fmaxf(v21, fminf(*(v4 + 2308), v118));
+  *(v4 + 2308) = fmaxf(v21, fminf(*(v4 + 2308), v115));
 LABEL_152:
-  v126 = 0.0;
+  v123 = 0.0;
 LABEL_153:
-  v131 = llroundf((v306 - DWORD2(v305) + 1) * 0.8);
-  if (v131 <= 1)
+  v128 = llroundf((v304 - DWORD2(v303) + 1) * 0.8);
+  if (v128 <= 1)
   {
-    v132 = 1;
+    v129 = 1;
   }
 
   else
   {
-    v132 = v131;
+    v129 = v128;
   }
 
-  v133 = v132 - 1;
-  v134 = *(v303 + 8 * SDWORD2(v305));
-  v135 = v134 + 1.01;
-  if (v134 <= v134 + 1.01)
+  v130 = v129 - 1;
+  v131 = *(v301 + 8 * SDWORD2(v303));
+  v132 = v131 + 1.01;
+  if (v131 <= v131 + 1.01)
   {
-    v136 = (v303 + 8 * SDWORD2(v305) + 8);
-    v137 = v132 - 1;
-    v138 = -1;
-    while (v137)
+    v133 = (v301 + 8 * SDWORD2(v303) + 8);
+    v134 = v129 - 1;
+    v135 = -1;
+    while (v134)
     {
-      v139 = *v136++;
-      v134 = v139;
-      ++v138;
-      --v137;
-      if (v139 > v135)
+      v136 = *v133++;
+      v131 = v136;
+      ++v135;
+      --v134;
+      if (v136 > v132)
       {
         goto LABEL_162;
       }
     }
   }
 
-  v138 = v133;
+  v135 = v130;
 LABEL_162:
   if (*(v4 + 3100) == 1)
   {
-    if ((v138 & 0x80000000) == 0)
+    if ((v135 & 0x80000000) == 0)
     {
-      v140 = 0;
+      v137 = 0;
       do
       {
-        LODWORD(v135) = *(v4 + 3136);
-        [*(a1 + 30288) updateFaceFilteredQuaternionsWithFaceSmoothingArrays:v267 faceFilteringSigma:v140 centerFrameOffset:{v135, v134, v8, v9, v10, v11, v12}];
-        v140 = (v140 + 1);
+        LODWORD(v132) = *(v4 + 3136);
+        [*(a1 + 30288) updateFaceFilteredQuaternionsWithFaceSmoothingArrays:v265 faceFilteringSigma:v137 centerFrameOffset:{v132, v131, v8, v9, v10, v11, v12}];
+        v137 = (v137 + 1);
       }
 
-      while (v138 + 1 != v140);
+      while (v135 + 1 != v137);
     }
 
-    [*(a1 + 30288) updateFaceCorrectionStrengthWithFaceSmoothingArrays:v267];
+    [*(a1 + 30288) updateFaceCorrectionStrengthWithFaceSmoothingArrays:v265];
   }
 
-  if (v138 < 0)
+  if (v135 < 0)
   {
+    v140 = 0;
+    v179 = 1.0;
     v143 = 0;
-    v183 = 1.0;
-    v146 = 0;
     goto LABEL_205;
   }
 
-  v260 = 0;
-  v141 = 0;
-  v142 = 0;
+  v258 = 0;
+  v138 = 0;
+  v139 = 0;
+  v140 = 0;
+  HIDWORD(v248) = 1053609165;
+  v141 = v20;
+  v142 = 1.0;
   v143 = 0;
-  v144 = v20;
-  v145 = 1.0;
-  v146 = 0;
-  v147 = 1;
+  v144 = 1;
 LABEL_169:
-  v251 = v147;
-  v254 = v142;
-  v261 = v144;
-  v262 = v126;
-  v148 = -v126;
-  if (v141 <= v138)
+  v249 = v144;
+  v253 = v139;
+  v259 = v141;
+  v260 = v123;
+  v145 = -v123;
+  if (v138 <= v135)
   {
-    v149 = v138;
+    v146 = v135;
   }
 
   else
   {
-    v149 = v141;
+    v146 = v138;
   }
 
-  v150 = v149 + 1;
+  v147 = v146 + 1;
   do
   {
-    v328 = 1;
-    v151 = v141 + 1;
-    v152 = fmaxf(v21, fminf(*(v4 + 2376), *(v4 + 2308) + (v148 * (v141 + 1))));
-    v153 = sbp_gvs_gaussianAverageComputeCorrection(a1, v141, 1, &v328, v152);
-    if (v153)
+    v326 = 1;
+    v148 = v138 + 1;
+    v149 = fmaxf(v21, fminf(*(v4 + 2376), *(v4 + 2308) + (v145 * (v138 + 1))));
+    v150 = sbp_gvs_gaussianAverageComputeCorrection(a1, v138, 1, &v326, v149);
+    if (v150)
     {
-      v130 = v153;
+      v127 = v150;
       sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_5();
 LABEL_318:
       v13 = -49;
       goto LABEL_237;
     }
 
-    if (!v328)
+    if (!v326)
     {
-      v252 = v143;
-      v255 = v20;
-      v169 = v21;
-      if (v152 < v21)
+      v250 = v140;
+      *(&v251 + 1) = v20;
+      v166 = v21;
+      if (v149 < v21)
       {
-        v171 = v21;
-        sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_7();
-        v169 = 0.0;
-        if ((v175 & 1) == 0)
+        v168 = v21;
+        v166 = 0.0;
+        if ((sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_7(&v327, v325) & 1) == 0)
         {
-          v176 = v329;
-          v130 = v327[0];
+          v172 = v327;
+          v127 = v325[0];
 LABEL_317:
           fig_log_get_emitter();
-          v250 = v176;
-          LODWORD(v249) = v130;
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v127, v172, v248, 0x3D0F5C293DCCCCCDLL, v250, v251, v254, DWORD2(v263));
           goto LABEL_318;
         }
       }
 
       else
       {
-        v170 = fminf(fmaxf(v141 * 0.4, 1.0), 10.0) * fmaxf(*(v4 + 2308) * 0.035, 0.1);
-        v171 = v169;
-        if ((v152 - v169) > v170)
+        v167 = fminf(fmaxf(v138 * 0.4, 1.0), 10.0) * fmaxf(*(v4 + 2308) * 0.035, 0.1);
+        v168 = v166;
+        if ((v149 - v166) > v167)
         {
           while (1)
           {
-            LOBYTE(v327[0]) = 0;
-            v172 = sbp_gvs_gaussianAverageComputeCorrection(a1, v141, 1, v327, (v169 + v152) * 0.5);
-            if (v172)
+            LOBYTE(v325[0]) = 0;
+            v169 = sbp_gvs_gaussianAverageComputeCorrection(a1, v138, 1, v325, (v166 + v149) * 0.5);
+            if (v169)
             {
               break;
             }
 
-            if (LOBYTE(v327[0]))
+            if (LOBYTE(v325[0]))
             {
-              v169 = (v169 + v152) * 0.5;
+              v166 = (v166 + v149) * 0.5;
             }
 
             else
             {
-              v152 = (v169 + v152) * 0.5;
+              v149 = (v166 + v149) * 0.5;
             }
 
-            if ((v152 - v169) <= v170)
+            if ((v149 - v166) <= v167)
             {
               goto LABEL_186;
             }
           }
 
-          v130 = v172;
-          sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_6();
-          v176 = v329;
+          v127 = v169;
+          sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_6(v169);
+          v172 = v327;
           goto LABEL_317;
         }
       }
 
 LABEL_186:
-      v173 = *(v4 + 2308);
-      v126 = fmaxf(v262, vabds_f32(v173, v169) / v151);
-      v144 = fminf(v261, v169);
-      v20 = v255;
-      v21 = v171;
-      v143 = v252;
-      if (v141 >= v138 || (v147 = 0, v141 = (v141 + 1), v142 = 1, v174 = v260 >= 4, ++v260, v174))
+      v170 = *(v4 + 2308);
+      v123 = fmaxf(v260, vabds_f32(v170, v166) / v148);
+      v141 = fminf(v259, v166);
+      v20 = *(&v251 + 1);
+      v21 = v168;
+      v140 = v250;
+      if (v138 >= v135 || (v144 = 0, v138 = (v138 + 1), v139 = 1, v171 = v258 >= 4, ++v258, v171))
       {
-        v300 = 0;
+        v298 = 0;
         v13 = -49;
 LABEL_194:
-        v177 = fmaxf(v21, fminf(*(v4 + 2376), v173 - v126));
-        v178 = fminf(v177, fmaxf(v144, 1.75));
-        if (v257 == v256)
+        v173 = fmaxf(v21, fminf(*(v4 + 2376), v170 - v123));
+        v174 = fminf(v173, fmaxf(v141, 1.75));
+        if (HIDWORD(v254) == v254)
         {
-          v20 = v178;
+          v20 = v174;
         }
 
         else
         {
-          v20 = v177;
+          v20 = v173;
         }
 
-        v179 = sbp_gvs_gaussianAverageComputeCorrection(a1, 0, 0, &v300, v20);
-        if (v179)
+        v175 = sbp_gvs_gaussianAverageComputeCorrection(a1, 0, 0, &v298, v20);
+        if (v175)
         {
-          v130 = v179;
+          v127 = v175;
           sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_8();
           goto LABEL_237;
         }
 
-        if (!v300)
+        if (!v298)
         {
-          v180 = *(a1 + 29424);
-          if (!v180)
+          v176 = *(a1 + 29424);
+          if (!v176)
           {
             goto LABEL_322;
           }
 
-          [*(v180 + 240 * *(v4 + 2292)) reset];
+          [*(v176 + 240 * *(v4 + 2292)) reset];
           [*(*(a1 + 29424) + 240 * *(v4 + 2292) + 8) reset];
-          v181 = sbp_gvs_gaussianAverageComputeCorrection(a1, 0, 0, &v300, v20);
-          if (v181)
+          v177 = sbp_gvs_gaussianAverageComputeCorrection(a1, 0, 0, &v298, v20);
+          if (v177)
           {
-            v130 = v181;
+            v127 = v177;
             sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_9();
             goto LABEL_237;
           }
 
-          if (!v300)
+          if (!v298)
           {
 LABEL_322:
             sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_10();
           }
         }
 
-        v182 = fmaxf(*(v4 + 2380), v20);
+        v178 = fmaxf(*(v4 + 2380), v20);
         goto LABEL_236;
       }
 
       goto LABEL_169;
     }
 
-    if (!v141)
+    if (!v138)
     {
-      v145 = *(a1 + 196);
-      v154 = *(a1 + 28112);
-      v284 = *(a1 + 28096);
-      v285 = v154;
-      v143 = *(a1 + 28224);
-      v146 = *(a1 + 28232);
-      v155 = *(a1 + 27360);
-      v281 = *(a1 + 27344);
-      v282 = v155;
-      v283[0] = *(a1 + 27376);
-      *(v283 + 12) = *(a1 + 27388);
-      v156 = *(a1 + 27296);
-      v277 = *(a1 + 27280);
-      v278 = v156;
-      v157 = *(a1 + 27328);
-      v279 = *(a1 + 27312);
-      v280 = v157;
-      v158 = *(a1 + 27232);
-      v273 = *(a1 + 27216);
-      v274 = v158;
-      v159 = *(a1 + 27264);
-      v275 = *(a1 + 27248);
-      v276 = v159;
-      v160 = *(a1 + 27168);
-      v269 = *(a1 + 27152);
-      v270 = v160;
-      v161 = *(a1 + 27200);
-      v271 = *(a1 + 27184);
-      v272 = v161;
-      v162 = *(a1 + 28048);
-      v296 = *(a1 + 28032);
-      v297 = v162;
-      v163 = *(a1 + 28080);
-      v298 = *(a1 + 28064);
-      v299 = v163;
-      v164 = *(a1 + 27984);
-      v292 = *(a1 + 27968);
-      v293 = v164;
-      v165 = *(a1 + 28016);
-      v294 = *(a1 + 28000);
-      v295 = v165;
-      v166 = *(a1 + 27920);
-      v288 = *(a1 + 27904);
-      v289 = v166;
-      v167 = *(a1 + 27952);
-      v290 = *(a1 + 27936);
-      v291 = v167;
-      v168 = *(a1 + 27888);
-      v20 = v152;
-      v286 = *(a1 + 27872);
-      v287 = v168;
+      v142 = *(a1 + 196);
+      v151 = *(a1 + 28112);
+      v282 = *(a1 + 28096);
+      v283 = v151;
+      v140 = *(a1 + 28224);
+      v143 = *(a1 + 28232);
+      v152 = *(a1 + 27360);
+      v279 = *(a1 + 27344);
+      v280 = v152;
+      v281[0] = *(a1 + 27376);
+      *(v281 + 12) = *(a1 + 27388);
+      v153 = *(a1 + 27296);
+      v275 = *(a1 + 27280);
+      v276 = v153;
+      v154 = *(a1 + 27328);
+      v277 = *(a1 + 27312);
+      v278 = v154;
+      v155 = *(a1 + 27232);
+      v271 = *(a1 + 27216);
+      v272 = v155;
+      v156 = *(a1 + 27264);
+      v273 = *(a1 + 27248);
+      v274 = v156;
+      v157 = *(a1 + 27168);
+      v267 = *(a1 + 27152);
+      v268 = v157;
+      v158 = *(a1 + 27200);
+      v269 = *(a1 + 27184);
+      v270 = v158;
+      v159 = *(a1 + 28048);
+      v294 = *(a1 + 28032);
+      v295 = v159;
+      v160 = *(a1 + 28080);
+      v296 = *(a1 + 28064);
+      v297 = v160;
+      v161 = *(a1 + 27984);
+      v290 = *(a1 + 27968);
+      v291 = v161;
+      v162 = *(a1 + 28016);
+      v292 = *(a1 + 28000);
+      v293 = v162;
+      v163 = *(a1 + 27920);
+      v286 = *(a1 + 27904);
+      v287 = v163;
+      v164 = *(a1 + 27952);
+      v288 = *(a1 + 27936);
+      v289 = v164;
+      v165 = *(a1 + 27888);
+      v20 = v149;
+      v284 = *(a1 + 27872);
+      v285 = v165;
     }
 
-    v141 = (v141 + 1);
+    v138 = (v138 + 1);
   }
 
-  while (v150 != v151);
-  v300 = v251;
-  if (v254)
+  while (v147 != v148);
+  v298 = v249;
+  if (v253)
   {
-    v173 = *(v4 + 2308);
+    v170 = *(v4 + 2308);
     v13 = -49;
-    v126 = v262;
-    v144 = v261;
+    v123 = v260;
+    v141 = v259;
     goto LABEL_194;
   }
 
   v13 = -49;
-  v183 = v145;
-  v126 = v262;
+  v179 = v142;
+  v123 = v260;
 LABEL_205:
-  v201 = v126 == 0.0;
-  v182 = v20;
-  if (v201)
+  v198 = v123 == 0.0;
+  v178 = v20;
+  if (v198)
   {
-    v184 = 10 * llroundf((*(v4 + 2316) / *(v4 + 2312)) / 30.0);
-    if (v184 < v138)
+    v180 = 10 * llroundf((*(v4 + 2316) / *(v4 + 2312)) / 30.0);
+    if (v180 < v135)
     {
-      v138 = v184;
+      v135 = v180;
     }
 
-    v333 = 0u;
-    v334 = 0u;
     v331 = 0u;
     v332 = 0u;
     v329 = 0u;
     v330 = 0u;
-    v185 = *(a1 + 29400);
-    v186 = 0.03337;
-    if (v185)
+    v327 = 0u;
+    v328 = 0u;
+    v181 = *(a1 + 29400);
+    v182 = 0.03337;
+    if (v181)
     {
-      [v185 getSmoothingAnalysisArrays];
-      v187 = DWORD2(v333);
-      v188 = v143;
-      if (SDWORD2(v333) < v334)
+      objc_msgSend_getSmoothingAnalysisArrays(v181);
+      v183 = DWORD2(v331);
+      v184 = v140;
+      if (SDWORD2(v331) < v332)
       {
-        v186 = *(v331 + 8 * SDWORD2(v333) + 8) - *(v331 + 8 * SDWORD2(v333));
+        v182 = *(v329 + 8 * SDWORD2(v331) + 8) - *(v329 + 8 * SDWORD2(v331));
       }
     }
 
     else
     {
-      v188 = v143;
-      v187 = 0;
+      v184 = v140;
+      v183 = 0;
     }
 
-    v189 = fmaxf(*(v4 + 2380), v20);
+    v185 = fmaxf(*(v4 + 2380), v20);
     if (*v4 == 3)
     {
-      v190 = 1.81;
-      if ((v187 & 0x80000000) == 0)
+      v186 = 1.81;
+      if ((v183 & 0x80000000) == 0)
       {
-        v191 = v187;
-        v192 = *(*(&v330 + 1) + 144 * v187 + 72) + -0.5;
-        v193 = (v187 + 1);
-        v194 = (v332 + v191);
-        v195 = (*(&v330 + 1) + 144 * v191 + 72);
-        while (*v195 >= v192)
+        v187 = v183;
+        v188 = *(*(&v328 + 1) + 144 * v183 + 72) + -0.5;
+        v189 = (v183 + 1);
+        v190 = (v330 + v187);
+        v191 = (*(&v328 + 1) + 144 * v187 + 72);
+        while (*v191 >= v188)
         {
-          if (*v194 == 1)
+          if (*v190 == 1)
           {
-            v190 = 28.4;
+            v186 = 28.4;
             break;
           }
 
-          --v194;
-          v195 -= 18;
-          if (!--v193)
+          --v190;
+          v191 -= 18;
+          if (!--v189)
           {
             break;
           }
         }
       }
 
-      v182 = fminf(*(v4 + 2376), fmaxf(v189 * powf(v190, v186), v189 + 0.05));
+      v178 = fminf(*(v4 + 2376), fmaxf(v185 * powf(v186, v182), v185 + 0.05));
     }
 
     else
     {
-      v182 = fminf(*(v4 + 2376), v189 + (v186 * 6.0));
-      if (v182 <= v20)
+      v178 = fminf(*(v4 + 2376), v185 + (v182 * 6.0));
+      if (v178 <= v20)
       {
 LABEL_303:
-        v143 = v188;
-        if (v138 >= 1 && v182 > v20)
+        v140 = v184;
+        if (v135 >= 1 && v178 > v20)
         {
-          v246 = v182 * 1.1;
-          v247 = 1;
+          v244 = v178 * 1.1;
+          v245 = 1;
           do
           {
-            LOBYTE(v327[0]) = 1;
-            v248 = sbp_gvs_gaussianAverageComputeCorrection(a1, v247, 1, v327, v246);
-            if (v248)
+            LOBYTE(v325[0]) = 1;
+            v246 = sbp_gvs_gaussianAverageComputeCorrection(a1, v245, 1, v325, v244);
+            v247 = v246;
+            if (v246)
             {
-              sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_12();
+              sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_12(v246);
             }
 
-            if (!(v248 | LOBYTE(v327[0])))
+            if (!(v247 | LOBYTE(v325[0])))
             {
-              v182 = v20;
+              v178 = v20;
             }
 
-            if (v138 == v247)
-            {
-              break;
-            }
-
-            if (v248)
+            if (v135 == v245)
             {
               break;
             }
 
-            v247 = (v247 + 1);
+            if (v247)
+            {
+              break;
+            }
+
+            v245 = (v245 + 1);
           }
 
-          while (LOBYTE(v327[0]));
+          while (LOBYTE(v325[0]));
         }
 
         goto LABEL_235;
       }
 
-      v196 = 0;
-      v197 = 10.0 / v20 * (v186 * 30.0) * 0.000436332313;
+      v192 = 0;
+      v193 = 10.0 / v20 * (v182 * 30.0) * 0.000436332313;
       while (1)
       {
-        v328 = 0;
-        if (sbp_gvs_gaussianAverageComputeCorrection(a1, 0, 1, &v328, v182))
+        v326 = 0;
+        v194 = sbp_gvs_gaussianAverageComputeCorrection(a1, 0, 1, &v326, v178);
+        if (v194)
         {
           break;
         }
 
-        v198 = *(a1 + 28112);
-        v327[0] = *(a1 + 28096);
-        v327[1] = v198;
-        v199 = FigMotionMultiplyByInverseOfQuaternion(&v284, v327);
-        v200 = acos(v199);
-        v201 = fabs(v200 + v200) > v197 || v328 == 0;
-        if (!v201)
+        v195 = *(a1 + 28112);
+        v325[0] = *(a1 + 28096);
+        v325[1] = v195;
+        v196 = FigMotionMultiplyByInverseOfQuaternion(&v282, v325);
+        v197 = acos(v196);
+        v198 = fabs(v197 + v197) > v193 || v326 == 0;
+        if (!v198)
         {
           goto LABEL_303;
         }
 
-        if (v196 > 3 || (v182 - v20) < 0.01)
+        if (v192 > 3 || (v178 - v20) < 0.01)
         {
-          v182 = v20;
+          v178 = v20;
           goto LABEL_303;
         }
 
-        v182 = (v20 + v182) * 0.5;
-        ++v196;
-        if (v182 <= v20)
+        v178 = (v20 + v178) * 0.5;
+        ++v192;
+        if (v178 <= v20)
         {
           goto LABEL_303;
         }
       }
 
-      sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_11();
+      sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_11(v194, &v326);
     }
 
-    v143 = v188;
+    v140 = v184;
   }
 
 LABEL_235:
-  *(a1 + 196) = v183;
-  v202 = v285;
-  *(a1 + 28096) = v284;
-  *(a1 + 28112) = v202;
-  *(a1 + 28224) = v143;
-  *(a1 + 28232) = v146;
-  v203 = v282;
-  *(a1 + 27344) = v281;
-  *(a1 + 27360) = v203;
-  *(a1 + 27376) = v283[0];
-  v204 = v278;
-  *(a1 + 27280) = v277;
-  *(a1 + 27296) = v204;
-  v205 = v280;
-  *(a1 + 27312) = v279;
-  *(a1 + 27328) = v205;
-  v206 = v274;
-  *(a1 + 27216) = v273;
-  *(a1 + 27232) = v206;
-  v207 = v276;
-  *(a1 + 27248) = v275;
-  *(a1 + 27264) = v207;
-  v208 = v270;
-  *(a1 + 27152) = v269;
-  *(a1 + 27168) = v208;
-  v209 = v272;
-  *(a1 + 27184) = v271;
-  *(a1 + 27200) = v209;
-  *(a1 + 27388) = *(v283 + 12);
-  v210 = v297;
-  *(a1 + 28032) = v296;
-  *(a1 + 28048) = v210;
-  v211 = v299;
-  *(a1 + 28064) = v298;
-  *(a1 + 28080) = v211;
-  v212 = v293;
-  *(a1 + 27968) = v292;
-  *(a1 + 27984) = v212;
-  v213 = v295;
-  *(a1 + 28000) = v294;
-  *(a1 + 28016) = v213;
-  v214 = v289;
-  *(a1 + 27904) = v288;
-  *(a1 + 27920) = v214;
-  v215 = v291;
-  *(a1 + 27936) = v290;
-  *(a1 + 27952) = v215;
-  v216 = v287;
-  *(a1 + 27872) = v286;
-  *(a1 + 27888) = v216;
+  *(a1 + 196) = v179;
+  v199 = v283;
+  *(a1 + 28096) = v282;
+  *(a1 + 28112) = v199;
+  *(a1 + 28224) = v140;
+  *(a1 + 28232) = v143;
+  v200 = v280;
+  *(a1 + 27344) = v279;
+  *(a1 + 27360) = v200;
+  *(a1 + 27376) = v281[0];
+  v201 = v276;
+  *(a1 + 27280) = v275;
+  *(a1 + 27296) = v201;
+  v202 = v278;
+  *(a1 + 27312) = v277;
+  *(a1 + 27328) = v202;
+  v203 = v272;
+  *(a1 + 27216) = v271;
+  *(a1 + 27232) = v203;
+  v204 = v274;
+  *(a1 + 27248) = v273;
+  *(a1 + 27264) = v204;
+  v205 = v268;
+  *(a1 + 27152) = v267;
+  *(a1 + 27168) = v205;
+  v206 = v270;
+  *(a1 + 27184) = v269;
+  *(a1 + 27200) = v206;
+  *(a1 + 27388) = *(v281 + 12);
+  v207 = v295;
+  *(a1 + 28032) = v294;
+  *(a1 + 28048) = v207;
+  v208 = v297;
+  *(a1 + 28064) = v296;
+  *(a1 + 28080) = v208;
+  v209 = v291;
+  *(a1 + 27968) = v290;
+  *(a1 + 27984) = v209;
+  v210 = v293;
+  *(a1 + 28000) = v292;
+  *(a1 + 28016) = v210;
+  v211 = v287;
+  *(a1 + 27904) = v286;
+  *(a1 + 27920) = v211;
+  v212 = v289;
+  *(a1 + 27936) = v288;
+  *(a1 + 27952) = v212;
+  v213 = v285;
+  *(a1 + 27872) = v284;
+  *(a1 + 27888) = v213;
 LABEL_236:
-  v130 = 0;
-  *(v4 + 2308) = v182;
+  v127 = 0;
+  *(v4 + 2308) = v178;
   *(v4 + 2384) = v20;
 LABEL_237:
   if (gGMFigKTraceEnabled == 1)
@@ -8789,30 +8821,30 @@ LABEL_237:
     kdebug_trace();
   }
 
-  v217 = *(&v263 + 1) + 144 * SDWORD2(v265);
-  if (v130)
+  v214 = *(&v261 + 1) + 144 * v255;
+  if (v127)
   {
     sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_13();
   }
 
-  if (*v4 == 2 && *(*(&v264 + 1) + 8 * SDWORD2(v265)) != *(a1 + 29768))
+  if (*v4 == 2 && *(*(&v262 + 1) + 8 * SDWORD2(v263)) != *(a1 + 29768))
   {
-    *(v217 + 20) = 1065353216;
-    if (_getMetadataDictionary(sbuf))
+    *(v214 + 20) = 1065353216;
+    if (_getMetadataDictionary(sbuf, v7))
     {
       FigCFDictionaryGetFloatIfPresent();
     }
 
-    v218 = 1;
+    v215 = 1;
     v13 = -49;
   }
 
   else
   {
-    v218 = 0;
+    v215 = 0;
   }
 
-  if (v130)
+  if (v127)
   {
     *(a1 + 202) = 1;
     goto LABEL_252;
@@ -8820,155 +8852,156 @@ LABEL_237:
 
   if (*(a1 + 84))
   {
-    v218 = 1;
+    v215 = 1;
   }
 
-  *(a1 + 202) = v218;
-  if (v218)
+  *(a1 + 202) = v215;
+  if (v215)
   {
 LABEL_252:
-    v219 = (*(8 * (*(a1 + 176) / 2)) + 32 * SDWORD2(v265));
-    v220 = v219[1];
-    *(a1 + 28096) = *v219;
-    *(a1 + 28112) = v220;
+    v216 = (*(8 * (*(a1 + 176) / 2)) + 32 * SDWORD2(v263));
+    v217 = v216[1];
+    *(a1 + 28096) = *v216;
+    *(a1 + 28112) = v217;
   }
 
-  v221 = *(a1 + 30064);
-  if (v221)
+  v218 = *(a1 + 30064);
+  if (v218)
   {
-    v222 = v221;
-    v223 = v222;
+    v219 = v218;
+    v220 = v219;
     if (*(a1 + 25))
     {
-      _runVideoDeghostingDetection(v222, a1 + 29368);
+      _runVideoDeghostingDetection(v219, a1 + 29368);
     }
 
-    v224 = v223;
-    if (![v224 isHWAccelerated])
+    v221 = v220;
+    if (![v221 isHWAccelerated])
     {
-      v233 = *(v4 + 2240);
-      v234 = *(v4 + 2236);
+      v230 = *(v4 + 2240);
+      v231 = *(v4 + 2236);
       goto LABEL_289;
     }
 
-    v225 = *(v4 + 2908);
-    if (v225 < 0)
+    v222 = *(v4 + 2908);
+    if (v222 < 0)
     {
       sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_14();
     }
 
     else
     {
-      if (v225 && (*(v4 + 2948) & 1) != 0)
+      if (v222 && (*(v4 + 2948) & 1) != 0)
       {
-        for (m = 0; m != v225; ++m)
+        for (m = 0; m != v222; ++m)
         {
-          v227 = *(v4 + 2248);
-          v228 = *(v4 + 2240) + v227 + m;
+          v224 = *(v4 + 2248);
+          LODWORD(v225) = *(v4 + 2240) + v224 + m;
           do
           {
-            v228 -= v227;
+            v225 = (v225 - v224);
           }
 
-          while (v228 >= v227);
-          v229 = *(v4 + 2236) + v227 + m;
+          while (v225 >= v224);
+          LODWORD(v226) = *(v4 + 2236) + v224 + m;
           do
           {
-            v229 -= v227;
+            v226 = (v226 - v224);
           }
 
-          while (v229 >= v227);
-          _runVideoDeghostingRepairOnSingleFrame(v224, (a1 + 29368), v228, v229);
+          while (v226 >= v224);
+          _runVideoDeghostingRepairOnSingleFrame(v221, (a1 + 29368), v225, v226);
         }
       }
 
-      v230 = *(v4 + 2240);
-      v231 = *(v4 + 2236);
-      v232 = *(v4 + 2248);
-      v233 = v230;
-      if (v231 == v230)
+      v227 = *(v4 + 2240);
+      v228 = *(v4 + 2236);
+      v229 = *(v4 + 2248);
+      v230 = v227;
+      if (v228 == v227)
       {
-        v233 = v230 + v225 + v232;
+        LODWORD(v230) = v227 + v222 + v229;
         do
         {
-          v233 -= v232;
+          v230 = (v230 - v229);
         }
 
-        while (v233 >= v232);
+        while (v230 >= v229);
       }
 
-      v234 = v231 + v225 + v232;
+      LODWORD(v231) = v228 + v222 + v229;
       do
       {
-        v234 -= v232;
+        v231 = (v231 - v229);
       }
 
-      while (v234 >= v232);
-      v236 = v230 > v231 || v230 <= v234;
-      v238 = v230 > v231 && v230 <= v234;
-      if (v234 <= v231)
+      while (v231 >= v229);
+      v233 = v227 > v228 || v227 <= v231;
+      v235 = v227 > v228 && v227 <= v231;
+      if (v231 <= v228)
       {
-        v238 = v236;
+        v235 = v233;
       }
 
-      if (!v238 || !*(a1 + 25))
+      if (!v235 || !*(a1 + 25))
       {
 LABEL_289:
-        _runVideoDeghostingRepairOnSingleFrame(v224, (a1 + 29368), v233, v234);
+        _runVideoDeghostingRepairOnSingleFrame(v221, (a1 + 29368), v230, v231);
       }
     }
 
     *(v4 + 2948) = 0;
   }
 
-  StabilizedSampleBuffer = sbp_gvs_createStabilizedSampleBuffer(a1, sbuf, v217, &v266);
+  StabilizedSampleBuffer = sbp_gvs_createStabilizedSampleBuffer(a1, sbuf, v214, &v264);
+  v126 = StabilizedSampleBuffer;
   if (StabilizedSampleBuffer)
   {
-    sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_15();
-    v13 = v286;
+    sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_15(StabilizedSampleBuffer, &v264, 207, &v284, &v267);
+    v13 = v284;
     goto LABEL_321;
   }
 
 LABEL_292:
-  *v258 = v266;
+  *v256 = v264;
 LABEL_293:
-  v239 = *(v4 + 2236);
-  v240 = *(*(a1 + 29368) + 8 * v239);
-  if (v240)
+  v237 = *(v4 + 2236);
+  v238 = *(*(a1 + 29368) + 8 * v237);
+  if (v238)
   {
-    CFRelease(v240);
-    v239 = *(v4 + 2236);
-    *(*(a1 + 29368) + 8 * v239) = 0;
+    CFRelease(v238);
+    v237 = *(v4 + 2236);
+    *(*(a1 + 29368) + 8 * v237) = 0;
   }
 
-  v241 = *(v4 + 2248);
-  v242 = v239 + v241 + 1;
+  v239 = *(v4 + 2248);
+  v240 = v237 + v239 + 1;
   do
   {
-    v242 -= v241;
+    v240 -= v239;
   }
 
-  while (v242 >= v241);
-  *(v4 + 2236) = v242;
+  while (v240 >= v239);
+  *(v4 + 2236) = v240;
   --*(v4 + 2244);
   if (*(v4 + 989))
   {
-    v243 = *(v4 + 2304);
-    v244 = *(v4 + 2292) + v243 + 1;
+    v241 = *(v4 + 2304);
+    v242 = *(v4 + 2292) + v241 + 1;
     do
     {
-      v244 -= v243;
+      v242 -= v241;
     }
 
-    while (v244 >= v243);
-    *(v4 + 2292) = v244;
+    while (v242 >= v241);
+    *(v4 + 2292) = v242;
     --*(v4 + 2300);
   }
 
   dword_0 = 0;
   [*(a1 + 29400) incrementCenter];
   *(a1 + 10683) = v13;
-  return StabilizedSampleBuffer;
+  return v126;
 }
 
 float _computeAdjustedRollForHorizonCorrection(float result, float a2, float a3, float a4)
@@ -9040,11 +9073,11 @@ double _adjustQuaternionForRollCorrection(double *a1, float a2, double a3, doubl
   return *v11.i64;
 }
 
-int *_updateVideoDeghostingGhostInformationLookAhead(uint64_t a1, uint64_t a2, int a3, int a4)
+int *_updateVideoDeghostingGhostInformationLookAhead(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!a2)
   {
-    return _updateVideoDeghostingGhostInformationLookAhead_cold_4();
+    return _updateVideoDeghostingGhostInformationLookAhead_cold_4(a1, 0, a3, a4);
   }
 
   if (!a1)
@@ -9057,19 +9090,21 @@ int *_updateVideoDeghostingGhostInformationLookAhead(uint64_t a1, uint64_t a2, i
     return _updateVideoDeghostingGhostInformationLookAhead_cold_2();
   }
 
+  v5 = a4;
+  v6 = a3;
   if (*(a1 + 8) < *(a2 + 24))
   {
     _updateVideoDeghostingGhostInformationLookAhead_cold_1();
   }
 
   v8 = 0;
-  v15 = a3;
+  v15 = v6;
   *(a1 + 12) = 0;
   do
   {
     if (v8 < *(a1 + 8))
     {
-      v9 = *(a2 + 8) + 24 * a3;
+      v9 = *(a2 + 8) + 24 * v6;
       if (*(v9 + 16) == 1)
       {
         v10 = *a1 + 24 * v8;
@@ -9080,7 +9115,7 @@ int *_updateVideoDeghostingGhostInformationLookAhead(uint64_t a1, uint64_t a2, i
 
       else
       {
-        v11 = *(*a2 + 8 * a3);
+        v11 = *(*a2 + 8 * v6);
         v12 = *a1 + 24 * v8;
         *(v12 + 16) = 0;
         v13 = *(v12 + 8);
@@ -9092,10 +9127,10 @@ int *_updateVideoDeghostingGhostInformationLookAhead(uint64_t a1, uint64_t a2, i
     result = FigMotionIncreaseRingIndex(&v15, *(a2 + 28));
     v8 = *(a1 + 12) + 1;
     *(a1 + 12) = v8;
-    a3 = v15;
+    v6 = v15;
   }
 
-  while (v15 != a4);
+  while (v15 != v5);
   return result;
 }
 
@@ -9159,15 +9194,15 @@ uint64_t sbp_internalCreateSampleBufferWithNewPixelBuffer(__CVBuffer *a1, void *
     goto LABEL_12;
   }
 
-  v26 = a4;
-  v27 = a5;
-  v28 = v9;
-  v29 = v10;
+  v27 = a4;
+  v28 = a5;
+  v29 = v9;
+  v30 = v10;
   v12 = CMFormatDescriptionGetExtensions(v11);
   v13 = kCVImageBufferColorPrimariesKey;
   v14 = [v12 objectForKeyedSubscript:kCVImageBufferColorPrimariesKey];
   v15 = kCVImageBufferTransferFunctionKey;
-  v30 = [v12 objectForKeyedSubscript:kCVImageBufferTransferFunctionKey];
+  v31 = [v12 objectForKeyedSubscript:kCVImageBufferTransferFunctionKey];
   v16 = kCVImageBufferYCbCrMatrixKey;
   v17 = [v12 objectForKeyedSubscript:kCVImageBufferYCbCrMatrixKey];
   v18 = CVBufferCopyAttachment(a1, v13, 0);
@@ -9183,10 +9218,10 @@ uint64_t sbp_internalCreateSampleBufferWithNewPixelBuffer(__CVBuffer *a1, void *
     v21 = [v14 isEqual:v18];
   }
 
-  v9 = v28;
-  if (v30 != v19)
+  v9 = v29;
+  if (v31 != v19)
   {
-    v21 &= [v30 isEqual:v19];
+    v21 &= [v31 isEqual:v19];
   }
 
   if (v17 != v20)
@@ -9203,15 +9238,15 @@ uint64_t sbp_internalCreateSampleBufferWithNewPixelBuffer(__CVBuffer *a1, void *
   {
 LABEL_9:
     formatDescriptionOut = 0;
-    [v28 setObject:0 forKeyedSubscript:{v29, v26, v27}];
+    [v29 setObject:0 forKeyedSubscript:{v30, v27, v28}];
     v11 = 0;
   }
 
 LABEL_10:
 
-  v10 = v29;
-  a4 = v26;
-  a5 = v27;
+  v10 = v30;
+  a4 = v27;
+  a5 = v28;
   if (v11)
   {
     v22 = kCFAllocatorDefault;
@@ -9223,7 +9258,7 @@ LABEL_12:
   v23 = CMVideoFormatDescriptionCreateForImageBuffer(kCFAllocatorDefault, a1, &formatDescriptionOut);
   if (v23)
   {
-    v24 = v23;
+    v25 = v23;
     sbp_internalCreateSampleBufferWithNewPixelBuffer_cold_1();
     goto LABEL_20;
   }
@@ -9242,14 +9277,15 @@ LABEL_12:
 
 LABEL_18:
   v24 = CMSampleBufferCreateForImageBuffer(v22, a1, 1u, 0, 0, v11, a4, a5);
+  v25 = v24;
   if (v24)
   {
-    sbp_internalCreateSampleBufferWithNewPixelBuffer_cold_2();
+    sbp_internalCreateSampleBufferWithNewPixelBuffer_cold_2(v24);
   }
 
 LABEL_20:
 
-  return v24;
+  return v25;
 }
 
 uint64_t _updateSmartStyleGlobalMixFactor(float32x2_t *a1, void *a2)
@@ -9334,13 +9370,13 @@ __n128 __copy_assignment_16_16_s0_s8_t16w224(uint64_t a1, uint64_t a2)
 
 uint64_t sbp_gvs_createStabilizedSampleBuffer(uint64_t a1, CMSampleBufferRef sbuf, uint64_t a3, uint64_t a4)
 {
-  v224 = a4;
+  v234 = a4;
   v5 = sbuf;
-  v7 = a1 + 27148;
+  v7 = (a1 + 27148);
   sourceBuffer = CMSampleBufferGetImageBuffer(sbuf);
-  v232 = 0;
-  v233 = 0;
-  FrameRateConversionStatus = _getFrameRateConversionStatus(v5);
+  v242 = 0;
+  v243 = 0;
+  FrameRateConversionStatus = _getFrameRateConversionStatus(v5, v8);
   if (gGMFigKTraceEnabled == 1)
   {
     sbp_gvs_createStabilizedSampleBuffer_cold_1(v5);
@@ -9351,195 +9387,197 @@ uint64_t sbp_gvs_createStabilizedSampleBuffer(uint64_t a1, CMSampleBufferRef sbu
     if (FrameRateConversionStatus == 1 && !*(v7 + 2648))
     {
       value_low = 0;
-      v118 = 1;
+      v122 = 1;
       *(v7 + 2648) = 1;
-      v119 = v224;
-LABEL_213:
-      *(v7 + 2649) = v118;
-      goto LABEL_214;
+      v123 = v234;
+LABEL_212:
+      *(v7 + 2649) = v122;
+      goto LABEL_213;
     }
 
     *(v7 + 2648) = 0;
   }
 
-  v223 = v5;
-  HIDWORD(v222) = FrameRateConversionStatus;
+  v233 = v5;
+  HIDWORD(v232) = FrameRateConversionStatus;
   if (*v7 == 5)
   {
     if (v5)
     {
-      v9 = *(a1 + 29728);
-      if (v9)
+      v11 = *(a1 + 29728);
+      if (v11)
       {
-        v10 = *(a1 + 27408);
-        v11 = kFigVideoStabilizationSampleBufferAttachmentKey_GPUTransformsParameters;
-        v12 = CMGetAttachment(v5, kFigVideoStabilizationSampleBufferAttachmentKey_GPUTransformsParameters, 0);
-        if (v12)
+        v12 = *(a1 + 27408);
+        v13 = kFigVideoStabilizationSampleBufferAttachmentKey_GPUTransformsParameters;
+        v14 = CMGetAttachment(v5, kFigVideoStabilizationSampleBufferAttachmentKey_GPUTransformsParameters, 0);
+        if (v14)
         {
-          v13 = v12;
-          Length = CFDataGetLength(v12);
-          v15 = 36 * *(a1 + 180) * *(a1 + 184);
-          if (Length == v15 + 36)
+          v15 = v14;
+          Length = CFDataGetLength(v14);
+          v17 = 36 * *(a1 + 180) * *(a1 + 184);
+          if (Length == v17 + 36)
           {
-            v16 = Length;
-            BytePtr = CFDataGetBytePtr(v13);
-            memcpy(v9, BytePtr, v16);
-            if (*(a1 + 128) == *v9)
+            v18 = Length;
+            BytePtr = CFDataGetBytePtr(v15);
+            memcpy(v11, BytePtr, v18);
+            if (*(a1 + 128) == *v11)
             {
-              if (*(a1 + 132) == v9[1])
+              if (*(a1 + 132) == v11[1])
               {
-                if (*(a1 + 152) == v9[2])
+                if (*(a1 + 152) == v11[2])
                 {
-                  if (*(a1 + 156) == v9[3])
+                  if (*(a1 + 156) == v11[3])
                   {
-                    if (*(a1 + 144) == v9[4])
+                    if (*(a1 + 144) == v11[4])
                     {
-                      if (*(a1 + 148) == v9[5])
+                      if (*(a1 + 148) == v11[5])
                       {
-                        if (*(a1 + 180) == v9[7])
+                        if (*(a1 + 180) == v11[7])
                         {
-                          if (*(a1 + 184) == v9[8])
+                          if (*(a1 + 184) == v11[8])
                           {
-                            if (*(a1 + 188) == v9[6])
+                            if (*(a1 + 188) == v11[6])
                             {
-                              memcpy(v10, v9 + 9, v15);
-                              CMRemoveAttachment(v5, v11);
+                              memcpy(v12, v11 + 9, v17);
+                              CMRemoveAttachment(v5, v13);
                               goto LABEL_22;
                             }
 
-                            sbp_gvs_createStabilizedSampleBuffer_cold_12(&v231);
+                            sbp_gvs_createStabilizedSampleBuffer_cold_12(&v241);
                           }
 
                           else
                           {
-                            sbp_gvs_createStabilizedSampleBuffer_cold_11(&v231);
+                            sbp_gvs_createStabilizedSampleBuffer_cold_11(&v241);
                           }
                         }
 
                         else
                         {
-                          sbp_gvs_createStabilizedSampleBuffer_cold_10(&v231);
+                          sbp_gvs_createStabilizedSampleBuffer_cold_10(&v241);
                         }
                       }
 
                       else
                       {
-                        sbp_gvs_createStabilizedSampleBuffer_cold_9(&v231);
+                        sbp_gvs_createStabilizedSampleBuffer_cold_9(&v241);
                       }
                     }
 
                     else
                     {
-                      sbp_gvs_createStabilizedSampleBuffer_cold_8(&v231);
+                      sbp_gvs_createStabilizedSampleBuffer_cold_8(&v241);
                     }
                   }
 
                   else
                   {
-                    sbp_gvs_createStabilizedSampleBuffer_cold_7(&v231);
+                    sbp_gvs_createStabilizedSampleBuffer_cold_7(&v241);
                   }
                 }
 
                 else
                 {
-                  sbp_gvs_createStabilizedSampleBuffer_cold_6(&v231);
+                  sbp_gvs_createStabilizedSampleBuffer_cold_6(&v241);
                 }
               }
 
               else
               {
-                sbp_gvs_createStabilizedSampleBuffer_cold_5(&v231);
+                sbp_gvs_createStabilizedSampleBuffer_cold_5(&v241);
               }
             }
 
             else
             {
-              sbp_gvs_createStabilizedSampleBuffer_cold_4(&v231);
+              sbp_gvs_createStabilizedSampleBuffer_cold_4(&v241);
             }
           }
 
           else
           {
-            sbp_gvs_createStabilizedSampleBuffer_cold_3(&v231);
+            sbp_gvs_createStabilizedSampleBuffer_cold_3(&v241);
           }
         }
 
         else
         {
-          sbp_gvs_createStabilizedSampleBuffer_cold_13(&v231);
+          sbp_gvs_createStabilizedSampleBuffer_cold_13(&v241);
         }
       }
 
       else
       {
-        sbp_gvs_createStabilizedSampleBuffer_cold_14(&v231);
+        sbp_gvs_createStabilizedSampleBuffer_cold_14(&v241);
       }
     }
 
     else
     {
-      sbp_gvs_createStabilizedSampleBuffer_cold_15(&v231);
+      sbp_gvs_createStabilizedSampleBuffer_cold_15(&v241);
     }
 
-    value_low = LODWORD(v231.duration.value);
-    if (LODWORD(v231.duration.value))
+    value_low = LODWORD(v241.duration.value);
+    if (LODWORD(v241.duration.value))
     {
-      goto LABEL_199;
+      emitter = fig_log_get_emitter();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", emitter, "<<<< GyroVideoStabilizationV2 >>>> Fig", "err == 0 ", "bail", 0, "GVSGyroStabilizationV2.m", 5333, value_low);
+      goto LABEL_133;
     }
   }
 
   else
   {
-    v157 = _getMetadataDictionary(v5);
-    _getPresentationTimeStampForSampleBuffer(v5, v157, v158, v159, v160, v161, v162, v163, v214, v215, v216, v218, v219, v220, v222, v5, v224, sourceBuffer);
-    v165 = *(a1 + 27408);
-    v166 = *(a1 + 172);
+    v160 = _getMetadataDictionary(v5, v9);
+    _getPresentationTimeStampForSampleBuffer(v5, v160, v161, v162, v163, v164, v165, v166, v221, v222, v223, v226, v228, v230, v232, v5, v234, sourceBuffer);
+    v168 = *(a1 + 27408);
+    v169 = *(a1 + 172);
     if (gGMFigKTraceEnabled == 1)
     {
       kdebug_trace();
     }
 
-    if (v166 <= 3 && *(a1 + 176) == 1)
+    if (v169 <= 3 && *(a1 + 176) == 1)
     {
-      v167 = *(a1 + 27152);
-      v168 = *(a1 + 27168);
-      *(v165 + 32) = *(a1 + 27184);
-      *v165 = v167;
-      *(v165 + 16) = v168;
+      v170 = *(a1 + 27152);
+      v171 = *(a1 + 27168);
+      *(v168 + 32) = *(a1 + 27184);
+      *v168 = v170;
+      *(v168 + 16) = v171;
     }
 
-    v169 = *(a3 + 4);
-    v170 = vmul_n_f32(vsub_f32(*(a1 + 28208), *(a1 + 28224)), v169);
-    v172 = *(a1 + 28232);
-    v171 = vmul_n_f32(*&v172, v169);
-    LODWORD(v172) = v171.i32[1];
-    v5 = v223;
+    v172 = *(a3 + 4);
+    v173 = vmul_n_f32(vsub_f32(*(a1 + 28208), *(a1 + 28224)), v172);
+    v175 = *(a1 + 28232);
+    v174 = vmul_n_f32(*&v175, v172);
+    LODWORD(v175) = v174.i32[1];
+    v5 = v233;
     if (*(v7 + 989))
     {
-      v173 = *(a1 + 28144);
+      v176 = *(a1 + 28144);
     }
 
     else
     {
-      v173 = 0;
+      v176 = 0;
     }
 
-    v184 = GVSComputeTransforms(a1 + 128, a1 + 336, a3, a1 + 27872, v173, v165, v170.f32[0], v170.f32[1], v171.f32[0], v172, v164);
-    if (v184)
+    v187 = GVSComputeTransforms(a1 + 128, (a1 + 336), a3, a1 + 27872, v176, v168, v173.f32[0], v173.f32[1], v174.f32[0], v175, v167);
+    if (v187)
     {
-      value_low = v184;
+      value_low = v187;
       fig_log_get_emitter();
-      v215 = v221;
-      LODWORD(v214) = value_low;
-      FigDebugAssert3();
+      LODWORD(v221) = value_low;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v221, v231, v225, v227, v229, v231, v232, v233);
     }
 
     else
     {
-      value_low = GVSApplyDistortionToTransforms((a1 + 128), (a1 + 28896), v165);
-      if (value_low)
+      v188 = GVSApplyDistortionToTransforms((a1 + 128), (a1 + 28896), v168);
+      value_low = v188;
+      if (v188)
       {
-        sbp_gvs_createStabilizedSampleBuffer_cold_2();
+        sbp_gvs_createStabilizedSampleBuffer_cold_2(v188);
       }
     }
 
@@ -9551,7 +9589,8 @@ LABEL_213:
     if (value_low)
     {
       fig_log_get_emitter();
-      FigDebugAssert3();
+      LODWORD(v221) = value_low;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v221, v231, v225, v227, v229, v231, v232, v233);
 
       goto LABEL_133;
     }
@@ -9564,37 +9603,37 @@ LABEL_22:
     {
       if (*(a1 + 72))
       {
-        v174 = 0;
+        v177 = 0;
       }
 
       else
       {
-        v174 = 66000;
+        v177 = 66000;
       }
     }
 
     else
     {
-      v174 = 0;
+      v177 = 0;
     }
 
-    v175 = [*(a1 + 48) objectForKeyedSubscript:{@"OutputBufferPrimary", v214, v215}];
-    v176 = [*(a1 + 56) objectForKeyedSubscript:@"OutputBufferPrimary"];
-    value_low = sbp_gvs_getPixelBufferFromPool(v175, v176, *(a1 + 72), v174, (a1 + 80), 1, &v233);
+    v178 = [*(a1 + 48) objectForKeyedSubscript:@"OutputBufferPrimary"];
+    v179 = [*(a1 + 56) objectForKeyedSubscript:@"OutputBufferPrimary"];
+    value_low = sbp_gvs_getPixelBufferFromPool(v178, v179, *(a1 + 72), v177, (a1 + 80), 1, &v243);
 
     if (value_low)
     {
-      sbp_gvs_createStabilizedSampleBuffer_cold_20();
+      sbp_gvs_createStabilizedSampleBuffer_cold_20(value_low);
       goto LABEL_133;
     }
 
-    if ((*(v7 + 2628) & 1) == 0)
+    if ((v7[657] & 1) == 0)
     {
-      CVBufferPropagateAttachments(sourceBuffer, v233);
+      CVBufferPropagateAttachments(sourceBuffer, v243);
     }
 
-    memset(&v231, 0, sizeof(v231));
-    SampleTimingInfoArray = CMSampleBufferGetSampleTimingInfoArray(v5, 1, &v231, 0);
+    memset(&v241, 0, sizeof(v241));
+    SampleTimingInfoArray = CMSampleBufferGetSampleTimingInfoArray(v5, 1, &v241, 0);
     if (SampleTimingInfoArray)
     {
       value_low = SampleTimingInfoArray;
@@ -9602,50 +9641,50 @@ LABEL_22:
       goto LABEL_133;
     }
 
-    v178 = sbp_internalCreateSampleBufferWithNewPixelBuffer(v233, *(a1 + 64), @"OutputBufferPrimary", &v231, &v232);
-    if (v178)
+    v181 = sbp_internalCreateSampleBufferWithNewPixelBuffer(v243, *(a1 + 64), @"OutputBufferPrimary", &v241, &v242);
+    if (v181)
     {
-      value_low = v178;
+      value_low = v181;
       sbp_gvs_createStabilizedSampleBuffer_cold_22();
       goto LABEL_133;
     }
 
-    CMPropagateAttachments(v5, v232);
-    v179 = _shouldBypassSmartStyle(v5);
-    if (v179)
+    CMPropagateAttachments(v5, v242);
+    v182 = _shouldBypassSmartStyle(v5);
+    if (v182)
     {
       _setAttachedMediaToSampleBuffer(v5, kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingLearnedCoefficients, 0);
-      v180 = kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingUnstyledThumbnail;
+      v183 = kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingUnstyledThumbnail;
       _setAttachedMediaToSampleBuffer(v5, kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingUnstyledThumbnail, 0);
-      _setAttachedMediaToSampleBuffer(v232, v180, 0);
-      v181 = (v7 + 2956);
+      _setAttachedMediaToSampleBuffer(v242, v183, 0);
+      v184 = v7 + 739;
       if (*(v7 + 2956))
       {
         if (!*(v7 + 2958))
         {
-LABEL_228:
-          v191 = _removeSmartStyleAttachments(a1, v232);
-          if (v191)
+LABEL_227:
+          v196 = _removeSmartStyleAttachments(a1, v242);
+          if (v196)
           {
-            value_low = v191;
+            value_low = v196;
             sbp_gvs_createStabilizedSampleBuffer_cold_30();
             goto LABEL_133;
           }
 
-          goto LABEL_235;
+          goto LABEL_234;
         }
 
-        goto LABEL_226;
+        goto LABEL_225;
       }
     }
 
     else
     {
-      v181 = (v7 + 2956);
+      v184 = v7 + 739;
       if (*(v7 + 2956))
       {
-        v182 = *(a1 + 172);
-        if (v182 == 3)
+        v185 = *(a1 + 172);
+        if (v185 == 3)
         {
           if ((*v7 - 1) > 2 || *(a1 + 25))
           {
@@ -9654,105 +9693,105 @@ LABEL_228:
               sbp_gvs_createStabilizedSampleBuffer_cold_23(a1, v5);
             }
 
-            v213 = _runSmartStyleApplyOnUnstabilizedImage(a1, v5);
-            if (v213)
+            v218 = _runSmartStyleApplyOnUnstabilizedImage(a1, v5);
+            if (v218)
             {
-              value_low = v213;
+              value_low = v218;
               sbp_gvs_createStabilizedSampleBuffer_cold_24();
               goto LABEL_133;
             }
           }
         }
 
-        else if (!v182)
+        else if (!v185)
         {
           if (*(v7 + 2960))
           {
             sbp_gvs_createStabilizedSampleBuffer_cold_25(a1, v5);
           }
 
-          v183 = _runSmartStyleIntegrate(a1, v5);
-          if (v183)
+          v186 = _runSmartStyleIntegrate(a1, v5);
+          if (v186)
           {
-            value_low = v183;
+            value_low = v186;
             sbp_gvs_createStabilizedSampleBuffer_cold_26();
             goto LABEL_133;
           }
         }
 
-        goto LABEL_224;
+        goto LABEL_223;
       }
     }
 
     if (!*(v7 + 2958))
     {
-      goto LABEL_235;
+      goto LABEL_234;
     }
 
-LABEL_224:
+LABEL_223:
     if (!*(v7 + 2958))
     {
-      goto LABEL_228;
+      goto LABEL_227;
     }
 
-    if ((v179 & 1) == 0)
+    if ((v182 & 1) == 0)
     {
       if (!*(v7 + 2959))
       {
-        v192 = _runSmartStyleApplyOnUnstabilizedThumbnail(a1, v5);
-        if (v192)
+        v197 = _runSmartStyleApplyOnUnstabilizedThumbnail(a1, v5);
+        if (v197)
         {
-          value_low = v192;
+          value_low = v197;
           sbp_gvs_createStabilizedSampleBuffer_cold_27();
           goto LABEL_133;
         }
       }
 
-      StabilizedAttachmentsPixelBuffers = sbp_gvs_createStabilizedAttachmentsPixelBuffers(a1, v5, v232, (a3 + 88));
+      StabilizedAttachmentsPixelBuffers = sbp_gvs_createStabilizedAttachmentsPixelBuffers(a1, v5, v242, (a3 + 88));
       if (StabilizedAttachmentsPixelBuffers)
       {
-        goto LABEL_318;
+        goto LABEL_317;
       }
 
       if (!*(v7 + 2959))
       {
-        v193 = _runSmartStyleReverseLearning(a1, v5, v232);
-        if (v193)
+        v198 = _runSmartStyleReverseLearning(a1, v5, v242);
+        if (v198)
         {
-          value_low = v193;
+          value_low = v198;
           sbp_gvs_createStabilizedSampleBuffer_cold_28();
           goto LABEL_133;
         }
       }
 
-      goto LABEL_235;
+      goto LABEL_234;
     }
 
-LABEL_226:
-    StabilizedAttachmentsPixelBuffers = sbp_gvs_createStabilizedAttachmentsPixelBuffers(a1, v5, v232, (a3 + 88));
+LABEL_225:
+    StabilizedAttachmentsPixelBuffers = sbp_gvs_createStabilizedAttachmentsPixelBuffers(a1, v5, v242, (a3 + 88));
     if (StabilizedAttachmentsPixelBuffers)
     {
-LABEL_318:
+LABEL_317:
       value_low = StabilizedAttachmentsPixelBuffers;
       sbp_gvs_createStabilizedSampleBuffer_cold_29();
       goto LABEL_133;
     }
 
-LABEL_235:
-    v227 = v181;
-    v194 = kFigVideoStabilizationSampleBufferAttachmentKey_DepthSampleBuffer;
-    v195 = CMGetAttachment(v5, kFigVideoStabilizationSampleBufferAttachmentKey_DepthSampleBuffer, 0);
-    v196 = v195;
-    if (v195)
+LABEL_234:
+    v237 = v184;
+    v199 = kFigVideoStabilizationSampleBufferAttachmentKey_DepthSampleBuffer;
+    v200 = CMGetAttachment(v5, kFigVideoStabilizationSampleBufferAttachmentKey_DepthSampleBuffer, 0);
+    v201 = v200;
+    if (v200)
     {
-      ImageBuffer = CMSampleBufferGetImageBuffer(v195);
+      ImageBuffer = CMSampleBufferGetImageBuffer(v200);
       CMSetAttachment(sourceBuffer, @"InputDepthPixelBuffer", ImageBuffer, 0);
     }
 
-    v229 = v179;
+    v239 = v182;
     CMSampleBufferGetPresentationTimeStamp(&valuePtr.duration, v5);
     *(a1 + 29664) = CMTimeGetSeconds(&valuePtr.duration);
-    StabilizedPixelBuffer = sbp_gvs_createStabilizedPixelBuffer(a1, v5, (a3 + 88), v233);
+    StabilizedPixelBuffer = sbp_gvs_createStabilizedPixelBuffer(a1, v5, (a3 + 88), v243);
     if (StabilizedPixelBuffer)
     {
       value_low = StabilizedPixelBuffer;
@@ -9760,36 +9799,36 @@ LABEL_235:
       goto LABEL_133;
     }
 
-    v199 = v232;
-    v200 = kFigVideoStabilizationSampleBufferAttachmentKey_VideoSTFAnalytics;
-    v201 = CMGetAttachment(v5, kFigVideoStabilizationSampleBufferAttachmentKey_VideoSTFAnalytics, 0);
-    CMSetAttachment(v199, v200, v201, 1u);
-    if (v196)
+    v204 = v242;
+    v205 = kFigVideoStabilizationSampleBufferAttachmentKey_VideoSTFAnalytics;
+    v206 = CMGetAttachment(v5, kFigVideoStabilizationSampleBufferAttachmentKey_VideoSTFAnalytics, 0);
+    CMSetAttachment(v204, v205, v206, 1u);
+    if (v201)
     {
-      v202 = CMGetAttachment(sourceBuffer, @"OutputDepthPixelBuffer", 0);
-      if (v202)
+      v207 = CMGetAttachment(sourceBuffer, @"OutputDepthPixelBuffer", 0);
+      if (v207)
       {
-        v203 = v202;
+        v208 = v207;
         memset(&valuePtr, 0, sizeof(valuePtr));
-        v204 = CMSampleBufferGetSampleTimingInfoArray(v196, 1, &valuePtr, 0);
-        if (v204)
+        v209 = CMSampleBufferGetSampleTimingInfoArray(v201, 1, &valuePtr, 0);
+        if (v209)
         {
-          value_low = v204;
-          sbp_gvs_createStabilizedSampleBuffer_cold_32();
+          value_low = v209;
+          sbp_gvs_createStabilizedSampleBuffer_cold_32(v209, &valuePtr);
           goto LABEL_133;
         }
 
         *bytes = 0;
-        v205 = sbp_internalCreateSampleBufferWithNewPixelBuffer(v203, *(a1 + 64), @"OutputBufferDepth", &valuePtr, bytes);
-        if (v205)
+        v210 = sbp_internalCreateSampleBufferWithNewPixelBuffer(v208, *(a1 + 64), @"OutputBufferDepth", &valuePtr, bytes);
+        if (v210)
         {
-          value_low = v205;
-          sbp_gvs_createStabilizedSampleBuffer_cold_33();
+          value_low = v210;
+          sbp_gvs_createStabilizedSampleBuffer_cold_33(v210, bytes, &valuePtr);
           goto LABEL_133;
         }
 
-        CMPropagateAttachments(v196, *bytes);
-        CMSetAttachment(v232, v194, *bytes, 1u);
+        CMPropagateAttachments(v201, *bytes);
+        CMSetAttachment(v242, v199, *bytes, 1u);
         CMRemoveAttachment(sourceBuffer, @"InputDepthPixelBuffer");
         CMRemoveAttachment(sourceBuffer, @"OutputDepthPixelBuffer");
         if (*bytes)
@@ -9799,56 +9838,56 @@ LABEL_235:
       }
     }
 
-    v206 = v229;
+    v211 = v239;
     if (*(a1 + 172))
     {
-      v206 = 1;
+      v211 = 1;
     }
 
-    if ((v206 & 1) == 0)
+    if ((v211 & 1) == 0)
     {
-      if (*v227)
+      if (*v237)
       {
-        v207 = CMGetAttachment(v232, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
-        [v207 setObject:&__kCFBooleanTrue forKeyedSubscript:kFigCaptureSampleBufferMetadata_SmartStyleAppliedOnThisFrame];
+        v212 = CMGetAttachment(v242, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
+        [v212 setObject:&__kCFBooleanTrue forKeyedSubscript:kFigCaptureSampleBufferMetadata_SmartStyleAppliedOnThisFrame];
       }
 
       if (*(v7 + 2958))
       {
         if (*(v7 + 2959))
         {
-          v208 = _runSmartStyleReverseLearningAndComputeDeltaMap(a1, v5, v232);
-          if (v208)
+          v213 = _runSmartStyleReverseLearningAndComputeDeltaMap(a1, v5, v242);
+          if (v213)
           {
-            value_low = v208;
+            value_low = v213;
             sbp_gvs_createStabilizedSampleBuffer_cold_34();
             goto LABEL_133;
           }
         }
 
-        v209 = CMGetAttachment(sourceBuffer, @"OutputSmartStyleDeltaMapPixelBuffer", 0);
-        if (v209)
+        v214 = CMGetAttachment(sourceBuffer, @"OutputSmartStyleDeltaMapPixelBuffer", 0);
+        if (v214)
         {
-          v210 = v209;
+          v215 = v214;
           memset(&valuePtr, 0, sizeof(valuePtr));
-          v211 = CMSampleBufferGetSampleTimingInfoArray(v5, 1, &valuePtr, 0);
-          if (v211)
+          v216 = CMSampleBufferGetSampleTimingInfoArray(v5, 1, &valuePtr, 0);
+          if (v216)
           {
-            value_low = v211;
-            sbp_gvs_createStabilizedSampleBuffer_cold_35();
+            value_low = v216;
+            sbp_gvs_createStabilizedSampleBuffer_cold_35(v216, &valuePtr);
             goto LABEL_133;
           }
 
           *bytes = 0;
-          v212 = sbp_internalCreateSampleBufferWithNewPixelBuffer(v210, *(a1 + 64), kFigVideoStabilizationSampleBufferAttachmentKey_OutputSmartStyleDeltaMapSampleBuffer, &valuePtr, bytes);
-          if (v212)
+          v217 = sbp_internalCreateSampleBufferWithNewPixelBuffer(v215, *(a1 + 64), kFigVideoStabilizationSampleBufferAttachmentKey_OutputSmartStyleDeltaMapSampleBuffer, &valuePtr, bytes);
+          if (v217)
           {
-            value_low = v212;
-            sbp_gvs_createStabilizedSampleBuffer_cold_36();
+            value_low = v217;
+            sbp_gvs_createStabilizedSampleBuffer_cold_36(v217, bytes, &valuePtr);
             goto LABEL_133;
           }
 
-          _setAttachedMediaToSampleBuffer(v232, kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingDeltaMap, *bytes);
+          _setAttachedMediaToSampleBuffer(v242, kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingDeltaMap, *bytes);
           CMRemoveAttachment(sourceBuffer, @"OutputSmartStyleDeltaMapPixelBuffer");
           if (*bytes)
           {
@@ -9866,144 +9905,143 @@ LABEL_235:
     goto LABEL_31;
   }
 
-  if (!v5)
+  if (v5)
   {
-    v232 = 0;
+    v20 = CFRetain(v5);
+    v242 = v20;
     if (*(a1 + 172))
     {
       goto LABEL_31;
     }
 
-    goto LABEL_197;
-  }
-
-  v18 = CFRetain(v5);
-  v232 = v18;
-  if (*(a1 + 172))
-  {
-    goto LABEL_31;
-  }
-
-  v19 = v18;
-  if (!v18)
-  {
-LABEL_197:
-    sbp_gvs_createStabilizedSampleBuffer_cold_19(&v231);
-    goto LABEL_198;
-  }
-
-  v20 = *(a1 + 27408);
-  if (v20)
-  {
-    v21 = *(a1 + 29728);
-    if (v21)
+    v21 = v20;
+    if (v20)
     {
-      *&v22 = *(a1 + 128);
-      *(&v22 + 1) = *(a1 + 152);
-      *v21 = v22;
-      *(v21 + 16) = *(a1 + 144);
-      *(v21 + 24) = *(a1 + 188);
-      v23 = *(a1 + 180);
-      *(v21 + 28) = v23;
-      v24 = *(a1 + 184);
-      *(v21 + 32) = v24;
-      v25 = 36 * v23 * v24;
-      memcpy((v21 + 36), v20, v25);
-      v26 = CFDataCreate(kCFAllocatorDefault, v21, v25 + 36);
-      if (v26)
+      v22 = *(a1 + 27408);
+      if (v22)
       {
-        v27 = v26;
-        CMSetAttachment(v19, kFigVideoStabilizationSampleBufferAttachmentKey_GPUTransformsParameters, v26, 1u);
-        CFRelease(v27);
-        goto LABEL_31;
+        v23 = *(a1 + 29728);
+        if (v23)
+        {
+          *&v24 = *(a1 + 128);
+          *(&v24 + 1) = *(a1 + 152);
+          *v23 = v24;
+          *(v23 + 16) = *(a1 + 144);
+          *(v23 + 24) = *(a1 + 188);
+          v25 = *(a1 + 180);
+          *(v23 + 28) = v25;
+          v26 = *(a1 + 184);
+          *(v23 + 32) = v26;
+          v27 = 36 * v25 * v26;
+          memcpy((v23 + 36), v22, v27);
+          v28 = CFDataCreate(kCFAllocatorDefault, v23, v27 + 36);
+          if (v28)
+          {
+            v29 = v28;
+            CMSetAttachment(v21, kFigVideoStabilizationSampleBufferAttachmentKey_GPUTransformsParameters, v28, 1u);
+            CFRelease(v29);
+            goto LABEL_31;
+          }
+
+          sbp_gvs_createStabilizedSampleBuffer_cold_16(&v241);
+        }
+
+        else
+        {
+          sbp_gvs_createStabilizedSampleBuffer_cold_17(&v241);
+        }
       }
 
-      sbp_gvs_createStabilizedSampleBuffer_cold_16(&v231);
-    }
+      else
+      {
+        sbp_gvs_createStabilizedSampleBuffer_cold_18(&v241);
+      }
 
-    else
-    {
-      sbp_gvs_createStabilizedSampleBuffer_cold_17(&v231);
+      goto LABEL_198;
     }
   }
 
   else
   {
-    sbp_gvs_createStabilizedSampleBuffer_cold_18(&v231);
+    v242 = 0;
+    if (*(a1 + 172))
+    {
+      goto LABEL_31;
+    }
   }
 
+  sbp_gvs_createStabilizedSampleBuffer_cold_19(&v241);
 LABEL_198:
-  value_low = LODWORD(v231.duration.value);
-  if (LODWORD(v231.duration.value))
+  value_low = LODWORD(v241.duration.value);
+  if (LODWORD(v241.duration.value))
   {
-LABEL_199:
-    fig_log_get_emitter();
-LABEL_200:
-    FigDebugAssert3();
+    v189 = fig_log_get_emitter();
+    LODWORD(v221) = value_low;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v189, "<<<< GyroVideoStabilizationV2 >>>> Fig", "err == 0 ", "bail", 0, "GVSGyroStabilizationV2.m", 5366, v221);
     goto LABEL_133;
   }
 
 LABEL_31:
-  v28 = 0;
-  v29 = v232;
-  v30 = *(a1 + 180);
-  v31 = *(a1 + 184);
-  v32 = (v31 >> 1) * v30;
-  v33 = v30 + (v30 >> 31);
-  if (v31 <= 1)
+  v30 = 0;
+  v31 = v242;
+  v32 = *(a1 + 180);
+  v33 = *(a1 + 184);
+  v34 = (v33 >> 1) * v32;
+  v35 = v32 + (v32 >> 31);
+  if (v33 <= 1)
   {
-    v34 = 0;
+    v36 = 0;
   }
 
   else
   {
-    v34 = v32;
+    v36 = v34;
   }
 
-  v35 = *(a1 + 27408) + 36 * (v34 + (v33 >> 1));
+  v37 = *(a1 + 27408) + 36 * (v36 + (v35 >> 1));
   do
   {
-    *(&v231.duration.value + v28) = *(v35 + v28);
-    v28 += 4;
+    *(&v241.duration.value + v30) = *(v37 + v30);
+    v30 += 4;
   }
 
-  while (v28 != 36);
-  v36 = CMGetAttachment(v29, kFigVideoStabilizationSampleBufferAttachmentKey_RemainingDigitalZoomAfterVIS, 0);
-  if (v36)
+  while (v30 != 36);
+  v38 = CMGetAttachment(v31, kFigVideoStabilizationSampleBufferAttachmentKey_RemainingDigitalZoomAfterVIS, 0);
+  if (v38)
   {
     LODWORD(valuePtr.duration.value) = 1065353216;
-    CFNumberGetValue(v36, kCFNumberFloatType, &valuePtr);
-    v37.i32[0] = valuePtr.duration.value;
-    FigMotionApplyDigitalZoomToTransform(1, &v231, v37, *(a1 + 336), *(a1 + 344), v38, v39);
+    CFNumberGetValue(v38, kCFNumberFloatType, &valuePtr);
+    v39.i32[0] = valuePtr.duration.value;
+    FigMotionApplyDigitalZoomToTransform(1, &v241, v39, *(a1 + 336), *(a1 + 344), v40, v41);
   }
 
-  invert3x3Matrix(&v231, &valuePtr);
+  invert3x3Matrix(&v241, &valuePtr);
   *bytes = *&valuePtr.duration.value;
   *&bytes[16] = *&valuePtr.duration.epoch;
   timescale = valuePtr.presentationTimeStamp.timescale;
-  v40 = CFDataCreate(kCFAllocatorDefault, bytes, 36);
-  CMSetAttachment(v29, kFigVideoStabilizationSampleBufferAttachmentKey_CenterStabilizationInvertedTransform, v40, 1u);
-  if (v40)
+  v42 = CFDataCreate(kCFAllocatorDefault, bytes, 36);
+  CMSetAttachment(v31, kFigVideoStabilizationSampleBufferAttachmentKey_CenterStabilizationInvertedTransform, v42, 1u);
+  if (v42)
   {
-    CFRelease(v40);
+    CFRelease(v42);
   }
 
   if (!a1)
   {
-    sbp_gvs_createStabilizedSampleBuffer_cold_48();
+    StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_48();
     goto LABEL_70;
   }
 
-  v41 = v232;
-  if (!v232)
+  v45 = v242;
+  if (!v242)
   {
-    sbp_gvs_createStabilizedSampleBuffer_cold_47();
+    StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_47();
     goto LABEL_70;
   }
 
   if (!a3)
   {
-    sbp_gvs_createStabilizedSampleBuffer_cold_46();
+    StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_46();
     goto LABEL_70;
   }
 
@@ -10011,216 +10049,217 @@ LABEL_31:
   {
     if (*(a3 + 4) <= 0.0)
     {
-      sbp_gvs_createStabilizedSampleBuffer_cold_45();
+      StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_45();
       goto LABEL_70;
     }
 
     if (*(a3 + 20) <= 0.0)
     {
-      sbp_gvs_createStabilizedSampleBuffer_cold_44();
+      StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_44();
       goto LABEL_70;
     }
 
-    v42 = (a1 + 28096);
+    v46 = (a1 + 28096);
     if (FigMotionGetQuaternionLength((a1 + 28096)) <= 0.00000001)
     {
-      sbp_gvs_createStabilizedSampleBuffer_cold_43();
+      StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_43();
       goto LABEL_70;
     }
 
     if (!*(v7 + 1668))
     {
-      v43 = *(a1 + 28112);
-      *(a1 + 28824) = *v42;
-      *(a1 + 28840) = v43;
+      v47 = *(a1 + 28112);
+      *(a1 + 28824) = *v46;
+      *(a1 + 28840) = v47;
       *(a1 + 28856) = 0;
       *(v7 + 1668) = 1;
     }
 
     if (*(v7 + 1669))
     {
-      v44 = CMGetAttachment(v41, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
-      if (!v44)
+      v48 = CMGetAttachment(v45, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
+      if (!v48)
       {
-        sbp_gvs_createStabilizedSampleBuffer_cold_40();
+        StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_40();
         goto LABEL_70;
       }
 
-      v45 = v44;
-      v239 = FigMotionMultiplyByInverseOfQuaternion((a1 + 28096), (a1 + 28824));
-      v240.f64[0] = v46;
-      v240.f64[1] = v47;
-      v241 = v48;
-      v238 = 0;
-      if (GVSComputeTranslationFromCameraMotion(&v239, &v238, *(a3 + 4)))
+      v49 = v48;
+      v249 = FigMotionMultiplyByInverseOfQuaternion((a1 + 28096), (a1 + 28824));
+      v250.f64[0] = v50;
+      v250.f64[1] = v51;
+      v251 = v52;
+      v248 = 0;
+      v53 = GVSComputeTranslationFromCameraMotion(&v249, &v248, *(a3 + 4));
+      if (v53)
       {
-        sbp_gvs_createStabilizedSampleBuffer_cold_37();
+        StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_37(v53, &v248, &v249);
         goto LABEL_70;
       }
 
-      v49.f32[0] = -*(a3 + 20);
+      v54.f32[0] = -*(a3 + 20);
       if (!*(a1 + 203))
       {
-        v49.i32[0] = *(a3 + 20);
+        v54.i32[0] = *(a3 + 20);
       }
 
-      v49.i32[1] = *(a3 + 20);
-      *(a1 + 28856) = vmla_f32(*(a1 + 28856), v49, v238);
-      v231.duration.value = vmul_f32(v49, *(a3 + 80));
-      v50 = CFDataCreate(kCFAllocatorDefault, (a1 + 28856), 8);
-      if (v50)
+      v54.i32[1] = *(a3 + 20);
+      *(a1 + 28856) = vmla_f32(*(a1 + 28856), v54, v248);
+      v241.duration.value = vmul_f32(v54, *(a3 + 80));
+      v55 = CFDataCreate(kCFAllocatorDefault, (a1 + 28856), 8);
+      if (v55)
       {
-        v51 = CFDataCreate(kCFAllocatorDefault, &v231, 8);
-        if (v51)
+        v56 = CFDataCreate(kCFAllocatorDefault, &v241, 8);
+        if (v56)
         {
-          v52 = v51;
-          CFDictionarySetValue(v45, kFigVideoStabilizationSampleBufferAttachmentKey_EstimatedCenterMotionVector, v50);
-          CFDictionarySetValue(v45, kFigVideoStabilizationSampleBufferAttachmentKey_EstimatedMotionBlurVector, v52);
+          v57 = v56;
+          CFDictionarySetValue(v49, kFigVideoStabilizationSampleBufferAttachmentKey_EstimatedCenterMotionVector, v55);
+          CFDictionarySetValue(v49, kFigVideoStabilizationSampleBufferAttachmentKey_EstimatedMotionBlurVector, v57);
           goto LABEL_59;
         }
 
-        sbp_gvs_createStabilizedSampleBuffer_cold_38();
+        StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_38();
       }
 
       else
       {
-        sbp_gvs_createStabilizedSampleBuffer_cold_39();
+        StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_39();
       }
 
 LABEL_68:
-      if (v50)
+      if (v55)
       {
-        CFRelease(v50);
+        CFRelease(v55);
       }
 
       goto LABEL_70;
     }
 
-    v50 = 0;
-    v52 = 0;
+    v55 = 0;
+    v57 = 0;
 LABEL_59:
     if (*(v7 + 1670))
     {
-      v231.duration.flags = 0;
-      *(&v231.duration.value + 4) = 0;
-      *(&v231.duration.epoch + 4) = 0;
-      *(&v231.presentationTimeStamp.value + 4) = 0x3F80000000000000;
-      LODWORD(v231.duration.value) = 1065353216;
-      LODWORD(v231.duration.epoch) = 1065353216;
-      v53 = *(a1 + 28096);
-      *&bytes[8] = vnegq_f64(*(v7 + 956));
-      v54 = -*(a1 + 28120);
-      *bytes = v53;
-      *&bytes[24] = v54;
-      *&v53 = *(v7 + 2540) * 0.75;
-      v55 = *(a1 + 336);
-      *&v239 = COERCE_UNSIGNED_INT(*(a3 + 4) * *(a3 + 20));
-      v56 = *(a1 + 136);
-      v57.i64[0] = v56;
-      v57.i64[1] = SHIDWORD(v56);
-      v240 = vsubq_f64(v55, vcvtq_f64_s64(v57));
-      v236 = v53;
-      v237 = v240;
+      v241.duration.flags = 0;
+      *(&v241.duration.value + 4) = 0;
+      *(&v241.duration.epoch + 4) = 0;
+      *(&v241.presentationTimeStamp.value + 4) = 0x3F80000000000000;
+      LODWORD(v241.duration.value) = 1065353216;
+      LODWORD(v241.duration.epoch) = 1065353216;
+      v58 = *(a1 + 28096);
+      *&bytes[8] = vnegq_f64(*(v7 + 239));
+      v59 = -*(a1 + 28120);
+      *bytes = v58;
+      *&bytes[24] = v59;
+      *&v58 = v7[635] * 0.75;
+      v60 = *(a1 + 336);
+      *&v249 = COERCE_UNSIGNED_INT(*(a3 + 4) * *(a3 + 20));
+      v61 = *(a1 + 136);
+      v62.i64[0] = v61;
+      v62.i64[1] = SHIDWORD(v61);
+      v250 = vsubq_f64(v60, vcvtq_f64_s64(v62));
+      v246 = v58;
+      v247 = v250;
       GVSInverseRotationMatrixFromQuaternion(bytes, &valuePtr);
-      *v58.i64 = FigMotionComputeTransformFromRotation(&v239, &v236, &valuePtr.duration.value, &v231);
+      *v63.i64 = FigMotionComputeTransformFromRotation(&v249, &v246, &valuePtr.duration.value, &v241);
       if (*(a1 + 203))
       {
-        *v59.i32 = *(a1 + 144);
-        v58.i32[0] = -1.0;
-        FigMotionPreMultiplyScalingTranslationToTransform(&v231, v58, v59, 1.0, 0.0, v60);
+        *v64.i32 = *(a1 + 144);
+        v63.i32[0] = -1.0;
+        FigMotionPreMultiplyScalingTranslationToTransform(&v241, v63, v64, 1.0, 0.0, v65);
       }
 
-      v238 = (*(a3 + 72) * 1000000000.0);
-      v61 = CFDataCreate(kCFAllocatorDefault, &v231, 36);
-      if (v61)
+      v248 = (*(a3 + 72) * 1000000000.0);
+      v66 = CFDataCreate(kCFAllocatorDefault, &v241, 36);
+      if (v66)
       {
-        v62 = v61;
-        CMSetAttachment(v41, kFigVideoStabilizationSampleBufferAttachmentKey_StabilizedTrajectoryHomography, v61, 1u);
-        CFRelease(v62);
-        v63 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &v238);
-        if (v63)
+        v67 = v66;
+        CMSetAttachment(v45, kFigVideoStabilizationSampleBufferAttachmentKey_StabilizedTrajectoryHomography, v66, 1u);
+        CFRelease(v67);
+        v68 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &v248);
+        if (v68)
         {
-          v64 = v63;
-          CMSetAttachment(v41, kFigVideoStabilizationSampleBufferAttachmentKey_StabilizedTrajectoryHomographyTimestamp, v63, 1u);
-          CFRelease(v64);
+          v69 = v68;
+          CMSetAttachment(v45, kFigVideoStabilizationSampleBufferAttachmentKey_StabilizedTrajectoryHomographyTimestamp, v68, 1u);
+          CFRelease(v69);
           goto LABEL_65;
         }
 
-        sbp_gvs_createStabilizedSampleBuffer_cold_41();
+        StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_41();
       }
 
       else
       {
-        sbp_gvs_createStabilizedSampleBuffer_cold_42();
+        StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_42();
       }
 
 LABEL_66:
-      if (v52)
+      if (v57)
       {
-        CFRelease(v52);
+        CFRelease(v57);
       }
 
       goto LABEL_68;
     }
 
 LABEL_65:
-    v65 = *(a1 + 28112);
-    *(a1 + 28824) = *v42;
-    *(a1 + 28840) = v65;
+    v70 = *(a1 + 28112);
+    *(a1 + 28824) = *v46;
+    *(a1 + 28840) = v70;
     goto LABEL_66;
   }
 
 LABEL_70:
-  v66 = v223;
+  v71 = v233;
   if (*v7 != 3 && *v7 != 5)
   {
-    v67 = CMGetAttachment(v232, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
-    if (v67)
+    StabilizedSampleBuffer_cold_48 = CMGetAttachment(v242, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
+    if (StabilizedSampleBuffer_cold_48)
     {
-      v68 = v67;
+      v72 = StabilizedSampleBuffer_cold_48;
       LOBYTE(valuePtr.duration.value) = 0;
-      FigCFDictionaryGetBooleanIfPresent();
+      StabilizedSampleBuffer_cold_48 = FigCFDictionaryGetBooleanIfPresent();
       if (LOBYTE(valuePtr.duration.value))
       {
-        v71 = *(a1 + 180);
-        v72 = *(a1 + 184);
-        v73 = v71 + (v71 >> 31);
-        v74 = (v72 >> 1) * v71;
-        if (v72 <= 1)
+        v75 = *(a1 + 180);
+        v76 = *(a1 + 184);
+        v77 = v75 + (v75 >> 31);
+        v78 = (v76 >> 1) * v75;
+        if (v76 <= 1)
         {
-          v74 = 0;
+          v78 = 0;
         }
 
-        v75 = *(a1 + 27408) + 36 * (v74 + (v73 >> 1));
-        v76 = *(v75 + 32);
-        v77 = *(v75 + 16);
-        *&v231.duration.value = *v75;
-        *&v231.duration.epoch = v77;
-        v231.presentationTimeStamp.timescale = v76;
-        v77.i32[0] = *(a3 + 20);
-        if (*v77.i32 > 0.0)
+        v79 = *(a1 + 27408) + 36 * (v78 + (v77 >> 1));
+        v80 = *(v79 + 32);
+        v81 = *(v79 + 16);
+        *&v241.duration.value = *v79;
+        *&v241.duration.epoch = v81;
+        v241.presentationTimeStamp.timescale = v80;
+        v81.i32[0] = *(a3 + 20);
+        if (*v81.i32 > 0.0)
         {
-          FigMotionApplyDigitalZoomToTransform(0, &v231, v77, *(a1 + 336), *(a1 + 344), v69, v70);
+          FigMotionApplyDigitalZoomToTransform(0, &v241, v81, *(a1 + 336), *(a1 + 344), v73, v74);
         }
 
-        v78 = *(a1 + 128) - *(v7 + 2540);
-        v79 = v78;
-        v80 = vcvts_n_f32_s32(*(a1 + 132) - *(v7 + 2544), 1uLL) + *(v7 + 2544);
-        FigMotionPostMultiplyScalingTranslationToTransform(&v231, 1.0, vcvts_n_f32_s32(v78, 1uLL), -1.0, v80);
-        *v81.i32 = -(v79 * 0.5);
-        v82.i32[0] = 1.0;
-        FigMotionPreMultiplyScalingTranslationToTransform(&v231, v82, v81, -1.0, v80, v83);
-        v84 = CFDataCreate(kCFAllocatorDefault, &v231, 36);
-        if (v84)
+        v82 = *(a1 + 128) - v7[635];
+        v83 = v82;
+        v84 = vcvts_n_f32_s32(*(a1 + 132) - v7[636], 1uLL) + v7[636];
+        FigMotionPostMultiplyScalingTranslationToTransform(&v241, 1.0, vcvts_n_f32_s32(v82, 1uLL), -1.0, v84);
+        *v85.i32 = -(v83 * 0.5);
+        v86.i32[0] = 1.0;
+        FigMotionPreMultiplyScalingTranslationToTransform(&v241, v86, v85, -1.0, v84, v87);
+        v88 = CFDataCreate(kCFAllocatorDefault, &v241, 36);
+        if (v88)
         {
-          v85 = v84;
-          CFDictionarySetValue(v68, kFigVideoStabilizationSampleBufferProcessorMetadata_VitalityTransformMatrix, v84);
-          CFRelease(v85);
+          v89 = v88;
+          CFDictionarySetValue(v72, kFigVideoStabilizationSampleBufferProcessorMetadata_VitalityTransformMatrix, v88);
+          CFRelease(v89);
         }
 
         else
         {
-          sbp_gvs_createStabilizedSampleBuffer_cold_49();
+          StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_49();
         }
       }
     }
@@ -10228,37 +10267,38 @@ LABEL_70:
 
   if (*(a1 + 205) && *(a3 + 136) == 4 && *v7 != 5)
   {
-    if (_getMetadataDictionary(v232))
+    if (_getMetadataDictionary(v242, v44))
     {
-      FigCFDictionarySetCGRect();
+      StabilizedSampleBuffer_cold_48 = FigCFDictionarySetCGRect();
     }
 
     else
     {
-      sbp_gvs_createStabilizedSampleBuffer_cold_50();
+      StabilizedSampleBuffer_cold_48 = sbp_gvs_createStabilizedSampleBuffer_cold_50();
     }
   }
 
-  v86 = *v7;
+  v90 = *v7;
   if ((*v7 - 1) <= 2)
   {
     if (*(v7 + 980))
     {
-      v87 = v232;
+      v91 = v242;
       if (*(a1 + 392) == 1)
       {
-        if (a1 && a3 && v232)
+        if (a1 && a3 && v242)
         {
-          v88 = *(a1 + 28112);
-          *&v231.duration.value = *(a1 + 28096);
-          *&v231.duration.epoch = v88;
-          *&v231.presentationTimeStamp.timescale = vneg_f32(*(a1 + 28232));
-          *&v231.presentationTimeStamp.epoch = *(a3 + 4) * *(a3 + 20);
-          v89 = [NSData dataWithBytes:&v231 length:48];
-          if (v89)
+          v241.presentationTimeStamp.epoch = 0;
+          v92 = *(a1 + 28112);
+          *&v241.duration.value = *(a1 + 28096);
+          *&v241.duration.epoch = v92;
+          *&v241.presentationTimeStamp.timescale = vneg_f32(*(a1 + 28232));
+          *&v241.presentationTimeStamp.epoch = *(a3 + 4) * *(a3 + 20);
+          v93 = [NSData dataWithBytes:&v241 length:48];
+          if (v93)
           {
-            v90 = v89;
-            CMSetAttachment(v87, kFigVideoStabilizationSampleBufferAttachmentKey_StabilizedOutputCameraGeometry, v89, 1u);
+            v94 = v93;
+            CMSetAttachment(v91, kFigVideoStabilizationSampleBufferAttachmentKey_StabilizedOutputCameraGeometry, v93, 1u);
           }
 
           else
@@ -10269,18 +10309,18 @@ LABEL_70:
 
         else
         {
-          sbp_gvs_createStabilizedSampleBuffer_cold_54();
+          sbp_gvs_createStabilizedSampleBuffer_cold_54(StabilizedSampleBuffer_cold_48);
         }
       }
 
-      else if (v232)
+      else if (v242)
       {
-        v91 = CFDataCreate(kCFAllocatorDefault, (a1 + 28096), 32);
-        if (v91)
+        v95 = CFDataCreate(kCFAllocatorDefault, (a1 + 28096), 32);
+        if (v95)
         {
-          v92 = v91;
-          CMSetAttachment(v87, kFigVideoStabilizationSampleBufferAttachmentKey_StabilizedOutputCenterQuaternion, v91, 1u);
-          CFRelease(v92);
+          v96 = v95;
+          CMSetAttachment(v91, kFigVideoStabilizationSampleBufferAttachmentKey_StabilizedOutputCenterQuaternion, v95, 1u);
+          CFRelease(v96);
         }
 
         else
@@ -10291,339 +10331,351 @@ LABEL_70:
 
       else
       {
-        sbp_gvs_createStabilizedSampleBuffer_cold_52();
+        sbp_gvs_createStabilizedSampleBuffer_cold_52(StabilizedSampleBuffer_cold_48);
       }
     }
 
-    v86 = *v7;
+    v90 = *v7;
   }
 
-  if (v86 != 5)
+  if (v90 != 5)
   {
     goto LABEL_125;
   }
 
-  v93 = *(a1 + 27408);
-  v94 = CMGetAttachment(v232, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
-  if (!v94)
-  {
-    sbp_gvs_createStabilizedSampleBuffer_cold_59(&v231);
-    goto LABEL_304;
-  }
-
-  v95 = v94;
-  v242 = 1;
-  v96 = CFDictionaryContainsKey(v94, kFigMotionAttachmentsSampleBufferProcessorMetadata_StereoStitchingNarrowBufferRect);
-  BooleanIfPresent = FigCFDictionaryGetBooleanIfPresent();
-  v98 = v242;
-  if (!BooleanIfPresent)
-  {
-    v98 = v96 == 0;
-  }
-
-  v99 = *(a1 + 144);
-  v100.i64[0] = v99;
-  v100.i64[1] = SHIDWORD(v99);
-  v101 = vcvtq_f64_s64(v100);
-  v102 = 0.0;
+  v97 = *(a1 + 27408);
+  v98 = CMGetAttachment(v242, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
   if (v98)
   {
-    v103.f64[0] = 0.0;
-  }
+    v99 = v98;
+    v252[0] = 1;
+    v100 = CFDictionaryContainsKey(v98, kFigMotionAttachmentsSampleBufferProcessorMetadata_StereoStitchingNarrowBufferRect);
+    BooleanIfPresent = FigCFDictionaryGetBooleanIfPresent();
+    v102 = v252[0];
+    if (!BooleanIfPresent)
+    {
+      v102 = v100 == 0;
+    }
 
-  else
-  {
+    v103 = *(a1 + 144);
+    v104.i64[0] = v103;
+    v104.i64[1] = SHIDWORD(v103);
+    v105 = vcvtq_f64_s64(v104);
+    v106 = 0.0;
+    if (v102)
+    {
+      v107.f64[0] = 0.0;
+LABEL_123:
+      v138 = v105.f64[1];
+      DictionaryRepresentation = CGRectCreateDictionaryRepresentation(*(&v106 - 1));
+      if (DictionaryRepresentation)
+      {
+        v140 = DictionaryRepresentation;
+        CFDictionarySetValue(v99, kFigVideoStabilizationSampleBufferProcessorMetadata_StitchingCleanApertureRect, DictionaryRepresentation);
+        CFRelease(v140);
+        goto LABEL_125;
+      }
+
+      sbp_gvs_createStabilizedSampleBuffer_cold_55(&v241);
+      goto LABEL_303;
+    }
+
     if (*(a1 + 180) <= 0)
     {
-      sbp_gvs_createStabilizedSampleBuffer_cold_58(&v231);
-      goto LABEL_304;
-    }
-
-    v217 = v101;
-    if (!v96)
-    {
-      sbp_gvs_createStabilizedSampleBuffer_cold_57(&v231);
-      goto LABEL_304;
-    }
-
-    size = CGRectNull.size;
-    *&valuePtr.duration.value = CGRectNull.origin;
-    *&valuePtr.duration.epoch = size;
-    FigCFDictionaryGetCGRectIfPresent();
-    if (*&valuePtr.presentationTimeStamp.value <= 0.0)
-    {
-      sbp_gvs_createStabilizedSampleBuffer_cold_56(&valuePtr, &v231);
-      goto LABEL_304;
-    }
-
-    v106 = *(a1 + 180);
-    v107 = *&valuePtr.duration.value;
-    v108 = *&valuePtr.duration.value + *&valuePtr.duration.epoch + -1.0;
-    *&v236 = v107;
-    *v237.f64 = v108;
-    v109 = (*&valuePtr.presentationTimeStamp.value + *&valuePtr.duration.timescale);
-    v110 = *&valuePtr.duration.timescale;
-    if (*&valuePtr.duration.timescale >= v109)
-    {
-      *&v226 = 0;
-      *&v228 = 0x47EFFFFFE0000000;
-      v113 = 0.0;
+      sbp_gvs_createStabilizedSampleBuffer_cold_58(&v241);
     }
 
     else
     {
-      v111 = 0;
-      v112 = (*&valuePtr.presentationTimeStamp.value / v106);
-      v113 = 0.0;
-      *&v105 = 0x47EFFFFFE0000000;
-      v228 = v105;
-      *&v105 = 0;
-      v226 = v105;
-      do
+      v224 = v105;
+      if (v100)
       {
-        *(v237.f64 + 1) = v110;
-        *(&v236 + 1) = v110;
-        invert3x3Matrix(v93, &v231);
-        _computeProjectedPoints(&v231, &v236, bytes);
-        v114 = *&bytes[8];
-        if (*&bytes[8] <= *&bytes[24])
+        size = CGRectNull.size;
+        *&valuePtr.duration.value = CGRectNull.origin;
+        *&valuePtr.duration.epoch = size;
+        FigCFDictionaryGetCGRectIfPresent();
+        if (*&valuePtr.presentationTimeStamp.value > 0.0)
         {
-          v114 = *&bytes[24];
+          v110 = *(a1 + 180);
+          v111 = *&valuePtr.duration.value;
+          v112 = *&valuePtr.duration.value + *&valuePtr.duration.epoch + -1.0;
+          *&v246 = v111;
+          *v247.f64 = v112;
+          v113 = (*&valuePtr.presentationTimeStamp.value + *&valuePtr.duration.timescale);
+          v114 = *&valuePtr.duration.timescale;
+          if (*&valuePtr.duration.timescale >= v113)
+          {
+            v236.n128_u64[0] = 0;
+            v109.n128_u32[1] = 1206910975;
+            v238.n128_u64[0] = 0x47EFFFFFE0000000;
+            v117 = 0.0;
+          }
+
+          else
+          {
+            v115 = 0;
+            v116 = (*&valuePtr.presentationTimeStamp.value / v110);
+            v117 = 0.0;
+            v109.n128_u64[0] = 0x47EFFFFFE0000000;
+            v238 = v109;
+            v109.n128_u64[0] = 0;
+            v236 = v109;
+            do
+            {
+              *(v247.f64 + 1) = v114;
+              *(&v246 + 1) = v114;
+              v118.n128_f32[0] = invert3x3Matrix(v97, &v241);
+              _computeProjectedPoints(&v241, &v246, bytes, v118);
+              v119 = *&bytes[8];
+              if (*&bytes[8] <= *&bytes[24])
+              {
+                v119 = *&bytes[24];
+              }
+
+              v120 = v236;
+              if (!v115)
+              {
+                v120.n128_f64[0] = v119;
+              }
+
+              if (v117 <= *bytes)
+              {
+                v117 = *bytes;
+              }
+
+              v109 = v238;
+              if (v238.n128_f64[0] >= *&bytes[16])
+              {
+                v109.n128_u64[0] = *&bytes[16];
+              }
+
+              v236 = v120;
+              v238 = v109;
+              v114 += v116;
+              --v115;
+              v97 += 36;
+            }
+
+            while (v114 < v113);
+          }
+
+          v109.n128_f32[0] = (v113 - 1);
+          *(v247.f64 + 1) = v109.n128_f32[0];
+          *(&v246 + 1) = v109.n128_f32[0];
+          _computeProjectedPoints(&v241, &v246, bytes, v109);
+          v124.f64[0] = *bytes;
+          if (v117 > *bytes)
+          {
+            v124.f64[0] = v117;
+          }
+
+          __asm { FMOV            V1.2D, #-1.0 }
+
+          v130 = vaddq_f64(v224, _Q1);
+          *&v131.f64[0] = v238.n128_u64[0];
+          v131.f64[1] = *&bytes[8];
+          v132 = *(a1 + 136);
+          v133.i64[0] = v132;
+          v133.i64[1] = SHIDWORD(v132);
+          v134 = vcvtq_f64_s64(v133);
+          *&v124.f64[1] = v236.n128_u64[0];
+          v107 = vmaxnmq_f64(vsubq_f64(v124, v134), 0);
+          v135 = vsubq_f64(vbslq_s8(vcgtq_f64(*&bytes[16], v131), v131, *&bytes[16]), v134);
+          v136 = vsubq_f64(vbslq_s8(vcgtq_f64(v130, v135), v135, v130), v107);
+          __asm { FMOV            V2.2D, #1.0 }
+
+          v105 = vaddq_f64(v136, _Q2);
+          v106 = v107.f64[1];
+          v71 = v233;
+          goto LABEL_123;
         }
 
-        v115 = v226;
-        if (!v111)
-        {
-          *&v115 = v114;
-        }
-
-        if (v113 <= *bytes)
-        {
-          v113 = *bytes;
-        }
-
-        v116 = v228;
-        if (*&v228 >= *&bytes[16])
-        {
-          *&v116 = *&bytes[16];
-        }
-
-        v226 = v115;
-        v228 = v116;
-        v110 += v112;
-        --v111;
-        v93 += 36;
+        sbp_gvs_createStabilizedSampleBuffer_cold_56(&valuePtr, &v241);
       }
 
-      while (v110 < v109);
+      else
+      {
+        sbp_gvs_createStabilizedSampleBuffer_cold_57(&v241);
+      }
     }
-
-    *(v237.f64 + 1) = (v109 - 1);
-    *(&v236 + 1) = *(v237.f64 + 1);
-    _computeProjectedPoints(&v231, &v236, bytes);
-    v120.f64[0] = *bytes;
-    if (v113 > *bytes)
-    {
-      v120.f64[0] = v113;
-    }
-
-    __asm { FMOV            V1.2D, #-1.0 }
-
-    v126 = vaddq_f64(v217, _Q1);
-    *&v127.f64[0] = v228;
-    v127.f64[1] = *&bytes[8];
-    v128 = *(a1 + 136);
-    v129.i64[0] = v128;
-    v129.i64[1] = SHIDWORD(v128);
-    v130 = vcvtq_f64_s64(v129);
-    *&v120.f64[1] = v226;
-    v103 = vmaxnmq_f64(vsubq_f64(v120, v130), 0);
-    v131 = vsubq_f64(vbslq_s8(vcgtq_f64(*&bytes[16], v127), v127, *&bytes[16]), v130);
-    v132 = vsubq_f64(vbslq_s8(vcgtq_f64(v126, v131), v131, v126), v103);
-    __asm { FMOV            V2.2D, #1.0 }
-
-    v101 = vaddq_f64(v132, _Q2);
-    v102 = v103.f64[1];
-    v66 = v223;
   }
 
-  v134 = v101.f64[1];
-  DictionaryRepresentation = CGRectCreateDictionaryRepresentation(*(&v102 - 1));
-  if (DictionaryRepresentation)
+  else
   {
-    v136 = DictionaryRepresentation;
-    CFDictionarySetValue(v95, kFigVideoStabilizationSampleBufferProcessorMetadata_StitchingCleanApertureRect, DictionaryRepresentation);
-    CFRelease(v136);
-    goto LABEL_125;
+    sbp_gvs_createStabilizedSampleBuffer_cold_59(&v241);
   }
 
-  sbp_gvs_createStabilizedSampleBuffer_cold_55(&v231);
-LABEL_304:
-  value_low = LODWORD(v231.duration.value);
-  if (LODWORD(v231.duration.value))
+LABEL_303:
+  value_low = LODWORD(v241.duration.value);
+  if (LODWORD(v241.duration.value))
   {
-    fig_log_get_emitter();
-    goto LABEL_200;
+    v220 = fig_log_get_emitter();
+    LODWORD(v221) = value_low;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v220, "<<<< GyroVideoStabilizationV2 >>>> Fig", "err == 0 ", "bail", 0, "GVSGyroStabilizationV2.m", 5648, v221);
+    goto LABEL_133;
   }
 
 LABEL_125:
   if (!*(v7 + 2957))
   {
-    v137 = *(a1 + 27408);
-    if (v137)
+    v141 = *(a1 + 27408);
+    if (v141)
     {
       __asm { FMOV            V2.2S, #-1.0 }
 
-      v139 = vmla_f32(vcvt_f32_s32(*(a1 + 152)), 0x3F0000003F000000, vadd_f32(vcvt_f32_s32(*(a1 + 160)), _D2));
-      v140 = *(a1 + 180);
-      v141 = *(a1 + 184);
-      v142 = v140 + (v140 >> 31);
-      v143 = (v141 >> 1) * v140;
-      if (v141 <= 1)
+      v143 = vmla_f32(vcvt_f32_s32(*(a1 + 152)), 0x3F0000003F000000, vadd_f32(vcvt_f32_s32(*(a1 + 160)), _D2));
+      v144 = *(a1 + 180);
+      v145 = *(a1 + 184);
+      v146 = v144 + (v144 >> 31);
+      v147 = (v145 >> 1) * v144;
+      if (v145 <= 1)
       {
-        v143 = 0;
+        v147 = 0;
       }
 
-      LODWORD(v231.duration.value) = 0;
+      LODWORD(v241.duration.value) = 0;
       *bytes = 0;
-      GVSComputePerspectiveProjectedPoint((v137 + 36 * (v143 + (v142 >> 1))), &v231, bytes, v139.f32[0], v139.f32[1]);
-      v144 = __PAIR64__(*bytes, v231.duration.value);
+      GVSComputePerspectiveProjectedPoint((v141 + 36 * (v147 + (v146 >> 1))), &v241, bytes, v143.f32[0], v143.f32[1]);
+      v148 = __PAIR64__(*bytes, v241.duration.value);
     }
 
     else
     {
       sbp_gvs_createStabilizedSampleBuffer_cold_60();
-      v144 = 0;
+      v148 = 0;
     }
 
-    *(a1 + 30200) = vdiv_f32(v144, vcvt_f32_s32(*(a1 + 128)));
+    *(a1 + 30200) = vdiv_f32(v148, vcvt_f32_s32(*(a1 + 128)));
   }
 
   if (*v7 == 5)
   {
     value_low = 0;
 LABEL_133:
-    v119 = v224;
-    goto LABEL_208;
+    v123 = v234;
+    goto LABEL_207;
   }
 
-  if (a1 && v66 && a3)
+  if (a1 && v71 && a3)
   {
-    v145 = GVSComputeOverscanUsage((a1 + 128), (a3 + 104), *(a1 + 27408)).f32[0];
-    v147 = *(a3 + 96);
-    v148 = *(a3 + 100);
-    if (v145 >= v147)
+    v149.n128_u64[0] = GVSComputeOverscanUsage((a1 + 128), (a3 + 104), *(a1 + 27408));
+    v153.n128_f32[0] = *(a3 + 96);
+    v151.n128_f32[0] = *(a3 + 100);
+    v152 = v149.n128_f32[0] / v153.n128_f32[0];
+    _NF = v149.n128_f32[0] < v153.n128_f32[0];
+    v153.n128_u32[0] = 1.0;
+    if (_NF)
     {
-      v149 = 1.0;
+      v149.n128_f32[0] = v152;
     }
 
     else
     {
-      v149 = v145 / v147;
+      v149.n128_f32[0] = 1.0;
     }
 
-    if (v146 >= v148)
+    if (v150.n128_f32[0] >= v151.n128_f32[0])
     {
-      v150 = 1.0;
-    }
-
-    else
-    {
-      v150 = v146 / v148;
-    }
-
-    v151 = *(a3 + 136);
-    if (v151 >= 5)
-    {
-      sbp_gvs_createStabilizedSampleBuffer_cold_64();
+      v150.n128_f32[0] = 1.0;
     }
 
     else
     {
-      v152 = *(a3 + 140);
-      if (v152 >= 3)
+      v150.n128_f32[0] = v150.n128_f32[0] / v151.n128_f32[0];
+    }
+
+    v154 = *(a3 + 136);
+    if (v154 >= 5)
+    {
+      sbp_gvs_createStabilizedSampleBuffer_cold_64(v149, v150, v153, v151);
+    }
+
+    else
+    {
+      v155 = *(a3 + 140);
+      if (v155 >= 3)
       {
-        sbp_gvs_createStabilizedSampleBuffer_cold_63();
+        sbp_gvs_createStabilizedSampleBuffer_cold_63(v149, v150, v153, v151);
       }
 
       else
       {
-        v153 = v152 - 1;
-        if (v152 <= 0)
+        v156 = v155 - 1;
+        if (v155 <= 0)
         {
-          v153 = 0;
+          v156 = 0;
         }
 
-        v154 = OverscanHistogramIndexMapping[2 * v151 + v153];
-        if ((v154 & 0x80000000) != 0)
+        v157 = OverscanHistogramIndexMapping[2 * v154 + v156];
+        if ((v157 & 0x80000000) != 0)
         {
-          sbp_gvs_createStabilizedSampleBuffer_cold_62();
+          sbp_gvs_createStabilizedSampleBuffer_cold_62(v149, v150, v153, v151);
         }
 
         else
         {
-          v155 = fminf(v149, v150);
-          if (v155 >= 0.02)
+          v158 = fminf(v149.n128_f32[0], v150.n128_f32[0]);
+          if (v158 >= 0.02)
           {
-            if (v155 >= 0.04)
+            if (v158 >= 0.04)
             {
-              if (v155 >= 0.06)
+              if (v158 >= 0.06)
               {
-                if (v155 >= 0.11)
+                if (v158 >= 0.11)
                 {
-                  if (v155 >= 0.16)
+                  if (v158 >= 0.16)
                   {
-                    v156 = 6;
-                    if (v155 < 0.21)
+                    v159 = 6;
+                    if (v158 < 0.21)
                     {
-                      v156 = 5;
+                      v159 = 5;
                     }
                   }
 
                   else
                   {
-                    v156 = 4;
+                    v159 = 4;
                   }
                 }
 
                 else
                 {
-                  v156 = 3;
+                  v159 = 3;
                 }
               }
 
               else
               {
-                v156 = 2;
+                v159 = 2;
               }
             }
 
             else
             {
-              v156 = 1;
+              v159 = 1;
             }
           }
 
           else
           {
-            v156 = 0;
+            v159 = 0;
           }
 
-          *(a1 + 4 * v154 + 30024) = v151 | (v152 << 16);
-          v185 = a1 + 28 * v154 + 4 * v156;
-          *(v185 + 29824) = *(v185 + 29824) + 1.0;
-          v186 = *(v7 + 2376);
-          if (v186 > 0.0)
+          *(a1 + 4 * v157 + 30024) = v154 | (v155 << 16);
+          v190 = a1 + 28 * v157 + 4 * v159;
+          *(v190 + 29824) = *(v190 + 29824) + 1.0;
+          v191 = *(v7 + 594);
+          if (v191 > 0.0)
           {
-            v187 = a1 + 4 * vcvtms_s32_f32((*(v7 + 2384) / v186) * 6.0);
-            *(v187 + 29992) = *(v187 + 29992) + 1.0;
+            v192 = a1 + 4 * vcvtms_s32_f32((*(v7 + 596) / v191) * 6.0);
+            *(v192 + 29992) = *(v192 + 29992) + 1.0;
           }
 
-          LODWORD(v231.duration.value) = 0;
-          if (CMGetAttachment(v66, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0))
+          LODWORD(v241.duration.value) = 0;
+          if (CMGetAttachment(v71, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0))
           {
             FigCFDictionaryGetInt32IfPresent();
-            *(v7 + 2872) = *(v7 + 2872) + SLODWORD(v231.duration.value);
+            *(v7 + 718) = *(v7 + 718) + SLODWORD(v241.duration.value);
           }
 
           else
@@ -10640,30 +10692,30 @@ LABEL_133:
     sbp_gvs_createStabilizedSampleBuffer_cold_65();
   }
 
-  v119 = v224;
+  v123 = v234;
   value_low = 0;
-LABEL_208:
+LABEL_207:
   if (*(v7 + 2630))
   {
-    v118 = HIDWORD(v222) == 1 && *(v7 + 2648);
-    goto LABEL_213;
+    v122 = HIDWORD(v232) == 1 && *(v7 + 2648);
+    goto LABEL_212;
   }
 
-LABEL_214:
+LABEL_213:
   CMRemoveAttachment(sourceBuffer, @"InputDepthPixelBuffer");
   CMRemoveAttachment(sourceBuffer, @"OutputDepthPixelBuffer");
-  v188 = v232;
-  if (value_low && v232)
+  v193 = v242;
+  if (value_low && v242)
   {
-    CFRelease(v232);
-    v188 = 0;
-    v232 = 0;
+    CFRelease(v242);
+    v193 = 0;
+    v242 = 0;
   }
 
-  *v119 = v188;
-  if (v233)
+  *v123 = v193;
+  if (v243)
   {
-    CFRelease(v233);
+    CFRelease(v243);
   }
 
   if (gGMFigKTraceEnabled == 1)

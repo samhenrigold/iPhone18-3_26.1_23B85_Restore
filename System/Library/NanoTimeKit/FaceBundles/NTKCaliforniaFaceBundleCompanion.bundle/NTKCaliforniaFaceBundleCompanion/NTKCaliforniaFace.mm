@@ -112,26 +112,17 @@ LABEL_9:
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  switch(mode)
+  if (mode == 10 || mode == 15 || mode == 13)
   {
-    case 10:
-      v4 = NTKCaliforniaColorEditOption_ptr;
-LABEL_7:
-      v5 = *v4;
-      v6 = objc_opt_class();
-
-      return v6;
-    case 15:
-      v4 = NTKAnalogDialShapeEditOption_ptr;
-      goto LABEL_7;
-    case 13:
-      v4 = &off_1C298;
-      goto LABEL_7;
+    v4 = objc_opt_class();
   }
 
-  v6 = 0;
+  else
+  {
+    v4 = 0;
+  }
 
-  return v6;
+  return v4;
 }
 
 - (unint64_t)_indexOfOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot

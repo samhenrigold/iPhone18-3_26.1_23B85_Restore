@@ -98,28 +98,27 @@
 
 - (void)setAxis:(unint64_t)axis
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   self->_axis = axis;
 
   v5 = objc_alloc(MEMORY[0x277CBEA60]);
-  v7[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:axis];
-  self->_axes = [v5 initWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v7, 1)}];
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:axis];
+  self->_axes = [v5 initWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v6, 1)}];
 }
 
 - (MPSNDArrayStitchedReduction)initWithDevice:(id)device axis:(unint64_t)axis descriptor:(id)descriptor
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = MPSNDArrayStitchedReduction;
-  result = [(MPSNDArrayUnaryKernel *)&v12 initWithDevice:device];
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = MPSNDArrayStitchedReduction;
+  result = [(MPSNDArrayUnaryKernel *)&v11 initWithDevice:device];
   if (result)
   {
     result->_axis = axis;
     v8 = result;
     v9 = objc_alloc(MEMORY[0x277CBEA60]);
-    v13[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:axis];
-    v8->_axes = [v9 initWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v13, 1)}];
+    v12[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:axis];
+    v8->_axes = [v9 initWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v12, 1)}];
     v8->super.super._encode = EncodeStitchedReduction;
     v8->_DAGInfo = 0;
     v8->_invariantValueFn = [objc_msgSend(descriptor "invariantValueFn")];
@@ -131,7 +130,6 @@
     v8->_stateSize = stateSize;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -274,37 +272,36 @@
 
 - (id)getUserDAGInfo
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = self->_DAGInfo;
   if (!result)
   {
     v3 = objc_autoreleasePoolPush();
     [MEMORY[0x277CBEB18] array];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v6 = MEMORY[0x277D85DD0];
-    v7 = 3221225472;
-    v8 = __45__MPSNDArrayStitchedReduction_getUserDAGInfo__block_invoke;
-    v9 = &unk_278B04D10;
-    v10 = dictionary;
+    v5 = MEMORY[0x277D85DD0];
+    v6 = 3221225472;
+    v7 = __45__MPSNDArrayStitchedReduction_getUserDAGInfo__block_invoke;
+    v8 = &unk_278B04D10;
+    v9 = dictionary;
     operator new();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t __45__MPSNDArrayStitchedReduction_getUserDAGInfo__block_invoke(uint64_t a1, void *a2)
+void *__45__MPSNDArrayStitchedReduction_getUserDAGInfo__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  result = [a2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  result = [a2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (result)
   {
     v5 = result;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
@@ -312,38 +309,38 @@ uint64_t __45__MPSNDArrayStitchedReduction_getUserDAGInfo__block_invoke(uint64_t
       {
         while (1)
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(a2);
           }
 
-          v8 = *(*(&v11 + 1) + 8 * v7);
+          v8 = *(*(&v10 + 1) + 8 * v7);
           v9 = [v8 specializedName];
           if (![*(a1 + 32) objectForKey:v9])
           {
             break;
           }
 
-          if (v5 == ++v7)
+          v7 = v7 + 1;
+          if (v5 == v7)
           {
             goto LABEL_3;
           }
         }
 
         [*(a1 + 32) setValue:v8 forKey:v9];
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
 LABEL_3:
-      result = [a2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      result = [a2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       v5 = result;
     }
 
     while (result);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 

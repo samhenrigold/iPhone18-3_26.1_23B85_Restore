@@ -3,16 +3,16 @@
 
 @implementation NSUserDefaults
 
-id __58__NSUserDefaults_WKAdditions__wk_wallpaperKitUserDefaults__block_invoke()
+id __58__NSUserDefaults_WKAdditions__wk_wallpaperKitUserDefaults__block_invoke(uint64_t a1)
 {
   if (WKIgnoreLogicalScreenClassForWallpaperBundleKey_block_invoke_na_once_token_0 != -1)
   {
     __58__NSUserDefaults_WKAdditions__wk_wallpaperKitUserDefaults__block_invoke_cold_1();
   }
 
-  v1 = WKIgnoreLogicalScreenClassForWallpaperBundleKey_block_invoke_na_once_object_0;
+  v2 = WKIgnoreLogicalScreenClassForWallpaperBundleKey_block_invoke_na_once_object_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __58__NSUserDefaults_WKAdditions__wk_wallpaperKitUserDefaults__block_invoke_2()

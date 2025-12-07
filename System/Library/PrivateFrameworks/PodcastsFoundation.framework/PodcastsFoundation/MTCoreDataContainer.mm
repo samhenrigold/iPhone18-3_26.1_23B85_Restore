@@ -65,7 +65,7 @@
 
 - (id)persistentStoreCoordinator
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   coordinator = self->_coordinator;
   if (coordinator)
   {
@@ -88,18 +88,18 @@
   databaseFileUrl = [config2 databaseFileUrl];
   config3 = [(MTCoreDataContainer *)self config];
   persistentStoreOptions = [config3 persistentStoreOptions];
-  v25 = 0;
-  v18 = [v12 addPersistentStoreWithType:v13 configuration:0 URL:databaseFileUrl options:persistentStoreOptions error:&v25];
-  v19 = v25;
+  v24 = 0;
+  v18 = [v12 addPersistentStoreWithType:v13 configuration:0 URL:databaseFileUrl options:persistentStoreOptions error:&v24];
+  v19 = v24;
 
   if (!v18)
   {
-    v22 = _MTLogCategoryDatabase();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v21 = _MTLogCategoryDatabase();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v27 = v19;
-      _os_log_impl(&dword_1D8CEC000, v22, OS_LOG_TYPE_FAULT, "Critical error in Core Data intialization. (Error: %@)", buf, 0xCu);
+      v26 = v19;
+      _os_log_impl(&dword_1D8CEC000, v21, OS_LOG_TYPE_FAULT, "Critical error in Core Data intialization. (Error: %@)", buf, 0xCu);
     }
 
     domain = [v19 domain];
@@ -140,7 +140,6 @@ LABEL_6:
   coordinator = [(MTCoreDataContainer *)self coordinator];
 
 LABEL_7:
-  v20 = *MEMORY[0x1E69E9840];
 
   return coordinator;
 }
@@ -291,11 +290,11 @@ LABEL_7:
 
 - (MTCoreDataContainer)initWithConfig:(id)config
 {
-  v22[5] = *MEMORY[0x1E69E9840];
+  v21[5] = *MEMORY[0x1E69E9840];
   configCopy = config;
-  v21.receiver = self;
-  v21.super_class = MTCoreDataContainer;
-  v5 = [(MTCoreDataContainer *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = MTCoreDataContainer;
+  v5 = [(MTCoreDataContainer *)&v20 init];
   v6 = v5;
   if (v5)
   {
@@ -304,12 +303,12 @@ LABEL_7:
     weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
     [(MTCoreDataContainer *)v6 setNotifiers:weakObjectsHashTable];
 
-    v22[0] = @"MTPodcast";
-    v22[1] = @"MTEpisode";
-    v22[2] = @"MTPlaylist";
-    v22[3] = @"MTPodcastPlaylistSettings";
-    v22[4] = @"MTChannel";
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:5];
+    v21[0] = @"MTPodcast";
+    v21[1] = @"MTEpisode";
+    v21[2] = @"MTPlaylist";
+    v21[3] = @"MTPodcastPlaylistSettings";
+    v21[4] = @"MTChannel";
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:5];
     [(MTCoreDataContainer *)v6 setEntityNames:v8];
 
     v9 = MEMORY[0x1E696AEC0];
@@ -327,7 +326,6 @@ LABEL_7:
     [(MTCoreDataContainer *)v6 setMergeNotifierQueue:v18];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -596,29 +594,29 @@ LABEL_7:
 
 - (id)contextForName:(id)name
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (nameCopy)
   {
     [(MTCoreDataContainer *)self allContexts];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v5 = v17 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = v16 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           mt_immutableName = [v9 mt_immutableName];
           v11 = [mt_immutableName isEqualToString:nameCopy];
 
@@ -629,7 +627,7 @@ LABEL_7:
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -646,8 +644,6 @@ LABEL_12:
   {
     v6 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -695,7 +691,7 @@ LABEL_4:
 
 void __59__MTCoreDataContainer_mergeFromContextDidSaveNotification___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if ([WeakRetained valid])
   {
@@ -707,9 +703,9 @@ void __59__MTCoreDataContainer_mergeFromContextDidSaveNotification___block_invok
     if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
     {
       v7 = [*(a1 + 32) name];
-      v15 = 138543362;
-      v16 = v7;
-      _os_signpost_emit_with_name_impl(&dword_1D8CEC000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "mergeFromContextDidSaveNotification", "from: %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v7;
+      _os_signpost_emit_with_name_impl(&dword_1D8CEC000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "mergeFromContextDidSaveNotification", "from: %{public}@", &v14, 0xCu);
     }
 
     v8 = MEMORY[0x1E695D628];
@@ -724,12 +720,10 @@ void __59__MTCoreDataContainer_mergeFromContextDidSaveNotification___block_invok
     v13 = v12;
     if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
-      LOWORD(v15) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1D8CEC000, v13, OS_SIGNPOST_INTERVAL_END, v4, "mergeFromContextDidSaveNotification", "", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1D8CEC000, v13, OS_SIGNPOST_INTERVAL_END, v4, "mergeFromContextDidSaveNotification", "", &v14, 2u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addChangeNotifier:(id)notifier
@@ -811,28 +805,28 @@ void __57__MTCoreDataContainer__notifyLibraryChanged_contextName___block_invoke(
 
 - (void)_addChanges:(id)changes ofType:(int)type toLibraryChanges:(id)libraryChanges
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   libraryChangesCopy = libraryChanges;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v9 = [changesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [changesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(changesCopy);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         entity = [v13 entity];
         name = [entity name];
 
@@ -845,13 +839,11 @@ void __57__MTCoreDataContainer__notifyLibraryChanged_contextName___block_invoke(
         }
       }
 
-      v10 = [changesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [changesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)tearDownAsync:(BOOL)async

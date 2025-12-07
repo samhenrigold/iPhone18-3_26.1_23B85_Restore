@@ -5,6 +5,7 @@
 - (id)_axElements;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)setGridSizeClass:(int64_t)class;
+- (void)setResizing:(BOOL)resizing;
 @end
 
 @implementation CCUIConnectivityModuleViewControllerAccessibility
@@ -21,6 +22,14 @@
   [validationsCopy validateClass:@"CCUIConnectivityModuleViewController" hasInstanceMethod:@"setResizing:" withFullSignature:{"v", "B", 0}];
   [validationsCopy validateClass:@"CCUIConnectivityModuleViewController" hasInstanceMethod:@"setGridSizeClass:" withFullSignature:{"v", "q", 0}];
   [validationsCopy validateClass:@"CCUICellularDataModuleViewController" hasInstanceMethod:@"buttonViewForCollapsedConnectivityModule" withFullSignature:{"@", 0}];
+}
+
+- (void)setResizing:(BOOL)resizing
+{
+  v4.receiver = self;
+  v4.super_class = CCUIConnectivityModuleViewControllerAccessibility;
+  [(CCUIConnectivityModuleViewControllerAccessibility *)&v4 setResizing:resizing];
+  [(CCUIConnectivityModuleViewControllerAccessibility *)self _setAXMockElement:0];
 }
 
 - (void)setGridSizeClass:(int64_t)class
@@ -204,35 +213,35 @@ double __73__CCUIConnectivityModuleViewControllerAccessibility__axCreateMockElem
 
 - (id)_axButtonViewWithControllerClass:(Class)class
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   [(CCUIConnectivityModuleViewControllerAccessibility *)self safeArrayForKey:@"orderedButtonViewControllers"];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = v14 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          v9 = [v8 safeValueForKeyPath:{@"buttonViewForCollapsedConnectivityModule", v12}];
+          v9 = [v8 safeValueForKeyPath:{@"buttonViewForCollapsedConnectivityModule", v11}];
           goto LABEL_11;
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -244,8 +253,6 @@ double __73__CCUIConnectivityModuleViewControllerAccessibility__axCreateMockElem
 
   v9 = 0;
 LABEL_11:
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return v9;
 }

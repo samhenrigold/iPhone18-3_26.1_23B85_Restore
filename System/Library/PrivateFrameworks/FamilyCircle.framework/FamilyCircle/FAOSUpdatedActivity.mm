@@ -19,8 +19,8 @@
 
 - (void)checkinWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB9833F8, &qword_1B7164C30) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB9833F8, &qword_1B7164C30);
+  MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
   v9 = swift_allocObject();

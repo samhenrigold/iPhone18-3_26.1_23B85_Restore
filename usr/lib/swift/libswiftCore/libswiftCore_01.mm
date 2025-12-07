@@ -6,11 +6,11 @@ uint64_t swift::Lazy<__swift::__runtime::llvm::DenseMap<__swift::__runtime::llvm
   return result;
 }
 
-uint64_t swift::Demangle::__runtime::StackAllocatedDemangler<1024ul>::~StackAllocatedDemangler(uint64_t a1)
+void *swift::Demangle::__runtime::StackAllocatedDemangler<1024ul>::~StackAllocatedDemangler(void *a1)
 {
   *a1 = &unk_1EEEADB90;
-  v2 = a1 + 544;
-  v3 = *(a1 + 568);
+  v2 = a1 + 68;
+  v3 = a1[71];
   if (v3 == v2)
   {
     (*(*v3 + 32))(v3);
@@ -22,8 +22,8 @@ uint64_t swift::Demangle::__runtime::StackAllocatedDemangler<1024ul>::~StackAllo
   }
 
   *a1 = &unk_1EEEADB68;
-  swift::Demangle::__runtime::NodeFactory::freeSlabs(*(a1 + 24));
-  v4 = *(a1 + 40);
+  swift::Demangle::__runtime::NodeFactory::freeSlabs(a1[3]);
+  v4 = a1[5];
   if (v4)
   {
     *(v4 + 48) = 0;
@@ -62,15 +62,15 @@ void swift_dynamicCastFailure_SOURCE_AND_TARGET_TYPE_NULL(const char *a1, uint64
 
 void swift_dynamicCastFailure_SOURCE_TYPE_NULL(Class *a1, const char *a2)
 {
-  swift::nameForMetadata(&v8, a1, 1);
-  if ((v8.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  swift::nameForMetadata(a1, 1, v8);
+  if (v9 >= 0)
   {
-    v6 = &v8;
+    v6 = v8;
   }
 
   else
   {
-    v6 = v8.__r_.__value_.__r.__words[0];
+    v6 = v8[0];
   }
 
   v7 = "";
@@ -84,15 +84,15 @@ void swift_dynamicCastFailure_SOURCE_TYPE_NULL(Class *a1, const char *a2)
 
 void swift_dynamicCastFailure_TARGET_TYPE_NULL(Class *a1, const char *a2)
 {
-  swift::nameForMetadata(&v8, a1, 1);
-  if ((v8.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  swift::nameForMetadata(a1, 1, v8);
+  if (v9 >= 0)
   {
-    v6 = &v8;
+    v6 = v8;
   }
 
   else
   {
-    v6 = v8.__r_.__value_.__r.__words[0];
+    v6 = v8[0];
   }
 
   v7 = "";
@@ -121,32 +121,32 @@ void swift::swift_dynamicCastFailure(Class *a1, Class *a2, char *a3, char *a4)
     swift_dynamicCastFailure_TARGET_TYPE_NULL(a1, a3);
   }
 
-  swift::nameForMetadata(&v11, a1, 1);
-  swift::nameForMetadata(&v10, a2, 1);
-  if ((v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  swift::nameForMetadata(a1, 1, v12);
+  swift::nameForMetadata(a2, 1, v10);
+  if (v13 >= 0)
   {
-    v8 = &v11;
+    v8 = v12;
   }
 
   else
   {
-    v8 = v11.__r_.__value_.__r.__words[0];
+    v8 = v12[0];
   }
 
-  if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if (v11 >= 0)
   {
-    v9 = &v10;
+    v9 = v10;
   }
 
   else
   {
-    v9 = v10.__r_.__value_.__r.__words[0];
+    v9 = v10[0];
   }
 
   swift::swift_dynamicCastFailure(a1, v8, a2, v9, a3, v7);
 }
 
-uint64_t swift::_conformsToProtocol(swift::runtime::bincompat **a1, swift *a2, uint64_t a3, uint64_t *a4, _OWORD *a5)
+uint64_t swift::_conformsToProtocol(swift::runtime::bincompat **a1, swift *a2, char *a3, uint64_t *a4, _OWORD *a5)
 {
   if ((a3 & 1) == 0)
   {
@@ -258,7 +258,7 @@ LABEL_30:
   return result;
 }
 
-uint64_t swift::_conformsToProtocolInContext(swift::runtime::bincompat **a1, swift *a2, uint64_t a3, uint64_t *a4, int a5)
+uint64_t swift::_conformsToProtocolInContext(swift::runtime::bincompat **a1, swift *a2, char *a3, uint64_t *a4, int a5)
 {
   v8 = 0uLL;
   result = swift::_conformsToProtocol(a1, a2, a3, a4, &v8);
@@ -278,7 +278,7 @@ uint64_t swift::_conformsToProtocolInContext(swift::runtime::bincompat **a1, swi
   return result;
 }
 
-char *swift_getDynamicType(swift::SwiftError **a1, swift::SwiftError *a2, char a3)
+char *swift_getDynamicType(swift::SwiftError **a1, uint64_t *a2, char a3)
 {
   while (2)
   {
@@ -286,7 +286,7 @@ char *swift_getDynamicType(swift::SwiftError **a1, swift::SwiftError *a2, char a
     while (1)
     {
       v6 = *a2;
-      if (*a2 > 0x7FFuLL)
+      if (*a2 > 0x7FF)
       {
         LODWORD(v6) = 0;
       }
@@ -340,8 +340,8 @@ char *swift_getDynamicType(swift::SwiftError **a1, swift::SwiftError *a2, char a
     if (Representation != 1)
     {
 LABEL_14:
-      v9 = *(a2 + 1);
-      a2 = (a2 + 8);
+      v9 = a2[1];
+      ++a2;
       LODWORD(v6) = *v9;
       if (!*v9)
       {
@@ -388,7 +388,7 @@ LABEL_27:
   return swift_getObjectType(v12);
 }
 
-uint64_t *swift_dynamicCastMetatypeToObjectConditional(uint64_t *result)
+unint64_t *swift_dynamicCastMetatypeToObjectConditional(unint64_t *result)
 {
   v1 = *result;
   if (*result > 0x7FF)
@@ -424,20 +424,20 @@ uint64_t swift_dynamicCastMetatypeToObjectUnconditional(uint64_t result)
   {
     if (v5 != 773)
     {
-      v11 = v2;
-      v12 = v1;
-      v13 = v3;
-      v14 = v4;
+      v12 = v2;
+      v13 = v1;
+      v14 = v3;
+      v15 = v4;
       v6 = result;
-      swift::nameForMetadata(&v10, result, 1);
-      if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      swift::nameForMetadata(result, 1, v10);
+      if (v11 >= 0)
       {
-        v9 = &v10;
+        v9 = v10;
       }
 
       else
       {
-        v9 = v10.__r_.__value_.__r.__words[0];
+        v9 = v10[0];
       }
 
       swift::swift_dynamicCastFailure(v6, v9, v7, v8);
@@ -449,14 +449,15 @@ uint64_t swift_dynamicCastMetatypeToObjectUnconditional(uint64_t result)
   return result;
 }
 
-atomic_ullong *bridgeAnythingNonVerbatimToObjectiveC(unint64_t *a1, unsigned __int8 *ObjectType, int a3)
+unint64_t *bridgeAnythingNonVerbatimToObjectiveC(swift::SwiftError **a1, unsigned __int8 *ObjectType, uint64_t a3)
 {
-  while (1)
+  v3 = a3;
+  for (i = ObjectType; ; i = swift_getObjectType(*a1))
   {
-    v6 = *ObjectType;
-    if (*ObjectType <= 0x7FFuLL)
+    v6 = *i;
+    if (*i <= 0x7FFuLL)
     {
-      v7 = *ObjectType;
+      v7 = *i;
     }
 
     else
@@ -466,7 +467,7 @@ atomic_ullong *bridgeAnythingNonVerbatimToObjectiveC(unint64_t *a1, unsigned __i
 
     if (!v7 || v7 == 773 || v7 == 515)
     {
-      goto LABEL_50;
+      goto LABEL_51;
     }
 
     if (v6 != 771)
@@ -512,22 +513,22 @@ atomic_ullong *bridgeAnythingNonVerbatimToObjectiveC(unint64_t *a1, unsigned __i
 
       else
       {
-        BridgeWitness = findBridgeWitness(ObjectType);
+        BridgeWitness = findBridgeWitness(i, ObjectType, a3);
         if (BridgeWitness)
         {
-          result = (*(BridgeWitness + 16))(ObjectType, BridgeWitness);
-          if (!a3)
+          result = (*(BridgeWitness + 16))(i, BridgeWitness);
+          if (!v3)
           {
             return result;
           }
 
-          goto LABEL_39;
+          goto LABEL_40;
         }
 
-        ErrorWitness = swift::findErrorWitness(ObjectType);
+        ErrorWitness = swift::findErrorWitness(i);
         if (ErrorWitness)
         {
-          if (a3)
+          if (v3)
           {
             v25 = 2;
           }
@@ -537,14 +538,14 @@ atomic_ullong *bridgeAnythingNonVerbatimToObjectiveC(unint64_t *a1, unsigned __i
             v25 = 0;
           }
 
-          return swift::dynamicCastValueToNSError(a1, ObjectType, ErrorWitness, v25);
+          return swift::dynamicCastValueToNSError(a1, i, ErrorWitness, v25);
         }
 
-        if (*ObjectType == 770 && ObjectType[10] << 16 == 0x10000)
+        if (*i == 770 && i[10] << 16 == 0x10000)
         {
-LABEL_50:
+LABEL_51:
           result = *a1;
-          if ((a3 & 1) == 0)
+          if ((v3 & 1) == 0)
           {
             v26 = *a1;
             swift_unknownObjectRetain(result);
@@ -555,16 +556,14 @@ LABEL_50:
         }
       }
 
-      return swift::bridgeAnythingToSwiftValueObject(a1, ObjectType, a3);
+      return swift::bridgeAnythingToSwiftValueObject(a1, i, v3);
     }
 
-    Representation = swift::TargetExistentialTypeMetadata<swift::InProcess>::getRepresentation(ObjectType);
+    Representation = swift::TargetExistentialTypeMetadata<swift::InProcess>::getRepresentation(i);
     if (Representation != 1)
     {
       break;
     }
-
-    ObjectType = swift_getObjectType(*a1);
   }
 
   if (Representation == 2)
@@ -580,7 +579,7 @@ LABEL_50:
 
     else
     {
-      v15 = (v19 + *(*(*(v19 + 5) - 8) + 80) + 72) & ~*(*(*(v19 + 5) - 8) + 80);
+      v15 = ((v19 + *(*(*(v19 + 5) - 8) + 80) + 72) & ~*(*(*(v19 + 5) - 8) + 80));
       v17 = 1;
     }
   }
@@ -596,13 +595,13 @@ LABEL_50:
   else
   {
     Type = a1[3];
-    v15 = swift::TargetExistentialTypeMetadata<swift::InProcess>::projectValue(ObjectType, a1);
+    v15 = swift::TargetExistentialTypeMetadata<swift::InProcess>::projectValue(i, a1);
     v16 = v15 == a1;
     v17 = v15 != a1;
   }
 
-  result = bridgeAnythingNonVerbatimToObjectiveC(v15, Type, a3 & v16);
-  if (a3)
+  result = bridgeAnythingNonVerbatimToObjectiveC(v15, Type, v3 & v16);
+  if (v3)
   {
     if (v16)
     {
@@ -614,89 +613,89 @@ LABEL_50:
       return result;
     }
 
-LABEL_39:
+LABEL_40:
     v23 = result;
-    (*(*(ObjectType - 1) + 8))(a1, ObjectType);
+    (*(*(i - 1) + 8))(a1, i);
     return v23;
   }
 
   return result;
 }
 
-void _getBridgedNonVerbatimObjectiveCType<A>(_:)(uint64_t a1, swift *a2)
+void _getBridgedNonVerbatimObjectiveCType<A>(_:)(uint64_t a1, swift *a2, uint64_t a3)
 {
-  BridgeWitness = findBridgeWitness(a2);
+  BridgeWitness = findBridgeWitness(a2, a2, a3);
   if (!BridgeWitness)
   {
     return;
   }
 
-  v4 = BridgeWitness;
-  v5 = *BridgeWitness;
-  v6 = **BridgeWitness;
-  if (!v6)
-  {
-    goto LABEL_8;
-  }
-
-  v7 = (v5 + (v6 & 0xFFFFFFFFFFFFFFFELL));
-  if (v6)
-  {
-    if (*v7)
-    {
-      v8 = *v7;
-      goto LABEL_9;
-    }
-
-LABEL_8:
-    v8 = 0;
-    goto LABEL_9;
-  }
-
+  v5 = BridgeWitness;
+  v6 = *BridgeWitness;
+  v7 = **BridgeWitness;
   if (!v7)
   {
     goto LABEL_8;
   }
 
-  v8 = v5 + (v6 & 0xFFFFFFFFFFFFFFFELL);
+  v8 = (v6 + (v7 & 0xFFFFFFFFFFFFFFFELL));
+  if (v7)
+  {
+    if (*v8)
+    {
+      v9 = *v8;
+      goto LABEL_9;
+    }
+
+LABEL_8:
+    v9 = 0;
+    goto LABEL_9;
+  }
+
+  if (!v8)
+  {
+    goto LABEL_8;
+  }
+
+  v9 = v6 + (v7 & 0xFFFFFFFFFFFFFFFELL);
 LABEL_9:
-  v9 = v8;
-  if (v8)
-  {
-    v9 = v8;
-  }
-
   v10 = v9;
-  if (v9 == -24)
+  if (v9)
   {
-    v11 = 0;
+    v10 = v9;
+  }
+
+  v11 = v10;
+  if (v10 == -24)
+  {
+    v12 = 0;
   }
 
   else
   {
-    v11 = v9 + 24;
+    v12 = v10 + 24;
   }
 
-  v12 = &v11[12 * *(v10 + 3)];
-  if (v8)
+  v13 = &v12[12 * *(v11 + 3)];
+  if (v9)
   {
-    v13 = v8;
+    v14 = v9;
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  swift_getAssociatedTypeWitness(0, v4, a2, &v13[12 * *(v13 + 3) + 16], v12);
+  swift_getAssociatedTypeWitness(0, v5, a2, &v14[12 * *(v14 + 3) + 16], v13);
 }
 
-uint64_t findBridgeWitness(swift *a1)
+uint64_t findBridgeWitness(swift *a1, uint64_t a2, uint64_t a3)
 {
   _X20 = a1;
-  if (*a1 == 512 && (!*(a1 + 1) ? (v2 = 0) : (v2 = *(a1 + 1)), v2 == &nominal type descriptor for String))
+  if (*a1 == 512 && (!*(a1 + 1) ? (v4 = 0) : (v4 = *(a1 + 1)), v4 == &nominal type descriptor for String))
   {
-    if ((atomic_load_explicit(&qword_1ED415EC8, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_1ED415EC8, memory_order_acquire) & 1) == 0)
     {
       findBridgeWitness(a1);
     }
@@ -712,15 +711,15 @@ uint64_t findBridgeWitness(swift *a1)
 
     if (_X0 != _X20)
     {
-      _X1 = swift_conformsToProtocolCommon(_X20, &protocol descriptor for _ObjectiveCBridgeable);
-      v10 = swift_conformsToObjectiveCBridgeable(swift::TargetMetadata<swift::InProcess> const*)::_objcBridgeWitnessCache;
+      _X1 = swift_conformsToProtocolCommon(_X20, &protocol descriptor for _ObjectiveCBridgeable.Flags);
+      v12 = swift_conformsToObjectiveCBridgeable(swift::TargetMetadata<swift::InProcess> const*)::_objcBridgeWitnessCache;
       do
       {
         _X5 = *algn_1ED415EB8;
         __asm { CASPL           X4, X5, X20, X21, [X19] }
 
-        _ZF = _X4 == v10;
-        v10 = _X4;
+        _ZF = _X4 == v12;
+        v12 = _X4;
       }
 
       while (!_ZF);
@@ -728,8 +727,8 @@ uint64_t findBridgeWitness(swift *a1)
 
     if (!_X1)
     {
-      findBridgeWitness(_X20, &v14);
-      return v14;
+      findBridgeWitness(_X20, &v16);
+      return v16;
     }
   }
 
@@ -738,9 +737,9 @@ uint64_t findBridgeWitness(swift *a1)
 
 {
   _X20 = a1;
-  if (*a1 == 512 && (!*(a1 + 1) ? (v2 = 0) : (v2 = *(a1 + 1)), v2 == &nominal type descriptor for String))
+  if (*a1 == 512 && (!*(a1 + 1) ? (v4 = 0) : (v4 = *(a1 + 1)), v4 == &nominal type descriptor for String))
   {
-    if ((atomic_load_explicit(&qword_1ED415F18, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_1ED415F18, memory_order_acquire) & 1) == 0)
     {
       findBridgeWitness(a1);
     }
@@ -756,15 +755,15 @@ uint64_t findBridgeWitness(swift *a1)
 
     if (_X0 != _X20)
     {
-      _X1 = swift_conformsToProtocolCommon(_X20, &protocol descriptor for _ObjectiveCBridgeable);
-      v10 = swift_conformsToObjectiveCBridgeable(swift::TargetMetadata<swift::InProcess> const*)::_objcBridgeWitnessCache;
+      _X1 = swift_conformsToProtocolCommon(_X20, &protocol descriptor for _ObjectiveCBridgeable.Flags);
+      v12 = swift_conformsToObjectiveCBridgeable(swift::TargetMetadata<swift::InProcess> const*)::_objcBridgeWitnessCache;
       do
       {
         _X5 = *algn_1ED415F08;
         __asm { CASPL           X4, X5, X20, X21, [X19] }
 
-        _ZF = _X4 == v10;
-        v10 = _X4;
+        _ZF = _X4 == v12;
+        v12 = _X4;
       }
 
       while (!_ZF);
@@ -772,8 +771,8 @@ uint64_t findBridgeWitness(swift *a1)
 
     if (!_X1)
     {
-      findBridgeWitness(_X20, &v14);
-      return v14;
+      findBridgeWitness(_X20, &v16);
+      return v16;
     }
   }
 
@@ -788,93 +787,93 @@ uint64_t _bridgeNonVerbatimFromObjectiveC<A>(_:_:_:)(swift *a1, swift *a2, void 
     return result;
   }
 
-  BridgeWitness = findBridgeWitness(a2);
+  BridgeWitness = findBridgeWitness(a2, v7, v8);
   if (!BridgeWitness)
   {
     _bridgeNonVerbatimFromObjectiveC<A>(_:_:_:)();
   }
 
-  v8 = BridgeWitness;
-  v9 = *BridgeWitness;
-  v10 = **BridgeWitness;
-  if (!v10)
+  v10 = BridgeWitness;
+  v11 = *BridgeWitness;
+  v12 = **BridgeWitness;
+  if (!v12)
   {
     goto LABEL_9;
   }
 
-  v11 = (v9 + (v10 & 0xFFFFFFFFFFFFFFFELL));
-  if (v10)
+  v13 = (v11 + (v12 & 0xFFFFFFFFFFFFFFFELL));
+  if (v12)
   {
-    if (*v11)
+    if (*v13)
     {
-      v12 = *v11;
+      v14 = *v13;
       goto LABEL_10;
     }
 
 LABEL_9:
-    v12 = 0;
+    v14 = 0;
     goto LABEL_10;
   }
 
-  if (!v11)
+  if (!v13)
   {
     goto LABEL_9;
   }
 
-  v12 = v9 + (v10 & 0xFFFFFFFFFFFFFFFELL);
+  v14 = v11 + (v12 & 0xFFFFFFFFFFFFFFFELL);
 LABEL_10:
-  v13 = v12;
-  if (v12)
+  v15 = v14;
+  if (v14)
   {
-    v13 = v12;
+    v15 = v14;
   }
 
-  v14 = v13;
-  if (v13 == -24)
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-    v15 = v13 + 24;
-  }
-
-  v16 = (v15 + 12 * *(v14 + 12));
-  if (v12)
-  {
-    v17 = v12;
-  }
-
-  else
+  v16 = v15;
+  if (v15 == -24)
   {
     v17 = 0;
   }
 
-  swift_getAssociatedTypeWitness(0, v8, a2, v17 + 24 + 12 * *(v17 + 12) - 8, v16);
-  v19 = v18;
-  if (swift_dynamicCastUnknownClass::Override == 1)
+  else
   {
-    v20 = swift_dynamicCastUnknownClassImpl(a1, v18);
+    v17 = v15 + 24;
   }
 
-  else if (swift_dynamicCastUnknownClass::Override)
+  v18 = (v17 + 12 * *(v16 + 12));
+  if (v14)
   {
-    v20 = swift_dynamicCastUnknownClass::Override(a1, v18, swift_dynamicCastUnknownClassImpl);
+    v19 = v14;
   }
 
   else
   {
-    v20 = swift_dynamicCastUnknownClassSlow(a1, v18);
+    v19 = 0;
   }
 
-  if (!v20)
+  swift_getAssociatedTypeWitness(0, v10, a2, v19 + 24 + 12 * *(v19 + 12) - 8, v18);
+  v21 = v20;
+  if (swift_dynamicCastUnknownClass::Override == 1)
   {
-    Class = swift::_swift_getClass(a1, v21);
-    swift::swift_dynamicCastFailure(Class, v19, 0, v23);
+    v22 = swift_dynamicCastUnknownClassImpl(a1, v20);
   }
 
-  return (v8[3])(v20, a3, a2, v8);
+  else if (swift_dynamicCastUnknownClass::Override)
+  {
+    v22 = swift_dynamicCastUnknownClass::Override(a1, v20, swift_dynamicCastUnknownClassImpl);
+  }
+
+  else
+  {
+    v22 = swift_dynamicCastUnknownClassSlow(a1, v20);
+  }
+
+  if (!v22)
+  {
+    Class = swift::_swift_getClass(a1, v23);
+    swift::swift_dynamicCastFailure(Class, v21, 0, v25);
+  }
+
+  return (v10[3])(v22, a3, a2, v10);
 }
 
 uint64_t tryBridgeNonVerbatimFromObjectiveCUniversal(swift *this, uint64_t a2, void *a3)
@@ -895,7 +894,7 @@ uint64_t tryBridgeNonVerbatimFromObjectiveCUniversal(swift *this, uint64_t a2, v
   return swift::tryDynamicCastNSErrorObjectToValue(this, a3, a2, 0);
 }
 
-atomic_ullong *swift_dynamicCastUnknownClass(uint64_t a1, uint64_t a2)
+swift *swift_dynamicCastUnknownClass(uint64_t a1, uint64_t *a2)
 {
   if (swift_dynamicCastUnknownClass::Override == 1)
   {
@@ -917,89 +916,89 @@ uint64_t _bridgeNonVerbatimFromObjectiveCConditional<A>(_:_:_:)(swift *a1, swift
     return 1;
   }
 
-  result = findBridgeWitness(a2);
+  result = findBridgeWitness(a2, v6, v7);
   if (result)
   {
-    v7 = result;
-    v8 = *result;
-    v9 = **result;
-    if (v9)
+    v9 = result;
+    v10 = *result;
+    v11 = **result;
+    if (v11)
     {
-      v10 = (v8 + (v9 & 0xFFFFFFFFFFFFFFFELL));
-      if (v9)
+      v12 = (v10 + (v11 & 0xFFFFFFFFFFFFFFFELL));
+      if (v11)
       {
-        if (*v10)
+        if (*v12)
         {
-          v11 = *v10;
+          v13 = *v12;
           goto LABEL_11;
         }
       }
 
-      else if (v10)
+      else if (v12)
       {
-        v11 = v8 + (v9 & 0xFFFFFFFFFFFFFFFELL);
+        v13 = v10 + (v11 & 0xFFFFFFFFFFFFFFFELL);
 LABEL_11:
-        v12 = v11;
-        if (v11)
+        v14 = v13;
+        if (v13)
         {
-          v12 = v11;
+          v14 = v13;
         }
 
-        v13 = v12;
-        if (v12 == -24)
-        {
-          v14 = 0;
-        }
-
-        else
-        {
-          v14 = v12 + 24;
-        }
-
-        v15 = (v14 + 12 * *(v13 + 12));
-        if (v11)
-        {
-          v16 = v11;
-        }
-
-        else
+        v15 = v14;
+        if (v14 == -24)
         {
           v16 = 0;
         }
 
-        swift_getAssociatedTypeWitness(0, v7, a2, v16 + 24 + 12 * *(v16 + 12) - 8, v15);
-        if (swift_dynamicCastUnknownClass::Override == 1)
+        else
         {
-          result = swift_dynamicCastUnknownClassImpl(a1, v17);
+          v16 = v14 + 24;
         }
 
-        else if (swift_dynamicCastUnknownClass::Override)
+        v17 = (v16 + 12 * *(v15 + 12));
+        if (v13)
         {
-          result = swift_dynamicCastUnknownClass::Override(a1, v17, swift_dynamicCastUnknownClassImpl);
+          v18 = v13;
         }
 
         else
         {
-          result = swift_dynamicCastUnknownClassSlow(a1, v17);
+          v18 = 0;
+        }
+
+        swift_getAssociatedTypeWitness(0, v9, a2, v18 + 24 + 12 * *(v18 + 12) - 8, v17);
+        if (swift_dynamicCastUnknownClass::Override == 1)
+        {
+          result = swift_dynamicCastUnknownClassImpl(a1, v19);
+        }
+
+        else if (swift_dynamicCastUnknownClass::Override)
+        {
+          result = swift_dynamicCastUnknownClass::Override(a1, v19, swift_dynamicCastUnknownClassImpl);
+        }
+
+        else
+        {
+          result = swift_dynamicCastUnknownClassSlow(a1, v19);
         }
 
         if (result)
         {
-          return (*(v7 + 32))(result, a3, a2, v7) & 1;
+          return (*(v9 + 32))(result, a3, a2, v9) & 1;
         }
 
         return result;
       }
     }
 
-    v11 = 0;
+    v13 = 0;
     goto LABEL_11;
   }
 
   return result;
 }
 
-BOOL _swift_isClassOrObjCExistentialType(uint64_t a1, uint64_t *a2)
+BOOL _swift_isClassOrObjCExistentialType(uint64_t a1, unint64_t *a2)
 {
   v2 = *a2;
   if (*a2 > 0x7FF)
@@ -1052,7 +1051,7 @@ uint64_t _swift_setClassMetadata(uint64_t result, void *a2)
   return result;
 }
 
-unint64_t _swift_class_getSuperclass(void *a1)
+char *_swift_class_getSuperclass(swift *a1)
 {
   v1 = *a1;
   if (*a1 <= 0x7FFuLL)
@@ -1066,10 +1065,10 @@ unint64_t _swift_class_getSuperclass(void *a1)
   }
 
   v3 = a1;
-  if (!v2 || v2 == 773 && (v3 = a1[1]) != 0)
+  if (!v2 || v2 == 773 && (v3 = *(a1 + 1)) != 0)
   {
-    v6 = v3[1];
-    v5 = v3 + 1;
+    v6 = *(v3 + 1);
+    v5 = (v3 + 8);
     v4 = v6;
     if (v6)
     {
@@ -1099,7 +1098,7 @@ unint64_t _swift_class_getSuperclass(void *a1)
     return 0;
   }
 
-  result = a1[2];
+  result = *(a1 + 2);
   if (!result)
   {
     return 0;
@@ -1108,7 +1107,7 @@ unint64_t _swift_class_getSuperclass(void *a1)
   return result;
 }
 
-BOOL swift_isClassType(uint64_t *a1)
+BOOL swift_isClassType(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 > 0x7FF)
@@ -1125,7 +1124,7 @@ BOOL swift_isClassType(uint64_t *a1)
   return result;
 }
 
-uint64_t swift_dynamicCastClass(uint64_t result, uint64_t a2)
+swift *swift_dynamicCastClass(swift *result, uint64_t a2)
 {
   if (swift_dynamicCastClass::Override == 1)
   {
@@ -1189,14 +1188,14 @@ uint64_t swift_dynamicCastClassImpl(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t swift_dynamicCastClassSlow(swift *a1, uint64_t a2)
+swift *swift_dynamicCastClassSlow(swift *a1, uint64_t a2)
 {
   Override_dynamicCastClass = swift::getOverride_dynamicCastClass(a1);
   if (Override_dynamicCastClass)
   {
     swift_dynamicCastClass::Override = Override_dynamicCastClass;
 
-    return (Override_dynamicCastClass)(a1, a2, swift_dynamicCastClassImpl);
+    return Override_dynamicCastClass(a1, a2, swift_dynamicCastClassImpl);
   }
 
   else
@@ -1231,7 +1230,7 @@ uint64_t swift_dynamicCastClassSlow(swift *a1, uint64_t a2)
   }
 }
 
-uint64_t swift_dynamicCastClassUnconditional(int64_t a1, Class *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t swift_dynamicCastClassUnconditional(uint64_t a1, Class *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (swift_dynamicCastClassUnconditional::Override == 1)
   {
@@ -1246,7 +1245,7 @@ uint64_t swift_dynamicCastClassUnconditional(int64_t a1, Class *a2, uint64_t a3,
   return swift_dynamicCastClassUnconditionalSlow(a1, a2, a3, a4, a5);
 }
 
-uint64_t swift_dynamicCastClassUnconditionalImpl(int64_t a1, Class *a2)
+uint64_t swift_dynamicCastClassUnconditionalImpl(uint64_t a1, Class *a2)
 {
   if (swift_dynamicCastClass::Override != 1)
   {
@@ -1305,7 +1304,7 @@ uint64_t swift_dynamicCastClassUnconditionalSlow(swift *a1, Class *a2, uint64_t 
   {
     swift_dynamicCastClassUnconditional::Override = Override_dynamicCastClassUnconditional;
 
-    return (Override_dynamicCastClassUnconditional)(a1, a2, a3, a4, a5, swift_dynamicCastClassUnconditionalImpl);
+    return Override_dynamicCastClassUnconditional(a1, a2, a3, a4, a5, swift_dynamicCastClassUnconditionalImpl);
   }
 
   else
@@ -1316,11 +1315,11 @@ uint64_t swift_dynamicCastClassUnconditionalSlow(swift *a1, Class *a2, uint64_t 
   }
 }
 
-atomic_ullong *swift_dynamicCastUnknownClassImpl(uint64_t a1, uint64_t a2)
+swift *swift_dynamicCastUnknownClassImpl(uint64_t a1, uint64_t *a2)
 {
   result = 0;
   v4 = *a2;
-  if (*a2 > 0x7FFuLL)
+  if (*a2 > 0x7FF)
   {
     LODWORD(v4) = 0;
   }
@@ -1329,13 +1328,13 @@ atomic_ullong *swift_dynamicCastUnknownClassImpl(uint64_t a1, uint64_t a2)
   {
     if (v4 == 771)
     {
-      v8 = *(a2 + 12);
+      v8 = *(a2 + 3);
       if (!v8)
       {
         return a1;
       }
 
-      v9 = (a2 + 8 * ((*(a2 + 8) >> 30) & 1) + 16);
+      v9 = &a2[((*(a2 + 2) >> 30) & 1) + 2];
       v10 = 8 * v8;
       while ((*v9 & 1) != 0 && (swift::objectConformsToObjCProtocol(a1, *v9) & 1) != 0)
       {
@@ -1352,7 +1351,7 @@ atomic_ullong *swift_dynamicCastUnknownClassImpl(uint64_t a1, uint64_t a2)
 
     if (v4 == 773)
     {
-      v5 = *(a2 + 8);
+      v5 = a2[1];
 
       return swift_dynamicCastObjCClass(a1, v5);
     }
@@ -1406,14 +1405,14 @@ atomic_ullong *swift_dynamicCastUnknownClassImpl(uint64_t a1, uint64_t a2)
   return result;
 }
 
-atomic_ullong *swift_dynamicCastUnknownClassSlow(swift *a1, uint64_t a2)
+swift *swift_dynamicCastUnknownClassSlow(swift *a1, uint64_t *a2)
 {
   Override_dynamicCastUnknownClass = swift::getOverride_dynamicCastUnknownClass(a1);
   if (Override_dynamicCastUnknownClass)
   {
     swift_dynamicCastUnknownClass::Override = Override_dynamicCastUnknownClass;
 
-    return (Override_dynamicCastUnknownClass)(a1, a2, swift_dynamicCastUnknownClassImpl);
+    return Override_dynamicCastUnknownClass(a1, a2, swift_dynamicCastUnknownClassImpl);
   }
 
   else
@@ -1424,19 +1423,19 @@ atomic_ullong *swift_dynamicCastUnknownClassSlow(swift *a1, uint64_t a2)
   }
 }
 
-atomic_ullong *swift_dynamicCastUnknownClassUnconditional(atomic_ullong *this, Class *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+atomic_ullong *swift_dynamicCastUnknownClassUnconditional(atomic_ullong *a1, Class *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (swift_dynamicCastUnknownClassUnconditional::Override == 1)
   {
-    return swift_dynamicCastUnknownClassUnconditionalImpl(this, a2, a3, a4, a5);
+    return swift_dynamicCastUnknownClassUnconditionalImpl(a1, a2, a3, a4, a5);
   }
 
   if (swift_dynamicCastUnknownClassUnconditional::Override)
   {
-    return swift_dynamicCastUnknownClassUnconditional::Override(this, a2, a3, a4, a5, swift_dynamicCastUnknownClassUnconditionalImpl);
+    return swift_dynamicCastUnknownClassUnconditional::Override(a1, a2, a3, a4, a5, swift_dynamicCastUnknownClassUnconditionalImpl);
   }
 
-  return swift_dynamicCastUnknownClassUnconditionalSlow(this, a2, a3, a4, a5);
+  return swift_dynamicCastUnknownClassUnconditionalSlow(a1, a2, a3, a4, a5);
 }
 
 atomic_ullong *swift_dynamicCastUnknownClassUnconditionalImpl(atomic_ullong *this, Class *a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1538,7 +1537,7 @@ atomic_ullong *swift_dynamicCastUnknownClassUnconditionalSlow(swift *a1, Class *
   {
     swift_dynamicCastUnknownClassUnconditional::Override = Override_dynamicCastUnknownClassUnconditional;
 
-    return (Override_dynamicCastUnknownClassUnconditional)(a1, a2, a3, a4, a5, swift_dynamicCastUnknownClassUnconditionalImpl);
+    return Override_dynamicCastUnknownClassUnconditional(a1, a2, a3, a4, a5, swift_dynamicCastUnknownClassUnconditionalImpl);
   }
 
   else
@@ -1549,22 +1548,22 @@ atomic_ullong *swift_dynamicCastUnknownClassUnconditionalSlow(swift *a1, Class *
   }
 }
 
-uint64_t *swift_dynamicCastMetatype(uint64_t *result, uint64_t *a2)
+uint64_t *swift_dynamicCastMetatype(uint64_t *a1, unint64_t *a2)
 {
   if (swift_dynamicCastMetatype::Override == 1)
   {
-    return swift_dynamicCastMetatypeImpl(result, a2);
+    return swift_dynamicCastMetatypeImpl(a1, a2);
   }
 
   if (swift_dynamicCastMetatype::Override)
   {
-    return swift_dynamicCastMetatype::Override(result, a2, swift_dynamicCastMetatypeImpl);
+    return swift_dynamicCastMetatype::Override(a1, a2, swift_dynamicCastMetatypeImpl);
   }
 
-  return swift_dynamicCastMetatypeSlow(result, a2);
+  return swift_dynamicCastMetatypeSlow(a1, a2);
 }
 
-uint64_t *swift_dynamicCastMetatypeImpl(uint64_t *result, uint64_t *a2)
+uint64_t *swift_dynamicCastMetatypeImpl(uint64_t *result, unint64_t *a2)
 {
   if (result != a2)
   {
@@ -1664,14 +1663,14 @@ LABEL_27:
   return result;
 }
 
-uint64_t *swift_dynamicCastMetatypeSlow(swift *a1, uint64_t *a2)
+uint64_t *swift_dynamicCastMetatypeSlow(swift *a1, unint64_t *a2)
 {
   Override_dynamicCastMetatype = swift::getOverride_dynamicCastMetatype(a1);
   if (Override_dynamicCastMetatype)
   {
     swift_dynamicCastMetatype::Override = Override_dynamicCastMetatype;
 
-    return (Override_dynamicCastMetatype)(a1, a2, swift_dynamicCastMetatypeImpl);
+    return Override_dynamicCastMetatype(a1, a2, swift_dynamicCastMetatypeImpl);
   }
 
   else
@@ -1682,7 +1681,7 @@ uint64_t *swift_dynamicCastMetatypeSlow(swift *a1, uint64_t *a2)
   }
 }
 
-swift *swift_dynamicCastMetatypeUnconditional(uint64_t *a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5)
+Class *swift_dynamicCastMetatypeUnconditional(swift *a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5)
 {
   if (swift_dynamicCastMetatypeUnconditional::Override == 1)
   {
@@ -1697,7 +1696,7 @@ swift *swift_dynamicCastMetatypeUnconditional(uint64_t *a1, uint64_t a2, uint64_
   return swift_dynamicCastMetatypeUnconditionalSlow(a1, a2, a3, a4, a5);
 }
 
-swift *swift_dynamicCastMetatypeUnconditionalImpl(uint64_t *a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5)
+Class *swift_dynamicCastMetatypeUnconditionalImpl(swift *a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5)
 {
   v5 = a1;
   if (a1 != a2)
@@ -1719,7 +1718,7 @@ swift *swift_dynamicCastMetatypeUnconditionalImpl(uint64_t *a1, uint64_t a2, uin
         }
 
         v8 = *a1;
-        if (*a1 > 0x7FF)
+        if (*a1 > 0x7FFuLL)
         {
           LODWORD(v8) = 0;
         }
@@ -1731,7 +1730,7 @@ swift *swift_dynamicCastMetatypeUnconditionalImpl(uint64_t *a1, uint64_t a2, uin
             goto LABEL_45;
           }
 
-          a1 = a1[1];
+          a1 = *(a1 + 1);
         }
 
         goto LABEL_41;
@@ -1825,7 +1824,7 @@ LABEL_45:
     }
 
     v9 = *a1;
-    if (*a1 > 0x7FF)
+    if (*a1 > 0x7FFuLL)
     {
       LODWORD(v9) = 0;
     }
@@ -1839,7 +1838,7 @@ LABEL_45:
     {
       if (v9 == 773)
       {
-        a1 = a1[1];
+        a1 = *(a1 + 1);
 LABEL_22:
         swift_dynamicCastObjCClassMetatypeUnconditional(a1, v6, a3, a4, a5);
         return v5;
@@ -1855,14 +1854,14 @@ LABEL_41:
   return v5;
 }
 
-swift *swift_dynamicCastMetatypeUnconditionalSlow(swift *a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5)
+Class *swift_dynamicCastMetatypeUnconditionalSlow(swift *a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5)
 {
   Override_dynamicCastMetatypeUnconditional = swift::getOverride_dynamicCastMetatypeUnconditional(a1);
   if (Override_dynamicCastMetatypeUnconditional)
   {
     swift_dynamicCastMetatypeUnconditional::Override = Override_dynamicCastMetatypeUnconditional;
 
-    return (Override_dynamicCastMetatypeUnconditional)(a1, a2, a3, a4, a5, swift_dynamicCastMetatypeUnconditionalImpl);
+    return Override_dynamicCastMetatypeUnconditional(a1, a2, a3, a4, a5, swift_dynamicCastMetatypeUnconditionalImpl);
   }
 
   else
@@ -1950,9 +1949,9 @@ LABEL_5:
   return result;
 }
 
-uint64_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>>>,__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>>>::try_emplace<std::pair<char const*,unsigned long>>@<X0>(uint64_t result@<X0>, void *a2@<X1>, _OWORD *a3@<X2>, uint64_t a4@<X8>)
+uint64_t *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>>>,__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>>>::try_emplace<std::pair<char const*,unsigned long>>@<X0>(uint64_t *result@<X0>, void *a2@<X1>, _OWORD *a3@<X2>, uint64_t a4@<X8>)
 {
-  v5 = *(result + 16);
+  v5 = *(result + 4);
   if (v5)
   {
     v6 = *result;
@@ -2008,14 +2007,14 @@ LABEL_3:
   }
 
   v20 = v9;
-  v12 = *(result + 8);
+  v12 = *(result + 2);
   if (4 * v12 + 4 >= 3 * v5)
   {
     v5 *= 2;
     goto LABEL_24;
   }
 
-  if (v5 + ~v12 - *(result + 12) <= v5 >> 3)
+  if (v5 + ~v12 - *(result + 3) <= v5 >> 3)
   {
 LABEL_24:
     v17 = result;
@@ -2026,20 +2025,20 @@ LABEL_24:
     a3 = v19;
     result = v17;
     a4 = v18;
-    v12 = *(v17 + 8);
+    v12 = *(v17 + 2);
     v9 = v20;
   }
 
-  *(result + 8) = v12 + 1;
+  *(result + 2) = v12 + 1;
   if (*v9 != -2)
   {
-    --*(result + 12);
+    --*(result + 3);
   }
 
   *v9 = *a2;
   *(v9 + 8) = *a3;
   v6 = *result;
-  v5 = *(result + 16);
+  v5 = *(result + 4);
   v11 = 1;
 LABEL_10:
   *a4 = v9;
@@ -2237,7 +2236,7 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-uint64_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::StringRef>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>>>,__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::StringRef>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>>>::LookupBucketFor<__swift::__runtime::llvm::StringRef>(uint64_t *a1, uint64_t a2, char ***a3)
+uint64_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::StringRef>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>>>,__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::StringRef>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>>>::LookupBucketFor<__swift::__runtime::llvm::StringRef>(uint64_t *a1, __swift::__runtime::llvm::hashing::detail **a2, char ***a3)
 {
   v4 = *(a1 + 4);
   if (!v4)
@@ -2250,9 +2249,9 @@ uint64_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseM
   v5 = *a1;
   v7 = 0;
   v8 = v4 - 1;
-  v9 = (v4 - 1) & __swift::__runtime::llvm::hash_value(*a2, *(a2 + 8));
+  v9 = (v4 - 1) & __swift::__runtime::llvm::hash_value(*a2, a2[1]);
   v10 = *a2;
-  v11 = *(a2 + 8);
+  v11 = a2[1];
   for (i = 1; ; ++i)
   {
     v13 = (v5 + 32 * v9);
@@ -2325,11 +2324,11 @@ LABEL_18:
   return result;
 }
 
-void swift::Demangle::__runtime::StackAllocatedDemangler<1024ul>::~StackAllocatedDemangler(uint64_t a1)
+void swift::Demangle::__runtime::StackAllocatedDemangler<1024ul>::~StackAllocatedDemangler(void *a1)
 {
   *a1 = &unk_1EEEADB90;
-  v2 = a1 + 544;
-  v3 = *(a1 + 568);
+  v2 = a1 + 68;
+  v3 = a1[71];
   if (v3 == v2)
   {
     (*(*v3 + 32))(v3);
@@ -2341,8 +2340,8 @@ void swift::Demangle::__runtime::StackAllocatedDemangler<1024ul>::~StackAllocate
   }
 
   *a1 = &unk_1EEEADB68;
-  swift::Demangle::__runtime::NodeFactory::freeSlabs(*(a1 + 24));
-  v4 = *(a1 + 40);
+  swift::Demangle::__runtime::NodeFactory::freeSlabs(a1[3]);
+  v4 = a1[5];
   if (v4)
   {
     *(v4 + 48) = 0;
@@ -2351,7 +2350,7 @@ void swift::Demangle::__runtime::StackAllocatedDemangler<1024ul>::~StackAllocate
   JUMPOUT(0x1865C92E0);
 }
 
-char **__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::StringRef>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>>>,__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::StringRef>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>>>::InsertIntoBucketImpl<__swift::__runtime::llvm::StringRef>(uint64_t *a1, uint64_t a2, uint64_t a3, char **a4)
+char **__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::StringRef>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>>>,__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::StringRef>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::StringRef,std::pair<char const*,unsigned long>>>::InsertIntoBucketImpl<__swift::__runtime::llvm::StringRef>(uint64_t *a1, uint64_t a2, __swift::__runtime::llvm::hashing::detail **a3, char **a4)
 {
   v4 = *(a1 + 2);
   v5 = *(a1 + 4);
@@ -2506,7 +2505,7 @@ LABEL_23:
   return result;
 }
 
-unsigned int *swift::_buildDemanglingForContext(uint64_t a1, const char *a2, uint64_t a3, swift::Demangle::__runtime::NodeFactory *a4)
+swift::Demangle::__runtime::Node *swift::_buildDemanglingForContext(uint64_t a1, const char *a2, uint64_t a3, swift::Demangle::__runtime::NodeFactory *a4)
 {
   v150[8] = *MEMORY[0x1E69E9840];
   v148 = v150;
@@ -3100,12 +3099,12 @@ LABEL_148:
   return v129;
 }
 
-unsigned int *_swift_buildDemanglingForMetadata(unint64_t a1, swift::Demangle::__runtime::NodeFactory *a2)
+swift::Demangle::__runtime::Node *_swift_buildDemanglingForMetadata(uint64_t *a1, swift::Demangle::__runtime::NodeFactory *a2)
 {
   v3 = a1;
   v239 = *MEMORY[0x1E69E9840];
   v4 = *a1;
-  if (*a1 > 0x7FFuLL)
+  if (*a1 > 0x7FF)
   {
     LODWORD(v4) = 0;
   }
@@ -3126,7 +3125,7 @@ unsigned int *_swift_buildDemanglingForMetadata(unint64_t a1, swift::Demangle::_
     {
       if (v4 != 771)
       {
-        v6 = _swift_buildDemanglingForMetadata(*(a1 + 8), a2);
+        v6 = _swift_buildDemanglingForMetadata(a1[1], a2);
         if (!v6)
         {
           return 0;
@@ -3143,9 +3142,9 @@ LABEL_240:
         return v14;
       }
 
-      v30 = *(a1 + 12);
-      v229 = (a1 + 16);
-      v31 = (a1 + 16 + 8 * ((*(a1 + 8) >> 30) & 1));
+      v30 = *(a1 + 3);
+      v229 = (a1 + 2);
+      v31 = &a1[((*(a1 + 2) >> 30) & 1) + 2];
       v32 = swift::Demangle::__runtime::NodeFactory::createNode(a2, 246);
       v14 = swift::Demangle::__runtime::NodeFactory::createNode(a2, 200);
       swift::Demangle::__runtime::Node::addChild(v14, v32, a2, v33, v34);
@@ -3378,7 +3377,7 @@ LABEL_193:
           goto LABEL_198;
         }
 
-        if (v110 == 5 && v82[2])
+        if (v110 == 5 && *(v82 + 2))
         {
           v82 = *v82;
 LABEL_198:
@@ -3394,7 +3393,7 @@ LABEL_202:
           goto LABEL_206;
         }
 
-        if (v118 == 5 && v111[2])
+        if (v118 == 5 && *(v111 + 2))
         {
           v111 = *v111;
 LABEL_206:
@@ -3407,7 +3406,7 @@ LABEL_208:
         v120 = *(v119 + 18);
         if ((v120 - 1) >= 2)
         {
-          if (v120 != 5 || !v119[2])
+          if (v120 != 5 || !*(v119 + 2))
           {
             v81 = 0;
             goto LABEL_214;
@@ -3421,7 +3420,7 @@ LABEL_214:
         v121 = *(v81 + 18);
         if ((v121 - 1) >= 2)
         {
-          if (v121 != 5 || !v81[2])
+          if (v121 != 5 || !*(v81 + 2))
           {
             v82 = 0;
             goto LABEL_159;
@@ -3451,7 +3450,7 @@ LABEL_178:
 
     if (v4 != 773)
     {
-      v18 = _swift_buildDemanglingForMetadata(*(a1 + 8), a2);
+      v18 = _swift_buildDemanglingForMetadata(a1[1], a2);
       if (!v18)
       {
         return 0;
@@ -3464,7 +3463,7 @@ LABEL_178:
       goto LABEL_240;
     }
 
-    Name = class_getName(*(a1 + 8));
+    Name = class_getName(a1[1]);
     v38 = *(a2 + 1);
     if (!v38 || (v39 = (v38 + 3), (v38 + 3) > *(a2 + 2)))
     {
@@ -3542,7 +3541,7 @@ LABEL_239:
 
     if (!v4)
     {
-      if ((*(a1 + 32) & 2) == 0)
+      if ((a1[4] & 2) == 0)
       {
         return 0;
       }
@@ -3557,7 +3556,7 @@ LABEL_239:
     if (v4 == 512)
     {
 LABEL_8:
-      v5 = *(a1 + 8);
+      v5 = a1[1];
       if (v5)
       {
         goto LABEL_19;
@@ -3573,7 +3572,7 @@ LABEL_8:
   {
     if (v4 == 515 || v4 == 516)
     {
-      v5 = *(a1 + 8);
+      v5 = a1[1];
       if (v5)
       {
 LABEL_19:
@@ -4061,7 +4060,7 @@ LABEL_384:
 
   if (v4 == 769)
   {
-    v53 = *(a1 + 16);
+    v53 = a1[2];
     v14 = swift::Demangle::__runtime::NodeFactory::createNode(a2, 234);
     v54 = v3;
     v55 = *(v3 + 8);
@@ -4118,7 +4117,7 @@ LABEL_384:
       }
 
       v79 = v78;
-      if (*(v78 + 16) == 243)
+      if (*(v78 + 8) == 243)
       {
         v62 = v66;
         v63 = v79;
@@ -4144,7 +4143,7 @@ LABEL_384:
   }
 
   v20 = 0;
-  v21 = *(a1 + 8);
+  v21 = a1[1];
   if (BYTE2(v21) > 1u)
   {
     if (BYTE2(v21) == 2)
@@ -4224,13 +4223,13 @@ LABEL_280:
   }
 
   v232 = v20;
-  v140 = a1 + 24;
-  v141 = (a1 + 24);
+  v140 = a1 + 3;
+  v141 = (a1 + 3);
   do
   {
-    if ((*(a1 + 8) & 0x2000000) != 0)
+    if ((a1[1] & 0x2000000) != 0)
     {
-      v142 = *(v140 + 8 * *(a1 + 8));
+      v142 = v140[a1[1]];
     }
 
     else
@@ -4305,7 +4304,7 @@ LABEL_268:
     v159[1] = v3;
     v160 = v235[0]++;
     ++v141;
-    v140 += 4;
+    v140 = (v140 + 4);
     --v138;
   }
 
@@ -4322,7 +4321,7 @@ LABEL_268:
   if (v162 == 243)
   {
     v163 = *v234;
-    if (*(v161 + 18) - 1 >= 2)
+    if (v161[18] - 1 >= 2)
     {
       v163 = *v161;
     }
@@ -4479,7 +4478,7 @@ uint64_t swift::TargetFunctionTypeMetadata<swift::InProcess>::getThrownError(uin
   }
 }
 
-unsigned int *swift::_buildDemanglingForGenericType(_DWORD *a1, uint64_t a2, swift::Demangle::__runtime::NodeFactory *a3)
+swift::Demangle::__runtime::Node *swift::_buildDemanglingForGenericType(_DWORD *a1, uint64_t a2, swift::Demangle::__runtime::NodeFactory *a3)
 {
   v11[8] = *MEMORY[0x1E69E9840];
   if ((*a1 & 0x1Fu) - 16 > 2)
@@ -4811,9 +4810,9 @@ LABEL_61:
   return v18;
 }
 
-uint64_t swift_demangle(swift::Demangle::__runtime *this, const char *a2, const char *a3, char *a4, int a5)
+char *swift_demangle(swift::Demangle::__runtime *this, const char *a2, const char *a3, char *a4, int a5)
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v6[4] = *MEMORY[0x1E69E9840];
   if (a5)
   {
     swift::fatalError(0, "Only 'flags' value of '0' is currently supported.", a3, a4);
@@ -4826,19 +4825,10 @@ uint64_t swift_demangle(swift::Demangle::__runtime *this, const char *a2, const 
 
   if (swift::Demangle::__runtime::isSwiftSymbol(this, a2))
   {
-    v9 = 0;
-    v10 = 0x101010101010101;
-    v11 = 1;
-    v12 = 0x100010100000000;
-    v13 = 1;
-    v14 = 256;
-    v15 = 1;
-    v16 = 0;
-    v17 = 0;
-    v18[0] = &unk_1EEEAA698;
-    v18[1] = swift::Demangle::__runtime::genericParameterName;
-    v18[3] = v18;
-    swift::Demangle::__runtime::demangleSymbolAsString(this, a2, &v9, v7);
+    v6[0] = &unk_1EEEAA698;
+    v6[1] = swift::Demangle::__runtime::genericParameterName;
+    v6[3] = v6;
+    swift::Demangle::__runtime::demangleSymbolAsString();
   }
 
   return 0;
@@ -4852,7 +4842,7 @@ uint64_t std::__function::__func<swift::ResolveToDemanglingForContext,std::alloc
   return result;
 }
 
-void _getBridgedObjectiveCType(uint64_t a1, unint64_t a2, int **a3)
+void _getBridgedObjectiveCType(uint64_t a1, Class *a2, int **a3)
 {
   v5 = *a3;
   v6 = **a3;
@@ -4910,32 +4900,32 @@ LABEL_15:
   swift_getAssociatedTypeWitness(a1, a3, a2, &v12[12 * *(v12 + 3) + 16], &v10[12 * v11]);
 }
 
-uint64_t swift_dynamicCast(swift *a1, unint64_t *a2, Class *a3, Class *a4, unint64_t a5)
+uint64_t swift_dynamicCast(swift *a1, void *a2, Class *a3, Class *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
 {
-  v5 = a5;
-  v8 = swift_dynamicCast::Override;
+  v9 = a5;
+  v12 = swift_dynamicCast::Override;
   if (swift_dynamicCast::Override != 1)
   {
     if (swift_dynamicCast::Override)
     {
 
-      return v8(a1, a2, a3, a4, a5, swift_dynamicCastImpl);
+      return (v12)(a1, a2, a3, a4, a5, swift_dynamicCastImpl);
     }
 
     else
     {
 
-      return swift_dynamicCastSlow(a1, a2, a3, a4, a5);
+      return swift_dynamicCastSlow(a1, a2, a3, a4, a5, a6, v12, a8, a9);
     }
   }
 
-  v12 = a3;
-  v13 = a4;
-  result = tryCast(a1, a4, a2, a3, &v13, &v12, (a5 >> 1) & 1, a5 & 1, (a5 & 8) != 0);
+  v16 = a3;
+  v17 = a4;
+  result = tryCast(a1, a4, a2, a3, &v17, &v16, (a5 >> 1) & 1, a5 & 1, (a5 & 8) != 0);
   if (result == 1)
   {
-    v11 = 1;
-    if ((v5 & 2) == 0)
+    v15 = 1;
+    if ((v9 & 2) == 0)
     {
       return result;
     }
@@ -4948,24 +4938,24 @@ uint64_t swift_dynamicCast(swift *a1, unint64_t *a2, Class *a3, Class *a4, unint
     return 1;
   }
 
-  if (v5)
+  if (v9)
   {
-    swift::swift_dynamicCastFailure(v12, v13, 0, v10);
+    swift::swift_dynamicCastFailure(v16, v17, 0, v14);
   }
 
-  v11 = 0;
+  v15 = 0;
   result = 0;
-  if ((v5 & 4) != 0)
+  if ((v9 & 4) != 0)
   {
 LABEL_8:
     (*(*(a3 - 1) + 1))(a2, a3);
-    return v11;
+    return v15;
   }
 
   return result;
 }
 
-uint64_t swift_dynamicCastImpl(uint64_t a1, unint64_t *a2, Class *a3, Class *a4, unint64_t a5)
+uint64_t swift_dynamicCastImpl(uint64_t a1, void *a2, Class *a3, Class *a4, unint64_t a5)
 {
   v5 = a5;
   v11 = a3;
@@ -5004,48 +4994,48 @@ LABEL_7:
   return result;
 }
 
-uint64_t swift_dynamicCastSlow(swift *a1, unint64_t *a2, Class *a3, Class *a4, unint64_t a5)
+uint64_t swift_dynamicCastSlow(swift *a1, void *a2, Class *a3, Class *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
 {
   Override_dynamicCast = swift::getOverride_dynamicCast(a1);
   if (!Override_dynamicCast)
   {
-    v12 = 1;
+    v16 = 1;
     swift_dynamicCast::Override = 1;
-    v16 = a3;
-    v17 = a4;
-    v13 = tryCast(a1, a4, a2, a3, &v17, &v16, (a5 >> 1) & 1, a5 & 1, (a5 & 8) != 0);
-    if (v13 == 1)
+    v20 = a3;
+    v21 = a4;
+    v17 = tryCast(a1, a4, a2, a3, &v21, &v20, (a5 >> 1) & 1, a5 & 1, (a5 & 8) != 0);
+    if (v17 == 1)
     {
-      v15 = 1;
-      v12 = 1;
+      v19 = 1;
+      v16 = 1;
       if ((a5 & 2) == 0)
       {
-        return v12;
+        return v16;
       }
     }
 
     else
     {
-      if (v13)
+      if (v17)
       {
-        return v12;
+        return v16;
       }
 
       if (a5)
       {
-        swift::swift_dynamicCastFailure(v16, v17, 0, v14);
+        swift::swift_dynamicCastFailure(v20, v21, 0, v18);
       }
 
-      v15 = 0;
-      v12 = 0;
+      v19 = 0;
+      v16 = 0;
       if ((a5 & 4) == 0)
       {
-        return v12;
+        return v16;
       }
     }
 
     (*(*(a3 - 1) + 1))(a2, a3);
-    return v15;
+    return v19;
   }
 
   swift_dynamicCast::Override = Override_dynamicCast;
@@ -5053,7 +5043,7 @@ uint64_t swift_dynamicCastSlow(swift *a1, unint64_t *a2, Class *a3, Class *a4, u
   return (Override_dynamicCast)(a1, a2, a3, a4, a5, swift_dynamicCastImpl);
 }
 
-uint64_t tryCast(uint64_t result, uint64_t a2, unint64_t *a3, void *a4, uint64_t *a5, void *a6, unsigned int a7, unsigned int a8, char a9)
+uint64_t tryCast(uint64_t result, uint64_t a2, void *a3, void *a4, void *a5, void *a6, unsigned int a7, unsigned int a8, char a9)
 {
   v9 = a2;
   *a5 = a2;
@@ -5092,8 +5082,8 @@ uint64_t tryCast(uint64_t result, uint64_t a2, unint64_t *a3, void *a4, uint64_t
   }
 
   v12 = tryCastToSwiftClass;
-  v158 = v11;
-  v159 = v10;
+  v153 = v11;
+  v154 = v10;
   if (v10 <= 768)
   {
     if (v10 > 513)
@@ -5217,16 +5207,16 @@ LABEL_56:
     v15 = a6;
     v16 = a5;
     v17 = a3;
-    v154 = a7;
+    v149 = a7;
     v18 = a8;
-    v155 = result;
+    v150 = result;
     result = swift::TargetExistentialTypeMetadata<swift::InProcess>::getRepresentation(a2);
     if (result == 2)
     {
       v20 = tryCastToErrorExistential;
-      result = v155;
+      result = v150;
       a8 = v18;
-      a7 = v154;
+      a7 = v149;
       a3 = v17;
       a5 = v16;
       a6 = v15;
@@ -5244,8 +5234,8 @@ LABEL_56:
       if (result == 1)
       {
         v20 = tryCastToClassExistential;
-        result = v155;
-        a7 = v154;
+        result = v150;
+        a7 = v149;
         v9 = a2;
       }
 
@@ -5267,8 +5257,8 @@ LABEL_56:
           v20 = tryCastToUnconstrainedOpaqueExistential;
         }
 
-        result = v155;
-        a7 = v154;
+        result = v150;
+        a7 = v149;
       }
     }
   }
@@ -5289,23 +5279,23 @@ LABEL_57:
     return result;
   }
 
-  v153 = v30;
-  v156 = v22;
-  v157 = v24;
-  if (v158 <= 770)
+  v148 = v30;
+  v151 = v22;
+  v152 = v24;
+  if (v153 <= 770)
   {
     v32 = v27;
     v33 = v26;
-    v36 = v159;
+    v36 = v154;
     v34 = v25;
     v35 = a9;
-    if (v158)
+    if (v153)
     {
-      if (v158 == 512)
+      if (v153 == 512)
       {
-        if (*(v24 + 8))
+        if (*(v24 + 1))
         {
-          v52 = *(v24 + 8);
+          v52 = *(v24 + 1);
         }
 
         else
@@ -5313,7 +5303,7 @@ LABEL_57:
           v52 = 0;
         }
 
-        if (v52 == &nominal type descriptor for AnyHashable && (_swift_anyHashableDownCastConditionalIndirect(v32, v156, v34, v31) & 1) != 0)
+        if (v52 == &nominal type descriptor for AnyHashable && (_swift_anyHashableDownCastConditionalIndirect(v32, v151, v34, v31) & 1) != 0)
         {
           return 1;
         }
@@ -5321,7 +5311,7 @@ LABEL_57:
         goto LABEL_114;
       }
 
-      if (v158 != 515)
+      if (v153 != 515)
       {
         goto LABEL_114;
       }
@@ -5334,35 +5324,29 @@ LABEL_57:
   v33 = v26;
   v34 = v25;
   v35 = a9;
-  if (v158 > 773)
+  if (v153 > 773)
   {
-    v36 = v159;
-    if (v158 == 774)
+    v36 = v154;
+    if (v153 == 774)
     {
       MetatypeMetadata = swift_getMetatypeMetadata(*v32);
       *v23 = MetatypeMetadata;
-      v152 = a9;
-      v53 = v156;
-      v54 = v34;
-      v44 = v32;
-      v55 = v33;
-      v56 = v23;
-      v57 = v28;
+      result = tryCast(v151, v34, v32, MetatypeMetadata, v33, v23, v28, v29, a9);
       goto LABEL_113;
     }
 
-    if (v158 != 775)
+    if (v153 != 775)
     {
       goto LABEL_114;
     }
 
     v44 = 0;
-    v45 = **(v24 + 8);
+    v45 = **(v24 + 1);
     if (v45 > 1)
     {
       if (v45 != 2)
       {
-        MetatypeMetadata = 0;
+        v46 = 0;
         if (v45 == 3)
         {
           goto LABEL_251;
@@ -5376,37 +5360,32 @@ LABEL_57:
 
     else
     {
-      if (!**(v24 + 8))
+      if (!**(v24 + 1))
       {
-        v68 = v32[3];
-        v69 = swift::TargetOpaqueExistentialContainer<swift::InProcess>::projectValue(v32);
-        MetatypeMetadata = v68;
-        v44 = v69;
+        v64 = v32[3];
+        v65 = swift::TargetOpaqueExistentialContainer<swift::InProcess>::projectValue(v32);
+        v46 = v64;
+        v44 = v65;
         goto LABEL_109;
       }
 
-      MetatypeMetadata = 0;
+      v46 = 0;
       if (v45 != 1)
       {
 LABEL_109:
-        *v23 = MetatypeMetadata;
+        *v23 = v46;
         if (v44 == v32)
         {
-          v57 = v28;
+          v66 = v28;
         }
 
         else
         {
-          v57 = 0;
+          v66 = 0;
         }
 
-        v152 = a9;
-        v53 = v156;
-        v54 = v34;
-        v55 = v33;
-        v56 = v23;
+        result = tryCast(v151, v34, v44, v46, v33, v23, v66, v29, a9);
 LABEL_113:
-        result = tryCast(v53, v54, v44, MetatypeMetadata, v55, v56, v57, v29, v152);
         if (result)
         {
           return result;
@@ -5418,15 +5397,15 @@ LABEL_113:
       ObjectType = swift_getObjectType(*v32);
     }
 
-    MetatypeMetadata = ObjectType;
+    v46 = ObjectType;
     v44 = v32;
     goto LABEL_109;
   }
 
-  v36 = v159;
-  if (v158 != 771)
+  v36 = v154;
+  if (v153 != 771)
   {
-    if (v158 != 773)
+    if (v153 != 773)
     {
       goto LABEL_114;
     }
@@ -5439,7 +5418,7 @@ LABEL_67:
       if (v39 != v24)
       {
         *v23 = v39;
-        result = v153(v156, v34, v32, v39, v33, v23, v28, v29, v35);
+        result = v148(v151, v34, v32, v39, v33, v23, v28, v29, v35);
         if (result)
         {
           return result;
@@ -5447,21 +5426,20 @@ LABEL_67:
       }
     }
 
-    if (v158 == 773)
+    if (v153 == 773)
     {
       AsSwiftValue = swift::getAsSwiftValue(*v32, v38);
       if (AsSwiftValue)
       {
         ValueFromSwiftValue = swift::getValueFromSwiftValue(AsSwiftValue, v41);
-        LOBYTE(v151) = v35;
-        result = tryCast(v156, v34, v43, ValueFromSwiftValue, v33, v23, 0, v29, v151);
+        result = tryCast(v151, v34, v43, ValueFromSwiftValue, v33, v23, 0, v29, v35);
         if (result)
         {
           return result;
         }
       }
 
-      if (swift::tryDynamicCastNSErrorToValue(v156, v32, v24, v34, 0))
+      if (swift::tryDynamicCastNSErrorToValue(v151, v32, v24, v34, 0))
       {
         return 1;
       }
@@ -5475,18 +5453,18 @@ LABEL_67:
   {
     if (Representation == 2)
     {
-      v58 = *v32;
+      v54 = *v32;
       isPureNSError = swift::SwiftError::isPureNSError(*v32, v49);
-      v61 = v32;
+      v57 = v32;
       if (!isPureNSError)
       {
-        v61 = (v58 + *(*(*(v58 + 40) - 8) + 80) + 72) & ~*(*(*(v58 + 40) - 8) + 80);
+        v57 = (v54 + *(*(*(v54 + 40) - 8) + 80) + 72) & ~*(*(*(v54 + 40) - 8) + 80);
       }
 
-      v62 = v58;
-      v63 = v61;
-      Type = swift::SwiftError::getType(v62, v60);
-      v51 = v63;
+      v58 = v54;
+      v59 = v57;
+      Type = swift::SwiftError::getType(v58, v56);
+      v51 = v59;
       v50 = Type;
     }
 
@@ -5505,24 +5483,24 @@ LABEL_67:
 
   else
   {
-    v65 = v32[3];
-    v66 = swift::TargetExistentialTypeMetadata<swift::InProcess>::projectValue(v157, v32);
-    v50 = v65;
-    v51 = v66;
+    v61 = v32[3];
+    v62 = swift::TargetExistentialTypeMetadata<swift::InProcess>::projectValue(v152, v32);
+    v50 = v61;
+    v51 = v62;
   }
 
   *v23 = v50;
   if (v51 == v32)
   {
-    v67 = v28;
+    v63 = v28;
   }
 
   else
   {
-    v67 = 0;
+    v63 = 0;
   }
 
-  result = tryCast(v156, v34, v51, v50, v33, v23, v67, v29, a9);
+  result = tryCast(v151, v34, v51, v50, v33, v23, v63, v29, a9);
   if (result)
   {
     return result;
@@ -5534,39 +5512,39 @@ LABEL_114:
     goto LABEL_134;
   }
 
-  if (v158 == 514)
+  if (v153 == 514)
   {
-    TypeContextDescriptor = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v157);
+    TypeContextDescriptor = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v152);
     result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(TypeContextDescriptor);
-    v71 = *TypeContextDescriptor;
-    v72 = *TypeContextDescriptor & 0x1F;
-    if ((v72 - 17) >= 2)
+    v68 = *TypeContextDescriptor;
+    v69 = *TypeContextDescriptor & 0x1F;
+    if ((v69 - 17) >= 2)
     {
-      if (v72 != 16)
+      if (v69 != 16)
       {
         goto LABEL_251;
       }
 
-      if ((v71 & 0x20000000) != 0)
+      if ((v68 & 0x20000000) != 0)
       {
         ResilientImmediateMembersOffset = swift::getResilientImmediateMembersOffset(TypeContextDescriptor);
       }
 
       else
       {
-        if ((v71 & 0x10000000) != 0)
+        if ((v68 & 0x10000000) != 0)
         {
-          v115 = 0;
-          v116 = 6;
+          v112 = 0;
+          v113 = 6;
         }
 
         else
         {
-          v115 = TypeContextDescriptor[7];
-          v116 = 8;
+          v112 = TypeContextDescriptor[7];
+          v113 = 8;
         }
 
-        ResilientImmediateMembersOffset = v115 - TypeContextDescriptor[v116];
+        ResilientImmediateMembersOffset = v112 - TypeContextDescriptor[v113];
       }
     }
 
@@ -5575,226 +5553,226 @@ LABEL_114:
       ResilientImmediateMembersOffset = 2;
     }
 
-    v74 = *(v157 + 8 * ResilientImmediateMembersOffset);
-    v75 = (*(*(v74 - 8) + 48))(v32, 1, v74);
-    if (v75)
+    v71 = *(v152 + 8 * ResilientImmediateMembersOffset);
+    v72 = (*(*(v71 - 1) + 48))(v32, 1, v71);
+    if (v72)
     {
-      if (!swift::runtime::bincompat::useLegacyProtocolConformanceReverseIteration(v75))
+      if (!swift::runtime::bincompat::useLegacyProtocolConformanceReverseIteration(v72))
       {
-        v117 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v157);
-        result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v117);
-        v118 = *v117;
-        v119 = *v117 & 0x1F;
-        if ((v119 - 17) >= 2)
+        v114 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v152);
+        result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v114);
+        v115 = *v114;
+        v116 = *v114 & 0x1F;
+        if ((v116 - 17) >= 2)
         {
-          if (v119 != 16)
+          if (v116 != 16)
           {
             goto LABEL_251;
           }
 
-          if ((v118 & 0x20000000) != 0)
+          if ((v115 & 0x20000000) != 0)
           {
-            v120 = swift::getResilientImmediateMembersOffset(v117);
+            v117 = swift::getResilientImmediateMembersOffset(v114);
           }
 
           else
           {
-            if ((v118 & 0x10000000) != 0)
+            if ((v115 & 0x10000000) != 0)
             {
-              v147 = 0;
-              v148 = 6;
+              v144 = 0;
+              v145 = 6;
             }
 
             else
             {
-              v147 = v117[7];
-              v148 = 8;
+              v144 = v114[7];
+              v145 = 8;
             }
 
-            v120 = v147 - v117[v148];
+            v117 = v144 - v114[v145];
           }
         }
 
         else
         {
-          v120 = 2;
+          v117 = 2;
         }
 
-        v121 = *(v157 + 8 * v120);
-        v122 = *v121;
-        v123 = 1;
-        while (v122 == 514)
+        v118 = *(v152 + 8 * v117);
+        v119 = *v118;
+        v120 = 1;
+        while (v119 == 514)
         {
-          v125 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v121);
-          result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v125);
-          v126 = *v125;
-          v127 = *v125 & 0x1F;
-          if ((v127 - 17) < 2)
+          v122 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v118);
+          result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v122);
+          v123 = *v122;
+          v124 = *v122 & 0x1F;
+          if ((v124 - 17) < 2)
           {
-            v124 = 2;
+            v121 = 2;
           }
 
           else
           {
-            if (v127 != 16)
+            if (v124 != 16)
             {
               goto LABEL_251;
             }
 
-            if ((v126 & 0x20000000) != 0)
+            if ((v123 & 0x20000000) != 0)
             {
-              v124 = swift::getResilientImmediateMembersOffset(v125);
+              v121 = swift::getResilientImmediateMembersOffset(v122);
             }
 
             else
             {
-              if ((v126 & 0x10000000) != 0)
+              if ((v123 & 0x10000000) != 0)
               {
-                v128 = 0;
-                v129 = 6;
+                v125 = 0;
+                v126 = 6;
               }
 
               else
               {
-                v128 = v125[7];
-                v129 = 8;
+                v125 = v122[7];
+                v126 = 8;
               }
 
-              v124 = v128 - v125[v129];
+              v121 = v125 - v122[v126];
             }
           }
 
-          ++v123;
-          v121 = v121[v124];
-          v122 = *v121;
+          ++v120;
+          v118 = v118[v121];
+          v119 = *v118;
         }
 
-        v130 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v34);
-        result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v130);
-        v131 = *v130;
-        v132 = *v130 & 0x1F;
-        if ((v132 - 17) >= 2)
+        v127 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v34);
+        result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v127);
+        v128 = *v127;
+        v129 = *v127 & 0x1F;
+        if ((v129 - 17) >= 2)
         {
-          if (v132 != 16)
+          if (v129 != 16)
           {
             goto LABEL_251;
           }
 
-          if ((v131 & 0x20000000) != 0)
+          if ((v128 & 0x20000000) != 0)
           {
-            v133 = swift::getResilientImmediateMembersOffset(v130);
+            v130 = swift::getResilientImmediateMembersOffset(v127);
           }
 
           else
           {
-            if ((v131 & 0x10000000) != 0)
+            if ((v128 & 0x10000000) != 0)
             {
-              v149 = 0;
-              v150 = 6;
+              v146 = 0;
+              v147 = 6;
             }
 
             else
             {
-              v149 = v130[7];
-              v150 = 8;
+              v146 = v127[7];
+              v147 = 8;
             }
 
-            v133 = v149 - v130[v150];
+            v130 = v146 - v127[v147];
           }
         }
 
         else
         {
-          v133 = 2;
+          v130 = 2;
         }
 
-        v134 = v34[v133];
-        v135 = *v134;
-        v136 = 1;
-        while (v135 == 514)
+        v131 = v34[v130];
+        v132 = *v131;
+        v133 = 1;
+        while (v132 == 514)
         {
-          v138 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v134);
-          result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v138);
-          v139 = *v138;
-          v140 = *v138 & 0x1F;
-          if ((v140 - 17) < 2)
+          v135 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v131);
+          result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v135);
+          v136 = *v135;
+          v137 = *v135 & 0x1F;
+          if ((v137 - 17) < 2)
           {
-            v137 = 2;
+            v134 = 2;
           }
 
           else
           {
-            if (v140 != 16)
+            if (v137 != 16)
             {
               goto LABEL_251;
             }
 
-            if ((v139 & 0x20000000) != 0)
+            if ((v136 & 0x20000000) != 0)
             {
-              v137 = swift::getResilientImmediateMembersOffset(v138);
+              v134 = swift::getResilientImmediateMembersOffset(v135);
             }
 
             else
             {
-              if ((v139 & 0x10000000) != 0)
+              if ((v136 & 0x10000000) != 0)
               {
-                v141 = 0;
-                v142 = 6;
+                v138 = 0;
+                v139 = 6;
               }
 
               else
               {
-                v141 = v138[7];
-                v142 = 8;
+                v138 = v135[7];
+                v139 = 8;
               }
 
-              v137 = v141 - v138[v142];
+              v134 = v138 - v135[v139];
             }
           }
 
-          ++v136;
-          v134 = v134[v137];
-          v135 = *v134;
+          ++v133;
+          v131 = v131[v134];
+          v132 = *v131;
         }
 
-        initializeToNilAtDepth(v156, v34, (v136 - v123) & ~((v136 - v123) >> 31));
+        initializeToNilAtDepth(v151, v34, (v133 - v120) & ~((v133 - v120) >> 31));
         return 1;
       }
 
-      v76 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v34);
-      result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v76);
-      v77 = *v76;
-      v78 = *v76 & 0x1F;
-      if ((v78 - 17) < 2)
+      v73 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v34);
+      result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v73);
+      v74 = *v73;
+      v75 = *v73 & 0x1F;
+      if ((v75 - 17) < 2)
       {
-        v79 = 2;
+        v76 = 2;
 LABEL_122:
-        (*(*(v34[v79] - 1) + 56))(v156, 1, 1);
+        (*(*(v34[v76] - 1) + 56))(v151, 1, 1);
         return 1;
       }
 
-      if (v78 == 16)
+      if (v75 == 16)
       {
-        if ((v77 & 0x20000000) != 0)
+        if ((v74 & 0x20000000) != 0)
         {
-          v79 = swift::getResilientImmediateMembersOffset(v76);
+          v76 = swift::getResilientImmediateMembersOffset(v73);
         }
 
         else
         {
-          if ((v77 & 0x10000000) != 0)
+          if ((v74 & 0x10000000) != 0)
           {
-            v145 = 0;
-            v146 = 6;
+            v142 = 0;
+            v143 = 6;
           }
 
           else
           {
-            v145 = v76[7];
-            v146 = 8;
+            v142 = v73[7];
+            v143 = 8;
           }
 
-          v79 = v145 - v76[v146];
+          v76 = v142 - v73[v143];
         }
 
         goto LABEL_122;
@@ -5805,222 +5783,220 @@ LABEL_251:
       return result;
     }
 
-    v80 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v34);
-    result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v80);
-    v81 = *v80;
-    v82 = *v80 & 0x1F;
-    if ((v82 - 17) >= 2)
+    v77 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v34);
+    result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v77);
+    v78 = *v77;
+    v79 = *v77 & 0x1F;
+    if ((v79 - 17) >= 2)
     {
-      if (v82 != 16)
+      if (v79 != 16)
       {
         goto LABEL_251;
       }
 
-      if ((v81 & 0x20000000) == 0)
+      if ((v78 & 0x20000000) == 0)
       {
-        if ((v81 & 0x10000000) != 0)
+        if ((v78 & 0x10000000) != 0)
         {
-          v143 = 0;
-          v144 = 6;
+          v140 = 0;
+          v141 = 6;
         }
 
         else
         {
-          v143 = v80[7];
-          v144 = 8;
+          v140 = v77[7];
+          v141 = 8;
         }
 
-        v84 = v29;
-        v83 = v143 - v80[v144];
+        v81 = v29;
+        v80 = v140 - v77[v141];
 LABEL_126:
-        v85 = v34[v83];
-        LOBYTE(v151) = v35;
-        v86 = tryCast(v156, v85, v32, v74, v33, v23, v28, v84, v151);
-        if (v86)
+        v82 = v34[v80];
+        v83 = tryCast(v151, v82, v32, v71, v33, v23, v28, v81, v35);
+        if (v83)
         {
-          v87 = v86;
-          (*(*(v85 - 1) + 56))(v156, 0, 1, v85);
-          return v87;
+          v84 = v83;
+          (*(*(v82 - 8) + 56))(v151, 0, 1, v82);
+          return v84;
         }
 
         goto LABEL_128;
       }
 
-      v83 = swift::getResilientImmediateMembersOffset(v80);
+      v80 = swift::getResilientImmediateMembersOffset(v77);
     }
 
     else
     {
-      v83 = 2;
+      v80 = 2;
     }
 
-    v84 = v29;
+    v81 = v29;
     goto LABEL_126;
   }
 
 LABEL_128:
-  v88 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v34);
-  result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v88);
-  v89 = *v88;
-  v90 = *v88 & 0x1F;
-  if ((v90 - 17) < 2)
+  v85 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v34);
+  result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v85);
+  v86 = *v85;
+  v87 = *v85 & 0x1F;
+  if ((v87 - 17) < 2)
   {
-    v91 = 2;
+    v88 = 2;
 LABEL_130:
-    v92 = v29;
+    v89 = v29;
     goto LABEL_131;
   }
 
-  if (v90 != 16)
+  if (v87 != 16)
   {
     goto LABEL_251;
   }
 
-  if ((v89 & 0x20000000) != 0)
+  if ((v86 & 0x20000000) != 0)
   {
-    v91 = swift::getResilientImmediateMembersOffset(v88);
+    v88 = swift::getResilientImmediateMembersOffset(v85);
     goto LABEL_130;
   }
 
-  if ((v89 & 0x10000000) != 0)
+  if ((v86 & 0x10000000) != 0)
   {
-    v113 = 0;
-    v114 = 6;
+    v110 = 0;
+    v111 = 6;
   }
 
   else
   {
-    v113 = v88[7];
-    v114 = 8;
+    v110 = v85[7];
+    v111 = 8;
   }
 
-  v92 = v29;
-  v91 = v113 - v88[v114];
+  v89 = v29;
+  v88 = v110 - v85[v111];
 LABEL_131:
-  v93 = v34[v91];
-  LOBYTE(v151) = v35;
-  v94 = tryCast(v156, v93, v32, v157, v33, v23, v28, v92, v151);
-  if (v94)
+  v90 = v34[v88];
+  v91 = tryCast(v151, v90, v32, v152, v33, v23, v28, v89, v35);
+  if (v91)
   {
-    v87 = v94;
-    (*(*(v93 - 1) + 56))(v156, 0, 1, v93);
-    return v87;
+    v84 = v91;
+    (*(*(v90 - 8) + 56))(v151, 0, 1, v90);
+    return v84;
   }
 
 LABEL_134:
-  if (v158 != 514)
+  if (v153 != 514)
   {
     goto LABEL_138;
   }
 
-  v95 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v157);
-  result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v95);
-  v96 = *v95;
-  v97 = *v95 & 0x1F;
-  if ((v97 - 17) >= 2)
+  v92 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v152);
+  result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v92);
+  v93 = *v92;
+  v94 = *v92 & 0x1F;
+  if ((v94 - 17) >= 2)
   {
-    if (v97 != 16)
+    if (v94 != 16)
     {
       goto LABEL_251;
     }
 
-    if ((v96 & 0x20000000) != 0)
+    if ((v93 & 0x20000000) != 0)
     {
-      v98 = swift::getResilientImmediateMembersOffset(v95);
+      v95 = swift::getResilientImmediateMembersOffset(v92);
     }
 
     else
     {
-      if ((v96 & 0x10000000) != 0)
+      if ((v93 & 0x10000000) != 0)
       {
-        v111 = 0;
-        v112 = 6;
+        v108 = 0;
+        v109 = 6;
       }
 
       else
       {
-        v111 = v95[7];
-        v112 = 8;
+        v108 = v92[7];
+        v109 = 8;
       }
 
-      v98 = v111 - v95[v112];
+      v95 = v108 - v92[v109];
     }
   }
 
   else
   {
-    v98 = 2;
+    v95 = 2;
   }
 
-  v99 = *(v157 + 8 * v98);
-  if ((*(*(v99 - 8) + 48))(v32, 1, v99) || (LOBYTE(v151) = v35, result = tryCast(v156, v34, v32, v99, v33, v23, v28, v29, v151), !result))
+  v96 = *(v152 + 8 * v95);
+  if ((*(*(v96 - 1) + 48))(v32, 1, v96) || (result = tryCast(v151, v34, v32, v96, v33, v23, v28, v29, v35), !result))
   {
 LABEL_138:
     if (v36 <= 514)
     {
-      v100 = v157;
+      v97 = v152;
       if ((v36 - 512) < 2)
       {
-        if (v158 && v158 != 773 && v158 != 515)
+        if (v153 && v153 != 773 && v153 != 515)
         {
           return 0;
         }
 
-        v105 = v156;
-        v106 = v34;
-        v107 = v32;
-        v108 = v157;
-        v109 = v33;
-        v110 = v29;
-        return tryCastFromClassToObjCBridgeable(v105, v106, v107, v108, v109, v110) != 0;
+        v102 = v151;
+        v103 = v34;
+        v104 = v32;
+        v105 = v152;
+        v106 = v33;
+        v107 = v29;
+        return tryCastFromClassToObjCBridgeable(v102, v103, v104, v105, v106, v107) != 0;
       }
 
       if (v36)
       {
-        if (v36 != 514 || *v157 != 771 || swift::TargetExistentialTypeMetadata<swift::InProcess>::getRepresentation(v157) != 1 || *(v157 + 12))
+        if (v36 != 514 || *v152 != 771 || swift::TargetExistentialTypeMetadata<swift::InProcess>::getRepresentation(v152) != 1 || *(v152 + 12))
         {
           return 0;
         }
 
-        v101 = *(v157 + 8);
-        if ((v101 & 0x40000000) != 0)
+        v98 = *(v152 + 8);
+        if ((v98 & 0x40000000) != 0)
         {
-          if (v101 < 0 || *(v157 + 16))
+          if (v98 < 0 || *(v152 + 16))
           {
             return 0;
           }
         }
 
-        else if (v101 < 0)
+        else if (v98 < 0)
         {
           return 0;
         }
 
-        v105 = v156;
-        v106 = v34;
-        v107 = v32;
-        v108 = v157;
-        v109 = v33;
-        v110 = 0;
-        return tryCastFromClassToObjCBridgeable(v105, v106, v107, v108, v109, v110) != 0;
+        v102 = v151;
+        v103 = v34;
+        v104 = v32;
+        v105 = v152;
+        v106 = v33;
+        v107 = 0;
+        return tryCastFromClassToObjCBridgeable(v102, v103, v104, v105, v106, v107) != 0;
       }
 
 LABEL_151:
-      if ((v158 & 0xFFFFFFFE) == 0x200 && tryCastFromObjCBridgeableToClass(v156, v34, v32, v100))
+      if ((v153 & 0xFFFFFFFE) == 0x200 && tryCastFromObjCBridgeableToClass(v151, v34, v32, v97))
       {
         return 1;
       }
 
       if (v36 == 773)
       {
-        ErrorWitness = swift::findErrorWitness(v100);
+        ErrorWitness = swift::findErrorWitness(v97);
         if (ErrorWitness)
         {
-          v103 = ErrorWitness;
+          v100 = ErrorWitness;
           NSErrorMetadata = swift::getNSErrorMetadata(ErrorWitness);
           if (NSErrorMetadata == v34 || swift::getNSObjectMetadata(NSErrorMetadata) == v34)
           {
-            *v156 = swift::dynamicCastValueToNSError(v32, v100, v103, 0);
+            *v151 = swift::dynamicCastValueToNSError(v32, v97, v100, 0);
             return 1;
           }
         }
@@ -6029,7 +6005,7 @@ LABEL_151:
       return 0;
     }
 
-    v100 = v157;
+    v97 = v152;
     if (v36 == 515)
     {
       goto LABEL_151;
@@ -6050,12 +6026,12 @@ LABEL_151:
       return 0;
     }
 
-    if (tryCastFromObjCBridgeableToClass(v156, v34, v32, v157))
+    if (tryCastFromObjCBridgeableToClass(v151, v34, v32, v152))
     {
       return 1;
     }
 
-    result = tryCastToClassExistentialViaSwiftValue(v156, v34, v32, v157, v28);
+    result = tryCastToClassExistentialViaSwiftValue(v151, v34, v32, v152, v28);
     if (!result)
     {
       return 0;
@@ -6078,9 +6054,10 @@ uint64_t getNonNullSrcObject(uint64_t *a1, Class *a2, Class *a3)
   return result;
 }
 
-uint64_t tryCastFromClassToObjCBridgeable(uint64_t a1, swift *a2, uint64_t *a3, Class *a4, uint64_t *a5, int a6)
+uint64_t tryCastFromClassToObjCBridgeable(uint64_t a1, swift *a2, uint64_t *a3, Class *a4, uint64_t **a5, uint64_t a6)
 {
-  BridgeWitness = findBridgeWitness(a2);
+  v6 = a6;
+  BridgeWitness = findBridgeWitness(a2, a2, a3);
   if (!BridgeWitness)
   {
     return 0;
@@ -6149,12 +6126,12 @@ LABEL_16:
     return 0;
   }
 
-  return _tryCastFromClassToObjCBridgeable(a1, a2, v25, a6, v13);
+  return _tryCastFromClassToObjCBridgeable(a1, a2, v25, v6, v13);
 }
 
-uint64_t tryCastFromObjCBridgeableToClass(atomic_ullong **a1, uint64_t a2, uint64_t a3, swift *a4)
+uint64_t tryCastFromObjCBridgeableToClass(swift **a1, uint64_t *a2, uint64_t a3, swift *a4)
 {
-  result = findBridgeWitness(a4);
+  result = findBridgeWitness(a4, a2, a3);
   if (result)
   {
     v8 = (*(result + 16))(a4, result);
@@ -6175,7 +6152,7 @@ uint64_t tryCastFromObjCBridgeableToClass(atomic_ullong **a1, uint64_t a2, uint6
   return result;
 }
 
-uint64_t tryCastToClassExistentialViaSwiftValue(void *a1, uint64_t a2, unint64_t **a3, void *a4, int a5)
+uint64_t tryCastToClassExistentialViaSwiftValue(void *a1, uint64_t a2, unint64_t **a3, void *a4, uint64_t a5)
 {
   result = 0;
   v7 = *a4;
@@ -6212,7 +6189,7 @@ uint64_t tryCastToClassExistentialViaSwiftValue(void *a1, uint64_t a2, unint64_t
     {
 LABEL_14:
       v9 = a1;
-      if (!*(a2 + 12) || (v11 = a3, v12 = a4, v13 = a5, result = swift::runtime::bincompat::useLegacyObjCBoxingInCasting(0), result) && (result = swift::findSwiftValueConformances(a2), a5 = v13, a4 = v12, a3 = v11, result))
+      if (!*(a2 + 12) || (v11 = a3, v12 = a4, v13 = a5, result = swift::runtime::bincompat::useLegacyObjCBoxingInCasting(0), result) && (result = swift::findSwiftValueConformances(a2), LODWORD(a5) = v13, a4 = v12, a3 = v11, result))
       {
         v14 = a5;
         *v9 = swift::bridgeAnythingToSwiftValueObject(a3, a4, a5);
@@ -6332,7 +6309,7 @@ LABEL_9:
     }
 
 LABEL_18:
-    result = swift_conformsToProtocolCommon(a4, &protocol descriptor for Hashable);
+    result = swift_conformsToProtocolCommon(a4, &protocol descriptor for Hashable.Flags);
     if (result)
     {
 LABEL_19:
@@ -6436,17 +6413,17 @@ uint64_t tryCastToArray(__objc2_class ***a1, unint64_t *a2, unint64_t *a3, unint
           v20 = a4;
           if ((v17 & 0x10000000) != 0)
           {
-            v30 = 0;
-            v31 = 6;
+            v31 = 0;
+            v32 = 6;
           }
 
           else
           {
-            v30 = v16[7];
-            v31 = 8;
+            v31 = v16[7];
+            v32 = 8;
           }
 
-          ResilientImmediateMembersOffset = v30 - v16[v31];
+          ResilientImmediateMembersOffset = v31 - v16[v32];
           goto LABEL_12;
         }
 
@@ -6494,33 +6471,34 @@ LABEL_35:
 
   if ((v23 & 0x10000000) != 0)
   {
-    v28 = 0;
-    v29 = 6;
+    v29 = 0;
+    v30 = 6;
   }
 
   else
   {
-    v28 = v22[7];
-    v29 = 8;
+    v29 = v22[7];
+    v30 = 8;
   }
 
   v26 = a3;
-  v25 = v28 - v22[v29];
+  v25 = v29 - v22[v30];
 LABEL_17:
   v27 = *v21;
+  v28 = a2[v25];
   if (a8)
   {
-    _swift_arrayDownCastIndirect(v26, a1, v27);
+    _swift_arrayDownCastIndirect(v26, a1, v27, v28);
     return 1;
   }
 
   else
   {
-    return _swift_arrayDownCastConditionalIndirect(v26, a1, v27, a2[v25]);
+    return _swift_arrayDownCastConditionalIndirect(v26, a1, v27, v28);
   }
 }
 
-uint64_t tryCastToDictionary(uint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
+uint64_t tryCastToDictionary(__objc2_class ***a1, unint64_t *a2, unint64_t *a3, unint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
 {
   if (*a4 != 512)
   {
@@ -6644,7 +6622,7 @@ LABEL_17:
   }
 }
 
-uint64_t tryCastToSet(uint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
+uint64_t tryCastToSet(__objc2_class ***a1, unint64_t *a2, unint64_t *a3, unint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
 {
   if (*a4 != 512)
   {
@@ -6898,14 +6876,8 @@ LABEL_15:
   v28 = 0;
   v29 = a4 + 4;
   v30 = (a2 + 32);
-  while (1)
+  while (tryCast(a1 + *v30, *(v30 - 1), (a3 + *v29), *(v29 - 1), a5, a6, 0, a8, a9))
   {
-    LOBYTE(v32) = a9;
-    if (!tryCast(a1 + *v30, *(v30 - 1), a3 + *v29, *(v29 - 1), a5, a6, 0, a8, v32))
-    {
-      break;
-    }
-
     v29 += 2;
     v30 += 2;
     ++v28;
@@ -7014,7 +6986,7 @@ LABEL_17:
   }
 }
 
-uint64_t tryCastToUnconstrainedOpaqueExistential(void *a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, int a7)
+uint64_t tryCastToUnconstrainedOpaqueExistential(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
 {
   a1[3] = a4;
   BoxForExistentialIn = swift::TargetMetadata<swift::InProcess>::allocateBoxForExistentialIn(a4, a1);
@@ -7121,7 +7093,7 @@ LABEL_18:
   return result;
 }
 
-uint64_t tryCastToClassExistential(swift::runtime::bincompat **a1, uint64_t a2, uint64_t **a3, Class *a4, uint64_t a5, uint64_t a6, char a7, int a8, unsigned __int8 a9)
+uint64_t tryCastToClassExistential(uint64_t **a1, uint64_t a2, unint64_t **a3, Class *a4, uint64_t a5, uint64_t a6, char a7, int a8, unsigned __int8 a9)
 {
   result = 0;
   v16 = *a4;
@@ -7168,7 +7140,7 @@ uint64_t tryCastToClassExistential(swift::runtime::bincompat **a1, uint64_t a2, 
       }
 
       v21 = *v18;
-      if (*v18 > 0x7FFuLL)
+      if (*v18 > 0x7FF)
       {
         LODWORD(v21) = 0;
       }
@@ -7326,8 +7298,9 @@ LABEL_56:
   }
 }
 
-uint64_t tryCastToErrorExistential(void *a1, uint64_t a2, swift::runtime::bincompat **a3, uint64_t *a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, unsigned __int8 a9)
+uint64_t tryCastToErrorExistential(uint64_t *a1, uint64_t a2, swift::runtime::bincompat **a3, unint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned __int8 a9)
 {
+  v9 = a7;
   v13 = *a4;
   if (*a4 > 0x7FF)
   {
@@ -7416,8 +7389,8 @@ LABEL_33:
 
     else
     {
-      *a1 = swift_allocError(a4, v27, a3, a7);
-      if (a7)
+      *a1 = swift_allocError(a4, v27, a3, v9);
+      if (v9)
       {
         return 2;
       }
@@ -7432,7 +7405,7 @@ LABEL_33:
   return result;
 }
 
-void *tryCastToExtendedExistential(void *a1, uint64_t a2, uint64_t a3, swift *a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8, char a9)
+void *tryCastToExtendedExistential(void *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8, char a9)
 {
   v9 = a7;
   v10 = a4;
@@ -7944,7 +7917,7 @@ LABEL_117:
       }
     }
 
-    v61 = *(v10 - 8);
+    v61 = *(v10 - 1);
     if (v9)
     {
       (*(v61 + 32))(result, v11, v10);
@@ -7974,7 +7947,7 @@ LABEL_101:
   return result;
 }
 
-void *tryCastToMetatype(uint64_t **a1, uint64_t a2, uint64_t *a3, Class *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+char *tryCastToMetatype(uint64_t **a1, uint64_t a2, uint64_t *a3, Class *a4, void *a5, void *a6, unsigned int a7, unsigned int a8, char a9)
 {
   v11 = *a4;
   if (*a4 > 0x7FF)
@@ -7995,11 +7968,11 @@ void *tryCastToMetatype(uint64_t **a1, uint64_t a2, uint64_t *a3, Class *a4, uin
     if (class_isMetaClass(Class))
     {
       ObjCClassMetadata = swift_getObjCClassMetadata(v18);
-      v23 = ObjCClassMetadata;
+      v22 = ObjCClassMetadata;
       if (ObjCClassMetadata)
       {
         MetatypeMetadata = swift_getMetatypeMetadata(ObjCClassMetadata);
-        return tryCast(a1, a2, &v23, MetatypeMetadata, a5, a6, a7, a8, a9);
+        return tryCast(a1, a2, &v22, MetatypeMetadata, a5, a6, a7, a8, a9);
       }
     }
 
@@ -8177,15 +8150,15 @@ LABEL_8:
   return v14;
 }
 
-void ObjCBridgeMemo::tryBridge(swift::OpaqueValue *,swift::TargetMetadata<swift::InProcess> const*,swift::OpaqueValue *,swift::TargetMetadata<swift::InProcess> const*,swift::TargetMetadata<swift::InProcess> const*&,swift::TargetMetadata<swift::InProcess> const*&,BOOL,BOOL)::{lambda(void *)#1}::__invoke(uint64_t a1)
+void ObjCBridgeMemo::tryBridge(swift::OpaqueValue *,swift::TargetMetadata<swift::InProcess> const*,swift::OpaqueValue *,swift::TargetMetadata<swift::InProcess> const*,swift::TargetMetadata<swift::InProcess> const*&,swift::TargetMetadata<swift::InProcess> const*&,BOOL,BOOL)::{lambda(void *)#1}::__invoke(swift **a1)
 {
-  v2 = *(a1 + 8);
-  v3 = swift_conformsToProtocolCommon(*a1, &protocol descriptor for _ObjectiveCBridgeable);
+  v2 = a1[1];
+  v3 = swift_conformsToProtocolCommon(*a1, &protocol descriptor for _ObjectiveCBridgeable.Flags);
   *v2 = v3;
   if (!v3)
   {
-    v2[1] = 0;
-    v2[2] = 0;
+    *(v2 + 1) = 0;
+    *(v2 + 2) = 0;
     return;
   }
 
@@ -8244,7 +8217,7 @@ LABEL_14:
   v12 = v8;
 LABEL_17:
   swift_getAssociatedTypeWitness(0, v4, *a1, &v12[12 * *(v12 + 3) + 16], &v10[12 * v11]);
-  v2[1] = v13;
+  *(v2 + 1) = v13;
   v14 = *v13;
   if (*v13 > 0x7FF)
   {
@@ -8264,7 +8237,7 @@ LABEL_17:
     }
   }
 
-  v2[2] = v13;
+  *(v2 + 2) = v13;
 }
 
 uint64_t std::__function::__func<tryCastToExtendedExistential(swift::OpaqueValue *,swift::TargetMetadata<swift::InProcess> const*,swift::OpaqueValue *,swift::TargetMetadata<swift::InProcess> const*,swift::TargetMetadata<swift::InProcess> const*&,swift::TargetMetadata<swift::InProcess> const*&,BOOL,BOOL,BOOL)::$_0,std::allocator<tryCastToExtendedExistential(swift::OpaqueValue *,swift::TargetMetadata<swift::InProcess> const*,swift::OpaqueValue *,swift::TargetMetadata<swift::InProcess> const*,swift::TargetMetadata<swift::InProcess> const*&,swift::TargetMetadata<swift::InProcess> const*&,BOOL,BOOL,BOOL)::$_0>,void const* ()(unsigned int,unsigned int)>::__clone(uint64_t result, void *a2)
@@ -8455,66 +8428,66 @@ _BYTE *initializeToNilAtDepth(uint64_t a1, unint64_t *a2, int a3)
 
   else
   {
-    initializeToNilAtDepth(a1, v11, (a3 - 1));
+    initializeToNilAtDepth(a1, v11, a3 - 1);
     v12 = 0;
   }
 
-  v13 = *(*(v11 - 8) + 56);
+  v13 = *(*(v11 - 1) + 56);
 
   return v13(a1, v12, 1, v11);
 }
 
-__n128 swift_initEnumMetadataSingleCase(uint64_t a1, __int16 a2, __n128 *a3)
+__n128 swift_initEnumMetadataSingleCase(uint64_t a1, uint64_t a2, __n128 *a3)
 {
-  MutableVWTableForInit = getMutableVWTableForInit(a1, a2);
+  MutableVWTableForInit = getMutableVWTableForInit(a1, a2, a3);
   v5 = a3[1].n128_u32[1];
   v6 = a3[1].n128_u32[0] | 0x200000;
   result = *a3;
-  *(MutableVWTableForInit + 4) = *a3;
-  *(MutableVWTableForInit + 20) = v6;
-  *(MutableVWTableForInit + 21) = v5;
+  MutableVWTableForInit[4] = *a3;
+  MutableVWTableForInit[5].n128_u32[0] = v6;
+  MutableVWTableForInit[5].n128_u32[1] = v5;
   return result;
 }
 
-char *getMutableVWTableForInit(uint64_t a1, __int16 a2)
+char *getMutableVWTableForInit(uint64_t a1, __int16 a2, unint64_t a3)
 {
-  v2 = (a1 - 8);
+  v3 = (a1 - 8);
   if (*(a1 - 8))
   {
-    v3 = *(a1 - 8);
+    v4 = *(a1 - 8);
     if ((a2 & 0x100) == 0)
     {
 LABEL_3:
       result = swift::allocateMetadata(0x70, 8uLL);
-      *result = *v3;
-      *(result + 1) = *(v3 + 8);
-      *(result + 2) = *(v3 + 16);
-      *(result + 3) = *(v3 + 24);
-      *(result + 4) = *(v3 + 32);
-      *(result + 5) = *(v3 + 40);
-      *(result + 6) = *(v3 + 48);
-      *(result + 7) = *(v3 + 56);
-      v5 = *(v3 + 64);
-      *(result + 10) = *(v3 + 80);
-      *(result + 4) = v5;
-      *(result + 11) = *(v3 + 88);
-      *(result + 12) = *(v3 + 96);
-      *(result + 13) = *(v3 + 104);
-      *v2 = result;
+      *result = *v4;
+      *(result + 1) = *(v4 + 8);
+      *(result + 2) = *(v4 + 16);
+      *(result + 3) = *(v4 + 24);
+      *(result + 4) = *(v4 + 32);
+      *(result + 5) = *(v4 + 40);
+      *(result + 6) = *(v4 + 48);
+      *(result + 7) = *(v4 + 56);
+      v6 = *(v4 + 64);
+      *(result + 10) = *(v4 + 80);
+      *(result + 4) = v6;
+      *(result + 11) = *(v4 + 88);
+      *(result + 12) = *(v4 + 96);
+      *(result + 13) = *(v4 + 104);
+      *v3 = result;
       return result;
     }
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
     if ((a2 & 0x100) == 0)
     {
       goto LABEL_3;
     }
   }
 
-  return v3;
+  return v4;
 }
 
 double swift_initEnumMetadataSingleCaseWithLayoutString(void *a1, uint64_t a2, unint64_t *a3)
@@ -8549,7 +8522,7 @@ double swift_cvw_initEnumMetadataSingleCaseWithLayoutString(void *a1, uint64_t a
   return result;
 }
 
-double swift_initEnumMetadataSinglePayload(uint64_t a1, __int16 a2, uint64_t a3, unsigned int a4)
+double swift_initEnumMetadataSinglePayload(uint64_t a1, __int16 a2, unint64_t a3, unsigned int a4)
 {
   v5 = *a3;
   v6 = *(a3 + 20);
@@ -8593,7 +8566,7 @@ double swift_initEnumMetadataSinglePayload(uint64_t a1, __int16 a2, uint64_t a3,
     v5 += v8;
   }
 
-  MutableVWTableForInit = getMutableVWTableForInit(a1, a2);
+  MutableVWTableForInit = getMutableVWTableForInit(a1, a2, a3);
   v12 = *(a3 + 16);
   v13 = v12 + 1;
   v15 = (v12 & 0x100000) != 0 || v12 >= 8u || v5 >= 0x19;
@@ -8657,7 +8630,7 @@ double swift_cvw_initEnumMetadataSinglePayloadWithLayoutString(void *a1, uint64_
   return result;
 }
 
-uint64_t swift_getEnumTagSinglePayloadGeneric(unsigned __int16 *a1, unsigned int a2, uint64_t a3, uint64_t (*a4)(void))
+uint64_t swift_getEnumTagSinglePayloadGeneric(unsigned __int16 *a1, unsigned int a2, uint64_t a3, uint64_t (*a4)(unsigned __int16 *))
 {
   v5 = *(*(a3 - 8) + 64);
   v6 = *(*(a3 - 8) + 84);
@@ -8739,7 +8712,7 @@ LABEL_22:
 LABEL_13:
   if (v6)
   {
-    return a4();
+    return a4(a1);
   }
 
   else
@@ -8748,7 +8721,7 @@ LABEL_13:
   }
 }
 
-uint64_t swift::storeEnumTagSinglePayloadImpl(uint64_t result, unsigned int a2, unsigned int a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t (*a7)(void))
+uint64_t swift::storeEnumTagSinglePayloadImpl(uint64_t result, unsigned int a2, unsigned int a3, uint64_t a4, unint64_t a5, unsigned int a6, uint64_t (*a7)(void))
 {
   if (a3 <= a6)
   {
@@ -8954,7 +8927,7 @@ LABEL_46:
   return a7();
 }
 
-double swift_initEnumMetadataMultiPayload(uint64_t a1, __int16 a2, unsigned int a3, uint64_t a4)
+double swift_initEnumMetadataMultiPayload(uint64_t a1, __int16 a2, unint64_t a3, uint64_t a4)
 {
   if (!a3)
   {
@@ -9109,7 +9082,7 @@ LABEL_24:
   {
     if (v6 < 4)
     {
-      a3 += (v36 + ~(-1 << (8 * v6))) >> (8 * v6);
+      a3 = ((v36 + ~(-1 << (8 * v6))) >> (8 * v6)) + a3;
       if (a3 < 2)
       {
         goto LABEL_36;
@@ -9118,7 +9091,7 @@ LABEL_24:
       goto LABEL_38;
     }
 
-    ++a3;
+    a3 = (a3 + 1);
   }
 
   if (a3 < 2)
@@ -9161,7 +9134,7 @@ LABEL_42:
     v40 = v38;
   }
 
-  MutableVWTableForInit = getMutableVWTableForInit(a1, a2);
+  MutableVWTableForInit = getMutableVWTableForInit(a1, a2, a3);
   v42 = (v39 + v5) & ~v5;
   if (v42 <= 1)
   {
@@ -9349,7 +9322,7 @@ LABEL_34:
   }
 }
 
-double swift_initEnumMetadataMultiPayloadWithLayoutString(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t **a4)
+double swift_initEnumMetadataMultiPayloadWithLayoutString(void *a1, uint64_t a2, unint64_t a3, unint64_t **a4)
 {
   if (swift_cvw_initEnumMetadataMultiPayloadWithLayoutString::Override == 1)
   {
@@ -9365,7 +9338,7 @@ double swift_initEnumMetadataMultiPayloadWithLayoutString(uint64_t a1, uint64_t 
   return result;
 }
 
-double swift_cvw_initEnumMetadataMultiPayloadWithLayoutString(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t **a4)
+double swift_cvw_initEnumMetadataMultiPayloadWithLayoutString(void *a1, uint64_t a2, unint64_t a3, unint64_t **a4)
 {
   if (swift_cvw_initEnumMetadataMultiPayloadWithLayoutString::Override == 1)
   {
@@ -9763,7 +9736,7 @@ double swift_cvw_initEnumMetadataSingleCaseWithLayoutStringImpl(void *a1, __int1
     v5 = 0;
   }
 
-  MutableVWTableForInit = getMutableVWTableForInit(a1, a2);
+  MutableVWTableForInit = getMutableVWTableForInit(a1, a2, a3);
   v18 = *(v5 + 64);
   v7 = *(v5 + 84);
   LODWORD(v19) = *(v5 + 80) | 0x200000;
@@ -9803,5 +9776,207 @@ double swift_cvw_initEnumMetadataSingleCaseWithLayoutStringImpl(void *a1, __int1
   *(MutableVWTableForInit + 4) = v18;
   result = v19;
   *(MutableVWTableForInit + 10) = v19;
+  return result;
+}
+
+double swift_cvw_initEnumMetadataSingleCaseWithLayoutStringSlow(swift *a1, uint64_t a2, unint64_t *a3)
+{
+  Override_cvw_initEnumMetadataSingleCaseWithLayoutString = swift::getOverride_cvw_initEnumMetadataSingleCaseWithLayoutString(a1);
+  if (Override_cvw_initEnumMetadataSingleCaseWithLayoutString)
+  {
+    swift_cvw_initEnumMetadataSingleCaseWithLayoutString::Override = Override_cvw_initEnumMetadataSingleCaseWithLayoutString;
+
+    Override_cvw_initEnumMetadataSingleCaseWithLayoutString(a1, a2, a3, swift_cvw_initEnumMetadataSingleCaseWithLayoutStringImpl);
+  }
+
+  else
+  {
+    swift_cvw_initEnumMetadataSingleCaseWithLayoutString::Override = 1;
+
+    return swift_cvw_initEnumMetadataSingleCaseWithLayoutStringImpl(a1, a2, a3);
+  }
+
+  return result;
+}
+
+double swift_cvw_initEnumMetadataSinglePayloadWithLayoutStringImpl(void *a1, __int16 a2, unint64_t *a3, unsigned int a4)
+{
+  v6 = a3 - 1;
+  v7 = *(a3 - 1);
+  v8 = *(v7 + 64);
+  v9 = *(v7 + 84);
+  v10 = v9 - a4;
+  if (v9 >= a4)
+  {
+    LODWORD(v11) = 0;
+    v12 = *(*(a3 - 1) + 64);
+  }
+
+  else
+  {
+    if (v8 <= 3)
+    {
+      v13 = ((a4 - v9 + ~(-1 << (8 * v8))) >> (8 * v8)) + 1;
+      if (v13 >= 2)
+      {
+        v14 = 4;
+        if (v13 < 0x10000)
+        {
+          v14 = 2;
+        }
+
+        if (v13 >= 0x100)
+        {
+          v11 = v14;
+        }
+
+        else
+        {
+          v11 = 1;
+        }
+      }
+
+      else
+      {
+        v11 = 0;
+      }
+    }
+
+    else
+    {
+      v11 = 1;
+    }
+
+    v10 = 0;
+    v12 = v11 + v8;
+  }
+
+  MutableVWTableForInit = getMutableVWTableForInit(a1, a2, a3);
+  v16 = *(v7 + 80);
+  v17 = v16 + 1;
+  v19 = (v16 & 0x100000) != 0 || v16 >= 8u || v12 >= 0x19;
+  v20 = v16 & 0xFFFDFFFF;
+  if (v19)
+  {
+    v21 = 0x20000;
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  LODWORD(v46) = v20 | v21 | 0x200000;
+  HIDWORD(v46) = v10;
+  v22 = (v12 + v17 - 1) / v17 * v17;
+  if (v22 <= 1)
+  {
+    v22 = 1;
+  }
+
+  *&v45 = v12;
+  *(&v45 + 1) = v22;
+  if (*(*v6 + 84))
+  {
+    if (*a3 == 769)
+    {
+      v23 = (a3 + 3);
+      v24 = a3[1];
+      if (v24 < 2)
+      {
+        v27 = (a3 + 3);
+      }
+
+      else
+      {
+        v25 = *v23;
+        v26 = 1;
+        v27 = (a3 + 3);
+        do
+        {
+          v28 = &v23[2 * v26];
+          if (*(*(v25 - 8) + 84) < *(*(*v28 - 8) + 84))
+          {
+            v25 = *v28;
+            v27 = &v23[2 * v26];
+          }
+
+          ++v26;
+        }
+
+        while (v24 != v26);
+      }
+
+      v29 = *v27;
+      v30 = v27[1];
+    }
+
+    else
+    {
+      v30 = 0;
+      v29 = a3;
+    }
+  }
+
+  else
+  {
+    v29 = 0;
+    v30 = 0;
+  }
+
+  v31 = _swift_refCountBytesForMetatype(a3);
+  LOWORD(v43) = 26;
+  v32 = swift::MetadataAllocator::Allocate(&v43, (v31 + 83) & 0xFFFFFFFFFFFFFFF8, 1uLL);
+  v33 = v32;
+  *(v32 + 1) = v31 + 52;
+  *(v32 + 2) = 0x1300000000000000;
+  if (v11 >= 3)
+  {
+    v34 = 3;
+  }
+
+  else
+  {
+    v34 = v11;
+  }
+
+  *(v32 + 3) = v30 | (v34 << 62);
+  *(v32 + 4) = v8;
+  *(v32 + 5) = v29;
+  *(v32 + 12) = a4;
+  *(v32 + 52) = v31;
+  v43 = v32;
+  v44 = 68;
+  v41 = 0;
+  v42 = 0;
+  v40 = 0;
+  _swift_addRefCountStringForMetatype(&v43, &v40, a3, &v42, &v41);
+  *&v43[v44] = v41 + v11;
+  v35 = v43;
+  *(v43 + 60) = v8 - v41;
+  v44 = 0;
+  *v35 = v40 & 0x7FFFFFFFFFFFFFFFLL;
+  v44 += 8;
+  if (*a1 <= 0x7FFuLL)
+  {
+    v36 = *a1;
+  }
+
+  else
+  {
+    v36 = 0;
+  }
+
+  v37 = 0x1FFFFFFFFFFFFFFDLL;
+  if (v36 && v36 != 515 && v36 != 773)
+  {
+    v37 = 0x1FFFFFFFFFFFFFFELL;
+  }
+
+  a1[v37] = v33 | 1;
+  swift::installCommonValueWitnesses(&v45, MutableVWTableForInit);
+  *(MutableVWTableForInit + 4) = v45;
+  result = v46;
+  *(MutableVWTableForInit + 10) = v46;
   return result;
 }

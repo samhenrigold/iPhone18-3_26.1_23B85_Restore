@@ -138,38 +138,38 @@
 
 - (BOOL)addNodes:(id)nodes addEdges:(id)edges cancelBlock:(id)block
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   edgesCopy = edges;
   blockCopy = block;
   selfCopy = self;
   if ([(SKGGraph *)self available])
   {
-    v52 = objc_autoreleasePoolPush();
+    v51 = objc_autoreleasePoolPush();
+    v84 = 0u;
+    v85 = 0u;
     v86 = 0u;
     v87 = 0u;
-    v88 = 0u;
-    v89 = 0u;
     v8 = nodesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v86 objects:v93 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v84 objects:v91 count:16];
     if (v9)
     {
-      v65 = 0;
-      v10 = *v87;
+      v64 = 0;
+      v10 = *v85;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v87 != v10)
+          if (*v85 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v86 + 1) + 8 * i);
+          v12 = *(*(&v84 + 1) + 8 * i);
           v13 = [SKGNodes nodesWithNode:v12 inGraph:selfCopy];
           if (![v13 count])
           {
-            v80 = 0;
+            v78 = 0;
             graph = [(SKGGraph *)selfCopy graph];
             label = [v12 label];
             domain = [v12 domain];
@@ -177,7 +177,7 @@
             v18 = v17;
             propertyDictionary = [v12 propertyDictionary];
             LODWORD(v20) = v18;
-            v21 = [graph addUniqueNodeWithLabel:label domain:domain weight:propertyDictionary properties:&v80 didCreate:v20];
+            v21 = [graph addUniqueNodeWithLabel:label domain:domain weight:propertyDictionary properties:&v78 didCreate:v20];
 
             available = [(SKGGraph *)selfCopy available];
             if ((available & 1) == 0)
@@ -199,11 +199,11 @@ LABEL_21:
               goto LABEL_21;
             }
 
-            v65 += v80;
+            v64 += v78;
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v86 objects:v93 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v84 objects:v91 count:16];
         if (v9)
         {
           continue;
@@ -215,7 +215,7 @@ LABEL_21:
 
     else
     {
-      v65 = 0;
+      v64 = 0;
     }
 
     v23 = 1;
@@ -224,47 +224,47 @@ LABEL_22:
 
     if ((available & v23) == 1)
     {
-      v84 = 0u;
-      v85 = 0u;
       v82 = 0u;
       v83 = 0u;
+      v80 = 0u;
+      v81 = 0u;
       obj = edgesCopy;
-      v24 = [obj countByEnumeratingWithState:&v82 objects:v92 count:16];
+      v24 = [obj countByEnumeratingWithState:&v80 objects:v90 count:16];
       if (!v24)
       {
-        v53 = 0;
+        v52 = 0;
         v23 = 1;
         available = 1;
         goto LABEL_71;
       }
 
-      v53 = 0;
-      v61 = *v83;
+      v52 = 0;
+      v60 = *v81;
       v23 = 1;
       available = 1;
       while (1)
       {
         v25 = 0;
-        v63 = v24;
+        v62 = v24;
         do
         {
-          if (*v83 != v61)
+          if (*v81 != v60)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v82 + 1) + 8 * v25);
+          v26 = *(*(&v80 + 1) + 8 * v25);
           context = objc_autoreleasePoolPush();
-          v68 = [SKGEdges edgesWithEdge:v26 inGraph:selfCopy];
-          if (![v68 count])
+          v67 = [SKGEdges edgesWithEdge:v26 inGraph:selfCopy];
+          if (![v67 count])
           {
             sourceNode = [v26 sourceNode];
-            v64 = [(SKGGraph *)selfCopy nodesForNode:sourceNode];
+            v63 = [(SKGGraph *)selfCopy nodesForNode:sourceNode];
 
             targetNode = [v26 targetNode];
-            v62 = [(SKGGraph *)selfCopy nodesForNode:targetNode];
+            v61 = [(SKGGraph *)selfCopy nodesForNode:targetNode];
 
-            if ([v64 count] && objc_msgSend(v62, "count") && -[SKGGraph available](selfCopy, "available"))
+            if ([v63 count] && objc_msgSend(v61, "count") && -[SKGGraph available](selfCopy, "available"))
             {
               if (blockCopy)
               {
@@ -278,49 +278,49 @@ LABEL_22:
 
               if (available & v23)
               {
-                v78 = 0u;
-                v79 = 0u;
                 v76 = 0u;
                 v77 = 0u;
-                v30 = v64;
-                v50 = v30;
-                v48 = [v30 countByEnumeratingWithState:&v76 objects:v91 count:16];
-                if (v48)
+                v74 = 0u;
+                v75 = 0u;
+                v30 = v63;
+                v49 = v30;
+                v47 = [v30 countByEnumeratingWithState:&v74 objects:v89 count:16];
+                if (v47)
                 {
-                  v49 = *v77;
+                  v48 = *v75;
                   do
                   {
-                    for (j = 0; j != v48; ++j)
+                    for (j = 0; j != v47; ++j)
                     {
-                      if (*v77 != v49)
+                      if (*v75 != v48)
                       {
                         objc_enumerationMutation(v30);
                       }
 
-                      v60 = *(*(&v76 + 1) + 8 * j);
+                      v59 = *(*(&v74 + 1) + 8 * j);
+                      v70 = 0u;
+                      v71 = 0u;
                       v72 = 0u;
                       v73 = 0u;
-                      v74 = 0u;
-                      v75 = 0u;
-                      v56 = v62;
-                      v31 = [v56 countByEnumeratingWithState:&v72 objects:v90 count:16];
+                      v55 = v61;
+                      v31 = [v55 countByEnumeratingWithState:&v70 objects:v88 count:16];
                       if (v31)
                       {
-                        v59 = *v73;
+                        v58 = *v71;
                         while (2)
                         {
                           v32 = 0;
-                          v33 = v53;
-                          v58 = v31;
-                          v53 += v31;
+                          v33 = v52;
+                          v57 = v31;
+                          v52 += v31;
                           do
                           {
-                            if (*v73 != v59)
+                            if (*v71 != v58)
                             {
-                              objc_enumerationMutation(v56);
+                              objc_enumerationMutation(v55);
                             }
 
-                            v34 = *(*(&v72 + 1) + 8 * v32);
+                            v34 = *(*(&v70 + 1) + 8 * v32);
                             score = [v26 score];
                             graph2 = [(SKGGraph *)selfCopy graph];
                             label2 = [v26 label];
@@ -329,20 +329,20 @@ LABEL_22:
                             v40 = v39;
                             propertyDictionary2 = [v26 propertyDictionary];
                             *&v42 = v40;
-                            v43 = [graph2 addEdgeWithLabel:label2 sourceNode:v60 targetNode:v34 domain:domain2 weight:propertyDictionary2 properties:v42];
+                            v43 = [graph2 addEdgeWithLabel:label2 sourceNode:v59 targetNode:v34 domain:domain2 weight:propertyDictionary2 properties:v42];
 
                             if (![(SKGGraph *)selfCopy available])
                             {
                               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                               {
-                                [SKGGraph addNodes:v71 addEdges:? cancelBlock:?];
+                                [SKGGraph addNodes:buf addEdges:&buf[1] cancelBlock:?];
                               }
 
                               [(SKGGraph *)selfCopy closeGraph];
 
                               available = 0;
-                              v53 = v33;
-                              v30 = v50;
+                              v52 = v33;
+                              v30 = v49;
                               goto LABEL_66;
                             }
 
@@ -350,8 +350,8 @@ LABEL_22:
                             ++v32;
                           }
 
-                          while (v58 != v32);
-                          v31 = [v56 countByEnumeratingWithState:&v72 objects:v90 count:16];
+                          while (v57 != v32);
+                          v31 = [v55 countByEnumeratingWithState:&v70 objects:v88 count:16];
                           if (v31)
                           {
                             continue;
@@ -361,14 +361,14 @@ LABEL_22:
                         }
                       }
 
-                      v30 = v50;
+                      v30 = v49;
                     }
 
                     available = 1;
-                    v48 = [v50 countByEnumeratingWithState:&v76 objects:v91 count:16];
+                    v47 = [v49 countByEnumeratingWithState:&v74 objects:v89 count:16];
                   }
 
-                  while (v48);
+                  while (v47);
                 }
 
                 else
@@ -388,7 +388,7 @@ LABEL_66:
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                [SKGGraph addNodes:v81 addEdges:? cancelBlock:?];
+                [SKGGraph addNodes:v79 addEdges:? cancelBlock:?];
               }
 
               [(SKGGraph *)selfCopy closeGraph];
@@ -413,8 +413,8 @@ LABEL_40:
           ++v25;
         }
 
-        while (v25 != v63);
-        v24 = [obj countByEnumeratingWithState:&v82 objects:v92 count:16];
+        while (v25 != v62);
+        v24 = [obj countByEnumeratingWithState:&v80 objects:v90 count:16];
         if (!v24)
         {
 LABEL_71:
@@ -424,13 +424,13 @@ LABEL_71:
       }
     }
 
-    v53 = 0;
+    v52 = 0;
 LABEL_72:
-    objc_autoreleasePoolPop(v52);
+    objc_autoreleasePoolPop(v51);
     if (available & v23)
     {
-      v44 = selfCopy->_currentAddedNodeCount + v65;
-      v45 = selfCopy->_currentAddedEdgeCount + v53;
+      v44 = selfCopy->_currentAddedNodeCount + v64;
+      v45 = selfCopy->_currentAddedEdgeCount + v52;
       selfCopy->_currentAddedNodeCount = v44;
       selfCopy->_currentAddedEdgeCount = v45;
       LOBYTE(available) = v44 <= 0x3E7 && v45 < 0x3E8 || [(SKGGraph *)selfCopy flushWithCancelBlock:blockCopy];
@@ -442,7 +442,6 @@ LABEL_72:
     LOBYTE(available) = 0;
   }
 
-  v46 = *MEMORY[0x277D85DE8];
   return available & 1;
 }
 
@@ -531,7 +530,7 @@ LABEL_72:
 
 - (BOOL)commitBatch
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   available = [(SKGGraph *)self available];
   if (available)
   {
@@ -539,59 +538,59 @@ LABEL_72:
     if (self->_nodeBatch || self->_edgeBatch)
     {
       v5 = objc_alloc_init(MEMORY[0x277D22C50]);
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       v6 = self->_nodeBatch;
-      v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
       if (v7)
       {
-        v8 = *v22;
+        v8 = *v21;
         do
         {
           v9 = 0;
           do
           {
-            if (*v22 != v8)
+            if (*v21 != v8)
             {
               objc_enumerationMutation(v6);
             }
 
-            [v5 addNode:*(*(&v21 + 1) + 8 * v9++)];
+            [v5 addNode:*(*(&v20 + 1) + 8 * v9++)];
           }
 
           while (v7 != v9);
-          v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+          v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
         }
 
         while (v7);
       }
 
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       v10 = self->_edgeBatch;
-      v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
       if (v11)
       {
-        v12 = *v18;
+        v12 = *v17;
         do
         {
           v13 = 0;
           do
           {
-            if (*v18 != v12)
+            if (*v17 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            [v5 addEdge:{*(*(&v17 + 1) + 8 * v13++), v17}];
+            [v5 addEdge:{*(*(&v16 + 1) + 8 * v13++), v16}];
           }
 
           while (v11 != v13);
-          v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+          v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
         }
 
         while (v11);
@@ -605,7 +604,6 @@ LABEL_72:
     LOBYTE(available) = [(SKGGraph *)self available];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return available;
 }
 

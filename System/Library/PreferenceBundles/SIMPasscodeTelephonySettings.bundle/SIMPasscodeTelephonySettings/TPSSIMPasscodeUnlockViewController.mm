@@ -106,33 +106,33 @@
   successCopy = success;
   nCopy = n;
   iNCopy = iN;
-  v11 = TPSSIMPasscodeLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = TPSSIMPasscodeLog(iNCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 67109634;
-    *v17 = successCopy;
-    *&v17[4] = 2112;
-    *&v17[6] = nCopy;
-    v18 = 2112;
-    v19 = iNCopy;
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Asked to set PIN view controller finished with success: %d oldPIN: %@ newPIN: %@", &v16, 0x1Cu);
+    v19 = 67109634;
+    *v20 = successCopy;
+    *&v20[4] = 2112;
+    *&v20[6] = nCopy;
+    v21 = 2112;
+    v22 = iNCopy;
+    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Asked to set PIN view controller finished with success: %d oldPIN: %@ newPIN: %@", &v19, 0x1Cu);
   }
 
   if (successCopy)
   {
-    v12 = TPSSIMPasscodeLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = TPSSIMPasscodeLog(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       isLocking = [(TPSSIMPasscodeUnlockViewController *)self isLocking];
-      v14 = @"unlock";
+      v17 = @"unlock";
       if (isLocking)
       {
-        v14 = @"lock";
+        v17 = @"lock";
       }
 
-      v16 = 138412290;
-      *v17 = v14;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Issuing request to %@ the SIM.", &v16, 0xCu);
+      v19 = 138412290;
+      *v20 = v17;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Issuing request to %@ the SIM.", &v19, 0xCu);
     }
 
     subscriberController = [(TPSSIMPasscodeUnlockViewController *)self subscriberController];
@@ -150,18 +150,18 @@
 {
   resultCopy = result;
   controllerCopy = controller;
-  v7 = TPSSIMPasscodeLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = TPSSIMPasscodeLog(controllerCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = @"unsuccessful";
+    v9 = @"unsuccessful";
     if (resultCopy)
     {
-      v8 = @"successful";
+      v9 = @"successful";
     }
 
-    v14 = 138412290;
-    v15 = v8;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "SIM lock save request was %@.", &v14, 0xCu);
+    v15 = 138412290;
+    v16 = v9;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "SIM lock save request was %@.", &v15, 0xCu);
   }
 
   if (resultCopy)
@@ -181,10 +181,10 @@
 
     else
     {
-      v11 = [NSNumber numberWithInteger:sIMPasscodeRemainingAttempts];
-      v12 = TPSPasscodeStringForRemainingSIMPINAttempts(v11, [(TPSSIMPasscodeUnlockViewController *)self isLocking], 1);
+      v12 = [NSNumber numberWithInteger:sIMPasscodeRemainingAttempts];
+      v13 = TPSPasscodeStringForRemainingSIMPINAttempts(v12, [(TPSSIMPasscodeUnlockViewController *)self isLocking], 1);
       setPINViewController = [(TPSSIMPasscodeUnlockViewController *)self setPINViewController];
-      [setPINViewController setPromptTextForNewPIN:v12];
+      [setPINViewController setPromptTextForNewPIN:v13];
 
       delegate = [(TPSSIMPasscodeUnlockViewController *)self setPINViewController];
       [delegate resetWithErrorPrompt:0];

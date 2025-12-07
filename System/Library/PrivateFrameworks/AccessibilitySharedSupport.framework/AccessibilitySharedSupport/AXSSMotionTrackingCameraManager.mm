@@ -73,26 +73,20 @@
 
 - (void)startMonitoring
 {
-  v8 = *MEMORY[0x1E69E9840];
   _captureDeviceDiscoverySession = [self _captureDeviceDiscoverySession];
   [MEMORY[0x1E696AF00] isMainThread];
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_0_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopMonitoring
 {
-  v8 = *MEMORY[0x1E69E9840];
   _captureDeviceDiscoverySession = [self _captureDeviceDiscoverySession];
   [MEMORY[0x1E696AF00] isMainThread];
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_0_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __49__AXSSMotionTrackingCameraManager_stopMonitoring__block_invoke(uint64_t a1, void *a2)
@@ -275,89 +269,87 @@ uint64_t __79__AXSSMotionTrackingCameraManager__sortedAndFilteredCaptureDevicesF
   return v7;
 }
 
-void __79__AXSSMotionTrackingCameraManager__sortedAndFilteredCaptureDevicesFromDevices___block_invoke_2()
+void __79__AXSSMotionTrackingCameraManager__sortedAndFilteredCaptureDevicesFromDevices___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v0 = getAVCaptureDeviceTypeBuiltInUltraWideAngleMetadataCamera();
-  v21[0] = v0;
-  v1 = getAVCaptureDeviceTypeBuiltInWideAngleMetadataCamera();
-  v21[1] = v1;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v2 = getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_ptr;
-  v20 = getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_ptr;
+  v32 = *MEMORY[0x1E69E9840];
+  v4 = getAVCaptureDeviceTypeBuiltInUltraWideAngleMetadataCamera(a1, a2, a3, a4);
+  v30[0] = v4;
+  v8 = getAVCaptureDeviceTypeBuiltInWideAngleMetadataCamera(v4, v5, v6, v7);
+  v30[1] = v8;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v9 = getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_ptr;
+  v29 = getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_ptr;
   if (!getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_ptr)
   {
-    v3 = AVFoundationLibrary_0();
-    v18[3] = dlsym(v3, "AVCaptureDeviceTypeBuiltInDualCamera");
-    getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_ptr = v18[3];
-    v2 = v18[3];
+    v10 = AVFoundationLibrary_0();
+    v27[3] = dlsym(v10, "AVCaptureDeviceTypeBuiltInDualCamera");
+    getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_ptr = v27[3];
+    v9 = v27[3];
   }
 
-  _Block_object_dispose(&v17, 8);
-  if (!v2)
+  _Block_object_dispose(&v26, 8);
+  if (!v9)
   {
     goto LABEL_11;
   }
 
-  v4 = *v2;
-  v21[2] = v4;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v5 = getAVCaptureDeviceTypeBuiltInTelephotoCameraSymbolLoc_ptr;
-  v20 = getAVCaptureDeviceTypeBuiltInTelephotoCameraSymbolLoc_ptr;
+  v11 = *v9;
+  v30[2] = v11;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v12 = getAVCaptureDeviceTypeBuiltInTelephotoCameraSymbolLoc_ptr;
+  v29 = getAVCaptureDeviceTypeBuiltInTelephotoCameraSymbolLoc_ptr;
   if (!getAVCaptureDeviceTypeBuiltInTelephotoCameraSymbolLoc_ptr)
   {
-    v6 = AVFoundationLibrary_0();
-    v18[3] = dlsym(v6, "AVCaptureDeviceTypeBuiltInTelephotoCamera");
-    getAVCaptureDeviceTypeBuiltInTelephotoCameraSymbolLoc_ptr = v18[3];
-    v5 = v18[3];
+    v13 = AVFoundationLibrary_0();
+    v27[3] = dlsym(v13, "AVCaptureDeviceTypeBuiltInTelephotoCamera");
+    getAVCaptureDeviceTypeBuiltInTelephotoCameraSymbolLoc_ptr = v27[3];
+    v12 = v27[3];
   }
 
-  _Block_object_dispose(&v17, 8);
-  if (!v5)
+  _Block_object_dispose(&v26, 8);
+  if (!v12)
   {
     goto LABEL_11;
   }
 
-  v7 = *v5;
-  v21[3] = v7;
-  v8 = getAVCaptureDeviceTypeBuiltInWideAngleCamera();
-  v21[4] = v8;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v9 = getAVCaptureDeviceTypeBuiltInUltraWideCameraSymbolLoc_ptr;
-  v20 = getAVCaptureDeviceTypeBuiltInUltraWideCameraSymbolLoc_ptr;
+  v14 = *v12;
+  v30[3] = v14;
+  v18 = getAVCaptureDeviceTypeBuiltInWideAngleCamera(v14, v15, v16, v17);
+  v30[4] = v18;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v19 = getAVCaptureDeviceTypeBuiltInUltraWideCameraSymbolLoc_ptr;
+  v29 = getAVCaptureDeviceTypeBuiltInUltraWideCameraSymbolLoc_ptr;
   if (!getAVCaptureDeviceTypeBuiltInUltraWideCameraSymbolLoc_ptr)
   {
-    v10 = AVFoundationLibrary_0();
-    v18[3] = dlsym(v10, "AVCaptureDeviceTypeBuiltInUltraWideCamera");
-    getAVCaptureDeviceTypeBuiltInUltraWideCameraSymbolLoc_ptr = v18[3];
-    v9 = v18[3];
+    v20 = AVFoundationLibrary_0();
+    v27[3] = dlsym(v20, "AVCaptureDeviceTypeBuiltInUltraWideCamera");
+    getAVCaptureDeviceTypeBuiltInUltraWideCameraSymbolLoc_ptr = v27[3];
+    v19 = v27[3];
   }
 
-  _Block_object_dispose(&v17, 8);
-  if (!v9)
+  _Block_object_dispose(&v26, 8);
+  if (!v19)
   {
 LABEL_11:
     +[AXSSMotionTrackingCameraInput motionTrackingCameraInputWithAVCaptureDevice:];
     __break(1u);
   }
 
-  v22 = *v9;
-  v11 = MEMORY[0x1E695DEC8];
-  v12 = v22;
-  v13 = [v11 arrayWithObjects:v21 count:6];
-  v14 = _sortedAndFilteredCaptureDevicesFromDevices__s_orderedDeviceTypes;
-  _sortedAndFilteredCaptureDevicesFromDevices__s_orderedDeviceTypes = v13;
+  v31 = *v19;
+  v21 = MEMORY[0x1E695DEC8];
+  v22 = v31;
+  v23 = [v21 arrayWithObjects:v30 count:6];
+  v24 = _sortedAndFilteredCaptureDevicesFromDevices__s_orderedDeviceTypes;
+  _sortedAndFilteredCaptureDevicesFromDevices__s_orderedDeviceTypes = v23;
 
-  v15 = _sortedAndFilteredCaptureDevicesFromDevices__s_orderedPositions;
+  v25 = _sortedAndFilteredCaptureDevicesFromDevices__s_orderedPositions;
   _sortedAndFilteredCaptureDevicesFromDevices__s_orderedPositions = &unk_1F4066678;
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __79__AXSSMotionTrackingCameraManager__sortedAndFilteredCaptureDevicesFromDevices___block_invoke_30(uint64_t a1, void *a2, void *a3)
@@ -481,15 +473,15 @@ LABEL_28:
 
 - (void)_captureDeviceUpdated
 {
-  v8 = *MEMORY[0x1E69E9840];
+  _compatibleCaptureDevices = [self _compatibleCaptureDevices];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0E8A000, v0, v1, "AXSSMotionTrackingCameraManager: Compatible devices: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_5();
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __56__AXSSMotionTrackingCameraManager__captureDeviceUpdated__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) addObject:v3];
   if ((*(a1 + 48) - 1) > 1)
@@ -504,9 +496,9 @@ void __56__AXSSMotionTrackingCameraManager__captureDeviceUpdated__block_invoke(u
       v6 = AXSSLogForCategory(2);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v8 = 138412290;
-        v9 = v3;
-        _os_log_impl(&dword_1C0E8A000, v6, OS_LOG_TYPE_INFO, "AXSSMotionTrackingCameraManager: Skipping device %@ because it is not connected!", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v3;
+        _os_log_impl(&dword_1C0E8A000, v6, OS_LOG_TYPE_INFO, "AXSSMotionTrackingCameraManager: Skipping device %@ because it is not connected!", &v7, 0xCu);
       }
     }
   }
@@ -517,15 +509,13 @@ void __56__AXSSMotionTrackingCameraManager__captureDeviceUpdated__block_invoke(u
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = *(a1 + 48);
-      v8 = 138412546;
-      v9 = v3;
-      v10 = 2048;
-      v11 = v5;
-      _os_log_impl(&dword_1C0E8A000, v4, OS_LOG_TYPE_INFO, "AXSSMotionTrackingCameraManager: Skipping device %@ due to authorization status: %ld", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = v3;
+      v9 = 2048;
+      v10 = v5;
+      _os_log_impl(&dword_1C0E8A000, v4, OS_LOG_TYPE_INFO, "AXSSMotionTrackingCameraManager: Skipping device %@ due to authorization status: %ld", &v7, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_allCaptureDevicesChanged:(id)changed
@@ -551,25 +541,19 @@ void __56__AXSSMotionTrackingCameraManager__captureDeviceUpdated__block_invoke(u
 
 - (void)_startDiscoverySession
 {
-  v8 = *MEMORY[0x1E69E9840];
   _captureDeviceDiscoverySession = [self _captureDeviceDiscoverySession];
   [MEMORY[0x1E696AF00] isMainThread];
   OUTLINED_FUNCTION_0_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Cu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopDiscoverySession
 {
-  v8 = *MEMORY[0x1E69E9840];
   _captureDeviceDiscoverySession = [self _captureDeviceDiscoverySession];
   [MEMORY[0x1E696AF00] isMainThread];
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_0_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetDiscoverySession
@@ -616,54 +600,6 @@ void __56__AXSSMotionTrackingCameraManager__captureDeviceUpdated__block_invoke(u
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)observeValueForKeyPath:ofObject:change:context:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_1C0E8A000, v0, v1, "AXSSMotionTrackingCameraManager: KVO on connected capture device %@: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)observeValueForKeyPath:ofObject:change:context:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_1C0E8A000, v0, v1, "AXSSMotionTrackingCameraManager: KVO on suspended capture device %@: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)observeValueForKeyPath:ofObject:change:context:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0E8A000, v0, v1, "AXSSMotionTrackingCameraManager: KVO on all devices: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)observeValueForKeyPath:ofObject:change:context:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0E8A000, v0, v1, "AXSSMotionTrackingCameraManager: KVO on discovery session: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_captureDeviceConnected:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0E8A000, v0, v1, "AXSSMotionTrackingCameraManager: _captureDeviceConnected %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_captureDeviceDisconnected:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0E8A000, v0, v1, "AXSSMotionTrackingCameraManager: _captureDeviceDisconnected %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

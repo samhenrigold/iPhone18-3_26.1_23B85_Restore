@@ -8,7 +8,7 @@
 
 - (id)createFactory
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   admLibrary = [(ADM_Loader *)self admLibrary];
   v4 = admLibrary;
   v5 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
@@ -70,11 +70,11 @@
         v15 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/submodules/ahal_dsp_lib_repo/ahal_dsp_hosting_lib/src/plugin/spi-adm-thin/ahal_dsp_adm_spi_loader.mm";
       }
 
-      v36 = 136315394;
-      v37 = v15;
-      v38 = 1024;
-      v39 = 54;
-      _os_log_impl(&dword_1DE1F9000, v8, OS_LOG_TYPE_INFO, "%32s:%-5d [ahal_dsp] Calling dlsym() on ADM.", &v36, 0x12u);
+      v35 = 136315394;
+      v36 = v15;
+      v37 = 1024;
+      v38 = 54;
+      _os_log_impl(&dword_1DE1F9000, v8, OS_LOG_TYPE_INFO, "%32s:%-5d [ahal_dsp] Calling dlsym() on ADM.", &v35, 0x12u);
     }
 
     v16 = dlsym([(ADM_Loader *)self admLibrary], "CreateAudioDSPManager");
@@ -112,44 +112,44 @@
 
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
+      v30 = 0;
       v31 = 0;
-      v32 = 0;
-      v33 = 47;
+      v32 = 47;
       do
       {
-        v34 = &aLibraryCachesC_50[v31];
-        if (v33 == 47)
+        v33 = &aLibraryCachesC_50[v30];
+        if (v32 == 47)
         {
-          v32 = &aLibraryCachesC_50[v31];
+          v31 = &aLibraryCachesC_50[v30];
         }
 
-        v33 = v34[1];
-        if (!v34[1])
+        v32 = v33[1];
+        if (!v33[1])
         {
           break;
         }
 
-        v14 = v31++ >= 0xFFF;
+        v14 = v30++ >= 0xFFF;
       }
 
       while (!v14);
-      if (v32)
+      if (v31)
       {
-        v35 = v32 + 1;
+        v34 = v31 + 1;
       }
 
       else
       {
-        v35 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/submodules/ahal_dsp_lib_repo/ahal_dsp_hosting_lib/src/plugin/spi-adm-thin/ahal_dsp_adm_spi_loader.mm";
+        v34 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/submodules/ahal_dsp_lib_repo/ahal_dsp_hosting_lib/src/plugin/spi-adm-thin/ahal_dsp_adm_spi_loader.mm";
       }
 
-      v36 = 136315650;
-      v37 = v35;
-      v38 = 1024;
-      v39 = 60;
-      v40 = 2080;
-      v41 = v19;
-      _os_log_error_impl(&dword_1DE1F9000, v23, OS_LOG_TYPE_ERROR, "%32s:%-5d [ahal_dsp] ADM dlsym failed: %s", &v36, 0x1Cu);
+      v35 = 136315650;
+      v36 = v34;
+      v37 = 1024;
+      v38 = 60;
+      v39 = 2080;
+      v40 = v19;
+      _os_log_error_impl(&dword_1DE1F9000, v23, OS_LOG_TYPE_ERROR, "%32s:%-5d [ahal_dsp] ADM dlsym failed: %s", &v35, 0x1Cu);
     }
   }
 
@@ -173,55 +173,54 @@
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
+      v25 = 0;
       v26 = 0;
-      v27 = 0;
-      v28 = 47;
+      v27 = 47;
       do
       {
-        v29 = &aLibraryCachesC_50[v26];
-        if (v28 == 47)
+        v28 = &aLibraryCachesC_50[v25];
+        if (v27 == 47)
         {
-          v27 = &aLibraryCachesC_50[v26];
+          v26 = &aLibraryCachesC_50[v25];
         }
 
-        v28 = v29[1];
-        if (!v29[1])
+        v27 = v28[1];
+        if (!v28[1])
         {
           break;
         }
 
-        v14 = v26++ >= 0xFFF;
+        v14 = v25++ >= 0xFFF;
       }
 
       while (!v14);
-      if (v27)
+      if (v26)
       {
-        v30 = v27 + 1;
+        v29 = v26 + 1;
       }
 
       else
       {
-        v30 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/submodules/ahal_dsp_lib_repo/ahal_dsp_hosting_lib/src/plugin/spi-adm-thin/ahal_dsp_adm_spi_loader.mm";
+        v29 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/submodules/ahal_dsp_lib_repo/ahal_dsp_hosting_lib/src/plugin/spi-adm-thin/ahal_dsp_adm_spi_loader.mm";
       }
 
-      v36 = 136315394;
-      v37 = v30;
-      v38 = 1024;
-      v39 = 50;
-      _os_log_error_impl(&dword_1DE1F9000, v9, OS_LOG_TYPE_ERROR, "%32s:%-5d [ahal_dsp] ADM library unavailable.  Cannot call createFactory.", &v36, 0x12u);
+      v35 = 136315394;
+      v36 = v29;
+      v37 = 1024;
+      v38 = 50;
+      _os_log_error_impl(&dword_1DE1F9000, v9, OS_LOG_TYPE_ERROR, "%32s:%-5d [ahal_dsp] ADM library unavailable.  Cannot call createFactory.", &v35, 0x12u);
     }
   }
 
   v17 = 0;
 LABEL_33:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self->_admLibrary)
   {
     v3 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
@@ -280,9 +279,9 @@ LABEL_33:
       }
 
       *buf = 136315394;
-      v16 = v12;
-      v17 = 1024;
-      v18 = 40;
+      v15 = v12;
+      v16 = 1024;
+      v17 = 40;
       _os_log_impl(&dword_1DE1F9000, v6, OS_LOG_TYPE_INFO, "%32s:%-5d [ahal_dsp] Calling dlclose() on ADM.", buf, 0x12u);
     }
 
@@ -290,18 +289,17 @@ LABEL_33:
     self->_admLibrary = 0;
   }
 
-  v14.receiver = self;
-  v14.super_class = ADM_Loader;
-  [(ADM_Loader *)&v14 dealloc];
-  v13 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = ADM_Loader;
+  [(ADM_Loader *)&v13 dealloc];
 }
 
 - (ADM_Loader)init
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v28.receiver = self;
-  v28.super_class = ADM_Loader;
-  v2 = [(ADM_Loader *)&v28 init];
+  v34 = *MEMORY[0x1E69E9840];
+  v27.receiver = self;
+  v27.super_class = ADM_Loader;
+  v2 = [(ADM_Loader *)&v27 init];
   v3 = v2;
   if (v2)
   {
@@ -363,9 +361,9 @@ LABEL_33:
       }
 
       *buf = 136315394;
-      v30 = v13;
-      v31 = 1024;
-      v32 = 24;
+      v29 = v13;
+      v30 = 1024;
+      v31 = 24;
       _os_log_impl(&dword_1DE1F9000, v7, OS_LOG_TYPE_INFO, "%32s:%-5d [ahal_dsp] Calling dlopen() on ADM.", buf, 0x12u);
     }
 
@@ -401,49 +399,48 @@ LABEL_33:
 
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
+        v22 = 0;
         v23 = 0;
-        v24 = 0;
-        v25 = 47;
+        v24 = 47;
         do
         {
-          v26 = &aLibraryCachesC_50[v23];
-          if (v25 == 47)
+          v25 = &aLibraryCachesC_50[v22];
+          if (v24 == 47)
           {
-            v24 = &aLibraryCachesC_50[v23];
+            v23 = &aLibraryCachesC_50[v22];
           }
 
-          v25 = v26[1];
-          if (!v26[1])
+          v24 = v25[1];
+          if (!v25[1])
           {
             break;
           }
 
-          v12 = v23++ >= 0xFFF;
+          v12 = v22++ >= 0xFFF;
         }
 
         while (!v12);
-        if (v24)
+        if (v23)
         {
-          v27 = v24 + 1;
+          v26 = v23 + 1;
         }
 
         else
         {
-          v27 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/submodules/ahal_dsp_lib_repo/ahal_dsp_hosting_lib/src/plugin/spi-adm-thin/ahal_dsp_adm_spi_loader.mm";
+          v26 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/submodules/ahal_dsp_lib_repo/ahal_dsp_hosting_lib/src/plugin/spi-adm-thin/ahal_dsp_adm_spi_loader.mm";
         }
 
         *buf = 136315650;
-        v30 = v27;
-        v31 = 1024;
-        v32 = 30;
-        v33 = 2080;
-        v34 = v16;
+        v29 = v26;
+        v30 = 1024;
+        v31 = 30;
+        v32 = 2080;
+        v33 = v16;
         _os_log_error_impl(&dword_1DE1F9000, v20, OS_LOG_TYPE_ERROR, "%32s:%-5d [ahal_dsp] ADM dlopen() failed: %s", buf, 0x1Cu);
       }
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

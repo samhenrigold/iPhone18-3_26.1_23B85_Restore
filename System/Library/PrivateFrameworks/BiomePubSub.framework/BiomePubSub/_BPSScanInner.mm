@@ -60,7 +60,7 @@
   v6 = __biome_log_for_category();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [_BPSScanInner receiveCompletion:];
+    [_BPSScanInner receiveCompletion:selfCopy];
   }
 
   downstream = [(_BPSScanInner *)selfCopy downstream];
@@ -74,13 +74,12 @@
   [downstream cancel];
 }
 
-- (void)receiveCompletion:.cold.1()
+- (void)receiveCompletion:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0_6(&dword_1C871B000, v1, v2, "%@ - completion", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0_6(&dword_1C871B000, v2, v3, "%@ - completion", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

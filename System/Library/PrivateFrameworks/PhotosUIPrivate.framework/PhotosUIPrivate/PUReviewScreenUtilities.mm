@@ -143,7 +143,7 @@
   result = [a2 _cameraTopBarHeightForSizeSpec:v32];
   if (*&width < 3uLL)
   {
-    return [a2 _geometryForBarFrame:1 inReferenceBounds:v15 orientation:{v14, v13, v12, x, y, v9, height}];
+    return objc_msgSend__geometryForBarFrame_inReferenceBounds_orientation_(a2, v15, v14, v13, v12, x, y, v9, height);
   }
 
   if (*&width == 3)
@@ -194,27 +194,23 @@
   v24 = v18;
   v26 = v17;
   v19 = *(MEMORY[0x1E695EFD0] + 16);
-  *&v31.a = *MEMORY[0x1E695EFD0];
-  *&v31.c = v19;
-  *&v31.tx = *(MEMORY[0x1E695EFD0] + 32);
+  *&v27.a = *MEMORY[0x1E695EFD0];
+  *&v27.c = v19;
+  *&v27.tx = *(MEMORY[0x1E695EFD0] + 32);
   result = PUReviewScreenSizeClassForReferenceSize(width, height);
   v21.x = v26;
   v21.y = v24;
   if ((~result & 6) != 0)
   {
     v25 = v21;
-    PUReviewScreenAffineTransformForOrientation(&v31, a6);
-    v29 = 0u;
-    v30 = 0u;
-    v27 = v31;
-    v28 = 0u;
-    result = [a2 _transformForRotationAboutCenterOfReferenceBounds:&v27 withOrientationTransform:{x, y, width, height}];
-    v21 = vaddq_f64(v30, vmlaq_n_f64(vmulq_laneq_f64(v29, v25, 1), v28, v26));
+    PUReviewScreenAffineTransformForOrientation(&v27, a6);
+    result = objc_msgSend__transformForRotationAboutCenterOfReferenceBounds_withOrientationTransform_(a2, x, y, width, height);
+    v21 = vaddq_f64(0, vmlaq_n_f64(vmulq_laneq_f64(0, v25, 1), 0, v26));
   }
 
-  v22 = *&v31.a;
-  v23 = *&v31.tx;
-  *&retstr->var2.c = *&v31.c;
+  v22 = *&v27.a;
+  v23 = *&v27.tx;
+  *&retstr->var2.c = *&v27.c;
   *&retstr->var2.tx = v23;
   retstr->var1 = v21;
   *&retstr->var2.a = v22;
@@ -235,7 +231,7 @@
   *&retstr->var2.c = 0u;
   *&retstr->var2.tx = 0u;
 
-  return [a2 _geometryForBarFrame:insets inReferenceBounds:? orientation:?];
+  return objc_msgSend__geometryForBarFrame_inReferenceBounds_orientation_(a2);
 }
 
 + ($3B1716E7537CC2F16D6737AAC3CCCADB)reviewScreenScrubberBarGeometryForReferenceBounds:(SEL)bounds withOrientation:(CGRect)orientation
@@ -246,7 +242,7 @@
   *&retstr->var2.a = 0u;
   retstr->var0.origin = 0u;
   retstr->var0.size = 0u;
-  return [a2 reviewScreenScrubberBarGeometryForReferenceBounds:a5 withOrientation:orientation.origin.x safeAreaInsets:{orientation.origin.y, orientation.size.width, orientation.size.height, *MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24)}];
+  return objc_msgSend_reviewScreenScrubberBarGeometryForReferenceBounds_withOrientation_safeAreaInsets_(a2, bounds, a5, orientation.origin.x, orientation.origin.y, orientation.size.width, orientation.size.height, *MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24));
 }
 
 + ($3B1716E7537CC2F16D6737AAC3CCCADB)reviewScreenControlBarGeometryForReferenceBounds:(SEL)bounds withOrientation:(CGRect)orientation
@@ -259,7 +255,7 @@
   *&retstr->var2.c = 0u;
   *&retstr->var2.tx = 0u;
 
-  return [a2 _geometryForBarFrame:a5 inReferenceBounds:? orientation:?];
+  return objc_msgSend__geometryForBarFrame_inReferenceBounds_orientation_(a2);
 }
 
 + ($3B1716E7537CC2F16D6737AAC3CCCADB)reviewScreenTopBarGeometryForReferenceBounds:(SEL)bounds withOrientation:(CGRect)orientation
@@ -272,7 +268,7 @@
   *&retstr->var2.c = 0u;
   *&retstr->var2.tx = 0u;
 
-  return [a2 _geometryForBarFrame:a5 inReferenceBounds:? orientation:?];
+  return objc_msgSend__geometryForBarFrame_inReferenceBounds_orientation_(a2);
 }
 
 + ($3B1716E7537CC2F16D6737AAC3CCCADB)reviewScreenContentGeometryForReferenceBounds:(SEL)bounds forContentSize:(CGRect)size withOrientation:(CGSize)orientation
@@ -324,16 +320,12 @@
   v32.y = v31;
   if (v18)
   {
-    memset(&v44, 0, sizeof(v44));
+    memset(&v40, 0, sizeof(v40));
     v38 = v32;
     v39 = v30;
-    PUReviewScreenAffineTransformForOrientation(&v44, a6);
-    v42 = 0u;
-    v43 = 0u;
-    v40 = v44;
-    v41 = 0u;
-    result = [a2 _transformForRotationAboutCenterOfReferenceBounds:&v40 withOrientationTransform:{x, y, v10, v9}];
-    v32 = vaddq_f64(v43, vmlaq_n_f64(vmulq_laneq_f64(v42, v38, 1), v41, v39));
+    PUReviewScreenAffineTransformForOrientation(&v40, a6);
+    result = objc_msgSend__transformForRotationAboutCenterOfReferenceBounds_withOrientationTransform_(a2, x, y, v10, v9);
+    v32 = vaddq_f64(0, vmlaq_n_f64(vmulq_laneq_f64(0, v38, 1), 0, v39));
     v33 = v26;
   }
 
@@ -580,7 +572,7 @@
   *&retstr->var2.c = 0u;
   *&retstr->var2.tx = 0u;
 
-  return [a2 _geometryForBarFrame:a5 inReferenceBounds:? orientation:?];
+  return objc_msgSend__geometryForBarFrame_inReferenceBounds_orientation_(a2);
 }
 
 + ($3B1716E7537CC2F16D6737AAC3CCCADB)cameraTopBarGeometryForReferenceBounds:(SEL)bounds forContentSize:(CGRect)size withOrientation:(CGSize)orientation

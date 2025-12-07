@@ -60,7 +60,6 @@
 
 - (double)timeToLive
 {
-  v2 = GeoServicesConfig_TerritoryRegulatoryAssetTTLDays[1];
   result = GEOConfigGetUInteger();
   if (result < 86400.0)
   {
@@ -77,8 +76,7 @@
 
 - (unint64_t)policy
 {
-  v3 = GeoServicesConfig_MetroRegionAssetPrefetchCurrentCC[1];
-  if (GEOConfigGetBOOL() && (+[GEOCountryConfiguration sharedConfiguration](GEOCountryConfiguration, "sharedConfiguration"), v4 = objc_claimAutoreleasedReturnValue(), [v4 countryCode], v5 = objc_claimAutoreleasedReturnValue(), v4, v6 = -[NSString isEqualToString:](self->_countryCode, "isEqualToString:", v5), v5, (v6 & 1) != 0))
+  if (GEOConfigGetBOOL() && (+[GEOCountryConfiguration sharedConfiguration](GEOCountryConfiguration, "sharedConfiguration"), v3 = objc_claimAutoreleasedReturnValue(), [v3 countryCode], v4 = objc_claimAutoreleasedReturnValue(), v3, v5 = -[NSString isEqualToString:](self->_countryCode, "isEqualToString:", v4), v4, (v5 & 1) != 0))
   {
     return 2;
   }

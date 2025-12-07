@@ -76,6 +76,7 @@
 - (void)_setValueForClosingTabsAutomatically:(id)automatically;
 - (void)_showExportSheetWithCompletionHandler:(id)handler;
 - (void)_synchronizeNanoUserDefaults;
+- (void)_updateBlockAllNewWebsiteDataPolicyToBlockAllWebsiteData:(BOOL)data;
 - (void)_updateDownloadsFolderTitle;
 - (void)_updateOpenLinksSpecifier;
 - (void)_updatePrivateSearchEngineSpecifier;
@@ -108,6 +109,8 @@
 - (void)tabGroupManager:(id)manager didRemoveProfileWithIdentifier:(id)identifier;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
 - (void)updateBiometricAuthenticationAndPasscodeAvailabilityForLockedPrivateBrowsing;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willBecomeActive;
 @end
 
@@ -332,12 +335,11 @@ void __42__SafariSettingsController__tabCollection__block_invoke(id a1)
 
 void __43__SafariSettingsController_tabGroupManager__block_invoke(uint64_t a1)
 {
-  v2 = [WBTabGroupManager alloc];
-  v3 = *(a1 + 32);
-  v6 = [objc_opt_class() _tabCollection];
-  v4 = [v2 initWithCollection:v6];
-  v5 = tabGroupManager_tabGroupManager;
-  tabGroupManager_tabGroupManager = v4;
+  v1 = [WBTabGroupManager alloc];
+  v4 = [objc_opt_class() _tabCollection];
+  v2 = [v1 initWithCollection:v4];
+  v3 = tabGroupManager_tabGroupManager;
+  tabGroupManager_tabGroupManager = v2;
 }
 
 + (id)_createTabGroupManagerForClearingHistory
@@ -1367,26 +1369,28 @@ void __55__SafariSettingsController__updateDownloadsFolderTitle__block_invoke(ui
 {
   v5 = a2;
   v6 = a3;
-  if (v6 || ([v5 providerDomainID], v8 = objc_claimAutoreleasedReturnValue(), v8, !v8))
+  v8 = v6;
+  if (v6 || ([v5 providerDomainID], v10 = objc_claimAutoreleasedReturnValue(), v10, !v10))
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXDownloads(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __55__SafariSettingsController__updateDownloadsFolderTitle__block_invoke_cold_2(v7, v6);
+      __55__SafariSettingsController__updateDownloadsFolderTitle__block_invoke_cold_2(v9, v8);
     }
   }
 
   else
   {
-    v13 = 0;
-    v9 = [FPProviderDomain providerDomainForItem:v5 error:&v13];
-    v6 = v13;
-    if (v6)
+    v17 = 0;
+    v11 = [FPProviderDomain providerDomainForItem:v5 error:&v17];
+    v12 = v17;
+    v8 = v12;
+    if (v12)
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v14 = WBS_LOG_CHANNEL_PREFIXDownloads(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        __55__SafariSettingsController__updateDownloadsFolderTitle__block_invoke_cold_1(v10, v6);
+        __55__SafariSettingsController__updateDownloadsFolderTitle__block_invoke_cold_1(v14, v8);
       }
     }
 
@@ -1397,7 +1401,7 @@ void __55__SafariSettingsController__updateDownloadsFolderTitle__block_invoke(ui
       block[2] = __55__SafariSettingsController__updateDownloadsFolderTitle__block_invoke_354;
       block[3] = &unk_896A0;
       block[4] = *(a1 + 32);
-      v12 = v9;
+      v16 = v11;
       dispatch_async(&_dispatch_main_q, block);
     }
   }
@@ -1405,16 +1409,15 @@ void __55__SafariSettingsController__updateDownloadsFolderTitle__block_invoke(ui
 
 id __55__SafariSettingsController__updateDownloadsFolderTitle__block_invoke_354(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = DOCLocalizedDisplayName();
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 232);
-  *(v4 + 232) = v3;
+  v2 = DOCLocalizedDisplayName();
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 232);
+  *(v3 + 232) = v2;
 
-  v6 = *(a1 + 32);
-  v7 = v6[31];
+  v5 = *(a1 + 32);
+  v6 = v5[31];
 
-  return [v6 reloadSpecifier:v7 animated:1];
+  return [v5 reloadSpecifier:v6 animated:1];
 }
 
 - (BOOL)isFavoritesFolderRestricted:(id)restricted
@@ -1464,6 +1467,105 @@ LABEL_8:
   [(SafariSettingsController *)self reloadSpecifier:v4];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  objc_initWeak(&location, self);
+  v40.receiver = self;
+  v40.super_class = SafariSettingsController;
+  [(SafariSettingsController *)&v40 viewWillAppear:appearCopy];
+  v34 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.mobilesafari"];
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v5 bundleURL];
+
+  v7 = +[NSLocale currentLocale];
+  v8 = [[_NSLocalizedStringResource alloc] initWithKey:@"Safari" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  [(SafariSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.mobilesafari" title:v8 localizedNavigationComponents:&__NSArray0__struct deepLink:v34];
+  [(SafariSettingsListController *)self synchronizeSafariDefaults];
+  v9 = [(SafariSettingsController *)self specifierForID:@"SITE_SPECIFIC_SEARCH"];
+  [(SafariSettingsController *)self reloadSpecifier:v9];
+
+  v10 = [(SafariSettingsController *)self specifierForID:@"FAVORITES_FOLDER"];
+  [(SafariSettingsController *)self reloadSpecifier:v10];
+
+  self->_recentlyClearedHistoryAndWebSiteData = 0;
+  [(SafariSettingsController *)self reloadSpecifierID:@"CLEAR_HISTORY_AND_DATA"];
+  v11 = [_EXQuery alloc];
+  v12 = [v11 initWithExtensionPointIdentifier:SFContentBlockerExtensionPointIdentifier];
+  [v12 setExcludeLockedApps:1];
+  v13 = [NSString stringWithFormat:@"com.apple.MobileSafari.SafariSettingsController.%@.%p.discoveryQueue", objc_opt_class(), self];
+  v14 = v13;
+  uTF8String = [v13 UTF8String];
+  v16 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v17 = dispatch_queue_create(uTF8String, v16);
+  discoveryNotificationQueue = self->_discoveryNotificationQueue;
+  self->_discoveryNotificationQueue = v17;
+
+  dispatch_suspend(self->_discoveryNotificationQueue);
+  v19 = [_EXQueryController alloc];
+  v42 = v12;
+  v20 = [NSArray arrayWithObjects:&v42 count:1];
+  v21 = [v19 initWithQueries:v20 delegate:self];
+  contentBlockerQueryController = self->_contentBlockerQueryController;
+  self->_contentBlockerQueryController = v21;
+
+  v23 = dispatch_get_global_queue(0, 0);
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = __43__SafariSettingsController_viewWillAppear___block_invoke;
+  block[3] = &unk_8A560;
+  objc_copyWeak(&v39, &location);
+  dispatch_async(v23, block);
+
+  [(SafariSettingsController *)self _updateUserRestrictedState];
+  v24 = objc_opt_respondsToSelector();
+  profileConnection = self->_profileConnection;
+  if (v24)
+  {
+    [(MCProfileConnection *)profileConnection registerObserver:self];
+  }
+
+  else
+  {
+    [(MCProfileConnection *)profileConnection addObserver:self];
+  }
+
+  v26 = [WBSLockdownModePreferenceManager alloc];
+  v27 = +[WBSPerSitePreferencesSQLiteStore sharedStore];
+  v28 = [v26 initWithPerSitePreferenceStore:v27];
+
+  lockdownPreference = [v28 lockdownPreference];
+  v36[0] = _NSConcreteStackBlock;
+  v36[1] = 3221225472;
+  v36[2] = __43__SafariSettingsController_viewWillAppear___block_invoke_2;
+  v36[3] = &unk_89EB8;
+  objc_copyWeak(&v37, &location);
+  [v28 getAllDomainsConfiguredForPreference:lockdownPreference usingBlock:v36];
+
+  v30 = +[NSNotificationCenter defaultCenter];
+  [v30 addObserver:self selector:"_primaryAppleAccountDidChange:" name:WBSPrimaryAppleAccountDidChangeNotification object:0];
+
+  v31 = +[WBSPrimaryAppleAccountObserver sharedObserver];
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 3221225472;
+  v35[2] = __43__SafariSettingsController_viewWillAppear___block_invoke_3;
+  v35[3] = &unk_89768;
+  v35[4] = self;
+  [v31 getPrimaryAppleAccountHasSafariSyncEnabledWithCompletionHandler:v35];
+
+  v32 = +[NSNotificationCenter defaultCenter];
+  [v32 addObserver:self selector:"_managedNewTabPageDidChange:" name:WBSManagedNewTabPageDidChangeNotification object:0];
+
+  _defaultWebExtensionController = [(SafariSettingsController *)self _defaultWebExtensionController];
+  [_defaultWebExtensionController addObserver:self];
+
+  [(SafariSettingsController *)self updateBiometricAuthenticationAndPasscodeAvailabilityForLockedPrivateBrowsing];
+  objc_destroyWeak(&v37);
+
+  objc_destroyWeak(&v39);
+  objc_destroyWeak(&location);
+}
+
 void __43__SafariSettingsController_viewWillAppear___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -1508,6 +1610,33 @@ _BYTE *__43__SafariSettingsController_viewWillAppear___block_invoke_4(uint64_t a
   }
 
   return result;
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v9.receiver = self;
+  v9.super_class = SafariSettingsController;
+  [(SafariSettingsController *)&v9 viewWillDisappear:disappear];
+  contentBlockerQueryController = self->_contentBlockerQueryController;
+  self->_contentBlockerQueryController = 0;
+
+  v5 = objc_opt_respondsToSelector();
+  profileConnection = self->_profileConnection;
+  if (v5)
+  {
+    [(MCProfileConnection *)profileConnection unregisterObserver:self];
+  }
+
+  else
+  {
+    [(MCProfileConnection *)profileConnection removeObserver:self];
+  }
+
+  v7 = +[NSNotificationCenter defaultCenter];
+  [v7 removeObserver:self name:WBSCloudExtensionStateDidChangeNotification object:0];
+
+  _defaultWebExtensionController = [(SafariSettingsController *)self _defaultWebExtensionController];
+  [_defaultWebExtensionController removeObserver:self];
 }
 
 - (void)willBecomeActive
@@ -2405,46 +2534,46 @@ void __47__SafariSettingsController__importButtonTapped__block_invoke(uint64_t a
 
 void __87__SafariSettingsController__alertToDeleteBrowsingDataFiles_importedDataClassification___block_invoke_2(uint64_t a1)
 {
-  v16 = 0u;
-  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v2)
   {
     v4 = v2;
-    v5 = *v17;
+    v5 = *v19;
     *&v3 = 138478083;
-    v14 = v3;
+    v16 = v3;
     do
     {
       v6 = 0;
       do
       {
-        if (*v17 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(v1);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * v6);
+        v7 = *(*(&v18 + 1) + 8 * v6);
         v8 = +[NSFileManager defaultManager];
-        v15 = 0;
-        v9 = [v8 removeItemAtURL:v7 error:&v15];
-        v10 = v15;
+        v17 = 0;
+        v9 = [v8 removeItemAtURL:v7 error:&v17];
+        v10 = v17;
 
         if ((v9 & 1) == 0)
         {
-          v11 = WBS_LOG_CHANNEL_PREFIXExport();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+          v13 = WBS_LOG_CHANNEL_PREFIXExport(v11, v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            v12 = v11;
-            v13 = [v10 safari_privacyPreservingDescription];
-            *buf = v14;
-            v21 = v7;
-            v22 = 2114;
-            v23 = v13;
-            _os_log_debug_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "Error deleting %{private}@ after file import with error %{public}@", buf, 0x16u);
+            v14 = v13;
+            v15 = [v10 safari_privacyPreservingDescription];
+            *buf = v16;
+            v23 = v7;
+            v24 = 2114;
+            v25 = v15;
+            _os_log_debug_impl(&dword_0, v14, OS_LOG_TYPE_DEBUG, "Error deleting %{private}@ after file import with error %{public}@", buf, 0x16u);
           }
         }
 
@@ -2452,7 +2581,7 @@ void __87__SafariSettingsController__alertToDeleteBrowsingDataFiles_importedData
       }
 
       while (v4 != v6);
-      v4 = [v1 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v4 = [v1 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v4);
@@ -2517,47 +2646,47 @@ void __70__SafariSettingsController__fetchExportLocationWithCompletionHandler___
   dispatch_async(&_dispatch_main_q, block);
 }
 
-void __70__SafariSettingsController__fetchExportLocationWithCompletionHandler___block_invoke_2(uint64_t a1)
+void __70__SafariSettingsController__fetchExportLocationWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (!v2 || *(a1 + 40))
+  v3 = *(a1 + 32);
+  if (!v3 || *(a1 + 40))
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXExport(v3, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __70__SafariSettingsController__fetchExportLocationWithCompletionHandler___block_invoke_2_cold_1(a1, v3);
+      __70__SafariSettingsController__fetchExportLocationWithCompletionHandler___block_invoke_2_cold_1(a1, v4);
     }
 
-    v2 = *(a1 + 32);
+    v3 = *(a1 + 32);
   }
 
-  v4 = [v2 providerDomainID];
-  v5 = [v4 hasPrefix:@"com.apple.FileProvider.LocalStorage"];
+  v5 = [v3 providerDomainID];
+  v6 = [v5 hasPrefix:@"com.apple.FileProvider.LocalStorage"];
 
-  if (v5)
+  if (v6)
   {
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v7 = [*(a1 + 32) providerDomainID];
-    v8 = [v7 hasPrefix:@"com.apple.CloudDocs.iCloudDriveFileProvider"];
+    v8 = [*(a1 + 32) providerDomainID];
+    v9 = [v8 hasPrefix:@"com.apple.CloudDocs.iCloudDriveFileProvider"];
 
-    if (v8)
+    if (v9)
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v6 = 2;
+      v7 = 2;
     }
   }
 
-  v9 = *(a1 + 48);
-  v10 = [*(a1 + 32) fileURL];
-  (*(v9 + 16))(v9, v6, v10);
+  v10 = *(a1 + 48);
+  v11 = [*(a1 + 32) fileURL];
+  (*(v10 + 16))(v10, v7, v11);
 }
 
 - (id)_valueForClosingTabsAutomatically
@@ -2771,30 +2900,31 @@ void __64__SafariSettingsController_showClearHistoryAndDataConfirmation___block_
   beforeDateCopy = beforeDate;
   identifierCopy = identifier;
   group = dispatch_group_create();
-  v10 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = WBS_LOG_CHANNEL_PREFIXWebsiteData(group, v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if (v12)
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Clearing history and data", buf, 2u);
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Clearing history and data", buf, 2u);
   }
 
-  v11 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v14 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [SafariSettingsController _safariClearHistoryAndDataAddedAfterDate:beforeDate:profileIdentifier:clearAllProfiles:closeTabs:];
   }
 
-  killSafari();
-  v12 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = killSafari();
+  v17 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v15, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [SafariSettingsController _safariClearHistoryAndDataAddedAfterDate:beforeDate:profileIdentifier:clearAllProfiles:closeTabs:];
   }
 
   killSafariViewService();
-  v72 = [WBSettingsTask taskForDeletingHistoryAfterDate:dateCopy beforeDate:beforeDateCopy forProfileIdentifier:identifierCopy clearAllProfiles:profilesCopy];
-  v13 = +[SafariSettingsTaskHandler sharedHandler];
-  [v13 enqueueTask:v72];
+  v81 = [WBSettingsTask taskForDeletingHistoryAfterDate:dateCopy beforeDate:beforeDateCopy forProfileIdentifier:identifierCopy clearAllProfiles:profilesCopy];
+  v18 = +[SafariSettingsTaskHandler sharedHandler];
+  [v18 enqueueTask:v81];
 
   _createTabGroupManagerForClearingHistory = [objc_opt_class() _createTabGroupManagerForClearingHistory];
   if (tabsCopy)
@@ -2804,50 +2934,50 @@ void __64__SafariSettingsController_showClearHistoryAndDataConfirmation___block_
       allProfileIdentifiers = [_createTabGroupManagerForClearingHistory allProfileIdentifiers];
       [_createTabGroupManagerForClearingHistory closeAllTabsInProfilesWithIdentifiers:allProfileIdentifiers];
 
-      v99 = 0u;
-      v100 = 0u;
-      v97 = 0u;
-      v98 = 0u;
+      v108 = 0u;
+      v109 = 0u;
+      v106 = 0u;
+      v107 = 0u;
       allNamedProfileIdentifiers = [_createTabGroupManagerForClearingHistory allNamedProfileIdentifiers];
-      v16 = [allNamedProfileIdentifiers countByEnumeratingWithState:&v97 objects:v103 count:16];
-      if (v16)
+      v21 = [allNamedProfileIdentifiers countByEnumeratingWithState:&v106 objects:v112 count:16];
+      if (v21)
       {
-        v17 = *v98;
+        v22 = *v107;
         do
         {
-          for (i = 0; i != v16; i = i + 1)
+          for (i = 0; i != v21; i = i + 1)
           {
-            if (*v98 != v17)
+            if (*v107 != v22)
             {
               objc_enumerationMutation(allNamedProfileIdentifiers);
             }
 
-            v19 = *(*(&v97 + 1) + 8 * i);
-            v20 = +[_SFBrowserSavedState sharedBrowserSavedState];
-            [v20 clearSavedTabsForProfileWithIdentifier:v19 closingDatabase:0];
+            v24 = *(*(&v106 + 1) + 8 * i);
+            v25 = +[_SFBrowserSavedState sharedBrowserSavedState];
+            [v25 clearSavedTabsForProfileWithIdentifier:v24 closingDatabase:0];
           }
 
-          v16 = [allNamedProfileIdentifiers countByEnumeratingWithState:&v97 objects:v103 count:16];
+          v21 = [allNamedProfileIdentifiers countByEnumeratingWithState:&v106 objects:v112 count:16];
         }
 
-        while (v16);
+        while (v21);
       }
 
-      v21 = +[_SFBrowserSavedState sharedBrowserSavedState];
-      [v21 clearSavedTabsForProfileWithIdentifier:WBSDefaultProfileIdentifier closingDatabase:1];
+      v26 = +[_SFBrowserSavedState sharedBrowserSavedState];
+      [v26 clearSavedTabsForProfileWithIdentifier:WBSDefaultProfileIdentifier closingDatabase:1];
     }
 
     else
     {
-      v22 = [NSSet setWithObject:identifierCopy];
-      [_createTabGroupManagerForClearingHistory closeAllTabsInProfilesWithIdentifiers:v22];
+      v27 = [NSSet setWithObject:identifierCopy];
+      [_createTabGroupManagerForClearingHistory closeAllTabsInProfilesWithIdentifiers:v27];
 
-      v21 = +[_SFBrowserSavedState sharedBrowserSavedState];
-      [v21 clearSavedTabsForProfileWithIdentifier:identifierCopy closingDatabase:1];
+      v26 = +[_SFBrowserSavedState sharedBrowserSavedState];
+      [v26 clearSavedTabsForProfileWithIdentifier:identifierCopy closingDatabase:1];
     }
   }
 
-  v77 = +[NSDate distantPast];
+  v86 = +[NSDate distantPast];
   if (profilesCopy)
   {
     [_createTabGroupManagerForClearingHistory allProfileIdentifiers];
@@ -2857,120 +2987,121 @@ void __64__SafariSettingsController_showClearHistoryAndDataConfirmation___block_
   {
     [NSSet setWithObject:identifierCopy];
   }
-  v23 = ;
-  v24 = +[_SFBrowserSavedState sharedBrowserSavedState];
-  [v24 readRecentlyClosedTabsState];
+  v28 = ;
+  v29 = +[_SFBrowserSavedState sharedBrowserSavedState];
+  [v29 readRecentlyClosedTabsState];
 
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
-  v94 = 0u;
-  obj = v23;
-  v25 = [obj countByEnumeratingWithState:&v93 objects:v102 count:16];
-  if (v25)
+  v104 = 0u;
+  v105 = 0u;
+  v102 = 0u;
+  v103 = 0u;
+  obj = v28;
+  v30 = [obj countByEnumeratingWithState:&v102 objects:v111 count:16];
+  if (v30)
   {
-    v26 = *v94;
+    v31 = *v103;
     do
     {
-      for (j = 0; j != v25; j = j + 1)
+      for (j = 0; j != v30; j = j + 1)
       {
-        if (*v94 != v26)
+        if (*v103 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v93 + 1) + 8 * j);
-        v29 = +[_SFBrowserSavedState sharedBrowserSavedState];
-        [v29 clearRecentlyClosedTabsForProfileWithIdentifier:v28];
+        v33 = *(*(&v102 + 1) + 8 * j);
+        v34 = +[_SFBrowserSavedState sharedBrowserSavedState];
+        [v34 clearRecentlyClosedTabsForProfileWithIdentifier:v33];
 
-        v30 = +[WBSSiriIntelligenceDonor sharedInstance];
-        [v30 removeAllCoreSpotlightTabDataDonatedBySafariForProfileWithIdentifier:identifierCopy];
+        v35 = +[WBSSiriIntelligenceDonor sharedInstance];
+        [v35 removeAllCoreSpotlightTabDataDonatedBySafariForProfileWithIdentifier:identifierCopy];
 
-        v31 = SafariFrequentlyVisitedSitesBannedURLStoreURLForProfileWithIdentifier(v28);
-        if (v31)
+        v36 = SafariFrequentlyVisitedSitesBannedURLStoreURLForProfileWithIdentifier(v33);
+        if (v36)
         {
-          v32 = SafariFrequentlyVisitedSitesBannedURLStoreURLForProfileWithIdentifier(v28);
-          v33 = [[WBSFrequentlyVisitedSitesBannedURLStore alloc] initWithStoreURL:v31 history:0];
-          v34 = [FrequentlyVisitedSitesController alloc];
-          v35 = +[WebBookmarkCollection safariBookmarkCollection];
+          v37 = SafariFrequentlyVisitedSitesBannedURLStoreURLForProfileWithIdentifier(v33);
+          v38 = [[WBSFrequentlyVisitedSitesBannedURLStore alloc] initWithStoreURL:v36 history:0];
+          v39 = [FrequentlyVisitedSitesController alloc];
+          v40 = +[WebBookmarkCollection safariBookmarkCollection];
           tabCollection = [_createTabGroupManagerForClearingHistory tabCollection];
-          v37 = [(FrequentlyVisitedSitesController *)v34 initWithBookmarkCollection:v35 history:0 bannedURLStore:v33 tabCollection:tabCollection profileIdentifier:v28];
-          [(FrequentlyVisitedSitesController *)v37 clearFrequentlyVisitedSites];
+          v42 = [(FrequentlyVisitedSitesController *)v39 initWithBookmarkCollection:v40 history:0 bannedURLStore:v38 tabCollection:tabCollection profileIdentifier:v33];
+          [(FrequentlyVisitedSitesController *)v42 clearFrequentlyVisitedSites];
 
-          if ([dateCopy isEqualToDate:v77])
+          if ([dateCopy isEqualToDate:v86])
           {
-            [v33 removeAllURLStrings];
-            [WBSDigitalHealthManager deleteAllUsageHistoryWithProfileIdentifier:v28];
+            [v38 removeAllURLStrings];
+            [WBSDigitalHealthManager deleteAllUsageHistoryWithProfileIdentifier:v33];
           }
 
           else
           {
-            [WBSDigitalHealthManager deleteUsageHistoryFromDate:dateCopy toDate:beforeDateCopy profileIdentifier:v28];
+            [WBSDigitalHealthManager deleteUsageHistoryFromDate:dateCopy toDate:beforeDateCopy profileIdentifier:v33];
           }
 
-          v38 = +[WBSIgnoredSiriSuggestedSitesController sharedController];
-          [v38 removeIgnoredSiriSuggestedSitesInProfile:v28 afterDate:dateCopy];
+          v43 = +[WBSIgnoredSiriSuggestedSitesController sharedController];
+          [v43 removeIgnoredSiriSuggestedSitesInProfile:v33 afterDate:dateCopy];
         }
       }
 
-      v25 = [obj countByEnumeratingWithState:&v93 objects:v102 count:16];
+      v30 = [obj countByEnumeratingWithState:&v102 objects:v111 count:16];
     }
 
-    while (v25);
+    while (v30);
   }
 
   +[WBSParsecDSession clearAllParsecFeedbackAndEngagedCompletions];
-  [WBSPrivacyReportData clearCachedDataForProfilesWithIdentifiers:obj];
-  v39 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+  v44 = [WBSPrivacyReportData clearCachedDataForProfilesWithIdentifiers:obj];
+  v46 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v44, v45);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
   {
     [SafariSettingsController _safariClearHistoryAndDataAddedAfterDate:beforeDate:profileIdentifier:clearAllProfiles:closeTabs:];
   }
 
-  v40 = +[WBSBiomeDonationManager sharedManager];
-  [v40 clearEventsDonatedSinceDate:dateCopy];
+  v47 = +[WBSBiomeDonationManager sharedManager];
+  [v47 clearEventsDonatedSinceDate:dateCopy];
 
-  v41 = objc_alloc_init(_SFRecentWebSearchesController);
-  [v41 clearRecentSearches];
-  v42 = [identifierCopy isEqualToString:WBSDefaultProfileIdentifier];
-  if ((v42 | profilesCopy) == 1)
+  v48 = objc_alloc_init(_SFRecentWebSearchesController);
+  [v48 clearRecentSearches];
+  v49 = [identifierCopy isEqualToString:WBSDefaultProfileIdentifier];
+  if ((v49 | profilesCopy) == 1)
   {
-    v43 = objc_alloc_init(SBSApplicationService);
-    [v43 deleteSnapshotsForApplicationIdentifier:@"com.apple.mobilesafari"];
-    [v43 invalidate];
-    v44 = +[SFStoreBannerTracker sharedTracker];
-    [v44 clear];
+    v50 = objc_alloc_init(SBSApplicationService);
+    [v50 deleteSnapshotsForApplicationIdentifier:@"com.apple.mobilesafari"];
+    [v50 invalidate];
+    v51 = +[SFStoreBannerTracker sharedTracker];
+    [v51 clear];
 
-    v45 = +[SFHighlightBannerTracker sharedTracker];
-    [v45 clear];
+    v52 = +[SFHighlightBannerTracker sharedTracker];
+    [v52 clear];
 
-    v46 = +[WBSQuickWebsiteSearchController sharedController];
-    [v46 clearWithCompletionHandler:0];
+    v53 = +[WBSQuickWebsiteSearchController sharedController];
+    [v53 clearWithCompletionHandler:0];
 
-    v47 = +[WBSPasswordWarningStore sharedStore];
-    [v47 clearStoreSynchronously];
+    v54 = +[WBSPasswordWarningStore sharedStore];
+    [v54 clearStoreSynchronously];
 
-    v48 = +[WBSGeneratedPasswordStore sharedStore];
-    [v48 synchronouslyRemoveGeneratedPasswordsNewerThanDate:v77];
+    v55 = +[WBSGeneratedPasswordStore sharedStore];
+    [v55 synchronouslyRemoveGeneratedPasswordsNewerThanDate:v86];
 
     +[WBSAppLink clearSavedSettings];
-    v49 = +[_SFGeolocationPermissionManager sharedManager];
-    [v49 removeAllTemporaryPermissions];
+    v56 = +[_SFGeolocationPermissionManager sharedManager];
+    [v56 removeAllTemporaryPermissions];
 
-    v50 = [_SFSiteMetadataManager alloc];
-    v51 = _SFSafariIconImageCacheDirectoryPath();
-    v52 = [NSURL fileURLWithPath:v51 isDirectory:1];
-    v53 = [v50 initWithInjectedBundleURL:0 imageCacheDirectoryURL:v52 cacheIsReadOnly:1 metadataType:32];
+    v57 = [_SFSiteMetadataManager alloc];
+    v58 = _SFSafariIconImageCacheDirectoryPath();
+    v59 = [NSURL fileURLWithPath:v58 isDirectory:1];
+    v60 = [v57 initWithInjectedBundleURL:0 imageCacheDirectoryURL:v59 cacheIsReadOnly:1 metadataType:32];
 
-    [v53 emptyProviderCaches];
-    v92 = 0;
-    if (!SecTrustFlushResponseCache())
+    [v60 emptyProviderCaches];
+    v101 = 0;
+    v61 = SecTrustFlushResponseCache();
+    if (!v61)
     {
-      v54 = v92;
-      v55 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+      v63 = v101;
+      v64 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v61, v62);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
       {
-        [SafariSettingsController _safariClearHistoryAndDataAddedAfterDate:v55 beforeDate:v54 profileIdentifier:? clearAllProfiles:? closeTabs:?];
+        [SafariSettingsController _safariClearHistoryAndDataAddedAfterDate:v64 beforeDate:v63 profileIdentifier:? clearAllProfiles:? closeTabs:?];
       }
     }
 
@@ -2978,67 +3109,67 @@ void __64__SafariSettingsController_showClearHistoryAndDataConfirmation___block_
     [(SafariSettingsListController *)self setSafariDefaultsValue:0 forKey:SFStartPageCachedNumberOfTrackersKey];
     [(SafariSettingsListController *)self synchronizeSafariDefaults];
     [(SafariSettingsListController *)self postDistributedNotificationNamed:@"com.apple.mobilesafari.ClearHistory"];
-    if (v42)
+    if (v49)
     {
-      v56 = profilesCopy;
+      v65 = profilesCopy;
       if (!profilesCopy)
       {
-        v56 = [_createTabGroupManagerForClearingHistory hasMultipleProfiles] ^ 1;
+        v65 = [_createTabGroupManagerForClearingHistory hasMultipleProfiles] ^ 1;
       }
     }
 
     else
     {
-      v56 = profilesCopy;
+      v65 = profilesCopy;
     }
 
-    self->_recentlyClearedHistoryAndWebSiteData = v56;
+    self->_recentlyClearedHistoryAndWebSiteData = v65;
     [(SafariSettingsController *)self reloadSpecifierID:@"CLEAR_HISTORY_AND_DATA"];
     *buf = 0;
-    v87 = buf;
-    v88 = 0x3032000000;
-    v89 = __Block_byref_object_copy__0;
-    v90 = __Block_byref_object_dispose__0;
-    v91 = [[_SFDownloadManager alloc] initAsReadonly:1];
+    v96 = buf;
+    v97 = 0x3032000000;
+    v98 = __Block_byref_object_copy__0;
+    v99 = __Block_byref_object_dispose__0;
+    v100 = [[_SFDownloadManager alloc] initAsReadonly:1];
     dispatch_group_enter(groupa);
-    v57 = *(v87 + 5);
-    v82[0] = _NSConcreteStackBlock;
-    v82[1] = 3221225472;
-    v82[2] = __125__SafariSettingsController__safariClearHistoryAndDataAddedAfterDate_beforeDate_profileIdentifier_clearAllProfiles_closeTabs___block_invoke;
-    v82[3] = &unk_8A770;
-    v85 = buf;
-    v58 = v77;
-    v83 = v58;
-    v59 = groupa;
-    v84 = v59;
-    [v57 getDownloadsWithCompletionHandler:v82];
-    v60 = [WBSAllowedLegacyTLSHostManager alloc];
-    v61 = +[NSUserDefaults safari_browserDefaults];
-    v62 = [v60 initWithBrowserDefaults:v61];
+    v66 = *(v96 + 5);
+    v91[0] = _NSConcreteStackBlock;
+    v91[1] = 3221225472;
+    v91[2] = __125__SafariSettingsController__safariClearHistoryAndDataAddedAfterDate_beforeDate_profileIdentifier_clearAllProfiles_closeTabs___block_invoke;
+    v91[3] = &unk_8A770;
+    v94 = buf;
+    v67 = v86;
+    v92 = v67;
+    v68 = groupa;
+    v93 = v68;
+    [v66 getDownloadsWithCompletionHandler:v91];
+    v69 = [WBSAllowedLegacyTLSHostManager alloc];
+    v70 = +[NSUserDefaults safari_browserDefaults];
+    v71 = [v69 initWithBrowserDefaults:v70];
 
-    [v62 clearAllLegacyTLSHosts];
-    v63 = +[WBSCertificateBypassManager sharedManager];
-    [v63 clearCertificateBypassesCreatedAfterDate:v58];
+    [v71 clearAllLegacyTLSHosts];
+    v72 = +[WBSCertificateBypassManager sharedManager];
+    [v72 clearCertificateBypassesCreatedAfterDate:v67];
 
-    v64 = +[UIWebGeolocationPolicyDecider sharedPolicyDecider];
-    [v64 clearSafariCache];
+    v73 = +[UIWebGeolocationPolicyDecider sharedPolicyDecider];
+    [v73 clearSafariCache];
 
-    v65 = +[WBSPerSitePreferencesSQLiteStore sharedStore];
-    v101 = WBSPerSitePreferenceNameAppInfoOverlay;
-    v66 = [NSArray arrayWithObjects:&v101 count:1];
-    [v65 removeAllPreferenceValuesFromPreferences:v66 completionHandler:0];
+    v74 = +[WBSPerSitePreferencesSQLiteStore sharedStore];
+    v110 = WBSPerSitePreferenceNameAppInfoOverlay;
+    v75 = [NSArray arrayWithObjects:&v110 count:1];
+    [v74 removeAllPreferenceValuesFromPreferences:v75 completionHandler:0];
 
-    v67 = +[NSFileManager defaultManager];
-    v68 = _SFSafariTemporaryDirectoryPath();
-    v69 = [NSURL fileURLWithPath:v68 isDirectory:1];
-    [v67 safari_removeContentsOfDirectory:v69];
+    v76 = +[NSFileManager defaultManager];
+    v77 = _SFSafariTemporaryDirectoryPath();
+    v78 = [NSURL fileURLWithPath:v77 isDirectory:1];
+    [v76 safari_removeContentsOfDirectory:v78];
 
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __125__SafariSettingsController__safariClearHistoryAndDataAddedAfterDate_beforeDate_profileIdentifier_clearAllProfiles_closeTabs___block_invoke_2;
     block[3] = &unk_895D8;
     block[4] = self;
-    dispatch_group_notify(v59, &_dispatch_main_q, block);
+    dispatch_group_notify(v68, &_dispatch_main_q, block);
 
     _Block_object_dispose(buf, 8);
   }
@@ -3060,13 +3191,13 @@ void __125__SafariSettingsController__safariClearHistoryAndDataAddedAfterDate_be
   dispatch_group_leave(v6);
 }
 
-id __125__SafariSettingsController__safariClearHistoryAndDataAddedAfterDate_beforeDate_profileIdentifier_clearAllProfiles_closeTabs___block_invoke_2(uint64_t a1)
+id __125__SafariSettingsController__safariClearHistoryAndDataAddedAfterDate_beforeDate_profileIdentifier_clearAllProfiles_closeTabs___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXWebsiteData(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Finished clearing history and website data", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Finished clearing history and website data", v5, 2u);
   }
 
   return [*(a1 + 32) postDistributedNotificationNamed:@"com.apple.mobilesafari.ClearHistoryAndWebsiteData"];
@@ -3074,72 +3205,73 @@ id __125__SafariSettingsController__safariClearHistoryAndDataAddedAfterDate_befo
 
 - (void)clearWebBrowsingData
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXWebsiteData(self, a2);
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
     *buf = 0;
     _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Clearing web browsing data", buf, 2u);
   }
 
-  v4 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SafariSettingsController _safariClearHistoryAndDataAddedAfterDate:beforeDate:profileIdentifier:clearAllProfiles:closeTabs:];
   }
 
   killSafariViewService();
-  v5 = +[SFStoreBannerTracker sharedTracker];
-  [v5 clear];
+  v7 = +[SFStoreBannerTracker sharedTracker];
+  [v7 clear];
 
-  v6 = +[SFHighlightBannerTracker sharedTracker];
-  [v6 clear];
+  v8 = +[SFHighlightBannerTracker sharedTracker];
+  [v8 clear];
 
-  v7 = +[NSDate distantPast];
-  v8 = +[WBSPasswordWarningStore sharedStore];
-  [v8 clearStoreSynchronously];
+  v9 = +[NSDate distantPast];
+  v10 = +[WBSPasswordWarningStore sharedStore];
+  [v10 clearStoreSynchronously];
 
-  v9 = +[WBSGeneratedPasswordStore sharedStore];
-  [v9 synchronouslyRemoveGeneratedPasswordsNewerThanDate:v7];
+  v11 = +[WBSGeneratedPasswordStore sharedStore];
+  [v11 synchronouslyRemoveGeneratedPasswordsNewerThanDate:v9];
 
   +[WBSAppLink clearSavedSettings];
-  v10 = +[_SFGeolocationPermissionManager sharedManager];
-  [v10 removeAllTemporaryPermissions];
+  v12 = +[_SFGeolocationPermissionManager sharedManager];
+  [v12 removeAllTemporaryPermissions];
 
-  v11 = +[UIWebGeolocationPolicyDecider sharedPolicyDecider];
-  [v11 clearSafariCache];
+  v13 = +[UIWebGeolocationPolicyDecider sharedPolicyDecider];
+  [v13 clearSafariCache];
 
   self->_recentlyClearedHistoryAndWebSiteData = 1;
   [(SafariSettingsController *)self reloadSpecifierID:@"CLEAR_HISTORY_AND_DATA"];
-  v12 = dispatch_group_create();
+  v14 = dispatch_group_create();
   *buf = 0;
+  v26 = buf;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__0;
+  v29 = __Block_byref_object_dispose__0;
+  v30 = [[_SFDownloadManager alloc] initAsReadonly:1];
+  dispatch_group_enter(v14);
+  v15 = *(v26 + 5);
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = __48__SafariSettingsController_clearWebBrowsingData__block_invoke;
+  v21[3] = &unk_8A770;
   v24 = buf;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__0;
-  v27 = __Block_byref_object_dispose__0;
-  v28 = [[_SFDownloadManager alloc] initAsReadonly:1];
-  dispatch_group_enter(v12);
-  v13 = *(v24 + 5);
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = __48__SafariSettingsController_clearWebBrowsingData__block_invoke;
-  v19[3] = &unk_8A770;
-  v22 = buf;
-  v14 = v7;
-  v20 = v14;
-  v15 = v12;
-  v21 = v15;
-  [v13 getDownloadsWithCompletionHandler:v19];
-  v16 = +[WBSPerSitePreferencesSQLiteStore sharedStore];
-  v29 = WBSPerSitePreferenceNameAppInfoOverlay;
-  v17 = [NSArray arrayWithObjects:&v29 count:1];
-  [v16 removeAllPreferenceValuesFromPreferences:v17 completionHandler:0];
+  v16 = v9;
+  v22 = v16;
+  v17 = v14;
+  v23 = v17;
+  [v15 getDownloadsWithCompletionHandler:v21];
+  v18 = +[WBSPerSitePreferencesSQLiteStore sharedStore];
+  v31 = WBSPerSitePreferenceNameAppInfoOverlay;
+  v19 = [NSArray arrayWithObjects:&v31 count:1];
+  [v18 removeAllPreferenceValuesFromPreferences:v19 completionHandler:0];
 
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = __48__SafariSettingsController_clearWebBrowsingData__block_invoke_2;
-  v18[3] = &unk_895D8;
-  v18[4] = self;
-  dispatch_group_notify(v15, &_dispatch_main_q, v18);
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = __48__SafariSettingsController_clearWebBrowsingData__block_invoke_2;
+  v20[3] = &unk_895D8;
+  v20[4] = self;
+  dispatch_group_notify(v17, &_dispatch_main_q, v20);
 
   _Block_object_dispose(buf, 8);
 }
@@ -3160,13 +3292,13 @@ void __48__SafariSettingsController_clearWebBrowsingData__block_invoke(void *a1)
   dispatch_group_leave(v6);
 }
 
-id __48__SafariSettingsController_clearWebBrowsingData__block_invoke_2(uint64_t a1)
+id __48__SafariSettingsController_clearWebBrowsingData__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXWebsiteData(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Finished clearing website data", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Finished clearing website data", v5, 2u);
   }
 
   return [*(a1 + 32) postDistributedNotificationNamed:@"com.apple.mobilesafari.ClearHistoryAndWebsiteData"];
@@ -3371,6 +3503,32 @@ id __48__SafariSettingsController_clearWebBrowsingData__block_invoke_2(uint64_t 
   [(SafariSettingsController *)self reloadSpecifier:v4];
 }
 
+- (void)_updateBlockAllNewWebsiteDataPolicyToBlockAllWebsiteData:(BOOL)data
+{
+  dataCopy = data;
+  v5 = +[NSHTTPCookieStorage sharedHTTPCookieStorage];
+  webui_safariCookieAcceptPolicyEnumValue = [v5 webui_safariCookieAcceptPolicyEnumValue];
+
+  if (dataCopy)
+  {
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = 2 * (webui_safariCookieAcceptPolicyEnumValue == &dword_0 + 1);
+  }
+
+  if (webui_safariCookieAcceptPolicyEnumValue != v7)
+  {
+    [SafariSettingsController setCookieStoragePolicy:"setCookieStoragePolicy:andNotifySpecifierWithID:" andNotifySpecifierWithID:?];
+    v8 = +[NSUserDefaults safari_browserDefaults];
+    [v8 setBool:dataCopy forKey:_SFNanoBlockAllCookiesEnabledKey];
+
+    [(SafariSettingsController *)self _synchronizeNanoUserDefaults];
+  }
+}
+
 - (void)_setSafariAcceptCookiesForPolicy:(unint64_t)policy
 {
   v3 = 0.0;
@@ -3561,7 +3719,7 @@ LABEL_29:
 
 - (void)_mobileSafariChangedExtensionSettings
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
+  v2 = WBS_LOG_CHANNEL_PREFIXWebExtensions(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -3753,21 +3911,21 @@ LABEL_12:
 
   if (identifierForExtensions)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v8 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v13 = 138477827;
-      v14 = identifierForExtensions;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "Profile with server ID %{private}@ was deleted, updating controller map to make sure state is deleted", &v13, 0xCu);
+      v15 = 138477827;
+      v16 = identifierForExtensions;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "Profile with server ID %{private}@ was deleted, updating controller map to make sure state is deleted", &v15, 0xCu);
     }
 
     extensionsProfilesDataSource = [objc_opt_class() extensionsProfilesDataSource];
     profileServerIDToWebExtensionsControllers = [extensionsProfilesDataSource profileServerIDToWebExtensionsControllers];
-    v9 = [profileServerIDToWebExtensionsControllers objectForKeyedSubscript:identifierForExtensions];
+    v11 = [profileServerIDToWebExtensionsControllers objectForKeyedSubscript:identifierForExtensions];
 
     extensionsProfilesDataSource2 = [objc_opt_class() extensionsProfilesDataSource];
     profileServerIDToContentBlockerManagers = [extensionsProfilesDataSource2 profileServerIDToContentBlockerManagers];
-    v12 = [profileServerIDToContentBlockerManagers objectForKeyedSubscript:identifierForExtensions];
+    v14 = [profileServerIDToContentBlockerManagers objectForKeyedSubscript:identifierForExtensions];
   }
 }
 
@@ -3870,7 +4028,7 @@ void __55__SafariSettingsController__updateDownloadsFolderTitle__block_invoke_co
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Failed to determine provider domain for downloads folder: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Failed to determine provider domain for downloads folder: %{public}@", v7, v8, v9, v10);
 }
 
 void __55__SafariSettingsController__updateDownloadsFolderTitle__block_invoke_cold_2(void *a1, void *a2)
@@ -3878,7 +4036,7 @@ void __55__SafariSettingsController__updateDownloadsFolderTitle__block_invoke_co
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Failed to fetch default downloads location item: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Failed to fetch default downloads location item: %{public}@", v7, v8, v9, v10);
 }
 
 void __70__SafariSettingsController__fetchExportLocationWithCompletionHandler___block_invoke_2_cold_1(uint64_t a1, void *a2)
@@ -3887,7 +4045,7 @@ void __70__SafariSettingsController__fetchExportLocationWithCompletionHandler___
   v3 = a2;
   v4 = [v2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Unable to fetch the user's default Download location: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Unable to fetch the user's default Download location: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_safariClearHistoryAndDataAddedAfterDate:(void *)a1 beforeDate:(void *)a2 profileIdentifier:clearAllProfiles:closeTabs:.cold.4(void *a1, void *a2)

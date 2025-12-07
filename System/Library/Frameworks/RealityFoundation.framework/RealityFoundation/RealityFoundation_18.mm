@@ -1,108 +1,527 @@
-uint64_t __RKEntityTransformAction.perform(with:)(uint64_t a1)
+void protocol witness for RawRepresentable.rawValue.getter in conformance __RKEntityMoveSelection(void *a1@<X8>)
 {
-  v2 = v1;
-  v236 = *MEMORY[0x1E69E9840];
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGAF15AnimationEventsO08PlaybackL0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGAF15AnimationEventsO08PlaybackL0VGMR);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  v8 = &v188 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGAF15AnimationEventsO08PlaybackL0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGAF15AnimationEventsO08PlaybackL0VGMR);
-  v216 = *(v9 - 8);
-  v217 = v9;
-  v10 = *(v216 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v215 = &v188 - v11;
-  v12 = *(a1 + 8);
-  swift_beginAccess();
-  v13 = v2[1].i64[0];
-  v235[0].i64[0] = 91;
-  v235[0].i64[1] = 0xE100000000000000;
-  if (v13)
+  if (*v1)
   {
-    v221[0].i64[0] = 0;
-    v221[0].i64[1] = 0xE000000000000000;
-    v220[0].i64[0] = v13;
-
-    _print_unlocked<A, B>(_:_:)();
-    v15 = v221[0].i64[1];
-    v14 = v221[0].i64[0];
+    v2 = "move by distance";
   }
 
   else
   {
-    v15 = 0xE300000000000000;
-    v14 = 7104878;
+    v2 = "e";
   }
 
-  MEMORY[0x1C68F3410](v14, v15);
+  *a1 = 0xD000000000000010;
+  a1[1] = v2 | 0x8000000000000000;
+}
+
+RealityKit::__RKEntityMoveEase_optional __swiftcall __RKEntityMoveEase.init(rawValue:)(Swift::String rawValue)
+{
+  object = rawValue._object;
+  v3._countAndFlagsBits = rawValue._countAndFlagsBits;
+  v4 = v1;
+  v3._object = object;
+  v5 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of __RKEntityMoveEase.init(rawValue:), v3);
+
+  v7 = 10;
+  if (v5 < 0xA)
+  {
+    v7 = v5;
+  }
+
+  *v4 = v7;
+  return result;
+}
+
+uint64_t __RKEntityMoveEase.rawValue.getter()
+{
+  v1 = *v0;
+  if (v1 > 4)
+  {
+    v6 = 6778732;
+    v7 = 0x7265776F70;
+    if (v1 != 8)
+    {
+      v7 = 1701734771;
+    }
+
+    if (v1 != 7)
+    {
+      v6 = v7;
+    }
+
+    v8 = 0x746E656E6F707865;
+    if (v1 != 5)
+    {
+      v8 = 0x6574696D726568;
+    }
+
+    if (*v0 <= 6u)
+    {
+      return v8;
+    }
+
+    else
+    {
+      return v6;
+    }
+  }
+
+  else
+  {
+    v2 = 0x7261656E696CLL;
+    v3 = 0x65636E756F62;
+    v4 = 0x656C63726963;
+    if (v1 != 3)
+    {
+      v4 = 0x63697473616C65;
+    }
+
+    if (v1 != 2)
+    {
+      v3 = v4;
+    }
+
+    if (*v0)
+    {
+      v2 = 1801675106;
+    }
+
+    if (*v0 <= 1u)
+    {
+      return v2;
+    }
+
+    else
+    {
+      return v3;
+    }
+  }
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance __RKEntityMoveEase()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  specialized RawRepresentable<>.hash(into:)(v3, v1);
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance __RKEntityMoveEase()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  specialized RawRepresentable<>.hash(into:)(v3, v1);
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance __RKEntityMoveEase@<X0>(uint64_t *a1@<X8>)
+{
+  result = __RKEntityMoveEase.rawValue.getter();
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+RealityKit::__RKEntityMoveEaseType_optional __swiftcall __RKEntityMoveEaseType.init(rawValue:)(Swift::String rawValue)
+{
+  object = rawValue._object;
+  v3._countAndFlagsBits = rawValue._countAndFlagsBits;
+  v4 = v1;
+  v3._object = object;
+  v5 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of __RKEntityMoveEaseType.init(rawValue:), v3);
+
+  v7 = 3;
+  if (v5 < 3)
+  {
+    v7 = v5;
+  }
+
+  *v4 = v7;
+  return result;
+}
+
+unint64_t __RKEntityMoveEaseType.rawValue.getter()
+{
+  v1 = 0x74756F2065736165;
+  if (*v0 != 1)
+  {
+    v1 = 0xD000000000000010;
+  }
+
+  if (*v0)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return 0x6E692065736165;
+  }
+}
+
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance __RKEntityMoveEaseType(_BYTE *a1, _BYTE *a2)
+{
+  v2 = *a1;
+  v3 = 0xE800000000000000;
+  v4 = 0x74756F2065736165;
+  v5 = 0x80000001C18DD6D0;
+  if (v2 != 1)
+  {
+    v4 = 0xD000000000000010;
+    v3 = 0x80000001C18DD6D0;
+  }
+
+  if (*a1)
+  {
+    v6 = v4;
+  }
+
+  else
+  {
+    v6 = 0x6E692065736165;
+  }
+
+  if (v2)
+  {
+    v7 = v3;
+  }
+
+  else
+  {
+    v7 = 0xE700000000000000;
+  }
+
+  v8 = 0x74756F2065736165;
+  if (*a2 == 1)
+  {
+    v5 = 0xE800000000000000;
+  }
+
+  else
+  {
+    v8 = 0xD000000000000010;
+  }
+
+  if (*a2)
+  {
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 0x6E692065736165;
+  }
+
+  if (*a2)
+  {
+    v10 = v5;
+  }
+
+  else
+  {
+    v10 = 0xE700000000000000;
+  }
+
+  if (v6 == v9 && v7 == v10)
+  {
+    v11 = 1;
+  }
+
+  else
+  {
+    v11 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  }
+
+  return v11 & 1;
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance __RKEntityMoveEaseType()
+{
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+
+  return Hasher._finalize()();
+}
+
+double protocol witness for Hashable.hash(into:) in conformance __RKEntityMoveEaseType(uint64_t a1)
+{
+  String.hash(into:)();
+
+  return result;
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance __RKEntityMoveEaseType()
+{
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+
+  return Hasher._finalize()();
+}
+
+void protocol witness for RawRepresentable.rawValue.getter in conformance __RKEntityMoveEaseType(uint64_t *a1@<X8>)
+{
+  v2 = *v1;
+  v3 = 0xE700000000000000;
+  v4 = 0xE800000000000000;
+  v5 = 0x74756F2065736165;
+  if (v2 != 1)
+  {
+    v5 = 0xD000000000000010;
+    v4 = 0x80000001C18DD6D0;
+  }
+
+  v6 = v2 == 0;
+  if (*v1)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = 0x6E692065736165;
+  }
+
+  if (!v6)
+  {
+    v3 = v4;
+  }
+
+  *a1 = v7;
+  a1[1] = v3;
+}
+
+uint64_t key path setter for __RKEntityTransformAction.relativeToEntity : __RKEntityTransformAction(uint64_t *a1, uint64_t *a2)
+{
+  v2 = *a1;
+  v3 = *a2;
+  swift_beginAccess();
+  *(v3 + 192) = v2;
+}
+
+double __RKEntityTransformAction.relativeToEntity.getter()
+{
+  swift_beginAccess();
+
+  return result;
+}
+
+uint64_t __RKEntityTransformAction.relativeToEntity.setter(uint64_t a1)
+{
+  swift_beginAccess();
+  *(v1 + 192) = a1;
+}
+
+uint64_t __RKEntityTransformAction.__allocating_init(targetEntity:location:orientation:scale:duration:moveType:ease:easeType:respectPhysics:physicsAngularCoefficient:physicsLinearCoefficient:)(float a1, float a2, float a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, char *a12, char *a13, char *a14, char a15)
+{
+  v23 = *a12;
+  v24 = *a13;
+  v25 = *a14;
+  type metadata accessor for __RKEntityTransformAction();
+  v26 = swift_allocObject();
+  *(v26 + 192) = 0;
+  *(v26 + 208) = 0u;
+  *(v26 + 224) = 0u;
+  *(v26 + 240) = xmmword_1C1887620;
+  *(v26 + 256) = 0;
+  *(v26 + 264) = 1;
+  *(v26 + 272) = 0u;
+  *(v26 + 288) = 0u;
+  *(v26 + 304) = 0u;
+  *(v26 + 320) = 0u;
+  *(v26 + 336) = 0u;
+  *(v26 + 352) = 0;
+  *(v26 + 112) = a5;
+  *(v26 + 120) = a6;
+  *(v26 + 128) = a7 & 1;
+  *(v26 + 144) = a8;
+  *(v26 + 152) = a9;
+  *(v26 + 160) = a10 & 1;
+  *(v26 + 164) = a11;
+  *(v26 + 168) = BYTE4(a11) & 1;
+  *(v26 + 172) = a1;
+  *(v26 + 176) = v23;
+  *(v26 + 177) = v24;
+  *(v26 + 178) = v25;
+  *(v26 + 180) = a2;
+  *(v26 + 184) = a3;
+  *(v26 + 179) = a15;
+  swift_beginAccess();
+  *(v26 + 192) = 0;
+  return __RKEntityAction.init(targetEntity:)(a4);
+}
+
+uint64_t __RKEntityTransformAction.__allocating_init(targetEntity:location:orientation:scale:duration:moveType:ease:easeType:respectPhysics:physicsAngularCoefficient:physicsLinearCoefficient:relativeToEntity:)(float a1, float a2, float a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, char *a12, char *a13, char *a14, char a15, uint64_t a16)
+{
+  v25 = swift_allocObject();
+  v26 = *a12;
+  v27 = *a13;
+  v28 = *a14;
+  *(v25 + 192) = 0;
+  *(v25 + 208) = 0u;
+  *(v25 + 224) = 0u;
+  *(v25 + 240) = xmmword_1C1887620;
+  *(v25 + 256) = 0;
+  *(v25 + 264) = 1;
+  *(v25 + 272) = 0u;
+  *(v25 + 288) = 0u;
+  *(v25 + 304) = 0u;
+  *(v25 + 320) = 0u;
+  *(v25 + 336) = 0u;
+  *(v25 + 352) = 0;
+  *(v25 + 112) = a5;
+  *(v25 + 120) = a6;
+  *(v25 + 128) = a7 & 1;
+  *(v25 + 144) = a8;
+  *(v25 + 152) = a9;
+  *(v25 + 160) = a10 & 1;
+  *(v25 + 164) = a11;
+  *(v25 + 168) = BYTE4(a11) & 1;
+  *(v25 + 172) = a1;
+  *(v25 + 176) = v26;
+  *(v25 + 177) = v27;
+  *(v25 + 178) = v28;
+  *(v25 + 180) = a2;
+  *(v25 + 184) = a3;
+  *(v25 + 179) = a15;
+  swift_beginAccess();
+  *(v25 + 192) = a16;
+  return __RKEntityAction.init(targetEntity:)(a4);
+}
+
+uint64_t __RKEntityTransformAction.init(targetEntity:location:orientation:scale:duration:moveType:ease:easeType:respectPhysics:physicsAngularCoefficient:physicsLinearCoefficient:relativeToEntity:)(float a1, float a2, float a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, char *a12, char *a13, char *a14, char a15, uint64_t a16)
+{
+  v18 = *a12;
+  v19 = *a13;
+  v20 = *a14;
+  *(v16 + 192) = 0;
+  *(v16 + 208) = 0u;
+  *(v16 + 224) = 0u;
+  *(v16 + 240) = xmmword_1C1887620;
+  *(v16 + 256) = 0;
+  *(v16 + 264) = 1;
+  *(v16 + 272) = 0u;
+  *(v16 + 288) = 0u;
+  *(v16 + 304) = 0u;
+  *(v16 + 320) = 0u;
+  *(v16 + 336) = 0u;
+  *(v16 + 352) = 0;
+  *(v16 + 112) = a5;
+  *(v16 + 120) = a6;
+  *(v16 + 128) = a7 & 1;
+  *(v16 + 144) = a8;
+  *(v16 + 152) = a9;
+  *(v16 + 160) = a10 & 1;
+  *(v16 + 164) = a11;
+  *(v16 + 168) = BYTE4(a11) & 1;
+  *(v16 + 172) = a1;
+  *(v16 + 176) = v18;
+  *(v16 + 177) = v19;
+  *(v16 + 178) = v20;
+  *(v16 + 180) = a2;
+  *(v16 + 184) = a3;
+  *(v16 + 179) = a15;
+  swift_beginAccess();
+  *(v16 + 192) = a16;
+  return __RKEntityAction.init(targetEntity:)(a4);
+}
+
+uint64_t __RKEntityTransformAction.perform(with:)(uint64_t a1)
+{
+  v2 = v1;
+  v217 = *MEMORY[0x1E69E9840];
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGAF15AnimationEventsO08PlaybackL0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGAF15AnimationEventsO08PlaybackL0VGMR);
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v169 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGAF15AnimationEventsO08PlaybackL0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGAF15AnimationEventsO08PlaybackL0VGMR);
+  v197 = *(v8 - 1);
+  v198 = v8;
+  MEMORY[0x1EEE9AC00](v8);
+  v196 = &v169 - v9;
+  v10 = *(a1 + 8);
+  swift_beginAccess();
+  v11 = *(v2 + 16);
+  v216[0].i64[0] = 91;
+  v216[0].i64[1] = 0xE100000000000000;
+  if (v11)
+  {
+    v202[0].i64[0] = 0;
+    v202[0].i64[1] = 0xE000000000000000;
+    v201[0].i64[0] = v11;
+
+    _print_unlocked<A, B>(_:_:)();
+    v13 = v202[0].i64[1];
+    v12 = v202[0].i64[0];
+  }
+
+  else
+  {
+    v13 = 0xE300000000000000;
+    v12 = 7104878;
+  }
+
+  MEMORY[0x1C68F3410](v12, v13);
 
   MEMORY[0x1C68F3410](8285, 0xE200000000000000);
-  v16 = StaticString.description.getter();
-  MEMORY[0x1C68F3410](v16);
+  v14 = StaticString.description.getter();
+  MEMORY[0x1C68F3410](v14);
 
   MEMORY[0x1C68F3410](8250, 0xE200000000000000);
 
-  v17 = v235[0].u64[1];
-  v18 = v235[0].i64[0];
-  v19 = v2[1].i64[0];
-  if (!v19)
+  v15 = v216[0].u64[1];
+  v16 = v216[0].i64[0];
+  v17 = *(v2 + 16);
+  if (!v17)
   {
-    v26 = static os_log_type_t.error.getter();
-    specialized InteractionsLogger.log(_:_:)(v26, v235);
+    static os_log_type_t.error.getter();
+    specialized InteractionsLogger.log(_:_:)();
 
-LABEL_18:
-    v28 = 0;
-LABEL_38:
-    v40 = *MEMORY[0x1E69E9840];
-    return v28;
+    return 0;
   }
 
   swift_beginAccess();
-  if (v2[6].i8[8] == 1 && v2[6].i64[0] == 1)
+  if (*(v2 + 104) == 1 && *(v2 + 96) == 1)
   {
     swift_beginAccess();
-    if (v2[6].i8[9] == 1)
+    if (*(v2 + 105) == 1)
     {
 
 LABEL_15:
-      v235[0].i64[0] = v18;
-      v235[0].i64[1] = v17;
-      v27 = static os_log_type_t.error.getter();
-      specialized InteractionsLogger.log(_:_:)(v27, v235);
+      v216[0].i64[0] = v16;
+      v216[0].i64[1] = v15;
+      v23 = static os_log_type_t.error.getter();
+      specialized InteractionsLogger.log(_:_:)(v23, v216);
 LABEL_16:
 
 LABEL_17:
 
-      goto LABEL_18;
+      return 0;
     }
   }
-
-  v20 = *(v12 + 16);
 
   if (!RESceneGetECSManagerNullable())
   {
     goto LABEL_15;
   }
 
-  v213 = v8;
-  v21 = *(v19 + 16);
+  v194 = v7;
+  v18 = *(v17 + 16);
   RERigidBodyComponentGetComponentType();
-  v214 = v21;
+  v195 = v18;
   if (REEntityGetComponentByClass())
   {
-    v22 = v2[10].f32[3];
-    LODWORD(v212) = v22 == 0.0;
-    v23 = v12;
-    if (v22 == 0.0)
+    v19 = *(v2 + 172);
+    LODWORD(v193) = v19 == 0.0;
+    v20 = v10;
+    if (v19 == 0.0)
     {
-      v24 = v18;
-      v235[0].i64[0] = v18;
-      v235[0].i64[1] = v17;
-      v25 = static os_log_type_t.info.getter();
-      specialized InteractionsLogger.log(_:_:)(v25, v235);
+      v21 = v16;
+      v216[0].i64[0] = v16;
+      v216[0].i64[1] = v15;
+      v22 = static os_log_type_t.info.getter();
+      specialized InteractionsLogger.log(_:_:)(v22, v216);
       RERigidBodyComponentIncrementVersion();
-      LODWORD(v211) = 0;
+      LODWORD(v192) = 0;
     }
 
     else
@@ -110,18 +529,18 @@ LABEL_17:
       MotionType = RERigidBodyComponentGetMotionType();
       if (MotionType == 1)
       {
-        v24 = v18;
-        LODWORD(v211) = 1;
+        v21 = v16;
+        LODWORD(v192) = 1;
       }
 
       else
       {
-        LODWORD(v211) = MotionType;
-        v24 = v18;
-        v235[0].i64[0] = v18;
-        v235[0].i64[1] = v17;
-        v30 = static os_log_type_t.info.getter();
-        specialized InteractionsLogger.log(_:_:)(v30, v235);
+        LODWORD(v192) = MotionType;
+        v21 = v16;
+        v216[0].i64[0] = v16;
+        v216[0].i64[1] = v15;
+        v26 = static os_log_type_t.info.getter();
+        specialized InteractionsLogger.log(_:_:)(v26, v216);
         RERigidBodyComponentSetMotionType();
       }
     }
@@ -129,547 +548,545 @@ LABEL_17:
     REMotionStateComponentGetComponentType();
     if (REEntityGetComponentByClass())
     {
-      v235[0].i64[0] = v24;
-      v235[0].i64[1] = v17;
-      v31 = static os_log_type_t.info.getter();
-      specialized InteractionsLogger.log(_:_:)(v31, v235);
+      v216[0].i64[0] = v21;
+      v216[0].i64[1] = v15;
+      v27 = static os_log_type_t.info.getter();
+      specialized InteractionsLogger.log(_:_:)(v27, v216);
       REMotionStateComponentSetLinearVelocity();
       REMotionStateComponentSetAngularVelocity();
       RENetworkMarkComponentDirty();
     }
 
     RENetworkMarkComponentDirty();
-    v18 = v24;
-    v12 = v23;
+    v16 = v21;
+    v10 = v20;
   }
 
   else
   {
-    LODWORD(v211) = 0;
-    LODWORD(v212) = 1;
+    LODWORD(v192) = 0;
+    LODWORD(v193) = 1;
   }
 
   REAnimationComponentGetComponentType();
-  v32 = REEntityGetOrAddComponentByClass();
+  v28 = REEntityGetOrAddComponentByClass();
   if (!REEntityGetSceneNullable())
   {
-    v235[0].i64[0] = v18;
-    v235[0].i64[1] = v17;
-    v37 = static os_log_type_t.info.getter();
-    specialized InteractionsLogger.log(_:_:)(v37, v235);
+    v216[0].i64[0] = v16;
+    v216[0].i64[1] = v15;
+    v33 = static os_log_type_t.info.getter();
+    specialized InteractionsLogger.log(_:_:)(v33, v216);
 LABEL_37:
 
-    v28 = 1;
-    goto LABEL_38;
+    return 1;
   }
 
   if (!RESceneGetECSManagerNullable())
   {
-    v235[0].i64[0] = v18;
-    v235[0].i64[1] = v17;
-    v38 = static os_log_type_t.info.getter();
-    specialized InteractionsLogger.log(_:_:)(v38, v235);
+    v216[0].i64[0] = v16;
+    v216[0].i64[1] = v15;
+    v34 = static os_log_type_t.info.getter();
+    specialized InteractionsLogger.log(_:_:)(v34, v216);
     goto LABEL_37;
   }
 
   ServiceLocator = REECSManagerGetServiceLocator();
-  v34 = MEMORY[0x1C68FE1F0](ServiceLocator);
-  if (!v34)
+  v30 = MEMORY[0x1C68FE1F0](ServiceLocator);
+  if (!v30)
   {
-    v235[0].i64[0] = v18;
-    v235[0].i64[1] = v17;
-    v39 = static os_log_type_t.info.getter();
-    specialized InteractionsLogger.log(_:_:)(v39, v235);
+    v216[0].i64[0] = v16;
+    v216[0].i64[1] = v15;
+    v35 = static os_log_type_t.info.getter();
+    specialized InteractionsLogger.log(_:_:)(v35, v216);
     goto LABEL_37;
   }
 
-  v205 = v32;
-  v206 = v34;
-  v35 = v2[11].u8[0];
-  v208 = "e";
-  if (v35)
+  v186 = v28;
+  v187 = v30;
+  v31 = *(v2 + 176);
+  v189 = "e";
+  if (v31)
   {
-    v36 = "move by distance";
+    v32 = "move by distance";
   }
 
   else
   {
-    v36 = "e";
+    v32 = "e";
   }
 
-  v209 = 0x80000001C18DD670;
-  v210 = v18;
-  if ((v36 | 0x8000000000000000) == 0x80000001C18DD670)
+  v190 = 0x80000001C18DD670;
+  v191 = v16;
+  if ((v32 | 0x8000000000000000) == 0x80000001C18DD670)
   {
   }
 
   else
   {
-    v42 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v37 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v42 & 1) == 0)
+    if ((v37 & 1) == 0)
     {
       goto LABEL_42;
     }
   }
 
   swift_beginAccess();
-  v43 = v2[12].i64[0];
-  if (v43)
+  v38 = *(v2 + 192);
+  if (v38)
   {
-    v44 = v2[12].i64[0];
 
     goto LABEL_44;
   }
 
 LABEL_42:
-  v45 = Entity.rcSceneEntity.getter();
-  if (!v45)
+  v39 = Entity.rcSceneEntity.getter();
+  if (!v39)
   {
-    v235[0].i64[0] = v210;
-    v235[0].i64[1] = v17;
-    v71 = static os_log_type_t.info.getter();
-    specialized InteractionsLogger.log(_:_:)(v71, v235);
+    v216[0].i64[0] = v191;
+    v216[0].i64[1] = v15;
+    v65 = static os_log_type_t.info.getter();
+    specialized InteractionsLogger.log(_:_:)(v65, v216);
     goto LABEL_16;
   }
 
-  v43 = v45;
+  v38 = v39;
 LABEL_44:
-  v46 = v210;
-  v47 = specialized HasHierarchy.parent.getter();
-  if (!v47)
+  v40 = v191;
+  v41 = specialized HasHierarchy.parent.getter();
+  if (!v41)
   {
-    v235[0].i64[0] = v46;
-    v235[0].i64[1] = v17;
-    v70 = static os_log_type_t.info.getter();
-    specialized InteractionsLogger.log(_:_:)(v70, v235);
+    v216[0].i64[0] = v40;
+    v216[0].i64[1] = v15;
+    v64 = static os_log_type_t.info.getter();
+    specialized InteractionsLogger.log(_:_:)(v64, v216);
 
     goto LABEL_17;
   }
 
-  v48 = v47;
+  v42 = v41;
 
-  *v49.i64 = _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4x4aqd__Sg_qd_0_SgtAA6EntityCRbd__ALRbd_0_r0_lFZAL_A2LTt1g5(v48, v43);
-  v196 = v50;
-  v197 = v49;
-  v194 = v52;
-  v195 = v51;
+  *v43.i64 = _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4x4aqd__Sg_qd_0_SgtAA6EntityCRbd__ALRbd_0_r0_lFZAL_A2LTt1g5(v42, v38);
+  v177 = v44;
+  v178 = v43;
+  v175 = v46;
+  v176 = v45;
   if (one-time initialization token for identity != -1)
   {
     swift_once();
   }
 
-  v193 = v4;
-  v202 = static Transform.identity;
-  v198 = xmmword_1EBEB2BC0;
-  v199 = xmmword_1EBEB2BB0;
-  *&v53 = _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4x4aqd__Sg_qd_0_SgtAA6EntityCRbd__ALRbd_0_r0_lFZAL_A2LTt1g5(v48, v43);
-  v200 = v53;
-  v201 = v54;
-  v203 = v55;
-  v207 = v56;
-  specialized simd_float4x4.init(translation:rotation:scale:)(*&v198, v199, v202.f32[0]);
+  v174 = v4;
+  v183 = static Transform.identity;
+  v179 = xmmword_1EBEB2BC0;
+  v180 = xmmword_1EBEB2BB0;
+  *&v47 = _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4x4aqd__Sg_qd_0_SgtAA6EntityCRbd__ALRbd_0_r0_lFZAL_A2LTt1g5(v42, v38);
+  v181 = v47;
+  v182 = v48;
+  v184 = v49;
+  v188 = v50;
+  specialized simd_float4x4.init(translation:rotation:scale:)(*&v179, v180, v183.f32[0]);
   REMakeSRTFromMatrix();
-  v203 = v57;
+  v184 = v51;
   if (one-time initialization token for identity != -1)
   {
     swift_once();
   }
 
-  *&v200 = v5;
-  v58 = static os_log_type_t.debug.getter();
+  *&v181 = v5;
+  v52 = static os_log_type_t.debug.getter();
   if (one-time initialization token for interactionsLoggingEnabled != -1)
   {
-    v187 = v58;
+    v168 = v52;
     swift_once();
-    v58 = v187;
+    v52 = v168;
   }
 
-  v59 = interactionsLoggingEnabled;
-  *&v207 = v48;
-  v204 = v43;
+  v53 = interactionsLoggingEnabled;
+  *&v188 = v42;
+  v185 = v38;
   if (interactionsLoggingEnabled)
   {
-    v202.i64[0] = &v188;
-    v60 = v58;
-    v235[0].i64[0] = 0;
-    v235[0].i64[1] = 0xE000000000000000;
+    v183.i64[0] = &v169;
+    v54 = v52;
+    v216[0].i64[0] = 0;
+    v216[0].i64[1] = 0xE000000000000000;
     _StringGuts.grow(_:)(25);
     MEMORY[0x1C68F3410](0xD000000000000017, 0x80000001C18E2F20);
-    v221[0] = v203;
+    v202[0] = v184;
     type metadata accessor for simd_quatf(0);
     _print_unlocked<A, B>(_:_:)();
-    v61 = v235[0].u64[1];
-    *&v199 = v235[0].i64[0];
+    v55 = v216[0].u64[1];
+    *&v180 = v216[0].i64[0];
     if (one-time initialization token for interactionsLogger != -1)
     {
       swift_once();
     }
 
-    v62 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v62, interactionsLogger);
+    v56 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v56, interactionsLogger);
 
-    v63 = Logger.logObject.getter();
+    v57 = Logger.logObject.getter();
 
-    if (os_log_type_enabled(v63, v60))
+    if (os_log_type_enabled(v57, v54))
     {
-      v64 = swift_slowAlloc();
-      *&v198 = v63;
-      v65 = v64;
-      v235[0].i64[0] = swift_slowAlloc();
-      v201.i32[0] = 1;
-      v66 = v235[0].i64[0];
-      *v65 = 136315394;
-      *(v65 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v46, v17, v235);
-      *(v65 + 12) = 2080;
-      v67 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v199, v61, v235);
+      v58 = swift_slowAlloc();
+      *&v179 = v57;
+      v59 = v58;
+      v216[0].i64[0] = swift_slowAlloc();
+      v182.i32[0] = 1;
+      v60 = v216[0].i64[0];
+      *v59 = 136315394;
+      *(v59 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v15, v216);
+      *(v59 + 12) = 2080;
+      v61 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v180, v55, v216);
 
-      *(v65 + 14) = v67;
-      v46 = v210;
-      v68 = v198;
-      _os_log_impl(&dword_1C1358000, v198, v60, "%s%s", v65, 0x16u);
+      *(v59 + 14) = v61;
+      v40 = v191;
+      v62 = v179;
+      _os_log_impl(&dword_1C1358000, v179, v54, "%s%s", v59, 0x16u);
       swift_arrayDestroy();
-      v69 = v66;
-      v59 = v201.i32[0];
-      MEMORY[0x1C6902A30](v69, -1, -1);
-      MEMORY[0x1C6902A30](v65, -1, -1);
+      v63 = v60;
+      v53 = v182.i32[0];
+      MEMORY[0x1C6902A30](v63, -1, -1);
+      MEMORY[0x1C6902A30](v59, -1, -1);
     }
 
     else
     {
     }
 
-    v48 = v207;
-    v43 = v204;
+    v42 = v188;
+    v38 = v185;
   }
 
-  _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4x4aqd__Sg_qd_0_SgtAA6EntityCRbd__ALRbd_0_r0_lFZAL_A2LTt1g5(v48, v43);
+  _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4x4aqd__Sg_qd_0_SgtAA6EntityCRbd__ALRbd_0_r0_lFZAL_A2LTt1g5(v42, v38);
   REMakeSRTFromMatrix();
-  v202 = v72;
+  v183 = v66;
 
-  v73 = static os_log_type_t.debug.getter();
-  if (v59)
+  v67 = static os_log_type_t.debug.getter();
+  if (v53)
   {
-    *&v199 = &v188;
-    v201.i32[0] = v59;
-    v74 = v73;
-    v235[0].i64[0] = 0;
-    v235[0].i64[1] = 0xE000000000000000;
+    *&v180 = &v169;
+    v182.i32[0] = v53;
+    v68 = v67;
+    v216[0].i64[0] = 0;
+    v216[0].i64[1] = 0xE000000000000000;
     _StringGuts.grow(_:)(19);
 
-    v235[0].i64[0] = 0xD000000000000011;
-    v235[0].i64[1] = 0x80000001C18E2F00;
-    v221[0] = v202;
+    v216[0].i64[0] = 0xD000000000000011;
+    v216[0].i64[1] = 0x80000001C18E2F00;
+    v202[0] = v183;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR);
-    lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type SIMD3<Float> and conformance SIMD3<A>, &_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR);
-    v75 = SIMD.description.getter();
-    MEMORY[0x1C68F3410](v75);
+    lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type SIMD3<Float> and conformance SIMD3<A>, &_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR, MEMORY[0x1E69E7470]);
+    v69 = SIMD.description.getter();
+    MEMORY[0x1C68F3410](v69);
 
-    v76 = v235[0].u64[1];
-    *&v198 = v235[0].i64[0];
+    v70 = v216[0].u64[1];
+    *&v179 = v216[0].i64[0];
     if (one-time initialization token for interactionsLogger != -1)
     {
       swift_once();
     }
 
-    v77 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v77, interactionsLogger);
+    v71 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v71, interactionsLogger);
 
-    v78 = Logger.logObject.getter();
+    v72 = Logger.logObject.getter();
 
-    v79 = os_log_type_enabled(v78, v74);
-    v46 = v210;
-    if (v79)
+    v73 = os_log_type_enabled(v72, v68);
+    v40 = v191;
+    if (v73)
     {
-      v80 = swift_slowAlloc();
-      v191 = v78;
-      v81 = v80;
-      v192.i64[0] = swift_slowAlloc();
-      v235[0].i64[0] = v192.i64[0];
-      *v81 = 136315394;
-      *(v81 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v46, v17, v235);
-      *(v81 + 12) = 2080;
-      v82 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v198, v76, v235);
+      v74 = swift_slowAlloc();
+      v172 = v72;
+      v75 = v74;
+      *&v173 = swift_slowAlloc();
+      v216[0].i64[0] = v173;
+      *v75 = 136315394;
+      *(v75 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v15, v216);
+      *(v75 + 12) = 2080;
+      v76 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v179, v70, v216);
 
-      *(v81 + 14) = v82;
-      v46 = v210;
-      v83 = v191;
-      _os_log_impl(&dword_1C1358000, v191, v74, "%s%s", v81, 0x16u);
-      v84 = v192.i64[0];
+      *(v75 + 14) = v76;
+      v40 = v191;
+      v77 = v172;
+      _os_log_impl(&dword_1C1358000, v172, v68, "%s%s", v75, 0x16u);
+      v78 = v173;
       swift_arrayDestroy();
-      MEMORY[0x1C6902A30](v84, -1, -1);
-      MEMORY[0x1C6902A30](v81, -1, -1);
+      MEMORY[0x1C6902A30](v78, -1, -1);
+      MEMORY[0x1C6902A30](v75, -1, -1);
     }
 
     else
     {
     }
 
-    v59 = v201.i32[0];
+    v53 = v182.i32[0];
   }
 
   RETransformComponentGetComponentType();
   if (!REEntityGetComponentByClass())
   {
-    v235[0].i64[0] = v46;
-    v235[0].i64[1] = v17;
-    v91 = static os_log_type_t.info.getter();
-    specialized InteractionsLogger.log(_:_:)(v91, v235);
+    v216[0].i64[0] = v40;
+    v216[0].i64[1] = v15;
+    v84 = static os_log_type_t.info.getter();
+    specialized InteractionsLogger.log(_:_:)(v84, v216);
 
     goto LABEL_17;
   }
 
   RETransformComponentGetLocalUnanimatedSRT();
-  v198 = v86;
-  v199 = v85;
-  v2[14] = v86;
-  v2[15] = v85;
-  v192 = v87;
-  v2[13] = v87;
-  v235[0].i64[0] = v46;
-  v235[0].i64[1] = v17;
-  v88 = static os_log_type_t.debug.getter();
-  specialized InteractionsLogger.log(_:_:)(v88, v235, partial apply for implicit closure #15 in __RKEntityTransformAction.perform(with:), v2);
-  if ((v2[8].i8[0] & 1) == 0)
+  v179 = v80;
+  v180 = v79;
+  *(v2 + 224) = v80;
+  *(v2 + 240) = v79;
+  v173 = v81;
+  *(v2 + 208) = v81;
+  v216[0].i64[0] = v40;
+  v216[0].i64[1] = v15;
+  static os_log_type_t.debug.getter();
+  specialized InteractionsLogger.log(_:_:)();
+  if ((*(v2 + 128) & 1) == 0)
   {
-    v201 = v2[7];
-    v89 = v208;
+    v182 = *(v2 + 112);
+    v82 = v189;
     goto LABEL_78;
   }
 
-  v89 = v208;
-  if (v2[11].i8[0])
+  v82 = v189;
+  if (*(v2 + 176))
   {
-    v90 = v209;
+    v83 = v190;
   }
 
   else
   {
-    v90 = v208 | 0x8000000000000000;
+    v83 = v189 | 0x8000000000000000;
   }
 
-  if (v209 == v90)
+  if (v190 == v83)
   {
   }
 
   else
   {
-    v92 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v85 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    v201 = 0u;
-    if ((v92 & 1) == 0)
+    v182 = 0u;
+    if ((v85 & 1) == 0)
     {
       goto LABEL_78;
     }
   }
 
-  *v93.i64 = simd_float4x4.transform(position:)(v2[13], v197, v196, v195, v194);
-  v201 = v93;
+  *v86.i64 = simd_float4x4.transform(position:)(*(v2 + 208), v178, v177, v176, v175);
+  v182 = v86;
 LABEL_78:
-  if ((v2[10].i8[0] & 1) == 0)
+  if ((*(v2 + 160) & 1) == 0)
   {
-    v95 = v2[9];
+    v88 = *(v2 + 144);
     goto LABEL_90;
   }
 
-  if (v2[11].i8[0])
+  if (*(v2 + 176))
   {
-    v94 = v209;
+    v87 = v190;
   }
 
   else
   {
-    v94 = v89 | 0x8000000000000000;
+    v87 = v82 | 0x8000000000000000;
   }
 
-  if (v209 == v94)
+  if (v190 == v87)
   {
   }
 
   else
   {
-    v96 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v89 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v96 & 1) == 0)
+    if ((v89 & 1) == 0)
     {
-      v95 = static simd_quatf.identity;
+      v88 = static simd_quatf.identity;
       goto LABEL_90;
     }
   }
 
-  v97 = v2[14];
-  v98 = vnegq_f32(v97);
-  v99 = vtrn2q_s32(v97, vtrn1q_s32(v97, v98));
-  v100 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v97, v98, 8uLL), *v203.f32, 1), vextq_s8(v99, v99, 8uLL), v203.f32[0]);
-  v101 = vrev64q_s32(v97);
-  v101.i32[0] = v98.i32[1];
-  v101.i32[3] = v98.i32[2];
-  v102 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v97, v203, 3), v101, v203, 2), v100);
-  v103 = vmulq_f32(v102, v102);
-  v104 = vadd_f32(*v103.i8, *&vextq_s8(v103, v103, 8uLL));
-  if (vaddv_f32(v104) == 0.0)
+  v90 = *(v2 + 224);
+  v91 = vnegq_f32(v90);
+  v92 = vtrn2q_s32(v90, vtrn1q_s32(v90, v91));
+  v93 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v90, v91, 8uLL), *v184.f32, 1), vextq_s8(v92, v92, 8uLL), v184.f32[0]);
+  v94 = vrev64q_s32(v90);
+  v94.i32[0] = v91.i32[1];
+  v94.i32[3] = v91.i32[2];
+  v95 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v90, v184, 3), v94, v184, 2), v93);
+  v96 = vmulq_f32(v95, v95);
+  v97 = vadd_f32(*v96.i8, *&vextq_s8(v96, v96, 8uLL));
+  if (vaddv_f32(v97) == 0.0)
   {
-    v95 = *&zmmword_1C1887630[48];
+    v88 = *&zmmword_1C1887630[48];
   }
 
   else
   {
-    v105 = vadd_f32(v104, vdup_lane_s32(v104, 1)).u32[0];
-    v106 = vrsqrte_f32(v105);
-    v107 = vmul_f32(v106, vrsqrts_f32(v105, vmul_f32(v106, v106)));
-    v95 = vmulq_n_f32(v102, vmul_f32(v107, vrsqrts_f32(v105, vmul_f32(v107, v107))).f32[0]);
+    v98 = vadd_f32(v97, vdup_lane_s32(v97, 1)).u32[0];
+    v99 = vrsqrte_f32(v98);
+    v100 = vmul_f32(v99, vrsqrts_f32(v98, vmul_f32(v99, v99)));
+    v88 = vmulq_n_f32(v95, vmul_f32(v100, vrsqrts_f32(v98, vmul_f32(v100, v100))).f32[0]);
   }
 
 LABEL_90:
-  v203 = v95;
-  if ((v2[10].i8[8] & 1) == 0)
+  v184 = v88;
+  if ((*(v2 + 168) & 1) == 0)
   {
-    v109 = &v2[10].f32[1];
-    v110 = vld1q_dup_f32(v109);
-    v110.i32[3] = 0;
+    v102 = (v2 + 164);
+    v103 = vld1q_dup_f32(v102);
+    v103.i32[3] = 0;
     goto LABEL_97;
   }
 
-  if (v2[11].i8[0])
+  if (*(v2 + 176))
   {
-    v108 = v209;
+    v101 = v190;
   }
 
   else
   {
-    v108 = v89 | 0x8000000000000000;
+    v101 = v82 | 0x8000000000000000;
   }
 
-  if (v209 != v108)
+  if (v190 != v101)
   {
-    v111 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v104 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v111)
+    if (v104)
     {
       goto LABEL_99;
     }
 
-    v110 = xmmword_1C1887620;
+    v103 = xmmword_1C1887620;
 LABEL_97:
-    v202 = v110;
+    v183 = v103;
     goto LABEL_100;
   }
 
 LABEL_99:
-  v112 = v2[15];
-  *v113.f32 = vmul_f32(*v202.f32, *v112.f32);
-  v113.i64[1] = COERCE_UNSIGNED_INT(vmuls_lane_f32(v202.f32[2], v112, 2));
-  v202 = v113;
+  v105 = *(v2 + 240);
+  *v106.f32 = vmul_f32(*v183.f32, *v105.f32);
+  v106.i64[1] = COERCE_UNSIGNED_INT(vmuls_lane_f32(v183.f32[2], v105, 2));
+  v183 = v106;
 LABEL_100:
-  v114 = static os_log_type_t.debug.getter();
-  if (v59)
+  v107 = static os_log_type_t.debug.getter();
+  if (v53)
   {
-    v115 = v114;
-    v191 = &v188;
-    v235[0].i64[0] = 0;
-    v235[0].i64[1] = 0xE000000000000000;
+    v108 = v107;
+    v172 = &v169;
+    v216[0].i64[0] = 0;
+    v216[0].i64[1] = 0xE000000000000000;
     _StringGuts.grow(_:)(47);
     MEMORY[0x1C68F3410](0x736E61725477656ELL, 0xEF3D6E6F6974616CLL);
-    v221[0] = v201;
+    v202[0] = v182;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR);
-    lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type SIMD3<Float> and conformance SIMD3<A>, &_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR);
-    v116 = SIMD.description.getter();
-    MEMORY[0x1C68F3410](v116);
+    lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type SIMD3<Float> and conformance SIMD3<A>, &_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR, MEMORY[0x1E69E7470]);
+    v109 = SIMD.description.getter();
+    MEMORY[0x1C68F3410](v109);
 
     MEMORY[0x1C68F3410](0xD000000000000010, 0x80000001C18E2EE0);
-    v221[0] = v203;
+    v202[0] = v184;
     type metadata accessor for simd_quatf(0);
     _print_unlocked<A, B>(_:_:)();
     MEMORY[0x1C68F3410](0x6C61635377656E20, 0xEA00000000003D65);
-    v221[0] = v202;
-    v117 = SIMD.description.getter();
-    MEMORY[0x1C68F3410](v117);
+    v202[0] = v183;
+    v110 = SIMD.description.getter();
+    MEMORY[0x1C68F3410](v110);
 
-    v118 = v235[0].u64[1];
-    v190 = v235[0].i64[0];
+    v111 = v216[0].u64[1];
+    v171 = v216[0].i64[0];
     if (one-time initialization token for interactionsLogger != -1)
     {
       swift_once();
     }
 
-    v119 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v119, interactionsLogger);
+    v112 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v112, interactionsLogger);
 
-    v120 = Logger.logObject.getter();
+    v113 = Logger.logObject.getter();
 
-    v121 = os_log_type_enabled(v120, v115);
-    v122 = v210;
-    if (v121)
+    v114 = os_log_type_enabled(v113, v108);
+    v115 = v191;
+    if (v114)
     {
-      v123 = swift_slowAlloc();
-      v189 = v120;
-      v124 = v123;
-      v125 = swift_slowAlloc();
-      v235[0].i64[0] = v125;
-      *v124 = 136315394;
-      *(v124 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v122, v17, v235);
-      *(v124 + 12) = 2080;
-      v126 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v190, v118, v235);
+      v116 = swift_slowAlloc();
+      v170 = v113;
+      v117 = v116;
+      v118 = swift_slowAlloc();
+      v216[0].i64[0] = v118;
+      *v117 = 136315394;
+      *(v117 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v115, v15, v216);
+      *(v117 + 12) = 2080;
+      v119 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v171, v111, v216);
 
-      *(v124 + 14) = v126;
-      v127 = v189;
-      _os_log_impl(&dword_1C1358000, v189, v115, "%s%s", v124, 0x16u);
+      *(v117 + 14) = v119;
+      v120 = v170;
+      _os_log_impl(&dword_1C1358000, v170, v108, "%s%s", v117, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x1C6902A30](v125, -1, -1);
-      MEMORY[0x1C6902A30](v124, -1, -1);
+      MEMORY[0x1C6902A30](v118, -1, -1);
+      MEMORY[0x1C6902A30](v117, -1, -1);
     }
 
     else
     {
     }
 
-    v89 = v208;
+    v82 = v189;
   }
 
   REMakeSRT();
-  v221[0] = v128;
-  v221[1] = v129;
-  v221[2] = v130;
-  if (v2[11].i8[0])
+  v202[0] = v121;
+  v202[1] = v122;
+  v202[2] = v123;
+  if (*(v2 + 176))
   {
-    v131 = v209;
+    v124 = v190;
   }
 
   else
   {
-    v131 = v89 | 0x8000000000000000;
+    v124 = v82 | 0x8000000000000000;
   }
 
-  if (v209 == v131)
+  if (v190 == v124)
   {
   }
 
   else
   {
-    v132 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v125 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v132 & 1) == 0)
+    if ((v125 & 1) == 0)
     {
       REMakeSRT();
       goto LABEL_115;
     }
   }
 
-  v237.columns[1] = v196;
-  v237.columns[0] = v197;
-  v237.columns[3] = v194;
-  v237.columns[2] = v195;
-  __invert_f4(v237);
+  v218.columns[1] = v177;
+  v218.columns[0] = v178;
+  v218.columns[3] = v175;
+  v218.columns[2] = v176;
+  __invert_f4(v218);
   REMakeSRTFromMatrix();
 LABEL_115:
-  v235[0] = v133;
-  v235[1] = v134;
-  v235[2] = v135;
-  specialized static RESRT.* infix(_:_:)(v235, v221, v219);
-  v220[0] = v219[0];
-  v220[1] = v219[1];
-  v220[2] = v219[2];
-  if (v2[10].f32[3] == 0.0)
+  v216[0] = v126;
+  v216[1] = v127;
+  v216[2] = v128;
+  specialized static RESRT.* infix(_:_:)(v216, v202, v200);
+  v201[0] = v200[0];
+  v201[1] = v200[1];
+  v201[2] = v200[2];
+  if (*(v2 + 172) == 0.0)
   {
     RERigidBodyComponentGetComponentType();
     if (REEntityGetComponentByClass())
@@ -683,207 +1100,197 @@ LABEL_115:
   }
 
   REFromToByAnimationDefaultParameters();
-  v136 = v2[10].f32[3];
+  v129 = *(v2 + 172);
   RESRTInverse();
-  v234[0] = v137;
-  v234[1] = v138;
-  v234[2] = v139;
+  v215[0] = v130;
+  v215[1] = v131;
+  v215[2] = v132;
   RESRTIdentity();
-  v218[3] = v140;
-  v218[4] = v141;
-  v218[5] = v142;
-  specialized static RESRT.* infix(_:_:)(v234, v220, v218);
-  LOBYTE(v225[0]) = v2[11].i8[1];
-  LOBYTE(v222) = v2[11].i8[2];
-  specialized static __RKEntityTransformAction.reEaseFunction(from:type:)(v225, &v222, v232);
-  if (v233)
+  v199[3] = v133;
+  v199[4] = v134;
+  v199[5] = v135;
+  specialized static RESRT.* infix(_:_:)(v215, v201, v199);
+  LOBYTE(v206[0]) = *(v2 + 177);
+  LOBYTE(v203) = *(v2 + 178);
+  specialized static __RKEntityTransformAction.reEaseFunction(from:type:)(v206, v213);
+  if (v214)
   {
-    LOBYTE(v229) = 1;
-    *(&v229 + 1) = "Transform.transform";
-    LOBYTE(v230) = 1;
-    *(&v230 + 1) = v136;
+    LOBYTE(v210) = 1;
+    *(&v210 + 1) = "Transform.transform";
+    LOBYTE(v211) = 1;
+    *(&v211 + 1) = v129;
     if (REAssetManagerTimelineAssetCreateSRTAnimation())
     {
 LABEL_123:
-      *&v229 = 5;
-      DWORD2(v229) = 4352;
-      *&v230 = "SRTFROMTO";
-      BYTE8(v230) = 0;
-      v2[16].i64[0] = REAnimationComponentPlay();
-      v2[16].i8[8] = 0;
+      *&v210 = 5;
+      DWORD2(v210) = 4352;
+      *&v211 = "SRTFROMTO";
+      BYTE8(v211) = 0;
+      *(v2 + 256) = REAnimationComponentPlay();
+      *(v2 + 264) = 0;
       RERelease();
-      v143 = *(v19 + 16);
       if ((REEntityGetSelfEnabled() & 1) == 0)
       {
-        MEMORY[0x1C68F9730](*(v19 + 16), 0);
-        v144 = *(v19 + 16);
+        MEMORY[0x1C68F9730](*(v17 + 16), 0);
         RENetworkMarkEntityMetadataDirty();
-        v145 = *(v19 + 16);
         RERenderOptionsComponentGetComponentType();
         REEntityGetOrAddComponentByClass();
         RERenderOptionsComponentSetVisibilityMode();
         RENetworkMarkComponentDirty();
-        MEMORY[0x1C68F9730](*(v19 + 16), 1);
-        v146 = *(v19 + 16);
+        MEMORY[0x1C68F9730](*(v17 + 16), 1);
         RENetworkMarkEntityMetadataDirty();
       }
 
-      v147 = *(v19 + 16);
       RERenderOptionsComponentGetComponentType();
       REEntityGetOrAddComponentByClass();
       VisibilityMode = RERenderOptionsComponentGetVisibilityMode();
-      v28 = 1;
-      v149 = 1;
+      v24 = 1;
+      v137 = 1;
       if (!VisibilityMode)
       {
-        v150 = *(v19 + 16);
-        v149 = REEntityGetSelfEnabled() ^ 1;
+        v137 = REEntityGetSelfEnabled() ^ 1;
       }
 
-      v2[22].i8[0] = v149;
-      v151 = v2[6].i64[0];
-      v152 = v2[6].i8[8];
-      v2[6].i64[0] = 1;
-      v2[6].i8[8] = 1;
-      *&v229 = v151;
-      BYTE8(v229) = v152;
-      __RKEntityAction.state.didset(&v229);
-      v153 = swift_allocObject();
+      *(v2 + 352) = v137;
+      v138 = *(v2 + 96);
+      v139 = *(v2 + 104);
+      *(v2 + 96) = 1;
+      *(v2 + 104) = 1;
+      *&v210 = v138;
+      BYTE8(v210) = v139;
+      __RKEntityAction.state.didset(&v210);
+      v140 = swift_allocObject();
       swift_weakInit();
-      v154 = swift_allocObject();
-      v155 = v214;
-      *(v154 + 16) = v153;
-      *(v154 + 24) = v155;
-      *(v154 + 32) = v211;
-      *(v154 + 36) = v212;
-      *(v154 + 40) = v19;
-      v156 = v2[2].i64[0];
-      v157 = v2[2].i64[1];
-      v2[2].i64[0] = partial apply for specialized closure #1 in __RKEntityTransformAction.perform(with:);
-      v2[2].i64[1] = v154;
+      v141 = swift_allocObject();
+      v142 = v195;
+      *(v141 + 16) = v140;
+      *(v141 + 24) = v142;
+      *(v141 + 32) = v192;
+      *(v141 + 36) = v193;
+      *(v141 + 40) = v17;
+      v143 = *(v2 + 32);
+      v144 = *(v2 + 40);
+      *(v2 + 32) = partial apply for specialized closure #1 in __RKEntityTransformAction.perform(with:);
+      *(v2 + 40) = v141;
 
-      outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v156);
+      outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v143, v144);
 
-      v214 = type metadata accessor for Entity();
-      v228 = &protocol witness table for Entity;
-      v227 = *&v214;
-      v225[0] = v19;
-      v209 = swift_allocObject();
+      v195 = type metadata accessor for Entity();
+      v209 = &protocol witness table for Entity;
+      v208 = *&v195;
+      v206[0] = v17;
+      v190 = swift_allocObject();
       swift_weakInit();
 
-      Scene.eventService.getter(&v229);
-      v158 = *(&v230 + 1);
-      v159 = v231;
-      __swift_project_boxed_opaque_existential_1(&v229, *(&v230 + 1));
+      Scene.eventService.getter(&v210);
+      v145 = *(&v211 + 1);
+      v146 = v212;
+      __swift_project_boxed_opaque_existential_1(&v210, *(&v211 + 1));
       type metadata accessor for REAnimationHasCompletedEvent(0);
-      EventService.publisher<A>(for:on:)(v160, v225, v158, v160, v159);
-      v161 = v222;
-      v211 = v12;
-      v162 = v223;
-      v163 = v224;
-      __swift_destroy_boxed_opaque_existential_1(&v229);
+      EventService.publisher<A>(for:on:)(v147, v206, v145, v147, v146);
+      v148 = v203;
+      v192 = v10;
+      v149 = v204;
+      v150 = v205;
+      __swift_destroy_boxed_opaque_existential_1(&v210);
       *(swift_allocObject() + 16) = 0;
-      *&v229 = v161;
-      *(&v229 + 1) = v162;
-      *&v230 = v163;
+      *&v210 = v148;
+      *(&v210 + 1) = v149;
+      *&v211 = v150;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGMR);
-      v212 = &protocol conformance descriptor for Scene.CorePublisher<A>;
-      lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REAnimationHasCompletedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGMR);
-      v164 = v215;
+      v193 = protocol conformance descriptor for Scene.CorePublisher<A>;
+      lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REAnimationHasCompletedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGMR, protocol conformance descriptor for Scene.CorePublisher<A>);
+      v151 = v196;
       Publisher.compactMap<A>(_:)();
 
-      v165 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So28REAnimationHasCompletedEventVGAH15AnimationEventsO08PlaybackM0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So28REAnimationHasCompletedEventVGAH15AnimationEventsO08PlaybackM0VGGMR);
-      v166 = *(v165 + 48);
-      v167 = *(v165 + 52);
-      v168 = swift_allocObject();
-      (*(v216 + 32))(&v168[*(*v168 + *MEMORY[0x1E695BEE8] + 16)], v164, v217);
-      *&v229 = v168;
-      v169 = swift_allocObject();
-      v170 = v209;
-      *(v169 + 16) = partial apply for closure #2 in __RKEntityTransformAction.perform(with:);
-      *(v169 + 24) = v170;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So28REAnimationHasCompletedEventVGAH15AnimationEventsO08PlaybackM0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So28REAnimationHasCompletedEventVGAH15AnimationEventsO08PlaybackM0VGGMR);
+      v152 = swift_allocObject();
+      (*(v197 + 32))(&v152[*(*v152 + *MEMORY[0x1E695BEE8] + 16)], v151, v198);
+      *&v210 = v152;
+      v153 = swift_allocObject();
+      v154 = v190;
+      *(v153 + 16) = partial apply for closure #2 in __RKEntityTransformAction.perform(with:);
+      *(v153 + 24) = v154;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO17PlaybackCompletedVGMd, &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO17PlaybackCompletedVGMR);
-      v217 = &protocol conformance descriptor for Scene.Publisher<A>;
-      lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type Scene.Publisher<AnimationEvents.PlaybackCompleted> and conformance Scene.Publisher<A>, &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO17PlaybackCompletedVGMd, &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO17PlaybackCompletedVGMR);
-      v171 = Publisher<>.sink(receiveValue:)();
+      v198 = protocol conformance descriptor for Scene.Publisher<A>;
+      lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type Scene.Publisher<AnimationEvents.PlaybackCompleted> and conformance Scene.Publisher<A>, &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO17PlaybackCompletedVGMd, &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO17PlaybackCompletedVGMR, protocol conformance descriptor for Scene.Publisher<A>);
+      v155 = Publisher<>.sink(receiveValue:)();
 
-      v216 = type metadata accessor for AnyCancellable();
-      *(&v230 + 1) = v216;
-      v231 = MEMORY[0x1E695BF08];
+      v197 = type metadata accessor for AnyCancellable();
+      *(&v211 + 1) = v197;
+      v212 = MEMORY[0x1E695BF08];
 
-      *&v229 = v171;
-      outlined destroy of BodyTrackingComponent?(v225, &_s10RealityKit11EventSource_pSgMd, &_s10RealityKit11EventSource_pSgMR);
+      *&v210 = v155;
+      outlined destroy of BodyTrackingComponent?(v206, &_s10RealityKit11EventSource_pSgMd, &_s10RealityKit11EventSource_pSgMR);
       swift_beginAccess();
-      outlined assign with take of Cancellable?(&v229, &v2[17]);
+      outlined assign with take of Cancellable?(&v210, v2 + 272);
       swift_endAccess();
-      v228 = &protocol witness table for Entity;
-      v227 = *&v214;
-      v225[0] = v19;
-      v215 = swift_allocObject();
+      v209 = &protocol witness table for Entity;
+      v208 = *&v195;
+      v206[0] = v17;
+      v196 = swift_allocObject();
       swift_weakInit();
 
-      Scene.eventService.getter(&v229);
-      v172 = *(&v230 + 1);
-      v173 = v231;
-      __swift_project_boxed_opaque_existential_1(&v229, *(&v230 + 1));
+      Scene.eventService.getter(&v210);
+      v156 = *(&v211 + 1);
+      v157 = v212;
+      __swift_project_boxed_opaque_existential_1(&v210, *(&v211 + 1));
       type metadata accessor for REAnimationHasTerminatedEvent(0);
-      EventService.publisher<A>(for:on:)(v174, v225, v172, v174, v173);
-      v175 = v222;
-      v176 = v223;
-      v177 = v224;
-      __swift_destroy_boxed_opaque_existential_1(&v229);
+      EventService.publisher<A>(for:on:)(v158, v206, v156, v158, v157);
+      v159 = v203;
+      v160 = v204;
+      v161 = v205;
+      __swift_destroy_boxed_opaque_existential_1(&v210);
       *(swift_allocObject() + 16) = 0;
-      *&v229 = v175;
-      *(&v229 + 1) = v176;
-      *&v230 = v177;
+      *&v210 = v159;
+      *(&v210 + 1) = v160;
+      *&v211 = v161;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGMR);
-      lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REAnimationHasTerminatedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGMR);
-      v178 = v213;
+      lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REAnimationHasTerminatedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGMR, v193);
+      v162 = v194;
       Publisher.compactMap<A>(_:)();
 
-      v179 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So29REAnimationHasTerminatedEventVGAH15AnimationEventsO08PlaybackM0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So29REAnimationHasTerminatedEventVGAH15AnimationEventsO08PlaybackM0VGGMR);
-      v180 = *(v179 + 48);
-      v181 = *(v179 + 52);
-      v182 = swift_allocObject();
-      (*(v200 + 32))(&v182[*(*v182 + *MEMORY[0x1E695BEE8] + 16)], v178, v193);
-      *&v229 = v182;
-      v183 = swift_allocObject();
-      v184 = v215;
-      *(v183 + 16) = partial apply for closure #3 in __RKEntityTransformAction.perform(with:);
-      *(v183 + 24) = v184;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So29REAnimationHasTerminatedEventVGAH15AnimationEventsO08PlaybackM0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So29REAnimationHasTerminatedEventVGAH15AnimationEventsO08PlaybackM0VGGMR);
+      v163 = swift_allocObject();
+      (*(v181 + 32))(&v163[*(*v163 + *MEMORY[0x1E695BEE8] + 16)], v162, v174);
+      *&v210 = v163;
+      v164 = swift_allocObject();
+      v165 = v196;
+      *(v164 + 16) = partial apply for closure #3 in __RKEntityTransformAction.perform(with:);
+      *(v164 + 24) = v165;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO18PlaybackTerminatedVGMd, &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO18PlaybackTerminatedVGMR);
-      lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type Scene.Publisher<AnimationEvents.PlaybackTerminated> and conformance Scene.Publisher<A>, &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO18PlaybackTerminatedVGMd, &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO18PlaybackTerminatedVGMR);
-      v185 = Publisher<>.sink(receiveValue:)();
+      lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type Scene.Publisher<AnimationEvents.PlaybackTerminated> and conformance Scene.Publisher<A>, &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO18PlaybackTerminatedVGMd, &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO18PlaybackTerminatedVGMR, v198);
+      v166 = Publisher<>.sink(receiveValue:)();
 
-      *(&v230 + 1) = v216;
-      v231 = MEMORY[0x1E695BF08];
+      *(&v211 + 1) = v197;
+      v212 = MEMORY[0x1E695BF08];
 
-      *&v229 = v185;
-      outlined destroy of BodyTrackingComponent?(v225, &_s10RealityKit11EventSource_pSgMd, &_s10RealityKit11EventSource_pSgMR);
+      *&v210 = v166;
+      outlined destroy of BodyTrackingComponent?(v206, &_s10RealityKit11EventSource_pSgMd, &_s10RealityKit11EventSource_pSgMR);
       swift_beginAccess();
-      outlined assign with take of Cancellable?(&v229, &v2[19].i64[1]);
+      outlined assign with take of Cancellable?(&v210, v2 + 312);
       swift_endAccess();
-      *&v229 = v210;
-      *(&v229 + 1) = v17;
-      v186 = static os_log_type_t.info.getter();
-      specialized InteractionsLogger.log(_:_:)(v186, &v229);
+      *&v210 = v191;
+      *(&v210 + 1) = v15;
+      v167 = static os_log_type_t.info.getter();
+      specialized InteractionsLogger.log(_:_:)(v167, &v210);
 
-      goto LABEL_38;
+      return v24;
     }
 
     __break(1u);
   }
 
-  v229 = v232[0];
-  v230 = v232[1];
-  LOBYTE(v225[0]) = 1;
-  v225[1] = "Transform.transform";
-  v226 = 1;
-  v227 = v136;
+  v210 = v213[0];
+  v211 = v213[1];
+  LOBYTE(v206[0]) = 1;
+  v206[1] = "Transform.transform";
+  v207 = 1;
+  v208 = v129;
   result = REAssetManagerTimelineAssetCreateSRTAnimation();
   if (result)
   {
@@ -898,20 +1305,17 @@ uint64_t implicit closure #15 in __RKEntityTransformAction.perform(with:)(_OWORD
 {
   _StringGuts.grow(_:)(62);
   MEMORY[0x1C68F3410](0xD000000000000014, 0x80000001C18E3060);
-  v5 = a1[13];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR);
-  lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type SIMD3<Float> and conformance SIMD3<A>, &_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR);
-  v2 = SIMD.description.getter();
-  MEMORY[0x1C68F3410](v2);
+  lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type SIMD3<Float> and conformance SIMD3<A>, &_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR, MEMORY[0x1E69E7470]);
+  v1 = SIMD.description.getter();
+  MEMORY[0x1C68F3410](v1);
 
   MEMORY[0x1C68F3410](0xD000000000000015, 0x80000001C18E3080);
-  v6 = a1[14];
   type metadata accessor for simd_quatf(0);
   _print_unlocked<A, B>(_:_:)();
   MEMORY[0x1C68F3410](0x616E696769726F20, 0xEF3D656C6163536CLL);
-  v7 = a1[15];
-  v3 = SIMD.description.getter();
-  MEMORY[0x1C68F3410](v3);
+  v2 = SIMD.description.getter();
+  MEMORY[0x1C68F3410](v2);
 
   return 0;
 }
@@ -924,55 +1328,52 @@ uint64_t specialized closure #1 in __RKEntityTransformAction.perform(with:)(uint
   {
     v7 = result;
     swift_beginAccess();
-    outlined init with copy of Cancellable?(v7 + 272, &v17);
-    if (*(&v18 + 1))
+    outlined init with copy of Cancellable?(v7 + 272, &v10);
+    if (*(&v11 + 1))
     {
-      outlined init with copy of __REAssetService(&v17, v15);
-      outlined destroy of BodyTrackingComponent?(&v17, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
-      __swift_project_boxed_opaque_existential_1(v15, v16);
+      outlined init with copy of __REAssetService(&v10, v8);
+      outlined destroy of BodyTrackingComponent?(&v10, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
+      __swift_project_boxed_opaque_existential_1(v8, v9);
       dispatch thunk of Cancellable.cancel()();
-      __swift_destroy_boxed_opaque_existential_1(v15);
+      __swift_destroy_boxed_opaque_existential_1(v8);
     }
 
     else
     {
-      outlined destroy of BodyTrackingComponent?(&v17, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
+      outlined destroy of BodyTrackingComponent?(&v10, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
     }
 
-    v19 = 0;
-    v17 = 0u;
-    v18 = 0u;
+    v12 = 0;
+    v10 = 0u;
+    v11 = 0u;
     swift_beginAccess();
-    outlined assign with take of Cancellable?(&v17, v7 + 272);
+    outlined assign with take of Cancellable?(&v10, v7 + 272);
     swift_endAccess();
     swift_beginAccess();
-    outlined init with copy of Cancellable?(v7 + 312, &v17);
-    if (*(&v18 + 1))
+    outlined init with copy of Cancellable?(v7 + 312, &v10);
+    if (*(&v11 + 1))
     {
-      outlined init with copy of __REAssetService(&v17, v15);
-      outlined destroy of BodyTrackingComponent?(&v17, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
-      __swift_project_boxed_opaque_existential_1(v15, v16);
+      outlined init with copy of __REAssetService(&v10, v8);
+      outlined destroy of BodyTrackingComponent?(&v10, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
+      __swift_project_boxed_opaque_existential_1(v8, v9);
       dispatch thunk of Cancellable.cancel()();
-      __swift_destroy_boxed_opaque_existential_1(v15);
+      __swift_destroy_boxed_opaque_existential_1(v8);
     }
 
     else
     {
-      outlined destroy of BodyTrackingComponent?(&v17, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
+      outlined destroy of BodyTrackingComponent?(&v10, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
     }
 
-    v19 = 0;
-    v17 = 0u;
-    v18 = 0u;
+    v12 = 0;
+    v10 = 0u;
+    v11 = 0u;
     swift_beginAccess();
-    outlined assign with take of Cancellable?(&v17, v7 + 312);
+    outlined assign with take of Cancellable?(&v10, v7 + 312);
     swift_endAccess();
     swift_beginAccess();
-    v8 = *(v7 + 16);
-    if (v8)
+    if (*(v7 + 16))
     {
-      v9 = *(v8 + 16);
-      v10 = *(v7 + 16);
 
       REAnimationComponentGetComponentType();
       if (REEntityGetComponentByClass())
@@ -1000,16 +1401,13 @@ uint64_t specialized closure #1 in __RKEntityTransformAction.perform(with:)(uint
 
     if (*(v7 + 352) == 1)
     {
-      v11 = *(a4 + 16);
       RERenderOptionsComponentGetComponentType();
       REEntityGetOrAddComponentByClass();
-      if (RERenderOptionsComponentGetVisibilityMode() || (v12 = *(a4 + 16), (REEntityGetSelfEnabled() & 1) == 0))
+      if (RERenderOptionsComponentGetVisibilityMode() || (REEntityGetSelfEnabled() & 1) == 0)
       {
-        v13 = *(a4 + 16);
         if (REEntityGetSelfEnabled())
         {
           MEMORY[0x1C68F9730](*(a4 + 16), 0);
-          v14 = *(a4 + 16);
           RENetworkMarkEntityMetadataDirty();
         }
       }
@@ -1019,29 +1417,29 @@ uint64_t specialized closure #1 in __RKEntityTransformAction.perform(with:)(uint
   return result;
 }
 
-uint64_t closure #2 in __RKEntityTransformAction.perform(with:)(uint64_t *a1)
+uint64_t closure #2 in __RKEntityTransformAction.perform(with:)(uint64_t *a1, uint64_t a2)
 {
-  v1 = *a1;
+  v2 = *a1;
   swift_beginAccess();
   result = swift_weakLoadStrong();
   if (result)
   {
-    v3 = result;
-    if ((*(result + 264) & 1) != 0 || *(v1 + 16) != *(result + 256))
+    v4 = result;
+    if ((*(result + 264) & 1) != 0 || *(v2 + 16) != *(result + 256))
     {
     }
 
     else
     {
       swift_beginAccess();
-      v4 = *(v3 + 96);
-      v5 = *(v3 + 104);
-      *(v3 + 96) = 2;
-      *(v3 + 104) = 1;
-      v6 = v4;
+      v5 = *(v4 + 96);
+      v6 = *(v4 + 104);
+      *(v4 + 96) = 2;
+      *(v4 + 104) = 1;
       v7 = v5;
+      v8 = v6;
 
-      __RKEntityAction.state.didset(&v6);
+      __RKEntityAction.state.didset(&v7);
     }
   }
 
@@ -1051,99 +1449,97 @@ uint64_t closure #2 in __RKEntityTransformAction.perform(with:)(uint64_t *a1)
 uint64_t __RKEntityTransformAction.reversed()()
 {
   swift_beginAccess();
-  v1 = *(v0 + 16);
-  v3 = *(v0 + 208);
-  v2 = *(v0 + 216);
-  v5 = *(v0 + 224);
-  v4 = *(v0 + 232);
-  v6 = *(v0 + 240);
-  v7 = *(v0 + 172);
+  v2 = *(v0 + 208);
+  v1 = *(v0 + 216);
+  v4 = *(v0 + 224);
+  v3 = *(v0 + 232);
+  v5 = *(v0 + 240);
+  v6 = *(v0 + 172);
   swift_beginAccess();
-  v8 = *(v0 + 192);
+  v7 = *(v0 + 192);
   type metadata accessor for __RKEntityTransformAction();
-  v9 = swift_allocObject();
-  *(v9 + 192) = 0;
-  *(v9 + 208) = 0u;
-  *(v9 + 224) = 0u;
-  *(v9 + 240) = xmmword_1C1887620;
-  *(v9 + 256) = 0;
-  *(v9 + 264) = 1;
-  *(v9 + 272) = 0u;
-  *(v9 + 288) = 0u;
-  *(v9 + 304) = 0u;
-  *(v9 + 320) = 0u;
-  *(v9 + 336) = 0u;
-  *(v9 + 352) = 0;
-  *(v9 + 112) = v3;
-  *(v9 + 120) = v2;
-  *(v9 + 128) = 0;
-  *(v9 + 144) = v5;
-  *(v9 + 152) = v4;
-  *(v9 + 160) = 0;
-  *(v9 + 164) = v6;
-  *(v9 + 168) = 0;
-  *(v9 + 172) = v7;
-  *(v9 + 176) = 1;
-  *(v9 + 184) = 0;
-  *(v9 + 177) = 0;
+  v8 = swift_allocObject();
+  *(v8 + 192) = 0;
+  *(v8 + 208) = 0u;
+  *(v8 + 224) = 0u;
+  *(v8 + 240) = xmmword_1C1887620;
+  *(v8 + 256) = 0;
+  *(v8 + 264) = 1;
+  *(v8 + 272) = 0u;
+  *(v8 + 288) = 0u;
+  *(v8 + 304) = 0u;
+  *(v8 + 320) = 0u;
+  *(v8 + 336) = 0u;
+  *(v8 + 352) = 0;
+  *(v8 + 112) = v2;
+  *(v8 + 120) = v1;
+  *(v8 + 128) = 0;
+  *(v8 + 144) = v4;
+  *(v8 + 152) = v3;
+  *(v8 + 160) = 0;
+  *(v8 + 164) = v5;
+  *(v8 + 168) = 0;
+  *(v8 + 172) = v6;
+  *(v8 + 176) = 1;
+  *(v8 + 184) = 0;
+  *(v8 + 177) = 0;
   swift_beginAccess();
-  *(v9 + 192) = v8;
+  *(v8 + 192) = v7;
 
-  return __RKEntityAction.init(targetEntity:)(v10);
+  return __RKEntityAction.init(targetEntity:)(v9);
 }
 
 uint64_t __RKEntityTransformAction.copy(with:)@<X0>(uint64_t *a1@<X8>)
 {
   swift_beginAccess();
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 112);
-  v4 = *(v1 + 120);
-  v5 = *(v1 + 128);
-  v7 = *(v1 + 144);
-  v6 = *(v1 + 152);
-  v19 = *(v1 + 164);
-  v20 = *(v1 + 160);
-  v8 = *(v1 + 172);
-  v17 = *(v1 + 176);
-  v18 = *(v1 + 168);
-  v16 = *(v1 + 177);
-  v21 = *(v1 + 179);
-  v9 = *(v1 + 180);
+  v2 = *(v1 + 112);
+  v3 = *(v1 + 120);
+  v4 = *(v1 + 128);
+  v6 = *(v1 + 144);
+  v5 = *(v1 + 152);
+  v18 = *(v1 + 164);
+  v19 = *(v1 + 160);
+  v7 = *(v1 + 172);
+  v16 = *(v1 + 176);
+  v17 = *(v1 + 168);
+  v15 = *(v1 + 177);
+  v20 = *(v1 + 179);
+  v8 = *(v1 + 180);
   swift_beginAccess();
-  v10 = *(v1 + 192);
-  v11 = type metadata accessor for __RKEntityTransformAction();
-  v12 = swift_allocObject();
-  *(v12 + 192) = 0;
-  v13 = (v12 + 192);
-  *(v12 + 208) = 0u;
-  *(v12 + 224) = 0u;
-  *(v12 + 240) = xmmword_1C1887620;
-  *(v12 + 256) = 0;
-  *(v12 + 264) = 1;
-  *(v12 + 272) = 0u;
-  *(v12 + 288) = 0u;
-  *(v12 + 304) = 0u;
-  *(v12 + 320) = 0u;
-  *(v12 + 336) = 0u;
-  *(v12 + 352) = 0;
-  *(v12 + 112) = v3;
-  *(v12 + 120) = v4;
-  *(v12 + 128) = v5;
-  *(v12 + 144) = v7;
-  *(v12 + 152) = v6;
-  *(v12 + 160) = v20;
-  *(v12 + 164) = v19;
-  *(v12 + 168) = v18;
-  *(v12 + 172) = v8;
-  *(v12 + 176) = v17;
-  *(v12 + 177) = v16;
-  *(v12 + 180) = v9;
-  *(v12 + 179) = v21;
+  v9 = *(v1 + 192);
+  v10 = type metadata accessor for __RKEntityTransformAction();
+  v11 = swift_allocObject();
+  *(v11 + 192) = 0;
+  v12 = (v11 + 192);
+  *(v11 + 208) = 0u;
+  *(v11 + 224) = 0u;
+  *(v11 + 240) = xmmword_1C1887620;
+  *(v11 + 256) = 0;
+  *(v11 + 264) = 1;
+  *(v11 + 272) = 0u;
+  *(v11 + 288) = 0u;
+  *(v11 + 304) = 0u;
+  *(v11 + 320) = 0u;
+  *(v11 + 336) = 0u;
+  *(v11 + 352) = 0;
+  *(v11 + 112) = v2;
+  *(v11 + 120) = v3;
+  *(v11 + 128) = v4;
+  *(v11 + 144) = v6;
+  *(v11 + 152) = v5;
+  *(v11 + 160) = v19;
+  *(v11 + 164) = v18;
+  *(v11 + 168) = v17;
+  *(v11 + 172) = v7;
+  *(v11 + 176) = v16;
+  *(v11 + 177) = v15;
+  *(v11 + 180) = v8;
+  *(v11 + 179) = v20;
   swift_beginAccess();
-  *v13 = v10;
+  *v12 = v9;
 
-  result = __RKEntityAction.init(targetEntity:)(v14);
-  a1[3] = v11;
+  result = __RKEntityAction.init(targetEntity:)(v13);
+  a1[3] = v10;
   *a1 = result;
   return result;
 }
@@ -1220,7 +1616,6 @@ uint64_t __RKEntityTransformAction.clone(matching:newEntity:)(uint64_t a1)
 
 uint64_t __RKEntityTransformAction.__ivar_destroyer()
 {
-  v1 = *(v0 + 192);
 
   outlined destroy of BodyTrackingComponent?(v0 + 272, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
   return outlined destroy of BodyTrackingComponent?(v0 + 312, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
@@ -1231,17 +1626,11 @@ uint64_t __RKEntityTransformAction.deinit()
   swift_beginAccess();
   *(v0 + 96) = 2;
   *(v0 + 104) = 1;
-  v1 = *(v0 + 16);
 
-  v2 = *(v0 + 40);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(*(v0 + 32));
-  v3 = *(v0 + 56);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(*(v0 + 48));
-  v4 = *(v0 + 64);
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(*(v0 + 32), *(v0 + 40));
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(*(v0 + 48), *(v0 + 56));
 
-  v5 = *(v0 + 80);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(*(v0 + 72));
-  v6 = *(v0 + 192);
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(*(v0 + 72), *(v0 + 80));
 
   outlined destroy of BodyTrackingComponent?(v0 + 272, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
   outlined destroy of BodyTrackingComponent?(v0 + 312, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
@@ -1253,17 +1642,11 @@ uint64_t __RKEntityTransformAction.__deallocating_deinit()
   swift_beginAccess();
   *(v0 + 96) = 2;
   *(v0 + 104) = 1;
-  v1 = *(v0 + 16);
 
-  v2 = *(v0 + 40);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(*(v0 + 32));
-  v3 = *(v0 + 56);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(*(v0 + 48));
-  v4 = *(v0 + 64);
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(*(v0 + 32), *(v0 + 40));
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(*(v0 + 48), *(v0 + 56));
 
-  v5 = *(v0 + 80);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(*(v0 + 72));
-  v6 = *(v0 + 192);
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(*(v0 + 72), *(v0 + 80));
 
   outlined destroy of BodyTrackingComponent?(v0 + 272, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
   outlined destroy of BodyTrackingComponent?(v0 + 312, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
@@ -1281,13 +1664,10 @@ double _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4
       return result;
     }
 
-    v5 = *(a1 + 16);
+    v4 = *(a1 + 16);
 
-    v6 = MEMORY[0x1C69004D0](v5);
-    v7 = *(a1 + 16);
-    if (v6)
+    if (MEMORY[0x1C69004D0](v4))
     {
-      v8 = *(a1 + 16);
       RETransformServiceGetWorldMatrix4x4F();
     }
 
@@ -1296,21 +1676,18 @@ double _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4
       RETransformComponentGetComponentType();
       if (!REEntityGetComponentByClass())
       {
-        v24 = specialized HasHierarchy.parent.getter();
-        if (!v24)
+        v17 = specialized HasHierarchy.parent.getter();
+        if (!v17)
         {
 
-          v30 = *zmmword_1C1887630;
+          v23 = *zmmword_1C1887630;
           if (a2)
           {
 LABEL_12:
-            v10 = *(a2 + 16);
+            v6 = *(a2 + 16);
 
-            v11 = MEMORY[0x1C69004D0](v10);
-            v12 = *(a2 + 16);
-            if (v11)
+            if (MEMORY[0x1C69004D0](v6))
             {
-              v13 = *(a2 + 16);
               RETransformServiceGetWorldMatrix4x4F();
             }
 
@@ -1319,49 +1696,49 @@ LABEL_12:
               RETransformComponentGetComponentType();
               if (!REEntityGetComponentByClass())
               {
-                v19 = specialized HasHierarchy.parent.getter();
-                if (!v19)
+                v12 = specialized HasHierarchy.parent.getter();
+                if (!v12)
                 {
 
-                  v18 = *zmmword_1C1887630;
+                  v11 = *zmmword_1C1887630;
                   goto LABEL_25;
                 }
 
-                *v20.i64 = _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4x4aqd__Sg_qd_0_SgtAA6EntityCRbd__ALRbd_0_r0_lFZAL_A2LTt1g5(v19, 0);
-                v28 = v21;
-                v29 = v20;
-                v26 = v23;
-                v27 = v22;
+                *v13.i64 = _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4x4aqd__Sg_qd_0_SgtAA6EntityCRbd__ALRbd_0_r0_lFZAL_A2LTt1g5(v12, 0);
+                v21 = v14;
+                v22 = v13;
+                v19 = v16;
+                v20 = v15;
 
 LABEL_17:
 
-                v18.columns[1] = v28;
-                v18.columns[0] = v29;
-                v18.columns[3] = v26;
-                v18.columns[2] = v27;
+                v11.columns[1] = v21;
+                v11.columns[0] = v22;
+                v11.columns[3] = v19;
+                v11.columns[2] = v20;
 LABEL_25:
-                v31 = __invert_f4(v18);
-                *&result = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v31.columns[0], v30.f32[0]), v31.columns[1], *v30.f32, 1), v31.columns[2], v30, 2), v31.columns[3], v30, 3).u64[0];
+                v24 = __invert_f4(v11);
+                *&result = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v24.columns[0], v23.f32[0]), v24.columns[1], *v23.f32, 1), v24.columns[2], v23, 2), v24.columns[3], v23, 3).u64[0];
                 return result;
               }
 
               RETransformComponentGetWorldMatrix4x4F();
             }
 
-            v28 = v15;
-            v29 = v14;
-            v26 = v17;
-            v27 = v16;
+            v21 = v8;
+            v22 = v7;
+            v19 = v10;
+            v20 = v9;
             goto LABEL_17;
           }
 
 LABEL_24:
-          v18 = *zmmword_1C1887630;
+          v11 = *zmmword_1C1887630;
           goto LABEL_25;
         }
 
-        *v25.i64 = _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4x4aqd__Sg_qd_0_SgtAA6EntityCRbd__ALRbd_0_r0_lFZAL_A2LTt1g5(v24, 0);
-        v30 = v25;
+        *v18.i64 = _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4x4aqd__Sg_qd_0_SgtAA6EntityCRbd__ALRbd_0_r0_lFZAL_A2LTt1g5(v17, 0);
+        v23 = v18;
 
 LABEL_11:
 
@@ -1376,12 +1753,12 @@ LABEL_11:
       RETransformComponentGetWorldMatrix4x4F();
     }
 
-    v30 = v9;
+    v23 = v5;
     goto LABEL_11;
   }
 
   *&result = 1065353216;
-  v30 = *zmmword_1C1887630;
+  v23 = *zmmword_1C1887630;
   if (a2)
   {
     goto LABEL_12;
@@ -1390,11 +1767,9 @@ LABEL_11:
   return result;
 }
 
-_BYTE *specialized static __RKEntityTransformAction.reEaseFunction(from:type:)@<X0>(_BYTE *result@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X8>)
+_BYTE *specialized static __RKEntityTransformAction.reEaseFunction(from:type:)@<X0>(_BYTE *result@<X0>, uint64_t a3@<X8>)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v4 = *result;
-  v5 = *a2;
   if (v4 > 4)
   {
     if (*result <= 6u)
@@ -1453,20 +1828,19 @@ _BYTE *specialized static __RKEntityTransformAction.reEaseFunction(from:type:)@<
     RECreateBackEase();
 LABEL_20:
     result = REEasingFunctionSetMode();
-    v7 = 0;
-    v6 = v10;
-    v8 = v11;
+    v6 = 0;
+    v5 = v8;
+    v7 = v9;
     goto LABEL_21;
   }
 
-  v6 = 0uLL;
-  v7 = 1;
-  v8 = 0uLL;
+  v5 = 0uLL;
+  v6 = 1;
+  v7 = 0uLL;
 LABEL_21:
-  *a3 = v6;
-  *(a3 + 16) = v8;
-  *(a3 + 32) = v7;
-  v9 = *MEMORY[0x1E69E9840];
+  *a3 = v5;
+  *(a3 + 16) = v7;
+  *(a3 + 32) = v6;
   return result;
 }
 
@@ -1533,30 +1907,20 @@ uint64_t static AudioFileGroupResource.load(named:from:in:)(uint64_t a1, uint64_
   return v10;
 }
 
-uint64_t AudioFileGroupResource.addToLoadRequest(_:)(uint64_t a1)
-{
-  v2 = *(v1 + 16);
-  v3 = *(a1 + 16);
-  return REAssetLoadRequestAddAsset();
-}
-
 void *AnimationGroup.group.getter()
 {
   v1 = *v0;
   if (*v0)
   {
-    v2 = *v0;
 
     return v1;
   }
 
-  v4 = *(v0 + 208);
-  if (!*(v4 + 16))
+  if (!*(*(v0 + 208) + 16))
   {
     return MEMORY[0x1E69E7CC0];
   }
 
-  v5 = *(v4 + 16);
   ChildrenTimelineCount = RETimelineDefinitionGetChildrenTimelineCount();
   result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, ChildrenTimelineCount & ~(ChildrenTimelineCount >> 63), 0, MEMORY[0x1E69E7CC0]);
   if ((ChildrenTimelineCount & 0x8000000000000000) == 0)
@@ -1569,53 +1933,52 @@ void *AnimationGroup.group.getter()
         if (RETimelineDefinitionCreateChildTimelineRef())
         {
           RERetain();
-          v8 = specialized static __ServiceLocator.shared.getter();
+          v5 = specialized static __ServiceLocator.shared.getter();
           swift_beginAccess();
-          outlined init with copy of __REAssetService(v8 + 120, v30);
-          v9 = v31;
-          v10 = v32;
-          __swift_project_boxed_opaque_existential_1(v30, v31);
-          (*(v10 + 32))(v9, v10);
-          __swift_destroy_boxed_opaque_existential_1(v30);
+          outlined init with copy of __REAssetService(v5 + 120, v27);
+          v6 = v28;
+          v7 = v29;
+          __swift_project_boxed_opaque_existential_1(v27, v28);
+          (*(v7 + 32))(v6, v7);
+          __swift_destroy_boxed_opaque_existential_1(v27);
           TimelineAsset = RETimelineDefinitionCreateTimelineAsset();
           if (TimelineAsset)
           {
-            v12 = TimelineAsset;
+            v9 = TimelineAsset;
             RETimelineDefinitionGetName();
-            v13 = String.init(cString:)();
-            v15 = v14;
+            v10 = String.init(cString:)();
+            v12 = v11;
             type metadata accessor for AnimationResource();
-            v16 = swift_allocObject();
-            v16[2] = v12;
-            v16[3] = v13;
-            v16[4] = v15;
+            v13 = swift_allocObject();
+            v13[2] = v9;
+            v13[3] = v10;
+            v13[4] = v12;
             RERetain();
             REAssetSetSwiftObject();
             RERelease();
             RERelease();
-            AnimationResource.definition.getter(&v27);
+            AnimationResource.definition.getter(&v24);
 
-            outlined init with take of ForceEffectBase(&v27, v30);
-            outlined init with copy of __REAssetService(v30, &v27);
-            v33 = v1;
-            v18 = v1[2];
-            v17 = v1[3];
-            if (v18 >= v17 >> 1)
+            outlined init with take of ForceEffectBase(&v24, v27);
+            outlined init with copy of __REAssetService(v27, &v24);
+            v30 = v1;
+            v15 = v1[2];
+            v14 = v1[3];
+            if (v15 >= v14 >> 1)
             {
-              v1 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v17 > 1), v18 + 1, 1, v1);
-              v33 = v1;
+              v1 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v14 > 1), v15 + 1, 1, v1);
+              v30 = v1;
             }
 
-            __swift_destroy_boxed_opaque_existential_1(v30);
-            v19 = v28;
-            v20 = v29;
-            v21 = __swift_mutable_project_boxed_opaque_existential_1(&v27, v28);
-            v22 = *(*(v19 - 8) + 64);
-            MEMORY[0x1EEE9AC00](v21);
-            v24 = &v26[-((v23 + 15) & 0xFFFFFFFFFFFFFFF0)];
-            (*(v25 + 16))(v24);
-            specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(v18, v24, &v33, v19, v20);
-            __swift_destroy_boxed_opaque_existential_1(&v27);
+            __swift_destroy_boxed_opaque_existential_1(v27);
+            v16 = v25;
+            v17 = v26;
+            v18 = __swift_mutable_project_boxed_opaque_existential_1(&v24, v25);
+            v19 = MEMORY[0x1EEE9AC00](v18);
+            v21 = &v23[-((v20 + 15) & 0xFFFFFFFFFFFFFFF0)];
+            (*(v22 + 16))(v21, v19);
+            specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(v15, v21, &v30, v16, v17);
+            __swift_destroy_boxed_opaque_existential_1(&v24);
           }
 
           else
@@ -1635,56 +1998,30 @@ void *AnimationGroup.group.getter()
   return result;
 }
 
-uint64_t AnimationGroup.group.setter(uint64_t a1)
-{
-  v3 = *v1;
-
-  *v1 = a1;
-  return result;
-}
-
-uint64_t (*AnimationGroup.group.modify(void *a1))(uint64_t *a1, char a2)
+void (*AnimationGroup.group.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   v2 = *v1;
   a1[1] = v1;
   a1[2] = v2;
-  v13 = *(v1 + 19);
-  v14 = *(v1 + 21);
-  v15 = *(v1 + 23);
-  v16 = *(v1 + 25);
-  v9 = *(v1 + 11);
-  v10 = *(v1 + 13);
-  v11 = *(v1 + 15);
-  v12 = *(v1 + 17);
-  v5 = *(v1 + 3);
-  v6 = *(v1 + 5);
-  v7 = *(v1 + 7);
-  v8 = *(v1 + 9);
-  v4 = *(v1 + 1);
   *a1 = AnimationGroup.group.getter();
   return AnimationGroup.group.modify;
 }
 
-uint64_t AnimationGroup.group.modify(uint64_t *a1, char a2)
+void AnimationGroup.group.modify(uint64_t *a1, char a2)
 {
-  v3 = a1[1];
-  v2 = a1[2];
-  v4 = *a1;
+  v2 = a1[1];
+  v3 = *a1;
   if (a2)
   {
-    v5 = *a1;
 
-    *v3 = v4;
+    *v2 = v3;
   }
 
   else
   {
-    v7 = a1[2];
 
-    *v3 = v4;
+    *v2 = v3;
   }
-
-  return result;
 }
 
 uint64_t AnimationGroup.name.getter()
@@ -1692,12 +2029,10 @@ uint64_t AnimationGroup.name.getter()
   if (v0[21])
   {
     v1 = v0[20];
-    v2 = v0[21];
   }
 
   else if (*(v0[26] + 16))
   {
-    v3 = v0[21];
     RETimelineDefinitionGetName();
     v1 = String.init(cString:)();
   }
@@ -1733,16 +2068,14 @@ uint64_t key path getter for AnimationGroup.name : AnimationGroup@<X0>(void *a1@
   }
 }
 
-uint64_t AnimationGroup.name.setter(uint64_t a1, uint64_t a2)
+void AnimationGroup.name.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 168);
 
   *(v2 + 160) = a1;
   *(v2 + 168) = a2;
-  return result;
 }
 
-uint64_t (*AnimationGroup.name.modify(uint64_t *a1))(uint64_t *a1, char a2)
+void (*AnimationGroup.name.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   v3 = v1[21];
   a1[2] = v1;
@@ -1774,29 +2107,24 @@ uint64_t (*AnimationGroup.name.modify(uint64_t *a1))(uint64_t *a1, char a2)
   return AnimationGroup.name.modify;
 }
 
-uint64_t AnimationGroup.name.modify(uint64_t *a1, char a2)
+void AnimationGroup.name.modify(uint64_t *a1, char a2)
 {
   v3 = *a1;
   v2 = a1[1];
-  v5 = a1[2];
-  v4 = a1[3];
+  v4 = a1[2];
   if (a2)
   {
-    v6 = a1[1];
 
-    *(v5 + 160) = v3;
-    *(v5 + 168) = v2;
+    *(v4 + 160) = v3;
+    *(v4 + 168) = v2;
   }
 
   else
   {
-    v8 = a1[3];
 
-    *(v5 + 160) = v3;
-    *(v5 + 168) = v2;
+    *(v4 + 160) = v3;
+    *(v4 + 168) = v2;
   }
-
-  return result;
 }
 
 uint64_t AnimationGroup.blendLayer.getter()
@@ -1831,7 +2159,6 @@ uint64_t *(*AnimationGroup.blendLayer.modify(uint64_t a1))(uint64_t *result)
     if (v2)
     {
       v3 = a1;
-      v4 = *(*(v1 + 208) + 16);
       LODWORD(v2) = RETimelineDefinitionGetAnimationLayer();
       a1 = v3;
     }
@@ -1941,19 +2268,18 @@ uint64_t (*AnimationGroup.bindTarget.modify(uint64_t a1))(uint64_t a1, char a2)
     if (v6)
     {
       v9 = *(v1 + 176);
-      v10 = *(*(v1 + 208) + 16);
-      v11 = *(v1 + 184);
-      v12 = *(v1 + 192);
+      v10 = *(v1 + 184);
+      v11 = *(v1 + 192);
       RETimelineDefinitionGetTargetPath();
-      v13 = String.init(cString:)();
-      static InternalBindPath.targetFromPath(_:)(v13, v14, v16);
+      v12 = String.init(cString:)();
+      static InternalBindPath.targetFromPath(_:)(v12, v13, v15);
 
-      LOBYTE(v5) = v12;
-      v4 = v11;
+      LOBYTE(v5) = v11;
+      v4 = v10;
       v3 = v9;
-      v6 = v16[0];
-      v7 = v16[1];
-      v8 = v17;
+      v6 = v15[0];
+      v7 = v15[1];
+      v8 = v16;
     }
 
     else
@@ -2032,7 +2358,6 @@ unsigned __int8 *(*AnimationGroup.fillMode.modify(uint64_t a1))(unsigned __int8 
     if (v2)
     {
       v3 = a1;
-      v4 = *(*(v1 + 208) + 16);
       LOBYTE(v2) = RETimelineDefinitionGetFillMode();
       a1 = v3;
     }
@@ -2062,7 +2387,7 @@ uint64_t AnimationGroup.additive.getter()
   return v1 & 1;
 }
 
-_BYTE *(*AnimationGroup.additive.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*AnimationGroup.additive.modify(uint64_t a1))()
 {
   *a1 = v1;
   LODWORD(v2) = *(v1 + 203);
@@ -2072,7 +2397,6 @@ _BYTE *(*AnimationGroup.additive.modify(uint64_t a1))(_BYTE *result)
     if (v2)
     {
       v3 = a1;
-      v4 = *(*(v1 + 208) + 16);
       LOBYTE(v2) = RETimelineDefinitionIsAdditive();
       a1 = v3;
     }
@@ -2084,33 +2408,29 @@ _BYTE *(*AnimationGroup.additive.modify(uint64_t a1))(_BYTE *result)
 
 uint64_t AnimationGroup.trimStart.getter()
 {
-  if (*(v0 + 17))
+  if ((*(v0 + 17) & 1) == 0)
   {
-    result = *(*(v0 + 152) + 16);
-    if (result)
-    {
-      result = RETimelineDefinitionGetClipStart();
-      if (result)
-      {
-        return *result;
-      }
-    }
+    return *(v0 + 8);
   }
 
-  else
+  result = *(*(v0 + 152) + 16);
+  if (result)
   {
-    result = *(v0 + 8);
-    v2 = *(v0 + 16);
+    result = RETimelineDefinitionGetClipStart();
+    if (result)
+    {
+      return *result;
+    }
   }
 
   return result;
 }
 
-uint64_t key path getter for AnimationGroup.trimStart : AnimationGroup@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+uint64_t *key path getter for AnimationGroup.trimStart : AnimationGroup@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
 {
   if (*(result + 17))
   {
-    result = *(*(result + 152) + 16);
+    result = *(result[19] + 16);
     if (result)
     {
       v2 = a2;
@@ -2139,7 +2459,7 @@ uint64_t key path getter for AnimationGroup.trimStart : AnimationGroup@<X0>(uint
 
   else
   {
-    v4 = *(result + 8);
+    v4 = result[1];
     v3 = *(result + 16);
   }
 
@@ -2196,33 +2516,29 @@ uint64_t AnimationGroup.trimStart.modify(uint64_t result)
 
 uint64_t AnimationGroup.trimEnd.getter()
 {
-  if (*(v0 + 33))
+  if ((*(v0 + 33) & 1) == 0)
   {
-    result = *(*(v0 + 152) + 16);
-    if (result)
-    {
-      result = RETimelineDefinitionGetClipEnd();
-      if (result)
-      {
-        return *result;
-      }
-    }
+    return *(v0 + 24);
   }
 
-  else
+  result = *(*(v0 + 152) + 16);
+  if (result)
   {
-    result = *(v0 + 24);
-    v2 = *(v0 + 32);
+    result = RETimelineDefinitionGetClipEnd();
+    if (result)
+    {
+      return *result;
+    }
   }
 
   return result;
 }
 
-uint64_t key path getter for AnimationGroup.trimEnd : AnimationGroup@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+uint64_t *key path getter for AnimationGroup.trimEnd : AnimationGroup@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
 {
   if (*(result + 33))
   {
-    result = *(*(result + 152) + 16);
+    result = *(result[19] + 16);
     if (result)
     {
       v2 = a2;
@@ -2251,7 +2567,7 @@ uint64_t key path getter for AnimationGroup.trimEnd : AnimationGroup@<X0>(uint64
 
   else
   {
-    v4 = *(result + 24);
+    v4 = result[3];
     v3 = *(result + 32);
   }
 
@@ -2308,33 +2624,29 @@ uint64_t AnimationGroup.trimEnd.modify(uint64_t result)
 
 uint64_t AnimationGroup.trimDuration.getter()
 {
-  if (*(v0 + 49))
+  if ((*(v0 + 49) & 1) == 0)
   {
-    result = *(*(v0 + 152) + 16);
-    if (result)
-    {
-      result = RETimelineDefinitionGetClipDuration();
-      if (result)
-      {
-        return *result;
-      }
-    }
+    return *(v0 + 40);
   }
 
-  else
+  result = *(*(v0 + 152) + 16);
+  if (result)
   {
-    result = *(v0 + 40);
-    v2 = *(v0 + 48);
+    result = RETimelineDefinitionGetClipDuration();
+    if (result)
+    {
+      return *result;
+    }
   }
 
   return result;
 }
 
-uint64_t key path getter for AnimationGroup.trimDuration : AnimationGroup@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+uint64_t *key path getter for AnimationGroup.trimDuration : AnimationGroup@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
 {
   if (*(result + 49))
   {
-    result = *(*(result + 152) + 16);
+    result = *(result[19] + 16);
     if (result)
     {
       v2 = a2;
@@ -2363,7 +2675,7 @@ uint64_t key path getter for AnimationGroup.trimDuration : AnimationGroup@<X0>(u
 
   else
   {
-    v4 = *(result + 40);
+    v4 = result[5];
     v3 = *(result + 48);
   }
 
@@ -2425,11 +2737,9 @@ double AnimationGroup.offset.getter()
     return *(v0 + 56);
   }
 
-  v1 = *(v0 + 152);
   result = 0.0;
-  if (*(v1 + 16))
+  if (*(*(v0 + 152) + 16))
   {
-    v3 = *(v1 + 16);
     TimelineType = RETimelineDefinitionGetTimelineType();
     result = 0.0;
     if (TimelineType == 2)
@@ -2442,54 +2752,42 @@ double AnimationGroup.offset.getter()
   return result;
 }
 
-uint64_t key path getter for AnimationGroup.offset : AnimationGroup@<X0>(uint64_t result@<X0>, void *a2@<X8>)
+void key path getter for AnimationGroup.offset : AnimationGroup(uint64_t a1@<X0>, double *a2@<X8>)
 {
-  if (*(result + 64))
+  if (*(a1 + 64))
   {
-    v3 = *(result + 152);
     v4 = 0;
-    if (*(v3 + 16))
+    if (*(*(a1 + 152) + 16) && RETimelineDefinitionGetTimelineType() == 2)
     {
-      v5 = *(v3 + 16);
-      result = RETimelineDefinitionGetTimelineType();
-      if (result == 2)
-      {
-        result = RETimelineDefinitionGetClipOffset();
-        v4 = v6;
-      }
+      RETimelineDefinitionGetClipOffset();
+      v4 = v5;
     }
   }
 
   else
   {
-    v4 = *(result + 56);
+    v4 = *(a1 + 56);
   }
 
   *a2 = v4;
-  return result;
 }
 
-void *(*AnimationGroup.offset.modify(void *a1))(void *result)
+uint64_t (*AnimationGroup.offset.modify(double *a1, double a2))()
 {
-  a1[1] = v1;
-  if (*(v1 + 64))
+  *(a1 + 1) = v2;
+  if (*(v2 + 64))
   {
-    v3 = *(v1 + 152);
     v4 = 0;
-    if (*(v3 + 16))
+    if (*(*(v2 + 152) + 16) && RETimelineDefinitionGetTimelineType() == 2)
     {
-      v5 = *(v3 + 16);
-      if (RETimelineDefinitionGetTimelineType() == 2)
-      {
-        RETimelineDefinitionGetClipOffset();
-        v4 = v6;
-      }
+      RETimelineDefinitionGetClipOffset();
+      v4 = v5;
     }
   }
 
   else
   {
-    v4 = *(v1 + 56);
+    v4 = *(v2 + 56);
   }
 
   *a1 = v4;
@@ -2511,11 +2809,9 @@ double AnimationGroup.delay.getter()
     return *(v0 + 72);
   }
 
-  v1 = *(v0 + 152);
   result = 0.0;
-  if (*(v1 + 16))
+  if (*(*(v0 + 152) + 16))
   {
-    v3 = *(v1 + 16);
     TimelineType = RETimelineDefinitionGetTimelineType();
     result = 0.0;
     if (TimelineType == 2)
@@ -2528,54 +2824,42 @@ double AnimationGroup.delay.getter()
   return result;
 }
 
-uint64_t key path getter for AnimationGroup.delay : AnimationGroup@<X0>(uint64_t result@<X0>, void *a2@<X8>)
+void key path getter for AnimationGroup.delay : AnimationGroup(uint64_t a1@<X0>, double *a2@<X8>)
 {
-  if (*(result + 80))
+  if (*(a1 + 80))
   {
-    v3 = *(result + 152);
     v4 = 0;
-    if (*(v3 + 16))
+    if (*(*(a1 + 152) + 16) && RETimelineDefinitionGetTimelineType() == 2)
     {
-      v5 = *(v3 + 16);
-      result = RETimelineDefinitionGetTimelineType();
-      if (result == 2)
-      {
-        result = RETimelineDefinitionGetClipDelay();
-        v4 = v6;
-      }
+      RETimelineDefinitionGetClipDelay();
+      v4 = v5;
     }
   }
 
   else
   {
-    v4 = *(result + 72);
+    v4 = *(a1 + 72);
   }
 
   *a2 = v4;
-  return result;
 }
 
-void *(*AnimationGroup.delay.modify(void *a1))(void *result)
+uint64_t (*AnimationGroup.delay.modify(double *a1, double a2))()
 {
-  a1[1] = v1;
-  if (*(v1 + 80))
+  *(a1 + 1) = v2;
+  if (*(v2 + 80))
   {
-    v3 = *(v1 + 152);
     v4 = 0;
-    if (*(v3 + 16))
+    if (*(*(v2 + 152) + 16) && RETimelineDefinitionGetTimelineType() == 2)
     {
-      v5 = *(v3 + 16);
-      if (RETimelineDefinitionGetTimelineType() == 2)
-      {
-        RETimelineDefinitionGetClipDelay();
-        v4 = v6;
-      }
+      RETimelineDefinitionGetClipDelay();
+      v4 = v5;
     }
   }
 
   else
   {
-    v4 = *(v1 + 72);
+    v4 = *(v2 + 72);
   }
 
   *a1 = v4;
@@ -2590,18 +2874,16 @@ void *AnimationGroup.delay.modify(void *result)
   return result;
 }
 
-float AnimationGroup.speed.getter()
+float AnimationGroup.speed.getter(__n128 a1)
 {
-  if ((*(v0 + 88) & 1) == 0)
+  if ((*(v1 + 88) & 1) == 0)
   {
-    return *(v0 + 84);
+    return *(v1 + 84);
   }
 
-  v1 = *(v0 + 152);
   result = 1.0;
-  if (*(v1 + 16))
+  if (*(*(v1 + 152) + 16))
   {
-    v3 = *(v1 + 16);
     TimelineType = RETimelineDefinitionGetTimelineType();
     result = 1.0;
     if (TimelineType == 2)
@@ -2618,16 +2900,14 @@ uint64_t key path getter for AnimationGroup.speed : AnimationGroup@<X0>(uint64_t
 {
   if (*(result + 88))
   {
-    v3 = *(result + 152);
     v4 = 1.0;
-    if (*(v3 + 16))
+    if (*(*(result + 152) + 16))
     {
-      v5 = *(v3 + 16);
       result = RETimelineDefinitionGetTimelineType();
       if (result == 2)
       {
         result = RETimelineDefinitionGetClipSpeed();
-        v4 = v6;
+        v4 = v5;
       }
     }
   }
@@ -2641,27 +2921,22 @@ uint64_t key path getter for AnimationGroup.speed : AnimationGroup@<X0>(uint64_t
   return result;
 }
 
-uint64_t *(*AnimationGroup.speed.modify(uint64_t a1))(uint64_t *result)
+uint64_t *(*AnimationGroup.speed.modify(uint64_t a1, double a2))(uint64_t *result)
 {
-  *a1 = v1;
-  if (*(v1 + 88))
+  *a1 = v2;
+  if (*(v2 + 88))
   {
-    v3 = *(v1 + 152);
     v4 = 1.0;
-    if (*(v3 + 16))
+    if (*(*(v2 + 152) + 16) && RETimelineDefinitionGetTimelineType() == 2)
     {
-      v5 = *(v3 + 16);
-      if (RETimelineDefinitionGetTimelineType() == 2)
-      {
-        RETimelineDefinitionGetClipSpeed();
-        v4 = v6;
-      }
+      RETimelineDefinitionGetClipSpeed();
+      v4 = v5;
     }
   }
 
   else
   {
-    v4 = *(v1 + 84);
+    v4 = *(v2 + 84);
   }
 
   *(a1 + 8) = v4;
@@ -2678,11 +2953,10 @@ uint64_t *AnimationGroup.speed.modify(uint64_t *result)
 
 uint64_t AnimationGroup.repeatMode.getter@<X0>(_BYTE *a1@<X8>)
 {
-  result = *(v1 + 89);
+  result = *(v2 + 89);
   if (result == 4)
   {
-    v3 = *(v1 + 152);
-    if (!*(v3 + 16))
+    if (!*(*(v2 + 152) + 16))
     {
 LABEL_6:
       result = 0;
@@ -2690,7 +2964,6 @@ LABEL_6:
     }
 
     v4 = a1;
-    v5 = *(v3 + 16);
     if (RETimelineDefinitionGetTimelineType() != 2)
     {
       result = 0;
@@ -2713,29 +2986,27 @@ LABEL_8:
   return result;
 }
 
-_BYTE *(*AnimationGroup.repeatMode.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*AnimationGroup.repeatMode.modify(uint64_t a1, double a2))()
 {
-  *a1 = v1;
-  v2 = *(v1 + 89);
-  if (v2 == 4)
+  *a1 = v2;
+  v3 = *(v2 + 89);
+  if (v3 == 4)
   {
-    v3 = *(v1 + 152);
-    if (*(v3 + 16))
+    if (*(*(v2 + 152) + 16))
     {
       v4 = a1;
-      v5 = *(v3 + 16);
       if (RETimelineDefinitionGetTimelineType() != 2)
       {
-        LOBYTE(v2) = 0;
+        LOBYTE(v3) = 0;
         a1 = v4;
         goto LABEL_9;
       }
 
       ClipLoopBehavior = RETimelineDefinitionGetClipLoopBehavior();
-      LOBYTE(v2) = ClipLoopBehavior;
-      v7 = ClipLoopBehavior >= 4;
+      LOBYTE(v3) = ClipLoopBehavior;
+      v6 = ClipLoopBehavior >= 4;
       a1 = v4;
-      if (!v7)
+      if (!v6)
       {
         goto LABEL_9;
       }
@@ -2744,11 +3015,11 @@ _BYTE *(*AnimationGroup.repeatMode.modify(uint64_t a1))(_BYTE *result)
       __break(1u);
     }
 
-    LOBYTE(v2) = 0;
+    LOBYTE(v3) = 0;
   }
 
 LABEL_9:
-  *(a1 + 8) = v2;
+  *(a1 + 8) = v3;
   return AnimationGroup.repeatMode.modify;
 }
 
@@ -2843,80 +3114,79 @@ double AnimationGroup.init(group:name:repeatMode:fillMode:trimStart:trimEnd:trim
   return result;
 }
 
-uint64_t AnimationGroup.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t AnimationGroup.init(_:)@<X0>(uint64_t a2@<X8>)
 {
   type metadata accessor for TimelineDefinition();
-  v4 = swift_allocObject();
-  v5 = *(a1 + 16);
+  v3 = swift_allocObject();
   swift_retain_n();
-  v6 = REAssetHandleAssetType();
-  if (v6 == 11)
+  v4 = REAssetHandleAssetType();
+  if (v4 == 11)
   {
     RootTimeline = REAnimationSceneAssetGetRootTimeline();
 
     if (RootTimeline)
     {
 LABEL_5:
-      v9 = RETimelineDefinitionCreateFromTimeline();
+      v7 = RETimelineDefinitionCreateFromTimeline();
 
-      *(v4 + 16) = v9;
-      if (v9)
+      *(v3 + 16) = v7;
+      if (v7)
       {
         if (RETimelineDefinitionGetTimelineType() == 2)
         {
-          v10 = 1;
+          v8 = 1;
 
-          if (*(v4 + 16) && (ClipSourceRef = RETimelineDefinitionCreateClipSourceRef()) != 0)
+          if (*(v3 + 16) && (ClipSourceRef = RETimelineDefinitionCreateClipSourceRef()) != 0)
           {
-            v12 = ClipSourceRef;
-            v16 = swift_allocObject();
-            *(v16 + 16) = v12;
+            v10 = ClipSourceRef;
+            v14 = swift_allocObject();
+            *(v14 + 16) = v10;
             RERetain();
             RERelease();
-            v19 = 0;
-            v20 = 0;
-            v13 = 0;
+            v17 = 0;
+            v18 = 0;
+            v11 = 0;
           }
 
           else
           {
-            v19 = 0;
-            v20 = 0;
-            v13 = 0;
-            v16 = swift_allocObject();
-            *(v16 + 16) = 0;
+            v17 = 0;
+            v18 = 0;
+            v11 = 0;
+            v14 = swift_allocObject();
+            *(v14 + 16) = 0;
           }
 
-          v18 = 2;
-          v17 = v4;
-          v15 = 1;
+          v16 = 2;
+          v15 = v3;
+          v13 = 1;
           goto LABEL_17;
         }
 
-        v9 = *(v4 + 16);
+        v7 = *(v3 + 16);
       }
 
-      if (v9)
+      if (v7)
       {
         RETimelineDefinitionGetName();
-        v19 = String.init(cString:)();
-        v20 = v14;
+        v17 = String.init(cString:)();
+        v18 = v12;
       }
 
       else
       {
-        v19 = 0;
-        v20 = 0xE000000000000000;
+        v17 = 0;
+        v18 = 0xE000000000000000;
       }
 
       outlined consume of BindTarget?(0, 0, 0xFFu);
-      v18 = 0;
-      v16 = v4;
-      v17 = swift_allocObject();
-      *(v17 + 16) = 0;
-      v15 = 0;
-      v10 = 0;
-      v13 = v4;
+      v16 = 0;
+      v14 = v3;
+      v15 = swift_allocObject();
+      *(v15 + 16) = 0;
+      v13 = 0;
+      v8 = 0;
+      v11 = v3;
 LABEL_17:
 
       *a2 = 0;
@@ -2936,30 +3206,30 @@ LABEL_17:
       *(a2 + 84) = 0;
       *(a2 + 88) = 1;
       *(a2 + 89) = 4;
-      *(a2 + 96) = v13;
-      *(a2 + 104) = v19;
+      *(a2 + 96) = v11;
+      *(a2 + 104) = v17;
       *(a2 + 120) = 0;
       *(a2 + 128) = 0;
-      *(a2 + 112) = v20;
+      *(a2 + 112) = v18;
       *(a2 + 136) = -1;
       *(a2 + 140) = 0;
-      *(a2 + 144) = v15;
+      *(a2 + 144) = v13;
       *(a2 + 145) = 0;
-      *(a2 + 146) = v10;
-      *(a2 + 147) = v18;
-      *(a2 + 152) = v17;
+      *(a2 + 146) = v8;
+      *(a2 + 147) = v16;
+      *(a2 + 152) = v15;
       *(a2 + 160) = 0u;
       *(a2 + 176) = 0u;
       *(a2 + 192) = -1;
       *(a2 + 196) = 0x201000100000000;
-      *(a2 + 208) = v16;
+      *(a2 + 208) = v14;
       return result;
     }
   }
 
   else
   {
-    if (v6 == 5)
+    if (v4 == 5)
     {
 
       goto LABEL_5;
@@ -2972,7 +3242,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t AnimationGroup.createResource()()
+void *AnimationGroup.createResource()()
 {
   v1 = *(v0 + 176);
   v75 = *(v0 + 160);
@@ -3016,22 +3286,7 @@ uint64_t AnimationGroup.createResource()()
     v48 = *(v0 + 8);
     v49 = v10;
     outlined init with copy of TimelineClipProperties(&v74[8], &v64);
-    if (!TimelineClipProperties.isClipped.getter())
-    {
-      goto LABEL_30;
-    }
-
-    v54 = *&v74[104];
-    v55 = *&v74[120];
-    v56 = *&v74[136];
-    *&v57 = *&v74[152];
-    v50 = *&v74[40];
-    v51 = *&v74[56];
-    v52 = *&v74[72];
-    v53 = *&v74[88];
-    v48 = *&v74[8];
-    v49 = *&v74[24];
-    if (TimelineClipProperties.isModified.getter())
+    if (TimelineClipProperties.isClipped.getter(v11) && (v54 = *&v74[104], v55 = *&v74[120], v56 = *&v74[136], *&v57 = *&v74[152], v50 = *&v74[40], v51 = *&v74[56], v52 = *&v74[72], v53 = *&v74[88], v48 = *&v74[8], v49 = *&v74[24], (TimelineClipProperties.isModified.getter() & 1) != 0))
     {
       v70 = *&v74[104];
       v71 = *&v74[120];
@@ -3043,7 +3298,7 @@ uint64_t AnimationGroup.createResource()()
       v69 = *&v74[88];
       v64 = *&v74[8];
       v65 = *&v74[24];
-      v11 = TimelineClipProperties.createClip()();
+      v12 = TimelineClipProperties.createClip()();
       v54 = v70;
       v55 = v71;
       v56 = v72;
@@ -3059,12 +3314,11 @@ uint64_t AnimationGroup.createResource()()
 
     else
     {
-LABEL_30:
       outlined destroy of TimelineClipProperties(&v74[8]);
       return TimelineDefinition.resource.getter();
     }
 
-    return v11;
+    return v12;
   }
 
   if (!*(v78 + 16))
@@ -3095,13 +3349,13 @@ LABEL_12:
   v62[2] = v50;
   v63 = v51;
   outlined destroy of TimelineBaseProperties(v62);
-  v13 = specialized static __ServiceLocator.shared.getter();
+  v14 = specialized static __ServiceLocator.shared.getter();
   swift_beginAccess();
-  outlined init with copy of __REAssetService(v13 + 120, &v48);
-  v14 = *(&v49 + 1);
-  v15 = v50;
+  outlined init with copy of __REAssetService(v14 + 120, &v48);
+  v15 = *(&v49 + 1);
+  v16 = v50;
   __swift_project_boxed_opaque_existential_1(&v48, *(&v49 + 1));
-  (*(v15 + 32))(v14, v15);
+  (*(v16 + 32))(v15, v16);
   __swift_destroy_boxed_opaque_existential_1(&v48);
   v58 = v75;
   v59 = v76;
@@ -3118,21 +3372,21 @@ LABEL_12:
   v48 = *v74;
   v49 = *&v74[16];
   result = AnimationGroup.group.getter();
-  v17 = result;
-  v18 = *(result + 16);
-  if (v18)
+  v18 = result;
+  v19 = result[2];
+  if (v19)
   {
-    v19 = 0;
-    v20 = result + 32;
+    v20 = 0;
+    v21 = (result + 4);
     while (1)
     {
-      if (v19 >= *(v17 + 16))
+      if (v20 >= v18[2])
       {
         __break(1u);
         return result;
       }
 
-      outlined init with copy of __REAssetService(v20, &v48);
+      outlined init with copy of __REAssetService(v21, &v48);
       outlined init with copy of __REAssetService(&v48, &v42);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation19AnimationDefinition_pMd, &_s17RealityFoundation19AnimationDefinition_pMR);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation27AnimationDefinitionInternal_pMd, &_s17RealityFoundation27AnimationDefinitionInternal_pMR);
@@ -3142,20 +3396,19 @@ LABEL_12:
       }
 
       outlined init with take of ForceEffectBase(&v38, &v64);
-      v21 = *(&v65 + 1);
-      v22 = v66;
+      v22 = *(&v65 + 1);
+      v23 = v66;
       __swift_project_boxed_opaque_existential_1(&v64, *(&v65 + 1));
-      v23 = (*(v22 + 8))(v21, v22);
-      ++v19;
+      (*(v23 + 8))(v22, v23);
+      ++v20;
       __swift_destroy_boxed_opaque_existential_1(&v64);
-      v24 = *(v23 + 16);
       RETimelineDefinitionCreateFromTimeline();
       RETimelineDefinitionAddChildTimeline();
       RERelease();
 
       result = __swift_destroy_boxed_opaque_existential_1(&v48);
-      v20 += 40;
-      if (v18 == v19)
+      v21 += 40;
+      if (v19 == v20)
       {
         goto LABEL_18;
       }
@@ -3219,7 +3472,7 @@ LABEL_18:
     v48 = *&v74[8];
     v49 = *&v74[24];
     outlined init with copy of TimelineClipProperties(&v74[8], &v64);
-    if (TimelineClipProperties.isClipped.getter())
+    if (TimelineClipProperties.isClipped.getter(v24))
     {
       v44 = *&v74[40];
       v45 = *&v74[56];
@@ -3248,14 +3501,14 @@ LABEL_18:
       v56 = v40;
       *&v57 = v41;
       outlined init with copy of TimelineClipProperties(&v48, &v64);
-      v11 = *(v25 + 16);
-      if (v11)
+      v12 = *(v25 + 16);
+      if (v12)
       {
 
         closure #1 in TimelineClipProperties.createClip()(&v48, &v64);
 
         outlined destroy of TimelineClipProperties(&v48);
-        v11 = v64;
+        v12 = v64;
       }
 
       else
@@ -3283,7 +3536,7 @@ LABEL_18:
       type metadata accessor for TimelineDefinition();
       *(swift_allocObject() + 16) = v37;
       RERetain();
-      v11 = TimelineDefinition.resource.getter();
+      v12 = TimelineDefinition.resource.getter();
       swift_setDeallocating();
       RERelease();
       swift_deallocClassInstance();
@@ -3292,18 +3545,10 @@ LABEL_18:
     RERelease();
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t AnimationGroup.group_.setter(uint64_t a1)
-{
-  v3 = *v1;
-
-  *v1 = a1;
-  return result;
-}
-
-uint64_t (*AnimationGroup.group_.modify(void *a1))(uint64_t *a1, char a2)
+void (*AnimationGroup.group_.modify(void *a1))(uint64_t *a1, char a2)
 {
   v3 = *v1;
   a1[1] = v1;
@@ -3318,12 +3563,10 @@ uint64_t protocol witness for AnimationDefinition.name.getter in conformance Ani
   if (v0[21])
   {
     v1 = v0[20];
-    v2 = v0[21];
   }
 
   else if (*(v0[26] + 16))
   {
-    v3 = v0[21];
     RETimelineDefinitionGetName();
     v1 = String.init(cString:)();
   }
@@ -3336,13 +3579,11 @@ uint64_t protocol witness for AnimationDefinition.name.getter in conformance Ani
   return v1;
 }
 
-uint64_t protocol witness for AnimationDefinition.name.setter in conformance AnimationGroup(uint64_t a1, uint64_t a2)
+void protocol witness for AnimationDefinition.name.setter in conformance AnimationGroup(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 168);
 
   *(v2 + 160) = a1;
   *(v2 + 168) = a2;
-  return result;
 }
 
 uint64_t (*protocol witness for AnimationDefinition.name.modify in conformance AnimationGroup(uint64_t **a1))()
@@ -3472,23 +3713,19 @@ uint64_t (*protocol witness for AnimationDefinition.bindTarget.modify in conform
 
 uint64_t protocol witness for AnimationDefinition.trimStart.getter in conformance AnimationGroup()
 {
-  if (*(v0 + 17))
+  if ((*(v0 + 17) & 1) == 0)
   {
-    result = *(*(v0 + 152) + 16);
-    if (result)
-    {
-      result = RETimelineDefinitionGetClipStart();
-      if (result)
-      {
-        return *result;
-      }
-    }
+    return *(v0 + 8);
   }
 
-  else
+  result = *(*(v0 + 152) + 16);
+  if (result)
   {
-    result = *(v0 + 8);
-    v2 = *(v0 + 16);
+    result = RETimelineDefinitionGetClipStart();
+    if (result)
+    {
+      return *result;
+    }
   }
 
   return result;
@@ -3521,23 +3758,19 @@ uint64_t (*protocol witness for AnimationDefinition.trimStart.modify in conforma
 
 uint64_t protocol witness for AnimationDefinition.trimEnd.getter in conformance AnimationGroup()
 {
-  if (*(v0 + 33))
+  if ((*(v0 + 33) & 1) == 0)
   {
-    result = *(*(v0 + 152) + 16);
-    if (result)
-    {
-      result = RETimelineDefinitionGetClipEnd();
-      if (result)
-      {
-        return *result;
-      }
-    }
+    return *(v0 + 24);
   }
 
-  else
+  result = *(*(v0 + 152) + 16);
+  if (result)
   {
-    result = *(v0 + 24);
-    v2 = *(v0 + 32);
+    result = RETimelineDefinitionGetClipEnd();
+    if (result)
+    {
+      return *result;
+    }
   }
 
   return result;
@@ -3570,23 +3803,19 @@ uint64_t (*protocol witness for AnimationDefinition.trimEnd.modify in conformanc
 
 uint64_t protocol witness for AnimationDefinition.trimDuration.getter in conformance AnimationGroup()
 {
-  if (*(v0 + 49))
+  if ((*(v0 + 49) & 1) == 0)
   {
-    result = *(*(v0 + 152) + 16);
-    if (result)
-    {
-      result = RETimelineDefinitionGetClipDuration();
-      if (result)
-      {
-        return *result;
-      }
-    }
+    return *(v0 + 40);
   }
 
-  else
+  result = *(*(v0 + 152) + 16);
+  if (result)
   {
-    result = *(v0 + 40);
-    v2 = *(v0 + 48);
+    result = RETimelineDefinitionGetClipDuration();
+    if (result)
+    {
+      return *result;
+    }
   }
 
   return result;
@@ -3624,11 +3853,9 @@ double protocol witness for AnimationDefinition.offset.getter in conformance Ani
     return *(v0 + 56);
   }
 
-  v1 = *(v0 + 152);
   result = 0.0;
-  if (*(v1 + 16))
+  if (*(*(v0 + 152) + 16))
   {
-    v3 = *(v1 + 16);
     TimelineType = RETimelineDefinitionGetTimelineType();
     result = 0.0;
     if (TimelineType == 2)
@@ -3641,7 +3868,7 @@ double protocol witness for AnimationDefinition.offset.getter in conformance Ani
   return result;
 }
 
-uint64_t (*protocol witness for AnimationDefinition.offset.modify in conformance AnimationGroup(void *a1))()
+uint64_t (*protocol witness for AnimationDefinition.offset.modify in conformance AnimationGroup(double **a1))()
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -3654,7 +3881,7 @@ uint64_t (*protocol witness for AnimationDefinition.offset.modify in conformance
   }
 
   *a1 = v2;
-  v2[4] = AnimationGroup.offset.modify(v2);
+  *(v2 + 32) = AnimationGroup.offset.modify(v2, v3);
   return protocol witness for AnimationDefinition.name.modify in conformance FromToByAnimation<A>;
 }
 
@@ -3665,11 +3892,9 @@ double protocol witness for AnimationDefinition.delay.getter in conformance Anim
     return *(v0 + 72);
   }
 
-  v1 = *(v0 + 152);
   result = 0.0;
-  if (*(v1 + 16))
+  if (*(*(v0 + 152) + 16))
   {
-    v3 = *(v1 + 16);
     TimelineType = RETimelineDefinitionGetTimelineType();
     result = 0.0;
     if (TimelineType == 2)
@@ -3682,7 +3907,7 @@ double protocol witness for AnimationDefinition.delay.getter in conformance Anim
   return result;
 }
 
-uint64_t (*protocol witness for AnimationDefinition.delay.modify in conformance AnimationGroup(void *a1))()
+uint64_t (*protocol witness for AnimationDefinition.delay.modify in conformance AnimationGroup(double **a1))()
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -3695,22 +3920,20 @@ uint64_t (*protocol witness for AnimationDefinition.delay.modify in conformance 
   }
 
   *a1 = v2;
-  v2[4] = AnimationGroup.delay.modify(v2);
+  *(v2 + 32) = AnimationGroup.delay.modify(v2, v3);
   return protocol witness for AnimationDefinition.name.modify in conformance FromToByAnimation<A>;
 }
 
-float protocol witness for AnimationDefinition.speed.getter in conformance AnimationGroup()
+float protocol witness for AnimationDefinition.speed.getter in conformance AnimationGroup(__n128 a1)
 {
-  if ((*(v0 + 88) & 1) == 0)
+  if ((*(v1 + 88) & 1) == 0)
   {
-    return *(v0 + 84);
+    return *(v1 + 84);
   }
 
-  v1 = *(v0 + 152);
   result = 1.0;
-  if (*(v1 + 16))
+  if (*(*(v1 + 152) + 16))
   {
-    v3 = *(v1 + 16);
     TimelineType = RETimelineDefinitionGetTimelineType();
     result = 1.0;
     if (TimelineType == 2)
@@ -3736,7 +3959,7 @@ uint64_t (*protocol witness for AnimationDefinition.speed.modify in conformance 
   }
 
   *a1 = v2;
-  *(v2 + 32) = AnimationGroup.speed.modify(v2);
+  *(v2 + 32) = AnimationGroup.speed.modify(v2, v3);
   return protocol witness for AnimationDefinition.name.modify in conformance FromToByAnimation<A>;
 }
 
@@ -3753,11 +3976,11 @@ uint64_t (*protocol witness for AnimationDefinition.repeatMode.modify in conform
   }
 
   *a1 = v2;
-  *(v2 + 32) = AnimationGroup.repeatMode.modify(v2);
+  *(v2 + 32) = AnimationGroup.repeatMode.modify(v2, v3);
   return protocol witness for AnimationDefinition.name.modify in conformance FromToByAnimation<A>;
 }
 
-uint64_t protocol witness for AnimationDefinitionInternal.generate() in conformance AnimationGroup()
+void *protocol witness for AnimationDefinitionInternal.generate() in conformance AnimationGroup()
 {
   result = AnimationGroup.createResource()();
   if (!result)
@@ -3911,18 +4134,15 @@ uint64_t AudioBufferResource.Configuration.calibration.setter(uint64_t result)
 uint64_t AudioBufferResource.Configuration.mixGroupName.getter()
 {
   v1 = *(v0 + 40);
-  v2 = *(v0 + 48);
 
   return v1;
 }
 
-uint64_t AudioBufferResource.Configuration.mixGroupName.setter(uint64_t a1, uint64_t a2)
+void AudioBufferResource.Configuration.mixGroupName.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 48);
 
   *(v2 + 40) = a1;
   *(v2 + 48) = a2;
-  return result;
 }
 
 uint64_t AudioBufferResource.Configuration.layoutTagOverride.setter(uint64_t result)
@@ -3951,23 +4171,22 @@ uint64_t AudioBufferResource.Configuration.init(shouldLoop:shouldRandomizeStartT
   return result;
 }
 
-void AudioBufferResource.Configuration.hash(into:)()
+void AudioBufferResource.Configuration.hash(into:)(uint64_t a1)
 {
-  v1 = *(v0 + 1);
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 16);
-  v4 = *(v0 + 24);
-  v5 = *(v0 + 32);
-  v6 = *(v0 + 40);
-  v7 = *(v0 + 48);
-  v8 = *(v0 + 56);
-  v9 = *(v0 + 60);
-  Hasher._combine(_:)(*v0);
-  Hasher._combine(_:)(v1);
-  if (v3 == 255)
+  v2 = *(v1 + 1);
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = *(v1 + 32);
+  v7 = *(v1 + 48);
+  v8 = *(v1 + 56);
+  v9 = *(v1 + 60);
+  Hasher._combine(_:)(*v1);
+  Hasher._combine(_:)(v2);
+  if (v4 == 255)
   {
     Hasher._combine(_:)(0);
-    if (v5 == 255)
+    if (v6 == 255)
     {
       goto LABEL_19;
     }
@@ -3976,12 +4195,12 @@ void AudioBufferResource.Configuration.hash(into:)()
   else
   {
     Hasher._combine(_:)(1u);
-    if (v3)
+    if (v4)
     {
-      if (v3 != 1)
+      if (v4 != 1)
       {
         MEMORY[0x1C68F4C10](0);
-        if (v5 == 255)
+        if (v6 == 255)
         {
           goto LABEL_19;
         }
@@ -3998,9 +4217,9 @@ void AudioBufferResource.Configuration.hash(into:)()
     }
 
     MEMORY[0x1C68F4C10](v10);
-    if ((v2 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+    if ((v3 & 0x7FFFFFFFFFFFFFFFLL) != 0)
     {
-      v11 = v2;
+      v11 = v3;
     }
 
     else
@@ -4009,7 +4228,7 @@ void AudioBufferResource.Configuration.hash(into:)()
     }
 
     MEMORY[0x1C68F4C50](v11);
-    if (v5 == 255)
+    if (v6 == 255)
     {
 LABEL_19:
       Hasher._combine(_:)(0);
@@ -4024,9 +4243,9 @@ LABEL_19:
 
 LABEL_12:
   Hasher._combine(_:)(1u);
-  if ((v4 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+  if ((v5 & 0x7FFFFFFFFFFFFFFFLL) != 0)
   {
-    v12 = v4;
+    v12 = v5;
   }
 
   else
@@ -4034,7 +4253,7 @@ LABEL_12:
     v12 = 0;
   }
 
-  MEMORY[0x1C68F4C10]((v5 & 1) != 0);
+  MEMORY[0x1C68F4C10]((v6 & 1) != 0);
   MEMORY[0x1C68F4C50](v12);
   if (!v7)
   {
@@ -4066,21 +4285,21 @@ LABEL_21:
 Swift::Int AudioBufferResource.Configuration.hashValue.getter()
 {
   Hasher.init(_seed:)();
-  AudioBufferResource.Configuration.hash(into:)();
+  AudioBufferResource.Configuration.hash(into:)(v1);
   return Hasher._finalize()();
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AudioBufferResource.Configuration()
 {
   Hasher.init(_seed:)();
-  AudioBufferResource.Configuration.hash(into:)();
+  AudioBufferResource.Configuration.hash(into:)(v1);
   return Hasher._finalize()();
 }
 
 Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AudioBufferResource.Configuration()
 {
   Hasher.init(_seed:)();
-  AudioBufferResource.Configuration.hash(into:)();
+  AudioBufferResource.Configuration.hash(into:)(v1);
   return Hasher._finalize()();
 }
 
@@ -4106,7 +4325,6 @@ BOOL specialized static AudioBufferResource.Configuration.== infix(_:_:)(double 
   v15 = *(a2 + 6);
   v16 = *(a2 + 14);
   v17 = *(a2 + 60);
-  v18 = *(a1 + 16) == 255;
   if (v2 == 255)
   {
     if (v11 != 255)
@@ -4122,14 +4340,14 @@ BOOL specialized static AudioBufferResource.Configuration.== infix(_:_:)(double 
       return 0;
     }
 
-    v19 = a1[1];
-    v20 = a2[1];
+    v18 = a1[1];
+    v19 = a2[1];
     if (v2)
     {
       if (v2 != 1)
       {
         v2 = 0;
-        if (v11 != 2 || v20 != 0.0)
+        if (v11 != 2 || v19 != 0.0)
         {
           return v2;
         }
@@ -4149,7 +4367,7 @@ BOOL specialized static AudioBufferResource.Configuration.== infix(_:_:)(double 
       return v2;
     }
 
-    if (v19 != v20)
+    if (v18 != v19)
     {
       return v2;
     }
@@ -4205,15 +4423,15 @@ LABEL_25:
     {
       if (v9 == v16)
       {
-        v21 = v17;
+        v20 = v17;
       }
 
       else
       {
-        v21 = 1;
+        v20 = 1;
       }
 
-      return (v21 & 1) == 0;
+      return (v20 & 1) == 0;
     }
 
     return (v17 & 1) != 0;
@@ -4227,7 +4445,7 @@ unint64_t lazy protocol witness table accessor for type AudioBufferResource.Conf
   result = lazy protocol witness table cache variable for type AudioBufferResource.Configuration and conformance AudioBufferResource.Configuration;
   if (!lazy protocol witness table cache variable for type AudioBufferResource.Configuration and conformance AudioBufferResource.Configuration)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AudioBufferResource.Configuration, &type metadata for AudioBufferResource.Configuration, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AudioBufferResource.Configuration and conformance AudioBufferResource.Configuration);
   }
 
@@ -4305,27 +4523,19 @@ uint64_t storeEnumTagSinglePayload for AudioBufferResource.Configuration(uint64_
   return result;
 }
 
-uint64_t RERenderFrameSettings.deinit()
-{
-  v1 = *(v0 + 16);
-  RERelease();
-  return v0;
-}
-
 uint64_t RERenderFrameSettings.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
   RERelease();
 
   return swift_deallocClassInstance();
 }
 
-uint64_t specialized static __RKVisibilityHideMoveOutAnimation.createVisibilityHideMoveOutAnimation(transform:_:localBoundingBox:variant:duration:distance:orientation:additive:)(float32x4_t *a1, double a2, float a3, float32x4_t a4, uint64_t a5, _BYTE *a6, char a7)
+uint64_t specialized static __RKVisibilityHideMoveOutAnimation.createVisibilityHideMoveOutAnimation(transform:_:localBoundingBox:variant:duration:distance:orientation:additive:)(float32x4_t *a1, uint64_t a2, _BYTE *a3, char a4, float a5, float a6, float32x4_t a7)
 {
   v59 = a1[1];
-  if (*a6)
+  if (*a3)
   {
-    if (*a6 == 1)
+    if (*a3 == 1)
     {
       v61._rawValue = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 123, 0, MEMORY[0x1E69E7CC0]);
       v9 = &outlined read-only object #1 of static __RKVisibilityHideMoveOutAnimation.createVisibilityHideMoveOutAnimation(transform:_:localBoundingBox:variant:duration:distance:orientation:additive:);
@@ -4374,7 +4584,7 @@ LABEL_40:
 
   rawValue = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11 + 1, 1, rawValue);
 LABEL_9:
-  a7 &= 1u;
+  a4 &= 1u;
   v11 = rawValue[1].u64[0];
   v14 = rawValue[1].u64[1];
   v15 = v11 + 1;
@@ -4452,7 +4662,7 @@ LABEL_9:
 
   while (v19);
   v25 = 0;
-  v26 = a3 / v17;
+  v26 = a6 / v17;
   v27 = v17 <= 0.0;
   v28 = 1.0;
   if (!v27)
@@ -4466,13 +4676,13 @@ LABEL_9:
   v30 = vrecpe_f32(v29.u32[0]);
   v31 = vmul_f32(v30, vrecps_f32(v29.u32[0], v30));
   v32 = vmulq_n_f32(vmulq_f32(v59, xmmword_1C1899C90), vmul_f32(v31, vrecps_f32(v29.u32[0], v31)).f32[0]);
-  v33 = vnegq_f32(a4);
-  v34 = vtrn2q_s32(a4, vtrn1q_s32(a4, v33));
-  v35 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(a4, v33, 8uLL), *v32.f32, 1), vextq_s8(v34, v34, 8uLL), v32.f32[0]);
-  v36 = vrev64q_s32(a4);
+  v33 = vnegq_f32(a7);
+  v34 = vtrn2q_s32(a7, vtrn1q_s32(a7, v33));
+  v35 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(a7, v33, 8uLL), *v32.f32, 1), vextq_s8(v34, v34, 8uLL), v32.f32[0]);
+  v36 = vrev64q_s32(a7);
   v36.i32[0] = v33.i32[1];
   v36.i32[3] = v33.i32[2];
-  v37 = vaddq_f32(v35, vmlaq_laneq_f32(vmulq_laneq_f32(a4, v32, 3), v36, v32, 2));
+  v37 = vaddq_f32(v35, vmlaq_laneq_f32(vmulq_laneq_f32(a7, v32, 3), v36, v32, 2));
   v38 = vmulq_f32(v37, xmmword_1C1899C90);
   v39 = vnegq_f32(v38);
   v40 = vtrn2q_s32(v38, vtrn1q_s32(v38, v39));
@@ -4526,92 +4736,90 @@ LABEL_9:
   return result;
 }
 
-uint64_t specialized __RKEntityTriggerSpecification.remapUUIDs(entityIdentifierMapping:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t specialized __RKEntityTriggerSpecification.remapUUIDs(entityIdentifierMapping:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v105 = a3;
+  v102 = a3;
   v5 = type metadata accessor for UUID();
-  v112 = *(v5 - 8);
-  v6 = *(v112 + 64);
+  v109 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v110 = v98 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v113 = v98 - v9;
-  MEMORY[0x1EEE9AC00](v10);
-  v106 = v98 - v11;
-  MEMORY[0x1EEE9AC00](v12);
-  v115 = v98 - v13;
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = v98 - v15;
-  MEMORY[0x1EEE9AC00](v17);
-  v19 = v98 - v18;
-  MEMORY[0x1EEE9AC00](v20);
-  v22 = v98 - v21;
-  v23 = type metadata accessor for __RKEntityTriggerSpecification(0);
-  v111 = *(v23 - 8);
-  v24 = *(v111 + 64);
-  MEMORY[0x1EEE9AC00](v23);
-  v114 = (v98 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v26);
-  v28 = v98 - v27;
-  MEMORY[0x1EEE9AC00](v29);
-  v31 = v98 - v30;
-  MEMORY[0x1EEE9AC00](v32);
-  v34 = v98 - v33;
-  outlined init with copy of __RKEntityInteractionSpecification(a1, v98 - v33, type metadata accessor for __RKEntityTriggerSpecification);
-  v103 = v23;
+  v107 = v95 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v110 = v95 - v8;
+  MEMORY[0x1EEE9AC00](v9);
+  v103 = v95 - v10;
+  MEMORY[0x1EEE9AC00](v11);
+  v112 = v95 - v12;
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = v95 - v14;
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = v95 - v17;
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = v95 - v20;
+  v22 = type metadata accessor for __RKEntityTriggerSpecification(0);
+  v108 = *(v22 - 8);
+  MEMORY[0x1EEE9AC00](v22);
+  v111 = (v95 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v24);
+  v26 = (v95 - v25);
+  MEMORY[0x1EEE9AC00](v27);
+  v29 = v95 - v28;
+  MEMORY[0x1EEE9AC00](v30);
+  v32 = v95 - v31;
+  outlined init with copy of __RKEntityInteractionSpecification(a1, v95 - v31, type metadata accessor for __RKEntityTriggerSpecification);
+  v100 = v22;
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v116 = a2;
+  v113 = a2;
   if (EnumCaseMultiPayload > 4)
   {
     if ((EnumCaseMultiPayload - 6) >= 8)
     {
-      v36 = *v34;
-      v37 = *(*v34 + 16);
-      if (v37)
+      v34 = *v32;
+      v35 = *(*v32 + 16);
+      if (v35)
       {
-        v38 = (*(v111 + 80) + 32) & ~*(v111 + 80);
-        v115 = *v34;
-        v39 = v36 + v38;
-        v40 = *(v111 + 72);
+        v36 = (*(v108 + 80) + 32) & ~*(v108 + 80);
+        v112 = *v32;
+        v37 = v34 + v36;
+        v38 = *(v108 + 72);
 
-        v41 = MEMORY[0x1E69E7CC0];
+        v39 = MEMORY[0x1E69E7CC0];
         do
         {
-          outlined init with copy of __RKEntityInteractionSpecification(v39, v31, type metadata accessor for __RKEntityTriggerSpecification);
-          v42 = v116;
+          outlined init with copy of __RKEntityInteractionSpecification(v37, v29, type metadata accessor for __RKEntityTriggerSpecification);
+          v40 = v113;
 
-          specialized __RKEntityTriggerSpecification.remapUUIDs(entityIdentifierMapping:)(v31, v42);
-          outlined destroy of __RKEntityInteractionSpecification(v31, type metadata accessor for __RKEntityTriggerSpecification);
-          outlined init with copy of __RKEntityInteractionSpecification(v28, v114, type metadata accessor for __RKEntityTriggerSpecification);
+          specialized __RKEntityTriggerSpecification.remapUUIDs(entityIdentifierMapping:)(v29, v40, v26);
+          outlined destroy of __RKEntityInteractionSpecification(v29, type metadata accessor for __RKEntityTriggerSpecification);
+          outlined init with copy of __RKEntityInteractionSpecification(v26, v111, type metadata accessor for __RKEntityTriggerSpecification);
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v41 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v41[2] + 1, 1, v41);
+            v39 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v39[2] + 1, 1, v39);
           }
 
-          v44 = v41[2];
-          v43 = v41[3];
-          if (v44 >= v43 >> 1)
+          v42 = v39[2];
+          v41 = v39[3];
+          if (v42 >= v41 >> 1)
           {
-            v41 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v43 > 1, v44 + 1, 1, v41);
+            v39 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v41 > 1), v42 + 1, 1, v39);
           }
 
-          outlined destroy of __RKEntityInteractionSpecification(v28, type metadata accessor for __RKEntityTriggerSpecification);
-          v41[2] = v44 + 1;
-          outlined init with take of __RKEntityInteractionSpecification(v114, v41 + v38 + v44 * v40, type metadata accessor for __RKEntityTriggerSpecification);
-          v39 += v40;
-          --v37;
+          outlined destroy of __RKEntityInteractionSpecification(v26, type metadata accessor for __RKEntityTriggerSpecification);
+          v39[2] = v42 + 1;
+          outlined init with take of __RKEntityInteractionSpecification(v111, v39 + v36 + v42 * v38, type metadata accessor for __RKEntityTriggerSpecification);
+          v37 += v38;
+          --v35;
         }
 
-        while (v37);
+        while (v35);
       }
 
       else
       {
 
-        v41 = MEMORY[0x1E69E7CC0];
+        v39 = MEMORY[0x1E69E7CC0];
       }
 
-      *v105 = v41;
+      *v102 = v39;
 LABEL_43:
       swift_storeEnumTagMultiPayload();
     }
@@ -4619,168 +4827,167 @@ LABEL_43:
     goto LABEL_16;
   }
 
-  v109 = v16;
-  v101 = v19;
-  v45 = v112;
+  v106 = v15;
+  v98 = v18;
+  v43 = v109;
   if (EnumCaseMultiPayload > 2)
   {
-    outlined destroy of __RKEntityInteractionSpecification(v34, type metadata accessor for __RKEntityTriggerSpecification);
+    outlined destroy of __RKEntityInteractionSpecification(v32, type metadata accessor for __RKEntityTriggerSpecification);
 LABEL_16:
-    outlined init with copy of __RKEntityInteractionSpecification(a1, v105, type metadata accessor for __RKEntityTriggerSpecification);
+    outlined init with copy of __RKEntityInteractionSpecification(a1, v102, type metadata accessor for __RKEntityTriggerSpecification);
   }
 
-  v46 = v22;
+  v44 = v21;
   if (!EnumCaseMultiPayload)
   {
-    v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV6target_Sf8distance10RealityKit26__RKEntityProximityTriggerC8ExitTypeO4typetMd, &_s10Foundation4UUIDV6target_Sf8distance10RealityKit26__RKEntityProximityTriggerC8ExitTypeO4typetMR);
-    v48 = *&v34[*(v47 + 48)];
-    v49 = v34[*(v47 + 64)];
-    (*(v45 + 32))(v46, v34, v5);
-    v50 = *(v47 + 48);
-    v51 = *(v47 + 64);
+    v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV6target_Sf8distance10RealityKit26__RKEntityProximityTriggerC8ExitTypeO4typetMd, &_s10Foundation4UUIDV6target_Sf8distance10RealityKit26__RKEntityProximityTriggerC8ExitTypeO4typetMR);
+    v46 = *&v32[*(v45 + 48)];
+    v47 = v32[*(v45 + 64)];
+    (*(v43 + 32))(v44, v32, v5);
+    v48 = *(v45 + 48);
+    v49 = *(v45 + 64);
     swift_beginAccess();
-    v52 = v105;
-    static UuidRemapHelper.getOrAddUuidMapping(_:_:)(v46, (v116 + 16), v105);
+    v50 = v102;
+    static UuidRemapHelper.getOrAddUuidMapping(_:_:)(v44, (v113 + 16), v102);
     swift_endAccess();
-    (*(v45 + 8))(v46, v5);
-    *(v52 + v50) = v48;
-    *(v52 + v51) = v49;
+    (*(v43 + 8))(v44, v5);
+    *(v50 + v48) = v46;
+    *(v50 + v49) = v47;
     goto LABEL_18;
   }
 
   if (EnumCaseMultiPayload == 1)
   {
-    (*(v112 + 32))(v22, v34, v5);
+    (*(v109 + 32))(v21, v32, v5);
     swift_beginAccess();
-    static UuidRemapHelper.getOrAddUuidMapping(_:_:)(v22, (a2 + 16), v105);
+    static UuidRemapHelper.getOrAddUuidMapping(_:_:)(v21, (a2 + 16), v102);
     swift_endAccess();
-    (*(v45 + 8))(v22, v5);
+    (*(v43 + 8))(v21, v5);
 LABEL_18:
     swift_storeEnumTagMultiPayload();
   }
 
-  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV6target_SayACG17collidingEntitiesSaySSG4tagstMd, &_s10Foundation4UUIDV6target_SayACG17collidingEntitiesSaySSG4tagstMR);
-  v54 = *&v34[*(v53 + 48)];
-  v55 = *&v34[*(v53 + 64)];
-  v56 = v101;
-  v107 = *(v45 + 32);
-  v108 = v45 + 32;
-  v107(v101, v34, v5);
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV6target_SayACG17collidingEntitiesSaySSG4tagstMd, &_s10Foundation4UUIDV6target_SayACG17collidingEntitiesSaySSG4tagstMR);
+  v52 = *&v32[*(v51 + 48)];
+  v53 = *&v32[*(v51 + 64)];
+  v54 = v98;
+  v104 = *(v43 + 32);
+  v105 = v43 + 32;
+  v104(v98, v32, v5);
   swift_beginAccess();
 
-  static UuidRemapHelper.getOrAddUuidMapping(_:_:)(v56, (a2 + 16), v105);
+  static UuidRemapHelper.getOrAddUuidMapping(_:_:)(v54, (a2 + 16), v102);
   swift_endAccess();
-  v57 = *(v54 + 16);
-  if (!v57)
+  v55 = *(v52 + 16);
+  if (!v55)
   {
 
-    (*(v45 + 8))(v56, v5);
-    v58 = MEMORY[0x1E69E7CC0];
+    (*(v43 + 8))(v54, v5);
+    v56 = MEMORY[0x1E69E7CC0];
 LABEL_40:
-    v95 = *(v53 + 64);
-    v96 = v105;
-    *(v105 + *(v53 + 48)) = v58;
-    *(v96 + v95) = v55;
+    v92 = *(v51 + 64);
+    v93 = v102;
+    *(v102 + *(v51 + 48)) = v56;
+    *(v93 + v92) = v53;
     goto LABEL_43;
   }
 
-  v99 = v55;
-  v100 = v53;
-  v118 = MEMORY[0x1E69E7CC0];
-  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v57, 0);
-  v58 = v118;
-  v60 = *(v45 + 16);
-  v59 = v45 + 16;
-  v114 = v60;
-  v61 = (*(v59 + 64) + 32) & ~*(v59 + 64);
-  v98[1] = v54;
-  v104 = v61;
-  v62 = v54 + v61;
-  v111 = *(v59 + 56);
-  v102 = (v59 + 24);
-  v63 = (v59 - 8);
-  v112 = v59;
-  v64 = v106;
+  v96 = v53;
+  v97 = v51;
+  v115 = MEMORY[0x1E69E7CC0];
+  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v55, 0);
+  v56 = v115;
+  v58 = *(v43 + 16);
+  v57 = v43 + 16;
+  v111 = v58;
+  v59 = (*(v57 + 64) + 32) & ~*(v57 + 64);
+  v95[1] = v52;
+  v101 = v59;
+  v60 = v52 + v59;
+  v108 = *(v57 + 56);
+  v99 = (v57 + 24);
+  v61 = (v57 - 8);
+  v109 = v57;
+  v62 = v103;
   while (1)
   {
-    v65 = v115;
-    v114(v115, v62, v5);
+    v63 = v112;
+    v111(v112, v60, v5);
     swift_beginAccess();
-    v66 = *(a2 + 16);
-    if (!*(v66 + 16))
+    v64 = *(a2 + 16);
+    if (!*(v64 + 16))
     {
       break;
     }
 
-    v67 = specialized __RawDictionaryStorage.find<A>(_:)(v65);
-    if ((v68 & 1) == 0)
+    v65 = specialized __RawDictionaryStorage.find<A>(_:)(v63);
+    if ((v66 & 1) == 0)
     {
       break;
     }
 
-    v114(v64, *(v66 + 56) + v67 * v111, v5);
-    v69 = v109;
-    v107(v109, v64, v5);
+    v111(v62, *(v64 + 56) + v65 * v108, v5);
+    v67 = v106;
+    v104(v106, v62, v5);
 LABEL_35:
     swift_endAccess();
-    v91 = *v63;
-    (*v63)(v115, v5);
-    v118 = v58;
-    v93 = *(v58 + 16);
-    v92 = *(v58 + 24);
-    if (v93 >= v92 >> 1)
+    v88 = *v61;
+    (*v61)(v112, v5);
+    v115 = v56;
+    v90 = *(v56 + 16);
+    v89 = *(v56 + 24);
+    if (v90 >= v89 >> 1)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v92 > 1, v93 + 1, 1);
-      v69 = v109;
-      v58 = v118;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v89 > 1), v90 + 1, 1);
+      v67 = v106;
+      v56 = v115;
     }
 
-    *(v58 + 16) = v93 + 1;
-    v94 = v111;
-    v107((v58 + v104 + v93 * v111), v69, v5);
-    v62 += v94;
-    --v57;
-    a2 = v116;
-    if (!v57)
+    *(v56 + 16) = v90 + 1;
+    v91 = v108;
+    v104((v56 + v101 + v90 * v108), v67, v5);
+    v60 += v91;
+    --v55;
+    a2 = v113;
+    if (!v55)
     {
-      v91(v101, v5);
+      v88(v98, v5);
 
-      v53 = v100;
-      v55 = v99;
+      v51 = v97;
+      v53 = v96;
       goto LABEL_40;
     }
   }
 
-  v70 = v109;
+  v68 = v106;
   UUID.init()();
-  v71 = v113;
-  v72 = v65;
-  v73 = v114;
-  v114(v113, v72, v5);
-  v73(v110, v70, v5);
-  v74 = *(a2 + 16);
+  v69 = v110;
+  v70 = v63;
+  v71 = v111;
+  v111(v110, v70, v5);
+  v71(v107, v68, v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v117 = *(a2 + 16);
-  v76 = v117;
-  v77 = specialized __RawDictionaryStorage.find<A>(_:)(v71);
-  v79 = v76[2];
-  v80 = (v78 & 1) == 0;
-  v81 = __OFADD__(v79, v80);
-  v82 = v79 + v80;
-  if (!v81)
+  v114 = *(a2 + 16);
+  v73 = v114;
+  v74 = specialized __RawDictionaryStorage.find<A>(_:)(v69);
+  v76 = v73[2];
+  v77 = (v75 & 1) == 0;
+  v78 = __OFADD__(v76, v77);
+  v79 = v76 + v77;
+  if (!v78)
   {
-    v83 = v78;
-    if (v76[3] >= v82)
+    v80 = v75;
+    if (v73[3] >= v79)
     {
-      v64 = v106;
+      v62 = v103;
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
-        v87 = v77;
+        v84 = v74;
         specialized _NativeDictionary.copy()();
-        v77 = v87;
-        a2 = v116;
-        v85 = v117;
-        if (v83)
+        v74 = v84;
+        a2 = v113;
+        v82 = v114;
+        if (v80)
         {
           goto LABEL_30;
         }
@@ -4791,44 +4998,44 @@ LABEL_35:
 
     else
     {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v82, isUniquelyReferenced_nonNull_native);
-      v77 = specialized __RawDictionaryStorage.find<A>(_:)(v113);
-      v64 = v106;
-      if ((v83 & 1) != (v84 & 1))
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v79, isUniquelyReferenced_nonNull_native);
+      v74 = specialized __RawDictionaryStorage.find<A>(_:)(v110);
+      v62 = v103;
+      if ((v80 & 1) != (v81 & 1))
       {
         goto LABEL_47;
       }
     }
 
-    v85 = v117;
-    if (v83)
+    v82 = v114;
+    if (v80)
     {
 LABEL_30:
-      (*v102)(v85[7] + v77 * v111, v110, v5);
-      v86 = v113;
+      (*v99)(v82[7] + v74 * v108, v107, v5);
+      v83 = v110;
 LABEL_34:
-      (*v63)(v86, v5);
-      *(a2 + 16) = v85;
-      v69 = v109;
+      (*v61)(v83, v5);
+      *(a2 + 16) = v82;
+      v67 = v106;
       goto LABEL_35;
     }
 
 LABEL_32:
-    v85[(v77 >> 6) + 8] |= 1 << v77;
-    v88 = v77 * v111;
-    v86 = v113;
-    v114((v85[6] + v77 * v111), v113, v5);
-    v107((v85[7] + v88), v110, v5);
-    v89 = v85[2];
-    v81 = __OFADD__(v89, 1);
-    v90 = v89 + 1;
-    if (v81)
+    v82[(v74 >> 6) + 8] |= 1 << v74;
+    v85 = v74 * v108;
+    v83 = v110;
+    v111((v82[6] + v74 * v108), v110, v5);
+    v104((v82[7] + v85), v107, v5);
+    v86 = v82[2];
+    v78 = __OFADD__(v86, 1);
+    v87 = v86 + 1;
+    if (v78)
     {
       goto LABEL_46;
     }
 
-    v85[2] = v90;
-    a2 = v116;
+    v82[2] = v87;
+    a2 = v113;
     goto LABEL_34;
   }
 
@@ -4841,618 +5048,593 @@ LABEL_47:
   return result;
 }
 
-uint64_t __RKEntityTriggerSpecification.remapUUIDs(entityIdentifierMapping:)@<X0>(void (*a1)(uint64_t)@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t __RKEntityTriggerSpecification.remapUUIDs(entityIdentifierMapping:)@<X0>(void (*a1)(uint64_t)@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v4 = v3;
-  v81 = a2;
-  v82 = a1;
-  v79 = a3;
+  v79 = a2;
+  v80 = a1;
+  v77 = a3;
   v5 = type metadata accessor for UUID();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v68 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v68 - v11;
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = &v68 - v14;
-  v16 = type metadata accessor for __RKEntityTriggerSpecification(0);
-  v77 = *(v16 - 8);
-  v17 = *(v77 + 64);
-  MEMORY[0x1EEE9AC00](v16);
-  v78 = &v68 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v19);
-  v21 = &v68 - v20;
-  MEMORY[0x1EEE9AC00](v22);
-  v24 = &v68 - v23;
-  MEMORY[0x1EEE9AC00](v25);
-  v27 = &v68 - v26;
-  outlined init with copy of __RKEntityInteractionSpecification(v4, &v68 - v26, type metadata accessor for __RKEntityTriggerSpecification);
+  v8 = &v66 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v66 - v10;
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v66 - v13;
+  v15 = type metadata accessor for __RKEntityTriggerSpecification(0);
+  v75 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v76 = &v66 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = (&v66 - v18);
+  MEMORY[0x1EEE9AC00](v20);
+  v22 = &v66 - v21;
+  MEMORY[0x1EEE9AC00](v23);
+  v25 = &v66 - v24;
+  outlined init with copy of __RKEntityInteractionSpecification(v4, &v66 - v24, type metadata accessor for __RKEntityTriggerSpecification);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 4)
   {
     if ((EnumCaseMultiPayload - 6) >= 8)
     {
-      v71 = v16;
-      v29 = *v27;
-      v30 = *(*v27 + 16);
-      if (v30)
+      v69 = v15;
+      v27 = *v25;
+      v28 = *(*v25 + 16);
+      if (v28)
       {
-        v31 = v78;
-        v32 = *(v77 + 80);
-        v76 = *v27;
-        v80 = (v32 + 32) & ~v32;
-        v33 = v29 + v80;
-        v34 = *(v77 + 72);
-        v35 = MEMORY[0x1E69E7CC0];
+        v29 = v76;
+        v30 = *(v75 + 80);
+        v74 = *v25;
+        v78 = (v30 + 32) & ~v30;
+        v31 = v27 + v78;
+        v32 = *(v75 + 72);
+        v33 = MEMORY[0x1E69E7CC0];
         do
         {
-          outlined init with copy of __RKEntityInteractionSpecification(v33, v24, type metadata accessor for __RKEntityTriggerSpecification);
-          __RKEntityTriggerSpecification.remapUUIDs(entityIdentifierMapping:)(v82, v81);
-          outlined destroy of __RKEntityInteractionSpecification(v24, type metadata accessor for __RKEntityTriggerSpecification);
-          outlined init with copy of __RKEntityInteractionSpecification(v21, v31, type metadata accessor for __RKEntityTriggerSpecification);
+          outlined init with copy of __RKEntityInteractionSpecification(v31, v22, type metadata accessor for __RKEntityTriggerSpecification);
+          __RKEntityTriggerSpecification.remapUUIDs(entityIdentifierMapping:)(v80, v79, v19);
+          outlined destroy of __RKEntityInteractionSpecification(v22, type metadata accessor for __RKEntityTriggerSpecification);
+          outlined init with copy of __RKEntityInteractionSpecification(v19, v29, type metadata accessor for __RKEntityTriggerSpecification);
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v35 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v35[2] + 1, 1, v35);
+            v33 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v33[2] + 1, 1, v33);
           }
 
-          v37 = v35[2];
-          v36 = v35[3];
-          if (v37 >= v36 >> 1)
+          v35 = v33[2];
+          v34 = v33[3];
+          if (v35 >= v34 >> 1)
           {
-            v35 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v36 > 1, v37 + 1, 1, v35);
+            v33 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v34 > 1), v35 + 1, 1, v33);
           }
 
-          outlined destroy of __RKEntityInteractionSpecification(v21, type metadata accessor for __RKEntityTriggerSpecification);
-          v35[2] = v37 + 1;
-          outlined init with take of __RKEntityInteractionSpecification(v31, v35 + v80 + v37 * v34, type metadata accessor for __RKEntityTriggerSpecification);
-          v33 += v34;
-          --v30;
+          outlined destroy of __RKEntityInteractionSpecification(v19, type metadata accessor for __RKEntityTriggerSpecification);
+          v33[2] = v35 + 1;
+          outlined init with take of __RKEntityInteractionSpecification(v29, v33 + v78 + v35 * v32, type metadata accessor for __RKEntityTriggerSpecification);
+          v31 += v32;
+          --v28;
         }
 
-        while (v30);
+        while (v28);
       }
 
       else
       {
 
-        v35 = MEMORY[0x1E69E7CC0];
+        v33 = MEMORY[0x1E69E7CC0];
       }
 
-      *v79 = v35;
+      *v77 = v33;
       return swift_storeEnumTagMultiPayload();
     }
 
-    return outlined init with copy of __RKEntityInteractionSpecification(v4, v79, type metadata accessor for __RKEntityTriggerSpecification);
+    return outlined init with copy of __RKEntityInteractionSpecification(v4, v77, type metadata accessor for __RKEntityTriggerSpecification);
   }
 
-  v72 = v12;
-  v80 = v15;
+  v70 = v11;
+  v78 = v14;
   if (EnumCaseMultiPayload > 2)
   {
-    outlined destroy of __RKEntityInteractionSpecification(v27, type metadata accessor for __RKEntityTriggerSpecification);
-    return outlined init with copy of __RKEntityInteractionSpecification(v4, v79, type metadata accessor for __RKEntityTriggerSpecification);
+    outlined destroy of __RKEntityInteractionSpecification(v25, type metadata accessor for __RKEntityTriggerSpecification);
+    return outlined init with copy of __RKEntityInteractionSpecification(v4, v77, type metadata accessor for __RKEntityTriggerSpecification);
   }
 
   if (EnumCaseMultiPayload)
   {
-    v38 = v5;
+    v36 = v5;
     if (EnumCaseMultiPayload == 1)
     {
-      v39 = v80;
-      (*(v6 + 32))(v80, v27, v5);
-      v82(v39);
-      (*(v6 + 8))(v39, v5);
+      v37 = v78;
+      (*(v6 + 32))(v78, v25, v5);
+      v80(v37);
+      (*(v6 + 8))(v37, v5);
       return swift_storeEnumTagMultiPayload();
     }
 
     else
     {
-      v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV6target_SayACG17collidingEntitiesSaySSG4tagstMd, &_s10Foundation4UUIDV6target_SayACG17collidingEntitiesSaySSG4tagstMR);
-      v49 = *&v27[*(v48 + 48)];
-      v70 = *&v27[*(v48 + 64)];
-      v50 = v72;
-      v51 = v27;
-      v52 = v49;
-      v76 = *(v6 + 32);
-      v77 = v6 + 32;
-      v76(v72, v51, v38);
-      v53 = v79;
-      v82(v50);
-      v54 = *(v52 + 16);
-      if (v54)
+      v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV6target_SayACG17collidingEntitiesSaySSG4tagstMd, &_s10Foundation4UUIDV6target_SayACG17collidingEntitiesSaySSG4tagstMR);
+      v47 = *&v25[*(v46 + 48)];
+      v68 = *&v25[*(v46 + 64)];
+      v48 = v70;
+      v49 = v25;
+      v50 = v47;
+      v74 = *(v6 + 32);
+      v75 = v6 + 32;
+      v74(v70, v49, v36);
+      v51 = v77;
+      v80(v48);
+      v52 = *(v50 + 16);
+      if (v52)
       {
-        v69 = v48;
-        v71 = v16;
-        v83 = MEMORY[0x1E69E7CC0];
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v54, 0);
-        v55 = v83;
-        v57 = *(v6 + 16);
-        v56 = v6 + 16;
-        v58 = *(v56 + 64);
-        v68 = v52;
-        v74 = (v58 + 32) & ~v58;
-        v75 = v57;
-        v59 = v52 + v74;
-        v73 = *(v56 + 56);
-        v78 = (v56 - 8);
-        v60 = v80;
-        v61 = v9;
+        v67 = v46;
+        v69 = v15;
+        v81 = MEMORY[0x1E69E7CC0];
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v52, 0);
+        v53 = v81;
+        v55 = *(v6 + 16);
+        v54 = v6 + 16;
+        v56 = *(v54 + 64);
+        v66 = v50;
+        v72 = (v56 + 32) & ~v56;
+        v73 = v55;
+        v57 = v50 + v72;
+        v71 = *(v54 + 56);
+        v76 = (v54 - 8);
+        v58 = v78;
+        v59 = v8;
         do
         {
-          v62 = v56;
-          v75(v60, v59, v38);
-          v82(v60);
-          v60 = v80;
-          v63 = *v78;
-          (*v78)(v80, v38);
-          v83 = v55;
-          v65 = *(v55 + 16);
-          v64 = *(v55 + 24);
-          if (v65 >= v64 >> 1)
+          v60 = v54;
+          v73(v58, v57, v36);
+          v80(v58);
+          v58 = v78;
+          v61 = *v76;
+          (*v76)(v78, v36);
+          v81 = v53;
+          v63 = *(v53 + 16);
+          v62 = *(v53 + 24);
+          if (v63 >= v62 >> 1)
           {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v64 > 1, v65 + 1, 1);
-            v60 = v80;
-            v55 = v83;
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v62 > 1), v63 + 1, 1);
+            v58 = v78;
+            v53 = v81;
           }
 
-          *(v55 + 16) = v65 + 1;
-          v66 = v73;
-          v76((v55 + v74 + v65 * v73), v61, v38);
-          v59 += v66;
-          --v54;
-          v56 = v62;
+          *(v53 + 16) = v63 + 1;
+          v64 = v71;
+          v74((v53 + v72 + v63 * v71), v59, v36);
+          v57 += v64;
+          --v52;
+          v54 = v60;
         }
 
-        while (v54);
-        v63(v72, v38);
+        while (v52);
+        v61(v70, v36);
 
-        v53 = v79;
-        v48 = v69;
+        v51 = v77;
+        v46 = v67;
       }
 
       else
       {
 
-        (*(v6 + 8))(v50, v38);
-        v55 = MEMORY[0x1E69E7CC0];
+        (*(v6 + 8))(v48, v36);
+        v53 = MEMORY[0x1E69E7CC0];
       }
 
-      v67 = *(v48 + 64);
-      *(v53 + *(v48 + 48)) = v55;
-      *(v53 + v67) = v70;
+      v65 = *(v46 + 64);
+      *(v51 + *(v46 + 48)) = v53;
+      *(v51 + v65) = v68;
       return swift_storeEnumTagMultiPayload();
     }
   }
 
   else
   {
-    v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV6target_Sf8distance10RealityKit26__RKEntityProximityTriggerC8ExitTypeO4typetMd, &_s10Foundation4UUIDV6target_Sf8distance10RealityKit26__RKEntityProximityTriggerC8ExitTypeO4typetMR);
-    v42 = *&v27[*(v41 + 48)];
-    v43 = v27[*(v41 + 64)];
-    v44 = v80;
-    (*(v6 + 32))(v80, v27, v5);
-    v45 = *(v41 + 48);
-    v46 = *(v41 + 64);
-    v47 = v79;
-    v82(v44);
-    (*(v6 + 8))(v44, v5);
-    *(v47 + v45) = v42;
-    *(v47 + v46) = v43;
+    v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV6target_Sf8distance10RealityKit26__RKEntityProximityTriggerC8ExitTypeO4typetMd, &_s10Foundation4UUIDV6target_Sf8distance10RealityKit26__RKEntityProximityTriggerC8ExitTypeO4typetMR);
+    v40 = *&v25[*(v39 + 48)];
+    v41 = v25[*(v39 + 64)];
+    v42 = v78;
+    (*(v6 + 32))(v78, v25, v5);
+    v43 = *(v39 + 48);
+    v44 = *(v39 + 64);
+    v45 = v77;
+    v80(v42);
+    (*(v6 + 8))(v42, v5);
+    *(v45 + v43) = v40;
+    *(v45 + v44) = v41;
     return swift_storeEnumTagMultiPayload();
   }
 }
 
-uint64_t __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)@<X0>(void (*a1)(uint64_t)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _DWORD *a5@<X8>)
+uint64_t __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)@<X0>(void (*a1)(char *)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _DWORD *a5@<X8>)
 {
-  v207 = a5;
-  v203 = a3;
-  v204 = a4;
-  v205 = a1;
-  v206 = a2;
+  v186 = a5;
+  v182 = a3;
+  v183 = a4;
+  v184 = a1;
+  v185 = a2;
   v5 = type metadata accessor for __RKEntityPlayTimelineActionArguments(0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v197 = &v168 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v195 = &v168 - v9;
-  v10 = type metadata accessor for __RKEntitySetOpacityActionArguments(0);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v194 = &v168 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v191 = &v168 - v14;
-  v15 = type metadata accessor for __RKEntitySpinActionArguments(0);
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v15 - 8);
-  v190 = &v168 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v176 = &v147 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v174 = &v147 - v8;
+  v9 = type metadata accessor for __RKEntitySetOpacityActionArguments(0);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v173 = &v147 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v170 = &v147 - v12;
+  v13 = type metadata accessor for __RKEntitySpinActionArguments(0);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v169 = &v147 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v168 = &v147 - v16;
+  v171 = type metadata accessor for __RKEntitySwapEntityActionArguments(0);
+  MEMORY[0x1EEE9AC00](v171);
+  v175 = &v147 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v18);
-  v189 = &v168 - v19;
-  v192 = type metadata accessor for __RKEntitySwapEntityActionArguments(0);
-  v20 = *(*(v192 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v192);
-  v196 = &v168 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v172 = &v147 - v19;
+  v20 = type metadata accessor for __RKEntityLookAtCameraActionArguments(0);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v167 = &v147 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v22);
-  v193 = &v168 - v23;
-  v24 = type metadata accessor for __RKEntityLookAtCameraActionArguments(0);
-  v25 = *(*(v24 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v24 - 8);
-  v188 = &v168 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v166 = &v147 - v23;
+  v24 = type metadata accessor for UUID();
+  v180 = *(v24 - 8);
+  v181 = v24;
+  MEMORY[0x1EEE9AC00](v24);
+  v179 = &v147 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v164 = type metadata accessor for __RKEntityOrbitEntityActionArguments(0);
+  MEMORY[0x1EEE9AC00](v164);
+  v165 = &v147 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v27);
-  v187 = &v168 - v28;
-  v29 = type metadata accessor for UUID();
-  v201 = *(v29 - 8);
-  v202 = v29;
-  v30 = *(v201 + 64);
-  MEMORY[0x1EEE9AC00](v29);
-  v200 = &v168 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v185 = type metadata accessor for __RKEntityOrbitEntityActionArguments(0);
-  v32 = *(*(v185 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v185);
-  v186 = &v168 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v34);
-  v184 = &v168 - v35;
-  v36 = type metadata accessor for __RKEntityTransformActionArguments(0);
-  v37 = *(*(v36 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v36 - 8);
-  v183 = &v168 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v163 = &v147 - v28;
+  v29 = type metadata accessor for __RKEntityTransformActionArguments(0);
+  MEMORY[0x1EEE9AC00](v29 - 8);
+  v162 = &v147 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v31);
+  v161 = &v147 - v32;
+  v33 = type metadata accessor for __RKEntityToggleVisibilityActionArguments(0);
+  MEMORY[0x1EEE9AC00](v33 - 8);
+  v160 = &v147 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v35);
+  v159 = &v147 - v36;
+  v37 = type metadata accessor for __RKEntityToggleAnimateActionArguments(0);
+  MEMORY[0x1EEE9AC00](v37 - 8);
+  v158 = &v147 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v39);
-  v182 = &v168 - v40;
-  v41 = type metadata accessor for __RKEntityToggleVisibilityActionArguments(0);
-  v42 = *(*(v41 - 8) + 64);
+  v157 = &v147 - v40;
+  v41 = type metadata accessor for __RKEntityStopAnimateActionArguments(0);
   MEMORY[0x1EEE9AC00](v41 - 8);
-  v181 = &v168 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v44);
-  v180 = &v168 - v45;
-  v46 = type metadata accessor for __RKEntityToggleAnimateActionArguments(0);
-  v47 = *(*(v46 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v46 - 8);
-  v179 = &v168 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v49);
-  v178 = &v168 - v50;
-  v51 = type metadata accessor for __RKEntityStopAnimateActionArguments(0);
-  v52 = *(*(v51 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v51 - 8);
-  v177 = &v168 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v54);
-  v176 = &v168 - v55;
+  v156 = &v147 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v43);
+  v155 = &v147 - v44;
   started = type metadata accessor for __RKEntityStartAnimateActionArguments(0);
-  v57 = *(*(started - 8) + 64);
   MEMORY[0x1EEE9AC00](started - 8);
-  v175 = &v168 - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v154 = &v147 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v47);
+  v153 = &v147 - v48;
+  v49 = type metadata accessor for __RKEntityShowActionArguments(0);
+  MEMORY[0x1EEE9AC00](v49 - 8);
+  v152 = &v147 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v51);
+  v178 = &v147 - v52;
+  v53 = type metadata accessor for __RKEntityForceActionArguments(0);
+  MEMORY[0x1EEE9AC00](v53 - 8);
+  v151 = &v147 - ((v54 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v55);
+  v150 = &v147 - v56;
+  v57 = type metadata accessor for __RKEntityHideActionArguments(0);
+  MEMORY[0x1EEE9AC00](v57 - 8);
+  v149 = &v147 - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v59);
-  v174 = &v168 - v60;
-  v61 = type metadata accessor for __RKEntityShowActionArguments(0);
-  v62 = *(*(v61 - 8) + 64);
+  v177 = &v147 - v60;
+  v61 = type metadata accessor for __RKEntityFadeActionArguments(0);
   MEMORY[0x1EEE9AC00](v61 - 8);
-  v173 = &v168 - ((v63 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v64);
-  v199 = &v168 - v65;
-  v66 = type metadata accessor for __RKEntityForceActionArguments(0);
-  v67 = *(*(v66 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v66 - 8);
-  v172 = &v168 - ((v68 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v69);
-  v171 = &v168 - v70;
-  v71 = type metadata accessor for __RKEntityHideActionArguments(0);
-  v72 = *(*(v71 - 8) + 64);
+  v148 = &v147 - ((v62 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v63);
+  v147 = &v147 - v64;
+  v65 = type metadata accessor for __RKEntityEmphasisActionArguments(0);
+  MEMORY[0x1EEE9AC00](v65 - 8);
+  v67 = &v147 - ((v66 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v68);
+  v70 = &v147 - v69;
+  v71 = type metadata accessor for __RKEntityCustomActionArguments(0);
   MEMORY[0x1EEE9AC00](v71 - 8);
-  v170 = &v168 - ((v73 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v73 = &v147 - ((v72 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v74);
-  v198 = &v168 - v75;
-  v76 = type metadata accessor for __RKEntityFadeActionArguments(0);
-  v77 = *(*(v76 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v76 - 8);
-  v169 = &v168 - ((v78 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v79);
-  v168 = &v168 - v80;
-  v81 = type metadata accessor for __RKEntityEmphasisActionArguments(0);
-  v82 = *(*(v81 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v81 - 8);
-  v84 = &v168 - ((v83 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v85);
-  v87 = &v168 - v86;
-  v88 = type metadata accessor for __RKEntityCustomActionArguments(0);
-  v89 = *(*(v88 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v88 - 8);
-  v91 = &v168 - ((v90 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v92);
-  v94 = &v168 - v93;
-  v95 = type metadata accessor for __RKChangeSceneActionArguments(0);
-  v96 = *(*(v95 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v95 - 8);
-  v98 = &v168 - ((v97 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v99);
-  v101 = &v168 - v100;
-  v102 = type metadata accessor for __RKEntityAudioActionArguments(0);
-  v103 = *(*(v102 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v102 - 8);
-  v105 = &v168 - ((v104 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v106);
-  v108 = &v168 - v107;
-  v109 = type metadata accessor for __RKEntityActionSpecification(0);
-  v110 = *(*(v109 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v109);
-  v112 = &v168 - ((v111 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of __RKEntityInteractionSpecification(v208, v112, type metadata accessor for __RKEntityActionSpecification);
-  v208 = v109;
+  v76 = &v147 - v75;
+  v77 = type metadata accessor for __RKChangeSceneActionArguments(0);
+  MEMORY[0x1EEE9AC00](v77 - 8);
+  v79 = &v147 - ((v78 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v80);
+  v82 = &v147 - v81;
+  v83 = type metadata accessor for __RKEntityAudioActionArguments(0);
+  MEMORY[0x1EEE9AC00](v83 - 8);
+  v85 = &v147 - ((v84 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v86);
+  v88 = &v147 - v87;
+  v89 = type metadata accessor for __RKEntityActionSpecification(0);
+  MEMORY[0x1EEE9AC00](v89);
+  v91 = &v147 - ((v90 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of __RKEntityInteractionSpecification(v187, v91, type metadata accessor for __RKEntityActionSpecification);
+  v187 = v89;
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      outlined init with take of __RKEntityInteractionSpecification(v112, v101, type metadata accessor for __RKChangeSceneActionArguments);
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v101, v205, type metadata accessor for __RKChangeSceneActionArguments, &protocol witness table for __RKChangeSceneActionArguments, type metadata accessor for __RKChangeSceneActionArguments, v98);
-      outlined destroy of __RKEntityInteractionSpecification(v101, type metadata accessor for __RKChangeSceneActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v98, v207, type metadata accessor for __RKChangeSceneActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v91, v82, type metadata accessor for __RKChangeSceneActionArguments);
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v82, v184, type metadata accessor for __RKChangeSceneActionArguments, &protocol witness table for __RKChangeSceneActionArguments, type metadata accessor for __RKChangeSceneActionArguments, v79);
+      outlined destroy of __RKEntityInteractionSpecification(v82, type metadata accessor for __RKChangeSceneActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v79, v186, type metadata accessor for __RKChangeSceneActionArguments);
       break;
     case 2u:
-      outlined init with take of __RKEntityInteractionSpecification(v112, v94, type metadata accessor for __RKEntityCustomActionArguments);
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v94, v205, type metadata accessor for __RKEntityCustomActionArguments, &protocol witness table for __RKEntityCustomActionArguments, type metadata accessor for __RKEntityCustomActionArguments, v91);
-      outlined destroy of __RKEntityInteractionSpecification(v94, type metadata accessor for __RKEntityCustomActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v91, v207, type metadata accessor for __RKEntityCustomActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v91, v76, type metadata accessor for __RKEntityCustomActionArguments);
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v76, v184, type metadata accessor for __RKEntityCustomActionArguments, &protocol witness table for __RKEntityCustomActionArguments, type metadata accessor for __RKEntityCustomActionArguments, v73);
+      outlined destroy of __RKEntityInteractionSpecification(v76, type metadata accessor for __RKEntityCustomActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v73, v186, type metadata accessor for __RKEntityCustomActionArguments);
       break;
     case 3u:
-      outlined init with take of __RKEntityInteractionSpecification(v112, v87, type metadata accessor for __RKEntityEmphasisActionArguments);
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v87, v205, type metadata accessor for __RKEntityEmphasisActionArguments, &protocol witness table for __RKEntityEmphasisActionArguments, type metadata accessor for __RKEntityEmphasisActionArguments, v84);
-      outlined destroy of __RKEntityInteractionSpecification(v87, type metadata accessor for __RKEntityEmphasisActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v84, v207, type metadata accessor for __RKEntityEmphasisActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v91, v70, type metadata accessor for __RKEntityEmphasisActionArguments);
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v70, v184, type metadata accessor for __RKEntityEmphasisActionArguments, &protocol witness table for __RKEntityEmphasisActionArguments, type metadata accessor for __RKEntityEmphasisActionArguments, v67);
+      outlined destroy of __RKEntityInteractionSpecification(v70, type metadata accessor for __RKEntityEmphasisActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v67, v186, type metadata accessor for __RKEntityEmphasisActionArguments);
       break;
     case 4u:
-      v124 = v168;
-      outlined init with take of __RKEntityInteractionSpecification(v112, v168, type metadata accessor for __RKEntityFadeActionArguments);
-      v125 = v169;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v124, v205, type metadata accessor for __RKEntityFadeActionArguments, &protocol witness table for __RKEntityFadeActionArguments, type metadata accessor for __RKEntityFadeActionArguments, v169);
-      outlined destroy of __RKEntityInteractionSpecification(v124, type metadata accessor for __RKEntityFadeActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v125, v207, type metadata accessor for __RKEntityFadeActionArguments);
+      v103 = v147;
+      outlined init with take of __RKEntityInteractionSpecification(v91, v147, type metadata accessor for __RKEntityFadeActionArguments);
+      v104 = v148;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v103, v184, type metadata accessor for __RKEntityFadeActionArguments, &protocol witness table for __RKEntityFadeActionArguments, type metadata accessor for __RKEntityFadeActionArguments, v148);
+      outlined destroy of __RKEntityInteractionSpecification(v103, type metadata accessor for __RKEntityFadeActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v104, v186, type metadata accessor for __RKEntityFadeActionArguments);
       break;
     case 5u:
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(*(v112 + 1), v112[8], v205, v215, *v112);
-      v138 = DWORD1(v215[0]);
-      v139 = BYTE8(v215[0]);
-      v140 = v207;
-      *v207 = v215[0];
-      v140[1] = v138;
-      *(v140 + 8) = v139;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(*(v91 + 1), v91[8], v184, v194, *v91);
+      v117 = DWORD1(v194[0]);
+      v118 = BYTE8(v194[0]);
+      v119 = v186;
+      *v186 = v194[0];
+      v119[1] = v117;
+      *(v119 + 8) = v118;
       break;
     case 6u:
-      v145 = *(v112 + 1);
-      v215[0] = *v112;
-      v215[1] = v145;
-      v216 = *(v112 + 16);
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v215, v205, v206, v203, v204, v209);
-      outlined destroy of __RKEntityActionGroupArguments(v215);
-      v146 = v210;
-      v147 = v211;
-      v148 = v212;
-      v149 = v213;
-      v150 = v214;
-      v151 = v207;
-      *v207 = v209[0];
-      *(v151 + 1) = v146;
-      *(v151 + 16) = v147;
-      *(v151 + 3) = v148;
-      *(v151 + 32) = v149;
-      *(v151 + 33) = v150;
+      v124 = *(v91 + 1);
+      v194[0] = *v91;
+      v194[1] = v124;
+      v195 = *(v91 + 16);
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v194, v184, v185, v182, v183, v188);
+      outlined destroy of __RKEntityActionGroupArguments(v194);
+      v125 = v189;
+      v126 = v190;
+      v127 = v191;
+      v128 = v192;
+      v129 = v193;
+      v130 = v186;
+      *v186 = v188[0];
+      *(v130 + 1) = v125;
+      *(v130 + 16) = v126;
+      *(v130 + 3) = v127;
+      *(v130 + 32) = v128;
+      *(v130 + 33) = v129;
       break;
     case 7u:
-      v131 = v112;
-      v132 = v198;
-      outlined init with take of __RKEntityInteractionSpecification(v131, v198, type metadata accessor for __RKEntityHideActionArguments);
-      v133 = v170;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v132, v205, type metadata accessor for __RKEntityHideActionArguments, &protocol witness table for __RKEntityHideActionArguments, type metadata accessor for __RKEntityHideActionArguments, v170);
-      outlined destroy of __RKEntityInteractionSpecification(v132, type metadata accessor for __RKEntityHideActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v133, v207, type metadata accessor for __RKEntityHideActionArguments);
+      v110 = v91;
+      v111 = v177;
+      outlined init with take of __RKEntityInteractionSpecification(v110, v177, type metadata accessor for __RKEntityHideActionArguments);
+      v112 = v149;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v111, v184, type metadata accessor for __RKEntityHideActionArguments, &protocol witness table for __RKEntityHideActionArguments, type metadata accessor for __RKEntityHideActionArguments, v149);
+      outlined destroy of __RKEntityInteractionSpecification(v111, type metadata accessor for __RKEntityHideActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v112, v186, type metadata accessor for __RKEntityHideActionArguments);
       break;
     case 8u:
-      v163 = v171;
-      outlined init with take of __RKEntityInteractionSpecification(v112, v171, type metadata accessor for __RKEntityForceActionArguments);
-      v164 = v172;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v163, v205, type metadata accessor for __RKEntityForceActionArguments, &protocol witness table for __RKEntityForceActionArguments, type metadata accessor for __RKEntityForceActionArguments, v172);
-      outlined destroy of __RKEntityInteractionSpecification(v163, type metadata accessor for __RKEntityForceActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v164, v207, type metadata accessor for __RKEntityForceActionArguments);
+      v142 = v150;
+      outlined init with take of __RKEntityInteractionSpecification(v91, v150, type metadata accessor for __RKEntityForceActionArguments);
+      v143 = v151;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v142, v184, type metadata accessor for __RKEntityForceActionArguments, &protocol witness table for __RKEntityForceActionArguments, type metadata accessor for __RKEntityForceActionArguments, v151);
+      outlined destroy of __RKEntityInteractionSpecification(v142, type metadata accessor for __RKEntityForceActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v143, v186, type metadata accessor for __RKEntityForceActionArguments);
       break;
     case 9u:
-      v128 = v112;
-      v129 = v199;
-      outlined init with take of __RKEntityInteractionSpecification(v128, v199, type metadata accessor for __RKEntityShowActionArguments);
-      v130 = v173;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v129, v205, type metadata accessor for __RKEntityShowActionArguments, &protocol witness table for __RKEntityShowActionArguments, type metadata accessor for __RKEntityShowActionArguments, v173);
-      outlined destroy of __RKEntityInteractionSpecification(v129, type metadata accessor for __RKEntityShowActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v130, v207, type metadata accessor for __RKEntityShowActionArguments);
+      v107 = v91;
+      v108 = v178;
+      outlined init with take of __RKEntityInteractionSpecification(v107, v178, type metadata accessor for __RKEntityShowActionArguments);
+      v109 = v152;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v108, v184, type metadata accessor for __RKEntityShowActionArguments, &protocol witness table for __RKEntityShowActionArguments, type metadata accessor for __RKEntityShowActionArguments, v152);
+      outlined destroy of __RKEntityInteractionSpecification(v108, type metadata accessor for __RKEntityShowActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v109, v186, type metadata accessor for __RKEntityShowActionArguments);
       break;
     case 0xAu:
-      v161 = v174;
-      outlined init with take of __RKEntityInteractionSpecification(v112, v174, type metadata accessor for __RKEntityStartAnimateActionArguments);
-      v162 = v175;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v161, v205, v175);
-      outlined destroy of __RKEntityInteractionSpecification(v161, type metadata accessor for __RKEntityStartAnimateActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v162, v207, type metadata accessor for __RKEntityStartAnimateActionArguments);
+      v140 = v153;
+      outlined init with take of __RKEntityInteractionSpecification(v91, v153, type metadata accessor for __RKEntityStartAnimateActionArguments);
+      v141 = v154;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v140, v184, v154);
+      outlined destroy of __RKEntityInteractionSpecification(v140, type metadata accessor for __RKEntityStartAnimateActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v141, v186, type metadata accessor for __RKEntityStartAnimateActionArguments);
       break;
     case 0xBu:
-      v122 = v176;
-      outlined init with take of __RKEntityInteractionSpecification(v112, v176, type metadata accessor for __RKEntityStopAnimateActionArguments);
-      v123 = v177;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v122, v205, type metadata accessor for __RKEntityStopAnimateActionArguments, &protocol witness table for __RKEntityStopAnimateActionArguments, type metadata accessor for __RKEntityStopAnimateActionArguments, v177);
-      outlined destroy of __RKEntityInteractionSpecification(v122, type metadata accessor for __RKEntityStopAnimateActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v123, v207, type metadata accessor for __RKEntityStopAnimateActionArguments);
+      v101 = v155;
+      outlined init with take of __RKEntityInteractionSpecification(v91, v155, type metadata accessor for __RKEntityStopAnimateActionArguments);
+      v102 = v156;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v101, v184, type metadata accessor for __RKEntityStopAnimateActionArguments, &protocol witness table for __RKEntityStopAnimateActionArguments, type metadata accessor for __RKEntityStopAnimateActionArguments, v156);
+      outlined destroy of __RKEntityInteractionSpecification(v101, type metadata accessor for __RKEntityStopAnimateActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v102, v186, type metadata accessor for __RKEntityStopAnimateActionArguments);
       break;
     case 0xCu:
-      v126 = v178;
-      outlined init with take of __RKEntityInteractionSpecification(v112, v178, type metadata accessor for __RKEntityToggleAnimateActionArguments);
-      v127 = v179;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v126, v205, type metadata accessor for __RKEntityToggleAnimateActionArguments, &protocol witness table for __RKEntityToggleAnimateActionArguments, type metadata accessor for __RKEntityToggleAnimateActionArguments, v179);
-      outlined destroy of __RKEntityInteractionSpecification(v126, type metadata accessor for __RKEntityToggleAnimateActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v127, v207, type metadata accessor for __RKEntityToggleAnimateActionArguments);
+      v105 = v157;
+      outlined init with take of __RKEntityInteractionSpecification(v91, v157, type metadata accessor for __RKEntityToggleAnimateActionArguments);
+      v106 = v158;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v105, v184, type metadata accessor for __RKEntityToggleAnimateActionArguments, &protocol witness table for __RKEntityToggleAnimateActionArguments, type metadata accessor for __RKEntityToggleAnimateActionArguments, v158);
+      outlined destroy of __RKEntityInteractionSpecification(v105, type metadata accessor for __RKEntityToggleAnimateActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v106, v186, type metadata accessor for __RKEntityToggleAnimateActionArguments);
       break;
     case 0xDu:
-      v143 = v180;
-      outlined init with take of __RKEntityInteractionSpecification(v112, v180, type metadata accessor for __RKEntityToggleVisibilityActionArguments);
-      v144 = v181;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v143, v205, type metadata accessor for __RKEntityToggleVisibilityActionArguments, &protocol witness table for __RKEntityToggleVisibilityActionArguments, type metadata accessor for __RKEntityToggleVisibilityActionArguments, v181);
-      outlined destroy of __RKEntityInteractionSpecification(v143, type metadata accessor for __RKEntityToggleVisibilityActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v144, v207, type metadata accessor for __RKEntityToggleVisibilityActionArguments);
+      v122 = v159;
+      outlined init with take of __RKEntityInteractionSpecification(v91, v159, type metadata accessor for __RKEntityToggleVisibilityActionArguments);
+      v123 = v160;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v122, v184, type metadata accessor for __RKEntityToggleVisibilityActionArguments, &protocol witness table for __RKEntityToggleVisibilityActionArguments, type metadata accessor for __RKEntityToggleVisibilityActionArguments, v160);
+      outlined destroy of __RKEntityInteractionSpecification(v122, type metadata accessor for __RKEntityToggleVisibilityActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v123, v186, type metadata accessor for __RKEntityToggleVisibilityActionArguments);
       break;
     case 0xEu:
-      v120 = v182;
-      outlined init with take of __RKEntityInteractionSpecification(v112, v182, type metadata accessor for __RKEntityTransformActionArguments);
-      v121 = v183;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v120, v205, v206, v183);
-      outlined destroy of __RKEntityInteractionSpecification(v120, type metadata accessor for __RKEntityTransformActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v121, v207, type metadata accessor for __RKEntityTransformActionArguments);
+      v99 = v161;
+      outlined init with take of __RKEntityInteractionSpecification(v91, v161, type metadata accessor for __RKEntityTransformActionArguments);
+      v100 = v162;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v99, v184, v185, v162);
+      outlined destroy of __RKEntityInteractionSpecification(v99, type metadata accessor for __RKEntityTransformActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v100, v186, type metadata accessor for __RKEntityTransformActionArguments);
       break;
     case 0xFu:
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v205, v215, *v112);
-      *v207 = v215[0];
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v184, v194, *v91);
+      *v186 = v194[0];
       break;
     case 0x10u:
-      v113 = v184;
-      outlined init with take of __RKEntityInteractionSpecification(v112, v184, type metadata accessor for __RKEntityOrbitEntityActionArguments);
-      v114 = v186;
-      outlined init with copy of __RKEntityInteractionSpecification(v113, v186, type metadata accessor for __RKEntityOrbitEntityActionArguments);
-      v115 = v200;
-      v116 = v205;
-      v205(v114);
-      v117 = v202;
-      v118 = *(v201 + 40);
-      v118(v114, v115, v202);
-      v119 = *(v185 + 20);
-      v116(v114 + v119);
-      outlined destroy of __RKEntityInteractionSpecification(v113, type metadata accessor for __RKEntityOrbitEntityActionArguments);
-      v118(v114 + v119, v115, v117);
-      outlined init with take of __RKEntityInteractionSpecification(v114, v207, type metadata accessor for __RKEntityOrbitEntityActionArguments);
+      v92 = v163;
+      outlined init with take of __RKEntityInteractionSpecification(v91, v163, type metadata accessor for __RKEntityOrbitEntityActionArguments);
+      v93 = v165;
+      outlined init with copy of __RKEntityInteractionSpecification(v92, v165, type metadata accessor for __RKEntityOrbitEntityActionArguments);
+      v94 = v179;
+      v95 = v184;
+      v184(v93);
+      v96 = v181;
+      v97 = *(v180 + 40);
+      v97(v93, v94, v181);
+      v98 = *(v164 + 20);
+      v95(&v93[v98]);
+      outlined destroy of __RKEntityInteractionSpecification(v92, type metadata accessor for __RKEntityOrbitEntityActionArguments);
+      v97(&v93[v98], v94, v96);
+      outlined init with take of __RKEntityInteractionSpecification(v93, v186, type metadata accessor for __RKEntityOrbitEntityActionArguments);
       break;
     case 0x11u:
-      v134 = v187;
-      outlined init with take of __RKEntityInteractionSpecification(v112, v187, type metadata accessor for __RKEntityLookAtCameraActionArguments);
-      v135 = v188;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v134, v205, type metadata accessor for __RKEntityLookAtCameraActionArguments, &protocol witness table for __RKEntityLookAtCameraActionArguments, type metadata accessor for __RKEntityLookAtCameraActionArguments, v188);
-      outlined destroy of __RKEntityInteractionSpecification(v134, type metadata accessor for __RKEntityLookAtCameraActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v135, v207, type metadata accessor for __RKEntityLookAtCameraActionArguments);
+      v113 = v166;
+      outlined init with take of __RKEntityInteractionSpecification(v91, v166, type metadata accessor for __RKEntityLookAtCameraActionArguments);
+      v114 = v167;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v113, v184, type metadata accessor for __RKEntityLookAtCameraActionArguments, &protocol witness table for __RKEntityLookAtCameraActionArguments, type metadata accessor for __RKEntityLookAtCameraActionArguments, v167);
+      outlined destroy of __RKEntityInteractionSpecification(v113, type metadata accessor for __RKEntityLookAtCameraActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v114, v186, type metadata accessor for __RKEntityLookAtCameraActionArguments);
       break;
     case 0x12u:
-      v152 = v193;
-      outlined init with take of __RKEntityInteractionSpecification(v112, v193, type metadata accessor for __RKEntitySwapEntityActionArguments);
-      v153 = v196;
-      outlined init with copy of __RKEntityInteractionSpecification(v152, v196, type metadata accessor for __RKEntitySwapEntityActionArguments);
-      v154 = v200;
-      v155 = v205;
-      v205(v153);
-      (*(v201 + 40))(v153, v154, v202);
-      v156 = v192;
-      v157 = *(v192 + 24);
-      v158 = v198;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v153 + v157, v155, type metadata accessor for __RKEntityHideActionArguments, &protocol witness table for __RKEntityHideActionArguments, type metadata accessor for __RKEntityHideActionArguments, v198);
-      _s10RealityKit29__RKEntityHideActionArgumentsVWOdTm_0(v158, v153 + v157, type metadata accessor for __RKEntityHideActionArguments);
-      v159 = *(v156 + 28);
-      v160 = v199;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v153 + v159, v155, type metadata accessor for __RKEntityShowActionArguments, &protocol witness table for __RKEntityShowActionArguments, type metadata accessor for __RKEntityShowActionArguments, v199);
-      outlined destroy of __RKEntityInteractionSpecification(v152, type metadata accessor for __RKEntitySwapEntityActionArguments);
-      _s10RealityKit29__RKEntityHideActionArgumentsVWOdTm_0(v160, v153 + v159, type metadata accessor for __RKEntityShowActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v153, v207, type metadata accessor for __RKEntitySwapEntityActionArguments);
+      v131 = v172;
+      outlined init with take of __RKEntityInteractionSpecification(v91, v172, type metadata accessor for __RKEntitySwapEntityActionArguments);
+      v132 = v175;
+      outlined init with copy of __RKEntityInteractionSpecification(v131, v175, type metadata accessor for __RKEntitySwapEntityActionArguments);
+      v133 = v179;
+      v134 = v184;
+      v184(v132);
+      (*(v180 + 40))(v132, v133, v181);
+      v135 = v171;
+      v136 = *(v171 + 24);
+      v137 = v177;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(&v132[v136], v134, type metadata accessor for __RKEntityHideActionArguments, &protocol witness table for __RKEntityHideActionArguments, type metadata accessor for __RKEntityHideActionArguments, v177);
+      _s10RealityKit29__RKEntityHideActionArgumentsVWOdTm_0(v137, &v132[v136], type metadata accessor for __RKEntityHideActionArguments);
+      v138 = *(v135 + 28);
+      v139 = v178;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(&v132[v138], v134, type metadata accessor for __RKEntityShowActionArguments, &protocol witness table for __RKEntityShowActionArguments, type metadata accessor for __RKEntityShowActionArguments, v178);
+      outlined destroy of __RKEntityInteractionSpecification(v131, type metadata accessor for __RKEntitySwapEntityActionArguments);
+      _s10RealityKit29__RKEntityHideActionArgumentsVWOdTm_0(v139, &v132[v138], type metadata accessor for __RKEntityShowActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v132, v186, type metadata accessor for __RKEntitySwapEntityActionArguments);
       break;
     case 0x13u:
-      v165 = v189;
-      outlined init with take of __RKEntityInteractionSpecification(v112, v189, type metadata accessor for __RKEntitySpinActionArguments);
-      v166 = v190;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v165, v205, type metadata accessor for __RKEntitySpinActionArguments, &protocol witness table for __RKEntitySpinActionArguments, type metadata accessor for __RKEntitySpinActionArguments, v190);
-      outlined destroy of __RKEntityInteractionSpecification(v165, type metadata accessor for __RKEntitySpinActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v166, v207, type metadata accessor for __RKEntitySpinActionArguments);
+      v144 = v168;
+      outlined init with take of __RKEntityInteractionSpecification(v91, v168, type metadata accessor for __RKEntitySpinActionArguments);
+      v145 = v169;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v144, v184, type metadata accessor for __RKEntitySpinActionArguments, &protocol witness table for __RKEntitySpinActionArguments, type metadata accessor for __RKEntitySpinActionArguments, v169);
+      outlined destroy of __RKEntityInteractionSpecification(v144, type metadata accessor for __RKEntitySpinActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v145, v186, type metadata accessor for __RKEntitySpinActionArguments);
       break;
     case 0x14u:
-      v136 = v191;
-      outlined init with take of __RKEntityInteractionSpecification(v112, v191, type metadata accessor for __RKEntitySetOpacityActionArguments);
-      v137 = v194;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v136, v205, type metadata accessor for __RKEntitySetOpacityActionArguments, &protocol witness table for __RKEntitySetOpacityActionArguments, type metadata accessor for __RKEntitySetOpacityActionArguments, v194);
-      outlined destroy of __RKEntityInteractionSpecification(v136, type metadata accessor for __RKEntitySetOpacityActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v137, v207, type metadata accessor for __RKEntitySetOpacityActionArguments);
+      v115 = v170;
+      outlined init with take of __RKEntityInteractionSpecification(v91, v170, type metadata accessor for __RKEntitySetOpacityActionArguments);
+      v116 = v173;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v115, v184, type metadata accessor for __RKEntitySetOpacityActionArguments, &protocol witness table for __RKEntitySetOpacityActionArguments, type metadata accessor for __RKEntitySetOpacityActionArguments, v173);
+      outlined destroy of __RKEntityInteractionSpecification(v115, type metadata accessor for __RKEntitySetOpacityActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v116, v186, type metadata accessor for __RKEntitySetOpacityActionArguments);
       break;
     case 0x15u:
-      v141 = v195;
-      outlined init with take of __RKEntityInteractionSpecification(v112, v195, type metadata accessor for __RKEntityPlayTimelineActionArguments);
-      v142 = v197;
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v141, v205, v197);
-      outlined destroy of __RKEntityInteractionSpecification(v141, type metadata accessor for __RKEntityPlayTimelineActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v142, v207, type metadata accessor for __RKEntityPlayTimelineActionArguments);
+      v120 = v174;
+      outlined init with take of __RKEntityInteractionSpecification(v91, v174, type metadata accessor for __RKEntityPlayTimelineActionArguments);
+      v121 = v176;
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v120, v184, v176);
+      outlined destroy of __RKEntityInteractionSpecification(v120, type metadata accessor for __RKEntityPlayTimelineActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v121, v186, type metadata accessor for __RKEntityPlayTimelineActionArguments);
       break;
     default:
-      outlined init with take of __RKEntityInteractionSpecification(v112, v108, type metadata accessor for __RKEntityAudioActionArguments);
-      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v108, v205, type metadata accessor for __RKEntityAudioActionArguments, &protocol witness table for __RKEntityAudioActionArguments, type metadata accessor for __RKEntityAudioActionArguments, v105);
-      outlined destroy of __RKEntityInteractionSpecification(v108, type metadata accessor for __RKEntityAudioActionArguments);
-      outlined init with take of __RKEntityInteractionSpecification(v105, v207, type metadata accessor for __RKEntityAudioActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v91, v88, type metadata accessor for __RKEntityAudioActionArguments);
+      specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v88, v184, type metadata accessor for __RKEntityAudioActionArguments, &protocol witness table for __RKEntityAudioActionArguments, type metadata accessor for __RKEntityAudioActionArguments, v85);
+      outlined destroy of __RKEntityInteractionSpecification(v88, type metadata accessor for __RKEntityAudioActionArguments);
+      outlined init with take of __RKEntityInteractionSpecification(v85, v186, type metadata accessor for __RKEntityAudioActionArguments);
       break;
   }
 
   return swift_storeEnumTagMultiPayload();
 }
 
-uint64_t specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)@<X0>(uint64_t a1@<X0>, void (*a2)(char *)@<X1>, uint64_t (*a3)(void, __n128)@<X5>, uint64_t a4@<X6>, uint64_t (*a5)(void)@<X7>, uint64_t a6@<X8>)
+uint64_t specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)@<X0>(uint64_t a1@<X0>, void (*a2)(_BYTE *)@<X1>, uint64_t (*a3)(void, __n128)@<X5>, uint64_t a4@<X6>, uint64_t (*a5)(void)@<X7>, uint64_t a6@<X8>)
 {
-  v24 = a6;
+  v23 = a6;
   v11 = type metadata accessor for UUID();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
   MEMORY[0x1EEE9AC00](v11);
-  v15 = &v25[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  v17 = MEMORY[0x1EEE9AC00](v16);
-  v19 = &v25[-v18 - 8];
-  v28 = a3(0, v17);
-  v29 = a4;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v27);
+  v14 = &v24[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v16 = MEMORY[0x1EEE9AC00](v15);
+  v18 = &v24[-v17 - 8];
+  v27 = a3(0, v16);
+  v28 = a4;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v26);
   outlined init with copy of __RKEntityInteractionSpecification(a1, boxed_opaque_existential_1, a5);
-  outlined init with copy of __REAssetService(v27, v26);
-  v21 = __swift_project_boxed_opaque_existential_1(v27, v28);
-  (*(v12 + 16))(v15, v21, v11);
-  a2(v15);
-  (*(v12 + 8))(v15, v11);
-  v22 = __swift_mutable_project_boxed_opaque_existential_1(v26, v26[3]);
-  (*(v12 + 40))(v22, v19, v11);
   outlined init with copy of __REAssetService(v26, v25);
+  v20 = __swift_project_boxed_opaque_existential_1(v26, v27);
+  (*(v12 + 16))(v14, v20, v11);
+  a2(v14);
+  (*(v12 + 8))(v14, v11);
+  v21 = __swift_mutable_project_boxed_opaque_existential_1(v25, v25[3]);
+  (*(v12 + 40))(v21, v18, v11);
+  outlined init with copy of __REAssetService(v25, v24);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit26__RKSpecificationHasTarget_pMd, &_s10RealityKit26__RKSpecificationHasTarget_pMR);
   swift_dynamicCast();
-  __swift_destroy_boxed_opaque_existential_1(v26);
-  return __swift_destroy_boxed_opaque_existential_1(v27);
+  __swift_destroy_boxed_opaque_existential_1(v25);
+  return __swift_destroy_boxed_opaque_existential_1(v26);
 }
 
 uint64_t specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)@<X0>(int a1@<W0>, char a2@<W1>, void (*a3)(char *)@<X2>, uint64_t a4@<X8>, float a5@<S0>)
 {
   v10 = type metadata accessor for UUID();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](v10);
-  v14 = &v25[-2] - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v25[-2] - v16;
-  *v25 = a5;
-  v25[1] = a1;
-  v26 = a2 & 1;
+  v13 = &v24[-2] - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v24[-2] - v15;
+  *v24 = a5;
+  v24[1] = a1;
+  v25 = a2 & 1;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit26__RKSpecificationHasTarget_pMd, &_s10RealityKit26__RKSpecificationHasTarget_pMR);
   if (swift_dynamicCast())
   {
-    outlined init with take of ForceEffectBase(&v27, v30);
-    outlined init with copy of __REAssetService(v30, &v27);
-    v24 = a4;
-    v18 = a3;
+    outlined init with take of ForceEffectBase(&v26, v29);
+    outlined init with copy of __REAssetService(v29, &v26);
+    v23 = a4;
+    v17 = a3;
+    v18 = v30;
     v19 = v31;
-    v20 = v32;
-    __swift_project_boxed_opaque_existential_1(v30, v31);
-    (*(v20 + 8))(v19, v20);
-    v18(v14);
-    (*(v11 + 8))(v14, v10);
-    v21 = *(&v28 + 1);
-    v22 = v29;
-    __swift_mutable_project_boxed_opaque_existential_1(&v27, *(&v28 + 1));
-    (*(v22 + 16))(v17, v21, v22);
-    outlined init with copy of __REAssetService(&v27, v25);
+    __swift_project_boxed_opaque_existential_1(v29, v30);
+    (*(v19 + 8))(v18, v19);
+    v17(v13);
+    (*(v11 + 8))(v13, v10);
+    v20 = *(&v27 + 1);
+    v21 = v28;
+    __swift_mutable_project_boxed_opaque_existential_1(&v26, *(&v27 + 1));
+    (*(v21 + 16))(v16, v20, v21);
+    outlined init with copy of __REAssetService(&v26, v24);
     swift_dynamicCast();
-    __swift_destroy_boxed_opaque_existential_1(&v27);
-    return __swift_destroy_boxed_opaque_existential_1(v30);
+    __swift_destroy_boxed_opaque_existential_1(&v26);
+    return __swift_destroy_boxed_opaque_existential_1(v29);
   }
 
   else
   {
-    v29 = 0;
+    v28 = 0;
+    v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    result = outlined destroy of BodyTrackingComponent?(&v27, &_s10RealityKit26__RKSpecificationHasTarget_pSgMd, &_s10RealityKit26__RKSpecificationHasTarget_pSgMR);
+    result = outlined destroy of BodyTrackingComponent?(&v26, &_s10RealityKit26__RKSpecificationHasTarget_pSgMd, &_s10RealityKit26__RKSpecificationHasTarget_pSgMR);
     *a4 = a5;
     *(a4 + 4) = a1;
     *(a4 + 8) = a2 & 1;
@@ -5461,213 +5643,205 @@ uint64_t specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.
   return result;
 }
 
-void specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+void specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(uint64_t a1@<X0>, void (*a2)(char *)@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v37 = a4;
-  v38 = a5;
-  v35 = a2;
-  v36 = a3;
+  v36 = a4;
+  v37 = a5;
+  v34 = a2;
+  v35 = a3;
   v8 = *(type metadata accessor for __RKEntityActionSpecification(0) - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v11 = &v29[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = &v29[-v14];
-  v16 = *(a1 + 8);
-  v17 = *v13;
-  v41 = *v13;
-  v18 = *(v13 + 16);
-  v19 = *(v13 + 24);
-  v20 = *(v13 + 32);
-  v40 = v20;
-  v21 = *(v13 + 33);
-  v22 = *(v16 + 16);
-  v23 = MEMORY[0x1E69E7CC0];
-  if (v22)
+  v10 = &v28[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v28[-v13];
+  v15 = *(a1 + 8);
+  v16 = *v12;
+  v40 = *v12;
+  v17 = *(v12 + 16);
+  v18 = *(v12 + 24);
+  v19 = *(v12 + 32);
+  v39 = v19;
+  v20 = *(v12 + 33);
+  v21 = *(v15 + 16);
+  v22 = MEMORY[0x1E69E7CC0];
+  if (v21)
   {
-    v30 = *(v13 + 33);
-    v31 = v19;
-    v32 = v18;
-    v33 = v13;
-    v34 = a6;
-    outlined init with copy of __RKEntityActionGroupArguments(v13, v39);
-    v39[0] = v23;
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v22, 0);
-    v23 = v39[0];
-    v24 = (*(v8 + 80) + 32) & ~*(v8 + 80);
-    v25 = v16 + v24;
-    v26 = *(v8 + 72);
+    v29 = *(v12 + 33);
+    v30 = v18;
+    v31 = v17;
+    v32 = v12;
+    v33 = a6;
+    outlined init with copy of __RKEntityActionGroupArguments(v12, v38);
+    v38[0] = v22;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v21, 0);
+    v22 = v38[0];
+    v23 = (*(v8 + 80) + 32) & ~*(v8 + 80);
+    v24 = v15 + v23;
+    v25 = *(v8 + 72);
     do
     {
-      outlined init with copy of __RKEntityInteractionSpecification(v25, v11, type metadata accessor for __RKEntityActionSpecification);
-      __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v35, v36, v37, v38);
-      outlined destroy of __RKEntityInteractionSpecification(v11, type metadata accessor for __RKEntityActionSpecification);
-      v39[0] = v23;
-      v28 = *(v23 + 16);
-      v27 = *(v23 + 24);
-      if (v28 >= v27 >> 1)
+      outlined init with copy of __RKEntityInteractionSpecification(v24, v10, type metadata accessor for __RKEntityActionSpecification);
+      __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v34, v35, v36, v37, v14);
+      outlined destroy of __RKEntityInteractionSpecification(v10, type metadata accessor for __RKEntityActionSpecification);
+      v38[0] = v22;
+      v27 = *(v22 + 16);
+      v26 = *(v22 + 24);
+      if (v27 >= v26 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v27 > 1, v28 + 1, 1);
-        v23 = v39[0];
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v26 > 1), v27 + 1, 1);
+        v22 = v38[0];
       }
 
-      *(v23 + 16) = v28 + 1;
-      outlined init with take of __RKEntityInteractionSpecification(v15, v23 + v24 + v28 * v26, type metadata accessor for __RKEntityActionSpecification);
-      v25 += v26;
-      --v22;
+      *(v22 + 16) = v27 + 1;
+      outlined init with take of __RKEntityInteractionSpecification(v14, v22 + v23 + v27 * v25, type metadata accessor for __RKEntityActionSpecification);
+      v24 += v25;
+      --v21;
     }
 
-    while (v22);
-    outlined destroy of __RKEntityActionGroupArguments(v33);
-    v17 = v41;
-    v20 = v40;
-    a6 = v34;
-    LOBYTE(v18) = v32;
-    v19 = v31;
-    v21 = v30;
+    while (v21);
+    outlined destroy of __RKEntityActionGroupArguments(v32);
+    v16 = v40;
+    v19 = v39;
+    a6 = v33;
+    LOBYTE(v17) = v31;
+    v18 = v30;
+    v20 = v29;
   }
 
-  *a6 = v17 & 1;
-  *(a6 + 8) = v23;
-  *(a6 + 16) = v18;
-  *(a6 + 24) = v19;
-  *(a6 + 32) = v20 & 1;
-  *(a6 + 33) = v21;
+  *a6 = v16 & 1;
+  *(a6 + 8) = v22;
+  *(a6 + 16) = v17;
+  *(a6 + 24) = v18;
+  *(a6 + 32) = v19 & 1;
+  *(a6 + 33) = v20;
 }
 
-uint64_t specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)@<X0>(uint64_t a1@<X0>, void (*a2)(uint64_t)@<X1>, uint64_t a3@<X8>)
+uint64_t specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)@<X0>(uint64_t a1@<X0>, void (*a2)(char *)@<X1>, char *a3@<X8>)
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v23 - v11;
-  v13 = type metadata accessor for UUID();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v23 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = &v23 - v19;
+  v8 = &v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v21 - v10;
+  v12 = type metadata accessor for UUID();
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v21 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v21 - v17;
   outlined init with copy of __RKEntityInteractionSpecification(a1, a3, type metadata accessor for __RKEntityStartAnimateActionArguments);
   a2(a3);
-  (*(v14 + 40))(a3, v20, v13);
-  v21 = *(type metadata accessor for __RKEntityStartAnimateActionArguments(0) + 56);
-  outlined init with copy of UUID?(a3 + v21, v12);
-  if ((*(v14 + 48))(v12, 1, v13) == 1)
+  (*(v13 + 40))(a3, v18, v12);
+  v19 = *(type metadata accessor for __RKEntityStartAnimateActionArguments(0) + 56);
+  outlined init with copy of UUID?(&a3[v19], v11);
+  if ((*(v13 + 48))(v11, 1, v12) == 1)
   {
-    return outlined destroy of BodyTrackingComponent?(v12, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    return outlined destroy of BodyTrackingComponent?(v11, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   }
 
-  (*(v14 + 32))(v17, v12, v13);
-  a2(v17);
-  (*(v14 + 8))(v17, v13);
-  (*(v14 + 56))(v9, 0, 1, v13);
-  return outlined assign with take of UUID?(v9, a3 + v21);
+  (*(v13 + 32))(v15, v11, v12);
+  a2(v15);
+  (*(v13 + 8))(v15, v12);
+  (*(v13 + 56))(v8, 0, 1, v12);
+  return outlined assign with take of UUID?(v8, &a3[v19]);
 }
 
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v28 = &v25 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v27 = &v25 - v10;
-  v11 = type metadata accessor for UUID();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v15 = &v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = &v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v25 = &v23 - v9;
+  v10 = type metadata accessor for UUID();
+  v11 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = &v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   outlined init with copy of __RKEntityInteractionSpecification(a1, a3, type metadata accessor for __RKEntityPlayTimelineActionArguments);
   a2(a3);
-  v16 = *(v12 + 40);
-  v16(a3, v15, v11);
-  v17 = type metadata accessor for __RKEntityPlayTimelineActionArguments(0);
-  v18 = *(v17 + 20);
-  v26 = a2;
-  a2(a3 + v18);
-  v19 = a3 + v18;
-  v20 = v28;
-  v16(v19, v15, v11);
-  v21 = v27;
-  v22 = *(v17 + 28);
-  outlined init with copy of UUID?(a3 + v22, v20);
-  v23 = 1;
-  if ((*(v12 + 48))(v20, 1, v11) != 1)
+  v14 = *(v11 + 40);
+  v14(a3, v13, v10);
+  v15 = type metadata accessor for __RKEntityPlayTimelineActionArguments(0);
+  v16 = *(v15 + 20);
+  v24 = a2;
+  a2(&a3[v16]);
+  v17 = &a3[v16];
+  v18 = v26;
+  v14(v17, v13, v10);
+  v19 = v25;
+  v20 = *(v15 + 28);
+  outlined init with copy of UUID?(&a3[v20], v18);
+  v21 = 1;
+  if ((*(v11 + 48))(v18, 1, v10) != 1)
   {
-    (*(v12 + 32))(v15, v20, v11);
-    v26(v15);
-    (*(v12 + 8))(v15, v11);
-    v23 = 0;
+    (*(v11 + 32))(v13, v18, v10);
+    v24(v13);
+    (*(v11 + 8))(v13, v10);
+    v21 = 0;
   }
 
-  (*(v12 + 56))(v21, v23, 1, v11);
-  return outlined assign with take of UUID?(v21, a3 + v22);
+  (*(v11 + 56))(v19, v21, 1, v10);
+  return outlined assign with take of UUID?(v19, &a3[v20]);
 }
 
 uint64_t specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)@<X0>(uint64_t a1@<X0>, void (*a2)(char *)@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v33[1] = a3;
-  v34 = a2;
-  v35 = a4;
+  v30[1] = a3;
+  v31 = a2;
+  v32 = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v33[0] = v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = v33 - v9;
-  v11 = type metadata accessor for UUID();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v15 = v33 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = v33 - v17;
-  MEMORY[0x1EEE9AC00](v19);
-  v21 = v33 - v20;
-  v22 = type metadata accessor for __RKEntityTransformActionArguments(0);
-  v23 = *(*(v22 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v22);
-  v25 = v33 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of __RKEntityInteractionSpecification(a1, v25, type metadata accessor for __RKEntityTransformActionArguments);
-  v26 = *(v22 + 60);
-  outlined init with copy of UUID?(&v25[v26], v10);
-  if ((*(v12 + 48))(v10, 1, v11) == 1)
+  v30[0] = v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = v30 - v8;
+  v10 = type metadata accessor for UUID();
+  v11 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = v30 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = v30 - v15;
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = v30 - v18;
+  v20 = type metadata accessor for __RKEntityTransformActionArguments(0);
+  MEMORY[0x1EEE9AC00](v20);
+  v22 = v30 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of __RKEntityInteractionSpecification(a1, v22, type metadata accessor for __RKEntityTransformActionArguments);
+  v23 = *(v20 + 60);
+  outlined init with copy of UUID?(&v22[v23], v9);
+  if ((*(v11 + 48))(v9, 1, v10) == 1)
   {
-    outlined destroy of BodyTrackingComponent?(v10, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    outlined destroy of __RKEntityInteractionSpecification(v25, type metadata accessor for __RKEntityTransformActionArguments);
-    v39 = v22;
-    v40 = &protocol witness table for __RKEntityTransformActionArguments;
-    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v38);
+    outlined destroy of BodyTrackingComponent?(v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    outlined destroy of __RKEntityInteractionSpecification(v22, type metadata accessor for __RKEntityTransformActionArguments);
+    v36 = v20;
+    v37 = &protocol witness table for __RKEntityTransformActionArguments;
+    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v35);
     outlined init with copy of __RKEntityInteractionSpecification(a1, boxed_opaque_existential_1, type metadata accessor for __RKEntityTransformActionArguments);
-    outlined init with copy of __REAssetService(v38, v37);
-    v28 = __swift_project_boxed_opaque_existential_1(v38, v39);
-    (*(v12 + 16))(v15, v28, v11);
-    v34(v15);
-    (*(v12 + 8))(v15, v11);
-    v29 = __swift_mutable_project_boxed_opaque_existential_1(v37, v37[3]);
-    (*(v12 + 40))(v29, v18, v11);
-    outlined init with copy of __REAssetService(v37, v36);
+    outlined init with copy of __REAssetService(v35, v34);
+    v25 = __swift_project_boxed_opaque_existential_1(v35, v36);
+    (*(v11 + 16))(v13, v25, v10);
+    v31(v13);
+    (*(v11 + 8))(v13, v10);
+    v26 = __swift_mutable_project_boxed_opaque_existential_1(v34, v34[3]);
+    (*(v11 + 40))(v26, v16, v10);
+    outlined init with copy of __REAssetService(v34, v33);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit26__RKSpecificationHasTarget_pMd, &_s10RealityKit26__RKSpecificationHasTarget_pMR);
     swift_dynamicCast();
-    __swift_destroy_boxed_opaque_existential_1(v37);
-    return __swift_destroy_boxed_opaque_existential_1(v38);
+    __swift_destroy_boxed_opaque_existential_1(v34);
+    return __swift_destroy_boxed_opaque_existential_1(v35);
   }
 
   else
   {
-    (*(v12 + 32))(v21, v10, v11);
-    v31 = v34;
-    v34(v25);
-    (*(v12 + 40))(v25, v18, v11);
-    v32 = v33[0];
-    v31(v21);
-    (*(v12 + 8))(v21, v11);
-    (*(v12 + 56))(v32, 0, 1, v11);
-    outlined assign with take of UUID?(v32, &v25[v26]);
-    outlined init with copy of __RKEntityInteractionSpecification(v25, v35, type metadata accessor for __RKEntityTransformActionArguments);
-    return outlined destroy of __RKEntityInteractionSpecification(v25, type metadata accessor for __RKEntityTransformActionArguments);
+    (*(v11 + 32))(v19, v9, v10);
+    v28 = v31;
+    v31(v22);
+    (*(v11 + 40))(v22, v16, v10);
+    v29 = v30[0];
+    v28(v19);
+    (*(v11 + 8))(v19, v10);
+    (*(v11 + 56))(v29, 0, 1, v10);
+    outlined assign with take of UUID?(v29, &v22[v23]);
+    outlined init with copy of __RKEntityInteractionSpecification(v22, v32, type metadata accessor for __RKEntityTransformActionArguments);
+    return outlined destroy of __RKEntityInteractionSpecification(v22, type metadata accessor for __RKEntityTransformActionArguments);
   }
 }
 
@@ -5675,84 +5849,82 @@ uint64_t specialized remapArguments #1 <A>(_:) in __RKEntityActionSpecification.
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v21[-2] - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v21[-2] - v12;
-  v21[0] = a3;
+  v9 = &v20[-2] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v20[-2] - v11;
+  v20[0] = a3;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit26__RKSpecificationHasTarget_pMd, &_s10RealityKit26__RKSpecificationHasTarget_pMR);
   if (swift_dynamicCast())
   {
-    outlined init with take of ForceEffectBase(&v22, v25);
-    outlined init with copy of __REAssetService(v25, &v22);
+    outlined init with take of ForceEffectBase(&v21, v24);
+    outlined init with copy of __REAssetService(v24, &v21);
+    v13 = v25;
     v14 = v26;
-    v15 = v27;
-    __swift_project_boxed_opaque_existential_1(v25, v26);
-    v16 = *(v15 + 8);
-    v20 = a2;
-    v16(v14, v15);
-    a1(v10);
-    (*(v7 + 8))(v10, v6);
-    v17 = *(&v23 + 1);
-    v18 = v24;
-    __swift_mutable_project_boxed_opaque_existential_1(&v22, *(&v23 + 1));
-    (*(v18 + 16))(v13, v17, v18);
-    outlined init with copy of __REAssetService(&v22, v21);
+    __swift_project_boxed_opaque_existential_1(v24, v25);
+    v15 = *(v14 + 8);
+    v19 = a2;
+    v15(v13, v14);
+    a1(v9);
+    (*(v7 + 8))(v9, v6);
+    v16 = *(&v22 + 1);
+    v17 = v23;
+    __swift_mutable_project_boxed_opaque_existential_1(&v21, *(&v22 + 1));
+    (*(v17 + 16))(v12, v16, v17);
+    outlined init with copy of __REAssetService(&v21, v20);
     swift_dynamicCast();
-    __swift_destroy_boxed_opaque_existential_1(&v22);
-    return __swift_destroy_boxed_opaque_existential_1(v25);
+    __swift_destroy_boxed_opaque_existential_1(&v21);
+    return __swift_destroy_boxed_opaque_existential_1(v24);
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
+    v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    result = outlined destroy of BodyTrackingComponent?(&v22, &_s10RealityKit26__RKSpecificationHasTarget_pSgMd, &_s10RealityKit26__RKSpecificationHasTarget_pSgMR);
+    result = outlined destroy of BodyTrackingComponent?(&v21, &_s10RealityKit26__RKSpecificationHasTarget_pSgMd, &_s10RealityKit26__RKSpecificationHasTarget_pSgMR);
     *a2 = a3;
   }
 
   return result;
 }
 
-uint64_t Entity.__remapUUIDs(entityIdentifierMapping:interactionIdentifierMapping:)(void (*a1)(uint64_t), uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t Entity.__remapUUIDs(entityIdentifierMapping:interactionIdentifierMapping:)(void (*a1)(char *), uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v58 = a3;
-  v59 = a4;
-  v56 = a1;
-  v57 = a2;
-  v55 = type metadata accessor for __RKEntityInteractionSpecification(0);
-  v50 = *(v55 - 8);
-  v5 = *(v50 + 64);
-  MEMORY[0x1EEE9AC00](v55);
-  v7 = v46 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = (v46 - v9);
-  v11 = swift_allocObject();
-  *(v11 + 16) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10RealityKit6EntityC_SayAC34__RKEntityInteractionSpecificationVGTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  v12 = v11 + 16;
-  gatherInteractionSpecifications #1 (from:) in Entity.__remapUUIDs(entityIdentifierMapping:interactionIdentifierMapping:)(v4, v11);
-  v46[1] = v11;
-  specialized enumerateCore #1 (entity:recursive:block:) in Entity.__remapUUIDs(entityIdentifierMapping:interactionIdentifierMapping:)(v4, 1, v11);
+  v49 = a3;
+  v50 = a4;
+  v47 = a1;
+  v48 = a2;
+  v46 = type metadata accessor for __RKEntityInteractionSpecification(0);
+  v41 = *(v46 - 8);
+  MEMORY[0x1EEE9AC00](v46);
+  v6 = v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = (v37 - v8);
+  v10 = swift_allocObject();
+  *(v10 + 16) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10RealityKit6EntityC_SayAC34__RKEntityInteractionSpecificationVGTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+  v11 = v10 + 16;
+  gatherInteractionSpecifications #1 (from:) in Entity.__remapUUIDs(entityIdentifierMapping:interactionIdentifierMapping:)(v4, v10);
+  v37[1] = v10;
+  specialized enumerateCore #1 (entity:recursive:block:) in Entity.__remapUUIDs(entityIdentifierMapping:interactionIdentifierMapping:)(v4, 1, v10);
   swift_beginAccess();
-  v13 = *v12;
-  v14 = *v12 + 64;
-  v15 = 1 << *(*v12 + 32);
-  v16 = -1;
-  if (v15 < 64)
+  v12 = *v11;
+  v13 = *v11 + 64;
+  v14 = 1 << *(*v11 + 32);
+  v15 = -1;
+  if (v14 < 64)
   {
-    v16 = ~(-1 << v15);
+    v15 = ~(-1 << v14);
   }
 
-  v17 = v16 & *(*v12 + 64);
-  v18 = (v15 + 63) >> 6;
+  v16 = v15 & *(*v11 + 64);
+  v17 = (v14 + 63) >> 6;
 
-  v20 = 0;
-  v48 = v14;
-  v49 = v13;
-  v47 = v18;
-  if (v17)
+  v19 = 0;
+  v39 = v13;
+  v40 = v12;
+  v38 = v17;
+  if (v16)
   {
     goto LABEL_7;
   }
@@ -5760,86 +5932,86 @@ uint64_t Entity.__remapUUIDs(entityIdentifierMapping:interactionIdentifierMappin
 LABEL_8:
   while (1)
   {
-    v21 = v20 + 1;
-    if (__OFADD__(v20, 1))
+    v20 = v19 + 1;
+    if (__OFADD__(v19, 1))
     {
       break;
     }
 
-    if (v21 >= v18)
+    if (v20 >= v17)
     {
     }
 
-    v17 = *(v14 + 8 * v21);
-    ++v20;
-    if (v17)
+    v16 = *(v13 + 8 * v20);
+    ++v19;
+    if (v16)
     {
       while (1)
       {
-        v22 = (v21 << 9) | (8 * __clz(__rbit64(v17)));
-        v23 = *(*(v13 + 56) + v22);
-        v24 = *(v23 + 16);
-        v54 = *(*(v13 + 48) + v22);
-        if (v24)
+        v21 = (v20 << 9) | (8 * __clz(__rbit64(v16)));
+        v22 = *(*(v12 + 56) + v21);
+        v23 = *(v22 + 16);
+        v45 = *(*(v12 + 48) + v21);
+        if (v23)
         {
-          v52 = v21;
-          v53 = v17;
-          v61 = MEMORY[0x1E69E7CC0];
+          v43 = v20;
+          v44 = v16;
+          v52 = MEMORY[0x1E69E7CC0];
 
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v24, 0);
-          v25 = v61;
-          v26 = *(v50 + 80);
-          v51 = v23;
-          v60 = (v26 + 32) & ~v26;
-          v27 = v23 + v60;
-          v28 = *(v50 + 72);
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v23, 0);
+          v24 = v52;
+          v25 = *(v41 + 80);
+          v42 = v22;
+          v51 = (v25 + 32) & ~v25;
+          v26 = v22 + v51;
+          v27 = *(v41 + 72);
           do
           {
-            outlined init with copy of __RKEntityInteractionSpecification(v27, v7, type metadata accessor for __RKEntityInteractionSpecification);
-            v30 = v56;
-            v29 = v57;
-            __RKEntityTriggerSpecification.remapUUIDs(entityIdentifierMapping:)(v56, v57, v10);
-            v31 = v55;
-            __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v30, v29, v58, v59, (v10 + *(v55 + 20)));
-            v32 = &v7[*(v31 + 24)];
-            v34 = *v32;
-            v33 = *(v32 + 1);
+            outlined init with copy of __RKEntityInteractionSpecification(v26, v6, type metadata accessor for __RKEntityInteractionSpecification);
+            v29 = v47;
+            v28 = v48;
+            __RKEntityTriggerSpecification.remapUUIDs(entityIdentifierMapping:)(v47, v48, v9);
+            v30 = v46;
+            __RKEntityActionSpecification.remapUUIDs(entityIdentifierMapping:identifierMapping:)(v29, v28, v49, v50, (v9 + *(v46 + 20)));
+            v31 = &v6[*(v30 + 24)];
+            v33 = *v31;
+            v32 = *(v31 + 1);
 
-            outlined destroy of __RKEntityInteractionSpecification(v7, type metadata accessor for __RKEntityInteractionSpecification);
-            v35 = (v10 + *(v31 + 24));
-            *v35 = v34;
-            v35[1] = v33;
-            v61 = v25;
-            v37 = *(v25 + 16);
-            v36 = *(v25 + 24);
-            if (v37 >= v36 >> 1)
+            outlined destroy of __RKEntityInteractionSpecification(v6, type metadata accessor for __RKEntityInteractionSpecification);
+            v34 = (v9 + *(v30 + 24));
+            *v34 = v33;
+            v34[1] = v32;
+            v52 = v24;
+            v36 = *(v24 + 16);
+            v35 = *(v24 + 24);
+            if (v36 >= v35 >> 1)
             {
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v36 > 1, v37 + 1, 1);
-              v25 = v61;
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v35 > 1), v36 + 1, 1);
+              v24 = v52;
             }
 
-            *(v25 + 16) = v37 + 1;
-            outlined init with take of __RKEntityInteractionSpecification(v10, v25 + v60 + v37 * v28, type metadata accessor for __RKEntityInteractionSpecification);
-            v27 += v28;
-            --v24;
+            *(v24 + 16) = v36 + 1;
+            outlined init with take of __RKEntityInteractionSpecification(v9, v24 + v51 + v36 * v27, type metadata accessor for __RKEntityInteractionSpecification);
+            v26 += v27;
+            --v23;
           }
 
-          while (v24);
+          while (v23);
 
-          v14 = v48;
-          v13 = v49;
-          v18 = v47;
-          v21 = v52;
-          v17 = v53;
+          v13 = v39;
+          v12 = v40;
+          v17 = v38;
+          v20 = v43;
+          v16 = v44;
         }
 
         else
         {
 
-          v25 = MEMORY[0x1E69E7CC0];
+          v24 = MEMORY[0x1E69E7CC0];
         }
 
-        v17 &= v17 - 1;
+        v16 &= v16 - 1;
         swift_beginAccess();
         if (!static __RKEntityInteractionsComponent.registration)
         {
@@ -5847,56 +6019,45 @@ LABEL_8:
           goto LABEL_6;
         }
 
-        v38 = *(static __RKEntityInteractionsComponent.registration + 3);
-        if (!*(v25 + 16))
+        if (!*(v24 + 16))
         {
           break;
         }
 
-        v39 = v54;
-        v40 = *(v54 + 16);
-        v41 = *(static __RKEntityInteractionsComponent.registration + 3);
-        if (!REEntityGetCustomComponent())
+        if (!REEntityGetCustomComponent() && !REEntityAddComponentByClass())
         {
-          v42 = *(v39 + 16);
-          if (!REEntityAddComponentByClass())
-          {
 
-            goto LABEL_6;
-          }
+          goto LABEL_6;
         }
 
         if (RECustomComponentGetObject())
         {
-          __RKEntityInteractionsComponent.specifications.setter(v25);
+          __RKEntityInteractionsComponent.specifications.setter(v24);
         }
 
         else
         {
         }
 
-        v20 = v21;
-        if (!v17)
+        v19 = v20;
+        if (!v16)
         {
           goto LABEL_8;
         }
 
 LABEL_7:
-        v21 = v20;
+        v20 = v19;
       }
 
-      v43 = v54;
-      v44 = *(v54 + 16);
       if (REEntityGetCustomComponent())
       {
-        v45 = *(v43 + 16);
         REEntityRemoveComponentByClass();
       }
 
 LABEL_6:
 
-      v20 = v21;
-      if (!v17)
+      v19 = v20;
+      if (!v16)
       {
         continue;
       }
@@ -5909,35 +6070,35 @@ LABEL_6:
   return result;
 }
 
-uint64_t gatherInteractionSpecifications #1 (from:) in Entity.__remapUUIDs(entityIdentifierMapping:interactionIdentifierMapping:)(uint64_t a1, uint64_t a2)
+double gatherInteractionSpecifications #1 (from:) in Entity.__remapUUIDs(entityIdentifierMapping:interactionIdentifierMapping:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
-  if (static __RKEntityInteractionsComponent.registration && (v4 = *(static __RKEntityInteractionsComponent.registration + 3), v5 = *(a1 + 16), REEntityGetCustomComponent()) && (Object = RECustomComponentGetObject()) != 0)
+  if (static __RKEntityInteractionsComponent.registration && REEntityGetCustomComponent() && (Object = RECustomComponentGetObject()) != 0)
   {
-    v7 = *(Object + 16);
-    if (v7)
+    v5 = *(Object + 16);
+    if (v5)
     {
-      v8 = *(Object + 16);
 
-      if (!*(v7 + 16))
+      if (!*(v5 + 16))
       {
+        goto LABEL_10;
       }
 
 LABEL_8:
       swift_beginAccess();
 
-      v9 = *(a2 + 16);
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v12 = *(a2 + 16);
+      v8 = *(a2 + 16);
       *(a2 + 16) = 0x8000000000000000;
-      specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v7, a1, isUniquelyReferenced_nonNull_native);
+      specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v5, a1, isUniquelyReferenced_nonNull_native);
 
-      *(a2 + 16) = v12;
-      return swift_endAccess();
+      *(a2 + 16) = v8;
+      swift_endAccess();
+      return result;
     }
 
-    v7 = __RKEntityInteractionsComponent.decodedJSON()();
-    if (*(v7 + 16))
+    v5 = __RKEntityInteractionsComponent.decodedJSON()();
+    if (*(v5 + 16))
     {
       goto LABEL_8;
     }
@@ -5945,15 +6106,19 @@ LABEL_8:
 
   else
   {
-    v7 = MEMORY[0x1E69E7CC0];
+    v5 = MEMORY[0x1E69E7CC0];
     if (*(MEMORY[0x1E69E7CC0] + 16))
     {
       goto LABEL_8;
     }
   }
+
+LABEL_10:
+
+  return result;
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -5997,19 +6162,19 @@ char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacit
 }
 
 {
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy17RealityFoundation22AcousticModelComponentV22SoundReductionMaterialVGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation22AcousticModelComponentV22SoundReductionMaterialVGMR);
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy17RealityFoundation22AcousticModelComponentV22SoundReductionMaterialVGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation22AcousticModelComponentV22SoundReductionMaterialVGMR, &type metadata for AcousticModelComponent.SoundReductionMaterial);
   *v3 = result;
   return result;
 }
 
 {
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy17RealityFoundation22AcousticModelComponentV18ScatteringMaterialVGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation22AcousticModelComponentV18ScatteringMaterialVGMR);
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy17RealityFoundation22AcousticModelComponentV18ScatteringMaterialVGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation22AcousticModelComponentV18ScatteringMaterialVGMR, &type metadata for AcousticModelComponent.ScatteringMaterial);
   *v3 = result;
   return result;
 }
 
 {
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy17RealityFoundation22AcousticModelComponentV18AbsorptionMaterialVGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation22AcousticModelComponentV18AbsorptionMaterialVGMR);
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy17RealityFoundation22AcousticModelComponentV18AbsorptionMaterialVGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation22AcousticModelComponentV18AbsorptionMaterialVGMR, &type metadata for AcousticModelComponent.AbsorptionMaterial);
   *v3 = result;
   return result;
 }
@@ -6290,7 +6455,7 @@ char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacit
   return result;
 }
 
-void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -6299,6 +6464,18 @@ void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacit
 
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy10Foundation4UUIDVSgGMd, &_ss23_ContiguousArrayStorageCy10Foundation4UUIDVSgGMR, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy10RealityKit34__RKEntityInteractionSpecificationVGMd, &_ss23_ContiguousArrayStorageCy10RealityKit34__RKEntityInteractionSpecificationVGMR, type metadata accessor for __RKEntityInteractionSpecification);
   *v3 = result;
   return result;
 }
@@ -6316,55 +6493,6 @@ void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacit
 }
 
 {
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySay10RealityKit29__RKEntityActionSpecificationOGGMd, &_ss23_ContiguousArrayStorageCySay10RealityKit29__RKEntityActionSpecificationOGGMR, &_sSay10RealityKit29__RKEntityActionSpecificationOGMd, &_sSay10RealityKit29__RKEntityActionSpecificationOGMR);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySay10RealityKit30__RKEntityTriggerSpecificationOGGMd, &_ss23_ContiguousArrayStorageCySay10RealityKit30__RKEntityTriggerSpecificationOGGMR, &_sSay10RealityKit30__RKEntityTriggerSpecificationOGMd, &_sSay10RealityKit30__RKEntityTriggerSpecificationOGMR);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
-  *v3 = result;
-  return result;
-}
-
-size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(size_t a1, int64_t a2, char a3)
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy10Foundation4UUIDVSgGMd, &_ss23_ContiguousArrayStorageCy10Foundation4UUIDVSgGMR, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy10RealityKit34__RKEntityInteractionSpecificationVGMd, &_ss23_ContiguousArrayStorageCy10RealityKit34__RKEntityInteractionSpecificationVGMR, type metadata accessor for __RKEntityInteractionSpecification);
-  *v3 = result;
-  return result;
-}
-
-{
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy10Foundation4UUIDVGMd, &_ss23_ContiguousArrayStorageCy10Foundation4UUIDVGMR, MEMORY[0x1E69695A8]);
   *v3 = result;
   return result;
@@ -6377,7 +6505,19 @@ size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapaci
 }
 
 {
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy10RealityKit20__SceneResourceCacheC08ImportedF0VGMd, &_ss23_ContiguousArrayStorageCy10RealityKit20__SceneResourceCacheC08ImportedF0VGMR, type metadata accessor for __SceneResourceCache.ImportedScene);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
@@ -6401,7 +6541,31 @@ size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapaci
 }
 
 {
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySay10RealityKit29__RKEntityActionSpecificationOGGMd, &_ss23_ContiguousArrayStorageCySay10RealityKit29__RKEntityActionSpecificationOGGMR, &_sSay10RealityKit29__RKEntityActionSpecificationOGMd, &_sSay10RealityKit29__RKEntityActionSpecificationOGMR);
+  *v3 = result;
+  return result;
+}
+
+{
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy10RealityKit30__RKEntityTriggerSpecificationOGMd, &_ss23_ContiguousArrayStorageCy10RealityKit30__RKEntityTriggerSpecificationOGMR, type metadata accessor for __RKEntityTriggerSpecification);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySay10RealityKit30__RKEntityTriggerSpecificationOGGMd, &_ss23_ContiguousArrayStorageCySay10RealityKit30__RKEntityTriggerSpecificationOGGMR, &_sSay10RealityKit30__RKEntityTriggerSpecificationOGMd, &_sSay10RealityKit30__RKEntityTriggerSpecificationOGMR);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
@@ -8817,84 +8981,6 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
   else
   {
     memcpy(v14, v15, 48 * v10);
-  }
-
-  return v12;
-}
-
-{
-  v7 = result;
-  if (a3)
-  {
-    v8 = *(a4 + 3);
-    v9 = v8 >> 1;
-    if ((v8 >> 1) < a2)
-    {
-      if (v9 + 0x4000000000000000 < 0)
-      {
-        __break(1u);
-        return result;
-      }
-
-      v9 = v8 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v8 & 0xFFFFFFFFFFFFFFFELL) <= a2)
-      {
-        v9 = a2;
-      }
-    }
-  }
-
-  else
-  {
-    v9 = a2;
-  }
-
-  v10 = *(a4 + 2);
-  if (v9 <= v10)
-  {
-    v11 = *(a4 + 2);
-  }
-
-  else
-  {
-    v11 = v9;
-  }
-
-  if (v11)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
-    v12 = swift_allocObject();
-    v13 = _swift_stdlib_malloc_size(v12);
-    v14 = v13 - 32;
-    if (v13 < 32)
-    {
-      v14 = v13 - 1;
-    }
-
-    *(v12 + 2) = v10;
-    *(v12 + 3) = 2 * (v14 >> 5);
-  }
-
-  else
-  {
-    v12 = MEMORY[0x1E69E7CC0];
-  }
-
-  v15 = v12 + 32;
-  v16 = a4 + 32;
-  if (v7)
-  {
-    if (v12 != a4 || v15 >= &v16[32 * v10])
-    {
-      memmove(v15, v16, 32 * v10);
-    }
-
-    *(a4 + 2) = 0;
-  }
-
-  else
-  {
-    swift_arrayInitWithCopy();
   }
 
   return v12;

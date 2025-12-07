@@ -658,11 +658,11 @@ void __60__WFLocationTriggerEditorMapDragRadiusView_animateHandleIn___block_invo
   [v3 setCenter:{v1, v2}];
 }
 
-uint64_t __60__WFLocationTriggerEditorMapDragRadiusView_animateHandleIn___block_invoke_2(uint64_t result, int a2)
+id *__60__WFLocationTriggerEditorMapDragRadiusView_animateHandleIn___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) popAnimateHandle];
+    return [result[4] popAnimateHandle];
   }
 
   return result;
@@ -738,16 +738,16 @@ uint64_t __60__WFLocationTriggerEditorMapDragRadiusView_animateHandleIn___block_
   memset(&v30, 0, sizeof(v30));
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
     CATransform3DScale(&v30, &v29, 0.5, 0.5, 1.0);
     memset(&v29, 0, sizeof(v29));
-    [layer transform];
+    objc_msgSend_transform(layer);
     CATransform3DScale(&v29, &v28, 1.20000005, 1.20000005, 1.0);
     memset(&v28, 0, sizeof(v28));
-    [layer transform];
+    objc_msgSend_transform(layer);
     CATransform3DScale(&v28, &v27, 0.899999976, 0.899999976, 1.0);
     memset(&v27, 0, sizeof(v27));
-    [layer transform];
+    objc_msgSend_transform(layer);
   }
 
   else

@@ -115,10 +115,11 @@ LABEL_18:
   }
 }
 
-- (void)initWithMaxOutputFrameRate:(void *)a1 .cold.1(void *a1)
+- (void)initWithMaxOutputFrameRate:(const char *)a1 .cold.1(const char *a1)
 {
   fig_log_get_emitter();
-  FigDebugAssert3();
+  v2 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v1, v3, a1, v6, v7, vars0, vars8);
 }
 
 @end

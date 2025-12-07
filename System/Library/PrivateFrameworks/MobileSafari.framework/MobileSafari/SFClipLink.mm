@@ -144,86 +144,86 @@ void __53__SFClipLink_getClipAttributesWithCompletionHandler___block_invoke_3(ui
   if (v2 && ![v2 clipIncompatibleWithCurrentDevice])
   {
     v4 = [*(a1 + 32) invocationPolicy];
-    if ([v4 isEligible] & 1) != 0 || (objc_msgSend(v4, "isRecoverable"))
+    if ([v4 isEligible] & 1) != 0 || (v5 = objc_msgSend(v4, "isRecoverable"), (v5))
     {
-      v5 = [*(a1 + 32) clipBundleID];
-      v6 = [v5 safari_isCaseInsensitiveEqualToString:*(*(a1 + 48) + 24)];
+      v7 = [*(a1 + 32) clipBundleID];
+      v8 = [v7 safari_isCaseInsensitiveEqualToString:*(*(a1 + 48) + 24)];
 
-      if (v6)
+      if (v8)
       {
-        v7 = [*(a1 + 32) fullAppName];
-        v8 = *(a1 + 48);
-        v9 = *(v8 + 40);
-        *(v8 + 40) = v7;
+        v11 = [*(a1 + 32) fullAppName];
+        v12 = *(a1 + 48);
+        v13 = *(v12 + 40);
+        *(v12 + 40) = v11;
 
-        v10 = [*(a1 + 32) clipName];
-        v11 = *(a1 + 48);
-        v12 = v10;
-        if (!v10)
+        v14 = [*(a1 + 32) clipName];
+        v15 = *(a1 + 48);
+        v16 = v14;
+        if (!v14)
         {
-          v12 = *(v11 + 40);
+          v16 = *(v15 + 40);
         }
 
-        objc_storeStrong((v11 + 32), v12);
+        objc_storeStrong((v15 + 32), v16);
 
         if (objc_opt_respondsToSelector())
         {
-          v13 = [*(a1 + 32) clipAction];
+          v17 = [*(a1 + 32) clipAction];
         }
 
         else
         {
-          v13 = 0;
+          v17 = 0;
         }
 
-        v19 = [objc_opt_class() localizedUppercaseStringForAction:v13];
-        v20 = *(a1 + 48);
-        v21 = *(v20 + 48);
-        *(v20 + 48) = v19;
+        v23 = [objc_opt_class() localizedUppercaseStringForAction:v17];
+        v24 = *(a1 + 48);
+        v25 = *(v24 + 48);
+        *(v24 + 48) = v23;
 
-        v22 = [objc_opt_class() localizedCaptionForClipNamed:*(*(a1 + 48) + 40) action:v13];
-        v23 = *(a1 + 48);
-        v24 = *(v23 + 56);
-        *(v23 + 56) = v22;
+        v26 = [objc_opt_class() localizedCaptionForClipNamed:*(*(a1 + 48) + 40) action:v17];
+        v27 = *(a1 + 48);
+        v28 = *(v27 + 56);
+        *(v27 + 56) = v26;
 
         +[SFClipLink iconHeight];
-        v26 = v25;
-        v28 = *(a1 + 32);
-        v27 = *(a1 + 40);
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __53__SFClipLink_getClipAttributesWithCompletionHandler___block_invoke_27;
-        v30[3] = &unk_1E721D388;
-        v29 = *(a1 + 56);
-        v32 = v26;
-        v30[4] = *(a1 + 48);
-        v31 = v29;
-        [v27 requestDownloadedIconWithMetadata:v28 completion:v30];
+        v30 = v29;
+        v32 = *(a1 + 32);
+        v31 = *(a1 + 40);
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __53__SFClipLink_getClipAttributesWithCompletionHandler___block_invoke_27;
+        v34[3] = &unk_1E721D388;
+        v33 = *(a1 + 56);
+        v36 = v30;
+        v34[4] = *(a1 + 48);
+        v35 = v33;
+        [v31 requestDownloadedIconWithMetadata:v32 completion:v34];
 
         goto LABEL_21;
       }
 
-      v14 = WBS_LOG_CHANNEL_PREFIXBanners();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v18 = WBS_LOG_CHANNEL_PREFIXBanners(v9, v10);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        v15 = "Not showing App Clip Banner because the URL corresponds to a different app clip bundle identifier";
-        v16 = v14;
-        v17 = OS_LOG_TYPE_INFO;
+        v19 = "Not showing App Clip Banner because the URL corresponds to a different app clip bundle identifier";
+        v20 = v18;
+        v21 = OS_LOG_TYPE_INFO;
 LABEL_17:
-        _os_log_impl(&dword_18B7AC000, v16, v17, v15, buf, 2u);
+        _os_log_impl(&dword_18B7AC000, v20, v21, v19, buf, 2u);
       }
     }
 
     else
     {
-      v18 = WBS_LOG_CHANNEL_PREFIXBanners();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v22 = WBS_LOG_CHANNEL_PREFIXBanners(v5, v6);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v15 = "Not showing App Clip Banner because the app clip cannot be launched";
-        v16 = v18;
-        v17 = OS_LOG_TYPE_DEFAULT;
+        v19 = "Not showing App Clip Banner because the app clip cannot be launched";
+        v20 = v22;
+        v21 = OS_LOG_TYPE_DEFAULT;
         goto LABEL_17;
       }
     }

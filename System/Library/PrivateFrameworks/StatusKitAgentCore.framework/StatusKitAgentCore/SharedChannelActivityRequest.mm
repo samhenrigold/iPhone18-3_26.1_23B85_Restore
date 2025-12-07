@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)requestAsString:(int)string;
 - (int)StringAsRequest:(id)request;
 - (int)request;
 - (unint64_t)hash;
@@ -58,6 +59,21 @@
   {
     return 0;
   }
+}
+
+- (id)requestAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27843E078[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRequest:(id)request
@@ -245,7 +261,6 @@
     goto LABEL_13;
   }
 
-  v5 = *(equalCopy + 36);
   if (*&self->_has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_request != *(equalCopy + 8))
@@ -257,7 +272,7 @@
   else if (*(equalCopy + 36))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -279,17 +294,17 @@ LABEL_13:
   pollingRequest = self->_pollingRequest;
   if (pollingRequest | *(equalCopy + 3))
   {
-    v9 = [(ChannelActivityPollingRequest *)pollingRequest isEqual:?];
+    v8 = [(ChannelActivityPollingRequest *)pollingRequest isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

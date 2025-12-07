@@ -90,7 +90,7 @@
   transcriptEmphasizedFontAttributes = [v4 transcriptEmphasizedFontAttributes];
 
   v5 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v6 = CKFrameworkBundle();
+  v6 = CKFrameworkBundle(v5);
   v7 = [v6 localizedStringForKey:@"SATELLITE_CONNECTION_ENDED" value:&stru_1F04268F8 table:@"ChatKit-Avocet"];
   v8 = [v5 initWithString:v7 attributes:transcriptEmphasizedFontAttributes];
   [labelCopy setAttributedText:v8];
@@ -101,7 +101,7 @@
 + (id)_makeTextViaStewieButton
 {
   v2 = objc_opt_class();
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(v2);
   v4 = [v3 localizedStringForKey:@"TEXT_ROADSIDE_SERVICES" value:&stru_1F04268F8 table:@"ChatKit-Avocet"];
   v5 = [v2 _buttonWithSystemImageName:@"satellite.fill" titleString:v4];
 

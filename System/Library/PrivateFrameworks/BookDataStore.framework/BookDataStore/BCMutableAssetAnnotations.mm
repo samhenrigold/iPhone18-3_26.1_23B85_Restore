@@ -13,7 +13,7 @@
   dCopy = d;
   if (!dCopy)
   {
-    v7 = BDSCloudKitLog();
+    v7 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1E4705D08();
@@ -68,7 +68,7 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v15 = BDSCloudKitLog();
+      v15 = BDSCloudKitLog(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_1E4705D44();
@@ -79,7 +79,7 @@ LABEL_12:
 
     else
     {
-      p_super = BDSCloudKitLog();
+      p_super = BDSCloudKitLog(0);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         sub_1E4705D80();
@@ -102,7 +102,7 @@ LABEL_13:
   recordCopy = record;
   if (!recordCopy)
   {
-    v9 = BDSCloudKitLog();
+    v9 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1E4705E70();
@@ -138,17 +138,17 @@ LABEL_13:
 
       else
       {
-        p_super = BDSCloudKitLog();
+        p_super = BDSCloudKitLog(0);
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
         {
-          sub_1E4705DBC(&v5->_assetID);
+          sub_1E4705DBC();
         }
       }
 
       goto LABEL_15;
     }
 
-    v13 = BDSCloudKitLog();
+    v13 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1E4705E34();
@@ -176,9 +176,9 @@ LABEL_15:
 
 - (id)configuredRecordFromAttributes
 {
-  v14.receiver = self;
-  v14.super_class = BCMutableAssetAnnotations;
-  configuredRecordFromAttributes = [(BCMutableCloudData *)&v14 configuredRecordFromAttributes];
+  v15.receiver = self;
+  v15.super_class = BCMutableAssetAnnotations;
+  configuredRecordFromAttributes = [(BCMutableCloudData *)&v15 configuredRecordFromAttributes];
   assetVersion = [(BCMutableAssetAnnotations *)self assetVersion];
   [configuredRecordFromAttributes setObject:assetVersion forKey:@"assetVersion"];
 
@@ -187,16 +187,16 @@ LABEL_15:
   assetID = [(BCMutableAssetAnnotations *)self assetID];
   v8 = [assetAnnotationManager fileURLForCachingCKAssetWithAssetID:assetID];
 
-  if (v8 && (-[BCMutableAssetAnnotations bookAnnotations](self, "bookAnnotations"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 writeToURL:v8 atomically:1], v9, v10))
+  if (v8 && (-[BCMutableAssetAnnotations bookAnnotations](self, "bookAnnotations"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 writeToURL:v8 atomically:1], v10, v11))
   {
-    v11 = [objc_alloc(MEMORY[0x1E695B878]) initWithFileURL:v8];
-    [configuredRecordFromAttributes setObject:v11 forKey:@"assetAnnotations"];
+    v12 = [objc_alloc(MEMORY[0x1E695B878]) initWithFileURL:v8];
+    [configuredRecordFromAttributes setObject:v12 forKey:@"assetAnnotations"];
   }
 
   else
   {
-    v12 = BDSCloudKitLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = BDSCloudKitLog(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1E4705EAC();
     }

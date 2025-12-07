@@ -322,11 +322,11 @@ id __58__WFOnScreenContentManager_visibleApplicationsFromLayout___block_invoke(u
   os_unfair_lock_unlock(&self->_lock);
 }
 
-uint64_t __72__WFOnScreenContentManager_getVisibleApplicationsWithCompletionHandler___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__72__WFOnScreenContentManager_getVisibleApplicationsWithCompletionHandler___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    return [*(result + 32) finishGettingVisibleApplicationsWithLayout:?];
+    return [result[4] finishGettingVisibleApplicationsWithLayout:?];
   }
 
   return result;
@@ -460,31 +460,30 @@ void __76__WFOnScreenContentManager_getOnScreenContentWithOptions_completionHand
   if ([v3 count])
   {
     v4 = [*(a1 + 32) applicationBundleIdentifier];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __76__WFOnScreenContentManager_getOnScreenContentWithOptions_completionHandler___block_invoke_2;
-    v14[3] = &unk_2788FFD10;
-    v18 = *(a1 + 72);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __76__WFOnScreenContentManager_getOnScreenContentWithOptions_completionHandler___block_invoke_2;
+    v13[3] = &unk_2788FFD10;
+    v17 = *(a1 + 72);
     v5 = *(a1 + 40);
     v6 = *(a1 + 48);
-    v15 = v4;
-    v16 = v5;
-    v17 = v6;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __76__WFOnScreenContentManager_getOnScreenContentWithOptions_completionHandler___block_invoke_3;
-    v11[3] = &unk_2788FFD38;
-    v10 = *(a1 + 64);
-    v7 = v10;
-    v13 = v10;
-    v12 = *(a1 + 56);
+    v14 = v4;
+    v15 = v5;
+    v16 = v6;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __76__WFOnScreenContentManager_getOnScreenContentWithOptions_completionHandler___block_invoke_3;
+    v10[3] = &unk_2788FFD38;
+    v9 = *(a1 + 64);
+    v7 = v9;
+    v12 = v9;
+    v11 = *(a1 + 56);
     v8 = v4;
-    [v3 if_mapAsynchronously:v14 completionHandler:v11];
+    [v3 if_mapAsynchronously:v13 completionHandler:v10];
   }
 
   else
   {
-    v9 = *(*(*(a1 + 72) + 8) + 40);
     (*(*(a1 + 64) + 16))();
   }
 }
@@ -539,7 +538,7 @@ void __76__WFOnScreenContentManager_getOnScreenContentWithOptions_completionHand
 {
   v3 = a2;
   v4 = *(*(*(a1 + 48) + 8) + 40);
-  v13 = v3;
+  v12 = v3;
   if (v4)
   {
     v5 = v3;
@@ -556,20 +555,19 @@ LABEL_5:
     *(v7 + 40) = v6;
 
     v4 = *(*(*(a1 + 48) + 8) + 40);
-    v5 = v13;
+    v5 = v12;
     goto LABEL_5;
   }
 
-  if ([v13 count] == 1)
+  if ([v12 count] == 1)
   {
-    v10 = [v13 firstObject];
-    v11 = *(*(a1 + 48) + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
+    v9 = [v12 firstObject];
+    v10 = *(*(a1 + 48) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
   }
 
 LABEL_6:
-  v9 = *(*(*(a1 + 48) + 8) + 40);
   (*(*(a1 + 40) + 16))();
 }
 

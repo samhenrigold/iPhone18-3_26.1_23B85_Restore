@@ -54,53 +54,41 @@
 
 - (id)description
 {
-  v3 = self->_boundingRect.size.width + self->_boundingRect.origin.x;
-  v4 = self->_boundingRect.size.height + self->_boundingRect.origin.y;
   GEOCoordinate2DForMapPoint();
+  v4 = v3;
   v6 = v5;
-  v8 = v7;
   GEOCoordinate2DForMapPoint();
+  v8 = v7;
   v10 = v9;
-  v12 = v11;
   if ([(MNRouteDivergenceFinderBoundingSection *)self isLeaf])
   {
-    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@", leafIndex: %d", self->_leafIndex];
+    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@", leafIndex: %d", self->_leafIndex];
   }
 
   else
   {
-    v13 = &stru_1F4EB6B70;
+    v11 = &stru_1F4EB6B70;
   }
 
-  v14 = MEMORY[0x1E696AEC0];
-  start = self->_range.start;
-  end = self->_range.end;
-  v17 = GEOPolylineCoordinateRangeAsString();
-  v18 = [v14 stringWithFormat:@"[%@] (%f, %f) (%f, %f) %d meters%@\n", v17, v6, v8, v10, v12, self->_length, v13];
+  v12 = MEMORY[0x1E696AEC0];
+  v13 = GEOPolylineCoordinateRangeAsString();
+  v14 = [v12 stringWithFormat:@"[%@] (%f, %f) (%f, %f) %d meters%@\n", v13, v4, v6, v8, v10, self->_length, v11];
 
-  return v18;
+  return v14;
 }
 
 - (id)boundsDescription
 {
-  x = self->_boundingRect.origin.x;
-  y = self->_boundingRect.origin.y;
   GEOCoordinate2DForMapPoint();
-  v7 = [MEMORY[0x1E696AD60] stringWithFormat:@"%f, %f\n", v5, v6];
-  v8 = self->_boundingRect.origin.y;
-  v9 = self->_boundingRect.size.width + self->_boundingRect.origin.x;
+  v4 = [MEMORY[0x1E696AD60] stringWithFormat:@"%f, %f\n", v2, v3];
   GEOCoordinate2DForMapPoint();
-  [v7 appendFormat:@"%f, %f\n", v10, v11];
-  v12 = self->_boundingRect.size.width + self->_boundingRect.origin.x;
-  v13 = self->_boundingRect.size.height + self->_boundingRect.origin.y;
+  [v4 appendFormat:@"%f, %f\n", v5, v6];
   GEOCoordinate2DForMapPoint();
-  [v7 appendFormat:@"%f, %f\n", v14, v15];
-  v16 = self->_boundingRect.origin.x;
-  v17 = self->_boundingRect.size.height + self->_boundingRect.origin.y;
+  [v4 appendFormat:@"%f, %f\n", v7, v8];
   GEOCoordinate2DForMapPoint();
-  [v7 appendFormat:@"%f, %f", v18, v19];
+  [v4 appendFormat:@"%f, %f", v9, v10];
 
-  return v7;
+  return v4;
 }
 
 - (id)treeDescription
@@ -113,15 +101,15 @@
 
 - (BOOL)containsCoordinate:(id)coordinate
 {
-  v4 = GEOMapPointForCoordinate();
+  GEOMapPointForCoordinate();
+  v4.n128_u64[0] = v6.n128_u64[0];
   v5.n128_u64[0] = v7.n128_u64[0];
-  v6.n128_u64[0] = v8.n128_u64[0];
-  v7.n128_u64[0] = *&self->_boundingRect.origin.x;
-  v8.n128_u64[0] = *&self->_boundingRect.origin.y;
-  v9.n128_u64[0] = *&self->_boundingRect.size.width;
-  v10.n128_u64[0] = *&self->_boundingRect.size.height;
+  v6.n128_u64[0] = *&self->_boundingRect.origin.x;
+  v7.n128_u64[0] = *&self->_boundingRect.origin.y;
+  v8.n128_u64[0] = *&self->_boundingRect.size.width;
+  v9.n128_u64[0] = *&self->_boundingRect.size.height;
 
-  return MEMORY[0x1EEE0BB98](v4, v7, v8, v9, v10, v5, v6);
+  return MEMORY[0x1EEE0BB98](v6, v7, v8, v9, v4, v5);
 }
 
 - (void)traverseWithHandler:(id)handler
@@ -166,30 +154,26 @@
   return v11;
 }
 
-void __91__MNRouteDivergenceFinderBoundingSection_leafSectionsIntersectingSection_paddingMapPoints___block_invoke(void *a1, void *a2, _BYTE *a3)
+void __91__MNRouteDivergenceFinderBoundingSection_leafSectionsIntersectingSection_paddingMapPoints___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v13 = a2;
-  [v13 boundingRect];
-  v5 = a1[5];
-  v6 = a1[6];
-  v7 = a1[7];
-  v8 = a1[8];
+  v9 = a2;
+  [v9 boundingRect];
   if (GEOMapRectIntersectsRect())
   {
-    if ([v13 isLeaf])
+    if ([v9 isLeaf])
     {
-      v9 = *(*(a1[4] + 8) + 40);
-      if (!v9)
+      v5 = *(*(*(a1 + 32) + 8) + 40);
+      if (!v5)
       {
-        v10 = [MEMORY[0x1E695DF70] array];
-        v11 = *(a1[4] + 8);
-        v12 = *(v11 + 40);
-        *(v11 + 40) = v10;
+        v6 = [MEMORY[0x1E695DF70] array];
+        v7 = *(*(a1 + 32) + 8);
+        v8 = *(v7 + 40);
+        *(v7 + 40) = v6;
 
-        v9 = *(*(a1[4] + 8) + 40);
+        v5 = *(*(*(a1 + 32) + 8) + 40);
       }
 
-      [v9 addObject:v13];
+      [v5 addObject:v9];
     }
   }
 

@@ -25,15 +25,13 @@
 
 - (CKBrowserViewControllerSendDelegate)sendDelegate
 {
-  v2 = *(&self->super.super.super.isa + OBJC_IVAR___SendLaterRootViewController_sendDelegate);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setSendDelegate:(id)delegate
 {
-  v3 = *(&self->super.super.super.isa + OBJC_IVAR___SendLaterRootViewController_sendDelegate);
   *(&self->super.super.super.isa + OBJC_IVAR___SendLaterRootViewController_sendDelegate) = delegate;
   swift_unknownObjectRetain();
 

@@ -106,42 +106,42 @@
 + (id)simplifiedHomeScreenSwitcherWithFilter:(id)filter delegate:(id)delegate topButtonLayout:(PREditingSceneViewControllerTopButtonLayout *)layout
 {
   size = layout->leadingTopButtonFrame.size;
-  v12[0] = layout->leadingTopButtonFrame.origin;
-  v12[1] = size;
+  v14[0] = layout->leadingTopButtonFrame.origin;
+  v14[1] = size;
   v8 = layout->trailingTopButtonFrame.size;
-  v12[2] = layout->trailingTopButtonFrame.origin;
-  v12[3] = v8;
-  swift_getObjCClassMetadata();
-  swift_getObjectType();
+  v14[2] = layout->trailingTopButtonFrame.origin;
+  v14[3] = v8;
+  ObjCClassMetadata = swift_getObjCClassMetadata();
+  ObjectType = swift_getObjectType();
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  sub_21B614558(filter, delegate, v12, 0);
-  v10 = v9;
+  sub_21B614558(filter, delegate, v14, 0, ObjCClassMetadata, ObjectType);
+  v12 = v11;
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 
-  return v10;
+  return v12;
 }
 
 + (id)simplifiedHomeScreenSwitcherWithFilter:(id)filter delegate:(id)delegate topButtonLayout:(PREditingSceneViewControllerTopButtonLayout *)layout homeScreenPortalView:(id)view
 {
   size = layout->leadingTopButtonFrame.size;
-  v15[0] = layout->leadingTopButtonFrame.origin;
-  v15[1] = size;
+  v17[0] = layout->leadingTopButtonFrame.origin;
+  v17[1] = size;
   v10 = layout->trailingTopButtonFrame.size;
-  v15[2] = layout->trailingTopButtonFrame.origin;
-  v15[3] = v10;
-  swift_getObjCClassMetadata();
-  swift_getObjectType();
+  v17[2] = layout->trailingTopButtonFrame.origin;
+  v17[3] = v10;
+  ObjCClassMetadata = swift_getObjCClassMetadata();
+  ObjectType = swift_getObjectType();
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   viewCopy = view;
-  sub_21B614558(filter, delegate, v15, view);
-  v13 = v12;
+  sub_21B614558(filter, delegate, v17, view, ObjCClassMetadata, ObjectType);
+  v15 = v14;
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 
-  return v13;
+  return v15;
 }
 
 - (PBFPosterRackCollectionViewController)init
@@ -152,7 +152,7 @@
   }
 
   v2 = qword_28120CDA8;
-  v3 = objc_allocWithZone(type metadata accessor for PosterRackCollectionViewController());
+  v3 = objc_allocWithZone(type metadata accessor for PosterRackCollectionViewController(0));
   v4 = sub_21B698344(v2, v3);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
@@ -165,7 +165,7 @@
   swift_getObjectType();
   v4 = swift_unknownObjectRetain_n();
   v5 = sub_21B629420(v4, v3);
-  v6 = objc_allocWithZone(type metadata accessor for PosterRackCollectionViewController());
+  v6 = objc_allocWithZone(type metadata accessor for PosterRackCollectionViewController(0));
   v7 = sub_21B698344(v5, v6);
   swift_unknownObjectRelease();
   swift_getObjectType();
@@ -222,7 +222,7 @@
 - (void)viewWillLayoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PosterRackCollectionViewController();
+  v3.super_class = type metadata accessor for PosterRackCollectionViewController(0);
   v2 = v3.receiver;
   [(PBFPosterRackCollectionViewController *)&v3 viewWillLayoutSubviews];
   sub_21B68C888();
@@ -267,8 +267,8 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   PosterRackCollectionViewController.dismissPresentedViewControllers(animated:dismissHandler:completion:)(animated, v8, v11, v10, v12);
-  sub_21B52B410(v10);
-  sub_21B52B410(v8);
+  sub_21B52B410(v10, v12);
+  sub_21B52B410(v8, v11);
 }
 
 - (PBFPosterRackCollectionViewControllerDelegate)posterRackDelegate
@@ -425,23 +425,25 @@ LABEL_6:
   v4 = _Block_copy(reset);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_21B69F928;
+    v5 = swift_allocObject();
+    *(v5 + 16) = v4;
+    v6 = sub_21B69F928;
   }
 
   else
   {
+    v6 = 0;
     v5 = 0;
   }
 
   selfCopy = self;
   PosterRackCollectionViewController.transitionLayout(to:animated:options:completion:)(0, 0, 0, 0, 0);
-  sub_21B69A120();
+  sub_21B69A120(v7, v8);
   if (v4)
   {
-    v5();
+    v6();
 
-    sub_21B52B410(v5);
+    sub_21B52B410(v6, v5);
   }
 
   else
@@ -454,12 +456,14 @@ LABEL_6:
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = v6;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
     selfCopy = self;
     sub_21B690260(0, poster, 0);
     sub_21B69ECE0();
 
-    sub_21B52B410(sub_21B69ECE0);
+    sub_21B52B410(sub_21B69ECE0, v8);
   }
 
   else
@@ -510,7 +514,7 @@ LABEL_6:
     }
 
     v8.receiver = selfCopy;
-    v8.super_class = type metadata accessor for PosterRackCollectionViewController();
+    v8.super_class = type metadata accessor for PosterRackCollectionViewController(0);
     pbf_layoutOrientation = [(UIViewController *)&v8 pbf_layoutOrientation];
   }
 
@@ -612,7 +616,7 @@ LABEL_7:
   MEMORY[0x28223BE20](v7);
   v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21B6C8994();
-  type metadata accessor for LockScreenPosterCollectionViewCell();
+  type metadata accessor for LockScreenPosterCollectionViewCell(0);
   if (swift_dynamicCastClass())
   {
     cellCopy = cell;
@@ -682,7 +686,7 @@ LABEL_3:
 
 - (id)_indexPathOfReferenceItemForLayoutTransitionInCollectionView:(id)view
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD93500);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD93500, &qword_21B6D8630);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v16 - v6;
   viewCopy = view;
@@ -784,7 +788,7 @@ LABEL_3:
 
 - (NSIndexPath)centeredPosterIndexPath
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD93500);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD93500, &qword_21B6D8630);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;
@@ -807,9 +811,10 @@ LABEL_3:
 - (PBFPosterPair)centeredPoster
 {
   selfCopy = self;
-  v3 = sub_21B68C674();
+  sub_21B68C674();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (void)dateProvider:(id)provider didUpdateDate:(id)date

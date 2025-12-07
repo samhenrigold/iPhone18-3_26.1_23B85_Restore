@@ -17,18 +17,16 @@
   return v3;
 }
 
-void __71__GKLeaderboardChallengePlayerAndCountInternal_secureCodedPropertyKeys__block_invoke()
+void __71__GKLeaderboardChallengePlayerAndCountInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v3[0] = @"playerID";
-  v3[1] = @"count";
-  v4[0] = objc_opt_class();
-  v4[1] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:2];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_659;
-  secureCodedPropertyKeys_sSecureCodedKeys_659 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"playerID";
+  v4[1] = @"count";
+  v5[0] = objc_opt_class();
+  v5[1] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_659;
+  secureCodedPropertyKeys_sSecureCodedKeys_659 = v2;
 }
 
 + (id)initWithServerFragment:(id)fragment

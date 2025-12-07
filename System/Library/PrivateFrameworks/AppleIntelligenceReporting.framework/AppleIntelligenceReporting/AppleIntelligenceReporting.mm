@@ -16,7 +16,7 @@ __n128 __swift_memcpy32_8(_OWORD *a1, uint64_t a2)
   return result;
 }
 
-uint64_t type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventType(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventType(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -27,7 +27,7 @@ uint64_t type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventTyp
   return result;
 }
 
-uint64_t type metadata accessor for UUIDIdentifier()
+uint64_t type metadata accessor for UUIDIdentifier(uint64_t a1)
 {
   result = type metadata singleton initialization cache for UUIDIdentifier;
   if (!type metadata singleton initialization cache for UUIDIdentifier)
@@ -40,11 +40,10 @@ uint64_t type metadata accessor for UUIDIdentifier()
 
 uint64_t outlined init with copy of UUID?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = OUTLINED_FUNCTION_66_1(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_9(v5);
-  v7 = *(v6 + 16);
-  v8 = OUTLINED_FUNCTION_50();
-  v9(v8);
+  OUTLINED_FUNCTION_66_1(a1, a2, a3, a4);
+  OUTLINED_FUNCTION_9();
+  v5 = OUTLINED_FUNCTION_50();
+  v6(v5);
   return v4;
 }
 
@@ -55,263 +54,244 @@ uint64_t sub_1C0C95504(uint64_t a1, uint64_t a2)
   return __swift_storeEnumTagSinglePayload(a1, a2, a2, v4);
 }
 
-void _s26AppleIntelligenceReporting010BiomeEventC0PAAE013emitInferenceE05event6errors4type0H2IDyAA0abgE0V_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcL0OYKF()
+void _s26AppleIntelligenceReporting010BiomeEventC0PAAE013emitInferenceE05event6errors4type0H2IDyAA0abgE0V_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcL0OYKF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   OUTLINED_FUNCTION_48();
-  v157 = v2;
-  v164 = v1;
-  v167 = v0;
-  v169 = v3;
-  v168 = v4;
-  v162 = v5;
-  v173 = v6;
-  v174 = v7;
-  v9 = v8;
-  v165 = type metadata accessor for AppleIntelligenceReportingUseCase();
-  v10 = OUTLINED_FUNCTION_1(v165);
-  v177 = v11;
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v10);
+  v136 = v9;
+  v143 = v8;
+  v146 = v7;
+  v148 = v10;
+  v147 = v11;
+  v141 = v12;
+  v152 = v13;
+  v153 = v14;
+  v16 = v15;
+  v144 = type metadata accessor for AppleIntelligenceReportingUseCase();
+  OUTLINED_FUNCTION_1();
+  v156 = v17;
+  MEMORY[0x1EEE9AC00](v18);
   OUTLINED_FUNCTION_2_0();
-  v156 = v14;
+  v135 = v19;
+  v20 = OUTLINED_FUNCTION_19();
+  v140 = type metadata accessor for AppleIntelligenceBiomeEvent(v20);
+  OUTLINED_FUNCTION_9();
+  MEMORY[0x1EEE9AC00](v21);
+  OUTLINED_FUNCTION_2_0();
+  v142 = v22;
   OUTLINED_FUNCTION_19();
-  v161 = type metadata accessor for AppleIntelligenceBiomeEvent();
-  v15 = OUTLINED_FUNCTION_9(v161);
-  v17 = *(v16 + 64);
-  MEMORY[0x1EEE9AC00](v15);
+  v154 = type metadata accessor for AppleIntelligenceReportingAsset();
+  OUTLINED_FUNCTION_1();
+  v155 = v23;
+  MEMORY[0x1EEE9AC00](v24);
   OUTLINED_FUNCTION_2_0();
-  v163 = v18;
-  OUTLINED_FUNCTION_19();
-  v175 = type metadata accessor for AppleIntelligenceReportingAsset();
-  v19 = OUTLINED_FUNCTION_1(v175);
-  v176 = v20;
-  v22 = *(v21 + 64);
-  MEMORY[0x1EEE9AC00](v19);
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_29_0(v23);
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27IntelligencePlatformLibrary05AppleA16ReportingUseCaseVSgMd, &_s27IntelligencePlatformLibrary05AppleA16ReportingUseCaseVSgMR);
-  OUTLINED_FUNCTION_29(v24);
-  v26 = *(v25 + 64);
+  OUTLINED_FUNCTION_29_0(v25);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27IntelligencePlatformLibrary05AppleA16ReportingUseCaseVSgMd, &_s27IntelligencePlatformLibrary05AppleA16ReportingUseCaseVSgMR);
+  OUTLINED_FUNCTION_29(v26);
   OUTLINED_FUNCTION_17();
   MEMORY[0x1EEE9AC00](v27);
-  v29 = v155 - v28;
-  v186 = type metadata accessor for AppleIntelligenceReportingGeneralError();
-  v30 = OUTLINED_FUNCTION_1(v186);
-  v32 = v31;
-  v34 = *(v33 + 64);
-  MEMORY[0x1EEE9AC00](v30);
+  v29 = v134 - v28;
+  v165 = type metadata accessor for AppleIntelligenceReportingGeneralError();
+  OUTLINED_FUNCTION_1();
+  v31 = v30;
+  MEMORY[0x1EEE9AC00](v32);
   OUTLINED_FUNCTION_60();
-  v155[0] = v35;
+  v134[0] = v33;
   OUTLINED_FUNCTION_40();
-  MEMORY[0x1EEE9AC00](v36);
-  v38 = v155 - v37;
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27IntelligencePlatformLibrary05AppleA18ReportingEventTypeOSgMd, &_s27IntelligencePlatformLibrary05AppleA18ReportingEventTypeOSgMR);
-  OUTLINED_FUNCTION_29(v39);
-  v41 = *(v40 + 64);
+  MEMORY[0x1EEE9AC00](v34);
+  v36 = v134 - v35;
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27IntelligencePlatformLibrary05AppleA18ReportingEventTypeOSgMd, &_s27IntelligencePlatformLibrary05AppleA18ReportingEventTypeOSgMR);
+  OUTLINED_FUNCTION_29(v37);
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v42);
+  MEMORY[0x1EEE9AC00](v38);
   OUTLINED_FUNCTION_19_0();
-  OUTLINED_FUNCTION_29_0(v43);
-  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  OUTLINED_FUNCTION_29(v44);
-  v46 = *(v45 + 64);
+  OUTLINED_FUNCTION_29_0(v39);
+  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_29(v40);
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v47);
+  MEMORY[0x1EEE9AC00](v41);
   OUTLINED_FUNCTION_19_0();
-  OUTLINED_FUNCTION_29_0(v48);
-  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26AppleIntelligenceReporting14UUIDIdentifierVSgMd, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMR);
-  OUTLINED_FUNCTION_29(v49);
-  v51 = *(v50 + 64);
+  OUTLINED_FUNCTION_29_0(v42);
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26AppleIntelligenceReporting14UUIDIdentifierVSgMd, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMR);
+  OUTLINED_FUNCTION_29(v43);
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v52);
-  v54 = v155 - v53;
-  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v56 = OUTLINED_FUNCTION_29(v55);
-  v58 = *(v57 + 64);
-  MEMORY[0x1EEE9AC00](v56);
+  MEMORY[0x1EEE9AC00](v44);
+  v46 = v134 - v45;
+  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  v48 = OUTLINED_FUNCTION_29(v47);
+  MEMORY[0x1EEE9AC00](v48);
   OUTLINED_FUNCTION_60();
-  v166 = v59;
+  v145 = v49;
   OUTLINED_FUNCTION_40();
-  MEMORY[0x1EEE9AC00](v60);
-  v62 = v155 - v61;
+  MEMORY[0x1EEE9AC00](v50);
+  v52 = v134 - v51;
   OUTLINED_FUNCTION_19();
-  v160 = type metadata accessor for AppleIntelligenceReportingInvocationStep();
-  v63 = OUTLINED_FUNCTION_1(v160);
-  v159 = v64;
-  v66 = *(v65 + 64);
-  MEMORY[0x1EEE9AC00](v63);
+  v139 = type metadata accessor for AppleIntelligenceReportingInvocationStep();
+  OUTLINED_FUNCTION_1();
+  v138 = v53;
+  MEMORY[0x1EEE9AC00](v54);
   OUTLINED_FUNCTION_2();
-  v69 = v68 - v67;
+  v57 = v56 - v55;
   AppleIntelligenceReportingInvocationStep.init()();
-  v71 = *v9;
-  v70 = v9[1];
 
   OUTLINED_FUNCTION_26_4();
-  v172 = v69;
+  v151 = v57;
   AppleIntelligenceReportingInvocationStep.subsystem.setter();
-  v171 = type metadata accessor for AppleIntelligenceInferenceEvent(0);
-  v72 = v9;
-  outlined init with copy of UUIDIdentifier?(v9 + v171[7], v54, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMd, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMR);
-  v73 = type metadata accessor for UUIDIdentifier();
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v54, 1, v73);
-  v158 = v29;
+  v150 = type metadata accessor for AppleIntelligenceInferenceEvent(0);
+  v58 = v16;
+  outlined init with copy of UUIDIdentifier?(v16 + *(v150 + 28), v46, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMd, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMR);
+  v59 = type metadata accessor for UUIDIdentifier(0);
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v46, 1, v59);
+  v137 = v29;
   if (EnumTagSinglePayload == 1)
   {
-    outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(v54, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMd, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMR);
-    v75 = type metadata accessor for UUID();
-    v76 = v62;
-    v77 = 1;
-    v78 = 1;
+    outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(v46, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMd, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMR);
+    v61 = type metadata accessor for UUID();
+    v62 = v52;
+    v63 = 1;
+    v64 = 1;
   }
 
   else
   {
-    v79 = type metadata accessor for UUID();
-    OUTLINED_FUNCTION_9(v79);
-    (*(v80 + 16))(v62, v54, v79);
-    _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWOhTm_0(v54, type metadata accessor for UUIDIdentifier);
+    v65 = type metadata accessor for UUID();
+    OUTLINED_FUNCTION_9();
+    (*(v66 + 16))(v52, v46, v65);
+    _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWOhTm_0(v46, type metadata accessor for UUIDIdentifier);
     OUTLINED_FUNCTION_13_2();
-    v75 = v79;
+    v61 = v65;
   }
 
-  __swift_storeEnumTagSinglePayload(v76, v77, v78, v75);
+  __swift_storeEnumTagSinglePayload(v62, v63, v64, v61);
   AppleIntelligenceReportingInvocationStep.invocationID.setter();
-  v81 = v171;
-  OUTLINED_FUNCTION_31_4(v171[6]);
+  v67 = v150;
+  OUTLINED_FUNCTION_31_4();
   OUTLINED_FUNCTION_26_4();
   AppleIntelligenceReportingInvocationStep.stepIdentifier.setter();
-  OUTLINED_FUNCTION_47_4(v9 + v81[8]);
+  OUTLINED_FUNCTION_47_4(v16 + v67[8]);
   AppleIntelligenceReportingInvocationStep.clientRequestID.setter();
-  OUTLINED_FUNCTION_47_4(v9 + v81[9]);
+  OUTLINED_FUNCTION_47_4(v16 + v67[9]);
   AppleIntelligenceReportingInvocationStep.modelManagerRequestID.setter();
-  OUTLINED_FUNCTION_47_4(v9 + v81[5]);
+  OUTLINED_FUNCTION_47_4(v16 + v67[5]);
   AppleIntelligenceReportingInvocationStep.sessionID.setter();
-  (*(v169 + 16))(v168);
+  (*(v148 + 16))(v147);
   type metadata accessor for Date();
-  v82 = OUTLINED_FUNCTION_16_4();
-  __swift_storeEnumTagSinglePayload(v82, v83, v84, v85);
+  v68 = OUTLINED_FUNCTION_16_4();
+  __swift_storeEnumTagSinglePayload(v68, v69, v70, v71);
   AppleIntelligenceReportingInvocationStep.timestamp.setter();
-  v86 = type metadata accessor for AppleIntelligenceReportingEventType();
-  OUTLINED_FUNCTION_9(v86);
-  (*(v87 + 16))(v170, v173, v86);
+  v72 = type metadata accessor for AppleIntelligenceReportingEventType();
+  OUTLINED_FUNCTION_9();
+  (*(v73 + 16))(v149, v152, v72);
   OUTLINED_FUNCTION_13_2();
-  __swift_storeEnumTagSinglePayload(v88, v89, v90, v86);
+  __swift_storeEnumTagSinglePayload(v74, v75, v76, v72);
   AppleIntelligenceReportingInvocationStep.type.setter();
-  v91 = v174;
-  v92 = *(v174 + 16);
-  v170 = v9;
-  if (v92)
+  v77 = v153;
+  v78 = *(v153 + 16);
+  v149 = v16;
+  if (v78)
   {
-    v180 = MEMORY[0x1E69E7CC0];
+    v159 = MEMORY[0x1E69E7CC0];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-    v93 = v180;
-    v94 = v91 + 32;
+    v79 = v159;
+    v80 = v77 + 32;
     do
     {
-      outlined init with copy of any Source<Self.Stream == A>(v94, &v178);
-      __swift_project_boxed_opaque_existential_1(&v178, *&v179[8]);
+      outlined init with copy of any Source<Self.Stream == A>(v80, &v157);
+      __swift_project_boxed_opaque_existential_1(&v157, *&v158[8]);
       OUTLINED_FUNCTION_50();
       AppleIntelligenceError.toGeneralReportingError.getter();
-      __swift_destroy_boxed_opaque_existential_1(&v178);
-      v180 = v93;
-      v96 = *(v93 + 16);
-      v95 = *(v93 + 24);
-      if (v96 >= v95 >> 1)
+      __swift_destroy_boxed_opaque_existential_1(&v157);
+      v159 = v79;
+      v82 = *(v79 + 16);
+      v81 = *(v79 + 24);
+      if (v82 >= v81 >> 1)
       {
-        OUTLINED_FUNCTION_25_1(v95);
+        OUTLINED_FUNCTION_25_1(v81);
         OUTLINED_FUNCTION_48_3();
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v93 = v180;
+        v79 = v159;
       }
 
-      *(v93 + 16) = v96 + 1;
-      v97 = *(v32 + 80);
+      *(v79 + 16) = v82 + 1;
       OUTLINED_FUNCTION_25_3();
-      (*(v32 + 32))(v98 + *(v32 + 72) * v96, v38, v186);
-      v94 += 40;
-      --v92;
+      (*(v31 + 32))(v83 + *(v31 + 72) * v82, v36, v165);
+      v80 += 40;
+      --v78;
     }
 
-    while (v92);
+    while (v78);
 LABEL_19:
-    v72 = v170;
+    v58 = v149;
     goto LABEL_20;
   }
 
-  v174 = *(v9 + v81[10]);
-  v99 = specialized Array.count.getter(v174);
-  v100 = MEMORY[0x1E69E7CC0];
-  if (v99)
+  v153 = *(v16 + v67[10]);
+  v84 = specialized Array.count.getter(v153);
+  v85 = MEMORY[0x1E69E7CC0];
+  if (v84)
   {
-    v101 = v99;
+    v86 = v84;
     OUTLINED_FUNCTION_54_3();
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-    if (v101 < 0)
+    if (v86 < 0)
     {
       __break(1u);
       return;
     }
 
-    v102 = 0;
+    v87 = 0;
     OUTLINED_FUNCTION_53_4();
-    v173 = v174 & 0xC000000000000001;
-    v103 = v155[0];
+    v152 = v153 & 0xC000000000000001;
+    v88 = v134[0];
     do
     {
-      if (v173)
+      if (v152)
       {
-        MEMORY[0x1C68E2790](v102, v174);
+        MEMORY[0x1C68E2790](v87, v153);
       }
 
       else
       {
-        v104 = *(v174 + 8 * v102 + 32);
       }
 
-      specialized AppleIntelligenceError.toGeneralReportingError.getter(v103);
+      specialized AppleIntelligenceError.toGeneralReportingError.getter(v88);
 
       OUTLINED_FUNCTION_54_3();
-      v106 = *(v100 + 16);
-      v105 = *(v100 + 24);
-      if (v106 >= v105 >> 1)
+      v90 = *(v85 + 16);
+      v89 = *(v85 + 24);
+      if (v90 >= v89 >> 1)
       {
-        OUTLINED_FUNCTION_25_1(v105);
+        OUTLINED_FUNCTION_25_1(v89);
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         OUTLINED_FUNCTION_53_4();
       }
 
-      ++v102;
-      *(v100 + 16) = v106 + 1;
-      v107 = *(v32 + 80);
+      ++v87;
+      *(v85 + 16) = v90 + 1;
       OUTLINED_FUNCTION_25_3();
-      (*(v32 + 32))(v108 + *(v32 + 72) * v106, v103, v186);
+      (*(v31 + 32))(v91 + *(v31 + 72) * v90, v88, v165);
     }
 
-    while (v101 != v102);
+    while (v86 != v87);
     goto LABEL_19;
   }
 
 LABEL_20:
-  v109 = v172;
+  v92 = v151;
   AppleIntelligenceReportingInvocationStep.errors.setter();
-  v110 = v171;
-  v111 = *(v72 + v171[17]);
-  v112 = *(v111 + 16);
-  v113 = MEMORY[0x1E69E7CC0];
-  if (v112)
+  v93 = v150;
+  v94 = *(v58 + *(v150 + 68));
+  v95 = *(v94 + 16);
+  v96 = MEMORY[0x1E69E7CC0];
+  if (v95)
   {
     OUTLINED_FUNCTION_54_3();
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v95, 0);
     OUTLINED_FUNCTION_53_4();
-    v109 = v176 + 32;
-    v72 = (v111 + 56);
-    v114 = v155[1];
+    v92 = v155 + 32;
+    v58 = v94 + 56;
+    v97 = v134[1];
     do
     {
-      v115 = *(v72 - 3);
-      v116 = *(v72 - 2);
-      v117 = *(v72 - 1);
-      v118 = *v72;
 
       AppleIntelligenceReportingAsset.init()();
 
@@ -320,210 +300,204 @@ LABEL_20:
       AppleIntelligenceReportingAsset.version.setter();
 
       OUTLINED_FUNCTION_54_3();
-      v120 = *(v113 + 16);
-      v119 = *(v113 + 24);
-      v110 = v114;
-      if (v120 >= v119 >> 1)
+      v99 = *(v96 + 16);
+      v98 = *(v96 + 24);
+      v93 = v97;
+      if (v99 >= v98 >> 1)
       {
-        OUTLINED_FUNCTION_25_1(v119);
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
+        v102 = OUTLINED_FUNCTION_25_1(v98);
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v102, v99 + 1, 1);
         OUTLINED_FUNCTION_53_4();
       }
 
-      v72 += 4;
-      *(v113 + 16) = v120 + 1;
-      v121 = *(v176 + 80);
+      v58 += 32;
+      *(v96 + 16) = v99 + 1;
       OUTLINED_FUNCTION_25_3();
-      (*(v123 + 32))(v122 + *(v123 + 72) * v120, v114, v175);
-      --v112;
+      (*(v101 + 32))(v100 + *(v101 + 72) * v99, v97, v154);
+      --v95;
     }
 
-    while (v112);
+    while (v95);
     OUTLINED_FUNCTION_36_3();
   }
 
   AppleIntelligenceReportingInvocationStep.assets.setter();
-  OUTLINED_FUNCTION_31_4(v110[16]);
+  OUTLINED_FUNCTION_31_4();
   OUTLINED_FUNCTION_26_4();
-  v124 = AppleIntelligenceReportingInvocationStep.assetBundleID.setter();
-  v125 = v72 + v110[11];
-  v126 = *(v125 + 1);
-  v127 = v164;
-  v128 = v158;
-  if (v126)
+  v103 = AppleIntelligenceReportingInvocationStep.assetBundleID.setter();
+  v104 = v58 + *(v93 + 44);
+  v105 = *(v104 + 8);
+  v106 = v143;
+  v107 = v137;
+  if (v105)
   {
-    v182[0] = *v125;
-    v182[1] = v126;
-    v129 = *(v125 + 2);
-    v183 = *(v125 + 1);
-    v184 = v129;
-    v185 = *(v125 + 3);
-    MEMORY[0x1EEE9AC00](v124);
+    v161[0] = *v104;
+    v161[1] = v105;
+    v108 = *(v104 + 32);
+    v162 = *(v104 + 16);
+    v163 = v108;
+    v164 = *(v104 + 48);
+    MEMORY[0x1EEE9AC00](v103);
     OUTLINED_FUNCTION_92();
-    *(v130 - 16) = v182;
-    v131 = v165;
+    *(v109 - 16) = v161;
+    v110 = v144;
     static Buildable.with(_:)();
-    v132 = v131;
-    v133 = 0;
+    v111 = v110;
+    v112 = 0;
   }
 
   else
   {
-    v133 = 1;
-    v132 = v165;
+    v112 = 1;
+    v111 = v144;
   }
 
-  __swift_storeEnumTagSinglePayload(v128, v133, 1, v132);
+  __swift_storeEnumTagSinglePayload(v107, v112, 1, v111);
   AppleIntelligenceReportingInvocationStep.primaryUseCase.setter();
-  v134 = *(v72 + v110[12]);
-  v135 = *(v134 + 16);
-  if (v135)
+  v113 = *(v58 + *(v93 + 48));
+  v114 = *(v113 + 16);
+  if (v114)
   {
-    v180 = MEMORY[0x1E69E7CC0];
+    v159 = MEMORY[0x1E69E7CC0];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-    v137 = v180;
-    v138 = (v134 + 32);
-    v110 = v165;
-    v109 = v156;
+    v116 = v159;
+    v117 = (v113 + 32);
+    v118 = v144;
+    v92 = v135;
     do
     {
-      v139 = *v138;
-      v140 = v138[1];
-      v141 = v138[3];
-      v181[2] = v138[2];
-      v181[3] = v141;
-      v181[0] = v139;
-      v181[1] = v140;
-      MEMORY[0x1EEE9AC00](v136);
-      v155[-2] = v181;
-      outlined init with copy of AppleIntelligenceUseCase(v181, &v178);
+      v119 = *v117;
+      v120 = v117[1];
+      v121 = v117[3];
+      v160[2] = v117[2];
+      v160[3] = v121;
+      v160[0] = v119;
+      v160[1] = v120;
+      MEMORY[0x1EEE9AC00](v115);
+      v134[-2] = v160;
+      outlined init with copy of AppleIntelligenceUseCase(v160, &v157);
       static Buildable.with(_:)();
-      outlined destroy of AppleIntelligenceUseCase(v181);
-      v180 = v137;
-      v143 = *(v137 + 16);
-      v142 = *(v137 + 24);
-      if (v143 >= v142 >> 1)
+      outlined destroy of AppleIntelligenceUseCase(v160);
+      v159 = v116;
+      v123 = *(v116 + 16);
+      v122 = *(v116 + 24);
+      if (v123 >= v122 >> 1)
       {
-        OUTLINED_FUNCTION_25_1(v142);
+        OUTLINED_FUNCTION_25_1(v122);
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v137 = v180;
+        v116 = v159;
       }
 
-      *(v137 + 16) = v143 + 1;
-      v144 = *(v177 + 80);
+      *(v116 + 16) = v123 + 1;
       OUTLINED_FUNCTION_25_3();
-      v136 = (*(v146 + 32))(v145 + *(v146 + 72) * v143, v109, v110);
-      v138 += 4;
-      --v135;
+      v115 = (*(v125 + 32))(v124 + *(v125 + 72) * v123, v92, v118);
+      v117 += 4;
+      --v114;
     }
 
-    while (v135);
+    while (v114);
     OUTLINED_FUNCTION_36_3();
   }
 
   AppleIntelligenceReportingInvocationStep.additionalUseCases.setter();
-  OUTLINED_FUNCTION_31_4(v110[13]);
+  OUTLINED_FUNCTION_31_4();
   OUTLINED_FUNCTION_26_4();
   AppleIntelligenceReportingInvocationStep.requestorBundleID.setter();
-  OUTLINED_FUNCTION_31_4(v110[14]);
+  OUTLINED_FUNCTION_31_4();
   OUTLINED_FUNCTION_26_4();
   AppleIntelligenceReportingInvocationStep.onBehalfOfBundleID.setter();
-  OUTLINED_FUNCTION_31_4(v110[15]);
+  OUTLINED_FUNCTION_31_4();
   OUTLINED_FUNCTION_26_4();
   AppleIntelligenceReportingInvocationStep.inferenceProviderIdentifier.setter();
-  outlined init with copy of UUIDIdentifier?(v162, v166, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  outlined init with copy of UUIDIdentifier?(v141, v145, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   AppleIntelligenceReportingInvocationStep.eventPairID.setter();
   OUTLINED_FUNCTION_30_4();
-  v147 = v163;
-  v148 = v160;
-  v149(v163, v109, v160);
+  v126 = v142;
+  v127 = v139;
+  v128(v142, v92, v139);
   swift_storeEnumTagMultiPayload();
-  (*(v169 + 24))(v147, &v178, v168);
+  (*(v148 + 24))(v126, &v157, v147);
   OUTLINED_FUNCTION_0_7();
-  _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWOhTm_0(v147, v150);
-  v151 = OUTLINED_FUNCTION_43_3();
-  v152(v151, v148);
-  if (v127)
+  _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWOhTm_0(v126, v129);
+  v130 = OUTLINED_FUNCTION_43_3();
+  v131(v130, v127);
+  if (v106)
   {
-    v153 = *v179;
-    v154 = v157;
-    *v157 = v178;
-    v154[1] = v153;
-    *(v154 + 25) = *&v179[9];
+    v132 = *v158;
+    v133 = v136;
+    *v136 = v157;
+    v133[1] = v132;
+    *(v133 + 25) = *&v158[9];
   }
 
   OUTLINED_FUNCTION_47();
 }
 
-void _s26AppleIntelligenceReporting010BiomeEventC0PAAE05writeE09eventInfo6errors4type0G2IDyAA0abE0O_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcL0OYKF()
+void _s26AppleIntelligenceReporting010BiomeEventC0PAAE05writeE09eventInfo6errors4type0G2IDyAA0abE0O_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcL0OYKF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   OUTLINED_FUNCTION_48();
-  v4 = v3;
-  v5 = OUTLINED_FUNCTION_52_2();
-  v6 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent(v5);
-  v7 = OUTLINED_FUNCTION_29(v6);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  OUTLINED_FUNCTION_2();
-  v12 = v11 - v10;
-  v13 = type metadata accessor for MinimalInferenceEvent(0);
+  v11 = v10;
+  v12 = OUTLINED_FUNCTION_52_2();
+  v13 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent(v12);
   v14 = OUTLINED_FUNCTION_29(v13);
-  v16 = *(v15 + 64);
   MEMORY[0x1EEE9AC00](v14);
   OUTLINED_FUNCTION_2();
-  v19 = v18 - v17;
-  v20 = type metadata accessor for AppleIntelligenceInferenceEvent(0);
-  v21 = OUTLINED_FUNCTION_29(v20);
-  v23 = *(v22 + 64);
-  MEMORY[0x1EEE9AC00](v21);
+  v17 = v16 - v15;
+  v18 = type metadata accessor for MinimalInferenceEvent(0);
+  v19 = OUTLINED_FUNCTION_29(v18);
+  MEMORY[0x1EEE9AC00](v19);
   OUTLINED_FUNCTION_2();
-  v26 = v25 - v24;
-  v27 = type metadata accessor for AppleIntelligenceEvent(0);
-  v28 = OUTLINED_FUNCTION_9(v27);
-  v30 = *(v29 + 64);
+  v22 = v21 - v20;
+  v23 = type metadata accessor for AppleIntelligenceInferenceEvent(0);
+  v24 = OUTLINED_FUNCTION_29(v23);
+  MEMORY[0x1EEE9AC00](v24);
+  OUTLINED_FUNCTION_2();
+  v27 = v26 - v25;
+  type metadata accessor for AppleIntelligenceEvent(0);
+  OUTLINED_FUNCTION_9();
   MEMORY[0x1EEE9AC00](v28);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_50_4();
-  _s26AppleIntelligenceReporting0aB5EventOWOcTm_0(v0, v2);
+  _s26AppleIntelligenceReporting0aB5EventOWOcTm_0(v7, v9);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload)
   {
     if (EnumCaseMultiPayload == 1)
     {
-      _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWObTm_0(v2, v26);
+      _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWObTm_0(v9, v27);
       OUTLINED_FUNCTION_41_4();
-      _s26AppleIntelligenceReporting010BiomeEventC0PAAE013emitInferenceE05event6errors4type0H2IDyAA0abgE0V_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcL0OYKF();
-      v32 = v1;
-      v33 = type metadata accessor for AppleIntelligenceInferenceEvent;
-      v34 = v26;
+      _s26AppleIntelligenceReporting010BiomeEventC0PAAE013emitInferenceE05event6errors4type0H2IDyAA0abgE0V_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcL0OYKF(v30, v31, v32, v33, v34, v35, v36);
+      v37 = v8;
+      v38 = type metadata accessor for AppleIntelligenceInferenceEvent;
+      v39 = v27;
     }
 
     else
     {
-      _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWObTm_0(v2, v12);
+      _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWObTm_0(v9, v17);
       _s26AppleIntelligenceReporting010BiomeEventC0PAAE017emitAssetDeliveryE05event6errors4type0I2IDyAA0abghE0V_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcM0OYKF();
-      v32 = v1;
-      v33 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent;
-      v34 = v12;
+      v37 = v8;
+      v38 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent;
+      v39 = v17;
     }
   }
 
   else
   {
-    _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWObTm_0(v2, v19);
+    _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWObTm_0(v9, v22);
     OUTLINED_FUNCTION_41_4();
     _s26AppleIntelligenceReporting010BiomeEventC0PAAE020emitMinimalInferenceE05event6errors4type0I2IDyAA0ghE0V_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcM0OYKF();
-    v32 = v1;
-    v33 = type metadata accessor for MinimalInferenceEvent;
-    v34 = v19;
+    v37 = v8;
+    v38 = type metadata accessor for MinimalInferenceEvent;
+    v39 = v22;
   }
 
-  _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWOhTm_0(v34, v33);
-  if (v32)
+  _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWOhTm_0(v39, v38);
+  if (v37)
   {
-    *v4 = v35;
-    v4[1] = *v36;
-    *(v4 + 25) = *&v36[9];
+    *v11 = v40;
+    v11[1] = *v41;
+    *(v11 + 25) = *&v41[9];
   }
 
   OUTLINED_FUNCTION_47();
@@ -540,44 +514,42 @@ double OUTLINED_FUNCTION_0(uint64_t a1)
   return result;
 }
 
-void _s26AppleIntelligenceReporting13EventReporterC04emitabD09eventInfoyAA0abD0O_tAA0abC5ErrorOYKF()
+void _s26AppleIntelligenceReporting13EventReporterC04emitabD09eventInfoyAA0abD0O_tAA0abC5ErrorOYKF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   OUTLINED_FUNCTION_48();
-  v20 = v1;
-  v3 = v2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  OUTLINED_FUNCTION_29(v4);
-  v6 = *(v5 + 64);
+  v31 = v9;
+  v11 = v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  OUTLINED_FUNCTION_29(v12);
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v7);
-  v9 = &v20 - v8;
-  v10 = type metadata accessor for AppleIntelligenceReportingEventType();
-  v11 = OUTLINED_FUNCTION_1(v10);
-  v13 = v12;
-  v15 = *(v14 + 64);
-  MEMORY[0x1EEE9AC00](v11);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = &v31 - v14;
+  v16 = type metadata accessor for AppleIntelligenceReportingEventType();
+  OUTLINED_FUNCTION_1();
+  v18 = v17;
+  MEMORY[0x1EEE9AC00](v19);
   OUTLINED_FUNCTION_2();
-  v18 = v17 - v16;
-  EventReporter.getBiomeEventReporter(for:)(v3, v23);
+  v22 = v21 - v20;
+  EventReporter.getBiomeEventReporter(for:)(v11, v34);
   OUTLINED_FUNCTION_28_3();
-  (*(v13 + 104))(v18, *MEMORY[0x1E69AA0E0], v10);
-  v19 = type metadata accessor for UUID();
-  __swift_storeEnumTagSinglePayload(v9, 1, 1, v19);
+  (*(v18 + 104))(v22, *MEMORY[0x1E69AA0E0], v16);
+  v23 = type metadata accessor for UUID();
+  __swift_storeEnumTagSinglePayload(v15, 1, 1, v23);
   OUTLINED_FUNCTION_26_3();
   _s26AppleIntelligenceReporting010BiomeEventC0PAAE05writeE09eventInfo6errors4type0G2IDyAA0abE0O_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcL0OYKFfA0_();
   OUTLINED_FUNCTION_30_3();
-  _s26AppleIntelligenceReporting010BiomeEventC0PAAE05writeE09eventInfo6errors4type0G2IDyAA0abE0O_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcL0OYKF();
+  _s26AppleIntelligenceReporting010BiomeEventC0PAAE05writeE09eventInfo6errors4type0G2IDyAA0abE0O_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcL0OYKF(v24, v25, v26, v27, v28, v29, v30);
 
-  outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  (*(v13 + 8))(v18, v10);
-  if (v0)
+  outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(v15, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  (*(v18 + 8))(v22, v16);
+  if (v8)
   {
-    OUTLINED_FUNCTION_23_3(v20, v21, v22);
+    OUTLINED_FUNCTION_23_3(v31, v32, v33);
   }
 
   else
   {
-    __swift_destroy_boxed_opaque_existential_1(v23);
+    __swift_destroy_boxed_opaque_existential_1(v34);
   }
 
   OUTLINED_FUNCTION_44_2();
@@ -586,11 +558,10 @@ void _s26AppleIntelligenceReporting13EventReporterC04emitabD09eventInfoyAA0abD0O
 
 __n128 AppleIntelligenceInferenceEvent.init(subsystem:sessionIdentifier:stepIdentifier:invocationRequestIdentifier:clientRequestIdentifier:modelManagerRequestIdentifier:errors:useCaseIdentifier:additionalUseCaseIdentifiers:requestorBundleIdentifier:onBehalfOfBundleIdentifier:inferenceProviderIdentifier:assetBundleIdentifier:assets:metadata:)@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char *a22)
 {
-  v46 = *a22;
+  v42 = *a22;
   *a9 = a1;
   a9[1] = a2;
   v28 = type metadata accessor for AppleIntelligenceInferenceEvent(0);
-  v45 = a3;
   outlined init with copy of UUID?(a3, a9 + v28[5], &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v29 = (a9 + v28[6]);
   *v29 = a4;
@@ -601,18 +572,17 @@ __n128 AppleIntelligenceInferenceEvent.init(subsystem:sessionIdentifier:stepIden
   v30 = *(a10 + 16);
   if (v30)
   {
-    v48 = MEMORY[0x1E69E7CC0];
+    v44 = MEMORY[0x1E69E7CC0];
     specialized ContiguousArray.reserveCapacity(_:)();
     v31 = a10 + 32;
     do
     {
-      outlined init with copy of any Source<Self.Stream == A>(v31, v47);
-      __swift_project_boxed_opaque_existential_1(v47, v47[3]);
-      v32 = OUTLINED_FUNCTION_106();
-      AppleIntelligenceError.toGeneral.getter(v32, v33);
-      __swift_destroy_boxed_opaque_existential_1(v47);
+      outlined init with copy of any Source<Self.Stream == A>(v31, v43);
+      __swift_project_boxed_opaque_existential_1(v43, v43[3]);
+      OUTLINED_FUNCTION_106();
+      AppleIntelligenceError.toGeneral.getter();
+      __swift_destroy_boxed_opaque_existential_1(v43);
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v34 = *(v48 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
@@ -625,8 +595,8 @@ __n128 AppleIntelligenceInferenceEvent.init(subsystem:sessionIdentifier:stepIden
     OUTLINED_FUNCTION_54_2(a8);
     OUTLINED_FUNCTION_54_2(a7);
     outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(a6, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMd, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMR);
-    OUTLINED_FUNCTION_54_2(v45);
-    v35 = v48;
+    OUTLINED_FUNCTION_54_2(a3);
+    v32 = v44;
   }
 
   else
@@ -636,33 +606,33 @@ __n128 AppleIntelligenceInferenceEvent.init(subsystem:sessionIdentifier:stepIden
     OUTLINED_FUNCTION_54_2(a7);
     outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(a6, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMd, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMR);
     OUTLINED_FUNCTION_54_2(a3);
-    v35 = MEMORY[0x1E69E7CC0];
+    v32 = MEMORY[0x1E69E7CC0];
   }
 
-  *(a9 + v28[10]) = v35;
-  v36 = a9 + v28[11];
-  v37 = *(a11 + 16);
-  *v36 = *a11;
-  *(v36 + 1) = v37;
+  *(a9 + v28[10]) = v32;
+  v33 = a9 + v28[11];
+  v34 = *(a11 + 16);
+  *v33 = *a11;
+  *(v33 + 1) = v34;
   result = *(a11 + 32);
-  v39 = *(a11 + 48);
-  *(v36 + 2) = result;
-  *(v36 + 3) = v39;
+  v36 = *(a11 + 48);
+  *(v33 + 2) = result;
+  *(v33 + 3) = v36;
   *(a9 + v28[12]) = a12;
-  v40 = (a9 + v28[13]);
-  *v40 = a13;
-  v40[1] = a14;
-  v41 = (a9 + v28[14]);
-  *v41 = a15;
-  v41[1] = a16;
-  v42 = (a9 + v28[15]);
-  *v42 = a17;
-  v42[1] = a18;
-  v43 = (a9 + v28[16]);
-  *v43 = a19;
-  v43[1] = a20;
+  v37 = (a9 + v28[13]);
+  *v37 = a13;
+  v37[1] = a14;
+  v38 = (a9 + v28[14]);
+  *v38 = a15;
+  v38[1] = a16;
+  v39 = (a9 + v28[15]);
+  *v39 = a17;
+  v39[1] = a18;
+  v40 = (a9 + v28[16]);
+  *v40 = a19;
+  v40[1] = a20;
   *(a9 + v28[17]) = a21;
-  *(a9 + v28[18]) = v46;
+  *(a9 + v28[18]) = v42;
   return result;
 }
 
@@ -794,181 +764,168 @@ LABEL_19:
 
 void _s26AppleIntelligenceReporting18BiomeEventReporterC4sendyyAA0abdE0OAA0abC5ErrorOYKF(uint64_t a1, uint64_t a2)
 {
-  v2 = type metadata accessor for AppleIntelligenceReportingUnifiedAssetFrameworkLog();
-  v3 = OUTLINED_FUNCTION_1(v2);
-  v92 = v4;
-  v93 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v3);
+  type metadata accessor for AppleIntelligenceReportingUnifiedAssetFrameworkLog();
+  OUTLINED_FUNCTION_1();
+  v69 = v3;
+  v70 = v2;
+  MEMORY[0x1EEE9AC00](v2);
   OUTLINED_FUNCTION_2();
-  v91 = v8 - v7;
-  v9 = type metadata accessor for AppleIntelligenceReportingModelCatalogLog();
-  v10 = OUTLINED_FUNCTION_1(v9);
-  v89 = v11;
-  v90 = v10;
-  v13 = *(v12 + 64);
+  v68 = v5 - v4;
+  type metadata accessor for AppleIntelligenceReportingModelCatalogLog();
+  OUTLINED_FUNCTION_1();
+  v66 = v7;
+  v67 = v6;
+  MEMORY[0x1EEE9AC00](v6);
+  OUTLINED_FUNCTION_2();
+  v65 = v9 - v8;
+  type metadata accessor for MobileAssetInstrumentationEvent();
+  OUTLINED_FUNCTION_1();
+  v63 = v11;
+  v64 = v10;
   MEMORY[0x1EEE9AC00](v10);
   OUTLINED_FUNCTION_2();
-  v88 = v15 - v14;
-  v16 = type metadata accessor for MobileAssetInstrumentationEvent();
-  v17 = OUTLINED_FUNCTION_1(v16);
-  v86 = v18;
-  v87 = v17;
-  v20 = *(v19 + 64);
-  MEMORY[0x1EEE9AC00](v17);
+  v14 = v13 - v12;
+  type metadata accessor for AppleIntelligenceReportingMobileAssetLog();
+  OUTLINED_FUNCTION_1();
+  v61 = v16;
+  v62 = v15;
+  MEMORY[0x1EEE9AC00](v15);
   OUTLINED_FUNCTION_2();
-  v23 = v22 - v21;
-  v24 = type metadata accessor for AppleIntelligenceReportingMobileAssetLog();
-  v25 = OUTLINED_FUNCTION_1(v24);
-  v84 = v26;
-  v85 = v25;
-  v28 = *(v27 + 64);
-  MEMORY[0x1EEE9AC00](v25);
+  v19 = v18 - v17;
+  v20 = type metadata accessor for AppleIntelligenceReportingAvailabilityLog();
+  OUTLINED_FUNCTION_1();
+  v60 = v21;
+  MEMORY[0x1EEE9AC00](v22);
   OUTLINED_FUNCTION_2();
-  v31 = v30 - v29;
-  v32 = type metadata accessor for AppleIntelligenceReportingAvailabilityLog();
-  v33 = OUTLINED_FUNCTION_1(v32);
-  v83 = v34;
-  v36 = *(v35 + 64);
+  v25 = v24 - v23;
+  v26 = type metadata accessor for AppleIntelligenceReportingInvocationStep();
+  OUTLINED_FUNCTION_1();
+  v28 = v27;
+  MEMORY[0x1EEE9AC00](v29);
+  OUTLINED_FUNCTION_2();
+  v32 = v31 - v30;
+  v33 = type metadata accessor for AppleIntelligenceBiomeEvent(0);
   MEMORY[0x1EEE9AC00](v33);
   OUTLINED_FUNCTION_2();
-  v39 = v38 - v37;
-  v40 = type metadata accessor for AppleIntelligenceReportingInvocationStep();
-  v41 = OUTLINED_FUNCTION_1(v40);
-  v43 = v42;
-  v45 = *(v44 + 64);
-  MEMORY[0x1EEE9AC00](v41);
-  OUTLINED_FUNCTION_2();
-  v48 = v47 - v46;
-  v49 = type metadata accessor for AppleIntelligenceBiomeEvent();
-  v50 = *(*(v49 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v49);
-  OUTLINED_FUNCTION_2();
-  v53 = v52 - v51;
-  outlined init with copy of AppleIntelligenceBiomeEvent(a1, v52 - v51);
+  v36 = v35 - v34;
+  outlined init with copy of AppleIntelligenceBiomeEvent(a1, v35 - v34);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      (*(v83 + 32))(v39, v53, v32);
+      (*(v60 + 32))(v25, v36, v20);
       OUTLINED_FUNCTION_3();
       swift_beginAccess();
-      v70 = v95[4];
       OUTLINED_FUNCTION_7();
-      v72 = *(v71 + 152);
+      v50 = *(v49 + 152);
 
-      v72(v39);
-      v57 = v96;
-      if (v96)
+      v50(v25);
+      v39 = v72;
+      if (v72)
       {
-        (*(v83 + 8))(v39, v32);
+        (*(v60 + 8))(v25, v20);
         goto LABEL_14;
       }
 
-      (*(v83 + 8))(v39, v32);
+      (*(v60 + 8))(v25, v20);
       goto LABEL_24;
     case 2u:
-      (*(v84 + 32))(v31, v53, v85);
+      (*(v61 + 32))(v19, v36, v62);
       OUTLINED_FUNCTION_3();
       swift_beginAccess();
-      v64 = v95[5];
       OUTLINED_FUNCTION_7();
-      v66 = *(v65 + 152);
+      v46 = *(v45 + 152);
 
-      v66(v31);
-      v57 = v96;
-      if (v96)
+      v46(v19);
+      v39 = v72;
+      if (v72)
       {
-        (*(v84 + 8))(v31, v85);
+        (*(v61 + 8))(v19, v62);
         goto LABEL_14;
       }
 
-      (*(v84 + 8))(v31, v85);
+      (*(v61 + 8))(v19, v62);
       goto LABEL_24;
     case 3u:
-      (*(v86 + 32))(v23, v53, v87);
+      (*(v63 + 32))(v14, v36, v64);
       OUTLINED_FUNCTION_3();
       swift_beginAccess();
-      v67 = v95[6];
       OUTLINED_FUNCTION_7();
-      v69 = *(v68 + 152);
+      v48 = *(v47 + 152);
 
-      v69(v23);
-      v57 = v96;
-      if (v96)
+      v48(v14);
+      v39 = v72;
+      if (v72)
       {
-        (*(v86 + 8))(v23, v87);
+        (*(v63 + 8))(v14, v64);
         goto LABEL_14;
       }
 
-      (*(v86 + 8))(v23, v87);
+      (*(v63 + 8))(v14, v64);
       goto LABEL_24;
     case 4u:
-      v59 = v88;
-      v58 = v89;
-      v60 = OUTLINED_FUNCTION_11();
-      v61 = v90;
-      v62(v60);
+      v41 = v65;
+      v40 = v66;
+      v42 = OUTLINED_FUNCTION_11();
+      v43 = v67;
+      v44(v42);
       OUTLINED_FUNCTION_3();
       swift_beginAccess();
-      v63 = v95[7];
       goto LABEL_12;
     case 5u:
-      v59 = v91;
-      v58 = v92;
-      v73 = OUTLINED_FUNCTION_11();
-      v61 = v93;
-      v74(v73);
+      v41 = v68;
+      v40 = v69;
+      v51 = OUTLINED_FUNCTION_11();
+      v43 = v70;
+      v52(v51);
       OUTLINED_FUNCTION_3();
       swift_beginAccess();
-      v75 = v95[8];
 LABEL_12:
       OUTLINED_FUNCTION_7();
-      v77 = *(v76 + 152);
+      v54 = *(v53 + 152);
 
-      v77(v59);
-      v57 = v96;
-      if (v96)
+      v54(v41);
+      v39 = v72;
+      if (v72)
       {
-        (*(v58 + 8))(v59, v61);
+        (*(v40 + 8))(v41, v43);
         goto LABEL_14;
       }
 
-      (*(v58 + 8))(v59, v61);
+      (*(v40 + 8))(v41, v43);
       goto LABEL_24;
     default:
-      (*(v43 + 32))(v48, v53, v40);
+      (*(v28 + 32))(v32, v36, v26);
       OUTLINED_FUNCTION_3();
       swift_beginAccess();
-      v54 = v95[3];
       OUTLINED_FUNCTION_7();
-      v56 = *(v55 + 152);
+      v38 = *(v37 + 152);
 
-      v56(v48);
-      v57 = v96;
-      if (v96)
+      v38(v32);
+      v39 = v72;
+      if (v72)
       {
-        (*(v43 + 8))(v48, v40);
+        (*(v28 + 8))(v32, v26);
 LABEL_14:
-        v78 = v57;
+        v55 = v39;
 
         if (one-time initialization token for general != -1)
         {
           swift_once();
         }
 
-        v79 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v79, static Logging.general);
-        v80 = Logger.logObject.getter();
-        v81 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v80, v81))
+        v56 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v56, static Logging.general);
+        v57 = Logger.logObject.getter();
+        v58 = static os_log_type_t.error.getter();
+        if (os_log_type_enabled(v57, v58))
         {
-          v82 = swift_slowAlloc();
-          *v82 = 0;
-          _os_log_impl(&dword_1C0C94000, v80, v81, "Failed to initialize stream for event", v82, 2u);
-          MEMORY[0x1C68E2FD0](v82, -1, -1);
+          v59 = swift_slowAlloc();
+          *v59 = 0;
+          _os_log_impl(&dword_1C0C94000, v57, v58, "Failed to initialize stream for event", v59, 2u);
+          MEMORY[0x1C68E2FD0](v59, -1, -1);
         }
 
-        convertToAppleIntelligenceError(error:)(v78, a2);
+        convertToAppleIntelligenceError(error:)(v55, a2);
         *(a2 + 40) = 1;
         lazy protocol witness table accessor for type AppleIntelligenceReportingError and conformance AppleIntelligenceReportingError();
         swift_willThrowTypedImpl();
@@ -976,7 +933,7 @@ LABEL_14:
 
       else
       {
-        (*(v43 + 8))(v48, v40);
+        (*(v28 + 8))(v32, v26);
 LABEL_24:
       }
 
@@ -986,29 +943,31 @@ LABEL_24:
 
 uint64_t outlined destroy of AppleIntelligenceAssetDeliveryEvent(uint64_t a1, uint64_t (*a2)(void))
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_9(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  OUTLINED_FUNCTION_9();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
 uint64_t _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWOhTm_0(uint64_t a1, uint64_t (*a2)(void))
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_9(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  OUTLINED_FUNCTION_9();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t outlined init with copy of any Source<Self.Stream == A>(uint64_t a1, uint64_t a2)
@@ -1022,184 +981,162 @@ uint64_t outlined init with copy of any Source<Self.Stream == A>(uint64_t a1, ui
 
 uint64_t outlined init with copy of AppleIntelligenceBiomeEvent(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AppleIntelligenceBiomeEvent();
+  v4 = type metadata accessor for AppleIntelligenceBiomeEvent(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 double _s26AppleIntelligenceReporting18BiomeEventReporterCAA0deC0A2aDP4sendyyAA0abdE0OAA0abC5ErrorOYKFTW(uint64_t a1, _OWORD *a2)
 {
-  v5 = *v2;
-  _s26AppleIntelligenceReporting18BiomeEventReporterC4sendyyAA0abdE0OAA0abC5ErrorOYKF(a1, &v8);
-  if (v3)
+  _s26AppleIntelligenceReporting18BiomeEventReporterC4sendyyAA0abdE0OAA0abC5ErrorOYKF(a1, &v6);
+  if (v2)
   {
-    v7 = v9[0];
-    *a2 = v8;
-    a2[1] = v7;
-    result = *(v9 + 9);
-    *(a2 + 25) = *(v9 + 9);
+    v5 = v7[0];
+    *a2 = v6;
+    a2[1] = v5;
+    result = *(v7 + 9);
+    *(a2 + 25) = *(v7 + 9);
   }
 
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_3_3()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  return v0;
-}
-
-void closure #1 in AppleIntelligenceUseCase.toReportingUseCase.getter()
+void closure #1 in AppleIntelligenceUseCase.toReportingUseCase.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   OUTLINED_FUNCTION_48();
-  v2 = v1;
-  v4 = v3;
+  v11 = v10;
   OUTLINED_FUNCTION_52_2();
-  v5 = type metadata accessor for AppleIntelligenceReportingUseCase.Parameter();
-  v6 = OUTLINED_FUNCTION_1(v5);
-  v8 = v7;
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v6);
+  v12 = type metadata accessor for AppleIntelligenceReportingUseCase.Parameter();
+  OUTLINED_FUNCTION_1();
+  v14 = v13;
+  MEMORY[0x1EEE9AC00](v15);
   OUTLINED_FUNCTION_2();
-  v13 = v12 - v11;
-  v14 = *v4;
-  v15 = v4[1];
+  v18 = v17 - v16;
 
   AppleIntelligenceReportingUseCase.useCaseIdentifier.setter();
-  v16 = *(v4 + 6);
-  v68 = *(v4 + 28);
   AppleIntelligenceReportingUseCase.mode.setter();
-  v17 = v4[6];
-  v18 = v4[7];
 
   AppleIntelligenceReportingUseCase.countryCode.setter();
-  v19 = v4[4];
-  v20 = v4[5];
 
   AppleIntelligenceReportingUseCase.locale.setter();
-  v21 = v4[2];
-  v22 = *(v21 + 16);
-  if (v22)
+  v19 = *(v11 + 16);
+  v20 = *(v19 + 16);
+  if (v20)
   {
-    v58 = v13;
-    v53 = v0;
-    v65 = v2;
-    v66 = MEMORY[0x1E69E7CC0];
+    v52 = v18;
+    v47 = v8;
+    v59 = v9;
+    v60 = MEMORY[0x1E69E7CC0];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-    v64 = v66;
-    v23 = specialized Dictionary.startIndex.getter(v21);
-    v26 = v23;
-    v27 = 0;
-    v63 = v21 + 64;
-    v56 = v22;
-    v57 = v8 + 32;
-    v55 = v24;
-    v54 = v21 + 72;
-    v28 = v21;
-    v59 = v8;
-    while ((v26 & 0x8000000000000000) == 0 && v26 < 1 << *(v28 + 32))
+    v58 = v60;
+    v21 = specialized Dictionary.startIndex.getter(v19);
+    v24 = v21;
+    v25 = 0;
+    v57 = v19 + 64;
+    v50 = v20;
+    v51 = v14 + 32;
+    v49 = v22;
+    v48 = v19 + 72;
+    v26 = v19;
+    v53 = v14;
+    while ((v24 & 0x8000000000000000) == 0 && v24 < 1 << *(v26 + 32))
     {
-      v29 = v26 >> 6;
-      if ((*(v63 + 8 * (v26 >> 6)) & (1 << v26)) == 0)
+      v27 = v24 >> 6;
+      if ((*(v57 + 8 * (v24 >> 6)) & (1 << v24)) == 0)
       {
         goto LABEL_22;
       }
 
-      if (*(v28 + 36) != v24)
+      if (*(v26 + 36) != v22)
       {
         goto LABEL_23;
       }
 
-      v60 = v27;
-      v61 = v24;
-      v67 = v25;
-      v62 = &v53;
-      v30 = (*(v28 + 48) + 16 * v26);
-      v31 = *v30;
-      v32 = v30[1];
-      v33 = (*(v28 + 56) + 16 * v26);
-      v34 = *v33;
-      v35 = v33[1];
-      MEMORY[0x1EEE9AC00](v23);
-      *(&v53 - 4) = v36;
-      *(&v53 - 3) = v32;
-      *(&v53 - 2) = v37;
-      *(&v53 - 1) = v35;
+      v54 = v25;
+      v55 = v22;
+      v61 = v23;
+      v56 = &v47;
+      v28 = *(*(v26 + 48) + 16 * v24 + 8);
+      v29 = *(*(v26 + 56) + 16 * v24 + 8);
+      MEMORY[0x1EEE9AC00](v21);
+      *(&v47 - 4) = v30;
+      *(&v47 - 3) = v28;
+      *(&v47 - 2) = v31;
+      *(&v47 - 1) = v29;
 
-      v38 = v28;
-      v39 = v58;
-      v40 = v65;
+      v32 = v26;
+      v33 = v52;
+      v34 = v59;
       static Buildable.with(_:)();
-      v65 = v40;
+      v59 = v34;
 
-      v41 = v64;
-      v66 = v64;
-      v42 = *(v64 + 16);
-      if (v42 >= *(v64 + 24) >> 1)
+      v35 = v58;
+      v60 = v58;
+      v36 = *(v58 + 16);
+      if (v36 >= *(v58 + 24) >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v41 = v66;
+        v35 = v60;
       }
 
-      *(v41 + 16) = v42 + 1;
-      v43 = (*(v59 + 80) + 32) & ~*(v59 + 80);
-      v64 = v41;
-      v23 = (*(v59 + 32))(v41 + v43 + *(v59 + 72) * v42, v39, v5);
-      v44 = 1 << *(v38 + 32);
-      if (v26 >= v44)
+      *(v35 + 16) = v36 + 1;
+      v37 = (*(v53 + 80) + 32) & ~*(v53 + 80);
+      v58 = v35;
+      v21 = (*(v53 + 32))(v35 + v37 + *(v53 + 72) * v36, v33, v12);
+      v38 = 1 << *(v32 + 32);
+      if (v24 >= v38)
       {
         goto LABEL_24;
       }
 
-      v45 = *(v63 + 8 * v29);
-      if ((v45 & (1 << v26)) == 0)
+      v39 = *(v57 + 8 * v27);
+      if ((v39 & (1 << v24)) == 0)
       {
         goto LABEL_25;
       }
 
-      v28 = v38;
-      if (*(v38 + 36) != v61)
+      v26 = v32;
+      if (*(v32 + 36) != v55)
       {
         goto LABEL_26;
       }
 
-      v46 = v45 & (-2 << (v26 & 0x3F));
-      if (v46)
+      v40 = v39 & (-2 << (v24 & 0x3F));
+      if (v40)
       {
-        v44 = __clz(__rbit64(v46)) | v26 & 0x7FFFFFFFFFFFFFC0;
-        v47 = v56;
+        v38 = __clz(__rbit64(v40)) | v24 & 0x7FFFFFFFFFFFFFC0;
+        v41 = v50;
       }
 
       else
       {
-        v48 = v29 << 6;
-        v49 = v29 + 1;
-        v50 = (v54 + 8 * v29);
-        v47 = v56;
-        while (v49 < (v44 + 63) >> 6)
+        v42 = v27 << 6;
+        v43 = v27 + 1;
+        v44 = (v48 + 8 * v27);
+        v41 = v50;
+        while (v43 < (v38 + 63) >> 6)
         {
-          v52 = *v50++;
-          v51 = v52;
-          v48 += 64;
-          ++v49;
-          if (v52)
+          v46 = *v44++;
+          v45 = v46;
+          v42 += 64;
+          ++v43;
+          if (v46)
           {
-            v23 = outlined consume of [String : String].Index._Variant(v26, v61, v67 & 1);
-            v44 = __clz(__rbit64(v51)) + v48;
+            v21 = outlined consume of [String : String].Index._Variant(v24, v55, v61 & 1);
+            v38 = __clz(__rbit64(v45)) + v42;
             goto LABEL_19;
           }
         }
 
-        v23 = outlined consume of [String : String].Index._Variant(v26, v61, v67 & 1);
+        v21 = outlined consume of [String : String].Index._Variant(v24, v55, v61 & 1);
       }
 
 LABEL_19:
-      v25 = 0;
-      v27 = v60 + 1;
-      v26 = v44;
-      v24 = v55;
-      if (v60 + 1 == v47)
+      v23 = 0;
+      v25 = v54 + 1;
+      v24 = v38;
+      v22 = v49;
+      if (v54 + 1 == v41)
       {
         goto LABEL_20;
       }
@@ -1237,7 +1174,7 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_26_0()
+uint64_t OUTLINED_FUNCTION_26_0(uint64_t a1, uint64_t a2)
 {
 
   return KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
@@ -1245,14 +1182,12 @@ uint64_t OUTLINED_FUNCTION_26_0()
 
 uint64_t OUTLINED_FUNCTION_32()
 {
-  v2 = *(v0 + 56);
 
   return swift_getEnumCaseMultiPayload();
 }
 
-uint64_t OUTLINED_FUNCTION_32_2@<X0>(uint64_t a1@<X8>)
+uint64_t OUTLINED_FUNCTION_32_2()
 {
-  v3 = *(v1 + a1 + 8);
 }
 
 __n128 OUTLINED_FUNCTION_32_3(uint64_t a1, uint64_t a2)
@@ -1265,9 +1200,9 @@ __n128 OUTLINED_FUNCTION_32_3(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_11_2@<X0>(char a1@<W8>)
+uint64_t OUTLINED_FUNCTION_11_2@<X0>(char a3@<W8>)
 {
-  *(v1 - 328) = a1;
+  *(v3 - 328) = a3;
 
   return KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
 }
@@ -1279,17 +1214,8 @@ uint64_t OUTLINED_FUNCTION_1_3@<X0>(uint64_t a1@<X8>)
   *(a1 + 16) = v2;
 }
 
-uint64_t OUTLINED_FUNCTION_21_2()
+uint64_t OUTLINED_FUNCTION_21_3(uint64_t a1)
 {
-  result = v0 + 8;
-  v2 = *(v0 + 8);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_21_3()
-{
-  v2 = *(v0 + 224);
-  v3 = *(v0 + 296);
 
   return static Buildable.with(_:)();
 }
@@ -1313,11 +1239,10 @@ uint64_t OUTLINED_FUNCTION_43_0@<X0>(void *a1@<X8>)
 uint64_t outlined init with copy of AppleIntelligenceEvent(uint64_t a1, uint64_t a2)
 {
   v3 = OUTLINED_FUNCTION_52_2();
-  v5 = v4(v3);
-  OUTLINED_FUNCTION_9(v5);
-  v7 = *(v6 + 16);
-  v8 = OUTLINED_FUNCTION_50();
-  v9(v8);
+  v4(v3);
+  OUTLINED_FUNCTION_9();
+  v5 = OUTLINED_FUNCTION_50();
+  v6(v5);
   return a2;
 }
 
@@ -1330,52 +1255,20 @@ uint64_t outlined init with copy of AppleIntelligenceEvent(uint64_t a1, uint64_t
 uint64_t _s26AppleIntelligenceReporting0aB5EventOWOcTm_0(uint64_t a1, uint64_t a2)
 {
   v3 = OUTLINED_FUNCTION_52_2();
-  v5 = v4(v3);
-  OUTLINED_FUNCTION_9(v5);
-  v7 = *(v6 + 16);
-  v8 = OUTLINED_FUNCTION_50();
-  v9(v8);
+  v4(v3);
+  OUTLINED_FUNCTION_9();
+  v5 = OUTLINED_FUNCTION_50();
+  v6(v5);
   return a2;
 }
 
-void specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)()
-{
-  v1 = *v0;
-  specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-  *v0 = v2;
-}
-
-{
-  v1 = *v0;
-  specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-  *v0 = v2;
-}
-
-{
-  v1 = *v0;
-  specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-  *v0 = v2;
-}
-
-{
-  v1 = *v0;
-  specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-  *v0 = v2;
-}
-
-{
-  v1 = *v0;
-  specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-  *v0 = v2;
-}
-
-uint64_t OUTLINED_FUNCTION_16_0()
+uint64_t OUTLINED_FUNCTION_16_0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return dispatch thunk of Decoder.container<A>(keyedBy:)();
 }
 
-uint64_t OUTLINED_FUNCTION_13()
+uint64_t OUTLINED_FUNCTION_13(uint64_t a1, uint64_t a2)
 {
 
   return KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
@@ -1453,11 +1346,11 @@ LABEL_24:
   v19[2] = v14;
   v19[3] = 2 * ((v20 - v18) / v17);
 LABEL_19:
-  v22 = *(*(v7(0) - 8) + 80);
+  v7(0);
   OUTLINED_FUNCTION_39_0();
   if (v10)
   {
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)(v8 + v23, v14, v19 + v23, v5);
+    specialized UnsafeMutablePointer.moveInitialize(from:count:)(v8 + v22, v14, v19 + v22, v5);
     *(v8 + 16) = 0;
   }
 
@@ -1472,22 +1365,20 @@ LABEL_19:
 uint64_t outlined init with take of AppleIntelligenceAssetDeliveryEvent(uint64_t a1, uint64_t a2)
 {
   v3 = OUTLINED_FUNCTION_52_2();
-  v5 = v4(v3);
-  OUTLINED_FUNCTION_9(v5);
-  v7 = *(v6 + 32);
-  v8 = OUTLINED_FUNCTION_50();
-  v9(v8);
+  v4(v3);
+  OUTLINED_FUNCTION_9();
+  v5 = OUTLINED_FUNCTION_50();
+  v6(v5);
   return a2;
 }
 
 uint64_t _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWObTm_0(uint64_t a1, uint64_t a2)
 {
   v3 = OUTLINED_FUNCTION_52_2();
-  v5 = v4(v3);
-  OUTLINED_FUNCTION_9(v5);
-  v7 = *(v6 + 32);
-  v8 = OUTLINED_FUNCTION_50();
-  v9(v8);
+  v4(v3);
+  OUTLINED_FUNCTION_9();
+  v5 = OUTLINED_FUNCTION_50();
+  v6(v5);
   return a2;
 }
 
@@ -1525,7 +1416,7 @@ uint64_t OUTLINED_FUNCTION_22_2()
   return _s26AppleIntelligenceReporting0aB18AssetDeliveryEventVWOhTm_0(v2, type metadata accessor for AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState);
 }
 
-uint64_t type metadata accessor for AppleIntelligenceBiomeEvent()
+uint64_t type metadata accessor for AppleIntelligenceBiomeEvent(uint64_t a1)
 {
   result = type metadata singleton initialization cache for AppleIntelligenceBiomeEvent;
   if (!type metadata singleton initialization cache for AppleIntelligenceBiomeEvent)
@@ -1536,62 +1427,27 @@ uint64_t type metadata accessor for AppleIntelligenceBiomeEvent()
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_2_3@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(a2 - 256) = result;
-  v2 = *(result - 8);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_7_0()
+uint64_t OUTLINED_FUNCTION_7_0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
 }
 
-uint64_t OUTLINED_FUNCTION_7_1()
+uint64_t OUTLINED_FUNCTION_7_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *(v0 - 272);
-  v3 = *(v0 - 600);
 
   return KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
 }
 
-uint64_t OUTLINED_FUNCTION_7_4()
-{
-  result = v0;
-  v3 = *(v1 - 72);
-  v4 = *(v1 - 256);
-  v5 = *(v1 - 288);
-  return result;
-}
-
 uint64_t OUTLINED_FUNCTION_12_2()
 {
-  v2 = v0[68];
-  v3 = v0[65];
-  v5 = v0[63];
-  v4 = v0[64];
-  v6 = v0[62];
-  v8 = v0[58];
-  v7 = v0[59];
-  v10 = v0[56];
-  v9 = v0[57];
-  v11 = v0[53];
 }
 
-void OUTLINED_FUNCTION_20_3()
-{
-  v1 = *(v0 - 264);
-  v2 = *(v0 - 312);
-  v3 = *(v0 - 400);
-}
-
-uint64_t OUTLINED_FUNCTION_29_1(void *a1)
+void OUTLINED_FUNCTION_29_1(void *a1)
 {
   __swift_project_boxed_opaque_existential_1(a1, v1);
 
-  return AppleIntelligenceError.toGeneral.getter(v1, v2);
+  AppleIntelligenceError.toGeneral.getter();
 }
 
 uint64_t OUTLINED_FUNCTION_29_3()
@@ -1600,17 +1456,14 @@ uint64_t OUTLINED_FUNCTION_29_3()
   return __swift_getEnumTagSinglePayload(v1 + v2, 1, v0);
 }
 
-uint64_t OUTLINED_FUNCTION_31_0()
+uint64_t OUTLINED_FUNCTION_31_0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return dispatch thunk of Decoder.container<A>(keyedBy:)();
 }
 
-uint64_t OUTLINED_FUNCTION_31_2@<X0>(uint64_t a1@<X8>)
+uint64_t OUTLINED_FUNCTION_31_2()
 {
-  v3 = (v1 + a1);
-  v4 = *v3;
-  v5 = v3[1];
 }
 
 uint64_t OUTLINED_FUNCTION_31_3()
@@ -1619,11 +1472,8 @@ uint64_t OUTLINED_FUNCTION_31_3()
   return __swift_getEnumTagSinglePayload(v1 + v2, 1, v0);
 }
 
-uint64_t OUTLINED_FUNCTION_31_4@<X0>(uint64_t a1@<X8>)
+uint64_t OUTLINED_FUNCTION_31_4()
 {
-  v3 = (v1 + a1);
-  v5 = *v3;
-  v4 = v3[1];
 }
 
 uint64_t sub_1C0C988A4(uint64_t a1, uint64_t a2)
@@ -1633,22 +1483,14 @@ uint64_t sub_1C0C988A4(uint64_t a1, uint64_t a2)
   return __swift_getEnumTagSinglePayload(a1, a2, v4);
 }
 
-uint64_t OUTLINED_FUNCTION_36_1()
+uint64_t OUTLINED_FUNCTION_36_1(uint64_t a1, uint64_t a2)
 {
 
   return KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
 }
 
-void OUTLINED_FUNCTION_36_3()
+uint64_t OUTLINED_FUNCTION_27_0(uint64_t a1, uint64_t a2)
 {
-  v1 = *(v0 - 360);
-  v2 = *(v0 - 344);
-  v3 = *(v0 - 352);
-}
-
-uint64_t OUTLINED_FUNCTION_27_0()
-{
-  v2 = *(v0 - 208);
 
   return KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
 }
@@ -1657,16 +1499,6 @@ uint64_t OUTLINED_FUNCTION_27_2()
 {
 
   return __swift_getEnumTagSinglePayload(v1 + v2, 1, v0);
-}
-
-uint64_t OUTLINED_FUNCTION_27_3()
-{
-  v2 = *(v0[39] + 24);
-  result = v1;
-  v5 = v0[42];
-  v4 = v0[43];
-  v6 = v0[45];
-  return result;
 }
 
 uint64_t specialized Array.count.getter(unint64_t a1)
@@ -1689,7 +1521,7 @@ uint64_t outlined init with take of any Source<Self.Stream == A>(__int128 *a1, u
   return a2;
 }
 
-uint64_t type metadata accessor for GeneralAppleIntelligenceError()
+uint64_t type metadata accessor for GeneralAppleIntelligenceError(uint64_t a1)
 {
   result = type metadata singleton initialization cache for GeneralAppleIntelligenceError;
   if (!type metadata singleton initialization cache for GeneralAppleIntelligenceError)
@@ -1703,94 +1535,90 @@ uint64_t type metadata accessor for GeneralAppleIntelligenceError()
 void _s26AppleIntelligenceReporting13EventReporterC04emitab3EndD09eventInfo05startD10IdentifieryAA0abD0O_AA14UUIDIdentifierVSgtAA0abC5ErrorOYKF()
 {
   OUTLINED_FUNCTION_48();
-  v36 = v1;
+  v37 = v1;
   v3 = v2;
   v5 = v4;
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26AppleIntelligenceReporting14UUIDIdentifierVSgMd, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMR);
   OUTLINED_FUNCTION_29(v6);
-  v8 = *(v7 + 64);
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v35 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  OUTLINED_FUNCTION_29(v12);
-  v14 = *(v13 + 64);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v36 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  OUTLINED_FUNCTION_29(v10);
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v35 - v16;
-  v18 = type metadata accessor for AppleIntelligenceReportingEventType();
-  v19 = OUTLINED_FUNCTION_1(v18);
-  v21 = v20;
-  v23 = *(v22 + 64);
-  MEMORY[0x1EEE9AC00](v19);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v36 - v12;
+  v14 = type metadata accessor for AppleIntelligenceReportingEventType();
+  OUTLINED_FUNCTION_1();
+  v16 = v15;
+  MEMORY[0x1EEE9AC00](v17);
   OUTLINED_FUNCTION_2();
-  v26 = v25 - v24;
-  v37 = v5;
-  EventReporter.getBiomeEventReporter(for:)(v5, v40);
+  v20 = v19 - v18;
+  v38 = v5;
+  EventReporter.getBiomeEventReporter(for:)(v5, v41);
   OUTLINED_FUNCTION_28_3();
-  (*(v21 + 104))(v26, *MEMORY[0x1E69AA0D0], v18);
-  outlined init with copy of UUIDIdentifier?(v3, v11);
-  v27 = type metadata accessor for UUIDIdentifier();
-  if (__swift_getEnumTagSinglePayload(v11, 1, v27) == 1)
+  (*(v16 + 104))(v20, *MEMORY[0x1E69AA0D0], v14);
+  outlined init with copy of UUIDIdentifier?(v3, v9);
+  v21 = type metadata accessor for UUIDIdentifier(0);
+  if (__swift_getEnumTagSinglePayload(v9, 1, v21) == 1)
   {
-    outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(v11, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMd, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMR);
-    v28 = type metadata accessor for UUID();
-    v29 = v17;
-    v30 = 1;
-    v31 = 1;
+    outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(v9, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMd, &_s26AppleIntelligenceReporting14UUIDIdentifierVSgMR);
+    v22 = type metadata accessor for UUID();
+    v23 = v13;
+    v24 = 1;
+    v25 = 1;
   }
 
   else
   {
-    v32 = type metadata accessor for UUID();
-    OUTLINED_FUNCTION_9(v32);
-    (*(v33 + 16))(v17, v11, v32);
+    v26 = type metadata accessor for UUID();
+    OUTLINED_FUNCTION_9();
+    (*(v27 + 16))(v13, v9, v26);
     OUTLINED_FUNCTION_14_2();
-    outlined destroy of UUIDIdentifier(v11, v34);
+    outlined destroy of UUIDIdentifier(v9, v28);
     OUTLINED_FUNCTION_13_2();
-    v28 = v32;
+    v22 = v26;
   }
 
-  __swift_storeEnumTagSinglePayload(v29, v30, v31, v28);
+  __swift_storeEnumTagSinglePayload(v23, v24, v25, v22);
   OUTLINED_FUNCTION_26_3();
   _s26AppleIntelligenceReporting010BiomeEventC0PAAE05writeE09eventInfo6errors4type0G2IDyAA0abE0O_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcL0OYKFfA0_();
   OUTLINED_FUNCTION_30_3();
-  _s26AppleIntelligenceReporting010BiomeEventC0PAAE05writeE09eventInfo6errors4type0G2IDyAA0abE0O_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcL0OYKF();
+  _s26AppleIntelligenceReporting010BiomeEventC0PAAE05writeE09eventInfo6errors4type0G2IDyAA0abE0O_SayAA0aB5Error_pG0B15PlatformLibrary0abcE4TypeO10Foundation4UUIDVSgtAA0abcL0OYKF(v29, v30, v31, v32, v33, v34, v35);
 
-  outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(v17, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  (*(v21 + 8))(v26, v18);
+  outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(v13, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  (*(v16 + 8))(v20, v14);
   if (v0)
   {
-    OUTLINED_FUNCTION_23_3(v36, v38, v39);
+    OUTLINED_FUNCTION_23_3(v37, v39, v40);
   }
 
   else
   {
-    __swift_destroy_boxed_opaque_existential_1(v40);
+    __swift_destroy_boxed_opaque_existential_1(v41);
   }
 
   OUTLINED_FUNCTION_47();
 }
 
-void type metadata completion function for GeneralAppleIntelligenceError()
+void type metadata completion function for GeneralAppleIntelligenceError(uint64_t a1)
 {
-  type metadata accessor for Date?();
+  type metadata accessor for Date?(319);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
 
-void type metadata accessor for Date?()
+void type metadata accessor for Date?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for Date?)
   {
     type metadata accessor for Date();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Date?);
+      atomic_store(v1, &lazy cache variable for type metadata for Date?);
     }
   }
 }
@@ -1802,15 +1630,13 @@ uint64_t outlined init with copy of UUIDIdentifier?(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t OUTLINED_FUNCTION_46()
+uint64_t OUTLINED_FUNCTION_46(uint64_t a1, uint64_t a2)
 {
-  v2 = *(v0 - 272);
-  v3 = *(v0 - 600);
 
   return KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
 }
 
-uint64_t OUTLINED_FUNCTION_46_0()
+uint64_t OUTLINED_FUNCTION_46_0(uint64_t a1)
 {
 
   return BidirectionalCollection<>.joined(separator:)();
@@ -1843,17 +1669,17 @@ uint64_t sub_1C0C98FA8()
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AppleIntelligenceReportingMetadata.UnspecifiedCodingKeys@<X0>(_BYTE *a1@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AppleIntelligenceReportingMetadata.UnspecifiedCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = AppleIntelligenceReportingMetadata.UnspecifiedCodingKeys.init(stringValue:)();
-  *a1 = result & 1;
+  result = AppleIntelligenceReportingMetadata.UnspecifiedCodingKeys.init(stringValue:)(a1, a2);
+  *a3 = result & 1;
   return result;
 }
 
-uint64_t _s26AppleIntelligenceReporting0aB18AssetDeliveryEventV0F4TypeO28AvailabilityChangeCodingKeys027_74E5A5FFCD3AA678926F1A3090M4B7D9LLOs0J3KeyAAsAIP11stringValuexSgSS_tcfCTW_0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t _s26AppleIntelligenceReporting0aB18AssetDeliveryEventV0F4TypeO28AvailabilityChangeCodingKeys027_74E5A5FFCD3AA678926F1A3090M4B7D9LLOs0J3KeyAAsAIP11stringValuexSgSS_tcfCTW_0@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = AppleIntelligenceAssetDeliveryEvent.EventType.AvailabilityChangeCodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result & 1;
+  result = AppleIntelligenceAssetDeliveryEvent.EventType.AvailabilityChangeCodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result & 1;
   return result;
 }
 
@@ -1898,27 +1724,6 @@ uint64_t sub_1C0C992D4(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void _s26AppleIntelligenceReporting0aB18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV0J7ReasonsVs10SetAlgebraAAsALP5unionyxxnFTW_0(void *a1@<X8>, uint64_t *a2@<X0>)
-{
-  v3 = *a2;
-  v4 = *v2;
-  sub_1C0C99424(a1);
-}
-
-void _s26AppleIntelligenceReporting0aB18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV0J7ReasonsVs10SetAlgebraAAsALP12intersectionyxxFTW_0(void *a1@<X8>, uint64_t *a2@<X0>)
-{
-  v3 = *a2;
-  v4 = *v2;
-  sub_1C0C99438(a1);
-}
-
-void _s26AppleIntelligenceReporting0aB18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV0J7ReasonsVs10SetAlgebraAAsALP19symmetricDifferenceyxxnFTW_0(void *a1@<X8>, uint64_t *a2@<X0>)
-{
-  v3 = *a2;
-  v4 = *v2;
-  sub_1C0C9944C(a1);
-}
-
 BOOL sub_1C0C9945C(void *a1, uint64_t a2)
 {
   v3 = *v2 & a2;
@@ -1941,13 +1746,6 @@ void sub_1C0C99490(uint64_t a1@<X8>, uint64_t a2@<X0>)
   OUTLINED_FUNCTION_32_0(a1);
 }
 
-void _s26AppleIntelligenceReporting0aB18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV0J7ReasonsVs10SetAlgebraAAsALP11subtractingyxxFTW_0(void *a1@<X8>, uint64_t *a2@<X0>)
-{
-  v3 = *a2;
-  v4 = *v2;
-  sub_1C0C99518(a1);
-}
-
 uint64_t _s26AppleIntelligenceReporting0aB18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV0J7ReasonsVSYAASY8rawValuexSg03RawN0Qz_tcfCTW_0@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   result = AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.RestrictedReasons.init(rawValue:)(*a1, &v4);
@@ -1963,10 +1761,10 @@ uint64_t _s26AppleIntelligenceReporting0aB18AssetDeliveryEventV17AvailabilitySta
   return result;
 }
 
-uint64_t _s26AppleIntelligenceReporting0aB18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOs0L3KeyAAsAMP11stringValuexSgSS_tcfCTW_0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t _s26AppleIntelligenceReporting0aB18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOs0L3KeyAAsAMP11stringValuexSgSS_tcfCTW_0@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result & 1;
+  result = AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result & 1;
   return result;
 }
 
@@ -2035,7 +1833,7 @@ uint64_t sub_1C0C998C0(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = type metadata accessor for UUIDIdentifier();
+    v8 = type metadata accessor for UUIDIdentifier(0);
     v9 = a1 + *(a3 + 24);
 
     return __swift_getEnumTagSinglePayload(v9, a2, v8);
@@ -2052,7 +1850,7 @@ uint64_t sub_1C0C99940(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = type metadata accessor for UUIDIdentifier();
+    v7 = type metadata accessor for UUIDIdentifier(0);
     v8 = v5 + *(a4 + 24);
 
     return __swift_storeEnumTagSinglePayload(v8, a2, a2, v7);
@@ -2167,17 +1965,17 @@ unint64_t BiomeEventReporter.user.getter()
 
 uint64_t BiomeEventReporter.user.setter()
 {
-  OUTLINED_FUNCTION_10();
-  result = OUTLINED_FUNCTION_5();
+  v2 = OUTLINED_FUNCTION_10();
+  result = OUTLINED_FUNCTION_5(v2);
   *(v1 + 16) = v0;
   *(v1 + 20) = BYTE4(v0) & 1;
   return result;
 }
 
-uint64_t (*BiomeEventReporter.user.modify())()
+uint64_t (*BiomeEventReporter.user.modify())(uint64_t a1)
 {
-  OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_4();
+  v0 = OUTLINED_FUNCTION_10();
+  OUTLINED_FUNCTION_4(v0);
   return BiomeEventReporter.user.modify;
 }
 
@@ -2251,10 +2049,10 @@ LABEL_3:
   return swift_endAccess();
 }
 
-uint64_t (*BiomeEventReporter.lazySource.source.modify())()
+uint64_t (*BiomeEventReporter.lazySource.source.modify())(uint64_t a1)
 {
-  OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_4();
+  v0 = OUTLINED_FUNCTION_10();
+  OUTLINED_FUNCTION_4(v0);
   return BiomeEventReporter.lazySource.source.modify;
 }
 
@@ -2278,125 +2076,120 @@ uint64_t BiomeEventReporter.lazySource.init(user:)(uint64_t a1)
 
 void BiomeEventReporter.lazySource.sendEvent(_:)(uint64_t a1)
 {
-  os_unfair_lock_lock((v1 + 56));
-  _s26AppleIntelligenceReporting18BiomeEventReporterC10lazySourceC04sendE0yy0E4TypeQzKFySbzYuKYTXEfU_(v1 + 60, v1, a1, &v3);
-  os_unfair_lock_unlock((v1 + 56));
+  os_unfair_lock_lock(v1 + 14);
+  _s26AppleIntelligenceReporting18BiomeEventReporterC10lazySourceC04sendE0yy0E4TypeQzKFySbzYuKYTXEfU_(&v1[15], v1, a1, &v3);
+  os_unfair_lock_unlock(v1 + 14);
 }
 
-uint64_t _s26AppleIntelligenceReporting18BiomeEventReporterC10lazySourceC04sendE0yy0E4TypeQzKFySbzYuKYTXEfU_(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4)
+void *_s26AppleIntelligenceReporting18BiomeEventReporterC10lazySourceC04sendE0yy0E4TypeQzKFySbzYuKYTXEfU_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = v4;
-  v9 = *a2;
-  v10 = *(*a2 + 120);
-  v10(v38);
-  v11 = 0x1EBE5E000uLL;
-  if (v39)
+  v9 = *(*a2 + 120);
+  v9(v33, a1);
+  v10 = 0x1EBE5E000uLL;
+  if (v34)
   {
-    v12 = __swift_destroy_boxed_opaque_existential_1(v38);
+    v11 = __swift_destroy_boxed_opaque_existential_1(v33);
   }
 
   else if (*(a2 + 68) == 1)
   {
-    v40 = a3;
+    v35 = a3;
     if (one-time initialization token for general != -1)
     {
       swift_once();
     }
 
-    v14 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v14, static Logging.general);
-    v15 = Logger.logObject.getter();
-    v16 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v15, v16))
+    v13 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v13, static Logging.general);
+    v14 = Logger.logObject.getter();
+    v15 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v14, v15))
     {
-      v17 = swift_slowAlloc();
-      *v17 = 0;
-      _os_log_impl(&dword_1C0C94000, v15, v16, "Creating general source", v17, 2u);
-      v18 = v17;
-      v11 = 0x1EBE5E000;
-      MEMORY[0x1C68E2FD0](v18, -1, -1);
+      v16 = swift_slowAlloc();
+      *v16 = 0;
+      _os_log_impl(&dword_1C0C94000, v14, v15, "Creating general source", v16, 2u);
+      v17 = v16;
+      v10 = 0x1EBE5E000;
+      MEMORY[0x1C68E2FD0](v17, -1, -1);
     }
 
-    v19 = *(v9 + 88);
-    v20 = *(v9 + 80);
     result = static StreamResource.source()();
     if (v4)
     {
       goto LABEL_22;
     }
 
-    v12 = (*(*a2 + 128))(v38);
+    v11 = (*(*a2 + 128))(v33);
   }
 
   else
   {
-    v35 = *(a2 + 16);
+    v30 = *(a2 + 64);
     if (one-time initialization token for general != -1)
     {
       swift_once();
     }
 
-    v26 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v26, static Logging.general);
-    v27 = Logger.logObject.getter();
-    v28 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v27, v28))
+    v23 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v23, static Logging.general);
+    v24 = Logger.logObject.getter();
+    v25 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v24, v25))
     {
-      v29 = swift_slowAlloc();
-      v40 = a3;
-      v30 = a4;
-      v31 = v29;
-      *v29 = 67109120;
-      *(v29 + 4) = v35;
-      _os_log_impl(&dword_1C0C94000, v27, v28, "Creating source with user: %u", v29, 8u);
-      v32 = v31;
-      a4 = v30;
-      MEMORY[0x1C68E2FD0](v32, -1, -1);
+      v26 = swift_slowAlloc();
+      v35 = a3;
+      v27 = a4;
+      v28 = v26;
+      *v26 = 67109120;
+      *(v26 + 4) = v30;
+      _os_log_impl(&dword_1C0C94000, v24, v25, "Creating source with user: %u", v26, 8u);
+      v29 = v28;
+      a4 = v27;
+      MEMORY[0x1C68E2FD0](v29, -1, -1);
     }
 
-    v33 = *(v9 + 88);
-    v34 = *(v9 + 80);
     result = static StreamResource.source(user:)();
     if (v4)
     {
       goto LABEL_22;
     }
 
-    v12 = (*(*a2 + 128))(v38);
-    v11 = 0x1EBE5E000;
+    v11 = (*(*a2 + 128))(v33);
+    v10 = 0x1EBE5E000;
   }
 
-  (v10)(&v36, v12);
-  if (v37)
+  v9(&v31, v11);
+  if (v32)
   {
-    outlined init with take of any Source<Self.Stream == A>(&v36, v38);
-    __swift_project_boxed_opaque_existential_1(v38, v39);
+    outlined init with take of any Source<Self.Stream == A>(&v31, v33);
+    __swift_project_boxed_opaque_existential_1(v33, v34);
     dispatch thunk of Source.sendEvent(_:)();
-    return __swift_destroy_boxed_opaque_existential_1(v38);
+    return __swift_destroy_boxed_opaque_existential_1(v33);
   }
 
-  if (*(v11 + 720) != -1)
+  if (*(v10 + 720) != -1)
   {
     swift_once();
   }
 
-  v21 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v21, static Logging.general);
-  v22 = Logger.logObject.getter();
-  v23 = static os_log_type_t.fault.getter();
-  if (os_log_type_enabled(v22, v23))
+  v18 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v18, static Logging.general);
+  v19 = Logger.logObject.getter();
+  v20 = static os_log_type_t.fault.getter();
+  if (os_log_type_enabled(v19, v20))
   {
-    v24 = swift_slowAlloc();
-    *v24 = 0;
-    _os_log_impl(&dword_1C0C94000, v22, v23, "Stream resource not found.", v24, 2u);
-    MEMORY[0x1C68E2FD0](v24, -1, -1);
+    v21 = swift_slowAlloc();
+    *v21 = 0;
+    _os_log_impl(&dword_1C0C94000, v19, v20, "Stream resource not found.", v21, 2u);
+    MEMORY[0x1C68E2FD0](v21, -1, -1);
   }
 
   lazy protocol witness table accessor for type AppleIntelligenceReportingError and conformance AppleIntelligenceReportingError();
   v6 = swift_allocError();
-  *v25 = 0xD000000000000019;
-  *(v25 + 8) = 0x80000001C0CDED80;
-  *(v25 + 40) = 0;
+  *v22 = 0xD000000000000019;
+  *(v22 + 8) = 0x80000001C0CDED80;
+  *(v22 + 40) = 0;
   result = swift_willThrow();
 LABEL_22:
   *a4 = v6;
@@ -2418,20 +2211,18 @@ uint64_t BiomeEventReporter.lazySource.__deallocating_deinit()
   BiomeEventReporter.lazySource.deinit();
   OUTLINED_FUNCTION_6();
 
-  return MEMORY[0x1EEE6BDC0](v0, v1, v2);
+  return MEMORY[0x1EEE6BDC0](v0);
 }
 
 uint64_t BiomeEventReporter.invocationStepSource.getter()
 {
   OUTLINED_FUNCTION_3();
   swift_beginAccess();
-  v1 = *(v0 + 24);
 }
 
 uint64_t BiomeEventReporter.invocationStepSource.setter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_5();
-  v3 = *(v1 + 24);
+  OUTLINED_FUNCTION_5(v1 + 24);
   *(v1 + 24) = a1;
 }
 
@@ -2439,13 +2230,11 @@ uint64_t BiomeEventReporter.availabilitySource.getter()
 {
   OUTLINED_FUNCTION_3();
   swift_beginAccess();
-  v1 = *(v0 + 32);
 }
 
 uint64_t BiomeEventReporter.availabilitySource.setter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_5();
-  v3 = *(v1 + 32);
+  OUTLINED_FUNCTION_5(v1 + 32);
   *(v1 + 32) = a1;
 }
 
@@ -2453,13 +2242,11 @@ uint64_t BiomeEventReporter.mobileAssetSource.getter()
 {
   OUTLINED_FUNCTION_3();
   swift_beginAccess();
-  v1 = *(v0 + 40);
 }
 
 uint64_t BiomeEventReporter.mobileAssetSource.setter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_5();
-  v3 = *(v1 + 40);
+  OUTLINED_FUNCTION_5(v1 + 40);
   *(v1 + 40) = a1;
 }
 
@@ -2467,13 +2254,11 @@ uint64_t BiomeEventReporter.mobileAssetSecondarySource.getter()
 {
   OUTLINED_FUNCTION_3();
   swift_beginAccess();
-  v1 = *(v0 + 48);
 }
 
 uint64_t BiomeEventReporter.mobileAssetSecondarySource.setter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_5();
-  v3 = *(v1 + 48);
+  OUTLINED_FUNCTION_5(v1 + 48);
   *(v1 + 48) = a1;
 }
 
@@ -2481,13 +2266,11 @@ uint64_t BiomeEventReporter.modelCatalogSource.getter()
 {
   OUTLINED_FUNCTION_3();
   swift_beginAccess();
-  v1 = *(v0 + 56);
 }
 
 uint64_t BiomeEventReporter.modelCatalogSource.setter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_5();
-  v3 = *(v1 + 56);
+  OUTLINED_FUNCTION_5(v1 + 56);
   *(v1 + 56) = a1;
 }
 
@@ -2495,13 +2278,11 @@ uint64_t BiomeEventReporter.unifiedAssetFrameworkSource.getter()
 {
   OUTLINED_FUNCTION_3();
   swift_beginAccess();
-  v1 = *(v0 + 64);
 }
 
 uint64_t BiomeEventReporter.unifiedAssetFrameworkSource.setter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_5();
-  v3 = *(v1 + 64);
+  OUTLINED_FUNCTION_5(v1 + 64);
   *(v1 + 64) = a1;
 }
 
@@ -2560,7 +2341,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -2570,17 +2350,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
 
 void *BiomeEventReporter.deinit()
 {
-  v1 = v0[3];
-
-  v2 = v0[4];
-
-  v3 = v0[5];
-
-  v4 = v0[6];
-
-  v5 = v0[7];
-
-  v6 = v0[8];
 
   return v0;
 }
@@ -2589,7 +2358,7 @@ uint64_t BiomeEventReporter.__deallocating_deinit()
 {
   BiomeEventReporter.deinit();
 
-  return MEMORY[0x1EEE6BDC0](v0, 72, 7);
+  return MEMORY[0x1EEE6BDC0](v0);
 }
 
 unint64_t protocol witness for BiomeEventReporting.user.getter in conformance BiomeEventReporter()
@@ -2665,13 +2434,13 @@ unint64_t lazy protocol witness table accessor for type AppleIntelligenceReporti
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_4()
+uint64_t OUTLINED_FUNCTION_4(uint64_t a1)
 {
 
   return swift_beginAccess();
 }
 
-uint64_t OUTLINED_FUNCTION_5()
+uint64_t OUTLINED_FUNCTION_5(uint64_t a1)
 {
 
   return swift_beginAccess();
@@ -2703,85 +2472,76 @@ uint64_t one-time initialization function for testing()
   return Logger.init(subsystem:category:)();
 }
 
-uint64_t Logging.general.unsafeMutableAddressor(void *a1, uint64_t a2)
+uint64_t Logging.general.unsafeMutableAddressor(void *a1, uint64_t a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v3 = type metadata accessor for Logger();
+  v4 = type metadata accessor for Logger();
 
-  return __swift_project_value_buffer(v3, a2);
+  return __swift_project_value_buffer(v4, a2);
 }
 
-uint64_t static Logging.general.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t static Logging.general.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = type metadata accessor for Logger();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = type metadata accessor for Logger();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
-unint64_t toJSONString(_:)(void *a1)
+uint64_t toJSONString(_:)(void *a1)
 {
   v2 = type metadata accessor for String.Encoding();
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
   OUTLINED_FUNCTION_2();
-  v25 = type metadata accessor for JSONEncoder.DateEncodingStrategy();
-  v4 = *(v25 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v25);
+  v15 = type metadata accessor for JSONEncoder.DateEncodingStrategy();
+  v3 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
   OUTLINED_FUNCTION_2();
-  v8 = (v7 - v6);
-  v9 = type metadata accessor for JSONEncoder.OutputFormatting();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
+  v6 = (v5 - v4);
+  v7 = type metadata accessor for JSONEncoder.OutputFormatting();
+  MEMORY[0x1EEE9AC00](v7);
   OUTLINED_FUNCTION_2();
-  v12 = type metadata accessor for JSONEncoder();
-  v13 = *(v12 + 48);
-  v14 = *(v12 + 52);
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation11JSONEncoderC16OutputFormattingVGMd, &_ss23_ContiguousArrayStorageCy10Foundation11JSONEncoderC16OutputFormattingVGMR);
-  v15 = *(v10 + 72);
-  v16 = (*(v10 + 80) + 32) & ~*(v10 + 80);
   *(swift_allocObject() + 16) = xmmword_1C0CD7B10;
   static JSONEncoder.OutputFormatting.prettyPrinted.getter();
   static JSONEncoder.OutputFormatting.sortedKeys.getter();
   static JSONEncoder.OutputFormatting.withoutEscapingSlashes.getter();
-  lazy protocol witness table accessor for type JSONEncoder.OutputFormatting and conformance JSONEncoder.OutputFormatting(&lazy protocol witness table cache variable for type JSONEncoder.OutputFormatting and conformance JSONEncoder.OutputFormatting, MEMORY[0x1E6967F78]);
+  lazy protocol witness table accessor for type JSONEncoder.OutputFormatting and conformance JSONEncoder.OutputFormatting(&lazy protocol witness table cache variable for type JSONEncoder.OutputFormatting and conformance JSONEncoder.OutputFormatting, MEMORY[0x1E6967F78], MEMORY[0x1E6967F88]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation11JSONEncoderC16OutputFormattingVGMd, &_sSay10Foundation11JSONEncoderC16OutputFormattingVGMR);
   lazy protocol witness table accessor for type [JSONEncoder.OutputFormatting] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   dispatch thunk of JSONEncoder.outputFormatting.setter();
-  *v8 = closure #1 in toJSONString(_:);
-  v8[1] = 0;
-  (*(v4 + 104))(v8, *MEMORY[0x1E6967FB8], v25);
+  *v6 = closure #1 in toJSONString(_:);
+  v6[1] = 0;
+  (*(v3 + 104))(v6, *MEMORY[0x1E6967FB8], v15);
   dispatch thunk of JSONEncoder.dateEncodingStrategy.setter();
-  v17 = a1[5];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v18 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  v20 = v19;
+  v8 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v10 = v9;
   static String.Encoding.utf8.getter();
-  v21 = String.init(data:encoding:)();
-  v23 = v22;
-  outlined consume of Data._Representation(v18, v20);
+  v11 = String.init(data:encoding:)();
+  v13 = v12;
+  outlined consume of Data._Representation(v8, v10);
 
-  if (!v23)
+  if (!v13)
   {
     return 0xD000000000000013;
   }
 
-  return v21;
+  return v11;
 }
 
 unint64_t lazy protocol witness table accessor for type [JSONEncoder.OutputFormatting] and conformance [A]()
@@ -2802,7 +2562,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -2812,67 +2571,60 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
 
 uint64_t closure #1 in toJSONString(_:)(uint64_t a1, void *a2)
 {
-  v34 = a1;
+  v27 = a1;
   v3 = type metadata accessor for Date.ISO8601FormatStyle.TimeZoneSeparator();
-  v32 = *(v3 - 8);
-  v33 = v3;
-  v4 = *(v32 + 64);
+  v25 = *(v3 - 8);
+  v26 = v3;
   MEMORY[0x1EEE9AC00](v3);
-  v31 = &v24 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for Date.ISO8601FormatStyle.TimeSeparator();
-  v29 = *(v6 - 8);
-  v30 = v6;
-  v7 = *(v29 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v27 = &v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = type metadata accessor for Date.ISO8601FormatStyle.DateTimeSeparator();
-  v9 = *(v26 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v26);
-  v25 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = type metadata accessor for Date.ISO8601FormatStyle.DateSeparator();
-  v12 = *(v24 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v24);
-  v15 = &v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = type metadata accessor for TimeZone();
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v16 - 8);
-  v18 = type metadata accessor for Date.ISO8601FormatStyle();
-  v28 = *(v18 - 8);
-  v19 = *(v28 + 64);
-  MEMORY[0x1EEE9AC00](v18);
-  v21 = &v24 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = a2[4];
+  v24 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for Date.ISO8601FormatStyle.TimeSeparator();
+  v22 = *(v5 - 8);
+  v23 = v5;
+  MEMORY[0x1EEE9AC00](v5);
+  v20 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = type metadata accessor for Date.ISO8601FormatStyle.DateTimeSeparator();
+  v7 = *(v19 - 8);
+  MEMORY[0x1EEE9AC00](v19);
+  v18 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = type metadata accessor for Date.ISO8601FormatStyle.DateSeparator();
+  v9 = *(v17 - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for TimeZone();
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v13 = type metadata accessor for Date.ISO8601FormatStyle();
+  v21 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = &v17 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1(a2, a2[3]);
   dispatch thunk of Encoder.singleValueContainer()();
   static TimeZone.current.getter();
-  (*(v12 + 104))(v15, *MEMORY[0x1E6969360], v24);
-  (*(v9 + 104))(v25, *MEMORY[0x1E6969358], v26);
-  (*(v29 + 104))(v27, *MEMORY[0x1E6969370], v30);
-  (*(v32 + 104))(v31, *MEMORY[0x1E6969380], v33);
+  (*(v9 + 104))(v11, *MEMORY[0x1E6969360], v17);
+  (*(v7 + 104))(v18, *MEMORY[0x1E6969358], v19);
+  (*(v22 + 104))(v20, *MEMORY[0x1E6969370], v23);
+  (*(v25 + 104))(v24, *MEMORY[0x1E6969380], v26);
   Date.ISO8601FormatStyle.init(dateSeparator:dateTimeSeparator:timeSeparator:timeZoneSeparator:includingFractionalSeconds:timeZone:)();
-  lazy protocol witness table accessor for type JSONEncoder.OutputFormatting and conformance JSONEncoder.OutputFormatting(&lazy protocol witness table cache variable for type Date.ISO8601FormatStyle and conformance Date.ISO8601FormatStyle, MEMORY[0x1E69693A0]);
+  lazy protocol witness table accessor for type JSONEncoder.OutputFormatting and conformance JSONEncoder.OutputFormatting(&lazy protocol witness table cache variable for type Date.ISO8601FormatStyle and conformance Date.ISO8601FormatStyle, MEMORY[0x1E69693A0], MEMORY[0x1E6969390]);
   Date.formatted<A>(_:)();
-  __swift_mutable_project_boxed_opaque_existential_1(v35, v35[3]);
+  __swift_mutable_project_boxed_opaque_existential_1(v28, v28[3]);
   dispatch thunk of SingleValueEncodingContainer.encode(_:)();
-  (*(v28 + 8))(v21, v18);
+  (*(v21 + 8))(v15, v13);
 
-  return __swift_destroy_boxed_opaque_existential_1(v35);
+  return __swift_destroy_boxed_opaque_existential_1(v28);
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v2;
     }
   }
 }
 
-uint64_t lazy protocol witness table accessor for type JSONEncoder.OutputFormatting and conformance JSONEncoder.OutputFormatting(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type JSONEncoder.OutputFormatting and conformance JSONEncoder.OutputFormatting(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2885,7 +2637,7 @@ uint64_t lazy protocol witness table accessor for type JSONEncoder.OutputFormatt
   return result;
 }
 
-uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_t a2)
+uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -2893,19 +2645,16 @@ uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_
     return v2;
   }
 
-  return result;
+  return v3;
 }
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -2913,49 +2662,45 @@ uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 
 uint64_t UInt32.init<A>(safelyWrapping:)(void (*a1)(void), uint64_t a2, uint64_t a3)
 {
-  v6 = *(a3 + 24);
+  v5 = *(a3 + 24);
   swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v70 = *(AssociatedConformanceWitness + 16);
+  v76 = *(AssociatedConformanceWitness + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = *(*(AssociatedTypeWitness - 8) + 64);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v68 = &v65 - v8;
-  v9 = swift_checkMetadataState();
-  v10 = *(v9 - 8);
-  v71 = v9;
-  v72 = v10;
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v66 = &v65 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v74 = &v71 - v6;
+  v7 = swift_checkMetadataState();
+  v8 = *(v7 - 8);
+  v77 = v7;
+  v78 = v8;
+  MEMORY[0x1EEE9AC00](v7);
+  v72 = &v71 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v71 - v11;
   MEMORY[0x1EEE9AC00](v13);
-  v15 = &v65 - v14;
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = &v65 - v17;
-  v74 = v6;
-  v19 = *(v6 + 16);
-  v20 = swift_getAssociatedTypeWitness();
-  v21 = *(*(v20 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v20);
-  v75 = *(a2 - 8);
-  v22 = *(v75 + 8);
-  MEMORY[0x1EEE9AC00](v23);
-  v25 = &v65 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = &v71 - v14;
+  v80 = v5;
+  v16 = *(v5 + 16);
+  v17 = swift_getAssociatedTypeWitness();
+  MEMORY[0x1EEE9AC00](v17);
+  v81 = *(a2 - 8);
+  MEMORY[0x1EEE9AC00](v18);
+  v20 = &v71 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   OUTLINED_FUNCTION_3_0();
   if (dispatch thunk of static BinaryInteger.isSigned.getter())
   {
     OUTLINED_FUNCTION_3_0();
-    v19 = a1;
+    v16 = a1;
     if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
     {
-      v26 = v75;
-      v27 = OUTLINED_FUNCTION_0_0();
-      v28(v27);
+      v21 = v81;
+      v22 = OUTLINED_FUNCTION_0_0();
+      v23(v22);
       OUTLINED_FUNCTION_3_0();
-      v29 = dispatch thunk of BinaryInteger._lowWord.getter();
-      v30 = OUTLINED_FUNCTION_1_1();
-      a1(v30);
-      if (v29 < 0)
+      v24 = dispatch thunk of BinaryInteger._lowWord.getter();
+      v25 = OUTLINED_FUNCTION_1_1();
+      a1(v25);
+      if (v24 < 0)
       {
         goto LABEL_16;
       }
@@ -2963,17 +2708,16 @@ uint64_t UInt32.init<A>(safelyWrapping:)(void (*a1)(void), uint64_t a2, uint64_t
       goto LABEL_33;
     }
 
-    v76 = 0;
-    lazy protocol witness table accessor for type Int and conformance Int();
-    OUTLINED_FUNCTION_7_0();
-    v35 = *(*(a3 + 32) + 8);
-    v33 = dispatch thunk of static Comparable.< infix(_:_:)();
-    v26 = v75;
-    v36 = OUTLINED_FUNCTION_1_1();
-    a1(v36);
+    v82 = 0;
+    v31 = lazy protocol witness table accessor for type Int and conformance Int();
+    OUTLINED_FUNCTION_7_0(v31, MEMORY[0x1E69E6530], v31);
+    v29 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v21 = v81;
+    v32 = OUTLINED_FUNCTION_1_1();
+    a1(v32);
 LABEL_9:
-    v37 = v18;
-    if (v33)
+    v33 = v15;
+    if (v29)
     {
       goto LABEL_17;
     }
@@ -2981,30 +2725,30 @@ LABEL_9:
     goto LABEL_33;
   }
 
-  v65 = v15;
+  v71 = v12;
   OUTLINED_FUNCTION_3_0();
-  v31 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v73 = a1;
+  v26 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v79 = a1;
   OUTLINED_FUNCTION_3_0();
-  v32 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  if ((v31 & 1) == 0)
+  v27 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  if ((v26 & 1) == 0)
   {
-    v19 = v73;
-    v26 = v75;
-    v15 = v65;
-    if (v32 >= 64)
+    v16 = v79;
+    v21 = v81;
+    v12 = v71;
+    if (v27 >= 64)
     {
       goto LABEL_33;
     }
 
-    v37 = v18;
-    v38 = OUTLINED_FUNCTION_0_0();
-    v39(v38);
+    v33 = v15;
+    v34 = OUTLINED_FUNCTION_0_0();
+    v35(v34);
     OUTLINED_FUNCTION_3_0();
-    v40 = dispatch thunk of BinaryInteger._lowWord.getter();
-    v41 = OUTLINED_FUNCTION_1_1();
-    a1(v41);
-    if ((v40 & 0x8000000000000000) == 0)
+    v36 = dispatch thunk of BinaryInteger._lowWord.getter();
+    v37 = OUTLINED_FUNCTION_1_1();
+    a1(v37);
+    if ((v36 & 0x8000000000000000) == 0)
     {
       goto LABEL_33;
     }
@@ -3012,68 +2756,68 @@ LABEL_9:
     goto LABEL_17;
   }
 
-  if (v32 > 64)
+  if (v27 > 64)
   {
-    v76 = 0;
-    lazy protocol witness table accessor for type Int and conformance Int();
-    OUTLINED_FUNCTION_7_0();
-    v33 = OUTLINED_FUNCTION_5_0();
-    v26 = v75;
-    v34 = OUTLINED_FUNCTION_1_1();
-    a1(v34);
-    v15 = v65;
+    v82 = 0;
+    v28 = lazy protocol witness table accessor for type Int and conformance Int();
+    OUTLINED_FUNCTION_7_0(v28, MEMORY[0x1E69E6530], v28);
+    v29 = OUTLINED_FUNCTION_5_0();
+    v21 = v81;
+    v30 = OUTLINED_FUNCTION_1_1();
+    a1(v30);
+    v12 = v71;
     goto LABEL_9;
   }
 
   swift_getAssociatedConformanceWitness();
   dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
   dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-  v42 = OUTLINED_FUNCTION_5_0();
-  v26 = v75;
-  a1 = *(v75 + 1);
-  (a1)(v25, a2);
-  if (v42)
+  v38 = OUTLINED_FUNCTION_5_0();
+  v21 = v81;
+  a1 = *(v81 + 1);
+  (a1)(v20, a2);
+  if (v38)
   {
-    v15 = v65;
+    v12 = v71;
 LABEL_16:
-    v37 = v18;
+    v33 = v15;
     goto LABEL_17;
   }
 
-  v60 = OUTLINED_FUNCTION_0_0();
-  v61(v60);
+  v66 = OUTLINED_FUNCTION_0_0();
+  v67(v66);
   OUTLINED_FUNCTION_3_0();
-  v62 = dispatch thunk of BinaryInteger._lowWord.getter();
-  (a1)(v25, a2);
-  v15 = v65;
-  v37 = v18;
-  if (v62 < 0)
+  v68 = dispatch thunk of BinaryInteger._lowWord.getter();
+  (a1)(v20, a2);
+  v12 = v71;
+  v33 = v15;
+  if (v68 < 0)
   {
 LABEL_17:
     dispatch thunk of Numeric.magnitude.getter();
-    v43 = v71;
-    v44 = swift_getAssociatedConformanceWitness();
-    v45 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v75 = a1;
-    if (v45)
+    v39 = v77;
+    v40 = swift_getAssociatedConformanceWitness();
+    v41 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v81 = a1;
+    if (v41)
     {
-      v46 = v15;
-      v47 = dispatch thunk of static BinaryInteger.isSigned.getter();
+      v42 = v12;
+      v43 = dispatch thunk of static BinaryInteger.isSigned.getter();
       OUTLINED_FUNCTION_2_2();
-      v48 = dispatch thunk of BinaryInteger.bitWidth.getter();
-      v49 = v72;
-      if (v47)
+      v44 = dispatch thunk of BinaryInteger.bitWidth.getter();
+      v45 = v78;
+      if (v43)
       {
-        if (v48 <= 32)
+        if (v44 <= 32)
         {
           swift_getAssociatedConformanceWitness();
           dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-          dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-          OUTLINED_FUNCTION_6_0();
-          OUTLINED_FUNCTION_8_0();
+          v46 = dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
+          v49 = OUTLINED_FUNCTION_6_0(v46, v47, v48, MEMORY[0x1E69E65D0], MEMORY[0x1E69E65B8]);
+          OUTLINED_FUNCTION_8_0(v49);
           OUTLINED_FUNCTION_4_0();
-          v50(v46, v43);
-          if (v43)
+          v50(v42, v39);
+          if (v39)
           {
             goto LABEL_24;
           }
@@ -3084,28 +2828,27 @@ LABEL_23:
           {
 LABEL_24:
             swift_getAssociatedConformanceWitness();
-            v74 = v44;
+            v80 = v40;
             dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-            v73 = v19;
-            v52 = v49;
-            v53 = v66;
+            v79 = v16;
+            v52 = v45;
+            v53 = v72;
             dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-            v54 = *(AssociatedConformanceWitness + 8);
             dispatch thunk of static AdditiveArithmetic.- infix(_:_:)();
-            v55 = *(v52 + 8);
-            v55(v53, v43);
+            v54 = *(v52 + 8);
+            v54(v53, v39);
             lazy protocol witness table accessor for type UInt32 and conformance UInt32();
             FixedWidthInteger.init<A>(clamping:)();
-            (v75)(v73, a2);
-            v55(v37, v43);
-            return ~v76;
+            (v81)(v79, a2);
+            v54(v33, v39);
+            return ~v82;
           }
 
           goto LABEL_31;
         }
       }
 
-      else if (v48 < 32)
+      else if (v44 < 32)
       {
         OUTLINED_FUNCTION_2_2();
         if (dispatch thunk of BinaryInteger._lowWord.getter() != -1)
@@ -3116,55 +2859,55 @@ LABEL_24:
         goto LABEL_31;
       }
 
-      LODWORD(v76) = -1;
+      LODWORD(v82) = -1;
       lazy protocol witness table accessor for type UInt32 and conformance UInt32();
-      v57 = v43;
-      dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      OUTLINED_FUNCTION_6_0();
-      OUTLINED_FUNCTION_8_0();
+      v56 = v39;
+      v62 = dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
+      v65 = OUTLINED_FUNCTION_6_0(v62, v63, v64, MEMORY[0x1E69E65D0], MEMORY[0x1E69E65B8]);
+      OUTLINED_FUNCTION_8_0(v65);
       OUTLINED_FUNCTION_4_0();
-      v59 = v46;
+      v61 = v42;
     }
 
     else
     {
       OUTLINED_FUNCTION_2_2();
       v51 = dispatch thunk of BinaryInteger.bitWidth.getter();
-      v49 = v72;
+      v45 = v78;
       if (v51 < 32)
       {
         goto LABEL_23;
       }
 
-      LODWORD(v76) = -1;
+      LODWORD(v82) = -1;
       lazy protocol witness table accessor for type UInt32 and conformance UInt32();
-      v57 = v43;
-      dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      OUTLINED_FUNCTION_6_0();
+      v56 = v39;
+      v57 = dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
+      OUTLINED_FUNCTION_6_0(v57, v58, v59, MEMORY[0x1E69E65D0], MEMORY[0x1E69E65B8]);
       dispatch thunk of static Comparable.< infix(_:_:)();
       OUTLINED_FUNCTION_4_0();
-      v59 = v15;
+      v61 = v12;
     }
 
-    v58(v59, v43);
-    if (v57)
+    v60(v61, v39);
+    if (v56)
     {
       goto LABEL_24;
     }
 
 LABEL_31:
-    (v75)(v19, a2);
-    (*(v49 + 8))(v37, v43);
+    (v81)(v16, a2);
+    (*(v45 + 8))(v33, v39);
     return 1;
   }
 
 LABEL_33:
-  v63 = OUTLINED_FUNCTION_0_0();
-  v64(v63);
+  v69 = OUTLINED_FUNCTION_0_0();
+  v70(v69);
   lazy protocol witness table accessor for type UInt32 and conformance UInt32();
   FixedWidthInteger.init<A>(clamping:)();
-  (*(v26 + 1))(v19, a2);
-  return v76;
+  (*(v21 + 1))(v16, a2);
+  return v82;
 }
 
 unint64_t lazy protocol witness table accessor for type UInt32 and conformance UInt32()
@@ -3202,22 +2945,48 @@ unint64_t lazy protocol witness table accessor for type Int and conformance Int(
   return result;
 }
 
+Swift::UInt32_optional __swiftcall UInt32.init(safelyWrapping:)(Swift::Double_optional safelyWrapping)
+{
+  if (v1)
+  {
+    v2 = 0;
+  }
+
+  else
+  {
+    v3 = round(*&safelyWrapping.is_nil);
+    if (v3 > -1.0 && v3 < 4294967300.0)
+    {
+      v2 = v3;
+    }
+
+    else if (*&safelyWrapping.is_nil < 0.0)
+    {
+      v2 = 0;
+    }
+
+    else
+    {
+      v2 = -1;
+    }
+  }
+
+  return (v2 | ((v1 & 1) << 32));
+}
+
 uint64_t OUTLINED_FUNCTION_5_0()
 {
-  v3 = *(*(v0 + 32) + 8);
-  v4 = *(v1 - 112);
 
   return dispatch thunk of static Comparable.< infix(_:_:)();
 }
 
-uint64_t OUTLINED_FUNCTION_6_0()
+uint64_t OUTLINED_FUNCTION_6_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(v0 - 104);
 
   return swift_getAssociatedConformanceWitness();
 }
 
-uint64_t OUTLINED_FUNCTION_8_0()
+uint64_t OUTLINED_FUNCTION_8_0(uint64_t a1)
 {
 
   return dispatch thunk of static Comparable.< infix(_:_:)();
@@ -3231,30 +3000,27 @@ uint64_t UUIDIdentifier.init(uuid:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return v5(a2, a1, v4);
 }
 
-uint64_t UUIDIdentifier.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t UUIDIdentifier.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v19 = a2;
+  v16 = a2;
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v18[-1] - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for UUIDIdentifier();
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v18[-1] - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = a1[4];
+  v7 = &v15[-1] - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for UUIDIdentifier(0);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v15[-1] - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Decoder.singleValueContainer()();
   if (!v2)
   {
-    __swift_project_boxed_opaque_existential_1(v18, v18[3]);
+    __swift_project_boxed_opaque_existential_1(v15, v15[3]);
     OUTLINED_FUNCTION_0_1();
-    lazy protocol witness table accessor for type UUID and conformance UUID(v14, v15);
+    lazy protocol witness table accessor for type UUID and conformance UUID(v11, v12, MEMORY[0x1E69695D0]);
     dispatch thunk of SingleValueDecodingContainer.decode<A>(_:)();
-    (*(v5 + 32))(v12, v8, v4);
-    __swift_destroy_boxed_opaque_existential_1(v18);
-    outlined init with take of UUIDIdentifier(v12, v19);
+    (*(v5 + 32))(v10, v7, v4);
+    __swift_destroy_boxed_opaque_existential_1(v15);
+    outlined init with take of UUIDIdentifier(v10, v16);
   }
 
   return __swift_destroy_boxed_opaque_existential_1(a1);
@@ -3262,22 +3028,21 @@ uint64_t UUIDIdentifier.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t outlined init with take of UUIDIdentifier(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for UUIDIdentifier();
+  v4 = type metadata accessor for UUIDIdentifier(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t UUIDIdentifier.encode(to:)(void *a1)
 {
-  v1 = a1[4];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Encoder.singleValueContainer()();
-  __swift_mutable_project_boxed_opaque_existential_1(v5, v5[3]);
+  __swift_mutable_project_boxed_opaque_existential_1(v4, v4[3]);
   type metadata accessor for UUID();
   OUTLINED_FUNCTION_0_1();
-  lazy protocol witness table accessor for type UUID and conformance UUID(v2, v3);
+  lazy protocol witness table accessor for type UUID and conformance UUID(v1, v2, MEMORY[0x1E69695B0]);
   dispatch thunk of SingleValueEncodingContainer.encode<A>(_:)();
-  return __swift_destroy_boxed_opaque_existential_1(v5);
+  return __swift_destroy_boxed_opaque_existential_1(v4);
 }
 
 uint64_t UUIDIdentifier.internalUUID.getter@<X0>(uint64_t a1@<X8>)
@@ -3288,11 +3053,11 @@ uint64_t UUIDIdentifier.internalUUID.getter@<X0>(uint64_t a1@<X8>)
   return v4(a1, v1, v3);
 }
 
-uint64_t UUIDIdentifier.hash(into:)()
+uint64_t UUIDIdentifier.hash(into:)(uint64_t a1)
 {
   type metadata accessor for UUID();
   OUTLINED_FUNCTION_0_1();
-  lazy protocol witness table accessor for type UUID and conformance UUID(v0, v1);
+  lazy protocol witness table accessor for type UUID and conformance UUID(v1, v2, MEMORY[0x1E69695B8]);
 
   return dispatch thunk of Hashable.hash(into:)();
 }
@@ -3302,21 +3067,21 @@ Swift::Int UUIDIdentifier.hashValue.getter()
   Hasher.init(_seed:)();
   type metadata accessor for UUID();
   OUTLINED_FUNCTION_0_1();
-  lazy protocol witness table accessor for type UUID and conformance UUID(v0, v1);
+  lazy protocol witness table accessor for type UUID and conformance UUID(v0, v1, MEMORY[0x1E69695B8]);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance UUIDIdentifier()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance UUIDIdentifier(uint64_t a1)
 {
   Hasher.init(_seed:)();
   type metadata accessor for UUID();
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695B8]);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t lazy protocol witness table accessor for type UUID and conformance UUID(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type UUID and conformance UUID(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3329,10 +3094,10 @@ uint64_t lazy protocol witness table accessor for type UUID and conformance UUID
   return result;
 }
 
-uint64_t type metadata completion function for UUIDIdentifier()
+uint64_t type metadata completion function for UUIDIdentifier(uint64_t a1)
 {
   result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -3693,225 +3458,213 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-void AppleIntelligenceAssetDeliveryEvent.Subsystem.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, char a11, char a12, char a13, char a14, char a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
+void AppleIntelligenceAssetDeliveryEvent.Subsystem.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_48();
-  a26 = v29;
-  a27 = v30;
-  v31 = v27;
-  v33 = v32;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO34MobileAssistantFrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, "h|");
-  v35 = OUTLINED_FUNCTION_1(v34);
-  v142 = v36;
-  v143 = v35;
-  v38 = *(v37 + 64);
+  a19 = v22;
+  a20 = v23;
+  v24 = v20;
+  v26 = v25;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO34MobileAssistantFrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, "h|");
+  OUTLINED_FUNCTION_1();
+  v105 = v28;
+  v106 = v27;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v39);
+  MEMORY[0x1EEE9AC00](v29);
   OUTLINED_FUNCTION_19_0();
-  v141 = v40;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO20SiriAssetsCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO20SiriAssetsCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  v42 = OUTLINED_FUNCTION_1(v41);
-  v139 = v43;
-  v140 = v42;
-  v45 = *(v44 + 64);
+  v104 = v30;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO20SiriAssetsCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO20SiriAssetsCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v102 = v32;
+  v103 = v31;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v46);
+  MEMORY[0x1EEE9AC00](v33);
   OUTLINED_FUNCTION_19_0();
-  v138 = v47;
-  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO14SiriCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO14SiriCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
-  v49 = OUTLINED_FUNCTION_1(v48);
-  v136 = v50;
-  v137 = v49;
-  v52 = *(v51 + 64);
+  v101 = v34;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO14SiriCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO14SiriCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v99 = v36;
+  v100 = v35;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v37);
+  OUTLINED_FUNCTION_19_0();
+  v98 = v38;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO38GenerativeModelsAvailabilityCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO38GenerativeModelsAvailabilityCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v96 = v40;
+  v97 = v39;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v41);
+  OUTLINED_FUNCTION_19_0();
+  v95 = v42;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO06MobileG10CodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO06MobileG10CodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v93 = v44;
+  v94 = v43;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v45);
+  OUTLINED_FUNCTION_19_0();
+  v92 = v46;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO07UnifiedG19FrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO07UnifiedG19FrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v90 = v48;
+  v91 = v47;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v49);
+  OUTLINED_FUNCTION_19_0();
+  OUTLINED_FUNCTION_29_0(v50);
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO22ModelCatalogCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO22ModelCatalogCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v51, &a17);
+  v89[11] = v52;
   OUTLINED_FUNCTION_17();
   MEMORY[0x1EEE9AC00](v53);
   OUTLINED_FUNCTION_19_0();
-  v135 = v54;
-  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO38GenerativeModelsAvailabilityCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO38GenerativeModelsAvailabilityCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
-  v56 = OUTLINED_FUNCTION_1(v55);
-  v133 = v57;
-  v134 = v56;
-  v59 = *(v58 + 64);
+  OUTLINED_FUNCTION_29_0(v54);
+  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO35CloudSubscriptionFeaturesCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO35CloudSubscriptionFeaturesCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v55, &a14);
+  v89[8] = v56;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v60);
+  MEMORY[0x1EEE9AC00](v57);
   OUTLINED_FUNCTION_19_0();
-  v132 = v61;
-  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO06MobileG10CodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO06MobileG10CodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
-  v63 = OUTLINED_FUNCTION_1(v62);
-  v130 = v64;
-  v131 = v63;
-  v66 = *(v65 + 64);
+  OUTLINED_FUNCTION_29_0(v58);
+  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO23OsEligibilityCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO23OsEligibilityCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v59, &a11);
+  v89[5] = v60;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v67);
+  MEMORY[0x1EEE9AC00](v61);
   OUTLINED_FUNCTION_19_0();
-  v129 = v68;
-  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO07UnifiedG19FrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO07UnifiedG19FrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  v70 = OUTLINED_FUNCTION_1(v69);
-  v127 = v71;
-  v128 = v70;
-  v73 = *(v72 + 64);
+  OUTLINED_FUNCTION_29_0(v62);
+  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO18SettingsCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO18SettingsCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v63, &v112);
+  v89[2] = v64;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v74);
-  OUTLINED_FUNCTION_19_0();
-  OUTLINED_FUNCTION_29_0(v75);
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO22ModelCatalogCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO22ModelCatalogCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v76, &a24);
-  v126[11] = v77;
-  v79 = *(v78 + 64);
+  MEMORY[0x1EEE9AC00](v65);
+  v67 = v89 - v66;
+  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO15BuddyCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO15BuddyCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v89[1] = v69;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v80);
-  OUTLINED_FUNCTION_19_0();
-  OUTLINED_FUNCTION_29_0(v81);
-  v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO35CloudSubscriptionFeaturesCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO35CloudSubscriptionFeaturesCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v82, &a21);
-  v126[8] = v83;
-  v85 = *(v84 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v86);
-  OUTLINED_FUNCTION_19_0();
-  OUTLINED_FUNCTION_29_0(v87);
-  v88 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO23OsEligibilityCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO23OsEligibilityCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v88, &a18);
-  v126[5] = v89;
-  v91 = *(v90 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v92);
-  OUTLINED_FUNCTION_19_0();
-  OUTLINED_FUNCTION_29_0(v93);
-  v94 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO18SettingsCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO18SettingsCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v94, &v148);
-  v126[2] = v95;
-  v97 = *(v96 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v98);
-  v100 = v126 - v99;
-  v101 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO15BuddyCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO15BuddyCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v101);
-  v126[1] = v102;
-  v104 = *(v103 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v105);
+  MEMORY[0x1EEE9AC00](v70);
   OUTLINED_FUNCTION_36();
-  v145 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v145);
-  v107 = v106;
-  v109 = *(v108 + 64);
+  v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v72 = v71;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v110);
-  v112 = v126 - v111;
-  v113 = *v31;
-  v114 = v33[4];
-  v115 = __swift_project_boxed_opaque_existential_1(v33, v33[3]);
+  MEMORY[0x1EEE9AC00](v73);
+  v75 = v89 - v74;
+  v76 = *v24;
+  v77 = v26[4];
+  v78 = __swift_project_boxed_opaque_existential_1(v26, v26[3]);
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.CodingKeys();
-  v144 = v112;
+  v107 = v75;
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v116 = (v107 + 8);
-  switch(v113)
+  v79 = (v72 + 8);
+  switch(v76)
   {
     case 1:
-      v147[6] = 1;
+      v110 = 1;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.SettingsCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.SettingsCodingKeys();
-      v115 = v144;
-      v114 = v145;
+      v78 = v107;
+      v77 = v108;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      OUTLINED_FUNCTION_24(v147);
-      v118 = v100;
-      v121 = &v148;
+      OUTLINED_FUNCTION_24();
+      v81 = v67;
+      v84 = &v112;
       goto LABEL_9;
     case 2:
-      v147[7] = 2;
+      v111 = 2;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.OsEligibilityCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.OsEligibilityCodingKeys();
-      v124 = v126[4];
-      OUTLINED_FUNCTION_14_0();
-      OUTLINED_FUNCTION_24(&a10);
-      v118 = v124;
-      v121 = &a18;
+      v87 = v89[4];
+      OUTLINED_FUNCTION_14_0(&unk_1F402E1E8, &v111);
+      OUTLINED_FUNCTION_24();
+      v81 = v87;
+      v84 = &a11;
       goto LABEL_9;
     case 3:
-      a10 = 3;
+      LOBYTE(a10) = 3;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.CloudSubscriptionFeaturesCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.CloudSubscriptionFeaturesCodingKeys();
-      v125 = v126[7];
-      OUTLINED_FUNCTION_14_0();
-      OUTLINED_FUNCTION_24(&a20);
-      v118 = v125;
-      v121 = &a21;
+      v88 = v89[7];
+      OUTLINED_FUNCTION_14_0(&unk_1F402E208, &a10);
+      OUTLINED_FUNCTION_24();
+      v81 = v88;
+      v84 = &a14;
       goto LABEL_9;
     case 4:
-      a11 = 4;
+      BYTE1(a10) = 4;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.ModelCatalogCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.ModelCatalogCodingKeys();
-      v120 = v126[10];
-      OUTLINED_FUNCTION_14_0();
-      OUTLINED_FUNCTION_24(&a23);
-      v118 = v120;
-      v121 = &a24;
+      v83 = v89[10];
+      OUTLINED_FUNCTION_14_0(&unk_1F402E228, &a10 + 1);
+      OUTLINED_FUNCTION_24();
+      v81 = v83;
+      v84 = &a17;
 LABEL_9:
-      v119 = *(v121 - 32);
+      v82 = *(v84 - 32);
       break;
     case 5:
-      a12 = 5;
+      BYTE2(a10) = 5;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.UnifiedAssetFrameworkCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.UnifiedAssetFrameworkCodingKeys();
-      v122 = v126[13];
-      OUTLINED_FUNCTION_14_0();
-      v123 = v127;
-      v119 = v128;
+      v85 = v89[13];
+      OUTLINED_FUNCTION_14_0(&unk_1F402E248, &a10 + 2);
+      v86 = v90;
+      v82 = v91;
       goto LABEL_14;
     case 6:
-      a13 = 6;
+      BYTE3(a10) = 6;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.MobileAssetCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.MobileAssetCodingKeys();
-      v122 = v129;
-      OUTLINED_FUNCTION_14_0();
-      v123 = v130;
-      v119 = v131;
+      v85 = v92;
+      OUTLINED_FUNCTION_14_0(&unk_1F402E268, &a10 + 3);
+      v86 = v93;
+      v82 = v94;
       goto LABEL_14;
     case 7:
-      a14 = 7;
+      BYTE4(a10) = 7;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.GenerativeModelsAvailabilityCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.GenerativeModelsAvailabilityCodingKeys();
-      v122 = v132;
-      OUTLINED_FUNCTION_14_0();
-      v123 = v133;
-      v119 = v134;
+      v85 = v95;
+      OUTLINED_FUNCTION_14_0(&unk_1F402E288, &a10 + 4);
+      v86 = v96;
+      v82 = v97;
       goto LABEL_14;
     case 8:
-      a15 = 8;
+      BYTE5(a10) = 8;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.SiriCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.SiriCodingKeys();
-      v122 = v135;
-      OUTLINED_FUNCTION_14_0();
-      v123 = v136;
-      v119 = v137;
+      v85 = v98;
+      OUTLINED_FUNCTION_14_0(&unk_1F402E2A8, &a10 + 5);
+      v86 = v99;
+      v82 = v100;
       goto LABEL_14;
     case 9:
-      a16 = 9;
+      BYTE6(a10) = 9;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.SiriAssetsCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.SiriAssetsCodingKeys();
-      v122 = v138;
-      OUTLINED_FUNCTION_14_0();
-      v123 = v139;
-      v119 = v140;
+      v85 = v101;
+      OUTLINED_FUNCTION_14_0(&unk_1F402E2C8, &a10 + 6);
+      v86 = v102;
+      v82 = v103;
       goto LABEL_14;
     case 10:
-      a17 = 10;
+      HIBYTE(a10) = 10;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.MobileAssistantFrameworkCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.MobileAssistantFrameworkCodingKeys();
-      v122 = v141;
-      OUTLINED_FUNCTION_14_0();
-      v123 = v142;
-      v119 = v143;
+      v85 = v104;
+      OUTLINED_FUNCTION_14_0(&unk_1F402E2E8, &a10 + 7);
+      v86 = v105;
+      v82 = v106;
 LABEL_14:
-      v117 = *(v123 + 8);
-      v118 = v122;
+      v80 = *(v86 + 8);
+      v81 = v85;
       break;
     default:
-      v147[5] = 0;
+      v109 = 0;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.BuddyCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.BuddyCodingKeys();
-      v115 = v144;
-      v114 = v145;
+      v78 = v107;
+      v77 = v108;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      OUTLINED_FUNCTION_24(&v146);
-      v118 = v28;
-      v119 = v101;
+      OUTLINED_FUNCTION_24();
+      v81 = v21;
+      v82 = v68;
       break;
   }
 
-  v117(v118, v119);
-  (*v116)(v115, v114);
+  v80(v81, v82);
+  (*v79)(v78, v77);
   OUTLINED_FUNCTION_47();
 }
 
@@ -4347,265 +4100,252 @@ void AppleIntelligenceAssetDeliveryEvent.Subsystem.init(from:)(uint64_t a1, uint
   OUTLINED_FUNCTION_48();
   a26 = v28;
   a27 = v29;
-  v161 = v27;
+  v130 = v27;
   v31 = v30;
-  v156 = v32;
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO34MobileAssistantFrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO34MobileAssistantFrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
-  v34 = OUTLINED_FUNCTION_1(v33);
-  v148 = v35;
-  v149 = v34;
-  v37 = *(v36 + 64);
+  v125 = v32;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO34MobileAssistantFrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO34MobileAssistantFrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v117 = v34;
+  v118 = v33;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v38);
+  MEMORY[0x1EEE9AC00](v35);
   OUTLINED_FUNCTION_19_0();
-  v155 = v39;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO20SiriAssetsCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO20SiriAssetsCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  v41 = OUTLINED_FUNCTION_1(v40);
-  v146 = v42;
-  v147 = v41;
-  v44 = *(v43 + 64);
+  v124 = v36;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO20SiriAssetsCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO20SiriAssetsCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v115 = v38;
+  v116 = v37;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v45);
+  MEMORY[0x1EEE9AC00](v39);
   OUTLINED_FUNCTION_19_0();
-  v154 = v46;
-  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO14SiriCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO14SiriCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
-  v48 = OUTLINED_FUNCTION_1(v47);
-  v144 = v49;
-  v145 = v48;
-  v51 = *(v50 + 64);
+  v123 = v40;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO14SiriCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO14SiriCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v113 = v42;
+  v114 = v41;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v52);
+  MEMORY[0x1EEE9AC00](v43);
   OUTLINED_FUNCTION_19_0();
-  v153 = v53;
-  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO38GenerativeModelsAvailabilityCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO38GenerativeModelsAvailabilityCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
-  v55 = OUTLINED_FUNCTION_1(v54);
-  v142 = v56;
-  v143 = v55;
-  v58 = *(v57 + 64);
+  v122 = v44;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO38GenerativeModelsAvailabilityCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO38GenerativeModelsAvailabilityCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v111 = v46;
+  v112 = v45;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v47);
+  OUTLINED_FUNCTION_19_0();
+  v128 = v48;
+  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO06MobileG10CodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO06MobileG10CodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v49, &a24);
+  v110[17] = v50;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v51);
+  OUTLINED_FUNCTION_19_0();
+  v127 = v52;
+  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO07UnifiedG19FrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO07UnifiedG19FrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v53, &a23);
+  v110[14] = v54;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v55);
+  OUTLINED_FUNCTION_19_0();
+  v126 = v56;
+  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO22ModelCatalogCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO22ModelCatalogCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v57, &a21);
+  v110[12] = v58;
   OUTLINED_FUNCTION_17();
   MEMORY[0x1EEE9AC00](v59);
   OUTLINED_FUNCTION_19_0();
-  v159 = v60;
-  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO06MobileG10CodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO06MobileG10CodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v61, &a24);
-  v141[17] = v62;
-  v64 = *(v63 + 64);
+  v121 = v60;
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO35CloudSubscriptionFeaturesCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO35CloudSubscriptionFeaturesCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v61, &a19);
+  v110[10] = v62;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v65);
+  MEMORY[0x1EEE9AC00](v63);
   OUTLINED_FUNCTION_19_0();
-  v158 = v66;
-  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO07UnifiedG19FrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO07UnifiedG19FrameworkCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v67, &a23);
-  v141[14] = v68;
-  v70 = *(v69 + 64);
+  v120 = v64;
+  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO23OsEligibilityCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO23OsEligibilityCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v65, &a10);
+  v110[8] = v66;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v67);
+  OUTLINED_FUNCTION_19_0();
+  v119 = v68;
+  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO18SettingsCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO18SettingsCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v69, &v134);
+  v110[6] = v70;
   OUTLINED_FUNCTION_17();
   MEMORY[0x1EEE9AC00](v71);
-  OUTLINED_FUNCTION_19_0();
-  v157 = v72;
-  v73 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO22ModelCatalogCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO22ModelCatalogCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v73, &a21);
-  v141[12] = v74;
-  v76 = *(v75 + 64);
+  v73 = v110 - v72;
+  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO15BuddyCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO15BuddyCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v110[5] = v75;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v77);
-  OUTLINED_FUNCTION_19_0();
-  v152 = v78;
-  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO35CloudSubscriptionFeaturesCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO35CloudSubscriptionFeaturesCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v79, &a19);
-  v141[10] = v80;
-  v82 = *(v81 + 64);
+  MEMORY[0x1EEE9AC00](v76);
+  v78 = v110 - v77;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v80 = v79;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v83);
-  OUTLINED_FUNCTION_19_0();
-  v151 = v84;
-  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO23OsEligibilityCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO23OsEligibilityCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v85, &a10);
-  v141[8] = v86;
-  v88 = *(v87 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v89);
-  OUTLINED_FUNCTION_19_0();
-  v150 = v90;
-  v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO18SettingsCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO18SettingsCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v91, &v163);
-  v141[6] = v92;
-  v94 = *(v93 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v95);
-  v97 = v141 - v96;
-  v98 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO15BuddyCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO15BuddyCodingKeys027_74E5A5FFCD3AA678926F1A3090O4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v98);
-  v141[5] = v99;
-  v101 = *(v100 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v102);
-  v104 = v141 - v103;
-  v105 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV9SubsystemO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v105);
-  v107 = v106;
-  v109 = *(v108 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v110);
+  MEMORY[0x1EEE9AC00](v81);
   OUTLINED_FUNCTION_36();
-  v111 = v31[3];
-  v112 = v31[4];
-  v160 = v31;
-  __swift_project_boxed_opaque_existential_1(v31, v111);
+  v82 = v31[3];
+  v129 = v31;
+  __swift_project_boxed_opaque_existential_1(v31, v82);
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.CodingKeys();
-  v113 = v161;
+  v83 = v130;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v113)
+  if (v83)
   {
     goto LABEL_8;
   }
 
-  v141[3] = v104;
-  v141[2] = v98;
-  v141[4] = v97;
-  v114 = v158;
-  v115 = v159;
-  v161 = v107;
-  v116 = KeyedDecodingContainer.allKeys.getter();
-  _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC26AppleIntelligenceReporting0jK18AssetDeliveryEventV29ModelCatalogSubscriptionStateV0R6ActionO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLO_Tt1g5(v116, 0);
-  if (v119 == v120 >> 1)
+  v110[3] = v78;
+  v110[2] = v74;
+  v110[4] = v73;
+  v84 = v127;
+  v85 = v128;
+  v130 = v80;
+  v86 = KeyedDecodingContainer.allKeys.getter();
+  _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC26AppleIntelligenceReporting0jK18AssetDeliveryEventV29ModelCatalogSubscriptionStateV0R6ActionO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLO_Tt1g5(v86, 0);
+  if (v89 == v90 >> 1)
   {
 LABEL_7:
-    v129 = type metadata accessor for DecodingError();
+    v99 = type metadata accessor for DecodingError();
     swift_allocError();
-    v131 = v130;
-    v132 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v131 = &type metadata for AppleIntelligenceAssetDeliveryEvent.Subsystem;
-    v133 = KeyedDecodingContainer.codingPath.getter();
-    OUTLINED_FUNCTION_65(v133);
-    (*(*(v129 - 8) + 104))(v131, *MEMORY[0x1E69E6AF8], v129);
+    v101 = v100;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v101 = &type metadata for AppleIntelligenceAssetDeliveryEvent.Subsystem;
+    v102 = KeyedDecodingContainer.codingPath.getter();
+    OUTLINED_FUNCTION_65(v102);
+    (*(*(v99 - 8) + 104))(v101, *MEMORY[0x1E69E6AF8], v99);
     swift_willThrow();
     swift_unknownObjectRelease();
-    v134 = OUTLINED_FUNCTION_34();
-    v135(v134);
+    v103 = OUTLINED_FUNCTION_34();
+    v104(v103);
 LABEL_8:
-    v136 = v160;
+    v105 = v129;
 LABEL_9:
-    __swift_destroy_boxed_opaque_existential_1(v136);
+    __swift_destroy_boxed_opaque_existential_1(v105);
     OUTLINED_FUNCTION_47();
     return;
   }
 
-  v141[1] = 0;
-  if (v119 < (v120 >> 1))
+  v110[1] = 0;
+  if (v89 < (v90 >> 1))
   {
-    v121 = *(v118 + v119);
-    specialized ArraySlice.subscript.getter(v119 + 1, v120 >> 1, v117, v118, v119, v120);
-    v123 = v122;
-    v125 = v124;
+    v91 = *(v88 + v89);
+    specialized ArraySlice.subscript.getter(v89 + 1, v90 >> 1, v87, v88, v89, v90);
+    v93 = v92;
+    v95 = v94;
     swift_unknownObjectRelease();
-    if (v123 == v125 >> 1)
+    if (v93 == v95 >> 1)
     {
-      switch(v121)
+      switch(v91)
       {
         case 1:
-          v162[6] = 1;
+          v132 = 1;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.SettingsCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.SettingsCodingKeys();
-          OUTLINED_FUNCTION_10_0();
+          OUTLINED_FUNCTION_10_0(&unk_1F402E1C8, &v132);
           swift_unknownObjectRelease();
-          v126 = OUTLINED_FUNCTION_21(v162);
-          v128 = &v163;
+          v96 = OUTLINED_FUNCTION_21();
+          v98 = &v134;
           goto LABEL_18;
         case 2:
-          v162[7] = 2;
+          v133 = 2;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.OsEligibilityCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.OsEligibilityCodingKeys();
-          OUTLINED_FUNCTION_10_0();
+          OUTLINED_FUNCTION_10_0(&unk_1F402E1E8, &v133);
           swift_unknownObjectRelease();
-          v126 = OUTLINED_FUNCTION_21(&a9);
-          v128 = &a10;
+          v96 = OUTLINED_FUNCTION_21();
+          v98 = &a10;
           goto LABEL_18;
         case 3:
           a10 = 3;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.CloudSubscriptionFeaturesCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.CloudSubscriptionFeaturesCodingKeys();
-          OUTLINED_FUNCTION_10_0();
+          OUTLINED_FUNCTION_10_0(&unk_1F402E208, &a10);
           swift_unknownObjectRelease();
-          v126 = OUTLINED_FUNCTION_21(&a18);
-          v128 = &a19;
+          v96 = OUTLINED_FUNCTION_21();
+          v98 = &a19;
           goto LABEL_18;
         case 4:
           a11 = 4;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.ModelCatalogCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.ModelCatalogCodingKeys();
-          OUTLINED_FUNCTION_10_0();
+          OUTLINED_FUNCTION_10_0(&unk_1F402E228, &a11);
           swift_unknownObjectRelease();
-          v126 = OUTLINED_FUNCTION_21(&a20);
-          v128 = &a21;
+          v96 = OUTLINED_FUNCTION_21();
+          v98 = &a21;
           goto LABEL_18;
         case 5:
           a12 = 5;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.UnifiedAssetFrameworkCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.UnifiedAssetFrameworkCodingKeys();
-          OUTLINED_FUNCTION_13();
+          OUTLINED_FUNCTION_13(&unk_1F402E248, &a12);
           swift_unknownObjectRelease();
-          v126 = OUTLINED_FUNCTION_21(&a22);
-          v128 = &a23;
+          v96 = OUTLINED_FUNCTION_21();
+          v98 = &a23;
           goto LABEL_18;
         case 6:
           a13 = 6;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.MobileAssetCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.MobileAssetCodingKeys();
-          OUTLINED_FUNCTION_13();
+          OUTLINED_FUNCTION_13(&unk_1F402E268, &a13);
           swift_unknownObjectRelease();
-          OUTLINED_FUNCTION_24(&a25);
-          v126 = v114;
-          v128 = &a24;
+          OUTLINED_FUNCTION_24();
+          v96 = v84;
+          v98 = &a24;
           goto LABEL_18;
         case 7:
           a14 = 7;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.GenerativeModelsAvailabilityCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.GenerativeModelsAvailabilityCodingKeys();
-          OUTLINED_FUNCTION_10_0();
+          OUTLINED_FUNCTION_10_0(&unk_1F402E288, &a14);
           swift_unknownObjectRelease();
-          v138 = v142;
-          v137 = v143;
+          v107 = v111;
+          v106 = v112;
           goto LABEL_21;
         case 8:
           a15 = 8;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.SiriCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.SiriCodingKeys();
-          v115 = v153;
-          OUTLINED_FUNCTION_10_0();
+          v85 = v122;
+          OUTLINED_FUNCTION_10_0(&unk_1F402E2A8, &a15);
           swift_unknownObjectRelease();
-          v138 = v144;
-          v137 = v145;
+          v107 = v113;
+          v106 = v114;
           goto LABEL_21;
         case 9:
           a16 = 9;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.SiriAssetsCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.SiriAssetsCodingKeys();
-          v115 = v154;
-          OUTLINED_FUNCTION_10_0();
+          v85 = v123;
+          OUTLINED_FUNCTION_10_0(&unk_1F402E2C8, &a16);
           swift_unknownObjectRelease();
-          v138 = v146;
-          v137 = v147;
+          v107 = v115;
+          v106 = v116;
           goto LABEL_21;
         case 10:
           a17 = 10;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.MobileAssistantFrameworkCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.MobileAssistantFrameworkCodingKeys();
-          v115 = v155;
-          OUTLINED_FUNCTION_10_0();
+          v85 = v124;
+          OUTLINED_FUNCTION_10_0(&unk_1F402E2E8, &a17);
           swift_unknownObjectRelease();
-          v138 = v148;
-          v137 = v149;
+          v107 = v117;
+          v106 = v118;
 LABEL_21:
-          v127 = *(v138 + 8);
-          v126 = v115;
+          v97 = *(v107 + 8);
+          v96 = v85;
           break;
         default:
-          v162[5] = 0;
+          v131 = 0;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem.BuddyCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.BuddyCodingKeys();
-          OUTLINED_FUNCTION_10_0();
+          OUTLINED_FUNCTION_10_0(&unk_1F402E1A8, &v131);
           swift_unknownObjectRelease();
-          v126 = OUTLINED_FUNCTION_21(&v161);
-          v128 = &v158;
+          v96 = OUTLINED_FUNCTION_21();
+          v98 = &v127;
 LABEL_18:
-          v137 = *(v128 - 32);
+          v106 = *(v98 - 32);
           break;
       }
 
-      v127(v126, v137);
-      v139 = OUTLINED_FUNCTION_34();
-      v140(v139);
-      v136 = v160;
-      *v156 = v121;
+      v97(v96, v106);
+      v108 = OUTLINED_FUNCTION_34();
+      v109(v108);
+      v105 = v129;
+      *v125 = v91;
       goto LABEL_9;
     }
 
@@ -4627,139 +4367,120 @@ uint64_t AppleIntelligenceAssetDeliveryEvent.useCaseIdentifier.getter@<X0>(_OWOR
   return outlined init with copy of AppleIntelligenceUseCase?();
 }
 
-uint64_t AppleIntelligenceAssetDeliveryEvent.subscriptionName.getter()
-{
-  v1 = *(v0 + 96);
-  v2 = *(v0 + 104);
-
-  return OUTLINED_FUNCTION_50();
-}
-
-uint64_t AppleIntelligenceAssetDeliveryEvent.subscriberName.getter()
-{
-  v1 = *(v0 + 112);
-  v2 = *(v0 + 120);
-
-  return OUTLINED_FUNCTION_50();
-}
-
 uint64_t static AppleIntelligenceAssetDeliveryEvent.EventType.== infix(_:_:)(uint64_t a1, void *a2)
 {
-  v120 = a1;
-  v121 = a2;
-  v114 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState();
-  v5 = OUTLINED_FUNCTION_9(v114);
-  v7 = *(v6 + 64);
+  v115 = a1;
+  v116 = a2;
+  v109 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(0);
+  OUTLINED_FUNCTION_9();
   MEMORY[0x1EEE9AC00](v5);
   OUTLINED_FUNCTION_2();
-  v115 = (v9 - v8);
-  v10 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventType(0);
-  v11 = OUTLINED_FUNCTION_9(v10);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v11);
+  v110 = (v7 - v6);
+  type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventType(0);
+  OUTLINED_FUNCTION_9();
+  MEMORY[0x1EEE9AC00](v8);
   OUTLINED_FUNCTION_60();
-  v116 = v14;
+  v111 = v9;
   OUTLINED_FUNCTION_40();
-  MEMORY[0x1EEE9AC00](v15);
+  MEMORY[0x1EEE9AC00](v10);
   OUTLINED_FUNCTION_45();
-  v119 = v16;
+  v114 = v11;
   OUTLINED_FUNCTION_40();
+  MEMORY[0x1EEE9AC00](v12);
+  OUTLINED_FUNCTION_45();
+  v112 = v13;
+  OUTLINED_FUNCTION_40();
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v109 - v15;
   MEMORY[0x1EEE9AC00](v17);
-  OUTLINED_FUNCTION_45();
-  v117 = v18;
-  OUTLINED_FUNCTION_40();
-  MEMORY[0x1EEE9AC00](v19);
-  v21 = &v114 - v20;
-  MEMORY[0x1EEE9AC00](v22);
-  v24 = &v114 - v23;
-  MEMORY[0x1EEE9AC00](v25);
+  v19 = &v109 - v18;
+  MEMORY[0x1EEE9AC00](v20);
   OUTLINED_FUNCTION_58();
-  MEMORY[0x1EEE9AC00](v26);
+  MEMORY[0x1EEE9AC00](v21);
   OUTLINED_FUNCTION_59();
-  MEMORY[0x1EEE9AC00](v27);
+  MEMORY[0x1EEE9AC00](v22);
   OUTLINED_FUNCTION_45();
-  v118 = v28;
+  v113 = v23;
   OUTLINED_FUNCTION_40();
-  MEMORY[0x1EEE9AC00](v29);
-  v31 = &v114 - v30;
-  v32 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s26AppleIntelligenceReporting0aB18AssetDeliveryEventV0F4TypeO_AEtMd, &_s26AppleIntelligenceReporting0aB18AssetDeliveryEventV0F4TypeO_AEtMR) - 8) + 64);
+  MEMORY[0x1EEE9AC00](v24);
+  v26 = &v109 - v25;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s26AppleIntelligenceReporting0aB18AssetDeliveryEventV0F4TypeO_AEtMd, &_s26AppleIntelligenceReporting0aB18AssetDeliveryEventV0F4TypeO_AEtMR);
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v33);
+  MEMORY[0x1EEE9AC00](v27);
   OUTLINED_FUNCTION_36();
-  v35 = v3 + *(v34 + 56);
+  v29 = (v3 + *(v28 + 56));
   outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType();
-  v121 = v35;
+  v116 = v29;
   outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType();
-  v36 = v3;
+  v30 = v3;
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
       OUTLINED_FUNCTION_0_2();
       OUTLINED_FUNCTION_37();
-      v81 = v118;
+      v76 = v113;
       outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType();
       if (OUTLINED_FUNCTION_32() != 1)
       {
         OUTLINED_FUNCTION_3_1();
-        outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v81, v103);
+        outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v76, v99);
 LABEL_41:
         outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(v3, &_s26AppleIntelligenceReporting0aB18AssetDeliveryEventV0F4TypeO_AEtMd, &_s26AppleIntelligenceReporting0aB18AssetDeliveryEventV0F4TypeO_AEtMR);
 LABEL_42:
-        v36 = 0;
-        return v36 & 1;
+        v30 = 0;
+        return v30 & 1;
       }
 
-      v82 = v115;
+      v77 = v110;
       outlined init with take of AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState();
-      if (*v81 != *v82 || v81[1] != v82[1])
+      if (*v76 != *v77 || v76[1] != v77[1])
       {
         OUTLINED_FUNCTION_3_1();
-        outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v82, v83);
+        outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v77, v78);
 LABEL_26:
         OUTLINED_FUNCTION_3_1();
-        outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v81, v84);
+        outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v76, v79);
         goto LABEL_59;
       }
 
-      v106 = *(v114 + 24);
-      v107 = static UUID.== infix(_:_:)();
+      v102 = static UUID.== infix(_:_:)();
       OUTLINED_FUNCTION_3_1();
-      outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v82, v108);
-      if ((v107 & 1) == 0)
+      outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v77, v103);
+      if ((v102 & 1) == 0)
       {
         goto LABEL_26;
       }
 
       OUTLINED_FUNCTION_3_1();
-      outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v81, v109);
+      outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v76, v104);
       goto LABEL_65;
     case 2u:
       OUTLINED_FUNCTION_0_2();
       OUTLINED_FUNCTION_37();
       outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType();
-      v50 = v2[1];
-      v49 = v2[2];
-      v52 = v2[3];
-      v51 = v2[4];
-      v53 = v121;
+      v45 = v2[1];
+      v44 = v2[2];
+      v47 = v2[3];
+      v46 = v2[4];
+      v48 = v116;
       if (swift_getEnumCaseMultiPayload() != 2)
       {
 
         goto LABEL_41;
       }
 
-      v54 = *v2;
-      v55 = v53[2];
-      v56 = v53[4];
-      if (v54 != *v53 || ((v57 = v53[1], v58 = v53[3], v50 == v57) ? (v59 = v49 == v55) : (v59 = 0), !v59 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || v52 != v58))
+      v49 = *v2;
+      v50 = v48[2];
+      v51 = v48[4];
+      if (v49 != *v48 || ((v52 = v48[1], v53 = v48[3], v45 == v52) ? (v54 = v44 == v50) : (v54 = 0), !v54 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || v47 != v53))
       {
 
         goto LABEL_59;
       }
 
-      v60 = _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v51, v56);
+      v55 = _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v46, v51);
 
-      if ((v60 & 1) == 0)
+      if ((v55 & 1) == 0)
       {
         goto LABEL_59;
       }
@@ -4772,15 +4493,15 @@ LABEL_26:
       memcpy(__dst, v4, 0x50uLL);
       if (OUTLINED_FUNCTION_32() == 3)
       {
-        v61 = OUTLINED_FUNCTION_56();
-        memcpy(v61, v62, 0x50uLL);
-        memcpy(v126, v4, 0x50uLL);
-        v63 = OUTLINED_FUNCTION_55();
-        memcpy(v63, v64, 0x50uLL);
-        v65 = OUTLINED_FUNCTION_52();
-        static AppleIntelligenceAssetDeliveryEvent.MobileAssetSetConfigurationState.== infix(_:_:)(v65, v66);
-        v67 = OUTLINED_FUNCTION_51();
-        outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetSetConfigurationState(v67);
+        v56 = OUTLINED_FUNCTION_56();
+        memcpy(v56, v57, 0x50uLL);
+        memcpy(v121, v4, 0x50uLL);
+        v58 = OUTLINED_FUNCTION_55();
+        memcpy(v58, v59, 0x50uLL);
+        v60 = OUTLINED_FUNCTION_52();
+        static AppleIntelligenceAssetDeliveryEvent.MobileAssetSetConfigurationState.== infix(_:_:)(v60, v61);
+        v62 = OUTLINED_FUNCTION_51();
+        outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetSetConfigurationState(v62);
         outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetSetConfigurationState(__dst);
         goto LABEL_33;
       }
@@ -4791,18 +4512,18 @@ LABEL_26:
       OUTLINED_FUNCTION_0_2();
       OUTLINED_FUNCTION_37();
       outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType();
-      memcpy(__dst, v24, 0x68uLL);
+      memcpy(__dst, v19, 0x68uLL);
       if (OUTLINED_FUNCTION_32() == 4)
       {
-        v42 = OUTLINED_FUNCTION_56();
-        memcpy(v42, v43, 0x68uLL);
-        memcpy(v126, v24, 0x68uLL);
-        v44 = OUTLINED_FUNCTION_55();
-        memcpy(v44, v45, 0x68uLL);
-        v46 = OUTLINED_FUNCTION_52();
-        static AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetJobState.== infix(_:_:)(v46, v47);
-        v48 = OUTLINED_FUNCTION_51();
-        outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetJobState(v48);
+        v36 = OUTLINED_FUNCTION_56();
+        memcpy(v36, v37, 0x68uLL);
+        memcpy(v121, v19, 0x68uLL);
+        v38 = OUTLINED_FUNCTION_55();
+        memcpy(v38, v39, 0x68uLL);
+        v40 = OUTLINED_FUNCTION_52();
+        static AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetJobState.== infix(_:_:)(v40, v41, v42);
+        v43 = OUTLINED_FUNCTION_51();
+        outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetJobState(v43);
         outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetJobState(__dst);
         goto LABEL_33;
       }
@@ -4813,18 +4534,18 @@ LABEL_26:
       OUTLINED_FUNCTION_0_2();
       OUTLINED_FUNCTION_37();
       outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType();
-      memcpy(__dst, v21, 0x48uLL);
+      memcpy(__dst, v16, 0x48uLL);
       if (OUTLINED_FUNCTION_32() == 5)
       {
-        v85 = OUTLINED_FUNCTION_56();
-        memcpy(v85, v86, 0x48uLL);
-        memcpy(v126, v21, 0x48uLL);
-        v87 = OUTLINED_FUNCTION_55();
-        memcpy(v87, v88, 0x48uLL);
-        v89 = OUTLINED_FUNCTION_52();
-        static AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetUpdateState.== infix(_:_:)(v89, v90);
-        v91 = OUTLINED_FUNCTION_51();
-        outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetUpdateState(v91);
+        v80 = OUTLINED_FUNCTION_56();
+        memcpy(v80, v81, 0x48uLL);
+        memcpy(v121, v16, 0x48uLL);
+        v82 = OUTLINED_FUNCTION_55();
+        memcpy(v82, v83, 0x48uLL);
+        v84 = OUTLINED_FUNCTION_52();
+        static AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetUpdateState.== infix(_:_:)(v84, v85, v86);
+        v87 = OUTLINED_FUNCTION_51();
+        outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetUpdateState(v87);
         outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetUpdateState(__dst);
         goto LABEL_33;
       }
@@ -4834,20 +4555,20 @@ LABEL_26:
     case 6u:
       OUTLINED_FUNCTION_0_2();
       OUTLINED_FUNCTION_37();
-      v92 = v117;
+      v88 = v112;
       outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType();
-      memcpy(__dst, v92, 0xA8uLL);
+      memcpy(__dst, v88, 0xA8uLL);
       if (OUTLINED_FUNCTION_32() == 6)
       {
-        v93 = OUTLINED_FUNCTION_56();
-        memcpy(v93, v94, 0xA8uLL);
-        memcpy(v126, v92, 0xA8uLL);
-        v95 = OUTLINED_FUNCTION_55();
-        memcpy(v95, v96, 0xA8uLL);
-        v97 = OUTLINED_FUNCTION_52();
-        static AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetSecureState.== infix(_:_:)(v97, v98);
-        v99 = OUTLINED_FUNCTION_51();
-        outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetSecureState(v99);
+        v89 = OUTLINED_FUNCTION_56();
+        memcpy(v89, v90, 0xA8uLL);
+        memcpy(v121, v88, 0xA8uLL);
+        v91 = OUTLINED_FUNCTION_55();
+        memcpy(v91, v92, 0xA8uLL);
+        v93 = OUTLINED_FUNCTION_52();
+        static AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetSecureState.== infix(_:_:)(v93, v94);
+        v95 = OUTLINED_FUNCTION_51();
+        outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetSecureState(v95);
         outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetSecureState(__dst);
         goto LABEL_33;
       }
@@ -4857,89 +4578,89 @@ LABEL_26:
     case 7u:
       OUTLINED_FUNCTION_0_2();
       OUTLINED_FUNCTION_37();
-      v68 = v119;
+      v63 = v114;
       outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType();
-      v69 = v68[1];
-      __dst[0] = *v68;
-      __dst[1] = v69;
-      v70 = v68[3];
-      __dst[2] = v68[2];
-      __dst[3] = v70;
+      v64 = v63[1];
+      __dst[0] = *v63;
+      __dst[1] = v64;
+      v65 = v63[3];
+      __dst[2] = v63[2];
+      __dst[3] = v65;
       if (OUTLINED_FUNCTION_32() != 7)
       {
         outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAtomicInstanceState(__dst);
         goto LABEL_41;
       }
 
-      v71 = v3[1];
-      v127[0] = *v3;
-      v127[1] = v71;
+      v66 = v3[1];
+      v122[0] = *v3;
+      v122[1] = v66;
+      v67 = v3[3];
+      v69 = *v3;
+      v68 = v3[1];
+      v122[2] = v3[2];
+      v122[3] = v67;
+      v70 = v63[1];
+      v121[0] = *v63;
+      v121[1] = v70;
+      v71 = v63[3];
+      v121[2] = v63[2];
+      v121[3] = v71;
+      v117 = v69;
+      v118 = v68;
       v72 = v3[3];
-      v74 = *v3;
-      v73 = v3[1];
-      v127[2] = v3[2];
-      v127[3] = v72;
-      v75 = v68[1];
-      v126[0] = *v68;
-      v126[1] = v75;
-      v76 = v68[3];
-      v126[2] = v68[2];
-      v126[3] = v76;
-      v122 = v74;
-      v123 = v73;
-      v77 = v3[3];
-      v124 = v3[2];
-      v125 = v77;
-      v78 = OUTLINED_FUNCTION_52();
-      static AppleIntelligenceAssetDeliveryEvent.MobileAssetAtomicInstanceState.== infix(_:_:)(v78, v79);
-      v80 = OUTLINED_FUNCTION_51();
-      outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAtomicInstanceState(v80);
+      v119 = v3[2];
+      v120 = v72;
+      v73 = OUTLINED_FUNCTION_52();
+      static AppleIntelligenceAssetDeliveryEvent.MobileAssetAtomicInstanceState.== infix(_:_:)(v73, v74);
+      v75 = OUTLINED_FUNCTION_51();
+      outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAtomicInstanceState(v75);
       outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAtomicInstanceState(__dst);
 LABEL_33:
       OUTLINED_FUNCTION_5_1();
-      outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v3, v102);
-      return v36 & 1;
+      outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v3, v98);
+      return v30 & 1;
     case 8u:
       OUTLINED_FUNCTION_0_2();
       OUTLINED_FUNCTION_37();
-      v100 = v116;
+      v96 = v111;
       outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType();
       if (OUTLINED_FUNCTION_32() != 8)
       {
         goto LABEL_41;
       }
 
-      v101 = *v3;
-      LOWORD(__dst[0]) = *v100;
-      LOWORD(v127[0]) = v101;
-      v36 = static AppleIntelligenceAssetDeliveryEvent.UAFSubscriptionState.== infix(_:_:)(__dst, v127);
+      v97 = *v3;
+      LOWORD(__dst[0]) = *v96;
+      LOWORD(v122[0]) = v97;
+      v30 = static AppleIntelligenceAssetDeliveryEvent.UAFSubscriptionState.== infix(_:_:)(__dst, v122);
       goto LABEL_33;
     default:
       OUTLINED_FUNCTION_0_2();
       OUTLINED_FUNCTION_37();
       outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType();
-      v37 = *v31;
-      v38 = v121;
+      v31 = *v26;
+      v32 = v116;
       if (swift_getEnumCaseMultiPayload())
       {
         goto LABEL_41;
       }
 
-      v39 = *v38;
-      v40 = *(v38 + 8);
-      if (v31[8])
+      v33 = *v32;
+      v34 = *(v32 + 8);
+      if (v26[8])
       {
-        if (v31[8] != 1)
+        if (v26[8] != 1)
         {
-          if (v37)
+          if (v31)
           {
-            if (v40 != 2 || v39 != 1)
+            if (v34 != 2 || v33 != 1)
             {
               goto LABEL_59;
             }
           }
 
-          else if (v40 != 2 || v39 != 0)
+          else if (v34 != 2 || v33 != 0)
           {
             goto LABEL_59;
           }
@@ -4947,27 +4668,27 @@ LABEL_33:
           goto LABEL_65;
         }
 
-        v41 = v40 == 1;
+        v35 = v34 == 1;
       }
 
       else
       {
-        v41 = v40 == 0;
+        v35 = v34 == 0;
       }
 
-      if (!v41 || v37 != v39)
+      if (!v35 || v31 != v33)
       {
 LABEL_59:
         OUTLINED_FUNCTION_5_1();
-        outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v3, v111);
+        outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v3, v106);
         goto LABEL_42;
       }
 
 LABEL_65:
       OUTLINED_FUNCTION_5_1();
-      outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v3, v113);
-      v36 = 1;
-      return v36 & 1;
+      outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v3, v108);
+      v30 = 1;
+      return v30 & 1;
   }
 }
 
@@ -5271,7 +4992,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AppleIntelligenceAssetDeliveryEvent.EventType.AvailabilityChangeCodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AppleIntelligenceAssetDeliveryEvent.EventType.AvailabilityChangeCodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x1C68E2B10](0);
@@ -5295,273 +5016,260 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 void AppleIntelligenceAssetDeliveryEvent.EventType.encode(to:)()
 {
   OUTLINED_FUNCTION_48();
-  v161 = v0;
+  v133 = v0;
   v2 = v1;
-  v159 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO015UafSubscriptionI10CodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO015UafSubscriptionI10CodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v159);
-  v138 = v3;
-  v5 = *(v4 + 64);
+  v131 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO015UafSubscriptionI10CodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO015UafSubscriptionI10CodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v110 = v3;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v6);
+  MEMORY[0x1EEE9AC00](v4);
   OUTLINED_FUNCTION_19_0();
-  v157 = v7;
-  v158 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG24AtomicInstanceCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG24AtomicInstanceCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v158);
-  v137[5] = v8;
-  v10 = *(v9 + 64);
+  v129 = v5;
+  v130 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG24AtomicInstanceCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG24AtomicInstanceCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v109[5] = v6;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v11);
+  MEMORY[0x1EEE9AC00](v7);
   OUTLINED_FUNCTION_19_0();
-  v156 = v12;
-  v155 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG16SecureCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG16SecureCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v155);
-  v137[4] = v13;
-  v15 = *(v14 + 64);
+  v128 = v8;
+  v127 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG16SecureCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG16SecureCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v109[4] = v9;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v10);
+  OUTLINED_FUNCTION_19_0();
+  v126 = v11;
+  v125 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG16UpdateCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG16UpdateCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v109[3] = v12;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v13);
+  OUTLINED_FUNCTION_19_0();
+  v124 = v14;
+  v123 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG13JobCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG13JobCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v109[2] = v15;
   OUTLINED_FUNCTION_17();
   MEMORY[0x1EEE9AC00](v16);
   OUTLINED_FUNCTION_19_0();
-  v154 = v17;
-  v153 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG16UpdateCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG16UpdateCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v153);
-  v137[3] = v18;
-  v20 = *(v19 + 64);
+  v122 = v17;
+  v121 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG26SetConfigurationCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG26SetConfigurationCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v109[1] = v18;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v21);
+  MEMORY[0x1EEE9AC00](v19);
   OUTLINED_FUNCTION_19_0();
-  v152 = v22;
-  v151 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG13JobCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG13JobCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v151);
-  v137[2] = v23;
-  v25 = *(v24 + 64);
+  v120 = v20;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG19SchedulerCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG19SchedulerCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v118 = v22;
+  v119 = v21;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v26);
+  MEMORY[0x1EEE9AC00](v23);
   OUTLINED_FUNCTION_19_0();
-  v150 = v27;
-  v149 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG26SetConfigurationCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG26SetConfigurationCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v149);
-  v137[1] = v28;
-  v30 = *(v29 + 64);
+  v117 = v24;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO34ModelCatalogSubscriptionCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO34ModelCatalogSubscriptionCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v115 = v26;
+  v116 = v25;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v31);
+  MEMORY[0x1EEE9AC00](v27);
   OUTLINED_FUNCTION_19_0();
-  v148 = v32;
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG19SchedulerCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG19SchedulerCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  v34 = OUTLINED_FUNCTION_1(v33);
-  v146 = v35;
-  v147 = v34;
-  v37 = *(v36 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v38);
-  OUTLINED_FUNCTION_19_0();
-  v145 = v39;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO34ModelCatalogSubscriptionCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO34ModelCatalogSubscriptionCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
-  v41 = OUTLINED_FUNCTION_1(v40);
-  v143 = v42;
-  v144 = v41;
-  v44 = *(v43 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v45);
-  OUTLINED_FUNCTION_19_0();
-  v142 = v46;
-  v140 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState();
-  v47 = OUTLINED_FUNCTION_9(v140);
-  v49 = *(v48 + 64);
-  MEMORY[0x1EEE9AC00](v47);
+  v114 = v28;
+  v112 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(0);
+  OUTLINED_FUNCTION_9();
+  MEMORY[0x1EEE9AC00](v29);
   OUTLINED_FUNCTION_2();
-  v141 = v51 - v50;
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO28AvailabilityChangeCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO28AvailabilityChangeCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v52);
-  v139 = v53;
-  v55 = *(v54 + 64);
+  v113 = v31 - v30;
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO28AvailabilityChangeCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO28AvailabilityChangeCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v111 = v33;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v56);
-  v58 = v137 - v57;
-  v59 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventType(0);
-  v60 = OUTLINED_FUNCTION_9(v59);
-  v62 = *(v61 + 64);
-  MEMORY[0x1EEE9AC00](v60);
+  MEMORY[0x1EEE9AC00](v34);
+  v36 = v109 - v35;
+  type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventType(0);
+  OUTLINED_FUNCTION_9();
+  MEMORY[0x1EEE9AC00](v37);
   OUTLINED_FUNCTION_2();
-  v65 = (v64 - v63);
-  v163 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v163);
-  v160 = v66;
-  v68 = *(v67 + 64);
+  v40 = (v39 - v38);
+  v135 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v132 = v41;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v69);
-  v71 = v137 - v70;
-  v72 = v2[4];
+  MEMORY[0x1EEE9AC00](v42);
+  v44 = v109 - v43;
   __swift_project_boxed_opaque_existential_1(v2, v2[3]);
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.CodingKeys();
-  v162 = v71;
+  v134 = v44;
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   OUTLINED_FUNCTION_0_2();
   outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType();
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      v107 = v141;
+      v79 = v113;
       outlined init with take of AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState();
-      LOBYTE(v168) = 1;
+      LOBYTE(v137) = 1;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.ModelCatalogSubscriptionCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.ModelCatalogSubscriptionCodingKeys();
       OUTLINED_FUNCTION_8_1();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       OUTLINED_FUNCTION_30();
-      lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(v108, v109);
+      lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(v80, v81, &protocol conformance descriptor for AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState);
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v110 = OUTLINED_FUNCTION_20_0();
-      v111(v110);
+      v82 = OUTLINED_FUNCTION_20_0();
+      v83(v82);
       OUTLINED_FUNCTION_3_1();
-      outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v107, v112);
-      v113 = OUTLINED_FUNCTION_11_0();
+      outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v79, v84);
+      v85 = OUTLINED_FUNCTION_11_0();
       goto LABEL_11;
     case 2u:
-      v85 = *v65;
-      v161 = v65[1];
-      v86 = v65[2];
-      v87 = v65[3];
-      v88 = v65[4];
-      LOBYTE(v168) = 2;
+      v57 = *v40;
+      v133 = v40[1];
+      v58 = v40[2];
+      v59 = v40[3];
+      v60 = v40[4];
+      LOBYTE(v137) = 2;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetSchedulerCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetSchedulerCodingKeys();
-      v89 = v145;
-      v91 = v162;
-      v90 = v163;
+      v61 = v117;
+      v63 = v134;
+      v62 = v135;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      *&v168 = v85;
-      *(&v168 + 1) = v161;
-      *&v169 = v86;
-      *(&v169 + 1) = v87;
-      *&v170 = v88;
+      *&v137 = v57;
+      *(&v137 + 1) = v133;
+      *&v138 = v58;
+      *(&v138 + 1) = v59;
+      *&v139 = v60;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.MobileAssetSchedulerState and conformance AppleIntelligenceAssetDeliveryEvent.MobileAssetSchedulerState();
-      v92 = v147;
+      v64 = v119;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v146 + 8))(v89, v92);
-      (*(v160 + 8))(v91, v90);
+      (*(v118 + 8))(v61, v64);
+      (*(v132 + 8))(v63, v62);
 
       break;
     case 3u:
-      v93 = OUTLINED_FUNCTION_57();
-      memcpy(v93, v94, 0x50uLL);
-      LOBYTE(v164) = 3;
+      v65 = OUTLINED_FUNCTION_57();
+      memcpy(v65, v66, 0x50uLL);
+      LOBYTE(v136[0]) = 3;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetSetConfigurationCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetSetConfigurationCodingKeys();
       OUTLINED_FUNCTION_8_1();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v95 = OUTLINED_FUNCTION_64();
-      memcpy(v95, v96, 0x50uLL);
+      v67 = OUTLINED_FUNCTION_64();
+      memcpy(v67, v68, 0x50uLL);
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.MobileAssetSetConfigurationState and conformance AppleIntelligenceAssetDeliveryEvent.MobileAssetSetConfigurationState();
-      OUTLINED_FUNCTION_42_0();
-      v97 = OUTLINED_FUNCTION_20_0();
-      v98(v97);
-      v99 = OUTLINED_FUNCTION_11_0();
-      v100(v99);
-      outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetSetConfigurationState(&v168);
+      OUTLINED_FUNCTION_42_0(v136);
+      v69 = OUTLINED_FUNCTION_20_0();
+      v70(v69);
+      v71 = OUTLINED_FUNCTION_11_0();
+      v72(v71);
+      outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetSetConfigurationState(&v137);
       break;
     case 4u:
-      v77 = OUTLINED_FUNCTION_57();
-      memcpy(v77, v78, 0x68uLL);
-      LOBYTE(v164) = 4;
+      v49 = OUTLINED_FUNCTION_57();
+      memcpy(v49, v50, 0x68uLL);
+      LOBYTE(v136[0]) = 4;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetAssetJobCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetAssetJobCodingKeys();
       OUTLINED_FUNCTION_8_1();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v79 = OUTLINED_FUNCTION_64();
-      memcpy(v79, v80, 0x68uLL);
+      v51 = OUTLINED_FUNCTION_64();
+      memcpy(v51, v52, 0x68uLL);
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetJobState and conformance AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetJobState();
-      OUTLINED_FUNCTION_42_0();
-      v81 = OUTLINED_FUNCTION_20_0();
-      v82(v81);
-      v83 = OUTLINED_FUNCTION_11_0();
-      v84(v83);
-      outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetJobState(&v168);
+      OUTLINED_FUNCTION_42_0(v136);
+      v53 = OUTLINED_FUNCTION_20_0();
+      v54(v53);
+      v55 = OUTLINED_FUNCTION_11_0();
+      v56(v55);
+      outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetJobState(&v137);
       break;
     case 5u:
-      v116 = OUTLINED_FUNCTION_57();
-      memcpy(v116, v117, 0x48uLL);
-      LOBYTE(v164) = 5;
+      v88 = OUTLINED_FUNCTION_57();
+      memcpy(v88, v89, 0x48uLL);
+      LOBYTE(v136[0]) = 5;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetAssetUpdateCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetAssetUpdateCodingKeys();
       OUTLINED_FUNCTION_8_1();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v118 = OUTLINED_FUNCTION_64();
-      memcpy(v118, v119, 0x48uLL);
+      v90 = OUTLINED_FUNCTION_64();
+      memcpy(v90, v91, 0x48uLL);
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetUpdateState and conformance AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetUpdateState();
-      OUTLINED_FUNCTION_42_0();
-      v120 = OUTLINED_FUNCTION_20_0();
-      v121(v120);
-      v122 = OUTLINED_FUNCTION_11_0();
-      v123(v122);
-      outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetUpdateState(&v168);
+      OUTLINED_FUNCTION_42_0(v136);
+      v92 = OUTLINED_FUNCTION_20_0();
+      v93(v92);
+      v94 = OUTLINED_FUNCTION_11_0();
+      v95(v94);
+      outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetUpdateState(&v137);
       break;
     case 6u:
-      v124 = OUTLINED_FUNCTION_57();
-      memcpy(v124, v125, 0xA8uLL);
-      LOBYTE(v164) = 6;
+      v96 = OUTLINED_FUNCTION_57();
+      memcpy(v96, v97, 0xA8uLL);
+      LOBYTE(v136[0]) = 6;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetSecureCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetSecureCodingKeys();
       OUTLINED_FUNCTION_8_1();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v126 = OUTLINED_FUNCTION_64();
-      memcpy(v126, v127, 0xA8uLL);
+      v98 = OUTLINED_FUNCTION_64();
+      memcpy(v98, v99, 0xA8uLL);
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetSecureState and conformance AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetSecureState();
-      OUTLINED_FUNCTION_42_0();
-      v128 = OUTLINED_FUNCTION_20_0();
-      v129(v128);
-      v130 = OUTLINED_FUNCTION_11_0();
-      v131(v130);
-      outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetSecureState(&v168);
+      OUTLINED_FUNCTION_42_0(v136);
+      v100 = OUTLINED_FUNCTION_20_0();
+      v101(v100);
+      v102 = OUTLINED_FUNCTION_11_0();
+      v103(v102);
+      outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetSecureState(&v137);
       break;
     case 7u:
-      v101 = *(v65 + 1);
-      v168 = *v65;
-      v169 = v101;
-      v102 = *(v65 + 3);
-      v170 = *(v65 + 2);
-      v171 = v102;
-      LOBYTE(v164) = 7;
+      v73 = *(v40 + 1);
+      v137 = *v40;
+      v138 = v73;
+      v74 = *(v40 + 3);
+      v139 = *(v40 + 2);
+      v140 = v74;
+      LOBYTE(v136[0]) = 7;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetAtomicInstanceCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetAtomicInstanceCodingKeys();
       OUTLINED_FUNCTION_8_1();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v164 = v168;
-      v165 = v169;
-      v166 = v170;
-      v167 = v171;
+      v136[0] = v137;
+      v136[1] = v138;
+      v136[2] = v139;
+      v136[3] = v140;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.MobileAssetAtomicInstanceState and conformance AppleIntelligenceAssetDeliveryEvent.MobileAssetAtomicInstanceState();
-      OUTLINED_FUNCTION_42_0();
-      v103 = OUTLINED_FUNCTION_20_0();
-      v104(v103);
-      v105 = OUTLINED_FUNCTION_11_0();
-      v106(v105);
-      outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAtomicInstanceState(&v168);
+      OUTLINED_FUNCTION_42_0(v136);
+      v75 = OUTLINED_FUNCTION_20_0();
+      v76(v75);
+      v77 = OUTLINED_FUNCTION_11_0();
+      v78(v77);
+      outlined destroy of AppleIntelligenceAssetDeliveryEvent.MobileAssetAtomicInstanceState(&v137);
       break;
     case 8u:
-      v132 = *v65;
-      LOBYTE(v168) = 8;
+      v104 = *v40;
+      LOBYTE(v137) = 8;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.UafSubscriptionEventCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.UafSubscriptionEventCodingKeys();
-      v133 = v157;
-      v135 = v162;
-      v134 = v163;
+      v105 = v129;
+      v107 = v134;
+      v106 = v135;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      LOWORD(v168) = v132;
+      LOWORD(v137) = v104;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.UAFSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.UAFSubscriptionState();
-      v136 = v159;
+      v108 = v131;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v138 + 8))(v133, v136);
-      v115 = *(v160 + 8);
-      v113 = v135;
-      v114 = v134;
+      (*(v110 + 8))(v105, v108);
+      v87 = *(v132 + 8);
+      v85 = v107;
+      v86 = v106;
 LABEL_11:
-      v115(v113, v114);
+      v87(v85, v86);
       break;
     default:
-      v73 = *v65;
-      v74 = *(v65 + 8);
-      LOBYTE(v168) = 0;
+      v45 = *v40;
+      v46 = *(v40 + 8);
+      LOBYTE(v137) = 0;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.AvailabilityChangeCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.AvailabilityChangeCodingKeys();
-      v76 = v162;
-      v75 = v163;
+      v48 = v134;
+      v47 = v135;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      *&v168 = v73;
-      BYTE8(v168) = v74;
+      *&v137 = v45;
+      BYTE8(v137) = v46;
       lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState();
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v139 + 8))(v58, v52);
-      (*(v160 + 8))(v76, v75);
+      (*(v111 + 8))(v36, v32);
+      (*(v132 + 8))(v48, v47);
       break;
   }
 
@@ -5574,367 +5282,349 @@ void AppleIntelligenceAssetDeliveryEvent.EventType.init(from:)(uint64_t a1, uint
   a19 = v24;
   a20 = v25;
   v27 = v26;
-  v212 = v28;
+  v186[0] = v28;
   v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO015UafSubscriptionI10CodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO015UafSubscriptionI10CodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v29, &v230);
-  v211 = v30;
-  v32 = *(v31 + 64);
+  OUTLINED_FUNCTION_2_3(v29, &v201);
+  v185 = v30;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v33);
+  MEMORY[0x1EEE9AC00](v31);
   OUTLINED_FUNCTION_19_0();
-  OUTLINED_FUNCTION_29_0(v34);
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG24AtomicInstanceCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG24AtomicInstanceCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v35, &v229);
-  v205 = v36;
-  v38 = *(v37 + 64);
+  OUTLINED_FUNCTION_29_0(v32);
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG24AtomicInstanceCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG24AtomicInstanceCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v33, &v200);
+  v179 = v34;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v35);
+  OUTLINED_FUNCTION_19_0();
+  OUTLINED_FUNCTION_29_0(v36);
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG16SecureCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG16SecureCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v37, &v199);
+  v177 = v38;
   OUTLINED_FUNCTION_17();
   MEMORY[0x1EEE9AC00](v39);
   OUTLINED_FUNCTION_19_0();
   OUTLINED_FUNCTION_29_0(v40);
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG16SecureCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG16SecureCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v41, &v228);
-  v203 = v42;
-  v44 = *(v43 + 64);
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG16UpdateCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG16UpdateCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v41, &v198);
+  v176 = v42;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v45);
+  MEMORY[0x1EEE9AC00](v43);
   OUTLINED_FUNCTION_19_0();
-  OUTLINED_FUNCTION_29_0(v46);
-  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG16UpdateCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG16UpdateCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v47, &v226);
-  v202 = v48;
-  v50 = *(v49 + 64);
+  OUTLINED_FUNCTION_29_0(v44);
+  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG13JobCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG13JobCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v45, &v197);
+  v175 = v46;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v47);
+  OUTLINED_FUNCTION_19_0();
+  OUTLINED_FUNCTION_29_0(v48);
+  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG26SetConfigurationCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG26SetConfigurationCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v49, &v196);
+  v174 = v50;
   OUTLINED_FUNCTION_17();
   MEMORY[0x1EEE9AC00](v51);
   OUTLINED_FUNCTION_19_0();
   OUTLINED_FUNCTION_29_0(v52);
-  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG13JobCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobilegG13JobCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v53, &v224);
-  v201 = v54;
-  v56 = *(v55 + 64);
+  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG19SchedulerCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG19SchedulerCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v53, &v193);
+  v173 = v54;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v57);
+  MEMORY[0x1EEE9AC00](v55);
   OUTLINED_FUNCTION_19_0();
-  OUTLINED_FUNCTION_29_0(v58);
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG26SetConfigurationCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG26SetConfigurationCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v59, &v223);
-  v200 = v60;
-  v62 = *(v61 + 64);
+  OUTLINED_FUNCTION_29_0(v56);
+  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO34ModelCatalogSubscriptionCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO34ModelCatalogSubscriptionCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v57, &v194);
+  v171 = v58;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v59);
+  OUTLINED_FUNCTION_19_0();
+  OUTLINED_FUNCTION_29_0(v60);
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO28AvailabilityChangeCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO28AvailabilityChangeCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v61, &a14);
+  v170 = v62;
   OUTLINED_FUNCTION_17();
   MEMORY[0x1EEE9AC00](v63);
   OUTLINED_FUNCTION_19_0();
   OUTLINED_FUNCTION_29_0(v64);
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG19SchedulerCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO06MobileG19SchedulerCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v65, &v220);
-  v199 = v66;
-  v68 = *(v67 + 64);
+  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMR);
+  OUTLINED_FUNCTION_2_3(v65, &a17);
+  v186[1] = v66;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v69);
-  OUTLINED_FUNCTION_19_0();
-  OUTLINED_FUNCTION_29_0(v70);
-  v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO34ModelCatalogSubscriptionCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO34ModelCatalogSubscriptionCodingKeys027_74E5A5FFCD3AA678926F1A3090Q4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v71, &v221);
-  v197 = v72;
-  v74 = *(v73 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v75);
-  OUTLINED_FUNCTION_19_0();
-  OUTLINED_FUNCTION_29_0(v76);
-  v77 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO28AvailabilityChangeCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO28AvailabilityChangeCodingKeys027_74E5A5FFCD3AA678926F1A3090P4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v77, &a14);
-  v196 = v78;
-  v80 = *(v79 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v81);
-  OUTLINED_FUNCTION_19_0();
-  OUTLINED_FUNCTION_29_0(v82);
-  v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV0I4TypeO10CodingKeys027_74E5A5FFCD3AA678926F1A3090N4B7D9LLOGMR);
-  OUTLINED_FUNCTION_2_3(v83, &a17);
-  v213 = v84;
-  v86 = *(v85 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v87);
+  MEMORY[0x1EEE9AC00](v67);
   OUTLINED_FUNCTION_36();
-  v214 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventType(0);
-  v88 = OUTLINED_FUNCTION_9(v214);
-  v90 = *(v89 + 64);
-  MEMORY[0x1EEE9AC00](v88);
+  v187 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventType(0);
+  OUTLINED_FUNCTION_9();
+  MEMORY[0x1EEE9AC00](v68);
   OUTLINED_FUNCTION_60();
   OUTLINED_FUNCTION_27();
-  MEMORY[0x1EEE9AC00](v91);
+  MEMORY[0x1EEE9AC00](v69);
   OUTLINED_FUNCTION_45();
   OUTLINED_FUNCTION_27();
-  MEMORY[0x1EEE9AC00](v92);
+  MEMORY[0x1EEE9AC00](v70);
   OUTLINED_FUNCTION_45();
   OUTLINED_FUNCTION_27();
-  MEMORY[0x1EEE9AC00](v93);
+  MEMORY[0x1EEE9AC00](v71);
   OUTLINED_FUNCTION_45();
   OUTLINED_FUNCTION_27();
-  MEMORY[0x1EEE9AC00](v94);
+  MEMORY[0x1EEE9AC00](v72);
   OUTLINED_FUNCTION_45();
   OUTLINED_FUNCTION_27();
-  MEMORY[0x1EEE9AC00](v95);
-  v97 = v189 - v96;
-  MEMORY[0x1EEE9AC00](v98);
-  v100 = v189 - v99;
-  MEMORY[0x1EEE9AC00](v101);
+  MEMORY[0x1EEE9AC00](v73);
+  v75 = v163 - v74;
+  MEMORY[0x1EEE9AC00](v76);
+  v78 = v163 - v77;
+  MEMORY[0x1EEE9AC00](v79);
   OUTLINED_FUNCTION_59();
-  MEMORY[0x1EEE9AC00](v102);
+  MEMORY[0x1EEE9AC00](v80);
   OUTLINED_FUNCTION_58();
-  MEMORY[0x1EEE9AC00](v103);
-  v105 = v27[3];
-  v104 = v27[4];
-  v219 = v27;
-  __swift_project_boxed_opaque_existential_1(v27, v105);
+  MEMORY[0x1EEE9AC00](v81);
+  v82 = v27[3];
+  v192 = v27;
+  __swift_project_boxed_opaque_existential_1(v27, v82);
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.CodingKeys();
-  v217 = v22;
+  v190 = v22;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v20)
   {
     goto LABEL_10;
   }
 
-  v190 = v23;
-  v193 = v21;
-  v191 = v100;
-  v192 = v97;
-  v106 = v215;
-  v107 = v216;
-  v108 = v214;
-  v109 = v217;
-  v110 = KeyedDecodingContainer.allKeys.getter();
-  _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC26AppleIntelligenceReporting0jK18AssetDeliveryEventV29ModelCatalogSubscriptionStateV0R6ActionO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLO_Tt1g5(v110, 0);
-  if (v113 == v114 >> 1)
+  v164 = v23;
+  v167 = v21;
+  v165 = v78;
+  v166 = v75;
+  v83 = v188;
+  v84 = v189;
+  v85 = v187;
+  v86 = v190;
+  v87 = KeyedDecodingContainer.allKeys.getter();
+  _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC26AppleIntelligenceReporting0jK18AssetDeliveryEventV29ModelCatalogSubscriptionStateV0R6ActionO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLO_Tt1g5(v87, 0);
+  if (v90 == v91 >> 1)
   {
-    v115 = v109;
-    v116 = v108;
+    v92 = v86;
+    v93 = v85;
 LABEL_9:
-    v125 = type metadata accessor for DecodingError();
+    v101 = type metadata accessor for DecodingError();
     swift_allocError();
-    v127 = v126;
-    v128 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v127 = v116;
-    v129 = v218;
-    v130 = KeyedDecodingContainer.codingPath.getter();
-    OUTLINED_FUNCTION_65(v130);
-    (*(*(v125 - 8) + 104))(v127, *MEMORY[0x1E69E6AF8], v125);
+    v103 = v102;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v103 = v93;
+    v104 = v191;
+    v105 = KeyedDecodingContainer.codingPath.getter();
+    OUTLINED_FUNCTION_65(v105);
+    (*(*(v101 - 8) + 104))(v103, *MEMORY[0x1E69E6AF8], v101);
     swift_willThrow();
     swift_unknownObjectRelease();
     OUTLINED_FUNCTION_16();
-    v131(v115, v129);
+    v106(v92, v104);
 LABEL_10:
-    v132 = OUTLINED_FUNCTION_62();
-    __swift_destroy_boxed_opaque_existential_1(v132);
+    v107 = OUTLINED_FUNCTION_62();
+    __swift_destroy_boxed_opaque_existential_1(v107);
 LABEL_11:
     OUTLINED_FUNCTION_47();
     return;
   }
 
-  v189[1] = 0;
-  if (v113 < (v114 >> 1))
+  v163[1] = 0;
+  if (v90 < (v91 >> 1))
   {
-    v189[0] = *(v112 + v113);
-    v117 = specialized ArraySlice.subscript.getter(v113 + 1, v114 >> 1, v111, v112, v113, v114);
-    v119 = v118;
-    v121 = v120;
+    v163[0] = *(v89 + v90);
+    v94 = specialized ArraySlice.subscript.getter(v90 + 1, v91 >> 1, v88, v89, v90, v91);
+    v96 = v95;
+    v98 = v97;
     swift_unknownObjectRelease();
-    v116 = v108;
-    if (v119 == v121 >> 1)
+    v93 = v85;
+    if (v96 == v98 >> 1)
     {
-      v122 = v211;
-      switch(v189[0])
+      v99 = v185;
+      switch(v163[0])
       {
         case 1:
-          LOBYTE(v220) = 1;
+          LOBYTE(v193) = 1;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.ModelCatalogSubscriptionCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.ModelCatalogSubscriptionCodingKeys();
-          v147 = v207;
-          OUTLINED_FUNCTION_46();
-          v216 = v117;
-          type metadata accessor for AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState();
+          v124 = v181;
+          OUTLINED_FUNCTION_46(&unk_1F402DD08, &v193);
+          v189 = v94;
+          type metadata accessor for AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(0);
           OUTLINED_FUNCTION_30();
-          lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(v152, v153);
-          v154 = v198;
+          lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(v130, v131, &protocol conformance descriptor for AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState);
+          v132 = v172;
           KeyedDecodingContainer.decode<A>(_:forKey:)();
           OUTLINED_FUNCTION_38();
           swift_unknownObjectRelease();
-          OUTLINED_FUNCTION_24(&v220 + 8);
-          v174(v147, v154);
+          OUTLINED_FUNCTION_24();
+          v149(v124, v132);
           OUTLINED_FUNCTION_16();
-          v175(v217, v109);
+          v150(v190, v86);
           swift_storeEnumTagMultiPayload();
           OUTLINED_FUNCTION_1_2();
           goto LABEL_22;
         case 2:
-          LOBYTE(v220) = 2;
+          LOBYTE(v193) = 2;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetSchedulerCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetSchedulerCodingKeys();
-          v133 = v208;
-          OUTLINED_FUNCTION_7_1();
+          v108 = v182;
+          OUTLINED_FUNCTION_7_1(&unk_1F402DD98, &v193);
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.MobileAssetSchedulerState and conformance AppleIntelligenceAssetDeliveryEvent.MobileAssetSchedulerState();
           OUTLINED_FUNCTION_23();
           KeyedDecodingContainer.decode<A>(_:forKey:)();
           OUTLINED_FUNCTION_38();
-          v151 = v213;
           swift_unknownObjectRelease();
-          OUTLINED_FUNCTION_24(&v221 + 8);
-          v160(v133, v107);
-          v161 = *(v151 + 8);
-          v162 = OUTLINED_FUNCTION_26();
-          v163(v162);
-          v164 = v222;
-          v165 = v221;
-          v166 = v191;
-          *v191 = v220;
-          v166[1] = v165;
-          *(v166 + 4) = v164;
+          OUTLINED_FUNCTION_24();
+          v137(v108, v84);
+          v138 = OUTLINED_FUNCTION_26();
+          v139(v138);
+          v140 = v195;
+          v141 = v194;
+          v142 = v165;
+          *v165 = v193;
+          v142[1] = v141;
+          *(v142 + 4) = v140;
           OUTLINED_FUNCTION_41();
           goto LABEL_20;
         case 3:
-          LOBYTE(v220) = 3;
+          LOBYTE(v193) = 3;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetSetConfigurationCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetSetConfigurationCodingKeys();
-          OUTLINED_FUNCTION_7_1();
+          OUTLINED_FUNCTION_7_1(&unk_1F402DE28, &v193);
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.MobileAssetSetConfigurationState and conformance AppleIntelligenceAssetDeliveryEvent.MobileAssetSetConfigurationState();
           OUTLINED_FUNCTION_23();
-          OUTLINED_FUNCTION_67();
-          OUTLINED_FUNCTION_6_1(&v222);
+          OUTLINED_FUNCTION_67(v109);
+          OUTLINED_FUNCTION_6_1();
           swift_unknownObjectRelease();
-          v134 = OUTLINED_FUNCTION_22();
-          v135(v134);
-          v136 = OUTLINED_FUNCTION_26();
-          v137(v136);
-          v138 = OUTLINED_FUNCTION_63(&v212);
-          memcpy(v138, v139, 0x50uLL);
+          v110 = OUTLINED_FUNCTION_22();
+          v111(v110);
+          v112 = OUTLINED_FUNCTION_26();
+          v113(v112);
+          v114 = OUTLINED_FUNCTION_63(v186);
+          memcpy(v114, v115, 0x50uLL);
           OUTLINED_FUNCTION_41();
           goto LABEL_21;
         case 4:
-          LOBYTE(v220) = 4;
+          LOBYTE(v193) = 4;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetAssetJobCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetAssetJobCodingKeys();
-          OUTLINED_FUNCTION_46();
+          OUTLINED_FUNCTION_46(&unk_1F402DEB8, &v193);
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetJobState and conformance AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetJobState();
           OUTLINED_FUNCTION_23();
-          OUTLINED_FUNCTION_67();
-          OUTLINED_FUNCTION_6_1(&v222 + 8);
+          OUTLINED_FUNCTION_67(v129);
+          OUTLINED_FUNCTION_6_1();
           swift_unknownObjectRelease();
-          v156 = OUTLINED_FUNCTION_22();
-          v157(v156);
-          MEMORY[0](v121, v109);
-          v158 = OUTLINED_FUNCTION_63(&v214);
-          memcpy(v158, v159, 0x68uLL);
+          v133 = OUTLINED_FUNCTION_22();
+          v134(v133);
+          MEMORY[0](v98, v86);
+          v135 = OUTLINED_FUNCTION_63(&v187);
+          memcpy(v135, v136, 0x68uLL);
           OUTLINED_FUNCTION_41();
           goto LABEL_21;
         case 5:
-          LOBYTE(v220) = 5;
+          LOBYTE(v193) = 5;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetAssetUpdateCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetAssetUpdateCodingKeys();
-          v148 = v209;
-          OUTLINED_FUNCTION_7_1();
+          v125 = v183;
+          OUTLINED_FUNCTION_7_1(&unk_1F402DF48, &v193);
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetUpdateState and conformance AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetUpdateState();
-          v149 = v204;
+          v126 = v178;
           KeyedDecodingContainer.decode<A>(_:forKey:)();
-          OUTLINED_FUNCTION_6_1(&v223 + 8);
+          OUTLINED_FUNCTION_6_1();
           swift_unknownObjectRelease();
-          (*v148)(v148, v149);
-          v176 = OUTLINED_FUNCTION_54();
-          v177(v176);
-          v178 = OUTLINED_FUNCTION_63(&v215);
-          memcpy(v178, v179, 0x48uLL);
+          (*v125)(v125, v126);
+          v151 = OUTLINED_FUNCTION_54();
+          v152(v151);
+          v153 = OUTLINED_FUNCTION_63(&v188);
+          memcpy(v153, v154, 0x48uLL);
           OUTLINED_FUNCTION_41();
           goto LABEL_21;
         case 6:
-          LOBYTE(v220) = 6;
+          LOBYTE(v193) = 6;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetSecureCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetSecureCodingKeys();
-          OUTLINED_FUNCTION_7_1();
+          OUTLINED_FUNCTION_7_1(&unk_1F402DFD8, &v193);
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetSecureState and conformance AppleIntelligenceAssetDeliveryEvent.MobileAssetAssetSecureState();
           OUTLINED_FUNCTION_23();
-          OUTLINED_FUNCTION_67();
-          OUTLINED_FUNCTION_6_1(&v225);
+          OUTLINED_FUNCTION_67(v127);
+          OUTLINED_FUNCTION_6_1();
           swift_unknownObjectRelease();
-          v180 = OUTLINED_FUNCTION_22();
-          v181(v180);
-          v182 = OUTLINED_FUNCTION_26();
-          v183(v182);
-          v184 = OUTLINED_FUNCTION_63(&v216);
-          memcpy(v184, v185, 0xA8uLL);
+          v155 = OUTLINED_FUNCTION_22();
+          v156(v155);
+          v157 = OUTLINED_FUNCTION_26();
+          v158(v157);
+          v159 = OUTLINED_FUNCTION_63(&v189);
+          memcpy(v159, v160, 0xA8uLL);
           OUTLINED_FUNCTION_41();
           goto LABEL_21;
         case 7:
-          LOBYTE(v220) = 7;
+          LOBYTE(v193) = 7;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetAtomicInstanceCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.MobileAssetAtomicInstanceCodingKeys();
-          OUTLINED_FUNCTION_7_1();
+          OUTLINED_FUNCTION_7_1(&unk_1F402E068, &v193);
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.MobileAssetAtomicInstanceState and conformance AppleIntelligenceAssetDeliveryEvent.MobileAssetAtomicInstanceState();
           OUTLINED_FUNCTION_23();
-          OUTLINED_FUNCTION_67();
-          OUTLINED_FUNCTION_6_1(&v227);
+          OUTLINED_FUNCTION_67(v116);
+          OUTLINED_FUNCTION_6_1();
           swift_unknownObjectRelease();
-          v140 = OUTLINED_FUNCTION_22();
-          v141(v140);
-          v142 = OUTLINED_FUNCTION_26();
-          v143(v142);
-          v144 = v221;
-          v145 = v195;
-          *v195 = v220;
-          v145[1] = v144;
-          v146 = v223;
-          v145[2] = v222;
-          v145[3] = v146;
+          v117 = OUTLINED_FUNCTION_22();
+          v118(v117);
+          v119 = OUTLINED_FUNCTION_26();
+          v120(v119);
+          v121 = v194;
+          v122 = v169;
+          *v169 = v193;
+          v122[1] = v121;
+          v123 = v196;
+          v122[2] = v195;
+          v122[3] = v123;
           OUTLINED_FUNCTION_41();
           goto LABEL_21;
         case 8:
-          LOBYTE(v220) = 8;
+          LOBYTE(v193) = 8;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.UafSubscriptionEventCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.UafSubscriptionEventCodingKeys();
-          v150 = v210;
-          OUTLINED_FUNCTION_7_1();
+          v128 = v184;
+          OUTLINED_FUNCTION_7_1(&unk_1F402E0F8, &v193);
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.UAFSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.UAFSubscriptionState();
           OUTLINED_FUNCTION_23();
           KeyedDecodingContainer.decode<A>(_:forKey:)();
           OUTLINED_FUNCTION_38();
-          v155 = v213;
           swift_unknownObjectRelease();
-          (*(v122 + 8))(v150, v150);
-          v186 = *(v155 + 8);
-          v187 = OUTLINED_FUNCTION_26();
-          v188(v187);
-          *v194 = v220;
+          (*(v99 + 8))(v128, v128);
+          v161 = OUTLINED_FUNCTION_26();
+          v162(v161);
+          *v168 = v193;
           OUTLINED_FUNCTION_41();
 LABEL_21:
           swift_storeEnumTagMultiPayload();
           OUTLINED_FUNCTION_1_2();
 LABEL_22:
           outlined init with take of AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState();
-          v173 = v219;
+          v148 = v192;
           break;
         default:
-          LOBYTE(v220) = 0;
+          LOBYTE(v193) = 0;
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.EventType.AvailabilityChangeCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.EventType.AvailabilityChangeCodingKeys();
-          v123 = v206;
-          OUTLINED_FUNCTION_7_1();
+          v100 = v180;
+          OUTLINED_FUNCTION_7_1(&unk_1F402DC78, &v193);
           lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState();
           KeyedDecodingContainer.decode<A>(_:forKey:)();
           OUTLINED_FUNCTION_38();
-          v124 = v213;
           swift_unknownObjectRelease();
-          OUTLINED_FUNCTION_24(&v219);
-          v167(v123, v106);
-          v168 = *(v124 + 8);
-          v169 = OUTLINED_FUNCTION_26();
-          v170(v169);
-          v171 = BYTE8(v220);
-          v172 = v190;
-          *v190 = v220;
-          *(v172 + 8) = v171;
+          OUTLINED_FUNCTION_24();
+          v143(v100, v83);
+          v144 = OUTLINED_FUNCTION_26();
+          v145(v144);
+          v146 = BYTE8(v193);
+          v147 = v164;
+          *v164 = v193;
+          *(v147 + 8) = v146;
           OUTLINED_FUNCTION_41();
 LABEL_20:
           swift_storeEnumTagMultiPayload();
           OUTLINED_FUNCTION_1_2();
           outlined init with take of AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState();
-          v173 = v219;
+          v148 = v192;
           break;
       }
 
       OUTLINED_FUNCTION_1_2();
       outlined init with take of AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState();
-      __swift_destroy_boxed_opaque_existential_1(v173);
+      __swift_destroy_boxed_opaque_existential_1(v148);
       goto LABEL_11;
     }
 
-    v115 = v109;
+    v92 = v86;
     goto LABEL_9;
   }
 
@@ -5951,30 +5641,29 @@ uint64_t AppleIntelligenceAssetDeliveryEvent.type.getter()
 uint64_t AppleIntelligenceAssetDeliveryEvent.init(subsystem:useCaseIdentifier:resourceSpecifiers:assetSetIdentifiers:errors:type:)@<X0>(_BYTE *a1@<X0>, _OWORD *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, unint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
   v14 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventType(0);
-  v15 = *(*(v14 - 8) + 64);
   MEMORY[0x1EEE9AC00](v14 - 8);
   OUTLINED_FUNCTION_2();
   LOBYTE(a1) = *a1;
   OUTLINED_FUNCTION_0_2();
   outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType();
   *a7 = a1;
-  v16 = a2[1];
+  v15 = a2[1];
   *(a7 + 8) = *a2;
-  *(a7 + 24) = v16;
-  v17 = a2[3];
+  *(a7 + 24) = v15;
+  v16 = a2[3];
   *(a7 + 40) = a2[2];
-  *(a7 + 56) = v17;
+  *(a7 + 56) = v16;
   *(a7 + 72) = a3;
   *(a7 + 80) = a4;
-  v18 = specialized Array.count.getter(a5);
-  if (!v18)
+  v17 = specialized Array.count.getter(a5);
+  if (!v17)
   {
 
     OUTLINED_FUNCTION_5_1();
-    outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(a6, v27);
-    v26 = MEMORY[0x1E69E7CC0];
+    outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(a6, v23);
+    v22 = MEMORY[0x1E69E7CC0];
 LABEL_10:
-    *(a7 + 88) = v26;
+    *(a7 + 88) = v22;
     OUTLINED_FUNCTION_66();
     OUTLINED_FUNCTION_1_2();
     result = outlined init with take of AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState();
@@ -5985,39 +5674,37 @@ LABEL_10:
     return result;
   }
 
-  v19 = v18;
-  v28 = MEMORY[0x1E69E7CC0];
+  v18 = v17;
+  v24 = MEMORY[0x1E69E7CC0];
   result = specialized ContiguousArray.reserveCapacity(_:)();
-  if ((v19 & 0x8000000000000000) == 0)
+  if ((v18 & 0x8000000000000000) == 0)
   {
-    v21 = 0;
+    v20 = 0;
     do
     {
       if ((a5 & 0xC000000000000001) != 0)
       {
-        v22 = MEMORY[0x1C68E2790](v21, a5);
+        MEMORY[0x1C68E2790](v20, a5);
       }
 
       else
       {
-        v23 = *(a5 + 8 * v21 + 32);
       }
 
-      ++v21;
-      specialized AppleIntelligenceError.toGeneral.getter(v22);
+      ++v20;
+      specialized AppleIntelligenceError.toGeneral.getter();
 
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v24 = *(v28 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
     }
 
-    while (v19 != v21);
+    while (v18 != v20);
     OUTLINED_FUNCTION_5_1();
-    outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(a6, v25);
+    outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(a6, v21);
 
-    v26 = v28;
+    v22 = v24;
     goto LABEL_10;
   }
 
@@ -6025,24 +5712,24 @@ LABEL_10:
   return result;
 }
 
-uint64_t AppleIntelligenceAssetDeliveryEvent.init(subsystem:useCaseIdentifier:resourceSpecifiers:assetSetIdentifiers:errors:subscriptionName:subscriberName:userIdentifier:type:)@<X0>(_BYTE *a1@<X0>, _OWORD *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, unint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, int a11, char a12)
+uint64_t AppleIntelligenceAssetDeliveryEvent.init(subsystem:useCaseIdentifier:resourceSpecifiers:assetSetIdentifiers:errors:subscriptionName:subscriberName:userIdentifier:type:)@<X0>(_BYTE *a1@<X0>, _OWORD *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, unint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, int a11, char a12, uint64_t a13)
 {
-  v17 = a2[1];
+  v18 = a2[1];
   *(a9 + 8) = *a2;
-  *(a9 + 24) = v17;
-  v18 = a2[3];
+  *(a9 + 24) = v18;
+  v19 = a2[3];
   *(a9 + 40) = a2[2];
   *a9 = *a1;
-  *(a9 + 56) = v18;
+  *(a9 + 56) = v19;
   *(a9 + 72) = a3;
   *(a9 + 80) = a4;
-  v19 = specialized Array.count.getter(a5);
-  if (!v19)
+  v20 = specialized Array.count.getter(a5);
+  if (!v20)
   {
 
-    v28 = MEMORY[0x1E69E7CC0];
+    v26 = MEMORY[0x1E69E7CC0];
 LABEL_10:
-    *(a9 + 88) = v28;
+    *(a9 + 88) = v26;
     OUTLINED_FUNCTION_66();
     OUTLINED_FUNCTION_1_2();
     result = outlined init with take of AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState();
@@ -6055,43 +5742,41 @@ LABEL_10:
     return result;
   }
 
-  v20 = v19;
-  v30 = MEMORY[0x1E69E7CC0];
+  v21 = v20;
+  v28 = MEMORY[0x1E69E7CC0];
   result = specialized ContiguousArray.reserveCapacity(_:)();
-  if ((v20 & 0x8000000000000000) == 0)
+  if ((v21 & 0x8000000000000000) == 0)
   {
-    v29 = a8;
-    v22 = a6;
-    v23 = a7;
-    v24 = 0;
+    v27 = a8;
+    v23 = a6;
+    v24 = a7;
+    v25 = 0;
     do
     {
       if ((a5 & 0xC000000000000001) != 0)
       {
-        v25 = MEMORY[0x1C68E2790](v24, a5);
+        MEMORY[0x1C68E2790](v25, a5);
       }
 
       else
       {
-        v26 = *(a5 + 8 * v24 + 32);
       }
 
-      ++v24;
-      specialized AppleIntelligenceError.toGeneral.getter(v25);
+      ++v25;
+      specialized AppleIntelligenceError.toGeneral.getter();
 
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v27 = *(v30 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
     }
 
-    while (v20 != v24);
+    while (v21 != v25);
 
-    a7 = v23;
-    a6 = v22;
-    a8 = v29;
-    v28 = v30;
+    a7 = v24;
+    a6 = v23;
+    a8 = v27;
+    v26 = v28;
     goto LABEL_10;
   }
 
@@ -6102,121 +5787,103 @@ LABEL_10:
 void closure #1 in AppleIntelligenceAssetDeliveryEvent.toReportingAssetDeliveryEvent.getter()
 {
   OUTLINED_FUNCTION_48();
-  v1 = v0;
-  v3 = v2;
-  v5 = v4;
-  v41 = type metadata accessor for AppleIntelligenceReportingGeneralError();
-  v6 = OUTLINED_FUNCTION_1(v41);
-  v8 = v7;
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v6);
+  v2 = v1;
+  v4 = v3;
+  v29 = type metadata accessor for AppleIntelligenceReportingGeneralError();
+  OUTLINED_FUNCTION_1();
+  v6 = v5;
+  MEMORY[0x1EEE9AC00](v7);
   OUTLINED_FUNCTION_2();
-  v13 = v12 - v11;
-  v14 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27IntelligencePlatformLibrary05AppleA16ReportingUseCaseVSgMd, &_s27IntelligencePlatformLibrary05AppleA16ReportingUseCaseVSgMR) - 8) + 64);
+  v10 = v9 - v8;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s27IntelligencePlatformLibrary05AppleA16ReportingUseCaseVSgMd, &_s27IntelligencePlatformLibrary05AppleA16ReportingUseCaseVSgMR);
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = v39 - v16;
-  v18 = *(v3 + 16);
-  if (v18)
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = v27 - v12;
+  v14 = *(v2 + 16);
+  if (v14)
   {
-    v43[0] = *(v3 + 8);
-    v43[1] = v18;
-    v19 = *(v3 + 40);
-    v44 = *(v3 + 24);
-    v45 = v19;
-    v46 = *(v3 + 56);
-    v20 = type metadata accessor for AppleIntelligenceReportingUseCase();
-    MEMORY[0x1EEE9AC00](v20);
-    v39[-2] = v43;
+    v31[0] = *(v2 + 8);
+    v31[1] = v14;
+    v15 = *(v2 + 40);
+    v32 = *(v2 + 24);
+    v33 = v15;
+    v34 = *(v2 + 56);
+    v16 = type metadata accessor for AppleIntelligenceReportingUseCase();
+    MEMORY[0x1EEE9AC00](v16);
+    v27[-2] = v31;
     static Buildable.with(_:)();
-    v21 = v17;
-    v22 = 0;
-    v23 = v20;
+    v17 = v13;
+    v18 = 0;
+    v19 = v16;
   }
 
   else
   {
-    v23 = type metadata accessor for AppleIntelligenceReportingUseCase();
-    v21 = v17;
-    v22 = 1;
+    v19 = type metadata accessor for AppleIntelligenceReportingUseCase();
+    v17 = v13;
+    v18 = 1;
   }
 
-  __swift_storeEnumTagSinglePayload(v21, v22, 1, v23);
+  __swift_storeEnumTagSinglePayload(v17, v18, 1, v19);
   AppleIntelligenceReportingAssetDeliveryEvent.useCase.setter();
-  v24 = MEMORY[0x1E69E7CC0];
-  if (*(v3 + 72))
-  {
-    v25 = *(v3 + 72);
-  }
+  v20 = MEMORY[0x1E69E7CC0];
 
   AppleIntelligenceReportingAssetDeliveryEvent.resourceSpecifiers.setter();
-  if (*(v3 + 80))
-  {
-    v26 = *(v3 + 80);
-  }
 
   AppleIntelligenceReportingAssetDeliveryEvent.assetSetIdentifiers.setter();
-  v42 = *(v3 + 88);
-  v27 = specialized Array.count.getter(v42);
-  if (!v27)
+  v30 = *(v2 + 88);
+  v21 = specialized Array.count.getter(v30);
+  if (!v21)
   {
-    goto LABEL_18;
+LABEL_13:
+    AppleIntelligenceReportingAssetDeliveryEvent.errors.setter();
+
+    AppleIntelligenceReportingAssetDeliveryEvent.subscriptionName.setter();
+
+    AppleIntelligenceReportingAssetDeliveryEvent.subscriberName.setter();
+    AppleIntelligenceReportingAssetDeliveryEvent.userIdentifier.setter();
+    OUTLINED_FUNCTION_47();
+    return;
   }
 
-  v28 = v27;
+  v22 = v21;
   specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-  if ((v28 & 0x8000000000000000) == 0)
+  if ((v22 & 0x8000000000000000) == 0)
   {
-    v39[2] = v1;
-    v40 = v28;
-    v39[0] = v3;
-    v39[1] = v5;
-    v29 = 0;
-    v30 = v42 & 0xC000000000000001;
+    v27[2] = v0;
+    v28 = v22;
+    v27[0] = v2;
+    v27[1] = v4;
+    v23 = 0;
+    v24 = v30 & 0xC000000000000001;
     do
     {
-      if (v30)
+      if (v24)
       {
-        MEMORY[0x1C68E2790](v29, v42);
+        MEMORY[0x1C68E2790](v23, v30);
       }
 
       else
       {
-        v31 = *(v42 + 8 * v29 + 32);
       }
 
-      specialized AppleIntelligenceError.toGeneralReportingError.getter(v13);
+      specialized AppleIntelligenceError.toGeneralReportingError.getter(v10);
 
-      v32 = v13;
-      v33 = *(v24 + 16);
-      if (v33 >= *(v24 + 24) >> 1)
+      v25 = v10;
+      v26 = *(v20 + 16);
+      if (v26 >= *(v20 + 24) >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
-      ++v29;
-      *(v24 + 16) = v33 + 1;
-      (*(v8 + 32))(v24 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v33, v32, v41);
-      v13 = v32;
+      ++v23;
+      *(v20 + 16) = v26 + 1;
+      (*(v6 + 32))(v20 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * v26, v25, v29);
+      v10 = v25;
     }
 
-    while (v40 != v29);
-    v3 = v39[0];
-LABEL_18:
-    AppleIntelligenceReportingAssetDeliveryEvent.errors.setter();
-    v35 = *(v3 + 96);
-    v34 = *(v3 + 104);
-
-    AppleIntelligenceReportingAssetDeliveryEvent.subscriptionName.setter();
-    v37 = *(v3 + 112);
-    v36 = *(v3 + 120);
-
-    AppleIntelligenceReportingAssetDeliveryEvent.subscriberName.setter();
-    v38 = *(v3 + 128);
-    v47 = *(v3 + 132);
-    AppleIntelligenceReportingAssetDeliveryEvent.userIdentifier.setter();
-    OUTLINED_FUNCTION_47();
-    return;
+    while (v28 != v23);
+    goto LABEL_13;
   }
 
   __break(1u);
@@ -6478,7 +6145,7 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ26AppleIntelligenceReporting07GeneralbC5ErrorC_Tt1g5(uint64_t a1, uint64_t a2)
+uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ26AppleIntelligenceReporting07GeneralbC5ErrorC_Tt1g5(unint64_t a1, unint64_t a2)
 {
   v4 = a1 & 0xFFFFFFFFFFFFFF8;
   v5 = (a1 >> 62);
@@ -6491,7 +6158,7 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ26AppleIntelligenceReporting07GeneralbC5E
 LABEL_3:
   if (a2 >> 62)
   {
-    if (a2 < 0)
+    if ((a2 & 0x8000000000000000) != 0)
     {
       v20 = a2;
     }
@@ -6521,7 +6188,7 @@ LABEL_3:
 
   v8 = a1 & 0xFFFFFFFFFFFFFF8;
   v4 = (a1 & 0xFFFFFFFFFFFFFF8) + 32;
-  if (a1 < 0)
+  if ((a1 & 0x8000000000000000) != 0)
   {
     v8 = a1;
   }
@@ -6533,7 +6200,7 @@ LABEL_3:
 
   v9 = a2 & 0xFFFFFFFFFFFFFF8;
   v10 = (a2 & 0xFFFFFFFFFFFFFF8) + 32;
-  if (a2 < 0)
+  if ((a2 & 0x8000000000000000) != 0)
   {
     v9 = a2;
   }
@@ -6563,7 +6230,7 @@ LABEL_41:
 LABEL_42:
         __break(1u);
 LABEL_43:
-        if (a1 < 0)
+        if ((a1 & 0x8000000000000000) != 0)
         {
           v19 = a1;
         }
@@ -6780,11 +6447,11 @@ unint64_t AppleIntelligenceAssetDeliveryEvent.CodingKeys.stringValue.getter(char
   return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AppleIntelligenceAssetDeliveryEvent.Subsystem.CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x1C68E2B10](v1);
+  MEMORY[0x1C68E2B10](v2);
   return Hasher._finalize()();
 }
 
@@ -6815,147 +6482,132 @@ void AppleIntelligenceAssetDeliveryEvent.encode(to:)()
   v2 = v0;
   v4 = v3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV10CodingKeys027_74E5A5FFCD3AA678926F1A3090M4B7D9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV10CodingKeys027_74E5A5FFCD3AA678926F1A3090M4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v5);
+  OUTLINED_FUNCTION_1();
   v7 = v6;
-  v9 = *(v8 + 64);
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v26 - v11;
-  v13 = v4[4];
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v17 - v9;
   __swift_project_boxed_opaque_existential_1(v4, v4[3]);
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v38 = *v2;
-  v37 = 0;
+  v29 = *v2;
+  v28 = 0;
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem();
   OUTLINED_FUNCTION_39();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v1)
   {
-    v14 = *(v2 + 8);
-    v15 = *(v2 + 40);
-    v34 = *(v2 + 24);
-    v35 = v15;
-    v36 = *(v2 + 56);
-    v16 = *(v2 + 24);
-    v29 = *(v2 + 8);
-    v30 = v16;
-    v31 = *(v2 + 40);
-    v32 = *(v2 + 56);
-    v33 = v14;
-    v28[79] = 1;
+    v11 = *(v2 + 8);
+    v12 = *(v2 + 40);
+    v25 = *(v2 + 24);
+    v26 = v12;
+    v27 = *(v2 + 56);
+    v13 = *(v2 + 24);
+    v20 = *(v2 + 8);
+    v21 = v13;
+    v22 = *(v2 + 40);
+    v23 = *(v2 + 56);
+    v24 = v11;
+    v19[79] = 1;
     outlined init with copy of AppleIntelligenceUseCase?();
     lazy protocol witness table accessor for type AppleIntelligenceUseCase and conformance AppleIntelligenceUseCase();
     OUTLINED_FUNCTION_39();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
     OUTLINED_FUNCTION_33();
-    outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(v28, &_s26AppleIntelligenceReporting0aB7UseCaseVSgMd, &_s26AppleIntelligenceReporting0aB7UseCaseVSgMR);
-    v27 = *(v2 + 9);
-    BYTE4(v26) = 2;
+    outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(v19, &_s26AppleIntelligenceReporting0aB7UseCaseVSgMd, &_s26AppleIntelligenceReporting0aB7UseCaseVSgMR);
+    v18 = *(v2 + 9);
+    BYTE4(v17) = 2;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-    lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [String] and conformance <A> [A]);
+    lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [String] and conformance <A> [A], MEMORY[0x1E69E6160], MEMORY[0x1E69E6300]);
     OUTLINED_FUNCTION_39();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    v27 = *(v2 + 10);
-    BYTE4(v26) = 3;
+    v18 = *(v2 + 10);
+    BYTE4(v17) = 3;
     OUTLINED_FUNCTION_39();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    v27 = *(v2 + 11);
-    BYTE4(v26) = 4;
+    v18 = *(v2 + 11);
+    BYTE4(v17) = 4;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay26AppleIntelligenceReporting07GeneralaB5ErrorCGMd, &_sSay26AppleIntelligenceReporting07GeneralaB5ErrorCGMR);
-    lazy protocol witness table accessor for type [GeneralAppleIntelligenceError] and conformance <A> [A](&lazy protocol witness table cache variable for type [GeneralAppleIntelligenceError] and conformance <A> [A], &lazy protocol witness table cache variable for type GeneralAppleIntelligenceError and conformance GeneralAppleIntelligenceError);
+    lazy protocol witness table accessor for type [GeneralAppleIntelligenceError] and conformance <A> [A](&lazy protocol witness table cache variable for type [GeneralAppleIntelligenceError] and conformance <A> [A], &lazy protocol witness table cache variable for type GeneralAppleIntelligenceError and conformance GeneralAppleIntelligenceError, &protocol conformance descriptor for GeneralAppleIntelligenceError, MEMORY[0x1E69E6300]);
     OUTLINED_FUNCTION_44();
     OUTLINED_FUNCTION_39();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v17 = *(v2 + 12);
-    v18 = *(v2 + 13);
-    LOBYTE(v27) = 5;
+    LOBYTE(v18) = 5;
     OUTLINED_FUNCTION_39();
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-    v19 = *(v2 + 14);
-    v20 = *(v2 + 15);
-    LOBYTE(v27) = 6;
+    LOBYTE(v18) = 6;
     OUTLINED_FUNCTION_39();
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-    v21 = *(v2 + 32);
-    v22 = v2[132];
-    LOBYTE(v27) = 7;
-    BYTE4(v26) = v22;
+    v14 = v2[132];
+    LOBYTE(v18) = 7;
+    BYTE4(v17) = v14;
     OUTLINED_FUNCTION_39();
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-    v23 = *(type metadata accessor for AppleIntelligenceAssetDeliveryEvent(0) + 48);
-    LOBYTE(v27) = 8;
+    type metadata accessor for AppleIntelligenceAssetDeliveryEvent(0);
+    LOBYTE(v18) = 8;
     type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventType(0);
     OUTLINED_FUNCTION_31();
-    lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(v24, v25);
+    lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(v15, v16, &protocol conformance descriptor for AppleIntelligenceAssetDeliveryEvent.EventType);
     OUTLINED_FUNCTION_44();
     OUTLINED_FUNCTION_39();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  (*(v7 + 8))(v12, v5);
+  (*(v7 + 8))(v10, v5);
   OUTLINED_FUNCTION_47();
 }
 
-void AppleIntelligenceAssetDeliveryEvent.init(from:)()
+void AppleIntelligenceAssetDeliveryEvent.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_48();
-  v2 = v1;
-  v41 = v3;
-  v4 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventType(0);
-  v5 = OUTLINED_FUNCTION_9(v4);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5);
+  v25 = v24;
+  v49[2] = v26;
+  v27 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventType(0);
+  OUTLINED_FUNCTION_9();
+  MEMORY[0x1EEE9AC00](v28);
   OUTLINED_FUNCTION_2();
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV10CodingKeys027_74E5A5FFCD3AA678926F1A3090M4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV10CodingKeys027_74E5A5FFCD3AA678926F1A3090M4B7D9LLOGMR);
-  OUTLINED_FUNCTION_1(v42);
-  v9 = v8;
-  v11 = *(v10 + 64);
+  v49[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV10CodingKeys027_74E5A5FFCD3AA678926F1A3090M4B7D9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV10CodingKeys027_74E5A5FFCD3AA678926F1A3090M4B7D9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v30 = v29;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v39 - v13;
-  v15 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent(0);
-  v16 = OUTLINED_FUNCTION_9(v15);
-  v18 = *(v17 + 64);
-  MEMORY[0x1EEE9AC00](v16);
+  MEMORY[0x1EEE9AC00](v31);
+  v33 = v49 - v32;
+  v34 = type metadata accessor for AppleIntelligenceAssetDeliveryEvent(0);
+  OUTLINED_FUNCTION_9();
+  MEMORY[0x1EEE9AC00](v35);
   OUTLINED_FUNCTION_2();
-  v44 = (v20 - v19);
-  v45 = v2;
-  v21 = v2[4];
-  v22 = __swift_project_boxed_opaque_existential_1(v2, v2[3]);
+  v50 = (v37 - v36);
+  v51 = v25;
+  v38 = __swift_project_boxed_opaque_existential_1(v25, v25[3]);
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.CodingKeys();
-  v43 = v14;
+  v49[4] = v33;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v23)
   {
     OUTLINED_FUNCTION_25();
-    v23 = v44;
-    __swift_destroy_boxed_opaque_existential_1(v45);
-    if (v14)
+    __swift_destroy_boxed_opaque_existential_1(v51);
+    if (v33)
     {
-      v25 = v23[10];
 
-      if ((v9 & 1) == 0)
+      if ((v30 & 1) == 0)
       {
 LABEL_10:
-        if (v4)
+        if (v27)
         {
 LABEL_11:
-          v26 = v23[13];
 
-          if ((v22 & 1) == 0)
+          if ((v38 & 1) == 0)
           {
             goto LABEL_13;
           }
 
 LABEL_12:
-          v27 = v23[15];
 
           goto LABEL_13;
         }
 
 LABEL_6:
-        if (!v22)
+        if (!v38)
         {
           goto LABEL_13;
         }
@@ -6964,14 +6616,12 @@ LABEL_6:
       }
     }
 
-    else if (!v9)
+    else if (!v30)
     {
       goto LABEL_10;
     }
 
-    v24 = v23[11];
-
-    if (v4)
+    if (v27)
     {
       goto LABEL_11;
     }
@@ -6979,58 +6629,57 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v40 = v15;
-  LOBYTE(v46) = 0;
+  v49[1] = v34;
+  LOBYTE(v52) = 0;
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.Subsystem and conformance AppleIntelligenceAssetDeliveryEvent.Subsystem();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v28 = v44;
-  *v44 = v47;
+  v39 = v50;
+  *v50 = v53;
   lazy protocol witness table accessor for type AppleIntelligenceUseCase and conformance AppleIntelligenceUseCase();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v29 = v48;
-  *(v28 + 8) = v47;
-  *(v28 + 24) = v29;
-  v30 = v50;
-  *(v28 + 40) = v49;
-  *(v28 + 56) = v30;
+  v40 = v54;
+  *(v39 + 8) = v53;
+  *(v39 + 24) = v40;
+  v41 = v56;
+  *(v39 + 40) = v55;
+  *(v39 + 56) = v41;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-  lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [String] and conformance <A> [A]);
+  lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [String] and conformance <A> [A], MEMORY[0x1E69E6190], MEMORY[0x1E69E6330]);
   OUTLINED_FUNCTION_49();
   OUTLINED_FUNCTION_43();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  *(v28 + 72) = v46;
+  *(v39 + 72) = v52;
   OUTLINED_FUNCTION_49();
   OUTLINED_FUNCTION_43();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  *(v28 + 80) = v46;
+  *(v39 + 80) = v52;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay26AppleIntelligenceReporting07GeneralaB5ErrorCGMd, &_sSay26AppleIntelligenceReporting07GeneralaB5ErrorCGMR);
-  lazy protocol witness table accessor for type [GeneralAppleIntelligenceError] and conformance <A> [A](&lazy protocol witness table cache variable for type [GeneralAppleIntelligenceError] and conformance <A> [A], &lazy protocol witness table cache variable for type GeneralAppleIntelligenceError and conformance GeneralAppleIntelligenceError);
+  lazy protocol witness table accessor for type [GeneralAppleIntelligenceError] and conformance <A> [A](&lazy protocol witness table cache variable for type [GeneralAppleIntelligenceError] and conformance <A> [A], &lazy protocol witness table cache variable for type GeneralAppleIntelligenceError and conformance GeneralAppleIntelligenceError, &protocol conformance descriptor for GeneralAppleIntelligenceError, MEMORY[0x1E69E6330]);
   OUTLINED_FUNCTION_43();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  *(v28 + 88) = v46;
+  *(v39 + 88) = v52;
   OUTLINED_FUNCTION_28(5);
-  *(v28 + 96) = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  *(v28 + 104) = v31;
+  *(v39 + 96) = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  *(v39 + 104) = v42;
   OUTLINED_FUNCTION_28(6);
-  *(v28 + 112) = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  *(v28 + 120) = v32;
+  *(v39 + 112) = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  *(v39 + 120) = v43;
   OUTLINED_FUNCTION_28(7);
-  v33 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  *(v28 + 128) = v33;
-  *(v28 + 132) = BYTE4(v33) & 1;
-  LOBYTE(v46) = 8;
+  v44 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  *(v39 + 128) = v44;
+  *(v39 + 132) = BYTE4(v44) & 1;
+  LOBYTE(v52) = 8;
   OUTLINED_FUNCTION_31();
-  lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(v34, v35);
+  lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(v45, v46, &protocol conformance descriptor for AppleIntelligenceAssetDeliveryEvent.EventType);
   OUTLINED_FUNCTION_43();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v36 = OUTLINED_FUNCTION_12();
-  v37(v36);
-  v38 = *(v40 + 48);
+  v47 = OUTLINED_FUNCTION_12();
+  v48(v47);
   OUTLINED_FUNCTION_1_2();
   outlined init with take of AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState();
   outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType();
-  __swift_destroy_boxed_opaque_existential_1(v45);
-  outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v28, type metadata accessor for AppleIntelligenceAssetDeliveryEvent);
+  __swift_destroy_boxed_opaque_existential_1(v51);
+  outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(v39, type metadata accessor for AppleIntelligenceAssetDeliveryEvent);
 LABEL_13:
   OUTLINED_FUNCTION_47();
 }
@@ -7052,7 +6701,7 @@ uint64_t specialized == infix<A>(_:_:)()
   return v5 & 1;
 }
 
-void _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC26AppleIntelligenceReporting0jK18AssetDeliveryEventV29ModelCatalogSubscriptionStateV0R6ActionO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLO_Tt1g5(uint64_t a1, uint64_t a2)
+void _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC26AppleIntelligenceReporting0jK18AssetDeliveryEventV29ModelCatalogSubscriptionStateV0R6ActionO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLO_Tt1g5(uint64_t result, uint64_t a2)
 {
   if (__OFSUB__(0, a2))
   {
@@ -7060,7 +6709,7 @@ void _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0V
     goto LABEL_7;
   }
 
-  v2 = *(a1 + 16);
+  v2 = *(result + 16);
   v3 = __OFADD__(a2, v2);
   v4 = a2 + v2;
   if (v3)
@@ -7087,11 +6736,11 @@ LABEL_9:
   __break(1u);
 }
 
-uint64_t outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(uint64_t a1, uint64_t (*a2)(void))
+uint64_t outlined destroy of AppleIntelligenceAssetDeliveryEvent.EventType(uint64_t a1, void (*a2)(void))
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_9(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  OUTLINED_FUNCTION_9();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
@@ -7732,15 +7381,14 @@ unint64_t lazy protocol witness table accessor for type AppleIntelligenceAssetDe
 uint64_t outlined init with take of AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState()
 {
   OUTLINED_FUNCTION_61();
-  v2 = v1(0);
-  OUTLINED_FUNCTION_9(v2);
-  v4 = *(v3 + 32);
-  v5 = OUTLINED_FUNCTION_50();
-  v6(v5);
+  v1(0);
+  OUTLINED_FUNCTION_9();
+  v2 = OUTLINED_FUNCTION_50();
+  v3(v2);
   return v0;
 }
 
-uint64_t lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7755,9 +7403,9 @@ uint64_t lazy protocol witness table accessor for type AppleIntelligenceAssetDel
 
 uint64_t outlined destroy of (AppleIntelligenceAssetDeliveryEvent.EventType, AppleIntelligenceAssetDeliveryEvent.EventType)(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
-  OUTLINED_FUNCTION_9(v4);
-  (*(v5 + 8))(a1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  OUTLINED_FUNCTION_9();
+  (*(v4 + 8))(a1);
   return a1;
 }
 
@@ -7863,7 +7511,7 @@ unint64_t lazy protocol witness table accessor for type AppleIntelligenceUseCase
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [String] and conformance <A> [A](unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type [String] and conformance <A> [A](unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7876,13 +7524,13 @@ uint64_t lazy protocol witness table accessor for type [String] and conformance 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [GeneralAppleIntelligenceError] and conformance <A> [A](unint64_t *a1, unint64_t *a2)
+uint64_t lazy protocol witness table accessor for type [GeneralAppleIntelligenceError] and conformance <A> [A](unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay26AppleIntelligenceReporting07GeneralaB5ErrorCGMd, &_sSay26AppleIntelligenceReporting07GeneralaB5ErrorCGMR);
-    lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(a2, type metadata accessor for GeneralAppleIntelligenceError);
+    lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(a2, type metadata accessor for GeneralAppleIntelligenceError, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7893,33 +7541,32 @@ uint64_t lazy protocol witness table accessor for type [GeneralAppleIntelligence
 uint64_t outlined init with copy of AppleIntelligenceAssetDeliveryEvent.EventType()
 {
   OUTLINED_FUNCTION_61();
-  v2 = v1(0);
-  OUTLINED_FUNCTION_9(v2);
-  v4 = *(v3 + 16);
-  v5 = OUTLINED_FUNCTION_50();
-  v6(v5);
+  v1(0);
+  OUTLINED_FUNCTION_9();
+  v2 = OUTLINED_FUNCTION_50();
+  v3(v2);
   return v0;
 }
 
-void type metadata completion function for AppleIntelligenceAssetDeliveryEvent()
+void type metadata completion function for AppleIntelligenceAssetDeliveryEvent(uint64_t a1)
 {
-  type metadata accessor for AppleIntelligenceUseCase?(319, &lazy cache variable for type metadata for AppleIntelligenceUseCase?);
-  if (v0 <= 0x3F)
+  type metadata accessor for AppleIntelligenceUseCase?(319, &lazy cache variable for type metadata for AppleIntelligenceUseCase?, &type metadata for AppleIntelligenceUseCase);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for [String]?();
-    if (v1 <= 0x3F)
+    type metadata accessor for [String]?(319);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for [GeneralAppleIntelligenceError]();
-      if (v2 <= 0x3F)
+      type metadata accessor for [GeneralAppleIntelligenceError](319);
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for AppleIntelligenceUseCase?(319, &lazy cache variable for type metadata for String?);
-        if (v3 <= 0x3F)
+        type metadata accessor for AppleIntelligenceUseCase?(319, &lazy cache variable for type metadata for String?, MEMORY[0x1E69E6158]);
+        if (v4 <= 0x3F)
         {
-          type metadata accessor for AppleIntelligenceUseCase?(319, &lazy cache variable for type metadata for UInt32?);
-          if (v4 <= 0x3F)
+          type metadata accessor for AppleIntelligenceUseCase?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x1E69E7668]);
+          if (v5 <= 0x3F)
           {
             type metadata accessor for AppleIntelligenceAssetDeliveryEvent.EventType(319);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -7930,48 +7577,48 @@ void type metadata completion function for AppleIntelligenceAssetDeliveryEvent()
   }
 }
 
-void type metadata accessor for [String]?()
+void type metadata accessor for [String]?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for [String]?)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySSGMd, &_sSaySSGMR);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [String]?);
+      atomic_store(v1, &lazy cache variable for type metadata for [String]?);
     }
   }
 }
 
-void type metadata accessor for [GeneralAppleIntelligenceError]()
+void type metadata accessor for [GeneralAppleIntelligenceError](uint64_t a1)
 {
   if (!lazy cache variable for type metadata for [GeneralAppleIntelligenceError])
   {
-    type metadata accessor for GeneralAppleIntelligenceError();
-    v0 = type metadata accessor for Array();
-    if (!v1)
+    type metadata accessor for GeneralAppleIntelligenceError(255);
+    v1 = type metadata accessor for Array();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [GeneralAppleIntelligenceError]);
+      atomic_store(v1, &lazy cache variable for type metadata for [GeneralAppleIntelligenceError]);
     }
   }
 }
 
-void type metadata accessor for AppleIntelligenceUseCase?(uint64_t a1, unint64_t *a2)
+void type metadata accessor for AppleIntelligenceUseCase?(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
-    v3 = type metadata accessor for Optional();
-    if (!v4)
+    v4 = type metadata accessor for Optional();
+    if (!v5)
     {
-      atomic_store(v3, a2);
+      atomic_store(v4, a2);
     }
   }
 }
 
-uint64_t type metadata completion function for AppleIntelligenceAssetDeliveryEvent.EventType()
+uint64_t type metadata completion function for AppleIntelligenceAssetDeliveryEvent.EventType(uint64_t a1)
 {
-  result = type metadata accessor for AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState();
-  if (v1 <= 0x3F)
+  result = type metadata accessor for AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState(319);
+  if (v2 <= 0x3F)
   {
     swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
     return 0;
@@ -8470,41 +8117,23 @@ LABEL_12:
 uint64_t outlined init with copy of AppleIntelligenceUseCase?()
 {
   OUTLINED_FUNCTION_61();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_9(v3);
-  v5 = *(v4 + 16);
-  v6 = OUTLINED_FUNCTION_50();
-  v7(v6);
+  __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_9();
+  v3 = OUTLINED_FUNCTION_50();
+  v4(v3);
   return v0;
 }
 
-void OUTLINED_FUNCTION_6_1(uint64_t a1@<X8>)
-{
-  v3 = *(a1 - 256) + 8;
-  v4 = *(v2 - 312) + 8;
-  *(v2 - 600) = v1;
-}
-
-uint64_t OUTLINED_FUNCTION_10_0()
+uint64_t OUTLINED_FUNCTION_10_0(uint64_t a1, uint64_t a2)
 {
 
   return KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
 }
 
-uint64_t OUTLINED_FUNCTION_14_0()
+uint64_t OUTLINED_FUNCTION_14_0(uint64_t a1, uint64_t a2)
 {
-  v2 = *(v0 - 120);
-  v3 = *(v0 - 112);
 
   return KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-}
-
-uint64_t OUTLINED_FUNCTION_28@<X0>(char a1@<W8>)
-{
-  *(v1 - 152) = a1;
-  result = v1 - 152;
-  v3 = *(v1 - 176);
-  return result;
 }
 
 __n128 OUTLINED_FUNCTION_33()
@@ -8519,9 +8148,8 @@ __n128 OUTLINED_FUNCTION_33()
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_42_0()
+uint64_t OUTLINED_FUNCTION_42_0(uint64_t a1)
 {
-  v2 = *(v0 - 72);
 
   return KeyedEncodingContainer.encode<A>(_:forKey:)();
 }
@@ -8532,28 +8160,13 @@ uint64_t OUTLINED_FUNCTION_53()
   return outlined init with copy of AppleIntelligenceUseCase?();
 }
 
-uint64_t OUTLINED_FUNCTION_54()
-{
-  v3 = *v0;
-  result = v1;
-  v5 = *(v2 - 272);
-  return result;
-}
-
 uint64_t OUTLINED_FUNCTION_65(uint64_t a1)
 {
 
   return MEMORY[0x1EEE6A460](a1, 0xD00000000000002BLL, v1 | 0x8000000000000000, 0);
 }
 
-uint64_t OUTLINED_FUNCTION_66()
-{
-  result = type metadata accessor for AppleIntelligenceAssetDeliveryEvent(0);
-  v1 = *(result + 48);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_67()
+uint64_t OUTLINED_FUNCTION_67(uint64_t a1)
 {
 
   return KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -8608,24 +8221,20 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.encode(to:)()
 {
   OUTLINED_FUNCTION_48();
-  v2 = v1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO14RestrictedInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO14RestrictedInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  OUTLINED_FUNCTION_1(v3);
-  v5 = *(v4 + 64);
+  v1 = v0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO14RestrictedInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO14RestrictedInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v6);
+  MEMORY[0x1EEE9AC00](v2);
   OUTLINED_FUNCTION_3_2();
-  v7 = *v0;
-  v8 = v2[3];
-  v9 = v2[4];
-  OUTLINED_FUNCTION_17_0(v2);
+  OUTLINED_FUNCTION_17_0(v1);
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.CodingKeys();
   OUTLINED_FUNCTION_50_0();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.RestrictedReasons and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.RestrictedReasons();
   OUTLINED_FUNCTION_130();
-  v10 = OUTLINED_FUNCTION_58_0();
-  v11(v10);
+  v3 = OUTLINED_FUNCTION_58_0();
+  v4(v3);
   OUTLINED_FUNCTION_65_0();
   OUTLINED_FUNCTION_47();
 }
@@ -8742,30 +8351,29 @@ unint64_t lazy protocol witness table accessor for type AppleIntelligenceAssetDe
   return result;
 }
 
-void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_48();
   OUTLINED_FUNCTION_54_0();
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO14RestrictedInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO14RestrictedInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  OUTLINED_FUNCTION_1(v13);
-  v15 = *(v14 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO14RestrictedInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO14RestrictedInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v16);
+  MEMORY[0x1EEE9AC00](v23);
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.CodingKeys();
-  OUTLINED_FUNCTION_31_0();
-  if (!v11)
+  v24 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.CodingKeys();
+  OUTLINED_FUNCTION_31_0(&unk_1F402FE20, v25, v24);
+  if (!v21)
   {
     lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.RestrictedReasons and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo.RestrictedReasons();
     OUTLINED_FUNCTION_35_0();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v17 = OUTLINED_FUNCTION_19_1();
-    v18(v17);
-    *v12 = a10;
+    v26 = OUTLINED_FUNCTION_19_1();
+    v27(v26);
+    *v22 = a10;
   }
 
-  __swift_destroy_boxed_opaque_existential_1(v10);
+  __swift_destroy_boxed_opaque_existential_1(v20);
   OUTLINED_FUNCTION_80();
   OUTLINED_FUNCTION_47();
 }
@@ -8805,24 +8413,20 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo.encode(to:)()
 {
   OUTLINED_FUNCTION_48();
-  v2 = v1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  OUTLINED_FUNCTION_1(v3);
-  v5 = *(v4 + 64);
+  v1 = v0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v6);
+  MEMORY[0x1EEE9AC00](v2);
   OUTLINED_FUNCTION_3_2();
-  v7 = *v0;
-  v8 = v2[3];
-  v9 = v2[4];
-  OUTLINED_FUNCTION_17_0(v2);
+  OUTLINED_FUNCTION_17_0(v1);
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo.CodingKeys();
   OUTLINED_FUNCTION_50_0();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo.UnavailableReasons and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo.UnavailableReasons();
   OUTLINED_FUNCTION_130();
-  v10 = OUTLINED_FUNCTION_58_0();
-  v11(v10);
+  v3 = OUTLINED_FUNCTION_58_0();
+  v4(v3);
   OUTLINED_FUNCTION_65_0();
   OUTLINED_FUNCTION_47();
 }
@@ -8939,30 +8543,29 @@ unint64_t lazy protocol witness table accessor for type AppleIntelligenceAssetDe
   return result;
 }
 
-void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_48();
   OUTLINED_FUNCTION_54_0();
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  OUTLINED_FUNCTION_1(v13);
-  v15 = *(v14 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO15UnavailableInfoV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v16);
+  MEMORY[0x1EEE9AC00](v23);
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo.CodingKeys();
-  OUTLINED_FUNCTION_31_0();
-  if (!v11)
+  v24 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo.CodingKeys();
+  OUTLINED_FUNCTION_31_0(&unk_1F402FD90, v25, v24);
+  if (!v21)
   {
     lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo.UnavailableReasons and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo.UnavailableReasons();
     OUTLINED_FUNCTION_35_0();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v17 = OUTLINED_FUNCTION_19_1();
-    v18(v17);
-    *v12 = a10;
+    v26 = OUTLINED_FUNCTION_19_1();
+    v27(v26);
+    *v22 = a10;
   }
 
-  __swift_destroy_boxed_opaque_existential_1(v10);
+  __swift_destroy_boxed_opaque_existential_1(v20);
   OUTLINED_FUNCTION_80();
   OUTLINED_FUNCTION_47();
 }
@@ -9164,105 +8767,100 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.encode(to:)()
+void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_48();
-  v4 = v0;
-  v6 = v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO21UnavailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO21UnavailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  v48 = OUTLINED_FUNCTION_1(v7);
-  v9 = *(v8 + 64);
+  v24 = v20;
+  v26 = v25;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO21UnavailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO21UnavailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v54 = v27;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v10);
+  MEMORY[0x1EEE9AC00](v28);
   OUTLINED_FUNCTION_19_0();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO20RestrictedCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO20RestrictedCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  v12 = OUTLINED_FUNCTION_1(v11);
-  v46 = v13;
-  v47 = v12;
-  v15 = *(v14 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO20RestrictedCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO20RestrictedCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v52 = v30;
+  v53 = v29;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v16);
+  MEMORY[0x1EEE9AC00](v31);
   OUTLINED_FUNCTION_36();
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO19AvailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO19AvailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  OUTLINED_FUNCTION_1(v17);
-  v19 = *(v18 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v20);
-  OUTLINED_FUNCTION_19_0();
-  OUTLINED_FUNCTION_125(v21);
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO17UnknownCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO17UnknownCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  v23 = OUTLINED_FUNCTION_1(v22);
-  v44 = v24;
-  v45 = v23;
-  v26 = *(v25 + 64);
-  OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v27);
-  OUTLINED_FUNCTION_12_0();
-  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  OUTLINED_FUNCTION_1(v49);
-  v29 = v28;
-  v31 = *(v30 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO19AvailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO19AvailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_17();
   MEMORY[0x1EEE9AC00](v32);
+  OUTLINED_FUNCTION_19_0();
+  OUTLINED_FUNCTION_125(v33);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO17UnknownCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO17UnknownCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v50 = v35;
+  v51 = v34;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v36);
+  OUTLINED_FUNCTION_12_0();
+  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v38 = v37;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v39);
   OUTLINED_FUNCTION_14();
-  v33 = *v4;
-  v34 = *(v4 + 8);
-  v35 = v6[4];
-  OUTLINED_FUNCTION_28_0(v6, v6[3]);
+  v40 = *v24;
+  v41 = *(v24 + 8);
+  OUTLINED_FUNCTION_28_0(v26, v26[3]);
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  if (!v34)
+  if (!v41)
   {
     lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedCodingKeys();
-    v36 = v49;
+    v42 = v55;
     OUTLINED_FUNCTION_30_0();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
     lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedInfo();
-    v37 = v47;
+    v43 = v53;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v39 = *(v46 + 8);
-    v38 = v3;
+    v45 = *(v52 + 8);
+    v44 = v23;
     goto LABEL_5;
   }
 
-  if (v34 == 1)
+  if (v41 == 1)
   {
     lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableCodingKeys();
-    v36 = v49;
+    v42 = v55;
     OUTLINED_FUNCTION_30_0();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
     lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableInfo();
-    v37 = v48;
+    v43 = v54;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v38 = OUTLINED_FUNCTION_68();
+    v44 = OUTLINED_FUNCTION_68();
 LABEL_5:
-    v39(v38, v37);
-    (*(v29 + 8))(v1, v36);
+    v45(v44, v43);
+    (*(v38 + 8))(v21, v42);
     goto LABEL_10;
   }
 
-  if (v33)
+  if (v40)
   {
     lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.AvailableCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.AvailableCodingKeys();
-    v40 = v49;
+    v46 = v55;
     OUTLINED_FUNCTION_114();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v41 = OUTLINED_FUNCTION_123();
+    v47 = OUTLINED_FUNCTION_123();
   }
 
   else
   {
     lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnknownCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnknownCodingKeys();
-    v40 = v49;
+    v46 = v55;
     OUTLINED_FUNCTION_114();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v42 = v45;
-    v43 = *(v44 + 8);
-    v41 = v2;
+    v48 = v51;
+    v49 = *(v50 + 8);
+    v47 = v22;
   }
 
-  v43(v41, v42);
-  (*(v29 + 8))(v1, v40);
+  v49(v47, v48);
+  (*(v38 + 8))(v21, v46);
 LABEL_10:
   OUTLINED_FUNCTION_65_0();
   OUTLINED_FUNCTION_47();
@@ -9517,112 +9115,105 @@ unint64_t lazy protocol witness table accessor for type AppleIntelligenceAssetDe
   return result;
 }
 
-void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_48();
-  v114 = v11;
-  v13 = v12;
-  v110 = v14;
-  v112 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO21UnavailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO21UnavailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  OUTLINED_FUNCTION_1(v112);
-  v108 = v15;
-  v17 = *(v16 + 64);
+  v106 = v21;
+  v23 = v22;
+  v102 = v24;
+  v104 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO21UnavailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO21UnavailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v100 = v25;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v18);
-  OUTLINED_FUNCTION_22_0(v19, v98);
-  v107 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO20RestrictedCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO20RestrictedCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  OUTLINED_FUNCTION_1(v107);
-  v109 = v20;
-  v22 = *(v21 + 64);
+  MEMORY[0x1EEE9AC00](v26);
+  OUTLINED_FUNCTION_22_0(v27, v90);
+  v99 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO20RestrictedCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO20RestrictedCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v101 = v28;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v23);
+  MEMORY[0x1EEE9AC00](v29);
   OUTLINED_FUNCTION_19_0();
-  v111 = v24;
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO19AvailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO19AvailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  v26 = OUTLINED_FUNCTION_1(v25);
-  v105 = v27;
-  v106 = v26;
-  v29 = *(v28 + 64);
+  v103 = v30;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO19AvailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO19AvailableCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v97 = v32;
+  v98 = v31;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v30);
+  MEMORY[0x1EEE9AC00](v33);
   OUTLINED_FUNCTION_20();
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO17UnknownCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO17UnknownCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  OUTLINED_FUNCTION_1(v31);
-  v104 = v32;
-  v34 = *(v33 + 64);
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO17UnknownCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO17UnknownCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v96 = v35;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v35);
-  v37 = &v98 - v36;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
-  OUTLINED_FUNCTION_1(v38);
-  v40 = v39;
-  v42 = *(v41 + 64);
+  MEMORY[0x1EEE9AC00](v36);
+  v38 = &v90 - v37;
+  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV6StatusO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v41 = v40;
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v43);
+  MEMORY[0x1EEE9AC00](v42);
   OUTLINED_FUNCTION_36();
-  v44 = v13[3];
-  v45 = v13[4];
-  v113 = v13;
-  OUTLINED_FUNCTION_28_0(v13, v44);
+  v43 = v23[3];
+  v105 = v23;
+  OUTLINED_FUNCTION_28_0(v23, v43);
   lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.CodingKeys();
-  v46 = v114;
+  v44 = v106;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v46)
+  if (!v44)
   {
-    v101 = v31;
-    v102 = v37;
-    v103 = v10;
-    v114 = v40;
-    v47 = KeyedDecodingContainer.allKeys.getter();
-    _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC26AppleIntelligenceReporting0jK18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLO_Tt1g5(v47, 0);
-    v49 = v38;
-    if (v50 != v48 >> 1)
+    v93 = v34;
+    v94 = v38;
+    v95 = v20;
+    v106 = v41;
+    KeyedDecodingContainer.allKeys.getter();
+    _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC26AppleIntelligenceReporting0jK18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLO_Tt1g5();
+    v46 = v39;
+    if (v47 != v45 >> 1)
     {
       OUTLINED_FUNCTION_61_0();
-      v100 = 0;
+      v92 = 0;
       OUTLINED_FUNCTION_116();
-      if (v53 == v54)
+      if (v50 == v51)
       {
         __break(1u);
         return;
       }
 
-      v99 = *(v52 + v51);
-      specialized ArraySlice.subscript.getter(v51 + 1);
-      v56 = v55;
-      v58 = v57;
+      v91 = *(v49 + v48);
+      specialized ArraySlice.subscript.getter();
+      v53 = v52;
+      v55 = v54;
       swift_unknownObjectRelease();
-      if (v56 == v58 >> 1)
+      if (v53 == v55 >> 1)
       {
-        v60 = v109;
-        v59 = v110;
-        switch(v99)
+        v56 = v102;
+        switch(v91)
         {
           case 1:
             lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.AvailableCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.AvailableCodingKeys();
             OUTLINED_FUNCTION_10_1();
-            v82 = v100;
+            v76 = v92;
             KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-            if (v82)
+            if (v76)
             {
               goto LABEL_15;
             }
 
             swift_unknownObjectRelease();
-            v83 = OUTLINED_FUNCTION_89();
-            v84(v83);
-            v85 = OUTLINED_FUNCTION_24_0();
-            v86(v85);
-            v67 = 2;
-            v66 = 1;
+            v77 = OUTLINED_FUNCTION_89();
+            v78(v77);
+            v79 = OUTLINED_FUNCTION_24_0();
+            v80(v79);
+            v63 = 2;
+            v62 = 1;
             goto LABEL_22;
           case 2:
             LOBYTE(a10) = 2;
             lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.RestrictedCodingKeys();
             OUTLINED_FUNCTION_10_1();
-            v78 = v100;
+            v72 = v92;
             KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-            if (v78)
+            if (v72)
             {
               goto LABEL_15;
             }
@@ -9631,21 +9222,20 @@ void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.init(from:)(ui
             OUTLINED_FUNCTION_114();
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             swift_unknownObjectRelease();
-            v87 = *(v60 + 8);
-            v88 = OUTLINED_FUNCTION_106();
-            v89(v88);
-            v90 = OUTLINED_FUNCTION_96();
-            v91(v90);
-            v67 = 0;
-            v66 = a10;
+            v81 = OUTLINED_FUNCTION_106();
+            v82(v81);
+            v83 = OUTLINED_FUNCTION_96();
+            v84(v83);
+            v63 = 0;
+            v62 = a10;
             goto LABEL_22;
           case 3:
             LOBYTE(a10) = 3;
             lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnavailableCodingKeys();
             OUTLINED_FUNCTION_10_1();
-            v81 = v100;
+            v75 = v92;
             KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-            if (v81)
+            if (v75)
             {
               goto LABEL_15;
             }
@@ -9654,103 +9244,78 @@ void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.init(from:)(ui
             OUTLINED_FUNCTION_114();
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             swift_unknownObjectRelease();
-            v92 = *(v108 + 8);
-            v93 = OUTLINED_FUNCTION_106();
-            v94(v93);
-            v95 = OUTLINED_FUNCTION_96();
-            v96(v95);
-            v66 = a10;
-            v67 = 1;
+            v85 = OUTLINED_FUNCTION_106();
+            v86(v85);
+            v87 = OUTLINED_FUNCTION_96();
+            v88(v87);
+            v62 = a10;
+            v63 = 1;
             goto LABEL_22;
           default:
             lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnknownCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status.UnknownCodingKeys();
             OUTLINED_FUNCTION_10_1();
-            v61 = v100;
+            v57 = v92;
             KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-            if (v61)
+            if (v57)
             {
 LABEL_15:
-              v79 = OUTLINED_FUNCTION_24_0();
-              v80(v79);
+              v73 = OUTLINED_FUNCTION_24_0();
+              v74(v73);
               swift_unknownObjectRelease();
-              v77 = v113;
+              v71 = v105;
               goto LABEL_12;
             }
 
             swift_unknownObjectRelease();
-            v62 = OUTLINED_FUNCTION_89();
-            v63(v62, v101);
-            v64 = OUTLINED_FUNCTION_24_0();
-            v65(v64);
-            v66 = 0;
-            v67 = 2;
+            v58 = OUTLINED_FUNCTION_89();
+            v59(v58, v93);
+            v60 = OUTLINED_FUNCTION_24_0();
+            v61(v60);
+            v62 = 0;
+            v63 = 2;
 LABEL_22:
-            v97 = v113;
-            *v59 = v66;
-            *(v59 + 8) = v67;
-            __swift_destroy_boxed_opaque_existential_1(v97);
+            v89 = v105;
+            *v56 = v62;
+            *(v56 + 8) = v63;
+            __swift_destroy_boxed_opaque_existential_1(v89);
             break;
         }
 
         goto LABEL_13;
       }
 
-      v49 = v38;
+      v46 = v39;
     }
 
-    v68 = type metadata accessor for DecodingError();
-    OUTLINED_FUNCTION_134();
-    v70 = v69;
-    v71 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v70 = &type metadata for AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status;
-    v72 = KeyedDecodingContainer.codingPath.getter();
-    OUTLINED_FUNCTION_65(v72);
-    v73 = *MEMORY[0x1E69E6AF8];
-    OUTLINED_FUNCTION_42(v68);
-    (*(v74 + 104))(v70);
+    v64 = type metadata accessor for DecodingError();
+    OUTLINED_FUNCTION_134(v64, MEMORY[0x1E69E6B28]);
+    v66 = v65;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v66 = &type metadata for AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status;
+    v67 = KeyedDecodingContainer.codingPath.getter();
+    OUTLINED_FUNCTION_65(v67);
+    OUTLINED_FUNCTION_42();
+    (*(v68 + 104))(v66);
     swift_willThrow();
     swift_unknownObjectRelease();
-    v75 = OUTLINED_FUNCTION_68();
-    v76(v75, v49);
+    v69 = OUTLINED_FUNCTION_68();
+    v70(v69, v46);
   }
 
-  v77 = v113;
+  v71 = v105;
 LABEL_12:
-  __swift_destroy_boxed_opaque_existential_1(v77);
+  __swift_destroy_boxed_opaque_existential_1(v71);
 LABEL_13:
   OUTLINED_FUNCTION_41_0();
   OUTLINED_FUNCTION_47();
-}
-
-void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.status.getter(uint64_t a1@<X8>)
-{
-  v2 = *v1;
-  v3 = *(v1 + 8);
-  OUTLINED_FUNCTION_32_0(a1);
-}
-
-void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.init(status:)(uint64_t a1@<X8>, uint64_t *a2@<X0>)
-{
-  v2 = *a2;
-  v3 = *(a2 + 8);
-  OUTLINED_FUNCTION_32_0(a1);
-}
-
-uint64_t AppleIntelligenceAssetDeliveryEvent.AvailabilityState.toReportingAvailabilityState.getter()
-{
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  type metadata accessor for AppleIntelligenceReportingAvailabilityLog.AvailabilityState();
-  return OUTLINED_FUNCTION_4_1();
 }
 
 void closure #1 in AppleIntelligenceAssetDeliveryEvent.AvailabilityState.toReportingAvailabilityState.getter(uint64_t a1, uint64_t a2, unsigned __int8 a3)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27IntelligencePlatformLibrary05AppleA24ReportingAvailabilityLogV0F5StateV4InfoVSgMd, &_s27IntelligencePlatformLibrary05AppleA24ReportingAvailabilityLogV0F5StateV4InfoVSgMR);
   OUTLINED_FUNCTION_29(v5);
-  v7 = *(v6 + 64);
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v8);
+  MEMORY[0x1EEE9AC00](v6);
   OUTLINED_FUNCTION_14();
   if (a3 > 1u)
   {
@@ -9765,28 +9330,27 @@ void closure #1 in AppleIntelligenceAssetDeliveryEvent.AvailabilityState.toRepor
 
   else
   {
-    v9 = type metadata accessor for AppleIntelligenceReportingAvailabilityLog.AvailabilityState.Info();
-    MEMORY[0x1EEE9AC00](v9);
+    v7 = type metadata accessor for AppleIntelligenceReportingAvailabilityLog.AvailabilityState.Info();
+    MEMORY[0x1EEE9AC00](v7);
     OUTLINED_FUNCTION_92();
-    *(v10 - 16) = a2;
+    *(v8 - 16) = a2;
     static Buildable.with(_:)();
   }
 
   OUTLINED_FUNCTION_5_2();
-  __swift_storeEnumTagSinglePayload(v11, v12, v13, v14);
+  __swift_storeEnumTagSinglePayload(v9, v10, v11, v12);
   AppleIntelligenceReportingAvailabilityLog.AvailabilityState.info.setter();
 }
 
 uint64_t closure #1 in closure #1 in AppleIntelligenceAssetDeliveryEvent.AvailabilityState.toReportingAvailabilityState.getter()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27IntelligencePlatformLibrary05AppleA24ReportingAvailabilityLogV0F5StateV6StatusOSgMd, &_s27IntelligencePlatformLibrary05AppleA24ReportingAvailabilityLogV0F5StateV6StatusOSgMR);
-  v1 = *(*(v0 - 8) + 64);
   MEMORY[0x1EEE9AC00](v0 - 8);
-  v3 = &v7 - v2;
-  v4 = *MEMORY[0x1E69AA180];
-  v5 = type metadata accessor for AppleIntelligenceReportingAvailabilityLog.AvailabilityState.Status();
-  (*(*(v5 - 8) + 104))(v3, v4, v5);
-  __swift_storeEnumTagSinglePayload(v3, 0, 1, v5);
+  v2 = &v6 - v1;
+  v3 = *MEMORY[0x1E69AA180];
+  v4 = type metadata accessor for AppleIntelligenceReportingAvailabilityLog.AvailabilityState.Status();
+  (*(*(v4 - 8) + 104))(v2, v3, v4);
+  __swift_storeEnumTagSinglePayload(v2, 0, 1, v4);
   return AppleIntelligenceReportingAvailabilityLog.AvailabilityState.Info.status.setter();
 }
 
@@ -9794,15 +9358,14 @@ uint64_t closure #2 in closure #1 in AppleIntelligenceAssetDeliveryEvent.Availab
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27IntelligencePlatformLibrary05AppleA24ReportingAvailabilityLogV0F5StateV6StatusOSgMd, &_s27IntelligencePlatformLibrary05AppleA24ReportingAvailabilityLogV0F5StateV6StatusOSgMR);
   OUTLINED_FUNCTION_29(v5);
-  v7 = *(v6 + 64);
   OUTLINED_FUNCTION_17();
-  MEMORY[0x1EEE9AC00](v8);
+  MEMORY[0x1EEE9AC00](v6);
   OUTLINED_FUNCTION_3_2();
-  v9 = *a3;
-  v10 = type metadata accessor for AppleIntelligenceReportingAvailabilityLog.AvailabilityState.Status();
-  OUTLINED_FUNCTION_9(v10);
-  (*(v11 + 104))(v3, v9, v10);
-  __swift_storeEnumTagSinglePayload(v3, 0, 1, v10);
+  v7 = *a3;
+  v8 = type metadata accessor for AppleIntelligenceReportingAvailabilityLog.AvailabilityState.Status();
+  OUTLINED_FUNCTION_9();
+  (*(v9 + 104))(v3, v7, v8);
+  __swift_storeEnumTagSinglePayload(v3, 0, 1, v8);
   AppleIntelligenceReportingAvailabilityLog.AvailabilityState.Info.status.setter();
   return AppleIntelligenceReportingAvailabilityLog.AvailabilityState.Info.reasons.setter();
 }
@@ -9871,4 +9434,443 @@ uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AppleI
   result = AppleIntelligenceAssetDeliveryEvent.AvailabilityState.CodingKeys.init(stringValue:)(a1, a2);
   *a3 = result & 1;
   return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.CodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.CodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.encode(to:)()
+{
+  OUTLINED_FUNCTION_48();
+  v1 = v0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v2);
+  OUTLINED_FUNCTION_3_2();
+  OUTLINED_FUNCTION_17_0(v1);
+  lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.CodingKeys();
+  OUTLINED_FUNCTION_50_0();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status();
+  KeyedEncodingContainer.encode<A>(_:forKey:)();
+  v3 = OUTLINED_FUNCTION_58_0();
+  v4(v3);
+  OUTLINED_FUNCTION_65_0();
+  OUTLINED_FUNCTION_47();
+}
+
+void AppleIntelligenceAssetDeliveryEvent.AvailabilityState.init(from:)()
+{
+  OUTLINED_FUNCTION_48();
+  v2 = v1;
+  v4 = v3;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV17AvailabilityStateV10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v5);
+  OUTLINED_FUNCTION_7_2();
+  OUTLINED_FUNCTION_2_4();
+  lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.CodingKeys();
+  OUTLINED_FUNCTION_39_1();
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (!v0)
+  {
+    lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status and conformance AppleIntelligenceAssetDeliveryEvent.AvailabilityState.Status();
+    OUTLINED_FUNCTION_35_0();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v6 = OUTLINED_FUNCTION_18_0();
+    v7(v6);
+    *v4 = v8;
+    *(v4 + 8) = v9;
+  }
+
+  __swift_destroy_boxed_opaque_existential_1(v2);
+  OUTLINED_FUNCTION_126();
+  OUTLINED_FUNCTION_47();
+}
+
+uint64_t AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v4 = a1 == 0x6E776F6E6B6E75 && a2 == 0xE700000000000000;
+  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else
+  {
+    v6 = a1 == 0xD000000000000012 && 0x80000001C0CDEEF0 == a2;
+    if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    {
+
+      return 1;
+    }
+
+    else
+    {
+      v7 = a1 == 0x6C616E7265746E69 && a2 == 0xEC0000006C6F6F54;
+      if (v7 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+      {
+
+        return 2;
+      }
+
+      else if (a1 == 0x656C756465686373 && a2 == 0xE900000000000064)
+      {
+
+        return 3;
+      }
+
+      else
+      {
+        v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+        if (v9)
+        {
+          return 3;
+        }
+
+        else
+        {
+          return 4;
+        }
+      }
+    }
+  }
+}
+
+unint64_t AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys.stringValue.getter(char a1)
+{
+  result = 0x6E776F6E6B6E75;
+  switch(a1)
+  {
+    case 1:
+      result = 0xD000000000000012;
+      break;
+    case 2:
+      result = 0x6C616E7265746E69;
+      break;
+    case 3:
+      result = 0x656C756465686373;
+      break;
+    default:
+      return result;
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.AvailabilityChangeCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.AvailabilityChangeCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.AvailabilityChangeCodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.AvailabilityChangeCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.AvailabilityChangeCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.AvailabilityChangeCodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+{
+  result = AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys.init(stringValue:)(a1, a2);
+  *a3 = result;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.InternalToolCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.InternalToolCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.InternalToolCodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.InternalToolCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.InternalToolCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.InternalToolCodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.ScheduledCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.ScheduledCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.ScheduledCodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.ScheduledCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.ScheduledCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.ScheduledCodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.UnknownCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.UnknownCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.UnknownCodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.UnknownCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.UnknownCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.UnknownCodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+void AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+{
+  OUTLINED_FUNCTION_48();
+  a23 = v27;
+  a24 = v28;
+  OUTLINED_FUNCTION_112();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO19ScheduledCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO19ScheduledCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v29);
+  OUTLINED_FUNCTION_22_0(v30, v43);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO22InternalToolCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO22InternalToolCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v31);
+  OUTLINED_FUNCTION_23_0(v32, v44);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO28AvailabilityChangeCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO28AvailabilityChangeCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v33);
+  OUTLINED_FUNCTION_19_0();
+  OUTLINED_FUNCTION_125(v34);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO17UnknownCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO17UnknownCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v35);
+  OUTLINED_FUNCTION_3_2();
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedEncodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  v38 = v37;
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v39);
+  OUTLINED_FUNCTION_12_0();
+  v40 = *v24;
+  OUTLINED_FUNCTION_17_0(v26);
+  lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys();
+  OUTLINED_FUNCTION_66_0();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  switch(v40)
+  {
+    case 1:
+      OUTLINED_FUNCTION_119();
+      lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.AvailabilityChangeCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.AvailabilityChangeCodingKeys();
+      OUTLINED_FUNCTION_26_0(&unk_1F402FA40, &a12);
+      goto LABEL_6;
+    case 2:
+      OUTLINED_FUNCTION_122();
+      lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.InternalToolCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.InternalToolCodingKeys();
+      OUTLINED_FUNCTION_26_0(&unk_1F402FA60, &a13);
+      goto LABEL_6;
+    case 3:
+      OUTLINED_FUNCTION_91();
+      lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.ScheduledCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.ScheduledCodingKeys();
+      OUTLINED_FUNCTION_26_0(&unk_1F402FA80, &a14);
+LABEL_6:
+      v41 = OUTLINED_FUNCTION_89();
+      break;
+    default:
+      lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.UnknownCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.UnknownCodingKeys();
+      OUTLINED_FUNCTION_34_0();
+      KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
+      v41 = OUTLINED_FUNCTION_123();
+      break;
+  }
+
+  v42(v41);
+  (*(v38 + 8))(v25, v36);
+  OUTLINED_FUNCTION_47();
+}
+
+void AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+{
+  OUTLINED_FUNCTION_48();
+  a23 = v26;
+  a24 = v27;
+  OUTLINED_FUNCTION_112();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO19ScheduledCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO19ScheduledCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v28);
+  OUTLINED_FUNCTION_19_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO22InternalToolCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO22InternalToolCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v29);
+  OUTLINED_FUNCTION_23_0(v30, v59);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO28AvailabilityChangeCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO28AvailabilityChangeCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v31);
+  OUTLINED_FUNCTION_7_2();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO17UnknownCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO17UnknownCodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v32);
+  OUTLINED_FUNCTION_3_2();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMd, &_ss22KeyedDecodingContainerVy26AppleIntelligenceReporting0dE18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLOGMR);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x1EEE9AC00](v33);
+  OUTLINED_FUNCTION_8_2();
+  v34 = v25[4];
+  OUTLINED_FUNCTION_28_0(v25, v25[3]);
+  lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.CodingKeys();
+  OUTLINED_FUNCTION_67_0();
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (!v62)
+  {
+    OUTLINED_FUNCTION_87();
+    _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC26AppleIntelligenceReporting0jK18AssetDeliveryEventV29ModelCatalogSubscriptionStateV7TriggerO10CodingKeys33_6F138B03DD9B0984CD2C748D071535E9LLO_Tt1g5();
+    if (v36 != v35 >> 1)
+    {
+      OUTLINED_FUNCTION_61_0();
+      OUTLINED_FUNCTION_116();
+      if (v42 == v43)
+      {
+        __break(1u);
+        return;
+      }
+
+      OUTLINED_FUNCTION_118(v37, v38, v39, v40, v41);
+      specialized ArraySlice.subscript.getter();
+      OUTLINED_FUNCTION_129();
+      if (v24 == v34 >> 1)
+      {
+        OUTLINED_FUNCTION_117();
+        switch(v44)
+        {
+          case 1:
+            OUTLINED_FUNCTION_119();
+            lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.AvailabilityChangeCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.AvailabilityChangeCodingKeys();
+            OUTLINED_FUNCTION_27_0(&unk_1F402FA40, &a12);
+            swift_unknownObjectRelease();
+            goto LABEL_14;
+          case 2:
+            OUTLINED_FUNCTION_122();
+            lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.InternalToolCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.InternalToolCodingKeys();
+            OUTLINED_FUNCTION_27_0(&unk_1F402FA60, &a13);
+            swift_unknownObjectRelease();
+LABEL_14:
+            v45 = OUTLINED_FUNCTION_88();
+            goto LABEL_15;
+          case 3:
+            OUTLINED_FUNCTION_91();
+            lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.ScheduledCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.ScheduledCodingKeys();
+            OUTLINED_FUNCTION_44_0();
+            KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
+            swift_unknownObjectRelease();
+            v55 = OUTLINED_FUNCTION_86();
+            v56(v55);
+            goto LABEL_16;
+          default:
+            a11 = 0;
+            lazy protocol witness table accessor for type AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.UnknownCodingKeys and conformance AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger.UnknownCodingKeys();
+            OUTLINED_FUNCTION_27_0(&unk_1F402FA20, &a11);
+            swift_unknownObjectRelease();
+            v45 = OUTLINED_FUNCTION_88();
+            v47 = v61;
+LABEL_15:
+            v46(v45, v47);
+LABEL_16:
+            v57 = OUTLINED_FUNCTION_63_0();
+            v58(v57);
+            MEMORY[0] = v60;
+            __swift_destroy_boxed_opaque_existential_1(0);
+            break;
+        }
+
+        goto LABEL_10;
+      }
+    }
+
+    v48 = OUTLINED_FUNCTION_132();
+    OUTLINED_FUNCTION_134(v48, MEMORY[0x1E69E6B28]);
+    v50 = v49;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v50 = &type metadata for AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.Trigger;
+    v51 = KeyedDecodingContainer.codingPath.getter();
+    OUTLINED_FUNCTION_65(v51);
+    OUTLINED_FUNCTION_42();
+    (*(v52 + 104))(v50);
+    swift_willThrow();
+    swift_unknownObjectRelease();
+    v53 = OUTLINED_FUNCTION_86();
+    v54(v53);
+    v25 = 0;
+  }
+
+  __swift_destroy_boxed_opaque_existential_1(v25);
+LABEL_10:
+  OUTLINED_FUNCTION_65_0();
+  OUTLINED_FUNCTION_47();
+}
+
+uint64_t AppleIntelligenceAssetDeliveryEvent.ModelCatalogSubscriptionState.SubscriptionAction.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v4 = a1 == 0x6269726373627573 && a2 == 0xE900000000000065;
+  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else if (a1 == 0x7263736275736E75 && a2 == 0xEB00000000656269)
+  {
+
+    return 1;
+  }
+
+  else
+  {
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v7)
+    {
+      return 1;
+    }
+
+    else
+    {
+      return 2;
+    }
+  }
 }

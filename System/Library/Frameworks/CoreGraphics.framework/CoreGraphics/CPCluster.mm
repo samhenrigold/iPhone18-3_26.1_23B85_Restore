@@ -1716,7 +1716,7 @@ LABEL_16:
 LABEL_14:
     v14->var2 = levels;
 LABEL_15:
-    [(CPCluster *)self clusterStatisticsAtIndex:v11];
+    objc_msgSend_clusterStatisticsAtIndex_(self);
     v18 = v23;
     goto LABEL_16;
   }
@@ -2119,7 +2119,7 @@ LABEL_37:
 {
   if (cluster)
   {
-    [cluster differenceClusterStatisticsAtIndex:0];
+    objc_msgSend_differenceClusterStatisticsAtIndex_(cluster, a2, 0);
   }
 
   *letterGap = fabs(0.0) * 0.00000011920929 + 1.17549435e-38 + 0.0;
@@ -2127,7 +2127,7 @@ LABEL_37:
   {
     if (cluster)
     {
-      [cluster differenceClusterStatisticsAtIndex:1];
+      objc_msgSend_differenceClusterStatisticsAtIndex_(cluster);
       *gap = fabs(0.0) * 0.00000011920929 + 1.17549435e-38 + 0.0;
     }
 

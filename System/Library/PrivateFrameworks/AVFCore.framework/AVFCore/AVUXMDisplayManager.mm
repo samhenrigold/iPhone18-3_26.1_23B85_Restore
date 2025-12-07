@@ -66,6 +66,7 @@ id __47__AVUXMDisplayManager_preferredDisplayCriteria__block_invoke(uint64_t a1)
 
 void *__51__AVUXMDisplayManager_setPreferredDisplayCriteria___block_invoke(void *result)
 {
+  v4 = *MEMORY[0x1E69E9840];
   v1 = *(result[4] + 8);
   if (v1 != result[5])
   {

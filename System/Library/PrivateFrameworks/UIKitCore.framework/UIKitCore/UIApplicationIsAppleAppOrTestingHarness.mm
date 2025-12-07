@@ -9,7 +9,7 @@ void ___UIApplicationIsAppleAppOrTestingHarness_block_invoke()
   byte_1EA9946E4 = [v0 hasPrefix:@"com.apple."];
 
   v1 = +[UIApplication displayIdentifier];
-  byte_1EA9946E5 = [v1 isEqualToString:@"com.ios.uikit.TestingHarness"];
+  byte_1EA9946E5 = objc_msgSend_isEqualToString_(v1);
 }
 
 @end

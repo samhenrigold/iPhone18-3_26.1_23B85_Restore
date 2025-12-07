@@ -54,22 +54,20 @@ void sub_29C9E89B8(uint64_t a1)
 
 void sub_29C9E8C70(uint64_t a1, char a2, void *a3)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
     v6 = shcore_log_object();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_29C9E7000, v6, OS_LOG_TYPE_ERROR, "Failed to access Shazam, %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_29C9E7000, v6, OS_LOG_TYPE_ERROR, "Failed to access Shazam, %@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C9E9094(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -147,18 +145,16 @@ uint64_t sub_29C9E93DC(uint64_t a1, char a2)
 
 void sub_29C9E93FC(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = a2;
   if (v2)
   {
     v3 = shcore_log_object();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_29C9E7000, v3, OS_LOG_TYPE_ERROR, "Failed to present Shazam Library with error: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_29C9E7000, v3, OS_LOG_TYPE_ERROR, "Failed to present Shazam Library with error: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }

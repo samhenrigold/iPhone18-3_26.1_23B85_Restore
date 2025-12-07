@@ -34,7 +34,7 @@ void __73__RPNearFieldActiveClient_startDiscoveryWithApplicationLabel_completion
   v5 = a2;
   if (gLogCategory_RPNearFieldClient <= 90 && (gLogCategory_RPNearFieldClient != -1 || _LogCategory_Initialize()))
   {
-    __73__RPNearFieldActiveClient_startDiscoveryWithApplicationLabel_completion___block_invoke_cold_1();
+    __73__RPNearFieldActiveClient_startDiscoveryWithApplicationLabel_completion___block_invoke_cold_1(v5);
   }
 
   v3 = _Block_copy(*(a1 + 32));
@@ -47,13 +47,12 @@ void __73__RPNearFieldActiveClient_startDiscoveryWithApplicationLabel_completion
 
 void __73__RPNearFieldActiveClient_startDiscoveryWithApplicationLabel_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  if (v6)
+  v5 = a2;
+  if (v5)
   {
     if (gLogCategory_RPNearFieldClient <= 90 && (gLogCategory_RPNearFieldClient != -1 || _LogCategory_Initialize()))
     {
-      v5 = *(a1 + 32);
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPNearFieldClient, "[RPNearFieldActiveClient startDiscoveryWithApplicationLabel:completion:]_block_invoke_2", 90, "### Start Active Discovery with application label:%@ failed: %{error}\n", *(a1 + 32), v5);
     }
   }
 
@@ -66,7 +65,7 @@ void __73__RPNearFieldActiveClient_startDiscoveryWithApplicationLabel_completion
   v4 = v3;
   if (v3)
   {
-    (*(v3 + 2))(v3, v6);
+    (*(v3 + 2))(v3, v5);
   }
 }
 

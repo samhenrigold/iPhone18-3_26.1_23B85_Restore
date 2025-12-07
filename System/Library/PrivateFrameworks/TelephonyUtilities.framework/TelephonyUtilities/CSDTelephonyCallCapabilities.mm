@@ -36,6 +36,10 @@
 - (void)setSecondaryThumperAccounts:(id)accounts;
 - (void)setThumperCallingAllowed:(BOOL)allowed onSecondaryDeviceWithID:(id)d forSenderIdentityWithUUID:(id)iD;
 - (void)setThumperCallingAssociatedAccountID:(id)d;
+- (void)setThumperCallingEnabled:(BOOL)enabled forSenderIdentityWithUUID:(id)d;
+- (void)setVoLTECallingEnabled:(BOOL)enabled forSenderIdentityWithUUID:(id)d;
+- (void)setWiFiCallingEnabled:(BOOL)enabled forSenderIdentityWithUUID:(id)d;
+- (void)setWiFiCallingRoamingEnabled:(BOOL)enabled forSenderIdentityWithUUID:(id)d;
 - (void)subscriptionsDidChangeForClient:(id)client;
 @end
 
@@ -173,15 +177,15 @@
     secondaryThumperAccounts = self->_secondaryThumperAccounts;
     self->_secondaryThumperAccounts = v7;
 
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004778(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = self->_secondaryThumperAccounts;
-      v11 = 138412546;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Secondary Thumper accounts changed from %@ to %@", &v11, 0x16u);
+      v11 = self->_secondaryThumperAccounts;
+      v12 = 138412546;
+      v13 = v6;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Secondary Thumper accounts changed from %@ to %@", &v12, 0x16u);
     }
   }
 }
@@ -211,232 +215,351 @@
   dispatch_assert_queue_V2(queue);
 
   secondaryThumperAccounts = [(CSDTelephonyCallCapabilities *)self secondaryThumperAccounts];
-  v48 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [devicesCopy count]);
-  v62 = 0u;
+  v49 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [devicesCopy count]);
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
   v11 = devicesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v62 objects:v74 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v63 objects:v75 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v63;
+    v14 = *v64;
     do
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v63 != v14)
+        if (*v64 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v62 + 1) + 8 * i);
+        v16 = *(*(&v63 + 1) + 8 * i);
         uniqueIDOverride = [v16 uniqueIDOverride];
 
         if (uniqueIDOverride)
         {
           uniqueIDOverride2 = [v16 uniqueIDOverride];
-          [v48 setObject:v16 forKeyedSubscript:uniqueIDOverride2];
+          [v49 setObject:v16 forKeyedSubscript:uniqueIDOverride2];
         }
 
         else
         {
-          uniqueIDOverride2 = sub_100004778();
+          uniqueIDOverride2 = sub_100004778(v18);
           if (os_log_type_enabled(uniqueIDOverride2, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v69 = v16;
+            v70 = v16;
             _os_log_impl(&_mh_execute_header, uniqueIDOverride2, OS_LOG_TYPE_DEFAULT, "[WARN] Skipping device %@ because uniqueIDOverride is nil", buf, 0xCu);
           }
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v62 objects:v74 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v63 objects:v75 count:16];
     }
 
     while (v13);
   }
 
-  v19 = sub_100004778();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v21 = sub_100004778(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v69 = secondaryThumperAccounts;
-    v70 = 2112;
-    v71 = v11;
-    v72 = 2112;
-    v73 = iCopy;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Attempting to find primary Thumper account in accounts: %@ devices: %@ outgoingCallerIDURI: %@", buf, 0x20u);
+    v70 = secondaryThumperAccounts;
+    v71 = 2112;
+    v72 = v11;
+    v73 = 2112;
+    v74 = iCopy;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Attempting to find primary Thumper account in accounts: %@ devices: %@ outgoingCallerIDURI: %@", buf, 0x20u);
   }
 
-  v60 = 0u;
   v61 = 0u;
-  v58 = 0u;
+  v62 = 0u;
   v59 = 0u;
-  v20 = secondaryThumperAccounts;
-  v47 = [v20 countByEnumeratingWithState:&v58 objects:v67 count:16];
-  if (!v47)
+  v60 = 0u;
+  v22 = secondaryThumperAccounts;
+  v48 = [v22 countByEnumeratingWithState:&v59 objects:v68 count:16];
+  if (!v48)
   {
 
+    v40 = 0;
     v38 = 0;
-    v36 = 0;
-    v21 = 0;
-    v39 = 0;
+    v23 = 0;
+    v41 = 0;
     goto LABEL_52;
   }
 
-  v44 = v11;
-  obj = v20;
-  v21 = 0;
-  v50 = 0;
+  obj = v22;
+  v23 = 0;
   v51 = 0;
-  v46 = *v59;
+  v52 = 0;
+  v47 = *v60;
   do
   {
-    v22 = 0;
+    v24 = 0;
     do
     {
-      if (*v59 != v46)
+      if (*v60 != v47)
       {
         objc_enumerationMutation(obj);
       }
 
-      v49 = v22;
-      v23 = *(*(&v58 + 1) + 8 * v22);
-      phoneNumberURI = [v23 phoneNumberURI];
-      primaryDeviceID = [v23 primaryDeviceID];
-      v26 = [v48 objectForKeyedSubscript:primaryDeviceID];
+      v50 = v24;
+      v25 = *(*(&v59 + 1) + 8 * v24);
+      phoneNumberURI = [v25 phoneNumberURI];
+      primaryDeviceID = [v25 primaryDeviceID];
+      v28 = [v49 objectForKeyedSubscript:primaryDeviceID];
 
-      v56 = 0u;
       v57 = 0u;
-      v54 = 0u;
+      v58 = 0u;
       v55 = 0u;
-      linkedUserURIs = [v26 linkedUserURIs];
-      v28 = [linkedUserURIs countByEnumeratingWithState:&v54 objects:v66 count:16];
-      if (v28)
+      v56 = 0u;
+      linkedUserURIs = [v28 linkedUserURIs];
+      v30 = [linkedUserURIs countByEnumeratingWithState:&v55 objects:v67 count:16];
+      if (v30)
       {
-        v29 = v28;
-        v30 = *v55;
+        v31 = v30;
+        v32 = *v56;
         do
         {
-          for (j = 0; j != v29; j = j + 1)
+          for (j = 0; j != v31; ++j)
           {
-            if (*v55 != v30)
+            if (*v56 != v32)
             {
               objc_enumerationMutation(linkedUserURIs);
             }
 
-            v32 = *(*(&v54 + 1) + 8 * j);
-            if (TUStringsAreCaseInsensitiveEqual() && (!slotsCopy || [v23 availableDeviceSlots] >= 1))
+            if (TUStringsAreCaseInsensitiveEqual() && (!slotsCopy || [v25 availableDeviceSlots] >= 1))
             {
-              v33 = v23;
+              v34 = v25;
 
-              if ([v26 isDefaultPairedDevice])
+              if ([v28 isDefaultPairedDevice])
               {
-                v34 = v33;
+                v35 = v34;
 
-                v50 = v34;
+                v51 = v35;
               }
 
               if (TUStringsAreCaseInsensitiveEqual())
               {
-                v21 = v33;
+                v23 = v34;
 
-                v51 = v21;
+                v52 = v23;
               }
 
               else
               {
-                v21 = v33;
+                v23 = v34;
               }
             }
           }
 
-          v29 = [linkedUserURIs countByEnumeratingWithState:&v54 objects:v66 count:16];
+          v31 = [linkedUserURIs countByEnumeratingWithState:&v55 objects:v67 count:16];
         }
 
-        while (v29);
+        while (v31);
       }
 
-      v22 = v49 + 1;
+      v24 = v50 + 1;
     }
 
-    while ((v49 + 1) != v47);
-    v47 = [obj countByEnumeratingWithState:&v58 objects:v67 count:16];
+    while ((v50 + 1) != v48);
+    v48 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
   }
 
-  while (v47);
+  while (v48);
 
-  if (v50)
+  if (v51)
   {
-    v35 = sub_100004778();
-    v11 = v44;
-    v36 = v51;
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v37 = sub_100004778(v36);
+    v38 = v52;
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v69 = v50;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Found default paired device; setting primary Thumper account to %@", buf, 0xCu);
+      v70 = v51;
+      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Found default paired device; setting primary Thumper account to %@", buf, 0xCu);
     }
 
-    v37 = v50;
-    v38 = v37;
+    v39 = v51;
+    v40 = v39;
+  }
+
+  else if (v52)
+  {
+    v42 = sub_100004778(v36);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v70 = iCopy;
+      v71 = 2112;
+      v72 = v52;
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Found matching outgoing caller ID %@; setting primary Thumper account to %@", buf, 0x16u);
+    }
+
+    v39 = v52;
+    v38 = v39;
+    v40 = 0;
   }
 
   else
   {
-    v11 = v44;
-    if (v51)
-    {
-      v40 = sub_100004778();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412546;
-        v69 = iCopy;
-        v70 = 2112;
-        v71 = v51;
-        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Found matching outgoing caller ID %@; setting primary Thumper account to %@", buf, 0x16u);
-      }
-
-      v37 = v51;
-      v36 = v37;
-      v38 = 0;
-    }
-
-    else
+    v40 = 0;
+    if (!v23 || rI)
     {
       v38 = 0;
-      if (!v21 || rI)
-      {
-        v36 = 0;
-        v39 = 0;
-        goto LABEL_51;
-      }
-
-      v41 = sub_100004778();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412546;
-        v69 = iCopy;
-        v70 = 2112;
-        v71 = obj;
-        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "No primary Thumper account found for outgoingRelayCallerID %@ but requireMatchingCallerID is NO. Arbitrarily choosing last Thumper account from list: %@", buf, 0x16u);
-      }
-
-      v37 = v21;
-      v21 = v37;
-      v38 = 0;
-      v36 = 0;
+      v41 = 0;
+      goto LABEL_51;
     }
+
+    v43 = sub_100004778(v36);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v70 = iCopy;
+      v71 = 2112;
+      v72 = obj;
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "No primary Thumper account found for outgoingRelayCallerID %@ but requireMatchingCallerID is NO. Arbitrarily choosing last Thumper account from list: %@", buf, 0x16u);
+    }
+
+    v39 = v23;
+    v23 = v39;
+    v40 = 0;
+    v38 = 0;
   }
 
-  v39 = v37;
+  v41 = v39;
 LABEL_51:
-  v20 = obj;
+  v22 = obj;
 LABEL_52:
 
-  return v39;
+  return v41;
+}
+
+- (void)setVoLTECallingEnabled:(BOOL)enabled forSenderIdentityWithUUID:(id)d
+{
+  enabledCopy = enabled;
+  dCopy = d;
+  queue = [(CSDTelephonyCallCapabilities *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v8 = [(CSDTelephonyCallCapabilities *)self _subscriptionWithUUID:dCopy];
+  if (v8)
+  {
+    coreTelephonyClient = [(CSDTelephonyCallCapabilities *)self coreTelephonyClient];
+    [coreTelephonyClient setSubscription:v8 capability:kCTCapabilityAgent enabled:enabledCopy info:0];
+  }
+
+  else
+  {
+    v10 = sub_100004778(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      subscriptions = [(CSDTelephonyCallCapabilities *)self subscriptions];
+      v12 = 138412546;
+      v13 = dCopy;
+      v14 = 2112;
+      v15 = subscriptions;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find subscription with UUID %@. All subscriptions: %@", &v12, 0x16u);
+    }
+  }
+}
+
+- (void)setWiFiCallingEnabled:(BOOL)enabled forSenderIdentityWithUUID:(id)d
+{
+  enabledCopy = enabled;
+  dCopy = d;
+  queue = [(CSDTelephonyCallCapabilities *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v8 = [(CSDTelephonyCallCapabilities *)self _subscriptionWithUUID:dCopy];
+  if (v8)
+  {
+    coreTelephonyClient = [(CSDTelephonyCallCapabilities *)self coreTelephonyClient];
+    [coreTelephonyClient setSubscription:v8 capability:kCTCapabilityAgent2 enabled:enabledCopy info:0];
+  }
+
+  else
+  {
+    v10 = sub_100004778(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      subscriptions = [(CSDTelephonyCallCapabilities *)self subscriptions];
+      v12 = 138412546;
+      v13 = dCopy;
+      v14 = 2112;
+      v15 = subscriptions;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find subscription with UUID %@. All subscriptions: %@", &v12, 0x16u);
+    }
+  }
+}
+
+- (void)setWiFiCallingRoamingEnabled:(BOOL)enabled forSenderIdentityWithUUID:(id)d
+{
+  enabledCopy = enabled;
+  dCopy = d;
+  queue = [(CSDTelephonyCallCapabilities *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v8 = [(CSDTelephonyCallCapabilities *)self _subscriptionWithUUID:dCopy];
+  if (v8)
+  {
+    senderIdentityCapabilitiesStateByUUID = [(CSDTelephonyCallCapabilities *)self senderIdentityCapabilitiesStateByUUID];
+    v10 = [senderIdentityCapabilitiesStateByUUID objectForKeyedSubscript:dCopy];
+
+    coreTelephonyClient = [(CSDTelephonyCallCapabilities *)self coreTelephonyClient];
+    v12 = kCTCapabilityAgent2;
+    wiFiCallingCapabilitiesState = [v10 wiFiCallingCapabilitiesState];
+    isEnabled = [wiFiCallingCapabilitiesState isEnabled];
+    v22 = kPSWifiCallingRoamingEnabled;
+    v15 = [NSNumber numberWithBool:enabledCopy];
+    v23 = v15;
+    v16 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    [coreTelephonyClient setSubscription:v8 capability:v12 enabled:isEnabled info:v16];
+  }
+
+  else
+  {
+    v10 = sub_100004778(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      subscriptions = [(CSDTelephonyCallCapabilities *)self subscriptions];
+      v18 = 138412546;
+      v19 = dCopy;
+      v20 = 2112;
+      v21 = subscriptions;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find subscription with UUID %@. All subscriptions: %@", &v18, 0x16u);
+    }
+  }
+}
+
+- (void)setThumperCallingEnabled:(BOOL)enabled forSenderIdentityWithUUID:(id)d
+{
+  enabledCopy = enabled;
+  dCopy = d;
+  queue = [(CSDTelephonyCallCapabilities *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v8 = [(CSDTelephonyCallCapabilities *)self _subscriptionWithUUID:dCopy];
+  if (v8)
+  {
+    coreTelephonyClient = [(CSDTelephonyCallCapabilities *)self coreTelephonyClient];
+    [coreTelephonyClient setSubscription:v8 capability:kCTCapabilityPhoneServices enabled:enabledCopy info:0];
+  }
+
+  else
+  {
+    v10 = sub_100004778(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      subscriptions = [(CSDTelephonyCallCapabilities *)self subscriptions];
+      v12 = 138412546;
+      v13 = dCopy;
+      v14 = 2112;
+      v15 = subscriptions;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find subscription with UUID %@. All subscriptions: %@", &v12, 0x16u);
+    }
+  }
 }
 
 - (NSString)associatedThumperAccountID
@@ -465,14 +588,14 @@ LABEL_52:
     lastSavedAccountIDByCapability2 = [(CSDTelephonyCallCapabilities *)self lastSavedAccountIDByCapability];
     [lastSavedAccountIDByCapability2 setObject:dCopy forKeyedSubscript:v6];
 
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100004778(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412546;
-      v12 = v8;
-      v13 = 2112;
-      v14 = dCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Associated Thumper account ID changed from %@ to %@", &v11, 0x16u);
+      v12 = 138412546;
+      v13 = v8;
+      v14 = 2112;
+      v15 = dCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Associated Thumper account ID changed from %@ to %@", &v12, 0x16u);
     }
   }
 }
@@ -484,42 +607,43 @@ LABEL_52:
   dispatch_assert_queue_V2(queue);
 
   associatedThumperAccountID = [(CSDTelephonyCallCapabilities *)self associatedThumperAccountID];
-  v7 = sub_100004778();
+  v7 = sub_100004778(associatedThumperAccountID);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v16 = dCopy;
-    v17 = 2112;
-    v18 = associatedThumperAccountID;
+    v17 = dCopy;
+    v18 = 2112;
+    v19 = associatedThumperAccountID;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Comparing specified Thumper account ID %@ to cached associated Thumper account ID %@", buf, 0x16u);
   }
 
-  if ((TUStringsAreCaseInsensitiveEqualOrNil() & 1) == 0)
+  v8 = TUStringsAreCaseInsensitiveEqualOrNil();
+  if ((v8 & 1) == 0)
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004778(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = dCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Sending CommCenter a request to set associated Thumper account ID to %@", buf, 0xCu);
+      v17 = dCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Sending CommCenter a request to set associated Thumper account ID to %@", buf, 0xCu);
     }
 
     coreTelephonyClient = [(CSDTelephonyCallCapabilities *)self coreTelephonyClient];
-    v10 = kCTCapabilityPhoneServices;
+    v11 = kCTCapabilityPhoneServices;
     if (dCopy)
     {
-      v11 = dCopy;
+      v12 = dCopy;
     }
 
     else
     {
-      v11 = &stru_100631E68;
+      v12 = &stru_100631E68;
     }
 
-    v13 = kPSAssociatedAccountID;
-    v14 = v11;
-    v12 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-    [coreTelephonyClient setCapability:v10 enabled:0 info:v12];
+    v14 = kPSAssociatedAccountID;
+    v15 = v12;
+    v13 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    [coreTelephonyClient setCapability:v11 enabled:0 info:v13];
   }
 }
 
@@ -549,7 +673,7 @@ LABEL_52:
 
   else
   {
-    v14 = sub_100004778();
+    v14 = sub_100004778(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       subscriptions = [(CSDTelephonyCallCapabilities *)self subscriptions];
@@ -780,100 +904,100 @@ LABEL_11:
   queue = [(CSDTelephonyCallCapabilities *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v12 = sub_100004778();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100004778(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v34 = infoCopy;
-    v35 = 2112;
-    v36 = subscriptionCopy;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Received request to set capability information %@ capabilityInfo for subscription %@", buf, 0x16u);
+    v36 = infoCopy;
+    v37 = 2112;
+    v38 = subscriptionCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Received request to set capability information %@ capabilityInfo for subscription %@", buf, 0x16u);
   }
 
-  v13 = [infoCopy objectForKeyedSubscript:kCTCapabilityAgent];
-  if (v13)
+  v14 = [infoCopy objectForKeyedSubscript:kCTCapabilityAgent];
+  if (v14)
   {
-    v14 = [[TUCTCapabilitiesState alloc] initWithCapabilityInfo:v13];
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v15 = [[TUCTCapabilitiesState alloc] initWithCapabilityInfo:v14];
+    v16 = sub_100004778(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v34 = v14;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Updating VoLTE capability state with %@", buf, 0xCu);
+      v36 = v15;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Updating VoLTE capability state with %@", buf, 0xCu);
     }
 
-    [stateCopy setVoLTECallingCapabilitiesState:v14];
+    [stateCopy setVoLTECallingCapabilitiesState:v15];
   }
 
-  v16 = [infoCopy objectForKeyedSubscript:kCTCapabilityAgent2];
-  if (v16)
+  v17 = [infoCopy objectForKeyedSubscript:kCTCapabilityAgent2];
+  if (v17)
   {
-    v17 = [[TUCTCapabilitiesState alloc] initWithCapabilityInfo:v16];
-    v18 = sub_100004778();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v18 = [[TUCTCapabilitiesState alloc] initWithCapabilityInfo:v17];
+    v19 = sub_100004778(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v34 = v16;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Updating VoWiFi capability state with %@", buf, 0xCu);
+      v36 = v17;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Updating VoWiFi capability state with %@", buf, 0xCu);
     }
 
-    [stateCopy setWiFiCallingCapabilitiesState:v17];
+    [stateCopy setWiFiCallingCapabilitiesState:v18];
   }
 
-  v19 = [infoCopy objectForKeyedSubscript:kCTCapabilityPhoneServices];
-  if (v19)
+  v20 = [infoCopy objectForKeyedSubscript:kCTCapabilityPhoneServices];
+  if (v20)
   {
-    v20 = [[TUThumperCTCapabilitiesState alloc] initWithCapabilityInfo:v19];
-    accountID = [v20 accountID];
+    v21 = [[TUThumperCTCapabilitiesState alloc] initWithCapabilityInfo:v20];
+    accountID = [v21 accountID];
     associatedThumperAccountID = [(CSDTelephonyCallCapabilities *)self associatedThumperAccountID];
-    [v20 setAssociated:TUStringsAreCaseInsensitiveEqual()];
+    [v21 setAssociated:TUStringsAreCaseInsensitiveEqual()];
 
-    if ([v20 isEnabled])
+    if ([v21 isEnabled])
     {
-      v32 = subscriptionCopy;
+      v34 = subscriptionCopy;
       coreTelephonyClient = [(CSDTelephonyCallCapabilities *)self coreTelephonyClient];
       telephonySubscriptions = [coreTelephonyClient telephonySubscriptions];
-      v25 = [telephonySubscriptions count];
-      if (v25 == 1 || ![v32 csd_isTelephony])
+      v26 = [telephonySubscriptions count];
+      if (v26 == 1 || ![v34 csd_isTelephony])
       {
-        [v20 setSupportsDefaultPairedDevice:v25 == 1];
+        [v21 setSupportsDefaultPairedDevice:v26 == 1];
       }
 
       else
       {
         coreTelephonyClient2 = [(CSDTelephonyCallCapabilities *)self coreTelephonyClient];
         preferredVoiceSubscriptionUUID = [coreTelephonyClient2 preferredVoiceSubscriptionUUID];
-        uuid = [v32 uuid];
-        [v20 setSupportsDefaultPairedDevice:{objc_msgSend(preferredVoiceSubscriptionUUID, "isEqual:")}];
+        uuid = [v34 uuid];
+        [v21 setSupportsDefaultPairedDevice:{objc_msgSend(preferredVoiceSubscriptionUUID, "isEqual:")}];
       }
 
-      subscriptionCopy = v32;
+      subscriptionCopy = v34;
     }
 
     else
     {
-      [v20 setSupportsDefaultPairedDevice:0];
+      v28 = [v21 setSupportsDefaultPairedDevice:0];
     }
 
-    v27 = sub_100004778();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v29 = sub_100004778(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v34 = v20;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Updating Thumper capability state with %@", buf, 0xCu);
+      v36 = v21;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Updating Thumper capability state with %@", buf, 0xCu);
     }
 
-    [stateCopy setThumperCallingCapabilitiesState:v20];
+    [stateCopy setThumperCallingCapabilitiesState:v21];
   }
 
-  v28 = [infoCopy objectForKeyedSubscript:kSimultaneousCallAndDataCurrentlySupported];
-  v29 = [infoCopy objectForKeyedSubscript:kSuspendInternetOnBBCall];
-  if (v28 | v29)
+  v30 = [infoCopy objectForKeyedSubscript:kSimultaneousCallAndDataCurrentlySupported];
+  v31 = [infoCopy objectForKeyedSubscript:kSuspendInternetOnBBCall];
+  if (v30 | v31)
   {
     [(CSDTelephonyCallCapabilities *)self _updateSystemCapabilitiesStateForSubscription:subscriptionCopy capabilitiesState:stateCopy];
   }
 
-  if (v13 || v16 || v19)
+  if (v14 || v17 || v20)
   {
     [(CSDTelephonyCallCapabilities *)self _updateCallCapabilitiesForSubscription:subscriptionCopy capabilitiesState:stateCopy];
   }
@@ -1138,14 +1262,14 @@ LABEL_32:
   coreTelephonyClient = [(CSDTelephonyCallCapabilities *)self coreTelephonyClient];
   v10 = [coreTelephonyClient callCapabilitiesForSubscription:subscriptionCopy];
 
-  v11 = sub_100004778();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100004778(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = subscriptionCopy;
-    v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Retrieved new telephony call capabilities for subscription %@: %@", &v12, 0x16u);
+    v13 = 138412546;
+    v14 = subscriptionCopy;
+    v15 = 2112;
+    v16 = v10;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Retrieved new telephony call capabilities for subscription %@: %@", &v13, 0x16u);
   }
 
   [(CSDTelephonyCallCapabilities *)self setCallCapabilities:v10 forSenderIdentityCapabilitiesState:stateCopy];
@@ -1200,21 +1324,21 @@ LABEL_32:
   coreTelephonyClient = [(CSDTelephonyCallCapabilities *)self coreTelephonyClient];
   v10 = [coreTelephonyClient systemCapabilitiesForSubscription:subscriptionCopy];
 
-  v11 = sub_100004778();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100004778(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = subscriptionCopy;
-    v16 = 2112;
-    v17 = v10;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Retrieved new system capabilities for subscription %@: %@", &v14, 0x16u);
+    v15 = 138412546;
+    v16 = subscriptionCopy;
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Retrieved new system capabilities for subscription %@: %@", &v15, 0x16u);
   }
 
-  v12 = [v10 objectForKeyedSubscript:kSimultaneousCallAndDataCurrentlySupported];
-  if ([v12 BOOLValue])
+  v13 = [v10 objectForKeyedSubscript:kSimultaneousCallAndDataCurrentlySupported];
+  if ([v13 BOOLValue])
   {
-    v13 = [v10 objectForKeyedSubscript:kSuspendInternetOnBBCall];
-    [stateCopy setSupportsSimultaneousVoiceAndData:{objc_msgSend(v13, "BOOLValue") ^ 1}];
+    v14 = [v10 objectForKeyedSubscript:kSuspendInternetOnBBCall];
+    [stateCopy setSupportsSimultaneousVoiceAndData:{objc_msgSend(v14, "BOOLValue") ^ 1}];
   }
 
   else
@@ -1231,18 +1355,18 @@ LABEL_32:
   coreTelephonyClient = [(CSDTelephonyCallCapabilities *)self coreTelephonyClient];
   isEmergencyCallbackModeEnabled = [coreTelephonyClient isEmergencyCallbackModeEnabled];
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"disabled";
+    v8 = @"disabled";
     if (isEmergencyCallbackModeEnabled)
     {
-      v7 = @"enabled";
+      v8 = @"enabled";
     }
 
-    v8 = 138412290;
-    v9 = v7;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Setting new emergency callback mode %@.", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Setting new emergency callback mode %@.", &v9, 0xCu);
   }
 
   [(CSDTelephonyCallCapabilities *)self setEmergencyCallbackModeEnabled:isEmergencyCallbackModeEnabled];
@@ -1257,27 +1381,27 @@ LABEL_32:
   coreTelephonyClient = [(CSDTelephonyCallCapabilities *)self coreTelephonyClient];
   thumperDeviceInfo = [coreTelephonyClient thumperDeviceInfo];
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v59 = thumperDeviceInfo;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Updating Thumper account state with %@", buf, 0xCu);
+    v63 = thumperDeviceInfo;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Updating Thumper account state with %@", buf, 0xCu);
   }
 
   [(CSDTelephonyCallCapabilities *)selfCopy setCapabilitiesValid:thumperDeviceInfo != 0];
-  v7 = [(CSDThumperAccount *)thumperDeviceInfo objectForKeyedSubscript:kPSDeviceId];
+  v8 = [(CSDThumperAccount *)thumperDeviceInfo objectForKeyedSubscript:kPSDeviceId];
   objc_opt_class();
-  v42 = v7;
+  v46 = v8;
   if (objc_opt_isKindOfClass())
   {
-    uppercaseString = [v7 uppercaseString];
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    uppercaseString = [v8 uppercaseString];
+    v10 = sub_100004778(uppercaseString);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v59 = uppercaseString;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Updated local Thumper device ID to %@", buf, 0xCu);
+      v63 = uppercaseString;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Updated local Thumper device ID to %@", buf, 0xCu);
     }
 
     [(CSDTelephonyCallCapabilities *)selfCopy setLocalThumperDeviceID:uppercaseString];
@@ -1288,129 +1412,128 @@ LABEL_32:
     uppercaseString = 0;
   }
 
-  v47 = +[NSMutableArray array];
-  v46 = +[NSMutableArray array];
-  v10 = [(CSDThumperAccount *)thumperDeviceInfo objectForKeyedSubscript:kPSThumperCalling];
+  v51 = +[NSMutableArray array];
+  v50 = +[NSMutableArray array];
+  v11 = [(CSDThumperAccount *)thumperDeviceInfo objectForKeyedSubscript:kPSThumperCalling];
 
-  v44 = thumperDeviceInfo;
-  v11 = [(CSDThumperAccount *)thumperDeviceInfo objectForKeyedSubscript:kPSAccountList];
-  v52 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v52 objects:v57 count:16];
-  if (v12)
+  v48 = thumperDeviceInfo;
+  v12 = [(CSDThumperAccount *)thumperDeviceInfo objectForKeyedSubscript:kPSAccountList];
+  v56 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v13 = [v12 countByEnumeratingWithState:&v56 objects:v61 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v53;
+    v14 = v13;
+    v15 = *v57;
     do
     {
-      v15 = 0;
+      v16 = 0;
       do
       {
-        if (*v53 != v14)
+        if (*v57 != v15)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v52 + 1) + 8 * v15);
-        v17 = [[CSDThumperAccount alloc] initWithDictionaryRepresentation:v16];
-        v18 = v17;
-        if (v17)
+        v17 = *(*(&v56 + 1) + 8 * v16);
+        v18 = [[CSDThumperAccount alloc] initWithDictionaryRepresentation:v17];
+        v19 = v18;
+        if (v18)
         {
-          primaryDeviceID = [(CSDThumperAccount *)v17 primaryDeviceID];
-          v20 = TUStringsAreCaseInsensitiveEqual();
+          primaryDeviceID = [(CSDThumperAccount *)v18 primaryDeviceID];
+          v21 = TUStringsAreCaseInsensitiveEqual();
 
-          if (v20)
+          if (v21)
           {
-            v21 = v47;
+            v23 = v51;
 LABEL_23:
-            [(CSDThumperAccount *)v21 addObject:v18];
+            [(CSDThumperAccount *)v23 addObject:v19];
             goto LABEL_24;
           }
 
-          v23 = sub_100004778();
-          v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
-          if (v10)
+          v25 = sub_100004778(v22);
+          v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+          if (v11)
           {
-            if (v24)
+            if (v26)
             {
               *buf = 138412290;
-              v59 = v18;
-              _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Adding thumperAccount %@ to secondaryThumperAccounts", buf, 0xCu);
+              v63 = v19;
+              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Adding thumperAccount %@ to secondaryThumperAccounts", buf, 0xCu);
             }
 
-            v21 = v46;
+            v23 = v50;
             goto LABEL_23;
           }
 
-          if (v24)
+          if (v26)
           {
             *buf = 138412290;
-            v59 = v18;
-            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Not adding thumperAccount %@ to accounts list", buf, 0xCu);
+            v63 = v19;
+            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Not adding thumperAccount %@ to accounts list", buf, 0xCu);
           }
         }
 
         else
         {
-          v22 = sub_100004778();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v24 = sub_100004778(0);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v59 = v16;
-            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "[WARN] Could not initialize Thumper account with Thumper account dictionary: %@", buf, 0xCu);
+            v63 = v17;
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[WARN] Could not initialize Thumper account with Thumper account dictionary: %@", buf, 0xCu);
           }
         }
 
 LABEL_24:
 
-        v15 = v15 + 1;
+        v16 = v16 + 1;
       }
 
-      while (v13 != v15);
-      v25 = [v11 countByEnumeratingWithState:&v52 objects:v57 count:16];
-      v13 = v25;
+      while (v14 != v16);
+      v27 = [v12 countByEnumeratingWithState:&v56 objects:v61 count:16];
+      v14 = v27;
     }
 
-    while (v25);
+    while (v27);
   }
 
-  v26 = [(CSDThumperAccount *)v47 sortedArrayUsingComparator:&stru_10061ECB0];
-  [(CSDTelephonyCallCapabilities *)selfCopy setLocalThumperAccounts:v26];
+  v28 = [(CSDThumperAccount *)v51 sortedArrayUsingComparator:&stru_10061ECB0];
+  [(CSDTelephonyCallCapabilities *)selfCopy setLocalThumperAccounts:v28];
 
-  v27 = sub_100004778();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v30 = sub_100004778(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v59 = v47;
-    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Updated local Thumper accounts to %@", buf, 0xCu);
+    v63 = v51;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Updated local Thumper accounts to %@", buf, 0xCu);
   }
 
-  v28 = [(CSDThumperAccount *)v46 sortedArrayUsingComparator:&stru_10061ECD0];
-  [(CSDTelephonyCallCapabilities *)selfCopy setSecondaryThumperAccounts:v28];
+  v31 = [(CSDThumperAccount *)v50 sortedArrayUsingComparator:&stru_10061ECD0];
+  [(CSDTelephonyCallCapabilities *)selfCopy setSecondaryThumperAccounts:v31];
 
-  v29 = sub_100004778();
-  v30 = v44;
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v33 = sub_100004778(v32);
+  v34 = v48;
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v59 = v46;
-    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Updated secondary Thumper accounts to %@", buf, 0xCu);
+    v63 = v50;
+    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Updated secondary Thumper accounts to %@", buf, 0xCu);
   }
 
-  v31 = kPSAssociatedAccountID;
-  v32 = [(CSDThumperAccount *)v44 objectForKeyedSubscript:v31];
+  v35 = kPSAssociatedAccountID;
+  v36 = [(CSDThumperAccount *)v48 objectForKeyedSubscript:v35];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [(CSDTelephonyCallCapabilities *)selfCopy setAssociatedThumperAccountID:v32];
-    secondaryThumperAccounts = sub_100004778();
+    secondaryThumperAccounts = sub_100004778([(CSDTelephonyCallCapabilities *)selfCopy setAssociatedThumperAccountID:v36]);
     if (os_log_type_enabled(secondaryThumperAccounts, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v59 = v32;
+      v63 = v36;
       _os_log_impl(&_mh_execute_header, secondaryThumperAccounts, OS_LOG_TYPE_DEFAULT, "Found associated Thumper account ID; updated associated Thumper account ID to %@", buf, 0xCu);
     }
 
@@ -1422,48 +1545,47 @@ LABEL_50:
   if ([(CSDThumperAccount *)uppercaseString length])
   {
     secondaryThumperAccounts = [(CSDTelephonyCallCapabilities *)selfCopy secondaryThumperAccounts];
-    v48 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v34 = [secondaryThumperAccounts countByEnumeratingWithState:&v48 objects:v56 count:16];
-    if (v34)
+    v52 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v38 = [secondaryThumperAccounts countByEnumeratingWithState:&v52 objects:v60 count:16];
+    if (v38)
     {
-      v35 = v34;
-      v41 = v31;
-      v43 = v32;
-      v36 = *v49;
+      v39 = v38;
+      v45 = v35;
+      v47 = v36;
+      v40 = *v53;
       do
       {
-        for (i = 0; i != v35; i = i + 1)
+        for (i = 0; i != v39; i = i + 1)
         {
-          if (*v49 != v36)
+          if (*v53 != v40)
           {
             objc_enumerationMutation(secondaryThumperAccounts);
           }
 
-          v38 = *(*(&v48 + 1) + 8 * i);
-          if ([v38 containsRegisteredDeviceID:{uppercaseString, v41}])
+          v42 = *(*(&v52 + 1) + 8 * i);
+          if ([v42 containsRegisteredDeviceID:{uppercaseString, v45}])
           {
-            accountID = [v38 accountID];
-            [(CSDTelephonyCallCapabilities *)selfCopy setAssociatedThumperAccountID:accountID];
-            v40 = sub_100004778();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+            accountID = [v42 accountID];
+            v44 = sub_100004778([(CSDTelephonyCallCapabilities *)selfCopy setAssociatedThumperAccountID:accountID]);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v59 = accountID;
-              _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Found matching secondary Thumper account; updated associated Thumper account ID to %@", buf, 0xCu);
+              v63 = accountID;
+              _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Found matching secondary Thumper account; updated associated Thumper account ID to %@", buf, 0xCu);
             }
           }
         }
 
-        v35 = [secondaryThumperAccounts countByEnumeratingWithState:&v48 objects:v56 count:16];
+        v39 = [secondaryThumperAccounts countByEnumeratingWithState:&v52 objects:v60 count:16];
       }
 
-      while (v35);
-      v32 = v43;
-      v30 = v44;
-      v31 = v41;
+      while (v39);
+      v36 = v47;
+      v34 = v48;
+      v35 = v45;
     }
 
     goto LABEL_50;
@@ -1478,12 +1600,12 @@ LABEL_51:
   queue = [(CSDTelephonyCallCapabilities *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = clientCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Subscriptions changed for client: %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = clientCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Subscriptions changed for client: %@", &v9, 0xCu);
   }
 
   [(CSDTelephonyCallCapabilities *)self _updateSubscriptions];
@@ -1566,42 +1688,44 @@ LABEL_51:
   [(CSDTelephonyCallCapabilities *)self _updateThumperAccountState];
   associatedThumperAccountID2 = [(CSDTelephonyCallCapabilities *)self associatedThumperAccountID];
   secondaryThumperAccounts2 = [(CSDTelephonyCallCapabilities *)self secondaryThumperAccounts];
-  if ((TUStringsAreCaseInsensitiveEqualOrNil() & 1) == 0)
+  v7 = TUStringsAreCaseInsensitiveEqualOrNil();
+  if ((v7 & 1) == 0)
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004778(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 0;
-      v9 = "Subscription cache requires an update; associated Thumper account ID changed";
-      v10 = &v13;
+      v15 = 0;
+      v11 = "Subscription cache requires an update; associated Thumper account ID changed";
+      v12 = &v15;
 LABEL_8:
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v11, v12, 2u);
     }
 
 LABEL_9:
 
-    v7 = 1;
+    v9 = 1;
     goto LABEL_10;
   }
 
-  if (([secondaryThumperAccounts isEqualToArray:secondaryThumperAccounts2] & 1) == 0)
+  v8 = [secondaryThumperAccounts isEqualToArray:secondaryThumperAccounts2];
+  if ((v8 & 1) == 0)
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004778(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 0;
-      v9 = "Subscription cache requires an update; secondary Thumper accounts changed";
-      v10 = &v12;
+      v14 = 0;
+      v11 = "Subscription cache requires an update; secondary Thumper accounts changed";
+      v12 = &v14;
       goto LABEL_8;
     }
 
     goto LABEL_9;
   }
 
-  v7 = 0;
+  v9 = 0;
 LABEL_10:
 
-  return v7;
+  return v9;
 }
 
 - (CSDTelephonyCallCapabilitiesDelegate)delegate

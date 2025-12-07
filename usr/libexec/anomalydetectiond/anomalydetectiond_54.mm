@@ -17,11 +17,11 @@ void CMMsl::PressureCompensated::~PressureCompensated(CMMsl::PressureCompensated
   operator delete();
 }
 
-void *CMMsl::PressureCompensated::PressureCompensated(void *this, const CMMsl::PressureCompensated *a2)
+CMMsl::PressureCompensated *CMMsl::PressureCompensated::PressureCompensated(CMMsl::PressureCompensated *this, const CMMsl::Pressure **a2)
 {
   *this = off_100421368;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -29,13 +29,13 @@ void *CMMsl::PressureCompensated::PressureCompensated(void *this, const CMMsl::P
   return this;
 }
 
-const CMMsl::PressureCompensated *CMMsl::PressureCompensated::operator=(const CMMsl::PressureCompensated *a1, const CMMsl::PressureCompensated *a2)
+uint64_t CMMsl::PressureCompensated::operator=(uint64_t a1, const CMMsl::Pressure **a2)
 {
   if (a1 != a2)
   {
     CMMsl::PressureCompensated::PressureCompensated(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::PressureCompensated::~PressureCompensated(&v5);
   }
@@ -250,9 +250,9 @@ CMMsl::Pressure *CMMsl::PressureCompensated::hash_value(CMMsl::PressureCompensat
   return result;
 }
 
-uint64_t CMMsl::PressureCompensated::makeSuper(uint64_t this)
+void *CMMsl::PressureCompensated::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -279,11 +279,11 @@ void CMMsl::PressureFiltered::~PressureFiltered(CMMsl::PressureFiltered *this)
   operator delete();
 }
 
-void *CMMsl::PressureFiltered::PressureFiltered(void *this, const CMMsl::PressureFiltered *a2)
+CMMsl::PressureFiltered *CMMsl::PressureFiltered::PressureFiltered(CMMsl::PressureFiltered *this, const CMMsl::Pressure **a2)
 {
   *this = off_1004213A0;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -291,13 +291,13 @@ void *CMMsl::PressureFiltered::PressureFiltered(void *this, const CMMsl::Pressur
   return this;
 }
 
-const CMMsl::PressureFiltered *CMMsl::PressureFiltered::operator=(const CMMsl::PressureFiltered *a1, const CMMsl::PressureFiltered *a2)
+uint64_t CMMsl::PressureFiltered::operator=(uint64_t a1, const CMMsl::Pressure **a2)
 {
   if (a1 != a2)
   {
     CMMsl::PressureFiltered::PressureFiltered(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::PressureFiltered::~PressureFiltered(&v5);
   }
@@ -512,9 +512,9 @@ CMMsl::Pressure *CMMsl::PressureFiltered::hash_value(CMMsl::PressureFiltered *th
   return result;
 }
 
-uint64_t CMMsl::PressureFiltered::makeSuper(uint64_t this)
+void *CMMsl::PressureFiltered::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -541,16 +541,16 @@ void CMMsl::PressureFiltered1HzLowPass::~PressureFiltered1HzLowPass(CMMsl::Press
   operator delete();
 }
 
-uint64_t CMMsl::PressureFiltered1HzLowPass::PressureFiltered1HzLowPass(uint64_t this, const CMMsl::PressureFiltered1HzLowPass *a2)
+CMMsl::PressureFiltered1HzLowPass *CMMsl::PressureFiltered1HzLowPass::PressureFiltered1HzLowPass(CMMsl::PressureFiltered1HzLowPass *this, const CMMsl::PressureFiltered1HzLowPass *a2)
 {
   *this = off_1004213D8;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
+  *(this + 2) = 0;
+  *(this + 6) = 0;
   if (*(a2 + 24))
   {
     v2 = *(a2 + 1);
     *(this + 24) = 1;
-    *(this + 8) = v2;
+    *(this + 1) = v2;
   }
 
   if (*(a2 + 2))
@@ -843,9 +843,9 @@ uint64_t CMMsl::PressureFiltered1HzLowPass::hash_value(CMMsl::PressureFiltered1H
   return v2 ^ *&v1;
 }
 
-uint64_t CMMsl::PressureFiltered1HzLowPass::makeSuper(uint64_t this)
+void *CMMsl::PressureFiltered1HzLowPass::makeSuper(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -1284,11 +1284,11 @@ void CMMsl::PressureGps::~PressureGps(CMMsl::PressureGps *this)
   operator delete();
 }
 
-void *CMMsl::PressureGps::PressureGps(void *this, const CMMsl::PressureGps *a2)
+CMMsl::PressureGps *CMMsl::PressureGps::PressureGps(CMMsl::PressureGps *this, const CMMsl::Pressure **a2)
 {
   *this = off_100421448;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -1296,13 +1296,13 @@ void *CMMsl::PressureGps::PressureGps(void *this, const CMMsl::PressureGps *a2)
   return this;
 }
 
-const CMMsl::PressureGps *CMMsl::PressureGps::operator=(const CMMsl::PressureGps *a1, const CMMsl::PressureGps *a2)
+uint64_t CMMsl::PressureGps::operator=(uint64_t a1, const CMMsl::Pressure **a2)
 {
   if (a1 != a2)
   {
     CMMsl::PressureGps::PressureGps(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::PressureGps::~PressureGps(&v5);
   }
@@ -1517,9 +1517,9 @@ CMMsl::Pressure *CMMsl::PressureGps::hash_value(CMMsl::PressureGps *this)
   return result;
 }
 
-uint64_t CMMsl::PressureGps::makeSuper(uint64_t this)
+void *CMMsl::PressureGps::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -1546,11 +1546,11 @@ void CMMsl::PressureOscarEmu::~PressureOscarEmu(CMMsl::PressureOscarEmu *this)
   operator delete();
 }
 
-void *CMMsl::PressureOscarEmu::PressureOscarEmu(void *this, const CMMsl::PressureOscarEmu *a2)
+CMMsl::PressureOscarEmu *CMMsl::PressureOscarEmu::PressureOscarEmu(CMMsl::PressureOscarEmu *this, const CMMsl::Pressure **a2)
 {
   *this = off_100421480;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -1558,13 +1558,13 @@ void *CMMsl::PressureOscarEmu::PressureOscarEmu(void *this, const CMMsl::Pressur
   return this;
 }
 
-const CMMsl::PressureOscarEmu *CMMsl::PressureOscarEmu::operator=(const CMMsl::PressureOscarEmu *a1, const CMMsl::PressureOscarEmu *a2)
+uint64_t CMMsl::PressureOscarEmu::operator=(uint64_t a1, const CMMsl::Pressure **a2)
 {
   if (a1 != a2)
   {
     CMMsl::PressureOscarEmu::PressureOscarEmu(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::PressureOscarEmu::~PressureOscarEmu(&v5);
   }
@@ -1779,9 +1779,9 @@ CMMsl::Pressure *CMMsl::PressureOscarEmu::hash_value(CMMsl::PressureOscarEmu *th
   return result;
 }
 
-uint64_t CMMsl::PressureOscarEmu::makeSuper(uint64_t this)
+void *CMMsl::PressureOscarEmu::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -2307,29 +2307,27 @@ uint64_t CMMsl::PropagatedAnchor::hash_value(CMMsl::PropagatedAnchor *this)
     v3 = 0;
   }
 
-  v4 = *(this + 1);
-  v5 = *(this + 2);
-  v6 = PBHashBytes();
+  v4 = PBHashBytes();
   if (*(this + 48))
   {
-    v7 = *(this + 4);
-    if (v7 == 0.0)
+    v5 = *(this + 4);
+    if (v5 == 0.0)
     {
-      v7 = 0.0;
+      v5 = 0.0;
     }
   }
 
   else
   {
-    v7 = 0.0;
+    v5 = 0.0;
   }
 
-  return v6 ^ v3 ^ *&v7;
+  return v4 ^ v3 ^ *&v5;
 }
 
-uint64_t CMMsl::PropagatedAnchor::makePose(uint64_t this)
+void *CMMsl::PropagatedAnchor::makePose(void *this)
 {
-  if (!*(this + 40))
+  if (!this[5])
   {
     operator new();
   }
@@ -3164,7 +3162,7 @@ float CMMsl::ProxBaselineEstimatorState::ProxBaselineEstimatorState(uint64_t a1,
   return result;
 }
 
-CMMsl *CMMsl::ProxBaselineEstimatorState::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::ProxBaselineEstimatorState::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -4621,24 +4619,24 @@ float CMMsl::swap(CMMsl *this, CMMsl::ProxCalibration *a2, CMMsl::ProxCalibratio
   return result;
 }
 
-uint64_t CMMsl::ProxCalibration::ProxCalibration(uint64_t a1, uint64_t a2)
+uint64_t CMMsl::ProxCalibration::ProxCalibration(uint64_t a1, _DWORD *a2)
 {
   *a1 = off_100421560;
   *(a1 + 24) = 0u;
   *(a1 + 8) = 0u;
   *(a1 + 40) = 0u;
-  *(a1 + 72) = *(a2 + 72);
-  *(a2 + 72) = 0;
-  *(a1 + 60) = *(a2 + 60);
-  *(a1 + 56) = *(a2 + 56);
-  *(a1 + 64) = *(a2 + 64);
-  *(a1 + 68) = *(a2 + 68);
-  sub_1002A2DD0(a1 + 8, (a2 + 8));
-  sub_1002A2DD0(a1 + 32, (a2 + 32));
+  *(a1 + 72) = a2[18];
+  a2[18] = 0;
+  *(a1 + 60) = a2[15];
+  *(a1 + 56) = a2[14];
+  *(a1 + 64) = a2[16];
+  *(a1 + 68) = a2[17];
+  sub_1002A2DD0(a1 + 8, (a2 + 2));
+  sub_1002A2DD0(a1 + 32, a2 + 2);
   return a1;
 }
 
-uint64_t CMMsl::ProxCalibration::operator=(uint64_t a1, uint64_t a2)
+uint64_t CMMsl::ProxCalibration::operator=(uint64_t a1, _DWORD *a2)
 {
   if (a1 != a2)
   {
@@ -5410,36 +5408,36 @@ uint64_t CMMsl::ProxCalibration::hash_value(CMMsl::ProxCalibration *this)
 {
   if ((*(this + 72) & 2) == 0)
   {
-    v2 = 0;
+    v1 = 0;
     if (*(this + 72))
     {
       goto LABEL_3;
     }
 
 LABEL_11:
-    v4 = 0;
+    v3 = 0;
     if ((*(this + 72) & 4) != 0)
     {
       goto LABEL_6;
     }
 
 LABEL_12:
-    v5 = 0;
+    v4 = 0;
     if ((*(this + 72) & 8) != 0)
     {
       goto LABEL_7;
     }
 
 LABEL_13:
-    v6 = 0;
+    v5 = 0;
     goto LABEL_14;
   }
 
-  v7 = *(this + 15);
-  v2 = LODWORD(v7);
-  if (v7 == 0.0)
+  v6 = *(this + 15);
+  v1 = LODWORD(v6);
+  if (v6 == 0.0)
   {
-    v2 = 0;
+    v1 = 0;
   }
 
   if ((*(this + 72) & 1) == 0)
@@ -5448,11 +5446,11 @@ LABEL_13:
   }
 
 LABEL_3:
-  v3 = *(this + 14);
-  v4 = LODWORD(v3);
-  if (v3 == 0.0)
+  v2 = *(this + 14);
+  v3 = LODWORD(v2);
+  if (v2 == 0.0)
   {
-    v4 = 0;
+    v3 = 0;
   }
 
   if ((*(this + 72) & 4) == 0)
@@ -5461,22 +5459,17 @@ LABEL_3:
   }
 
 LABEL_6:
-  v5 = *(this + 16);
+  v4 = *(this + 16);
   if ((*(this + 72) & 8) == 0)
   {
     goto LABEL_13;
   }
 
 LABEL_7:
-  v6 = *(this + 17);
+  v5 = *(this + 17);
 LABEL_14:
-  v8 = v4 ^ v2 ^ v5 ^ v6;
-  v9 = *(this + 1);
-  v10 = *(this + 2);
-  v11 = v8 ^ PBHashBytes();
-  v12 = *(this + 4);
-  v13 = *(this + 5);
-  return v11 ^ PBHashBytes();
+  v7 = v3 ^ v1 ^ v4 ^ v5 ^ PBHashBytes();
+  return v7 ^ PBHashBytes();
 }
 
 void CMMsl::ProxPDP::~ProxPDP(CMMsl::ProxPDP *this)
@@ -6584,11 +6577,11 @@ void CMMsl::RawAudio::~RawAudio(CMMsl::RawAudio *this)
   operator delete();
 }
 
-CMMsl::RawAudio *CMMsl::RawAudio::RawAudio(char **this, char **a2)
+char **CMMsl::RawAudio::RawAudio(char **this, char **a2)
 {
   *this = off_1004215D0;
   this[1] = 0;
-  v3 = this + 1;
+  v3 = (this + 1);
   this[2] = 0;
   this[3] = 0;
   if (this != a2)
@@ -7114,13 +7107,6 @@ uint64_t CMMsl::RawAudio::writeTo(uint64_t this, PB::Writer *a2)
   return this;
 }
 
-uint64_t CMMsl::RawAudio::hash_value(CMMsl::RawAudio *this)
-{
-  v1 = *(this + 1);
-  v2 = *(this + 2);
-  return PBHashBytes();
-}
-
 void CMMsl::RelDMInSystemConfig::~RelDMInSystemConfig(CMMsl::RelDMInSystemConfig *this)
 {
   *this = off_100421608;
@@ -7142,11 +7128,11 @@ void CMMsl::RelDMInSystemConfig::~RelDMInSystemConfig(CMMsl::RelDMInSystemConfig
   operator delete();
 }
 
-uint64_t CMMsl::RelDMInSystemConfig::RelDMInSystemConfig(uint64_t this, const CMMsl::RelDMInSystemConfig *a2)
+CMMsl::RelDMInSystemConfig *CMMsl::RelDMInSystemConfig::RelDMInSystemConfig(CMMsl::RelDMInSystemConfig *this, const CMMsl::RelDMInSystemConfig *a2)
 {
   *this = off_100421608;
-  *(this + 8) = 0;
-  *(this + 24) = 0;
+  *(this + 1) = 0;
+  *(this + 6) = 0;
   if (*(a2 + 1))
   {
     operator new();
@@ -7156,7 +7142,7 @@ uint64_t CMMsl::RelDMInSystemConfig::RelDMInSystemConfig(uint64_t this, const CM
   {
     v2 = *(a2 + 2);
     *(this + 24) |= 1u;
-    *(this + 16) = v2;
+    *(this + 2) = v2;
   }
 
   return this;
@@ -8511,7 +8497,7 @@ float CMMsl::RelativeDeviceMotionComplexTransition::RelativeDeviceMotionComplexT
   return result;
 }
 
-CMMsl *CMMsl::RelativeDeviceMotionComplexTransition::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::RelativeDeviceMotionComplexTransition::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

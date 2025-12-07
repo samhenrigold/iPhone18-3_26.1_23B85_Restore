@@ -227,23 +227,22 @@
 - (void)sendRegisterIndicationRequest
 {
   [WCM_Logging logLevel:22 message:@"QMI.DSD send dsd::RegisterIndication::Request\n"];
-  qmi::MutableMessageBase::MutableMessageBase(v6, 0x38u);
-  *sub_100054EF0(v6, 161) = 1;
-  mClient = self->mClient;
-  QMIServiceMsg::create(v6, v3);
+  qmi::MutableMessageBase::MutableMessageBase(v4, 0x38u);
+  *sub_100054EF0(v4, 161) = 1;
+  QMIServiceMsg::create(v4, v2);
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 3221225472;
   aBlock[2] = sub_1000550F8;
   aBlock[3] = &unk_10023EB40;
   aBlock[4] = &stru_10023EAF8;
-  v5 = _Block_copy(aBlock);
+  v3 = _Block_copy(aBlock);
   qmi::Client::send();
-  if (v5)
+  if (v3)
   {
-    _Block_release(v5);
+    _Block_release(v3);
   }
 
-  qmi::MutableMessageBase::~MutableMessageBase(v6);
+  qmi::MutableMessageBase::~MutableMessageBase(v4);
 }
 
 - (void)bindQMIClientToSlotType:(int)type

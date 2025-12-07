@@ -39,16 +39,14 @@
 
 - (WFSetupServerInternal)init
 {
-  v2 = type metadata accessor for SFServiceAgent();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
+  type metadata accessor for SFServiceAgent(0);
   swift_allocObject();
-  v5 = sub_26C66D2E0();
-  v6 = objc_allocWithZone(type metadata accessor for WFSetupServer());
-  v7 = sub_26C6981B8(v5, v6);
+  v2 = sub_26C66D2E0();
+  v3 = objc_allocWithZone(type metadata accessor for WFSetupServer());
+  v4 = sub_26C6981B8(v2, v3);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
-  return v7;
+  return v4;
 }
 
 - (void)prepareToRun
@@ -82,13 +80,19 @@
   v7 = _Block_copy(handler);
   if (v7)
   {
-    *(swift_allocObject() + 16) = v7;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
     v7 = sub_26C69A2D4;
+  }
+
+  else
+  {
+    v8 = 0;
   }
 
   selfCopy = self;
   sub_26C699700(action);
-  sub_26C676904(v7);
+  sub_26C676904(v7, v8);
 }
 
 - (void)tryPin:(id)pin

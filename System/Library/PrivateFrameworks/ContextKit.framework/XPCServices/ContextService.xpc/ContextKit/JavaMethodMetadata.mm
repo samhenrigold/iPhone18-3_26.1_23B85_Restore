@@ -58,41 +58,41 @@
   v4 = 0;
   do
   {
-    v5 = strchr(var4, 59);
-    var4 = v5 + 1;
-    if (v5)
+    v6 = strchr(var4, 59);
+    var4 = v6 + 1;
+    if (v6)
     {
       ++v4;
     }
   }
 
-  while (v5 != -1 && v5 != 0);
-  v7 = [IOSObjectArray arrayWithLength:v4 type:JavaLangReflectType_class_()];
-  v8 = self->data_->var4;
-  if (v8)
+  while (v6 != -1 && v6 != 0);
+  v8 = [IOSObjectArray arrayWithLength:v4 type:JavaLangReflectType_class_(var4, v5)];
+  v9 = self->data_->var4;
+  if (v9)
   {
-    v9 = 0;
+    v10 = 0;
     do
     {
-      v10 = strchr(v8, 59);
-      if (!v10)
+      v11 = strchr(v9, 59);
+      if (!v11)
       {
         break;
       }
 
-      v11 = v10;
-      v12 = strndup(v8, v10 - v8 + 1);
-      v13 = JreTypeForString(v12);
-      IOSObjectArray_Set(v7, v9, v13);
-      free(v12);
-      ++v9;
-      v8 = v11 + 1;
+      v12 = v11;
+      v13 = strndup(v9, v11 - v9 + 1);
+      v14 = JreTypeForString(v13);
+      IOSObjectArray_Set(v8, v10, v14);
+      free(v13);
+      ++v10;
+      v9 = v12 + 1;
     }
 
-    while (v11 != -1);
+    while (v12 != -1);
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)isConstructor

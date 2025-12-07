@@ -1,4 +1,5 @@
 @interface HKSPAnalyticsSleepScheduleChangeEvent
++ (id)_payloadWithApplication:(id)application isSleepTrackingEnabled:(BOOL)enabled activeWatchProductType:(id)type provenanceSource:(id)source;
 - (HKSPAnalyticsSleepScheduleChangeEvent)initWithScheduleChangeInfo:(id)info provenanceInfo:(id)provenanceInfo;
 - (NSString)description;
 @end
@@ -39,6 +40,38 @@
   v6 = [v3 stringWithFormat:@"[%@.%p] event=%@, payload=%@", v5, self, self->_eventName, self->_eventPayload];
 
   return v6;
+}
+
++ (id)_payloadWithApplication:(id)application isSleepTrackingEnabled:(BOOL)enabled activeWatchProductType:(id)type provenanceSource:(id)source
+{
+  enabledCopy = enabled;
+  v20[2] = *MEMORY[0x277D85DE8];
+  typeCopy = type;
+  sourceCopy = source;
+  v11 = MEMORY[0x277CBEB38];
+  applicationCopy = application;
+  v13 = [v11 alloc];
+  v19[0] = @"sourceChange";
+  v19[1] = @"watchSleepTrackingEnabled";
+  v20[0] = applicationCopy;
+  v14 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  v20[1] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+
+  v16 = [v13 initWithDictionary:v15];
+  if (typeCopy)
+  {
+    [v16 setObject:typeCopy forKeyedSubscript:@"activeWatchProductType"];
+  }
+
+  if (sourceCopy)
+  {
+    [v16 setObject:sourceCopy forKeyedSubscript:@"provenance"];
+  }
+
+  v17 = [v16 copy];
+
+  return v17;
 }
 
 @end

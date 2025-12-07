@@ -45,6 +45,7 @@
 - (void)_setPluginIdentifierToShow:(id)show completion:(id)completion;
 - (void)_setSendingEnabled:(BOOL)enabled;
 - (void)_volumeButtonPressed:(BOOL)pressed;
+- (void)balloonHostAuditToken;
 - (void)canShowBrowserForPluginIdentifier:(id)identifier completion:(id)completion;
 - (void)contentDidLoad;
 - (void)didChangeBackgroundLuminance:(double)luminance;
@@ -272,7 +273,7 @@
   shelfCopy = shelf;
   handlerCopy = handler;
   archiveCopy = archive;
-  v10 = ms_defaultLog();
+  v10 = ms_defaultLog(archiveCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *v12 = 0;
@@ -287,7 +288,7 @@
 {
   handlerCopy = handler;
   identifierCopy = identifier;
-  v8 = ms_defaultLog();
+  v8 = ms_defaultLog(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -556,7 +557,7 @@
     v8 = v7;
     if (v7)
     {
-      [v7 balloonHostAuditToken];
+      objc_msgSend_balloonHostAuditToken(v7);
     }
 
     else
@@ -576,7 +577,7 @@
     result = task_info(*MEMORY[0x1E69E9A60], 0xFu, retstr, &v19);
     if (result)
     {
-      v10 = ms_traceLog();
+      v10 = ms_traceLog(result);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [(_MSMessageAppContext *)v10 balloonHostAuditToken:v11];
@@ -836,7 +837,7 @@
 {
   fitsCopy = fits;
   completionCopy = completion;
-  v8 = ms_traceLog();
+  v8 = ms_traceLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [(_MSMessageAppContext *)v8 _requestSnapshotThatFits:v9 completion:v10, v11, v12, v13, v14, v15];
@@ -857,7 +858,7 @@
 - (void)_requestMessageTintColor:(id)color
 {
   colorCopy = color;
-  v5 = ms_traceLog();
+  v5 = ms_traceLog(colorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(_MSMessageAppContext *)v5 _requestMessageTintColor:v6, v7, v8, v9, v10, v11, v12];
@@ -1049,6 +1050,27 @@
   {
     [viewController _animatedStickerCreationProgressChanged:changedCopy progress:progress];
   }
+}
+
+- (void)balloonHostAuditToken
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext balloonHostAuditToken]";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, self, a3, "failed to get audit token for self: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_requestSnapshotThatFits:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _requestSnapshotThatFits:completion:]";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_requestMessageTintColor:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _requestMessageTintColor:]";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

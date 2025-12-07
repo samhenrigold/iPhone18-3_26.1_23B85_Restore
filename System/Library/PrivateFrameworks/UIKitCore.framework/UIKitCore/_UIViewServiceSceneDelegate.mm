@@ -208,7 +208,7 @@
 
         if (hostAuditToken)
         {
-          [hostAuditToken realToken];
+          objc_msgSend_realToken(hostAuditToken);
         }
 
         else
@@ -224,7 +224,7 @@
         [v23 _setHostProcessIdentifier:{objc_msgSend(hostAuditToken, "pid")}];
         if (hostAuditToken)
         {
-          [hostAuditToken realToken];
+          objc_msgSend_realToken(hostAuditToken);
         }
 
         else

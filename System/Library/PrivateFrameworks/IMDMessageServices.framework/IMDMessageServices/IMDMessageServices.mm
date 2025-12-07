@@ -5,15 +5,15 @@ IMDMessageServicesCenter *sub_2547E2D50()
   return result;
 }
 
-uint64_t sub_2547E305C(uint64_t a1)
+uint64_t sub_2547E305C(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_2547E2000, v2, OS_LOG_TYPE_INFO, "Message Services agent disconnected", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_2547E2000, v3, OS_LOG_TYPE_INFO, "Message Services agent disconnected", v5, 2u);
     }
   }
 
@@ -22,7 +22,7 @@ uint64_t sub_2547E305C(uint64_t a1)
 
 uint64_t sub_2547E32DC(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x259C19AC0](a2);
   if (v4 == MEMORY[0x277D86480])
   {
@@ -32,16 +32,16 @@ uint64_t sub_2547E32DC(uint64_t a1, void *a2)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         string = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-        v16 = 136315138;
-        v17 = string;
-        _os_log_impl(&dword_2547E2000, v8, OS_LOG_TYPE_INFO, "Error received in message routing reply handler: %s", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = string;
+        _os_log_impl(&dword_2547E2000, v8, OS_LOG_TYPE_INFO, "Error received in message routing reply handler: %s", &v15, 0xCu);
       }
     }
 
     result = *(a1 + 32);
     if (result)
     {
-      goto LABEL_7;
+      return (*(result + 16))(result, 0, 0.0);
     }
   }
 
@@ -53,9 +53,9 @@ uint64_t sub_2547E32DC(uint64_t a1, void *a2)
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v16 = 136315138;
-        v17 = v10;
-        _os_log_impl(&dword_2547E2000, v11, OS_LOG_TYPE_DEBUG, "received reply: %s", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = v10;
+        _os_log_impl(&dword_2547E2000, v11, OS_LOG_TYPE_DEBUG, "received reply: %s", &v15, 0xCu);
       }
     }
 
@@ -69,18 +69,18 @@ uint64_t sub_2547E32DC(uint64_t a1, void *a2)
       v14 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v16 = 134218242;
-        v17 = v13;
-        v18 = 2112;
-        v19 = v12;
-        _os_log_impl(&dword_2547E2000, v14, OS_LOG_TYPE_INFO, "Received routing reply (callbackInterval:%lld): %@", &v16, 0x16u);
+        v15 = 134218242;
+        v16 = v13;
+        v17 = 2112;
+        v18 = v12;
+        _os_log_impl(&dword_2547E2000, v14, OS_LOG_TYPE_INFO, "Received routing reply (callbackInterval:%lld): %@", &v15, 0x16u);
       }
     }
 
     result = *(a1 + 32);
     if (result)
     {
-      result = (*(result + 16))(result, v12, v13);
+      return (*(result + 16))(result, v12, v13);
     }
   }
 
@@ -92,21 +92,19 @@ uint64_t sub_2547E32DC(uint64_t a1, void *a2)
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v6 = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-        v16 = 136315138;
-        v17 = v6;
-        _os_log_impl(&dword_2547E2000, v5, OS_LOG_TYPE_INFO, "Error reply type in message routing reply handler: %s", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = v6;
+        _os_log_impl(&dword_2547E2000, v5, OS_LOG_TYPE_INFO, "Error reply type in message routing reply handler: %s", &v15, 0xCu);
       }
     }
 
     result = *(a1 + 32);
     if (result)
     {
-LABEL_7:
-      result = (*(result + 16))(result, 0, 0.0);
+      return (*(result + 16))(result, 0, 0.0);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -124,7 +122,7 @@ void sub_2547E35A8(_Unwind_Exception *a1, int a2)
 
 uint64_t sub_2547E3950(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x259C19AC0](a2);
   if (v4 == MEMORY[0x277D86480])
   {
@@ -134,16 +132,16 @@ uint64_t sub_2547E3950(uint64_t a1, void *a2)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         string = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-        v16 = 136315138;
-        v17 = string;
-        _os_log_impl(&dword_2547E2000, v8, OS_LOG_TYPE_INFO, "Error received in message expire state reply handler: %s", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = string;
+        _os_log_impl(&dword_2547E2000, v8, OS_LOG_TYPE_INFO, "Error received in message expire state reply handler: %s", &v15, 0xCu);
       }
     }
 
     result = *(a1 + 32);
     if (result)
     {
-      goto LABEL_7;
+      return (*(result + 16))(result, 0, 0.0);
     }
   }
 
@@ -155,9 +153,9 @@ uint64_t sub_2547E3950(uint64_t a1, void *a2)
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v16 = 136315138;
-        v17 = v10;
-        _os_log_impl(&dword_2547E2000, v11, OS_LOG_TYPE_DEBUG, "received reply: %s", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = v10;
+        _os_log_impl(&dword_2547E2000, v11, OS_LOG_TYPE_DEBUG, "received reply: %s", &v15, 0xCu);
       }
     }
 
@@ -171,18 +169,18 @@ uint64_t sub_2547E3950(uint64_t a1, void *a2)
       v14 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v16 = 134218242;
-        v17 = v13;
-        v18 = 2112;
-        v19 = v12;
-        _os_log_impl(&dword_2547E2000, v14, OS_LOG_TYPE_INFO, "Received expire state reply (callbackInterval:%lld): %@", &v16, 0x16u);
+        v15 = 134218242;
+        v16 = v13;
+        v17 = 2112;
+        v18 = v12;
+        _os_log_impl(&dword_2547E2000, v14, OS_LOG_TYPE_INFO, "Received expire state reply (callbackInterval:%lld): %@", &v15, 0x16u);
       }
     }
 
     result = *(a1 + 32);
     if (result)
     {
-      result = (*(result + 16))(result, v12, v13);
+      return (*(result + 16))(result, v12, v13);
     }
   }
 
@@ -194,21 +192,19 @@ uint64_t sub_2547E3950(uint64_t a1, void *a2)
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v6 = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-        v16 = 136315138;
-        v17 = v6;
-        _os_log_impl(&dword_2547E2000, v5, OS_LOG_TYPE_INFO, "Error reply type in message expire state reply handler: %s", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = v6;
+        _os_log_impl(&dword_2547E2000, v5, OS_LOG_TYPE_INFO, "Error reply type in message expire state reply handler: %s", &v15, 0xCu);
       }
     }
 
     result = *(a1 + 32);
     if (result)
     {
-LABEL_7:
-      result = (*(result + 16))(result, 0, 0.0);
+      return (*(result + 16))(result, 0, 0.0);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -226,7 +222,7 @@ void sub_2547E3C1C(_Unwind_Exception *a1, int a2)
 
 uint64_t sub_2547E3F80(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x259C19AC0](a2);
   if (v4 == MEMORY[0x277D86480])
   {
@@ -236,16 +232,16 @@ uint64_t sub_2547E3F80(uint64_t a1, void *a2)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         string = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-        v16 = 136315138;
-        v17 = string;
-        _os_log_impl(&dword_2547E2000, v8, OS_LOG_TYPE_INFO, "Error received in message watchdog reply handler: %s", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = string;
+        _os_log_impl(&dword_2547E2000, v8, OS_LOG_TYPE_INFO, "Error received in message watchdog reply handler: %s", &v15, 0xCu);
       }
     }
 
     result = *(a1 + 32);
     if (result)
     {
-      goto LABEL_7;
+      return (*(result + 16))(result, 0, 0.0);
     }
   }
 
@@ -257,9 +253,9 @@ uint64_t sub_2547E3F80(uint64_t a1, void *a2)
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v16 = 136315138;
-        v17 = v10;
-        _os_log_impl(&dword_2547E2000, v11, OS_LOG_TYPE_DEBUG, "received reply: %s", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = v10;
+        _os_log_impl(&dword_2547E2000, v11, OS_LOG_TYPE_DEBUG, "received reply: %s", &v15, 0xCu);
       }
     }
 
@@ -273,18 +269,18 @@ uint64_t sub_2547E3F80(uint64_t a1, void *a2)
       v14 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v16 = 134218242;
-        v17 = v13;
-        v18 = 2112;
-        v19 = v12;
-        _os_log_impl(&dword_2547E2000, v14, OS_LOG_TYPE_INFO, "Received watchdog reply (callbackInterval:%lld): %@", &v16, 0x16u);
+        v15 = 134218242;
+        v16 = v13;
+        v17 = 2112;
+        v18 = v12;
+        _os_log_impl(&dword_2547E2000, v14, OS_LOG_TYPE_INFO, "Received watchdog reply (callbackInterval:%lld): %@", &v15, 0x16u);
       }
     }
 
     result = *(a1 + 32);
     if (result)
     {
-      result = (*(result + 16))(result, v12, v13);
+      return (*(result + 16))(result, v12, v13);
     }
   }
 
@@ -296,21 +292,19 @@ uint64_t sub_2547E3F80(uint64_t a1, void *a2)
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v6 = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-        v16 = 136315138;
-        v17 = v6;
-        _os_log_impl(&dword_2547E2000, v5, OS_LOG_TYPE_INFO, "Error reply type in message watchdog reply handler: %s", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = v6;
+        _os_log_impl(&dword_2547E2000, v5, OS_LOG_TYPE_INFO, "Error reply type in message watchdog reply handler: %s", &v15, 0xCu);
       }
     }
 
     result = *(a1 + 32);
     if (result)
     {
-LABEL_7:
-      result = (*(result + 16))(result, 0, 0.0);
+      return (*(result + 16))(result, 0, 0.0);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -328,7 +322,7 @@ void sub_2547E424C(_Unwind_Exception *a1, int a2)
 
 uint64_t sub_2547E45B4(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x259C19AC0](a2);
   if (v4 == MEMORY[0x277D86480])
   {
@@ -338,16 +332,16 @@ uint64_t sub_2547E45B4(uint64_t a1, void *a2)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         string = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-        v16 = 136315138;
-        v17 = string;
-        _os_log_impl(&dword_2547E2000, v8, OS_LOG_TYPE_INFO, "Error received in message scheduled type reply handler: %s", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = string;
+        _os_log_impl(&dword_2547E2000, v8, OS_LOG_TYPE_INFO, "Error received in message scheduled type reply handler: %s", &v15, 0xCu);
       }
     }
 
     result = *(a1 + 32);
     if (result)
     {
-      goto LABEL_7;
+      return (*(result + 16))(result, 0, 0.0);
     }
   }
 
@@ -359,9 +353,9 @@ uint64_t sub_2547E45B4(uint64_t a1, void *a2)
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v16 = 136315138;
-        v17 = v10;
-        _os_log_impl(&dword_2547E2000, v11, OS_LOG_TYPE_DEBUG, "received reply: %s", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = v10;
+        _os_log_impl(&dword_2547E2000, v11, OS_LOG_TYPE_DEBUG, "received reply: %s", &v15, 0xCu);
       }
     }
 
@@ -375,18 +369,18 @@ uint64_t sub_2547E45B4(uint64_t a1, void *a2)
       v14 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v16 = 134218242;
-        v17 = v13;
-        v18 = 2112;
-        v19 = v12;
-        _os_log_impl(&dword_2547E2000, v14, OS_LOG_TYPE_INFO, "Received schedule type reply (callbackInterval:%lld): %@", &v16, 0x16u);
+        v15 = 134218242;
+        v16 = v13;
+        v17 = 2112;
+        v18 = v12;
+        _os_log_impl(&dword_2547E2000, v14, OS_LOG_TYPE_INFO, "Received schedule type reply (callbackInterval:%lld): %@", &v15, 0x16u);
       }
     }
 
     result = *(a1 + 32);
     if (result)
     {
-      result = (*(result + 16))(result, v12, v13);
+      return (*(result + 16))(result, v12, v13);
     }
   }
 
@@ -398,21 +392,19 @@ uint64_t sub_2547E45B4(uint64_t a1, void *a2)
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v6 = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-        v16 = 136315138;
-        v17 = v6;
-        _os_log_impl(&dword_2547E2000, v5, OS_LOG_TYPE_INFO, "Error reply type in message schedule type reply handler: %s", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = v6;
+        _os_log_impl(&dword_2547E2000, v5, OS_LOG_TYPE_INFO, "Error reply type in message schedule type reply handler: %s", &v15, 0xCu);
       }
     }
 
     result = *(a1 + 32);
     if (result)
     {
-LABEL_7:
-      result = (*(result + 16))(result, 0, 0.0);
+      return (*(result + 16))(result, 0, 0.0);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 

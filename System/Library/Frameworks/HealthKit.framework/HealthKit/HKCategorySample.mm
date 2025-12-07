@@ -128,60 +128,58 @@ LABEL_6:
 
 + (id)_categorySamplesSplittingDurationWithType:(id)type value:(int64_t)value startDate:(id)date endDate:(id)endDate device:(id)device metadata:(id)metadata
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   dateCopy = date;
   endDateCopy = endDate;
   deviceCopy = device;
   metadataCopy = metadata;
-  if ([typeCopy isMaximumDurationRestricted] && (objc_msgSend(endDateCopy, "timeIntervalSinceDate:", dateCopy), v20 = v19, objc_msgSend(typeCopy, "maximumAllowedDuration"), v20 > v21))
+  if ([typeCopy isMaximumDurationRestricted] && (objc_msgSend(endDateCopy, "timeIntervalSinceDate:", dateCopy), v20 = v19, v21 = objc_msgSend(typeCopy, "maximumAllowedDuration"), v20 > v23))
   {
-    _HKInitializeLogging();
-    v22 = HKLogDefault;
+    _HKInitializeLogging(v21, v22);
+    v24 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412802;
-      v35 = typeCopy;
-      v36 = 2112;
-      v37 = dateCopy;
-      v38 = 2112;
-      v39 = endDateCopy;
-      _os_log_fault_impl(&dword_19197B000, v22, OS_LOG_TYPE_FAULT, "Data duration is longer than allowed for type %@, start date %@, end date %@", buf, 0x20u);
+      v36 = typeCopy;
+      v37 = 2112;
+      v38 = dateCopy;
+      v39 = 2112;
+      v40 = endDateCopy;
+      _os_log_fault_impl(&dword_19197B000, v24, OS_LOG_TYPE_FAULT, "Data duration is longer than allowed for type %@, start date %@, end date %@", buf, 0x20u);
     }
 
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __102__HKCategorySample__categorySamplesSplittingDurationWithType_value_startDate_endDate_device_metadata___block_invoke;
-    v27[3] = &unk_1E7384970;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __102__HKCategorySample__categorySamplesSplittingDurationWithType_value_startDate_endDate_device_metadata___block_invoke;
+    v28[3] = &unk_1E7384970;
     selfCopy = self;
-    v28 = typeCopy;
+    v29 = typeCopy;
     valueCopy = value;
-    v29 = deviceCopy;
-    v30 = metadataCopy;
-    v23 = [self _enumerateValidIntervalsWithStartDate:dateCopy endDate:endDateCopy sampleType:v28 block:v27];
+    v30 = deviceCopy;
+    v31 = metadataCopy;
+    v25 = [self _enumerateValidIntervalsWithStartDate:dateCopy endDate:endDateCopy sampleType:v29 block:v28];
 
-    v24 = v28;
+    v26 = v29;
   }
 
   else
   {
-    v24 = [self categorySampleWithType:typeCopy value:value startDate:dateCopy endDate:endDateCopy device:deviceCopy metadata:metadataCopy];
-    v33 = v24;
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+    v26 = [self categorySampleWithType:typeCopy value:value startDate:dateCopy endDate:endDateCopy device:deviceCopy metadata:metadataCopy];
+    v34 = v26;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v25;
 }
 
 - (HKCategorySample)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = HKCategorySample;
-  v5 = [(HKSample *)&v16 initWithCoder:coderCopy];
+  v17.receiver = self;
+  v17.super_class = HKCategorySample;
+  v5 = [(HKSample *)&v17 initWithCoder:coderCopy];
   if (v5)
   {
     _defaultValue = [coderCopy decodeIntegerForKey:@"value"];
@@ -191,23 +189,24 @@ LABEL_6:
     if ((v8 & 1) == 0)
     {
       v9 = +[_HKBehavior isAppleInternalInstall];
-      _HKInitializeLogging();
-      v10 = HKLogDefault;
-      if (v9)
+      v10 = v9;
+      _HKInitializeLogging(v9, v11);
+      v12 = HKLogDefault;
+      if (v10)
       {
         if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
         {
-          [(HKCategorySample *)v10 initWithCoder:v5, _defaultValue];
+          [(HKCategorySample *)v12 initWithCoder:v5, _defaultValue];
         }
       }
 
       else if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = v10;
+        v13 = v12;
         categoryType2 = [(HKCategorySample *)v5 categoryType];
         *buf = 138412290;
-        v18 = categoryType2;
-        _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "Invalid value received for %@, setting value to 0", buf, 0xCu);
+        v19 = categoryType2;
+        _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "Invalid value received for %@, setting value to 0", buf, 0xCu);
       }
 
       categoryType3 = [(HKCategorySample *)v5 categoryType];
@@ -217,7 +216,6 @@ LABEL_6:
     v5->_value = _defaultValue;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -260,16 +258,14 @@ LABEL_6:
 
 - (void)initWithCoder:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = [a2 categoryType];
-  v8 = 134218242;
-  v9 = a3;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_19197B000, v5, OS_LOG_TYPE_ERROR, "Invalid value %ld received for %@, setting value to 0", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 134218242;
+  v8 = a3;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_19197B000, v5, OS_LOG_TYPE_ERROR, "Invalid value %ld received for %@, setting value to 0", &v7, 0x16u);
 }
 
 @end

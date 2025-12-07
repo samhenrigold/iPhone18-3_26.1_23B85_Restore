@@ -1,6 +1,5 @@
 @interface ProfileActivationSceneExtension.HostComponent
 - (_TtCC13ShellSceneKit31ProfileActivationSceneExtension13HostComponent)init;
-- (void)invalidate;
 - (void)setScene:(id)scene;
 @end
 
@@ -10,15 +9,8 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_265FE8358();
+  sub_265FE8358(scene);
   swift_unknownObjectRelease();
-}
-
-- (void)invalidate
-{
-  v2 = *(&self->super.isa + OBJC_IVAR____TtCC13ShellSceneKit31ProfileActivationSceneExtension13HostComponent_scene);
-  *(&self->super.isa + OBJC_IVAR____TtCC13ShellSceneKit31ProfileActivationSceneExtension13HostComponent_scene) = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 - (_TtCC13ShellSceneKit31ProfileActivationSceneExtension13HostComponent)init

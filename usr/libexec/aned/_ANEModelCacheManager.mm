@@ -14,10 +14,12 @@
 - (id)URLForBundleID:(id)d;
 - (id)URLForModel:(id)model bundleID:(id)d useSourceURL:(BOOL)l forAllSegments:(BOOL)segments aotCacheUrlIdentifier:(id)identifier;
 - (id)cachedModelAllSegmentsPathFor:(id)for csIdentity:(id)identity;
+- (id)cachedModelPathFor:(id)for csIdentity:(id)identity useSourceURL:(BOOL)l;
 - (id)cachedModelRetainNameFor:(id)for csIdentity:(id)identity;
 - (id)cachedSourceModelStoreNameFor:(id)for csIdentity:(id)identity;
 - (id)filePathForModel:(id)model bundleID:(id)d;
 - (id)getDiskSpaceForBundleID:(id)d;
+- (id)getDiskSpaceItemizedByBundleIDAndPurge:(BOOL)purge;
 - (id)getModelBinaryPathFromURLIdentifier:(id)identifier bundleID:(id)d;
 - (void)scheduleMaintenanceWithName:(id)name directoryPaths:(id)paths;
 - (void)startDanglingModelGC;
@@ -277,6 +279,23 @@
   return path;
 }
 
+- (id)cachedModelPathFor:(id)for csIdentity:(id)identity useSourceURL:(BOOL)l
+{
+  lCopy = l;
+  forCopy = for;
+  identityCopy = identity;
+  v10 = objc_autoreleasePoolPush();
+  v11 = [(_ANEModelCacheManager *)self URLForModel:forCopy bundleID:identityCopy useSourceURL:lCopy];
+  path = [v11 path];
+
+  v13 = +[_ANEStrings modelBinaryName];
+  v14 = [path stringByAppendingPathComponent:v13];
+
+  objc_autoreleasePoolPop(v10);
+
+  return v14;
+}
+
 - (id)cachedModelAllSegmentsPathFor:(id)for csIdentity:(id)identity
 {
   forCopy = for;
@@ -516,6 +535,17 @@ LABEL_19:
   objc_autoreleasePoolPop(v8);
 
   return v14;
+}
+
+- (id)getDiskSpaceItemizedByBundleIDAndPurge:(BOOL)purge
+{
+  purgeCopy = purge;
+  cacheDir = [(_ANEModelCacheManager *)self cacheDir];
+  path = [cacheDir path];
+
+  v6 = [_ANEStorageHelper sizeOfModelCacheAtPath:path purgeSubdirectories:purgeCopy];
+
+  return v6;
 }
 
 - (id)getDiskSpaceForBundleID:(id)d

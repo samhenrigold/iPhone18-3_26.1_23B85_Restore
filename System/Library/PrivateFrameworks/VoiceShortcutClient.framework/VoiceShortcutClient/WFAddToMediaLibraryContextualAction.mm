@@ -118,18 +118,16 @@
 
 - (id)uniqueIdentifier
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   identifier = [(WFContextualAction *)self identifier];
-  v11[0] = identifier;
+  v10[0] = identifier;
   mediaItemDescriptor = [(WFAddToMediaLibraryContextualAction *)self mediaItemDescriptor];
   playbackStoreId = [mediaItemDescriptor playbackStoreId];
   stringValue = [playbackStoreId stringValue];
-  v11[1] = stringValue;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[1] = stringValue;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
 
   v8 = [v7 componentsJoinedByString:@"."];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

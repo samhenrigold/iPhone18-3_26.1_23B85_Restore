@@ -206,33 +206,33 @@
   keyCopy = key;
   greenKeyCopy = greenKey;
   blueKeyCopy = blueKey;
-  objc_msgSend_colorFromRedKey_greenKey_blueKey_(self, v13, v14, v15, v16, keyCopy, greenKeyCopy, blueKeyCopy);
-  if (v33)
+  objc_msgSend_colorFromRedKey_greenKey_blueKey_(self, v13, v14, v15);
+  if (v32)
   {
+    v20 = v33;
     v21 = v34;
     v22 = v35;
     v23 = v36;
-    v24 = v37;
   }
 
   else
   {
-    *&v18 = gray;
-    objc_msgSend_makeGray_(self, v17, v18, v19, v20);
+    *&v17 = gray;
+    objc_msgSend_makeGray_(self, v16, v17, v18, v19);
+    v20 = v24;
     v21 = v25;
     v22 = v26;
     v23 = v27;
-    v24 = v28;
   }
 
+  v28 = v20;
   v29 = v21;
   v30 = v22;
   v31 = v23;
-  v32 = v24;
-  result.var3 = v32;
-  result.var2 = v31;
-  result.var1 = v30;
-  result.var0 = v29;
+  result.var3 = v31;
+  result.var2 = v30;
+  result.var1 = v29;
+  result.var0 = v28;
   return result;
 }
 

@@ -151,15 +151,29 @@
 - (void)mergeWithCloudNetworkProfile:(id)profile;
 - (void)mergeWithNetworkProfile:(id)profile;
 - (void)setAddReason:(int64_t)reason;
+- (void)setAllowedBeforeFirstUnlock:(BOOL)unlock;
+- (void)setAutoJoinDisabled:(BOOL)disabled;
 - (void)setBSSList:(id)list;
+- (void)setBlueAtlasNetwork:(BOOL)network;
 - (void)setBrokenBackhaulState:(int64_t)state;
+- (void)setCarplayNetwork:(BOOL)network;
 - (void)setCoreWiFiSpecificAttributes:(id)attributes;
+- (void)setDNSHeuristicsFilteredNetwork:(BOOL)network;
 - (void)setDeploymentIssues:(unint64_t)issues;
 - (void)setDisable6EMode:(int64_t)mode;
+- (void)setDisableAutojoinUntilFirstUserJoin:(BOOL)join;
 - (void)setHiddenState:(int64_t)state;
+- (void)setHighPopularity:(BOOL)popularity;
+- (void)setHighQuality:(BOOL)quality;
+- (void)setIs2GHzBssPresent:(BOOL)present;
+- (void)setIsSuspicious:(BOOL)suspicious;
+- (void)setIsTCPGood:(BOOL)good;
+- (void)setLastDisconnectReason:(int)reason;
 - (void)setLastJoinedBySystemAtWeek:(unint64_t)week;
 - (void)setLocationOfInterest:(int64_t)interest;
 - (void)setLowDataMode:(int64_t)mode;
+- (void)setLowPopularity:(BOOL)popularity;
+- (void)setLowQuality:(BOOL)quality;
 - (void)setMovingAttribute:(int64_t)attribute;
 - (void)setNearbyShareableStatus:(int64_t)status;
 - (void)setNetworkGroupPriority:(unint64_t)priority;
@@ -168,18 +182,33 @@
 - (void)setNetworkQualityResponsiveness:(double)responsiveness;
 - (void)setOSSpecificAttributes:(id)attributes;
 - (void)setOSSpecificValue:(id)value forKey:(id)key;
+- (void)setPasspointHomeOperatorNetwork:(BOOL)network;
+- (void)setPasspointProvisionedNetwork:(BOOL)network;
+- (void)setPasswordSharingDisabled:(BOOL)disabled;
 - (void)setPayloadIdentifier:(id)identifier;
+- (void)setPayloadIdentifierTelemetryApproved:(BOOL)approved;
+- (void)setPersonalHotspot:(BOOL)hotspot;
 - (void)setPopularityScore:(unint64_t)score;
+- (void)setPotentiallyCaptive:(BOOL)captive;
+- (void)setPotentiallyMoving:(BOOL)moving;
+- (void)setPrivacyProxyEnabled:(BOOL)enabled;
 - (void)setPrivateMACAddressEvaluationState:(int64_t)state;
 - (void)setPrivateMACAddressModeConfigurationProfileSetting:(int64_t)setting;
 - (void)setPrivateMACAddressModeUserSetting:(int64_t)setting;
+- (void)setProminentDisplay:(BOOL)display;
+- (void)setPublicAirPlayNetwork:(BOOL)network;
 - (void)setPublicAttribute:(int64_t)attribute;
 - (void)setQualityScore:(unint64_t)score;
 - (void)setReceivedFromDeviceFlags:(unint64_t)flags;
 - (void)setSSID:(id)d;
 - (void)setSSIDHarvestStatus:(int64_t)status;
+- (void)setServiceProviderRoamingEnabled:(BOOL)enabled;
+- (void)setSessionBased:(BOOL)based;
+- (void)setStandalone6G:(BOOL)g;
 - (void)setSupportedSecurityTypes:(unint64_t)types;
+- (void)setSystemMode:(BOOL)mode;
 - (void)setTotalNetworkUsage:(unint64_t)usage;
+- (void)setTransitionDisabledFlags:(int)flags;
 - (void)setWAPISubtype:(int64_t)subtype;
 - (void)setWEPSubtype:(int64_t)subtype;
 - (void)setWas6GHzOnlyAtWeek:(unint64_t)week;
@@ -267,15 +296,15 @@
 
 - (id)deepCopy
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v16];
-  v3 = v16;
+  v18 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v15];
+  v3 = v15;
   if (v2)
   {
-    v15 = v3;
-    v4 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v15];
-    v5 = v15;
+    v14 = v3;
+    v4 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v14];
+    v5 = v14;
 
     if (v4)
     {
@@ -299,9 +328,9 @@
 
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v17 = 138412290;
-        v18 = v5;
-        _os_log_send_and_compose_impl();
+        v16 = 138412290;
+        v17 = v5;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[corewifi] failed to unarchive network profile: %@", &v16, 12);
       }
 
       v6 = 0;
@@ -325,16 +354,14 @@
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
-      v18 = v3;
-      _os_log_send_and_compose_impl();
+      v16 = 138412290;
+      v17 = v3;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 16, "[corewifi] failed to archive network profile: %@", &v16, 12);
     }
 
     v7 = 0;
     v5 = v3;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -413,7 +440,7 @@ LABEL_12:
 
 - (BOOL)isCaptiveStateDetermined
 {
-  if (!sub_1E0BCE0D8())
+  if (!sub_1E0BCE0D8(0))
   {
     return 0;
   }
@@ -695,7 +722,7 @@ LABEL_12:
 
 - (BOOL)isCaptive
 {
-  v3 = sub_1E0BCE0D8();
+  v3 = sub_1E0BCE0D8(0);
   if (v3)
   {
     captiveProfile = [(CWFNetworkProfile *)self captiveProfile];
@@ -979,33 +1006,33 @@ LABEL_48:
 
 - (id)externalForm
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   allKeys = [(NSMutableDictionary *)self->_internal allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = MEMORY[0x1E695E110];
     v8 = MEMORY[0x1E695E118];
-    v38 = *v44;
-    v34 = allKeys;
-    v35 = dictionary;
+    v37 = *v43;
+    v33 = allKeys;
+    v34 = dictionary;
     do
     {
       v9 = 0;
       do
       {
-        if (*v44 != v38)
+        if (*v43 != v37)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v43 + 1) + 8 * v9);
+        v10 = *(*(&v42 + 1) + 8 * v9);
         v11 = -[CWFNetworkProfile __keyForProperty:](self, "__keyForProperty:", [v10 integerValue]);
         integerValue = [v10 integerValue];
         if (v11)
@@ -1133,32 +1160,32 @@ LABEL_48:
             case 37:
               v19 = [(NSMutableDictionary *)self->_internal objectForKeyedSubscript:v10];
               v20 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"BSSID" ascending:0];
+              v38 = 0u;
               v39 = 0u;
               v40 = 0u;
               v41 = 0u;
-              v42 = 0u;
-              v36 = v20;
-              v47 = v20;
-              v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
-              v37 = v19;
+              v35 = v20;
+              v46 = v20;
+              v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
+              v36 = v19;
               v22 = [v19 sortedArrayUsingDescriptors:v21];
 
-              v23 = [v22 countByEnumeratingWithState:&v39 objects:v48 count:16];
+              v23 = [v22 countByEnumeratingWithState:&v38 objects:v47 count:16];
               if (v23)
               {
                 v24 = v23;
                 array = 0;
-                v26 = *v40;
+                v26 = *v39;
                 do
                 {
                   for (i = 0; i != v24; ++i)
                   {
-                    if (*v40 != v26)
+                    if (*v39 != v26)
                     {
                       objc_enumerationMutation(v22);
                     }
 
-                    externalForm = [*(*(&v39 + 1) + 8 * i) externalForm];
+                    externalForm = [*(*(&v38 + 1) + 8 * i) externalForm];
                     if (externalForm)
                     {
                       if (!array)
@@ -1170,7 +1197,7 @@ LABEL_48:
                     }
                   }
 
-                  v24 = [v22 countByEnumeratingWithState:&v39 objects:v48 count:16];
+                  v24 = [v22 countByEnumeratingWithState:&v38 objects:v47 count:16];
                 }
 
                 while (v24);
@@ -1182,10 +1209,10 @@ LABEL_48:
               }
 
               v29 = [array copy];
-              dictionary = v35;
-              [v35 setObject:v29 forKeyedSubscript:v11];
+              dictionary = v34;
+              [v34 setObject:v29 forKeyedSubscript:v11];
 
-              allKeys = v34;
+              allKeys = v33;
               v7 = MEMORY[0x1E695E110];
               v8 = MEMORY[0x1E695E118];
               goto LABEL_15;
@@ -1216,7 +1243,7 @@ LABEL_15:
       }
 
       while (v9 != v6);
-      v30 = [allKeys countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v30 = [allKeys countByEnumeratingWithState:&v42 objects:v48 count:16];
       v6 = v30;
     }
 
@@ -1224,7 +1251,6 @@ LABEL_15:
   }
 
   v31 = [dictionary copy];
-  v32 = *MEMORY[0x1E69E9840];
 
   return v31;
 }
@@ -1287,7 +1313,7 @@ LABEL_15:
 
 - (BOOL)bypassCaptive
 {
-  if (!sub_1E0BCE0D8())
+  if (!sub_1E0BCE0D8(0))
   {
     return 0;
   }
@@ -1349,7 +1375,7 @@ LABEL_15:
 
 - (unint64_t)effectiveSupportedSecurityTypes
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   supportedSecurityTypes = [(CWFNetworkProfile *)self supportedSecurityTypes];
   if (supportedSecurityTypes == 16)
   {
@@ -1374,27 +1400,29 @@ LABEL_15:
   transitionDisabledFlags = [(CWFNetworkProfile *)self transitionDisabledFlags];
   if (v5 & 0x50) != 0 && (transitionDisabledFlags)
   {
-    v8 = CWFGetOSLog();
-    if (v8)
+    v8 = transitionDisabledFlags;
+    v9 = CWFGetOSLog();
+    if (v9)
     {
-      v9 = CWFGetOSLog();
+      v10 = CWFGetOSLog();
     }
 
     else
     {
-      v9 = MEMORY[0x1E69E9C10];
       v10 = MEMORY[0x1E69E9C10];
+      v11 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v13[0] = 67109120;
+      v13[1] = v8;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 0, "[corewifi] Change effective supported security type to WPA3 personal due to transition disabled 0x%x", v13);
     }
 
-    v5 = 64;
+    return 64;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1471,7 +1499,7 @@ LABEL_15:
 
 - (BOOL)wasCaptive
 {
-  if (!sub_1E0BCE0D8())
+  if (!sub_1E0BCE0D8(0))
   {
     return 0;
   }
@@ -1517,7 +1545,7 @@ LABEL_15:
 
 - (NSDate)captiveWebsheetLoginDate
 {
-  if (sub_1E0BCE0D8())
+  if (sub_1E0BCE0D8(0))
   {
     captiveProfile = [(CWFNetworkProfile *)self captiveProfile];
     v10 = 0;
@@ -1907,7 +1935,7 @@ LABEL_15:
 
 - (id)__filteredNetworkProfileWithProperties:(id)properties OSSpecificKeys:(id)keys
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   keysCopy = keys;
   v8 = objc_alloc_init(CWFNetworkProfile);
@@ -1926,32 +1954,32 @@ LABEL_15:
   v13 = [propertiesCopy containsObject:&unk_1F5BBB8C0];
   if (keysCopy && v13)
   {
-    v27 = v9;
-    v28 = v8;
-    v29 = propertiesCopy;
+    v26 = v9;
+    v27 = v8;
+    v28 = propertiesCopy;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     oSSpecificAttributes = [(CWFNetworkProfile *)self OSSpecificAttributes];
     allKeys = [oSSpecificAttributes allKeys];
 
-    v17 = [allKeys countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v17 = [allKeys countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v31;
+      v19 = *v30;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v31 != v19)
+          if (*v30 != v19)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v21 = *(*(&v30 + 1) + 8 * i);
+          v21 = *(*(&v29 + 1) + 8 * i);
           if ([keysCopy containsObject:v21])
           {
             oSSpecificAttributes2 = [(CWFNetworkProfile *)self OSSpecificAttributes];
@@ -1960,21 +1988,19 @@ LABEL_15:
           }
         }
 
-        v18 = [allKeys countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v18 = [allKeys countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v18);
     }
 
     v24 = [dictionary copy];
-    v8 = v28;
-    [(CWFNetworkProfile *)v28 setOSSpecificAttributes:v24];
+    v8 = v27;
+    [(CWFNetworkProfile *)v27 setOSSpecificAttributes:v24];
 
-    propertiesCopy = v29;
-    v9 = v27;
+    propertiesCopy = v28;
+    v9 = v26;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -2111,27 +2137,27 @@ LABEL_15:
 
 - (id)matchingKnownBSS:(id)s
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   sCopy = s;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = [(CWFNetworkProfile *)self BSSList];
-  v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
         bSSID = [v8 BSSID];
         if (bSSID)
         {
@@ -2157,15 +2183,13 @@ LABEL_15:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
   }
 
 LABEL_13:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -3043,37 +3067,37 @@ LABEL_33:
 
 - (CWFNetworkProfile)initWithExternalForm:(id)form
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   formCopy = form;
   v5 = [(CWFNetworkProfile *)self init];
   if (v5)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
     obj = [formCopy allKeys];
-    v43 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
-    if (!v43)
+    v42 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+    if (!v42)
     {
       goto LABEL_68;
     }
 
-    v42 = *v49;
-    v39 = formCopy;
-    v40 = v5;
+    v41 = *v48;
+    v38 = formCopy;
+    v39 = v5;
     while (1)
     {
       v7 = 0;
       do
       {
-        if (*v49 != v42)
+        if (*v48 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v48 + 1) + 8 * v7);
+        v8 = *(*(&v47 + 1) + 8 * v7);
         v9 = [(CWFNetworkProfile *)v5 __propertyForKey:v8];
         if (v9)
         {
@@ -3117,26 +3141,26 @@ LABEL_33:
               {
                 case '%':
                   v15 = [formCopy objectForKeyedSubscript:v8];
+                  v43 = 0u;
                   v44 = 0u;
                   v45 = 0u;
                   v46 = 0u;
-                  v47 = 0u;
-                  v24 = [v15 countByEnumeratingWithState:&v44 objects:v52 count:16];
+                  v24 = [v15 countByEnumeratingWithState:&v43 objects:v51 count:16];
                   if (v24)
                   {
                     v25 = v24;
                     v14 = 0;
-                    v26 = *v45;
+                    v26 = *v44;
                     do
                     {
                       for (i = 0; i != v25; ++i)
                       {
-                        if (*v45 != v26)
+                        if (*v44 != v26)
                         {
                           objc_enumerationMutation(v15);
                         }
 
-                        v28 = [[CWFBSS alloc] initWithExternalForm:*(*(&v44 + 1) + 8 * i)];
+                        v28 = [[CWFBSS alloc] initWithExternalForm:*(*(&v43 + 1) + 8 * i)];
                         if (v28)
                         {
                           if (!v14)
@@ -3148,7 +3172,7 @@ LABEL_33:
                         }
                       }
 
-                      v25 = [v15 countByEnumeratingWithState:&v44 objects:v52 count:16];
+                      v25 = [v15 countByEnumeratingWithState:&v43 objects:v51 count:16];
                     }
 
                     while (v25);
@@ -3163,8 +3187,8 @@ LABEL_33:
                   v35 = [MEMORY[0x1E696AD98] numberWithInteger:37];
                   [dictionary setObject:v34 forKeyedSubscript:v35];
 
-                  formCopy = v39;
-                  v5 = v40;
+                  formCopy = v38;
+                  v5 = v39;
                   goto LABEL_61;
                 case '(':
                   v14 = [formCopy objectForKeyedSubscript:v8];
@@ -3303,9 +3327,9 @@ LABEL_62:
         ++v7;
       }
 
-      while (v7 != v43);
-      v36 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
-      v43 = v36;
+      while (v7 != v42);
+      v36 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+      v42 = v36;
       if (!v36)
       {
 LABEL_68:
@@ -3316,7 +3340,6 @@ LABEL_68:
     }
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -3355,38 +3378,38 @@ LABEL_68:
 
 - (id)changedPropertiesFromNetworkProfile:(id)profile
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   externalForm = [(CWFNetworkProfile *)self externalForm];
   v5 = [[CWFNetworkProfile alloc] initWithExternalForm:externalForm];
-  v35 = profileCopy;
+  v34 = profileCopy;
   externalForm2 = [profileCopy externalForm];
   v6 = [[CWFNetworkProfile alloc] initWithExternalForm:externalForm2];
-  v41 = [MEMORY[0x1E695DFA8] set];
+  v40 = [MEMORY[0x1E695DFA8] set];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   internal = [(CWFNetworkProfile *)v5 internal];
   allKeys = [internal allKeys];
 
   obj = allKeys;
-  v45 = [allKeys countByEnumeratingWithState:&v47 objects:v51 count:16];
-  if (v45)
+  v44 = [allKeys countByEnumeratingWithState:&v46 objects:v50 count:16];
+  if (v44)
   {
-    v44 = *v48;
-    v36 = v6;
-    v37 = v5;
+    v43 = *v47;
+    v35 = v6;
+    v36 = v5;
     do
     {
-      for (i = 0; i != v45; ++i)
+      for (i = 0; i != v44; ++i)
       {
-        if (*v48 != v44)
+        if (*v47 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v47 + 1) + 8 * i);
+        v10 = *(*(&v46 + 1) + 8 * i);
         internal2 = [(CWFNetworkProfile *)v5 internal];
         v12 = [internal2 objectForKeyedSubscript:v10];
         internal3 = [(CWFNetworkProfile *)v6 internal];
@@ -3398,7 +3421,7 @@ LABEL_68:
           continue;
         }
 
-        v46 = internal2;
+        v45 = internal2;
         internal4 = [(CWFNetworkProfile *)v5 internal];
         v17 = [internal4 objectForKeyedSubscript:v10];
         if (!v17)
@@ -3414,29 +3437,29 @@ LABEL_68:
 
 LABEL_13:
 LABEL_14:
-          [v41 addObject:v10];
+          [v40 addObject:v10];
           continue;
         }
 
-        v39 = v19;
+        v38 = v19;
         internal6 = [(CWFNetworkProfile *)v5 internal];
         v20 = [internal6 objectForKeyedSubscript:v10];
         internal7 = [(CWFNetworkProfile *)v18 internal];
         v22 = [internal7 objectForKeyedSubscript:v10];
-        v40 = [v20 isEqual:v22];
+        v39 = [v20 isEqual:v22];
 
-        v5 = v37;
-        v6 = v36;
-        if ((v40 & 1) == 0)
+        v5 = v36;
+        v6 = v35;
+        if ((v39 & 1) == 0)
         {
           goto LABEL_14;
         }
       }
 
-      v45 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+      v44 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
     }
 
-    while (v45);
+    while (v44);
   }
 
   v23 = MEMORY[0x1E695DFA8];
@@ -3450,46 +3473,45 @@ LABEL_14:
   v30 = [v27 setWithArray:allKeys3];
   [v26 minusSet:v30];
 
-  [v41 unionSet:v26];
-  v31 = *MEMORY[0x1E69E9840];
+  [v40 unionSet:v26];
 
-  return v41;
+  return v40;
 }
 
 - (id)changedOSSpecificKeysFromNetworkProfile:(id)profile
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   v5 = [MEMORY[0x1E695DFA8] set];
   externalForm = [(CWFNetworkProfile *)self externalForm];
-  v33 = [[CWFNetworkProfile alloc] initWithExternalForm:externalForm];
-  oSSpecificAttributes = [(CWFNetworkProfile *)v33 OSSpecificAttributes];
-  v35 = profileCopy;
+  v32 = [[CWFNetworkProfile alloc] initWithExternalForm:externalForm];
+  oSSpecificAttributes = [(CWFNetworkProfile *)v32 OSSpecificAttributes];
+  v34 = profileCopy;
   externalForm2 = [profileCopy externalForm];
-  v31 = [[CWFNetworkProfile alloc] initWithExternalForm:externalForm2];
-  oSSpecificAttributes2 = [(CWFNetworkProfile *)v31 OSSpecificAttributes];
+  v30 = [[CWFNetworkProfile alloc] initWithExternalForm:externalForm2];
+  oSSpecificAttributes2 = [(CWFNetworkProfile *)v30 OSSpecificAttributes];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   allKeys = [oSSpecificAttributes allKeys];
-  v40 = [allKeys countByEnumeratingWithState:&v41 objects:v45 count:16];
-  if (v40)
+  v39 = [allKeys countByEnumeratingWithState:&v40 objects:v44 count:16];
+  if (v39)
   {
-    v9 = *v42;
-    v36 = allKeys;
-    v37 = oSSpecificAttributes2;
-    v38 = *v42;
+    v9 = *v41;
+    v35 = allKeys;
+    v36 = oSSpecificAttributes2;
+    v37 = *v41;
     do
     {
-      for (i = 0; i != v40; ++i)
+      for (i = 0; i != v39; ++i)
       {
-        if (*v42 != v9)
+        if (*v41 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v41 + 1) + 8 * i);
+        v11 = *(*(&v40 + 1) + 8 * i);
         v12 = [oSSpecificAttributes objectForKeyedSubscript:v11];
         v13 = [oSSpecificAttributes2 objectForKeyedSubscript:v11];
         v14 = v13;
@@ -3510,7 +3532,7 @@ LABEL_14:
         if (!v17)
         {
 
-          v9 = v38;
+          v9 = v37;
 LABEL_13:
 
 LABEL_14:
@@ -3523,24 +3545,24 @@ LABEL_14:
         [oSSpecificAttributes2 objectForKeyedSubscript:v11];
         v20 = oSSpecificAttributes;
         v22 = v21 = v5;
-        v39 = [v19 isEqual:v22];
+        v38 = [v19 isEqual:v22];
 
         v5 = v21;
         oSSpecificAttributes = v20;
-        oSSpecificAttributes2 = v37;
+        oSSpecificAttributes2 = v36;
 
-        allKeys = v36;
-        v9 = v38;
-        if ((v39 & 1) == 0)
+        allKeys = v35;
+        v9 = v37;
+        if ((v38 & 1) == 0)
         {
           goto LABEL_14;
         }
       }
 
-      v40 = [allKeys countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v39 = [allKeys countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
-    while (v40);
+    while (v39);
   }
 
   v23 = MEMORY[0x1E695DFA8];
@@ -3553,7 +3575,6 @@ LABEL_14:
   [v25 minusSet:v28];
 
   [v5 unionSet:v25];
-  v29 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -3606,10 +3627,28 @@ LABEL_14:
   return CWFWeakestSecurityType(supportedSecurityTypes, wAPISubtype, wEPSubtype);
 }
 
+- (void)setAutoJoinDisabled:(BOOL)disabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:disabled];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBB78];
+}
+
 - (void)setHiddenState:(int64_t)state
 {
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:state];
   [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBB90];
+}
+
+- (void)setPasswordSharingDisabled:(BOOL)disabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:disabled];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBBD8];
+}
+
+- (void)setPayloadIdentifierTelemetryApproved:(BOOL)approved
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:approved];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBC08];
 }
 
 - (void)setPayloadIdentifier:(id)identifier
@@ -3628,6 +3667,24 @@ LABEL_14:
   [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBC38];
 }
 
+- (void)setPersonalHotspot:(BOOL)hotspot
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:hotspot];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBCB0];
+}
+
+- (void)setTransitionDisabledFlags:(int)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&flags];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBCF8];
+}
+
+- (void)setStandalone6G:(BOOL)g
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:g];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBD10];
+}
+
 - (BOOL)isSystemMode
 {
   v2 = [(NSMutableDictionary *)self->_internal objectForKeyedSubscript:&unk_1F5BBBD28];
@@ -3636,12 +3693,24 @@ LABEL_14:
   return bOOLValue;
 }
 
+- (void)setSystemMode:(BOOL)mode
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:mode];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBD28];
+}
+
 - (BOOL)isSessionBased
 {
   v2 = [(NSMutableDictionary *)self->_internal objectForKeyedSubscript:&unk_1F5BBBD40];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setSessionBased:(BOOL)based
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:based];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBD40];
 }
 
 - (void)setLowDataMode:(int64_t)mode
@@ -3675,9 +3744,15 @@ LABEL_14:
   return v3;
 }
 
+- (void)setServiceProviderRoamingEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBE00];
+}
+
 - (void)setOSSpecificValue:(id)value forKey:(id)key
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   if (keyCopy && (+[CWFNetworkProfile supportedOSSpecificKeys](CWFNetworkProfile, "supportedOSSpecificKeys"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 containsObject:keyCopy], v8, v9))
@@ -3710,11 +3785,17 @@ LABEL_14:
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      _os_log_send_and_compose_impl();
+      v15 = 136446978;
+      v16 = "[CWFNetworkProfile setOSSpecificValue:forKey:]";
+      v17 = 2082;
+      v18 = "CWFNetworkProfile.m";
+      v19 = 1024;
+      v20 = 2492;
+      v21 = 2112;
+      v22 = keyCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 17, "[corewifi] %{public}s (%{public}s:%u) OS-specific key '%@' is not supported", &v15, 38);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)OSSpecificValueForKey:(id)key
@@ -3737,36 +3818,36 @@ LABEL_14:
 
 - (void)setOSSpecificAttributes:(id)attributes
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   v5 = attributesCopy;
   if (attributesCopy)
   {
     selfCopy = self;
-    v25 = attributesCopy;
-    v28 = 0u;
-    v29 = 0u;
+    v23 = attributesCopy;
     v26 = 0u;
     v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     allKeys = [attributesCopy allKeys];
-    v7 = [allKeys countByEnumeratingWithState:&v26 objects:v38 count:16];
+    v7 = [allKeys countByEnumeratingWithState:&v24 objects:v36 count:16];
     if (v7)
     {
       v8 = v7;
       array = 0;
-      v10 = *v27;
+      v10 = *v25;
       v11 = MEMORY[0x1E69E9C10];
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v27 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v26 + 1) + 8 * i);
-          v14 = [CWFNetworkProfile supportedOSSpecificKeys:v22];
+          v13 = *(*(&v24 + 1) + 8 * i);
+          v14 = +[CWFNetworkProfile supportedOSSpecificKeys];
           v15 = [v14 containsObject:v13];
 
           if ((v15 & 1) == 0)
@@ -3791,22 +3872,21 @@ LABEL_14:
 
             if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
             {
-              v30 = 136446978;
-              v31 = "[CWFNetworkProfile setOSSpecificAttributes:]";
-              v32 = 2082;
-              v33 = "CWFNetworkProfile.m";
-              v34 = 1024;
-              v35 = 2525;
-              v36 = 2112;
-              v37 = v13;
-              LODWORD(v23) = 38;
-              v22 = &v30;
-              _os_log_send_and_compose_impl();
+              v28 = 136446978;
+              v29 = "[CWFNetworkProfile setOSSpecificAttributes:]";
+              v30 = 2082;
+              v31 = "CWFNetworkProfile.m";
+              v32 = 1024;
+              v33 = 2525;
+              v34 = 2112;
+              v35 = v13;
+              LODWORD(v21) = 38;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v17, 17, "[corewifi] %{public}s (%{public}s:%u) OS-specific key '%@' is not supported", &v28, v21);
             }
           }
         }
 
-        v8 = [allKeys countByEnumeratingWithState:&v26 objects:v38 count:16];
+        v8 = [allKeys countByEnumeratingWithState:&v24 objects:v36 count:16];
       }
 
       while (v8);
@@ -3819,15 +3899,15 @@ LABEL_14:
 
     if ([array count])
     {
-      v5 = v25;
-      v19 = [v25 mutableCopy];
+      v5 = v23;
+      v19 = [v23 mutableCopy];
       [v19 removeObjectsForKeys:array];
     }
 
     else
     {
       v19 = 0;
-      v5 = v25;
+      v5 = v23;
     }
 
     self = selfCopy;
@@ -3848,9 +3928,19 @@ LABEL_14:
     v20 = v5;
   }
 
-  [(NSMutableDictionary *)self->_internal setObject:v20 forKeyedSubscript:&unk_1F5BBB8C0, v22, v23];
+  [(NSMutableDictionary *)self->_internal setObject:v20 forKeyedSubscript:&unk_1F5BBB8C0];
+}
 
-  v21 = *MEMORY[0x1E69E9840];
+- (void)setCarplayNetwork:(BOOL)network
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:network];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBE48];
+}
+
+- (void)setAllowedBeforeFirstUnlock:(BOOL)unlock
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:unlock];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBE60];
 }
 
 - (void)setNetworkGroupPriority:(unint64_t)priority
@@ -3861,7 +3951,7 @@ LABEL_14:
 
 - (void)setBSSList:(id)list
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   listCopy = list;
   if ([listCopy count] < 0xB)
   {
@@ -3871,16 +3961,32 @@ LABEL_14:
   else
   {
     v5 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"lastAssociatedAt" ascending:0];
-    v11[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+    v10[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
     v7 = [listCopy sortedArrayUsingDescriptors:v6];
     v8 = [v7 subarrayWithRange:{0, 10}];
 
     v9 = [MEMORY[0x1E695DFD8] setWithArray:v8];
     [(NSMutableDictionary *)self->_internal setObject:v9 forKeyedSubscript:&unk_1F5BBBEF0];
   }
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)setPrivacyProxyEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBF08];
+}
+
+- (void)setBlueAtlasNetwork:(BOOL)network
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:network];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBF20];
+}
+
+- (void)setPublicAirPlayNetwork:(BOOL)network
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:network];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBF38];
 }
 
 - (BOOL)isBlueAtlasNetwork
@@ -3925,6 +4031,12 @@ LABEL_14:
   return bOOLValue;
 }
 
+- (void)setDisableAutojoinUntilFirstUserJoin:(BOOL)join
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:join];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBFC8];
+}
+
 - (BOOL)isPasspointHomeOperatorNetwork
 {
   v2 = [(NSMutableDictionary *)self->_internal objectForKeyedSubscript:&unk_1F5BBBFF8];
@@ -3933,12 +4045,24 @@ LABEL_14:
   return bOOLValue;
 }
 
+- (void)setPasspointHomeOperatorNetwork:(BOOL)network
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:network];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBFF8];
+}
+
 - (BOOL)isPasspointProvisionedNetwork
 {
   v2 = [(NSMutableDictionary *)self->_internal objectForKeyedSubscript:&unk_1F5BBC010];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setPasspointProvisionedNetwork:(BOOL)network
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:network];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBC010];
 }
 
 - (void)setLastJoinedBySystemAtWeek:(unint64_t)week
@@ -3951,6 +4075,12 @@ LABEL_14:
 {
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:week];
   [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBB950];
+}
+
+- (void)setDNSHeuristicsFilteredNetwork:(BOOL)network
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:network];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBC058];
 }
 
 - (id)__classDStorageSpecificPropertiesSet
@@ -3973,9 +4103,38 @@ LABEL_14:
 
 - (id)filteredClassDStorageNetworkProfile
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   __classDStorageSpecificPropertiesSet = [(CWFNetworkProfile *)self __classDStorageSpecificPropertiesSet];
   if (!__classDStorageSpecificPropertiesSet)
+  {
+    v18 = CWFGetOSLog();
+    if (v18)
+    {
+      v15 = CWFGetOSLog();
+    }
+
+    else
+    {
+      v15 = MEMORY[0x1E69E9C10];
+      v21 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      v29 = 136446722;
+      v30 = "[CWFNetworkProfile filteredClassDStorageNetworkProfile]";
+      v31 = 2082;
+      v32 = "CWFNetworkProfile.m";
+      v33 = 1024;
+      v34 = 3112;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] %{public}s (%{public}s:%u) classDStorageSpecificPropertiesSet is nil", &v29, 28);
+    }
+
+    goto LABEL_34;
+  }
+
+  v4 = [(CWFNetworkProfile *)self filteredNetworkProfileWithProperties:__classDStorageSpecificPropertiesSet];
+  if (!v4)
   {
     v19 = CWFGetOSLog();
     if (v19)
@@ -3989,22 +4148,27 @@ LABEL_14:
       v22 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_35;
+      v29 = 136446722;
+      v30 = "[CWFNetworkProfile filteredClassDStorageNetworkProfile]";
+      v31 = 2082;
+      v32 = "CWFNetworkProfile.m";
+      v33 = 1024;
+      v34 = 3118;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] %{public}s (%{public}s:%u) filteredProfile is nil", &v29, 28);
     }
 
-    v30 = 136446722;
-    v31 = "[CWFNetworkProfile filteredClassDStorageNetworkProfile]";
-    v32 = 2082;
-    v33 = "CWFNetworkProfile.m";
-    v34 = 1024;
-    v35 = 3112;
-    goto LABEL_34;
+LABEL_34:
+    v10 = 0;
+    v7 = 0;
+    v5 = 0;
+    goto LABEL_20;
   }
 
-  v4 = [(CWFNetworkProfile *)self filteredNetworkProfileWithProperties:__classDStorageSpecificPropertiesSet];
-  if (!v4)
+  v5 = v4;
+  bSSList = [v4 BSSList];
+  if (!bSSList)
   {
     v20 = CWFGetOSLog();
     if (v20)
@@ -4018,53 +4182,17 @@ LABEL_14:
       v23 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_35;
-    }
-
-    v30 = 136446722;
-    v31 = "[CWFNetworkProfile filteredClassDStorageNetworkProfile]";
-    v32 = 2082;
-    v33 = "CWFNetworkProfile.m";
-    v34 = 1024;
-    v35 = 3118;
-LABEL_34:
-    _os_log_send_and_compose_impl();
-LABEL_35:
-    v10 = 0;
-    v7 = 0;
-    v5 = 0;
-    goto LABEL_20;
-  }
-
-  v5 = v4;
-  bSSList = [v4 BSSList];
-  if (!bSSList)
-  {
-    v21 = CWFGetOSLog();
-    if (v21)
-    {
-      v15 = CWFGetOSLog();
-    }
-
-    else
-    {
-      v15 = MEMORY[0x1E69E9C10];
-      v24 = MEMORY[0x1E69E9C10];
-    }
-
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v30 = 136446978;
-      v31 = "[CWFNetworkProfile filteredClassDStorageNetworkProfile]";
-      v32 = 2082;
-      v33 = "CWFNetworkProfile.m";
-      v34 = 1024;
-      v35 = 3125;
-      v36 = 2112;
-      v37 = v5;
-      _os_log_send_and_compose_impl();
+      v29 = 136446978;
+      v30 = "[CWFNetworkProfile filteredClassDStorageNetworkProfile]";
+      v31 = 2082;
+      v32 = "CWFNetworkProfile.m";
+      v33 = 1024;
+      v34 = 3125;
+      v35 = 2112;
+      v36 = v5;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] %{public}s (%{public}s:%u) originalBSSList is nil. filteredProfile: %@", &v29, 38);
     }
 
     v10 = 0;
@@ -4072,12 +4200,12 @@ LABEL_35:
     goto LABEL_20;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v7 = bSSList;
-  v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (!v8)
   {
     v10 = 0;
@@ -4087,17 +4215,17 @@ LABEL_35:
 
   v9 = v8;
   v10 = 0;
-  v11 = *v26;
+  v11 = *v25;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v26 != v11)
+      if (*v25 != v11)
       {
         objc_enumerationMutation(v7);
       }
 
-      v13 = *(*(&v25 + 1) + 8 * i);
+      v13 = *(*(&v24 + 1) + 8 * i);
       if (v13)
       {
         filteredBSSForClassDStorage = [v13 filteredBSSForClassDStorage];
@@ -4113,7 +4241,7 @@ LABEL_35:
       }
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
   }
 
   while (v9);
@@ -4127,7 +4255,6 @@ LABEL_20:
 
   v16 = v5;
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -4139,12 +4266,24 @@ LABEL_20:
   return bOOLValue;
 }
 
+- (void)setHighPopularity:(BOOL)popularity
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:popularity];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBC088];
+}
+
 - (BOOL)isPotentiallyCaptive
 {
   v2 = [(NSMutableDictionary *)self->_internal objectForKeyedSubscript:&unk_1F5BBC0A0];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setPotentiallyCaptive:(BOOL)captive
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:captive];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBC0A0];
 }
 
 - (BOOL)isPotentiallyMoving
@@ -4155,12 +4294,24 @@ LABEL_20:
   return bOOLValue;
 }
 
+- (void)setPotentiallyMoving:(BOOL)moving
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:moving];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBC0B8];
+}
+
 - (BOOL)isHighQuality
 {
   v2 = [(NSMutableDictionary *)self->_internal objectForKeyedSubscript:&unk_1F5BBC0D0];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setHighQuality:(BOOL)quality
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:quality];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBC0D0];
 }
 
 - (BOOL)isSuspicious
@@ -4171,12 +4322,24 @@ LABEL_20:
   return bOOLValue;
 }
 
+- (void)setIsSuspicious:(BOOL)suspicious
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:suspicious];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBC0E8];
+}
+
 - (BOOL)isTCPGood
 {
   v2 = [(NSMutableDictionary *)self->_internal objectForKeyedSubscript:&unk_1F5BBC100];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setIsTCPGood:(BOOL)good
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:good];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBC100];
 }
 
 - (BOOL)isLowPopularity
@@ -4187,6 +4350,12 @@ LABEL_20:
   return bOOLValue;
 }
 
+- (void)setLowPopularity:(BOOL)popularity
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:popularity];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBC118];
+}
+
 - (BOOL)isLowQuality
 {
   v2 = [(NSMutableDictionary *)self->_internal objectForKeyedSubscript:&unk_1F5BBC130];
@@ -4195,12 +4364,24 @@ LABEL_20:
   return bOOLValue;
 }
 
+- (void)setLowQuality:(BOOL)quality
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:quality];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBC130];
+}
+
 - (BOOL)isProminentDisplay
 {
   v2 = [(NSMutableDictionary *)self->_internal objectForKeyedSubscript:&unk_1F5BBC148];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setProminentDisplay:(BOOL)display
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:display];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBC148];
 }
 
 - (unint64_t)popularityScore
@@ -4308,12 +4489,24 @@ LABEL_20:
   return unsignedIntValue;
 }
 
+- (void)setLastDisconnectReason:(int)reason
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&reason];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBB9B0];
+}
+
 - (BOOL)is2GHzBssPresent
 {
   v2 = [(NSMutableDictionary *)self->_internal objectForKeyedSubscript:&unk_1F5BBBB00];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setIs2GHzBssPresent:(BOOL)present
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:present];
+  [(NSMutableDictionary *)self->_internal setObject:v4 forKeyedSubscript:&unk_1F5BBBB00];
 }
 
 - (void)setPrivateMACAddressModeUserSetting:(int64_t)setting
@@ -4487,21 +4680,21 @@ LABEL_20:
 
 - (id)__descriptionForBSSListWithLimit:(unint64_t)limit
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   string = [MEMORY[0x1E696AD60] string];
   v6 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"lastAssociatedAt" ascending:0];
   bSSList = [(CWFNetworkProfile *)self BSSList];
-  v24[0] = v6;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+  v23[0] = v6;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
   v9 = [bSSList sortedArrayUsingDescriptors:v8];
 
   if ([v9 count])
   {
     [string appendString:@"bssList=["];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = [v9 count];
     limitCopy = limit;
     if (v10 <= limit)
@@ -4510,24 +4703,24 @@ LABEL_20:
     }
 
     v12 = [v9 subarrayWithRange:{0, limitCopy}];
-    v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v20;
+      v15 = *v19;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v20 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          [string appendFormat:@"(%@), ", *(*(&v19 + 1) + 8 * i)];
+          [string appendFormat:@"(%@), ", *(*(&v18 + 1) + 8 * i)];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v14);
@@ -4541,8 +4734,6 @@ LABEL_20:
     [string deleteCharactersInRange:{objc_msgSend(string, "length") - 2, 2}];
     [string appendString:{@"], "}];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return string;
 }
@@ -5239,7 +5430,7 @@ LABEL_5:
 
 - (CWFNetworkProfile)initWithCloudSyncExternalForm:(id)form
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   formCopy = form;
   v5 = [(CWFNetworkProfile *)self init];
   if (v5)
@@ -5384,12 +5575,12 @@ LABEL_5:
 
     v36 = [formCopy objectForKeyedSubscript:@"isCaptive"];
 
-    if (v36 && sub_1E0BCE0D8())
+    if (v36 && sub_1E0BCE0D8(0))
     {
       sub_1E0BCE288();
-      v41 = v37;
-      v42[0] = v36;
-      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+      v40 = v37;
+      v41[0] = v36;
+      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
       [(CWFNetworkProfile *)v5 setCaptiveProfile:v38];
     }
   }
@@ -5399,7 +5590,6 @@ LABEL_5:
     v36 = 0;
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -5827,12 +6017,12 @@ LABEL_25:
 
 - (CWFNetworkProfile)initWithMigrationData:(id)data
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dataCopy = data;
+  v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  memset(v31, 0, sizeof(v31));
+  v29 = 0u;
+  memset(v30, 0, sizeof(v30));
   memset(__s, 0, sizeof(__s));
   v5 = [(CWFNetworkProfile *)self init];
   if (!v5)
@@ -5852,7 +6042,7 @@ LABEL_25:
     v7 = [v6 dataUsingEncoding:4];
     [(CWFNetworkProfile *)v5 setSSID:v7];
 
-    if (BYTE1(v30))
+    if (BYTE1(v29))
     {
       v8 = 1;
     }
@@ -5863,7 +6053,7 @@ LABEL_25:
     }
 
     [(CWFNetworkProfile *)v5 setHiddenState:v8];
-    if (!memchr(v31, 0, 0x41uLL) || ([MEMORY[0x1E696AEC0] stringWithUTF8String:v31], (v9 = objc_claimAutoreleasedReturnValue()) == 0))
+    if (!memchr(v30, 0, 0x41uLL) || ([MEMORY[0x1E696AEC0] stringWithUTF8String:v30], (v9 = objc_claimAutoreleasedReturnValue()) == 0))
     {
       NSLog(&cfstr_PasswordIsEith.isa);
       v9 = 0;
@@ -5872,31 +6062,31 @@ LABEL_25:
     sSID = [(CWFNetworkProfile *)v5 SSID];
     sub_1E0BEE9FC(sSID, 0, v9);
 
-    if ((*(&v32 + 1) - 1) > 0xFF)
+    if ((*(&v31 + 1) - 1) > 0xFF)
     {
-      NSLog(&cfstr_InvalidPublick.isa, *(&v32 + 1));
+      NSLog(&cfstr_InvalidPublick.isa, *(&v31 + 1));
       [(CWFNetworkProfile *)v5 setPublicKey:0];
     }
 
     else
     {
-      v11 = [MEMORY[0x1E695DEF0] dataWithBytes:&v31[4] + 1 length:?];
+      v11 = [MEMORY[0x1E695DEF0] dataWithBytes:&v30[4] + 1 length:?];
       [(CWFNetworkProfile *)v5 setPublicKey:v11];
     }
 
-    [(CWFNetworkProfile *)v5 setAutoJoinDisabled:(BYTE8(v33) & 1) == 0];
-    [(CWFNetworkProfile *)v5 setSupportedSecurityTypes:[(CWFNetworkProfile *)v5 mapCWFMigrationSecurityTypeToCWFSecurityType:*(&v30 + 1)]];
+    [(CWFNetworkProfile *)v5 setAutoJoinDisabled:(BYTE8(v32) & 1) == 0];
+    [(CWFNetworkProfile *)v5 setSupportedSecurityTypes:[(CWFNetworkProfile *)v5 mapCWFMigrationSecurityTypeToCWFSecurityType:*(&v29 + 1)]];
     [(CWFNetworkProfile *)v5 setAddReason:20];
-    v26 = 0;
-    v13 = [(CWFNetworkProfile *)v5 mapPrivateMacToCWFPrivateMACMode:v33 setByUser:&v26];
+    v25 = 0;
+    v13 = [(CWFNetworkProfile *)v5 mapPrivateMacToCWFPrivateMACMode:v32 setByUser:&v25];
     v14 = MEMORY[0x1E695DF90];
-    v27[0] = @"PRIVATE_MAC_ADDRESS_TYPE";
+    v26[0] = @"PRIVATE_MAC_ADDRESS_TYPE";
     v15 = [MEMORY[0x1E696AD98] numberWithInteger:v13];
-    v27[1] = @"PRIVATE_MAC_SET_BY_USER";
-    v28[0] = v15;
-    v16 = [MEMORY[0x1E696AD98] numberWithBool:v26];
-    v28[1] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
+    v26[1] = @"PRIVATE_MAC_SET_BY_USER";
+    v27[0] = v15;
+    v16 = [MEMORY[0x1E696AD98] numberWithBool:v25];
+    v27[1] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
     v18 = [v14 dictionaryWithDictionary:v17];
 
     oSSpecificAttributes = [(CWFNetworkProfile *)v5 OSSpecificAttributes];
@@ -5932,19 +6122,18 @@ LABEL_22:
   v12 = 0;
 LABEL_23:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (id)migrationData
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  memset(v20, 0, sizeof(v20));
-  *__dst = 0u;
   v18 = 0u;
+  memset(v19, 0, sizeof(v19));
+  *__dst = 0u;
+  v17 = 0u;
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   sSID = [(CWFNetworkProfile *)self SSID];
   v5 = [v3 initWithData:sSID encoding:4];
@@ -5952,50 +6141,48 @@ LABEL_23:
   if (v5)
   {
     strncpy(__dst, [v5 UTF8String], 0x20uLL);
-    LOBYTE(v19) = 0;
+    LOBYTE(v18) = 0;
   }
 
-  BYTE1(v19) = [(CWFNetworkProfile *)self hiddenState]== 1;
-  *(&v19 + 1) = [(CWFNetworkProfile *)self mapCWFSecurityTypeToCWFMigrationSecurityType:[(CWFNetworkProfile *)self supportedSecurityTypes]];
+  BYTE1(v18) = [(CWFNetworkProfile *)self hiddenState]== 1;
+  *(&v18 + 1) = [(CWFNetworkProfile *)self mapCWFSecurityTypeToCWFMigrationSecurityType:[(CWFNetworkProfile *)self supportedSecurityTypes]];
   sSID2 = [(CWFNetworkProfile *)self SSID];
-  v16 = 0;
-  CWFSecItemQueryPassword_0(sSID2, &v16);
-  v7 = v16;
+  v15 = 0;
+  CWFSecItemQueryPassword_0(sSID2, &v15);
+  v7 = v15;
 
   if (v7)
   {
-    strncpy(v20, [v7 UTF8String], 0x40uLL);
-    LOBYTE(v20[4]) = 0;
+    strncpy(v19, [v7 UTF8String], 0x40uLL);
+    LOBYTE(v19[4]) = 0;
   }
 
   [(CWFNetworkProfile *)self setPublicKey:0];
   publicKey = [(CWFNetworkProfile *)self publicKey];
   if ([publicKey length] >= 0x100)
   {
-    *(&v21 + 1) = 256;
+    *(&v20 + 1) = 256;
   }
 
   else
   {
     publicKey2 = [(CWFNetworkProfile *)self publicKey];
-    *(&v21 + 1) = [publicKey2 length];
+    *(&v20 + 1) = [publicKey2 length];
   }
 
   publicKey3 = [(CWFNetworkProfile *)self publicKey];
-  [publicKey3 getBytes:&v20[4] + 1 length:*(&v21 + 1)];
+  [publicKey3 getBytes:&v19[4] + 1 length:*(&v20 + 1)];
 
   oSSpecificAttributes = [(CWFNetworkProfile *)self OSSpecificAttributes];
   v12 = [oSSpecificAttributes objectForKeyedSubscript:@"PRIVATE_MAC_ADDRESS"];
 
   if (v12)
   {
-    *&v22 = [(CWFNetworkProfile *)self mapPrivateMACAddress:v12];
+    *&v21 = [(CWFNetworkProfile *)self mapPrivateMACAddress:v12];
   }
 
-  BYTE8(v22) = ![(CWFNetworkProfile *)self isAutoJoinDisabled];
+  BYTE8(v21) = ![(CWFNetworkProfile *)self isAutoJoinDisabled];
   v13 = [MEMORY[0x1E695DEF0] dataWithBytes:__dst length:400];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -6180,26 +6367,26 @@ LABEL_23:
 
 - (id)_location
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   bSSList = [(CWFNetworkProfile *)self BSSList];
-  location2 = [bSSList countByEnumeratingWithState:&v10 objects:v14 count:16];
+  location2 = [bSSList countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (location2)
   {
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != location2; i = i + 1)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(bSSList);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         location = [v6 location];
 
         if (location)
@@ -6209,7 +6396,7 @@ LABEL_23:
         }
       }
 
-      location2 = [bSSList countByEnumeratingWithState:&v10 objects:v14 count:16];
+      location2 = [bSSList countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (location2)
       {
         continue;
@@ -6220,8 +6407,6 @@ LABEL_23:
   }
 
 LABEL_11:
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return location2;
 }

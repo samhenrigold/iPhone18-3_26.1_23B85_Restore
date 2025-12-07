@@ -17,6 +17,7 @@
 
   sub_388C8(&qword_128568, &qword_F3950);
   v3 = sub_F09EC();
+  v2, v4, v5, v6, v7, v8, v9, v10;
 
   return v3;
 }
@@ -57,45 +58,43 @@
 - (void)buildWith:(id)with parts:(id)parts completion:(id)completion
 {
   v8 = sub_388C8(&qword_127EB0, &unk_F2B30);
-  v9 = *(*(v8 - 8) + 64);
   __chkstk_darwin(v8 - 8);
-  v11 = &v18 - v10;
-  v12 = _Block_copy(completion);
-  v13 = swift_allocObject();
-  *(v13 + 16) = v12;
-  v14 = sub_F0B1C();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = self;
-  v15[5] = with;
-  v15[6] = sub_B12B4;
-  v15[7] = v13;
+  v10 = &v17 - v9;
+  v11 = _Block_copy(completion);
+  v12 = swift_allocObject();
+  *(v12 + 16) = v11;
+  v13 = sub_F0B1C();
+  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = self;
+  v14[5] = with;
+  v14[6] = sub_B12B4;
+  v14[7] = v12;
   withCopy = with;
   selfCopy = self;
-  sub_AE864(0, 0, v11, &unk_F43E8, v15);
+  sub_AE864(0, 0, v10, &unk_F43E8, v14);
 }
 
 - (void)sendWithCompletion:(id)completion
 {
   v5 = sub_388C8(&qword_127EB0, &unk_F2B30);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(completion);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  v11 = sub_F0B1C();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = self;
-  v12[5] = sub_B0DAC;
-  v12[6] = v10;
+  v7 = &v13 - v6;
+  v8 = _Block_copy(completion);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  v10 = sub_F0B1C();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = self;
+  v11[5] = sub_B0DAC;
+  v11[6] = v9;
   selfCopy = self;
-  sub_3CC0C(0, 0, v8, &unk_F4390, v12);
+  sub_3CC0C(0, 0, v7, &unk_F4390, v11);
 }
 
 - (RCSMessageSender)init

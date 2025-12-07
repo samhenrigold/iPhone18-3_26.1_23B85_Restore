@@ -26,7 +26,7 @@
 
 - (void)dealloc
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (!*(self + 6) || nw_parameters_get_logging_disabled(*(self + 5)))
   {
     goto LABEL_14;
@@ -40,16 +40,14 @@
   v3 = gbrowserLogObj;
   v4 = *(self + 48);
   *buf = 136446466;
-  v41 = "[NWConcrete_nw_browser dealloc]";
-  v42 = 1024;
-  v43 = v4;
-  v36 = 18;
-  v35 = buf;
-  v5 = _os_log_send_and_compose_impl();
+  v40 = "[NWConcrete_nw_browser dealloc]";
+  v41 = 1024;
+  v42 = v4;
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s [B%u] over-release of nw_browser_t! Object should not be internally retained and deallocating", buf, 18);
 
   type = OS_LOG_TYPE_ERROR;
-  v38 = 0;
-  if (__nwlog_fault(v5, &type, &v38))
+  v37 = 0;
+  if (__nwlog_fault(v5, &type, &v37))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
@@ -64,14 +62,14 @@
       {
         v8 = *(self + 48);
         *buf = 136446466;
-        v41 = "[NWConcrete_nw_browser dealloc]";
-        v42 = 1024;
-        v43 = v8;
+        v40 = "[NWConcrete_nw_browser dealloc]";
+        v41 = 1024;
+        v42 = v8;
         _os_log_impl(&dword_181A37000, v6, v7, "%{public}s [B%u] over-release of nw_browser_t! Object should not be internally retained and deallocating", buf, 0x12u);
       }
     }
 
-    else if (v38 == 1)
+    else if (v37 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
       if (backtrace_string)
@@ -88,11 +86,11 @@
         {
           v21 = *(self + 48);
           *buf = 136446722;
-          v41 = "[NWConcrete_nw_browser dealloc]";
-          v42 = 1024;
-          v43 = v21;
-          v44 = 2082;
-          v45 = v18;
+          v40 = "[NWConcrete_nw_browser dealloc]";
+          v41 = 1024;
+          v42 = v21;
+          v43 = 2082;
+          v44 = v18;
           _os_log_impl(&dword_181A37000, v19, v20, "%{public}s [B%u] over-release of nw_browser_t! Object should not be internally retained and deallocating, dumping backtrace:%{public}s", buf, 0x1Cu);
         }
 
@@ -116,9 +114,9 @@
       {
         v32 = *(self + 48);
         *buf = 136446466;
-        v41 = "[NWConcrete_nw_browser dealloc]";
-        v42 = 1024;
-        v43 = v32;
+        v40 = "[NWConcrete_nw_browser dealloc]";
+        v41 = 1024;
+        v42 = v32;
         _os_log_impl(&dword_181A37000, v6, v31, "%{public}s [B%u] over-release of nw_browser_t! Object should not be internally retained and deallocating, no backtrace", buf, 0x12u);
       }
     }
@@ -136,9 +134,9 @@
       {
         v28 = *(self + 48);
         *buf = 136446466;
-        v41 = "[NWConcrete_nw_browser dealloc]";
-        v42 = 1024;
-        v43 = v28;
+        v40 = "[NWConcrete_nw_browser dealloc]";
+        v41 = 1024;
+        v42 = v28;
         _os_log_impl(&dword_181A37000, v6, v27, "%{public}s [B%u] over-release of nw_browser_t! Object should not be internally retained and deallocating, backtrace limit exceeded", buf, 0x12u);
       }
     }
@@ -161,16 +159,15 @@ LABEL_14:
     v9 = gbrowserLogObj;
     v10 = *(self + 48);
     *buf = 136446466;
-    v41 = "[NWConcrete_nw_browser dealloc]";
-    v42 = 1024;
-    v43 = v10;
-    v36 = 18;
-    v35 = buf;
-    v11 = _os_log_send_and_compose_impl();
+    v40 = "[NWConcrete_nw_browser dealloc]";
+    v41 = 1024;
+    v42 = v10;
+    LODWORD(v35) = 18;
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s [B%u] over-release of nw_browser_t! Object should have deallocated the DNSServiceRef", buf, v35);
 
     type = OS_LOG_TYPE_ERROR;
-    v38 = 0;
-    if (!__nwlog_fault(v11, &type, &v38))
+    v37 = 0;
+    if (!__nwlog_fault(v11, &type, &v37))
     {
 LABEL_25:
       if (!v11)
@@ -194,9 +191,9 @@ LABEL_25:
       {
         v14 = *(self + 48);
         *buf = 136446466;
-        v41 = "[NWConcrete_nw_browser dealloc]";
-        v42 = 1024;
-        v43 = v14;
+        v40 = "[NWConcrete_nw_browser dealloc]";
+        v41 = 1024;
+        v42 = v14;
         _os_log_impl(&dword_181A37000, v12, v13, "%{public}s [B%u] over-release of nw_browser_t! Object should have deallocated the DNSServiceRef", buf, 0x12u);
       }
 
@@ -205,7 +202,7 @@ LABEL_24:
       goto LABEL_25;
     }
 
-    if (v38 != 1)
+    if (v37 != 1)
     {
       if (__nwlog_browser_log::onceToken != -1)
       {
@@ -218,9 +215,9 @@ LABEL_24:
       {
         v30 = *(self + 48);
         *buf = 136446466;
-        v41 = "[NWConcrete_nw_browser dealloc]";
-        v42 = 1024;
-        v43 = v30;
+        v40 = "[NWConcrete_nw_browser dealloc]";
+        v41 = 1024;
+        v42 = v30;
         _os_log_impl(&dword_181A37000, v12, v29, "%{public}s [B%u] over-release of nw_browser_t! Object should have deallocated the DNSServiceRef, backtrace limit exceeded", buf, 0x12u);
       }
 
@@ -241,9 +238,9 @@ LABEL_24:
       {
         v34 = *(self + 48);
         *buf = 136446466;
-        v41 = "[NWConcrete_nw_browser dealloc]";
-        v42 = 1024;
-        v43 = v34;
+        v40 = "[NWConcrete_nw_browser dealloc]";
+        v41 = 1024;
+        v42 = v34;
         _os_log_impl(&dword_181A37000, v12, v33, "%{public}s [B%u] over-release of nw_browser_t! Object should have deallocated the DNSServiceRef, no backtrace", buf, 0x12u);
       }
 
@@ -262,11 +259,11 @@ LABEL_24:
     {
       v26 = *(self + 48);
       *buf = 136446722;
-      v41 = "[NWConcrete_nw_browser dealloc]";
-      v42 = 1024;
-      v43 = v26;
-      v44 = 2082;
-      v45 = v23;
+      v40 = "[NWConcrete_nw_browser dealloc]";
+      v41 = 1024;
+      v42 = v26;
+      v43 = 2082;
+      v44 = v23;
       _os_log_impl(&dword_181A37000, v24, v25, "%{public}s [B%u] over-release of nw_browser_t! Object should have deallocated the DNSServiceRef, dumping backtrace:%{public}s", buf, 0x1Cu);
     }
 
@@ -293,9 +290,9 @@ LABEL_27:
     *(self + 23) = 0;
   }
 
-  v37.receiver = self;
-  v37.super_class = NWConcrete_nw_browser;
-  [(NWConcrete_nw_browser *)&v37 dealloc:v35];
+  v36.receiver = self;
+  v36.super_class = NWConcrete_nw_browser;
+  [(NWConcrete_nw_browser *)&v36 dealloc];
 }
 
 @end

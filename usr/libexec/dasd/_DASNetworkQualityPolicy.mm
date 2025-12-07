@@ -9,6 +9,7 @@
 - (NSDictionary)discountedHours;
 - (NSDictionary)lowCongestionHours;
 - (_DASNetworkQualityPolicy)init;
+- (double)companionScoreForActivity:(id)activity networkQuality:(int64_t)quality interface:(int64_t)interface interfaceSubtype:(int64_t)subtype pluginStatus:(BOOL)status radioHot:(BOOL)hot linkAvailable:(BOOL *)available loiStatus:(int64_t)self0;
 - (double)predictedScoreForActivity:(id)activity atDate:(id)date;
 - (double)scoreWithInexpensiveCellForActivity:(id)activity networkQuality:(int64_t)quality interface:(int64_t)interface radioHot:(BOOL)hot;
 - (id)initializeCoreTelephonyClient;
@@ -23,6 +24,7 @@
 - (void)registerForPredictionChanges;
 - (void)setDiscountedHours:(id)hours;
 - (void)setLowCongestionHours:(id)hours;
+- (void)smartDataModeChanged:(id)changed userEnabled:(BOOL)enabled;
 - (void)updatePNWStatus:(BOOL)status;
 - (void)updateSystemConstraintsWithContext:(id)context;
 @end
@@ -1002,6 +1004,47 @@ LABEL_26:
   return result;
 }
 
+- (double)companionScoreForActivity:(id)activity networkQuality:(int64_t)quality interface:(int64_t)interface interfaceSubtype:(int64_t)subtype pluginStatus:(BOOL)status radioHot:(BOOL)hot linkAvailable:(BOOL *)available loiStatus:(int64_t)self0
+{
+  hotCopy = hot;
+  activityCopy = activity;
+  if (available)
+  {
+    *available = quality > 0;
+  }
+
+  if (quality >= 1)
+  {
+    qualityCopy = 1.0;
+  }
+
+  else
+  {
+    qualityCopy = 0.0;
+  }
+
+  if (quality >= 1 && !status)
+  {
+    qualityCopy = 0.0;
+    if ([(_DASNetworkQualityPolicy *)self minimumQualityForActivity:activityCopy interface:interface interfaceSubtype:subtype loiStatus:loiStatus]<= quality)
+    {
+      schedulingPriority = [activityCopy schedulingPriority];
+      if (schedulingPriority >= _DASSchedulingPriorityUserInitiated)
+      {
+        qualityCopy = quality;
+      }
+
+      else
+      {
+        [(_DASNetworkQualityPolicy *)self scoreWithInexpensiveCellForActivity:activityCopy networkQuality:quality interface:interface radioHot:hotCopy];
+        qualityCopy = v19;
+      }
+    }
+  }
+
+  return qualityCopy;
+}
+
 - (BOOL)isiCloudKeychainActivity:(id)activity
 {
   activityCopy = activity;
@@ -1524,6 +1567,20 @@ LABEL_31:
   }
 
   [(_DASNetworkQualityPolicy *)self loadCTInformationWithSDM:1];
+}
+
+- (void)smartDataModeChanged:(id)changed userEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  self->_smartDataModeEnabled = enabled;
+  v5 = [_DASDaemonLogger logForCategory:@"carrierBundle"];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [NSNumber numberWithBool:enabledCopy];
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "SDM changed to %@", &v7, 0xCu);
+  }
 }
 
 @end

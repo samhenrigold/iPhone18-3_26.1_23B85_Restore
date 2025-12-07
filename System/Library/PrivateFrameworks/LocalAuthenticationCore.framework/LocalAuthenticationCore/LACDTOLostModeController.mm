@@ -31,35 +31,33 @@
 
 - (void)fetchLostMode:(id)mode completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   modeCopy = mode;
   completionCopy = completion;
   StrategyFromRequest = LACDTOLostModeFetchStrategyFromRequest(modeCopy);
-  v9 = LACLogDTOLostMode();
+  v9 = LACLogDTOLostMode(StrategyFromRequest);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = NSStringFromLACDTOLostModeFetchStrategy(StrategyFromRequest);
     *buf = 138543618;
     selfCopy = self;
-    v18 = 2112;
-    v19 = v10;
+    v17 = 2112;
+    v18 = v10;
     _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ will start query with '%@' strategy", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __53__LACDTOLostModeController_fetchLostMode_completion___block_invoke;
-  v13[3] = &unk_1E7A96808;
-  objc_copyWeak(&v15, buf);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __53__LACDTOLostModeController_fetchLostMode_completion___block_invoke;
+  v12[3] = &unk_1E7A96808;
+  objc_copyWeak(&v14, buf);
   v11 = completionCopy;
-  v14 = v11;
-  [(LACDTOLostModeController *)self _runLostModeBackgroundTaskWithStrategy:StrategyFromRequest completion:v13];
+  v13 = v11;
+  [(LACDTOLostModeController *)self _runLostModeBackgroundTaskWithStrategy:StrategyFromRequest completion:v12];
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __53__LACDTOLostModeController_fetchLostMode_completion___block_invoke(uint64_t a1, void *a2)
@@ -67,66 +65,62 @@ void __53__LACDTOLostModeController_fetchLostMode_completion___block_invoke(uint
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = LACLogDTOLostMode();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LACLogDTOLostMode(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v11 = WeakRetained;
+      v11 = v5;
       v12 = 2112;
       v13 = v3;
-      _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query %@", buf, 0x16u);
+      _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query %@", buf, 0x16u);
     }
 
-    dispatch_assert_queue_V2(WeakRetained[3]);
+    dispatch_assert_queue_V2(v5[3]);
     v7[0] = MEMORY[0x1E69E9820];
     v7[1] = 3221225472;
     v7[2] = __53__LACDTOLostModeController_fetchLostMode_completion___block_invoke_1;
     v7[3] = &unk_1E7A967E0;
-    v7[4] = WeakRetained;
+    v7[4] = v5;
     v9 = *(a1 + 32);
     v8 = v3;
-    [(dispatch_queue_t *)WeakRetained _storeLostModeState:v8 completion:v7];
+    [(dispatch_queue_t *)v5 _storeLostModeState:v8 completion:v7];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-void __53__LACDTOLostModeController_fetchLostMode_completion___block_invoke_1(void *a1, void *a2)
+void __53__LACDTOLostModeController_fetchLostMode_completion___block_invoke_1(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = a1[4];
+  v4 = *(a1 + 32);
   if (v4)
   {
     dispatch_assert_queue_V2(*(v4 + 24));
     if (v3)
     {
-      v5 = LACLogDTOLostMode();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = LACLogDTOLostMode(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = a1[4];
-        v11 = 138543618;
-        v12 = v6;
-        v13 = 2114;
-        v14 = v3;
-        _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query with error %{public}@", &v11, 0x16u);
+        v7 = *(a1 + 32);
+        v10 = 138543618;
+        v11 = v7;
+        v12 = 2114;
+        v13 = v3;
+        _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query with error %{public}@", &v10, 0x16u);
       }
 
-      v7 = a1[6];
-      v8 = +[LACDTOLostModeState nullInstance];
-      (*(v7 + 16))(v7, v8);
+      v8 = *(a1 + 48);
+      v9 = +[LACDTOLostModeState nullInstance];
+      (*(v8 + 16))(v8, v9);
     }
 
     else
     {
-      v9 = a1[5];
-      (*(a1[6] + 16))();
+      (*(*(a1 + 48) + 16))();
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (LACBackgroundTask)lostModeBackgroundTask
@@ -188,43 +182,42 @@ void __50__LACDTOLostModeController_lostModeBackgroundTask__block_invoke_2(uint6
 {
   v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
+  v7 = completionCopy;
   if (strategy == 1)
   {
-    v7 = LACLogDTOLostMode();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = LACLogDTOLostMode(completionCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will skip query because current ratchet state allows it", &v10, 0xCu);
+      _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ will skip query because current ratchet state allows it", &v10, 0xCu);
     }
 
-    v8 = +[LACDTOLostModeState nullInstance];
-    completionCopy[2](completionCopy, v8);
+    v9 = +[LACDTOLostModeState nullInstance];
+    v7[2](v7, v9);
 
-    completionCopy = v8;
+    v7 = v9;
   }
 
   else
   {
     [(LACDTOLostModeController *)self _runLostModeBackgroundTaskWithTimeout:completionCopy completion:1.35];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_runLostModeBackgroundTaskWithTimeout:(double)timeout completion:(id)completion
 {
   v20 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v7 = LACLogDTOLostMode();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v8 = LACLogDTOLostMode(inited);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
     v18 = 2048;
     timeoutCopy = timeout;
-    _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will perform query with %.2f sec timeout", buf, 0x16u);
+    _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ will perform query with %.2f sec timeout", buf, 0x16u);
   }
 
   lostModeBackgroundTask = [(LACDTOLostModeController *)self lostModeBackgroundTask];
@@ -234,14 +227,12 @@ void __50__LACDTOLostModeController_lostModeBackgroundTask__block_invoke_2(uint6
   v12[2] = __77__LACDTOLostModeController__runLostModeBackgroundTaskWithTimeout_completion___block_invoke;
   v12[3] = &unk_1E7A95C18;
   objc_copyWeak(&v14, &location);
-  v10 = completionCopy;
-  v13 = v10;
+  v11 = completionCopy;
+  v13 = v11;
   [lostModeBackgroundTask runWithTimeout:workQueue queue:v12 completion:timeout];
 
   objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __77__LACDTOLostModeController__runLostModeBackgroundTaskWithTimeout_completion___block_invoke(uint64_t a1, void *a2)
@@ -273,26 +264,24 @@ void __77__LACDTOLostModeController__runLostModeBackgroundTaskWithTimeout_comple
 
     if (error)
     {
-      v11 = LACLogDTOLostMode();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = LACLogDTOLostMode(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         error2 = [resultCopy error];
         v16 = 138543618;
         selfCopy = self;
         v18 = 2114;
         v19 = error2;
-        _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ query finished with error %{public}@", &v16, 0x16u);
+        _os_log_impl(&dword_1B0233000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ query finished with error %{public}@", &v16, 0x16u);
       }
     }
 
     value2 = +[LACDTOLostModeState nullInstance];
   }
 
-  v13 = value2;
+  v14 = value2;
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v14;
 }
 
 - (void)_storeLostModeState:(id)state completion:(id)completion

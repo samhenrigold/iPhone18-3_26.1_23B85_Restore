@@ -6,7 +6,7 @@
 
 - (id)toCloudKitRecordWithId:(id)id parentEntityType:(int64_t)type
 {
-  v153 = *MEMORY[0x277D85DE8];
+  v152 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v7 = objc_opt_new();
   duplicateKey = [(SGEntity *)self duplicateKey];
@@ -64,7 +64,7 @@
   [v23 setStart:?];
   [v21 end];
   [v23 setEnd:?];
-  v131 = v21;
+  v130 = v21;
   if ([v21 isFloating])
   {
     if ((v19 & 1) == 0)
@@ -80,29 +80,29 @@
     [v23 setEndUTCOffsetSeconds:{objc_msgSend(v21, "endUTCOffsetSeconds")}];
   }
 
-  v130 = v23;
+  v129 = v23;
   [v7 setWhen:v23];
-  v147 = 0u;
-  v148 = 0u;
-  v145 = 0u;
   v146 = 0u;
+  v147 = 0u;
+  v144 = 0u;
+  v145 = 0u;
   selfCopy = self;
   locations = [(SGEntity *)self locations];
-  v26 = [locations countByEnumeratingWithState:&v145 objects:v152 count:16];
+  v26 = [locations countByEnumeratingWithState:&v144 objects:v151 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v146;
+    v28 = *v145;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v146 != v28)
+        if (*v145 != v28)
         {
           objc_enumerationMutation(locations);
         }
 
-        v30 = *(*(&v145 + 1) + 8 * i);
+        v30 = *(*(&v144 + 1) + 8 * i);
         v31 = objc_autoreleasePoolPush();
         v32 = objc_opt_new();
         [v32 setLocationType:{objc_msgSend(v30, "locationType")}];
@@ -132,53 +132,53 @@
         objc_autoreleasePoolPop(v31);
       }
 
-      v27 = [locations countByEnumeratingWithState:&v145 objects:v152 count:16];
+      v27 = [locations countByEnumeratingWithState:&v144 objects:v151 count:16];
     }
 
     while (v27);
   }
 
-  v143 = 0u;
-  v144 = 0u;
-  v141 = 0u;
   v142 = 0u;
+  v143 = 0u;
+  v140 = 0u;
+  v141 = 0u;
   tags2 = [(SGEntity *)selfCopy tags];
-  v38 = [tags2 countByEnumeratingWithState:&v141 objects:v151 count:16];
+  v38 = [tags2 countByEnumeratingWithState:&v140 objects:v150 count:16];
   if (!v38)
   {
+    v132 = 0;
     v133 = 0;
-    v134 = 0;
-    v136 = 0;
-    v138 = 0;
-    v91 = 0;
     v135 = 0;
+    v137 = 0;
+    v91 = 0;
+    v134 = 0;
     v80 = 0;
     v39 = 0;
     v81 = idCopy;
     goto LABEL_100;
   }
 
+  v132 = 0;
   v133 = 0;
-  v134 = 0;
-  v136 = 0;
-  v138 = 0;
-  v127 = 0;
-  v128 = 0;
   v135 = 0;
-  v129 = 0;
+  v137 = 0;
+  v126 = 0;
+  v127 = 0;
+  v134 = 0;
+  v128 = 0;
   v39 = 0;
-  v40 = *v142;
+  v40 = *v141;
   do
   {
     v41 = 0;
     do
     {
-      if (*v142 != v40)
+      if (*v141 != v40)
       {
         objc_enumerationMutation(tags2);
       }
 
-      v42 = *(*(&v141 + 1) + 8 * v41);
+      v42 = *(*(&v140 + 1) + 8 * v41);
       if ([v42 isExtraKey])
       {
         value = [v42 value];
@@ -335,56 +335,56 @@ LABEL_59:
       {
         v71 = v42;
 
-        v136 = v71;
+        v135 = v71;
       }
 
       else if ([v42 isInteractionGroupId])
       {
         v72 = v42;
 
-        v129 = v72;
+        v128 = v72;
       }
 
       else if ([v42 isInteractionTeamId])
       {
         v73 = v42;
 
-        v135 = v73;
+        v134 = v73;
       }
 
       else if ([v42 isInteractionBundleId])
       {
         v74 = v42;
 
-        v134 = v74;
+        v133 = v74;
       }
 
       else if ([v42 isReservationItemReferences])
       {
         v75 = v42;
 
-        v128 = v75;
+        v127 = v75;
       }
 
       else if ([v42 isReservationContainerReference])
       {
         v76 = v42;
 
-        v127 = v76;
+        v126 = v76;
       }
 
       else if ([v42 isEventMetadata])
       {
         v77 = v42;
 
-        v138 = v77;
+        v137 = v77;
       }
 
       else if ([v42 isIntentResponseUserActivityString])
       {
         v78 = v42;
 
-        v133 = v78;
+        v132 = v78;
       }
 
 LABEL_31:
@@ -392,12 +392,12 @@ LABEL_31:
     }
 
     while (v38 != v41);
-    v79 = [tags2 countByEnumeratingWithState:&v141 objects:v151 count:16];
+    v79 = [tags2 countByEnumeratingWithState:&v140 objects:v150 count:16];
     v38 = v79;
   }
 
   while (v79);
-  v80 = v129;
+  v80 = v128;
 
   v81 = idCopy;
   if (v39)
@@ -412,9 +412,9 @@ LABEL_31:
     if (v86)
     {
       v87 = objc_autoreleasePoolPush();
-      v140 = 0;
-      v88 = [MEMORY[0x277CCAC58] dataWithPropertyList:v86 format:200 options:0 error:&v140];
-      v89 = v140;
+      v139 = 0;
+      v88 = [MEMORY[0x277CCAC58] dataWithPropertyList:v86 format:200 options:0 error:&v139];
+      v89 = v139;
       objc_autoreleasePoolPop(v87);
       if (!v88)
       {
@@ -422,7 +422,7 @@ LABEL_31:
         if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v150 = v89;
+          v149 = v89;
           _os_log_error_impl(&dword_231E60000, v90, OS_LOG_TYPE_ERROR, "SGCK Error serializing schema.org to plist: %@", buf, 0xCu);
         }
       }
@@ -441,11 +441,11 @@ LABEL_31:
     }
   }
 
-  if (v138)
+  if (v137)
   {
     v92 = objc_autoreleasePoolPush();
     v93 = MEMORY[0x277CCAAA0];
-    value3 = [v138 value];
+    value3 = [v137 value];
     v95 = [value3 dataUsingEncoding:4];
     tags2 = [v93 JSONObjectWithData:v95 options:0 error:0];
 
@@ -453,36 +453,36 @@ LABEL_31:
     if (tags2)
     {
       v96 = objc_autoreleasePoolPush();
-      v139 = 0;
-      v97 = [MEMORY[0x277CCAC58] dataWithPropertyList:tags2 format:200 options:0 error:&v139];
-      v98 = v139;
+      v138 = 0;
+      v97 = [MEMORY[0x277CCAC58] dataWithPropertyList:tags2 format:200 options:0 error:&v138];
+      v98 = v138;
       objc_autoreleasePoolPop(v96);
       if (v97)
       {
         [v7 setMetadata:v97];
-        v91 = v127;
+        v91 = v126;
       }
 
       else
       {
         v99 = sgLogHandle();
-        v91 = v127;
+        v91 = v126;
         if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v150 = v98;
+          v149 = v98;
           _os_log_error_impl(&dword_231E60000, v99, OS_LOG_TYPE_ERROR, "SGCK Error serializing event metadata to plist: %@", buf, 0xCu);
         }
       }
 
-      v38 = v128;
+      v38 = v127;
     }
 
     else
     {
       v98 = sgLogHandle();
-      v91 = v127;
-      v38 = v128;
+      v91 = v126;
+      v38 = v127;
       if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -495,27 +495,27 @@ LABEL_100:
 
   else
   {
-    v138 = 0;
-    v91 = v127;
-    v38 = v128;
+    v137 = 0;
+    v91 = v126;
+    v38 = v127;
   }
 
   if ([v7 parentEntityType] == 16)
   {
     v100 = objc_opt_new();
-    value4 = [v136 value];
+    value4 = [v135 value];
     [v100 setInteractionId:value4];
 
     value5 = [v80 value];
     [v100 setInteractionGroupId:value5];
 
-    value6 = [v135 value];
+    value6 = [v134 value];
     [v100 setInteractionTeamId:value6];
 
-    value7 = [v134 value];
+    value7 = [v133 value];
     [v100 setInteractionBundleId:value7];
 
-    value8 = [v133 value];
+    value8 = [v132 value];
     [v100 setIntentResponseUserActivityString:value8];
 
     value9 = [v91 value];
@@ -573,8 +573,6 @@ LABEL_100:
   v121 = [v119 compress:data lowMemory:1];
   encryptedValues = [v118 encryptedValues];
   [encryptedValues setObject:v121 forKeyedSubscript:@"pe"];
-
-  v123 = *MEMORY[0x277D85DE8];
 
   return v118;
 }

@@ -7,26 +7,26 @@
 
 - (void)runAnalysisWithProgressBlock:(id)block
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   aBlock = block;
   WeakRetained = objc_loadWeakRetained(&self->_processor);
   graph = [WeakRetained graph];
   v6 = _Block_copy(aBlock);
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
   v42 = 0;
-  if (v6 && (v7 = CFAbsoluteTimeGetCurrent(), v7 - v40[3] >= 0.01) && (v40[3] = v7, LOBYTE(v47[0]) = 0, (*(v6 + 2))(v6, v47, 0.0), v8 = *(v44 + 24) | LOBYTE(v47[0]), *(v44 + 24) = v8, (v8 & 1) != 0))
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  if (v6 && (v7 = CFAbsoluteTimeGetCurrent(), v7 - v39[3] >= 0.01) && (v39[3] = v7, LOBYTE(v46[0]) = 0, (*(v6 + 2))(v6, v46, 0.0), v8 = *(v43 + 24) | LOBYTE(v46[0]), *(v43 + 24) = v8, (v8 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       buf = 0x2704000202;
-      LOWORD(v51) = 2080;
-      *(&v51 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/Relationship Analyzers/PGRelationshipAgeAnalyzer.m";
+      LOWORD(v50) = 2080;
+      *(&v50 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/Relationship Analyzers/PGRelationshipAgeAnalyzer.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
     }
   }
@@ -51,56 +51,56 @@
     if (v13 && ageCategory)
     {
       buf = 0;
-      *&v51 = &buf;
-      *(&v51 + 1) = 0x2020000000;
-      v52 = 0;
+      *&v50 = &buf;
+      *(&v50 + 1) = 0x2020000000;
+      v51 = 0;
       relationshipAnalyzerPropertiesByPersonLocalIdentifier2 = [WeakRetained relationshipAnalyzerPropertiesByPersonLocalIdentifier];
       allKeys = [relationshipAnalyzerPropertiesByPersonLocalIdentifier2 allKeys];
       v15 = [PGGraphPersonNodeCollection personNodesForArrayOfLocalIdentifiers:"personNodesForArrayOfLocalIdentifiers:inGraph:" inGraph:?];
       personNodeByLocalIdentifier = [v15 personNodeByLocalIdentifier];
       v17 = 1.0 / v13;
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __58__PGRelationshipAgeAnalyzer_runAnalysisWithProgressBlock___block_invoke;
-      v30[3] = &unk_278882558;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __58__PGRelationshipAgeAnalyzer_runAnalysisWithProgressBlock___block_invoke;
+      v29[3] = &unk_278882558;
       v18 = v6;
-      v32 = v18;
-      v33 = &v39;
-      v36 = 0x3F847AE147AE147BLL;
+      v31 = v18;
+      v32 = &v38;
+      v35 = 0x3F847AE147AE147BLL;
       p_buf = &buf;
-      v35 = &v43;
-      v37 = v17;
+      v34 = &v42;
+      v36 = v17;
       v19 = personNodeByLocalIdentifier;
-      v31 = v19;
-      v38 = ageCategory;
-      [relationshipAnalyzerPropertiesByPersonLocalIdentifier2 enumerateKeysAndObjectsUsingBlock:v30];
+      v30 = v19;
+      v37 = ageCategory;
+      [relationshipAnalyzerPropertiesByPersonLocalIdentifier2 enumerateKeysAndObjectsUsingBlock:v29];
       if ((ageCategory - 3) <= 2)
       {
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __58__PGRelationshipAgeAnalyzer_runAnalysisWithProgressBlock___block_invoke_2;
-        v28[3] = &unk_278882580;
-        v29 = relationshipAnalyzerPropertiesByPersonLocalIdentifier2;
-        [PGImportantEntitiesChildrenProcessor processUserChildrenInGraph:graph progressBlock:aBlock withProcessInferredChildNodeClosure:v28];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __58__PGRelationshipAgeAnalyzer_runAnalysisWithProgressBlock___block_invoke_2;
+        v27[3] = &unk_278882580;
+        v28 = relationshipAnalyzerPropertiesByPersonLocalIdentifier2;
+        [PGImportantEntitiesChildrenProcessor processUserChildrenInGraph:graph progressBlock:aBlock withProcessInferredChildNodeClosure:v27];
       }
 
       if (v6)
       {
         Current = CFAbsoluteTimeGetCurrent();
-        if (Current - v40[3] >= 0.01)
+        if (Current - v39[3] >= 0.01)
         {
-          v40[3] = Current;
-          v27 = 0;
-          (*(v18 + 2))(v18, &v27, 1.0);
-          v21 = *(v44 + 24) | v27;
-          *(v44 + 24) = v21;
+          v39[3] = Current;
+          v26 = 0;
+          (*(v18 + 2))(v18, &v26, 1.0);
+          v21 = *(v43 + 24) | v26;
+          *(v43 + 24) = v21;
           if ((v21 & 1) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
-            v47[0] = 67109378;
-            v47[1] = 108;
-            v48 = 2080;
-            v49 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/Relationship Analyzers/PGRelationshipAgeAnalyzer.m";
-            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v47, 0x12u);
+            v46[0] = 67109378;
+            v46[1] = 108;
+            v47 = 2080;
+            v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/Relationship Analyzers/PGRelationshipAgeAnalyzer.m";
+            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v46, 0x12u);
           }
         }
       }
@@ -111,28 +111,26 @@
     else if (v6)
     {
       v22 = CFAbsoluteTimeGetCurrent();
-      if (v22 - v40[3] >= 0.01)
+      if (v22 - v39[3] >= 0.01)
       {
-        v40[3] = v22;
-        LOBYTE(v47[0]) = 0;
-        (*(v6 + 2))(v6, v47, 1.0);
-        v23 = *(v44 + 24) | LOBYTE(v47[0]);
-        *(v44 + 24) = v23;
+        v39[3] = v22;
+        LOBYTE(v46[0]) = 0;
+        (*(v6 + 2))(v6, v46, 1.0);
+        v23 = *(v43 + 24) | LOBYTE(v46[0]);
+        *(v43 + 24) = v23;
         if ((v23 & 1) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           buf = 0x2F04000202;
-          LOWORD(v51) = 2080;
-          *(&v51 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/Relationship Analyzers/PGRelationshipAgeAnalyzer.m";
+          LOWORD(v50) = 2080;
+          *(&v50 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/Relationship Analyzers/PGRelationshipAgeAnalyzer.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
         }
       }
     }
   }
 
-  _Block_object_dispose(&v39, 8);
-  _Block_object_dispose(&v43, 8);
-
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v42, 8);
 }
 
 void __58__PGRelationshipAgeAnalyzer_runAnalysisWithProgressBlock___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)

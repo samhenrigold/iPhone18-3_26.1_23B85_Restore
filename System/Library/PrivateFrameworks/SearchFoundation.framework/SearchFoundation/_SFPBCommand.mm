@@ -4122,18 +4122,14 @@ LABEL_308:
 
 - (void)setBackendData:(id)data
 {
-  v4 = [data copy];
-  backendData = self->_backendData;
-  self->_backendData = v4;
+  self->_backendData = [data copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCommandDetail:(id)detail
 {
-  v4 = [detail copy];
-  commandDetail = self->_commandDetail;
-  self->_commandDetail = v4;
+  self->_commandDetail = [detail copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -14,30 +14,30 @@
 
 void __34__FBSDisplayLayoutPublisher_flush__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   objc_storeStrong((*(a1 + 32) + 8 * *(a1 + 56) + 48), *(a1 + 40));
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
   obj = *(*(a1 + 32) + 8 * *(a1 + 56) + 72);
-  v2 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v2 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v2)
   {
     v4 = v2;
-    v5 = *v21;
+    v5 = *v22;
     *&v3 = 138412290;
-    v18 = v3;
+    v19 = v3;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v21 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v20 + 1) + 8 * i);
+        v7 = *(*(&v21 + 1) + 8 * i);
         objc_opt_class();
         v8 = objc_opt_respondsToSelector();
         v9 = MEMORY[0x1E69C75D0];
@@ -47,16 +47,16 @@ void __34__FBSDisplayLayoutPublisher_flush__block_invoke(uint64_t a1)
           v11 = v10;
           if (v10)
           {
-            [v10 realToken];
+            objc_msgSend_realToken(v10);
           }
 
           else
           {
             *buf = 0u;
-            v25 = 0u;
+            v26 = 0u;
           }
 
-          v14 = [v9 handleForAuditToken:buf error:{0, v18}];
+          v14 = [v9 handleForAuditToken:buf error:{0, v19}];
         }
 
         else
@@ -69,23 +69,23 @@ void __34__FBSDisplayLayoutPublisher_flush__block_invoke(uint64_t a1)
 
         if (([v14 isDaemon] & 1) != 0 || (objc_msgSend(v14, "currentState"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "taskState"), v15, v16 != 3))
         {
-          v17 = [v7 remoteTarget];
-          [v17 updateLayout:*(a1 + 40) withTransition:*(a1 + 48)];
+          v18 = [v7 remoteTarget];
+          [v18 updateLayout:*(a1 + 40) withTransition:*(a1 + 48)];
         }
 
         else
         {
-          v17 = FBLogCommon();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          v18 = FBLogCommon(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
-            *buf = v18;
+            *buf = v19;
             *&buf[4] = v14;
-            _os_log_impl(&dword_1A2DBB000, v17, OS_LOG_TYPE_INFO, "not sending layout update to suspended process %@", buf, 0xCu);
+            _os_log_impl(&dword_1A2DBB000, v18, OS_LOG_TYPE_INFO, "not sending layout update to suspended process %@", buf, 0xCu);
           }
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v4 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v4);
@@ -178,23 +178,22 @@ void __52__FBSDisplayLayoutPublisher__initWithConfiguration___block_invoke(uint6
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"publisher was not invalidated"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_12();
-    v6 = NSStringFromClass(v5);
-    v7 = 138544642;
+    v5 = NSStringFromSelector(self);
+    v7 = OUTLINED_FUNCTION_12(v5, v6);
+    v8 = NSStringFromClass(v7);
+    v9 = 138544642;
     selfCopy = self;
-    v9 = 2114;
-    v10 = v6;
-    v11 = 2048;
-    v12 = a2;
-    v13 = 2114;
-    v14 = @"FBSDisplayLayoutPublisher.m";
-    v15 = 1024;
-    v16 = 79;
-    v17 = 2114;
-    v18 = v4;
-    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v7, 0x3Au);
+    v11 = 2114;
+    v12 = v8;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2114;
+    v16 = @"FBSDisplayLayoutPublisher.m";
+    v17 = 1024;
+    v18 = 79;
+    v19 = 2114;
+    v20 = v4;
+    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9, 0x3Au);
   }
 
   [v4 UTF8String];
@@ -425,15 +424,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 + (void)publisherWithConfiguration:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSDisplayLayoutPublisherConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSDisplayLayoutPublisherConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -442,15 +440,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 + (void)publisherWithConfiguration:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -459,15 +456,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 + (void)publisherWithConfiguration:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -476,15 +472,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 + (void)publisherWithConfiguration:(char *)a1 .cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -493,15 +488,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 + (void)publisherWithConfiguration:(char *)a1 .cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -510,15 +504,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 + (void)publisherWithConfiguration:(char *)a1 .cold.6(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -527,15 +520,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 - (void)transitionAssertionWithReason:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -544,15 +536,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 - (void)addObserver:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"observer", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -561,15 +552,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 - (void)_addElement:(char *)a1 forKey:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSDisplayLayoutElementClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSDisplayLayoutElementClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -578,15 +568,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 - (void)_addElement:(char *)a1 forKey:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -595,15 +584,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 - (void)_addElement:(uint64_t)a1 forKey:(char *)a2 .cold.3(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"already have an element with identifier=%@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"already have an element with identifier=%@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
@@ -612,15 +600,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 - (void)_addElement:(char *)a1 forKey:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[element identifier] != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[element identifier] != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -629,15 +616,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 - (void)_addElement:(char *)a1 forKey:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -646,15 +632,14 @@ void __71__FBSDisplayLayoutPublisher_listener_didReceiveConnection_withContext__
 
 - (void)_removeElement:(uint64_t)a1 forKey:(char *)a2 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"missing an element with identifier=%@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"missing an element with identifier=%@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];

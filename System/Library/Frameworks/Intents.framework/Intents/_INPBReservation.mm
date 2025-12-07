@@ -3,6 +3,7 @@
 - (_INPBReservation)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)reservationStatusAsString:(int)string;
 - (int)StringAsReservationStatus:(id)status;
 - (unint64_t)hash;
 - (void)addActions:(id)actions;
@@ -18,7 +19,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = [(_INPBReservation *)self url];
   dictionaryRepresentation = [v4 dictionaryRepresentation];
@@ -27,30 +28,30 @@
   if ([(NSArray *)self->_actions count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v7 = self->_actions;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v26;
+      v10 = *v25;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation2 = [*(*(&v25 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v9);
@@ -96,8 +97,6 @@
 
     [dictionary setObject:v22 forKeyedSubscript:@"reservationStatus"];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -355,7 +354,7 @@ LABEL_33:
 
 - (void)writeTo:(id)to
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   toCopy = to;
   v5 = [(_INPBReservation *)self url];
 
@@ -365,33 +364,32 @@ LABEL_33:
     PBDataWriterWriteSubmessage();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v7 = self->_actions;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v19;
     do
     {
       v11 = 0;
       do
       {
-        if (*v24 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
@@ -417,7 +415,6 @@ LABEL_33:
 
   if (reservationHolderName)
   {
-    reservationHolderName = self->_reservationHolderName;
     PBDataWriterWriteStringField();
   }
 
@@ -425,17 +422,13 @@ LABEL_33:
 
   if (reservationNumber)
   {
-    reservationNumber = self->_reservationNumber;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBReservation *)self hasReservationStatus])
   {
-    reservationStatus = self->_reservationStatus;
     PBDataWriterWriteInt32Field();
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsReservationStatus:(id)status
@@ -469,6 +462,21 @@ LABEL_33:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)reservationStatusAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E72870A0 + (string - 1));
   }
 
   return v4;

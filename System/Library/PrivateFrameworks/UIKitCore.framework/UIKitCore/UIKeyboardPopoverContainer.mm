@@ -98,7 +98,7 @@ LABEL_6:
 
   if (lightKeyboard)
   {
-    v5 = +[UIColor blackColor];
+    v5 = objc_msgSend_blackColor(UIColor);
     v6 = [v5 colorWithAlphaComponent:0.08];
   }
 
@@ -633,7 +633,7 @@ LABEL_19:
     popover = self->_popover;
     if (popover)
     {
-      [(UIView *)popover transform];
+      objc_msgSend_transform(popover);
     }
 
     else
@@ -658,7 +658,7 @@ LABEL_19:
       v18 = self->_popover;
       if (v18)
       {
-        [(UIView *)v18 transform];
+        objc_msgSend_transform(v18);
       }
 
       else
@@ -761,7 +761,7 @@ LABEL_19:
   if (v38)
   {
     memset(&t1, 0, sizeof(t1));
-    [v38 CGAffineTransformValue];
+    objc_msgSend_CGAffineTransformValue(v38);
     t2 = t1;
     v39 = self->_popover;
     p_t2 = &t2;

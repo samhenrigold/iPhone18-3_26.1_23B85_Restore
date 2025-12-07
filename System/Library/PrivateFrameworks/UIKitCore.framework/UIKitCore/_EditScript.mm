@@ -128,9 +128,9 @@
         {
           v10 = [(_EditScriptData *)self->_itemAData stringAtIndex:k - 1];
           v11 = [(_EditScriptData *)self->_itemBData stringAtIndex:v8 - 1];
-          v12 = [v10 isEqualToString:v11];
+          isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-          if (v12)
+          if (isEqualToString)
           {
             v13 = [(_IntArray2D *)v5 ];
           }
@@ -306,7 +306,7 @@ LABEL_38:
       v27 = [(_EditScriptData *)self->_itemBData stringAtIndex:v9];
     }
 
-    if ([v26 isEqualToString:v27])
+    if (objc_msgSend_isEqualToString_(v26))
     {
       v6 = 0;
       v25 = &stru_1EFB14550;

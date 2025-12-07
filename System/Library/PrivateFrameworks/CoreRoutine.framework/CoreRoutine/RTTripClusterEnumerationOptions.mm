@@ -99,23 +99,7 @@
     [(RTTripClusterEnumerationOptions *)self startLatitude];
     v8 = v7;
     [(RTTripClusterEnumerationOptions *)v6 startLatitude];
-    if (vabdd_f64(v8, v9) >= 2.22044605e-16)
-    {
-      goto LABEL_12;
-    }
-
-    [(RTTripClusterEnumerationOptions *)self startLongitude];
-    v11 = v10;
-    [(RTTripClusterEnumerationOptions *)v6 startLongitude];
-    if (vabdd_f64(v11, v12) >= 2.22044605e-16)
-    {
-      goto LABEL_12;
-    }
-
-    [(RTTripClusterEnumerationOptions *)self endLatitude];
-    v14 = v13;
-    [(RTTripClusterEnumerationOptions *)v6 endLatitude];
-    if (vabdd_f64(v14, v15) < 2.22044605e-16 && ([(RTTripClusterEnumerationOptions *)self endLongitude], v17 = v16, [(RTTripClusterEnumerationOptions *)v6 endLongitude], vabdd_f64(v17, v18) < 2.22044605e-16) && (v19 = [(RTTripClusterEnumerationOptions *)self batchSize], v19 == [(RTTripClusterEnumerationOptions *)v6 batchSize]))
+    if (vabdd_f64(v8, v9) < 2.22044605e-16 && ([(RTTripClusterEnumerationOptions *)self startLongitude], v11 = v10, [(RTTripClusterEnumerationOptions *)v6 startLongitude], vabdd_f64(v11, v12) < 2.22044605e-16) && ([(RTTripClusterEnumerationOptions *)self endLatitude], v14 = v13, [(RTTripClusterEnumerationOptions *)v6 endLatitude], vabdd_f64(v14, v15) < 2.22044605e-16) && ([(RTTripClusterEnumerationOptions *)self endLongitude], v17 = v16, [(RTTripClusterEnumerationOptions *)v6 endLongitude], vabdd_f64(v17, v18) < 2.22044605e-16) && (v19 = [(RTTripClusterEnumerationOptions *)self batchSize], v19 == [(RTTripClusterEnumerationOptions *)v6 batchSize]))
     {
       minCountOfTraversal = [(RTTripClusterEnumerationOptions *)self minCountOfTraversal];
       v21 = minCountOfTraversal == [(RTTripClusterEnumerationOptions *)v6 minCountOfTraversal];
@@ -123,7 +107,6 @@
 
     else
     {
-LABEL_12:
       v21 = 0;
     }
   }

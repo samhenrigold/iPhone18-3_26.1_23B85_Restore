@@ -1,5 +1,6 @@
 @interface ModelMonitoringDataAnomalyMessage
 - (BOOL)isEqual:(id)equal;
+- (id)anomalyTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -27,6 +28,21 @@
   {
     return 0;
   }
+}
+
+- (id)anomalyTypeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_10000C620[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAnomalyType:(id)type
@@ -216,7 +232,6 @@
   has = self->_has;
   if (has)
   {
-    anomalyType = self->_anomalyType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -236,12 +251,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  occuranceCount = self->_occuranceCount;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    totalEventCount = self->_totalEventCount;
     PBDataWriterWriteInt32Field();
   }
 
@@ -251,33 +264,32 @@ LABEL_5:
     PBDataWriterWriteSubmessage();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v7 = self->_dataStates;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v8)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_dataStates;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v16;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 }
 
@@ -420,7 +432,6 @@ LABEL_5:
     goto LABEL_21;
   }
 
-  v5 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_anomalyType != *(equalCopy + 2))
@@ -432,7 +443,7 @@ LABEL_5:
   else if (*(equalCopy + 40))
   {
 LABEL_21:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_22;
   }
 
@@ -471,17 +482,17 @@ LABEL_21:
   dataStates = self->_dataStates;
   if (dataStates | *(equalCopy + 2))
   {
-    v8 = [(NSMutableArray *)dataStates isEqual:?];
+    v7 = [(NSMutableArray *)dataStates isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_22:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

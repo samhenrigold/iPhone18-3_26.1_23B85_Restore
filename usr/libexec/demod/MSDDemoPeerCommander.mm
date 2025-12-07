@@ -13,6 +13,7 @@
 - (void)attemptPairingWithPeerOfID:(id)d withCompletion:(id)completion;
 - (void)changeWiFiSettingsOnPeer:(id)peer newSettings:(id)settings withCompletion:(id)completion;
 - (void)didReceiveEventMessage:(id)message fromDevice:(id)device;
+- (void)enableMuseBuddyResetOnPeer:(id)peer value:(BOOL)value withCompletion:(id)completion;
 - (void)enumerateTestScriptsOnPeerOfID:(id)d withCompletion:(id)completion;
 - (void)explorerDidFindDevice:(id)device;
 - (void)explorerDidLoseDevice:(id)device;
@@ -25,6 +26,7 @@
 - (void)initiateIPDResetOnPeer:(id)peer targetIPD:(double)d withCompletion:(id)completion;
 - (void)invokeInputRecoveryOnPeerOfID:(id)d forType:(unint64_t)type withCompletion:(id)completion;
 - (void)launchAppOnPeerOfID:(id)d appIdentifier:(id)identifier withCompletion:(id)completion;
+- (void)launchTestScriptOnPeerOfID:(id)d ofIdentifier:(id)identifier asRoot:(BOOL)root withCompletion:(id)completion;
 - (void)listAppsOnPeerOfID:(id)d appKind:(unint64_t)kind withCompletion:(id)completion;
 - (void)listAvailableEnvironmentsOnPeerOfID:(id)d withCompletion:(id)completion;
 - (void)loadLSMeasurementsOnPeerOfID:(id)d withCompletion:(id)completion;
@@ -45,6 +47,7 @@
 - (void)subscribeDeviceInfoFromPeerOfID:(id)d withCompletion:(id)completion;
 - (void)syncCurrentWiFiSettingsToPeer:(id)peer withCompletion:(id)completion;
 - (void)terminateAppOnPeerOfID:(id)d appIdentifier:(id)identifier withCompletion:(id)completion;
+- (void)triggerSnapshotRevertOnPeerOfID:(id)d rebootDevice:(BOOL)device withCompletion:(id)completion;
 - (void)triggerSnapshotRevertOnPeerOfID:(id)d withCompletion:(id)completion;
 - (void)wipeCustomerAssetsOnPeer:(id)peer withCompletion:(id)completion;
 @end
@@ -129,42 +132,42 @@
   queue = [(MSDDemoPeerCommander *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v15 = sub_100063A54();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100063A54(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v26 = dCopy;
-    v27 = 2114;
-    v28 = iDCopy;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Sending request message of ID: %{public}@ to peer of ID: %{public}@", buf, 0x16u);
+    v27 = dCopy;
+    v28 = 2114;
+    v29 = iDCopy;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Sending request message of ID: %{public}@ to peer of ID: %{public}@", buf, 0x16u);
   }
 
   if (completionCopy)
   {
     if ([dCopy isEqualToString:@"com.apple.MobileStoreDemo.InitiateIPDReset"])
     {
-      v16 = &off_10017AF18;
+      v17 = &off_10017AF18;
     }
 
     else
     {
-      v16 = &off_10017AF30;
+      v17 = &off_10017AF30;
     }
 
-    v17 = [NSDictionary dictionaryWithObject:v16 forKey:@"Timeout"];
+    v18 = [NSDictionary dictionaryWithObject:v17 forKey:@"Timeout"];
     discoveredPeers = [(MSDDemoPeerCommander *)self discoveredPeers];
-    v19 = [discoveredPeers objectForKey:iDCopy];
+    v20 = [discoveredPeers objectForKey:iDCopy];
 
-    v20 = [[MSDRapportMessage alloc] initWithIdentifier:dCopy andPayload:payloadCopy usingOptions:v17];
+    v21 = [[MSDRapportMessage alloc] initWithIdentifier:dCopy andPayload:payloadCopy usingOptions:v18];
     rpMessageHandler = [(MSDDemoPeerCommander *)self rpMessageHandler];
-    device = [v19 device];
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_100028ADC;
-    v23[3] = &unk_10016A5B0;
-    v23[4] = self;
-    v24 = completionCopy;
-    [rpMessageHandler sendOutgoingRequestMessage:v20 toDevice:device withCompletion:v23];
+    device = [v20 device];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100028ADC;
+    v24[3] = &unk_10016A5B0;
+    v24[4] = self;
+    v25 = completionCopy;
+    [rpMessageHandler sendOutgoingRequestMessage:v21 toDevice:device withCompletion:v24];
   }
 }
 
@@ -174,25 +177,25 @@
   queue = [(MSDDemoPeerCommander *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100063A54(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543362;
-    v18 = peerCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Found new peer: %{public}@", &v17, 0xCu);
+    v19 = 138543362;
+    v20 = peerCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Found new peer: %{public}@", &v19, 0xCu);
   }
 
   identifier = [peerCopy identifier];
   discoveredPeers = [(MSDDemoPeerCommander *)self discoveredPeers];
-  v9 = [discoveredPeers objectForKey:identifier];
+  v10 = [discoveredPeers objectForKey:identifier];
 
-  if (v9)
+  if (v10)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100063A54(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Ignore already discovered peer device.", &v17, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Ignore already discovered peer device.", &v19, 2u);
     }
   }
 
@@ -202,11 +205,11 @@
     [discoveredPeers2 setObject:peerCopy forKey:identifier];
 
     nearbyObjects = [(MSDDemoPeerCommander *)self nearbyObjects];
-    v10 = [nearbyObjects objectForKey:identifier];
+    v12 = [nearbyObjects objectForKey:identifier];
 
-    if (v10)
+    if (v12)
     {
-      isInBubble = [v10 isInBubble];
+      isInBubble = [v12 isInBubble];
     }
 
     else
@@ -237,25 +240,25 @@
   queue = [(MSDDemoPeerCommander *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100063A54(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138543362;
-    v17 = peerCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Lost existing peer: %{public}@", &v16, 0xCu);
+    v18 = 138543362;
+    v19 = peerCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Lost existing peer: %{public}@", &v18, 0xCu);
   }
 
   identifier = [peerCopy identifier];
   discoveredPeers = [(MSDDemoPeerCommander *)self discoveredPeers];
-  v9 = [discoveredPeers objectForKey:identifier];
+  v10 = [discoveredPeers objectForKey:identifier];
 
-  if (!v9)
+  if (!v10)
   {
-    xpcConnection2 = sub_100063A54();
+    xpcConnection2 = sub_100063A54(v11);
     if (os_log_type_enabled(xpcConnection2, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&_mh_execute_header, xpcConnection2, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Ignore unknown peer device!", &v16, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&_mh_execute_header, xpcConnection2, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Ignore unknown peer device!", &v18, 2u);
     }
 
     goto LABEL_8;
@@ -286,12 +289,12 @@ LABEL_8:
   queue = [(MSDDemoPeerCommander *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100063A54(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = peerCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Received update of existing peer: %{public}@", &v9, 0xCu);
+    v10 = 138543362;
+    v11 = peerCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Received update of existing peer: %{public}@", &v10, 0xCu);
   }
 
   rpMessageHandler = [(MSDDemoPeerCommander *)self rpMessageHandler];
@@ -308,14 +311,14 @@ LABEL_8:
 
   payload = [messageCopy payload];
 
-  v10 = sub_100063A54();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100063A54(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543618;
-    v16 = peerCopy;
-    v17 = 2114;
-    v18 = payload;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Received device info update for peer: %{public}@ properties: %{public}@", &v15, 0x16u);
+    v16 = 138543618;
+    v17 = peerCopy;
+    v18 = 2114;
+    v19 = payload;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Received device info update for peer: %{public}@ properties: %{public}@", &v16, 0x16u);
   }
 
   [peerCopy refreshDevicePropertiesUsingProperties:payload];
@@ -335,71 +338,73 @@ LABEL_8:
   listenerCopy = listener;
   connectionCopy = connection;
   processIdentifier = [connectionCopy processIdentifier];
-  v9 = sub_100063A54();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v9 = processIdentifier;
+  v10 = sub_100063A54(processIdentifier);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 67109120;
-    HIDWORD(buf) = processIdentifier;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: A new XPC connection received from client: %d", &buf, 8u);
+    HIDWORD(buf) = v9;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: A new XPC connection received from client: %d", &buf, 8u);
   }
 
-  v10 = [connectionCopy valueForEntitlement:@"com.apple.private.mobilestoredemo.enabledemo"];
-  if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ([v10 containsObject:@"PeerDemoDevice"] & 1) != 0)
+  isKindOfClass = [connectionCopy valueForEntitlement:@"com.apple.private.mobilestoredemo.enabledemo"];
+  v12 = isKindOfClass;
+  if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0) && (isKindOfClass = [v12 containsObject:@"PeerDemoDevice"], (isKindOfClass & 1) != 0))
   {
     objc_initWeak(&buf, self);
-    v11 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___MSDDemoPeerServiceProviderProtocol];
-    [connectionCopy setExportedInterface:v11];
+    v13 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___MSDDemoPeerServiceProviderProtocol];
+    [connectionCopy setExportedInterface:v13];
 
     [connectionCopy setExportedObject:self];
-    v12 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___MSDDemoPeerServiceConsumerProtocol];
-    [connectionCopy setRemoteObjectInterface:v12];
+    v14 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___MSDDemoPeerServiceConsumerProtocol];
+    [connectionCopy setRemoteObjectInterface:v14];
 
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_1000297F0;
+    v24[3] = &unk_100169C78;
+    objc_copyWeak(&v25, &buf);
+    [connectionCopy setInterruptionHandler:v24];
     v22[0] = _NSConcreteStackBlock;
     v22[1] = 3221225472;
-    v22[2] = sub_1000297F0;
+    v22[2] = sub_100029850;
     v22[3] = &unk_100169C78;
     objc_copyWeak(&v23, &buf);
-    [connectionCopy setInterruptionHandler:v22];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_100029850;
-    v20[3] = &unk_100169C78;
-    objc_copyWeak(&v21, &buf);
-    [connectionCopy setInvalidationHandler:v20];
+    [connectionCopy setInvalidationHandler:v22];
     queue = [(MSDDemoPeerCommander *)self queue];
     [connectionCopy _setQueue:queue];
 
     [connectionCopy activate];
     [(MSDDemoPeerCommander *)self setXpcConnection:connectionCopy];
     queue2 = [(MSDDemoPeerCommander *)self queue];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_1000298B0;
-    v18[3] = &unk_10016A1C8;
-    objc_copyWeak(&v19, &buf);
-    v18[4] = self;
-    dispatch_async(queue2, v18);
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1000298B0;
+    v20[3] = &unk_10016A1C8;
+    objc_copyWeak(&v21, &buf);
+    v20[4] = self;
+    dispatch_async(queue2, v20);
 
-    objc_destroyWeak(&v19);
     objc_destroyWeak(&v21);
     objc_destroyWeak(&v23);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&buf);
-    v15 = 1;
+    v17 = 1;
   }
 
   else
   {
-    v16 = sub_100063A54();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100063A54(isKindOfClass);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Client is not entitled to use peer service.", &buf, 2u);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerCommander: Client is not entitled to use peer service.", &buf, 2u);
     }
 
-    v15 = 0;
+    v17 = 0;
   }
 
-  return v15;
+  return v17;
 }
 
 - (void)startPeerDiscoveryWithCompletion:(id)completion
@@ -552,6 +557,28 @@ LABEL_10:
     v16 = [NSError errorDomainMSDWithCode:3727744769 message:@"Input is invalid"];
     (*(completionCopy + 2))(completionCopy, v16);
   }
+}
+
+- (void)triggerSnapshotRevertOnPeerOfID:(id)d rebootDevice:(BOOL)device withCompletion:(id)completion
+{
+  deviceCopy = device;
+  completionCopy = completion;
+  dCopy = d;
+  queue = [(MSDDemoPeerCommander *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v16 = @"RebootAfterRevert";
+  v11 = [NSNumber numberWithBool:deviceCopy];
+  v17 = v11;
+  v12 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10002A5EC;
+  v14[3] = &unk_10016A640;
+  v15 = completionCopy;
+  v13 = completionCopy;
+  [(MSDDemoPeerCommander *)self _sendRequestMessageOfID:@"com.apple.MobileStoreDemo.TriggerSnapshotRevert" andPayload:v12 toPeerOfID:dCopy withCompletion:v14];
 }
 
 - (void)triggerSnapshotRevertOnPeerOfID:(id)d withCompletion:(id)completion
@@ -849,6 +876,39 @@ LABEL_10:
   [(MSDDemoPeerCommander *)self _sendRequestMessageOfID:@"com.apple.MobileStoreDemo.EnumerateScripts" andPayload:0 toPeerOfID:dCopy withCompletion:v10];
 }
 
+- (void)launchTestScriptOnPeerOfID:(id)d ofIdentifier:(id)identifier asRoot:(BOOL)root withCompletion:(id)completion
+{
+  rootCopy = root;
+  dCopy = d;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  queue = [(MSDDemoPeerCommander *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  if (identifierCopy)
+  {
+    v19[0] = @"TestIdentifier";
+    v19[1] = @"RunAsRoot";
+    v20[0] = identifierCopy;
+    v14 = [NSNumber numberWithBool:rootCopy];
+    v20[1] = v14;
+    v15 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:2];
+
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10002C318;
+    v17[3] = &unk_10016A640;
+    v18 = completionCopy;
+    [(MSDDemoPeerCommander *)self _sendRequestMessageOfID:@"com.apple.MobileStoreDemo.LaunchScript" andPayload:v15 toPeerOfID:dCopy withCompletion:v17];
+  }
+
+  else
+  {
+    v16 = [NSError errorDomainMSDWithCode:3727744769 message:@"Input is invalid"];
+    (*(completionCopy + 2))(completionCopy, v16);
+  }
+}
+
 - (void)obtainGKResultsOnPeerOfID:(id)d withCompletion:(id)completion
 {
   completionCopy = completion;
@@ -1014,33 +1074,34 @@ LABEL_10:
   queue = [(MSDDemoPeerCommander *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v18 = 0;
-  v12 = [NSKeyedArchiver archivedDataWithRootObject:settingsCopy requiringSecureCoding:1 error:&v18];
+  v19 = 0;
+  v12 = [NSKeyedArchiver archivedDataWithRootObject:settingsCopy requiringSecureCoding:1 error:&v19];
 
-  v13 = v18;
+  v13 = v19;
+  v14 = v13;
   if (v12)
   {
-    v19 = @"AXSettingsArchive";
-    v20 = v12;
-    v14 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10002D748;
-    v16[3] = &unk_10016A640;
-    v17 = completionCopy;
-    [(MSDDemoPeerCommander *)self _sendRequestMessageOfID:@"com.apple.MobileStoreDemo.SetAXSettings" andPayload:v14 toPeerOfID:peerCopy withCompletion:v16];
+    v20 = @"AXSettingsArchive";
+    v21 = v12;
+    v15 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10002D748;
+    v17[3] = &unk_10016A640;
+    v18 = completionCopy;
+    [(MSDDemoPeerCommander *)self _sendRequestMessageOfID:@"com.apple.MobileStoreDemo.SetAXSettings" andPayload:v15 toPeerOfID:peerCopy withCompletion:v17];
   }
 
   else
   {
-    v15 = sub_100063A54();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100063A54(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_1000CC9D4(v13);
+      sub_1000CC9D4(v14);
     }
 
-    v14 = [NSError errorDomainMSDWithCode:3727744769 message:@"Input is invalid"];
-    (*(completionCopy + 2))(completionCopy, v14);
+    v15 = [NSError errorDomainMSDWithCode:3727744769 message:@"Input is invalid"];
+    (*(completionCopy + 2))(completionCopy, v15);
   }
 }
 
@@ -1116,33 +1177,34 @@ LABEL_10:
   queue = [(MSDDemoPeerCommander *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v18 = 0;
-  v12 = [NSKeyedArchiver archivedDataWithRootObject:settingsCopy requiringSecureCoding:1 error:&v18];
+  v19 = 0;
+  v12 = [NSKeyedArchiver archivedDataWithRootObject:settingsCopy requiringSecureCoding:1 error:&v19];
 
-  v13 = v18;
+  v13 = v19;
+  v14 = v13;
   if (v12)
   {
-    v19 = @"WiFiSettingsArchive";
-    v20 = v12;
-    v14 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10002DC24;
-    v16[3] = &unk_10016A640;
-    v17 = completionCopy;
-    [(MSDDemoPeerCommander *)self _sendRequestMessageOfID:@"com.apple.MobileStoreDemo.ChangeWiFiSettings" andPayload:v14 toPeerOfID:peerCopy withCompletion:v16];
+    v20 = @"WiFiSettingsArchive";
+    v21 = v12;
+    v15 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10002DC24;
+    v17[3] = &unk_10016A640;
+    v18 = completionCopy;
+    [(MSDDemoPeerCommander *)self _sendRequestMessageOfID:@"com.apple.MobileStoreDemo.ChangeWiFiSettings" andPayload:v15 toPeerOfID:peerCopy withCompletion:v17];
   }
 
   else
   {
-    v15 = sub_100063A54();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100063A54(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_1000CCA58(v13);
+      sub_1000CCA58(v14);
     }
 
-    v14 = [NSError errorDomainMSDWithCode:3727744769 message:@"Input is invalid"];
-    (*(completionCopy + 2))(completionCopy, v14);
+    v15 = [NSError errorDomainMSDWithCode:3727744769 message:@"Input is invalid"];
+    (*(completionCopy + 2))(completionCopy, v15);
   }
 }
 
@@ -1171,38 +1233,60 @@ LABEL_10:
 
   if (codeCopy && regionCodeCopy)
   {
-    v19[0] = @"LanguageCode";
-    v19[1] = @"RegionCode";
-    v20[0] = codeCopy;
-    v20[1] = regionCodeCopy;
-    v15 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:2];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_10002DF04;
-    v17[3] = &unk_10016A640;
-    v18 = completionCopy;
-    [(MSDDemoPeerCommander *)self _sendRequestMessageOfID:@"com.apple.MobileStoreDemo.SetLanguageAndRegion" andPayload:v15 toPeerOfID:peerCopy withCompletion:v17];
+    v20[0] = @"LanguageCode";
+    v20[1] = @"RegionCode";
+    v21[0] = codeCopy;
+    v21[1] = regionCodeCopy;
+    v16 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_10002DF04;
+    v18[3] = &unk_10016A640;
+    v19 = completionCopy;
+    [(MSDDemoPeerCommander *)self _sendRequestMessageOfID:@"com.apple.MobileStoreDemo.SetLanguageAndRegion" andPayload:v16 toPeerOfID:peerCopy withCompletion:v18];
   }
 
   else
   {
-    v16 = sub_100063A54();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = sub_100063A54(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_1000CCADC(v16);
+      sub_1000CCADC(v17);
     }
 
-    v15 = [NSError errorDomainMSDWithCode:3727744769 message:@"Input is invalid"];
+    v16 = [NSError errorDomainMSDWithCode:3727744769 message:@"Input is invalid"];
 
-    (*(completionCopy + 2))(completionCopy, v15);
+    (*(completionCopy + 2))(completionCopy, v16);
   }
+}
+
+- (void)enableMuseBuddyResetOnPeer:(id)peer value:(BOOL)value withCompletion:(id)completion
+{
+  valueCopy = value;
+  completionCopy = completion;
+  peerCopy = peer;
+  queue = [(MSDDemoPeerCommander *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v16 = @"Value";
+  v11 = [NSNumber numberWithBool:valueCopy];
+  v17 = v11;
+  v12 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10002E084;
+  v14[3] = &unk_10016A640;
+  v15 = completionCopy;
+  v13 = completionCopy;
+  [(MSDDemoPeerCommander *)self _sendRequestMessageOfID:@"com.apple.MobileStoreDemo.EnableMuseBuddyReset" andPayload:v12 toPeerOfID:peerCopy withCompletion:v14];
 }
 
 - (void)getMuseBuddyResetValueOnPeer:(id)peer withCompletion:(id)completion
 {
   completionCopy = completion;
   peerCopy = peer;
-  v8 = sub_100063A54();
+  v8 = sub_100063A54(peerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -1282,7 +1366,7 @@ LABEL_10:
 {
   messageCopy = message;
   deviceCopy = device;
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(deviceCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138543618;

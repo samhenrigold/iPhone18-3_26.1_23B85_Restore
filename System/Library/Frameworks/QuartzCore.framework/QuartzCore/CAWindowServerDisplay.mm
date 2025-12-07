@@ -959,7 +959,7 @@ uint64_t __64__CAWindowServerDisplay_registerForSyncNotifications_withBlock___bl
 
   v8[0] = @"syncNotificationEventState";
   v8[1] = @"syncNotificationHotplugState";
-  v9[0] = [MEMORY[0x1E696AD98] numberWithUnsignedChar:?];
+  v9[0] = [MEMORY[0x1E696AD98] numberWithUnsignedChar:a3];
   v9[1] = [MEMORY[0x1E696AD98] numberWithBool:a4];
   return [*(a1 + 32) postSyncNotification:v6 payload:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v9, v8, 2)}];
 }
@@ -1295,7 +1295,7 @@ uint64_t __60__CAWindowServerDisplay_registerForNotifications_withBlock___block_
 
   v8[0] = @"indicatorType";
   v8[1] = @"activeIndicatorCount";
-  v9[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+  v9[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a3];
   v9[1] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a4];
   return [*(a1 + 32) postNotification:v6 payload:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v9, v8, 2)}];
 }
@@ -1356,7 +1356,7 @@ uint64_t __60__CAWindowServerDisplay_registerForNotifications_withBlock___block_
   {
     if (!v15)
     {
-      return [*(a1 + 32) postNotification:@"notificationEDR" payload:{v13, v22, *v23, *&v23[16]}];
+      return [*(a1 + 32) postNotification:@"notificationEDR" payload:{v13, v22, *v23, *&v23[8]}];
     }
 
     v21 = [*(a1 + 32) displayId];
@@ -1386,7 +1386,7 @@ LABEL_15:
     _os_log_impl(&dword_183AA6000, v18, OS_LOG_TYPE_DEFAULT, v17, &v22, v19);
   }
 
-  return [*(a1 + 32) postNotification:@"notificationEDR" payload:{v13, v22, *v23, *&v23[16]}];
+  return [*(a1 + 32) postNotification:@"notificationEDR" payload:{v13, v22, *v23, *&v23[8]}];
 }
 
 - (unsigned)serviceObject

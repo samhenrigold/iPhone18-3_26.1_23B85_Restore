@@ -13,40 +13,40 @@
 {
   if (a3)
   {
-    return [self setObject:? forKeyedSubscript:?];
+    return [result setObject:? forKeyedSubscript:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)ams_insertValue:()AppleMediaServices forKeyPath:
 {
   if (a3)
   {
-    return [self ams_setValue:a3 forKeyPath:a4 shouldAppendToContainers:1 shouldFlatten:0];
+    return [result ams_setValue:a3 forKeyPath:a4 shouldAppendToContainers:1 shouldFlatten:0];
   }
 
-  return self;
+  return result;
 }
 
 - (void)ams_flatInsertValue:()AppleMediaServices forKeyPath:
 {
   if (a3)
   {
-    return [self ams_setValue:a3 forKeyPath:a4 shouldAppendToContainers:1 shouldFlatten:1];
+    return [result ams_setValue:a3 forKeyPath:a4 shouldAppendToContainers:1 shouldFlatten:1];
   }
 
-  return self;
+  return result;
 }
 
 - (void)ams_setValue:()AppleMediaServices forKeyPath:
 {
   if (a3)
   {
-    return [self ams_setValue:a3 forKeyPath:a4 shouldAppendToContainers:0 shouldFlatten:0];
+    return [result ams_setValue:a3 forKeyPath:a4 shouldAppendToContainers:0 shouldFlatten:0];
   }
 
-  return self;
+  return result;
 }
 
 - (void)ams_setValue:()AppleMediaServices forKeyPath:shouldAppendToContainers:shouldFlatten:

@@ -5,8 +5,7 @@
 
 void ___TelephonyUSBDeviceRegistrationFreeCallbacks_block_invoke(uint64_t a1)
 {
-  v5 = *(*(a1 + 32) + 56);
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("usb", "%s::%p::%s: \n", (*(a1 + 32) + 48), *(*(a1 + 32) + 56), "_TelephonyUSBDeviceRegistrationFreeCallbacks_block_invoke");
   v2 = *(a1 + 32);
   v3 = *(v2 + 32);
   if (v3)

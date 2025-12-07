@@ -151,11 +151,10 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  collectionType = self->_collectionType;
-  v5 = HKDataCollectionTypeToString();
-  v6 = [v3 stringWithFormat:@"<%@ Interval: %0.1lfs Latency: %0.1lfs>", v5, *&self->_collectionInterval, *&self->_collectionLatency];
+  v4 = HKDataCollectionTypeToString();
+  v5 = [v3 stringWithFormat:@"<%@ Interval: %0.1lfs Latency: %0.1lfs>", v4, *&self->_collectionInterval, *&self->_collectionLatency];
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)isEqual:(id)equal

@@ -15,7 +15,7 @@
 
 - (OrgApacheLuceneIndexMergeRateLimiter)initWithOrgApacheLuceneIndexMergePolicy_OneMerge:(id)merge
 {
-  OrgApacheLuceneStoreRateLimiter_init(self, a2);
+  OrgApacheLuceneStoreRateLimiter_init();
   JreStrongAssign(&self->merge_, merge);
   [(OrgApacheLuceneIndexMergeRateLimiter *)self setMBPerSecWithDouble:INFINITY];
   return self;
@@ -78,7 +78,7 @@
       sub_1000CBE40();
     }
 
-    if (v8 == OrgApacheLuceneIndexMergeRateLimiter_PauseResultEnum_values_)
+    if (v8 == OrgApacheLuceneIndexMergeRateLimiter_PauseResultEnum_values_[0])
     {
       break;
     }

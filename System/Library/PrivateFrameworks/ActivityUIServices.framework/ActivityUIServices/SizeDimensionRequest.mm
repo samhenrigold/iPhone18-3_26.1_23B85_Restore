@@ -88,20 +88,19 @@
 - (_TtC18ActivityUIServices20SizeDimensionRequest)initWithXPCDictionary:(id)dictionary
 {
   swift_unknownObjectRetain();
-  v4 = sub_18E65D28C(dictionary);
+  sub_18E65D28C(dictionary);
+  v5 = v4;
   swift_unknownObjectRelease();
-  return v4;
+  return v5;
 }
 
 - (void)encodeWithXPCDictionary:(id)dictionary
 {
   if (dictionary)
   {
-    v4 = *(&self->super.isa + OBJC_IVAR____TtC18ActivityUIServices20SizeDimensionRequest_minimum);
     selfCopy = self;
     swift_unknownObjectRetain();
     BSSerializeDoubleToXPCDictionaryWithKey();
-    v5 = *(&selfCopy->super.isa + OBJC_IVAR____TtC18ActivityUIServices20SizeDimensionRequest_maximum);
     BSSerializeDoubleToXPCDictionaryWithKey();
     xpc_dictionary_set_int64(dictionary, "type", *(&selfCopy->super.isa + OBJC_IVAR____TtC18ActivityUIServices20SizeDimensionRequest_type));
     swift_unknownObjectRelease();

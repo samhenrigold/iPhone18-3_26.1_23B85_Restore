@@ -18,7 +18,7 @@
 - (void)layoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for EqualizerView();
+  v4.super_class = type metadata accessor for EqualizerView(self, a2);
   v2 = v4.receiver;
   layoutSubviews = [(EqualizerView *)&v4 layoutSubviews];
   if ((*((*MEMORY[0x1E69E7D40] & *v2) + 0xD0))(layoutSubviews))

@@ -1,11 +1,11 @@
 @interface NSOrderedSet(NSOrderedSet)
-- (uint64_t)encodeWithCoder:()NSOrderedSet;
 - (uint64_t)initWithCoder:()NSOrderedSet;
+- (void)encodeWithCoder:()NSOrderedSet;
 @end
 
 @implementation NSOrderedSet(NSOrderedSet)
 
-- (uint64_t)encodeWithCoder:()NSOrderedSet
+- (void)encodeWithCoder:()NSOrderedSet
 {
   v16 = *MEMORY[0x1E69E9840];
   if (*MEMORY[0x1E695E100])
@@ -38,7 +38,8 @@
           objc_enumerationMutation(self);
         }
 
-        [a3 encodeObject:*(*(&v12 + 1) + 8 * v10++) forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"NS.object.%lu", v8++)}];
+        [a3 encodeObject:*(*(&v12 + 1) + 8 * v10) forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"NS.object.%lu", v8++)}];
+        v10 = v10 + 1;
       }
 
       while (v7 != v10);

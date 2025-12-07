@@ -97,7 +97,6 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -118,7 +117,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    testIterations = self->_testIterations;
     PBDataWriterWriteUint32Field();
   }
 
@@ -205,7 +203,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 64);
     if (*&self->_has)
     {
       if ((*(equal + 64) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -230,7 +227,6 @@ LABEL_22:
         testStatus = self->_testStatus;
         if (!(testStatus | *(equal + 6)) || (v5 = [(NSString *)testStatus isEqual:?]) != 0)
         {
-          v10 = *(equal + 64);
           if ((*&self->_has & 2) != 0)
           {
             if ((*(equal + 64) & 2) == 0 || self->_testIterations != *(equal + 6))

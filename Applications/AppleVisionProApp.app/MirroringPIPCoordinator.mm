@@ -88,14 +88,20 @@
   v6 = _Block_copy(handler);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_10001414C;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   proxyCopy = proxy;
   selfCopy = self;
   sub_100013DC4(proxy, v6);
-  sub_100014104(v6);
+  sub_100014104(v6, v7);
 }
 
 @end

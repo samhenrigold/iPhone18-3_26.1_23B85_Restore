@@ -85,7 +85,7 @@
 {
   terminateCopy = terminate;
   selfCopy = self;
-  _s17PromotedContentUI9WebAdViewC03webfdB19ProcessDidTerminateyySo05WKWebF0CF_0();
+  _s17PromotedContentUI9WebAdViewC03webfdB19ProcessDidTerminateyySo05WKWebF0CF_0(selfCopy);
 }
 
 - (void)webProcessPlugInBrowserContextControllerGlobalObjectIsAvailableForFrame
@@ -267,7 +267,7 @@
 - (CGRect)frame
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for WebAdView();
+  v6.super_class = type metadata accessor for WebAdView(0);
   [(APPCPromotedContentView *)&v6 frame];
   result.size.height = v5;
   result.size.width = v4;

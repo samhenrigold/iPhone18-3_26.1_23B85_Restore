@@ -17,6 +17,7 @@
 - (void)_handleRadioOffErrorNotification:(id)notification;
 - (void)_handleSimChangedNotification:(id)notification;
 - (void)_registerEventListeners;
+- (void)_setAutomaticSwitchOn:(BOOL)on animated:(BOOL)animated;
 - (void)_settingsResumed;
 - (void)_updateCachedMobileIdentity;
 - (void)dealloc;
@@ -26,16 +27,17 @@
 - (void)updateNetworkListSpecifierStates;
 - (void)updateNetworkListSpecifiers;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PhoneSettingsNetworksController
 
 - (PhoneSettingsNetworksController)init
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = PhoneSettingsNetworksController;
-  v2 = [(PhoneSettingsNetworksController *)&v18 init];
+  v20 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = PhoneSettingsNetworksController;
+  v2 = [(PhoneSettingsNetworksController *)&v17 init];
   if (v2)
   {
     v3 = objc_alloc_init(PhoneSettingsTelephony);
@@ -62,18 +64,16 @@
     v13 = *(&v2->super.super.super.super.super.super.isa + v12);
     *(&v2->super.super.super.super.super.super.isa + v12) = v9;
 
-    [(PhoneSettingsNetworksController *)v2 _updateCachedMobileIdentity];
-    v14 = PHDefaultLog();
+    v14 = PHDefaultLog([(PhoneSettingsNetworksController *)v2 _updateCachedMobileIdentity]);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       descriptionDictionary = [(PhoneSettingsNetworksController *)v2 descriptionDictionary];
       *buf = 138412290;
-      v20 = descriptionDictionary;
+      v19 = descriptionDictionary;
       _os_log_impl(&dword_23C12D000, v14, OS_LOG_TYPE_DEFAULT, "Initializing Phone Settings Network Controller: %@", buf, 0xCu);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -98,11 +98,22 @@
   [navigationItem setTitle:v5];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PhoneSettingsNetworksController;
+  [(PSListItemsController *)&v4 viewWillAppear:appear];
+  if ([(PhoneSettingsNetworksController *)self _isInManualMode])
+  {
+    [(PhoneSettingsNetworksController *)self setShowNetworkList:1];
+  }
+}
+
 - (void)listItemSelected:(id)selected
 {
   v20 = *MEMORY[0x277D85DE8];
   selectedCopy = selected;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(selectedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v18 = 138412290;
@@ -116,13 +127,13 @@
     searchingSpecifier = [(PhoneSettingsNetworksController *)self searchingSpecifier];
     v8 = [(PhoneSettingsNetworksController *)self containsSpecifier:searchingSpecifier];
 
-    v9 = v6 - v8;
-    if (v9 < 0 || (-[PhoneSettingsNetworksController fetcher](self, "fetcher"), v10 = objc_claimAutoreleasedReturnValue(), [v10 networks], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "count"), v11, v10, v9 >= v12))
+    v10 = v6 - v8;
+    if (v10 < 0 || (-[PhoneSettingsNetworksController fetcher](self, "fetcher"), v11 = objc_claimAutoreleasedReturnValue(), [v11 networks], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "count"), v12, v11, v10 >= v13))
     {
-      v15 = PHDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = PHDefaultLog(v9);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [(PhoneSettingsNetworksController *)v9 listItemSelected:v15];
+        [(PhoneSettingsNetworksController *)v10 listItemSelected:v16];
       }
     }
 
@@ -130,50 +141,47 @@
     {
       fetcher = [(PhoneSettingsNetworksController *)self fetcher];
       networks = [fetcher networks];
-      v15 = [networks objectAtIndex:v9];
+      v16 = [networks objectAtIndex:v10];
 
       fetcher2 = [(PhoneSettingsNetworksController *)self fetcher];
-      [fetcher2 selectNetwork:v15];
+      [fetcher2 selectNetwork:v16];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRadioOffErrorNotification:(id)notification
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
     descriptionDictionary = [(PhoneSettingsNetworksController *)self descriptionDictionary];
-    v9 = 138412546;
-    v10 = name;
-    v11 = 2112;
-    v12 = descriptionDictionary;
-    _os_log_impl(&dword_23C12D000, v5, OS_LOG_TYPE_DEFAULT, "%@: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = name;
+    v10 = 2112;
+    v11 = descriptionDictionary;
+    _os_log_impl(&dword_23C12D000, v5, OS_LOG_TYPE_DEFAULT, "%@: %@", &v8, 0x16u);
   }
 
   [(PhoneSettingsNetworksController *)self popRecursivelyToRootController];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSimChangedNotification:(id)notification
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
     descriptionDictionary = [(PhoneSettingsNetworksController *)self descriptionDictionary];
-    v11 = 138412546;
-    v12 = name;
-    v13 = 2112;
-    v14 = descriptionDictionary;
-    _os_log_impl(&dword_23C12D000, v5, OS_LOG_TYPE_DEFAULT, "%@: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = name;
+    v12 = 2112;
+    v13 = descriptionDictionary;
+    _os_log_impl(&dword_23C12D000, v5, OS_LOG_TYPE_DEFAULT, "%@: %@", &v10, 0x16u);
   }
 
   telephonySettings = [(PhoneSettingsNetworksController *)self telephonySettings];
@@ -183,58 +191,54 @@
   {
     [(PhoneSettingsNetworksController *)self popRecursivelyToRootController];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNetworkSettingsDisabledNotification:(id)notification
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
     descriptionDictionary = [(PhoneSettingsNetworksController *)self descriptionDictionary];
-    v9 = 138412546;
-    v10 = name;
-    v11 = 2112;
-    v12 = descriptionDictionary;
-    _os_log_impl(&dword_23C12D000, v5, OS_LOG_TYPE_DEFAULT, "%@: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = name;
+    v10 = 2112;
+    v11 = descriptionDictionary;
+    _os_log_impl(&dword_23C12D000, v5, OS_LOG_TYPE_DEFAULT, "%@: %@", &v8, 0x16u);
   }
 
   [(PhoneSettingsNetworksController *)self popRecursivelyToRootController];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNetworksChangedNotification:(id)notification
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
-    v8 = 138412290;
-    v9 = name;
-    _os_log_impl(&dword_23C12D000, v5, OS_LOG_TYPE_DEFAULT, "%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = name;
+    _os_log_impl(&dword_23C12D000, v5, OS_LOG_TYPE_DEFAULT, "%@", &v7, 0xCu);
   }
 
   [(PhoneSettingsNetworksController *)self updateNetworkListSpecifiers];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNetworkFetcherStateChangedNotification:(id)notification
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
-    v15 = 138412290;
-    v16 = name;
-    _os_log_impl(&dword_23C12D000, v5, OS_LOG_TYPE_DEFAULT, "%@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = name;
+    _os_log_impl(&dword_23C12D000, v5, OS_LOG_TYPE_DEFAULT, "%@", &v14, 0xCu);
   }
 
   fetcher = [(PhoneSettingsNetworksController *)self fetcher];
@@ -276,8 +280,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_autoSwitchTurnedOn
@@ -378,20 +380,20 @@ LABEL_12:
     while (v7);
   }
 
-  v14 = PHDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = PHDefaultLog(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v25 = array;
-    _os_log_impl(&dword_23C12D000, v14, OS_LOG_TYPE_DEFAULT, "Updating Carrier Specifiers with list: %@", buf, 0xCu);
+    _os_log_impl(&dword_23C12D000, v15, OS_LOG_TYPE_DEFAULT, "Updating Carrier Specifiers with list: %@", buf, 0xCu);
   }
 
   if ([(PhoneSettingsNetworksController *)selfCopy showNetworkList])
   {
     networksSpecifiersArray = [(PhoneSettingsNetworksController *)selfCopy networksSpecifiersArray];
-    v16 = [networksSpecifiersArray count];
+    v17 = [networksSpecifiersArray count];
 
-    if (v16)
+    if (v17)
     {
       networksSpecifiersArray2 = [(PhoneSettingsNetworksController *)selfCopy networksSpecifiersArray];
       [(PhoneSettingsNetworksController *)selfCopy replaceContiguousSpecifiers:networksSpecifiersArray2 withSpecifiers:array];
@@ -404,14 +406,12 @@ LABEL_12:
   }
 
   [(PhoneSettingsNetworksController *)selfCopy setNetworksSpecifiersArray:array];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateNetworkListSpecifierStates
 {
   v28 = *MEMORY[0x277D85DE8];
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -434,40 +434,38 @@ LABEL_12:
       networks2 = [fetcher2 networks];
       v12 = [networks2 objectAtIndexedSubscript:v8];
 
-      v13 = PHDefaultLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = PHDefaultLog(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = v25;
         v27 = v12;
-        _os_log_impl(&dword_23C12D000, v13, OS_LOG_TYPE_DEFAULT, "Updating list specifier for network: %@", buf, 0xCu);
+        _os_log_impl(&dword_23C12D000, v14, OS_LOG_TYPE_DEFAULT, "Updating list specifier for network: %@", buf, 0xCu);
       }
 
       searchingSpecifier = [(PhoneSettingsNetworksController *)self searchingSpecifier];
-      v15 = [(PhoneSettingsNetworksController *)self containsSpecifier:searchingSpecifier];
+      v16 = [(PhoneSettingsNetworksController *)self containsSpecifier:searchingSpecifier];
 
-      v16 = v8 + v15;
-      v17 = *(&self->super.super.super.super.super.super.isa + *v9);
-      v18 = 1;
-      v19 = [MEMORY[0x277CCAA70] indexPathForRow:v16 inSection:1];
-      v20 = [v17 cellForRowAtIndexPath:v19];
+      v17 = v8 + v16;
+      v18 = *(&self->super.super.super.super.super.super.isa + *v9);
+      v19 = 1;
+      v20 = [MEMORY[0x277CCAA70] indexPathForRow:v17 inSection:1];
+      v21 = [v18 cellForRowAtIndexPath:v20];
 
       if ([v12 state] != 3)
       {
-        v18 = [v12 state] == 2;
+        v19 = [v12 state] == 2;
       }
 
-      [v20 setReallyChecked:v18];
+      [v21 setReallyChecked:v19];
 
       ++v8;
       fetcher3 = [(PhoneSettingsNetworksController *)self fetcher];
       networks3 = [fetcher3 networks];
-      v23 = [networks3 count];
+      v24 = [networks3 count];
     }
 
-    while (v23 > v8);
+    while (v24 > v8);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNetworkFetcherErrorNotification:(id)notification
@@ -504,12 +502,11 @@ LABEL_12:
   v7 = MEMORY[0x277CCABB0];
   telephonySettings2 = [(PhoneSettingsNetworksController *)self telephonySettings];
   v9 = [v7 numberWithInt:{objc_msgSend(telephonySettings2, "networkSelectionMode")}];
-  v10 = *MEMORY[0x277CBECE8];
-  v11 = CTRegistrationCopyLocalizedOperatorName();
-  v12 = [v5 dictionaryWithObjectsAndKeys:{v6, @"ManuallySelectedNetworkDictionary", v9, @"NetworkSelectionMode", v11, @"CTRegistrationCopyLocalizedOperatorName", CTRegistrationGetStatus(), @"CTRegistrationGetStatus", 0}];
-  v13 = [v5 dictionaryWithObject:v12 forKey:@"PhoneSettingsNetworkState"];
+  v10 = CTRegistrationCopyLocalizedOperatorName();
+  v11 = [v5 dictionaryWithObjectsAndKeys:{v6, @"ManuallySelectedNetworkDictionary", v9, @"NetworkSelectionMode", v10, @"CTRegistrationCopyLocalizedOperatorName", CTRegistrationGetStatus(), @"CTRegistrationGetStatus", 0}];
+  v12 = [v5 dictionaryWithObject:v11 forKey:@"PhoneSettingsNetworkState"];
 
-  return v13;
+  return v12;
 }
 
 - (void)_registerEventListeners
@@ -536,21 +533,22 @@ LABEL_12:
   if (automaticSpecifier == specifierCopy)
   {
     bOOLValue = [stateCopy BOOLValue];
-    v10 = PHDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v10 = bOOLValue;
+    v11 = PHDefaultLog(bOOLValue);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = @"NO";
-      if (bOOLValue)
+      v12 = @"NO";
+      if (v10)
       {
-        v11 = @"YES";
+        v12 = @"YES";
       }
 
       v13 = 138412290;
-      v14 = v11;
-      _os_log_impl(&dword_23C12D000, v10, OS_LOG_TYPE_DEFAULT, "Setting automatic switch to %@", &v13, 0xCu);
+      v14 = v12;
+      _os_log_impl(&dword_23C12D000, v11, OS_LOG_TYPE_DEFAULT, "Setting automatic switch to %@", &v13, 0xCu);
     }
 
-    if (bOOLValue)
+    if (v10)
     {
       [(PhoneSettingsNetworksController *)self _autoSwitchTurnedOn];
     }
@@ -560,8 +558,6 @@ LABEL_12:
       [(PhoneSettingsNetworksController *)self _autoSwitchTurnedOff];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getAutomaticSwitchStateForSpecifier:(id)specifier
@@ -573,6 +569,33 @@ LABEL_12:
   v7 = [MEMORY[0x277CCABB0] numberWithBool:v6];
 
   return v7;
+}
+
+- (void)_setAutomaticSwitchOn:(BOOL)on animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  onCopy = on;
+  v15 = *MEMORY[0x277D85DE8];
+  automaticSpecifier = [(PhoneSettingsNetworksController *)self automaticSpecifier];
+  v7 = [automaticSpecifier propertyForKey:*MEMORY[0x277D40148]];
+  control = [v7 control];
+  v9 = PHDefaultLog(control);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = @"NO";
+    if (onCopy)
+    {
+      v10 = @"YES";
+    }
+
+    v11 = 138412546;
+    v12 = control;
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_23C12D000, v9, OS_LOG_TYPE_DEFAULT, "Updating automatic switch UI %@ to %@", &v11, 0x16u);
+  }
+
+  [control setOn:onCopy animated:animatedCopy];
 }
 
 - (BOOL)_isInAutomaticMode
@@ -621,15 +644,14 @@ LABEL_12:
 
 - (void)_updateCachedMobileIdentity
 {
-  v3 = *MEMORY[0x277CBECE8];
-  v4 = _CTServerConnectionCreate();
+  v3 = _CTServerConnectionCreate();
   cachedMobileIdentity = self->_cachedMobileIdentity;
   self->_cachedMobileIdentity = 0;
 
-  if (v4)
+  if (v3)
   {
     _CTServerConnectionCopyMobileEquipmentInfo();
-    CFRelease(v4);
+    CFRelease(v3);
   }
 }
 
@@ -707,11 +729,10 @@ LABEL_12:
 
 - (void)listItemSelected:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_23C12D000, a2, OS_LOG_TYPE_ERROR, "No network found at index %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_23C12D000, a2, OS_LOG_TYPE_ERROR, "No network found at index %ld", &v2, 0xCu);
 }
 
 @end

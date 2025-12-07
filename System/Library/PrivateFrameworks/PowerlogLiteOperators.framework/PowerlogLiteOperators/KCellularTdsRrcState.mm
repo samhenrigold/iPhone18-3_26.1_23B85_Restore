@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)newRrcStateAsString:(int)string;
+- (id)rrcStateAsString:(int)string;
 - (int)StringAsNewRrcState:(id)state;
 - (int)StringAsRrcState:(id)state;
 - (int)newRrcState;
@@ -45,6 +47,79 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)rrcStateAsString:(int)string
+{
+  if (string <= 3)
+  {
+    if (string > 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"KTDS_RRC_STATE_CELL_PCH";
+      }
+
+      else
+      {
+        v4 = @"KTDS_RRC_STATE_URA_PCH";
+      }
+    }
+
+    else if (string)
+    {
+      if (string != 1)
+      {
+LABEL_38:
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"KTDS_RRC_STATE_CELL_FACH";
+    }
+
+    else
+    {
+      v4 = @"KTDS_RRC_STATE_CELL_DCH";
+    }
+  }
+
+  else if (string <= 5)
+  {
+    if (string == 4)
+    {
+      v4 = @"KTDS_RRC_STATE_IDLE";
+    }
+
+    else
+    {
+      v4 = @"KTDS_RRC_STATE_WAIT";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 6:
+        v4 = @"KTDS_RRC_STATE_CELL_BARRED";
+
+        break;
+      case 7:
+        v4 = @"KTDS_RRC_STATE_NULL";
+
+        break;
+      case 255:
+        v4 = @"KTDS_RRC_STATE_INACTIVE";
+
+        return v4;
+      default:
+        goto LABEL_38;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsRrcState:(id)state
@@ -129,6 +204,67 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)newRrcStateAsString:(int)string
+{
+  if (string <= 3)
+  {
+    if (string <= 1)
+    {
+      if (!string)
+      {
+        return @"KTDS_RRC_STATE_CELL_DCH";
+      }
+
+      if (string == 1)
+      {
+        return @"KTDS_RRC_STATE_CELL_FACH";
+      }
+
+LABEL_20:
+      [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+      return objc_claimAutoreleasedReturnValue();
+    }
+
+    if (string == 2)
+    {
+      return @"KTDS_RRC_STATE_CELL_PCH";
+    }
+
+    else
+    {
+      return @"KTDS_RRC_STATE_URA_PCH";
+    }
+  }
+
+  else
+  {
+    if (string > 5)
+    {
+      switch(string)
+      {
+        case 6:
+          return @"KTDS_RRC_STATE_CELL_BARRED";
+        case 7:
+          return @"KTDS_RRC_STATE_NULL";
+        case 255:
+          return @"KTDS_RRC_STATE_INACTIVE";
+      }
+
+      goto LABEL_20;
+    }
+
+    if (string == 4)
+    {
+      return @"KTDS_RRC_STATE_IDLE";
+    }
+
+    else
+    {
+      return @"KTDS_RRC_STATE_WAIT";
+    }
+  }
 }
 
 - (int)StringAsNewRrcState:(id)state
@@ -437,7 +573,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -457,7 +592,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rrcState = self->_rrcState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -472,7 +606,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  newRrcState = self->_newRrcState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -487,12 +620,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  prevStateDurMs = self->_prevStateDurMs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 

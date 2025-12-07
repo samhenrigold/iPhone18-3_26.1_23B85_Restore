@@ -18,7 +18,7 @@ void ___RegisterPeriodicPowerLoggingActivity_block_invoke_2(uint64_t a1, uint64_
   v10 = v11;
   if (v11)
   {
-    (*(v11 + 2))(v11);
+    v11[2](v11);
     v10 = v11;
   }
 }

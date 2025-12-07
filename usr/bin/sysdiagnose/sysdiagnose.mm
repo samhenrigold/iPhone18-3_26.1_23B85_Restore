@@ -25,7 +25,7 @@ uint64_t sub_100000EC0()
   return byte_100010398;
 }
 
-uint64_t sub_100000FE0()
+uint64_t sub_100000FE0(uint64_t a1, uint64_t a2)
 {
   if (qword_1000103B0 != -1)
   {
@@ -191,7 +191,7 @@ BOOL sub_1000013C4(const void *a1)
   return v4;
 }
 
-uint64_t sub_100001420()
+uint64_t sub_100001420(uint64_t a1, uint64_t a2)
 {
   if (qword_1000103C0 != -1)
   {
@@ -223,14 +223,23 @@ uint64_t sub_100001568(const char *a1)
   *iterator = 0;
   if (!a1)
   {
-    v25 = 0;
+    v24 = 0;
     memset(name, 0, 80);
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    LODWORD(v24[0]) = 134217984;
-    *(v24 + 4) = 0;
-    _os_log_send_and_compose_impl();
-    v18 = _os_crash_msg();
-    sub_100004E18(v18);
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v18 = 3;
+    }
+
+    else
+    {
+      v18 = 2;
+    }
+
+    *v23 = 134217984;
+    *&v23[4] = 0;
+    _os_log_send_and_compose_impl(v18, &v24, name, 80, &_mh_execute_header, &_os_log_default, 16, "assertion failure: name -> %llu", v23);
+    _os_crash_msg();
+    sub_100004E18();
   }
 
   v2 = IORegistryEntryFromPath(kIOMainPortDefault, "IODeviceTree:/");
@@ -263,7 +272,7 @@ uint64_t sub_100001568(const char *a1)
         {
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            sub_100004D50(buf, v17, v22);
+            sub_100004D50(buf, v17, &buf[4]);
           }
         }
 
@@ -292,20 +301,29 @@ LABEL_9:
     v14 = IOObjectRelease(iterator[0]);
     if (v14)
     {
-      v24[0] = 0;
+      *v23 = 0;
       memset(name, 0, 80);
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      LODWORD(v25) = 67109120;
-      HIDWORD(v25) = v14;
-      _os_log_send_and_compose_impl();
-      v19 = _os_crash_msg();
-      sub_100004E18(v19);
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v19 = 3;
+      }
+
+      else
+      {
+        v19 = 2;
+      }
+
+      LODWORD(v24) = 67109120;
+      HIDWORD(v24) = v14;
+      _os_log_send_and_compose_impl(v19, v23, name, 80, &_mh_execute_header, &_os_log_default, 16, "IOObjectRetain: %{mach.errno}d", &v24, 8);
+      _os_crash_msg();
+      sub_100004E18();
     }
   }
 
   if (v3 && IOObjectRelease(v3))
   {
-    sub_100004E1C(v24, name);
+    sub_100004E1C(v23, name);
   }
 
   return v13;
@@ -326,69 +344,73 @@ uint64_t sub_1000018B0(unsigned int *a1)
   return result;
 }
 
-void sub_100001918(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001918(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-uint64_t sub_100001934()
+uint64_t sub_100001934(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, const char *a8)
 {
 
-  return _os_log_send_and_compose_impl();
+  return _os_log_send_and_compose_impl(a1, v9, v8, 80, a5, v10, 16, a8);
 }
 
 uint64_t start(int a1, char *const *a2)
 {
-  if (isatty(0) || isatty(1) || isatty(2))
+  v4 = isatty(0);
+  if (v4 || (v4 = isatty(1), v4) || (v4 = isatty(2), v4))
   {
-    v4 = sub_100002FAC();
-    if (!os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = sub_100002FAC(v4);
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       goto LABEL_7;
     }
 
     LOWORD(buf.name) = 0;
-    v5 = "Invoked by terminal";
+    v6 = "Invoked by terminal";
     p_buf = &buf;
-    v7 = v4;
-    v8 = OS_LOG_TYPE_INFO;
-    v9 = 2;
+    v8 = v5;
+    v9 = OS_LOG_TYPE_INFO;
+    v10 = 2;
     goto LABEL_6;
   }
 
   memset(&buf, 0, sizeof(buf));
-  v82 = getppid();
-  v83 = proc_name(v82, &buf, 0x20u);
-  v4 = sub_100002FAC();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v94 = getppid();
+  v95 = proc_name(v94, &buf, 0x20u);
+  v96 = v95;
+  v5 = sub_100002FAC(v95);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v84 = "error";
-    if (v83 > 0)
+    v97 = "error";
+    if (v96 > 0)
     {
-      v84 = &buf;
+      v97 = &buf;
     }
 
-    *v147 = 67109378;
-    *&v147[4] = v82;
-    *&v147[8] = 2082;
-    *&v147[10] = v84;
-    v5 = "Invoked by parent (%d): '%{public}s'";
-    p_buf = v147;
-    v7 = v4;
-    v8 = OS_LOG_TYPE_DEFAULT;
-    v9 = 18;
+    *v166 = 67109378;
+    *&v166[4] = v94;
+    *&v166[8] = 2082;
+    *&v166[10] = v97;
+    v6 = "Invoked by parent (%d): '%{public}s'";
+    p_buf = v166;
+    v8 = v5;
+    v9 = OS_LOG_TYPE_DEFAULT;
+    v10 = 18;
 LABEL_6:
-    _os_log_impl(&_mh_execute_header, v7, v8, v5, p_buf, v9);
+    _os_log_impl(&_mh_execute_header, v8, v9, v6, p_buf, v10);
   }
 
 LABEL_7:
 
   context = objc_autoreleasePoolPush();
-  if (sub_100000EC0())
+  v11 = sub_100000EC0();
+  if (v11)
   {
-    v108 = sub_100002FAC();
-    if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
+    v126 = sub_100002FAC(v11);
+    if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
     {
       sub_100005298();
     }
@@ -397,110 +419,110 @@ LABEL_200:
     exit(1);
   }
 
-  v10 = +[NSMutableDictionary dictionary];
-  v11 = objc_alloc_init(NSMutableString);
-  v115 = a1 - 1;
+  v12 = +[NSMutableDictionary dictionary];
+  v13 = objc_alloc_init(NSMutableString);
+  v134 = a1 - 1;
   if (a1 >= 1)
   {
-    v12 = a1;
-    v13 = a2;
+    v14 = a1;
+    v15 = a2;
     do
     {
-      v14 = *v13++;
-      v15 = [NSString stringWithFormat:@"%s ", v14];
-      [v11 appendString:v15];
+      v16 = *v15++;
+      v17 = [NSString stringWithFormat:@"%s ", v16];
+      [v13 appendString:v17];
 
-      --v12;
+      --v14;
     }
 
-    while (v12);
+    while (v14);
   }
 
-  v117 = v11;
-  [v10 setObject:v11 forKeyedSubscript:@"commandLineArgs"];
+  v136 = v13;
+  [v12 setObject:v13 forKeyedSubscript:@"commandLineArgs"];
   opterr = 0;
-  v141 = off_10000C630;
-  v142 = unk_10000C640;
-  v143 = xmmword_10000C650;
-  v144 = unk_10000C660;
-  v137 = off_10000C5F0;
-  v138 = unk_10000C600;
-  v139 = off_10000C610;
-  v140 = unk_10000C620;
-  v133 = off_10000C5B0;
-  v134 = unk_10000C5C0;
-  v135 = off_10000C5D0;
-  v136 = unk_10000C5E0;
+  v160 = off_10000C630;
+  v161 = unk_10000C640;
+  v162 = xmmword_10000C650;
+  v163 = unk_10000C660;
+  v156 = off_10000C5F0;
+  v157 = unk_10000C600;
+  v158 = off_10000C610;
+  v159 = unk_10000C620;
+  v152 = off_10000C5B0;
+  v153 = unk_10000C5C0;
+  v154 = off_10000C5D0;
+  v155 = unk_10000C5E0;
   buf = off_10000C570;
-  v131 = off_10000C590;
-  v132 = unk_10000C5A0;
-  v119 = objc_alloc_init(NSMutableSet);
-  v16 = 0;
-  v17 = &optarg;
+  v150 = off_10000C590;
+  v151 = unk_10000C5A0;
+  v138 = objc_alloc_init(NSMutableSet);
+  v18 = 0;
+  v19 = &optarg;
   while (2)
   {
     while (1)
     {
-      v18 = v16;
-      v19 = getopt_long(a1, a2, "vhHcsbf:V:lqQnA:pPdDkFgGLXe:urRSC:x:", &buf, 0);
-      if (v19 <= 15212)
+      v20 = v18;
+      v21 = getopt_long(a1, a2, "vhHcsbf:V:lqQnA:pPdDkFgGLXe:urRSC:x:", &buf, 0);
+      if (v21 <= 15212)
       {
         break;
       }
 
-      if (v19 == 15213)
+      if (v21 == 15213)
       {
-        if (!sub_100000FE0())
+        if (!sub_100000FE0(v21, v22))
         {
           goto LABEL_88;
         }
 
-        v23 = [NSString stringWithUTF8String:*v17];
-        v27 = v10;
-        v25 = v23;
-        v26 = @"onlyRunContainersWithNames";
+        v26 = [NSString stringWithUTF8String:*v19];
+        v31 = v12;
+        v29 = v26;
+        v30 = @"onlyRunContainersWithNames";
         goto LABEL_56;
       }
 
-      if (v19 != 18213)
+      if (v21 != 18213)
       {
-        if (v19 != 20213)
+        if (v21 != 20213)
         {
 LABEL_85:
           fwrite("Unexpected option or insufficient arguments.", 0x2CuLL, 1uLL, __stderrp);
           fputc(10, __stderrp);
           sub_100003338();
-          v63 = 64;
+          v73 = 64;
           goto LABEL_89;
         }
 
-        v44 = __stderrp;
-        v45 = "Platform does not support --collectAllTrusted flag";
-        v46 = 50;
+        v51 = __stderrp;
+        v52 = "Platform does not support --collectAllTrusted flag";
+        v53 = 50;
 LABEL_87:
-        fwrite(v45, v46, 1uLL, v44);
+        fwrite(v52, v53, 1uLL, v51);
         fputc(10, __stderrp);
         goto LABEL_88;
       }
 
-      if (!sub_100000FE0())
+      if (!sub_100000FE0(v21, v22))
       {
         goto LABEL_88;
       }
 
-      v22 = v10;
-      v20 = &__kCFBooleanTrue;
-      v21 = @"collectWifiDextCoreFiles";
+      v25 = v12;
+      v23 = &__kCFBooleanTrue;
+      v24 = @"collectWifiDextCoreFiles";
 LABEL_53:
-      [v22 setObject:v20 forKeyedSubscript:v21];
-      v16 = v18;
+      [v25 setObject:v23 forKeyedSubscript:v24];
+      v18 = v20;
     }
 
-    switch(v19)
+    switch(v21)
     {
       case 'A':
-        v23 = [NSString stringWithUTF8String:*v17];
-        v26 = @"archiveName";
+        v26 = [NSString stringWithUTF8String:*v19];
+        v30 = @"archiveName";
         goto LABEL_43;
       case 'B':
       case 'E':
@@ -531,83 +553,87 @@ LABEL_53:
       case 'w':
         goto LABEL_85;
       case 'C':
-        v23 = [NSString stringWithUTF8String:*v17];
-        if ([@"yaa" isEqualToString:v23])
+        v26 = [NSString stringWithUTF8String:*v19];
+        v27 = [@"yaa" isEqualToString:v26];
+        if (v27)
         {
-          v24 = sub_100002FAC();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v28 = sub_100002FAC(v27);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
-            *v147 = 0;
-            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Compression type: yaa", v147, 2u);
+            *v166 = 0;
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Compression type: yaa", v166, 2u);
           }
 
-          v25 = &__kCFBooleanTrue;
-          v26 = @"useParallelCompression";
+          v29 = &__kCFBooleanTrue;
+          v30 = @"useParallelCompression";
 LABEL_32:
-          v27 = v10;
+          v31 = v12;
 LABEL_56:
-          [v27 setObject:v25 forKeyedSubscript:v26];
+          [v31 setObject:v29 forKeyedSubscript:v30];
           goto LABEL_57;
         }
 
-        if ([@"tar" isEqualToString:v23])
+        v36 = [@"tar" isEqualToString:v26];
+        if (v36)
         {
-          v32 = sub_100002FAC();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v37 = sub_100002FAC(v36);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
-            *v147 = 0;
-            v33 = "Compression type: tar";
+            *v166 = 0;
+            v38 = "Compression type: tar";
 LABEL_68:
-            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, v33, v147, 2u);
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, v38, v166, 2u);
             goto LABEL_69;
           }
 
           goto LABEL_69;
         }
 
-        if ([@"no-compression" isEqualToString:v23])
+        v39 = [@"no-compression" isEqualToString:v26];
+        if (v39)
         {
-          v34 = sub_100002FAC();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v40 = sub_100002FAC(v39);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
-            *v147 = 0;
-            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "--compression=no-compression (functions the same as -n flag)", v147, 2u);
+            *v166 = 0;
+            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "--compression=no-compression (functions the same as -n flag)", v166, 2u);
           }
 
-          v25 = &__kCFBooleanFalse;
-          v26 = @"shouldCreateTarBall";
+          v29 = &__kCFBooleanFalse;
+          v30 = @"shouldCreateTarBall";
           goto LABEL_32;
         }
 
-        if ([@"default" isEqualToString:v23])
+        v41 = [@"default" isEqualToString:v26];
+        if (v41)
         {
-          v32 = sub_100002FAC();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v37 = sub_100002FAC(v41);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
-            *v147 = 0;
-            v33 = "Default compression requested. Using tar";
+            *v166 = 0;
+            v38 = "Default compression requested. Using tar";
             goto LABEL_68;
           }
 
 LABEL_69:
 
 LABEL_57:
-          v16 = v18;
+          v18 = v20;
           continue;
         }
 
-        fprintf(__stderrp, "Error: compression type '%s' not found", [v23 UTF8String]);
+        fprintf(__stderrp, "Error: compression type '%s' not found", [v26 UTF8String]);
         fputc(10, __stderrp);
 
 LABEL_88:
-        v63 = 69;
+        v73 = 69;
 LABEL_89:
-        v64 = v117;
+        v74 = v136;
 LABEL_90:
 
-        if (v63)
+        if (v73)
         {
-          exit(v63);
+          exit(v73);
         }
 
         if (geteuid())
@@ -622,42 +648,42 @@ LABEL_90:
           sub_1000051D8();
         }
 
-        [v10 setObject:&__kCFBooleanTrue forKeyedSubscript:@"SDRequestSourceShell"];
+        [v12 setObject:&__kCFBooleanTrue forKeyedSubscript:@"SDRequestSourceShell"];
         if (!isatty(1))
         {
-          [v10 setObject:&__kCFBooleanTrue forKeyedSubscript:@"verbose"];
+          [v12 setObject:&__kCFBooleanTrue forKeyedSubscript:@"verbose"];
         }
 
         if ((byte_1000103D8 & 1) == 0)
         {
-          v65 = [v10 copy];
-          v66 = sub_100000FE0();
-          v67 = off_100010368;
-          if (!v66)
+          v75 = [v12 copy];
+          v77 = sub_100000FE0(v75, v76);
+          v78 = off_100010368;
+          if (!v77)
           {
-            v67 = off_100010360;
+            v78 = off_100010360;
           }
 
-          printf("%s", *v67);
+          printf("%s", *v78);
           putchar(10);
-          v68 = [v65 objectForKeyedSubscript:@"pidOrProcess"];
-          if (sub_100003D34(v68, @"/Applications/Mail.app/Contents/MacOS/Mail"))
+          v79 = [v75 objectForKeyedSubscript:@"pidOrProcess"];
+          if (sub_100003D34(v79, @"/Applications/Mail.app/Contents/MacOS/Mail"))
           {
-            v69 = off_100010370;
+            v80 = off_100010370;
             goto LABEL_103;
           }
 
-          if (sub_100003D34(v68, @"/Applications/Safari.app/Contents/MacOS/Safari"))
+          if (sub_100003D34(v79, @"/Applications/Safari.app/Contents/MacOS/Safari"))
           {
-            v69 = off_100010378;
+            v80 = off_100010378;
 LABEL_103:
-            printf("%s", *v69);
+            printf("%s", *v80);
             putchar(10);
           }
 
-          v70 = [v65 objectForKey:@"setNoTimeOut"];
-          v71 = v70;
-          if (v70 && [v70 BOOLValue])
+          v81 = [v75 objectForKey:@"setNoTimeOut"];
+          v82 = v81;
+          if (v81 && [v81 BOOLValue])
           {
             printf("%s", off_100010380[0]);
             putchar(10);
@@ -674,59 +700,59 @@ LABEL_103:
 
           do
           {
-            v72 = fgetc(__stdinp);
+            v83 = fgetc(__stdinp);
           }
 
-          while (v72 != 13 && v72 != 10);
+          while (v83 != 13 && v83 != 10);
         }
 
-        v74 = [v10 objectForKeyedSubscript:@"verbose"];
+        v85 = [v12 objectForKeyedSubscript:@"verbose"];
 
-        if (v74)
+        if (v85)
         {
-          v75 = 0;
+          v86 = 0;
         }
 
         else
         {
-          [v10 objectForKeyedSubscript:@"shouldCreateTarBall"];
-          v123[0] = _NSConcreteStackBlock;
-          v123[1] = 3221225472;
-          v123[2] = sub_100002FF0;
-          v124 = v123[3] = &unk_10000C530;
-          v76 = v124;
-          v75 = objc_retainBlock(v123);
+          [v12 objectForKeyedSubscript:@"shouldCreateTarBall"];
+          v142[0] = _NSConcreteStackBlock;
+          v142[1] = 3221225472;
+          v142[2] = sub_100002FF0;
+          v143 = v142[3] = &unk_10000C530;
+          v87 = v143;
+          v86 = objc_retainBlock(v142);
         }
 
-        v122 = 0;
-        v77 = [Libsysdiagnose sysdiagnoseWithMetadata:v10 withError:&v122 withProgressHandler:v75];
-        v78 = v122;
-        if (v77)
+        v141 = 0;
+        v88 = [Libsysdiagnose sysdiagnoseWithMetadata:v12 withError:&v141 withProgressHandler:v86];
+        v89 = v141;
+        if (v88)
         {
           putchar(10);
-          printf("Output available at '%s'.", [v77 UTF8String]);
-          putchar(10);
-          v79 = sub_100002FAC();
-          if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+          printf("Output available at '%s'.", [v88 UTF8String]);
+          v90 = putchar(10);
+          v91 = sub_100002FAC(v90);
+          if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
           {
-            v80 = [v77 UTF8String];
+            v92 = [v88 UTF8String];
             LODWORD(buf.name) = 136315138;
-            *(&buf.name + 4) = v80;
-            _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_DEFAULT, "Output available at '%s'.", &buf, 0xCu);
+            *(&buf.name + 4) = v92;
+            _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_DEFAULT, "Output available at '%s'.", &buf, 0xCu);
           }
         }
 
-        if (v78)
+        if (v89)
         {
-          v109 = __stderrp;
-          v110 = [v78 localizedDescription];
-          fprintf(v109, "sysdiagnose error: %s", [v110 UTF8String]);
+          v127 = __stderrp;
+          v128 = [v89 localizedDescription];
+          fprintf(v127, "sysdiagnose error: %s", [v128 UTF8String]);
 
-          fputc(10, __stderrp);
-          v111 = sub_100002FAC();
-          if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
+          v129 = fputc(10, __stderrp);
+          v130 = sub_100002FAC(v129);
+          if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
           {
-            sub_100005200(v78);
+            sub_100005200(v89);
           }
 
           goto LABEL_200;
@@ -735,218 +761,218 @@ LABEL_103:
         objc_autoreleasePoolPop(context);
         return 0;
       case 'D':
-        v20 = &__kCFBooleanFalse;
-        v21 = @"shouldRunLogCopyTasks";
+        v23 = &__kCFBooleanFalse;
+        v24 = @"shouldRunLogCopyTasks";
         goto LABEL_52;
       case 'F':
-        v20 = &__kCFBooleanTrue;
-        v21 = @"shouldGetFeedbackData";
+        v23 = &__kCFBooleanTrue;
+        v24 = @"shouldGetFeedbackData";
         goto LABEL_52;
       case 'G':
-        v20 = &__kCFBooleanFalse;
-        v21 = @"shouldRunLogGenerationTasks";
+        v23 = &__kCFBooleanFalse;
+        v24 = @"shouldRunLogGenerationTasks";
         goto LABEL_52;
       case 'H':
-        v107 = +[SDCacheEnumerator sysdiagnoseDirectory];
-        printf("Sysdiagnoses can be found at '%s'\n", [v107 UTF8String]);
+        v125 = +[SDCacheEnumerator sysdiagnoseDirectory];
+        printf("Sysdiagnoses can be found at '%s'\n", [v125 UTF8String]);
 
         goto LABEL_191;
       case 'L':
-        v20 = &__kCFBooleanTrue;
-        v21 = @"capOverrideFullLogarchive";
+        v23 = &__kCFBooleanTrue;
+        v24 = @"capOverrideFullLogarchive";
         goto LABEL_52;
       case 'P':
-        v20 = &__kCFBooleanFalse;
-        v21 = @"shouldRunTimeSensitiveTasks";
+        v23 = &__kCFBooleanFalse;
+        v24 = @"shouldRunTimeSensitiveTasks";
         goto LABEL_52;
       case 'Q':
       case 'q':
-        v20 = &__kCFBooleanTrue;
-        v21 = @"quickMode";
+        v23 = &__kCFBooleanTrue;
+        v24 = @"quickMode";
         goto LABEL_52;
       case 'R':
-        v20 = &__kCFBooleanFalse;
+        v23 = &__kCFBooleanFalse;
         goto LABEL_26;
       case 'S':
-        v20 = &__kCFBooleanTrue;
-        v21 = @"disableStreamTar";
+        v23 = &__kCFBooleanTrue;
+        v24 = @"disableStreamTar";
         goto LABEL_52;
       case 'V':
-        v23 = [NSString stringWithUTF8String:*v17];
-        v26 = @"rootPath";
+        v26 = [NSString stringWithUTF8String:*v19];
+        v30 = @"rootPath";
 LABEL_43:
-        v27 = v10;
-        v25 = v23;
+        v31 = v12;
+        v29 = v26;
         goto LABEL_56;
       case 'X':
-        v20 = &__kCFBooleanTrue;
-        v21 = @"setNoTimeOut";
+        v23 = &__kCFBooleanTrue;
+        v24 = @"setNoTimeOut";
         goto LABEL_52;
       case 'b':
         goto LABEL_51;
       case 'c':
-        if (sub_100001420())
+        if (sub_100001420(v21, v22))
         {
-          v44 = __stderrp;
-          v45 = "Platform does not support -c flag.";
-          v46 = 34;
+          v51 = __stderrp;
+          v52 = "Platform does not support -c flag.";
+          v53 = 34;
           goto LABEL_87;
         }
 
-        v16 = 1;
+        v18 = 1;
         if (sub_100001480())
         {
           continue;
         }
 
-        v20 = &__kCFBooleanTrue;
-        v21 = @"coSysdiagnose";
+        v23 = &__kCFBooleanTrue;
+        v24 = @"coSysdiagnose";
 LABEL_52:
-        v22 = v10;
+        v25 = v12;
         goto LABEL_53;
       case 'd':
-        [v10 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldRunTimeSensitiveTasks"];
-        [v10 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldRunLogGenerationTasks"];
-        v30 = &__kCFBooleanTrue;
-        v31 = v10;
+        [v12 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldRunTimeSensitiveTasks"];
+        [v12 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldRunLogGenerationTasks"];
+        v34 = &__kCFBooleanTrue;
+        v35 = v12;
         goto LABEL_48;
       case 'f':
-        v35 = [NSString stringWithUTF8String:*v17];
-        if (([v35 hasPrefix:@"."] & 1) != 0 || (objc_msgSend(v35, "hasPrefix:", @"/") & 1) == 0)
+        v42 = [NSString stringWithUTF8String:*v19];
+        if (([v42 hasPrefix:@"."] & 1) != 0 || (objc_msgSend(v42, "hasPrefix:", @"/") & 1) == 0)
         {
-          v36 = +[NSFileManager defaultManager];
-          v37 = [v36 currentDirectoryPath];
-          [v37 stringByAppendingPathComponent:v35];
-          v38 = v10;
-          v39 = a2;
-          v41 = v40 = v17;
+          v43 = +[NSFileManager defaultManager];
+          v44 = [v43 currentDirectoryPath];
+          [v44 stringByAppendingPathComponent:v42];
+          v45 = v12;
+          v46 = a2;
+          v48 = v47 = v19;
 
-          v35 = v41;
-          v17 = v40;
-          a2 = v39;
-          v10 = v38;
+          v42 = v48;
+          v19 = v47;
+          a2 = v46;
+          v12 = v45;
         }
 
-        v42 = [v35 stringByResolvingSymlinksInPath];
-        v43 = sub_100003EF8(v42);
-        [v10 setObject:v43 forKeyedSubscript:@"baseDirectory"];
+        v49 = [v42 stringByResolvingSymlinksInPath];
+        v50 = sub_100003EF8(v49);
+        [v12 setObject:v50 forKeyedSubscript:@"baseDirectory"];
 
-        v16 = v18;
+        v18 = v20;
         continue;
       case 'g':
-        [v10 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldRunTimeSensitiveTasks"];
-        v28 = &__kCFBooleanTrue;
-        v29 = v10;
+        [v12 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldRunTimeSensitiveTasks"];
+        v32 = &__kCFBooleanTrue;
+        v33 = v12;
         goto LABEL_47;
       case 'h':
         sub_100003338();
 LABEL_191:
         exit(0);
       case 'k':
-        v20 = &__kCFBooleanFalse;
-        v21 = @"shouldRemoveTemporaryDirectory";
+        v23 = &__kCFBooleanFalse;
+        v24 = @"shouldRemoveTemporaryDirectory";
         goto LABEL_52;
       case 'l':
         byte_1000103D8 = 1;
         continue;
       case 'n':
-        v20 = &__kCFBooleanFalse;
-        v21 = @"shouldCreateTarBall";
+        v23 = &__kCFBooleanFalse;
+        v24 = @"shouldCreateTarBall";
         goto LABEL_52;
       case 'p':
-        [v10 setObject:&__kCFBooleanTrue forKeyedSubscript:@"shouldRunTimeSensitiveTasks"];
-        v29 = v10;
-        v28 = &__kCFBooleanFalse;
+        [v12 setObject:&__kCFBooleanTrue forKeyedSubscript:@"shouldRunTimeSensitiveTasks"];
+        v33 = v12;
+        v32 = &__kCFBooleanFalse;
 LABEL_47:
-        [v29 setObject:v28 forKeyedSubscript:@"shouldRunLogGenerationTasks"];
-        v31 = v10;
-        v30 = &__kCFBooleanFalse;
+        [v33 setObject:v32 forKeyedSubscript:@"shouldRunLogGenerationTasks"];
+        v35 = v12;
+        v34 = &__kCFBooleanFalse;
 LABEL_48:
-        [v31 setObject:v30 forKeyedSubscript:@"shouldRunLogCopyTasks"];
-        v21 = @"shouldRunOSLogArchive";
-        v22 = v10;
-        v20 = &__kCFBooleanFalse;
+        [v35 setObject:v34 forKeyedSubscript:@"shouldRunLogCopyTasks"];
+        v24 = @"shouldRunOSLogArchive";
+        v25 = v12;
+        v23 = &__kCFBooleanFalse;
         goto LABEL_53;
       case 'r':
-        [v10 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldRunTimeSensitiveTasks"];
-        [v10 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldRunLogGenerationTasks"];
-        [v10 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldRunLogCopyTasks"];
-        v20 = &__kCFBooleanTrue;
+        [v12 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldRunTimeSensitiveTasks"];
+        [v12 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldRunLogGenerationTasks"];
+        [v12 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldRunLogCopyTasks"];
+        v23 = &__kCFBooleanTrue;
 LABEL_26:
-        v21 = @"shouldRunOSLogArchive";
+        v24 = @"shouldRunOSLogArchive";
         goto LABEL_52;
       case 'u':
-        [v10 setObject:&__kCFBooleanTrue forKeyedSubscript:@"disableUIFeedback"];
+        [v12 setObject:&__kCFBooleanTrue forKeyedSubscript:@"disableUIFeedback"];
         byte_1000103D8 = 1;
 LABEL_51:
-        v20 = &__kCFBooleanFalse;
-        v21 = @"shouldDisplayTarBall";
+        v23 = &__kCFBooleanFalse;
+        v24 = @"shouldDisplayTarBall";
         goto LABEL_52;
       case 'v':
-        v20 = &__kCFBooleanTrue;
-        v21 = @"verbose";
+        v23 = &__kCFBooleanTrue;
+        v24 = @"verbose";
         goto LABEL_52;
       case 'x':
-        v23 = [NSString stringWithUTF8String:*v17];
-        [v119 addObject:v23];
+        v26 = [NSString stringWithUTF8String:*v19];
+        [v138 addObject:v26];
         goto LABEL_57;
       default:
-        if (v19 != -1)
+        if (v21 != -1)
         {
           goto LABEL_85;
         }
 
-        v47 = [v119 copy];
-        if (![v47 count])
+        v54 = [v138 copy];
+        if (![v54 count])
         {
-          v85 = v47;
+          v98 = v54;
           goto LABEL_166;
         }
 
-        v148[0] = @"CLI_REQUEST_TYPE";
-        v148[1] = @"REQUEST_DATA";
-        v149[0] = @"validateRemoteUUIDs";
-        v149[1] = v47;
-        v48 = [NSDictionary dictionaryWithObjects:v149 forKeys:v148 count:2];
-        v49 = objc_opt_new();
-        v129 = 0;
-        v50 = sub_10000342C(0xCu, v48, &v129);
-        v51 = v129;
-        v114 = v51;
-        if (v50 && v51)
+        v167[0] = @"CLI_REQUEST_TYPE";
+        v167[1] = @"REQUEST_DATA";
+        v168[0] = @"validateRemoteUUIDs";
+        v168[1] = v54;
+        v55 = [NSDictionary dictionaryWithObjects:v168 forKeys:v167 count:2];
+        v56 = objc_opt_new();
+        v148 = 0;
+        v57 = sub_10000342C(0xCu, v55, &v148);
+        v58 = v148;
+        v133 = v58;
+        if (v57 && v58)
         {
-          v118 = v49;
-          v112 = v48;
-          v113 = v47;
-          v52 = v51;
-          v53 = objc_opt_class();
-          v54 = objc_opt_class();
-          v55 = objc_opt_class();
-          v56 = objc_opt_class();
-          v57 = [NSSet setWithObjects:v53, v54, v55, v56, objc_opt_class(), 0];
-          *v147 = 0;
-          data = xpc_dictionary_get_data(v52, "RESPONSE_DATA", v147);
+          v137 = v56;
+          v131 = v55;
+          v132 = v54;
+          v59 = v58;
+          v60 = objc_opt_class();
+          v61 = objc_opt_class();
+          v62 = objc_opt_class();
+          v63 = objc_opt_class();
+          v64 = [NSSet setWithObjects:v60, v61, v62, v63, objc_opt_class(), 0];
+          *v166 = 0;
+          data = xpc_dictionary_get_data(v59, "RESPONSE_DATA", v166);
 
           if (!data)
           {
-            v59 = sub_100002FAC();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+            v67 = sub_100002FAC(v66);
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
             {
               sub_100005094();
             }
 
-            v87 = 0;
-            v48 = v112;
-            v47 = v113;
-            v49 = v118;
+            v101 = 0;
+            v55 = v131;
+            v54 = v132;
+            v56 = v137;
 LABEL_145:
 
-            v121 = v87;
-            if (!v87)
+            v140 = v101;
+            if (!v101)
             {
               fwrite("Malformed daemon response. Assuming provided remoteUUIDs invalid", 0x40uLL, 1uLL, __stderrp);
-              fputc(10, __stderrp);
-              obj = sub_100002FAC();
+              v115 = fputc(10, __stderrp);
+              obj = sub_100002FAC(v115);
               if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
               {
                 sub_100004F68();
@@ -955,67 +981,67 @@ LABEL_145:
               goto LABEL_164;
             }
 
-            v127 = 0u;
-            v128 = 0u;
-            v125 = 0u;
-            v126 = 0u;
-            obj = [v87 allKeys];
-            v90 = [obj countByEnumeratingWithState:&v125 objects:v147 count:16];
-            if (!v90)
+            v146 = 0u;
+            v147 = 0u;
+            v144 = 0u;
+            v145 = 0u;
+            obj = [v101 allKeys];
+            v104 = [obj countByEnumeratingWithState:&v144 objects:v166 count:16];
+            if (!v104)
             {
 LABEL_164:
 
-              v85 = [v49 copy];
+              v98 = [v56 copy];
               goto LABEL_165;
             }
 
-            v91 = v90;
-            v92 = *v126;
-            v93 = v87;
+            v105 = v104;
+            v106 = *v145;
+            v107 = v101;
 LABEL_148:
-            v94 = 0;
+            v108 = 0;
             while (1)
             {
-              if (*v126 != v92)
+              if (*v145 != v106)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v95 = *(*(&v125 + 1) + 8 * v94);
-              v96 = [v93 objectForKey:v95];
-              v97 = v96;
-              if (!v96)
+              v109 = *(*(&v144 + 1) + 8 * v108);
+              v110 = [v107 objectForKey:v109];
+              v111 = v110;
+              if (!v110)
               {
                 break;
               }
 
-              if (![v96 BOOLValue])
+              if (![v110 BOOLValue])
               {
-                fprintf(__stderrp, "Remote UUID '%s' not found", [v95 UTF8String]);
-                fputc(10, __stderrp);
-                v98 = sub_100002FAC();
-                if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+                fprintf(__stderrp, "Remote UUID '%s' not found", [v109 UTF8String]);
+                v114 = fputc(10, __stderrp);
+                v113 = sub_100002FAC(v114);
+                if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
                 {
-                  sub_1000050C8(&v145, v95);
+                  sub_1000050C8(v164, v109);
                 }
 
 LABEL_158:
 
-                v93 = v121;
+                v107 = v140;
                 goto LABEL_159;
               }
 
-              [v118 addObject:v95];
+              [v137 addObject:v109];
 LABEL_159:
 
-              if (v91 == ++v94)
+              if (v105 == ++v108)
               {
-                v91 = [obj countByEnumeratingWithState:&v125 objects:v147 count:16];
-                if (!v91)
+                v105 = [obj countByEnumeratingWithState:&v144 objects:v166 count:16];
+                if (!v105)
                 {
-                  v48 = v112;
-                  v47 = v113;
-                  v49 = v118;
+                  v55 = v131;
+                  v54 = v132;
+                  v56 = v137;
                   goto LABEL_164;
                 }
 
@@ -1023,53 +1049,55 @@ LABEL_159:
               }
             }
 
-            fprintf(__stderrp, "Malformed daemon response. Remote UUID '%s' not found", [v95 UTF8String]);
-            fputc(10, __stderrp);
-            v98 = sub_100002FAC();
-            if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+            fprintf(__stderrp, "Malformed daemon response. Remote UUID '%s' not found", [v109 UTF8String]);
+            v112 = fputc(10, __stderrp);
+            v113 = sub_100002FAC(v112);
+            if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
             {
-              sub_10000511C(&v146, v95);
+              sub_10000511C(v165, v109);
             }
 
             goto LABEL_158;
           }
 
-          v59 = [NSData dataWithBytes:data length:*v147];
-          if (!v59)
+          v67 = [NSData dataWithBytes:data length:*v166];
+          if (!v67)
           {
-            v61 = sub_100002FAC();
-            v49 = v118;
-            if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+            v70 = sub_100002FAC(0);
+            v56 = v137;
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
             {
               sub_100005060();
             }
 
-            v88 = 0;
+            v102 = 0;
             goto LABEL_144;
           }
 
-          *&v125 = 0;
-          v60 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v57 fromData:v59 error:&v125];
-          v61 = v125;
-          v49 = v118;
-          if (v60)
+          *&v144 = 0;
+          v68 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v64 fromData:v67 error:&v144];
+          v69 = v144;
+          v70 = v69;
+          v56 = v137;
+          if (v68)
           {
             objc_opt_class();
-            if (objc_opt_isKindOfClass())
+            isKindOfClass = objc_opt_isKindOfClass();
+            if (isKindOfClass)
             {
-              v62 = v60;
+              v72 = v68;
 LABEL_143:
-              v88 = v62;
+              v102 = v72;
 
 LABEL_144:
-              v48 = v112;
-              v47 = v113;
-              v87 = v88;
+              v55 = v131;
+              v54 = v132;
+              v101 = v102;
               goto LABEL_145;
             }
 
-            v89 = sub_100002FAC();
-            if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+            v103 = sub_100002FAC(isKindOfClass);
+            if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
             {
               sub_100004F9C();
             }
@@ -1077,52 +1105,52 @@ LABEL_144:
 
           else
           {
-            v89 = sub_100002FAC();
-            if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+            v103 = sub_100002FAC(v69);
+            if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
             {
-              sub_100004FD0(v61);
+              sub_100004FD0(v70);
             }
           }
 
-          v62 = 0;
+          v72 = 0;
           goto LABEL_143;
         }
 
         fwrite("Malformed daemon response. Assuming provided remoteUUIDs invalid", 0x40uLL, 1uLL, __stderrp);
-        fputc(10, __stderrp);
-        v86 = sub_100002FAC();
-        if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+        v99 = fputc(10, __stderrp);
+        v100 = sub_100002FAC(v99);
+        if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
         {
           sub_100004F68();
         }
 
-        v85 = [v49 copy];
+        v98 = [v56 copy];
 LABEL_165:
 
 LABEL_166:
-        if ([v85 count])
+        if ([v98 count])
         {
-          [v10 setObject:v85 forKeyedSubscript:@"remoteUUIDs"];
+          [v12 setObject:v98 forKeyedSubscript:@"remoteUUIDs"];
         }
 
-        if ((v18 & 1) == 0)
+        if ((v20 & 1) == 0)
         {
           goto LABEL_181;
         }
 
-        *&v125 = 0;
-        v99 = sub_10000342C(0xCu, &off_10000CED0, &v125);
-        v100 = v125;
-        v101 = v100;
-        if (v99 && v100)
+        *&v144 = 0;
+        v116 = sub_10000342C(0xCu, &off_10000CED0, &v144);
+        v117 = v144;
+        v118 = v117;
+        if (v116 && v117)
         {
-          uint64 = xpc_dictionary_get_uint64(v100, "RESPONSE_DATA");
-          v103 = sub_100002FAC();
-          if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+          uint64 = xpc_dictionary_get_uint64(v117, "RESPONSE_DATA");
+          v120 = sub_100002FAC(uint64);
+          if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
           {
-            *v147 = 134217984;
-            *&v147[4] = uint64;
-            _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_DEFAULT, "isAutomaticCoSysdiagnosePossible: received response from server '%llu'", v147, 0xCu);
+            *v166 = 134217984;
+            *&v166[4] = uint64;
+            _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_DEFAULT, "isAutomaticCoSysdiagnosePossible: received response from server '%llu'", v166, 0xCu);
           }
 
           if (uint64)
@@ -1133,47 +1161,47 @@ LABEL_166:
 
         else
         {
-          v104 = sub_100002FAC();
-          if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
+          v121 = sub_100002FAC(v117);
+          if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
           {
             sub_100005170();
           }
         }
 
-        if (![v85 count])
+        if (![v98 count])
         {
-          v105 = [v10 objectForKeyedSubscript:@"shouldCollectAllTrusted"];
+          v122 = [v12 objectForKeyedSubscript:@"shouldCollectAllTrusted"];
 
-          if (!v105)
+          if (!v122)
           {
             fwrite("No connected devices found. Co-sysdiagnose options not available.", 0x41uLL, 1uLL, __stderrp);
-            fputc(10, __stderrp);
-            v106 = sub_100002FAC();
-            if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+            v124 = fputc(10, __stderrp);
+            v123 = sub_100002FAC(v124);
+            if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
             {
               sub_1000051A4();
             }
 
-            v63 = 69;
+            v73 = 69;
             goto LABEL_183;
           }
         }
 
 LABEL_180:
-        [v10 setObject:&__kCFBooleanTrue forKeyedSubscript:@"coSysdiagnoseOnly"];
+        [v12 setObject:&__kCFBooleanTrue forKeyedSubscript:@"coSysdiagnoseOnly"];
 LABEL_181:
-        if (optind != v115)
+        if (optind != v134)
         {
-          v63 = 0;
-          v64 = v117;
+          v73 = 0;
+          v74 = v136;
           goto LABEL_185;
         }
 
-        v106 = [NSString stringWithCString:a2[optind] encoding:4];
-        [v10 setObject:v106 forKeyedSubscript:@"pidOrProcess"];
-        v63 = 0;
+        v123 = [NSString stringWithCString:a2[optind] encoding:4];
+        [v12 setObject:v123 forKeyedSubscript:@"pidOrProcess"];
+        v73 = 0;
 LABEL_183:
-        v64 = v117;
+        v74 = v136;
 
 LABEL_185:
         goto LABEL_90;
@@ -1181,16 +1209,16 @@ LABEL_185:
   }
 }
 
-id sub_100002FAC()
+id sub_100002FAC(uint64_t a1)
 {
   if (qword_1000103E0 != -1)
   {
     sub_1000052CC();
   }
 
-  v1 = off_100010390;
+  v2 = off_100010390;
 
-  return v1;
+  return v2;
 }
 
 size_t sub_100002FF0(uint64_t a1, void *a2)
@@ -1303,18 +1331,57 @@ uint64_t sub_100003338()
   v4 = [v3 lastPathComponent];
   v5 = [v4 UTF8String];
 
-  if (sub_100000FE0())
+  if (sub_100000FE0(v6, v7))
   {
-    v6 = off_100010388;
+    v8 = off_100010388;
   }
 
   else
   {
-    v6 = "";
+    v8 = "";
   }
 
-  v7 = sub_100001878();
-  printf("%s\nUSAGE: %s [args] [process_name | pid]\n          -h                      Display this help.\n          -H                      Print the path to the default sysdiagnose output directory.\n          -v                      Enable verbose mode to display the container information as it executes.\n          -f results_directory    Specify the directory where results will be stored.\n          -A archive_name         Specify the name of the archive created in the results directory.\n          -V volume_path          Specify the root volume for sysdiagnose to run on.\n          -C, --compression type  Specify the compression type. It is an error to use this with the -n flag. Valid options are:\n                                  yaa: use parallel compression\n                                  tar: use tar compression\n                                  no-compression: don't compress the output. Identical to -n\n                                  default: will use the system default. Currently defaults to tar\n          -n                      Do not tar the resulting sysdiagnose directory.\n          -k                      Do not remove the temporary directory.\n          -F                      Get feedback data.\n          -S                      Disable streaming to tarball.\n          -u                      Disable UI feedback.\n          -Q,                     Skip footprint.\n          -q,                     Same as -Q\n          -b                      Do not show a Finder window upon completion.\n          -p                      Only run time-sensitive collections; disregards previous -d or -r flags.\n          -P                      Do not run time-sensitive collections.\n          -g                      Only run log generation collections; disregards previous -p or -r flags.\n          -G                      Do not run log generation collections.\n          -d                      Only run log copying collections; disregards previous -p or -r flags.\n          -D                      Do not run log copying collections.\n          -r                      Collect only log archive; disregards previous -p or -d flags.\n          -R                      Do not collect log archive.\n          [process_name | pid]    If a single process appears to be slowing down the system,\n                                  passing in the process name or ID as the argument gathers\n                                  additional process-specific diagnostic data; Specify only ONE process\n                                  at a time -- specifying multiple processes is not supported.\n%s\nDESCRIPTION:\n  %s gathers system diagnostic information helpful in investigating system performance issues.\n  A great deal of information is harvested, spanning system state and configuration. The data is stored /var/tmp directory.\n  sysdiagnose needs to be run as root. To cancel an in-flight sysdiagnose triggered via command line interface, press Ctrl-\\.\n  %s is automatically triggered when the following key chord is pressed: Control-Option-Command-Shift-Period.\nWHAT %s COLLECTS:\n  - A spindump of the system\n  - Several seconds of top output\n  - Data about kernel zones\n  - Status of loaded kernel extensions\n  - Resident memory usage of user processes\n  - Recent system logs\n  - A System Profiler report\n  - Recent crash reports\n  - Disk usage information\n  - I/O Kit registry information\n  - Network status\n  - If a specific process is supplied as an argument, will collect:\n      - A list of malloc-allocated buffers in the process's heap\n      - Data about unreferenced malloc buffers in the process's memory\n      - Data about the virtual memory regions allocated in the process\n", [v7 UTF8String], v5, v6, v0, v0, v0);
+  v9 = sub_100001878();
+  printf( "%s\n USAGE: %s [args] [process_name | pid]\n -h                      Display this help.\n -H                      Print the path to the default sysdiagnose output directory.\n -v                      Enable verbose mode to display the container information as it executes.\n -f results_directory    Specify the directory where results will be stored.\n -A archive_name         Specify the name of the archive created in the results directory.\n -V volume_path          Specify the root volume for sysdiagnose to run on.\n -C, --compression type  Specify the compression type. It is an error to use this with the -n flag. Valid options are:\n yaa: use parallel compression\n tar: use tar compression\n no-compression: don't compress the output. Identical to -n\n default: will use the system default. Currently defaults to tar\n -n                      Do not tar the resulting sysdiagnose directory.\n -k                      Do not remove the temporary directory.\n -F                      Get feedback data.\n -S                      Disable streaming to tarball.\n -u                      Disable UI feedback.\n -Q,                     Skip footprint.\n -q,                     Same as -Q\n -b                      Do not show a Finder window upon completion.\n -p                      Only run time-sensitive collections; disregards previous -d or -r flags.\n"
+    "          -P                      Do not run time-sensitive collections.\n"
+    "          -g                      Only run log generation collections; disregards previous -p or -r flags.\n"
+    "          -G                      Do not run log generation collections.\n"
+    "          -d                      Only run log copying collections; disregards previous -p or -r flags.\n"
+    "          -D                      Do not run log copying collections.\n"
+    "          -r                      Collect only log archive; disregards previous -p or -d flags.\n"
+    "          -R                      Do not collect log archive.\n"
+    "          [process_name | pid]    If a single process appears to be slowing down the system,\n"
+    "                                  passing in the process name or ID as the argument gathers\n"
+    "                                  additional process-specific diagnostic data; Specify only ONE process\n"
+    "                                  at a time -- specifying multiple processes is not supported.\n"
+    "%s\n"
+    "DESCRIPTION:\n"
+    "  %s gathers system diagnostic information helpful in investigating system performance issues.\n"
+    "  A great deal of information is harvested, spanning system state and configuration. The data is stored /var/tmp directory.\n"
+    "  sysdiagnose needs to be run as root. To cancel an in-flight sysdiagnose triggered via command line interface, press Ctrl-\\.\n"
+    "  %s is automatically triggered when the following key chord is pressed: Control-Option-Command-Shift-Period.\n"
+    "WHAT %s COLLECTS:\n"
+    "  - A spindump of the system\n"
+    "  - Several seconds of top output\n"
+    "  - Data about kernel zones\n"
+    "  - Status of loaded kernel extensions\n"
+    "  - Resident memory usage of user processes\n"
+    "  - Recent system logs\n"
+    "  - A System Profiler report\n"
+    "  - Recent crash reports\n"
+    "  - Disk usage information\n"
+    "  - I/O Kit registry information\n"
+    "  - Network status\n"
+    "  - If a specific process is supplied as an argument, will collect:\n"
+    "      - A list of malloc-allocated buffers in the process's heap\n"
+    "      - Data about unreferenced malloc buffers in the process's memory\n"
+    "      - Data about the virtual memory regions allocated in the process\n",
+    [v9 UTF8String],
+    v5,
+    v8,
+    v0,
+    v0,
+    v0);
 
   return putchar(10);
 }
@@ -1326,44 +1393,40 @@ BOOL sub_10000342C(unsigned int a1, void *a2, void *a3)
   xpc_dictionary_set_uint64(v6, "REQUEST_TYPE", a1);
   if (v5)
   {
-    v35 = a3;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
+    v28 = a3;
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v7 = [v5 allKeys];
-    v8 = [v7 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v37;
-      v11 = &MGCopyAnswer_ptr;
-      v12 = &MGCopyAnswer_ptr;
+      v10 = *v30;
       do
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v37 != v10)
+          if (*v30 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v14 = *(*(&v36 + 1) + 8 * i);
-          v15 = [v5 objectForKey:v14];
-          v16 = v11[113];
+          v12 = *(*(&v29 + 1) + 8 * i);
+          v13 = [v5 objectForKey:v12];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            xpc_dictionary_set_BOOL(v6, [v14 UTF8String], objc_msgSend(v15, "BOOLValue"));
+            xpc_dictionary_set_BOOL(v6, [v12 UTF8String], objc_msgSend(v13, "BOOLValue"));
           }
 
           else
           {
-            v17 = v12[115];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              xpc_dictionary_set_string(v6, [v14 UTF8String], objc_msgSend(v15, "UTF8String"));
+              xpc_dictionary_set_string(v6, [v12 UTF8String], objc_msgSend(v13, "UTF8String"));
             }
 
             else
@@ -1371,15 +1434,10 @@ BOOL sub_10000342C(unsigned int a1, void *a2, void *a3)
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v18 = [NSKeyedArchiver archivedDataWithRootObject:v15 requiringSecureCoding:1 error:0];
-                if (v18)
+                v14 = [NSKeyedArchiver archivedDataWithRootObject:v13 requiringSecureCoding:1 error:0];
+                if (v14)
                 {
-                  v19 = [v14 UTF8String];
-                  v20 = [v18 bytes];
-                  v21 = [v18 length];
-                  v22 = v20;
-                  v11 = &MGCopyAnswer_ptr;
-                  xpc_dictionary_set_data(v6, v19, v22, v21);
+                  xpc_dictionary_set_data(v6, [v12 UTF8String], -[NSObject bytes](v14, "bytes"), -[NSObject length](v14, "length"));
                 }
               }
 
@@ -1388,39 +1446,35 @@ BOOL sub_10000342C(unsigned int a1, void *a2, void *a3)
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v23 = [NSKeyedArchiver archivedDataWithRootObject:v15 requiringSecureCoding:1 error:0];
-                  if (v23)
+                  v14 = [NSKeyedArchiver archivedDataWithRootObject:v13 requiringSecureCoding:1 error:0];
+                  if (v14)
                   {
-                    xpc_dictionary_set_data(v6, [v14 UTF8String], -[NSObject bytes](v23, "bytes"), -[NSObject length](v23, "length"));
+                    xpc_dictionary_set_data(v6, [v12 UTF8String], -[NSObject bytes](v14, "bytes"), -[NSObject length](v14, "length"));
                   }
                 }
 
                 else
                 {
-                  fprintf(__stderrp, "Undefined type in the metadata for key '%s': not including in request", [v14 UTF8String]);
-                  fputc(10, __stderrp);
-                  v23 = sub_100002FAC();
-                  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+                  fprintf(__stderrp, "Undefined type in the metadata for key '%s': not including in request", [v12 UTF8String]);
+                  v15 = fputc(10, __stderrp);
+                  v14 = sub_100002FAC(v15);
+                  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
                   {
-                    sub_1000052E0(&v40, v14);
+                    sub_1000052E0(v33, v12);
                   }
                 }
-
-                v11 = &MGCopyAnswer_ptr;
               }
-
-              v12 = &MGCopyAnswer_ptr;
             }
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v9);
     }
 
-    a3 = v35;
+    a3 = v28;
   }
 
   if (qword_1000103F0 != -1)
@@ -1428,37 +1482,37 @@ BOOL sub_10000342C(unsigned int a1, void *a2, void *a3)
     sub_100005334();
   }
 
-  v24 = qword_1000103E8;
-  v25 = xpc_connection_send_message_with_reply_sync(v24, v6);
-  if (xpc_get_type(v25) == &_xpc_type_dictionary)
+  v16 = qword_1000103E8;
+  v17 = xpc_connection_send_message_with_reply_sync(v16, v6);
+  if (xpc_get_type(v17) == &_xpc_type_dictionary)
   {
-    uint64 = xpc_dictionary_get_uint64(v25, "RESPONSE_TYPE");
-    v31 = xpc_dictionary_get_uint64(v25, "FAILURE_REASON");
-    v29 = uint64 == 1 || v31 == 7;
-    if (a3 && v29)
+    uint64 = xpc_dictionary_get_uint64(v17, "RESPONSE_TYPE");
+    v24 = xpc_dictionary_get_uint64(v17, "FAILURE_REASON");
+    v22 = uint64 == 1 || v24 == 7;
+    if (a3 && v22)
     {
-      v33 = v25;
-      *a3 = v25;
-      v29 = 1;
+      v26 = v17;
+      *a3 = v17;
+      v22 = 1;
     }
   }
 
   else
   {
-    v26 = __stderrp;
-    string = xpc_dictionary_get_string(v25, _xpc_error_key_description);
-    fprintf(v26, "Received error from the daemon: %s", string);
-    fputc(10, __stderrp);
-    v28 = sub_100002FAC();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v18 = __stderrp;
+    string = xpc_dictionary_get_string(v17, _xpc_error_key_description);
+    fprintf(v18, "Received error from the daemon: %s", string);
+    v20 = fputc(10, __stderrp);
+    v21 = sub_100002FAC(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_10000535C(v25, _xpc_error_key_description);
+      sub_10000535C(v17, _xpc_error_key_description);
     }
 
-    v29 = 0;
+    v22 = 0;
   }
 
-  return v29;
+  return v22;
 }
 
 void sub_1000038C0(id a1)
@@ -1481,9 +1535,9 @@ void sub_10000395C(id a1, OS_xpc_object *a2)
     v3 = __stderrp;
     string = xpc_dictionary_get_string(v2, _xpc_error_key_description);
     fprintf(v3, "XPC connection to daemon '%s' received error: %s.", "com.apple.sysdiagnose.service.xpc", string);
-    fputc(10, __stderrp);
-    v5 = sub_100002FAC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v5 = fputc(10, __stderrp);
+    v6 = sub_100002FAC(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1000053E0(v2, _xpc_error_key_description);
     }
@@ -1528,9 +1582,9 @@ void sub_100003B9C(id a1)
   if (!sub_10000342C(6u, 0, 0))
   {
     fwrite("Sysdiagnose request to daemon for user interrupt failed", 0x37uLL, 1uLL, __stderrp);
-    fputc(10, __stderrp);
-    v1 = sub_100002FAC();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v1 = fputc(10, __stderrp);
+    v2 = sub_100002FAC(v1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_100005478();
     }
@@ -1544,24 +1598,24 @@ void sub_100003C20(id a1)
   if (sub_10000342C(4u, 0, 0))
   {
     printf("Sysdiagnose cancelled successfully.");
-    putchar(10);
-    v1 = sub_100002FAC();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    v1 = putchar(10);
+    v2 = sub_100002FAC(v1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "Sysdiagnose cancelled successfully.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Sysdiagnose cancelled successfully.", buf, 2u);
     }
 
     exit(0);
   }
 
   fwrite("Encountered error during user-initiated cancellation.", 0x35uLL, 1uLL, __stderrp);
-  fputc(10, __stderrp);
-  v2 = sub_100002FAC();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = fputc(10, __stderrp);
+  v4 = sub_100002FAC(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    *v3 = 0;
-    _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Encountered error during user-initiated cancellation.", v3, 2u);
+    *v5 = 0;
+    _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Encountered error during user-initiated cancellation.", v5, 2u);
   }
 
   exit(1);
@@ -1589,10 +1643,11 @@ id sub_100003D34(void *a1, void *a2)
   return v8;
 }
 
-void sub_100003DCC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003DCC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id sub_100003DF4(int a1, id a2)
@@ -1684,22 +1739,22 @@ void sub_100004104(id a1)
   qword_100010420 = &off_10000CEF8;
 }
 
-id sub_100004398()
+id sub_100004398(uint64_t a1)
 {
   if (qword_100010430 != -1)
   {
     sub_100005508();
   }
 
-  v1 = qword_100010438;
+  v2 = qword_100010438;
 
-  return v1;
+  return v2;
 }
 
 BOOL sub_1000043DC(id a1, NSURL *a2, NSError *a3)
 {
   v3 = a3;
-  v4 = sub_100004398();
+  v4 = sub_100004398(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10000551C(v3, v4);
@@ -1713,6 +1768,13 @@ void sub_100004BC0(id a1)
   qword_100010438 = os_log_create("com.apple.sysdiagnose.CacheDelete", "enumerator");
 
   _objc_release_x1();
+}
+
+void sub_100004C2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "BOOL getBoolCFPrefIfSet(NSString *__strong, NSString *__strong, BOOL *)";
+  sub_100001918(&_mh_execute_header, &_os_log_default, a3, "%s called with invalid args", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100004CD0(int a1)
@@ -1729,7 +1791,14 @@ void sub_100004D50(uint8_t *buf, int a2, _DWORD *a3)
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "IORegistryEntryGetName: %d", buf, 8u);
 }
 
-void sub_100004E1C(uint64_t *a1, _OWORD *a2)
+void sub_100004D9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "IODeviceTree:/";
+  sub_100001918(&_mh_execute_header, &_os_log_default, a3, "failed to find ioreg path: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100004E1C(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -1737,14 +1806,22 @@ void sub_100004E1C(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_100001934();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  sub_100001934(v7, v2, v3, v4, &_mh_execute_header, v5, v6, "IOObjectRetain: %{mach.errno}d");
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100004ECC(uint64_t *a1, _OWORD *a2)
+void sub_100004ECC(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -1752,9 +1829,17 @@ void sub_100004ECC(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_100001934();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  sub_100001934(v7, v2, v3, v4, &_mh_execute_header, v5, v6, "IOObjectRetain: %{mach.errno}d");
   _os_crash_msg();
   __break(1u);
 }

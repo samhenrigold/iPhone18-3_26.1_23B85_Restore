@@ -16,9 +16,9 @@
 
 - (FSMutableFileDataBuffer)initWithCapacity:(unint64_t)capacity andLength:(unint64_t)length
 {
-  v13.receiver = self;
-  v13.super_class = FSMutableFileDataBuffer;
-  v6 = [(FSMutableFileDataBuffer *)&v13 init];
+  v16.receiver = self;
+  v16.super_class = FSMutableFileDataBuffer;
+  v6 = [(FSMutableFileDataBuffer *)&v16 init];
   v7 = v6;
   if (v6)
   {
@@ -31,7 +31,7 @@
     if (vm_allocate(*MEMORY[0x277D85F48], &v7->_vma, capacity, -1778384895))
     {
 
-      v7 = fskit_std_log();
+      v7 = fskit_std_log(v10);
       if (os_log_type_enabled(&v7->super, OS_LOG_TYPE_ERROR))
       {
         [FSMutableFileDataBuffer initWithCapacity:andLength:];
@@ -43,10 +43,11 @@ LABEL_12:
     }
 
     size = v7->_internalCapacity;
-    if (mach_make_memory_entry_64(*v9, &size, v7->_vma, 4194371, &v7->_mp, 0))
+    memory_entry_64 = mach_make_memory_entry_64(*v9, &size, v7->_vma, 4194371, &v7->_mp, 0);
+    if (memory_entry_64)
     {
 
-      v7 = fskit_std_log();
+      v7 = fskit_std_log(v12);
       if (os_log_type_enabled(&v7->super, OS_LOG_TYPE_ERROR))
       {
         [FSMutableFileDataBuffer initWithCapacity:andLength:];
@@ -57,10 +58,10 @@ LABEL_12:
 
     if (size < v7->_internalCapacity)
     {
-      v10 = fskit_std_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v13 = fskit_std_log(memory_entry_64);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [(FSMutableFileDataBuffer *)&size initWithCapacity:v10 andLength:?];
+        [(FSMutableFileDataBuffer *)&size initWithCapacity:v13 andLength:?];
       }
 
       goto LABEL_12;
@@ -72,11 +73,10 @@ LABEL_12:
 
 - (void)dealloc
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_debug_impl(&dword_24A929000, a2, OS_LOG_TYPE_DEBUG, "FSFileDataBuffer: dealloc: error %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_debug_impl(&dword_24A929000, a2, OS_LOG_TYPE_DEBUG, "FSFileDataBuffer: dealloc: error %d", v2, 8u);
 }
 
 + (id)dataWithLength:(unint64_t)length
@@ -104,10 +104,11 @@ LABEL_12:
 {
   address = b;
   v4 = mach_vm_map(*MEMORY[0x277D85F48], &address, self->_internalCapacity, 0, 1, self->_mp, 0, 0, 67, 67, 2u);
+  v5 = v4;
   if (v4)
   {
-    v5 = fskit_std_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = fskit_std_log(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [FSMutableFileDataBuffer ensureMappedMB:];
     }
@@ -118,7 +119,7 @@ LABEL_12:
     self->_vma = address;
   }
 
-  return v4 == 0;
+  return v5 == 0;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -127,14 +128,13 @@ LABEL_12:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v6 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"This object may only be encoded by an NSXPCCoder." userInfo:0];
-    objc_exception_throw(v6);
+    v5 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"This object may only be encoded by an NSXPCCoder." userInfo:0];
+    objc_exception_throw(v5);
   }
 
-  mp = self->_mp;
-  v5 = xpc_mach_send_create();
+  v4 = xpc_mach_send_create();
   [coderCopy encodeInteger:self->_length forKey:@"FSKitBuff.len"];
-  [coderCopy encodeXPCObject:v5 forKey:@"FSKitBuff.mp"];
+  [coderCopy encodeXPCObject:v4 forKey:@"FSKitBuff.mp"];
   [coderCopy encodeInteger:self->_internalCapacity forKey:@"FSKitMBuff.cap"];
 }
 
@@ -161,7 +161,7 @@ LABEL_12:
     v5->_internalCapacity = v8;
     if (v5->_length > v8)
     {
-      v9 = fskit_std_log();
+      v9 = fskit_std_log(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [FSMutableFileDataBuffer initWithCoder:];
@@ -175,7 +175,7 @@ LABEL_11:
 
     if (!v7)
     {
-      v9 = fskit_std_log();
+      v9 = fskit_std_log(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [FSMutableFileDataBuffer initWithCoder:];
@@ -232,60 +232,37 @@ LABEL_12:
 
 - (void)initWithCapacity:andLength:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithCapacity:andLength:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithCapacity:(os_log_t)log andLength:.cold.3(uint64_t *a1, uint64_t *a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *a2;
-  v6 = 136315650;
-  v7 = "[FSMutableFileDataBuffer initWithCapacity:andLength:]";
-  v8 = 2048;
-  v9 = v3;
-  v10 = 2048;
-  v11 = v4;
-  _os_log_error_impl(&dword_24A929000, log, OS_LOG_TYPE_ERROR, "%s: mach_make_memory_entry_64 gave us size %lu instead of %lu", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 136315650;
+  v6 = "[FSMutableFileDataBuffer initWithCapacity:andLength:]";
+  v7 = 2048;
+  v8 = v3;
+  v9 = 2048;
+  v10 = v4;
+  _os_log_error_impl(&dword_24A929000, log, OS_LOG_TYPE_ERROR, "%s: mach_make_memory_entry_64 gave us size %lu instead of %lu", &v5, 0x20u);
 }
 
 - (void)ensureMappedMB:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithCoder:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithCoder:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

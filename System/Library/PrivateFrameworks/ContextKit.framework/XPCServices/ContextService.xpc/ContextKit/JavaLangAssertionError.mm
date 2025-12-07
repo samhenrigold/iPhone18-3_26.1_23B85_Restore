@@ -32,21 +32,21 @@
 
 - (JavaLangAssertionError)initWithLong:(int64_t)long
 {
-  v4 = JavaLangLong_toStringWithLong_(long);
+  v4 = JavaLangLong_toStringWithLong_(long, a2);
   JavaLangAssertionError_initWithId_(self, v4);
   return self;
 }
 
 - (JavaLangAssertionError)initWithFloat:(float)float
 {
-  v4 = JavaLangFloat_toStringWithFloat_(float);
+  v4 = JavaLangFloat_toStringWithFloat_(self, a2, float);
   JavaLangAssertionError_initWithId_(self, v4);
   return self;
 }
 
 - (JavaLangAssertionError)initWithDouble:(double)double
 {
-  v4 = JavaLangDouble_toStringWithDouble_(double);
+  v4 = JavaLangDouble_toStringWithDouble_(self, a2, double);
   JavaLangAssertionError_initWithId_(self, v4);
   return self;
 }

@@ -586,7 +586,7 @@ LABEL_18:
   epoch = 0;
   if (v10)
   {
-    [(AVURLAsset *)v10 duration];
+    objc_msgSend_duration(v10);
     v14 = timescale[2];
     v15 = *timescale;
   }

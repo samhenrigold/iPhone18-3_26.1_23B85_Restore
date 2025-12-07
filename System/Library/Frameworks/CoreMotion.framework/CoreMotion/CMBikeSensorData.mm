@@ -120,7 +120,7 @@
 
 - (id)newFitnessMachineDataFromBikeSensorData
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF00];
   Current = CFAbsoluteTimeGetCurrent();
   v7 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(v3, v5, v6, Current);
@@ -138,9 +138,9 @@
     {
       fTimestamp = self->fTimestamp;
       *buf = 134218240;
-      v22 = fTimestamp;
-      v23 = 2048;
-      v24 = v11;
+      v27 = fTimestamp;
+      v28 = 2048;
+      v29 = v11;
       _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_ERROR, "Received bike power data from HK which has delay more than expected. data time, %f, now, %f", buf, 0x16u);
     }
 
@@ -153,20 +153,24 @@
         dispatch_once(&qword_1EAFE2A98, &unk_1F0E2A720);
       }
 
-      v20 = self->fTimestamp;
-      v15 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMBikeSensorData newFitnessMachineDataFromBikeSensorData]", "CoreLocation: %s\n", v15);
-      if (v15 != buf)
+      v15 = self->fTimestamp;
+      v22 = 134218240;
+      v23 = v15;
+      v24 = 2048;
+      v25 = v11;
+      LODWORD(v21) = 22;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AA0, 16, "Received bike power data from HK which has delay more than expected. data time, %f, now, %f", COERCE_DOUBLE(&v22), v21);
+      v17 = v16;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMBikeSensorData newFitnessMachineDataFromBikeSensorData]", "CoreLocation: %s\n", v16);
+      if (v17 != buf)
       {
-        free(v15);
+        free(v17);
       }
     }
   }
 
-  v16 = [CMFitnessMachineData alloc];
-  result = objc_msgSend_initWithExernalBikeSensorData_speed_cadence_power_model_deviceIdentifier_manufacturer_externalFitnessType_(v16, v17, self->_model, self->_deviceIdentifier, self->_manufacturer, 1, self->fTimestamp, self->_instantaneousSpeed, self->_instantaneousCadence, self->_instantaneousPower);
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  v18 = [CMFitnessMachineData alloc];
+  return objc_msgSend_initWithExernalBikeSensorData_speed_cadence_power_model_deviceIdentifier_manufacturer_externalFitnessType_(v18, v19, self->_model, self->_deviceIdentifier, self->_manufacturer, 1, self->fTimestamp, self->_instantaneousSpeed, self->_instantaneousCadence, self->_instantaneousPower);
 }
 
 @end

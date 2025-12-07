@@ -47,55 +47,55 @@
 
 + (id)hmu_accessoriesFromAccessories:()HMUAdditions excludingStereoCompanionForAccessory:
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v42 = a4;
-  home = [v42 home];
+  v41 = a4;
+  home = [v41 home];
   v7 = home;
   if (home)
   {
-    v37 = home;
-    v38 = v5;
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
+    v36 = home;
+    v37 = v5;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     obj = [home mediaSystems];
-    v41 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
-    if (v41)
+    v40 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+    if (v40)
     {
-      v40 = *v52;
+      v39 = *v51;
       while (2)
       {
-        for (i = 0; i != v41; ++i)
+        for (i = 0; i != v40; ++i)
         {
-          if (*v52 != v40)
+          if (*v51 != v39)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v51 + 1) + 8 * i);
+          v9 = *(*(&v50 + 1) + 8 * i);
           v10 = objc_opt_new();
+          v46 = 0u;
           v47 = 0u;
           v48 = 0u;
           v49 = 0u;
-          v50 = 0u;
           components = [v9 components];
-          v12 = [components countByEnumeratingWithState:&v47 objects:v56 count:16];
+          v12 = [components countByEnumeratingWithState:&v46 objects:v55 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v48;
+            v14 = *v47;
             do
             {
               for (j = 0; j != v13; ++j)
               {
-                if (*v48 != v14)
+                if (*v47 != v14)
                 {
                   objc_enumerationMutation(components);
                 }
 
-                v16 = *(*(&v47 + 1) + 8 * j);
+                v16 = *(*(&v46 + 1) + 8 * j);
                 role = [v16 role];
                 if ([role type] == 1)
                 {
@@ -122,7 +122,7 @@
                 }
               }
 
-              v13 = [components countByEnumeratingWithState:&v47 objects:v56 count:16];
+              v13 = [components countByEnumeratingWithState:&v46 objects:v55 count:16];
             }
 
             while (v13);
@@ -130,35 +130,35 @@
 
 LABEL_19:
 
-          uniqueIdentifier2 = [v42 uniqueIdentifier];
+          uniqueIdentifier2 = [v41 uniqueIdentifier];
           v24 = [v10 containsObject:uniqueIdentifier2];
 
           if (v24)
           {
-            uniqueIdentifier3 = [v42 uniqueIdentifier];
+            uniqueIdentifier3 = [v41 uniqueIdentifier];
             [v10 removeObject:uniqueIdentifier3];
 
             v25 = objc_opt_new();
+            v42 = 0u;
             v43 = 0u;
             v44 = 0u;
             v45 = 0u;
-            v46 = 0u;
-            v27 = v38;
-            v28 = [v27 countByEnumeratingWithState:&v43 objects:v55 count:16];
+            v27 = v37;
+            v28 = [v27 countByEnumeratingWithState:&v42 objects:v54 count:16];
             if (v28)
             {
               v29 = v28;
-              v30 = *v44;
+              v30 = *v43;
               do
               {
                 for (k = 0; k != v29; ++k)
                 {
-                  if (*v44 != v30)
+                  if (*v43 != v30)
                   {
                     objc_enumerationMutation(v27);
                   }
 
-                  v32 = *(*(&v43 + 1) + 8 * k);
+                  v32 = *(*(&v42 + 1) + 8 * k);
                   uniqueIdentifier4 = [v32 uniqueIdentifier];
                   v34 = [v10 containsObject:uniqueIdentifier4];
 
@@ -168,19 +168,19 @@ LABEL_19:
                   }
                 }
 
-                v29 = [v27 countByEnumeratingWithState:&v43 objects:v55 count:16];
+                v29 = [v27 countByEnumeratingWithState:&v42 objects:v54 count:16];
               }
 
               while (v29);
             }
 
-            v5 = v38;
+            v5 = v37;
             goto LABEL_33;
           }
         }
 
-        v41 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
-        if (v41)
+        v40 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+        if (v40)
         {
           continue;
         }
@@ -189,18 +189,16 @@ LABEL_19:
       }
     }
 
-    v5 = v38;
-    v25 = v38;
+    v5 = v37;
+    v25 = v37;
 LABEL_33:
-    v7 = v37;
+    v7 = v36;
   }
 
   else
   {
     v25 = v5;
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

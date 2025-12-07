@@ -72,97 +72,97 @@
 
 - (BMMicroLocationRestrictedLocalizationEvent)initWithProto:(id)proto
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   protoCopy = proto;
   if (protoCopy)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v39 = protoCopy;
+      v38 = protoCopy;
       v5 = protoCopy;
-      v40 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v39 = objc_alloc_init(MEMORY[0x1E695DF70]);
       v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v44 = 0u;
       v45 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
-      v38 = v5;
+      v37 = v5;
       probabilityVectors = [v5 probabilityVectors];
-      v8 = [probabilityVectors countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v8 = [probabilityVectors countByEnumeratingWithState:&v44 objects:v49 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v46;
+        v10 = *v45;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v46 != v10)
+            if (*v45 != v10)
             {
               objc_enumerationMutation(probabilityVectors);
             }
 
-            v12 = *(*(&v45 + 1) + 8 * i);
+            v12 = *(*(&v44 + 1) + 8 * i);
             v13 = [BMMicroLocationProbabilityPerLabel alloc];
             v14 = objc_alloc(MEMORY[0x1E696AFB0]);
             label = [v12 label];
             v16 = [v14 initWithUUIDString:label];
             [v12 probability];
             v17 = [(BMMicroLocationProbabilityPerLabel *)v13 initWithLabelIdentifier:v16 probability:?];
-            [v40 addObject:v17];
+            [v39 addObject:v17];
           }
 
-          v9 = [probabilityVectors countByEnumeratingWithState:&v45 objects:v50 count:16];
+          v9 = [probabilityVectors countByEnumeratingWithState:&v44 objects:v49 count:16];
         }
 
         while (v9);
       }
 
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
       v42 = 0u;
-      v18 = v38;
-      numDevicesVectors = [v38 numDevicesVectors];
-      v20 = [numDevicesVectors countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v18 = v37;
+      numDevicesVectors = [v37 numDevicesVectors];
+      v20 = [numDevicesVectors countByEnumeratingWithState:&v40 objects:v48 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v42;
+        v22 = *v41;
         do
         {
           for (j = 0; j != v21; ++j)
           {
-            if (*v42 != v22)
+            if (*v41 != v22)
             {
               objc_enumerationMutation(numDevicesVectors);
             }
 
-            v24 = *(*(&v41 + 1) + 8 * j);
+            v24 = *(*(&v40 + 1) + 8 * j);
             v25 = [BMMicroLocationNumDevicesPerTechnology alloc];
             technologyString = [v24 technologyString];
             v27 = -[BMMicroLocationNumDevicesPerTechnology initWithTechnology:numDevices:](v25, "initWithTechnology:numDevices:", technologyString, [v24 number]);
             [v6 addObject:v27];
           }
 
-          v21 = [numDevicesVectors countByEnumeratingWithState:&v41 objects:v49 count:16];
+          v21 = [numDevicesVectors countByEnumeratingWithState:&v40 objects:v48 count:16];
         }
 
         while (v21);
       }
 
-      [v38 absoluteTimeStamp];
+      [v37 absoluteTimeStamp];
       v29 = v28;
-      clientBundleId = [v38 clientBundleId];
+      clientBundleId = [v37 clientBundleId];
       v31 = objc_alloc(MEMORY[0x1E696AFB0]);
-      maxProbabilityLabel = [v38 maxProbabilityLabel];
+      maxProbabilityLabel = [v37 maxProbabilityLabel];
       v33 = [v31 initWithUUIDString:maxProbabilityLabel];
-      [v38 maxProbability];
-      self = [(BMMicroLocationRestrictedLocalizationEvent *)self initWithAbsoluteTimeStamp:clientBundleId clientBundleIdentifier:v33 maxProbabilityLabelIdentifier:v40 maxProbability:v6 probabilityVector:v29 numDevicesVector:v34];
+      [v37 maxProbability];
+      self = [(BMMicroLocationRestrictedLocalizationEvent *)self initWithAbsoluteTimeStamp:clientBundleId clientBundleIdentifier:v33 maxProbabilityLabelIdentifier:v39 maxProbability:v6 probabilityVector:v29 numDevicesVector:v34];
 
       selfCopy = self;
-      protoCopy = v39;
+      protoCopy = v38;
     }
 
     else
@@ -182,7 +182,6 @@
     selfCopy = 0;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -207,62 +206,62 @@
 
 - (id)proto
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_probabilityVector, "count")}];
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_numDevicesVector, "count")}];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v5 = self->_probabilityVector;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v25;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        proto = [*(*(&v25 + 1) + 8 * i) proto];
+        proto = [*(*(&v24 + 1) + 8 * i) proto];
         [v3 addObject:proto];
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v7);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v11 = self->_numDevicesVector;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        proto2 = [*(*(&v21 + 1) + 8 * j) proto];
+        proto2 = [*(*(&v20 + 1) + 8 * j) proto];
         [v4 addObject:proto2];
       }
 
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v13);
@@ -277,8 +276,6 @@
   [v17 setMaxProbability:self->_maxProbability];
   [v17 setProbabilityVectors:v3];
   [v17 setNumDevicesVectors:v4];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

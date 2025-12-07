@@ -34,11 +34,11 @@
 
 - (double)snappedStatusBarPresentationProgress
 {
-  [(CCUIOverlayTransitionState *)self clampedPresentationProgress];
-  v3 = v2;
-  v4 = CCUIPortraitHeaderHeight();
-  v5 = v4 - CCUIStatusBarHeight();
-  return fmax(fmin(floor(v3 * (v5 / (CCUIStatusBarHeight() * 0.75))), 1.0), 0.0);
+  clampedPresentationProgress = [(CCUIOverlayTransitionState *)self clampedPresentationProgress];
+  v4 = v3;
+  v5 = CCUIPortraitHeaderHeight(clampedPresentationProgress);
+  v8 = v5 - CCUIStatusBarHeight(v6, v7);
+  return fmax(fmin(floor(v4 * (v8 / (CCUIStatusBarHeight(v9, v10) * 0.75))), 1.0), 0.0);
 }
 
 + (BOOL)isSignificantTransitionFrom:(id)from to:(id)to

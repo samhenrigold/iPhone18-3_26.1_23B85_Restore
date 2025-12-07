@@ -1,370 +1,17 @@
-void sub_1E5039AE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+void sub_1E503AB68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t SDPMediaFormatInfo::setSDPMediaFormatParams(uint64_t a1, uint64_t a2)
-{
-  v4[0] = a1;
-  v4[1] = a1;
-  v4[2] = a1;
-  v4[3] = a1;
-  v4[4] = a1;
-  v4[5] = a1;
-  v2 = *(a2 + 120);
-  if (v2 == -1)
-  {
-    std::__throw_bad_variant_access[abi:ne200100]();
-  }
-
-  v5 = v4;
-  return (__const__ZNSt3__116__variant_detail12__visitation6__base11__visit_altB8ne200100INS1_9__variant15__value_visitorI10overloadedIJZN18SDPMediaFormatInfo23setSDPMediaFormatParamsERKNS_7variantIJ27SDPMediaFormatUnknownParams23SDPMediaFormatAMRParams23SDPMediaFormatEVSParams24SDPMediaFormatDTMFParams23SDPMediaFormatTTYParams26SDPMediaFormatTTYRedParamsEEEE3__0ZNS7_23setSDPMediaFormatParamsESH_E3__1ZNS7_23setSDPMediaFormatParamsESH_E3__2ZNS7_23setSDPMediaFormatParamsESH_E3__3ZNS7_23setSDPMediaFormatParamsESH_E3__4ZNS7_23setSDPMediaFormatParamsESH_E3__5ZNS7_23setSDPMediaFormatParamsESH_E3__6EEEEJRKNS0_6__implIJS9_SA_SB_SC_SD_SE_EEEEEEDcOT_DpOT0____fmatrix[v2])(&v5);
-}
-
-void sub_1E5039C18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
-{
-  if (a18 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void SDPMedia::validConnection(SDPMedia *this@<X0>, uint64_t a2@<X8>)
-{
-  v3 = this + 88;
-  for (i = *(this + 12); i != v3; i = *(i + 8))
-  {
-    if ((*(*(i + 16) + 24))(i + 16))
-    {
-      SDPConnection::SDPConnection(a2, i + 16);
-      *(a2 + 56) = 1;
-      return;
-    }
-  }
-
-  v6 = 0u;
-  LOBYTE(v6) = 1;
-  v5 = &unk_1F5ED8C78;
-  __p[0] = 0;
-  __p[1] = 0;
-  v8 = 0uLL;
-  SDPConnection::SDPConnection(a2, &v5);
-  *(a2 + 56) = 0;
-  v5 = &unk_1F5ED8C78;
-  if (SBYTE7(v8) < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_1E5039D48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
-{
-  if (a18 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t SDPMedia::validateRemoteAddress(uint64_t a1, const void **a2)
-{
-  v2 = a1 + 88;
-  v3 = *(a1 + 96);
-  if (v3 == a1 + 88)
-  {
-    return 0;
-  }
-
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
-  {
-    v5 = *(a2 + 23);
-  }
-
-  else
-  {
-    v5 = a2[1];
-  }
-
-  if (v4 >= 0)
-  {
-    v6 = a2;
-  }
-
-  else
-  {
-    v6 = *a2;
-  }
-
-  while (1)
-  {
-    v7 = (v3 + 40);
-    v8 = *(v3 + 63);
-    v9 = v8;
-    v10 = (v3 + 40);
-    if (v8 < 0)
-    {
-      v10 = *(v3 + 40);
-      v9 = *(v3 + 48);
-    }
-
-    v11 = v5 >= v9 ? v9 : v5;
-    v12 = memcmp(v10, v6, v11);
-    if (v5 != v9 || v12 != 0)
-    {
-      break;
-    }
-
-LABEL_27:
-    v3 = *(v3 + 8);
-    if (v3 == v2)
-    {
-      return 0;
-    }
-  }
-
-  if ((v8 & 0x80000000) != 0)
-  {
-    v7 = *(v3 + 40);
-    v8 = *(v3 + 48);
-  }
-
-  if (v8 >= 8)
-  {
-    v14 = &v7[v8];
-    v15 = v7;
-    do
-    {
-      v16 = memchr(v15, 46, v8 - 7);
-      if (!v16)
-      {
-        break;
-      }
-
-      v17 = v16;
-      if (*v16 == 0x64696C61766E692ELL)
-      {
-        result = 1;
-        if (v17 == v14 || v17 - v7 == -1)
-        {
-          return result;
-        }
-
-        goto LABEL_27;
-      }
-
-      v15 = v16 + 1;
-      v8 = v14 - (v17 + 1);
-    }
-
-    while (v8 >= 8);
-  }
-
-  return 1;
-}
-
-uint64_t *SDPMedia::setConnectionAddress(uint64_t *result, std::string *__str, uint64_t a3)
-{
-  v3 = result + 11;
-  v4 = result[12];
-  if (v4 != result + 11)
-  {
-    do
-    {
-      std::string::operator=((v4 + 40), __str);
-      result = SDPConnection::setAddressTypeFromString((v4 + 16), a3);
-      v4 = *(v4 + 8);
-    }
-
-    while (v4 != v3);
-  }
-
-  return result;
-}
-
-uint64_t SDPMedia::mediaCryptoList@<X0>(uint64_t this@<X0>, void *a2@<X8>)
-{
-  *a2 = a2;
-  a2[1] = a2;
-  a2[2] = 0;
-  for (i = *(this + 144); i != this + 136; i = *(i + 8))
-  {
-    if (*(i + 136) == 3)
-    {
-      operator new();
-    }
-  }
-
-  return this;
-}
-
-void sub_1E503A130(_Unwind_Exception *a1)
-{
-  *(v1 + 16) = v2;
-  if (*(v1 + 55) < 0)
-  {
-    operator delete(*(v1 + 32));
-  }
-
-  operator delete(v1);
-  _Unwind_Resume(a1);
-}
-
-void std::__variant_detail::__visitation::__base::__dispatcher<7ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<overloaded<SDPMedia::copyAttributes(SDPMedia const&)::$_0,SDPMedia::copyAttributes(SDPMedia const&)::$_1,SDPMedia::copyAttributes(SDPMedia const&)::$_2,SDPMedia::copyAttributes(SDPMedia const&)::$_3,SDPMedia::copyAttributes(SDPMedia const&)::$_4,SDPMedia::copyAttributes(SDPMedia const&)::$_5,SDPMedia::copyAttributes(SDPMedia const&)::$_6,SDPMedia::copyAttributes(SDPMedia const&)::$_7,SDPMedia::copyAttributes(SDPMedia const&)::$_8,SDPMedia::copyAttributes(SDPMedia const&)::$_9,SDPMedia::copyAttributes(SDPMedia const&)::$_10,SDPMedia::copyAttributes(SDPMedia const&)::$_11,SDPMedia::copyAttributes(SDPMedia const&)::$_12,SDPMedia::copyAttributes(SDPMedia const&)::$_13,SDPMedia::copyAttributes(SDPMedia const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint> const&>(uint64_t a1, const SDPMediaFormatAMRParams *a2)
-{
-  SDPMediaFormatAMRParams::SDPMediaFormatAMRParams(v2, a2);
-  v2[0] = &unk_1F5EF5FB8;
-  if (v3 < 0)
-  {
-    operator delete(v2[2]);
-  }
-}
-
-void std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<overloaded<SDPMedia::copyAttributes(SDPMedia const&)::$_0,SDPMedia::copyAttributes(SDPMedia const&)::$_1,SDPMedia::copyAttributes(SDPMedia const&)::$_2,SDPMedia::copyAttributes(SDPMedia const&)::$_3,SDPMedia::copyAttributes(SDPMedia const&)::$_4,SDPMedia::copyAttributes(SDPMedia const&)::$_5,SDPMedia::copyAttributes(SDPMedia const&)::$_6,SDPMedia::copyAttributes(SDPMedia const&)::$_7,SDPMedia::copyAttributes(SDPMedia const&)::$_8,SDPMedia::copyAttributes(SDPMedia const&)::$_9,SDPMedia::copyAttributes(SDPMedia const&)::$_10,SDPMedia::copyAttributes(SDPMedia const&)::$_11,SDPMedia::copyAttributes(SDPMedia const&)::$_12,SDPMedia::copyAttributes(SDPMedia const&)::$_13,SDPMedia::copyAttributes(SDPMedia const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint> const&>(uint64_t a1, const SDPMediaFormatEVSParams *a2)
-{
-  SDPMediaFormatEVSParams::SDPMediaFormatEVSParams(v2, a2);
-  v2[0] = &unk_1F5EF5FB8;
-  if (v3 < 0)
-  {
-    operator delete(v2[2]);
-  }
-}
-
-void std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<overloaded<SDPMedia::copyAttributes(SDPMedia const&)::$_0,SDPMedia::copyAttributes(SDPMedia const&)::$_1,SDPMedia::copyAttributes(SDPMedia const&)::$_2,SDPMedia::copyAttributes(SDPMedia const&)::$_3,SDPMedia::copyAttributes(SDPMedia const&)::$_4,SDPMedia::copyAttributes(SDPMedia const&)::$_5,SDPMedia::copyAttributes(SDPMedia const&)::$_6,SDPMedia::copyAttributes(SDPMedia const&)::$_7,SDPMedia::copyAttributes(SDPMedia const&)::$_8,SDPMedia::copyAttributes(SDPMedia const&)::$_9,SDPMedia::copyAttributes(SDPMedia const&)::$_10,SDPMedia::copyAttributes(SDPMedia const&)::$_11,SDPMedia::copyAttributes(SDPMedia const&)::$_12,SDPMedia::copyAttributes(SDPMedia const&)::$_13,SDPMedia::copyAttributes(SDPMedia const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint> const&>(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 8);
-  if (*(a2 + 39) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__p, *(a2 + 16), *(a2 + 24));
-  }
-
-  else
-  {
-    __p = *(a2 + 16);
-  }
-
-  v5 = *(a2 + 40);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-}
-
-void std::__variant_detail::__visitation::__base::__dispatcher<10ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<overloaded<SDPMedia::copyAttributes(SDPMedia const&)::$_0,SDPMedia::copyAttributes(SDPMedia const&)::$_1,SDPMedia::copyAttributes(SDPMedia const&)::$_2,SDPMedia::copyAttributes(SDPMedia const&)::$_3,SDPMedia::copyAttributes(SDPMedia const&)::$_4,SDPMedia::copyAttributes(SDPMedia const&)::$_5,SDPMedia::copyAttributes(SDPMedia const&)::$_6,SDPMedia::copyAttributes(SDPMedia const&)::$_7,SDPMedia::copyAttributes(SDPMedia const&)::$_8,SDPMedia::copyAttributes(SDPMedia const&)::$_9,SDPMedia::copyAttributes(SDPMedia const&)::$_10,SDPMedia::copyAttributes(SDPMedia const&)::$_11,SDPMedia::copyAttributes(SDPMedia const&)::$_12,SDPMedia::copyAttributes(SDPMedia const&)::$_13,SDPMedia::copyAttributes(SDPMedia const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint> const&>(uint64_t a1, uint64_t a2)
-{
-  SDPMediaFormatParams::SDPMediaFormatParams(v3, *(a2 + 40));
-  v5 = *(a2 + 44);
-  v6 = *(a2 + 48);
-  v3[0] = &unk_1F5EF5FB8;
-  if (v4 < 0)
-  {
-    operator delete(v3[2]);
-  }
-}
-
-void std::__variant_detail::__visitation::__base::__dispatcher<11ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<overloaded<SDPMedia::copyAttributes(SDPMedia const&)::$_0,SDPMedia::copyAttributes(SDPMedia const&)::$_1,SDPMedia::copyAttributes(SDPMedia const&)::$_2,SDPMedia::copyAttributes(SDPMedia const&)::$_3,SDPMedia::copyAttributes(SDPMedia const&)::$_4,SDPMedia::copyAttributes(SDPMedia const&)::$_5,SDPMedia::copyAttributes(SDPMedia const&)::$_6,SDPMedia::copyAttributes(SDPMedia const&)::$_7,SDPMedia::copyAttributes(SDPMedia const&)::$_8,SDPMedia::copyAttributes(SDPMedia const&)::$_9,SDPMedia::copyAttributes(SDPMedia const&)::$_10,SDPMedia::copyAttributes(SDPMedia const&)::$_11,SDPMedia::copyAttributes(SDPMedia const&)::$_12,SDPMedia::copyAttributes(SDPMedia const&)::$_13,SDPMedia::copyAttributes(SDPMedia const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint> const&>(uint64_t a1, uint64_t a2)
-{
-  SDPMediaFormatParams::SDPMediaFormatParams(v3, *(a2 + 40));
-  v5 = *(a2 + 42);
-  v3[0] = &unk_1F5EF5FB8;
-  if (v4 < 0)
-  {
-    operator delete(v3[2]);
-  }
-}
-
-void std::__variant_detail::__visitation::__base::__dispatcher<13ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<overloaded<SDPMedia::copyAttributes(SDPMedia const&)::$_0,SDPMedia::copyAttributes(SDPMedia const&)::$_1,SDPMedia::copyAttributes(SDPMedia const&)::$_2,SDPMedia::copyAttributes(SDPMedia const&)::$_3,SDPMedia::copyAttributes(SDPMedia const&)::$_4,SDPMedia::copyAttributes(SDPMedia const&)::$_5,SDPMedia::copyAttributes(SDPMedia const&)::$_6,SDPMedia::copyAttributes(SDPMedia const&)::$_7,SDPMedia::copyAttributes(SDPMedia const&)::$_8,SDPMedia::copyAttributes(SDPMedia const&)::$_9,SDPMedia::copyAttributes(SDPMedia const&)::$_10,SDPMedia::copyAttributes(SDPMedia const&)::$_11,SDPMedia::copyAttributes(SDPMedia const&)::$_12,SDPMedia::copyAttributes(SDPMedia const&)::$_13,SDPMedia::copyAttributes(SDPMedia const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint> const&>(uint64_t a1, uint64_t a2)
-{
-  v2 = *(*a1 + 64);
-  v3 = *(a2 + 42);
-  v4 = *(a2 + 40);
-  if (v3 == 1)
-  {
-    SDPMedia::setMaxPacketizationTime(v2, v4);
-  }
-
-  else
-  {
-    SDPMedia::setPacketizationTime(v2, v4);
-  }
-}
-
-void SDPRTCPXR::SDPRTCPXR(SDPRTCPXR *this, const SDPRTCPXR *a2)
-{
-  if (*(a2 + 39) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__p, *(a2 + 2), *(a2 + 3));
-  }
-
-  else
-  {
-    __p = *(a2 + 16);
-  }
-
-  *(this + 8) = 1;
-  *this = &unk_1F5EF5FB8;
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external((this + 16), __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-  }
-
-  else
-  {
-    *(this + 16) = __p;
-  }
-
-  *this = &unk_1F5EC8B98;
-  v4 = *(a2 + 6);
-  *(this + 5) = *(a2 + 5);
-  *(this + 6) = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  *(this + 7) = 0;
-  *(this + 8) = 0;
-  *(this + 9) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 56, *(a2 + 7), *(a2 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *(a2 + 7)) >> 3));
-  if (*(a2 + 103) < 0)
-  {
-    std::string::__init_copy_ctor_external((this + 80), *(a2 + 10), *(a2 + 11));
-  }
-
-  else
-  {
-    v5 = *(a2 + 5);
-    *(this + 12) = *(a2 + 12);
-    *(this + 5) = v5;
-  }
-}
-
-void sub_1E503AB68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  v8 = *(v4 + 48);
-  if (v8)
+  v11 = *(v7 + 48);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
-  *v4 = v6;
-  if (*(v4 + 39) < 0)
+  *v7 = v9;
+  if (*(v7 + 39) < 0)
   {
-    operator delete(*v5);
+    operator delete(*v8);
   }
 
   _Unwind_Resume(a1);
@@ -432,7 +79,6 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispa
 
 uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<overloaded<SDPMedia::valid(void)::$_0,SDPMedia::valid(void)::$_1,SDPMedia::valid(void)::$_2,SDPMedia::valid(void)::$_3,SDPMedia::valid(void)::$_4,SDPMedia::valid(void)::$_5>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint> const&>(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 8);
   if (*(a2 + 39) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, *(a2 + 16), *(a2 + 24));
@@ -443,7 +89,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispa
     __p = *(a2 + 16);
   }
 
-  v6 = *(a2 + 40);
+  v5 = *(a2 + 40);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -497,7 +143,6 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispa
 
 uint64_t std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<overloaded<SDPMedia::valid(void)::$_0,SDPMedia::valid(void)::$_1,SDPMedia::valid(void)::$_2,SDPMedia::valid(void)::$_3,SDPMedia::valid(void)::$_4,SDPMedia::valid(void)::$_5>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint> const&>(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 8);
   if (*(a2 + 39) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, *(a2 + 16), *(a2 + 24));
@@ -508,7 +153,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispa
     __p = *(a2 + 16);
   }
 
-  v6 = *(a2 + 40);
+  v5 = *(a2 + 40);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -675,13 +320,13 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<18ul>::__disp
   return 1;
 }
 
-void std::__variant_detail::__assignment<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>>::__assign_alt[abi:ne200100]<0ul,SDPMediaFormatUnknownParams,SDPMediaFormatUnknownParams const&>(unsigned int *a1, uint64_t a2, uint64_t a3)
+void std::__variant_detail::__assignment<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>>::__assign_alt[abi:ne200100]<0ul,SDPMediaFormatUnknownParams,SDPMediaFormatUnknownParams const&>(SDPMediaFormatUnknownParams *a1, uint64_t a2, uint64_t a3)
 {
-  if (a1[30])
+  if (*(a1 + 30))
   {
     std::__variant_detail::__dtor<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
     SDPMediaFormatUnknownParams::SDPMediaFormatUnknownParams(a1, a3);
-    a1[30] = 0;
+    *(a1 + 30) = 0;
   }
 
   else
@@ -694,9 +339,9 @@ void std::__variant_detail::__assignment<std::__variant_detail::__traits<SDPMedi
   }
 }
 
-void std::__variant_detail::__assignment<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>>::__assign_alt[abi:ne200100]<1ul,SDPMediaFormatAMRParams,SDPMediaFormatAMRParams const&>(unsigned int *a1, uint64_t a2, uint64_t a3)
+void std::__variant_detail::__assignment<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>>::__assign_alt[abi:ne200100]<1ul,SDPMediaFormatAMRParams,SDPMediaFormatAMRParams const&>(SDPMediaFormatUnknownParams *a1, uint64_t a2, uint64_t a3)
 {
-  if (a1[30] == 1)
+  if (*(a1 + 30) == 1)
   {
     *(a2 + 8) = *(a3 + 8);
     std::string::operator=((a2 + 16), (a3 + 16));
@@ -710,13 +355,13 @@ void std::__variant_detail::__assignment<std::__variant_detail::__traits<SDPMedi
   {
     std::__variant_detail::__dtor<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
     SDPMediaFormatAMRParams::SDPMediaFormatAMRParams(a1, a3);
-    a1[30] = 1;
+    *(a1 + 30) = 1;
   }
 }
 
-void std::__variant_detail::__assignment<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>>::__assign_alt[abi:ne200100]<2ul,SDPMediaFormatEVSParams,SDPMediaFormatEVSParams const&>(unsigned int *a1, uint64_t a2, uint64_t a3)
+void std::__variant_detail::__assignment<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>>::__assign_alt[abi:ne200100]<2ul,SDPMediaFormatEVSParams,SDPMediaFormatEVSParams const&>(SDPMediaFormatUnknownParams *a1, uint64_t a2, uint64_t a3)
 {
-  if (a1[30] == 2)
+  if (*(a1 + 30) == 2)
   {
     *(a2 + 8) = *(a3 + 8);
     std::string::operator=((a2 + 16), (a3 + 16));
@@ -735,13 +380,13 @@ void std::__variant_detail::__assignment<std::__variant_detail::__traits<SDPMedi
   {
     std::__variant_detail::__dtor<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
     SDPMediaFormatEVSParams::SDPMediaFormatEVSParams(a1, a3);
-    a1[30] = 2;
+    *(a1 + 30) = 2;
   }
 }
 
-uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>>::__assign_alt[abi:ne200100]<3ul,SDPMediaFormatDTMFParams,SDPMediaFormatDTMFParams const&>(unsigned int *a1, uint64_t a2, uint64_t a3)
+uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>>::__assign_alt[abi:ne200100]<3ul,SDPMediaFormatDTMFParams,SDPMediaFormatDTMFParams const&>(SDPMediaFormatUnknownParams *a1, uint64_t a2, uint64_t a3)
 {
-  if (a1[30] == 3)
+  if (*(a1 + 30) == 3)
   {
     *(a2 + 8) = *(a3 + 8);
     result = std::string::operator=((a2 + 16), (a3 + 16));
@@ -752,7 +397,7 @@ uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<SDP
   {
     std::__variant_detail::__dtor<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
     result = std::construct_at[abi:ne200100]<std::__variant_detail::__union<(std::__variant_detail::_Trait)1,0ul,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>,std::in_place_index_t<3ul> const&,SDPMediaFormatDTMFParams const&,std::__variant_detail::__union<(std::__variant_detail::_Trait)1,0ul,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>*>(a1, &std::in_place_index<3ul>, a3);
-    a1[30] = 3;
+    *(a1 + 30) = 3;
   }
 
   return result;
@@ -893,9 +538,9 @@ void std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[
   SDPMediaFormatUnknownParams::~SDPMediaFormatUnknownParams(v4);
 }
 
-void sub_1E503C3B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E503C3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SDPMediaFormatUnknownParams::~SDPMediaFormatUnknownParams(va);
   _Unwind_Resume(a1);
 }
@@ -1063,36 +708,36 @@ void sub_1E503C884(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t LazuliMessageDecoder::decode(uint64_t a1, uint64_t a2)
+uint64_t LazuliMessageDecoder::decode(uint64_t *a1, uint64_t a2, void *a3)
 {
-  v3 = std::string::basic_string[abi:ne200100]<0>(&v53, "decoder.laz");
-  v48[0] = 0;
-  v51 = 0;
-  v4 = ims::debug(v3, v48);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), "LazuliMessageDecoder::decode bytes = ", 37);
-  *(v4 + 17) = 0;
+  v5 = std::string::basic_string[abi:ne200100]<0>(&v55, "decoder.laz");
+  v50[0] = 0;
+  v53 = 0;
+  v6 = ims::debug(v5, v50);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "LazuliMessageDecoder::decode bytes = ", 37);
+  *(v6 + 17) = 0;
   if (*(a2 + 23) >= 0)
   {
-    v5 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v5 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  MEMORY[0x1E6923370](*(v4 + 8), v5);
-  *(v4 + 17) = 0;
-  (*(*v4 + 64))(v4, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v4 + 17) = 0;
-  if (v51 == 1 && v50 < 0)
+  MEMORY[0x1E6923370](*(v6 + 8), v7);
+  *(v6 + 17) = 0;
+  (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v6 + 17) = 0;
+  if (v53 == 1 && v52 < 0)
   {
-    operator delete(v49);
+    operator delete(v51);
   }
 
-  if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v53.__r_.__value_.__l.__data_);
+    operator delete(v55.__r_.__value_.__l.__data_);
   }
 
   memset(&__str, 0, sizeof(__str));
@@ -1106,7 +751,7 @@ uint64_t LazuliMessageDecoder::decode(uint64_t a1, uint64_t a2)
     __str = *a2;
   }
 
-  v6 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+  v8 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     size = HIBYTE(__str.__r_.__value_.__r.__words[2]);
@@ -1119,197 +764,197 @@ uint64_t LazuliMessageDecoder::decode(uint64_t a1, uint64_t a2)
 
   if (size)
   {
-    v8 = (__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__str : __str.__r_.__value_.__r.__words[0];
-    v9 = memchr(v8, 10, size);
-    if (v9)
+    v10 = (__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__str : __str.__r_.__value_.__r.__words[0];
+    v11 = memchr(v10, 10, size);
+    if (v11)
     {
-      v10 = v9 - v8;
-      if (v10 != -1)
+      v12 = v11 - v10;
+      if (v12 != -1)
       {
-        memset(&v46, 0, sizeof(v46));
-        std::string::basic_string(&v46, &__str, 0, v10, &v53);
-        std::string::basic_string(&v53, &__str, v10 + 1, 0xFFFFFFFFFFFFFFFFLL, &v52);
+        memset(&v48, 0, sizeof(v48));
+        std::string::basic_string(&v48, &__str, 0, v12, &v55);
+        std::string::basic_string(&v55, &__str, v12 + 1, 0xFFFFFFFFFFFFFFFFLL, &v54);
         if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__str.__r_.__value_.__l.__data_);
         }
 
-        __str = v53;
-        ims::chomp(&v46, "\r\n\t ", 3);
-        memset(&v45, 0, sizeof(v45));
-        *(&v53.__r_.__value_.__s + 23) = 1;
-        LOWORD(v53.__r_.__value_.__l.__data_) = 32;
-        v11 = ims::nextToken(&v46, 0, &v45, &v53);
-        if (v11 == -1)
+        __str = v55;
+        ims::chomp(&v48, "\r\n\t ", 3);
+        memset(&v47, 0, sizeof(v47));
+        *(&v55.__r_.__value_.__s + 23) = 1;
+        LOWORD(v55.__r_.__value_.__l.__data_) = 32;
+        v13 = ims::nextToken(&v48, 0, &v47, &v55);
+        if (v13 == -1)
         {
-          v14 = std::string::basic_string[abi:ne200100]<0>(&v53, "decoder.laz");
-          v41[0] = 0;
-          v44 = 0;
-          v15 = ims::error(v14, v41);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "LazuliMessageDecoder: no tokens in start line", 45);
-          *(v15 + 17) = 0;
-          (*(*v15 + 64))(v15, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-          *(v15 + 17) = 0;
-          if (v44 == 1 && v43 < 0)
+          v16 = std::string::basic_string[abi:ne200100]<0>(&v55, "decoder.laz");
+          v43[0] = 0;
+          v46 = 0;
+          v17 = ims::error(v16, v43);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v17 + 8), "LazuliMessageDecoder: no tokens in start line", 45);
+          *(v17 + 17) = 0;
+          (*(*v17 + 64))(v17, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+          *(v17 + 17) = 0;
+          if (v46 == 1 && v45 < 0)
           {
-            v16 = v42;
+            v18 = v44;
 LABEL_39:
-            operator delete(v16);
+            operator delete(v18);
           }
 
 LABEL_40:
-          if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v53.__r_.__value_.__l.__data_);
+            operator delete(v55.__r_.__value_.__l.__data_);
           }
 
           goto LABEL_42;
         }
 
-        if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
         {
-          if (v45.__r_.__value_.__l.__size_ != 4)
+          if (v47.__r_.__value_.__l.__size_ != 4)
           {
             goto LABEL_36;
           }
 
-          v12 = v45.__r_.__value_.__r.__words[0];
+          v14 = v47.__r_.__value_.__r.__words[0];
         }
 
         else
         {
-          if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) != 4)
+          if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) != 4)
           {
             goto LABEL_36;
           }
 
-          v12 = &v45;
+          v14 = &v47;
         }
 
-        if (LODWORD(v12->__r_.__value_.__l.__data_) == 1347572557)
+        if (LODWORD(v14->__r_.__value_.__l.__data_) == 1347572557)
         {
-          memset(&v36, 0, sizeof(v36));
-          *(&v53.__r_.__value_.__s + 23) = 1;
-          LOWORD(v53.__r_.__value_.__l.__data_) = 32;
-          v19 = ims::nextToken(&v46, v11, &v36, &v53);
-          if (v19 == -1)
+          memset(&v38, 0, sizeof(v38));
+          *(&v55.__r_.__value_.__s + 23) = 1;
+          LOWORD(v55.__r_.__value_.__l.__data_) = 32;
+          v21 = ims::nextToken(&v48, v13, &v38, &v55);
+          if (v21 == -1)
           {
-            v22 = std::string::basic_string[abi:ne200100]<0>(&v53, "decoder.laz");
-            v32[0] = 0;
-            v35 = 0;
-            v23 = ims::error(v22, v32);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "LazuliMessageDecoder: no transaction ID in the message ", 55);
-            *(v23 + 17) = 0;
-            (*(*v23 + 64))(v23, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-            *(v23 + 17) = 0;
-            if (v35 == 1 && v34 < 0)
+            v24 = std::string::basic_string[abi:ne200100]<0>(&v55, "decoder.laz");
+            v34[0] = 0;
+            v37 = 0;
+            v25 = ims::error(v24, v34);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "LazuliMessageDecoder: no transaction ID in the message ", 55);
+            *(v25 + 17) = 0;
+            (*(*v25 + 64))(v25, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+            *(v25 + 17) = 0;
+            if (v37 == 1 && v36 < 0)
             {
-              operator delete(v33);
+              operator delete(v35);
             }
 
-            if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v53.__r_.__value_.__l.__data_);
+              operator delete(v55.__r_.__value_.__l.__data_);
             }
           }
 
           else
           {
-            memset(&v31, 0, sizeof(v31));
-            *(&v53.__r_.__value_.__s + 23) = 1;
-            LOWORD(v53.__r_.__value_.__l.__data_) = 32;
-            if (ims::nextToken(&v46, v19, &v31, &v53) == -1)
+            memset(&v33, 0, sizeof(v33));
+            *(&v55.__r_.__value_.__s + 23) = 1;
+            LOWORD(v55.__r_.__value_.__l.__data_) = 32;
+            if (ims::nextToken(&v48, v21, &v33, &v55) == -1)
             {
-              v24 = std::string::basic_string[abi:ne200100]<0>(&v53, "decoder.laz");
-              v27[0] = 0;
-              v30 = 0;
-              v25 = ims::error(v24, v27);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "LazuliMessageDecoder: no method or status in the message ", 57);
-              *(v25 + 17) = 0;
-              (*(*v25 + 64))(v25, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              *(v25 + 17) = 0;
-              if (v30 == 1 && v29 < 0)
+              v26 = std::string::basic_string[abi:ne200100]<0>(&v55, "decoder.laz");
+              v29[0] = 0;
+              v32 = 0;
+              v27 = ims::error(v26, v29);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), "LazuliMessageDecoder: no method or status in the message ", 57);
+              *(v27 + 17) = 0;
+              (*(*v27 + 64))(v27, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              *(v27 + 17) = 0;
+              if (v32 == 1 && v31 < 0)
               {
-                operator delete(v28);
+                operator delete(v30);
               }
 
-              if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v53.__r_.__value_.__l.__data_);
+                operator delete(v55.__r_.__value_.__l.__data_);
               }
             }
 
             else
             {
-              v20 = HIBYTE(v31.__r_.__value_.__r.__words[2]);
-              if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+              v22 = HIBYTE(v33.__r_.__value_.__r.__words[2]);
+              if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
               {
-                v20 = v31.__r_.__value_.__l.__size_;
+                v22 = v33.__r_.__value_.__l.__size_;
               }
 
-              if (v20 == 4)
+              if (v22 == 4)
               {
-                if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v21 = &v31;
+                  v23 = &v33;
                 }
 
                 else
                 {
-                  v21 = v31.__r_.__value_.__r.__words[0];
+                  v23 = v33.__r_.__value_.__r.__words[0];
                 }
 
-                if (LODWORD(v21->__r_.__value_.__l.__data_) == *"SEND")
+                if (LODWORD(v23->__r_.__value_.__l.__data_) == *"SEND")
                 {
-                  std::allocate_shared[abi:ne200100]<LazuliRequest,std::allocator<LazuliRequest>,std::string &,std::string const&,LazuliMessageEncodingMap const*&,0>();
+                  std::allocate_shared[abi:ne200100]<LazuliRequest,std::allocator<LazuliRequest>,std::string &,std::string const&,LazuliMessageEncodingMap const*&,0>(&v55, &v38, "SEND", a1);
                 }
               }
 
               else
               {
-                if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v21 = &v31;
+                  v23 = &v33;
                 }
 
                 else
                 {
-                  v21 = v31.__r_.__value_.__r.__words[0];
+                  v23 = v33.__r_.__value_.__r.__words[0];
                 }
 
-                if (v20 == 6 && LODWORD(v21->__r_.__value_.__l.__data_) == *"REPORT" && WORD2(v21->__r_.__value_.__r.__words[0]) == *"RT")
+                if (v22 == 6 && LODWORD(v23->__r_.__value_.__l.__data_) == *"REPORT" && WORD2(v23->__r_.__value_.__r.__words[0]) == *"RT")
                 {
-                  std::allocate_shared[abi:ne200100]<LazuliRequest,std::allocator<LazuliRequest>,std::string &,std::string const&,LazuliMessageEncodingMap const*&,0>();
+                  std::allocate_shared[abi:ne200100]<LazuliRequest,std::allocator<LazuliRequest>,std::string &,std::string const&,LazuliMessageEncodingMap const*&,0>(&v55, &v38, "REPORT", a1);
                 }
               }
 
-              LODWORD(v52.__r_.__value_.__l.__data_) = strtoul(v21, 0, 10);
-              if (LODWORD(v52.__r_.__value_.__l.__data_))
+              LODWORD(v54.__r_.__value_.__l.__data_) = strtoul(v23, 0, 10);
+              if (LODWORD(v54.__r_.__value_.__l.__data_))
               {
-                std::allocate_shared[abi:ne200100]<LazuliResponse,std::allocator<LazuliResponse>,std::string &,unsigned int &,LazuliMessageEncodingMap const*&,0>();
+                std::allocate_shared[abi:ne200100]<LazuliResponse,std::allocator<LazuliResponse>,std::string &,unsigned int &,LazuliMessageEncodingMap const*&,0>(&v55, &v38, &v54, a1);
               }
             }
 
-            if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v31.__r_.__value_.__l.__data_);
+              operator delete(v33.__r_.__value_.__l.__data_);
             }
           }
 
-          if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v36.__r_.__value_.__l.__data_);
+            operator delete(v38.__r_.__value_.__l.__data_);
           }
 
 LABEL_42:
-          if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v45.__r_.__value_.__l.__data_);
+            operator delete(v47.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v46.__r_.__value_.__l.__data_);
+            operator delete(v48.__r_.__value_.__l.__data_);
           }
 
           if ((*(&__str.__r_.__value_.__s + 23) & 0x80) != 0)
@@ -1321,18 +966,18 @@ LABEL_42:
         }
 
 LABEL_36:
-        v17 = std::string::basic_string[abi:ne200100]<0>(&v53, "decoder.laz");
-        v37[0] = 0;
-        v40 = 0;
-        v18 = ims::error(v17, v37);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "LazuliMessageDecoder: non MSRP protocol: ", 41);
-        *(v18 + 17) = 0;
-        (*(*v18 + 32))(v18, &v45);
-        (*(*v18 + 64))(v18, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-        *(v18 + 17) = 0;
-        if (v40 == 1 && v39 < 0)
+        v19 = std::string::basic_string[abi:ne200100]<0>(&v55, "decoder.laz");
+        v39[0] = 0;
+        v42 = 0;
+        v20 = ims::error(v19, v39);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v20 + 8), "LazuliMessageDecoder: non MSRP protocol: ", 41);
+        *(v20 + 17) = 0;
+        (*(*v20 + 32))(v20, &v47);
+        (*(*v20 + 64))(v20, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+        *(v20 + 17) = 0;
+        if (v42 == 1 && v41 < 0)
         {
-          v16 = __p;
+          v18 = __p;
           goto LABEL_39;
         }
 
@@ -1341,7 +986,7 @@ LABEL_36:
     }
   }
 
-  if (v6 < 0)
+  if (v8 < 0)
   {
 LABEL_28:
     operator delete(__str.__r_.__value_.__l.__data_);
@@ -1357,9 +1002,9 @@ void sub_1E503DAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  if (a72 < 0)
+  if (a66 < 0)
   {
-    operator delete(a71);
+    operator delete(a65);
   }
 
   if (SLOBYTE(STACK[0x277]) < 0)
@@ -1606,37 +1251,36 @@ void sub_1E503E898(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-const void **BambiCallTerminationReason::addReasonToRequest(const void **result, SipMessage **a2)
+void BambiCallTerminationReason::addReasonToRequest(uint64_t a1, SipMessage **a2)
 {
-  v3 = result;
-  if ((*(result + 55) & 0x8000000000000000) == 0)
+  if ((*(a1 + 55) & 0x8000000000000000) == 0)
   {
-    if (!*(result + 55))
+    if (!*(a1 + 55))
     {
       goto LABEL_8;
     }
 
 LABEL_5:
     v4 = *a2;
-    v5 = *(v3 + 14);
-    v6 = v3[13];
-    v14[0] = v3[12];
+    v5 = *(a1 + 56);
+    v6 = *(a1 + 104);
+    v14[0] = *(a1 + 96);
     v14[1] = v6;
     if (v6)
     {
       atomic_fetch_add_explicit(v6 + 1, 1uLL, memory_order_relaxed);
     }
 
-    SipMessage::addReasonWithParams(v4, v5, v14, (v3 + 4), v3 + 3);
+    SipMessage::addReasonWithParams(v4, v5, v14, a1 + 32, (a1 + 72));
   }
 
-  if (result[5])
+  if (*(a1 + 40))
   {
     goto LABEL_5;
   }
 
 LABEL_8:
-  v7 = result[14];
+  v7 = *(a1 + 112);
   if (v7)
   {
     v10 = *v7;
@@ -1646,7 +1290,7 @@ LABEL_8:
     {
       do
       {
-        result = SipMessage::addHeader(*a2, (v9 + 4), (v9 + 7), 0);
+        SipMessage::addHeader(*a2, (v9 + 4), (v9 + 7), 0);
         v11 = v9[1];
         if (v11)
         {
@@ -1677,8 +1321,6 @@ LABEL_8:
       while (v12 != v8);
     }
   }
-
-  return result;
 }
 
 void sub_1E503E9B4(_Unwind_Exception *exception_object)
@@ -1853,7 +1495,7 @@ void BambiCallTerminationReasonsBase::getCombinedReasonMap(void (***this)(uint64
   std::allocate_shared[abi:ne200100]<std::map<std::string,std::shared_ptr<BambiCallTerminationReason>,ReasonCompare,std::allocator<std::pair<std::string const,std::shared_ptr<BambiCallTerminationReason>>>>,std::allocator<std::map<std::string,std::shared_ptr<BambiCallTerminationReason>,ReasonCompare,std::allocator<std::pair<std::string const,std::shared_ptr<BambiCallTerminationReason>>>>>,std::map<std::string,std::shared_ptr<BambiCallTerminationReason>,ReasonCompare,std::allocator<std::pair<std::string const,std::shared_ptr<BambiCallTerminationReason>>>>&,0>();
 }
 
-void sub_1E503FED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, void *a14)
+void sub_1E503FED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14)
 {
   std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::destroy(&a13, a14);
   v16 = *(v14 - 32);
@@ -1891,7 +1533,7 @@ void sub_1E5040034(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void BambiCallTerminationReasonsBase::assign(BambiCallTerminationReasonsBase *this, const BambiCallTerminationReasonsBase *a2)
 {
   v3 = (this + 152);
-  v4 = this + 144;
+  v4 = (this + 144);
   std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::destroy(this + 144, *(this + 19));
   *v3 = 0;
   v3[1] = 0;
@@ -1907,7 +1549,7 @@ void BambiCallTerminationReasonsBase::assign(BambiCallTerminationReasonsBase *th
       std::pair<std::string const,std::shared_ptr<MessageSession>>::pair[abi:ne200100](v15, v5 + 2);
       ims::lowerCase(v15, &__p);
       p_p = &__p;
-      v7 = std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, &__p.__r_.__value_.__l.__data_);
+      v7 = std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, &__p, &p_p);
       v9 = *&v15[24];
       v8 = v16;
       if (v16)
@@ -1969,11 +1611,11 @@ void BambiCallTerminationReasonsBase::assign(BambiCallTerminationReasonsBase *th
   }
 }
 
-void BambiCallIncomingTerminationReasons::addReason(void *a1@<X8>)
+void BambiCallIncomingTerminationReasons::addReason(uint64_t *a3@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0;
-  BambiCallTerminationReasonsBase::addReason(a1);
+  *a3 = 0;
+  a3[1] = 0;
+  BambiCallTerminationReasonsBase::addReason(a3);
 }
 
 void sub_1E504020C(_Unwind_Exception *exception_object)
@@ -1987,10 +1629,10 @@ void sub_1E504020C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void BambiCallTerminationReasonsBase::addReason(void *a1@<X8>)
+void BambiCallTerminationReasonsBase::addReason(uint64_t *a3@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0;
+  *a3 = 0;
+  a3[1] = 0;
   std::allocate_shared[abi:ne200100]<BambiCallTerminationReason,std::allocator<BambiCallTerminationReason>,BambiCallTerminationReason const&,0>();
 }
 
@@ -2036,274 +1678,273 @@ void BambiCallIncomingTerminationReasons::reasonForResponse(uint64_t a1@<X0>, ui
   while (v5);
   if (v9 != a1 + 176 && v8 >= *(v9 + 32) && (v13 = SipMessage::header<SipReasonHeader>(*a2), *(v9 + 56)))
   {
-    v73 = a4;
+    v71 = a4;
     v14 = (v9 + 40);
-    v85 = 0;
-    v84 = 0;
-    v86 = 0xFFFFFFFFLL;
+    v83 = 0;
+    v82 = 0;
+    v84 = 0xFFFFFFFFLL;
     if (v13)
     {
-      v15 = v13[4];
-      v16 = *(v13 + 9);
-      v17 = *(v13 + 8);
-      if (v17 != v16)
+      v15 = v13[9];
+      v16 = v13[8];
+      if (v16 != v15)
       {
-        v74 = *(v13 + 9);
+        v72 = v13[9];
         while (1)
         {
-          v18 = *v17;
-          v82 = 0;
-          v81 = 0;
-          v19 = -1;
-          v83 = 0xFFFFFFFFLL;
-          if (!v18)
+          v17 = *v16;
+          v80 = 0;
+          v79 = 0;
+          v18 = -1;
+          v81 = 0xFFFFFFFFLL;
+          if (!v17)
           {
             goto LABEL_108;
           }
 
-          v75 = v17;
-          v20 = *(v9 + 48);
-          if (v20 == v14)
+          v73 = v16;
+          v19 = *(v9 + 48);
+          if (v19 == v14)
           {
             goto LABEL_107;
           }
 
           do
           {
-            v22 = v20[2];
-            v21 = v20[3];
-            if (v21)
+            v21 = v19[2];
+            v20 = v19[3];
+            if (v20)
             {
-              atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            if (*(v22 + 132) == 1 && (a3 & 1) == 0)
+            if (*(v21 + 132) == 1 && (a3 & 1) == 0)
             {
-              v23 = std::string::basic_string[abi:ne200100]<0>(&v119, "bambi.call");
-              v95[0] = 0;
-              v98 = 0;
-              v24 = ims::debug(v23, v95);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "ignoring override reason ", 25);
-              *(v24 + 17) = 0;
-              (*(*v24 + 32))(v24, v22 + 8);
-              (*(*v24 + 64))(v24, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              *(v24 + 17) = 0;
-              if (v98 == 1 && v97 < 0)
+              v22 = std::string::basic_string[abi:ne200100]<0>(&v117, "bambi.call");
+              v93[0] = 0;
+              v96 = 0;
+              v23 = ims::debug(v22, v93);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "ignoring override reason ", 25);
+              *(v23 + 17) = 0;
+              (*(*v23 + 32))(v23, v21 + 8);
+              (*(*v23 + 64))(v23, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              *(v23 + 17) = 0;
+              if (v96 == 1 && v95 < 0)
               {
                 operator delete(__p);
               }
 
-              if (SHIBYTE(v121) < 0)
+              if (SHIBYTE(v119) < 0)
               {
-                v25 = v119;
+                v24 = v117;
                 goto LABEL_96;
               }
 
               goto LABEL_97;
             }
 
-            v26 = *(v22 + 95);
-            if (v26 < 0)
+            v25 = *(v21 + 95);
+            if (v25 < 0)
             {
-              if (!*(v22 + 80))
+              if (!*(v21 + 80))
               {
 LABEL_43:
-                v36 = 0;
+                v34 = 0;
                 goto LABEL_50;
               }
             }
 
-            else if (!*(v22 + 95))
+            else if (!*(v21 + 95))
             {
               goto LABEL_43;
             }
 
-            if (v26 >= 0)
+            if (v25 >= 0)
             {
-              v27 = *(v22 + 95);
+              v26 = *(v21 + 95);
             }
 
             else
             {
-              v27 = *(v22 + 80);
+              v26 = *(v21 + 80);
             }
 
-            v28 = *(v18 + 23);
-            v29 = v28;
-            if (v28 < 0)
+            v27 = *(v17 + 23);
+            v28 = v27;
+            if (v27 < 0)
             {
-              v28 = v18[1];
+              v27 = v17[1];
             }
 
-            if (v27 != v28 || (v26 >= 0 ? (v30 = (v22 + 72)) : (v30 = *(v22 + 72)), (v31 = *v18, v29 >= 0) ? (v32 = v18) : (v32 = *v18), memcmp(v30, v32, v27)))
+            if (v26 != v27 || (v25 >= 0 ? (v29 = (v21 + 72)) : (v29 = *(v21 + 72)), v28 >= 0 ? (v30 = v17) : (v30 = *v17), memcmp(v29, v30, v26)))
             {
-              v33 = std::string::basic_string[abi:ne200100]<0>(&v124, "bambi.call");
-              v115[0] = 0;
-              v118 = 0;
-              v34 = ims::debug(v33, v115);
-              (*(*v34 + 32))(v34, v22 + 8);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v34 + 8), ": unable to match reason protocol (", 35);
-              *(v34 + 17) = 0;
-              (*(*v34 + 32))(v34, v22 + 72);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v34 + 8), " != ", 4);
-              *(v34 + 17) = 0;
-              (*(*v34 + 32))(v34, v18);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v34 + 8), ")", 1);
-              *(v34 + 17) = 0;
-              (*(*v34 + 64))(v34, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              *(v34 + 17) = 0;
-              if (v118 == 1 && v117 < 0)
+              v31 = std::string::basic_string[abi:ne200100]<0>(&v122, "bambi.call");
+              v113[0] = 0;
+              v116 = 0;
+              v32 = ims::debug(v31, v113);
+              (*(*v32 + 32))(v32, v21 + 8);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v32 + 8), ": unable to match reason protocol (", 35);
+              *(v32 + 17) = 0;
+              (*(*v32 + 32))(v32, v21 + 72);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v32 + 8), " != ", 4);
+              *(v32 + 17) = 0;
+              (*(*v32 + 32))(v32, v17);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v32 + 8), ")", 1);
+              *(v32 + 17) = 0;
+              (*(*v32 + 64))(v32, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              *(v32 + 17) = 0;
+              if (v116 == 1 && v115 < 0)
               {
-                v35 = v116;
+                v33 = v114;
                 goto LABEL_93;
               }
 
 LABEL_94:
-              if ((SHIBYTE(v124.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              if ((SHIBYTE(v122.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
                 goto LABEL_97;
               }
 
-              v25 = v124.__r_.__value_.__r.__words[0];
+              v24 = v122.__r_.__value_.__r.__words[0];
 LABEL_96:
-              operator delete(v25);
+              operator delete(v24);
               goto LABEL_97;
             }
 
-            v37 = std::string::basic_string[abi:ne200100]<0>(&v124, "bambi.call");
-            LOBYTE(v119) = 0;
-            v123 = 0;
-            v38 = ims::debug(v37, &v119);
-            (*(*v38 + 32))(v38, v22 + 8);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v38 + 8), ": protocol matched (", 20);
-            *(v38 + 17) = 0;
-            (*(*v38 + 32))(v38, v22 + 72);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v38 + 8), ")", 1);
-            *(v38 + 17) = 0;
-            (*(*v38 + 64))(v38, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-            *(v38 + 17) = 0;
-            if (v123 == 1 && v122 < 0)
+            v35 = std::string::basic_string[abi:ne200100]<0>(&v122, "bambi.call");
+            LOBYTE(v117) = 0;
+            v121 = 0;
+            v36 = ims::debug(v35, &v117);
+            (*(*v36 + 32))(v36, v21 + 8);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v36 + 8), ": protocol matched (", 20);
+            *(v36 + 17) = 0;
+            (*(*v36 + 32))(v36, v21 + 72);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v36 + 8), ")", 1);
+            *(v36 + 17) = 0;
+            (*(*v36 + 64))(v36, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+            *(v36 + 17) = 0;
+            if (v121 == 1 && v120 < 0)
             {
-              operator delete(v121);
+              operator delete(v119);
             }
 
-            if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v124.__r_.__value_.__l.__data_);
+              operator delete(v122.__r_.__value_.__l.__data_);
             }
 
-            v36 = 1;
+            v34 = 1;
 LABEL_50:
-            v39 = *(v22 + 56);
-            if (v39)
+            v37 = *(v21 + 56);
+            if (v37)
             {
-              if (v39 != SipReason::cause(v18))
+              if (v37 != SipReason::cause(v17))
               {
-                v43 = std::string::basic_string[abi:ne200100]<0>(&v124, "bambi.call");
-                LOBYTE(v107[0]) = 0;
-                v110 = 0;
-                v44 = ims::debug(v43, v107);
-                (*(*v44 + 32))(v44, v22 + 8);
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v44 + 8), ": unable to match reason cause (", 32);
-                *(v44 + 17) = 0;
-                MEMORY[0x1E6923350](*(v44 + 8), *(v22 + 56));
-                *(v44 + 17) = 0;
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v44 + 8), " != ", 4);
-                *(v44 + 17) = 0;
-                v45 = SipReason::cause(v18);
-                MEMORY[0x1E6923350](*(v44 + 8), v45);
-                *(v44 + 17) = 0;
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v44 + 8), ")", 1);
-                *(v44 + 17) = 0;
-                (*(*v44 + 64))(v44, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-                *(v44 + 17) = 0;
-                if (v110 != 1 || (v109 & 0x80000000) == 0)
+                v41 = std::string::basic_string[abi:ne200100]<0>(&v122, "bambi.call");
+                LOBYTE(v105[0]) = 0;
+                v108 = 0;
+                v42 = ims::debug(v41, v105);
+                (*(*v42 + 32))(v42, v21 + 8);
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v42 + 8), ": unable to match reason cause (", 32);
+                *(v42 + 17) = 0;
+                MEMORY[0x1E6923350](*(v42 + 8), *(v21 + 56));
+                *(v42 + 17) = 0;
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v42 + 8), " != ", 4);
+                *(v42 + 17) = 0;
+                v43 = SipReason::cause(v17);
+                MEMORY[0x1E6923350](*(v42 + 8), v43);
+                *(v42 + 17) = 0;
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v42 + 8), ")", 1);
+                *(v42 + 17) = 0;
+                (*(*v42 + 64))(v42, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                *(v42 + 17) = 0;
+                if (v108 != 1 || (v107 & 0x80000000) == 0)
                 {
                   goto LABEL_94;
                 }
 
-                v35 = v108;
+                v33 = v106;
                 goto LABEL_93;
               }
 
-              v40 = std::string::basic_string[abi:ne200100]<0>(&v124, "bambi.call");
-              LOBYTE(v111[0]) = 0;
-              v114 = 0;
-              v41 = ims::debug(v40, v111);
-              (*(*v41 + 32))(v41, v22 + 8);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v41 + 8), ": cause matched (", 17);
-              *(v41 + 17) = 0;
-              v42 = SipReason::cause(v18);
-              MEMORY[0x1E6923350](*(v41 + 8), v42);
-              *(v41 + 17) = 0;
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v41 + 8), ")", 1);
-              *(v41 + 17) = 0;
-              (*(*v41 + 64))(v41, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              *(v41 + 17) = 0;
-              if (v114 == 1 && v113 < 0)
+              v38 = std::string::basic_string[abi:ne200100]<0>(&v122, "bambi.call");
+              LOBYTE(v109[0]) = 0;
+              v112 = 0;
+              v39 = ims::debug(v38, v109);
+              (*(*v39 + 32))(v39, v21 + 8);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v39 + 8), ": cause matched (", 17);
+              *(v39 + 17) = 0;
+              v40 = SipReason::cause(v17);
+              MEMORY[0x1E6923350](*(v39 + 8), v40);
+              *(v39 + 17) = 0;
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v39 + 8), ")", 1);
+              *(v39 + 17) = 0;
+              (*(*v39 + 64))(v39, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              *(v39 + 17) = 0;
+              if (v112 == 1 && v111 < 0)
               {
-                operator delete(v112);
+                operator delete(v110);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v122.__r_.__value_.__l.__data_);
               }
 
-              v36 = (v36 + 1);
+              v34 = (v34 + 1);
             }
 
-            if ((*(v22 + 55) & 0x8000000000000000) != 0)
+            if ((*(v21 + 55) & 0x8000000000000000) != 0)
             {
-              if (!*(v22 + 40))
+              if (!*(v21 + 40))
               {
                 goto LABEL_75;
               }
             }
 
-            else if (!*(v22 + 55))
+            else if (!*(v21 + 55))
             {
               goto LABEL_75;
             }
 
-            SipReason::text(v18, &v124);
-            NumMatchesForPattern = ims::getNumMatchesForPattern(&v124, (v22 + 32), 1u);
-            v47 = NumMatchesForPattern;
-            if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+            SipReason::text(v17, &v122);
+            NumMatchesForPattern = ims::getNumMatchesForPattern(&v122, (v21 + 32), 1u);
+            v45 = NumMatchesForPattern;
+            if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v124.__r_.__value_.__l.__data_);
-              if (!v47)
+              operator delete(v122.__r_.__value_.__l.__data_);
+              if (!v45)
               {
 LABEL_88:
-                v55 = std::string::basic_string[abi:ne200100]<0>(&v124, "bambi.call");
-                v99[0] = 0;
-                v102 = 0;
-                v56 = ims::debug(v55, v99);
-                (*(*v56 + 32))(v56, v22 + 8);
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v56 + 8), ": unable to match reason text (", 31);
-                *(v56 + 17) = 0;
-                (*(*v56 + 32))(v56, v22 + 32);
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v56 + 8), " != ", 4);
-                *(v56 + 17) = 0;
-                v57 = SipReason::text(v18, &v103);
-                (*(*v56 + 32))(v56, &v103, v57);
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v56 + 8), ")", 1);
-                *(v56 + 17) = 0;
-                (*(*v56 + 64))(v56, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-                *(v56 + 17) = 0;
-                if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
+                v53 = std::string::basic_string[abi:ne200100]<0>(&v122, "bambi.call");
+                v97[0] = 0;
+                v100 = 0;
+                v54 = ims::debug(v53, v97);
+                (*(*v54 + 32))(v54, v21 + 8);
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v54 + 8), ": unable to match reason text (", 31);
+                *(v54 + 17) = 0;
+                (*(*v54 + 32))(v54, v21 + 32);
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v54 + 8), " != ", 4);
+                *(v54 + 17) = 0;
+                v55 = SipReason::text(v17, &v101);
+                (*(*v54 + 32))(v54, &v101, v55);
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v54 + 8), ")", 1);
+                *(v54 + 17) = 0;
+                (*(*v54 + 64))(v54, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                *(v54 + 17) = 0;
+                if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v103.__r_.__value_.__l.__data_);
+                  operator delete(v101.__r_.__value_.__l.__data_);
                 }
 
-                if (v102 != 1 || (v101 & 0x80000000) == 0)
+                if (v100 != 1 || (v99 & 0x80000000) == 0)
                 {
                   goto LABEL_94;
                 }
 
-                v35 = v100;
+                v33 = v98;
 LABEL_93:
-                operator delete(v35);
+                operator delete(v33);
                 goto LABEL_94;
               }
             }
@@ -2313,332 +1954,332 @@ LABEL_93:
               goto LABEL_88;
             }
 
-            v48 = std::string::basic_string[abi:ne200100]<0>(&v124, "bambi.call");
-            v104.__r_.__value_.__s.__data_[0] = 0;
-            v106 = 0;
-            v49 = ims::debug(v48, &v104);
-            (*(*v49 + 32))(v49, v22 + 8);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v49 + 8), ": text matched (", 16);
-            *(v49 + 17) = 0;
-            v50 = SipReason::text(v18, &v103);
-            (*(*v49 + 32))(v49, &v103, v50);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v49 + 8), ")", 1);
-            *(v49 + 17) = 0;
-            (*(*v49 + 64))(v49, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-            *(v49 + 17) = 0;
-            if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
+            v46 = std::string::basic_string[abi:ne200100]<0>(&v122, "bambi.call");
+            v102.__r_.__value_.__s.__data_[0] = 0;
+            v104 = 0;
+            v47 = ims::debug(v46, &v102);
+            (*(*v47 + 32))(v47, v21 + 8);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v47 + 8), ": text matched (", 16);
+            *(v47 + 17) = 0;
+            v48 = SipReason::text(v17, &v101);
+            (*(*v47 + 32))(v47, &v101, v48);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v47 + 8), ")", 1);
+            *(v47 + 17) = 0;
+            (*(*v47 + 64))(v47, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+            *(v47 + 17) = 0;
+            if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v103.__r_.__value_.__l.__data_);
+              operator delete(v101.__r_.__value_.__l.__data_);
             }
 
-            if (v106 == 1 && v105 < 0)
+            if (v104 == 1 && v103 < 0)
             {
-              operator delete(v104.__r_.__value_.__r.__words[2]);
+              operator delete(v102.__r_.__value_.__r.__words[2]);
             }
 
-            if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v124.__r_.__value_.__l.__data_);
+              operator delete(v122.__r_.__value_.__l.__data_);
             }
 
-            v36 = (v36 + 1);
+            v34 = (v34 + 1);
 LABEL_75:
-            v51 = std::string::basic_string[abi:ne200100]<0>(&v119, "bambi.call");
-            v91[0] = 0;
-            v94 = 0;
-            v52 = ims::debug(v51, v91);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v52 + 8), "matched ", 8);
-            *(v52 + 17) = 0;
-            (*(*v52 + 32))(v52, v22 + 8);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v52 + 8), " with score ", 12);
-            *(v52 + 17) = 0;
-            MEMORY[0x1E6923340](*(v52 + 8), v36);
-            *(v52 + 17) = 0;
-            (*(*v52 + 64))(v52, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-            *(v52 + 17) = 0;
-            if (v94 == 1 && v93 < 0)
+            v49 = std::string::basic_string[abi:ne200100]<0>(&v117, "bambi.call");
+            v89[0] = 0;
+            v92 = 0;
+            v50 = ims::debug(v49, v89);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v50 + 8), "matched ", 8);
+            *(v50 + 17) = 0;
+            (*(*v50 + 32))(v50, v21 + 8);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v50 + 8), " with score ", 12);
+            *(v50 + 17) = 0;
+            MEMORY[0x1E6923340](*(v50 + 8), v34);
+            *(v50 + 17) = 0;
+            (*(*v50 + 64))(v50, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+            *(v50 + 17) = 0;
+            if (v92 == 1 && v91 < 0)
             {
-              operator delete(v92);
+              operator delete(v90);
             }
 
-            if (SHIBYTE(v121) < 0)
+            if (SHIBYTE(v119) < 0)
             {
-              operator delete(v119);
+              operator delete(v117);
             }
 
-            if (v36 >= v83)
+            if (v34 >= v81)
             {
-              v53 = std::string::basic_string[abi:ne200100]<0>(&v119, "bambi.call");
-              v87[0] = 0;
-              v90 = 0;
-              v54 = ims::debug(v53, v87);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v54 + 8), "new highest scoring match is ", 29);
-              *(v54 + 17) = 0;
-              (*(*v54 + 32))(v54, v22 + 8);
-              (*(*v54 + 64))(v54, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              *(v54 + 17) = 0;
-              if (v90 == 1 && v89 < 0)
+              v51 = std::string::basic_string[abi:ne200100]<0>(&v117, "bambi.call");
+              v85[0] = 0;
+              v88 = 0;
+              v52 = ims::debug(v51, v85);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v52 + 8), "new highest scoring match is ", 29);
+              *(v52 + 17) = 0;
+              (*(*v52 + 32))(v52, v21 + 8);
+              (*(*v52 + 64))(v52, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              *(v52 + 17) = 0;
+              if (v88 == 1 && v87 < 0)
               {
-                operator delete(v88);
+                operator delete(v86);
               }
 
-              if (SHIBYTE(v121) < 0)
+              if (SHIBYTE(v119) < 0)
               {
-                operator delete(v119);
-                if (!v21)
+                operator delete(v117);
+                if (!v20)
                 {
                   goto LABEL_102;
                 }
 
 LABEL_86:
-                atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
-                v120 = v21;
-                atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+                v118 = v20;
+                atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
               else
               {
-                if (v21)
+                if (v20)
                 {
                   goto LABEL_86;
                 }
 
 LABEL_102:
-                v120 = 0;
+                v118 = 0;
               }
 
-              v119 = v22;
-              LODWORD(v121) = v36;
-              BambiCallIncomingTerminationReasons::BambiCallTerminationScore::operator=(&v81, &v119);
-              if (v120)
+              v117 = v21;
+              LODWORD(v119) = v34;
+              BambiCallIncomingTerminationReasons::BambiCallTerminationScore::operator=(&v79, &v117);
+              if (v118)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v120);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v118);
               }
 
-              if (v21)
+              if (v20)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v20);
               }
             }
 
 LABEL_97:
-            if (v21)
+            if (v20)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v20);
             }
 
-            v20 = v20[1];
+            v19 = v19[1];
           }
 
-          while (v20 != v14);
-          v19 = v83;
-          v16 = v74;
+          while (v19 != v14);
+          v18 = v81;
+          v15 = v72;
 LABEL_107:
-          v17 = v75;
+          v16 = v73;
 LABEL_108:
-          if (v19 > v86)
+          if (v18 > v84)
           {
-            BambiCallIncomingTerminationReasons::BambiCallTerminationScore::operator=(&v84, &v81);
+            BambiCallIncomingTerminationReasons::BambiCallTerminationScore::operator=(&v82, &v79);
           }
 
-          if (v82)
+          if (v80)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v82);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v80);
           }
 
-          if (++v17 == v16)
+          if (++v16 == v15)
           {
-            v58 = v84;
-            v59 = v85;
-            if (v85)
+            v56 = v82;
+            v57 = v83;
+            if (v83)
             {
-              atomic_fetch_add_explicit(&v85->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v83->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            if (v58)
+            if (v56)
             {
-              v60 = std::string::basic_string[abi:ne200100]<0>(&v119, "bambi.call");
-              v77[0] = 0;
-              v80 = 0;
-              v61 = ims::debug(v60, v77);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v61 + 8), "using matched reason ", 21);
-              *(v61 + 17) = 0;
-              (*(*v61 + 32))(v61, v58 + 8);
-              (*(*v61 + 64))(v61, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              *(v61 + 17) = 0;
-              if (v80 == 1 && v79 < 0)
+              v58 = std::string::basic_string[abi:ne200100]<0>(&v117, "bambi.call");
+              v75[0] = 0;
+              v78 = 0;
+              v59 = ims::debug(v58, v75);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v59 + 8), "using matched reason ", 21);
+              *(v59 + 17) = 0;
+              (*(*v59 + 32))(v59, v56 + 8);
+              (*(*v59 + 64))(v59, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              *(v59 + 17) = 0;
+              if (v78 == 1 && v77 < 0)
               {
-                operator delete(v78);
+                operator delete(v76);
               }
 
-              if (SHIBYTE(v121) < 0)
+              if (SHIBYTE(v119) < 0)
               {
-                operator delete(v119);
+                operator delete(v117);
               }
             }
 
-            *v73 = v58;
-            v73[1] = v59;
+            *v71 = v56;
+            v71[1] = v57;
             goto LABEL_171;
           }
         }
       }
     }
 
-    v62 = *a2;
+    v60 = *a2;
     if (*(*a2 + 159) < 0)
     {
-      std::string::__init_copy_ctor_external(&v104, *(v62 + 136), *(v62 + 144));
+      std::string::__init_copy_ctor_external(&v102, *(v60 + 136), *(v60 + 144));
     }
 
     else
     {
-      v104 = *(v62 + 136);
+      v102 = *(v60 + 136);
     }
 
-    *v73 = 0;
-    v73[1] = 0;
-    v63 = *(v9 + 48);
-    if (v63 != v14)
+    *v71 = 0;
+    v71[1] = 0;
+    v61 = *(v9 + 48);
+    if (v61 != v14)
     {
-      v64 = 0;
-      v76 = 0;
+      v62 = 0;
+      v74 = 0;
       while (1)
       {
-        v66 = v63[2];
-        v65 = v63[3];
-        if (v65)
+        v64 = v61[2];
+        v63 = v61[3];
+        if (v63)
         {
-          atomic_fetch_add_explicit(&v65->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v63->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        if (*(v66 + 132) != 1 || (a3 & 1) != 0)
+        if (*(v64 + 132) != 1 || (a3 & 1) != 0)
         {
-          if (!*(v66 + 56))
+          if (!*(v64 + 56))
           {
-            v68 = *(v66 + 55);
-            if (v68 < 0)
+            v66 = *(v64 + 55);
+            if (v66 < 0)
             {
-              if (!*(v66 + 40))
+              if (!*(v64 + 40))
               {
                 goto LABEL_150;
               }
             }
 
-            else if (!*(v66 + 55))
+            else if (!*(v64 + 55))
             {
               goto LABEL_150;
             }
 
-            if ((v104.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v102.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v69 = &v104;
+              v67 = &v102;
             }
 
             else
             {
-              v69 = v104.__r_.__value_.__r.__words[0];
+              v67 = v102.__r_.__value_.__r.__words[0];
             }
 
-            if (v68 >= 0)
+            if (v66 >= 0)
             {
-              v70 = (v66 + 32);
+              v68 = (v64 + 32);
             }
 
             else
             {
-              v70 = *(v66 + 32);
+              v68 = *(v64 + 32);
             }
 
-            if (!strcasecmp(v69, v70))
+            if (!strcasecmp(v67, v68))
             {
 LABEL_150:
-              std::string::basic_string[abi:ne200100]<0>(v111, "bambi.call");
-              v115[0] = 0;
-              v118 = 0;
-              v71 = ims::debug(v111, v115);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v71 + 8), "matched ", 8);
-              *(v71 + 17) = 0;
-              (*(*v71 + 32))(v71, v66 + 8);
-              (*(*v71 + 64))(v71, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              *(v71 + 17) = 0;
-              if (v118 == 1 && v117 < 0)
+              std::string::basic_string[abi:ne200100]<0>(v109, "bambi.call");
+              v113[0] = 0;
+              v116 = 0;
+              v69 = ims::debug(v109, v113);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v69 + 8), "matched ", 8);
+              *(v69 + 17) = 0;
+              (*(*v69 + 32))(v69, v64 + 8);
+              (*(*v69 + 64))(v69, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              *(v69 + 17) = 0;
+              if (v116 == 1 && v115 < 0)
               {
-                operator delete(v116);
+                operator delete(v114);
               }
 
-              if (SHIBYTE(v112) < 0)
+              if (SHIBYTE(v110) < 0)
               {
-                operator delete(v111[0]);
+                operator delete(v109[0]);
               }
 
-              if (v65)
+              if (v63)
               {
-                atomic_fetch_add_explicit(&v65->__shared_owners_, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit(&v63->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              if (v64)
+              if (v62)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v64);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v62);
               }
 
-              v64 = v65;
-              v76 = v66;
+              v62 = v63;
+              v74 = v64;
             }
           }
         }
 
         else
         {
-          std::string::basic_string[abi:ne200100]<0>(v111, "bambi.call");
-          LOBYTE(v119) = 0;
-          v123 = 0;
-          v67 = ims::debug(v111, &v119);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v67 + 8), "ignoring override reason ", 25);
-          *(v67 + 17) = 0;
-          (*(*v67 + 32))(v67, v66 + 8);
-          (*(*v67 + 64))(v67, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-          *(v67 + 17) = 0;
-          if (v123 == 1 && v122 < 0)
+          std::string::basic_string[abi:ne200100]<0>(v109, "bambi.call");
+          LOBYTE(v117) = 0;
+          v121 = 0;
+          v65 = ims::debug(v109, &v117);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v65 + 8), "ignoring override reason ", 25);
+          *(v65 + 17) = 0;
+          (*(*v65 + 32))(v65, v64 + 8);
+          (*(*v65 + 64))(v65, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+          *(v65 + 17) = 0;
+          if (v121 == 1 && v120 < 0)
           {
-            operator delete(v121);
+            operator delete(v119);
           }
 
-          if (SHIBYTE(v112) < 0)
+          if (SHIBYTE(v110) < 0)
           {
-            operator delete(v111[0]);
+            operator delete(v109[0]);
           }
         }
 
-        if (v65)
+        if (v63)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v65);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v63);
         }
 
-        v63 = v63[1];
-        if (v63 == v14)
+        v61 = v61[1];
+        if (v61 == v14)
         {
-          *v73 = v76;
-          v73[1] = v64;
-          if (v76)
+          *v71 = v74;
+          v71[1] = v62;
+          if (v74)
           {
-            std::string::basic_string[abi:ne200100]<0>(v107, "bambi.call");
-            LOBYTE(v111[0]) = 0;
-            v114 = 0;
-            v72 = ims::debug(v107, v111);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v72 + 8), "using matching reason ", 22);
-            *(v72 + 17) = 0;
-            (*(*v72 + 32))(v72, v76 + 8);
-            (*(*v72 + 64))(v72, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-            *(v72 + 17) = 0;
-            if (v114 == 1 && v113 < 0)
+            std::string::basic_string[abi:ne200100]<0>(v105, "bambi.call");
+            LOBYTE(v109[0]) = 0;
+            v112 = 0;
+            v70 = ims::debug(v105, v109);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v70 + 8), "using matching reason ", 22);
+            *(v70 + 17) = 0;
+            (*(*v70 + 32))(v70, v74 + 8);
+            (*(*v70 + 64))(v70, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+            *(v70 + 17) = 0;
+            if (v112 == 1 && v111 < 0)
             {
-              operator delete(v112);
+              operator delete(v110);
             }
 
-            if (SHIBYTE(v108) < 0)
+            if (SHIBYTE(v106) < 0)
             {
-              operator delete(v107[0]);
+              operator delete(v105[0]);
             }
           }
 
@@ -2647,15 +2288,15 @@ LABEL_150:
       }
     }
 
-    if (SHIBYTE(v104.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v102.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v104.__r_.__value_.__l.__data_);
+      operator delete(v102.__r_.__value_.__l.__data_);
     }
 
 LABEL_171:
-    if (v85)
+    if (v83)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v85);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v83);
     }
   }
 
@@ -2690,8 +2331,6 @@ void *SipMessage::header<SipReasonHeader>(uint64_t a1)
   {
     return 0;
   }
-
-  v3 = **v2;
 }
 
 uint64_t BambiCallIncomingTerminationReasons::BambiCallTerminationScore::operator=(uint64_t a1, uint64_t *a2)
@@ -2719,86 +2358,84 @@ uint64_t BambiCallIncomingTerminationReasons::BambiCallTerminationScore::operato
   return a1;
 }
 
-void *BambiCallIncomingTerminationReasons::reasonForByeOrCancelRequest@<X0>(void (***a1)(uint64_t *__return_ptr)@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+void BambiCallIncomingTerminationReasons::reasonForByeOrCancelRequest(void (***a1)(uint64_t *__return_ptr)@<X0>, uint64_t *a2@<X1>, void *a4@<X8>)
 {
-  v5 = (*(**a2 + 120))();
-  v6 = *(v5 + 23);
-  v7 = v6;
-  if ((v6 & 0x80u) != 0)
+  v6 = (*(**a2 + 120))();
+  v7 = *(v6 + 23);
+  v8 = v7;
+  if ((v7 & 0x80u) != 0)
   {
-    v6 = *(v5 + 8);
+    v7 = *(v6 + 8);
   }
 
-  if (v6 == 3)
+  if (v7 == 3)
   {
-    v8 = v7 >= 0 ? v5 : *v5;
-    v9 = *v8;
-    v10 = *(v8 + 2);
-    if (v9 == SipRequest::kMethodBye && v10 == BYTE2(SipRequest::kMethodBye))
+    v9 = v8 >= 0 ? v6 : *v6;
+    v10 = *v9;
+    v11 = *(v9 + 2);
+    if (v10 == SipRequest::kMethodBye && v11 == BYTE2(SipRequest::kMethodBye))
     {
       goto LABEL_22;
     }
   }
 
-  result = (*(**a2 + 120))();
-  v13 = *(result + 23);
-  v14 = v13;
-  if ((v13 & 0x80u) != 0)
+  v13 = (*(**a2 + 120))();
+  v14 = *(v13 + 23);
+  v15 = v14;
+  if ((v14 & 0x80u) != 0)
   {
-    v13 = result[1];
+    v14 = *(v13 + 8);
   }
 
-  if (v13 == 6)
+  if (v14 == 6)
   {
-    v15 = v14 >= 0 ? result : *result;
-    v16 = *v15;
-    v17 = v15[2];
-    if (v16 == *"CANCEL" && v17 == *"EL")
+    v16 = v15 >= 0 ? v13 : *v13;
+    v17 = *v16;
+    v18 = *(v16 + 4);
+    if (v17 == *"CANCEL" && v18 == *"EL")
     {
 LABEL_22:
-      result = SipMessage::header<SipReasonHeader>(*a2);
-      if (result)
+      v20 = SipMessage::header<SipReasonHeader>(*a2);
+      if (v20)
       {
-        v19 = result[8];
-        if (v19 != result[9])
+        v21 = v20[8];
+        if (v21 != v20[9])
         {
-          v20 = *v19;
-          *a3 = 0;
-          a3[1] = 0;
-          v22 = *a2;
-          v21 = a2[1];
-          if (v21)
+          v22 = *v21;
+          *a4 = 0;
+          a4[1] = 0;
+          v23 = a2[1];
+          if (v23)
           {
-            atomic_fetch_add_explicit((v21 + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v23 + 8), 1uLL, memory_order_relaxed);
           }
 
+          memset(&v27, 0, sizeof(v27));
+          SipReason::text(v22, &v27);
+          SipReason::cause(v22);
           memset(&v26, 0, sizeof(v26));
-          SipReason::text(v20, &v26);
-          SipReason::cause(v20);
-          memset(&v25, 0, sizeof(v25));
-          if (*(v20 + 23) < 0)
+          if (*(v22 + 23) < 0)
           {
-            std::string::__init_copy_ctor_external(&v25, *v20, v20[1]);
+            std::string::__init_copy_ctor_external(&v26, *v22, v22[1]);
           }
 
           else
           {
-            v23 = *v20;
-            v25.__r_.__value_.__r.__words[2] = v20[2];
-            *&v25.__r_.__value_.__l.__data_ = v23;
+            v24 = *v22;
+            v26.__r_.__value_.__r.__words[2] = v22[2];
+            *&v26.__r_.__value_.__l.__data_ = v24;
           }
 
-          *a3 = 0;
-          a3[1] = 0;
+          *a4 = 0;
+          a4[1] = 0;
           BambiCallTerminationReasonsBase::getCombinedReasonMap(a1);
         }
       }
     }
   }
 
-  *a3 = 0;
-  a3[1] = 0;
-  return result;
+  *a4 = 0;
+  a4[1] = 0;
 }
 
 void sub_1E5041EFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, uint64_t a50, char a51)
@@ -3014,7 +2651,7 @@ uint64_t BambiCallTerminationReasonsBase::operator==(uint64_t a1, uint64_t a2)
       v29 = v26;
       do
       {
-        v27 = ReasonCompare::operator()(v27, v28 + 4, &__p.__r_.__value_.__l.__data_);
+        v27 = ReasonCompare::operator()(v27, (v28 + 4), &__p);
         if (v27)
         {
           v30 = 1;
@@ -3034,7 +2671,7 @@ uint64_t BambiCallTerminationReasonsBase::operator==(uint64_t a1, uint64_t a2)
       }
 
       while (v28);
-      if (v29 == v26 || ReasonCompare::operator()(v27, &__p.__r_.__value_.__l.__data_, v29 + 4))
+      if (v29 == v26 || ReasonCompare::operator()(v27, &__p, (v29 + 4)))
       {
 LABEL_54:
         v29 = v26;
@@ -3121,8 +2758,8 @@ void sub_1E5044D50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void BambiCallTerminationReasonsBase::reason(void (***a1)(uint64_t *__return_ptr))
 {
-  v1 = 0;
-  v2 = 0;
+  v3 = 0;
+  v4 = 0;
   BambiCallTerminationReasonsBase::getCombinedReasonMap(a1);
 }
 
@@ -3233,7 +2870,7 @@ void sub_1E504683C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-BOOL ReasonCompare::operator()(uint64_t a1, void **a2, void **a3)
+BOOL ReasonCompare::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   std::string::basic_string[abi:ne200100]<0>(v16, "Override_");
   ims::lowerCase(v16, &__p);
@@ -3258,7 +2895,7 @@ BOOL ReasonCompare::operator()(uint64_t a1, void **a2, void **a3)
   }
 
   v7 = *(a2 + 23);
-  if (v7 >= 0)
+  if ((v7 & 0x80u) == 0)
   {
     v8 = a2;
   }
@@ -3268,9 +2905,9 @@ BOOL ReasonCompare::operator()(uint64_t a1, void **a2, void **a3)
     v8 = *a2;
   }
 
-  if (v7 < 0)
+  if ((v7 & 0x80u) != 0)
   {
-    v7 = a2[1];
+    v7 = *(a2 + 8);
   }
 
   v19 = v8;
@@ -3309,7 +2946,7 @@ BOOL ReasonCompare::operator()(uint64_t a1, void **a2, void **a3)
   }
 
   v12 = *(a3 + 23);
-  if (v12 >= 0)
+  if ((v12 & 0x80u) == 0)
   {
     v13 = a3;
   }
@@ -3319,9 +2956,9 @@ BOOL ReasonCompare::operator()(uint64_t a1, void **a2, void **a3)
     v13 = *a3;
   }
 
-  if (v12 < 0)
+  if ((v12 & 0x80u) != 0)
   {
-    v12 = a3[1];
+    v12 = *(a3 + 8);
   }
 
   v19 = v13;
@@ -3415,21 +3052,21 @@ void std::__shared_ptr_emplace<BambiCallTerminationReason>::__on_zero_shared(uin
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, uint64_t a2, _OWORD **a3)
 {
-  v4 = 0;
-  v2 = *std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = 0;
+  v3 = *std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__find_equal<std::string>(uint64_t a1, uint64_t *a2, void **a3)
+void *std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__find_equal<std::string>(uint64_t a1, void *a2, uint64_t a3)
 {
-  v5 = a1 + 8;
+  v5 = (a1 + 8);
   v4 = *(a1 + 8);
   if (v4)
   {
@@ -3438,7 +3075,7 @@ uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerm
       while (1)
       {
         v7 = v4;
-        a1 = ReasonCompare::operator()(a1, a3, (v4 + 32));
+        a1 = ReasonCompare::operator()(a1, a3, (v4 + 4));
         if (!a1)
         {
           break;
@@ -3452,14 +3089,14 @@ uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerm
         }
       }
 
-      a1 = ReasonCompare::operator()(a1, (v7 + 32), a3);
+      a1 = ReasonCompare::operator()(a1, (v7 + 4), a3);
       if (!a1)
       {
         break;
       }
 
-      v5 = v7 + 8;
-      v4 = *(v7 + 8);
+      v5 = v7 + 1;
+      v4 = v7[1];
     }
 
     while (v4);
@@ -3467,7 +3104,7 @@ uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerm
 
   else
   {
-    v7 = a1 + 8;
+    v7 = (a1 + 8);
   }
 
 LABEL_9:
@@ -3492,10 +3129,10 @@ void sub_1E50472B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::list<std::shared_ptr<BambiCallTerminationReason>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::list<std::shared_ptr<BambiCallTerminationReason>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::list<std::shared_ptr<BambiCallTerminationReason>>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::list<std::shared_ptr<BambiCallTerminationReason>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::list<std::shared_ptr<BambiCallTerminationReason>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::list<std::shared_ptr<BambiCallTerminationReason>>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t **a1, unsigned int a2, _DWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -3505,27 +3142,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 32);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 8);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -3753,16 +3390,16 @@ void sub_1E50482A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::map<std::string,std::shared_ptr<BambiCallTerminationReason>,ReasonCompare,std::allocator<std::pair<std::string const,std::shared_ptr<BambiCallTerminationReason>>>>::map[abi:ne200100](void *a1, uint64_t a2)
+uint64_t *std::map<std::string,std::shared_ptr<BambiCallTerminationReason>,ReasonCompare,std::allocator<std::pair<std::string const,std::shared_ptr<BambiCallTerminationReason>>>>::map[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   std::map<std::string,std::shared_ptr<BambiCallTerminationReason>,ReasonCompare,std::allocator<std::pair<std::string const,std::shared_ptr<BambiCallTerminationReason>>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__tree_node<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,void *> *,long>>>(a1, *a2, (a2 + 8));
   return a1;
 }
 
-uint64_t std::map<std::string,std::shared_ptr<BambiCallTerminationReason>,ReasonCompare,std::allocator<std::pair<std::string const,std::shared_ptr<BambiCallTerminationReason>>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__tree_node<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,void *> *,long>>>(uint64_t result, void **a2, void **a3)
+uint64_t *std::map<std::string,std::shared_ptr<BambiCallTerminationReason>,ReasonCompare,std::allocator<std::pair<std::string const,std::shared_ptr<BambiCallTerminationReason>>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__tree_node<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,void *> *,long>>>(uint64_t *result, __int128 *a2, __int128 *a3)
 {
   if (a2 != a3)
   {
@@ -3770,8 +3407,8 @@ uint64_t std::map<std::string,std::shared_ptr<BambiCallTerminationReason>,Reason
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<BambiCallTerminationReason>> const&>(v5, v5 + 8, v4 + 4);
-      v6 = v4[1];
+      result = std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<BambiCallTerminationReason>> const&>(v5, (v5 + 8), (v4 + 2), v4 + 2);
+      v6 = *(v4 + 1);
       if (v6)
       {
         do
@@ -3787,7 +3424,7 @@ uint64_t std::map<std::string,std::shared_ptr<BambiCallTerminationReason>,Reason
       {
         do
         {
-          v7 = v4[2];
+          v7 = *(v4 + 2);
           v8 = *v7 == v4;
           v4 = v7;
         }
@@ -3804,147 +3441,147 @@ uint64_t std::map<std::string,std::shared_ptr<BambiCallTerminationReason>,Reason
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<BambiCallTerminationReason>> const&>(_BOOL8 a1, uint64_t a2, void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<BambiCallTerminationReason>> const&>(_BOOL8 a1, uint64_t *a2, uint64_t a3, __int128 *a4)
 {
-  v4 = a2;
-  v5 = a1;
-  v18 = 0;
-  v6 = a1 + 8;
-  if (a1 + 8 == a2 || (a1 = ReasonCompare::operator()(a1, a3, (a2 + 32))))
+  v5 = a2;
+  v6 = a1;
+  v19 = 0;
+  v7 = (a1 + 8);
+  if ((a1 + 8) == a2 || (a1 = ReasonCompare::operator()(a1, a3, (a2 + 4))))
   {
-    if (*v5 == v4)
+    if (*v6 == v5)
     {
-      v8 = v4;
+      v9 = v5;
 LABEL_16:
-      if (*v4)
+      if (*v5)
       {
-        v18 = v8;
-        v11 = (v8 + 8);
+        v19 = v9;
+        v12 = (v9 + 1);
       }
 
       else
       {
-        v18 = v4;
-        v11 = v4;
+        v19 = v5;
+        v12 = v5;
       }
 
       goto LABEL_30;
     }
 
-    v7 = *v4;
-    if (*v4)
+    v8 = *v5;
+    if (*v5)
     {
       do
       {
-        v8 = v7;
-        v7 = *(v7 + 8);
+        v9 = v8;
+        v8 = v8[1];
       }
 
-      while (v7);
+      while (v8);
     }
 
     else
     {
-      v14 = v4;
+      v15 = v5;
       do
       {
-        v8 = *(v14 + 16);
-        v15 = *v8 == v14;
-        v14 = v8;
+        v9 = v15[2];
+        v16 = *v9 == v15;
+        v15 = v9;
       }
 
-      while (v15);
+      while (v16);
     }
 
-    if (ReasonCompare::operator()(a1, (v8 + 32), a3))
+    if (ReasonCompare::operator()(a1, (v9 + 4), a3))
     {
       goto LABEL_16;
     }
 
 LABEL_29:
-    v11 = std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__find_equal<std::string>(v5, &v18, a3);
+    v12 = std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__find_equal<std::string>(v6, &v19, a3);
     goto LABEL_30;
   }
 
-  v9 = ReasonCompare::operator()(a1, (v4 + 32), a3);
-  if (v9)
+  v10 = ReasonCompare::operator()(a1, (v5 + 4), a3);
+  if (v10)
   {
-    v11 = (v4 + 8);
-    v10 = *(v4 + 8);
-    if (v10)
+    v12 = (v5 + 1);
+    v11 = v5[1];
+    if (v11)
     {
-      v12 = *(v4 + 8);
+      v13 = v5[1];
       do
       {
-        v13 = v12;
-        v12 = *v12;
+        v14 = v13;
+        v13 = *v13;
       }
 
-      while (v12);
+      while (v13);
     }
 
     else
     {
-      v16 = v4;
+      v17 = v5;
       do
       {
-        v13 = *(v16 + 16);
-        v15 = *v13 == v16;
-        v16 = v13;
+        v14 = v17[2];
+        v16 = *v14 == v17;
+        v17 = v14;
       }
 
-      while (!v15);
+      while (!v16);
     }
 
-    if (v13 != v6)
+    if (v14 != v7)
     {
-      if (!ReasonCompare::operator()(v9, a3, (v13 + 32)))
+      if (!ReasonCompare::operator()(v10, a3, (v14 + 4)))
       {
         goto LABEL_29;
       }
 
-      v10 = *v11;
+      v11 = *v12;
     }
 
-    if (v10)
+    if (v11)
     {
-      v18 = v13;
-      v11 = v13;
+      v19 = v14;
+      v12 = v14;
     }
 
     else
     {
-      v18 = v4;
+      v19 = v5;
     }
 
 LABEL_30:
-    v4 = *v11;
-    if (*v11)
+    v5 = *v12;
+    if (*v12)
     {
-      return v4;
+      return v5;
     }
 
 LABEL_20:
     operator new();
   }
 
-  v18 = v4;
-  if (!v4)
+  v19 = v5;
+  if (!v5)
   {
     goto LABEL_20;
   }
 
-  return v4;
+  return v5;
 }
 
-void sub_1E50485BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E50485BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t **std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__node_handle_merge_unique[abi:ne200100]<std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>>(uint64_t **result, uint64_t **a2)
+uint64_t ***std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__node_handle_merge_unique[abi:ne200100]<std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>>(uint64_t ***result, uint64_t **a2)
 {
   v3 = a2 + 1;
   v2 = *a2;
@@ -3954,7 +3591,7 @@ uint64_t **std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTe
     do
     {
       v11 = 0;
-      result = std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__find_equal<std::string>(v5, &v11, v2 + 4);
+      result = std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::__find_equal<std::string>(v5, &v11, (v2 + 4));
       v6 = result;
       v7 = v2[1];
       v8 = v2;
@@ -4014,7 +3651,7 @@ void *std::__shared_ptr_emplace<BambiCallTerminationReason>::__shared_ptr_emplac
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::find<std::string>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::find<std::string>(uint64_t a1, uint64_t a2)
 {
   v2 = a1 + 8;
   v3 = *(a1 + 8);
@@ -4026,7 +3663,7 @@ uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerm
   v5 = a1 + 8;
   do
   {
-    a1 = ReasonCompare::operator()(a1, (v3 + 32), a2);
+    a1 = ReasonCompare::operator()(a1, v3 + 32, a2);
     if (a1)
     {
       v6 = 8;
@@ -4046,7 +3683,7 @@ uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerm
   }
 
   while (v3);
-  if (v5 == v2 || ReasonCompare::operator()(a1, a2, (v5 + 32)))
+  if (v5 == v2 || ReasonCompare::operator()(a1, a2, v5 + 32))
   {
     return v2;
   }
@@ -4178,9 +3815,9 @@ void sub_1E5048BEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void SipViaHop::setBranch(uint64_t a1, const std::string *a2)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "branch");
-  v7 = __p;
-  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 72, __p);
-  std::string::operator=((v4 + 56), a2);
+  v8 = __p;
+  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 72), __p, &std::piecewise_construct, &v8, &v7);
+  std::string::operator=((v4 + 7), a2);
   if (v6 < 0)
   {
     operator delete(__p[0]);
@@ -4241,15 +3878,15 @@ void sub_1E5048D88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipViaHop::setSupportsRport(SipViaHop *this, int a2)
+void SipViaHop::setSupportsRport(uint64_t **this, int a2)
 {
   if (a2)
   {
     std::string::basic_string[abi:ne200100]<0>(v5, "rport");
     std::string::basic_string[abi:ne200100]<0>(&__p, &str_2_17);
-    v7 = v5;
-    v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 72, v5);
-    std::string::operator=((v3 + 56), &__p);
+    v8 = v5;
+    v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 9, v5, &std::piecewise_construct, &v8, &v7);
+    std::string::operator=((v3 + 7), &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -4259,7 +3896,7 @@ void SipViaHop::setSupportsRport(SipViaHop *this, int a2)
   else
   {
     std::string::basic_string[abi:ne200100]<0>(v5, "rport");
-    SipParameterMap::clearParameter(this + 64, v5);
+    SipParameterMap::clearParameter((this + 8), v5);
   }
 
   if (v6 < 0)
@@ -4306,13 +3943,6 @@ void sub_1E5048F24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipViaHop::setReceived(uint64_t a1, uint64_t *a2)
-{
-  memset(&__str, 0, sizeof(__str));
-  v2 = *a2;
-  IpAddress::asString();
-}
-
 void sub_1E5049074(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   if (a20 < 0)
@@ -4323,7 +3953,7 @@ void sub_1E5049074(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t SipViaHop::keep(SipViaHop *this)
+uint64_t SipViaHop::keep(SipViaHop *this)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "keep");
   v2 = SipParameterMap::uintParameter(this + 64, __p, 0);
@@ -4345,15 +3975,15 @@ void sub_1E5049110(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipViaHop::setSupportsKeep(SipViaHop *this, int a2)
+void SipViaHop::setSupportsKeep(uint64_t **this, int a2)
 {
   if (a2)
   {
     std::string::basic_string[abi:ne200100]<0>(v5, "keep");
     std::string::basic_string[abi:ne200100]<0>(&__p, &str_2_17);
-    v7 = v5;
-    v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 72, v5);
-    std::string::operator=((v3 + 56), &__p);
+    v8 = v5;
+    v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 9, v5, &std::piecewise_construct, &v8, &v7);
+    std::string::operator=((v3 + 7), &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -4363,7 +3993,7 @@ void SipViaHop::setSupportsKeep(SipViaHop *this, int a2)
   else
   {
     std::string::basic_string[abi:ne200100]<0>(v5, "keep");
-    SipParameterMap::clearParameter(this + 64, v5);
+    SipParameterMap::clearParameter((this + 8), v5);
   }
 
   if (v6 < 0)
@@ -4547,11 +4177,11 @@ uint64_t SipViaHeader::encodeValue(SipViaHeader *this, ImsOutStream *a2)
   return 1;
 }
 
-uint64_t SipViaHeader::setValueFromString(int a1, std::string *__str)
+uint64_t SipViaHeader::setValueFromString(void *a1, std::string *__str)
 {
   memset(&v3, 0, sizeof(v3));
   v5 = 1;
-  v4[0] = 44;
+  strcpy(v4, ",");
   if (ims::nextToken(__str, 0, &v3, v4) != -1)
   {
     operator new();
@@ -4585,26 +4215,25 @@ void sub_1E5049FA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL SipViaHeader::mergeHeader(SipViaHeader *this, char **lpsrc)
+BOOL SipViaHeader::mergeHeader(SipViaHeader *this, const SipHeader *lpsrc)
 {
-  v2 = **lpsrc;
-  if (v3 && v3[9] != v3[8])
+  if (v2 && v2[9] != v2[8])
   {
     operator new();
   }
 
-  return v3 != 0;
+  return v2 != 0;
 }
 
-char *std::vector<SipViaHop *>::insert(uint64_t a1, char *__src, char *a3)
+char *std::vector<SipViaHop *>::insert(char **a1, char *__src, char *a3)
 {
   v4 = __src;
-  v6 = *(a1 + 8);
-  v7 = *(a1 + 16);
+  v6 = a1[1];
+  v7 = a1[2];
   if (v6 >= v7)
   {
     v10 = *a1;
-    v11 = (&v6[-*a1] >> 3) + 1;
+    v11 = ((v6 - *a1) >> 3) + 1;
     if (v11 >> 61)
     {
       std::vector<bambi::XmlParserNamespace>::__throw_length_error[abi:ne200100]();
@@ -4655,17 +4284,17 @@ char *std::vector<SipViaHop *>::insert(uint64_t a1, char *__src, char *a3)
     }
 
     *v16 = *a3;
-    memcpy(v16 + 1, __src, *(a1 + 8) - __src);
+    memcpy(v16 + 1, __src, a1[1] - __src);
     v20 = *a1;
-    v21 = v16 + *(a1 + 8) - v4 + 8;
-    *(a1 + 8) = v4;
+    v21 = v16 + a1[1] - v4 + 8;
+    a1[1] = v4;
     v22 = v4 - v20;
     v23 = v16 - (v4 - v20);
     memcpy(v23, v20, v22);
     v24 = *a1;
     *a1 = v23;
-    *(a1 + 8) = v21;
-    *(a1 + 16) = 0;
+    a1[1] = v21;
+    a1[2] = 0;
     if (v24)
     {
       operator delete(v24);
@@ -4677,7 +4306,7 @@ char *std::vector<SipViaHop *>::insert(uint64_t a1, char *__src, char *a3)
   else if (__src == v6)
   {
     *v6 = *a3;
-    *(a1 + 8) = v6 + 8;
+    a1[1] = v6 + 8;
   }
 
   else
@@ -4685,20 +4314,20 @@ char *std::vector<SipViaHop *>::insert(uint64_t a1, char *__src, char *a3)
     v8 = __src + 8;
     if (v6 < 8)
     {
-      v9 = *(a1 + 8);
+      v9 = a1[1];
     }
 
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
-    *(a1 + 8) = v9;
+    a1[1] = v9;
     if (v6 != v8)
     {
       memmove(__src + 8, __src, v6 - v8);
-      v9 = *(a1 + 8);
+      v9 = a1[1];
     }
 
     v17 = v9 <= a3 || v4 > a3;
@@ -4724,7 +4353,7 @@ void sub_1E504A35C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void SipViaHop::returnAddress(SipViaHop *this@<X0>, void *a2@<X8>)
+void SipViaHop::returnAddress(SipViaHop *this@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *(this + 16);
   if (v2)
@@ -4740,7 +4369,7 @@ void SipViaHop::returnAddress(SipViaHop *this@<X0>, void *a2@<X8>)
 
   else
   {
-    SipHost::ipAddress((this + 8), a2);
+    SipHost::ipAddress(a2, (this + 8));
   }
 }
 
@@ -5593,7 +5222,7 @@ uint64_t BambiAccessBarring::isServiceBarred(uint64_t **a1, int a2)
   if (v4)
   {
     v5 = a1 + 29;
-    v6 = (a1 + 30);
+    v6 = a1 + 30;
     do
     {
       if (*(v4 + 8) >= a2)
@@ -5605,7 +5234,7 @@ uint64_t BambiAccessBarring::isServiceBarred(uint64_t **a1, int a2)
     }
 
     while (v4);
-    if (v6 != (a1 + 30) && *(v6 + 8) <= a2)
+    if (v6 != a1 + 30 && *(v6 + 8) <= a2)
     {
       if (std::chrono::system_clock::now().__d_.__rep_ / 1000 <= v6[6] + *(v6 + 10))
       {
@@ -5979,7 +5608,7 @@ LABEL_12:
           memset(&v19, 0, sizeof(v19));
           v14 = SipStack::prefs(v13);
           std::string::basic_string[abi:ne200100]<0>(&__p, "AccessBarringType");
-          ImsPrefs::enumAsString(v14, &__p.__r_.__value_.__l.__data_, &v19);
+          ImsPrefs::enumAsString(v14, &__p, &v19);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
@@ -6202,7 +5831,7 @@ uint64_t BambiAccessBarring::updateSimAccessClass(BambiAccessBarring *this, cons
   return result;
 }
 
-uint64_t *BambiAccessBarring::setUacBarring(uint64_t a1, int a2, int a3)
+uint64_t **BambiAccessBarring::setUacBarring(uint64_t a1, int a2, int a3)
 {
   v7 = a2;
   if (!a3)
@@ -6212,7 +5841,7 @@ uint64_t *BambiAccessBarring::setUacBarring(uint64_t a1, int a2, int a3)
 
   v5 = std::chrono::system_clock::now().__d_.__rep_ / 1000;
   v8 = &v7;
-  result = std::__tree<std::__value_type<ims::Services::ServiceType,BambiAccessBarring::UacBackoff>,std::__map_value_compare<ims::Services::ServiceType,std::__value_type<ims::Services::ServiceType,BambiAccessBarring::UacBackoff>,std::less<ims::Services::ServiceType>,true>,std::allocator<std::__value_type<ims::Services::ServiceType,BambiAccessBarring::UacBackoff>>>::__emplace_unique_key_args<ims::Services::ServiceType,std::piecewise_construct_t const&,std::tuple<ims::Services::ServiceType const&>,std::tuple<>>(a1 + 232, &v7);
+  result = std::__tree<std::__value_type<ims::Services::ServiceType,BambiAccessBarring::UacBackoff>,std::__map_value_compare<ims::Services::ServiceType,std::__value_type<ims::Services::ServiceType,BambiAccessBarring::UacBackoff>,std::less<ims::Services::ServiceType>,true>,std::allocator<std::__value_type<ims::Services::ServiceType,BambiAccessBarring::UacBackoff>>>::__emplace_unique_key_args<ims::Services::ServiceType,std::piecewise_construct_t const&,std::tuple<ims::Services::ServiceType const&>,std::tuple<>>((a1 + 232), &v7, &std::piecewise_construct, &v8);
   *(result + 10) = a3;
   *(result + 11) = 0;
   result[6] = v5;
@@ -6257,53 +5886,53 @@ uint64_t std::__tree<std::__value_type<ims::Services::ServiceType,BambiAccessBar
   return 1;
 }
 
-uint64_t *std::__tree<std::__value_type<ims::Services::ServiceType,BambiAccessBarring::UacBackoff>,std::__map_value_compare<ims::Services::ServiceType,std::__value_type<ims::Services::ServiceType,BambiAccessBarring::UacBackoff>,std::less<ims::Services::ServiceType>,true>,std::allocator<std::__value_type<ims::Services::ServiceType,BambiAccessBarring::UacBackoff>>>::__emplace_unique_key_args<ims::Services::ServiceType,std::piecewise_construct_t const&,std::tuple<ims::Services::ServiceType const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t **std::__tree<std::__value_type<ims::Services::ServiceType,BambiAccessBarring::UacBackoff>,std::__map_value_compare<ims::Services::ServiceType,std::__value_type<ims::Services::ServiceType,BambiAccessBarring::UacBackoff>,std::less<ims::Services::ServiceType>,true>,std::allocator<std::__value_type<ims::Services::ServiceType,BambiAccessBarring::UacBackoff>>>::__emplace_unique_key_args<ims::Services::ServiceType,std::piecewise_construct_t const&,std::tuple<ims::Services::ServiceType const&>,std::tuple<>>(uint64_t **a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 8);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-char *ExtensionSerializer::init(ExtensionSerializer *this)
+char *ExtensionSerializer::init(void **this)
 {
-  v2 = *(this + 2);
+  v2 = this[2];
   v6 = 0;
   std::vector<unsigned char>::insert(this + 1, v2, &v6);
-  v3 = *(this + 2);
+  v3 = this[2];
   v5 = 0;
   return std::vector<unsigned char>::insert(this + 1, v3, &v5);
 }
@@ -6345,8 +5974,8 @@ char *std::vector<unsigned char>::insert(void *a1, char *__src, char *a3)
     }
 
     v21 = 0;
-    v22 = (__src - v10);
-    v23 = (__src - v10);
+    v22 = &__src[-v10];
+    v23 = &__src[-v10];
     std::__split_buffer<unsigned char>::emplace_back<unsigned char>(&v21, a3);
     v14 = v22;
     memcpy(v23, v4, a1[1] - v4);
@@ -6529,12 +6158,11 @@ void sub_1E504DD18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ExtensionSerializer::serializeBase64@<X0>(ExtensionSerializer *this@<X0>, std::string *a2@<X8>)
+uint64_t *ExtensionSerializer::serializeBase64@<X0>(std::string *__return_ptr a1@<X8>, ExtensionSerializer *this@<X0>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
-  return base64UrlEncode(this + 1, a2, 0);
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  return base64UrlEncode(this + 1, a1, 0);
 }
 
 void sub_1E504DD70(_Unwind_Exception *exception_object)
@@ -6573,42 +6201,40 @@ uint64_t ExtensionDeserializer::init(uint64_t a1, uint64_t a2)
 
 BOOL ExtensionDeserializer::deserialize(uint64_t a1, uint64_t a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 32) != 1)
+  v39 = *MEMORY[0x1E69E9840];
+  if (*(a1 + 32) == 1)
   {
-LABEL_36:
-    result = 0;
-    goto LABEL_37;
-  }
+    v3 = *(a1 + 8);
+    v4 = *(a1 + 16) - v3;
+    if (v4 < 5)
+    {
+      return 1;
+    }
 
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 16) - v3;
-  if (v4 >= 5)
-  {
     while (1)
     {
       v6 = bswap32(*v3);
       v7 = HIWORD(v6);
       if ((HIWORD(v6) - 1) >= 3u)
       {
-        ims::getStaticLoggerFor("ser", &v36);
+        ims::getStaticLoggerFor(&v35, "ser");
         v29 = __p[0];
-        ctu::OsLogContext::~OsLogContext(&v36);
+        ctu::OsLogContext::~OsLogContext(&v35);
         result = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
         if (!result)
         {
-          goto LABEL_37;
+          return result;
         }
 
-        v36 = 33554688;
-        LOWORD(v37) = v7;
+        v35 = 33554688;
+        LOWORD(v36) = v7;
         v30 = "#E Invalid TLV type 0x%hx";
         v31 = v29;
         v32 = 6;
         goto LABEL_35;
       }
 
-      v8 = bswap32(v3[1]);
+      v8 = bswap32(*(v3 + 1));
       v9 = HIWORD(v8);
       v10 = v9 + 4;
       if (v4 < v9 + 4)
@@ -6616,11 +6242,11 @@ LABEL_36:
         break;
       }
 
-      LOWORD(v36) = v7;
+      LOWORD(v35) = v7;
       __p[1] = 0;
-      v39 = 0;
+      v38 = 0;
       __p[0] = 0;
-      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(__p, (v3 + 2), v3 + v9 + 4, HIWORD(v8));
+      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(__p, v3 + 4, &v3[v9 + 4], HIWORD(v8));
       v12 = *(a2 + 8);
       v11 = *(a2 + 16);
       if (v12 >= v11)
@@ -6661,11 +6287,11 @@ LABEL_36:
 
         v18 = (v12 - *a2) >> 5;
         v19 = 32 * v14;
-        *v19 = v36;
+        *v19 = v35;
         *(v19 + 8) = *__p;
-        *(v19 + 24) = v39;
+        *(v19 + 24) = v38;
         __p[1] = 0;
-        v39 = 0;
+        v38 = 0;
         __p[0] = 0;
         v20 = 32 * v14 - 32 * v18;
         if (v13 != v12)
@@ -6723,12 +6349,12 @@ LABEL_36:
 
       else
       {
-        *v12 = v36;
+        *v12 = v35;
         v12[2] = 0;
         v12[3] = 0;
         v12[1] = 0;
         *(v12 + 1) = *__p;
-        v12[3] = v39;
+        v12[3] = v38;
         *(a2 + 8) = v12 + 4;
       }
 
@@ -6745,37 +6371,32 @@ LABEL_36:
       v4 = v26 + v27 - v3;
       if (v4 <= 4)
       {
-        goto LABEL_30;
+        return 1;
       }
     }
 
-    ims::getStaticLoggerFor("ser", &v36);
+    ims::getStaticLoggerFor(&v35, "ser");
     v33 = __p[0];
-    ctu::OsLogContext::~OsLogContext(&v36);
+    ctu::OsLogContext::~OsLogContext(&v35);
     result = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_37;
+      return result;
     }
 
     v34 = (*(a1 + 16) - *(a1 + 8));
-    v36 = 67109376;
-    v37 = v9;
+    v35 = 67109376;
+    v36 = v9;
     LOWORD(__p[0]) = 2048;
     *(__p + 2) = v34;
     v30 = "#E Expected size %hu but only %zu remain";
     v31 = v33;
     v32 = 18;
 LABEL_35:
-    _os_log_error_impl(&dword_1E4C3F000, v31, OS_LOG_TYPE_ERROR, v30, &v36, v32);
-    goto LABEL_36;
+    _os_log_error_impl(&dword_1E4C3F000, v31, OS_LOG_TYPE_ERROR, v30, &v35, v32);
   }
 
-LABEL_30:
-  result = 1;
-LABEL_37:
-  v35 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 void sub_1E504E23C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -6788,21 +6409,15 @@ void sub_1E504E23C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__split_buffer<unsigned char>::emplace_back<unsigned char>(void *result, char *a2)
+void std::__split_buffer<unsigned char>::emplace_back<unsigned char>(unint64_t *a1, char *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if ((2 * &v4[-*result]) > 1)
-      {
-        v10 = 2 * &v4[-*result];
-      }
-
       operator new();
     }
 
@@ -6811,18 +6426,17 @@ void *std::__split_buffer<unsigned char>::emplace_back<unsigned char>(void *resu
     v9 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-((v6 + 1) / 2)], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-((v6 + 1) / 2)], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v8[v9];
-    v3[1] = &v5[v7];
-    v3[2] = &v8[v9];
+    a1[1] = &v5[v7];
+    a1[2] = &v8[v9];
   }
 
   *v4 = *a2;
-  ++v3[2];
-  return result;
+  ++a1[2];
 }
 
 void std::__shared_ptr_emplace<ExtensionSerializer>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -6861,7 +6475,7 @@ void std::__shared_ptr_emplace<ExtensionDeserializer>::__on_zero_shared(uint64_t
   }
 }
 
-void SDPMediaCrypto::value(SDPMediaCrypto *this@<X0>, _BYTE *a2@<X8>)
+void SDPMediaCrypto::value(SDPMediaCrypto *this@<X0>, void *a2@<X8>)
 {
   if (*(this + 72))
   {
@@ -6956,9 +6570,9 @@ LABEL_35:
       if ((BYTE8(v24) & 8) == 0)
       {
         v15 = 0;
-        a2[23] = 0;
+        *(a2 + 23) = 0;
 LABEL_32:
-        a2[v15] = 0;
+        *(a2 + v15) = 0;
         *&v18 = *MEMORY[0x1E69E54E8];
         *(&v18 + *(v18 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
         *(&v18 + 1) = MEMORY[0x1E69E5548] + 16;
@@ -6989,7 +6603,7 @@ LABEL_32:
       operator new();
     }
 
-    a2[23] = v15;
+    *(a2 + 23) = v15;
     if (v15)
     {
       memmove(a2, v17, v15);
@@ -7856,13 +7470,13 @@ void sub_1E5050100(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipTransaction::handleStateTransition(uint64_t a1, uint64_t a2, uint64_t a3)
+void SipTransaction::handleStateTransition(uint64_t a1, uint64_t a2, void *a3)
 {
-  if ((*(**a3 + 48))() == 4)
+  if ((*(**a3 + 48))(*a3, a2) == 4)
   {
     *&v23.__r_.__value_.__l.__data_ = 0uLL;
     std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v22, (a1 + *(*a1 - 24) + 8));
-    std::dynamic_pointer_cast[abi:ne200100]<SipTransaction,SipConnectionUser>(&v22, &v23);
+    std::dynamic_pointer_cast[abi:ne200100]<SipTransaction,SipConnectionUser>(&v22.__r_.__value_.__l.__data_, &v23.__r_.__value_.__l.__data_);
     if (v22.__r_.__value_.__l.__size_)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v22.__r_.__value_.__l.__size_);
@@ -7907,7 +7521,7 @@ LABEL_48:
     v26 = 0;
     v27 = 0;
     std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v23, (a1 + *(*a1 - 24) + 8));
-    std::dynamic_pointer_cast[abi:ne200100]<SipTransaction,SipConnectionUser>(&v23, &v26);
+    std::dynamic_pointer_cast[abi:ne200100]<SipTransaction,SipConnectionUser>(&v23.__r_.__value_.__l.__data_, &v26);
     if (v23.__r_.__value_.__l.__size_)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v23.__r_.__value_.__l.__size_);
@@ -8313,13 +7927,13 @@ void SipTransaction::handleTimeout(SipTransaction *this)
   }
 }
 
-void sub_1E5050D28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5050D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
-  if (v2)
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   _Unwind_Resume(a1);
@@ -8330,14 +7944,14 @@ void SipTransaction::reportTimeoutToIRat(SipTransaction *this)
   v63 = 0;
   v64 = 0;
   v65 = 0;
-  SipTransaction::stack(this, &v60);
+  SipTransaction::stack(&v60, this);
   LOBYTE(v63) = ims::AccessNetwork::isWifi((v60.__r_.__value_.__r.__words[0] + 3432));
   if (v60.__r_.__value_.__l.__size_)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v60.__r_.__value_.__l.__size_);
   }
 
-  SipTransaction::stack(this, &v60);
+  SipTransaction::stack(&v60, this);
   v64 = *(v60.__r_.__value_.__r.__words[0] + 4372);
   if (v60.__r_.__value_.__l.__size_)
   {
@@ -8491,7 +8105,7 @@ LABEL_91:
       goto LABEL_92;
     }
 
-    SipTransaction::stack(this, &v60);
+    SipTransaction::stack(&v60, this);
     v52 = *(v60.__r_.__value_.__r.__words[0] + 248);
     v53 = *(v60.__r_.__value_.__r.__words[0] + 256);
     if (v53)
@@ -8544,7 +8158,7 @@ LABEL_81:
 LABEL_92:
   IPTelephonyManager::getBambiClient(&v61);
   v57 = v61;
-  SipTransaction::stack(this, &v58);
+  SipTransaction::stack(&v58, this);
   if (*(v58 + 4455) < 0)
   {
     std::string::__init_copy_ctor_external(&v60, *(v58 + 4432), *(v58 + 4440));
@@ -8587,7 +8201,7 @@ void sub_1E5051230(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipTransaction::stack(SipTransaction *this@<X0>, void *a2@<X8>)
+void SipTransaction::stack(uint64_t *__return_ptr a1@<X8>, SipTransaction *this@<X0>)
 {
   v4 = *(this + 38);
   if (v4 && (v5 = std::__shared_weak_count::lock(v4)) != 0)
@@ -8598,12 +8212,12 @@ void SipTransaction::stack(SipTransaction *this@<X0>, void *a2@<X8>)
     {
       v9 = *(v7 + 8);
       atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      *a2 = 0;
+      *a1 = 0;
       v10 = std::__shared_weak_count::lock(v8);
-      a2[1] = v10;
+      a1[1] = v10;
       if (v10)
       {
-        *a2 = v9;
+        *a1 = v9;
       }
 
       std::__shared_weak_count::__release_weak(v8);
@@ -8611,8 +8225,8 @@ void SipTransaction::stack(SipTransaction *this@<X0>, void *a2@<X8>)
 
     else
     {
-      *a2 = 0;
-      a2[1] = 0;
+      *a1 = 0;
+      a1[1] = 0;
     }
 
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
@@ -8620,12 +8234,12 @@ void SipTransaction::stack(SipTransaction *this@<X0>, void *a2@<X8>)
 
   else
   {
-    *a2 = 0;
-    a2[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
   }
 }
 
-uint64_t SipTransaction::transactionMapKey(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t SipTransaction::transactionMapKey(uint64_t **a1, uint64_t **a2, uint64_t a3)
 {
   v28 = 0;
   memset(v27, 0, sizeof(v27));
@@ -8655,7 +8269,7 @@ uint64_t SipTransaction::transactionMapKey(uint64_t a1, uint64_t a2, uint64_t a3
 
   else
   {
-    v8 = *(a1 + 8);
+    v8 = a1[1];
   }
 
   v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, v7, v8);
@@ -8679,7 +8293,7 @@ uint64_t SipTransaction::transactionMapKey(uint64_t a1, uint64_t a2, uint64_t a3
 
   else
   {
-    v13 = *(a2 + 8);
+    v13 = a2[1];
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, v12, v13);
@@ -8820,7 +8434,7 @@ uint64_t SipSessionInterface::SipSessionInterface(uint64_t a1, uint64_t a2, uint
 
   v22 = *(a3 + 40);
   ims::getQueue(&v31);
-  ClientConfig::getLogTag(&v19, &v28);
+  ClientConfig::getLogTag(&v28, &v19);
   if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v7 = &v23;
@@ -8950,9 +8564,9 @@ uint64_t SipSessionInterface::SipSessionInterface(uint64_t a1, uint64_t a2, uint
   return a1;
 }
 
-void sub_1E5051A44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, char a34)
+void sub_1E5051A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, char a34)
 {
-  MEMORY[0x1E69225A0](v34 + 184);
+  MEMORY[0x1E69225A0](v34 + 184, a2, a3, a4, a5, a6, a7, a8);
   ctu::SharedSynchronizable<SharedImsResultItem>::~SharedSynchronizable((v34 + 152));
   ImsLogContainer::~ImsLogContainer(v34);
   _Unwind_Resume(a1);
@@ -9450,80 +9064,77 @@ LABEL_9:
   return this;
 }
 
-uint64_t SipSessionInterface::addAckRetransmitHandlerForClientTransaction(void *a1, char ***a2, uint64_t a3, int a4)
+void SipSessionInterface::addAckRetransmitHandlerForClientTransaction(void *a1, uint64_t a2, uint64_t *a3, int a4)
 {
-  v6 = *a2;
   if (*a2)
   {
-    v8 = **v6;
-    if (v9)
+    if (v7)
     {
-      v10 = v9;
-      v11 = a2[1];
-      if (v11)
+      v8 = v7;
+      v9 = *(a2 + 8);
+      if (v9)
       {
-        atomic_fetch_add_explicit(v11 + 1, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
       }
 
-      v12 = (*(*a1 + 64))(a1);
-      (*(*a1 + 16))(a1, v12);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), "adding ACK retransmit handler for transaction ", 46);
-      *(v12 + 17) = 0;
-      (*(v10[15] + 16))(v10 + 15, v12);
-      (*(*v12 + 64))(v12, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-      *(v12 + 17) = 0;
+      v10 = (*(*a1 + 64))(a1);
+      (*(*a1 + 16))(a1, v10);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "adding ACK retransmit handler for transaction ", 46);
+      *(v10 + 17) = 0;
+      (*(v8[15] + 16))(v8 + 15, v10);
+      (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      *(v10 + 17) = 0;
       if (a4)
       {
-        (*(*a1 + 128))(&v17, a1);
-        if (v18)
+        (*(*a1 + 128))(&v14, a1);
+        if (v15)
         {
-          atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (v18)
+          atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (v15)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v15);
           }
         }
       }
 
-      v16[0] = 0;
-      v16[1] = 0;
-      std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v15, a1 + 19);
-      if (v11)
+      v13[0] = 0;
+      v13[1] = 0;
+      std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v12, a1 + 19);
+      if (v9)
       {
-        atomic_fetch_add_explicit(v11 + 1, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
       }
 
-      SipAckRetransmitHandler::create(v16);
+      SipAckRetransmitHandler::create(v13);
     }
   }
 
-  v13 = (*(*a1 + 56))(a1);
-  (*(*a1 + 16))(a1, v13);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), "can't add ACK retransmit handler for non-invite transaction ", 60);
-  *(v13 + 17) = 0;
-  (*((*a2)[15] + 2))(*a2 + 15, v13);
-  result = (*(*v13 + 64))(v13, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v13 + 17) = 0;
-  return result;
+  v11 = (*(*a1 + 56))(a1);
+  (*(*a1 + 16))(a1, v11);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), "can't add ACK retransmit handler for non-invite transaction ", 60);
+  *(v11 + 17) = 0;
+  (*(*(*a2 + 120) + 16))(*a2 + 120, v11);
+  (*(*v11 + 64))(v11, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v11 + 17) = 0;
 }
 
-void sub_1E5052BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, ...)
+void sub_1E5052BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, std::__shared_weak_count *a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  if (a12)
+  if (a19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a19);
   }
 
-  if (v13)
+  if (v20)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
 
-  if (v12)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
   _Unwind_Resume(a1);
@@ -9532,7 +9143,7 @@ void sub_1E5052BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void SipSessionInterface::removeAckRetransmitHandler(uint64_t **a1, std::string *a2)
 {
   v4 = a1 + 76;
-  v5 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>((a1 + 76), &a2->__r_.__value_.__l.__data_);
+  v5 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>((a1 + 76), a2);
   if (a1 + 77 != v5)
   {
     v6 = v5;
@@ -9627,20 +9238,20 @@ void sub_1E5052EA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipSessionInterface::addAckReceiveHandlerForServerTransaction(void *a1, uint64_t a2)
+void SipSessionInterface::addAckReceiveHandlerForServerTransaction(void *a1, uint64_t *a2, uint64_t *a3)
 {
-  v4 = *(*a2 + 264);
-  v5 = *(*a2 + 272);
-  if (v5)
-  {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v6 = SipMessage::header<SipCSeqHeader>(v4);
+  v5 = *(*a2 + 264);
+  v6 = *(*a2 + 272);
   if (v6)
   {
-    v7 = v6[15];
-    if (!v5)
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v7 = SipMessage::header<SipCSeqHeader>(v5);
+  if (v7)
+  {
+    v8 = v7[15];
+    if (!v6)
     {
       goto LABEL_6;
     }
@@ -9648,27 +9259,27 @@ void SipSessionInterface::addAckReceiveHandlerForServerTransaction(void *a1, uin
 
   else
   {
-    v7 = 0;
-    if (!v5)
+    v8 = 0;
+    if (!v6)
     {
 LABEL_6:
-      v8 = (*(*a1 + 64))(a1);
-      (*(*a1 + 16))(a1, v8);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "adding ACK receive handler for transaction ", 43);
-      *(v8 + 17) = 0;
-      (*(*(*a2 + 120) + 16))(*a2 + 120, v8);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), " with cseq ", 11);
-      *(v8 + 17) = 0;
-      MEMORY[0x1E6923350](*(v8 + 8), v7);
-      *(v8 + 17) = 0;
-      (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-      *(v8 + 17) = 0;
-      std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v9, a1 + 19);
+      v9 = (*(*a1 + 64))(a1);
+      (*(*a1 + 16))(a1, v9);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "adding ACK receive handler for transaction ", 43);
+      *(v9 + 17) = 0;
+      (*(*(*a2 + 120) + 16))(*a2 + 120, v9);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), " with cseq ", 11);
+      *(v9 + 17) = 0;
+      MEMORY[0x1E6923350](*(v9 + 8), v8);
+      *(v9 + 17) = 0;
+      (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      *(v9 + 17) = 0;
+      std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v10, a1 + 19);
       operator new();
     }
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   goto LABEL_6;
 }
 
@@ -9803,6 +9414,401 @@ void SipSessionInterface::removeAckReceiveHandler(SipSessionInterface *this, uin
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v10);
       }
+    }
+  }
+}
+
+void sub_1E50534FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void SipSessionInterface::sendAck(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, char a4@<W3>, ImsResult *a5@<X8>)
+{
+  v7 = *(a1 + 240);
+  if (*(v7 + 2960) != 1)
+  {
+    v12 = 0;
+LABEL_23:
+    v31 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v29[0] = &unk_1F5EBDEF8;
+    v29[1] = &_bambiDomain;
+    v30 = 1073741826;
+    v19 = ImsResult::operator<<<char [32]>(v29, "sendAck called when dialog has ");
+    v28 = *(*(a1 + 240) + 2960);
+    v20 = ImsResult::operator<<<unsigned long>(v19, &v28);
+    v21 = ImsResult::operator<<<char [7]>(v20, " forks");
+    ImsResult::ImsResult(a5, v21);
+    ImsResult::~ImsResult(v29);
+    goto LABEL_24;
+  }
+
+  v10 = *(v7 + 2944);
+  v11 = *(v10 + 56);
+  v12 = *(v10 + 64);
+  if (v12)
+  {
+    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  if (!v11)
+  {
+    goto LABEL_23;
+  }
+
+  if ((a4 & 1) == 0)
+  {
+    v13 = *(v11 + 768);
+    v14 = *(v11 + 776);
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v15 = a2[1];
+    v26[0] = *a2;
+    v26[1] = v15;
+    if (v15)
+    {
+      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    SipOfferAnswer::updateWithOutgoingRequest(v13, v26, *a3 + 312, v27);
+    ImsResult::~ImsResult(v27);
+    if (v15)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+    }
+
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    }
+  }
+
+  v16 = *(a1 + 240);
+  v17 = a2[1];
+  v24 = *a2;
+  v25 = v17;
+  if (v17)
+  {
+    atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v18 = a3[1];
+  v22 = *a3;
+  v23 = v18;
+  if (v18)
+  {
+    atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  SipDialog::sendAck(v16, &v24, &v22, a5);
+  if (v23)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+  }
+
+  if (v25)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+  }
+
+LABEL_24:
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+}
+
+void sub_1E5053708(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+{
+  if (v30)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+  }
+
+  if (v29)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+  }
+
+  if (v28)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL SipSessionInterface::handleAck(uint64_t a1, uint64_t *a2)
+{
+  v4 = SipMessage::header<SipCSeqHeader>(*a2);
+  if (v4)
+  {
+    v5 = v4[15];
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v11 = 0;
+  v12 = 0;
+  SipSessionInterface::ackReceiveHandlerForCseq(&v11, a1, v5);
+  v6 = v11;
+  if (v11)
+  {
+    v7 = a2[1];
+    v10 = v7;
+    if (v7)
+    {
+      atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    SipAckReceiveHandler::handleAck(v6);
+    if (v10)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    }
+  }
+
+  else
+  {
+    v8 = (*(*a1 + 32))(a1);
+    (*(*a1 + 16))(a1, v8);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "no handler for incoming ACK with CSeq ", 38);
+    *(v8 + 17) = 0;
+    MEMORY[0x1E6923350](*(v8 + 8), v5);
+    *(v8 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), " (maybe a dup?)", 15);
+    *(v8 + 17) = 0;
+    (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v8 + 17) = 0;
+  }
+
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+
+  return v6 != 0;
+}
+
+void sub_1E50538EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+  }
+
+  if (a12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL SipSessionInterface::handleResponse(uint64_t a1, uint64_t *a2, void *a3)
+{
+  v6 = SipMessage::header<SipCSeqHeader>(*a2);
+  v7 = (v6 + 64);
+  if (!v6)
+  {
+    v7 = &ims::kEmptyString;
+  }
+
+  v8 = *(v7 + 23);
+  v9 = v8;
+  if ((v8 & 0x80u) != 0)
+  {
+    v8 = *(v7 + 1);
+  }
+
+  if (v8 != 6)
+  {
+    return 0;
+  }
+
+  if (v9 < 0)
+  {
+    v7 = *v7;
+  }
+
+  v10 = *v7;
+  v11 = *(v7 + 2);
+  if (v10 != *"INVITE" || v11 != *"TE")
+  {
+    return 0;
+  }
+
+  if ((*(*a2 + 128) - 200) > 0x63)
+  {
+    return 0;
+  }
+
+  v13 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 608, (*a3 + 312));
+  if (a1 + 616 == v13)
+  {
+    return 0;
+  }
+
+  v15 = *(v13 + 56);
+  v14 = *(v13 + 64);
+  if (v14)
+  {
+    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  if (v15)
+  {
+    SipAckRetransmitHandler::retransmitAck(v15);
+  }
+
+  if (v14)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+  }
+
+  return v15 != 0;
+}
+
+void sub_1E5053A1C(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void SipSessionInterface::sendResponseInTransaction(uint64_t a1@<X0>, std::__shared_weak_count **a2@<X1>, std::__shared_weak_count **a3@<X2>, uint64_t a4@<X8>)
+{
+  v4 = *(a1 + 240);
+  v5 = a2[1];
+  v9 = *a2;
+  v10 = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v6 = a3[1];
+  v7 = *a3;
+  v8 = v6;
+  if (v6)
+  {
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  SipDialog::sendQueuedResponseInTransaction(v4, &v9, &v7, a4);
+  if (v8)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+  }
+
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+}
+
+void sub_1E5053AB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+  }
+
+  if (a12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void SipSessionInterface::removeClientTransaction(uint64_t **a1, uint64_t *a2)
+{
+  v4 = *(*a2 + 264);
+  v5 = *(*a2 + 272);
+  if (v5)
+  {
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v6 = (*(*v4 + 120))(v4);
+  v7 = *(v6 + 23);
+  v8 = v7;
+  if ((v7 & 0x80u) != 0)
+  {
+    v7 = *(v6 + 8);
+  }
+
+  if (v7 != 6)
+  {
+    v13 = 0;
+    if (!v5)
+    {
+      goto LABEL_19;
+    }
+
+    goto LABEL_18;
+  }
+
+  if (v8 >= 0)
+  {
+    v9 = v6;
+  }
+
+  else
+  {
+    v9 = *v6;
+  }
+
+  v10 = *v9;
+  v11 = *(v9 + 4);
+  v13 = v10 == *"INVITE" && v11 == *"TE";
+  if (v5)
+  {
+LABEL_18:
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  }
+
+LABEL_19:
+  if (v13)
+  {
+    v14 = *a2;
+    if (*(*a2 + 335) < 0)
+    {
+      std::string::__init_copy_ctor_external(&__p, *(v14 + 312), *(v14 + 320));
+    }
+
+    else
+    {
+      __p = *(v14 + 312);
+    }
+
+    SipSessionInterface::removeAckRetransmitHandler(a1, &__p);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
 }

@@ -98,7 +98,7 @@ void __46__UINavigationBar_Bridge__syncBarButtonItems___block_invoke(uint64_t a1
         v10 = *(a1 + 40);
         if (v10)
         {
-          [v10 transform];
+          objc_msgSend_transform(v10);
         }
 
         else

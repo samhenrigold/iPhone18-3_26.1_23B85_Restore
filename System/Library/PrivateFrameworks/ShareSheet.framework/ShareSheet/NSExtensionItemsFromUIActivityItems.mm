@@ -97,20 +97,20 @@ void ____NSExtensionItemsFromUIActivityItems_block_invoke_3(uint64_t a1, uint64_
   [v6 enumerateObjectsUsingBlock:v13];
 }
 
-void ____NSExtensionItemsFromUIActivityItems_block_invoke_4(uint64_t a1, void *a2)
+void ____NSExtensionItemsFromUIActivityItems_block_invoke_4(void *a1, void *a2)
 {
   v5 = a2;
-  v3 = _NSItemProviderForUIActivityItem(v5, *(a1 + 32), *(a1 + 40));
+  v3 = _NSItemProviderForUIActivityItem(v5, a1[4], a1[5]);
   if (v3)
   {
-    [*(*(*(a1 + 56) + 8) + 40) addObject:v3];
-    v4 = *(a1 + 48);
+    [*(*(a1[7] + 8) + 40) addObject:v3];
+    v4 = a1[6];
     if (v4)
     {
       (*(v4 + 16))(v4, v3, v5);
     }
 
-    [*(*(*(a1 + 64) + 8) + 40) removeObjectIdenticalTo:v5];
+    [*(*(a1[8] + 8) + 40) removeObjectIdenticalTo:v5];
   }
 }
 

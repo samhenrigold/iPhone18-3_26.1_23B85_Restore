@@ -116,7 +116,7 @@
 
 + (BOOL)data:(id)data containsParam:(id)param value:(id)value encoding:(unint64_t)encoding
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   valueCopy = value;
   v11 = [param dataUsingEncoding:encoding];
@@ -130,8 +130,8 @@
   {
     v15 = v12 + v13;
     [dataCopy length];
-    v29 = valueCopy;
-    v28 = [valueCopy dataUsingEncoding:encoding];
+    v28 = valueCopy;
+    v27 = [valueCopy dataUsingEncoding:encoding];
     v16 = [dataCopy rangeOfData:? options:? range:?];
     if (v16 == 0x7FFFFFFFFFFFFFFFLL)
     {
@@ -141,40 +141,40 @@
     else
     {
       v17 = v16;
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
-      v18 = [&unk_28865B668 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
+      v18 = [&unk_28865B668 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v18)
       {
         v19 = v18;
         v20 = v17 - v15;
-        v21 = *v31;
-        v27 = v11;
+        v21 = *v30;
+        v26 = v11;
         while (2)
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v31 != v21)
+            if (*v30 != v21)
             {
               objc_enumerationMutation(&unk_28865B668);
             }
 
-            v23 = [*(*(&v30 + 1) + 8 * i) dataUsingEncoding:encoding];
+            v23 = [*(*(&v29 + 1) + 8 * i) dataUsingEncoding:encoding];
             v24 = [dataCopy rangeOfData:v23 options:0 range:{v15, v20}];
 
             if (v24 != 0x7FFFFFFFFFFFFFFFLL)
             {
               v14 = 0;
-              v11 = v27;
+              v11 = v26;
               goto LABEL_16;
             }
           }
 
-          v19 = [&unk_28865B668 countByEnumeratingWithState:&v30 objects:v34 count:16];
+          v19 = [&unk_28865B668 countByEnumeratingWithState:&v29 objects:v33 count:16];
           v14 = 1;
-          v11 = v27;
+          v11 = v26;
           if (v19)
           {
             continue;
@@ -192,10 +192,9 @@
 
 LABEL_16:
 
-    valueCopy = v29;
+    valueCopy = v28;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

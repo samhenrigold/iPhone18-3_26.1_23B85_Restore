@@ -159,7 +159,7 @@ LABEL_27:
     fDiagHelper = self->fDiagHelper;
     if (fDiagHelper)
     {
-      [(RFSelfDiagExtensionHelper *)fDiagHelper testConfiguration];
+      objc_msgSend_testConfiguration(fDiagHelper);
       v4 = DWORD1(v75);
     }
 
@@ -176,7 +176,7 @@ LABEL_27:
     v6 = self->fDiagHelper;
     if (v6)
     {
-      [(RFSelfDiagExtensionHelper *)v6 testConfiguration];
+      objc_msgSend_testConfiguration(v6);
       v7 = DWORD2(v73);
     }
 
@@ -193,7 +193,7 @@ LABEL_27:
     v9 = self->fDiagHelper;
     if (v9)
     {
-      [(RFSelfDiagExtensionHelper *)v9 testConfiguration];
+      objc_msgSend_testConfiguration(v9);
       v10 = HIDWORD(v71);
     }
 
@@ -210,7 +210,7 @@ LABEL_27:
     v12 = self->fDiagHelper;
     if (v12)
     {
-      [(RFSelfDiagExtensionHelper *)v12 testConfiguration];
+      objc_msgSend_testConfiguration(v12);
       v13 = v70;
     }
 
@@ -227,7 +227,7 @@ LABEL_27:
     v15 = self->fDiagHelper;
     if (v15)
     {
-      [(RFSelfDiagExtensionHelper *)v15 testConfiguration];
+      objc_msgSend_testConfiguration(v15);
       v16 = BYTE4(v68);
     }
 
@@ -244,7 +244,7 @@ LABEL_27:
     v18 = self->fDiagHelper;
     if (v18)
     {
-      [(RFSelfDiagExtensionHelper *)v18 testConfiguration];
+      objc_msgSend_testConfiguration(v18);
       v19 = BYTE5(v66);
     }
 

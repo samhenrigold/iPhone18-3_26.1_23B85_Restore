@@ -8,7 +8,7 @@
 
 - (void)_sendCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (completionCopy)
   {
@@ -16,19 +16,19 @@
     if (v6)
     {
       log = v6;
-      v8 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
       v6 = log;
-      if (v8)
+      if (v7)
       {
         domain = [completionCopy domain];
         code = [completionCopy code];
         localizedDescription = [completionCopy localizedDescription];
         *buf = 138543875;
-        v14 = domain;
-        v15 = 2048;
-        v16 = code;
-        v17 = 2113;
-        v18 = localizedDescription;
+        v13 = domain;
+        v14 = 2048;
+        v15 = code;
+        v16 = 2113;
+        v17 = localizedDescription;
         _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
         v6 = log;
@@ -50,8 +50,6 @@ LABEL_6:
   SidecarTransferSenderSetMessageData(self, delegate);
   SidecarTransferSendMessage(self, delegate);
 LABEL_7:
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendItems:(id)items messageType:(int64_t)type

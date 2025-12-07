@@ -247,19 +247,20 @@
 - (id)controllers
 {
   v2 = getGCSLogger();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
+  if (v3)
   {
-    v3 = sub_100000E00();
-    v4 = [v3 objectForKey:@"controllers"];
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "GCSettingsMediator::controllers %@", &v8, 0xCu);
+    v4 = sub_100000E00(v3);
+    v5 = [v4 objectForKey:@"controllers"];
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "GCSettingsMediator::controllers %@", &v10, 0xCu);
   }
 
-  v5 = sub_100000E00();
-  v6 = [v5 objectForKey:@"controllers"];
+  v7 = sub_100000E00(v6);
+  v8 = [v7 objectForKey:@"controllers"];
 
-  return v6;
+  return v8;
 }
 
 - (void)setControllers:(id)controllers
@@ -268,13 +269,13 @@
   v4 = getGCSLogger();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = controllersCopy;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "GCSettingsMediator::setControllers %@", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = controllersCopy;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "GCSettingsMediator::setControllers %@", &v7, 0xCu);
   }
 
-  v5 = sub_100000E00();
-  [v5 setObject:controllersCopy forKey:@"controllers"];
+  v6 = sub_100000E00(v5);
+  [v6 setObject:controllersCopy forKey:@"controllers"];
 }
 
 - (id)mergeControllers:(id)controllers
@@ -443,19 +444,20 @@ LABEL_30:
 - (id)games
 {
   v2 = getGCSLogger();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
+  if (v3)
   {
-    v3 = sub_100000E00();
-    v4 = [v3 objectForKey:@"games"];
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "GCSettingsMediator::games %@", &v8, 0xCu);
+    v4 = sub_100000E00(v3);
+    v5 = [v4 objectForKey:@"games"];
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "GCSettingsMediator::games %@", &v10, 0xCu);
   }
 
-  v5 = sub_100000E00();
-  v6 = [v5 objectForKey:@"games"];
+  v7 = sub_100000E00(v6);
+  v8 = [v7 objectForKey:@"games"];
 
-  return v6;
+  return v8;
 }
 
 - (void)setGames:(id)games
@@ -464,13 +466,13 @@ LABEL_30:
   v4 = getGCSLogger();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = gamesCopy;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "GCSettingsMediator::setGames %@", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = gamesCopy;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "GCSettingsMediator::setGames %@", &v7, 0xCu);
   }
 
-  v5 = sub_100000E00();
-  [v5 setObject:gamesCopy forKey:@"games"];
+  v6 = sub_100000E00(v5);
+  [v6 setObject:gamesCopy forKey:@"games"];
 }
 
 - (id)mergeGames:(id)games
@@ -639,19 +641,20 @@ LABEL_30:
 - (id)profiles
 {
   v2 = getGCSLogger();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
+  if (v3)
   {
-    v3 = sub_100000E00();
-    v4 = [v3 objectForKey:@"profiles"];
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "GCSettingsMediator::profiles %@", &v8, 0xCu);
+    v4 = sub_100000E00(v3);
+    v5 = [v4 objectForKey:@"profiles"];
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "GCSettingsMediator::profiles %@", &v10, 0xCu);
   }
 
-  v5 = sub_100000E00();
-  v6 = [v5 objectForKey:@"profiles"];
+  v7 = sub_100000E00(v6);
+  v8 = [v7 objectForKey:@"profiles"];
 
-  return v6;
+  return v8;
 }
 
 - (void)setProfiles:(id)profiles
@@ -661,47 +664,47 @@ LABEL_30:
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v19 = profilesCopy;
+    v20 = profilesCopy;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "GCSettingsMediator::setProfiles %@", buf, 0xCu);
   }
 
-  v15 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
+  v15 = 0u;
   v5 = profilesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v14 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = getGCSLogger();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v19 = v10;
+          v20 = v10;
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "GCSettingsMediator::setProfiles - element %@", buf, 0xCu);
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
-  v12 = sub_100000E00();
-  [v12 setObject:v5 forKey:@"profiles"];
+  v13 = sub_100000E00(v12);
+  [v13 setObject:v5 forKey:@"profiles"];
 }
 
 - (id)mergeProfiles:(id)profiles
@@ -872,19 +875,20 @@ LABEL_30:
 - (id)copilotFusedControllers
 {
   v2 = getGCSLogger();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
+  if (v3)
   {
-    v3 = sub_100000E00();
-    v4 = [v3 objectForKey:@"copilotFusedControllers"];
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "GCSettingsMediator::copilotFusedControllers %@", &v8, 0xCu);
+    v4 = sub_100000E00(v3);
+    v5 = [v4 objectForKey:@"copilotFusedControllers"];
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "GCSettingsMediator::copilotFusedControllers %@", &v10, 0xCu);
   }
 
-  v5 = sub_100000E00();
-  v6 = [v5 objectForKey:@"copilotFusedControllers"];
+  v7 = sub_100000E00(v6);
+  v8 = [v7 objectForKey:@"copilotFusedControllers"];
 
-  return v6;
+  return v8;
 }
 
 - (void)setCopilotFusedControllers:(id)controllers
@@ -893,13 +897,13 @@ LABEL_30:
   v4 = getGCSLogger();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = controllersCopy;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "GCSettingsMediator::setCopilotFusedControllers %@", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = controllersCopy;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "GCSettingsMediator::setCopilotFusedControllers %@", &v7, 0xCu);
   }
 
-  v5 = sub_100000E00();
-  [v5 setObject:controllersCopy forKey:@"copilotFusedControllers"];
+  v6 = sub_100000E00(v5);
+  [v6 setObject:controllersCopy forKey:@"copilotFusedControllers"];
 }
 
 - (id)mergeCopilotFusedControllers:(id)controllers
@@ -1068,19 +1072,20 @@ LABEL_30:
 - (id)storeVersion
 {
   v2 = getGCSLogger();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
+  if (v3)
   {
-    v3 = sub_100000E00();
-    v4 = [v3 objectForKey:@"settingsVersion"];
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "GCSettingsMediator::storeVersion %@", &v8, 0xCu);
+    v4 = sub_100000E00(v3);
+    v5 = [v4 objectForKey:@"settingsVersion"];
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "GCSettingsMediator::storeVersion %@", &v10, 0xCu);
   }
 
-  v5 = sub_100000E00();
-  v6 = [v5 objectForKey:@"settingsVersion"];
+  v7 = sub_100000E00(v6);
+  v8 = [v7 objectForKey:@"settingsVersion"];
 
-  return v6;
+  return v8;
 }
 
 - (void)setStoreVersion:(id)version
@@ -1089,13 +1094,13 @@ LABEL_30:
   v4 = getGCSLogger();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = versionCopy;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "GCSettingsMediator::setStoreVersion %@", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = versionCopy;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "GCSettingsMediator::setStoreVersion %@", &v7, 0xCu);
   }
 
-  v5 = sub_100000E00();
-  [v5 setObject:versionCopy forKey:@"settingsVersion"];
+  v6 = sub_100000E00(v5);
+  [v6 setObject:versionCopy forKey:@"settingsVersion"];
 }
 
 @end

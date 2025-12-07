@@ -9,6 +9,7 @@
 - (NEIPv6Settings)initWithConfigMethod:(int64_t)method;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -17,33 +18,33 @@
 
 - (BOOL)hasDefaultRoute
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_includedRoutes;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isDefaultRoute])
+        if ([*(*(&v7 + 1) + 8 * i) isDefaultRoute])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -55,13 +56,12 @@
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (id)initFromLegacyDictionary:(id)dictionary
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [(NEIPv6Settings *)self initWithConfigMethod:1];
   if (!v6)
@@ -72,19 +72,19 @@ LABEL_11:
   v7 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E69824E0]];
   if (isa_nsstring(v7))
   {
-    if ([v7 isEqualToString:*MEMORY[0x1E69828D0]])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = 3;
     }
 
-    else if ([v7 isEqualToString:*MEMORY[0x1E69828D8]])
+    else if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = 2;
     }
 
     else
     {
-      if (![v7 isEqualToString:*MEMORY[0x1E69828C8]])
+      if (!objc_msgSend_isEqualToString_(v7))
       {
         goto LABEL_10;
       }
@@ -210,33 +210,33 @@ LABEL_34:
   if (v43)
   {
     v44 = [dictionaryCopy objectForKeyedSubscript:v41];
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
     v71 = 0u;
-    v72 = 0u;
-    v45 = [v44 countByEnumeratingWithState:&v69 objects:v74 count:16];
+    v45 = [v44 countByEnumeratingWithState:&v68 objects:v73 count:16];
     if (v45)
     {
       v46 = v45;
-      v47 = *v70;
+      v47 = *v69;
       do
       {
         v48 = 0;
         do
         {
-          if (*v70 != v47)
+          if (*v69 != v47)
           {
             objc_enumerationMutation(v44);
           }
 
-          v49 = [[NEIPv6Route alloc] initFromLegacyDictionary:*(*(&v69 + 1) + 8 * v48)];
+          v49 = [[NEIPv6Route alloc] initFromLegacyDictionary:*(*(&v68 + 1) + 8 * v48)];
           [v37 addObject:v49];
 
           ++v48;
         }
 
         while (v46 != v48);
-        v46 = [v44 countByEnumeratingWithState:&v69 objects:v74 count:16];
+        v46 = [v44 countByEnumeratingWithState:&v68 objects:v73 count:16];
       }
 
       while (v46);
@@ -254,37 +254,37 @@ LABEL_34:
 
   if (v52)
   {
-    v64 = v7;
+    v63 = v7;
     v53 = [dictionaryCopy objectForKeyedSubscript:v50];
     v54 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v64 = 0u;
     v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
     v55 = v53;
-    v56 = [v55 countByEnumeratingWithState:&v65 objects:v73 count:16];
+    v56 = [v55 countByEnumeratingWithState:&v64 objects:v72 count:16];
     if (v56)
     {
       v57 = v56;
-      v58 = *v66;
+      v58 = *v65;
       do
       {
         v59 = 0;
         do
         {
-          if (*v66 != v58)
+          if (*v65 != v58)
           {
             objc_enumerationMutation(v55);
           }
 
-          v60 = [[NEIPv6Route alloc] initFromLegacyDictionary:*(*(&v65 + 1) + 8 * v59)];
+          v60 = [[NEIPv6Route alloc] initFromLegacyDictionary:*(*(&v64 + 1) + 8 * v59)];
           [(NSArray *)v54 addObject:v60];
 
           ++v59;
         }
 
         while (v57 != v59);
-        v57 = [v55 countByEnumeratingWithState:&v65 objects:v73 count:16];
+        v57 = [v55 countByEnumeratingWithState:&v64 objects:v72 count:16];
       }
 
       while (v57);
@@ -293,17 +293,16 @@ LABEL_34:
     excludedRoutes = v6->_excludedRoutes;
     v6->_excludedRoutes = v54;
 
-    v7 = v64;
+    v7 = v63;
   }
 
 LABEL_55:
-  v62 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)copyLegacyDictionary
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if ([(NEIPv6Settings *)self configMethod]== 3)
   {
@@ -323,18 +322,18 @@ LABEL_5:
   {
     [v3 setObject:*MEMORY[0x1E69828D8] forKeyedSubscript:*MEMORY[0x1E69824E0]];
     addresses = [(NEIPv6Settings *)self addresses];
-    v27 = [addresses count];
+    v26 = [addresses count];
 
-    if (v27)
+    if (v26)
     {
       addresses2 = [(NEIPv6Settings *)self addresses];
       [v3 setObject:addresses2 forKeyedSubscript:*MEMORY[0x1E69824D8]];
     }
 
     networkPrefixLengths = [(NEIPv6Settings *)self networkPrefixLengths];
-    v30 = [networkPrefixLengths count];
+    v29 = [networkPrefixLengths count];
 
-    if (v30)
+    if (v29)
     {
       networkPrefixLengths2 = [(NEIPv6Settings *)self networkPrefixLengths];
       [v3 setObject:networkPrefixLengths2 forKeyedSubscript:*MEMORY[0x1E6982500]];
@@ -355,27 +354,27 @@ LABEL_6:
   if (includedRoutes)
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     includedRoutes2 = [(NEIPv6Settings *)self includedRoutes];
-    v8 = [includedRoutes2 countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v8 = [includedRoutes2 countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v39;
+      v10 = *v38;
       v11 = *MEMORY[0x1E6982558];
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v39 != v10)
+          if (*v38 != v10)
           {
             objc_enumerationMutation(includedRoutes2);
           }
 
-          v13 = *(*(&v38 + 1) + 8 * i);
+          v13 = *(*(&v37 + 1) + 8 * i);
           if ([v13 isDefaultRoute])
           {
             [v3 setObject:&unk_1F38BA5B0 forKeyedSubscript:v11];
@@ -388,7 +387,7 @@ LABEL_6:
           }
         }
 
-        v9 = [includedRoutes2 countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v9 = [includedRoutes2 countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
       while (v9);
@@ -400,26 +399,26 @@ LABEL_6:
   if (excludedRoutes)
   {
     v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     excludedRoutes2 = [(NEIPv6Settings *)self excludedRoutes];
-    v18 = [excludedRoutes2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v18 = [excludedRoutes2 countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v35;
+      v20 = *v34;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v35 != v20)
+          if (*v34 != v20)
           {
             objc_enumerationMutation(excludedRoutes2);
           }
 
-          v22 = *(*(&v34 + 1) + 8 * j);
+          v22 = *(*(&v33 + 1) + 8 * j);
           if (([v22 isDefaultRoute] & 1) == 0)
           {
             copyLegacyDictionary2 = [v22 copyLegacyDictionary];
@@ -427,27 +426,54 @@ LABEL_6:
           }
         }
 
-        v19 = [excludedRoutes2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v19 = [excludedRoutes2 countByEnumeratingWithState:&v33 objects:v41 count:16];
       }
 
       while (v19);
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v3;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  v8 = [(NEIPv6Settings *)self configMethod]- 1;
+  if (v8 <= 2)
+  {
+    [v7 appendPrettyObject:off_1E7F09568[v8] withName:@"configMethod" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+  }
+
+  addresses = [(NEIPv6Settings *)self addresses];
+  [v7 appendPrettyObject:addresses withName:@"addresses" andIndent:v5 options:options | 9];
+
+  networkPrefixLengths = [(NEIPv6Settings *)self networkPrefixLengths];
+  [v7 appendPrettyObject:networkPrefixLengths withName:@"networkPrefixLengths" andIndent:v5 options:options | 8];
+
+  router = [(NEIPv6Settings *)self router];
+  [v7 appendPrettyObject:router withName:@"router" andIndent:v5 options:options | 9];
+
+  includedRoutes = [(NEIPv6Settings *)self includedRoutes];
+  [v7 appendPrettyObject:includedRoutes withName:@"includedRoutes" andIndent:v5 options:options | 8];
+
+  excludedRoutes = [(NEIPv6Settings *)self excludedRoutes];
+  [v7 appendPrettyObject:excludedRoutes withName:@"excludedRoutes" andIndent:v5 options:options | 8];
+
+  return v7;
 }
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   if ([(NEIPv6Settings *)self configMethod]!= 2)
   {
-    goto LABEL_41;
+    return 1;
   }
 
-  v51[0] = 0;
-  v51[1] = 0;
+  v50[0] = 0;
+  v50[1] = 0;
   addresses = [(NEIPv6Settings *)self addresses];
   v5 = [addresses count];
 
@@ -468,7 +494,7 @@ LABEL_7:
 
   addresses2 = [(NEIPv6Settings *)self addresses];
   v7 = [addresses2 objectAtIndexedSubscript:0];
-  v8 = inet_pton(30, [v7 UTF8String], v51);
+  v8 = inet_pton(30, [v7 UTF8String], v50);
 
   if (!v8)
   {
@@ -491,7 +517,7 @@ LABEL_8:
   {
     v12 = router;
     router2 = [(NEIPv6Settings *)self router];
-    v14 = inet_pton(30, [router2 UTF8String], v51);
+    v14 = inet_pton(30, [router2 UTF8String], v50);
 
     if (!v14)
     {
@@ -515,13 +541,13 @@ LABEL_8:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       addresses4 = [(NEIPv6Settings *)self addresses];
-      v40 = [addresses4 count];
+      v39 = [addresses4 count];
       networkPrefixLengths2 = [(NEIPv6Settings *)self networkPrefixLengths];
-      v42 = [networkPrefixLengths2 count];
+      v41 = [networkPrefixLengths2 count];
       *buf = 134218240;
-      v55 = v40;
-      v56 = 2048;
-      v57 = v42;
+      v54 = v39;
+      v55 = 2048;
+      v56 = v41;
       _os_log_error_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_ERROR, "Missing networkPrefixLengths (address count = %lu, prefix length count = %lu)", buf, 0x16u);
     }
   }
@@ -549,57 +575,57 @@ LABEL_21:
   }
 
   v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   includedRoutes = [(NEIPv6Settings *)self includedRoutes];
-  v27 = [includedRoutes countByEnumeratingWithState:&v47 objects:v53 count:16];
+  v27 = [includedRoutes countByEnumeratingWithState:&v46 objects:v52 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v48;
+    v29 = *v47;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v48 != v29)
+        if (*v47 != v29)
         {
           objc_enumerationMutation(includedRoutes);
         }
 
-        [*(*(&v47 + 1) + 8 * i) checkValidityAndCollectErrors:v25];
+        [*(*(&v46 + 1) + 8 * i) checkValidityAndCollectErrors:v25];
       }
 
-      v28 = [includedRoutes countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v28 = [includedRoutes countByEnumeratingWithState:&v46 objects:v52 count:16];
     }
 
     while (v28);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   excludedRoutes = [(NEIPv6Settings *)self excludedRoutes];
-  v32 = [excludedRoutes countByEnumeratingWithState:&v43 objects:v52 count:16];
+  v32 = [excludedRoutes countByEnumeratingWithState:&v42 objects:v51 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v44;
+    v34 = *v43;
     do
     {
       for (j = 0; j != v33; ++j)
       {
-        if (*v44 != v34)
+        if (*v43 != v34)
         {
           objc_enumerationMutation(excludedRoutes);
         }
 
-        [*(*(&v43 + 1) + 8 * j) checkValidityAndCollectErrors:v25];
+        [*(*(&v42 + 1) + 8 * j) checkValidityAndCollectErrors:v25];
       }
 
-      v33 = [excludedRoutes countByEnumeratingWithState:&v43 objects:v52 count:16];
+      v33 = [excludedRoutes countByEnumeratingWithState:&v42 objects:v51 count:16];
     }
 
     while (v33);
@@ -611,13 +637,11 @@ LABEL_21:
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v55 = v25;
+      v54 = v25;
       _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, "IPv6 routes are invalid: %@", buf, 0xCu);
     }
   }
 
-LABEL_41:
-  v37 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -663,11 +687,11 @@ LABEL_41:
 
 - (NEIPv6Settings)initWithCoder:(id)coder
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v42.receiver = self;
-  v42.super_class = NEIPv6Settings;
-  v5 = [(NEIPv6Settings *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = NEIPv6Settings;
+  v5 = [(NEIPv6Settings *)&v41 init];
   if (v5)
   {
     v5->_configMethod = [coderCopy decodeInt32ForKey:@"ConfigMethod"];
@@ -690,9 +714,9 @@ LABEL_41:
         v14 = ne_log_obj();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
-          v40 = v5->_addresses;
+          v39 = v5->_addresses;
           *buf = 138412290;
-          v44 = v40;
+          v43 = v39;
           _os_log_debug_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEBUG, "initwithcoder single router IPv6address %@", buf, 0xCu);
         }
       }
@@ -720,9 +744,9 @@ LABEL_41:
         v25 = ne_log_obj();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
-          v41 = v5->_networkPrefixLengths;
+          v40 = v5->_networkPrefixLengths;
           *buf = 138412290;
-          v44 = v41;
+          v43 = v40;
           _os_log_debug_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_DEBUG, "initwithcoder single prefixLength %@", buf, 0xCu);
         }
       }
@@ -747,7 +771,6 @@ LABEL_41:
     v5->_excludedRoutes = v36;
   }
 
-  v38 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

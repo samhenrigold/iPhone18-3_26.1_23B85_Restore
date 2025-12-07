@@ -10,12 +10,12 @@
 - (id)firstSegment;
 - (id)initWithTextRange:(void *)range withCluster:;
 - (id)lastSegment;
+- (id)prevRun;
 - (id)secondLastSegment;
 - (id)secondSegment;
 - (uint64_t)drawRunUsingBlock:(void *)block;
 - (void)enumerateRunSegmentsUsingBlock:(id)block;
 - (void)getMetricsForTextSize:(double *)size cornerRadius:(double)radius cornerOutset:(double)outset;
-- (void)prevRun;
 @end
 
 @implementation _NSTextHighlightRun
@@ -376,7 +376,7 @@ LABEL_14:
   }
 }
 
-- (void)prevRun
+- (id)prevRun
 {
   selfCopy = self;
   if (self)

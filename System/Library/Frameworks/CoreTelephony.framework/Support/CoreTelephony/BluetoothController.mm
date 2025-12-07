@@ -28,7 +28,7 @@
   {
     v4->_discovery = 0;
     v4->_tetheringConnected = 0;
-    [(BluetoothController *)v4 getLogContext];
+    objc_msgSend_getLogContext(v4);
     v5 = v8;
     ctu::OsLogContext::~OsLogContext(v7);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -56,7 +56,7 @@
 {
   if (self)
   {
-    [(BluetoothController *)self getLogContext];
+    objc_msgSend_getLogContext(self, a2);
     v3 = v6;
   }
 
@@ -92,7 +92,7 @@
     v11[2] = sub_1015A26BC;
     v11[3] = &unk_101E97468;
     v11[4] = self;
-    [(BluetoothController *)self getQueue];
+    objc_msgSend_getQueue(self);
     [(CBDiscovery *)self->_discovery setDispatchQueue:buf];
     if (buf)
     {
@@ -119,7 +119,7 @@
     v8[3] = &unk_101E97468;
     v8[4] = self;
     [(CBDiscovery *)self->_discovery setInvalidationHandler:v8];
-    [(BluetoothController *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v4 = *(&buf + 1);
     ctu::OsLogContext::~OsLogContext(&buf);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))

@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1A467B7B0();
+  sub_1A467B7B0(selfCopy);
 }
 
 - (_TtC12PhotosUICore30PhotosPreviewHeaderContentView)initWithFrame:(CGRect)frame

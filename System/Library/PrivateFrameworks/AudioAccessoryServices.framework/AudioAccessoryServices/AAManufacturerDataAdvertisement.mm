@@ -151,7 +151,7 @@ LABEL_7:
   return v3;
 }
 
-- (uint64_t)initWithData:(uint64_t)result .cold.1(uint64_t result)
+- (void)initWithData:(void *)result .cold.1(void *result)
 {
   v1 = result;
   if (gLogCategory_AAManufacturerDataAdvertisement <= 90)

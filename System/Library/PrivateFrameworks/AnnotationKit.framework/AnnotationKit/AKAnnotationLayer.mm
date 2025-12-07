@@ -520,7 +520,7 @@ LABEL_19:
           v43 = 0u;
           v41 = 0u;
           fastPathLayer8 = [(AKAnnotationLayer *)self fastPathLayer];
-          [AKLoupeAnnotationImageUpdaterHelper transformForFastPathLayer:fastPathLayer8 ofLoupeAnnotation:v11 onPageController:pageController];
+          objc_msgSend_transformForFastPathLayer_ofLoupeAnnotation_onPageController_(AKLoupeAnnotationImageUpdaterHelper);
 
           v38 = v41;
           v39 = v42;

@@ -23,7 +23,7 @@
 
 void __70__HMDHH2FrameworkSwitchDefaultDataSource_initiateDaemonRelaunchToHH2___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [HMDHH2FrameworkSwitch setHH2EnablementPreferenceKey:*(a1 + 40)];
   v2 = *(a1 + 40);
   v3 = *(a1 + 41);
@@ -36,9 +36,9 @@ void __70__HMDHH2FrameworkSwitchDefaultDataSource_initiateDaemonRelaunchToHH2___
     if (v7)
     {
       v8 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@We are in the right world, do not relaunch.", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@We are in the right world, do not relaunch.", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -49,22 +49,20 @@ void __70__HMDHH2FrameworkSwitchDefaultDataSource_initiateDaemonRelaunchToHH2___
     if (v7)
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@See you on the other side - restarting...", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@See you on the other side - restarting...", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     v10 = +[HMDMainDriver driver];
     [v10 relaunch];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)controller:(id)controller cloudDatabaseWithContainerID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   v8 = +[HMDDatabase defaultDatabase];
@@ -85,16 +83,14 @@ void __70__HMDHH2FrameworkSwitchDefaultDataSource_initiateDaemonRelaunchToHH2___
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v15;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to get default local database", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v15;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to get default local database", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

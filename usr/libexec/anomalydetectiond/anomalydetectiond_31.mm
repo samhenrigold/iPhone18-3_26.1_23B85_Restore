@@ -1652,7 +1652,6 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
       return 0;
     }
 
-    v13 = *(v12 + 12);
     if (*(v11 + 12))
     {
       if ((*(v12 + 12) & 1) == 0 || *(v11 + 8) != *(v12 + 8))
@@ -2429,7 +2428,6 @@ BOOL CMMsl::SignalEnvironment::operator==(uint64_t a1, uint64_t a2)
 
 BOOL CMMsl::VIOReplayPose::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 64);
   if (*(a1 + 64))
   {
     if ((*(a2 + 64) & 1) == 0 || *(a1 + 56) != *(a2 + 56))
@@ -2443,48 +2441,48 @@ BOOL CMMsl::VIOReplayPose::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  v5 = *(a2 + 8);
-  if (v3 - v4 != *(a2 + 16) - v5)
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  v4 = *(a2 + 8);
+  if (v2 - v3 != *(a2 + 16) - v4)
   {
     return 0;
   }
 
-  while (v4 != v3)
+  while (v3 != v2)
   {
-    if (*v4 != *v5)
+    if (*v3 != *v4)
     {
       return 0;
     }
 
+    ++v3;
     ++v4;
-    ++v5;
   }
 
-  v7 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v8 = *(a2 + 32);
-  if (v6 - v7 != *(a2 + 40) - v8)
+  v6 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v7 = *(a2 + 32);
+  if (v5 - v6 != *(a2 + 40) - v7)
   {
     return 0;
   }
 
-  if (v7 == v6)
+  if (v6 == v5)
   {
     return 1;
   }
 
-  v9 = v7 + 8;
+  v8 = v6 + 8;
   do
   {
-    v10 = *v8++;
-    result = *(v9 - 8) == v10;
-    v12 = *(v9 - 8) != v10 || v9 == v6;
-    v9 += 8;
+    v9 = *v7++;
+    result = *(v8 - 8) == v9;
+    v11 = *(v8 - 8) != v9 || v8 == v5;
+    v8 += 8;
   }
 
-  while (!v12);
+  while (!v11);
   return result;
 }
 
@@ -3191,7 +3189,6 @@ BOOL CMMsl::KappaRoads::operator==(uint64_t a1, uint64_t a2)
 
 BOOL CMMsl::UserStudyEvent::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 24);
   if (*(a1 + 24))
   {
     if ((*(a2 + 24) & 1) == 0 || *(a1 + 16) != *(a2 + 16))
@@ -3205,45 +3202,45 @@ BOOL CMMsl::UserStudyEvent::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v3 = *(a1 + 8);
-  v4 = *(a2 + 8);
-  result = v4 == 0;
-  if (!v3)
+  v2 = *(a1 + 8);
+  v3 = *(a2 + 8);
+  result = v3 == 0;
+  if (!v2)
   {
     return result;
   }
 
-  if (!v4)
+  if (!v3)
   {
     return 0;
   }
 
-  v6 = *(v3 + 23);
-  if (v6 >= 0)
+  v5 = *(v2 + 23);
+  if (v5 >= 0)
   {
-    v7 = *(v3 + 23);
+    v6 = *(v2 + 23);
   }
 
   else
   {
+    v6 = *(v2 + 8);
+  }
+
+  v7 = *(v3 + 23);
+  v8 = v7;
+  if ((v7 & 0x80u) != 0)
+  {
     v7 = *(v3 + 8);
   }
 
-  v8 = *(v4 + 23);
-  v9 = v8;
-  if ((v8 & 0x80u) != 0)
-  {
-    v8 = *(v4 + 8);
-  }
-
-  if (v7 != v8)
+  if (v6 != v7)
   {
     return 0;
   }
 
-  v10 = v6 >= 0 ? v3 : *v3;
-  v11 = v9 >= 0 ? *(a2 + 8) : *v4;
-  return !memcmp(v10, v11, v7);
+  v9 = v5 >= 0 ? v2 : *v2;
+  v10 = v8 >= 0 ? *(a2 + 8) : *v3;
+  return !memcmp(v9, v10, v6);
 }
 
 BOOL CMMsl::TempestPoCAuxiliaryDeviceMotion::operator==(uint64_t a1, uint64_t a2)
@@ -3629,7 +3626,6 @@ BOOL CMMsl::WorkoutRecorderALSData::operator==(uint64_t a1, uint64_t a2)
   {
     if (v3)
     {
-      v5 = *(v3 + 12);
       if (*(v2 + 12))
       {
         if ((*(v3 + 12) & 1) == 0 || *(v2 + 8) != *(v3 + 8))
@@ -5649,7 +5645,6 @@ BOOL CMMsl::RawAudio::operator==(uint64_t a1, uint64_t a2)
 
 BOOL CMMsl::ODTPose::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 40);
   if (*(a1 + 40))
   {
     if ((*(a2 + 40) & 1) == 0 || *(a1 + 32) != *(a2 + 32))
@@ -5663,29 +5658,29 @@ BOOL CMMsl::ODTPose::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  v5 = *(a2 + 8);
-  if (v3 - v4 != *(a2 + 16) - v5)
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  v4 = *(a2 + 8);
+  if (v2 - v3 != *(a2 + 16) - v4)
   {
     return 0;
   }
 
-  if (v4 == v3)
+  if (v3 == v2)
   {
     return 1;
   }
 
-  v6 = v4 + 8;
+  v5 = v3 + 8;
   do
   {
-    v7 = *v5++;
-    result = *(v6 - 8) == v7;
-    v9 = *(v6 - 8) != v7 || v6 == v3;
-    v6 += 8;
+    v6 = *v4++;
+    result = *(v5 - 8) == v6;
+    v8 = *(v5 - 8) != v6 || v5 == v2;
+    v5 += 8;
   }
 
-  while (!v9);
+  while (!v8);
   return result;
 }
 
@@ -9425,7 +9420,6 @@ BOOL CMMsl::RunningPower::operator==(uint64_t a1, uint64_t a2)
 
 BOOL CMMsl::MotionContextActivity::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 28);
   if ((*(a1 + 28) & 2) != 0)
   {
     if ((*(a2 + 28) & 2) == 0 || *(a1 + 24) != *(a2 + 24))
@@ -9452,12 +9446,12 @@ BOOL CMMsl::MotionContextActivity::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v3 = *(a1 + 8);
-  v4 = *(a2 + 8);
-  result = v4 == 0;
-  if (v3)
+  v2 = *(a1 + 8);
+  v3 = *(a2 + 8);
+  result = v3 == 0;
+  if (v2)
   {
-    return v4 && CMMsl::PDRImpulse::operator==(v3, v4);
+    return v3 && CMMsl::PDRImpulse::operator==(v2, v3);
   }
 
   return result;

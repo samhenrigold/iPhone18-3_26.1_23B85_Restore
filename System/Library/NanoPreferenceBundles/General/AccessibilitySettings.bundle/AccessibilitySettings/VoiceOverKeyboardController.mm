@@ -11,13 +11,14 @@
 - (void)setModifier:(id)modifier;
 - (void)setPhoneticFeedback:(id)feedback;
 - (void)setTypingFeedback:(id)feedback isSoftware:(BOOL)software;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VoiceOverKeyboardController
 
 - (id)specifiers
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.super.isa + v3);
   if (!v4)
@@ -28,9 +29,9 @@
     v8 = [v6 preferenceSpecifierNamed:v7 target:self set:0 get:sel_phoneticKey detail:objc_opt_class() cell:2 edit:0];
 
     [v8 setIdentifier:@"PHONETICS_ID"];
-    v32 = @"VoiceOverKeyboardPhoneticFeedbackDelegateKey";
-    v33[0] = self;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v31 = @"VoiceOverKeyboardPhoneticFeedbackDelegateKey";
+    v32[0] = self;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     [v8 setUserInfo:v9];
 
     [array addObject:v8];
@@ -39,9 +40,9 @@
     v12 = [v10 preferenceSpecifierNamed:v11 target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
 
     [v12 setIdentifier:@"TYPING_FEEDBACK_ID"];
-    v30 = @"VoiceOverKeyboardTypingFeedbackDelegateKey";
+    v29 = @"VoiceOverKeyboardTypingFeedbackDelegateKey";
     selfCopy = self;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&selfCopy forKeys:&v30 count:1];
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&selfCopy forKeys:&v29 count:1];
     [v12 setUserInfo:v13];
 
     [array addObject:v12];
@@ -50,9 +51,9 @@
     v16 = [v14 preferenceSpecifierNamed:v15 target:self set:0 get:sel_modifierKey detail:objc_opt_class() cell:2 edit:0];
 
     [v16 setIdentifier:@"KEYBOARD_MODIFIER_KEYS_ID"];
-    v28 = @"VoiceOverKeyboardModifierKeyDelegateKey";
+    v27 = @"VoiceOverKeyboardModifierKeyDelegateKey";
     selfCopy2 = self;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&selfCopy2 forKeys:&v28 count:1];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&selfCopy2 forKeys:&v27 count:1];
     [v16 setUserInfo:v17];
 
     [array addObject:v16];
@@ -61,9 +62,9 @@
     v20 = [v18 preferenceSpecifierNamed:v19 target:self set:0 get:sel_keyboardInteractionTime detail:objc_opt_class() cell:2 edit:0];
 
     [v20 setIdentifier:@"KEYBOARD_TIMING_TIMEOUT_ID"];
-    v26 = @"VoiceOverKeyboardTimeoutControllerDelegateKey";
+    v25 = @"VoiceOverKeyboardTimeoutControllerDelegateKey";
     selfCopy3 = self;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&selfCopy3 forKeys:&v26 count:1];
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&selfCopy3 forKeys:&v25 count:1];
     [v20 setUserInfo:v21];
 
     [array addObject:v20];
@@ -74,9 +75,37 @@
     v4 = *(&self->super.super.super.super.super.super.isa + v3);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = VoiceOverKeyboardController;
+  [(AccessibilityBridgeBaseController *)&v19 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"KEYBOARDS" table:@"VoiceOverSettings" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"VOICEOVER_TITLE" table:@"AccessibilitySettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v12 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL3 = [v3 bundleURL];
+  v15 = [v12 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale3 bundleURL:bundleURL3];
+
+  v16 = MEMORY[0x277CF3470];
+  v20[0] = v15;
+  v20[1] = v11;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v18 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=VOICEOVER_ID/KeyboardRow"];
+  [v16 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v17 deepLink:v18];
 }
 
 - (id)phoneticKey

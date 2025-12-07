@@ -179,7 +179,7 @@ void __54__CDPDXPCListener_listener_shouldAcceptNewConnection___block_invoke(uin
 
 - (unint64_t)_clientTypeForConnection:(id)connection
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = proc_pidpath([connection processIdentifier], buffer, 0x1000u);
   v5 = MEMORY[0x277CBEBC0];
   v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:buffer length:v4 encoding:4];
@@ -198,7 +198,6 @@ void __54__CDPDXPCListener_listener_shouldAcceptNewConnection___block_invoke(uin
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -247,49 +246,40 @@ void __54__CDPDXPCListener_listener_shouldAcceptNewConnection___block_invoke(uin
 
 - (void)listener:shouldAcceptNewConnection:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_debug_impl(&dword_24510B000, v1, OS_LOG_TYPE_DEBUG, "Accepting new connection %@ with entitlements mask %i", v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&dword_24510B000, v1, OS_LOG_TYPE_DEBUG, "Accepting new connection %@ with entitlements mask %i", v2, 0x12u);
 }
 
 void __54__CDPDXPCListener_listener_shouldAcceptNewConnection___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "CDP client connection invalidated: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "CDP client connection invalidated: %@", v4, 0xCu);
 }
 
 - (void)_clientTypeForBundleID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

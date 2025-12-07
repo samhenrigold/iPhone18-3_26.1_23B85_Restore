@@ -102,9 +102,9 @@
 - (HKHealthStoreConfiguration)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v25.receiver = self;
-  v25.super_class = HKHealthStoreConfiguration;
-  v5 = [(HKHealthStoreConfiguration *)&v25 init];
+  v26.receiver = self;
+  v26.super_class = HKHealthStoreConfiguration;
+  v5 = [(HKHealthStoreConfiguration *)&v26 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sbid"];
@@ -123,26 +123,28 @@
     profileIdentifier = v5->_profileIdentifier;
     v5->_profileIdentifier = v12;
 
-    v5->_applicationSDKVersionToken = HKBitPatternCastSignedToUnsignedInt64([coderCopy decodeInt64ForKey:@"sdkv"]);
-    v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dlnn"];
+    [coderCopy decodeInt64ForKey:@"sdkv"];
+    HKBitPatternCastSignedToUnsignedInt64();
+    v5->_applicationSDKVersionToken = v14;
+    v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dlnn"];
     daemonLaunchDarwinNotificationName = v5->_daemonLaunchDarwinNotificationName;
-    v5->_daemonLaunchDarwinNotificationName = v14;
+    v5->_daemonLaunchDarwinNotificationName = v15;
 
-    v16 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"wado"];
+    v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"wado"];
     writeAuthorizationUsageDescriptionOverride = v5->_writeAuthorizationUsageDescriptionOverride;
-    v5->_writeAuthorizationUsageDescriptionOverride = v16;
+    v5->_writeAuthorizationUsageDescriptionOverride = v17;
 
-    v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"rado"];
+    v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"rado"];
     readAuthorizationUsageDescriptionOverride = v5->_readAuthorizationUsageDescriptionOverride;
-    v5->_readAuthorizationUsageDescriptionOverride = v18;
+    v5->_readAuthorizationUsageDescriptionOverride = v19;
 
-    v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"cado"];
+    v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"cado"];
     clinicalReadAuthorizationUsageDescriptionOverride = v5->_clinicalReadAuthorizationUsageDescriptionOverride;
-    v5->_clinicalReadAuthorizationUsageDescriptionOverride = v20;
+    v5->_clinicalReadAuthorizationUsageDescriptionOverride = v21;
 
-    v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"rsdo"];
+    v23 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"rsdo"];
     researchStudyUsageDescriptionOverride = v5->_researchStudyUsageDescriptionOverride;
-    v5->_researchStudyUsageDescriptionOverride = v22;
+    v5->_researchStudyUsageDescriptionOverride = v23;
   }
 
   return v5;
@@ -156,7 +158,8 @@
   [coderCopy encodeObject:self->_sourceVersion forKey:@"sver"];
   [coderCopy encodeObject:self->_debugIdentifier forKey:@"dbid"];
   [coderCopy encodeObject:self->_profileIdentifier forKey:@"pid"];
-  [coderCopy encodeInt64:HKBitPatternCastUnsignedToSignedInt64(self->_applicationSDKVersionToken) forKey:@"sdkv"];
+  HKBitPatternCastUnsignedToSignedInt64();
+  [coderCopy encodeInt64:v5 forKey:@"sdkv"];
   [coderCopy encodeObject:self->_daemonLaunchDarwinNotificationName forKey:@"dlnn"];
   [coderCopy encodeObject:self->_writeAuthorizationUsageDescriptionOverride forKey:@"wado"];
   [coderCopy encodeObject:self->_readAuthorizationUsageDescriptionOverride forKey:@"rado"];

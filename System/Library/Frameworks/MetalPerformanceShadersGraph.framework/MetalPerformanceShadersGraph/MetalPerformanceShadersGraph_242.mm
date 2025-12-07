@@ -1,3 +1,2595 @@
+void sub_1E076DB64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+{
+  if (a15)
+  {
+    (*(*a15 + 8))(a15);
+    if ((a21 & 0x80000000) == 0)
+    {
+LABEL_3:
+      if ((a27 & 0x80000000) == 0)
+      {
+LABEL_8:
+
+        _Unwind_Resume(a1);
+      }
+
+LABEL_7:
+      operator delete(a22);
+      goto LABEL_8;
+    }
+  }
+
+  else if ((a21 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(__p);
+  if ((a27 & 0x80000000) == 0)
+  {
+    goto LABEL_8;
+  }
+
+  goto LABEL_7;
+}
+
+void sub_1E076ED8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, void *a15, void *a16, uint64_t a17, void *a18, void *a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, int a53, __int16 a54, char a55, char a56, void *__p, uint64_t a58, int a59, __int16 a60, char a61, char a62)
+{
+  if (a62 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void InProcessPackageWritingGuard::lockPath(uint64_t **a1, const void *a2, size_t a3)
+{
+  __lk.__m_ = &qword_1ECE75360;
+  __lk.__owns_ = 1;
+  std::mutex::lock(&qword_1ECE75360);
+  if (a2)
+  {
+    if (a3 > 0x7FFFFFFFFFFFFFF7)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    if (a3 >= 0x17)
+    {
+      operator new();
+    }
+
+    if (a3)
+    {
+      while (1)
+      {
+        HIBYTE(v13) = a3;
+        memmove(__dst, a2, a3);
+        *(__dst + a3) = 0;
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&xmmword_1ECE75338, __dst, __dst);
+        if (SHIBYTE(v13) < 0)
+        {
+          v6 = v5;
+          operator delete(__dst[0]);
+          v5 = v6;
+        }
+
+        if (v5)
+        {
+          break;
+        }
+
+        std::condition_variable::wait(&unk_1ECE753A0, &__lk);
+      }
+    }
+
+    else
+    {
+      while (1)
+      {
+        HIBYTE(v13) = 0;
+        LOBYTE(__dst[0]) = 0;
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&xmmword_1ECE75338, __dst, __dst);
+        if (SHIBYTE(v13) < 0)
+        {
+          v10 = v9;
+          operator delete(__dst[0]);
+          v9 = v10;
+        }
+
+        if (v9)
+        {
+          break;
+        }
+
+        std::condition_variable::wait(&unk_1ECE753A0, &__lk);
+      }
+    }
+  }
+
+  else
+  {
+    while (1)
+    {
+      __dst[0] = 0;
+      __dst[1] = 0;
+      v13 = 0;
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&xmmword_1ECE75338, __dst, __dst);
+      if (SHIBYTE(v13) < 0)
+      {
+        v8 = v7;
+        operator delete(__dst[0]);
+        v7 = v8;
+      }
+
+      if (v7)
+      {
+        break;
+      }
+
+      std::condition_variable::wait(&unk_1ECE753A0, &__lk);
+    }
+  }
+
+  operator new();
+}
+
+void sub_1E076F244(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::mutex *a10, char a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a11 == 1)
+  {
+    std::mutex::unlock(a10);
+    _Unwind_Resume(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+id MPSGraphOperatingSystemVersion::asString(MPSGraphOperatingSystemVersion *this)
+{
+  v2 = objc_alloc_init(MEMORY[0x1E696AEC0]);
+  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
+  std::to_string(&v18, this->var0);
+  if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v4 = &v18;
+  }
+
+  else
+  {
+    v4 = v18.__r_.__value_.__r.__words[0];
+  }
+
+  v5 = [v3 initWithCString:v4 encoding:4];
+  v6 = [v2 stringByAppendingString:v5];
+
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v18.__r_.__value_.__l.__data_);
+  }
+
+  v7 = [v6 stringByAppendingString:@"."];
+
+  v8 = objc_alloc(MEMORY[0x1E696AEC0]);
+  std::to_string(&v18, this->var1);
+  if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v9 = &v18;
+  }
+
+  else
+  {
+    v9 = v18.__r_.__value_.__r.__words[0];
+  }
+
+  v10 = [v8 initWithCString:v9 encoding:4];
+  v11 = [v7 stringByAppendingString:v10];
+
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v18.__r_.__value_.__l.__data_);
+  }
+
+  v12 = [v11 stringByAppendingString:@"."];
+
+  v13 = objc_alloc(MEMORY[0x1E696AEC0]);
+  std::to_string(&v18, this->var2);
+  if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v14 = &v18;
+  }
+
+  else
+  {
+    v14 = v18.__r_.__value_.__r.__words[0];
+  }
+
+  v15 = [v13 initWithCString:v14 encoding:4];
+  v16 = [v12 stringByAppendingString:v15];
+
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v18.__r_.__value_.__l.__data_);
+  }
+
+  return v16;
+}
+
+void sub_1E076F488(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+
+    _Unwind_Resume(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E07700EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, void *a15, uint64_t a16, void *a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39, int a40, __int16 a41, char a42, char a43)
+{
+  std::unique_ptr<llvm::ToolOutputFile>::~unique_ptr[abi:ne200100](&a37, v49, v50);
+  if (a43 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (*(v47 - 161) < 0)
+  {
+    operator delete(*(v47 - 184));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+_BYTE **std::unique_ptr<llvm::ToolOutputFile>::~unique_ptr[abi:ne200100](_BYTE **result, uint64_t a2, BOOL a3)
+{
+  v3 = *result;
+  *result = 0;
+  if (v3)
+  {
+    v4 = result;
+    if (v3[128] == 1)
+    {
+      llvm::raw_fd_ostream::~raw_fd_ostream((v3 + 32));
+    }
+
+    llvm::CleanupInstaller::~CleanupInstaller(v3, a2, a3);
+    MEMORY[0x1E12E5B90]();
+    return v4;
+  }
+
+  return result;
+}
+
+void sub_1E07705C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, int a12, _BYTE *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+{
+  std::unique_ptr<llvm::ToolOutputFile>::~unique_ptr[abi:ne200100](&a13, v28, v29);
+  if (a19 < 0)
+  {
+    operator delete(__p);
+    if ((a25 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if ((a25 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a20);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E07707E8(_Unwind_Exception *a1)
+{
+  v4 = v3;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E07713F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+{
+  llvm::StringMap<support::ResourceStorage::ResourceReadInfo,llvm::MallocAllocator>::~StringMap(&a22);
+  if (a30 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a36 < 0)
+  {
+    operator delete(a31);
+  }
+
+  llvm::SmallVector<support::ResourceStorage::ResourceWriteInfo,10u>::~SmallVector(&a40);
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t llvm::StringMap<support::ResourceStorage::ResourceReadInfo,llvm::MallocAllocator>::~StringMap(uint64_t a1)
+{
+  if (*(a1 + 12))
+  {
+    v2 = *(a1 + 8);
+    if (v2)
+    {
+      v3 = 0;
+      do
+      {
+        v4 = *(*a1 + v3);
+        if (v4 != -8 && v4 != 0)
+        {
+          llvm::deallocate_buffer(v4, (*v4 + 17));
+        }
+
+        v3 += 8;
+      }
+
+      while (8 * v2 != v3);
+    }
+  }
+
+  free(*a1);
+  return a1;
+}
+
+void sub_1E0771B00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44)
+{
+  llvm::StringMap<support::ResourceStorage::ResourceReadInfo,llvm::MallocAllocator>::~StringMap(&a30);
+  if (a38 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a44 < 0)
+  {
+    operator delete(a39);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E0771CB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+{
+  v14 = v13;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E0771E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+{
+  _Block_object_dispose(&a15, 8);
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1E0772984(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+{
+  if (a26 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void MPSGraphOperatingSystemVersion::MPSGraphOperatingSystemVersion(MPSGraphOperatingSystemVersion *this, NSString *a2)
+{
+  v3 = [(NSString *)a2 componentsSeparatedByString:@"."];
+  if ([v3 count])
+  {
+    v4 = [v3 objectAtIndexedSubscript:0];
+    this->var0 = [v4 integerValue];
+  }
+
+  else
+  {
+    this->var0 = 0;
+  }
+
+  if ([v3 count] < 2)
+  {
+    this->var1 = 0;
+  }
+
+  else
+  {
+    v5 = [v3 objectAtIndexedSubscript:1];
+    this->var1 = [v5 integerValue];
+  }
+
+  if ([v3 count] < 3)
+  {
+    this->var2 = 0;
+  }
+
+  else
+  {
+    v6 = [v3 objectAtIndexedSubscript:2];
+    this->var2 = [v6 integerValue];
+  }
+}
+
+void InProcessPackageWritingGuard::~InProcessPackageWritingGuard(InProcessPackageWritingGuard *this)
+{
+  std::condition_variable::~condition_variable((this + 104));
+  std::mutex::~mutex((this + 40));
+  v2 = *(this + 2);
+  if (v2)
+  {
+    do
+    {
+      v4 = *v2;
+      if (*(v2 + 39) < 0)
+      {
+        operator delete(v2[2]);
+      }
+
+      operator delete(v2);
+      v2 = v4;
+    }
+
+    while (v4);
+  }
+
+  v3 = *this;
+  *this = 0;
+  if (v3)
+  {
+    operator delete(v3);
+  }
+}
+
+uint64_t **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, uint64_t *a2, uint64_t a3)
+{
+  v3 = a2;
+  v5 = a2[1];
+  if (*(a2 + 23) >= 0)
+  {
+    v6 = *(a2 + 23);
+  }
+
+  else
+  {
+    a2 = *a2;
+    v6 = v5;
+  }
+
+  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v25, a2, v6);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
+  {
+    goto LABEL_43;
+  }
+
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  if (v10.u32[0] > 1uLL)
+  {
+    v11 = v7;
+    if (v7 >= *&v9)
+    {
+      v11 = v7 % *&v9;
+    }
+  }
+
+  else
+  {
+    v11 = (*&v9 - 1) & v7;
+  }
+
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
+  {
+LABEL_43:
+    operator new();
+  }
+
+  v14 = *(v3 + 23);
+  if (v14 >= 0)
+  {
+    v15 = *(v3 + 23);
+  }
+
+  else
+  {
+    v15 = v3[1];
+  }
+
+  if (v14 < 0)
+  {
+    v3 = *v3;
+  }
+
+  if (v10.u32[0] < 2uLL)
+  {
+    while (1)
+    {
+      v20 = v13[1];
+      if (v20 == v8)
+      {
+        v21 = *(v13 + 39);
+        v22 = v21;
+        if (v21 < 0)
+        {
+          v21 = v13[3];
+        }
+
+        if (v21 == v15)
+        {
+          v23 = v22 >= 0 ? (v13 + 2) : v13[2];
+          if (!memcmp(v23, v3, v15))
+          {
+            return v13;
+          }
+        }
+      }
+
+      else if ((v20 & (*&v9 - 1)) != v11)
+      {
+        goto LABEL_43;
+      }
+
+      v13 = *v13;
+      if (!v13)
+      {
+        goto LABEL_43;
+      }
+    }
+  }
+
+  while (1)
+  {
+    v16 = v13[1];
+    if (v16 == v8)
+    {
+      break;
+    }
+
+    if (v16 >= *&v9)
+    {
+      v16 %= *&v9;
+    }
+
+    if (v16 != v11)
+    {
+      goto LABEL_43;
+    }
+
+LABEL_20:
+    v13 = *v13;
+    if (!v13)
+    {
+      goto LABEL_43;
+    }
+  }
+
+  v17 = *(v13 + 39);
+  v18 = v17;
+  if (v17 < 0)
+  {
+    v17 = v13[3];
+  }
+
+  if (v17 != v15)
+  {
+    goto LABEL_20;
+  }
+
+  v19 = v18 >= 0 ? (v13 + 2) : v13[2];
+  if (memcmp(v19, v3, v15))
+  {
+    goto LABEL_20;
+  }
+
+  return v13;
+}
+
+void sub_1E077329C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+mlir::Operation **mlir::OwningOpRef<mlir::ModuleOp>::~OwningOpRef(mlir::Operation **a1, unsigned int a2)
+{
+  v3 = *a1;
+  if (v3)
+  {
+    mlir::Operation::erase(v3, a2);
+  }
+
+  return a1;
+}
+
+{
+  v3 = *a1;
+  if (v3)
+  {
+    mlir::Operation::erase(v3, a2);
+  }
+
+  return a1;
+}
+
+void std::default_delete<InProcessPackageWritingGuard::LockGuard>::operator()[abi:ne200100](uint64_t a1)
+{
+  if ((atomic_load_explicit(&qword_1ECE75330, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECE75330))
+  {
+    unk_1ECE75348 = 0u;
+    xmmword_1ECE75338 = 0u;
+    dword_1ECE75358 = 1065353216;
+    qword_1ECE75360 = 850045863;
+    unk_1ECE75368 = 0u;
+    unk_1ECE75378 = 0u;
+    unk_1ECE75388 = 0u;
+    qword_1ECE75398 = 0;
+    unk_1ECE753A0 = 1018212795;
+    unk_1ECE753A8 = 0u;
+    unk_1ECE753B8 = 0u;
+    qword_1ECE753C8 = 0;
+    __cxa_atexit(InProcessPackageWritingGuard::~InProcessPackageWritingGuard, &xmmword_1ECE75338, &dword_1DF9BF000);
+    __cxa_guard_release(&qword_1ECE75330);
+  }
+
+  v3 = *a1;
+  v2 = *(a1 + 8);
+  std::mutex::lock(&qword_1ECE75360);
+  if (v3)
+  {
+    if (v2 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    if (v2 >= 0x17)
+    {
+      operator new();
+    }
+
+    HIBYTE(v17) = v2;
+    if (v2)
+    {
+      memmove(__dst, v3, v2);
+    }
+
+    *(__dst + v2) = 0;
+    v4 = std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::find<std::string>(&xmmword_1ECE75338, __dst);
+    if (!v4)
+    {
+LABEL_41:
+      if (SHIBYTE(v17) < 0)
+      {
+        operator delete(__dst[0]);
+      }
+
+      std::mutex::unlock(&qword_1ECE75360);
+      std::condition_variable::notify_all(&unk_1ECE753A0);
+
+      JUMPOUT(0x1E12E5B90);
+    }
+  }
+
+  else
+  {
+    __dst[0] = 0;
+    __dst[1] = 0;
+    v17 = 0;
+    v4 = std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::find<std::string>(&xmmword_1ECE75338, __dst);
+    if (!v4)
+    {
+      goto LABEL_41;
+    }
+  }
+
+  v5 = *(&xmmword_1ECE75338 + 1);
+  v6 = v4[1];
+  v7 = vcnt_s8(*(&xmmword_1ECE75338 + 8));
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
+  {
+    if (v6 >= *(&xmmword_1ECE75338 + 1))
+    {
+      v6 = (v6 % *(&xmmword_1ECE75338 + 1));
+    }
+  }
+
+  else
+  {
+    v6 = ((*(&xmmword_1ECE75338 + 1) - 1) & v6);
+  }
+
+  v8 = xmmword_1ECE75338;
+  v9 = *(xmmword_1ECE75338 + 8 * v6);
+  do
+  {
+    v10 = v9;
+    v9 = *v9;
+  }
+
+  while (v9 != v4);
+  if (v10 == &unk_1ECE75348)
+  {
+    goto LABEL_29;
+  }
+
+  v11 = v10[1];
+  if (v7.u32[0] > 1uLL)
+  {
+    if (v11 >= *(&xmmword_1ECE75338 + 1))
+    {
+      v11 = (v11 % *(&xmmword_1ECE75338 + 1));
+    }
+  }
+
+  else
+  {
+    v11 = (v11 & (*(&xmmword_1ECE75338 + 1) - 1));
+  }
+
+  if (v11 != v6)
+  {
+LABEL_29:
+    if (!*v4)
+    {
+      goto LABEL_30;
+    }
+
+    v12 = (*v4)[1];
+    if (v7.u32[0] > 1uLL)
+    {
+      if (v12 >= *(&xmmword_1ECE75338 + 1))
+      {
+        v12 %= *(&xmmword_1ECE75338 + 1);
+      }
+    }
+
+    else
+    {
+      v12 &= *(&xmmword_1ECE75338 + 1) - 1;
+    }
+
+    if (v12 != v6)
+    {
+LABEL_30:
+      *(xmmword_1ECE75338 + 8 * v6) = 0;
+    }
+  }
+
+  v13 = *v4;
+  if (*v4)
+  {
+    v14 = v13[1];
+    if (v7.u32[0] > 1uLL)
+    {
+      if (v14 >= v5)
+      {
+        v14 = (v14 % v5);
+      }
+    }
+
+    else
+    {
+      v14 = (v14 & (v5 - 1));
+    }
+
+    if (v14 != v6)
+    {
+      *(v8 + 8 * v14) = v10;
+      v13 = *v4;
+    }
+  }
+
+  *v10 = v13;
+  *v4 = 0;
+  --qword_1ECE75350;
+  if (*(v4 + 39) < 0)
+  {
+    v15 = v4;
+    operator delete(v4[2]);
+    v4 = v15;
+  }
+
+  operator delete(v4);
+  goto LABEL_41;
+}
+
+uint64_t llvm::SmallVector<support::ResourceStorage::ResourceWriteInfo,10u>::~SmallVector(uint64_t a1)
+{
+  v2 = *a1;
+  v3 = *(a1 + 8);
+  if (v3)
+  {
+    v4 = v2 + 48 * v3 - 48;
+    v5 = -48 * v3;
+    do
+    {
+      if (*(v4 + 23) < 0)
+      {
+        operator delete(*v4);
+      }
+
+      v4 -= 48;
+      v5 += 48;
+    }
+
+    while (v5);
+    v2 = *a1;
+  }
+
+  if (v2 != (a1 + 16))
+  {
+    free(v2);
+  }
+
+  return a1;
+}
+
+void llvm::SmallVectorTemplateBase<support::ResourceStorage::ResourceWriteInfo,false>::grow(char **a1, unint64_t a2)
+{
+  v15 = 0;
+  v3 = (a1 + 2);
+  v4 = llvm::SmallVectorBase<unsigned int>::mallocForGrow(a1, a1 + 2, a2, 48, &v15);
+  v5 = *a1;
+  v6 = *(a1 + 2);
+  if (v6)
+  {
+    v7 = &v5[48 * v6];
+    v8 = v4;
+    do
+    {
+      v9 = *v5;
+      *(v8 + 2) = *(v5 + 2);
+      *v8 = v9;
+      *(v5 + 1) = 0;
+      *(v5 + 2) = 0;
+      *v5 = 0;
+      v10 = *(v5 + 24);
+      *(v8 + 5) = *(v5 + 5);
+      *(v8 + 24) = v10;
+      v8 += 48;
+      v5 += 48;
+    }
+
+    while (v5 != v7);
+    v5 = *a1;
+    v11 = *(a1 + 2);
+    if (v11)
+    {
+      v12 = &v5[48 * v11 - 48];
+      v13 = -48 * v11;
+      do
+      {
+        if (*(v12 + 23) < 0)
+        {
+          operator delete(*v12);
+        }
+
+        v12 -= 48;
+        v13 += 48;
+      }
+
+      while (v13);
+      v5 = *a1;
+    }
+  }
+
+  v14 = v15;
+  if (v5 != v3)
+  {
+    free(v5);
+  }
+
+  *a1 = v4;
+  *(a1 + 3) = v14;
+}
+
+id *GPU::PoolMaxOpHandler::PoolMaxOpHandler(id *this, id *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+{
+  v100 = *MEMORY[0x1E69E9840];
+  v7 = GPU::BaseOpHandler::BaseOpHandler(this, a2, a3, a4);
+  *v7 = &unk_1F5B4B630;
+  *(v7 + 15) = 0;
+  if (*(v7 + 40) != 1)
+  {
+    return this;
+  }
+
+  [a2[6] metalDevice];
+  v77 = v95 = a3;
+  WindowSizes = mlir::mps::PoolMaxGradientOp::getWindowSizes(&v95);
+  Strides = mlir::mps::PoolMaxGradientOp::getStrides(&v95);
+  InputAttributeNames = mlir::pdl_interp::CreateOperationOp::getInputAttributeNames(&v95);
+  *&v96 = v95;
+  mlir::mps::PoolMaxGradientOp::getIndicesResultType(&v96);
+  if (v8)
+  {
+    IndicesResultType = mlir::mps::PoolMaxGradientOp::getIndicesResultType(&v96);
+    if ((v10 & 1) == 0)
+    {
+      std::__throw_bad_optional_access[abi:ne200100]();
+    }
+
+    MPSDataType = getMPSDataType(IndicesResultType);
+  }
+
+  else
+  {
+    MPSDataType = 536870944;
+  }
+
+  PaddingStyle = mlir::mps::Conv3DOp::getPaddingStyle(&v96);
+  v98 = 0u;
+  v99 = 0u;
+  v96 = 0u;
+  v97 = 0u;
+  Offsets = mlir::mps::StencilOp::getOffsets(&v95);
+  v91 = v13;
+  v14 = *(*(v95 + 9) + 24);
+  v75 = MPSDataType;
+  v76 = PaddingStyle;
+  if (v14)
+  {
+    *&v88 = GPURegionRuntime::getStaticType(a2, v14);
+    mlir::ArrayAttr::getValue(&v88);
+    if (v15)
+    {
+      if ((v15 & 0x8000000000000000) == 0)
+      {
+        operator new();
+      }
+
+      std::vector<long>::__throw_length_error[abi:ne200100]();
+    }
+  }
+
+  v88 = xmmword_1E09A7718;
+  v89 = unk_1E09A7728;
+  v86 = xmmword_1E09A7718;
+  v87 = unk_1E09A7728;
+  v84 = xmmword_1E09A7718;
+  v85 = unk_1E09A7728;
+  if (Strides)
+  {
+    if (mlir::DenseElementsAttr::getNumElements(&Strides) == 4)
+    {
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, Strides, 0);
+      v16 = Strides;
+      NumElements = mlir::DenseElementsAttr::getNumElements(&Strides);
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v16, NumElements);
+      if (v83 != v81)
+      {
+        v57 = 3;
+        do
+        {
+          mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
+          v58 = v79;
+          if (v79 < 0x41)
+          {
+            *(&v88 + v57--) = v78;
+          }
+
+          else
+          {
+            v59 = v58 - llvm::APInt::countLeadingZerosSlowCase(&v78);
+            v60 = v78;
+            if (v59 <= 0x40)
+            {
+              *(&v88 + v57--) = *v78;
+            }
+
+            else
+            {
+              *(&v88 + v57--) = -1;
+              if (!v60)
+              {
+                goto LABEL_78;
+              }
+            }
+
+            MEMORY[0x1E12E5B60]();
+          }
+
+LABEL_78:
+          *&v83 = v83 + 1;
+        }
+
+        while (v83 != v81);
+      }
+    }
+  }
+
+  if (WindowSizes)
+  {
+    if (mlir::DenseElementsAttr::getNumElements(&WindowSizes) == 4)
+    {
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, WindowSizes, 0);
+      v18 = WindowSizes;
+      v19 = mlir::DenseElementsAttr::getNumElements(&WindowSizes);
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v18, v19);
+      if (v83 != v81)
+      {
+        v61 = 3;
+        do
+        {
+          mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
+          v62 = v79;
+          if (v79 < 0x41)
+          {
+            *(&v84 + v61--) = v78;
+          }
+
+          else
+          {
+            v63 = v62 - llvm::APInt::countLeadingZerosSlowCase(&v78);
+            v64 = v78;
+            if (v63 <= 0x40)
+            {
+              *(&v84 + v61--) = *v78;
+            }
+
+            else
+            {
+              *(&v84 + v61--) = -1;
+              if (!v64)
+              {
+                goto LABEL_87;
+              }
+            }
+
+            MEMORY[0x1E12E5B60]();
+          }
+
+LABEL_87:
+          *&v83 = v83 + 1;
+        }
+
+        while (v83 != v81);
+      }
+    }
+  }
+
+  if (InputAttributeNames)
+  {
+    if (mlir::DenseElementsAttr::getNumElements(&InputAttributeNames) == 4)
+    {
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, InputAttributeNames, 0);
+      v20 = InputAttributeNames;
+      v21 = mlir::DenseElementsAttr::getNumElements(&InputAttributeNames);
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v20, v21);
+      if (v83 != v81)
+      {
+        v65 = 3;
+        do
+        {
+          mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
+          v66 = v79;
+          if (v79 < 0x41)
+          {
+            *(&v86 + v65--) = v78;
+          }
+
+          else
+          {
+            v67 = v66 - llvm::APInt::countLeadingZerosSlowCase(&v78);
+            v68 = v78;
+            if (v67 <= 0x40)
+            {
+              *(&v86 + v65--) = *v78;
+            }
+
+            else
+            {
+              *(&v86 + v65--) = -1;
+              if (!v68)
+              {
+                goto LABEL_96;
+              }
+            }
+
+            MEMORY[0x1E12E5B60]();
+          }
+
+LABEL_96:
+          *&v83 = v83 + 1;
+        }
+
+        while (v83 != v81);
+      }
+    }
+  }
+
+  if (v91 == 1 && mlir::DenseElementsAttr::getNumElements(&Offsets) == 8)
+  {
+    if ((v91 & 1) == 0)
+    {
+      std::__throw_bad_optional_access[abi:ne200100]();
+    }
+
+    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, Offsets, 0);
+    v22 = Offsets;
+    v23 = mlir::DenseElementsAttr::getNumElements(&Offsets);
+    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v22, v23);
+    if (v83 != v81)
+    {
+      v69 = 7;
+      do
+      {
+        mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
+        v70 = v79;
+        if (v79 < 0x41)
+        {
+          *(&v96 + v69--) = v78;
+        }
+
+        else
+        {
+          v71 = v70 - llvm::APInt::countLeadingZerosSlowCase(&v78);
+          v72 = v78;
+          if (v71 <= 0x40)
+          {
+            *(&v96 + v69--) = *v78;
+          }
+
+          else
+          {
+            *(&v96 + v69--) = -1;
+            if (!v72)
+            {
+              goto LABEL_105;
+            }
+          }
+
+          MEMORY[0x1E12E5B60]();
+        }
+
+LABEL_105:
+        *&v83 = v83 + 1;
+      }
+
+      while (v83 != v81);
+    }
+  }
+
+  WeightsLayout = mlir::mps::Conv3DOp::getWeightsLayout(&v95);
+  mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v95);
+  v74 = a2;
+  mlir::mps::GRUOp::getResetAfter(&v95);
+  v25 = 0;
+  v26 = (v84 - 1) * v86 + 1;
+  if (WeightsLayout <= 2)
+  {
+    if (WeightsLayout)
+    {
+      if (WeightsLayout != 2)
+      {
+        goto LABEL_35;
+      }
+
+      goto LABEL_29;
+    }
+
+LABEL_34:
+    v25 = *(&v96 + 1);
+    goto LABEL_35;
+  }
+
+  if (WeightsLayout == 3)
+  {
+    goto LABEL_34;
+  }
+
+  if (WeightsLayout != 4)
+  {
+    goto LABEL_35;
+  }
+
+LABEL_29:
+  v27 = v88;
+  if (1 % v88)
+  {
+    v27 = 1 % v88;
+  }
+
+  v28 = (v26 - v27) & ~((v26 - v27) >> 63);
+  v29 = v28 >> 1;
+  v30 = v28 - (v28 >> 1);
+  if (WeightsLayout == 4)
+  {
+    v25 = v30;
+  }
+
+  else
+  {
+    v25 = v29;
+  }
+
+LABEL_35:
+  v31 = 0;
+  v32 = (*(&v84 + 1) - 1) * *(&v86 + 1) + 1;
+  v73 = a3;
+  if (WeightsLayout <= 2)
+  {
+    if (WeightsLayout)
+    {
+      if (WeightsLayout != 2)
+      {
+        goto LABEL_47;
+      }
+
+      goto LABEL_41;
+    }
+
+LABEL_46:
+    v31 = *(&v97 + 1);
+    goto LABEL_47;
+  }
+
+  if (WeightsLayout == 3)
+  {
+    goto LABEL_46;
+  }
+
+  if (WeightsLayout != 4)
+  {
+    goto LABEL_47;
+  }
+
+LABEL_41:
+  v33 = *(&v88 + 1);
+  if (1uLL % *(&v88 + 1))
+  {
+    v33 = 1uLL % *(&v88 + 1);
+  }
+
+  v34 = (v32 - v33) & ~((v32 - v33) >> 63);
+  v35 = v34 >> 1;
+  v36 = v34 - (v34 >> 1);
+  if (WeightsLayout == 4)
+  {
+    v31 = v36;
+  }
+
+  else
+  {
+    v31 = v35;
+  }
+
+LABEL_47:
+  v37 = 0;
+  v38 = (v85 - 1) * v87 + 1;
+  if (WeightsLayout <= 2)
+  {
+    if (WeightsLayout)
+    {
+      if (WeightsLayout != 2)
+      {
+        goto LABEL_59;
+      }
+
+      goto LABEL_53;
+    }
+
+LABEL_58:
+    v37 = *(&v98 + 1);
+    goto LABEL_59;
+  }
+
+  if (WeightsLayout == 3)
+  {
+    goto LABEL_58;
+  }
+
+  if (WeightsLayout != 4)
+  {
+    goto LABEL_59;
+  }
+
+LABEL_53:
+  v39 = v89;
+  if (1 % v89)
+  {
+    v39 = 1 % v89;
+  }
+
+  v40 = (v38 - v39) & ~((v38 - v39) >> 63);
+  v41 = v40 >> 1;
+  v42 = v40 - (v40 >> 1);
+  if (WeightsLayout == 4)
+  {
+    v37 = v42;
+  }
+
+  else
+  {
+    v37 = v41;
+  }
+
+LABEL_59:
+  v43 = 0;
+  v44 = (*(&v85 + 1) - 1) * *(&v87 + 1) + 1;
+  if (WeightsLayout <= 2)
+  {
+    if (WeightsLayout)
+    {
+      if (WeightsLayout != 2)
+      {
+        goto LABEL_71;
+      }
+
+LABEL_65:
+      v45 = *(&v89 + 1);
+      if (1uLL % *(&v89 + 1))
+      {
+        v45 = 1uLL % *(&v89 + 1);
+      }
+
+      v46 = (v44 - v45) & ~((v44 - v45) >> 63);
+      v47 = v46 >> 1;
+      v48 = v46 - (v46 >> 1);
+      if (WeightsLayout == 4)
+      {
+        v43 = v48;
+      }
+
+      else
+      {
+        v43 = v47;
+      }
+
+      goto LABEL_71;
+    }
+
+    goto LABEL_70;
+  }
+
+  if (WeightsLayout == 3)
+  {
+LABEL_70:
+    v43 = *(&v99 + 1);
+    goto LABEL_71;
+  }
+
+  if (WeightsLayout == 4)
+  {
+    goto LABEL_65;
+  }
+
+LABEL_71:
+  v49 = objc_alloc(MEMORY[0x1E69747E0]);
+  v82 = v84;
+  v83 = v85;
+  v50 = [v49 initWithDevice:v77 kernelSizes:&v82 poolingMode:1];
+  *&v82 = v26 / 2 - v25;
+  *(&v82 + 1) = v32 / 2 - v31;
+  *&v83 = v38 / 2 - v37;
+  *(&v83 + 1) = v44 / 2 - v43;
+  [v50 setPoolingOffsets:&v82];
+  v82 = v88;
+  v83 = v89;
+  [v50 setPoolingStrides:&v82];
+  v82 = v86;
+  v83 = v87;
+  [v50 setPoolingDilationRates:&v82];
+  if (v76 < 8)
+  {
+    v51 = v76 + 1;
+  }
+
+  else
+  {
+    v51 = 0;
+  }
+
+  [v50 setPoolingReturnIndicesMode:{v51, 1}];
+  [v50 setPoolingReturnIndicesDataType:v75];
+  [v50 setOptions:1];
+
+  v52 = this[1];
+  this[1] = v50;
+
+  v54 = v53 = [v74[6] metalDevice];
+  v55 = this[15];
+  this[15] = v54;
+
+  [this[1] setOptions:{objc_msgSend(this[1], "options") | 1}];
+  [this[15] setOptions:{objc_msgSend(this[15], "options") | 1}];
+  return this;
+}
+
+void sub_1E0774180(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, void *a16)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(v16);
+  _Unwind_Resume(a1);
+}
+
+id GPU::anonymous namespace::createPoolingMaxGeneric<mlir::mps::PoolMaxOp,MPSNDArrayPoolingMultiDestinationKernel>(uint64_t a1, uint64_t a2, void *a3)
+{
+  v90 = *MEMORY[0x1E69E9840];
+  v85 = a2;
+  v67 = a3;
+  WindowSizes = mlir::mps::PoolMaxGradientOp::getWindowSizes(&v85);
+  Strides = mlir::mps::PoolMaxGradientOp::getStrides(&v85);
+  InputAttributeNames = mlir::pdl_interp::CreateOperationOp::getInputAttributeNames(&v85);
+  *&v86 = v85;
+  mlir::mps::PoolMaxGradientOp::getIndicesResultType(&v86);
+  if (v4)
+  {
+    IndicesResultType = mlir::mps::PoolMaxGradientOp::getIndicesResultType(&v86);
+    if ((v6 & 1) == 0)
+    {
+      std::__throw_bad_optional_access[abi:ne200100]();
+    }
+
+    MPSDataType = getMPSDataType(IndicesResultType);
+  }
+
+  else
+  {
+    MPSDataType = 536870944;
+  }
+
+  PaddingStyle = mlir::mps::Conv3DOp::getPaddingStyle(&v86);
+  v88 = 0u;
+  v89 = 0u;
+  v86 = 0u;
+  v87 = 0u;
+  Offsets = mlir::mps::StencilOp::getOffsets(&v85);
+  v81 = v9;
+  v10 = *(*(v85 + 72) + 24);
+  v66 = PaddingStyle;
+  if (v10)
+  {
+    *&v78 = GPURegionRuntime::getStaticType(a1, v10);
+    mlir::ArrayAttr::getValue(&v78);
+    if (v11)
+    {
+      if ((v11 & 0x8000000000000000) == 0)
+      {
+        operator new();
+      }
+
+      std::vector<long>::__throw_length_error[abi:ne200100]();
+    }
+  }
+
+  v78 = xmmword_1E09A7718;
+  v79 = unk_1E09A7728;
+  v76 = xmmword_1E09A7718;
+  v77 = unk_1E09A7728;
+  v74 = xmmword_1E09A7718;
+  v75 = unk_1E09A7728;
+  if (Strides)
+  {
+    if (mlir::DenseElementsAttr::getNumElements(&Strides) == 4)
+    {
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v72, Strides, 0);
+      v12 = Strides;
+      NumElements = mlir::DenseElementsAttr::getNumElements(&Strides);
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v70, v12, NumElements);
+      if (v73 != v71)
+      {
+        v50 = 3;
+        do
+        {
+          mlir::DenseElementsAttr::IntElementIterator::operator*(&v72, &v68);
+          v51 = v69;
+          if (v69 < 0x41)
+          {
+            *(&v78 + v50--) = v68;
+          }
+
+          else
+          {
+            v52 = v51 - llvm::APInt::countLeadingZerosSlowCase(&v68);
+            v53 = v68;
+            if (v52 <= 0x40)
+            {
+              *(&v78 + v50--) = *v68;
+            }
+
+            else
+            {
+              *(&v78 + v50--) = -1;
+              if (!v53)
+              {
+                goto LABEL_78;
+              }
+            }
+
+            MEMORY[0x1E12E5B60]();
+          }
+
+LABEL_78:
+          *&v73 = v73 + 1;
+        }
+
+        while (v73 != v71);
+      }
+    }
+  }
+
+  if (WindowSizes)
+  {
+    if (mlir::DenseElementsAttr::getNumElements(&WindowSizes) == 4)
+    {
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v72, WindowSizes, 0);
+      v14 = WindowSizes;
+      v15 = mlir::DenseElementsAttr::getNumElements(&WindowSizes);
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v70, v14, v15);
+      if (v73 != v71)
+      {
+        v54 = 3;
+        do
+        {
+          mlir::DenseElementsAttr::IntElementIterator::operator*(&v72, &v68);
+          v55 = v69;
+          if (v69 < 0x41)
+          {
+            *(&v74 + v54--) = v68;
+          }
+
+          else
+          {
+            v56 = v55 - llvm::APInt::countLeadingZerosSlowCase(&v68);
+            v57 = v68;
+            if (v56 <= 0x40)
+            {
+              *(&v74 + v54--) = *v68;
+            }
+
+            else
+            {
+              *(&v74 + v54--) = -1;
+              if (!v57)
+              {
+                goto LABEL_87;
+              }
+            }
+
+            MEMORY[0x1E12E5B60]();
+          }
+
+LABEL_87:
+          *&v73 = v73 + 1;
+        }
+
+        while (v73 != v71);
+      }
+    }
+  }
+
+  if (InputAttributeNames)
+  {
+    if (mlir::DenseElementsAttr::getNumElements(&InputAttributeNames) == 4)
+    {
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v72, InputAttributeNames, 0);
+      v16 = InputAttributeNames;
+      v17 = mlir::DenseElementsAttr::getNumElements(&InputAttributeNames);
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v70, v16, v17);
+      if (v73 != v71)
+      {
+        v58 = 3;
+        do
+        {
+          mlir::DenseElementsAttr::IntElementIterator::operator*(&v72, &v68);
+          v59 = v69;
+          if (v69 < 0x41)
+          {
+            *(&v76 + v58--) = v68;
+          }
+
+          else
+          {
+            v60 = v59 - llvm::APInt::countLeadingZerosSlowCase(&v68);
+            v61 = v68;
+            if (v60 <= 0x40)
+            {
+              *(&v76 + v58--) = *v68;
+            }
+
+            else
+            {
+              *(&v76 + v58--) = -1;
+              if (!v61)
+              {
+                goto LABEL_96;
+              }
+            }
+
+            MEMORY[0x1E12E5B60]();
+          }
+
+LABEL_96:
+          *&v73 = v73 + 1;
+        }
+
+        while (v73 != v71);
+      }
+    }
+  }
+
+  if (v81 == 1 && mlir::DenseElementsAttr::getNumElements(&Offsets) == 8)
+  {
+    if ((v81 & 1) == 0)
+    {
+      std::__throw_bad_optional_access[abi:ne200100]();
+    }
+
+    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v72, Offsets, 0);
+    v18 = Offsets;
+    v19 = mlir::DenseElementsAttr::getNumElements(&Offsets);
+    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v70, v18, v19);
+    if (v73 != v71)
+    {
+      v62 = 7;
+      do
+      {
+        mlir::DenseElementsAttr::IntElementIterator::operator*(&v72, &v68);
+        v63 = v69;
+        if (v69 < 0x41)
+        {
+          *(&v86 + v62--) = v68;
+        }
+
+        else
+        {
+          v64 = v63 - llvm::APInt::countLeadingZerosSlowCase(&v68);
+          v65 = v68;
+          if (v64 <= 0x40)
+          {
+            *(&v86 + v62--) = *v68;
+          }
+
+          else
+          {
+            *(&v86 + v62--) = -1;
+            if (!v65)
+            {
+              goto LABEL_105;
+            }
+          }
+
+          MEMORY[0x1E12E5B60]();
+        }
+
+LABEL_105:
+        *&v73 = v73 + 1;
+      }
+
+      while (v73 != v71);
+    }
+  }
+
+  WeightsLayout = mlir::mps::Conv3DOp::getWeightsLayout(&v85);
+  mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v85);
+  v21 = MPSDataType;
+  mlir::mps::GRUOp::getResetAfter(&v85);
+  v22 = 0;
+  v23 = (v74 - 1) * v76 + 1;
+  if (WeightsLayout <= 2)
+  {
+    if (WeightsLayout)
+    {
+      if (WeightsLayout != 2)
+      {
+        goto LABEL_34;
+      }
+
+      goto LABEL_28;
+    }
+
+LABEL_33:
+    v22 = *(&v86 + 1);
+    goto LABEL_34;
+  }
+
+  if (WeightsLayout == 3)
+  {
+    goto LABEL_33;
+  }
+
+  if (WeightsLayout != 4)
+  {
+    goto LABEL_34;
+  }
+
+LABEL_28:
+  v24 = v78;
+  if (1 % v78)
+  {
+    v24 = 1 % v78;
+  }
+
+  v25 = (v23 - v24) & ~((v23 - v24) >> 63);
+  v26 = v25 >> 1;
+  v27 = v25 - (v25 >> 1);
+  if (WeightsLayout == 4)
+  {
+    v22 = v27;
+  }
+
+  else
+  {
+    v22 = v26;
+  }
+
+LABEL_34:
+  v28 = 0;
+  v29 = (*(&v74 + 1) - 1) * *(&v76 + 1) + 1;
+  if (WeightsLayout <= 2)
+  {
+    if (WeightsLayout)
+    {
+      if (WeightsLayout != 2)
+      {
+        goto LABEL_46;
+      }
+
+      goto LABEL_40;
+    }
+
+LABEL_45:
+    v28 = *(&v87 + 1);
+    goto LABEL_46;
+  }
+
+  if (WeightsLayout == 3)
+  {
+    goto LABEL_45;
+  }
+
+  if (WeightsLayout != 4)
+  {
+    goto LABEL_46;
+  }
+
+LABEL_40:
+  v30 = *(&v78 + 1);
+  if (1uLL % *(&v78 + 1))
+  {
+    v30 = 1uLL % *(&v78 + 1);
+  }
+
+  v31 = (v29 - v30) & ~((v29 - v30) >> 63);
+  v32 = v31 >> 1;
+  v33 = v31 - (v31 >> 1);
+  if (WeightsLayout == 4)
+  {
+    v28 = v33;
+  }
+
+  else
+  {
+    v28 = v32;
+  }
+
+LABEL_46:
+  v34 = 0;
+  v35 = (v75 - 1) * v77 + 1;
+  if (WeightsLayout <= 2)
+  {
+    if (WeightsLayout)
+    {
+      if (WeightsLayout != 2)
+      {
+        goto LABEL_58;
+      }
+
+      goto LABEL_52;
+    }
+
+LABEL_57:
+    v34 = *(&v88 + 1);
+    goto LABEL_58;
+  }
+
+  if (WeightsLayout == 3)
+  {
+    goto LABEL_57;
+  }
+
+  if (WeightsLayout != 4)
+  {
+    goto LABEL_58;
+  }
+
+LABEL_52:
+  v36 = v79;
+  if (1 % v79)
+  {
+    v36 = 1 % v79;
+  }
+
+  v37 = (v35 - v36) & ~((v35 - v36) >> 63);
+  v38 = v37 >> 1;
+  v39 = v37 - (v37 >> 1);
+  if (WeightsLayout == 4)
+  {
+    v34 = v39;
+  }
+
+  else
+  {
+    v34 = v38;
+  }
+
+LABEL_58:
+  v40 = 0;
+  v41 = (*(&v75 + 1) - 1) * *(&v77 + 1) + 1;
+  if (WeightsLayout <= 2)
+  {
+    if (WeightsLayout)
+    {
+      if (WeightsLayout != 2)
+      {
+        goto LABEL_70;
+      }
+
+      goto LABEL_64;
+    }
+
+LABEL_69:
+    v40 = *(&v89 + 1);
+    goto LABEL_70;
+  }
+
+  if (WeightsLayout == 3)
+  {
+    goto LABEL_69;
+  }
+
+  if (WeightsLayout != 4)
+  {
+    goto LABEL_70;
+  }
+
+LABEL_64:
+  v42 = *(&v79 + 1);
+  if (1uLL % *(&v79 + 1))
+  {
+    v42 = 1uLL % *(&v79 + 1);
+  }
+
+  v43 = (v41 - v42) & ~((v41 - v42) >> 63);
+  v44 = v43 >> 1;
+  v45 = v43 - (v43 >> 1);
+  if (WeightsLayout == 4)
+  {
+    v40 = v45;
+  }
+
+  else
+  {
+    v40 = v44;
+  }
+
+LABEL_70:
+  v46 = objc_alloc(MEMORY[0x1E69747E8]);
+  v72 = v74;
+  v73 = v75;
+  v47 = [v46 initWithDevice:v67 kernelSizes:&v72 poolingMode:1];
+  *&v72 = v23 / 2 - v22;
+  *(&v72 + 1) = v29 / 2 - v28;
+  *&v73 = v35 / 2 - v34;
+  *(&v73 + 1) = v41 / 2 - v40;
+  [v47 setPoolingOffsets:&v72];
+  v72 = v78;
+  v73 = v79;
+  [v47 setPoolingStrides:&v72];
+  v72 = v76;
+  v73 = v77;
+  [v47 setPoolingDilationRates:&v72];
+  if (v66 < 8)
+  {
+    v48 = v66 + 1;
+  }
+
+  else
+  {
+    v48 = 0;
+  }
+
+  [v47 setPoolingReturnIndicesMode:{v48, 1}];
+  [v47 setPoolingReturnIndicesDataType:v21];
+  [v47 setOptions:1];
+
+  return v47;
+}
+
+void sub_1E0774B88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, void *a12)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void GPU::PoolMaxOpHandler::encodeOp(GPU::PoolMaxOpHandler *this, GPU::EncodeDescriptor *a2)
+{
+  v25[1] = *MEMORY[0x1E69E9840];
+  GPU::BaseOpHandler::_inferJITOutputTypes(this, a2);
+  v4 = *(this + 3);
+  v24 = *(this + 15);
+  if (!v24)
+  {
+    v5 = *(this + 2);
+    v24 = v6 = [*(v5 + 48) metalDevice];
+  }
+
+  v7 = (*(**(this + 2) + 48))(*(this + 2), *(*(v4 + 72) + 24), 0);
+  v8 = [v7 mpsndarray];
+
+  if (!v8 && MTLReportFailureTypeEnabled())
+  {
+    MTLReportFailure();
+  }
+
+  v9 = *(this + 3);
+  v10 = *(v9 + 36);
+  v11 = v9 - 16;
+  if (v10)
+  {
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:v10];
+  if (v10)
+  {
+    v23 = v8;
+    v14 = 0;
+    for (i = 0; i != v10; ++i)
+    {
+      v16 = *mlir::detail::OpResultImpl::getNextResultAtOffset(v12, i);
+      if (!v16)
+      {
+        goto LABEL_15;
+      }
+
+      v17 = 0;
+      do
+      {
+        v16 = *v16;
+        --v17;
+      }
+
+      while (v16);
+      if (v17)
+      {
+        v18 = (*(**(this + 2) + 80))(*(this + 2));
+        v19 = [v18 mpsndarray];
+        [v13 addObject:v19];
+        v14 = (1 << i) | v14;
+      }
+
+      else
+      {
+LABEL_15:
+        v18 = [MEMORY[0x1E695DFB0] null];
+        [v13 addObject:v18];
+      }
+    }
+
+    v8 = v23;
+    if ((v14 & 2) != 0)
+    {
+      [v24 poolingReturnIndicesMode];
+      if (![v24 poolingReturnIndicesMode])
+      {
+        if (MTLReportFailureTypeEnabled())
+        {
+          MTLReportFailure();
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v20 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+  v21 = *(a2 + 1);
+  v25[0] = v8;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+  [v24 encodeToMPSCommandEncoder:v20 commandBuffer:v21 sourceArrays:v22 destinationArrays:v13 activeDestinationMask:v14];
+}
+
+void GPU::PoolingGradientOpHandler<mlir::mps::PoolMaxGradientOp,(MPSNDArrayPoolingMode_s)1>::_createNDArrayMultiaryKernel(uint64_t a1)
+{
+  v100 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 16);
+  v2 = *(a1 + 24);
+  [*(v3 + 48) metalDevice];
+  v4 = v93 = v2;
+  WindowSizes = mlir::mps::PoolMaxGradientOp::getWindowSizes(&v93);
+  Strides = mlir::mps::PoolMaxGradientOp::getStrides(&v93);
+  InputAttributeNames = mlir::pdl_interp::CreateOperationOp::getInputAttributeNames(&v93);
+  *&v94 = v93;
+  mlir::mps::PoolMaxGradientOp::getIndicesResultType(&v94);
+  if (v5)
+  {
+    IndicesResultType = mlir::mps::PoolMaxGradientOp::getIndicesResultType(&v94);
+    if ((v7 & 1) == 0)
+    {
+      std::__throw_bad_optional_access[abi:ne200100]();
+    }
+
+    MPSDataType = getMPSDataType(IndicesResultType);
+  }
+
+  else
+  {
+    MPSDataType = 536870944;
+  }
+
+  PaddingStyle = mlir::mps::Conv3DOp::getPaddingStyle(&v94);
+  v96 = 0u;
+  v97 = 0u;
+  v94 = 0u;
+  v95 = 0u;
+  Offsets = mlir::mps::StencilOp::getOffsets(&v93);
+  v89 = v10;
+  ODSOperandIndexAndLength = mlir::mps::PoolMaxGradientOp::getODSOperandIndexAndLength(&v93, 1u);
+  if ((*(v93 + 46) & 0x80) != 0)
+  {
+    v12 = *(v93 + 72);
+    v13 = ODSOperandIndexAndLength;
+    if (HIDWORD(ODSOperandIndexAndLength) + ODSOperandIndexAndLength == ODSOperandIndexAndLength)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+    v13 = ODSOperandIndexAndLength;
+    if (HIDWORD(ODSOperandIndexAndLength) + ODSOperandIndexAndLength == ODSOperandIndexAndLength)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  v14 = *(v12 + 32 * v13 + 24);
+  if (v14)
+  {
+    *&v98 = GPURegionRuntime::getStaticType(v3, v14);
+    mlir::ArrayAttr::getValue(&v98);
+    if (v15)
+    {
+      if ((v15 & 0x8000000000000000) == 0)
+      {
+        operator new();
+      }
+
+      std::vector<long>::__throw_length_error[abi:ne200100]();
+    }
+
+    goto LABEL_21;
+  }
+
+LABEL_13:
+  *&v86 = v93;
+  *&v98 = v99;
+  *(&v98 + 1) = 0x400000000;
+  v16 = mlir::mps::PoolMaxGradientOp::getODSOperandIndexAndLength(&v86, 3u);
+  if ((*(v86 + 46) & 0x80) == 0)
+  {
+    v17 = 0;
+    v18 = v16;
+    if (HIDWORD(v16) + v16 == v16)
+    {
+      goto LABEL_15;
+    }
+
+LABEL_17:
+    v19 = *(v17 + 32 * v18 + 24);
+    goto LABEL_18;
+  }
+
+  v17 = *(v86 + 72);
+  v18 = v16;
+  if (HIDWORD(v16) + v16 != v16)
+  {
+    goto LABEL_17;
+  }
+
+LABEL_15:
+  v19 = 0;
+LABEL_18:
+  mlir::matchConstantWithIntVector<long long>(v19, &v98);
+  if (DWORD2(v98))
+  {
+    operator new();
+  }
+
+  if (v98 != v99)
+  {
+    free(v98);
+  }
+
+LABEL_21:
+  v98 = xmmword_1E09A7718;
+  v99[0] = unk_1E09A7728;
+  v86 = xmmword_1E09A7718;
+  v87 = unk_1E09A7728;
+  v84 = xmmword_1E09A7718;
+  v85 = unk_1E09A7728;
+  v75 = a1;
+  v76 = MPSDataType;
+  v77 = PaddingStyle;
+  if (Strides)
+  {
+    if (mlir::DenseElementsAttr::getNumElements(&Strides) == 4)
+    {
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, Strides, 0);
+      v20 = Strides;
+      NumElements = mlir::DenseElementsAttr::getNumElements(&Strides);
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v20, NumElements);
+      if (v83 != v81)
+      {
+        v59 = 3;
+        do
+        {
+          mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
+          v60 = v79;
+          if (v79 < 0x41)
+          {
+            *(&v99[-1] + v59--) = v78;
+          }
+
+          else
+          {
+            v61 = v60 - llvm::APInt::countLeadingZerosSlowCase(&v78);
+            v62 = v78;
+            if (v61 <= 0x40)
+            {
+              *(&v99[-1] + v59--) = *v78;
+            }
+
+            else
+            {
+              *(&v99[-1] + v59--) = -1;
+              if (!v62)
+              {
+                goto LABEL_91;
+              }
+            }
+
+            MEMORY[0x1E12E5B60]();
+          }
+
+LABEL_91:
+          *&v83 = v83 + 1;
+        }
+
+        while (v83 != v81);
+      }
+    }
+  }
+
+  if (WindowSizes)
+  {
+    if (mlir::DenseElementsAttr::getNumElements(&WindowSizes) == 4)
+    {
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, WindowSizes, 0);
+      v22 = WindowSizes;
+      v23 = mlir::DenseElementsAttr::getNumElements(&WindowSizes);
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v22, v23);
+      if (v83 != v81)
+      {
+        v63 = 3;
+        do
+        {
+          mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
+          v64 = v79;
+          if (v79 < 0x41)
+          {
+            *(&v84 + v63--) = v78;
+          }
+
+          else
+          {
+            v65 = v64 - llvm::APInt::countLeadingZerosSlowCase(&v78);
+            v66 = v78;
+            if (v65 <= 0x40)
+            {
+              *(&v84 + v63--) = *v78;
+            }
+
+            else
+            {
+              *(&v84 + v63--) = -1;
+              if (!v66)
+              {
+                goto LABEL_100;
+              }
+            }
+
+            MEMORY[0x1E12E5B60]();
+          }
+
+LABEL_100:
+          *&v83 = v83 + 1;
+        }
+
+        while (v83 != v81);
+      }
+    }
+  }
+
+  if (InputAttributeNames)
+  {
+    if (mlir::DenseElementsAttr::getNumElements(&InputAttributeNames) == 4)
+    {
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, InputAttributeNames, 0);
+      v24 = InputAttributeNames;
+      v25 = mlir::DenseElementsAttr::getNumElements(&InputAttributeNames);
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v24, v25);
+      if (v83 != v81)
+      {
+        v67 = 3;
+        do
+        {
+          mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
+          v68 = v79;
+          if (v79 < 0x41)
+          {
+            *(&v86 + v67--) = v78;
+          }
+
+          else
+          {
+            v69 = v68 - llvm::APInt::countLeadingZerosSlowCase(&v78);
+            v70 = v78;
+            if (v69 <= 0x40)
+            {
+              *(&v86 + v67--) = *v78;
+            }
+
+            else
+            {
+              *(&v86 + v67--) = -1;
+              if (!v70)
+              {
+                goto LABEL_109;
+              }
+            }
+
+            MEMORY[0x1E12E5B60]();
+          }
+
+LABEL_109:
+          *&v83 = v83 + 1;
+        }
+
+        while (v83 != v81);
+      }
+    }
+  }
+
+  if (v89 == 1 && mlir::DenseElementsAttr::getNumElements(&Offsets) == 8)
+  {
+    if ((v89 & 1) == 0)
+    {
+      std::__throw_bad_optional_access[abi:ne200100]();
+    }
+
+    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, Offsets, 0);
+    v26 = Offsets;
+    v27 = mlir::DenseElementsAttr::getNumElements(&Offsets);
+    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v26, v27);
+    if (v83 != v81)
+    {
+      v71 = 7;
+      do
+      {
+        mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
+        v72 = v79;
+        if (v79 < 0x41)
+        {
+          *(&v94 + v71--) = v78;
+        }
+
+        else
+        {
+          v73 = v72 - llvm::APInt::countLeadingZerosSlowCase(&v78);
+          v74 = v78;
+          if (v73 <= 0x40)
+          {
+            *(&v94 + v71--) = *v78;
+          }
+
+          else
+          {
+            *(&v94 + v71--) = -1;
+            if (!v74)
+            {
+              goto LABEL_118;
+            }
+          }
+
+          MEMORY[0x1E12E5B60]();
+        }
+
+LABEL_118:
+        *&v83 = v83 + 1;
+      }
+
+      while (v83 != v81);
+    }
+  }
+
+  WeightsLayout = mlir::mps::Conv3DOp::getWeightsLayout(&v93);
+  mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v93);
+  mlir::mps::GRUOp::getResetAfter(&v93);
+  v29 = 0;
+  v30 = (v84 - 1) * v86 + 1;
+  if (WeightsLayout <= 2)
+  {
+    if (WeightsLayout)
+    {
+      v31 = v4;
+      if (WeightsLayout != 2)
+      {
+        goto LABEL_49;
+      }
+
+      goto LABEL_43;
+    }
+
+LABEL_48:
+    v31 = v4;
+    v29 = *(&v94 + 1);
+    goto LABEL_49;
+  }
+
+  if (WeightsLayout == 3)
+  {
+    goto LABEL_48;
+  }
+
+  v31 = v4;
+  if (WeightsLayout != 4)
+  {
+    goto LABEL_49;
+  }
+
+LABEL_43:
+  v32 = v98;
+  if (1 % v98)
+  {
+    v32 = 1 % v98;
+  }
+
+  v33 = (v30 - v32) & ~((v30 - v32) >> 63);
+  v34 = v33 >> 1;
+  v35 = v33 - (v33 >> 1);
+  if (WeightsLayout == 4)
+  {
+    v29 = v35;
+  }
+
+  else
+  {
+    v29 = v34;
+  }
+
+LABEL_49:
+  v36 = 0;
+  v37 = (*(&v84 + 1) - 1) * *(&v86 + 1) + 1;
+  if (WeightsLayout <= 2)
+  {
+    if (WeightsLayout)
+    {
+      if (WeightsLayout != 2)
+      {
+        goto LABEL_61;
+      }
+
+      goto LABEL_55;
+    }
+
+LABEL_60:
+    v36 = *(&v95 + 1);
+    goto LABEL_61;
+  }
+
+  if (WeightsLayout == 3)
+  {
+    goto LABEL_60;
+  }
+
+  if (WeightsLayout != 4)
+  {
+    goto LABEL_61;
+  }
+
+LABEL_55:
+  v38 = *(&v98 + 1);
+  if (1uLL % *(&v98 + 1))
+  {
+    v38 = 1uLL % *(&v98 + 1);
+  }
+
+  v39 = (v37 - v38) & ~((v37 - v38) >> 63);
+  v40 = v39 >> 1;
+  v41 = v39 - (v39 >> 1);
+  if (WeightsLayout == 4)
+  {
+    v36 = v41;
+  }
+
+  else
+  {
+    v36 = v40;
+  }
+
+LABEL_61:
+  v42 = 0;
+  v43 = (v85 - 1) * v87 + 1;
+  if (WeightsLayout <= 2)
+  {
+    if (WeightsLayout)
+    {
+      if (WeightsLayout != 2)
+      {
+        goto LABEL_73;
+      }
+
+      goto LABEL_67;
+    }
+
+LABEL_72:
+    v42 = *(&v96 + 1);
+    goto LABEL_73;
+  }
+
+  if (WeightsLayout == 3)
+  {
+    goto LABEL_72;
+  }
+
+  if (WeightsLayout != 4)
+  {
+    goto LABEL_73;
+  }
+
+LABEL_67:
+  v44 = *&v99[0];
+  if (1uLL % *&v99[0])
+  {
+    v44 = 1uLL % *&v99[0];
+  }
+
+  v45 = (v43 - v44) & ~((v43 - v44) >> 63);
+  v46 = v45 >> 1;
+  v47 = v45 - (v45 >> 1);
+  if (WeightsLayout == 4)
+  {
+    v42 = v47;
+  }
+
+  else
+  {
+    v42 = v46;
+  }
+
+LABEL_73:
+  v48 = 0;
+  v49 = (*(&v85 + 1) - 1) * *(&v87 + 1) + 1;
+  if (WeightsLayout <= 2)
+  {
+    if (WeightsLayout)
+    {
+      if (WeightsLayout != 2)
+      {
+        goto LABEL_85;
+      }
+
+      goto LABEL_79;
+    }
+
+LABEL_84:
+    v48 = *(&v97 + 1);
+    goto LABEL_85;
+  }
+
+  if (WeightsLayout == 3)
+  {
+    goto LABEL_84;
+  }
+
+  if (WeightsLayout != 4)
+  {
+    goto LABEL_85;
+  }
+
+LABEL_79:
+  v50 = *(&v99[0] + 1);
+  if (1uLL % *(&v99[0] + 1))
+  {
+    v50 = 1uLL % *(&v99[0] + 1);
+  }
+
+  v51 = (v49 - v50) & ~((v49 - v50) >> 63);
+  v52 = v51 >> 1;
+  v53 = v51 - (v51 >> 1);
+  if (WeightsLayout == 4)
+  {
+    v48 = v53;
+  }
+
+  else
+  {
+    v48 = v52;
+  }
+
+LABEL_85:
+  v54 = objc_alloc(MEMORY[0x1E69747E0]);
+  v82 = v84;
+  v83 = v85;
+  v55 = [v54 initWithDevice:v31 kernelSizes:&v82 poolingMode:1];
+  *&v82 = v30 / 2 - v29;
+  *(&v82 + 1) = v37 / 2 - v36;
+  *&v83 = v43 / 2 - v42;
+  *(&v83 + 1) = v49 / 2 - v48;
+  [v55 setPoolingOffsets:&v82];
+  v82 = v98;
+  v83 = v99[0];
+  [v55 setPoolingStrides:&v82];
+  v82 = v86;
+  v83 = v87;
+  [v55 setPoolingDilationRates:&v82];
+  if (v77 < 8)
+  {
+    v56 = v77 + 1;
+  }
+
+  else
+  {
+    v56 = 0;
+  }
+
+  [v55 setPoolingReturnIndicesMode:v56];
+  [v55 setPoolingReturnIndicesDataType:v76];
+  [v55 setOptions:1];
+  v57 = v55;
+
+  v58 = *(v75 + 8);
+  *(v75 + 8) = v57;
+}
+
 void sub_1E0775A60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p)
 {
   if (__p)
@@ -178,7 +2770,7 @@ void GPU::MultiaryKernelOpHandler<GPU::PoolingGradientOpHandler<mlir::mps::PoolA
   v17 = v16;
   if (v16)
   {
-    [v16 poolingDilationRates];
+    objc_msgSend_poolingDilationRates(v16);
   }
 
   v18 = [v17 poolingMode];
@@ -186,22 +2778,22 @@ void GPU::MultiaryKernelOpHandler<GPU::PoolingGradientOpHandler<mlir::mps::PoolA
   {
     if (v18 == 1)
     {
-      [v17 poolingKernelSizes];
+      objc_msgSend_poolingKernelSizes(v17);
       if (v35 == 1)
       {
-        [v17 poolingKernelSizes];
+        objc_msgSend_poolingKernelSizes(v17);
         if (v33 == 1)
         {
-          [v17 poolingStrides];
+          objc_msgSend_poolingStrides(v17);
           if (v31 == 1)
           {
-            [v17 poolingStrides];
+            objc_msgSend_poolingStrides(v17);
             if (v30 == 1)
             {
-              [v17 poolingOffsets];
+              objc_msgSend_poolingOffsets(v17);
               if (!v28)
               {
-                [v17 poolingOffsets];
+                objc_msgSend_poolingOffsets(v17);
               }
             }
           }
@@ -215,22 +2807,22 @@ void GPU::MultiaryKernelOpHandler<GPU::PoolingGradientOpHandler<mlir::mps::PoolA
   {
     if (v19 == 1)
     {
-      [v17 poolingKernelSizes];
+      objc_msgSend_poolingKernelSizes(v17);
       if (v35 == 1)
       {
-        [v17 poolingKernelSizes];
+        objc_msgSend_poolingKernelSizes(v17);
         if (v32 == 1)
         {
-          [v17 poolingStrides];
+          objc_msgSend_poolingStrides(v17);
           if (v31 == 1)
           {
-            [v17 poolingStrides];
+            objc_msgSend_poolingStrides(v17);
             if (v29 == 1)
             {
-              [v17 poolingOffsets];
+              objc_msgSend_poolingOffsets(v17);
               if (!v28)
               {
-                [v17 poolingOffsets];
+                objc_msgSend_poolingOffsets(v17);
               }
             }
           }
@@ -312,7 +2904,7 @@ void GPU::MultiaryKernelOpHandler<GPU::PoolingGradientOpHandler<mlir::mps::PoolL
   v17 = v16;
   if (v16)
   {
-    [v16 poolingDilationRates];
+    objc_msgSend_poolingDilationRates(v16);
   }
 
   v18 = [v17 poolingMode];
@@ -320,22 +2912,22 @@ void GPU::MultiaryKernelOpHandler<GPU::PoolingGradientOpHandler<mlir::mps::PoolL
   {
     if (v18 == 1)
     {
-      [v17 poolingKernelSizes];
+      objc_msgSend_poolingKernelSizes(v17);
       if (v35 == 1)
       {
-        [v17 poolingKernelSizes];
+        objc_msgSend_poolingKernelSizes(v17);
         if (v33 == 1)
         {
-          [v17 poolingStrides];
+          objc_msgSend_poolingStrides(v17);
           if (v31 == 1)
           {
-            [v17 poolingStrides];
+            objc_msgSend_poolingStrides(v17);
             if (v30 == 1)
             {
-              [v17 poolingOffsets];
+              objc_msgSend_poolingOffsets(v17);
               if (!v28)
               {
-                [v17 poolingOffsets];
+                objc_msgSend_poolingOffsets(v17);
               }
             }
           }
@@ -349,22 +2941,22 @@ void GPU::MultiaryKernelOpHandler<GPU::PoolingGradientOpHandler<mlir::mps::PoolL
   {
     if (v19 == 1)
     {
-      [v17 poolingKernelSizes];
+      objc_msgSend_poolingKernelSizes(v17);
       if (v35 == 1)
       {
-        [v17 poolingKernelSizes];
+        objc_msgSend_poolingKernelSizes(v17);
         if (v32 == 1)
         {
-          [v17 poolingStrides];
+          objc_msgSend_poolingStrides(v17);
           if (v31 == 1)
           {
-            [v17 poolingStrides];
+            objc_msgSend_poolingStrides(v17);
             if (v29 == 1)
             {
-              [v17 poolingOffsets];
+              objc_msgSend_poolingOffsets(v17);
               if (!v28)
               {
-                [v17 poolingOffsets];
+                objc_msgSend_poolingOffsets(v17);
               }
             }
           }
@@ -494,7 +3086,7 @@ LABEL_16:
   v20 = v19;
   if (v19)
   {
-    [v19 poolingDilationRates];
+    objc_msgSend_poolingDilationRates(v19);
   }
 
   v45 = a2;
@@ -510,10 +3102,10 @@ LABEL_16:
   v27 = 0;
   if (v20 && v26 == 1)
   {
-    [v20 poolingKernelSizes];
-    if (v58 == 1 && ([v20 poolingKernelSizes], v55 == 1) && (objc_msgSend(v20, "poolingStrides"), v53 == 1) && (objc_msgSend(v20, "poolingStrides"), v52 == 1) && (objc_msgSend(v20, "poolingOffsets"), !v50))
+    objc_msgSend_poolingKernelSizes(v20);
+    if (v58 == 1 && (objc_msgSend_poolingKernelSizes(v20), v55 == 1) && (objc_msgSend_poolingStrides(v20), v53 == 1) && (objc_msgSend_poolingStrides(v20), v52 == 1) && (objc_msgSend_poolingOffsets(v20), !v50))
     {
-      [v20 poolingOffsets];
+      objc_msgSend_poolingOffsets(v20);
       v38 = v49 == 0;
       if (v24 != v43)
       {
@@ -533,10 +3125,10 @@ LABEL_16:
   v29 = 0;
   if (v20 && v28 == 1)
   {
-    [v20 poolingKernelSizes];
-    if (v58 == 1 && ([v20 poolingKernelSizes], v54 == 1) && (objc_msgSend(v20, "poolingStrides"), v53 == 1) && (objc_msgSend(v20, "poolingStrides"), v51 == 1) && (objc_msgSend(v20, "poolingOffsets"), !v50))
+    objc_msgSend_poolingKernelSizes(v20);
+    if (v58 == 1 && (objc_msgSend_poolingKernelSizes(v20), v54 == 1) && (objc_msgSend_poolingStrides(v20), v53 == 1) && (objc_msgSend_poolingStrides(v20), v51 == 1) && (objc_msgSend_poolingOffsets(v20), !v50))
     {
-      [v20 poolingOffsets];
+      objc_msgSend_poolingOffsets(v20);
       v39 = v48 == 0;
       if (v24 != v43)
       {
@@ -3063,7 +5655,7 @@ LABEL_8:
   return v7;
 }
 
-id getMPSGraphType(void *a1)
+MPSGraphListType *getMPSGraphType(void *a1)
 {
   if (mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*a1 + 8))
   {
@@ -3130,7 +5722,7 @@ void getMLIRShape(void *a1@<X0>, uint64_t a2@<X8>)
       }
     }
 
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a2, a2 + 16, v7 + 1, 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a2, (a2 + 16), v7 + 1, 8);
     v7 = *(a2 + 8);
 LABEL_7:
     *(*a2 + 8 * v7) = v6;
@@ -3243,26 +5835,26 @@ uint64_t getMLIRType(mlir::MLIRContext *a1, MPSGraphType *a2)
 void ParseEnvironmentOptions(const char *a1, const char *__s, const char *a3)
 {
   v4 = __s;
-  v21[20] = *MEMORY[0x1E69E9840];
+  v24[20] = *MEMORY[0x1E69E9840];
   if (__s)
   {
     __s = strlen(__s);
   }
 
   llvm::sys::Process::GetEnv(v4, __s, __p);
-  if (v15 == 1)
+  if (v18 == 1)
   {
-    v20 = 0x1400000000;
-    v16[0] = 0;
-    v16[1] = 0;
-    v16[2] = v17;
-    v16[3] = 0x400000000;
-    v17[4] = v18;
-    v17[5] = 0;
-    v18[0] = 0;
-    v18[1] = 1;
-    v19 = v21;
-    v12 = v16;
+    v23 = 0x1400000000;
+    v19[0] = 0;
+    v19[1] = 0;
+    v19[2] = v20;
+    v19[3] = 0x400000000;
+    v20[4] = v21;
+    v20[5] = 0;
+    v21[0] = 0;
+    v21[1] = 1;
+    v22 = v24;
+    v15 = v19;
     if (a1)
     {
       v6 = strlen(a1);
@@ -3273,17 +5865,17 @@ void ParseEnvironmentOptions(const char *a1, const char *__s, const char *a3)
       v6 = 0;
     }
 
-    v7 = llvm::StringSaver::save(&v12, a1, v6);
-    v8 = v20;
-    if (v20 >= HIDWORD(v20))
+    v7 = llvm::StringSaver::save(&v15, a1, v6);
+    v8 = v23;
+    if (v23 >= HIDWORD(v23))
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v19, v21, v20 + 1, 8);
-      v8 = v20;
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v22, v24, v23 + 1, 8);
+      v8 = v23;
     }
 
-    *(v19 + v8) = v7;
-    LODWORD(v20) = v20 + 1;
-    if (v14 >= 0)
+    *(v22 + v8) = v7;
+    LODWORD(v23) = v23 + 1;
+    if (v17 >= 0)
     {
       v9 = __p;
     }
@@ -3293,9 +5885,9 @@ void ParseEnvironmentOptions(const char *a1, const char *__s, const char *a3)
       v9 = __p[0];
     }
 
-    if (v14 >= 0)
+    if (v17 >= 0)
     {
-      v10 = v14;
+      v10 = v17;
     }
 
     else
@@ -3303,7 +5895,7 @@ void ParseEnvironmentOptions(const char *a1, const char *__s, const char *a3)
       v10 = __p[1];
     }
 
-    llvm::cl::TokenizeGNUCommandLine(v9, v10, &v12, &v19, 0);
+    llvm::cl::TokenizeGNUCommandLine(v9, v10, &v15, &v22, 0);
     if (a3)
     {
       v11 = strlen(a3);
@@ -3314,23 +5906,23 @@ void ParseEnvironmentOptions(const char *a1, const char *__s, const char *a3)
       v11 = 0;
     }
 
-    llvm::cl::ParseCommandLineOptions(v20, v19, a3, v11, 0, 0, 0);
-    llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(v16);
-    if (v19 != v21)
+    llvm::cl::ParseCommandLineOptions(v23, v22, a3, v11, 0, 0, 0);
+    llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(v19, v12, v13, v14);
+    if (v22 != v24)
     {
-      free(v19);
+      free(v22);
     }
 
-    if ((v15 & 1) != 0 && v14 < 0)
+    if ((v18 & 1) != 0 && v17 < 0)
     {
       operator delete(__p[0]);
     }
   }
 }
 
-void sub_1E077B2AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32)
+void sub_1E077B2AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, unint64_t a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32)
 {
-  llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(&a18);
+  llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(&a18, a2, a3, a4);
   if (a32 != v32)
   {
     free(a32);
@@ -3853,7 +6445,7 @@ uint64_t getConstantDataForComplexScalar(int a1, double a2, double a3)
   return [v17 dataWithBytesNoCopy:v8 length:v6 freeWhenDone:1];
 }
 
-uint64_t createConstantOp(mlir::OpBuilder *a1, uint64_t a2, void *a3, void *a4, int a5)
+char *createConstantOp(mlir::OpBuilder *a1, uint64_t a2, void *a3, void *a4, int a5)
 {
   v21 = a4;
   v8 = a3;
@@ -3893,7 +6485,7 @@ uint64_t createConstantOp(mlir::OpBuilder *a1, uint64_t a2, void *a3, void *a4, 
   return v17;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::mps::ConstantOp,mlir::RankedTensorType &,mlir::ElementsAttr &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void **a4)
+char *mlir::OpBuilder::create<mlir::mps::ConstantOp,mlir::RankedTensorType &,mlir::ElementsAttr &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void **a4)
 {
   v20[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -3912,7 +6504,7 @@ uint64_t mlir::OpBuilder::create<mlir::mps::ConstantOp,mlir::RankedTensorType &,
   mlir::OperationState::OperationState(v20, a2, v9);
   mlir::mps::ConstantOp::build(a1, v20, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v20);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::ConstantOp,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::ConstantOp,void>::id)
   {
     v12 = v11;
   }
@@ -3926,7 +6518,21 @@ uint64_t mlir::OpBuilder::create<mlir::mps::ConstantOp,mlir::RankedTensorType &,
   return v12;
 }
 
-uint64_t createConstantOpFromScalar(mlir::OpBuilder *a1, uint64_t a2, void *a3, double a4)
+void sub_1E077BFF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  mlir::OperationState::~OperationState(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1E077C00C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  mlir::OperationState::~OperationState(va);
+  _Unwind_Resume(a1);
+}
+
+char *createConstantOpFromScalar(mlir::OpBuilder *a1, uint64_t a2, void *a3, double a4)
 {
   MPSDataType = getMPSDataType(a3);
   v9 = getConstantDataForScalar(MPSDataType, a4);
@@ -3935,10 +6541,10 @@ uint64_t createConstantOpFromScalar(mlir::OpBuilder *a1, uint64_t a2, void *a3, 
   return ConstantOp;
 }
 
-void mpsFileLoc(char *a1@<X0>, char *a2@<X1>, _BYTE *a3@<X8>)
+void mpsFileLoc(uint64_t *__return_ptr a1@<X8>, char *a2@<X0>, char *a3@<X1>)
 {
-  v5 = strlen(a1);
-  v6 = strlen(a2);
+  v5 = strlen(a2);
+  v6 = strlen(a3);
   v7 = malloc_type_calloc(1uLL, v5 + v6 + 10, 0x100004077774924uLL);
   *v7 = 40;
   strcat(v7, "mpsFileLoc");
@@ -3956,13 +6562,13 @@ void mpsFileLoc(char *a1@<X0>, char *a2@<X1>, _BYTE *a3@<X8>)
     operator new();
   }
 
-  a3[23] = v8;
+  *(a1 + 23) = v8;
   if (v8)
   {
-    memmove(a3, v7, v8);
+    memmove(a1, v7, v8);
   }
 
-  a3[v9] = 0;
+  *(a1 + v9) = 0;
 
   free(v7);
 }
@@ -4062,7 +6668,7 @@ void sub_1E077C44C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t populateLegacyANEPass(uint64_t *a1, int a2, uint64_t *a3)
+uint64_t *populateLegacyANEPass(uint64_t *a1, int a2, uint64_t **a3)
 {
   v4 = "anec.A12";
   v5 = "anec.A18";
@@ -4137,130 +6743,122 @@ uint64_t populateLegacyANEPass(uint64_t *a1, int a2, uint64_t *a3)
   return result;
 }
 
-void sub_1E077C624(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1E077C624(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-mlir::Operation *getFuncOpInModule(uint64_t a1)
+void getFuncOpInModule(uint64_t a1)
 {
-  if (!*(a1 + 47) || (v29.var0 = "mps.entryFunctionName", v29.var1 = 21, InherentAttr = mlir::Operation::getInherentAttr(a1, v29), (v3 & 1) == 0))
+  if (!*(a1 + 47) || (v26.var0 = "mps.entryFunctionName", v26.var1 = 21, InherentAttr = mlir::Operation::getInherentAttr(a1, v26), (v3 & 1) == 0))
   {
-    v30.var0 = "mps.entryFunctionName";
-    v30.var1 = 21;
-    InherentAttr = mlir::DictionaryAttr::get((a1 + 56), v30);
+    v27.var0 = "mps.entryFunctionName";
+    v27.var1 = 21;
+    InherentAttr = mlir::DictionaryAttr::get((a1 + 56), v27);
   }
 
   if (!InherentAttr || *(*InherentAttr + 136) != &mlir::detail::TypeIDResolver<mlir::StringAttr,void>::id)
   {
     Context = mlir::Attribute::getContext((a1 + 24));
-    v28 = 261;
-    v27[0] = "main";
-    v27[1] = 4;
-    v5 = mlir::StringAttr::get(Context, v27);
-    result = mlir::SymbolTable::lookupSymbolIn(a1, v5);
-    if (!result || *(*(result + 6) + 16) != &mlir::detail::TypeIDResolver<mlir::func::FuncOp,void>::id)
+    v25 = 261;
+    v24[0] = "main";
+    v24[1] = 4;
+    v5 = mlir::StringAttr::get(Context, v24);
+    v6 = mlir::SymbolTable::lookupSymbolIn(a1, v5);
+    if (!v6 || *(*(v6 + 6) + 16) != &mlir::detail::TypeIDResolver<mlir::func::FuncOp,void>::id)
     {
-      v8 = *(((a1 + 64 + 16 * ((*(a1 + 44) >> 23) & 1) + ((*(a1 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(a1 + 40) + 8);
-      v9 = v8 ? v8 - 8 : 0;
-      result = MPSGraphDelegateCompiler.precompilationDescriptor.modify(*(v9 + 40), v7);
-      v11 = *(*(result + 6) + 16);
-      v12 = v11 == &mlir::detail::TypeIDResolver<mlir::func::FuncOp,void>::id;
-      v13 = v11 == &mlir::detail::TypeIDResolver<mlir::func::FuncOp,void>::id ? result : 0;
-      v26 = v13;
-      if (!v12)
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      v8 = *(*(v7 + 48) + 16);
+      v9 = v8 == &mlir::detail::TypeIDResolver<mlir::func::FuncOp,void>::id;
+      v10 = v8 == &mlir::detail::TypeIDResolver<mlir::func::FuncOp,void>::id ? v7 : 0;
+      v23 = v10;
+      if (!v9)
       {
-        v14 = *(((a1 + 64 + 16 * ((*(a1 + 44) >> 23) & 1) + ((*(a1 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(a1 + 40) + 8);
-        if (v14)
+        v11 = *(((a1 + 64 + 16 * ((*(a1 + 44) >> 23) & 1) + ((*(a1 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(a1 + 40) + 8);
+        if (v11)
         {
-          v15 = v14 - 8;
+          v12 = v11 - 8;
         }
 
         else
         {
-          v15 = 0;
+          v12 = 0;
         }
 
-        v25 = &v26;
-        v16 = *(v15 + 40);
-        v17 = v15 + 32;
+        v22 = &v23;
+        v13 = *(v12 + 40);
+        v14 = v12 + 32;
         do
         {
-          if (v16 == v17)
+          if (v13 == v14)
           {
             break;
           }
 
-          v18 = *(v16 + 8);
-          v19 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v16, v10);
-          v27[0] = &v25;
-          v20 = mlir::detail::walk<mlir::ForwardIterator>(v19, _ZN4llvm12function_refIFN4mlir10WalkResultEPNS1_9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorERZ17getFuncOpInModuleNS1_8ModuleOpEE3__0NS1_4func6FuncOpES2_EENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S4_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_S2_EE5valueESO_E4typeES4_OT1_EUlS4_E_EES2_lS4_, v27, 1);
-          v16 = v18;
+          v15 = *(v13 + 8);
+          MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+          v24[0] = &v22;
+          v17 = mlir::detail::walk<mlir::ForwardIterator>(v16, _ZN4llvm12function_refIFN4mlir10WalkResultEPNS1_9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorERZ17getFuncOpInModuleNS1_8ModuleOpEE3__0NS1_4func6FuncOpES2_EENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S4_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_S2_EE5valueESO_E4typeES4_OT1_EUlS4_E_EES2_lS4_, v24, 1);
+          v13 = v15;
         }
 
-        while (v20);
-        return v26;
+        while (v17);
       }
     }
 
-    return result;
+    return;
   }
 
-  if (!*(a1 + 47) || (v31.var0 = "mps.entryFunctionName", v31.var1 = 21, v21 = mlir::Operation::getInherentAttr(a1, v31), (v22 & 1) == 0))
+  if (!*(a1 + 47) || (v28.var0 = "mps.entryFunctionName", v28.var1 = 21, v18 = mlir::Operation::getInherentAttr(a1, v28), (v19 & 1) == 0))
   {
-    v32.var0 = "mps.entryFunctionName";
-    v32.var1 = 21;
-    v21 = mlir::DictionaryAttr::get((a1 + 56), v32);
+    v29.var0 = "mps.entryFunctionName";
+    v29.var1 = 21;
+    v18 = mlir::DictionaryAttr::get((a1 + 56), v29);
   }
 
-  if (!v21)
+  if (!v18)
   {
-    result = mlir::SymbolTable::lookupSymbolIn(a1, 0);
-    if (!result)
+    v21 = mlir::SymbolTable::lookupSymbolIn(a1, 0);
+    if (!v21)
     {
-      goto LABEL_34;
+      goto LABEL_30;
     }
 
-LABEL_33:
-    if (*(*(result + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::func::FuncOp,void>::id)
+LABEL_29:
+    if (*(*(v21 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::func::FuncOp,void>::id)
     {
-      return result;
+      return;
     }
 
-    goto LABEL_34;
+    goto LABEL_30;
   }
 
-  if (*(*v21 + 136) == &mlir::detail::TypeIDResolver<mlir::StringAttr,void>::id)
+  if (*(*v18 + 136) == &mlir::detail::TypeIDResolver<mlir::StringAttr,void>::id)
   {
-    v23 = v21;
+    v20 = v18;
   }
 
   else
   {
-    v23 = 0;
+    v20 = 0;
   }
 
-  result = mlir::SymbolTable::lookupSymbolIn(a1, v23);
-  if (result)
+  v21 = mlir::SymbolTable::lookupSymbolIn(a1, v20);
+  if (v21)
   {
-    goto LABEL_33;
+    goto LABEL_29;
   }
 
-LABEL_34:
-  v24 = MTLReportFailureTypeEnabled();
-  result = 0;
-  if (v24)
+LABEL_30:
+  if (MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
-    return 0;
   }
-
-  return result;
 }
 
 uint64_t getMemRefRowBytes(void *a1)
@@ -4603,7 +7201,7 @@ void sub_1E077CF2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void loadCommonMPSDialectsInContext(mlir::MLIRContext *a1)
+void loadCommonMPSDialectsInContext(int32x2_t **a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   v13[0] = a1;
@@ -4689,7 +7287,7 @@ void sub_1E077D394(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-size_t *loadCoreMLDialectInContext(mlir::MLIRContext *a1)
+size_t *loadCoreMLDialectInContext(int32x2_t **a1)
 {
   v3 = a1;
   mlir::MLIRContext::getOrLoadDialect(a1, "coreml", 6, &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::CoreMLDialect,void>::id, llvm::function_ref<std::unique_ptr<mlir::Dialect> ()(void)>::callback_fn<mlir::ODIE::Compiler::CoreML::CoreMLDialect * mlir::MLIRContext::getOrLoadDialect<mlir::ODIE::Compiler::CoreML::CoreMLDialect>(void)::{lambda(void)#1}>, &v3);
@@ -4855,14 +7453,14 @@ uint64_t _ZN4llvm12function_refIFN4mlir10WalkResultEPNS1_9OperationEEE11callback
   return result;
 }
 
-void sub_1E077E3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1E077E3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   llvm::raw_ostream::~raw_ostream(va);
-  if (*(v9 - 49) < 0)
+  if (*(v15 - 49) < 0)
   {
-    operator delete(*(v9 - 72));
+    operator delete(*(v15 - 72));
   }
 
   _Unwind_Resume(a1);
@@ -4895,7 +7493,7 @@ void GPU::detail::ReadDataFromFileCache::get(uint64_t a1@<X0>, unint64_t a2@<X1>
   v27 = 0;
   v11 = v10[1];
   v12 = *(a2 + 24);
-  mlir::mps::MPSBufferTensorAttr::getHandle(&BufferTensorAttr, v22);
+  mlir::mps::MPSBufferTensorAttr::getHandle(v22, &BufferTensorAttr);
   if (*(v22[0].n128_u64[0] + 80))
   {
     v13 = v22[0].n128_u64[0] + 16;
@@ -4962,7 +7560,7 @@ LABEL_19:
   }
 
 LABEL_22:
-  mlir::mps::MPSBufferTensorAttr::getHandle(&BufferTensorAttr, v22);
+  mlir::mps::MPSBufferTensorAttr::getHandle(v22, &BufferTensorAttr);
   v20 = v22[0].n128_u64[0];
   llvm::sys::RWMutexImpl::lock((Manager + 48));
   ++*(v20 + 88);
@@ -4985,13 +7583,13 @@ LABEL_22:
   std::mutex::unlock(a1);
 }
 
-void sub_1E077E87C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_1E077E87C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
 {
   if ((a21 & 1) == 0)
   {
     if (a19)
     {
-      (*(*a19 + 8))(a19);
+      (*(*a19 + 8))(a19, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -4999,10 +7597,10 @@ void sub_1E077E87C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void GPU::detail::ReadDataFromFileCache::incrementRefCount(uint64_t a1, unint64_t a2)
+void GPU::detail::ReadDataFromFileCache::incrementRefCount(uint64_t a1, void *a2)
 {
   std::mutex::lock(a1);
-  Context = mlir::Attribute::getContext((a2 + 32));
+  Context = mlir::Attribute::getContext((a2 + 4));
   Manager = mlir::mps::MPSResourceBlobManagerInterface::getManager(Context, v5);
   v7 = llvm::DenseMapBase<llvm::DenseMap<GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr,GPU::detail::ReadDataFromFileCache::KeyInfo,llvm::detail::DenseMapPair<GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr>>,GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr,GPU::detail::ReadDataFromFileCache::KeyInfo,llvm::detail::DenseMapPair<GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr>>::doFind<GPU::detail::ReadDataFromFileCache::Key>((a1 + 64), a2);
   v8 = *(a1 + 64) + 48 * *(a1 + 80);
@@ -5012,7 +7610,7 @@ void GPU::detail::ReadDataFromFileCache::incrementRefCount(uint64_t a1, unint64_
   }
 
   v11 = *(v8 + 40);
-  mlir::mps::MPSBufferTensorAttr::getHandle(&v11, &v10);
+  mlir::mps::MPSBufferTensorAttr::getHandle(&v10, &v11);
   v9 = v10.n128_u64[0];
   llvm::sys::RWMutexImpl::lock((Manager + 48));
   ++*(v9 + 88);
@@ -5020,7 +7618,7 @@ void GPU::detail::ReadDataFromFileCache::incrementRefCount(uint64_t a1, unint64_
   std::mutex::unlock(a1);
 }
 
-void GPU::detail::ReadDataFromFileCache::decrementRefCount(uint64_t a1, unint64_t a2)
+void GPU::detail::ReadDataFromFileCache::decrementRefCount(uint64_t a1, void *a2)
 {
   std::mutex::lock(a1);
   v4 = llvm::DenseMapBase<llvm::DenseMap<GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr,GPU::detail::ReadDataFromFileCache::KeyInfo,llvm::detail::DenseMapPair<GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr>>,GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr,GPU::detail::ReadDataFromFileCache::KeyInfo,llvm::detail::DenseMapPair<GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr>>::doFind<GPU::detail::ReadDataFromFileCache::Key>((a1 + 64), a2);
@@ -5034,16 +7632,16 @@ void GPU::detail::ReadDataFromFileCache::decrementRefCount(uint64_t a1, unint64_
     v5 = *(a1 + 64) + 48 * *(a1 + 80);
   }
 
-  Context = mlir::Attribute::getContext((a2 + 32));
+  Context = mlir::Attribute::getContext((a2 + 4));
   Manager = mlir::mps::MPSResourceBlobManagerInterface::getManager(Context, v7);
-  mlir::mps::MPSBufferTensorAttr::getHandle((v5 + 40), &v13);
+  mlir::mps::MPSBufferTensorAttr::getHandle(&v13, (v5 + 40));
   v9 = v13.n128_u64[0];
   llvm::sys::RWMutexImpl::lock((Manager + 48));
   v10 = *(v9 + 88);
   if (v10 == 1)
   {
     *(v9 + 88) = 0;
-    std::__optional_destruct_base<mlir::AsmResourceBlob,false>::reset[abi:ne200100](v9 + 16);
+    std::__optional_destruct_base<mlir::AsmResourceBlob,false>::reset[abi:ne200100]((v9 + 16));
   }
 
   else
@@ -5106,7 +7704,7 @@ void sub_1E077F5E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void GPU::detail::SpecializationGPUDataLoader::getValue(uint64_t *a1@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, unint64_t a4@<X8>)
+void GPU::detail::SpecializationGPUDataLoader::getValue(uint64_t *a1@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, void *a4@<X8>)
 {
   v4 = *(a1 + 4);
   if (!v4)
@@ -5175,10 +7773,10 @@ LABEL_6:
   {
 LABEL_7:
     *a4 = 0;
-    *(a4 + 8) = 0;
-    *(a4 + 16) = 0;
-    *(a4 + 32) = 0;
-    *(a4 + 40) = 0;
+    a4[1] = 0;
+    a4[2] = 0;
+    a4[4] = 0;
+    a4[5] = 0;
     return;
   }
 
@@ -5193,15 +7791,15 @@ LABEL_7:
   else
   {
     v18 = *(v16 + 8);
-    *(a4 + 16) = *(v16 + 24);
+    a4[2] = *(v16 + 24);
     *a4 = v18;
   }
 
-  *(a4 + 24) = *(v16 + 32);
+  *(a4 + 3) = *(v16 + 32);
   v19 = *(v16 + 48);
-  *(a4 + 40) = v19;
+  a4[5] = v19;
   v20 = *(v16 + 56);
-  *(a4 + 48) = v20;
+  a4[6] = v20;
   if (v19)
   {
     GPU::detail::ReadDataFromFileCache::incrementRefCount(v20, v17);
@@ -5243,7 +7841,7 @@ void GPU::detail::ReadDataFromFileCache::Value::~Value(GPU::detail::ReadDataFrom
   }
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr,GPU::detail::ReadDataFromFileCache::KeyInfo,llvm::detail::DenseMapPair<GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr>>,GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr,GPU::detail::ReadDataFromFileCache::KeyInfo,llvm::detail::DenseMapPair<GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr>>::doFind<GPU::detail::ReadDataFromFileCache::Key>(uint64_t *a1, unint64_t a2)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr,GPU::detail::ReadDataFromFileCache::KeyInfo,llvm::detail::DenseMapPair<GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr>>,GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr,GPU::detail::ReadDataFromFileCache::KeyInfo,llvm::detail::DenseMapPair<GPU::detail::ReadDataFromFileCache::Key,mlir::mps::MPSBufferTensorAttr>>::doFind<GPU::detail::ReadDataFromFileCache::Key>(uint64_t *a1, void *a2)
 {
   v2 = *(a1 + 4);
   if (!v2)
@@ -5270,11 +7868,11 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<GPU::detail::ReadDataFromFileCache::K
 
   if ((v5 & 0x80u) != 0)
   {
-    v5 = *(a2 + 8);
+    v5 = a2[1];
   }
 
   v7 = a2;
-  v8 = llvm::hashing::detail::hash_combine_range_impl<std::__wrap_iter<char const*>>(v6, (v6 + v5));
+  v8 = llvm::hashing::detail::hash_combine_range_impl<std::__wrap_iter<char const*>>(v6, v6 + v5);
   v9 = v7[3];
   v10 = v7[4];
   v11 = 0x9AE16A3B2F90404FLL * ((v10 >> 4) ^ (v10 >> 9));
@@ -5988,7 +8586,7 @@ void llvm::DenseMap<mlir::mps::ReadDataFromFileOp,GPU::detail::ReadDataFromFileC
       {
         if (*(v5 + 17))
         {
-          GPU::detail::ReadDataFromFileCache::decrementRefCount(*(v5 + 25), (v5 - 23));
+          GPU::detail::ReadDataFromFileCache::decrementRefCount(*(v5 + 25), v5 - 23);
         }
 
         if (*v5 < 0)
@@ -6479,85 +9077,85 @@ void sub_1E07810B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x1E078107CLL);
 }
 
-uint64_t MPSSymbolTable::getLocationByInsertingOp<mlir::mps::ReductionMinOp>(llvm::StringMapImpl *a1, mlir::StringAttr **a2, uint64_t a3, unsigned int a4, void *a5)
+uint64_t MPSSymbolTable::getLocationByInsertingOp<mlir::mps::ReductionMinOp>(llvm::StringMapImpl *a1, mlir::StringAttr **a2, void **a3, unsigned int a4, void *a5)
 {
   v9 = a5;
-  v27 = 260;
-  v26[0] = a3;
-  StringAttr = mlir::Builder::getStringAttr(a2, v26);
-  v12 = mlir::FileLineColLoc::get(StringAttr, a4, 0);
+  v26 = 260;
+  v25[0] = a3;
+  StringAttr = mlir::Builder::getStringAttr(a2, v25);
+  v13 = mlir::FileLineColLoc::get(StringAttr, a4, 0);
   if (v9)
   {
-    v13 = [v9 UTF8String];
-    v14 = strlen(v13);
-    if (v14 >= 0x7FFFFFFFFFFFFFF8)
+    v14 = [v9 UTF8String];
+    v15 = strlen(v14);
+    if (v15 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v15 = v14;
-    if (v14 >= 0x17)
+    v16 = v15;
+    if (v15 >= 0x17)
     {
       operator new();
     }
 
-    v25[6] = v14;
-    if (v14)
+    *(&__dst.__r_.__value_.__s + 23) = v15;
+    if (v15)
     {
-      memmove(&__dst, v13, v14);
+      memmove(&__dst, v14, v15);
     }
 
-    v16 = &__dst + v15;
+    v17 = &__dst + v16;
   }
 
   else
   {
-    v25[6] = 17;
-    v24 = 110;
-    __dst = *"mps.reduction_min";
-    v16 = v25;
+    *(&__dst.__r_.__value_.__s + 23) = 17;
+    __dst.__r_.__value_.__s.__data_[16] = 110;
+    *&__dst.__r_.__value_.__l.__data_ = *"mps.reduction_min";
+    v17 = &__dst.__r_.__value_.__s.__data_[17];
   }
 
-  *v16 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(a1, &__dst, v11, &__p);
+  *v17 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(a1, &__dst, &__p, v11, v12);
   p_p = __p.__r_.__value_.__r.__words[0];
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
-  v18 = 1;
-  HIBYTE(v27) = 1;
+  v19 = 1;
+  HIBYTE(v26) = 1;
   if (p_p->__r_.__value_.__s.__data_[0])
   {
-    v26[0] = p_p;
-    v18 = 3;
+    v25[0] = p_p;
+    v19 = 3;
   }
 
-  LOBYTE(v27) = v18;
-  v19 = mlir::Builder::getStringAttr(a2, v26);
-  v20 = mlir::NameLoc::get(v19, v12);
+  LOBYTE(v26) = v19;
+  v20 = mlir::Builder::getStringAttr(a2, v25);
+  v21 = mlir::NameLoc::get(v20, v13);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((v25[6] & 0x80000000) == 0)
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
 
 LABEL_18:
-    operator delete(__dst);
+    operator delete(__dst.__r_.__value_.__l.__data_);
     goto LABEL_16;
   }
 
-  if ((v25[6] & 0x80000000) != 0)
+  if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_18;
   }
 
 LABEL_16:
 
-  return v20;
+  return v21;
 }
 
 void sub_1E07814E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -6573,85 +9171,85 @@ void sub_1E07814E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MPSSymbolTable::getLocationByInsertingOp<mlir::mps::ReductionMaxOp>(llvm::StringMapImpl *a1, mlir::StringAttr **a2, uint64_t a3, unsigned int a4, void *a5)
+uint64_t MPSSymbolTable::getLocationByInsertingOp<mlir::mps::ReductionMaxOp>(llvm::StringMapImpl *a1, mlir::StringAttr **a2, void **a3, unsigned int a4, void *a5)
 {
   v9 = a5;
-  v27 = 260;
-  v26[0] = a3;
-  StringAttr = mlir::Builder::getStringAttr(a2, v26);
-  v12 = mlir::FileLineColLoc::get(StringAttr, a4, 0);
+  v26 = 260;
+  v25[0] = a3;
+  StringAttr = mlir::Builder::getStringAttr(a2, v25);
+  v13 = mlir::FileLineColLoc::get(StringAttr, a4, 0);
   if (v9)
   {
-    v13 = [v9 UTF8String];
-    v14 = strlen(v13);
-    if (v14 >= 0x7FFFFFFFFFFFFFF8)
+    v14 = [v9 UTF8String];
+    v15 = strlen(v14);
+    if (v15 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v15 = v14;
-    if (v14 >= 0x17)
+    v16 = v15;
+    if (v15 >= 0x17)
     {
       operator new();
     }
 
-    v25[6] = v14;
-    if (v14)
+    *(&__dst.__r_.__value_.__s + 23) = v15;
+    if (v15)
     {
-      memmove(&__dst, v13, v14);
+      memmove(&__dst, v14, v15);
     }
 
-    v16 = &__dst + v15;
+    v17 = &__dst + v16;
   }
 
   else
   {
-    v25[6] = 17;
-    v24 = 120;
-    __dst = *"mps.reduction_max";
-    v16 = v25;
+    *(&__dst.__r_.__value_.__s + 23) = 17;
+    __dst.__r_.__value_.__s.__data_[16] = 120;
+    *&__dst.__r_.__value_.__l.__data_ = *"mps.reduction_max";
+    v17 = &__dst.__r_.__value_.__s.__data_[17];
   }
 
-  *v16 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(a1, &__dst, v11, &__p);
+  *v17 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(a1, &__dst, &__p, v11, v12);
   p_p = __p.__r_.__value_.__r.__words[0];
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
-  v18 = 1;
-  HIBYTE(v27) = 1;
+  v19 = 1;
+  HIBYTE(v26) = 1;
   if (p_p->__r_.__value_.__s.__data_[0])
   {
-    v26[0] = p_p;
-    v18 = 3;
+    v25[0] = p_p;
+    v19 = 3;
   }
 
-  LOBYTE(v27) = v18;
-  v19 = mlir::Builder::getStringAttr(a2, v26);
-  v20 = mlir::NameLoc::get(v19, v12);
+  LOBYTE(v26) = v19;
+  v20 = mlir::Builder::getStringAttr(a2, v25);
+  v21 = mlir::NameLoc::get(v20, v13);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((v25[6] & 0x80000000) == 0)
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
 
 LABEL_18:
-    operator delete(__dst);
+    operator delete(__dst.__r_.__value_.__l.__data_);
     goto LABEL_16;
   }
 
-  if ((v25[6] & 0x80000000) != 0)
+  if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_18;
   }
 
 LABEL_16:
 
-  return v20;
+  return v21;
 }
 
 void sub_1E0781860(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -6667,85 +9265,85 @@ void sub_1E0781860(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MPSSymbolTable::getLocationByInsertingOp<mlir::mps::ReductionProdOp>(llvm::StringMapImpl *a1, mlir::StringAttr **a2, uint64_t a3, unsigned int a4, void *a5)
+uint64_t MPSSymbolTable::getLocationByInsertingOp<mlir::mps::ReductionProdOp>(llvm::StringMapImpl *a1, mlir::StringAttr **a2, void **a3, unsigned int a4, void *a5)
 {
   v9 = a5;
-  v27 = 260;
-  v26[0] = a3;
-  StringAttr = mlir::Builder::getStringAttr(a2, v26);
-  v12 = mlir::FileLineColLoc::get(StringAttr, a4, 0);
+  v26 = 260;
+  v25[0] = a3;
+  StringAttr = mlir::Builder::getStringAttr(a2, v25);
+  v13 = mlir::FileLineColLoc::get(StringAttr, a4, 0);
   if (v9)
   {
-    v13 = [v9 UTF8String];
-    v14 = strlen(v13);
-    if (v14 >= 0x7FFFFFFFFFFFFFF8)
+    v14 = [v9 UTF8String];
+    v15 = strlen(v14);
+    if (v15 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v15 = v14;
-    if (v14 >= 0x17)
+    v16 = v15;
+    if (v15 >= 0x17)
     {
       operator new();
     }
 
-    v25[5] = v14;
-    if (v14)
+    *(&__dst.__r_.__value_.__s + 23) = v15;
+    if (v15)
     {
-      memmove(&__dst, v13, v14);
+      memmove(&__dst, v14, v15);
     }
 
-    v16 = &__dst + v15;
+    v17 = &__dst + v16;
   }
 
   else
   {
-    v25[5] = 18;
-    v24 = 25711;
-    __dst = *"mps.reduction_prod";
-    v16 = v25;
+    *(&__dst.__r_.__value_.__s + 23) = 18;
+    LOWORD(__dst.__r_.__value_.__r.__words[2]) = 25711;
+    *&__dst.__r_.__value_.__l.__data_ = *"mps.reduction_prod";
+    v17 = &__dst.__r_.__value_.__s.__data_[18];
   }
 
-  *v16 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(a1, &__dst, v11, &__p);
+  *v17 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(a1, &__dst, &__p, v11, v12);
   p_p = __p.__r_.__value_.__r.__words[0];
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
-  v18 = 1;
-  HIBYTE(v27) = 1;
+  v19 = 1;
+  HIBYTE(v26) = 1;
   if (p_p->__r_.__value_.__s.__data_[0])
   {
-    v26[0] = p_p;
-    v18 = 3;
+    v25[0] = p_p;
+    v19 = 3;
   }
 
-  LOBYTE(v27) = v18;
-  v19 = mlir::Builder::getStringAttr(a2, v26);
-  v20 = mlir::NameLoc::get(v19, v12);
+  LOBYTE(v26) = v19;
+  v20 = mlir::Builder::getStringAttr(a2, v25);
+  v21 = mlir::NameLoc::get(v20, v13);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((v25[5] & 0x80000000) == 0)
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
 
 LABEL_18:
-    operator delete(__dst);
+    operator delete(__dst.__r_.__value_.__l.__data_);
     goto LABEL_16;
   }
 
-  if ((v25[5] & 0x80000000) != 0)
+  if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_18;
   }
 
 LABEL_16:
 
-  return v20;
+  return v21;
 }
 
 void sub_1E0781E58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -6829,7 +9427,7 @@ void sub_1E0783340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void MPSShapeToVector<int>(void *a1@<X0>, void *a2@<X8>)
+void MPSShapeToVector<int>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = a1;
   a2[1] = 0;
@@ -7045,2665 +9643,4 @@ void sub_1E0785BA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   std::recursive_mutex::~recursive_mutex((v10 + 24));
 
   _Unwind_Resume(v11);
-}
-
-void llvm::DenseMap<mlir::Value,MPSGraphTensorData * {__strong},llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,MPSGraphTensorData * {__strong}>>::~DenseMap(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  v3 = *a1;
-  if (v2)
-  {
-    v4 = 16 * v2;
-    v5 = (v3 + 8);
-    do
-    {
-      if ((*(v5 - 1) | 0x1000) != 0xFFFFFFFFFFFFF000)
-      {
-      }
-
-      v5 += 2;
-      v4 -= 16;
-    }
-
-    while (v4);
-    v3 = *a1;
-    v6 = (16 * *(a1 + 16));
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  llvm::deallocate_buffer(v3, v6);
-}
-
-void GPU::MemrefBufferizer::createMemrefHeap(void *a1, uint64_t a2, unint64_t a3, uint64_t a4, unsigned int a5)
-{
-  v18 = [*(a2 + 16) metalDevice];
-  v8 = objc_opt_new();
-  v9 = v8;
-  if (v8)
-  {
-    v10 = 0x400000;
-    v11 = 0x2000000;
-    v12 = 0x40000000;
-    if (a3 >> 29)
-    {
-      v12 = (a3 + 0x1FFFFF) & 0xFFFFFFFFFFE00000;
-    }
-
-    if (a3 >= 0xA00000)
-    {
-      v11 = v12;
-    }
-
-    if (a3 > 0x100000)
-    {
-      v10 = v11;
-    }
-
-    if (a5)
-    {
-      v13 = a3;
-    }
-
-    else
-    {
-      v13 = v10;
-    }
-
-    [v8 setSize:v13];
-    v14 = [v18 heapBufferSizeAndAlignWithLength:objc_msgSend(v9 options:{"size"), 0}];
-    v16 = (v14 - (v14 != 0)) / v15;
-    if (v14)
-    {
-      ++v16;
-    }
-
-    [v9 setSize:v16 * v15];
-    [v9 setStorageMode:0];
-    [v9 setCpuCacheMode:0];
-    [v9 setHazardTrackingMode:2];
-    [v9 setType:a5];
-    v17 = [v18 newHeapWithDescriptor:v9];
-    if (v17)
-    {
-      [v17 setPurgeableState:2];
-      operator new();
-    }
-
-    *a1 = 0;
-    a1[1] = 0;
-  }
-
-  else
-  {
-    *a1 = 0;
-    a1[1] = 0;
-  }
-}
-
-void sub_1E0785E98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10, char a11)
-{
-  std::shared_ptr<MPSKernelDAG>::~shared_ptr[abi:ne200100](&a11);
-
-  _Unwind_Resume(a1);
-}
-
-void GPU::MemrefBufferizer::allocateHeapForFusedAlloc(uint64_t a1, unint64_t a2)
-{
-  if (*(*(*(a2 + 8) & 0xFFFFFFFFFFFFFFF8) + 136) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
-  {
-    v4 = (*(a2 + 8) & 0xFFFFFFFFFFFFFFF8);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v45 = v4;
-  getMPSDataType(v4);
-  if (getMPSDataType(v4) != 536870920 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  v5 = *(a1 + 120);
-  v6 = *(a1 + 136);
-  v7 = HIDWORD(a2);
-  v8 = 8 * a2;
-  if (!v6)
-  {
-LABEL_11:
-    v11 = (v5 + 24 * v6);
-    goto LABEL_12;
-  }
-
-  v9 = 0x9DDFEA08EB382D69 * (v7 ^ ((0x9DDFEA08EB382D69 * ((v8 - 0xAE502812AA7333) ^ v7)) >> 47) ^ (0x9DDFEA08EB382D69 * ((v8 - 0xAE502812AA7333) ^ v7)));
-  v10 = (v6 - 1) & (-348639895 * ((v9 >> 47) ^ v9));
-  v11 = (v5 + 24 * v10);
-  v12 = *v11;
-  if (*v11 != a2)
-  {
-    v13 = 1;
-    while (v12 != -4096)
-    {
-      v14 = v10 + v13++;
-      v10 = v14 & (v6 - 1);
-      v11 = (v5 + 24 * v10);
-      v12 = *v11;
-      if (*v11 == a2)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    goto LABEL_11;
-  }
-
-LABEL_12:
-  if (v11 != (v5 + 24 * v6) && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  if (mlir::BaseMemRefType::hasRank(&v45))
-  {
-    mlir::ArrayAttr::getValue(&v45);
-  }
-
-  if (mlir::BaseMemRefType::hasRank(&v45))
-  {
-    Value = mlir::ArrayAttr::getValue(&v45);
-    if (!v16)
-    {
-      goto LABEL_20;
-    }
-
-    v17 = 8 * v16;
-    while (*Value != 0x8000000000000000)
-    {
-      ++Value;
-      v17 -= 8;
-      if (!v17)
-      {
-        goto LABEL_20;
-      }
-    }
-  }
-
-  if (MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-LABEL_20:
-  MemrefSizeInBytes = mlir::getMemrefSizeInBytes(v45, 1uLL);
-  v19 = [*(a1 + 16) metalDevice];
-  v20 = [v19 heapBufferSizeAndAlignWithLength:MemrefSizeInBytes options:0];
-  v22 = v21;
-  if (v20)
-  {
-    v23 = (v20 - (v20 != 0)) / v21 + 1;
-  }
-
-  else
-  {
-    v23 = 0 / v21;
-  }
-
-  v24 = v23 * v22;
-  LODWORD(v46) = 0;
-  v43 = &v46;
-  v25 = std::__hash_table<std::__hash_value_type<GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>,std::__unordered_map_hasher<GPU::MemrefBufferPool::Kind,std::__hash_value_type<GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>,std::hash<GPU::MemrefBufferPool::Kind>,std::equal_to<GPU::MemrefBufferPool::Kind>,true>,std::__unordered_map_equal<GPU::MemrefBufferPool::Kind,std::__hash_value_type<GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>,std::equal_to<GPU::MemrefBufferPool::Kind>,std::hash<GPU::MemrefBufferPool::Kind>,true>,std::allocator<std::__hash_value_type<GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>>>::__emplace_unique_key_args<GPU::MemrefBufferPool::Kind,std::piecewise_construct_t const&,std::tuple<GPU::MemrefBufferPool::Kind const&>,std::tuple<>>((a1 + 216), 0)[3];
-  GPU::MemrefBufferizer::createMemrefHeap(&v43, a1, v24, v25, 1u);
-  v26 = v43;
-  if (!v43 && MTLReportFailureTypeEnabled())
-  {
-    v42 = v24;
-    MTLReportFailure();
-  }
-
-  *(a1 + 88) += *(v26 + 8);
-  v27 = *(a1 + 136);
-  if (v27)
-  {
-    v28 = *(a1 + 120);
-    v29 = 0x9DDFEA08EB382D69 * (v7 ^ ((0x9DDFEA08EB382D69 * ((v8 - 0xAE502812AA7333) ^ v7)) >> 47) ^ (0x9DDFEA08EB382D69 * ((v8 - 0xAE502812AA7333) ^ v7)));
-    v30 = v27 - 1;
-    v31 = (v27 - 1) & (-348639895 * ((v29 >> 47) ^ v29));
-    v32 = (v28 + 24 * v31);
-    v33 = *v32;
-    if (*v32 == a2)
-    {
-      goto LABEL_41;
-    }
-
-    v34 = 0;
-    v35 = 1;
-    while (v33 != -4096)
-    {
-      if (v34)
-      {
-        v36 = 0;
-      }
-
-      else
-      {
-        v36 = v33 == -8192;
-      }
-
-      if (v36)
-      {
-        v34 = v32;
-      }
-
-      v37 = v31 + v35++;
-      v31 = v37 & v30;
-      v32 = (v28 + 24 * (v37 & v30));
-      v33 = *v32;
-      if (*v32 == a2)
-      {
-        goto LABEL_41;
-      }
-    }
-
-    if (v34)
-    {
-      v32 = v34;
-    }
-  }
-
-  else
-  {
-    v32 = 0;
-  }
-
-  v46 = v32;
-  v38 = *(a1 + 128);
-  if (4 * v38 + 4 >= 3 * v27)
-  {
-    v27 *= 2;
-LABEL_64:
-    llvm::DenseMapBase<llvm::DenseMap<mlir::Value,std::shared_ptr<GPU::MemrefHeap>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefHeap>>>,mlir::Value,std::shared_ptr<GPU::MemrefHeap>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefHeap>>>::grow(a1 + 120, v27);
-    llvm::DenseMapBase<llvm::DenseMap<mlir::Value,std::shared_ptr<GPU::MemrefHeap>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefHeap>>>,mlir::Value,std::shared_ptr<GPU::MemrefHeap>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefHeap>>>::LookupBucketFor<mlir::Value>(*(a1 + 120), *(a1 + 136), a2, &v46);
-    v32 = v46;
-    ++*(a1 + 128);
-    if (*v32 == -4096)
-    {
-      goto LABEL_40;
-    }
-
-    goto LABEL_39;
-  }
-
-  if (v27 + ~v38 - *(a1 + 132) <= v27 >> 3)
-  {
-    goto LABEL_64;
-  }
-
-  *(a1 + 128) = v38 + 1;
-  if (*v32 != -4096)
-  {
-LABEL_39:
-    --*(a1 + 132);
-  }
-
-LABEL_40:
-  v32[1] = 0;
-  v32[2] = 0;
-  *v32 = a2;
-LABEL_41:
-  v39 = v44;
-  if (v44)
-  {
-    atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v40 = v32[2];
-  v32[1] = v26;
-  v32[2] = v39;
-  if (v40 && !atomic_fetch_add(&v40->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v40->__on_zero_shared)(v40);
-    std::__shared_weak_count::__release_weak(v40);
-  }
-
-  if (!*std::__tree<std::shared_ptr<GPU::MemrefHeap>,BOOL (*)(std::shared_ptr<GPU::MemrefHeap>,std::shared_ptr<GPU::MemrefHeap>),std::allocator<std::shared_ptr<GPU::MemrefHeap>>>::__find_equal<std::shared_ptr<GPU::MemrefHeap>>(v25 + 32, &v46, &v43))
-  {
-    operator new();
-  }
-
-  [*(a1 + 104) requestResidency];
-  v41 = v44;
-  if (v44)
-  {
-    if (!atomic_fetch_add(&v44->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v41->__on_zero_shared)(v41);
-      std::__shared_weak_count::__release_weak(v41);
-    }
-  }
-}
-
-void sub_1E0786464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  std::shared_ptr<MPSKernelDAG>::~shared_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-id GPU::MemrefBufferizer::allocateBufferFromFusedAlloc(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5)
-{
-  v69 = a2;
-  if (*(a1 + 8) <= a4 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  v68 = 0uLL;
-  v67 = 0uLL;
-  std::recursive_mutex::lock((a1 + 24));
-  v9 = *(a1 + 120);
-  v10 = *(a1 + 136);
-  if (v10)
-  {
-    v11 = 0x9DDFEA08EB382D69 * ((8 * a3 - 0xAE502812AA7333) ^ HIDWORD(a3));
-    v12 = 0x9DDFEA08EB382D69 * (HIDWORD(a3) ^ (v11 >> 47) ^ v11);
-    v13 = (v10 - 1) & (-348639895 * ((v12 >> 47) ^ v12));
-    v14 = (v9 + 24 * v13);
-    v15 = *v14;
-    if (*v14 == a3)
-    {
-      goto LABEL_9;
-    }
-
-    v16 = 1;
-    while (v15 != -4096)
-    {
-      v17 = v13 + v16++;
-      v13 = v17 & (v10 - 1);
-      v14 = (v9 + 24 * v13);
-      v15 = *v14;
-      if (*v14 == a3)
-      {
-        goto LABEL_9;
-      }
-    }
-  }
-
-  v14 = (v9 + 24 * v10);
-LABEL_9:
-  if (v14 != (v9 + 24 * v10))
-  {
-    v18 = v14[1];
-    v19 = v14[2];
-    if (v19)
-    {
-      atomic_fetch_add_explicit((v19 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    *&v67 = v18;
-    *(&v67 + 1) = v19;
-    v20 = *(v18 + 24);
-    if (*(v18 + 16) >= a4)
-    {
-      if (v20)
-      {
-LABEL_14:
-        if (!*(v20 + 80))
-        {
-          goto LABEL_22;
-        }
-
-LABEL_21:
-        operator new();
-      }
-    }
-
-    else if (*(v20 + 24) >= a4)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  if (a4 <= 0x100000)
-  {
-    v21 = 1;
-  }
-
-  else
-  {
-    v21 = 2;
-  }
-
-  LODWORD(v70) = v21;
-  *&v71 = &v70;
-  v20 = std::__hash_table<std::__hash_value_type<GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>,std::__unordered_map_hasher<GPU::MemrefBufferPool::Kind,std::__hash_value_type<GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>,std::hash<GPU::MemrefBufferPool::Kind>,std::equal_to<GPU::MemrefBufferPool::Kind>,true>,std::__unordered_map_equal<GPU::MemrefBufferPool::Kind,std::__hash_value_type<GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>,std::equal_to<GPU::MemrefBufferPool::Kind>,std::hash<GPU::MemrefBufferPool::Kind>,true>,std::allocator<std::__hash_value_type<GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>>>::__emplace_unique_key_args<GPU::MemrefBufferPool::Kind,std::piecewise_construct_t const&,std::tuple<GPU::MemrefBufferPool::Kind const&>,std::tuple<>>((a1 + 216), v21)[3];
-  if (*(v20 + 80))
-  {
-    goto LABEL_21;
-  }
-
-LABEL_22:
-  v70 = 0uLL;
-  v22 = *(&v68 + 1);
-  v68 = 0u;
-  if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v22->__on_zero_shared)(v22);
-    std::__shared_weak_count::__release_weak(v22);
-  }
-
-  v23 = *(&v70 + 1);
-  if (*(&v70 + 1) && !atomic_fetch_add((*(&v70 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v23->__on_zero_shared)(v23);
-    std::__shared_weak_count::__release_weak(v23);
-    if (v68)
-    {
-      goto LABEL_28;
-    }
-  }
-
-  else if (v68)
-  {
-LABEL_28:
-    v24 = (v20 + 64);
-    v25 = std::__tree<std::shared_ptr<GPU::MemrefBuffer>,BOOL (*)(std::shared_ptr<GPU::MemrefBuffer>,std::shared_ptr<GPU::MemrefBuffer>),std::allocator<std::shared_ptr<GPU::MemrefBuffer>>>::__lower_bound<std::shared_ptr<GPU::MemrefBuffer>>(v20 + 64, &v68, *(v20 + 72), v20 + 72);
-    v26 = v25;
-    if (v20 + 72 != v25)
-    {
-      v27 = *(v20 + 88);
-      v71 = v68;
-      if (*(&v68 + 1))
-      {
-        atomic_fetch_add_explicit((*(&v68 + 1) + 8), 1uLL, memory_order_relaxed);
-      }
-
-      v28 = *(v25 + 40);
-      *&v70 = *(v25 + 32);
-      *(&v70 + 1) = v28;
-      if (v28)
-      {
-        atomic_fetch_add_explicit((v28 + 8), 1uLL, memory_order_relaxed);
-      }
-
-      v29 = v27(&v71, &v70);
-      v30 = *(&v70 + 1);
-      if (*(&v70 + 1) && !atomic_fetch_add((*(&v70 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v30->__on_zero_shared)(v30);
-        std::__shared_weak_count::__release_weak(v30);
-      }
-
-      v31 = *(&v71 + 1);
-      if (*(&v71 + 1) && !atomic_fetch_add((*(&v71 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v31->__on_zero_shared)(v31);
-        std::__shared_weak_count::__release_weak(v31);
-      }
-
-      if ((v29 & 1) == 0)
-      {
-        v32 = v26[1];
-        if (v32)
-        {
-          do
-          {
-            v33 = v32;
-            v32 = *v32;
-          }
-
-          while (v32);
-        }
-
-        else
-        {
-          v44 = v26;
-          do
-          {
-            v33 = v44[2];
-            v45 = *v33 == v44;
-            v44 = v33;
-          }
-
-          while (!v45);
-        }
-
-        if (*v24 == v26)
-        {
-          *v24 = v33;
-        }
-
-        v46 = *(v20 + 72);
-        --*(v20 + 80);
-        std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v46, v26);
-        v47 = v26[5];
-        if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v47->__on_zero_shared)(v47);
-          std::__shared_weak_count::__release_weak(v47);
-        }
-
-        operator delete(v26);
-      }
-    }
-
-    v48 = v68;
-    *(v20 + 24) -= *(v68 + 8);
-    goto LABEL_103;
-  }
-
-  v66 = 0uLL;
-  if (*(v20 + 8))
-  {
-    operator new();
-  }
-
-  if (*(v67 + 16) < a4 && MTLReportFailureTypeEnabled())
-  {
-    v65 = a4;
-    MTLReportFailure();
-  }
-
-  if (*(&v67 + 1))
-  {
-    atomic_fetch_add_explicit((*(&v67 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v66 = v67;
-  v34 = (v20 + 32);
-  v35 = std::__tree<std::shared_ptr<GPU::MemrefHeap>,BOOL (*)(std::shared_ptr<GPU::MemrefHeap>,std::shared_ptr<GPU::MemrefHeap>),std::allocator<std::shared_ptr<GPU::MemrefHeap>>>::__lower_bound<std::shared_ptr<GPU::MemrefHeap>>(v20 + 32, &v66, *(v20 + 40), v20 + 40);
-  v36 = v35;
-  if (v20 + 40 != v35)
-  {
-    v37 = *(v20 + 56);
-    v71 = v66;
-    if (*(&v66 + 1))
-    {
-      atomic_fetch_add_explicit((*(&v66 + 1) + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v38 = *(v35 + 40);
-    *&v70 = *(v35 + 32);
-    *(&v70 + 1) = v38;
-    if (v38)
-    {
-      atomic_fetch_add_explicit((v38 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v39 = v37(&v71, &v70);
-    v40 = *(&v70 + 1);
-    if (*(&v70 + 1) && !atomic_fetch_add((*(&v70 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v40->__on_zero_shared)(v40);
-      std::__shared_weak_count::__release_weak(v40);
-    }
-
-    v41 = *(&v71 + 1);
-    if (*(&v71 + 1) && !atomic_fetch_add((*(&v71 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v41->__on_zero_shared)(v41);
-      std::__shared_weak_count::__release_weak(v41);
-    }
-
-    if ((v39 & 1) == 0)
-    {
-      v42 = v36[1];
-      if (v42)
-      {
-        do
-        {
-          v43 = v42;
-          v42 = *v42;
-        }
-
-        while (v42);
-      }
-
-      else
-      {
-        v49 = v36;
-        do
-        {
-          v43 = v49[2];
-          v45 = *v43 == v49;
-          v49 = v43;
-        }
-
-        while (!v45);
-      }
-
-      if (*v34 == v36)
-      {
-        *v34 = v43;
-      }
-
-      v50 = *(v20 + 40);
-      --*(v20 + 48);
-      std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v50, v36);
-      v51 = v36[5];
-      if (v51 && !atomic_fetch_add(&v51->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v51->__on_zero_shared)(v51);
-        std::__shared_weak_count::__release_weak(v51);
-      }
-
-      operator delete(v36);
-    }
-  }
-
-  v52 = v66;
-  if (*(v66 + 16) < a4 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  if (*(v52 + 32) == 1)
-  {
-    if (*(v52 + 40) <= a5)
-    {
-      v53 = a5;
-    }
-
-    else
-    {
-      v53 = *(v52 + 40);
-    }
-
-    if (v53 + a4 > *(v52 + 8) && MTLReportFailureTypeEnabled())
-    {
-      MTLReportFailure();
-    }
-
-    v54 = [*v52 newBufferWithLength:a4 options:0 offset:{v53, v65}];
-    *(v52 + 40) += a4;
-  }
-
-  else
-  {
-    if (a5 && MTLReportFailureTypeEnabled())
-    {
-      MTLReportFailure();
-    }
-
-    v54 = [*v52 newBufferWithLength:a4 options:{0, v65}];
-  }
-
-  if (v54)
-  {
-    v55 = *v52;
-    if (*(v52 + 32) == 1)
-    {
-      v56 = [v55 size] - *(v52 + 40);
-    }
-
-    else
-    {
-      v56 = [v55 maxAvailableSizeWithAlignment:*(v52 + 48)];
-    }
-
-    *(v52 + 16) = v56;
-    if (!*std::__tree<std::shared_ptr<GPU::MemrefHeap>,BOOL (*)(std::shared_ptr<GPU::MemrefHeap>,std::shared_ptr<GPU::MemrefHeap>),std::allocator<std::shared_ptr<GPU::MemrefHeap>>>::__find_equal<std::shared_ptr<GPU::MemrefHeap>>(v20 + 32, &v71, &v66))
-    {
-      operator new();
-    }
-
-    operator new();
-  }
-
-  v57 = *(&v66 + 1);
-  if (*(&v66 + 1) && !atomic_fetch_add((*(&v66 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v57->__on_zero_shared)(v57);
-    std::__shared_weak_count::__release_weak(v57);
-  }
-
-  v48 = v68;
-  if (!v68)
-  {
-    if (MTLReportFailureTypeEnabled())
-    {
-      MTLReportFailure();
-    }
-
-    v48 = 0;
-  }
-
-LABEL_103:
-  *(v48 + 24) = 1;
-  v58 = llvm::DenseMapBase<llvm::DenseMap<mlir::Value,std::shared_ptr<GPU::MemrefBuffer>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefBuffer>>>,mlir::Value,std::shared_ptr<GPU::MemrefBuffer>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefBuffer>>>::operator[](a1 + 168, &v69);
-  v59 = *(&v68 + 1);
-  if (*(&v68 + 1))
-  {
-    atomic_fetch_add_explicit((*(&v68 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v60 = v58[1];
-  *v58 = v48;
-  v58[1] = v59;
-  if (v60 && !atomic_fetch_add(&v60->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v60->__on_zero_shared)(v60);
-    std::__shared_weak_count::__release_weak(v60);
-  }
-
-  v61 = *v68;
-  std::recursive_mutex::unlock((a1 + 24));
-  v62 = *(&v67 + 1);
-  if (*(&v67 + 1) && !atomic_fetch_add((*(&v67 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v62->__on_zero_shared)(v62);
-    std::__shared_weak_count::__release_weak(v62);
-  }
-
-  v63 = *(&v68 + 1);
-  if (*(&v68 + 1) && !atomic_fetch_add((*(&v68 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v63->__on_zero_shared)(v63);
-    std::__shared_weak_count::__release_weak(v63);
-  }
-
-  return v61;
-}
-
-void sub_1E07873E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  va_copy(va2, va1);
-  v8 = va_arg(va2, void);
-  v10 = va_arg(va2, void);
-  std::shared_ptr<MPSKernelDAG>::~shared_ptr[abi:ne200100](va);
-  std::recursive_mutex::unlock((v3 + 24));
-  std::shared_ptr<MPSKernelDAG>::~shared_ptr[abi:ne200100](va1);
-  std::shared_ptr<MPSKernelDAG>::~shared_ptr[abi:ne200100](va2);
-  _Unwind_Resume(a1);
-}
-
-unint64_t *llvm::DenseMapBase<llvm::DenseMap<mlir::Value,std::shared_ptr<GPU::MemrefBuffer>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefBuffer>>>,mlir::Value,std::shared_ptr<GPU::MemrefBuffer>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefBuffer>>>::operator[](uint64_t a1, unint64_t *a2)
-{
-  v2 = *(a1 + 16);
-  if (v2)
-  {
-    v3 = HIDWORD(*a2);
-    v4 = 0x9DDFEA08EB382D69 * ((8 * *a2 - 0xAE502812AA7333) ^ v3);
-    LODWORD(v3) = -348639895 * ((((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 32) >> 15) ^ (-348639895 * (v3 ^ (v4 >> 47) ^ v4)));
-    v5 = v2 - 1;
-    v6 = v3 & (v2 - 1);
-    v7 = (*a1 + 24 * v6);
-    v8 = *v7;
-    if (*a2 == *v7)
-    {
-      return v7 + 1;
-    }
-
-    v12 = 0;
-    v13 = 1;
-    while (v8 != -4096)
-    {
-      if (v12)
-      {
-        v14 = 0;
-      }
-
-      else
-      {
-        v14 = v8 == -8192;
-      }
-
-      if (v14)
-      {
-        v12 = v7;
-      }
-
-      v15 = v6 + v13++;
-      v6 = v15 & v5;
-      v7 = (*a1 + 24 * (v15 & v5));
-      v8 = *v7;
-      if (*a2 == *v7)
-      {
-        return v7 + 1;
-      }
-    }
-
-    if (v12)
-    {
-      v7 = v12;
-    }
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  v18 = v7;
-  v10 = *(a1 + 8);
-  if (4 * v10 + 4 >= 3 * v2)
-  {
-    v16 = a2;
-    v2 *= 2;
-    goto LABEL_24;
-  }
-
-  if (v2 + ~v10 - *(a1 + 12) <= v2 >> 3)
-  {
-    v16 = a2;
-LABEL_24:
-    v17 = a1;
-    llvm::DenseMapBase<llvm::DenseMap<mlir::Value,std::shared_ptr<GPU::MemrefHeap>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefHeap>>>,mlir::Value,std::shared_ptr<GPU::MemrefHeap>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefHeap>>>::grow(a1, v2);
-    llvm::DenseMapBase<llvm::DenseMap<mlir::Value,std::shared_ptr<GPU::MemrefHeap>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefHeap>>>,mlir::Value,std::shared_ptr<GPU::MemrefHeap>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefHeap>>>::LookupBucketFor<mlir::Value>(*v17, *(v17 + 16), *v16, &v18);
-    a1 = v17;
-    a2 = v16;
-    v7 = v18;
-    ++*(v17 + 8);
-    if (*v7 == -4096)
-    {
-      goto LABEL_9;
-    }
-
-    goto LABEL_8;
-  }
-
-  *(a1 + 8) = v10 + 1;
-  if (*v7 != -4096)
-  {
-LABEL_8:
-    --*(a1 + 12);
-  }
-
-LABEL_9:
-  v11 = *a2;
-  v7[1] = 0;
-  v7[2] = 0;
-  *v7 = v11;
-  return v7 + 1;
-}
-
-uint64_t GPU::MemrefBufferizer::freeBufferForValue(uint64_t a1, unint64_t a2)
-{
-  v38 = a2;
-  v3 = *(a1 + 120);
-  v4 = *(a1 + 136);
-  if (v4)
-  {
-    v5 = 0x9DDFEA08EB382D69 * ((8 * a2 - 0xAE502812AA7333) ^ HIDWORD(a2));
-    v6 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v5 >> 47) ^ v5);
-    v7 = (v4 - 1) & (-348639895 * ((v6 >> 47) ^ v6));
-    v8 = (v3 + 24 * v7);
-    v9 = *v8;
-    if (*v8 == a2)
-    {
-      goto LABEL_8;
-    }
-
-    v10 = 1;
-    while (v9 != -4096)
-    {
-      v11 = v7 + v10++;
-      v7 = v11 & (v4 - 1);
-      v8 = (v3 + 24 * v7);
-      v9 = *v8;
-      if (*v8 == a2)
-      {
-        goto LABEL_8;
-      }
-    }
-  }
-
-  v8 = (v3 + 24 * v4);
-LABEL_8:
-  if (v8 != (v3 + 24 * v4))
-  {
-    v13 = v8[1];
-    v12 = v8[2];
-    v37 = v12;
-    if (v12)
-    {
-      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    [*v13 setPurgeableState:4];
-    *(v13 + 16) = 0;
-    v14 = v8[2];
-    if (v14 && !atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v14->__on_zero_shared)(v14);
-      std::__shared_weak_count::__release_weak(v14);
-    }
-
-    *v8 = -8192;
-    *(a1 + 128) = vadd_s32(*(a1 + 128), 0x1FFFFFFFFLL);
-    if (v37)
-    {
-      if (!atomic_fetch_add(&v37->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v37->__on_zero_shared)(v37);
-        std::__shared_weak_count::__release_weak(v37);
-      }
-    }
-
-    return 1;
-  }
-
-  result = mlir::Value::getDefiningOp(&v38);
-  if (result)
-  {
-    if (*(*(result + 48) + 16) != &mlir::detail::TypeIDResolver<mlir::memref::ViewOp,void>::id)
-    {
-      return 0;
-    }
-
-    std::recursive_mutex::lock((a1 + 24));
-    v16 = *(a1 + 168);
-    v17 = *(a1 + 184);
-    if (v17)
-    {
-      v18 = 0x9DDFEA08EB382D69 * ((8 * v38 - 0xAE502812AA7333) ^ HIDWORD(v38));
-      v19 = 0x9DDFEA08EB382D69 * (HIDWORD(v38) ^ (v18 >> 47) ^ v18);
-      v20 = (-348639895 * ((v19 >> 47) ^ v19)) & (v17 - 1);
-      v21 = (v16 + 24 * v20);
-      v22 = *v21;
-      if (v38 == *v21)
-      {
-        goto LABEL_28;
-      }
-
-      v23 = 1;
-      while (v22 != -4096)
-      {
-        v24 = v20 + v23++;
-        v20 = v24 & (v17 - 1);
-        v21 = (v16 + 24 * v20);
-        v22 = *v21;
-        if (v38 == *v21)
-        {
-          goto LABEL_28;
-        }
-      }
-    }
-
-    v21 = (v16 + 24 * v17);
-LABEL_28:
-    if (v21 == (v16 + 24 * v17) && MTLReportFailureTypeEnabled())
-    {
-      MTLReportFailure();
-    }
-
-    v25 = v21[1];
-    v26 = *(*(v25 + 32) + 24);
-    if (*(v26 + 8))
-    {
-      if ((std::__hash_table<std::shared_ptr<GPU::MemrefBuffer>,std::hash<std::shared_ptr<GPU::MemrefBuffer>>,std::equal_to<std::shared_ptr<GPU::MemrefBuffer>>,std::allocator<std::shared_ptr<GPU::MemrefBuffer>>>::__emplace_unique_key_args<std::shared_ptr<GPU::MemrefBuffer>,std::shared_ptr<GPU::MemrefBuffer> const&>((v26 + 96), v25) & 1) == 0 && MTLReportFailureTypeEnabled())
-      {
-        MTLReportFailure();
-      }
-
-      v27 = *(a1 + 160);
-      if (v27)
-      {
-        v28 = *(a1 + 144);
-        v29 = HIDWORD(*v21);
-        v30 = 0x9DDFEA08EB382D69 * ((8 * *v21 - 0xAE502812AA7333) ^ v29);
-        v31 = (-348639895 * ((((0x9DDFEA08EB382D69 * (v29 ^ (v30 >> 47) ^ v30)) >> 32) >> 15) ^ (-348639895 * (v29 ^ (v30 >> 47) ^ v30)))) & (v27 - 1);
-        v32 = *(v28 + 16 * v31);
-        if (v32 == *v21)
-        {
-LABEL_33:
-          if (v31 != v27)
-          {
-            v33 = v28 + 16 * v31;
-
-            *v33 = -8192;
-            *(a1 + 152) = vadd_s32(*(a1 + 152), 0x1FFFFFFFFLL);
-          }
-        }
-
-        else
-        {
-          v35 = 1;
-          while (v32 != -4096)
-          {
-            v36 = v31 + v35++;
-            v31 = v36 & (v27 - 1);
-            v32 = *(v28 + 16 * v31);
-            if (v32 == *v21)
-            {
-              goto LABEL_33;
-            }
-          }
-        }
-      }
-
-      v34 = v21[2];
-      if (v34 && !atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v34->__on_zero_shared)(v34);
-        std::__shared_weak_count::__release_weak(v34);
-      }
-
-      *v21 = -8192;
-      *(a1 + 176) = vadd_s32(*(a1 + 176), 0x1FFFFFFFFLL);
-    }
-
-    std::recursive_mutex::unlock((a1 + 24));
-    return 1;
-  }
-
-  return result;
-}
-
-void sub_1E0787B1C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::shared_ptr<MPSKernelDAG>::~shared_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void GPU::MemrefBufferizer::freeActiveBuffers(GPU::MemrefBufferizer *this)
-{
-  std::recursive_mutex::lock((this + 24));
-  if (*(this + 44))
-  {
-    v2 = *(this + 21);
-    v3 = *(this + 46);
-    v4 = v2;
-    if (*(this + 46))
-    {
-      v5 = 24 * v3;
-      v4 = *(this + 21);
-      while ((*v4 | 0x1000) == 0xFFFFFFFFFFFFF000)
-      {
-        v4 += 3;
-        v5 -= 24;
-        if (!v5)
-        {
-          goto LABEL_33;
-        }
-      }
-    }
-
-    v6 = &v2[3 * v3];
-    if (v4 != v6)
-    {
-      do
-      {
-        v7 = v4[1];
-        v8 = *(*(v7 + 32) + 24);
-        if (*(v8 + 8))
-        {
-          if ((std::__hash_table<std::shared_ptr<GPU::MemrefBuffer>,std::hash<std::shared_ptr<GPU::MemrefBuffer>>,std::equal_to<std::shared_ptr<GPU::MemrefBuffer>>,std::allocator<std::shared_ptr<GPU::MemrefBuffer>>>::__emplace_unique_key_args<std::shared_ptr<GPU::MemrefBuffer>,std::shared_ptr<GPU::MemrefBuffer> const&>((v8 + 96), v7) & 1) == 0 && MTLReportFailureTypeEnabled())
-          {
-            MTLReportFailure();
-          }
-
-          v9 = *(this + 40);
-          if (v9)
-          {
-            v10 = *(this + 18);
-            v11 = HIDWORD(*v4);
-            v12 = 0x9DDFEA08EB382D69 * ((8 * *v4 - 0xAE502812AA7333) ^ v11);
-            v13 = (-348639895 * ((((0x9DDFEA08EB382D69 * (v11 ^ (v12 >> 47) ^ v12)) >> 32) >> 15) ^ (-348639895 * (v11 ^ (v12 >> 47) ^ v12)))) & (v9 - 1);
-            v14 = *(v10 + 16 * v13);
-            if (v14 == *v4)
-            {
-LABEL_15:
-              if (v13 != v9)
-              {
-                v15 = v10 + 16 * v13;
-
-                *v15 = -8192;
-                *(this + 19) = vadd_s32(*(this + 152), 0x1FFFFFFFFLL);
-              }
-            }
-
-            else
-            {
-              v18 = 1;
-              while (v14 != -4096)
-              {
-                v19 = v13 + v18++;
-                v13 = v19 & (v9 - 1);
-                v14 = *(v10 + 16 * v13);
-                if (v14 == *v4)
-                {
-                  goto LABEL_15;
-                }
-              }
-            }
-          }
-
-          for (i = v4 + 3; i != v6; i += 3)
-          {
-            if ((*i | 0x1000) != 0xFFFFFFFFFFFFF000)
-            {
-              break;
-            }
-          }
-
-          v17 = v4[2];
-          if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            (v17->__on_zero_shared)(v17);
-            std::__shared_weak_count::__release_weak(v17);
-          }
-
-          *v4 = -8192;
-          *(this + 22) = vadd_s32(*(this + 176), 0x1FFFFFFFFLL);
-          v2 = *(this + 21);
-          v3 = *(this + 46);
-        }
-
-        else
-        {
-          for (i = v4 + 3; i != v6; i += 3)
-          {
-            if ((*i | 0x1000) != 0xFFFFFFFFFFFFF000)
-            {
-              break;
-            }
-          }
-        }
-
-        v4 = i;
-      }
-
-      while (i != &v2[3 * v3]);
-    }
-  }
-
-LABEL_33:
-
-  std::recursive_mutex::unlock((this + 24));
-}
-
-void GPU::MemrefBufferizer::freeInactiveBuffers(GPU::MemrefBufferizer *this)
-{
-  std::recursive_mutex::lock((this + 24));
-  v2 = *(this + 29);
-  if (v2)
-  {
-    while (1)
-    {
-      v33 = v2;
-      v3 = v2[3];
-      if (v3[15])
-      {
-        v4 = v3[14];
-        if (v4)
-        {
-          break;
-        }
-      }
-
-LABEL_3:
-      v2 = *v33;
-      if (!*v33)
-      {
-        goto LABEL_74;
-      }
-    }
-
-    v5 = v3 + 9;
-    while (1)
-    {
-      v6 = v4;
-      v7 = v4[3];
-      v34 = v4[2];
-      v35 = v7;
-      if (v7)
-      {
-        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v8 = v3[13];
-      v4 = *v4;
-      v9 = v6[1];
-      v10 = vcnt_s8(v8);
-      v10.i16[0] = vaddlv_u8(v10);
-      if (v10.u32[0] > 1uLL)
-      {
-        if (v9 >= *&v8)
-        {
-          v9 %= *&v8;
-        }
-      }
-
-      else
-      {
-        v9 &= *&v8 - 1;
-      }
-
-      v11 = v3[12];
-      v12 = *(v11 + 8 * v9);
-      do
-      {
-        v13 = v12;
-        v12 = *v12;
-      }
-
-      while (v12 != v6);
-      if (v13 == v3 + 14)
-      {
-        goto LABEL_77;
-      }
-
-      v14 = v13[1];
-      if (v10.u32[0] > 1uLL)
-      {
-        if (v14 >= *&v8)
-        {
-          v14 %= *&v8;
-        }
-      }
-
-      else
-      {
-        v14 &= *&v8 - 1;
-      }
-
-      v15 = *v6;
-      if (v14 != v9)
-      {
-LABEL_77:
-        if (v4)
-        {
-          v16 = v4[1];
-          if (v10.u32[0] > 1uLL)
-          {
-            v17 = v4[1];
-            if (v16 >= *&v8)
-            {
-              v17 = v16 % *&v8;
-            }
-          }
-
-          else
-          {
-            v17 = v16 & (*&v8 - 1);
-          }
-
-          v15 = *v6;
-          if (v17 == v9)
-          {
-            goto LABEL_31;
-          }
-        }
-
-        *(v11 + 8 * v9) = 0;
-        v15 = *v6;
-      }
-
-      if (!v15)
-      {
-        goto LABEL_37;
-      }
-
-      v16 = *(v15 + 8);
-LABEL_31:
-      if (v10.u32[0] > 1uLL)
-      {
-        if (v16 >= *&v8)
-        {
-          v16 %= *&v8;
-        }
-      }
-
-      else
-      {
-        v16 &= *&v8 - 1;
-      }
-
-      if (v16 != v9)
-      {
-        *(v11 + 8 * v16) = v13;
-        v15 = *v6;
-      }
-
-LABEL_37:
-      *v13 = v15;
-      *v6 = 0;
-      --v3[15];
-      v18 = v6[3];
-      if (!v18 || atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        operator delete(v6);
-        v19 = *v5;
-        v20 = v3 + 9;
-        if (*v5)
-        {
-          goto LABEL_40;
-        }
-
-        goto LABEL_67;
-      }
-
-      v32 = v6;
-      (v18->__on_zero_shared)(v18);
-      std::__shared_weak_count::__release_weak(v18);
-      operator delete(v32);
-      v19 = *v5;
-      v20 = v3 + 9;
-      if (*v5)
-      {
-LABEL_40:
-        v20 = v3 + 9;
-        while (1)
-        {
-          v21 = v19;
-          v22 = v3[11];
-          v42 = v34;
-          v43 = v35;
-          if (v35)
-          {
-            atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          v23 = v21[5];
-          v40 = v21[4];
-          v41 = v23;
-          if (v23)
-          {
-            atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          v24 = v22(&v42, &v40);
-          v25 = v41;
-          if (v41 && !atomic_fetch_add(&v41->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            (v25->__on_zero_shared)(v25);
-            std::__shared_weak_count::__release_weak(v25);
-            v26 = v43;
-            if (v43)
-            {
-LABEL_49:
-              if (!atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-              {
-                (v26->__on_zero_shared)(v26);
-                std::__shared_weak_count::__release_weak(v26);
-              }
-            }
-          }
-
-          else
-          {
-            v26 = v43;
-            if (v43)
-            {
-              goto LABEL_49;
-            }
-          }
-
-          if (v24)
-          {
-            v19 = *v21;
-            v20 = v21;
-            if (!*v21)
-            {
-              break;
-            }
-          }
-
-          else
-          {
-            v27 = v3[11];
-            v28 = v21[5];
-            v38 = v21[4];
-            v39 = v28;
-            if (v28)
-            {
-              atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-            }
-
-            v36 = v34;
-            v37 = v35;
-            if (v35)
-            {
-              atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
-            }
-
-            v29 = v27(&v38, &v36);
-            v30 = v37;
-            if (v37 && !atomic_fetch_add(&v37->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-            {
-              (v30->__on_zero_shared)(v30);
-              std::__shared_weak_count::__release_weak(v30);
-              v31 = v39;
-              if (v39)
-              {
-LABEL_60:
-                if (!atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-                {
-                  (v31->__on_zero_shared)(v31);
-                  std::__shared_weak_count::__release_weak(v31);
-                }
-              }
-            }
-
-            else
-            {
-              v31 = v39;
-              if (v39)
-              {
-                goto LABEL_60;
-              }
-            }
-
-            if (!v29)
-            {
-              break;
-            }
-
-            v20 = v21 + 1;
-            v19 = v21[1];
-            if (!v19)
-            {
-              break;
-            }
-          }
-        }
-      }
-
-LABEL_67:
-      if (!*v20)
-      {
-        operator new();
-      }
-
-      if (MTLReportFailureTypeEnabled())
-      {
-        MTLReportFailure();
-      }
-
-      v3[3] += *(v34 + 8);
-      *(v34 + 24) = 0;
-      if (v35 && !atomic_fetch_add(&v35->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v35->__on_zero_shared)(v35);
-        std::__shared_weak_count::__release_weak(v35);
-      }
-
-      if (!v4)
-      {
-        goto LABEL_3;
-      }
-    }
-  }
-
-LABEL_74:
-  std::recursive_mutex::unlock((this + 24));
-}
-
-void sub_1E0788498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  std::shared_ptr<MPSKernelDAG>::~shared_ptr[abi:ne200100](va);
-  std::recursive_mutex::unlock((a2 + 24));
-  _Unwind_Resume(a1);
-}
-
-MPSGraphTensorData *GPU::MemrefBufferizer::createViewTensorDataForStridedValue(uint64_t a1, unint64_t a2, void *a3, GPU::EncodeDescriptor *a4, int a5)
-{
-  v110 = a1;
-  v130 = *MEMORY[0x1E69E9840];
-  v111 = a3;
-  v113 = (*(a2 + 8) & 0xFFFFFFFFFFFFFFF8);
-  Value = mlir::ArrayAttr::getValue(&v113);
-  v10 = v9;
-  mlir::getStridesAndOffset(v113, &v126);
-  if ((!v10 || !v127) && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  MPSDataType = getMPSDataType(v113);
-  v12 = MEMORY[0x1E69744C8];
-  v13 = *&v111[*MEMORY[0x1E69744C8]] >> 3;
-  v14 = MPSDataType >> 3;
-  v106 = a2;
-  v109 = a4;
-  v108 = a5;
-  if (v13 < v14 && v129 % v14)
-  {
-    v107 = &v106;
-    if (v10)
-    {
-      v15 = 0;
-      v16 = v126;
-      v17 = 1;
-      v18 = MEMORY[0x1E6974508];
-      v19 = MEMORY[0x1E69744D8];
-      v20 = MEMORY[0x1E6974518];
-      v21 = v111;
-      do
-      {
-        v22 = &v21[*v18];
-        v112 = *&v21[*v19];
-        v23 = *(&v112 | v15 & 0xF);
-        v24 = *&v22[4 * (v23 & 0xF)];
-        v16[v15] = *&v21[8 * ((v10 + ~v23) & 0xF) + *v20];
-        v17 *= v24;
-        ++v15;
-      }
-
-      while (v10 != v15);
-    }
-
-    else
-    {
-      v17 = 1;
-      v21 = v111;
-    }
-
-    v37 = MEMORY[0x1E6974490];
-    v38 = *&v21[*v12];
-    v39 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{v17, v106, v107}];
-    v125 = v39;
-    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v125 count:1];
-    v41 = [v37 descriptorWithDataType:v38 shape:v40];
-
-    [v41 setPreferPackedRows:1];
-    v36 = [MEMORY[0x1E69744A8] temporaryNDArrayWithCommandBuffer:*(a4 + 1) descriptor:v41];
-    *&v111[*MEMORY[0x1E69744F8]] = v129;
-    v42 = *(v110 + 112);
-    v43 = GPU::EncodeDescriptor::getcomputeEncoder(a4);
-    v44 = *(a4 + 1);
-    v124 = v111;
-    v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v124 count:1];
-    [v42 encodeToMPSCommandEncoder:v43 commandBuffer:v44 sourceArrays:v45 destinationArray:v36];
-
-    v129 = 0;
-  }
-
-  else
-  {
-    v25 = MEMORY[0x1E6974490];
-    v26 = MEMORY[0x1E696AD98];
-    v27 = mlir::ArrayAttr::getValue(&v113);
-    v29 = [v26 numberWithLongLong:{mlir::ShapedType::getNumElements(v27, v28), v106}];
-    v123 = v29;
-    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v123 count:1];
-    v31 = [v25 descriptorWithDataType:MPSDataType shape:v30];
-
-    [v31 setPreferPackedRows:1];
-    v32 = v129;
-    v33 = *&v111[*v12];
-    v34 = objc_alloc(MEMORY[0x1E6974488]);
-    v35 = [v111 buffer];
-    v36 = [v34 initWithBuffer:v35 offset:v32 * (v33 >> 3) descriptor:v31];
-  }
-
-  v46 = v122;
-  v120 = v122;
-  v121 = 0x600000000;
-  v107 = v122;
-  if (!v10)
-  {
-    v49 = v122;
-LABEL_24:
-    v50 = 0;
-    v54 = 0;
-    v117 = &v126;
-LABEL_35:
-    std::__stable_sort<std::_ClassicAlgPolicy,GPU::MemrefBufferizer::createViewTensorDataForStridedValue(mlir::detail::TypedValue<mlir::MemRefType>,MPSNDArray *,GPU::EncodeDescriptor *,BOOL)::$_0 &,long long *>(v46, v49, &v117, v50, 0, v54);
-    goto LABEL_36;
-  }
-
-  if (v10 < 7)
-  {
-    v47 = 0;
-    v48 = v10;
-    goto LABEL_20;
-  }
-
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&v120, v122, v10, 8);
-  v47 = v121;
-  v46 = v120;
-  v48 = v10 - v121;
-  if (v10 != v121)
-  {
-LABEL_20:
-    bzero(&v46[8 * v47], 8 * v48);
-  }
-
-  LODWORD(v121) = v10;
-  v49 = &v46[8 * v10];
-  if (!v10)
-  {
-    goto LABEL_24;
-  }
-
-  v50 = v10;
-  v51 = (v10 - 1) & 0x1FFFFFFFFFFFFFFFLL;
-  if (v51 < 3)
-  {
-    v52 = 0;
-    v53 = v46;
-    do
-    {
-LABEL_28:
-      *v53 = v52;
-      v53 += 8;
-      ++v52;
-    }
-
-    while (v53 != v49);
-    goto LABEL_29;
-  }
-
-  v55 = v51 + 1;
-  v52 = (v51 + 1) & 0x3FFFFFFFFFFFFFFCLL;
-  v53 = &v46[8 * v52];
-  v56 = xmmword_1E09700F0;
-  v57 = (v46 + 16);
-  v58 = vdupq_n_s64(2uLL);
-  v59 = vdupq_n_s64(4uLL);
-  v60 = v52;
-  do
-  {
-    v57[-1] = v56;
-    *v57 = vaddq_s64(v56, v58);
-    v56 = vaddq_s64(v56, v59);
-    v57 += 2;
-    v60 -= 4;
-  }
-
-  while (v60);
-  if (v55 != v52)
-  {
-    goto LABEL_28;
-  }
-
-LABEL_29:
-  v117 = &v126;
-  if (v10 < 0x81)
-  {
-    v54 = 0;
-    goto LABEL_35;
-  }
-
-  v61 = MEMORY[0x1E69E5398];
-  v62 = v10;
-  while (1)
-  {
-    v63 = operator new(8 * v62, v61);
-    if (v63)
-    {
-      break;
-    }
-
-    v54 = v62 >> 1;
-    v64 = v62 > 1;
-    v62 >>= 1;
-    if (!v64)
-    {
-      v49 = &v46[8 * v10];
-      v50 = v10;
-      goto LABEL_35;
-    }
-  }
-
-  v105 = v63;
-  std::__stable_sort<std::_ClassicAlgPolicy,GPU::MemrefBufferizer::createViewTensorDataForStridedValue(mlir::detail::TypedValue<mlir::MemRefType>,MPSNDArray *,GPU::EncodeDescriptor *,BOOL)::$_0 &,long long *>(v46, &v46[8 * v10], &v117, v10, v63, v62);
-  operator delete(v105);
-LABEL_36:
-  v65 = [MEMORY[0x1E695DF70] arrayWithCapacity:v10];
-  v66 = [MEMORY[0x1E695DF70] arrayWithCapacity:v10];
-  if (v10)
-  {
-    for (i = 0; i != v10; ++i)
-    {
-      v68 = [MEMORY[0x1E696AD98] numberWithInteger:v126[*(v120 + i)]];
-      [v65 setObject:v68 atIndexedSubscript:i];
-
-      v69 = [MEMORY[0x1E696AD98] numberWithInteger:*(Value + 8 * *(v120 + i))];
-      [v66 setObject:v69 atIndexedSubscript:i];
-    }
-  }
-
-  v70 = v10 - 1;
-  v71 = v126[*(v120 + v10 - 1)];
-  if (v71 != 1)
-  {
-    v72 = [MEMORY[0x1E696AD98] numberWithInteger:1];
-    [v65 addObject:v72];
-
-    v73 = [MEMORY[0x1E696AD98] numberWithInteger:1];
-    [v66 addObject:v73];
-  }
-
-  v74 = [v36 arrayViewWithShape:v66 strides:v65];
-
-  if (!v74 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  if (v71 == 1)
-  {
-    v75 = v74;
-    v117 = v119;
-    v118 = 0x600000000;
-    if (v10)
-    {
-      goto LABEL_44;
-    }
-
-LABEL_48:
-    v114 = v116;
-    v115 = 0x600000000;
-    goto LABEL_65;
-  }
-
-  [v66 removeObjectAtIndex:{objc_msgSend(v66, "count") - 1}];
-  v79 = [*(v110 + 112) reshapeWithCommandBuffer:0 sourceArray:v74 shape:v66 destinationArray:0];
-
-  v75 = v79;
-  v117 = v119;
-  v118 = 0x600000000;
-  if (!v10)
-  {
-    goto LABEL_48;
-  }
-
-LABEL_44:
-  if (v10 >= 7)
-  {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(&v117, v119, v10, 8);
-    v76 = v118;
-    v77 = v117;
-    v78 = v10 - v118;
-    if (v10 == v118)
-    {
-      goto LABEL_51;
-    }
-
-    goto LABEL_50;
-  }
-
-  v76 = 0;
-  v77 = v119;
-  v78 = v10;
-  if (v10)
-  {
-LABEL_50:
-    bzero(&v77[8 * v76], 8 * v78);
-  }
-
-LABEL_51:
-  v80 = 0;
-  LODWORD(v118) = v10;
-  v81 = v120;
-  do
-  {
-    *&v77[8 * v81[v80]] = v80;
-    ++v80;
-  }
-
-  while (v10 != v80);
-  v114 = v116;
-  v115 = 0x600000000;
-  if (v10 < 7)
-  {
-    v82 = 0;
-    v83 = v116;
-    v84 = v10;
-    if (!v10)
-    {
-      goto LABEL_58;
-    }
-
-    goto LABEL_57;
-  }
-
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&v114, v116, v10, 8);
-  v82 = v115;
-  v83 = v114;
-  v84 = v10 - v115;
-  if (v10 != v115)
-  {
-LABEL_57:
-    bzero(v83 + 8 * v82, 8 * v84);
-  }
-
-LABEL_58:
-  LODWORD(v115) = v10;
-  if (!v10)
-  {
-    goto LABEL_65;
-  }
-
-  v85 = (v10 - 1) & 0x1FFFFFFFFFFFFFFFLL;
-  if (v85 < 3)
-  {
-    v86 = 0;
-    v87 = v83;
-    do
-    {
-LABEL_64:
-      *v87++ = v86++;
-    }
-
-    while (v87 != (v83 + 8 * v10));
-    goto LABEL_65;
-  }
-
-  v88 = v85 + 1;
-  v86 = (v85 + 1) & 0x3FFFFFFFFFFFFFFCLL;
-  v87 = &v83->i64[v86];
-  v89 = xmmword_1E09700F0;
-  v90 = v83 + 1;
-  v91 = vdupq_n_s64(2uLL);
-  v92 = vdupq_n_s64(4uLL);
-  v93 = v86;
-  do
-  {
-    v90[-1] = v89;
-    *v90 = vaddq_s64(v89, v91);
-    v89 = vaddq_s64(v89, v92);
-    v90 += 2;
-    v93 -= 4;
-  }
-
-  while (v93);
-  if (v88 != v86)
-  {
-    goto LABEL_64;
-  }
-
-LABEL_65:
-  v94 = [v75 descriptor];
-  [v94 setDataType:getMPSDataType(v113)];
-  if (v10 >= 1)
-  {
-    do
-    {
-      v101 = v114 + 8 * v115;
-      v102 = v114;
-      if (v115)
-      {
-        v103 = 8 * v115;
-        v102 = v114;
-        while (*v102 != *(v117 + v70))
-        {
-          v102 += 8;
-          v103 -= 8;
-          if (!v103)
-          {
-            v102 = v114 + 8 * v115;
-            break;
-          }
-        }
-      }
-
-      v104 = *(v114 + v70);
-      *(v114 + v70) = *v102;
-      *v102 = v104;
-      if (v10 + ~v70 != ((v101 - v102) >> 3) - 1)
-      {
-        [v94 transposeDimension:? withDimension:?];
-      }
-
-      v64 = v70-- <= 0;
-    }
-
-    while (!v64);
-  }
-
-  v95 = 1;
-  if (!v129)
-  {
-    v95 = 2;
-  }
-
-  if (v108)
-  {
-    v96 = 1;
-  }
-
-  else
-  {
-    v96 = v95;
-  }
-
-  v97 = [v75 safeArrayViewWithCommandBuffer:*(v109 + 1) descriptor:v94 aliasing:v96];
-  if (!v97 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  v98 = [MPSGraphTensorData alloc];
-  v99 = [(MPSGraphTensorData *)v98 initWithMPSNDArray:v97 device:*(v110 + 16)];
-  if (v99)
-  {
-    GPU::MemrefBufferizer::setTensorDataForMemref(v110, v106, v99);
-  }
-
-  if (v114 != v116)
-  {
-    free(v114);
-  }
-
-  if (v117 != v119)
-  {
-    free(v117);
-  }
-
-  if (v120 != v107)
-  {
-    free(v120);
-  }
-
-  if (v126 != &v128)
-  {
-    free(v126);
-  }
-
-  return v99;
-}
-
-void sub_1E0788F48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, _Unwind_Exception *exception_object, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35)
-{
-  if (a19 != v35)
-  {
-    free(a19);
-  }
-
-  if (a27 != v39)
-  {
-    free(a27);
-  }
-
-  if (a35 != a10)
-  {
-    free(a35);
-  }
-
-  v43 = *(v42 - 184);
-  if (v43 != (v42 - 168))
-  {
-    free(v43);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t GPU::MemrefBufferizer::setTensorDataForMemref(uint64_t a1, unint64_t a2, void *a3)
-{
-  v17 = a2;
-  v5 = a3;
-  v8 = *(a1 + 144);
-  v7 = a1 + 144;
-  v6 = v8;
-  v9 = *(v7 + 16);
-  if (v9)
-  {
-    v10 = 0x9DDFEA08EB382D69 * ((8 * a2 - 0xAE502812AA7333) ^ HIDWORD(a2));
-    v11 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v10 >> 47) ^ v10);
-    v12 = (v9 - 1) & (-348639895 * ((v11 >> 47) ^ v11));
-    v13 = *(v6 + 16 * v12);
-    if (v13 == a2)
-    {
-LABEL_3:
-      if (v12 != v9 && MTLReportFailureTypeEnabled())
-      {
-        MTLReportFailure();
-      }
-    }
-
-    else
-    {
-      v14 = 1;
-      while (v13 != -4096)
-      {
-        v15 = v12 + v14++;
-        v12 = v15 & (v9 - 1);
-        v13 = *(v6 + 16 * v12);
-        if (v13 == a2)
-        {
-          goto LABEL_3;
-        }
-      }
-    }
-  }
-
-  *llvm::DenseMapBase<llvm::DenseMap<mlir::Value,MPSGraphTensorData * {__strong},llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,MPSGraphTensorData * {__strong}>>,mlir::Value,MPSGraphTensorData * {__strong},llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,MPSGraphTensorData * {__strong}>>::operator[](v7, &v17) = v5;
-
-  return MEMORY[0x1EEE66BB8]();
-}
-
-unint64_t *llvm::DenseMapBase<llvm::DenseMap<mlir::Value,MPSGraphTensorData * {__strong},llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,MPSGraphTensorData * {__strong}>>,mlir::Value,MPSGraphTensorData * {__strong},llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,MPSGraphTensorData * {__strong}>>::operator[](uint64_t a1, unint64_t *a2)
-{
-  v2 = *(a1 + 16);
-  if (v2)
-  {
-    v3 = HIDWORD(*a2);
-    v4 = 0x9DDFEA08EB382D69 * ((8 * *a2 - 0xAE502812AA7333) ^ v3);
-    LODWORD(v3) = -348639895 * ((((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 32) >> 15) ^ (-348639895 * (v3 ^ (v4 >> 47) ^ v4)));
-    v5 = v2 - 1;
-    v6 = v3 & (v2 - 1);
-    v7 = (*a1 + 16 * v6);
-    v8 = *v7;
-    if (*a2 == *v7)
-    {
-      return v7 + 1;
-    }
-
-    v11 = 0;
-    v12 = 1;
-    while (v8 != -4096)
-    {
-      if (v11)
-      {
-        v13 = 0;
-      }
-
-      else
-      {
-        v13 = v8 == -8192;
-      }
-
-      if (v13)
-      {
-        v11 = v7;
-      }
-
-      v14 = v6 + v12++;
-      v6 = v14 & v5;
-      v7 = (*a1 + 16 * (v14 & v5));
-      v8 = *v7;
-      if (*a2 == *v7)
-      {
-        return v7 + 1;
-      }
-    }
-
-    if (v11)
-    {
-      v7 = v11;
-    }
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  v17 = v7;
-  v10 = *(a1 + 8);
-  if (4 * v10 + 4 >= 3 * v2)
-  {
-    v15 = a2;
-    v2 *= 2;
-    goto LABEL_24;
-  }
-
-  if (v2 + ~v10 - *(a1 + 12) <= v2 >> 3)
-  {
-    v15 = a2;
-LABEL_24:
-    v16 = a1;
-    llvm::DenseMapBase<llvm::DenseMap<mlir::Value,MPSGraphTensorData * {__strong},llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,MPSGraphTensorData * {__strong}>>,mlir::Value,MPSGraphTensorData * {__strong},llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,MPSGraphTensorData * {__strong}>>::grow(a1, v2);
-    llvm::DenseMapBase<llvm::DenseMap<mlir::Value,MPSGraphTensorData * {__strong},llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,MPSGraphTensorData * {__strong}>>,mlir::Value,MPSGraphTensorData * {__strong},llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,MPSGraphTensorData * {__strong}>>::LookupBucketFor<mlir::Value>(*v16, *(v16 + 16), *v15, &v17);
-    a1 = v16;
-    a2 = v15;
-    v7 = v17;
-    ++*(v16 + 8);
-    if (*v7 == -4096)
-    {
-      goto LABEL_9;
-    }
-
-    goto LABEL_8;
-  }
-
-  *(a1 + 8) = v10 + 1;
-  if (*v7 != -4096)
-  {
-LABEL_8:
-    --*(a1 + 12);
-  }
-
-LABEL_9:
-  *v7 = *a2;
-  v7[1] = 0;
-  return v7 + 1;
-}
-
-id GPU::MemrefBufferizer::getTensorDataForMemrefAtOffset(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
-{
-  v42 = a2;
-  v5 = *(a1 + 120);
-  v6 = *(a1 + 136);
-  if (!v6)
-  {
-LABEL_7:
-    v10 = (v5 + 24 * v6);
-    goto LABEL_8;
-  }
-
-  v7 = 0x9DDFEA08EB382D69 * ((8 * a3 - 0xAE502812AA7333) ^ HIDWORD(a3));
-  v8 = 0x9DDFEA08EB382D69 * (HIDWORD(a3) ^ (v7 >> 47) ^ v7);
-  v9 = (v6 - 1) & (-348639895 * ((v8 >> 47) ^ v8));
-  v10 = (v5 + 24 * v9);
-  v11 = *v10;
-  if (*v10 != a3)
-  {
-    v12 = 1;
-    while (v11 != -4096)
-    {
-      v13 = v9 + v12++;
-      v9 = v13 & (v6 - 1);
-      v10 = (v5 + 24 * v9);
-      v11 = *v10;
-      if (*v10 == a3)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    goto LABEL_7;
-  }
-
-LABEL_8:
-  if (v10 == (v5 + 24 * v6))
-  {
-    v38 = a4;
-    v39 = MTLReportFailureTypeEnabled();
-    a4 = v38;
-    if (v39)
-    {
-      MTLReportFailure();
-      a4 = v38;
-    }
-  }
-
-  v14 = v10[1];
-  v15 = v10[2];
-  if (v15)
-  {
-    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  if (*(v14 + 40) <= a4)
-  {
-    v21 = 0;
-    if (!v15)
-    {
-      goto LABEL_53;
-    }
-
-    goto LABEL_51;
-  }
-
-  v16 = *(a1 + 168);
-  v17 = *(a1 + 184);
-  v18 = (v16 + 24 * v17);
-  if (*(a1 + 176))
-  {
-    v19 = *(a1 + 168);
-    if (v17)
-    {
-      v20 = 24 * v17;
-      v19 = *(a1 + 168);
-      while ((*v19 | 0x1000) == 0xFFFFFFFFFFFFF000)
-      {
-        v19 += 3;
-        v20 -= 24;
-        if (!v20)
-        {
-          goto LABEL_33;
-        }
-      }
-    }
-
-    if (v19 != v18)
-    {
-LABEL_21:
-      v22 = v19[1];
-      v23 = v19[2];
-      if (v23)
-      {
-        atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
-        v24 = *(v22 + 16);
-        if (atomic_fetch_add(&v23->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          if (v24 != a4)
-          {
-            goto LABEL_28;
-          }
-        }
-
-        else
-        {
-          v25 = a4;
-          (v23->__on_zero_shared)(v23);
-          std::__shared_weak_count::__release_weak(v23);
-          a4 = v25;
-          if (v24 != v25)
-          {
-LABEL_28:
-            while (1)
-            {
-              v19 += 3;
-              if (v19 == v18)
-              {
-                break;
-              }
-
-              if ((*v19 | 0x1000) != 0xFFFFFFFFFFFFF000)
-              {
-                if (v19 != v18)
-                {
-                  goto LABEL_21;
-                }
-
-                break;
-              }
-            }
-
-            v19 = v18;
-          }
-        }
-      }
-
-      else if (*(v22 + 16) != a4)
-      {
-        goto LABEL_28;
-      }
-
-      v16 = *(a1 + 168);
-      LODWORD(v17) = *(a1 + 184);
-      v18 = v19;
-    }
-  }
-
-LABEL_33:
-  if (v18 == (v16 + 24 * v17) && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  v26 = *(a1 + 144);
-  v27 = *(a1 + 160);
-  if (v27)
-  {
-    v28 = HIDWORD(*v18);
-    v29 = 0x9DDFEA08EB382D69 * ((8 * *v18 - 0xAE502812AA7333) ^ v28);
-    v30 = (-348639895 * ((((0x9DDFEA08EB382D69 * (v28 ^ (v29 >> 47) ^ v29)) >> 32) >> 15) ^ (-348639895 * (v28 ^ (v29 >> 47) ^ v29)))) & (v27 - 1);
-    v31 = *(v26 + 16 * v30);
-    if (v31 == *v18)
-    {
-LABEL_36:
-      v32 = v30 == v27;
-      v27 = v30;
-      if (!v32)
-      {
-        goto LABEL_40;
-      }
-    }
-
-    else
-    {
-      v40 = 1;
-      while (v31 != -4096)
-      {
-        v41 = v30 + v40++;
-        v30 = v41 & (v27 - 1);
-        v31 = *(v26 + 16 * v30);
-        if (v31 == *v18)
-        {
-          goto LABEL_36;
-        }
-      }
-    }
-  }
-
-  if (MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-LABEL_40:
-  v34 = v18[1];
-  v33 = v18[2];
-  if (v33)
-  {
-    atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v21 = *(v26 + 16 * v27 + 8);
-  GPU::MemrefBufferizer::setTensorDataForMemref(a1, v42, v21);
-  v35 = llvm::DenseMapBase<llvm::DenseMap<mlir::Value,std::shared_ptr<GPU::MemrefBuffer>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefBuffer>>>,mlir::Value,std::shared_ptr<GPU::MemrefBuffer>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefBuffer>>>::operator[](a1 + 168, &v42);
-  if (v33)
-  {
-    atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v36 = v35[1];
-  *v35 = v34;
-  v35[1] = v33;
-  if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v36->__on_zero_shared)(v36);
-    std::__shared_weak_count::__release_weak(v36);
-  }
-
-  if (v33 && !atomic_fetch_add(&v33->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v33->__on_zero_shared)(v33);
-    std::__shared_weak_count::__release_weak(v33);
-  }
-
-  if (v15)
-  {
-LABEL_51:
-    if (!atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v15->__on_zero_shared)(v15);
-      std::__shared_weak_count::__release_weak(v15);
-    }
-  }
-
-LABEL_53:
-
-  return v21;
-}
-
-void sub_1E07898D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  std::shared_ptr<MPSKernelDAG>::~shared_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_1E07898EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  std::shared_ptr<MPSKernelDAG>::~shared_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_1E0789900(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-
-  std::shared_ptr<MPSKernelDAG>::~shared_ptr[abi:ne200100](va);
-  std::shared_ptr<MPSKernelDAG>::~shared_ptr[abi:ne200100](va1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t GPU::MemrefBufferizer::setTensorDataForMemrefBackedResult(uint64_t a1, unint64_t a2, void *a3)
-{
-  v17 = a2;
-  v5 = a3;
-  v8 = *(a1 + 192);
-  v7 = a1 + 192;
-  v6 = v8;
-  v9 = *(v7 + 16);
-  if (v9)
-  {
-    v10 = 0x9DDFEA08EB382D69 * ((8 * a2 - 0xAE502812AA7333) ^ HIDWORD(a2));
-    v11 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v10 >> 47) ^ v10);
-    v12 = (v9 - 1) & (-348639895 * ((v11 >> 47) ^ v11));
-    v13 = *(v6 + 16 * v12);
-    if (v13 == a2)
-    {
-LABEL_3:
-      if (v12 != v9 && MTLReportFailureTypeEnabled())
-      {
-        MTLReportFailure();
-      }
-    }
-
-    else
-    {
-      v14 = 1;
-      while (v13 != -4096)
-      {
-        v15 = v12 + v14++;
-        v12 = v15 & (v9 - 1);
-        v13 = *(v6 + 16 * v12);
-        if (v13 == a2)
-        {
-          goto LABEL_3;
-        }
-      }
-    }
-  }
-
-  if (!v5 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  *llvm::DenseMapBase<llvm::DenseMap<mlir::Value,MPSGraphTensorData * {__strong},llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,MPSGraphTensorData * {__strong}>>,mlir::Value,MPSGraphTensorData * {__strong},llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,MPSGraphTensorData * {__strong}>>::operator[](v7, &v17) = v5;
-
-  return MEMORY[0x1EEE66BB8]();
-}
-
-void llvm::DenseMap<mlir::Value,std::shared_ptr<GPU::MemrefHeap>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefHeap>>>::~DenseMap(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  v3 = *a1;
-  if (v2)
-  {
-    v4 = 24 * v2;
-    v5 = (v3 + 16);
-    do
-    {
-      if ((*(v5 - 2) | 0x1000) != 0xFFFFFFFFFFFFF000)
-      {
-        v6 = *v5;
-        if (*v5)
-        {
-          if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            (v6->__on_zero_shared)(v6);
-            std::__shared_weak_count::__release_weak(v6);
-          }
-        }
-      }
-
-      v5 += 3;
-      v4 -= 24;
-    }
-
-    while (v4);
-    v3 = *a1;
-    v7 = 24 * *(a1 + 16);
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  llvm::deallocate_buffer(v3, v7);
-}
-
-void llvm::DenseMap<mlir::Value,std::shared_ptr<GPU::MemrefBuffer>,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseMapPair<mlir::Value,std::shared_ptr<GPU::MemrefBuffer>>>::~DenseMap(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  v3 = *a1;
-  if (v2)
-  {
-    v4 = 24 * v2;
-    v5 = (v3 + 16);
-    do
-    {
-      if ((*(v5 - 2) | 0x1000) != 0xFFFFFFFFFFFFF000)
-      {
-        v6 = *v5;
-        if (*v5)
-        {
-          if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            (v6->__on_zero_shared)(v6);
-            std::__shared_weak_count::__release_weak(v6);
-          }
-        }
-      }
-
-      v5 += 3;
-      v4 -= 24;
-    }
-
-    while (v4);
-    v3 = *a1;
-    v7 = 24 * *(a1 + 16);
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  llvm::deallocate_buffer(v3, v7);
-}
-
-uint64_t std::unordered_map<GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>::~unordered_map[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  if (v2)
-  {
-    do
-    {
-      v5 = *v2;
-      v6 = v2[3];
-      v2[3] = 0;
-      if (v6)
-      {
-        std::default_delete<GPU::MemrefBufferPool>::operator()[abi:ne200100]((v2 + 3), v6);
-      }
-
-      operator delete(v2);
-      v2 = v5;
-    }
-
-    while (v5);
-  }
-
-  v3 = *a1;
-  *a1 = 0;
-  if (v3)
-  {
-    operator delete(v3);
-  }
-
-  return a1;
-}
-
-BOOL GPU::MemrefHeap::Comparator(uint64_t a1, uint64_t a2)
-{
-  v2 = *(*a1 + 16);
-  v3 = *(*a2 + 16);
-  v4 = v2 >= v3;
-  if (v2 == v3)
-  {
-    v4 = **a1 >= **a2;
-  }
-
-  return !v4;
-}
-
-void *std::__hash_table<std::__hash_value_type<GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>,std::__unordered_map_hasher<GPU::MemrefBufferPool::Kind,std::__hash_value_type<GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>,std::hash<GPU::MemrefBufferPool::Kind>,std::equal_to<GPU::MemrefBufferPool::Kind>,true>,std::__unordered_map_equal<GPU::MemrefBufferPool::Kind,std::__hash_value_type<GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>,std::equal_to<GPU::MemrefBufferPool::Kind>,std::hash<GPU::MemrefBufferPool::Kind>,true>,std::allocator<std::__hash_value_type<GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>>>::__emplace_unique_key_args<GPU::MemrefBufferPool::Kind,GPU::MemrefBufferPool::Kind,std::unique_ptr<GPU::MemrefBufferPool>>(void *result, int a2)
-{
-  v2 = result[1];
-  if (!v2)
-  {
-    goto LABEL_22;
-  }
-
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
-  {
-    v4 = a2;
-    if (v2 <= a2)
-    {
-      v4 = a2 % v2;
-    }
-  }
-
-  else
-  {
-    v4 = (v2 - 1) & a2;
-  }
-
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
-  {
-LABEL_22:
-    operator new();
-  }
-
-  if (v3.u32[0] < 2uLL)
-  {
-    while (1)
-    {
-      v7 = v6[1];
-      if (v7 == a2)
-      {
-        if (*(v6 + 4) == a2)
-        {
-          return result;
-        }
-      }
-
-      else if ((v7 & (v2 - 1)) != v4)
-      {
-        goto LABEL_22;
-      }
-
-      v6 = *v6;
-      if (!v6)
-      {
-        goto LABEL_22;
-      }
-    }
-  }
-
-  while (1)
-  {
-    v8 = v6[1];
-    if (v8 == a2)
-    {
-      break;
-    }
-
-    if (v8 >= v2)
-    {
-      v8 %= v2;
-    }
-
-    if (v8 != v4)
-    {
-      goto LABEL_22;
-    }
-
-LABEL_17:
-    v6 = *v6;
-    if (!v6)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  if (*(v6 + 4) != a2)
-  {
-    goto LABEL_17;
-  }
-
-  return result;
 }

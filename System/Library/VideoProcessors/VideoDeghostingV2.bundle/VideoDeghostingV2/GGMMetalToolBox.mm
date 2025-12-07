@@ -8,12 +8,16 @@
 - (id)createGhostRoiFromGhostBox:(id *)box computeLocalMotion:(BOOL)motion;
 - (id)findGhostCandidatesFromDesGenAndTinyKeypointsFromInputTexture:(double)texture ref4LocalMotionTexture:(double)motionTexture inputTPlus1Texture:(int32x2_t)plus1Texture LSList:(double)list desGenKeypoints:(uint64_t)keypoints homography:(void *)homography colorParams:(void *)params computeLocalMotion:(void *)self0 LSDilation:(void *)self1 LSReflectCenter:(uint64_t)self2 maxLightSourceCount:(unsigned int *)self3 maxDesGenKeypoints:(BOOL)self4 maxTinyKeypoints:(unsigned int)self5 metalBuffers:(int)self6 isPrevLSFeaturesAvailable:(int)self7;
 - (int)_compileShaders;
+- (void)YCbCrToRGB:(__CVBuffer *)b outputImage:(__CVBuffer *)image waitForComplete:(BOOL)complete;
 - (void)addComputeBoxDoGToCommandEncoder:(id)encoder inputTexture:(id)texture inputlocationsBuf:(id)buf DoGAndLumaBuf:(id)lumaBuf inputLocationsSize:(unsigned int)size;
 - (void)addComputeBoxFeatureVectorToCommandEncoder:(id)encoder inputTexture:(id)texture inputlocationsBuf:(id)buf DoGAndLumaBuf:(id)lumaBuf inputLocationsSize:(unsigned int)size;
 - (void)addFindDesGenGhostsToCommandEncoder:(__n128)encoder inputTexture:(__n128)texture refTexture:(uint64_t)refTexture homography:(void *)homography colorParams:(void *)params kpCnt:(void *)cnt kpIdx:(uint64_t)idx reflectedLsBboxList:(unsigned int)self0 lsCnt:(void *)self1 desGenKeypoints:(id)self2 desGenMappingInfo:(uint64_t)self3 ghostBoxes:(id)self4;
 - (void)addFindTinyKPsToCommandEncoder:(__n128)encoder inputTexture:(__n128)texture referenceTexture:(uint64_t)referenceTexture inputlocationsBuf:(void *)buf ggIdxBuf:(void *)idxBuf tinyGhostBoxes:(void *)boxes colorParams:(void *)params homography:(void *)self0 reflectedLsBboxList:(void *)self1 lsCnt:(id *)self2 inputLocationsSize:(id)self3;
 - (void)backWarpYUV:(double)v warped:(double)warped withHomography:(uint64_t)homography waitForComplete:(__CVBuffer *)complete;
 - (void)computeBlendingWeightsSpatialOnlyYUVInput:(id)input metadataBuf:(id)buf;
+- (void)computeDiffForLocalMotion:(__CVBuffer *)motion andYUVImage:(__CVBuffer *)image outputImage:(__CVBuffer *)outputImage waitForComplete:(BOOL)complete;
+- (void)computeDoGAndLumaForBoxesViaInput:(id)input inputLocationsSize:(unsigned int)size metalBuffers:(id *)buffers commandBuffer:(id)buffer;
+- (void)computeIntegralBinImageFromInput:(__CVBuffer *)input toIntegral:(__CVBuffer *)integral waitForComplete:(BOOL)complete;
 - (void)dealloc;
 - (void)encodeBackWarpYUVToCommandBuffer:(__n128)buffer reference:(__n128)reference toOutput:(uint64_t)output withHomography:(void *)homography;
 - (void)encodeCollectClusterStats:(id)stats clusterMetaBuf:(id)buf metaBuf:(id)metaBuf;
@@ -954,6 +958,30 @@ LABEL_16:
   [computeCommandEncoder2 endEncoding];
 }
 
+- (void)computeIntegralBinImageFromInput:(__CVBuffer *)input toIntegral:(__CVBuffer *)integral waitForComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
+  if (commandBuffer)
+  {
+    v9 = sub_C068(input, self->_metalContext, 0, 0);
+    if (!self->_integralTexture || (Width = CVPixelBufferGetWidth(integral), Width != [(MTLTexture *)self->_integralTexture width]) || (Height = CVPixelBufferGetHeight(integral), Height != [(MTLTexture *)self->_integralTexture height]))
+    {
+      v12 = sub_C060(integral, self->_metalContext, 0);
+      integralTexture = self->_integralTexture;
+      self->_integralTexture = v12;
+    }
+
+    [(GGMMetalToolBox *)self encodeComputeIntegralBinImageToCommandBuffer:commandBuffer inputBuf:v9 toIntegral:self->_integralTexture];
+    [(GGMMetalToolBox *)self commitCmdBuffer:commandBuffer waitForComplete:completeCopy];
+  }
+
+  else
+  {
+    sub_27998();
+  }
+}
+
 - (void)encodeComputeBlendingWeightsSpatialOnlyForRepairYUV:(id)v input:(id)input metadataBuf:(id)buf
 {
   bufCopy = buf;
@@ -1064,6 +1092,24 @@ LABEL_16:
   [computeCommandEncoder endEncoding];
 }
 
+- (void)YCbCrToRGB:(__CVBuffer *)b outputImage:(__CVBuffer *)image waitForComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
+  if (commandBuffer)
+  {
+    v9 = sub_C6CC(b, self->_metalContext, 0, 1);
+    v10 = sub_C060(image, self->_metalContext, 0);
+    [(GGMMetalToolBox *)self encodeYCbCrToRGBToCommandBuffer:commandBuffer inputTexture:v9 outTexture:v10];
+    [(GGMMetalToolBox *)self commitCmdBuffer:commandBuffer waitForComplete:completeCopy];
+  }
+
+  else
+  {
+    sub_27AF8();
+  }
+}
+
 - (void)encodeComputeDiffForLocalMotionYUVToCommandBuffer:(id)buffer input0Texture:(id)texture input1Texture:(id)input1Texture outputTexture:(id)outputTexture
 {
   outputTextureCopy = outputTexture;
@@ -1088,6 +1134,25 @@ LABEL_16:
   v18[2] = 1;
   [computeCommandEncoder dispatchThreads:v19 threadsPerThreadgroup:v18];
   [computeCommandEncoder endEncoding];
+}
+
+- (void)computeDiffForLocalMotion:(__CVBuffer *)motion andYUVImage:(__CVBuffer *)image outputImage:(__CVBuffer *)outputImage waitForComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
+  if (commandBuffer)
+  {
+    v11 = sub_C060(motion, self->_metalContext, 0);
+    v12 = sub_C060(image, self->_metalContext, 0);
+    v13 = sub_C060(outputImage, self->_metalContext, 0);
+    [(GGMMetalToolBox *)self encodeComputeDiffForLocalMotionYUVToCommandBuffer:commandBuffer input0Texture:v11 input1Texture:v12 outputTexture:v13];
+    [(GGMMetalToolBox *)self commitCmdBuffer:commandBuffer waitForComplete:completeCopy];
+  }
+
+  else
+  {
+    sub_27BA8();
+  }
 }
 
 - (id)findGhostCandidatesFromDesGenAndTinyKeypointsFromInputTexture:(double)texture ref4LocalMotionTexture:(double)motionTexture inputTPlus1Texture:(int32x2_t)plus1Texture LSList:(double)list desGenKeypoints:(uint64_t)keypoints homography:(void *)homography colorParams:(void *)params computeLocalMotion:(void *)self0 LSDilation:(void *)self1 LSReflectCenter:(uint64_t)self2 maxLightSourceCount:(unsigned int *)self3 maxDesGenKeypoints:(BOOL)self4 maxTinyKeypoints:(unsigned int)self5 metalBuffers:(int)self6 isPrevLSFeaturesAvailable:(int)self7
@@ -1332,7 +1397,7 @@ LABEL_16:
   v50 = 0u;
   if (v15)
   {
-    [(ROI *)v15 descriptor];
+    objc_msgSend_descriptor(v15);
   }
 
   else
@@ -1621,6 +1686,23 @@ LABEL_16:
   [hmgrphy0Copy dispatchThreadgroups:&v40 threadsPerThreadgroup:&v38];
 }
 
+- (void)computeDoGAndLumaForBoxesViaInput:(id)input inputLocationsSize:(unsigned int)size metalBuffers:(id *)buffers commandBuffer:(id)buffer
+{
+  v7 = *&size;
+  var9 = buffers->var9;
+  v11 = buffers->var11;
+  v15 = var9;
+  bufferCopy = buffer;
+  inputCopy = input;
+  v14 = [bufferCopy computeCommandEncoderWithDispatchType:1];
+  [(GGMMetalToolBox *)self addComputeBoxDoGToCommandEncoder:v14 inputTexture:inputCopy inputlocationsBuf:v15 DoGAndLumaBuf:v11 inputLocationsSize:v7];
+  [(GGMMetalToolBox *)self addComputeBoxFeatureVectorToCommandEncoder:v14 inputTexture:inputCopy inputlocationsBuf:v15 DoGAndLumaBuf:v11 inputLocationsSize:v7];
+
+  [v14 endEncoding];
+  [bufferCopy setLabel:@"VideoDeghostingV2MetalToolBox_DOG"];
+  [bufferCopy commit];
+}
+
 - (void)addComputeBoxDoGToCommandEncoder:(id)encoder inputTexture:(id)texture inputlocationsBuf:(id)buf DoGAndLumaBuf:(id)lumaBuf inputLocationsSize:(unsigned int)size
 {
   sizeCopy = size;
@@ -1670,9 +1752,9 @@ LABEL_16:
   contextCopy = context;
   if (contextCopy)
   {
-    v19.receiver = self;
-    v19.super_class = GGMMetalToolBox;
-    v6 = [(GGMMetalToolBox *)&v19 init];
+    v21.receiver = self;
+    v21.super_class = GGMMetalToolBox;
+    v6 = [(GGMMetalToolBox *)&v21 init];
     self = v6;
     if (v6)
     {
@@ -1698,13 +1780,14 @@ LABEL_16:
           {
             fig_log_get_emitter();
             sub_B568();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
             goto LABEL_11;
           }
         }
 
-        v17 = kCVMetalTextureCacheMaximumTextureAgeKey;
-        v18 = &off_41380;
-        v14 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+        v19 = kCVMetalTextureCacheMaximumTextureAgeKey;
+        v20 = &off_41380;
+        v14 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
         if (!CVMetalTextureCacheCreate(kCFAllocatorDefault, v14, self->_device, 0, &self->_cvMetalTextureCacheRef))
         {
 
@@ -1714,7 +1797,7 @@ LABEL_16:
         }
 
         fig_log_get_emitter();
-        FigSignalErrorAtGM();
+        FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v17, v18, v19);
       }
     }
   }
@@ -1723,10 +1806,10 @@ LABEL_16:
   {
     fig_log_get_emitter();
     sub_B568();
-LABEL_11:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   }
 
+LABEL_11:
   selfCopy = 0;
 LABEL_9:
 
@@ -1751,13 +1834,14 @@ LABEL_9:
 {
   lumaCopy = luma;
   bufCopy = buf;
-  sub_1EAA8([bufCopy contents]);
+  [bufCopy contents];
+  sub_1EAA8();
   if (v8)
   {
     [lumaCopy setComputePipelineState:self->_syncMaxLuma];
     sub_1EA50();
     sub_1EA28();
-    sub_1EA70(xmmword_2EB70, v9, v10, v11, v12, v13, v14, v15, v16, v18, v17, v19);
+    sub_1EA70(xmmword_2EB70, v9, v10, v11, v12, v13, v14, v15, v16, v17, v19, v18);
   }
 }
 
@@ -1765,13 +1849,14 @@ LABEL_9:
 {
   typeCopy = type;
   bufCopy = buf;
-  sub_1EAA8([bufCopy contents]);
+  [bufCopy contents];
+  sub_1EAA8();
   if (v8)
   {
     [typeCopy setComputePipelineState:self->_syncRefType];
     sub_1EA50();
     sub_1EA28();
-    sub_1EA70(xmmword_2EB70, v9, v10, v11, v12, v13, v14, v15, v16, v18, v17, v19);
+    sub_1EA70(xmmword_2EB70, v9, v10, v11, v12, v13, v14, v15, v16, v17, v19, v18);
   }
 }
 
@@ -1781,17 +1866,16 @@ LABEL_9:
   bufCopy = buf;
   metaBufCopy = metaBuf;
   contents = [bufCopy contents];
-  contents2 = [metaBufCopy contents];
+  [metaBufCopy contents];
   if (*contents - 61 >= 0xFFFFFFC4)
   {
-    sub_1EAA8(contents2);
-    if (v13)
+    sub_1EAA8();
+    if (v12)
     {
       [statsCopy setComputePipelineState:self->_collectClusterStats];
       sub_1EA50();
-      v14 = [statsCopy setBuffer:metaBufCopy offset:0 atIndex:1];
-      v24 = (*contents + 31) >> 5;
-      sub_1EA70(xmmword_2EB70, v14, v15, v16, v17, v18, v19, v20, v21, 32, v22, v23);
+      v13 = [statsCopy setBuffer:metaBufCopy offset:0 atIndex:1];
+      sub_1EA70(xmmword_2EB70, v13, v14, v15, v16, v17, v18, v19, v20, v21, 32, v22);
     }
   }
 }

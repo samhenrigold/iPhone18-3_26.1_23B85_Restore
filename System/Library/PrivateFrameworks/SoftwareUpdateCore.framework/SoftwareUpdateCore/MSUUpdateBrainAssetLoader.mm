@@ -5,7 +5,7 @@
 
 void __150__MSUUpdateBrainAssetLoader_SUCoreBorderMSUUpdateBrainAssetLoader__SUCoreBorder_loadUpdateBrainWithMAOptions_clientOptionsFromPolicy_progressHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = _SUCoreBorder_MSUFunctionAtEnd(@"loadUpdateBrainWithMAOptions", 0);
@@ -15,9 +15,9 @@ void __150__MSUUpdateBrainAssetLoader_SUCoreBorderMSUUpdateBrainAssetLoader__SUC
     v9 = [v7 simAction];
     if (v9 == 3)
     {
-      v30 = *MEMORY[0x277D28998];
-      v31 = *MEMORY[0x277D28988];
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v29 = *MEMORY[0x277D28998];
+      v30 = *MEMORY[0x277D28988];
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       v10 = 0;
     }
 
@@ -44,16 +44,16 @@ void __150__MSUUpdateBrainAssetLoader_SUCoreBorderMSUUpdateBrainAssetLoader__SUC
     {
       v16 = [MEMORY[0x277D643F8] sharedCore];
       v17 = [v16 completionQueue];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __150__MSUUpdateBrainAssetLoader_SUCoreBorderMSUUpdateBrainAssetLoader__SUCoreBorder_loadUpdateBrainWithMAOptions_clientOptionsFromPolicy_progressHandler___block_invoke_391;
-      v22[3] = &unk_27892C830;
-      v25 = *(a1 + 32);
-      v23 = v13;
-      v24 = v10;
-      dispatch_async(v17, v22);
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __150__MSUUpdateBrainAssetLoader_SUCoreBorderMSUUpdateBrainAssetLoader__SUCoreBorder_loadUpdateBrainWithMAOptions_clientOptionsFromPolicy_progressHandler___block_invoke_391;
+      v21[3] = &unk_27892C830;
+      v24 = *(a1 + 32);
+      v22 = v13;
+      v23 = v10;
+      dispatch_async(v17, v21);
 
-      v18 = v25;
+      v18 = v24;
     }
 
     else
@@ -64,9 +64,9 @@ void __150__MSUUpdateBrainAssetLoader_SUCoreBorderMSUUpdateBrainAssetLoader__SUC
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v33 = v13;
-        v34 = 2114;
-        v35 = v10;
+        v32 = v13;
+        v33 = 2114;
+        v34 = v10;
         _os_log_impl(&dword_23193C000, v18, OS_LOG_TYPE_DEFAULT, "loadUpdateBrainWithMAOptions completed (no handler), state=%{public}@ error=%{public}@", buf, 0x16u);
       }
     }
@@ -80,30 +80,28 @@ void __150__MSUUpdateBrainAssetLoader_SUCoreBorderMSUUpdateBrainAssetLoader__SUC
     block[1] = 3221225472;
     block[2] = __150__MSUUpdateBrainAssetLoader_SUCoreBorderMSUUpdateBrainAssetLoader__SUCoreBorder_loadUpdateBrainWithMAOptions_clientOptionsFromPolicy_progressHandler___block_invoke_2;
     block[3] = &unk_27892C830;
-    v29 = *(a1 + 32);
-    v27 = v5;
-    v28 = v6;
+    v28 = *(a1 + 32);
+    v26 = v5;
+    v27 = v6;
     dispatch_async(v12, block);
 
-    v13 = v29;
+    v13 = v28;
   }
 
   else
   {
-    v21 = [MEMORY[0x277D64460] sharedLogger];
-    v13 = [v21 oslog];
+    v20 = [MEMORY[0x277D64460] sharedLogger];
+    v13 = [v20 oslog];
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v33 = v5;
-      v34 = 2114;
-      v35 = v6;
+      v32 = v5;
+      v33 = 2114;
+      v34 = v6;
       _os_log_impl(&dword_23193C000, v13, OS_LOG_TYPE_DEFAULT, "loadUpdateBrainWithMAOptions completed (no handler), state=%{public}@ error=%{public}@", buf, 0x16u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

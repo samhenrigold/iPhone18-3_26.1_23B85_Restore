@@ -422,7 +422,7 @@ void __56__CNContactFormatter_descriptorForRequiredKeysForStyle___block_invoke_3
 void __59__CNContactFormatter_descriptorForRequiredKeysForNameOrder__block_invoke()
 {
   v7[1] = *MEMORY[0x1E69E9840];
-  v0 = +[NSPersonNameComponents keyVectorForUsedKeys];
+  v0 = +[(NSPersonNameComponents *)MEMORY[0x1E696ADF0]];
   v1 = [v0 mutableCopy];
 
   v2 = +[CN keyVectorForAllUsedKeysForInternationalSupport];
@@ -497,16 +497,16 @@ void __59__CNContactFormatter_descriptorForRequiredKeysForNameOrder__block_invok
   return style;
 }
 
-void __90__CNContactFormatter_nameEmphasisStyleForContact_localeBasedEmphasisStyle_preferNickname___block_invoke()
+void __90__CNContactFormatter_nameEmphasisStyleForContact_localeBasedEmphasisStyle_preferNickname___block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E695DF20];
-  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v2 = [v1 pathForResource:@"CNContactNameFormatStyle" ofType:@"plist"];
-  v5 = [v0 dictionaryWithContentsOfFile:v2];
+  v1 = MEMORY[0x1E695DF20];
+  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v3 = [v2 pathForResource:@"CNContactNameFormatStyle" ofType:@"plist"];
+  v6 = [v1 dictionaryWithContentsOfFile:v3];
 
-  v3 = [v5 objectForKeyedSubscript:@"_LOCALIZABLE_"];
-  v4 = [v3 objectForKey:@"CNContactNameFormatStyle"];
-  nameEmphasisStyleForContact_localeBasedEmphasisStyle_preferNickname___localeEmphasisStyle = [v4 integerValue];
+  v4 = [v6 objectForKeyedSubscript:@"_LOCALIZABLE_"];
+  v5 = [v4 objectForKey:@"CNContactNameFormatStyle"];
+  nameEmphasisStyleForContact_localeBasedEmphasisStyle_preferNickname___localeEmphasisStyle = [v5 integerValue];
 }
 
 + (int64_t)singleNameStyleForContact:(id)contact
@@ -524,27 +524,27 @@ void __90__CNContactFormatter_nameEmphasisStyleForContact_localeBasedEmphasisSty
   return singleNameStyleForContact___localeSingleNameStyle;
 }
 
-void __48__CNContactFormatter_singleNameStyleForContact___block_invoke()
+void __48__CNContactFormatter_singleNameStyleForContact___block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E695DF20];
-  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v2 = [v1 pathForResource:@"CNContactNameFormatStyle" ofType:@"plist"];
-  v6 = [v0 dictionaryWithContentsOfFile:v2];
+  v1 = MEMORY[0x1E695DF20];
+  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v3 = [v2 pathForResource:@"CNContactNameFormatStyle" ofType:@"plist"];
+  v7 = [v1 dictionaryWithContentsOfFile:v3];
 
-  v3 = [v6 objectForKeyedSubscript:@"_LOCALIZABLE_"];
-  v4 = [v3 objectForKey:@"CNContactSingleNameStyle"];
+  v4 = [v7 objectForKeyedSubscript:@"_LOCALIZABLE_"];
+  v5 = [v4 objectForKey:@"CNContactSingleNameStyle"];
 
-  if (v4)
+  if (v5)
   {
-    v5 = [v4 integerValue];
+    v6 = [v5 integerValue];
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  singleNameStyleForContact___localeSingleNameStyle = v5;
+  singleNameStyleForContact___localeSingleNameStyle = v6;
 }
 
 + (NSString)delimiterForContact:(CNContact *)contact
@@ -608,20 +608,20 @@ void __68__CNContactFormatter_attributedStringFromContact_defaultAttributes___bl
     if (v15)
     {
       v16 = v15;
-      v23 = 0;
-      v24 = &v23;
-      v25 = 0x2020000000;
+      v24 = 0;
+      v25 = &v24;
+      v26 = 0x2020000000;
       v17 = getCTFontCreateCopyWithSymbolicTraitsSymbolLoc_ptr;
-      v26 = getCTFontCreateCopyWithSymbolicTraitsSymbolLoc_ptr;
+      v27 = getCTFontCreateCopyWithSymbolicTraitsSymbolLoc_ptr;
       if (!getCTFontCreateCopyWithSymbolicTraitsSymbolLoc_ptr)
       {
         v18 = CoreTextLibrary();
-        v24[3] = dlsym(v18, "CTFontCreateCopyWithSymbolicTraits");
-        getCTFontCreateCopyWithSymbolicTraitsSymbolLoc_ptr = v24[3];
-        v17 = v24[3];
+        v25[3] = dlsym(v18, "CTFontCreateCopyWithSymbolicTraits");
+        getCTFontCreateCopyWithSymbolicTraitsSymbolLoc_ptr = v25[3];
+        v17 = v25[3];
       }
 
-      _Block_object_dispose(&v23, 8);
+      _Block_object_dispose(&v24, 8);
       if (v17)
       {
         v19 = v17(v16, 0, 2, 2, 0.0);
@@ -633,20 +633,20 @@ void __68__CNContactFormatter_attributedStringFromContact_defaultAttributes___bl
 
     else
     {
-      v23 = 0;
-      v24 = &v23;
-      v25 = 0x2020000000;
+      v24 = 0;
+      v25 = &v24;
+      v26 = 0x2020000000;
       v20 = getCTFontCreateUIFontForLanguageSymbolLoc_ptr;
-      v26 = getCTFontCreateUIFontForLanguageSymbolLoc_ptr;
+      v27 = getCTFontCreateUIFontForLanguageSymbolLoc_ptr;
       if (!getCTFontCreateUIFontForLanguageSymbolLoc_ptr)
       {
         v21 = CoreTextLibrary();
-        v24[3] = dlsym(v21, "CTFontCreateUIFontForLanguage");
-        getCTFontCreateUIFontForLanguageSymbolLoc_ptr = v24[3];
-        v20 = v24[3];
+        v25[3] = dlsym(v21, "CTFontCreateUIFontForLanguage");
+        getCTFontCreateUIFontForLanguageSymbolLoc_ptr = v25[3];
+        v20 = v25[3];
       }
 
-      _Block_object_dispose(&v23, 8);
+      _Block_object_dispose(&v24, 8);
       if (v20)
       {
         v19 = v20(3, 0, 0.0);
@@ -662,9 +662,10 @@ LABEL_13:
       }
     }
 
-    MDItemUniqueIdentifier_cold_1 = getMDItemUniqueIdentifier_cold_1();
-    _Block_object_dispose(&v23, 8);
-    _Unwind_Resume(MDItemUniqueIdentifier_cold_1);
+    getMDItemUniqueIdentifier_cold_1();
+    v23 = v22;
+    _Block_object_dispose(&v24, 8);
+    _Unwind_Resume(v23);
   }
 
   v13 = v12;
@@ -1152,7 +1153,7 @@ LABEL_56:
 - (void)appendValueForProperties:(void *)properties fromContact:(void *)contact toString:(void *)string delimiter:(void *)delimiter attributes:(int)attributes fallback:
 {
   HIDWORD(v41) = attributes;
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   obj = a2;
   propertiesCopy = properties;
   contactCopy = contact;
@@ -1161,7 +1162,7 @@ LABEL_56:
   v22 = delimiterCopy;
   if (self)
   {
-    v23 = OUTLINED_FUNCTION_1_4(delimiterCopy, v15, v16, v17, v18, v19, v20, v21, v38, obj, v41, propertiesCopy, aBlock, v45, v46, v47, v48, selfCopy, v50, v51, v52, v53, 0, 0, 0, 0, 0, 0, 0, 0, v62);
+    v23 = OUTLINED_FUNCTION_1_4(delimiterCopy, v15, v16, v17, v18, v19, v20, v21, v38, obj, v41, propertiesCopy, aBlock, v45, v46, v47, v48, selfCopy, v50, v51, v52, v53, 0, 0, 0, 0, 0, 0, 0, 0);
     if (v23)
     {
       v24 = v23;
@@ -1204,7 +1205,7 @@ LABEL_56:
         }
 
         while (v24 != v26);
-        v24 = OUTLINED_FUNCTION_1_4(v30, v31, v32, v33, v34, v35, v36, v37, v39, obj, v42, propertiesCopy, aBlock, v45, v46, v47, v48, selfCopy, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62);
+        v24 = OUTLINED_FUNCTION_1_4(v30, v31, v32, v33, v34, v35, v36, v37, v39, obj, v42, propertiesCopy, aBlock, v45, v46, v47, v48, selfCopy, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61);
       }
 
       while (v24);

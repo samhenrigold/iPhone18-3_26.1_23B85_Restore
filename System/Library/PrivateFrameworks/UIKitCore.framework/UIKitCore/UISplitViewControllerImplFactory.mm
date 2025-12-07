@@ -6,11 +6,11 @@
 
 @implementation UISplitViewControllerImplFactory
 
-void __50__UISplitViewControllerImplFactory_sharedInstance__block_invoke()
+void __50__UISplitViewControllerImplFactory_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_new();
-  v1 = qword_1ED4A2AC8;
-  qword_1ED4A2AC8 = v0;
+  v1 = objc_opt_new();
+  v2 = qword_1ED4A2AC8;
+  qword_1ED4A2AC8 = v1;
 }
 
 - (UISplitViewControllerImplFactory)init

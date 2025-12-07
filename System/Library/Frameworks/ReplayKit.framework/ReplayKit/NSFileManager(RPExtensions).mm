@@ -115,51 +115,51 @@ LABEL_9:
 
 - (uint64_t)_srDeleteFilesOlderThanTimeToLiveInSeconds:()RPExtensions deleteSystemFiles:
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v44 = a2;
+    v43 = a2;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "_srDeleteFilesOlderThanTimeToLiveInSeconds: %i", buf, 8u);
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   _srTempPath = [self _srTempPath];
-  v41 = 0;
-  v9 = [defaultManager contentsOfDirectoryAtPath:_srTempPath error:&v41];
-  v10 = v41;
+  v40 = 0;
+  v9 = [defaultManager contentsOfDirectoryAtPath:_srTempPath error:&v40];
+  v10 = v40;
 
   __92__NSFileManager_RPExtensions___srDeleteFilesOlderThanTimeToLiveInSeconds_deleteSystemFiles___block_invoke(v11, v10);
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = v9;
-  v12 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v12 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v12)
   {
     v13 = v12;
-    v34 = 0;
-    v14 = *v38;
+    v33 = 0;
+    v14 = *v37;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v38 != v14)
+        if (*v37 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v37 + 1) + 8 * i);
-        if ((a4 & 1) != 0 || ([*(*(&v37 + 1) + 8 * i) containsString:@"ScreenRecording_"] & 1) == 0)
+        v16 = *(*(&v36 + 1) + 8 * i);
+        if ((a4 & 1) != 0 || ([*(*(&v36 + 1) + 8 * i) containsString:@"ScreenRecording_"] & 1) == 0)
         {
           v17 = MEMORY[0x277CCACA8];
           _srTempPath2 = [self _srTempPath];
           v19 = [v17 stringWithFormat:@"%@/%@", _srTempPath2, v16];
 
-          v36 = v10;
-          v20 = [self attributesOfItemAtPath:v19 error:&v36];
-          v21 = v36;
+          v35 = v10;
+          v20 = [self attributesOfItemAtPath:v19 error:&v35];
+          v21 = v35;
 
           __92__NSFileManager_RPExtensions___srDeleteFilesOlderThanTimeToLiveInSeconds_deleteSystemFiles___block_invoke(v22, v21);
           date = [MEMORY[0x277CBEAA8] date];
@@ -176,9 +176,9 @@ LABEL_9:
               _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "deleting old file", buf, 2u);
             }
 
-            v35 = v21;
-            [self removeItemAtPath:v19 error:&v35];
-            v28 = v35;
+            v34 = v21;
+            [self removeItemAtPath:v19 error:&v34];
+            v28 = v34;
 
             __92__NSFileManager_RPExtensions___srDeleteFilesOlderThanTimeToLiveInSeconds_deleteSystemFiles___block_invoke(v29, v28);
             if (v28)
@@ -191,7 +191,7 @@ LABEL_9:
               v30 = fileSize;
             }
 
-            v34 += v30;
+            v33 += v30;
             v21 = v28;
           }
 
@@ -199,7 +199,7 @@ LABEL_9:
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v13 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v13);
@@ -207,11 +207,10 @@ LABEL_9:
 
   else
   {
-    v34 = 0;
+    v33 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-  return v34;
+  return v33;
 }
 
 - (void)_srRemoveFile:()RPExtensions completion:

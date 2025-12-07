@@ -168,7 +168,7 @@ void __47__MODataExportManager__initConnectionToService__block_invoke_131(id a1)
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Adding bundles to session session", buf, 2u);
     }
 
-    if (MomentsLibraryCore() && [sessionCopy count])
+    if (MomentsLibraryCore(0) && [sessionCopy count])
     {
       v6 = _mo_log_facility_get_os_log(&MOLogFacilityDataExporter);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))

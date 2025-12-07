@@ -148,17 +148,16 @@
 {
   v6 = sub_252003BA0();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6, v9);
-  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v8);
+  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_252003B70();
   viewCopy = view;
   selfCopy = self;
-  v14 = sub_251FE3188(viewCopy);
+  v13 = sub_251FE3188(viewCopy);
 
-  (*(v7 + 8))(v11, v6);
+  (*(v7 + 8))(v10, v6);
 
-  return v14;
+  return v13;
 }
 
 @end

@@ -111,7 +111,7 @@ LABEL_10:
 
 - (void)executeWithContext:(id)context delegate:(id)delegate qualityOfService:(int64_t)service
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   delegateCopy = delegate;
   v7 = FCPushNotificationsLog;
@@ -136,32 +136,32 @@ LABEL_6:
   }
 
   channelIDsToRemove = [(FCModifyNotificationsForChannelsCommand *)self channelIDsToRemove];
-  v37 = [channelIDsToRemove count] == 0;
+  v36 = [channelIDsToRemove count] == 0;
 
-  if (!v37)
+  if (!v36)
   {
 LABEL_7:
     v10 = dispatch_group_create();
-    v67[0] = 0;
-    v67[1] = v67;
-    v67[2] = 0x2020000000;
-    v68 = 1;
-    v65[0] = 0;
-    v65[1] = v65;
-    v65[2] = 0x2020000000;
-    v66 = 1;
+    v66[0] = 0;
+    v66[1] = v66;
+    v66[2] = 0x2020000000;
+    v67 = 1;
+    v64[0] = 0;
+    v64[1] = v64;
+    v64[2] = 0x2020000000;
+    v65 = 1;
     *buf = 0;
-    v60 = buf;
-    v61 = 0x3032000000;
-    v62 = __Block_byref_object_copy__24;
-    v63 = __Block_byref_object_dispose__24;
-    v64 = 0;
-    v57[0] = 0;
-    v57[1] = v57;
-    v57[2] = 0x3032000000;
-    v57[3] = __Block_byref_object_copy__24;
-    v57[4] = __Block_byref_object_dispose__24;
-    v58 = 0;
+    v59 = buf;
+    v60 = 0x3032000000;
+    v61 = __Block_byref_object_copy__24;
+    v62 = __Block_byref_object_dispose__24;
+    v63 = 0;
+    v56[0] = 0;
+    v56[1] = v56;
+    v56[2] = 0x3032000000;
+    v56[3] = __Block_byref_object_copy__24;
+    v56[4] = __Block_byref_object_dispose__24;
+    v57 = 0;
     channelIDsToAdd2 = [(FCModifyNotificationsForChannelsCommand *)self channelIDsToAdd];
     if ([channelIDsToAdd2 count])
     {
@@ -184,9 +184,9 @@ LABEL_13:
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             channelIDsToRemove3 = [(FCModifyNotificationsForChannelsCommand *)self channelIDsToRemove];
-            *v69 = 138543362;
-            v70 = channelIDsToRemove3;
-            _os_log_impl(&dword_1B63EF000, v26, OS_LOG_TYPE_DEFAULT, "modifyNotificationsForChannelsCommand: removing channelIDs: %{public}@", v69, 0xCu);
+            *v68 = 138543362;
+            v69 = channelIDsToRemove3;
+            _os_log_impl(&dword_1B63EF000, v26, OS_LOG_TYPE_DEFAULT, "modifyNotificationsForChannelsCommand: removing channelIDs: %{public}@", v68, 0xCu);
           }
 
           dispatch_group_enter(v10);
@@ -197,33 +197,33 @@ LABEL_13:
           storefrontID = [(FCModifyNotificationsForChannelsCommand *)self storefrontID];
           deviceDigestMode = [(FCModifyNotificationsForChannelsCommand *)self deviceDigestMode];
           v34 = dispatch_get_global_queue(-2, 0);
-          v49[0] = MEMORY[0x1E69E9820];
-          v49[1] = 3221225472;
-          v49[2] = __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delegate_qualityOfService___block_invoke_22;
-          v49[3] = &unk_1E7C3B9B0;
-          v51 = v65;
-          v52 = v57;
-          v50 = v10;
-          [notificationsEndpointConnection unsubscribeNotificationsForChannelIDs:channelIDsToRemove4 userID:userID deviceToken:deviceToken storefrontID:storefrontID deviceDigestMode:deviceDigestMode callbackQueue:v34 completion:v49];
+          v48[0] = MEMORY[0x1E69E9820];
+          v48[1] = 3221225472;
+          v48[2] = __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delegate_qualityOfService___block_invoke_22;
+          v48[3] = &unk_1E7C3B9B0;
+          v50 = v64;
+          v51 = v56;
+          v49 = v10;
+          [notificationsEndpointConnection unsubscribeNotificationsForChannelIDs:channelIDsToRemove4 userID:userID deviceToken:deviceToken storefrontID:storefrontID deviceDigestMode:deviceDigestMode callbackQueue:v34 completion:v48];
         }
 
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delegate_qualityOfService___block_invoke_23;
         block[3] = &unk_1E7C3B9D8;
-        v45 = v67;
-        v46 = v65;
-        v43 = delegateCopy;
+        v44 = v66;
+        v45 = v64;
+        v42 = delegateCopy;
         selfCopy = self;
-        v47 = buf;
-        v48 = v57;
+        v46 = buf;
+        v47 = v56;
         dispatch_group_notify(v10, MEMORY[0x1E69E96A0], block);
 
-        _Block_object_dispose(v57, 8);
+        _Block_object_dispose(v56, 8);
         _Block_object_dispose(buf, 8);
 
-        _Block_object_dispose(v65, 8);
-        _Block_object_dispose(v67, 8);
+        _Block_object_dispose(v64, 8);
+        _Block_object_dispose(v66, 8);
 
         goto LABEL_18;
       }
@@ -234,11 +234,11 @@ LABEL_13:
     {
       channelIDsToAdd3 = [(FCModifyNotificationsForChannelsCommand *)self channelIDsToAdd];
       paidChannelIDsToAdd3 = [(FCModifyNotificationsForChannelsCommand *)self paidChannelIDsToAdd];
-      *v69 = 138543618;
-      v70 = channelIDsToAdd3;
-      v71 = 2114;
-      v72 = paidChannelIDsToAdd3;
-      _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "modifyNotificationsForChannelsCommand: adding channelIDs: %{public}@ paidChannelIDs: %{public}@", v69, 0x16u);
+      *v68 = 138543618;
+      v69 = channelIDsToAdd3;
+      v70 = 2114;
+      v71 = paidChannelIDsToAdd3;
+      _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "modifyNotificationsForChannelsCommand: adding channelIDs: %{public}@ paidChannelIDs: %{public}@", v68, 0x16u);
     }
 
     dispatch_group_enter(v10);
@@ -250,43 +250,41 @@ LABEL_13:
     storefrontID2 = [(FCModifyNotificationsForChannelsCommand *)self storefrontID];
     deviceDigestMode2 = [(FCModifyNotificationsForChannelsCommand *)self deviceDigestMode];
     v23 = dispatch_get_global_queue(-2, 0);
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delegate_qualityOfService___block_invoke;
-    v53[3] = &unk_1E7C3B9B0;
-    v55 = v67;
-    v56 = buf;
-    v54 = v10;
-    [notificationsEndpointConnection2 subscribeNotificationsForChannelIDs:channelIDsToAdd4 paidChannelIDs:paidChannelIDsToAdd4 userID:userID2 deviceToken:deviceToken2 storefrontID:storefrontID2 deviceDigestMode:deviceDigestMode2 callbackQueue:v23 completion:v53];
+    v52[0] = MEMORY[0x1E69E9820];
+    v52[1] = 3221225472;
+    v52[2] = __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delegate_qualityOfService___block_invoke;
+    v52[3] = &unk_1E7C3B9B0;
+    v54 = v66;
+    v55 = buf;
+    v53 = v10;
+    [notificationsEndpointConnection2 subscribeNotificationsForChannelIDs:channelIDsToAdd4 paidChannelIDs:paidChannelIDsToAdd4 userID:userID2 deviceToken:deviceToken2 storefrontID:storefrontID2 deviceDigestMode:deviceDigestMode2 callbackQueue:v23 completion:v52];
 
     goto LABEL_13;
   }
 
-  v38 = FCPushNotificationsLog;
+  v37 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B63EF000, v38, OS_LOG_TYPE_INFO, "modifyNotificationsForChannelsCommand: no channels to add or remove", buf, 2u);
+    _os_log_impl(&dword_1B63EF000, v37, OS_LOG_TYPE_INFO, "modifyNotificationsForChannelsCommand: no channels to add or remove", buf, 2u);
   }
 
   [delegateCopy command:self didFinishWithStatus:0];
 LABEL_18:
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delegate_qualityOfService___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543362;
-      v12 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "modifyNotificationsForChannelsCommand: failed to add channels with error: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "modifyNotificationsForChannelsCommand: failed to add channels with error: %{public}@", &v10, 0xCu);
     }
   }
 
@@ -297,21 +295,20 @@ void __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delegate_q
   v9 = v5;
 
   dispatch_group_leave(*(a1 + 32));
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delegate_qualityOfService___block_invoke_22(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543362;
-      v12 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "modifyNotificationsForChannelsCommand: failed to remove channels with error: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "modifyNotificationsForChannelsCommand: failed to remove channels with error: %{public}@", &v10, 0xCu);
     }
   }
 
@@ -322,7 +319,6 @@ void __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delegate_q
   v9 = v5;
 
   dispatch_group_leave(*(a1 + 32));
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delegate_qualityOfService___block_invoke_23(uint64_t a1)
@@ -377,10 +373,10 @@ uint64_t __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delega
 
 - (void)coalesceWithCommand:(id)command
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   commandCopy = command;
   objc_opt_class();
-  v26 = commandCopy;
+  v25 = commandCopy;
   if (commandCopy)
   {
     if (objc_opt_isKindOfClass())
@@ -421,26 +417,26 @@ uint64_t __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delega
   channelIDsToRemove2 = [v6 channelIDsToRemove];
   [v13 addObjectsFromArray:channelIDsToRemove2];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v16 = [v13 copy];
-  v17 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v28;
+    v19 = *v27;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v28 != v19)
+        if (*v27 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v27 + 1) + 8 * i);
+        v21 = *(*(&v26 + 1) + 8 * i);
         if ([v7 containsObject:v21])
         {
           [v7 removeObject:v21];
@@ -454,7 +450,7 @@ uint64_t __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delega
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v18);
@@ -468,8 +464,6 @@ uint64_t __88__FCModifyNotificationsForChannelsCommand_executeWithContext_delega
 
   allObjects3 = [v13 allObjects];
   [(FCModifyNotificationsForChannelsCommand *)self setChannelIDsToRemove:allObjects3];
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 @end

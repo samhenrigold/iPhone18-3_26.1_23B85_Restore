@@ -117,7 +117,7 @@
 
   p_framelocation = &self->_framelocation;
   v15 = x == self->_framelocation.x && y == self->_framelocation.y;
-  if (!v15 || self->_radiusInt != radius || (-[_UIKBRTFingerDetectionFingerFeedbackView fingerLabel](self, "fingerLabel"), v16 = objc_claimAutoreleasedReturnValue(), [v16 text], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isEqualToString:", v32), v17, v16, (v18 & 1) == 0))
+  if (!v15 || self->_radiusInt != radius || (-[_UIKBRTFingerDetectionFingerFeedbackView fingerLabel](self, "fingerLabel"), v16 = objc_claimAutoreleasedReturnValue(), [v16 text], v17 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v17), v17, v16, (isEqualToString & 1) == 0))
   {
     p_framelocation->x = x;
     self->_framelocation.y = y;

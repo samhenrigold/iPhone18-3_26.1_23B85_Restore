@@ -334,12 +334,10 @@ uint64_t __43__SymbolButtonAccessibility__axIsInToolbar__block_invoke(uint64_t a
 
 - (void)accessibilityUpdateSymbolButton
 {
-  v6.receiver = self;
-  v6.super_class = SymbolButtonAccessibility;
-  [(SymbolButtonAccessibility *)&v6 accessibilityUpdateSymbolButton];
-  _axIsInToolbar = [(SymbolButtonAccessibility *)self _axIsInToolbar];
-  v4 = *MEMORY[0x29EDC7ED8];
-  if (_axIsInToolbar)
+  v4.receiver = self;
+  v4.super_class = SymbolButtonAccessibility;
+  [(SymbolButtonAccessibility *)&v4 accessibilityUpdateSymbolButton];
+  if ([(SymbolButtonAccessibility *)self _axIsInToolbar])
   {
     selfCopy = self;
   }

@@ -11,7 +11,7 @@
   dataSourceSnapshot2 = [(_UIDiffableDataSourceState *)self->_afterState dataSourceSnapshot];
   hasChanges = [(_UIIdentifierDiffer *)self->_differ hasChanges];
   numberOfSections = [dataSourceSnapshot numberOfSections];
-  if (numberOfSections == [dataSourceSnapshot2 numberOfSections] && objc_msgSend(dataSourceSnapshot, "isEqual:", dataSourceSnapshot2))
+  if (numberOfSections == [dataSourceSnapshot2 numberOfSections] && objc_msgSend_isEqual_(dataSourceSnapshot))
   {
     sections = [(_UIDiffableDataSourceState *)self->_beforeState sections];
     sections2 = [(_UIDiffableDataSourceState *)self->_afterState sections];
@@ -158,7 +158,7 @@
               v38 = *(__src + v37);
               v39 = [sections3 objectAtIndexedSubscript:j];
               v40 = [sections4 objectAtIndexedSubscript:v38];
-              if (([v39 isEqual:v40] & 1) == 0)
+              if ((objc_msgSend_isEqual_(v39) & 1) == 0)
               {
                 v41 = [[_UIIdentifierDifferMovePair alloc] initWithFromIndex:v33 toIndex:v37];
                 [v51 addObject:v41];

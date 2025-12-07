@@ -15,8 +15,8 @@
 
 - (id)runCoreMLModelWithError:(id *)error
 {
-  options = [(PHAPrivateFederatedLearningRunner *)self options];
-  attachmentURLs = [options attachmentURLs];
+  v5 = objc_msgSend_options(self, a2);
+  attachmentURLs = [v5 attachmentURLs];
   v56 = 0;
   v7 = [PHAPrivateFederatedLearningRunner _firstAttachmentURLWithSuffixOfName:@".mil" attachments:attachmentURLs expectedDirectory:0 error:&v56];
   v8 = v56;
@@ -78,8 +78,8 @@ LABEL_23:
     v17 = objc_alloc(MEMORY[0x277CBFF70]);
     v46 = v14;
     program = [v14 program];
-    options2 = [(PHAPrivateFederatedLearningRunner *)self options];
-    [options2 learningRate];
+    v19 = objc_msgSend_options(self);
+    [v19 learningRate];
     v53 = 0;
     v20 = [v17 initWithProgram:program learningRate:&v53 error:?];
     v45 = v53;
@@ -88,8 +88,8 @@ LABEL_23:
     if (v20)
     {
       v42 = v12;
-      options3 = [(PHAPrivateFederatedLearningRunner *)self options];
-      positivesDatasetName = [options3 positivesDatasetName];
+      v21 = objc_msgSend_options(self);
+      positivesDatasetName = [v21 positivesDatasetName];
       v52 = 0;
       v23 = [(PHAPrivateFederatedLearningRunner *)self _prepareTrainingDataForBiomeStream:positivesDatasetName error:&v52];
       v24 = v52;
@@ -98,17 +98,17 @@ LABEL_23:
       v26 = [array count];
 
       trainingTask = v23;
-      options7 = v24;
+      v44 = v24;
       if (v26)
       {
         v27 = MEMORY[0x277CBEB98];
-        options4 = [(PHAPrivateFederatedLearningRunner *)self options];
-        evaluationMetricNames = [options4 evaluationMetricNames];
-        options6 = [v27 setWithArray:evaluationMetricNames];
+        v28 = objc_msgSend_options(self);
+        evaluationMetricNames = [v28 evaluationMetricNames];
+        v30 = [v27 setWithArray:evaluationMetricNames];
 
-        positivesDatasetName2 = [[PHAPrivateFederatedLearningCoreMLModelTrainer alloc] initWithTrainingData:v23 programTrainer:v48 evaluationMetricNames:options6];
-        options5 = [(PHAPrivateFederatedLearningRunner *)self options];
-        v33 = -[PHAPrivateFederatedLearningCoreMLModelTrainer trainForNumberOfEpochs:error:](positivesDatasetName2, "trainForNumberOfEpochs:error:", [options5 numberOfEpochs], error);
+        positivesDatasetName2 = [[PHAPrivateFederatedLearningCoreMLModelTrainer alloc] initWithTrainingData:v23 programTrainer:v48 evaluationMetricNames:v30];
+        v32 = objc_msgSend_options(self);
+        v33 = -[PHAPrivateFederatedLearningCoreMLModelTrainer trainForNumberOfEpochs:error:](positivesDatasetName2, "trainForNumberOfEpochs:error:", [v32 numberOfEpochs], error);
       }
 
       else
@@ -126,10 +126,10 @@ LABEL_23:
         }
 
         v39 = MEMORY[0x277CCACA8];
-        options6 = [(PHAPrivateFederatedLearningRunner *)self options];
-        positivesDatasetName2 = [options6 positivesDatasetName];
-        options5 = [v39 stringWithFormat:@"Prepare dataset from Biome stream %@ failed", positivesDatasetName2];
-        [PHAPrivateFederatedLearningRunner _generateErrorWithErrorCode:17 message:options5 underlyingError:v24];
+        v30 = objc_msgSend_options(self);
+        positivesDatasetName2 = [v30 positivesDatasetName];
+        v32 = [v39 stringWithFormat:@"Prepare dataset from Biome stream %@ failed", positivesDatasetName2];
+        [PHAPrivateFederatedLearningRunner _generateErrorWithErrorCode:17 message:v32 underlyingError:v24];
         *error = v33 = 0;
       }
 
@@ -153,11 +153,11 @@ LABEL_23:
       }
 
       v38 = MEMORY[0x277CCACA8];
-      options7 = [(PHAPrivateFederatedLearningRunner *)self options];
-      trainingTask = [options7 trainingTask];
-      options6 = [v38 stringWithFormat:@"Model trainer returned nil for data provider of training task %@ and model file url %@", trainingTask, uRLByDeletingLastPathComponent];
+      v44 = objc_msgSend_options(self);
+      trainingTask = [v44 trainingTask];
+      v30 = [v38 stringWithFormat:@"Model trainer returned nil for data provider of training task %@ and model file url %@", trainingTask, uRLByDeletingLastPathComponent];
       absoluteString = v45;
-      [PHAPrivateFederatedLearningRunner _generateErrorWithErrorCode:7 message:options6 underlyingError:v45];
+      [PHAPrivateFederatedLearningRunner _generateErrorWithErrorCode:7 message:v30 underlyingError:v45];
       *error = v33 = 0;
       v14 = v46;
     }
@@ -191,8 +191,8 @@ LABEL_25:
 - (id)runWithError:(id *)error
 {
   v101 = *MEMORY[0x277D85DE8];
-  options = [(PHAPrivateFederatedLearningRunner *)self options];
-  photoLibrary = [options photoLibrary];
+  v5 = objc_msgSend_options(self, a2);
+  photoLibrary = [v5 photoLibrary];
   v98 = 0;
   v7 = [PHAPrivateFederatedLearningRunner _mediaAnalysisImageProgressForPhotoLibrary:photoLibrary error:&v98];
   v8 = v98;
@@ -201,8 +201,8 @@ LABEL_25:
   {
     [v7 floatValue];
     v10 = v9;
-    options2 = [(PHAPrivateFederatedLearningRunner *)self options];
-    [options2 minProcessedRate];
+    v11 = objc_msgSend_options(self);
+    [v11 minProcessedRate];
     v13 = v12;
 
     if (v13 > v10)
@@ -214,8 +214,8 @@ LABEL_25:
       }
 
       v14 = MEMORY[0x277CCACA8];
-      options3 = [(PHAPrivateFederatedLearningRunner *)self options];
-      [options3 minProcessedRate];
+      v15 = objc_msgSend_options(self);
+      [v15 minProcessedRate];
       v17 = [v14 stringWithFormat:@"Photo Library does not have enough processed assets (%@ < %f).", v7, v16];
       [PHAPrivateFederatedLearningRunner _generateErrorWithErrorCode:11 message:v17 underlyingError:0];
       *error = v18 = 0;
@@ -239,14 +239,14 @@ LABEL_25:
     }
   }
 
-  options4 = [(PHAPrivateFederatedLearningRunner *)self options];
-  attachmentURLs = [options4 attachmentURLs];
-  options3 = [PHAPrivateFederatedLearningRunner _firstAttachmentURLWithSuffixOfName:@".mlmodel" attachments:attachmentURLs error:error];
+  v20 = objc_msgSend_options(self);
+  attachmentURLs = [v20 attachmentURLs];
+  v15 = [PHAPrivateFederatedLearningRunner _firstAttachmentURLWithSuffixOfName:@".mlmodel" attachments:attachmentURLs error:error];
 
-  if (options3)
+  if (v15)
   {
     v97 = 0;
-    v22 = [MEMORY[0x277CBFF20] compileModelAtURL:options3 error:&v97];
+    v22 = [MEMORY[0x277CBFF20] compileModelAtURL:v15 error:&v97];
     v17 = v97;
     if (!v22)
     {
@@ -273,12 +273,12 @@ LABEL_39:
     absoluteString = [v22 URLByAppendingPathComponent:v23];
 
     v94 = [v22 URLByAppendingPathComponent:@"model.espresso.shape"];
-    options5 = [(PHAPrivateFederatedLearningRunner *)self options];
-    shouldValidateModel = [options5 shouldValidateModel];
+    v25 = objc_msgSend_options(self);
+    shouldValidateModel = [v25 shouldValidateModel];
 
     if (shouldValidateModel)
     {
-      v71 = options3;
+      v71 = v15;
       v79 = v7;
       v86 = v22;
       errorCopy = error;
@@ -286,18 +286,18 @@ LABEL_39:
       v92 = v8;
       v83 = absoluteString;
       v27 = [[PHAPrivateFederatedLearningModelValidator alloc] initWithEspressoModelURL:absoluteString espressoModelShapeURL:v94];
-      options6 = [(PHAPrivateFederatedLearningRunner *)self options];
-      fingerprintVersionName = [options6 fingerprintVersionName];
-      options7 = [(PHAPrivateFederatedLearningRunner *)self options];
-      modelInputName = [options7 modelInputName];
-      options8 = [(PHAPrivateFederatedLearningRunner *)self options];
-      modelOutputName = [options8 modelOutputName];
-      options9 = [(PHAPrivateFederatedLearningRunner *)self options];
-      labelPolicyString = [options9 labelPolicyString];
-      options10 = [(PHAPrivateFederatedLearningRunner *)self options];
-      lossName = [options10 lossName];
-      options11 = [(PHAPrivateFederatedLearningRunner *)self options];
-      layersToTrain = [options11 layersToTrain];
+      v76 = objc_msgSend_options(self);
+      fingerprintVersionName = [v76 fingerprintVersionName];
+      v73 = objc_msgSend_options(self);
+      modelInputName = [v73 modelInputName];
+      v69 = objc_msgSend_options(self);
+      modelOutputName = [v69 modelOutputName];
+      v67 = objc_msgSend_options(self);
+      labelPolicyString = [v67 labelPolicyString];
+      v32 = objc_msgSend_options(self);
+      lossName = [v32 lossName];
+      v34 = objc_msgSend_options(self);
+      layersToTrain = [v34 layersToTrain];
       v96 = 0;
       v81 = v27;
       v66 = [(PHAPrivateFederatedLearningModelValidator *)v27 isValidWithFingerprintVersionName:fingerprintVersionName modelInputName:modelInputName modelOutputName:modelOutputName labelName:@"label" labelPolicyName:labelPolicyString lossName:lossName layersToTrain:layersToTrain error:&v96];
@@ -318,7 +318,7 @@ LABEL_39:
         v63 = v94;
         v38 = v36;
         v7 = v79;
-        options3 = v71;
+        v15 = v71;
         goto LABEL_38;
       }
 
@@ -328,11 +328,11 @@ LABEL_39:
       error = errorCopy;
       absoluteString = v83;
       v7 = v79;
-      options3 = v71;
+      v15 = v71;
     }
 
-    options12 = [(PHAPrivateFederatedLearningRunner *)self options];
-    v38 = [PHAPrivateFederatedLearningRunner _prepareDatasetWithOptions:options12 error:error];
+    v37 = objc_msgSend_options(self);
+    v38 = [PHAPrivateFederatedLearningRunner _prepareDatasetWithOptions:v37 error:error];
 
     if (!v38)
     {
@@ -348,17 +348,17 @@ LABEL_39:
       v82 = v38;
       v84 = [PHAPrivateFederatedLearningModelTrainer alloc];
       v39 = MEMORY[0x277CCABB0];
-      options13 = [(PHAPrivateFederatedLearningRunner *)self options];
-      [options13 learningRate];
+      v77 = objc_msgSend_options(self);
+      [v77 learningRate];
       v70 = [v39 numberWithDouble:?];
-      options14 = [(PHAPrivateFederatedLearningRunner *)self options];
-      modelInputName2 = [options14 modelInputName];
-      options15 = [(PHAPrivateFederatedLearningRunner *)self options];
-      modelOutputName2 = [options15 modelOutputName];
-      options16 = [(PHAPrivateFederatedLearningRunner *)self options];
-      lossName2 = [options16 lossName];
-      options17 = [(PHAPrivateFederatedLearningRunner *)self options];
-      optimizerName = [options17 optimizerName];
+      v74 = objc_msgSend_options(self);
+      modelInputName2 = [v74 modelInputName];
+      v72 = objc_msgSend_options(self);
+      modelOutputName2 = [v72 modelOutputName];
+      v41 = objc_msgSend_options(self);
+      lossName2 = [v41 lossName];
+      v43 = objc_msgSend_options(self);
+      optimizerName = [v43 optimizerName];
       v95 = 0;
       v45 = v84;
       v85 = absoluteString;
@@ -367,14 +367,14 @@ LABEL_39:
 
       if (v46)
       {
-        options18 = [(PHAPrivateFederatedLearningRunner *)self options];
-        numberOfEpochs = [options18 numberOfEpochs];
-        options19 = [(PHAPrivateFederatedLearningRunner *)self options];
-        layersToTrain2 = [options19 layersToTrain];
+        v47 = objc_msgSend_options(self);
+        numberOfEpochs = [v47 numberOfEpochs];
+        v49 = objc_msgSend_options(self);
+        layersToTrain2 = [v49 layersToTrain];
         v78 = v46;
-        options21 = [(PHAPrivateFederatedLearningModelTrainer *)v46 trainForNumberOfEpochs:numberOfEpochs layersToTrain:layersToTrain2 verbose:0 error:errorCopy2];
+        v51 = [(PHAPrivateFederatedLearningModelTrainer *)v46 trainForNumberOfEpochs:numberOfEpochs layersToTrain:layersToTrain2 verbose:0 error:errorCopy2];
 
-        if (!options21 || ([options21 parameterDeltas], v52 = objc_claimAutoreleasedReturnValue(), v52, !v52))
+        if (!v51 || ([v51 parameterDeltas], v52 = objc_claimAutoreleasedReturnValue(), v52, !v52))
         {
           v18 = 0;
           v17 = v91;
@@ -392,15 +392,15 @@ LABEL_37:
         }
 
         v53 = objc_alloc_init(PHAPrivateFederatedLearningPackager);
-        parameterDeltas = [options21 parameterDeltas];
+        parameterDeltas = [v51 parameterDeltas];
         trainingTask = v53;
         v55 = [(PHAPrivateFederatedLearningPackager *)v53 dataPackageFromTrainingResults:parameterDeltas error:errorCopy2];
 
         v56 = [PHAPrivateFederatedLearningRunnerResponse alloc];
-        options20 = [(PHAPrivateFederatedLearningRunner *)self options];
-        layersToTrain3 = [options20 layersToTrain];
-        trainingLossesPerEpoch = [options21 trainingLossesPerEpoch];
-        trainingAccuraciesPerEpoch = [options21 trainingAccuraciesPerEpoch];
+        v57 = objc_msgSend_options(self);
+        layersToTrain3 = [v57 layersToTrain];
+        trainingLossesPerEpoch = [v51 trainingLossesPerEpoch];
+        trainingAccuraciesPerEpoch = [v51 trainingAccuraciesPerEpoch];
         v18 = [(PHAPrivateFederatedLearningRunnerResponse *)v56 initWithDataPackage:v55 layersToTrain:layersToTrain3 trainingLossesPerEpoch:trainingLossesPerEpoch trainingAccuraciesPerEpoch:trainingAccuraciesPerEpoch];
 
         v17 = v91;
@@ -424,8 +424,8 @@ LABEL_37:
 
         v78 = 0;
         v64 = MEMORY[0x277CCACA8];
-        options21 = [(PHAPrivateFederatedLearningRunner *)self options];
-        trainingTask = [options21 trainingTask];
+        v51 = objc_msgSend_options(self);
+        trainingTask = [v51 trainingTask];
         v55 = [v64 stringWithFormat:@"Model trainer returned nil for data provider of training task %@ and model file url %@", trainingTask, absoluteString];
         v61 = v80;
         [PHAPrivateFederatedLearningRunner _generateErrorWithErrorCode:7 message:v55 underlyingError:v80];
@@ -567,7 +567,7 @@ void __89__PHAPrivateFederatedLearningRunner_Testing___isValidInputDimensionForC
   if (a2)
   {
     v6 = [a2 inputDescriptionsByName];
-    v7 = [*(a1 + 40) options];
+    v7 = objc_msgSend_options(*(a1 + 40));
     v8 = [v7 modelInputName];
     v9 = [v6 objectForKeyedSubscript:v8];
 
@@ -576,14 +576,14 @@ void __89__PHAPrivateFederatedLearningRunner_Testing___isValidInputDimensionForC
     v12 = [v11 objectAtIndexedSubscript:1];
     v13 = [v12 unsignedLongValue];
 
-    v14 = [*(a1 + 40) options];
+    v14 = objc_msgSend_options(*(a1 + 40));
     v15 = [v14 featureSize];
 
     if (v13 != v15)
     {
       *(*(*(a1 + 48) + 8) + 24) = 1;
       v16 = MEMORY[0x277CCACA8];
-      v17 = [*(a1 + 40) options];
+      v17 = objc_msgSend_options(*(a1 + 40));
       v18 = [v16 stringWithFormat:@"Wrong Input Dimension for CoreML Model. Expected model input size: %ld, got: %ld", v13, objc_msgSend(v17, "featureSize")];
       v19 = [PHAPrivateFederatedLearningRunner _generateErrorWithErrorCode:16 message:v18 underlyingError:0];
       v20 = *(*(a1 + 56) + 8);
@@ -605,8 +605,8 @@ void __89__PHAPrivateFederatedLearningRunner_Testing___isValidInputDimensionForC
 - (id)_prepareTrainingDataForBiomeStream:(id)stream error:(id *)error
 {
   streamCopy = stream;
-  options = [(PHAPrivateFederatedLearningRunner *)self options];
-  v8 = [PHAPrivateFederatedLearningRunner datasetBuilderForOptions:options error:error];
+  v7 = objc_msgSend_options(self);
+  v8 = [PHAPrivateFederatedLearningRunner datasetBuilderForOptions:v7 error:error];
 
   if (v8)
   {

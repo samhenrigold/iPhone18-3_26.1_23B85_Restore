@@ -286,7 +286,7 @@ LABEL_25:
   v32 = v6;
 
   disambiguations = [(PSIDisambiguationQuery *)self disambiguations];
-  if ([disambiguations count])
+  if (objc_msgSend_count(disambiguations))
   {
     photosEntityStore = [(PSIDisambiguationQuery *)self photosEntityStore];
     if ([(PSIDisambiguationQuery *)self cancelled])
@@ -541,7 +541,7 @@ LABEL_10:
 {
   v39 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
-  if ([resultsCopy count])
+  if (objc_msgSend_count(resultsCopy))
   {
     selfCopy = self;
     firstObject = [resultsCopy firstObject];
@@ -684,7 +684,7 @@ LABEL_10:
   [v25 addObjectsFromArray:v51];
   v47 = v24;
   [v25 addObjectsFromArray:v24];
-  v30 = [v25 count];
+  v30 = objc_msgSend_count(v25);
   if (v30 >= results)
   {
     resultsCopy = results;
@@ -797,7 +797,7 @@ LABEL_31:
 {
   disambiguationCopy = disambiguation;
   resultsCopy = results;
-  if (![resultsCopy count])
+  if (!objc_msgSend_count(resultsCopy))
   {
     goto LABEL_6;
   }
@@ -893,7 +893,7 @@ LABEL_5:
   if (v10)
   {
     queryTerm = [groupCopy normalizedString];
-    LOBYTE(v10) = [textCopy isEqualToString:queryTerm];
+    LOBYTE(v10) = objc_msgSend_isEqualToString_(textCopy);
 LABEL_5:
   }
 

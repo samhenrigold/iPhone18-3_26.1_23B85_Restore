@@ -44,7 +44,7 @@ uint64_t __36__IRFeatureFlags_sharedFeatureFlags__block_invoke()
 
 void __46__IRFeatureFlags_isAggressiveFilteringEnabled__block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   isAggressiveFilteringEnabled_enabled = _os_feature_enabled_impl();
   v0 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
@@ -59,12 +59,10 @@ void __46__IRFeatureFlags_isAggressiveFilteringEnabled__block_invoke()
       v1 = @"NO";
     }
 
-    v3 = 138412290;
-    v4 = v1;
-    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] cilantro_show_less: %@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v1;
+    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] cilantro_show_less: %@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isServiceFeatureEnabled
@@ -80,7 +78,7 @@ void __46__IRFeatureFlags_isAggressiveFilteringEnabled__block_invoke()
 
 void __41__IRFeatureFlags_isServiceFeatureEnabled__block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   isServiceFeatureEnabled_enabled = _os_feature_enabled_impl();
   v0 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
@@ -95,12 +93,10 @@ void __41__IRFeatureFlags_isServiceFeatureEnabled__block_invoke()
       v1 = @"NO";
     }
 
-    v3 = 138412290;
-    v4 = v1;
-    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] service: %@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v1;
+    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] service: %@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isPickerPrioritizationFeatureEnabled
@@ -116,7 +112,7 @@ void __41__IRFeatureFlags_isServiceFeatureEnabled__block_invoke()
 
 void __54__IRFeatureFlags_isPickerPrioritizationFeatureEnabled__block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   isPickerPrioritizationFeatureEnabled_enabled = _os_feature_enabled_impl();
   v0 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
@@ -131,12 +127,10 @@ void __54__IRFeatureFlags_isPickerPrioritizationFeatureEnabled__block_invoke()
       v1 = @"NO";
     }
 
-    v3 = 138412290;
-    v4 = v1;
-    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] pickerPrioritization: %@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v1;
+    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] pickerPrioritization: %@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSuggestedRoutingFeatureEnabled
@@ -152,7 +146,7 @@ void __54__IRFeatureFlags_isPickerPrioritizationFeatureEnabled__block_invoke()
 
 void __50__IRFeatureFlags_isSuggestedRoutingFeatureEnabled__block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   isSuggestedRoutingFeatureEnabled_enabled = _os_feature_enabled_impl();
   v0 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
@@ -167,12 +161,10 @@ void __50__IRFeatureFlags_isSuggestedRoutingFeatureEnabled__block_invoke()
       v1 = @"NO";
     }
 
-    v3 = 138412290;
-    v4 = v1;
-    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] suggestedRouting: %@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v1;
+    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] suggestedRouting: %@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAutomaticRoutingFeatureEnabled
@@ -188,7 +180,7 @@ void __50__IRFeatureFlags_isSuggestedRoutingFeatureEnabled__block_invoke()
 
 void __50__IRFeatureFlags_isAutomaticRoutingFeatureEnabled__block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   isAutomaticRoutingFeatureEnabled_enabled = _os_feature_enabled_impl();
   v0 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
@@ -203,12 +195,10 @@ void __50__IRFeatureFlags_isAutomaticRoutingFeatureEnabled__block_invoke()
       v1 = @"NO";
     }
 
-    v3 = 138412290;
-    v4 = v1;
-    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] automaticRouting: %@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v1;
+    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] automaticRouting: %@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSuggestedControlFeatureEnabled
@@ -224,7 +214,7 @@ void __50__IRFeatureFlags_isAutomaticRoutingFeatureEnabled__block_invoke()
 
 void __50__IRFeatureFlags_isSuggestedControlFeatureEnabled__block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   isSuggestedControlFeatureEnabled_enabled = _os_feature_enabled_impl();
   v0 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
@@ -239,12 +229,10 @@ void __50__IRFeatureFlags_isSuggestedControlFeatureEnabled__block_invoke()
       v1 = @"NO";
     }
 
-    v3 = 138412290;
-    v4 = v1;
-    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] suggestedControl: %@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v1;
+    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] suggestedControl: %@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAutomaticControlFeatureEnabled
@@ -260,7 +248,7 @@ void __50__IRFeatureFlags_isSuggestedControlFeatureEnabled__block_invoke()
 
 void __50__IRFeatureFlags_isAutomaticControlFeatureEnabled__block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   isAutomaticControlFeatureEnabled_enabled = _os_feature_enabled_impl();
   v0 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
@@ -275,12 +263,10 @@ void __50__IRFeatureFlags_isAutomaticControlFeatureEnabled__block_invoke()
       v1 = @"NO";
     }
 
-    v3 = 138412290;
-    v4 = v1;
-    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] automaticControl: %@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v1;
+    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] automaticControl: %@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isTVRemoteControlFeatureEnabled
@@ -296,7 +282,7 @@ void __50__IRFeatureFlags_isAutomaticControlFeatureEnabled__block_invoke()
 
 void __49__IRFeatureFlags_isTVRemoteControlFeatureEnabled__block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   isTVRemoteControlFeatureEnabled_enabled = _os_feature_enabled_impl();
   v0 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
@@ -311,12 +297,10 @@ void __49__IRFeatureFlags_isTVRemoteControlFeatureEnabled__block_invoke()
       v1 = @"NO";
     }
 
-    v3 = 138412290;
-    v4 = v1;
-    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] tvRemoteControl: %@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v1;
+    _os_log_impl(&dword_25543D000, v0, OS_LOG_TYPE_DEFAULT, "[IRFeatureFlags] tvRemoteControl: %@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

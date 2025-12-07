@@ -29,6 +29,7 @@
 - (id)_onqueueNextStateMachineTransition:(id)transition flags:(id)flags pendingFlags:(id)pendingFlags;
 - (id)becomeReadyOperation:(id)operation;
 - (id)createAccountLoggedInDependency:(id)dependency;
+- (id)createViewState:(id)state contextID:(id)d zoneIsNew:(BOOL)new priorityView:(BOOL)view ckksManagedView:(BOOL)managedView;
 - (id)externalManagedViewForRPC:(id)c error:(id *)error;
 - (id)fastStatus:(id)status zoneStateEntry:(id)entry;
 - (id)findFirstPendingOperation:(id)operation ofClass:(Class)class;
@@ -49,6 +50,7 @@
 - (id)rpcResetLocal:(id)local reply:(id)reply;
 - (id)rpcWaitForPriorityViewProcessing;
 - (id)tlkMissingOperation:(id)operation;
+- (id)updateDeviceState:(BOOL)state waitForKeyHierarchyInitialization:(unint64_t)initialization ckoperationGroup:(id)group;
 - (id)viewStateForName:(id)name;
 - (id)viewsForPeerID:(id)d error:(id *)error;
 - (id)viewsInState:(id)state;
@@ -89,6 +91,7 @@
 - (void)proposeTLKForExternallyManagedView:(id)view proposedTLK:(id)k wrappedOldTLK:(id)lK tlkShares:(id)shares reply:(id)reply;
 - (void)receiveTLKUploadRecords:(id)records;
 - (void)resetExternallyManagedCloudKitView:(id)view reply:(id)reply;
+- (void)rpcStatus:(id)status fast:(BOOL)fast waitForNonTransientState:(unint64_t)state reply:(id)reply;
 - (void)scanLocalItems;
 - (void)scheduleOperation:(id)operation;
 - (void)selfPeerChanged:(id)changed;
@@ -618,6 +621,56 @@
   }
 
   return v70;
+}
+
+- (void)rpcStatus:(id)status fast:(BOOL)fast waitForNonTransientState:(unint64_t)state reply:(id)reply
+{
+  fastCopy = fast;
+  statusCopy = status;
+  replyCopy = reply;
+  v32 = 0;
+  v12 = [(CKKSKeychainView *)self waitUntilReadyForRPCForOperation:@"status" fast:fastCopy errorOnNoCloudKitAccount:0 errorOnPolicyMissing:0 error:&v32];
+  v13 = v32;
+  if (v12)
+  {
+    v14 = [OctagonStateMultiStateArrivalWatcher alloc];
+    queue = [(CKKSKeychainView *)self queue];
+    v33[0] = @"loggedout";
+    v33[1] = @"ready";
+    v33[2] = @"error";
+    v33[3] = @"waitfortrust";
+    v33[4] = @"halted";
+    v16 = [NSArray arrayWithObjects:v33 count:5];
+    v17 = [NSSet setWithArray:v16];
+    v18 = [(OctagonStateMultiStateArrivalWatcher *)v14 initNamed:@"rpc-watcher" serialQueue:queue states:v17];
+
+    stateMachine = [(CKKSKeychainView *)self stateMachine];
+    [stateMachine registerMultiStateArrivalWatcher:v18 startTimeout:state];
+
+    objc_initWeak(&location, self);
+    v23 = _NSConcreteStackBlock;
+    v24 = 3221225472;
+    v25 = sub_1001B0C68;
+    v26 = &unk_100343F68;
+    objc_copyWeak(&v29, &location);
+    v30 = fastCopy;
+    v27 = statusCopy;
+    v28 = replyCopy;
+    v20 = [CKKSResultOperation named:@"status-rpc" withBlock:&v23];
+    result = [v18 result];
+    [v20 addDependency:result];
+
+    operationQueue = [(CKKSKeychainView *)self operationQueue];
+    [operationQueue addOperation:v20];
+
+    objc_destroyWeak(&v29);
+    objc_destroyWeak(&location);
+  }
+
+  else
+  {
+    (*(replyCopy + 2))(replyCopy, 0, v13);
+  }
 }
 
 - (id)viewsForPeerID:(id)d error:(id *)error
@@ -1700,6 +1753,53 @@ LABEL_24:
   [(CKKSKeychainView *)self setPolicyLoaded:v5];
 }
 
+- (id)createViewState:(id)state contextID:(id)d zoneIsNew:(BOOL)new priorityView:(BOOL)view ckksManagedView:(BOOL)managedView
+{
+  managedViewCopy = managedView;
+  viewCopy = view;
+  newCopy = new;
+  stateCopy = state;
+  dCopy = d;
+  objc_initWeak(&location, self);
+  v13 = [CKKSNearFutureScheduler alloc];
+  stateCopy = [NSString stringWithFormat:@"ckks-%@-notify-scheduler", stateCopy];
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_1001B60F0;
+  v30[3] = &unk_100344D38;
+  objc_copyWeak(&v32, &location);
+  v15 = stateCopy;
+  v31 = v15;
+  v16 = [(CKKSNearFutureScheduler *)v13 initWithName:stateCopy initialDelay:250000000 continuingDelay:1000000000 keepProcessAlive:1 dependencyDescriptionCode:1001 block:v30];
+
+  v17 = [CKKSNearFutureScheduler alloc];
+  v18 = [NSString stringWithFormat:@"%@-ready-scheduler", v15];
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_1001B6260;
+  v27[3] = &unk_100344D38;
+  objc_copyWeak(&v29, &location);
+  v19 = v15;
+  v28 = v19;
+  v20 = [(CKKSNearFutureScheduler *)v17 initWithName:v18 initialDelay:250000000 continuingDelay:120000000000 keepProcessAlive:1 dependencyDescriptionCode:1001 block:v27];
+
+  v21 = [CKKSKeychainViewState alloc];
+  v22 = [[CKRecordZoneID alloc] initWithZoneName:v19 ownerName:CKCurrentUserDefaultName];
+  v23 = [(CKKSKeychainViewState *)v21 initWithZoneID:v22 forContextID:dCopy ckksManagedView:managedViewCopy priorityView:viewCopy notifyViewChangedScheduler:v16 notifyViewReadyScheduler:v20];
+
+  if (newCopy)
+  {
+    launch = [(CKKSKeychainViewState *)v23 launch];
+    [launch setFirstLaunch:1];
+  }
+
+  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v32);
+  objc_destroyWeak(&location);
+
+  return v23;
+}
+
 - (void)onqueueCreatePriorityViewsProcessedWatcher
 {
   v3 = [OctagonStateMultiStateArrivalWatcher alloc];
@@ -2599,6 +2699,34 @@ LABEL_28:
 
   (*(havocCopy + 2))(havocCopy, *(v8 + 24), 0);
   _Block_object_dispose(&v7, 8);
+}
+
+- (id)updateDeviceState:(BOOL)state waitForKeyHierarchyInitialization:(unint64_t)initialization ckoperationGroup:(id)group
+{
+  stateCopy = state;
+  groupCopy = group;
+  v9 = [OctagonStateMultiStateArrivalWatcher alloc];
+  queue = [(CKKSKeychainView *)self queue];
+  v11 = sub_10011028C();
+  v12 = [(OctagonStateMultiStateArrivalWatcher *)v9 initNamed:@"rpc-watcher" serialQueue:queue states:v11];
+
+  stateMachine = [(CKKSKeychainView *)self stateMachine];
+  [stateMachine registerMultiStateArrivalWatcher:v12 startTimeout:initialization];
+
+  v14 = [CKKSUpdateDeviceStateOperation alloc];
+  operationDependencies = [(CKKSKeychainView *)self operationDependencies];
+  v16 = [(CKKSUpdateDeviceStateOperation *)v14 initWithOperationDependencies:operationDependencies rateLimit:stateCopy ckoperationGroup:groupCopy];
+
+  [(CKKSGroupOperation *)v16 setName:@"device-state-operation"];
+  result = [v12 result];
+  [(CKKSGroupOperation *)v16 addDependency:result];
+
+  outgoingQueueOperations = [(CKKSKeychainView *)self outgoingQueueOperations];
+  [(CKKSUpdateDeviceStateOperation *)v16 linearDependenciesWithSelfFirst:outgoingQueueOperations];
+
+  [(CKKSKeychainView *)self scheduleOperationWithoutDependencies:v16];
+
+  return v16;
 }
 
 - (void)scanLocalItems

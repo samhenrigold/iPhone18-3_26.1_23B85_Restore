@@ -17,24 +17,21 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"data_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"data_id";
   v2 = +[(HDDataEntity *)HDSampleEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)privateSubEntities
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -160,13 +157,11 @@ void __85__HDStateOfMindEntity_insertDataObject_withProvenance_inDatabase_persis
 
 + (id)predicateForLabel:(int64_t)label
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:label];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [HDStateOfMindEntity predicateForLabels:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -182,7 +177,7 @@ void __85__HDStateOfMindEntity_insertDataObject_withProvenance_inDatabase_persis
 
 + (id)_PredicateForProperty:(void *)property matchingValues:(uint64_t)values inEntityClass:
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   v7 = a2;
   objc_opt_self();
@@ -192,24 +187,20 @@ void __85__HDStateOfMindEntity_insertDataObject_withProvenance_inDatabase_persis
 
   [v8 setPredicate:v9];
   v10 = MEMORY[0x277D10B18];
-  v15[0] = @"data_id";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"data_id";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v12 = [v10 predicateWithProperty:@"data_id" comparisonType:7 subqueryDescriptor:v8 subqueryProperties:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (id)predicateForDomain:(int64_t)domain
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:domain];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [HDStateOfMindEntity predicateForDomains:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

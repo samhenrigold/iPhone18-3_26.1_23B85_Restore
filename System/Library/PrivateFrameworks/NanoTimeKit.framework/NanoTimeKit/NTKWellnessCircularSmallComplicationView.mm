@@ -69,14 +69,14 @@
 {
   if ([(NTKCircularComplicationView *)self usesMediumLayout])
   {
-    [(NTKCircularComplicationView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     return v6;
   }
 
   else
   {
     device = [(NTKCircularComplicationView *)self device];
-    v5 = NTKCircularSmallComplicationDiameter();
+    v5 = NTKCircularSmallComplicationDiameter(device);
 
     return v5;
   }
@@ -89,7 +89,7 @@
 
   if (![(NTKCircularComplicationView *)self usesMediumLayout])
   {
-    [(NTKCircularComplicationView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     return v6;
   }
 
@@ -396,11 +396,11 @@ LABEL_20:
   ringsView = self->_ringsView;
   if (usesMultiColor)
   {
-    v5 = NTKMoveNonGradientTextColor();
+    v5 = NTKMoveNonGradientTextColor(usesMultiColor);
     v10[0] = v5;
-    v6 = NTKStandNonGradientTextColor();
+    v6 = NTKStandNonGradientTextColor(v5);
     v10[1] = v6;
-    v7 = NTKExerciseNonGradientTextColor();
+    v7 = NTKExerciseNonGradientTextColor(v6);
     v10[2] = v7;
     v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
     [(NTKRingsAndDotsView *)ringsView setRingColors:v8];

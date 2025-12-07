@@ -9,6 +9,7 @@
 - (void)_scheduleDidActivateEventForPass:(id)pass;
 - (void)_sendTransactionCompleteToDelegate;
 - (void)_setTimeoutTimer;
+- (void)confirmSessionExpectingCredential:(BOOL)credential;
 - (void)deactivateSessionWithCompletion:(id)completion;
 - (void)dealloc;
 - (void)fieldDetectorDidEnterField:(id)field withProperties:(id)properties;
@@ -61,42 +62,42 @@ void __39__NPKFakePaymentSession_initWithQueue___block_invoke(uint64_t a1)
   {
   }
 
-  if ((NPKIsRunningInStoreDemoMode() & 1) == 0)
+  if ((NPKIsRunningInStoreDemoMode(v5, v6) & 1) == 0)
   {
-    v5 = objc_alloc_init(MEMORY[0x277D37EE0]);
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 184);
-    *(v6 + 184) = v5;
+    v7 = objc_alloc_init(MEMORY[0x277D37EE0]);
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 184);
+    *(v8 + 184) = v7;
 
     [*(*(a1 + 32) + 184) registerObserver:?];
   }
 
   objc_initWeak(&location, *(a1 + 32));
-  v8 = dispatch_get_global_queue(0, 0);
-  v9 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v8);
-  v10 = *(a1 + 32);
-  v11 = *(v10 + 176);
-  *(v10 + 176) = v9;
+  v10 = dispatch_get_global_queue(0, 0);
+  v11 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v10);
+  v12 = *(a1 + 32);
+  v13 = *(v12 + 176);
+  *(v12 + 176) = v11;
 
-  v12 = *(*(a1 + 32) + 176);
+  v14 = *(*(a1 + 32) + 176);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __39__NPKFakePaymentSession_initWithQueue___block_invoke_2;
   handler[3] = &unk_279945030;
-  objc_copyWeak(&v17, &location);
-  dispatch_source_set_event_handler(v12, handler);
+  objc_copyWeak(&v19, &location);
+  dispatch_source_set_event_handler(v14, handler);
   [*(a1 + 32) _setTimeoutTimer];
   dispatch_resume(*(*(a1 + 32) + 176));
   out_token = 0;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __39__NPKFakePaymentSession_initWithQueue___block_invoke_4;
-  v13[3] = &unk_279944F20;
-  objc_copyWeak(&v14, &location);
-  notify_register_dispatch("com.apple.NPKFakePaymentSession.TransactionComplete", &out_token, v8, v13);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __39__NPKFakePaymentSession_initWithQueue___block_invoke_4;
+  v15[3] = &unk_279944F20;
+  objc_copyWeak(&v16, &location);
+  notify_register_dispatch("com.apple.NPKFakePaymentSession.TransactionComplete", &out_token, v10, v15);
 
-  objc_destroyWeak(&v14);
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
 }
 
@@ -144,17 +145,17 @@ void __39__NPKFakePaymentSession_initWithQueue___block_invoke_4(uint64_t a1)
 {
   v15 = *MEMORY[0x277D85DE8];
   passCopy = pass;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(passCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v14 = passCopy;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: setting current pass %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: setting current pass %@", buf, 0xCu);
     }
   }
 
@@ -165,10 +166,8 @@ void __39__NPKFakePaymentSession_initWithQueue___block_invoke_4(uint64_t a1)
   v11[3] = &unk_2799454E0;
   v11[4] = self;
   v12 = passCopy;
-  v9 = passCopy;
+  v10 = passCopy;
   dispatch_sync(ourInternalQueue, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __40__NPKFakePaymentSession_setCurrentPass___block_invoke(uint64_t a1)
@@ -246,17 +245,17 @@ void __36__NPKFakePaymentSession_currentPass__block_invoke(uint64_t a1)
 {
   v15 = *MEMORY[0x277D85DE8];
   passesCopy = passes;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(passesCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v14 = passesCopy;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: setting VAS passes %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: setting VAS passes %@", buf, 0xCu);
     }
   }
 
@@ -267,10 +266,8 @@ void __36__NPKFakePaymentSession_currentPass__block_invoke(uint64_t a1)
   v11[3] = &unk_2799454E0;
   v11[4] = self;
   v12 = passesCopy;
-  v9 = passesCopy;
+  v10 = passesCopy;
   dispatch_sync(ourInternalQueue, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCredential:(id)credential
@@ -419,7 +416,7 @@ void __42__NPKFakePaymentSession_setInServiceMode___block_invoke_2(uint64_t a1)
   return selfCopy;
 }
 
-uint64_t __38__NPKFakePaymentSession_inServiceMode__block_invoke(uint64_t a1)
+void *__38__NPKFakePaymentSession_inServiceMode__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) ourInServiceMode];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -428,16 +425,16 @@ uint64_t __38__NPKFakePaymentSession_inServiceMode__block_invoke(uint64_t a1)
 
 - (void)fieldDetectorDidEnterField:(id)field withProperties:(id)properties
 {
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: detected field entry", buf, 2u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: detected field entry", buf, 2u);
     }
   }
 
@@ -450,12 +447,12 @@ uint64_t __38__NPKFakePaymentSession_inServiceMode__block_invoke(uint64_t a1)
   dispatch_sync(ourCallbackQueue, block);
 
   ourInternalQueue = [(NPKFakePaymentSession *)self ourInternalQueue];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __67__NPKFakePaymentSession_fieldDetectorDidEnterField_withProperties___block_invoke_2;
-  v10[3] = &unk_279944F98;
-  v10[4] = self;
-  dispatch_sync(ourInternalQueue, v10);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __67__NPKFakePaymentSession_fieldDetectorDidEnterField_withProperties___block_invoke_2;
+  v11[3] = &unk_279944F98;
+  v11[4] = self;
+  dispatch_sync(ourInternalQueue, v11);
 }
 
 void __67__NPKFakePaymentSession_fieldDetectorDidEnterField_withProperties___block_invoke(uint64_t a1)
@@ -470,7 +467,7 @@ void __67__NPKFakePaymentSession_fieldDetectorDidEnterField_withProperties___blo
   }
 }
 
-uint64_t __67__NPKFakePaymentSession_fieldDetectorDidEnterField_withProperties___block_invoke_2(uint64_t a1)
+void *__67__NPKFakePaymentSession_fieldDetectorDidEnterField_withProperties___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) invalidated];
   if ((result & 1) == 0)
@@ -485,16 +482,16 @@ uint64_t __67__NPKFakePaymentSession_fieldDetectorDidEnterField_withProperties__
 
 - (void)fieldDetectorDidExitField:(id)field
 {
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: detected field exit", buf, 2u);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: detected field exit", buf, 2u);
     }
   }
 
@@ -519,60 +516,69 @@ void __51__NPKFakePaymentSession_fieldDetectorDidExitField___block_invoke(uint64
   }
 }
 
+- (void)confirmSessionExpectingCredential:(BOOL)credential
+{
+  ourInternalQueue = [(NPKFakePaymentSession *)self ourInternalQueue];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __59__NPKFakePaymentSession_confirmSessionExpectingCredential___block_invoke;
+  block[3] = &unk_279944F98;
+  block[4] = self;
+  dispatch_sync(ourInternalQueue, block);
+}
+
 void __59__NPKFakePaymentSession_confirmSessionExpectingCredential___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) ourCurrentPass];
   v3 = [*(a1 + 32) ourConfirmed];
-  [*(a1 + 32) setOurConfirmed:1];
+  v4 = [*(a1 + 32) setOurConfirmed:1];
   if ((v3 & 1) == 0)
   {
-    v4 = pk_Payment_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_Payment_log(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v5)
+    if (v6)
     {
-      v6 = pk_Payment_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_Payment_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 138412290;
-        v9 = v2;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: confirming session for pass %@", &v8, 0xCu);
+        v9 = 138412290;
+        v10 = v2;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: confirming session for pass %@", &v9, 0xCu);
       }
     }
 
     [*(a1 + 32) setOurConfirmed:1];
     [*(a1 + 32) _handleSessionHasCredentialIfNecessaryWithCurrentPass:v2];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deactivateSessionWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(completionCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: deactivating session", buf, 2u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: deactivating session", buf, 2u);
     }
   }
 
   ourInternalQueue = [(NPKFakePaymentSession *)self ourInternalQueue];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __57__NPKFakePaymentSession_deactivateSessionWithCompletion___block_invoke;
-  v10[3] = &unk_279945530;
-  v10[4] = self;
-  v11 = completionCopy;
-  v9 = completionCopy;
-  dispatch_sync(ourInternalQueue, v10);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __57__NPKFakePaymentSession_deactivateSessionWithCompletion___block_invoke;
+  v11[3] = &unk_279945530;
+  v11[4] = self;
+  v12 = completionCopy;
+  v10 = completionCopy;
+  dispatch_sync(ourInternalQueue, v11);
 }
 
 void __57__NPKFakePaymentSession_deactivateSessionWithCompletion___block_invoke(uint64_t a1)
@@ -668,16 +674,16 @@ void __58__NPKFakePaymentSession__scheduleDidActivateEventForPass___block_invoke
 
 - (void)_setTimeoutTimer
 {
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: setting timer", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: setting timer", v10, 2u);
     }
   }
 
@@ -685,22 +691,22 @@ void __58__NPKFakePaymentSession__scheduleDidActivateEventForPass___block_invoke
   dispatch_assert_queue_V2(ourInternalQueue);
 
   timeoutTimer = [(NPKFakePaymentSession *)self timeoutTimer];
-  v8 = dispatch_time(0, 60000000000);
-  dispatch_source_set_timer(timeoutTimer, v8, 0xFFFFFFFFFFFFFFFFLL, 0);
+  v9 = dispatch_time(0, 60000000000);
+  dispatch_source_set_timer(timeoutTimer, v9, 0xFFFFFFFFFFFFFFFFLL, 0);
 }
 
 - (void)_handleTimeoutTimer
 {
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: handling timeout", buf, 2u);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: handling timeout", buf, 2u);
     }
   }
 
@@ -733,16 +739,16 @@ void __44__NPKFakePaymentSession__handleTimeoutTimer__block_invoke(uint64_t a1)
 
 - (void)_handleTransactionCompleteDarwinNotification
 {
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: Got transaction complete Darwin notification", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Fake payment session: Got transaction complete Darwin notification", v8, 2u);
     }
   }
 
@@ -796,7 +802,7 @@ void __79__NPKFakePaymentSession__handleSessionHasCredentialIfNecessaryWithCurre
 
 - (void)_sendTransactionCompleteToDelegate
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   ourCurrentPass = [(NPKFakePaymentSession *)self ourCurrentPass];
   v4 = ourCurrentPass;
   if (ourCurrentPass)
@@ -821,8 +827,8 @@ void __79__NPKFakePaymentSession__handleSessionHasCredentialIfNecessaryWithCurre
     else
     {
       v11 = [v6 initWithPaymentPass:0 activatedPaymentApplications:0];
-      v20[0] = v4;
-      paymentPass4 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+      v19[0] = v4;
+      paymentPass4 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
       [v11 setValueAddedServicePasses:paymentPass4];
     }
   }
@@ -833,16 +839,14 @@ void __79__NPKFakePaymentSession__handleSessionHasCredentialIfNecessaryWithCurre
   }
 
   ourCallbackQueue = [(NPKFakePaymentSession *)self ourCallbackQueue];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __59__NPKFakePaymentSession__sendTransactionCompleteToDelegate__block_invoke;
-  v18[3] = &unk_2799454E0;
-  v18[4] = self;
-  v19 = v11;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __59__NPKFakePaymentSession__sendTransactionCompleteToDelegate__block_invoke;
+  v17[3] = &unk_2799454E0;
+  v17[4] = self;
+  v18 = v11;
   v16 = v11;
-  dispatch_async(ourCallbackQueue, v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_async(ourCallbackQueue, v17);
 }
 
 void __59__NPKFakePaymentSession__sendTransactionCompleteToDelegate__block_invoke(uint64_t a1)

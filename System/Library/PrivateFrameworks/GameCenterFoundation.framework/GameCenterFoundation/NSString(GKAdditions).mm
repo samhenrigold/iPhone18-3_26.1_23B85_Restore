@@ -13,7 +13,7 @@
 
 - (void)processUTF16CharactersForBidi:()GKAdditions
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = ubidi_open();
   if (v5)
@@ -30,7 +30,7 @@
     {
       if ((v7 << 32) < 0x8000000001)
       {
-        v9 = &v11;
+        v9 = &v10;
       }
 
       else
@@ -48,8 +48,6 @@
 
     ubidi_close();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_gkIsNaturallyRTL
@@ -71,48 +69,48 @@
 
 - (uint64_t)_gkSearchMatchesItem:()GKAdditions withSearchTerms:
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   if ([v7 count] && objc_msgSend(self, "length"))
   {
-    v18 = v7;
+    v17 = v7;
     v8 = [v6 valueForKeyPath:self];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v10)
     {
-      v11 = *v25;
+      v11 = *v24;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * i);
+          v13 = *(*(&v23 + 1) + 8 * i);
           if ([v13 length])
           {
-            v20 = 0;
-            v21 = &v20;
-            v22 = 0x2020000000;
-            v23 = 0;
+            v19 = 0;
+            v20 = &v19;
+            v21 = 0x2020000000;
+            v22 = 0;
             v14 = [v8 length];
-            v19[0] = MEMORY[0x277D85DD0];
-            v19[1] = 3221225472;
-            v19[2] = __62__NSString_GKAdditions___gkSearchMatchesItem_withSearchTerms___block_invoke;
-            v19[3] = &unk_2785DE0E8;
-            v19[4] = v13;
-            v19[5] = &v20;
-            [v8 enumerateSubstringsInRange:0 options:v14 usingBlock:{1027, v19}];
-            v15 = *(v21 + 24);
-            _Block_object_dispose(&v20, 8);
+            v18[0] = MEMORY[0x277D85DD0];
+            v18[1] = 3221225472;
+            v18[2] = __62__NSString_GKAdditions___gkSearchMatchesItem_withSearchTerms___block_invoke;
+            v18[3] = &unk_2785DE0E8;
+            v18[4] = v13;
+            v18[5] = &v19;
+            [v8 enumerateSubstringsInRange:0 options:v14 usingBlock:{1027, v18}];
+            v15 = *(v20 + 24);
+            _Block_object_dispose(&v19, 8);
             if (v15)
             {
               v10 = 1;
@@ -121,7 +119,7 @@
           }
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v10)
         {
           continue;
@@ -133,7 +131,7 @@
 
 LABEL_15:
 
-    v7 = v18;
+    v7 = v17;
   }
 
   else
@@ -141,7 +139,6 @@ LABEL_15:
     v10 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

@@ -425,7 +425,7 @@ LABEL_16:
     v18 = 0u;
     if (itemSourceController)
     {
-      [itemSourceController requestAssetsMediaTypeCount];
+      objc_msgSend_requestAssetsMediaTypeCount(itemSourceController);
     }
 
     v11 = objc_opt_class();
@@ -605,7 +605,7 @@ LABEL_12:
   }
 }
 
-uint64_t __55__PUMailActivity__composeMailForVideo_trimmedFilePath___block_invoke(uint64_t result, char a2)
+void *__55__PUMailActivity__composeMailForVideo_trimmedFilePath___block_invoke(void *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
@@ -613,12 +613,12 @@ uint64_t __55__PUMailActivity__composeMailForVideo_trimmedFilePath___block_invok
     v3 = PLSharingGetLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      *v4 = 0;
+      v4[0] = 0;
       _os_log_impl(&dword_1B36F3000, v3, OS_LOG_TYPE_ERROR, "Share Sheet: Failed to present mail compose in new window. Presenting modally instead.", v4, 2u);
     }
 
-    result = [*(*(v2 + 32) + 192) presentViewController:*(v2 + 40) animated:1 completion:0];
-    *(*(v2 + 32) + 260) = 1;
+    result = [*(v2[4] + 192) presentViewController:v2[5] animated:1 completion:0];
+    *(v2[4] + 260) = 1;
   }
 
   return result;
@@ -1065,7 +1065,7 @@ void __69__PUMailActivity__remakeAndSendVideoAsset_withTrimStartTime_endTime___b
       v13 = 0u;
       if (controllerCopy)
       {
-        [controllerCopy requestAssetsMediaTypeCount];
+        objc_msgSend_requestAssetsMediaTypeCount(controllerCopy);
       }
 
       v8 = objc_opt_class();
@@ -1221,7 +1221,7 @@ void __69__PUMailActivity__remakeAndSendVideoAsset_withTrimStartTime_endTime___b
 
 + (id)_momentShareLinkTitleForMomentShare:(id)share
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   if (share)
   {
     PXCMMTitleAndSubtitleForAssetCollection();
@@ -1232,34 +1232,34 @@ void __69__PUMailActivity__remakeAndSendVideoAsset_withTrimStartTime_endTime___b
       if (v4)
       {
         v5 = PXLocalizedString();
-        v6 = PUStringWithValidatedFormat();
+        v12 = PUStringWithValidatedFormat(v5, @"%@ %@", v6, v7, v8, v9, v10, v11, v3);
       }
 
       else
       {
-        v6 = v3;
+        v12 = v3;
       }
 
       PXScaledValueForTextStyleWithSymbolicTraits();
-      v8 = [MEMORY[0x1E69DB878] boldSystemFontOfSize:?];
-      v11 = *MEMORY[0x1E69DB648];
-      v12[0] = v8;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-      v7 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v6 attributes:v9];
+      v14 = [MEMORY[0x1E69DB878] boldSystemFontOfSize:?];
+      v17 = *MEMORY[0x1E69DB648];
+      v18[0] = v14;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v13 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v12 attributes:v15];
     }
 
     else
     {
-      v7 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    v13 = 0;
   }
 
-  return v7;
+  return v13;
 }
 
 + (id)_momentShareLinkSubjectForMomentShare:(id)share

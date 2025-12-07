@@ -41,6 +41,7 @@
 - (void)queued_notifyDownloadProgressFraction:(double)fraction;
 - (void)removeDownloadObserver:(id)observer;
 - (void)setDisplayOrder:(int64_t)order;
+- (void)setDownloaded:(BOOL)downloaded;
 - (void)setFileSizeInBytesFromURL:(id)l;
 - (void)setFileUTType:(id)type;
 - (void)setFileUTTypeFromURL:(id)l;
@@ -4732,17 +4733,17 @@ LABEL_183:
 
 - (void)setFileSizeInBytesFromURL:(id)l
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v7 = lCopy;
   if (lCopy && objc_msgSend_isFileURL(lCopy, v5, v6) && (objc_msgSend_type(self, v8, v9) & 0xFFFFFFFFFFFFFFFDLL) == 1 && objc_msgSend_cls_fileExists(v7, v10, v11))
   {
-    v26 = 0;
-    v13 = *MEMORY[0x277CBE838];
     v25 = 0;
-    ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v7, v12, &v26, v13, &v25);
-    v15 = v26;
-    v18 = v25;
+    v13 = *MEMORY[0x277CBE838];
+    v24 = 0;
+    ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v7, v12, &v25, v13, &v24);
+    v15 = v25;
+    v18 = v24;
     if (ResourceValue_forKey_error)
     {
       objc_msgSend_lock(self, v16, v17);
@@ -4761,31 +4762,29 @@ LABEL_183:
       if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v28 = v7;
-        v29 = 2114;
-        v30 = v18;
+        v27 = v7;
+        v28 = 2114;
+        v29 = v18;
         _os_log_error_impl(&dword_236F71000, v23, OS_LOG_TYPE_ERROR, "Failed to get fileSize resource from URL: '%{public}@', error:  '%{public}@'.", buf, 0x16u);
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFileUTTypeFromURL:(id)l
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (lCopy && (objc_msgSend_type(self, v4, v5) & 0xFFFFFFFFFFFFFFFDLL) == 1)
   {
     if (objc_msgSend_cls_fileExists(lCopy, v7, v8))
     {
-      v27 = 0;
-      v11 = *MEMORY[0x277CBE7B8];
       v26 = 0;
-      ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(lCopy, v9, &v27, v11, &v26);
-      v13 = v27;
-      v16 = v26;
+      v11 = *MEMORY[0x277CBE7B8];
+      v25 = 0;
+      ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(lCopy, v9, &v26, v11, &v25);
+      v13 = v26;
+      v16 = v25;
       if (ResourceValue_forKey_error)
       {
 LABEL_16:
@@ -4806,9 +4805,9 @@ LABEL_16:
       if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v29 = lCopy;
-        v30 = 2114;
-        v31 = v16;
+        v28 = lCopy;
+        v29 = 2114;
+        v30 = v16;
         _os_log_error_impl(&dword_236F71000, v17, OS_LOG_TYPE_ERROR, "Failed to get UTTYpe resource from URL: '%{public}@', error:  '%{public}@'. Trying to use the file extension to get UTType.", buf, 0x16u);
       }
     }
@@ -4833,7 +4832,7 @@ LABEL_16:
       if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v29 = v18;
+        v28 = v18;
         _os_log_error_impl(&dword_236F71000, v21, OS_LOG_TYPE_ERROR, "Failed to get UTTYpe from file extension: '%@'.", buf, 0xCu);
       }
     }
@@ -4843,8 +4842,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (NSURL)URL
@@ -4997,7 +4994,7 @@ LABEL_22:
 
 - (void)setThumbnailURL:(id)l
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v9 = lCopy;
   if (!lCopy)
@@ -5047,7 +5044,7 @@ LABEL_11:
           if (v31)
           {
             v34 = v31;
-            v43 = v3;
+            v42 = v3;
             v35 = objc_msgSend_path(self->_thumbnailURL, v32, v33);
             v38 = objc_msgSend_path(v9, v36, v37);
             isEqualToString = objc_msgSend_isEqualToString_(v35, v39, v38);
@@ -5096,36 +5093,34 @@ LABEL_27:
   if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v45 = v9;
+    v44 = v9;
     _os_log_error_impl(&dword_236F71000, v41, OS_LOG_TYPE_ERROR, "Failed to set thumbnailURL since the supplied thumbnail is either not a JPEG or at least one of its dimensions is > 1024. thumbnailURL: %@", buf, 0xCu);
   }
 
 LABEL_28:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeWithObject:(id)object
 {
-  v52[13] = *MEMORY[0x277D85DE8];
+  v51[13] = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  v44.receiver = self;
-  v44.super_class = CLSAbstractAsset;
-  [(CLSObject *)&v44 mergeWithObject:objectCopy];
-  v52[0] = @"ownerPersonID";
-  v52[1] = @"brItemID";
-  v52[2] = @"brZoneName";
-  v52[3] = @"brOwnerName";
-  v52[4] = @"brShareName";
-  v52[5] = @"ubiquitousContainerName";
-  v52[6] = @"relativePathWithinContainer";
-  v52[7] = @"parentObjectID";
-  v52[8] = @"schoolworkSyncStatus";
-  v52[9] = @"downloaded";
-  v52[10] = @"fractionDownloaded";
-  v52[11] = @"displayOrder";
-  v52[12] = @"originalFilename";
-  v6 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v52, 13);
+  v43.receiver = self;
+  v43.super_class = CLSAbstractAsset;
+  [(CLSObject *)&v43 mergeWithObject:objectCopy];
+  v51[0] = @"ownerPersonID";
+  v51[1] = @"brItemID";
+  v51[2] = @"brZoneName";
+  v51[3] = @"brOwnerName";
+  v51[4] = @"brShareName";
+  v51[5] = @"ubiquitousContainerName";
+  v51[6] = @"relativePathWithinContainer";
+  v51[7] = @"parentObjectID";
+  v51[8] = @"schoolworkSyncStatus";
+  v51[9] = @"downloaded";
+  v51[10] = @"fractionDownloaded";
+  v51[11] = @"displayOrder";
+  v51[12] = @"originalFilename";
+  v6 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v51, 13);
   if (qword_280B2A720 != -1)
   {
     dispatch_once(&qword_280B2A720, &unk_284A07B28);
@@ -5134,44 +5129,44 @@ LABEL_28:
   v7 = CLSLogDatabase;
   if (os_log_type_enabled(CLSLogDatabase, OS_LOG_TYPE_DEBUG))
   {
-    v33 = v7;
-    v35 = objc_msgSend_valueForKey_(self, v34, @"objectID");
-    v37 = objc_msgSend_valueForKey_(self, v36, @"originalFilename");
-    v39 = objc_msgSend_valueForKey_(objectCopy, v38, @"originalFilename");
+    v32 = v7;
+    v34 = objc_msgSend_valueForKey_(self, v33, @"objectID");
+    v36 = objc_msgSend_valueForKey_(self, v35, @"originalFilename");
+    v38 = objc_msgSend_valueForKey_(objectCopy, v37, @"originalFilename");
     *buf = 138412802;
-    v47 = v35;
-    v48 = 2112;
-    v49 = v37;
-    v50 = 2112;
-    v51 = v39;
-    _os_log_debug_impl(&dword_236F71000, v33, OS_LOG_TYPE_DEBUG, "Asset merging: %@ = %@ - %@", buf, 0x20u);
+    v46 = v34;
+    v47 = 2112;
+    v48 = v36;
+    v49 = 2112;
+    v50 = v38;
+    _os_log_debug_impl(&dword_236F71000, v32, OS_LOG_TYPE_DEBUG, "Asset merging: %@ = %@ - %@", buf, 0x20u);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v8 = v6;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v40, v45, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v39, v44, 16);
   if (v10)
   {
     v12 = v10;
-    v13 = *v41;
+    v13 = *v40;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v41 != v13)
+        if (*v40 != v13)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v40 + 1) + 8 * i);
-        v16 = objc_msgSend_valueForKey_(objectCopy, v11, v15, v40);
+        v15 = *(*(&v39 + 1) + 8 * i);
+        v16 = objc_msgSend_valueForKey_(objectCopy, v11, v15, v39);
         objc_msgSend_setValue_forKey_(self, v17, v16, v15);
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v40, v45, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v39, v44, 16);
     }
 
     while (v12);
@@ -5213,8 +5208,6 @@ LABEL_28:
   {
     objc_msgSend_setThumbnailURL_(self, v28, v18);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)filenameExtension
@@ -5289,6 +5282,19 @@ LABEL_28:
   return downloaded;
 }
 
+- (void)setDownloaded:(BOOL)downloaded
+{
+  downloadedCopy = downloaded;
+  objc_msgSend_lock(self, a2, downloaded);
+  if (self->_downloaded != downloadedCopy)
+  {
+    self->_downloaded = downloadedCopy;
+    objc_msgSend_setModified_(self, v5, 1);
+  }
+
+  objc_msgSend_unlock(self, v5, v6);
+}
+
 - (NSString)title
 {
   objc_msgSend_lock(self, a2, v2);
@@ -5343,7 +5349,7 @@ LABEL_28:
 
 - (void)addDownloadObserver:(id)observer
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   objc_msgSend_lock(self, v5, v6);
   if (qword_280B2A720 != -1)
@@ -5354,9 +5360,9 @@ LABEL_28:
   v7 = CLSLogAsset;
   if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = observerCopy;
-    _os_log_impl(&dword_236F71000, v7, OS_LOG_TYPE_DEFAULT, "adding download observer: %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = observerCopy;
+    _os_log_impl(&dword_236F71000, v7, OS_LOG_TYPE_DEFAULT, "adding download observer: %@", &v16, 0xCu);
   }
 
   objc_msgSend_addObject_(self->_downloadObservers, v8, observerCopy);
@@ -5366,13 +5372,11 @@ LABEL_28:
     objc_msgSend_setDownloaded_(self, v13, 1);
     objc_msgSend_queued_notifyDownloadCompletion(self, v14, v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDownloadObserver:(id)observer
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   objc_msgSend_lock(self, v5, v6);
   if (qword_280B2A720 != -1)
@@ -5383,15 +5387,13 @@ LABEL_28:
   v7 = CLSLogAsset;
   if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = observerCopy;
-    _os_log_impl(&dword_236F71000, v7, OS_LOG_TYPE_DEFAULT, "removing download observer: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = observerCopy;
+    _os_log_impl(&dword_236F71000, v7, OS_LOG_TYPE_DEFAULT, "removing download observer: %@", &v11, 0xCu);
   }
 
   objc_msgSend_removeObject_(self->_downloadObservers, v8, observerCopy);
   objc_msgSend_unlock(self, v9, v10);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)downloadObservers
@@ -5445,7 +5447,7 @@ LABEL_28:
 
 - (void)becomeChildOf:(id)of
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   ofCopy = of;
   v6 = objc_opt_class();
   v7 = objc_opt_class();
@@ -5464,32 +5466,32 @@ LABEL_28:
 
     else
     {
-      v57 = objc_opt_class();
-      if (objc_msgSend_isSubclassOfClass_(v6, v58, v57) & 1) != 0 || (v59 = objc_opt_class(), (objc_msgSend_isSubclassOfClass_(v6, v60, v59)))
+      v56 = objc_opt_class();
+      if (objc_msgSend_isSubclassOfClass_(v6, v57, v56) & 1) != 0 || (v58 = objc_opt_class(), (objc_msgSend_isSubclassOfClass_(v6, v59, v58)))
       {
         v13 = 3;
       }
 
       else
       {
-        v61 = objc_opt_class();
-        if (objc_msgSend_isSubclassOfClass_(v6, v62, v61))
+        v60 = objc_opt_class();
+        if (objc_msgSend_isSubclassOfClass_(v6, v61, v60))
         {
           v13 = 4;
         }
 
         else
         {
-          v63 = objc_opt_class();
-          if (objc_msgSend_isSubclassOfClass_(v6, v64, v63) & 1) != 0 || (v65 = objc_opt_class(), (objc_msgSend_isSubclassOfClass_(v6, v66, v65)))
+          v62 = objc_opt_class();
+          if (objc_msgSend_isSubclassOfClass_(v6, v63, v62) & 1) != 0 || (v64 = objc_opt_class(), (objc_msgSend_isSubclassOfClass_(v6, v65, v64)))
           {
             v13 = 5;
           }
 
           else
           {
-            v67 = objc_opt_class();
-            if (objc_msgSend_isSubclassOfClass_(v6, v68, v67))
+            v66 = objc_opt_class();
+            if (objc_msgSend_isSubclassOfClass_(v6, v67, v66))
             {
               v13 = 6;
             }
@@ -5501,14 +5503,14 @@ LABEL_28:
                 dispatch_once(&qword_280B2A720, &unk_284A07B28);
               }
 
-              v69 = CLSLogMultimedia;
+              v68 = CLSLogMultimedia;
               if (os_log_type_enabled(CLSLogMultimedia, OS_LOG_TYPE_ERROR))
               {
-                v70 = 138543618;
+                v69 = 138543618;
                 selfCopy = self;
-                v72 = 2114;
-                v73 = ofCopy;
-                _os_log_error_impl(&dword_236F71000, v69, OS_LOG_TYPE_ERROR, "Asset '%{public}@' cannot be added to %{public}@", &v70, 0x16u);
+                v71 = 2114;
+                v72 = ofCopy;
+                _os_log_error_impl(&dword_236F71000, v68, OS_LOG_TYPE_ERROR, "Asset '%{public}@' cannot be added to %{public}@", &v69, 0x16u);
               }
 
               v13 = 0;
@@ -5631,25 +5633,21 @@ LABEL_33:
   }
 
 LABEL_34:
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 - (Class)parentEntityClass
 {
-  v3 = objc_msgSend_parentEntityType(self, a2, v2);
-  if ((v3 - 1) > 5)
+  if ((objc_msgSend_parentEntityType(self, a2, v2) - 1) > 5)
   {
-    v5 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v4 = *off_278A17B00[v3 - 1];
-    v5 = objc_opt_class();
+    v3 = objc_opt_class();
   }
 
-  return v5;
+  return v3;
 }
 
 - (id)filenameForCKContentStoreCache
@@ -5721,22 +5719,22 @@ LABEL_34:
 
 - (void)driveAssetUrlSuitableForOpeningWithCompletion:(id)completion
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = sub_236F7F294;
-  v50[3] = &unk_278A17A48;
-  v50[4] = self;
-  v5 = completionCopy;
-  v51 = v5;
-  v6 = MEMORY[0x2383C3E80](v50);
   v49[0] = MEMORY[0x277D85DD0];
   v49[1] = 3221225472;
-  v49[2] = sub_236F7F498;
-  v49[3] = &unk_278A17A70;
+  v49[2] = sub_236F7F294;
+  v49[3] = &unk_278A17A48;
   v49[4] = self;
-  v9 = MEMORY[0x2383C3E80](v49);
+  v5 = completionCopy;
+  v50 = v5;
+  v6 = MEMORY[0x2383C3E80](v49);
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = sub_236F7F498;
+  v48[3] = &unk_278A17A70;
+  v48[4] = self;
+  v9 = MEMORY[0x2383C3E80](v48);
   if (self->_type == 1)
   {
     objc_msgSend_lock(self, v7, v8);
@@ -5755,7 +5753,7 @@ LABEL_34:
         v16 = v14;
         v19 = objc_msgSend_objectID(self, v17, v18);
         *buf = 138412290;
-        v53 = v19;
+        v52 = v19;
         _os_log_impl(&dword_236F71000, v16, OS_LOG_TYPE_DEFAULT, "driveAssetUrlSuitableForOpeningWithCompletion, file exists on device, returning cached url for iCloudDrive asset: %@", buf, 0xCu);
       }
 
@@ -5766,55 +5764,55 @@ LABEL_34:
 
     else
     {
-      v22 = atomic_exchange(&self->_URLRequested._Value, 1u);
+      v21 = atomic_exchange(&self->_URLRequested._Value, 1u);
       if (qword_280B2A720 != -1)
       {
         dispatch_once(&qword_280B2A720, &unk_284A07B28);
       }
 
-      v23 = CLSLogAsset;
-      if (v22)
+      v22 = CLSLogAsset;
+      if (v21)
       {
         if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_INFO))
         {
-          v25 = v23;
-          v28 = objc_msgSend_objectID(self, v26, v27);
+          v24 = v22;
+          v27 = objc_msgSend_objectID(self, v25, v26);
           *buf = 138412290;
-          v53 = v28;
-          _os_log_impl(&dword_236F71000, v25, OS_LOG_TYPE_INFO, "There is a pending request to look up url for iCloudDrive asset '%@'. Will complete the request when the pending request completes.", buf, 0xCu);
+          v52 = v27;
+          _os_log_impl(&dword_236F71000, v24, OS_LOG_TYPE_INFO, "There is a pending request to look up url for iCloudDrive asset '%@'. Will complete the request when the pending request completes.", buf, 0xCu);
         }
 
-        objc_msgSend_addToPendingURLCompletions_(self, v24, v5);
+        objc_msgSend_addToPendingURLCompletions_(self, v23, v5);
       }
 
       else
       {
         if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = v23;
-          v34 = objc_msgSend_objectID(self, v32, v33);
+          v30 = v22;
+          v33 = objc_msgSend_objectID(self, v31, v32);
           *buf = 138412290;
-          v53 = v34;
-          _os_log_impl(&dword_236F71000, v31, OS_LOG_TYPE_DEFAULT, "looking up url for iCloudDrive asset: %@", buf, 0xCu);
+          v52 = v33;
+          _os_log_impl(&dword_236F71000, v30, OS_LOG_TYPE_DEFAULT, "looking up url for iCloudDrive asset: %@", buf, 0xCu);
         }
 
-        v35 = objc_msgSend_brItemID(self, v29, v30);
-        v40 = objc_msgSend_dataStore(self, v36, v37);
-        if (!v40)
+        v34 = objc_msgSend_brItemID(self, v28, v29);
+        v39 = objc_msgSend_dataStore(self, v35, v36);
+        if (!v39)
         {
-          v40 = objc_msgSend_shared(CLSDataStore, v38, v39);
+          v39 = objc_msgSend_shared(CLSDataStore, v37, v38);
         }
 
-        v41 = objc_msgSend_brOwnerName(self, v38, v39);
-        v44 = objc_msgSend_brZoneName(self, v42, v43);
-        v46[0] = MEMORY[0x277D85DD0];
-        v46[1] = 3221225472;
-        v46[2] = sub_236F7F734;
-        v46[3] = &unk_278A17A98;
-        v46[4] = self;
-        v47 = v6;
-        v48 = v9;
-        objc_msgSend_urlSuitableForOpeningForExpectedURL_itemID_ownerName_zoneName_completion_(v40, v45, v10, v35, v41, v44, v46);
+        v40 = objc_msgSend_brOwnerName(self, v37, v38);
+        v43 = objc_msgSend_brZoneName(self, v41, v42);
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 3221225472;
+        v45[2] = sub_236F7F734;
+        v45[3] = &unk_278A17A98;
+        v45[4] = self;
+        v46 = v6;
+        v47 = v9;
+        objc_msgSend_urlSuitableForOpeningForExpectedURL_itemID_ownerName_zoneName_completion_(v39, v44, v10, v34, v40, v43, v45);
       }
     }
   }
@@ -5824,8 +5822,6 @@ LABEL_34:
     v10 = objc_msgSend_cls_createErrorWithCode_format_(MEMORY[0x277CCA9B8], v7, 2, @"driveAssetUrlSuitableForOpeningWithCompletion called for an asset type != CLSAssetTypeiCloudDrive");
     (v6)[2](v6, 0, v10);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isValidFileURL:(id)l isThumbnail:(BOOL)thumbnail
@@ -5965,22 +5961,22 @@ LABEL_13:
 
 - (void)cloudKitAssetUrlSuitableForOpeningWithCompletion:(id)completion
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = sub_236F8023C;
-  v42[3] = &unk_278A17A48;
-  v42[4] = self;
-  v5 = completionCopy;
-  v43 = v5;
-  v6 = MEMORY[0x2383C3E80](v42);
   v41[0] = MEMORY[0x277D85DD0];
   v41[1] = 3221225472;
-  v41[2] = sub_236F80418;
-  v41[3] = &unk_278A17A70;
+  v41[2] = sub_236F8023C;
+  v41[3] = &unk_278A17A48;
   v41[4] = self;
-  v8 = MEMORY[0x2383C3E80](v41);
+  v5 = completionCopy;
+  v42 = v5;
+  v6 = MEMORY[0x2383C3E80](v41);
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = sub_236F80418;
+  v40[3] = &unk_278A17A70;
+  v40[4] = self;
+  v8 = MEMORY[0x2383C3E80](v40);
   if (self->_type == 3)
   {
     if (objc_msgSend_conformsToType_(self->_fileUTType, v7, *MEMORY[0x277CE1D08]))
@@ -6026,25 +6022,25 @@ LABEL_13:
 
     else if (self->_brItemID)
     {
-      v24 = atomic_exchange(&self->_URLRequested._Value, 1u);
+      v23 = atomic_exchange(&self->_URLRequested._Value, 1u);
       if (qword_280B2A720 != -1)
       {
         dispatch_once(&qword_280B2A720, &unk_284A07B28);
       }
 
-      v25 = CLSLogAsset;
-      if (v24)
+      v24 = CLSLogAsset;
+      if (v23)
       {
         if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_INFO))
         {
-          v27 = v25;
-          v30 = objc_msgSend_objectID(self, v28, v29);
+          v26 = v24;
+          v29 = objc_msgSend_objectID(self, v27, v28);
           *buf = 138412290;
-          selfCopy2 = v30;
-          _os_log_impl(&dword_236F71000, v27, OS_LOG_TYPE_INFO, "There is a pending request to look up url for CloudKit asset: '%@'. Will complete the request when the pending request completes", buf, 0xCu);
+          selfCopy2 = v29;
+          _os_log_impl(&dword_236F71000, v26, OS_LOG_TYPE_INFO, "There is a pending request to look up url for CloudKit asset: '%@'. Will complete the request when the pending request completes", buf, 0xCu);
         }
 
-        objc_msgSend_addToPendingURLCompletions_(self, v26, v5);
+        objc_msgSend_addToPendingURLCompletions_(self, v25, v5);
       }
 
       else
@@ -6053,30 +6049,30 @@ LABEL_13:
         {
           *buf = 138412290;
           selfCopy2 = self;
-          _os_log_impl(&dword_236F71000, v25, OS_LOG_TYPE_DEFAULT, "looking up url for CloudKit asset: %@", buf, 0xCu);
+          _os_log_impl(&dword_236F71000, v24, OS_LOG_TYPE_DEFAULT, "looking up url for CloudKit asset: %@", buf, 0xCu);
         }
 
-        v36 = objc_msgSend_dataStore(self, v32, v33);
-        if (!v36)
+        v35 = objc_msgSend_dataStore(self, v31, v32);
+        if (!v35)
         {
-          v36 = objc_msgSend_shared(CLSDataStore, v34, v35);
+          v35 = objc_msgSend_shared(CLSDataStore, v33, v34);
         }
 
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = sub_236F80694;
-        v38[3] = &unk_278A17A98;
-        v38[4] = self;
-        v39 = v6;
-        v40 = v8;
-        objc_msgSend_cloudKitUrlSuitableForOpeningForAsset_completion_(v36, v37, self, v38);
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = sub_236F80694;
+        v37[3] = &unk_278A17A98;
+        v37[4] = self;
+        v38 = v6;
+        v39 = v8;
+        objc_msgSend_cloudKitUrlSuitableForOpeningForAsset_completion_(v35, v36, self, v37);
       }
     }
 
     else
     {
-      v31 = objc_msgSend_cls_createErrorWithCode_description_(MEMORY[0x277CCA9B8], v20, 344, @"CKAsset is not available for this asset.");
-      (v6)[2](v6, 0, v31);
+      v30 = objc_msgSend_cls_createErrorWithCode_description_(MEMORY[0x277CCA9B8], v20, 344, @"CKAsset is not available for this asset.");
+      (v6)[2](v6, 0, v30);
     }
   }
 
@@ -6084,8 +6080,6 @@ LABEL_13:
     v16 = {;
     (v6)[2](v6, 0, v16);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)thumbnailURLSuitableForOpeningWithCompletion:(id)completion
@@ -6111,22 +6105,22 @@ LABEL_13:
 
 - (void)cloudKitThumbnailUrlSuitableForOpeningWithCompletion:(id)completion
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = sub_236F80D28;
-  v34[3] = &unk_278A17A48;
-  v34[4] = self;
-  v5 = completionCopy;
-  v35 = v5;
-  v6 = MEMORY[0x2383C3E80](v34);
   v33[0] = MEMORY[0x277D85DD0];
   v33[1] = 3221225472;
-  v33[2] = sub_236F80F04;
-  v33[3] = &unk_278A17A70;
+  v33[2] = sub_236F80D28;
+  v33[3] = &unk_278A17A48;
   v33[4] = self;
-  v9 = MEMORY[0x2383C3E80](v33);
+  v5 = completionCopy;
+  v34 = v5;
+  v6 = MEMORY[0x2383C3E80](v33);
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = sub_236F80F04;
+  v32[3] = &unk_278A17A70;
+  v32[4] = self;
+  v9 = MEMORY[0x2383C3E80](v32);
   if (self->_type == 3)
   {
     objc_msgSend_lock(self, v7, v8);
@@ -6154,25 +6148,25 @@ LABEL_13:
 
     else if (self->_brItemID)
     {
-      v19 = atomic_exchange(&self->_thumbnailURLRequested._Value, 1u);
+      v18 = atomic_exchange(&self->_thumbnailURLRequested._Value, 1u);
       if (qword_280B2A720 != -1)
       {
-        v29 = v19;
+        v28 = v18;
         dispatch_once(&qword_280B2A720, &unk_284A07B28);
-        v19 = v29;
+        v18 = v28;
       }
 
-      v20 = CLSLogAsset;
-      if (v19)
+      v19 = CLSLogAsset;
+      if (v18)
       {
         if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
           selfCopy3 = self;
-          _os_log_impl(&dword_236F71000, v20, OS_LOG_TYPE_INFO, "there is a pending request to look up thumbnailURL for CloudKit asset: '%@'. will complete this request when the pending request completes", buf, 0xCu);
+          _os_log_impl(&dword_236F71000, v19, OS_LOG_TYPE_INFO, "there is a pending request to look up thumbnailURL for CloudKit asset: '%@'. will complete this request when the pending request completes", buf, 0xCu);
         }
 
-        objc_msgSend_addToPendingThumbnailURLCompletions_(self, v21, v5);
+        objc_msgSend_addToPendingThumbnailURLCompletions_(self, v20, v5);
       }
 
       else
@@ -6181,30 +6175,30 @@ LABEL_13:
         {
           *buf = 138412290;
           selfCopy3 = self;
-          _os_log_impl(&dword_236F71000, v20, OS_LOG_TYPE_DEFAULT, "looking up thumbnailURL for CloudKit asset: %@", buf, 0xCu);
+          _os_log_impl(&dword_236F71000, v19, OS_LOG_TYPE_DEFAULT, "looking up thumbnailURL for CloudKit asset: %@", buf, 0xCu);
         }
 
-        v27 = objc_msgSend_dataStore(self, v23, v24);
-        if (!v27)
+        v26 = objc_msgSend_dataStore(self, v22, v23);
+        if (!v26)
         {
-          v27 = objc_msgSend_shared(CLSDataStore, v25, v26);
+          v26 = objc_msgSend_shared(CLSDataStore, v24, v25);
         }
 
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = sub_236F81180;
-        v30[3] = &unk_278A17A98;
-        v30[4] = self;
-        v31 = v6;
-        v32 = v9;
-        objc_msgSend_cloudKitThumbnailUrlSuitableForOpeningForAsset_completion_(v27, v28, self, v30);
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = sub_236F81180;
+        v29[3] = &unk_278A17A98;
+        v29[4] = self;
+        v30 = v6;
+        v31 = v9;
+        objc_msgSend_cloudKitThumbnailUrlSuitableForOpeningForAsset_completion_(v26, v27, self, v29);
       }
     }
 
     else
     {
-      v22 = objc_msgSend_cls_createErrorWithCode_description_(MEMORY[0x277CCA9B8], v14, 344, @"Thumbnail is not available for this asset.");
-      (v6)[2](v6, 0, v22);
+      v21 = objc_msgSend_cls_createErrorWithCode_description_(MEMORY[0x277CCA9B8], v14, 344, @"Thumbnail is not available for this asset.");
+      (v6)[2](v6, 0, v21);
     }
   }
 
@@ -6212,28 +6206,26 @@ LABEL_13:
     v10 = {;
     (v6)[2](v6, 0, v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)urlSuitableForStreamingWithCompletion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = sub_236F81680;
-  v32[3] = &unk_278A17A48;
-  v32[4] = self;
-  v5 = completionCopy;
-  v33 = v5;
-  v6 = MEMORY[0x2383C3E80](v32);
   v31[0] = MEMORY[0x277D85DD0];
   v31[1] = 3221225472;
-  v31[2] = sub_236F8185C;
-  v31[3] = &unk_278A17A70;
+  v31[2] = sub_236F81680;
+  v31[3] = &unk_278A17A48;
   v31[4] = self;
-  v9 = MEMORY[0x2383C3E80](v31);
+  v5 = completionCopy;
+  v32 = v5;
+  v6 = MEMORY[0x2383C3E80](v31);
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = sub_236F8185C;
+  v30[3] = &unk_278A17A70;
+  v30[4] = self;
+  v9 = MEMORY[0x2383C3E80](v30);
   if (self->_type == 3)
   {
     objc_msgSend_lock(self, v7, v8);
@@ -6259,25 +6251,25 @@ LABEL_13:
 
     else if (self->_brItemID)
     {
-      v17 = atomic_exchange(&self->_streamingURLRequested._Value, 1u);
+      v16 = atomic_exchange(&self->_streamingURLRequested._Value, 1u);
       if (qword_280B2A720 != -1)
       {
-        v27 = v17;
+        v26 = v16;
         dispatch_once(&qword_280B2A720, &unk_284A07B28);
-        v17 = v27;
+        v16 = v26;
       }
 
-      v18 = CLSLogAsset;
-      if (v17)
+      v17 = CLSLogAsset;
+      if (v16)
       {
         if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
           selfCopy2 = self;
-          _os_log_impl(&dword_236F71000, v18, OS_LOG_TYPE_INFO, "there is a pending request to look up streaming url for CloudKit asset: '%@'. will complete the request when the pending request completes", buf, 0xCu);
+          _os_log_impl(&dword_236F71000, v17, OS_LOG_TYPE_INFO, "there is a pending request to look up streaming url for CloudKit asset: '%@'. will complete the request when the pending request completes", buf, 0xCu);
         }
 
-        objc_msgSend_addToPendingStreamingURLCompletions_(self, v19, v5);
+        objc_msgSend_addToPendingStreamingURLCompletions_(self, v18, v5);
       }
 
       else
@@ -6286,30 +6278,30 @@ LABEL_13:
         {
           *buf = 138412290;
           selfCopy2 = self;
-          _os_log_impl(&dword_236F71000, v18, OS_LOG_TYPE_DEFAULT, "looking up streaming url for CloudKit asset: %@", buf, 0xCu);
+          _os_log_impl(&dword_236F71000, v17, OS_LOG_TYPE_DEFAULT, "looking up streaming url for CloudKit asset: %@", buf, 0xCu);
         }
 
-        v25 = objc_msgSend_dataStore(self, v21, v22);
-        if (!v25)
+        v24 = objc_msgSend_dataStore(self, v20, v21);
+        if (!v24)
         {
-          v25 = objc_msgSend_shared(CLSDataStore, v23, v24);
+          v24 = objc_msgSend_shared(CLSDataStore, v22, v23);
         }
 
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = sub_236F81AD8;
-        v28[3] = &unk_278A17AC0;
-        v28[4] = self;
-        v29 = v6;
-        v30 = v9;
-        objc_msgSend_cloudKitUrlSuitableForStreamingAsset_completion_(v25, v26, self, v28);
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = sub_236F81AD8;
+        v27[3] = &unk_278A17AC0;
+        v27[4] = self;
+        v28 = v6;
+        v29 = v9;
+        objc_msgSend_cloudKitUrlSuitableForStreamingAsset_completion_(v24, v25, self, v27);
       }
     }
 
     else
     {
-      v20 = objc_msgSend_cls_createErrorWithCode_description_(MEMORY[0x277CCA9B8], v14, 344, @"Streaming URL is not available for this asset.");
-      (v6)[2](v6, 0, v20);
+      v19 = objc_msgSend_cls_createErrorWithCode_description_(MEMORY[0x277CCA9B8], v14, 344, @"Streaming URL is not available for this asset.");
+      (v6)[2](v6, 0, v19);
     }
   }
 
@@ -6317,8 +6309,6 @@ LABEL_13:
     v10 = {;
     (v6)[2](v6, 0, v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientRemote_invalidate
@@ -6338,36 +6328,6 @@ LABEL_13:
 
 - (void)clientRemote_downloadProgressFraction:(double)fraction error:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
-  errorCopy = error;
-  if (qword_280B2A720 != -1)
-  {
-    dispatch_once(&qword_280B2A720, &unk_284A07B28);
-  }
-
-  v7 = CLSLogAsset;
-  if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_DEBUG))
-  {
-    v16 = 134218242;
-    fractionCopy = fraction;
-    v18 = 2112;
-    v19 = errorCopy;
-    _os_log_debug_impl(&dword_236F71000, v7, OS_LOG_TYPE_DEBUG, "clientRemote_downloadProgressFraction called: progressFraction = %4.2f, error = %@", &v16, 0x16u);
-  }
-
-  objc_msgSend_lock(self, v8, v9);
-  downloadError = self->_downloadError;
-  self->_downloadError = errorCopy;
-
-  self->_fractionDownloaded = fraction;
-  objc_msgSend_unlock(self, v11, v12);
-  objc_msgSend_queued_notifyDownloadProgressFraction_(self, v13, v14, fraction);
-  v15 = *MEMORY[0x277D85DE8];
-}
-
-- (void)clientRemote_downloadCompleted:(BOOL)completed error:(id)error
-{
-  completedCopy = completed;
   v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (qword_280B2A720 != -1)
@@ -6378,11 +6338,40 @@ LABEL_13:
   v7 = CLSLogAsset;
   if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_DEBUG))
   {
-    v16[0] = 67109378;
-    v16[1] = completedCopy;
+    v15 = 134218242;
+    fractionCopy = fraction;
     v17 = 2112;
     v18 = errorCopy;
-    _os_log_debug_impl(&dword_236F71000, v7, OS_LOG_TYPE_DEBUG, "clientRemote_downloadCompleted called: completed = %d, error = %@", v16, 0x12u);
+    _os_log_debug_impl(&dword_236F71000, v7, OS_LOG_TYPE_DEBUG, "clientRemote_downloadProgressFraction called: progressFraction = %4.2f, error = %@", &v15, 0x16u);
+  }
+
+  objc_msgSend_lock(self, v8, v9);
+  downloadError = self->_downloadError;
+  self->_downloadError = errorCopy;
+
+  self->_fractionDownloaded = fraction;
+  objc_msgSend_unlock(self, v11, v12);
+  objc_msgSend_queued_notifyDownloadProgressFraction_(self, v13, v14, fraction);
+}
+
+- (void)clientRemote_downloadCompleted:(BOOL)completed error:(id)error
+{
+  completedCopy = completed;
+  v18 = *MEMORY[0x277D85DE8];
+  errorCopy = error;
+  if (qword_280B2A720 != -1)
+  {
+    dispatch_once(&qword_280B2A720, &unk_284A07B28);
+  }
+
+  v7 = CLSLogAsset;
+  if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_DEBUG))
+  {
+    v15[0] = 67109378;
+    v15[1] = completedCopy;
+    v16 = 2112;
+    v17 = errorCopy;
+    _os_log_debug_impl(&dword_236F71000, v7, OS_LOG_TYPE_DEBUG, "clientRemote_downloadCompleted called: completed = %d, error = %@", v15, 0x12u);
   }
 
   objc_msgSend_lock(self, v8, v9);
@@ -6392,7 +6381,6 @@ LABEL_13:
   self->_downloaded = completedCopy;
   objc_msgSend_unlock(self, v11, v12);
   objc_msgSend_queued_notifyDownloadCompletion(self, v13, v14);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

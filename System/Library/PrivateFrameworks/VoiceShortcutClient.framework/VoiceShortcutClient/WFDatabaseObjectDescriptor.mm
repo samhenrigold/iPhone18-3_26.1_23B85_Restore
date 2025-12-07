@@ -23,16 +23,14 @@
 
 - (id)dictionaryRepresentation
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"objectType";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"objectType";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[WFDatabaseObjectDescriptor objectType](self, "objectType")}];
-  v8[1] = @"identifier";
-  v9[0] = v3;
+  v7[1] = @"identifier";
+  v8[0] = v3;
   identifier = [(WFDatabaseObjectDescriptor *)self identifier];
-  v9[1] = identifier;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = identifier;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

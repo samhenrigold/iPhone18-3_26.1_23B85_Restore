@@ -19,8 +19,8 @@
   v11 = 1;
   v12 = 256;
   v13 = 0;
-  v2.var0 = [(OPTTSTextToSpeechRouterStreamingStreamingRequest *)self addObjectToBuffer:&v5];
-  flatbuffers::FlatBufferBuilder::Finish(&v5, v2.var0, v3);
+  v2 = [(OPTTSTextToSpeechRouterStreamingStreamingRequest *)self addObjectToBuffer:?];
+  flatbuffers::FlatBufferBuilder::Finish(&v5, v2, v3);
   operator new();
 }
 
@@ -43,7 +43,7 @@ flatbuffers::DetachedBuffer *__64__OPTTSTextToSpeechRouterStreamingStreamingRequ
   if ([(OPTTSTextToSpeechRouterStreamingStreamingRequest *)self content_type]== 1)
   {
     contentAsOPTTSStartTextToSpeechStreamingRequest = [(OPTTSTextToSpeechRouterStreamingStreamingRequest *)self contentAsOPTTSStartTextToSpeechStreamingRequest];
-    v7 = [contentAsOPTTSStartTextToSpeechStreamingRequest addObjectToBuffer:buffer];
+    v7 = [contentAsOPTTSStartTextToSpeechStreamingRequest addObjectToBuffer:?];
 
     v8 = v7;
   }
@@ -71,24 +71,11 @@ flatbuffers::DetachedBuffer *__64__OPTTSTextToSpeechRouterStreamingStreamingRequ
 {
   if ([(OPTTSTextToSpeechRouterStreamingStreamingRequest *)self content_type]== 1)
   {
-    v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:@"content"];
+    v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:?];
     if (!v3)
     {
-      v4 = [OPTTSStartTextToSpeechStreamingRequest alloc];
-      root = self->_root;
-      v6 = &root[-*root->var0];
-      if (*v6->var0 >= 7u && (v7 = *v6[6].var0) != 0)
-      {
-        v8 = &root[v7 + *root[v7].var0];
-      }
-
-      else
-      {
-        v8 = 0;
-      }
-
-      v3 = [(OPTTSStartTextToSpeechStreamingRequest *)v4 initWithFlatbuffData:self->_data root:v8 verify:0];
-      [(NSMutableDictionary *)self->_storage setObject:v3 forKeyedSubscript:@"content"];
+      v3 = [OPTTSStartTextToSpeechStreamingRequest initWithFlatbuffData:"initWithFlatbuffData:root:verify:" root:? verify:?];
+      [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
     }
   }
 
@@ -149,7 +136,7 @@ flatbuffers::DetachedBuffer *__64__OPTTSTextToSpeechRouterStreamingStreamingRequ
   bytes2 = [(NSData *)v10->_data bytes];
   v14 = [(NSData *)v10->_data length];
   root = v10->_root;
-  if (root < bytes2 || root > bytes2 + v14)
+  if (root < bytes2 || root > v14 + bytes2)
   {
     goto LABEL_31;
   }
@@ -179,7 +166,7 @@ flatbuffers::DetachedBuffer *__64__OPTTSTextToSpeechRouterStreamingStreamingRequ
 
   v20 = (v19 - *v19);
   v21 = *v20;
-  if (v21 >= 5 && v20[2] && (v28 < 2 || v28 - 1 < v19 + v20[2] - v27))
+  if (v21 >= 5 && v20[2] && (v28 < 2 || v28 - 1 < (v19 + v20[2]) - v27))
   {
     goto LABEL_31;
   }

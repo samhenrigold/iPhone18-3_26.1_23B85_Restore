@@ -264,7 +264,7 @@ LABEL_11:
   return v6;
 }
 
-uint64_t __56__VCSessionMediaNegotiator_streamGroupIDsWithMediaBlob___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__56__VCSessionMediaNegotiator_streamGroupIDsWithMediaBlob___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 intValue];
   if (result <= 1)
@@ -355,7 +355,7 @@ uint64_t __56__VCSessionMediaNegotiator_streamGroupIDsWithMediaBlob___block_invo
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the negotiator for version 2 of the media blob", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the negotiator for version 2 of the media blob", v2, v3, v4, v5);
     }
   }
 }
@@ -369,7 +369,7 @@ uint64_t __56__VCSessionMediaNegotiator_streamGroupIDsWithMediaBlob___block_invo
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the negotiator for version 1 of the media blob", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the negotiator for version 1 of the media blob", v2, v3, v4, v5);
     }
   }
 }
@@ -383,7 +383,7 @@ uint64_t __56__VCSessionMediaNegotiator_streamGroupIDsWithMediaBlob___block_invo
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the negotiator map", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the negotiator map", v2, v3, v4, v5);
     }
   }
 }

@@ -363,38 +363,38 @@ void __95__BFFFinishSetupViewController__presentPreconditionViewControllerIfNece
   [v6 dismissViewControllerAnimated:1 completion:v9];
 }
 
-void __95__BFFFinishSetupViewController__presentPreconditionViewControllerIfNecessaryForFlowController___block_invoke_2(uint64_t a1)
+void __95__BFFFinishSetupViewController__presentPreconditionViewControllerIfNecessaryForFlowController___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = _BYLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = _BYLoggingFacility();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 64);
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v9 = 138412802;
-    v10 = v4;
-    v11 = 1024;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_265AC5000, v2, OS_LOG_TYPE_DEFAULT, "Finish setup did complete precondition view controller for %@ with precondition satisfied %d completed identifiers %@", &v9, 0x1Cu);
+    v4 = *(a1 + 64);
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v10 = 138412802;
+    v11 = v5;
+    v12 = 1024;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v6;
+    _os_log_impl(&dword_265AC5000, v3, OS_LOG_TYPE_DEFAULT, "Finish setup did complete precondition view controller for %@ with precondition satisfied %d completed identifiers %@", &v10, 0x1Cu);
   }
 
-  v6 = *(a1 + 48);
+  v7 = *(a1 + 48);
   if (*(a1 + 64) == 1)
   {
-    [v6 _didSatisfyPreconditionsForFlowController:*(a1 + 32)];
+    [v7 _didSatisfyPreconditionsForFlowController:*(a1 + 32)];
   }
 
   else
   {
-    [v6 _flowDidFinishForIdentifiers:*(a1 + 40) result:1];
+    [v7 _flowDidFinishForIdentifiers:*(a1 + 40) result:1];
   }
 
-  v7 = *(*(a1 + 56) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = 0;
+  v8 = *(*(a1 + 56) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = 0;
 }
 
 - (void)_didSatisfyPreconditionsForFlowController:(id)controller
@@ -476,28 +476,28 @@ void __80__BFFFinishSetupViewController__performExtendedInitializationForFlowCon
   dispatch_async(MEMORY[0x277D85CD0], v4);
 }
 
-void __80__BFFFinishSetupViewController__performExtendedInitializationForFlowController___block_invoke_2(uint64_t a1)
+void __80__BFFFinishSetupViewController__performExtendedInitializationForFlowController___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = _BYLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = _BYLoggingFacility();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
-    _os_log_impl(&dword_265AC5000, v2, OS_LOG_TYPE_DEFAULT, "Finish setup extended initialization for %@ did reach the main queue", buf, 0xCu);
+    v12 = v4;
+    _os_log_impl(&dword_265AC5000, v3, OS_LOG_TYPE_DEFAULT, "Finish setup extended initialization for %@ did reach the main queue", buf, 0xCu);
   }
 
-  v4 = *(a1 + 32);
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __80__BFFFinishSetupViewController__performExtendedInitializationForFlowController___block_invoke_54;
-  v7[3] = &unk_279BB4CF0;
-  v5 = v4;
-  v6 = *(a1 + 40);
-  v8 = v5;
+  v5 = *(a1 + 32);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __80__BFFFinishSetupViewController__performExtendedInitializationForFlowController___block_invoke_54;
+  v8[3] = &unk_279BB4CF0;
+  v6 = v5;
+  v7 = *(a1 + 40);
   v9 = v6;
-  [v5 performExtendedInitializationWithCompletion:v7];
+  v10 = v7;
+  [v6 performExtendedInitializationWithCompletion:v8];
 }
 
 void __80__BFFFinishSetupViewController__performExtendedInitializationForFlowController___block_invoke_54(int8x16_t *a1, int a2, void *a3)
@@ -872,18 +872,18 @@ void __41__BFFFinishSetupViewController__complete__block_invoke(uint64_t a1)
   *(v2 + 992) = 0;
 }
 
-uint64_t __41__BFFFinishSetupViewController__complete__block_invoke_70(uint64_t a1)
+uint64_t __41__BFFFinishSetupViewController__complete__block_invoke_70(uint64_t a1, uint64_t a2)
 {
-  v2 = _BYLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _BYLoggingFacility();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_265AC5000, v2, OS_LOG_TYPE_DEFAULT, "Buddy followup did dismiss navigation controller", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_265AC5000, v3, OS_LOG_TYPE_DEFAULT, "Buddy followup did dismiss navigation controller", v7, 2u);
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 1000);
-  *(v3 + 1000) = 0;
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 1000);
+  *(v4 + 1000) = 0;
 
   return (*(*(a1 + 40) + 16))();
 }

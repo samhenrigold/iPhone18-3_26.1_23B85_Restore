@@ -157,31 +157,34 @@ LABEL_17:
 - (id)_mediaEntityKindForRequest:(id)request
 {
   requestCopy = request;
-  if ([requestCopy _isItemsFetch])
+  _isItemsFetch = [requestCopy _isItemsFetch];
+  if (_isItemsFetch)
   {
-    v4 = VUIPlistMediaItemKind();
+    v5 = VUIPlistMediaItemKind(_isItemsFetch);
 LABEL_7:
-    v5 = v4;
+    v8 = v5;
     goto LABEL_8;
   }
 
-  if ([requestCopy _isShowsFetch])
+  _isShowsFetch = [requestCopy _isShowsFetch];
+  if (_isShowsFetch)
   {
-    v4 = VUIPlistShowMediaKind();
+    v5 = VUIPlistShowMediaKind(_isShowsFetch);
     goto LABEL_7;
   }
 
-  if ([requestCopy _isSeasonsFetch])
+  _isSeasonsFetch = [requestCopy _isSeasonsFetch];
+  if (_isSeasonsFetch)
   {
-    v4 = VUIPlistSeasonMediaKind();
+    v5 = VUIPlistSeasonMediaKind(_isSeasonsFetch);
     goto LABEL_7;
   }
 
   [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"Unable to determine the VUIMediaEntityKind to use for this request: %@", requestCopy}];
-  v5 = 0;
+  v8 = 0;
 LABEL_8:
 
-  return v5;
+  return v8;
 }
 
 - (id)_itemsFetchResponseWithRequest:(id)request error:(id *)error

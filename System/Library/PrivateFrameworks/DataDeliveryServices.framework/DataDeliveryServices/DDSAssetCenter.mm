@@ -135,42 +135,41 @@ DDSInterface *__32__DDSAssetCenter_sharedInstance__block_invoke_2(uint64_t a1, v
 
 - (NSSet)managerInterfaces
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] set];
   os_unfair_lock_lock(&self->_lock);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   managerInterfaceByAssetType = [(DDSAssetCenter *)self managerInterfaceByAssetType];
-  v5 = [managerInterfaceByAssetType countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [managerInterfaceByAssetType countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(managerInterfaceByAssetType);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         managerInterfaceByAssetType2 = [(DDSAssetCenter *)self managerInterfaceByAssetType];
         v11 = [managerInterfaceByAssetType2 objectForKeyedSubscript:v9];
         [v3 addObject:v11];
       }
 
-      v6 = [managerInterfaceByAssetType countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [managerInterfaceByAssetType countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -184,30 +183,30 @@ DDSInterface *__32__DDSAssetCenter_sharedInstance__block_invoke_2(uint64_t a1, v
 
 - (void)setXPCServiceName:(id)name forAssetType:(id)type
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   typeCopy = type;
   os_unfair_lock_lock(&self->_lock);
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = [(DDSAssetCenter *)self managerInterfaceByAssetType];
-  v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v24 != v9)
+      if (*v23 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v23 + 1) + 8 * v10);
+      v11 = *(*(&v22 + 1) + 8 * v10);
       managerInterfaceByAssetType = [(DDSAssetCenter *)self managerInterfaceByAssetType];
       v13 = [managerInterfaceByAssetType objectForKeyedSubscript:v11];
       xpcServiceName = [v13 xpcServiceName];
@@ -220,7 +219,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -252,13 +251,12 @@ LABEL_12:
   [managerInterfaceByAssetType3 setObject:v17 forKeyedSubscript:typeCopy];
 
   os_unfair_lock_unlock(&self->_lock);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  v5 = DefaultLog();
+  v5 = DefaultLog(delegateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DDSAssetCenter registerDelegate:];
@@ -272,7 +270,7 @@ LABEL_12:
 - (void)unregisterDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  v5 = DefaultLog();
+  v5 = DefaultLog(delegateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DDSAssetCenter unregisterDelegate:];
@@ -285,28 +283,28 @@ LABEL_12:
 
 - (void)setAssetTypesForDelegates:(id)delegates
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   delegatesCopy = delegates;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [delegatesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [delegatesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(delegatesCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * v8);
+        v9 = *(*(&v11 + 1) + 8 * v8);
         assetObserver = [(DDSAssetCenter *)self assetObserver];
         [assetObserver observeAssetType:v9];
 
@@ -314,13 +312,11 @@ LABEL_12:
       }
 
       while (v6 != v8);
-      v6 = [delegatesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [delegatesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assetsForQuery:(id)query error:(id *)error
@@ -405,8 +401,8 @@ LABEL_12:
 
   else
   {
-    v16 = DefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = DefaultLog(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [DDSAssetCenter addAssertionForAssetsWithQuery:queryCopy policy:? assertionID:? clientID:?];
     }
@@ -426,7 +422,7 @@ LABEL_12:
 
   else
   {
-    v10 = DefaultLog();
+    v10 = DefaultLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [DDSAssetCenter removeAssertionWithIdentifier:assetType:];
@@ -436,42 +432,41 @@ LABEL_12:
 
 - (id)assertionIDsForClientID:(id)d assetType:(id)type
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
   typeCopy = type;
   v8 = [(DDSAssetCenter *)self managerInterfaceForAssetType:typeCopy];
   if (v8)
   {
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x3032000000;
-    v19 = __Block_byref_object_copy_;
-    v20 = __Block_byref_object_dispose_;
-    v21 = objc_alloc_init(MEMORY[0x1E695DFD8]);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __52__DDSAssetCenter_assertionIDsForClientID_assetType___block_invoke;
-    v15[3] = &unk_1E86C5C20;
-    v15[4] = &v16;
-    [v8 assertionIDsForClientID:dCopy reply:v15];
-    v9 = DefaultLog();
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x3032000000;
+    v18 = __Block_byref_object_copy_;
+    v19 = __Block_byref_object_dispose_;
+    v20 = objc_alloc_init(MEMORY[0x1E695DFD8]);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __52__DDSAssetCenter_assertionIDsForClientID_assetType___block_invoke;
+    v14[3] = &unk_1E86C5C20;
+    v14[4] = &v15;
+    v9 = DefaultLog([v8 assertionIDsForClientID:dCopy reply:v14]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v17[5];
+      v10 = v16[5];
       *buf = 138543618;
-      v23 = v10;
-      v24 = 2114;
-      v25 = dCopy;
+      v22 = v10;
+      v23 = 2114;
+      v24 = dCopy;
       _os_log_impl(&dword_1DF7C6000, v9, OS_LOG_TYPE_DEFAULT, "Found assertions: (%{public}@) for clientID: (%{public}@)", buf, 0x16u);
     }
 
-    v11 = v17[5];
-    _Block_object_dispose(&v16, 8);
+    v11 = v16[5];
+    _Block_object_dispose(&v15, 8);
   }
 
   else
   {
-    v12 = DefaultLog();
+    v12 = DefaultLog(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [DDSAssetCenter assertionIDsForClientID:assetType:];
@@ -479,8 +474,6 @@ LABEL_12:
 
     v11 = [MEMORY[0x1E695DFD8] set];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -553,8 +546,8 @@ void __37__DDSAssetCenter_setUpTrialForQuery___block_invoke(uint64_t a1)
 
 void __48__DDSAssetCenter_serverDidUpdateAssetsWithType___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v2 = DefaultLog();
+  v20 = *MEMORY[0x1E69E9840];
+  v2 = DefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __48__DDSAssetCenter_serverDidUpdateAssetsWithType___block_invoke_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
@@ -575,79 +568,75 @@ void __48__DDSAssetCenter_serverDidUpdateAssetsWithType___block_invoke(uint64_t 
   [v10 serverDidUpdateAssetsWithType:*(a1 + 32)];
 
   v11 = [*(a1 + 40) delegates];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __48__DDSAssetCenter_serverDidUpdateAssetsWithType___block_invoke_310;
-  v17[3] = &unk_1E86C5C98;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __48__DDSAssetCenter_serverDidUpdateAssetsWithType___block_invoke_310;
+  v16[3] = &unk_1E86C5C98;
   v12 = v9;
-  v18 = v12;
-  [v11 enumerateObjectsUsingBlock:v17];
+  v17 = v12;
+  [v11 enumerateObjectsUsingBlock:v16];
 
   v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@", @"com.apple.DataDeliveryServices.AssetUpdatedAndCacheCleared", v12];
-  v14 = DefaultLog();
+  v14 = DefaultLog(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v20 = v13;
+    v19 = v13;
     _os_log_impl(&dword_1DF7C6000, v14, OS_LOG_TYPE_DEFAULT, "Fired notification: %{public}@", buf, 0xCu);
   }
 
   v15 = [MEMORY[0x1E696AD88] defaultCenter];
   [v15 postNotificationName:v13 object:0];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)triggerDumpWithReply:(id)reply
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy_;
+  v19 = __Block_byref_object_dispose_;
   string = [MEMORY[0x1E696AD60] string];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   managerInterfaces = [(DDSAssetCenter *)self managerInterfaces];
-  v6 = [managerInterfaces countByEnumeratingWithState:&v12 objects:v22 count:16];
+  v6 = [managerInterfaces countByEnumeratingWithState:&v11 objects:v21 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(managerInterfaces);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * v8);
-        v11[0] = MEMORY[0x1E69E9820];
-        v11[1] = 3221225472;
-        v11[2] = __39__DDSAssetCenter_triggerDumpWithReply___block_invoke;
-        v11[3] = &unk_1E86C5CC0;
-        v11[4] = &v16;
-        [v9 triggerDumpWithReply:v11];
+        v9 = *(*(&v11 + 1) + 8 * v8);
+        v10[0] = MEMORY[0x1E69E9820];
+        v10[1] = 3221225472;
+        v10[2] = __39__DDSAssetCenter_triggerDumpWithReply___block_invoke;
+        v10[3] = &unk_1E86C5CC0;
+        v10[4] = &v15;
+        [v9 triggerDumpWithReply:v10];
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [managerInterfaces countByEnumeratingWithState:&v12 objects:v22 count:16];
+      v6 = [managerInterfaces countByEnumeratingWithState:&v11 objects:v21 count:16];
     }
 
     while (v6);
   }
 
-  replyCopy[2](replyCopy, v17[5]);
-  _Block_object_dispose(&v16, 8);
-
-  v10 = *MEMORY[0x1E69E9840];
+  replyCopy[2](replyCopy, v16[5]);
+  _Block_object_dispose(&v15, 8);
 }
 
 uint64_t __39__DDSAssetCenter_triggerDumpWithReply___block_invoke(uint64_t a1, uint64_t a2)
@@ -660,38 +649,36 @@ uint64_t __39__DDSAssetCenter_triggerDumpWithReply___block_invoke(uint64_t a1, u
 
 - (void)triggerUpdate
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   managerInterfaces = [(DDSAssetCenter *)self managerInterfaces];
-  v3 = [managerInterfaces countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [managerInterfaces countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(managerInterfaces);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) triggerUpdate];
+        [*(*(&v7 + 1) + 8 * v6++) triggerUpdate];
       }
 
       while (v4 != v6);
-      v4 = [managerInterfaces countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [managerInterfaces countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)trialDidReceiveAsset:(id)asset forQuery:(id)query
@@ -761,14 +748,14 @@ void __39__DDSAssetCenter_trialDidStopForQuery___block_invoke(uint64_t a1, void 
 
   else
   {
-    v10 = DefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = DefaultLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [DDSAssetCenter fetchAssetUpdateStatusForQuery:queryCopy callback:?];
     }
 
-    v11 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:45 userInfo:0];
-    callbackCopy[2](callbackCopy, 0, v11);
+    v12 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:45 userInfo:0];
+    callbackCopy[2](callbackCopy, 0, v12);
   }
 }
 
@@ -781,25 +768,25 @@ void __39__DDSAssetCenter_trialDidStopForQuery___block_invoke(uint64_t a1, void 
 
   if (v9)
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __47__DDSAssetCenter_updateAssetForQuery_callback___block_invoke;
-    v12[3] = &unk_1E86C5D10;
-    v13 = callbackCopy;
-    [v9 updateAssetForQuery:queryCopy callback:v12];
-    v10 = v13;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __47__DDSAssetCenter_updateAssetForQuery_callback___block_invoke;
+    v13[3] = &unk_1E86C5D10;
+    v14 = callbackCopy;
+    [v9 updateAssetForQuery:queryCopy callback:v13];
+    v11 = v14;
   }
 
   else
   {
-    v11 = DefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = DefaultLog(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [DDSAssetCenter updateAssetForQuery:queryCopy callback:?];
     }
 
-    v10 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:45 userInfo:0];
-    (*(callbackCopy + 2))(callbackCopy, 0, v10);
+    v11 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:45 userInfo:0];
+    (*(callbackCopy + 2))(callbackCopy, 0, v11);
   }
 }
 
@@ -810,74 +797,46 @@ void __47__DDSAssetCenter_updateAssetForQuery_callback___block_invoke(uint64_t a
   (*(v4 + 16))(v4, [a2 BOOLValue], v5);
 }
 
-- (void)registerDelegate:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1DF7C6000, v0, v1, "Adding AssetCenter delegate: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)unregisterDelegate:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1DF7C6000, v0, v1, "Removing AssetCenter delegate: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)addAssertionForAssetsWithQuery:(void *)a1 policy:assertionID:clientID:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 assetType];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1DF7C6000, v2, v3, "Cannot add assertion, manager interface is nil for asset type: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1DF7C6000, v2, v3, "Cannot add assertion, manager interface is nil for asset type: %@", v4, v5, v6, v7);
 }
 
 - (void)removeAssertionWithIdentifier:assetType:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_ERROR, "Cannot remove assertion with identifier, manager interface is nil for asset type: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_ERROR, "Cannot remove assertion with identifier, manager interface is nil for asset type: %@", v1, 0xCu);
 }
 
 - (void)assertionIDsForClientID:assetType:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_ERROR, "Cannot get assertionIDs for clientID, manager interface is nil for asset type: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_ERROR, "Cannot get assertionIDs for clientID, manager interface is nil for asset type: %@", v1, 0xCu);
 }
 
 void __48__DDSAssetCenter_serverDidUpdateAssetsWithType___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_2(&dword_1DF7C6000, a2, a3, "Letting delegates know assets updated: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_2(&dword_1DF7C6000, a2, a3, "Letting delegates know assets updated: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)fetchAssetUpdateStatusForQuery:(void *)a1 callback:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 assetType];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1DF7C6000, v2, v3, "Cannot fetch asset update status, manager interface is nil for asset type: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1DF7C6000, v2, v3, "Cannot fetch asset update status, manager interface is nil for asset type: %@", v4, v5, v6, v7);
 }
 
 - (void)updateAssetForQuery:(void *)a1 callback:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 assetType];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1DF7C6000, v2, v3, "Cannot update asset for type, manager interface is nil for asset type: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1DF7C6000, v2, v3, "Cannot update asset for type, manager interface is nil for asset type: %@", v4, v5, v6, v7);
 }
 
 @end

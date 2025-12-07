@@ -23,9 +23,9 @@
 {
   namespaceCopy = namespace;
   clientCopy = client;
-  v32.receiver = self;
-  v32.super_class = APOdmlAssetManager;
-  v9 = [(APOdmlAssetManager *)&v32 init];
+  v21.receiver = self;
+  v21.super_class = APOdmlAssetManager;
+  v9 = [(APOdmlAssetManager *)&v21 init];
   v10 = v9;
   if (v9)
   {
@@ -33,22 +33,20 @@
     if (clientCopy)
     {
       objc_storeStrong(&v10->_trialClient, client);
-      v12 = objc_msgSend_experimentIdentifiersWithNamespaceName_(clientCopy, v11, namespaceCopy);
+      v11 = [clientCopy experimentIdentifiersWithNamespaceName:namespaceCopy];
       trialIdentifiers = v10->_trialIdentifiers;
-      v10->_trialIdentifiers = v12;
+      v10->_trialIdentifiers = v11;
 
-      v14 = [APOdmlFeatureStorage alloc];
-      v17 = objc_msgSend_experimentId(v10->_trialIdentifiers, v15, v16);
-      v20 = objc_msgSend_treatmentId(v10->_trialIdentifiers, v18, v19);
-      v23 = objc_msgSend_deploymentId(v10->_trialIdentifiers, v21, v22);
-      v25 = objc_msgSend_initWithExperimentID_treatmentID_deploymentID_trialNamespace_(v14, v24, v17, v20, v23, namespaceCopy);
+      v13 = [APOdmlFeatureStorage alloc];
+      experimentId = [(TRIExperimentIdentifiers *)v10->_trialIdentifiers experimentId];
+      treatmentId = [(TRIExperimentIdentifiers *)v10->_trialIdentifiers treatmentId];
+      v16 = [(APOdmlFeatureStorage *)v13 initWithExperimentID:experimentId treatmentID:treatmentId deploymentID:[(TRIExperimentIdentifiers *)v10->_trialIdentifiers deploymentId] trialNamespace:namespaceCopy];
       featureStorage = v10->_featureStorage;
-      v10->_featureStorage = v25;
+      v10->_featureStorage = v16;
 
-      v27 = [APOdmlUnfairLock alloc];
-      v29 = objc_msgSend_initWithOptions_(v27, v28, 1);
+      v18 = [[APOdmlUnfairLock alloc] initWithOptions:1];
       modelCacheLock = v10->_modelCacheLock;
-      v10->_modelCacheLock = v29;
+      v10->_modelCacheLock = v18;
     }
   }
 
@@ -60,20 +58,20 @@
   modelCache = self->_modelCache;
   if (!modelCache)
   {
-    v5 = objc_msgSend_modelCacheLock(self, a2, v2);
-    objc_msgSend_lock(v5, v6, v7);
+    modelCacheLock = [(APOdmlAssetManager *)self modelCacheLock];
+    [modelCacheLock lock];
 
     if (!self->_modelCache)
     {
-      v10 = objc_alloc_init(MEMORY[0x277CBEA78]);
-      v11 = self->_modelCache;
-      self->_modelCache = v10;
+      v5 = objc_alloc_init(MEMORY[0x277CBEA78]);
+      v6 = self->_modelCache;
+      self->_modelCache = v5;
 
-      objc_msgSend_setCountLimit_(self->_modelCache, v12, 3);
+      [(NSCache *)self->_modelCache setCountLimit:3];
     }
 
-    v13 = objc_msgSend_modelCacheLock(self, v8, v9);
-    objc_msgSend_unlock(v13, v14, v15);
+    modelCacheLock2 = [(APOdmlAssetManager *)self modelCacheLock];
+    [modelCacheLock2 unlock];
 
     modelCache = self->_modelCache;
   }
@@ -83,790 +81,760 @@
 
 - (int)deploymentID
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_trialIdentifiers(self, a2, v2);
+  v11 = *MEMORY[0x277D85DE8];
+  trialIdentifiers = [(APOdmlAssetManager *)self trialIdentifiers];
 
-  if (v4)
+  if (trialIdentifiers)
   {
-    v7 = objc_msgSend_trialIdentifiers(self, v5, v6);
-    v10 = objc_msgSend_deploymentId(v7, v8, v9);
+    trialIdentifiers2 = [(APOdmlAssetManager *)self trialIdentifiers];
+    deploymentId = [trialIdentifiers2 deploymentId];
 
-    v11 = *MEMORY[0x277D85DE8];
-    return v10;
+    return deploymentId;
   }
 
   else
   {
-    v13 = OdmlLogForCategory(0);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v7 = OdmlLogForCategory(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138412290;
-      v17 = objc_opt_class();
-      v14 = v17;
-      _os_log_impl(&dword_260ECB000, v13, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial identifiers, cannot find deploymentID.", &v16, 0xCu);
+      v9 = 138412290;
+      v10 = objc_opt_class();
+      v8 = v10;
+      _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial identifiers, cannot find deploymentID.", &v9, 0xCu);
     }
 
-    v15 = *MEMORY[0x277D85DE8];
     return -1;
   }
 }
 
 - (NSString)experimentID
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_trialIdentifiers(self, a2, v2);
+  v11 = *MEMORY[0x277D85DE8];
+  trialIdentifiers = [(APOdmlAssetManager *)self trialIdentifiers];
 
-  if (v4)
+  if (trialIdentifiers)
   {
-    v7 = objc_msgSend_trialIdentifiers(self, v5, v6);
-    v10 = objc_msgSend_experimentId(v7, v8, v9);
+    trialIdentifiers2 = [(APOdmlAssetManager *)self trialIdentifiers];
+    experimentId = [trialIdentifiers2 experimentId];
   }
 
   else
   {
-    v11 = OdmlLogForCategory(0);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v6 = OdmlLogForCategory(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412290;
-      v16 = objc_opt_class();
-      v12 = v16;
-      _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial identifiers, cannot find experimentID.", &v15, 0xCu);
+      v9 = 138412290;
+      v10 = objc_opt_class();
+      v7 = v10;
+      _os_log_impl(&dword_260ECB000, v6, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial identifiers, cannot find experimentID.", &v9, 0xCu);
     }
 
-    v10 = 0;
+    experimentId = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return experimentId;
 }
 
 - (NSString)treatmentID
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_trialIdentifiers(self, a2, v2);
+  v11 = *MEMORY[0x277D85DE8];
+  trialIdentifiers = [(APOdmlAssetManager *)self trialIdentifiers];
 
-  if (v4)
+  if (trialIdentifiers)
   {
-    v7 = objc_msgSend_trialIdentifiers(self, v5, v6);
-    v10 = objc_msgSend_treatmentId(v7, v8, v9);
+    trialIdentifiers2 = [(APOdmlAssetManager *)self trialIdentifiers];
+    treatmentId = [trialIdentifiers2 treatmentId];
   }
 
   else
   {
-    v11 = OdmlLogForCategory(0);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v6 = OdmlLogForCategory(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412290;
-      v16 = objc_opt_class();
-      v12 = v16;
-      _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial identifiers, cannot find treatmentID.", &v15, 0xCu);
+      v9 = 138412290;
+      v10 = objc_opt_class();
+      v7 = v10;
+      _os_log_impl(&dword_260ECB000, v6, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial identifiers, cannot find treatmentID.", &v9, 0xCu);
     }
 
-    v10 = 0;
+    treatmentId = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return treatmentId;
 }
 
 - (NSString)odmlNamespace
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_trialNamespace(self, a2, v2);
+  v12 = *MEMORY[0x277D85DE8];
+  trialNamespace = [(APOdmlAssetManager *)self trialNamespace];
 
-  if (v4)
+  if (trialNamespace)
   {
-    v7 = MEMORY[0x277CCACA8];
-    v8 = objc_msgSend_trialNamespace(self, v5, v6);
-    v10 = objc_msgSend_stringWithString_(v7, v9, v8);
+    v4 = MEMORY[0x277CCACA8];
+    trialNamespace2 = [(APOdmlAssetManager *)self trialNamespace];
+    v6 = [v4 stringWithString:trialNamespace2];
   }
 
   else
   {
-    v11 = OdmlLogForCategory(0);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v7 = OdmlLogForCategory(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412290;
-      v16 = objc_opt_class();
-      v12 = v16;
-      _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_ERROR, "[%@] No namespace initialized with AssetManager; namespace not found.", &v15, 0xCu);
+      v10 = 138412290;
+      v11 = objc_opt_class();
+      v8 = v11;
+      _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_ERROR, "[%@] No namespace initialized with AssetManager; namespace not found.", &v10, 0xCu);
     }
 
-    v10 = 0;
+    v6 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v6;
 }
 
 - (id)currentMLModel
 {
-  v82 = *MEMORY[0x277D85DE8];
-  v4 = 0x277CBE000uLL;
-  v5 = objc_msgSend_date(MEMORY[0x277CBEAA8], a2, v2);
-  v8 = objc_msgSend_trialClient(self, v6, v7);
+  v41 = *MEMORY[0x277D85DE8];
+  v3 = 0x277CBE000uLL;
+  date = [MEMORY[0x277CBEAA8] date];
+  trialClient = [(APOdmlAssetManager *)self trialClient];
 
-  if (v8)
+  if (trialClient)
   {
-    v10 = objc_msgSend_pathForFactor_isDirectory_(self, v9, @"PTTRMLModel", 1);
-    v13 = objc_msgSend_modelCache(self, v11, v12);
-    v15 = objc_msgSend_objectForKey_(v13, v14, v10);
+    v6 = [(APOdmlAssetManager *)self pathForFactor:@"PTTRMLModel" isDirectory:1];
+    modelCache = [(APOdmlAssetManager *)self modelCache];
+    v8 = [modelCache objectForKey:v6];
 
-    if (v15)
+    if (v8)
     {
-      v17 = OdmlLogForCategory(0);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      modelCache2 = OdmlLogForCategory(0);
+      if (os_log_type_enabled(modelCache2, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = objc_opt_class();
-        v19 = v18;
-        v22 = objc_msgSend_description(v10, v20, v21);
+        v10 = objc_opt_class();
+        v11 = v10;
+        v12 = [v6 description];
         *buf = 138412546;
-        v79 = v18;
-        v80 = 2112;
-        v81 = v22;
-        _os_log_impl(&dword_260ECB000, v17, OS_LOG_TYPE_DEFAULT, "[%@] Returning cached model for %@.", buf, 0x16u);
+        v38 = v10;
+        v39 = 2112;
+        v40 = v12;
+        _os_log_impl(&dword_260ECB000, modelCache2, OS_LOG_TYPE_DEFAULT, "[%@] Returning cached model for %@.", buf, 0x16u);
 
-        v4 = 0x277CBE000;
+        v3 = 0x277CBE000;
       }
     }
 
     else
     {
-      v27 = objc_msgSend_BOOLeanValueForFactor_(self, v16, @"PredictionUsesCPUOnly");
-      v30 = objc_msgSend_BOOLValue(v27, v28, v29);
+      v15 = [(APOdmlAssetManager *)self BOOLeanValueForFactor:@"PredictionUsesCPUOnly"];
+      bOOLValue = [v15 BOOLValue];
 
-      v32 = objc_msgSend_modelFromCompiledURL_isCPUOnly_(MEMORY[0x277CBFF20], v31, v10, v30);
-      if (!v32)
+      v17 = [MEMORY[0x277CBFF20] modelFromCompiledURL:v6 isCPUOnly:bOOLValue];
+      if (!v17)
       {
-        v72 = OdmlLogForCategory(0);
-        if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+        v33 = OdmlLogForCategory(0);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v79 = objc_opt_class();
-          v73 = v79;
-          _os_log_impl(&dword_260ECB000, v72, OS_LOG_TYPE_ERROR, "[%@] Could not open model.", buf, 0xCu);
+          v38 = objc_opt_class();
+          v34 = v38;
+          _os_log_impl(&dword_260ECB000, v33, OS_LOG_TYPE_ERROR, "[%@] Could not open model.", buf, 0xCu);
         }
 
-        v41 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v74, @"APOdmlRerankingErrorDomain", 2010, 0);
-        objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsReranking, v75, v41, 0);
-        v15 = 0;
-        v48 = @"ERROR: Could not find valid model description.";
+        metadata = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlRerankingErrorDomain" code:2010 userInfo:0];
+        [APOdmlAnalyticsReranking sendEvent:metadata additionalDetails:0];
+        v8 = 0;
+        v22 = @"ERROR: Could not find valid model description.";
         goto LABEL_15;
       }
 
-      v15 = v32;
-      v17 = objc_msgSend_modelCache(self, v33, v34);
-      objc_msgSend_setObject_forKey_(v17, v35, v15, v10);
+      v8 = v17;
+      modelCache2 = [(APOdmlAssetManager *)self modelCache];
+      [modelCache2 setObject:v8 forKey:v6];
     }
 
-    v38 = objc_msgSend_modelDescription(v15, v36, v37);
-    v41 = objc_msgSend_metadata(v38, v39, v40);
+    modelDescription = [v8 modelDescription];
+    metadata = [modelDescription metadata];
 
-    v43 = objc_msgSend_objectForKey_(v41, v42, @"MLModelDescriptionKey");
-    v45 = v43;
-    if (v43 && (objc_msgSend_isEqualToString_(v43, v44, &stru_2873677E0) & 1) == 0)
+    v20 = [metadata objectForKey:@"MLModelDescriptionKey"];
+    v21 = v20;
+    if (v20 && ([v20 isEqualToString:&stru_2873677E0] & 1) == 0)
     {
-      v49 = MEMORY[0x277CCACA8];
-      v50 = objc_msgSend_trialNamespace(self, v46, v47);
-      v48 = objc_msgSend_stringWithFormat_(v49, v51, @"MLModel for namespace %@: %@", v50, v45);
+      v23 = MEMORY[0x277CCACA8];
+      trialNamespace = [(APOdmlAssetManager *)self trialNamespace];
+      v22 = [v23 stringWithFormat:@"MLModel for namespace %@: %@", trialNamespace, v21];
     }
 
     else
     {
-      v48 = @"ERROR: Could not find valid model description.";
+      v22 = @"ERROR: Could not find valid model description.";
     }
 
 LABEL_15:
-    v77[0] = @"MLModel";
-    v76[0] = @"loggerKey";
-    v76[1] = @"uniqueIdentifier";
-    v54 = objc_msgSend_UUID(MEMORY[0x277CCAD78], v52, v53);
-    v57 = objc_msgSend_UUIDString(v54, v55, v56);
-    v76[2] = @"message";
-    v77[1] = v57;
-    v77[2] = v48;
-    v59 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v58, v77, v76, 3);
+    v36[0] = @"MLModel";
+    v35[0] = @"loggerKey";
+    v35[1] = @"uniqueIdentifier";
+    uUID = [MEMORY[0x277CCAD78] UUID];
+    uUIDString = [uUID UUIDString];
+    v35[2] = @"message";
+    v36[1] = uUIDString;
+    v36[2] = v22;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:3];
 
-    v60 = OdmlLogForCategory(5uLL);
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+    v28 = OdmlLogForCategory(5uLL);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v63 = objc_msgSend_description(v59, v61, v62);
+      v29 = [v27 description];
       *buf = 138412290;
-      v79 = v63;
-      _os_log_impl(&dword_260ECB000, v60, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+      v38 = v29;
+      _os_log_impl(&dword_260ECB000, v28, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
 
-    v65 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v64, @"APOdmlRerankingErrorDomain", 2101, 0);
-    v68 = objc_msgSend_date(*(v4 + 2728), v66, v67);
-    objc_msgSend_sendTimedEvent_statusSuccess_additionalDetails_startDate_endDate_(APOdmlAnalyticsReranking, v69, v65, 1, 0, v5, v68);
+    v30 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlRerankingErrorDomain" code:2101 userInfo:0];
+    date2 = [*(v3 + 2728) date];
+    [APOdmlAnalyticsReranking sendTimedEvent:v30 statusSuccess:1 additionalDetails:0 startDate:date endDate:date2];
 
     goto LABEL_18;
   }
 
-  v23 = OdmlLogForCategory(0);
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v13 = OdmlLogForCategory(0);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v79 = objc_opt_class();
-    v24 = v79;
-    _os_log_impl(&dword_260ECB000, v23, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial client, cannot complete request for MLModel.", buf, 0xCu);
+    v38 = objc_opt_class();
+    v14 = v38;
+    _os_log_impl(&dword_260ECB000, v13, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial client, cannot complete request for MLModel.", buf, 0xCu);
   }
 
-  v10 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v25, @"APOdmlRerankingErrorDomain", 2009, 0);
-  objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsReranking, v26, v10, 0);
-  v15 = 0;
+  v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlRerankingErrorDomain" code:2009 userInfo:0];
+  [APOdmlAnalyticsReranking sendEvent:v6 additionalDetails:0];
+  v8 = 0;
 LABEL_18:
 
-  v70 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v8;
 }
 
 - (id)pathForFactor:(id)factor isDirectory:(BOOL)directory
 {
   directoryCopy = directory;
-  v59 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   factorCopy = factor;
-  v9 = objc_msgSend_trialClient(self, v7, v8);
+  trialClient = [(APOdmlAssetManager *)self trialClient];
 
-  if (v9)
+  if (trialClient)
   {
-    v12 = objc_msgSend_trialClient(self, v10, v11);
-    v15 = objc_msgSend_trialNamespace(self, v13, v14);
-    v17 = objc_msgSend_levelForFactor_withNamespaceName_(v12, v16, factorCopy, v15);
+    trialClient2 = [(APOdmlAssetManager *)self trialClient];
+    trialNamespace = [(APOdmlAssetManager *)self trialNamespace];
+    v10 = [trialClient2 levelForFactor:factorCopy withNamespaceName:trialNamespace];
 
-    if (v17)
+    if (v10)
     {
       if (directoryCopy)
       {
-        objc_msgSend_directoryValue(v17, v18, v19);
+        [v10 directoryValue];
       }
 
       else
       {
-        objc_msgSend_fileValue(v17, v18, v19);
+        [v10 fileValue];
       }
-      v20 = ;
-      v25 = v20;
-      if (v20)
+      v11 = ;
+      v14 = v11;
+      if (v11)
       {
-        if (!objc_msgSend_hasPath(v20, v21, v22) || (v33 = MEMORY[0x277CBEBC0], objc_msgSend_path(v25, v31, v32), v34 = objc_claimAutoreleasedReturnValue(), objc_msgSend_fileURLWithPath_(v33, v35, v34), v24 = objc_claimAutoreleasedReturnValue(), v34, !v24))
+        if (!-[NSObject hasPath](v11, "hasPath") || (v18 = MEMORY[0x277CBEBC0], -[NSObject path](v14, "path"), v19 = objc_claimAutoreleasedReturnValue(), [v18 fileURLWithPath:v19], v13 = objc_claimAutoreleasedReturnValue(), v19, !v13))
         {
-          v36 = OdmlLogForCategory(0);
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          v20 = OdmlLogForCategory(0);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            v51 = 138412290;
-            v52 = objc_opt_class();
-            v37 = v52;
-            _os_log_impl(&dword_260ECB000, v36, OS_LOG_TYPE_ERROR, "[%@] Asset URL not found.", &v51, 0xCu);
+            v30 = 138412290;
+            v31 = objc_opt_class();
+            v21 = v31;
+            _os_log_impl(&dword_260ECB000, v20, OS_LOG_TYPE_ERROR, "[%@] Asset URL not found.", &v30, 0xCu);
           }
 
-          v24 = 0;
+          v13 = 0;
         }
 
-        v38 = OdmlLogForCategory(0);
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v22 = OdmlLogForCategory(0);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v39 = objc_opt_class();
-          v40 = v39;
-          v43 = objc_msgSend_trialNamespace(self, v41, v42);
-          v51 = 138413058;
-          v52 = v39;
-          v53 = 2112;
-          v54 = factorCopy;
-          v55 = 2112;
-          v56 = v43;
-          v57 = 2112;
-          v58 = v24;
-          _os_log_impl(&dword_260ECB000, v38, OS_LOG_TYPE_DEFAULT, "[%@] Path for factor %@ in namespace %@: %@", &v51, 0x2Au);
+          v23 = objc_opt_class();
+          v24 = v23;
+          trialNamespace2 = [(APOdmlAssetManager *)self trialNamespace];
+          v30 = 138413058;
+          v31 = v23;
+          v32 = 2112;
+          v33 = factorCopy;
+          v34 = 2112;
+          v35 = trialNamespace2;
+          v36 = 2112;
+          v37 = v13;
+          _os_log_impl(&dword_260ECB000, v22, OS_LOG_TYPE_DEFAULT, "[%@] Path for factor %@ in namespace %@: %@", &v30, 0x2Au);
         }
       }
 
       else
       {
-        v38 = OdmlLogForCategory(0);
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v22 = OdmlLogForCategory(0);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v44 = objc_opt_class();
-          v45 = v44;
-          v48 = objc_msgSend_trialNamespace(self, v46, v47);
-          v51 = 138412802;
-          v52 = v44;
-          v53 = 2112;
-          v54 = factorCopy;
-          v55 = 2112;
-          v56 = v48;
-          _os_log_impl(&dword_260ECB000, v38, OS_LOG_TYPE_ERROR, "[%@] File not found for level %@ in namespace %@", &v51, 0x20u);
+          v26 = objc_opt_class();
+          v27 = v26;
+          trialNamespace3 = [(APOdmlAssetManager *)self trialNamespace];
+          v30 = 138412802;
+          v31 = v26;
+          v32 = 2112;
+          v33 = factorCopy;
+          v34 = 2112;
+          v35 = trialNamespace3;
+          _os_log_impl(&dword_260ECB000, v22, OS_LOG_TYPE_ERROR, "[%@] File not found for level %@ in namespace %@", &v30, 0x20u);
         }
 
-        v24 = 0;
+        v13 = 0;
       }
     }
 
     else
     {
-      v25 = OdmlLogForCategory(0);
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v14 = OdmlLogForCategory(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v26 = objc_opt_class();
-        v27 = v26;
-        v30 = objc_msgSend_trialNamespace(self, v28, v29);
-        v51 = 138412802;
-        v52 = v26;
-        v53 = 2112;
-        v54 = factorCopy;
-        v55 = 2112;
-        v56 = v30;
-        _os_log_impl(&dword_260ECB000, v25, OS_LOG_TYPE_ERROR, "[%@] Level not found for factor %@ in namespace %@", &v51, 0x20u);
+        v15 = objc_opt_class();
+        v16 = v15;
+        trialNamespace4 = [(APOdmlAssetManager *)self trialNamespace];
+        v30 = 138412802;
+        v31 = v15;
+        v32 = 2112;
+        v33 = factorCopy;
+        v34 = 2112;
+        v35 = trialNamespace4;
+        _os_log_impl(&dword_260ECB000, v14, OS_LOG_TYPE_ERROR, "[%@] Level not found for factor %@ in namespace %@", &v30, 0x20u);
       }
 
-      v24 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v17 = OdmlLogForCategory(0);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v10 = OdmlLogForCategory(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v51 = 138412546;
-      v52 = objc_opt_class();
-      v53 = 2112;
-      v54 = factorCopy;
-      v23 = v52;
-      _os_log_impl(&dword_260ECB000, v17, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial client, cannot complete request for %@", &v51, 0x16u);
+      v30 = 138412546;
+      v31 = objc_opt_class();
+      v32 = 2112;
+      v33 = factorCopy;
+      v12 = v31;
+      _os_log_impl(&dword_260ECB000, v10, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial client, cannot complete request for %@", &v30, 0x16u);
     }
 
-    v24 = 0;
+    v13 = 0;
   }
 
-  v49 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v13;
 }
 
 - (id)doubleValueForFactor:(id)factor
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   factorCopy = factor;
-  v7 = objc_msgSend_trialClient(self, v5, v6);
+  trialClient = [(APOdmlAssetManager *)self trialClient];
 
-  if (v7)
+  if (trialClient)
   {
-    v10 = objc_msgSend_trialClient(self, v8, v9);
-    v13 = objc_msgSend_trialNamespace(self, v11, v12);
-    v15 = objc_msgSend_levelForFactor_withNamespaceName_(v10, v14, factorCopy, v13);
+    trialClient2 = [(APOdmlAssetManager *)self trialClient];
+    trialNamespace = [(APOdmlAssetManager *)self trialNamespace];
+    v8 = [trialClient2 levelForFactor:factorCopy withNamespaceName:trialNamespace];
 
-    if (v15)
+    if (v8)
     {
-      v18 = MEMORY[0x277CCABB0];
-      objc_msgSend_doubleValue(v15, v16, v17);
-      v21 = objc_msgSend_numberWithDouble_(v18, v19, v20);
-      v22 = OdmlLogForCategory(0);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v9 = MEMORY[0x277CCABB0];
+      [v8 doubleValue];
+      v10 = [v9 numberWithDouble:?];
+      v11 = OdmlLogForCategory(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = objc_opt_class();
-        v24 = v23;
-        v27 = objc_msgSend_trialNamespace(self, v25, v26);
-        v36 = 138413058;
-        v37 = v23;
-        v38 = 2112;
-        v39 = factorCopy;
-        v40 = 2112;
-        v41 = v27;
-        v42 = 2112;
-        v43 = v21;
-        _os_log_impl(&dword_260ECB000, v22, OS_LOG_TYPE_DEFAULT, "[%@] Double value for factor %@ in namespace %@: %@", &v36, 0x2Au);
+        v12 = objc_opt_class();
+        v13 = v12;
+        trialNamespace2 = [(APOdmlAssetManager *)self trialNamespace];
+        v20 = 138413058;
+        v21 = v12;
+        v22 = 2112;
+        v23 = factorCopy;
+        v24 = 2112;
+        v25 = trialNamespace2;
+        v26 = 2112;
+        v27 = v10;
+        _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_DEFAULT, "[%@] Double value for factor %@ in namespace %@: %@", &v20, 0x2Au);
       }
     }
 
     else
     {
-      v22 = OdmlLogForCategory(0);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v11 = OdmlLogForCategory(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v29 = objc_opt_class();
-        v30 = v29;
-        v33 = objc_msgSend_trialNamespace(self, v31, v32);
-        v36 = 138412802;
-        v37 = v29;
-        v38 = 2112;
-        v39 = factorCopy;
-        v40 = 2112;
-        v41 = v33;
-        _os_log_impl(&dword_260ECB000, v22, OS_LOG_TYPE_ERROR, "[%@] Level not found for factor %@ in namespace %@", &v36, 0x20u);
+        v16 = objc_opt_class();
+        v17 = v16;
+        trialNamespace3 = [(APOdmlAssetManager *)self trialNamespace];
+        v20 = 138412802;
+        v21 = v16;
+        v22 = 2112;
+        v23 = factorCopy;
+        v24 = 2112;
+        v25 = trialNamespace3;
+        _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_ERROR, "[%@] Level not found for factor %@ in namespace %@", &v20, 0x20u);
       }
 
-      v21 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v15 = OdmlLogForCategory(0);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v8 = OdmlLogForCategory(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v36 = 138412546;
-      v37 = objc_opt_class();
-      v38 = 2112;
-      v39 = factorCopy;
-      v28 = v37;
-      _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial client, cannot complete request for %@", &v36, 0x16u);
+      v20 = 138412546;
+      v21 = objc_opt_class();
+      v22 = 2112;
+      v23 = factorCopy;
+      v15 = v21;
+      _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial client, cannot complete request for %@", &v20, 0x16u);
     }
 
-    v21 = 0;
+    v10 = 0;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v10;
 }
 
 - (id)longValueForFactor:(id)factor
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   factorCopy = factor;
-  v7 = objc_msgSend_trialClient(self, v5, v6);
+  trialClient = [(APOdmlAssetManager *)self trialClient];
 
-  if (v7)
+  if (trialClient)
   {
-    v10 = objc_msgSend_trialClient(self, v8, v9);
-    v13 = objc_msgSend_trialNamespace(self, v11, v12);
-    v15 = objc_msgSend_levelForFactor_withNamespaceName_(v10, v14, factorCopy, v13);
+    trialClient2 = [(APOdmlAssetManager *)self trialClient];
+    trialNamespace = [(APOdmlAssetManager *)self trialNamespace];
+    v8 = [trialClient2 levelForFactor:factorCopy withNamespaceName:trialNamespace];
 
-    if (v15)
+    if (v8)
     {
-      v18 = MEMORY[0x277CCABB0];
-      v19 = objc_msgSend_longValue(v15, v16, v17);
-      v21 = objc_msgSend_numberWithLong_(v18, v20, v19);
-      v22 = OdmlLogForCategory(0);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v9 = [MEMORY[0x277CCABB0] numberWithLong:{-[NSObject longValue](v8, "longValue")}];
+      v10 = OdmlLogForCategory(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = objc_opt_class();
-        v24 = v23;
-        v27 = objc_msgSend_trialNamespace(self, v25, v26);
-        v36 = 138413058;
-        v37 = v23;
-        v38 = 2112;
-        v39 = factorCopy;
-        v40 = 2112;
-        v41 = v27;
-        v42 = 2112;
-        v43 = v21;
-        _os_log_impl(&dword_260ECB000, v22, OS_LOG_TYPE_DEFAULT, "[%@] Long value for factor %@ in namespace %@: %@", &v36, 0x2Au);
+        v11 = objc_opt_class();
+        v12 = v11;
+        trialNamespace2 = [(APOdmlAssetManager *)self trialNamespace];
+        v19 = 138413058;
+        v20 = v11;
+        v21 = 2112;
+        v22 = factorCopy;
+        v23 = 2112;
+        v24 = trialNamespace2;
+        v25 = 2112;
+        v26 = v9;
+        _os_log_impl(&dword_260ECB000, v10, OS_LOG_TYPE_DEFAULT, "[%@] Long value for factor %@ in namespace %@: %@", &v19, 0x2Au);
       }
     }
 
     else
     {
-      v22 = OdmlLogForCategory(0);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v10 = OdmlLogForCategory(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v29 = objc_opt_class();
-        v30 = v29;
-        v33 = objc_msgSend_trialNamespace(self, v31, v32);
-        v36 = 138412802;
-        v37 = v29;
-        v38 = 2112;
-        v39 = factorCopy;
-        v40 = 2112;
-        v41 = v33;
-        _os_log_impl(&dword_260ECB000, v22, OS_LOG_TYPE_ERROR, "[%@] Level not found for factor %@ in namespace %@", &v36, 0x20u);
+        v15 = objc_opt_class();
+        v16 = v15;
+        trialNamespace3 = [(APOdmlAssetManager *)self trialNamespace];
+        v19 = 138412802;
+        v20 = v15;
+        v21 = 2112;
+        v22 = factorCopy;
+        v23 = 2112;
+        v24 = trialNamespace3;
+        _os_log_impl(&dword_260ECB000, v10, OS_LOG_TYPE_ERROR, "[%@] Level not found for factor %@ in namespace %@", &v19, 0x20u);
       }
 
-      v21 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v15 = OdmlLogForCategory(0);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v8 = OdmlLogForCategory(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v36 = 138412546;
-      v37 = objc_opt_class();
-      v38 = 2112;
-      v39 = factorCopy;
-      v28 = v37;
-      _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial client, cannot complete request for %@", &v36, 0x16u);
+      v19 = 138412546;
+      v20 = objc_opt_class();
+      v21 = 2112;
+      v22 = factorCopy;
+      v14 = v20;
+      _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial client, cannot complete request for %@", &v19, 0x16u);
     }
 
-    v21 = 0;
+    v9 = 0;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v9;
 }
 
 - (id)BOOLeanValueForFactor:(id)factor
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   factorCopy = factor;
-  v7 = objc_msgSend_trialClient(self, v5, v6);
+  trialClient = [(APOdmlAssetManager *)self trialClient];
 
-  if (v7)
+  if (trialClient)
   {
-    v10 = objc_msgSend_trialClient(self, v8, v9);
-    v13 = objc_msgSend_trialNamespace(self, v11, v12);
-    v15 = objc_msgSend_levelForFactor_withNamespaceName_(v10, v14, factorCopy, v13);
+    trialClient2 = [(APOdmlAssetManager *)self trialClient];
+    trialNamespace = [(APOdmlAssetManager *)self trialNamespace];
+    v8 = [trialClient2 levelForFactor:factorCopy withNamespaceName:trialNamespace];
 
-    if (v15)
+    if (v8)
     {
-      v18 = MEMORY[0x277CCABB0];
-      v19 = objc_msgSend_BOOLeanValue(v15, v16, v17);
-      v21 = objc_msgSend_numberWithBool_(v18, v20, v19);
-      v22 = OdmlLogForCategory(0);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[NSObject BOOLeanValue](v8, "BOOLeanValue")}];
+      v10 = OdmlLogForCategory(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = objc_opt_class();
-        v24 = v23;
-        v27 = objc_msgSend_trialNamespace(self, v25, v26);
-        v36 = 138413058;
-        v37 = v23;
-        v38 = 2112;
-        v39 = factorCopy;
-        v40 = 2112;
-        v41 = v27;
-        v42 = 2112;
-        v43 = v21;
-        _os_log_impl(&dword_260ECB000, v22, OS_LOG_TYPE_DEFAULT, "[%@] Boolean value for factor %@ in namespace %@: %@", &v36, 0x2Au);
+        v11 = objc_opt_class();
+        v12 = v11;
+        trialNamespace2 = [(APOdmlAssetManager *)self trialNamespace];
+        v19 = 138413058;
+        v20 = v11;
+        v21 = 2112;
+        v22 = factorCopy;
+        v23 = 2112;
+        v24 = trialNamespace2;
+        v25 = 2112;
+        v26 = v9;
+        _os_log_impl(&dword_260ECB000, v10, OS_LOG_TYPE_DEFAULT, "[%@] Boolean value for factor %@ in namespace %@: %@", &v19, 0x2Au);
       }
     }
 
     else
     {
-      v22 = OdmlLogForCategory(0);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v10 = OdmlLogForCategory(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v29 = objc_opt_class();
-        v30 = v29;
-        v33 = objc_msgSend_trialNamespace(self, v31, v32);
-        v36 = 138412802;
-        v37 = v29;
-        v38 = 2112;
-        v39 = factorCopy;
-        v40 = 2112;
-        v41 = v33;
-        _os_log_impl(&dword_260ECB000, v22, OS_LOG_TYPE_ERROR, "[%@] Level not found for factor %@ in namespace %@", &v36, 0x20u);
+        v15 = objc_opt_class();
+        v16 = v15;
+        trialNamespace3 = [(APOdmlAssetManager *)self trialNamespace];
+        v19 = 138412802;
+        v20 = v15;
+        v21 = 2112;
+        v22 = factorCopy;
+        v23 = 2112;
+        v24 = trialNamespace3;
+        _os_log_impl(&dword_260ECB000, v10, OS_LOG_TYPE_ERROR, "[%@] Level not found for factor %@ in namespace %@", &v19, 0x20u);
       }
 
-      v21 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v15 = OdmlLogForCategory(0);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v8 = OdmlLogForCategory(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v36 = 138412546;
-      v37 = objc_opt_class();
-      v38 = 2112;
-      v39 = factorCopy;
-      v28 = v37;
-      _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial client, cannot complete request for %@", &v36, 0x16u);
+      v19 = 138412546;
+      v20 = objc_opt_class();
+      v21 = 2112;
+      v22 = factorCopy;
+      v14 = v20;
+      _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial client, cannot complete request for %@", &v19, 0x16u);
     }
 
-    v21 = 0;
+    v9 = 0;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v9;
 }
 
 - (id)stringValueForFactor:(id)factor
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   factorCopy = factor;
-  v7 = objc_msgSend_trialClient(self, v5, v6);
+  trialClient = [(APOdmlAssetManager *)self trialClient];
 
-  if (!v7)
+  if (!trialClient)
   {
-    v15 = OdmlLogForCategory(0);
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v8 = OdmlLogForCategory(0);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
 LABEL_11:
-      v28 = 0;
+      stringValue2 = 0;
       goto LABEL_12;
     }
 
-    v36 = 138412546;
-    v37 = objc_opt_class();
-    v38 = 2112;
-    v39 = factorCopy;
-    v17 = v37;
-    _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial client, cannot complete request for %@", &v36, 0x16u);
+    v20 = 138412546;
+    v21 = objc_opt_class();
+    v22 = 2112;
+    v23 = factorCopy;
+    v10 = v21;
+    _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "[%@] Nil value for Trial client, cannot complete request for %@", &v20, 0x16u);
 LABEL_10:
 
     goto LABEL_11;
   }
 
-  v10 = objc_msgSend_trialClient(self, v8, v9);
-  v13 = objc_msgSend_trialNamespace(self, v11, v12);
-  v15 = objc_msgSend_levelForFactor_withNamespaceName_(v10, v14, factorCopy, v13);
+  trialClient2 = [(APOdmlAssetManager *)self trialClient];
+  trialNamespace = [(APOdmlAssetManager *)self trialNamespace];
+  v8 = [trialClient2 levelForFactor:factorCopy withNamespaceName:trialNamespace];
 
-  v16 = OdmlLogForCategory(0);
-  v17 = v16;
-  if (!v15)
+  v9 = OdmlLogForCategory(0);
+  v10 = v9;
+  if (!v8)
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v29 = objc_opt_class();
-      v30 = v29;
-      v33 = objc_msgSend_trialNamespace(self, v31, v32);
-      v36 = 138412802;
-      v37 = v29;
-      v38 = 2112;
-      v39 = factorCopy;
-      v40 = 2112;
-      v41 = v33;
-      _os_log_impl(&dword_260ECB000, v17, OS_LOG_TYPE_ERROR, "[%@] Level not found for factor %@ in namespace %@", &v36, 0x20u);
+      v16 = objc_opt_class();
+      v17 = v16;
+      trialNamespace2 = [(APOdmlAssetManager *)self trialNamespace];
+      v20 = 138412802;
+      v21 = v16;
+      v22 = 2112;
+      v23 = factorCopy;
+      v24 = 2112;
+      v25 = trialNamespace2;
+      _os_log_impl(&dword_260ECB000, v10, OS_LOG_TYPE_ERROR, "[%@] Level not found for factor %@ in namespace %@", &v20, 0x20u);
     }
 
     goto LABEL_10;
   }
 
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = objc_opt_class();
-    v19 = v18;
-    v22 = objc_msgSend_trialNamespace(self, v20, v21);
-    v25 = objc_msgSend_stringValue(v15, v23, v24);
-    v36 = 138413058;
-    v37 = v18;
-    v38 = 2112;
-    v39 = factorCopy;
-    v40 = 2112;
-    v41 = v22;
-    v42 = 2112;
-    v43 = v25;
-    _os_log_impl(&dword_260ECB000, v17, OS_LOG_TYPE_DEFAULT, "[%@] String value for factor %@ in namespace %@: %@", &v36, 0x2Au);
+    v11 = objc_opt_class();
+    v12 = v11;
+    trialNamespace3 = [(APOdmlAssetManager *)self trialNamespace];
+    stringValue = [v8 stringValue];
+    v20 = 138413058;
+    v21 = v11;
+    v22 = 2112;
+    v23 = factorCopy;
+    v24 = 2112;
+    v25 = trialNamespace3;
+    v26 = 2112;
+    v27 = stringValue;
+    _os_log_impl(&dword_260ECB000, v10, OS_LOG_TYPE_DEFAULT, "[%@] String value for factor %@ in namespace %@: %@", &v20, 0x2Au);
   }
 
-  v28 = objc_msgSend_stringValue(v15, v26, v27);
+  stringValue2 = [v8 stringValue];
 LABEL_12:
 
-  v34 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return stringValue2;
 }
 
 - (id)saveFeatureFromObject:(id)object withName:(id)name
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   nameCopy = name;
-  v10 = objc_msgSend_featureStorage(self, v8, v9);
+  featureStorage = [(APOdmlAssetManager *)self featureStorage];
 
-  if (v10)
+  if (featureStorage)
   {
-    v13 = objc_msgSend_featureStorage(self, v11, v12);
-    v15 = objc_msgSend_saveFeatureFromObject_withName_(v13, v14, objectCopy, nameCopy);
+    featureStorage2 = [(APOdmlAssetManager *)self featureStorage];
+    v10 = [featureStorage2 saveFeatureFromObject:objectCopy withName:nameCopy];
   }
 
   else
   {
-    v16 = OdmlLogForCategory(0);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v11 = OdmlLogForCategory(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v21 = 138412546;
-      v22 = objc_opt_class();
-      v23 = 2112;
-      v24 = nameCopy;
-      v17 = v22;
-      _os_log_impl(&dword_260ECB000, v16, OS_LOG_TYPE_ERROR, "[%@] Nil value for FeatureStorage, cannot save feature %@", &v21, 0x16u);
+      v14 = 138412546;
+      v15 = objc_opt_class();
+      v16 = 2112;
+      v17 = nameCopy;
+      v12 = v15;
+      _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_ERROR, "[%@] Nil value for FeatureStorage, cannot save feature %@", &v14, 0x16u);
     }
 
-    v15 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v18, @"APOdmlFeatureStorageErrorDomain", 5016, 0);
+    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlFeatureStorageErrorDomain" code:5016 userInfo:0];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v10;
 }
 
 - (id)featureForName:(id)name
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v7 = objc_msgSend_featureStorage(self, v5, v6);
+  featureStorage = [(APOdmlAssetManager *)self featureStorage];
 
-  if (v7)
+  if (featureStorage)
   {
-    v10 = objc_msgSend_featureStorage(self, v8, v9);
-    v12 = objc_msgSend_featureForName_(v10, v11, nameCopy);
+    featureStorage2 = [(APOdmlAssetManager *)self featureStorage];
+    v7 = [featureStorage2 featureForName:nameCopy];
   }
 
   else
   {
-    v13 = OdmlLogForCategory(0);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v8 = OdmlLogForCategory(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412546;
-      v18 = objc_opt_class();
-      v19 = 2112;
-      v20 = nameCopy;
-      v14 = v18;
-      _os_log_impl(&dword_260ECB000, v13, OS_LOG_TYPE_ERROR, "[%@] Nil value for FeatureStorage, cannot retrieve feature %@", &v17, 0x16u);
+      v11 = 138412546;
+      v12 = objc_opt_class();
+      v13 = 2112;
+      v14 = nameCopy;
+      v9 = v12;
+      _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "[%@] Nil value for FeatureStorage, cannot retrieve feature %@", &v11, 0x16u);
     }
 
-    v12 = 0;
+    v7 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v7;
 }
 
 - (id)featuresForName:(id)name
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v7 = objc_msgSend_featureStorage(self, v5, v6);
+  featureStorage = [(APOdmlAssetManager *)self featureStorage];
 
-  if (v7)
+  if (featureStorage)
   {
-    v10 = objc_msgSend_featureStorage(self, v8, v9);
-    v12 = objc_msgSend_doubleValueForFactor_(self, v11, @"LookbackWindow");
-    v14 = objc_msgSend_vectorsForName_lookbackWindow_(v10, v13, nameCopy, v12);
+    featureStorage2 = [(APOdmlAssetManager *)self featureStorage];
+    v7 = [(APOdmlAssetManager *)self doubleValueForFactor:@"LookbackWindow"];
+    v8 = [featureStorage2 vectorsForName:nameCopy lookbackWindow:v7];
   }
 
   else
   {
-    v15 = OdmlLogForCategory(0);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v9 = OdmlLogForCategory(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v19 = 138412546;
-      v20 = objc_opt_class();
-      v21 = 2112;
-      v22 = nameCopy;
-      v16 = v20;
-      _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_ERROR, "[%@] Nil value for FeatureStorage, cannot retrieve feature %@", &v19, 0x16u);
+      v12 = 138412546;
+      v13 = objc_opt_class();
+      v14 = 2112;
+      v15 = nameCopy;
+      v10 = v13;
+      _os_log_impl(&dword_260ECB000, v9, OS_LOG_TYPE_ERROR, "[%@] Nil value for FeatureStorage, cannot retrieve feature %@", &v12, 0x16u);
     }
 
-    v14 = 0;
+    v8 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v8;
 }
 
 - (void)deleteExpiredFeaturesForName:(id)name lookbackWindow:(id)window
 {
   nameCopy = name;
   windowCopy = window;
-  v9 = objc_msgSend_featureStorage(self, v7, v8);
+  featureStorage = [(APOdmlAssetManager *)self featureStorage];
 
-  if (v9)
+  if (featureStorage)
   {
-    v12 = objc_msgSend_featureStorage(self, v10, v11);
-    objc_msgSend_deleteExpiredFeaturesForName_lookbackWindow_(v12, v13, nameCopy, windowCopy);
+    featureStorage2 = [(APOdmlAssetManager *)self featureStorage];
+    [featureStorage2 deleteExpiredFeaturesForName:nameCopy lookbackWindow:windowCopy];
   }
 }
 

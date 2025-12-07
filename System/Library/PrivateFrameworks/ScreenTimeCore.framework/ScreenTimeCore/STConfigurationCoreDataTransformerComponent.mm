@@ -186,7 +186,7 @@ LABEL_11:
   v12 = +[STLog coreDataTransformer];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    sub_10011338C();
+    sub_10011338C(configuration);
   }
 
   v13 = [NSError alloc];
@@ -644,7 +644,7 @@ LABEL_17:
     v7 = +[STLog coreDataTransformer];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100113418();
+      sub_100113418(objectCopy);
     }
 
     if ([objectCopy conformsToProtocol:&OBJC_PROTOCOL___STVersionVectorable])
@@ -656,7 +656,7 @@ LABEL_17:
   v8 = +[STLog coreDataTransformer];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    sub_1001134A4();
+    sub_1001134A4(objectCopy);
   }
 
 LABEL_10:
@@ -716,7 +716,7 @@ LABEL_12:
   v10 = +[STLog coreDataTransformer];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    sub_100113530();
+    sub_100113530(objectCopy);
   }
 
   if (error)

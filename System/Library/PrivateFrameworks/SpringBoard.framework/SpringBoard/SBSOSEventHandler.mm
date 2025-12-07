@@ -149,74 +149,75 @@ void __35__SBSOSEventHandler_sharedInstance__block_invoke()
 
 void __56__SBSOSEventHandler_didUpdateCurrentSOSInitiationState___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) isSOSActive];
-  v3 = SBLogButtonsCombo();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v3 = v2;
+  v4 = SBLogButtonsCombo(v2);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (!v4)
+    if (!v5)
     {
       goto LABEL_7;
     }
 
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
     *buf = 138543362;
-    v20 = v6;
-    v7 = "%{public}@ - SOS UI initiation state changed. SOS active";
+    v21 = v7;
+    v8 = "%{public}@ - SOS UI initiation state changed. SOS active";
   }
 
   else
   {
-    if (!v4)
+    if (!v5)
     {
       goto LABEL_7;
     }
 
-    v8 = objc_opt_class();
-    v6 = NSStringFromClass(v8);
+    v9 = objc_opt_class();
+    v7 = NSStringFromClass(v9);
     *buf = 138543362;
-    v20 = v6;
-    v7 = "%{public}@ - SOS UI initiation state changed. SOS inactive";
+    v21 = v7;
+    v8 = "%{public}@ - SOS UI initiation state changed. SOS inactive";
   }
 
-  _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, v7, buf, 0xCu);
+  _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, v8, buf, 0xCu);
 
 LABEL_7:
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v9 = [*(*(a1 + 32) + 16) orderedContext];
-  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v10)
+  v16 = 0u;
+  v10 = [*(*(a1 + 32) + 16) orderedContext];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v15;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v15 != v12)
+        if (*v16 != v13)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        [*(*(&v14 + 1) + 8 * i) SOSEventHandlerStateDidChange:*(a1 + 32)];
+        [*(*(&v15 + 1) + 8 * i) SOSEventHandlerStateDidChange:*(a1 + 32)];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 }
 
 void __48__SBSOSEventHandler_didDismissSOSBeforeSOSCall___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x277D85DE8];
-  v2 = SBLogButtonsCombo();
+  v2 = SBLogButtonsCombo(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = objc_opt_class();

@@ -8,9 +8,9 @@
 {
   colorCopy = color;
   shapeLayer = [(_MTLumaDodgePillCustomShapeLowQualityEffectView *)self shapeLayer];
-  cGColor = [colorCopy CGColor];
+  [colorCopy CGColor];
 
-  [shapeLayer setStrokeColor:cGColor];
+  [shapeLayer setStrokeColor:?];
 }
 
 @end

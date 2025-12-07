@@ -25,7 +25,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_100003E7C(&unk_1000DC670, 255, type metadata accessor for LaunchOptionsKey);
+    sub_100003E7C(&unk_1000DC670, 255, type metadata accessor for LaunchOptionsKey, &unk_1000ADB2C);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -73,19 +73,18 @@
 {
   v7 = type metadata accessor for URL();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for OpenURLOptionsKey(0);
-  sub_100003E7C(&qword_1000DA758, 255, type metadata accessor for OpenURLOptionsKey);
-  v12 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  sub_100003E7C(&qword_1000DA758, 255, type metadata accessor for OpenURLOptionsKey, &unk_1000ADB70);
+  v11 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   applicationCopy = application;
   selfCopy = self;
-  v15 = sub_10005696C(v11, v12);
+  v14 = sub_10005696C(v10, v11);
 
-  (*(v8 + 8))(v11, v7);
-  return v15 & 1;
+  (*(v8 + 8))(v10, v7);
+  return v14 & 1;
 }
 
 - (BOOL)application:(id)application runTest:(id)test options:(id)options

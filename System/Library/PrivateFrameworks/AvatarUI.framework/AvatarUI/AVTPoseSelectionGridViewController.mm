@@ -24,17 +24,17 @@
   captureCopy = capture;
   recordCopy = record;
   configurationsCopy = configurations;
-  v17.receiver = self;
-  v17.super_class = AVTPoseSelectionGridViewController;
-  v11 = [(AVTPoseSelectionGridViewController *)&v17 initWithNibName:0 bundle:0];
+  v19.receiver = self;
+  v19.super_class = AVTPoseSelectionGridViewController;
+  v11 = [(AVTPoseSelectionGridViewController *)&v19 initWithNibName:0 bundle:0];
   v12 = v11;
   if (v11)
   {
     objc_storeStrong(&v11->_avatarRecord, record);
-    if (AVTUIIsFacetrackingSupported() && captureCopy)
+    if (AVTUIIsFacetrackingSupported(v13, v14) && captureCopy)
     {
-      v13 = [[AVTCameraItemView alloc] initWithFrame:0.0, 0.0, 50.0, 50.0];
-      [(AVTPoseSelectionGridViewController *)v12 setCameraCellView:v13];
+      v15 = [[AVTCameraItemView alloc] initWithFrame:0.0, 0.0, 50.0, 50.0];
+      [(AVTPoseSelectionGridViewController *)v12 setCameraCellView:v15];
     }
 
     objc_storeStrong(&v12->_stickerConfigurations, configurations);
@@ -48,10 +48,10 @@
 
 - (void)viewDidLoad
 {
-  v51[4] = *MEMORY[0x1E69E9840];
-  v50.receiver = self;
-  v50.super_class = AVTPoseSelectionGridViewController;
-  [(AVTPoseSelectionGridViewController *)&v50 viewDidLoad];
+  v53[4] = *MEMORY[0x1E69E9840];
+  v52.receiver = self;
+  v52.super_class = AVTPoseSelectionGridViewController;
+  [(AVTPoseSelectionGridViewController *)&v52 viewDidLoad];
   v3 = objc_alloc_init(MEMORY[0x1E69DC840]);
   flowLayout = self->_flowLayout;
   self->_flowLayout = v3;
@@ -71,7 +71,7 @@
   [(UICollectionView *)self->_poseCollectionView setDelegate:self];
   [(UICollectionView *)self->_poseCollectionView setDataSource:self];
   [(UICollectionView *)self->_poseCollectionView registerClass:objc_opt_class() forCellWithReuseIdentifier:@"Cell"];
-  [(UICollectionView *)self->_poseCollectionView setTranslatesAutoresizingMaskIntoConstraints:0];
+  v10 = [(UICollectionView *)self->_poseCollectionView setTranslatesAutoresizingMaskIntoConstraints:0];
   if (self->_selectedStickerConfiguration)
   {
     [(AVTPoseSelectionGridViewController *)self setSelectedStickerConfiguration:?];
@@ -79,26 +79,26 @@
 
   else
   {
-    if (AVTDeviceIsGreenTea() && [(AVTPoseSelectionGridViewController *)self willDisplayCameraItem])
+    if (AVTDeviceIsGreenTea(v10, v11) && [(AVTPoseSelectionGridViewController *)self willDisplayCameraItem])
     {
-      v10 = [(NSArray *)self->_stickerConfigurations objectAtIndexedSubscript:0];
-      [(AVTPoseSelectionGridViewController *)self setSelectedStickerConfiguration:v10];
+      v12 = [(NSArray *)self->_stickerConfigurations objectAtIndexedSubscript:0];
+      [(AVTPoseSelectionGridViewController *)self setSelectedStickerConfiguration:v12];
 
       delegate = [(AVTPoseSelectionGridViewController *)self delegate];
       selectedStickerConfiguration = [(AVTPoseSelectionGridViewController *)self selectedStickerConfiguration];
       [delegate poseSelectionGridController:self didSelectConfiguration:selectedStickerConfiguration];
 
-      v13 = 1;
+      v15 = 1;
     }
 
     else
     {
-      v13 = 0;
+      v15 = 0;
     }
 
-    v14 = self->_poseCollectionView;
-    v15 = [MEMORY[0x1E696AC88] indexPathForItem:v13 inSection:0];
-    [(UICollectionView *)v14 selectItemAtIndexPath:v15 animated:0 scrollPosition:0];
+    v16 = self->_poseCollectionView;
+    v17 = [MEMORY[0x1E696AC88] indexPathForItem:v15 inSection:0];
+    [(UICollectionView *)v16 selectItemAtIndexPath:v17 animated:0 scrollPosition:0];
   }
 
   view2 = [(AVTPoseSelectionGridViewController *)self view];
@@ -107,53 +107,53 @@
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter addObserver:self selector:sel_contentSizeCategoryDidChange_ name:*MEMORY[0x1E69DDC48] object:0];
 
-  v18 = +[AVTSerialTaskScheduler fifoScheduler];
+  v20 = +[AVTSerialTaskScheduler fifoScheduler];
   scheduler = self->_scheduler;
-  self->_scheduler = v18;
+  self->_scheduler = v20;
 
-  v20 = [[AVTUIStickerGeneratorPool alloc] initWithMaxStickerGeneratorCount:2];
+  v22 = [[AVTUIStickerGeneratorPool alloc] initWithMaxStickerGeneratorCount:2];
   generatorPool = self->_generatorPool;
-  self->_generatorPool = v20;
+  self->_generatorPool = v22;
 
-  v22 = [AVTUIStickerRenderer alloc];
+  v24 = [AVTUIStickerRenderer alloc];
   avatarRecord = [(AVTPoseSelectionGridViewController *)self avatarRecord];
-  v24 = [(AVTUIStickerRenderer *)v22 initWithAvatarRecord:avatarRecord stickerGeneratorPool:self->_generatorPool scheduler:self->_scheduler];
+  v26 = [(AVTUIStickerRenderer *)v24 initWithAvatarRecord:avatarRecord stickerGeneratorPool:self->_generatorPool scheduler:self->_scheduler];
   stickerRenderer = self->_stickerRenderer;
-  self->_stickerRenderer = v24;
+  self->_stickerRenderer = v26;
 
-  v26 = MEMORY[0x1E698E328];
+  v28 = MEMORY[0x1E698E328];
   avatarRecord2 = [(AVTPoseSelectionGridViewController *)self avatarRecord];
-  v49 = [v26 avatarForRecord:avatarRecord2];
+  v51 = [v28 avatarForRecord:avatarRecord2];
 
-  v48 = objc_alloc_init(AVTAvatarImageRenderer);
-  v28 = +[AVTRenderingScope gridThumbnailScope];
-  v29 = [(AVTAvatarImageRenderer *)v48 imageForAvatar:v49 scope:v28];
-  v30 = [v29 imageWithRenderingMode:2];
-  [(AVTPoseSelectionGridViewController *)self setPlaceholderImage:v30];
+  v50 = objc_alloc_init(AVTAvatarImageRenderer);
+  v30 = +[AVTRenderingScope gridThumbnailScope];
+  v31 = [(AVTAvatarImageRenderer *)v50 imageForAvatar:v51 scope:v30];
+  v32 = [v31 imageWithRenderingMode:2];
+  [(AVTPoseSelectionGridViewController *)self setPlaceholderImage:v32];
 
   topAnchor = [(UICollectionView *)self->_poseCollectionView topAnchor];
   view3 = [(AVTPoseSelectionGridViewController *)self view];
   topAnchor2 = [view3 topAnchor];
-  v44 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v51[0] = v44;
+  v46 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v53[0] = v46;
   leadingAnchor = [(UICollectionView *)self->_poseCollectionView leadingAnchor];
   view4 = [(AVTPoseSelectionGridViewController *)self view];
   leadingAnchor2 = [view4 leadingAnchor];
-  v31 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v51[1] = v31;
+  v33 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v53[1] = v33;
   trailingAnchor = [(UICollectionView *)self->_poseCollectionView trailingAnchor];
   view5 = [(AVTPoseSelectionGridViewController *)self view];
   trailingAnchor2 = [view5 trailingAnchor];
-  v35 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v51[2] = v35;
+  v37 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v53[2] = v37;
   bottomAnchor = [(UICollectionView *)self->_poseCollectionView bottomAnchor];
   view6 = [(AVTPoseSelectionGridViewController *)self view];
   bottomAnchor2 = [view6 bottomAnchor];
-  v39 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v51[3] = v39;
-  v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:4];
+  v41 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v53[3] = v41;
+  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:4];
 
-  [MEMORY[0x1E696ACD8] activateConstraints:v40];
+  [MEMORY[0x1E696ACD8] activateConstraints:v42];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator

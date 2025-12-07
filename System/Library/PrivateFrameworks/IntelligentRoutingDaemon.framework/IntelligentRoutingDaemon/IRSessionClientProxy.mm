@@ -22,7 +22,7 @@
 
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy, 0, 0);
   }
 
   v6 = xpc_copy_code_signing_identity_for_token();
@@ -107,14 +107,12 @@ LABEL_15:
 
 - (void)initWithConnection:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v4 = [a2 clientIdentifier];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_25543D000, v3, OS_LOG_TYPE_ERROR, "#server-client, [ErrorId - Missing entitlement] %@ is missing required entitlement, rejecting connection.", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = objc_msgSend_clientIdentifier(a2);
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_25543D000, v3, OS_LOG_TYPE_ERROR, "#server-client, [ErrorId - Missing entitlement] %@ is missing required entitlement, rejecting connection.", &v5, 0xCu);
 }
 
 @end

@@ -21,9 +21,9 @@
 {
   compositorCopy = compositor;
   requestCopy = request;
-  v38.receiver = self;
-  v38.super_class = PVAVFRenderJobDelegate;
-  v13 = [(PVAVFRenderJobDelegate *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = PVAVFRenderJobDelegate;
+  v13 = [(PVAVFRenderJobDelegate *)&v37 init];
   v14 = v13;
   if (v13)
   {
@@ -39,10 +39,9 @@
     v14->m_thumbnailCompositing = compositing;
     v14->m_minimumRequestCompletionTimeMS = 0;
     PerfTimer::Start(&v14->m_timer);
-    jobTypeTag = [(PVAVFRenderJobDelegate *)v14 jobTypeTag];
-    v14->m_parentCode = jobTypeTag;
+    v14->m_parentCode = [(PVAVFRenderJobDelegate *)v14 jobTypeTag];
     v14->m_childCode = 0;
-    PVRenderManager::INSTANCE(jobTypeTag, &time);
+    PVRenderManager::INSTANCE(&time.value);
     m_Obj = v14->m_renderManager.m_Obj;
     value = time.value;
     if (m_Obj == time.value)
@@ -67,60 +66,60 @@
     videoCompositingContext = [(PVVideoCompositing *)v14->m_compositor videoCompositingContext];
     renderContext = [(AVAsynchronousVideoCompositionRequest *)v14->m_request renderContext];
     thumbnailCompositing = [(PVVideoCompositing *)v14->m_compositor thumbnailCompositing];
-    v24 = HGObject::operator new(0x88uLL);
-    PVAVFInstructionGraphContext::PVAVFInstructionGraphContext(v24, videoCompositingContext, renderContext, thumbnailCompositing);
-    v25 = v14->m_instructionGraphContext.m_Obj;
-    if (v25 == v24)
+    v23 = HGObject::operator new(0x88uLL);
+    PVAVFInstructionGraphContext::PVAVFInstructionGraphContext(v23, videoCompositingContext, renderContext, thumbnailCompositing);
+    v24 = v14->m_instructionGraphContext.m_Obj;
+    if (v24 == v23)
     {
-      if (v24)
+      if (v23)
       {
-        (*(*v24 + 24))(v24);
+        (*(*v23 + 24))(v23);
       }
     }
 
     else
     {
-      if (v25)
+      if (v24)
       {
-        (*(*v25 + 24))(v25);
+        (*(*v24 + 24))(v24);
       }
 
-      v14->m_instructionGraphContext.m_Obj = v24;
+      v14->m_instructionGraphContext.m_Obj = v23;
     }
 
-    v26 = MEMORY[0x277CCACA8];
-    v27 = v14->m_compositionTime.value;
+    v25 = MEMORY[0x277CCACA8];
+    v26 = v14->m_compositionTime.value;
     timescale = v14->m_compositionTime.timescale;
     *&time.flags = *&v14->m_compositionTime.flags;
     HIDWORD(time.epoch) = HIDWORD(v14->m_compositionTime.epoch);
-    time.value = v27;
+    time.value = v26;
     time.timescale = timescale;
-    v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%lld/%d = %.3f}", v27, timescale, CMTimeGetSeconds(&time)];
-    v30 = [v26 stringWithFormat:@"RequestTime: %@", v29];
+    v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%lld/%d = %.3f}", v26, timescale, CMTimeGetSeconds(&time)];
+    v29 = [v25 stringWithFormat:@"RequestTime: %@", v28];
 
-    v31 = v14->m_instructionGraphContext.m_Obj;
-    uTF8String = [v30 UTF8String];
-    v33 = strlen(uTF8String);
-    if (v33 >= 0x7FFFFFFFFFFFFFF8)
+    v30 = v14->m_instructionGraphContext.m_Obj;
+    uTF8String = [v29 UTF8String];
+    v32 = strlen(uTF8String);
+    if (v32 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v34 = v33;
-    if (v33 >= 0x17)
+    v33 = v32;
+    if (v32 >= 0x17)
     {
       operator new();
     }
 
-    v37 = v33;
-    if (v33)
+    v36 = v32;
+    if (v32)
     {
-      memmove(&__dst, uTF8String, v33);
+      memmove(&__dst, uTF8String, v32);
     }
 
-    *(&__dst + v34) = 0;
-    PVInstructionGraphContext::AddContextDotNode(v31, &__dst);
-    if (v37 < 0)
+    *(&__dst + v33) = 0;
+    PVInstructionGraphContext::AddContextDotNode(v30, &__dst);
+    if (v36 < 0)
     {
       operator delete(__dst);
     }
@@ -346,7 +345,7 @@
                   {
                     v30 = [(AVAsynchronousVideoCompositionRequest *)self->m_request sourceFrameByTrackID:intValue];
                     v91 = &v76;
-                    std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v59, &v76)[5] = v30;
+                    std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v59, &v76, &std::piecewise_construct, &v91)[5] = v30;
                   }
                 }
 
@@ -360,7 +359,7 @@
             v19 = v51;
             if (v55)
             {
-              [v55 nodeForCompositeTrackMap:&v59];
+              objc_msgSend_nodeForCompositeTrackMap_(v55);
               v75 = v91;
               if (v91)
               {
@@ -606,36 +605,36 @@ LABEL_91:
 - (void)_buildGraph:(void *)graph renderContext:(const void *)context frameStats:(void *)stats outputNodes:(void *)nodes
 {
   Renderer = HGRenderContext::GetRenderer(context);
-  v10 = Renderer;
+  v9 = Renderer;
   if (Renderer)
   {
     (*(*Renderer + 16))(Renderer);
   }
 
-  v81 = 0;
-  v82 = v10;
+  v80 = 0;
+  v81 = v9;
   outputNode = [(PVVideoCompositionInstruction *)self->m_instruction outputNode];
 
   if (outputNode)
   {
-    if (HGLogger::getLevel("kPVInstructionGraphToHeliumGraphLogContext", v12) >= 1)
+    if (HGLogger::getLevel("kPVInstructionGraphToHeliumGraphLogContext", v11) >= 1)
     {
       *&time.start.value = *&self->m_compositionTime.value;
       time.start.epoch = self->m_compositionTime.epoch;
-      v15 = CMTimeCopyDescription(0, &time.start);
-      v16 = v15;
-      v17 = atomic_load(HGLogger::_enabled);
-      if (v17)
+      v14 = CMTimeCopyDescription(0, &time.start);
+      v15 = v14;
+      v16 = atomic_load(HGLogger::_enabled);
+      if (v16)
       {
-        uTF8String = [v15 UTF8String];
-        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Current Time:           %s\n", v19, v20, uTF8String);
+        uTF8String = [v14 UTF8String];
+        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Current Time:           %s\n", v18, v19, uTF8String);
       }
 
-      CFRelease(v16);
+      CFRelease(v15);
       m_instruction = self->m_instruction;
       if (m_instruction)
       {
-        [(PVVideoCompositionInstruction *)m_instruction timeRange];
+        objc_msgSend_timeRange(m_instruction);
       }
 
       else
@@ -643,23 +642,23 @@ LABEL_91:
         memset(&time, 0, sizeof(time));
       }
 
-      v24 = CMTimeRangeCopyDescription(0, &time);
+      v23 = CMTimeRangeCopyDescription(0, &time);
 
-      v25 = atomic_load(HGLogger::_enabled);
-      if (v25)
+      v24 = atomic_load(HGLogger::_enabled);
+      if (v24)
       {
-        uTF8String2 = [v24 UTF8String];
-        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Instruction Time Range: %s\n", v27, v28, uTF8String2);
+        uTF8String2 = [v23 UTF8String];
+        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Instruction Time Range: %s\n", v26, v27, uTF8String2);
       }
 
-      CFRelease(v24);
+      CFRelease(v23);
     }
 
     outputNode2 = [(PVVideoCompositionInstruction *)self->m_instruction outputNode];
     *&time.start.value = *&self->m_compositionTime.value;
     time.start.epoch = self->m_compositionTime.epoch;
     m_Obj = self->m_instructionGraphContext.m_Obj;
-    v78 = m_Obj;
+    v77 = m_Obj;
     if (m_Obj)
     {
       (*(*m_Obj + 16))(m_Obj);
@@ -667,20 +666,20 @@ LABEL_91:
 
     if (outputNode2)
     {
-      [outputNode2 hgNodeForTime:&time trackInputs:graph renderer:&v82 igContext:&v78];
-      v31 = v79;
-      v32 = v81;
-      if (v81 == v79)
+      objc_msgSend_hgNodeForTime_trackInputs_renderer_igContext_(outputNode2);
+      v30 = v78;
+      v31 = v80;
+      if (v80 == v78)
       {
-        if (v79)
+        if (v78)
         {
-          (*(*v79 + 24))();
+          (*(*v78 + 24))();
         }
 
         goto LABEL_26;
       }
 
-      if (!v81)
+      if (!v80)
       {
         goto LABEL_25;
       }
@@ -688,151 +687,101 @@ LABEL_91:
 
     else
     {
-      v79 = 0;
-      v32 = v81;
-      if (!v81)
+      v78 = 0;
+      v31 = v80;
+      if (!v80)
       {
 LABEL_26:
-        if (v78)
+        if (v77)
         {
-          (*(*v78 + 24))(v78);
+          (*(*v77 + 24))(v77);
         }
 
         goto LABEL_29;
       }
     }
 
-    (*(*v32 + 24))(v32);
-    v31 = v79;
+    (*(*v31 + 24))(v31);
+    v30 = v78;
 LABEL_25:
-    v81 = v31;
-    v79 = 0;
+    v80 = v30;
+    v78 = 0;
     goto LABEL_26;
   }
 
-  v22 = atomic_load(HGLogger::_enabled);
-  if (v22)
+  v21 = atomic_load(HGLogger::_enabled);
+  if (v21)
   {
-    HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "instruction.outputNode is nil; returning empty HGNode\n", v13, v14);
+    HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "instruction.outputNode is nil; returning empty HGNode\n", v12, v13);
   }
 
-  v23 = HGObject::operator new(0x1A0uLL);
-  HGNode::HGNode(v23);
-  if (v81 == v23)
+  v22 = HGObject::operator new(0x1A0uLL);
+  HGNode::HGNode(v22);
+  if (v80 == v22)
   {
-    if (v23)
+    if (v22)
     {
-      (*(*v23 + 24))(v23);
+      (*(*v22 + 24))(v22);
     }
   }
 
   else
   {
-    v81 = v23;
+    v80 = v22;
   }
 
 LABEL_29:
   if (+[PVEnvironment PV_HIGHLIGHT_OUT_OF_GAMUT])
   {
-    v33 = HGObject::operator new(0x1A0uLL);
-    HgcHighlightOutOfGamut::HgcHighlightOutOfGamut(v33);
-    (*(*v33 + 120))(v33, 0, v81);
-    if (v81 != v33)
+    v32 = HGObject::operator new(0x1A0uLL);
+    HgcHighlightOutOfGamut::HgcHighlightOutOfGamut(v32);
+    (*(*v32 + 120))(v32, 0, v80);
+    if (v80 != v32)
     {
-      if (v81)
+      if (v80)
       {
-        (*(*v81 + 24))();
+        (*(*v80 + 24))();
       }
 
-      v81 = v33;
-      (*(*v33 + 16))(v33);
+      v80 = v32;
+      (*(*v32 + 16))(v32);
     }
 
-    (*(*v33 + 24))(v33);
+    (*(*v32 + 24))(v32);
   }
 
   if (+[PVEnvironment PVHighlightHDRRegions])
   {
-    v34 = PVInstructionGraphContext::WorkingColorSpace(self->m_instructionGraphContext.m_Obj);
-    v35 = +[PVColorSpace rec2020LinearColorSpace];
-    if (([v34 isEqual:v35] & 1) == 0)
+    v33 = PVInstructionGraphContext::WorkingColorSpace(self->m_instructionGraphContext.m_Obj);
+    v34 = +[PVColorSpace rec2020LinearColorSpace];
+    if (([v33 isEqual:v34] & 1) == 0)
     {
-      v77 = v81;
-      if (v81)
+      v76 = v80;
+      if (v80)
       {
-        (*(*v81 + 16))(v81);
+        (*(*v80 + 16))(v80);
       }
 
-      ColorConformInput(&v77, v34, v35, 0, 0, &v79);
-      v36 = v79;
-      if (v81 == v79)
+      ColorConformInput(&v76, v33, v34, 0, 0, &v78);
+      v35 = v78;
+      if (v80 == v78)
       {
-        if (v81)
+        if (v80)
         {
-          (*(*v79 + 24))(v79);
+          (*(*v78 + 24))(v78);
         }
       }
 
       else
       {
-        if (v81)
+        if (v80)
         {
-          (*(*v81 + 24))();
-          v36 = v79;
+          (*(*v80 + 24))();
+          v35 = v78;
         }
 
-        v81 = v36;
-        v79 = 0;
-      }
-
-      if (v77)
-      {
-        (*(*v77 + 24))(v77);
-      }
-    }
-
-    v37 = HGObject::operator new(0x1A0uLL);
-    HgcHighlightHDRRegion::HgcHighlightHDRRegion(v37);
-    (*(*v37 + 120))(v37, 0, v81);
-    if (v81 != v37)
-    {
-      if (v81)
-      {
-        (*(*v81 + 24))();
-      }
-
-      v81 = v37;
-      (*(*v37 + 16))(v37);
-    }
-
-    if (([v34 isEqual:v35] & 1) == 0)
-    {
-      v76 = v81;
-      if (v81)
-      {
-        (*(*v81 + 16))(v81);
-      }
-
-      ColorConformInput(&v76, v35, v34, 0, 0, &v79);
-      v38 = v79;
-      if (v81 == v79)
-      {
-        if (v81)
-        {
-          (*(*v79 + 24))(v79);
-        }
-      }
-
-      else
-      {
-        if (v81)
-        {
-          (*(*v81 + 24))();
-          v38 = v79;
-        }
-
-        v81 = v38;
-        v79 = 0;
+        v80 = v35;
+        v78 = 0;
       }
 
       if (v76)
@@ -841,124 +790,174 @@ LABEL_29:
       }
     }
 
-    (*(*v37 + 24))(v37);
-  }
-
-  v75 = v81;
-  if (v81)
-  {
-    (*(*v81 + 16))(v81);
-  }
-
-  v39 = PVInstructionGraphContext::WorkingColorSpace(self->m_instructionGraphContext.m_Obj);
-  v40 = PVInstructionGraphContext::OutputColorSpace(self->m_instructionGraphContext.m_Obj);
-  v74 = 0;
-  ColorConformInput(&v75, v39, v40, 1, &v74, &v79);
-  v41 = v74;
-  v42 = v79;
-  if (v81 == v79)
-  {
-    if (v81)
+    v36 = HGObject::operator new(0x1A0uLL);
+    HgcHighlightHDRRegion::HgcHighlightHDRRegion(v36);
+    (*(*v36 + 120))(v36, 0, v80);
+    if (v80 != v36)
     {
-      (*(*v79 + 24))(v79);
+      if (v80)
+      {
+        (*(*v80 + 24))();
+      }
+
+      v80 = v36;
+      (*(*v36 + 16))(v36);
+    }
+
+    if (([v33 isEqual:v34] & 1) == 0)
+    {
+      v75 = v80;
+      if (v80)
+      {
+        (*(*v80 + 16))(v80);
+      }
+
+      ColorConformInput(&v75, v34, v33, 0, 0, &v78);
+      v37 = v78;
+      if (v80 == v78)
+      {
+        if (v80)
+        {
+          (*(*v78 + 24))(v78);
+        }
+      }
+
+      else
+      {
+        if (v80)
+        {
+          (*(*v80 + 24))();
+          v37 = v78;
+        }
+
+        v80 = v37;
+        v78 = 0;
+      }
+
+      if (v75)
+      {
+        (*(*v75 + 24))(v75);
+      }
+    }
+
+    (*(*v36 + 24))(v36);
+  }
+
+  v74 = v80;
+  if (v80)
+  {
+    (*(*v80 + 16))(v80);
+  }
+
+  v38 = PVInstructionGraphContext::WorkingColorSpace(self->m_instructionGraphContext.m_Obj);
+  v39 = PVInstructionGraphContext::OutputColorSpace(self->m_instructionGraphContext.m_Obj);
+  v73 = 0;
+  ColorConformInput(&v74, v38, v39, 1, &v73, &v78);
+  v40 = v73;
+  v41 = v78;
+  if (v80 == v78)
+  {
+    if (v80)
+    {
+      (*(*v78 + 24))(v78);
     }
   }
 
   else
   {
-    if (v81)
+    if (v80)
     {
-      (*(*v81 + 24))();
-      v42 = v79;
+      (*(*v80 + 24))();
+      v41 = v78;
     }
 
-    v81 = v42;
-    v79 = 0;
+    v80 = v41;
+    v78 = 0;
   }
 
-  if (v75)
+  if (v74)
   {
-    (*(*v75 + 24))(v75);
+    (*(*v74 + 24))(v74);
   }
 
-  if (v41)
+  if (v40)
   {
-    NSLog(&cfstr_ConformError.isa, v41);
+    NSLog(&cfstr_ConformError.isa, v40);
   }
 
   requiredPixelBufferAttributesForRenderContext = [(PVVideoCompositing *)self->m_compositor requiredPixelBufferAttributesForRenderContext];
-  v44 = [requiredPixelBufferAttributesForRenderContext objectForKey:*MEMORY[0x277CC4E30]];
-  v45 = [v44 objectAtIndex:0];
-  unsignedIntValue = [v45 unsignedIntValue];
+  v43 = [requiredPixelBufferAttributesForRenderContext objectForKey:*MEMORY[0x277CC4E30]];
+  v44 = [v43 objectAtIndex:0];
+  unsignedIntValue = [v44 unsignedIntValue];
 
-  if (PVIsMultiplaneCoreVideo420Format(unsignedIntValue) || PVIsMultiplaneCoreVideo422Format(unsignedIntValue))
+  if ((PVIsMultiplaneCoreVideo420Format(unsignedIntValue) & 1) != 0 || PVIsMultiplaneCoreVideo422Format(unsignedIntValue))
   {
-    v73 = v41;
+    v72 = v40;
     renderContext = [(AVAsynchronousVideoCompositionRequest *)self->m_request renderContext];
     [renderContext size];
-    v49 = v48;
+    v48 = v47;
     renderContext2 = [(AVAsynchronousVideoCompositionRequest *)self->m_request renderContext];
     [renderContext2 renderScale];
-    v52 = v51;
+    v51 = v50;
 
     renderContext3 = [(AVAsynchronousVideoCompositionRequest *)self->m_request renderContext];
     [renderContext3 size];
-    v55 = v54;
+    v54 = v53;
     renderContext4 = [(AVAsynchronousVideoCompositionRequest *)self->m_request renderContext];
     [renderContext4 renderScale];
     nodesCopy = nodes;
-    v58 = (v49 * v52);
-    v60 = (v55 * v59);
+    v57 = (v48 * v51);
+    v59 = (v54 * v58);
 
-    v61 = v58 & 1;
-    if (v58 < 0)
+    v60 = v57 & 1;
+    if (v57 < 0)
     {
-      v61 = -v61;
+      v60 = -v60;
     }
 
-    v62 = HGRectMake4i(0, 0, v61 + v58, v60);
-    v64 = v63;
-    DOD = HGRenderer::GetDOD(v82, v81);
-    v67 = v66;
-    v68 = PVInstructionGraphContext::OutputColorSpace(self->m_instructionGraphContext.m_Obj);
-    nclcTriplet = [v68 nclcTriplet];
+    v61 = HGRectMake4i(0, 0, v60 + v57, v59);
+    v63 = v62;
+    DOD = HGRenderer::GetDOD(v81, v80);
+    v66 = v65;
+    v67 = PVInstructionGraphContext::OutputColorSpace(self->m_instructionGraphContext.m_Obj);
+    nclcTriplet = [v67 nclcTriplet];
 
-    PVCreateYUVPlanesWithBackfillBlackBackground(DOD, v67, v62, v64, &v81, nclcTriplet, unsignedIntValue, nodesCopy);
-    v41 = v73;
+    PVCreateYUVPlanesWithBackfillBlackBackground(DOD, v66, v61, v63, &v80, nclcTriplet, unsignedIntValue, nodesCopy);
+    v40 = v72;
   }
 
   else
   {
-    v70 = *(nodes + 1);
-    if (v70 >= *(nodes + 2))
+    v69 = *(nodes + 1);
+    if (v69 >= *(nodes + 2))
     {
-      v72 = std::vector<HGRef<HGNode>>::__emplace_back_slow_path<HGRef<HGNode> const&>(nodes, &v81);
+      v71 = std::vector<HGRef<HGNode>>::__emplace_back_slow_path<HGRef<HGNode> const&>(nodes, &v80);
     }
 
     else
     {
-      v71 = v81;
-      *v70 = v81;
-      if (v71)
+      v70 = v80;
+      *v69 = v80;
+      if (v70)
       {
-        (*(*v71 + 16))(v71);
+        (*(*v70 + 16))(v70);
       }
 
-      v72 = (v70 + 1);
-      *(nodes + 1) = v70 + 1;
+      v71 = (v69 + 1);
+      *(nodes + 1) = v69 + 1;
     }
 
-    *(nodes + 1) = v72;
+    *(nodes + 1) = v71;
+  }
+
+  if (v80)
+  {
+    (*(*v80 + 24))(v80);
   }
 
   if (v81)
   {
     (*(*v81 + 24))(v81);
-  }
-
-  if (v82)
-  {
-    (*(*v82 + 24))(v82);
   }
 }
 

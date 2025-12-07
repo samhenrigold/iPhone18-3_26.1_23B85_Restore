@@ -117,45 +117,8 @@
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    if (objc_opt_isKindOfClass() & 1) == 0 || ([(HAPMetadataConstraints *)self minimumValue], v5 = objc_claimAutoreleasedReturnValue(), [(HAPMetadataConstraints *)constraintsCopy minimumValue], v6 = objc_claimAutoreleasedReturnValue(), v7 = numbersAreNotEqualNilSafe(v5, v6), v6, v5, (v7) || ([(HAPMetadataConstraints *)self maximumValue], v8 = objc_claimAutoreleasedReturnValue(), [(HAPMetadataConstraints *)constraintsCopy maximumValue], v9 = objc_claimAutoreleasedReturnValue(), v10 = numbersAreNotEqualNilSafe(v8, v9), v9, v8, (v10) || ([(HAPMetadataConstraints *)self stepValue], v11 = objc_claimAutoreleasedReturnValue(), [(HAPMetadataConstraints *)constraintsCopy stepValue], v12 = objc_claimAutoreleasedReturnValue(), v13 = numbersAreNotEqualNilSafe(v11, v12), v12, v11, (v13) || ([(HAPMetadataConstraints *)self minLength], v14 = objc_claimAutoreleasedReturnValue(), [(HAPMetadataConstraints *)constraintsCopy minLength], v15 = objc_claimAutoreleasedReturnValue(), v16 = numbersAreNotEqualNilSafe(v14, v15), v15, v14, (v16) || ([(HAPMetadataConstraints *)self maxLength], v17 = objc_claimAutoreleasedReturnValue(), [(HAPMetadataConstraints *)constraintsCopy maxLength], v18 = objc_claimAutoreleasedReturnValue(), v19 = numbersAreNotEqualNilSafe(v17, v18), v18, v17, (v19))
     {
-      goto LABEL_8;
-    }
-
-    minimumValue = [(HAPMetadataConstraints *)self minimumValue];
-    minimumValue2 = [(HAPMetadataConstraints *)constraintsCopy minimumValue];
-    v7 = numbersAreNotEqualNilSafe(minimumValue, minimumValue2);
-
-    if (v7)
-    {
-      goto LABEL_8;
-    }
-
-    maximumValue = [(HAPMetadataConstraints *)self maximumValue];
-    maximumValue2 = [(HAPMetadataConstraints *)constraintsCopy maximumValue];
-    v10 = numbersAreNotEqualNilSafe(maximumValue, maximumValue2);
-
-    if (v10)
-    {
-      goto LABEL_8;
-    }
-
-    stepValue = [(HAPMetadataConstraints *)self stepValue];
-    stepValue2 = [(HAPMetadataConstraints *)constraintsCopy stepValue];
-    v13 = numbersAreNotEqualNilSafe(stepValue, stepValue2);
-
-    if (v13)
-    {
-      goto LABEL_8;
-    }
-
-    minLength = [(HAPMetadataConstraints *)self minLength];
-    minLength2 = [(HAPMetadataConstraints *)constraintsCopy minLength];
-    v16 = numbersAreNotEqualNilSafe(minLength, minLength2);
-
-    if (v16 & 1) != 0 || ([(HAPMetadataConstraints *)self maxLength], v17 = objc_claimAutoreleasedReturnValue(), [(HAPMetadataConstraints *)constraintsCopy maxLength], v18 = objc_claimAutoreleasedReturnValue(), v19 = numbersAreNotEqualNilSafe(v17, v18), v18, v17, (v19))
-    {
-LABEL_8:
       v20 = 0;
     }
 
@@ -198,7 +161,7 @@ LABEL_8:
 
 - (id)description
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"[ Constraints:"];
   minimumValue = [(HAPMetadataConstraints *)self minimumValue];
 
@@ -315,29 +278,29 @@ LABEL_8:
     }
 
     [v3 appendFormat:@"%@%@", v26, @"Valid Values: "];
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     validValues2 = [(HAPMetadataConstraints *)self validValues];
-    v28 = [validValues2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v28 = [validValues2 countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v35;
+      v30 = *v34;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v35 != v30)
+          if (*v34 != v30)
           {
             objc_enumerationMutation(validValues2);
           }
 
-          [v3 appendFormat:@"%@, ", *(*(&v34 + 1) + 8 * i)];
+          [v3 appendFormat:@"%@, ", *(*(&v33 + 1) + 8 * i)];
         }
 
-        v29 = [validValues2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v29 = [validValues2 countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v29);
@@ -345,7 +308,6 @@ LABEL_8:
   }
 
   [v3 appendString:@" ]"];
-  v32 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

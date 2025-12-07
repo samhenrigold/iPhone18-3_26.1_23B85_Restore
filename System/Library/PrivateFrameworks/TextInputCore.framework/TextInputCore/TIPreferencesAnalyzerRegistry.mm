@@ -1,9 +1,24 @@
 @interface TIPreferencesAnalyzerRegistry
 - (TIPreferencesAnalyzerRegistry)init;
+- (void)_registerPreference:(id)preference domain:(id)domain defaultValue:(id)value reportingMode:(int)mode;
 - (void)enumerateRegisteredPreferencesUsingBlock:(id)block;
 @end
 
 @implementation TIPreferencesAnalyzerRegistry
+
+- (void)_registerPreference:(id)preference domain:(id)domain defaultValue:(id)value reportingMode:(int)mode
+{
+  if (preference && domain)
+  {
+    v7 = *&mode;
+    valueCopy = value;
+    domainCopy = domain;
+    preferenceCopy = preference;
+    v13 = [[_TIPreferencesAnalyzerProperty alloc] initWithKey:preferenceCopy domain:domainCopy defaultValue:valueCopy reportingMode:v7];
+
+    [(NSMutableArray *)self->_registry addObject:v13];
+  }
+}
 
 - (void)enumerateRegisteredPreferencesUsingBlock:(id)block
 {

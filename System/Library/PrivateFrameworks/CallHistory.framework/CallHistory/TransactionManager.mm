@@ -97,24 +97,24 @@ uint64_t __30__TransactionManager_instance__block_invoke(uint64_t a1)
 
 - (void)setupConnectionHandlers_sync
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!self->_syncHelperReadyNotificationRef)
   {
     logHandle = [(CHSynchronizedLoggable *)self logHandle];
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = @"kCallHistorySyncHelperReadyNotification";
+      v14 = @"kCallHistorySyncHelperReadyNotification";
       _os_log_impl(&dword_1C3E90000, logHandle, OS_LOG_TYPE_DEFAULT, "Registering for %{public}@", buf, 0xCu);
     }
 
     defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __50__TransactionManager_setupConnectionHandlers_sync__block_invoke;
-    v13[3] = &unk_1E81DCAF8;
-    v13[4] = self;
-    v5 = [defaultCenter addObserverForName:@"kCallHistorySyncHelperReadyNotification" object:0 queue:0 usingBlock:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __50__TransactionManager_setupConnectionHandlers_sync__block_invoke;
+    v12[3] = &unk_1E81DCAF8;
+    v12[4] = self;
+    v5 = [defaultCenter addObserverForName:@"kCallHistorySyncHelperReadyNotification" object:0 queue:0 usingBlock:v12];
     syncHelperReadyNotificationRef = self->_syncHelperReadyNotificationRef;
     self->_syncHelperReadyNotificationRef = v5;
   }
@@ -127,23 +127,22 @@ uint64_t __30__TransactionManager_instance__block_invoke(uint64_t a1)
   }
 
   objc_initWeak(buf, self);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __50__TransactionManager_setupConnectionHandlers_sync__block_invoke_66;
-  v11[3] = &unk_1E81DBF80;
-  objc_copyWeak(&v12, buf);
-  [(NSXPCConnection *)self->_connection setInvalidationHandler:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __50__TransactionManager_setupConnectionHandlers_sync__block_invoke_66;
+  v10[3] = &unk_1E81DBF80;
+  objc_copyWeak(&v11, buf);
+  [(NSXPCConnection *)self->_connection setInvalidationHandler:v10];
   logHandle3 = [(CHSynchronizedLoggable *)self logHandle];
   if (os_log_type_enabled(logHandle3, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_1C3E90000, logHandle3, OS_LOG_TYPE_DEFAULT, "Setting up interruption handler", v10, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_1C3E90000, logHandle3, OS_LOG_TYPE_DEFAULT, "Setting up interruption handler", v9, 2u);
   }
 
   [(NSXPCConnection *)self->_connection setInterruptionHandler:&__block_literal_global_6];
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -171,13 +170,13 @@ uint64_t __30__TransactionManager_instance__block_invoke(uint64_t a1)
 
 - (void)appendTransactions_sync:(id)transactions_sync
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   transactions_syncCopy = transactions_sync;
   logHandle = [(CHSynchronizedLoggable *)self logHandle];
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v16 = [transactions_syncCopy count];
+    v15 = [transactions_syncCopy count];
     _os_log_impl(&dword_1C3E90000, logHandle, OS_LOG_TYPE_DEFAULT, "Appending %lu transactions", buf, 0xCu);
   }
 
@@ -189,20 +188,18 @@ uint64_t __30__TransactionManager_instance__block_invoke(uint64_t a1)
     aBlock[3] = &unk_1E81DC140;
     aBlock[4] = self;
     v6 = transactions_syncCopy;
-    v14 = v6;
+    v13 = v6;
     v7 = _Block_copy(aBlock);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __46__TransactionManager_appendTransactions_sync___block_invoke_63;
-    v10[3] = &unk_1E81DCAD0;
-    v10[4] = self;
-    v12 = v7;
-    v11 = v6;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __46__TransactionManager_appendTransactions_sync___block_invoke_63;
+    v9[3] = &unk_1E81DCAD0;
+    v9[4] = self;
+    v11 = v7;
+    v10 = v6;
     v8 = v7;
-    [(CHSynchronizedLoggable *)self execute:v10];
+    [(CHSynchronizedLoggable *)self execute:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __46__TransactionManager_appendTransactions_sync___block_invoke(uint64_t a1, void *a2)
@@ -235,7 +232,7 @@ void __46__TransactionManager_appendTransactions_sync___block_invoke(uint64_t a1
 
 void __46__TransactionManager_appendTransactions_sync___block_invoke_60(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 48);
   if (!v2)
   {
@@ -252,12 +249,10 @@ void __46__TransactionManager_appendTransactions_sync___block_invoke_60(uint64_t
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [*(*(a1 + 32) + 48) count];
-    v9 = 134217984;
-    v10 = v7;
-    _os_log_impl(&dword_1C3E90000, v6, OS_LOG_TYPE_DEFAULT, "Now have %lu queued transactions", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = v7;
+    _os_log_impl(&dword_1C3E90000, v6, OS_LOG_TYPE_DEFAULT, "Now have %lu queued transactions", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __46__TransactionManager_appendTransactions_sync___block_invoke_63(uint64_t a1)
@@ -377,11 +372,10 @@ void __50__TransactionManager_setupConnectionHandlers_sync__block_invoke_68()
 
 void __46__TransactionManager_appendTransactions_sync___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C3E90000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C3E90000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v2, 0xCu);
 }
 
 @end

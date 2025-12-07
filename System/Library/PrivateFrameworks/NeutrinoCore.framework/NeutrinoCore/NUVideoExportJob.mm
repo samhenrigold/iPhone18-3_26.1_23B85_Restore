@@ -109,16 +109,16 @@
 
 - (BOOL)render:(id *)render
 {
-  v440 = *MEMORY[0x1E69E9840];
+  v438 = *MEMORY[0x1E69E9840];
   if (!render)
   {
     v260 = NUAssertLogger_3938();
     if (os_log_type_enabled(v260, OS_LOG_TYPE_ERROR))
     {
       v261 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid parameter not satisfying: %s", "error != nil"];
-      *v435 = 138543362;
-      *&v435[4] = v261;
-      _os_log_error_impl(&dword_1C0184000, v260, OS_LOG_TYPE_ERROR, "Fail: %{public}@", v435, 0xCu);
+      *v433 = 138543362;
+      *&v433[4] = v261;
+      _os_log_error_impl(&dword_1C0184000, v260, OS_LOG_TYPE_ERROR, "Fail: %{public}@", v433, 0xCu);
     }
 
     specific = dispatch_get_specific(NUCurrentlyExecutingJobNameKey);
@@ -133,11 +133,11 @@
         v270 = v268;
         callStackSymbols = [v269 callStackSymbols];
         v272 = [callStackSymbols componentsJoinedByString:@"\n"];
-        *v435 = 138543618;
-        *&v435[4] = v268;
-        *&v435[12] = 2114;
-        *&v435[14] = v272;
-        _os_log_error_impl(&dword_1C0184000, v263, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", v435, 0x16u);
+        *v433 = 138543618;
+        *&v433[4] = v268;
+        *&v433[12] = 2114;
+        *&v433[14] = v272;
+        _os_log_error_impl(&dword_1C0184000, v263, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", v433, 0x16u);
       }
     }
 
@@ -145,9 +145,9 @@
     {
       callStackSymbols2 = [MEMORY[0x1E696AF00] callStackSymbols];
       v266 = [callStackSymbols2 componentsJoinedByString:@"\n"];
-      *v435 = 138543362;
-      *&v435[4] = v266;
-      _os_log_error_impl(&dword_1C0184000, v263, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", v435, 0xCu);
+      *v433 = 138543362;
+      *&v433[4] = v266;
+      _os_log_error_impl(&dword_1C0184000, v263, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", v433, 0xCu);
     }
 
     _NUAssertFailHandler("[NUVideoExportJob render:]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Render/NUVideoExportJob.m", 240, @"Invalid parameter not satisfying: %s", v273, v274, v275, v276, "error != nil");
@@ -157,9 +157,9 @@
   videoProperties = [(NUVideoExportJob *)self videoProperties];
   v3 = objc_alloc(MEMORY[0x1E6987E78]);
   outputVideo = [(NURenderJob *)self outputVideo];
-  v423 = 0;
-  v5 = [v3 initWithAsset:outputVideo error:&v423];
-  v6 = v423;
+  v421 = 0;
+  v5 = [v3 initWithAsset:outputVideo error:&v421];
+  v6 = v421;
 
   if (!v5)
   {
@@ -173,9 +173,9 @@
   pathExtension = [outputVideo2 pathExtension];
   v314 = NUFileTypeFromExtension(pathExtension);
 
-  v422 = v6;
-  v319 = [objc_alloc(MEMORY[0x1E6987ED8]) initWithURL:outputVideo2 fileType:v314 error:&v422];
-  v312 = v422;
+  v420 = v6;
+  v319 = [objc_alloc(MEMORY[0x1E6987ED8]) initWithURL:outputVideo2 fileType:v314 error:&v420];
+  v312 = v420;
 
   if (!v319)
   {
@@ -191,11 +191,11 @@
   array2 = [MEMORY[0x1E695DF70] array];
   array3 = [MEMORY[0x1E695DF70] array];
   array4 = [MEMORY[0x1E695DF70] array];
-  memset(&v421, 0, sizeof(v421));
+  memset(&v419, 0, sizeof(v419));
   if (videoProperties)
   {
-    [videoProperties livePhotoKeyFrameTime];
-    flags = v421.flags;
+    objc_msgSend_livePhotoKeyFrameTime(videoProperties);
+    flags = v419.flags;
   }
 
   else
@@ -203,14 +203,14 @@
     flags = 0;
   }
 
-  v420 = 0u;
-  v419 = 0u;
   v418 = 0u;
   v417 = 0u;
+  v416 = 0u;
+  v415 = 0u;
   outputVideo3 = [(NURenderJob *)self outputVideo];
   tracks = [outputVideo3 tracks];
 
-  v12 = [tracks countByEnumeratingWithState:&v417 objects:v439 count:16];
+  v12 = [tracks countByEnumeratingWithState:&v415 objects:v437 count:16];
   if (!v12)
   {
     newTimescale = 600;
@@ -218,7 +218,7 @@
     goto LABEL_44;
   }
 
-  v13 = *v418;
+  v13 = *v416;
   v14 = *MEMORY[0x1E6987608];
   v15 = *MEMORY[0x1E69875B0];
   v352 = *MEMORY[0x1E69875A0];
@@ -230,12 +230,12 @@
     v17 = 0;
     do
     {
-      if (*v418 != v13)
+      if (*v416 != v13)
       {
         objc_enumerationMutation(tracks);
       }
 
-      v18 = *(*(&v417 + 1) + 8 * v17);
+      v18 = *(*(&v415 + 1) + 8 * v17);
       mediaType = [v18 mediaType];
       v20 = [mediaType isEqualToString:v14];
 
@@ -326,18 +326,18 @@ LABEL_26:
     }
 
     while (v12 != v17);
-    v31 = [tracks countByEnumeratingWithState:&v417 objects:v439 count:16];
+    v31 = [tracks countByEnumeratingWithState:&v415 objects:v437 count:16];
     v12 = v31;
   }
 
   while (v31);
 LABEL_44:
 
-  if (v421.flags)
+  if (v419.flags)
   {
-    time = v421;
-    CMTimeConvertScale(v435, &time, newTimescale, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
-    v421 = *v435;
+    time = v419;
+    CMTimeConvertScale(v433, &time, newTimescale, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
+    v419 = *v433;
   }
 
   outputSettings = [videoExportRequest outputSettings];
@@ -367,9 +367,9 @@ LABEL_44:
     if (os_log_type_enabled(v277, OS_LOG_TYPE_ERROR))
     {
       v278 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Expected even dimensions for the exported video"];
-      *v435 = 138543362;
-      *&v435[4] = v278;
-      _os_log_error_impl(&dword_1C0184000, v277, OS_LOG_TYPE_ERROR, "Fail: %{public}@", v435, 0xCu);
+      *v433 = 138543362;
+      *&v433[4] = v278;
+      _os_log_error_impl(&dword_1C0184000, v277, OS_LOG_TYPE_ERROR, "Fail: %{public}@", v433, 0xCu);
     }
 
     v279 = dispatch_get_specific(NUCurrentlyExecutingJobNameKey);
@@ -384,11 +384,11 @@ LABEL_44:
         v286 = v284;
         callStackSymbols3 = [v285 callStackSymbols];
         v288 = [callStackSymbols3 componentsJoinedByString:@"\n"];
-        *v435 = 138543618;
-        *&v435[4] = v284;
-        *&v435[12] = 2114;
-        *&v435[14] = v288;
-        _os_log_error_impl(&dword_1C0184000, v280, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", v435, 0x16u);
+        *v433 = 138543618;
+        *&v433[4] = v284;
+        *&v433[12] = 2114;
+        *&v433[14] = v288;
+        _os_log_error_impl(&dword_1C0184000, v280, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", v433, 0x16u);
       }
     }
 
@@ -396,9 +396,9 @@ LABEL_44:
     {
       callStackSymbols4 = [MEMORY[0x1E696AF00] callStackSymbols];
       v283 = [callStackSymbols4 componentsJoinedByString:@"\n"];
-      *v435 = 138543362;
-      *&v435[4] = v283;
-      _os_log_error_impl(&dword_1C0184000, v280, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", v435, 0xCu);
+      *v433 = 138543362;
+      *&v433[4] = v283;
+      _os_log_error_impl(&dword_1C0184000, v280, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", v433, 0xCu);
     }
 
     _NUAssertFailHandler("[NUVideoExportJob render:]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Render/NUVideoExportJob.m", 352, @"Expected even dimensions for the exported video", v289, v290, v291, v292, v293);
@@ -499,8 +499,8 @@ LABEL_44:
       [v93 removeObjectForKey:*MEMORY[0x1E6987DC8]];
       if (videoProperties)
       {
-        [videoProperties cleanAperture];
-        v308 = [NUVideoUtilities cleanApertureVideoSettingsFor:v435 scale:renderScale videoSize:v56, v309, v308];
+        objc_msgSend_cleanAperture(videoProperties);
+        v308 = [NUVideoUtilities cleanApertureVideoSettingsFor:v433 scale:renderScale videoSize:v56, v309, v308];
         [v93 setObject:v308 forKeyedSubscript:*MEMORY[0x1E6987C88]];
       }
 
@@ -521,7 +521,7 @@ LABEL_44:
     v101 = *MEMORY[0x1E6987608];
     v333 = [outputVideo4 tracksWithMediaType:*MEMORY[0x1E6987608]];
 
-    v102 = [v333 countByEnumeratingWithState:&v396 objects:v434 count:16];
+    v102 = [v333 countByEnumeratingWithState:&v396 objects:v432 count:16];
     if (v102)
     {
       v103 = *v397;
@@ -549,7 +549,7 @@ LABEL_44:
           v107 = [objc_alloc(MEMORY[0x1E6987EE0]) initWithMediaType:v101 outputSettings:v340];
           if (v105)
           {
-            [v105 preferredTransform];
+            objc_msgSend_preferredTransform(v105);
           }
 
           else
@@ -559,10 +559,10 @@ LABEL_44:
             v393 = 0u;
           }
 
-          *v435 = v393;
-          *&v435[16] = v394;
-          v436 = v395;
-          [v107 setTransform:v435];
+          *v433 = v393;
+          *&v433[16] = v394;
+          v434 = v395;
+          [v107 setTransform:v433];
           [v105 naturalSize];
           [v107 setNaturalSize:?];
           [v107 setMediaTimeScale:{objc_msgSend(v105, "naturalTimeScale")}];
@@ -586,7 +586,7 @@ LABEL_123:
           [v353 setObject:v107 forKeyedSubscript:v111];
         }
 
-        v102 = [v333 countByEnumeratingWithState:&v396 objects:v434 count:16];
+        v102 = [v333 countByEnumeratingWithState:&v396 objects:v432 count:16];
       }
 
       while (v102);
@@ -601,24 +601,7 @@ LABEL_123:
     v50 = outputVideoComposition2;
     if (outputVideoComposition2)
     {
-      [outputVideoComposition2 frameDuration];
-    }
-
-    else
-    {
-      v414 = 0uLL;
-      v415 = 0;
-    }
-
-    *v435 = v414;
-    *&v435[16] = v415;
-    [v316 setSourceVideoMinFrameDuration:v435];
-
-    outputVideoComposition3 = [(NURenderJob *)self outputVideoComposition];
-    v63 = outputVideoComposition3;
-    if (outputVideoComposition3)
-    {
-      [outputVideoComposition3 frameDuration];
+      objc_msgSend_frameDuration(outputVideoComposition2);
     }
 
     else
@@ -627,9 +610,26 @@ LABEL_123:
       v413 = 0;
     }
 
-    *v435 = v412;
-    *&v435[16] = v413;
-    [v316 setSourceVideoAverageFrameDuration:v435];
+    *v433 = v412;
+    *&v433[16] = v413;
+    [v316 setSourceVideoMinFrameDuration:v433];
+
+    outputVideoComposition3 = [(NURenderJob *)self outputVideoComposition];
+    v63 = outputVideoComposition3;
+    if (outputVideoComposition3)
+    {
+      objc_msgSend_frameDuration(outputVideoComposition3);
+    }
+
+    else
+    {
+      v410 = 0uLL;
+      v411 = 0;
+    }
+
+    *v433 = v410;
+    *&v433[16] = v411;
+    [v316 setSourceVideoAverageFrameDuration:v433];
 
     outputVideoComposition4 = [(NURenderJob *)self outputVideoComposition];
     sourceTrackIDForFrameTiming = [outputVideoComposition4 sourceTrackIDForFrameTiming];
@@ -643,23 +643,23 @@ LABEL_123:
     }
 
     v67 = objc_opt_new();
-    v411 = 0u;
-    v410 = 0u;
     v409 = 0u;
     v408 = 0u;
+    v407 = 0u;
+    v406 = 0u;
     outputVideoComposition5 = [(NURenderJob *)self outputVideoComposition];
     obj = [outputVideoComposition5 instructions];
 
-    v331 = [obj countByEnumeratingWithState:&v408 objects:v438 count:16];
+    v331 = [obj countByEnumeratingWithState:&v406 objects:v436 count:16];
     if (v331)
     {
-      v324 = *v409;
+      v324 = *v407;
       do
       {
         v69 = 0;
         do
         {
-          if (*v409 != v324)
+          if (*v407 != v324)
           {
             v70 = v69;
             objc_enumerationMutation(obj);
@@ -667,27 +667,27 @@ LABEL_123:
           }
 
           v338 = v69;
-          v71 = *(*(&v408 + 1) + 8 * v69);
+          v71 = *(*(&v406 + 1) + 8 * v69);
+          v402 = 0u;
+          v403 = 0u;
           v404 = 0u;
           v405 = 0u;
-          v406 = 0u;
-          v407 = 0u;
           requiredSourceTrackIDs = [v71 requiredSourceTrackIDs];
-          v73 = [requiredSourceTrackIDs countByEnumeratingWithState:&v404 objects:v437 count:16];
+          v73 = [requiredSourceTrackIDs countByEnumeratingWithState:&v402 objects:v435 count:16];
           if (v73)
           {
-            v74 = *v405;
+            v74 = *v403;
             do
             {
               for (j = 0; j != v73; ++j)
               {
-                if (*v405 != v74)
+                if (*v403 != v74)
                 {
                   objc_enumerationMutation(requiredSourceTrackIDs);
                 }
 
                 v76 = MEMORY[0x1E69C0708];
-                intValue = [*(*(&v404 + 1) + 8 * j) intValue];
+                intValue = [*(*(&v402 + 1) + 8 * j) intValue];
                 asset = [v5 asset];
                 v79 = [v76 trackWithTrackID:intValue forAsset:asset];
 
@@ -697,7 +697,7 @@ LABEL_123:
                 }
               }
 
-              v73 = [requiredSourceTrackIDs countByEnumeratingWithState:&v404 objects:v437 count:16];
+              v73 = [requiredSourceTrackIDs countByEnumeratingWithState:&v402 objects:v435 count:16];
             }
 
             while (v73);
@@ -707,7 +707,7 @@ LABEL_123:
         }
 
         while (v338 + 1 != v331);
-        v331 = [obj countByEnumeratingWithState:&v408 objects:v438 count:16];
+        v331 = [obj countByEnumeratingWithState:&v406 objects:v436 count:16];
       }
 
       while (v331);
@@ -804,9 +804,9 @@ LABEL_123:
 
     [v325 setObject:v299 forKeyedSubscript:*MEMORY[0x1E6983670]];
     [v339 setObject:v325 forKeyedSubscript:v128];
-    v403 = 0;
-    obja = [outputGeometry transformWithSourceSpace:@"/Image" destinationSpace:@"/masterSpace" error:&v403];
-    v130 = v403;
+    v401 = 0;
+    obja = [outputGeometry transformWithSourceSpace:@"/Image" destinationSpace:@"/masterSpace" error:&v401];
+    v130 = v401;
     if (!obja)
     {
       if (_NULogOnceToken != -1)
@@ -817,9 +817,9 @@ LABEL_123:
       v131 = _NULogger;
       if (os_log_type_enabled(v131, OS_LOG_TYPE_DEBUG))
       {
-        *v435 = 138412290;
-        *&v435[4] = v130;
-        _os_log_debug_impl(&dword_1C0184000, v131, OS_LOG_TYPE_DEBUG, "can't get mapping from input to output space, %@", v435, 0xCu);
+        *v433 = 138412290;
+        *&v433[4] = v130;
+        _os_log_debug_impl(&dword_1C0184000, v131, OS_LOG_TYPE_DEBUG, "can't get mapping from input to output space, %@", v433, 0xCu);
       }
     }
 
@@ -843,8 +843,8 @@ LABEL_123:
     {
       v142 = v140;
       v143 = v141;
-      [videoProperties cleanAperture];
-      v3082 = [NUVideoUtilities cleanApertureVideoSettingsFor:v435 scale:v142 videoSize:v143, v309, v308];
+      objc_msgSend_cleanAperture(videoProperties);
+      v3082 = [NUVideoUtilities cleanApertureVideoSettingsFor:v433 scale:v142 videoSize:v143, v309, v308];
       [v339 setObject:v3082 forKeyedSubscript:*MEMORY[0x1E6987C88]];
     }
 
@@ -865,11 +865,11 @@ LABEL_123:
     }
 
     v150 = [outputGeometry size];
-    [NUVideoUtilities preferredTransformFromOrientation:orientation size:v150, v151];
-    *v435 = v400;
-    *&v435[16] = v401;
-    v436 = v402;
-    [v146 setTransform:v435];
+    objc_msgSend_preferredTransformFromOrientation_size_(NUVideoUtilities, v151, orientation, v150, v151);
+    *v433 = v400[0];
+    *&v433[16] = v400[1];
+    v434 = v400[2];
+    [v146 setTransform:v433];
     outputVideoComposition7 = [(NURenderJob *)self outputVideoComposition];
     [outputVideoComposition7 renderSize];
     [v146 setNaturalSize:?];
@@ -909,7 +909,7 @@ LABEL_123:
     v385 = 0u;
     v386 = 0u;
     v180 = array3;
-    v181 = [v180 countByEnumeratingWithState:&v385 objects:v431 count:16];
+    v181 = [v180 countByEnumeratingWithState:&v385 objects:v429 count:16];
     if (!v181)
     {
       goto LABEL_220;
@@ -950,7 +950,7 @@ LABEL_192:
 
       if (v181 == ++v184)
       {
-        v181 = [v180 countByEnumeratingWithState:&v385 objects:v431 count:16];
+        v181 = [v180 countByEnumeratingWithState:&v385 objects:v429 count:16];
         if (!v181)
         {
           goto LABEL_220;
@@ -1062,9 +1062,9 @@ LABEL_312:
     if (os_log_type_enabled(v161, OS_LOG_TYPE_ERROR))
     {
       v267 = [array3 count];
-      *v435 = 134217984;
-      *&v435[4] = v267;
-      _os_log_error_impl(&dword_1C0184000, v161, OS_LOG_TYPE_ERROR, "Expected 2 audio tracks, got %lu", v435, 0xCu);
+      *v433 = 134217984;
+      *&v433[4] = v267;
+      _os_log_error_impl(&dword_1C0184000, v161, OS_LOG_TYPE_ERROR, "Expected 2 audio tracks, got %lu", v433, 0xCu);
     }
   }
 
@@ -1081,7 +1081,7 @@ LABEL_312:
   v389 = 0u;
   v390 = 0u;
   v305 = array3;
-  v162 = [v305 countByEnumeratingWithState:&v389 objects:v433 count:16];
+  v162 = [v305 countByEnumeratingWithState:&v389 objects:v431 count:16];
   if (!v162)
   {
     goto LABEL_189;
@@ -1104,8 +1104,8 @@ LABEL_312:
       {
         newTimescaleb = [NUVideoUtilities assetReaderAudioSettingsForTrackType:v164 == newTimescaleb];
         v167 = objc_alloc(MEMORY[0x1E6987E80]);
-        v432 = newTimescaleb;
-        v168 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v432 count:1];
+        v430 = newTimescaleb;
+        v168 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v430 count:1];
         v169 = [v167 initWithAudioTracks:v168 audioSettings:newTimescaleb];
 
         outputAudioMix3 = [(NURenderJob *)self outputAudioMix];
@@ -1175,9 +1175,9 @@ LABEL_311:
       if (os_log_type_enabled(v176, OS_LOG_TYPE_ERROR))
       {
         trackID = [v164 trackID];
-        *v435 = 67109120;
-        *&v435[4] = trackID;
-        _os_log_error_impl(&dword_1C0184000, v176, OS_LOG_TYPE_ERROR, "Unexpected audio track %d, skipping", v435, 8u);
+        *v433 = 67109120;
+        *&v433[4] = trackID;
+        _os_log_error_impl(&dword_1C0184000, v176, OS_LOG_TYPE_ERROR, "Unexpected audio track %d, skipping", v433, 8u);
       }
 
 LABEL_187:
@@ -1190,7 +1190,7 @@ LABEL_187:
       break;
     }
 
-    v162 = [v305 countByEnumeratingWithState:&v389 objects:v433 count:16];
+    v162 = [v305 countByEnumeratingWithState:&v389 objects:v431 count:16];
     if (v162)
     {
       continue;
@@ -1211,7 +1211,7 @@ LABEL_220:
     v381 = 0u;
     v382 = 0u;
     newTimescalec = array2;
-    v207 = [newTimescalec countByEnumeratingWithState:&v381 objects:v430 count:16];
+    v207 = [newTimescalec countByEnumeratingWithState:&v381 objects:v428 count:16];
     if (!v207)
     {
       goto LABEL_234;
@@ -1245,7 +1245,7 @@ LABEL_220:
 
         if (v210)
         {
-          [v210 preferredTransform];
+          objc_msgSend_preferredTransform(v210);
         }
 
         else
@@ -1255,10 +1255,10 @@ LABEL_220:
           v378 = 0u;
         }
 
-        *v435 = v378;
-        *&v435[16] = v379;
-        v436 = v380;
-        [v214 setTransform:v435];
+        *v433 = v378;
+        *&v433[16] = v379;
+        v434 = v380;
+        [v214 setTransform:v433];
         [v210 naturalSize];
         [v214 setNaturalSize:?];
         [v214 setMediaTimeScale:{objc_msgSend(v210, "naturalTimeScale")}];
@@ -1277,7 +1277,7 @@ LABEL_124:
         [v353 setObject:v214 forKeyedSubscript:v215];
       }
 
-      v207 = [newTimescalec countByEnumeratingWithState:&v381 objects:v430 count:16];
+      v207 = [newTimescalec countByEnumeratingWithState:&v381 objects:v428 count:16];
       if (!v207)
       {
 LABEL_234:
@@ -1292,7 +1292,7 @@ LABEL_234:
   v374 = 0u;
   v375 = 0u;
   newTimescaled = array4;
-  v216 = [newTimescaled countByEnumeratingWithState:&v374 objects:v429 count:16];
+  v216 = [newTimescaled countByEnumeratingWithState:&v374 objects:v427 count:16];
   if (!v216)
   {
     goto LABEL_244;
@@ -1345,7 +1345,7 @@ LABEL_305:
       break;
     }
 
-    v216 = [newTimescaled countByEnumeratingWithState:&v374 objects:v429 count:16];
+    v216 = [newTimescaled countByEnumeratingWithState:&v374 objects:v427 count:16];
     if (v216)
     {
       continue;
@@ -1363,7 +1363,7 @@ LABEL_244:
   outputVideo7 = [(NURenderJob *)self outputVideo];
   tracks2 = [outputVideo7 tracks];
 
-  v296 = [tracks2 countByEnumeratingWithState:&v370 objects:v428 count:16];
+  v296 = [tracks2 countByEnumeratingWithState:&v370 objects:v426 count:16];
   if (v296)
   {
     v227 = *v371;
@@ -1387,7 +1387,7 @@ LABEL_244:
         v368 = 0u;
         v369 = 0u;
         availableTrackAssociationTypes = [v230 availableTrackAssociationTypes];
-        v306 = [availableTrackAssociationTypes countByEnumeratingWithState:&v366 objects:v427 count:16];
+        v306 = [availableTrackAssociationTypes countByEnumeratingWithState:&v366 objects:v425 count:16];
         if (v306)
         {
           v301 = *v367;
@@ -1407,7 +1407,7 @@ LABEL_244:
               v365 = 0u;
               *newTimescalee = v231;
               v342 = [MEMORY[0x1E69C0708] associatedTracksOfTypeForTrack:v230 trackAssociationType:?];
-              v232 = [v342 countByEnumeratingWithState:&v362 objects:v426 count:16];
+              v232 = [v342 countByEnumeratingWithState:&v362 objects:v424 count:16];
               if (v232)
               {
                 v233 = *v363;
@@ -1444,25 +1444,25 @@ LABEL_244:
                       {
                         trackID2 = [v230 trackID];
                         trackID3 = [v235 trackID];
-                        *v435 = 67109634;
-                        *&v435[4] = trackID2;
-                        *&v435[8] = 1024;
-                        *&v435[10] = trackID3;
-                        *&v435[14] = 2112;
-                        *&v435[16] = *newTimescalee;
-                        _os_log_impl(&dword_1C0184000, v240, OS_LOG_TYPE_INFO, "Missing inputs for track association, skipping (%d <- %d: %@)", v435, 0x18u);
+                        *v433 = 67109634;
+                        *&v433[4] = trackID2;
+                        *&v433[8] = 1024;
+                        *&v433[10] = trackID3;
+                        *&v433[14] = 2112;
+                        *&v433[16] = *newTimescalee;
+                        _os_log_impl(&dword_1C0184000, v240, OS_LOG_TYPE_INFO, "Missing inputs for track association, skipping (%d <- %d: %@)", v433, 0x18u);
                       }
                     }
                   }
 
-                  v232 = [v342 countByEnumeratingWithState:&v362 objects:v426 count:16];
+                  v232 = [v342 countByEnumeratingWithState:&v362 objects:v424 count:16];
                 }
 
                 while (v232);
               }
             }
 
-            v306 = [availableTrackAssociationTypes countByEnumeratingWithState:&v366 objects:v427 count:16];
+            v306 = [availableTrackAssociationTypes countByEnumeratingWithState:&v366 objects:v425 count:16];
           }
 
           while (v306);
@@ -1473,7 +1473,7 @@ LABEL_244:
       }
 
       while (v295 + 1 != v296);
-      v296 = [tracks2 countByEnumeratingWithState:&v370 objects:v428 count:16];
+      v296 = [tracks2 countByEnumeratingWithState:&v370 objects:v426 count:16];
       v227 = v294;
     }
 
@@ -1485,7 +1485,7 @@ LABEL_244:
   v358 = 0u;
   v359 = 0u;
   trackGroups = [videoProperties trackGroups];
-  *newTimescalef = [trackGroups countByEnumeratingWithState:&v358 objects:v425 count:16];
+  *newTimescalef = [trackGroups countByEnumeratingWithState:&v358 objects:v423 count:16];
   if (*newTimescalef)
   {
     v343 = *v359;
@@ -1510,7 +1510,7 @@ LABEL_244:
         v355 = 0u;
         trackIDs2 = [v244 trackIDs];
         v249 = 0;
-        v250 = [trackIDs2 countByEnumeratingWithState:&v354 objects:v424 count:16];
+        v250 = [trackIDs2 countByEnumeratingWithState:&v354 objects:v422 count:16];
         if (v250)
         {
           v251 = *v355;
@@ -1542,7 +1542,7 @@ LABEL_244:
               }
             }
 
-            v250 = [trackIDs2 countByEnumeratingWithState:&v354 objects:v424 count:16];
+            v250 = [trackIDs2 countByEnumeratingWithState:&v354 objects:v422 count:16];
           }
 
           while (v250);
@@ -1576,9 +1576,9 @@ LABEL_244:
           if (os_log_type_enabled(v257, OS_LOG_TYPE_DEFAULT))
           {
             trackIDs4 = [v244 trackIDs];
-            *v435 = 138543362;
-            *&v435[4] = trackIDs4;
-            _os_log_impl(&dword_1C0184000, v257, OS_LOG_TYPE_DEFAULT, "Missing track group inputs for track group %{public}@, ignored.", v435, 0xCu);
+            *v433 = 138543362;
+            *&v433[4] = trackIDs4;
+            _os_log_impl(&dword_1C0184000, v257, OS_LOG_TYPE_DEFAULT, "Missing track group inputs for track group %{public}@, ignored.", v433, 0xCu);
           }
         }
 
@@ -1586,7 +1586,7 @@ LABEL_244:
       }
 
       while (v243 != *newTimescalef);
-      *newTimescalef = [trackGroups countByEnumeratingWithState:&v358 objects:v425 count:16];
+      *newTimescalef = [trackGroups countByEnumeratingWithState:&v358 objects:v423 count:16];
       if (*newTimescalef)
       {
         continue;
@@ -1596,8 +1596,8 @@ LABEL_244:
     }
   }
 
-  *v435 = v421;
-  v3083 = [(NUVideoExportJob *)self writeVideoFrom:v5 toWriter:v319 stillImageTime:v435 createCustomMetadata:flags & 1 geometryTransform:obja inputSize:render outputSize:v303 error:v302, v309, v308];
+  *v433 = v419;
+  v3083 = [(NUVideoExportJob *)self writeVideoFrom:v5 toWriter:v319 stillImageTime:v433 createCustomMetadata:flags & 1 geometryTransform:obja inputSize:render outputSize:v303 error:v302, v309, v308];
 LABEL_125:
 
 LABEL_126:

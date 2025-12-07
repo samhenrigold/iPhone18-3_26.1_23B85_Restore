@@ -13,6 +13,7 @@
 - (void)destroySharedMemoryTransport;
 - (void)runWithSocket:(int)socket;
 - (void)scheduleReadOnWritableSocket;
+- (void)setPrioritizeOutgoingMessages:(BOOL)messages;
 @end
 
 @implementation GTBaseSocketTransport_capture
@@ -108,6 +109,22 @@
   v4.receiver = self;
   v4.super_class = GTBaseSocketTransport_capture;
   [(GTBaseStreamTransport_capture *)&v4 _invalidate];
+}
+
+- (void)setPrioritizeOutgoingMessages:(BOOL)messages
+{
+  messagesCopy = messages;
+  queue = self->super.super._queue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = __55__GTBaseSocketTransport_setPrioritizeOutgoingMessages___block_invoke;
+  block[3] = &unk_2F1560;
+  block[4] = self;
+  messagesCopy2 = messages;
+  dispatch_sync(queue, block);
+  v6.receiver = self;
+  v6.super_class = GTBaseSocketTransport_capture;
+  [(GTTransport_capture *)&v6 setPrioritizeOutgoingMessages:messagesCopy];
 }
 
 - (BOOL)connected

@@ -87,16 +87,16 @@
 
 - (DAAction)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if (([coderCopy allowsKeyedCoding] & 1) == 0)
   {
     [DAAction initWithCoder:];
   }
 
-  v17.receiver = self;
-  v17.super_class = DAAction;
-  v5 = [(DAAction *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = DAAction;
+  v5 = [(DAAction *)&v16 init];
   if (v5)
   {
     v6 = [coderCopy decodeIntForKey:@"DAAItemChangeType"];
@@ -108,7 +108,7 @@
       if (os_log_type_enabled(v8, v9))
       {
         *buf = 134217984;
-        v19 = v7;
+        v18 = v7;
         _os_log_impl(&dword_24244C000, v8, v9, "Unknown DAItemChangeType %ld", buf, 0xCu);
       }
 
@@ -130,7 +130,6 @@
     -[DAAction setChangeId:](v5, "setChangeId:", [coderCopy decodeIntForKey:@"DAAChangeId"]);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

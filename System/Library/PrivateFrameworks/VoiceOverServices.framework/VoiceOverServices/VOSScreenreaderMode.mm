@@ -138,27 +138,27 @@ void __31__VOSScreenreaderMode_allModes__block_invoke()
 
 + (VOSScreenreaderMode)modeWithStringValue:(id)value
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   valueCopy = value;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   allModes = [self allModes];
-  v6 = [allModes countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [allModes countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; i = (i + 1))
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allModes);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9[1] isEqualToString:valueCopy])
         {
           v6 = v9;
@@ -166,7 +166,7 @@ void __31__VOSScreenreaderMode_allModes__block_invoke()
         }
       }
 
-      v6 = [allModes countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [allModes countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -177,8 +177,6 @@ void __31__VOSScreenreaderMode_allModes__block_invoke()
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

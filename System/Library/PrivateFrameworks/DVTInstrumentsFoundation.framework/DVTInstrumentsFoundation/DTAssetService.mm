@@ -12,16 +12,16 @@
 
 + (id)translatedManifest:(id)manifest withAssetServicePort:(unsigned int)port
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   manifestCopy = manifest;
   v6 = [manifestCopy objectForKeyedSubscript:@"resources"];
   array = [MEMORY[0x277CBEB18] array];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (!v9)
   {
     v24 = v8;
@@ -30,21 +30,21 @@ LABEL_18:
     goto LABEL_20;
   }
 
-  v29 = 0;
-  v10 = *v33;
-  v27 = manifestCopy;
+  v28 = 0;
+  v10 = *v32;
+  v26 = manifestCopy;
   portCopy = port;
-  v30 = v8;
+  v29 = v8;
   do
   {
     for (i = 0; i != v9; i = i + 1)
     {
-      if (*v33 != v10)
+      if (*v32 != v10)
       {
         objc_enumerationMutation(v8);
       }
 
-      v12 = *(*(&v32 + 1) + 8 * i);
+      v12 = *(*(&v31 + 1) + 8 * i);
       v13 = [v12 mutableCopy];
       v14 = MEMORY[0x277CBEBC0];
       v15 = [v12 objectForKeyedSubscript:@"URL"];
@@ -65,7 +65,7 @@ LABEL_18:
             host2 = [v16 host];
             v20 = [host2 isEqual:@"127.0.0.1"];
 
-            v8 = v30;
+            v8 = v29;
             if (!v20)
             {
               goto LABEL_13;
@@ -76,12 +76,12 @@ LABEL_18:
           uRLPathAllowedCharacterSet = [MEMORY[0x277CCA900] URLPathAllowedCharacterSet];
           scheme = [path stringByAddingPercentEncodingWithAllowedCharacters:uRLPathAllowedCharacterSet];
 
-          v8 = v30;
+          v8 = v29;
           v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"http://localhost:%li%@", portCopy, scheme];
           [v13 setObject:v23 forKeyedSubscript:@"URL"];
           [v13 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"isStreamable"];
 
-          v29 = 1;
+          v28 = 1;
         }
       }
 
@@ -89,26 +89,24 @@ LABEL_13:
       [array addObject:v13];
     }
 
-    v9 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
   }
 
   while (v9);
 
-  if (v29)
+  if (v28)
   {
-    manifestCopy = v27;
-    v24 = [v27 mutableCopy];
+    manifestCopy = v26;
+    v24 = [v26 mutableCopy];
     [v24 setObject:array forKeyedSubscript:@"resources"];
-    v31 = 0;
-    v9 = [MEMORY[0x277CCAC58] dataWithPropertyList:v24 format:100 options:0 error:&v31];
+    v30 = 0;
+    v9 = [MEMORY[0x277CCAC58] dataWithPropertyList:v24 format:100 options:0 error:&v30];
     goto LABEL_18;
   }
 
   v9 = 0;
-  manifestCopy = v27;
+  manifestCopy = v26;
 LABEL_20:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -255,38 +253,38 @@ LABEL_20:
 
 - (void)appendAllowedResources:(id)resources
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   resourcesCopy = resources;
   v5 = objc_opt_new();
   v6 = [MEMORY[0x277CCAC58] propertyListWithData:resourcesCopy options:0 format:0 error:0];
   v7 = [v6 objectForKeyedSubscript:@"resources"];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v16 + 1) + 8 * v11) objectForKeyedSubscript:@"URL"];
+        v12 = [*(*(&v15 + 1) + 8 * v11) objectForKeyedSubscript:@"URL"];
         [v5 addObject:v12];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -295,8 +293,6 @@ LABEL_20:
   v13 = [v5 copy];
   server = [(DTAssetService *)self server];
   [server setAllowedResources:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

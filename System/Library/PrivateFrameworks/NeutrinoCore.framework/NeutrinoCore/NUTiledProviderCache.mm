@@ -11,7 +11,7 @@
   cIFormat = [pixelFormat CIFormat];
 
   inputImage = [(NUProcessorCache *)self inputImage];
-  [inputImage extent];
+  objc_msgSend_extent(inputImage);
   v52.origin.x = v19;
   v52.origin.y = v20;
   v52.size.width = v21;
@@ -151,7 +151,7 @@ void __76__NUTiledProviderCache_provideImageData_bytesPerRow_origin::size::userI
     *buf = *(a1 + 184);
     v43 = v36;
     [NUImageUtilities copyPixelsToImage:v33 rect:buf srcPtr:v34 srcPtrRowBytes:v35];
-    v37 = +[NURegion region];
+    v37 = objc_msgSend_region(NURegion);
     v38 = *(*(a1 + 48) + 8);
     v39 = *(v38 + 40);
     *(v38 + 40) = v37;

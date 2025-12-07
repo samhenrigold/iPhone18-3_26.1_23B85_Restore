@@ -2,10 +2,28 @@
 + (id)serverIdleChangeTrackingCleanupInfo;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToInfo:(id)info;
+- (CADIdleChangeTrackingCleanupInfo)initWithLanguishPeriod:(double)period numberOfChanges:(int)changes;
 - (id)description;
 @end
 
 @implementation CADIdleChangeTrackingCleanupInfo
+
+- (CADIdleChangeTrackingCleanupInfo)initWithLanguishPeriod:(double)period numberOfChanges:(int)changes
+{
+  v4 = *&changes;
+  v10.receiver = self;
+  v10.super_class = CADIdleChangeTrackingCleanupInfo;
+  v6 = [(CADIdleChangeTrackingCleanupInfo *)&v10 init];
+  v8 = v6;
+  if (v6)
+  {
+    CADLogInitIfNeeded(v6, v7);
+    [(CADIdleChangeTrackingCleanupInfo *)v8 setLanguishPeriod:period];
+    [(CADIdleChangeTrackingCleanupInfo *)v8 setNumberOfChanges:v4];
+  }
+
+  return v8;
+}
 
 + (id)serverIdleChangeTrackingCleanupInfo
 {
@@ -51,7 +69,7 @@ LABEL_7:
 
 - (BOOL)isEqual:(id)equal
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -67,19 +85,18 @@ LABEL_7:
       v7 = v6;
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
-      v12 = 138412802;
+      v11 = 138412802;
       selfCopy = self;
-      v14 = 2112;
-      v15 = v9;
-      v16 = 2112;
-      v17 = equalCopy;
-      _os_log_impl(&dword_22430B000, v7, OS_LOG_TYPE_ERROR, "WARNING: Comparing %@ to object whose class is not: [%@]. Object: %@.", &v12, 0x20u);
+      v13 = 2112;
+      v14 = v9;
+      v15 = 2112;
+      v16 = equalCopy;
+      _os_log_impl(&dword_22430B000, v7, OS_LOG_TYPE_ERROR, "WARNING: Comparing %@ to object whose class is not: [%@]. Object: %@.", &v11, 0x20u);
     }
 
     v5 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

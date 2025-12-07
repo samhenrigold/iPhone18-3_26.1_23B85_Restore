@@ -40,7 +40,7 @@
 
 - (void)main
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -51,11 +51,11 @@
     message2 = [(HMDRemoteSendMessageOperation *)selfCopy message];
     destination = [message2 destination];
     *buf = 138543874;
-    v22 = v6;
-    v23 = 2112;
-    v24 = message;
-    v25 = 2112;
-    v26 = destination;
+    v21 = v6;
+    v22 = 2112;
+    v23 = message;
+    v24 = 2112;
+    v25 = destination;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting sending message %@ to destination: %@", buf, 0x20u);
   }
 
@@ -70,7 +70,7 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v14;
+      v21 = v14;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Cannot determine secure transport", buf, 0xCu);
     }
 
@@ -83,22 +83,21 @@
   message3 = [(HMDRemoteSendMessageOperation *)selfCopy message];
   v17 = [message3 mutableCopy];
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __37__HMDRemoteSendMessageOperation_main__block_invoke;
-  v19[3] = &unk_279733B98;
-  objc_copyWeak(&v20, buf);
-  [v17 setResponseHandler:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __37__HMDRemoteSendMessageOperation_main__block_invoke;
+  v18[3] = &unk_279733B98;
+  objc_copyWeak(&v19, buf);
+  [v17 setResponseHandler:v18];
   [transport sendMessage:v17 completionHandler:0];
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
 
   objc_destroyWeak(buf);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __37__HMDRemoteSendMessageOperation_main__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -110,9 +109,9 @@ void __37__HMDRemoteSendMessageOperation_main__block_invoke(uint64_t a1, void *a
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v11 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Operation is already cancelled, do not process response handler", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Operation is already cancelled, do not process response handler", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -129,9 +128,9 @@ void __37__HMDRemoteSendMessageOperation_main__block_invoke(uint64_t a1, void *a
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v16 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v16;
-        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to send message", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v16;
+        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to send message", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -143,9 +142,9 @@ void __37__HMDRemoteSendMessageOperation_main__block_invoke(uint64_t a1, void *a
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         v17 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v17;
-        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully sent message", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v17;
+        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully sent message", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -154,8 +153,6 @@ void __37__HMDRemoteSendMessageOperation_main__block_invoke(uint64_t a1, void *a
 
     [v13 _respondWithError:v5 payload:v6];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_respondWithError:(id)error payload:(id)payload
@@ -180,12 +177,10 @@ void __37__HMDRemoteSendMessageOperation_main__block_invoke(uint64_t a1, void *a
 
 - (NSArray)attributeDescriptions
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277D0F778]) initWithName:@"Message" value:self->_message options:1 formatter:0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -214,7 +209,7 @@ void __37__HMDRemoteSendMessageOperation_main__block_invoke(uint64_t a1, void *a
 
 - (HMDRemoteSendMessageOperation)initWithMessage:(id)message transport:(id)transport
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   transportCopy = transport;
   destination = [messageCopy destination];
@@ -231,9 +226,9 @@ void __37__HMDRemoteSendMessageOperation_main__block_invoke(uint64_t a1, void *a
       v19 = HMFGetLogIdentifier();
       destination2 = [messageCopy destination];
       *buf = 138543618;
-      v28 = v19;
-      v29 = 2112;
-      v30 = destination2;
+      v27 = v19;
+      v28 = 2112;
+      v29 = destination2;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Invalid message destination: %@", buf, 0x16u);
 
 LABEL_12:
@@ -255,7 +250,7 @@ LABEL_13:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v19;
+      v27 = v19;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Invalid transport", buf, 0xCu);
       goto LABEL_12;
     }
@@ -288,9 +283,9 @@ LABEL_13:
     [v13 timeout];
   }
 
-  v26.receiver = self;
-  v26.super_class = HMDRemoteSendMessageOperation;
-  v22 = [(HMFOperation *)&v26 initWithTimeout:v15];
+  v25.receiver = self;
+  v25.super_class = HMDRemoteSendMessageOperation;
+  v22 = [(HMFOperation *)&v25 initWithTimeout:v15];
   p_isa = &v22->super.super.super.isa;
   if (v22)
   {
@@ -303,7 +298,6 @@ LABEL_13:
   v21 = selfCopy2;
 LABEL_18:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -321,12 +315,11 @@ LABEL_18:
 
 uint64_t __44__HMDRemoteSendMessageOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10_116237;
-  logCategory__hmf_once_v10_116237 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10_116237;
+  logCategory__hmf_once_v10_116237 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)shortDescription

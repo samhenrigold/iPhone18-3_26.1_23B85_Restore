@@ -1,9 +1,8 @@
 void sub_398C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = *(a1 + 32);
-  v4 = a3;
+  v3 = a3;
   CLKInterpolateBetweenFloatsClipped();
-  [v4 setAlpha:?];
+  [v3 setAlpha:?];
 }
 
 void sub_40B0(uint64_t a1, uint64_t a2, void *a3)

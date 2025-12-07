@@ -28,28 +28,28 @@
 
 void __21__PLCoreOperator_log__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = [*(a1 + 32) allOperators];
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v11;
+    v4 = *v10;
     do
     {
       v5 = 0;
       do
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * v5);
+        v6 = *(*(&v9 + 1) + 8 * v5);
         v7 = [PLUtilities workQueueForClass:objc_opt_class()];
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
@@ -62,13 +62,11 @@ void __21__PLCoreOperator_log__block_invoke(uint64_t a1)
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __21__PLCoreOperator_log__block_invoke_2(uint64_t a1)
@@ -124,51 +122,41 @@ void __21__PLCoreOperator_log__block_invoke_2(uint64_t a1)
     v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLCoreOperator registerOperator:]"];
     [PLCoreStorage logMessage:operator fromFile:lastPathComponent fromFunction:v12 fromLineNumber:38];
 
-    v13 = PLLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = PLLogCommon(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
     }
   }
 
-  v14 = [_registeredOperators objectForKeyedSubscript:i];
-  objc_sync_enter(v14);
   v15 = [_registeredOperators objectForKeyedSubscript:i];
-  [v15 addObject:operator];
+  objc_sync_enter(v15);
+  v16 = [_registeredOperators objectForKeyedSubscript:i];
+  [v16 addObject:operator];
 
-  objc_sync_exit(v14);
+  objc_sync_exit(v15);
 }
 
 uint64_t __35__PLCoreOperator_registerOperator___block_invoke()
 {
-  _registeredOperators = objc_opt_new();
+  v0 = objc_opt_new();
+  _registeredOperators = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (id)registeredOperators
 {
   v3 = objc_opt_class();
-  if (v3 == objc_opt_class())
+  if (v3 == objc_opt_class() || (v4 = objc_opt_class(), v4 == objc_opt_class()))
   {
-    v6 = off_1E8518960;
+    v5 = [self registeredOperatorsOfSuperClassType:objc_opt_class()];
   }
 
   else
   {
-    v4 = objc_opt_class();
-    if (v4 != objc_opt_class())
-    {
-      v5 = 0;
-      goto LABEL_7;
-    }
-
-    v6 = off_1E8518858;
+    v5 = 0;
   }
-
-  v7 = *v6;
-  v5 = [self registeredOperatorsOfSuperClassType:objc_opt_class()];
-LABEL_7:
 
   return v5;
 }
@@ -215,59 +203,57 @@ void __42__PLCoreOperator_initOperatorDependancies__block_invoke(uint64_t a1, vo
 
 uint64_t __42__PLCoreOperator_initOperatorDependancies__block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = PLLogCommon();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = PLLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) className];
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1D8611000, v2, OS_LOG_TYPE_DEFAULT, "Calling %@ initOperatorDependancies", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1D8611000, v2, OS_LOG_TYPE_DEFAULT, "Calling %@ initOperatorDependancies", &v5, 0xCu);
   }
 
-  result = [*(a1 + 32) initOperatorDependancies];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) initOperatorDependancies];
 }
 
 - (void)initOperatorDependanciesWithBlock:(id)block
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   operators = [(PLCoreOperator *)self operators];
   objc_sync_enter(operators);
   v6 = objc_autoreleasePoolPush();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   operators2 = [(PLCoreOperator *)self operators];
   allValues = [operators2 allValues];
 
-  v9 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v9)
   {
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(allValues);
         }
 
         if (blockCopy)
         {
-          blockCopy[2](blockCopy, *(*(&v13 + 1) + 8 * v11));
+          blockCopy[2](blockCopy, *(*(&v12 + 1) + 8 * v11));
         }
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
@@ -275,8 +261,6 @@ uint64_t __42__PLCoreOperator_initOperatorDependancies__block_invoke_2(uint64_t 
 
   objc_autoreleasePoolPop(v6);
   objc_sync_exit(operators);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initTaskOperatorDependancies
@@ -324,12 +308,10 @@ LABEL_5:
 
 - (void)startServicesForPreUnlockTelemetry
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = NSClassFromString(&cfstr_Plxpcservice.isa);
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = NSClassFromString(&cfstr_Plxpcservice.isa);
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   [(PLCoreOperator *)self setupEntryObjectsAndStorage:v3];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startOperatorsOfSuperClassType:(Class)type
@@ -355,8 +337,8 @@ LABEL_5:
     v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLCoreOperator startOperatorsOfSuperClassType:]"];
     [PLCoreStorage logMessage:v8 fromFile:lastPathComponent fromFunction:v11 fromLineNumber:123];
 
-    v12 = PLLogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = PLLogCommon(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
     }
@@ -367,60 +349,60 @@ LABEL_5:
 
 - (void)setupEntryObjectsAndStorage:(id)storage
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
-  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v4 = [storageCopy countByEnumeratingWithState:&v38 objects:v45 count:16];
+  v42 = 0u;
+  v4 = [storageCopy countByEnumeratingWithState:&v39 objects:v46 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v39;
+    v6 = *v40;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v39 != v6)
+        if (*v40 != v6)
         {
           objc_enumerationMutation(storageCopy);
         }
 
-        v8 = *(*(&v38 + 1) + 8 * i);
+        v8 = *(*(&v39 + 1) + 8 * i);
         if ([v8 isEnabled])
         {
           [PLEntryKey setupEntryObjectsForOperatorClass:v8];
         }
       }
 
-      v5 = [storageCopy countByEnumeratingWithState:&v38 objects:v45 count:16];
+      v5 = [storageCopy countByEnumeratingWithState:&v39 objects:v46 count:16];
     }
 
     while (v5);
   }
 
-  v36 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
+  v36 = 0u;
   obj = storageCopy;
-  v9 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
+  v9 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0x1E8518000uLL;
-    v12 = *v35;
+    v12 = *v36;
     do
     {
       for (j = 0; j != v10; ++j)
       {
-        if (*v35 != v12)
+        if (*v36 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v34 + 1) + 8 * j);
+        v14 = *(*(&v35 + 1) + 8 * j);
         v15 = NSStringFromClass(v14);
         isEnabled = [(objc_class *)v14 isEnabled];
         debugEnabled = [*(v11 + 2224) debugEnabled];
@@ -434,26 +416,26 @@ LABEL_5:
             v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLCoreOperator setupEntryObjectsAndStorage:]"];
             [PLCoreStorage logMessage:v18 fromFile:lastPathComponent fromFunction:v21 fromLineNumber:139];
 
-            v22 = PLLogCommon();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+            v23 = PLLogCommon(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v43 = v18;
-              _os_log_debug_impl(&dword_1D8611000, v22, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+              v44 = v18;
+              _os_log_debug_impl(&dword_1D8611000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
             v11 = 0x1E8518000;
           }
 
-          v23 = [PLUtilities workQueueForKey:v15];
-          v31[0] = MEMORY[0x1E69E9820];
-          v31[1] = 3221225472;
-          v31[2] = __46__PLCoreOperator_setupEntryObjectsAndStorage___block_invoke;
-          v31[3] = &unk_1E8519170;
-          v33 = v14;
-          v31[4] = self;
-          v32 = v15;
-          [PLUtilities dispatchSyncIfNotCallerQueue:v23 withBlock:v31];
+          v24 = [PLUtilities workQueueForKey:v15];
+          v32[0] = MEMORY[0x1E69E9820];
+          v32[1] = 3221225472;
+          v32[2] = __46__PLCoreOperator_setupEntryObjectsAndStorage___block_invoke;
+          v32[3] = &unk_1E8519170;
+          v34 = v14;
+          v32[4] = self;
+          v33 = v15;
+          [PLUtilities dispatchSyncIfNotCallerQueue:v24 withBlock:v32];
         }
 
         else
@@ -463,18 +445,18 @@ LABEL_5:
             goto LABEL_26;
           }
 
-          v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Skipping %@", v15];
-          v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLCoreOperator.m"];
-          lastPathComponent2 = [v24 lastPathComponent];
-          v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLCoreOperator setupEntryObjectsAndStorage:]"];
-          [PLCoreStorage logMessage:v23 fromFile:lastPathComponent2 fromFunction:v26 fromLineNumber:156];
+          v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Skipping %@", v15];
+          v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLCoreOperator.m"];
+          lastPathComponent2 = [v25 lastPathComponent];
+          v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLCoreOperator setupEntryObjectsAndStorage:]"];
+          [PLCoreStorage logMessage:v24 fromFile:lastPathComponent2 fromFunction:v27 fromLineNumber:156];
 
-          v27 = PLLogCommon();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+          v29 = PLLogCommon(v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v43 = v23;
-            _os_log_debug_impl(&dword_1D8611000, v27, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+            v44 = v24;
+            _os_log_debug_impl(&dword_1D8611000, v29, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
           v11 = 0x1E8518000;
@@ -483,13 +465,11 @@ LABEL_5:
 LABEL_26:
       }
 
-      v10 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v10 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
     }
 
     while (v10);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __46__PLCoreOperator_setupEntryObjectsAndStorage___block_invoke(uint64_t a1)
@@ -516,8 +496,8 @@ void __46__PLCoreOperator_setupEntryObjectsAndStorage___block_invoke(uint64_t a1
       v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLCoreOperator setupEntryObjectsAndStorage:]_block_invoke"];
       [PLCoreStorage logMessage:v8 fromFile:v10 fromFunction:v11 fromLineNumber:149];
 
-      v12 = PLLogCommon();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = PLLogCommon(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_7;
       }
@@ -529,13 +509,13 @@ void __46__PLCoreOperator_setupEntryObjectsAndStorage___block_invoke(uint64_t a1
   else if (+[PLDefaults debugEnabled])
   {
     v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ failed setup", *(a1 + 40)];
-    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLCoreOperator.m"];
-    v14 = [v13 lastPathComponent];
-    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLCoreOperator setupEntryObjectsAndStorage:]_block_invoke"];
-    [PLCoreStorage logMessage:v8 fromFile:v14 fromFunction:v15 fromLineNumber:151];
+    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLCoreOperator.m"];
+    v15 = [v14 lastPathComponent];
+    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLCoreOperator setupEntryObjectsAndStorage:]_block_invoke"];
+    [PLCoreStorage logMessage:v8 fromFile:v15 fromFunction:v16 fromLineNumber:151];
 
-    v12 = PLLogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = PLLogCommon(v17);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
 LABEL_7:
       [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];

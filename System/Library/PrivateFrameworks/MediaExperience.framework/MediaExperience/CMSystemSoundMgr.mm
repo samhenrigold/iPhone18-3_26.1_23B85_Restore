@@ -3,16 +3,16 @@
 
 @implementation CMSystemSoundMgr
 
-void __CMSystemSoundMgr_Initialize_block_invoke()
+void __CMSystemSoundMgr_Initialize_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MXGetSerialQueue();
+  v2 = MXGetSerialQueue(a1, a2);
 
-  MXDispatchAsyncAndWait("CMSystemSoundMgr_Initialize_block_invoke", "CMSessionManager_SystemSounds.m", 327, 0, 0, v0, &__block_literal_global_4_2);
+  MXDispatchAsyncAndWait("CMSystemSoundMgr_Initialize_block_invoke", "CMSessionManager_SystemSounds.m", 327, 0, 0, v2, &__block_literal_global_4_2);
 }
 
-uint64_t __CMSystemSoundMgr_Initialize_block_invoke_2()
+double __CMSystemSoundMgr_Initialize_block_invoke_2()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   FigSimpleMutexLock();
   v0 = gCMSS_0;
   if (gCMSS_0)
@@ -34,8 +34,7 @@ uint64_t __CMSystemSoundMgr_Initialize_block_invoke_2()
     while (v0);
   }
 
-  result = FigSimpleMutexUnlock();
-  v4 = *MEMORY[0x1E69E9840];
+  FigSimpleMutexUnlock();
   return result;
 }
 

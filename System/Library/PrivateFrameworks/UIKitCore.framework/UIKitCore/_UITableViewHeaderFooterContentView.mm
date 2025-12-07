@@ -87,9 +87,9 @@
   v8.receiver = self;
   v8.super_class = _UITableViewHeaderFooterContentView;
   [(UIView *)&v8 setBackgroundColor:colorCopy];
-  v6 = [colorCopy isEqual:backgroundColor];
+  isEqual = objc_msgSend_isEqual_(colorCopy);
 
-  if ((v6 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     _headerFooterView = [(_UITableViewHeaderFooterContentView *)self _headerFooterView];
     [_headerFooterView _invalidateDetailLabelBackgroundColor];

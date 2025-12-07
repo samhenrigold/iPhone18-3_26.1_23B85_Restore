@@ -16,24 +16,24 @@
 
 - (id)_progressProviderForRingComplications
 {
-  v9.receiver = self;
-  v9.super_class = NTKMusicTimelineEntryAccessibility;
-  _progressProviderForRingComplications = [(NTKMusicTimelineEntryAccessibility *)&v9 _progressProviderForRingComplications];
+  v8.receiver = self;
+  v8.super_class = NTKMusicTimelineEntryAccessibility;
+  _progressProviderForRingComplications = [(NTKMusicTimelineEntryAccessibility *)&v8 _progressProviderForRingComplications];
   v4 = [(NTKMusicTimelineEntryAccessibility *)self safeUnsignedIntegerForKey:@"_state"];
   if ((v4 - 5) <= 0xFFFFFFFFFFFFFFFDLL)
   {
     if ((v4 - 1) >= 2)
     {
-      v6 = @"complication.music.stopped";
+      v5 = @"complication.music.stopped";
     }
 
     else
     {
-      v6 = @"complication.music.paused";
+      v5 = @"complication.music.paused";
     }
 
-    v7 = accessibilityLocalizedString(v6, v5);
-    [_progressProviderForRingComplications setAccessibilityLabel:v7];
+    v6 = accessibilityLocalizedString(v5);
+    [_progressProviderForRingComplications setAccessibilityLabel:v6];
   }
 
   return _progressProviderForRingComplications;
@@ -41,14 +41,14 @@
 
 - (id)templateForComplicationFamily:(int64_t)family
 {
-  v8.receiver = self;
-  v8.super_class = NTKMusicTimelineEntryAccessibility;
-  v3 = [(NTKMusicTimelineEntryAccessibility *)&v8 templateForComplicationFamily:family];
+  v7.receiver = self;
+  v7.super_class = NTKMusicTimelineEntryAccessibility;
+  v3 = [(NTKMusicTimelineEntryAccessibility *)&v7 templateForComplicationFamily:family];
   if (_accessibilityComplicationTemplateContainsSimpleImage())
   {
     v4 = [v3 safeValueForKey:@"imageProvider"];
-    v6 = accessibilityLocalizedString(@"complication.music.image", v5);
-    [v4 setAccessibilityLabel:v6];
+    v5 = accessibilityLocalizedString(@"complication.music.image");
+    [v4 setAccessibilityLabel:v5];
   }
 
   return v3;

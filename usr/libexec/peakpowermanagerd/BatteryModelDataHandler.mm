@@ -1,10 +1,12 @@
 @interface BatteryModelDataHandler
 + (id)sharedInstance;
 - (BOOL)getPPMDebugDict:(const __CFDictionary *)dict;
+- (BOOL)moveBatteryModelDataFromDiskToKext:(unsigned int)kext;
 - (BOOL)setBatteryModelDataToKernel:(id)kernel;
 - (BOOL)verifyHashData:(char *)data;
 - (BatteryModelDataHandler)init;
 - (id)createKextModelFromProtobufModel:(id)model;
+- (id)getBatteryModelFileURLString:(unsigned int)string;
 - (id)getDeviceType;
 - (id)loadProtobufModelWithFileName:(id)name;
 - (int)getIntValueForKeyFromBatteryData:(id)data;
@@ -172,6 +174,67 @@ LABEL_12:
   }
 
   return v7;
+}
+
+- (id)getBatteryModelFileURLString:(unsigned int)string
+{
+  v3 = *&string;
+  v5 = +[NSFileManager defaultManager];
+  getDeviceType = [(BatteryModelDataHandler *)self getDeviceType];
+  if (getDeviceType)
+  {
+    v29 = 0;
+    v7 = [v5 URLForDirectory:5 inDomain:8 appropriateForURL:0 create:0 error:&v29];
+    v8 = v29;
+    if (v7)
+    {
+      v9 = [NSString stringWithFormat:@"PPM/BatteryModels/%@/%x.rcmodel", getDeviceType, v3];
+      v10 = [v7 URLByAppendingPathComponent:v9];
+
+      v11 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", [v10 fileSystemRepresentation]);
+      if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
+      {
+        sub_10000FEB8();
+      }
+
+      if (([v5 fileExistsAtPath:v11] & 1) == 0)
+      {
+        if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+        {
+          sub_10000FF3C();
+        }
+
+        v11 = 0;
+      }
+    }
+
+    else
+    {
+      log = self->_log;
+      if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
+      {
+        sub_10000FFBC(log, v22, v23, v24, v25, v26, v27, v28);
+      }
+
+      v11 = 0;
+      v10 = 0;
+    }
+  }
+
+  else
+  {
+    v13 = self->_log;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      sub_100010034(v13, v14, v15, v16, v17, v18, v19, v20);
+    }
+
+    v11 = 0;
+    v10 = 0;
+    v8 = 0;
+  }
+
+  return v11;
 }
 
 - (id)loadProtobufModelWithFileName:(id)name
@@ -895,6 +958,68 @@ LABEL_10:
   }
 
   return v5;
+}
+
+- (BOOL)moveBatteryModelDataFromDiskToKext:(unsigned int)kext
+{
+  v4 = [(BatteryModelDataHandler *)self getBatteryModelFileURLString:*&kext];
+  if (!v4)
+  {
+    if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000104D8();
+    }
+
+    goto LABEL_11;
+  }
+
+  v5 = [(BatteryModelDataHandler *)self loadProtobufModelWithFileName:v4];
+  if (!v5)
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
+    {
+      sub_100010460(log, v12, v13, v14, v15, v16, v17, v18);
+    }
+
+LABEL_11:
+    v8 = 0;
+    v6 = 0;
+LABEL_17:
+    v9 = 0;
+    goto LABEL_6;
+  }
+
+  v6 = v5;
+  v7 = [(BatteryModelDataHandler *)self createKextModelFromProtobufModel:v5];
+  if (!v7)
+  {
+    v19 = self->_log;
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000103E8(v19, v20, v21, v22, v23, v24, v25, v26);
+    }
+
+    v8 = 0;
+    goto LABEL_17;
+  }
+
+  v8 = v7;
+  if (![(BatteryModelDataHandler *)self setBatteryModelDataToKernel:v7])
+  {
+    v27 = self->_log;
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      sub_100010370(v27, v28, v29, v30, v31, v32, v33, v34);
+    }
+
+    goto LABEL_17;
+  }
+
+  v9 = 1;
+LABEL_6:
+
+  return v9;
 }
 
 - (BOOL)setBatteryModelDataToKernel:(id)kernel

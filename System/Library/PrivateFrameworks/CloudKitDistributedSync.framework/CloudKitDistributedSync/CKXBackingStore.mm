@@ -1,6 +1,9 @@
 @interface CKXBackingStore
 + ($B3A8F95EBB77A6B0A6D0D56B621ADA09)headerForData:(id)data;
 + (BOOL)header:(id *)header forStorage:(id)storage error:(id *)error;
++ (BOOL)prefixStorage:(id)storage withHeaderForVersion:(unsigned __int8)version error:(id *)error;
++ (id)createHeaderDataForFormatVersion:(unsigned __int8)version;
++ (unint64_t)headerSizeForFormatVersion:(unsigned __int8)version;
 - ($3CC19D079FD0B010EE84973AA846B91B)beginReferencedListForReference:(SEL)reference inStruct:(unint64_t)struct;
 - ($3CC19D079FD0B010EE84973AA846B91B)referencedListForReference:(SEL)reference inStruct:(unint64_t)struct;
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)beginAppendedListStructInList:(SEL)list;
@@ -11,6 +14,7 @@
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)rootStructWithType:(SEL)type;
 - (BOOL)_setupBackingStoreForReadingWithError:(id *)error;
 - (BOOL)_setupBackingStoreForWritingWithError:(id *)error;
+- (BOOL)_validateVersion:(unsigned __int8)version isReader:(BOOL)reader error:(id *)error;
 - (BOOL)finishWritingWithError:(id *)error;
 - (BOOL)flushWithError:(id *)error;
 - (BOOL)isWriting;
@@ -20,11 +24,15 @@
 - (CKDSReadableStorage)readableStorage;
 - (CKDSWritableStorage)writableStorage;
 - (CKXBackingStore)initWithStorage:(id)storage binding:(id)binding optionsByReaderWriterClass:(id)class formatVersion:(unsigned __int8)version error:(id *)error;
+- (id)_proxyWithListInstance:(id *)instance mutable:(BOOL)mutable cacheScope:(int64_t)scope;
+- (id)_proxyWithStructInstance:(id *)instance mutable:(BOOL)mutable cacheScope:(int64_t)scope;
 - (id)appendedStructProxyForListInstance:(id *)instance;
 - (id)reader;
 - (id)readerForProxy:(id)proxy;
 - (id)schema;
+- (id)structListProxyForListReference:(unint64_t)reference inStructInstance:(id *)instance mutable:(BOOL)mutable;
 - (id)structProxyForListInstance:(id *)instance atIndex:(int64_t)index;
+- (id)structProxyForStructReference:(unint64_t)reference inStructInstance:(id *)instance mutable:(BOOL)mutable;
 - (id)writer;
 - (id)writerForProxy:(id)proxy;
 - (int64_t)lengthForList:(id *)list;
@@ -149,35 +157,96 @@ LABEL_13:
   return errorCopy;
 }
 
+- (BOOL)_validateVersion:(unsigned __int8)version isReader:(BOOL)reader error:(id *)error
+{
+  readerCopy = reader;
+  versionCopy = version;
+  v45[1] = *MEMORY[0x277D85DE8];
+  v16 = objc_msgSend_versionSupported_(CKXVersionedReaderWriterStore, a2, version, reader, error, v5, v6);
+  if (v16)
+  {
+    return v16;
+  }
+
+  if (readerCopy)
+  {
+    v17 = MEMORY[0x277CCACA8];
+    if (versionCopy >= 4)
+    {
+      v18 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v10, @"Unknown reader format version %d", v12, v13, v14, v15, versionCopy);
+LABEL_11:
+      v29 = v18;
+      goto LABEL_12;
+    }
+
+    if (!versionCopy)
+    {
+      v18 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v10, @"Invalid reader format version", v12, v13, v14, v15);
+      goto LABEL_11;
+    }
+
+    v23 = CKDSStringForBackingStoreFormatVersion(versionCopy, v10, v11, v12, v13, v14, v15);
+    v29 = objc_msgSend_stringWithFormat_(v17, v24, @"Unsupported reader format version %@", v25, v26, v27, v28, v23);
+  }
+
+  else
+  {
+    v22 = MEMORY[0x277CCACA8];
+    if ((versionCopy - 4) <= 0xFCu)
+    {
+      v18 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v10, @"Unknown writer format version", v12, v13, v14, v15);
+      goto LABEL_11;
+    }
+
+    v30 = CKDSStringForBackingStoreFormatVersion(versionCopy, v10, v11, v12, v13, v14, v15);
+    v29 = objc_msgSend_stringWithFormat_(v22, v31, @"Unsupported writer format version %@", v32, v33, v34, v35, v30);
+  }
+
+LABEL_12:
+  v36 = MEMORY[0x277CCA9B8];
+  v44 = *MEMORY[0x277CCA450];
+  v45[0] = v29;
+  v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, v45, &v44, 1, v20, v21);
+  v41 = objc_msgSend_errorWithDomain_code_userInfo_(v36, v38, @"CKDSErrorDomain", 4, v37, v39, v40);
+
+  if (error)
+  {
+    v42 = v41;
+    *error = v41;
+  }
+
+  return v16;
+}
+
 - (BOOL)_setupBackingStoreForReadingWithError:(id *)error
 {
-  v213[1] = *MEMORY[0x277D85DE8];
+  v212[1] = *MEMORY[0x277D85DE8];
   v10 = objc_msgSend_readableStorage(self, a2, error, v3, v4, v5, v6);
 
   if (!v10)
   {
-    v184 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12, v13, v14, v15, v16);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v184, v185, a2, self, @"CKXBackingStore.mm", 142, @"Readable storage not present");
+    v183 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12, v13, v14, v15, v16);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v183, v184, a2, self, @"CKXBackingStore.mm", 142, @"Readable storage not present");
   }
 
   if (self->_topLevelReadProxy)
   {
-    v186 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12, v13, v14, v15, v16);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v186, v187, a2, self, @"CKXBackingStore.mm", 143, @"Backing store already set up for reading");
+    v185 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12, v13, v14, v15, v16);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v185, v186, a2, self, @"CKXBackingStore.mm", 143, @"Backing store already set up for reading");
   }
 
   v17 = objc_opt_class();
   v24 = objc_msgSend_readableStorage(self, v18, v19, v20, v21, v22, v23);
-  v209 = 0;
-  v28 = objc_msgSend_header_forStorage_error_(v17, v25, &self->_header, v24, &v209, v26, v27);
-  v29 = v209;
+  v208 = 0;
+  v28 = objc_msgSend_header_forStorage_error_(v17, v25, &self->_header, v24, &v208, v26, v27);
+  v29 = v208;
 
   if (v28)
   {
     v36 = objc_msgSend_formatVersion(self, v30, v31, v32, v33, v34, v35);
-    v208 = 0;
-    isReader_error = objc_msgSend__validateVersion_isReader_error_(self, v37, v36, 1, &v208, v38, v39);
-    v41 = v208;
+    v207 = 0;
+    isReader_error = objc_msgSend__validateVersion_isReader_error_(self, v37, v36, 1, &v207, v38, v39);
+    v41 = v207;
     v48 = v41;
     if ((isReader_error & 1) == 0)
     {
@@ -202,10 +271,10 @@ LABEL_13:
 
     if (!v62)
     {
-      v188 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v63, v64, v65, v66, v67, v68);
-      v195 = objc_msgSend_formatVersion(self, v189, v190, v191, v192, v193, v194);
-      v202 = CKDSStringForBackingStoreFormatVersion(v195, v196, v197, v198, v199, v200, v201);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v188, v203, a2, self, @"CKXBackingStore.mm", 167, @"Reader unexpectedly unavailable for atom batch format version %@", v202);
+      v187 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v63, v64, v65, v66, v67, v68);
+      v194 = objc_msgSend_formatVersion(self, v188, v189, v190, v191, v192, v193);
+      v201 = CKDSStringForBackingStoreFormatVersion(v194, v195, v196, v197, v198, v199, v200);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v187, v202, a2, self, @"CKXBackingStore.mm", 167, @"Reader unexpectedly unavailable for atom batch format version %@", v201);
     }
 
     v69 = objc_opt_class();
@@ -223,9 +292,9 @@ LABEL_13:
       if (objc_msgSend_length(v105, v120, v121, v122, v123, v124, v125) < v82)
       {
         v132 = MEMORY[0x277CCA9B8];
-        v210 = *MEMORY[0x277CCA450];
-        v211 = @"Invalid file length";
-        v133 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v126, &v211, &v210, 1, v130, v131);
+        v209 = *MEMORY[0x277CCA450];
+        v210 = @"Invalid file length";
+        v133 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v126, &v210, &v209, 1, v130, v131);
         v109 = objc_msgSend_errorWithDomain_code_userInfo_(v132, v134, @"CKDSErrorDomain", 5, v133, v135, v136);
 
         goto LABEL_20;
@@ -235,9 +304,9 @@ LABEL_13:
       v149 = objc_msgSend_subdataWithRange_(v105, v145, v82, v144 - v82, v146, v147, v148);
       v150 = [CKDSReadableStorage alloc];
       v156 = objc_msgSend_initWithData_(v150, v151, v149, v152, v153, v154, v155);
-      v206 = 0;
-      v161 = objc_msgSend_setReadableStorage_error_(v62, v157, v156, &v206, v158, v159, v160);
-      v109 = v206;
+      v205 = 0;
+      v161 = objc_msgSend_setReadableStorage_error_(v62, v157, v156, &v205, v158, v159, v160);
+      v109 = v205;
 
       if ((v161 & 1) == 0)
       {
@@ -250,9 +319,9 @@ LABEL_13:
       if (v82)
       {
         v104 = MEMORY[0x277CCA9B8];
-        v212 = *MEMORY[0x277CCA450];
-        v213[0] = @"Not implemented";
-        v105 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v98, v213, &v212, 1, v102, v103);
+        v211 = *MEMORY[0x277CCA450];
+        v212[0] = @"Not implemented";
+        v105 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v98, v212, &v211, 1, v102, v103);
         v109 = objc_msgSend_errorWithDomain_code_userInfo_(v104, v106, @"CKDSErrorDomain", 1, v105, v107, v108);
 LABEL_20:
 
@@ -268,9 +337,9 @@ LABEL_21:
       }
 
       v138 = objc_msgSend_readableStorage(self, v98, v99, v100, v101, v102, v103);
-      v207 = 0;
-      v143 = objc_msgSend_setReadableStorage_error_(v62, v139, v138, &v207, v140, v141, v142);
-      v109 = v207;
+      v206 = 0;
+      v143 = objc_msgSend_setReadableStorage_error_(v62, v139, v138, &v206, v140, v141, v142);
+      v109 = v206;
 
       if ((v143 & 1) == 0)
       {
@@ -278,8 +347,8 @@ LABEL_21:
       }
     }
 
-    v204 = 0uLL;
-    v205 = 0;
+    v203 = 0uLL;
+    v204 = 0;
     v168 = objc_msgSend_binding(self, v162, v163, v164, v165, v166, v167);
     v175 = objc_msgSend_topLevelStructToken(v168, v169, v170, v171, v172, v173, v174);
     objc_msgSend_rootStructWithType_(self, v176, v175, v177, v178, v179, v180);
@@ -308,7 +377,6 @@ LABEL_29:
 
 LABEL_30:
 
-  v182 = *MEMORY[0x277D85DE8];
   return v111;
 }
 
@@ -420,36 +488,34 @@ LABEL_21:
 
 - (CKDSReadableStorage)readableStorage
 {
-  storage = self->_storage;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->_storage;
+    v3 = self->_storage;
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (CKDSWritableStorage)writableStorage
 {
-  storage = self->_storage;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->_storage;
+    v3 = self->_storage;
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)isWriting
@@ -504,19 +570,18 @@ LABEL_21:
 
 - (void)readUsingBlock:(id)block
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v6 = objc_autoreleasePoolPush();
   if (objc_msgSend_isWriting(self, v7, v8, v9, v10, v11, v12))
   {
-    v101 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v13, v14, v15, v16, v17, v18);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v101, v102, a2, self, @"CKXBackingStore.mm", 306, @"finishWriting needs to be called before any data can be read");
+    v99 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v13, v14, v15, v16, v17, v18);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v99, v100, a2, self, @"CKXBackingStore.mm", 306, @"finishWriting needs to be called before any data can be read");
   }
 
   v19 = objc_msgSend_topLevelReadProxy(self, v13, v14, v15, v16, v17, v18);
 
   v20 = *MEMORY[0x277CBC878];
-  v21 = *MEMORY[0x277CBC880];
   if (v19)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -524,27 +589,27 @@ LABEL_21:
       dispatch_once(MEMORY[0x277CBC880], v20);
     }
 
-    v22 = *MEMORY[0x277CBC840];
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v21 = *MEMORY[0x277CBC840];
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      v43 = objc_msgSend_header(self, v23, v24, v25, v26, v27, v28);
-      v50 = CKDSStringForBackingStoreFormatVersion(v43, v44, v45, v46, v47, v48, v49);
-      v57 = objc_msgSend_header(self, v51, v52, v53, v54, v55, v56) >> 8;
-      v64 = objc_msgSend_header(self, v58, v59, v60, v61, v62, v63) >> 16;
-      v71 = objc_msgSend_readableStorage(self, v65, v66, v67, v68, v69, v70);
-      v103 = 138413058;
-      v104 = v50;
+      v41 = objc_msgSend_header(self, v22, v23, v24, v25, v26, v27);
+      v48 = CKDSStringForBackingStoreFormatVersion(v41, v42, v43, v44, v45, v46, v47);
+      v55 = objc_msgSend_header(self, v49, v50, v51, v52, v53, v54) >> 8;
+      v62 = objc_msgSend_header(self, v56, v57, v58, v59, v60, v61) >> 16;
+      v69 = objc_msgSend_readableStorage(self, v63, v64, v65, v66, v67, v68);
+      v101 = 138413058;
+      v102 = v48;
+      v103 = 1024;
+      v104 = v55;
       v105 = 1024;
-      v106 = v57;
-      v107 = 1024;
-      v108 = v64;
-      v109 = 2112;
-      v110 = v71;
-      _os_log_debug_impl(&dword_2438A8000, v22, OS_LOG_TYPE_DEBUG, "Reading %@ file with writer code %u, writer version %d, and storage %@", &v103, 0x22u);
+      v106 = v62;
+      v107 = 2112;
+      v108 = v69;
+      _os_log_debug_impl(&dword_2438A8000, v21, OS_LOG_TYPE_DEBUG, "Reading %@ file with writer code %u, writer version %d, and storage %@", &v101, 0x22u);
     }
 
-    v35 = objc_msgSend_topLevelReadProxy(self, v29, v30, v31, v32, v33, v34);
-    blockCopy[2](blockCopy, v35);
+    v34 = objc_msgSend_topLevelReadProxy(self, v28, v29, v30, v31, v32, v33);
+    blockCopy[2](blockCopy, v34);
   }
 
   else
@@ -554,28 +619,27 @@ LABEL_21:
       dispatch_once(MEMORY[0x277CBC880], v20);
     }
 
-    v35 = *MEMORY[0x277CBC840];
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+    v34 = *MEMORY[0x277CBC840];
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
-      v72 = objc_msgSend_header(self, v36, v37, v38, v39, v40, v41);
-      v79 = CKDSStringForBackingStoreFormatVersion(v72, v73, v74, v75, v76, v77, v78);
-      v86 = objc_msgSend_header(self, v80, v81, v82, v83, v84, v85) >> 8;
-      v93 = objc_msgSend_header(self, v87, v88, v89, v90, v91, v92) >> 16;
-      v100 = objc_msgSend_readableStorage(self, v94, v95, v96, v97, v98, v99);
-      v103 = 138413058;
-      v104 = v79;
+      v70 = objc_msgSend_header(self, v35, v36, v37, v38, v39, v40);
+      v77 = CKDSStringForBackingStoreFormatVersion(v70, v71, v72, v73, v74, v75, v76);
+      v84 = objc_msgSend_header(self, v78, v79, v80, v81, v82, v83) >> 8;
+      v91 = objc_msgSend_header(self, v85, v86, v87, v88, v89, v90) >> 16;
+      v98 = objc_msgSend_readableStorage(self, v92, v93, v94, v95, v96, v97);
+      v101 = 138413058;
+      v102 = v77;
+      v103 = 1024;
+      v104 = v84;
       v105 = 1024;
-      v106 = v86;
-      v107 = 1024;
-      v108 = v93;
-      v109 = 2112;
-      v110 = v100;
-      _os_log_debug_impl(&dword_2438A8000, v35, OS_LOG_TYPE_DEBUG, "Skipping read for %@ file with writer code %u, writer version %d, and storage %@, due to null root struct", &v103, 0x22u);
+      v106 = v91;
+      v107 = 2112;
+      v108 = v98;
+      _os_log_debug_impl(&dword_2438A8000, v34, OS_LOG_TYPE_DEBUG, "Skipping read for %@ file with writer code %u, writer version %d, and storage %@, due to null root struct", &v101, 0x22u);
     }
   }
 
   objc_autoreleasePoolPop(v6);
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeUsingBlock:(id)block
@@ -661,6 +725,82 @@ LABEL_11:
   return 1;
 }
 
+- (id)structProxyForStructReference:(unint64_t)reference inStructInstance:(id *)instance mutable:(BOOL)mutable
+{
+  if (instance->var0)
+  {
+    mutableCopy = mutable;
+    v22 = *instance;
+    if (mutable)
+    {
+      objc_msgSend_beginReferencedStructForReference_inStruct_(self, a2, reference, &v22, mutable, v5, v6);
+    }
+
+    else
+    {
+      objc_msgSend_referencedStructForReference_inStruct_(self, a2, reference, &v22, mutable, v5, v6);
+    }
+
+    *&v22.var0 = v24;
+    if (v23)
+    {
+      v24 = *&v22.var0;
+      v18 = objc_msgSend_cacheScope(self, v10, v11, v12, v13, v14, v15);
+      v16 = objc_msgSend__proxyWithStructInstance_mutable_cacheScope_(self, v19, &v23, mutableCopy, v18, v20, v21);
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  return v16;
+}
+
+- (id)structListProxyForListReference:(unint64_t)reference inStructInstance:(id *)instance mutable:(BOOL)mutable
+{
+  if (instance->var0)
+  {
+    mutableCopy = mutable;
+    v22 = *instance;
+    if (mutable)
+    {
+      objc_msgSend_beginReferencedListForReference_inStruct_(self, a2, reference, &v22, mutable, v5, v6);
+    }
+
+    else
+    {
+      objc_msgSend_referencedListForReference_inStruct_(self, a2, reference, &v22, mutable, v5, v6);
+    }
+
+    *&v22.var0 = v24;
+    if (*(&v23 + 1))
+    {
+      v24 = *&v22.var0;
+      v18 = objc_msgSend_cacheScope(self, v10, v11, v12, v13, v14, v15);
+      v16 = objc_msgSend__proxyWithListInstance_mutable_cacheScope_(self, v19, &v23, mutableCopy, v18, v20, v21);
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  return v16;
+}
+
 - (id)appendedStructProxyForListInstance:(id *)instance
 {
   if (instance->var1)
@@ -719,6 +859,85 @@ LABEL_11:
   }
 
   return v20;
+}
+
+- (id)_proxyWithStructInstance:(id *)instance mutable:(BOOL)mutable cacheScope:(int64_t)scope
+{
+  mutableCopy = mutable;
+  if (instance->var0 == -1)
+  {
+    v41 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], a2, instance, mutable, scope, v5, v6);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v41, v42, a2, self, @"CKXBackingStore.mm", 443, @"Invalid struct token");
+
+    if (instance->var0)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else if (instance->var0)
+  {
+LABEL_3:
+    v11 = objc_msgSend_proxyCache(self, a2, instance, mutable, scope, v5, v6);
+    v23 = objc_msgSend_binding(self, v12, v13, v14, v15, v16, v17);
+    if (mutableCopy)
+    {
+      v24 = objc_msgSend_mutableProxyClassForStructToken_(v23, v18, instance->var0, v19, v20, v21, v22);
+    }
+
+    else
+    {
+      v24 = objc_msgSend_proxyClassForStructToken_(v23, v18, instance->var0, v19, v20, v21, v22);
+    }
+
+    v29 = objc_msgSend_proxyForClass_withScope_(v11, v25, v24, scope, v26, v27, v28);
+
+    objc_msgSend_associateWithBackingStore_(v29, v30, self, v31, v32, v33, v34);
+    v44 = *&instance->var0;
+    var2 = instance->var2;
+    objc_msgSend_associateWithStructInstance_(v29, v35, &v44, v36, v37, v38, v39);
+    goto LABEL_9;
+  }
+
+  v29 = 0;
+LABEL_9:
+
+  return v29;
+}
+
+- (id)_proxyWithListInstance:(id *)instance mutable:(BOOL)mutable cacheScope:(int64_t)scope
+{
+  var1 = instance->var1;
+  if (var1 == -1)
+  {
+    v30 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], a2, instance, mutable, scope, v5, v6);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v30, v31, a2, self, @"CKXBackingStore.mm", 456, @"Invalid struct token");
+
+    if (instance->var1)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else if (var1)
+  {
+LABEL_3:
+    v11 = objc_msgSend_proxyCache(self, a2, instance, mutable, scope, v5, v6);
+    v12 = objc_opt_class();
+    v17 = objc_msgSend_proxyForClass_withScope_(v11, v13, v12, scope, v14, v15, v16);
+
+    objc_msgSend_associateWithBackingStore_(v17, v18, self, v19, v20, v21, v22);
+    v23 = *&instance->var2;
+    v33[0] = *&instance->var0;
+    v33[1] = v23;
+    objc_msgSend_associateWithListInstance_(v17, v24, v33, v25, v26, v27, v28);
+    goto LABEL_6;
+  }
+
+  v17 = 0;
+LABEL_6:
+
+  return v17;
 }
 
 - (void)proxyScope:(id)scope
@@ -1283,6 +1502,34 @@ LABEL_6:
   return 0;
 }
 
++ (unint64_t)headerSizeForFormatVersion:(unsigned __int8)version
+{
+  versionCopy = version;
+  if ((objc_msgSend_versionSupported_(CKXVersionedReaderWriterStore, a2, version, v3, v4, v5, v6) & 1) == 0)
+  {
+    v17 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v10, v11, v12, v13, v14, v15);
+    v24 = CKDSStringForBackingStoreFormatVersion(versionCopy, v18, v19, v20, v21, v22, v23);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v17, v25, a2, self, @"CKXBackingStore.mm", 661, @"Format version %@ not supported", v24);
+
+LABEL_7:
+    return 0;
+  }
+
+  if (versionCopy != 3)
+  {
+    if (versionCopy == 2)
+    {
+      return 7;
+    }
+
+    v17 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v10, v11, v12, v13, v14, v15);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v17, v26, a2, self, @"CKXBackingStore.mm", 670, @"Unexpected format version");
+    goto LABEL_7;
+  }
+
+  return 0;
+}
+
 + (BOOL)header:(id *)header forStorage:(id)storage error:(id *)error
 {
   storageCopy = storage;
@@ -1332,51 +1579,140 @@ LABEL_6:
 
 + ($B3A8F95EBB77A6B0A6D0D56B621ADA09)headerForData:(id)data
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = sub_243984150;
-  v26[3] = &unk_278DDB480;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = sub_243984150;
+  v25[3] = &unk_278DDB480;
   v4 = dataCopy;
-  v27 = v4;
-  v5 = MEMORY[0x245D43840](v26);
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = sub_2439841BC;
-  v24[3] = &unk_278DDB480;
+  v26 = v4;
+  v5 = MEMORY[0x245D43840](v25);
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = sub_2439841BC;
+  v23[3] = &unk_278DDB480;
   v6 = v4;
-  v25 = v6;
-  v7 = MEMORY[0x245D43840](v24);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = sub_24398427C;
-  v22[3] = &unk_278DDB480;
+  v24 = v6;
+  v7 = MEMORY[0x245D43840](v23);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = sub_24398427C;
+  v21[3] = &unk_278DDB480;
   v8 = v6;
-  v23 = v8;
-  v9 = MEMORY[0x245D43840](v22);
-  v31 = 0;
+  v22 = v8;
+  v9 = MEMORY[0x245D43840](v21);
   v30 = 0;
+  v29 = 0;
   v16 = objc_msgSend_length(v8, v10, v11, v12, v13, v14, v15);
   if (v16 >= 0xC)
   {
-    objc_msgSend_getBytes_range_(v8, v17, &v30, 0, 12, v18, v19);
+    objc_msgSend_getBytes_range_(v8, v17, &v29, 0, 12, v18, v19);
   }
 
   else
   {
-    objc_msgSend_getBytes_range_(v8, v17, &v30, 0, v16, v18, v19);
+    objc_msgSend_getBytes_range_(v8, v17, &v29, 0, v16, v18, v19);
   }
 
-  v29 = 0;
   v28 = 0;
-  if (((v5)[2](v5, &v30, &v28) & 1) == 0 && ((v7)[2](v7, &v30, &v28) & 1) == 0)
+  v27 = 0;
+  if (((v5)[2](v5, &v29, &v27) & 1) == 0 && ((v7)[2](v7, &v29, &v27) & 1) == 0)
   {
-    (v9)[2](v9, &v30, &v28);
+    (v9)[2](v9, &v29, &v27);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return (v28 | (v29 << 16));
+  return (v27 | (v28 << 16));
+}
+
++ (id)createHeaderDataForFormatVersion:(unsigned __int8)version
+{
+  versionCopy = version;
+  if ((objc_msgSend_versionSupported_(CKXVersionedReaderWriterStore, a2, version, v3, v4, v5, v6) & 1) == 0)
+  {
+    v16 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v10, v11, v12, v13, v14, v15);
+    v24 = CKDSStringForBackingStoreFormatVersion(versionCopy, v18, v19, v20, v21, v22, v23);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v16, v25, a2, self, @"CKXBackingStore.mm", 759, @"Format version %@ not supported", v24);
+
+    goto LABEL_6;
+  }
+
+  if (versionCopy != 2)
+  {
+    if (versionCopy == 3)
+    {
+LABEL_7:
+      v26 = objc_opt_new();
+      goto LABEL_8;
+    }
+
+    v16 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v10, v11, v12, v13, v14, v15);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v16, v17, a2, self, @"CKXBackingStore.mm", 772, @"Unexpected format version");
+LABEL_6:
+
+    goto LABEL_7;
+  }
+
+  v28 = -1421867861;
+  v29 = 258;
+  v30 = 4;
+  v26 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v10, &v28, 7, v13, v14, v15);
+LABEL_8:
+
+  return v26;
+}
+
++ (BOOL)prefixStorage:(id)storage withHeaderForVersion:(unsigned __int8)version error:(id *)error
+{
+  versionCopy = version;
+  v77[1] = *MEMORY[0x277D85DE8];
+  storageCopy = storage;
+  if ((objc_msgSend_versionSupported_(CKXVersionedReaderWriterStore, v10, versionCopy, v11, v12, v13, v14) & 1) == 0)
+  {
+    v59 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v15, v16, v17, v18, v19, v20);
+    v66 = CKDSStringForBackingStoreFormatVersion(versionCopy, v60, v61, v62, v63, v64, v65);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v59, v67, a2, self, @"CKXBackingStore.mm", 781, @"Format version %@ not supported", v66);
+
+    LOBYTE(error) = 0;
+    goto LABEL_8;
+  }
+
+  v21 = objc_msgSend_createHeaderDataForFormatVersion_(self, v15, versionCopy, v17, v18, v19, v20);
+  if (objc_msgSend_length(v21, v22, v23, v24, v25, v26, v27))
+  {
+    v34 = objc_msgSend_data(storageCopy, v28, v29, v30, v31, v32, v33);
+
+    if (!v34)
+    {
+      if (error)
+      {
+        v69 = MEMORY[0x277CCA9B8];
+        v76 = *MEMORY[0x277CCA450];
+        v77[0] = @"Not implemented";
+        v70 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, v77, &v76, 1, v39, v40);
+        v74 = objc_msgSend_errorWithDomain_code_userInfo_(v69, v71, @"CKDSErrorDomain", 1, v70, v72, v73);
+
+        v75 = v74;
+        *error = v74;
+
+        LOBYTE(error) = 0;
+      }
+
+      goto LABEL_6;
+    }
+
+    v41 = objc_msgSend_data(storageCopy, v35, v36, v37, v38, v39, v40);
+    v42 = v21;
+    v49 = objc_msgSend_bytes(v42, v43, v44, v45, v46, v47, v48);
+    v56 = objc_msgSend_length(v21, v50, v51, v52, v53, v54, v55);
+    objc_msgSend_replaceBytesInRange_withBytes_length_(v41, v57, 0, 0, v49, v56, v58);
+  }
+
+  LOBYTE(error) = 1;
+LABEL_6:
+
+LABEL_8:
+  return error;
 }
 
 @end

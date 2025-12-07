@@ -169,7 +169,7 @@
   [(NSNumber *)self->inputMinimumGammaAdjustment floatValue];
   v16 = v15;
   [(NSNumber *)self->inputStopAnchor floatValue];
-  calcUniforms(v6, v8, 0.0, v10, v12, v14, v16, v17, self->inputPreferredDynamicRange, &v32);
+  calcUniforms(&v32, v6, v8, 0.0, v10, v12, v14, v16, v17, self->inputPreferredDynamicRange);
   if (!v32)
   {
     return value;
@@ -241,7 +241,7 @@
   [(NSNumber *)self->inputMinimumGammaAdjustment floatValue];
   v19 = v18;
   [(NSNumber *)self->inputStopAnchor floatValue];
-  calcUniforms(v7, v9, v11, v13, v15, v17, v19, v20, self->inputPreferredDynamicRange, &v53);
+  calcUniforms(&v53, v7, v9, v11, v13, v15, v17, v19, v20, self->inputPreferredDynamicRange);
   v21 = v53;
   if (!v53)
   {

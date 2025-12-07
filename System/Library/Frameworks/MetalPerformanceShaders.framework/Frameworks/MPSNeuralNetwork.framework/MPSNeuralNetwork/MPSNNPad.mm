@@ -70,9 +70,9 @@
 
 - (id)copyWithZone:(_NSZone *)zone device:(id)device
 {
-  v56.receiver = self;
-  v56.super_class = MPSNNPad;
-  v6 = [(MPSCNNKernel *)&v56 copyWithZone:zone device:?];
+  v60.receiver = self;
+  v60.super_class = MPSNNPad;
+  v6 = [(MPSCNNKernel *)&v60 copyWithZone:zone device:?];
   v7 = *&self->_paddingSizeAfter.x;
   *(v6 + 49) = self->_paddingSizeAfter.channel;
   *(v6 + 376) = v7;
@@ -118,7 +118,7 @@
       {
         if (MTLReportFailureTypeEnabled())
         {
-          MTLReportFailure();
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNReshape.mm", 0x3E4, @"[... copyWithZone:device](copyBuffer) out of memory: could not allocate internal data", v56, v57, v58, v59);
         }
 
         v20 = 0;
@@ -139,8 +139,8 @@
 
 - (MPSNNPad)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v111.receiver = self;
-  v111.super_class = MPSNNPad;
+  v119.receiver = self;
+  v119.super_class = MPSNNPad;
   v6 = [MPSCNNKernel initWithCoder:sel_initWithCoder_device_ device:?];
   v13 = v6;
   if (v6)
@@ -167,24 +167,24 @@
         MPSDevice = MPSDevice::GetMPSDevice();
         if (MPSDevice)
         {
-          v110 = MPSDevice;
+          v118 = MPSDevice;
           if (!objc_msgSend_decodeBoolForKey_(aDecoder, v59, @"MPSNNPad_aBuf", v60, v61, v62, v63, v64) || !objc_msgSend_decodeBoolForKey_(aDecoder, v65, @"MPSNNPad_aBuf", v66, v67, v68, v69, v70))
           {
             v13->_aBuf = 0;
             return v13;
           }
 
-          v112 = 0;
+          v120 = 0;
           v71 = objc_alloc(MEMORY[0x277CCACA8]);
           v78 = objc_msgSend_initWithFormat_(v71, v72, @"%@%@", v73, v74, v75, v76, v77, @"MPSNNPad_aBuf", @".length");
           v79 = objc_alloc(MEMORY[0x277CCACA8]);
           v86 = objc_msgSend_initWithFormat_(v79, v80, @"%@%@", v81, v82, v83, v84, v85, @"MPSNNPad_aBuf", @".data");
           v93 = objc_msgSend_decodeInt64ForKey_(aDecoder, v87, v78, v88, v89, v90, v91, v92);
-          v99 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v94, v86, &v112, v95, v96, v97, v98);
+          v99 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v94, v86, &v120, v95, v96, v97, v98);
 
           if (v99)
           {
-            if (4 * v93 == v112)
+            if (4 * v93 == v120)
             {
               v100 = malloc_type_malloc(4 * v93, 0x100004052888210uLL);
               if (v100)
@@ -193,7 +193,7 @@
                 MPSCopyToFromNetworkByteOrder32();
                 if (v93 == aBufFP32Len)
                 {
-                  v102 = (*(*v110 + 24))(v110);
+                  v102 = (*(*v118 + 24))(v118);
                   v107 = objc_msgSend_newBufferWithBytes_length_options_(device, v103, v101, 4 * aBufFP32Len, 16 * v102, v104, v105, v106);
                   free(v101);
                   v13->_aBuf = v107;
@@ -209,7 +209,7 @@
         v13->_aBuf = 0;
         if (MTLReportFailureTypeEnabled())
         {
-          MTLReportFailure();
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNReshape.mm", 0x4B4, @"[initWithCoder:] out of memory?: could not decode fillValueArray", v113, v114, v115, v116);
         }
 
         v13->_aBuf = 0;
@@ -223,7 +223,7 @@
       {
         v108 = objc_opt_class();
         NSStringFromClass(v108);
-        MTLReportFailure();
+        MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNReshape.mm", 0x49E, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v109, v110, v111, v112);
       }
 
       return 0;

@@ -294,7 +294,7 @@ uint64_t __69__UIKBAutoFillTestGroundTruthGenerationViewController_viewDidAppear
     highlightBox = self->_highlightBox;
     self->_highlightBox = v9;
 
-    v11 = +[UIColor blackColor];
+    v11 = objc_msgSend_blackColor(UIColor);
     [(UIView *)self->_highlightBox setBackgroundColor:v11];
 
     v12 = *MEMORY[0x1E69798E8];

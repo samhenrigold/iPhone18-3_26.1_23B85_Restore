@@ -19,14 +19,12 @@
 
 + (id)indexableKeyPathsWithPrefix:(id)prefix
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = @"type";
+  v9 = *MEMORY[0x1E69E9840];
+  v8 = @"type";
   v3 = MEMORY[0x1E695DEC8];
   prefixCopy = prefix;
-  v5 = [v3 arrayWithObjects:&v9 count:1];
-  v6 = [HKConceptIndexUtilities keyPaths:v5 prefix:prefixCopy, v9, v10];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = [v3 arrayWithObjects:&v8 count:1];
+  v6 = [HKConceptIndexUtilities keyPaths:v5 prefix:prefixCopy, v8, v9];
 
   return v6;
 }
@@ -104,17 +102,17 @@
 
 - (HKFHIRIdentifierElement)initWithCoder:(id)coder
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = HKFHIRIdentifierElement;
-  v5 = [(HKFHIRIdentifierElement *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = HKFHIRIdentifierElement;
+  v5 = [(HKFHIRIdentifierElement *)&v17 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"TypeCodings"];
     typeCodings = v5->_typeCodings;
@@ -138,7 +136,6 @@
   v15 = v5;
 LABEL_6:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -185,17 +182,17 @@ LABEL_6:
   typeCopy = type;
   if (!typeCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKFHIRIdentifierElement _setType:v5];
+      [HKFHIRIdentifierElement _setType:v6];
     }
   }
 
-  v6 = [typeCopy copy];
+  v7 = [typeCopy copy];
   type = self->_type;
-  self->_type = v6;
+  self->_type = v7;
 }
 
 - (unint64_t)hash
@@ -294,14 +291,14 @@ LABEL_19:
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if ([pathCopy isEqualToString:@"type"])
   {
     v7 = [HKMedicalCodingCollection collectionWithCodings:self->_typeCodings];
     v8 = [HKIndexableObject indexableObjectWithObject:v7];
-    v15[0] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+    v14[0] = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   }
 
   else
@@ -313,8 +310,6 @@ LABEL_19:
 
     v9 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

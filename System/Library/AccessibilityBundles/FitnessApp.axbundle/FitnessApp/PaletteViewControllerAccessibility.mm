@@ -94,21 +94,8 @@
     }
 
     [v23 _activeEnergyCompletionPercentage];
-    if (v24 < 0.0)
+    if (v24 < 0.0 || ([v23 safeDoubleForKey:@"_exerciseTimeCompletionPercentage"], v25 < 0.0) || (objc_msgSend(v23, "_standHoursCompletionPercentage"), v26 < 0.0) || (objc_msgSend(v23, "_activeEnergyCompletionPercentage"), v28 = v27, objc_msgSend(v23, "safeDoubleForKey:", @"_exerciseTimeCompletionPercentage"), v30 = v29, objc_msgSend(v23, "_standHoursCompletionPercentage"), objc_msgSend(v23, "_fitnessUIAccessibilityDescriptionForPercentages:exercisingPercentage:standingPercentage:arePercentagesCapped:", 1, v28, v30, v31), (v32 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      goto LABEL_13;
-    }
-
-    [v23 safeDoubleForKey:@"_exerciseTimeCompletionPercentage"];
-    if (v25 < 0.0)
-    {
-      goto LABEL_13;
-    }
-
-    [v23 _standHoursCompletionPercentage];
-    if (v26 < 0.0 || ([v23 _activeEnergyCompletionPercentage], v28 = v27, objc_msgSend(v23, "safeDoubleForKey:", @"_exerciseTimeCompletionPercentage"), v30 = v29, objc_msgSend(v23, "_standHoursCompletionPercentage"), objc_msgSend(v23, "_fitnessUIAccessibilityDescriptionForPercentages:exercisingPercentage:standingPercentage:arePercentagesCapped:", 1, v28, v30, v31), (v32 = objc_claimAutoreleasedReturnValue()) == 0))
-    {
-LABEL_13:
       v32 = accessibilityLocalizedString(@"no.data");
     }
 
@@ -121,10 +108,7 @@ LABEL_13:
 
 uint64_t __80__PaletteViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) activitySummaryForCacheIndex:CHCacheIndexForDate(*(a1 + 40))];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) activitySummaryForCacheIndex:CHCacheIndexForDate(*(a1 + 40))];
 
   return _objc_release_x1();
 }

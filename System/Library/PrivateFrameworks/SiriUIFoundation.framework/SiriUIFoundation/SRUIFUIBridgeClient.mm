@@ -25,31 +25,29 @@
 
 - (void)newRequestWillStart
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[SRUIFUIBridgeClient newRequestWillStart]";
-    _os_log_impl(&dword_26951F000, v2, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[SRUIFUIBridgeClient newRequestWillStart]";
+    _os_log_impl(&dword_26951F000, v2, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (SRUIFUIBridgeClient)initWithStateHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v16.receiver = self;
-  v16.super_class = SRUIFUIBridgeClient;
-  v6 = [(SRUIFUIBridgeClient *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = SRUIFUIBridgeClient;
+  v6 = [(SRUIFUIBridgeClient *)&v15 init];
   objc_storeStrong(&v6->_stateHandler, handler);
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SRUIFUIBridgeClient initWithStateHandler:]";
+    v17 = "[SRUIFUIBridgeClient initWithStateHandler:]";
     _os_log_impl(&dword_26951F000, v7, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - creating UIBridge client", buf, 0xCu);
   }
 
@@ -66,29 +64,28 @@
   latencyStateManager = v6->_latencyStateManager;
   v6->_latencyStateManager = v12;
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (SRUIFUIBridgeClient)initWithStateHandler:(id)handler delegateQueue:(id)queue
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v20.receiver = self;
-  v20.super_class = SRUIFUIBridgeClient;
+  v19.receiver = self;
+  v19.super_class = SRUIFUIBridgeClient;
   queueCopy = queue;
-  v9 = [(SRUIFUIBridgeClient *)&v20 init];
+  v9 = [(SRUIFUIBridgeClient *)&v19 init];
   objc_storeStrong(&v9->_stateHandler, handler);
   v10 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v22 = "[SRUIFUIBridgeClient initWithStateHandler:delegateQueue:]";
+    v21 = "[SRUIFUIBridgeClient initWithStateHandler:delegateQueue:]";
     _os_log_impl(&dword_26951F000, v10, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - creating UIBridge client with delegate queue", buf, 0xCu);
   }
 
   v11 = objc_alloc(MEMORY[0x277D61A20]);
-  v12 = [v11 initWithDelegate:v9 delegateQueue:{queueCopy, v20.receiver, v20.super_class}];
+  v12 = [v11 initWithDelegate:v9 delegateQueue:{queueCopy, v19.receiver, v19.super_class}];
 
   client = v9->_client;
   v9->_client = v12;
@@ -102,7 +99,6 @@
   latencyStateManager = v9->_latencyStateManager;
   v9->_latencyStateManager = v16;
 
-  v18 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -117,41 +113,39 @@
 
 - (void)endForReason:(int64_t)reason
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x277CCABB0];
     v7 = v5;
     v8 = [v6 numberWithInteger:reason];
-    v10 = 136315394;
-    v11 = "[SRUIFUIBridgeClient endForReason:]";
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_26951F000, v7, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - end for reason %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SRUIFUIBridgeClient endForReason:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_26951F000, v7, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - end for reason %@", &v9, 0x16u);
   }
 
   [(SUIBUIBridgeClient *)self->_client stopAttendingForReason:1];
   [(SUIBUIBridgeClient *)self->_client siriDismissed];
   [(SRUIFUIBridgeClient *)self _setIsAttending:0];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAttending
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SRUIFUIBridgeClient stopAttending]";
-    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - stop attending", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SRUIFUIBridgeClient stopAttending]";
+    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - stop attending", &v4, 0xCu);
   }
 
   [(SUIBUIBridgeClient *)self->_client stopAttendingForReason:1];
   [(SRUIFSiriSessionStateHandler *)self->_stateHandler performTransitionForEvent:10];
   [(SRUIFUIBridgeClient *)self _setIsAttending:0];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setIsAttending:(BOOL)attending
@@ -171,7 +165,7 @@
 
 void __39__SRUIFUIBridgeClient__setIsAttending___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained && *(WeakRetained + 32) != *(a1 + 40))
@@ -181,13 +175,13 @@ void __39__SRUIFUIBridgeClient__setIsAttending___block_invoke(uint64_t a1)
     {
       v5 = *(v3 + 32);
       v6 = *(a1 + 40);
-      v11 = 136315650;
-      v12 = "[SRUIFUIBridgeClient _setIsAttending:]_block_invoke";
-      v13 = 1024;
-      v14 = v5;
-      v15 = 1024;
-      v16 = v6;
-      _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s %d => %d", &v11, 0x18u);
+      v10 = 136315650;
+      v11 = "[SRUIFUIBridgeClient _setIsAttending:]_block_invoke";
+      v12 = 1024;
+      v13 = v5;
+      v14 = 1024;
+      v15 = v6;
+      _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s %d => %d", &v10, 0x18u);
     }
 
     *(v3 + 32) = *(a1 + 40);
@@ -200,40 +194,35 @@ void __39__SRUIFUIBridgeClient__setIsAttending___block_invoke(uint64_t a1)
       [v9 attendingStatusChanged:*(v3 + 32)];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)promptedUserForInput
+{
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277CEF098];
+  if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = 136315138;
+    v5 = "[SRUIFUIBridgeClient promptedUserForInput]";
+    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation", &v4, 0xCu);
+  }
+
+  [(SUIBUIBridgeClient *)self->_client siriPrompted];
+}
+
+- (void)notifySessionThatTypingStarted
 {
   v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
-    v6 = "[SRUIFUIBridgeClient promptedUserForInput]";
-    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation", &v5, 0xCu);
-  }
-
-  [(SUIBUIBridgeClient *)self->_client siriPrompted];
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)notifySessionThatTypingStarted
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277CEF098];
-  if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = 136315138;
-    v7 = "[SRUIFUIBridgeClient notifySessionThatTypingStarted]";
-    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #sae prewarming for type to Siri request", &v6, 0xCu);
+    v6 = "[SRUIFUIBridgeClient notifySessionThatTypingStarted]";
+    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #sae prewarming for type to Siri request", &v5, 0xCu);
   }
 
   v4 = [objc_alloc(MEMORY[0x277D61A18]) initWithBuilder:&__block_literal_global_8];
   [(SUIBUIBridgeClient *)self->_client notifyTypingStartedWith:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __53__SRUIFUIBridgeClient_notifySessionThatTypingStarted__block_invoke(uint64_t a1, void *a2)
@@ -246,67 +235,64 @@ void __53__SRUIFUIBridgeClient_notifySessionThatTypingStarted__block_invoke(uint
 
 - (void)uiBridgeServiceWillStartAttending
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SRUIFUIBridgeClient uiBridgeServiceWillStartAttending]";
-    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - will start attending", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SRUIFUIBridgeClient uiBridgeServiceWillStartAttending]";
+    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - will start attending", &v4, 0xCu);
   }
 
   [(SRUIFUIBridgeClient *)self _setIsAttending:1];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uiBridgeServiceDidStartAttending
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SRUIFUIBridgeClient uiBridgeServiceDidStartAttending]";
-    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - did start attending", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SRUIFUIBridgeClient uiBridgeServiceDidStartAttending]";
+    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - did start attending", &v4, 0xCu);
   }
 
   [(SRUIFUIBridgeClient *)self _setIsAttending:1];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uiBridgeServiceDidStopAttendingUnexpectedlyWithReason:(unint64_t)reason
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SRUIFUIBridgeClient uiBridgeServiceDidStopAttendingUnexpectedlyWithReason:]";
-    _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - did stop attending", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SRUIFUIBridgeClient uiBridgeServiceDidStopAttendingUnexpectedlyWithReason:]";
+    _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - did stop attending", &v5, 0xCu);
   }
 
   [(SRUIFUIBridgeClient *)self _setIsAttending:0];
   [(SRUIFSiriSessionStateHandler *)self->_stateHandler performTransitionForEvent:10];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uiBridgeServiceDetectedSpeechStart:(BOOL)start
 {
   startCopy = start;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     _stateHandler = [(SRUIFUIBridgeClient *)self _stateHandler];
     v8 = SRUIFSiriSessionStateGetDescription([_stateHandler state]);
-    v12 = 136315650;
-    v13 = "[SRUIFUIBridgeClient uiBridgeServiceDetectedSpeechStart:]";
-    v14 = 1024;
-    v15 = startCopy;
-    v16 = 2112;
-    v17 = v8;
-    _os_log_impl(&dword_26951F000, v6, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - speech start detected, shouldDuckTTS: %d, currentState: %@", &v12, 0x1Cu);
+    v11 = 136315650;
+    v12 = "[SRUIFUIBridgeClient uiBridgeServiceDetectedSpeechStart:]";
+    v13 = 1024;
+    v14 = startCopy;
+    v15 = 2112;
+    v16 = v8;
+    _os_log_impl(&dword_26951F000, v6, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - speech start detected, shouldDuckTTS: %d, currentState: %@", &v11, 0x1Cu);
   }
 
   [(SRUIFSiriSessionStateHandler *)self->_stateHandler performTransitionForEvent:11];
@@ -317,13 +303,11 @@ void __53__SRUIFUIBridgeClient_notifySessionThatTypingStarted__block_invoke(uint
     LODWORD(v10) = 1036831949;
     [WeakRetained duckTTSToVolume:&__block_literal_global_12 rampTime:v10 completion:0.5];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __58__SRUIFUIBridgeClient_uiBridgeServiceDetectedSpeechStart___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (v2)
@@ -336,26 +320,24 @@ void __58__SRUIFUIBridgeClient_uiBridgeServiceDetectedSpeechStart___block_invoke
 
   else if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315138;
-    v13 = "[SRUIFUIBridgeClient uiBridgeServiceDetectedSpeechStart:]_block_invoke";
-    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - successfully ducked TTS", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[SRUIFUIBridgeClient uiBridgeServiceDetectedSpeechStart:]_block_invoke";
+    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - successfully ducked TTS", &v11, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uiBridgeServiceReceivedSpeechMitigationResult:(unint64_t)result
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CEF098];
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315394;
-    v14 = "[SRUIFUIBridgeClient uiBridgeServiceReceivedSpeechMitigationResult:]";
-    v15 = 2048;
+    v12 = 136315394;
+    v13 = "[SRUIFUIBridgeClient uiBridgeServiceReceivedSpeechMitigationResult:]";
+    v14 = 2048;
     resultCopy = result;
-    _os_log_impl(&dword_26951F000, v6, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - mitigationResult: %ld", &v13, 0x16u);
+    _os_log_impl(&dword_26951F000, v6, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - mitigationResult: %ld", &v12, 0x16u);
   }
 
   if (result == 1)
@@ -383,22 +365,20 @@ LABEL_8:
     v9 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315138;
-      v14 = "[SRUIFUIBridgeClient uiBridgeServiceReceivedSpeechMitigationResult:]";
-      _os_log_impl(&dword_26951F000, v9, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - unducking TTS", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[SRUIFUIBridgeClient uiBridgeServiceReceivedSpeechMitigationResult:]";
+      _os_log_impl(&dword_26951F000, v9, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - unducking TTS", &v12, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     LODWORD(v11) = 1.0;
     [WeakRetained duckTTSToVolume:&__block_literal_global_14 rampTime:v11 completion:0.5];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __69__SRUIFUIBridgeClient_uiBridgeServiceReceivedSpeechMitigationResult___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (v2)
@@ -411,34 +391,30 @@ void __69__SRUIFUIBridgeClient_uiBridgeServiceReceivedSpeechMitigationResult___b
 
   else if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315138;
-    v13 = "[SRUIFUIBridgeClient uiBridgeServiceReceivedSpeechMitigationResult:]_block_invoke";
-    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - successfully unducked TTS", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[SRUIFUIBridgeClient uiBridgeServiceReceivedSpeechMitigationResult:]_block_invoke";
+    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - successfully unducked TTS", &v11, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uiBridgeServiceReceivedShowAssetsDownloadPrompt
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SRUIFUIBridgeClient uiBridgeServiceReceivedShowAssetsDownloadPrompt]";
-    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - Received Show Assets Download notification prompt.", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SRUIFUIBridgeClient uiBridgeServiceReceivedShowAssetsDownloadPrompt]";
+    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s #IntuitiveConversation - Received Show Assets Download notification prompt.", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained showAssetsDownloadNotificationPrompt];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uiBridgeServiceDidReceiveTasks:(id)tasks
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   tasksCopy = tasks;
   v5 = [tasksCopy count];
   v6 = MEMORY[0x277CEF098];
@@ -457,11 +433,11 @@ void __69__SRUIFUIBridgeClient_uiBridgeServiceReceivedSpeechMitigationResult___b
   v17 = *v6;
   if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 136315394;
-    v24 = "[SRUIFUIBridgeClient uiBridgeServiceDidReceiveTasks:]";
-    v25 = 2112;
-    v26 = taskId;
-    _os_log_impl(&dword_26951F000, v17, OS_LOG_TYPE_DEFAULT, "%s Siri UI received task with identifier: %@", &v23, 0x16u);
+    v22 = 136315394;
+    v23 = "[SRUIFUIBridgeClient uiBridgeServiceDidReceiveTasks:]";
+    v24 = 2112;
+    v25 = taskId;
+    _os_log_impl(&dword_26951F000, v17, OS_LOG_TYPE_DEFAULT, "%s Siri UI received task with identifier: %@", &v22, 0x16u);
   }
 
   latencyStateManager = self->_latencyStateManager;
@@ -476,8 +452,6 @@ void __69__SRUIFUIBridgeClient_uiBridgeServiceReceivedSpeechMitigationResult___b
     v21 = objc_loadWeakRetained(&self->_delegate);
     [v21 orchestrationBeganTaskWithIdentifier:taskId];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uiBridgeServiceReceivedSiriResponse:(id)response
@@ -560,68 +534,58 @@ void __69__SRUIFUIBridgeClient_uiBridgeServiceReceivedSpeechMitigationResult___b
 
 void __58__SRUIFUIBridgeClient_uiBridgeServiceDetectedSpeechStart___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_26951F000, a1, a3, "%s #IntuitiveConversation - failed to duck TTS", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRUIFUIBridgeClient uiBridgeServiceDetectedSpeechStart:]_block_invoke";
+  OUTLINED_FUNCTION_0_2(&dword_26951F000, a1, a3, "%s #IntuitiveConversation - failed to duck TTS", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __69__SRUIFUIBridgeClient_uiBridgeServiceReceivedSpeechMitigationResult___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_26951F000, a1, a3, "%s #IntuitiveConversation - failed to unduck TTS", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRUIFUIBridgeClient uiBridgeServiceReceivedSpeechMitigationResult:]_block_invoke";
+  OUTLINED_FUNCTION_0_2(&dword_26951F000, a1, a3, "%s #IntuitiveConversation - failed to unduck TTS", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)uiBridgeServiceDidReceiveTasks:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_26951F000, a1, a3, "%s Siri UI received more than one task. Taking the last one", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SRUIFUIBridgeClient uiBridgeServiceDidReceiveTasks:]";
+  OUTLINED_FUNCTION_0_2(&dword_26951F000, a1, a3, "%s Siri UI received more than one task. Taking the last one", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)uiBridgeServiceReceivedSiriResponse:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1 inAppResponse];
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uiBridgeServiceReceivedRequestProgress:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 progressType];
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uiBridgeServiceReceivedRequestProgress:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 progress];
-  v10 = [a2 progressDescription];
+  v9 = [a2 progressDescription];
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uiBridgeServiceReceivedNLRoutingDecision:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[SRUIFUIBridgeClient uiBridgeServiceReceivedNLRoutingDecision:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_debug_impl(&dword_26951F000, a2, OS_LOG_TYPE_DEBUG, "%s Received uiBridgeServiceReceivedNLRoutingDecision with description: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[SRUIFUIBridgeClient uiBridgeServiceReceivedNLRoutingDecision:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_debug_impl(&dword_26951F000, a2, OS_LOG_TYPE_DEBUG, "%s Received uiBridgeServiceReceivedNLRoutingDecision with description: %@", &v2, 0x16u);
 }
 
 @end

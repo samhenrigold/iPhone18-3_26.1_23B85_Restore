@@ -13,7 +13,7 @@
 
 - (void)isVisitedMapItem:(id)item completionHandler:(id)handler
 {
-  v6 = sub_1000CE6B8(&unk_10190BA50);
+  v6 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v6 - 8);
   v8 = &v14 - v7;
   v9 = _Block_copy(handler);

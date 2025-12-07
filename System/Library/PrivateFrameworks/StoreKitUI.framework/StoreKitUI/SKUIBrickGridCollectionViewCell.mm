@@ -2,6 +2,7 @@
 - (UIEdgeInsets)contentInsets;
 - (UIImage)brickImage;
 - (void)applyEditorialLayout:(id)layout orientation:(int64_t)orientation;
+- (void)brickImage;
 - (void)layoutSubviews;
 - (void)setAccessibilityLabel:(id)label;
 - (void)setBackgroundColor:(id)color;
@@ -215,49 +216,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIBrickGridCollectionViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v24.receiver = self;
-  v24.super_class = SKUIBrickGridCollectionViewCell;
-  [(SKUIBrickGridCollectionViewCell *)&v24 layoutSubviews];
-  contentView = [(SKUIBrickGridCollectionViewCell *)self contentView];
-  [contentView bounds];
-  v13 = v12;
-  v15 = v14;
-
-  top = self->_contentInsets.top;
-  brickImageView = self->_brickImageView;
-  if (brickImageView)
-  {
-    [(UIImageView *)brickImageView frame];
-    v19 = v18;
-    v21 = v20;
-    left = self->_contentInsets.left;
-    [(UIImageView *)self->_brickImageView setFrame:left, top];
-    v25.origin.x = left;
-    v25.origin.y = top;
-    v25.size.width = v19;
-    v25.size.height = v21;
-    top = CGRectGetMaxY(v25);
-  }
-
-  editorialContainerView = self->_editorialContainerView;
-  if (editorialContainerView)
-  {
-    [(UIView *)editorialContainerView frame];
-    [(UIView *)self->_editorialContainerView setFrame:self->_contentInsets.left, top + 10.0, v13 - self->_contentInsets.right - self->_contentInsets.left, v15 - self->_contentInsets.bottom - (top + 10.0)];
-    [(SKUIEditorialCellLayout *)self->_editorialCellLayout layoutSubviews];
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickGridCollectionViewCell layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -294,6 +254,48 @@
   result.left = left;
   result.top = top;
   return result;
+}
+
+- (void)applyEditorialLayout:(uint64_t)a3 orientation:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickGridCollectionViewCell applyEditorialLayout:orientation:]";
+}
+
+- (void)brickImage
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickGridCollectionViewCell brickImage]";
+}
+
+- (void)setAccessibilityLabel:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickGridCollectionViewCell setAccessibilityLabel:]";
+}
+
+- (void)setBrickImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickGridCollectionViewCell setBrickImage:]";
+}
+
+- (void)setColoringWithColorScheme:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickGridCollectionViewCell setColoringWithColorScheme:]";
+}
+
+- (void)setContentInsets:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickGridCollectionViewCell setContentInsets:]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBrickGridCollectionViewCell setBackgroundColor:]";
 }
 
 @end

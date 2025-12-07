@@ -2005,13 +2005,13 @@ void __54__CKComposeRecipientSelectionController_addRecipient___block_invoke_164
   }
 }
 
-uint64_t __63__CKComposeRecipientSelectionController_atomizeAndInvokeBlock___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+void *__63__CKComposeRecipientSelectionController_atomizeAndInvokeBlock___block_invoke(void *result, uint64_t a2, uint64_t a3, int a4)
 {
   if (a4)
   {
     v4 = result;
-    [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:*(result + 32) selector:sel_atomizeAndSendTimeoutHandler object:0];
-    v5 = *(v4 + 32);
+    [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:result[4] selector:sel_atomizeAndSendTimeoutHandler object:0];
+    v5 = v4[4];
 
     return [v5 atomizeAndSendTimeoutHandler];
   }
@@ -2064,109 +2064,110 @@ uint64_t __63__CKComposeRecipientSelectionController_atomizeAndInvokeBlock___blo
 
 - (void)presentContextSelectionAlertWithCompletion:(id)completion
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v31 = +[CKSenderIdentity senderIdentitiesForFromPicker];
-  if (+[CKSenderIdentity conflictResolutionEnabled](CKSenderIdentity, "conflictResolutionEnabled") && [v31 count])
+  v34 = +[CKSenderIdentity senderIdentitiesForFromPicker];
+  if (+[CKSenderIdentity conflictResolutionEnabled](CKSenderIdentity, "conflictResolutionEnabled") && (v3 = [v34 count]) != 0)
   {
-    v3 = MEMORY[0x1E69DC650];
-    v4 = CKFrameworkBundle();
-    v5 = [v4 localizedStringForKey:@"COMPOSE_TO_MULTIPLE_RECIPIENTS_DIFFERENT_SENDER_IDENTITIES_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v6 = [v3 alertControllerWithTitle:v5 message:0 preferredStyle:0];
+    v4 = MEMORY[0x1E69DC650];
+    v5 = CKFrameworkBundle(v3);
+    v6 = [v5 localizedStringForKey:@"COMPOSE_TO_MULTIPLE_RECIPIENTS_DIFFERENT_SENDER_IDENTITIES_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v7 = [v4 alertControllerWithTitle:v6 message:0 preferredStyle:0];
 
     if (IMOSLoggingEnabled())
     {
-      v7 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v44 = v31;
-        _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_INFO, "Identities for disambiguation: %@", buf, 0xCu);
+        v47 = v34;
+        _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "Identities for disambiguation: %@", buf, 0xCu);
       }
     }
 
+    v44 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v41 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v38 = 0u;
-    obj = v31;
-    v8 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
-    if (v8)
+    obj = v34;
+    v9 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+    if (v9)
     {
-      v9 = *v39;
+      v10 = *v42;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v39 != v9)
+          if (*v42 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v38 + 1) + 8 * i);
-          isiMessageEnabled = [v11 isiMessageEnabled];
-          v13 = MEMORY[0x1E696AEC0];
-          v14 = CKFrameworkBundle();
-          v15 = v14;
-          if (isiMessageEnabled)
+          v12 = *(*(&v41 + 1) + 8 * i);
+          isiMessageEnabled = [v12 isiMessageEnabled];
+          v14 = isiMessageEnabled;
+          v15 = MEMORY[0x1E696AEC0];
+          v16 = CKFrameworkBundle(isiMessageEnabled);
+          v17 = v16;
+          if (v14)
           {
-            v16 = @"COMPOSE_TO_MULTIPLE_RECIPIENTS_SELECT_SENDER_IDENTITY_%@";
+            v18 = @"COMPOSE_TO_MULTIPLE_RECIPIENTS_SELECT_SENDER_IDENTITY_%@";
           }
 
           else
           {
-            v16 = @"COMPOSE_TO_MULTIPLE_RECIPIENTS_SELECT_SENDER_IDENTITY_TEXT_MESSAGE_%@";
+            v18 = @"COMPOSE_TO_MULTIPLE_RECIPIENTS_SELECT_SENDER_IDENTITY_TEXT_MESSAGE_%@";
           }
 
-          v17 = [v14 localizedStringForKey:v16 value:&stru_1F04268F8 table:@"ChatKit"];
-          label = [v11 label];
-          v19 = [v13 stringWithFormat:v17, label];
+          v19 = [v16 localizedStringForKey:v18 value:&stru_1F04268F8 table:@"ChatKit"];
+          label = [v12 label];
+          v21 = [v15 stringWithFormat:v19, label];
 
           mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
-          LODWORD(v17) = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection] == 1;
+          LODWORD(v19) = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection] == 1;
 
-          if (v17)
+          if (v19)
           {
-            v21 = @"\u200F";
+            v23 = @"\u200F";
           }
 
           else
           {
-            v21 = @"\u200E";
+            v23 = @"\u200E";
           }
 
-          v22 = [(__CFString *)v21 stringByAppendingString:v19];
+          v24 = [(__CFString *)v23 stringByAppendingString:v21];
 
           aBlock[0] = MEMORY[0x1E69E9820];
           aBlock[1] = 3221225472;
           aBlock[2] = __84__CKComposeRecipientSelectionController_presentContextSelectionAlertWithCompletion___block_invoke;
           aBlock[3] = &unk_1E72F35C8;
-          v23 = completionCopy;
-          aBlock[4] = v11;
-          v37 = v23;
-          v24 = _Block_copy(aBlock);
-          v25 = [MEMORY[0x1E69DC648] actionWithTitle:v22 style:0 handler:v24];
-          [v6 addAction:v25];
+          v25 = completionCopy;
+          aBlock[4] = v12;
+          v40 = v25;
+          v26 = _Block_copy(aBlock);
+          v27 = [MEMORY[0x1E69DC648] actionWithTitle:v24 style:0 handler:v26];
+          [v7 addAction:v27];
         }
 
-        v8 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v9 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
 
-    v26 = MEMORY[0x1E69DC648];
-    v27 = CKFrameworkBundle();
-    v28 = [v27 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __84__CKComposeRecipientSelectionController_presentContextSelectionAlertWithCompletion___block_invoke_2;
-    v34[3] = &unk_1E72EC218;
-    v35 = completionCopy;
-    v29 = [v26 actionWithTitle:v28 style:1 handler:v34];
+    v28 = MEMORY[0x1E69DC648];
+    v30 = CKFrameworkBundle(v29);
+    v31 = [v30 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __84__CKComposeRecipientSelectionController_presentContextSelectionAlertWithCompletion___block_invoke_2;
+    v37[3] = &unk_1E72EC218;
+    v38 = completionCopy;
+    v32 = [v28 actionWithTitle:v31 style:1 handler:v37];
 
-    [v6 addAction:v29];
-    [(CKComposeRecipientSelectionController *)self presentViewController:v6 animated:1 completion:0];
+    [v7 addAction:v32];
+    [(CKComposeRecipientSelectionController *)self presentViewController:v7 animated:1 completion:0];
   }
 
   else
@@ -2763,51 +2764,51 @@ LABEL_4:
 
 - (id)_handlesForRecipients:(id)recipients
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   recipientsCopy = recipients;
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(recipientsCopy, "count")}];
-  if (CKIsRunningUITests())
+  if (CKIsRunningUITests(v5, v6))
   {
     array = [MEMORY[0x1E695DF70] array];
-    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v7 = recipientsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
-    if (v8)
+    v38 = 0u;
+    v8 = recipientsCopy;
+    v9 = [v8 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v35;
+      v10 = v9;
+      v11 = *v36;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v35 != v10)
+          if (*v36 != v11)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          rawAddress = [*(*(&v34 + 1) + 8 * i) rawAddress];
+          rawAddress = [*(*(&v35 + 1) + 8 * i) rawAddress];
           if ([rawAddress _appearsToBePhoneNumber])
           {
-            v13 = IMInternationalForPhoneNumberWithOptions();
+            v14 = IMInternationalForPhoneNumberWithOptions();
 
-            rawAddress = v13;
+            rawAddress = v14;
           }
 
-          v14 = IMStripFormattingFromAddress();
-          [array addObject:v14];
+          v15 = IMStripFormattingFromAddress();
+          [array addObject:v15];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
     mEMORY[0x1E69A5A80] = [MEMORY[0x1E69A5A80] sharedInstance];
-    v16 = [mEMORY[0x1E69A5A80] __ck_bestAccountForAddresses:array];
+    v17 = [mEMORY[0x1E69A5A80] __ck_bestAccountForAddresses:array];
   }
 
   else
@@ -2816,56 +2817,56 @@ LABEL_4:
     array = [conversation sendingService];
 
     mEMORY[0x1E69A5A80] = [MEMORY[0x1E69A5A80] sharedInstance];
-    v16 = [mEMORY[0x1E69A5A80] __ck_defaultAccountForService:array];
+    v17 = [mEMORY[0x1E69A5A80] __ck_defaultAccountForService:array];
   }
 
-  v18 = v16;
+  v19 = v17;
 
-  v32 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v19 = recipientsCopy;
-  v20 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
-  if (v20)
+  v32 = 0u;
+  v20 = recipientsCopy;
+  v21 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  if (v21)
   {
-    v21 = v20;
-    v22 = *v31;
+    v22 = v21;
+    v23 = *v32;
     do
     {
-      for (j = 0; j != v21; ++j)
+      for (j = 0; j != v22; ++j)
       {
-        if (*v31 != v22)
+        if (*v32 != v23)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v20);
         }
 
-        v24 = *(*(&v30 + 1) + 8 * j);
-        if (![(CKRecipientSelectionController *)self isGameCenterRecipient:v24, v30])
+        v25 = *(*(&v31 + 1) + 8 * j);
+        if (![(CKRecipientSelectionController *)self isGameCenterRecipient:v25, v31])
         {
-          rawAddress2 = [v24 rawAddress];
-          v26 = IMStripFormattingFromAddress();
+          rawAddress2 = [v25 rawAddress];
+          v27 = IMStripFormattingFromAddress();
 
-          if (v26)
+          if (v27)
           {
-            v27 = [v18 imHandleWithID:v26 alreadyCanonical:0];
-            if (v27)
+            v28 = [v19 imHandleWithID:v27 alreadyCanonical:0];
+            if (v28)
             {
-              [v5 addObject:v27];
+              [v5 addObject:v28];
             }
           }
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
-    while (v21);
+    while (v22);
   }
 
-  v28 = [v5 copy];
+  v29 = [v5 copy];
 
-  return v28;
+  return v29;
 }
 
 - (BOOL)textFieldShouldReturn:(id)return

@@ -26,7 +26,7 @@
 
 void __31__ATService_removeMessageLink___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) removeObserver:*(a1 + 40)];
   [*(*(a1 + 40) + 16) removeObject:*(a1 + 32)];
   v2 = os_log_create("com.apple.amp.AirTraffic", "Framework");
@@ -34,14 +34,12 @@ void __31__ATService_removeMessageLink___block_invoke(uint64_t a1)
   {
     v3 = *(a1 + 32);
     v4 = *(*(a1 + 40) + 16);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_23EC61000, v2, OS_LOG_TYPE_DEFAULT, "Removed messageLink: %{public}@ - allLinks %{public}@", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_23EC61000, v2, OS_LOG_TYPE_DEFAULT, "Removed messageLink: %{public}@ - allLinks %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMessageLink:(id)link
@@ -60,7 +58,7 @@ void __31__ATService_removeMessageLink___block_invoke(uint64_t a1)
 
 void __28__ATService_addMessageLink___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 16) addObject:*(a1 + 40)];
   [*(a1 + 40) addObserver:*(a1 + 32)];
   v2 = os_log_create("com.apple.amp.AirTraffic", "Framework");
@@ -68,14 +66,12 @@ void __28__ATService_addMessageLink___block_invoke(uint64_t a1)
   {
     v3 = *(a1 + 40);
     v4 = *(*(a1 + 32) + 16);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_23EC61000, v2, OS_LOG_TYPE_DEFAULT, "Added messageLink: %{public}@ - allLinks %{public}@", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_23EC61000, v2, OS_LOG_TYPE_DEFAULT, "Added messageLink: %{public}@ - allLinks %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)messageLinkForIdentifier:(id)identifier
@@ -106,27 +102,27 @@ void __28__ATService_addMessageLink___block_invoke(uint64_t a1)
 
 void __38__ATService_messageLinkForIdentifier___block_invoke(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v15 = *MEMORY[0x277D85DE8];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v2 = *(a1[4] + 16);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = [v7 identifier];
         v9 = [v8 isEqualToString:a1[5]];
 
@@ -136,13 +132,11 @@ void __38__ATService_messageLinkForIdentifier___block_invoke(void *a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObserver:(id)observer

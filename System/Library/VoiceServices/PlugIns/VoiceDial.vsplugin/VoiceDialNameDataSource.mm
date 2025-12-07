@@ -2,6 +2,7 @@
 + (id)_nameDataSourceByLanguageMap;
 + (id)nameDataSourceForLanguageIdentifier:(id)identifier;
 - (BOOL)getName:(id *)name phoneticName:(id *)phoneticName atIndex:(unint64_t)index forPerson:(void *)person;
+- (BOOL)getNth:(unint64_t)nth name:(id *)name phoneticName:(id *)phoneticName ofType:(int)type nameIndex:(unint64_t *)index forPerson:(void *)person;
 - (id)copyPronunciationPropertyForPerson:(void *)person withNameType:(int)type;
 - (int)matchingNameType:(id)type fromTypes:(unint64_t)types forPerson:(void *)person;
 - (int)typeOfNameAtIndex:(unint64_t)index;
@@ -211,6 +212,82 @@ LABEL_16:
 LABEL_24:
   LOBYTE(nameCopy) = (nameCopy & 1) != 0 || *phoneticName != 0;
   return nameCopy;
+}
+
+- (BOOL)getNth:(unint64_t)nth name:(id *)name phoneticName:(id *)phoneticName ofType:(int)type nameIndex:(unint64_t *)index forPerson:(void *)person
+{
+  v15 = [(VoiceDialNameDataSource *)self indexOfMainNameOfType:*&type];
+  v16 = v15;
+  if (index)
+  {
+    *index = 0x7FFFFFFFFFFFFFFFLL;
+  }
+
+  if (v15 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v17 = 0;
+    if (!nth && type == 1)
+    {
+      v17 = name != 0;
+      if (name)
+      {
+        *name = ABRecordCopyValue(person, *MEMORY[0x29EDBE210]);
+      }
+
+      if (phoneticName)
+      {
+        v17 = 1;
+        *phoneticName = [(VoiceDialNameDataSource *)self copyPronunciationPropertyForPerson:person withNameType:1];
+      }
+    }
+  }
+
+  else if ([(VoiceDialNameDataSource *)self getName:name phoneticName:phoneticName atIndex:v15 forPerson:person])
+  {
+    if (index)
+    {
+      *index = v16;
+    }
+
+    return 1;
+  }
+
+  else
+  {
+    personNameCount = [(VoiceDialNameDataSource *)self personNameCount];
+    if (personNameCount)
+    {
+      v19 = personNameCount;
+      v20 = 0;
+      while (1)
+      {
+        if (v16 == v20 || [(VoiceDialNameDataSource *)self typeOfNameAtIndex:v20]!= type)
+        {
+          v17 = 0;
+        }
+
+        else
+        {
+          v21 = [(VoiceDialNameDataSource *)self getName:name phoneticName:phoneticName atIndex:v20 forPerson:person];
+          v17 = v21;
+          if (index && v21)
+          {
+            *index = v20;
+            return 1;
+          }
+        }
+
+        if (++v20 >= v19 || v17)
+        {
+          return v17;
+        }
+      }
+    }
+
+    return 0;
+  }
+
+  return v17;
 }
 
 - (int)typeOfNameAtIndex:(unint64_t)index

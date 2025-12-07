@@ -24,9 +24,15 @@
 - (void)handleIncomingMessage:(id)message;
 - (void)sendFileURL:(id)l withTimeout:(id)timeout extraMetadata:(id)metadata responseHandlers:(id)handlers didSend:(id)send didQueue:(id)queue;
 - (void)sendRequest:(id)request;
+- (void)sendRequest:(id)request type:(unsigned __int16)type withTimeout:(id)timeout didSend:(id)send didQueue:(id)queue;
+- (void)sendRequest:(id)request type:(unsigned __int16)type withTimeout:(id)timeout withDescription:(id)description onlyOneFor:(id)for didSend:(id)send andResponse:(id)response;
+- (void)sendResponse:(id)response type:(unsigned __int16)type withRequest:(id)request withTimeout:(id)timeout withDescription:(id)description onlyOneFor:(id)for didSend:(id)send;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context;
 - (void)service:(id)service devicesChanged:(id)changed;
 - (void)service:(id)service nearbyDevicesChanged:(id)changed;
+- (void)setProtobufAction:(SEL)action forIncomingRequestsOfType:(unsigned __int16)type;
+- (void)setProtobufAction:(SEL)action forIncomingResponsesOfType:(unsigned __int16)type;
 @end
 
 @implementation BLTRemoteObject
@@ -97,8 +103,7 @@
     mruCacheOfReceives = v11->_mruCacheOfReceives;
     v11->_mruCacheOfReceives = v39;
 
-    [(BLTRemoteObject *)v11 disableStandaloneTestMode];
-    v41 = blt_ids_log();
+    v41 = blt_ids_log([(BLTRemoteObject *)v11 disableStandaloneTestMode]);
     if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
@@ -106,8 +111,8 @@
       _os_log_impl(&dword_241FB3000, v41, OS_LOG_TYPE_INFO, "Created IDS service %@", buf, 0xCu);
     }
 
-    objc_initWeak(buf, v11);
-    v42 = BLTWorkQueue();
+    inited = objc_initWeak(buf, v11);
+    v43 = BLTWorkQueue(inited);
     objc_copyWeak(&v46, buf);
     v11->_stateHandler = os_state_add_handler();
 
@@ -119,7 +124,6 @@
     objc_destroyWeak(buf);
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -175,13 +179,14 @@ _DWORD *__67__BLTRemoteObject_initWithServiceName_idsQueueName_andClientQueue___
   handledCopy = handled;
   serviceCopy = service;
   identifierCopy = identifier;
+  v11 = identifierCopy;
   if ((handledCopy & 2) != 0)
   {
-    v11 = blt_ids_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = blt_ids_log(identifierCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_241FB3000, v11, OS_LOG_TYPE_DEFAULT, "Detected a duplicate message!", v14, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_241FB3000, v13, OS_LOG_TYPE_DEFAULT, "Detected a duplicate message!", v17, 2u);
     }
 
     goto LABEL_10;
@@ -189,23 +194,23 @@ _DWORD *__67__BLTRemoteObject_initWithServiceName_idsQueueName_andClientQueue___
 
   if (handledCopy)
   {
-    BLTAnalyticsLogOutOfOrderMessage();
-    v12 = blt_ids_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    BLTAnalyticsLogOutOfOrderMessage(identifierCopy, v10);
+    v15 = blt_ids_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [BLTRemoteObject _sequenceErrorDidHappenAndHandled:serviceCopy service:identifierCopy incomingIdentifier:v12];
+      [BLTRemoteObject _sequenceErrorDidHappenAndHandled:serviceCopy service:v11 incomingIdentifier:v15];
     }
 
     [(BLTRemoteObject *)self _sendAssertForSession];
 LABEL_10:
-    v10 = 1;
+    v12 = 1;
     goto LABEL_11;
   }
 
-  v10 = 0;
+  v12 = 0;
 LABEL_11:
 
-  return v10;
+  return v12;
 }
 
 - (void)handleIDSProtobuf:(id)protobuf
@@ -225,14 +230,14 @@ LABEL_11:
 
 - (void)_queueHandleIDSProtobuf:(id)protobuf
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   protobufCopy = protobuf;
   dispatch_assert_queue_V2(self->_clientQueue);
   context = [protobufCopy context];
   incomingResponseIdentifier = [context incomingResponseIdentifier];
 
-  v7 = blt_ids_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = blt_ids_log(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     context2 = [protobufCopy context];
     outgoingResponseIdentifier = [context2 outgoingResponseIdentifier];
@@ -240,58 +245,59 @@ LABEL_11:
     *&buf[4] = outgoingResponseIdentifier;
     *&buf[12] = 2112;
     *&buf[14] = incomingResponseIdentifier;
-    _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Received message with IDS identifier: %@ and incoming response id: %@", buf, 0x16u);
+    _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "Received message with IDS identifier: %@ and incoming response id: %@", buf, 0x16u);
   }
 
   isResponse = [protobufCopy isResponse];
   if (incomingResponseIdentifier)
   {
-    v11 = isResponse;
+    v12 = isResponse;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  if (v11 == 1)
+  if (v12 == 1)
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v32 = __Block_byref_object_copy_;
-    v33 = __Block_byref_object_dispose_;
-    v34 = 0;
+    v34 = __Block_byref_object_copy_;
+    v35 = __Block_byref_object_dispose_;
+    v36 = 0;
     idsQueue = self->_idsQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __43__BLTRemoteObject__queueHandleIDSProtobuf___block_invoke;
     block[3] = &unk_278D313D8;
-    v26 = buf;
+    v28 = buf;
     block[4] = self;
-    v13 = incomingResponseIdentifier;
-    v25 = v13;
+    v14 = incomingResponseIdentifier;
+    v27 = v14;
     dispatch_sync(idsQueue, block);
     if (*(*&buf[8] + 40))
     {
-      if ([(BLTRemoteObject *)self _callSendCompletionHandlerWithSuccess:1 identifier:v13 error:0])
+      v16 = [(BLTRemoteObject *)self _callSendCompletionHandlerWithSuccess:1 identifier:v14 error:0];
+      if (v16)
       {
-        v14 = blt_ids_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v17 = blt_ids_log(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          *v27 = 0;
-          _os_log_impl(&dword_241FB3000, v14, OS_LOG_TYPE_DEFAULT, "Response arrived before IDS delegate didSendWithSuccess.", v27, 2u);
+          *v29 = 0;
+          _os_log_impl(&dword_241FB3000, v17, OS_LOG_TYPE_DEFAULT, "Response arrived before IDS delegate didSendWithSuccess.", v29, 2u);
         }
       }
 
-      v15 = blt_ids_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v18 = blt_ids_log(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        *v27 = 136315394;
-        v28 = "[BLTRemoteObject _queueHandleIDSProtobuf:]";
-        v29 = 2112;
-        v30 = v13;
-        _os_log_impl(&dword_241FB3000, v15, OS_LOG_TYPE_DEFAULT, "%s: matched response %@, executing block", v27, 0x16u);
+        *v29 = 136315394;
+        v30 = "[BLTRemoteObject _queueHandleIDSProtobuf:]";
+        v31 = 2112;
+        v32 = v14;
+        _os_log_impl(&dword_241FB3000, v18, OS_LOG_TYPE_DEFAULT, "%s: matched response %@, executing block", v29, 0x16u);
       }
 
       (*(*(*&buf[8] + 40) + 16))();
@@ -300,14 +306,14 @@ LABEL_11:
       goto LABEL_27;
     }
 
-    v16 = blt_ids_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = blt_ids_log(v15);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      *v27 = 136315394;
-      v28 = "[BLTRemoteObject _queueHandleIDSProtobuf:]";
-      v29 = 2112;
-      v30 = v13;
-      _os_log_impl(&dword_241FB3000, v16, OS_LOG_TYPE_DEFAULT, "%s: no ack block found for response %@, ignoring", v27, 0x16u);
+      *v29 = 136315394;
+      v30 = "[BLTRemoteObject _queueHandleIDSProtobuf:]";
+      v31 = 2112;
+      v32 = v14;
+      _os_log_impl(&dword_241FB3000, v19, OS_LOG_TYPE_DEFAULT, "%s: no ack block found for response %@, ignoring", v29, 0x16u);
     }
 
     _Block_object_dispose(buf, 8);
@@ -315,36 +321,35 @@ LABEL_11:
 
   if ([protobufCopy isResponse])
   {
-    v17 = 0x10000;
+    v20 = 0x10000;
   }
 
   else
   {
-    v17 = 0;
+    v20 = 0;
   }
 
-  v18 = [MEMORY[0x277CCABB0] numberWithInteger:{v17 | objc_msgSend(protobufCopy, "type")}];
-  v19 = [(NSMutableDictionary *)self->_idsRequestMessageTypeToSelector objectForKeyedSubscript:v18];
-  v20 = v19;
-  if (v19)
+  v21 = [MEMORY[0x277CCABB0] numberWithInteger:{v20 | objc_msgSend(protobufCopy, "type")}];
+  v22 = [(NSMutableDictionary *)self->_idsRequestMessageTypeToSelector objectForKeyedSubscript:v21];
+  v23 = v22;
+  if (v22)
   {
-    ([v19 method])(self, objc_msgSend(v19, "selector"), protobufCopy);
+    ([v22 method])(self, objc_msgSend(v22, "selector"), protobufCopy);
   }
 
   else
   {
-    v21 = blt_ids_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v24 = blt_ids_log(0);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       type = [protobufCopy type];
       *buf = 67109120;
       *&buf[4] = type;
-      _os_log_impl(&dword_241FB3000, v21, OS_LOG_TYPE_DEFAULT, "No method registered for message with type: %d", buf, 8u);
+      _os_log_impl(&dword_241FB3000, v24, OS_LOG_TYPE_DEFAULT, "No method registered for message with type: %d", buf, 8u);
     }
   }
 
 LABEL_27:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __43__BLTRemoteObject__queueHandleIDSProtobuf___block_invoke(void *a1)
@@ -413,15 +418,15 @@ void __43__BLTRemoteObject__queueHandleIDSProtobuf___block_invoke(void *a1)
 - (void)_sendAckInitialSequenceNumberForSession:(id)session withAssert:(BOOL)assert sessionState:(unint64_t *)state
 {
   assertCopy = assert;
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   v9 = objc_alloc_init(BLTPBAckInitialSequenceNumberRequest);
   if (sessionCopy)
   {
-    v13[0] = 0;
-    v13[1] = 0;
-    [sessionCopy getUUIDBytes:v13];
-    v10 = [MEMORY[0x277CBEA90] dataWithBytes:v13 length:16];
+    v12[0] = 0;
+    v12[1] = 0;
+    [sessionCopy getUUIDBytes:v12];
+    v10 = [MEMORY[0x277CBEA90] dataWithBytes:v12 length:16];
     [(BLTPBAckInitialSequenceNumberRequest *)v9 setSessionIdentifier:v10];
   }
 
@@ -437,8 +442,6 @@ void __43__BLTRemoteObject__queueHandleIDSProtobuf___block_invoke(void *a1)
 
   v11 = [BLTRemoteRequest remoteRequestWithProtobuf:v9 type:12];
   [(BLTRemoteObject *)self _queueSendRequest:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAckInitialSequenceNumberRequest:(id)request
@@ -498,6 +501,22 @@ LABEL_8:
   [(NSMutableDictionary *)self->_idsRequestMessageTypeToSelector setObject:v10 forKeyedSubscript:v9];
 }
 
+- (void)setProtobufAction:(SEL)action forIncomingRequestsOfType:(unsigned __int16)type
+{
+  typeCopy = type;
+  [(BLTRemoteObject *)self _storeProtobufAction:action messageType:type messageSendType:0];
+  service = [(BLTRemoteObject *)self service];
+  [service setProtobufAction:sel_handleIncomingMessage_ forIncomingRequestsOfType:typeCopy];
+}
+
+- (void)setProtobufAction:(SEL)action forIncomingResponsesOfType:(unsigned __int16)type
+{
+  typeCopy = type;
+  [(BLTRemoteObject *)self _storeProtobufAction:action messageType:type messageSendType:1];
+  service = [(BLTRemoteObject *)self service];
+  [service setProtobufAction:sel_handleIncomingMessage_ forIncomingResponsesOfType:typeCopy];
+}
+
 - (unint64_t)connectionStatus
 {
   connectionStatusQueue = self->_connectionStatusQueue;
@@ -524,7 +543,7 @@ LABEL_8:
 
 - (void)_queueUpdateConnectionStatusWithResetDefaulteDevice:(BOOL)device
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (device || (v4 = self->_defaultPairedDevice) == 0)
   {
     service = [(BLTRemoteObject *)self service];
@@ -532,66 +551,73 @@ LABEL_8:
     defaultPairedDevice = self->_defaultPairedDevice;
     self->_defaultPairedDevice = defaultPairedDevice;
 
-    v8 = blt_ids_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = blt_ids_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = self->_defaultPairedDevice;
-      v16 = 138412290;
-      v17 = v9;
-      _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_INFO, "Found default paired device %@", &v16, 0xCu);
+      v10 = self->_defaultPairedDevice;
+      v17 = 138412290;
+      v18 = v10;
+      _os_log_impl(&dword_241FB3000, v9, OS_LOG_TYPE_INFO, "Found default paired device %@", &v17, 0xCu);
     }
 
     v4 = self->_defaultPairedDevice;
   }
 
-  if (([(BLTAbstractIDSDevice *)v4 isNearby]& 1) != 0)
+  isNearby = [(BLTAbstractIDSDevice *)v4 isNearby];
+  if (isNearby)
   {
-    v10 = 1;
-  }
-
-  else if (([(BLTAbstractIDSDevice *)self->_defaultPairedDevice isConnected]& 1) != 0)
-  {
-    v10 = 2;
-  }
-
-  else if ([(BLTAbstractIDSDevice *)self->_defaultPairedDevice isCloudReachable])
-  {
-    v10 = 3;
+    v12 = 1;
   }
 
   else
   {
-    v10 = 0;
-  }
-
-  v11 = blt_ids_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-  {
-    v12 = off_278D31628[v10];
-    lastKnownConnectionStatus = [(BLTRemoteObject *)self lastKnownConnectionStatus];
-    if (lastKnownConnectionStatus > 3)
+    isNearby = [(BLTAbstractIDSDevice *)self->_defaultPairedDevice isConnected];
+    if (isNearby)
     {
-      v14 = "unknown";
+      v12 = 2;
     }
 
     else
     {
-      v14 = off_278D31628[lastKnownConnectionStatus];
+      isNearby = [(BLTAbstractIDSDevice *)self->_defaultPairedDevice isCloudReachable];
+      if (isNearby)
+      {
+        v12 = 3;
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+    }
+  }
+
+  v13 = blt_ids_log(isNearby);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = off_278D31628[v12];
+    lastKnownConnectionStatus = [(BLTRemoteObject *)self lastKnownConnectionStatus];
+    if (lastKnownConnectionStatus > 3)
+    {
+      v16 = "unknown";
     }
 
-    v16 = 136315394;
-    v17 = v12;
-    v18 = 2080;
-    v19 = v14;
-    _os_log_impl(&dword_241FB3000, v11, OS_LOG_TYPE_DEFAULT, "Default paired device connection status: %s last known status: %s", &v16, 0x16u);
+    else
+    {
+      v16 = off_278D31628[lastKnownConnectionStatus];
+    }
+
+    v17 = 136315394;
+    v18 = v14;
+    v19 = 2080;
+    v20 = v16;
+    _os_log_impl(&dword_241FB3000, v13, OS_LOG_TYPE_DEFAULT, "Default paired device connection status: %s last known status: %s", &v17, 0x16u);
   }
 
-  if (v10 != [(BLTRemoteObject *)self lastKnownConnectionStatus])
+  if (v12 != [(BLTRemoteObject *)self lastKnownConnectionStatus])
   {
-    [(BLTRemoteObject *)self setLastKnownConnectionStatus:v10];
+    [(BLTRemoteObject *)self setLastKnownConnectionStatus:v12];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableStandaloneTestModeWithMinimumSendDelay:(unint64_t)delay maximumSendDelay:(unint64_t)sendDelay minimumResponseDelay:(unint64_t)responseDelay maximumResponseDelay:(unint64_t)maximumResponseDelay
@@ -658,6 +684,67 @@ void __49__BLTRemoteObject__setStandaloneTestModeEnabled___block_invoke(uint64_t
   *(v1 + 56) = 0;
 }
 
+- (void)sendRequest:(id)request type:(unsigned __int16)type withTimeout:(id)timeout withDescription:(id)description onlyOneFor:(id)for didSend:(id)send andResponse:(id)response
+{
+  typeCopy = type;
+  responseCopy = response;
+  sendCopy = send;
+  forCopy = for;
+  descriptionCopy = description;
+  timeoutCopy = timeout;
+  v21 = [BLTRemoteRequest remoteRequestWithProtobuf:request type:typeCopy];
+  [v21 setTimeout:timeoutCopy];
+
+  [v21 setRequestDescription:descriptionCopy];
+  [v21 setUniqueID:forCopy];
+
+  [v21 setDidSend:sendCopy];
+  [v21 setResponseCompletion:responseCopy];
+
+  [(BLTRemoteObject *)self sendRequest:v21];
+}
+
+- (void)sendResponse:(id)response type:(unsigned __int16)type withRequest:(id)request withTimeout:(id)timeout withDescription:(id)description onlyOneFor:(id)for didSend:(id)send
+{
+  typeCopy = type;
+  sendCopy = send;
+  forCopy = for;
+  descriptionCopy = description;
+  timeoutCopy = timeout;
+  requestCopy = request;
+  v21 = [BLTRemoteRequest remoteRequestWithProtobuf:response type:typeCopy];
+  [v21 setResponseToRequest:requestCopy];
+
+  [v21 setTimeout:timeoutCopy];
+  [v21 setRequestDescription:descriptionCopy];
+
+  [v21 setUniqueID:forCopy];
+  [v21 setDidSend:sendCopy];
+
+  [(BLTRemoteObject *)self sendRequest:v21];
+}
+
+- (void)sendRequest:(id)request type:(unsigned __int16)type withTimeout:(id)timeout didSend:(id)send didQueue:(id)queue
+{
+  typeCopy = type;
+  queueCopy = queue;
+  sendCopy = send;
+  timeoutCopy = timeout;
+  v15 = [BLTRemoteRequest remoteRequestWithProtobuf:request type:typeCopy];
+  [v15 setTimeout:timeoutCopy];
+
+  [v15 setDidSend:sendCopy];
+  [v15 setDidQueue:queueCopy];
+
+  if (typeCopy == 27)
+  {
+    [v15 setAllowCloudDelivery:0];
+    [v15 setNonWaking:1];
+  }
+
+  [(BLTRemoteObject *)self sendRequest:v15];
+}
+
 - (void)sendRequest:(id)request
 {
   requestCopy = request;
@@ -701,38 +788,37 @@ void __49__BLTRemoteObject__setStandaloneTestModeEnabled___block_invoke(uint64_t
 
     if (v26 == 1)
     {
-      v27 = blt_ids_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v28 = blt_ids_log(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         [timeoutCopy doubleValue];
         *buf = 134218240;
-        *&buf[4] = v28;
+        *&buf[4] = v29;
         *&buf[12] = 2048;
         *&buf[14] = v24;
-        _os_log_impl(&dword_241FB3000, v27, OS_LOG_TYPE_INFO, "Timeout: %f is greater than IDS max: %f and will be clamped to max", buf, 0x16u);
+        _os_log_impl(&dword_241FB3000, v28, OS_LOG_TYPE_INFO, "Timeout: %f is greater than IDS max: %f and will be clamped to max", buf, 0x16u);
       }
 
-      v29 = [MEMORY[0x277CCABB0] numberWithDouble:v24];
+      v30 = [MEMORY[0x277CCABB0] numberWithDouble:v24];
 
-      v30 = v29;
+      v31 = v30;
     }
 
     else
     {
-      v30 = timeoutCopy;
+      v31 = timeoutCopy;
     }
 
-    v32 = *MEMORY[0x277D18650];
-    v57 = v30;
+    v57 = v31;
     [dictionary setObject:? forKeyedSubscript:?];
     [dictionary setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D185A0]];
-    v31 = "remote timeout is ENFORCED";
+    v32 = "remote timeout is ENFORCED";
   }
 
   else
   {
     v57 = 0;
-    v31 = "";
+    v32 = "";
   }
 
   if (forCopy)
@@ -814,14 +900,14 @@ void __49__BLTRemoteObject__setStandaloneTestModeEnabled___block_invoke(uint64_t
       self->_full = 1;
     }
 
-    v46 = [(BLTRemoteObject *)self _wrapError:v40 identifier:v41];
-    (v60)[2](v60, v39, v46);
+    v47 = [(BLTRemoteObject *)self _wrapError:v40 identifier:v41];
+    (v60)[2](v60, v39, v47);
 
-    (*(v38 + 2))(v38, 0);
+    v46 = (*(v38 + 2))(v38, 0);
   }
 
-  v47 = blt_ids_log();
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+  v48 = blt_ids_log(v46);
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
   {
     *v74 = 136315906;
     v75 = v54;
@@ -830,19 +916,18 @@ void __49__BLTRemoteObject__setStandaloneTestModeEnabled___block_invoke(uint64_t
     v78 = 2112;
     v79 = v41;
     v80 = 2080;
-    v81 = v31;
-    _os_log_impl(&dword_241FB3000, v47, OS_LOG_TYPE_DEFAULT, "Sent IDS %s %@ got identifier: %@ %s", v74, 0x2Au);
+    v81 = v32;
+    _os_log_impl(&dword_241FB3000, v48, OS_LOG_TYPE_DEFAULT, "Sent IDS %s %@ got identifier: %@ %s", v74, 0x2Au);
   }
 
   mruCacheOfSends = self->_mruCacheOfSends;
-  v49 = [dictionary objectForKeyedSubscript:*MEMORY[0x277D18610]];
-  v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v42, "sequenceNumber")}];
-  v51 = sessionUUIDFromTransportData(v42);
-  v52 = +[BLTRemoteRequestLogItem remoteRequestLogItemWithIDSTransmitIdentifier:IDSResponseIdentifier:requestDescription:sequenceNumber:sessionIdentifier:sessionState:](BLTRemoteRequestLogItem, "remoteRequestLogItemWithIDSTransmitIdentifier:IDSResponseIdentifier:requestDescription:sequenceNumber:sessionIdentifier:sessionState:", v41, v49, descriptionCopy, v50, v51, [v42 sessionState]);
-  [(BLTSimpleCache *)mruCacheOfSends cacheObject:v52];
+  v50 = [dictionary objectForKeyedSubscript:*MEMORY[0x277D18610]];
+  v51 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v42, "sequenceNumber")}];
+  v52 = sessionUUIDFromTransportData(v42);
+  v53 = +[BLTRemoteRequestLogItem remoteRequestLogItemWithIDSTransmitIdentifier:IDSResponseIdentifier:requestDescription:sequenceNumber:sessionIdentifier:sessionState:](BLTRemoteRequestLogItem, "remoteRequestLogItemWithIDSTransmitIdentifier:IDSResponseIdentifier:requestDescription:sequenceNumber:sessionIdentifier:sessionState:", v41, v50, descriptionCopy, v51, v52, [v42 sessionState]);
+  [(BLTSimpleCache *)mruCacheOfSends cacheObject:v53];
 
   _Block_object_dispose(buf, 8);
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 void __160__BLTRemoteObject__queuePerformSend_responseToRequest_withTimeout_withDescription_shortDescription_onlyOneFor_allowCloudDelivery_nonWaking_didSend_andResponse___block_invoke(uint64_t a1, void *a2)
@@ -1130,7 +1215,7 @@ uint64_t __91__BLTRemoteObject_sendFileURL_withTimeout_extraMetadata_responseHan
 
 - (void)service:(id)service devicesChanged:(id)changed
 {
-  v5 = blt_ids_log();
+  v5 = blt_ids_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1142,7 +1227,7 @@ uint64_t __91__BLTRemoteObject_sendFileURL_withTimeout_extraMetadata_responseHan
 
 - (void)service:(id)service nearbyDevicesChanged:(id)changed
 {
-  v5 = blt_ids_log();
+  v5 = blt_ids_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1154,7 +1239,7 @@ uint64_t __91__BLTRemoteObject_sendFileURL_withTimeout_extraMetadata_responseHan
 
 - (void)_deviceConnectionStatusChanged:(id)changed
 {
-  v4 = blt_ids_log();
+  v4 = blt_ids_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1178,6 +1263,67 @@ uint64_t __91__BLTRemoteObject_sendFileURL_withTimeout_extraMetadata_responseHan
     block[3] = &unk_278D314F0;
     v8 = v5;
     dispatch_async(clientQueue, block);
+  }
+}
+
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  v26 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  errorCopy = error;
+  [(BLTRemoteObject *)self _idsQueueCallSendCompletionHandlerWithSuccess:successCopy identifier:identifierCopy error:errorCopy];
+  v12 = [(NSMutableDictionary *)self->_idsFileIDToResponseHandler objectForKeyedSubscript:identifierCopy];
+  v13 = v12;
+  if (v12)
+  {
+    v12 = [(NSMutableDictionary *)self->_idsFileIDToResponseHandler removeObjectForKey:identifierCopy];
+  }
+
+  if (errorCopy || !successCopy)
+  {
+    _BLTLogIDSSendFail([(BLTRemoteObject *)self isPairedDeviceReady], errorCopy, identifierCopy);
+    [(BLTRemoteObject *)self _removeAndHandleResponseHandler:identifierCopy];
+    v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v14 = v13;
+    v15 = [v14 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    if (v15)
+    {
+      v16 = v15;
+      v17 = *v20;
+      do
+      {
+        v18 = 0;
+        do
+        {
+          if (*v20 != v17)
+          {
+            objc_enumerationMutation(v14);
+          }
+
+          [(BLTRemoteObject *)self _removeAndHandleResponseHandler:*(*(&v19 + 1) + 8 * v18++), v19];
+        }
+
+        while (v16 != v18);
+        v16 = [v14 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      }
+
+      while (v16);
+    }
+  }
+
+  else
+  {
+    v14 = blt_ids_log(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v24 = identifierCopy;
+      _os_log_impl(&dword_241FB3000, v14, OS_LOG_TYPE_DEFAULT, "IDS success sending request: %@", buf, 0xCu);
+    }
   }
 }
 
@@ -1240,7 +1386,7 @@ void __82__BLTRemoteObject__idsQueueCallSendCompletionHandlerWithSuccess_identif
   return idsQueue;
 }
 
-uint64_t __74__BLTRemoteObject__callSendCompletionHandlerWithSuccess_identifier_error___block_invoke(uint64_t a1)
+void *__74__BLTRemoteObject__callSendCompletionHandlerWithSuccess_identifier_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _idsQueueCallSendCompletionHandlerWithSuccess:*(a1 + 64) identifier:*(a1 + 40) error:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -1249,7 +1395,7 @@ uint64_t __74__BLTRemoteObject__callSendCompletionHandlerWithSuccess_identifier_
 
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   lCopy = l;
@@ -1280,28 +1426,28 @@ uint64_t __74__BLTRemoteObject__callSendCompletionHandlerWithSuccess_identifier_
 
     if ((sequenceNumberError & 1) == 0)
     {
-      v28 = blt_ids_log();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v29 = blt_ids_log(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         outgoingResponseIdentifier3 = [contextCopy outgoingResponseIdentifier];
         LODWORD(buf) = 138412290;
         *(&buf + 4) = outgoingResponseIdentifier3;
-        _os_log_impl(&dword_241FB3000, v28, OS_LOG_TYPE_DEFAULT, "Received resource with IDS identifier: %@", &buf, 0xCu);
+        _os_log_impl(&dword_241FB3000, v29, OS_LOG_TYPE_DEFAULT, "Received resource with IDS identifier: %@", &buf, 0xCu);
       }
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v60 = 0x3032000000;
-      v61 = __Block_byref_object_copy__263;
-      v62 = __Block_byref_object_dispose__264;
-      v63 = 0;
-      v30 = MEMORY[0x277CCACA8];
+      v61 = 0x3032000000;
+      v62 = __Block_byref_object_copy__263;
+      v63 = __Block_byref_object_dispose__264;
+      v64 = 0;
+      v31 = MEMORY[0x277CCACA8];
       serviceIdentifier2 = [contextCopy serviceIdentifier];
       outgoingResponseIdentifier4 = [contextCopy outgoingResponseIdentifier];
-      v33 = [v30 stringWithFormat:@"%@:%@", serviceIdentifier2, outgoingResponseIdentifier4];
-      v34 = BLTFileURLInPairingPath(v33);
+      v34 = [v31 stringWithFormat:@"%@:%@", serviceIdentifier2, outgoingResponseIdentifier4];
+      v35 = BLTFileURLInPairingPath(v34);
 
-      if (v34 && ([MEMORY[0x277CCAA00] defaultManager], v35 = objc_claimAutoreleasedReturnValue(), v36 = *(&buf + 1), obj = *(*(&buf + 1) + 40), v37 = objc_msgSend(v35, "copyItemAtURL:toURL:error:", lCopy, v34, &obj), objc_storeStrong((v36 + 40), obj), v35, (v37 & 1) != 0))
+      if (v35 && ([MEMORY[0x277CCAA00] defaultManager], v37 = objc_claimAutoreleasedReturnValue(), v38 = *(&buf + 1), obj = *(*(&buf + 1) + 40), v39 = objc_msgSend(v37, "copyItemAtURL:toURL:error:", lCopy, v35, &obj), objc_storeStrong((v38 + 40), obj), v37, (v39 & 1) != 0))
       {
         clientQueue = self->_clientQueue;
         block[0] = MEMORY[0x277D85DD0];
@@ -1309,33 +1455,31 @@ uint64_t __74__BLTRemoteObject__callSendCompletionHandlerWithSuccess_identifier_
         block[2] = __81__BLTRemoteObject_service_account_incomingResourceAtURL_metadata_fromID_context___block_invoke;
         block[3] = &unk_278D31608;
         block[4] = self;
-        v49 = v34;
-        v50 = v17;
+        v50 = v35;
+        v51 = v17;
         p_buf = &buf;
         dispatch_async(clientQueue, block);
       }
 
       else
       {
-        v39 = blt_ids_log();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v41 = blt_ids_log(v36);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
-          v41 = *(*(&buf + 1) + 40);
-          *v53 = 138412802;
-          v54 = lCopy;
-          v55 = 2112;
-          v56 = v34;
-          v57 = 2112;
-          v58 = v41;
-          _os_log_error_impl(&dword_241FB3000, v39, OS_LOG_TYPE_ERROR, "Error creating link for incoming URL: %@ at %@ error: %@", v53, 0x20u);
+          v42 = *(*(&buf + 1) + 40);
+          *v54 = 138412802;
+          v55 = lCopy;
+          v56 = 2112;
+          v57 = v35;
+          v58 = 2112;
+          v59 = v42;
+          _os_log_error_impl(&dword_241FB3000, v41, OS_LOG_TYPE_ERROR, "Error creating link for incoming URL: %@ at %@ error: %@", v54, 0x20u);
         }
       }
 
       _Block_object_dispose(&buf, 8);
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __81__BLTRemoteObject_service_account_incomingResourceAtURL_metadata_fromID_context___block_invoke(uint64_t a1)
@@ -1357,32 +1501,30 @@ void __81__BLTRemoteObject_service_account_incomingResourceAtURL_metadata_fromID
 
   if ((v5 & 1) == 0)
   {
-    v11 = blt_ids_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = blt_ids_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __81__BLTRemoteObject_service_account_incomingResourceAtURL_metadata_fromID_context___block_invoke_cold_1(v3, v8, v11);
+      __81__BLTRemoteObject_service_account_incomingResourceAtURL_metadata_fromID_context___block_invoke_cold_1(v3, v8, v12);
     }
   }
 }
 
 - (void)_sequenceErrorDidHappenAndHandled:(uint64_t)a1 service:(uint64_t)a2 incomingIdentifier:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0(&dword_241FB3000, a2, a3, "Out of order message received from IDS on %@ with identifer %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0(&dword_241FB3000, a2, a3, "Out of order message received from IDS on %@ with identifer %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __81__BLTRemoteObject_service_account_incomingResourceAtURL_metadata_fromID_context___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = *(*(*a2 + 8) + 40);
-  OUTLINED_FUNCTION_0(&dword_241FB3000, a2, a3, "Error removing %@ error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = *(*(*a2 + 8) + 40);
+  OUTLINED_FUNCTION_0(&dword_241FB3000, a2, a3, "Error removing %@ error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

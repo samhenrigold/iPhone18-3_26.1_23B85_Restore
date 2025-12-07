@@ -3,6 +3,8 @@
 - (_INPBSearchForFilesIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)entityTypeAsString:(int)string;
+- (id)scopeAsString:(int)string;
 - (int)StringAsEntityType:(id)type;
 - (int)StringAsScope:(id)scope;
 - (unint64_t)hash;
@@ -19,7 +21,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   appId = [(_INPBSearchForFilesIntent *)self appId];
   dictionaryRepresentation = [appId dictionaryRepresentation];
@@ -52,30 +54,30 @@
   if ([(NSArray *)self->_properties count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v13 = self->_properties;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v26;
+      v16 = *v25;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v26 != v16)
+          if (*v25 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation4 = [*(*(&v25 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation4];
         }
 
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v15);
@@ -103,8 +105,6 @@
   scopeEntityName = [(_INPBSearchForFilesIntent *)self scopeEntityName];
   dictionaryRepresentation5 = [scopeEntityName dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation5 forKeyedSubscript:@"scopeEntityName"];
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -375,7 +375,7 @@ LABEL_36:
 
 - (void)writeTo:(id)to
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   toCopy = to;
   appId = [(_INPBSearchForFilesIntent *)self appId];
 
@@ -395,7 +395,6 @@ LABEL_36:
 
   if ([(_INPBSearchForFilesIntent *)self hasEntityType])
   {
-    entityType = self->_entityType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -407,41 +406,39 @@ LABEL_36:
     PBDataWriterWriteSubmessage();
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v12 = self->_properties;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v13)
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v11 = self->_properties;
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v12)
   {
-    v14 = v13;
-    v15 = *v23;
+    v13 = v12;
+    v14 = *v19;
     do
     {
-      v16 = 0;
+      v15 = 0;
       do
       {
-        if (*v23 != v15)
+        if (*v19 != v14)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v22 + 1) + 8 * v16);
         PBDataWriterWriteSubmessage();
-        ++v16;
+        ++v15;
       }
 
-      while (v14 != v16);
-      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      while (v13 != v15);
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v14);
+    while (v13);
   }
 
   if ([(_INPBSearchForFilesIntent *)self hasScope])
   {
-    scope = self->_scope;
     PBDataWriterWriteInt32Field();
   }
 
@@ -452,8 +449,6 @@ LABEL_36:
     scopeEntityName2 = [(_INPBSearchForFilesIntent *)self scopeEntityName];
     PBDataWriterWriteSubmessage();
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsScope:(id)scope
@@ -477,6 +472,21 @@ LABEL_36:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)scopeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727EFC8[string];
   }
 
   return v4;
@@ -565,6 +575,21 @@ LABEL_36:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)entityTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727EFA8[string];
   }
 
   return v4;

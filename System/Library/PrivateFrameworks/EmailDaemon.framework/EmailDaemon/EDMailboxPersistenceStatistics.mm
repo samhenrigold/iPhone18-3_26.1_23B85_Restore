@@ -35,7 +35,7 @@
 
 - (NSString)debugDescription
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696AD60]);
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:{-[EDMailboxPersistenceStatistics messagesInLargestMailbox](self, "messagesInLargestMailbox")}];
   [v3 appendFormat:@"Largest mailbox: %@ messages\n", v4];
@@ -44,126 +44,126 @@
   [v3 appendFormat:@"Second Largest mailbox: %@ messages\n", v5];
 
   [v3 appendFormat:@"Mailboxes per account:\n"];
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   mailboxesPerAccount = [(EDMailboxPersistenceStatistics *)self mailboxesPerAccount];
   v7 = [mailboxesPerAccount keysSortedByValueUsingComparator:&__block_literal_global_42];
 
-  v8 = [v7 countByEnumeratingWithState:&v55 objects:v62 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v54 objects:v61 count:16];
   if (v8)
   {
-    v9 = *v56;
+    v9 = *v55;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v56 != v9)
+        if (*v55 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v55 + 1) + 8 * i);
+        v11 = *(*(&v54 + 1) + 8 * i);
         mailboxesPerAccount2 = [(EDMailboxPersistenceStatistics *)self mailboxesPerAccount];
         v13 = [mailboxesPerAccount2 objectForKeyedSubscript:v11];
         [v3 appendFormat:@"\t%@: %lu\n", v11, objc_msgSend(v13, "count")];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v55 objects:v62 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v54 objects:v61 count:16];
     }
 
     while (v8);
   }
 
   [v3 appendFormat:@"Messages per account:\n"];
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   messagesPerAccount = [(EDMailboxPersistenceStatistics *)self messagesPerAccount];
   v15 = [messagesPerAccount keysSortedByValueUsingComparator:&__block_literal_global_17];
 
-  v16 = [v15 countByEnumeratingWithState:&v51 objects:v61 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v50 objects:v60 count:16];
   if (v16)
   {
-    v17 = *v52;
+    v17 = *v51;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v52 != v17)
+        if (*v51 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        v19 = *(*(&v51 + 1) + 8 * j);
+        v19 = *(*(&v50 + 1) + 8 * j);
         messagesPerAccount2 = [(EDMailboxPersistenceStatistics *)self messagesPerAccount];
         v21 = [messagesPerAccount2 objectForKeyedSubscript:v19];
         [v3 appendFormat:@"\t%@: %@\n", v19, v21];
       }
 
-      v16 = [v15 countByEnumeratingWithState:&v51 objects:v61 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v50 objects:v60 count:16];
     }
 
     while (v16);
   }
 
   [v3 appendFormat:@"Messages per inbox:\n"];
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   messagesPerInbox = [(EDMailboxPersistenceStatistics *)self messagesPerInbox];
   v23 = [messagesPerInbox keysSortedByValueUsingComparator:&__block_literal_global_25];
 
-  v24 = [v23 countByEnumeratingWithState:&v47 objects:v60 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v46 objects:v59 count:16];
   if (v24)
   {
-    v25 = *v48;
+    v25 = *v47;
     do
     {
       for (k = 0; k != v24; ++k)
       {
-        if (*v48 != v25)
+        if (*v47 != v25)
         {
           objc_enumerationMutation(v23);
         }
 
-        v27 = *(*(&v47 + 1) + 8 * k);
+        v27 = *(*(&v46 + 1) + 8 * k);
         messagesPerInbox2 = [(EDMailboxPersistenceStatistics *)self messagesPerInbox];
         v29 = [messagesPerInbox2 objectForKeyedSubscript:v27];
         [v3 appendFormat:@"\t%@: %@\n", v27, v29];
       }
 
-      v24 = [v23 countByEnumeratingWithState:&v47 objects:v60 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v46 objects:v59 count:16];
     }
 
     while (v24);
   }
 
   [v3 appendFormat:@"Messages per mailbox:\n"];
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   messagesPerMailbox = [(EDMailboxPersistenceStatistics *)self messagesPerMailbox];
   obj = [messagesPerMailbox keysSortedByValueUsingComparator:&__block_literal_global_30_0];
 
-  v31 = [obj countByEnumeratingWithState:&v43 objects:v59 count:16];
+  v31 = [obj countByEnumeratingWithState:&v42 objects:v58 count:16];
   if (v31)
   {
-    v32 = *v44;
+    v32 = *v43;
 LABEL_24:
     v33 = 0;
     while (1)
     {
-      if (*v44 != v32)
+      if (*v43 != v32)
       {
         objc_enumerationMutation(obj);
       }
 
-      v34 = *(*(&v43 + 1) + 8 * v33);
+      v34 = *(*(&v42 + 1) + 8 * v33);
       messagesPerMailbox2 = [(EDMailboxPersistenceStatistics *)self messagesPerMailbox];
       v36 = [messagesPerMailbox2 objectForKeyedSubscript:v34];
       v37 = [v36 integerValue] > 0;
@@ -179,7 +179,7 @@ LABEL_24:
 
       if (v31 == ++v33)
       {
-        v31 = [obj countByEnumeratingWithState:&v43 objects:v59 count:16];
+        v31 = [obj countByEnumeratingWithState:&v42 objects:v58 count:16];
         if (v31)
         {
           goto LABEL_24;
@@ -189,8 +189,6 @@ LABEL_24:
       }
     }
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -208,136 +206,136 @@ uint64_t __50__EDMailboxPersistenceStatistics_debugDescription__block_invoke(uin
 
 - (NSString)redactedDescription
 {
-  v66 = *MEMORY[0x1E69E9840];
-  v45 = objc_alloc_init(MEMORY[0x1E696AD60]);
-  [v45 appendFormat:@"Largest mailbox: %ld messages\n", objc_msgSend(MEMORY[0x1E699B858], "roundedInteger:", -[EDMailboxPersistenceStatistics messagesInLargestMailbox](self, "messagesInLargestMailbox"))];
-  [v45 appendFormat:@"Second Largest mailbox: %ld messages\n", objc_msgSend(MEMORY[0x1E699B858], "roundedInteger:", -[EDMailboxPersistenceStatistics messagesInSecondLargestMailbox](self, "messagesInSecondLargestMailbox"))];
-  [v45 appendFormat:@"Mailboxes per account:\n"];
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
+  v65 = *MEMORY[0x1E69E9840];
+  v44 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v44 appendFormat:@"Largest mailbox: %ld messages\n", objc_msgSend(MEMORY[0x1E699B858], "roundedInteger:", -[EDMailboxPersistenceStatistics messagesInLargestMailbox](self, "messagesInLargestMailbox"))];
+  [v44 appendFormat:@"Second Largest mailbox: %ld messages\n", objc_msgSend(MEMORY[0x1E699B858], "roundedInteger:", -[EDMailboxPersistenceStatistics messagesInSecondLargestMailbox](self, "messagesInSecondLargestMailbox"))];
+  [v44 appendFormat:@"Mailboxes per account:\n"];
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   mailboxesPerAccount = [(EDMailboxPersistenceStatistics *)self mailboxesPerAccount];
   v4 = [mailboxesPerAccount keysSortedByValueUsingComparator:&__block_literal_global_39];
 
   v5 = v4;
-  v6 = [v4 countByEnumeratingWithState:&v58 objects:v65 count:16];
+  v6 = [v4 countByEnumeratingWithState:&v57 objects:v64 count:16];
   if (v6)
   {
-    v7 = *v59;
+    v7 = *v58;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v59 != v7)
+        if (*v58 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v58 + 1) + 8 * i);
+        v9 = *(*(&v57 + 1) + 8 * i);
         v10 = MEMORY[0x1E699B858];
         mailboxesPerAccount2 = [(EDMailboxPersistenceStatistics *)self mailboxesPerAccount];
         v12 = [mailboxesPerAccount2 objectForKeyedSubscript:v9];
-        [v45 appendFormat:@"\t%@: %ld\n", v9, objc_msgSend(v10, "roundedInteger:", objc_msgSend(v12, "count"))];
+        [v44 appendFormat:@"\t%@: %ld\n", v9, objc_msgSend(v10, "roundedInteger:", objc_msgSend(v12, "count"))];
       }
 
       v4 = v5;
-      v6 = [v5 countByEnumeratingWithState:&v58 objects:v65 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v57 objects:v64 count:16];
     }
 
     while (v6);
   }
 
-  [v45 appendFormat:@"Messages per account:\n"];
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
+  [v44 appendFormat:@"Messages per account:\n"];
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   messagesPerAccount = [(EDMailboxPersistenceStatistics *)self messagesPerAccount];
   obj = [messagesPerAccount keysSortedByValueUsingComparator:&__block_literal_global_44_0];
 
-  v14 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+  v14 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
   if (v14)
   {
-    v15 = *v55;
+    v15 = *v54;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v55 != v15)
+        if (*v54 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v54 + 1) + 8 * j);
+        v17 = *(*(&v53 + 1) + 8 * j);
         v18 = MEMORY[0x1E699B858];
         messagesPerAccount2 = [(EDMailboxPersistenceStatistics *)self messagesPerAccount];
         v20 = [messagesPerAccount2 objectForKeyedSubscript:v17];
-        [v45 appendFormat:@"\t%@: %ld\n", v17, objc_msgSend(v18, "roundedInteger:", objc_msgSend(v20, "integerValue"))];
+        [v44 appendFormat:@"\t%@: %ld\n", v17, objc_msgSend(v18, "roundedInteger:", objc_msgSend(v20, "integerValue"))];
       }
 
-      v14 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+      v14 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
     }
 
     while (v14);
   }
 
-  [v45 appendFormat:@"Messages per inbox:\n"];
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
+  [v44 appendFormat:@"Messages per inbox:\n"];
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   messagesPerInbox = [(EDMailboxPersistenceStatistics *)self messagesPerInbox];
   obja = [messagesPerInbox keysSortedByValueUsingComparator:&__block_literal_global_46_1];
 
-  v22 = [obja countByEnumeratingWithState:&v50 objects:v63 count:16];
+  v22 = [obja countByEnumeratingWithState:&v49 objects:v62 count:16];
   if (v22)
   {
-    v23 = *v51;
+    v23 = *v50;
     do
     {
       for (k = 0; k != v22; ++k)
       {
-        if (*v51 != v23)
+        if (*v50 != v23)
         {
           objc_enumerationMutation(obja);
         }
 
-        v25 = *(*(&v50 + 1) + 8 * k);
+        v25 = *(*(&v49 + 1) + 8 * k);
         v26 = MEMORY[0x1E699B858];
         messagesPerInbox2 = [(EDMailboxPersistenceStatistics *)self messagesPerInbox];
         v28 = [messagesPerInbox2 objectForKeyedSubscript:v25];
-        [v45 appendFormat:@"\t%@: %ld\n", v25, objc_msgSend(v26, "roundedInteger:", objc_msgSend(v28, "integerValue"))];
+        [v44 appendFormat:@"\t%@: %ld\n", v25, objc_msgSend(v26, "roundedInteger:", objc_msgSend(v28, "integerValue"))];
       }
 
-      v22 = [obja countByEnumeratingWithState:&v50 objects:v63 count:16];
+      v22 = [obja countByEnumeratingWithState:&v49 objects:v62 count:16];
     }
 
     while (v22);
   }
 
-  [v45 appendFormat:@"Messages per mailbox:\n"];
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
+  [v44 appendFormat:@"Messages per mailbox:\n"];
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   messagesPerMailbox = [(EDMailboxPersistenceStatistics *)self messagesPerMailbox];
   v30 = [messagesPerMailbox keysSortedByValueUsingComparator:&__block_literal_global_48_0];
 
-  v31 = [v30 countByEnumeratingWithState:&v46 objects:v62 count:16];
+  v31 = [v30 countByEnumeratingWithState:&v45 objects:v61 count:16];
   if (v31)
   {
-    v32 = *v47;
+    v32 = *v46;
 LABEL_24:
     v33 = 0;
     while (1)
     {
-      if (*v47 != v32)
+      if (*v46 != v32)
       {
         objc_enumerationMutation(v30);
       }
 
-      v34 = *(*(&v46 + 1) + 8 * v33);
+      v34 = *(*(&v45 + 1) + 8 * v33);
       messagesPerMailbox2 = [(EDMailboxPersistenceStatistics *)self messagesPerMailbox];
       v36 = [messagesPerMailbox2 objectForKeyedSubscript:v34];
       v37 = [v36 integerValue] > 0;
@@ -350,11 +348,11 @@ LABEL_24:
       v38 = MEMORY[0x1E699B858];
       messagesPerMailbox3 = [(EDMailboxPersistenceStatistics *)self messagesPerMailbox];
       v40 = [messagesPerMailbox3 objectForKeyedSubscript:v34];
-      [v45 appendFormat:@"\t%@: %ld\n", v34, objc_msgSend(v38, "roundedInteger:", objc_msgSend(v40, "integerValue"))];
+      [v44 appendFormat:@"\t%@: %ld\n", v34, objc_msgSend(v38, "roundedInteger:", objc_msgSend(v40, "integerValue"))];
 
       if (v31 == ++v33)
       {
-        v31 = [v30 countByEnumeratingWithState:&v46 objects:v62 count:16];
+        v31 = [v30 countByEnumeratingWithState:&v45 objects:v61 count:16];
         if (v31)
         {
           goto LABEL_24;
@@ -365,9 +363,7 @@ LABEL_24:
     }
   }
 
-  v41 = *MEMORY[0x1E69E9840];
-
-  return v45;
+  return v44;
 }
 
 uint64_t __53__EDMailboxPersistenceStatistics_redactedDescription__block_invoke(uint64_t a1, void *a2, void *a3)

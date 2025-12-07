@@ -8,11 +8,11 @@
 
 - (STStorageTipInfoCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier specifier:(id)specifier
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
-  v20.receiver = self;
-  v20.super_class = STStorageTipInfoCell;
-  v9 = [(PSTableCell *)&v20 initWithStyle:style reuseIdentifier:identifier specifier:specifierCopy];
+  v19.receiver = self;
+  v19.super_class = STStorageTipInfoCell;
+  v9 = [(PSTableCell *)&v19 initWithStyle:style reuseIdentifier:identifier specifier:specifierCopy];
   v10 = v9;
   if (v9)
   {
@@ -33,14 +33,13 @@
     [(UILabel *)v10->_infoLabel setNumberOfLines:0];
     [(UILabel *)v10->_infoLabel setLineBreakMode:0];
     [contentView addSubview:v10->_infoLabel];
-    v21[0] = v10->_infoLabel;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = v10->_infoLabel;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     [contentView setAccessibilityElements:v17];
 
     [(STStorageTipInfoCell *)v10 refreshCellContentsWithSpecifier:specifierCopy];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

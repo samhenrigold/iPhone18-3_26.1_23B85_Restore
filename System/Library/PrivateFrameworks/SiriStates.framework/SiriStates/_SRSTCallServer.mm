@@ -7,12 +7,12 @@
 - (_SRSTCallServer)init
 {
   ObjectType = swift_getObjectType();
-  v3 = *InstrumentationManager.sharedLogger.unsafeMutableAddressor();
-  v4 = *(ObjectType + 128);
+  InstrumentationManager.sharedLogger.unsafeMutableAddressor();
+  v3 = *(ObjectType + 128);
 
-  v6 = v4(v5);
+  v5 = v3(v4);
   swift_deallocPartialClassInstance();
-  return v6;
+  return v5;
 }
 
 @end

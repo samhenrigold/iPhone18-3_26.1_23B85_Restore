@@ -252,8 +252,8 @@ uint64_t __65__PXCuratedLibraryFooterController_observable_didChange_context___b
     v26 = v25 - CGRectGetMinY(v40);
     [scrollViewController contentBounds];
     v27 = CGRectGetMaxY(v41);
-    layout = [(PXCuratedLibraryFooterController *)self layout];
-    [layout padding];
+    v28 = objc_msgSend_layout(self);
+    [v28 padding];
     v30 = v27 - v29;
 
     if (v24 >= v30)
@@ -364,8 +364,8 @@ void __54__PXCuratedLibraryFooterController__updateFooterAlpha__block_invoke(uin
 {
   isUpdatingFooter = self->_isUpdatingFooter;
   self->_isUpdatingFooter = 1;
-  layout = [(PXCuratedLibraryFooterController *)self layout];
-  [layout padding];
+  v4 = objc_msgSend_layout(self, a2);
+  [v4 padding];
   v6 = v5;
   v8 = v7;
   v10 = v9;
@@ -398,8 +398,8 @@ void __54__PXCuratedLibraryFooterController__updateFooterAlpha__block_invoke(uin
     footerViewModel = [(PXCuratedLibraryFooterController *)self footerViewModel];
     [(PXPhotosGlobalFooterView *)footerView setViewModel:footerViewModel];
 
-    [layout presentedPadding];
-    [layout safeAreaInsets];
+    [v4 presentedPadding];
+    [v4 safeAreaInsets];
     [scrollViewController scrollViewContentSize];
     PXEdgeInsetsInsetSizeEdges();
   }
@@ -413,7 +413,7 @@ void __54__PXCuratedLibraryFooterController__updateFooterAlpha__block_invoke(uin
     [(PXPhotosGlobalFooterView *)self->_reusableFooterView setHidden:1];
   }
 
-  [layout setPadding:{v6, v8, 0.0, v10}];
+  [v4 setPadding:{v6, v8, 0.0, v10}];
   [(PXCuratedLibraryFooterController *)self setFooterView:0];
   footerMaskView = [(PXCuratedLibraryFooterController *)self footerMaskView];
   wantsFooterMask = [(PXCuratedLibraryFooterController *)self wantsFooterMask];
@@ -532,7 +532,7 @@ void __54__PXCuratedLibraryFooterController__updateFooterAlpha__block_invoke(uin
           goto LABEL_16;
         }
 
-        [zoomablePhotosViewModel zoomState];
+        objc_msgSend_zoomState(zoomablePhotosViewModel);
         v7 = BYTE8(v11);
 
         if (v7)
@@ -690,8 +690,8 @@ LABEL_7:
       {
         gridView = [(PXCuratedLibraryFooterController *)self gridView];
         scrollViewController = [gridView scrollViewController];
-        layout = [(PXCuratedLibraryFooterController *)self layout];
-        [layout padding];
+        v10 = objc_msgSend_layout(self);
+        [v10 padding];
         [scrollViewController isScrolledAtEdge:3 tolerance:v11 + 1.0];
 
         [(PXCuratedLibraryFooterController *)self footerVisibleAmountIncludingSafeAreaInsets:0];

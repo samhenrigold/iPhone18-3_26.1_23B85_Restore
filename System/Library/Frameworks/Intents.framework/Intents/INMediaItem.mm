@@ -19,8 +19,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v16[5] = *MEMORY[0x1E69E9840];
-  v15[0] = @"identifier";
+  v15[5] = *MEMORY[0x1E69E9840];
+  v14[0] = @"identifier";
   identifier = self->_identifier;
   null = identifier;
   if (!identifier)
@@ -28,8 +28,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
-  v15[1] = @"title";
+  v15[0] = null;
+  v14[1] = @"title";
   title = self->_title;
   null2 = title;
   if (!title)
@@ -37,11 +37,11 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null2;
-  v15[2] = @"type";
+  v15[1] = null2;
+  v14[2] = @"type";
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:self->_type];
-  v16[2] = v7;
-  v15[3] = @"artwork";
+  v15[2] = v7;
+  v14[3] = @"artwork";
   artwork = self->_artwork;
   null3 = artwork;
   if (!artwork)
@@ -49,8 +49,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[3] = null3;
-  v15[4] = @"artist";
+  v15[3] = null3;
+  v14[4] = @"artist";
   artist = self->_artist;
   null4 = artist;
   if (!artist)
@@ -58,8 +58,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[4] = null4;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:5];
+  v15[4] = null4;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
   if (artist)
   {
     if (artwork)
@@ -96,7 +96,6 @@ LABEL_11:
   }
 
 LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -170,41 +169,40 @@ LABEL_13:
 
 - (INMediaItem)initWithCoder:(id)coder
 {
-  v29[3] = *MEMORY[0x1E69E9840];
+  v28[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v26 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
+  v25 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   v4 = MEMORY[0x1E695DFD8];
   v5 = objc_opt_class();
   v6 = [v4 setWithObjects:{v5, objc_opt_class(), 0}];
-  v25 = [coderCopy decodeObjectOfClasses:v6 forKey:@"title"];
+  v24 = [coderCopy decodeObjectOfClasses:v6 forKey:@"title"];
 
-  v24 = [coderCopy decodeIntegerForKey:@"type"];
-  v23 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"artwork"];
+  v23 = [coderCopy decodeIntegerForKey:@"type"];
+  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"artwork"];
   v7 = MEMORY[0x1E695DFD8];
   v8 = objc_opt_class();
   v9 = [v7 setWithObjects:{v8, objc_opt_class(), 0}];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"artist"];
 
   v11 = MEMORY[0x1E695DFD8];
-  v29[0] = objc_opt_class();
-  v29[1] = objc_opt_class();
-  v29[2] = objc_opt_class();
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
+  v28[0] = objc_opt_class();
+  v28[1] = objc_opt_class();
+  v28[2] = objc_opt_class();
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:3];
   v13 = [v11 setWithArray:v12];
   v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"topics"];
 
   v15 = MEMORY[0x1E695DFD8];
-  v28[0] = objc_opt_class();
-  v28[1] = objc_opt_class();
-  v28[2] = objc_opt_class();
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:3];
+  v27[0] = objc_opt_class();
+  v27[1] = objc_opt_class();
+  v27[2] = objc_opt_class();
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:3];
   v17 = [v15 setWithArray:v16];
   v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"namedEntities"];
 
   v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"privateMediaItemValueData"];
 
-  v20 = [(INMediaItem *)self initWithIdentifier:v26 title:v25 type:v24 artwork:v23 artist:v10 topics:v14 namedEntities:v18 privateMediaItemValueData:v19];
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = [(INMediaItem *)self initWithIdentifier:v25 title:v24 type:v23 artwork:v22 artist:v10 topics:v14 namedEntities:v18 privateMediaItemValueData:v19];
   return v20;
 }
 
@@ -389,10 +387,9 @@ LABEL_13:
 uint64_t __73__INMediaItem_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) setArtwork:a2];
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 - (id)spokenPhrase

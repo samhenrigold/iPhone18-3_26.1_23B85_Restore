@@ -9,15 +9,15 @@
 + (id)archivedDataWithRootObject:(id)object options:(id)options
 {
   v7 = objc_allocWithZone(MEMORY[0x1E695DF88]);
-  v10 = objc_msgSend_initWithLength_(v7, v8, 0, v9);
-  v11 = objc_opt_new();
-  v12 = objc_allocWithZone(self);
-  v15 = objc_msgSend_initForWritingWithMutableData_(v12, v13, v10, v14);
-  objc_msgSend_setOptions_(v15, v16, options, v17);
-  objc_msgSend_encodeObject_forKey_(v15, v18, object, *MEMORY[0x1E696A508]);
-  objc_msgSend_finishEncoding(v15, v19, v20, v21);
-  objc_msgSend_drain(v11, v22, v23, v24);
-  return v10;
+  v9 = objc_msgSend_initWithLength_(v7, v8, 0);
+  v10 = objc_opt_new();
+  v11 = objc_allocWithZone(self);
+  v13 = objc_msgSend_initForWritingWithMutableData_(v11, v12, v9);
+  objc_msgSend_setOptions_(v13, v14, options);
+  objc_msgSend_encodeObject_forKey_(v13, v15, object, *MEMORY[0x1E696A508]);
+  objc_msgSend_finishEncoding(v13, v16, v17);
+  objc_msgSend_drain(v10, v18, v19);
+  return v9;
 }
 
 - (void)dealloc

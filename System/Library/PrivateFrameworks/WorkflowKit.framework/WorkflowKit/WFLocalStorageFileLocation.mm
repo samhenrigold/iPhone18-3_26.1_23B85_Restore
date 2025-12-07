@@ -12,7 +12,7 @@
   lCopy = l;
   itemCopy = item;
   v7 = [WFFileLocationUtilities parentItemsForItem:itemCopy];
-  if ([v7 count] || (objc_msgSend(itemCopy, "itemIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEqualToString:", *MEMORY[0x1E6967258]), v8, (v9 & 1) == 0))
+  if ([v7 count] || (objc_msgSend(itemCopy, "itemIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v8), v8, (isEqualToString & 1) == 0))
   {
     pathComponents = [lCopy pathComponents];
     reverseObjectEnumerator = [pathComponents reverseObjectEnumerator];
@@ -68,9 +68,9 @@ void __50__WFLocalStorageFileLocation_subpathFromURL_item___block_invoke(uint64_
     v12 = v7;
     v8 = [*(a1 + 32) objectAtIndex:a3];
     v9 = [v8 itemIdentifier];
-    v10 = [v9 isEqualToString:*MEMORY[0x1E6967258]];
+    isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-    if (v10)
+    if (isEqualToString)
     {
       *a4 = 1;
     }
@@ -78,7 +78,7 @@ void __50__WFLocalStorageFileLocation_subpathFromURL_item___block_invoke(uint64_
     else
     {
       v11 = [v8 filename];
-      if ([v12 isEqualToString:v11])
+      if (objc_msgSend_isEqualToString_(v12))
       {
         [*(a1 + 40) addObject:v12];
       }
@@ -110,9 +110,9 @@ void __50__WFLocalStorageFileLocation_subpathFromURL_item___block_invoke(uint64_
 + (BOOL)canRepresentURL:(id)l item:(id)item parentItems:(id)items
 {
   providerDomainID = [item providerDomainID];
-  v6 = [providerDomainID isEqualToString:@"com.apple.FileProvider.LocalStorage"];
+  isEqualToString = objc_msgSend_isEqualToString_(providerDomainID);
 
-  return v6;
+  return isEqualToString;
 }
 
 - (id)resolveLocationWithError:(id *)error

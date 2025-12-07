@@ -18,7 +18,7 @@
 
 - (void)controllButtonTouchDown:(id)down
 {
-  sub_2D124(&qword_82010);
+  sub_2D124(&qword_82010, &qword_5FCF0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_5F5C0;
   *(v3 + 56) = &type metadata for String;
@@ -37,7 +37,7 @@
 
 - (void)controllButtonTouchUpOutside:(id)outside
 {
-  sub_2D124(&qword_82010);
+  sub_2D124(&qword_82010, &qword_5FCF0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_5F5C0;
   *(v3 + 56) = &type metadata for String;

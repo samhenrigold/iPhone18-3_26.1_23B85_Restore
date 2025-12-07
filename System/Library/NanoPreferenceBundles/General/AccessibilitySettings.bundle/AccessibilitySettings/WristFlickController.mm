@@ -27,52 +27,51 @@
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
-  v23.receiver = self;
-  v23.super_class = WristFlickController;
-  [(WristFlickController *)&v23 tableView:viewCopy didSelectRowAtIndexPath:pathCopy];
   v22.receiver = self;
   v22.super_class = WristFlickController;
-  v8 = [(WristFlickController *)&v22 tableView:viewCopy cellForRowAtIndexPath:pathCopy];
+  [(WristFlickController *)&v22 tableView:viewCopy didSelectRowAtIndexPath:pathCopy];
+  v21.receiver = self;
+  v21.super_class = WristFlickController;
+  v8 = [(WristFlickController *)&v21 tableView:viewCopy cellForRowAtIndexPath:pathCopy];
   specifier = [v8 specifier];
   v10 = [specifier propertyForKey:*MEMORY[0x277D3FFF0]];
   v11 = [(WristFlickController *)self _wristFlickSpeedFromSpecifierKey:v10];
 
   AXSetWristFlickSpeed(v11);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   visibleCells = [viewCopy visibleCells];
-  v13 = [visibleCells countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v13 = [visibleCells countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        [(WristFlickController *)self _updateCheckedStatusForCell:*(*(&v18 + 1) + 8 * v16++)];
+        [(WristFlickController *)self _updateCheckedStatusForCell:*(*(&v17 + 1) + 8 * v16++)];
       }
 
       while (v14 != v16);
-      v14 = [visibleCells countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v14 = [visibleCells countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v14);
   }
 
   [v8 setChecked:1];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCheckedStatusForCell:(id)cell

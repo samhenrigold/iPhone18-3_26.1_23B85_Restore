@@ -3,9 +3,9 @@
 
 @implementation NSValueTransformer
 
-id __101__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_transformerWithFormatter_forObjectClass___block_invoke(uint64_t a1, void *a2, _BYTE *a3, void *a4)
+id __101__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_transformerWithFormatter_forObjectClass___block_invoke(uint64_t a1, void *a2, unsigned __int8 *a3, void *a4)
 {
-  v47[3] = *MEMORY[0x1E69E9840];
+  v45[3] = *MEMORY[0x1E69E9840];
   v7 = a2;
   if (!v7)
   {
@@ -17,28 +17,28 @@ id __101__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_transformerW
   if (objc_opt_isKindOfClass())
   {
     v8 = *(a1 + 32);
-    v40 = 0;
-    v41 = 0;
-    v9 = [v8 getObjectValue:&v41 forString:v7 errorDescription:&v40];
-    v10 = v41;
-    v11 = v40;
+    v38 = 0;
+    v39 = 0;
+    v9 = [v8 getObjectValue:&v39 forString:v7 errorDescription:&v38];
+    v10 = v39;
+    v11 = v38;
     *a3 = v9;
     if (v11)
     {
       if (a4)
       {
-        v44[0] = *MEMORY[0x1E696A578];
+        v42[0] = *MEMORY[0x1E696A578];
         v12 = MEMORY[0x1E696AEC0];
         v13 = [MEMORY[0x1E696AAE8] mainBundle];
         v14 = [v13 localizedStringForKey:@"Could not convert string to %@" value:&stru_1F4A1C408 table:0];
         v15 = [v12 stringWithFormat:v14, *(a1 + 40)];
         v16 = *MEMORY[0x1E696A588];
-        v45[0] = v15;
-        v45[1] = v11;
-        v44[1] = v16;
-        v44[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-        v45[2] = v7;
-        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:3];
+        v43[0] = v15;
+        v43[1] = v11;
+        v42[1] = v16;
+        v42[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+        v43[2] = v7;
+        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:3];
 
         *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v17];
       }
@@ -46,7 +46,6 @@ id __101__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_transformerW
 
     else
     {
-      v28 = *(a1 + 40);
       if (objc_opt_isKindOfClass())
       {
         v18 = v10;
@@ -57,21 +56,21 @@ LABEL_15:
 
       if (a4)
       {
-        v42[0] = *MEMORY[0x1E696A578];
-        v29 = MEMORY[0x1E696AEC0];
-        v39 = [MEMORY[0x1E696AAE8] mainBundle];
-        v38 = [v39 localizedStringForKey:@"Could not convert string to %@" value:&stru_1F4A1C408 table:0];
-        v30 = [v29 stringWithFormat:v38, *(a1 + 40)];
-        v43[0] = v30;
-        v42[1] = *MEMORY[0x1E696A588];
-        v31 = MEMORY[0x1E696AEC0];
-        v32 = [MEMORY[0x1E696AAE8] mainBundle];
-        v33 = [v32 localizedStringForKey:@"Expected an %@ as output from the formatter value:got: %@." table:{&stru_1F4A1C408, 0}];
-        v34 = [v31 stringWithFormat:v33, *(a1 + 40), v10];
-        v43[1] = v34;
-        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:2];
+        v40[0] = *MEMORY[0x1E696A578];
+        v28 = MEMORY[0x1E696AEC0];
+        v37 = [MEMORY[0x1E696AAE8] mainBundle];
+        v36 = [v37 localizedStringForKey:@"Could not convert string to %@" value:&stru_1F4A1C408 table:0];
+        v29 = [v28 stringWithFormat:v36, *(a1 + 40)];
+        v41[0] = v29;
+        v40[1] = *MEMORY[0x1E696A588];
+        v30 = MEMORY[0x1E696AEC0];
+        v31 = [MEMORY[0x1E696AAE8] mainBundle];
+        v32 = [v31 localizedStringForKey:@"Expected an %@ as output from the formatter value:got: %@." table:{&stru_1F4A1C408, 0}];
+        v33 = [v30 stringWithFormat:v32, *(a1 + 40), v10];
+        v41[1] = v33;
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:2];
 
-        *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:2048 userInfo:v35];
+        *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:2048 userInfo:v34];
       }
     }
 
@@ -82,21 +81,21 @@ LABEL_15:
 
   if (a4)
   {
-    v46[0] = *MEMORY[0x1E696A578];
+    v44[0] = *MEMORY[0x1E696A578];
     v19 = MEMORY[0x1E696AEC0];
     v20 = [MEMORY[0x1E696AAE8] mainBundle];
     v21 = [v20 localizedStringForKey:@"Could not convert string to %@" value:&stru_1F4A1C408 table:0];
     v22 = [v19 stringWithFormat:v21, *(a1 + 40)];
-    v47[0] = v22;
-    v46[1] = *MEMORY[0x1E696A588];
+    v45[0] = v22;
+    v44[1] = *MEMORY[0x1E696A588];
     v23 = MEMORY[0x1E696AEC0];
     v24 = [MEMORY[0x1E696AAE8] mainBundle];
     v25 = [v24 localizedStringForKey:@"Expected an NSString as input value:got: %@." table:{&stru_1F4A1C408, 0}];
     v26 = [v23 stringWithFormat:v25, v7];
-    v46[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-    v47[1] = v26;
-    v47[2] = v7;
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:3];
+    v44[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+    v45[1] = v26;
+    v45[2] = v7;
+    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:3];
 
     *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v27];
   }
@@ -105,62 +104,57 @@ LABEL_15:
   *a3 = 0;
 LABEL_16:
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 void *__101__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_transformerWithFormatter_forObjectClass___block_invoke_2(uint64_t a1, void *a2, BOOL *a3, void *a4)
 {
-  v22[3] = *MEMORY[0x1E69E9840];
+  v20[3] = *MEMORY[0x1E69E9840];
   v7 = a2;
   if (v7)
   {
-    v8 = *(a1 + 40);
     if (objc_opt_isKindOfClass())
     {
       a4 = [*(a1 + 32) stringForObjectValue:v7];
-      v9 = a4 != 0;
+      v8 = a4 != 0;
     }
 
     else if (a4)
     {
-      v21[0] = *MEMORY[0x1E696A578];
-      v10 = MEMORY[0x1E696AEC0];
-      v11 = [MEMORY[0x1E696AAE8] mainBundle];
-      v12 = [v11 localizedStringForKey:@"Could not convert %@ to string" value:&stru_1F4A1C408 table:0];
-      v13 = [v10 stringWithFormat:v12, *(a1 + 40)];
-      v22[0] = v13;
-      v21[1] = *MEMORY[0x1E696A588];
-      v14 = MEMORY[0x1E696AEC0];
-      v15 = [MEMORY[0x1E696AAE8] mainBundle];
-      v16 = [v15 localizedStringForKey:@"Expected an %@ as input value:got: %@." table:{&stru_1F4A1C408, 0}];
-      v17 = [v14 stringWithFormat:v16, *(a1 + 40), v7];
-      v21[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-      v22[1] = v17;
-      v22[2] = v7;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
+      v19[0] = *MEMORY[0x1E696A578];
+      v9 = MEMORY[0x1E696AEC0];
+      v10 = [MEMORY[0x1E696AAE8] mainBundle];
+      v11 = [v10 localizedStringForKey:@"Could not convert %@ to string" value:&stru_1F4A1C408 table:0];
+      v12 = [v9 stringWithFormat:v11, *(a1 + 40)];
+      v20[0] = v12;
+      v19[1] = *MEMORY[0x1E696A588];
+      v13 = MEMORY[0x1E696AEC0];
+      v14 = [MEMORY[0x1E696AAE8] mainBundle];
+      v15 = [v14 localizedStringForKey:@"Expected an %@ as input value:got: %@." table:{&stru_1F4A1C408, 0}];
+      v16 = [v13 stringWithFormat:v15, *(a1 + 40), v7];
+      v19[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+      v20[1] = v16;
+      v20[2] = v7;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
 
-      *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v18];
+      *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v17];
 
-      v9 = 0;
+      v8 = 0;
       a4 = 0;
     }
 
     else
     {
-      v9 = 0;
+      v8 = 0;
     }
 
-    *a3 = v9;
+    *a3 = v8;
   }
 
   else
   {
     a4 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return a4;
 }
@@ -234,79 +228,77 @@ void __132__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_valueMappi
 
 id __91__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_validatingTransformerForClass___block_invoke(uint64_t a1, void *a2, _BYTE *a3, void *a4)
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v18[3] = *MEMORY[0x1E69E9840];
   v7 = a2;
-  if (v7 && (v8 = *(a1 + 32), (objc_opt_isKindOfClass() & 1) == 0))
+  if (v7 && (objc_opt_isKindOfClass() & 1) == 0)
   {
     if (a4)
     {
-      v19[0] = *MEMORY[0x1E696A578];
-      v10 = [MEMORY[0x1E696AAE8] mainBundle];
-      v11 = [v10 localizedStringForKey:@"Value did not match expected type" value:&stru_1F4A1C408 table:0];
-      v20[0] = v11;
-      v19[1] = *MEMORY[0x1E696A588];
-      v12 = MEMORY[0x1E696AEC0];
-      v13 = [MEMORY[0x1E696AAE8] mainBundle];
-      v14 = [v13 localizedStringForKey:@"Expected %1$@ to be of class %2$@ but got %3$@" value:&stru_1F4A1C408 table:0];
-      v15 = [v12 stringWithFormat:v14, v7, *(a1 + 32), objc_opt_class()];
-      v19[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-      v20[1] = v15;
-      v20[2] = v7;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
+      v17[0] = *MEMORY[0x1E696A578];
+      v9 = [MEMORY[0x1E696AAE8] mainBundle];
+      v10 = [v9 localizedStringForKey:@"Value did not match expected type" value:&stru_1F4A1C408 table:0];
+      v18[0] = v10;
+      v17[1] = *MEMORY[0x1E696A588];
+      v11 = MEMORY[0x1E696AEC0];
+      v12 = [MEMORY[0x1E696AAE8] mainBundle];
+      v13 = [v12 localizedStringForKey:@"Expected %1$@ to be of class %2$@ but got %3$@" value:&stru_1F4A1C408 table:0];
+      v14 = [v11 stringWithFormat:v13, v7, *(a1 + 32), objc_opt_class()];
+      v17[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+      v18[1] = v14;
+      v18[2] = v7;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
 
-      *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v16];
+      *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v15];
     }
 
-    v9 = 0;
+    v8 = 0;
     *a3 = 0;
   }
 
   else
   {
-    v9 = v7;
+    v8 = v7;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
-  return v9;
+  return v8;
 }
 
 id __100__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_arrayMappingTransformerWithTransformer___block_invoke(uint64_t a1, void *a2, _BYTE *a3, void *a4)
 {
-  v55[3] = *MEMORY[0x1E69E9840];
+  v54[3] = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (v6)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v39 = a4;
+      v38 = a4;
       v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v6, "count")}];
+      v46 = 0u;
       v47 = 0u;
       v48 = 0u;
       v49 = 0u;
-      v50 = 0u;
-      v40 = v6;
+      v39 = v6;
       v8 = v6;
-      v9 = [v8 countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v46 objects:v52 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v48;
+        v11 = *v47;
         v12 = -1;
         obj = v8;
 LABEL_5:
         v13 = 0;
         v14 = v12 + 1;
-        v41 = v12 + v10;
+        v40 = v12 + v10;
         while (1)
         {
-          if (*v48 != v11)
+          if (*v47 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v47 + 1) + 8 * v13);
+          v15 = *(*(&v46 + 1) + 8 * v13);
           v16 = [MEMORY[0x1E695DFB0] null];
 
           if (v15 == v16)
@@ -318,36 +310,36 @@ LABEL_5:
           v18 = *(a1 + 32);
           if (v17)
           {
-            v46 = 0;
-            v19 = [v18 transformedValue:v15 success:a3 error:&v46];
-            v20 = v46;
+            v45 = 0;
+            v19 = [v18 transformedValue:v15 success:a3 error:&v45];
+            v20 = v45;
             if ((*a3 & 1) == 0)
             {
               v29 = obj;
-              if (v39)
+              if (v38)
               {
-                v51[0] = *MEMORY[0x1E696A578];
-                v44 = v20;
-                v42 = [MEMORY[0x1E696AAE8] mainBundle];
-                v30 = [v42 localizedStringForKey:@"Could not transform array" value:&stru_1F4A1C408 table:0];
-                v52[0] = v30;
-                v51[1] = *MEMORY[0x1E696A588];
+                v50[0] = *MEMORY[0x1E696A578];
+                v43 = v20;
+                v41 = [MEMORY[0x1E696AAE8] mainBundle];
+                v30 = [v41 localizedStringForKey:@"Could not transform array" value:&stru_1F4A1C408 table:0];
+                v51[0] = v30;
+                v50[1] = *MEMORY[0x1E696A588];
                 v31 = MEMORY[0x1E696AEC0];
                 v29 = obj;
                 v32 = [MEMORY[0x1E696AAE8] mainBundle];
                 v33 = [v32 localizedStringForKey:@"Could not transform value at index %ld" value:&stru_1F4A1C408 table:0];
                 v34 = [v31 stringWithFormat:v33, v14];
                 v35 = *MEMORY[0x1E696AA08];
-                v52[1] = v34;
-                v52[2] = v44;
-                v51[2] = v35;
-                v51[3] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-                v52[3] = obj;
-                v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:4];
+                v51[1] = v34;
+                v51[2] = v43;
+                v50[2] = v35;
+                v50[3] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+                v51[3] = obj;
+                v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:4];
 
-                *v39 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v36];
+                *v38 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v36];
 
-                v20 = v44;
+                v20 = v43;
               }
 
               v21 = 0;
@@ -375,8 +367,8 @@ LABEL_16:
           if (v10 == v13)
           {
             v8 = obj;
-            v10 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
-            v12 = v41;
+            v10 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+            v12 = v40;
             if (v10)
             {
               goto LABEL_5;
@@ -397,26 +389,26 @@ LABEL_18:
       v21 = v7;
 LABEL_26:
 
-      v6 = v40;
+      v6 = v39;
     }
 
     else
     {
       if (a4)
       {
-        v54[0] = *MEMORY[0x1E696A578];
+        v53[0] = *MEMORY[0x1E696A578];
         v22 = [MEMORY[0x1E696AAE8] mainBundle];
         v23 = [v22 localizedStringForKey:@"Could not transform non-array type" value:&stru_1F4A1C408 table:0];
-        v55[0] = v23;
-        v54[1] = *MEMORY[0x1E696A588];
+        v54[0] = v23;
+        v53[1] = *MEMORY[0x1E696A588];
         v24 = MEMORY[0x1E696AEC0];
         v25 = [MEMORY[0x1E696AAE8] mainBundle];
         v26 = [v25 localizedStringForKey:@"Expected an NSArray value:got: %@." table:{&stru_1F4A1C408, 0}];
         v27 = [v24 stringWithFormat:v26, v6];
-        v54[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-        v55[1] = v27;
-        v55[2] = v6;
-        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:3];
+        v53[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+        v54[1] = v27;
+        v54[2] = v6;
+        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:3];
 
         *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v28];
       }
@@ -431,46 +423,44 @@ LABEL_26:
     v21 = 0;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
 id __100__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_arrayMappingTransformerWithTransformer___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3, void *a4)
 {
-  v54[3] = *MEMORY[0x1E69E9840];
+  v52[3] = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (v6)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v39 = a4;
+      v37 = a4;
       v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v6, "count")}];
+      v44 = 0u;
+      v45 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v40 = v6;
+      v38 = v6;
       v8 = v6;
-      v9 = [v8 countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v44 objects:v50 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v47;
+        v11 = *v45;
         v12 = -1;
 LABEL_5:
         v13 = 0;
         v14 = v12 + 1;
-        v41 = v12 + v10;
+        v39 = v12 + v10;
         while (1)
         {
-          if (*v47 != v11)
+          if (*v45 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v15 = *(*(&v46 + 1) + 8 * v13);
+          v15 = *(*(&v44 + 1) + 8 * v13);
           v16 = [MEMORY[0x1E695DFB0] null];
 
           if (v15 == v16)
@@ -478,46 +468,45 @@ LABEL_5:
             break;
           }
 
-          v17 = *(a1 + 32);
-          v18 = objc_opt_respondsToSelector();
-          v19 = *(a1 + 32);
-          if (v18)
+          v17 = objc_opt_respondsToSelector();
+          v18 = *(a1 + 32);
+          if (v17)
           {
-            v45 = 0;
-            v20 = [v19 reverseTransformedValue:v15 success:a3 error:&v45];
-            v21 = v45;
+            v43 = 0;
+            v19 = [v18 reverseTransformedValue:v15 success:a3 error:&v43];
+            v20 = v43;
             if ((*a3 & 1) == 0)
             {
-              if (v39)
+              if (v37)
               {
-                v50[0] = *MEMORY[0x1E696A578];
-                v44 = v21;
-                v43 = [MEMORY[0x1E696AAE8] mainBundle];
-                v30 = [v43 localizedStringForKey:@"Could not transform array" value:&stru_1F4A1C408 table:0];
-                v51[0] = v30;
-                v50[1] = *MEMORY[0x1E696A588];
-                v31 = MEMORY[0x1E696AEC0];
-                v32 = [MEMORY[0x1E696AAE8] mainBundle];
-                v33 = [v32 localizedStringForKey:@"Could not transform value at index %ld" value:&stru_1F4A1C408 table:0];
-                v34 = [v31 stringWithFormat:v33, v14];
-                v35 = *MEMORY[0x1E696AA08];
-                v51[1] = v34;
-                v51[2] = v44;
-                v50[2] = v35;
-                v50[3] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-                v51[3] = v8;
-                v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:4];
+                v48[0] = *MEMORY[0x1E696A578];
+                v42 = v20;
+                v41 = [MEMORY[0x1E696AAE8] mainBundle];
+                v29 = [v41 localizedStringForKey:@"Could not transform array" value:&stru_1F4A1C408 table:0];
+                v49[0] = v29;
+                v48[1] = *MEMORY[0x1E696A588];
+                v30 = MEMORY[0x1E696AEC0];
+                v31 = [MEMORY[0x1E696AAE8] mainBundle];
+                v32 = [v31 localizedStringForKey:@"Could not transform value at index %ld" value:&stru_1F4A1C408 table:0];
+                v33 = [v30 stringWithFormat:v32, v14];
+                v34 = *MEMORY[0x1E696AA08];
+                v49[1] = v33;
+                v49[2] = v42;
+                v48[2] = v34;
+                v48[3] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+                v49[3] = v8;
+                v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:4];
 
-                *v39 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v36];
+                *v37 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v35];
 
-                v21 = v44;
+                v20 = v42;
               }
 
-              v22 = 0;
+              v21 = 0;
               goto LABEL_26;
             }
 
-            if (!v20)
+            if (!v19)
             {
               goto LABEL_16;
             }
@@ -525,8 +514,8 @@ LABEL_5:
             goto LABEL_15;
           }
 
-          v20 = [v19 reverseTransformedValue:v15];
-          if (v20)
+          v19 = [v18 reverseTransformedValue:v15];
+          if (v19)
           {
             goto LABEL_15;
           }
@@ -537,8 +526,8 @@ LABEL_16:
           ++v14;
           if (v10 == v13)
           {
-            v10 = [v8 countByEnumeratingWithState:&v46 objects:v52 count:16];
-            v12 = v41;
+            v10 = [v8 countByEnumeratingWithState:&v44 objects:v50 count:16];
+            v12 = v39;
             if (v10)
             {
               goto LABEL_5;
@@ -548,54 +537,52 @@ LABEL_16:
           }
         }
 
-        v20 = [MEMORY[0x1E695DFB0] null];
+        v19 = [MEMORY[0x1E695DFB0] null];
 LABEL_15:
-        [v7 addObject:v20];
+        [v7 addObject:v19];
         goto LABEL_16;
       }
 
 LABEL_18:
 
-      v22 = v7;
+      v21 = v7;
 LABEL_26:
 
-      v6 = v40;
+      v6 = v38;
     }
 
     else
     {
       if (a4)
       {
-        v53[0] = *MEMORY[0x1E696A578];
-        v23 = [MEMORY[0x1E696AAE8] mainBundle];
-        v24 = [v23 localizedStringForKey:@"Could not transform non-array type" value:&stru_1F4A1C408 table:0];
-        v54[0] = v24;
-        v53[1] = *MEMORY[0x1E696A588];
-        v25 = MEMORY[0x1E696AEC0];
-        v26 = [MEMORY[0x1E696AAE8] mainBundle];
-        v27 = [v26 localizedStringForKey:@"Expected an NSArray value:got: %@." table:{&stru_1F4A1C408, 0}];
-        v28 = [v25 stringWithFormat:v27, v6];
-        v53[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-        v54[1] = v28;
-        v54[2] = v6;
-        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:3];
+        v51[0] = *MEMORY[0x1E696A578];
+        v22 = [MEMORY[0x1E696AAE8] mainBundle];
+        v23 = [v22 localizedStringForKey:@"Could not transform non-array type" value:&stru_1F4A1C408 table:0];
+        v52[0] = v23;
+        v51[1] = *MEMORY[0x1E696A588];
+        v24 = MEMORY[0x1E696AEC0];
+        v25 = [MEMORY[0x1E696AAE8] mainBundle];
+        v26 = [v25 localizedStringForKey:@"Expected an NSArray value:got: %@." table:{&stru_1F4A1C408, 0}];
+        v27 = [v24 stringWithFormat:v26, v6];
+        v51[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+        v52[1] = v27;
+        v52[2] = v6;
+        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:3];
 
-        *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v29];
+        *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v28];
       }
 
-      v22 = 0;
+      v21 = 0;
       *a3 = 0;
     }
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
-
-  return v22;
+  return v21;
 }
 
 void __84__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_BOOLeanValueTransformer__block_invoke()
@@ -607,7 +594,7 @@ void __84__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_BOOLeanValu
 
 id __84__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_BOOLeanValueTransformer__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3, void *a4)
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (v6)
   {
@@ -628,19 +615,19 @@ id __84__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_BOOLeanValueT
     {
       if (a4)
       {
-        v19[0] = *MEMORY[0x1E696A578];
+        v18[0] = *MEMORY[0x1E696A578];
         v10 = [MEMORY[0x1E696AAE8] mainBundle];
         v11 = [v10 localizedStringForKey:@"Could not convert number to BOOLean-backed number or vice-versa" value:&stru_1F4A1C408 table:0];
-        v20[0] = v11;
-        v19[1] = *MEMORY[0x1E696A588];
+        v19[0] = v11;
+        v18[1] = *MEMORY[0x1E696A588];
         v12 = MEMORY[0x1E696AEC0];
         v13 = [MEMORY[0x1E696AAE8] mainBundle];
         v14 = [v13 localizedStringForKey:@"Expected an NSNumber value:got: %@." table:{&stru_1F4A1C408, 0}];
         v15 = [v12 stringWithFormat:v14, v6];
-        v19[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-        v20[1] = v15;
-        v20[2] = v6;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
+        v18[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+        v19[1] = v15;
+        v19[2] = v6;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
 
         *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v16];
       }
@@ -655,8 +642,6 @@ id __84__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_BOOLeanValueT
     v9 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
@@ -669,7 +654,7 @@ void __81__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_UUIDValueTr
 
 id __81__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_UUIDValueTransformer__block_invoke_3(uint64_t a1, void *a2, _BYTE *a3, void *a4)
 {
-  v18[3] = *MEMORY[0x1E69E9840];
+  v17[3] = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (v6)
   {
@@ -683,19 +668,19 @@ id __81__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_UUIDValueTran
     {
       if (a4)
       {
-        v17[0] = *MEMORY[0x1E696A578];
+        v16[0] = *MEMORY[0x1E696A578];
         v8 = [MEMORY[0x1E696AAE8] mainBundle];
         v9 = [v8 localizedStringForKey:@"Could not convert UUID to string" value:&stru_1F4A1C408 table:0];
-        v18[0] = v9;
-        v17[1] = *MEMORY[0x1E696A588];
+        v17[0] = v9;
+        v16[1] = *MEMORY[0x1E696A588];
         v10 = MEMORY[0x1E696AEC0];
         v11 = [MEMORY[0x1E696AAE8] mainBundle];
         v12 = [v11 localizedStringForKey:@"Expected an NSUUID value:got: %@." table:{&stru_1F4A1C408, 0}];
         v13 = [v10 stringWithFormat:v12, v6];
-        v17[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-        v18[1] = v13;
-        v18[2] = v6;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
+        v16[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+        v17[1] = v13;
+        v17[2] = v6;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
         *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v14];
       }
@@ -710,14 +695,12 @@ id __81__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_UUIDValueTran
     v7 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 id __81__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_UUIDValueTransformer__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3, void *a4)
 {
-  v29[3] = *MEMORY[0x1E69E9840];
+  v28[3] = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (v6)
   {
@@ -735,19 +718,19 @@ id __81__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_UUIDValueTran
       {
         if (a4)
         {
-          v26[0] = *MEMORY[0x1E696A578];
+          v25[0] = *MEMORY[0x1E696A578];
           v17 = [MEMORY[0x1E696AAE8] mainBundle];
           v18 = [v17 localizedStringForKey:@"Could not convert string to UUID" value:&stru_1F4A1C408 table:0];
-          v27[0] = v18;
-          v26[1] = *MEMORY[0x1E696A588];
+          v26[0] = v18;
+          v25[1] = *MEMORY[0x1E696A588];
           v19 = MEMORY[0x1E696AEC0];
           v20 = [MEMORY[0x1E696AAE8] mainBundle];
           v21 = [v20 localizedStringForKey:@"Input UUID string %@ was malformed" value:&stru_1F4A1C408 table:0];
           v22 = [v19 stringWithFormat:v21, v6];
-          v26[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-          v27[1] = v22;
-          v27[2] = v6;
-          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
+          v25[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+          v26[1] = v22;
+          v26[2] = v6;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
 
           *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v23];
         }
@@ -760,19 +743,19 @@ id __81__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_UUIDValueTran
     {
       if (a4)
       {
-        v28[0] = *MEMORY[0x1E696A578];
+        v27[0] = *MEMORY[0x1E696A578];
         v10 = [MEMORY[0x1E696AAE8] mainBundle];
         v11 = [v10 localizedStringForKey:@"Could not convert string to UUID" value:&stru_1F4A1C408 table:0];
-        v29[0] = v11;
-        v28[1] = *MEMORY[0x1E696A588];
+        v28[0] = v11;
+        v27[1] = *MEMORY[0x1E696A588];
         v12 = MEMORY[0x1E696AEC0];
         v13 = [MEMORY[0x1E696AAE8] mainBundle];
         v14 = [v13 localizedStringForKey:@"Expected an NSString value:got: %@." table:{&stru_1F4A1C408, 0}];
         v15 = [v12 stringWithFormat:v14, v6];
-        v28[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-        v29[1] = v15;
-        v29[2] = v6;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:3];
+        v27[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+        v28[1] = v15;
+        v28[2] = v6;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
 
         *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v16];
       }
@@ -787,8 +770,6 @@ id __81__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_UUIDValueTran
     v8 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
@@ -801,7 +782,7 @@ void __80__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_URLValueTra
 
 id __80__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_URLValueTransformer__block_invoke_3(uint64_t a1, void *a2, _BYTE *a3, void *a4)
 {
-  v18[3] = *MEMORY[0x1E69E9840];
+  v17[3] = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (v6)
   {
@@ -815,19 +796,19 @@ id __80__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_URLValueTrans
     {
       if (a4)
       {
-        v17[0] = *MEMORY[0x1E696A578];
+        v16[0] = *MEMORY[0x1E696A578];
         v8 = [MEMORY[0x1E696AAE8] mainBundle];
         v9 = [v8 localizedStringForKey:@"Could not convert URL to string" value:&stru_1F4A1C408 table:0];
-        v18[0] = v9;
-        v17[1] = *MEMORY[0x1E696A588];
+        v17[0] = v9;
+        v16[1] = *MEMORY[0x1E696A588];
         v10 = MEMORY[0x1E696AEC0];
         v11 = [MEMORY[0x1E696AAE8] mainBundle];
         v12 = [v11 localizedStringForKey:@"Expected an NSURL value:got: %@." table:{&stru_1F4A1C408, 0}];
         v13 = [v10 stringWithFormat:v12, v6];
-        v17[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-        v18[1] = v13;
-        v18[2] = v6;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
+        v16[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+        v17[1] = v13;
+        v17[2] = v6;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
         *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v14];
       }
@@ -842,14 +823,12 @@ id __80__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_URLValueTrans
     v7 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 id __80__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_URLValueTransformer__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3, void *a4)
 {
-  v29[3] = *MEMORY[0x1E69E9840];
+  v28[3] = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (v6)
   {
@@ -867,19 +846,19 @@ id __80__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_URLValueTrans
       {
         if (a4)
         {
-          v26[0] = *MEMORY[0x1E696A578];
+          v25[0] = *MEMORY[0x1E696A578];
           v17 = [MEMORY[0x1E696AAE8] mainBundle];
           v18 = [v17 localizedStringForKey:@"Could not convert string to URL" value:&stru_1F4A1C408 table:0];
-          v27[0] = v18;
-          v26[1] = *MEMORY[0x1E696A588];
+          v26[0] = v18;
+          v25[1] = *MEMORY[0x1E696A588];
           v19 = MEMORY[0x1E696AEC0];
           v20 = [MEMORY[0x1E696AAE8] mainBundle];
           v21 = [v20 localizedStringForKey:@"Input URL string %@ was malformed" value:&stru_1F4A1C408 table:0];
           v22 = [v19 stringWithFormat:v21, v6];
-          v26[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-          v27[1] = v22;
-          v27[2] = v6;
-          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
+          v25[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+          v26[1] = v22;
+          v26[2] = v6;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
 
           *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v23];
         }
@@ -892,19 +871,19 @@ id __80__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_URLValueTrans
     {
       if (a4)
       {
-        v28[0] = *MEMORY[0x1E696A578];
+        v27[0] = *MEMORY[0x1E696A578];
         v10 = [MEMORY[0x1E696AAE8] mainBundle];
         v11 = [v10 localizedStringForKey:@"Could not convert string to URL" value:&stru_1F4A1C408 table:0];
-        v29[0] = v11;
-        v28[1] = *MEMORY[0x1E696A588];
+        v28[0] = v11;
+        v27[1] = *MEMORY[0x1E696A588];
         v12 = MEMORY[0x1E696AEC0];
         v13 = [MEMORY[0x1E696AAE8] mainBundle];
         v14 = [v13 localizedStringForKey:@"Expected an NSString value:got: %@." table:{&stru_1F4A1C408, 0}];
         v15 = [v12 stringWithFormat:v14, v6];
-        v28[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
-        v29[1] = v15;
-        v29[2] = v6;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:3];
+        v27[2] = @"MTLTransformerErrorHandlingInputValueErrorKey";
+        v28[1] = v15;
+        v28[2] = v6;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
 
         *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTLTransformerErrorHandlingErrorDomain" code:1 userInfo:v16];
       }
@@ -918,8 +897,6 @@ id __80__NSValueTransformer_MTLPredefinedTransformerAdditions__mtl_URLValueTrans
   {
     v8 = 0;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

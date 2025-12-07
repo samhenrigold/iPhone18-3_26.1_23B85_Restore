@@ -12,6 +12,7 @@
 - (BOOL)saveLTSStateToNand:(void *)nand;
 - (BOOL)sendDataToPMP:(__CFData *)p forKey:(__CFString *)key;
 - (BOOL)updatePersistenceLTSState:(BOOL)state;
+- (BOOL)writeInteger:(unsigned int)integer withKey:(__CFString *)key;
 - (BOOL)writePersistedStateNvram:(void *)nvram path:(__CFString *)path;
 - (LifetimeServoStatePersistenceBase)init;
 - (LifetimeServoStatePersistenceBase)initWithParams:(id)params;
@@ -500,6 +501,31 @@ LABEL_7:
   }
 
   return v7 != 0;
+}
+
+- (BOOL)writeInteger:(unsigned int)integer withKey:(__CFString *)key
+{
+  v5 = *&integer;
+  v7 = objc_autoreleasePoolPush();
+  v8 = [NSNumber numberWithUnsignedInt:v5];
+  if (v8)
+  {
+    [(Filer *)self->_filer setValue:v8 forKey:key];
+  }
+
+  else if (byte_1000AB2F8 == 1)
+  {
+    v9 = qword_1000AB718;
+    if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
+    {
+      v11[0] = 67109120;
+      v11[1] = v5;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "<Notice> Failed to create CFNumber for integer %d\n", v11, 8u);
+    }
+  }
+
+  objc_autoreleasePoolPop(v7);
+  return v8 != 0;
 }
 
 - (BOOL)sendDataToPMP:(__CFData *)p forKey:(__CFString *)key

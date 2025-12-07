@@ -351,65 +351,66 @@
 {
   assetType = [(AEAssetActivityPropertyProvider *)self assetType];
   isStoreAsset = [(AEAssetActivityPropertyProvider *)self isStoreAsset];
-  v7 = IMCommonCoreBundle();
-  v8 = v7;
-  v9 = @"Check out this book on Apple Books:";
+  v7 = isStoreAsset;
+  v8 = IMCommonCoreBundle(isStoreAsset);
+  v9 = v8;
+  v10 = @"Check out this book on Apple Books:";
   if (assetType == 6)
   {
-    v9 = @"Check out this audiobook on Apple Books:";
+    v10 = @"Check out this audiobook on Apple Books:";
   }
 
-  v10 = @"Check out this audiobook:";
+  v11 = @"Check out this audiobook:";
   if (assetType != 6)
   {
-    v10 = @"Check out this book:";
+    v11 = @"Check out this book:";
   }
 
-  if (isStoreAsset)
+  if (v7)
   {
-    v11 = v9;
+    v12 = v10;
   }
 
   else
   {
-    v11 = v10;
+    v12 = v11;
   }
 
-  v12 = [v7 localizedStringForKey:v11 value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v13 = [v8 localizedStringForKey:v12 value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-  v13 = IMCommonCoreBundle();
-  v14 = [v13 localizedStringForKey:@"\\U201C%@\\U201D by %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v15 = IMCommonCoreBundle(v14);
+  v16 = [v15 localizedStringForKey:@"\\U201C%@\\U201D by %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   title = [(AEAssetActivityPropertyProvider *)self title];
   author = [(AEAssetActivityPropertyProvider *)self author];
-  v17 = [NSString stringWithFormat:v14, title, author];
+  v19 = [NSString stringWithFormat:v16, title, author];
 
-  v18 = [NSString stringWithFormat:@"%@ %@", v12, v17];
-  if ([v18 length] > limit)
+  v20 = [NSString stringWithFormat:@"%@ %@", v13, v19];
+  if ([v20 length] > limit)
   {
     title2 = [(AEAssetActivityPropertyProvider *)self title];
-    v20 = [NSString stringWithFormat:@"%@ %@", v12, title2];
+    v22 = [NSString stringWithFormat:@"%@ %@", v13, title2];
 
-    v18 = v20;
+    v20 = v22;
   }
 
-  if ([v18 length] > limit)
+  if ([v20 length] > limit)
   {
     title3 = [(AEAssetActivityPropertyProvider *)self title];
 
-    v18 = title3;
+    v20 = title3;
   }
 
-  if ([v18 length] > limit)
+  if ([v20 length] > limit)
   {
     title4 = [(AEAssetActivityPropertyProvider *)self title];
-    v23 = IMCommonCoreBundle();
-    v24 = [v23 localizedStringForKey:@"\\U2026" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-    v25 = [title4 stringByTruncatingToLength:limit options:3 truncationString:v24];
+    v25 = IMCommonCoreBundle(title4);
+    v26 = [v25 localizedStringForKey:@"\\U2026" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v27 = [title4 stringByTruncatingToLength:limit options:3 truncationString:v26];
 
-    v18 = v25;
+    v20 = v27;
   }
 
-  return v18;
+  return v20;
 }
 
 - (id)previewAssetCoverItemProvider

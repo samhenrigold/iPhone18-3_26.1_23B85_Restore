@@ -375,9 +375,12 @@ void __53__NUSchemaRegistry_versionsCompatibleWithIdentifier___block_invoke(uint
 
 uint64_t __52__NUSchemaRegistry_latestVersionWithNamespace_name___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _latestVersionWithOriginalIdentifier:*(a1 + 40)];
+  v2 = [*(a1 + 32) _latestVersionWithOriginalIdentifier:*(a1 + 40)];
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)schemaWithIdentifier:(id)identifier
@@ -452,9 +455,12 @@ uint64_t __52__NUSchemaRegistry_latestVersionWithNamespace_name___block_invoke(u
 
 uint64_t __41__NUSchemaRegistry_schemaWithIdentifier___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _schemaWithIdentifier:*(a1 + 40)];
+  v2 = [*(a1 + 32) _schemaWithIdentifier:*(a1 + 40)];
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (BOOL)registerSchemas:(id)schemas error:(id *)error
@@ -1141,7 +1147,7 @@ LABEL_16:
   return v12 & 1;
 }
 
-uint64_t __41__NUSchemaRegistry_registerSchema_error___block_invoke(uint64_t a1)
+void *__41__NUSchemaRegistry_registerSchema_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _registerSchema:*(a1 + 40) error:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = result;

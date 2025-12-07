@@ -43,7 +43,7 @@
 
 + (BOOL)isWakeGestureAvailable
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!sub_19B7915DC())
   {
     if (qword_1ED71C790 != -1)
@@ -51,17 +51,17 @@
       dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
     }
 
-    v5 = qword_1ED71C798;
+    v7 = qword_1ED71C798;
     if (os_log_type_enabled(qword_1ED71C798, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_DEFAULT, "WakeGesture does not run on this platform", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_DEFAULT, "WakeGesture does not run on this platform", buf, 2u);
     }
 
-    v6 = sub_19B420058();
-    if (*(v6 + 160) <= 1 && *(v6 + 164) <= 1 && *(v6 + 168) <= 1 && !*(v6 + 152))
+    v8 = sub_19B420058();
+    if (*(v8 + 160) <= 1 && *(v8 + 164) <= 1 && *(v8 + 168) <= 1 && !*(v8 + 152))
     {
-      goto LABEL_26;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -70,53 +70,54 @@
       dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
     }
 
-    v4 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "+[CMWakeGestureManager isWakeGestureAvailable]", "CoreLocation: %s\n");
+    v12[0] = 0;
+    v9 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 0, "WakeGesture does not run on this platform", v12, 2);
+    v6 = v10;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "+[CMWakeGestureManager isWakeGestureAvailable]", "CoreLocation: %s\n", v9);
     goto LABEL_24;
   }
 
   sub_19B421798();
-  if (!sub_19B4426E4())
+  if (sub_19B4426E4())
   {
-    result = 1;
-    goto LABEL_28;
-  }
+    if (qword_1ED71C790 != -1)
+    {
+      dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
+    }
 
-  if (qword_1ED71C790 != -1)
-  {
-    dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
-  }
+    v2 = qword_1ED71C798;
+    if (os_log_type_enabled(qword_1ED71C798, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_19B41C000, v2, OS_LOG_TYPE_FAULT, "wake gesture should not be default-enabled on iPad", buf, 2u);
+    }
 
-  v2 = qword_1ED71C798;
-  if (os_log_type_enabled(qword_1ED71C798, OS_LOG_TYPE_FAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_19B41C000, v2, OS_LOG_TYPE_FAULT, "wake gesture should not be default-enabled on iPad", buf, 2u);
-  }
+    v3 = sub_19B420058();
+    if ((*(v3 + 160) & 0x80000000) != 0 && (*(v3 + 164) & 0x80000000) != 0 && (*(v3 + 168) & 0x80000000) != 0 && !*(v3 + 152))
+    {
+      return 0;
+    }
 
-  v3 = sub_19B420058();
-  if ((*(v3 + 160) & 0x80000000) == 0 || (*(v3 + 164) & 0x80000000) == 0 || (*(v3 + 168) & 0x80000000) == 0 || *(v3 + 152))
-  {
     bzero(buf, 0x65CuLL);
     if (qword_1ED71C790 != -1)
     {
       dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
     }
 
-    v4 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMWakeGestureManager isWakeGestureAvailable]", "CoreLocation: %s\n");
+    v12[0] = 0;
+    v4 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 17, "wake gesture should not be default-enabled on iPad", v12, 2);
+    v6 = v5;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMWakeGestureManager isWakeGestureAvailable]", "CoreLocation: %s\n", v4);
 LABEL_24:
-    if (v4 != buf)
+    if (v6 != buf)
     {
-      free(v4);
+      free(v6);
     }
+
+    return 0;
   }
 
-LABEL_26:
-  result = 0;
-LABEL_28:
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 + (BOOL)hasSlowBootArgs
@@ -179,18 +180,18 @@ LABEL_28:
       }
 
       LOWORD(v10) = 0;
-      v6 = _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 17, "Could not create instance of CLGestureService. Is wake gesture supported on this platform?", &v10, 2);
+      v7 = v6;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWakeGestureManager initWithQueue:]", "CoreLocation: %s\n", v6);
-      if (v6 != buf)
+      if (v7 != buf)
       {
-        free(v6);
+        free(v7);
       }
     }
 
-    v3 = 0;
+    return 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -217,7 +218,7 @@ LABEL_28:
 
 - (void)startWakeGestureUpdates
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (sub_19B7915DC())
   {
     if (qword_1ED71C790 != -1)
@@ -241,12 +242,13 @@ LABEL_28:
         dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
       }
 
-      v12 = 0;
-      v5 = _os_log_send_and_compose_impl();
+      v13[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 0, "Start Wake Gesture Updates", v13, 2);
+      v6 = v5;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWakeGestureManager startWakeGestureUpdates]", "CoreLocation: %s\n", v5);
-      if (v5 != buf)
+      if (v6 != buf)
       {
-        free(v5);
+        free(v6);
       }
     }
 
@@ -266,15 +268,15 @@ LABEL_28:
       dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
     }
 
-    v7 = qword_1ED71C798;
+    v8 = qword_1ED71C798;
     if (os_log_type_enabled(qword_1ED71C798, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_FAULT, "Unable to start wake gesture updates, service does not exist", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_FAULT, "Unable to start wake gesture updates, service does not exist", buf, 2u);
     }
 
-    v8 = sub_19B420058();
-    if ((*(v8 + 160) & 0x80000000) == 0 || (*(v8 + 164) & 0x80000000) == 0 || (*(v8 + 168) & 0x80000000) == 0 || *(v8 + 152))
+    v9 = sub_19B420058();
+    if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C790 != -1)
@@ -282,22 +284,21 @@ LABEL_28:
         dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
       }
 
-      v12 = 0;
-      v9 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWakeGestureManager startWakeGestureUpdates]", "CoreLocation: %s\n", v9);
-      if (v9 != buf)
+      v13[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 17, "Unable to start wake gesture updates, service does not exist", v13, 2);
+      v11 = v10;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWakeGestureManager startWakeGestureUpdates]", "CoreLocation: %s\n", v10);
+      if (v11 != buf)
       {
-        free(v9);
+        free(v11);
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopWakeGestureUpdates
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (sub_19B7915DC())
   {
     if (qword_1ED71C790 != -1)
@@ -321,12 +322,13 @@ LABEL_28:
         dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
       }
 
-      v12 = 0;
-      v5 = _os_log_send_and_compose_impl();
+      v13[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 0, "Stop Wake Gesture Updates", v13, 2);
+      v6 = v5;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWakeGestureManager stopWakeGestureUpdates]", "CoreLocation: %s\n", v5);
-      if (v5 != buf)
+      if (v6 != buf)
       {
-        free(v5);
+        free(v6);
       }
     }
 
@@ -346,15 +348,15 @@ LABEL_28:
       dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
     }
 
-    v7 = qword_1ED71C798;
+    v8 = qword_1ED71C798;
     if (os_log_type_enabled(qword_1ED71C798, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_FAULT, "Unable to start wake gesture updates, service does not exist", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_FAULT, "Unable to start wake gesture updates, service does not exist", buf, 2u);
     }
 
-    v8 = sub_19B420058();
-    if ((*(v8 + 160) & 0x80000000) == 0 || (*(v8 + 164) & 0x80000000) == 0 || (*(v8 + 168) & 0x80000000) == 0 || *(v8 + 152))
+    v9 = sub_19B420058();
+    if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C790 != -1)
@@ -362,17 +364,16 @@ LABEL_28:
         dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
       }
 
-      v12 = 0;
-      v9 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWakeGestureManager stopWakeGestureUpdates]", "CoreLocation: %s\n", v9);
-      if (v9 != buf)
+      v13[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 17, "Unable to start wake gesture updates, service does not exist", v13, 2);
+      v11 = v10;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWakeGestureManager stopWakeGestureUpdates]", "CoreLocation: %s\n", v10);
+      if (v11 != buf)
       {
-        free(v9);
+        free(v11);
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setBacklightState:(int64_t)state
@@ -437,17 +438,16 @@ LABEL_28:
         dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
       }
 
-      v19 = 0;
-      v12 = _os_log_send_and_compose_impl();
+      v19[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 17, "Only set backlight from primary process.", v19, 2);
+      v13 = v12;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWakeGestureManager setBacklightState:]", "CoreLocation: %s\n", v12);
-      if (v12 != buf)
+      if (v13 != buf)
       {
-        free(v12);
+        free(v13);
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (int64_t)toState:(unsigned __int8)state
@@ -510,7 +510,7 @@ LABEL_28:
 - (BOOL)setNightStandWakeEnabled:(BOOL)enabled withConfiguration:(int64_t)configuration
 {
   enabledCopy = enabled;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   self->fNightStandModeEnabled = 0;
   if (enabled)
   {
@@ -548,13 +548,13 @@ LABEL_28:
   if (os_log_type_enabled(qword_1ED71C798, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67240960;
-    v27 = v8;
-    v28 = 1026;
-    v29 = enabledCopy;
-    v30 = 2050;
+    v26 = v8;
+    v27 = 1026;
+    v28 = enabledCopy;
+    v29 = 2050;
     configurationCopy = configuration;
-    v32 = 1026;
-    v33 = fNightStandThreshold;
+    v31 = 1026;
+    v32 = fNightStandThreshold;
     _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_DEFAULT, "Setting night stand mode on phone,%{public}d,enable,%{public}d,config,%{public}ld,option,%{public}d", buf, 0x1Eu);
   }
 
@@ -567,19 +567,20 @@ LABEL_28:
       dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
     }
 
-    v18 = 67240960;
-    v19 = v8;
-    v20 = 1026;
-    v21 = enabledCopy;
-    v22 = 2050;
+    v18[0] = 67240960;
+    v18[1] = v8;
+    v19 = 1026;
+    v20 = enabledCopy;
+    v21 = 2050;
     configurationCopy2 = configuration;
-    v24 = 1026;
-    v25 = fNightStandThreshold;
-    v11 = _os_log_send_and_compose_impl();
+    v23 = 1026;
+    v24 = fNightStandThreshold;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 0, "Setting night stand mode on phone,%{public}d,enable,%{public}d,config,%{public}ld,option,%{public}d", v18, 30);
+    v12 = v11;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWakeGestureManager setNightStandWakeEnabled:withConfiguration:]", "CoreLocation: %s\n", v11);
-    if (v11 != buf)
+    if (v12 != buf)
     {
-      free(v11);
+      free(v12);
     }
   }
 
@@ -591,7 +592,6 @@ LABEL_28:
   v16 = v8;
   v17 = fNightStandThreshold;
   dispatch_async(fDispatchQ, block);
-  v13 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -609,7 +609,7 @@ LABEL_28:
 
 - (void)loadPreferences
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = sub_19B420D84();
   v4 = *(v3 + 24);
   v5 = *(v3 + 32);
@@ -618,7 +618,7 @@ LABEL_28:
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v6 = sub_19B438CCC(v4, "EnableWakeGestureLatencyAlert", &self->fEnableLatencyAlert);
+  v6 = sub_19B438CCC(v4, "EnableWakeGestureLatencyAlert", &self->fEnableLatencyAlert, 0xFFFFFFFFLL);
   if (v5)
   {
     sub_19B41FFEC(v5);
@@ -637,7 +637,7 @@ LABEL_28:
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v10 = sub_19B432FD8(v8, "WakeGestureLatencyAlertThreshold", &self->fLatencyAlertThreshold);
+  v10 = sub_19B432FD8(v8, "WakeGestureLatencyAlertThreshold", &self->fLatencyAlertThreshold, 0xFFFFFFFFLL);
   if (v9)
   {
     sub_19B41FFEC(v9);
@@ -656,7 +656,7 @@ LABEL_28:
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v14 = sub_19B438CCC(v12, "EnableWakeGestureHaptic", &self->fEnableAudioAlert);
+  v14 = sub_19B438CCC(v12, "EnableWakeGestureHaptic", &self->fEnableAudioAlert, 0xFFFFFFFFLL);
   if (v13)
   {
     sub_19B41FFEC(v13);
@@ -679,11 +679,11 @@ LABEL_28:
     fLatencyAlertThreshold = self->fLatencyAlertThreshold;
     fEnableAudioAlert = self->fEnableAudioAlert;
     *buf = 67109632;
-    v26 = fEnableLatencyAlert;
-    v27 = 1024;
-    v28 = fLatencyAlertThreshold;
-    v29 = 1024;
-    v30 = fEnableAudioAlert;
+    v30 = fEnableLatencyAlert;
+    v31 = 1024;
+    v32 = fLatencyAlertThreshold;
+    v33 = 1024;
+    v34 = fEnableAudioAlert;
     _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_INFO, "Loaded Preferences. Latency Alert: %d, Latency Threshold: %d, Audio Alert: %d", buf, 0x14u);
   }
 
@@ -696,23 +696,25 @@ LABEL_28:
       dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
     }
 
-    v22 = self->fEnableLatencyAlert;
-    v23 = self->fLatencyAlertThreshold;
-    v24 = self->fEnableAudioAlert;
-    v20 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWakeGestureManager loadPreferences]", "CoreLocation: %s\n", v20);
-    if (v20 != buf)
+    v20 = self->fLatencyAlertThreshold;
+    v21 = self->fEnableAudioAlert;
+    v25 = 1024;
+    v26 = v20;
+    v27 = 1024;
+    v28 = v21;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 1, "Loaded Preferences. Latency Alert: %d, Latency Threshold: %d, Audio Alert: %d", &v24, 20, 67109632);
+    v23 = v22;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWakeGestureManager loadPreferences]", "CoreLocation: %s\n", v22);
+    if (v23 != buf)
     {
-      free(v20);
+      free(v23);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)playAlert
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (MEMORY[0x1EEE767A0] && self->fIsRunningInPrimaryProcess)
   {
     dispatch_async(self->fDispatchQ, &unk_1F0E27DA0);
@@ -737,30 +739,30 @@ LABEL_28:
         dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
       }
 
-      v4 = _os_log_send_and_compose_impl();
+      v6[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 2, "Vibrate", v6, 2);
+      v5 = v4;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWakeGestureManager playAlert]", "CoreLocation: %s\n", v4);
-      if (v4 != buf)
+      if (v5 != buf)
       {
-        free(v4);
+        free(v5);
       }
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logWakeLatency
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (self->fIsRunningInPrimaryProcess)
   {
-    v19 = 8;
-    v20 = 0;
-    sysctlbyname("machdep.wake_abstime", &v20, &v19, 0, 0);
+    v21 = 8;
+    v22 = 0;
+    sysctlbyname("machdep.wake_abstime", &v22, &v21, 0, 0);
     v3 = IORegistryEntrySearchCFProperty(self->backlightService, "IOService", @"displayOnTimestamp", *MEMORY[0x1E695E480], 1u);
     if (v3)
     {
-      v4 = sub_19B41E070(v20);
+      v4 = sub_19B41E070(v22);
       v7 = objc_msgSend_unsignedLongLongValue(v3, v5, v6);
       v8 = sub_19B41E070(v7);
       v9 = ((v4 - self->fWakePacketTimestamp) * 1000.0);
@@ -775,11 +777,11 @@ LABEL_28:
       if (os_log_type_enabled(qword_1ED71C798, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109632;
-        v28 = hasSlowBootArgs;
-        v29 = 2048;
-        v30 = v9;
-        v31 = 2048;
-        v32 = v10;
+        v29 = hasSlowBootArgs;
+        v30 = 2048;
+        v31 = v9;
+        v32 = 2048;
+        v33 = v10;
         _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_DEFAULT, "hasSlowBootArgs,%d,gesture2xnu,%llu,xnu2Backlight,%llu", buf, 0x1Cu);
       }
 
@@ -792,17 +794,19 @@ LABEL_28:
           dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
         }
 
-        v21 = 67109632;
-        v22 = hasSlowBootArgs;
-        v23 = 2048;
-        v24 = v9;
-        v25 = 2048;
-        v26 = v10;
-        v16 = _os_log_send_and_compose_impl();
+        v23[0] = 67109632;
+        v23[1] = hasSlowBootArgs;
+        v24 = 2048;
+        v25 = v9;
+        v26 = 2048;
+        v27 = v10;
+        LODWORD(v19) = 28;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 0, "hasSlowBootArgs,%d,gesture2xnu,%llu,xnu2Backlight,%llu", v23, v19, v20);
+        v17 = v16;
         sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWakeGestureManager logWakeLatency]", "CoreLocation: %s\n", v16);
-        if (v16 != buf)
+        if (v17 != buf)
         {
-          free(v16);
+          free(v17);
         }
       }
 
@@ -813,14 +817,12 @@ LABEL_28:
 
       if (self->fEnableLatencyAlert && v9 + v10 > self->fLatencyAlertThreshold)
       {
-        v17 = CFStringCreateWithFormat(0, 0, @"Slow boot-args? %d\ngesture2xnu: %llums\nxnu2Backlight: %llums", hasSlowBootArgs, v9, v10);
-        CFUserNotificationDisplayNotice(0.0, 0, 0, 0, 0, @"Wake Delay", v17, 0);
-        CFRelease(v17);
+        v18 = CFStringCreateWithFormat(0, 0, @"Slow boot-args? %d\ngesture2xnu: %llums\nxnu2Backlight: %llums", hasSlowBootArgs, v9, v10);
+        CFUserNotificationDisplayNotice(0.0, 0, 0, 0, 0, @"Wake Delay", v18, 0);
+        CFRelease(v18);
       }
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (id)stringForNotification:(unsigned __int8)notification
@@ -877,7 +879,7 @@ LABEL_28:
 
 - (void)onNotificationControl:(id)control
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_userInfo(control, a2, control);
   v6 = objc_msgSend_objectForKeyedSubscript_(v4, v5, @"CMSendWakeGestureState");
   if (v6)
@@ -891,16 +893,16 @@ LABEL_28:
         dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
       }
 
-      v16 = qword_1ED71C798;
+      v17 = qword_1ED71C798;
       if (os_log_type_enabled(qword_1ED71C798, OS_LOG_TYPE_INFO))
       {
         *buf = 67240192;
-        LODWORD(v22) = v9;
-        _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_INFO, "Gesture state updated to %{public}d", buf, 8u);
+        LODWORD(v24) = v9;
+        _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_INFO, "Gesture state updated to %{public}d", buf, 8u);
       }
 
-      v17 = sub_19B420058();
-      if (*(v17 + 160) > 1 || *(v17 + 164) > 1 || *(v17 + 168) > 1 || *(v17 + 152))
+      v18 = sub_19B420058();
+      if (*(v18 + 160) > 1 || *(v18 + 164) > 1 || *(v18 + 168) > 1 || *(v18 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1ED71C790 != -1)
@@ -908,15 +910,18 @@ LABEL_28:
           dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
         }
 
-        v19 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWakeGestureManager onNotificationControl:]", "CoreLocation: %s\n", v19);
-        if (v19 != buf)
+        LODWORD(v22) = 67240192;
+        DWORD1(v22) = v9;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 1, "Gesture state updated to %{public}d", &v22, 8);
+        v21 = v20;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWakeGestureManager onNotificationControl:]", "CoreLocation: %s\n", v20);
+        if (v21 != buf)
         {
-          free(v19);
+          free(v21);
         }
       }
 
-      objc_msgSend_invokeDelegateWithState_(self, v18, v10);
+      objc_msgSend_invokeDelegateWithState_(self, v19, v10);
     }
 
     else
@@ -930,7 +935,7 @@ LABEL_28:
       if (os_log_type_enabled(qword_1ED71C798, OS_LOG_TYPE_FAULT))
       {
         *buf = 134349056;
-        v22 = v9;
+        v24 = v9;
         _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_FAULT, "Gesture state %{public}zd is invalid!", buf, 0xCu);
       }
 
@@ -938,22 +943,21 @@ LABEL_28:
       if ((*(v12 + 160) & 0x80000000) == 0 || (*(v12 + 164) & 0x80000000) == 0 || (*(v12 + 168) & 0x80000000) == 0 || *(v12 + 152))
       {
         bzero(buf, 0x65CuLL);
-        if (qword_1ED71C790 == -1)
+        if (qword_1ED71C790 != -1)
         {
-LABEL_20:
-          v15 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWakeGestureManager onNotificationControl:]", "CoreLocation: %s\n", v15);
-          if (v15 != buf)
-          {
-            free(v15);
-          }
-
-          goto LABEL_35;
+          dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
         }
 
-LABEL_40:
-        dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
-        goto LABEL_20;
+        LODWORD(v22) = 134349056;
+        *(&v22 + 4) = v9;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 17, "Gesture state %{public}zd is invalid!", &v22, 12, v22);
+LABEL_23:
+        v16 = v13;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWakeGestureManager onNotificationControl:]", "CoreLocation: %s\n", v13);
+        if (v16 != buf)
+        {
+          free(v16);
+        }
       }
     }
   }
@@ -965,28 +969,27 @@ LABEL_40:
       dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
     }
 
-    v13 = qword_1ED71C798;
+    v14 = qword_1ED71C798;
     if (os_log_type_enabled(qword_1ED71C798, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v13, OS_LOG_TYPE_FAULT, "Invalid CMSendWakeGestureNotification payload!", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_FAULT, "Invalid CMSendWakeGestureNotification payload!", buf, 2u);
     }
 
-    v14 = sub_19B420058();
-    if ((*(v14 + 160) & 0x80000000) == 0 || (*(v14 + 164) & 0x80000000) == 0 || (*(v14 + 168) & 0x80000000) == 0 || *(v14 + 152))
+    v15 = sub_19B420058();
+    if ((*(v15 + 160) & 0x80000000) == 0 || (*(v15 + 164) & 0x80000000) == 0 || (*(v15 + 168) & 0x80000000) == 0 || *(v15 + 152))
     {
       bzero(buf, 0x65CuLL);
-      if (qword_1ED71C790 == -1)
+      if (qword_1ED71C790 != -1)
       {
-        goto LABEL_20;
+        dispatch_once(&qword_1ED71C790, &unk_1F0E3A6B8);
       }
 
-      goto LABEL_40;
+      LOWORD(v22) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C798, 17, "Invalid CMSendWakeGestureNotification payload!", &v22, 2, v22);
+      goto LABEL_23;
     }
   }
-
-LABEL_35:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onWakeUpdated:(const Sample *)updated

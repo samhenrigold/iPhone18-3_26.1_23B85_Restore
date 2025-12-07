@@ -255,7 +255,7 @@ LABEL_19:
 - (void)handleSpokenCommand:(id)command
 {
   commandCopy = command;
-  v4 = CACLogGeneral();
+  v4 = CACLogGeneral(commandCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [(CACCommandRecognizer *)commandCopy handleSpokenCommand:v4];

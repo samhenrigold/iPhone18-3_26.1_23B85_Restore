@@ -139,7 +139,6 @@
 
   objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return unsignedIntValue;
 }
 
@@ -213,7 +212,6 @@
   objc_storeStrong(&infoDictionary, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(v18, 0);
-  *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -417,7 +415,6 @@
   objc_storeStrong(&v84, 0);
   objc_storeStrong(&v85, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __55__AMDJSRequestHandler_handlePayload_ForAsyncOperation___block_invoke(void *a1, void *a2)
@@ -425,7 +422,6 @@ void __55__AMDJSRequestHandler_handlePayload_ForAsyncOperation___block_invoke(vo
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v2 = a1[4];
   (*(a1[5] + 16))();
   objc_storeStrong(location, 0);
 }
@@ -435,7 +431,6 @@ void __55__AMDJSRequestHandler_handlePayload_ForAsyncOperation___block_invoke_2(
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v2 = a1[4];
   (*(a1[5] + 16))();
   objc_storeStrong(location, 0);
 }
@@ -488,7 +483,6 @@ void __55__AMDJSRequestHandler_handlePayload_ForAsyncOperation___block_invoke_3(
   (*(*(a1 + 72) + 16))();
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __55__AMDJSRequestHandler_handlePayload_ForAsyncOperation___block_invoke_474(void *a1, void *a2, void *a3)
@@ -551,7 +545,6 @@ void __55__AMDJSRequestHandler_handlePayload_ForAsyncOperation___block_invoke_2_
   (*(*(a1 + 72) + 16))();
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (void)handlePayload:(id)payload withCompletionHandler:(id)handler
@@ -1220,7 +1213,6 @@ LABEL_105:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v90 = v160;
 
   return v90;
@@ -1268,7 +1260,6 @@ LABEL_105:
   }
 
   objc_storeStrong(v10, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (void)logMetrics:(id)metrics

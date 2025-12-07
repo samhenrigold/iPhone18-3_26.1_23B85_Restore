@@ -106,7 +106,8 @@
     v7 = 0;
   }
 
-  return sub_1891CABE0(v7, number, spaced);
+  sub_1891CABE0(v7, number, spaced);
+  return result;
 }
 
 + (id)configurationWithTicks:(id)ticks
@@ -132,11 +133,11 @@
   v3 = *&self->_configuration[OBJC_IVAR___UISliderTrackConfiguration__configuration + 4];
   v4 = *&self->_configuration[OBJC_IVAR___UISliderTrackConfiguration__configuration + 8];
   v5 = self->_configuration[OBJC_IVAR___UISliderTrackConfiguration__configuration + 16];
-  v9[72] = *(&self->super.isa + OBJC_IVAR___UISliderTrackConfiguration__configuration);
-  v10 = *(&self->super.isa + OBJC_IVAR___UISliderTrackConfiguration__configuration + 4);
-  v11 = v3;
-  v12 = v4;
-  v13 = v5;
+  v10 = *(&self->super.isa + OBJC_IVAR___UISliderTrackConfiguration__configuration);
+  v11 = *(&self->super.isa + OBJC_IVAR___UISliderTrackConfiguration__configuration + 4);
+  v12 = v3;
+  v13 = v4;
+  v14 = v5;
   sub_18A4A8888();
   selfCopy = self;
 
@@ -149,9 +150,10 @@
 - (UISliderTrackConfiguration)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v4 = sub_1891CC9E8(coderCopy);
+  sub_1891CC9E8(coderCopy);
+  v5 = v4;
 
-  return v4;
+  return v5;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -46,9 +46,11 @@ uint64_t __34__GKServiceInterface_plistClasses__block_invoke()
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
-  plistClasses_sPlistClasses = [v0 initWithObjects:{v1, v2, v3, v4, v5, v6, v7, v8, objc_opt_class(), 0}];
+  v9 = [v0 initWithObjects:{v1, v2, v3, v4, v5, v6, v7, v8, objc_opt_class(), 0}];
+  v10 = plistClasses_sPlistClasses;
+  plistClasses_sPlistClasses = v9;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v9, v10);
 }
 
 + (id)interfaceProtocol

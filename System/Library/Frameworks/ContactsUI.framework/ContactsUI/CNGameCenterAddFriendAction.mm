@@ -654,9 +654,11 @@ LABEL_6:
 
 uint64_t __37__CNGameCenterAddFriendAction_os_log__block_invoke()
 {
-  os_log_cn_once_object_1 = os_log_create("com.apple.contactsui", "CNGameCenterAddFriendAction");
+  v0 = os_log_create("com.apple.contactsui", "CNGameCenterAddFriendAction");
+  v1 = os_log_cn_once_object_1;
+  os_log_cn_once_object_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -13,49 +13,48 @@
   userInfo = [content userInfo];
 
   v8 = [userInfo objectForKeyedSubscript:@"CKBBContextKeyBalloonBundleID"];
-  v9 = *MEMORY[0x277D196E8];
-  v10 = IMBalloonExtensionIDWithSuffix();
-  LOBYTE(content) = [v8 isEqualToString:v10];
+  v9 = IMBalloonExtensionIDWithSuffix();
+  LOBYTE(content) = [v8 isEqualToString:v9];
 
   return content;
 }
 
 - (void)handleNotificationResponse:(id)response userNotificationCenter:(id)center completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   centerCopy = center;
   handlerCopy = handler;
-  v28 = responseCopy;
+  v27 = responseCopy;
   notification = [responseCopy notification];
   request = [notification request];
   content = [request content];
   userInfo = [content userInfo];
 
-  v30 = [userInfo objectForKeyedSubscript:*MEMORY[0x277D1A440]];
-  v12 = [MEMORY[0x277CBEBC0] URLWithString:v30];
+  v29 = [userInfo objectForKeyedSubscript:*MEMORY[0x277D1A440]];
+  v12 = [MEMORY[0x277CBEBC0] URLWithString:v29];
   if (v12)
   {
-    v27 = [MEMORY[0x277CCACE0] componentsWithURL:v12 resolvingAgainstBaseURL:1];
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
+    v26 = [MEMORY[0x277CCACE0] componentsWithURL:v12 resolvingAgainstBaseURL:1];
     v34 = 0u;
-    queryItems = [v27 queryItems];
-    v14 = [queryItems countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    queryItems = [v26 queryItems];
+    v14 = [queryItems countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v14)
     {
-      v15 = *v34;
+      v15 = *v33;
 LABEL_4:
       v16 = 0;
       while (1)
       {
-        if (*v34 != v15)
+        if (*v33 != v15)
         {
           objc_enumerationMutation(queryItems);
         }
 
-        v17 = *(*(&v33 + 1) + 8 * v16);
+        v17 = *(*(&v32 + 1) + 8 * v16);
         name = [v17 name];
         v19 = [name isEqualToString:@"requestID"];
 
@@ -66,7 +65,7 @@ LABEL_4:
 
         if (v14 == ++v16)
         {
-          v14 = [queryItems countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v14 = [queryItems countByEnumeratingWithState:&v32 objects:v36 count:16];
           if (v14)
           {
             goto LABEL_4;
@@ -134,8 +133,6 @@ LABEL_19:
 
     handlerCopy[2](handlerCopy, 0);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 @end

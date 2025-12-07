@@ -1,10 +1,10 @@
 @interface PKMathContextMenuController
-+ (PKMathContextMenuController)controllerForItem:(CGFloat)item tapBounds:(CGFloat)bounds view:(uint64_t)view delegate:(void *)delegate;
-+ (id)insertGraphControllerForItem:(CGFloat)item tapBounds:(CGFloat)bounds alsoShowAddToExisiting:(uint64_t)exisiting view:(void *)view delegate:(char)delegate;
-+ (id)mathCopyControllerForItem:(CGFloat)item tapBounds:(CGFloat)bounds view:(uint64_t)view delegate:(void *)delegate;
-+ (id)mathResultControllerForItem:(CGFloat)item tapBounds:(CGFloat)bounds view:(uint64_t)view delegate:(void *)delegate;
-+ (id)mathSolvingControllerForItem:(CGFloat)item tapBounds:(CGFloat)bounds supportCopy:(uint64_t)copy view:(void *)view delegate:(char)delegate;
-+ (void)mathErrorControllerForItem:(CGFloat)item token:(CGFloat)token tapBounds:(uint64_t)bounds errorString:(void *)string errorReasonString:(void *)reasonString view:(void *)view delegate:(void *)delegate;
++ (PKMathContextMenuController)controllerForItem:(void *)item tapBounds:(void *)bounds view:(CGFloat)view delegate:(CGFloat)delegate;
++ (id)insertGraphControllerForItem:(char)item tapBounds:(void *)bounds alsoShowAddToExisiting:(void *)exisiting view:(CGFloat)view delegate:(CGFloat)delegate;
++ (id)mathCopyControllerForItem:(void *)item tapBounds:(void *)bounds view:(CGFloat)view delegate:(CGFloat)delegate;
++ (id)mathResultControllerForItem:(void *)item tapBounds:(void *)bounds view:(CGFloat)view delegate:(CGFloat)delegate;
++ (id)mathSolvingControllerForItem:(char)item tapBounds:(void *)bounds supportCopy:(void *)copy view:(CGFloat)view delegate:(CGFloat)delegate;
++ (void)mathErrorControllerForItem:(void *)item token:(void *)token tapBounds:(void *)bounds errorString:(void *)string errorReasonString:(void *)reasonString view:(CGFloat)view delegate:(CGFloat)delegate;
 - (id)contextMenuInteraction:(id)interaction configuration:(id)configuration highlightPreviewForItemWithIdentifier:(id)identifier;
 - (id)contextMenuInteraction:(id)interaction configurationForMenuAtLocation:(CGPoint)location;
 - (id)drawing;
@@ -13,23 +13,23 @@
 
 @implementation PKMathContextMenuController
 
-+ (PKMathContextMenuController)controllerForItem:(CGFloat)item tapBounds:(CGFloat)bounds view:(uint64_t)view delegate:(void *)delegate
++ (PKMathContextMenuController)controllerForItem:(void *)item tapBounds:(void *)bounds view:(CGFloat)view delegate:(CGFloat)delegate
 {
-  delegateCopy = delegate;
-  v16 = a7;
-  v17 = a8;
+  v15 = a2;
+  itemCopy = item;
+  boundsCopy = bounds;
   objc_opt_self();
   v18 = objc_alloc_init(PKMathContextMenuController);
   v19 = v18;
   if (v18)
   {
-    objc_storeStrong(&v18->_mathItem, delegate);
-    v19->_tapBounds.origin.x = self;
-    v19->_tapBounds.origin.y = a2;
-    v19->_tapBounds.size.width = item;
-    v19->_tapBounds.size.height = bounds;
-    objc_storeWeak(&v19->_view, v16);
-    objc_storeWeak(&v19->_delegate, v17);
+    objc_storeStrong(&v18->_mathItem, a2);
+    v19->_tapBounds.origin.x = view;
+    v19->_tapBounds.origin.y = delegate;
+    v19->_tapBounds.size.width = a7;
+    v19->_tapBounds.size.height = a8;
+    objc_storeWeak(&v19->_view, itemCopy);
+    objc_storeWeak(&v19->_delegate, boundsCopy);
   }
 
   v20 = [objc_alloc(MEMORY[0x1E69DC8E0]) initWithDelegate:v19];
@@ -38,7 +38,7 @@
     objc_storeStrong(&v19->_interaction, v20);
   }
 
-  if ([(PKMathRecognitionItem *)delegateCopy hasAnyTrignometry])
+  if ([(PKMathRecognitionItem *)v15 hasAnyTrignometry])
   {
     v21 = _PencilKitBundle();
     v23 = [v21 localizedStringForKey:@"Math Notes uses radians if no units are specified. Use ‘°’ value:‘deg’ or ‘degrees’ to specify degrees table:{for example: sin(45°) or sin(45 deg)", @"Math Notes uses radians if no units are specified. Use ‘°’, ‘deg’ or ‘degrees’ to specify degrees, for example: sin(45°) or sin(45 deg)", @"Localizable"}];
@@ -58,18 +58,18 @@
     interaction = 0;
   }
 
-  [v16 addInteraction:interaction];
+  [itemCopy addInteraction:interaction];
 
   return v19;
 }
 
-+ (id)mathResultControllerForItem:(CGFloat)item tapBounds:(CGFloat)bounds view:(uint64_t)view delegate:(void *)delegate
++ (id)mathResultControllerForItem:(void *)item tapBounds:(void *)bounds view:(CGFloat)view delegate:(CGFloat)delegate
 {
-  v14 = a8;
-  v15 = a7;
-  delegateCopy = delegate;
+  boundsCopy = bounds;
+  itemCopy = item;
+  v16 = a2;
   v17 = objc_opt_self();
-  v18 = [(PKMathContextMenuController *)self controllerForItem:a2 tapBounds:item view:bounds delegate:v17, delegateCopy, v15, v14];
+  v18 = [(PKMathContextMenuController *)v17 controllerForItem:v16 tapBounds:itemCopy view:boundsCopy delegate:view, delegate, a7, a8];
 
   if (v18)
   {
@@ -80,30 +80,30 @@
   return v18;
 }
 
-+ (id)mathSolvingControllerForItem:(CGFloat)item tapBounds:(CGFloat)bounds supportCopy:(uint64_t)copy view:(void *)view delegate:(char)delegate
++ (id)mathSolvingControllerForItem:(char)item tapBounds:(void *)bounds supportCopy:(void *)copy view:(CGFloat)view delegate:(CGFloat)delegate
 {
-  v16 = a9;
-  v17 = a8;
-  viewCopy = view;
+  copyCopy = copy;
+  boundsCopy = bounds;
+  v18 = a2;
   v19 = objc_opt_self();
-  v20 = [(PKMathContextMenuController *)self controllerForItem:a2 tapBounds:item view:bounds delegate:v19, viewCopy, v17, v16];
+  v20 = [(PKMathContextMenuController *)v19 controllerForItem:v18 tapBounds:boundsCopy view:copyCopy delegate:view, delegate, a8, a9];
 
   if (v20)
   {
     *(v20 + 56) = 1;
-    *(v20 + 8) = delegate;
+    *(v20 + 8) = item;
   }
 
   return v20;
 }
 
-+ (id)mathCopyControllerForItem:(CGFloat)item tapBounds:(CGFloat)bounds view:(uint64_t)view delegate:(void *)delegate
++ (id)mathCopyControllerForItem:(void *)item tapBounds:(void *)bounds view:(CGFloat)view delegate:(CGFloat)delegate
 {
-  v14 = a8;
-  v15 = a7;
-  delegateCopy = delegate;
+  boundsCopy = bounds;
+  itemCopy = item;
+  v16 = a2;
   v17 = objc_opt_self();
-  v18 = [(PKMathContextMenuController *)self controllerForItem:a2 tapBounds:item view:bounds delegate:v17, delegateCopy, v15, v14];
+  v18 = [(PKMathContextMenuController *)v17 controllerForItem:v16 tapBounds:itemCopy view:boundsCopy delegate:view, delegate, a7, a8];
 
   if (v18)
   {
@@ -114,41 +114,41 @@
   return v18;
 }
 
-+ (void)mathErrorControllerForItem:(CGFloat)item token:(CGFloat)token tapBounds:(uint64_t)bounds errorString:(void *)string errorReasonString:(void *)reasonString view:(void *)view delegate:(void *)delegate
++ (void)mathErrorControllerForItem:(void *)item token:(void *)token tapBounds:(void *)bounds errorString:(void *)string errorReasonString:(void *)reasonString view:(CGFloat)view delegate:(CGFloat)delegate
 {
+  itemCopy = item;
+  tokenCopy = token;
+  boundsCopy = bounds;
   reasonStringCopy = reasonString;
-  viewCopy = view;
-  delegateCopy = delegate;
-  v23 = a11;
-  v24 = a10;
   stringCopy = string;
+  v25 = a2;
   v26 = objc_opt_self();
-  v27 = [(PKMathContextMenuController *)self controllerForItem:a2 tapBounds:item view:token delegate:v26, stringCopy, v24, v23];
+  v27 = [(PKMathContextMenuController *)v26 controllerForItem:v25 tapBounds:stringCopy view:reasonStringCopy delegate:view, delegate, a10, a11];
 
   if (v27)
   {
     v27[7] = 3;
-    objc_setProperty_nonatomic_copy(v27, v28, viewCopy, 72);
-    objc_setProperty_nonatomic_copy(v27, v29, delegateCopy, 80);
+    objc_setProperty_nonatomic_copy(v27, v28, tokenCopy, 72);
+    objc_setProperty_nonatomic_copy(v27, v29, boundsCopy, 80);
   }
 
-  [(PKMathResultAttribution *)v27 setDate:reasonStringCopy];
+  [(PKMathResultAttribution *)v27 setDate:itemCopy];
 
   return v27;
 }
 
-+ (id)insertGraphControllerForItem:(CGFloat)item tapBounds:(CGFloat)bounds alsoShowAddToExisiting:(uint64_t)exisiting view:(void *)view delegate:(char)delegate
++ (id)insertGraphControllerForItem:(char)item tapBounds:(void *)bounds alsoShowAddToExisiting:(void *)exisiting view:(CGFloat)view delegate:(CGFloat)delegate
 {
-  v16 = a9;
-  v17 = a8;
-  viewCopy = view;
+  exisitingCopy = exisiting;
+  boundsCopy = bounds;
+  v18 = a2;
   v19 = objc_opt_self();
-  v20 = [(PKMathContextMenuController *)self controllerForItem:a2 tapBounds:item view:bounds delegate:v19, viewCopy, v17, v16];
+  v20 = [(PKMathContextMenuController *)v19 controllerForItem:v18 tapBounds:boundsCopy view:exisitingCopy delegate:view, delegate, a8, a9];
 
   if (v20)
   {
     *(v20 + 56) = 4;
-    *(v20 + 9) = delegate;
+    *(v20 + 9) = item;
   }
 
   return v20;
@@ -1053,7 +1053,7 @@ LABEL_31:
     v70 = v69;
     if (v69)
     {
-      [v69 contextMenuControllerDrawingTransform:self];
+      objc_msgSend_contextMenuControllerDrawingTransform_(v69);
     }
 
     else
@@ -1208,7 +1208,7 @@ LABEL_31:
     v139 = identifierCopy;
     if (v137)
     {
-      [v137 transform];
+      objc_msgSend_transform(v137);
     }
 
     else

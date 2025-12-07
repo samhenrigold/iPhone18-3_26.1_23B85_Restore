@@ -62,7 +62,7 @@ uint64_t __48__PowerUIBatteryMitigationManager_sharedManager__block_invoke()
 
 - (id)getGaugingMitigationDict
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   cf = 0;
   dictionary = [MEMORY[0x277CBEAC0] dictionary];
   State = IOPSGaugingMitigationGetState();
@@ -73,7 +73,7 @@ uint64_t __48__PowerUIBatteryMitigationManager_sharedManager__block_invoke()
     if (v6)
     {
       *buf = 67109120;
-      LODWORD(v25) = State;
+      LODWORD(v24) = State;
       _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Gauging mitigation state error received: %d", buf, 8u);
     }
 
@@ -91,21 +91,21 @@ uint64_t __48__PowerUIBatteryMitigationManager_sharedManager__block_invoke()
     v7 = cf;
 
     CFRelease(cf);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     allKeys = [v7 allKeys];
-    v9 = [allKeys countByEnumeratingWithState:&v19 objects:v28 count:16];
+    v9 = [allKeys countByEnumeratingWithState:&v18 objects:v27 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(allKeys);
           }
@@ -113,32 +113,30 @@ uint64_t __48__PowerUIBatteryMitigationManager_sharedManager__block_invoke()
           v13 = self->_log;
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            v14 = *(*(&v19 + 1) + 8 * i);
+            v14 = *(*(&v18 + 1) + 8 * i);
             v15 = v13;
             v16 = [v7 objectForKeyedSubscript:v14];
             *buf = 138412546;
-            v25 = v14;
-            v26 = 2112;
-            v27 = v16;
+            v24 = v14;
+            v25 = 2112;
+            v26 = v16;
             _os_log_impl(&dword_21B766000, v15, OS_LOG_TYPE_DEFAULT, "\t%@: %@", buf, 0x16u);
           }
         }
 
-        v10 = [allKeys countByEnumeratingWithState:&v19 objects:v28 count:16];
+        v10 = [allKeys countByEnumeratingWithState:&v18 objects:v27 count:16];
       }
 
       while (v10);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (BOOL)fetchCurrentMitigationState
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mitigationsCurrentlyEnabled = self->_mitigationsCurrentlyEnabled;
   out_token = 0;
   if (notify_register_check("com.apple.system.powersources.chargingtofulloverride", &out_token))
@@ -155,8 +153,8 @@ LABEL_8:
 
   else
   {
-    v14 = 0;
-    if (notify_get_state(out_token, &v14))
+    v13 = 0;
+    if (notify_get_state(out_token, &v13))
     {
       v6 = self->_log;
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
@@ -169,30 +167,30 @@ LABEL_8:
     }
 
     notify_cancel(out_token);
-    v8 = v14 & 1;
-    self->_mitigationsCurrentlyEnabled = v8;
-    v9 = self->_log;
-    if (mitigationsCurrentlyEnabled == v8)
+    v7 = v13 & 1;
+    self->_mitigationsCurrentlyEnabled = v7;
+    v8 = self->_log;
+    if (mitigationsCurrentlyEnabled == v7)
     {
-      v5 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+      v5 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
       if (!v5)
       {
-        goto LABEL_9;
+        return v5;
       }
 
-      v10 = self->_mitigationsCurrentlyEnabled;
+      v9 = self->_mitigationsCurrentlyEnabled;
       *buf = 67109120;
-      v17 = v10;
-      _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_INFO, "Current mitigation state unchanged: %d", buf, 8u);
+      v16 = v9;
+      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_INFO, "Current mitigation state unchanged: %d", buf, 8u);
       goto LABEL_8;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = self->_mitigationsCurrentlyEnabled;
+      v10 = self->_mitigationsCurrentlyEnabled;
       *buf = 67109120;
-      v17 = v11;
-      _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_DEFAULT, "Current mitigation state changed to: %d", buf, 8u);
+      v16 = v10;
+      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Current mitigation state changed to: %d", buf, 8u);
     }
 
     getGaugingMitigationDict = [(PowerUIBatteryMitigationManager *)self getGaugingMitigationDict];
@@ -201,8 +199,6 @@ LABEL_8:
     LOBYTE(v5) = 1;
   }
 
-LABEL_9:
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

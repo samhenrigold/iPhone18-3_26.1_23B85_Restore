@@ -34,59 +34,57 @@ char *sub_17F0()
   ObjectType = swift_getObjectType();
   v3 = sub_57D4();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_walletProvider;
-  *&v1[v8] = [objc_allocWithZone(sub_5894()) init];
+  v6 = &v24 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_walletProvider;
+  *&v1[v7] = [objc_allocWithZone(sub_5894()) init];
   *&v1[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_financeKitProvider] = 0;
-  v9 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_isApplicationActive;
-  v10 = [objc_opt_self() sharedApplication];
-  v11 = [v10 applicationState];
+  v8 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_isApplicationActive;
+  v9 = [objc_opt_self() sharedApplication];
+  v10 = [v9 applicationState];
 
-  v1[v9] = v11 == 0;
+  v1[v8] = v10 == 0;
   v1[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_isApplicationInAppSwitcher] = 0;
   v1[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_currentScreen] = 0;
-  v12 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_appProtectionCoordinator;
-  *&v1[v12] = [objc_opt_self() shared];
+  v11 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_appProtectionCoordinator;
+  *&v1[v11] = [objc_opt_self() shared];
   *&v1[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController____lazy_storage___shieldViewController] = 0;
-  v26.receiver = v1;
-  v26.super_class = ObjectType;
-  v13 = objc_msgSendSuper2(&v26, "initWithNibName:bundle:", 0, 0);
-  (*(v4 + 104))(v7, enum case for LocalizedStringTable.settings(_:), v3);
-  v14 = v13;
+  v24.receiver = v1;
+  v24.super_class = ObjectType;
+  v12 = objc_msgSendSuper2(&v24, "initWithNibName:bundle:", 0, 0);
+  (*(v4 + 104))(v6, enum case for LocalizedStringTable.settings(_:), v3);
+  v13 = v12;
   result = PKPassKitBundle();
   if (result)
   {
-    v16 = result;
+    v15 = result;
     sub_57C4();
 
-    (*(v4 + 8))(v7, v3);
-    v17 = sub_58A4();
+    (*(v4 + 8))(v6, v3);
+    v16 = sub_58A4();
 
-    [v14 setTitle:v17];
+    [v13 setTitle:v16];
 
-    v18 = *&v14[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_appProtectionCoordinator];
-    [v18 registerObserver:v14];
+    v17 = *&v13[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_appProtectionCoordinator];
+    [v17 registerObserver:v13];
 
     sub_2B4C();
-    v19 = sub_543C();
-    v20 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_financeKitProvider;
-    v21 = *&v14[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_financeKitProvider];
-    *&v14[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_financeKitProvider] = v19;
+    v18 = sub_543C();
+    v19 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_financeKitProvider;
+    *&v13[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_financeKitProvider] = v18;
     swift_unknownObjectRelease();
-    v22 = *&v14[v20];
-    if (v22)
+    v20 = *&v13[v19];
+    if (v20)
     {
-      [v22 setDelegate:v14];
+      [v20 setDelegate:v13];
     }
 
-    v23 = *&v14[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_walletProvider];
-    v24 = v14;
-    v25 = v23;
+    v21 = *&v13[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_walletProvider];
+    v22 = v13;
+    v23 = v21;
     sub_5874();
 
-    return v24;
+    return v22;
   }
 
   else
@@ -178,18 +176,18 @@ void *sub_203C()
 
     else
     {
+      v12 = 0u;
       v13 = 0u;
-      v14 = 0u;
     }
 
-    v15[0] = v13;
-    v15[1] = v14;
-    if (*(&v14 + 1))
+    v14[0] = v12;
+    v14[1] = v13;
+    if (*(&v13 + 1))
     {
       sub_2530(&qword_C758, &qword_6B90);
       if (swift_dynamicCast())
       {
-        v1 = sub_221C(v12);
+        v1 = sub_221C(v11);
 LABEL_12:
 
         return v1;
@@ -198,29 +196,28 @@ LABEL_12:
 
     else
     {
-      sub_24C8(v15);
+      sub_24C8(v14);
     }
 
-    *&v15[0] = &_swiftEmptyArrayStorage;
-    v5 = *&v2[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_walletProvider];
-    v6 = sub_5854();
-    sub_2578(v6);
-    v7 = *&v2[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_financeKitProvider];
-    if (v7)
+    *&v14[0] = &_swiftEmptyArrayStorage;
+    v5 = sub_5854();
+    sub_2578(v5);
+    v6 = *&v2[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_financeKitProvider];
+    if (v6)
     {
-      v8 = [v7 specifiers];
+      v7 = [v6 specifiers];
       sub_2668();
       v1 = sub_58F4();
     }
 
     sub_2578(v1);
-    v9 = *&v15[0];
-    sub_221C(*&v15[0]);
+    v8 = *&v14[0];
+    sub_221C(*&v14[0]);
     isa = sub_58E4().super.isa;
 
     [v2 setSpecifiers:isa];
 
-    v1 = sub_221C(v9);
+    v1 = sub_221C(v8);
     goto LABEL_12;
   }
 
@@ -316,7 +313,6 @@ uint64_t sub_2530(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -336,66 +332,60 @@ uint64_t sub_2578(unint64_t a1)
     v3 = *(&dword_10 + (a1 & 0xFFFFFFFFFFFFFF8));
   }
 
-  v4 = *v1;
   if (!(*v1 >> 62))
   {
-    v5 = *(&dword_10 + (v4 & 0xFFFFFFFFFFFFFF8));
-    v6 = __OFADD__(v5, v3);
-    result = v5 + v3;
-    if (!v6)
+    v4 = *(&dword_10 + (*v1 & 0xFFFFFFFFFFFFFF8));
+    v5 = __OFADD__(v4, v3);
+    result = v4 + v3;
+    if (!v5)
     {
       goto LABEL_5;
     }
 
-LABEL_15:
+LABEL_13:
     __break(1u);
-    goto LABEL_16;
+    goto LABEL_14;
   }
 
-  if (v4 < 0)
+  v13 = sub_59F4();
+  v5 = __OFADD__(v13, v3);
+  result = v13 + v3;
+  if (v5)
   {
-    v14 = *v1;
-  }
-
-  v15 = sub_59F4();
-  v6 = __OFADD__(v15, v3);
-  result = v15 + v3;
-  if (v6)
-  {
-    goto LABEL_15;
+    goto LABEL_13;
   }
 
 LABEL_5:
-  sub_26B4(result);
-  v8 = *v1;
-  v9 = *v1 & 0xFFFFFFFFFFFFFF8;
-  sub_2898(v9 + 8 * *(&dword_10 + v9) + 32, (*(&dword_18 + v9) >> 1) - *(&dword_10 + v9), a1);
-  v11 = v10;
+  sub_26B4(result, 1);
+  v7 = *v1;
+  v8 = *v1 & 0xFFFFFFFFFFFFFF8;
+  sub_2898(v8 + 8 * *(&dword_10 + v8) + 32, (*(&dword_18 + v8) >> 1) - *(&dword_10 + v8), a1);
+  v10 = v9;
 
-  if (v11 < v3)
+  if (v10 < v3)
   {
-LABEL_16:
+LABEL_14:
     __break(1u);
-    goto LABEL_17;
+    goto LABEL_15;
   }
 
-  if (v11 < 1)
+  if (v10 < 1)
   {
 LABEL_9:
-    *v1 = v8;
+    *v1 = v7;
     return result;
   }
 
-  v12 = *(v9 + 16);
-  v6 = __OFADD__(v12, v11);
-  v13 = v12 + v11;
-  if (!v6)
+  v11 = *(v8 + 16);
+  v5 = __OFADD__(v11, v10);
+  v12 = v11 + v10;
+  if (!v5)
   {
-    *(v9 + 16) = v13;
+    *(v8 + 16) = v12;
     goto LABEL_9;
   }
 
-LABEL_17:
+LABEL_15:
   __break(1u);
   return result;
 }
@@ -413,44 +403,37 @@ unint64_t sub_2668()
   return result;
 }
 
-uint64_t sub_26B4(uint64_t a1)
+uint64_t sub_26B4(uint64_t a1, char a2)
 {
-  v3 = *v1;
+  v4 = *v2;
   result = swift_isUniquelyReferenced_nonNull_bridgeObject();
-  *v1 = v3;
+  *v2 = v4;
   if (result)
   {
-    if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+    if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
     {
-      v5 = v3 & 0xFFFFFFFFFFFFFF8;
-      if (a1 <= *(&dword_18 + (v3 & 0xFFFFFFFFFFFFFF8)) >> 1)
+      if (a1 <= *(&dword_18 + (v4 & 0xFFFFFFFFFFFFFF8)) >> 1)
       {
         return result;
       }
 
       goto LABEL_9;
     }
-
-LABEL_10:
-    sub_59F4();
-    goto LABEL_11;
   }
 
-  if (v3 < 0 || (v3 & 0x4000000000000000) != 0)
+  else if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
   {
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
-  v5 = v3 & 0xFFFFFFFFFFFFFF8;
+  sub_59F4();
 LABEL_9:
-  v6 = *(v5 + 16);
-LABEL_11:
   result = sub_59C4();
-  *v1 = result;
+  *v2 = result;
   return result;
 }
 
-char *sub_2754(char *a1, int64_t a2, char a3)
+char *sub_2754(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_2784(a1, a2, a3, *v3);
   *v3 = result;
@@ -661,7 +644,6 @@ uint64_t sub_2B04(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -685,45 +667,43 @@ void sub_2C98()
   v1 = v0;
   v2 = sub_5824();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &aBlock - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_5844();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7);
-  v11 = &aBlock - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = *&v0[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_appProtectionCoordinator];
-  if ([v12 isEffectivelyLocked])
+  v5 = &aBlock - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_5844();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = &aBlock - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *&v0[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_appProtectionCoordinator];
+  if ([v10 isEffectivelyLocked])
   {
-    v13 = swift_allocObject();
-    *(v13 + 16) = v1;
-    v23 = sub_50EC;
-    v24 = v13;
+    v11 = swift_allocObject();
+    *(v11 + 16) = v1;
+    v21 = sub_50EC;
+    v22 = v11;
     aBlock = _NSConcreteStackBlock;
-    v20 = 1107296256;
-    v21 = sub_3A58;
-    v22 = &unk_86E8;
-    v14 = _Block_copy(&aBlock);
-    v15 = v1;
+    v18 = 1107296256;
+    v19 = sub_3A58;
+    v20 = &unk_86E8;
+    v12 = _Block_copy(&aBlock);
+    v13 = v1;
 
-    [v12 isShieldRequiredWithCompletion:v14];
-    _Block_release(v14);
+    [v10 isShieldRequiredWithCompletion:v12];
+    _Block_release(v12);
   }
 
   else
   {
     sub_518C(0, &qword_C7E0, OS_dispatch_queue_ptr);
-    v16 = sub_5924();
-    v17 = swift_allocObject();
+    v14 = sub_5924();
+    v15 = swift_allocObject();
     swift_unknownObjectWeakInit();
-    v23 = sub_4FD8;
-    v24 = v17;
+    v21 = sub_4FD8;
+    v22 = v15;
     aBlock = _NSConcreteStackBlock;
-    v20 = 1107296256;
-    v21 = sub_3A14;
-    v22 = &unk_8698;
-    v18 = _Block_copy(&aBlock);
+    v18 = 1107296256;
+    v19 = sub_3A14;
+    v20 = &unk_8698;
+    v16 = _Block_copy(&aBlock);
 
     sub_5834();
     aBlock = &_swiftEmptyArrayStorage;
@@ -732,10 +712,10 @@ void sub_2C98()
     sub_5050();
     sub_5964();
     sub_5934();
-    _Block_release(v18);
+    _Block_release(v16);
 
-    (*(v3 + 8))(v6, v2);
-    (*(v8 + 8))(v11, v7);
+    (*(v3 + 8))(v5, v2);
+    (*(v7 + 8))(v9, v6);
   }
 }
 
@@ -747,40 +727,38 @@ Swift::Int sub_3014()
   return sub_5A24();
 }
 
-Swift::Int sub_3088()
+Swift::Int sub_3088(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_5A04();
-  sub_5A14(v1);
+  sub_5A14(v2);
   return sub_5A24();
 }
 
-uint64_t sub_30CC(char a1)
+uint64_t sub_30CC(char a1, uint64_t a2)
 {
-  v2 = sub_5824();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
+  v3 = sub_5824();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
   v6 = aBlock - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = sub_5844();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = aBlock - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = aBlock - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_518C(0, &qword_C7E0, OS_dispatch_queue_ptr);
-  v12 = sub_5924();
-  v13 = swift_allocObject();
+  v11 = sub_5924();
+  v12 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
-  *(v14 + 24) = a1;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
+  *(v13 + 24) = a1;
   aBlock[4] = sub_512C;
-  aBlock[5] = v14;
+  aBlock[5] = v13;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_3A14;
   aBlock[3] = &unk_8738;
-  v15 = _Block_copy(aBlock);
+  v14 = _Block_copy(aBlock);
 
   sub_5834();
   aBlock[0] = &_swiftEmptyArrayStorage;
@@ -789,10 +767,10 @@ uint64_t sub_30CC(char a1)
   sub_5050();
   sub_5964();
   sub_5934();
-  _Block_release(v15);
+  _Block_release(v14);
 
-  (*(v3 + 8))(v6, v2);
-  return (*(v8 + 8))(v11, v7);
+  (*(v4 + 8))(v6, v3);
+  return (*(v8 + 8))(v10, v7);
 }
 
 void sub_3384(uint64_t a1, char a2)
@@ -822,54 +800,51 @@ void sub_33E8(unsigned __int8 a1)
   v3 = a1;
   v4 = sub_5824();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v50 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_5844();
-  v58 = *(v9 - 8);
-  v10 = *(v58 + 64);
-  __chkstk_darwin(v9);
-  v57 = &v50 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = sub_5814();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v16 = &v50 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_currentScreen;
+  v7 = &v47 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_5844();
+  v55 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v54 = &v47 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_5814();
+  v11 = *(v10 - 8);
+  __chkstk_darwin(v10);
+  v13 = &v47 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_currentScreen;
   if (v2[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_currentScreen] != v3)
   {
-    v56 = v8;
-    v52 = v9;
+    v53 = v7;
+    v49 = v8;
     sub_57E4();
-    v18 = sub_5804();
-    v19 = sub_5914();
-    v20 = os_log_type_enabled(v18, v19);
-    v53 = v5;
-    v54 = v4;
-    if (v20)
+    v15 = sub_5804();
+    v16 = sub_5914();
+    v17 = os_log_type_enabled(v15, v16);
+    v50 = v5;
+    v51 = v4;
+    if (v17)
     {
-      v21 = swift_slowAlloc();
-      v55 = v3;
-      v22 = v21;
-      v23 = swift_slowAlloc();
-      v51 = v17;
-      v24 = v23;
-      aBlock[0] = v23;
-      *v22 = 136315138;
-      v59 = v55;
-      v25 = sub_58C4();
-      v27 = sub_4904(v25, v26, aBlock);
+      v18 = swift_slowAlloc();
+      v52 = v3;
+      v19 = v18;
+      v20 = swift_slowAlloc();
+      v48 = v14;
+      v21 = v20;
+      aBlock[0] = v20;
+      *v19 = 136315138;
+      v56 = v52;
+      v22 = sub_58C4();
+      v24 = sub_4904(v22, v23, aBlock);
 
-      *(v22 + 4) = v27;
-      _os_log_impl(&dword_0, v18, v19, "Setting privacy settings screen: %s", v22, 0xCu);
-      sub_5140(v24);
-      v17 = v51;
+      *(v19 + 4) = v24;
+      _os_log_impl(&dword_0, v15, v16, "Setting privacy settings screen: %s", v19, 0xCu);
+      sub_5140(v21);
+      v14 = v48;
 
-      v3 = v55;
+      v3 = v52;
     }
 
-    (*(v13 + 8))(v16, v12);
-    v28 = v56;
+    (*(v11 + 8))(v13, v10);
+    v25 = v53;
     if (v3 >= 2)
     {
       if (v3 == 2)
@@ -877,103 +852,103 @@ void sub_33E8(unsigned __int8 a1)
         [*&v2[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_appProtectionCoordinator] requestAccess];
       }
 
-      v34 = sub_1718();
-      v35 = [v34 parentViewController];
+      v31 = sub_1718();
+      v32 = [v31 parentViewController];
 
-      if (v35)
+      if (v32)
       {
-        v36 = v17;
+        v33 = v14;
       }
 
       else
       {
-        v37 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController____lazy_storage___shieldViewController;
+        v34 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController____lazy_storage___shieldViewController;
         [v2 addChildViewController:*&v2[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController____lazy_storage___shieldViewController]];
-        v38 = [v2 view];
-        if (!v38)
+        v35 = [v2 view];
+        if (!v35)
         {
 LABEL_22:
           __break(1u);
           goto LABEL_23;
         }
 
-        v39 = v38;
-        v40 = [*&v2[v37] view];
-        if (!v40)
+        v36 = v35;
+        v37 = [*&v2[v34] view];
+        if (!v37)
         {
 LABEL_23:
           __break(1u);
           return;
         }
 
-        v41 = v40;
-        v36 = v17;
-        [v39 addSubview:v40];
+        v38 = v37;
+        v33 = v14;
+        [v36 addSubview:v37];
 
-        [*&v2[v37] didMoveToParentViewController:v2];
+        [*&v2[v34] didMoveToParentViewController:v2];
       }
 
       sub_518C(0, &qword_C7E0, OS_dispatch_queue_ptr);
-      v42 = sub_5924();
-      v43 = swift_allocObject();
+      v39 = sub_5924();
+      v40 = swift_allocObject();
       swift_unknownObjectWeakInit();
       aBlock[4] = sub_5138;
-      aBlock[5] = v43;
+      aBlock[5] = v40;
       aBlock[0] = _NSConcreteStackBlock;
       aBlock[1] = 1107296256;
       aBlock[2] = sub_3A14;
       aBlock[3] = &unk_8760;
-      v44 = _Block_copy(aBlock);
+      v41 = _Block_copy(aBlock);
 
-      v45 = v57;
+      v42 = v54;
       sub_5834();
       aBlock[0] = &_swiftEmptyArrayStorage;
       sub_4FF8();
       sub_2530(&qword_C7F0, &qword_6C40);
       sub_5050();
-      v46 = v54;
+      v43 = v51;
       sub_5964();
       sub_5934();
-      _Block_release(v44);
+      _Block_release(v41);
 
-      (*(v53 + 8))(v28, v46);
-      (*(v58 + 8))(v45, v52);
-      v17 = v36;
+      (*(v50 + 8))(v25, v43);
+      (*(v55 + 8))(v42, v49);
+      v14 = v33;
     }
 
     else
     {
-      v29 = sub_1718();
-      v30 = [v29 parentViewController];
+      v26 = sub_1718();
+      v27 = [v26 parentViewController];
 
-      if (v30)
+      if (v27)
       {
 
-        v31 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController____lazy_storage___shieldViewController;
-        v32 = [*&v2[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController____lazy_storage___shieldViewController] view];
-        if (!v32)
+        v28 = OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController____lazy_storage___shieldViewController;
+        v29 = [*&v2[OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController____lazy_storage___shieldViewController] view];
+        if (!v29)
         {
 LABEL_21:
           __break(1u);
           goto LABEL_22;
         }
 
-        v33 = v32;
-        [v32 removeFromSuperview];
+        v30 = v29;
+        [v29 removeFromSuperview];
 
-        [*&v2[v31] removeFromParentViewController];
+        [*&v2[v28] removeFromParentViewController];
       }
     }
 
-    v47 = v2[v17];
-    v2[v17] = v3;
-    v48 = [v2 view];
-    if (v48)
+    v44 = v2[v14];
+    v2[v14] = v3;
+    v45 = [v2 view];
+    if (v45)
     {
-      v49 = v48;
-      [v48 setNeedsLayout];
+      v46 = v45;
+      [v45 setNeedsLayout];
 
-      if ((v3 != 1) == (v47 == 1))
+      if ((v3 != 1) == (v44 == 1))
       {
         [v2 reloadSpecifiers];
       }
@@ -989,26 +964,24 @@ LABEL_21:
 uint64_t sub_3A14(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 uint64_t sub_3A58(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v4(a2);
+  v3(a2);
 }
 
-void sub_3AAC()
+void sub_3AAC(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v2 = Strong;
     sub_33E8(1u);
   }
 }
@@ -1017,30 +990,28 @@ id sub_3B04()
 {
   v1 = sub_5824();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   __chkstk_darwin(v1);
-  v5 = aBlock - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_5844();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v10 = aBlock - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = aBlock - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_5844();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = aBlock - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   result = [*(v0 + OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_appProtectionCoordinator) isEffectivelyLocked];
   if (result)
   {
     if (*(v0 + OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_currentScreen) <= 1u)
     {
       sub_518C(0, &qword_C7E0, OS_dispatch_queue_ptr);
-      v12 = sub_5924();
-      v13 = swift_allocObject();
+      v10 = sub_5924();
+      v11 = swift_allocObject();
       swift_unknownObjectWeakInit();
       aBlock[4] = sub_52F8;
-      aBlock[5] = v13;
+      aBlock[5] = v11;
       aBlock[0] = _NSConcreteStackBlock;
       aBlock[1] = 1107296256;
       aBlock[2] = sub_3A14;
       aBlock[3] = &unk_8788;
-      v14 = _Block_copy(aBlock);
+      v12 = _Block_copy(aBlock);
 
       sub_5834();
       aBlock[0] = &_swiftEmptyArrayStorage;
@@ -1049,22 +1020,21 @@ id sub_3B04()
       sub_5050();
       sub_5964();
       sub_5934();
-      _Block_release(v14);
+      _Block_release(v12);
 
-      (*(v2 + 8))(v5, v1);
-      return (*(v7 + 8))(v10, v6);
+      (*(v2 + 8))(v4, v1);
+      return (*(v6 + 8))(v8, v5);
     }
   }
 
   return result;
 }
 
-void sub_3DD4()
+void sub_3DD4(uint64_t a1)
 {
-  v0 = sub_5814();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin(v0);
+  v1 = sub_5814();
+  v2 = *(v1 - 8);
+  __chkstk_darwin(v1);
   v4 = &v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_57E4();
   v5 = sub_5804();
@@ -1076,7 +1046,7 @@ void sub_3DD4()
     _os_log_impl(&dword_0, v5, v6, "Restricting privacy settings to shield", v7, 2u);
   }
 
-  (*(v1 + 8))(v4, v0);
+  (*(v2 + 8))(v4, v1);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
@@ -1089,33 +1059,33 @@ void sub_3DD4()
   [v10 _updateSnapshotForBackgroundApplication:1];
 }
 
-void sub_3F80()
+void sub_3F80(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = [v1 parentViewController];
-    if (v2)
+    v2 = Strong;
+    v3 = [v2 parentViewController];
+    if (v3)
     {
-      v3 = v2;
-      v4 = [v1 navigationController];
+      v4 = v3;
+      v5 = [v2 navigationController];
 
-      if (v4)
+      if (v5)
       {
-        v5 = [v4 viewControllers];
+        v6 = [v5 viewControllers];
         sub_518C(0, &qword_C808, UIViewController_ptr);
-        v6 = sub_58F4();
+        v7 = sub_58F4();
 
-        sub_40E8(v1, v6);
-        if (v7)
+        sub_40E8(v2, v7);
+        if (v8)
         {
-          sub_40E8(v3, v6);
-          v9 = v8;
+          sub_40E8(v4, v7);
+          v10 = v9;
 
-          v10 = v3;
-          if (v9)
+          v11 = v4;
+          if (v10)
           {
             goto LABEL_11;
           }
@@ -1124,20 +1094,20 @@ void sub_3F80()
         else
         {
 
-          v10 = v1;
+          v11 = v2;
         }
 
 LABEL_11:
         goto LABEL_12;
       }
 
-      v4 = v1;
+      v5 = v2;
     }
 
     else
     {
-      v4 = v1;
-      v3 = v1;
+      v5 = v2;
+      v4 = v2;
     }
 
 LABEL_12:
@@ -1231,7 +1201,7 @@ LABEL_10:
   }
 
   result = swift_dynamicCast();
-  if ((result & 1) != 0 && v7[0] == 3)
+  if ((result & 1) != 0 && LODWORD(v7[0]) == 3)
   {
     *(v1 + OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_isApplicationInAppSwitcher) = 1;
     if ((*(v1 + OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_isApplicationActive) & 1) == 0)
@@ -1275,7 +1245,7 @@ LABEL_11:
     return;
   }
 
-  if ((swift_dynamicCast() & 1) != 0 && v6[0] == 3)
+  if ((swift_dynamicCast() & 1) != 0 && LODWORD(v6[0]) == 3)
   {
     *(v1 + OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_isApplicationInAppSwitcher) = 0;
     if (*(v1 + OBJC_IVAR____TtC21WalletPrivacySettings31WalletPrivacySettingsController_isApplicationActive) == 1)
@@ -1289,14 +1259,13 @@ uint64_t sub_4648(void *a1, uint64_t a2, uint64_t a3, void (*a4)(char *))
 {
   v6 = sub_5784();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_5764();
-  v11 = a1;
-  a4(v10);
+  v10 = a1;
+  a4(v9);
 
-  return (*(v7 + 8))(v10, v6);
+  return (*(v7 + 8))(v9, v6);
 }
 
 uint64_t getEnumTagSinglePayload for Screen(unsigned __int8 *a1, unsigned int a2)
@@ -1473,7 +1442,7 @@ unint64_t sub_48B0()
   return result;
 }
 
-uint64_t sub_4904(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_4904(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_49D0(v11, 0, 0, 1, a1, a2);
@@ -1573,11 +1542,9 @@ LABEL_8:
 
 char *sub_4ADC(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_4B28(a1, a2);
+  v3 = sub_4B28(a1, a2);
   sub_4C58(&off_85B8);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_4B28(uint64_t a1, unint64_t a2)
@@ -1677,7 +1644,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1691,15 +1657,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_4DB8(result, v12, 1, v3);
+  result = sub_4DB8(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1714,15 +1680,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1731,12 +1697,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1908,28 +1874,28 @@ uint64_t sub_50B4()
 
 uint64_t sub_50F4()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 25, 7);
 }
 
-uint64_t sub_5140(uint64_t *a1)
+uint64_t sub_5140(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
-uint64_t sub_518C(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_518C(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -1968,17 +1934,16 @@ uint64_t sub_5320()
 {
   v0 = sub_57B4();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin();
-  v4 = &v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v0);
+  v3 = &v10 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_5794();
-  v5 = objc_allocWithZone(NSBundle);
-  sub_57A4(v6);
-  v8 = v7;
-  v9 = [v5 initWithURL:v7];
+  v4 = objc_allocWithZone(NSBundle);
+  sub_57A4(v5);
+  v7 = v6;
+  v8 = [v4 initWithURL:v6];
 
-  result = (*(v1 + 8))(v4, v0);
-  qword_C870 = v9;
+  result = (*(v1 + 8))(v3, v0);
+  qword_C870 = v8;
   return result;
 }
 
@@ -1986,22 +1951,21 @@ uint64_t sub_543C()
 {
   v0 = sub_5814();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  v3 = (__chkstk_darwin)();
-  v5 = v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = v20 - v6;
+  v2 = __chkstk_darwin(v0);
+  v4 = v19 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v6 = v19 - v5;
   if (qword_C6E0 != -1)
   {
     swift_once();
   }
 
-  if (qword_C870 && (v8 = qword_C870, v9 = sub_58A4(), v10 = [v8 classNamed:v9], v8, v9, v10) && (swift_getObjCClassMetadata(), sub_5718(), swift_dynamicCastMetatype()))
+  if (qword_C870 && (v7 = qword_C870, v8 = sub_58A4(), v9 = [v7 classNamed:v8], v7, v8, v9) && (swift_getObjCClassMetadata(), sub_5718(), swift_dynamicCastMetatype()))
   {
     ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
     class_addProtocol(ObjCClassFromMetadata, &OBJC_PROTOCOL____TtP9PassKitUI25PKPrivacySettingsProvider_);
-    v12 = [objc_allocWithZone(ObjCClassFromMetadata) init];
-    v20[1] = &OBJC_PROTOCOL____TtP9PassKitUI25PKPrivacySettingsProvider_;
+    v11 = [objc_allocWithZone(ObjCClassFromMetadata) init];
+    v19[1] = &OBJC_PROTOCOL____TtP9PassKitUI25PKPrivacySettingsProvider_;
     result = swift_dynamicCastObjCProtocolConditional();
     if (result)
     {
@@ -2009,31 +1973,31 @@ uint64_t sub_543C()
     }
 
     sub_57F4();
-    v14 = sub_5804();
-    v15 = sub_5904();
-    if (os_log_type_enabled(v14, v15))
+    v13 = sub_5804();
+    v14 = sub_5904();
+    if (os_log_type_enabled(v13, v14))
     {
-      v16 = swift_slowAlloc();
-      *v16 = 0;
-      _os_log_impl(&dword_0, v14, v15, "Unable to initialize FinanceKitUI.PrivacyAppSpecifierProvider", v16, 2u);
+      v15 = swift_slowAlloc();
+      *v15 = 0;
+      _os_log_impl(&dword_0, v13, v14, "Unable to initialize FinanceKitUI.PrivacyAppSpecifierProvider", v15, 2u);
     }
 
-    (*(v1 + 8))(v7, v0);
+    (*(v1 + 8))(v6, v0);
   }
 
   else
   {
     sub_57F4();
-    v17 = sub_5804();
-    v18 = sub_5904();
-    if (os_log_type_enabled(v17, v18))
+    v16 = sub_5804();
+    v17 = sub_5904();
+    if (os_log_type_enabled(v16, v17))
     {
-      v19 = swift_slowAlloc();
-      *v19 = 0;
-      _os_log_impl(&dword_0, v17, v18, "FinanceKitUI.PrivacyAppSpecifierProvider not found", v19, 2u);
+      v18 = swift_slowAlloc();
+      *v18 = 0;
+      _os_log_impl(&dword_0, v16, v17, "FinanceKitUI.PrivacyAppSpecifierProvider not found", v18, 2u);
     }
 
-    (*(v1 + 8))(v5, v0);
+    (*(v1 + 8))(v4, v0);
   }
 
   return 0;

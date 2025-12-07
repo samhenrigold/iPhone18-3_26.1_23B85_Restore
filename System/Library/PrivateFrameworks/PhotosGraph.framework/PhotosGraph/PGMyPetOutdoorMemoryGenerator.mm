@@ -28,31 +28,29 @@
 
 - (void)enumerateMomentNodesAndFeatureNodesInGraph:(id)graph usingBlock:(id)block
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v6 = MEMORY[0x277D22C90];
   graphCopy = graph;
   v8 = +[PGGraphMomentNode featureOfMoment];
-  v20[0] = v8;
+  v19[0] = v8;
   v9 = +[PGGraphPetNode filter];
   relation = [v9 relation];
-  v20[1] = relation;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[1] = relation;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v12 = [v6 chain:v11];
 
   v13 = [PGMemoryGeneratorUtils outdoorROIMomentNodesNotAtHomeOrFrequentLocationInGraph:graphCopy useMomentFeatureEdges:0];
 
   v14 = [MEMORY[0x277D22BF8] adjacencyWithSources:v13 relation:v12 targetsClass:objc_opt_class()];
   transposed = [v14 transposed];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __87__PGMyPetOutdoorMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke;
-  v18[3] = &unk_278887E38;
-  v19 = blockCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __87__PGMyPetOutdoorMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke;
+  v17[3] = &unk_278887E38;
+  v18 = blockCopy;
   v16 = blockCopy;
-  [transposed enumerateTargetsBySourceWithBlock:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [transposed enumerateTargetsBySourceWithBlock:v17];
 }
 
 void __87__PGMyPetOutdoorMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -65,40 +63,31 @@ void __87__PGMyPetOutdoorMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGr
 
 - (unint64_t)memoryCategorySubcategoryForOverTimeType:(unint64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (type == 1)
   {
-    result = 7005;
+    return 7005;
   }
 
-  else
+  typeCopy = type;
+  if (type == 3)
   {
-    typeCopy = type;
-    if (type == 3)
-    {
-      result = 7006;
-    }
-
-    else
-    {
-      loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
-      if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
-      {
-        v7 = objc_opt_class();
-        v8 = NSStringFromClass(v7);
-        v9 = 138412546;
-        v10 = v8;
-        v11 = 1024;
-        v12 = typeCopy;
-        _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v9, 0x12u);
-      }
-
-      result = 0;
-    }
+    return 7006;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
+  if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
+  {
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 1024;
+    v11 = typeCopy;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v8, 0x12u);
+  }
+
+  return 0;
 }
 
 - (PGMyPetOutdoorMemoryGenerator)initWithMemoryGenerationContext:(id)context

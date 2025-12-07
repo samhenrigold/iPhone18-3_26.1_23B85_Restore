@@ -14,6 +14,7 @@
 - (id)copyPassword;
 - (id)copyQueryWithReturnTypes:(id)types;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (uint64_t)copyDataFromKeychainItem:(void *)item outData:(const __CFData *)data outIdentifier:(void *)identifier outPersistentReference:(void *)reference;
 - (void)encodeWithCoder:(id)coder;
 - (void)migrateFromPreferences:(__SCPreferences *)preferences;
@@ -29,7 +30,7 @@
 
 - (void)migrateFromPreferences:(__SCPreferences *)preferences
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   copyData = [(NEKeychainItem *)self copyData];
   if (!copyData)
   {
@@ -39,36 +40,34 @@
     if (copyData)
     {
       identifier2 = [(NEKeychainItem *)self identifier];
-      v8 = _SCPreferencesSystemKeychainPasswordItemRemove();
+      v7 = _SCPreferencesSystemKeychainPasswordItemRemove();
 
-      if (v8)
+      if (v7)
       {
         [(NEKeychainItem *)self setData:copyData];
       }
 
       else
       {
-        v9 = ne_log_obj();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v8 = ne_log_obj();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           identifier3 = [(NEKeychainItem *)self identifier];
-          v11 = SCError();
-          v12 = 138412546;
-          v13 = identifier3;
-          v14 = 2080;
-          v15 = SCErrorString(v11);
-          _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "%@: _SCPreferencesSystemKeychainPasswordItemRemove failed: %s", &v12, 0x16u);
+          v10 = SCError();
+          v11 = 138412546;
+          v12 = identifier3;
+          v13 = 2080;
+          v14 = SCErrorString(v10);
+          _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: _SCPreferencesSystemKeychainPasswordItemRemove failed: %s", &v11, 0x16u);
         }
       }
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)syncUsingConfiguration:(id)configuration accountName:(id)name passwordType:(int64_t)type identifierSuffix:(id)suffix
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   nameCopy = name;
   suffixCopy = suffix;
@@ -131,13 +130,13 @@
     *&buf[12] = 2112;
     *&buf[14] = persistentReference2;
     *&buf[22] = 2048;
-    v91 = v26;
+    v90 = v26;
     _os_log_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_DEFAULT, "Adding/Updating keychain item with identifier %@, persistentReference %@, data %p", buf, 0x20u);
   }
 
-  v84 = configurationCopy;
+  v83 = configurationCopy;
   v27 = nameCopy;
-  v83 = suffixCopy;
+  v82 = suffixCopy;
   v28 = selfCopy;
   objc_sync_enter(v28);
   if (NEInitCFTypes_onceToken != -1)
@@ -145,12 +144,12 @@
     dispatch_once(&NEInitCFTypes_onceToken, &__block_literal_global_25529);
   }
 
+  v87 = 0;
   v88 = 0;
-  v89 = 0;
-  v29 = [NEKeychainItem copyDataFromKeychainItem:v28 outData:0 outIdentifier:&v89 outPersistentReference:&v88];
-  v30 = v89;
-  v31 = v89;
-  v32 = v88;
+  v29 = [NEKeychainItem copyDataFromKeychainItem:v28 outData:0 outIdentifier:&v88 outPersistentReference:&v87];
+  v30 = v88;
+  v31 = v88;
+  v32 = v87;
   if (!v29)
   {
     p_super = ne_log_obj();
@@ -185,19 +184,19 @@
 
     if (v36)
     {
-      if ([v83 length])
+      if ([v82 length])
       {
         v37 = objc_alloc(MEMORY[0x1E696AEC0]);
-        identifier8 = [v84 identifier];
+        identifier8 = [v83 identifier];
         uUIDString2 = [identifier8 UUIDString];
-        v40 = [v37 initWithFormat:@"%@.%@", uUIDString2, v83];
+        v40 = [v37 initWithFormat:@"%@.%@", uUIDString2, v82];
         v41 = v28->_identifier;
         v28->_identifier = v40;
       }
 
       else
       {
-        identifier8 = [v84 identifier];
+        identifier8 = [v83 identifier];
         uUIDString3 = [identifier8 UUIDString];
         uUIDString2 = v28->_identifier;
         v28->_identifier = uUIDString3;
@@ -208,7 +207,7 @@
     v55 = *MEMORY[0x1E697AE88];
     [v33 setObject:identifier9 forKeyedSubscript:*MEMORY[0x1E697AE88]];
 
-    name = [v84 name];
+    name = [v83 name];
     [v33 setObject:name forKeyedSubscript:*MEMORY[0x1E697ADC8]];
 
     [v33 setObject:query forKeyedSubscript:*MEMORY[0x1E697ACE0]];
@@ -232,10 +231,10 @@
     {
       v60 = *MEMORY[0x1E697B008];
       result = *MEMORY[0x1E697AFF8];
-      v96 = v55;
+      v95 = v55;
       *buf = v60;
       *&buf[8] = v31;
-      v97 = *MEMORY[0x1E697B3A8];
+      v96 = *MEMORY[0x1E697B3A8];
       *&buf[16] = *MEMORY[0x1E695E4D0];
       v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:&result count:3];
       v62 = SecItemUpdate(v61, v33);
@@ -245,12 +244,12 @@
         if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
           identifier10 = [(NEKeychainItem *)v28 identifier];
-          *v94 = 138412546;
-          *&v94[4] = identifier10;
-          *&v94[12] = 1024;
-          *&v94[14] = v62;
-          v76 = identifier10;
-          _os_log_error_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_ERROR, "%@: SecItemUpdate failed: %d", v94, 0x12u);
+          *v93 = 138412546;
+          *&v93[4] = identifier10;
+          *&v93[12] = 1024;
+          *&v93[14] = v62;
+          v75 = identifier10;
+          _os_log_error_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_ERROR, "%@: SecItemUpdate failed: %d", v93, 0x12u);
         }
       }
 
@@ -286,7 +285,7 @@
 
       else
       {
-        if (result && (v74 = CFDATA_TYPE, CFGetTypeID(result) == v74))
+        if (result && (v73 = CFDATA_TYPE, CFGetTypeID(result) == v73))
         {
           if (CFDataGetLength(result) <= 0)
           {
@@ -337,17 +336,17 @@ LABEL_57:
 
   v47 = *MEMORY[0x1E697B008];
   v48 = *MEMORY[0x1E697AE88];
-  *v94 = *MEMORY[0x1E697AFF8];
-  *&v94[8] = v48;
+  *v93 = *MEMORY[0x1E697AFF8];
+  *&v93[8] = v48;
   result = v47;
-  v96 = v31;
-  *&v94[16] = *MEMORY[0x1E697B3A8];
-  v97 = *MEMORY[0x1E695E4D0];
-  querya = [MEMORY[0x1E695DF20] dictionaryWithObjects:&result forKeys:v94 count:3];
-  v92 = *MEMORY[0x1E697ABD0];
+  v95 = v31;
+  *&v93[16] = *MEMORY[0x1E697B3A8];
+  v96 = *MEMORY[0x1E695E4D0];
+  querya = [MEMORY[0x1E695DF20] dictionaryWithObjects:&result forKeys:v93 count:3];
+  v91 = *MEMORY[0x1E697ABD0];
   accessGroup4 = [(NEKeychainItem *)v28 accessGroup];
-  v93 = accessGroup4;
-  v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
+  v92 = accessGroup4;
+  v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
 
   v51 = SecItemUpdate(querya, v50);
   if (v51)
@@ -362,8 +361,8 @@ LABEL_57:
       *&buf[12] = 2112;
       *&buf[14] = accessGroup5;
       *&buf[22] = 1024;
-      LODWORD(v91) = v51;
-      v79 = accessGroup5;
+      LODWORD(v90) = v51;
+      v78 = accessGroup5;
       _os_log_error_impl(&dword_1BA83C000, v52, OS_LOG_TYPE_ERROR, "%@: SecItemUpdate failed while updating the keychain access group to %@: %d", buf, 0x1Cu);
     }
   }
@@ -402,17 +401,14 @@ LABEL_63:
   [(NEKeychainItem *)selfCopy setData:0];
   objc_setProperty_atomic_copy(selfCopy, v72, 0, 72);
   objc_sync_exit(selfCopy);
-
-  v73 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)copyDataFromKeychainItem:(void *)item outData:(const __CFData *)data outIdentifier:(void *)identifier outPersistentReference:(void *)reference
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (!item)
   {
-    v20 = 0;
-    goto LABEL_66;
+    return 0;
   }
 
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -478,9 +474,9 @@ LABEL_56:
       {
         identifier2 = [item identifier];
         *buf = 138412546;
-        v30 = identifier2;
-        v31 = 1024;
-        v32 = v13;
+        v29 = identifier2;
+        v30 = 1024;
+        v31 = v13;
         _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "%@: SecItemCopyMatching failed: %d", buf, 0x12u);
       }
     }
@@ -581,14 +577,12 @@ LABEL_56:
   v20 = 1;
 LABEL_65:
 
-LABEL_66:
-  v26 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (void)remove
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   identifier = [(NEKeychainItem *)self identifier];
   if (identifier)
   {
@@ -600,7 +594,7 @@ LABEL_66:
 
     if (!persistentReference)
     {
-      goto LABEL_9;
+      return;
     }
   }
 
@@ -613,19 +607,16 @@ LABEL_66:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       identifier2 = [(NEKeychainItem *)self identifier];
-      v11 = 138412546;
-      v12 = identifier2;
-      v13 = 1024;
-      v14 = v7;
-      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: SecItemDelete failed: %d", &v11, 0x12u);
+      v10 = 138412546;
+      v11 = identifier2;
+      v12 = 1024;
+      v13 = v7;
+      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: SecItemDelete failed: %d", &v10, 0x12u);
     }
   }
 
   [(NEKeychainItem *)self setIdentifier:0];
   [(NEKeychainItem *)self setPersistentReference:0];
-
-LABEL_9:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyData
@@ -655,7 +646,7 @@ LABEL_9:
 
 - (id)copyQueryWithReturnTypes:(id)types
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
   [v5 setObject:*MEMORY[0x1E697B008] forKeyedSubscript:*MEMORY[0x1E697AFF8]];
@@ -683,39 +674,38 @@ LABEL_9:
   [v5 setObject:identifier2 forKeyedSubscript:*v8];
 
 LABEL_6:
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = typesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     v14 = MEMORY[0x1E695E118];
     do
     {
       v15 = 0;
       do
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [v5 setObject:v14 forKeyedSubscript:{*(*(&v18 + 1) + 8 * v15++), v18}];
+        [v5 setObject:v14 forKeyedSubscript:{*(*(&v17 + 1) + 8 * v15++), v17}];
       }
 
       while (v12 != v15);
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
   }
 
   [v5 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E697B3A8]];
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -857,22 +847,22 @@ LABEL_7:
 
 - (void)setIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   identifier = selfCopy->_identifier;
-  if (identifierCopy && !identifier || identifier && ![(NSString *)identifier isEqualToString:identifierCopy])
+  if (identifierCopy && !identifier || identifier && (objc_msgSend_isEqualToString_(identifier) & 1) == 0)
   {
     v7 = ne_log_obj();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v16 = selfCopy->_identifier;
-      v17 = 138412546;
-      v18 = v16;
-      v19 = 2112;
-      v20 = identifierCopy;
-      _os_log_debug_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEBUG, "setIdentifier: old %@, new %@", &v17, 0x16u);
+      v15 = selfCopy->_identifier;
+      v16 = 138412546;
+      v17 = v15;
+      v18 = 2112;
+      v19 = identifierCopy;
+      _os_log_debug_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEBUG, "setIdentifier: old %@, new %@", &v16, 0x16u);
     }
 
     if (selfCopy->_identifier)
@@ -906,8 +896,6 @@ LABEL_7:
   }
 
   objc_sync_exit(selfCopy);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)identifier
@@ -918,6 +906,44 @@ LABEL_7:
   objc_sync_exit(selfCopy);
 
   return v3;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+  identifier = [(NEKeychainItem *)self identifier];
+  [v7 appendPrettyObject:identifier withName:@"identifier" andIndent:v5 options:isKindOfClass & 1 | options];
+
+  persistentReference = [(NEKeychainItem *)self persistentReference];
+  [v7 appendPrettyObject:persistentReference withName:@"persistentReference" andIndent:v5 options:options];
+
+  keyPersistentReference = [(NEKeychainItem *)self keyPersistentReference];
+
+  if (keyPersistentReference)
+  {
+    keyPersistentReference2 = [(NEKeychainItem *)self keyPersistentReference];
+    [v7 appendPrettyObject:keyPersistentReference2 withName:@"keyPersistentReference" andIndent:v5 options:options];
+  }
+
+  [v7 appendPrettyBOOL:-[NEKeychainItem isModernSystem](self withName:"isModernSystem") andIndent:@"isModernSystem" options:{v5, options}];
+  if ([(NEKeychainItem *)self domain])
+  {
+    v13 = @"user";
+  }
+
+  else
+  {
+    v13 = @"system";
+  }
+
+  [v7 appendPrettyObject:v13 withName:@"domain" andIndent:v5 options:options];
+  accessGroup = [(NEKeychainItem *)self accessGroup];
+  [v7 appendPrettyObject:accessGroup withName:@"accessGroup" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

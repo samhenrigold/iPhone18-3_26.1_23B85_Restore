@@ -2,6 +2,7 @@
 + (NSManagedObjectContext)legacyBackgroundContext;
 + (NSManagedObjectContext)modernBackgroundContext;
 + (OS_dispatch_queue)loadDataQueue;
++ (id)sizingConfigurationWithShowParticipantsInfo:(BOOL)info showsFolderName:(BOOL)name;
 - (BOOL)isLargerThanAXLarge;
 - (BOOL)showsNoteContainer;
 - (CGRect)estimatedSummaryLabelFrame;
@@ -120,7 +121,6 @@
   self->_maxNumberOfLabelLines = 1;
   if (ICAccessibilityAccessibilityLargerTextSizesEnabled())
   {
-    note = self->_note;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -134,6 +134,22 @@
 
     self->_hasThumbnailImage = hasThumbnailImage;
   }
+}
+
++ (id)sizingConfigurationWithShowParticipantsInfo:(BOOL)info showsFolderName:(BOOL)name
+{
+  nameCopy = name;
+  infoCopy = info;
+  v6 = objc_alloc_init(ICNoteResultsCellConfiguration);
+  [(ICNoteResultsCellConfiguration *)v6 setShowFolderName:nameCopy];
+  [(ICNoteResultsCellConfiguration *)v6 setIsDataLoaded:1];
+  [(ICNoteResultsCellConfiguration *)v6 setTitleString:@"Two\nLines"];
+  [(ICNoteResultsCellConfiguration *)v6 setParticipantsInfoString:@"Participants"];
+  [(ICNoteResultsCellConfiguration *)v6 setFolderAndAccountInfoString:@"Folder"];
+  [(ICNoteResultsCellConfiguration *)v6 setDateString:@"Date"];
+  [(ICNoteResultsCellConfiguration *)v6 setShowParticipantsInfo:infoCopy];
+
+  return v6;
 }
 
 - (void)updateTitleLabelAttributes:(id)attributes summaryLabelAttributes:(id)labelAttributes folderAndAccountLabelAttributes:(id)accountLabelAttributes estimatedTitleLabelFrame:(CGRect)frame estimatedSummaryLabelFrame:(CGRect)labelFrame
@@ -920,38 +936,35 @@ LABEL_14:
   v32 = +[NSBundle mainBundle];
   v33 = [v32 localizedStringForKey:@"In folder %@" value:&stru_18718 table:0];
 
-  v59 = v33;
-  v60 = folderName;
-  v62 = [NSString localizedStringWithFormat:v33, folderName];
+  v56 = v33;
+  v57 = folderName;
+  v59 = [NSString localizedStringWithFormat:v33, folderName];
   note5 = [(ICNoteResultsCellConfiguration *)self note];
   currentStatus = [note5 currentStatus];
 
   v36 = 0;
-  v37 = &CGRectGetWidth_ptr;
   if (currentStatus > 2)
   {
     if (currentStatus == (&dword_0 + 3))
     {
       objc_opt_class();
       note6 = [(ICNoteResultsCellConfiguration *)self note];
-      v39 = ICDynamicCast();
+      v38 = ICDynamicCast();
 
-      LODWORD(note6) = [v39 isOwnedByCurrentUser];
-      v48 = +[NSBundle mainBundle];
-      v38 = v48;
-      v49 = note6 == 0;
-      v37 = &CGRectGetWidth_ptr;
-      if (v49)
+      LODWORD(note6) = [v38 isOwnedByCurrentUser];
+      v47 = +[NSBundle mainBundle];
+      v37 = v47;
+      if (note6)
       {
-        v50 = @"Shared with me via iCloud";
+        v48 = @"Shared by me via iCloud";
       }
 
       else
       {
-        v50 = @"Shared by me via iCloud";
+        v48 = @"Shared with me via iCloud";
       }
 
-      v58 = [v48 localizedStringForKey:v50 value:&stru_18718 table:0];
+      v55 = [v47 localizedStringForKey:v48 value:&stru_18718 table:0];
       v36 = 0;
     }
 
@@ -959,37 +972,36 @@ LABEL_14:
     {
       if (currentStatus != &dword_4)
       {
-        v58 = 0;
+        v55 = 0;
         v10 = title2;
         goto LABEL_25;
       }
 
       objc_opt_class();
       note7 = [(ICNoteResultsCellConfiguration *)self note];
-      v39 = ICDynamicCast();
+      v38 = ICDynamicCast();
 
-      folder = [v39 folder];
+      folder = [v38 folder];
       isOwnedByCurrentUser = [folder isOwnedByCurrentUser];
-      v43 = +[NSBundle mainBundle];
-      v44 = v43;
+      v42 = +[NSBundle mainBundle];
+      v43 = v42;
       if (isOwnedByCurrentUser)
       {
-        v45 = @"In a folder shared by me called %@";
+        v44 = @"In a folder shared by me called %@";
       }
 
       else
       {
-        v45 = @"In a folder shared with me called %@";
+        v44 = @"In a folder shared with me called %@";
       }
 
-      v38 = [v43 localizedStringForKey:v45 value:&stru_18718 table:0];
+      v37 = [v42 localizedStringForKey:v44 value:&stru_18718 table:0];
 
-      v37 = &CGRectGetWidth_ptr;
-      v46 = [NSString localizedStringWithFormat:v38, v60];
+      v45 = [NSString localizedStringWithFormat:v37, v57];
 
       v36 = 0;
-      v58 = 0;
-      v62 = v46;
+      v55 = 0;
+      v59 = v45;
     }
 
 LABEL_23:
@@ -999,10 +1011,10 @@ LABEL_23:
 
   if (currentStatus == (&dword_0 + 1))
   {
-    v38 = +[NSBundle mainBundle];
-    v36 = [v38 localizedStringForKey:@"Locked" value:&stru_18718 table:0];
-    v58 = 0;
-    v39 = contentDescription;
+    v37 = +[NSBundle mainBundle];
+    v36 = [v37 localizedStringForKey:@"Locked" value:&stru_18718 table:0];
+    v55 = 0;
+    v38 = contentDescription;
     contentDescription = 0;
     goto LABEL_23;
   }
@@ -1010,42 +1022,41 @@ LABEL_23:
   v10 = title2;
   if (currentStatus == (&dword_0 + 2))
   {
-    v38 = +[NSBundle mainBundle];
-    v36 = [v38 localizedStringForKey:@"Unlocked" value:&stru_18718 table:0];
-    v58 = 0;
-    v39 = contentDescription;
+    v37 = +[NSBundle mainBundle];
+    v36 = [v37 localizedStringForKey:@"Unlocked" value:&stru_18718 table:0];
+    v55 = 0;
+    v38 = contentDescription;
     contentDescription = 0;
 LABEL_24:
 
     goto LABEL_25;
   }
 
-  v58 = 0;
+  v55 = 0;
 LABEL_25:
-  v51 = v37[85];
   objc_opt_class();
   note8 = [(ICNoteResultsCellConfiguration *)self note];
-  v53 = ICDynamicCast();
+  v50 = ICDynamicCast();
 
-  if ([v53 isSharedViaICloud] && objc_msgSend(v53, "hasUnreadChanges"))
+  if ([v50 isSharedViaICloud] && objc_msgSend(v50, "hasUnreadChanges"))
   {
-    v54 = v25;
-    v55 = +[NSBundle mainBundle];
-    v56 = [v55 localizedStringForKey:@"has unread changes" value:&stru_18718 table:0];
+    v51 = v25;
+    v52 = +[NSBundle mainBundle];
+    v53 = [v52 localizedStringForKey:@"has unread changes" value:&stru_18718 table:0];
 
     v10 = title2;
   }
 
   else
   {
-    v54 = v25;
-    v56 = 0;
+    v51 = v25;
+    v53 = 0;
   }
 
   [(ICNoteResultsCellConfiguration *)self showsNoteContainer];
   v21 = __ICAccessibilityStringForVariables();
 
-  v13 = v54;
+  v13 = v51;
 LABEL_30:
 
   return v21;

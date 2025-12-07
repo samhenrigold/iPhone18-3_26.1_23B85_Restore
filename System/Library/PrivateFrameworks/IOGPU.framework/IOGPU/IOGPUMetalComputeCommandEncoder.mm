@@ -26,18 +26,18 @@
     v7 = 0;
     do
     {
-      v8 = *resources++;
+      ++resources;
       if (objc_opt_respondsToSelector())
       {
-        v9 = 2;
+        v8 = 2;
       }
 
       else
       {
-        v9 = 1;
+        v8 = 1;
       }
 
-      v7 |= v9;
+      v7 |= v8;
       --countCopy;
     }
 
@@ -89,12 +89,12 @@
 {
   length = range.length;
   location = range.location;
-  v14[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (([(MTLDevice *)[(_MTLCommandEncoder *)self device] requiresRaytracingEmulation]& 1) != 0)
   {
     if (length)
     {
-      v9 = (v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+      v9 = (v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
       v10 = length;
       do
       {
@@ -106,13 +106,11 @@
       while (v10);
     }
 
-    [(IOGPUMetalComputeCommandEncoder *)self setVisibleFunctionTables:v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withBufferRange:location, length];
-    v12 = *MEMORY[0x1E69E9840];
+    [(IOGPUMetalComputeCommandEncoder *)self setVisibleFunctionTables:v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withBufferRange:location, length];
   }
 
   else
   {
-    v13 = *MEMORY[0x1E69E9840];
 
     [(IOGPUMetalComputeCommandEncoder *)self doesNotRecognizeSelector:a2];
   }

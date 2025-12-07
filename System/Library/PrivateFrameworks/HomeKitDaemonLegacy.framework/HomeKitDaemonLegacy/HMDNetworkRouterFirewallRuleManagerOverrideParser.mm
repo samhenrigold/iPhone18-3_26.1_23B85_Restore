@@ -9,7 +9,7 @@
 
 + (id)_parseOverridePairedMetadataWithProductGroup:(id)group productNumber:(id)number productNumberDictionary:(id)dictionary accessoryIdentifier:(id)identifier
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   numberCopy = number;
   dictionaryCopy = dictionary;
@@ -30,9 +30,9 @@
 
   if (v15)
   {
-    v36 = 0;
-    v16 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v15 options:0 error:&v36];
-    v17 = v36;
+    v35 = 0;
+    v16 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v15 options:0 error:&v35];
+    v17 = v35;
     if (v16)
     {
       v18 = [[HMDCloudPairedMetadata alloc] initWithBaseAccessoryIdentifier:identifierCopy data:v16 allowUnzippedData:1];
@@ -48,15 +48,15 @@
         v29 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          v32 = HMFGetLogIdentifier();
+          v31 = HMFGetLogIdentifier();
           *buf = 138544130;
-          v38 = v32;
-          v39 = 2112;
-          v40 = groupCopy;
-          v41 = 2112;
-          v42 = numberCopy;
-          v43 = 2112;
-          v44 = dictionaryCopy;
+          v37 = v31;
+          v38 = 2112;
+          v39 = groupCopy;
+          v40 = 2112;
+          v41 = numberCopy;
+          v42 = 2112;
+          v43 = dictionaryCopy;
           _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@JSON dictionary for '%@':'%@' did not parse correctly: %@", buf, 0x2Au);
         }
 
@@ -75,15 +75,15 @@
         HMFGetLogIdentifier();
         v27 = contexta = v24;
         *buf = 138544386;
-        v38 = v27;
-        v39 = 2112;
-        v40 = groupCopy;
-        v41 = 2112;
-        v42 = numberCopy;
-        v43 = 2112;
-        v44 = dictionaryCopy;
-        v45 = 2112;
-        v46 = v17;
+        v37 = v27;
+        v38 = 2112;
+        v39 = groupCopy;
+        v40 = 2112;
+        v41 = numberCopy;
+        v42 = 2112;
+        v43 = dictionaryCopy;
+        v44 = 2112;
+        v45 = v17;
         _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@JSON dictionary for '%@':'%@' failed to convert to JSON: %@: %@", buf, 0x34u);
 
         v24 = contexta;
@@ -103,15 +103,15 @@
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138544386;
-      v38 = v23;
-      v39 = 2112;
-      v40 = groupCopy;
-      v41 = 2112;
-      v42 = numberCopy;
-      v43 = 2112;
-      v44 = @"pairedMetadata";
-      v45 = 2112;
-      v46 = v13;
+      v37 = v23;
+      v38 = 2112;
+      v39 = groupCopy;
+      v40 = 2112;
+      v41 = numberCopy;
+      v42 = 2112;
+      v43 = @"pairedMetadata";
+      v44 = 2112;
+      v45 = v13;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@JSON for '%@':'%@' contains an invalid '%@' value: %@", buf, 0x34u);
     }
 
@@ -119,14 +119,12 @@
     v19 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 + (id)_parseOverrideNetworkDeclarationsWithProductGroup:(id)group productNumber:(id)number productNumberDictionary:(id)dictionary accessoryIdentifier:(id)identifier
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   numberCopy = number;
   dictionaryCopy = dictionary;
@@ -147,9 +145,9 @@
 
   if (v15)
   {
-    v36 = 0;
-    v16 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v15 options:0 error:&v36];
-    v17 = v36;
+    v35 = 0;
+    v16 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v15 options:0 error:&v35];
+    v17 = v35;
     if (v16)
     {
       v18 = [[HMDNetworkRouterFirewallRuleCloudNetworkDeclarations alloc] initWithBaseAccessoryIdentifier:identifierCopy data:v16 allowUnzippedData:1];
@@ -165,15 +163,15 @@
         v29 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          v32 = HMFGetLogIdentifier();
+          v31 = HMFGetLogIdentifier();
           *buf = 138544130;
-          v38 = v32;
-          v39 = 2112;
-          v40 = groupCopy;
-          v41 = 2112;
-          v42 = numberCopy;
-          v43 = 2112;
-          v44 = dictionaryCopy;
+          v37 = v31;
+          v38 = 2112;
+          v39 = groupCopy;
+          v40 = 2112;
+          v41 = numberCopy;
+          v42 = 2112;
+          v43 = dictionaryCopy;
           _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@JSON dictionary for '%@':'%@' did not parse correctly: %@", buf, 0x2Au);
         }
 
@@ -192,15 +190,15 @@
         HMFGetLogIdentifier();
         v27 = contexta = v24;
         *buf = 138544386;
-        v38 = v27;
-        v39 = 2112;
-        v40 = groupCopy;
-        v41 = 2112;
-        v42 = numberCopy;
-        v43 = 2112;
-        v44 = dictionaryCopy;
-        v45 = 2112;
-        v46 = v17;
+        v37 = v27;
+        v38 = 2112;
+        v39 = groupCopy;
+        v40 = 2112;
+        v41 = numberCopy;
+        v42 = 2112;
+        v43 = dictionaryCopy;
+        v44 = 2112;
+        v45 = v17;
         _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@JSON dictionary for '%@':'%@' failed to convert to JSON: %@: %@", buf, 0x34u);
 
         v24 = contexta;
@@ -220,15 +218,15 @@
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138544386;
-      v38 = v23;
-      v39 = 2112;
-      v40 = groupCopy;
-      v41 = 2112;
-      v42 = numberCopy;
-      v43 = 2112;
-      v44 = @"networkDeclarations";
-      v45 = 2112;
-      v46 = v13;
+      v37 = v23;
+      v38 = 2112;
+      v39 = groupCopy;
+      v40 = 2112;
+      v41 = numberCopy;
+      v42 = 2112;
+      v43 = @"networkDeclarations";
+      v44 = 2112;
+      v45 = v13;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@JSON for '%@':'%@' contains an invalid '%@' value: %@", buf, 0x34u);
     }
 
@@ -236,18 +234,16 @@
     v19 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 + (id)parseFromData:(id)data
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v37 = 0;
-  v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v37];
-  v6 = v37;
+  v36 = 0;
+  v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v36];
+  v6 = v36;
   v7 = v6;
   if (v5)
   {
@@ -282,16 +278,16 @@
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v43 = 0;
-      v30 = MEMORY[0x277D85DD0];
-      v31 = 3221225472;
-      v32 = __67__HMDNetworkRouterFirewallRuleManagerOverrideParser_parseFromData___block_invoke;
-      v33 = &unk_279722FC8;
-      v35 = buf;
+      v42 = 0;
+      v29 = MEMORY[0x277D85DD0];
+      v30 = 3221225472;
+      v31 = __67__HMDNetworkRouterFirewallRuleManagerOverrideParser_parseFromData___block_invoke;
+      v32 = &unk_279722FC8;
+      v34 = buf;
       selfCopy = self;
       v19 = dictionary;
-      v34 = v19;
-      [v14 enumerateKeysAndObjectsUsingBlock:&v30];
+      v33 = v19;
+      [v14 enumerateKeysAndObjectsUsingBlock:&v29];
       if (*(*&buf[8] + 24))
       {
         v13 = 0;
@@ -307,17 +303,17 @@
           if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
             v27 = HMFGetLogIdentifier();
-            *v38 = 138543618;
-            v39 = v27;
-            v40 = 2112;
-            v41 = v14;
-            _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@JSON contains no overrides: %@", v38, 0x16u);
+            *v37 = 138543618;
+            v38 = v27;
+            v39 = 2112;
+            v40 = v14;
+            _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@JSON contains no overrides: %@", v37, 0x16u);
           }
 
           objc_autoreleasePoolPop(v24);
         }
 
-        v13 = [v19 copy];
+        v13 = objc_msgSend_copy(v19);
       }
 
       _Block_object_dispose(buf, 8);
@@ -362,14 +358,12 @@
     v13 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 void __67__HMDNetworkRouterFirewallRuleManagerOverrideParser_parseFromData___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = v8;
@@ -396,17 +390,17 @@ void __67__HMDNetworkRouterFirewallRuleManagerOverrideParser_parseFromData___blo
 
     if (v12)
     {
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __67__HMDNetworkRouterFirewallRuleManagerOverrideParser_parseFromData___block_invoke_7;
-      v20[3] = &unk_279730FB8;
-      v23 = *(a1 + 40);
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __67__HMDNetworkRouterFirewallRuleManagerOverrideParser_parseFromData___block_invoke_7;
+      v19[3] = &unk_279730FB8;
+      v22 = *(a1 + 40);
       v13 = v7;
       v14 = *(a1 + 48);
-      v21 = v13;
-      v24 = v14;
-      v22 = *(a1 + 32);
-      [v12 enumerateKeysAndObjectsUsingBlock:v20];
+      v20 = v13;
+      v23 = v14;
+      v21 = *(a1 + 32);
+      [v12 enumerateKeysAndObjectsUsingBlock:v19];
     }
 
     else
@@ -418,11 +412,11 @@ void __67__HMDNetworkRouterFirewallRuleManagerOverrideParser_parseFromData___blo
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v26 = v18;
-        v27 = 2112;
-        v28 = v7;
-        v29 = 2112;
-        v30 = v10;
+        v25 = v18;
+        v26 = 2112;
+        v27 = v7;
+        v28 = 2112;
+        v29 = v10;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@JSON value for '%@' is not a dictionary: %@", buf, 0x20u);
       }
 
@@ -430,13 +424,11 @@ void __67__HMDNetworkRouterFirewallRuleManagerOverrideParser_parseFromData___blo
       *(*(*(a1 + 40) + 8) + 24) = 1;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HMDNetworkRouterFirewallRuleManagerOverrideParser_parseFromData___block_invoke_7(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   if (*(*(*(a1 + 48) + 8) + 24) != 1)
@@ -451,9 +443,9 @@ void __67__HMDNetworkRouterFirewallRuleManagerOverrideParser_parseFromData___blo
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v53 = v20;
-        v54 = 2112;
-        v55 = v9;
+        v52 = v20;
+        v53 = 2112;
+        v54 = v9;
         _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Computed product data is invalid: %@", buf, 0x16u);
       }
 
@@ -475,11 +467,11 @@ void __67__HMDNetworkRouterFirewallRuleManagerOverrideParser_parseFromData___blo
         v15 = HMFGetLogIdentifier();
         v16 = *(a1 + 32);
         *buf = 138543874;
-        v53 = v15;
-        v54 = 2112;
-        v55 = v16;
-        v56 = 2112;
-        v57 = v7;
+        v52 = v15;
+        v53 = 2112;
+        v54 = v16;
+        v55 = 2112;
+        v56 = v7;
         _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Overrides contain multiple entries for '%@':'%@'", buf, 0x20u);
       }
 
@@ -513,13 +505,13 @@ void __67__HMDNetworkRouterFirewallRuleManagerOverrideParser_parseFromData___blo
         v34 = contextb = v31;
         v35 = *(a1 + 32);
         *buf = 138544130;
-        v53 = v34;
-        v54 = 2112;
-        v55 = v35;
-        v56 = 2112;
-        v57 = v7;
-        v58 = 2112;
-        v59 = v21;
+        v52 = v34;
+        v53 = 2112;
+        v54 = v35;
+        v55 = 2112;
+        v56 = v7;
+        v57 = 2112;
+        v58 = v21;
         _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@JSON value for '%@':'%@' is not a dictionary: %@", buf, 0x2Au);
 
         v31 = contextb;
@@ -548,13 +540,13 @@ void __67__HMDNetworkRouterFirewallRuleManagerOverrideParser_parseFromData___blo
           v39 = context = v36;
           v40 = *(a1 + 32);
           *buf = 138544130;
-          v53 = v39;
-          v54 = 2112;
-          v55 = v40;
-          v56 = 2112;
-          v57 = v7;
-          v58 = 2112;
-          v59 = v23;
+          v52 = v39;
+          v53 = 2112;
+          v54 = v40;
+          v55 = 2112;
+          v56 = v7;
+          v57 = 2112;
+          v58 = v23;
           v41 = "%{public}@JSON dictionary for '%@':'%@' did not parse network declarations correctly: %@";
 LABEL_34:
           _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_ERROR, v41, buf, 0x2Au);
@@ -585,7 +577,7 @@ LABEL_39:
 LABEL_21:
       if ([v23 count])
       {
-        v30 = [v24 copy];
+        v30 = objc_msgSend_copy(v24);
         [*(a1 + 40) setObject:v30 forKeyedSubscript:v10];
       }
 
@@ -600,14 +592,14 @@ LABEL_21:
           v44 = HMFGetLogIdentifier();
           v45 = *(a1 + 32);
           *buf = 138544130;
-          v53 = v44;
+          v52 = v44;
           v46 = v44;
-          v54 = 2112;
-          v55 = v45;
-          v56 = 2112;
-          v57 = v7;
-          v58 = 2112;
-          v59 = v23;
+          v53 = 2112;
+          v54 = v45;
+          v55 = 2112;
+          v56 = v7;
+          v57 = 2112;
+          v58 = v23;
           _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_ERROR, "%{public}@JSON dictionary for '%@':'%@' did not have network declaration or pairedMetadata: %@", buf, 0x2Au);
         }
 
@@ -635,13 +627,13 @@ LABEL_21:
       v39 = context = v36;
       v47 = *(a1 + 32);
       *buf = 138544130;
-      v53 = v39;
-      v54 = 2112;
-      v55 = v47;
-      v56 = 2112;
-      v57 = v7;
-      v58 = 2112;
-      v59 = v23;
+      v52 = v39;
+      v53 = 2112;
+      v54 = v47;
+      v55 = 2112;
+      v56 = v7;
+      v57 = 2112;
+      v58 = v23;
       v41 = "%{public}@JSON dictionary for '%@':'%@' did not parse pairedMetadata correctly: %@";
       goto LABEL_34;
     }
@@ -651,8 +643,6 @@ LABEL_21:
 
   *a4 = 1;
 LABEL_40:
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -669,10 +659,11 @@ LABEL_40:
 
 uint64_t __64__HMDNetworkRouterFirewallRuleManagerOverrideParser_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v1_12261 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_12261;
+  logCategory__hmf_once_v1_12261 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

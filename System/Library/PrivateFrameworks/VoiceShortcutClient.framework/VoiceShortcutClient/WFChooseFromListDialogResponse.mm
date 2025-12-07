@@ -2,6 +2,7 @@
 - (NSString)description;
 - (WFChooseFromListDialogResponse)initWithBSXPCCoder:(id)coder;
 - (WFChooseFromListDialogResponse)initWithCoder:(id)coder;
+- (WFChooseFromListDialogResponse)initWithItems:(id)items cancelled:(BOOL)cancelled;
 - (void)encodeWithBSXPCCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -80,6 +81,23 @@
   v8 = [v3 stringWithFormat:@"<%@: %p, selectedItems: %@, cancelled: %@>", v5, self, selectedItems, v7];
 
   return v8;
+}
+
+- (WFChooseFromListDialogResponse)initWithItems:(id)items cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  itemsCopy = items;
+  v12.receiver = self;
+  v12.super_class = WFChooseFromListDialogResponse;
+  v8 = [(WFDialogResponse *)&v12 initWithCancelled:cancelledCopy];
+  v9 = v8;
+  if (v8)
+  {
+    objc_storeStrong(&v8->_selectedItems, items);
+    v10 = v9;
+  }
+
+  return v9;
 }
 
 @end

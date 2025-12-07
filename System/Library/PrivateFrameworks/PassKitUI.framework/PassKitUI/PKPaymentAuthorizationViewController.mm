@@ -887,13 +887,13 @@ void __80__PKPaymentAuthorizationViewController__presentInAppPaymentInterfaceWit
   }
 }
 
-uint64_t __80__PKPaymentAuthorizationViewController__presentInAppPaymentInterfaceWithWindow___block_invoke_2(uint64_t a1)
+uint64_t __80__PKPaymentAuthorizationViewController__presentInAppPaymentInterfaceWithWindow___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_error_impl(&dword_1BD026000, v2, OS_LOG_TYPE_ERROR, "Connection to remote alert view service failed", v4, 2u);
+    *v5 = 0;
+    _os_log_error_impl(&dword_1BD026000, v3, OS_LOG_TYPE_ERROR, "Connection to remote alert view service failed", v5, 2u);
   }
 
   [*(a1 + 32) paymentAuthorizationCoordinator:*(*(a1 + 32) + 1008) willFinishWithError:*(a1 + 40)];

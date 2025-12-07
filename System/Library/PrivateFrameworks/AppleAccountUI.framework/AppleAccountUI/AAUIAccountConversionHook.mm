@@ -156,10 +156,10 @@
 - (void)signOutPrimaryAccountWithShouldRetainTrust:(BOOL)trust viewController:(id)controller completion:(id)completion
 {
   trustCopy = trust;
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   completionCopy = completion;
-  v10 = _AAUILogSystem();
+  v10 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [AAUIAccountConversionHook signOutPrimaryAccountWithShouldRetainTrust:v10 viewController:? completion:?];
@@ -170,18 +170,18 @@
 
   if (aa_primaryAppleAccount)
   {
-    v13 = _AAUILogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _AAUILogSystem(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = @"YES";
+      v15 = @"YES";
       if (trustCopy)
       {
-        v14 = @"NO";
+        v15 = @"NO";
       }
 
-      v16 = 138412290;
-      v17 = v14;
-      _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "Account Conversion - Initating sign out with intent to remove the AppleAccount : %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = v15;
+      _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Account Conversion - Initating sign out with intent to remove the AppleAccount : %@", &v17, 0xCu);
     }
 
     [(AAUIAccountConversionHook *)self _signOutAccountsWithAccount:aa_primaryAppleAccount shouldRemoveAppleAccount:!trustCopy viewController:controllerCopy completion:completionCopy];
@@ -189,11 +189,11 @@
 
   else
   {
-    v15 = _AAUILogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _AAUILogSystem(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Account Conversion - The account has already been removed. Move straight to conversion.", &v16, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "Account Conversion - The account has already been removed. Move straight to conversion.", &v17, 2u);
     }
 
     completionCopy[2](completionCopy, 1, 0);
@@ -247,7 +247,7 @@ void __108__AAUIAccountConversionHook__signOutAccountsWithAccount_shouldRemoveAp
   v35 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(WeakRetained);
   v8 = v7;
   if (WeakRetained)
   {
@@ -315,7 +315,7 @@ void __108__AAUIAccountConversionHook__signOutAccountsWithAccount_shouldRemoveAp
   v32 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained(a1 + 7);
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(WeakRetained);
   v8 = v7;
   if (WeakRetained)
   {
@@ -367,7 +367,7 @@ void __108__AAUIAccountConversionHook__signOutAccountsWithAccount_shouldRemoveAp
 {
   v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -420,6 +420,20 @@ void __64__AAUIAccountConversionHook__navigateBackToStartWithCompletion___block_
   WeakRetained = objc_loadWeakRetained(&self->delegate);
 
   return WeakRetained;
+}
+
+void __108__AAUIAccountConversionHook__signOutAccountsWithAccount_shouldRemoveAppleAccount_viewController_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1C5355000, a2, a3, "Account Conversion - Didn't remove find my or didn't sign out Apple Account. Discontinuing to sign out or remove accounts. Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __108__AAUIAccountConversionHook__signOutAccountsWithAccount_shouldRemoveAppleAccount_viewController_completion___block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AAUIAccountConversionHook _signOutAccountsWithAccount:shouldRemoveAppleAccount:viewController:completion:]_block_invoke";
+  OUTLINED_FUNCTION_0_2(&dword_1C5355000, a1, a3, "%s:Account Conversion - self is nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

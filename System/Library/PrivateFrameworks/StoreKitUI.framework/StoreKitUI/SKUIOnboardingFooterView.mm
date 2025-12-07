@@ -8,6 +8,8 @@
 - (void)hideLeftButtonWithAnimation:(int64_t)animation;
 - (void)hideRightButtonWithAnimation:(int64_t)animation;
 - (void)layoutSubviews;
+- (void)leftButton;
+- (void)rightButton;
 - (void)setProgressView:(id)view;
 - (void)showLeftButtonWithTitle:(id)title animation:(int64_t)animation;
 - (void)showRightButtonWithTitle:(id)title animation:(int64_t)animation;
@@ -174,68 +176,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIOnboardingFooterView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  [(SKUIOnboardingFooterView *)self bounds];
-  v12 = v11;
-  v14 = v13;
-  progressView = self->_progressView;
-  if (progressView)
-  {
-    [(SKUIOnboardingProgressView *)progressView frame];
-    [(SKUIOnboardingProgressView *)self->_progressView sizeThatFits:*(MEMORY[0x277CBF390] + 16), *(MEMORY[0x277CBF390] + 24)];
-    v17 = v16;
-    v19 = v18;
-    *&v16 = (v12 - v16) * 0.5;
-    v20 = floorf(*&v16);
-    *&v16 = (v14 - v18) * 0.5;
-    v21 = floorf(*&v16);
-    [(SKUIOnboardingProgressView *)self->_progressView setFrame:v20, v21, v17, v18];
-    v34.origin.x = v20;
-    v34.origin.y = v21;
-    v34.size.width = v17;
-    v34.size.height = v19;
-    MaxX = CGRectGetMaxX(v34);
-    v23 = v12 - MaxX;
-  }
-
-  else
-  {
-    v20 = v11 * 0.5;
-    MaxX = v11 * 0.5;
-    v23 = v11 * 0.5;
-  }
-
-  leftButton = self->_leftButton;
-  if (leftButton && ([(UIButton *)leftButton isHidden]& 1) == 0)
-  {
-    [(UIButton *)self->_leftButton frame];
-    v26 = (v20 - v25) * 0.5;
-    v28 = (v14 - v27) * 0.5;
-    [(UIButton *)self->_leftButton setFrame:floorf(v26), floorf(v28)];
-  }
-
-  rightButton = self->_rightButton;
-  if (rightButton)
-  {
-    if (([(UIButton *)rightButton isHidden]& 1) == 0)
-    {
-      [(UIButton *)self->_rightButton frame];
-      v31 = MaxX + (v23 - v30) * 0.5;
-      v33 = (v14 - v32) * 0.5;
-      [(UIButton *)self->_rightButton setFrame:floorf(v31), floorf(v33)];
-    }
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIOnboardingFooterView layoutSubviews]";
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -461,6 +403,54 @@ uint64_t __60__SKUIOnboardingFooterView__showButton_withTitle_animation___block_
   v2 = *(a1 + 40);
 
   return [v2 layoutSubviews];
+}
+
+- (void)hideLeftButtonWithAnimation:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIOnboardingFooterView hideLeftButtonWithAnimation:]";
+}
+
+- (void)hideRightButtonWithAnimation:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIOnboardingFooterView hideRightButtonWithAnimation:]";
+}
+
+- (void)leftButton
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIOnboardingFooterView leftButton]";
+}
+
+- (void)rightButton
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIOnboardingFooterView rightButton]";
+}
+
+- (void)setProgressView:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIOnboardingFooterView setProgressView:]";
+}
+
+- (void)showLeftButtonWithTitle:(uint64_t)a3 animation:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIOnboardingFooterView showLeftButtonWithTitle:animation:]";
+}
+
+- (void)showRightButtonWithTitle:(uint64_t)a3 animation:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIOnboardingFooterView showRightButtonWithTitle:animation:]";
+}
+
+- (void)sizeThatFits:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIOnboardingFooterView sizeThatFits:]";
 }
 
 @end

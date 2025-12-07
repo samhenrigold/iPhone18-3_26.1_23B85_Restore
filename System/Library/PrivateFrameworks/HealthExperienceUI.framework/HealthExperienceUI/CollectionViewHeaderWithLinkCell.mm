@@ -11,12 +11,13 @@
   v2 = *(&self->super.super.super.super.super.super.super.isa + OBJC_IVAR____TtC18HealthExperienceUI32CollectionViewHeaderWithLinkCell_didTapLink);
   if (v2)
   {
+    v3 = *(&self->super.super.super.super.super.super._responderFlags + OBJC_IVAR____TtC18HealthExperienceUI32CollectionViewHeaderWithLinkCell_didTapLink);
     selfCopy = self;
-    sub_1B9F0F1B8(v2);
+    sub_1B9F0F1B8(v2, v3);
     viewController = [(UIView *)selfCopy viewController];
     v2();
 
-    sub_1B9F0E310(v2);
+    sub_1B9F0E310(v2, v3);
   }
 }
 

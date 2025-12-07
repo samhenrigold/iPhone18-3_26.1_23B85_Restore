@@ -2,8 +2,8 @@ id variable initialization expression of SiriInferenceBridge.xpcListener()
 {
   sub_16F8();
   sub_6874();
-  sub_6864();
-  return sub_173C();
+  v0 = sub_6864();
+  return sub_173C(v0, v1);
 }
 
 unint64_t sub_16F8()
@@ -19,14 +19,14 @@ unint64_t sub_16F8()
   return result;
 }
 
-id sub_173C()
+id sub_173C(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-  v1 = sub_6C94();
+  v2 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v3 = sub_6C94();
 
-  v2 = [v0 initWithMachServiceName:v1];
+  v4 = [v2 initWithMachServiceName:v3];
 
-  return v2;
+  return v4;
 }
 
 uint64_t sub_17CC()
@@ -53,11 +53,10 @@ uint64_t sub_1890()
   sub_5650();
   sub_5644();
   *v4 = v3;
-  v6 = *(v5 + 56);
-  v7 = *v2;
+  v5 = *v2;
   sub_5614();
-  *v8 = v7;
-  *(v9 + 64) = v1;
+  *v6 = v5;
+  *(v7 + 64) = v1;
 
   if (v1)
   {
@@ -67,17 +66,10 @@ uint64_t sub_1890()
 
   else
   {
-    v10 = *(v7 + 8);
+    v8 = *(v5 + 8);
 
-    return v10(v0);
+    return v8(v0);
   }
-}
-
-uint64_t sub_19B4()
-{
-  sub_56D0();
-  v1 = *(v0 + 64);
-  return v2();
 }
 
 uint64_t SiriInferenceBridge.__allocating_init(featureFlagProvider:)()
@@ -96,18 +88,17 @@ uint64_t sub_1A74()
 {
   sub_5660();
   sub_5650();
-  v4 = *(v3 + 16);
-  v5 = *v2;
+  v3 = *v2;
   sub_5614();
-  *v6 = v5;
+  *v4 = v3;
 
-  v8 = *(v5 + 8);
+  v6 = *(v3 + 8);
   if (!v1)
   {
-    v7 = v0;
+    v5 = v0;
   }
 
-  return v8(v7);
+  return v6(v5);
 }
 
 uint64_t SiriInferenceBridge.init(featureFlagProvider:)()
@@ -119,47 +110,40 @@ uint64_t SiriInferenceBridge.init(featureFlagProvider:)()
   v1[54] = v3;
   sub_5624(v3);
   v1[55] = v4;
-  v6 = *(v5 + 64);
   v1[56] = sub_5710();
-  v7 = sub_6744();
-  v1[57] = v7;
-  sub_5624(v7);
-  v1[58] = v8;
-  v10 = *(v9 + 64);
+  v5 = sub_6744();
+  v1[57] = v5;
+  sub_5624(v5);
+  v1[58] = v6;
   v1[59] = sub_5710();
-  v11 = sub_69B4();
-  sub_56EC(v11);
-  v13 = *(v12 + 64);
+  v7 = sub_69B4();
+  sub_56EC(v7);
   v1[60] = sub_5710();
-  v14 = sub_6C74();
-  v1[61] = v14;
-  sub_5624(v14);
-  v1[62] = v15;
-  v17 = *(v16 + 64) + 15;
+  v8 = sub_6C74();
+  v1[61] = v8;
+  sub_5624(v8);
+  v1[62] = v9;
   v1[63] = swift_task_alloc();
   v1[64] = swift_task_alloc();
-  v18 = sub_6C54();
-  v1[65] = v18;
-  sub_5624(v18);
-  v1[66] = v19;
-  v21 = *(v20 + 64);
+  v10 = sub_6C54();
+  v1[65] = v10;
+  sub_5624(v10);
+  v1[66] = v11;
   v1[67] = sub_5710();
-  v22 = sub_56A8();
+  v12 = sub_56A8();
 
-  return _swift_task_switch(v22, v23, v24);
+  return _swift_task_switch(v12, v13, v14);
 }
 
 uint64_t sub_1D40()
 {
-  v66 = (v0 + 2);
-  v1 = v0[67];
-  v2 = v0[64];
-  v3 = v0[53];
-  *(v3 + 16) = 0;
+  v53 = (v0 + 2);
+  v1 = v0[53];
+  *(v1 + 16) = 0;
   sub_16F8();
   sub_6874();
-  sub_6864();
-  *(v3 + 24) = sub_173C();
+  v2 = sub_6864();
+  *(v1 + 24) = sub_173C(v2, v3);
   v4 = sub_6A24();
   sub_6A04();
 
@@ -172,160 +156,148 @@ uint64_t sub_1D40()
   v7 = sub_6CF4();
   if (sub_5740(v7))
   {
-    *sub_5728() = 0;
+    v8 = sub_5728();
+    *v8 = 0;
     sub_56DC();
-    _os_log_impl(v8, v9, v10, v11, v12, 2u);
-    sub_56F8();
+    _os_log_impl(v9, v10, v11, v12, v13, 2u);
+    sub_56F8(v8);
   }
 
-  v13 = v0[64];
-  v14 = v0[61];
-  v15 = v0[62];
-  v17 = v0[59];
-  v16 = v0[60];
-  v18 = v0[57];
-  v19 = v0[58];
-  v63 = v0[56];
-  v20 = v0[52];
+  v14 = v0[59];
+  v15 = v0[57];
+  v16 = v0[58];
+  v17 = v0[52];
 
-  v21 = *(v15 + 8);
-  v22 = sub_5780();
-  v61 = v23;
-  (v23)(v22);
+  v18 = sub_5780();
+  v50 = v19;
+  (v19)(v18);
   sub_69D4();
   sub_2A18(&qword_10340, &qword_6FC8);
   sub_2A18(&qword_10348, &qword_6FD0);
   sub_6C84();
   sub_69C4();
   sub_69A4();
-  v24 = sub_6764();
-  sub_56C4(v24);
+  sub_6764();
+  sub_56C4();
   swift_allocObject();
   v0[68] = sub_6754();
-  v64 = sub_6894();
-  v65 = sub_6884();
-  v0[69] = v65;
-  v25 = sub_6C44();
-  v26 = sub_6C34();
-  v0[70] = v26;
+  v51 = sub_6894();
+  v52 = sub_6884();
+  v0[69] = v52;
+  v20 = sub_6C44();
+  v21 = sub_6C34();
+  v0[70] = v21;
   type metadata accessor for DefaultFeatureServiceFactory();
-  v27 = swift_allocObject();
-  v0[71] = v27;
-  v27[5] = v25;
-  v27[6] = &protocol witness table for SiriSuggestionsIntelligence.PreFetchedAccountDetailsProvider;
-  v27[2] = v26;
-  (*(v19 + 104))(v17, enum case for TrialUseCase.suggestionServiceStarting(_:), v18);
-  v28 = sub_67D4();
-  sub_56C4(v28);
+  v22 = swift_allocObject();
+  v0[71] = v22;
+  v22[5] = v20;
+  v22[6] = &protocol witness table for SiriSuggestionsIntelligence.PreFetchedAccountDetailsProvider;
+  v22[2] = v21;
+  (*(v16 + 104))(v14, enum case for TrialUseCase.suggestionServiceStarting(_:), v15);
+  v23 = sub_67D4();
+  sub_56C4();
   swift_allocObject();
 
-  v29 = sub_67C4();
-  v0[72] = v29;
+  v24 = sub_67C4();
+  v0[72] = v24;
   sub_6934();
   v0[73] = sub_6924();
-  v62 = v28;
 
   sub_67E4();
-  v30 = v20[4];
-  sub_4DD4(v20, v20[3]);
+  sub_4DD4(v17, v17[3]);
   if (sub_6954())
   {
-    v31 = v0[55];
-    v32 = v0[56];
-    v33 = v0[54];
-    v0[10] = v33;
+    v25 = v0[55];
+    v26 = v0[56];
+    v27 = v0[54];
+    v0[10] = v27;
     v0[11] = &protocol witness table for DefaultBookkeepingXPCClient;
-    v34 = sub_4E1C(v0 + 7);
-    (*(v31 + 16))(v34, v32, v33);
+    v28 = sub_4E1C(v0 + 7);
+    (*(v25 + 16))(v28, v26, v27);
   }
 
   else
   {
-    v35 = v0[63];
     sub_69F4();
-    v36 = sub_6C64();
-    v37 = sub_6D04();
-    if (os_log_type_enabled(v36, v37))
+    v29 = sub_6C64();
+    v30 = sub_6D04();
+    if (os_log_type_enabled(v29, v30))
     {
-      v38 = sub_5728();
-      *v38 = 0;
-      _os_log_impl(&dword_0, v36, v37, "FeatureExtraction disabled. Using noop AccountService to get AccountDetails", v38, 2u);
-      sub_56F8();
+      v31 = sub_5728();
+      *v31 = 0;
+      _os_log_impl(&dword_0, v29, v30, "FeatureExtraction disabled. Using noop AccountService to get AccountDetails", v31, 2u);
+      sub_56F8(v31);
     }
 
-    v39 = v0[62];
-    v40 = v0[63];
-    v41 = v0[61];
+    v32 = v0[63];
+    v33 = v0[61];
 
-    v61(v40, v41);
-    v42 = *sub_6BF4();
+    v50(v32, v33);
+    v34 = *sub_6BF4();
     v0[10] = sub_6BE4();
     v0[11] = &protocol witness table for SiriSuggestionsIntelligence.NoopAccountService;
-    v0[7] = v42;
+    v0[7] = v34;
   }
 
-  v44 = v0[55];
-  v43 = v0[56];
-  v45 = v0[54];
+  v36 = v0[55];
+  v35 = v0[56];
+  v37 = v0[54];
   sub_6C24();
-  v0[15] = v45;
-  v46 = sub_51B8(&qword_10350, 255, &type metadata accessor for DefaultBookkeepingXPCClient);
-  v0[16] = v46;
-  v47 = sub_4E1C(v0 + 12);
-  v48 = *(v44 + 16);
-  v49 = v43;
-  v48(v47, v43, v45);
-  v50 = sub_6BB4();
-  sub_56C4(v50);
+  v0[15] = v37;
+  v38 = sub_51B8(&qword_10350, 255, &type metadata accessor for DefaultBookkeepingXPCClient, &protocol conformance descriptor for DefaultBookkeepingXPCClient);
+  v0[16] = v38;
+  v39 = sub_4E1C(v0 + 12);
+  v40 = *(v36 + 16);
+  v41 = v35;
+  v40(v39, v35, v37);
+  sub_6BB4();
+  sub_56C4();
   swift_allocObject();
   v0[74] = sub_6BA4();
   sub_6734();
   sub_67B4();
   sub_67A4();
-  sub_51B8(&qword_10358, 255, &type metadata accessor for AppUtilsService);
-  sub_51B8(&qword_10360, 255, &type metadata accessor for InternalXPCSuggestionsLoggerFactory);
-  sub_5154(v66, (v0 + 17));
-  v0[25] = v45;
-  v0[26] = v46;
-  v51 = sub_4E1C(v0 + 22);
-  v48(v51, v49, v45);
+  sub_51B8(&qword_10358, 255, &type metadata accessor for AppUtilsService, &protocol conformance descriptor for AppUtilsService);
+  sub_51B8(&qword_10360, 255, &type metadata accessor for InternalXPCSuggestionsLoggerFactory, &protocol conformance descriptor for InternalXPCSuggestionsLoggerFactory);
+  sub_5154(v53, (v0 + 17));
+  v0[25] = v37;
+  v0[26] = v38;
+  v42 = sub_4E1C(v0 + 22);
+  v40(v42, v35, v37);
 
-  v52 = sub_6724();
-  v0[75] = v52;
+  v43 = sub_6724();
+  v0[75] = v43;
   type metadata accessor for SiriInferenceBridge();
-  v53 = swift_task_alloc();
-  v0[76] = v53;
-  v53[2] = v52;
-  v53[3] = v66;
-  v53[4] = v49;
-  v0[30] = v64;
+  v44 = swift_task_alloc();
+  v0[76] = v44;
+  v44[2] = v43;
+  v44[3] = v53;
+  v44[4] = v41;
+  v0[30] = v51;
   v0[31] = &protocol witness table for DefaultSELFLogger;
-  v0[27] = v65;
-  v54 = sub_6B54();
-  sub_56C4(v54);
+  v0[27] = v52;
+  v45 = sub_6B54();
+  sub_56C4();
   swift_allocObject();
 
-  v55 = sub_6B44();
-  v0[35] = v54;
+  v46 = sub_6B44();
+  v0[35] = v45;
   v0[36] = &protocol witness table for NewUUIDRequestIdProvider;
-  v0[32] = v55;
-  v56 = *(v54 + 48);
-  v57 = *(v54 + 52);
+  v0[32] = v46;
   swift_allocObject();
-  v58 = sub_6B44();
-  v0[40] = v54;
+  v47 = sub_6B44();
+  v0[40] = v45;
   v0[41] = &protocol witness table for NewUUIDRequestIdProvider;
-  v0[37] = v58;
-  v0[45] = v62;
+  v0[37] = v47;
+  v0[45] = v23;
   v0[46] = &protocol witness table for TrialRuntimeConfigProvider;
-  v0[42] = v29;
+  v0[42] = v24;
 
   sub_3460(v0 + 47);
-  v59 = swift_task_alloc();
-  v0[77] = v59;
-  *v59 = v0;
-  v59[1] = sub_2514;
-  v68 = v0[52];
+  v48 = swift_task_alloc();
+  v0[77] = v48;
+  *v48 = v0;
+  v48[1] = sub_2514;
 
   return sub_3548();
 }
@@ -338,21 +310,19 @@ uint64_t sub_2514()
   v6 = v5;
   sub_5644();
   *v7 = v6;
-  v9 = *(v8 + 616);
-  v10 = *v2;
+  v8 = *v2;
   sub_5614();
-  *v11 = v10;
+  *v9 = v8;
   v6[78] = v1;
 
   if (v1)
   {
     sub_5058(v6 + 47);
-    v12 = sub_2838;
+    v10 = sub_2838;
   }
 
   else
   {
-    v13 = v6[76];
     v6[79] = v4;
     v6[80] = v0;
     sub_5058(v6 + 47);
@@ -361,80 +331,53 @@ uint64_t sub_2514()
     sub_5058(v6 + 32);
     sub_5058(v6 + 27);
 
-    v12 = sub_2664;
+    v10 = sub_2664;
   }
 
-  return _swift_task_switch(v12, 0, 0);
+  return _swift_task_switch(v10, 0, 0);
 }
 
 uint64_t sub_2664()
 {
-  v20 = v0[79];
-  v21 = v0[80];
-  v1 = v0[75];
-  v2 = v0[74];
-  v3 = v0[73];
-  v4 = v0[71];
-  v16 = v0[72];
-  v17 = v0[70];
-  v5 = v0[69];
-  v6 = v0[68];
-  v7 = v0[67];
-  v8 = v0[66];
-  v23 = v0[65];
-  v24 = v0[64];
-  v25 = v0[63];
-  v26 = v0[60];
-  v27 = v0[59];
-  v9 = v0[55];
-  v10 = v0[53];
-  v18 = v0[54];
-  v19 = v0[56];
-  v22 = v0[52];
+  v12 = v0[80];
+  v1 = v0[67];
+  v2 = v0[66];
+  v14 = v0[65];
+  v3 = v0[55];
+  v4 = v0[53];
+  v10 = v0[54];
+  v11 = v0[56];
+  v13 = v0[52];
 
   sub_5058(v0 + 7);
 
-  v11 = *(v10 + 16);
-  *(v10 + 16) = v21;
+  v5 = *(v4 + 16);
+  *(v4 + 16) = v12;
 
-  (*(v9 + 8))(v19, v18);
+  (*(v3 + 8))(v11, v10);
   sub_5058(v0 + 2);
   sub_6914();
-  v12 = sub_6A24();
-  sub_575C(v7);
+  v6 = sub_6A24();
+  sub_575C(v1);
 
-  (*(v8 + 8))(v7, v23);
-  sub_5058(v22);
+  (*(v2 + 8))(v1, v14);
+  sub_5058(v13);
 
-  v13 = v0[1];
-  v14 = v0[53];
+  v7 = v0[1];
+  v8 = v0[53];
 
-  return v13(v14);
+  return v7(v8);
 }
 
 uint64_t sub_2838()
 {
-  v1 = v0[75];
-  v2 = v0[74];
-  v3 = v0[73];
-  v4 = v0[72];
-  v5 = v0[71];
-  v6 = v0[70];
-  v7 = v0[69];
-  v8 = v0[68];
-  v17 = v0[76];
-  v18 = v0[67];
-  v9 = v0[66];
-  v21 = v0[65];
-  v22 = v0[64];
-  v23 = v0[63];
-  v24 = v0[60];
-  v25 = v0[59];
-  v10 = v0[55];
-  v15 = v0[54];
-  v16 = v0[56];
-  v19 = v0[53];
-  v20 = v0[52];
+  v8 = v0[67];
+  v1 = v0[66];
+  v10 = v0[65];
+  v2 = v0[55];
+  v6 = v0[54];
+  v7 = v0[56];
+  v9 = v0[52];
 
   sub_5058(v0 + 7);
   sub_5058(v0 + 42);
@@ -442,19 +385,18 @@ uint64_t sub_2838()
   sub_5058(v0 + 32);
   sub_5058(v0 + 27);
 
-  (*(v10 + 8))(v16, v15);
+  (*(v2 + 8))(v7, v6);
   sub_5058(v0 + 2);
   sub_6914();
-  v11 = sub_6A24();
-  sub_575C(v18);
+  v3 = sub_6A24();
+  sub_575C(v8);
 
-  (*(v9 + 8))(v18, v21);
-  sub_5058(v20);
+  (*(v1 + 8))(v8, v10);
+  sub_5058(v9);
 
   sub_56D0();
-  v13 = v0[78];
 
-  return v12();
+  return v4();
 }
 
 uint64_t sub_2A18(uint64_t *a1, uint64_t *a2)
@@ -462,7 +404,6 @@ uint64_t sub_2A18(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -488,33 +429,30 @@ uint64_t sub_2A60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 uint64_t sub_2B2C()
 {
-  v2 = v0[13];
   v1 = v0[14];
-  v4 = v0[11];
-  v3 = v0[12];
-  v5 = v0[10];
-  v6 = v0[8];
-  v16 = v0[7];
-  v17 = v0[9];
+  v3 = v0[11];
+  v2 = v0[12];
+  v4 = v0[10];
+  v5 = v0[8];
   sub_6824();
   v0[5] = sub_6734();
   v0[6] = &protocol witness table for TrialSuggestionsServiceFactory;
-  v0[2] = v6;
+  v0[2] = v5;
   sub_5684();
-  sub_51B8(v7, 255, v8);
-  (*(v3 + 16))(v1, v5, v4);
-  v9 = (*(v3 + 80) + 16) & ~*(v3 + 80);
-  v10 = swift_allocObject();
-  (*(v3 + 32))(v10 + v9, v1, v4);
+  sub_51B8(v6, 255, v7, &protocol conformance descriptor for DefaultGlobalLifeCycleContainer);
+  (*(v2 + 16))(v1, v4, v3);
+  v8 = (*(v2 + 80) + 16) & ~*(v2 + 80);
+  v9 = swift_allocObject();
+  (*(v2 + 32))(v9 + v8, v1, v3);
 
-  v11 = sub_6814();
-  v13 = v12;
+  v10 = sub_6814();
+  v12 = v11;
 
   sub_5058(v0 + 2);
 
-  v14 = v0[1];
+  v13 = v0[1];
 
-  return v14(v11, v13);
+  return v13(v10, v12);
 }
 
 uint64_t sub_2CC8(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -526,7 +464,7 @@ uint64_t sub_2CC8(uint64_t a1, uint64_t a2, uint64_t a3)
   v3[4] = v5;
   v3[5] = *(v5 + 64);
   v3[6] = swift_task_alloc();
-  v6 = *(*(sub_2A18(&qword_10518, &qword_7120) - 8) + 64) + 15;
+  sub_2A18(&qword_10518, &qword_7120);
   v3[7] = swift_task_alloc();
 
   return _swift_task_switch(sub_2DC8, 0, 0);
@@ -536,41 +474,37 @@ uint64_t sub_2DC8()
 {
   v2 = v0[6];
   v1 = v0[7];
-  v4 = v0[4];
-  v3 = v0[5];
-  v6 = v0[2];
-  v5 = v0[3];
+  v3 = v0[4];
+  v5 = v0[2];
+  v4 = v0[3];
   sub_6CC4();
-  v7 = sub_6CE4();
-  sub_5030(v1, 0, 1, v7);
-  (*(v4 + 16))(v2, v6, v5);
-  v8 = (*(v4 + 80) + 32) & ~*(v4 + 80);
-  v9 = swift_allocObject();
-  *(v9 + 16) = 0;
-  *(v9 + 24) = 0;
-  (*(v4 + 32))(v9 + v8, v2, v5);
-  sub_3230(0, 0, v1, &unk_7130, v9);
+  v6 = sub_6CE4();
+  sub_5030(v1, 0, 1, v6);
+  (*(v3 + 16))(v2, v5, v4);
+  v7 = (*(v3 + 80) + 32) & ~*(v3 + 80);
+  v8 = swift_allocObject();
+  *(v8 + 16) = 0;
+  *(v8 + 24) = 0;
+  (*(v3 + 32))(v8 + v7, v2, v4);
+  sub_3230(0, 0, v1, &unk_7130, v8);
 
   sub_54FC(v1);
 
   sub_56D0();
 
-  return v10();
+  return v9();
 }
 
 uint64_t sub_2F0C()
 {
   v1 = sub_6C74();
   v0[2] = v1;
-  v2 = *(v1 - 8);
-  v0[3] = v2;
-  v3 = *(v2 + 64) + 15;
+  v0[3] = *(v1 - 8);
   v0[4] = swift_task_alloc();
-  v4 = async function pointer to DefaultBookkeepingXPCClient.buildAutoCompleteIndex(onStartUpEvent:)[1];
-  v5 = swift_task_alloc();
-  v0[5] = v5;
-  *v5 = v0;
-  v5[1] = sub_3000;
+  v2 = swift_task_alloc();
+  v0[5] = v2;
+  *v2 = v0;
+  v2[1] = sub_3000;
 
   return DefaultBookkeepingXPCClient.buildAutoCompleteIndex(onStartUpEvent:)(1);
 }
@@ -582,18 +516,16 @@ uint64_t sub_3000()
   v3 = v2;
   sub_5644();
   *v4 = v3;
-  v6 = *(v5 + 40);
-  v7 = *v1;
+  v5 = *v1;
   *v4 = *v1;
-  *(v3 + 48) = v8;
+  *(v3 + 48) = v6;
 
   if (v0)
   {
-    v9 = *(v3 + 32);
 
-    v10 = *(v7 + 8);
+    v7 = *(v5 + 8);
 
-    return v10();
+    return v7();
   }
 
   else
@@ -606,109 +538,101 @@ uint64_t sub_3000()
 uint64_t sub_3144()
 {
   sub_56B8();
-  v1 = v0[4];
   sub_69F4();
-  v2 = sub_6C64();
-  v3 = sub_6D04();
-  if (sub_5740(v3))
+  v1 = sub_6C64();
+  v2 = sub_6D04();
+  if (sub_5740(v2))
   {
-    v4 = v0[6];
-    v5 = swift_slowAlloc();
-    *v5 = 134217984;
-    *(v5 + 4) = v4;
+    v3 = *(v0 + 48);
+    v4 = swift_slowAlloc();
+    *v4 = 134217984;
+    *(v4 + 4) = v3;
     sub_56DC();
-    _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
-    sub_56F8();
+    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+    sub_56F8(v4);
   }
 
-  v12 = v0[3];
-  v11 = v0[4];
-  v13 = v0[2];
-
-  v14 = *(v12 + 8);
-  v15 = sub_5780();
-  v16(v15);
+  v10 = sub_5780();
+  v11(v10);
 
   sub_56D0();
 
-  return v17();
+  return v12();
 }
 
 uint64_t sub_3230(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v8 = sub_2A18(&qword_10518, &qword_7120);
-  v9 = *(*(v8 - 8) + 64);
   __chkstk_darwin(v8 - 8);
-  v11 = v23 - v10;
-  sub_5564(a3, v23 - v10);
-  v12 = sub_6CE4();
-  v13 = sub_55D4(v11, 1, v12);
+  v10 = v21 - v9;
+  sub_5564(a3, v21 - v9);
+  v11 = sub_6CE4();
+  v12 = sub_55D4(v10, 1, v11);
 
-  if (v13 == 1)
+  if (v12 == 1)
   {
-    sub_54FC(v11);
+    sub_54FC(v10);
   }
 
   else
   {
     sub_6CD4();
-    (*(*(v12 - 8) + 8))(v11, v12);
+    (*(*(v11 - 8) + 8))(v10, v11);
   }
 
-  v15 = *(a5 + 16);
-  v14 = *(a5 + 24);
+  v13 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v15)
+  if (v13)
   {
     swift_getObjectType();
-    v16 = sub_6CB4();
-    v18 = v17;
+    v14 = sub_6CB4();
+    v16 = v15;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v19 = sub_6CA4() + 32;
+      v17 = sub_6CA4() + 32;
 
-      if (v18 | v16)
+      if (v16 | v14)
       {
-        v24[0] = 0;
-        v24[1] = 0;
-        v20 = v24;
-        v24[2] = v16;
-        v24[3] = v18;
+        v22[0] = 0;
+        v22[1] = 0;
+        v18 = v22;
+        v22[2] = v14;
+        v22[3] = v16;
       }
 
       else
       {
-        v20 = 0;
+        v18 = 0;
       }
 
-      v23[1] = 7;
-      v23[2] = v20;
-      v23[3] = v19;
-      v21 = swift_task_create();
+      v21[1] = 7;
+      v21[2] = v18;
+      v21[3] = v17;
+      v19 = swift_task_create();
 
-      return v21;
+      return v19;
     }
   }
 
   else
   {
+    v14 = 0;
     v16 = 0;
-    v18 = 0;
     if (a2)
     {
       goto LABEL_6;
     }
   }
 
-  if (v18 | v16)
+  if (v16 | v14)
   {
-    v24[4] = 0;
-    v24[5] = 0;
-    v24[6] = v16;
-    v24[7] = v18;
+    v22[4] = 0;
+    v22[5] = 0;
+    v22[6] = v14;
+    v22[7] = v16;
   }
 
   return swift_task_create();
@@ -718,18 +642,17 @@ uint64_t sub_3460@<X0>(uint64_t *a1@<X8>)
 {
   v2 = sub_2A18(&qword_104E0, &qword_7108);
   v3 = sub_56EC(v2);
-  v5 = (*(v4 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(v3);
-  v7 = &v12[-1] - v6;
-  v8 = sub_6A74();
-  v9 = sub_66C4();
-  sub_5030(v7, 1, 1, v9);
-  v12[3] = sub_6A54();
-  v12[4] = &protocol witness table for DefaultSiriAutoCompleteFeatureFlagsProvider;
-  sub_4E1C(v12);
+  v5 = &v10[-1] - v4;
+  v6 = sub_6A74();
+  v7 = sub_66C4();
+  sub_5030(v5, 1, 1, v7);
+  v10[3] = sub_6A54();
+  v10[4] = &protocol witness table for DefaultSiriAutoCompleteFeatureFlagsProvider;
+  sub_4E1C(v10);
   sub_6A44();
   result = sub_6A64();
-  a1[3] = v8;
+  a1[3] = v6;
   a1[4] = &protocol witness table for DefaultSiriAutoCompleteService;
   *a1 = result;
   return result;
@@ -738,9 +661,9 @@ uint64_t sub_3460@<X0>(uint64_t *a1@<X8>)
 uint64_t sub_3548()
 {
   sub_5660();
-  *(v0 + 472) = v17;
-  *(v0 + 480) = v18;
-  *(v0 + 456) = v16;
+  *(v0 + 472) = v15;
+  *(v0 + 480) = v16;
+  *(v0 + 456) = v14;
   *(v0 + 440) = v1;
   *(v0 + 448) = v2;
   *(v0 + 424) = v3;
@@ -751,11 +674,10 @@ uint64_t sub_3548()
   *(v0 + 488) = v7;
   sub_5624(v7);
   *(v0 + 496) = v8;
-  v10 = *(v9 + 64);
   *(v0 + 504) = sub_5710();
-  v11 = sub_56A8();
+  v9 = sub_56A8();
 
-  return _swift_task_switch(v11, v12, v13);
+  return _swift_task_switch(v9, v10, v11);
 }
 
 uint64_t sub_360C()
@@ -766,40 +688,36 @@ uint64_t sub_360C()
   v0[64] = sub_6834();
   v0[50] = sub_6934();
   v0[47] = v1;
-  v3 = async function pointer to GlobalLifeCycleContainer.addToLifeCycle(entity:)[1];
 
-  v4 = swift_task_alloc();
-  v0[65] = v4;
+  v3 = swift_task_alloc();
+  v0[65] = v3;
   sub_5684();
-  v7 = sub_51B8(v5, 255, v6);
-  *v4 = v0;
-  v4[1] = sub_3714;
+  v6 = sub_51B8(v4, 255, v5, &protocol conformance descriptor for DefaultGlobalLifeCycleContainer);
+  *v3 = v0;
+  v3[1] = sub_3714;
 
-  return GlobalLifeCycleContainer.addToLifeCycle(entity:)(v0 + 47, v2, v7);
+  return GlobalLifeCycleContainer.addToLifeCycle(entity:)(v0 + 47, v2, v6);
 }
 
-uint64_t sub_3714()
+uint64_t sub_3714(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *v0;
+  v2 = *v1;
+  v3 = *v1;
   sub_5614();
-  *v3 = v2;
-  v4 = v1[65];
-  v5 = v1[51];
-  v6 = *v0;
-  *v3 = *v0;
+  *v4 = v3;
+  v5 = *(v2 + 408);
+  v6 = *v1;
+  *v4 = *v1;
 
-  sub_5058(v2 + 47);
-  v12 = (v5 + *v5);
-  v7 = v5[1];
-  v8 = swift_task_alloc();
-  v2[66] = v8;
-  *v8 = v6;
-  v8[1] = sub_38DC;
-  v9 = v1[64];
-  v10 = v1[52];
+  sub_5058((v3 + 376));
+  v10 = (v5 + *v5);
+  v7 = swift_task_alloc();
+  *(v3 + 528) = v7;
+  *v7 = v6;
+  v7[1] = sub_38DC;
+  v8 = *(v2 + 512);
 
-  return v12(v9);
+  return v10(v8);
 }
 
 uint64_t sub_38DC()
@@ -808,51 +726,45 @@ uint64_t sub_38DC()
   sub_569C();
   sub_5644();
   *v2 = v1;
-  v4 = *(v3 + 528);
   *v2 = *v0;
-  *(v1 + 536) = v5;
-  *(v1 + 544) = v6;
+  *(v1 + 536) = v3;
+  *(v1 + 544) = v4;
 
-  v7 = sub_56A8();
+  v5 = sub_56A8();
 
-  return _swift_task_switch(v7, v8, v9);
+  return _swift_task_switch(v5, v6, v7);
 }
 
 uint64_t sub_39CC()
 {
   v1 = v0;
-  v2 = v0[68];
-  v3 = v0[67];
-  v5 = v0[63];
-  v4 = v0[64];
-  v6 = v0[62];
-  v7 = v1[61];
-  v22 = v1[60];
-  v19 = v1[58];
-  v20 = v1[57];
-  v8 = v1[55];
-  v21 = v1[56];
-  v9 = v1[53];
-  v18 = v1[54];
-  v10 = sub_6AA4();
-  sub_5154(v9, (v1 + 2));
+  v2 = v0[63];
+  v3 = v0[62];
+  v4 = v1[61];
+  v16 = v1[60];
+  v13 = v1[58];
+  v14 = v1[57];
+  v5 = v1[55];
+  v15 = v1[56];
+  v6 = v1[53];
+  v7 = sub_6AA4();
+  sub_5154(v6, (v1 + 2));
   swift_getObjectType();
-  v11 = *(v2 + 16);
-  sub_5154(v8, (v1 + 7));
+  sub_5154(v5, (v1 + 7));
   swift_unknownObjectRetain();
-  v12 = sub_6A94();
+  v8 = sub_6A94();
   swift_unknownObjectRetain();
   sub_66E4();
   sub_66D4();
-  (*(v6 + 8))(v5, v7);
-  v13 = sub_6AD4();
-  sub_56C4(v13);
+  (*(v3 + 8))(v2, v4);
+  sub_6AD4();
+  sub_56C4();
   swift_allocObject();
   sub_6AB4();
   sub_6B14();
-  v1[20] = v10;
-  v1[21] = sub_51B8(&qword_104F8, 255, &type metadata accessor for EventDrivenSuggestionsClient);
-  v1[17] = v12;
+  v1[20] = v7;
+  v1[21] = sub_51B8(&qword_104F8, 255, &type metadata accessor for EventDrivenSuggestionsClient, &protocol conformance descriptor for EventDrivenSuggestionsClient);
+  v1[17] = v8;
 
   sub_6B04();
   sub_5058(v1 + 17);
@@ -863,48 +775,47 @@ uint64_t sub_39CC()
   sub_68B4();
   sub_68A4();
   sub_6AF4();
-  sub_51B8(&qword_10500, 255, &type metadata accessor for DispatchedServiceAPIProvider);
-  sub_5154(v19, (v1 + 27));
-  sub_5154(v20, (v1 + 32));
-  sub_5154(v21, (v1 + 37));
+  sub_51B8(&qword_10500, 255, &type metadata accessor for DispatchedServiceAPIProvider, &protocol conformance descriptor for DispatchedServiceAPIProvider);
+  sub_5154(v13, (v1 + 27));
+  sub_5154(v14, (v1 + 32));
+  sub_5154(v15, (v1 + 37));
 
   sub_6AE4();
-  sub_51B8(&qword_10508, 255, &type metadata accessor for EventDrivenSuggestionsClient);
-  sub_5154(v22, (v1 + 42));
-  sub_51B8(&qword_10510, 255, &type metadata accessor for OfflineGenerationSuggestionsClient);
-  v14 = objc_allocWithZone(sub_6B34());
+  sub_51B8(&qword_10508, 255, &type metadata accessor for EventDrivenSuggestionsClient, &protocol conformance descriptor for EventDrivenSuggestionsClient);
+  sub_5154(v16, (v1 + 42));
+  sub_51B8(&qword_10510, 255, &type metadata accessor for OfflineGenerationSuggestionsClient, &protocol conformance descriptor for OfflineGenerationSuggestionsClient);
+  v9 = objc_allocWithZone(sub_6B34());
 
-  v15 = sub_6B24();
+  v10 = sub_6B24();
 
   swift_unknownObjectRelease();
   sub_5058(v1 + 12);
 
-  v16 = v1[1];
+  v11 = v1[1];
 
-  return v16(v15, v12);
+  return v11(v10, v8);
 }
 
 uint64_t sub_3E04@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   v8 = sub_6944();
-  v9 = sub_5600(v8);
-  v11 = v10;
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v9);
+  sub_5600();
+  v10 = v9;
+  __chkstk_darwin(v11);
   sub_5634();
-  v16 = v15 - v14;
-  sub_5154(a1, v22);
-  (*(v11 + 16))(v16, a2, v8);
-  v17 = sub_6904();
-  v21[3] = v17;
-  v21[4] = sub_51B8(&qword_104E8, 255, &type metadata accessor for SiriSuggestions.SiriRuntimeDeviceState);
-  v18 = sub_4E1C(v21);
-  (*(*(v17 - 8) + 16))(v18, a3, v17);
-  v19 = sub_6B94();
-  sub_56C4(v19);
+  v14 = v13 - v12;
+  sub_5154(a1, v20);
+  (*(v10 + 16))(v14, a2, v8);
+  v15 = sub_6904();
+  v19[3] = v15;
+  v19[4] = sub_51B8(&qword_104E8, 255, &type metadata accessor for SiriSuggestions.SiriRuntimeDeviceState, &protocol conformance descriptor for SiriSuggestions.SiriRuntimeDeviceState);
+  v16 = sub_4E1C(v19);
+  (*(*(v15 - 8) + 16))(v16, a3, v15);
+  v17 = sub_6B94();
+  sub_56C4();
   swift_allocObject();
   result = sub_6B84();
-  a4[3] = v19;
+  a4[3] = v17;
   a4[4] = &protocol witness table for EventDrivenInteractionBuilder;
   *a4 = result;
   return result;
@@ -913,43 +824,42 @@ uint64_t sub_3E04@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uin
 uint64_t static SiriInferenceBridge.getInstance()@<X0>(uint64_t *a1@<X8>)
 {
   v2 = sub_6C74();
-  v3 = sub_5600(v2);
-  v5 = v4;
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v3);
+  sub_5600();
+  v4 = v3;
+  __chkstk_darwin(v5);
   sub_5634();
-  v10 = v9 - v8;
+  v8 = v7 - v6;
   sub_69F4();
-  v11 = sub_6C64();
-  v12 = sub_6D14();
-  if (os_log_type_enabled(v11, v12))
+  v9 = sub_6C64();
+  v10 = sub_6D14();
+  if (os_log_type_enabled(v9, v10))
   {
-    v13 = sub_5728();
-    *v13 = 0;
-    _os_log_impl(&dword_0, v11, v12, "synchronous instance of SiriInferenceSuggestionsBridge no longer supported. Please call getInstanceAsync instead", v13, 2u);
-    sub_56F8();
+    v11 = sub_5728();
+    *v11 = 0;
+    _os_log_impl(&dword_0, v9, v10, "synchronous instance of SiriInferenceSuggestionsBridge no longer supported. Please call getInstanceAsync instead", v11, 2u);
+    sub_56F8(v11);
   }
 
-  (*(v5 + 8))(v10, v2);
-  v14 = type metadata accessor for NoopSuggestionsBridge();
+  (*(v4 + 8))(v8, v2);
+  v12 = type metadata accessor for NoopSuggestionsBridge();
   inited = swift_initStaticObject();
-  a1[3] = v14;
+  a1[3] = v12;
   sub_566C();
-  result = sub_51B8(v16, v17, v18);
+  result = sub_51B8(v14, v15, v16, &unk_70C8);
   a1[4] = result;
   *a1 = inited;
   return result;
 }
 
-uint64_t sub_40FC@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_40FC@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = type metadata accessor for NoopSuggestionsBridge();
+  v3 = type metadata accessor for NoopSuggestionsBridge();
   inited = swift_initStaticObject();
-  a1[3] = v2;
+  a2[3] = v3;
   sub_566C();
-  result = sub_51B8(v4, v5, v6);
-  a1[4] = result;
-  *a1 = inited;
+  result = sub_51B8(v5, v6, v7, &unk_70C8);
+  a2[4] = result;
+  *a2 = inited;
   return result;
 }
 
@@ -961,40 +871,34 @@ uint64_t static SiriInferenceBridge.getInstanceAsync()()
   v0[3] = v2;
   sub_5624(v2);
   v0[4] = v3;
-  v5 = *(v4 + 64);
   v0[5] = sub_5710();
-  v6 = sub_56A8();
+  v4 = sub_56A8();
 
-  return _swift_task_switch(v6, v7, v8);
+  return _swift_task_switch(v4, v5, v6);
 }
 
 uint64_t sub_4210()
 {
   sub_56B8();
-  v1 = v0[5];
   sub_69F4();
-  v2 = sub_6C64();
-  v3 = sub_6CF4();
-  if (sub_5740(v3))
+  v1 = sub_6C64();
+  v2 = sub_6CF4();
+  if (sub_5740(v2))
   {
-    *sub_5728() = 0;
+    v3 = sub_5728();
+    *v3 = 0;
     sub_56DC();
     _os_log_impl(v4, v5, v6, v7, v8, 2u);
-    sub_56F8();
+    sub_56F8(v3);
   }
 
-  v10 = v0[4];
-  v9 = v0[5];
-  v11 = v0[3];
-
-  v12 = *(v10 + 8);
-  v13 = sub_5780();
-  v14(v13);
-  v0[6] = type metadata accessor for SiriInferenceBridge();
-  v15 = swift_task_alloc();
-  v0[7] = v15;
-  *v15 = v0;
-  sub_578C(v15);
+  v9 = sub_5780();
+  v10(v9);
+  *(v0 + 48) = type metadata accessor for SiriInferenceBridge();
+  v11 = swift_task_alloc();
+  *(v0 + 56) = v11;
+  *v11 = v0;
+  sub_578C(v11);
 
   return SiriInferenceBridge.__allocating_init()();
 }
@@ -1006,18 +910,16 @@ uint64_t sub_4314()
   v4 = v3;
   sub_5644();
   *v5 = v4;
-  v7 = *(v6 + 56);
-  v8 = *v2;
+  v6 = *v2;
   sub_5614();
-  *v9 = v8;
+  *v7 = v6;
 
   if (v1)
   {
-    v10 = *(v4 + 40);
 
-    v11 = *(v8 + 8);
+    v8 = *(v6 + 8);
 
-    return v11();
+    return v8();
   }
 
   else
@@ -1032,69 +934,65 @@ uint64_t sub_4450()
 {
   sub_56B8();
   v1 = v0[8];
-  v2 = v0[5];
-  v3 = v0[2];
-  v3[3] = v0[6];
-  v3[4] = sub_51B8(&qword_10370, v4, type metadata accessor for SiriInferenceBridge);
-  *v3 = v1;
+  v2 = v0[2];
+  v2[3] = v0[6];
+  v2[4] = sub_51B8(&qword_10370, v3, type metadata accessor for SiriInferenceBridge, &protocol conformance descriptor for SiriInferenceBridge);
+  *v2 = v1;
 
   sub_56D0();
 
-  return v5();
+  return v4();
 }
 
 Swift::Void __swiftcall SiriInferenceBridge.startSiriSuggestionsService()()
 {
   v1 = v0;
-  v2 = sub_6C74();
-  v3 = sub_5600(v2);
-  v29 = v4;
-  v30 = v3;
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v3);
+  sub_6C74();
+  sub_5600();
+  v21 = v3;
+  v22 = v2;
+  __chkstk_darwin(v2);
   sub_5634();
-  v9 = v8 - v7;
-  v10 = sub_68F4();
-  v11 = sub_56EC(v10);
-  v13 = *(v12 + 64);
+  v6 = v5 - v4;
+  v7 = sub_68F4();
+  v8 = sub_56EC(v7);
+  __chkstk_darwin(v8);
+  sub_5634();
+  v20 = sub_68D4();
+  sub_5600();
+  v10 = v9;
   __chkstk_darwin(v11);
   sub_5634();
-  v28 = sub_68D4();
-  v14 = sub_5600(v28);
-  v16 = v15;
-  v18 = *(v17 + 64);
-  __chkstk_darwin(v14);
-  sub_5634();
-  v21 = v20 - v19;
+  v14 = v13 - v12;
   sub_6984();
-  v22 = sub_6794();
-  sub_56C4(v22);
+  sub_6794();
+  sub_56C4();
   swift_allocObject();
   sub_6784();
-  v23 = [objc_opt_self() processInfo];
-  [v23 operatingSystemVersion];
+  v15 = [objc_opt_self() processInfo];
+  [v15 operatingSystemVersion];
 
   sub_68E4();
   sub_68C4();
   sub_69D4();
   sub_6774();
-  sub_5058(&v31);
-  v24 = *(v1 + 24);
-  [v24 setDelegate:*(v1 + 16)];
-  [v24 resume];
+  sub_5058(&v23);
+  v16 = *(v1 + 24);
+  [v16 setDelegate:*(v1 + 16)];
+  [v16 resume];
   sub_69E4();
-  v25 = sub_6C64();
-  v26 = sub_6CF4();
-  if (os_log_type_enabled(v25, v26))
+  v17 = sub_6C64();
+  v18 = sub_6CF4();
+  if (os_log_type_enabled(v17, v18))
   {
-    v27 = sub_5728();
-    *v27 = 0;
-    _os_log_impl(&dword_0, v25, v26, "suggestions xpc service started and is listening for connections", v27, 2u);
-    sub_56F8();
+    v19 = sub_5728();
+    *v19 = 0;
+    _os_log_impl(&dword_0, v17, v18, "suggestions xpc service started and is listening for connections", v19, 2u);
+    sub_56F8(v19);
   }
 
-  (*(v29 + 8))(v9, v30);
-  (*(v16 + 8))(v21, v28);
+  (*(v21 + 8))(v6, v22);
+  (*(v10 + 8))(v14, v20);
 }
 
 uint64_t SiriInferenceBridge.__deallocating_deinit()
@@ -1116,11 +1014,10 @@ uint64_t sub_4854()
 
 uint64_t sub_48EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v13 = async function pointer to SiriInferenceSuggestionsBridge.onEvent<A>(event:)[1];
-  v14 = swift_task_alloc();
-  *(v6 + 16) = v14;
-  *v14 = v6;
-  v14[1] = sub_55FC;
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = sub_55FC;
 
   return SiriInferenceSuggestionsBridge.onEvent<A>(event:)(a1, a2, a5, a3, a6, a4);
 }
@@ -1128,33 +1025,31 @@ uint64_t sub_48EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
 uint64_t sub_49C8()
 {
   v0 = sub_6C74();
-  v1 = sub_5600(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v1);
+  sub_5600();
+  v2 = v1;
+  __chkstk_darwin(v3);
   sub_5634();
-  v8 = v7 - v6;
+  v6 = v5 - v4;
   sub_69F4();
-  v9 = sub_6C64();
-  v10 = sub_6D14();
-  if (os_log_type_enabled(v9, v10))
+  v7 = sub_6C64();
+  v8 = sub_6D14();
+  if (os_log_type_enabled(v7, v8))
   {
-    v11 = sub_5728();
-    *v11 = 0;
-    _os_log_impl(&dword_0, v9, v10, "startSiriSuggestionsService: No suggestion bridge loaded", v11, 2u);
-    sub_56F8();
+    v9 = sub_5728();
+    *v9 = 0;
+    _os_log_impl(&dword_0, v7, v8, "startSiriSuggestionsService: No suggestion bridge loaded", v9, 2u);
+    sub_56F8(v9);
   }
 
-  return (*(v3 + 8))(v8, v0);
+  return (*(v2 + 8))(v6, v0);
 }
 
 uint64_t sub_4B18(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = async function pointer to static SiriInferenceSuggestionsBridge.getInstanceAsync()[1];
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = sub_4BCC;
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = sub_4BCC;
 
   return static SiriInferenceSuggestionsBridge.getInstanceAsync()(a1, a2, a3);
 }
@@ -1163,23 +1058,21 @@ uint64_t sub_4BCC()
 {
   sub_5660();
   sub_569C();
-  v2 = *(v1 + 16);
-  v3 = *v0;
+  v1 = *v0;
   sub_5614();
-  *v4 = v3;
+  *v2 = v1;
 
   sub_56D0();
 
-  return v5();
+  return v3();
 }
 
 uint64_t sub_4CAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v13 = async function pointer to SiriInferenceSuggestionsBridge.onEvent<A>(event:)[1];
-  v14 = swift_task_alloc();
-  *(v6 + 16) = v14;
-  *v14 = v6;
-  v14[1] = sub_4BCC;
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = sub_4BCC;
 
   return SiriInferenceSuggestionsBridge.onEvent<A>(event:)(a1, a2, a5, a3, a6, a4);
 }
@@ -1217,16 +1110,15 @@ uint64_t *sub_4E1C(uint64_t *a1)
 uint64_t sub_4E7C()
 {
   sub_56B8();
-  v1 = v0[2];
-  v2 = v0[3];
-  v3 = v0[4];
-  v4 = swift_task_alloc();
-  v5 = sub_5798(v4);
-  *v5 = v6;
-  sub_578C(v5);
-  v7 = sub_5780();
+  v1 = *(v0 + 24);
+  v2 = *(v0 + 32);
+  v3 = swift_task_alloc();
+  v4 = sub_5798(v3);
+  *v4 = v5;
+  sub_578C(v4);
+  v6 = sub_5780();
 
-  return sub_2A60(v7, v8, v2, v3);
+  return sub_2A60(v6, v7, v1, v2);
 }
 
 uint64_t sub_4F1C()
@@ -1234,25 +1126,26 @@ uint64_t sub_4F1C()
   sub_5660();
   v3 = v2;
   sub_5650();
-  v5 = *(v4 + 16);
-  v6 = *v1;
+  v4 = *v1;
   sub_5614();
-  *v7 = v6;
+  *v5 = v4;
 
-  v8 = *(v6 + 8);
+  v6 = *(v4 + 8);
 
-  return v8(v0, v3);
+  return v6(v0, v3);
 }
 
-uint64_t sub_5058(uint64_t *a1)
+uint64_t sub_5058(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_5154(uint64_t a1, uint64_t a2)
@@ -1264,7 +1157,7 @@ uint64_t sub_5154(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_51B8(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
+uint64_t sub_51B8(unint64_t *a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -1308,12 +1201,11 @@ uint64_t sub_5288()
 uint64_t sub_535C()
 {
   v1 = sub_6804();
-  sub_5600(v1);
+  sub_5600();
   v3 = v2;
   v4 = *(v2 + 80);
   v5 = (v4 + 32) & ~v4;
   v7 = *(v6 + 64);
-  v8 = *(v0 + 16);
   swift_unknownObjectRelease();
   (*(v3 + 8))(v0 + v5, v1);
 
@@ -1322,15 +1214,12 @@ uint64_t sub_535C()
 
 uint64_t sub_5414()
 {
-  v1 = sub_6804();
-  sub_56EC(v1);
-  v3 = (*(v2 + 80) + 32) & ~*(v2 + 80);
-  v4 = *(v0 + 16);
-  v5 = *(v0 + 24);
-  v6 = swift_task_alloc();
-  v7 = sub_5798(v6);
-  *v7 = v8;
-  v7[1] = sub_4BCC;
+  v0 = sub_6804();
+  sub_56EC(v0);
+  v1 = swift_task_alloc();
+  v2 = sub_5798(v1);
+  *v2 = v3;
+  v2[1] = sub_4BCC;
 
   return sub_2F0C();
 }
@@ -1349,21 +1238,7 @@ uint64_t sub_5564(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_56C4(uint64_t result)
-{
-  v1 = *(result + 48);
-  v2 = *(result + 52);
-  return result;
-}
-
-uint64_t sub_56D0()
-{
-  result = v0 + 8;
-  v2 = *(v0 + 8);
-  return result;
-}
-
-uint64_t sub_56F8()
+uint64_t sub_56F8(uint64_t a1)
 {
 }
 
@@ -1421,61 +1296,57 @@ uint64_t DefaultSuggestionsLoggerFactory.create(featureService:)@<X0>(uint64_t a
   v3 = v2;
   v6 = sub_6C74();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = __chkstk_darwin(v6);
-  v11 = &v27[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  __chkstk_darwin(v9);
-  v13 = &v27[-v12 - 8];
-  v14 = v2[6];
-  sub_4DD4(v2 + 2, v2[5]);
+  v8 = __chkstk_darwin(v6);
+  v10 = &v24[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  __chkstk_darwin(v8);
+  v12 = &v24[-v11 - 8];
+  sub_4DD4((v2 + 16), *(v2 + 40));
   if (sub_6954())
   {
     sub_69F4();
-    v15 = sub_6C64();
-    v16 = sub_6CF4();
-    if (os_log_type_enabled(v15, v16))
+    v13 = sub_6C64();
+    v14 = sub_6CF4();
+    if (os_log_type_enabled(v13, v14))
     {
-      v17 = swift_slowAlloc();
-      *v17 = 0;
-      _os_log_impl(&dword_0, v15, v16, "Enabled feature extraction logger", v17, 2u);
+      v15 = swift_slowAlloc();
+      *v15 = 0;
+      _os_log_impl(&dword_0, v13, v14, "Enabled feature extraction logger", v15, 2u);
     }
 
-    (*(v7 + 8))(v13, v6);
-    sub_5154(a1, v27);
-    v18 = v3[7];
-    v19 = sub_6BD4();
+    (*(v7 + 8))(v12, v6);
+    sub_5154(a1, v24);
+    v16 = sub_6BD4();
     swift_allocObject();
-    v20 = sub_6BC4();
-    a2[3] = v19;
-    v21 = sub_5B7C();
+    v17 = sub_6BC4();
+    a2[3] = v16;
+    v18 = sub_5B7C();
   }
 
   else
   {
     sub_69F4();
-    v22 = sub_6C64();
-    v23 = sub_6CF4();
-    if (os_log_type_enabled(v22, v23))
+    v19 = sub_6C64();
+    v20 = sub_6CF4();
+    if (os_log_type_enabled(v19, v20))
     {
-      v24 = swift_slowAlloc();
-      *v24 = 0;
-      _os_log_impl(&dword_0, v22, v23, "Feature Extraction disabled. Only using raw remembers logger", v24, 2u);
+      v21 = swift_slowAlloc();
+      *v21 = 0;
+      _os_log_impl(&dword_0, v19, v20, "Feature Extraction disabled. Only using raw remembers logger", v21, 2u);
     }
 
-    (*(v7 + 8))(v11, v6);
-    v20 = v3[7];
+    (*(v7 + 8))(v10, v6);
+    v17 = *(v3 + 56);
     a2[3] = sub_6854();
-    v21 = &protocol witness table for SiriRemembersLogger;
+    v18 = &protocol witness table for SiriRemembersLogger;
   }
 
-  a2[4] = v21;
-  *a2 = v20;
+  a2[4] = v18;
+  *a2 = v17;
 }
 
 uint64_t DefaultSuggestionsLoggerFactory.deinit()
 {
   sub_5058((v0 + 16));
-  v1 = *(v0 + 56);
 
   return v0;
 }
@@ -1483,7 +1354,6 @@ uint64_t DefaultSuggestionsLoggerFactory.deinit()
 uint64_t DefaultSuggestionsLoggerFactory.__deallocating_deinit()
 {
   sub_5058((v0 + 16));
-  v1 = *(v0 + 56);
 
   return _swift_deallocClassInstance(v0, 64, 7);
 }
@@ -1501,18 +1371,17 @@ unint64_t sub_5B7C()
   return result;
 }
 
-uint64_t sub_5C28(uint64_t *a1, uint64_t (*a2)(char *, uint64_t, uint64_t, uint64_t))
+uint64_t sub_5C28(void *a1, uint64_t (*a2)(char *, uint64_t, uint64_t, uint64_t))
 {
   v5 = a1[3];
   v6 = a1[4];
   v7 = sub_64E8(a1, v5);
-  v8 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v7);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v11 + 16))(v10);
-  v12 = a2(v10, v2, v5, v6);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v10 + 16))(v9);
+  v11 = a2(v9, v2, v5, v6);
   sub_5058(a1);
-  return v12;
+  return v11;
 }
 
 uint64_t DefaultFeatureServiceFactory.create(featureFlagProvider:configProvider:accountDetailsProviderOverride:possibleOwners:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1525,9 +1394,7 @@ uint64_t DefaultFeatureServiceFactory.create(featureFlagProvider:configProvider:
   v6[18] = a2;
   v7 = sub_6C74();
   v6[23] = v7;
-  v8 = *(v7 - 8);
-  v6[24] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6[24] = *(v7 - 8);
   v6[25] = swift_task_alloc();
   v6[26] = swift_task_alloc();
 
@@ -1536,28 +1403,25 @@ uint64_t DefaultFeatureServiceFactory.create(featureFlagProvider:configProvider:
 
 uint64_t sub_5DF0()
 {
-  v1 = *(v0 + 144);
-  v2 = v1[4];
-  sub_4DD4(v1, v1[3]);
+  sub_4DD4(*(v0 + 144), *(*(v0 + 144) + 24));
   if (sub_6954())
   {
-    v3 = *(v0 + 208);
     sub_69F4();
-    v4 = sub_6C64();
-    v5 = sub_6CF4();
-    if (os_log_type_enabled(v4, v5))
+    v1 = sub_6C64();
+    v2 = sub_6CF4();
+    if (os_log_type_enabled(v1, v2))
     {
       *swift_slowAlloc() = 0;
-      sub_66A4(&dword_0, v6, v7, "Enabled feature service");
+      sub_66A4(&dword_0, v3, v4, "Enabled feature service");
     }
 
-    v8 = *(v0 + 208);
-    v9 = *(v0 + 184);
-    v10 = *(v0 + 192);
-    v11 = *(v0 + 160);
+    v5 = *(v0 + 208);
+    v6 = *(v0 + 184);
+    v7 = *(v0 + 192);
+    v8 = *(v0 + 160);
 
-    (*(v10 + 8))(v8, v9);
-    sub_65A8(v11, v0 + 56);
+    (*(v7 + 8))(v5, v6);
+    sub_65A8(v8, v0 + 56);
     if (*(v0 + 80))
     {
       sub_5828((v0 + 56), v0 + 16);
@@ -1573,60 +1437,52 @@ uint64_t sub_5DF0()
     }
 
     sub_69D4();
-    v25 = async function pointer to static SiriSuggestionsIntelligence.createFeatureService(clock:configProvider:accountDetailsProvider:possibleOwners:)[1];
-    v26 = swift_task_alloc();
-    *(v0 + 216) = v26;
-    *v26 = v0;
-    v26[1] = sub_6080;
-    v27 = *(v0 + 168);
-    v28 = *(v0 + 152);
-    v29 = *(v0 + 136);
+    v18 = swift_task_alloc();
+    *(v0 + 216) = v18;
+    *v18 = v0;
+    v18[1] = sub_6080;
+    v19 = *(v0 + 168);
+    v20 = *(v0 + 152);
+    v21 = *(v0 + 136);
 
-    return static SiriSuggestionsIntelligence.createFeatureService(clock:configProvider:accountDetailsProvider:possibleOwners:)(v29, v0 + 96, v28, v0 + 16, v27);
+    return static SiriSuggestionsIntelligence.createFeatureService(clock:configProvider:accountDetailsProvider:possibleOwners:)(v21, v0 + 96, v20, v0 + 16, v19);
   }
 
   else
   {
-    v12 = *(v0 + 200);
     sub_69F4();
-    v13 = sub_6C64();
-    v14 = sub_6CF4();
-    if (os_log_type_enabled(v13, v14))
+    v9 = sub_6C64();
+    v10 = sub_6CF4();
+    if (os_log_type_enabled(v9, v10))
     {
       *swift_slowAlloc() = 0;
-      sub_66A4(&dword_0, v15, v16, "Feature Service disabled.");
+      sub_66A4(&dword_0, v11, v12, "Feature Service disabled.");
     }
 
-    v18 = *(v0 + 192);
-    v17 = *(v0 + 200);
-    v19 = *(v0 + 184);
-    v20 = *(v0 + 136);
+    v14 = *(v0 + 192);
+    v13 = *(v0 + 200);
+    v15 = *(v0 + 184);
 
-    (*(v18 + 8))(v17, v19);
+    (*(v14 + 8))(v13, v15);
     sub_6C14();
-    v22 = *(v0 + 200);
-    v21 = *(v0 + 208);
 
-    v23 = *(v0 + 8);
+    v16 = *(v0 + 8);
 
-    return v23();
+    return v16();
   }
 }
 
 uint64_t sub_6080()
 {
   v1 = *v0;
-  v2 = (*v0)[27];
-  v3 = *v0;
+  v2 = *v0;
 
-  sub_5058(v1 + 12);
-  sub_5058(v1 + 2);
-  v4 = v1[26];
-  v5 = v1[25];
+  sub_5058((v1 + 96));
+  sub_5058((v1 + 16));
 
-  v6 = v3[1];
+  v3 = *(v2 + 8);
 
-  return v6();
+  return v3();
 }
 
 uint64_t DefaultFeatureServiceFactory.__deallocating_deinit()
@@ -1638,39 +1494,36 @@ uint64_t DefaultFeatureServiceFactory.__deallocating_deinit()
 
 uint64_t sub_6218(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v12 = *v5;
-  v13 = swift_task_alloc();
-  *(v6 + 16) = v13;
-  *v13 = v6;
-  v13[1] = sub_62E4;
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = sub_62E4;
 
   return DefaultFeatureServiceFactory.create(featureFlagProvider:configProvider:accountDetailsProviderOverride:possibleOwners:)(a1, a2, a3, a4, a5);
 }
 
 uint64_t sub_62E4()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
-uint64_t *sub_63D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *sub_63D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = *(a3 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(a1);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = swift_allocObject();
-  (*(v7 + 16))(v10, a1, a3);
-  v12 = sub_6538(v10, v11, a3, a4);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = swift_allocObject();
+  (*(v7 + 16))(v9, a1, a3);
+  v11 = sub_6538(v9, v10, a3, a4);
   (*(v7 + 8))(a1, a3);
-  return v12;
+  return v11;
 }
 
-uint64_t sub_64E8(uint64_t a1, uint64_t a2)
+uint64_t sub_64E8(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -1678,10 +1531,10 @@ uint64_t sub_64E8(uint64_t a1, uint64_t a2)
     return v2;
   }
 
-  return result;
+  return v3;
 }
 
-uint64_t *sub_6538(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+void *sub_6538(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   a2[5] = a3;
   a2[6] = a4;

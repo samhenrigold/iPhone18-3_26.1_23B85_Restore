@@ -10,7 +10,7 @@
 - (APBaseExtensionShieldView)initWithLocalizedApplicationName:(id)name iconImage:(id)image unlockButtonHidden:(BOOL)hidden apExtension:(id)extension apViewSubject:(id)subject
 {
   hiddenCopy = hidden;
-  v100[1] = *MEMORY[0x1E69E9840];
+  v99[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   imageCopy = image;
   extensionCopy = extension;
@@ -35,14 +35,14 @@
       v19 = v18;
     }
 
-    v95 = imageCopy;
-    v96 = nameCopy;
-    v94 = extensionCopy;
+    v94 = imageCopy;
+    v95 = nameCopy;
+    v93 = extensionCopy;
     if (extensionCopy && [extensionCopy isFirstParty])
     {
       v20 = [APSymbolBadgedAppIconView alloc];
-      +[APSymbolBadgedAppIconView metricsForExtensionShield];
-      v21 = [(APSymbolBadgedAppIconView *)v20 initWithApplicationIconImage:imageCopy symbolType:v19 metrics:v97];
+      objc_msgSend_metricsForExtensionShield(APSymbolBadgedAppIconView);
+      v21 = [(APSymbolBadgedAppIconView *)v20 initWithApplicationIconImage:imageCopy symbolType:v19 metrics:v96];
       iconView = v16->_iconView;
       v16->_iconView = v21;
     }
@@ -58,8 +58,8 @@
 
         v27 = [APSymbolBadgedAppIconView alloc];
         v28 = [(APBaseExtensionShieldView *)v16 imageForIcon:v26];
-        +[APSymbolBadgedAppIconView metricsForExtensionShield];
-        v29 = [(APSymbolBadgedAppIconView *)v27 initWithApplicationIconImage:v28 symbolType:v19 metrics:v97];
+        objc_msgSend_metricsForExtensionShield(APSymbolBadgedAppIconView);
+        v29 = [(APSymbolBadgedAppIconView *)v27 initWithApplicationIconImage:v28 symbolType:v19 metrics:v96];
         v30 = v16->_iconView;
         v16->_iconView = v29;
       }
@@ -92,7 +92,7 @@
     v44 = [v42 stringWithFormat:@"BASE_EXTENSION_SHIELD_VIEW_LABEL_%@", v43];
     v45 = APUILocStr(v44);
 
-    v93 = v45;
+    v92 = v45;
     [(UILabel *)v16->_label setText:v45];
     [(UILabel *)v16->_label setTranslatesAutoresizingMaskIntoConstraints:0];
     [(APBaseExtensionShieldView *)v16 addSubview:v16->_label];
@@ -114,64 +114,64 @@
 
     else
     {
-      effectiveContainerLocalizedName = [v49 stringWithFormat:v50, v96];
+      effectiveContainerLocalizedName = [v49 stringWithFormat:v50, v95];
       [(UIButton *)v48 setAccessibilityHint:effectiveContainerLocalizedName];
     }
 
     [(UIButton *)v16->_unlockButton setHidden:hiddenCopy];
     [(UIButton *)v16->_unlockButton setAccessibilityIdentifier:@"APBaseExtensionShieldUnlockButton"];
-    v99 = *MEMORY[0x1E69DB648];
+    v98 = *MEMORY[0x1E69DB648];
     defaultMetrics2 = [MEMORY[0x1E69DCA40] defaultMetrics];
     v54 = [MEMORY[0x1E69DB878] systemFontOfSize:16.0 weight:*MEMORY[0x1E69DB978]];
     v55 = [defaultMetrics2 scaledFontForFont:v54];
-    v100[0] = v55;
-    v92 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v100 forKeys:&v99 count:1];
+    v99[0] = v55;
+    v91 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v99 forKeys:&v98 count:1];
 
     v56 = MEMORY[0x1E696AEC0];
     v57 = APGetPreferredAuthenticationMechanismLocKey();
     v58 = [v56 stringWithFormat:@"BASE_EXTENSION_SHIELD_VIEW_UNLOCK_BUTTON_%@", v57];
-    v91 = APUILocStr(v58);
+    v90 = APUILocStr(v58);
 
     v59 = v16->_unlockButton;
-    v60 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v91 attributes:v92];
+    v60 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v90 attributes:v91];
     [(UIButton *)v59 setAttributedTitle:v60 forState:0];
 
     [(APBaseExtensionShieldView *)v16 addSubview:v16->_unlockButton];
     centerXAnchor = [(UIView *)v16->_iconView centerXAnchor];
     centerXAnchor2 = [(APBaseExtensionShieldView *)v16 centerXAnchor];
-    v88 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v98[0] = v88;
+    v87 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v97[0] = v87;
     centerYAnchor = [(UIView *)v16->_iconView centerYAnchor];
     centerYAnchor2 = [(APBaseExtensionShieldView *)v16 centerYAnchor];
-    v85 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2 constant:-56.0];
-    v98[1] = v85;
+    v84 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2 constant:-56.0];
+    v97[1] = v84;
     centerXAnchor3 = [(UILabel *)v16->_label centerXAnchor];
     centerXAnchor4 = [(APBaseExtensionShieldView *)v16 centerXAnchor];
-    v82 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-    v98[2] = v82;
+    v81 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
+    v97[2] = v81;
     centerYAnchor3 = [(UILabel *)v16->_label centerYAnchor];
     centerYAnchor4 = [(APBaseExtensionShieldView *)v16 centerYAnchor];
-    v79 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4 constant:10.0];
-    v98[3] = v79;
+    v78 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4 constant:10.0];
+    v97[3] = v78;
     widthAnchor = [(UILabel *)v16->_label widthAnchor];
     widthAnchor2 = [(APBaseExtensionShieldView *)v16 widthAnchor];
-    v76 = [widthAnchor constraintLessThanOrEqualToAnchor:widthAnchor2];
-    v98[4] = v76;
+    v75 = [widthAnchor constraintLessThanOrEqualToAnchor:widthAnchor2];
+    v97[4] = v75;
     heightAnchor = [(UILabel *)v16->_label heightAnchor];
     heightAnchor2 = [(APBaseExtensionShieldView *)v16 heightAnchor];
     v62 = [heightAnchor constraintLessThanOrEqualToAnchor:heightAnchor2];
-    v98[5] = v62;
+    v97[5] = v62;
     centerXAnchor5 = [(UIButton *)v16->_unlockButton centerXAnchor];
     centerXAnchor6 = [(APBaseExtensionShieldView *)v16 centerXAnchor];
     v65 = [centerXAnchor5 constraintEqualToAnchor:centerXAnchor6];
-    v98[6] = v65;
+    v97[6] = v65;
     firstBaselineAnchor = [(UIButton *)v16->_unlockButton firstBaselineAnchor];
     lastBaselineAnchor = [(UILabel *)v16->_label lastBaselineAnchor];
     v68 = [firstBaselineAnchor constraintEqualToSystemSpacingBelowAnchor:lastBaselineAnchor multiplier:2.0];
-    v98[7] = v68;
-    v75 = [MEMORY[0x1E695DEC8] arrayWithObjects:v98 count:8];
+    v97[7] = v68;
+    v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:v97 count:8];
 
-    [MEMORY[0x1E696ACD8] activateConstraints:v75];
+    [MEMORY[0x1E696ACD8] activateConstraints:v74];
     v69 = [MEMORY[0x1E69DC888] colorWithDynamicProvider:&__block_literal_global_4];
     [(APBaseExtensionShieldView *)v16 setBackgroundColor:v69];
 
@@ -179,12 +179,11 @@
     v71 = [MEMORY[0x1E69DC888] colorWithDynamicProvider:&__block_literal_global_33];
     [(UILabel *)v70 setTextColor:v71];
 
-    imageCopy = v95;
-    nameCopy = v96;
-    extensionCopy = v94;
+    imageCopy = v94;
+    nameCopy = v95;
+    extensionCopy = v93;
   }
 
-  v72 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

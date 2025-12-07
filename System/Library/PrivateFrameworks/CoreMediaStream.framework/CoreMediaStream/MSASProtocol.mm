@@ -77,7 +77,7 @@
 - (void)_fetchClientOrgKeyAndPersistLocallyForResponseDict:(id)dict isOwned:(BOOL)owned completionHandler:(id)handler
 {
   ownedCopy = owned;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   handlerCopy = handler;
   v9 = [dictCopy objectForKey:@"dbrMetadataInfo"];
@@ -142,14 +142,14 @@
 
   if (v12 && v14 && v16)
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __93__MSASProtocol__fetchClientOrgKeyAndPersistLocallyForResponseDict_isOwned_completionHandler___block_invoke;
-    v21[3] = &unk_278E92510;
-    v21[4] = self;
-    v22 = v12;
-    v23 = handlerCopy;
-    [MSASCloudKitPlugin fetchClientOrgKeyForRecordID:v14 zoneName:v22 fieldName:v16 ownerUserID:v18 isOwned:ownedCopy completionHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __93__MSASProtocol__fetchClientOrgKeyAndPersistLocallyForResponseDict_isOwned_completionHandler___block_invoke;
+    v20[3] = &unk_278E92510;
+    v20[4] = self;
+    v21 = v12;
+    v22 = handlerCopy;
+    [MSASCloudKitPlugin fetchClientOrgKeyForRecordID:v14 zoneName:v21 fieldName:v16 ownerUserID:v18 isOwned:ownedCopy completionHandler:v20];
   }
 
   else
@@ -158,47 +158,43 @@
     {
       *buf = 138544130;
       selfCopy = self;
-      v26 = 2114;
-      v27 = v12;
-      v28 = 2114;
-      v29 = v14;
-      v30 = 2114;
-      v31 = v16;
+      v25 = 2114;
+      v26 = v12;
+      v27 = 2114;
+      v28 = v14;
+      v29 = 2114;
+      v30 = v16;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Missing one of zoneName: %{public}@ recordId: %{public}@ fieldName:%{public}@. Account may not be in DBR.", buf, 0x2Au);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __93__MSASProtocol__fetchClientOrgKeyAndPersistLocallyForResponseDict_isOwned_completionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v7 = a1[4];
     v8 = a1[5];
-    v10 = 138543874;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v6;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Finished retrieving clientOrgKey for zoneName %{public}@. Account is in DBR. Error: %{public}@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v7;
+    v11 = 2114;
+    v12 = v8;
+    v13 = 2114;
+    v14 = v6;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Finished retrieving clientOrgKey for zoneName %{public}@. Account is in DBR. Error: %{public}@", &v9, 0x20u);
   }
 
   (*(a1[6] + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAlbumURLForAlbumWithGUID:(id)d completionBlock:(id)block
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dCopy = d;
   blockCopy = block;
   v8 = MEMORY[0x277CBAB50];
@@ -209,8 +205,8 @@ void __93__MSASProtocol__fetchClientOrgKeyAndPersistLocallyForResponseDict_isOwn
   {
     *buf = 138543618;
     selfCopy = self;
-    v19 = 2114;
-    v20 = dCopy;
+    v18 = 2114;
+    v19 = dCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Retrieving new album URL for album with GUID %{public}@.", buf, 0x16u);
   }
 
@@ -221,15 +217,13 @@ void __93__MSASProtocol__fetchClientOrgKeyAndPersistLocallyForResponseDict_isOwn
     [dictionary setObject:dCopy forKey:@"albumguid"];
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __60__MSASProtocol_getAlbumURLForAlbumWithGUID_completionBlock___block_invoke;
-  v15[3] = &unk_278E92430;
-  v16 = blockCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __60__MSASProtocol_getAlbumURLForAlbumWithGUID_completionBlock___block_invoke;
+  v14[3] = &unk_278E92430;
+  v15 = blockCopy;
   v13 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:v12 completionBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:v12 completionBlock:v14];
 }
 
 void __60__MSASProtocol_getAlbumURLForAlbumWithGUID_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -269,7 +263,7 @@ void __60__MSASProtocol_getAlbumURLForAlbumWithGUID_completionBlock___block_invo
 
 - (void)getServerSideConfigCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = MEMORY[0x277CBAB50];
   _serverSideConfigURL = [(MSASProtocol *)self _serverSideConfigURL];
@@ -282,15 +276,13 @@ void __60__MSASProtocol_getAlbumURLForAlbumWithGUID_completionBlock___block_invo
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Refreshing server-side configuration.", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __51__MSASProtocol_getServerSideConfigCompletionBlock___block_invoke;
-  v10[3] = &unk_278E92430;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __51__MSASProtocol_getServerSideConfigCompletionBlock___block_invoke;
+  v9[3] = &unk_278E92430;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v7 method:@"GET" bodyObj:0 checkServerSideConfigVersion:0 completionBlock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v7 method:@"GET" bodyObj:0 checkServerSideConfigVersion:0 completionBlock:v9];
 }
 
 void __51__MSASProtocol_getServerSideConfigCompletionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -323,7 +315,7 @@ void __51__MSASProtocol_getServerSideConfigCompletionBlock___block_invoke(uint64
 
 - (void)setAlbumSyncedState:(id)state forAlbum:(id)album albumStateCtag:(id)ctag completionBlock:(id)block
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   albumCopy = album;
   ctagCopy = ctag;
@@ -353,20 +345,18 @@ void __51__MSASProtocol_getServerSideConfigCompletionBlock___block_invoke(uint64
   {
     *buf = 138543618;
     selfCopy = self;
-    v25 = 2114;
-    v26 = albumCopy;
+    v24 = 2114;
+    v25 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Setting synced state for album %{public}@", buf, 0x16u);
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __76__MSASProtocol_setAlbumSyncedState_forAlbum_albumStateCtag_completionBlock___block_invoke;
-  v21[3] = &unk_278E92430;
-  v22 = blockCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __76__MSASProtocol_setAlbumSyncedState_forAlbum_albumStateCtag_completionBlock___block_invoke;
+  v20[3] = &unk_278E92430;
+  v21 = blockCopy;
   v19 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v15 bodyObj:dictionary completionBlock:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v15 bodyObj:dictionary completionBlock:v20];
 }
 
 void __76__MSASProtocol_setAlbumSyncedState_forAlbum_albumStateCtag_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -406,7 +396,7 @@ void __76__MSASProtocol_setAlbumSyncedState_forAlbum_albumStateCtag_completionBl
 
 - (void)setAssetCollectionSyncedState:(id)state forAssetCollection:(id)collection inAlbum:(id)album assetCollectionStateCtag:(id)ctag completionBlock:(id)block
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   collectionCopy = collection;
   albumCopy = album;
@@ -451,22 +441,20 @@ void __76__MSASProtocol_setAlbumSyncedState_forAlbum_albumStateCtag_completionBl
   {
     *buf = 138543874;
     selfCopy = self;
-    v31 = 2114;
-    v32 = collectionCopy;
-    v33 = 2114;
-    v34 = albumCopy;
+    v30 = 2114;
+    v31 = collectionCopy;
+    v32 = 2114;
+    v33 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Setting synced state for asset collection %{public}@ in album %{public}@", buf, 0x20u);
   }
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __114__MSASProtocol_setAssetCollectionSyncedState_forAssetCollection_inAlbum_assetCollectionStateCtag_completionBlock___block_invoke;
-  v27[3] = &unk_278E92430;
-  v28 = blockCopy;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __114__MSASProtocol_setAssetCollectionSyncedState_forAssetCollection_inAlbum_assetCollectionStateCtag_completionBlock___block_invoke;
+  v26[3] = &unk_278E92430;
+  v27 = blockCopy;
   v25 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v18 bodyObj:dictionary completionBlock:v27];
-
-  v26 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v18 bodyObj:dictionary completionBlock:v26];
 }
 
 void __114__MSASProtocol_setAssetCollectionSyncedState_forAssetCollection_inAlbum_assetCollectionStateCtag_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -487,7 +475,7 @@ void __114__MSASProtocol_setAssetCollectionSyncedState_forAssetCollection_inAlbu
 
 - (void)getAlbumSyncedStateForAlbum:(id)album assetCollectionStateBlock:(id)block completionBlock:(id)completionBlock
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   blockCopy = block;
   completionBlockCopy = completionBlock;
@@ -506,27 +494,25 @@ void __114__MSASProtocol_setAssetCollectionSyncedState_forAssetCollection_inAlbu
   {
     *buf = 138543618;
     selfCopy = self;
-    v24 = 2114;
-    v25 = albumCopy;
+    v23 = 2114;
+    v24 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Getting synced state for album %{public}@.", buf, 0x16u);
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __86__MSASProtocol_getAlbumSyncedStateForAlbum_assetCollectionStateBlock_completionBlock___block_invoke;
-  v19[3] = &unk_278E924E8;
-  v20 = blockCopy;
-  v21 = completionBlockCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __86__MSASProtocol_getAlbumSyncedStateForAlbum_assetCollectionStateBlock_completionBlock___block_invoke;
+  v18[3] = &unk_278E924E8;
+  v19 = blockCopy;
+  v20 = completionBlockCopy;
   v16 = completionBlockCopy;
   v17 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v12 bodyObj:dictionary completionBlock:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v12 bodyObj:dictionary completionBlock:v18];
 }
 
 void __86__MSASProtocol_getAlbumSyncedStateForAlbum_assetCollectionStateBlock_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   if (v5)
@@ -556,28 +542,28 @@ void __86__MSASProtocol_getAlbumSyncedStateForAlbum_assetCollectionStateBlock_co
     v12 = [v10 objectForKey:@"assetstates"];
   }
 
-  v24 = v10;
+  v23 = v10;
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = v12;
-  v13 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v13 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v28;
+    v15 = *v27;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v28 != v15)
+        if (*v27 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * i);
+        v17 = *(*(&v26 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -619,17 +605,17 @@ LABEL_22:
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v14 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v14);
   }
 
-  v22 = [v24 objectForKey:@"albumstatectag"];
+  v22 = [v23 objectForKey:@"albumstatectag"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = [v24 objectForKey:@"albumstatectag"];
+    v7 = [v23 objectForKey:@"albumstatectag"];
   }
 
   else
@@ -639,20 +625,18 @@ LABEL_22:
 
   v5 = 0;
 
-  v8 = [v24 mutableCopy];
+  v8 = [v23 mutableCopy];
   [v8 removeObjectForKey:@"assetstates"];
   [v8 removeObjectForKey:@"albumguid"];
   [v8 removeObjectForKey:@"albumstatectag"];
 
 LABEL_30:
   (*(*(a1 + 40) + 16))();
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCommentChanges:(id)changes inAlbumWithGUID:(id)d withClientOrgKey:(id)key albumURLString:(id)string completionBlock:(id)block
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   dCopy = d;
   keyCopy = key;
@@ -680,13 +664,13 @@ LABEL_30:
 
   [(MSASProtocol *)self _setClientOrgKeyForRequestBody:v21 clientOrgKey:keyCopy];
   v22 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(changesCopy, "count")}];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __98__MSASProtocol_getCommentChanges_inAlbumWithGUID_withClientOrgKey_albumURLString_completionBlock___block_invoke;
-  v28[3] = &unk_278E92328;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __98__MSASProtocol_getCommentChanges_inAlbumWithGUID_withClientOrgKey_albumURLString_completionBlock___block_invoke;
+  v27[3] = &unk_278E92328;
   v23 = v22;
-  v29 = v23;
-  [changesCopy enumerateKeysAndObjectsUsingBlock:v28];
+  v28 = v23;
+  [changesCopy enumerateKeysAndObjectsUsingBlock:v27];
   if ([v23 count])
   {
     [v21 setObject:v23 forKey:@"assets"];
@@ -696,23 +680,21 @@ LABEL_30:
   {
     *buf = 138543874;
     selfCopy = self;
-    v32 = 2114;
-    v33 = changesCopy;
-    v34 = 2114;
-    v35 = dCopy;
+    v31 = 2114;
+    v32 = changesCopy;
+    v33 = 2114;
+    v34 = dCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Retrieving comments for asset collections %{public}@ in album %{public}@", buf, 0x20u);
   }
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __98__MSASProtocol_getCommentChanges_inAlbumWithGUID_withClientOrgKey_albumURLString_completionBlock___block_invoke_592;
-  v26[3] = &unk_278E924C0;
-  v26[4] = self;
-  v27 = blockCopy;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __98__MSASProtocol_getCommentChanges_inAlbumWithGUID_withClientOrgKey_albumURLString_completionBlock___block_invoke_592;
+  v25[3] = &unk_278E924C0;
+  v25[4] = self;
+  v26 = blockCopy;
   v24 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v19 bodyObj:v21 completionBlock:v26];
-
-  v25 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v19 bodyObj:v21 completionBlock:v25];
 }
 
 void __98__MSASProtocol_getCommentChanges_inAlbumWithGUID_withClientOrgKey_albumURLString_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -733,42 +715,41 @@ void __98__MSASProtocol_getCommentChanges_inAlbumWithGUID_withClientOrgKey_album
 
 void __98__MSASProtocol_getCommentChanges_inAlbumWithGUID_withClientOrgKey_albumURLString_completionBlock___block_invoke_592(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v80 = *MEMORY[0x277D85DE8];
-  v55 = a2;
+  v69 = *MEMORY[0x277D85DE8];
+  v44 = a2;
   v7 = a3;
   v8 = a4;
-  v54 = v8;
+  v43 = v8;
   if (!v7)
   {
     v9 = v8;
-    v10 = 0x277CBE000uLL;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v11 = v9;
+      v10 = v9;
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
 
-    v53 = v11;
-    v12 = [v53 objectForKey:@"assets"];
+    v42 = v10;
+    v11 = [v42 objectForKey:@"assets"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v7 = [v53 objectForKey:@"assets"];
+      v7 = [v42 objectForKey:@"assets"];
     }
 
-    v57 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v7, "count")}];
-    v70 = 0u;
-    v71 = 0u;
-    v72 = 0u;
-    v73 = 0u;
+    v46 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v7, "count")}];
+    v59 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     obj = v7;
-    v13 = [obj countByEnumeratingWithState:&v70 objects:v79 count:16];
-    if (!v13)
+    v12 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
+    if (!v12)
     {
 LABEL_59:
 
@@ -777,41 +758,41 @@ LABEL_59:
       goto LABEL_60;
     }
 
-    v14 = v13;
-    v15 = *v71;
-    v61 = a1;
-    v56 = *v71;
+    v13 = v12;
+    v14 = *v60;
+    v50 = a1;
+    v45 = *v60;
 LABEL_10:
-    v16 = 0;
-    v58 = v14;
+    v15 = 0;
+    v47 = v13;
     while (1)
     {
-      if (*v71 != v15)
+      if (*v60 != v14)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v70 + 1) + 8 * v16);
-      v18 = [v17 objectForKey:@"assetguid"];
+      v16 = *(*(&v59 + 1) + 8 * v15);
+      v17 = [v16 objectForKey:@"assetguid"];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         goto LABEL_56;
       }
 
-      v19 = [v17 objectForKey:@"assetguid"];
+      v18 = [v16 objectForKey:@"assetguid"];
 
-      v62 = v19;
-      if (v19)
+      v51 = v18;
+      if (v18)
       {
         break;
       }
 
 LABEL_57:
-      if (++v16 == v14)
+      if (++v15 == v13)
       {
-        v14 = [obj countByEnumeratingWithState:&v70 objects:v79 count:16];
-        if (!v14)
+        v13 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
+        if (!v13)
         {
           goto LABEL_59;
         }
@@ -820,166 +801,153 @@ LABEL_57:
       }
     }
 
-    v20 = [v17 objectForKey:@"comments"];
+    v19 = [v16 objectForKey:@"comments"];
     objc_opt_class();
-    v21 = 0x277CCA000uLL;
-    v60 = v16;
+    v49 = v15;
     if (objc_opt_isKindOfClass())
     {
-      v22 = [v17 objectForKey:@"comments"];
+      v20 = [v16 objectForKey:@"comments"];
     }
 
     else
     {
-      v22 = 0;
+      v20 = 0;
     }
 
-    v65 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v22, "count")}];
-    v66 = 0u;
-    v67 = 0u;
-    v68 = 0u;
-    v69 = 0u;
-    v23 = v22;
-    v24 = [v23 countByEnumeratingWithState:&v66 objects:v78 count:16];
-    if (v24)
+    v54 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v20, "count")}];
+    v55 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    v58 = 0u;
+    v21 = v20;
+    v22 = [v21 countByEnumeratingWithState:&v55 objects:v67 count:16];
+    if (v22)
     {
-      v25 = v24;
-      v26 = *v67;
+      v23 = v22;
+      v24 = *v56;
       do
       {
-        v27 = 0;
+        v25 = 0;
         do
         {
-          if (*v67 != v26)
+          if (*v56 != v24)
           {
-            objc_enumerationMutation(v23);
+            objc_enumerationMutation(v21);
           }
 
-          v28 = *(*(&v66 + 1) + 8 * v27);
-          v29 = *(v10 + 2752);
+          v26 = *(*(&v55 + 1) + 8 * v25);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v30 = [v28 objectForKey:@"commenttype"];
-            v31 = *(v21 + 3240);
+            v27 = [v26 objectForKey:@"commenttype"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v32 = [v28 objectForKey:@"commenttype"];
+              v28 = [v26 objectForKey:@"commenttype"];
             }
 
             else
             {
-              v32 = 0;
+              v28 = 0;
             }
 
-            if (([v32 isEqualToString:@"0"] & 1) != 0 || objc_msgSend(v32, "isEqualToString:", @"1"))
+            if (([v28 isEqualToString:@"0"] & 1) != 0 || objc_msgSend(v28, "isEqualToString:", @"1"))
             {
-              v33 = [MSASComment MSASPCommentFromProtocolDictionary:v28];
-              if (v33)
+              v29 = [MSASComment MSASPCommentFromProtocolDictionary:v26];
+              if (v29)
               {
-                v34 = objc_alloc_init(MSASCommentChange);
-                [(MSASCommentChange *)v34 setComment:v33];
-                [v65 addObject:v34];
+                v30 = objc_alloc_init(MSASCommentChange);
+                [(MSASCommentChange *)v30 setComment:v29];
+                [v54 addObject:v30];
               }
             }
 
-            else if ([v32 isEqualToString:@"99"])
+            else if ([v28 isEqualToString:@"99"])
             {
-              v35 = objc_alloc_init(MSASCommentChange);
-              [(MSASCommentChange *)v35 setType:1];
-              v36 = [v28 objectForKey:@"commentposition"];
-              v37 = v21;
-              v38 = v36;
-              v39 = *(v37 + 3240);
+              v31 = objc_alloc_init(MSASCommentChange);
+              [(MSASCommentChange *)v31 setType:1];
+              v32 = [v26 objectForKey:@"commentposition"];
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
               if (isKindOfClass)
               {
-                v41 = [v28 objectForKey:@"commentposition"];
-                v64 = v41;
+                v34 = [v26 objectForKey:@"commentposition"];
+                v53 = v34;
               }
 
               else
               {
-                v41 = 0;
+                v34 = 0;
               }
 
-              -[MSASCommentChange setDeletionIndex:](v35, "setDeletionIndex:", [v41 intValue]);
+              -[MSASCommentChange setDeletionIndex:](v31, "setDeletionIndex:", [v34 intValue]);
               if (isKindOfClass)
               {
               }
 
-              [v65 addObject:v35];
-              v10 = 0x277CBE000;
-              v21 = 0x277CCA000;
+              [v54 addObject:v31];
             }
 
-            else if ([v32 isEqualToString:@"89"])
+            else if ([v28 isEqualToString:@"89"])
             {
-              v42 = [MSASComment MSASPCommentFromProtocolDictionary:v28];
-              if (v42)
+              v35 = [MSASComment MSASPCommentFromProtocolDictionary:v26];
+              if (v35)
               {
-                v43 = objc_alloc_init(MSASCommentChange);
-                [(MSASCommentChange *)v43 setComment:v42];
-                [(MSASCommentChange *)v43 setType:2];
-                v44 = [v28 objectForKey:@"deletedcommentposition"];
-                v45 = v21;
-                v46 = v44;
-                v47 = *(v45 + 3240);
+                v36 = objc_alloc_init(MSASCommentChange);
+                [(MSASCommentChange *)v36 setComment:v35];
+                [(MSASCommentChange *)v36 setType:2];
+                v37 = [v26 objectForKey:@"deletedcommentposition"];
                 objc_opt_class();
-                v48 = objc_opt_isKindOfClass();
-                if (v48)
+                v38 = objc_opt_isKindOfClass();
+                if (v38)
                 {
-                  v49 = [v28 objectForKey:@"deletedcommentposition"];
-                  v63 = v49;
+                  v39 = [v26 objectForKey:@"deletedcommentposition"];
+                  v52 = v39;
                 }
 
                 else
                 {
-                  v49 = 0;
+                  v39 = 0;
                 }
 
-                -[MSASCommentChange setDeletionIndex:](v43, "setDeletionIndex:", [v49 intValue]);
-                if (v48)
+                -[MSASCommentChange setDeletionIndex:](v36, "setDeletionIndex:", [v39 intValue]);
+                if (v38)
                 {
                 }
 
-                [v65 addObject:v43];
-                v10 = 0x277CBE000;
-                v21 = 0x277CCA000;
+                [v54 addObject:v36];
               }
             }
 
             else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              v50 = *(v61 + 32);
+              v40 = *(v50 + 32);
               *buf = 138543618;
-              v75 = v50;
-              v76 = 2114;
-              v77 = v32;
+              v64 = v40;
+              v65 = 2114;
+              v66 = v28;
               _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unknown comment type: %{public}@. Ignoring", buf, 0x16u);
             }
           }
 
-          ++v27;
+          ++v25;
         }
 
-        while (v25 != v27);
-        v51 = [v23 countByEnumeratingWithState:&v66 objects:v78 count:16];
-        v25 = v51;
+        while (v23 != v25);
+        v41 = [v21 countByEnumeratingWithState:&v55 objects:v67 count:16];
+        v23 = v41;
       }
 
-      while (v51);
+      while (v41);
     }
 
-    v18 = v62;
-    [v57 setObject:v65 forKey:v62];
+    v17 = v51;
+    [v46 setObject:v54 forKey:v51];
 
-    v16 = v60;
-    a1 = v61;
-    v15 = v56;
-    v14 = v58;
+    v15 = v49;
+    a1 = v50;
+    v14 = v45;
+    v13 = v47;
 LABEL_56:
 
     goto LABEL_57;
@@ -987,13 +955,11 @@ LABEL_56:
 
   (*(*(a1 + 40) + 16))();
 LABEL_60:
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateInvitationForAlbum:(id)album completionBlock:(id)block
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   blockCopy = block;
   v8 = MEMORY[0x277CBAB50];
@@ -1023,24 +989,22 @@ LABEL_60:
   {
     *buf = 138543874;
     selfCopy = self;
-    v23 = 2112;
-    v24 = v12;
-    v25 = 2112;
-    v26 = v13;
+    v22 = 2112;
+    v23 = v12;
+    v24 = 2112;
+    v25 = v13;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Validating invitation token %@ for album %@.", buf, 0x20u);
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __59__MSASProtocol_validateInvitationForAlbum_completionBlock___block_invoke;
-  v18[3] = &unk_278E924C0;
-  v19 = v12;
-  v20 = blockCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __59__MSASProtocol_validateInvitationForAlbum_completionBlock___block_invoke;
+  v17[3] = &unk_278E924C0;
+  v18 = v12;
+  v19 = blockCopy;
   v15 = v12;
   v16 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:dictionary completionBlock:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:dictionary completionBlock:v17];
 }
 
 void __59__MSASProtocol_validateInvitationForAlbum_completionBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -1088,7 +1052,7 @@ void __59__MSASProtocol_validateInvitationForAlbum_completionBlock___block_invok
 
 - (void)acceptInvitationWithToken:(id)token completionBlock:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   blockCopy = block;
   v8 = MEMORY[0x277CBAB50];
@@ -1109,20 +1073,18 @@ void __59__MSASProtocol_validateInvitationForAlbum_completionBlock___block_invok
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Accepting invitation using token.", buf, 0xCu);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __58__MSASProtocol_acceptInvitationWithToken_completionBlock___block_invoke;
-  v15[3] = &unk_278E92430;
-  v16 = blockCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __58__MSASProtocol_acceptInvitationWithToken_completionBlock___block_invoke;
+  v14[3] = &unk_278E92430;
+  v15 = blockCopy;
   v13 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:v12 completionBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:v12 completionBlock:v14];
 }
 
 - (void)markAsSpamInvitationForToken:(id)token completionBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   blockCopy = block;
   v8 = MEMORY[0x277CBAB50];
@@ -1135,25 +1097,23 @@ void __59__MSASProtocol_validateInvitationForAlbum_completionBlock___block_invok
   {
     *buf = 138543618;
     selfCopy = self;
-    v18 = 2114;
-    v19 = tokenCopy;
+    v17 = 2114;
+    v18 = tokenCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Marking as spam invitation with token %{public}@", buf, 0x16u);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __61__MSASProtocol_markAsSpamInvitationForToken_completionBlock___block_invoke;
-  v14[3] = &unk_278E92430;
-  v15 = blockCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __61__MSASProtocol_markAsSpamInvitationForToken_completionBlock___block_invoke;
+  v13[3] = &unk_278E92430;
+  v14 = blockCopy;
   v12 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:dictionary completionBlock:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:dictionary completionBlock:v13];
 }
 
 - (void)markAsSpamInvitationForAlbum:(id)album completionBlock:(id)block
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   blockCopy = block;
   v8 = MEMORY[0x277CBAB50];
@@ -1168,25 +1128,23 @@ void __59__MSASProtocol_validateInvitationForAlbum_completionBlock___block_invok
   {
     *buf = 138543618;
     selfCopy = self;
-    v19 = 2114;
-    v20 = albumCopy;
+    v18 = 2114;
+    v19 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Marking as spam invitation for album %{public}@", buf, 0x16u);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __61__MSASProtocol_markAsSpamInvitationForAlbum_completionBlock___block_invoke;
-  v15[3] = &unk_278E92430;
-  v16 = blockCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __61__MSASProtocol_markAsSpamInvitationForAlbum_completionBlock___block_invoke;
+  v14[3] = &unk_278E92430;
+  v15 = blockCopy;
   v13 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:dictionary completionBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:dictionary completionBlock:v14];
 }
 
 - (void)unsubscribeFromAlbum:(id)album completionBlock:(id)block
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   blockCopy = block;
   v8 = MEMORY[0x277CBAB50];
@@ -1217,25 +1175,23 @@ void __59__MSASProtocol_validateInvitationForAlbum_completionBlock___block_invok
   {
     *buf = 138543618;
     selfCopy = self;
-    v23 = 2114;
-    v24 = albumCopy;
+    v22 = 2114;
+    v23 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Unsubscribing from album %{public}@", buf, 0x16u);
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __53__MSASProtocol_unsubscribeFromAlbum_completionBlock___block_invoke;
-  v19[3] = &unk_278E92430;
-  v20 = blockCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __53__MSASProtocol_unsubscribeFromAlbum_completionBlock___block_invoke;
+  v18[3] = &unk_278E92430;
+  v19 = blockCopy;
   v17 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:dictionary completionBlock:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:dictionary completionBlock:v18];
 }
 
 - (void)subscribeToAlbum:(id)album completionBlock:(id)block
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   blockCopy = block;
   v8 = MEMORY[0x277CBAB50];
@@ -1263,21 +1219,19 @@ void __59__MSASProtocol_validateInvitationForAlbum_completionBlock___block_invok
   {
     *buf = 138543618;
     selfCopy = self;
-    v22 = 2114;
-    v23 = albumCopy;
+    v21 = 2114;
+    v22 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Subscribing to album %{public}@", buf, 0x16u);
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __49__MSASProtocol_subscribeToAlbum_completionBlock___block_invoke;
-  v18[3] = &unk_278E924C0;
-  v18[4] = self;
-  v19 = blockCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __49__MSASProtocol_subscribeToAlbum_completionBlock___block_invoke;
+  v17[3] = &unk_278E924C0;
+  v17[4] = self;
+  v18 = blockCopy;
   v16 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:dictionary completionBlock:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:dictionary completionBlock:v17];
 }
 
 void __49__MSASProtocol_subscribeToAlbum_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
@@ -1303,7 +1257,7 @@ void __49__MSASProtocol_subscribeToAlbum_completionBlock___block_invoke(uint64_t
 
 - (void)getTokensForAssets:(id)assets inAlbum:(id)album albumURLString:(id)string completionBlock:(id)block
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   albumCopy = album;
   stringCopy = string;
@@ -1318,11 +1272,11 @@ void __49__MSASProtocol_subscribeToAlbum_completionBlock___block_invoke(uint64_t
     [(MSASProtocol *)self baseURL];
   }
   v13 = ;
-  v36 = stringCopy;
+  v35 = stringCopy;
   v14 = [(MSASProtocol *)self _getTokensURLWithBaseURL:v13];
 
-  v35 = v14;
-  v34 = [MEMORY[0x277CBAB50] requestWithURL:v14];
+  v34 = v14;
+  v33 = [MEMORY[0x277CBAB50] requestWithURL:v14];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (albumCopy)
   {
@@ -1333,28 +1287,28 @@ void __49__MSASProtocol_subscribeToAlbum_completionBlock___block_invoke(uint64_t
   clientOrgKey = [albumCopy clientOrgKey];
   [(MSASProtocol *)self _setClientOrgKeyForRequestBody:dictionary clientOrgKey:clientOrgKey];
 
-  v32 = [assetsCopy mutableCopy];
+  v31 = [assetsCopy mutableCopy];
   v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(assetsCopy, "count")}];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v19 = assetsCopy;
-  v20 = [v19 countByEnumeratingWithState:&v42 objects:v52 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v41 objects:v51 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v43;
+    v22 = *v42;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v43 != v22)
+        if (*v42 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v42 + 1) + 8 * i);
+        v24 = *(*(&v41 + 1) + 8 * i);
         assetCollectionGUID = [v24 assetCollectionGUID];
 
         if (assetCollectionGUID)
@@ -1364,7 +1318,7 @@ void __49__MSASProtocol_subscribeToAlbum_completionBlock___block_invoke(uint64_t
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v42 objects:v52 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v41 objects:v51 count:16];
     }
 
     while (v21);
@@ -1376,61 +1330,59 @@ void __49__MSASProtocol_subscribeToAlbum_completionBlock___block_invoke(uint64_t
     v27 = [v19 count];
     *buf = 138543874;
     selfCopy = self;
-    v48 = 2048;
-    v49 = v27;
-    v50 = 2114;
-    v51 = albumCopy;
+    v47 = 2048;
+    v48 = v27;
+    v49 = 2114;
+    v50 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Getting tokens for %ld assets from album %{public}@", buf, 0x20u);
   }
 
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __74__MSASProtocol_getTokensForAssets_inAlbum_albumURLString_completionBlock___block_invoke;
-  v37[3] = &unk_278E92380;
-  v38 = v32;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __74__MSASProtocol_getTokensForAssets_inAlbum_albumURLString_completionBlock___block_invoke;
+  v36[3] = &unk_278E92380;
+  v37 = v31;
   selfCopy2 = self;
-  v40 = albumCopy;
-  v41 = blockCopy;
+  v39 = albumCopy;
+  v40 = blockCopy;
   v28 = blockCopy;
   v29 = albumCopy;
-  v30 = v32;
-  [(MSASProtocol *)self sendURLRequest:v34 bodyObj:dictionary completionBlock:v37];
-
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = v31;
+  [(MSASProtocol *)self sendURLRequest:v33 bodyObj:dictionary completionBlock:v36];
 }
 
 void __74__MSASProtocol_getTokensForAssets_inAlbum_albumURLString_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = [MEMORY[0x277CBEB18] array];
   v9 = [MEMORY[0x277CBEB38] dictionary];
   if (v6)
   {
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
-    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     v10 = *(a1 + 32);
-    v11 = [v10 countByEnumeratingWithState:&v60 objects:v72 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v56 objects:v68 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v61;
+      v13 = *v57;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v61 != v13)
+          if (*v57 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [v9 setObject:v6 forKey:*(*(&v60 + 1) + 8 * i)];
+          [v9 setObject:v6 forKey:*(*(&v56 + 1) + 8 * i)];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v60 objects:v72 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v56 objects:v68 count:16];
       }
 
       while (v12);
@@ -1453,7 +1405,7 @@ void __74__MSASProtocol_getTokensForAssets_inAlbum_albumURLString_completionBloc
   v16 = v15;
   v17 = [v16 objectForKey:@"contenturl"];
   objc_opt_class();
-  v47 = v7;
+  v43 = v7;
   if (objc_opt_isKindOfClass())
   {
     v18 = [v16 objectForKey:@"contenturl"];
@@ -1461,17 +1413,17 @@ void __74__MSASProtocol_getTokensForAssets_inAlbum_albumURLString_completionBloc
     if (v18)
     {
       v19 = [MEMORY[0x277CBEBC0] URLWithString:v18];
-      v46 = v18;
+      v42 = v18;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         v20 = *(a1 + 40);
         v21 = *(a1 + 48);
         *buf = 138543874;
-        v67 = v20;
-        v68 = 2114;
-        v69 = v19;
-        v70 = 2114;
-        v71 = v21;
+        v63 = v20;
+        v64 = 2114;
+        v65 = v19;
+        v66 = 2114;
+        v67 = v21;
         _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Using contentURL %{public}@ for album %{public}@", buf, 0x20u);
       }
 
@@ -1483,132 +1435,127 @@ void __74__MSASProtocol_getTokensForAssets_inAlbum_albumURLString_completionBloc
   {
   }
 
-  v46 = 0;
+  v42 = 0;
   v19 = 0;
 LABEL_19:
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v22 = v16;
-  v23 = [v22 countByEnumeratingWithState:&v56 objects:v65 count:16];
-  v50 = v22;
-  v24 = 0x277CCA000uLL;
-  if (v23)
-  {
-    v25 = v23;
-    v26 = *v57;
-    v48 = *v57;
-    v49 = v9;
-    do
-    {
-      v27 = 0;
-      v51 = v25;
-      do
-      {
-        if (*v57 != v26)
-        {
-          objc_enumerationMutation(v22);
-        }
-
-        v28 = *(*(&v56 + 1) + 8 * v27);
-        v29 = *(v24 + 3240);
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v30 = [v22 objectForKey:v28];
-          v31 = *(v24 + 3240);
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            v32 = [v22 objectForKey:v28];
-          }
-
-          else
-          {
-            v32 = 0;
-          }
-
-          v33 = [v28 MSHexData];
-          v34 = [*(a1 + 32) count];
-          if (v34 - 1 >= 0)
-          {
-            do
-            {
-              v35 = [*(a1 + 32) objectAtIndex:--v34];
-              v36 = [v35 MMCSHash];
-              v37 = [v36 isEqualToData:v33];
-
-              if (v37)
-              {
-                [v35 setMMCSAccessHeader:v32];
-                if (v19)
-                {
-                  [v35 setMMCSURL:v19];
-                }
-
-                [v8 addObject:v35];
-                [*(a1 + 32) removeObjectAtIndex:v34];
-              }
-            }
-
-            while (v34 > 0);
-          }
-
-          v9 = v49;
-          v22 = v50;
-          v24 = 0x277CCA000;
-          v26 = v48;
-          v25 = v51;
-        }
-
-        ++v27;
-      }
-
-      while (v27 != v25);
-      v25 = [v22 countByEnumeratingWithState:&v56 objects:v65 count:16];
-    }
-
-    while (v25);
-  }
-
   v54 = 0u;
   v55 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v38 = *(a1 + 32);
-  v39 = [v38 countByEnumeratingWithState:&v52 objects:v64 count:16];
-  if (v39)
+  v22 = v16;
+  v23 = [v22 countByEnumeratingWithState:&v52 objects:v61 count:16];
+  v46 = v22;
+  if (v23)
   {
-    v40 = v39;
-    v41 = *v53;
+    v24 = v23;
+    v25 = *v53;
+    v44 = *v53;
+    v45 = v9;
     do
     {
-      for (j = 0; j != v40; ++j)
+      v26 = 0;
+      v47 = v24;
+      do
       {
-        if (*v53 != v41)
+        if (*v53 != v25)
         {
-          objc_enumerationMutation(v38);
+          objc_enumerationMutation(v22);
         }
 
-        v43 = *(*(&v52 + 1) + 8 * j);
-        v44 = [*(a1 + 40) _couldNotReauthorizeError];
-        [v9 setObject:v44 forKey:v43];
+        v27 = *(*(&v52 + 1) + 8 * v26);
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v28 = [v22 objectForKey:v27];
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v29 = [v22 objectForKey:v27];
+          }
+
+          else
+          {
+            v29 = 0;
+          }
+
+          v30 = [v27 MSHexData];
+          v31 = [*(a1 + 32) count];
+          if (v31 - 1 >= 0)
+          {
+            do
+            {
+              v32 = [*(a1 + 32) objectAtIndex:--v31];
+              v33 = [v32 MMCSHash];
+              v34 = [v33 isEqualToData:v30];
+
+              if (v34)
+              {
+                [v32 setMMCSAccessHeader:v29];
+                if (v19)
+                {
+                  [v32 setMMCSURL:v19];
+                }
+
+                [v8 addObject:v32];
+                [*(a1 + 32) removeObjectAtIndex:v31];
+              }
+            }
+
+            while (v31 > 0);
+          }
+
+          v9 = v45;
+          v22 = v46;
+          v25 = v44;
+          v24 = v47;
+        }
+
+        ++v26;
       }
 
-      v40 = [v38 countByEnumeratingWithState:&v52 objects:v64 count:16];
+      while (v26 != v24);
+      v24 = [v22 countByEnumeratingWithState:&v52 objects:v61 count:16];
     }
 
-    while (v40);
+    while (v24);
   }
 
-  v7 = v47;
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v35 = *(a1 + 32);
+  v36 = [v35 countByEnumeratingWithState:&v48 objects:v60 count:16];
+  if (v36)
+  {
+    v37 = v36;
+    v38 = *v49;
+    do
+    {
+      for (j = 0; j != v37; ++j)
+      {
+        if (*v49 != v38)
+        {
+          objc_enumerationMutation(v35);
+        }
+
+        v40 = *(*(&v48 + 1) + 8 * j);
+        v41 = [*(a1 + 40) _couldNotReauthorizeError];
+        [v9 setObject:v41 forKey:v40];
+      }
+
+      v37 = [v35 countByEnumeratingWithState:&v48 objects:v60 count:16];
+    }
+
+    while (v37);
+  }
+
+  v7 = v43;
   v6 = 0;
-  v10 = v50;
+  v10 = v46;
 LABEL_45:
 
   (*(*(a1 + 56) + 16))();
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_couldNotReauthorizeError
@@ -1634,12 +1581,12 @@ void __41__MSASProtocol__couldNotReauthorizeError__block_invoke()
 
 - (void)getAssetCollections:(id)collections inAlbum:(id)album albumURLString:(id)string completionBlock:(id)block
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   albumCopy = album;
   stringCopy = string;
   blockCopy = block;
-  v38 = stringCopy;
+  v37 = stringCopy;
   if (stringCopy)
   {
     [MEMORY[0x277CBEBC0] URLWithString:stringCopy];
@@ -1652,8 +1599,8 @@ void __41__MSASProtocol__couldNotReauthorizeError__block_invoke()
   v13 = ;
   v14 = [(MSASProtocol *)self _getAssetsURLWithBaseURL:v13];
 
-  v37 = v14;
-  v36 = [MEMORY[0x277CBAB50] requestWithURL:v14];
+  v36 = v14;
+  v35 = [MEMORY[0x277CBAB50] requestWithURL:v14];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   gUID = [albumCopy GUID];
 
@@ -1667,26 +1614,26 @@ void __41__MSASProtocol__couldNotReauthorizeError__block_invoke()
   [(MSASProtocol *)self _setClientOrgKeyForRequestBody:dictionary clientOrgKey:clientOrgKey];
 
   v19 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(collectionsCopy, "count")}];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v20 = collectionsCopy;
-  v21 = [v20 countByEnumeratingWithState:&v45 objects:v55 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v44 objects:v54 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v46;
+    v23 = *v45;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v46 != v23)
+        if (*v45 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v45 + 1) + 8 * i);
+        v25 = *(*(&v44 + 1) + 8 * i);
         gUID3 = [v25 GUID];
 
         if (gUID3)
@@ -1696,7 +1643,7 @@ void __41__MSASProtocol__couldNotReauthorizeError__block_invoke()
         }
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v45 objects:v55 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v44 objects:v54 count:16];
     }
 
     while (v22);
@@ -1710,61 +1657,70 @@ void __41__MSASProtocol__couldNotReauthorizeError__block_invoke()
     v29 = [v20 count];
     *buf = 138543874;
     selfCopy = self;
-    v51 = 2048;
-    v52 = v29;
-    v53 = 2114;
-    v54 = albumCopy;
+    v50 = 2048;
+    v51 = v29;
+    v52 = 2114;
+    v53 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Requesting metadata for %ld photos in album %{public}@.", buf, 0x20u);
   }
 
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __75__MSASProtocol_getAssetCollections_inAlbum_albumURLString_completionBlock___block_invoke;
-  v39[3] = &unk_278E92480;
-  v40 = v20;
-  v41 = v19;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __75__MSASProtocol_getAssetCollections_inAlbum_albumURLString_completionBlock___block_invoke;
+  v38[3] = &unk_278E92480;
+  v39 = v20;
+  v40 = v19;
   selfCopy2 = self;
-  v43 = albumCopy;
-  v44 = blockCopy;
+  v42 = albumCopy;
+  v43 = blockCopy;
   v30 = blockCopy;
   v31 = albumCopy;
   v32 = v19;
   v33 = v20;
-  [(MSASProtocol *)self sendURLRequest:v36 bodyObj:dictionary completionBlock:v39];
-
-  v34 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v35 bodyObj:dictionary completionBlock:v38];
 }
 
 void __75__MSASProtocol_getAssetCollections_inAlbum_albumURLString_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
-  v8 = 0x277CBE000uLL;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = v7;
+    v8 = v7;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v10 = v9;
-  v67 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
-  v65 = a1;
-  v64 = [*(a1 + 32) mutableCopy];
-  v11 = 0;
+  v9 = v8;
+  v61 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v59 = a1;
+  v58 = [*(a1 + 32) mutableCopy];
+  v10 = 0;
   if (!v6)
   {
-    v12 = [v10 objectForKey:@"albumctag"];
-    v13 = 0x277CCA000uLL;
+    v11 = [v9 objectForKey:@"albumctag"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = [v10 objectForKey:@"albumctag"];
+      v12 = [v9 objectForKey:@"albumctag"];
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    v13 = [v9 objectForKey:@"contenturl"];
+    objc_opt_class();
+    v55 = v12;
+    if (objc_opt_isKindOfClass())
+    {
+      v14 = [v9 objectForKey:@"contenturl"];
     }
 
     else
@@ -1772,244 +1728,224 @@ void __75__MSASProtocol_getAssetCollections_inAlbum_albumURLString_completionBlo
       v14 = 0;
     }
 
-    v15 = [v10 objectForKey:@"contenturl"];
+    v15 = [MEMORY[0x277CBEBC0] URLWithString:v14];
+    v16 = [v9 objectForKey:@"contenttokens"];
     objc_opt_class();
-    v61 = v14;
+    v57 = v7;
+    v54 = v14;
     if (objc_opt_isKindOfClass())
     {
-      v16 = [v10 objectForKey:@"contenturl"];
+      v17 = [v9 objectForKey:@"contenttokens"];
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
-    v17 = [MEMORY[0x277CBEBC0] URLWithString:v16];
-    v18 = [v10 objectForKey:@"contenttokens"];
-    objc_opt_class();
-    v63 = v7;
-    v60 = v16;
-    if (objc_opt_isKindOfClass())
+    v18 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v17, "count")}];
+    v76 = 0u;
+    v77 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    obj = v17;
+    v19 = [obj countByEnumeratingWithState:&v76 objects:v92 count:16];
+    if (v19)
     {
-      v19 = [v10 objectForKey:@"contenttokens"];
-    }
-
-    else
-    {
-      v19 = 0;
-    }
-
-    v20 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v19, "count")}];
-    v82 = 0u;
-    v83 = 0u;
-    v84 = 0u;
-    v85 = 0u;
-    obj = v19;
-    v21 = [obj countByEnumeratingWithState:&v82 objects:v98 count:16];
-    if (v21)
-    {
-      v22 = v21;
-      v23 = *v83;
+      v20 = v19;
+      v21 = *v77;
       do
       {
-        for (i = 0; i != v22; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v83 != v23)
+          if (*v77 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v82 + 1) + 8 * i);
+          v23 = *(*(&v76 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v26 = [obj objectForKey:v25];
-            v27 = [v25 MSHexData];
-            [v20 setObject:v26 forKey:v27];
+            v24 = [obj objectForKey:v23];
+            v25 = [v23 MSHexData];
+            [v18 setObject:v24 forKey:v25];
           }
         }
 
-        v22 = [obj countByEnumeratingWithState:&v82 objects:v98 count:16];
+        v20 = [obj countByEnumeratingWithState:&v76 objects:v92 count:16];
       }
 
-      while (v22);
+      while (v20);
     }
 
-    v28 = [v10 objectForKey:@"assets"];
+    v26 = [v9 objectForKey:@"assets"];
     objc_opt_class();
-    v62 = v10;
+    v56 = v9;
     if (objc_opt_isKindOfClass())
     {
-      v29 = [v10 objectForKey:@"assets"];
+      v27 = [v9 objectForKey:@"assets"];
     }
 
     else
     {
-      v29 = 0;
+      v27 = 0;
     }
 
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
-    v79 = 0u;
-    v69 = v29;
-    v30 = [v69 countByEnumeratingWithState:&v78 objects:v97 count:16];
-    if (v30)
+    v74 = 0u;
+    v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
+    v63 = v27;
+    v28 = [v63 countByEnumeratingWithState:&v72 objects:v91 count:16];
+    if (v28)
     {
-      v31 = v30;
-      v32 = *v79;
-      v66 = *v79;
+      v29 = v28;
+      v30 = *v73;
+      v60 = *v73;
       do
       {
-        v33 = 0;
-        v68 = v31;
+        v31 = 0;
+        v62 = v29;
         do
         {
-          if (*v79 != v32)
+          if (*v73 != v30)
           {
-            objc_enumerationMutation(v69);
+            objc_enumerationMutation(v63);
           }
 
-          v34 = *(*(&v78 + 1) + 8 * v33);
-          v35 = *(v8 + 2752);
+          v32 = *(*(&v72 + 1) + 8 * v31);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v36 = [v34 objectForKey:@"assetctag"];
-            v37 = *(v13 + 3240);
+            v33 = [v32 objectForKey:@"assetctag"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v73 = [v34 objectForKey:@"assetctag"];
+              v67 = [v32 objectForKey:@"assetctag"];
             }
 
             else
             {
-              v73 = 0;
+              v67 = 0;
             }
 
-            v38 = [MSASAssetCollection MSASPAssetCollectionFromProtocolDictionary:v34];
-            v39 = v38;
-            if (v38)
+            v34 = [MSASAssetCollection MSASPAssetCollectionFromProtocolDictionary:v32];
+            v35 = v34;
+            if (v34)
             {
-              v72 = v38;
-              [v38 setCtag:v73];
-              v40 = [v34 objectForKey:@"hascomments"];
-              v41 = *(v13 + 3240);
+              v66 = v34;
+              [v34 setCtag:v67];
+              v36 = [v32 objectForKey:@"hascomments"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v42 = [v34 objectForKey:@"hascomments"];
+                v37 = [v32 objectForKey:@"hascomments"];
               }
 
               else
               {
-                v42 = 0;
+                v37 = 0;
               }
 
-              v70 = v42;
-              [v72 setHasComments:{objc_msgSend(v42, "intValue") > 0}];
-              [v67 addObject:v72];
-              v76 = 0u;
-              v77 = 0u;
-              v74 = 0u;
-              v75 = 0u;
-              v43 = [v72 assets];
-              v44 = [v43 countByEnumeratingWithState:&v74 objects:v96 count:16];
-              if (v44)
+              v64 = v37;
+              [v66 setHasComments:{objc_msgSend(v37, "intValue") > 0}];
+              [v61 addObject:v66];
+              v70 = 0u;
+              v71 = 0u;
+              v68 = 0u;
+              v69 = 0u;
+              v38 = [v66 assets];
+              v39 = [v38 countByEnumeratingWithState:&v68 objects:v90 count:16];
+              if (v39)
               {
-                v45 = v44;
-                v46 = *v75;
+                v40 = v39;
+                v41 = *v69;
                 do
                 {
-                  for (j = 0; j != v45; ++j)
+                  for (j = 0; j != v40; ++j)
                   {
-                    if (*v75 != v46)
+                    if (*v69 != v41)
                     {
-                      objc_enumerationMutation(v43);
+                      objc_enumerationMutation(v38);
                     }
 
-                    v48 = *(*(&v74 + 1) + 8 * j);
-                    [v48 setMMCSURL:v17];
-                    v49 = [v48 MMCSHash];
-                    v50 = [v20 objectForKey:v49];
-                    [v48 setMMCSAccessHeader:v50];
+                    v43 = *(*(&v68 + 1) + 8 * j);
+                    [v43 setMMCSURL:v15];
+                    v44 = [v43 MMCSHash];
+                    v45 = [v18 objectForKey:v44];
+                    [v43 setMMCSAccessHeader:v45];
                   }
 
-                  v45 = [v43 countByEnumeratingWithState:&v74 objects:v96 count:16];
+                  v40 = [v38 countByEnumeratingWithState:&v68 objects:v90 count:16];
                 }
 
-                while (v45);
+                while (v40);
               }
 
-              v39 = v72;
-              v51 = [v72 GUID];
+              v35 = v66;
+              v46 = [v66 GUID];
 
-              v8 = 0x277CBE000;
-              v13 = 0x277CCA000;
-              v32 = v66;
-              if (v51)
+              v30 = v60;
+              if (v46)
               {
-                v52 = v65[5];
-                v53 = [v72 GUID];
-                v54 = [v52 objectForKey:v53];
+                v47 = v59[5];
+                v48 = [v66 GUID];
+                v49 = [v47 objectForKey:v48];
 
-                if (v54)
+                if (v49)
                 {
-                  [v64 removeObject:v54];
+                  [v58 removeObject:v49];
                 }
 
-                v39 = v72;
+                v35 = v66;
               }
             }
 
-            v31 = v68;
+            v29 = v62;
           }
 
-          ++v33;
+          ++v31;
         }
 
-        while (v33 != v31);
-        v31 = [v69 countByEnumeratingWithState:&v78 objects:v97 count:16];
+        while (v31 != v29);
+        v29 = [v63 countByEnumeratingWithState:&v72 objects:v91 count:16];
       }
 
-      while (v31);
+      while (v29);
     }
 
-    v7 = v63;
+    v7 = v57;
     v6 = 0;
-    v11 = v61;
-    v10 = v62;
+    v10 = v55;
+    v9 = v56;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v55 = v65[6];
-    v56 = [v67 count];
-    v57 = [v64 count];
-    v58 = v65[7];
+    v50 = v59[6];
+    v51 = [v61 count];
+    v52 = [v58 count];
+    v53 = v59[7];
     *buf = 138544386;
-    v87 = v55;
-    v88 = 2048;
-    v89 = v56;
-    v90 = 2048;
-    v91 = v57;
-    v92 = 2114;
-    v93 = v58;
-    v94 = 2114;
-    v95 = v6;
+    v81 = v50;
+    v82 = 2048;
+    v83 = v51;
+    v84 = 2048;
+    v85 = v52;
+    v86 = 2114;
+    v87 = v53;
+    v88 = 2114;
+    v89 = v6;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Finished receiving metadata for %ld assets and skipped %ld assets, in album %{public}@. Error: %{public}@", buf, 0x34u);
   }
 
-  (*(v65[8] + 16))();
-
-  v59 = *MEMORY[0x277D85DE8];
+  (*(v59[8] + 16))();
 }
 
 - (void)albumSummaryAlbum:(id)album albumURLString:(id)string resetSync:(BOOL)sync completionBlock:(id)block
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   stringCopy = string;
   blockCopy = block;
@@ -2066,35 +2002,33 @@ void __75__MSASProtocol_getAssetCollections_inAlbum_albumURLString_completionBlo
   {
     *buf = 138543618;
     selfCopy = self;
-    v32 = 2114;
-    v33 = albumCopy;
+    v31 = 2114;
+    v32 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Requesting summary of changes for album %{public}@.", buf, 0x16u);
   }
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __75__MSASProtocol_albumSummaryAlbum_albumURLString_resetSync_completionBlock___block_invoke;
-  v25[3] = &unk_278E92380;
-  v26 = albumCopy;
-  v27 = v16;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __75__MSASProtocol_albumSummaryAlbum_albumURLString_resetSync_completionBlock___block_invoke;
+  v24[3] = &unk_278E92380;
+  v25 = albumCopy;
+  v26 = v16;
   selfCopy2 = self;
-  v29 = blockCopy;
+  v28 = blockCopy;
   v21 = blockCopy;
   v22 = v16;
   v23 = albumCopy;
-  [(MSASProtocol *)self sendURLRequest:v15 bodyObj:dictionary completionBlock:v25];
-
-  v24 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v15 bodyObj:dictionary completionBlock:v24];
 }
 
 void __75__MSASProtocol_albumSummaryAlbum_albumURLString_resetSync_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v79 = *MEMORY[0x277D85DE8];
-  v60 = a2;
+  v78 = *MEMORY[0x277D85DE8];
+  v59 = a2;
   v7 = a3;
   v8 = a4;
   objc_opt_class();
-  v61 = v8;
+  v60 = v8;
   if (objc_opt_isKindOfClass())
   {
     v9 = v8;
@@ -2105,59 +2039,59 @@ void __75__MSASProtocol_albumSummaryAlbum_albumURLString_resetSync_completionBlo
     v9 = 0;
   }
 
-  v65 = v9;
+  v64 = v9;
   if (v7)
   {
+    v62 = 0;
     v63 = 0;
-    v64 = 0;
-    v67 = 0;
+    v66 = 0;
     goto LABEL_73;
   }
 
-  v62 = a1;
-  v64 = [MSASAlbum albumWithAlbum:*(a1 + 32)];
-  v10 = [v65 objectForKey:@"albumctag"];
+  v61 = a1;
+  v63 = [MSASAlbum albumWithAlbum:*(a1 + 32)];
+  v10 = [v64 objectForKey:@"albumctag"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v63 = [v65 objectForKey:@"albumctag"];
+    v62 = [v64 objectForKey:@"albumctag"];
   }
 
   else
   {
-    v63 = 0;
+    v62 = 0;
   }
 
-  v59 = [MEMORY[0x277CBEB38] dictionary];
+  v58 = [MEMORY[0x277CBEB38] dictionary];
   v11 = [*(a1 + 32) metadata];
 
   if (v11)
   {
     v12 = [*(a1 + 32) metadata];
-    [v59 addEntriesFromDictionary:v12];
+    [v58 addEntriesFromDictionary:v12];
   }
 
-  v13 = [v65 objectForKey:@"attributes"];
+  v13 = [v64 objectForKey:@"attributes"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v14 = [v65 objectForKey:@"attributes"];
-    v15 = v59;
-    [v59 addEntriesFromDictionary:v14];
+    v14 = [v64 objectForKey:@"attributes"];
+    v15 = v58;
+    [v58 addEntriesFromDictionary:v14];
   }
 
   else
   {
-    v15 = v59;
-    [v59 addEntriesFromDictionary:0];
+    v15 = v58;
+    [v58 addEntriesFromDictionary:0];
   }
 
-  [v64 setMetadata:v15];
-  v16 = [v65 objectForKey:@"publicurl"];
+  [v63 setMetadata:v15];
+  v16 = [v64 objectForKey:@"publicurl"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v17 = [v65 objectForKey:@"publicurl"];
+    v17 = [v64 objectForKey:@"publicurl"];
   }
 
   else
@@ -2165,7 +2099,7 @@ void __75__MSASProtocol_albumSummaryAlbum_albumURLString_resetSync_completionBlo
     v17 = 0;
   }
 
-  v56 = v17;
+  v55 = v17;
   if ([v17 length])
   {
     v18 = v17;
@@ -2176,14 +2110,14 @@ void __75__MSASProtocol_albumSummaryAlbum_albumURLString_resetSync_completionBlo
     v18 = 0;
   }
 
-  [v64 setPublicURLString:v18];
+  [v63 setPublicURLString:v18];
   if (!_os_feature_enabled_impl())
   {
-    HIDWORD(v54) = 0;
+    HIDWORD(v53) = 0;
     goto LABEL_29;
   }
 
-  v19 = [v65 objectForKey:@"requiresretrywithclientorgkey"];
+  v19 = [v64 objectForKey:@"requiresretrywithclientorgkey"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -2194,7 +2128,7 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v20 = [v65 objectForKey:@"requiresretrywithclientorgkey"];
+  v20 = [v64 objectForKey:@"requiresretrywithclientorgkey"];
 
   if (!v20 || ([v20 isEqualToString:@"1"] & 1) == 0)
   {
@@ -2203,37 +2137,37 @@ LABEL_27:
 
   v21 = 1;
 LABEL_28:
-  HIDWORD(v54) = v21;
+  HIDWORD(v53) = v21;
 
 LABEL_29:
-  v22 = [v65 objectForKey:@"isfamilysharealbum"];
+  v22 = [v64 objectForKey:@"isfamilysharealbum"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 
     v23 = 0;
 LABEL_34:
-    v58 = v23;
+    v57 = v23;
     v24 = 0;
     goto LABEL_35;
   }
 
-  v58 = [v65 objectForKey:@"isfamilysharealbum"];
+  v57 = [v64 objectForKey:@"isfamilysharealbum"];
 
-  v23 = v58;
-  if (!v58 || ([v58 isEqualToString:@"1"] & 1) == 0)
+  v23 = v57;
+  if (!v57 || ([v57 isEqualToString:@"1"] & 1) == 0)
   {
     goto LABEL_34;
   }
 
   v24 = 1;
 LABEL_35:
-  [v64 setIsFamilySharedAlbum:v24];
-  v25 = [v65 objectForKey:@"ctagrespected"];
+  [v63 setIsFamilySharedAlbum:v24];
+  v25 = [v64 objectForKey:@"ctagrespected"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v26 = [v65 objectForKey:@"ctagrespected"];
+    v26 = [v64 objectForKey:@"ctagrespected"];
   }
 
   else
@@ -2241,14 +2175,14 @@ LABEL_35:
     v26 = 0;
   }
 
-  v55 = v26;
-  v27 = ([v26 isEqualToString:@"0"] & 1) != 0 || *(v62 + 40) == 0;
-  LODWORD(v54) = v27;
-  v28 = [v65 objectForKey:{@"assets", v54}];
+  v54 = v26;
+  v27 = ([v26 isEqualToString:@"0"] & 1) != 0 || *(v61 + 40) == 0;
+  LODWORD(v53) = v27;
+  v28 = [v64 objectForKey:{@"assets", v53}];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v29 = [v65 objectForKey:@"assets"];
+    v29 = [v64 objectForKey:@"assets"];
   }
 
   else
@@ -2256,29 +2190,29 @@ LABEL_35:
     v29 = 0;
   }
 
-  v57 = v29;
+  v56 = v29;
   if ([v29 count])
   {
-    v67 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v29, "count")}];
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
+    v66 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v29, "count")}];
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     obj = v29;
-    v30 = [obj countByEnumeratingWithState:&v71 objects:v78 count:16];
+    v30 = [obj countByEnumeratingWithState:&v70 objects:v77 count:16];
     if (v30)
     {
-      v31 = *v72;
+      v31 = *v71;
       do
       {
         for (i = 0; i != v30; ++i)
         {
-          if (*v72 != v31)
+          if (*v71 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v33 = *(*(&v71 + 1) + 8 * i);
+          v33 = *(*(&v70 + 1) + 8 * i);
           v34 = objc_alloc_init(MSASAssetCollectionChange);
           v35 = [v33 objectForKey:@"assetguid"];
           objc_opt_class();
@@ -2325,10 +2259,10 @@ LABEL_35:
           {
           }
 
-          [v67 addObject:v34];
+          [v66 addObject:v34];
         }
 
-        v30 = [obj countByEnumeratingWithState:&v71 objects:v78 count:16];
+        v30 = [obj countByEnumeratingWithState:&v70 objects:v77 count:16];
       }
 
       while (v30);
@@ -2337,14 +2271,14 @@ LABEL_35:
 
   else
   {
-    v67 = 0;
+    v66 = 0;
   }
 
-  v42 = [v65 objectForKey:@"sharinginfochanged"];
+  v42 = [v64 objectForKey:@"sharinginfochanged"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v43 = [v65 objectForKey:@"sharinginfochanged"];
+    v43 = [v64 objectForKey:@"sharinginfochanged"];
 
     if (v43)
     {
@@ -2358,27 +2292,27 @@ LABEL_35:
     v43 = 0;
   }
 
-  if (_os_feature_enabled_impl() && ([*(v62 + 32) clientOrgKey], v44 = objc_claimAutoreleasedReturnValue(), v45 = v44 == 0, v44, v45))
+  if (_os_feature_enabled_impl() && ([*(v61 + 32) clientOrgKey], v44 = objc_claimAutoreleasedReturnValue(), v45 = v44 == 0, v44, v45))
   {
-    v51 = [*(v62 + 32) useForeignCtag];
+    v50 = [*(v61 + 32) useForeignCtag];
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v76 = __Block_byref_object_copy__7575;
-    *&v77 = __Block_byref_object_dispose__7576;
-    *(&v77 + 1) = 0;
-    v52 = *(v62 + 48);
-    v68[0] = MEMORY[0x277D85DD0];
-    v68[1] = 3221225472;
-    v68[2] = __75__MSASProtocol_albumSummaryAlbum_albumURLString_resetSync_completionBlock___block_invoke_2;
-    v68[3] = &unk_278E92458;
-    v70 = buf;
-    v69 = v64;
-    [v52 _fetchClientOrgKeyAndPersistLocallyForResponseDict:v65 isOwned:v51 ^ 1u completionHandler:v68];
+    v75 = __Block_byref_object_copy__7575;
+    *&v76 = __Block_byref_object_dispose__7576;
+    *(&v76 + 1) = 0;
+    v51 = *(v61 + 48);
+    v67[0] = MEMORY[0x277D85DD0];
+    v67[1] = 3221225472;
+    v67[2] = __75__MSASProtocol_albumSummaryAlbum_albumURLString_resetSync_completionBlock___block_invoke_2;
+    v67[3] = &unk_278E92458;
+    v69 = buf;
+    v68 = v63;
+    [v51 _fetchClientOrgKeyAndPersistLocallyForResponseDict:v64 isOwned:v50 ^ 1u completionHandler:v67];
     v7 = *(*&buf[8] + 40);
     if (v7)
     {
-      v53 = v7;
+      v52 = v7;
     }
 
     _Block_object_dispose(buf, 8);
@@ -2389,7 +2323,7 @@ LABEL_35:
     v7 = 0;
   }
 
-  a1 = v62;
+  a1 = v61;
 LABEL_73:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
@@ -2402,17 +2336,15 @@ LABEL_73:
     *&buf[12] = 2114;
     *&buf[14] = v48;
     *&buf[22] = 2114;
-    v76 = v49;
-    LOWORD(v77) = 2113;
-    *(&v77 + 2) = v65;
+    v75 = v49;
+    LOWORD(v76) = 2113;
+    *(&v76 + 2) = v64;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Finished retrieving album summary for album %{public}@. Error: %{public}@ Response: %{private}@", buf, 0x2Au);
 
     a1 = v47;
   }
 
   (*(*(a1 + 56) + 16))();
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void __75__MSASProtocol_albumSummaryAlbum_albumURLString_resetSync_completionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2429,7 +2361,7 @@ void __75__MSASProtocol_albumSummaryAlbum_albumURLString_resetSync_completionBlo
 
 - (void)getSharingInfoForAlbum:(id)album albumURLString:(id)string completionBlock:(id)block
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   stringCopy = string;
   blockCopy = block;
@@ -2459,37 +2391,35 @@ void __75__MSASProtocol_albumSummaryAlbum_albumURLString_resetSync_completionBlo
   {
     *buf = 138543618;
     selfCopy = self;
-    v26 = 2114;
-    v27 = albumCopy;
+    v25 = 2114;
+    v26 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Requesting sharing relationships for album %{public}@", buf, 0x16u);
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __70__MSASProtocol_getSharingInfoForAlbum_albumURLString_completionBlock___block_invoke;
-  v20[3] = &unk_278E923B8;
-  v21 = albumCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __70__MSASProtocol_getSharingInfoForAlbum_albumURLString_completionBlock___block_invoke;
+  v19[3] = &unk_278E923B8;
+  v20 = albumCopy;
   selfCopy2 = self;
-  v23 = blockCopy;
+  v22 = blockCopy;
   v17 = blockCopy;
   v18 = albumCopy;
-  [(MSASProtocol *)self sendURLRequest:v13 bodyObj:dictionary completionBlock:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v13 bodyObj:dictionary completionBlock:v19];
 }
 
 void __70__MSASProtocol_getSharingInfoForAlbum_albumURLString_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = [MEMORY[0x277CBEB18] array];
   v9 = v8;
   if (!v6)
   {
-    v32 = v8;
+    v31 = v8;
     objc_opt_class();
-    v31 = v7;
+    v30 = v7;
     if (objc_opt_isKindOfClass())
     {
       v10 = v7;
@@ -2509,30 +2439,30 @@ void __70__MSASProtocol_getSharingInfoForAlbum_albumURLString_completionBlock___
       v13 = [v11 objectForKey:@"sharinginfo"];
     }
 
-    v30 = v11;
+    v29 = v11;
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v33 objects:v47 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v32 objects:v46 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v34;
+      v17 = *v33;
       v18 = MEMORY[0x277D86220];
       do
       {
         v19 = 0;
         do
         {
-          if (*v34 != v17)
+          if (*v33 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v20 = *(*(&v33 + 1) + 8 * v19);
+          v20 = *(*(&v32 + 1) + 8 * v19);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -2554,18 +2484,18 @@ void __70__MSASProtocol_getSharingInfoForAlbum_albumURLString_completionBlock___
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v38 = v23;
+              v37 = v23;
               _os_log_debug_impl(&dword_245B99000, v18, OS_LOG_TYPE_DEBUG, "Found sharing relationship: %@", buf, 0xCu);
             }
 
-            [v32 addObject:v23];
+            [v31 addObject:v23];
           }
 
           ++v19;
         }
 
         while (v16 != v19);
-        v16 = [v14 countByEnumeratingWithState:&v33 objects:v47 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v32 objects:v46 count:16];
       }
 
       while (v16);
@@ -2578,31 +2508,29 @@ void __70__MSASProtocol_getSharingInfoForAlbum_albumURLString_completionBlock___
       v27 = [v14 count];
       v28 = [0 MSVerboseDescription];
       *buf = 138544387;
-      v38 = v25;
-      v39 = 2114;
-      v40 = v26;
-      v41 = 2048;
-      v42 = v27;
-      v43 = 2114;
-      v44 = v28;
-      v45 = 2113;
-      v46 = v30;
+      v37 = v25;
+      v38 = 2114;
+      v39 = v26;
+      v40 = 2048;
+      v41 = v27;
+      v42 = 2114;
+      v43 = v28;
+      v44 = 2113;
+      v45 = v29;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Finished retrieving sharing info for album %{public}@. SharingInfo count: %ld Error: %{public}@ Response: %{private}@", buf, 0x34u);
     }
 
-    v7 = v31;
+    v7 = v30;
     v6 = 0;
-    v9 = v32;
+    v9 = v31;
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getChangesRootCtag:(id)ctag migrationCtag:(id)migrationCtag completionBlock:(id)block
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   ctagCopy = ctag;
   migrationCtagCopy = migrationCtag;
   blockCopy = block;
@@ -2627,41 +2555,39 @@ void __70__MSASProtocol_getSharingInfoForAlbum_albumURLString_completionBlock___
   {
     *buf = 138543618;
     selfCopy = self;
-    v26 = 2114;
-    v27 = ctagCopy;
+    v25 = 2114;
+    v26 = ctagCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Requesting changes since root ctag %{public}@", buf, 0x16u);
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __65__MSASProtocol_getChangesRootCtag_migrationCtag_completionBlock___block_invoke;
-  v20[3] = &unk_278E923B8;
-  v21 = ctagCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __65__MSASProtocol_getChangesRootCtag_migrationCtag_completionBlock___block_invoke;
+  v19[3] = &unk_278E923B8;
+  v20 = ctagCopy;
   selfCopy2 = self;
-  v23 = blockCopy;
+  v22 = blockCopy;
   v17 = blockCopy;
   v18 = ctagCopy;
-  [(MSASProtocol *)self sendURLRequest:v13 bodyObj:v15 completionBlock:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v13 bodyObj:v15 completionBlock:v19];
 }
 
 void __65__MSASProtocol_getChangesRootCtag_migrationCtag_completionBlock___block_invoke(void *a1, void *a2, void *a3, void *a4)
 {
-  v129 = *MEMORY[0x277D85DE8];
+  v125 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if (v8)
   {
     v10 = 0;
-    v96 = 0;
-    obj = 0;
     v92 = 0;
+    obj = 0;
+    v88 = 0;
     goto LABEL_115;
   }
 
-  v88 = v7;
+  v84 = v7;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -2683,7 +2609,7 @@ void __65__MSASProtocol_getChangesRootCtag_migrationCtag_completionBlock___block
     v15 = [v12 objectForKey:@"rootctag"];
   }
 
-  v92 = v15;
+  v88 = v15;
 
   v16 = [v12 objectForKey:@"ctagrespected"];
   objc_opt_class();
@@ -2698,273 +2624,269 @@ void __65__MSASProtocol_getChangesRootCtag_migrationCtag_completionBlock___block
   }
 
   v18 = ([v17 isEqualToString:@"0"] & 1) != 0 || a1[4] == 0;
-  v93 = v18;
+  v89 = v18;
   v19 = [v12 objectForKey:@"albums"];
-  v20 = 0x277CBE000uLL;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v21 = [v12 objectForKey:@"albums"];
+    v20 = [v12 objectForKey:@"albums"];
   }
 
   else
   {
-    v21 = 0;
+    v20 = 0;
   }
 
-  v89 = a1;
-  v90 = v21;
-  v91 = v12;
-  v87 = v17;
-  if ([v21 count])
+  v85 = a1;
+  v86 = v20;
+  v87 = v12;
+  v83 = v17;
+  if ([v20 count])
   {
-    v96 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v21, "count")}];
-    v111 = 0u;
-    v112 = 0u;
-    v113 = 0u;
-    v114 = 0u;
-    obja = v21;
-    v22 = [obja countByEnumeratingWithState:&v111 objects:v128 count:16];
-    if (v22)
+    v92 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v20, "count")}];
+    v107 = 0u;
+    v108 = 0u;
+    v109 = 0u;
+    v110 = 0u;
+    obja = v20;
+    v21 = [obja countByEnumeratingWithState:&v107 objects:v124 count:16];
+    if (v21)
     {
-      v23 = v22;
-      v24 = *v112;
+      v22 = v21;
+      v23 = *v108;
       do
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v112 != v24)
+          if (*v108 != v23)
           {
             objc_enumerationMutation(obja);
           }
 
-          v26 = *(*(&v111 + 1) + 8 * i);
+          v25 = *(*(&v107 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v27 = objc_alloc_init(MSASAlbumChange);
-            v28 = [v26 objectForKey:@"albumguid"];
+            v26 = objc_alloc_init(MSASAlbumChange);
+            v27 = [v25 objectForKey:@"albumguid"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v29 = [v26 objectForKey:@"albumguid"];
-              [(MSASAlbumChange *)v27 setGUID:v29];
+              v28 = [v25 objectForKey:@"albumguid"];
+              [(MSASAlbumChange *)v26 setGUID:v28];
             }
 
             else
             {
-              [(MSASAlbumChange *)v27 setGUID:0];
+              [(MSASAlbumChange *)v26 setGUID:0];
             }
 
-            v30 = [v26 objectForKey:@"delete"];
+            v29 = [v25 objectForKey:@"delete"];
             objc_opt_class();
-            v31 = objc_opt_isKindOfClass();
-            if (v31)
+            v30 = objc_opt_isKindOfClass();
+            if (v30)
             {
-              v32 = [v26 objectForKey:@"delete"];
-              v95 = v32;
+              v31 = [v25 objectForKey:@"delete"];
+              v91 = v31;
             }
 
             else
             {
-              v32 = 0;
+              v31 = 0;
             }
 
-            -[MSASAlbumChange setWasDeleted:](v27, "setWasDeleted:", [v32 intValue] != 0);
-            if (v31)
+            -[MSASAlbumChange setWasDeleted:](v26, "setWasDeleted:", [v31 intValue] != 0);
+            if (v30)
             {
             }
 
-            v33 = [v26 objectForKey:@"albumlocation"];
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v34 = [v26 objectForKey:@"albumlocation"];
-              [(MSASAlbumChange *)v27 setURLString:v34];
-            }
-
-            else
-            {
-              [(MSASAlbumChange *)v27 setURLString:0];
-            }
-
-            v35 = [v26 objectForKey:@"name"];
+            v32 = [v25 objectForKey:@"albumlocation"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v36 = [v26 objectForKey:@"name"];
-              [(MSASAlbumChange *)v27 setName:v36];
+              v33 = [v25 objectForKey:@"albumlocation"];
+              [(MSASAlbumChange *)v26 setURLString:v33];
             }
 
             else
             {
-              [(MSASAlbumChange *)v27 setName:0];
+              [(MSASAlbumChange *)v26 setURLString:0];
             }
 
-            v37 = [v26 objectForKey:@"email"];
+            v34 = [v25 objectForKey:@"name"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v38 = [v26 objectForKey:@"email"];
-              [(MSASAlbumChange *)v27 setOwnerEmail:v38];
+              v35 = [v25 objectForKey:@"name"];
+              [(MSASAlbumChange *)v26 setName:v35];
             }
 
             else
             {
-              [(MSASAlbumChange *)v27 setOwnerEmail:0];
+              [(MSASAlbumChange *)v26 setName:0];
             }
 
-            v39 = [v26 objectForKey:@"personid"];
+            v36 = [v25 objectForKey:@"email"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v40 = [v26 objectForKey:@"personid"];
-              [(MSASAlbumChange *)v27 setOwnerPersonID:v40];
+              v37 = [v25 objectForKey:@"email"];
+              [(MSASAlbumChange *)v26 setOwnerEmail:v37];
             }
 
             else
             {
-              [(MSASAlbumChange *)v27 setOwnerPersonID:0];
+              [(MSASAlbumChange *)v26 setOwnerEmail:0];
             }
 
-            v41 = [v26 objectForKey:@"firstname"];
+            v38 = [v25 objectForKey:@"personid"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v42 = [v26 objectForKey:@"firstname"];
-              [(MSASAlbumChange *)v27 setOwnerFirstName:v42];
+              v39 = [v25 objectForKey:@"personid"];
+              [(MSASAlbumChange *)v26 setOwnerPersonID:v39];
             }
 
             else
             {
-              [(MSASAlbumChange *)v27 setOwnerFirstName:0];
+              [(MSASAlbumChange *)v26 setOwnerPersonID:0];
             }
 
-            v43 = [v26 objectForKey:@"lastname"];
+            v40 = [v25 objectForKey:@"firstname"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v44 = [v26 objectForKey:@"lastname"];
-              [(MSASAlbumChange *)v27 setOwnerLastName:v44];
+              v41 = [v25 objectForKey:@"firstname"];
+              [(MSASAlbumChange *)v26 setOwnerFirstName:v41];
             }
 
             else
             {
-              [(MSASAlbumChange *)v27 setOwnerLastName:0];
+              [(MSASAlbumChange *)v26 setOwnerFirstName:0];
             }
 
-            v45 = [v26 objectForKey:@"fullname"];
+            v42 = [v25 objectForKey:@"lastname"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v46 = [v26 objectForKey:@"fullname"];
-              [(MSASAlbumChange *)v27 setOwnerFullName:v46];
+              v43 = [v25 objectForKey:@"lastname"];
+              [(MSASAlbumChange *)v26 setOwnerLastName:v43];
             }
 
             else
             {
-              [(MSASAlbumChange *)v27 setOwnerFullName:0];
+              [(MSASAlbumChange *)v26 setOwnerLastName:0];
             }
 
-            v47 = [MSASInvitation MSASPInvitationFromProtocolDictionary:v26];
-            [(MSASAlbumChange *)v27 setInvitation:v47];
+            v44 = [v25 objectForKey:@"fullname"];
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v45 = [v25 objectForKey:@"fullname"];
+              [(MSASAlbumChange *)v26 setOwnerFullName:v45];
+            }
 
-            [v96 addObject:v27];
+            else
+            {
+              [(MSASAlbumChange *)v26 setOwnerFullName:0];
+            }
+
+            v46 = [MSASInvitation MSASPInvitationFromProtocolDictionary:v25];
+            [(MSASAlbumChange *)v26 setInvitation:v46];
+
+            [v92 addObject:v26];
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v116 = v27;
+              v112 = v26;
               _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Album change received: %{public}@", buf, 0xCu);
             }
           }
         }
 
-        v23 = [obja countByEnumeratingWithState:&v111 objects:v128 count:16];
+        v22 = [obja countByEnumeratingWithState:&v107 objects:v124 count:16];
       }
 
-      while (v23);
+      while (v22);
     }
 
-    a1 = v89;
-    v20 = 0x277CBE000;
+    a1 = v85;
   }
 
   else
   {
-    v96 = 0;
+    v92 = 0;
   }
 
-  v48 = [v12 objectForKey:@"sharinginfochanges"];
-  v49 = *(v20 + 2656);
+  v47 = [v12 objectForKey:@"sharinginfochanges"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v50 = [v12 objectForKey:@"sharinginfochanges"];
+    v48 = [v12 objectForKey:@"sharinginfochanges"];
   }
 
   else
   {
-    v50 = 0;
+    v48 = 0;
   }
 
-  v94 = v50;
-  if ([v50 count])
+  v90 = v48;
+  if ([v48 count])
   {
-    obj = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v50, "count")}];
-    v107 = 0u;
-    v108 = 0u;
-    v109 = 0u;
-    v110 = 0u;
-    v51 = v50;
-    v52 = [v51 countByEnumeratingWithState:&v107 objects:v127 count:16];
-    if (v52)
+    obj = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v48, "count")}];
+    v103 = 0u;
+    v104 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v49 = v48;
+    v50 = [v49 countByEnumeratingWithState:&v103 objects:v123 count:16];
+    if (v50)
     {
-      v53 = v52;
-      v54 = *v108;
-      v55 = MEMORY[0x277D86220];
+      v51 = v50;
+      v52 = *v104;
+      v53 = MEMORY[0x277D86220];
       do
       {
-        for (j = 0; j != v53; ++j)
+        for (j = 0; j != v51; ++j)
         {
-          if (*v108 != v54)
+          if (*v104 != v52)
           {
-            objc_enumerationMutation(v51);
+            objc_enumerationMutation(v49);
           }
 
-          v57 = *(*(&v107 + 1) + 8 * j);
+          v55 = *(*(&v103 + 1) + 8 * j);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v58 = v57;
+            v56 = v55;
           }
 
           else
           {
-            v58 = 0;
+            v56 = 0;
           }
 
-          v59 = v58;
-          if (v59)
+          v57 = v56;
+          if (v57)
           {
-            [obj addObject:v59];
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+            [obj addObject:v57];
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v116 = v57;
-              _os_log_debug_impl(&dword_245B99000, v55, OS_LOG_TYPE_DEBUG, "Sharing info changed for album GUID: %{public}@", buf, 0xCu);
+              v112 = v55;
+              _os_log_debug_impl(&dword_245B99000, v53, OS_LOG_TYPE_DEBUG, "Sharing info changed for album GUID: %{public}@", buf, 0xCu);
             }
           }
         }
 
-        v53 = [v51 countByEnumeratingWithState:&v107 objects:v127 count:16];
+        v51 = [v49 countByEnumeratingWithState:&v103 objects:v123 count:16];
       }
 
-      while (v53);
+      while (v51);
     }
 
-    a1 = v89;
-    v12 = v91;
-    v20 = 0x277CBE000;
+    a1 = v85;
+    v12 = v87;
   }
 
   else
@@ -2972,141 +2894,140 @@ void __65__MSASProtocol_getChangesRootCtag_migrationCtag_completionBlock___block
     obj = 0;
   }
 
-  v60 = [v12 objectForKey:@"albumstatechanges"];
-  v61 = *(v20 + 2656);
+  v58 = [v12 objectForKey:@"albumstatechanges"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v62 = [v12 objectForKey:@"albumstatechanges"];
+    v59 = [v12 objectForKey:@"albumstatechanges"];
   }
 
   else
   {
-    v62 = 0;
+    v59 = 0;
   }
 
-  if ([v62 count])
+  if ([v59 count])
   {
-    v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v62, "count")}];
-    v103 = 0u;
-    v104 = 0u;
-    v105 = 0u;
-    v106 = 0u;
-    v63 = v62;
-    v64 = [v63 countByEnumeratingWithState:&v103 objects:v126 count:16];
-    if (v64)
+    v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v59, "count")}];
+    v99 = 0u;
+    v100 = 0u;
+    v101 = 0u;
+    v102 = 0u;
+    v60 = v59;
+    v61 = [v60 countByEnumeratingWithState:&v99 objects:v122 count:16];
+    if (v61)
     {
-      v65 = v64;
-      v86 = v62;
-      v66 = *v104;
-      v67 = MEMORY[0x277D86220];
+      v62 = v61;
+      v82 = v59;
+      v63 = *v100;
+      v64 = MEMORY[0x277D86220];
       do
       {
-        for (k = 0; k != v65; ++k)
+        for (k = 0; k != v62; ++k)
         {
-          if (*v104 != v66)
+          if (*v100 != v63)
           {
-            objc_enumerationMutation(v63);
+            objc_enumerationMutation(v60);
           }
 
-          v69 = *(*(&v103 + 1) + 8 * k);
+          v66 = *(*(&v99 + 1) + 8 * k);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v70 = v69;
+            v67 = v66;
           }
 
           else
           {
-            v70 = 0;
+            v67 = 0;
           }
 
-          v71 = v70;
-          if (v71)
+          v68 = v67;
+          if (v68)
           {
-            [v10 addObject:v71];
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
+            [v10 addObject:v68];
+            if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v116 = v69;
-              _os_log_debug_impl(&dword_245B99000, v67, OS_LOG_TYPE_DEBUG, "Key-Value info changed for album GUID: %{public}@", buf, 0xCu);
+              v112 = v66;
+              _os_log_debug_impl(&dword_245B99000, v64, OS_LOG_TYPE_DEBUG, "Key-Value info changed for album GUID: %{public}@", buf, 0xCu);
             }
           }
         }
 
-        v65 = [v63 countByEnumeratingWithState:&v103 objects:v126 count:16];
+        v62 = [v60 countByEnumeratingWithState:&v99 objects:v122 count:16];
       }
 
-      while (v65);
+      while (v62);
 LABEL_112:
-      a1 = v89;
-      v62 = v86;
+      a1 = v85;
+      v59 = v82;
     }
 
     goto LABEL_113;
   }
 
-  if (!v93)
+  if (!v89)
   {
     v10 = 0;
     goto LABEL_114;
   }
 
-  v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v62, "count")}];
-  v99 = 0u;
-  v100 = 0u;
-  v101 = 0u;
-  v102 = 0u;
-  v63 = v90;
-  v72 = [v63 countByEnumeratingWithState:&v99 objects:v125 count:16];
-  if (v72)
+  v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v59, "count")}];
+  v95 = 0u;
+  v96 = 0u;
+  v97 = 0u;
+  v98 = 0u;
+  v60 = v86;
+  v69 = [v60 countByEnumeratingWithState:&v95 objects:v121 count:16];
+  if (v69)
   {
-    v73 = v72;
-    v86 = v62;
-    v74 = *v100;
-    v75 = MEMORY[0x277D86220];
+    v70 = v69;
+    v82 = v59;
+    v71 = *v96;
+    v72 = MEMORY[0x277D86220];
     while (1)
     {
-      for (m = 0; m != v73; ++m)
+      for (m = 0; m != v70; ++m)
       {
-        if (*v100 != v74)
+        if (*v96 != v71)
         {
-          objc_enumerationMutation(v63);
+          objc_enumerationMutation(v60);
         }
 
-        v77 = *(*(&v99 + 1) + 8 * m);
+        v74 = *(*(&v95 + 1) + 8 * m);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v78 = [v77 objectForKey:@"albumguid"];
+          v75 = [v74 objectForKey:@"albumguid"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v79 = [v77 objectForKey:@"albumguid"];
+            v76 = [v74 objectForKey:@"albumguid"];
 
-            if (!v79)
+            if (!v76)
             {
               continue;
             }
 
-            [v10 addObject:v79];
-            if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
+            [v10 addObject:v76];
+            if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v116 = v79;
-              _os_log_debug_impl(&dword_245B99000, v75, OS_LOG_TYPE_DEBUG, "Key-Value info changed for album GUID: %{public}@", buf, 0xCu);
+              v112 = v76;
+              _os_log_debug_impl(&dword_245B99000, v72, OS_LOG_TYPE_DEBUG, "Key-Value info changed for album GUID: %{public}@", buf, 0xCu);
             }
           }
 
           else
           {
-            v79 = v78;
+            v76 = v75;
           }
         }
       }
 
-      v73 = [v63 countByEnumeratingWithState:&v99 objects:v125 count:16];
-      if (!v73)
+      v70 = [v60 countByEnumeratingWithState:&v95 objects:v121 count:16];
+      if (!v70)
       {
         goto LABEL_112;
       }
@@ -3117,37 +3038,35 @@ LABEL_113:
 
 LABEL_114:
   v8 = 0;
-  v7 = v88;
+  v7 = v84;
 
 LABEL_115:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v80 = a1[5];
-    v81 = [v96 count];
-    v82 = [obj count];
-    v83 = [v10 count];
-    v84 = [v8 MSVerboseDescription];
+    v77 = a1[5];
+    v78 = [v92 count];
+    v79 = [obj count];
+    v80 = [v10 count];
+    v81 = [v8 MSVerboseDescription];
     *buf = 138544386;
-    v116 = v80;
+    v112 = v77;
+    v113 = 2048;
+    v114 = v78;
+    v115 = 2048;
+    v116 = v79;
     v117 = 2048;
-    v118 = v81;
-    v119 = 2048;
-    v120 = v82;
-    v121 = 2048;
-    v122 = v83;
-    v123 = 2114;
-    v124 = v84;
+    v118 = v80;
+    v119 = 2114;
+    v120 = v81;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Received changes for %ld albums, sharing info changes for %ld albums, KV changes for %ld albums. Error: %{public}@", buf, 0x34u);
   }
 
   (*(a1[6] + 16))();
-
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteComment:(id)comment fromAssetCollection:(id)collection inAlbum:(id)album albumURLString:(id)string completionBlock:(id)block
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   commentCopy = comment;
   collectionCopy = collection;
   albumCopy = album;
@@ -3165,7 +3084,7 @@ LABEL_115:
   v17 = ;
   v18 = [(MSASProtocol *)self _deleteCommentURLWithBaseURL:v17];
 
-  v33 = v18;
+  v32 = v18;
   v19 = [MEMORY[0x277CBAB50] requestWithURL:v18];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   gUID = [albumCopy GUID];
@@ -3214,25 +3133,23 @@ LABEL_13:
   {
     *buf = 138543618;
     selfCopy = self;
-    v38 = 2114;
-    v39 = commentCopy;
+    v37 = 2114;
+    v38 = commentCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Sending request to delete comment %{public}@", buf, 0x16u);
   }
 
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __89__MSASProtocol_deleteComment_fromAssetCollection_inAlbum_albumURLString_completionBlock___block_invoke;
-  v34[3] = &unk_278E92430;
-  v35 = blockCopy;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __89__MSASProtocol_deleteComment_fromAssetCollection_inAlbum_albumURLString_completionBlock___block_invoke;
+  v33[3] = &unk_278E92430;
+  v34 = blockCopy;
   v31 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v19 bodyObj:dictionary completionBlock:v34];
-
-  v32 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v19 bodyObj:dictionary completionBlock:v33];
 }
 
 - (void)deleteAssetCollections:(id)collections inAlbum:(id)album completionBlock:(id)block
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   albumCopy = album;
   blockCopy = block;
@@ -3250,31 +3167,31 @@ LABEL_13:
   }
 
   v14 = MEMORY[0x277CBAB50];
-  v33 = baseURL;
+  v32 = baseURL;
   v15 = [(MSASProtocol *)self _deleteAssetsURLWithBaseURL:baseURL];
   v16 = [v14 requestWithURL:v15];
 
   array = [MEMORY[0x277CBEB18] array];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v18 = collectionsCopy;
-  v19 = [v18 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v37;
+    v21 = *v36;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v37 != v21)
+        if (*v36 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v36 + 1) + 8 * i);
+        v23 = *(*(&v35 + 1) + 8 * i);
         gUID = [v23 GUID];
 
         if (gUID)
@@ -3284,7 +3201,7 @@ LABEL_13:
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v20);
@@ -3305,25 +3222,23 @@ LABEL_13:
     v29 = [array count];
     *buf = 138543618;
     selfCopy = self;
-    v42 = 2048;
-    v43 = v29;
+    v41 = 2048;
+    v42 = v29;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Sending request to delete %ld photos.", buf, 0x16u);
   }
 
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __63__MSASProtocol_deleteAssetCollections_inAlbum_completionBlock___block_invoke;
-  v34[3] = &unk_278E92430;
-  v35 = blockCopy;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __63__MSASProtocol_deleteAssetCollections_inAlbum_completionBlock___block_invoke;
+  v33[3] = &unk_278E92430;
+  v34 = blockCopy;
   v30 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v16 bodyObj:dictionary completionBlock:v34];
-
-  v31 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v16 bodyObj:dictionary completionBlock:v33];
 }
 
 - (void)deleteAlbum:(id)album completionBlock:(id)block
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   blockCopy = block;
   uRLString = [albumCopy URLString];
@@ -3364,20 +3279,18 @@ LABEL_13:
   {
     *buf = 138543618;
     selfCopy = self;
-    v26 = 2114;
-    v27 = albumCopy;
+    v25 = 2114;
+    v26 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Sending request to delete album %{public}@", buf, 0x16u);
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __44__MSASProtocol_deleteAlbum_completionBlock___block_invoke;
-  v22[3] = &unk_278E92430;
-  v23 = blockCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __44__MSASProtocol_deleteAlbum_completionBlock___block_invoke;
+  v21[3] = &unk_278E92430;
+  v22 = blockCopy;
   v20 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v14 bodyObj:dictionary completionBlock:v22];
-
-  v21 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v14 bodyObj:dictionary completionBlock:v21];
 }
 
 - (void)setMultipleContributorsEnabled:(BOOL)enabled forAlbum:(id)album completionBlock:(id)block
@@ -3700,13 +3613,13 @@ LABEL_24:
 
 - (void)removeSharingRelationships:(id)relationships fromAlbum:(id)album completionBlock:(id)block
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   relationshipsCopy = relationships;
   albumCopy = album;
   blockCopy = block;
   v10 = MEMORY[0x277CBAB50];
   _unshareURL = [(MSASProtocol *)self _unshareURL];
-  v30 = [v10 requestWithURL:_unshareURL];
+  v29 = [v10 requestWithURL:_unshareURL];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   gUID = [albumCopy GUID];
@@ -3729,26 +3642,26 @@ LABEL_24:
   }
 
   v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(relationshipsCopy, "count")}];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v19 = relationshipsCopy;
-  v20 = [v19 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v34;
+    v22 = *v33;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v34 != v22)
+        if (*v33 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v33 + 1) + 8 * i);
+        v24 = *(*(&v32 + 1) + 8 * i);
         gUID3 = [v24 GUID];
 
         if (gUID3)
@@ -3758,33 +3671,31 @@ LABEL_24:
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v21);
   }
 
   [dictionary setObject:v18 forKey:@"invitations"];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __69__MSASProtocol_removeSharingRelationships_fromAlbum_completionBlock___block_invoke;
-  v31[3] = &unk_278E92430;
-  v32 = blockCopy;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __69__MSASProtocol_removeSharingRelationships_fromAlbum_completionBlock___block_invoke;
+  v30[3] = &unk_278E92430;
+  v31 = blockCopy;
   v27 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v30 bodyObj:dictionary completionBlock:v31];
-
-  v28 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v29 bodyObj:dictionary completionBlock:v30];
 }
 
 - (void)addSharingRelationships:(id)relationships toAlbum:(id)album completionBlock:(id)block
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   relationshipsCopy = relationships;
   albumCopy = album;
   blockCopy = block;
   v10 = MEMORY[0x277CBAB50];
   _shareURL = [(MSASProtocol *)self _shareURL];
-  v41 = [v10 requestWithURL:_shareURL];
+  v40 = [v10 requestWithURL:_shareURL];
 
   v12 = 0x277CBE000uLL;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -3808,37 +3719,37 @@ LABEL_24:
     [dictionary setObject:ctag2 forKey:@"albumctag"];
   }
 
-  v38 = albumCopy;
-  v39 = dictionary;
+  v37 = albumCopy;
+  v38 = dictionary;
   v19 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(relationshipsCopy, "count")}];
-  v44 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(relationshipsCopy, "count")}];
+  v43 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(relationshipsCopy, "count")}];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   obj = relationshipsCopy;
-  v46 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
-  if (v46)
+  v45 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
+  if (v45)
   {
-    v45 = *v52;
-    v42 = v19;
+    v44 = *v51;
+    v41 = v19;
     do
     {
       v20 = 0;
       do
       {
-        if (*v52 != v45)
+        if (*v51 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v51 + 1) + 8 * v20);
+        v21 = *(*(&v50 + 1) + 8 * v20);
         dictionary2 = [*(v12 + 2872) dictionary];
         gUID3 = [v21 GUID];
         if (gUID3)
         {
           [dictionary2 setObject:gUID3 forKey:@"invitationguid"];
-          [v44 addObject:gUID3];
+          [v43 addObject:gUID3];
         }
 
         phones = [v21 phones];
@@ -3863,7 +3774,7 @@ LABEL_24:
               [dictionary2 setObject:v29 forKey:@"alternateemails"];
 
               v12 = v28;
-              v19 = v42;
+              v19 = v41;
             }
           }
         }
@@ -3900,28 +3811,26 @@ LABEL_24:
         ++v20;
       }
 
-      while (v46 != v20);
-      v46 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+      while (v45 != v20);
+      v45 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
     }
 
-    while (v46);
+    while (v45);
   }
 
-  [v39 setObject:v19 forKey:@"invitations"];
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __64__MSASProtocol_addSharingRelationships_toAlbum_completionBlock___block_invoke;
-  v47[3] = &unk_278E92380;
-  v47[4] = selfCopy;
-  v48 = v38;
-  v49 = v44;
-  v50 = blockCopy;
+  [v38 setObject:v19 forKey:@"invitations"];
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __64__MSASProtocol_addSharingRelationships_toAlbum_completionBlock___block_invoke;
+  v46[3] = &unk_278E92380;
+  v46[4] = selfCopy;
+  v47 = v37;
+  v48 = v43;
+  v49 = blockCopy;
   v33 = blockCopy;
-  v34 = v44;
-  v35 = v38;
-  [(MSASProtocol *)selfCopy sendURLRequest:v41 bodyObj:v39 completionBlock:v47];
-
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = v43;
+  v35 = v37;
+  [(MSASProtocol *)selfCopy sendURLRequest:v40 bodyObj:v38 completionBlock:v46];
 }
 
 void __64__MSASProtocol_addSharingRelationships_toAlbum_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -3930,12 +3839,12 @@ void __64__MSASProtocol_addSharingRelationships_toAlbum_completionBlock___block_
   v8 = a3;
   v9 = a4;
   v10 = v8;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__7575;
-  v43 = __Block_byref_object_dispose__7576;
-  v44 = [MEMORY[0x277CBEB38] dictionary];
+  v38[0] = 0;
+  v38[1] = v38;
+  v38[2] = 0x3032000000;
+  v38[3] = __Block_byref_object_copy__7575;
+  v38[4] = __Block_byref_object_dispose__7576;
+  v39 = [MEMORY[0x277CBEB38] dictionary];
   if (!v10)
   {
     objc_opt_class();
@@ -3973,23 +3882,23 @@ LABEL_19:
       v17 = 0;
     }
 
-    v35[0] = 0;
-    v35[1] = v35;
-    v35[2] = 0x3032000000;
-    v35[3] = __Block_byref_object_copy__7575;
-    v35[4] = __Block_byref_object_dispose__7576;
-    v36 = 0;
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __64__MSASProtocol_addSharingRelationships_toAlbum_completionBlock___block_invoke_2;
-    v30[3] = &unk_278E92408;
-    v33 = v35;
-    v31 = *(a1 + 40);
-    v32 = *(a1 + 48);
-    v34 = &v39;
-    [v17 enumerateObjectsUsingBlock:v30];
+    v34[0] = 0;
+    v34[1] = v34;
+    v34[2] = 0x3032000000;
+    v34[3] = __Block_byref_object_copy__7575;
+    v34[4] = __Block_byref_object_dispose__7576;
+    v35 = 0;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __64__MSASProtocol_addSharingRelationships_toAlbum_completionBlock___block_invoke_2;
+    v29[3] = &unk_278E92408;
+    v32 = v34;
+    v30 = *(a1 + 40);
+    v31 = *(a1 + 48);
+    v33 = v38;
+    [v17 enumerateObjectsUsingBlock:v29];
 
-    _Block_object_dispose(v35, 8);
+    _Block_object_dispose(v34, 8);
     v13 = 0;
     v19 = 0;
 LABEL_18:
@@ -4000,9 +3909,9 @@ LABEL_18:
   if ([v10 MSContainsErrorWithDomain:*MEMORY[0x277CBACE8] code:403])
   {
     v11 = *(a1 + 32);
-    v38 = 0;
-    v12 = [v11 responseDict:v9 containsLimitErrorCode:@"4031" outMaxAllowed:&v38];
-    v13 = v38;
+    v37 = 0;
+    v12 = [v11 responseDict:v9 containsLimitErrorCode:@"4031" outMaxAllowed:&v37];
+    v13 = v37;
     if (v12)
     {
       v14 = MEMORY[0x277CCA9B8];
@@ -4016,9 +3925,9 @@ LABEL_18:
     }
 
     v24 = *(a1 + 32);
-    v37 = v13;
-    v25 = [v24 responseDict:v9 containsLimitErrorCode:@"4033" outMaxAllowed:&v37];
-    v23 = v37;
+    v36 = v13;
+    v25 = [v24 responseDict:v9 containsLimitErrorCode:@"4033" outMaxAllowed:&v36];
+    v23 = v36;
 
     if (v25)
     {
@@ -4041,14 +3950,13 @@ LABEL_18:
 
   v19 = v10;
 LABEL_20:
-  v29 = v40[5];
   (*(*(a1 + 56) + 16))();
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(v38, 8);
 }
 
 void __64__MSASProtocol_addSharingRelationships_toAlbum_completionBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -4113,27 +4021,27 @@ void __64__MSASProtocol_addSharingRelationships_toAlbum_completionBlock___block_
 
         if (v16)
         {
-          v28 = v14;
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
+          v27 = v14;
           v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
           v17 = v16;
-          v18 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v30;
+            v20 = *v29;
             do
             {
               for (i = 0; i != v19; ++i)
               {
-                if (*v30 != v20)
+                if (*v29 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                v22 = *(*(&v29 + 1) + 8 * i);
+                v22 = *(*(&v28 + 1) + 8 * i);
                 v23 = [v22 objectForKey:@"phonenumber"];
                 v24 = [v22 objectForKey:@"invitationtoken"];
                 v25 = v24;
@@ -4153,13 +4061,13 @@ void __64__MSASProtocol_addSharingRelationships_toAlbum_completionBlock___block_
                 }
               }
 
-              v19 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
             }
 
             while (v19);
           }
 
-          v14 = v28;
+          v14 = v27;
         }
       }
 
@@ -4176,12 +4084,11 @@ void __64__MSASProtocol_addSharingRelationships_toAlbum_completionBlock___block_
   }
 
 LABEL_33:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendUploadCompleteSuccessfulAssetCollections:(id)collections failedAssetCollections:(id)assetCollections album:(id)album completionBlock:(id)block
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   assetCollectionsCopy = assetCollections;
   albumCopy = album;
@@ -4199,34 +4106,34 @@ LABEL_33:
     baseURL = [(MSASProtocol *)self baseURL];
   }
 
-  v61 = albumCopy;
+  v60 = albumCopy;
 
   v16 = MEMORY[0x277CBAB50];
-  v60 = baseURL;
+  v59 = baseURL;
   v17 = [(MSASProtocol *)self _uploadCompleteURLWithBaseURL:baseURL];
-  v58 = [v16 requestWithURL:v17];
+  v57 = [v16 requestWithURL:v17];
 
   array = [MEMORY[0x277CBEB18] array];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
   obj = collectionsCopy;
-  v65 = [obj countByEnumeratingWithState:&v83 objects:v95 count:16];
-  if (v65)
+  v64 = [obj countByEnumeratingWithState:&v82 objects:v94 count:16];
+  if (v64)
   {
-    v63 = *v84;
+    v62 = *v83;
     do
     {
-      for (i = 0; i != v65; i = i + 1)
+      for (i = 0; i != v64; i = i + 1)
       {
-        if (*v84 != v63)
+        if (*v83 != v62)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v83 + 1) + 8 * i);
+        v19 = *(*(&v82 + 1) + 8 * i);
         metadata = [v19 metadata];
         v21 = [metadata objectForKey:@"pendingUploadGUID"];
 
@@ -4245,34 +4152,34 @@ LABEL_33:
             [dictionary2 setObject:@"video" forKey:@"mediaAssetType"];
           }
 
-          v67 = v21;
-          v68 = i;
+          v66 = v21;
+          v67 = i;
           if ([v19 isPhotoIris])
           {
             [dictionary2 setObject:@"videoCompl" forKey:@"mediaAssetType"];
           }
 
-          v66 = dictionary2;
-          v81 = 0u;
-          v82 = 0u;
+          v65 = dictionary2;
           v80 = 0u;
+          v81 = 0u;
           v79 = 0u;
+          v78 = 0u;
           assets2 = [v19 assets];
-          v27 = [assets2 countByEnumeratingWithState:&v79 objects:v94 count:16];
+          v27 = [assets2 countByEnumeratingWithState:&v78 objects:v93 count:16];
           if (v27)
           {
             v28 = v27;
-            v29 = *v80;
+            v29 = *v79;
             do
             {
               for (j = 0; j != v28; ++j)
               {
-                if (*v80 != v29)
+                if (*v79 != v29)
                 {
                   objc_enumerationMutation(assets2);
                 }
 
-                v31 = *(*(&v79 + 1) + 8 * j);
+                v31 = *(*(&v78 + 1) + 8 * j);
                 mMCSReceipt = [v31 MMCSReceipt];
 
                 if (mMCSReceipt)
@@ -4301,7 +4208,7 @@ LABEL_33:
                 }
               }
 
-              v28 = [assets2 countByEnumeratingWithState:&v79 objects:v94 count:16];
+              v28 = [assets2 countByEnumeratingWithState:&v78 objects:v93 count:16];
             }
 
             while (v28);
@@ -4309,41 +4216,41 @@ LABEL_33:
 
           if ([v25 count])
           {
-            [v66 setObject:v25 forKey:@"files"];
-            [array addObject:v66];
+            [v65 setObject:v25 forKey:@"files"];
+            [array addObject:v65];
           }
 
-          v21 = v67;
-          i = v68;
+          v21 = v66;
+          i = v67;
         }
       }
 
-      v65 = [obj countByEnumeratingWithState:&v83 objects:v95 count:16];
+      v64 = [obj countByEnumeratingWithState:&v82 objects:v94 count:16];
     }
 
-    while (v65);
+    while (v64);
   }
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
-  v69 = assetCollectionsCopy;
-  v40 = [v69 countByEnumeratingWithState:&v75 objects:v93 count:16];
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  v68 = assetCollectionsCopy;
+  v40 = [v68 countByEnumeratingWithState:&v74 objects:v92 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v76;
+    v42 = *v75;
     do
     {
       for (k = 0; k != v41; ++k)
       {
-        if (*v76 != v42)
+        if (*v75 != v42)
         {
-          objc_enumerationMutation(v69);
+          objc_enumerationMutation(v68);
         }
 
-        v44 = *(*(&v75 + 1) + 8 * k);
+        v44 = *(*(&v74 + 1) + 8 * k);
         metadata2 = [v44 metadata];
         v46 = [metadata2 objectForKey:@"pendingUploadGUID"];
 
@@ -4357,7 +4264,7 @@ LABEL_33:
         }
       }
 
-      v41 = [v69 countByEnumeratingWithState:&v75 objects:v93 count:16];
+      v41 = [v68 countByEnumeratingWithState:&v74 objects:v92 count:16];
     }
 
     while (v41);
@@ -4365,357 +4272,349 @@ LABEL_33:
 
   dictionary5 = [MEMORY[0x277CBEB38] dictionary];
   [dictionary5 setObject:array forKey:@"assets"];
-  gUID = [v61 GUID];
+  gUID = [v60 GUID];
 
   if (gUID)
   {
-    gUID2 = [v61 GUID];
+    gUID2 = [v60 GUID];
     [dictionary5 setObject:gUID2 forKey:@"albumguid"];
   }
 
-  clientOrgKey = [v61 clientOrgKey];
+  clientOrgKey = [v60 clientOrgKey];
   [(MSASProtocol *)self _setClientOrgKeyForRequestBody:dictionary5 clientOrgKey:clientOrgKey];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v52 = [obj count];
-    v53 = [v69 count];
+    v53 = [v68 count];
     *buf = 138543874;
     selfCopy = self;
-    v89 = 2048;
-    v90 = v52;
-    v91 = 2048;
-    v92 = v53;
+    v88 = 2048;
+    v89 = v52;
+    v90 = 2048;
+    v91 = v53;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Sending upload complete with %ld successful uploads and %ld failed uploads.", buf, 0x20u);
   }
 
-  v71[0] = MEMORY[0x277D85DD0];
-  v71[1] = 3221225472;
-  v71[2] = __106__MSASProtocol_sendUploadCompleteSuccessfulAssetCollections_failedAssetCollections_album_completionBlock___block_invoke;
-  v71[3] = &unk_278E923B8;
-  v72 = dictionary;
+  v70[0] = MEMORY[0x277D85DD0];
+  v70[1] = 3221225472;
+  v70[2] = __106__MSASProtocol_sendUploadCompleteSuccessfulAssetCollections_failedAssetCollections_album_completionBlock___block_invoke;
+  v70[3] = &unk_278E923B8;
+  v71 = dictionary;
   selfCopy2 = self;
-  v74 = blockCopy;
+  v73 = blockCopy;
   v54 = blockCopy;
   v55 = dictionary;
-  [(MSASProtocol *)self sendURLRequest:v58 bodyObj:dictionary5 completionBlock:v71];
-
-  v56 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v57 bodyObj:dictionary5 completionBlock:v70];
 }
 
 void __106__MSASProtocol_sendUploadCompleteSuccessfulAssetCollections_failedAssetCollections_album_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
-  v78 = [MEMORY[0x277CBEB18] array];
+  v68 = [MEMORY[0x277CBEB18] array];
   v8 = [MEMORY[0x277CBEB38] dictionary];
   if (!v6)
   {
-    v9 = 0x277CBE000uLL;
     if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v75 = v7;
-      v10 = v7;
-      v89 = 0u;
-      v90 = 0u;
-      v91 = 0u;
-      v92 = 0u;
-      v11 = [v10 countByEnumeratingWithState:&v89 objects:v98 count:16];
-      if (!v11)
+      v65 = v7;
+      v9 = v7;
+      v79 = 0u;
+      v80 = 0u;
+      v81 = 0u;
+      v82 = 0u;
+      v10 = [v9 countByEnumeratingWithState:&v79 objects:v88 count:16];
+      if (!v10)
       {
-        goto LABEL_54;
+        goto LABEL_53;
       }
 
-      v12 = v11;
-      v84 = *v90;
-      v13 = 0x277CCA000uLL;
-      v81 = v10;
-      v82 = a1;
+      v11 = v10;
+      v74 = *v80;
+      v12 = 0x277CCA000uLL;
+      v71 = v9;
+      v72 = a1;
       while (1)
       {
-        v14 = 0;
-        v83 = v12;
+        v13 = 0;
+        v73 = v11;
         do
         {
-          if (*v90 != v84)
+          if (*v80 != v74)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v9);
           }
 
-          v15 = v8;
-          v16 = *(*(&v89 + 1) + 8 * v14);
-          if (v16)
+          v14 = v8;
+          v15 = *(*(&v79 + 1) + 8 * v13);
+          if (v15)
           {
-            v17 = *(v13 + 3240);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v32 = MEMORY[0x277CCA9B8];
-              v33 = *(v13 + 3240);
-              v19 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_BAD_FIELD_P_FIELD");
-              v34 = [v33 stringWithFormat:v19, @"pending upload ID"];
-              v35 = [v32 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:10 description:v34];
+              v23 = MEMORY[0x277CCA9B8];
+              v24 = *(v12 + 3240);
+              v17 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_BAD_FIELD_P_FIELD");
+              v25 = [v24 stringWithFormat:v17, @"pending upload ID"];
+              v26 = [v23 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:10 description:v25];
 
-              goto LABEL_48;
+              goto LABEL_47;
             }
           }
 
-          v18 = [*(a1 + 32) objectForKey:v16];
-          if (v18)
+          v16 = [*(a1 + 32) objectForKey:v15];
+          if (v16)
           {
-            v19 = v18;
-            v20 = [v10 objectForKey:v16];
-            if (!v20 || (v21 = *(v9 + 2752), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            v17 = v16;
+            v18 = [v9 objectForKey:v15];
+            if (!v18 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v22 = [v20 objectForKey:@"assetguid"];
-              if (v22)
+              v19 = [v18 objectForKey:@"assetguid"];
+              if (v19)
               {
-                v23 = *(v13 + 3240);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  v39 = v13;
-                  v40 = MEMORY[0x277CCA9B8];
-                  v41 = *(v39 + 3240);
-                  v24 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_BAD_FIELD_P_FIELD");
-                  v26 = [v41 stringWithFormat:v24, @"assetguid"];
-                  v35 = [v40 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:10 description:v26];
-                  goto LABEL_43;
+                  v30 = v12;
+                  v31 = MEMORY[0x277CCA9B8];
+                  v32 = *(v30 + 3240);
+                  v20 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_BAD_FIELD_P_FIELD");
+                  v21 = [v32 stringWithFormat:v20, @"assetguid"];
+                  v26 = [v31 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:10 description:v21];
+                  goto LABEL_42;
                 }
               }
 
-              v24 = [v20 objectForKey:@"assetctag"];
-              if (v24 && (v25 = *(v13 + 3240), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+              v20 = [v18 objectForKey:@"assetctag"];
+              if (v20)
               {
-                v42 = v13;
-                v43 = MEMORY[0x277CCA9B8];
-                v44 = *(v42 + 3240);
-                v26 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_BAD_FIELD_P_FIELD");
-                v45 = [v44 stringWithFormat:v26, @"assetctag"];
-                v35 = [v43 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:10 description:v45];
-                v46 = v45;
+                objc_opt_class();
+                if ((objc_opt_isKindOfClass() & 1) == 0)
+                {
+                  v33 = v12;
+                  v34 = MEMORY[0x277CCA9B8];
+                  v35 = *(v33 + 3240);
+                  v21 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_BAD_FIELD_P_FIELD");
+                  v36 = [v35 stringWithFormat:v21, @"assetctag"];
+                  v26 = [v34 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:10 description:v36];
+                  v37 = v36;
+                  goto LABEL_41;
+                }
+              }
+
+              v21 = [v18 objectForKey:@"success"];
+              if (v21)
+              {
+                objc_opt_class();
+                if ((objc_opt_isKindOfClass() & 1) == 0)
+                {
+                  v67 = MEMORY[0x277CCA9B8];
+                  v44 = *(v12 + 3240);
+                  v70 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_BAD_FIELD_P_FIELD");
+                  v45 = [v44 stringWithFormat:v70, @"success"];
+                  v26 = [v67 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:10 description:v45];
+
+                  v37 = v70;
+                  goto LABEL_41;
+                }
+              }
+
+              v66 = [v21 intValue];
+              v22 = [v18 objectForKey:@"assetnumber"];
+              objc_opt_class();
+              if (objc_opt_isKindOfClass())
+              {
+                v69 = [v18 objectForKey:@"assetnumber"];
               }
 
               else
               {
-                v26 = [v20 objectForKey:@"success"];
-                if (!v26 || (v27 = *(v13 + 3240), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-                {
-                  v76 = [v26 intValue];
-                  v28 = [v20 objectForKey:@"assetnumber"];
-                  v29 = v13;
-                  v30 = v28;
-                  v31 = *(v29 + 3240);
-                  objc_opt_class();
-                  if (objc_opt_isKindOfClass())
-                  {
-                    v79 = [v20 objectForKey:@"assetnumber"];
-                  }
-
-                  else
-                  {
-                    v79 = 0;
-                  }
-
-                  v47 = [(__CFString *)v19 GUID];
-                  v48 = [v47 isEqualToString:v22];
-
-                  if (v48)
-                  {
-                    if (v76)
-                    {
-                      if (v24)
-                      {
-                        [(__CFString *)v19 setCtag:v24];
-                      }
-
-                      v9 = 0x277CBE000;
-                      v46 = v79;
-                      if (v79)
-                      {
-                        -[__CFString setPhotoNumber:](v19, "setPhotoNumber:", [v79 longLongValue]);
-                        v46 = v79;
-                      }
-
-                      v35 = 0;
-LABEL_42:
-
-LABEL_43:
-LABEL_44:
-
-                      if (v35)
-                      {
-                        [v15 setObject:v35 forKey:v19];
-                      }
-
-                      else
-                      {
-                        [v78 addObject:v19];
-                      }
-
-                      v10 = v81;
-                      a1 = v82;
-                      v12 = v83;
-                      [*(v82 + 32) removeObjectForKey:v16];
-LABEL_48:
-
-                      if (v35)
-                      {
-                        v8 = v15;
-                        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                        {
-                          v56 = *(a1 + 40);
-                          *buf = 138543618;
-                          v95 = v56;
-                          v96 = 2114;
-                          v97 = v35;
-                          _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Skipping asset collection in response. Error: %{public}@", buf, 0x16u);
-                        }
-                      }
-
-                      else
-                      {
-                        v8 = v15;
-                      }
-
-                      goto LABEL_52;
-                    }
-
-                    v55 = MEMORY[0x277CCA9B8];
-                    v50 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_COLL_REJECTED");
-                    v51 = v55;
-                    v52 = 8;
-                  }
-
-                  else
-                  {
-                    v49 = MEMORY[0x277CCA9B8];
-                    v50 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_MISMATCHED_COLLECTION");
-                    v51 = v49;
-                    v52 = 6;
-                  }
-
-                  v35 = [v51 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:v52 description:v50];
-
-                  v9 = 0x277CBE000;
-                  v46 = v79;
-                  goto LABEL_42;
-                }
-
-                v77 = MEMORY[0x277CCA9B8];
-                v53 = *(v13 + 3240);
-                v80 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_BAD_FIELD_P_FIELD");
-                v54 = [v53 stringWithFormat:v80, @"success"];
-                v35 = [v77 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:10 description:v54];
-
-                v46 = v80;
+                v69 = 0;
               }
 
-              v9 = 0x277CBE000;
-              goto LABEL_42;
+              v38 = [(__CFString *)v17 GUID];
+              v39 = [v38 isEqualToString:v19];
+
+              if (v39)
+              {
+                if (v66)
+                {
+                  if (v20)
+                  {
+                    [(__CFString *)v17 setCtag:v20];
+                  }
+
+                  v37 = v69;
+                  if (v69)
+                  {
+                    -[__CFString setPhotoNumber:](v17, "setPhotoNumber:", [v69 longLongValue]);
+                    v37 = v69;
+                  }
+
+                  v26 = 0;
+LABEL_41:
+
+LABEL_42:
+LABEL_43:
+
+                  if (v26)
+                  {
+                    [v14 setObject:v26 forKey:v17];
+                  }
+
+                  else
+                  {
+                    [v68 addObject:v17];
+                  }
+
+                  v9 = v71;
+                  a1 = v72;
+                  v11 = v73;
+                  [*(v72 + 32) removeObjectForKey:v15];
+LABEL_47:
+
+                  if (v26)
+                  {
+                    v8 = v14;
+                    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+                    {
+                      v47 = *(a1 + 40);
+                      *buf = 138543618;
+                      v85 = v47;
+                      v86 = 2114;
+                      v87 = v26;
+                      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Skipping asset collection in response. Error: %{public}@", buf, 0x16u);
+                    }
+                  }
+
+                  else
+                  {
+                    v8 = v14;
+                  }
+
+                  goto LABEL_51;
+                }
+
+                v46 = MEMORY[0x277CCA9B8];
+                v41 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_COLL_REJECTED");
+                v42 = v46;
+                v43 = 8;
+              }
+
+              else
+              {
+                v40 = MEMORY[0x277CCA9B8];
+                v41 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_MISMATCHED_COLLECTION");
+                v42 = v40;
+                v43 = 6;
+              }
+
+              v26 = [v42 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:v43 description:v41];
+
+              v37 = v69;
+              goto LABEL_41;
             }
 
-            v36 = v13;
-            v37 = MEMORY[0x277CCA9B8];
-            v38 = *(v36 + 3240);
-            v22 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_BAD_FIELD_P_FIELD");
-            v24 = [v38 stringWithFormat:v22, v16];
-            v35 = [v37 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:10 description:v24];
-            goto LABEL_44;
+            v27 = v12;
+            v28 = MEMORY[0x277CCA9B8];
+            v29 = *(v27 + 3240);
+            v19 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_BAD_FIELD_P_FIELD");
+            v20 = [v29 stringWithFormat:v19, v15];
+            v26 = [v28 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:10 description:v20];
+            goto LABEL_43;
           }
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            v57 = *(a1 + 40);
+            v48 = *(a1 + 40);
             *buf = 138543618;
-            v95 = v57;
-            v96 = 2114;
-            v97 = v16;
+            v85 = v48;
+            v86 = 2114;
+            v87 = v15;
             _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Ignoring unknown pending upload ID %{public}@", buf, 0x16u);
           }
 
-          v35 = 0;
-LABEL_52:
+          v26 = 0;
+LABEL_51:
 
-          ++v14;
-          v13 = 0x277CCA000;
+          ++v13;
+          v12 = 0x277CCA000;
         }
 
-        while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v89 objects:v98 count:16];
-        if (!v12)
+        while (v11 != v13);
+        v11 = [v9 countByEnumeratingWithState:&v79 objects:v88 count:16];
+        if (!v11)
         {
-LABEL_54:
+LABEL_53:
 
           v6 = 0;
-          v7 = v75;
-          goto LABEL_56;
+          v7 = v65;
+          goto LABEL_55;
         }
       }
     }
 
-    v58 = MEMORY[0x277CCA9B8];
-    v59 = MEMORY[0x277CCACA8];
-    v60 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_BAD_FIELD_P_FIELD");
-    v61 = [v59 stringWithFormat:v60, @"response body"];
-    v6 = [v58 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:10 description:v61];
+    v49 = MEMORY[0x277CCA9B8];
+    v50 = MEMORY[0x277CCACA8];
+    v51 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_BAD_FIELD_P_FIELD");
+    v52 = [v50 stringWithFormat:v51, @"response body"];
+    v6 = [v49 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:10 description:v52];
   }
 
-LABEL_56:
+LABEL_55:
   if ([*(a1 + 32) count])
   {
-    v62 = v7;
+    v53 = v7;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v73 = *(a1 + 40);
-      v74 = [*(a1 + 32) count];
+      v63 = *(a1 + 40);
+      v64 = [*(a1 + 32) count];
       *buf = 138543618;
-      v95 = v73;
-      v96 = 2048;
-      v97 = v74;
+      v85 = v63;
+      v86 = 2048;
+      v87 = v64;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Found %ld orphaned asset collections.", buf, 0x16u);
     }
 
-    v63 = MEMORY[0x277CCA9B8];
-    v64 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_COLL_IGNORED");
-    v65 = [v63 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:9 description:v64];
+    v54 = MEMORY[0x277CCA9B8];
+    v55 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_COLL_IGNORED");
+    v56 = [v54 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:9 description:v55];
 
-    v87 = 0u;
-    v88 = 0u;
-    v85 = 0u;
-    v86 = 0u;
-    v66 = *(a1 + 32);
-    v67 = [v66 countByEnumeratingWithState:&v85 objects:v93 count:16];
-    if (v67)
+    v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
+    v57 = *(a1 + 32);
+    v58 = [v57 countByEnumeratingWithState:&v75 objects:v83 count:16];
+    if (v58)
     {
-      v68 = v67;
-      v69 = *v86;
+      v59 = v58;
+      v60 = *v76;
       do
       {
-        for (i = 0; i != v68; ++i)
+        for (i = 0; i != v59; ++i)
         {
-          if (*v86 != v69)
+          if (*v76 != v60)
           {
-            objc_enumerationMutation(v66);
+            objc_enumerationMutation(v57);
           }
 
-          v71 = [*(a1 + 32) objectForKey:*(*(&v85 + 1) + 8 * i)];
-          [v8 setObject:v65 forKey:v71];
+          v62 = [*(a1 + 32) objectForKey:*(*(&v75 + 1) + 8 * i)];
+          [v8 setObject:v56 forKey:v62];
         }
 
-        v68 = [v66 countByEnumeratingWithState:&v85 objects:v93 count:16];
+        v59 = [v57 countByEnumeratingWithState:&v75 objects:v83 count:16];
       }
 
-      while (v68);
+      while (v59);
     }
 
-    v7 = v62;
+    v7 = v53;
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)responseDict:(id)dict containsLimitErrorCode:(id)code outMaxAllowed:(id *)allowed
@@ -4787,7 +4686,7 @@ LABEL_17:
 
 - (void)getVideoURL:(id)l forAssetCollectionWithGUID:(id)d inAlbumWithGUID:(id)iD albumURLString:(id)string withClientOrgKey:(id)key completionBlock:(id)block
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   lCopy = l;
   dCopy = d;
   iDCopy = iD;
@@ -4809,9 +4708,9 @@ LABEL_17:
   v23 = [v21 requestWithURL:v22];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v32 = iDCopy;
+  v31 = iDCopy;
   [dictionary setObject:iDCopy forKey:@"albumguid"];
-  v31 = keyCopy;
+  v30 = keyCopy;
   [(MSASProtocol *)self _setClientOrgKeyForRequestBody:dictionary clientOrgKey:keyCopy];
   [dictionary setObject:dCopy forKey:@"assetguid"];
   mMCSHash = [lCopy MMCSHash];
@@ -4822,41 +4721,39 @@ LABEL_17:
   {
     *buf = 138543618;
     selfCopy = self;
-    v39 = 2114;
-    v40 = lCopy;
+    v38 = 2114;
+    v39 = lCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Getting video URL for asset %{public}@.", buf, 0x16u);
   }
 
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __119__MSASProtocol_getVideoURL_forAssetCollectionWithGUID_inAlbumWithGUID_albumURLString_withClientOrgKey_completionBlock___block_invoke;
-  v33[3] = &unk_278E92380;
-  v33[4] = self;
-  v34 = dCopy;
-  v35 = lCopy;
-  v36 = blockCopy;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __119__MSASProtocol_getVideoURL_forAssetCollectionWithGUID_inAlbumWithGUID_albumURLString_withClientOrgKey_completionBlock___block_invoke;
+  v32[3] = &unk_278E92380;
+  v32[4] = self;
+  v33 = dCopy;
+  v34 = lCopy;
+  v35 = blockCopy;
   v27 = blockCopy;
   v28 = lCopy;
   v29 = dCopy;
-  [(MSASProtocol *)self sendURLRequest:v23 bodyObj:dictionary completionBlock:v33];
-
-  v30 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v23 bodyObj:dictionary completionBlock:v32];
 }
 
 void __119__MSASProtocol_getVideoURL_forAssetCollectionWithGUID_inAlbumWithGUID_albumURLString_withClientOrgKey_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x3032000000;
-  v71 = __Block_byref_object_copy__7575;
-  v72 = __Block_byref_object_dispose__7576;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x3032000000;
+  v70 = __Block_byref_object_copy__7575;
+  v71 = __Block_byref_object_dispose__7576;
   v11 = v8;
-  v73 = v11;
+  v72 = v11;
   if (v11)
   {
     if ([v7 statusCode] == 400)
@@ -4865,9 +4762,9 @@ void __119__MSASProtocol_getVideoURL_forAssetCollectionWithGUID_inAlbumWithGUID_
       {
         v12 = *(a1 + 32);
         *buf = 138543618;
-        v75 = v12;
-        v76 = 2114;
-        v77 = v11;
+        v74 = v12;
+        v75 = 2114;
+        v76 = v11;
         v13 = MEMORY[0x277D86220];
         v14 = "%{public}@: Bad request to server. Error: %{public}@";
 LABEL_18:
@@ -4883,9 +4780,9 @@ LABEL_19:
       {
         v16 = *(a1 + 32);
         *buf = 138543618;
-        v75 = v16;
-        v76 = 2114;
-        v77 = v11;
+        v74 = v16;
+        v75 = 2114;
+        v76 = v11;
         v13 = MEMORY[0x277D86220];
         v14 = "%{public}@: Album does not exist on server. Error: %{public}@";
         goto LABEL_18;
@@ -4898,9 +4795,9 @@ LABEL_19:
       {
         v27 = *(a1 + 32);
         *buf = 138543618;
-        v75 = v27;
-        v76 = 2114;
-        v77 = v11;
+        v74 = v27;
+        v75 = 2114;
+        v76 = v11;
         v13 = MEMORY[0x277D86220];
         v14 = "%{public}@: Precondition failed. Error: %{public}@";
         goto LABEL_18;
@@ -4915,17 +4812,17 @@ LABEL_19:
       {
         if (v31)
         {
-          v58 = *(a1 + 32);
+          v57 = *(a1 + 32);
           *buf = 138543362;
-          v75 = v58;
+          v74 = v57;
           _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Bandwidth Limit Exceeded", buf, 0xCu);
         }
 
         v32 = MEMORY[0x277CCA9B8];
         v33 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_LIMIT_BANDWIDTH");
         v34 = [v32 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:21 description:v33 underlyingError:v11];
-        v35 = v69[5];
-        v69[5] = v34;
+        v35 = v68[5];
+        v68[5] = v34;
 
         goto LABEL_34;
       }
@@ -4933,7 +4830,7 @@ LABEL_19:
       if (v31)
       {
         *buf = 138543362;
-        v75 = v11;
+        v74 = v11;
         v13 = MEMORY[0x277D86220];
         v14 = "Unknown server error response %{public}@";
         v28 = 12;
@@ -4950,23 +4847,23 @@ LABEL_34:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v61 = [v9 objectForKey:@"assetguid"];
+    v60 = [v9 objectForKey:@"assetguid"];
   }
 
   else
   {
-    v61 = 0;
+    v60 = 0;
   }
 
-  if (([*(a1 + 40) isEqualToString:v61] & 1) == 0)
+  if (([*(a1 + 40) isEqualToString:v60] & 1) == 0)
   {
     v22 = MEMORY[0x277CCA9B8];
     v23 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_MISMATCHED_COLLECTION");
     v24 = [v22 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:6 description:v23];
-    v60 = v23;
+    v59 = v23;
     v25 = 0;
-    v26 = v69[5];
-    v69[5] = v24;
+    v26 = v68[5];
+    v68[5] = v24;
     goto LABEL_48;
   }
 
@@ -4978,15 +4875,15 @@ LABEL_34:
   {
     v20 = [*(a1 + 48) MMCSHash];
     v21 = [v20 MSHexString];
-    v60 = [v9 objectForKey:v21];
+    v59 = [v9 objectForKey:v21];
   }
 
   else
   {
-    v60 = 0;
+    v59 = 0;
   }
 
-  if (v60)
+  if (v59)
   {
     v29 = [MEMORY[0x277CBEBC0] URLWithString:?];
     if (v29)
@@ -4997,30 +4894,30 @@ LABEL_34:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v57 = *(a1 + 32);
+      v56 = *(a1 + 32);
       *buf = 138543618;
-      v75 = v57;
-      v76 = 2114;
-      v77 = v60;
+      v74 = v56;
+      v75 = 2114;
+      v76 = v59;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unable to create URL with server url string %{public}@", buf, 0x16u);
     }
 
     v40 = MEMORY[0x277CCA9B8];
     v41 = MEMORY[0x277CCACA8];
     v42 = MSCFCopyLocalizedString(@"RROR_SHARING_BAD_FIELD_P_FIELD");
-    v43 = [v41 stringWithFormat:v42, v60];
+    v43 = [v41 stringWithFormat:v42, v59];
     v44 = [*(a1 + 32) HTTPErrorWithStatusCode:{objc_msgSend(v7, "statusCode")}];
     v45 = [v40 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:4 description:v43 underlyingError:v44];
-    v46 = v69[5];
-    v69[5] = v45;
+    v46 = v68[5];
+    v68[5] = v45;
 
     v29 = 0;
   }
 
   else
   {
-    v59 = [*(a1 + 48) MMCSHash];
-    v36 = [v59 MSHexString];
+    v58 = [*(a1 + 48) MMCSHash];
+    v36 = [v58 MSHexString];
     v37 = [v9 objectForKey:v36];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -5035,20 +4932,20 @@ LABEL_34:
       v29 = 0;
     }
 
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __119__MSASProtocol_getVideoURL_forAssetCollectionWithGUID_inAlbumWithGUID_albumURLString_withClientOrgKey_completionBlock___block_invoke_422;
-    v62[3] = &unk_278E923E0;
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __119__MSASProtocol_getVideoURL_forAssetCollectionWithGUID_inAlbumWithGUID_albumURLString_withClientOrgKey_completionBlock___block_invoke_422;
+    v61[3] = &unk_278E923E0;
     v47 = v10;
     v48 = *(a1 + 32);
-    v63 = v47;
-    v64 = v48;
-    v65 = 0;
-    v67 = &v68;
-    v66 = v7;
-    [v29 enumerateObjectsUsingBlock:v62];
+    v62 = v47;
+    v63 = v48;
+    v64 = 0;
+    v66 = &v67;
+    v65 = v7;
+    [v29 enumerateObjectsUsingBlock:v61];
 
-    v42 = v63;
+    v42 = v62;
   }
 
 LABEL_38:
@@ -5067,11 +4964,11 @@ LABEL_38:
 LABEL_43:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v56 = *(a1 + 32);
+      v55 = *(a1 + 32);
       *buf = 138543618;
-      v75 = v56;
-      v76 = 2114;
-      v77 = v10;
+      v74 = v55;
+      v75 = 2114;
+      v76 = v10;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Server does not return expiry for URLs %{public}@.", buf, 0x16u);
     }
 
@@ -5094,9 +4991,9 @@ LABEL_46:
     v25 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1200.0];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v55 = *(a1 + 32);
+      v54 = *(a1 + 32);
       *buf = 138543362;
-      v75 = v55;
+      v74 = v54;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Setting to expire in 20 minutes.", buf, 0xCu);
     }
   }
@@ -5107,17 +5004,15 @@ LABEL_49:
   v53 = *(a1 + 56);
   if (v53)
   {
-    (*(v53 + 16))(v53, v69[5], v10, v25);
+    (*(v53 + 16))(v53, v68[5], v10, v25);
   }
 
-  _Block_object_dispose(&v68, 8);
-
-  v54 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v67, 8);
 }
 
 void __119__MSASProtocol_getVideoURL_forAssetCollectionWithGUID_inAlbumWithGUID_albumURLString_withClientOrgKey_completionBlock___block_invoke_422(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEBC0] URLWithString:a2];
   if (v3)
   {
@@ -5128,12 +5023,12 @@ void __119__MSASProtocol_getVideoURL_forAssetCollectionWithGUID_inAlbumWithGUID_
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 40);
-      v14 = *(a1 + 48);
+      v12 = *(a1 + 40);
+      v13 = *(a1 + 48);
       *buf = 138543618;
-      v16 = v13;
-      v17 = 2114;
-      v18 = v14;
+      v15 = v12;
+      v16 = 2114;
+      v17 = v13;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unable to create URL with server url string %{public}@", buf, 0x16u);
     }
 
@@ -5147,40 +5042,38 @@ void __119__MSASProtocol_getVideoURL_forAssetCollectionWithGUID_inAlbumWithGUID_
     v11 = *(v10 + 40);
     *(v10 + 40) = v9;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getUploadTokens:(id)tokens forAssetCollectionWithGUID:(id)d inAlbumWithGUID:(id)iD albumURLString:(id)string completionBlock:(id)block
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   dCopy = d;
   iDCopy = iD;
   stringCopy = string;
   blockCopy = block;
   v12 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(tokensCopy, "count")}];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v13 = tokensCopy;
-  v14 = [v13 countByEnumeratingWithState:&v45 objects:v55 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v44 objects:v54 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = MEMORY[0x277D86220];
-    v17 = *v46;
+    v17 = *v45;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v46 != v17)
+        if (*v45 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v45 + 1) + 8 * i);
+        v19 = *(*(&v44 + 1) + 8 * i);
         mMCSAccessHeader = [v19 MMCSAccessHeader];
 
         if (mMCSAccessHeader)
@@ -5193,10 +5086,10 @@ void __119__MSASProtocol_getVideoURL_forAssetCollectionWithGUID_inAlbumWithGUID_
           mMCSAccessHeader2 = [v19 MMCSAccessHeader];
           *buf = 138543874;
           selfCopy5 = self;
-          v51 = 2114;
-          v52 = v19;
-          v53 = 2114;
-          v54 = mMCSAccessHeader2;
+          v50 = 2114;
+          v51 = v19;
+          v52 = 2114;
+          v53 = mMCSAccessHeader2;
           _os_log_error_impl(&dword_245B99000, v16, OS_LOG_TYPE_ERROR, "%{public}@: Requesting MMCS upload token for asset %{public}@ that already has token %{public}@. Ignoring the request.", buf, 0x20u);
           goto LABEL_11;
         }
@@ -5217,13 +5110,13 @@ LABEL_11:
         {
           *buf = 138543618;
           selfCopy5 = self;
-          v51 = 2114;
-          v52 = v19;
+          v50 = 2114;
+          v51 = v19;
           _os_log_error_impl(&dword_245B99000, v16, OS_LOG_TYPE_ERROR, "%{public}@: Empty MMCS hash for asset %{public}@ requesting upload token. Ignoring the request.", buf, 0x16u);
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v45 objects:v55 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v44 objects:v54 count:16];
     }
 
     while (v15);
@@ -5259,22 +5152,22 @@ LABEL_11:
       v34 = [v13 count];
       *buf = 138543874;
       selfCopy5 = self;
-      v51 = 2048;
-      v52 = v34;
-      v53 = 2114;
-      v54 = dCopy;
+      v50 = 2048;
+      v51 = v34;
+      v52 = 2114;
+      v53 = dCopy;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Getting upload tokens for %ld assets of asset collection with GUID %{public}@.", buf, 0x20u);
     }
 
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __106__MSASProtocol_getUploadTokens_forAssetCollectionWithGUID_inAlbumWithGUID_albumURLString_completionBlock___block_invoke;
-    v41[3] = &unk_278E923B8;
-    v42 = v12;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __106__MSASProtocol_getUploadTokens_forAssetCollectionWithGUID_inAlbumWithGUID_albumURLString_completionBlock___block_invoke;
+    v40[3] = &unk_278E923B8;
+    v41 = v12;
     selfCopy4 = self;
     v26 = blockCopy;
-    v44 = blockCopy;
-    [(MSASProtocol *)self sendURLRequest:v31 bodyObj:dictionary completionBlock:v41];
+    v43 = blockCopy;
+    [(MSASProtocol *)self sendURLRequest:v31 bodyObj:dictionary completionBlock:v40];
   }
 
   else
@@ -5286,21 +5179,19 @@ LABEL_11:
     {
       *buf = 138543618;
       selfCopy5 = self;
-      v51 = 2114;
-      v52 = v13;
+      v50 = 2114;
+      v51 = v13;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Assets %{public}@ already have upload tokens. Ignoring the request.", buf, 0x16u);
     }
 
     (*(blockCopy + 2))(blockCopy, 0);
     v27 = iDCopy;
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __106__MSASProtocol_getUploadTokens_forAssetCollectionWithGUID_inAlbumWithGUID_albumURLString_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = v7;
@@ -5339,9 +5230,9 @@ LABEL_7:
     {
       v14 = [v8 objectForKey:@"contenttokens"];
       objc_opt_class();
-      v30 = v8;
-      v28 = v13;
-      v29 = v10;
+      v29 = v8;
+      v27 = v13;
+      v28 = v10;
       if (objc_opt_isKindOfClass())
       {
         v15 = [v8 objectForKey:{@"contenttokens", v13}];
@@ -5352,28 +5243,28 @@ LABEL_7:
         v15 = 0;
       }
 
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v16 = v15;
-      v17 = [v16 countByEnumeratingWithState:&v31 objects:v41 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v30 objects:v40 count:16];
       if (v17)
       {
         v18 = v17;
         v19 = MEMORY[0x277D86220];
-        v20 = *v32;
+        v20 = *v31;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v32 != v20)
+            if (*v31 != v20)
             {
               objc_enumerationMutation(v16);
             }
 
-            v22 = *(*(&v31 + 1) + 8 * i);
-            v23 = [*(a1 + 32) objectForKey:{v22, v28}];
+            v22 = *(*(&v30 + 1) + 8 * i);
+            v23 = [*(a1 + 32) objectForKey:{v22, v27}];
             if (v23)
             {
               v24 = [v16 objectForKey:v22];
@@ -5383,11 +5274,11 @@ LABEL_7:
               {
                 v25 = *(a1 + 40);
                 *buf = 138543874;
-                v36 = v25;
-                v37 = 2114;
-                v38 = v24;
-                v39 = 2114;
-                v40 = v23;
+                v35 = v25;
+                v36 = 2114;
+                v37 = v24;
+                v38 = 2114;
+                v39 = v23;
                 _os_log_error_impl(&dword_245B99000, v19, OS_LOG_TYPE_ERROR, "%{public}@: Obtained upload token %{public}@ for asset %{public}@.", buf, 0x20u);
               }
             }
@@ -5396,22 +5287,22 @@ LABEL_7:
             {
               v26 = *(a1 + 40);
               *buf = 138543618;
-              v36 = v26;
-              v37 = 2114;
-              v38 = v22;
+              v35 = v26;
+              v36 = 2114;
+              v37 = v22;
               _os_log_error_impl(&dword_245B99000, v19, OS_LOG_TYPE_ERROR, "%{public}@: Did not find asset matching hash %{public}@ when requesting upload token.", buf, 0x16u);
             }
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v31 objects:v41 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v30 objects:v40 count:16];
         }
 
         while (v18);
       }
 
-      v8 = v30;
+      v8 = v29;
       v6 = 0;
-      v10 = v29;
+      v10 = v28;
     }
   }
 
@@ -5421,18 +5312,16 @@ LABEL_7:
 
 LABEL_28:
   (*(*(a1 + 48) + 16))();
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)putAssetCollections:(id)collections intoAlbum:(id)album albumURLString:(id)string completionBlock:(id)block
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   albumCopy = album;
   stringCopy = string;
   blockCopy = block;
-  v34 = stringCopy;
+  v33 = stringCopy;
   if (stringCopy)
   {
     [MEMORY[0x277CBEBC0] URLWithString:stringCopy];
@@ -5444,9 +5333,9 @@ LABEL_28:
   }
   v14 = ;
   v15 = MEMORY[0x277CBAB50];
-  v33 = v14;
+  v32 = v14;
   v16 = [(MSASProtocol *)self _putAssetsURLWithBaseURL:v14];
-  v32 = [v15 requestWithURL:v16];
+  v31 = [v15 requestWithURL:v16];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   gUID = [albumCopy GUID];
@@ -5456,30 +5345,30 @@ LABEL_28:
   [(MSASProtocol *)self _setClientOrgKeyForRequestBody:dictionary clientOrgKey:clientOrgKey];
 
   v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(collectionsCopy, "count")}];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v21 = collectionsCopy;
-  v22 = [v21 countByEnumeratingWithState:&v40 objects:v50 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v39 objects:v49 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v41;
+    v24 = *v40;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v41 != v24)
+        if (*v40 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        mSASPProtocolDictionary = [*(*(&v40 + 1) + 8 * i) MSASPProtocolDictionary];
+        mSASPProtocolDictionary = [*(*(&v39 + 1) + 8 * i) MSASPProtocolDictionary];
         [v20 addObject:mSASPProtocolDictionary];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v40 objects:v50 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v39 objects:v49 count:16];
     }
 
     while (v23);
@@ -5491,43 +5380,41 @@ LABEL_28:
     v27 = [v21 count];
     *buf = 138543874;
     selfCopy = self;
-    v46 = 2048;
-    v47 = v27;
-    v48 = 2114;
-    v49 = albumCopy;
+    v45 = 2048;
+    v46 = v27;
+    v47 = 2114;
+    v48 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Sending metadata for %ld photos into album %{public}@.", buf, 0x20u);
   }
 
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __77__MSASProtocol_putAssetCollections_intoAlbum_albumURLString_completionBlock___block_invoke;
-  v35[3] = &unk_278E92380;
-  v36 = v21;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __77__MSASProtocol_putAssetCollections_intoAlbum_albumURLString_completionBlock___block_invoke;
+  v34[3] = &unk_278E92380;
+  v35 = v21;
   selfCopy2 = self;
-  v38 = albumCopy;
-  v39 = blockCopy;
+  v37 = albumCopy;
+  v38 = blockCopy;
   v28 = blockCopy;
   v29 = albumCopy;
   v30 = v21;
-  [(MSASProtocol *)self sendURLRequest:v32 bodyObj:dictionary completionBlock:v35];
-
-  v31 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v31 bodyObj:dictionary completionBlock:v34];
 }
 
 void __77__MSASProtocol_putAssetCollections_intoAlbum_albumURLString_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v164 = *MEMORY[0x277D85DE8];
+  v163 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = a1;
   v9 = v7;
   v10 = v6;
   v11 = [*(a1 + 32) mutableCopy];
-  v105 = [MEMORY[0x277CBEB18] array];
+  v104 = [MEMORY[0x277CBEB18] array];
   [MEMORY[0x277CBEB38] dictionary];
-  v113 = v112 = a1;
-  v102 = v10;
-  v103 = v11;
+  v112 = v111 = a1;
+  v101 = v10;
+  v102 = v11;
   if (!v10)
   {
     v25 = [v9 objectForKey:@"contenturl"];
@@ -5538,8 +5425,8 @@ void __77__MSASProtocol_putAssetCollections_intoAlbum_albumURLString_completionB
 
       if (v26)
       {
-        v101 = v26;
-        v104 = [MEMORY[0x277CBEBC0] URLWithString:v26];
+        v100 = v26;
+        v103 = [MEMORY[0x277CBEBC0] URLWithString:v26];
         goto LABEL_18;
       }
     }
@@ -5548,8 +5435,8 @@ void __77__MSASProtocol_putAssetCollections_intoAlbum_albumURLString_completionB
     {
     }
 
-    v101 = 0;
-    v104 = 0;
+    v100 = 0;
+    v103 = 0;
 LABEL_18:
     v35 = [v9 objectForKey:@"assets"];
     objc_opt_class();
@@ -5559,80 +5446,80 @@ LABEL_18:
 
       if (v36)
       {
-        v100 = v9;
-        v111 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+        v99 = v9;
+        v110 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+        v144 = 0u;
         v145 = 0u;
         v146 = 0u;
         v147 = 0u;
-        v148 = 0u;
         v37 = *(a1 + 32);
-        v38 = [v37 countByEnumeratingWithState:&v145 objects:v163 count:16];
+        v38 = [v37 countByEnumeratingWithState:&v144 objects:v162 count:16];
         if (v38)
         {
           v39 = v38;
-          v40 = *v146;
+          v40 = *v145;
           do
           {
             for (i = 0; i != v39; ++i)
             {
-              if (*v146 != v40)
+              if (*v145 != v40)
               {
                 objc_enumerationMutation(v37);
               }
 
-              v42 = *(*(&v145 + 1) + 8 * i);
+              v42 = *(*(&v144 + 1) + 8 * i);
               v43 = [v42 GUID];
-              [v111 setObject:v42 forKey:v43];
+              [v110 setObject:v42 forKey:v43];
             }
 
-            v39 = [v37 countByEnumeratingWithState:&v145 objects:v163 count:16];
+            v39 = [v37 countByEnumeratingWithState:&v144 objects:v162 count:16];
           }
 
           while (v39);
         }
 
-        v143 = 0u;
-        v144 = 0u;
-        v141 = 0u;
         v142 = 0u;
+        v143 = 0u;
+        v140 = 0u;
+        v141 = 0u;
         obj = v36;
-        v109 = [obj countByEnumeratingWithState:&v141 objects:v162 count:16];
-        if (v109)
+        v108 = [obj countByEnumeratingWithState:&v140 objects:v161 count:16];
+        if (v108)
         {
-          v108 = *v142;
+          v107 = *v141;
           do
           {
-            for (j = 0; j != v109; ++j)
+            for (j = 0; j != v108; ++j)
             {
-              if (*v142 != v108)
+              if (*v141 != v107)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v45 = *(*(&v141 + 1) + 8 * j);
+              v45 = *(*(&v140 + 1) + 8 * j);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v110 = j;
+                v109 = j;
                 v46 = [v45 objectForKey:@"assetguid"];
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
                   v52 = v46;
-                  j = v110;
+                  j = v109;
                   goto LABEL_86;
                 }
 
                 v47 = [v45 objectForKey:@"assetguid"];
 
-                j = v110;
+                j = v109;
                 if (!v47)
                 {
                   continue;
                 }
 
-                v106 = v47;
-                v48 = [v111 objectForKey:v47];
+                v105 = v47;
+                v48 = [v110 objectForKey:v47];
                 if (!v48)
                 {
                   goto LABEL_85;
@@ -5651,7 +5538,7 @@ LABEL_18:
                   v51 = [0 intValue];
                 }
 
-                v115 = v48;
+                v114 = v48;
                 if (v51)
                 {
                   v53 = [v45 objectForKey:@"pendinguploadid"];
@@ -5660,7 +5547,7 @@ LABEL_18:
                   {
                     v54 = [v45 objectForKey:@"pendinguploadid"];
 
-                    v55 = v104;
+                    v55 = v103;
                     if (v54)
                     {
                       [v48 setMetadataValue:v54 forKey:@"pendingUploadGUID"];
@@ -5671,33 +5558,33 @@ LABEL_18:
 
                   else
                   {
-                    v55 = v104;
+                    v55 = v103;
 LABEL_48:
                   }
 
-                  v139 = 0u;
-                  v140 = 0u;
-                  v137 = 0u;
                   v138 = 0u;
+                  v139 = 0u;
+                  v136 = 0u;
+                  v137 = 0u;
                   v61 = [v48 assets];
-                  v62 = [v61 countByEnumeratingWithState:&v137 objects:v161 count:16];
+                  v62 = [v61 countByEnumeratingWithState:&v136 objects:v160 count:16];
                   if (v62)
                   {
                     v63 = v62;
-                    v64 = *v138;
+                    v64 = *v137;
                     do
                     {
                       for (k = 0; k != v63; ++k)
                       {
-                        if (*v138 != v64)
+                        if (*v137 != v64)
                         {
                           objc_enumerationMutation(v61);
                         }
 
-                        [*(*(&v137 + 1) + 8 * k) setMMCSURL:v55];
+                        [*(*(&v136 + 1) + 8 * k) setMMCSURL:v55];
                       }
 
-                      v63 = [v61 countByEnumeratingWithState:&v137 objects:v161 count:16];
+                      v63 = [v61 countByEnumeratingWithState:&v136 objects:v160 count:16];
                     }
 
                     while (v63);
@@ -5715,47 +5602,47 @@ LABEL_48:
                     v67 = 0;
                   }
 
-                  v135 = 0u;
-                  v136 = 0u;
-                  v133 = 0u;
                   v134 = 0u;
+                  v135 = 0u;
+                  v132 = 0u;
+                  v133 = 0u;
                   v68 = v67;
-                  v48 = v115;
-                  v117 = [v68 countByEnumeratingWithState:&v133 objects:v160 count:16];
-                  if (v117)
+                  v48 = v114;
+                  v116 = [v68 countByEnumeratingWithState:&v132 objects:v159 count:16];
+                  if (v116)
                   {
-                    v116 = *v134;
-                    v114 = v68;
+                    v115 = *v133;
+                    v113 = v68;
                     do
                     {
-                      for (m = 0; m != v117; ++m)
+                      for (m = 0; m != v116; ++m)
                       {
-                        if (*v134 != v116)
+                        if (*v133 != v115)
                         {
                           objc_enumerationMutation(v68);
                         }
 
-                        v70 = *(*(&v133 + 1) + 8 * m);
+                        v70 = *(*(&v132 + 1) + 8 * m);
                         v71 = [v68 objectForKey:v70];
-                        v118 = v70;
+                        v117 = v70;
                         v72 = [v70 MSHexData];
+                        v128 = 0u;
                         v129 = 0u;
                         v130 = 0u;
                         v131 = 0u;
-                        v132 = 0u;
                         v73 = [v48 assets];
-                        v74 = [v73 countByEnumeratingWithState:&v129 objects:v159 count:16];
+                        v74 = [v73 countByEnumeratingWithState:&v128 objects:v158 count:16];
                         if (!v74)
                         {
 
 LABEL_76:
                           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                           {
-                            v82 = *(v112 + 40);
+                            v82 = *(v111 + 40);
                             *buf = 138543618;
-                            v152 = v82;
-                            v153 = 2114;
-                            v154 = v118;
+                            v151 = v82;
+                            v152 = 2114;
+                            v153 = v117;
                             _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not find matching asset for MMCS hash %{public}@.", buf, 0x16u);
                           }
 
@@ -5763,19 +5650,19 @@ LABEL_76:
                         }
 
                         v75 = v74;
-                        v119 = m;
+                        v118 = m;
                         v76 = 0;
-                        v77 = *v130;
+                        v77 = *v129;
                         do
                         {
                           for (n = 0; n != v75; ++n)
                           {
-                            if (*v130 != v77)
+                            if (*v129 != v77)
                             {
                               objc_enumerationMutation(v73);
                             }
 
-                            v79 = *(*(&v129 + 1) + 8 * n);
+                            v79 = *(*(&v128 + 1) + 8 * n);
                             v80 = [v79 MMCSHash];
                             v81 = [v80 isEqualToData:v72];
 
@@ -5786,14 +5673,14 @@ LABEL_76:
                             }
                           }
 
-                          v75 = [v73 countByEnumeratingWithState:&v129 objects:v159 count:16];
+                          v75 = [v73 countByEnumeratingWithState:&v128 objects:v158 count:16];
                         }
 
                         while (v75);
 
-                        v68 = v114;
-                        v48 = v115;
-                        m = v119;
+                        v68 = v113;
+                        v48 = v114;
+                        m = v118;
                         if ((v76 & 1) == 0)
                         {
                           goto LABEL_76;
@@ -5802,21 +5689,21 @@ LABEL_76:
 LABEL_78:
                       }
 
-                      v117 = [v68 countByEnumeratingWithState:&v133 objects:v160 count:16];
+                      v116 = [v68 countByEnumeratingWithState:&v132 objects:v159 count:16];
                     }
 
-                    while (v117);
+                    while (v116);
                   }
 
-                  [v105 addObject:v48];
-                  v11 = v103;
+                  [v104 addObject:v48];
+                  v11 = v102;
 LABEL_84:
 
                   [v11 removeObject:v48];
-                  j = v110;
+                  j = v109;
 LABEL_85:
 
-                  v52 = v106;
+                  v52 = v105;
 LABEL_86:
 
                   continue;
@@ -5857,19 +5744,19 @@ LABEL_46:
                 v85 = MSCFCopyLocalizedString(v59);
                 v68 = [v84 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:v60 description:v85];
 
-                v48 = v115;
-                [v113 setObject:v68 forKey:v115];
+                v48 = v114;
+                [v112 setObject:v68 forKey:v114];
                 goto LABEL_84;
               }
             }
 
-            v109 = [obj countByEnumeratingWithState:&v141 objects:v162 count:16];
+            v108 = [obj countByEnumeratingWithState:&v140 objects:v161 count:16];
           }
 
-          while (v109);
+          while (v108);
         }
 
-        v9 = v100;
+        v9 = v99;
       }
     }
 
@@ -5885,18 +5772,18 @@ LABEL_46:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v95 = *(v112 + 40);
-      v96 = [v11 count];
-      v97 = [*(v112 + 32) count];
-      v98 = *(v112 + 48);
+      v94 = *(v111 + 40);
+      v95 = [v11 count];
+      v96 = [*(v111 + 32) count];
+      v97 = *(v111 + 48);
       *buf = 138544130;
-      v152 = v95;
-      v153 = 2048;
-      v154 = v96;
-      v155 = 2048;
-      v156 = v97;
-      v157 = 2114;
-      v158 = v98;
+      v151 = v94;
+      v152 = 2048;
+      v153 = v95;
+      v154 = 2048;
+      v155 = v96;
+      v156 = 2114;
+      v157 = v97;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Server did not respond to %ld assets out of %ld in a putasset request into album %{public}@.", buf, 0x2Au);
     }
 
@@ -5904,28 +5791,28 @@ LABEL_46:
     v87 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_COLL_IGNORED");
     v18 = [v86 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:9 description:v87];
 
-    v127 = 0u;
-    v128 = 0u;
-    v125 = 0u;
     v126 = 0u;
+    v127 = 0u;
+    v124 = 0u;
+    v125 = 0u;
     v19 = v11;
-    v24 = [v19 countByEnumeratingWithState:&v125 objects:v150 count:16];
+    v24 = [v19 countByEnumeratingWithState:&v124 objects:v149 count:16];
     if (v24)
     {
-      v88 = *v126;
+      v88 = *v125;
       do
       {
         for (ii = 0; ii != v24; ii = ii + 1)
         {
-          if (*v126 != v88)
+          if (*v125 != v88)
           {
             objc_enumerationMutation(v19);
           }
 
-          [v113 setObject:v18 forKey:*(*(&v125 + 1) + 8 * ii)];
+          [v112 setObject:v18 forKey:*(*(&v124 + 1) + 8 * ii)];
         }
 
-        v24 = [v19 countByEnumeratingWithState:&v125 objects:v150 count:16];
+        v24 = [v19 countByEnumeratingWithState:&v124 objects:v149 count:16];
       }
 
       while (v24);
@@ -5934,23 +5821,23 @@ LABEL_46:
 LABEL_101:
 
 LABEL_104:
-    v15 = v101;
-    v10 = v102;
+    v15 = v100;
+    v10 = v101;
 LABEL_105:
-    v8 = v112;
+    v8 = v111;
     goto LABEL_106;
   }
 
   if ([v10 MSContainsErrorWithDomain:*MEMORY[0x277CBACE8] code:403])
   {
     v12 = *(a1 + 40);
-    v124 = 0;
+    v123 = 0;
     v13 = a1;
-    v14 = [v12 responseDict:v9 containsLimitErrorCode:@"4036" outMaxAllowed:&v124];
-    v15 = v124;
+    v14 = [v12 responseDict:v9 containsLimitErrorCode:@"4036" outMaxAllowed:&v123];
+    v15 = v123;
     if (!v14)
     {
-      v104 = 0;
+      v103 = 0;
       v24 = v10;
       v8 = v13;
       goto LABEL_106;
@@ -5959,7 +5846,7 @@ LABEL_105:
     v16 = MEMORY[0x277CCA9B8];
     v17 = MEMORY[0x277CCACA8];
     v18 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_LIMIT_PHOTOS_P_COUNT");
-    v101 = v15;
+    v100 = v15;
     v19 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v15, "intValue")}];
     v20 = [v17 stringWithFormat:v18, v19];
     v21 = MEMORY[0x277CBEAC0];
@@ -5967,50 +5854,50 @@ LABEL_105:
     v23 = [v21 dictionaryWithObjectsAndKeys:{v22, @"albumGUID", 0}];
     v24 = [v16 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:14 description:v20 underlyingError:v10 additionalUserInfo:v23];
 
-    v104 = 0;
+    v103 = 0;
     goto LABEL_101;
   }
 
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
   v121 = 0u;
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
   v15 = v11;
-  v27 = [v15 countByEnumeratingWithState:&v120 objects:v149 count:16];
+  v27 = [v15 countByEnumeratingWithState:&v119 objects:v148 count:16];
   if (v27)
   {
     v28 = v27;
-    v99 = v9;
-    v29 = *v121;
+    v98 = v9;
+    v29 = *v120;
     do
     {
       for (jj = 0; jj != v28; ++jj)
       {
-        if (*v121 != v29)
+        if (*v120 != v29)
         {
           objc_enumerationMutation(v15);
         }
 
-        v31 = *(*(&v120 + 1) + 8 * jj);
+        v31 = *(*(&v119 + 1) + 8 * jj);
         v32 = MEMORY[0x277CCA9B8];
         v33 = MSCFCopyLocalizedString(@"ERROR_MSAS_PROT_COLL_REJECTED");
         v34 = [v32 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:8 description:v33];
 
-        [v113 setObject:v34 forKey:v31];
+        [v112 setObject:v34 forKey:v31];
       }
 
-      v28 = [v15 countByEnumeratingWithState:&v120 objects:v149 count:16];
+      v28 = [v15 countByEnumeratingWithState:&v119 objects:v148 count:16];
     }
 
     while (v28);
-    v104 = 0;
-    v11 = v103;
+    v103 = 0;
+    v11 = v102;
     v24 = v10;
-    v9 = v99;
+    v9 = v98;
     goto LABEL_105;
   }
 
-  v104 = 0;
+  v103 = 0;
   v24 = v10;
 LABEL_106:
 
@@ -6018,30 +5905,28 @@ LABEL_106:
   {
     v90 = *(v8 + 40);
     v91 = [*(v8 + 32) count];
-    v92 = *(v112 + 48);
+    v92 = *(v111 + 48);
     v93 = [v24 MSVerboseDescription];
     *buf = 138544130;
-    v152 = v90;
-    v153 = 2048;
-    v154 = v91;
-    v8 = v112;
-    v155 = 2114;
-    v156 = v92;
-    v157 = 2114;
-    v158 = v93;
+    v151 = v90;
+    v152 = 2048;
+    v153 = v91;
+    v8 = v111;
+    v154 = 2114;
+    v155 = v92;
+    v156 = 2114;
+    v157 = v93;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Finished sending metadata for %ld photos into album %{public}@. Error: %{public}@", buf, 0x2Au);
 
-    v10 = v102;
+    v10 = v101;
   }
 
   (*(*(v8 + 56) + 16))();
-
-  v94 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAlbum:(id)album albumURLString:(id)string completionBlock:(id)block
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   stringCopy = string;
   blockCopy = block;
@@ -6089,46 +5974,42 @@ LABEL_106:
   {
     *buf = 138543618;
     selfCopy = self;
-    v28 = 2114;
-    v29 = albumCopy;
+    v27 = 2114;
+    v28 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Updating album %{public}@", buf, 0x16u);
   }
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __59__MSASProtocol_updateAlbum_albumURLString_completionBlock___block_invoke;
-  v24[3] = &unk_278E924C0;
-  v24[4] = self;
-  v25 = blockCopy;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __59__MSASProtocol_updateAlbum_albumURLString_completionBlock___block_invoke;
+  v23[3] = &unk_278E924C0;
+  v23[4] = self;
+  v24 = blockCopy;
   v22 = blockCopy;
-  [(MSASProtocol *)self sendURLRequest:v14 bodyObj:dictionary completionBlock:v24];
-
-  v23 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v14 bodyObj:dictionary completionBlock:v23];
 }
 
 void __59__MSASProtocol_updateAlbum_albumURLString_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
     v6 = [v4 MSVerboseDescription];
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Finished updating album. Error: %{public}@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Finished updating album. Error: %{public}@", &v7, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createAlbum:(id)album completionBlock:(id)block
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   blockCopy = block;
   v8 = MEMORY[0x277CBAB50];
@@ -6155,39 +6036,37 @@ void __59__MSASProtocol_updateAlbum_albumURLString_completionBlock___block_invok
   {
     *buf = 138543618;
     selfCopy = self;
-    v27 = 2114;
-    v28 = albumCopy;
+    v26 = 2114;
+    v27 = albumCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Creating album %{public}@", buf, 0x16u);
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __44__MSASProtocol_createAlbum_completionBlock___block_invoke;
-  v20[3] = &unk_278E92380;
-  v21 = albumCopy;
-  v22 = v12;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __44__MSASProtocol_createAlbum_completionBlock___block_invoke;
+  v19[3] = &unk_278E92380;
+  v20 = albumCopy;
+  v21 = v12;
   selfCopy2 = self;
-  v24 = blockCopy;
+  v23 = blockCopy;
   v16 = blockCopy;
   v17 = v12;
   v18 = albumCopy;
-  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:dictionary completionBlock:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [(MSASProtocol *)self sendURLRequest:v10 bodyObj:dictionary completionBlock:v19];
 }
 
 void __44__MSASProtocol_createAlbum_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__7575;
-  v48 = __Block_byref_object_dispose__7576;
-  v49 = 0;
+  v42[0] = 0;
+  v42[1] = v42;
+  v42[2] = 0x3032000000;
+  v42[3] = __Block_byref_object_copy__7575;
+  v42[4] = __Block_byref_object_dispose__7576;
+  v43 = 0;
   v10 = v8;
   if (v10)
   {
@@ -6200,9 +6079,9 @@ void __44__MSASProtocol_createAlbum_completionBlock___block_invoke(uint64_t a1, 
     }
 
     v12 = *(a1 + 48);
-    v42 = 0;
-    v13 = [v12 responseDict:v9 containsLimitErrorCode:@"4032" outMaxAllowed:&v42];
-    v14 = v42;
+    v40 = 0;
+    v13 = [v12 responseDict:v9 containsLimitErrorCode:@"4032" outMaxAllowed:&v40];
+    v14 = v40;
     if (!v13)
     {
       v21 = 0;
@@ -6262,34 +6141,34 @@ void __44__MSASProtocol_createAlbum_completionBlock___block_invoke(uint64_t a1, 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v38 = v9;
+        v36 = v9;
       }
 
       else
       {
-        v38 = 0;
+        v36 = 0;
       }
 
-      v17 = v38;
-      v39 = [*(a1 + 32) useForeignCtag];
+      v17 = v36;
+      v37 = [*(a1 + 32) useForeignCtag];
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v51 = __Block_byref_object_copy__7575;
-      v52 = __Block_byref_object_dispose__7576;
-      v53 = 0;
-      v40 = *(a1 + 48);
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __44__MSASProtocol_createAlbum_completionBlock___block_invoke_2;
-      v43[3] = &unk_278E92358;
-      v43[4] = buf;
-      v43[5] = &v44;
-      [v40 _fetchClientOrgKeyAndPersistLocallyForResponseDict:v17 isOwned:v39 ^ 1u completionHandler:v43];
+      v45 = __Block_byref_object_copy__7575;
+      v46 = __Block_byref_object_dispose__7576;
+      v47 = 0;
+      v38 = *(a1 + 48);
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __44__MSASProtocol_createAlbum_completionBlock___block_invoke_2;
+      v41[3] = &unk_278E92358;
+      v41[4] = buf;
+      v41[5] = v42;
+      [v38 _fetchClientOrgKeyAndPersistLocallyForResponseDict:v17 isOwned:v37 ^ 1u completionHandler:v41];
       v20 = *(*&buf[8] + 40);
       if (v20)
       {
-        v41 = v20;
+        v39 = v20;
       }
 
       _Block_object_dispose(buf, 8);
@@ -6327,11 +6206,8 @@ LABEL_20:
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Finished creating album. Error: %{public}@", buf, 0x16u);
   }
 
-  v36 = v45[5];
   (*(*(a1 + 56) + 16))();
-
-  _Block_object_dispose(&v44, 8);
-  v37 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v42, 8);
 }
 
 void __44__MSASProtocol_createAlbum_completionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -6463,7 +6339,7 @@ void __44__MSASProtocol_createAlbum_completionBlock___block_invoke_2(uint64_t a1
 - (id)errorFromStandardProcessingOnResponse:(id)response responseObject:(id)object checkServerSideConfigVersion:(BOOL)version error:(id)error body:(id)body
 {
   versionCopy = version;
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   objectCopy = object;
   errorCopy = error;
@@ -6475,26 +6351,26 @@ void __44__MSASProtocol_createAlbum_completionBlock___block_invoke_2(uint64_t a1
     goto LABEL_61;
   }
 
-  v58 = bodyCopy;
+  v57 = bodyCopy;
   [responseCopy allHeaderFields];
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
-  v16 = v67 = 0u;
-  v17 = [v16 countByEnumeratingWithState:&v64 objects:v75 count:16];
+  v16 = v66 = 0u;
+  v17 = [v16 countByEnumeratingWithState:&v63 objects:v74 count:16];
   if (v17)
   {
-    v18 = *v65;
+    v18 = *v64;
     while (2)
     {
       for (i = 0; i != v17; i = i + 1)
       {
-        if (*v65 != v18)
+        if (*v64 != v18)
         {
           objc_enumerationMutation(v16);
         }
 
-        v20 = *(*(&v64 + 1) + 8 * i);
+        v20 = *(*(&v63 + 1) + 8 * i);
         if (![v20 caseInsensitiveCompare:@"Retry-After"])
         {
           v21 = [v16 objectForKey:v20];
@@ -6504,7 +6380,7 @@ void __44__MSASProtocol_createAlbum_completionBlock___block_invoke_2(uint64_t a1
         }
       }
 
-      v17 = [v16 countByEnumeratingWithState:&v64 objects:v75 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v63 objects:v74 count:16];
       if (v17)
       {
         continue;
@@ -6519,7 +6395,7 @@ LABEL_12:
   selfCopy11 = self;
   if ([responseCopy statusCode] != 200 && objc_msgSend(responseCopy, "statusCode") != 207)
   {
-    v57 = v17;
+    v56 = v17;
     if ([responseCopy statusCode] == 403)
     {
       objc_opt_class();
@@ -6558,7 +6434,7 @@ LABEL_12:
             v24 = [v40 MSErrorWithDomain:@"MSASProtocolErrorDomain" code:18 description:v29 underlyingError:v41];
 
 LABEL_52:
-            v17 = v57;
+            v17 = v56;
 LABEL_53:
 
             goto LABEL_54;
@@ -6589,8 +6465,8 @@ LABEL_53:
       statusCode = [responseCopy statusCode];
       *buf = 138543618;
       selfCopy10 = self;
-      v70 = 2048;
-      v71 = statusCode;
+      v69 = 2048;
+      v70 = statusCode;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Rejecting response code %ld", buf, 0x16u);
     }
 
@@ -6611,26 +6487,26 @@ LABEL_53:
 
   if (versionCopy)
   {
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     v23 = v16;
-    v24 = [v23 countByEnumeratingWithState:&v60 objects:v74 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v59 objects:v73 count:16];
     if (v24)
     {
-      v57 = v17;
-      v25 = *v61;
+      v56 = v17;
+      v25 = *v60;
       while (2)
       {
         for (j = 0; j != v24; j = j + 1)
         {
-          if (*v61 != v25)
+          if (*v60 != v25)
           {
             objc_enumerationMutation(v23);
           }
 
-          v27 = *(*(&v60 + 1) + 8 * j);
+          v27 = *(*(&v59 + 1) + 8 * j);
           if (![v27 caseInsensitiveCompare:@"x-apple-mme-sharedstreams-config-version"])
           {
             v29 = [v23 objectForKey:v27];
@@ -6652,10 +6528,10 @@ LABEL_53:
                 serverSideConfigVersion2 = [(MSASProtocol *)self serverSideConfigVersion];
                 *buf = 138543874;
                 selfCopy10 = self;
-                v70 = 2114;
-                v71 = serverSideConfigVersion2;
-                v72 = 2114;
-                v73 = v29;
+                v69 = 2114;
+                v70 = serverSideConfigVersion2;
+                v71 = 2114;
+                v72 = v29;
                 _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Our version string: %{public}@, server’s version string: %{public}@", buf, 0x20u);
               }
 
@@ -6671,7 +6547,7 @@ LABEL_53:
           }
         }
 
-        v24 = [v23 countByEnumeratingWithState:&v60 objects:v74 count:16];
+        v24 = [v23 countByEnumeratingWithState:&v59 objects:v73 count:16];
         if (v24)
         {
           continue;
@@ -6696,10 +6572,10 @@ LABEL_54:
       personID2 = [(MSASProtocol *)selfCopy11 personID];
       *buf = 138543874;
       selfCopy10 = selfCopy11;
-      v70 = 2114;
-      v71 = v17;
-      v72 = 2112;
-      v73 = personID2;
+      v69 = 2114;
+      v70 = v17;
+      v71 = 2112;
+      v72 = personID2;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Posting retry-after date of %{public}@ for person ID %@.", buf, 0x20u);
     }
 
@@ -6717,10 +6593,8 @@ LABEL_54:
     [defaultCenter2 postNotificationName:@"MSASPDidReceiveRetryAfterNotification" object:selfCopy11 userInfo:dictionary];
   }
 
-  v15 = v58;
+  v15 = v57;
 LABEL_61:
-
-  v54 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -6740,7 +6614,7 @@ LABEL_61:
 
 - (void)_prepareHeadersForRequest:(id)request
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v6 = [MSProtocolUtilities deviceInfoDictForPersonID:self->_personID];
@@ -6781,21 +6655,21 @@ LABEL_61:
   v18 = +[MSProtocolUtilities appleIDSession];
   v19 = [v18 appleIDHeadersForRequest:requestCopy];
 
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __42__MSASProtocol__prepareHeadersForRequest___block_invoke;
-  v46[3] = &unk_278E92328;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __42__MSASProtocol__prepareHeadersForRequest___block_invoke;
+  v45[3] = &unk_278E92328;
   v20 = dictionary;
-  v47 = v20;
-  [v19 enumerateKeysAndObjectsUsingBlock:v46];
+  v46 = v20;
+  [v19 enumerateKeysAndObjectsUsingBlock:v45];
   [requestCopy setAllHTTPHeaderFields:v20];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v21 = [requestCopy URL];
     *buf = 138543618;
     selfCopy = self;
-    v51 = 2114;
-    v52 = v21;
+    v50 = 2114;
+    v51 = v21;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Sending request to %{public}@.", buf, 0x16u);
   }
 
@@ -6804,33 +6678,33 @@ LABEL_61:
 
   if (v23)
   {
-    v37 = v19;
-    v38 = v17;
-    v39 = v10;
-    v40 = v8;
-    v41 = requestCopy;
+    v36 = v19;
+    v37 = v17;
+    v38 = v10;
+    v39 = v8;
+    v40 = requestCopy;
     allHTTPHeaderFields = [requestCopy allHTTPHeaderFields];
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     v26 = allHTTPHeaderFields;
-    v27 = [v26 countByEnumeratingWithState:&v42 objects:v48 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v41 objects:v47 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v43;
+      v29 = *v42;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v43 != v29)
+          if (*v42 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          v31 = *(*(&v42 + 1) + 8 * i);
+          v31 = *(*(&v41 + 1) + 8 * i);
           if ([v31 compare:@"x-apple-mme-sharedstreams-client-token" options:1] && objc_msgSend(v31, "compare:options:", @"x-apple-mme-streams-client-udid", 1) && objc_msgSend(v31, "compare:options:", @"authorization", 1))
           {
             v32 = [v26 objectForKey:v31];
@@ -6844,7 +6718,7 @@ LABEL_61:
           [(MSASProtocol *)dictionary2 setObject:v32 forKey:v31];
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v42 objects:v48 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v41 objects:v47 count:16];
       }
 
       while (v28);
@@ -6858,12 +6732,12 @@ LABEL_61:
     }
 
     v33 = objc_alloc(MEMORY[0x277CCACA8]);
-    requestCopy = v41;
-    hTTPBody = [v41 HTTPBody];
+    requestCopy = v40;
+    hTTPBody = [v40 HTTPBody];
     v35 = [v33 initWithData:hTTPBody encoding:4];
 
-    v17 = v38;
-    v10 = v39;
+    v17 = v37;
+    v10 = v38;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
@@ -6871,11 +6745,9 @@ LABEL_61:
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    v8 = v40;
-    v19 = v37;
+    v8 = v39;
+    v19 = v36;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendOneURLRequest:(id)request checkServerSideConfigVersion:(BOOL)version retryCount:(unint64_t)count completionBlock:(id)block
@@ -6915,48 +6787,48 @@ void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCou
 
 void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCount_completionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = v7;
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x3032000000;
-  v72 = __Block_byref_object_copy__7575;
-  v73 = __Block_byref_object_dispose__7576;
-  v74 = 0;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x3032000000;
+  v71 = __Block_byref_object_copy__7575;
+  v72 = __Block_byref_object_dispose__7576;
+  v73 = 0;
   v11 = [*(a1 + 32) memberQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCount_completionBlock___block_invoke_211;
   block[3] = &unk_278E92700;
   block[4] = *(a1 + 32);
-  block[5] = &v69;
+  block[5] = &v68;
   dispatch_barrier_sync(v11, block);
 
-  v12 = [v70[5] error];
+  v12 = [v69[5] error];
 
   if (v12)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v47 = *(a1 + 32);
+      v46 = *(a1 + 32);
       *buf = 138543618;
-      v76 = v47;
-      v77 = 2114;
-      v78 = v9;
+      v75 = v46;
+      v76 = 2114;
+      v77 = v9;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Transaction terminated with error: %{public}@", buf, 0x16u);
     }
 
     v13 = [*(a1 + 32) workQueue];
-    v65[0] = MEMORY[0x277D85DD0];
-    v65[1] = 3221225472;
-    v65[2] = __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCount_completionBlock___block_invoke_212;
-    v65[3] = &unk_278E92298;
-    v66 = *(a1 + 48);
-    v67 = &v69;
-    dispatch_async(v13, v65);
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCount_completionBlock___block_invoke_212;
+    v64[3] = &unk_278E92298;
+    v65 = *(a1 + 48);
+    v66 = &v68;
+    dispatch_async(v13, v64);
   }
 
   else
@@ -6965,12 +6837,12 @@ void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCou
     v15 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v48 = *(a1 + 32);
-      v49 = [v10 statusCode];
+      v47 = *(a1 + 32);
+      v48 = [v10 statusCode];
       *buf = 138543618;
-      v76 = v48;
-      v77 = 2048;
-      v78 = v49;
+      v75 = v47;
+      v76 = 2048;
+      v77 = v48;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Received response code %ld", buf, 0x16u);
     }
 
@@ -6978,12 +6850,12 @@ void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCou
     v17 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v50 = *(a1 + 32);
-      v51 = [v10 allHeaderFields];
+      v49 = *(a1 + 32);
+      v50 = [v10 allHeaderFields];
       *buf = 138543618;
-      v76 = v50;
-      v77 = 2112;
-      v78 = v51;
+      v75 = v49;
+      v76 = 2112;
+      v77 = v50;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Headers: %@", buf, 0x16u);
     }
 
@@ -6998,26 +6870,26 @@ void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCou
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v76 = v20;
+          v75 = v20;
           _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
-    v64 = 0;
+    v63 = 0;
     v21 = +[MSProtocolUtilities appleIDSession];
-    [v21 handleResponse:v10 forRequest:*(a1 + 40) shouldRetry:&v64];
+    [v21 handleResponse:v10 forRequest:*(a1 + 40) shouldRetry:&v63];
 
-    if (v64 == 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+    if (v63 == 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v22 = *(a1 + 32);
       v23 = *(a1 + 40);
       *buf = 138543874;
-      v76 = v22;
-      v77 = 2112;
-      v78 = v23;
-      v79 = 2112;
-      v80 = v10;
+      v75 = v22;
+      v76 = 2112;
+      v77 = v23;
+      v78 = 2112;
+      v79 = v10;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Will retry request %@ with response %@ due to AuthKit error", buf, 0x20u);
     }
 
@@ -7028,11 +6900,11 @@ void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCou
         v24 = *(a1 + 32);
         v25 = *(a1 + 40);
         *buf = 138543874;
-        v76 = v24;
-        v77 = 2112;
-        v78 = v25;
-        v79 = 2112;
-        v80 = v10;
+        v75 = v24;
+        v76 = 2112;
+        v77 = v25;
+        v78 = 2112;
+        v79 = v10;
         _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Will retry request %@ with response %@ due to partition move", buf, 0x20u);
       }
 
@@ -7041,15 +6913,15 @@ void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCou
       v28 = v27;
       if (v27 && [v27 length])
       {
-        v55 = [*(a1 + 40) URL];
+        v54 = [*(a1 + 40) URL];
         v29 = objc_alloc(MEMORY[0x277CBEBC0]);
-        v30 = [v55 scheme];
-        v31 = [v55 path];
-        v54 = [v29 initWithScheme:v30 host:v28 path:v31];
+        v30 = [v54 scheme];
+        v31 = [v54 path];
+        v53 = [v29 initWithScheme:v30 host:v28 path:v31];
 
-        [*(a1 + 40) setURL:v54];
+        [*(a1 + 40) setURL:v53];
         v32 = objc_alloc(MEMORY[0x277CBEBC0]);
-        v33 = [v55 scheme];
+        v33 = [v54 scheme];
         v34 = [v32 initWithScheme:v33 host:v28 path:@"/"];
 
         v35 = [*(a1 + 32) personID];
@@ -7061,23 +6933,23 @@ void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCou
           [*(a1 + 32) setBaseURL:v37];
         }
 
-        v64 = 1;
+        v63 = 1;
       }
     }
 
-    if (v64 == 1)
+    if (v63 == 1)
     {
       v38 = *(a1 + 56);
       if (v38 > 9)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v52 = *(a1 + 32);
-          v53 = *(a1 + 40);
+          v51 = *(a1 + 32);
+          v52 = *(a1 + 40);
           *buf = 138543618;
-          v76 = v52;
-          v77 = 2112;
-          v78 = v53;
+          v75 = v51;
+          v76 = 2112;
+          v77 = v52;
           _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Exceeded max retry attempts for request %@, giving up", buf, 0x16u);
         }
 
@@ -7091,9 +6963,9 @@ void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCou
           v39 = *(a1 + 32);
           v40 = *(a1 + 40);
           *buf = 138543618;
-          v76 = v39;
-          v77 = 2112;
-          v78 = v40;
+          v75 = v39;
+          v76 = 2112;
+          v77 = v40;
           _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Retrying request %@", buf, 0x16u);
           v38 = *(a1 + 56);
         }
@@ -7106,16 +6978,16 @@ void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCou
     {
       if (v8)
       {
-        v63 = 0;
-        v41 = [MEMORY[0x277CCAC58] propertyListWithData:v8 options:0 format:0 error:&v63];
-        v42 = v63;
+        v62 = 0;
+        v41 = [MEMORY[0x277CCAC58] propertyListWithData:v8 options:0 format:0 error:&v62];
+        v42 = v62;
         if (v42 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           v43 = *(a1 + 32);
           *buf = 138543618;
-          v76 = v43;
-          v77 = 2114;
-          v78 = v42;
+          v75 = v43;
+          v76 = 2114;
+          v77 = v42;
           _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Cannot unserialize server's response. Error: %{public}@", buf, 0x16u);
         }
       }
@@ -7127,25 +6999,23 @@ void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCou
       }
 
       v44 = [*(a1 + 32) workQueue];
-      v56[0] = MEMORY[0x277D85DD0];
-      v56[1] = 3221225472;
-      v56[2] = __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCount_completionBlock___block_invoke_221;
-      v56[3] = &unk_278E922C0;
-      v56[4] = *(a1 + 32);
-      v57 = v10;
-      v58 = v41;
-      v62 = *(a1 + 64);
-      v59 = v9;
-      v61 = *(a1 + 48);
-      v60 = v57;
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCount_completionBlock___block_invoke_221;
+      v55[3] = &unk_278E922C0;
+      v55[4] = *(a1 + 32);
+      v56 = v10;
+      v57 = v41;
+      v61 = *(a1 + 64);
+      v58 = v9;
+      v60 = *(a1 + 48);
+      v59 = v56;
       v45 = v41;
-      dispatch_async(v44, v56);
+      dispatch_async(v44, v55);
     }
   }
 
-  _Block_object_dispose(&v69, 8);
-
-  v46 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v68, 8);
 }
 
 uint64_t __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCount_completionBlock___block_invoke_211(uint64_t a1)
@@ -7169,9 +7039,7 @@ void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCou
 
 void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCount_completionBlock___block_invoke_221(uint64_t a1)
 {
-  v4 = [*(a1 + 32) errorFromStandardProcessingOnResponse:*(a1 + 40) responseObject:*(a1 + 48) checkServerSideConfigVersion:*(a1 + 80) error:*(a1 + 56) body:*(a1 + 48)];
-  v2 = *(a1 + 64);
-  v3 = *(a1 + 48);
+  v2 = [*(a1 + 32) errorFromStandardProcessingOnResponse:*(a1 + 40) responseObject:*(a1 + 48) checkServerSideConfigVersion:*(a1 + 80) error:*(a1 + 56) body:*(a1 + 48)];
   (*(*(a1 + 72) + 16))();
   dispatch_resume(*(*(a1 + 32) + 24));
 }
@@ -7203,29 +7071,29 @@ void __91__MSASProtocol__sendOneURLRequest_checkServerSideConfigVersion_retryCou
 
 void __91__MSASProtocol_sendURLRequest_method_bodyObj_checkServerSideConfigVersion_completionBlock___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dispatch_suspend(*(*(a1 + 32) + 24));
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
   v2 = [*(a1 + 32) memberQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __91__MSASProtocol_sendURLRequest_method_bodyObj_checkServerSideConfigVersion_completionBlock___block_invoke_2;
   block[3] = &unk_278E92700;
   block[4] = *(a1 + 32);
-  block[5] = &v25;
+  block[5] = &v24;
   dispatch_sync(v2, block);
 
-  if (*(v26 + 24) != 1)
+  if (*(v25 + 24) != 1)
   {
     v7 = *(a1 + 40);
     if (v7)
     {
-      v21 = 0;
-      v6 = [MEMORY[0x277CCAC58] dataWithPropertyList:v7 format:100 options:0 error:&v21];
-      v8 = v21;
+      v20 = 0;
+      v6 = [MEMORY[0x277CCAC58] dataWithPropertyList:v7 format:100 options:0 error:&v20];
+      v8 = v20;
       if (v8)
       {
         v9 = v8;
@@ -7233,25 +7101,25 @@ void __91__MSASProtocol_sendURLRequest_method_bodyObj_checkServerSideConfigVersi
         v11 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v16 = *(a1 + 32);
-          v17 = [v9 MSVerboseDescription];
+          v15 = *(a1 + 32);
+          v16 = [v9 MSVerboseDescription];
           *buf = 138543618;
-          v30 = v16;
-          v31 = 2114;
-          v32 = v17;
+          v29 = v15;
+          v30 = 2114;
+          v31 = v16;
           _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Cannot encode object to send to server. Error: %{public}@", buf, 0x16u);
         }
 
         v12 = [*(a1 + 32) workQueue];
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __91__MSASProtocol_sendURLRequest_method_bodyObj_checkServerSideConfigVersion_completionBlock___block_invoke_205;
-        v18[3] = &unk_278E927A0;
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __91__MSASProtocol_sendURLRequest_method_bodyObj_checkServerSideConfigVersion_completionBlock___block_invoke_205;
+        v17[3] = &unk_278E927A0;
         v13 = *(a1 + 64);
-        v19 = v9;
-        v20 = v13;
+        v18 = v9;
+        v19 = v13;
         v14 = v9;
-        dispatch_async(v12, v18);
+        dispatch_async(v12, v17);
 
         goto LABEL_10;
       }
@@ -7268,29 +7136,28 @@ void __91__MSASProtocol_sendURLRequest_method_bodyObj_checkServerSideConfigVersi
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v30 = v3;
+    v29 = v3;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Not making request because we're shutting down.", buf, 0xCu);
   }
 
   v4 = [*(a1 + 32) workQueue];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __91__MSASProtocol_sendURLRequest_method_bodyObj_checkServerSideConfigVersion_completionBlock___block_invoke_203;
-  v22[3] = &unk_278E927A0;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __91__MSASProtocol_sendURLRequest_method_bodyObj_checkServerSideConfigVersion_completionBlock___block_invoke_203;
+  v21[3] = &unk_278E927A0;
   v5 = *(a1 + 64);
-  v22[4] = *(a1 + 32);
-  v23 = v5;
-  dispatch_async(v4, v22);
+  v21[4] = *(a1 + 32);
+  v22 = v5;
+  dispatch_async(v4, v21);
 
-  v6 = v23;
+  v6 = v22;
 LABEL_10:
 
 LABEL_13:
-  _Block_object_dispose(&v25, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
 }
 
-uint64_t __91__MSASProtocol_sendURLRequest_method_bodyObj_checkServerSideConfigVersion_completionBlock___block_invoke_2(uint64_t a1)
+void *__91__MSASProtocol_sendURLRequest_method_bodyObj_checkServerSideConfigVersion_completionBlock___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) gate];
   if (objc_claimAutoreleasedReturnValue())

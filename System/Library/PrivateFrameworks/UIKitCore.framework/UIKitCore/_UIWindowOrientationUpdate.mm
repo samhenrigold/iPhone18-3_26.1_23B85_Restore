@@ -1,14 +1,14 @@
 @interface _UIWindowOrientationUpdate
-- (uint64_t)invalidateFences;
+- (id)invalidateFences;
 - (void)initWithOrientation:(void *)orientation transitionAnimationSettings:(void *)settings updateBlock:;
-- (void)synchronizeDrawingWithFencesOnScene:(uint64_t)scene;
+- (void)synchronizeDrawingWithFencesOnScene:(id *)scene;
 - (void)trackFence:(uint64_t)fence;
 - (void)transferFencesToUpdate:(uint64_t)update;
 @end
 
 @implementation _UIWindowOrientationUpdate
 
-- (uint64_t)invalidateFences
+- (id)invalidateFences
 {
   v12 = *MEMORY[0x1E69E9840];
   if (result)
@@ -18,7 +18,7 @@
     v10 = 0u;
     v7 = 0u;
     v8 = 0u;
-    v2 = *(result + 8);
+    v2 = result[1];
     v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v3)
     {
@@ -44,7 +44,7 @@
       while (v4);
     }
 
-    return [*(v1 + 8) removeAllObjects];
+    return [v1[1] removeAllObjects];
   }
 
   return result;
@@ -138,7 +138,7 @@
   }
 }
 
-- (void)synchronizeDrawingWithFencesOnScene:(uint64_t)scene
+- (void)synchronizeDrawingWithFencesOnScene:(id *)scene
 {
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -148,7 +148,7 @@
     v12 = 0u;
     v9 = 0u;
     v10 = 0u;
-    v4 = *(scene + 8);
+    v4 = scene[1];
     v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {

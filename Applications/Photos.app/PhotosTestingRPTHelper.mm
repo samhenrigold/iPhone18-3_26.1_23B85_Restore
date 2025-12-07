@@ -3,8 +3,10 @@
 + (BOOL)isRPTAvailable;
 + (BOOL)shouldUseRPTScrollingForRPTOptions:(id)options;
 + (double)_pagesFromOptions:(id)options;
++ (id)_oscillationScrollTestParamsWithScrollBounds:(CGRect)bounds contentFromEnd:(BOOL)end axis:(unint64_t)axis speed:(int64_t)speed pages:(double)pages iterations:(int64_t)iterations completionHandler:(id)handler;
 + (id)_paramsArrayByParams:(id)params iterations:(int64_t)iterations;
 + (id)_shareSheetScrollTestParamsWithScrollBounds:(CGRect)bounds pages:(double)pages iterations:(int64_t)iterations completionHandler:(id)handler;
++ (id)_swipeTestParamsWithScrollBounds:(CGRect)bounds contentFromEnd:(BOOL)end axis:(unint64_t)axis speed:(int64_t)speed swipeCount:(int64_t)count iterations:(int64_t)iterations completionHandler:(id)handler;
 + (id)gesturePerformerForTestWithName:(id)name options:(id)options;
 + (int64_t)_RPTOppositeOfDirection:(int64_t)direction;
 + (int64_t)_RPTScrollDirectionForContentFromEnd:(BOOL)end scrollVertical:(BOOL)vertical;
@@ -256,6 +258,83 @@ LABEL_7:
   v17 = [RPTGroupScrollTestParameters newWithTestName:0 parameters:v15 completionHandler:v19];
 
   return v17;
+}
+
++ (id)_oscillationScrollTestParamsWithScrollBounds:(CGRect)bounds contentFromEnd:(BOOL)end axis:(unint64_t)axis speed:(int64_t)speed pages:(double)pages iterations:(int64_t)iterations completionHandler:(id)handler
+{
+  endCopy = end;
+  height = bounds.size.height;
+  width = bounds.size.width;
+  y = bounds.origin.y;
+  x = bounds.origin.x;
+  handlerCopy = handler;
+  v18 = x;
+  v19 = y;
+  v20 = width;
+  v21 = height;
+  if (axis == 2)
+  {
+    v22 = CGRectGetHeight(*&v18);
+  }
+
+  else
+  {
+    v22 = CGRectGetWidth(*&v18);
+  }
+
+  v23 = [[RPTScrollViewTestParameters alloc] initWithTestName:0 scrollBounds:objc_msgSend(self scrollContentLength:"_RPTScrollDirectionForContentFromEnd:scrollVertical:" direction:endCopy completionHandler:{axis == 2), 0, x, y, width, height, v22}];
+  [v23 setIterationDurationFactor:0.7];
+  v31 = v23;
+  v24 = [NSArray arrayWithObjects:&v31 count:1];
+  v25 = [self _paramsArrayByParams:v24 iterations:iterations];
+
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_100038DD8;
+  v29[3] = &unk_10005C078;
+  v30 = handlerCopy;
+  v26 = handlerCopy;
+  v27 = [RPTGroupScrollTestParameters newWithTestName:0 parameters:v25 completionHandler:v29];
+
+  return v27;
+}
+
++ (id)_swipeTestParamsWithScrollBounds:(CGRect)bounds contentFromEnd:(BOOL)end axis:(unint64_t)axis speed:(int64_t)speed swipeCount:(int64_t)count iterations:(int64_t)iterations completionHandler:(id)handler
+{
+  endCopy = end;
+  height = bounds.size.height;
+  width = bounds.size.width;
+  y = bounds.origin.y;
+  x = bounds.origin.x;
+  handlerCopy = handler;
+  v20 = [self _RPTScrollDirectionForContentFromEnd:endCopy scrollVertical:axis == 2];
+  v21 = [[RPTDirectionalSwipeTestParameters alloc] initWithTestName:@"scrollOut" scrollingBounds:1 swipeCount:_UIScrollDirectionFromRPTScrollDirection() direction:0 completionHandler:{x, y, width, height}];
+  [self _configSwipeParams:v21 forSpeed:speed returnTrip:0];
+  [v21 setShouldFlick:1];
+  [self _RPTOppositeOfDirection:v20];
+  v22 = [[RPTDirectionalSwipeTestParameters alloc] initWithTestName:@"scrollBack" scrollingBounds:1 swipeCount:_UIScrollDirectionFromRPTScrollDirection() direction:0 completionHandler:{x, y, width, height}];
+  [self _configSwipeParams:v22 forSpeed:speed returnTrip:1];
+  [v22 setShouldFlick:1];
+  if (count >= 1)
+  {
+    [v21 setSwipeCount:count];
+    [v22 setSwipeCount:count];
+  }
+
+  v30[0] = v21;
+  v30[1] = v22;
+  v23 = [NSArray arrayWithObjects:v30 count:2];
+  v24 = [self _paramsArrayByParams:v23 iterations:iterations];
+
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_10003908C;
+  v28[3] = &unk_10005C078;
+  v29 = handlerCopy;
+  v25 = handlerCopy;
+  v26 = [RPTGroupScrollTestParameters newWithTestName:0 parameters:v24 completionHandler:v28];
+
+  return v26;
 }
 
 + (void)runTestWithName:(id)name RPTOptions:(id)options scrollBounds:(CGRect)bounds completionHandler:(id)handler

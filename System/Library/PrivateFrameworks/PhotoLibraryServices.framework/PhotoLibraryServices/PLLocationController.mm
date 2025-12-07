@@ -45,7 +45,7 @@
 
 - (void)_updatePendingAssets
 {
-  v3 = [(NSMutableArray *)self->_locationPendingAssets count];
+  v3 = objc_msgSend_count(self->_locationPendingAssets, a2);
   if (v3 >= 1)
   {
     v4 = v3;

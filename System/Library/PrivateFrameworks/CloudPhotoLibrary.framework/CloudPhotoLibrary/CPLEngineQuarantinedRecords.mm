@@ -1,5 +1,6 @@
 @interface CPLEngineQuarantinedRecords
 + (unint64_t)quarantineRetryCount;
+- (BOOL)_addQuarantinedRecordWithScopedIdentifier:(id)identifier related:(BOOL)related recordClass:(Class)class reason:(id)reason error:(id *)error;
 - (BOOL)_quarantineRejectedRecords:(id)records error:(id *)error;
 - (BOOL)bumpRejectedRecords:(id)records error:(id *)error;
 - (BOOL)deleteRecordsForScopeIndex:(int64_t)index maxCount:(int64_t)count deletedCount:(int64_t *)deletedCount error:(id *)error;
@@ -108,7 +109,7 @@
 
 - (BOOL)bumpRejectedRecords:(id)records error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   if (!+[CPLEngineQuarantinedRecords quarantineRetryCount])
   {
@@ -139,11 +140,11 @@ LABEL_15:
         rejectedDescriptions = [recordsCopy rejectedDescriptions];
         v12 = [rejectedDescriptions componentsJoinedByString:@"\n\t"];
         *buf = 134218498;
-        v20 = v10;
-        v21 = 2048;
-        v22 = newRejectedCount;
-        v23 = 2114;
-        v24 = v12;
+        v19 = v10;
+        v20 = 2048;
+        v21 = newRejectedCount;
+        v22 = 2114;
+        v23 = v12;
         _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "%lu records have been rejected (%lu):\n\t%{public}@", buf, 0x20u);
       }
 
@@ -181,21 +182,20 @@ LABEL_15:
 
 LABEL_16:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (BOOL)_quarantineRejectedRecords:(id)records error:(id *)error
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   engineStore = [(CPLEngineStorage *)self engineStore];
   if ([engineStore forceApplyPendingChangeSessionUpdateWithError:error])
   {
-    v54 = 0;
-    v55 = &v54;
-    v56 = 0x2020000000;
-    v57 = 1;
+    v53 = 0;
+    v54 = &v53;
+    v55 = 0x2020000000;
+    v56 = 1;
     pushRepository = [engineStore pushRepository];
     if ((_CPLSilentLogging & 1) == 0)
     {
@@ -219,63 +219,63 @@ LABEL_16:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v59 = __Block_byref_object_copy__22194;
-    v60 = __Block_byref_object_dispose__22195;
-    v61 = 0;
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_invoke;
-    v50[3] = &unk_1E861FDC8;
+    v58 = __Block_byref_object_copy__22194;
+    v59 = __Block_byref_object_dispose__22195;
+    v60 = 0;
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_invoke;
+    v49[3] = &unk_1E861FDC8;
     v16 = Mutable;
-    v51 = v16;
+    v50 = v16;
     v17 = v15;
-    v52 = v17;
-    v53 = buf;
-    v18 = MEMORY[0x1E128EBA0](v50);
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_invoke_2;
-    v46[3] = &unk_1E861FDF0;
+    v51 = v17;
+    v52 = buf;
+    v18 = MEMORY[0x1E128EBA0](v49);
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_invoke_2;
+    v45[3] = &unk_1E861FDF0;
     v19 = pushRepository;
-    v47 = v19;
+    v46 = v19;
     v20 = v16;
-    v48 = v20;
+    v47 = v20;
     v21 = v18;
-    v49 = v21;
-    v22 = MEMORY[0x1E128EBA0](v46);
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_invoke_42;
-    v42[3] = &unk_1E861FE18;
-    v42[4] = self;
+    v48 = v21;
+    v22 = MEMORY[0x1E128EBA0](v45);
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_invoke_42;
+    v41[3] = &unk_1E861FE18;
+    v41[4] = self;
     v23 = v21;
-    v44 = v23;
+    v43 = v23;
     v24 = v19;
-    v43 = v24;
+    v42 = v24;
     v25 = v22;
-    v45 = v25;
-    [recordsCopy enumerateRecordsAndReasonsUsingBlock:v42];
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = __Block_byref_object_copy__22194;
-    v40 = __Block_byref_object_dispose__22195;
-    v41 = 0;
-    if (*(v55 + 24) == 1)
+    v44 = v25;
+    [recordsCopy enumerateRecordsAndReasonsUsingBlock:v41];
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = __Block_byref_object_copy__22194;
+    v39 = __Block_byref_object_dispose__22195;
+    v40 = 0;
+    if (*(v54 + 24) == 1)
     {
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_invoke_47;
-      v29[3] = &unk_1E861FE40;
-      v30 = recordsCopy;
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_invoke_47;
+      v28[3] = &unk_1E861FE40;
+      v29 = recordsCopy;
       selfCopy = self;
-      v33 = &v54;
-      v34 = buf;
-      v35 = &v36;
-      v32 = v17;
-      [(__CFDictionary *)v20 enumerateKeysAndObjectsUsingBlock:v29];
+      v32 = &v53;
+      v33 = buf;
+      v34 = &v35;
+      v31 = v17;
+      [(__CFDictionary *)v20 enumerateKeysAndObjectsUsingBlock:v28];
 
-      v26 = *(v55 + 24);
+      v26 = *(v54 + 24);
       if (!error)
       {
         goto LABEL_13;
@@ -288,18 +288,18 @@ LABEL_16:
       if (!error)
       {
 LABEL_13:
-        _Block_object_dispose(&v36, 8);
+        _Block_object_dispose(&v35, 8);
 
         _Block_object_dispose(buf, 8);
-        _Block_object_dispose(&v54, 8);
+        _Block_object_dispose(&v53, 8);
         goto LABEL_14;
       }
     }
 
     if ((v26 & 1) == 0)
     {
-      *error = v37[5];
-      v26 = *(v55 + 24);
+      *error = v36[5];
+      v26 = *(v54 + 24);
     }
 
     goto LABEL_13;
@@ -308,7 +308,6 @@ LABEL_13:
   v26 = 0;
 LABEL_14:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26 & 1;
 }
 
@@ -347,40 +346,40 @@ void __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_
 
 void __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v31 = 0u;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
   v4 = *(a1 + 32);
   v5 = 0x1E8619000uLL;
   v6 = objc_opt_class();
-  v31 = v3;
+  v29 = v3;
   v7 = [v3 scopedIdentifier];
   v8 = [v4 allChangesWithClass:v6 relatedScopedIdentifier:v7];
 
-  v9 = [v8 countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v34;
+    v12 = *v32;
     v13 = &propertiesForChangeType__facesProperties;
     v14 = @"Master has been quarantined";
     *&v10 = 138412546;
-    v30 = v10;
+    v28 = v10;
     do
     {
       v15 = 0;
-      v32 = v11;
+      v30 = v11;
       do
       {
-        if (*v34 != v12)
+        if (*v32 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v16 = [*(*(&v33 + 1) + 8 * v15) scopedIdentifier];
+        v16 = [*(*(&v31 + 1) + 8 * v15) scopedIdentifier];
         v17 = [*(a1 + 40) objectForKeyedSubscript:v16];
 
         if (!v17)
@@ -390,17 +389,17 @@ void __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_
             v18 = __CPLStorageOSLogDomain_22181();
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              [v31 scopedIdentifier];
+              [v29 scopedIdentifier];
               v19 = a1;
               v20 = v12;
               v21 = v8;
               v22 = v14;
               v23 = v13;
               v25 = v24 = v5;
-              *buf = v30;
-              v38 = v16;
-              v39 = 2112;
-              v40 = v25;
+              *buf = v28;
+              v36 = v16;
+              v37 = 2112;
+              v38 = v25;
               _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_ERROR, "Automatically adding %@ to quarantine because %@ has been quarantined", buf, 0x16u);
 
               v5 = v24;
@@ -409,32 +408,29 @@ void __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_
               v8 = v21;
               v12 = v20;
               a1 = v19;
-              v11 = v32;
+              v11 = v30;
             }
           }
 
           v26 = *(a1 + 48);
-          v27 = *(v5 + 3616);
-          v28 = objc_opt_class();
-          (*(v26 + 16))(v26, v16, 0, v14, v28);
+          v27 = objc_opt_class();
+          (*(v26 + 16))(v26, v16, 0, v14, v27);
         }
 
         ++v15;
       }
 
       while (v11 != v15);
-      v11 = [v8 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v11);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_invoke_42(void *a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a1[4];
   v7 = a3;
@@ -459,11 +455,11 @@ void __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           v16 = [v5 scopedIdentifier];
-          v20 = 138412546;
-          v21 = v14;
-          v22 = 2112;
-          v23 = v16;
-          _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Automatically adding %@ to quarantine because %@ has been quarantined", &v20, 0x16u);
+          v19 = 138412546;
+          v20 = v14;
+          v21 = 2112;
+          v22 = v16;
+          _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Automatically adding %@ to quarantine because %@ has been quarantined", &v19, 0x16u);
         }
       }
 
@@ -478,13 +474,11 @@ void __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_
   {
     (*(a1[7] + 16))();
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_invoke_47(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = [*(a1 + 32) recordWithScopedIdentifier:v7];
@@ -497,9 +491,9 @@ void __64__CPLEngineQuarantinedRecords__quarantineRejectedRecords_error___block_
     v19 = *(*(a1 + 72) + 8);
     v21 = *(v19 + 40);
     v20 = (v19 + 40);
-    v31 = v21;
-    v22 = [v17 _addQuarantinedRecordWithScopedIdentifier:v7 related:v18 recordClass:v16 reason:v8 error:&v31];
-    v23 = v31;
+    v30 = v21;
+    v22 = [v17 _addQuarantinedRecordWithScopedIdentifier:v7 related:v18 recordClass:v16 reason:v8 error:&v30];
+    v23 = v30;
 LABEL_10:
     objc_storeStrong(v20, v23);
     *(*(*(a1 + 56) + 8) + 24) = v22;
@@ -514,9 +508,9 @@ LABEL_10:
     v27 = *(*(a1 + 72) + 8);
     v28 = *(v27 + 40);
     v20 = (v27 + 40);
-    v32 = v28;
-    v22 = [v24 _addQuarantinedRecordWithScopedIdentifier:v7 related:v25 recordClass:v26 reason:v8 error:&v32];
-    v23 = v32;
+    v31 = v28;
+    v22 = [v24 _addQuarantinedRecordWithScopedIdentifier:v7 related:v25 recordClass:v26 reason:v8 error:&v31];
+    v23 = v31;
     goto LABEL_10;
   }
 
@@ -526,7 +520,7 @@ LABEL_10:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v34 = v10;
+      v33 = v10;
       _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Removing %@ from push repository", buf, 0xCu);
     }
   }
@@ -544,8 +538,6 @@ LABEL_11:
   {
     *a4 = 1;
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendQuarantineFeedbackWithRecordClass:(Class)class reason:(id)reason
@@ -605,16 +597,16 @@ LABEL_11:
 - (BOOL)removeQuarantinedRecordWithScopedIdentifier:(id)identifier notify:(BOOL)notify error:(id *)error
 {
   notifyCopy = notify;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v19 = 0;
+  v18 = 0;
   platformObject = [(CPLEngineStorage *)self platformObject];
-  v10 = [platformObject removeQuarantinedRecordWithScopedIdentifier:identifierCopy removed:&v19 error:error];
+  v10 = [platformObject removeQuarantinedRecordWithScopedIdentifier:identifierCopy removed:&v18 error:error];
 
   v11 = 0;
   if (v10)
   {
-    if (v19 != 1 || !notifyCopy)
+    if (v18 != 1 || !notifyCopy)
     {
       v11 = 1;
     }
@@ -627,7 +619,7 @@ LABEL_11:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v21 = identifierCopy;
+          v20 = identifierCopy;
           _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Removed %{public}@ from quarantine", buf, 0xCu);
         }
       }
@@ -640,8 +632,63 @@ LABEL_11:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v11;
+}
+
+- (BOOL)_addQuarantinedRecordWithScopedIdentifier:(id)identifier related:(BOOL)related recordClass:(Class)class reason:(id)reason error:(id *)error
+{
+  relatedCopy = related;
+  v29 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  reasonCopy = reason;
+  engineStore = [(CPLEngineStorage *)self engineStore];
+  if (![engineStore forceApplyPendingChangeSessionUpdateWithError:error])
+  {
+    goto LABEL_11;
+  }
+
+  if (([(objc_class *)class shouldReallyQuarantineRecord]& 1) != 0)
+  {
+    platformObject = [(CPLEngineStorage *)self platformObject];
+    v16 = [platformObject addQuarantinedRecordWithScopedIdentifier:identifierCopy related:relatedCopy recordClass:class reason:reasonCopy error:error];
+
+    if (!v16)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  else if ((_CPLSilentLogging & 1) == 0)
+  {
+    v17 = __CPLStorageOSLogDomain_22181();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v25 = 138412546;
+      classCopy = class;
+      v27 = 2114;
+      v28 = identifierCopy;
+      _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEFAULT, "Dropping but not quarantining <%@ %{public}@>", &v25, 0x16u);
+    }
+  }
+
+  engineStore2 = [(CPLEngineStorage *)self engineStore];
+  pushRepository = [engineStore2 pushRepository];
+  v20 = [pushRepository discardChangeWithScopedIdentifier:identifierCopy error:error];
+
+  if (!v20)
+  {
+LABEL_11:
+    v23 = 0;
+    goto LABEL_12;
+  }
+
+  engineStore3 = [(CPLEngineStorage *)self engineStore];
+  statusCenter = [engineStore3 statusCenter];
+
+  v23 = [statusCenter notifyStatusForRecordWithScopedIdentifierHasChanged:identifierCopy recordClass:class persist:1 error:error];
+LABEL_12:
+
+  return v23;
 }
 
 - (BOOL)deleteRecordsForScopeIndex:(int64_t)index maxCount:(int64_t)count deletedCount:(int64_t *)deletedCount error:(id *)error

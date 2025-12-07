@@ -84,7 +84,7 @@
 
 + (BOOL)persistDatabaseIdentifier:(id)identifier syncIdentity:(int64_t)identity database:(id)database error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   databaseCopy = database;
   if (identifierCopy)
@@ -97,19 +97,18 @@
     }
   }
 
-  v19 = @"IDENTIFIER";
+  v18 = @"IDENTIFIER";
   v13 = _HDSQLiteValueForData();
-  v20[0] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v19[0] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
 
   v15 = [self _setRawKeysAndValues:v14 domain:@"DATABASE_CREATION" category:objc_msgSend(self syncIdentity:"_deviceLocalCategory") database:identity error:{databaseCopy, error}];
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 + (id)retrieveDatabaseIdentifierFromDatabase:(id)database error:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   if (!error)
   {
@@ -118,8 +117,8 @@
   }
 
   _deviceLocalCategory = [self _deviceLocalCategory];
-  v16[0] = @"IDENTIFIER";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = @"IDENTIFIER";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v10 = [self _rawValuesForKeys:v9 domain:@"DATABASE_CREATION" category:_deviceLocalCategory database:databaseCopy error:error];
 
   if (!v10 && !*error)
@@ -130,24 +129,21 @@
 
   v11 = [v10 objectForKeyedSubscript:@"IDENTIFIER"];
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (BOOL)setOkemoZursObjectAnchor:(int64_t)anchor syncIdentity:(int64_t)identity database:(id)database error:(id *)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
-  v17 = @"OBJECT_ANCHOR_8_2";
+  v17[1] = *MEMORY[0x277D85DE8];
+  v16 = @"OBJECT_ANCHOR_8_2";
   v10 = MEMORY[0x277CCABB0];
   databaseCopy = database;
   v12 = [v10 numberWithLongLong:anchor];
   v13 = _HDSQLiteValueForNumber();
-  v18[0] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
 
   LOBYTE(error) = [self _setRawKeysAndValues:v14 domain:@"OBJECT_ANCHOR" category:objc_msgSend(self syncIdentity:"_deviceLocalCategory") database:identity error:{databaseCopy, error}];
-  v15 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -194,53 +190,52 @@
 
 + (id)_rawValueForKey:(void *)key domain:(uint64_t)domain category:(void *)category profile:(void *)profile entity:(uint64_t)entity error:
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   v12 = a2;
   keyCopy = key;
   categoryCopy = category;
   v15 = objc_opt_self();
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__171;
-  v34 = __Block_byref_object_dispose__171;
-  v35 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__171;
-  v28 = __Block_byref_object_dispose__171;
   v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__171;
+  v33 = __Block_byref_object_dispose__171;
+  v34 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__171;
+  v27 = __Block_byref_object_dispose__171;
+  v28 = 0;
   if (v12)
   {
     v16 = v15;
-    v36[0] = v12;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __73__HDKeyValueEntity__rawValueForKey_domain_category_profile_entity_error___block_invoke;
-    v23[3] = &unk_27862ACA0;
-    v23[4] = &v30;
-    v23[5] = &v24;
-    v23[6] = profile;
-    v23[7] = v16;
-    v18 = [(HDKeyValueEntity *)v16 _valuesForKeys:v17 domain:keyCopy category:domain profile:categoryCopy error:entity handler:v23];
+    v35[0] = v12;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __73__HDKeyValueEntity__rawValueForKey_domain_category_profile_entity_error___block_invoke;
+    v22[3] = &unk_27862ACA0;
+    v22[4] = &v29;
+    v22[5] = &v23;
+    v22[6] = profile;
+    v22[7] = v16;
+    v18 = [(HDKeyValueEntity *)v16 _valuesForKeys:v17 domain:keyCopy category:domain profile:categoryCopy error:entity handler:v22];
   }
 
   if (profile)
   {
-    v19 = v25[5];
+    v19 = v24[5];
     if (v19)
     {
       *profile = v19;
     }
   }
 
-  v20 = v31[5];
-  _Block_object_dispose(&v24, 8);
+  v20 = v30[5];
+  _Block_object_dispose(&v23, 8);
 
-  _Block_object_dispose(&v30, 8);
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
 
   return v20;
 }
@@ -407,7 +402,7 @@
 
 + (BOOL)enumerateValuesForDomain:(id)domain category:(int64_t)category keys:(id)keys profile:(id)profile error:(id *)error usingBlock:(id)block
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   blockCopy = block;
   profileCopy = profile;
@@ -423,15 +418,14 @@
   }
   v18 = ;
   v19 = MEMORY[0x277D10B20];
-  v26[0] = v17;
-  v26[1] = v18;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[0] = v17;
+  v25[1] = v18;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   v21 = [v19 predicateMatchingAllPredicates:v20];
 
   database = [profileCopy database];
 
   v23 = [self _enumerateKeyValueEntitiesInCategory:category predicate:v21 healthDatabase:database error:error usingBlock:blockCopy];
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -515,7 +509,7 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
 
 + (id)_valuesForKeys:(void *)keys domain:(uint64_t)domain category:(void *)category profile:(uint64_t)profile error:(void *)error handler:
 {
-  v34[2] = *MEMORY[0x277D85DE8];
+  v33[2] = *MEMORY[0x277D85DE8];
   v10 = a2;
   errorCopy = error;
   categoryCopy = category;
@@ -532,22 +526,22 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
   v17 = [(HDKeyValueEntity *)v14 _predicateForDomain:keysCopy];
 
   v18 = MEMORY[0x277D10B20];
-  v34[0] = v17;
-  v34[1] = v16;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+  v33[0] = v17;
+  v33[1] = v16;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
   v20 = [v18 predicateMatchingAllPredicates:v19];
 
   database = [categoryCopy database];
 
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __73__HDKeyValueEntity__valuesForKeys_domain_category_profile_error_handler___block_invoke;
-  v31[3] = &unk_27862AD10;
-  v33 = errorCopy;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __73__HDKeyValueEntity__valuesForKeys_domain_category_profile_error_handler___block_invoke;
+  v30[3] = &unk_27862AD10;
+  v32 = errorCopy;
   v22 = dictionary;
-  v32 = v22;
+  v31 = v22;
   v23 = errorCopy;
-  LOBYTE(v19) = [v14 _enumerateKeyValueEntitiesInCategory:domain predicate:v20 healthDatabase:database error:profile usingBlock:v31];
+  LOBYTE(v19) = [v14 _enumerateKeyValueEntitiesInCategory:domain predicate:v20 healthDatabase:database error:profile usingBlock:v30];
 
   if ((v19 & 1) == 0)
   {
@@ -555,16 +549,15 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
     v22 = 0;
   }
 
-  v24 = v32;
+  v24 = v31;
   v25 = v22;
 
-  v26 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 + (BOOL)setData:(id)data forKey:(id)key domain:(id)domain category:(int64_t)category profile:(id)profile error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   keyCopy = key;
   domainCopy = domain;
@@ -579,13 +572,12 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
     }
   }
 
-  v25 = keyCopy;
+  v24 = keyCopy;
   v19 = _HDSQLiteValueForData();
-  v26[0] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v25[0] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
 
   v21 = [(HDKeyValueEntity *)self _setRawKeysAndValues:v20 domain:domainCopy category:category profile:profileCopy error:error];
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -616,7 +608,7 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
 
 + (BOOL)setData:(id)data forKey:(id)key domain:(id)domain category:(int64_t)category syncIdentity:(int64_t)identity profile:(id)profile error:(id *)error
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   keyCopy = key;
   domainCopy = domain;
@@ -631,10 +623,10 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
     }
   }
 
-  v30 = keyCopy;
+  v29 = keyCopy;
   v19 = _HDSQLiteValueForData();
-  v31[0] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v30[0] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
 
   if (!v20)
   {
@@ -652,13 +644,12 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
   date = [MEMORY[0x277CBEAA8] date];
   v23 = [self _insertKeysAndValues:v20 modificationDate:date domain:domainCopy category:category provenance:0 syncIdentity:identity updatePolicy:1 profile:profileCopy error:error];
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 + (BOOL)setDate:(id)date forKey:(id)key domain:(id)domain category:(int64_t)category profile:(id)profile error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   keyCopy = key;
   domainCopy = domain;
@@ -673,13 +664,12 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
     }
   }
 
-  v25 = keyCopy;
+  v24 = keyCopy;
   v19 = _HDSQLiteValueForDate();
-  v26[0] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v25[0] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
 
   v21 = [(HDKeyValueEntity *)self _setRawKeysAndValues:v20 domain:domainCopy category:category profile:profileCopy error:error];
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -699,7 +689,7 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
     }
 
     calendar = [componentsCopy calendar];
-    v20 = [calendar copy];
+    v20 = objc_msgSend_copy(calendar);
 
     v21 = [MEMORY[0x277CBEBB0] timeZoneForSecondsFromGMT:0];
     [v20 setTimeZone:v21];
@@ -719,7 +709,7 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
 
 + (BOOL)setQuantity:(id)quantity unit:(id)unit forKey:(id)key domain:(id)domain category:(int64_t)category profile:(id)profile error:(id *)error
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   quantityCopy = quantity;
   unitCopy = unit;
   keyCopy = key;
@@ -735,19 +725,18 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
     }
   }
 
-  v27 = keyCopy;
+  v26 = keyCopy;
   v21 = _HDSQLiteValueForQuantity();
-  v28[0] = v21;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+  v27[0] = v21;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
 
   v23 = [(HDKeyValueEntity *)self _setRawKeysAndValues:v22 domain:domainCopy category:category profile:profileCopy error:error];
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 + (BOOL)setNumber:(id)number forKey:(id)key domain:(id)domain category:(int64_t)category profile:(id)profile error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   numberCopy = number;
   keyCopy = key;
   domainCopy = domain;
@@ -762,19 +751,18 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
     }
   }
 
-  v25 = keyCopy;
+  v24 = keyCopy;
   v19 = _HDSQLiteValueForNumber();
-  v26[0] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v25[0] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
 
   v21 = [(HDKeyValueEntity *)self _setRawKeysAndValues:v20 domain:domainCopy category:category profile:profileCopy error:error];
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 + (BOOL)setString:(id)string forKey:(id)key domain:(id)domain category:(int64_t)category profile:(id)profile error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   keyCopy = key;
   domainCopy = domain;
@@ -789,13 +777,12 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
     }
   }
 
-  v25 = keyCopy;
+  v24 = keyCopy;
   v19 = _HDSQLiteValueForString();
-  v26[0] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v25[0] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
 
   v21 = [(HDKeyValueEntity *)self _setRawKeysAndValues:v20 domain:domainCopy category:category profile:profileCopy error:error];
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -819,7 +806,7 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
 
 + (BOOL)removeValuesForDomain:(id)domain category:(int64_t)category keys:(id)keys profile:(id)profile error:(id *)error
 {
-  v25[3] = *MEMORY[0x277D85DE8];
+  v24[3] = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   keysCopy = keys;
   profileCopy = profile;
@@ -843,17 +830,16 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
     }
     v17 = ;
     v18 = MEMORY[0x277D10B20];
-    v25[0] = v15;
-    v25[1] = v16;
-    v25[2] = v17;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+    v24[0] = v15;
+    v24[1] = v16;
+    v24[2] = v17;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
     v20 = [v18 predicateMatchingAllPredicates:v19];
 
     database = [profileCopy database];
     v22 = [self deleteEntitiesWithPredicate:v20 healthDatabase:database error:error];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -869,7 +855,7 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
 
 + (BOOL)setValueForAllKeys:(id)keys domain:(id)domain category:(int64_t)category profile:(id)profile error:(id *)error
 {
-  v36[2] = *MEMORY[0x277D85DE8];
+  v35[2] = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   domainCopy = domain;
   profileCopy = profile;
@@ -877,36 +863,35 @@ void __62__HDKeyValueEntity_allValuesForDomain_category_profile_error___block_in
   v15 = [(HDKeyValueEntity *)self _predicateForDomain:domainCopy];
   v16 = [(HDKeyValueEntity *)self _predicateForCategory:category];
   v17 = MEMORY[0x277D10B20];
-  v36[0] = v15;
-  v36[1] = v16;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+  v35[0] = v15;
+  v35[1] = v16;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
   v19 = [v17 predicateMatchingAllPredicates:v18];
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __69__HDKeyValueEntity_setValueForAllKeys_domain_category_profile_error___block_invoke;
-  v28[3] = &unk_278614558;
-  v29 = profileCopy;
-  v30 = domainCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __69__HDKeyValueEntity_setValueForAllKeys_domain_category_profile_error___block_invoke;
+  v27[3] = &unk_278614558;
+  v28 = profileCopy;
+  v29 = domainCopy;
   categoryCopy = category;
   selfCopy = self;
-  v31 = v19;
-  v32 = database;
-  v33 = keysCopy;
+  v30 = v19;
+  v31 = database;
+  v32 = keysCopy;
   v20 = keysCopy;
   v21 = database;
   v22 = v19;
   v23 = domainCopy;
   v24 = profileCopy;
-  LOBYTE(v18) = [self performWriteTransactionWithHealthDatabase:v21 error:error block:v28];
+  LOBYTE(v18) = [self performWriteTransactionWithHealthDatabase:v21 error:error block:v27];
 
-  v25 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 uint64_t __69__HDKeyValueEntity_setValueForAllKeys_domain_category_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v6 = a2;
   v7 = [v5 keyValueDomainManager];
@@ -914,28 +899,26 @@ uint64_t __69__HDKeyValueEntity_setValueForAllKeys_domain_category_profile_error
 
   v8 = [MEMORY[0x277CBEAA8] date];
   v9 = *(a1 + 80);
-  v20[0] = @"value";
-  v20[1] = @"mod_date";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[0] = @"value";
+  v19[1] = @"mod_date";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v11 = *(a1 + 48);
   v12 = *(a1 + 56);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __69__HDKeyValueEntity_setValueForAllKeys_domain_category_profile_error___block_invoke_2;
-  v17[3] = &unk_278613DE8;
-  v18 = *(a1 + 64);
-  v19 = v8;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __69__HDKeyValueEntity_setValueForAllKeys_domain_category_profile_error___block_invoke_2;
+  v16[3] = &unk_278613DE8;
+  v17 = *(a1 + 64);
+  v18 = v8;
   v13 = v8;
-  v14 = [v9 updateProperties:v10 predicate:v11 healthDatabase:v12 error:a3 bindingHandler:v17];
+  v14 = [v9 updateProperties:v10 predicate:v11 healthDatabase:v12 error:a3 bindingHandler:v16];
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 void __69__HDKeyValueEntity_setValueForAllKeys_domain_category_profile_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   MEMORY[0x22AAC6BF0](a2, @"value", *(a1 + 32));
-  v3 = *(a1 + 40);
 
   JUMPOUT(0x22AAC6B50);
 }
@@ -958,17 +941,16 @@ void *__73__HDKeyValueEntity__rawValueForKey_domain_category_profile_entity_erro
 
   if (a1[6])
   {
-    v10 = a1[7];
-    v11 = [objc_alloc(objc_opt_class()) initWithPersistentID:a5];
-    v12 = *(a1[5] + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = v11;
+    v10 = [objc_alloc(objc_opt_class()) initWithPersistentID:a5];
+    v11 = *(a1[5] + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
   }
 
-  v14 = *(*(a1[4] + 8) + 40);
-  v15 = v14;
+  v13 = *(*(a1[4] + 8) + 40);
+  v14 = v13;
 
-  return v14;
+  return v13;
 }
 
 + (id)_rawValuesForKeys:(id)keys domain:(id)domain category:(int64_t)category database:(id)database error:(id *)error
@@ -1020,30 +1002,29 @@ void __69__HDKeyValueEntity__rawValuesForKeys_domain_category_database_error___b
 
 + (uint64_t)_readRawValuesInCategory:(void *)category predicate:(void *)predicate database:(uint64_t)database error:(void *)error usingBlock:
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v23[4] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   predicateCopy = predicate;
   categoryCopy = category;
   v13 = objc_opt_self();
-  v24[0] = @"domain";
-  v24[1] = @"key";
-  v24[2] = @"value";
-  v24[3] = @"mod_date";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
+  v23[0] = @"domain";
+  v23[1] = @"key";
+  v23[2] = @"value";
+  v23[3] = @"mod_date";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
   v15 = [(HDKeyValueEntity *)v13 _predicateForCategory:a2];
   v16 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v15 otherPredicate:categoryCopy];
 
   v17 = [v13 queryWithDatabase:predicateCopy predicate:v16];
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __81__HDKeyValueEntity__readRawValuesInCategory_predicate_database_error_usingBlock___block_invoke;
-  v22[3] = &unk_278616A78;
-  v23 = errorCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __81__HDKeyValueEntity__readRawValuesInCategory_predicate_database_error_usingBlock___block_invoke;
+  v21[3] = &unk_278616A78;
+  v22 = errorCopy;
   v18 = errorCopy;
-  v19 = [v17 enumeratePersistentIDsAndProperties:v14 error:database enumerationHandler:v22];
+  v19 = [v17 enumeratePersistentIDsAndProperties:v14 error:database enumerationHandler:v21];
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -1089,7 +1070,7 @@ void __73__HDKeyValueEntity__valuesForKeys_domain_category_profile_error_handler
 
 uint64_t __81__HDKeyValueEntity__readRawValuesInCategory_predicate_database_error_usingBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = MEMORY[0x22AAC6C90](a4, 0);
+  v6 = MEMORY[0x22AAC6C90](a4, 0, a3);
   v7 = MEMORY[0x22AAC6C90](a4, 1);
   v8 = MEMORY[0x22AAC6C70](a4, 2);
   v9 = MEMORY[0x22AAC6C40](a4, 3);
@@ -1459,39 +1440,39 @@ LABEL_25:
 
 uint64_t __84__HDKeyValueEntity__insertCodableCategoryDomainDictionary_provenance_profile_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v26 = *(v3 + 8);
+  v25 = *(v3 + 8);
   v4 = *(v3 + 16);
   if (!v4)
   {
     v4 = &stru_283BF39C8;
   }
 
-  v27 = v4;
+  v26 = v4;
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:*(a1 + 56)];
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:*(a1 + 56)];
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:*(a1 + 56)];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v29 = a1;
+  v28 = a1;
   v8 = *(a1 + 40);
-  v9 = [v8 countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v9)
   {
-    v10 = *v41;
+    v10 = *v40;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v41 != v10)
+        if (*v40 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v40 + 1) + 8 * i);
+        v12 = *(*(&v39 + 1) + 8 * i);
         v13 = [v12 decodedValue];
         if (v13)
         {
@@ -1511,36 +1492,36 @@ uint64_t __84__HDKeyValueEntity__insertCodableCategoryDomainDictionary_provenanc
         [v7 addObject:v16];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v9);
   }
 
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__171;
-  v38 = __Block_byref_object_dispose__171;
-  v17 = [*(v29 + 48) syncIdentityManager];
-  v39 = [v17 legacySyncIdentity];
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__171;
+  v37 = __Block_byref_object_dispose__171;
+  v17 = [*(v28 + 48) syncIdentityManager];
+  v38 = [v17 legacySyncIdentity];
 
-  v18 = [*(v29 + 48) database];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __84__HDKeyValueEntity__insertCodableCategoryDomainDictionary_provenance_profile_error___block_invoke_2;
-  v30[3] = &unk_278619980;
-  v31 = *(v29 + 32);
-  v33 = &v34;
-  v32 = *(v29 + 48);
-  v19 = [(HDHealthEntity *)HDSyncIdentityEntity performWriteTransactionWithHealthDatabase:v18 error:a2 block:v30];
+  v18 = [*(v28 + 48) database];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __84__HDKeyValueEntity__insertCodableCategoryDomainDictionary_provenance_profile_error___block_invoke_2;
+  v29[3] = &unk_278619980;
+  v30 = *(v28 + 32);
+  v32 = &v33;
+  v31 = *(v28 + 48);
+  v19 = [(HDHealthEntity *)HDSyncIdentityEntity performWriteTransactionWithHealthDatabase:v18 error:a2 block:v29];
 
   if (v19)
   {
-    v21 = *(v29 + 64);
-    v20 = *(v29 + 72);
-    v22 = [v35[5] entity];
-    v23 = [v21 _insertValues:v5 forKeys:v6 modificationDates:v7 domain:v27 category:v26 provenance:v20 syncIdentity:objc_msgSend(v22 updatePolicy:"persistentID") profile:2 error:{*(v29 + 48), a2}];
+    v21 = *(v28 + 64);
+    v20 = *(v28 + 72);
+    v22 = [v34[5] entity];
+    v23 = [v21 _insertValues:v5 forKeys:v6 modificationDates:v7 domain:v26 category:v25 provenance:v20 syncIdentity:objc_msgSend(v22 updatePolicy:"persistentID") profile:2 error:{*(v28 + 48), a2}];
   }
 
   else
@@ -1548,29 +1529,28 @@ uint64_t __84__HDKeyValueEntity__insertCodableCategoryDomainDictionary_provenanc
     v23 = 0;
   }
 
-  _Block_object_dispose(&v34, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v33, 8);
   return v23;
 }
 
 uint64_t __84__HDKeyValueEntity__insertCodableCategoryDomainDictionary_provenance_profile_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ([*(a1 + 32) hasSyncIdentity])
   {
     v6 = [*(a1 + 32) syncIdentity];
-    v21 = 0;
-    v7 = [HDSyncIdentity syncIdentityWithCodable:v6 error:&v21];
-    v8 = v21;
+    v20 = 0;
+    v7 = [HDSyncIdentity syncIdentityWithCodable:v6 error:&v20];
+    v8 = v20;
 
     if (v7)
     {
       v9 = [*(a1 + 40) syncIdentityManager];
-      v20 = v8;
+      v19 = v8;
       v10 = 1;
-      v11 = [v9 concreteIdentityForIdentity:v7 shouldCreate:1 transaction:v5 error:&v20];
-      v12 = v20;
+      v11 = [v9 concreteIdentityForIdentity:v7 shouldCreate:1 transaction:v5 error:&v19];
+      v12 = v19;
 
       v13 = *(*(a1 + 48) + 8);
       v14 = *(v13 + 40);
@@ -1588,7 +1568,7 @@ LABEL_16:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v23 = v12;
+        v22 = v12;
         _os_log_fault_impl(&dword_228986000, v15, OS_LOG_TYPE_FAULT, "HDKeyValueEntity ConcreteSyncIdentity from received codable is nil %{public}@", buf, 0xCu);
       }
 
@@ -1616,7 +1596,7 @@ LABEL_8:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v23 = v8;
+        v22 = v8;
         _os_log_fault_impl(&dword_228986000, v16, OS_LOG_TYPE_FAULT, "HDKeyValueEntity SyncIdentity from received codable is nil %{public}@", buf, 0xCu);
       }
 
@@ -1640,13 +1620,12 @@ LABEL_8:
   v10 = 1;
 LABEL_17:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 + (BOOL)_insertCodableTimestampedKeyValuePairs:(id)pairs domain:(id)domain category:(int64_t)category provenance:(int64_t)provenance syncIdentity:(int64_t)identity updatePolicy:(int64_t)policy profile:(id)profile error:(id *)self0
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   pairsCopy = pairs;
   domainCopy = domain;
   profileCopy = profile;
@@ -1659,32 +1638,32 @@ LABEL_17:
     identityCopy = identity;
     categoryCopy = category;
     provenanceCopy = provenance;
-    v42 = profileCopy;
-    v43 = domainCopy;
+    v41 = profileCopy;
+    v42 = domainCopy;
     v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v19];
     v22 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v20];
     v23 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v20];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
-    v44 = pairsCopy;
+    v43 = pairsCopy;
     v24 = pairsCopy;
-    v25 = [v24 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v44 objects:v48 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v46;
+      v27 = *v45;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v46 != v27)
+          if (*v45 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v45 + 1) + 8 * i);
+          v29 = *(*(&v44 + 1) + 8 * i);
           decodedValue = [v29 decodedValue];
           if (decodedValue)
           {
@@ -1704,17 +1683,17 @@ LABEL_17:
           [v23 addObject:decodedTimestamp];
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v44 objects:v48 count:16];
       }
 
       while (v26);
     }
 
-    profileCopy = v42;
-    domainCopy = v43;
-    v34 = [selfCopy _insertValues:v21 forKeys:v22 modificationDates:v23 domain:v43 category:categoryCopy provenance:provenanceCopy syncIdentity:identityCopy updatePolicy:policyCopy profile:v42 error:error];
+    profileCopy = v41;
+    domainCopy = v42;
+    v34 = [selfCopy _insertValues:v21 forKeys:v22 modificationDates:v23 domain:v42 category:categoryCopy provenance:provenanceCopy syncIdentity:identityCopy updatePolicy:policyCopy profile:v41 error:error];
 
-    pairsCopy = v44;
+    pairsCopy = v43;
   }
 
   else
@@ -1722,55 +1701,47 @@ LABEL_17:
     v34 = 1;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
 id __130__HDKeyValueEntity__doInsertValues_forKeys_modificationDates_domain_category_provenance_syncIdentity_updatePolicy_database_error___block_invoke(uint64_t a1)
 {
-  v6[7] = *MEMORY[0x277D85DE8];
+  v5[7] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v6[0] = @"value";
-  v6[1] = @"key";
-  v6[2] = @"domain";
-  v6[3] = @"category";
-  v6[4] = @"provenance";
-  v6[5] = @"mod_date";
-  v6[6] = @"sync_identity";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:7];
+  v5[0] = @"value";
+  v5[1] = @"key";
+  v5[2] = @"domain";
+  v5[3] = @"category";
+  v5[4] = @"provenance";
+  v5[5] = @"mod_date";
+  v5[6] = @"sync_identity";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:7];
   v3 = [v1 insertSQLForProperties:v2 shouldReplace:1];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 uint64_t __130__HDKeyValueEntity__doInsertValues_forKeys_modificationDates_domain_category_provenance_syncIdentity_updatePolicy_database_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v6 = *(a1 + 48);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 4, *(a1 + 56));
   sqlite3_bind_int64(a2, 5, *(a1 + 64));
   sqlite3_bind_double(a2, 6, *(a1 + 72));
-  v7 = *(a1 + 80);
+  v4 = *(a1 + 80);
 
-  return sqlite3_bind_int64(a2, 7, v7);
+  return sqlite3_bind_int64(a2, 7, v4);
 }
 
 uint64_t __107__HDKeyValueEntity__validateModificationDatePolicyWithKey_domain_category_modificationDate_database_error___block_invoke(double *a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, *(a1 + 6));
-  v4 = *(a1 + 4);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 5);
   HDSQLiteBindFoundationValueToStatement();
-  v6 = a1[7];
+  v4 = a1[7];
 
-  return sqlite3_bind_double(a2, 4, v6);
+  return sqlite3_bind_double(a2, 4, v4);
 }
 
 + (BOOL)_insertValues:(id)values forKeys:(id)keys modificationDates:(id)dates domain:(id)domain category:(int64_t)category provenance:(int64_t)provenance syncIdentity:(int64_t)identity updatePolicy:(int64_t)self0 profile:(id)self1 error:(id *)self2
@@ -1894,20 +1865,20 @@ uint64_t __127__HDKeyValueEntity__insertValues_forKeys_modificationDates_domain_
 
 + (Class)_entityClassForKeyValueCategory:(int64_t)category
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ((category - 100) >= 8 && category > 5)
   {
     _HKInitializeLogging();
-    v7 = *MEMORY[0x277CCC2A0];
+    v6 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v8 = v7;
-      v10 = 138543618;
-      v11 = objc_opt_class();
-      v12 = 2048;
+      v7 = v6;
+      v9 = 138543618;
+      v10 = objc_opt_class();
+      v11 = 2048;
       categoryCopy = category;
-      v9 = v11;
-      _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: unrecognized category %ld", &v10, 0x16u);
+      v8 = v10;
+      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: unrecognized category %ld", &v9, 0x16u);
     }
 
     v4 = 0;
@@ -1918,67 +1889,63 @@ uint64_t __127__HDKeyValueEntity__insertValues_forKeys_modificationDates_domain_
     v4 = objc_opt_class();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 + (id)_modDateForKey:(id)key domain:(id)domain category:(int64_t)category profile:(id)profile entity:(id *)entity error:(id *)error
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   domainCopy = domain;
   profileCopy = profile;
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x3032000000;
-  v36[3] = __Block_byref_object_copy__171;
-  v36[4] = __Block_byref_object_dispose__171;
-  v37 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__171;
-  v34 = __Block_byref_object_dispose__171;
-  v35 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__171;
-  v28 = __Block_byref_object_dispose__171;
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x3032000000;
+  v35[3] = __Block_byref_object_copy__171;
+  v35[4] = __Block_byref_object_dispose__171;
+  v36 = 0;
   v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__171;
+  v33 = __Block_byref_object_dispose__171;
+  v34 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__171;
+  v27 = __Block_byref_object_dispose__171;
+  v28 = 0;
   if (keyCopy)
   {
-    v38[0] = keyCopy;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __72__HDKeyValueEntity__modDateForKey_domain_category_profile_entity_error___block_invoke;
-    v23[3] = &unk_27862ADD8;
-    v23[4] = v36;
-    v23[5] = &v30;
-    v23[6] = &v24;
-    v23[7] = entity;
-    v23[8] = self;
-    v18 = [(HDKeyValueEntity *)self _valuesForKeys:v17 domain:domainCopy category:category profile:profileCopy error:error handler:v23];
+    v37[0] = keyCopy;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __72__HDKeyValueEntity__modDateForKey_domain_category_profile_entity_error___block_invoke;
+    v22[3] = &unk_27862ADD8;
+    v22[4] = v35;
+    v22[5] = &v29;
+    v22[6] = &v23;
+    v22[7] = entity;
+    v22[8] = self;
+    v18 = [(HDKeyValueEntity *)self _valuesForKeys:v17 domain:domainCopy category:category profile:profileCopy error:error handler:v22];
   }
 
   if (entity)
   {
-    v19 = v25[5];
+    v19 = v24[5];
     if (v19)
     {
       *entity = v19;
     }
   }
 
-  v20 = v31[5];
-  _Block_object_dispose(&v24, 8);
+  v20 = v30[5];
+  _Block_object_dispose(&v23, 8);
 
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(v36, 8);
-
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(v35, 8);
 
   return v20;
 }
@@ -2003,27 +1970,25 @@ void *__72__HDKeyValueEntity__modDateForKey_domain_category_profile_entity_error
   objc_storeStrong((*(a1[5] + 8) + 40), a4);
   if (a1[7])
   {
-    v12 = a1[8];
-    v13 = [objc_alloc(objc_opt_class()) initWithPersistentID:a5];
-    v14 = *(a1[6] + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
+    v12 = [objc_alloc(objc_opt_class()) initWithPersistentID:a5];
+    v13 = *(a1[6] + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = v12;
   }
 
-  v16 = *(*(a1[4] + 8) + 40);
-  v17 = v16;
+  v15 = *(*(a1[4] + 8) + 40);
+  v16 = v15;
 
-  return v16;
+  return v15;
 }
 
 + (id)uniquedColumns
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"category";
-  v5[1] = @"domain";
-  v5[2] = @"key";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"category";
+  v4[1] = @"domain";
+  v4[2] = @"key";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }

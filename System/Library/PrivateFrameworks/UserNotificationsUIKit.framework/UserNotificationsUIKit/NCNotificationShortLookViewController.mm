@@ -892,8 +892,9 @@ uint64_t __84__NCNotificationShortLookViewController_presentLongLookAnimated_tri
   objc_destroyWeak(buf);
 }
 
-void __83__NCNotificationShortLookViewController__requestAppProtectionUnlockWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
+void __83__NCNotificationShortLookViewController__requestAppProtectionUnlockWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = MEMORY[0x277D77DB0];
@@ -922,7 +923,7 @@ void __83__NCNotificationShortLookViewController__requestAppProtectionUnlockWith
 
   objc_copyWeak(&v14, (a1 + 48));
   v13 = *(a1 + 40);
-  v15 = a2;
+  v15 = v3;
   BSDispatchMain();
 
   objc_destroyWeak(&v14);
@@ -948,11 +949,11 @@ uint64_t __83__NCNotificationShortLookViewController__requestAppProtectionUnlock
   [(NCNotificationShortLookViewController *)self presentLongLookAnimated:1 trigger:5 completion:v2];
 }
 
-uint64_t __59__NCNotificationShortLookViewController_expandAndPlayMedia__block_invoke(uint64_t result, int a2)
+void *__59__NCNotificationShortLookViewController_expandAndPlayMedia__block_invoke(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 1248) playMedia];
+    return [*(result[4] + 1248) playMedia];
   }
 
   return result;
@@ -1105,7 +1106,7 @@ uint64_t __59__NCNotificationShortLookViewController_expandAndPlayMedia__block_i
     [(NCNotificationViewController *)self compositeAlpha];
     [(NCNotificationLookView *)v8 setCompositeAlpha:?];
     v9 = self->super._lookView;
-    [(NCNotificationViewController *)self contentTransform];
+    objc_msgSend_contentTransform(self);
     [(NCNotificationLookView *)v9 setContentTransform:&v14];
     if ((objc_opt_respondsToSelector() & 1) != 0 && [delegate notificationViewControllerShouldAllowDragInteraction:self])
     {
@@ -1390,17 +1391,18 @@ LABEL_11:
 - (BOOL)_shouldUseHapticTouch
 {
   v2 = +[NCUserNotificationsUIKitDefaults standardDefaults];
-  if ([v2 shouldForceHapticTouchForPreview])
+  shouldForceHapticTouchForPreview = [v2 shouldForceHapticTouchForPreview];
+  if (shouldForceHapticTouchForPreview)
   {
-    v3 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v3 = _NCDeviceDesiresHapticTouch();
+    v5 = _NCDeviceDesiresHapticTouch(shouldForceHapticTouchForPreview, v4);
   }
 
-  return v3;
+  return v5;
 }
 
 - (void)_updateShortLookShadow
@@ -2080,11 +2082,11 @@ uint64_t __93__NCNotificationShortLookViewController_dragInteraction_willAnimate
   return [v1 setTransform:&v3];
 }
 
-uint64_t __93__NCNotificationShortLookViewController_dragInteraction_willAnimateLiftWithAnimator_session___block_invoke_2(uint64_t result, uint64_t a2)
+id *__93__NCNotificationShortLookViewController_dragInteraction_willAnimateLiftWithAnimator_session___block_invoke_2(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) setAlpha:0.0];
+    return [result[4] setAlpha:0.0];
   }
 
   return result;

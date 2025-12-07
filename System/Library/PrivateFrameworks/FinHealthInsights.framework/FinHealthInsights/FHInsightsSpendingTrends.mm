@@ -96,160 +96,160 @@ void __49__FHInsightsSpendingTrends_trendsWithCompletion___block_invoke(uint64_t
 
 - (void)_computeCategoryAndMerchantTrends
 {
-  v160 = *MEMORY[0x277D85DE8];
+  v157 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_insightsProcessingQueue);
-  v52 = [MEMORY[0x277D087E0] initWithBuilder:&__block_literal_global_109];
-  v152 = 0;
-  v153 = &v152;
-  v154 = 0x3032000000;
-  v155 = __Block_byref_object_copy_;
-  v156 = __Block_byref_object_dispose_;
-  v157 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v146 = 0;
-  v147 = &v146;
-  v148 = 0x3032000000;
-  v149 = __Block_byref_object_copy_;
-  v150 = __Block_byref_object_dispose_;
-  v151 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v140 = 0;
-  v141 = &v140;
-  v142 = 0x3032000000;
-  v143 = __Block_byref_object_copy_;
-  v144 = __Block_byref_object_dispose_;
-  v145 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v134 = 0;
-  v135 = &v134;
-  v136 = 0x3032000000;
-  v137 = __Block_byref_object_copy_;
-  v138 = __Block_byref_object_dispose_;
-  v139 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v128 = 0;
-  v129 = &v128;
-  v130 = 0x3032000000;
-  v131 = __Block_byref_object_copy_;
-  v132 = __Block_byref_object_dispose_;
-  v133 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v122 = 0;
-  v123 = &v122;
-  v124 = 0x3032000000;
-  v125 = __Block_byref_object_copy_;
-  v126 = __Block_byref_object_dispose_;
-  v127 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v116 = 0;
-  v117 = &v116;
-  v118 = 0x3032000000;
-  v119 = __Block_byref_object_copy_;
-  v120 = __Block_byref_object_dispose_;
-  v121 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v110 = 0;
-  v111 = &v110;
-  v112 = 0x3032000000;
-  v113 = __Block_byref_object_copy_;
-  v114 = __Block_byref_object_dispose_;
-  v115 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v104 = 0;
-  v105 = &v104;
-  v106 = 0x3032000000;
-  v107 = __Block_byref_object_copy_;
-  v108 = __Block_byref_object_dispose_;
-  v109 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v98 = 0;
-  v99 = &v98;
-  v100 = 0x3032000000;
-  v101 = __Block_byref_object_copy_;
-  v102 = __Block_byref_object_dispose_;
-  v103 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v49 = [MEMORY[0x277D087E0] initWithBuilder:&__block_literal_global_109];
+  v149 = 0;
+  v150 = &v149;
+  v151 = 0x3032000000;
+  v152 = __Block_byref_object_copy_;
+  v153 = __Block_byref_object_dispose_;
+  v154 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v143 = 0;
+  v144 = &v143;
+  v145 = 0x3032000000;
+  v146 = __Block_byref_object_copy_;
+  v147 = __Block_byref_object_dispose_;
+  v148 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v137 = 0;
+  v138 = &v137;
+  v139 = 0x3032000000;
+  v140 = __Block_byref_object_copy_;
+  v141 = __Block_byref_object_dispose_;
+  v142 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v131 = 0;
+  v132 = &v131;
+  v133 = 0x3032000000;
+  v134 = __Block_byref_object_copy_;
+  v135 = __Block_byref_object_dispose_;
+  v136 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v125 = 0;
+  v126 = &v125;
+  v127 = 0x3032000000;
+  v128 = __Block_byref_object_copy_;
+  v129 = __Block_byref_object_dispose_;
+  v130 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v119 = 0;
+  v120 = &v119;
+  v121 = 0x3032000000;
+  v122 = __Block_byref_object_copy_;
+  v123 = __Block_byref_object_dispose_;
+  v124 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v113 = 0;
+  v114 = &v113;
+  v115 = 0x3032000000;
+  v116 = __Block_byref_object_copy_;
+  v117 = __Block_byref_object_dispose_;
+  v118 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v107 = 0;
+  v108 = &v107;
+  v109 = 0x3032000000;
+  v110 = __Block_byref_object_copy_;
+  v111 = __Block_byref_object_dispose_;
+  v112 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v101 = 0;
+  v102 = &v101;
+  v103 = 0x3032000000;
+  v104 = __Block_byref_object_copy_;
+  v105 = __Block_byref_object_dispose_;
+  v106 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v95 = 0;
+  v96 = &v95;
+  v97 = 0x3032000000;
+  v98 = __Block_byref_object_copy_;
+  v99 = __Block_byref_object_dispose_;
+  v100 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v91 = 0;
+  v92 = &v91;
+  v93 = 0x2020000000;
   v94 = 0;
-  v95 = &v94;
-  v96 = 0x2020000000;
-  v97 = 0;
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x2020000000;
   v90 = 0;
-  v91 = &v90;
-  v92 = 0x2020000000;
-  v93 = 0;
+  v83 = 0;
+  v84 = &v83;
+  v85 = 0x2020000000;
   v86 = 0;
-  v87 = &v86;
-  v88 = 0x2020000000;
-  v89 = 0;
+  v79 = 0;
+  v80 = &v79;
+  v81 = 0x2020000000;
   v82 = 0;
-  v83 = &v82;
-  v84 = 0x2020000000;
-  v85 = 0;
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x2020000000;
   v78 = 0;
-  v79 = &v78;
-  v80 = 0x2020000000;
-  v81 = 0;
+  v71 = 0;
+  v72 = &v71;
+  v73 = 0x2020000000;
   v74 = 0;
-  v75 = &v74;
-  v76 = 0x2020000000;
-  v77 = 0;
-  v73[0] = 0;
-  v73[1] = v73;
-  v73[2] = 0x2020000000;
+  v70[0] = 0;
+  v70[1] = v70;
+  v70[2] = 0x2020000000;
   distantPast = [MEMORY[0x277CBEAA8] distantPast];
   [distantPast timeIntervalSinceReferenceDate];
   v5 = v4;
 
-  v73[3] = v5;
-  v72[0] = 0;
-  v72[1] = v72;
-  v72[2] = 0x2020000000;
+  v70[3] = v5;
+  v69[0] = 0;
+  v69[1] = v69;
+  v69[2] = 0x2020000000;
   distantPast2 = [MEMORY[0x277CBEAA8] distantPast];
   [distantPast2 timeIntervalSinceReferenceDate];
   v8 = v7;
 
-  v72[3] = v8;
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x2020000000;
+  v69[3] = v8;
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x2020000000;
   distantPast3 = [MEMORY[0x277CBEAA8] distantPast];
   [distantPast3 timeIntervalSinceReferenceDate];
   v11 = v10;
 
-  v71 = v11;
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x2020000000;
+  v68 = v11;
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x2020000000;
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
   [distantFuture timeIntervalSinceReferenceDate];
   v14 = v13;
 
-  v67 = v14;
+  v64 = v14;
   objc_initWeak(&location, self);
   transactionAndFeauturesEntities = self->_transactionAndFeauturesEntities;
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_122;
-  v61[3] = &unk_278FFBF88;
-  objc_copyWeak(&v62, &location);
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_122;
+  v58[3] = &unk_278FFBF88;
+  objc_copyWeak(&v59, &location);
   v16 = *MEMORY[0x277D08750];
-  v61[4] = &v64;
-  v61[5] = &v68;
-  v61[6] = v72;
-  v61[7] = &v78;
-  v61[8] = &v74;
-  v61[9] = &v82;
-  v61[10] = &v152;
-  v61[11] = &v104;
-  v61[12] = v73;
-  v61[13] = &v94;
-  v61[14] = &v90;
-  v61[15] = &v128;
-  v61[16] = &v98;
-  v61[17] = &v146;
-  v61[18] = &v122;
-  v61[19] = &v140;
-  v61[20] = &v116;
-  v61[21] = &v134;
-  v61[22] = &v110;
-  v61[23] = &v86;
-  [(FHDatabaseEntity *)transactionAndFeauturesEntities queryDataWithBlock:v52 logicalOperator:v16 selectFields:&unk_285E24688 usingBlock:v61];
+  v58[4] = &v61;
+  v58[5] = &v65;
+  v58[6] = v69;
+  v58[7] = &v75;
+  v58[8] = &v71;
+  v58[9] = &v79;
+  v58[10] = &v149;
+  v58[11] = &v101;
+  v58[12] = v70;
+  v58[13] = &v91;
+  v58[14] = &v87;
+  v58[15] = &v125;
+  v58[16] = &v95;
+  v58[17] = &v143;
+  v58[18] = &v119;
+  v58[19] = &v137;
+  v58[20] = &v113;
+  v58[21] = &v131;
+  v58[22] = &v107;
+  v58[23] = &v83;
+  [(FHDatabaseEntity *)transactionAndFeauturesEntities queryDataWithBlock:v49 logicalOperator:v16 selectFields:&unk_285E24688 usingBlock:v58];
   v17 = [MEMORY[0x277CBEAA8] now];
-  v18 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v65[3]];
-  v19 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v69[3]];
-  v51 = FHDateStartOfWeekOnMonday();
-  v50 = FHDateEndOfWeekStartingOnMonday();
-  v49 = FHDateStartOfMonth();
+  v18 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v62[3]];
+  v19 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v66[3]];
+  v48 = FHDateStartOfWeekOnMonday();
+  v47 = FHDateEndOfWeekStartingOnMonday();
+  v46 = FHDateStartOfMonth();
   v20 = FHDateEndOfMonth();
   v21 = FHNumberOfDaysBetweenDates();
   if (defaultWeeklyFillFactorStatus)
@@ -257,18 +257,17 @@ void __49__FHInsightsSpendingTrends_trendsWithCompletion___block_invoke(uint64_t
     v22 = 1;
   }
 
-  else if (FHIsDateBetweenDates() && v87[3] && v79[3])
+  else if (FHIsDateBetweenDates() && v84[3] && v76[3])
   {
-    [FHInsightsSpendingTrends _fillFactorWithStartOfPeriodForMostRecentEntryDate:"_fillFactorWithStartOfPeriodForMostRecentEntryDate:mostRecentEntryDate:endOfPeriodForMostRecentEntryDate:numberOfDaysSinceFirstTransaction:transactionCount:transactionCountForMostRecentPeriod:transactionAmountSums:transactionAmountSumsForMostRecentPeriod:" mostRecentEntryDate:v51 endOfPeriodForMostRecentEntryDate:v19 numberOfDaysSinceFirstTransaction:v50 transactionCount:v21 transactionCountForMostRecentPeriod:v83[3] transactionAmountSums:v75[3] transactionAmountSumsForMostRecentPeriod:?];
+    [FHInsightsSpendingTrends _fillFactorWithStartOfPeriodForMostRecentEntryDate:"_fillFactorWithStartOfPeriodForMostRecentEntryDate:mostRecentEntryDate:endOfPeriodForMostRecentEntryDate:numberOfDaysSinceFirstTransaction:transactionCount:transactionCountForMostRecentPeriod:transactionAmountSums:transactionAmountSumsForMostRecentPeriod:" mostRecentEntryDate:v48 endOfPeriodForMostRecentEntryDate:v19 numberOfDaysSinceFirstTransaction:v47 transactionCount:v21 transactionCountForMostRecentPeriod:v80[3] transactionAmountSums:v72[3] transactionAmountSumsForMostRecentPeriod:?];
     v24 = v23;
     v22 = v23 >= *MEMORY[0x277D08710];
-    v25 = *MEMORY[0x277D087C0];
-    v26 = FinHealthLogObject();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v25 = FinHealthLogObject();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v159 = v24;
-      _os_log_impl(&dword_24ABED000, v26, OS_LOG_TYPE_DEBUG, "weeklyFillFactor: %f", buf, 0xCu);
+      v156 = v24;
+      _os_log_impl(&dword_24ABED000, v25, OS_LOG_TYPE_DEBUG, "weeklyFillFactor: %f", buf, 0xCu);
     }
   }
 
@@ -279,7 +278,7 @@ void __49__FHInsightsSpendingTrends_trendsWithCompletion___block_invoke(uint64_t
 
   if (defaultMonthlyFillFactorStatus)
   {
-    v27 = 1;
+    v26 = 1;
     if (!v22)
     {
       goto LABEL_22;
@@ -288,9 +287,9 @@ void __49__FHInsightsSpendingTrends_trendsWithCompletion___block_invoke(uint64_t
     goto LABEL_21;
   }
 
-  if (!FHIsDateBetweenDates() || !v87[3] || !v95[3])
+  if (!FHIsDateBetweenDates() || !v84[3] || !v92[3])
   {
-    v27 = 0;
+    v26 = 0;
     if (!v22)
     {
       goto LABEL_22;
@@ -299,126 +298,124 @@ void __49__FHInsightsSpendingTrends_trendsWithCompletion___block_invoke(uint64_t
     goto LABEL_21;
   }
 
-  [FHInsightsSpendingTrends _fillFactorWithStartOfPeriodForMostRecentEntryDate:"_fillFactorWithStartOfPeriodForMostRecentEntryDate:mostRecentEntryDate:endOfPeriodForMostRecentEntryDate:numberOfDaysSinceFirstTransaction:transactionCount:transactionCountForMostRecentPeriod:transactionAmountSums:transactionAmountSumsForMostRecentPeriod:" mostRecentEntryDate:v49 endOfPeriodForMostRecentEntryDate:v19 numberOfDaysSinceFirstTransaction:v20 transactionCount:v21 transactionCountForMostRecentPeriod:v83[3] transactionAmountSums:v91[3] transactionAmountSumsForMostRecentPeriod:?];
-  v29 = v28;
-  v27 = v28 >= *MEMORY[0x277D08700];
-  v30 = *MEMORY[0x277D087C0];
-  v31 = FinHealthLogObject();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+  [FHInsightsSpendingTrends _fillFactorWithStartOfPeriodForMostRecentEntryDate:"_fillFactorWithStartOfPeriodForMostRecentEntryDate:mostRecentEntryDate:endOfPeriodForMostRecentEntryDate:numberOfDaysSinceFirstTransaction:transactionCount:transactionCountForMostRecentPeriod:transactionAmountSums:transactionAmountSumsForMostRecentPeriod:" mostRecentEntryDate:v46 endOfPeriodForMostRecentEntryDate:v19 numberOfDaysSinceFirstTransaction:v20 transactionCount:v21 transactionCountForMostRecentPeriod:v80[3] transactionAmountSums:v88[3] transactionAmountSumsForMostRecentPeriod:?];
+  v28 = v27;
+  v26 = v27 >= *MEMORY[0x277D08700];
+  v29 = FinHealthLogObject();
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v159 = v29;
-    _os_log_impl(&dword_24ABED000, v31, OS_LOG_TYPE_DEBUG, "monthlyFillFactor: %f", buf, 0xCu);
+    v156 = v28;
+    _os_log_impl(&dword_24ABED000, v29, OS_LOG_TYPE_DEBUG, "monthlyFillFactor: %f", buf, 0xCu);
   }
 
   if (v22)
   {
 LABEL_21:
-    v32 = v153[5];
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v60[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_130;
-    v60[3] = &unk_278FFBFB0;
-    v60[4] = self;
-    [v32 enumerateKeysAndObjectsUsingBlock:{v60, v49}];
-    v33 = v147[5];
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_2;
-    v59[3] = &unk_278FFBFB0;
-    v59[4] = self;
-    [v33 enumerateKeysAndObjectsUsingBlock:v59];
-    v34 = [v105[5] copy];
-    v35 = [(FHInsightsSpendingTrends *)self _orderedTimeStampAndAmountPair:v34];
-
-    firstObject = [v35 firstObject];
-    lastObject = [v35 lastObject];
-    [(FHInsightsSpendingTrends *)self _computeAndStoreTrend:firstObject indexedAmountSums:lastObject insightFeatureName:@"Overall Spend" insightType:@"FHInsightTypeOverallSpend" trendWindow:1];
-
-    v38 = v141[5];
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_3;
-    v58[3] = &unk_278FFBFB0;
-    v58[4] = self;
-    [v38 enumerateKeysAndObjectsUsingBlock:v58];
-    v39 = v135[5];
+    v30 = v150[5];
     v57[0] = MEMORY[0x277D85DD0];
     v57[1] = 3221225472;
-    v57[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_4;
+    v57[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_130;
     v57[3] = &unk_278FFBFB0;
     v57[4] = self;
-    [v39 enumerateKeysAndObjectsUsingBlock:v57];
+    [v30 enumerateKeysAndObjectsUsingBlock:{v57, v46}];
+    v31 = v144[5];
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_2;
+    v56[3] = &unk_278FFBFB0;
+    v56[4] = self;
+    [v31 enumerateKeysAndObjectsUsingBlock:v56];
+    v32 = [v102[5] copy];
+    v33 = [(FHInsightsSpendingTrends *)self _orderedTimeStampAndAmountPair:v32];
+
+    firstObject = [v33 firstObject];
+    lastObject = [v33 lastObject];
+    [(FHInsightsSpendingTrends *)self _computeAndStoreTrend:firstObject indexedAmountSums:lastObject insightFeatureName:@"Overall Spend" insightType:@"FHInsightTypeOverallSpend" trendWindow:1];
+
+    v36 = v138[5];
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_3;
+    v55[3] = &unk_278FFBFB0;
+    v55[4] = self;
+    [v36 enumerateKeysAndObjectsUsingBlock:v55];
+    v37 = v132[5];
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_4;
+    v54[3] = &unk_278FFBFB0;
+    v54[4] = self;
+    [v37 enumerateKeysAndObjectsUsingBlock:v54];
   }
 
 LABEL_22:
-  if (v27)
+  if (v26)
   {
-    v40 = v129[5];
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_5;
-    v56[3] = &unk_278FFBFB0;
-    v56[4] = self;
-    [v40 enumerateKeysAndObjectsUsingBlock:v56];
-    v41 = v123[5];
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_6;
-    v55[3] = &unk_278FFBFB0;
-    v55[4] = self;
-    [v41 enumerateKeysAndObjectsUsingBlock:v55];
-    v42 = [v99[5] copy];
-    v43 = [(FHInsightsSpendingTrends *)self _orderedTimeStampAndAmountPair:v42];
-
-    firstObject2 = [v43 firstObject];
-    lastObject2 = [v43 lastObject];
-    [(FHInsightsSpendingTrends *)self _computeAndStoreTrend:firstObject2 indexedAmountSums:lastObject2 insightFeatureName:@"Overall Spend" insightType:@"FHInsightTypeOverallSpend" trendWindow:2];
-
-    v46 = v117[5];
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_7;
-    v54[3] = &unk_278FFBFB0;
-    v54[4] = self;
-    [v46 enumerateKeysAndObjectsUsingBlock:v54];
-    v47 = v111[5];
+    v38 = v126[5];
     v53[0] = MEMORY[0x277D85DD0];
     v53[1] = 3221225472;
-    v53[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_8;
+    v53[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_5;
     v53[3] = &unk_278FFBFB0;
     v53[4] = self;
-    [v47 enumerateKeysAndObjectsUsingBlock:v53];
+    [v38 enumerateKeysAndObjectsUsingBlock:v53];
+    v39 = v120[5];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_6;
+    v52[3] = &unk_278FFBFB0;
+    v52[4] = self;
+    [v39 enumerateKeysAndObjectsUsingBlock:v52];
+    v40 = [v96[5] copy];
+    v41 = [(FHInsightsSpendingTrends *)self _orderedTimeStampAndAmountPair:v40];
+
+    firstObject2 = [v41 firstObject];
+    lastObject2 = [v41 lastObject];
+    [(FHInsightsSpendingTrends *)self _computeAndStoreTrend:firstObject2 indexedAmountSums:lastObject2 insightFeatureName:@"Overall Spend" insightType:@"FHInsightTypeOverallSpend" trendWindow:2];
+
+    v44 = v114[5];
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_7;
+    v51[3] = &unk_278FFBFB0;
+    v51[4] = self;
+    [v44 enumerateKeysAndObjectsUsingBlock:v51];
+    v45 = v108[5];
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_8;
+    v50[3] = &unk_278FFBFB0;
+    v50[4] = self;
+    [v45 enumerateKeysAndObjectsUsingBlock:v50];
   }
 
-  objc_destroyWeak(&v62);
+  objc_destroyWeak(&v59);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&v64, 8);
-  _Block_object_dispose(&v68, 8);
-  _Block_object_dispose(v72, 8);
-  _Block_object_dispose(v73, 8);
-  _Block_object_dispose(&v74, 8);
-  _Block_object_dispose(&v78, 8);
-  _Block_object_dispose(&v82, 8);
-  _Block_object_dispose(&v86, 8);
-  _Block_object_dispose(&v90, 8);
-  _Block_object_dispose(&v94, 8);
-  _Block_object_dispose(&v98, 8);
+  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(&v65, 8);
+  _Block_object_dispose(v69, 8);
+  _Block_object_dispose(v70, 8);
+  _Block_object_dispose(&v71, 8);
+  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(&v79, 8);
+  _Block_object_dispose(&v83, 8);
+  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v91, 8);
+  _Block_object_dispose(&v95, 8);
 
-  _Block_object_dispose(&v104, 8);
-  _Block_object_dispose(&v110, 8);
+  _Block_object_dispose(&v101, 8);
+  _Block_object_dispose(&v107, 8);
 
-  _Block_object_dispose(&v116, 8);
-  _Block_object_dispose(&v122, 8);
+  _Block_object_dispose(&v113, 8);
+  _Block_object_dispose(&v119, 8);
 
-  _Block_object_dispose(&v128, 8);
-  _Block_object_dispose(&v134, 8);
+  _Block_object_dispose(&v125, 8);
+  _Block_object_dispose(&v131, 8);
 
-  _Block_object_dispose(&v140, 8);
-  _Block_object_dispose(&v146, 8);
+  _Block_object_dispose(&v137, 8);
+  _Block_object_dispose(&v143, 8);
 
-  _Block_object_dispose(&v152, 8);
-  v48 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v149, 8);
 }
 
 void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke(uint64_t a1, void *a2)
@@ -433,7 +430,7 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
 
 void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_122(uint64_t a1, void *a2, uint64_t a3, char a4)
 {
-  v120 = *MEMORY[0x277D85DE8];
+  v119 = *MEMORY[0x277D85DE8];
   v6 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 192));
   if (WeakRetained && (a4 & 1) == 0)
@@ -451,10 +448,10 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
     v15 = FHMerchantCategoryToString();
 
     v16 = [v6 objectAtIndex:4];
-    v106 = [v16 stringValue];
+    v105 = [v16 stringValue];
 
     v17 = [v6 objectAtIndex:5];
-    v105 = [v17 stringValue];
+    v104 = [v17 stringValue];
 
     v18 = [v6 objectAtIndex:6];
     v19 = [v18 stringValue];
@@ -462,8 +459,8 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
     *(*(*(a1 + 32) + 8) + 24) = fmin(*(*(*(a1 + 32) + 8) + 24), v13);
     *(*(*(a1 + 40) + 8) + 24) = fmax(*(*(*(a1 + 40) + 8) + 24), v13);
     v20 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v13];
-    v97 = FHDateStartOfWeekOnMonday();
-    [v97 timeIntervalSinceReferenceDate];
+    v96 = FHDateStartOfWeekOnMonday();
+    [v96 timeIntervalSinceReferenceDate];
     v22 = v21;
     v23 = *(*(a1 + 48) + 8);
     v24 = *(v23 + 24);
@@ -484,7 +481,7 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
     }
 
     *(*(*(a1 + 72) + 8) + 24) = v10 + *(*(*(a1 + 72) + 8) + 24);
-    v109 = [objc_alloc(MEMORY[0x277CCA980]) initWithDouble:v22];
+    v108 = [objc_alloc(MEMORY[0x277CCA980]) initWithDouble:v22];
     v25 = [*(*(*(a1 + 80) + 8) + 40) objectForKey:v15];
     v26 = v25;
     if (v25)
@@ -499,18 +496,18 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
 
     v28 = v27;
 
-    [v28 setOrAddToDoubleValue:v109 forKey:v10];
-    [*(*(*(a1 + 88) + 8) + 40) setOrAddToDoubleValue:v109 forKey:v10];
-    v104 = v28;
+    [v28 setOrAddToDoubleValue:v108 forKey:v10];
+    [*(*(*(a1 + 88) + 8) + 40) setOrAddToDoubleValue:v108 forKey:v10];
+    v103 = v28;
     [*(*(*(a1 + 80) + 8) + 40) setObject:v28 forKey:v15];
     v29 = FHDateStartOfMonth();
     [v29 timeIntervalSinceReferenceDate];
     v31 = v30;
     v32 = *(*(a1 + 96) + 8);
     v33 = *(v32 + 24);
-    v98 = v20;
-    v99 = v6;
-    v96 = v29;
+    v97 = v20;
+    v98 = v6;
+    v95 = v29;
     if (v31 <= v33)
     {
       if (v31 == v33)
@@ -545,13 +542,13 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
     [v38 setOrAddToDoubleValue:v34 forKey:v10];
     [*(*(*(a1 + 128) + 8) + 40) setOrAddToDoubleValue:v34 forKey:v10];
     [*(*(*(a1 + 120) + 8) + 40) setObject:v38 forKey:v15];
-    v39 = [WeakRetained[3] objectForKey:v106];
+    v39 = [WeakRetained[3] objectForKey:v105];
     v40 = [v39 integerValue];
     v41 = *MEMORY[0x277D086F8];
 
     if (v40 > v41)
     {
-      v42 = [*(*(*(a1 + 136) + 8) + 40) objectForKey:v106];
+      v42 = [*(*(*(a1 + 136) + 8) + 40) objectForKey:v105];
       v43 = v42;
       v44 = v19;
       if (v42)
@@ -566,9 +563,9 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
 
       v46 = v45;
 
-      [v46 setOrAddToDoubleValue:v109 forKey:v10];
-      [*(*(*(a1 + 136) + 8) + 40) setObject:v46 forKey:v106];
-      v47 = [*(*(*(a1 + 144) + 8) + 40) objectForKey:v106];
+      [v46 setOrAddToDoubleValue:v108 forKey:v10];
+      [*(*(*(a1 + 136) + 8) + 40) setObject:v46 forKey:v105];
+      v47 = [*(*(*(a1 + 144) + 8) + 40) objectForKey:v105];
       v48 = v47;
       if (v47)
       {
@@ -583,48 +580,48 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
       v50 = v49;
 
       [v50 setOrAddToDoubleValue:v34 forKey:v10];
-      [*(*(*(a1 + 144) + 8) + 40) setObject:v50 forKey:v106];
+      [*(*(*(a1 + 144) + 8) + 40) setObject:v50 forKey:v105];
 
       v19 = v44;
     }
 
-    v51 = v104;
-    v52 = v105;
-    v101 = v15;
-    v102 = WeakRetained;
-    v100 = v19;
-    v103 = v38;
-    if (v105)
+    v51 = v103;
+    v52 = v104;
+    v100 = v15;
+    v101 = WeakRetained;
+    v99 = v19;
+    v102 = v38;
+    if (v104)
     {
-      v95 = [v105 componentsSeparatedByString:*MEMORY[0x277D08790]];
+      v94 = [v104 componentsSeparatedByString:*MEMORY[0x277D08790]];
       v53 = [MEMORY[0x277D08888] reconstructAggregateFeaturesWithProcessingWindow:?];
       v54 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF.%K == %@ OR SELF.%K == %@", *MEMORY[0x277D086B0], *MEMORY[0x277D08780], *MEMORY[0x277D086B0], *MEMORY[0x277D08778]];
-      v94 = v53;
+      v93 = v53;
       v55 = [v53 filteredArrayUsingPredicate:v54];
 
       if ([v55 count])
       {
-        v116 = 0u;
-        v117 = 0u;
-        v114 = 0u;
         v115 = 0u;
-        v93 = v55;
+        v116 = 0u;
+        v113 = 0u;
+        v114 = 0u;
+        v92 = v55;
         obj = v55;
-        v56 = [obj countByEnumeratingWithState:&v114 objects:v119 count:16];
+        v56 = [obj countByEnumeratingWithState:&v113 objects:v118 count:16];
         if (v56)
         {
           v57 = v56;
-          v58 = *v115;
+          v58 = *v114;
           do
           {
             for (i = 0; i != v57; ++i)
             {
-              if (*v115 != v58)
+              if (*v114 != v58)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v60 = *(*(&v114 + 1) + 8 * i);
+              v60 = *(*(&v113 + 1) + 8 * i);
               v61 = *(*(*(a1 + 152) + 8) + 40);
               v62 = [v60 name];
               v63 = [v61 objectForKey:v62];
@@ -641,7 +638,7 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
 
               v66 = v65;
 
-              [v66 setOrAddToDoubleValue:v109 forKey:v10];
+              [v66 setOrAddToDoubleValue:v108 forKey:v10];
               v67 = *(*(*(a1 + 152) + 8) + 40);
               v68 = [v60 name];
               [v67 setObject:v66 forKey:v68];
@@ -668,19 +665,19 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
               [v75 setObject:v74 forKey:v76];
             }
 
-            v57 = [obj countByEnumeratingWithState:&v114 objects:v119 count:16];
+            v57 = [obj countByEnumeratingWithState:&v113 objects:v118 count:16];
           }
 
           while (v57);
         }
 
-        v15 = v101;
-        WeakRetained = v102;
-        v51 = v104;
-        v52 = v105;
-        v19 = v100;
-        v38 = v103;
-        v55 = v93;
+        v15 = v100;
+        WeakRetained = v101;
+        v51 = v103;
+        v52 = v104;
+        v19 = v99;
+        v38 = v102;
+        v55 = v92;
       }
     }
 
@@ -691,25 +688,25 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
       v78 = v77;
       if (v77)
       {
-        v112 = 0u;
-        v113 = 0u;
-        v110 = 0u;
         v111 = 0u;
-        v79 = [v77 countByEnumeratingWithState:&v110 objects:v118 count:16];
+        v112 = 0u;
+        v109 = 0u;
+        v110 = 0u;
+        v79 = [v77 countByEnumeratingWithState:&v109 objects:v117 count:16];
         if (v79)
         {
           v80 = v79;
-          v81 = *v111;
+          v81 = *v110;
           do
           {
             for (j = 0; j != v80; ++j)
             {
-              if (*v111 != v81)
+              if (*v110 != v81)
               {
                 objc_enumerationMutation(v78);
               }
 
-              v83 = [*(*(&v110 + 1) + 8 * j) featureLabel];
+              v83 = [*(*(&v109 + 1) + 8 * j) featureLabel];
               v84 = [*(*(*(a1 + 168) + 8) + 40) objectForKey:v83];
               v85 = v84;
               if (v84)
@@ -724,7 +721,7 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
 
               v87 = v86;
 
-              [v87 setOrAddToDoubleValue:v109 forKey:v10];
+              [v87 setOrAddToDoubleValue:v108 forKey:v10];
               [*(*(*(a1 + 168) + 8) + 40) setObject:v87 forKey:v83];
               v88 = [*(*(*(a1 + 176) + 8) + 40) objectForKey:v83];
               v89 = v88;
@@ -744,27 +741,25 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
               [*(*(*(a1 + 176) + 8) + 40) setObject:v91 forKey:v83];
             }
 
-            v80 = [v78 countByEnumeratingWithState:&v110 objects:v118 count:16];
+            v80 = [v78 countByEnumeratingWithState:&v109 objects:v117 count:16];
           }
 
           while (v80);
         }
       }
 
-      v15 = v101;
-      WeakRetained = v102;
-      v51 = v104;
-      v52 = v105;
-      v19 = v100;
-      v38 = v103;
+      v15 = v100;
+      WeakRetained = v101;
+      v51 = v103;
+      v52 = v104;
+      v19 = v99;
+      v38 = v102;
     }
 
     ++*(*(*(a1 + 184) + 8) + 24);
 
-    v6 = v99;
+    v6 = v98;
   }
-
-  v92 = *MEMORY[0x277D85DE8];
 }
 
 void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_invoke_130(uint64_t a1, void *a2, void *a3)
@@ -873,29 +868,27 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
 
 - (double)_fillFactorWithStartOfPeriodForMostRecentEntryDate:(id)date mostRecentEntryDate:(id)entryDate endOfPeriodForMostRecentEntryDate:(id)recentEntryDate numberOfDaysSinceFirstTransaction:(unint64_t)transaction transactionCount:(unint64_t)count transactionCountForMostRecentPeriod:(unint64_t)period transactionAmountSums:(double)sums transactionAmountSumsForMostRecentPeriod:(double)self0
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   recentEntryDateCopy = recentEntryDate;
   dateCopy = date;
   v18 = FHNumberOfDaysBetweenDates();
   v19 = FHNumberOfDaysBetweenDates();
 
-  v20 = *MEMORY[0x277D087C0];
-  v21 = (recentPeriod / v18 / ((sums - recentPeriod) / (transaction - v18)) + v18 / v19 + period / v18 / ((count - period) / (transaction - v18))) / 3.0;
-  v22 = FinHealthLogObject();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v20 = (recentPeriod / v18 / ((sums - recentPeriod) / (transaction - v18)) + v18 / v19 + period / v18 / ((count - period) / (transaction - v18))) / 3.0;
+  v21 = FinHealthLogObject();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    v25 = 134217984;
-    v26 = v21;
-    _os_log_impl(&dword_24ABED000, v22, OS_LOG_TYPE_DEBUG, "fillFactorForPeriod: %f", &v25, 0xCu);
+    v23 = 134217984;
+    v24 = v20;
+    _os_log_impl(&dword_24ABED000, v21, OS_LOG_TYPE_DEBUG, "fillFactorForPeriod: %f", &v23, 0xCu);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v20;
 }
 
 - (id)_orderedTimeStampAndAmountPair:(id)pair
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   pairCopy = pair;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -906,32 +899,32 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
 
     if (v7 && [v7 count])
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v8 = v7;
-      v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v22;
+        v11 = *v21;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v22 != v11)
+            if (*v21 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v21 + 1) + 8 * i);
+            v13 = *(*(&v20 + 1) + 8 * i);
             [v4 addObject:v13];
             v14 = [pairCopy objectForKey:v13];
             [v5 addObject:v14];
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v10);
@@ -944,14 +937,12 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
   v17 = [v5 copy];
   v18 = [v15 arrayWithObjects:{v16, v17, 0}];
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (void)_computeAndStoreTrend:(id)trend indexedAmountSums:(id)sums insightFeatureName:(id)name insightType:(id)type trendWindow:(int64_t)window
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   trendCopy = trend;
   sumsCopy = sums;
   nameCopy = name;
@@ -965,12 +956,11 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
 
   selfCopy = self;
   v13 = *(&self->super.isa + v12);
-  v40 = *MEMORY[0x277D087C0];
   v14 = FinHealthLogObject();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v57 = v13;
+    v55 = v13;
     _os_log_impl(&dword_24ABED000, v14, OS_LOG_TYPE_DEBUG, "threshold: %f", buf, 0xCu);
   }
 
@@ -985,80 +975,78 @@ void __61__FHInsightsSpendingTrends__computeCategoryAndMerchantTrends__block_inv
   v18 = v17 - v16;
   if (v17 >= v16)
   {
-    v20 = v17;
-    v21 = 0x277CCA000uLL;
-    v41 = v16;
+    v19 = v17;
+    v20 = 0x277CCA000uLL;
+    v39 = v16;
     do
     {
-      v22 = [sumsCopy subarrayWithRange:{v18, v16}];
-      v23 = [trendCopy objectAtIndex:--v20];
-      [v23 doubleValue];
-      v25 = v24;
+      v21 = [sumsCopy subarrayWithRange:{v18, v16}];
+      v22 = [trendCopy objectAtIndex:--v19];
+      [v22 doubleValue];
+      v24 = v23;
 
-      v26 = [MEMORY[0x277D08890] kendallCoefficientWithIndexedAmountSums:v22];
-      v27 = [objc_alloc(*(v21 + 2432)) initWithDouble:v13];
-      v28 = [v26 greaterThanOrEqual:v27];
+      v25 = [MEMORY[0x277D08890] kendallCoefficientWithIndexedAmountSums:v21];
+      v26 = [objc_alloc(*(v20 + 2432)) initWithDouble:v13];
+      v27 = [v25 greaterThanOrEqual:v26];
 
-      if (v28)
+      if (v27)
       {
-        v29 = 1;
+        v28 = 1;
       }
 
       else
       {
-        v30 = [objc_alloc(*(v21 + 2432)) initWithDouble:-v13];
-        v31 = [v26 lessThanOrEqual:v30];
+        v29 = [objc_alloc(*(v20 + 2432)) initWithDouble:-v13];
+        v30 = [v25 lessThanOrEqual:v29];
 
-        if ((v31 & 1) == 0)
+        if ((v30 & 1) == 0)
         {
-          v32 = FinHealthLogObject();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+          v31 = FinHealthLogObject();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v57 = *&nameCopy;
-            v58 = 2112;
-            v59 = typeCopy;
-            _os_log_impl(&dword_24ABED000, v32, OS_LOG_TYPE_DEBUG, "No trend detected for %@: %@", buf, 0x16u);
+            v55 = *&nameCopy;
+            v56 = 2112;
+            v57 = typeCopy;
+            _os_log_impl(&dword_24ABED000, v31, OS_LOG_TYPE_DEBUG, "No trend detected for %@: %@", buf, 0x16u);
           }
 
           goto LABEL_15;
         }
 
-        v29 = 2;
+        v28 = 2;
       }
 
-      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:{v22, 0}];
-      v33 = [MEMORY[0x277CCA9C0] expressionWithFormat:@"average(%@)" argumentArray:v32];
-      v34 = [v33 expressionValueWithObject:0 context:0];
-      lastObject = [v22 lastObject];
-      v36 = MEMORY[0x277D087F0];
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __111__FHInsightsSpendingTrends__computeAndStoreTrend_indexedAmountSums_insightFeatureName_insightType_trendWindow___block_invoke;
-      v48[3] = &unk_278FFBFF8;
-      v53 = v25;
-      v54 = v29;
-      v49 = nameCopy;
-      v50 = typeCopy;
-      v51 = v34;
-      v55 = windowCopy;
-      v52 = lastObject;
-      v37 = lastObject;
-      v38 = v34;
-      v39 = [v36 initWithBuilder:v48];
-      [(FHDatabaseEntity *)selfCopy->_insightsDestinationEntity insertOrUpdate:v39 upsert:0];
+      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:{v21, 0}];
+      v32 = [MEMORY[0x277CCA9C0] expressionWithFormat:@"average(%@)" argumentArray:v31];
+      v33 = [v32 expressionValueWithObject:0 context:0];
+      lastObject = [v21 lastObject];
+      v35 = MEMORY[0x277D087F0];
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __111__FHInsightsSpendingTrends__computeAndStoreTrend_indexedAmountSums_insightFeatureName_insightType_trendWindow___block_invoke;
+      v46[3] = &unk_278FFBFF8;
+      v51 = v24;
+      v52 = v28;
+      v47 = nameCopy;
+      v48 = typeCopy;
+      v49 = v33;
+      v53 = windowCopy;
+      v50 = lastObject;
+      v36 = lastObject;
+      v37 = v33;
+      v38 = [v35 initWithBuilder:v46];
+      [(FHDatabaseEntity *)selfCopy->_insightsDestinationEntity insertOrUpdate:v38 upsert:0];
 
-      v16 = v41;
-      v21 = 0x277CCA000;
+      v16 = v39;
+      v20 = 0x277CCA000;
 LABEL_15:
 
       --v18;
     }
 
-    while (v20 >= v16);
+    while (v19 >= v16);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __111__FHInsightsSpendingTrends__computeAndStoreTrend_indexedAmountSums_insightFeatureName_insightType_trendWindow___block_invoke(double *a1, void *a2)

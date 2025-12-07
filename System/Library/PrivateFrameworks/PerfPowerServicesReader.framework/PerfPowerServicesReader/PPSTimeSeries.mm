@@ -216,42 +216,41 @@
 
 - (NSArray)allTimestamps
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(PPSTimeSeries *)self _guaranteeSortedness];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSMutableArray count](self->_events, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_events;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
         v9 = MEMORY[0x277CCABB0];
-        [*(*(&v14 + 1) + 8 * i) monotonicTimestamp];
+        [*(*(&v13 + 1) + 8 * i) monotonicTimestamp];
         v10 = [v9 numberWithDouble:?];
         [v3 addObject:v10];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   v11 = [v3 copy];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -268,40 +267,39 @@
 
 - (id)description
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(PPSTimeSeries *)self _guaranteeSortedness];
   v3 = objc_msgSend(MEMORY[0x277CCAB68], "stringWithString:", @"(");
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_events;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v12 + 1) + 8 * i) description];
+        v9 = [*(*(&v11 + 1) + 8 * i) description];
         [v3 appendFormat:@"\n%@, ", v9];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
   [v3 appendFormat:@"\n"]);
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -371,17 +369,17 @@
   v16 = 0;
   v11 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v4 options:1 error:&v16];
   v12 = v16;
+  v13 = v12;
   if (v12)
   {
-    v13 = PPSReaderLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = PPSReaderLog(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      [(PPSTimeSeries *)v12 JSONRepresentation];
+      [(PPSTimeSeries *)v13 JSONRepresentation];
     }
   }
 
   objc_autoreleasePoolPop(v3);
-  v14 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -396,45 +394,43 @@
 
 - (void)mergeWithTimeSeries:(id)series
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   seriesCopy = series;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [seriesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [seriesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(seriesCopy);
         }
 
-        [(NSMutableArray *)self->_events addObject:*(*(&v10 + 1) + 8 * v8++)];
+        [(NSMutableArray *)self->_events addObject:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [seriesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [seriesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   self->_isSorted = 0;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)metricValuesForKey:(id)key
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (![(NSMutableArray *)self->_events count])
   {
@@ -444,12 +440,12 @@
 
   [(PPSTimeSeries *)self _guaranteeSortedness];
   array = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = self->_events;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v7)
   {
 
@@ -460,17 +456,17 @@ LABEL_16:
 
   v8 = v7;
   v9 = 0;
-  v10 = *v18;
+  v10 = *v17;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v18 != v10)
+      if (*v17 != v10)
       {
         objc_enumerationMutation(v6);
       }
 
-      v12 = [*(*(&v17 + 1) + 8 * i) metricValueForKey:{keyCopy, v17}];
+      v12 = [*(*(&v16 + 1) + 8 * i) metricValueForKey:{keyCopy, v16}];
       if (v12)
       {
         [array addObject:v12];
@@ -484,7 +480,7 @@ LABEL_16:
       }
     }
 
-    v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   }
 
   while (v8);
@@ -498,18 +494,16 @@ LABEL_16:
 LABEL_17:
 
 LABEL_18:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (void)JSONRepresentation
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "Error while parsing JSON data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "Error while parsing JSON data: %@", &v2, 0xCu);
 }
 
 @end

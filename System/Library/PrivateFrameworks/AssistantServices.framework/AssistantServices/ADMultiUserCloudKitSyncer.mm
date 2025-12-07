@@ -600,7 +600,7 @@ LABEL_104:
 
           v16 = *(*(&v22 + 1) + 8 * i);
           _homeMembershipsToDelete4 = [(ADMultiUserCloudKitSyncer *)self _homeMembershipsToDelete];
-          v18 = [_homeMembershipsToDelete4 objectForKey:v16];
+          v18 = objc_msgSend_objectForKey_(_homeMembershipsToDelete4);
 
           v19 = [(ADMultiUserCloudKitSyncer *)self _generateVersion1HomeMembershipRecordKeyFromHomeID:v16 homeUserID:v18];
           [deletionCopy addObject:v19];
@@ -711,7 +711,7 @@ LABEL_104:
           }
 
           v9 = *(*(&v24 + 1) + 8 * v8);
-          v10 = [(NSMutableDictionary *)self->_homeMembershipsToDelete objectForKey:v9];
+          v10 = objc_msgSend_objectForKey_(self->_homeMembershipsToDelete);
           if (v10)
           {
             v11 = AFSiriLogContextDaemon;
@@ -730,7 +730,7 @@ LABEL_104:
           else
           {
             v12 = v7;
-            v13 = [(NSDictionary *)self->_homeMemberships objectForKey:v9];
+            v13 = objc_msgSend_objectForKey_(self->_homeMemberships);
             v14 = [NSDictionary dictionaryWithObject:v13 forKey:v9];
             v15 = [(ADMultiUserCloudKitSyncer *)self _generateVersion1HomeMembershipRecordKeyFromHomeID:v9 homeUserID:v13];
             [v21 setObject:v14 forKey:v15];

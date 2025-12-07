@@ -46,7 +46,7 @@
 - (void)handleMessage:(shared_ptr<CLConnectionMessage>)message
 {
   var0 = message.var0;
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE46C8 != -1)
   {
     dispatch_once(&qword_1EAFE46C8, &unk_1F0E6B920);
@@ -67,7 +67,7 @@
     }
 
     *buf = 136315138;
-    v13 = v6;
+    v15 = v6;
     _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_ERROR, "Got Reply: message: %s", buf, 0xCu);
   }
 
@@ -80,26 +80,32 @@
       dispatch_once(&qword_1EAFE46C8, &unk_1F0E6B920);
     }
 
-    v8 = CLConnectionMessage::name(*var0);
-    if (*(v8 + 23) < 0)
+    v8 = qword_1EAFE4700;
+    v9 = CLConnectionMessage::name(*var0);
+    if (*(v9 + 23) >= 0)
     {
-      v9 = *v8;
+      v10 = v9;
     }
 
-    v10 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "[CLFindMyAccessoryRangingManager handleMessage:]", "CoreLocation: %s\n", v10);
-    if (v10 != buf)
+    else
     {
-      free(v10);
+      v10 = *v9;
+    }
+
+    v12 = 136315138;
+    v13 = v10;
+    v11 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v8, 16, "Got Reply: message: %s", &v12, 12);
+    sub_19B885924("Generic", 1, 0, 0, "[CLFindMyAccessoryRangingManager handleMessage:]", "CoreLocation: %s\n", v11);
+    if (v11 != buf)
+    {
+      free(v11);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleInterruption
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE46C8 != -1)
   {
     dispatch_once(&qword_1EAFE46C8, &unk_1F0E6B920);
@@ -121,7 +127,8 @@
       dispatch_once(&qword_1EAFE46C8, &unk_1F0E6B920);
     }
 
-    v5 = _os_log_send_and_compose_impl();
+    v13[0] = 0;
+    v5 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4700, 16, "Connection to locationd interrupted!!", v13, 2);
     sub_19B885924("Generic", 1, 0, 0, "[CLFindMyAccessoryRangingManager handleInterruption]", "CoreLocation: %s\n", v5);
     if (v5 != buf)
     {
@@ -130,144 +137,144 @@
   }
 
   v6 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v9 = *MEMORY[0x1E696A578];
-  v10 = @"Connection to locationd interrupted!";
-  v7 = [v6 initWithDomain:@"kCLErrorDomainPrivate" code:8 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v10, &v9, 1)}];
-  [objc_loadWeak(&self->_delegate) findMyAccessoryRangingManager:self didFailWithError:v7 forDevice:0];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E696A578];
+  v15 = @"Connection to locationd interrupted!";
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v7, &v15, &v14, 1);
+  v10 = objc_msgSend_initWithDomain_code_userInfo_(v6, v9, @"kCLErrorDomainPrivate", 8, v8);
+  Weak = objc_loadWeak(&self->_delegate);
+  objc_msgSend_findMyAccessoryRangingManager_didFailWithError_forDevice_(Weak, v12, self, v10, 0);
 }
 
 - (void)connectToDevice:(id)device
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v7 = *MEMORY[0x1E696A578];
-  v8[0] = @"Feature Not Supported";
-  v5 = [v4 initWithDomain:@"kCLErrorDomainPrivate" code:38 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1)}];
-  [objc_loadWeak(&self->_delegate) findMyAccessoryRangingManager:self didFailWithError:v5 forDevice:0];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = @"Feature Not Supported";
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v12, &v11, 1);
+  v8 = objc_msgSend_initWithDomain_code_userInfo_(v4, v7, @"kCLErrorDomainPrivate", 38, v6);
+  Weak = objc_loadWeak(&self->_delegate);
+  objc_msgSend_findMyAccessoryRangingManager_didFailWithError_forDevice_(Weak, v10, self, v8, 0);
 }
 
 - (void)disconnectFromDevice:(id)device
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v7 = *MEMORY[0x1E696A578];
-  v8[0] = @"Feature Not Supported";
-  v5 = [v4 initWithDomain:@"kCLErrorDomainPrivate" code:38 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1)}];
-  [objc_loadWeak(&self->_delegate) findMyAccessoryRangingManager:self didFailWithError:v5 forDevice:0];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = @"Feature Not Supported";
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v12, &v11, 1);
+  v8 = objc_msgSend_initWithDomain_code_userInfo_(v4, v7, @"kCLErrorDomainPrivate", 38, v6);
+  Weak = objc_loadWeak(&self->_delegate);
+  objc_msgSend_findMyAccessoryRangingManager_didFailWithError_forDevice_(Weak, v10, self, v8, 0);
 }
 
 - (void)initRoseWithParameters:(id)parameters onDevice:(id)device
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v8 = *MEMORY[0x1E696A578];
-  v9[0] = @"Feature Not Supported";
-  v6 = [v5 initWithDomain:@"kCLErrorDomainPrivate" code:38 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v9, &v8, 1)}];
-  [objc_loadWeak(&self->_delegate) findMyAccessoryRangingManager:self didFailWithError:v6 forDevice:0];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E696A578];
+  v13[0] = @"Feature Not Supported";
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v13, &v12, 1);
+  v9 = objc_msgSend_initWithDomain_code_userInfo_(v5, v8, @"kCLErrorDomainPrivate", 38, v7);
+  Weak = objc_loadWeak(&self->_delegate);
+  objc_msgSend_findMyAccessoryRangingManager_didFailWithError_forDevice_(Weak, v11, self, v9, 0);
 }
 
 - (void)stopRoseWithParameters:(id)parameters onDevice:(id)device
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v8 = *MEMORY[0x1E696A578];
-  v9[0] = @"Feature Not Supported";
-  v6 = [v5 initWithDomain:@"kCLErrorDomainPrivate" code:38 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v9, &v8, 1)}];
-  [objc_loadWeak(&self->_delegate) findMyAccessoryRangingManager:self didFailWithError:v6 forDevice:0];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E696A578];
+  v13[0] = @"Feature Not Supported";
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v13, &v12, 1);
+  v9 = objc_msgSend_initWithDomain_code_userInfo_(v5, v8, @"kCLErrorDomainPrivate", 38, v7);
+  Weak = objc_loadWeak(&self->_delegate);
+  objc_msgSend_findMyAccessoryRangingManager_didFailWithError_forDevice_(Weak, v11, self, v9, 0);
 }
 
 - (void)setRoseRangingParameters:(id)parameters onDevice:(id)device
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v8 = *MEMORY[0x1E696A578];
-  v9[0] = @"Feature Not Supported";
-  v6 = [v5 initWithDomain:@"kCLErrorDomainPrivate" code:38 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v9, &v8, 1)}];
-  [objc_loadWeak(&self->_delegate) findMyAccessoryRangingManager:self didFailWithError:v6 forDevice:0];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E696A578];
+  v13[0] = @"Feature Not Supported";
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v13, &v12, 1);
+  v9 = objc_msgSend_initWithDomain_code_userInfo_(v5, v8, @"kCLErrorDomainPrivate", 38, v7);
+  Weak = objc_loadWeak(&self->_delegate);
+  objc_msgSend_findMyAccessoryRangingManager_didFailWithError_forDevice_(Weak, v11, self, v9, 0);
 }
 
 - (void)prepareForStartRangingOnDevice:(id)device
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v7 = *MEMORY[0x1E696A578];
-  v8[0] = @"Feature Not Supported";
-  v5 = [v4 initWithDomain:@"kCLErrorDomainPrivate" code:38 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1)}];
-  [objc_loadWeak(&self->_delegate) findMyAccessoryRangingManager:self didFailWithError:v5 forDevice:0];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = @"Feature Not Supported";
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v12, &v11, 1);
+  v8 = objc_msgSend_initWithDomain_code_userInfo_(v4, v7, @"kCLErrorDomainPrivate", 38, v6);
+  Weak = objc_loadWeak(&self->_delegate);
+  objc_msgSend_findMyAccessoryRangingManager_didFailWithError_forDevice_(Weak, v10, self, v8, 0);
 }
 
 - (void)startRangingWithParameters:(id)parameters onDevice:(id)device
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v8 = *MEMORY[0x1E696A578];
-  v9[0] = @"Feature Not Supported";
-  v6 = [v5 initWithDomain:@"kCLErrorDomainPrivate" code:38 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v9, &v8, 1)}];
-  [objc_loadWeak(&self->_delegate) findMyAccessoryRangingManager:self didFailWithError:v6 forDevice:0];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E696A578];
+  v13[0] = @"Feature Not Supported";
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v13, &v12, 1);
+  v9 = objc_msgSend_initWithDomain_code_userInfo_(v5, v8, @"kCLErrorDomainPrivate", 38, v7);
+  Weak = objc_loadWeak(&self->_delegate);
+  objc_msgSend_findMyAccessoryRangingManager_didFailWithError_forDevice_(Weak, v11, self, v9, 0);
 }
 
 - (void)stopRangingOnDevice:(id)device
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v7 = *MEMORY[0x1E696A578];
-  v8[0] = @"Feature Not Supported";
-  v5 = [v4 initWithDomain:@"kCLErrorDomainPrivate" code:38 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1)}];
-  [objc_loadWeak(&self->_delegate) findMyAccessoryRangingManager:self didFailWithError:v5 forDevice:0];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = @"Feature Not Supported";
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v12, &v11, 1);
+  v8 = objc_msgSend_initWithDomain_code_userInfo_(v4, v7, @"kCLErrorDomainPrivate", 38, v6);
+  Weak = objc_loadWeak(&self->_delegate);
+  objc_msgSend_findMyAccessoryRangingManager_didFailWithError_forDevice_(Weak, v10, self, v8, 0);
 }
 
 - (void)startEventCounterOnDevice:(id)device
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v7 = *MEMORY[0x1E696A578];
-  v8[0] = @"Feature Not Supported";
-  v5 = [v4 initWithDomain:@"kCLErrorDomainPrivate" code:38 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1)}];
-  [objc_loadWeak(&self->_delegate) findMyAccessoryRangingManager:self didFailWithError:v5 forDevice:0];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = @"Feature Not Supported";
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v12, &v11, 1);
+  v8 = objc_msgSend_initWithDomain_code_userInfo_(v4, v7, @"kCLErrorDomainPrivate", 38, v6);
+  Weak = objc_loadWeak(&self->_delegate);
+  objc_msgSend_findMyAccessoryRangingManager_didFailWithError_forDevice_(Weak, v10, self, v8, 0);
 }
 
 - (void)stopEventCounterOnDevice:(id)device
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v7 = *MEMORY[0x1E696A578];
-  v8[0] = @"Feature Not Supported";
-  v5 = [v4 initWithDomain:@"kCLErrorDomainPrivate" code:38 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1)}];
-  [objc_loadWeak(&self->_delegate) findMyAccessoryRangingManager:self didFailWithError:v5 forDevice:0];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = @"Feature Not Supported";
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v12, &v11, 1);
+  v8 = objc_msgSend_initWithDomain_code_userInfo_(v4, v7, @"kCLErrorDomainPrivate", 38, v6);
+  Weak = objc_loadWeak(&self->_delegate);
+  objc_msgSend_findMyAccessoryRangingManager_didFailWithError_forDevice_(Weak, v10, self, v8, 0);
 }
 
 - (void)fetchFirmwareVersionFromDevice:(id)device
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v7 = *MEMORY[0x1E696A578];
-  v8[0] = @"Feature Not Supported";
-  v5 = [v4 initWithDomain:@"kCLErrorDomainPrivate" code:38 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1)}];
-  [objc_loadWeak(&self->_delegate) findMyAccessoryRangingManager:self didFailWithError:v5 forDevice:0];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = @"Feature Not Supported";
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v12, &v11, 1);
+  v8 = objc_msgSend_initWithDomain_code_userInfo_(v4, v7, @"kCLErrorDomainPrivate", 38, v6);
+  Weak = objc_loadWeak(&self->_delegate);
+  objc_msgSend_findMyAccessoryRangingManager_didFailWithError_forDevice_(Weak, v10, self, v8, 0);
 }
 
 @end

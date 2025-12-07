@@ -74,34 +74,34 @@
 {
   if (encoding && (v5 = MEMORY[0x1DA6E0380](encoding, a2), v6 = MEMORY[0x1E69E9E80], v5 == MEMORY[0x1E69E9E80]))
   {
-    v13.receiver = self;
-    v13.super_class = SSRedeemCodesResponse;
-    v7 = [(SSRedeemCodesResponse *)&v13 init];
+    v15.receiver = self;
+    v15.super_class = SSRedeemCodesResponse;
+    v7 = [(SSRedeemCodesResponse *)&v15 init];
     if (v7)
     {
-      objc_opt_class();
-      v7->_codeResponses = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0");
-      objc_opt_class();
-      v7->_redeemedCodes = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2");
-      v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v9 = objc_opt_class();
+      v7->_codeResponses = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0", v9);
+      v10 = objc_opt_class();
+      v7->_redeemedCodes = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2", v10);
+      v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
       value = xpc_dictionary_get_value(encoding, "1");
       if (value)
       {
-        v11 = value;
+        v13 = value;
         if (MEMORY[0x1DA6E0380]() == v6)
         {
           applier[0] = MEMORY[0x1E69E9820];
           applier[1] = 3221225472;
           applier[2] = __45__SSRedeemCodesResponse_initWithXPCEncoding___block_invoke;
           applier[3] = &unk_1E84B1980;
-          applier[4] = v9;
-          xpc_dictionary_apply(v11, applier);
+          applier[4] = v11;
+          xpc_dictionary_apply(v13, applier);
         }
       }
 
-      if ([v9 count])
+      if ([v11 count])
       {
-        v7->_errors = [v9 copy];
+        v7->_errors = [v11 copy];
       }
     }
   }

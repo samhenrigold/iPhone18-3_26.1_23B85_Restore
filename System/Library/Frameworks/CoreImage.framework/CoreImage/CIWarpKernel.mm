@@ -15,7 +15,7 @@
 + (CIWarpKernel)kernelWithString:(NSString *)string
 {
   v15 = *MEMORY[0x1E69E9840];
-  v5 = ci_signpost_log_kernel();
+  v5 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v5))
   {
     *buf = 138543362;
@@ -43,20 +43,20 @@
     v6 = 0;
   }
 
-  v10(v9);
+  (v10)(v9);
   return v6;
 }
 
-void __33__CIWarpKernel_kernelWithString___block_invoke(uint64_t a1)
+void __33__CIWarpKernel_kernelWithString___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = 138543362;
-    v5 = v3;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithString", "%{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) description];
+    v5 = 138543362;
+    v6 = v4;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithString", "%{public}@", &v5, 0xCu);
   }
 }
 
@@ -77,7 +77,7 @@ void __33__CIWarpKernel_kernelWithString___block_invoke(uint64_t a1)
 
 - (id)applyWithExtent:(CGRect)extent roiCallback:(id)callback arguments:(id)arguments options:(id)options
 {
-  v6 = ci_logger_api();
+  v6 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [(CIWarpKernel *)v6 applyWithExtent:v7 roiCallback:v8 arguments:v9 options:v10, v11, v12, v13];
@@ -88,7 +88,7 @@ void __33__CIWarpKernel_kernelWithString___block_invoke(uint64_t a1)
 
 - (id)applyWithExtent:(CGRect)extent roiCallback:(id)callback arguments:(id)arguments
 {
-  v5 = ci_logger_api();
+  v5 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(CIWarpKernel *)v5 applyWithExtent:v6 roiCallback:v7 arguments:v8, v9, v10, v11, v12];
@@ -99,8 +99,8 @@ void __33__CIWarpKernel_kernelWithString___block_invoke(uint64_t a1)
 
 - (id)applyWithExtent:(CGRect)extent roiCallback:(id)callback inputImage:(id)image arguments:(id)arguments options:(id)options
 {
-  v30 = *MEMORY[0x1E69E9840];
-  if (CGRectIsEmpty(extent) || !image || ([image extent], CGRectIsEmpty(v32)))
+  v36 = *MEMORY[0x1E69E9840];
+  if (CGRectIsEmpty(extent) || !image || ([image extent], CGRectIsEmpty(v38)))
   {
 
     return +[CIImage emptyImage];
@@ -109,65 +109,68 @@ void __33__CIWarpKernel_kernelWithString___block_invoke(uint64_t a1)
   else
   {
     priv = self->super._priv;
-    if ((*(*priv + 16))(priv) == 71)
+    v12 = (*(*priv + 16))(priv);
+    if (v12 == 71)
     {
-      v12 = [arguments count];
-      if (CI::Kernel::num_apply_arguments(priv) == v12)
+      v14 = [arguments count];
+      v15 = CI::Kernel::num_apply_arguments(priv);
+      if (v15 == v14)
       {
-        if (v12 < 1)
+        if (v14 < 1)
         {
 LABEL_18:
           operator new();
         }
 
-        v13 = 0;
+        v17 = 0;
         while (1)
         {
-          if (*(priv + 12) == 1)
+          if (priv[12] == 1)
           {
-            type = CI::KernelArguments::get_type((priv + 17), v13);
+            type = CI::KernelArguments::get_type((priv + 136), v17);
           }
 
           else
           {
-            type = v13 >= *(priv + 5) ? 0 : *(priv[8] + 4 * v13);
+            type = v17 >= *(priv + 5) ? 0 : *(*(priv + 8) + 4 * v17);
           }
 
-          if ((verify_argument_type([arguments objectAtIndexedSubscript:v13], type, 0) & 1) == 0)
+          v19 = verify_argument_type([arguments objectAtIndexedSubscript:v17], type, 0);
+          if ((v19 & 1) == 0)
           {
             break;
           }
 
-          if ((v12 & 0x7FFFFFFF) == ++v13)
+          if ((v14 & 0x7FFFFFFF) == ++v17)
           {
             goto LABEL_18;
           }
         }
 
-        v17 = ci_logger_api();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v23 = ci_logger_api(v19, v20);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v18 = priv[3];
-          v19 = expected_argument_type(type);
-          [arguments objectAtIndexedSubscript:v13];
+          v24 = *(priv + 3);
+          v25 = expected_argument_type(type);
+          [arguments objectAtIndexedSubscript:v17];
           *buf = 136447234;
-          v21 = "[CIWarpKernel applyWithExtent:roiCallback:inputImage:arguments:options:]";
-          v22 = 2082;
-          v23 = v18;
-          v24 = 1024;
-          v25 = v13;
-          v26 = 2082;
-          v27 = v19;
-          v28 = 2114;
-          v29 = [objc_opt_class() description];
-          _os_log_error_impl(&dword_19CC36000, v17, OS_LOG_TYPE_ERROR, "%{public}s type mismatch for kernel '%{public}s' parameter %d. %{public}sGot %{public}@.", buf, 0x30u);
+          v27 = "[CIWarpKernel applyWithExtent:roiCallback:inputImage:arguments:options:]";
+          v28 = 2082;
+          v29 = v24;
+          v30 = 1024;
+          v31 = v17;
+          v32 = 2082;
+          v33 = v25;
+          v34 = 2114;
+          v35 = [objc_opt_class() description];
+          _os_log_error_impl(&dword_19CC36000, v23, OS_LOG_TYPE_ERROR, "%{public}s type mismatch for kernel '%{public}s' parameter %d. %{public}sGot %{public}@.", buf, 0x30u);
         }
       }
 
       else
       {
-        v16 = ci_logger_api();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v22 = ci_logger_api(v15, v16);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           [CIWarpKernel applyWithExtent:? roiCallback:? inputImage:? arguments:? options:?];
         }
@@ -176,8 +179,8 @@ LABEL_18:
 
     else
     {
-      v15 = ci_logger_api();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v21 = ci_logger_api(v12, v13);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [CIWarpKernel applyWithExtent:roiCallback:inputImage:arguments:options:];
       }
@@ -512,6 +515,20 @@ LABEL_18:
   return result;
 }
 
+- (void)applyWithExtent:(uint64_t)a3 roiCallback:(uint64_t)a4 arguments:(uint64_t)a5 options:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIWarpKernel applyWithExtent:roiCallback:arguments:options:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s is not supported.  Use applyWithExtent:roiCallback:inputImage:arguments:options: instead.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)applyWithExtent:(uint64_t)a3 roiCallback:(uint64_t)a4 arguments:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIWarpKernel applyWithExtent:roiCallback:arguments:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s is not supported.  Use applyWithExtent:roiCallback:inputImage:arguments: instead.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)applyWithExtent:roiCallback:inputImage:arguments:options:.cold.1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x1E69E9840]);
@@ -523,8 +540,9 @@ LABEL_18:
 - (void)applyWithExtent:(CI::Kernel *)a1 roiCallback:inputImage:arguments:options:.cold.2(CI::Kernel *a1)
 {
   CI::Kernel::num_apply_arguments(a1);
+  v7 = 136446978;
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_11_0(&dword_19CC36000, v1, v2, "%{public}s argument count mismatch for kernel '%{public}s', expected %d but saw %d.", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_11_0(&dword_19CC36000, v1, v2, "%{public}s argument count mismatch for kernel '%{public}s', expected %d but saw %d.", v3, v4, v5, v6, v7);
 }
 
 @end

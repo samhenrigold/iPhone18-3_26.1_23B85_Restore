@@ -94,32 +94,30 @@ id __38__BLSHAssertionProxy_lock_description__block_invoke(uint64_t a1)
   if (*(v3 + 16))
   {
     v4 = *(a1 + 32);
-    v5 = *(v3 + 16);
-    v6 = BLSShortLoggingStringForMachTime();
-    [v4 appendString:v6 withName:@"acquired"];
+    v5 = BLSShortLoggingStringForMachTime();
+    [v4 appendString:v5 withName:@"acquired"];
 
-    v8 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9 = *(v7 + 16);
-    if ((*(v7 + 45) & 1) != 0 || !*(v7 + 32))
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    if ((*(v6 + 45) & 1) != 0 || !*(v6 + 32))
     {
       mach_continuous_time();
     }
 
     BSTimeDifferenceFromMachTimeToMachTime();
-    v10 = [v8 appendTimeInterval:@"duration" withName:1 decomposeUnits:?];
+    v8 = [v7 appendTimeInterval:@"duration" withName:1 decomposeUnits:?];
     v3 = *(a1 + 40);
   }
 
   if (*(v3 + 47) == 1)
   {
-    v15 = [*(a1 + 32) appendTimeInterval:@"activeDuration" withName:1 decomposeUnits:-[BLSHAssertionProxy _lock_activeDuration](v3)];
+    v13 = [*(a1 + 32) appendTimeInterval:@"activeDuration" withName:1 decomposeUnits:-[BLSHAssertionProxy _lock_activeDuration](v3)];
     v3 = *(a1 + 40);
   }
 
-  v11 = [*(a1 + 32) appendBool:*(v3 + 46) withName:@"isPaused" ifEqualTo:1];
-  v12 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 56) withName:@"descriptor"];
-  v13 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 48) withName:@"identifier" skipIfNil:1];
+  v9 = [*(a1 + 32) appendBool:*(v3 + 46) withName:@"isPaused" ifEqualTo:1];
+  v10 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 56) withName:@"descriptor"];
+  v11 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 48) withName:@"identifier" skipIfNil:1];
   return [*(a1 + 32) appendObject:*(*(a1 + 40) + 64) withName:@"remoteTarget"];
 }
 
@@ -168,7 +166,7 @@ id __38__BLSHAssertionProxy_lock_description__block_invoke(uint64_t a1)
 
 - (void)setPaused:(uint64_t)paused
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (paused)
   {
     os_unfair_lock_lock((paused + 40));
@@ -181,23 +179,22 @@ id __38__BLSHAssertionProxy_lock_description__block_invoke(uint64_t a1)
         v5 = bls_assertions_log();
         if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
-          v9 = 134218498;
+          v7 = 134218498;
           pausedCopy = paused;
-          v11 = 1024;
-          v12 = a2;
-          v13 = 2114;
+          v9 = 1024;
+          v10 = a2;
+          v11 = 2114;
           pausedCopy2 = paused;
-          _os_log_error_impl(&dword_21FD11000, v5, OS_LOG_TYPE_ERROR, "%p assertion setPaused:%{BOOL}u when not acquired %{public}@", &v9, 0x1Cu);
+          _os_log_error_impl(&dword_21FD11000, v5, OS_LOG_TYPE_ERROR, "%p assertion setPaused:%{BOOL}u when not acquired %{public}@", &v7, 0x1Cu);
         }
       }
 
       else if (a2)
       {
         *(paused + 47) = 1;
-        v6 = *(paused + 24);
         mach_continuous_time();
         BSTimeDifferenceFromMachTimeToMachTime();
-        *(paused + 8) = v7 + *(paused + 8);
+        *(paused + 8) = v6 + *(paused + 8);
       }
 
       else
@@ -208,8 +205,6 @@ id __38__BLSHAssertionProxy_lock_description__block_invoke(uint64_t a1)
 
     os_unfair_lock_unlock((paused + 40));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_lock_activeDuration
@@ -222,10 +217,9 @@ id __38__BLSHAssertionProxy_lock_description__block_invoke(uint64_t a1)
   v1 = *(self + 8);
   if (*(self + 45) == 1 && (*(self + 46) & 1) == 0)
   {
-    v2 = *(self + 24);
     mach_continuous_time();
     BSTimeDifferenceFromMachTimeToMachTime();
-    return v1 + v3;
+    return v1 + v2;
   }
 
   return v1;

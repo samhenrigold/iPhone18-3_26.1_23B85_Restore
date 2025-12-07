@@ -51,9 +51,11 @@
 - (void)generateMipmapsForTexture:;
 - (void)generateMipmapsForTexture:(id)texture;
 - (void)getTextureAccessCounters:(id)counters region:(id *)region mipLevel:(unint64_t)level slice:(unint64_t)slice resetCounters:(BOOL)resetCounters countersBuffer:(id)buffer countersBufferOffset:(unint64_t)offset;
+- (void)invalidateCompressedTexture:;
 - (void)invalidateCompressedTexture:(id)texture;
 - (void)invalidateCompressedTexture:(id)texture slice:(unint64_t)slice level:(unint64_t)level;
 - (void)moveTextureMappingsFromTexture:(id)texture sourceSlice:(unint64_t)slice sourceLevel:(unint64_t)level sourceOrigin:(id *)origin sourceSize:(id *)size toTexture:(id)toTexture destinationSlice:(unint64_t)destinationSlice destinationLevel:(unint64_t)self0 destinationOrigin:(id *)self1;
+- (void)optimizeContentsForCPUAccess:;
 - (void)optimizeContentsForCPUAccess:(id)access;
 - (void)optimizeContentsForCPUAccess:(id)access slice:(unint64_t)slice level:(unint64_t)level;
 - (void)optimizeContentsForGPUAccess:(id)access;
@@ -94,7 +96,7 @@
     v15 = ctx_compute[85];
     if (!v15)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_39;
       }
@@ -105,7 +107,7 @@
     v16 = v15 + 16;
     if ((v15 + 16) > ctx_compute[84])
     {
-      v29 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v29 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v15 = ctx_compute[85];
       if (!v29)
       {
@@ -136,7 +138,7 @@ LABEL_8:
     v18 = ctx_compute[85];
     if (!v18)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_39;
       }
@@ -150,7 +152,7 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v30 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v30 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v18 = ctx_compute[85];
     if (!v30)
     {
@@ -178,7 +180,7 @@ LABEL_15:
   if (length)
   {
     impl = self->_impl;
-    if (length + location <= [counters sampleCount])
+    if (length + location <= objc_msgSend_sampleCount(counters, a2))
     {
       buffer = [counters buffer];
       if (impl[58] != -1 && [counters buffer] == *(impl + 28))
@@ -247,7 +249,7 @@ LABEL_24:
     v16 = ctx_compute[85];
     if (!v16)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_35;
       }
@@ -258,7 +260,7 @@ LABEL_24:
     v17 = v16 + 16;
     if ((v16 + 16) > ctx_compute[84])
     {
-      v21 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v21 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v16 = ctx_compute[85];
       if (!v21)
       {
@@ -287,7 +289,7 @@ LABEL_16:
     v19 = ctx_compute[85];
     if (!v19)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_35;
       }
@@ -301,7 +303,7 @@ LABEL_16:
       goto LABEL_21;
     }
 
-    v22 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v22 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v19 = ctx_compute[85];
     if (!v22)
     {
@@ -335,8 +337,8 @@ LABEL_3:
   v10 = *(*(impl + 1) + 1896);
   *(impl + 58) = index;
   *(impl + 59) = endIndex;
-  v11 = AGX::CounterSamplingContextGen1::validateSampleIndex(buffer, impl + 58);
-  v12 = AGX::CounterSamplingContextGen1::validateSampleIndex(buffer, impl + 59);
+  v11 = AGX::CounterSamplingContextGen1::validateSampleIndex(buffer, impl + 232);
+  v12 = AGX::CounterSamplingContextGen1::validateSampleIndex(buffer, impl + 236);
   if ((v11 & 1) != 0 || v12)
   {
     v12 = AGX::CounterSamplingContextGen1::setCounterSampleBuffer((impl + 224), buffer);
@@ -374,7 +376,7 @@ LABEL_3:
     v10 = ctx_compute[85];
     if (!v10)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_27;
       }
@@ -385,7 +387,7 @@ LABEL_3:
     v11 = v10 + 16;
     if ((v10 + 16) > ctx_compute[84])
     {
-      v17 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v17 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v10 = ctx_compute[85];
       if (!v17)
       {
@@ -416,7 +418,7 @@ LABEL_8:
     v13 = ctx_compute[85];
     if (!v13)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_27;
       }
@@ -430,7 +432,7 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v18 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v18 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v13 = ctx_compute[85];
     if (!v18)
     {
@@ -475,7 +477,7 @@ LABEL_15:
     v11 = ctx_compute[85];
     if (!v11)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -486,7 +488,7 @@ LABEL_15:
     v12 = v11 + 16;
     if ((v11 + 16) > ctx_compute[84])
     {
-      v17 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v17 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v11 = ctx_compute[85];
       if (!v17)
       {
@@ -517,7 +519,7 @@ LABEL_8:
     v14 = ctx_compute[85];
     if (!v14)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -531,7 +533,7 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v18 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v18 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v14 = ctx_compute[85];
     if (!v18)
     {
@@ -766,7 +768,7 @@ LABEL_3:
   v60 = v62;
   v41 = *(v32 + 2336);
   AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::setPipelineCommon(v32, TensorBlitPipeline);
-  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(v32, 0x16u, &v61, &v59);
+  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(v32, 22, &v61, &v59);
   if (*(v32 + 2292) == 1)
   {
     AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::encodeBarrier(v32, 22, 0, 0);
@@ -803,7 +805,7 @@ LABEL_31:
     v8 = ctx_compute[85];
     if (!v8)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -814,7 +816,7 @@ LABEL_31:
     v9 = v8 + 16;
     if ((v8 + 16) > ctx_compute[84])
     {
-      v13 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v13 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v8 = ctx_compute[85];
       if (!v13)
       {
@@ -845,7 +847,7 @@ LABEL_8:
     v11 = ctx_compute[85];
     if (!v11)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -859,7 +861,7 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v14 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v14 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v11 = ctx_compute[85];
     if (!v14)
     {
@@ -902,7 +904,7 @@ LABEL_25:
     v15 = ctx_compute[85];
     if (!v15)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_27;
       }
@@ -913,7 +915,7 @@ LABEL_25:
     v16 = v15 + 16;
     if ((v15 + 16) > ctx_compute[84])
     {
-      v24 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v24 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v15 = ctx_compute[85];
       if (!v24)
       {
@@ -944,7 +946,7 @@ LABEL_8:
     v18 = ctx_compute[85];
     if (!v18)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_27;
       }
@@ -958,7 +960,7 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v25 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v25 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v18 = ctx_compute[85];
     if (!v25)
     {
@@ -1008,7 +1010,7 @@ LABEL_15:
     v11 = ctx_compute[85];
     if (!v11)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_27;
       }
@@ -1019,7 +1021,7 @@ LABEL_15:
     v12 = v11 + 16;
     if ((v11 + 16) > ctx_compute[84])
     {
-      v19 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v19 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v11 = ctx_compute[85];
       if (!v19)
       {
@@ -1050,7 +1052,7 @@ LABEL_8:
     v14 = ctx_compute[85];
     if (!v14)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_27;
       }
@@ -1064,7 +1066,7 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v20 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v20 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v14 = ctx_compute[85];
     if (!v20)
     {
@@ -1098,7 +1100,6 @@ LABEL_15:
 
 - (void)moveTextureMappingsFromTexture:(id)texture sourceSlice:(unint64_t)slice sourceLevel:(unint64_t)level sourceOrigin:(id *)origin sourceSize:(id *)size toTexture:(id)toTexture destinationSlice:(unint64_t)destinationSlice destinationLevel:(unint64_t)self0 destinationOrigin:(id *)self1
 {
-  sliceCopy = slice;
   v27[0] = *origin;
   v27[1] = *size;
   if (!self->encodingLegacyBlit)
@@ -1114,7 +1115,7 @@ LABEL_15:
     v19 = ctx_compute[85];
     if (!v19)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -1125,7 +1126,7 @@ LABEL_15:
     v20 = v19 + 16;
     if ((v19 + 16) > ctx_compute[84])
     {
-      v25 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v25 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v19 = ctx_compute[85];
       if (!v25)
       {
@@ -1156,7 +1157,7 @@ LABEL_8:
     v22 = ctx_compute[85];
     if (!v22)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -1170,7 +1171,7 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v26 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v26 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v22 = ctx_compute[85];
     if (!v26)
     {
@@ -1196,14 +1197,13 @@ LABEL_25:
 
 LABEL_15:
   impl = self->_impl;
-  *(impl[1] + 1944) = *(impl[1] + 1940);
-  AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(impl, texture, v27, level, sliceCopy, 0, 0, 0, 0, toTexture, destinationOrigin, destinationLevel, destinationSlice, 0, 0);
+  *(*&impl[1] + 1944) = *(*&impl[1] + 1940);
+  AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(impl, texture, v27, level, slice, 0, 0, 0, 0, toTexture, destinationOrigin, destinationLevel, destinationSlice, 0, 0);
   *(*(self->_impl + 1) + 1948) = *(*(self->_impl + 1) + 1940);
 }
 
 - (void)resetTextureAccessCounters:(id)counters region:(id *)region mipLevel:(unint64_t)level slice:(unint64_t)slice
 {
-  sliceCopy = slice;
   if (!self->encodingLegacyBlit)
   {
     ctx_compute = self->_ctx_compute;
@@ -1217,7 +1217,7 @@ LABEL_15:
     v14 = ctx_compute[85];
     if (!v14)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -1228,7 +1228,7 @@ LABEL_15:
     v15 = v14 + 16;
     if ((v14 + 16) > ctx_compute[84])
     {
-      v20 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v20 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v14 = ctx_compute[85];
       if (!v20)
       {
@@ -1259,7 +1259,7 @@ LABEL_8:
     v17 = ctx_compute[85];
     if (!v17)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -1273,7 +1273,7 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v21 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v21 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v17 = ctx_compute[85];
     if (!v21)
     {
@@ -1299,14 +1299,13 @@ LABEL_25:
 
 LABEL_15:
   impl = self->_impl;
-  *(impl[1] + 1944) = *(impl[1] + 1940);
-  AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(impl, counters, region, level, sliceCopy, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+  *(*&impl[1] + 1944) = *(*&impl[1] + 1940);
+  AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(impl, counters, region, level, slice, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
   *(*(self->_impl + 1) + 1948) = *(*(self->_impl + 1) + 1940);
 }
 
 - (void)getTextureAccessCounters:(id)counters region:(id *)region mipLevel:(unint64_t)level slice:(unint64_t)slice resetCounters:(BOOL)resetCounters countersBuffer:(id)buffer countersBufferOffset:(unint64_t)offset
 {
-  sliceCopy = slice;
   if (!self->encodingLegacyBlit)
   {
     ctx_compute = self->_ctx_compute;
@@ -1322,7 +1321,7 @@ LABEL_15:
     if (!v17)
     {
       bufferCopy = buffer;
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -1335,7 +1334,7 @@ LABEL_15:
     if ((v17 + 16) > ctx_compute[84])
     {
       bufferCopy2 = buffer;
-      v26 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v26 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v17 = ctx_compute[85];
       if (!v26)
       {
@@ -1369,7 +1368,7 @@ LABEL_8:
     v21 = ctx_compute[85];
     if (!v21)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -1383,7 +1382,7 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v27 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v27 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v21 = ctx_compute[85];
     if (!v27)
     {
@@ -1411,8 +1410,8 @@ LABEL_25:
 
 LABEL_15:
   impl = self->_impl;
-  *(impl[1] + 1944) = *(impl[1] + 1940);
-  AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(impl, counters, region, level, sliceCopy, 0, resetCounters, buffer, offset, 0, 0, 0, 0, 0, 0);
+  *(*&impl[1] + 1944) = *(*&impl[1] + 1940);
+  AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(impl, counters, region, level, slice, 0, resetCounters, buffer, offset, 0, 0, 0, 0, 0, 0);
   *(*(self->_impl + 1) + 1948) = *(*(self->_impl + 1) + 1940);
 }
 
@@ -1433,7 +1432,7 @@ LABEL_15:
     v14 = ctx_compute[85];
     if (!v14)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -1444,7 +1443,7 @@ LABEL_15:
     v15 = v14 + 16;
     if ((v14 + 16) > ctx_compute[84])
     {
-      v20 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v20 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v14 = ctx_compute[85];
       if (!v20)
       {
@@ -1475,7 +1474,7 @@ LABEL_8:
     v17 = ctx_compute[85];
     if (!v17)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -1489,7 +1488,7 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v21 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v21 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v17 = ctx_compute[85];
     if (!v21)
     {
@@ -1522,8 +1521,6 @@ LABEL_15:
 
 - (void)updateTextureMapping:(id)mapping mode:(unint64_t)mode region:(id *)region mipLevel:(unint64_t)level slice:(unint64_t)slice
 {
-  sliceCopy = slice;
-  modeCopy = mode;
   if (!self->encodingLegacyBlit)
   {
     ctx_compute = self->_ctx_compute;
@@ -1537,7 +1534,7 @@ LABEL_15:
     v16 = ctx_compute[85];
     if (!v16)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -1548,7 +1545,7 @@ LABEL_15:
     v17 = v16 + 16;
     if ((v16 + 16) > ctx_compute[84])
     {
-      v22 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v22 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v16 = ctx_compute[85];
       if (!v22)
       {
@@ -1579,7 +1576,7 @@ LABEL_8:
     v19 = ctx_compute[85];
     if (!v19)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -1593,7 +1590,7 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v23 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v23 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v19 = ctx_compute[85];
     if (!v23)
     {
@@ -1619,14 +1616,13 @@ LABEL_25:
 
 LABEL_15:
   impl = self->_impl;
-  *(impl[1] + 1944) = *(impl[1] + 1940);
-  AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(impl, mapping, region, level, sliceCopy, modeCopy, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  *(*&impl[1] + 1944) = *(*&impl[1] + 1940);
+  AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(impl, mapping, region, level, slice, mode, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   *(*(self->_impl + 1) + 1948) = *(*(self->_impl + 1) + 1940);
 }
 
 - (void)updateTextureMappings:(id)mappings mode:(unint64_t)mode regions:(id *)regions mipLevels:(const unint64_t *)levels slices:(const unint64_t *)slices numRegions:(unint64_t)numRegions
 {
-  modeCopy = mode;
   if (!self->encodingLegacyBlit)
   {
     ctx_compute = self->_ctx_compute;
@@ -1641,7 +1637,7 @@ LABEL_15:
     v17 = ctx_compute[85];
     if (!v17)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_28;
       }
@@ -1652,7 +1648,7 @@ LABEL_15:
     v18 = v17 + 16;
     if ((v17 + 16) > ctx_compute[84])
     {
-      v29 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v29 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v17 = ctx_compute[85];
       if (!v29)
       {
@@ -1683,7 +1679,7 @@ LABEL_8:
     v20 = ctx_compute[85];
     if (!v20)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_28;
       }
@@ -1697,7 +1693,7 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v30 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v30 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v20 = ctx_compute[85];
     if (!v30)
     {
@@ -1735,7 +1731,7 @@ LABEL_15:
       v27 = *levels++;
       v26 = v27;
       v28 = *slices++;
-      AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(impl, mappings, regions++, v26, v28, modeCopy, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+      AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(impl, mappings, regions++, v26, v28, mode, 0, 0, 0, 0, 0, 0, 0, 0, 0);
       --numRegionsCopy2;
     }
 
@@ -2472,7 +2468,7 @@ LABEL_15:
     v13 = ctx_compute[85];
     if (!v13)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -2483,7 +2479,7 @@ LABEL_15:
     v14 = v13 + 16;
     if ((v13 + 16) > ctx_compute[84])
     {
-      v19 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+      v19 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
       v13 = ctx_compute[85];
       if (!v19)
       {
@@ -2514,7 +2510,7 @@ LABEL_8:
     v16 = ctx_compute[85];
     if (!v16)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0))
       {
         goto LABEL_25;
       }
@@ -2528,7 +2524,7 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v20 = AGX::DataBufferAllocator<44ul>::growNoInline(ctx_compute + 3, 19, 0);
+    v20 = AGX::DataBufferAllocator<44ul>::growNoInline((ctx_compute + 3), 19, 0);
     v16 = ctx_compute[85];
     if (!v20)
     {
@@ -2554,7 +2550,7 @@ LABEL_25:
 
 LABEL_15:
   impl = self->_impl;
-  *(impl[1] + 1944) = *(impl[1] + 1940);
+  *(impl[1] + 486) = *(impl[1] + 485);
   pattern4Copy = pattern4;
   AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::fillBuffer(impl, buffer, location, length, &pattern4Copy, 4uLL);
   *(*(self->_impl + 1) + 1948) = *(*(self->_impl + 1) + 1940);
@@ -2678,7 +2674,7 @@ LABEL_15:
   v7 = *v4;
   v6 = v4[1];
   v8 = **(self + 24);
-  AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer(v3, v5, *(v5 + *MEMORY[0x29EDC5638] + 72) + v7, 0, 0, v6, &v8, 1uLL);
+  AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::blitCDMBuffer(v3, v5, *(v5 + *MEMORY[0x29EDC5638] + 72) + v7, 0, 0, v6, &v8, 1);
   *(**a2 + 1948) = *(**a2 + 1940);
 }
 
@@ -2961,7 +2957,7 @@ LABEL_4:
             v19 = v18;
             v20 = v13;
             AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTextureImpl(v2, v7, v15, v8, v9, &v23, v7, v15, v8, v9, &v21, &v19);
-            ++v15;
+            v15 = (v15 + 1);
           }
 
           while (v14 != v15);
@@ -3149,6 +3145,57 @@ LABEL_6:
   }
 }
 
+- (void)optimizeContentsForCPUAccess:
+{
+  v2 = **(self + 8);
+  v3 = *(v2 + 592);
+  if (*(v3 + 48) || !*(v3 + 584))
+  {
+    return;
+  }
+
+  v4 = *a2;
+  v5 = *(v3 + 396) & 0xFF00;
+  if ((*(v3 + 396) & 0x10000) != 0 || v5 == 1024)
+  {
+    if (v5 == 1024)
+    {
+      v6 = 6 * *(v3 + 392);
+    }
+
+    else
+    {
+      v6 = *(v3 + 392);
+    }
+
+    if (!v6)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    v6 = 1;
+  }
+
+  v7 = *(v3 + 108);
+  if (v7)
+  {
+    for (i = 0; i != v6; ++i)
+    {
+      for (j = 0; j != v7; ++j)
+      {
+        v10 = *(v3 + 584);
+        if (v10 && *(v10 + 1304) > j && !*(v3 + 57))
+        {
+          AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::optimizeContentsForUncompressedAccess(v4, v2, i, j);
+        }
+      }
+    }
+  }
+}
+
 - (uint64_t)optimizeContentsForCPUAccess:
 {
   v2 = *(result + 8);
@@ -3209,7 +3256,7 @@ LABEL_6:
             v15 = v14;
             v16 = v9;
             AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTextureImpl(v2, v3, v11, v4, v5, &v19, v3, v11, v4, v5, &v17, &v15);
-            ++v11;
+            v11 = (v11 + 1);
           }
 
           while (v10 != v11);
@@ -3364,6 +3411,69 @@ LABEL_6:
   else if (v12)
   {
     (*(*v12 + 40))(v12);
+  }
+}
+
+- (void)invalidateCompressedTexture:
+{
+  v2 = **(self + 8);
+  v3 = *(v2 + 592);
+  if (!*(v3 + 584))
+  {
+    return;
+  }
+
+  v4 = *(v3 + 396) & 0xFF00;
+  if ((*(v3 + 396) & 0x10000) != 0 || v4 == 1024)
+  {
+    if (v4 == 1024)
+    {
+      v5 = 6 * *(v3 + 392);
+    }
+
+    else
+    {
+      v5 = *(v3 + 392);
+    }
+
+    if (!v5)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  v6 = *(v3 + 108);
+  if (v6)
+  {
+    v7 = 0;
+    v8 = *a2;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        v10 = *(v3 + 584);
+        if (v10)
+        {
+          if (*(v10 + 1304) > v9)
+          {
+            AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::invalidateCompressedTexture(v8, v2, v7, v9);
+          }
+        }
+
+        v9 = (v9 + 1);
+      }
+
+      while (v6 != v9);
+      ++v7;
+    }
+
+    while (v7 != v5);
   }
 }
 
@@ -3575,7 +3685,9 @@ LABEL_6:
       v35 = v29;
       v32 = v26;
       v33 = v27;
-      AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTextureImpl(v2, v5, v23++, v6, v8, &v36, v9, v24++, v10, v12, &v34, &v32);
+      AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::copyTextureToTextureImpl(v2, v5, v23, v6, v8, &v36, v9, v24, v10, v12, &v34, &v32);
+      v23 = (v23 + 1);
+      ++v24;
       --v16;
     }
 

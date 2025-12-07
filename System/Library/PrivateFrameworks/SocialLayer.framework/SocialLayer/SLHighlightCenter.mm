@@ -12,9 +12,6 @@
 + (id)rapportClient;
 + (void)_checkAndInitializeBundleIDToAppPreferences:(id)preferences;
 + (void)_isShareWithYouEnabled;
-+ (void)_isShareWithYouOnboarded;
-+ (void)isAutomaticSharingEnabled;
-+ (void)isEnabled;
 + (void)shouldShowOnboardingShieldViewForNearbyDevice:(id)device;
 - (NSArray)highlights;
 - (NSDate)latestHighlightDate;
@@ -39,8 +36,6 @@
 - (void)fetchHighlights:(id)highlights;
 - (void)fetchHighlightsWithLimit:(unint64_t)limit completionBlock:(id)block;
 - (void)fetchHighlightsWithLimit:(unint64_t)limit reason:(id)reason completionBlock:(id)block;
-- (void)highlightsRankingScore;
-- (void)latestHighlightDate;
 - (void)runAfterInitialFetch:(id)fetch onQueue:(id)queue;
 - (void)setDelegate:(id)delegate;
 - (void)updateHighlights;
@@ -50,16 +45,17 @@
 
 + (BOOL)isAutomaticSharingEnabled
 {
-  if ([objc_opt_class() isEnabled] && objc_msgSend(objc_opt_class(), "_isShareWithYouEnabled"))
+  isEnabled = [objc_opt_class() isEnabled];
+  if (isEnabled && (isEnabled = [objc_opt_class() _isShareWithYouEnabled], isEnabled))
   {
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
 
     if ([objc_opt_class() _bundleIDExistsInPreferences:bundleIdentifier])
     {
-      v4 = CFPreferencesCopyAppValue(@"SharedWithYouApps", @"com.apple.SocialLayer");
-      v5 = [v4 objectForKey:bundleIdentifier];
-      bOOLValue = [v5 BOOLValue];
+      v5 = CFPreferencesCopyAppValue(@"SharedWithYouApps", @"com.apple.SocialLayer");
+      v6 = [v5 objectForKey:bundleIdentifier];
+      bOOLValue = [v6 BOOLValue];
     }
 
     else
@@ -73,8 +69,8 @@
     bOOLValue = 0;
   }
 
-  v7 = SLFrameworkLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = SLFrameworkLogHandle(isEnabled);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     +[SLHighlightCenter isAutomaticSharingEnabled];
   }
@@ -86,14 +82,17 @@
 {
   if ([self isMessagesLocked])
   {
-    return 0;
+    LOBYTE(_isShareWithYouOnboarded) = 0;
   }
 
-  _isShareWithYouOnboarded = [objc_opt_class() _isShareWithYouOnboarded];
-  v3 = SLFrameworkLogHandle();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  else
   {
-    +[SLHighlightCenter isEnabled];
+    _isShareWithYouOnboarded = [objc_opt_class() _isShareWithYouOnboarded];
+    v3 = SLFrameworkLogHandle(_isShareWithYouOnboarded);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    {
+      +[SLHighlightCenter isEnabled];
+    }
   }
 
   return _isShareWithYouOnboarded;
@@ -133,11 +132,11 @@
 + (BOOL)_isShareWithYouOnboarded
 {
   keyExistsAndHasValidFormat = 0;
-  CFPreferencesGetAppBooleanValue(@"SharedWithYouEnabled", @"com.apple.SocialLayer", &keyExistsAndHasValidFormat);
-  v2 = SLFrameworkLogHandle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"SharedWithYouEnabled", @"com.apple.SocialLayer", &keyExistsAndHasValidFormat);
+  v3 = SLFrameworkLogHandle(AppBooleanValue);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    +[(SLHighlightCenter *)&keyExistsAndHasValidFormat];
+    +[SLHighlightCenter _isShareWithYouOnboarded];
   }
 
   return keyExistsAndHasValidFormat != 0;
@@ -161,18 +160,21 @@
 
 - (void)updateHighlights
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = SLFrameworkLogHandle(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [SLHighlightCenter updateHighlights];
+  }
+
+  highlightsCache = [(SLHighlightCenter *)self highlightsCache];
+  [highlightsCache updateHighlights];
 }
 
 - (void)_registerNotifications
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
 }
 
 void __41__SLHighlightCenter_highlightCenterQueue__block_invoke()
@@ -197,7 +199,7 @@ void __41__SLHighlightCenter_highlightCenterQueue__block_invoke()
 
 + (NSString)displayName
 {
-  v2 = SLFrameworkBundle();
+  v2 = SLFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"SHARED_WITH_YOU" value:&stru_28468DAB8 table:@"SocialLayer"];
 
   return v3;
@@ -229,8 +231,8 @@ void __41__SLHighlightCenter_highlightCenterQueue__block_invoke()
   preferencesCopy = preferences;
   if (![preferencesCopy length])
   {
-    v6 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = SLFrameworkLogHandle(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       +[SLHighlightCenter _checkAndInitializeBundleIDToAppPreferences:];
     }
@@ -238,10 +240,11 @@ void __41__SLHighlightCenter_highlightCenterQueue__block_invoke()
     goto LABEL_14;
   }
 
-  if (([self _isShareWithYouOnboarded] & 1) == 0)
+  _isShareWithYouOnboarded = [self _isShareWithYouOnboarded];
+  if ((_isShareWithYouOnboarded & 1) == 0)
   {
-    v6 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = SLFrameworkLogHandle(_isShareWithYouOnboarded);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       +[SLHighlightCenter _checkAndInitializeBundleIDToAppPreferences:];
     }
@@ -251,11 +254,11 @@ void __41__SLHighlightCenter_highlightCenterQueue__block_invoke()
 
   if (([objc_opt_class() _bundleIDExistsInPreferences:preferencesCopy] & 1) == 0)
   {
-    v5 = CFPreferencesCopyAppValue(@"SharedWithYouApps", @"com.apple.SocialLayer");
-    v6 = v5;
-    if (v5)
+    v6 = CFPreferencesCopyAppValue(@"SharedWithYouApps", @"com.apple.SocialLayer");
+    v7 = v6;
+    if (v6)
     {
-      dictionary = [v5 mutableCopy];
+      dictionary = [v6 mutableCopy];
     }
 
     else
@@ -263,41 +266,40 @@ void __41__SLHighlightCenter_highlightCenterQueue__block_invoke()
       dictionary = [MEMORY[0x277CBEB38] dictionary];
     }
 
-    v8 = dictionary;
-    v9 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v9 = dictionary;
+    v10 = SLFrameworkLogHandle(dictionary);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v12 = 138412290;
       v13 = preferencesCopy;
-      _os_log_impl(&dword_231772000, v9, OS_LOG_TYPE_INFO, "Adding bundleID:%@ to the Shared With You Preferences", &v12, 0xCu);
+      _os_log_impl(&dword_231772000, v10, OS_LOG_TYPE_INFO, "Adding bundleID:%@ to the Shared With You Preferences", &v12, 0xCu);
     }
 
-    v10 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(objc_opt_class(), "_isShareWithYouEnabled")}];
-    [v8 setObject:v10 forKey:preferencesCopy];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(objc_opt_class(), "_isShareWithYouEnabled")}];
+    [v9 setObject:v11 forKey:preferencesCopy];
 
-    CFPreferencesSetAppValue(@"SharedWithYouApps", v8, @"com.apple.SocialLayer");
+    CFPreferencesSetAppValue(@"SharedWithYouApps", v9, @"com.apple.SocialLayer");
     CFPreferencesAppSynchronize(@"com.apple.SocialLayer");
 
 LABEL_14:
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_isShareWithYouEnabled
 {
   if (([self isMessagesLocked] & 1) == 0)
   {
-    if ([self _isShareWithYouOnboarded])
+    _isShareWithYouOnboarded = [self _isShareWithYouOnboarded];
+    if (_isShareWithYouOnboarded)
     {
-      v3 = CFPreferencesCopyAppValue(@"SharedWithYouEnabled", @"com.apple.SocialLayer");
-      bOOLValue = [v3 BOOLValue];
-      CFRelease(v3);
+      v4 = CFPreferencesCopyAppValue(@"SharedWithYouEnabled", @"com.apple.SocialLayer");
+      bOOLValue = [v4 BOOLValue];
+      CFRelease(v4);
       return bOOLValue;
     }
 
-    v6 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = SLFrameworkLogHandle(_isShareWithYouOnboarded);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       +[SLHighlightCenter _isShareWithYouEnabled];
     }
@@ -369,7 +371,7 @@ uint64_t __34__SLHighlightCenter_rapportClient__block_invoke()
 void __67__SLHighlightCenter_shouldShowOnboardingShieldViewForNearbyDevice___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SLFrameworkLogHandle();
+  v4 = SLFrameworkLogHandle(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -489,36 +491,41 @@ void __67__SLHighlightCenter_shouldShowOnboardingShieldViewForNearbyDevice___blo
 
 - (NSDate)latestHighlightDate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   highlights = [(SLHighlightCenter *)self highlights];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = [highlights countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [highlights countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
-      for (i = 0; i != v4; ++i)
+      v6 = 0;
+      do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(highlights);
         }
 
-        [*(*(&v11 + 1) + 8 * i) timestamp];
+        [*(*(&v10 + 1) + 8 * v6) timestamp];
+
+        ++v6;
       }
 
-      v4 = [highlights countByEnumeratingWithState:&v11 objects:v15 count:16];
+      while (v4 != v6);
+      v3 = [highlights countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
 
-  v7 = SLFrameworkLogHandle();
+  v7 = SLFrameworkLogHandle(v3);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [SLHighlightCenter latestHighlightDate];
@@ -526,35 +533,33 @@ void __67__SLHighlightCenter_shouldShowOnboardingShieldViewForNearbyDevice___blo
 
   distantPast = [MEMORY[0x277CBEAA8] distantPast];
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return distantPast;
 }
 
 - (double)highlightsRankingScore
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   highlights = [(SLHighlightCenter *)self highlights];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v3 = [highlights countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [highlights countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     v6 = 2.22507386e-308;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(highlights);
         }
 
-        score = [*(*(&v14 + 1) + 8 * i) score];
+        score = [*(*(&v13 + 1) + 8 * i) score];
         [score doubleValue];
         v10 = v9;
 
@@ -564,7 +569,7 @@ void __67__SLHighlightCenter_shouldShowOnboardingShieldViewForNearbyDevice___blo
         }
       }
 
-      v4 = [highlights countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [highlights countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
@@ -575,13 +580,12 @@ void __67__SLHighlightCenter_shouldShowOnboardingShieldViewForNearbyDevice___blo
     v6 = 2.22507386e-308;
   }
 
-  v11 = SLFrameworkLogHandle();
+  v11 = SLFrameworkLogHandle(0);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [SLHighlightCenter highlightsRankingScore];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -619,11 +623,9 @@ void __43__SLHighlightCenter__registerNotifications__block_invoke_154(uint64_t a
 
 - (void)appEnablementStateChanged
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyAPIAdapterDelegateHighlightsChanged
@@ -642,14 +644,14 @@ void __63__SLHighlightCenter__notifyAPIAdapterDelegateHighlightsChanged__block_i
 
   if (v2)
   {
-    v3 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = SLFrameworkLogHandle(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       __63__SLHighlightCenter__notifyAPIAdapterDelegateHighlightsChanged__block_invoke_cold_1();
     }
 
-    v4 = [*(a1 + 32) apiAdapterDelegate];
-    [v4 apiAdapterHighlightsDidChange:*(a1 + 32)];
+    v5 = [*(a1 + 32) apiAdapterDelegate];
+    [v5 apiAdapterHighlightsDidChange:*(a1 + 32)];
   }
 }
 
@@ -674,14 +676,14 @@ void __58__SLHighlightCenter__legacyNotifyDelegateDidAddHighlights__block_invoke
 
     if (v5)
     {
-      v6 = SLFrameworkLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = SLFrameworkLogHandle(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         __58__SLHighlightCenter__legacyNotifyDelegateDidAddHighlights__block_invoke_cold_1();
       }
 
-      v7 = [*(a1 + 32) delegate];
-      [v7 highlightCenterDidAddHighlights:*(a1 + 32)];
+      v8 = [*(a1 + 32) delegate];
+      [v8 highlightCenterDidAddHighlights:*(a1 + 32)];
     }
   }
 }
@@ -710,14 +712,14 @@ void __62__SLHighlightCenter__legacyNotifyDelegateDidRemoveHighlights___block_in
 
     if (v5)
     {
-      v6 = SLFrameworkLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = SLFrameworkLogHandle(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         __62__SLHighlightCenter__legacyNotifyDelegateDidRemoveHighlights___block_invoke_cold_1(a1);
       }
 
-      v7 = [*(a1 + 32) delegate];
-      [v7 highlightCenter:*(a1 + 32) didRemoveHighlights:*(a1 + 40)];
+      v8 = [*(a1 + 32) delegate];
+      [v8 highlightCenter:*(a1 + 32) didRemoveHighlights:*(a1 + 40)];
     }
   }
 }
@@ -725,7 +727,7 @@ void __62__SLHighlightCenter__legacyNotifyDelegateDidRemoveHighlights___block_in
 - (void)fetchHighlights:(id)highlights
 {
   highlightsCopy = highlights;
-  v5 = SLFrameworkLogHandle();
+  v5 = SLFrameworkLogHandle(highlightsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -737,26 +739,25 @@ void __62__SLHighlightCenter__legacyNotifyDelegateDidRemoveHighlights___block_in
 
 - (void)fetchHighlightsWithLimit:(unint64_t)limit completionBlock:(id)block
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v7 = SLFrameworkLogHandle();
+  v7 = SLFrameworkLogHandle(blockCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     limitCopy = limit;
-    _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "Fetching highlights as a result of a legacy client calling with limit: %lu", &v9, 0xCu);
+    _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "Fetching highlights as a result of a legacy client calling with limit: %lu", &v8, 0xCu);
   }
 
   [(SLHighlightCenter *)self fetchHighlightsWithLimit:limit reason:0 completionBlock:blockCopy];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchHighlightsWithLimit:(unint64_t)limit reason:(id)reason completionBlock:(id)block
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   reasonCopy = reason;
-  v10 = SLFrameworkLogHandle();
+  v10 = SLFrameworkLogHandle(reasonCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -764,15 +765,13 @@ void __62__SLHighlightCenter__legacyNotifyDelegateDidRemoveHighlights___block_in
     _os_log_impl(&dword_231772000, v10, OS_LOG_TYPE_DEFAULT, "Fetching highlights as a result of a legacy client calling with limit: %lu", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __69__SLHighlightCenter_fetchHighlightsWithLimit_reason_completionBlock___block_invoke;
-  v13[3] = &unk_278925E30;
-  v14 = blockCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __69__SLHighlightCenter_fetchHighlightsWithLimit_reason_completionBlock___block_invoke;
+  v12[3] = &unk_278925E30;
+  v13 = blockCopy;
   v11 = blockCopy;
-  [(SLHighlightCenter *)self _fetchHighlightsWithLimit:limit reason:reasonCopy completionBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SLHighlightCenter *)self _fetchHighlightsWithLimit:limit reason:reasonCopy completionBlock:v12];
 }
 
 void __69__SLHighlightCenter_fetchHighlightsWithLimit_reason_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -787,7 +786,7 @@ void __69__SLHighlightCenter_fetchHighlightsWithLimit_reason_completionBlock___b
 {
   blockCopy = block;
   reasonCopy = reason;
-  v10 = SLFrameworkLogHandle();
+  v10 = SLFrameworkLogHandle(reasonCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -825,73 +824,71 @@ void __70__SLHighlightCenter__fetchHighlightsWithLimit_reason_completionBlock___
 
 - (id)fetchAttributionsForHighlight:(id)highlight
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   highlightCopy = highlight;
   attributions = [highlightCopy attributions];
   v6 = [attributions count];
 
   if (v6)
   {
-    v7 = MEMORY[0x277CBEB18];
+    v8 = MEMORY[0x277CBEB18];
     attributions2 = [highlightCopy attributions];
-    v9 = [v7 arrayWithCapacity:{objc_msgSend(attributions2, "count")}];
+    v10 = [v8 arrayWithCapacity:{objc_msgSend(attributions2, "count")}];
 
-    v25 = 0u;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
+    v25 = 0u;
     attributions3 = [highlightCopy attributions];
-    v11 = [attributions3 countByEnumeratingWithState:&v23 objects:v27 count:16];
-    if (v11)
+    v12 = [attributions3 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v24;
+      v13 = v12;
+      v14 = *v25;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v24 != v13)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(attributions3);
           }
 
-          v15 = *(*(&v23 + 1) + 8 * i);
+          v16 = *(*(&v24 + 1) + 8 * i);
           interactionHandler = [(SLHighlightCenter *)self interactionHandler];
-          uniqueIdentifier = [v15 uniqueIdentifier];
-          v18 = [interactionHandler fetchAttributionForAttributionIdentifier:uniqueIdentifier];
+          uniqueIdentifier = [v16 uniqueIdentifier];
+          v19 = [interactionHandler fetchAttributionForAttributionIdentifier:uniqueIdentifier];
 
-          if (v18)
+          if (v19)
           {
-            [v9 addObject:v18];
+            [v10 addObject:v19];
           }
         }
 
-        v12 = [attributions3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v13 = [attributions3 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
 
-    v19 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v21 = SLFrameworkLogHandle(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      [(SLHighlightCenter *)v9 fetchAttributionsForHighlight:highlightCopy];
+      [(SLHighlightCenter *)v10 fetchAttributionsForHighlight:highlightCopy];
     }
 
-    v20 = [v9 copy];
-    [highlightCopy setAttributions:v20];
+    v22 = [v10 copy];
+    [highlightCopy setAttributions:v22];
   }
 
   else
   {
-    v9 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = SLFrameworkLogHandle(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(SLHighlightCenter *)highlightCopy fetchAttributionsForHighlight:v9];
+      [(SLHighlightCenter *)highlightCopy fetchAttributionsForHighlight:v10];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return highlightCopy;
 }
@@ -913,18 +910,18 @@ void __70__SLHighlightCenter__fetchHighlightsWithLimit_reason_completionBlock___
   interactionHandler = [(SLHighlightCenter *)self interactionHandler];
   v10 = [interactionHandler fetchAttributionForAttributionIdentifier:identifierCopy];
 
-  v11 = SLFrameworkLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = SLFrameworkLogHandle(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [SLHighlightCenter fetchAttributionForAttributionIdentifier:];
   }
 
-  v12 = SLGeneralTelemetryLogHandle();
-  v13 = v12;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = SLGeneralTelemetryLogHandle();
+  v14 = v13;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    *v15 = 0;
-    _os_signpost_emit_with_name_impl(&dword_231772000, v13, OS_SIGNPOST_INTERVAL_END, v6, "SLHighlightCenterFetchAttributionWithIdentifier", "", v15, 2u);
+    *v16 = 0;
+    _os_signpost_emit_with_name_impl(&dword_231772000, v14, OS_SIGNPOST_INTERVAL_END, v6, "SLHighlightCenterFetchAttributionWithIdentifier", "", v16, 2u);
   }
 
   return v10;
@@ -934,7 +931,7 @@ void __70__SLHighlightCenter__fetchHighlightsWithLimit_reason_completionBlock___
 {
   highlightCopy = highlight;
   blockCopy = block;
-  v10 = SLFrameworkLogHandle();
+  v10 = SLFrameworkLogHandle(blockCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [SLHighlightCenter feedbackForHighlight:withType:completionBlock:];
@@ -958,20 +955,20 @@ void __70__SLHighlightCenter__fetchHighlightsWithLimit_reason_completionBlock___
 
 void __67__SLHighlightCenter_feedbackForHighlight_withType_completionBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = SLFrameworkLogHandle();
+  v6 = SLFrameworkLogHandle(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
   if (!a2)
   {
     if (v7)
     {
       v9 = [*(a1 + 32) identifier];
-      v12 = 138412546;
-      v13 = v9;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_231772000, v6, OS_LOG_TYPE_INFO, "Error registering feedback for Highlight: %@. Error: %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_impl(&dword_231772000, v6, OS_LOG_TYPE_INFO, "Error registering feedback for Highlight: %@. Error: %@", &v11, 0x16u);
     }
 
     goto LABEL_8;
@@ -980,9 +977,9 @@ void __67__SLHighlightCenter_feedbackForHighlight_withType_completionBlock___blo
   if (v7)
   {
     v8 = [*(a1 + 32) identifier];
-    v12 = 138412290;
-    v13 = v8;
-    _os_log_impl(&dword_231772000, v6, OS_LOG_TYPE_INFO, "Feedback for Highlight: %@ was successfully registered", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v8;
+    _os_log_impl(&dword_231772000, v6, OS_LOG_TYPE_INFO, "Feedback for Highlight: %@ was successfully registered", &v11, 0xCu);
   }
 
   if (*(a1 + 56) == 2)
@@ -997,8 +994,6 @@ LABEL_8:
   {
     (*(v10 + 16))(v10, a2, v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -1010,28 +1005,28 @@ LABEL_8:
 
 - (void)appProtectionSubjectsChanged:(id)changed forSubscription:(id)subscription
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v6 = [changedCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [changedCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(changedCopy);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1048,13 +1043,11 @@ LABEL_8:
       }
 
       while (v7 != v9);
-      v7 = [changedCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [changedCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (SLHighlightCenterDelegate)delegate
@@ -1071,38 +1064,18 @@ LABEL_8:
   return WeakRetained;
 }
 
-+ (void)isEnabled
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)isAutomaticSharingEnabled
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 + (void)_checkAndInitializeBundleIDToAppPreferences:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_checkAndInitializeBundleIDToAppPreferences:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_isShareWithYouEnabled
@@ -1112,24 +1085,12 @@ LABEL_8:
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-+ (void)_isShareWithYouOnboarded
-{
-  v7 = *MEMORY[0x277D85DE8];
-  *self;
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __67__SLHighlightCenter_shouldShowOnboardingShieldViewForNearbyDevice___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SLHighlightCenter_shouldShowOnboardingShieldViewForNearbyDevice___block_invoke_cold_2()
@@ -1137,22 +1098,6 @@ void __67__SLHighlightCenter_shouldShowOnboardingShieldViewForNearbyDevice___blo
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)latestHighlightDate
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)highlightsRankingScore
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __63__SLHighlightCenter__notifyAPIAdapterDelegateHighlightsChanged__block_invoke_cold_1()
@@ -1171,51 +1116,40 @@ void __58__SLHighlightCenter__legacyNotifyDelegateDidAddHighlights__block_invoke
 
 void __62__SLHighlightCenter__legacyNotifyDelegateDidRemoveHighlights___block_invoke_cold_1(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*(a1 + 40) count];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAttributionsForHighlight:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   [a1 count];
-  v9 = [a2 identifier];
+  v8 = [a2 identifier];
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAttributionsForHighlight:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 identifier];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "No attributions in highlight with identifier %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "No attributions in highlight with identifier %@", v4, 0xCu);
 }
 
 - (void)fetchAttributionForAttributionIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)feedbackForHighlight:withType:completionBlock:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

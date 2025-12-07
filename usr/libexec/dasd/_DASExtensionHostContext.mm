@@ -3,6 +3,7 @@
 + (id)_extensionAuxiliaryVendorProtocol;
 - (id)remoteContextWithError:(id *)error;
 - (int)pid;
+- (void)activityCompletedWithStatus:(unsigned __int8)status;
 @end
 
 @implementation _DASExtensionHostContext
@@ -63,6 +64,20 @@
   _Block_object_dispose(&v8, 8);
 
   return v5;
+}
+
+- (void)activityCompletedWithStatus:(unsigned __int8)status
+{
+  statusCopy = status;
+  v5 = [_DASDaemonLogger logForCategory:@"plugin"];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Host received notice that extension is finished", v7, 2u);
+  }
+
+  contextPlugin = [(_DASExtensionHostContext *)self contextPlugin];
+  [contextPlugin extensionDidFinishWithStatus:statusCopy];
 }
 
 @end

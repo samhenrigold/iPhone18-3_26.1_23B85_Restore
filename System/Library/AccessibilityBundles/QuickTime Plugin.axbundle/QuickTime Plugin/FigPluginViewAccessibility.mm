@@ -1,8 +1,19 @@
 @interface FigPluginViewAccessibility
+- (void)setAllowPlayback:(BOOL)playback;
 - (void)webPlugInStart;
 @end
 
 @implementation FigPluginViewAccessibility
+
+- (void)setAllowPlayback:(BOOL)playback
+{
+  v6.receiver = self;
+  v6.super_class = FigPluginViewAccessibility;
+  [(FigPluginViewAccessibility *)&v6 setAllowPlayback:playback];
+  v4 = [(FigPluginViewAccessibility *)self safeValueForKey:@"_playButton"];
+  v5 = accessibilityLocalizedString(@"quicktime.play.button");
+  [v4 setAccessibilityLabel:v5];
+}
 
 - (void)webPlugInStart
 {

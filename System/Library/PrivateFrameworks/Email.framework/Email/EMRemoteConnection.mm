@@ -154,7 +154,7 @@ void __25__EMRemoteConnection_log__block_invoke(uint64_t a1)
 
 - (void)reset
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   self->_waitingForRecovery = 1;
   v3 = [(NSMutableArray *)self->_resetHandlers copy];
@@ -164,107 +164,103 @@ void __25__EMRemoteConnection_log__block_invoke(uint64_t a1)
   self->_currentProxy = 0;
 
   os_unfair_lock_unlock(&self->_proxyLock);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recover
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   self->_waitingForRecovery = 0;
   v3 = [(NSMutableArray *)self->_pendingReattempts copy];
   v4 = [(NSMutableArray *)self->_recoveryHandlers copy];
   [(NSMutableArray *)self->_pendingReattempts removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v6)
   {
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       v8 = 0;
       do
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v18 + 1) + 8 * v8++) + 16))();
+        (*(*(*(&v17 + 1) + 8 * v8++) + 16))();
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v6);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v9 = v3;
-  v10 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v10)
   {
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) perform];
+        [*(*(&v13 + 1) + 8 * v12++) perform];
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v13 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addResetHandler:(id)handler
@@ -357,7 +353,6 @@ void __25__EMRemoteConnection_log__block_invoke(uint64_t a1)
   {
     if (protocol_getMethodDescription(self->_protocol, selector, 1, 1).name || protocol_getMethodDescription(self->_protocol, selector, 0, 1).name)
     {
-      protocol = self->_protocol;
       v5 = [MEMORY[0x1E695DF68] signatureWithObjCTypes:_protocol_getMethodTypeEncoding()];
       os_unfair_lock_lock(&self->_lock);
       CFDictionarySetValue(self->_knownSelectors, selector, v5);
@@ -458,47 +453,47 @@ void __25__EMRemoteConnection_log__block_invoke(uint64_t a1)
 
 void __48__EMRemoteConnection__sendInvocation_withProxy___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v24 = 0;
-  v3 = [v2 proxyCreator:&v24];
-  v4 = v24;
+  v23 = 0;
+  v3 = [v2 proxyCreator:&v23];
+  v4 = v23;
   v5 = v4;
   if (v3)
   {
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __48__EMRemoteConnection__sendInvocation_withProxy___block_invoke_2;
-    v20 = &unk_1E826F4D8;
+    v16 = MEMORY[0x1E69E9820];
+    v17 = 3221225472;
+    v18 = __48__EMRemoteConnection__sendInvocation_withProxy___block_invoke_2;
+    v19 = &unk_1E826F4D8;
     v6 = *(a1 + 48);
     v7 = *(a1 + 56);
-    v22 = v6;
-    v23 = v7;
-    v21 = *(a1 + 32);
-    v8 = [v3 synchronousRemoteObjectProxyWithErrorHandler:&v17];
-    [*(a1 + 40) invokeWithTarget:{v8, v17, v18, v19, v20}];
+    v21 = v6;
+    v22 = v7;
+    v20 = *(a1 + 32);
+    v8 = [v3 synchronousRemoteObjectProxyWithErrorHandler:&v16];
+    [*(a1 + 40) invokeWithTarget:{v8, v16, v17, v18, v19}];
 
-    v9 = v22;
+    v9 = v21;
 LABEL_3:
 
     goto LABEL_4;
   }
 
-  v14 = *(a1 + 48);
-  if (v14)
+  v13 = *(a1 + 48);
+  if (v13)
   {
-    v15 = v4;
+    v14 = v4;
     if (!v4)
     {
-      v15 = [MEMORY[0x1E696ABC0] em_internalErrorWithReason:@"Creating an proxy creator failed but we didn't got an error"];
+      v14 = [MEMORY[0x1E696ABC0] em_internalErrorWithReason:@"Creating an proxy creator failed but we didn't got an error"];
     }
 
-    v16 = (*(v14 + 16))(v14, v15);
+    v15 = (*(v13 + 16))(v13, v14);
     if (!v5)
     {
     }
 
-    if (v16)
+    if (v15)
     {
       v9 = [MEMORY[0x1E696AAA8] currentHandler];
       [v9 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"EMRemoteConnection.m" lineNumber:393 description:@"reattempt handler returned YES for a synchronous message which is not allowed."];
@@ -515,14 +510,12 @@ LABEL_4:
       v11 = *(a1 + 32);
       v12 = [v5 ef_publicDescription];
       *buf = 138543618;
-      v26 = v11;
-      v27 = 2114;
-      v28 = v12;
+      v25 = v11;
+      v26 = 2114;
+      v27 = v12;
       _os_log_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to retrive a valid proxyCreator due to error: %{public}@", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __48__EMRemoteConnection__sendInvocation_withProxy___block_invoke_2(void *a1, void *a2)

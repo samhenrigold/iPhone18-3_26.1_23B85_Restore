@@ -28,9 +28,9 @@
   v3 = swift_allocObject();
   *(v3 + 16) = sub_1A398F910;
   *(v3 + 24) = 0;
-  type metadata accessor for ChromeViewModel();
+  type metadata accessor for ChromeViewModel(0);
   v4 = swift_allocObject();
-  *(&self->super.isa + OBJC_IVAR___CAMChromeViewController_viewModel) = sub_1A3A1D130(v3, v4, type metadata accessor for ChromeClosureEventHandler, &off_1F165B6C0, sub_1A3A1E6C4);
+  *(&self->super.isa + OBJC_IVAR___CAMChromeViewController_viewModel) = sub_1A3A1D130(v3, v4, type metadata accessor for ChromeClosureEventHandler, &off_1F165B6C0, sub_1A3A1E6C4, sub_1A3A1E6CC);
   v6.receiver = self;
   v6.super_class = type metadata accessor for ChromeViewController();
   return [(CAMChromeViewController *)&v6 init];
@@ -94,13 +94,13 @@
   }
 
   v0 = off_1ED997FE0;
-  swift_getKeyPath();
-  sub_1A3A1E618(&qword_1ED996650, type metadata accessor for SettingsManager);
+  swift_getKeyPath(byte_1A3A861C8);
+  sub_1A3A1E618(&qword_1ED996650, type metadata accessor for SettingsManager, &unk_1A3A777B8);
   sub_1A3A2F080();
 
   v1 = v0[2];
-  swift_getKeyPath();
-  sub_1A3A1E618(&qword_1ED996658, type metadata accessor for CameraUISettings);
+  swift_getKeyPath(byte_1A3A861F0);
+  sub_1A3A1E618(&qword_1ED996658, type metadata accessor for CameraUISettings, &unk_1A3A777E4);
   sub_1A3A2EA60();
   sub_1A3A2F080();
 

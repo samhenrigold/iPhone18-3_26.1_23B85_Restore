@@ -21,8 +21,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v15[3] = *MEMORY[0x1E69E9840];
-  v14[0] = @"code";
+  v14[3] = *MEMORY[0x1E69E9840];
+  v13[0] = @"code";
   code = [(INGetSettingIntentResponse *)self code];
   v4 = code;
   if (code < 8)
@@ -37,8 +37,8 @@
     v6 = 0;
   }
 
-  v15[0] = null;
-  v14[1] = @"settingResponseDatas";
+  v14[0] = null;
+  v13[1] = @"settingResponseDatas";
   settingResponseDatas = [(INGetSettingIntentResponse *)self settingResponseDatas];
   null2 = settingResponseDatas;
   if (!settingResponseDatas)
@@ -46,8 +46,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"errorDetail";
+  v14[1] = null2;
+  v13[2] = @"errorDetail";
   errorDetail = [(INGetSettingIntentResponse *)self errorDetail];
   null3 = errorDetail;
   if (!errorDetail)
@@ -55,8 +55,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null3;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = null3;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
   if (!errorDetail)
   {
   }
@@ -68,8 +68,6 @@
   if (v4 >= 8)
   {
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -214,7 +212,7 @@
 
 - (INGetSettingIntentResponse)initWithCode:(int64_t)code userActivity:(id)activity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -232,21 +230,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INGetSettingIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
+    v15 = "[INGetSettingIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
     codeCopy = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = activityCopy;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = activityCopy;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INGetSettingIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:activityCopy];
+  v13.receiver = self;
+  v13.super_class = INGetSettingIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:activityCopy];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

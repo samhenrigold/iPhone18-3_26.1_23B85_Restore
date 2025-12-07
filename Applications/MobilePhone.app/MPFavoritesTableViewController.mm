@@ -198,32 +198,32 @@
 
 - (void)viewIsAppearing:(BOOL)appearing
 {
-  v17.receiver = self;
-  v17.super_class = MPFavoritesTableViewController;
-  [(MPFavoritesTableViewController *)&v17 viewIsAppearing:appearing];
+  v18.receiver = self;
+  v18.super_class = MPFavoritesTableViewController;
+  [(MPFavoritesTableViewController *)&v18 viewIsAppearing:appearing];
   v4 = objc_alloc_init(TUFeatureFlags);
   nameAndPhotoEnabledC3 = [v4 nameAndPhotoEnabledC3];
 
   if (nameAndPhotoEnabledC3)
   {
-    v6 = PHDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PHDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Going to present CNKCNSharedProfileOnboardingController on launch", v16, 2u);
+      *v17 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Going to present CNKCNSharedProfileOnboardingController on launch", v17, 2u);
     }
 
     onboardingController = [(MPFavoritesTableViewController *)self onboardingController];
 
     if (!onboardingController)
     {
-      v8 = objc_opt_new();
-      [(MPFavoritesTableViewController *)self setOnboardingController:v8];
+      v9 = objc_opt_new();
+      [(MPFavoritesTableViewController *)self setOnboardingController:v9];
     }
 
     onboardingController2 = [(MPFavoritesTableViewController *)self onboardingController];
-    v10 = +[TUCallCenter sharedInstance];
-    contactStore = [v10 contactStore];
+    v11 = +[TUCallCenter sharedInstance];
+    contactStore = [v11 contactStore];
     [onboardingController2 presentOnboardingControllerOnLaunchIfNeededFrom:self withContactStore:contactStore];
   }
 
@@ -254,19 +254,19 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v8.receiver = self;
-  v8.super_class = MPFavoritesTableViewController;
-  [(PHTableViewController *)&v8 viewDidAppear:appear];
-  v4 = PHDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v9.receiver = self;
+  v9.super_class = MPFavoritesTableViewController;
+  v4 = [(PHTableViewController *)&v9 viewDidAppear:appear];
+  v5 = PHDefaultLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MPFavoritesTableViewController viewDidAppear:", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MPFavoritesTableViewController viewDidAppear:", v8, 2u);
   }
 
-  v5 = createPHPhoneTabBarControllerTabViewDidAppearNotificationInfo(1, self);
-  v6 = +[NSNotificationCenter defaultCenter];
-  [v6 postNotificationName:@"PHPhoneTabBarControllerTabViewDidAppearNotification" object:v5];
+  v6 = createPHPhoneTabBarControllerTabViewDidAppearNotificationInfo(1, self);
+  v7 = +[NSNotificationCenter defaultCenter];
+  [v7 postNotificationName:@"PHPhoneTabBarControllerTabViewDidAppearNotification" object:v6];
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -348,8 +348,8 @@
 
 + ($1FF454C5B48E436092D281DABF654916)badge
 {
-  v2 = PhoneBadgeKnownZero[0];
-  v3 = PhoneBadgeKnownZero[1];
+  v2 = PhoneBadgeKnownZero.n128_u64[0];
+  v3 = PhoneBadgeKnownZero.n128_u64[1];
   result.var1 = v3;
   result.var0 = v2;
   return result;
@@ -507,8 +507,7 @@ void __66__MPFavoritesTableViewController_tableView_cellForRowAtIndexPath___bloc
 
         else
         {
-          [a1[5] deselectRowAtIndexPath:a1[4] animated:0];
-          v5 = PHDefaultLog();
+          v5 = PHDefaultLog([a1[5] deselectRowAtIndexPath:a1[4] animated:0]);
           if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
           {
             v6 = a1[4];
@@ -525,17 +524,17 @@ void __66__MPFavoritesTableViewController_tableView_cellForRowAtIndexPath___bloc
 void __66__MPFavoritesTableViewController_tableView_cellForRowAtIndexPath___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = __66__MPFavoritesTableViewController_tableView_cellForRowAtIndexPath___block_invoke_3;
-  v5[3] = &unk_1002852E0;
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  dispatch_async(&_dispatch_main_q, v5);
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = __66__MPFavoritesTableViewController_tableView_cellForRowAtIndexPath___block_invoke_3;
+  v6[3] = &unk_1002852E0;
+  v7 = *(a1 + 32);
+  v8 = *(a1 + 40);
+  dispatch_async(&_dispatch_main_q, v6);
   if (v3)
   {
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PHDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __66__MPFavoritesTableViewController_tableView_cellForRowAtIndexPath___block_invoke_2_cold_1();
     }
@@ -880,8 +879,7 @@ LABEL_16:
 
     else
     {
-      [viewCopy deselectRowAtIndexPath:pathCopy animated:0];
-      v20 = PHDefaultLog();
+      v20 = PHDefaultLog([viewCopy deselectRowAtIndexPath:pathCopy animated:0]);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -899,17 +897,17 @@ LABEL_17:
 void __68__MPFavoritesTableViewController_tableView_didSelectRowAtIndexPath___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = __68__MPFavoritesTableViewController_tableView_didSelectRowAtIndexPath___block_invoke_2;
-  v5[3] = &unk_1002852E0;
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  dispatch_async(&_dispatch_main_q, v5);
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = __68__MPFavoritesTableViewController_tableView_didSelectRowAtIndexPath___block_invoke_2;
+  v6[3] = &unk_1002852E0;
+  v7 = *(a1 + 32);
+  v8 = *(a1 + 40);
+  dispatch_async(&_dispatch_main_q, v6);
   if (v3)
   {
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PHDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __66__MPFavoritesTableViewController_tableView_cellForRowAtIndexPath___block_invoke_2_cold_1();
     }
@@ -1032,8 +1030,8 @@ void __68__MPFavoritesTableViewController_tableView_didSelectRowAtIndexPath___bl
   contactCopy = contact;
   storeCopy = store;
   v7 = +[CNUIFavoritesEntryPicker descriptorForRequiredKeys];
-  v23 = v7;
-  v8 = [NSArray arrayWithObjects:&v23 count:1];
+  v24 = v7;
+  v8 = [NSArray arrayWithObjects:&v24 count:1];
 
   if ([contactCopy areKeysAvailable:v8])
   {
@@ -1050,22 +1048,22 @@ void __68__MPFavoritesTableViewController_tableView_didSelectRowAtIndexPath___bl
     }
 
     identifier = [contactCopy identifier];
-    v16 = 0;
-    v9 = [storeCopy unifiedContactWithIdentifier:identifier keysToFetch:v10 error:&v16];
-    v13 = v16;
+    v17 = 0;
+    v9 = [storeCopy unifiedContactWithIdentifier:identifier keysToFetch:v10 error:&v17];
+    v13 = v17;
 
     if (!v9)
     {
-      v14 = PHDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = PHDefaultLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v18 = contactCopy;
-        v19 = 2112;
-        v20 = storeCopy;
-        v21 = 2112;
-        v22 = v13;
-        _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Could not retrieve a compatible contact using contact (%@) and contact store (%@) due to an error (%@).", buf, 0x20u);
+        v19 = contactCopy;
+        v20 = 2112;
+        v21 = storeCopy;
+        v22 = 2112;
+        v23 = v13;
+        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Could not retrieve a compatible contact using contact (%@) and contact store (%@) due to an error (%@).", buf, 0x20u);
       }
     }
   }
@@ -1117,7 +1115,7 @@ void __65__MPFavoritesTableViewController_removeFavoriteEntryAtIndexPath___block
 {
   if ((a2 & 1) == 0)
   {
-    v3 = PHDefaultLog();
+    v3 = PHDefaultLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -1176,31 +1174,31 @@ void __65__MPFavoritesTableViewController_removeFavoriteEntryAtIndexPath___block
 - (void)favoritesEntryPicker:(id)picker didPickEntry:(id)entry
 {
   entryCopy = entry;
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(entryCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = entryCopy;
+    v20 = entryCopy;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Favorite was picked: %@", buf, 0xCu);
   }
 
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = __68__MPFavoritesTableViewController_favoritesEntryPicker_didPickEntry___block_invoke;
-  v17[3] = &unk_100284FD0;
-  v17[4] = self;
-  v7 = objc_retainBlock(v17);
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = __68__MPFavoritesTableViewController_favoritesEntryPicker_didPickEntry___block_invoke;
+  v18[3] = &unk_100284FD0;
+  v18[4] = self;
+  v7 = objc_retainBlock(v18);
   favoritesEntries = [(MPFavoritesTableViewController *)self favoritesEntries];
   v9 = [favoritesEntries containsObject:entryCopy];
 
   if (v9)
   {
-    v10 = PHDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = PHDefaultLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = entryCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Not adding favorites entry as it exists already: %@", buf, 0xCu);
+      v20 = entryCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Not adding favorites entry as it exists already: %@", buf, 0xCu);
     }
 
     (v7[2])(v7);
@@ -1215,20 +1213,20 @@ void __65__MPFavoritesTableViewController_removeFavoriteEntryAtIndexPath___block
     }
 
     tableView = [(MPFavoritesTableViewController *)self tableView];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = __68__MPFavoritesTableViewController_favoritesEntryPicker_didPickEntry___block_invoke_3;
-    v15[3] = &unk_1002852E0;
-    v15[4] = self;
-    v16 = entryCopy;
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = __68__MPFavoritesTableViewController_favoritesEntryPicker_didPickEntry___block_invoke_4;
-    v12[3] = &unk_100285C80;
-    v12[4] = self;
-    v13 = v16;
-    v14 = v7;
-    [tableView performBatchUpdates:v15 completion:v12];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = __68__MPFavoritesTableViewController_favoritesEntryPicker_didPickEntry___block_invoke_3;
+    v16[3] = &unk_1002852E0;
+    v16[4] = self;
+    v17 = entryCopy;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = __68__MPFavoritesTableViewController_favoritesEntryPicker_didPickEntry___block_invoke_4;
+    v13[3] = &unk_100285C80;
+    v13[4] = self;
+    v14 = v17;
+    v15 = v7;
+    [tableView performBatchUpdates:v16 completion:v13];
   }
 }
 
@@ -1263,7 +1261,7 @@ uint64_t __68__MPFavoritesTableViewController_favoritesEntryPicker_didPickEntry_
 {
   if ((a2 & 1) == 0)
   {
-    v3 = PHDefaultLog();
+    v3 = PHDefaultLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v6 = 0;
@@ -1292,31 +1290,31 @@ uint64_t __68__MPFavoritesTableViewController_favoritesEntryPicker_didPickEntry_
 
     if (v7 == v9)
     {
-      v31 = v5;
+      v32 = v5;
       tableView = [(MPFavoritesTableViewController *)self tableView];
       indexPathsForVisibleRows = [tableView indexPathsForVisibleRows];
 
-      v32 = objc_alloc_init(NSMutableArray);
-      v36 = 0u;
+      v33 = objc_alloc_init(NSMutableArray);
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
       obj = indexPathsForVisibleRows;
-      v12 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v12 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
       if (v12)
       {
         v13 = v12;
-        v34 = *v37;
+        v35 = *v38;
         while (2)
         {
           for (i = 0; i != v13; i = i + 1)
           {
-            if (*v37 != v34)
+            if (*v38 != v35)
             {
               objc_enumerationMutation(obj);
             }
 
-            v15 = *(*(&v36 + 1) + 8 * i);
+            v15 = *(*(&v37 + 1) + 8 * i);
             v16 = [favoritesEntries objectAtIndexedSubscript:{objc_msgSend(v15, "row")}];
             v17 = -[MPFavoritesTableViewController favoritesEntryAtIndex:](self, "favoritesEntryAtIndex:", [v15 row]);
             v18 = [v17 isEqual:v16];
@@ -1338,7 +1336,7 @@ uint64_t __68__MPFavoritesTableViewController_favoritesEntryPicker_didPickEntry_
 
             if (contact && ([contact isEqualIgnoringIdentifiers:v24] & 1) == 0)
             {
-              [v32 addObject:v15];
+              [v33 addObject:v15];
               contactCache2 = [(MPFavoritesTableViewController *)self contactCache];
               [contactCache2 setObject:contact forKey:v20];
             }
@@ -1346,7 +1344,7 @@ uint64_t __68__MPFavoritesTableViewController_favoritesEntryPicker_didPickEntry_
             favoritesEntries = v19;
           }
 
-          v13 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+          v13 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
           if (v13)
           {
             continue;
@@ -1358,18 +1356,22 @@ uint64_t __68__MPFavoritesTableViewController_favoritesEntryPicker_didPickEntry_
 
 LABEL_18:
 
-      v5 = v31;
-      if (!-[PHTableViewController needsReloadData](self, "needsReloadData") && [v32 count])
+      v5 = v32;
+      if (![(PHTableViewController *)self needsReloadData])
       {
-        v29 = PHDefaultLog();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v29 = [v33 count];
+        if (v29)
         {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Update Favorite Cells", buf, 2u);
-        }
+          v30 = PHDefaultLog(v29);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Update Favorite Cells", buf, 2u);
+          }
 
-        tableView2 = [(MPFavoritesTableViewController *)self tableView];
-        [tableView2 reconfigureRowsAtIndexPaths:v32];
+          tableView2 = [(MPFavoritesTableViewController *)self tableView];
+          [tableView2 reconfigureRowsAtIndexPaths:v33];
+        }
       }
     }
 
@@ -1393,7 +1395,7 @@ LABEL_18:
 - (void)handleUIApplicationWillEnterForegroundNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -1560,7 +1562,7 @@ void __83__MPFavoritesTableViewController_handleUIContentSizeCategoryDidChangeNo
 
 - (void)tipKitLogAnalyticsAddFavoritesEvent
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v2 - 8);
   v4 = &v8 - v3;
   v5 = type metadata accessor for TaskPriority();
@@ -1575,7 +1577,7 @@ void __83__MPFavoritesTableViewController_handleUIContentSizeCategoryDidChangeNo
 
 - (void)tipKitActionFavoriteAdded
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO5EventVy_AC13EmptyDonationVGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO5EventVy_AC13EmptyDonationVGMd, &_s6TipKit4TipsO5EventVy_AC13EmptyDonationVGMR);
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = &v14 - v4;

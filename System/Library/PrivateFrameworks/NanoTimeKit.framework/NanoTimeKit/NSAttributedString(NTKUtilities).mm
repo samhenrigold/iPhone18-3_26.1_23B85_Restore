@@ -346,7 +346,7 @@ LABEL_24:
 
 + (id)ntk_attributedStringFromAttributesTable:()NTKUtilities defaultAttributes:markdownFormat:
 {
-  v9 = [self ntk_attributedStringFromAttributesTable:a3 defaultAttributes:a4 markdownFormat:a5 arguments:&a9];
+  v9 = [self ntk_attributedStringFromAttributesTable:a3 defaultAttributes:a4 markdownFormat:a5 arguments:&a9, a7, a8];
 
   return v9;
 }

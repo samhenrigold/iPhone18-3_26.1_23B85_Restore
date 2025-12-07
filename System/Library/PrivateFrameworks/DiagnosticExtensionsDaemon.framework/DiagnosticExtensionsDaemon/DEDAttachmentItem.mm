@@ -2,6 +2,7 @@
 + (id)archivedClasses;
 + (id)itemWithDEItem:(id)item;
 + (id)itemWithDictionary:(id)dictionary;
++ (id)itemWithURL:(id)l shouldCheckURLAttributes:(BOOL)attributes;
 - (BOOL)isLocal;
 - (NSString)description;
 - (id)serialize;
@@ -9,6 +10,26 @@
 @end
 
 @implementation DEDAttachmentItem
+
++ (id)itemWithURL:(id)l shouldCheckURLAttributes:(BOOL)attributes
+{
+  attributesCopy = attributes;
+  v6 = MEMORY[0x277D051B8];
+  lCopy = l;
+  v8 = [[v6 alloc] initWithPathURL:lCopy shouldCheckURLAttributes:attributesCopy];
+
+  if (v8)
+  {
+    v9 = [self itemWithDEItem:v8];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
 
 + (id)itemWithDictionary:(id)dictionary
 {
@@ -79,7 +100,7 @@
 
 - (id)serialize
 {
-  v22[5] = *MEMORY[0x277D85DE8];
+  v21[5] = *MEMORY[0x277D85DE8];
   attachedPath = [(DEDAttachmentItem *)self attachedPath];
   path = [attachedPath path];
 
@@ -92,21 +113,21 @@
     }
   }
 
-  v21[0] = @"displayName";
+  v20[0] = @"displayName";
   displayName = [(DEDAttachmentItem *)self displayName];
-  v19 = stringIfNil(displayName);
-  v22[0] = v19;
-  v21[1] = @"attachedPath";
+  v18 = stringIfNil(displayName);
+  v21[0] = v18;
+  v20[1] = @"attachedPath";
   attachedPath2 = [(DEDAttachmentItem *)self attachedPath];
   path2 = [attachedPath2 path];
   v7 = stringIfNil(path2);
-  v22[1] = v7;
-  v21[2] = @"modificationDate";
+  v21[1] = v7;
+  v20[2] = @"modificationDate";
   modificationDate = [(DEDAttachmentItem *)self modificationDate];
   serialize = [modificationDate serialize];
   v10 = stringIfNil(serialize);
-  v22[2] = v10;
-  v21[3] = @"fileSize";
+  v21[2] = v10;
+  v20[3] = @"fileSize";
   fileSize = [(DEDAttachmentItem *)self fileSize];
   if (fileSize)
   {
@@ -118,18 +139,16 @@
     fileSize2 = &unk_285B89A48;
   }
 
-  v22[3] = fileSize2;
-  v21[4] = @"deviceID";
+  v21[3] = fileSize2;
+  v20[4] = @"deviceID";
   deviceID = [(DEDAttachmentItem *)self deviceID];
   v14 = stringIfNil(deviceID);
-  v22[4] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:5];
+  v21[4] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:5];
 
   if (fileSize)
   {
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -176,13 +195,11 @@
 
 - (void)serialize
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   displayName = [self displayName];
-  v5 = 138543362;
-  v6 = displayName;
-  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "attachment item [%{public}@] has nil path", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = displayName;
+  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "attachment item [%{public}@] has nil path", &v4, 0xCu);
 }
 
 @end

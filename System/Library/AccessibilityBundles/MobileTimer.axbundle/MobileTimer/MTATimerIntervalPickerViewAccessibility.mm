@@ -109,10 +109,7 @@ uint64_t __90__MTATimerIntervalPickerViewAccessibility_pickerView_viewForRow_for
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
 
-  v7 = accessibilityLocalizedString(v4);
-  v8 = *(*(v1 + 48) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  *(*(*(v1 + 48) + 8) + 40) = accessibilityLocalizedString(v4);
 
   return MEMORY[0x2A1C71028]();
 }

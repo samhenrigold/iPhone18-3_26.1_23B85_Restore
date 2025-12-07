@@ -147,60 +147,55 @@
 {
   toCopy = to;
   has = self->_has;
-  v12 = toCopy;
+  v7 = toCopy;
   if (has)
   {
-    muid = self->_muid;
     PBDataWriterWriteUint64Field();
-    toCopy = v12;
+    toCopy = v7;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    fullyCoversTile = self->_fullyCoversTile;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_poiGeometry)
   {
     PBDataWriterWriteDataField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_location)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    isCategoryFiltered = self->_isCategoryFiltered;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_parents.count)
   {
-    v9 = 0;
+    v6 = 0;
     do
     {
-      v10 = self->_parents.list[v9];
       PBDataWriterWriteUint64Field();
-      toCopy = v12;
-      ++v9;
+      toCopy = v7;
+      ++v6;
     }
 
-    while (v9 < self->_parents.count);
+    while (v6 < self->_parents.count);
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    isApplePaySupported = self->_isApplePaySupported;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v7;
   }
 }
 
@@ -311,7 +306,6 @@
     goto LABEL_22;
   }
 
-  v5 = *(equalCopy + 60);
   if (*&self->_has)
   {
     if ((*(equalCopy + 60) & 1) == 0 || self->_muid != *(equalCopy + 4))
@@ -332,7 +326,6 @@
       goto LABEL_22;
     }
 
-    v11 = *(equalCopy + 56);
     if (self->_fullyCoversTile)
     {
       if ((*(equalCopy + 56) & 1) == 0)
@@ -367,7 +360,6 @@
     }
   }
 
-  v8 = *(equalCopy + 60);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 60) & 8) == 0)
@@ -375,7 +367,6 @@
       goto LABEL_22;
     }
 
-    v12 = *(equalCopy + 58);
     if (self->_isCategoryFiltered)
     {
       if ((*(equalCopy + 58) & 1) == 0)
@@ -400,7 +391,7 @@
     goto LABEL_22;
   }
 
-  v9 = (*(equalCopy + 60) & 4) == 0;
+  v7 = (*(equalCopy + 60) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 60) & 4) != 0)
@@ -416,18 +407,18 @@
       else if (!*(equalCopy + 57))
       {
 LABEL_36:
-        v9 = 1;
+        v7 = 1;
         goto LABEL_23;
       }
     }
 
 LABEL_22:
-    v9 = 0;
+    v7 = 0;
   }
 
 LABEL_23:
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

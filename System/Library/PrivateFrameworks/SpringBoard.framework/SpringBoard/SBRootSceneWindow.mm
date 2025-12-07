@@ -187,7 +187,7 @@ LABEL_41:
       memset(&v87, 0, sizeof(v87));
       if (transformLayerCopy)
       {
-        [transformLayerCopy transform];
+        objc_msgSend_transform(transformLayerCopy);
       }
 
       if (!v34)

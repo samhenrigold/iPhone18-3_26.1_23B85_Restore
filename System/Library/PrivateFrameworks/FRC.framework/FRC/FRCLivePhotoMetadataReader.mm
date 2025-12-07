@@ -1,6 +1,8 @@
 @interface FRCLivePhotoMetadataReader
+- (BOOL)processLivePhotoMetadataItem:(id)item isIDR:(BOOL)r recipeAvailable:(BOOL)available;
 - (FRCLivePhotoMetadataReader)init;
 - (id)createMetadataAdaptorForAsset:(id)asset;
+- (id)createMetadataEntryForV3Metadata:(id *)metadata frameIndex:(unint64_t)index time:(id *)time isIDR:(BOOL)r noRecipeGap:(BOOL)gap;
 - (unint64_t)preParseMetadata;
 - (void)parseStillImageMetadata:(id)metadata;
 - (void)printMetadata:(id)metadata withVideoFrame:(id)frame;
@@ -39,7 +41,7 @@
 
       if (firstObject)
       {
-        [firstObject duration];
+        objc_msgSend_duration(firstObject);
       }
 
       else
@@ -66,10 +68,10 @@
         break;
       }
 
-      v11 = *FigLivePhotoMetadataV3;
+      v11 = FigLivePhotoMetadataV3->u16[0];
       if ((v11 & 0x20) != 0)
       {
-        self->_numberOfInterpolatedFrames += *(FigLivePhotoMetadataV3 + 58);
+        self->_numberOfInterpolatedFrames += FigLivePhotoMetadataV3[3].u8[10];
       }
 
       v6 += (v11 >> 3) & 1;
@@ -106,33 +108,33 @@ LABEL_14:
 
 - (void)parseStillImageMetadata:(id)metadata
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   self->_stillImageTime = **&MEMORY[0x277CC0898];
   *&self->_stillImageTransformAvailable = 0;
-  v24 = metadataCopy;
+  v23 = metadataCopy;
   [metadataCopy tracksWithMediaType:*MEMORY[0x277CE5E70]];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  obj = v33 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  obj = v32 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v31;
-    v25 = *v31;
+    v7 = *v30;
+    v24 = *v30;
     selfCopy = self;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v31 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * i);
+        v9 = *(*(&v29 + 1) + 8 * i);
         formatDescriptions = [v9 formatDescriptions];
         v11 = [formatDescriptions objectAtIndexedSubscript:0];
 
@@ -180,19 +182,19 @@ LABEL_14:
 
             if (v22)
             {
-              [v22 timeRange];
+              objc_msgSend_timeRange(v22);
             }
 
             else
             {
-              v29 = 0;
-              v28 = 0u;
+              v28 = 0;
+              v27 = 0u;
             }
 
-            v7 = v25;
+            v7 = v24;
             self = selfCopy;
-            *&selfCopy->_stillImageTime.value = v28;
-            selfCopy->_stillImageTime.epoch = v29;
+            *&selfCopy->_stillImageTime.value = v27;
+            selfCopy->_stillImageTime.epoch = v28;
           }
 
           if ([v12 containsObject:@"mdta/com.apple.quicktime.live-photo-still-image-transform"])
@@ -207,13 +209,11 @@ LABEL_14:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v6 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v6);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readLivePhotoMetadataFromAsset:(id)asset
@@ -271,13 +271,13 @@ LABEL_14:
           goto LABEL_11;
         }
 
-        [v26 timeRange];
+        objc_msgSend_timeRange(v26);
         time1 = v35;
         firstObject3 = [v5 firstObject];
         v28 = firstObject3;
         if (firstObject3)
         {
-          [firstObject3 time];
+          objc_msgSend_time(firstObject3);
         }
 
         else
@@ -327,16 +327,142 @@ LABEL_15:
   }
 }
 
+- (BOOL)processLivePhotoMetadataItem:(id)item isIDR:(BOOL)r recipeAvailable:(BOOL)available
+{
+  rCopy = r;
+  itemCopy = item;
+  v24 = 0;
+  v23 = 0;
+  numberOfInterpolatedFrames = self->_numberOfInterpolatedFrames;
+  value = [itemCopy value];
+  deserializeLivePhotoMetadata(value, &v24, &v23);
+
+  v11 = v24;
+  if (!v24)
+  {
+    goto LABEL_10;
+  }
+
+  self->_metadataVersion = *v24;
+  FigLivePhotoMetadataV3 = getFigLivePhotoMetadataV3(v11);
+  if (!FigLivePhotoMetadataV3)
+  {
+    free(v24);
+    printf("No LivePhotoMetadataV3 in this movie. Metadata verison is %d\n", self->_metadataVersion);
+LABEL_10:
+    v15 = 0;
+    goto LABEL_34;
+  }
+
+  v13 = FigLivePhotoMetadataV3;
+  if ((FigLivePhotoMetadataV3->i16[0] & 0x10) != 0)
+  {
+    v16 = FigLivePhotoMetadataV3[3].i8[9];
+    if (self->_recipe)
+    {
+      v17 = v16 - self->_previousDisplacement;
+      if (v17 >= 2)
+      {
+        self->_numberOfDroppedFrames = v17 + self->_numberOfDroppedFrames - 1;
+      }
+    }
+
+    else
+    {
+      self->_recipe = FigLivePhotoMetadataV3[3].u8[8];
+    }
+
+    self->_previousDisplacement = v16;
+    if (!v16 && (self->_burstDropTime.flags & 1) == 0)
+    {
+      if (itemCopy)
+      {
+        objc_msgSend_time(itemCopy);
+      }
+
+      else
+      {
+        memset(&time1, 0, sizeof(time1));
+      }
+
+      v14 = 0;
+      self->_burstDropTime = time1;
+      goto LABEL_28;
+    }
+
+    goto LABEL_27;
+  }
+
+  if (available || self->_frameIndex >= self->_totalFrames - 1)
+  {
+LABEL_27:
+    v14 = 0;
+    goto LABEL_28;
+  }
+
+  if ((FigLivePhotoMetadataV3->i16[0] & 0x20) == 0 || !FigLivePhotoMetadataV3[3].i8[10])
+  {
+    if (!numberOfInterpolatedFrames)
+    {
+      if (itemCopy)
+      {
+        objc_msgSend_duration(itemCopy);
+      }
+
+      else
+      {
+        memset(&time1, 0, sizeof(time1));
+      }
+
+      time2 = self->_droppingThreshold;
+      if (CMTimeCompare(&time1, &time2) == 1)
+      {
+        ++self->_numberOfDroppedFrames;
+        v14 = 1;
+        goto LABEL_28;
+      }
+    }
+
+    goto LABEL_27;
+  }
+
+  v14 = 0;
+  ++self->_numberOfDroppedFrames;
+LABEL_28:
+  if (self->_printMetadata)
+  {
+    frameIndex = self->_frameIndex;
+    if (itemCopy)
+    {
+      objc_msgSend_time(itemCopy);
+    }
+
+    else
+    {
+      memset(&time1, 0, sizeof(time1));
+    }
+
+    v19 = [(FRCLivePhotoMetadataReader *)self createMetadataEntryForV3Metadata:v13 frameIndex:frameIndex time:&time1 isIDR:rCopy noRecipeGap:v14];
+    [(NSMutableArray *)self->_metadataList addObject:v19];
+  }
+
+  free(v24);
+  v15 = 1;
+LABEL_34:
+
+  return v15;
+}
+
 - (id)createMetadataAdaptorForAsset:(id)asset
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   v4 = [assetCopy tracksWithMediaType:*MEMORY[0x277CE5E70]];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v5)
   {
     goto LABEL_15;
@@ -344,18 +470,18 @@ LABEL_15:
 
   v6 = v5;
   v7 = 0;
-  v8 = *v24;
+  v8 = *v23;
   v9 = *MEMORY[0x277CF3BD0];
   do
   {
     for (i = 0; i != v6; ++i)
     {
-      if (*v24 != v8)
+      if (*v23 != v8)
       {
         objc_enumerationMutation(v4);
       }
 
-      v11 = *(*(&v23 + 1) + 8 * i);
+      v11 = *(*(&v22 + 1) + 8 * i);
       formatDescriptions = [v11 formatDescriptions];
       v13 = [formatDescriptions objectAtIndexedSubscript:0];
 
@@ -371,7 +497,7 @@ LABEL_15:
       }
     }
 
-    v6 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v6 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
   }
 
   while (v6);
@@ -403,9 +529,52 @@ LABEL_15:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
+}
+
+- (id)createMetadataEntryForV3Metadata:(id *)metadata frameIndex:(unint64_t)index time:(id *)time isIDR:(BOOL)r noRecipeGap:(BOOL)gap
+{
+  gapCopy = gap;
+  rCopy = r;
+  var0 = metadata->var0;
+  v13 = objc_alloc_init(FRCLivePhotoMetadata);
+  [(FRCLivePhotoMetadata *)v13 setNoRecipeGap:gapCopy];
+  [(FRCLivePhotoMetadata *)v13 setIsIDR:rCopy];
+  v15 = *time;
+  [(FRCLivePhotoMetadata *)v13 setTime:&v15];
+  [(FRCLivePhotoMetadata *)v13 setFrameIndex:index];
+  if ((var0 & 0x20) != 0)
+  {
+    [(FRCLivePhotoMetadata *)v13 setInterpolated:metadata->var6 != 0];
+    if ((var0 & 4) == 0)
+    {
+LABEL_3:
+      if ((var0 & 8) == 0)
+      {
+        goto LABEL_5;
+      }
+
+      goto LABEL_4;
+    }
+  }
+
+  else if ((var0 & 4) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  [(FRCLivePhotoMetadata *)v13 setPtsInNanos:metadata->var2];
+  [(FRCLivePhotoMetadata *)v13 setOriginalPTSInNanos:metadata->var3];
+  if ((var0 & 8) != 0)
+  {
+LABEL_4:
+    [(FRCLivePhotoMetadata *)v13 setSequenceAdjusterRecipe:metadata->var4];
+    [(FRCLivePhotoMetadata *)v13 setSequenceAdjusterDisplacement:metadata->var5];
+  }
+
+LABEL_5:
+
+  return v13;
 }
 
 - (void)printMetadata:(id)metadata withVideoFrame:(id)frame
@@ -416,7 +585,7 @@ LABEL_15:
   v8 = [metadataCopy ptsInNanos] / 1000000000.0;
   if (metadataCopy)
   {
-    [metadataCopy time];
+    objc_msgSend_time(metadataCopy);
     v9 = v14;
   }
 
@@ -439,7 +608,7 @@ LABEL_15:
   {
     if (frameCopy)
     {
-      [frameCopy presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(frameCopy);
       printf("Video: %4lld");
     }
 
@@ -455,7 +624,7 @@ LABEL_15:
     {
       if (frameCopy)
       {
-        [frameCopy presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(frameCopy);
       }
 
       else
@@ -463,7 +632,7 @@ LABEL_15:
         memset(&time1, 0, sizeof(time1));
       }
 
-      [metadataCopy time];
+      objc_msgSend_time(metadataCopy);
       if (CMTimeCompare(&time1, &time2))
       {
         printf(" != ");
@@ -475,7 +644,7 @@ LABEL_15:
         printf("    ");
       }
 
-      [metadataCopy time];
+      objc_msgSend_time(metadataCopy);
       printf("Metadata: %4lld ", v10);
       [metadataCopy ptsInNanos];
       [metadataCopy originalPTSInNanos];
@@ -484,7 +653,7 @@ LABEL_15:
 
     else
     {
-      [metadataCopy time];
+      objc_msgSend_time(metadataCopy);
       printf("Time %4lld:");
     }
 

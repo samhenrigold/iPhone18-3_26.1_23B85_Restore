@@ -1,28 +1,26 @@
-uint64_t sub_1718()
+uint64_t sub_1718(uint64_t a1)
 {
-  v0 = sub_3E10();
-  v1 = sub_1918(v0);
+  v1 = sub_3E10();
+  sub_1918();
   v3 = v2;
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v1);
-  v7 = &v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_3E40();
-  v9 = sub_1918(v8);
-  v11 = v10;
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v9);
-  v15 = &v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_3E40();
+  sub_1918();
+  v9 = v8;
+  __chkstk_darwin(v10);
+  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_3E30();
-  v16 = sub_3E20();
-  (*(v11 + 8))(v15, v8);
-  if (!v16)
+  v13 = sub_3E20();
+  (*(v9 + 8))(v12, v7);
+  if (!v13)
   {
     sub_3E00();
-    v16 = sub_3DF0();
-    (*(v3 + 8))(v7, v0);
+    v13 = sub_3DF0();
+    (*(v3 + 8))(v6, v1);
   }
 
-  return v16;
+  return v13;
 }
 
 uint64_t sub_18C8@<X0>(uint64_t *a1@<X8>)
@@ -35,16 +33,15 @@ uint64_t sub_18C8@<X0>(uint64_t *a1@<X8>)
 BOOL sub_192C()
 {
   v1 = type metadata accessor for RedirectToCompanionFlow.State(0);
-  v2 = *(*(v1 - 8) + 64);
   __chkstk_darwin(v1 - 8);
-  v4 = &v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = OBJC_IVAR____TtC16FindMyFlowPlugin23RedirectToCompanionFlow_state;
+  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = OBJC_IVAR____TtC16FindMyFlowPlugin23RedirectToCompanionFlow_state;
   swift_beginAccess();
-  sub_3418(v0 + v5, v4);
-  v6 = sub_4040();
-  v7 = sub_2BAC(v4, 2, v6) == 0;
-  sub_347C(v4);
-  return v7;
+  sub_3418(v0 + v4, v3);
+  v5 = sub_4040();
+  v6 = sub_2BAC(v3, 2, v5) == 0;
+  sub_347C(v3);
+  return v6;
 }
 
 uint64_t sub_19F0()
@@ -52,45 +49,39 @@ uint64_t sub_19F0()
   sub_3DE4();
   v1[8] = v2;
   v1[9] = v0;
-  v3 = *(*(sub_3264(&qword_C390, &qword_4538) - 8) + 64);
+  sub_3264(&qword_C390, &qword_4538);
   v1[10] = sub_3DCC();
-  v4 = sub_3EC0();
-  v1[11] = v4;
-  sub_3DAC(v4);
-  v1[12] = v5;
-  v7 = *(v6 + 64);
+  v3 = sub_3EC0();
+  v1[11] = v3;
+  sub_3DAC(v3);
+  v1[12] = v4;
   v1[13] = sub_3DCC();
-  v8 = sub_4030();
-  v1[14] = v8;
-  sub_3DAC(v8);
-  v1[15] = v9;
-  v11 = *(v10 + 64);
+  v5 = sub_4030();
+  v1[14] = v5;
+  sub_3DAC(v5);
+  v1[15] = v6;
   v1[16] = sub_3DCC();
-  v12 = sub_3EB0();
-  v1[17] = v12;
-  sub_3DAC(v12);
-  v1[18] = v13;
-  v15 = *(v14 + 64);
+  v7 = sub_3EB0();
+  v1[17] = v7;
+  sub_3DAC(v7);
+  v1[18] = v8;
   v1[19] = sub_3DCC();
-  v16 = sub_4020();
-  v1[20] = v16;
-  sub_3DAC(v16);
-  v1[21] = v17;
-  v19 = *(v18 + 64);
+  v9 = sub_4020();
+  v1[20] = v9;
+  sub_3DAC(v9);
+  v1[21] = v10;
   v1[22] = sub_3DCC();
-  v20 = sub_3F90();
-  v1[23] = v20;
-  sub_3DAC(v20);
-  v1[24] = v21;
-  v23 = *(v22 + 64);
+  v11 = sub_3F90();
+  v1[23] = v11;
+  sub_3DAC(v11);
+  v1[24] = v12;
   v1[25] = sub_3DCC();
-  v24 = *(*(type metadata accessor for RedirectToCompanionFlow.State(0) - 8) + 64);
+  type metadata accessor for RedirectToCompanionFlow.State(0);
   v1[26] = sub_3DCC();
-  v25 = sub_4040();
-  v1[27] = v25;
-  sub_3DAC(v25);
-  v1[28] = v26;
-  v28 = *(v27 + 64) + 15;
+  v13 = sub_4040();
+  v1[27] = v13;
+  sub_3DAC(v13);
+  v1[28] = v14;
   v1[29] = swift_task_alloc();
   v1[30] = swift_task_alloc();
 
@@ -128,197 +119,176 @@ uint64_t sub_1C80()
     if (v9 == 1)
     {
       v10 = v0[26];
-      v11 = v0[8];
       sub_3FF0();
       sub_347C(v10);
     }
 
     else
     {
-      v30 = v0[24];
-      v29 = v0[25];
-      v31 = v0[23];
-      v32 = v0[8];
-      (*(v30 + 104))(v29, enum case for FlowUnhandledReason.needsServerExecution(_:), v31);
+      v22 = v0[24];
+      v21 = v0[25];
+      v23 = v0[23];
+      (*(v22 + 104))(v21, enum case for FlowUnhandledReason.needsServerExecution(_:), v23);
       sub_4000();
-      (*(v30 + 8))(v29, v31);
+      (*(v22 + 8))(v21, v23);
     }
   }
 
   else
   {
-    v12 = v0[30];
-    v13 = v0[27];
-    v14 = v0[21];
-    v15 = v0[22];
-    v17 = v0[19];
-    v16 = v0[20];
-    v48 = v0[18];
-    v49 = v0[17];
-    v18 = v0[15];
-    v44 = v0[16];
-    v45 = v0[29];
-    v46 = v0[14];
-    v50 = v0[13];
-    v51 = v0[12];
-    v52 = v0[11];
-    v47 = v0[10];
-    v55 = v0[9];
-    v56 = v0[8];
-    v53 = v13;
-    v54 = v0[28];
-    (*(v54 + 32))(v12, v0[26], v13);
+    v11 = v0[30];
+    v12 = v0[27];
+    v13 = v0[21];
+    v14 = v0[22];
+    v16 = v0[19];
+    v15 = v0[20];
+    v30 = v0[18];
+    v31 = v0[17];
+    v17 = v0[15];
+    v26 = v0[16];
+    v27 = v0[29];
+    v28 = v0[14];
+    v32 = v0[13];
+    v33 = v0[12];
+    v34 = v0[11];
+    v29 = v0[10];
+    v35 = v12;
+    v36 = v0[28];
+    (*(v36 + 32))(v11, v0[26], v12);
     sub_3EF0();
-    (*(v14 + 104))(v15, enum case for CompanionDeviceInfoRequirement.supportsPeerToPeerHandoff(_:), v16);
+    (*(v13 + 104))(v14, enum case for CompanionDeviceInfoRequirement.supportsPeerToPeerHandoff(_:), v15);
     sub_3EE0();
-    (*(v14 + 8))(v15, v16);
+    (*(v13 + 8))(v14, v15);
     sub_34D8();
 
     sub_3EA0();
-    (*(v54 + 16))(v45, v12, v13);
-    (*(v18 + 104))(v44, enum case for ExecuteOnRemoteDeviceSpecification.userCompanion(_:), v46);
+    (*(v36 + 16))(v27, v11, v12);
+    (*(v17 + 104))(v26, enum case for ExecuteOnRemoteDeviceSpecification.userCompanion(_:), v28);
     sub_4010();
-    v19 = sub_3E70();
-    v20 = *(v19 + 48);
-    v21 = *(v19 + 52);
+    sub_3E70();
     swift_allocObject();
     v0[5] = sub_3E60();
     sub_3264(&qword_C3A0, &qword_4540);
-    v22 = sub_3F30();
-    sub_3DAC(v22);
-    v24 = *(v23 + 72);
-    v26 = (*(v25 + 80) + 32) & ~*(v25 + 80);
+    v18 = sub_3F30();
+    sub_3DAC(v18);
     *(swift_allocObject() + 16) = xmmword_4420;
-    (*(v48 + 16))(v47, v17, v49);
-    sub_2C48(v47, 0, 1, v49);
+    (*(v30 + 16))(v29, v16, v31);
+    sub_2C48(v29, 0, 1, v31);
     sub_3E90();
     sub_3F10();
-    (*(v51 + 8))(v50, v52);
+    (*(v33 + 8))(v32, v34);
     sub_3F20();
-    v27 = sub_3E50();
+    v19 = sub_3E50();
 
-    v0[6] = v27;
+    v0[6] = v19;
     sub_3F00();
-    v28 = sub_3F60();
+    v20 = sub_3F60();
 
-    v0[7] = v28;
+    v0[7] = v20;
 
     sub_3264(&qword_C3A8, &qword_4548);
     sub_3534();
     sub_3FE0();
 
-    (*(v48 + 8))(v17, v49);
-    (*(v54 + 8))(v12, v53);
+    (*(v30 + 8))(v16, v31);
+    (*(v36 + 8))(v11, v35);
   }
 
-  v34 = v0[29];
-  v33 = v0[30];
-  v36 = v0[25];
-  v35 = v0[26];
-  v37 = v0[22];
-  v38 = v0[19];
-  v39 = v0[16];
-  v40 = v0[13];
-  v41 = v0[10];
+  v24 = v0[1];
 
-  v42 = v0[1];
-
-  return v42();
+  return v24();
 }
 
 uint64_t sub_2254(uint64_t a1, uint64_t a2)
 {
   v4 = sub_3E80();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = __chkstk_darwin(v4);
-  v9 = &v54 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __chkstk_darwin(v7);
-  v12 = &v54 - v11;
-  v13 = __chkstk_darwin(v10);
-  v15 = (&v54 - v14);
-  __chkstk_darwin(v13);
-  v17 = &v54 - v16;
-  v18 = sub_3264(&qword_C3B8, &qword_4550);
-  v19 = *(*(v18 - 8) + 64);
-  __chkstk_darwin(v18 - 8);
-  v21 = &v54 - v20;
-  v22 = type metadata accessor for RedirectToCompanionFlow.State(0);
-  v23 = *(*(v22 - 8) + 64);
-  __chkstk_darwin(v22 - 8);
-  v25 = &v54 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_35E0(a1, v21);
-  v26 = sub_3264(&qword_C3C0, &qword_4558);
-  if (sub_2BAC(v21, 1, v26) == 1)
+  v6 = __chkstk_darwin(v4);
+  v8 = &v51 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __chkstk_darwin(v6);
+  v11 = &v51 - v10;
+  v12 = __chkstk_darwin(v9);
+  v14 = (&v51 - v13);
+  __chkstk_darwin(v12);
+  v16 = &v51 - v15;
+  v17 = sub_3264(&qword_C3B8, &qword_4550);
+  __chkstk_darwin(v17 - 8);
+  v19 = &v51 - v18;
+  v20 = type metadata accessor for RedirectToCompanionFlow.State(0);
+  __chkstk_darwin(v20 - 8);
+  v22 = &v51 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_35E0(a1, v19);
+  v23 = sub_3264(&qword_C3C0, &qword_4558);
+  if (sub_2BAC(v19, 1, v23) == 1)
   {
     if (qword_C150 != -1)
     {
       swift_once();
     }
 
-    v27 = sub_40A0();
-    sub_33E0(v27, qword_C660);
-    v28 = sub_4080();
-    v29 = sub_40D0();
-    if (os_log_type_enabled(v28, v29))
+    v24 = sub_40A0();
+    sub_33E0(v24, qword_C660);
+    v25 = sub_4080();
+    v26 = sub_40D0();
+    if (os_log_type_enabled(v25, v26))
     {
-      v30 = swift_slowAlloc();
-      *v30 = 0;
-      _os_log_impl(&dword_0, v28, v29, "[RedirectToCompanionFlow] ExecuteOnRemote guard flows failed, assuming a server redirect or handoff should have happened, doing nothing.", v30, 2u);
+      v27 = swift_slowAlloc();
+      *v27 = 0;
+      _os_log_impl(&dword_0, v25, v26, "[RedirectToCompanionFlow] ExecuteOnRemote guard flows failed, assuming a server redirect or handoff should have happened, doing nothing.", v27, 2u);
     }
 
-    v31 = sub_4040();
-    sub_2C48(v25, 1, 2, v31);
-    sub_3650(v21);
+    v28 = sub_4040();
+    sub_2C48(v22, 1, 2, v28);
+    sub_3650(v19);
   }
 
   else
   {
-    (*(v5 + 32))(v17, v21, v4);
-    v32 = *(v5 + 16);
-    v59 = v17;
-    v32(v15);
-    if ((*(v5 + 88))(v15, v4) == enum case for ExecuteOnRemoteFlowResult.remoteFlowFailure(_:))
+    (*(v5 + 32))(v16, v19, v4);
+    v29 = *(v5 + 16);
+    v56 = v16;
+    v29(v14);
+    if ((*(v5 + 88))(v14, v4) == enum case for ExecuteOnRemoteFlowResult.remoteFlowFailure(_:))
     {
-      (*(v5 + 96))(v15, v4);
-      v33 = *v15;
+      (*(v5 + 96))(v14, v4);
+      v30 = *v14;
       if (qword_C150 != -1)
       {
         swift_once();
       }
 
-      v34 = sub_40A0();
-      sub_33E0(v34, qword_C660);
+      v31 = sub_40A0();
+      sub_33E0(v31, qword_C660);
       swift_errorRetain();
-      v35 = sub_4080();
-      v36 = sub_40D0();
+      v32 = sub_4080();
+      v33 = sub_40D0();
 
-      if (os_log_type_enabled(v35, v36))
+      if (os_log_type_enabled(v32, v33))
       {
-        v37 = swift_slowAlloc();
-        v58 = swift_slowAlloc();
-        v60 = v33;
-        v61[0] = v58;
-        *v37 = 136315138;
+        v34 = swift_slowAlloc();
+        v55 = swift_slowAlloc();
+        v57 = v30;
+        v58[0] = v55;
+        *v34 = 136315138;
         swift_errorRetain();
         sub_3264(&qword_C3C8, &qword_4560);
-        v38 = sub_40B0();
-        v40 = a2;
-        v41 = sub_371C(v38, v39, v61);
+        v35 = sub_40B0();
+        v37 = a2;
+        v38 = sub_371C(v35, v36, v58);
 
-        *(v37 + 4) = v41;
-        a2 = v40;
-        _os_log_impl(&dword_0, v35, v36, "[RedirectToCompanionFlow] ExecuteOnRemote failed with an error=%s: Possible server redirect. Will redirect this input to server as a fallback.", v37, 0xCu);
-        sub_3C8C(v58);
+        *(v34 + 4) = v38;
+        a2 = v37;
+        _os_log_impl(&dword_0, v32, v33, "[RedirectToCompanionFlow] ExecuteOnRemote failed with an error=%s: Possible server redirect. Will redirect this input to server as a fallback.", v34, 0xCu);
+        sub_3C8C(v55);
       }
 
       else
       {
       }
 
-      (*(v5 + 8))(v59, v4);
-      v50 = sub_4040();
-      sub_2C48(v25, 2, 2, v50);
+      (*(v5 + 8))(v56, v4);
+      v47 = sub_4040();
+      sub_2C48(v22, 2, 2, v47);
     }
 
     else
@@ -328,58 +298,58 @@ uint64_t sub_2254(uint64_t a1, uint64_t a2)
         swift_once();
       }
 
-      v42 = sub_40A0();
-      sub_33E0(v42, qword_C660);
-      (v32)(v12, v59, v4);
-      v43 = sub_4080();
-      LODWORD(v58) = sub_40E0();
-      if (os_log_type_enabled(v43, v58))
+      v39 = sub_40A0();
+      sub_33E0(v39, qword_C660);
+      (v29)(v11, v56, v4);
+      v40 = sub_4080();
+      LODWORD(v55) = sub_40E0();
+      if (os_log_type_enabled(v40, v55))
       {
-        v44 = swift_slowAlloc();
-        v57 = a2;
-        v45 = v44;
-        v56 = swift_slowAlloc();
-        v61[0] = v56;
-        *v45 = 136315138;
-        (v32)(v9, v12, v4);
-        v55 = sub_40B0();
-        v47 = v46;
-        v48 = *(v5 + 8);
-        v48(v12, v4);
-        v49 = sub_371C(v55, v47, v61);
+        v41 = swift_slowAlloc();
+        v54 = a2;
+        v42 = v41;
+        v53 = swift_slowAlloc();
+        v58[0] = v53;
+        *v42 = 136315138;
+        (v29)(v8, v11, v4);
+        v52 = sub_40B0();
+        v44 = v43;
+        v45 = *(v5 + 8);
+        v45(v11, v4);
+        v46 = sub_371C(v52, v44, v58);
 
-        *(v45 + 4) = v49;
-        _os_log_impl(&dword_0, v43, v58, "[RedirectToCompanionFlow] ExecuteOnRemote flow completed with: %s", v45, 0xCu);
-        sub_3C8C(v56);
+        *(v42 + 4) = v46;
+        _os_log_impl(&dword_0, v40, v55, "[RedirectToCompanionFlow] ExecuteOnRemote flow completed with: %s", v42, 0xCu);
+        sub_3C8C(v53);
 
-        a2 = v57;
+        a2 = v54;
       }
 
       else
       {
 
-        v48 = *(v5 + 8);
-        v48(v12, v4);
+        v45 = *(v5 + 8);
+        v45(v11, v4);
       }
 
-      v48(v59, v4);
-      v51 = sub_4040();
-      sub_2C48(v25, 1, 2, v51);
-      v48(v15, v4);
+      v45(v56, v4);
+      v48 = sub_4040();
+      sub_2C48(v22, 1, 2, v48);
+      v45(v14, v4);
     }
   }
 
-  v52 = OBJC_IVAR____TtC16FindMyFlowPlugin23RedirectToCompanionFlow_state;
+  v49 = OBJC_IVAR____TtC16FindMyFlowPlugin23RedirectToCompanionFlow_state;
   swift_beginAccess();
-  sub_36B8(v25, a2 + v52);
+  sub_36B8(v22, a2 + v49);
   swift_endAccess();
-  return sub_347C(v25);
+  return sub_347C(v22);
 }
 
-uint64_t sub_2960()
+uint64_t sub_2960(uint64_t a1, uint64_t a2)
 {
   type metadata accessor for RedirectToCompanionFlow(0);
-  sub_31EC(&qword_C380);
+  sub_31EC(&qword_C380, &unk_4478);
   return sub_3F40();
 }
 
@@ -392,12 +362,11 @@ uint64_t sub_29DC()
   return _swift_deallocClassInstance(v0, v1, v2);
 }
 
-uint64_t sub_2A68()
+uint64_t sub_2A68(uint64_t a1)
 {
   result = type metadata accessor for RedirectToCompanionFlow.State(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -408,7 +377,7 @@ uint64_t sub_2A68()
   return result;
 }
 
-uint64_t sub_2B18(uint64_t a1, uint64_t *a2)
+uint64_t sub_2B18(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -451,24 +420,23 @@ uint64_t sub_2BE8(uint64_t a1, int a2, uint64_t a3)
   return sub_2C48(a1, v5, a3, v6);
 }
 
-uint64_t sub_2C74()
+uint64_t sub_2C74(uint64_t a1)
 {
-  v0 = sub_4040();
-  if (v1 <= 0x3F)
+  v1 = sub_4040();
+  if (v2 <= 0x3F)
   {
     swift_cvw_initEnumMetadataSinglePayloadWithLayoutString();
     return 0;
   }
 
-  return v0;
+  return v1;
 }
 
-void (*sub_2D14(void *a1))(void *a1)
+uint64_t (*sub_2D14(uint64_t *a1))()
 {
-  v3 = sub_3230(0x28uLL);
-  *a1 = v3;
-  v4 = *v1;
-  v3[4] = sub_4050();
+  v2 = sub_3230(0x28uLL);
+  *a1 = v2;
+  v2[4] = sub_4050();
   return sub_2D8C;
 }
 
@@ -482,11 +450,10 @@ void sub_2D8C(void *a1)
 
 uint64_t sub_2DFC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = async function pointer to Flow.onAsync(input:)[1];
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = sub_2EAC;
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = sub_2EAC;
 
   return Flow.onAsync(input:)(a1, a2, a3);
 }
@@ -495,23 +462,21 @@ uint64_t sub_2EAC()
 {
   sub_3DE4();
   v2 = v1;
-  v3 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
   sub_3DBC();
-  *v5 = v4;
+  *v4 = v3;
 
-  v6 = *(v4 + 8);
+  v5 = *(v3 + 8);
 
-  return v6(v2);
+  return v5(v2);
 }
 
 uint64_t sub_2FC0()
 {
-  v2 = *v0;
-  v3 = swift_task_alloc();
-  *(v1 + 16) = v3;
-  *v3 = v1;
-  v3[1] = sub_305C;
+  v1 = swift_task_alloc();
+  *(v0 + 16) = v1;
+  *v1 = v0;
+  v1[1] = sub_305C;
 
   return sub_19F0();
 }
@@ -519,14 +484,13 @@ uint64_t sub_2FC0()
 uint64_t sub_305C()
 {
   sub_3DE4();
-  v1 = *(*v0 + 16);
-  v2 = *v0;
+  v1 = *v0;
   sub_3DBC();
-  *v3 = v2;
+  *v2 = v1;
 
-  v4 = *(v2 + 8);
+  v3 = *(v1 + 8);
 
-  return v4();
+  return v3();
 }
 
 uint64_t sub_3144(uint64_t a1, uint64_t a2)
@@ -536,7 +500,7 @@ uint64_t sub_3144(uint64_t a1, uint64_t a2)
   return Flow<>.exitValue.getter(v3, a2);
 }
 
-uint64_t sub_31EC(unint64_t *a1)
+uint64_t sub_31EC(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -564,7 +528,6 @@ uint64_t sub_3264(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -574,11 +537,10 @@ uint64_t sub_3264(uint64_t *a1, uint64_t *a2)
 
 uint64_t sub_32AC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = async function pointer to HandoffSessionToCompanionFlowStrategyAsync.makeHandoffResponse()[1];
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = sub_305C;
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = sub_305C;
 
   return HandoffSessionToCompanionFlowStrategyAsync.makeHandoffResponse()(a1, a2, a3);
 }
@@ -645,7 +607,6 @@ uint64_t sub_3598(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -674,7 +635,7 @@ uint64_t sub_36B8(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_371C(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_371C(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_37E0(v11, 0, 0, 1, a1, a2);
@@ -767,16 +728,14 @@ LABEL_8:
 
 char *sub_38E0(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_392C(a1, a2);
+  v3 = sub_392C(a1, a2);
   sub_3A44(&off_8508);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_392C(uint64_t a1, unint64_t a2)
 {
-  v4 = HIBYTE(a2) & 0xF;
+  v4 = (HIBYTE(a2) & 0xF);
   if ((a2 & 0x1000000000000000) != 0)
   {
     goto LABEL_19;
@@ -826,8 +785,8 @@ char *sub_392C(uint64_t a1, unint64_t a2)
       {
         if ((a1 & 0x1000000000000000) != 0)
         {
-          v8 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
-          v4 = a1 & 0xFFFFFFFFFFFFLL;
+          v8 = ((a2 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v4 = (a1 & 0xFFFFFFFFFFFFLL);
         }
 
         else
@@ -879,21 +838,20 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (!result || v5 > *(v3 + 24) >> 1)
   {
     if (v4 <= v5)
     {
-      v8 = v4 + v2;
+      v7 = v4 + v2;
     }
 
     else
     {
-      v8 = v4;
+      v7 = v4;
     }
 
-    result = sub_3B98(result, v8, 1, v3);
+    result = sub_3B98(result, v7, 1, v3);
     v3 = result;
   }
 
@@ -908,15 +866,15 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v9 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v9 < v2)
+  v8 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v9 + 32), (v6 + 32), v2);
+  memcpy((v3 + v8 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -925,12 +883,12 @@ LABEL_14:
     return result;
   }
 
-  v10 = *(v3 + 16);
-  v11 = __OFADD__(v10, v2);
-  v12 = v10 + v2;
-  if (!v11)
+  v9 = *(v3 + 16);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v12;
+    *(v3 + 16) = v11;
     goto LABEL_14;
   }
 
@@ -1037,15 +995,17 @@ char *sub_3B98(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_3C8C(uint64_t *a1)
+uint64_t sub_3C8C(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_3CD8(uint64_t a1, uint64_t a2)
@@ -1058,14 +1018,11 @@ uint64_t sub_3CD8(uint64_t a1, uint64_t a2)
 
 uint64_t *sub_3D38(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

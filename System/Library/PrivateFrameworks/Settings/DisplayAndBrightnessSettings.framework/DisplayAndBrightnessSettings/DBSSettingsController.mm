@@ -205,14 +205,14 @@ void __48__DBSSettingsController_initWithNibName_bundle___block_invoke_2(uint64_
   v2 = [*(a1 + 32) externalDisplayInfo];
   if (v2)
   {
-    v3 = v2;
-    v4 = DBSChamoisEnabled();
+    v4 = v2;
+    v5 = DBSChamoisEnabled(v2, v3);
 
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 32);
+      v6 = *(a1 + 32);
 
-      [v5 insertArrangementSpecifier];
+      [v6 insertArrangementSpecifier];
     }
   }
 }
@@ -262,7 +262,7 @@ void __48__DBSSettingsController_initWithNibName_bundle___block_invoke_2(uint64_
   {
     v5 = objc_alloc(MEMORY[0x277CCAEB8]);
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-    v7 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+    v7 = DBS_BundleForDisplayAndBrightnessSettingsFramework(currentLocale);
     bundleURL = [v7 bundleURL];
     v9 = [v5 initWithKey:@"DISPLAY_AND_BRIGHTNESS" defaultValue:0 table:@"Display" locale:currentLocale bundleURL:bundleURL];
 
@@ -347,7 +347,7 @@ void __48__DBSSettingsController_initWithNibName_bundle___block_invoke_2(uint64_
 
 - (id)specifiers
 {
-  v56[3] = *MEMORY[0x277D85DE8];
+  v58[3] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (v4)
@@ -377,10 +377,10 @@ void __48__DBSSettingsController_initWithNibName_bundle___block_invoke_2(uint64_
     _deviceAppearanceScheduleSpecifier = [v5 specifierForID:@"APPEARANCE_GROUP"];
     v9 = [v5 specifierForID:@"DEVICE_APPEARANCE"];
     v10 = [v5 specifierForID:@"AUTOMATIC"];
-    v56[0] = _deviceAppearanceScheduleSpecifier;
-    v56[1] = v9;
-    v56[2] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:3];
+    v58[0] = _deviceAppearanceScheduleSpecifier;
+    v58[1] = v9;
+    v58[2] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:3];
     [v5 removeObjectsInArray:v11];
   }
 
@@ -427,8 +427,8 @@ LABEL_7:
 
   if ([(DBSSettingsController *)self shouldShowAlwaysOn])
   {
-    v51 = v14;
-    v52 = v3;
+    v53 = v14;
+    v54 = v3;
     v17 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"ALWAYS_ON_GROUP"];
     [v17 setProperty:@"j8/Omm6s1lsmTDFsXjsBfA" forKey:*MEMORY[0x277D400A0]];
     v18 = DBS_LocalizedStringForDisplays(@"ALWAYS_ON_DESCRIPTION");
@@ -447,32 +447,32 @@ LABEL_7:
 
     else
     {
-      v48 = v21 + 1;
+      v50 = v21 + 1;
       do
       {
-        v25 = v48;
-        if (v48 >= [v22 count])
+        v25 = v50;
+        if (v50 >= [v22 count])
         {
           break;
         }
 
-        v49 = [v22 objectAtIndexedSubscript:v25];
-        cellType = [v49 cellType];
+        v51 = [v22 objectAtIndexedSubscript:v25];
+        cellType = [v51 cellType];
 
-        v48 = v25 + 1;
+        v50 = v25 + 1;
       }
 
       while (cellType);
     }
 
-    v55[0] = v17;
-    v55[1] = v20;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
+    v57[0] = v17;
+    v57[1] = v20;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
     v27 = [MEMORY[0x277CCAB58] indexSetWithIndexesInRange:{v25, objc_msgSend(v26, "count")}];
     [v22 insertObjects:v26 atIndexes:v27];
 
-    v14 = v51;
-    v3 = v52;
+    v14 = v53;
+    v3 = v54;
   }
 
   v28 = [v5 indexOfSpecifierWithID:@"LOCK_WAKE_GROUP"];
@@ -490,8 +490,8 @@ LABEL_7:
 
       else
       {
-        v46 = [v29 objectAtIndexedSubscript:v28 + 1];
-        cellType3 = [v46 cellType];
+        v48 = [v29 objectAtIndexedSubscript:v28 + 1];
+        cellType3 = [v48 cellType];
 
         if (cellType3)
         {
@@ -511,14 +511,14 @@ LABEL_28:
   _zoomAndProSpecifierVendor = [(DBSSettingsController *)self _zoomAndProSpecifierVendor];
   [_zoomAndProSpecifierVendor setDelegate:self];
 
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __35__DBSSettingsController_specifiers__block_invoke;
-  v53[3] = &unk_2784594B8;
-  v53[4] = self;
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __35__DBSSettingsController_specifiers__block_invoke;
+  v55[3] = &unk_2784594B8;
+  v55[4] = self;
   v34 = v29;
-  v54 = v34;
-  v35 = MEMORY[0x223D9E740](v53);
+  v56 = v34;
+  v35 = MEMORY[0x223D9E740](v55);
   v36 = +[DBSExternalDisplayManager defaultManager];
   externalDisplayAvailable = [v36 externalDisplayAvailable];
 
@@ -529,7 +529,7 @@ LABEL_28:
     connectedDisplaySpecifiers2 = [(DBSSettingsController *)self connectedDisplaySpecifiers];
     [v34 insertObjects:connectedDisplaySpecifiers2 atIndexes:v39];
 
-    if ((DBSChamoisEnabled() & 1) == 0)
+    if ((DBSChamoisEnabled(v41, v42) & 1) == 0)
     {
       v35[2](v35);
     }
@@ -543,16 +543,16 @@ LABEL_28:
   [(DBSSettingsController *)self _updateAutoLockSpecifiers:v34];
   [(DBSSettingsController *)self _localizeAutoLockTitlesWithSpecifiers:v34];
   mEMORY[0x277D3F990] = [MEMORY[0x277D3F990] sharedManager];
-  v42 = [mEMORY[0x277D3F990] capabilityBoolAnswer:*MEMORY[0x277D40060]];
+  v44 = [mEMORY[0x277D3F990] capabilityBoolAnswer:*MEMORY[0x277D40060]];
 
-  if (v42)
+  if (v44)
   {
     [(DBSSettingsController *)self _reloadBlueLightSpecifiers:v34 reloadUI:0];
   }
 
-  v43 = *(&self->super.super.super.super.super.isa + v3);
+  v45 = *(&self->super.super.super.super.super.isa + v3);
   *(&self->super.super.super.super.super.isa + v3) = v34;
-  v44 = v34;
+  v46 = v34;
 
   v4 = *(&self->super.super.super.super.super.isa + v3);
 LABEL_36:
@@ -1130,28 +1130,28 @@ void __45__DBSSettingsController_profileNotification___block_invoke(uint64_t a1)
 
 - (void)presentModalMagnifyController
 {
-  v8 = objc_alloc_init(MEMORY[0x277D3FAC8]);
+  v10 = objc_alloc_init(MEMORY[0x277D3FAC8]);
   v3 = *MEMORY[0x277D3FD20];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   [v4 setProperty:v6 forKey:*MEMORY[0x277D400B8]];
 
-  [v8 setSpecifier:*(&self->super.super.super.super.super.isa + v3)];
-  [v8 setParentController:self];
-  [v8 setupController];
-  if (DBSReverseZoomEnabled())
+  [v10 setSpecifier:*(&self->super.super.super.super.super.isa + v3)];
+  [v10 setParentController:self];
+  setupController = [v10 setupController];
+  if (DBSReverseZoomEnabled(setupController, v8))
   {
-    v7 = 2;
+    v9 = 2;
   }
 
   else
   {
-    v7 = 1;
+    v9 = 1;
   }
 
-  [v8 setModalPresentationStyle:v7];
-  [(DBSSettingsController *)self presentViewController:v8 animated:1 completion:0];
+  [v10 setModalPresentationStyle:v9];
+  [(DBSSettingsController *)self presentViewController:v10 animated:1 completion:0];
 }
 
 - (BOOL)proModeSupported
@@ -1211,7 +1211,7 @@ void __45__DBSSettingsController_profileNotification___block_invoke(uint64_t a1)
 - (void)updateForExternalMonitorAvailability:(BOOL)availability
 {
   availabilityCopy = availability;
-  if (DBSChamoisEnabled())
+  if (DBSChamoisEnabled(self, a2))
   {
     v5 = *MEMORY[0x277D3FC48];
     if (*(&self->super.super.super.super.super.isa + v5))
@@ -1407,125 +1407,127 @@ LABEL_12:
 - (id)connectedDisplaySpecifiers
 {
   array = [MEMORY[0x277CBEB18] array];
-  v4 = *MEMORY[0x277D3FC48];
-  if (!*(&self->super.super.super.super.super.isa + v4) || ([(DBSSettingsController *)self specifierForID:@"CONNECTED_DISPLAYS"], (v5 = objc_claimAutoreleasedReturnValue()) == 0))
+  v5 = array;
+  v6 = *MEMORY[0x277D3FC48];
+  if (!*(&self->super.super.super.super.super.isa + v6) || ([(DBSSettingsController *)self specifierForID:@"CONNECTED_DISPLAYS"], array = objc_claimAutoreleasedReturnValue(), (v7 = array) == 0))
   {
-    v6 = MEMORY[0x277D3FAD8];
-    if (DBSChamoisEnabled())
+    v8 = MEMORY[0x277D3FAD8];
+    if (DBSChamoisEnabled(array, v4))
     {
-      v7 = @"CONNECTED_DISPLAYS";
+      v9 = @"CONNECTED_DISPLAYS";
     }
 
     else
     {
-      v7 = @"CONNECTED_DISPLAYS_LEGACY";
+      v9 = @"CONNECTED_DISPLAYS_LEGACY";
     }
 
-    v8 = DBS_LocalizedStringForConnectedDisplays(v7);
-    v5 = [v6 groupSpecifierWithID:@"CONNECTED_DISPLAYS" name:v8];
+    v10 = DBS_LocalizedStringForConnectedDisplays(v9);
+    v7 = [v8 groupSpecifierWithID:@"CONNECTED_DISPLAYS" name:v10];
 
-    [array addObject:v5];
+    array = [v5 addObject:v7];
   }
 
-  if (DBSChamoisEnabled())
+  v11 = DBSChamoisEnabled(array, v4);
+  if (v11)
   {
-    if (DBSFlexibleWindowingEnabled())
+    if (DBSFlexibleWindowingEnabled(v11, v12))
     {
-      v9 = +[DBSExternalDisplayManager defaultManager];
-      deviceSupportsChamoisExternalDisplay = [v9 deviceSupportsChamoisExternalDisplay];
+      v13 = +[DBSExternalDisplayManager defaultManager];
+      deviceSupportsChamoisExternalDisplay = [v13 deviceSupportsChamoisExternalDisplay];
 
       if (deviceSupportsChamoisExternalDisplay)
       {
-        if (!*(&self->super.super.super.super.super.isa + v4) || ([(DBSSettingsController *)self specifierForID:@"DISPLAY_MULTITASKING"], (v11 = objc_claimAutoreleasedReturnValue()) == 0))
+        if (!*(&self->super.super.super.super.super.isa + v6) || ([(DBSSettingsController *)self specifierForID:@"DISPLAY_MULTITASKING"], (v15 = objc_claimAutoreleasedReturnValue()) == 0))
         {
-          v11 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:13 edit:0];
-          [v11 setProperty:@"DISPLAY_MULTITASKING" forKey:*MEMORY[0x277D3FFB8]];
-          [v11 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
-          [array addObject:v11];
+          v15 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:13 edit:0];
+          [v15 setProperty:@"DISPLAY_MULTITASKING" forKey:*MEMORY[0x277D3FFB8]];
+          [v15 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
+          [v5 addObject:v15];
         }
       }
     }
 
-    if (!*(&self->super.super.super.super.super.isa + v4) || ([(DBSSettingsController *)self specifierForID:@"MAIN_DISPLAY"], (v12 = objc_claimAutoreleasedReturnValue()) == 0))
+    if (!*(&self->super.super.super.super.super.isa + v6) || ([(DBSSettingsController *)self specifierForID:@"MAIN_DISPLAY"], (v16 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      v13 = MEMORY[0x277D3FAD8];
-      v14 = +[DBSExternalDisplayManager defaultManager];
-      mainDisplayName = [v14 mainDisplayName];
-      v12 = [v13 preferenceSpecifierNamed:mainDisplayName target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
+      v17 = MEMORY[0x277D3FAD8];
+      v18 = +[DBSExternalDisplayManager defaultManager];
+      mainDisplayName = [v18 mainDisplayName];
+      v16 = [v17 preferenceSpecifierNamed:mainDisplayName target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
 
-      [v12 setProperty:@"MAIN_DISPLAY" forKey:*MEMORY[0x277D3FFB8]];
-      if (DBSFlexibleWindowingEnabled())
+      v20 = [v16 setProperty:@"MAIN_DISPLAY" forKey:*MEMORY[0x277D3FFB8]];
+      if (DBSFlexibleWindowingEnabled(v20, v21))
       {
-        v16 = [MEMORY[0x277D755B8] systemImageNamed:@"ipad.landscape" compatibleWithTraitCollection:0];
-        [v12 setProperty:v16 forKey:*MEMORY[0x277D3FFC0]];
+        v22 = [MEMORY[0x277D755B8] systemImageNamed:@"ipad.landscape" compatibleWithTraitCollection:0];
+        [v16 setProperty:v22 forKey:*MEMORY[0x277D3FFC0]];
       }
 
       else
       {
-        v20 = [MEMORY[0x277D755B8] systemImageNamed:@"ipad" compatibleWithTraitCollection:0];
-        v21 = [MEMORY[0x277D755D0] configurationWithPointSize:40.0];
-        v22 = [v20 imageWithSymbolConfiguration:v21];
-        [v12 setProperty:v22 forKey:*MEMORY[0x277D3FFC0]];
+        v26 = [MEMORY[0x277D755B8] systemImageNamed:@"ipad" compatibleWithTraitCollection:0];
+        v27 = [MEMORY[0x277D755D0] configurationWithPointSize:40.0];
+        v28 = [v26 imageWithSymbolConfiguration:v27];
+        [v16 setProperty:v28 forKey:*MEMORY[0x277D3FFC0]];
 
-        [v12 setProperty:&unk_28349F6E8 forKey:*MEMORY[0x277D40140]];
-        [v12 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
+        [v16 setProperty:&unk_28349F6E8 forKey:*MEMORY[0x277D40140]];
+        [v16 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
       }
 
-      [array addObject:v12];
+      [v5 addObject:v16];
     }
 
-    if (!*(&self->super.super.super.super.super.isa + v4) || ([(DBSSettingsController *)self specifierForID:@"EXTERNAL_DISPLAY"], (v23 = objc_claimAutoreleasedReturnValue()) == 0))
+    if (!*(&self->super.super.super.super.super.isa + v6) || ([(DBSSettingsController *)self specifierForID:@"EXTERNAL_DISPLAY"], (v29 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      v24 = MEMORY[0x277D3FAD8];
-      v25 = +[DBSExternalDisplayManager defaultManager];
-      externalDisplayName = [v25 externalDisplayName];
-      v23 = [v24 preferenceSpecifierNamed:externalDisplayName target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
+      v30 = MEMORY[0x277D3FAD8];
+      v31 = +[DBSExternalDisplayManager defaultManager];
+      externalDisplayName = [v31 externalDisplayName];
+      v29 = [v30 preferenceSpecifierNamed:externalDisplayName target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
 
-      [v23 setProperty:@"EXTERNAL_DISPLAY" forKey:*MEMORY[0x277D3FFB8]];
-      LODWORD(externalDisplayName) = DBSFlexibleWindowingEnabled();
-      v27 = [MEMORY[0x277D755B8] systemImageNamed:@"display" compatibleWithTraitCollection:0];
+      v33 = [v29 setProperty:@"EXTERNAL_DISPLAY" forKey:*MEMORY[0x277D3FFB8]];
+      LODWORD(externalDisplayName) = DBSFlexibleWindowingEnabled(v33, v34);
+      v35 = [MEMORY[0x277D755B8] systemImageNamed:@"display" compatibleWithTraitCollection:0];
       if (externalDisplayName)
       {
-        [v23 setProperty:v27 forKey:*MEMORY[0x277D3FFC0]];
+        [v29 setProperty:v35 forKey:*MEMORY[0x277D3FFC0]];
       }
 
       else
       {
-        v28 = [MEMORY[0x277D755D0] configurationWithPointSize:50.0];
-        v29 = [v27 imageWithSymbolConfiguration:v28];
-        [v23 setProperty:v29 forKey:*MEMORY[0x277D3FFC0]];
+        v36 = [MEMORY[0x277D755D0] configurationWithPointSize:50.0];
+        v37 = [v35 imageWithSymbolConfiguration:v36];
+        [v29 setProperty:v37 forKey:*MEMORY[0x277D3FFC0]];
 
-        [v23 setProperty:&unk_28349F6E8 forKey:*MEMORY[0x277D40140]];
-        [v23 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
+        [v29 setProperty:&unk_28349F6E8 forKey:*MEMORY[0x277D40140]];
+        [v29 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
       }
 
-      [array addObject:v23];
+      [v5 addObject:v29];
     }
 
     externalDisplayInfo = [(DBSSettingsController *)self externalDisplayInfo];
 
     if (externalDisplayInfo)
     {
-      if (!*(&self->super.super.super.super.super.isa + v4) || ([(DBSSettingsController *)self specifierForID:@"DISPLAY_ARRANGEMENT"], (makeArrangementSpecifier = objc_claimAutoreleasedReturnValue()) == 0))
+      if (!*(&self->super.super.super.super.super.isa + v6) || ([(DBSSettingsController *)self specifierForID:@"DISPLAY_ARRANGEMENT"], (makeArrangementSpecifier = objc_claimAutoreleasedReturnValue()) == 0))
       {
         makeArrangementSpecifier = [(DBSSettingsController *)self makeArrangementSpecifier];
-        [array addObject:makeArrangementSpecifier];
+        [v5 addObject:makeArrangementSpecifier];
       }
     }
   }
 
-  else if (!*(&self->super.super.super.super.super.isa + v4) || ([(DBSSettingsController *)self specifierForID:@"EXTERNAL_DISPLAY"], (v12 = objc_claimAutoreleasedReturnValue()) == 0))
+  else if (!*(&self->super.super.super.super.super.isa + v6) || ([(DBSSettingsController *)self specifierForID:@"EXTERNAL_DISPLAY"], (v16 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v17 = MEMORY[0x277D3FAD8];
-    v18 = +[DBSExternalDisplayManager defaultManager];
-    externalDisplayName2 = [v18 externalDisplayName];
-    v12 = [v17 preferenceSpecifierNamed:externalDisplayName2 target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
+    v23 = MEMORY[0x277D3FAD8];
+    v24 = +[DBSExternalDisplayManager defaultManager];
+    externalDisplayName2 = [v24 externalDisplayName];
+    v16 = [v23 preferenceSpecifierNamed:externalDisplayName2 target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
 
-    [v12 setProperty:@"EXTERNAL_DISPLAY" forKey:*MEMORY[0x277D3FFB8]];
-    [array addObject:v12];
+    [v16 setProperty:@"EXTERNAL_DISPLAY" forKey:*MEMORY[0x277D3FFB8]];
+    [v5 addObject:v16];
   }
 
-  return array;
+  return v5;
 }
 
 - (id)makeArrangementSpecifier
@@ -1534,11 +1536,11 @@ LABEL_12:
   v4 = DBS_LocalizedStringForConnectedDisplays(@"DISPLAY_ARRANGEMENT");
   v5 = [v3 preferenceSpecifierNamed:v4 target:self set:0 get:0 detail:0 cell:1 edit:0];
 
-  [v5 setProperty:@"DISPLAY_ARRANGEMENT" forKey:*MEMORY[0x277D3FFB8]];
-  if (DBSFlexibleWindowingEnabled())
+  v6 = [v5 setProperty:@"DISPLAY_ARRANGEMENT" forKey:*MEMORY[0x277D3FFB8]];
+  if (DBSFlexibleWindowingEnabled(v6, v7))
   {
-    v6 = [MEMORY[0x277D755B8] systemImageNamed:@"rectangle.on.rectangle" compatibleWithTraitCollection:0];
-    [v5 setProperty:v6 forKey:*MEMORY[0x277D3FFC0]];
+    v8 = [MEMORY[0x277D755B8] systemImageNamed:@"rectangle.on.rectangle" compatibleWithTraitCollection:0];
+    [v5 setProperty:v8 forKey:*MEMORY[0x277D3FFC0]];
   }
 
   [v5 setButtonAction:sel_presentArrangementController];
@@ -1925,7 +1927,7 @@ void __55__DBSSettingsController_handleDisplayServiceInfoUpdate__block_invoke(ui
   v5 = _styleMode;
   if (_styleMode)
   {
-    [_styleMode customSchedule];
+    objc_msgSend_customSchedule(_styleMode);
     v6 = v17;
   }
 
@@ -1942,7 +1944,7 @@ void __55__DBSSettingsController_handleDisplayServiceInfoUpdate__block_invoke(ui
   v8 = _styleMode2;
   if (_styleMode2)
   {
-    [_styleMode2 customSchedule];
+    objc_msgSend_customSchedule(_styleMode2);
     v9 = *(&v15 + 1);
   }
 
@@ -1970,7 +1972,7 @@ void __55__DBSSettingsController_handleDisplayServiceInfoUpdate__block_invoke(ui
   v5 = _styleMode;
   if (_styleMode)
   {
-    [_styleMode customSchedule];
+    objc_msgSend_customSchedule(_styleMode);
     v6 = v18;
   }
 
@@ -1987,7 +1989,7 @@ void __55__DBSSettingsController_handleDisplayServiceInfoUpdate__block_invoke(ui
   v8 = _styleMode2;
   if (_styleMode2)
   {
-    [_styleMode2 customSchedule];
+    objc_msgSend_customSchedule(_styleMode2);
     v9 = *(&v16 + 1);
   }
 
@@ -2194,7 +2196,8 @@ LABEL_7:
   v0 = DBSLogForCategory(0);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_22102E000, v1, v2, "Could not get Night Shift capability from CoreBrightness.", v3, v4, v5, v6, 0);
+    v7 = 0;
+    OUTLINED_FUNCTION_0(&dword_22102E000, v1, v2, "Could not get Night Shift capability from CoreBrightness.", v3, v4, v5, v6, v7);
   }
 
   __assert_rtn("[DBSSettingsController _reloadBlueLightSpecifiers:reloadUI:]", "DBSSettingsController.m", 883, "0");
@@ -2205,7 +2208,8 @@ LABEL_7:
   v0 = DBSLogForCategory(0);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_22102E000, v1, v2, "Could not get blr status.", v3, v4, v5, v6, 0);
+    v7 = 0;
+    OUTLINED_FUNCTION_0(&dword_22102E000, v1, v2, "Could not get blr status.", v3, v4, v5, v6, v7);
   }
 
   __assert_rtn("[DBSSettingsController blueLightSchedule:]", "DBSSettingsController.m", 919, "0");

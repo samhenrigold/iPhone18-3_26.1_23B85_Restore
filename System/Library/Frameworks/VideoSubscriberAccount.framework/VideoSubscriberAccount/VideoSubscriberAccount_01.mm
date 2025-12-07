@@ -5,11 +5,11 @@ void sub_23ABD3FB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v29 - 128) = v30 + v27 - 1354270432 + ((v26 + 148678473) & 0x372357DE);
   *(v29 - 120) = &a25;
   *(v29 - 140) = v26 - v30 - 210;
-  (*(v28 + 8 * (v26 + 465)))(v29 - 144);
+  (*(v28 + 8 * (v26 + 465)))(v29 - 144, a2, a3, a4, a5, a6, a7, a8);
   JUMPOUT(0x23ABD4048);
 }
 
-uint64_t sub_23ABD44C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, int a15, int a16, char *a17, unsigned int a18, unsigned int a19, uint64_t a20, int a21)
+uint64_t sub_23ABD44C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, int a15, unsigned int a16, char *a17, unsigned int a18, unsigned int a19, uint64_t a20, int a21)
 {
   v24 = 742307843 * (&a16 ^ 0x1E228D55);
   a17 = &a14;
@@ -17,7 +17,7 @@ uint64_t sub_23ABD44C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a18 = v24 - 170931779;
   a19 = 606955757 - v24;
   a20 = a13;
-  v25 = (*(v22 + 8 * (v23 + 612)))(&a16);
+  v25 = (*(v22 + 8 * (v23 + 612)))(&a16, a2, a3, a4, a5, a6, a7, a8);
   return (*(v22 + 8 * (((a21 != v21) * ((v23 ^ 0x1D7) - 999)) ^ v23)))(v25);
 }
 
@@ -48,41 +48,47 @@ uint64_t sub_23ABD4978(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v19 - 136) = a15;
   *(v19 - 124) = v15 - v20 - 1602;
   *(v19 - 144) = (1441727781 * (v18 - 4) - 1795818118) ^ v20;
-  v21 = (*(v16 + 8 * (v15 + 201)))(v19 - 144);
+  v21 = (*(v16 + 8 * (v15 + 201)))(v19 - 144, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * ((((v15 + 92) ^ (*(v19 - 128) == -1494163771)) & 1 | (8 * (((v15 + 92) ^ (*(v19 - 128) == -1494163771)) & 1))) ^ v15)))(v21);
 }
 
-uint64_t sub_23ABD4B28(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, int a8)
+void sub_23ABD4B28(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, int a8)
 {
   v14 = *(v11 + 1428);
   if (v14 <= 0x20 && ((1 << v14) & 0x100110000) != 0)
   {
-    return (*(v12 + 8 * ((1289 * (*(a2 + 476) == LODWORD(STACK[0x2B4]) - 1309)) ^ (LODWORD(STACK[0x2B4]) - 543))))();
-  }
-
-  v16 = (v10 & 0x31E91F5D ^ (v10 ^ 0xCCF7C77) & (v8 ^ 0x9B5D2837) ^ 0x1D2839D2) & 0xA426 ^ 0x410580;
-  v17 = (v16 >> 4) & 0xB1426E13 ^ 0xFFFFFDEF ^ ((v16 >> 4) ^ 0x41218) & (v16 ^ 0xB1034F95);
-  if (((v17 | (v17 >> 2)) & 3) != 0)
-  {
-    v18 = a8 + 2;
+    (*(v12 + 8 * ((1289 * (*(a2 + 476) == LODWORD(STACK[0x2B4]) - 1309)) ^ (LODWORD(STACK[0x2B4]) - 543))))(a1);
   }
 
   else
   {
-    v18 = v13;
-  }
+    v15 = (v10 & 0x31E91F5D ^ (v10 ^ 0xCCF7C77) & (v8 ^ 0x9B5D2837) ^ 0x1D2839D2) & 0xA426 ^ 0x410580;
+    v16 = (v15 >> 4) & 0xB1426E13 ^ 0xFFFFFDEF ^ ((v15 >> 4) ^ 0x41218) & (v15 ^ 0xB1034F95);
+    if (((v16 | (v16 >> 2)) & 3) != 0)
+    {
+      v17 = a8 + 2;
+    }
 
-  if (LODWORD(STACK[0x268]) == a7)
-  {
-    return (*(v12 + 8 * (((((LODWORD(STACK[0x2B4]) - 528) | 0x40) ^ 0x3E3) * (v18 != v13)) ^ a3)))(69);
-  }
+    else
+    {
+      v17 = v13;
+    }
 
-  if (LODWORD(STACK[0x268]) != v9)
-  {
-    JUMPOUT(0x23ABD4AFCLL);
-  }
+    if (LODWORD(STACK[0x268]) == a7)
+    {
+      (*(v12 + 8 * (((((LODWORD(STACK[0x2B4]) - 528) | 0x40) ^ 0x3E3) * (v17 != v13)) ^ a3)))(69, a2);
+    }
 
-  return sub_23ABCF878(69);
+    else
+    {
+      if (LODWORD(STACK[0x268]) != v9)
+      {
+        JUMPOUT(0x23ABD4AFCLL);
+      }
+
+      sub_23ABCF878();
+    }
+  }
 }
 
 uint64_t sub_23ABD4DB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, char a15)
@@ -90,7 +96,7 @@ uint64_t sub_23ABD4DB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v19 - 104) = v17 - ((2 * ((v19 - 128) & 0x3791FEF0) - (v19 - 128) + 1215168778) ^ 0xDF63CD19) * v18 - 99;
   *(v19 - 128) = &a15;
   *(v19 - 112) = &a13;
-  v20 = (*(v16 + 8 * (v17 + 1208)))(v19 - 128);
+  v20 = (*(v16 + 8 * (v17 + 1208)))(v19 - 128, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * ((1445 * (*(v19 - 120) > (((v17 - 880) | 0x440) ^ v15))) ^ v17)))(v20);
 }
 
@@ -334,42 +340,46 @@ LABEL_56:
   return result;
 }
 
-id VSErrorLogObject()
+id VSErrorLogObject(uint64_t a1)
 {
   if (VSErrorLogObject___vs_lazy_init_predicate != -1)
   {
     VSErrorLogObject_cold_1();
   }
 
-  v1 = VSErrorLogObject___vs_lazy_init_variable;
+  v2 = VSErrorLogObject___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSErrorLogObject_block_invoke()
 {
-  VSErrorLogObject___vs_lazy_init_variable = os_log_create([@"com.apple.VideoSubscriberAccount" UTF8String], objc_msgSend(@"Errors", "UTF8String"));
+  v0 = os_log_create([@"com.apple.VideoSubscriberAccount" UTF8String], objc_msgSend(@"Errors", "UTF8String"));
+  v1 = VSErrorLogObject___vs_lazy_init_variable;
+  VSErrorLogObject___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id VSDefaultLogObject()
+id VSDefaultLogObject(uint64_t a1)
 {
   if (VSDefaultLogObject___vs_lazy_init_predicate != -1)
   {
     VSDefaultLogObject_cold_1();
   }
 
-  v1 = VSDefaultLogObject___vs_lazy_init_variable;
+  v2 = VSDefaultLogObject___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSDefaultLogObject_block_invoke()
 {
-  VSDefaultLogObject___vs_lazy_init_variable = os_log_create([@"com.apple.VideoSubscriberAccount" UTF8String], objc_msgSend(@"Default", "UTF8String"));
+  v0 = os_log_create([@"com.apple.VideoSubscriberAccount" UTF8String], objc_msgSend(@"Default", "UTF8String"));
+  v1 = VSDefaultLogObject___vs_lazy_init_variable;
+  VSDefaultLogObject___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_23ABD7E64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -408,9 +418,9 @@ void sub_23ABD9540(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23ABDA8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23ABDA8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -424,38 +434,39 @@ void sub_23ABDAE44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void VSOpenURL(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = a1;
+  v2 = v1;
   if (!v1)
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The linkURL parameter must not be nil."];
+    v1 = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The linkURL parameter must not be nil."];
   }
 
-  v2 = VSDefaultLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = VSDefaultLogObject(v1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = v1;
-    _os_log_impl(&dword_23AB8E000, v2, OS_LOG_TYPE_DEFAULT, "Will open URL %@", buf, 0xCu);
+    v15 = v2;
+    _os_log_impl(&dword_23AB8E000, v3, OS_LOG_TYPE_DEFAULT, "Will open URL %@", buf, 0xCu);
   }
 
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __VSOpenURL_block_invoke;
   aBlock[3] = &unk_278B73380;
-  v3 = v1;
-  v12 = v3;
-  v4 = _Block_copy(aBlock);
-  v5 = [MEMORY[0x277CC1E80] defaultWorkspace];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __VSOpenURL_block_invoke_3;
-  v8[3] = &unk_278B733A8;
-  v9 = v3;
+  v4 = v2;
+  v13 = v4;
+  v5 = _Block_copy(aBlock);
+  v6 = [MEMORY[0x277CC1E80] defaultWorkspace];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __VSOpenURL_block_invoke_3;
+  v9[3] = &unk_278B733A8;
   v10 = v4;
-  v6 = v4;
-  v7 = v3;
-  [v5 openURL:v7 configuration:0 completionHandler:v8];
+  v11 = v5;
+  v7 = v5;
+  v8 = v4;
+  [v6 openURL:v8 configuration:0 completionHandler:v9];
 }
 
 void __VSOpenURL_block_invoke(uint64_t a1, int a2)
@@ -463,7 +474,7 @@ void __VSOpenURL_block_invoke(uint64_t a1, int a2)
   v7 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v3 = VSDefaultLogObject();
+    v3 = VSDefaultLogObject(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 32);
@@ -475,7 +486,7 @@ void __VSOpenURL_block_invoke(uint64_t a1, int a2)
 
   else
   {
-    v3 = VSErrorLogObject();
+    v3 = VSErrorLogObject(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __VSOpenURL_block_invoke_cold_1(a1, v3);
@@ -486,12 +497,13 @@ void __VSOpenURL_block_invoke(uint64_t a1, int a2)
 void __VSOpenURL_block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = VSErrorLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = VSErrorLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __VSOpenURL_block_invoke_3_cold_1(a1, v4, v5);
+      __VSOpenURL_block_invoke_3_cold_1(a1, v5, v6);
     }
   }
 
@@ -519,9 +531,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23ABDEC70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23ABDEC70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -539,9 +551,9 @@ void sub_23ABDF04C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23ABDFBF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23ABDFBF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -554,16 +566,18 @@ void sub_23ABE00B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void VSValueTypeInit(void *a1, void *a2)
@@ -1081,9 +1095,9 @@ LABEL_11:
   return v21;
 }
 
-void sub_23ABE89BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23ABE89BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1095,30 +1109,32 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23ABE8C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23ABE8C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id VSAccountApplicationProviderValueType()
+id VSAccountApplicationProviderValueType(uint64_t a1)
 {
   if (VSAccountApplicationProviderValueType___vs_lazy_init_predicate != -1)
   {
     VSAccountApplicationProviderValueType_cold_1();
   }
 
-  v1 = VSAccountApplicationProviderValueType___vs_lazy_init_variable;
+  v2 = VSAccountApplicationProviderValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSAccountApplicationProviderValueType_block_invoke()
 {
-  VSAccountApplicationProviderValueType___vs_lazy_init_variable = __VSAccountApplicationProviderValueType_block_invoke_2();
+  v0 = __VSAccountApplicationProviderValueType_block_invoke_2();
+  v1 = VSAccountApplicationProviderValueType___vs_lazy_init_variable;
+  VSAccountApplicationProviderValueType___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 VSValueType *__VSAccountApplicationProviderValueType_block_invoke_2()
@@ -1139,9 +1155,9 @@ VSValueType *__VSAccountApplicationProviderValueType_block_invoke_2()
   return v0;
 }
 
-void sub_23ABEC59C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23ABEC59C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1153,9 +1169,9 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23ABEC82C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23ABEC82C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1188,23 +1204,25 @@ void VSTrieWalkNodes(void *a1, void *a2)
   }
 }
 
-id VSAMSRequestValueType()
+id VSAMSRequestValueType(uint64_t a1)
 {
   if (VSAMSRequestValueType___vs_lazy_init_predicate != -1)
   {
     VSAMSRequestValueType_cold_1();
   }
 
-  v1 = VSAMSRequestValueType___vs_lazy_init_variable;
+  v2 = VSAMSRequestValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSAMSRequestValueType_block_invoke()
 {
-  VSAMSRequestValueType___vs_lazy_init_variable = __VSAMSRequestValueType_block_invoke_2();
+  v0 = __VSAMSRequestValueType_block_invoke_2();
+  v1 = VSAMSRequestValueType___vs_lazy_init_variable;
+  VSAMSRequestValueType___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 VSValueType *__VSAMSRequestValueType_block_invoke_2()
@@ -1237,38 +1255,39 @@ VSValueType *__VSAMSRequestValueType_block_invoke_2()
 
 uint64_t VSCheckEntitlementForTask(void *a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v18 = v3;
-    v19 = 2112;
-    v20 = @"com.apple.developer.video-subscriber-single-sign-on";
+    v22 = v3;
+    v23 = 2112;
+    v24 = @"com.apple.developer.video-subscriber-single-sign-on";
     _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Will check task %@ for %@ entitlement.", buf, 0x16u);
   }
 
-  v15 = 0;
-  v16 = 0;
-  v5 = [v3 getValue:&v16 forEntitlement:@"com.apple.developer.video-subscriber-single-sign-on" error:&v15];
-  v6 = v16;
-  v7 = v15;
+  v19 = 0;
+  v20 = 0;
+  v5 = [v3 getValue:&v20 forEntitlement:@"com.apple.developer.video-subscriber-single-sign-on" error:&v19];
+  v6 = v20;
+  v7 = v19;
+  v8 = v7;
   if (!v5)
   {
-    v11 = VSErrorLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = VSErrorLogObject(v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v18 = v3;
-      v19 = 2112;
-      v20 = @"com.apple.developer.video-subscriber-single-sign-on";
-      v21 = 2112;
-      v22 = v7;
-      _os_log_error_impl(&dword_23AB8E000, v11, OS_LOG_TYPE_ERROR, "Unable to check value of task %@ for the %@ entitlement: %@.", buf, 0x20u);
+      v22 = v3;
+      v23 = 2112;
+      v24 = @"com.apple.developer.video-subscriber-single-sign-on";
+      v25 = 2112;
+      v26 = v8;
+      _os_log_error_impl(&dword_23AB8E000, v14, OS_LOG_TYPE_ERROR, "Unable to check value of task %@ for the %@ entitlement: %@.", buf, 0x20u);
     }
 
-    v12 = v7;
+    v16 = v8;
     if (!a2)
     {
       goto LABEL_23;
@@ -1279,27 +1298,29 @@ uint64_t VSCheckEntitlementForTask(void *a1, void *a2)
 
   if (v6)
   {
-    v8 = CFGetTypeID(v6);
-    if (v8 == CFBooleanGetTypeID())
+    v9 = CFGetTypeID(v6);
+    TypeID = CFBooleanGetTypeID();
+    if (v9 == TypeID)
     {
-      if (CFBooleanGetValue(v6))
+      Value = CFBooleanGetValue(v6);
+      if (Value)
       {
-        v9 = VSDefaultLogObject();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v12 = VSDefaultLogObject(Value);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v18 = v3;
-          v19 = 2112;
-          v20 = @"com.apple.developer.video-subscriber-single-sign-on";
-          _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "The task %@ has the %@ entitlement.", buf, 0x16u);
+          v22 = v3;
+          v23 = 2112;
+          v24 = @"com.apple.developer.video-subscriber-single-sign-on";
+          _os_log_impl(&dword_23AB8E000, v12, OS_LOG_TYPE_DEFAULT, "The task %@ has the %@ entitlement.", buf, 0x16u);
         }
 
-        v10 = 1;
+        v13 = 1;
         goto LABEL_26;
       }
 
-      v13 = VSErrorLogObject();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v17 = VSErrorLogObject(Value);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         VSCheckEntitlementForTask_cold_2();
       }
@@ -1307,8 +1328,8 @@ uint64_t VSCheckEntitlementForTask(void *a1, void *a2)
 
     else
     {
-      v13 = VSErrorLogObject();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v17 = VSErrorLogObject(TypeID);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         VSCheckEntitlementForTask_cold_1();
       }
@@ -1317,8 +1338,8 @@ uint64_t VSCheckEntitlementForTask(void *a1, void *a2)
 
   else
   {
-    v13 = VSErrorLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = VSErrorLogObject(v7);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       VSCheckEntitlementForTask_cold_3();
     }
@@ -1326,28 +1347,30 @@ uint64_t VSCheckEntitlementForTask(void *a1, void *a2)
 
   if (a2)
   {
-    v12 = 0;
+    v16 = 0;
 LABEL_22:
-    *a2 = VSPrivateError(-5, v12);
+    v15 = VSPrivateError(-5, v16);
+    *a2 = v15;
   }
 
 LABEL_23:
-  v9 = VSErrorLogObject();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v12 = VSErrorLogObject(v15);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     VSCheckEntitlementForTask_cold_4();
   }
 
-  v10 = 0;
+  v13 = 0;
 LABEL_26:
 
-  return v10;
+  return v13;
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_23ABEFAEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -1366,23 +1389,25 @@ void sub_23ABEFE04(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id VSViewServiceRequestValueType()
+id VSViewServiceRequestValueType(uint64_t a1)
 {
   if (VSViewServiceRequestValueType___vs_lazy_init_predicate != -1)
   {
     VSViewServiceRequestValueType_cold_1();
   }
 
-  v1 = VSViewServiceRequestValueType___vs_lazy_init_variable;
+  v2 = VSViewServiceRequestValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSViewServiceRequestValueType_block_invoke()
 {
-  VSViewServiceRequestValueType___vs_lazy_init_variable = __VSViewServiceRequestValueType_block_invoke_2();
+  v0 = __VSViewServiceRequestValueType_block_invoke_2();
+  v1 = VSViewServiceRequestValueType___vs_lazy_init_variable;
+  VSViewServiceRequestValueType___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 VSValueType *__VSViewServiceRequestValueType_block_invoke_2()
@@ -1420,23 +1445,25 @@ VSValueType *__VSViewServiceRequestValueType_block_invoke_2()
   return v0;
 }
 
-id VSSubscriptionValueType()
+id VSSubscriptionValueType(uint64_t a1)
 {
   if (VSSubscriptionValueType___vs_lazy_init_predicate != -1)
   {
     VSSubscriptionValueType_cold_1();
   }
 
-  v1 = VSSubscriptionValueType___vs_lazy_init_variable;
+  v2 = VSSubscriptionValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSSubscriptionValueType_block_invoke()
 {
-  VSSubscriptionValueType___vs_lazy_init_variable = __VSSubscriptionValueType_block_invoke_2();
+  v0 = __VSSubscriptionValueType_block_invoke_2();
+  v1 = VSSubscriptionValueType___vs_lazy_init_variable;
+  VSSubscriptionValueType___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 VSValueType *__VSSubscriptionValueType_block_invoke_2()
@@ -1498,23 +1525,25 @@ VSValueType *__VSSubscriptionValueType_block_invoke_2()
   return v0;
 }
 
-id VSIdentityProviderValueType()
+id VSIdentityProviderValueType(uint64_t a1)
 {
   if (VSIdentityProviderValueType___vs_lazy_init_predicate != -1)
   {
     VSIdentityProviderValueType_cold_1();
   }
 
-  v1 = VSIdentityProviderValueType___vs_lazy_init_variable;
+  v2 = VSIdentityProviderValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSIdentityProviderValueType_block_invoke()
 {
-  VSIdentityProviderValueType___vs_lazy_init_variable = __VSIdentityProviderValueType_block_invoke_2();
+  v0 = __VSIdentityProviderValueType_block_invoke_2();
+  v1 = VSIdentityProviderValueType___vs_lazy_init_variable;
+  VSIdentityProviderValueType___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 VSValueType *__VSIdentityProviderValueType_block_invoke_2()
@@ -1720,23 +1749,25 @@ VSValueType *VSDeveloperSettingsValueType()
   return v0;
 }
 
-id VSKeychainItemKindGenericPassword()
+id VSKeychainItemKindGenericPassword(uint64_t a1)
 {
   if (VSKeychainItemKindGenericPassword___vs_lazy_init_predicate != -1)
   {
     VSKeychainItemKindGenericPassword_cold_1();
   }
 
-  v1 = VSKeychainItemKindGenericPassword___vs_lazy_init_variable;
+  v2 = VSKeychainItemKindGenericPassword___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSKeychainItemKindGenericPassword_block_invoke()
 {
-  VSKeychainItemKindGenericPassword___vs_lazy_init_variable = __VSKeychainItemKindGenericPassword_block_invoke_2();
+  v0 = __VSKeychainItemKindGenericPassword_block_invoke_2();
+  v1 = VSKeychainItemKindGenericPassword___vs_lazy_init_variable;
+  VSKeychainItemKindGenericPassword___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 VSKeychainItemKind *__VSKeychainItemKindGenericPassword_block_invoke_2()
@@ -2149,23 +2180,25 @@ id __VSAllSubscriptionFetchOptions_block_invoke_2(uint64_t a1)
   return v22;
 }
 
-id VSAppChannelsMappingValueType()
+id VSAppChannelsMappingValueType(uint64_t a1)
 {
   if (VSAppChannelsMappingValueType___vs_lazy_init_predicate != -1)
   {
     VSAppChannelsMappingValueType_cold_1();
   }
 
-  v1 = VSAppChannelsMappingValueType___vs_lazy_init_variable;
+  v2 = VSAppChannelsMappingValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSAppChannelsMappingValueType_block_invoke()
 {
-  VSAppChannelsMappingValueType___vs_lazy_init_variable = __VSAppChannelsMappingValueType_block_invoke_2();
+  v0 = __VSAppChannelsMappingValueType_block_invoke_2();
+  v1 = VSAppChannelsMappingValueType___vs_lazy_init_variable;
+  VSAppChannelsMappingValueType___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 VSValueType *__VSAppChannelsMappingValueType_block_invoke_2()
@@ -2188,16 +2221,16 @@ VSValueType *__VSAppChannelsMappingValueType_block_invoke_2()
   return v0;
 }
 
-void sub_23AC002C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23AC002C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2210,23 +2243,25 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-id VSAllKnownTemplateElements()
+id VSAllKnownTemplateElements(uint64_t a1)
 {
   if (VSAllKnownTemplateElements___vs_lazy_init_predicate != -1)
   {
     VSAllKnownTemplateElements_cold_1();
   }
 
-  v1 = VSAllKnownTemplateElements___vs_lazy_init_variable;
+  v2 = VSAllKnownTemplateElements___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSAllKnownTemplateElements_block_invoke()
 {
-  VSAllKnownTemplateElements___vs_lazy_init_variable = __VSAllKnownTemplateElements_block_invoke_2();
+  v0 = __VSAllKnownTemplateElements_block_invoke_2();
+  v1 = VSAllKnownTemplateElements___vs_lazy_init_variable;
+  VSAllKnownTemplateElements___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __VSAllKnownTemplateElements_block_invoke_2()
@@ -2242,23 +2277,25 @@ id __VSAllKnownTemplateElements_block_invoke_2()
   return v1;
 }
 
-id VSPlatformTemplateElements()
+id VSPlatformTemplateElements(uint64_t a1)
 {
   if (VSPlatformTemplateElements___vs_lazy_init_predicate != -1)
   {
     VSPlatformTemplateElements_cold_1();
   }
 
-  v1 = VSPlatformTemplateElements___vs_lazy_init_variable;
+  v2 = VSPlatformTemplateElements___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSPlatformTemplateElements_block_invoke()
 {
-  VSPlatformTemplateElements___vs_lazy_init_variable = __VSPlatformTemplateElements_block_invoke_2();
+  v0 = __VSPlatformTemplateElements_block_invoke_2();
+  v1 = VSPlatformTemplateElements___vs_lazy_init_variable;
+  VSPlatformTemplateElements___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __VSPlatformTemplateElements_block_invoke_2()
@@ -2336,62 +2373,67 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-id VSSharedSAMLParserController()
+id VSSharedSAMLParserController(uint64_t a1)
 {
   if (VSSharedSAMLParserController___vs_lazy_init_predicate != -1)
   {
     VSSharedSAMLParserController_cold_1();
   }
 
-  v1 = VSSharedSAMLParserController___vs_lazy_init_variable;
+  v2 = VSSharedSAMLParserController___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSSharedSAMLParserController_block_invoke()
 {
-  VSSharedSAMLParserController___vs_lazy_init_variable = __VSSharedSAMLParserController_block_invoke_2();
+  v0 = __VSSharedSAMLParserController_block_invoke_2();
+  v1 = VSSharedSAMLParserController___vs_lazy_init_variable;
+  VSSharedSAMLParserController___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __VSSharedSAMLParserController_block_invoke_2()
 {
   v0 = VSLoadBundleAtPath(@"System/Library/PrivateFrameworks/SAML.framework");
-  v6 = 0;
-  v1 = [v0 loadAndReturnError:&v6];
-  v2 = v6;
+  v7 = 0;
+  v1 = [v0 loadAndReturnError:&v7];
+  v2 = v7;
+  v3 = v2;
   if ((v1 & 1) == 0)
   {
-    v3 = VSErrorLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = VSErrorLogObject(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __VSSharedSAMLParserController_block_invoke_2_cold_1(v2, v3);
+      __VSSharedSAMLParserController_block_invoke_2_cold_1(v3, v4);
     }
   }
 
-  v4 = [NSClassFromString(@"SAMLParserController") sharedInstance];
+  v5 = [NSClassFromString(@"SAMLParserController") sharedInstance];
 
-  return v4;
+  return v5;
 }
 
-id VSAccountProviderResponseValueType()
+id VSAccountProviderResponseValueType(uint64_t a1)
 {
   if (VSAccountProviderResponseValueType___vs_lazy_init_predicate != -1)
   {
     VSAccountProviderResponseValueType_cold_1();
   }
 
-  v1 = VSAccountProviderResponseValueType___vs_lazy_init_variable;
+  v2 = VSAccountProviderResponseValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSAccountProviderResponseValueType_block_invoke()
 {
-  VSAccountProviderResponseValueType___vs_lazy_init_variable = __VSAccountProviderResponseValueType_block_invoke_2();
+  v0 = __VSAccountProviderResponseValueType_block_invoke_2();
+  v1 = VSAccountProviderResponseValueType___vs_lazy_init_variable;
+  VSAccountProviderResponseValueType___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 VSValueType *__VSAccountProviderResponseValueType_block_invoke_2()
@@ -2416,9 +2458,9 @@ VSValueType *__VSAccountProviderResponseValueType_block_invoke_2()
   return v0;
 }
 
-void sub_23AC072C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23AC072C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2430,23 +2472,25 @@ uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
   return result;
 }
 
-id VSSubscriptionSourceValueType()
+id VSSubscriptionSourceValueType(uint64_t a1)
 {
   if (VSSubscriptionSourceValueType___vs_lazy_init_predicate != -1)
   {
     VSSubscriptionSourceValueType_cold_1();
   }
 
-  v1 = VSSubscriptionSourceValueType___vs_lazy_init_variable;
+  v2 = VSSubscriptionSourceValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSSubscriptionSourceValueType_block_invoke()
 {
-  VSSubscriptionSourceValueType___vs_lazy_init_variable = __VSSubscriptionSourceValueType_block_invoke_2();
+  v0 = __VSSubscriptionSourceValueType_block_invoke_2();
+  v1 = VSSubscriptionSourceValueType___vs_lazy_init_variable;
+  VSSubscriptionSourceValueType___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 VSValueType *__VSSubscriptionSourceValueType_block_invoke_2()
@@ -2493,10 +2537,11 @@ id intermediaryKeyPathsForKeyPath(void *a1)
   return v2;
 }
 
-void sub_23AC08674(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_23AC08674(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  objc_sync_exit(v15);
-  _Block_object_dispose(&a15, 8);
+  va_start(va, a14);
+  objc_sync_exit(v14);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2514,9 +2559,9 @@ void sub_23AC0AEB0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23AC0D0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23AC0D0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2531,7 +2576,7 @@ uint64_t __Block_byref_object_copy__8(uint64_t result, uint64_t a2)
 void VSWebServerConnectionInvalidated(uint64_t a1)
 {
   v5 = *MEMORY[0x277D85DE8];
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = 138412290;
@@ -2543,7 +2588,7 @@ void VSWebServerConnectionInvalidated(uint64_t a1)
 void VSWebServerConnectionDidReceiveError(void *a1, uint64_t a2)
 {
   v3 = a1;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     VSWebServerConnectionDidReceiveError_cold_1(v3, a2, v4);
@@ -2561,7 +2606,7 @@ void VSWebServerConnectionDidReceiveRequest(void *a1, uint64_t a2)
   v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [[VSWebServerRequest alloc] initWithRequest:a2];
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412546;
@@ -2578,59 +2623,66 @@ void VSWebServerConnectionDidReceiveRequest(void *a1, uint64_t a2)
   }
 }
 
-void VSWebServerConnectionDidSendResponse(void *a1)
+void VSWebServerConnectionDidSendResponse(void *a1, uint64_t a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = _CFHTTPServerRequestGetClient();
-  v3 = _CFHTTPServerResponseGetClient();
-  v4 = VSDefaultLogObject();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = _CFHTTPServerRequestGetClient();
+  v5 = _CFHTTPServerResponseGetClient();
+  v6 = VSDefaultLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412802;
-    v7 = v1;
-    v8 = 2112;
+    v8 = 138412802;
     v9 = v3;
     v10 = 2112;
-    v11 = v2;
-    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Connection %@ did send response %@ to request %@.", &v6, 0x20u);
+    v11 = v5;
+    v12 = 2112;
+    v13 = v4;
+    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Connection %@ did send response %@ to request %@.", &v8, 0x20u);
   }
 
-  v5 = [v1 delegate];
+  v7 = [v3 delegate];
   if (objc_opt_respondsToSelector())
   {
-    [v5 webServerConnection:v1 didSendResponse:v3 toRequest:v2];
+    [v7 webServerConnection:v3 didSendResponse:v5 toRequest:v4];
   }
 }
 
-void VSWebServerConnectionDidFailToSendResponse(void *a1)
+void VSWebServerConnectionDidFailToSendResponse(void *a1, uint64_t a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = _CFHTTPServerRequestGetClient();
-  v3 = _CFHTTPServerResponseGetClient();
-  v4 = VSDefaultLogObject();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = _CFHTTPServerRequestGetClient();
+  v5 = _CFHTTPServerResponseGetClient();
+  v6 = VSDefaultLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412802;
-    v7 = v1;
-    v8 = 2112;
+    v8 = 138412802;
     v9 = v3;
     v10 = 2112;
-    v11 = v2;
-    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Connection %@ did fail to send response %@ to request %@.", &v6, 0x20u);
+    v11 = v5;
+    v12 = 2112;
+    v13 = v4;
+    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Connection %@ did fail to send response %@ to request %@.", &v8, 0x20u);
   }
 
-  v5 = [v1 delegate];
+  v7 = [v3 delegate];
   if (objc_opt_respondsToSelector())
   {
-    [v5 webServerConnection:v1 failedToSendResponse:v3 toRequest:v2];
+    [v7 webServerConnection:v3 failedToSendResponse:v5 toRequest:v4];
   }
 }
 
-void sub_23AC115AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23AC115AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_23AC12A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, ...)
+{
+  va_start(va, a62);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2658,9 +2710,9 @@ void sub_23AC14B38(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23AC1551C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23AC1551C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2679,16 +2731,16 @@ void sub_23AC15BC8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23AC167B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23AC167B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23AC16B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23AC16B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2718,7 +2770,7 @@ Class __getSKAccountClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2736,11 +2788,18 @@ LABEL_4:
   return result;
 }
 
-uint64_t __StoreKitLibraryCore_block_invoke()
+uint64_t __StoreKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   StoreKitLibraryCore_frameworkLibrary = result;
   return result;
+}
+
+void sub_23AC1AECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__11(uint64_t result, uint64_t a2)
@@ -2759,9 +2818,9 @@ void sub_23AC1B198(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23AC1DC1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23AC1DC1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2784,7 +2843,7 @@ void VSRequireMainThread()
   }
 }
 
-uint64_t VSAssertNotMainThread()
+void *VSAssertNotMainThread()
 {
   result = [MEMORY[0x277CCACC8] isMainThread];
   if (result)
@@ -2832,7 +2891,7 @@ void __VSRequireUsageInfoPlistKey_block_invoke()
   VSRequireUsageInfoPlistKey_usageValueOrNil = v0;
 }
 
-uint64_t VSAssertWithMessage(uint64_t result, uint64_t a2)
+void *VSAssertWithMessage(void *result, uint64_t a2)
 {
   if ((result & 1) == 0)
   {
@@ -2842,16 +2901,16 @@ uint64_t VSAssertWithMessage(uint64_t result, uint64_t a2)
   return result;
 }
 
-id VSAccountMetadataRequestValueType()
+id VSAccountMetadataRequestValueType(uint64_t a1)
 {
   if (VSAccountMetadataRequestValueType___vs_lazy_init_predicate != -1)
   {
     VSAccountMetadataRequestValueType_cold_1();
   }
 
-  v1 = VSAccountMetadataRequestValueType___vs_lazy_init_variable;
+  v2 = VSAccountMetadataRequestValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSAccountMetadataRequestValueType_block_invoke()
@@ -2935,16 +2994,16 @@ VSValueType *__VSAccountMetadataRequestValueType_block_invoke_2()
   return v0;
 }
 
-id VSViewServiceResponseValueType()
+id VSViewServiceResponseValueType(uint64_t a1)
 {
   if (VSViewServiceResponseValueType___vs_lazy_init_predicate != -1)
   {
     VSViewServiceResponseValueType_cold_1();
   }
 
-  v1 = VSViewServiceResponseValueType___vs_lazy_init_variable;
+  v2 = VSViewServiceResponseValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSViewServiceResponseValueType_block_invoke()
@@ -3006,26 +3065,27 @@ void VSPerformBlockOnMainThread(void *a1)
 
 void VSPerformCompletionHandler(void *a1)
 {
-  v2 = a1;
-  if (!v2)
+  v1 = a1;
+  v3 = v1;
+  if (!v1)
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The block parameter must not be nil."];
+    v1 = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The block parameter must not be nil."];
   }
 
-  v1 = VSCompletionQueue();
-  [v1 addOperationWithBlock:v2];
+  v2 = VSCompletionQueue(v1);
+  [v2 addOperationWithBlock:v3];
 }
 
-id VSCompletionQueue()
+id VSCompletionQueue(uint64_t a1)
 {
   if (VSCompletionQueue___vs_lazy_init_predicate != -1)
   {
     VSCompletionQueue_cold_1();
   }
 
-  v1 = VSCompletionQueue___vs_lazy_init_variable;
+  v2 = VSCompletionQueue___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 id VSMainThreadOperationWithBlock(void *a1)
@@ -3050,14 +3110,15 @@ id VSMainThreadOperationWithBlock(void *a1)
 
 void VSEnqueueCompletionOperation(void *a1)
 {
-  v2 = a1;
-  if (!v2)
+  v1 = a1;
+  v3 = v1;
+  if (!v1)
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The completionOperation parameter must not be nil."];
+    v1 = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The completionOperation parameter must not be nil."];
   }
 
-  v1 = VSCompletionQueue();
-  [v1 addOperation:v2];
+  v2 = VSCompletionQueue(v1);
+  [v2 addOperation:v3];
 }
 
 id VSOnceAndOnlyOnceBlock(void *a1)
@@ -3085,10 +3146,11 @@ void __VSCompletionQueue_block_invoke()
   VSCompletionQueue___vs_lazy_init_variable = v0;
 }
 
-void sub_23AC26714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_23AC26714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose((v33 - 160), 8);
-  _Block_object_dispose(&a33, 8);
+  va_start(va, a32);
+  _Block_object_dispose((v32 - 160), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3099,16 +3161,16 @@ uint64_t __Block_byref_object_copy__13(uint64_t result, uint64_t a2)
   return result;
 }
 
-id VSAuditTokenValueType()
+id VSAuditTokenValueType(uint64_t a1)
 {
   if (VSAuditTokenValueType___vs_lazy_init_predicate != -1)
   {
     VSAuditTokenValueType_cold_1();
   }
 
-  v1 = VSAuditTokenValueType___vs_lazy_init_variable;
+  v2 = VSAuditTokenValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSAuditTokenValueType_block_invoke()
@@ -3176,21 +3238,22 @@ id VSDisplayNameForBundleWithIdentifier(void *a1)
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The bundleID parameter must not be nil."];
   }
 
-  v7 = 0;
-  v2 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:v1 allowPlaceholder:0 error:&v7];
-  v3 = v7;
+  v8 = 0;
+  v2 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:v1 allowPlaceholder:0 error:&v8];
+  v3 = v8;
+  v4 = v3;
   if (v3)
   {
-    v4 = VSErrorLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = VSErrorLogObject(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      VSDisplayNameForBundleWithIdentifier_cold_1(v1, v3, v4);
+      VSDisplayNameForBundleWithIdentifier_cold_1(v1, v4, v5);
     }
   }
 
-  v5 = [v2 localizedName];
+  v6 = [v2 localizedName];
 
-  return v5;
+  return v6;
 }
 
 id VSBundleURLForProcessIdentifier(int a1)
@@ -3251,7 +3314,7 @@ id VSLoadBundleAtPath(void *a1)
     v7 = [MEMORY[0x277CCA8D8] bundleWithPath:v6];
     if (!v7)
     {
-      v8 = VSErrorLogObject();
+      v8 = VSErrorLogObject(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         VSLoadBundleAtPath_cold_1(v1, v8);
@@ -3280,7 +3343,7 @@ uint64_t VSLoadInterfaceFramework(uint64_t a1)
 void VSWebServerInvalidated(uint64_t a1)
 {
   v5 = *MEMORY[0x277D85DE8];
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = 138412290;
@@ -3293,7 +3356,7 @@ void VSWebServerDidReceiveError(void *a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412546;
@@ -3315,7 +3378,7 @@ void VSWebServerDidOpenConnection(void *a1, uint64_t a2)
   v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [[VSWebServerConnection alloc] initWithConnection:a2];
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412546;
@@ -3337,7 +3400,7 @@ void VSWebServerDidCloseConnection(void *a1, uint64_t a2)
   v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [[VSWebServerConnection alloc] initWithConnection:a2];
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412546;
@@ -3361,9 +3424,9 @@ void sub_23AC2BAC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23AC2C4F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23AC2C4F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3375,16 +3438,16 @@ uint64_t __Block_byref_object_copy__14(uint64_t result, uint64_t a2)
   return result;
 }
 
-id VSIdentityProviderAppsResponseValueType()
+id VSIdentityProviderAppsResponseValueType(uint64_t a1)
 {
   if (VSIdentityProviderAppsResponseValueType___vs_lazy_init_predicate != -1)
   {
     VSIdentityProviderAppsResponseValueType_cold_1();
   }
 
-  v1 = VSIdentityProviderAppsResponseValueType___vs_lazy_init_variable;
+  v2 = VSIdentityProviderAppsResponseValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSIdentityProviderAppsResponseValueType_block_invoke()
@@ -3504,16 +3567,16 @@ id VSUserAccountServiceInterface()
   return v0;
 }
 
-id VSSubscriptionPropertyListStoreType()
+id VSSubscriptionPropertyListStoreType(uint64_t a1)
 {
   if (VSSubscriptionPropertyListStoreType___vs_lazy_init_predicate != -1)
   {
     VSSubscriptionPropertyListStoreType_cold_1();
   }
 
-  v1 = VSSubscriptionPropertyListStoreType___vs_lazy_init_variable;
+  v2 = VSSubscriptionPropertyListStoreType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSSubscriptionPropertyListStoreType_block_invoke()
@@ -3588,32 +3651,32 @@ __CFString *VSLocalizedDescriptionForPublicErrorCode(uint64_t a1, uint64_t a2)
 
   if (v6)
   {
-    v7 = VSGetErrorStringsForType(a2);
-    v8 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
-    v9 = [v7 objectForKey:v8];
+    v8 = VSGetErrorStringsForType(a2);
+    v9 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
+    v10 = [v8 objectForKey:v9];
 
-    if (!v9)
+    if (!v10)
     {
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The [VSGetErrorStringsForType(errorType) objectForKey:@(errorCode)] parameter must not be nil."];
     }
 
-    v10 = VSGetErrorStringsForType(a2);
-    v11 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
-    v12 = [v10 objectForKey:v11];
+    v11 = VSGetErrorStringsForType(a2);
+    v12 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
+    v13 = [v11 objectForKey:v12];
   }
 
   else
   {
-    v13 = VSErrorLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = VSErrorLogObject(v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      VSLocalizedDescriptionForPublicErrorCode_cold_1(a2, a1, v13);
+      VSLocalizedDescriptionForPublicErrorCode_cold_1(a2, a1, v14);
     }
 
-    v12 = &stru_284DD5B48;
+    v13 = &stru_284DD5B48;
   }
 
-  return v12;
+  return v13;
 }
 
 id VSLocalizedRecoverySuggestionForPublicErrorCode(uint64_t a1)
@@ -4226,7 +4289,7 @@ void sub_23AC319CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id secureCodingSafeObject(void *a1)
+VSOptional *secureCodingSafeObject(void *a1)
 {
   v55 = *MEMORY[0x277D85DE8];
   v1 = a1;
@@ -4400,7 +4463,7 @@ LABEL_31:
   return v7;
 }
 
-void __secureCodingSafeObject_block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
+void __secureCodingSafeObject_block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = secureCodingSafeObject(a3);
@@ -4536,16 +4599,16 @@ id VSMainConcurrencyBindingOptions()
   return v2;
 }
 
-id VSAccountMetadataValueType()
+id VSAccountMetadataValueType(uint64_t a1)
 {
   if (VSAccountMetadataValueType___vs_lazy_init_predicate[0] != -1)
   {
     VSAccountMetadataValueType_cold_1();
   }
 
-  v1 = VSAccountMetadataValueType___vs_lazy_init_variable;
+  v2 = VSAccountMetadataValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSAccountMetadataValueType_block_invoke()
@@ -4755,12 +4818,12 @@ uint64_t sub_23AC41820()
   return sub_23AC66634();
 }
 
-uint64_t sub_23AC41900()
+uint64_t sub_23AC41900(uint64_t a1)
 {
   sub_23AC66384();
 }
 
-uint64_t sub_23AC419CC()
+uint64_t sub_23AC419CC(uint64_t a1)
 {
   sub_23AC66614();
   sub_23AC66384();
@@ -4810,7 +4873,7 @@ unint64_t sub_23AC41B54()
   result = qword_27DFC8610;
   if (!qword_27DFC8610)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DFC8618);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DFC8618, &qword_23AC700E0);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27DFC8610);
   }
@@ -4818,7 +4881,7 @@ unint64_t sub_23AC41B54()
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -5301,12 +5364,12 @@ LABEL_46:
   return v15 & 1;
 }
 
-uint64_t sub_23AC42310()
+uint64_t sub_23AC42310(uint64_t a1, unsigned __int8 a2)
 {
   sub_23AC66384();
 }
 
-uint64_t sub_23AC42464()
+uint64_t sub_23AC42464(uint64_t a1, unsigned __int8 a2)
 {
   sub_23AC66614();
   sub_23AC66384();
@@ -5388,7 +5451,7 @@ unint64_t sub_23AC426F0()
   result = qword_27DFC8628;
   if (!qword_27DFC8628)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DFC8630);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DFC8630, &qword_23AC70290);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27DFC8628);
   }
@@ -5760,7 +5823,7 @@ LABEL_32:
             sub_23AC444F8(v0 + 400, v7[6] + 40 * result);
             sub_23AC445B0((v0 + 696), (v7[7] + 32 * v48));
             sub_23AC44614(v0 + 400);
-            __swift_destroy_boxed_opaque_existential_0(v0 + 568);
+            __swift_destroy_boxed_opaque_existential_0((v0 + 568));
             result = sub_23AC44614(v0 + 160);
             v49 = v7[2];
             v26 = __OFADD__(v49, 1);
@@ -5802,7 +5865,7 @@ LABEL_5:
       v11 = v0 + 400;
 LABEL_6:
       sub_23AC44614(v11);
-      __swift_destroy_boxed_opaque_existential_0(v0 + 568);
+      __swift_destroy_boxed_opaque_existential_0((v0 + 568));
       sub_23AC44614(v0 + 160);
 LABEL_7:
       v8 = v103;
@@ -5873,7 +5936,7 @@ LABEL_45:
             sub_23AC444F8(v0 + 360, v7[6] + 40 * result);
             sub_23AC445B0((v0 + 664), (v7[7] + 32 * v54));
             sub_23AC44614(v0 + 360);
-            __swift_destroy_boxed_opaque_existential_0(v0 + 568);
+            __swift_destroy_boxed_opaque_existential_0((v0 + 568));
             result = sub_23AC44614(v0 + 160);
             v55 = v7[2];
             v26 = __OFADD__(v55, 1);
@@ -5932,7 +5995,7 @@ LABEL_45:
       }
 
       v101(v100, v99);
-      __swift_destroy_boxed_opaque_existential_0(v0 + 568);
+      __swift_destroy_boxed_opaque_existential_0((v0 + 568));
       sub_23AC44614(v0 + 160);
       v8 = v103;
       v1 = v98;
@@ -6128,12 +6191,12 @@ uint64_t sub_23AC43930()
   return v1;
 }
 
-uint64_t sub_23AC43964()
+uint64_t sub_23AC43964(uint64_t a1, uint64_t a2)
 {
-  v1 = swift_task_alloc();
-  *(v0 + 16) = v1;
-  *v1 = v0;
-  v1[1] = sub_23AC43A0C;
+  v3 = swift_task_alloc();
+  *(v2 + 16) = v3;
+  *v3 = v2;
+  v3[1] = sub_23AC43A0C;
 
   return static VSMetricsEventProtocol.generateBaseFields()();
 }
@@ -6245,14 +6308,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_23AC43CE0(uint64_t a1, unint64_t a2)
+void *sub_23AC43CE0(uint64_t a1, unint64_t a2)
 {
   v3 = sub_23AC43D2C(a1, a2);
   sub_23AC43E5C(&unk_284DCDDF0);
   return v3;
 }
 
-uint64_t sub_23AC43D2C(uint64_t a1, unint64_t a2)
+void *sub_23AC43D2C(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -6433,7 +6496,7 @@ void *sub_23AC43F48(uint64_t a1, uint64_t a2)
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8650);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8650, &qword_23AC71040);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -6483,7 +6546,7 @@ char *sub_23AC43FBC(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8650);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8650, &qword_23AC71040);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -6522,11 +6585,12 @@ unint64_t sub_23AC440B0(uint64_t a1)
   return sub_23AC44730(a1, v2);
 }
 
-uint64_t sub_23AC440F4(uint64_t a1, char a2)
+uint64_t sub_23AC440F4(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8648);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8648, &unk_23AC703E0);
   result = sub_23AC66594();
   v7 = result;
   if (*(v5 + 16))
@@ -6555,7 +6619,7 @@ uint64_t sub_23AC440F4(uint64_t a1, char a2)
 LABEL_15:
       v22 = v19 | (v8 << 6);
       v23 = *(v5 + 48) + 40 * v22;
-      if (a2)
+      if (v4)
       {
         v24 = *v23;
         v25 = *(v23 + 16);
@@ -6639,7 +6703,7 @@ LABEL_7:
       }
     }
 
-    if (a2)
+    if (v4)
     {
       v33 = 1 << *(v5 + 32);
       if (v33 >= 64)
@@ -6754,9 +6818,9 @@ unint64_t sub_23AC445C0()
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -6821,7 +6885,7 @@ unint64_t sub_23AC44730(uint64_t a1, uint64_t a2)
 void *sub_23AC447F8()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8648);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8648, &unk_23AC703E0);
   v2 = *v0;
   v3 = sub_23AC66584();
   v4 = v3;
@@ -6987,7 +7051,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -7208,12 +7272,12 @@ uint64_t sub_23AC454CC(uint64_t a1)
   return MEMORY[0x2822009F8](sub_23AC45C3C, 0, 0);
 }
 
-uint64_t sub_23AC455CC()
+uint64_t sub_23AC455CC(uint64_t a1, uint64_t a2)
 {
-  v1 = swift_task_alloc();
-  *(v0 + 16) = v1;
-  *v1 = v0;
-  v1[1] = sub_23AC45C58;
+  v3 = swift_task_alloc();
+  *(v2 + 16) = v3;
+  *v3 = v2;
+  v3[1] = sub_23AC45C58;
 
   return static VSMetricsEventProtocol.generateBaseFields()();
 }
@@ -7343,7 +7407,7 @@ id sub_23AC45D2C()
   [*v0 copy];
   sub_23AC664A4();
   swift_unknownObjectRelease();
-  sub_23AC466DC(0, &qword_27DFC8660);
+  sub_23AC466DC(0, &qword_27DFC8660, off_278B727F0);
   swift_dynamicCast();
   objc_storeStrong(v0, obj);
   return obj;
@@ -7384,15 +7448,23 @@ void sub_23AC45EC8(id *a1@<X0>, uint64_t *a2@<X8>)
   a2[1] = v6;
 }
 
-void VSAppleSubscription.customerID.setter()
+void sub_23AC45F20(uint64_t *a1)
 {
-  [*v0 copy];
+  v1 = *a1;
+  v2 = a1[1];
+
+  VSAppleSubscription.customerID.setter(v1, v2);
+}
+
+void VSAppleSubscription.customerID.setter(uint64_t a1, uint64_t a2)
+{
+  [*v2 copy];
   sub_23AC664A4();
   swift_unknownObjectRelease();
-  sub_23AC466DC(0, &qword_27DFC8660);
+  sub_23AC466DC(0, &qword_27DFC8660, off_278B727F0);
   swift_dynamicCast();
-  objc_storeStrong(v0, obj);
-  v1 = sub_23AC66334();
+  objc_storeStrong(v2, obj);
+  v3 = sub_23AC66334();
 
   [obj setCustomerID_];
 }
@@ -7434,7 +7506,7 @@ void sub_23AC460E0(uint64_t a1, char a2)
     [v4 copy];
     sub_23AC664A4();
     swift_unknownObjectRelease();
-    sub_23AC466DC(0, &qword_27DFC8660);
+    sub_23AC466DC(0, &qword_27DFC8660, off_278B727F0);
     swift_dynamicCast();
     v5 = v2[6];
     objc_storeStrong(v3, v5);
@@ -7448,7 +7520,7 @@ void sub_23AC460E0(uint64_t a1, char a2)
     [*(*a1 + 64) copy];
     sub_23AC664A4();
     swift_unknownObjectRelease();
-    sub_23AC466DC(0, &qword_27DFC8660);
+    sub_23AC466DC(0, &qword_27DFC8660, off_278B727F0);
     swift_dynamicCast();
     v7 = v2[6];
     objc_storeStrong(v3, v7);
@@ -7476,15 +7548,15 @@ void sub_23AC462DC(id *a1@<X0>, uint64_t *a2@<X8>)
   *a2 = v4;
 }
 
-void VSAppleSubscription.productCodes.setter()
+void VSAppleSubscription.productCodes.setter(uint64_t a1)
 {
-  [*v0 copy];
+  [*v1 copy];
   sub_23AC664A4();
   swift_unknownObjectRelease();
-  sub_23AC466DC(0, &qword_27DFC8660);
+  sub_23AC466DC(0, &qword_27DFC8660, off_278B727F0);
   swift_dynamicCast();
-  objc_storeStrong(v0, obj);
-  v1 = sub_23AC663E4();
+  objc_storeStrong(v1, obj);
+  v2 = sub_23AC663E4();
 
   [obj setProductCodes_];
 }
@@ -7524,7 +7596,7 @@ void sub_23AC464E0(uint64_t a1, char a2)
     [v4 copy];
     sub_23AC664A4();
     swift_unknownObjectRelease();
-    sub_23AC466DC(0, &qword_27DFC8660);
+    sub_23AC466DC(0, &qword_27DFC8660, off_278B727F0);
     swift_dynamicCast();
     v5 = v2[5];
     objc_storeStrong(v3, v5);
@@ -7538,7 +7610,7 @@ void sub_23AC464E0(uint64_t a1, char a2)
     [*(*a1 + 56) copy];
     sub_23AC664A4();
     swift_unknownObjectRelease();
-    sub_23AC466DC(0, &qword_27DFC8660);
+    sub_23AC466DC(0, &qword_27DFC8660, off_278B727F0);
     swift_dynamicCast();
     v7 = v2[5];
     objc_storeStrong(v3, v7);
@@ -7550,7 +7622,7 @@ void sub_23AC464E0(uint64_t a1, char a2)
   free(v2);
 }
 
-uint64_t sub_23AC466DC(uint64_t a1, unint64_t *a2)
+uint64_t sub_23AC466DC(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -7577,7 +7649,7 @@ uint64_t sub_23AC4678C()
   return sub_23AC66634();
 }
 
-uint64_t sub_23AC467F4()
+uint64_t sub_23AC467F4(uint64_t a1)
 {
   sub_23AC66614();
   sub_23AC66494();
@@ -8096,17 +8168,17 @@ uint64_t sub_23AC46FD0()
   return sub_23AC66634();
 }
 
-uint64_t sub_23AC47070()
+uint64_t sub_23AC47070(uint64_t a1)
 {
   sub_23AC66384();
 }
 
-uint64_t sub_23AC470FC()
+uint64_t sub_23AC470FC(uint64_t a1, unsigned __int8 a2)
 {
   sub_23AC66384();
 }
 
-uint64_t sub_23AC472A0()
+uint64_t sub_23AC472A0(uint64_t a1)
 {
   sub_23AC66614();
   sub_23AC66384();
@@ -8114,7 +8186,7 @@ uint64_t sub_23AC472A0()
   return sub_23AC66634();
 }
 
-uint64_t sub_23AC4733C()
+uint64_t sub_23AC4733C(uint64_t a1, unsigned __int8 a2)
 {
   sub_23AC66614();
   sub_23AC66384();
@@ -8241,15 +8313,17 @@ unint64_t VSClickTarget.rawValue.getter()
 
 uint64_t sub_23AC476C8()
 {
+  v1 = *v0;
   sub_23AC66614();
-  sub_23AC470FC();
+  sub_23AC470FC(v3, v1);
   return sub_23AC66634();
 }
 
-uint64_t sub_23AC47718()
+uint64_t sub_23AC47718(uint64_t a1)
 {
+  v2 = *v1;
   sub_23AC66614();
-  sub_23AC470FC();
+  sub_23AC470FC(v4, v2);
   return sub_23AC66634();
 }
 
@@ -8313,7 +8387,7 @@ unint64_t VSPage.rawValue.getter()
   }
 }
 
-uint64_t sub_23AC47908()
+uint64_t sub_23AC47908(uint64_t a1)
 {
   sub_23AC66384();
 }
@@ -8554,12 +8628,12 @@ uint64_t sub_23AC47EE0()
   return sub_23AC66634();
 }
 
-uint64_t sub_23AC47F94()
+uint64_t sub_23AC47F94(uint64_t a1)
 {
   sub_23AC66384();
 }
 
-uint64_t sub_23AC48034()
+uint64_t sub_23AC48034(uint64_t a1)
 {
   sub_23AC66614();
   sub_23AC66384();
@@ -8598,12 +8672,12 @@ void sub_23AC480F0(unint64_t *a1@<X8>)
   a1[1] = v3;
 }
 
-uint64_t sub_23AC48190(unint64_t *a1, uint64_t *a2)
+uint64_t sub_23AC48190(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -9100,35 +9174,35 @@ LABEL_20:
 uint64_t VSUserAccount.updateURL.setter(uint64_t a1)
 {
   v2 = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC86D8);
-  MEMORY[0x28223BE20]();
-  v5 = &v11 - v4;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC86D8, &qword_23AC70AA0);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v12 - v5;
   [*v2 copy];
   sub_23AC664A4();
   swift_unknownObjectRelease();
-  sub_23AC466DC(0, &qword_27DFC86E0);
+  sub_23AC466DC(0, &qword_27DFC86E0, off_278B72988);
   swift_dynamicCast();
-  v6 = v12;
-  objc_storeStrong(v2, v12);
-  sub_23AC4CC08(a1, v5, &qword_27DFC86D8);
-  v7 = sub_23AC66214();
-  v8 = *(v7 - 8);
-  v9 = 0;
-  if ((*(v8 + 48))(v5, 1, v7) != 1)
+  v7 = v13;
+  objc_storeStrong(v2, v13);
+  sub_23AC4CC08(a1, v6, &qword_27DFC86D8, &qword_23AC70AA0);
+  v8 = sub_23AC66214();
+  v9 = *(v8 - 8);
+  v10 = 0;
+  if ((*(v9 + 48))(v6, 1, v8) != 1)
   {
-    v9 = sub_23AC661F4();
-    (*(v8 + 8))(v5, v7);
+    v10 = sub_23AC661F4();
+    (*(v9 + 8))(v6, v8);
   }
 
-  [v6 setUpdateURL_];
+  [v7 setUpdateURL_];
 
-  return sub_23AC4CC70(a1, &qword_27DFC86D8);
+  return sub_23AC4CC70(a1, &qword_27DFC86D8, &qword_23AC70AA0);
 }
 
-void (*VSUserAccount.updateURL.modify(id **a1))(void *a1, char a2)
+uint64_t (*VSUserAccount.updateURL.modify(id **a1))()
 {
   *a1 = v1;
-  v3 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC86D8) - 8) + 64);
+  v3 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC86D8, &qword_23AC70AA0) - 8) + 64);
   if (MEMORY[0x277D84FD8])
   {
     a1[1] = swift_coroFrameAlloc();
@@ -9163,7 +9237,7 @@ void (*VSUserAccount.updateURL.modify(id **a1))(void *a1, char a2)
 
   v10 = sub_23AC66214();
   (*(*(v10 - 8) + 56))(v4, v9, 1, v10);
-  sub_23AC4CCD0(v4, v6, &qword_27DFC86D8);
+  sub_23AC4CCD0(v4, v6, &qword_27DFC86D8, &qword_23AC70AA0);
   return sub_23AC489CC;
 }
 
@@ -9195,7 +9269,7 @@ void (*VSUserAccount.requiresSystemTrust.modify(uint64_t *a1))(uint64_t a1, uint
   return sub_23AC48AEC;
 }
 
-uint64_t (*VSUserAccount.accountProviderIdentifier.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*VSUserAccount.accountProviderIdentifier.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[2] = v1;
   v3 = [*v1 accountProviderIdentifier];
@@ -9223,7 +9297,7 @@ void sub_23AC48C10(uint64_t a1, uint64_t a2, SEL *a3)
   [*v5 copy];
   sub_23AC664A4();
   swift_unknownObjectRelease();
-  sub_23AC466DC(0, &qword_27DFC86E0);
+  sub_23AC466DC(0, &qword_27DFC86E0, off_278B72988);
   swift_dynamicCast();
   objc_storeStrong(v5, obj);
   if (a2)
@@ -9239,7 +9313,7 @@ void sub_23AC48C10(uint64_t a1, uint64_t a2, SEL *a3)
   [obj *a3];
 }
 
-uint64_t (*VSUserAccount.identifier.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*VSUserAccount.identifier.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[2] = v1;
   v3 = [*v1 identifier];
@@ -9315,59 +9389,4 @@ uint64_t static VSUserAccount.AccountType.fromObjcType(_:)@<X0>(uint64_t result@
   }
 
   return result;
-}
-
-void (*VSUserAccount.accountType.modify(uint64_t *a1))(uint64_t a1)
-{
-  if (MEMORY[0x277D84FD8])
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x40uLL);
-  }
-
-  *a1 = v3;
-  *(v3 + 40) = v1;
-  *(v3 + 48) = *v1;
-  VSUserAccount.accountType.getter((v3 + 56));
-  return sub_23AC49034;
-}
-
-void sub_23AC49034(uint64_t a1)
-{
-  v1 = *a1;
-  v2 = *(*a1 + 56);
-  v3 = *(*a1 + 40);
-  [*(*a1 + 48) copy];
-  sub_23AC664A4();
-  swift_unknownObjectRelease();
-  sub_23AC466DC(0, &qword_27DFC86E0);
-  swift_dynamicCast();
-  v4 = v1[4];
-  objc_storeStrong(v3, v4);
-  [v4 setAccountType_];
-
-  free(v1);
-}
-
-id sub_23AC4911C@<X0>(id *a1@<X0>, _BYTE *a2@<X8>)
-{
-  result = [*a1 isSignedOut];
-  *a2 = result;
-  return result;
-}
-
-void sub_23AC4915C(unsigned __int8 *a1, id *a2, uint64_t a3, uint64_t a4, SEL *a5)
-{
-  v7 = *a1;
-  [*a2 copy];
-  sub_23AC664A4();
-  swift_unknownObjectRelease();
-  sub_23AC466DC(0, &qword_27DFC86E0);
-  swift_dynamicCast();
-  objc_storeStrong(a2, obj);
-  [obj *a5];
 }

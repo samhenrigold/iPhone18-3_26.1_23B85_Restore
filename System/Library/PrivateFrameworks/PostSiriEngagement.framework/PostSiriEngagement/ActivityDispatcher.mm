@@ -48,16 +48,14 @@ uint64_t __57__ActivityDispatcher_getErrorNoCollectorDefinitionsToRun__block_inv
 
 + (id)getErrorFailedCollectors:(id)collectors
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA9B8];
-  v10 = @"failed_collectors";
-  v11[0] = collectors;
+  v9 = @"failed_collectors";
+  v10[0] = collectors;
   v4 = MEMORY[0x277CBEAC0];
   collectorsCopy = collectors;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"PostSiriEngagement" code:-10 userInfo:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -43,7 +43,7 @@
 
 - (void)import:(id)import
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   importCopy = import;
   v5 = +[MKLog log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -85,17 +85,17 @@
 
         objc_initWeak(buf, self);
         request = self->_request;
-        v18 = bundleIdentifier2;
-        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __32__MKPlaceholderMigrator_import___block_invoke;
-        v15[3] = &unk_2798DCCF0;
-        objc_copyWeak(&v17, buf);
-        v16 = v7;
-        [(MKAppSearchRequest *)request search:v13 androidIDs:0 completion:v15];
+        v17 = bundleIdentifier2;
+        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+        v14[0] = MEMORY[0x277D85DD0];
+        v14[1] = 3221225472;
+        v14[2] = __32__MKPlaceholderMigrator_import___block_invoke;
+        v14[3] = &unk_2798DCCF0;
+        objc_copyWeak(&v16, buf);
+        v15 = v7;
+        [(MKAppSearchRequest *)request search:v13 androidIDs:0 completion:v14];
 
-        objc_destroyWeak(&v17);
+        objc_destroyWeak(&v16);
         objc_destroyWeak(buf);
       }
 
@@ -119,8 +119,6 @@
       _os_log_impl(&dword_2592D2000, bundleIdentifier2, OS_LOG_TYPE_INFO, "will skip a placeholder because did receive an invalid placeholder. placeholder=nil", buf, 2u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __32__MKPlaceholderMigrator_import___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -146,7 +144,7 @@ void __32__MKPlaceholderMigrator_import___block_invoke(uint64_t a1, void *a2, vo
 
 - (void)install:(id)install apps:(id)apps error:(id)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   installCopy = install;
   appsCopy = apps;
   errorCopy = error;
@@ -158,9 +156,9 @@ void __32__MKPlaceholderMigrator_import___block_invoke(uint64_t a1, void *a2, vo
       bundleIdentifier = [installCopy bundleIdentifier];
       v13 = [errorCopy description];
       *buf = 138412546;
-      v39 = bundleIdentifier;
-      v40 = 2112;
-      v41 = v13;
+      v38 = bundleIdentifier;
+      v39 = 2112;
+      v40 = v13;
       _os_log_impl(&dword_2592D2000, v11, OS_LOG_TYPE_INFO, "did receive an error but will install a placeholder using existing metadata. id=%@, error=%@", buf, 0x16u);
 LABEL_4:
 
@@ -174,7 +172,7 @@ LABEL_14:
     {
       bundleIdentifier2 = [installCopy bundleIdentifier];
       *buf = 138412290;
-      v39 = bundleIdentifier2;
+      v38 = bundleIdentifier2;
       _os_log_impl(&dword_2592D2000, v17, OS_LOG_TYPE_INFO, "did not receive an icon due to an network error but will install a placeholder using existing metadata. id=%@", buf, 0xCu);
     }
 
@@ -192,7 +190,7 @@ LABEL_14:
 
     bundleIdentifier = [installCopy bundleIdentifier];
     *buf = 138412290;
-    v39 = bundleIdentifier;
+    v38 = bundleIdentifier;
     v14 = "did not receive any matching app but will install a placeholder using existing metadata. id=%@";
 LABEL_11:
     v15 = v11;
@@ -212,7 +210,7 @@ LABEL_12:
 
     bundleIdentifier = [installCopy bundleIdentifier];
     *buf = 138412290;
-    v39 = bundleIdentifier;
+    v38 = bundleIdentifier;
     v14 = "did receive too many matching apps but will install a placeholder using existing metadata. id=%@";
     goto LABEL_11;
   }
@@ -235,11 +233,11 @@ LABEL_12:
   }
 
   bundleIdentifier = iconURL;
-  v23 = MEMORY[0x277CBEA90];
-  v24 = [MEMORY[0x277CBEBC0] URLWithString:iconURL];
-  v25 = [v23 dataWithContentsOfURL:v24];
+  v22 = MEMORY[0x277CBEA90];
+  v23 = [MEMORY[0x277CBEBC0] URLWithString:iconURL];
+  v24 = [v22 dataWithContentsOfURL:v23];
 
-  if (!v25)
+  if (!v24)
   {
     icon = [installCopy icon];
 
@@ -250,7 +248,7 @@ LABEL_12:
       {
         bundleIdentifier3 = [installCopy bundleIdentifier];
         *buf = 138412290;
-        v39 = bundleIdentifier3;
+        v38 = bundleIdentifier3;
         _os_log_impl(&dword_2592D2000, v13, OS_LOG_TYPE_INFO, "did not receive an icon data due to an network error but will install a placeholder using existing metadata. id=%@", buf, 0xCu);
       }
 
@@ -258,72 +256,68 @@ LABEL_12:
     }
   }
 
-  v36 = v25;
-  v37 = bundleIdentifier;
-  v26 = +[MKLog log];
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+  v35 = v24;
+  v36 = bundleIdentifier;
+  v25 = +[MKLog log];
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     bundleIdentifier4 = [installCopy bundleIdentifier];
     *buf = 138412290;
-    v39 = bundleIdentifier4;
-    _os_log_impl(&dword_2592D2000, v26, OS_LOG_TYPE_INFO, "will install a placeholder using the latest metadata from the app store. id=%@", buf, 0xCu);
+    v38 = bundleIdentifier4;
+    _os_log_impl(&dword_2592D2000, v25, OS_LOG_TYPE_INFO, "will install a placeholder using the latest metadata from the app store. id=%@", buf, 0xCu);
   }
 
-  v28 = [MKPlaceholder alloc];
+  v27 = [MKPlaceholder alloc];
   bundleIdentifier5 = [v11 bundleIdentifier];
   appStoreIdentifier = [v11 appStoreIdentifier];
   name = [v11 name];
   developer = [v11 developer];
-  v32 = [(MKPlaceholder *)v28 initWithBundleIdentifier:bundleIdentifier5 appStoreIdentifier:appStoreIdentifier bundleName:name developer:developer icon:v36];
+  v31 = [(MKPlaceholder *)v27 initWithBundleIdentifier:bundleIdentifier5 appStoreIdentifier:appStoreIdentifier bundleName:name developer:developer icon:v35];
 
-  [(MKPlaceholder *)v32 install];
+  [(MKPlaceholder *)v31 install];
 LABEL_17:
   identifiers = self->_identifiers;
   bundleIdentifier6 = [installCopy bundleIdentifier];
   [(NSMutableArray *)identifiers addObject:bundleIdentifier6];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remove
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_identifiers;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         v8 = [MKPlaceholder alloc];
-        v9 = [(MKPlaceholder *)v8 initWithBundleIdentifier:v7, v11];
+        v9 = [(MKPlaceholder *)v8 initWithBundleIdentifier:v7, v10];
         [(MKPlaceholder *)v9 uninstall];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

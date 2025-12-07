@@ -1,10 +1,10 @@
 @interface FBScene
-- (uint64_t)setUi_clientInheritsCoreMediaApplicationStateFromHostPID:(uint64_t)result;
+- (void)setUi_clientInheritsCoreMediaApplicationStateFromHostPID:(void *)result;
 @end
 
 @implementation FBScene
 
-- (uint64_t)setUi_clientInheritsCoreMediaApplicationStateFromHostPID:(uint64_t)result
+- (void)setUi_clientInheritsCoreMediaApplicationStateFromHostPID:(void *)result
 {
   if (result)
   {

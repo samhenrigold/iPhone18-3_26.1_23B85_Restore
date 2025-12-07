@@ -14,9 +14,9 @@
     +[NSXPCInterface(IL_Internal) il_messageFilterExtensionHostInterface];
   }
 
-  v1 = il_messageFilterExtensionHostInterface_interface;
+  v2 = il_messageFilterExtensionHostInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 + (id)il_messageFilterExtensionVendorInterface
@@ -26,9 +26,9 @@
     +[NSXPCInterface(IL_Internal) il_messageFilterExtensionVendorInterface];
   }
 
-  v1 = il_messageFilterExtensionVendorInterface_interface;
+  v2 = il_messageFilterExtensionVendorInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 + (id)il_classificationUIExtensionHostInterface
@@ -38,9 +38,9 @@
     +[NSXPCInterface(IL_Internal) il_classificationUIExtensionHostInterface];
   }
 
-  v1 = il_classificationUIExtensionHostInterface_interface;
+  v2 = il_classificationUIExtensionHostInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 + (id)il_classificationUIExtensionVendorInterface
@@ -50,9 +50,9 @@
     +[NSXPCInterface(IL_Internal) il_classificationUIExtensionVendorInterface];
   }
 
-  v1 = il_classificationUIExtensionVendorInterface_interface;
+  v2 = il_classificationUIExtensionVendorInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 @end

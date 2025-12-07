@@ -27,7 +27,7 @@
 
 - (RTSourceMapsSupportHistoryEntry)initWithCoder:(id)coder
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (([coderCopy allowsKeyedCoding] & 1) == 0)
   {
@@ -35,16 +35,16 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "[RTSourceMapsSupportHistoryEntry initWithCoder:]";
-      v14 = 1024;
-      v15 = 28;
+      v12 = "[RTSourceMapsSupportHistoryEntry initWithCoder:]";
+      v13 = 1024;
+      v14 = 28;
       _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [aDecoder allowsKeyedCoding] (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v11.receiver = self;
-  v11.super_class = RTSourceMapsSupportHistoryEntry;
-  v6 = [(RTSource *)&v11 initWithCoder:coderCopy];
+  v10.receiver = self;
+  v10.super_class = RTSourceMapsSupportHistoryEntry;
+  v6 = [(RTSource *)&v10 initWithCoder:coderCopy];
   if (v6)
   {
     v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"usageDate"];
@@ -52,13 +52,12 @@
     v6->_usageDate = v7;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (([coderCopy allowsKeyedCoding] & 1) == 0)
   {
@@ -66,19 +65,17 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v9 = "[RTSourceMapsSupportHistoryEntry encodeWithCoder:]";
-      v10 = 1024;
-      v11 = 40;
+      v8 = "[RTSourceMapsSupportHistoryEntry encodeWithCoder:]";
+      v9 = 1024;
+      v10 = 40;
       _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [aCoder allowsKeyedCoding] (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v7.receiver = self;
-  v7.super_class = RTSourceMapsSupportHistoryEntry;
-  [(RTSource *)&v7 encodeWithCoder:coderCopy];
+  v6.receiver = self;
+  v6.super_class = RTSourceMapsSupportHistoryEntry;
+  [(RTSource *)&v6 encodeWithCoder:coderCopy];
   [coderCopy encodeObject:self->_usageDate forKey:@"usageDate"];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal

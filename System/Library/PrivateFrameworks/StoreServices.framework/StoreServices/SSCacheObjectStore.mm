@@ -44,15 +44,21 @@
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v10 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
@@ -61,14 +67,13 @@
     {
       v24 = 138412290;
       v25 = objc_opt_class();
-      LODWORD(v23) = 12;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "**** No identifier passed to initialization routine [%@]", &v24, 12);
+      if (v14)
       {
-        v14 = v13;
-        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v24, v23}];
-        free(v14);
-        SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, v15);
+        v15 = v14;
+        v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+        free(v15);
+        SSFileLog(v10, @"%@", v17, v18, v19, v20, v21, v22, v16);
       }
     }
 
@@ -161,31 +166,31 @@ LABEL_12:
     v14 = shouldLog;
   }
 
-  if (os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [v12 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = v14;
+    v16 = v14;
   }
 
   else
   {
-    v15 = v14 & 2;
+    v16 = v14 & 2;
   }
 
-  if (!v15)
+  if (!v16)
   {
     goto LABEL_23;
   }
 
   v30 = 138412290;
   identifierCopy = identifier;
-  LODWORD(v25) = 12;
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "**** No SSCacheObjectFactory for typeIdentifier [%@]", &v30, 12);
   if (v11)
   {
-    v16 = v11;
-    v17 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v30, v25}];
-    free(v16);
-    SSFileLog(v12, @"%@", v18, v19, v20, v21, v22, v23, v17);
+    v17 = v11;
+    v18 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+    free(v17);
+    SSFileLog(v12, @"%@", v19, v20, v21, v22, v23, v24, v18);
 LABEL_23:
     v11 = 0;
   }
@@ -206,7 +211,7 @@ LABEL_23:
 
 uint64_t __34__SSCacheObjectStore_clearSession__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v2)
   {
@@ -224,30 +229,29 @@ uint64_t __34__SSCacheObjectStore_clearSession__block_invoke(uint64_t a1)
     v4 = v3;
   }
 
-  if (os_log_type_enabled([v2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  v5 = [v2 OSLogObject];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = v4;
+    v6 = v4;
   }
 
   else
   {
-    v5 = v4 & 2;
+    v6 = v4 & 2;
   }
 
-  if (v5)
+  if (v6)
   {
-    v6 = *(*(a1 + 32) + 24);
-    v19 = 138412290;
-    v20 = v6;
-    LODWORD(v18) = 12;
-    v17 = &v19;
-    v7 = _os_log_send_and_compose_impl();
-    if (v7)
+    v7 = *(*(a1 + 32) + 24);
+    v18 = 138412290;
+    v19 = v7;
+    v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v5, 0, "**** Clearing SSCacheObjectStore [%@]", &v18, 12);
+    if (v8)
     {
-      v8 = v7;
-      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v19, v18}];
-      free(v8);
-      SSFileLog(v2, @"%@", v10, v11, v12, v13, v14, v15, v9);
+      v9 = v8;
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+      free(v9);
+      SSFileLog(v2, @"%@", v11, v12, v13, v14, v15, v16, v10);
     }
   }
 
@@ -301,35 +305,40 @@ void __51__SSCacheObjectStore_addObject_withItemIdentifier___block_invoke(uint64
     v8 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v9) = v8;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+    v10 = [v7 OSLogObject];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      v10 = objc_opt_class();
-      v11 = *(a1 + 48);
+      v11 = objc_opt_class();
+      v12 = *(a1 + 48);
       v22 = 138412546;
-      v23 = v10;
+      v23 = v11;
       v24 = 2112;
-      v25 = v11;
-      LODWORD(v21) = 22;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v25 = v12;
+      v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, v10, 1, "[%@] No data representation when adding object to cache with item identifier %@", &v22, 22);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v22, v21}];
-        free(v13);
-        SSFileLog(v7, @"%@", v15, v16, v17, v18, v19, v20, v14);
+        v14 = v13;
+        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+        free(v14);
+        SSFileLog(v7, @"%@", v16, v17, v18, v19, v20, v21, v15);
       }
     }
   }
@@ -370,15 +379,21 @@ void __53__SSCacheObjectStore_removeObjectWithItemIdentifier___block_invoke(uint
     v5 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = v5 | 2;
+      LODWORD(v6) = v5 | 2;
     }
 
     else
     {
-      v6 = v5;
+      LODWORD(v6) = v5;
     }
 
-    if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_DEBUG))
+    v7 = [v4 OSLogObject];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
@@ -387,14 +402,13 @@ void __53__SSCacheObjectStore_removeObjectWithItemIdentifier___block_invoke(uint
     {
       v17 = 138412290;
       v18 = objc_opt_class();
-      LODWORD(v16) = 12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 2, "[%@] No item identifier", &v17, 12);
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v17, v16}];
-        free(v8);
-        SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v4, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }
@@ -424,19 +438,19 @@ void __53__SSCacheObjectStore_removeObjectWithItemIdentifier___block_invoke(uint
 
 void __52__SSCacheObjectStore_cacheObjectWithItemIdentifier___block_invoke(uint64_t a1)
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) length])
   {
     v2 = [*(*(a1 + 40) + 8) cacheEntryForLookupKey:*(a1 + 32)];
     v3 = [v2 dataBlob:0];
     if ([v3 length])
     {
-      v27[0] = 0;
-      v26 = SSDatabaseCacheEntryUserInfo;
-      [v2 getValues:v27 forProperties:&v26 count:1];
-      if (v27[0])
+      v28[0] = 0;
+      v27 = SSDatabaseCacheEntryUserInfo;
+      [v2 getValues:v28 forProperties:&v27 count:1];
+      if (v28[0])
       {
-        *(*(*(a1 + 48) + 8) + 40) = [objc_msgSend(*(a1 + 40) _factoryForTypeIdentifier:{v27[0]), "cachedObjectWithDataRepresentation:typeIdentifier:", v3, v27[0]}];
+        *(*(*(a1 + 48) + 8) + 40) = [objc_msgSend(*(a1 + 40) _factoryForTypeIdentifier:{v28[0]), "cachedObjectWithDataRepresentation:typeIdentifier:", v3, v28[0]}];
         return;
       }
 
@@ -446,40 +460,38 @@ void __52__SSCacheObjectStore_cacheObjectWithItemIdentifier___block_invoke(uint6
         v4 = +[SSLogConfig sharedConfig];
       }
 
-      v11 = [v4 shouldLog];
+      v15 = [v4 shouldLog];
       if ([v4 shouldLogToDisk])
       {
-        v12 = v11 | 2;
+        LODWORD(v10) = v15 | 2;
       }
 
       else
       {
-        v12 = v11;
+        LODWORD(v10) = v15;
       }
 
-      if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_INFO))
+      v11 = [v4 OSLogObject];
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v12 &= 2u;
+        v10 = v10;
       }
 
-      if (v12)
+      else
       {
-        v13 = objc_opt_class();
-        v14 = *(a1 + 32);
-        *v25 = 138412546;
-        *&v25[4] = v13;
-        *&v25[12] = 2112;
-        *&v25[14] = v14;
-        LODWORD(v24) = 22;
-LABEL_32:
-        v15 = _os_log_send_and_compose_impl();
-        if (v15)
-        {
-          v16 = v15;
-          v17 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, v25, v24, *v25}];
-          free(v16);
-          SSFileLog(v4, @"%@", v18, v19, v20, v21, v22, v23, v17);
-        }
+        v10 &= 2u;
+      }
+
+      if (v10)
+      {
+        v16 = objc_opt_class();
+        v17 = *(a1 + 32);
+        *v26 = 138412546;
+        *&v26[4] = v16;
+        *&v26[12] = 2112;
+        *&v26[14] = v17;
+        v14 = "[%@] No type identifier for item identifier %@";
+        goto LABEL_35;
       }
     }
 
@@ -491,32 +503,47 @@ LABEL_32:
         v4 = +[SSLogConfig sharedConfig];
       }
 
-      v7 = [v4 shouldLog];
+      v9 = [v4 shouldLog];
       if ([v4 shouldLogToDisk])
       {
-        v8 = v7 | 2;
+        LODWORD(v10) = v9 | 2;
       }
 
       else
       {
-        v8 = v7;
+        LODWORD(v10) = v9;
       }
 
-      if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_INFO))
+      v11 = [v4 OSLogObject];
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v8 &= 2u;
+        v10 = v10;
       }
 
-      if (v8)
+      else
       {
-        v9 = objc_opt_class();
-        v10 = *(a1 + 32);
-        *v25 = 138412546;
-        *&v25[4] = v9;
-        *&v25[12] = 2112;
-        *&v25[14] = v10;
-        LODWORD(v24) = 22;
-        goto LABEL_32;
+        v10 &= 2u;
+      }
+
+      if (v10)
+      {
+        v12 = objc_opt_class();
+        v13 = *(a1 + 32);
+        *v26 = 138412546;
+        *&v26[4] = v12;
+        *&v26[12] = 2112;
+        *&v26[14] = v13;
+        v14 = "[%@] No data representation for item identifier %@";
+LABEL_35:
+        v8 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, v11, 1, v14, v26, 22, *v26, *&v26[8]);
+LABEL_36:
+        if (v8)
+        {
+          v18 = v8;
+          v19 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+          free(v18);
+          SSFileLog(v4, @"%@", v20, v21, v22, v23, v24, v25, v19);
+        }
       }
     }
   }
@@ -532,25 +559,31 @@ LABEL_32:
     v5 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = v5 | 2;
+      LODWORD(v6) = v5 | 2;
     }
 
     else
     {
-      v6 = v5;
+      LODWORD(v6) = v5;
     }
 
-    if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_DEBUG))
+    v7 = [v4 OSLogObject];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
 
     if (v6)
     {
-      *v25 = 138412290;
-      *&v25[4] = objc_opt_class();
-      LODWORD(v24) = 12;
-      goto LABEL_32;
+      *v26 = 138412290;
+      *&v26[4] = objc_opt_class();
+      v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 2, "[%@] No item identifier", v26, 12, *v26, *&v26[8]);
+      goto LABEL_36;
     }
   }
 }

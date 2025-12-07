@@ -11,7 +11,7 @@
   {
     if (error)
     {
-      CBErrorF();
+      CBErrorF(4294960591, "missing identifier");
       *error = v29 = 0;
       goto LABEL_45;
     }
@@ -28,7 +28,7 @@ LABEL_50:
     if (error)
     {
       v31 = [objc_opt_class() description];
-      *error = CBErrorF();
+      *error = CBErrorF(4294960540, "%@ super init failed", v31);
     }
 
     goto LABEL_50;

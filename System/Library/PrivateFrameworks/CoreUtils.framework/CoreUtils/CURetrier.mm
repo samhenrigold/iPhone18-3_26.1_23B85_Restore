@@ -140,10 +140,10 @@
       v10 = self->_retryTimer;
       self->_retryTimer = v9;
 
-      v18 = self->_retryTimer;
-      if (!v18)
+      v11 = self->_retryTimer;
+      if (!v11)
       {
-        FatalErrorF("Create retry timer failed", v11, v12, v13, v14, v15, v16, v17, v21);
+        FatalErrorF("Create retry timer failed");
       }
 
       handler[0] = MEMORY[0x1E69E9820];
@@ -151,10 +151,10 @@
       handler[2] = __25__CURetrier_failedDirect__block_invoke;
       handler[3] = &unk_1E73A4F68;
       handler[4] = self;
-      dispatch_source_set_event_handler(v18, handler);
-      v19 = self->_retryTimer;
-      v20 = dispatch_time(0, (v5 * 1000000000.0));
-      dispatch_source_set_timer(v19, v20, 0xFFFFFFFFFFFFFFFFLL, 0xEE6B280uLL);
+      dispatch_source_set_event_handler(v11, handler);
+      v12 = self->_retryTimer;
+      v13 = dispatch_time(0, (v5 * 1000000000.0));
+      dispatch_source_set_timer(v12, v13, 0xFFFFFFFFFFFFFFFFLL, 0xEE6B280uLL);
       dispatch_resume(self->_retryTimer);
     }
   }

@@ -143,7 +143,7 @@ void __82__FIMindfulnessSessionDataProvider__createMindfulnessSessionsQueryWithR
 
 - (void)_queue_startMindfulnessSessionQueryWithRetryCount:(int64_t)count
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC270];
   if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_DEFAULT))
@@ -151,11 +151,11 @@ void __82__FIMindfulnessSessionDataProvider__createMindfulnessSessionsQueryWithR
     v6 = v5;
     v7 = objc_opt_class();
     v8 = NSStringFromClass(v7);
-    v12 = 138412546;
-    v13 = v8;
-    v14 = 2048;
+    v11 = 138412546;
+    v12 = v8;
+    v13 = 2048;
     countCopy = count;
-    _os_log_impl(&dword_24B35E000, v6, OS_LOG_TYPE_DEFAULT, "%@ starting mindfulness sessions query (retry count: %lu)", &v12, 0x16u);
+    _os_log_impl(&dword_24B35E000, v6, OS_LOG_TYPE_DEFAULT, "%@ starting mindfulness sessions query (retry count: %lu)", &v11, 0x16u);
   }
 
   v9 = [(FIMindfulnessSessionDataProvider *)self _createMindfulnessSessionsQueryWithRetryCount:count];
@@ -163,12 +163,11 @@ void __82__FIMindfulnessSessionDataProvider__createMindfulnessSessionsQueryWithR
   self->_mindfulnessSessionsQuery = v9;
 
   [(HKHealthStore *)self->_healthStore executeQuery:self->_mindfulnessSessionsQuery];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_stopMindfulSessionQuery
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC270];
   if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_DEFAULT))
@@ -176,9 +175,9 @@ void __82__FIMindfulnessSessionDataProvider__createMindfulnessSessionsQueryWithR
     v4 = v3;
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_24B35E000, v4, OS_LOG_TYPE_DEFAULT, "%@ stopping mindfulness sessions query", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_24B35E000, v4, OS_LOG_TYPE_DEFAULT, "%@ stopping mindfulness sessions query", &v8, 0xCu);
   }
 
   [(HKHealthStore *)self->_healthStore stopQuery:self->_mindfulnessSessionsQuery];
@@ -186,7 +185,6 @@ void __82__FIMindfulnessSessionDataProvider__createMindfulnessSessionsQueryWithR
   self->_mindfulnessSessionsQuery = 0;
 
   [(HKSortedSampleArray *)self->_mindfulnessSessions removeAllSamples];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_retryMindfulSessionQueryWithRetryCount:(int64_t)count
@@ -249,36 +247,31 @@ void __73__FIMindfulnessSessionDataProvider_allMindfulnessSessionsWithCompletion
 
 void __82__FIMindfulnessSessionDataProvider__createMindfulnessSessionsQueryWithRetryCount___block_invoke_2_cold_1(uint64_t a1, void *a2, id *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 40);
-  v5 = a2;
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [*a3 localizedDescription];
-  v10 = 138412546;
+  v12 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = [*a3 localizedDescription];
+  v8 = 138412546;
+  v9 = v6;
+  v10 = 2112;
   v11 = v7;
-  v12 = 2112;
-  v13 = v8;
-  _os_log_error_impl(&dword_24B35E000, v5, OS_LOG_TYPE_ERROR, "%@ failed to query mindfulness sessions: %@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24B35E000, v4, OS_LOG_TYPE_ERROR, "%@ failed to query mindfulness sessions: %@", &v8, 0x16u);
 }
 
 - (void)_queue_retryMindfulSessionQueryWithRetryCount:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412802;
-  v9 = v6;
-  v10 = 2048;
-  v11 = a3;
-  v12 = 2048;
-  v13 = 5;
-  _os_log_error_impl(&dword_24B35E000, v4, OS_LOG_TYPE_ERROR, "%@ reached max retry count %lu (max: %lu); not restarting query", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412802;
+  v8 = v6;
+  v9 = 2048;
+  v10 = a3;
+  v11 = 2048;
+  v12 = 5;
+  _os_log_error_impl(&dword_24B35E000, v4, OS_LOG_TYPE_ERROR, "%@ reached max retry count %lu (max: %lu); not restarting query", &v7, 0x20u);
 }
 
 @end

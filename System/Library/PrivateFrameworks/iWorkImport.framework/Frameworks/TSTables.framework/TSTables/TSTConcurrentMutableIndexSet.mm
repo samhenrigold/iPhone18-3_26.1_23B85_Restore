@@ -38,7 +38,7 @@
 {
   blockCopy = block;
   pthread_rwlock_rdlock(&self->_rwLock);
-  objc_msgSend_enumerateIndexesUsingBlock_(self->_mutableIndexSet, v5, blockCopy, v6, v7);
+  objc_msgSend_enumerateIndexesUsingBlock_(self->_mutableIndexSet, v5, blockCopy, v6);
 
   pthread_rwlock_unlock(&self->_rwLock);
 }
@@ -46,12 +46,12 @@
 - (void)addIndex:(unint64_t)index
 {
   pthread_rwlock_rdlock(&self->_rwLock);
-  v8 = objc_msgSend_containsIndex_(self->_mutableIndexSet, v5, index, v6, v7);
+  v7 = objc_msgSend_containsIndex_(self->_mutableIndexSet, v5, index, v6);
   pthread_rwlock_unlock(&self->_rwLock);
-  if ((v8 & 1) == 0)
+  if ((v7 & 1) == 0)
   {
     pthread_rwlock_wrlock(&self->_rwLock);
-    objc_msgSend_addIndex_(self->_mutableIndexSet, v9, index, v10, v11);
+    objc_msgSend_addIndex_(self->_mutableIndexSet, v8, index, v9);
 
     pthread_rwlock_unlock(&self->_rwLock);
   }
@@ -60,7 +60,7 @@
 - (BOOL)containsIndex:(unint64_t)index
 {
   pthread_rwlock_rdlock(&self->_rwLock);
-  LOBYTE(index) = objc_msgSend_containsIndex_(self->_mutableIndexSet, v5, index, v6, v7);
+  LOBYTE(index) = objc_msgSend_containsIndex_(self->_mutableIndexSet, v5, index, v6);
   pthread_rwlock_unlock(&self->_rwLock);
   return index;
 }
@@ -68,7 +68,7 @@
 - (void)removeAllIndexes
 {
   pthread_rwlock_wrlock(&self->_rwLock);
-  objc_msgSend_removeAllIndexes(self->_mutableIndexSet, v3, v4, v5, v6);
+  objc_msgSend_removeAllIndexes(self->_mutableIndexSet, v3, v4, v5);
 
   pthread_rwlock_unlock(&self->_rwLock);
 }

@@ -290,16 +290,16 @@ uint64_t __69__NUIContainerStackView_containerStackViewWithAxis_arrangedSubviews
 
 - (void)setCustomSpacing:(double)spacing afterView:(id)view
 {
-  v6[0] = view;
+  viewCopy = view;
   if (NUIContainerViewLengthIsDefault(spacing))
   {
-    std::__tree<UIView *>::__erase_unique<UIView *>(&self->_customSpacings, v6);
+    std::__tree<UIView *>::__erase_unique<UIView *>(&self->_customSpacings, &viewCopy);
   }
 
   else
   {
-    v6[2] = v6;
-    *(std::__tree<std::__value_type<UIView *,double>,std::__map_value_compare<UIView *,std::__value_type<UIView *,double>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,double>>>::__emplace_unique_key_args<UIView *,std::piecewise_construct_t const&,std::tuple<UIView * const&>,std::tuple<>>(&self->_customSpacings, v6) + 5) = spacing;
+    v7 = &viewCopy;
+    *(std::__tree<std::__value_type<UIView *,double>,std::__map_value_compare<UIView *,std::__value_type<UIView *,double>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,double>>>::__emplace_unique_key_args<UIView *,std::piecewise_construct_t const&,std::tuple<UIView * const&>,std::tuple<>>(&self->_customSpacings, &viewCopy, &std::piecewise_construct, &v7) + 5) = spacing;
   }
 
   [(NUIContainerView *)self setNeedsInvalidation:2];
@@ -993,7 +993,7 @@ LABEL_95:
 
     else
     {
-      v14 = OUTLINED_FUNCTION_21(visibleArrangedSubviews, v5, v6, v7, v8, v9, v10, v11, 0, 0, 0, 0, 0, 0, 0, 0, v38, v40);
+      v14 = OUTLINED_FUNCTION_21(visibleArrangedSubviews, v5, v6, v7, v8, v9, v10, v11, 0, 0, 0, 0, 0, 0, 0, 0, v38);
       if (!v14)
       {
         return 0;
@@ -1030,7 +1030,7 @@ LABEL_95:
           }
         }
 
-        v15 = OUTLINED_FUNCTION_21(effectiveFirstBaselineOffsetFromTop, v21, v22, v23, v24, v25, v26, v27, v30, v31, v32, v33, v34, v35, v36, v37, v39, v41);
+        v15 = OUTLINED_FUNCTION_21(effectiveFirstBaselineOffsetFromTop, v21, v22, v23, v24, v25, v26, v27, v30, v31, v32, v33, v34, v35, v36, v37, v39);
       }
 
       while (v15);

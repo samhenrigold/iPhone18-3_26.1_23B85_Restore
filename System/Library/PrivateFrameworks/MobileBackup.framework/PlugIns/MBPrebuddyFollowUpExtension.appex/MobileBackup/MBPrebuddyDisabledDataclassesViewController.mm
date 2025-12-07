@@ -111,22 +111,20 @@
   [view setUserInteractionEnabled:0];
 
   v6 = objc_opt_new();
-  v17 = 0;
-  v7 = [v6 setMegaBackupTurnOnAllAppsSyncTelemetry:1 error:&v17];
-  v8 = v17;
+  v15 = 0;
+  v7 = [v6 setMegaBackupTurnOnAllAppsSyncTelemetry:1 error:&v15];
+  v8 = v15;
   if ((v7 & 1) == 0)
   {
     v9 = MBGetDefaultLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v19 = @"MegaBackupTurnOnAllAppsSync";
-      v20 = 2114;
-      v21 = v8;
+      v17 = @"MegaBackupTurnOnAllAppsSync";
+      v18 = 2114;
+      v19 = v8;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to set %{public}@: %{public}@", buf, 0x16u);
-      v14 = @"MegaBackupTurnOnAllAppsSync";
-      v15 = v8;
-      _MBLog();
+      _MBLog(@"E ", "Failed to set %{public}@: %{public}@", @"MegaBackupTurnOnAllAppsSync", v8);
     }
   }
 
@@ -136,14 +134,14 @@
     [(MBPrebuddyDisabledCategoriesManager *)v10 enableDisabledBackupDomains:self->_needsTemporaryStorage];
   }
 
-  if ([(NSArray *)self->_disabledSyncCategories count:v14])
+  if ([(NSArray *)self->_disabledSyncCategories count])
   {
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_100003860;
-    v16[3] = &unk_10001C6F8;
-    v16[4] = self;
-    [(MBPrebuddyDisabledCategoriesManager *)v10 enableDisabledSyncCategories:&_dispatch_main_q completion:v16];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100003860;
+    v14[3] = &unk_10001C6F8;
+    v14[4] = self;
+    [(MBPrebuddyDisabledCategoriesManager *)v10 enableDisabledSyncCategories:&_dispatch_main_q completion:v14];
   }
 
   else
@@ -176,7 +174,7 @@
       v12 = 2114;
       v13 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to set %{public}@: %{public}@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to set %{public}@: %{public}@", @"MegaBackupTurnOnAllAppsSync", v7);
     }
   }
 }
@@ -327,17 +325,8 @@ LABEL_8:
 - (id)_localizedTitleForBackupDomain:(id)domain
 {
   domainCopy = domain;
-  if ([domainCopy isCameraRollDomain])
+  if ([domainCopy isCameraRollDomain] || (objc_msgSend(domainCopy, "domainName"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isEqualToString:", @"KeyboardDomain"), v4, v5) || (objc_msgSend(domainCopy, "domainName"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", @"HealthDomain"), v6, v7))
   {
-    goto LABEL_4;
-  }
-
-  domainName = [domainCopy domainName];
-  v5 = [domainName isEqualToString:@"KeyboardDomain"];
-
-  if (v5 || ([domainCopy domainName], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", @"HealthDomain"), v6, v7))
-  {
-LABEL_4:
     v8 = MBLocalizedStringFromTable();
   }
 

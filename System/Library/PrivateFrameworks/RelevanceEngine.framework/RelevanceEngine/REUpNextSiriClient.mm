@@ -9,9 +9,9 @@
 
 - (REUpNextSiriClient)init
 {
-  v12.receiver = self;
-  v12.super_class = REUpNextSiriClient;
-  v2 = [(REUpNextSiriClient *)&v12 init];
+  v14.receiver = self;
+  v14.super_class = REUpNextSiriClient;
+  v2 = [(REUpNextSiriClient *)&v14 init];
   if (v2)
   {
     v3 = RECreateSharedQueueWithQOS(@"upnext.siriclient", QOS_CLASS_UTILITY);
@@ -23,13 +23,13 @@
     v2->_connection = v5;
 
     v7 = v2->_connection;
-    v8 = REUpNextSiriServerInterface();
-    [(NSXPCConnection *)v7 setRemoteObjectInterface:v8];
+    v9 = REUpNextSiriServerInterface(v8);
+    [(NSXPCConnection *)v7 setRemoteObjectInterface:v9];
 
-    [(NSXPCConnection *)v2->_connection setExportedObject:v2];
-    v9 = v2->_connection;
-    v10 = REUpNextSiriClientInterface();
-    [(NSXPCConnection *)v9 setExportedInterface:v10];
+    v10 = [(NSXPCConnection *)v2->_connection setExportedObject:v2];
+    v11 = v2->_connection;
+    v12 = REUpNextSiriClientInterface(v10);
+    [(NSXPCConnection *)v11 setExportedInterface:v12];
 
     [(NSXPCConnection *)v2->_connection setInterruptionHandler:&__block_literal_global_8];
     [(NSXPCConnection *)v2->_connection setInvalidationHandler:&__block_literal_global_4];
@@ -109,11 +109,10 @@ void __45__REUpNextSiriClient__performOnRemoteObject___block_invoke_2(uint64_t a
 
 void __45__REUpNextSiriClient__performOnRemoteObject___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "XPC Siri connection error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "XPC Siri connection error %@", &v2, 0xCu);
 }
 
 @end

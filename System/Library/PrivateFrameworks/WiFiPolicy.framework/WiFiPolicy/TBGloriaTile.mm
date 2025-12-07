@@ -1,4 +1,5 @@
 @interface TBGloriaTile
++ (id)gloriaTileWithLat:(double)lat lng:(double)lng zoom:(unsigned __int8)zoom;
 - (TBGloriaTile)initWithEncodedKey:(unint64_t)key zoom:(unsigned __int8)zoom;
 - (TBGloriaTile)initWithLat:(double)lat lng:(double)lng zoom:(unsigned __int8)zoom;
 - (id)adjacentTileKeysWithLevel:(unsigned int)level;
@@ -24,7 +25,7 @@
   v6->_east = v8;
   v6->_west = v9;
   v6->_tileSize = gloria::TileId::TileSize(v17);
-  gloria::TileBoundingBox::ToWKT(__p, v16);
+  gloria::TileBoundingBox::ToWKT(v16);
   if (v15 < 0)
   {
     if (!__p[1])
@@ -58,24 +59,31 @@ LABEL_7:
   return v6;
 }
 
++ (id)gloriaTileWithLat:(double)lat lng:(double)lng zoom:(unsigned __int8)zoom
+{
+  v5 = [[self alloc] initWithLat:zoom lng:lat zoom:lng];
+
+  return v5;
+}
+
 - (TBGloriaTile)initWithLat:(double)lat lng:(double)lng zoom:(unsigned __int8)zoom
 {
   latCopy = lat;
   lngCopy = lng;
   zoomCopy = zoom;
-  v14.receiver = self;
-  v14.super_class = TBGloriaTile;
-  v8 = [(TBGloriaTile *)&v14 init];
+  v17.receiver = self;
+  v17.super_class = TBGloriaTile;
+  v8 = [(TBGloriaTile *)&v17 init];
   v8->_lat = lat;
   v8->_lng = lng;
   v8->_zoom = zoom;
-  gloria::TileId::FromLatLng(&latCopy, &lngCopy, &zoomCopy, v13);
-  v8->_key = gloria::TileId::GetEncodedTileId(v13);
-  v8->_tileSize = gloria::TileId::TileSize(v13);
-  v8->_north = _TBGloriaBoundingBoxFromLocation(latCopy, lngCopy, zoomCopy);
-  v8->_south = v9;
-  v8->_east = v10;
-  v8->_west = v11;
+  gloria::TileId::FromLatLng(&latCopy, &lngCopy, &zoomCopy, v16);
+  v8->_key = gloria::TileId::GetEncodedTileId(v16);
+  v8->_tileSize = gloria::TileId::TileSize(v16);
+  v8->_north = _TBGloriaBoundingBoxFromLocation(latCopy, lngCopy, zoomCopy, v9, v10, v11);
+  v8->_south = v12;
+  v8->_east = v13;
+  v8->_west = v14;
   return v8;
 }
 

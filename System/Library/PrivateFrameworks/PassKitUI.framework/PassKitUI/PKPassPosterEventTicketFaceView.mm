@@ -100,15 +100,15 @@ LABEL_18:
 
 - (void)createHeaderContentViews
 {
-  v89[2] = *MEMORY[0x1E69E9840];
-  v85.receiver = self;
-  v85.super_class = PKPassPosterEventTicketFaceView;
-  [(PKPassFrontFaceView *)&v85 createHeaderContentViews];
+  v94[2] = *MEMORY[0x1E69E9840];
+  v90.receiver = self;
+  v90.super_class = PKPassPosterEventTicketFaceView;
+  [(PKPassFrontFaceView *)&v90 createHeaderContentViews];
   style = [(PKPassFaceView *)self style];
   pass = [(PKPassFaceView *)self pass];
   colorProfile = [(PKPassFaceView *)self colorProfile];
   v6 = [MEMORY[0x1E69DD1B8] traitCollectionWithPreferredContentSizeCategory:*MEMORY[0x1E69DDC70]];
-  v80 = colorProfile;
+  v85 = colorProfile;
   if (([colorProfile supportsAutomaticForegroundVibrancy] & 1) != 0 || objc_msgSend(colorProfile, "supportsAutomaticLabelVibrancy"))
   {
     v7 = MEMORY[0x1E69DC888];
@@ -128,41 +128,41 @@ LABEL_18:
       v11 = 1;
     }
 
-    v84[0] = MEMORY[0x1E69E9820];
-    v84[1] = 3221225472;
-    v84[2] = __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_invoke;
-    v84[3] = &__block_descriptor_40_e27_v16__0___UIMutableTraits__8l;
-    v84[4] = v11;
-    v12 = [v6 traitCollectionByModifyingTraits:v84];
+    v89[0] = MEMORY[0x1E69E9820];
+    v89[1] = 3221225472;
+    v89[2] = __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_invoke;
+    v89[3] = &__block_descriptor_40_e27_v16__0___UIMutableTraits__8l;
+    v89[4] = v11;
+    v12 = [v6 traitCollectionByModifyingTraits:v89];
 
     labelColor = [MEMORY[0x1E69DC888] labelColor];
-    v79 = [labelColor resolvedColorWithTraitCollection:v12];
+    v84 = [labelColor resolvedColorWithTraitCollection:v12];
 
     v6 = v12;
   }
 
   else
   {
-    v79 = 0;
+    v84 = 0;
   }
 
-  v83 = v6;
+  v88 = v6;
   self->_usingSportsLabel = 0;
-  v81 = *MEMORY[0x1E695F050];
-  v82 = *(MEMORY[0x1E695F050] + 16);
+  v86 = *MEMORY[0x1E695F050];
+  v87 = *(MEMORY[0x1E695F050] + 16);
   self->_cachedLogoLabelRect.origin = *MEMORY[0x1E695F050];
-  self->_cachedLogoLabelRect.size = v82;
+  self->_cachedLogoLabelRect.size = v87;
   logoText = [pass logoText];
   PKPassFaceLogoRect();
-  if (!CGRectIsEmpty(v90) && (style - 11) >= 0xFFFFFFFFFFFFFFFELL)
+  if (!CGRectIsEmpty(v95) && (style - 11) >= 0xFFFFFFFFFFFFFFFELL)
   {
     eventType = [pass eventType];
     v16 = [pass stringForSemanticKey:*MEMORY[0x1E69BBE38]];
     v17 = [pass stringForSemanticKey:*MEMORY[0x1E69BBD48]];
     if (eventType == 3 && (v18 = v16) != 0 && (v19 = v18, v20 = [v18 length], v19, v20) && (v21 = v17) != 0 && (v22 = v21, v23 = objc_msgSend(v21, "length"), v22, v23))
     {
-      v77 = v22;
-      v78 = logoText;
+      v82 = v22;
+      v83 = logoText;
       self->_usingSportsLabel = 1;
       v24 = objc_alloc_init(MEMORY[0x1E69DCC10]);
       logoLabel = self->_logoLabel;
@@ -177,7 +177,7 @@ LABEL_18:
       [(UILabel *)self->_logoLabel setTextAlignment:0];
       if ([colorProfile supportsAutomaticForegroundVibrancy])
       {
-        foregroundColor = v79;
+        foregroundColor = v84;
       }
 
       else
@@ -186,44 +186,47 @@ LABEL_18:
       }
 
       v40 = foregroundColor;
-      v73 = objc_alloc_init(MEMORY[0x1E696AD40]);
-      v61 = PKFontForDefaultDesign(v83, *MEMORY[0x1E69DDCF8], 32770, 0, *MEMORY[0x1E69DB958]);
-      v71 = *MEMORY[0x1E69DB650];
+      v78 = objc_alloc_init(MEMORY[0x1E696AD40]);
+      v61 = PKFontForDefaultDesign(v88, *MEMORY[0x1E69DDCF8], 32770, 0, *MEMORY[0x1E69DB958]);
+      v76 = *MEMORY[0x1E69DB650];
       v62 = *MEMORY[0x1E69DB650];
-      v88[0] = *MEMORY[0x1E69DB648];
-      v72 = v88[0];
-      v88[1] = v62;
-      v89[0] = v61;
-      v89[1] = v40;
-      v75 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v89 forKeys:v88 count:2];
-      v76 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v19 attributes:v75];
-      [v73 appendAttributedString:v76];
-      v63 = PKFontForDefaultDesign(v83, *MEMORY[0x1E69DDD10], 32770, 0, *MEMORY[0x1E69DB980]);
-      v86[0] = *MEMORY[0x1E69DB610];
+      v93[0] = *MEMORY[0x1E69DB648];
+      v77 = v93[0];
+      v93[1] = v62;
+      v94[0] = v61;
+      v94[1] = v40;
+      v80 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v94 forKeys:v93 count:2];
+      v81 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v19 attributes:v80];
+      [v78 appendAttributedString:v81];
+      v63 = PKFontForDefaultDesign(v88, *MEMORY[0x1E69DDD10], 32770, 0, *MEMORY[0x1E69DB980]);
+      v91[0] = *MEMORY[0x1E69DB610];
       v64 = MEMORY[0x1E696AD98];
       [v61 capHeight];
-      v74 = v63;
+      v66 = v65;
+      v79 = v63;
       [v63 xHeight];
-      PKFloatRoundToPixel();
-      v65 = [v64 numberWithDouble:?];
-      v87[0] = v65;
-      v87[1] = v63;
-      v86[1] = v72;
-      v86[2] = v71;
-      v87[2] = v40;
-      v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:v86 count:3];
+      v68.n128_u64[0] = 0.5;
+      v69.n128_f64[0] = (v66 - v67) * 0.5;
+      PKFloatRoundToPixel(v69, v68);
+      v70 = [v64 numberWithDouble:?];
+      v92[0] = v70;
+      v92[1] = v63;
+      v91[1] = v77;
+      v91[2] = v76;
+      v92[2] = v40;
+      v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v92 forKeys:v91 count:3];
 
-      v67 = objc_alloc(MEMORY[0x1E696AAB0]);
-      v68 = PKLocalizedTicketingString(&cfstr_LabelLogoVersu.isa);
-      v69 = [v67 initWithString:v68 attributes:v66];
+      v72 = objc_alloc(MEMORY[0x1E696AAB0]);
+      v73 = PKLocalizedTicketingString(&cfstr_LabelLogoVersu.isa);
+      v74 = [v72 initWithString:v73 attributes:v71];
 
-      [v73 appendAttributedString:v69];
-      v70 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v77 attributes:v75];
-      [v73 appendAttributedString:v70];
-      [(UILabel *)self->_logoLabel setAttributedText:v73];
+      [v78 appendAttributedString:v74];
+      v75 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v82 attributes:v80];
+      [v78 appendAttributedString:v75];
+      [(UILabel *)self->_logoLabel setAttributedText:v78];
       [(PKPassFrontFaceView *)self insertContentView:self->_logoLabel ofType:0];
 
-      logoText = v78;
+      logoText = v83;
     }
 
     else
@@ -255,12 +258,12 @@ LABEL_18:
       [(UILabel *)self->_logoLabel setNumberOfLines:2];
       [(UILabel *)self->_logoLabel setTextAlignment:0];
       v37 = self->_logoLabel;
-      v38 = PKFontForDefaultDesign(v83, *MEMORY[0x1E69DDD80], 32770, 0, *MEMORY[0x1E69DB958]);
+      v38 = PKFontForDefaultDesign(v88, *MEMORY[0x1E69DDD80], 32770, 0, *MEMORY[0x1E69DB958]);
       [(UILabel *)v37 setFont:v38];
 
       if ([colorProfile supportsAutomaticForegroundVibrancy])
       {
-        foregroundColor2 = v79;
+        foregroundColor2 = v84;
       }
 
       else
@@ -288,8 +291,8 @@ LABEL_25:
     __break(1u);
   }
 
-  self->_cachedDateLabelFrame.origin = v81;
-  self->_cachedDateLabelFrame.size = v82;
+  self->_cachedDateLabelFrame.origin = v86;
+  self->_cachedDateLabelFrame.size = v87;
   label = [v43FirstObject label];
   value = [v43FirstObject value];
   if (value)
@@ -309,17 +312,17 @@ LABEL_25:
 
     v50 = *v49;
     v51 = self->_dateLabel;
-    v52 = PKFontForDefaultDesign(v83, v50, 32770, 0, *MEMORY[0x1E69DB958]);
+    v52 = PKFontForDefaultDesign(v88, v50, 32770, 0, *MEMORY[0x1E69DB958]);
     [(UILabel *)v51 setFont:v52];
 
-    if ([v80 supportsAutomaticForegroundVibrancy])
+    if ([v85 supportsAutomaticForegroundVibrancy])
     {
-      foregroundColor3 = v79;
+      foregroundColor3 = v84;
     }
 
     else
     {
-      foregroundColor3 = [v80 foregroundColor];
+      foregroundColor3 = [v85 foregroundColor];
     }
 
     v54 = foregroundColor3;
@@ -328,8 +331,8 @@ LABEL_25:
     [(PKPassFrontFaceView *)self insertContentView:self->_dateLabel ofType:0];
   }
 
-  self->_cachedTimeLabelFrame.origin = v81;
-  self->_cachedTimeLabelFrame.size = v82;
+  self->_cachedTimeLabelFrame.origin = v86;
+  self->_cachedTimeLabelFrame.size = v87;
   if (label)
   {
     v55 = objc_alloc_init(MEMORY[0x1E69DCC10]);
@@ -340,17 +343,17 @@ LABEL_25:
     [(UILabel *)self->_timeLabel setLineBreakMode:4];
     [(UILabel *)self->_timeLabel setTextAlignment:2];
     v57 = self->_timeLabel;
-    v58 = _PKFontForDesign(v83, *MEMORY[0x1E69DB8D0], *MEMORY[0x1E69DDD80], 0x8000, 32, 0);
+    v58 = _PKFontForDesign(v88, *MEMORY[0x1E69DB8D0], *MEMORY[0x1E69DDD80], 0x8000, 32, 0);
     [(UILabel *)v57 setFont:v58];
 
-    if ([v80 supportsAutomaticLabelVibrancy])
+    if ([v85 supportsAutomaticLabelVibrancy])
     {
-      labelColor2 = v79;
+      labelColor2 = v84;
     }
 
     else
     {
-      labelColor2 = [v80 labelColor];
+      labelColor2 = [v85 labelColor];
     }
 
     v60 = labelColor2;
@@ -377,14 +380,14 @@ uint64_t __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_i
 
 - (void)createBodyContentViews
 {
-  v128.receiver = self;
-  v128.super_class = PKPassPosterEventTicketFaceView;
-  [(PKPassFrontFaceView *)&v128 createBodyContentViews];
+  v130.receiver = self;
+  v130.super_class = PKPassPosterEventTicketFaceView;
+  [(PKPassFrontFaceView *)&v130 createBodyContentViews];
   pass = [(PKPassFaceView *)self pass];
   seatingInformation = [pass seatingInformation];
   firstSeat = [seatingInformation firstSeat];
   v5 = MEMORY[0x1E69DC888];
-  v111 = firstSeat;
+  v113 = firstSeat;
   sectionColor = [firstSeat sectionColor];
   v7 = [v5 pkui_colorWithPKColor:sectionColor];
 
@@ -415,7 +418,7 @@ uint64_t __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_i
   }
 
   secondaryLogoImage = [pass secondaryLogoImage];
-  v115 = v7;
+  v117 = v7;
   if (secondaryLogoImage)
   {
     v16 = secondaryLogoImage;
@@ -428,7 +431,7 @@ uint64_t __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_i
     self->_secondaryLogoSize.width = v19;
     self->_secondaryLogoSize.height = v20;
     v21 = objc_alloc(MEMORY[0x1E69DCAE0]);
-    v110 = v18;
+    v112 = v18;
     v22 = [MEMORY[0x1E69DCAB8] imageWithPKImage:v18];
     v23 = [v21 initWithImage:v22];
     secondaryLogoImageView = self->_secondaryLogoImageView;
@@ -440,12 +443,12 @@ uint64_t __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_i
 
   else
   {
-    v110 = 0;
+    v112 = 0;
   }
 
   v25 = [MEMORY[0x1E69DD1B8] traitCollectionWithPreferredContentSizeCategory:*MEMORY[0x1E69DDC70]];
-  v120 = *MEMORY[0x1E69DB8D0];
-  v114 = *MEMORY[0x1E69DDD28];
+  v122 = *MEMORY[0x1E69DB8D0];
+  v116 = *MEMORY[0x1E69DDD28];
   v26 = _PKFontForDesign(v25, *MEMORY[0x1E69DB8D0], *MEMORY[0x1E69DDD28], 0, 0, 0);
   colorProfile = [(PKPassFaceView *)self colorProfile];
   if ([colorProfile supportsAutomaticForegroundVibrancy])
@@ -463,14 +466,14 @@ uint64_t __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_i
   v31 = supportsAutomaticLabelVibrancy ^ 1u;
   [layer3 setAllowsGroupBlending:v31];
 
-  v122 = v29;
+  v124 = v29;
   [(PKPassFrontFaceView *)self insertContentView:v29 ofType:2];
-  v118 = v26;
+  v120 = v26;
   if (v31)
   {
-    v119 = 0;
-    v123 = 0;
     v121 = 0;
+    v125 = 0;
+    v123 = 0;
     v49 = 0;
   }
 
@@ -492,9 +495,9 @@ uint64_t __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_i
       v37 = v35;
     }
 
-    if (v115 != 0 && isRelevancyActive)
+    if (v117 != 0 && isRelevancyActive)
     {
-      v38 = v115;
+      v38 = v117;
     }
 
     else
@@ -520,11 +523,11 @@ uint64_t __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_i
       v41 = v40;
     }
 
-    v127[0] = MEMORY[0x1E69E9820];
-    v127[1] = 3221225472;
-    v127[2] = __57__PKPassPosterEventTicketFaceView_createBodyContentViews__block_invoke;
-    v127[3] = &__block_descriptor_40_e27_v16__0___UIMutableTraits__8l;
-    v127[4] = v41;
+    v129[0] = MEMORY[0x1E69E9820];
+    v129[1] = 3221225472;
+    v129[2] = __57__PKPassPosterEventTicketFaceView_createBodyContentViews__block_invoke;
+    v129[3] = &__block_descriptor_40_e27_v16__0___UIMutableTraits__8l;
+    v129[4] = v41;
     v42 = v25;
     v43 = pass;
     if (v39 < 0.85)
@@ -537,16 +540,16 @@ uint64_t __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_i
       v44 = MEMORY[0x1E6979CE8];
     }
 
-    v45 = [v42 traitCollectionByModifyingTraits:v127];
+    v45 = [v42 traitCollectionByModifyingTraits:v129];
 
     labelColor = [MEMORY[0x1E69DC888] labelColor];
-    v121 = [labelColor resolvedColorWithTraitCollection:v45];
+    v123 = [labelColor resolvedColorWithTraitCollection:v45];
 
     v47 = *v44;
     pass = v43;
-    v123 = v47;
+    v125 = v47;
     secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
-    v119 = [secondaryLabelColor resolvedColorWithTraitCollection:v45];
+    v121 = [secondaryLabelColor resolvedColorWithTraitCollection:v45];
 
     v49 = v41 == 2;
     v25 = v45;
@@ -566,18 +569,18 @@ uint64_t __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_i
   v53 = [buckets objectAtIndex:1];
   firstObject = [v53 firstObject];
 
-  v116 = [buckets objectAtIndex:2];
-  v55 = [v116 count];
+  v118 = [buckets objectAtIndex:2];
+  v55 = [v118 count];
   v56 = [buckets objectAtIndex:3];
   firstObject2 = [v56 firstObject];
 
-  v124 = *(MEMORY[0x1E695F050] + 16);
-  v125 = *MEMORY[0x1E695F050];
+  v126 = *(MEMORY[0x1E695F050] + 16);
+  v127 = *MEMORY[0x1E695F050];
   self->_cachedPrimaryFieldFrame.origin = *MEMORY[0x1E695F050];
-  self->_cachedPrimaryFieldFrame.size = v124;
+  self->_cachedPrimaryFieldFrame.size = v126;
   v57 = MEMORY[0x1E69DDD58];
-  v117 = firstObject;
-  v113 = buckets;
+  v119 = firstObject;
+  v115 = buckets;
   if (firstObject)
   {
     v58 = *MEMORY[0x1E69DDD58];
@@ -590,12 +593,12 @@ uint64_t __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_i
     [(UILabel *)self->_primaryFieldLabel setLineBreakMode:4];
     [(UILabel *)self->_primaryFieldLabel setFont:v59];
     [(UILabel *)self->_primaryFieldLabel setTextAlignment:0];
-    v107 = v25;
+    v109 = v25;
     if (v55)
     {
       if ([colorProfile supportsAutomaticLabelVibrancy])
       {
-        v62 = v121;
+        v62 = v123;
         if (v49)
         {
           v63 = 0;
@@ -603,8 +606,8 @@ uint64_t __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_i
 
         else
         {
-          v62 = v119;
-          v63 = v123;
+          v62 = v121;
+          v63 = v125;
         }
 
         v64 = v62;
@@ -617,7 +620,7 @@ uint64_t __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_i
 
     else if ([colorProfile supportsAutomaticForegroundVibrancy])
     {
-      labelColor2 = v121;
+      labelColor2 = v123;
     }
 
     else
@@ -628,49 +631,50 @@ uint64_t __59__PKPassPosterEventTicketFaceView_createHeaderContentViews__block_i
     v64 = labelColor2;
     v65 = 0;
 LABEL_41:
-    [(UILabel *)self->_primaryFieldLabel setTextColor:v64, v107, pass, v110];
+    [(UILabel *)self->_primaryFieldLabel setTextColor:v64, v109, pass, v112];
     layer4 = [(UILabel *)self->_primaryFieldLabel layer];
     [layer4 setCompositingFilter:v65];
 
     v68 = self->_primaryFieldLabel;
-    value = [v117 value];
+    value = [v119 value];
     [(UILabel *)v68 setText:value];
 
-    [v122 addSubview:self->_primaryFieldLabel];
-    v25 = v108;
-    pass = v109;
+    [v124 addSubview:self->_primaryFieldLabel];
+    v25 = v110;
+    pass = v111;
     v57 = MEMORY[0x1E69DDD58];
   }
 
-  self->_cachedSecondaryBucketFrame.origin = v125;
-  self->_cachedSecondaryBucketFrame.size = v124;
+  self->_cachedSecondaryBucketFrame.origin = v127;
+  self->_cachedSecondaryBucketFrame.size = v126;
   if (v55)
   {
     v70 = *v57;
-    v71 = _PKFontForDesign(v25, v120, v70, 0, 32, 0);
+    v71 = _PKFontForDesign(v25, v122, v70, 0, 32, 0);
     v72 = [v71 fontWithSize:round(v51 * 36.0)];
 
-    v73 = 26.0;
+    v75 = 26.0;
     if (v55 == 2)
     {
-      PKFloatRoundToPixel();
-      v73 = v74;
+      v73.n128_f64[0] = v51 * 42.0;
+      PKFloatRoundToPixel(v73, v74);
+      v75 = v76;
     }
 
-    v75 = [[PKDynamicPassBucketView alloc] initWithBucket:v116];
+    v77 = [[PKDynamicPassBucketView alloc] initWithBucket:v118];
     secondaryBucketView = self->_secondaryBucketView;
-    self->_secondaryBucketView = v75;
+    self->_secondaryBucketView = v77;
 
     [(PKDynamicPassBucketView *)self->_secondaryBucketView setLayoutDirection:1];
     [(PKDynamicPassBucketView *)self->_secondaryBucketView setDistribution:v55 > 2];
     [(PKDynamicPassBucketView *)self->_secondaryBucketView setSizingRule:0];
-    [(PKDynamicPassBucketView *)self->_secondaryBucketView setSpacing:v73];
+    [(PKDynamicPassBucketView *)self->_secondaryBucketView setSpacing:v75];
     [(PKDynamicPassBucketView *)self->_secondaryBucketView setVerticalPadding:0.0];
     [(PKDynamicPassBucketView *)self->_secondaryBucketView setMinResizeScale:0.6];
-    v77 = pass;
+    v79 = pass;
     if ([colorProfile supportsAutomaticLabelVibrancy])
     {
-      labelColor3 = v119;
+      labelColor3 = v121;
     }
 
     else
@@ -678,22 +682,22 @@ LABEL_41:
       labelColor3 = [colorProfile labelColor];
     }
 
-    v79 = labelColor3;
-    v80 = v25;
+    v81 = labelColor3;
+    v82 = v25;
     supportsAutomaticLabelVibrancy2 = [colorProfile supportsAutomaticLabelVibrancy];
-    v82 = v123;
+    v84 = v125;
     if (!supportsAutomaticLabelVibrancy2)
     {
-      v82 = 0;
+      v84 = 0;
     }
 
-    v83 = v82;
-    [(PKDynamicPassBucketView *)self->_secondaryBucketView setLabelFont:v118];
-    [(PKDynamicPassBucketView *)self->_secondaryBucketView setLabelTextColor:v79];
-    [(PKDynamicPassBucketView *)self->_secondaryBucketView setLabelBlendMode:v83];
+    v85 = v84;
+    [(PKDynamicPassBucketView *)self->_secondaryBucketView setLabelFont:v120];
+    [(PKDynamicPassBucketView *)self->_secondaryBucketView setLabelTextColor:v81];
+    [(PKDynamicPassBucketView *)self->_secondaryBucketView setLabelBlendMode:v85];
     if ([colorProfile supportsAutomaticForegroundVibrancy])
     {
-      foregroundColor = v121;
+      foregroundColor = v123;
     }
 
     else
@@ -701,35 +705,35 @@ LABEL_41:
       foregroundColor = [colorProfile foregroundColor];
     }
 
-    v85 = foregroundColor;
+    v87 = foregroundColor;
     [(PKDynamicPassBucketView *)self->_secondaryBucketView setValueFont:v72];
-    [(PKDynamicPassBucketView *)self->_secondaryBucketView setValueTextColor:v85];
+    [(PKDynamicPassBucketView *)self->_secondaryBucketView setValueTextColor:v87];
     [(PKPassFrontFaceView *)self insertContentView:self->_secondaryBucketView ofType:2];
 
-    v25 = v80;
-    pass = v77;
-    buckets = v113;
+    v25 = v82;
+    pass = v79;
+    buckets = v115;
   }
 
-  self->_cachedSecnamLabelFrame.origin = v125;
-  self->_cachedSecnamLabelFrame.size = v124;
+  self->_cachedSecnamLabelFrame.origin = v127;
+  self->_cachedSecnamLabelFrame.size = v126;
   label = [firstObject2 label];
   if (label)
   {
-    v87 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+    v89 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     secnamLabel = self->_secnamLabel;
-    self->_secnamLabel = v87;
+    self->_secnamLabel = v89;
 
     [(UILabel *)self->_secnamLabel setNumberOfLines:1];
     [(UILabel *)self->_secnamLabel setLineBreakMode:4];
     [(UILabel *)self->_secnamLabel setTextAlignment:0];
-    v89 = self->_secnamLabel;
-    v90 = _PKFontForDesign(v25, v120, v114, 0x8000, 32, 0);
-    [(UILabel *)v89 setFont:v90];
+    v91 = self->_secnamLabel;
+    v92 = _PKFontForDesign(v25, v122, v116, 0x8000, 32, 0);
+    [(UILabel *)v91 setFont:v92];
 
     if ([colorProfile supportsAutomaticLabelVibrancy])
     {
-      labelColor4 = v119;
+      labelColor4 = v121;
     }
 
     else
@@ -737,55 +741,55 @@ LABEL_41:
       labelColor4 = [colorProfile labelColor];
     }
 
-    v92 = labelColor4;
+    v94 = labelColor4;
     supportsAutomaticLabelVibrancy3 = [colorProfile supportsAutomaticLabelVibrancy];
-    v94 = v123;
+    v96 = v125;
     if (!supportsAutomaticLabelVibrancy3)
     {
-      v94 = 0;
+      v96 = 0;
     }
 
-    v95 = self->_secnamLabel;
-    v96 = v94;
-    [(UILabel *)v95 setTextColor:v92];
+    v97 = self->_secnamLabel;
+    v98 = v96;
+    [(UILabel *)v97 setTextColor:v94];
     layer5 = [(UILabel *)self->_secnamLabel layer];
-    [layer5 setCompositingFilter:v96];
+    [layer5 setCompositingFilter:v98];
 
     [(UILabel *)self->_secnamLabel setText:label];
-    v98 = self->_secnamLabel;
+    v100 = self->_secnamLabel;
 
-    [v122 addSubview:v98];
+    [v124 addSubview:v100];
   }
 
-  self->_cachedVenueLabelFrame.origin = v125;
-  self->_cachedVenueLabelFrame.size = v124;
+  self->_cachedVenueLabelFrame.origin = v127;
+  self->_cachedVenueLabelFrame.size = v126;
   value2 = [firstObject2 value];
   if (value2)
   {
-    v100 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+    v102 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     venueLabel = self->_venueLabel;
-    self->_venueLabel = v100;
+    self->_venueLabel = v102;
 
     if (label)
     {
-      v102 = 1;
+      v104 = 1;
     }
 
     else
     {
-      v102 = 2;
+      v104 = 2;
     }
 
-    [(UILabel *)self->_venueLabel setNumberOfLines:v102];
+    [(UILabel *)self->_venueLabel setNumberOfLines:v104];
     [(UILabel *)self->_venueLabel setLineBreakMode:4 * (label != 0)];
     [(UILabel *)self->_venueLabel setTextAlignment:0];
-    v103 = self->_venueLabel;
-    v104 = _PKFontForDesign(v25, v120, v114, 0, 32, 0);
-    [(UILabel *)v103 setFont:v104];
+    v105 = self->_venueLabel;
+    v106 = _PKFontForDesign(v25, v122, v116, 0, 32, 0);
+    [(UILabel *)v105 setFont:v106];
 
     if ([colorProfile supportsAutomaticForegroundVibrancy])
     {
-      foregroundColor2 = v121;
+      foregroundColor2 = v123;
     }
 
     else
@@ -793,7 +797,7 @@ LABEL_41:
       foregroundColor2 = [colorProfile foregroundColor];
     }
 
-    v106 = foregroundColor2;
+    v108 = foregroundColor2;
     [(UILabel *)self->_venueLabel setTextColor:foregroundColor2];
     [(UILabel *)self->_venueLabel setText:value2];
     [(PKPassFrontFaceView *)self insertContentView:self->_venueLabel ofType:2];
@@ -982,100 +986,102 @@ LABEL_39:
 
 - (void)layoutSubviews
 {
-  v235.receiver = self;
-  v235.super_class = PKPassPosterEventTicketFaceView;
-  [(PKPassFrontFaceView *)&v235 layoutSubviews];
+  v262.receiver = self;
+  v262.super_class = PKPassPosterEventTicketFaceView;
+  [(PKPassFrontFaceView *)&v262 layoutSubviews];
   [(PKPassFaceView *)self style];
   v3 = [MEMORY[0x1E69DD1B8] traitCollectionWithPreferredContentSizeCategory:*MEMORY[0x1E69DDC70]];
   PKPassFrontFaceContentSize();
   v5 = v4;
-  v233 = v6;
-  PKFloatRoundToPixel();
-  v8 = v7;
-  v226 = v5 + -28.0;
-  PKFloatRoundToPixel();
-  v227 = v9;
+  v260 = v6.n128_f64[0];
+  v7.n128_f64[0] = (v4 + -54.0 + -28.0) * 0.5;
+  PKFloatRoundToPixel(v7, v6);
+  v9 = v8;
+  v252 = v5 + -28.0;
+  v10.n128_f64[0] = (v5 + -28.0) * 0.5;
+  PKFloatRoundToPixel(v10, v11);
+  v253 = v12;
   PKPassFaceLogoRect();
-  v14 = v10;
-  v15 = v11;
-  v16 = v12;
   v17 = v13;
-  v231 = v5;
-  if (self->_logoLabel && !CGRectIsNull(*&v10))
+  v18 = v14;
+  v19 = v15;
+  v20 = v16;
+  v258 = v5;
+  if (self->_logoLabel && !CGRectIsNull(*&v13))
   {
     p_cachedLogoLabelRect = &self->_cachedLogoLabelRect;
     if (CGRectIsNull(self->_cachedLogoLabelRect))
     {
-      rect = v8;
+      rect = v9;
       if (self->_usingSportsLabel)
       {
-        v16 = v227;
+        v19 = v253;
       }
 
       else
       {
-        v16 = v8;
+        v19 = v9;
       }
 
       pass = [(PKPassFaceView *)self pass];
       [pass logoRect];
-      v21 = v20;
-      v23 = v22;
-      v25 = v24;
-      v27 = v26;
+      v24 = v23;
+      v26 = v25;
+      v28 = v27;
+      v30 = v29;
 
-      v236.origin.x = v21;
-      v236.origin.y = v23;
-      v236.size.width = v25;
-      v236.size.height = v27;
-      if (CGRectIsNull(v236))
+      v263.origin.x = v24;
+      v263.origin.y = v26;
+      v263.size.width = v28;
+      v263.size.height = v30;
+      if (CGRectIsNull(v263))
       {
-        v237.origin.x = v14;
-        v237.origin.y = v15;
-        v237.size.width = v16;
-        v237.size.height = v17;
-        MinX = CGRectGetMinX(v237);
+        v264.origin.x = v17;
+        v264.origin.y = v18;
+        v264.size.width = v19;
+        v264.size.height = v20;
+        MinX = CGRectGetMinX(v264);
       }
 
       else
       {
-        v238.origin.x = v21;
-        v238.origin.y = v23;
-        v238.size.width = v25;
-        v238.size.height = v27;
-        MinX = CGRectGetMaxX(v238) + 8.0;
+        v265.origin.x = v24;
+        v265.origin.y = v26;
+        v265.size.width = v28;
+        v265.size.height = v30;
+        MinX = CGRectGetMaxX(v265) + 8.0;
       }
 
-      v239.origin.x = v14;
-      v239.origin.y = v15;
-      v239.size.width = v16;
-      v239.size.height = v17;
-      v29 = CGRectGetMaxX(v239) - MinX;
+      v266.origin.x = v17;
+      v266.origin.y = v18;
+      v266.size.width = v19;
+      v266.size.height = v20;
+      v32 = CGRectGetMaxX(v266) - MinX;
       font = [(UILabel *)self->_logoLabel font];
       [font _bodyLeading];
-      v32.n128_u64[0] = v31;
-      v33.n128_f64[0] = v29;
-      PKSizeCeilToPixel(v33, v32, v34);
-      v37 = v36;
+      v35.n128_u64[0] = v34;
+      v36.n128_f64[0] = v32;
+      PKSizeCeilToPixel(v36, v35, v37);
+      v40 = v39;
       if (!self->_usingSportsLabel)
       {
-        [(UILabel *)self->_logoLabel sizeThatFits:v35, 1.79769313e308];
-        if (v38 <= v37)
+        [(UILabel *)self->_logoLabel sizeThatFits:v38, 1.79769313e308];
+        if (v41 <= v40)
         {
-          v39 = PKFontForDefaultDesign(v3, *MEMORY[0x1E69DDCF8], 32770, 0, *MEMORY[0x1E69DB958]);
-          [(UILabel *)self->_logoLabel setFont:v39];
-          [(UILabel *)self->_logoLabel sizeThatFits:1.79769313e308, v37];
+          v42 = PKFontForDefaultDesign(v3, *MEMORY[0x1E69DDCF8], 32770, 0, *MEMORY[0x1E69DB958]);
+          [(UILabel *)self->_logoLabel setFont:v42];
+          [(UILabel *)self->_logoLabel sizeThatFits:1.79769313e308, v40];
         }
       }
 
       UIRectCenteredYInRect();
-      p_cachedLogoLabelRect->origin.x = v40;
-      self->_cachedLogoLabelRect.origin.y = v41;
-      self->_cachedLogoLabelRect.size.width = v42;
-      self->_cachedLogoLabelRect.size.height = v43;
+      p_cachedLogoLabelRect->origin.x = v43;
+      self->_cachedLogoLabelRect.origin.y = v44;
+      self->_cachedLogoLabelRect.size.width = v45;
+      self->_cachedLogoLabelRect.size.height = v46;
 
-      v8 = rect;
-      v5 = v231;
+      v9 = rect;
+      v5 = v258;
     }
 
     [(UILabel *)self->_logoLabel setFrame:p_cachedLogoLabelRect->origin.x, self->_cachedLogoLabelRect.origin.y, self->_cachedLogoLabelRect.size.width, self->_cachedLogoLabelRect.size.height];
@@ -1083,26 +1089,28 @@ LABEL_39:
 
   if (self->_dateLabel)
   {
-    v44 = v5;
+    v47 = v5;
     p_cachedDateLabelFrame = &self->_cachedDateLabelFrame;
     if (CGRectIsNull(self->_cachedDateLabelFrame))
     {
-      v46 = v8;
-      [(UILabel *)self->_dateLabel sizeThatFits:v8, 1.79769313e308];
-      width = v47;
-      height = v49;
-      v240.origin.x = v14;
-      v240.origin.y = v15;
-      v240.size.width = v16;
-      v240.size.height = v17;
-      MinY = CGRectGetMinY(v240);
+      v49 = v9;
+      [(UILabel *)self->_dateLabel sizeThatFits:v9, 1.79769313e308];
+      width = v50;
+      height = v52;
+      v267.origin.x = v17;
+      v267.origin.y = v18;
+      v267.size.width = v19;
+      v267.size.height = v20;
+      MinY = CGRectGetMinY(v267);
       if (!self->_timeLabel)
       {
-        PKFloatRoundToPixel();
-        MinY = MinY + v52;
+        v55.n128_u64[0] = 0.5;
+        v54.n128_f64[0] = (v20 - height) * 0.5;
+        PKFloatRoundToPixel(v54, v55);
+        MinY = MinY + v57;
       }
 
-      x = v44 + -14.0 - width;
+      x = v47 + -14.0 - width;
       p_cachedDateLabelFrame->origin.x = x;
       self->_cachedDateLabelFrame.origin.y = MinY;
       self->_cachedDateLabelFrame.size.width = width;
@@ -1111,7 +1119,7 @@ LABEL_39:
 
     else
     {
-      v46 = v8;
+      v49 = v9;
       x = p_cachedDateLabelFrame->origin.x;
       MinY = self->_cachedDateLabelFrame.origin.y;
       width = self->_cachedDateLabelFrame.size.width;
@@ -1119,8 +1127,8 @@ LABEL_39:
     }
 
     [(UILabel *)self->_dateLabel setFrame:x, MinY, width, height];
-    v5 = v44;
-    v8 = v46;
+    v5 = v47;
+    v9 = v49;
   }
 
   if (self->_timeLabel)
@@ -1128,48 +1136,48 @@ LABEL_39:
     p_cachedTimeLabelFrame = &self->_cachedTimeLabelFrame;
     if (CGRectIsNull(self->_cachedTimeLabelFrame))
     {
-      [(UILabel *)self->_timeLabel sizeThatFits:v8, 1.79769313e308];
-      v56 = v55;
-      v58 = v57;
-      v59 = v5 + -14.0 - v55;
+      [(UILabel *)self->_timeLabel sizeThatFits:v9, 1.79769313e308];
+      v61 = v60;
+      v63 = v62;
+      v64 = v5 + -14.0 - v60;
       MaxY = CGRectGetMaxY(self->_cachedDateLabelFrame);
-      p_cachedTimeLabelFrame->origin.x = v59;
+      p_cachedTimeLabelFrame->origin.x = v64;
       self->_cachedTimeLabelFrame.origin.y = MaxY;
-      self->_cachedTimeLabelFrame.size.width = v56;
-      self->_cachedTimeLabelFrame.size.height = v58;
+      self->_cachedTimeLabelFrame.size.width = v61;
+      self->_cachedTimeLabelFrame.size.height = v63;
     }
 
     else
     {
-      v59 = p_cachedTimeLabelFrame->origin.x;
+      v64 = p_cachedTimeLabelFrame->origin.x;
       MaxY = self->_cachedTimeLabelFrame.origin.y;
-      v56 = self->_cachedTimeLabelFrame.size.width;
-      v58 = self->_cachedTimeLabelFrame.size.height;
+      v61 = self->_cachedTimeLabelFrame.size.width;
+      v63 = self->_cachedTimeLabelFrame.size.height;
     }
 
-    [(UILabel *)self->_timeLabel setFrame:v59, MaxY, v56, v58];
+    [(UILabel *)self->_timeLabel setFrame:v64, MaxY, v61, v63];
   }
 
   backgroundView = [(PKPassFaceView *)self backgroundView];
   [backgroundView bounds];
-  v63 = v62;
-  v65 = v64;
-  v67 = v66;
-  v69 = v68;
+  v68 = v67;
+  v70 = v69;
+  v72 = v71;
+  v74 = v73;
 
   if (self->_sectionColorView)
   {
     PKPassFacePartialBlurRect();
-    [(UIView *)self->_sectionColorView setFrame:0.0, v233 - CGRectGetHeight(v241), v5];
+    [(UIView *)self->_sectionColorView setFrame:0.0, v260 - CGRectGetHeight(v268), v5];
     contentView = [(PKPassFaceView *)self contentView];
     [contentView sendSubviewToBack:self->_sectionColorView];
 
-    [(PKPassPosterEventTicketFaceView *)self convertRect:self->_sectionColorView toView:v63, v65, v67, v69];
+    [(PKPassPosterEventTicketFaceView *)self convertRect:self->_sectionColorView toView:v68, v70, v72, v74];
     [(UIView *)self->_sectionColorMaskView setFrame:?];
     layer = [(UIView *)self->_sectionColorMaskView layer];
     mask = [layer mask];
 
-    [mask setFrame:{v63, v65, v67, v69}];
+    [mask setFrame:{v68, v70, v72, v74}];
     backgroundView2 = [(PKPassFaceView *)self backgroundView];
     image = [backgroundView2 image];
 
@@ -1179,220 +1187,222 @@ LABEL_39:
   secondaryLogoImageView = self->_secondaryLogoImageView;
   if (secondaryLogoImageView)
   {
-    [(UIImageView *)secondaryLogoImageView setFrame:v5 - self->_secondaryLogoSize.width + -14.0, v233 - self->_secondaryLogoSize.height + -14.0];
+    [(UIImageView *)secondaryLogoImageView setFrame:v5 - self->_secondaryLogoSize.width + -14.0, v260 - self->_secondaryLogoSize.height + -14.0];
   }
 
   PKPassFacePartialBlurRect();
-  v76 = v242.origin.x;
-  y = v242.origin.y;
-  v78 = v242.size.width;
-  v79 = v242.size.height;
-  CGRectGetMinY(v242);
-  v243.origin.x = v76;
-  v243.origin.y = y;
-  v243.size.width = v78;
-  v243.size.height = v79;
-  v228 = CGRectGetHeight(v243);
+  v81 = v269.origin.x;
+  y = v269.origin.y;
+  v83 = v269.size.width;
+  v84 = v269.size.height;
+  v254 = CGRectGetMinY(v269);
+  v270.origin.x = v81;
+  v270.origin.y = y;
+  v270.size.width = v83;
+  v270.size.height = v84;
+  v255 = CGRectGetHeight(v270);
   PKEventTicketV2PassScaleFactor();
-  PKFloatRoundToPixel();
-  v81 = v80;
-  v82 = *MEMORY[0x1E695F050];
-  v83 = *(MEMORY[0x1E695F050] + 8);
-  v85 = *(MEMORY[0x1E695F050] + 16);
-  v84 = *(MEMORY[0x1E695F050] + 24);
-  v86 = v84;
-  recta = v85;
-  v87 = v83;
-  v88 = *MEMORY[0x1E695F050];
+  v85.n128_u64[0] = 0x4054000000000000;
+  v87.n128_f64[0] = v86 * 80.0;
+  PKFloatRoundToPixel(v87, v85);
+  v89 = v88;
+  v90 = *MEMORY[0x1E695F050];
+  v91 = *(MEMORY[0x1E695F050] + 8);
+  v93 = *(MEMORY[0x1E695F050] + 16);
+  v92 = *(MEMORY[0x1E695F050] + 24);
+  v94 = v92;
+  recta = v93;
+  v95 = v91;
+  v96 = *MEMORY[0x1E695F050];
   if (self->_venueLabel)
   {
     p_cachedVenueLabelFrame = &self->_cachedVenueLabelFrame;
     if (CGRectIsNull(self->_cachedVenueLabelFrame))
     {
-      v224 = v81;
-      v221 = v82;
+      v250 = v89;
+      v247 = v90;
       font2 = [(UILabel *)self->_secnamLabel font];
       font3 = [(UILabel *)self->_venueLabel font];
-      v92 = font3;
-      v93 = self->_secondaryLogoSize.width;
+      v100 = font3;
+      v101 = self->_secondaryLogoSize.width;
       if (self->_secnamLabel)
       {
-        v222 = v83;
-        if (v93 <= 0.0)
+        v248 = v91;
+        if (v101 <= 0.0)
         {
-          v94 = v226;
+          v102 = v252;
         }
 
         else
         {
-          v94 = v226 - (v93 + 14.0);
+          v102 = v252 - (v101 + 14.0);
         }
 
-        [(UILabel *)self->_venueLabel sizeThatFits:v94, 1.79769313e308];
-        v96 = v95;
-        v98 = v97;
-        [font2 _bodyLeading];
-        v100.n128_u64[0] = v99;
-        v101.n128_f64[0] = v94;
-        PKSizeCeilToPixel(v101, v100, v102);
+        [(UILabel *)self->_venueLabel sizeThatFits:v102, 1.79769313e308];
         v104 = v103;
         v106 = v105;
+        [font2 _bodyLeading];
+        v108.n128_u64[0] = v107;
+        v109.n128_f64[0] = v102;
+        PKSizeCeilToPixel(v109, v108, v110);
+        v112 = v111;
+        v114 = v113;
         [(UILabel *)self->_secnamLabel sizeThatFits:1.79769313e308];
-        v109 = v108;
-        if (v107 > v104 || v228 < 120.0)
+        v117 = v116;
+        if (v115 > v112 || v255 < 120.0)
         {
-          v111 = *MEMORY[0x1E69DB8D0];
-          v112 = *MEMORY[0x1E69DDD10];
-          v113 = _PKFontForDesign(v3, *MEMORY[0x1E69DB8D0], *MEMORY[0x1E69DDD10], 0x8000, 32, 0);
+          v119 = *MEMORY[0x1E69DB8D0];
+          v120 = *MEMORY[0x1E69DDD10];
+          v121 = _PKFontForDesign(v3, *MEMORY[0x1E69DB8D0], *MEMORY[0x1E69DDD10], 0x8000, 32, 0);
 
-          v114 = _PKFontForDesign(v3, v111, v112, 0, 32, 0);
-          [(UILabel *)self->_secnamLabel setFont:v113];
-          [(UILabel *)self->_venueLabel setFont:v114];
-          [(UILabel *)self->_venueLabel sizeThatFits:1.79769313e308, v106];
-          v96 = v115;
-          v98 = v116;
-          [(UILabel *)self->_secnamLabel sizeThatFits:1.79769313e308, v106];
-          v109 = v117;
-          v92 = v114;
-          font2 = v113;
+          v122 = _PKFontForDesign(v3, v119, v120, 0, 32, 0);
+          [(UILabel *)self->_secnamLabel setFont:v121];
+          [(UILabel *)self->_venueLabel setFont:v122];
+          [(UILabel *)self->_venueLabel sizeThatFits:1.79769313e308, v114];
+          v104 = v123;
+          v106 = v124;
+          [(UILabel *)self->_secnamLabel sizeThatFits:1.79769313e308, v114];
+          v117 = v125;
+          v100 = v122;
+          font2 = v121;
         }
 
-        if (v96 >= v94)
+        if (v104 >= v102)
         {
-          v118 = v94;
-        }
-
-        else
-        {
-          v118 = v96;
-        }
-
-        if (v107 >= v94)
-        {
-          v119 = v94;
+          v126 = v102;
         }
 
         else
         {
-          v119 = v107;
+          v126 = v104;
         }
 
-        v83 = v222;
+        if (v115 >= v102)
+        {
+          v127 = v102;
+        }
+
+        else
+        {
+          v127 = v115;
+        }
+
+        v91 = v248;
       }
 
       else
       {
-        v119 = *MEMORY[0x1E695F060];
-        v109 = *(MEMORY[0x1E695F060] + 8);
-        v120 = v226 - v93 + -14.0;
-        if (v227 < v120)
+        v127 = *MEMORY[0x1E695F060];
+        v117 = *(MEMORY[0x1E695F060] + 8);
+        v128 = v252 - v101 + -14.0;
+        if (v253 < v128)
         {
-          v120 = v227;
+          v128 = v253;
         }
 
-        if (v93 <= 0.0)
+        if (v101 <= 0.0)
         {
-          v121 = v227;
+          v129 = v253;
         }
 
         else
         {
-          v121 = v120;
+          v129 = v128;
         }
 
         venueLabel = self->_venueLabel;
         [font3 _bodyLeading];
-        PKFloatCeilToPixel(v123, v124);
-        [(UILabel *)venueLabel sizeThatFits:1.79769313e308, v125];
-        if (v126 <= v121)
+        PKFloatCeilToPixel(v131, v132);
+        [(UILabel *)venueLabel sizeThatFits:1.79769313e308, v133];
+        if (v134 <= v129)
         {
-          v118 = v126;
-          v98 = v127;
+          v126 = v134;
+          v106 = v135;
         }
 
         else
         {
-          v128 = _PKFontForDesign(v3, *MEMORY[0x1E69DB8D0], *MEMORY[0x1E69DDD10], 0, 32, 0);
+          v136 = _PKFontForDesign(v3, *MEMORY[0x1E69DB8D0], *MEMORY[0x1E69DDD10], 0, 32, 0);
 
-          [(UILabel *)self->_venueLabel setFont:v128];
-          [(UILabel *)self->_venueLabel sizeThatFits:v121, 1.79769313e308];
-          v118 = v129;
-          v98 = v130;
-          v92 = v128;
+          [(UILabel *)self->_venueLabel setFont:v136];
+          [(UILabel *)self->_venueLabel sizeThatFits:v129, 1.79769313e308];
+          v126 = v137;
+          v106 = v138;
+          v100 = v136;
         }
       }
 
-      [v92 descender];
-      PKFloatCeilToPixel(v131, v132);
-      v134 = v233 - v98 + -14.0 - v133;
+      [v100 descender];
+      PKFloatCeilToPixel(v139, v140);
+      v142 = v260 - v106 + -14.0 - v141;
       p_cachedVenueLabelFrame->origin.x = 14.0;
-      self->_cachedVenueLabelFrame.origin.y = v134;
-      self->_cachedVenueLabelFrame.size.width = v118;
-      self->_cachedVenueLabelFrame.size.height = v98;
+      self->_cachedVenueLabelFrame.origin.y = v142;
+      self->_cachedVenueLabelFrame.size.width = v126;
+      self->_cachedVenueLabelFrame.size.height = v106;
       if (self->_secnamLabel)
       {
-        v135 = 14.0;
-        v136 = v118;
-        v137 = v98;
-        v138 = CGRectGetMinY(*(&v134 - 1));
+        v143 = 14.0;
+        v144 = v126;
+        v145 = v106;
+        v146 = CGRectGetMinY(*(&v142 - 1));
         self->_cachedSecnamLabelFrame.origin.x = 14.0;
-        self->_cachedSecnamLabelFrame.origin.y = v138 - v109 + -2.0;
-        self->_cachedSecnamLabelFrame.size.width = v119;
-        self->_cachedSecnamLabelFrame.size.height = v109;
+        self->_cachedSecnamLabelFrame.origin.y = v146 - v117 + -2.0;
+        self->_cachedSecnamLabelFrame.size.width = v127;
+        self->_cachedSecnamLabelFrame.size.height = v117;
       }
 
-      v82 = v221;
-      v81 = v224;
+      v90 = v247;
+      v89 = v250;
     }
 
-    v88 = p_cachedVenueLabelFrame->origin.x;
-    v87 = self->_cachedVenueLabelFrame.origin.y;
-    v85 = self->_cachedVenueLabelFrame.size.width;
-    v86 = self->_cachedVenueLabelFrame.size.height;
-    [(UILabel *)self->_venueLabel setFrame:p_cachedVenueLabelFrame->origin.x, v87, v85, v86];
+    v96 = p_cachedVenueLabelFrame->origin.x;
+    v95 = self->_cachedVenueLabelFrame.origin.y;
+    v93 = self->_cachedVenueLabelFrame.size.width;
+    v94 = self->_cachedVenueLabelFrame.size.height;
+    [(UILabel *)self->_venueLabel setFrame:p_cachedVenueLabelFrame->origin.x, v95, v93, v94];
     secnamLabel = self->_secnamLabel;
     if (secnamLabel)
     {
-      v88 = self->_cachedSecnamLabelFrame.origin.x;
-      v87 = self->_cachedSecnamLabelFrame.origin.y;
-      v85 = self->_cachedSecnamLabelFrame.size.width;
-      v86 = self->_cachedSecnamLabelFrame.size.height;
-      [(UILabel *)secnamLabel setFrame:v88, v87, v85, v86];
+      v96 = self->_cachedSecnamLabelFrame.origin.x;
+      v95 = self->_cachedSecnamLabelFrame.origin.y;
+      v93 = self->_cachedSecnamLabelFrame.size.width;
+      v94 = self->_cachedSecnamLabelFrame.size.height;
+      [(UILabel *)secnamLabel setFrame:v96, v95, v93, v94];
     }
   }
 
-  v234 = v85;
+  v261 = v93;
   if (self->_secondaryBucketView)
   {
     p_cachedSecondaryBucketFrame = &self->_cachedSecondaryBucketFrame;
     if (CGRectIsNull(self->_cachedSecondaryBucketFrame))
     {
-      v225 = v81;
+      v251 = v89;
       if (self->_primaryFieldLabel)
       {
         bucket = [(PKDynamicPassBucketView *)self->_secondaryBucketView bucket];
-        v142 = [bucket count];
+        v150 = [bucket count];
 
-        v143 = v81 + 24.0;
-        if (v142 <= 1)
+        v151 = v89 + 24.0;
+        if (v150 <= 1)
         {
-          v143 = v227;
+          v151 = v253;
         }
 
-        v144 = v226 - v143;
+        v152 = v252 - v151;
       }
 
       else
       {
-        v144 = v226;
+        v152 = v252;
       }
 
-      [(PKDynamicPassBucketView *)self->_secondaryBucketView fittedSizeFor:v144, 1.79769313e308];
-      v146 = v145;
-      v148 = v147;
+      [(PKDynamicPassBucketView *)self->_secondaryBucketView fittedSizeFor:v152, 1.79769313e308];
+      v154 = v153;
+      v156 = v155;
       labelFont = [(PKDynamicPassBucketView *)self->_secondaryBucketView labelFont];
       resizedValueFont = [(PKDynamicPassBucketView *)self->_secondaryBucketView resizedValueFont];
-      v151 = resizedValueFont;
+      v159 = resizedValueFont;
       if (resizedValueFont)
       {
         valueFont = resizedValueFont;
@@ -1403,42 +1413,46 @@ LABEL_39:
         valueFont = [(PKDynamicPassBucketView *)self->_secondaryBucketView valueFont];
       }
 
-      v153 = valueFont;
+      v161 = valueFont;
 
-      v244.origin.x = v88;
-      v244.origin.y = v87;
-      v244.size.width = v85;
-      v244.size.height = v86;
-      if (!CGRectIsNull(v244))
+      v271.origin.x = v96;
+      v271.origin.y = v95;
+      v271.size.width = v93;
+      v271.size.height = v94;
+      v162 = v255;
+      if (!CGRectIsNull(v271))
       {
-        v245.origin.x = v88;
-        v245.origin.y = v87;
-        v245.size.width = v85;
-        v245.size.height = v86;
-        CGRectGetMinY(v245);
+        v272.origin.x = v96;
+        v272.origin.y = v95;
+        v272.size.width = v93;
+        v272.size.height = v94;
+        v162 = CGRectGetMinY(v272) - v254;
       }
 
       [labelFont ascender];
-      v155 = v154;
+      v164 = v163;
       [labelFont capHeight];
-      v157.n128_f64[0] = v155 - v156;
-      PKFloatFloorToPixel(v157, v158);
-      [v153 descender];
-      PKFloatFloorToPixel(v159, v160);
-      PKFloatRoundToPixel();
-      p_cachedSecondaryBucketFrame->origin.x = v231 + -14.0 - v146;
-      self->_cachedSecondaryBucketFrame.origin.y = v161;
-      self->_cachedSecondaryBucketFrame.size.width = v146;
-      self->_cachedSecondaryBucketFrame.size.height = v148;
+      v166.n128_f64[0] = v164 - v165;
+      PKFloatFloorToPixel(v166, v167);
+      v169 = v168;
+      [v161 descender];
+      PKFloatFloorToPixel(v170, v171);
+      v173.n128_f64[0] = v254;
+      v174.n128_f64[0] = v254 + (v162 - (v156 + v172 - v169)) * 0.5 - v169;
+      PKFloatRoundToPixel(v174, v173);
+      p_cachedSecondaryBucketFrame->origin.x = v258 + -14.0 - v154;
+      self->_cachedSecondaryBucketFrame.origin.y = v175;
+      self->_cachedSecondaryBucketFrame.size.width = v154;
+      self->_cachedSecondaryBucketFrame.size.height = v156;
 
-      v81 = v225;
+      v89 = v251;
     }
 
-    v82 = p_cachedSecondaryBucketFrame->origin.x;
-    v83 = self->_cachedSecondaryBucketFrame.origin.y;
-    v84 = self->_cachedSecondaryBucketFrame.size.height;
+    v90 = p_cachedSecondaryBucketFrame->origin.x;
+    v91 = self->_cachedSecondaryBucketFrame.origin.y;
+    v92 = self->_cachedSecondaryBucketFrame.size.height;
     recta = self->_cachedSecondaryBucketFrame.size.width;
-    [(PKDynamicPassBucketView *)self->_secondaryBucketView setFrame:p_cachedSecondaryBucketFrame->origin.x, v83];
+    [(PKDynamicPassBucketView *)self->_secondaryBucketView setFrame:p_cachedSecondaryBucketFrame->origin.x, v91];
   }
 
   if (self->_primaryFieldLabel)
@@ -1447,91 +1461,93 @@ LABEL_39:
     if (CGRectIsNull(self->_cachedPrimaryFieldFrame))
     {
       bucket2 = [(PKDynamicPassBucketView *)self->_secondaryBucketView bucket];
-      v164 = [bucket2 count];
+      v178 = [bucket2 count];
 
-      v223 = v83;
+      v249 = v91;
       if (self->_secondaryBucketView)
       {
-        if (v164 <= 1)
+        if (v178 <= 1)
         {
-          v165 = v227;
+          v181 = v253;
         }
 
         else
         {
-          v165 = v81;
+          v181 = v89;
         }
       }
 
       else
       {
-        PKFloatRoundToPixel();
-        v165 = v166;
+        v180.n128_u64[0] = 3.0;
+        v179.n128_f64[0] = v258 / 5.0 * 3.0;
+        PKFloatRoundToPixel(v179, v180);
+        v181 = v182;
       }
 
       PKEventTicketV2PassScaleFactor();
-      v232 = v167;
+      v259 = v183;
       font4 = [(UILabel *)self->_primaryFieldLabel font];
       primaryFieldLabel = self->_primaryFieldLabel;
       [font4 _bodyLeading];
-      PKFloatCeilToPixel(v170, v171);
-      [(UILabel *)primaryFieldLabel sizeThatFits:1.79769313e308, v172];
-      v174 = v173;
-      v176 = v175;
-      if (v173 > v165)
+      PKFloatCeilToPixel(v186, v187);
+      [(UILabel *)primaryFieldLabel sizeThatFits:1.79769313e308, v188];
+      v190 = v189;
+      v192 = v191;
+      if (v189 > v181)
       {
-        if (self->_secondaryBucketView && v164 >= 2)
+        if (self->_secondaryBucketView && v178 >= 2)
         {
-          v177 = PKFontForDefaultDesign(v3, *MEMORY[0x1E69DDD40], 2, 0, *MEMORY[0x1E69DB958]);
-          [v177 pointSize];
-          v179 = [v177 fontWithSize:round(v232 * v178 + v232 * v178) * 0.5];
+          v193 = PKFontForDefaultDesign(v3, *MEMORY[0x1E69DDD40], 2, 0, *MEMORY[0x1E69DB958]);
+          [v193 pointSize];
+          v195 = [v193 fontWithSize:round(v259 * v194 + v259 * v194) * 0.5];
 
-          [(UILabel *)self->_primaryFieldLabel setFont:v179];
-          v180 = self->_primaryFieldLabel;
-          [v179 _bodyLeading];
-          v182 = v181;
+          [(UILabel *)self->_primaryFieldLabel setFont:v195];
+          v196 = self->_primaryFieldLabel;
+          [v195 _bodyLeading];
+          v198 = v197;
 
-          v183.n128_u64[0] = v182;
-          PKFloatCeilToPixel(v183, v184);
-          [(UILabel *)v180 sizeThatFits:1.79769313e308, v185];
-          v174 = v186;
-          v176 = v187;
+          v199.n128_u64[0] = v198;
+          PKFloatCeilToPixel(v199, v200);
+          [(UILabel *)v196 sizeThatFits:1.79769313e308, v201];
+          v190 = v202;
+          v192 = v203;
 
-          font4 = v179;
+          font4 = v195;
         }
 
-        if (v174 > v165)
+        if (v190 > v181)
         {
-          v188 = *MEMORY[0x1E69DB958];
-          if (v164 < 2)
+          v204 = *MEMORY[0x1E69DB958];
+          if (v178 < 2)
           {
-            v189 = PKFontForDefaultDesign(v3, *MEMORY[0x1E69DDDC0], 2, 0, v188);
-            [v189 pointSize];
+            v205 = PKFontForDefaultDesign(v3, *MEMORY[0x1E69DDDC0], 2, 0, v204);
+            [v205 pointSize];
           }
 
           else
           {
-            v189 = PKFontForDefaultDesign(v3, *MEMORY[0x1E69DDD80], 2, 0, v188);
-            v190 = 13.5;
+            v205 = PKFontForDefaultDesign(v3, *MEMORY[0x1E69DDD80], 2, 0, v204);
+            v206 = 13.5;
           }
 
-          v191 = [v189 fontWithSize:round(v232 * v190 + v232 * v190) * 0.5];
+          v207 = [v205 fontWithSize:round(v259 * v206 + v259 * v206) * 0.5];
 
-          v192 = v191;
-          [(UILabel *)self->_primaryFieldLabel setFont:v192];
+          v208 = v207;
+          [(UILabel *)self->_primaryFieldLabel setFont:v208];
 
-          [(UILabel *)self->_primaryFieldLabel sizeThatFits:v165, 1.79769313e308];
-          v174 = v193;
-          v176 = v194;
-          font4 = v192;
+          [(UILabel *)self->_primaryFieldLabel sizeThatFits:v181, 1.79769313e308];
+          v190 = v209;
+          v192 = v210;
+          font4 = v208;
         }
       }
 
       secondaryBucketView = self->_secondaryBucketView;
-      if (secondaryBucketView && v164 >= 2)
+      if (secondaryBucketView && v178 >= 2)
       {
         resizedValueFont2 = [(PKDynamicPassBucketView *)secondaryBucketView resizedValueFont];
-        v197 = resizedValueFont2;
+        v213 = resizedValueFont2;
         if (resizedValueFont2)
         {
           valueFont2 = resizedValueFont2;
@@ -1542,60 +1558,66 @@ LABEL_39:
           valueFont2 = [(PKDynamicPassBucketView *)self->_secondaryBucketView valueFont];
         }
 
-        v208 = valueFont2;
+        v229 = valueFont2;
 
-        v248.origin.x = v82;
-        v248.origin.y = v223;
-        v248.size.width = recta;
-        v248.size.height = v84;
-        v209 = CGRectGetMaxY(v248) - v176;
-        [v208 descender];
-        PKFloatCeilToPixel(v210, v211);
-        v213 = v209 + v212;
+        v275.origin.x = v90;
+        v275.origin.y = v249;
+        v275.size.width = recta;
+        v275.size.height = v92;
+        v230 = CGRectGetMaxY(v275) - v192;
+        [v229 descender];
+        PKFloatCeilToPixel(v231, v232);
+        v234 = v230 + v233;
         [font4 descender];
-        PKFloatCeilToPixel(v214, v215);
-        v207 = v213 - v216;
+        PKFloatCeilToPixel(v235, v236);
+        v228 = v234 - v237;
         [font4 _bodyLeading];
-        PKFloatCeilToPixel(v217, v218);
-        if (v176 <= v219)
+        PKFloatCeilToPixel(v238, v239);
+        if (v192 <= v240)
         {
-          [v208 capHeight];
+          [v229 capHeight];
+          v242 = v241;
           [font4 capHeight];
-          PKFloatRoundToPixel();
-          v207 = v207 - v220;
+          v244.n128_u64[0] = 0.5;
+          v245.n128_f64[0] = (v242 - v243) * 0.5;
+          PKFloatRoundToPixel(v245, v244);
+          v228 = v228 - v246;
         }
       }
 
       else
       {
-        v246.origin.x = v88;
-        v246.origin.y = v87;
-        v246.size.width = v234;
-        v246.size.height = v86;
-        if (!CGRectIsNull(v246))
+        v273.origin.x = v96;
+        v273.origin.y = v95;
+        v273.size.width = v261;
+        v273.size.height = v94;
+        if (!CGRectIsNull(v273))
         {
-          v247.origin.x = v88;
-          v247.origin.y = v87;
-          v247.size.width = v234;
-          v247.size.height = v86;
-          CGRectGetMinY(v247);
+          v274.origin.x = v96;
+          v274.origin.y = v95;
+          v274.size.width = v261;
+          v274.size.height = v94;
+          v255 = CGRectGetMinY(v274) - v254;
         }
 
         [font4 ascender];
-        v200 = v199;
+        v216 = v215;
         [font4 capHeight];
-        v202.n128_f64[0] = v200 - v201;
-        PKFloatFloorToPixel(v202, v203);
+        v218.n128_f64[0] = v216 - v217;
+        PKFloatFloorToPixel(v218, v219);
+        v221 = v220;
         [font4 descender];
-        PKFloatFloorToPixel(v204, v205);
-        PKFloatRoundToPixel();
-        v207 = v206;
+        PKFloatFloorToPixel(v222, v223);
+        v225.n128_f64[0] = v254;
+        v226.n128_f64[0] = v254 + (v255 - (v192 + v224 - v221)) * 0.5 - v221;
+        PKFloatRoundToPixel(v226, v225);
+        v228 = v227;
       }
 
       p_cachedPrimaryFieldFrame->origin.x = 14.0;
-      self->_cachedPrimaryFieldFrame.origin.y = v207;
-      self->_cachedPrimaryFieldFrame.size.width = v174;
-      self->_cachedPrimaryFieldFrame.size.height = v176;
+      self->_cachedPrimaryFieldFrame.origin.y = v228;
+      self->_cachedPrimaryFieldFrame.size.width = v190;
+      self->_cachedPrimaryFieldFrame.size.height = v192;
     }
 
     [(UILabel *)self->_primaryFieldLabel setFrame:p_cachedPrimaryFieldFrame->origin.x, self->_cachedPrimaryFieldFrame.origin.y, self->_cachedPrimaryFieldFrame.size.width, self->_cachedPrimaryFieldFrame.size.height];

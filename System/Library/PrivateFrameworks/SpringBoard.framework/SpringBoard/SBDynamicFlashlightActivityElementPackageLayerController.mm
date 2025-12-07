@@ -393,12 +393,13 @@
   }
 
   v8 = v7;
+  v9 = v8;
   if (self->_touchingState != v8)
   {
-    v9 = SBLogFlashlightHUD();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = SBLogFlashlightHUD(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [SBDynamicFlashlightActivityElementPackageLayerController setTouching:touching animated:v9];
+      [SBDynamicFlashlightActivityElementPackageLayerController setTouching:touching animated:v10];
     }
 
     objc_storeStrong(&self->_touchingState, v7);

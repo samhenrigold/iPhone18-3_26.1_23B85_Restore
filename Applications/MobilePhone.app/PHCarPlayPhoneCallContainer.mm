@@ -149,10 +149,10 @@ void __59__PHCarPlayPhoneCallContainer_updateCell_atIndex_animated___block_invok
   v8 = [v5 secondaryString];
   v9 = [v5 isCallIdentification];
   v10 = [*(a1 + 32) dataSource];
-  v30 = [v10 phoneCallContainer:*(a1 + 32) subtitleColorForViewCellAtIndex:*(a1 + 48)];
+  v31 = [v10 phoneCallContainer:*(a1 + 32) subtitleColorForViewCellAtIndex:*(a1 + 48)];
 
   v11 = [*(a1 + 32) dataSource];
-  v31 = [v11 phoneCallContainer:*(a1 + 32) localizedSenderIdentityForViewCellAtIndex:*(a1 + 48)];
+  v32 = [v11 phoneCallContainer:*(a1 + 32) localizedSenderIdentityForViewCellAtIndex:*(a1 + 48)];
 
   v12 = [*(a1 + 32) visibleCells];
   if ([v12 count] == 1)
@@ -169,7 +169,7 @@ void __59__PHCarPlayPhoneCallContainer_updateCell_atIndex_animated___block_invok
   v15 = [*(a1 + 32) dataSource];
   v16 = [v15 phoneCallContainer:*(a1 + 32) cellIsDimmedAtIndex:*(a1 + 48)];
 
-  if (v3 || v6 || v31)
+  if (v3 || v6 || v32)
   {
     [*(a1 + 40) setDimmed:v16 animated:1];
     if (v9)
@@ -203,10 +203,10 @@ void __59__PHCarPlayPhoneCallContainer_updateCell_atIndex_animated___block_invok
     v21 = v3;
     v19 = v6;
 LABEL_15:
-    [v18 setTitle:v21 subtitle:v19 source:v7 subtitleColor:v30 localizedSenderIdentityTitle:v31 animated:v20];
+    [v18 setTitle:v21 subtitle:v19 source:v7 subtitleColor:v31 localizedSenderIdentityTitle:v32 animated:v20];
   }
 
-  v29 = v3;
+  v30 = v3;
   v22 = v7;
   v23 = [*(a1 + 40) avatarViewController];
   v24 = [v23 contacts];
@@ -215,13 +215,13 @@ LABEL_15:
 
   if ((v26 & 1) == 0)
   {
-    v27 = PHDefaultLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = PHDefaultLog(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = [v14 contacts];
+      v29 = [v14 contacts];
       *buf = 138412290;
-      v33 = v28;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Updating CarPlay InCallService AvatarViewController with contacts: %@", buf, 0xCu);
+      v34 = v29;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Updating CarPlay InCallService AvatarViewController with contacts: %@", buf, 0xCu);
     }
 
     [*(a1 + 40) setAvatarViewController:v14];

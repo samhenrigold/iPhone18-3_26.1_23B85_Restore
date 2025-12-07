@@ -10,7 +10,7 @@
   Logger.init(subsystem:category:)();
   swift_weakInit();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for SecureConfigXPCDelegate();
+  v4.super_class = type metadata accessor for SecureConfigXPCDelegate(0);
   return [(SecureConfigXPCDelegate *)&v4 init];
 }
 

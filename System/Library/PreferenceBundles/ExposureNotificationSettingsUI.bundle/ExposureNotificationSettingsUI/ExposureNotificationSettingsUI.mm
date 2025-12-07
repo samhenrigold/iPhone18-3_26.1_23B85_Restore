@@ -10,21 +10,20 @@ void sub_1A84(uint64_t a1)
   v2 = ENUILogForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
     *buf = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
+    v7 = objc_opt_class();
+    v3 = v7;
     _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Done adding a region", buf, 0xCu);
   }
 
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_1BD8;
-  v5[3] = &unk_2C698;
-  v5[4] = *(a1 + 32);
-  objc_copyWeak(&v6, (a1 + 40));
-  [_TtC28HealthExposureNotificationUI27ENUIPublicHealthAgencyModel refreshRegionsWithCompletion:v5];
-  objc_destroyWeak(&v6);
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 3221225472;
+  v4[2] = sub_1BD8;
+  v4[3] = &unk_2C698;
+  v4[4] = *(a1 + 32);
+  objc_copyWeak(&v5, (a1 + 40));
+  [_TtC28HealthExposureNotificationUI27ENUIPublicHealthAgencyModel refreshRegionsWithCompletion:v4];
+  objc_destroyWeak(&v5);
 }
 
 void sub_1BD8(uint64_t a1)
@@ -32,17 +31,16 @@ void sub_1BD8(uint64_t a1)
   v2 = ENUILogForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Done refreshing regions", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v3 = v7;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Done refreshing regions", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained reloadSpecifiers];
-  v6 = [WeakRetained presentedViewController];
-  [v6 dismissViewControllerAnimated:1 completion:0];
+  v5 = [WeakRetained presentedViewController];
+  [v5 dismissViewControllerAnimated:1 completion:0];
 }
 
 void sub_21C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -520,7 +518,7 @@ void sub_56B8(uint64_t a1, void *a2, void *a3)
     v10 = ENUILogForCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_1B76C(a1);
+      sub_1B76C();
     }
 
     v11 = *(a1 + 48);
@@ -554,7 +552,7 @@ void sub_57C0(uint64_t a1, void *a2, void *a3)
     v10 = ENUILogForCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7D8(a1);
+      sub_1B7D8();
     }
 
     v11 = *(a1 + 48);
@@ -1242,56 +1240,54 @@ void sub_BD64(uint64_t a1, void *a2, void *a3)
   v7 = ENUILogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
     *buf = 138543874;
-    v22 = objc_opt_class();
+    v20 = objc_opt_class();
+    v21 = 2112;
+    v22 = v5;
     v23 = 2112;
-    v24 = v5;
-    v25 = 2112;
-    v26 = v6;
-    v9 = v22;
+    v24 = v6;
+    v8 = v20;
     _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Created export file at URL: %@, error: %@", buf, 0x20u);
   }
 
   if (v5)
   {
-    v10 = [UIActivityViewController alloc];
-    v20 = v5;
-    v11 = [NSArray arrayWithObjects:&v20 count:1];
-    v12 = [v10 initWithActivityItems:v11 applicationActivities:0];
+    v9 = [UIActivityViewController alloc];
+    v18 = v5;
+    v10 = [NSArray arrayWithObjects:&v18 count:1];
+    v11 = [v9 initWithActivityItems:v10 applicationActivities:0];
 
-    v19[0] = @"com.apple.Health.ShareExtension";
-    v19[1] = UIActivityTypePostToFacebook;
-    v19[2] = UIActivityTypePostToTwitter;
-    v19[3] = UIActivityTypePostToWeibo;
-    v19[4] = UIActivityTypePrint;
-    v19[5] = UIActivityTypeAssignToContact;
-    v19[6] = UIActivityTypeSaveToCameraRoll;
-    v19[7] = UIActivityTypeAddToReadingList;
-    v19[8] = UIActivityTypePostToFlickr;
-    v19[9] = UIActivityTypePostToVimeo;
-    v19[10] = UIActivityTypePostToTencentWeibo;
-    v13 = [NSArray arrayWithObjects:v19 count:11];
-    [v12 setExcludedActivityTypes:v13];
+    v17[0] = @"com.apple.Health.ShareExtension";
+    v17[1] = UIActivityTypePostToFacebook;
+    v17[2] = UIActivityTypePostToTwitter;
+    v17[3] = UIActivityTypePostToWeibo;
+    v17[4] = UIActivityTypePrint;
+    v17[5] = UIActivityTypeAssignToContact;
+    v17[6] = UIActivityTypeSaveToCameraRoll;
+    v17[7] = UIActivityTypeAddToReadingList;
+    v17[8] = UIActivityTypePostToFlickr;
+    v17[9] = UIActivityTypePostToVimeo;
+    v17[10] = UIActivityTypePostToTencentWeibo;
+    v12 = [NSArray arrayWithObjects:v17 count:11];
+    [v11 setExcludedActivityTypes:v12];
 
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_C050;
-    v18[3] = &unk_2CE68;
-    v18[4] = *(a1 + 32);
-    [v12 setCompletionWithItemsHandler:v18];
-    v14 = ENUILogForCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_C050;
+    v16[3] = &unk_2CE68;
+    v16[4] = *(a1 + 32);
+    [v11 setCompletionWithItemsHandler:v16];
+    v13 = ENUILogForCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = *(a1 + 32);
-      v16 = objc_opt_class();
+      v14 = objc_opt_class();
       *buf = 138543362;
-      v22 = v16;
-      v17 = v16;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Presenting Share Sheet", buf, 0xCu);
+      v20 = v14;
+      v15 = v14;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Presenting Share Sheet", buf, 0xCu);
     }
 
-    [*(a1 + 32) presentViewController:v12 animated:1 completion:0];
+    [*(a1 + 32) presentViewController:v11 animated:1 completion:0];
   }
 }
 
@@ -1301,21 +1297,20 @@ void sub_C050(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
   v8 = ENUILogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
-    v11 = v10;
-    v12 = [NSNumber numberWithBool:a3];
-    v14 = 138543874;
-    v15 = v10;
-    v16 = 2112;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v7;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Share Sheet completed: %@, error: %@", &v14, 0x20u);
+    v9 = objc_opt_class();
+    v10 = v9;
+    v11 = [NSNumber numberWithBool:a3];
+    v13 = 138543874;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v11;
+    v17 = 2112;
+    v18 = v7;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Share Sheet completed: %@, error: %@", &v13, 0x20u);
   }
 
-  v13 = [*(a1 + 32) exportManager];
-  [v13 removeExportFile];
+  v12 = [*(a1 + 32) exportManager];
+  [v12 removeExportFile];
 }
 
 id *sub_C204(id *result, int a2)
@@ -1353,10 +1348,11 @@ BOOL sub_C5D4(id a1, id a2)
   return v3;
 }
 
-void sub_EF20(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_EF20(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id sub_EF40(id a1)
@@ -1402,18 +1398,17 @@ void sub_FAD4(uint64_t a1, void *a2, void *a3)
   v7 = ENUILogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v11 = 138543874;
-    v12 = objc_opt_class();
-    v13 = 2112;
-    v14 = v5;
-    v15 = 2114;
-    v16 = v6;
-    v9 = v12;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received exposure checks: %@, error: %{public}@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = objc_opt_class();
+    v12 = 2112;
+    v13 = v5;
+    v14 = 2114;
+    v15 = v6;
+    v8 = v11;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received exposure checks: %@, error: %{public}@", &v10, 0x20u);
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v5, v6, v10);
+  (*(*(a1 + 40) + 16))(*(a1 + 40), v5, v6, v9);
 }
 
 void sub_FC8C(uint64_t a1)
@@ -1437,18 +1432,17 @@ void sub_FD30(uint64_t a1, void *a2, void *a3)
   v7 = ENUILogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v11 = 138543874;
-    v12 = objc_opt_class();
-    v13 = 2112;
-    v14 = v5;
-    v15 = 2114;
-    v16 = v6;
-    v9 = v12;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received exposure check sessions: %@, error: %{public}@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = objc_opt_class();
+    v12 = 2112;
+    v13 = v5;
+    v14 = 2114;
+    v15 = v6;
+    v8 = v11;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received exposure check sessions: %@, error: %{public}@", &v10, 0x20u);
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v5, v6, v10);
+  (*(*(a1 + 40) + 16))(*(a1 + 40), v5, v6, v9);
 }
 
 void sub_FEF0(uint64_t a1)
@@ -1485,15 +1479,14 @@ void sub_FFA8(uint64_t a1, void *a2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
-      v7 = objc_opt_class();
-      v8 = *(a1 + 48);
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 1024;
-      v13 = v8;
-      v9 = v7;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] reset data with flags %x", &v10, 0x12u);
+      v6 = objc_opt_class();
+      v7 = *(a1 + 48);
+      v9 = 138543618;
+      v10 = v6;
+      v11 = 1024;
+      v12 = v7;
+      v8 = v6;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] reset data with flags %x", &v9, 0x12u);
     }
 
     (*(*(a1 + 40) + 16))(*(a1 + 40), 1, 0);
@@ -1665,7 +1658,6 @@ id sub_10A9C(id a1)
 
 uint64_t sub_10AC0(uint64_t a1)
 {
-  v2 = *(a1 + 32);
 
   return objc_opt_class();
 }
@@ -1999,22 +1991,23 @@ void sub_15A30(uint64_t a1, void *a2)
   }
 }
 
-void sub_15D08(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_15D08(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-id sub_1760C()
+id sub_1760C(uint64_t a1)
 {
   if (qword_34128 != -1)
   {
     sub_1C358();
   }
 
-  v1 = qword_34120;
+  v2 = qword_34120;
 
-  return v1;
+  return v2;
 }
 
 void sub_177C4(id a1)
@@ -2113,11 +2106,10 @@ void sub_18BD4(id a1)
 void sub_1B2A8()
 {
   sub_3724();
-  v1 = *(v0 + 32);
-  v2 = objc_opt_class();
-  v3 = sub_36F0(v2);
+  v0 = objc_opt_class();
+  v1 = sub_36F0(v0);
   sub_3714();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_1B334(uint64_t a1, NSObject *a2)
@@ -2130,11 +2122,10 @@ void sub_1B334(uint64_t a1, NSObject *a2)
 void sub_1B3AC()
 {
   sub_3724();
-  v1 = *(v0 + 40);
-  v2 = objc_opt_class();
-  v3 = sub_36F0(v2);
+  v0 = objc_opt_class();
+  v1 = sub_36F0(v0);
   sub_3714();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_1B438()
@@ -2149,19 +2140,17 @@ void sub_1B438()
 void sub_1B4C0()
 {
   sub_3724();
-  v1 = *(v0 + 32);
-  v2 = objc_opt_class();
-  v3 = sub_36F0(v2);
+  v0 = objc_opt_class();
+  v1 = sub_36F0(v0);
   sub_3714();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_1B54C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
+  v1 = objc_opt_class();
   sub_3714();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void sub_1B5E0()
@@ -2190,20 +2179,6 @@ void sub_1B730()
   sub_B340();
   sub_B334();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_1B76C(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_B358();
-  sub_B370(&dword_0, v2, v3, "Failed to handle an onboarding from AA request as fetch for region code: %{public}@ failed: %{public}@");
-}
-
-void sub_1B7D8(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_B358();
-  sub_B370(&dword_0, v2, v3, "Failed to handle a deeplink request as fetch for region code: %{public}@ failed: %{public}@");
 }
 
 void sub_1B844(void *a1, NSObject *a2)
@@ -2277,28 +2252,28 @@ void sub_1BB88(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Ignoring request to export since no exposure checks have been loaded", &v4, 0xCu);
 }
 
-void sub_1BC64(uint64_t a1, uint64_t *a2)
+void sub_1BC64(uint64_t a1)
 {
-  v3 = objc_opt_class();
-  v4 = *a2;
-  v5 = sub_EF40(v3);
-  sub_EF20(&dword_0, v6, v7, "[%{public}@] Removing unexpected existing export file: %{public}@", v8, v9, v10, v11, v12);
+  v1 = objc_opt_class();
+  v2 = sub_EF40(v1);
+  sub_EF20(&dword_0, v3, v4, "[%{public}@] Removing unexpected existing export file: %{public}@", v5, v6, v7, v8);
 }
 
-void sub_1BCEC(uint64_t a1, uint64_t *a2)
+void sub_1BCEC(uint64_t a1)
 {
-  v3 = objc_opt_class();
-  v4 = *a2;
-  v5 = sub_EF40(v3);
-  sub_EF20(&dword_0, v6, v7, "[%{public}@] Failed to create empty file: %{public}@", v8, v9, v10, v11, v12);
+  v1 = objc_opt_class();
+  v2 = sub_EF40(v1);
+  sub_EF20(&dword_0, v3, v4, "[%{public}@] Failed to create empty file: %{public}@", v5, v6, v7, v8);
 }
 
-void sub_1BD74(uint64_t a1, uint64_t *a2)
+void sub_1BD74(uint64_t a1, void *a2)
 {
-  v3 = objc_opt_class();
-  v11 = *a2;
-  v4 = v3;
-  sub_EF20(&dword_0, v5, v6, "[%{public}@] Attempting to export nil exposure checks: %@", v7, v8, v9, v10, 2u);
+  *v10 = 138543618;
+  *&v10[4] = objc_opt_class();
+  *&v10[12] = 2112;
+  *&v10[14] = *a2;
+  v3 = *&v10[4];
+  sub_EF20(&dword_0, v4, v5, "[%{public}@] Attempting to export nil exposure checks: %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 void sub_1BE10()
@@ -2312,11 +2287,9 @@ void sub_1BE10()
 
 void sub_1BE94(uint64_t a1)
 {
-  v8 = sub_10AC0(a1);
-  v9 = *(a1 + 48);
-  v2 = v8;
+  v1 = sub_10AC0(a1);
   sub_3714();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 void sub_1BF34()

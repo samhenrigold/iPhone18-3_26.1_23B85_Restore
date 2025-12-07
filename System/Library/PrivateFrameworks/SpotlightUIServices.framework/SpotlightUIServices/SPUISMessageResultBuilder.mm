@@ -174,7 +174,7 @@
 
 - (id)buildDescriptions
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   coreSpotlightId = [(SPUISResultBuilder *)self coreSpotlightId];
   v4 = isMessagesAttachmentCoreSpotlightId();
 
@@ -219,14 +219,14 @@ LABEL_12:
       result2 = [(SPUISResultBuilder *)self result];
       formattedSnippet2 = [result2 formattedSnippet];
       formattedTextPieces = [formattedSnippet2 formattedTextPieces];
-      v25 = [formattedTextPieces count];
+      v25 = objc_msgSend_count(formattedTextPieces);
 
       if (v25)
       {
         result3 = [(SPUISResultBuilder *)self result];
         formattedSnippet3 = [result3 formattedSnippet];
-        v32 = formattedSnippet3;
-        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+        v31 = formattedSnippet3;
+        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
 
         message3 = message;
 LABEL_21:
@@ -256,8 +256,8 @@ LABEL_21:
     }
 
     result3 = [MEMORY[0x277D4C598] textWithString:message3];
-    v31 = result3;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+    v30 = result3;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
     goto LABEL_21;
   }
 
@@ -270,9 +270,9 @@ LABEL_21:
     goto LABEL_10;
   }
 
-  v33[0] = v15;
+  v32[0] = v15;
   v10 = 1;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
 
   message = 0;
   if (!v17)
@@ -284,39 +284,38 @@ LABEL_21:
 LABEL_22:
   v28 = v17;
 
-  v29 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (id)buildAttachmentSummary
 {
-  v70 = *MEMORY[0x277D85DE8];
-  v59 = objc_opt_new();
+  v69 = *MEMORY[0x277D85DE8];
+  v58 = objc_opt_new();
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
   selfCopy = self;
   attachmentTypes = [(SPUISMessageResultBuilder *)self attachmentTypes];
-  v4 = [attachmentTypes countByEnumeratingWithState:&v64 objects:v69 count:16];
+  v4 = [attachmentTypes countByEnumeratingWithState:&v63 objects:v68 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v65;
+    v6 = *v64;
     v7 = *MEMORY[0x277CE1DB0];
-    v58 = *MEMORY[0x277CE1E00];
-    v56 = *MEMORY[0x277CE1F20];
-    v57 = *MEMORY[0x277CE1F18];
-    v54 = *MEMORY[0x277CE1F08];
-    v55 = *MEMORY[0x277CE1F28];
-    v51 = *MEMORY[0x277CE1D00];
-    v45 = *MEMORY[0x277CE1D38];
-    v42 = *MEMORY[0x277D1AD58];
-    v43 = *MEMORY[0x277CE1D20];
-    v41 = *MEMORY[0x277D1AD48];
-    v44 = *MEMORY[0x277D1AD50];
-    v49 = *MEMORY[0x277D1ADA8];
-    v50 = *MEMORY[0x277D1AD40];
+    v57 = *MEMORY[0x277CE1E00];
+    v55 = *MEMORY[0x277CE1F20];
+    v56 = *MEMORY[0x277CE1F18];
+    v53 = *MEMORY[0x277CE1F08];
+    v54 = *MEMORY[0x277CE1F28];
+    v50 = *MEMORY[0x277CE1D00];
+    v44 = *MEMORY[0x277CE1D38];
+    v41 = *MEMORY[0x277D1AD58];
+    v42 = *MEMORY[0x277CE1D20];
+    v40 = *MEMORY[0x277D1AD48];
+    v43 = *MEMORY[0x277D1AD50];
+    v48 = *MEMORY[0x277D1ADA8];
+    v49 = *MEMORY[0x277D1AD40];
     v8 = *MEMORY[0x277D1ADA0];
     v9 = *MEMORY[0x277D1AD98];
     v10 = *MEMORY[0x277D1AD90];
@@ -325,43 +324,43 @@ LABEL_22:
       v11 = 0;
       do
       {
-        if (*v65 != v6)
+        if (*v64 != v6)
         {
           objc_enumerationMutation(attachmentTypes);
         }
 
-        v12 = [MEMORY[0x277CE1CB8] typeWithIdentifier:*(*(&v64 + 1) + 8 * v11)];
+        v12 = [MEMORY[0x277CE1CB8] typeWithIdentifier:*(*(&v63 + 1) + 8 * v11)];
         v13 = [v12 conformsToType:v7];
         v14 = v10;
         if ((v13 & 1) == 0)
         {
-          v15 = [v12 conformsToType:v58];
+          v15 = [v12 conformsToType:v57];
           v14 = v9;
           if ((v15 & 1) == 0)
           {
-            v16 = [v12 conformsToType:v57];
+            v16 = [v12 conformsToType:v56];
             v14 = v8;
             if ((v16 & 1) == 0)
             {
-              v17 = [v12 conformsToType:v56];
+              v17 = [v12 conformsToType:v55];
               v14 = v8;
               if ((v17 & 1) == 0)
               {
-                v18 = [v12 conformsToType:v55];
+                v18 = [v12 conformsToType:v54];
                 v14 = v8;
                 if ((v18 & 1) == 0)
                 {
-                  if ([v12 conformsToType:v54])
+                  if ([v12 conformsToType:v53])
                   {
                     attachmentTypes2 = [(SPUISMessageResultBuilder *)selfCopy attachmentTypes];
-                    if ([attachmentTypes2 count] == 1)
+                    if (objc_msgSend_count(attachmentTypes2) == 1)
                     {
                       senders = [(SPUISMessageResultBuilder *)selfCopy senders];
                       firstObject = [senders firstObject];
-                      v47 = [firstObject length];
+                      v46 = [firstObject length];
 
-                      v14 = v49;
-                      if (v47)
+                      v14 = v48;
+                      if (v46)
                       {
                         v34 = MEMORY[0x277CCACA8];
                         v35 = [SPUISUtilities localizedStringForKey:@"SHARED_WATCHFACE_NOTIFICATION"];
@@ -376,28 +375,28 @@ LABEL_22:
                     else
                     {
 
-                      v14 = v49;
+                      v14 = v48;
                     }
                   }
 
                   else
                   {
-                    v19 = [v12 conformsToType:v51];
-                    v14 = v50;
+                    v19 = [v12 conformsToType:v50];
+                    v14 = v49;
                     if ((v19 & 1) == 0)
                     {
-                      v20 = [v12 conformsToType:v45];
-                      v14 = v44;
+                      v20 = [v12 conformsToType:v44];
+                      v14 = v43;
                       if ((v20 & 1) == 0)
                       {
-                        if ([v12 conformsToType:v43])
+                        if ([v12 conformsToType:v42])
                         {
-                          v14 = v41;
+                          v14 = v40;
                         }
 
                         else
                         {
-                          v14 = v42;
+                          v14 = v41;
                         }
                       }
                     }
@@ -408,49 +407,49 @@ LABEL_22:
           }
         }
 
-        [v59 addObject:v14];
+        [v58 addObject:v14];
 
         ++v11;
       }
 
       while (v5 != v11);
-      v21 = [attachmentTypes countByEnumeratingWithState:&v64 objects:v69 count:16];
+      v21 = [attachmentTypes countByEnumeratingWithState:&v63 objects:v68 count:16];
       v5 = v21;
     }
 
     while (v21);
   }
 
-  v22 = v59;
-  if ([v59 count])
+  v22 = v58;
+  if (objc_msgSend_count(v58))
   {
     v38 = objc_opt_new();
     v23 = MEMORY[0x277CCACA8];
     v24 = [SPUISUtilities localizedStringForKey:@"%lu Attachments: "];
-    v25 = [v23 localizedStringWithFormat:v24, objc_msgSend(v59, "count")];
+    v25 = [v23 localizedStringWithFormat:v24, objc_msgSend_count(v58)];
     [v38 appendString:v25];
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
-    attachmentTypes = v59;
-    v26 = [attachmentTypes countByEnumeratingWithState:&v60 objects:v68 count:16];
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    attachmentTypes = v58;
+    v26 = [attachmentTypes countByEnumeratingWithState:&v59 objects:v67 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v61;
+      v28 = *v60;
       v29 = 1;
       do
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v61 != v28)
+          if (*v60 != v28)
           {
             objc_enumerationMutation(attachmentTypes);
           }
 
-          v31 = *(*(&v60 + 1) + 8 * i);
+          v31 = *(*(&v59 + 1) + 8 * i);
           v32 = [attachmentTypes countForObject:v31];
           if ((v29 & 1) == 0)
           {
@@ -463,13 +462,13 @@ LABEL_22:
           v29 = 0;
         }
 
-        v27 = [attachmentTypes countByEnumeratingWithState:&v60 objects:v68 count:16];
+        v27 = [attachmentTypes countByEnumeratingWithState:&v59 objects:v67 count:16];
         v29 = 0;
       }
 
       while (v27);
 LABEL_36:
-      v22 = v59;
+      v22 = v58;
     }
   }
 
@@ -477,8 +476,6 @@ LABEL_36:
   {
     v38 = 0;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
@@ -490,7 +487,7 @@ LABEL_36:
   v5 = [v3 initWithArray:senderContactIds];
 
   recipientContactIds = [(SPUISMessageResultBuilder *)self recipientContactIds];
-  v7 = [recipientContactIds count];
+  v7 = objc_msgSend_count(recipientContactIds);
 
   if (v7 >= 2)
   {
@@ -523,7 +520,7 @@ LABEL_36:
 - (id)buildAttachmentThumbnail
 {
   attachmentTypes = [(SPUISMessageResultBuilder *)self attachmentTypes];
-  if ([attachmentTypes count])
+  if (objc_msgSend_count(attachmentTypes))
   {
     v4 = 0;
     v5 = *MEMORY[0x277CE1D08];
@@ -531,7 +528,7 @@ LABEL_36:
     while (1)
     {
       attachmentNames = [(SPUISMessageResultBuilder *)self attachmentNames];
-      v8 = [attachmentNames count];
+      v8 = objc_msgSend_count(attachmentNames);
 
       if (v4 >= v8)
       {
@@ -552,7 +549,7 @@ LABEL_36:
 
       ++v4;
       attachmentTypes = [(SPUISMessageResultBuilder *)self attachmentTypes];
-      if (v4 >= [attachmentTypes count])
+      if (v4 >= objc_msgSend_count(attachmentTypes))
       {
         goto LABEL_7;
       }
@@ -586,22 +583,20 @@ LABEL_9:
 
 - (id)buildCompactCardSection
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D4C598];
   sendDate = [(SPUISMessageResultBuilder *)self sendDate];
   v5 = [SPUISDateFormatManager dynamicCompactStringFromDate:sendDate];
   v6 = [v3 textWithString:v5];
-  v14[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
 
-  v13.receiver = self;
-  v13.super_class = SPUISMessageResultBuilder;
-  buildCompactCardSection = [(SPUISResultBuilder *)&v13 buildCompactCardSection];
+  v12.receiver = self;
+  v12.super_class = SPUISMessageResultBuilder;
+  buildCompactCardSection = [(SPUISResultBuilder *)&v12 buildCompactCardSection];
   descriptions = [buildCompactCardSection descriptions];
   v10 = [v7 arrayByAddingObjectsFromArray:descriptions];
   [buildCompactCardSection setDescriptions:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return buildCompactCardSection;
 }

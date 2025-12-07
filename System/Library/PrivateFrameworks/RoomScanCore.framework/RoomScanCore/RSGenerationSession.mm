@@ -282,12 +282,12 @@
 
 - (id)standardizeFloorPlan:(id)plan
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   planCopy = plan;
-  v5 = sub_26229CF80(v23);
+  v5 = sub_26229CF80(v22);
   v8 = objc_msgSend_copy(planCopy, v6, v7, v5);
   v9 = sub_2621CD3A4(&self->_fpGenerator->_geometryEstimator->super.isa);
-  sub_262241864(v23, v8, v9, &self->_fpGenerator->_wallOpeningDetector[1]._lcnnDetector._unet_fpn_backbone._lcnn_fc2._fc2_0_bias);
+  sub_262241864(v22, v8, v9, &self->_fpGenerator->_wallOpeningDetector[1]._lcnnDetector._unet_fpn_backbone._lcnn_fc2._fc2_0_bias);
 
   fpGenerator = self->_fpGenerator;
   v13 = objc_msgSend_objects(planCopy, v11, v12);
@@ -300,7 +300,7 @@
   }
 
   objc_msgSend_updateObjects_(v16, v19, fpGenerator);
-  sub_262241820(v25);
+  sub_262241820(v24);
   v20 = __p;
   __p = 0;
   if (v20)
@@ -308,9 +308,7 @@
     operator delete(v20);
   }
 
-  sub_26229D160(v23);
-
-  v21 = *MEMORY[0x277D85DE8];
+  sub_26229D160(v22);
 
   return v16;
 }
@@ -365,7 +363,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (qword_27FF0C0C0 != -1)
   {
     dispatch_once(&qword_27FF0C0C0, &unk_2874EE1C0);
@@ -379,15 +377,14 @@
     _os_log_impl(&dword_2621C3000, v3, OS_LOG_TYPE_INFO, "%{public}@: dealloc", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = RSGenerationSession;
-  [(RSGenerationSession *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = RSGenerationSession;
+  [(RSGenerationSession *)&v4 dealloc];
 }
 
 - (id)processWithKeyframes:(id)keyframes initialAsset:(id)asset error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   keyframesCopy = keyframes;
   assetCopy = asset;
   objc_msgSend_clear(self->_fpGenerator, v9, v10);
@@ -401,11 +398,11 @@
   v21 = v18;
   if (offlineInfoDumper && v18)
   {
-    v33 = 0;
+    v32 = 0;
     v22 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v19, v20);
-    isDirectory = objc_msgSend_fileExistsAtPath_isDirectory_(v22, v23, v21, &v33);
+    isDirectory = objc_msgSend_fileExistsAtPath_isDirectory_(v22, v23, v21, &v32);
 
-    if (!isDirectory || (v33 & 1) == 0)
+    if (!isDirectory || (v32 & 1) == 0)
     {
       v27 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v25, v26);
       objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v27, v28, v21, 1, 0, 0);
@@ -414,10 +411,10 @@
     save_log_queue = offlineInfoDumper->_save_log_queue;
     *&block = MEMORY[0x277D85DD0];
     *(&block + 1) = 3221225472;
-    v35 = sub_2621ECFF8;
-    v36 = &unk_279B30598;
-    v37 = v17;
-    v38 = v21;
+    v34 = sub_2621ECFF8;
+    v35 = &unk_279B30598;
+    v36 = v17;
+    v37 = v21;
     dispatch_async(save_log_queue, &block);
   }
 
@@ -433,8 +430,6 @@
     *(&block + 4) = self;
     _os_log_impl(&dword_2621C3000, v30, OS_LOG_TYPE_INFO, "%{public}@: processWithKeyframes", &block, 0xCu);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

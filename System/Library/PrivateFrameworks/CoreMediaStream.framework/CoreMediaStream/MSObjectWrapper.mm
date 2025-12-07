@@ -26,30 +26,30 @@
 
 + (id)objectsFromWrappers:(id)wrappers equalToObject:(id)object
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   wrappersCopy = wrappers;
   objectCopy = object;
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(wrappersCopy, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = wrappersCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         object = [v13 object];
         if ([object isEqual:objectCopy])
         {
@@ -58,55 +58,51 @@
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)objectsFromWrappers:(id)wrappers
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   wrappersCopy = wrappers;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(wrappersCopy, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = wrappersCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        object = [*(*(&v13 + 1) + 8 * i) object];
+        object = [*(*(&v12 + 1) + 8 * i) object];
         if (object)
         {
           [v4 addObject:object];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

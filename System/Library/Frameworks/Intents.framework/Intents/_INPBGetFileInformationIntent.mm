@@ -3,6 +3,9 @@
 - (_INPBGetFileInformationIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)entityTypeAsString:(int)string;
+- (id)propertyNameAsString:(int)string;
+- (id)qualifierAsString:(int)string;
 - (int)StringAsEntityType:(id)type;
 - (int)StringAsPropertyName:(id)name;
 - (int)StringAsQualifier:(id)qualifier;
@@ -283,7 +286,6 @@ LABEL_17:
 
   if ([(_INPBGetFileInformationIntent *)self hasEntityType])
   {
-    entityType = self->_entityType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -297,13 +299,11 @@ LABEL_17:
 
   if ([(_INPBGetFileInformationIntent *)self hasPropertyName])
   {
-    propertyName = self->_propertyName;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBGetFileInformationIntent *)self hasQualifier])
   {
-    qualifier = self->_qualifier;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -339,6 +339,21 @@ LABEL_17:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)qualifierAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7281F78[string];
   }
 
   return v4;
@@ -445,6 +460,21 @@ LABEL_17:
   return v4;
 }
 
+- (id)propertyNameAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7281F18[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasPropertyName:(BOOL)name
 {
   if (name)
@@ -501,6 +531,21 @@ LABEL_17:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)entityTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7281EF8[string];
   }
 
   return v4;

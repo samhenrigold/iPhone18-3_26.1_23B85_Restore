@@ -581,41 +581,39 @@ __CFString *WASymbolGlyphFromConditionCode(uint64_t a1, int a2, int a3)
 
 id WASymbolGlyphHexColorsFromConditionCode(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = WASymbolGlyphColorsFromConditionCode(a1);
   v2 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = WAHexStringFromColor(*(*(&v12 + 1) + 8 * i));
-        [v2 addObject:{v8, v12}];
+        v8 = WAHexStringFromColor(*(*(&v11 + 1) + 8 * i));
+        [v2 addObject:{v8, v11}];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   v9 = [MEMORY[0x277CBEA60] arrayWithArray:v2];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -746,19 +744,19 @@ id WAConditionsLineStringFromCurrentForecasts(void *a1)
 
 id WAConditionsLine2StringFromHourlyForecasts(void *a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (WAConditionsLine2StringFromHourlyForecasts_onceToken != -1)
   {
     WAConditionsLine2StringFromHourlyForecasts_cold_1();
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v2 = v1;
-  v3 = [v2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (!v3)
   {
 
@@ -771,17 +769,17 @@ id WAConditionsLine2StringFromHourlyForecasts(void *a1)
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  v10 = *v35;
+  v10 = *v34;
   do
   {
     for (i = 0; i != v4; ++i)
     {
-      if (*v35 != v10)
+      if (*v34 != v10)
       {
         objc_enumerationMutation(v2);
       }
 
-      v12 = *(*(&v34 + 1) + 8 * i);
+      v12 = *(*(&v33 + 1) + 8 * i);
       v13 = [v12 conditionCode];
       if (((0x1017FFF80001uLL >> v13) & 1) == 0)
       {
@@ -842,7 +840,7 @@ id WAConditionsLine2StringFromHourlyForecasts(void *a1)
       }
     }
 
-    v4 = [v2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v4 = [v2 countByEnumeratingWithState:&v33 objects:v37 count:16];
   }
 
   while (v4);
@@ -906,8 +904,6 @@ LABEL_37:
   v30 = [v28 stringFromNumber:v29];
   v31 = [v22 localizedStringWithFormat:v25, v27, v30];
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v31;
 }
 
@@ -943,7 +939,7 @@ id WAHourlyConditionsTimeLabelFont(int a1)
 
 id WAHourlyConditionsTemperatureLabelAttributesDictionary(int a1)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v1 = 32770;
@@ -958,13 +954,11 @@ id WAHourlyConditionsTemperatureLabelAttributesDictionary(int a1)
   v3 = [MEMORY[0x277D74300] fontWithDescriptor:v2 size:0.0];
   v4 = [MEMORY[0x277D75348] labelColor];
   v5 = *MEMORY[0x277D740C0];
-  v9[0] = *MEMORY[0x277D740A8];
-  v9[1] = v5;
-  v10[0] = v3;
-  v10[1] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = *MEMORY[0x277D740A8];
+  v8[1] = v5;
+  v9[0] = v3;
+  v9[1] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
@@ -983,7 +977,7 @@ void WASetupVibrancyOnView(void *a1, void *a2)
   [v7 configureLayerView:v4];
 }
 
-id WATodayLoadSavedLastForecastModelFromPreferences(void *a1)
+WAForecastModel *WATodayLoadSavedLastForecastModelFromPreferences(void *a1)
 {
   if (a1)
   {
@@ -1081,7 +1075,7 @@ id WATodayLoadSavedLastForecastModelFromPreferences(void *a1)
   return v17;
 }
 
-id WATodayLoadSavedFirstCityFromPreferences(void *a1)
+WAForecastModel *WATodayLoadSavedFirstCityFromPreferences(void *a1)
 {
   if (a1)
   {
@@ -1182,16 +1176,16 @@ id WATodayLoadSavedFirstCityFromPreferences(void *a1)
   return v19;
 }
 
-id WANumberFormatterForDisplayingAQI()
+id WANumberFormatterForDisplayingAQI(uint64_t a1)
 {
   if (WANumberFormatterForDisplayingAQI_onceToken != -1)
   {
     WANumberFormatterForDisplayingAQI_cold_1();
   }
 
-  v1 = WANumberFormatterForDisplayingAQI_aqiNumberFormatter;
+  v2 = WANumberFormatterForDisplayingAQI_aqiNumberFormatter;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __WANumberFormatterForDisplayingAQI_block_invoke()
@@ -1227,7 +1221,7 @@ void sub_272AD3DC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id WACityFromForecastModel(void *a1)
+City *WACityFromForecastModel(void *a1)
 {
   v1 = a1;
   v2 = objc_opt_new();
@@ -1244,16 +1238,16 @@ id WACityFromForecastModel(void *a1)
   return v2;
 }
 
-id TWCFallbackURL()
+id TWCFallbackURL(uint64_t a1)
 {
   if (TWCFallbackURL_onceToken != -1)
   {
     TWCFallbackURL_cold_1();
   }
 
-  v1 = TWCFallbackURL_TWCFallbackURL;
+  v2 = TWCFallbackURL_TWCFallbackURL;
 
-  return v1;
+  return v2;
 }
 
 void __TWCFallbackURL_block_invoke()
@@ -1283,7 +1277,7 @@ void __TWCFallbackURL_block_invoke()
 
 id TWCAttributionURLForTrafficParameter(void *a1)
 {
-  v30[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (TWCAttributionURLForTrafficParameter_onceToken != -1)
   {
@@ -1332,15 +1326,15 @@ LABEL_7:
   }
 
   v13 = [MEMORY[0x277CCAD18] queryItemWithName:@"units" value:v12];
-  v28 = v13;
+  v27 = v13;
   v14 = [MEMORY[0x277CBEAF8] currentLocale];
   v15 = [v14 objectForKey:*MEMORY[0x277CBE690]];
-  v29 = [v15 uppercaseString];
+  v28 = [v15 uppercaseString];
 
   v16 = [v14 objectForKey:*MEMORY[0x277CBE6C8]];
   v17 = [v16 lowercaseString];
 
-  v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", v17, v29];
+  v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", v17, v28];
   v19 = [MEMORY[0x277CCAD18] queryItemWithName:@"locale" value:v18];
   v20 = [v8 queryItems];
   v21 = v20;
@@ -1354,10 +1348,10 @@ LABEL_7:
     v22 = MEMORY[0x277CBEBF8];
   }
 
-  v30[0] = v11;
-  v30[1] = v19;
-  v30[2] = v13;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:3];
+  v29[0] = v11;
+  v29[1] = v19;
+  v29[2] = v13;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
   v24 = [v22 arrayByAddingObjectsFromArray:v23];
   [v8 setQueryItems:v24];
 
@@ -1369,8 +1363,6 @@ LABEL_17:
   {
     TWCAttributionURLForTrafficParameter_cold_2(v7, v25);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1409,7 +1401,7 @@ id WeatherChannelBaseURL()
 
 id WAAttributionString()
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v0 = +[WAProviderAttributionManager sharedManager];
   v1 = [v0 providerName];
 
@@ -1421,7 +1413,7 @@ id WAAttributionString()
     if (v4)
     {
       *buf = 138412290;
-      v19 = v1;
+      v18 = v1;
       _os_log_impl(&dword_272ACF000, v3, OS_LOG_TYPE_DEFAULT, "WAAttributionString: we got a provider name: %@", buf, 0xCu);
     }
 
@@ -1462,8 +1454,6 @@ id WAAttributionString()
     v13 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
@@ -1493,16 +1483,16 @@ id CardinalDirectionStringForIndex(unint64_t a1, int a2)
   return v2;
 }
 
-id WeatherFrameworkBundle()
+id WeatherFrameworkBundle(uint64_t a1)
 {
   if (WeatherFrameworkBundle_onceToken != -1)
   {
     WeatherFrameworkBundle_cold_1();
   }
 
-  v1 = __bundle;
+  v2 = __bundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __WeatherFrameworkBundle_block_invoke()
@@ -1523,7 +1513,7 @@ BOOL IsLoDPI()
   return v2;
 }
 
-uint64_t IsInternalInstall()
+uint64_t IsInternalInstall(uint64_t a1, uint64_t a2)
 {
   if (IsInternalInstall_onceToken != -1)
   {
@@ -1540,7 +1530,7 @@ uint64_t __IsInternalInstall_block_invoke()
   return result;
 }
 
-uint64_t IsTallDevice()
+uint64_t IsTallDevice(uint64_t a1, uint64_t a2)
 {
   if (IsTallDevice_onceToken != -1)
   {
@@ -1590,7 +1580,7 @@ double GetDeviceHeight()
   return v2;
 }
 
-uint64_t SupportsLandscapeWeather()
+uint64_t SupportsLandscapeWeather(uint64_t a1, uint64_t a2)
 {
   if (SupportsLandscapeWeather_onceToken != -1)
   {
@@ -1600,7 +1590,7 @@ uint64_t SupportsLandscapeWeather()
   return SupportsLandscapeWeather_support;
 }
 
-uint64_t __SupportsLandscapeWeather_block_invoke()
+void *__SupportsLandscapeWeather_block_invoke()
 {
   result = [MEMORY[0x277D2C950] naui_isPad];
   SupportsLandscapeWeather_support = result;
@@ -1705,37 +1695,37 @@ uint64_t WAUserTemperatureUnit()
 
 double ChanceOfRainWithHourlyForecasts(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = a1;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v14 objects:v18 count:16];
   v3 = 0.0;
   v4 = 0.0;
   if (v2)
   {
     v5 = v2;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v15 + 1) + 8 * v7) percentPrecipitation];
+        [*(*(&v14 + 1) + 8 * v7) percentPrecipitation];
         v4 = v4 + v8;
         v3 = v3 + 1.0;
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v1 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v1 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -1759,13 +1749,12 @@ double ChanceOfRainWithHourlyForecasts(void *a1)
     v12 = v11;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t TimeStringToIntValue(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if ([v1 length] > 2)
   {
@@ -1778,15 +1767,14 @@ uint64_t TimeStringToIntValue(void *a1)
     v2 = WALogForCategory(0);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v1;
-      _os_log_impl(&dword_272ACF000, v2, OS_LOG_TYPE_DEFAULT, "Malformed Time String %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v1;
+      _os_log_impl(&dword_272ACF000, v2, OS_LOG_TYPE_DEFAULT, "Malformed Time String %@", &v6, 0xCu);
     }
 
     v3 = 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1925,7 +1913,7 @@ BOOL WAIsChinaSKUAndSimplifiedChinese()
   return v3;
 }
 
-uint64_t WAIsPadAndChinaSKU()
+void *WAIsPadAndChinaSKU()
 {
   result = [MEMORY[0x277D2C950] naui_isPad];
   if (result)
@@ -1978,7 +1966,7 @@ intptr_t __WAPresentFirstUsageDialogIfNeeded_block_invoke(uint64_t a1, int a2)
   return dispatch_semaphore_signal(*(a1 + 32));
 }
 
-uint64_t IsAllCapsMeridiemIndicatorRegion()
+uint64_t IsAllCapsMeridiemIndicatorRegion(uint64_t a1, uint64_t a2)
 {
   if (IsAllCapsMeridiemIndicatorRegion_onceToken != -1)
   {
@@ -1999,7 +1987,7 @@ void __IsAllCapsMeridiemIndicatorRegion_block_invoke()
   }
 }
 
-uint64_t IsUIRTL()
+uint64_t IsUIRTL(uint64_t a1, uint64_t a2)
 {
   if (IsUIRTL_onceToken != -1)
   {
@@ -2009,7 +1997,7 @@ uint64_t IsUIRTL()
   return IsUIRTL_isUIRTL;
 }
 
-uint64_t __IsUIRTL_block_invoke()
+void *__IsUIRTL_block_invoke()
 {
   result = [*MEMORY[0x277D76620] userInterfaceLayoutDirection];
   IsUIRTL_isUIRTL = result == 1;
@@ -2187,20 +2175,20 @@ id GetCurrentCalendar()
 
 id WAUIFormattedTimeString(void *a1, void *a2)
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1 mutableCopy];
-  v30 = *MEMORY[0x277D74338];
+  v29 = *MEMORY[0x277D74338];
   v5 = *MEMORY[0x277D74388];
-  v27[0] = *MEMORY[0x277D74398];
-  v27[1] = v5;
-  v28[0] = &unk_288235670;
-  v28[1] = &unk_288235688;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
-  v29 = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
-  v31[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v26[0] = *MEMORY[0x277D74398];
+  v26[1] = v5;
+  v27[0] = &unk_288235670;
+  v27[1] = &unk_288235688;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+  v28 = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+  v30[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
 
   v9 = [v3 fontDescriptor];
   v10 = [v9 fontDescriptorByAddingAttributes:v8];
@@ -2211,28 +2199,27 @@ id WAUIFormattedTimeString(void *a1, void *a2)
 
   LOBYTE(v12) = [v13 isEqualToString:@"en"];
   v14 = [v4 length];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __WAUIFormattedTimeString_block_invoke;
-  v22[3] = &unk_279E67EA8;
-  v26 = v12;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __WAUIFormattedTimeString_block_invoke;
+  v21[3] = &unk_279E67EA8;
+  v25 = v12;
   v15 = v4;
-  v23 = v15;
-  v24 = v11;
-  v25 = v3;
+  v22 = v15;
+  v23 = v11;
+  v24 = v3;
   v16 = v3;
   v17 = v11;
-  [v15 enumerateAttributesInRange:0 options:v14 usingBlock:{0, v22}];
-  v18 = v25;
+  [v15 enumerateAttributesInRange:0 options:v14 usingBlock:{0, v21}];
+  v18 = v24;
   v19 = v15;
 
-  v20 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 void __WAUIFormattedTimeString_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   if (*(a1 + 56) == 1)
   {
@@ -2258,13 +2245,12 @@ void __WAUIFormattedTimeString_block_invoke(uint64_t a1, void *a2, uint64_t a3, 
   }
 
   v11 = *(a1 + v13);
-  v16 = *MEMORY[0x277D740A8];
-  v17[0] = v11;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v15 = *MEMORY[0x277D740A8];
+  v16[0] = v11;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   [*(a1 + 32) setAttributes:v14 range:{a3, a4}];
 
 LABEL_7:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id WATimeInRegionFormat(void *a1, void *a2)
@@ -2292,23 +2278,8 @@ id WATimeInRegionFormat(void *a1, void *a2)
 
     [v7 setHour:{objc_msgSend(v5, "intValue")}];
     [__components setMinute:{objc_msgSend(v6, "intValue")}];
-    if (gDateFormatter)
+    if (gDateFormatter || (v10 = objc_alloc_init(MEMORY[0x277CCA968]), v11 = gDateFormatter, gDateFormatter = v10, v11, [gDateFormatter setDateStyle:0], objc_msgSend(gDateFormatter, "setTimeStyle:", 1), objc_msgSend(MEMORY[0x277CBEAF8], "currentLocale"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(gDateFormatter, "setLocale:", v12), v12, gDateFormatter))
     {
-      goto LABEL_6;
-    }
-
-    v10 = objc_alloc_init(MEMORY[0x277CCA968]);
-    v11 = gDateFormatter;
-    gDateFormatter = v10;
-
-    [gDateFormatter setDateStyle:0];
-    [gDateFormatter setTimeStyle:1];
-    v12 = [MEMORY[0x277CBEAF8] currentLocale];
-    [gDateFormatter setLocale:v12];
-
-    if (gDateFormatter)
-    {
-LABEL_6:
       v13 = GetCurrentCalendar();
       v14 = [v13 dateFromComponents:__components];
 
@@ -2485,24 +2456,22 @@ id weekdayNameForDate(void *a1)
 
 id WAMonospacedFont(void *a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v1 = [a1 fontDescriptor];
-  v13 = *MEMORY[0x277D74338];
+  v12 = *MEMORY[0x277D74338];
   v2 = *MEMORY[0x277D74388];
-  v10[0] = *MEMORY[0x277D74398];
-  v10[1] = v2;
-  v11[0] = &unk_2882356A0;
-  v11[1] = &unk_2882356B8;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-  v12 = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
-  v14[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9[0] = *MEMORY[0x277D74398];
+  v9[1] = v2;
+  v10[0] = &unk_2882356A0;
+  v10[1] = &unk_2882356B8;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v11 = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v13[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v6 = [v1 fontDescriptorByAddingAttributes:v5];
 
   v7 = [MEMORY[0x277D74300] fontWithDescriptor:v6 size:0.0];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -2709,9 +2678,9 @@ id FirstValidTWCLinkFromLinks(void *a1)
   return v2;
 }
 
-void sub_272ADE5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272ADE5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2744,14 +2713,14 @@ id SelectTWCLinkForCity(void *a1)
 
   [v2 na_safeAddObject:v4];
   v5 = MEMORY[0x277CBEBC0];
-  v6 = TWCFallbackURL();
-  v7 = [v5 URLWithString:v6];
-  [v2 na_safeAddObject:v7];
+  v7 = TWCFallbackURL(v6);
+  v8 = [v5 URLWithString:v7];
+  [v2 na_safeAddObject:v8];
 
-  v8 = [MEMORY[0x277CBEB40] orderedSetWithArray:v2];
-  v9 = FirstValidTWCLinkFromLinks(v8);
+  v9 = [MEMORY[0x277CBEB40] orderedSetWithArray:v2];
+  v10 = FirstValidTWCLinkFromLinks(v9);
 
-  return v9;
+  return v10;
 }
 
 void OpenTWCLinksInOrder(void *a1)
@@ -2783,20 +2752,20 @@ void __OpenTWCLinksInOrder_block_invoke(uint64_t a1, char a2)
 void OpenTWCLinkForCity(void *a1)
 {
   v1 = a1;
-  v8 = objc_opt_new();
+  v9 = objc_opt_new();
   v2 = [v1 deeplink];
-  [v8 na_safeAddObject:v2];
+  [v9 na_safeAddObject:v2];
 
   v3 = [v1 link];
 
-  [v8 na_safeAddObject:v3];
+  [v9 na_safeAddObject:v3];
   v4 = MEMORY[0x277CBEBC0];
-  v5 = TWCFallbackURL();
-  v6 = [v4 URLWithString:v5];
-  [v8 na_safeAddObject:v6];
+  v6 = TWCFallbackURL(v5);
+  v7 = [v4 URLWithString:v6];
+  [v9 na_safeAddObject:v7];
 
-  v7 = [MEMORY[0x277CBEB40] orderedSetWithArray:v8];
-  OpenTWCLinksInOrder(v7);
+  v8 = [MEMORY[0x277CBEB40] orderedSetWithArray:v9];
+  OpenTWCLinksInOrder(v8);
 }
 
 uint64_t DateIsTodayInTimezone(void *a1, void *a2)
@@ -2898,18 +2867,18 @@ void sub_272AE0164(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272AE17D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_272AE17D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  objc_destroyWeak((v8 + 40));
+  va_start(va, a15);
+  objc_destroyWeak((v15 + 40));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v9 - 40));
+  objc_destroyWeak((v16 - 40));
   _Unwind_Resume(a1);
 }
 
 void MigrateDataProtectionClassOfPath(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = v1;
   if (v1)
@@ -2926,7 +2895,7 @@ void MigrateDataProtectionClassOfPath(void *a1)
         if (v7)
         {
           *buf = 138412290;
-          v11 = v2;
+          v10 = v2;
           v8 = "Failed to Migrate Data Protection Class of %@";
           goto LABEL_8;
         }
@@ -2935,7 +2904,7 @@ void MigrateDataProtectionClassOfPath(void *a1)
       else if (v7)
       {
         *buf = 138412290;
-        v11 = v2;
+        v10 = v2;
         v8 = "Migrated Data Protection Class of %@";
 LABEL_8:
         _os_log_impl(&dword_272ACF000, v6, OS_LOG_TYPE_DEFAULT, v8, buf, 0xCu);
@@ -2944,8 +2913,6 @@ LABEL_8:
       close(v4);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 id _WAWeatherIconCachePath()
@@ -2965,6 +2932,13 @@ id _WAWeatherIconCachePath()
   return v0;
 }
 
+void sub_272AE2FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -2974,7 +2948,7 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 
 id WATodayHeaderViewDegreeAttributedStringWithTemperatureObject(int a1, void *a2)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2991,21 +2965,21 @@ id WATodayHeaderViewDegreeAttributedStringWithTemperatureObject(int a1, void *a2
     v4 = TemperatureFont_font;
     v5 = objc_alloc(MEMORY[0x277CCAB48]);
     v6 = *MEMORY[0x277D740A8];
-    v21 = *MEMORY[0x277D740A8];
-    v22[0] = v4;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x277D740A8];
+    v21[0] = v4;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v8 = [v5 initWithString:v3 attributes:v7];
 
     if (a1)
     {
       v9 = [MEMORY[0x277D74300] systemFontOfSize:18.0 weight:*MEMORY[0x277D74408]];
       v10 = *MEMORY[0x277D74078];
-      v19[0] = v6;
-      v19[1] = v10;
-      v20[0] = v9;
+      v18[0] = v6;
+      v18[1] = v10;
+      v19[0] = v9;
       v11 = [MEMORY[0x277CCABB0] numberWithDouble:18.0];
-      v20[1] = v11;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+      v19[1] = v11;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
 
       v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%C", 176];
       v14 = [v3 rangeOfString:v13];
@@ -3018,35 +2992,31 @@ id WATodayHeaderViewDegreeAttributedStringWithTemperatureObject(int a1, void *a2
     v8 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 void __TemperatureFont_block_invoke(uint64_t a1)
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D74310];
   v3 = *MEMORY[0x277CC4860];
-  v15[0] = *MEMORY[0x277CC4890];
+  v14[0] = *MEMORY[0x277CC4890];
   v4 = *MEMORY[0x277CC4950];
-  v14[0] = v3;
-  v14[1] = v4;
-  v12 = *MEMORY[0x277CC48F0];
-  v13 = &unk_2882356E8;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-  v15[1] = v5;
-  v14[2] = *MEMORY[0x277CC4938];
+  v13[0] = v3;
+  v13[1] = v4;
+  v11 = *MEMORY[0x277CC48F0];
+  v12 = &unk_2882356E8;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+  v14[1] = v5;
+  v13[2] = *MEMORY[0x277CC4938];
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
-  v15[2] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
   v8 = [v2 fontDescriptorWithFontAttributes:v7];
 
   v9 = [MEMORY[0x277D74300] fontWithDescriptor:v8 size:0.0];
   v10 = TemperatureFont_font;
   TemperatureFont_font = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 BOOL WATodayPadViewFormatForSize(double a1, double a2)
@@ -3143,9 +3113,9 @@ uint64_t __WALogForCategory_block_invoke()
   return MEMORY[0x2821F96F8](v28, v29);
 }
 
-uint64_t CityTimeDigitForTimeZone(void *a1)
+char *CityTimeDigitForTimeZone(void *a1)
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEAA8];
   v2 = a1;
   v3 = [v1 date];
@@ -3168,24 +3138,23 @@ uint64_t CityTimeDigitForTimeZone(void *a1)
     [CityTimeDigitForTimeZone___currentTimeCalendar setTimeZone:v11];
     v12 = [CityTimeDigitForTimeZone___currentTimeCalendar components:96 fromDate:v3];
     v13 = [v12 hour];
-    v21 = v7;
+    v20 = v7;
     v14 = v3;
     v9 = [v12 minute] + 100 * v13;
     v15 = CityTimeDigitForTimeZone___timeZoneCache;
-    v22[0] = @"TimeValue";
+    v21[0] = @"TimeValue";
     v16 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
-    v22[1] = @"ExpiryTime";
-    v23[0] = v16;
+    v21[1] = @"ExpiryTime";
+    v22[0] = v16;
     v17 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:60.0];
-    v23[1] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v22[1] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
     [v15 setObject:v18 forKey:v5];
 
     v3 = v14;
-    v7 = v21;
+    v7 = v20;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -3249,16 +3218,18 @@ __CFString *LocalizedWeatherDescription(uint64_t a1, int a2, int a3)
   return v3;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xEu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xEu);
 }
 
 void sub_272AF16D8(_Unwind_Exception *a1)
@@ -3268,13 +3239,14 @@ void sub_272AF16D8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272AFA98C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, id location, char a31)
+void sub_272AFA98C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id location, ...)
 {
-  objc_destroyWeak((v31 + 56));
-  _Block_object_dispose((v32 - 192), 8);
+  va_start(va, location);
+  objc_destroyWeak((v30 + 56));
+  _Block_object_dispose((v31 - 192), 8);
   _Block_object_dispose(&a26, 8);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3385,457 +3357,453 @@ id WAErrorWithCode(uint64_t a1, void *a2, void *a3, void *a4)
   return v13;
 }
 
-id WASmallWeatherIconsMap()
+id WASmallWeatherIconsMap(uint64_t a1)
 {
   if (WASmallWeatherIconsMap_onceToken != -1)
   {
     WASmallWeatherIconsMap_cold_1();
   }
 
-  v1 = WASmallWeatherIconsMap_s_smallWeatherIconsMap;
+  v2 = WASmallWeatherIconsMap_s_smallWeatherIconsMap;
 
-  return v1;
+  return v2;
 }
 
 void __WASmallWeatherIconsMap_block_invoke()
 {
-  v219[43] = *MEMORY[0x277D85DE8];
-  v218[0] = @"blizzard-day";
-  v217[0] = &unk_288235220;
-  v216[0] = @"WeatherMapColors";
-  v216[1] = @"WeatherMapPadding";
-  v131 = xmmword_272B1FAF0;
-  v86 = [MEMORY[0x277CCAE60] valueWithBytes:&v131 objCType:"{CGPoint=dd}"];
-  v217[1] = v86;
-  v85 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v217 forKeys:v216 count:2];
-  v219[0] = v85;
-  v218[1] = @"blizzard-night";
-  v215[0] = &unk_288235238;
-  v214[0] = @"WeatherMapColors";
-  v214[1] = @"WeatherMapPadding";
+  v218[43] = *MEMORY[0x277D85DE8];
+  v217[0] = @"blizzard-day";
+  v216[0] = &unk_288235220;
+  v215[0] = @"WeatherMapColors";
+  v215[1] = @"WeatherMapPadding";
   v130 = xmmword_272B1FAF0;
-  v84 = [MEMORY[0x277CCAE60] valueWithBytes:&v130 objCType:"{CGPoint=dd}"];
-  v215[1] = v84;
-  v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v215 forKeys:v214 count:2];
-  v219[1] = v83;
-  v218[2] = @"blowingsnow";
-  v213[0] = &unk_288235250;
-  v212[0] = @"WeatherMapColors";
-  v212[1] = @"WeatherMapPadding";
-  v129[1] = 0;
-  v129[0] = 0;
-  v82 = [MEMORY[0x277CCAE60] valueWithBytes:v129 objCType:"{CGPoint=dd}"];
-  v213[1] = v82;
-  v81 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v213 forKeys:v212 count:2];
-  v219[2] = v81;
-  v218[3] = @"breezy";
-  v211[0] = &unk_288235268;
-  v210[0] = @"WeatherMapColors";
-  v210[1] = @"WeatherMapPadding";
+  v85 = [MEMORY[0x277CCAE60] valueWithBytes:&v130 objCType:"{CGPoint=dd}"];
+  v216[1] = v85;
+  v84 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v216 forKeys:v215 count:2];
+  v218[0] = v84;
+  v217[1] = @"blizzard-night";
+  v214[0] = &unk_288235238;
+  v213[0] = @"WeatherMapColors";
+  v213[1] = @"WeatherMapPadding";
+  v129 = xmmword_272B1FAF0;
+  v83 = [MEMORY[0x277CCAE60] valueWithBytes:&v129 objCType:"{CGPoint=dd}"];
+  v214[1] = v83;
+  v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v214 forKeys:v213 count:2];
+  v218[1] = v82;
+  v217[2] = @"blowingsnow";
+  v212[0] = &unk_288235250;
+  v211[0] = @"WeatherMapColors";
+  v211[1] = @"WeatherMapPadding";
   v128[1] = 0;
   v128[0] = 0;
-  v80 = [MEMORY[0x277CCAE60] valueWithBytes:v128 objCType:"{CGPoint=dd}"];
-  v211[1] = v80;
-  v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v211 forKeys:v210 count:2];
-  v219[3] = v79;
-  v218[4] = @"clear-night";
-  v209[0] = &unk_288235280;
-  v208[0] = @"WeatherMapColors";
-  v208[1] = @"WeatherMapPadding";
+  v81 = [MEMORY[0x277CCAE60] valueWithBytes:v128 objCType:"{CGPoint=dd}"];
+  v212[1] = v81;
+  v80 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v212 forKeys:v211 count:2];
+  v218[2] = v80;
+  v217[3] = @"breezy";
+  v210[0] = &unk_288235268;
+  v209[0] = @"WeatherMapColors";
+  v209[1] = @"WeatherMapPadding";
   v127[1] = 0;
   v127[0] = 0;
-  v78 = [MEMORY[0x277CCAE60] valueWithBytes:v127 objCType:"{CGPoint=dd}"];
-  v209[1] = v78;
-  v77 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v209 forKeys:v208 count:2];
-  v219[4] = v77;
-  v218[5] = @"drizzle-day";
-  v207[0] = &unk_288235298;
-  v206[0] = @"WeatherMapColors";
-  v206[1] = @"WeatherMapPadding";
-  v126 = xmmword_272B1FAF0;
-  v76 = [MEMORY[0x277CCAE60] valueWithBytes:&v126 objCType:"{CGPoint=dd}"];
-  v207[1] = v76;
-  v75 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v207 forKeys:v206 count:2];
-  v219[5] = v75;
-  v218[6] = @"drizzle-night";
-  v205[0] = &unk_2882352B0;
-  v204[0] = @"WeatherMapColors";
-  v204[1] = @"WeatherMapPadding";
+  v79 = [MEMORY[0x277CCAE60] valueWithBytes:v127 objCType:"{CGPoint=dd}"];
+  v210[1] = v79;
+  v78 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v210 forKeys:v209 count:2];
+  v218[3] = v78;
+  v217[4] = @"clear-night";
+  v208[0] = &unk_288235280;
+  v207[0] = @"WeatherMapColors";
+  v207[1] = @"WeatherMapPadding";
+  v126[1] = 0;
+  v126[0] = 0;
+  v77 = [MEMORY[0x277CCAE60] valueWithBytes:v126 objCType:"{CGPoint=dd}"];
+  v208[1] = v77;
+  v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v208 forKeys:v207 count:2];
+  v218[4] = v76;
+  v217[5] = @"drizzle-day";
+  v206[0] = &unk_288235298;
+  v205[0] = @"WeatherMapColors";
+  v205[1] = @"WeatherMapPadding";
   v125 = xmmword_272B1FAF0;
-  v74 = [MEMORY[0x277CCAE60] valueWithBytes:&v125 objCType:"{CGPoint=dd}"];
-  v205[1] = v74;
-  v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v205 forKeys:v204 count:2];
-  v219[6] = v73;
-  v218[7] = @"dust";
-  v203[0] = &unk_2882352C8;
-  v202[0] = @"WeatherMapColors";
-  v202[1] = @"WeatherMapPadding";
-  v124[1] = 0;
-  v124[0] = 0;
-  v72 = [MEMORY[0x277CCAE60] valueWithBytes:v124 objCType:"{CGPoint=dd}"];
-  v203[1] = v72;
-  v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v203 forKeys:v202 count:2];
-  v219[7] = v71;
-  v218[8] = @"flurry-snow-shower";
-  v201[0] = &unk_2882352E0;
-  v200[0] = @"WeatherMapColors";
-  v200[1] = @"WeatherMapPadding";
+  v75 = [MEMORY[0x277CCAE60] valueWithBytes:&v125 objCType:"{CGPoint=dd}"];
+  v206[1] = v75;
+  v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v206 forKeys:v205 count:2];
+  v218[5] = v74;
+  v217[6] = @"drizzle-night";
+  v204[0] = &unk_2882352B0;
+  v203[0] = @"WeatherMapColors";
+  v203[1] = @"WeatherMapPadding";
+  v124 = xmmword_272B1FAF0;
+  v73 = [MEMORY[0x277CCAE60] valueWithBytes:&v124 objCType:"{CGPoint=dd}"];
+  v204[1] = v73;
+  v72 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v204 forKeys:v203 count:2];
+  v218[6] = v72;
+  v217[7] = @"dust";
+  v202[0] = &unk_2882352C8;
+  v201[0] = @"WeatherMapColors";
+  v201[1] = @"WeatherMapPadding";
   v123[1] = 0;
   v123[0] = 0;
-  v70 = [MEMORY[0x277CCAE60] valueWithBytes:v123 objCType:"{CGPoint=dd}"];
-  v201[1] = v70;
-  v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v201 forKeys:v200 count:2];
-  v219[8] = v69;
-  v218[9] = @"flurry";
-  v199[0] = &unk_2882352F8;
-  v198[0] = @"WeatherMapColors";
-  v198[1] = @"WeatherMapPadding";
+  v71 = [MEMORY[0x277CCAE60] valueWithBytes:v123 objCType:"{CGPoint=dd}"];
+  v202[1] = v71;
+  v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v202 forKeys:v201 count:2];
+  v218[7] = v70;
+  v217[8] = @"flurry-snow-shower";
+  v200[0] = &unk_2882352E0;
+  v199[0] = @"WeatherMapColors";
+  v199[1] = @"WeatherMapPadding";
   v122[1] = 0;
   v122[0] = 0;
-  v68 = [MEMORY[0x277CCAE60] valueWithBytes:v122 objCType:"{CGPoint=dd}"];
-  v199[1] = v68;
-  v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v199 forKeys:v198 count:2];
-  v219[9] = v67;
-  v218[10] = @"fog-day";
-  v197[0] = &unk_288235310;
-  v196[0] = @"WeatherMapColors";
-  v196[1] = @"WeatherMapPadding";
-  v121 = xmmword_272B1FB00;
-  v66 = [MEMORY[0x277CCAE60] valueWithBytes:&v121 objCType:"{CGPoint=dd}"];
-  v197[1] = v66;
-  v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v197 forKeys:v196 count:2];
-  v219[10] = v65;
-  v218[11] = @"fog-night";
-  v195[0] = &unk_288235328;
-  v194[0] = @"WeatherMapColors";
-  v194[1] = @"WeatherMapPadding";
+  v69 = [MEMORY[0x277CCAE60] valueWithBytes:v122 objCType:"{CGPoint=dd}"];
+  v200[1] = v69;
+  v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v200 forKeys:v199 count:2];
+  v218[8] = v68;
+  v217[9] = @"flurry";
+  v198[0] = &unk_2882352F8;
+  v197[0] = @"WeatherMapColors";
+  v197[1] = @"WeatherMapPadding";
+  v121[1] = 0;
+  v121[0] = 0;
+  v67 = [MEMORY[0x277CCAE60] valueWithBytes:v121 objCType:"{CGPoint=dd}"];
+  v198[1] = v67;
+  v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v198 forKeys:v197 count:2];
+  v218[9] = v66;
+  v217[10] = @"fog-day";
+  v196[0] = &unk_288235310;
+  v195[0] = @"WeatherMapColors";
+  v195[1] = @"WeatherMapPadding";
   v120 = xmmword_272B1FB00;
-  v64 = [MEMORY[0x277CCAE60] valueWithBytes:&v120 objCType:"{CGPoint=dd}"];
-  v195[1] = v64;
-  v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v195 forKeys:v194 count:2];
-  v219[11] = v63;
-  v218[12] = @"hail-day";
-  v193[0] = &unk_288235340;
-  v192[0] = @"WeatherMapColors";
-  v192[1] = @"WeatherMapPadding";
-  v119 = xmmword_272B1FAF0;
-  v62 = [MEMORY[0x277CCAE60] valueWithBytes:&v119 objCType:"{CGPoint=dd}"];
-  v193[1] = v62;
-  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v193 forKeys:v192 count:2];
-  v219[12] = v61;
-  v218[13] = @"hail-night";
-  v191[0] = &unk_288235358;
-  v190[0] = @"WeatherMapColors";
-  v190[1] = @"WeatherMapPadding";
+  v65 = [MEMORY[0x277CCAE60] valueWithBytes:&v120 objCType:"{CGPoint=dd}"];
+  v196[1] = v65;
+  v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v196 forKeys:v195 count:2];
+  v218[10] = v64;
+  v217[11] = @"fog-night";
+  v194[0] = &unk_288235328;
+  v193[0] = @"WeatherMapColors";
+  v193[1] = @"WeatherMapPadding";
+  v119 = xmmword_272B1FB00;
+  v63 = [MEMORY[0x277CCAE60] valueWithBytes:&v119 objCType:"{CGPoint=dd}"];
+  v194[1] = v63;
+  v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v194 forKeys:v193 count:2];
+  v218[11] = v62;
+  v217[12] = @"hail-day";
+  v192[0] = &unk_288235340;
+  v191[0] = @"WeatherMapColors";
+  v191[1] = @"WeatherMapPadding";
   v118 = xmmword_272B1FAF0;
-  v60 = [MEMORY[0x277CCAE60] valueWithBytes:&v118 objCType:"{CGPoint=dd}"];
-  v191[1] = v60;
-  v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v191 forKeys:v190 count:2];
-  v219[13] = v59;
-  v218[14] = @"haze";
-  v189[0] = &unk_288235370;
-  v188[0] = @"WeatherMapColors";
-  v188[1] = @"WeatherMapPadding";
-  v117[1] = 0;
-  v117[0] = 0;
-  v58 = [MEMORY[0x277CCAE60] valueWithBytes:v117 objCType:"{CGPoint=dd}"];
-  v189[1] = v58;
-  v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v189 forKeys:v188 count:2];
-  v219[14] = v57;
-  v218[15] = @"heavy-rain-day";
-  v187[0] = &unk_288235388;
-  v186[0] = @"WeatherMapColors";
-  v186[1] = @"WeatherMapPadding";
-  v116 = xmmword_272B1FAF0;
-  v56 = [MEMORY[0x277CCAE60] valueWithBytes:&v116 objCType:"{CGPoint=dd}"];
-  v187[1] = v56;
-  v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v187 forKeys:v186 count:2];
-  v219[15] = v55;
-  v218[16] = @"heavy-rain-night";
-  v185[0] = &unk_2882353A0;
-  v184[0] = @"WeatherMapColors";
-  v184[1] = @"WeatherMapPadding";
+  v61 = [MEMORY[0x277CCAE60] valueWithBytes:&v118 objCType:"{CGPoint=dd}"];
+  v192[1] = v61;
+  v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v192 forKeys:v191 count:2];
+  v218[12] = v60;
+  v217[13] = @"hail-night";
+  v190[0] = &unk_288235358;
+  v189[0] = @"WeatherMapColors";
+  v189[1] = @"WeatherMapPadding";
+  v117 = xmmword_272B1FAF0;
+  v59 = [MEMORY[0x277CCAE60] valueWithBytes:&v117 objCType:"{CGPoint=dd}"];
+  v190[1] = v59;
+  v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v190 forKeys:v189 count:2];
+  v218[13] = v58;
+  v217[14] = @"haze";
+  v188[0] = &unk_288235370;
+  v187[0] = @"WeatherMapColors";
+  v187[1] = @"WeatherMapPadding";
+  v116[1] = 0;
+  v116[0] = 0;
+  v57 = [MEMORY[0x277CCAE60] valueWithBytes:v116 objCType:"{CGPoint=dd}"];
+  v188[1] = v57;
+  v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v188 forKeys:v187 count:2];
+  v218[14] = v56;
+  v217[15] = @"heavy-rain-day";
+  v186[0] = &unk_288235388;
+  v185[0] = @"WeatherMapColors";
+  v185[1] = @"WeatherMapPadding";
   v115 = xmmword_272B1FAF0;
-  v87 = [MEMORY[0x277CCAE60] valueWithBytes:&v115 objCType:"{CGPoint=dd}"];
-  v185[1] = v87;
-  v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v185 forKeys:v184 count:2];
-  v219[16] = v54;
-  v218[17] = @"hot";
-  v183[0] = &unk_2882353B8;
-  v182[0] = @"WeatherMapColors";
-  v182[1] = @"WeatherMapPadding";
-  v114[1] = 0;
-  v114[0] = 0;
-  v53 = [MEMORY[0x277CCAE60] valueWithBytes:v114 objCType:"{CGPoint=dd}"];
-  v183[1] = v53;
-  v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v183 forKeys:v182 count:2];
-  v219[17] = v52;
-  v218[18] = @"hurricane";
-  v181[0] = &unk_2882353D0;
-  v180[0] = @"WeatherMapColors";
-  v180[1] = @"WeatherMapPadding";
+  v55 = [MEMORY[0x277CCAE60] valueWithBytes:&v115 objCType:"{CGPoint=dd}"];
+  v186[1] = v55;
+  v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v186 forKeys:v185 count:2];
+  v218[15] = v54;
+  v217[16] = @"heavy-rain-night";
+  v184[0] = &unk_2882353A0;
+  v183[0] = @"WeatherMapColors";
+  v183[1] = @"WeatherMapPadding";
+  v114 = xmmword_272B1FAF0;
+  v86 = [MEMORY[0x277CCAE60] valueWithBytes:&v114 objCType:"{CGPoint=dd}"];
+  v184[1] = v86;
+  v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v184 forKeys:v183 count:2];
+  v218[16] = v53;
+  v217[17] = @"hot";
+  v182[0] = &unk_2882353B8;
+  v181[0] = @"WeatherMapColors";
+  v181[1] = @"WeatherMapPadding";
   v113[1] = 0;
   v113[0] = 0;
-  v51 = [MEMORY[0x277CCAE60] valueWithBytes:v113 objCType:"{CGPoint=dd}"];
-  v181[1] = v51;
-  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v181 forKeys:v180 count:2];
-  v219[18] = v50;
-  v218[19] = @"ice";
-  v179[0] = &unk_2882353E8;
-  v178[0] = @"WeatherMapColors";
-  v178[1] = @"WeatherMapPadding";
+  v52 = [MEMORY[0x277CCAE60] valueWithBytes:v113 objCType:"{CGPoint=dd}"];
+  v182[1] = v52;
+  v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v182 forKeys:v181 count:2];
+  v218[17] = v51;
+  v217[18] = @"hurricane";
+  v180[0] = &unk_2882353D0;
+  v179[0] = @"WeatherMapColors";
+  v179[1] = @"WeatherMapPadding";
   v112[1] = 0;
   v112[0] = 0;
-  v49 = [MEMORY[0x277CCAE60] valueWithBytes:v112 objCType:"{CGPoint=dd}"];
-  v179[1] = v49;
-  v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v179 forKeys:v178 count:2];
-  v219[19] = v48;
-  v218[20] = @"mix-rainfall-day";
-  v177[0] = &unk_288235400;
-  v176[0] = @"WeatherMapColors";
-  v176[1] = @"WeatherMapPadding";
-  v111 = xmmword_272B1FB00;
-  v47 = [MEMORY[0x277CCAE60] valueWithBytes:&v111 objCType:"{CGPoint=dd}"];
-  v177[1] = v47;
-  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v177 forKeys:v176 count:2];
-  v219[20] = v46;
-  v218[21] = @"mix-rainfall-night";
-  v175[0] = &unk_288235418;
-  v174[0] = @"WeatherMapColors";
-  v174[1] = @"WeatherMapPadding";
+  v50 = [MEMORY[0x277CCAE60] valueWithBytes:v112 objCType:"{CGPoint=dd}"];
+  v180[1] = v50;
+  v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v180 forKeys:v179 count:2];
+  v218[18] = v49;
+  v217[19] = @"ice";
+  v178[0] = &unk_2882353E8;
+  v177[0] = @"WeatherMapColors";
+  v177[1] = @"WeatherMapPadding";
+  v111[1] = 0;
+  v111[0] = 0;
+  v48 = [MEMORY[0x277CCAE60] valueWithBytes:v111 objCType:"{CGPoint=dd}"];
+  v178[1] = v48;
+  v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v178 forKeys:v177 count:2];
+  v218[19] = v47;
+  v217[20] = @"mix-rainfall-day";
+  v176[0] = &unk_288235400;
+  v175[0] = @"WeatherMapColors";
+  v175[1] = @"WeatherMapPadding";
   v110 = xmmword_272B1FB00;
-  v45 = [MEMORY[0x277CCAE60] valueWithBytes:&v110 objCType:"{CGPoint=dd}"];
-  v175[1] = v45;
-  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v175 forKeys:v174 count:2];
-  v219[21] = v44;
-  v218[22] = @"mostly-cloudy-day";
-  v173[0] = &unk_288235430;
-  v172[0] = @"WeatherMapColors";
-  v172[1] = @"WeatherMapPadding";
-  v109[1] = 0;
-  v109[0] = 0;
-  v43 = [MEMORY[0x277CCAE60] valueWithBytes:v109 objCType:"{CGPoint=dd}"];
-  v173[1] = v43;
-  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v173 forKeys:v172 count:2];
-  v219[22] = v42;
-  v218[23] = @"mostly-cloudy-night";
-  v171[0] = &unk_288235448;
-  v170[0] = @"WeatherMapColors";
-  v170[1] = @"WeatherMapPadding";
+  v46 = [MEMORY[0x277CCAE60] valueWithBytes:&v110 objCType:"{CGPoint=dd}"];
+  v176[1] = v46;
+  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v176 forKeys:v175 count:2];
+  v218[20] = v45;
+  v217[21] = @"mix-rainfall-night";
+  v174[0] = &unk_288235418;
+  v173[0] = @"WeatherMapColors";
+  v173[1] = @"WeatherMapPadding";
+  v109 = xmmword_272B1FB00;
+  v44 = [MEMORY[0x277CCAE60] valueWithBytes:&v109 objCType:"{CGPoint=dd}"];
+  v174[1] = v44;
+  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v174 forKeys:v173 count:2];
+  v218[21] = v43;
+  v217[22] = @"mostly-cloudy-day";
+  v172[0] = &unk_288235430;
+  v171[0] = @"WeatherMapColors";
+  v171[1] = @"WeatherMapPadding";
   v108[1] = 0;
   v108[0] = 0;
-  v41 = [MEMORY[0x277CCAE60] valueWithBytes:v108 objCType:"{CGPoint=dd}"];
-  v171[1] = v41;
-  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v171 forKeys:v170 count:2];
-  v219[23] = v40;
-  v218[24] = @"mostly-sunny";
-  v169[0] = &unk_288235460;
-  v168[0] = @"WeatherMapColors";
-  v168[1] = @"WeatherMapPadding";
+  v42 = [MEMORY[0x277CCAE60] valueWithBytes:v108 objCType:"{CGPoint=dd}"];
+  v172[1] = v42;
+  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v172 forKeys:v171 count:2];
+  v218[22] = v41;
+  v217[23] = @"mostly-cloudy-night";
+  v170[0] = &unk_288235448;
+  v169[0] = @"WeatherMapColors";
+  v169[1] = @"WeatherMapPadding";
   v107[1] = 0;
   v107[0] = 0;
-  v39 = [MEMORY[0x277CCAE60] valueWithBytes:v107 objCType:"{CGPoint=dd}"];
-  v169[1] = v39;
-  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v169 forKeys:v168 count:2];
-  v219[24] = v38;
-  v218[25] = @"no-report";
-  v167[0] = &unk_288235478;
-  v166[0] = @"WeatherMapColors";
-  v166[1] = @"WeatherMapPadding";
+  v40 = [MEMORY[0x277CCAE60] valueWithBytes:v107 objCType:"{CGPoint=dd}"];
+  v170[1] = v40;
+  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v170 forKeys:v169 count:2];
+  v218[23] = v39;
+  v217[24] = @"mostly-sunny";
+  v168[0] = &unk_288235460;
+  v167[0] = @"WeatherMapColors";
+  v167[1] = @"WeatherMapPadding";
   v106[1] = 0;
   v106[0] = 0;
-  v37 = [MEMORY[0x277CCAE60] valueWithBytes:v106 objCType:"{CGPoint=dd}"];
-  v167[1] = v37;
-  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v167 forKeys:v166 count:2];
-  v219[25] = v36;
-  v218[26] = @"partly-cloudy-day";
-  v165[0] = &unk_288235490;
-  v164[0] = @"WeatherMapColors";
-  v164[1] = @"WeatherMapPadding";
-  v105 = xmmword_272B1FB10;
-  v35 = [MEMORY[0x277CCAE60] valueWithBytes:&v105 objCType:"{CGPoint=dd}"];
-  v165[1] = v35;
-  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v165 forKeys:v164 count:2];
-  v219[26] = v34;
-  v218[27] = @"partly-cloudy-night";
-  v163[0] = &unk_2882354A8;
-  v162[0] = @"WeatherMapColors";
-  v162[1] = @"WeatherMapPadding";
-  v104 = xmmword_272B1FB20;
-  v33 = [MEMORY[0x277CCAE60] valueWithBytes:&v104 objCType:"{CGPoint=dd}"];
-  v163[1] = v33;
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v163 forKeys:v162 count:2];
-  v219[27] = v32;
-  v218[28] = @"rain-day";
-  v161[0] = &unk_2882354C0;
-  v160[0] = @"WeatherMapColors";
-  v160[1] = @"WeatherMapPadding";
-  v103 = xmmword_272B1FB00;
-  v31 = [MEMORY[0x277CCAE60] valueWithBytes:&v103 objCType:"{CGPoint=dd}"];
-  v161[1] = v31;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v161 forKeys:v160 count:2];
-  v219[28] = v30;
-  v218[29] = @"rain-night";
-  v159[0] = &unk_2882354D8;
-  v158[0] = @"WeatherMapColors";
-  v158[1] = @"WeatherMapPadding";
+  v38 = [MEMORY[0x277CCAE60] valueWithBytes:v106 objCType:"{CGPoint=dd}"];
+  v168[1] = v38;
+  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v168 forKeys:v167 count:2];
+  v218[24] = v37;
+  v217[25] = @"no-report";
+  v166[0] = &unk_288235478;
+  v165[0] = @"WeatherMapColors";
+  v165[1] = @"WeatherMapPadding";
+  v105[1] = 0;
+  v105[0] = 0;
+  v36 = [MEMORY[0x277CCAE60] valueWithBytes:v105 objCType:"{CGPoint=dd}"];
+  v166[1] = v36;
+  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v166 forKeys:v165 count:2];
+  v218[25] = v35;
+  v217[26] = @"partly-cloudy-day";
+  v164[0] = &unk_288235490;
+  v163[0] = @"WeatherMapColors";
+  v163[1] = @"WeatherMapPadding";
+  v104 = xmmword_272B1FB10;
+  v34 = [MEMORY[0x277CCAE60] valueWithBytes:&v104 objCType:"{CGPoint=dd}"];
+  v164[1] = v34;
+  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v164 forKeys:v163 count:2];
+  v218[26] = v33;
+  v217[27] = @"partly-cloudy-night";
+  v162[0] = &unk_2882354A8;
+  v161[0] = @"WeatherMapColors";
+  v161[1] = @"WeatherMapPadding";
+  v103 = xmmword_272B1FB20;
+  v32 = [MEMORY[0x277CCAE60] valueWithBytes:&v103 objCType:"{CGPoint=dd}"];
+  v162[1] = v32;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v162 forKeys:v161 count:2];
+  v218[27] = v31;
+  v217[28] = @"rain-day";
+  v160[0] = &unk_2882354C0;
+  v159[0] = @"WeatherMapColors";
+  v159[1] = @"WeatherMapPadding";
   v102 = xmmword_272B1FB00;
-  v29 = [MEMORY[0x277CCAE60] valueWithBytes:&v102 objCType:"{CGPoint=dd}"];
-  v159[1] = v29;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v159 forKeys:v158 count:2];
-  v219[29] = v28;
-  v218[30] = @"scattered-showers";
-  v157[0] = &unk_2882354F0;
-  v156[0] = @"WeatherMapColors";
-  v156[1] = @"WeatherMapPadding";
-  v101[0] = 0;
-  v101[1] = 0;
-  v27 = [MEMORY[0x277CCAE60] valueWithBytes:v101 objCType:"{CGPoint=dd}"];
-  v157[1] = v27;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v157 forKeys:v156 count:2];
-  v219[30] = v26;
-  v218[31] = @"scattered-showers-night";
-  v155[0] = &unk_288235508;
-  v154[0] = @"WeatherMapColors";
-  v154[1] = @"WeatherMapPadding";
-  v100 = xmmword_272B1FB30;
-  v25 = [MEMORY[0x277CCAE60] valueWithBytes:&v100 objCType:"{CGPoint=dd}"];
-  v155[1] = v25;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v155 forKeys:v154 count:2];
-  v219[31] = v24;
-  v218[32] = @"scattered-thunderstorm";
-  v153[0] = &unk_288235520;
-  v152[0] = @"WeatherMapColors";
-  v152[1] = @"WeatherMapPadding";
-  v99[0] = 0;
-  v99[1] = 0;
-  v23 = [MEMORY[0x277CCAE60] valueWithBytes:v99 objCType:"{CGPoint=dd}"];
-  v153[1] = v23;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v153 forKeys:v152 count:2];
-  v219[32] = v22;
-  v218[33] = @"scattered-thunderstorm-night";
-  v151[0] = &unk_288235538;
-  v150[0] = @"WeatherMapColors";
-  v150[1] = @"WeatherMapPadding";
-  v98 = xmmword_272B1FB30;
-  v21 = [MEMORY[0x277CCAE60] valueWithBytes:&v98 objCType:"{CGPoint=dd}"];
-  v151[1] = v21;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v151 forKeys:v150 count:2];
-  v219[33] = v20;
-  v218[34] = @"severe-thunderstorm-day";
-  v149[0] = &unk_288235550;
-  v148[0] = @"WeatherMapColors";
-  v148[1] = @"WeatherMapPadding";
-  v97 = xmmword_272B1FB00;
-  v19 = [MEMORY[0x277CCAE60] valueWithBytes:&v97 objCType:"{CGPoint=dd}"];
-  v149[1] = v19;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v149 forKeys:v148 count:2];
-  v219[34] = v17;
-  v218[35] = @"severe-thunderstorm-night";
-  v147[0] = &unk_288235568;
-  v146[0] = @"WeatherMapColors";
-  v146[1] = @"WeatherMapPadding";
+  v30 = [MEMORY[0x277CCAE60] valueWithBytes:&v102 objCType:"{CGPoint=dd}"];
+  v160[1] = v30;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v160 forKeys:v159 count:2];
+  v218[28] = v29;
+  v217[29] = @"rain-night";
+  v158[0] = &unk_2882354D8;
+  v157[0] = @"WeatherMapColors";
+  v157[1] = @"WeatherMapPadding";
+  v101 = xmmword_272B1FB00;
+  v28 = [MEMORY[0x277CCAE60] valueWithBytes:&v101 objCType:"{CGPoint=dd}"];
+  v158[1] = v28;
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v158 forKeys:v157 count:2];
+  v218[29] = v27;
+  v217[30] = @"scattered-showers";
+  v156[0] = &unk_2882354F0;
+  v155[0] = @"WeatherMapColors";
+  v155[1] = @"WeatherMapPadding";
+  v100[0] = 0;
+  v100[1] = 0;
+  v26 = [MEMORY[0x277CCAE60] valueWithBytes:v100 objCType:"{CGPoint=dd}"];
+  v156[1] = v26;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v156 forKeys:v155 count:2];
+  v218[30] = v25;
+  v217[31] = @"scattered-showers-night";
+  v154[0] = &unk_288235508;
+  v153[0] = @"WeatherMapColors";
+  v153[1] = @"WeatherMapPadding";
+  v99 = xmmword_272B1FB30;
+  v24 = [MEMORY[0x277CCAE60] valueWithBytes:&v99 objCType:"{CGPoint=dd}"];
+  v154[1] = v24;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v154 forKeys:v153 count:2];
+  v218[31] = v23;
+  v217[32] = @"scattered-thunderstorm";
+  v152[0] = &unk_288235520;
+  v151[0] = @"WeatherMapColors";
+  v151[1] = @"WeatherMapPadding";
+  v98[0] = 0;
+  v98[1] = 0;
+  v22 = [MEMORY[0x277CCAE60] valueWithBytes:v98 objCType:"{CGPoint=dd}"];
+  v152[1] = v22;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v152 forKeys:v151 count:2];
+  v218[32] = v21;
+  v217[33] = @"scattered-thunderstorm-night";
+  v150[0] = &unk_288235538;
+  v149[0] = @"WeatherMapColors";
+  v149[1] = @"WeatherMapPadding";
+  v97 = xmmword_272B1FB30;
+  v20 = [MEMORY[0x277CCAE60] valueWithBytes:&v97 objCType:"{CGPoint=dd}"];
+  v150[1] = v20;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v150 forKeys:v149 count:2];
+  v218[33] = v19;
+  v217[34] = @"severe-thunderstorm-day";
+  v148[0] = &unk_288235550;
+  v147[0] = @"WeatherMapColors";
+  v147[1] = @"WeatherMapPadding";
   v96 = xmmword_272B1FB00;
-  v88 = [MEMORY[0x277CCAE60] valueWithBytes:&v96 objCType:"{CGPoint=dd}"];
-  v147[1] = v88;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v147 forKeys:v146 count:2];
-  v219[35] = v16;
-  v218[36] = @"sleet-day";
-  v145[0] = &unk_288235580;
-  v144[0] = @"WeatherMapColors";
-  v144[1] = @"WeatherMapPadding";
-  v95 = xmmword_272B1FB40;
-  v15 = [MEMORY[0x277CCAE60] valueWithBytes:&v95 objCType:"{CGPoint=dd}"];
-  v145[1] = v15;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v145 forKeys:v144 count:2];
-  v219[36] = v14;
-  v218[37] = @"sleet-night";
-  v143[0] = &unk_288235598;
-  v142[0] = @"WeatherMapColors";
-  v142[1] = @"WeatherMapPadding";
+  v18 = [MEMORY[0x277CCAE60] valueWithBytes:&v96 objCType:"{CGPoint=dd}"];
+  v148[1] = v18;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v148 forKeys:v147 count:2];
+  v218[34] = v16;
+  v217[35] = @"severe-thunderstorm-night";
+  v146[0] = &unk_288235568;
+  v145[0] = @"WeatherMapColors";
+  v145[1] = @"WeatherMapPadding";
+  v95 = xmmword_272B1FB00;
+  v87 = [MEMORY[0x277CCAE60] valueWithBytes:&v95 objCType:"{CGPoint=dd}"];
+  v146[1] = v87;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v146 forKeys:v145 count:2];
+  v218[35] = v15;
+  v217[36] = @"sleet-day";
+  v144[0] = &unk_288235580;
+  v143[0] = @"WeatherMapColors";
+  v143[1] = @"WeatherMapPadding";
   v94 = xmmword_272B1FB40;
-  v13 = [MEMORY[0x277CCAE60] valueWithBytes:&v94 objCType:"{CGPoint=dd}"];
-  v143[1] = v13;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v143 forKeys:v142 count:2];
-  v219[37] = v12;
-  v218[38] = @"smoke";
-  v141[0] = &unk_2882355B0;
-  v140[0] = @"WeatherMapColors";
-  v140[1] = @"WeatherMapPadding";
-  v93 = xmmword_272B1FB20;
-  v18 = [MEMORY[0x277CCAE60] valueWithBytes:&v93 objCType:"{CGPoint=dd}"];
-  v141[1] = v18;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v141 forKeys:v140 count:2];
-  v219[38] = v11;
-  v218[39] = @"sunrise";
-  v139[0] = &unk_2882355C8;
-  v138[0] = @"WeatherMapColors";
-  v138[1] = @"WeatherMapPadding";
-  v92[0] = 0;
-  v92[1] = 0;
-  v10 = [MEMORY[0x277CCAE60] valueWithBytes:v92 objCType:"{CGPoint=dd}"];
-  v139[1] = v10;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v139 forKeys:v138 count:2];
-  v219[39] = v0;
-  v218[40] = @"sunset";
-  v137[0] = &unk_2882355E0;
-  v136[0] = @"WeatherMapColors";
-  v136[1] = @"WeatherMapPadding";
+  v14 = [MEMORY[0x277CCAE60] valueWithBytes:&v94 objCType:"{CGPoint=dd}"];
+  v144[1] = v14;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v144 forKeys:v143 count:2];
+  v218[36] = v13;
+  v217[37] = @"sleet-night";
+  v142[0] = &unk_288235598;
+  v141[0] = @"WeatherMapColors";
+  v141[1] = @"WeatherMapPadding";
+  v93 = xmmword_272B1FB40;
+  v12 = [MEMORY[0x277CCAE60] valueWithBytes:&v93 objCType:"{CGPoint=dd}"];
+  v142[1] = v12;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v142 forKeys:v141 count:2];
+  v218[37] = v11;
+  v217[38] = @"smoke";
+  v140[0] = &unk_2882355B0;
+  v139[0] = @"WeatherMapColors";
+  v139[1] = @"WeatherMapPadding";
+  v92 = xmmword_272B1FB20;
+  v17 = [MEMORY[0x277CCAE60] valueWithBytes:&v92 objCType:"{CGPoint=dd}"];
+  v140[1] = v17;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v140 forKeys:v139 count:2];
+  v218[38] = v10;
+  v217[39] = @"sunrise";
+  v138[0] = &unk_2882355C8;
+  v137[0] = @"WeatherMapColors";
+  v137[1] = @"WeatherMapPadding";
   v91[0] = 0;
   v91[1] = 0;
-  v1 = [MEMORY[0x277CCAE60] valueWithBytes:v91 objCType:"{CGPoint=dd}"];
-  v137[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v137 forKeys:v136 count:2];
-  v219[40] = v2;
-  v218[41] = @"tornado";
-  v135[0] = &unk_2882355F8;
-  v134[0] = @"WeatherMapColors";
-  v134[1] = @"WeatherMapPadding";
+  v9 = [MEMORY[0x277CCAE60] valueWithBytes:v91 objCType:"{CGPoint=dd}"];
+  v138[1] = v9;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v138 forKeys:v137 count:2];
+  v218[39] = v0;
+  v217[40] = @"sunset";
+  v136[0] = &unk_2882355E0;
+  v135[0] = @"WeatherMapColors";
+  v135[1] = @"WeatherMapPadding";
   v90[0] = 0;
   v90[1] = 0;
-  v3 = [MEMORY[0x277CCAE60] valueWithBytes:v90 objCType:"{CGPoint=dd}"];
-  v135[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v135 forKeys:v134 count:2];
-  v219[41] = v4;
-  v218[42] = @"tropical-storm";
-  v133[0] = &unk_288235610;
-  v132[0] = @"WeatherMapColors";
-  v132[1] = @"WeatherMapPadding";
+  v1 = [MEMORY[0x277CCAE60] valueWithBytes:v90 objCType:"{CGPoint=dd}"];
+  v136[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v136 forKeys:v135 count:2];
+  v218[40] = v2;
+  v217[41] = @"tornado";
+  v134[0] = &unk_2882355F8;
+  v133[0] = @"WeatherMapColors";
+  v133[1] = @"WeatherMapPadding";
   v89[0] = 0;
   v89[1] = 0;
-  v5 = [MEMORY[0x277CCAE60] valueWithBytes:v89 objCType:"{CGPoint=dd}"];
-  v133[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v133 forKeys:v132 count:2];
-  v219[42] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v219 forKeys:v218 count:43];
+  v3 = [MEMORY[0x277CCAE60] valueWithBytes:v89 objCType:"{CGPoint=dd}"];
+  v134[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v134 forKeys:v133 count:2];
+  v218[41] = v4;
+  v217[42] = @"tropical-storm";
+  v132[0] = &unk_288235610;
+  v131[0] = @"WeatherMapColors";
+  v131[1] = @"WeatherMapPadding";
+  v88[0] = 0;
+  v88[1] = 0;
+  v5 = [MEMORY[0x277CCAE60] valueWithBytes:v88 objCType:"{CGPoint=dd}"];
+  v132[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v132 forKeys:v131 count:2];
+  v218[42] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v218 forKeys:v217 count:43];
   v8 = WASmallWeatherIconsMap_s_smallWeatherIconsMap;
   WASmallWeatherIconsMap_s_smallWeatherIconsMap = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 id WAG2FontWithSize(double a1)
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D74310];
   v3 = *MEMORY[0x277CC4860];
-  v15[0] = *MEMORY[0x277CC4890];
+  v14[0] = *MEMORY[0x277CC4890];
   v4 = *MEMORY[0x277CC4950];
-  v14[0] = v3;
-  v14[1] = v4;
-  v12 = *MEMORY[0x277CC48F0];
-  v13 = &unk_288235700;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-  v15[1] = v5;
-  v14[2] = *MEMORY[0x277CC4938];
+  v13[0] = v3;
+  v13[1] = v4;
+  v11 = *MEMORY[0x277CC48F0];
+  v12 = &unk_288235700;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+  v14[1] = v5;
+  v13[2] = *MEMORY[0x277CC4938];
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:a1];
-  v15[2] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
   v8 = [v2 fontDescriptorWithFontAttributes:v7];
 
   v9 = [MEMORY[0x277D74300] fontWithDescriptor:v8 size:0.0];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -3854,11 +3822,11 @@ void sub_272B010CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272B0263C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272B0263C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3869,14 +3837,21 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_272B05654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_272B0443C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_272B05654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3887,6 +3862,13 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_272B069BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
+{
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_272B08E2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -3918,16 +3900,16 @@ void sub_272B0F0F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272B0F878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_272B0F878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272B0F9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_272B0F9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3943,38 +3925,43 @@ void sub_272B104AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void TWCAttributionURLForTrafficParameter_cold_2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 description];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "########### Logo URL %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "########### Logo URL %@", &v4, 0xCu);
 }
 
 void WAAttributionString_cold_1(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CBEAF8] preferredLanguages];
   v5 = [v4 objectAtIndex:0];
-  v7 = 138412802;
-  v8 = a1;
-  v9 = 2112;
-  v10 = a2;
-  v11 = 2112;
-  v12 = v5;
-  _os_log_error_impl(&dword_272ACF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "#Attribution Warning! Missing (%@) from string (%@)! (Lang: %@)", &v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412802;
+  v7 = a1;
+  v8 = 2112;
+  v9 = a2;
+  v10 = 2112;
+  v11 = v5;
+  _os_log_error_impl(&dword_272ACF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "#Attribution Warning! Missing (%@) from string (%@)! (Lang: %@)", &v6, 0x20u);
 }
 
 void WAPresentFirstUsageDialogIfNeeded_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "Failed to present first usage dialog %d@", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "Failed to present first usage dialog %d@", v2, 8u);
+}
+
+CGRect CGPDFPageGetBoxRect(CGPDFPageRef page, CGPDFBox box)
+{
+  MEMORY[0x282111360](page, *&box);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
 }
 
 CLLocationCoordinate2D CLLocationCoordinate2DMake(CLLocationDegrees latitude, CLLocationDegrees longitude)

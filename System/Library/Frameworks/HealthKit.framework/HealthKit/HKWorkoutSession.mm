@@ -26,6 +26,7 @@
 - (void)_enqueueDataUpdate:(id)update;
 - (void)_queue_enqueueStateEvent:(int64_t)event date:(id)date completion:(id)completion;
 - (void)_queue_markRecoveryRequired;
+- (void)_queue_pendingDataUpdateDidCompleteWithSuccess:(BOOL)success error:(id)error;
 - (void)_queue_resetStateMachineWithNewState:(int64_t)state;
 - (void)_queue_sendPendingDataUpdateToRemoteWorkoutSession;
 - (void)_recoverWithCompletion:(id)completion;
@@ -179,7 +180,7 @@
 
 - (id)_initWithHealthStore:(id)store taskConfiguration:(id)configuration error:(id *)error
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   configurationCopy = configuration;
   v10 = +[_HKBehavior sharedBehavior];
@@ -226,17 +227,17 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  _HKInitializeLogging();
-  v24 = HKLogWorkouts;
+  _HKInitializeLogging(v21, v22);
+  v25 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = v24;
+    v26 = v25;
     workoutConfiguration3 = [configurationCopy workoutConfiguration];
     *buf = 138543618;
     selfCopy = self;
-    v51 = 2112;
-    v52 = workoutConfiguration3;
-    _os_log_impl(&dword_19197B000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@: Initializing workout session with configuration %@", buf, 0x16u);
+    v52 = 2112;
+    v53 = workoutConfiguration3;
+    _os_log_impl(&dword_19197B000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: Initializing workout session with configuration %@", buf, 0x16u);
   }
 
   sessionUUID = [configurationCopy sessionUUID];
@@ -247,63 +248,62 @@ LABEL_9:
     [configurationCopy setSessionUUID:uUID];
   }
 
-  v29 = +[_HKBehavior sharedBehavior];
-  isAppleWatch = [v29 isAppleWatch];
+  v30 = +[_HKBehavior sharedBehavior];
+  isAppleWatch = [v30 isAppleWatch];
 
   if ((isAppleWatch & 1) == 0)
   {
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
-    v33 = [bundleIdentifier hasPrefix:@"com.apple"];
+    v34 = [bundleIdentifier hasPrefix:@"com.apple"];
 
-    if (v33)
+    if (v34)
     {
       [configurationCopy setSupportsAppRelaunchForRecovery:1];
     }
   }
 
-  v48.receiver = self;
-  v48.super_class = HKWorkoutSession;
-  v34 = [(HKWorkoutSession *)&v48 init];
-  v35 = v34;
-  if (v34)
+  v49.receiver = self;
+  v49.super_class = HKWorkoutSession;
+  v35 = [(HKWorkoutSession *)&v49 init];
+  v36 = v35;
+  if (v35)
   {
-    v36 = HKCreateSerialDispatchQueue(v34, 0);
-    queue = v35->_queue;
-    v35->_queue = v36;
+    v37 = HKCreateSerialDispatchQueue(v35, 0);
+    queue = v36->_queue;
+    v36->_queue = v37;
 
-    v38 = HKCreateSerialDispatchQueue(v35, @"client");
-    clientQueue = v35->_clientQueue;
-    v35->_clientQueue = v38;
+    v39 = HKCreateSerialDispatchQueue(v36, @"client");
+    clientQueue = v36->_clientQueue;
+    v36->_clientQueue = v39;
 
-    v40 = [configurationCopy copy];
-    configuration = v35->_configuration;
-    v35->_configuration = v40;
+    v41 = [configurationCopy copy];
+    configuration = v36->_configuration;
+    v36->_configuration = v41;
 
-    v35->_state = 1;
+    v36->_state = 1;
     if (storeCopy)
     {
-      [(HKWorkoutSession *)v35 _setupWithHealthStore:storeCopy];
+      [(HKWorkoutSession *)v36 _setupWithHealthStore:storeCopy];
     }
 
-    v42 = objc_opt_class();
+    v43 = objc_opt_class();
     sessionUUID2 = [configurationCopy sessionUUID];
-    v44 = [v42 targetWorkoutSessionStateMachineForSessionUUID:sessionUUID2];
-    targetStateMachine = v35->_targetStateMachine;
-    v35->_targetStateMachine = v44;
+    v45 = [v43 targetWorkoutSessionStateMachineForSessionUUID:sessionUUID2];
+    targetStateMachine = v36->_targetStateMachine;
+    v36->_targetStateMachine = v45;
 
-    [(HKStateMachine *)v35->_targetStateMachine setDelegate:v35];
-    [(HKStateMachine *)v35->_targetStateMachine enterAtState:1];
-    v46 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    dataUpdateQueue = v35->_dataUpdateQueue;
-    v35->_dataUpdateQueue = v46;
+    [(HKStateMachine *)v36->_targetStateMachine setDelegate:v36];
+    [(HKStateMachine *)v36->_targetStateMachine enterAtState:1];
+    v47 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    dataUpdateQueue = v36->_dataUpdateQueue;
+    v36->_dataUpdateQueue = v47;
   }
 
-  self = v35;
+  self = v36;
   selfCopy2 = self;
 LABEL_10:
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -414,26 +414,24 @@ void __43__HKWorkoutSession__recoverWithCompletion___block_invoke(uint64_t a1, v
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogWorkouts;
+  _HKInitializeLogging(v3, v4);
+  v5 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
+    v6 = *(a1 + 32);
     *buf = 138543362;
-    v11 = v5;
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning post-client-crash recovery.", buf, 0xCu);
+    v11 = v6;
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning post-client-crash recovery.", buf, 0xCu);
   }
 
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = __43__HKWorkoutSession__recoverWithCompletion___block_invoke_89;
   v8[3] = &unk_1E73766A0;
-  v6 = *(a1 + 40);
+  v7 = *(a1 + 40);
   v8[4] = *(a1 + 32);
-  v9 = v6;
+  v9 = v7;
   [v3 remote_recoverWithCompletion:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __43__HKWorkoutSession__recoverWithCompletion___block_invoke_89(uint64_t a1, char a2, void *a3)
@@ -456,21 +454,18 @@ void __43__HKWorkoutSession__recoverWithCompletion___block_invoke_89(uint64_t a1
 
 uint64_t __43__HKWorkoutSession__recoverWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = [*(*(a1 + 32) + 56) sessionUUID];
-  v5 = [v3 targetWorkoutSessionStateMachineForSessionUUID:v4];
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 96);
-  *(v6 + 96) = v5;
+  v2 = objc_opt_class();
+  v3 = [*(*(a1 + 32) + 56) sessionUUID];
+  v4 = [v2 targetWorkoutSessionStateMachineForSessionUUID:v3];
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 96);
+  *(v5 + 96) = v4;
 
   [*(*(a1 + 32) + 96) setDelegate:?];
   [*(*(a1 + 32) + 96) enterAtState:*(*(a1 + 32) + 32)];
-  v8 = *(a1 + 56);
-  v9 = *(a1 + 40);
-  v10 = *(*(a1 + 48) + 16);
+  v7 = *(*(a1 + 48) + 16);
 
-  return v10();
+  return v7();
 }
 
 - (void)_queue_markRecoveryRequired
@@ -488,30 +483,29 @@ uint64_t __43__HKWorkoutSession__recoverWithCompletion___block_invoke_2(uint64_t
 
 - (void)_queue_resetStateMachineWithNewState:(int64_t)state
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
-  _HKInitializeLogging();
-  v5 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
-    v7 = HKWorkoutSessionStateToString(state);
-    v13 = 138543618;
+    v8 = v7;
+    v9 = HKWorkoutSessionStateToString(state);
+    v14 = 138543618;
     selfCopy = self;
-    v15 = 2114;
-    v16 = v7;
-    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Resetting target state machine after state update to to %{public}@", &v13, 0x16u);
+    v16 = 2114;
+    v17 = v9;
+    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Resetting target state machine after state update to to %{public}@", &v14, 0x16u);
   }
 
-  v8 = objc_opt_class();
+  v10 = objc_opt_class();
   sessionUUID = [(HKWorkoutSessionTaskConfiguration *)self->_configuration sessionUUID];
-  v10 = [v8 targetWorkoutSessionStateMachineForSessionUUID:sessionUUID];
+  v12 = [v10 targetWorkoutSessionStateMachineForSessionUUID:sessionUUID];
   targetStateMachine = self->_targetStateMachine;
-  self->_targetStateMachine = v10;
+  self->_targetStateMachine = v12;
 
   [(HKStateMachine *)self->_targetStateMachine setDelegate:self];
   [(HKStateMachine *)self->_targetStateMachine enterAtState:state];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_privateDelegate
@@ -554,27 +548,25 @@ uint64_t __43__HKWorkoutSession__recoverWithCompletion___block_invoke_2(uint64_t
 
 + (id)serverInterface
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F06F7EF8];
   v3 = [v2 hk_setArrayOfClass:objc_opt_class() forSelector:sel_remote_enableAutomaticDetectionForActivityConfigurations_completion_ argumentIndex:0 ofReply:0];
   v4 = MEMORY[0x1E695DFD8];
+  v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = objc_opt_class();
   v15 = objc_opt_class();
   v16 = objc_opt_class();
   v17 = objc_opt_class();
-  v18 = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:6];
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:6];
   v6 = [v4 setWithArray:v5];
 
   [v2 setClasses:v6 forSelector:sel_remote_beginNewActivityWithConfiguration_date_metadata_completion_ argumentIndex:2 ofReply:0];
   v7 = MEMORY[0x1E695DFD8];
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  v10 = [v7 setWithObjects:{v8, v9, objc_opt_class(), 0, v13, v14, v15, v16, v17}];
+  v10 = [v7 setWithObjects:{v8, v9, objc_opt_class(), 0, v12, v13, v14, v15, v16}];
   [v2 setClasses:v10 forSelector:sel_remote_recoverAllActiveSessionsWithStates_date_completion_ argumentIndex:0 ofReply:0];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -590,7 +582,7 @@ uint64_t __43__HKWorkoutSession__recoverWithCompletion___block_invoke_2(uint64_t
   dispatch_sync(queue, block);
 }
 
-uint64_t __41__HKWorkoutSession_connectionInterrupted__block_invoke(uint64_t a1)
+void *__41__HKWorkoutSession_connectionInterrupted__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_shouldAttemptRecovery];
   if (result)
@@ -617,46 +609,44 @@ void __41__HKWorkoutSession_connectionInterrupted__block_invoke_2(uint64_t a1, v
 {
   v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogWorkouts;
+  _HKInitializeLogging(v3, v4);
+  v5 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
+    v6 = *(a1 + 32);
     *buf = 138543362;
-    v12 = v5;
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning recovery after server interruption.", buf, 0xCu);
+    v12 = v6;
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning recovery after server interruption.", buf, 0xCu);
   }
 
   os_unfair_lock_lock(&_HKRunningWorkoutSessionLock);
-  v6 = _HKRunningWorkoutSessionStatesByUUIDs;
+  v7 = _HKRunningWorkoutSessionStatesByUUIDs;
   os_unfair_lock_unlock(&_HKRunningWorkoutSessionLock);
-  v7 = [v6 copy];
+  v8 = [v7 copy];
 
-  v8 = [MEMORY[0x1E695DF00] date];
+  v9 = [MEMORY[0x1E695DF00] date];
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __41__HKWorkoutSession_connectionInterrupted__block_invoke_226;
   v10[3] = &unk_1E7376A00;
   v10[4] = *(a1 + 32);
-  [v3 remote_recoverAllActiveSessionsWithStates:v7 date:v8 completion:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [v3 remote_recoverAllActiveSessionsWithStates:v8 date:v9 completion:v10];
 }
 
 void __41__HKWorkoutSession_connectionInterrupted__block_invoke_226(uint64_t a1, char a2, void *a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Completed recovery after server interruption.", &v9, 0xCu);
+      v10 = v8;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Completed recovery after server interruption.", &v9, 0xCu);
     }
 
     goto LABEL_9;
@@ -672,7 +662,7 @@ void __41__HKWorkoutSession_connectionInterrupted__block_invoke_226(uint64_t a1,
     goto LABEL_6;
   }
 
-  __41__HKWorkoutSession_connectionInterrupted__block_invoke_226_cold_1(a1);
+  __41__HKWorkoutSession_connectionInterrupted__block_invoke_226_cold_1();
   if (!v5)
   {
 LABEL_6:
@@ -687,17 +677,15 @@ LABEL_7:
   }
 
 LABEL_9:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __41__HKWorkoutSession_connectionInterrupted__block_invoke_232(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __41__HKWorkoutSession_connectionInterrupted__block_invoke_232_cold_1(a1);
+    __41__HKWorkoutSession_connectionInterrupted__block_invoke_232_cold_1();
   }
 
   [*(a1 + 32) client_didFailWithError:v3];
@@ -726,35 +714,33 @@ void __41__HKWorkoutSession_connectionInterrupted__block_invoke_232(uint64_t a1,
 
 void __54__HKWorkoutSession_client_didUpdateStartDate_endDate___block_invoke(id *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  [a1[4] _queue_markRecoveryRequired];
-  _HKInitializeLogging();
-  v2 = HKLogWorkouts;
+  v20 = *MEMORY[0x1E69E9840];
+  v2 = [a1[4] _queue_markRecoveryRequired];
+  _HKInitializeLogging(v2, v3);
+  v4 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = a1[5];
-    v5 = a1[6];
-    v13 = 138543874;
-    v14 = v3;
-    v15 = 2114;
-    v16 = v4;
-    v17 = 2114;
-    v18 = v5;
-    _os_log_impl(&dword_19197B000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Update interval: %{public}@ - %{public}@", &v13, 0x20u);
+    v5 = a1[4];
+    v6 = a1[5];
+    v7 = a1[6];
+    v14 = 138543874;
+    v15 = v5;
+    v16 = 2114;
+    v17 = v6;
+    v18 = 2114;
+    v19 = v7;
+    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Update interval: %{public}@ - %{public}@", &v14, 0x20u);
   }
 
-  v6 = [a1[5] copy];
-  v7 = a1[4];
-  v8 = v7[5];
-  v7[5] = v6;
+  v8 = [a1[5] copy];
+  v9 = a1[4];
+  v10 = v9[5];
+  v9[5] = v8;
 
-  v9 = [a1[6] copy];
-  v10 = a1[4];
-  v11 = v10[6];
-  v10[6] = v9;
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = [a1[6] copy];
+  v12 = a1[4];
+  v13 = v12[6];
+  v12[6] = v11;
 }
 
 - (void)client_didChangeToState:(int64_t)state date:(id)date
@@ -774,88 +760,86 @@ void __54__HKWorkoutSession_client_didUpdateStartDate_endDate___block_invoke(id 
 
 void __49__HKWorkoutSession_client_didChangeToState_date___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) _queue_markRecoveryRequired];
-  _HKInitializeLogging();
-  v2 = HKLogWorkouts;
+  v38 = *MEMORY[0x1E69E9840];
+  v2 = [*(a1 + 32) _queue_markRecoveryRequired];
+  _HKInitializeLogging(v2, v3);
+  v4 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(v3 + 32);
-    v5 = v2;
-    v6 = HKWorkoutSessionStateToString(v4);
-    v7 = HKWorkoutSessionStateToString(*(a1 + 48));
-    v8 = *(a1 + 40);
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 32);
+    v7 = v4;
+    v8 = HKWorkoutSessionStateToString(v6);
+    v9 = HKWorkoutSessionStateToString(*(a1 + 48));
+    v10 = *(a1 + 40);
     *buf = 138544130;
-    v30 = v3;
-    v31 = 2114;
-    v32 = v6;
-    v33 = 2114;
-    v34 = v7;
-    v35 = 2114;
-    v36 = v8;
-    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: (#w0) State changed from %{public}@ -> %{public}@ at %{public}@", buf, 0x2Au);
+    v31 = v5;
+    v32 = 2114;
+    v33 = v8;
+    v34 = 2114;
+    v35 = v9;
+    v36 = 2114;
+    v37 = v10;
+    _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: (#w0) State changed from %{public}@ -> %{public}@ at %{public}@", buf, 0x2Au);
   }
 
-  v9 = *(a1 + 48);
-  v10 = *(a1 + 32);
-  v11 = *(v10 + 32);
-  if (v9 != v11)
+  v11 = *(a1 + 48);
+  v12 = *(a1 + 32);
+  v13 = *(v12 + 32);
+  if (v11 != v13)
   {
-    *(v10 + 32) = v9;
-    v12 = *(a1 + 32);
-    v13 = *(v12 + 32);
-    if (v13 <= 6)
+    *(v12 + 32) = v11;
+    v14 = *(a1 + 32);
+    v15 = *(v14 + 32);
+    if (v15 <= 6)
     {
-      if (((1 << v13) & 0x74) != 0)
+      if (((1 << v15) & 0x74) != 0)
       {
-        v14 = [*(v12 + 56) sessionUUID];
-        v15 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 48)];
-        v16 = v14;
-        if (v16)
+        v16 = [*(v14 + 56) sessionUUID];
+        v17 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 48)];
+        v18 = v16;
+        if (v18)
         {
           os_unfair_lock_lock(&_HKRunningWorkoutSessionLock);
-          v17 = _HKRunningWorkoutSessionStatesByUUIDs;
+          v19 = _HKRunningWorkoutSessionStatesByUUIDs;
           if (!_HKRunningWorkoutSessionStatesByUUIDs)
           {
-            v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
-            v19 = _HKRunningWorkoutSessionStatesByUUIDs;
-            _HKRunningWorkoutSessionStatesByUUIDs = v18;
+            v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
+            v21 = _HKRunningWorkoutSessionStatesByUUIDs;
+            _HKRunningWorkoutSessionStatesByUUIDs = v20;
 
-            v17 = _HKRunningWorkoutSessionStatesByUUIDs;
+            v19 = _HKRunningWorkoutSessionStatesByUUIDs;
           }
 
-          [v17 setObject:v15 forKeyedSubscript:v16];
+          [v19 setObject:v17 forKeyedSubscript:v18];
           os_unfair_lock_unlock(&_HKRunningWorkoutSessionLock);
         }
 
         goto LABEL_13;
       }
 
-      if (((1 << v13) & 0xA) != 0)
+      if (((1 << v15) & 0xA) != 0)
       {
-        v16 = [*(v12 + 56) sessionUUID];
-        _HKRemoveRunningWorkoutSessionUUID(v16);
+        v18 = [*(v14 + 56) sessionUUID];
+        _HKRemoveRunningWorkoutSessionUUID(v18);
 LABEL_13:
       }
     }
 
-    v20 = *(a1 + 32);
-    v21 = *(v20 + 16);
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __49__HKWorkoutSession_client_didChangeToState_date___block_invoke_236;
-    v25[3] = &unk_1E73805B0;
-    v23 = *(a1 + 40);
-    v22 = *(a1 + 48);
-    v25[4] = v20;
-    v27 = v22;
-    v28 = v11;
-    v26 = v23;
-    dispatch_async(v21, v25);
+    v22 = *(a1 + 32);
+    v23 = *(v22 + 16);
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __49__HKWorkoutSession_client_didChangeToState_date___block_invoke_236;
+    v26[3] = &unk_1E73805B0;
+    v25 = *(a1 + 40);
+    v24 = *(a1 + 48);
+    v26[4] = v22;
+    v28 = v24;
+    v29 = v13;
+    v27 = v25;
+    dispatch_async(v23, v26);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __49__HKWorkoutSession_client_didChangeToState_date___block_invoke_236(void *a1)
@@ -893,74 +877,72 @@ void __49__HKWorkoutSession_client_didChangeToState_date___block_invoke_236(void
 
 void __45__HKWorkoutSession_client_didGenerateEvents___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) _queue_markRecoveryRequired];
-  _HKInitializeLogging();
-  v2 = HKLogWorkouts;
+  v33 = *MEMORY[0x1E69E9840];
+  v2 = [*(a1 + 32) _queue_markRecoveryRequired];
+  _HKInitializeLogging(v2, v3);
+  v4 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v3 = *(a1 + 40);
-    v5 = v2;
+    v6 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v7 = v4;
     *buf = 138543618;
-    v29 = v4;
-    v30 = 2048;
-    v31 = [v3 count];
-    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Did generate %lu events. Notifying client", buf, 0x16u);
+    v30 = v6;
+    v31 = 2048;
+    v32 = [v5 count];
+    _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Did generate %lu events. Notifying client", buf, 0x16u);
   }
 
-  v25 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v6 = *(a1 + 40);
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v7)
+  v25 = 0u;
+  v8 = *(a1 + 40);
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v9)
   {
-    v8 = v7;
-    v9 = *v24;
-    v17 = v19;
+    v10 = v9;
+    v11 = *v25;
+    v18 = v20;
     do
     {
-      v10 = 0;
+      v12 = 0;
       do
       {
-        if (*v24 != v9)
+        if (*v25 != v11)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v8);
         }
 
-        v11 = [HKWorkoutEvent _workoutEventWithInternalEvent:*(*(&v23 + 1) + 8 * v10), v17];
-        if (v11)
+        v13 = [HKWorkoutEvent _workoutEventWithInternalEvent:*(*(&v24 + 1) + 8 * v12), v18];
+        if (v13)
         {
           WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
           if (objc_opt_respondsToSelector())
           {
-            v13 = *(*(a1 + 32) + 16);
+            v15 = *(*(a1 + 32) + 16);
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
-            v19[0] = __45__HKWorkoutSession_client_didGenerateEvents___block_invoke_239;
-            v19[1] = &unk_1E7376640;
-            v14 = WeakRetained;
-            v15 = *(a1 + 32);
-            v20 = v14;
-            v21 = v15;
-            v22 = v11;
-            dispatch_async(v13, block);
+            v20[0] = __45__HKWorkoutSession_client_didGenerateEvents___block_invoke_239;
+            v20[1] = &unk_1E7376640;
+            v16 = WeakRetained;
+            v17 = *(a1 + 32);
+            v21 = v16;
+            v22 = v17;
+            v23 = v13;
+            dispatch_async(v15, block);
           }
         }
 
-        ++v10;
+        ++v12;
       }
 
-      while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      while (v10 != v12);
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
-    while (v8);
+    while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)client_didFailWithError:(id)error
@@ -1047,27 +1029,25 @@ void __52__HKWorkoutSession_client_didSyncSessionEvent_date___block_invoke_2(uin
 {
   v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = @"NO";
+    v8 = *(a1 + 32);
+    v9 = @"NO";
     v10 = 138543874;
     if (a2)
     {
-      v8 = @"YES";
+      v9 = @"YES";
     }
 
-    v11 = v7;
+    v11 = v8;
     v12 = 2114;
-    v13 = v8;
+    v13 = v9;
     v14 = 2114;
     v15 = v5;
-    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Enqueued synced event with success: %{public}@, error: %{public}@", &v10, 0x20u);
+    _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Enqueued synced event with success: %{public}@, error: %{public}@", &v10, 0x20u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)client_didSyncCurrentActivity:(id)activity
@@ -1316,52 +1296,51 @@ void __63__HKWorkoutSession_client_didSuggestWorkoutConfiguration_date___block_i
 
 void __77__HKWorkoutSession_client_didReceiveDataFromRemoteWorkoutSession_completion___block_invoke(void *a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = a1 + 4;
   WeakRetained = objc_loadWeakRetained((a1[4] + 24));
   v4 = objc_opt_respondsToSelector();
-  _HKInitializeLogging();
-  v5 = HKLogWorkouts;
-  if (v4)
+  v5 = v4;
+  _HKInitializeLogging(v4, v6);
+  v7 = HKLogWorkouts;
+  if (v5)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *v2;
+      v8 = *v2;
       *buf = 138543362;
-      v25 = v6;
-      _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Did receive data from remote session. Notifying client", buf, 0xCu);
+      v26 = v8;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Did receive data from remote session. Notifying client", buf, 0xCu);
     }
 
-    v7 = *(a1[4] + 16);
+    v9 = *(a1[4] + 16);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __77__HKWorkoutSession_client_didReceiveDataFromRemoteWorkoutSession_completion___block_invoke_251;
     block[3] = &unk_1E7376640;
-    v8 = WeakRetained;
-    v9 = a1[4];
-    v10 = a1[5];
-    v21 = v8;
-    v22 = v9;
-    v23 = v10;
-    dispatch_async(v7, block);
+    v10 = WeakRetained;
+    v11 = a1[4];
+    v12 = a1[5];
+    v22 = v10;
+    v23 = v11;
+    v24 = v12;
+    dispatch_async(v9, block);
     (*(a1[6] + 16))();
 
-    v11 = v21;
+    v13 = v22;
   }
 
   else
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
-      __77__HKWorkoutSession_client_didReceiveDataFromRemoteWorkoutSession_completion___block_invoke_cold_1(v2, v5, v12, v13, v14, v15, v16, v17);
+      __77__HKWorkoutSession_client_didReceiveDataFromRemoteWorkoutSession_completion___block_invoke_cold_1(v2, v7, v14, v15, v16, v17, v18, v19);
     }
 
-    v18 = a1[6];
-    v11 = [MEMORY[0x1E696ABC0] hk_error:3 description:@"Remote session delegate is not set up."];
-    (*(v18 + 16))(v18, 0, v11);
+    v20 = a1[6];
+    v13 = [MEMORY[0x1E696ABC0] hk_error:3 description:@"Remote session delegate is not set up."];
+    (*(v20 + 16))(v20, 0, v13);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)client_remoteSessionDidRecover
@@ -1403,64 +1382,63 @@ void __50__HKWorkoutSession_client_remoteSessionDidRecover__block_invoke(uint64_
 
 void __71__HKWorkoutSession_client_didDisconnectFromRemoteWithError_completion___block_invoke(void *a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 4);
   WeakRetained = objc_loadWeakRetained((a1[4] + 24));
   objc_storeStrong(*v2 + 9, v2[1]);
-  _HKInitializeLogging();
-  v4 = HKLogWorkouts;
+  _HKInitializeLogging(v4, v5);
+  v6 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *v2;
+    v7 = *v2;
     *buf = 138543362;
-    v27 = v5;
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: did discconect from remote.", buf, 0xCu);
+    v30 = v7;
+    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: did discconect from remote.", buf, 0xCu);
   }
 
-  v6 = objc_opt_respondsToSelector();
-  if (v6)
+  v8 = objc_opt_respondsToSelector();
+  v10 = v8;
+  if (v8)
   {
     (*(a1[6] + 16))();
   }
 
   else
   {
-    _HKInitializeLogging();
-    v7 = HKLogWorkouts;
+    _HKInitializeLogging(v8, v9);
+    v11 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
-      __71__HKWorkoutSession_client_didDisconnectFromRemoteWithError_completion___block_invoke_cold_1(v2, v7, v8, v9, v10, v11, v12, v13);
+      __71__HKWorkoutSession_client_didDisconnectFromRemoteWithError_completion___block_invoke_cold_1(v2, v11, v12, v13, v14, v15, v16, v17);
     }
 
-    v14 = a1[6];
-    v15 = [MEMORY[0x1E696ABC0] hk_error:125 format:@"Workout session doesn't have a delegate."];
-    (*(v14 + 16))(v14, 0, v15);
+    v18 = a1[6];
+    v19 = [MEMORY[0x1E696ABC0] hk_error:125 format:@"Workout session doesn't have a delegate."];
+    (*(v18 + 16))(v18, 0, v19);
   }
 
   if ([*v2 type] == 1)
   {
     [*(*v2 + 8) invalidate];
-    v16 = *(*v2 + 8);
+    v20 = *(*v2 + 8);
     *(*v2 + 8) = 0;
   }
 
-  if (v6)
+  if (v10)
   {
-    v17 = *(a1[4] + 16);
+    v21 = *(a1[4] + 16);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __71__HKWorkoutSession_client_didDisconnectFromRemoteWithError_completion___block_invoke_262;
     block[3] = &unk_1E7376640;
-    v18 = WeakRetained;
-    v19 = a1[4];
-    v20 = a1[5];
-    v23 = v18;
-    v24 = v19;
-    v25 = v20;
-    dispatch_async(v17, block);
+    v22 = WeakRetained;
+    v23 = a1[4];
+    v24 = a1[5];
+    v26 = v22;
+    v27 = v23;
+    v28 = v24;
+    dispatch_async(v21, block);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)client_didUpdateGeneratedTypes:(id)types
@@ -1512,47 +1490,45 @@ id __51__HKWorkoutSession_client_didUpdateGeneratedTypes___block_invoke_2(uint64
 
 - (void)_queue_enqueueStateEvent:(int64_t)event date:(id)date completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
-  _HKInitializeLogging();
-  v10 = HKLogWorkouts;
+  _HKInitializeLogging(v10, v11);
+  v12 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v22 = 2048;
+    v23 = 2048;
     eventCopy = event;
-    _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Enqueuing state event %li", buf, 0x16u);
+    _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Enqueuing state event %li", buf, 0x16u);
   }
 
   if ([(HKWorkoutSession *)self type])
   {
     proxyProvider = self->_proxyProvider;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __61__HKWorkoutSession__queue_enqueueStateEvent_date_completion___block_invoke;
-    v16[3] = &unk_1E73805F8;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __61__HKWorkoutSession__queue_enqueueStateEvent_date_completion___block_invoke;
+    v17[3] = &unk_1E73805F8;
     eventCopy2 = event;
-    v17 = dateCopy;
-    v18 = completionCopy;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __61__HKWorkoutSession__queue_enqueueStateEvent_date_completion___block_invoke_2;
-    v13[3] = &unk_1E7379A58;
-    v13[4] = self;
-    v14 = v18;
+    v18 = dateCopy;
+    v19 = completionCopy;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __61__HKWorkoutSession__queue_enqueueStateEvent_date_completion___block_invoke_2;
+    v14[3] = &unk_1E7379A58;
+    v14[4] = self;
+    v15 = v19;
     eventCopy3 = event;
-    [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v16 errorHandler:v13];
+    [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v17 errorHandler:v14];
   }
 
   else
   {
     [(HKStateMachine *)self->_targetStateMachine enqueueEvent:event date:dateCopy error:0 completion:completionCopy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __61__HKWorkoutSession__queue_enqueueStateEvent_date_completion___block_invoke(void *a1, void *a2)
@@ -1565,67 +1541,64 @@ uint64_t __61__HKWorkoutSession__queue_enqueueStateEvent_date_completion___block
 
 void __61__HKWorkoutSession__queue_enqueueStateEvent_date_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  if ([*(a1 + 32) _isInvalidatedMirroredSession])
+  v4 = [*(a1 + 32) _isInvalidatedMirroredSession];
+  if (v4)
   {
-    v4 = *(a1 + 40);
-    v5 = [*(a1 + 32) _notMirroringError];
-    (*(v4 + 16))(v4, 0, v5);
+    v6 = *(a1 + 40);
+    v7 = [*(a1 + 32) _notMirroringError];
+    (*(v6 + 16))(v6, 0, v7);
   }
 
   else
   {
-    _HKInitializeLogging();
-    v6 = HKLogWorkouts;
+    _HKInitializeLogging(v4, v5);
+    v8 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = *(a1 + 48);
-      v12 = 138543874;
-      v13 = v10;
-      v14 = 2048;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v3;
-      _os_log_error_impl(&dword_19197B000, v6, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to sync state event %li with error: %{public}@", &v12, 0x20u);
+      v11 = *(a1 + 32);
+      v12 = *(a1 + 48);
+      v13 = 138543874;
+      v14 = v11;
+      v15 = 2048;
+      v16 = v12;
+      v17 = 2114;
+      v18 = v3;
+      _os_log_error_impl(&dword_19197B000, v8, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Failed to sync state event %li with error: %{public}@", &v13, 0x20u);
     }
 
-    v7 = *(a1 + 40);
-    v8 = [MEMORY[0x1E696ABC0] hk_error:100 format:@"Failed to sync state transition to the primary session."];
-    (*(v7 + 16))(v7, 0, v8);
+    v9 = *(a1 + 40);
+    v10 = [MEMORY[0x1E696ABC0] hk_error:100 format:@"Failed to sync state transition to the primary session."];
+    (*(v9 + 16))(v9, 0, v10);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stateMachine:(id)machine didIgnoreEvent:(int64_t)event state:(id)state
 {
   v24 = *MEMORY[0x1E69E9840];
   stateCopy = state;
-  _HKInitializeLogging();
-  v9 = HKLogWorkouts;
+  _HKInitializeLogging(stateCopy, v9);
+  v10 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = v9;
-    v11 = HKWorkoutSessionEventToString(event);
+    v11 = v10;
+    v12 = HKWorkoutSessionEventToString(event);
     *buf = 138543874;
     selfCopy = self;
     v20 = 2114;
-    v21 = v11;
+    v21 = v12;
     v22 = 2114;
     v23 = stateCopy;
-    _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: (#w0) Invalid event %{public}@ from current state %{public}@", buf, 0x20u);
+    _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: (#w0) Invalid event %{public}@ from current state %{public}@", buf, 0x20u);
   }
 
-  v12 = MEMORY[0x1E696ABC0];
-  v13 = objc_opt_class();
-  v14 = HKWorkoutSessionEventToString(event);
+  v13 = MEMORY[0x1E696ABC0];
+  v14 = objc_opt_class();
+  v15 = HKWorkoutSessionEventToString(event);
   label = [stateCopy label];
-  v16 = [v12 hk_errorForInvalidArgument:@"@" class:v13 selector:a2 format:{@"Unable to perform '%@' from current state '%@'", v14, label}];
-  [(HKWorkoutSession *)self client_didFailWithError:v16];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v17 = [v13 hk_errorForInvalidArgument:@"@" class:v14 selector:a2 format:{@"Unable to perform '%@' from current state '%@'", v15, label}];
+  [(HKWorkoutSession *)self client_didFailWithError:v17];
 }
 
 - (void)stateMachine:(id)machine didTransition:(id)transition fromState:(id)state toState:(id)toState date:(id)date error:(id)error
@@ -1637,12 +1610,12 @@ void __61__HKWorkoutSession__queue_enqueueStateEvent_date_completion___block_inv
   toStateCopy = toState;
   dateCopy = date;
   errorCopy = error;
-  _HKInitializeLogging();
-  v20 = HKLogWorkouts;
-  v21 = os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT);
+  _HKInitializeLogging(errorCopy, v20);
+  v21 = HKLogWorkouts;
+  v22 = os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT);
   if (transitionCopy)
   {
-    if (!v21)
+    if (!v22)
     {
       goto LABEL_7;
     }
@@ -1651,12 +1624,12 @@ void __61__HKWorkoutSession__queue_enqueueStateEvent_date_completion___block_inv
     selfCopy2 = self;
     v33 = 2114;
     v34 = transitionCopy;
-    v22 = "%{public}@: (#w2) %{public}@";
+    v23 = "%{public}@: (#w2) %{public}@";
   }
 
   else
   {
-    if (!v21)
+    if (!v22)
     {
       goto LABEL_7;
     }
@@ -1665,10 +1638,10 @@ void __61__HKWorkoutSession__queue_enqueueStateEvent_date_completion___block_inv
     selfCopy2 = self;
     v33 = 2114;
     v34 = toStateCopy;
-    v22 = "%{public}@: (#w2) Entered at %{public}@";
+    v23 = "%{public}@: (#w2) Entered at %{public}@";
   }
 
-  _os_log_impl(&dword_19197B000, v20, OS_LOG_TYPE_DEFAULT, v22, buf, 0x16u);
+  _os_log_impl(&dword_19197B000, v21, OS_LOG_TYPE_DEFAULT, v23, buf, 0x16u);
 LABEL_7:
   if ([toStateCopy index] != 1)
   {
@@ -1688,8 +1661,6 @@ LABEL_7:
     v26 = v28;
     [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v27 errorHandler:v25];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __76__HKWorkoutSession_stateMachine_didTransition_fromState_toState_date_error___block_invoke(uint64_t a1, void *a2)
@@ -1719,19 +1690,19 @@ void __76__HKWorkoutSession_stateMachine_didTransition_fromState_toState_date_er
 {
   v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 40);
+      v8 = *(a1 + 32);
+      v9 = *(a1 + 40);
       v10 = 138543618;
-      v11 = v7;
+      v11 = v8;
       v12 = 2114;
-      v13 = v8;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: (#w1) %{public}@", &v10, 0x16u);
+      v13 = v9;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: (#w1) %{public}@", &v10, 0x16u);
     }
   }
 
@@ -1739,7 +1710,7 @@ void __76__HKWorkoutSession_stateMachine_didTransition_fromState_toState_date_er
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
-      __76__HKWorkoutSession_stateMachine_didTransition_fromState_toState_date_error___block_invoke_2_cold_1(a1);
+      __76__HKWorkoutSession_stateMachine_didTransition_fromState_toState_date_error___block_invoke_2_cold_1();
     }
 
     if ([v5 hk_isHealthKitErrorWithCode:4])
@@ -1747,17 +1718,15 @@ void __76__HKWorkoutSession_stateMachine_didTransition_fromState_toState_date_er
       [*(a1 + 32) client_didFailWithError:v5];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __76__HKWorkoutSession_stateMachine_didTransition_fromState_toState_date_error___block_invoke_275(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __76__HKWorkoutSession_stateMachine_didTransition_fromState_toState_date_error___block_invoke_2_cold_1(a1);
+    __76__HKWorkoutSession_stateMachine_didTransition_fromState_toState_date_error___block_invoke_2_cold_1();
   }
 
   if ([v3 hk_isHealthKitErrorWithCode:4])
@@ -1780,25 +1749,23 @@ void __27__HKWorkoutSession_prepare__block_invoke(uint64_t a1, int a2, void *a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Prepared", &v9, 0xCu);
+      v10 = v8;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Prepared", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __27__HKWorkoutSession_prepare__block_invoke_cold_1(a1);
+    __27__HKWorkoutSession_prepare__block_invoke_cold_1();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prepareWithCompletion:(id)completion
@@ -1836,25 +1803,23 @@ void __42__HKWorkoutSession_startActivityWithDate___block_invoke(uint64_t a1, in
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Started", &v9, 0xCu);
+      v10 = v8;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Started", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __42__HKWorkoutSession_startActivityWithDate___block_invoke_cold_1(a1);
+    __42__HKWorkoutSession_startActivityWithDate___block_invoke_cold_1();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startActivityWithDate:(id)date completion:(id)completion
@@ -1879,16 +1844,15 @@ void __53__HKWorkoutSession_startActivityWithDate_completion___block_invoke(void
   v2 = a1[4];
   if (a1[5])
   {
-    v3 = a1[6];
-    v4 = a1[4];
+    v3 = a1[4];
 
-    [v4 _queue_enqueueStateEvent:2 date:? completion:?];
+    [v3 _queue_enqueueStateEvent:2 date:? completion:?];
   }
 
   else
   {
-    v5 = [MEMORY[0x1E695DF00] date];
-    [v2 _queue_enqueueStateEvent:2 date:v5 completion:a1[6]];
+    v4 = [MEMORY[0x1E695DF00] date];
+    [v2 _queue_enqueueStateEvent:2 date:v4 completion:a1[6]];
   }
 }
 
@@ -1906,25 +1870,23 @@ void __41__HKWorkoutSession_stopActivityWithDate___block_invoke(uint64_t a1, int
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopped", &v9, 0xCu);
+      v10 = v8;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopped", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __41__HKWorkoutSession_stopActivityWithDate___block_invoke_cold_1(a1);
+    __41__HKWorkoutSession_stopActivityWithDate___block_invoke_cold_1();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopActivityWithDate:(id)date completion:(id)completion
@@ -1949,16 +1911,15 @@ void __52__HKWorkoutSession_stopActivityWithDate_completion___block_invoke(void 
   v2 = a1[4];
   if (a1[5])
   {
-    v3 = a1[6];
-    v4 = a1[4];
+    v3 = a1[4];
 
-    [v4 _queue_enqueueStateEvent:5 date:? completion:?];
+    [v3 _queue_enqueueStateEvent:5 date:? completion:?];
   }
 
   else
   {
-    v5 = [MEMORY[0x1E695DF00] date];
-    [v2 _queue_enqueueStateEvent:5 date:v5 completion:a1[6]];
+    v4 = [MEMORY[0x1E695DF00] date];
+    [v2 _queue_enqueueStateEvent:5 date:v4 completion:a1[6]];
   }
 }
 
@@ -1976,25 +1937,23 @@ void __23__HKWorkoutSession_end__block_invoke(uint64_t a1, int a2, void *a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Ended", &v9, 0xCu);
+      v10 = v8;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Ended", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __23__HKWorkoutSession_end__block_invoke_cold_1(a1);
+    __23__HKWorkoutSession_end__block_invoke_cold_1();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endWithCompletion:(id)completion
@@ -2032,25 +1991,23 @@ void __25__HKWorkoutSession_pause__block_invoke(uint64_t a1, int a2, void *a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Paused", &v9, 0xCu);
+      v10 = v8;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Paused", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __25__HKWorkoutSession_pause__block_invoke_cold_1(a1);
+    __25__HKWorkoutSession_pause__block_invoke_cold_1();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pauseWithCompletion:(id)completion
@@ -2111,25 +2068,23 @@ void __26__HKWorkoutSession_resume__block_invoke(uint64_t a1, int a2, void *a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Resumed", &v9, 0xCu);
+      v10 = v8;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Resumed", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __26__HKWorkoutSession_resume__block_invoke_cold_1(a1);
+    __26__HKWorkoutSession_resume__block_invoke_cold_1();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resumeWithCompletion:(id)completion
@@ -2443,36 +2398,34 @@ void __70__HKWorkoutSession_enableAutomaticDetectionForActivityConfigurations___
 {
   v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 138543362;
-      v15 = v7;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: (#w1) Automatic detection for activities enabled", buf, 0xCu);
+      v15 = v8;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: (#w1) Automatic detection for activities enabled", buf, 0xCu);
     }
 
-    v9 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v10 = *(v9 + 8);
+    v10 = *(a1 + 32);
+    v9 = *(a1 + 40);
+    v11 = *(v10 + 8);
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
     v12[2] = __70__HKWorkoutSession_enableAutomaticDetectionForActivityConfigurations___block_invoke_285;
     v12[3] = &unk_1E7378400;
-    v12[4] = v9;
-    v13 = v8;
-    dispatch_async(v10, v12);
+    v12[4] = v10;
+    v13 = v9;
+    dispatch_async(v11, v12);
   }
 
   else if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __70__HKWorkoutSession_enableAutomaticDetectionForActivityConfigurations___block_invoke_2_cold_1(a1);
+    __70__HKWorkoutSession_enableAutomaticDetectionForActivityConfigurations___block_invoke_2_cold_1();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __70__HKWorkoutSession_enableAutomaticDetectionForActivityConfigurations___block_invoke_285(uint64_t a1)
@@ -2498,11 +2451,11 @@ void __70__HKWorkoutSession_enableAutomaticDetectionForActivityConfigurations___
 
 void __70__HKWorkoutSession_enableAutomaticDetectionForActivityConfigurations___block_invoke_288(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __70__HKWorkoutSession_enableAutomaticDetectionForActivityConfigurations___block_invoke_2_cold_1(a1);
+    __70__HKWorkoutSession_enableAutomaticDetectionForActivityConfigurations___block_invoke_2_cold_1();
   }
 }
 
@@ -2549,37 +2502,35 @@ void __68__HKWorkoutSession_beginNewActivityWithConfiguration_date_metadata___bl
 {
   v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 40);
+      v8 = *(a1 + 32);
+      v9 = *(a1 + 40);
       v10 = 138543618;
-      v11 = v7;
+      v11 = v8;
       v12 = 2114;
-      v13 = v8;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: (#w1) New activity began with date: %{public}@", &v10, 0x16u);
+      v13 = v9;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: (#w1) New activity began with date: %{public}@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __68__HKWorkoutSession_beginNewActivityWithConfiguration_date_metadata___block_invoke_2_cold_1(a1);
+    __68__HKWorkoutSession_beginNewActivityWithConfiguration_date_metadata___block_invoke_2_cold_1();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __68__HKWorkoutSession_beginNewActivityWithConfiguration_date_metadata___block_invoke_289(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __68__HKWorkoutSession_beginNewActivityWithConfiguration_date_metadata___block_invoke_2_cold_1(a1);
+    __68__HKWorkoutSession_beginNewActivityWithConfiguration_date_metadata___block_invoke_2_cold_1();
   }
 }
 
@@ -2617,37 +2568,35 @@ void __45__HKWorkoutSession_endCurrentActivityOnDate___block_invoke_2(uint64_t a
 {
   v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 40);
+      v8 = *(a1 + 32);
+      v9 = *(a1 + 40);
       v10 = 138543618;
-      v11 = v7;
+      v11 = v8;
       v12 = 2114;
-      v13 = v8;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: (#w1) Current activity ended with date: %{public}@", &v10, 0x16u);
+      v13 = v9;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: (#w1) Current activity ended with date: %{public}@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __45__HKWorkoutSession_endCurrentActivityOnDate___block_invoke_2_cold_1(a1);
+    __45__HKWorkoutSession_endCurrentActivityOnDate___block_invoke_2_cold_1();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __45__HKWorkoutSession_endCurrentActivityOnDate___block_invoke_290(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __45__HKWorkoutSession_endCurrentActivityOnDate___block_invoke_2_cold_1(a1);
+    __45__HKWorkoutSession_endCurrentActivityOnDate___block_invoke_2_cold_1();
   }
 }
 
@@ -2694,36 +2643,34 @@ void __66__HKWorkoutSession_startMirroringToCompanionDeviceWithCompletion___bloc
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Started mirroring to remote session", &v9, 0xCu);
+      v10 = v8;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Started mirroring to remote session", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __66__HKWorkoutSession_startMirroringToCompanionDeviceWithCompletion___block_invoke_2_cold_1(a1);
+    __66__HKWorkoutSession_startMirroringToCompanionDeviceWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __66__HKWorkoutSession_startMirroringToCompanionDeviceWithCompletion___block_invoke_301(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __66__HKWorkoutSession_startMirroringToCompanionDeviceWithCompletion___block_invoke_2_cold_1(a1);
+    __66__HKWorkoutSession_startMirroringToCompanionDeviceWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -2772,36 +2719,34 @@ void __65__HKWorkoutSession_stopMirroringToCompanionDeviceWithCompletion___block
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Stopped mirroring to remote session", &v9, 0xCu);
+      v10 = v8;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Stopped mirroring to remote session", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __65__HKWorkoutSession_stopMirroringToCompanionDeviceWithCompletion___block_invoke_2_cold_1(a1);
+    __65__HKWorkoutSession_stopMirroringToCompanionDeviceWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __65__HKWorkoutSession_stopMirroringToCompanionDeviceWithCompletion___block_invoke_302(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __65__HKWorkoutSession_stopMirroringToCompanionDeviceWithCompletion___block_invoke_2_cold_1(a1);
+    __65__HKWorkoutSession_stopMirroringToCompanionDeviceWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -2891,54 +2836,52 @@ void __70__HKWorkoutSession__queue_sendPendingDataUpdateToRemoteWorkoutSession__
 {
   v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (a2)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Sent data to remote session", &v11, 0xCu);
+      v12 = v8;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Sent data to remote session", &v11, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __70__HKWorkoutSession__queue_sendPendingDataUpdateToRemoteWorkoutSession__block_invoke_2_cold_1(a1);
+    __70__HKWorkoutSession__queue_sendPendingDataUpdateToRemoteWorkoutSession__block_invoke_2_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v9 = [*(*(a1 + 32) + 112) UUID];
-  [WeakRetained _dataUpdateWithUUID:v9 didCompleteWithSuccess:a2 error:v5];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10 = [*(*(a1 + 32) + 112) UUID];
+  [WeakRetained _dataUpdateWithUUID:v10 didCompleteWithSuccess:a2 error:v5];
 }
 
 void __70__HKWorkoutSession__queue_sendPendingDataUpdateToRemoteWorkoutSession__block_invoke_307(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __70__HKWorkoutSession__queue_sendPendingDataUpdateToRemoteWorkoutSession__block_invoke_2_cold_1(a1);
+    __70__HKWorkoutSession__queue_sendPendingDataUpdateToRemoteWorkoutSession__block_invoke_2_cold_1();
   }
 
   if ([*(a1 + 32) _isInvalidatedMirroredSession])
   {
-    v4 = [*(a1 + 32) _notMirroringError];
+    v5 = [*(a1 + 32) _notMirroringError];
   }
 
   else
   {
-    v4 = v3;
+    v5 = v3;
   }
 
-  v5 = v4;
+  v6 = v5;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v7 = [*(*(a1 + 32) + 112) UUID];
-  [WeakRetained _dataUpdateWithUUID:v7 didCompleteWithSuccess:0 error:v5];
+  v8 = [*(*(a1 + 32) + 112) UUID];
+  [WeakRetained _dataUpdateWithUUID:v8 didCompleteWithSuccess:0 error:v6];
 }
 
 - (void)_enqueueDataUpdate:(id)update
@@ -3009,6 +2952,21 @@ void __69__HKWorkoutSession__dataUpdateWithUUID_didCompleteWithSuccess_error___b
   }
 }
 
+- (void)_queue_pendingDataUpdateDidCompleteWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  pendingDataUpdate = self->_pendingDataUpdate;
+  errorCopy = error;
+  completionHandler = [(HKWorkoutMirroringDataUpdate *)pendingDataUpdate completionHandler];
+  (completionHandler)[2](completionHandler, successCopy, errorCopy);
+
+  hk_dequeue = [(NSMutableArray *)self->_dataUpdateQueue hk_dequeue];
+  v10 = self->_pendingDataUpdate;
+  self->_pendingDataUpdate = hk_dequeue;
+
+  [(HKWorkoutSession *)self _queue_sendPendingDataUpdateToRemoteWorkoutSession];
+}
+
 - (void)_setupTaskServerWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -3029,11 +2987,11 @@ void __69__HKWorkoutSession__dataUpdateWithUUID_didCompleteWithSuccess_error___b
 
 void __51__HKWorkoutSession__setupTaskServerWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __51__HKWorkoutSession__setupTaskServerWithCompletion___block_invoke_2_cold_1(a1);
+    __51__HKWorkoutSession__setupTaskServerWithCompletion___block_invoke_2_cold_1();
   }
 }
 
@@ -3072,58 +3030,57 @@ void __66__HKWorkoutSession__setupMirroredSessionTaskServerWithCompletion___bloc
 void __66__HKWorkoutSession__setupMirroredSessionTaskServerWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v21 = v3;
+  v20 = v3;
   if (v3)
   {
     if ([v3 sessionState] != *(*(a1 + 32) + 32))
     {
-      *(*(a1 + 32) + 32) = [v21 sessionState];
-      v4 = *(a1 + 32);
-      v5 = objc_opt_class();
-      v6 = [*(*(a1 + 32) + 56) sessionUUID];
-      v7 = [v5 targetWorkoutSessionStateMachineForSessionUUID:v6];
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 96);
-      *(v8 + 96) = v7;
+      *(*(a1 + 32) + 32) = [v20 sessionState];
+      v4 = objc_opt_class();
+      v5 = [*(*(a1 + 32) + 56) sessionUUID];
+      v6 = [v4 targetWorkoutSessionStateMachineForSessionUUID:v5];
+      v7 = *(a1 + 32);
+      v8 = *(v7 + 96);
+      *(v7 + 96) = v6;
 
       [*(*(a1 + 32) + 96) setDelegate:?];
-      [*(*(a1 + 32) + 96) enterAtState:{objc_msgSend(v21, "sessionState")}];
+      [*(*(a1 + 32) + 96) enterAtState:{objc_msgSend(v20, "sessionState")}];
     }
 
-    v10 = [v21 currentActivity];
-    v11 = [v10 copy];
-    [*(*(a1 + 32) + 56) setCurrentActivity:v11];
+    v9 = [v20 currentActivity];
+    v10 = [v9 copy];
+    [*(*(a1 + 32) + 56) setCurrentActivity:v10];
 
-    v12 = [v21 startDate];
-    v13 = [v12 copy];
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
+    v11 = [v20 startDate];
+    v12 = [v11 copy];
+    v13 = *(a1 + 32);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = v12;
 
-    v16 = [v21 endDate];
-    v17 = [v16 copy];
-    v18 = *(a1 + 32);
-    v19 = *(v18 + 48);
-    *(v18 + 48) = v17;
+    v15 = [v20 endDate];
+    v16 = [v15 copy];
+    v17 = *(a1 + 32);
+    v18 = *(v17 + 48);
+    *(v17 + 48) = v16;
 
-    v20 = *(*(a1 + 40) + 16);
+    v19 = *(*(a1 + 40) + 16);
   }
 
   else
   {
-    v20 = *(*(a1 + 40) + 16);
+    v19 = *(*(a1 + 40) + 16);
   }
 
-  v20();
+  v19();
 }
 
 void __66__HKWorkoutSession__setupMirroredSessionTaskServerWithCompletion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __66__HKWorkoutSession__setupMirroredSessionTaskServerWithCompletion___block_invoke_3_cold_1(a1);
+    __66__HKWorkoutSession__setupMirroredSessionTaskServerWithCompletion___block_invoke_3_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -3151,10 +3108,10 @@ void __66__HKWorkoutSession__setupMirroredSessionTaskServerWithCompletion___bloc
 void __75__HKWorkoutSession__runSetupPostClientMirroringStartHandlerWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __66__HKWorkoutSession__setupMirroredSessionTaskServerWithCompletion___block_invoke_3_cold_1(a1);
+    __66__HKWorkoutSession__setupMirroredSessionTaskServerWithCompletion___block_invoke_3_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -3179,7 +3136,7 @@ void __75__HKWorkoutSession__runSetupPostClientMirroringStartHandlerWithCompleti
   return v3;
 }
 
-uint64_t __49__HKWorkoutSession__isInvalidatedMirroredSession__block_invoke(uint64_t a1)
+void *__49__HKWorkoutSession__isInvalidatedMirroredSession__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_isInvalidatedMirroredSession];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3213,33 +3170,34 @@ uint64_t __49__HKWorkoutSession__isInvalidatedMirroredSession__block_invoke(uint
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"workoutConfiguration"];
   [(HKWorkoutSessionTaskConfiguration *)v5 setWorkoutConfiguration:v7];
 
-  v25 = 0;
-  v8 = [(HKWorkoutSession *)self _initWithHealthStore:0 taskConfiguration:v5 error:&v25];
-  v9 = v25;
+  v27 = 0;
+  v8 = [(HKWorkoutSession *)self _initWithHealthStore:0 taskConfiguration:v5 error:&v27];
+  v9 = v27;
+  v11 = v9;
   if (v8)
   {
     v8->_state = [coderCopy decodeIntegerForKey:@"state"];
-    v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"startDate"];
+    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"startDate"];
     startDate = v8->_startDate;
-    v8->_startDate = v10;
+    v8->_startDate = v12;
 
-    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"endDate"];
+    v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"endDate"];
     endDate = v8->_endDate;
-    v8->_endDate = v12;
+    v8->_endDate = v14;
 
-    v14 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"currentGeneratedTypes"];
-    v15 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v14];
+    v16 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"currentGeneratedTypes"];
+    v17 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v16];
     currentGeneratedTypes = v8->_currentGeneratedTypes;
-    v8->_currentGeneratedTypes = v15;
+    v8->_currentGeneratedTypes = v17;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v17 = HKLogWorkouts;
+    _HKInitializeLogging(v9, v10);
+    v19 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
-      [(HKWorkoutSession *)v9 initWithCoder:v17, v18, v19, v20, v21, v22, v23];
+      [(HKWorkoutSession *)v11 initWithCoder:v19, v20, v21, v22, v23, v24, v25];
     }
   }
 
@@ -3258,133 +3216,116 @@ uint64_t __49__HKWorkoutSession__isInvalidatedMirroredSession__block_invoke(uint
 {
   associatedWorkoutBuilder = self->_associatedWorkoutBuilder;
   self->_associatedWorkoutBuilder = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, associatedWorkoutBuilder);
 }
 
-void __41__HKWorkoutSession_connectionInterrupted__block_invoke_226_cold_1(uint64_t a1)
+void __41__HKWorkoutSession_connectionInterrupted__block_invoke_226_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __41__HKWorkoutSession_connectionInterrupted__block_invoke_232_cold_1(uint64_t a1)
+void __41__HKWorkoutSession_connectionInterrupted__block_invoke_232_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __77__HKWorkoutSession_client_didReceiveDataFromRemoteWorkoutSession_completion___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_2(&dword_19197B000, a2, a3, "[mirroring] %{public}@: Received data from remote session but the session delegate is not setup.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_2(&dword_19197B000, a2, a3, "[mirroring] %{public}@: Received data from remote session but the session delegate is not setup.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __71__HKWorkoutSession_client_didDisconnectFromRemoteWithError_completion___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_2(&dword_19197B000, a2, a3, "[mirroring] %{public}@: received disconnection event, but no delegate is set.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_2(&dword_19197B000, a2, a3, "[mirroring] %{public}@: received disconnection event, but no delegate is set.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void __76__HKWorkoutSession_stateMachine_didTransition_fromState_toState_date_error___block_invoke_2_cold_1(uint64_t a1)
+void __76__HKWorkoutSession_stateMachine_didTransition_fromState_toState_date_error___block_invoke_2_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_1_8();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __27__HKWorkoutSession_prepare__block_invoke_cold_1(uint64_t a1)
+void __27__HKWorkoutSession_prepare__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __42__HKWorkoutSession_startActivityWithDate___block_invoke_cold_1(uint64_t a1)
+void __42__HKWorkoutSession_startActivityWithDate___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __41__HKWorkoutSession_stopActivityWithDate___block_invoke_cold_1(uint64_t a1)
+void __41__HKWorkoutSession_stopActivityWithDate___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __23__HKWorkoutSession_end__block_invoke_cold_1(uint64_t a1)
+void __23__HKWorkoutSession_end__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __25__HKWorkoutSession_pause__block_invoke_cold_1(uint64_t a1)
+void __25__HKWorkoutSession_pause__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __26__HKWorkoutSession_resume__block_invoke_cold_1(uint64_t a1)
+void __26__HKWorkoutSession_resume__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __70__HKWorkoutSession_enableAutomaticDetectionForActivityConfigurations___block_invoke_2_cold_1(uint64_t a1)
+void __70__HKWorkoutSession_enableAutomaticDetectionForActivityConfigurations___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __68__HKWorkoutSession_beginNewActivityWithConfiguration_date_metadata___block_invoke_2_cold_1(uint64_t a1)
+void __68__HKWorkoutSession_beginNewActivityWithConfiguration_date_metadata___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __45__HKWorkoutSession_endCurrentActivityOnDate___block_invoke_2_cold_1(uint64_t a1)
+void __45__HKWorkoutSession_endCurrentActivityOnDate___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)startMirroringToCompanionDeviceWithCompletion:.cold.1()
@@ -3395,13 +3336,12 @@ void __45__HKWorkoutSession_endCurrentActivityOnDate___block_invoke_2_cold_1(uin
   [v0 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
 }
 
-void __66__HKWorkoutSession_startMirroringToCompanionDeviceWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __66__HKWorkoutSession_startMirroringToCompanionDeviceWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)stopMirroringToCompanionDeviceWithCompletion:.cold.1()
@@ -3412,13 +3352,12 @@ void __66__HKWorkoutSession_startMirroringToCompanionDeviceWithCompletion___bloc
   [v0 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
 }
 
-void __65__HKWorkoutSession_stopMirroringToCompanionDeviceWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __65__HKWorkoutSession_stopMirroringToCompanionDeviceWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)sendDataToRemoteWorkoutSession:completion:.cold.1()
@@ -3437,38 +3376,35 @@ void __65__HKWorkoutSession_stopMirroringToCompanionDeviceWithCompletion___block
   [v0 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
 }
 
-void __70__HKWorkoutSession__queue_sendPendingDataUpdateToRemoteWorkoutSession__block_invoke_2_cold_1(uint64_t a1)
+void __70__HKWorkoutSession__queue_sendPendingDataUpdateToRemoteWorkoutSession__block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __51__HKWorkoutSession__setupTaskServerWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __51__HKWorkoutSession__setupTaskServerWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __66__HKWorkoutSession__setupMirroredSessionTaskServerWithCompletion___block_invoke_3_cold_1(uint64_t a1)
+void __66__HKWorkoutSession__setupMirroredSessionTaskServerWithCompletion___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)initWithCoder:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2(&dword_19197B000, a2, a3, "Failed to decode HKWorkoutSession: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_19197B000, a2, a3, "Failed to decode HKWorkoutSession: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

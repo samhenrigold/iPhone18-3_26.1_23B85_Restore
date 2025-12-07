@@ -252,88 +252,88 @@ LABEL_5:
 - (void)batchUpdateBackgroundColorsForContactIdentifiers:(id)identifiers
 {
   identifiersCopy = identifiers;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2050000000;
-  v10 = qword_10004E0A8;
-  v43 = qword_10004E0A8;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2050000000;
+  v3 = qword_10004E0A8;
+  v35 = qword_10004E0A8;
   if (!qword_10004E0A8)
   {
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_10000DAE0;
-    v45 = &unk_100045110;
-    v46 = &v40;
-    sub_10000DAE0(buf, v3, v4, v5, v6, v7, v8, v9, v29);
-    v10 = v41[3];
+    v37 = &unk_100045110;
+    v38 = &v32;
+    sub_10000DAE0(buf);
+    v3 = v33[3];
   }
 
-  v11 = v10;
-  _Block_object_dispose(&v40, 8);
-  v31 = objc_opt_new();
-  v12 = +[CNEnvironment currentEnvironment];
-  contactStore = [v12 contactStore];
+  v4 = v3;
+  _Block_object_dispose(&v32, 8);
+  v23 = objc_opt_new();
+  v5 = +[CNEnvironment currentEnvironment];
+  contactStore = [v5 contactStore];
 
-  v33 = [identifiersCopy _cn_balancedSlicesWithMaximumCount:{objc_msgSend(objc_opt_class(), "batchSize")}];
-  v13 = 0;
-  v34 = [v33 count] - 1;
+  v25 = [identifiersCopy _cn_balancedSlicesWithMaximumCount:{objc_msgSend(objc_opt_class(), "batchSize")}];
+  v6 = 0;
+  v26 = [v25 count] - 1;
   do
   {
-    v14 = objc_autoreleasePoolPush();
-    v15 = +[CNContactsDaemonLogs backgroundColors];
-    v16 = os_signpost_id_generate(v15);
+    v7 = objc_autoreleasePoolPush();
+    v8 = +[CNContactsDaemonLogs backgroundColors];
+    v9 = os_signpost_id_generate(v8);
 
-    v17 = +[CNContactsDaemonLogs backgroundColors];
-    v18 = v17;
-    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+    v10 = +[CNContactsDaemonLogs backgroundColors];
+    v11 = v10;
+    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "Batched Background Color calculation", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "Batched Background Color calculation", "", buf, 2u);
     }
 
-    v19 = [v33 objectAtIndexedSubscript:v13];
-    v20 = [(BackgroundColorService *)self fetchContactsWithImageKeysForIdentifiers:v19];
-    v21 = objc_alloc_init(CNSaveRequest);
-    [v21 setSuppressChangeNotifications:v34 != v13];
-    v37[0] = _NSConcreteStackBlock;
-    v37[1] = 3221225472;
-    v37[2] = sub_10000D80C;
-    v37[3] = &unk_1000457E0;
-    v37[4] = self;
-    v22 = v31;
-    v38 = v22;
-    v23 = v21;
-    v39 = v23;
-    [v20 _cn_each:v37];
-    v36 = 0;
-    v24 = [contactStore executeSaveRequest:v23 error:&v36];
-    v25 = v36;
-    if ((v24 & 1) == 0)
+    v12 = [v25 objectAtIndexedSubscript:v6];
+    v13 = [(BackgroundColorService *)self fetchContactsWithImageKeysForIdentifiers:v12];
+    v14 = objc_alloc_init(CNSaveRequest);
+    [v14 setSuppressChangeNotifications:v26 != v6];
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_10000D80C;
+    v29[3] = &unk_1000457E0;
+    v29[4] = self;
+    v15 = v23;
+    v30 = v15;
+    v16 = v14;
+    v31 = v16;
+    [v13 _cn_each:v29];
+    v28 = 0;
+    v17 = [contactStore executeSaveRequest:v16 error:&v28];
+    v18 = v28;
+    if ((v17 & 1) == 0)
     {
-      v26 = +[CNContactsDaemonLogs backgroundColors];
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v19 = +[CNContactsDaemonLogs backgroundColors];
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        *&buf[4] = v20;
+        *&buf[4] = v13;
         *&buf[12] = 2112;
-        *&buf[14] = v25;
-        _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Failed to save background colors to contacts %@ with error %@", buf, 0x16u);
+        *&buf[14] = v18;
+        _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to save background colors to contacts %@ with error %@", buf, 0x16u);
       }
     }
 
-    v27 = +[CNContactsDaemonLogs backgroundColors];
-    v28 = v27;
-    if (v16 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v27))
+    v20 = +[CNContactsDaemonLogs backgroundColors];
+    v21 = v20;
+    if (v9 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v20))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v28, OS_SIGNPOST_INTERVAL_END, v16, "Batched Background Color calculation", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_INTERVAL_END, v9, "Batched Background Color calculation", "", buf, 2u);
     }
 
-    objc_autoreleasePoolPop(v14);
-    ++v13;
+    objc_autoreleasePoolPop(v7);
+    ++v6;
   }
 
-  while (v13 <= v34);
+  while (v6 <= v26);
 }
 
 @end

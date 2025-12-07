@@ -29,8 +29,18 @@
 - (void)initNativeWithNSString:(id)string;
 - (void)setCurrencyWithJavaUtilCurrency:(id)currency;
 - (void)setDecimalFormatSymbolsWithJavaTextDecimalFormatSymbols:(id)symbols;
+- (void)setDecimalSeparatorAlwaysShownWithBoolean:(BOOL)boolean;
+- (void)setGroupingSizeWithInt:(int)int;
+- (void)setGroupingUsedWithBoolean:(BOOL)boolean;
+- (void)setMaximumFractionDigitsWithInt:(int)int;
+- (void)setMaximumIntegerDigitsWithInt:(int)int;
+- (void)setMinimumFractionDigitsWithInt:(int)int;
+- (void)setMinimumIntegerDigitsWithInt:(int)int;
+- (void)setMultiplierWithInt:(int)int;
 - (void)setNegativePrefixWithNSString:(id)string;
 - (void)setNegativeSuffixWithNSString:(id)string;
+- (void)setParseBigDecimalWithBoolean:(BOOL)boolean;
+- (void)setParseIntegerOnlyWithBoolean:(BOOL)boolean;
 - (void)setPositivePrefixWithNSString:(id)string;
 - (void)setPositiveSuffixWithNSString:(id)string;
 - (void)setRoundingModeWithJavaMathRoundingModeEnum:(id)enum;
@@ -503,6 +513,17 @@ LABEL_17:
   return [v3 isParseBigDecimal];
 }
 
+- (void)setParseIntegerOnlyWithBoolean:(BOOL)boolean
+{
+  v4 = *(&self->symbols_ + 4);
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v4 setParseIntegerOnlyWithBoolean:boolean];
+}
+
 - (BOOL)isParseIntegerOnly
 {
   v3 = *(&self->symbols_ + 4);
@@ -591,7 +612,7 @@ LABEL_14:
     return v6;
   }
 
-  return JavaLangLong_valueOfWithLong_(0);
+  return JavaLangLong_valueOfWithLong_(0, v10);
 }
 
 - (void)setDecimalFormatSymbolsWithJavaTextDecimalFormatSymbols:(id)symbols
@@ -629,6 +650,39 @@ LABEL_14:
   [v6 setCurrencyWithJavaUtilCurrency:currency];
 }
 
+- (void)setDecimalSeparatorAlwaysShownWithBoolean:(BOOL)boolean
+{
+  v4 = *(&self->symbols_ + 4);
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v4 setDecimalSeparatorAlwaysShownWithBoolean:boolean];
+}
+
+- (void)setGroupingSizeWithInt:(int)int
+{
+  v4 = *(&self->symbols_ + 4);
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v4 setGroupingSizeWithInt:*&int];
+}
+
+- (void)setGroupingUsedWithBoolean:(BOOL)boolean
+{
+  v4 = *(&self->symbols_ + 4);
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v4 setGroupingUsedWithBoolean:boolean];
+}
+
 - (BOOL)isGroupingUsed
 {
   v3 = *(&self->symbols_ + 4);
@@ -638,6 +692,74 @@ LABEL_14:
   }
 
   return [v3 isGroupingUsed];
+}
+
+- (void)setMaximumFractionDigitsWithInt:(int)int
+{
+  v5.receiver = self;
+  v5.super_class = JavaTextDecimalFormat;
+  [(JavaTextNumberFormat *)&v5 setMaximumFractionDigitsWithInt:*&int];
+  v4 = *(&self->symbols_ + 4);
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v4 setMaximumFractionDigitsWithInt:{-[JavaTextNumberFormat getMaximumFractionDigits](self, "getMaximumFractionDigits")}];
+  [(JavaTextDecimalFormat *)self setRoundingModeWithJavaMathRoundingModeEnum:*(&self->ndf_ + 4)];
+}
+
+- (void)setMaximumIntegerDigitsWithInt:(int)int
+{
+  v5.receiver = self;
+  v5.super_class = JavaTextDecimalFormat;
+  [(JavaTextNumberFormat *)&v5 setMaximumIntegerDigitsWithInt:*&int];
+  v4 = *(&self->symbols_ + 4);
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v4 setMaximumIntegerDigitsWithInt:{-[JavaTextNumberFormat getMaximumIntegerDigits](self, "getMaximumIntegerDigits")}];
+}
+
+- (void)setMinimumFractionDigitsWithInt:(int)int
+{
+  v5.receiver = self;
+  v5.super_class = JavaTextDecimalFormat;
+  [(JavaTextNumberFormat *)&v5 setMinimumFractionDigitsWithInt:*&int];
+  v4 = *(&self->symbols_ + 4);
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v4 setMinimumFractionDigitsWithInt:{-[JavaTextNumberFormat getMinimumFractionDigits](self, "getMinimumFractionDigits")}];
+}
+
+- (void)setMinimumIntegerDigitsWithInt:(int)int
+{
+  v5.receiver = self;
+  v5.super_class = JavaTextDecimalFormat;
+  [(JavaTextNumberFormat *)&v5 setMinimumIntegerDigitsWithInt:*&int];
+  v4 = *(&self->symbols_ + 4);
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v4 setMinimumIntegerDigitsWithInt:{-[JavaTextNumberFormat getMinimumIntegerDigits](self, "getMinimumIntegerDigits")}];
+}
+
+- (void)setMultiplierWithInt:(int)int
+{
+  v4 = *(&self->symbols_ + 4);
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v4 setMultiplierWithInt:*&int];
 }
 
 - (void)setNegativePrefixWithNSString:(id)string
@@ -682,6 +804,17 @@ LABEL_14:
   }
 
   [v4 setPositiveSuffixWithNSString:string];
+}
+
+- (void)setParseBigDecimalWithBoolean:(BOOL)boolean
+{
+  v4 = *(&self->symbols_ + 4);
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v4 setParseBigDecimalWithBoolean:boolean];
 }
 
 - (id)toLocalizedPattern

@@ -12,7 +12,7 @@
 
 + (id)eventsForRuleDictionary:(id)dictionary
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v4 = [dictionaryCopy TPSSafeArrayForKey:@"events"];
   if (!v4)
@@ -22,8 +22,8 @@
 
     if (v6)
     {
-      v10[0] = dictionaryCopy;
-      v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+      v9[0] = dictionaryCopy;
+      v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     }
 
     else
@@ -42,18 +42,16 @@
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (TPSContextualRule)initWithDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v27.receiver = self;
-  v27.super_class = TPSContextualRule;
-  v5 = [(TPSSerializableObject *)&v27 initWithDictionary:dictionaryCopy];
+  v26.receiver = self;
+  v26.super_class = TPSContextualRule;
+  v5 = [(TPSSerializableObject *)&v26 initWithDictionary:dictionaryCopy];
   if (!v5)
   {
     goto LABEL_17;
@@ -73,27 +71,27 @@
   if ([v8 count])
   {
     v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v24;
+      v14 = *v23;
       do
       {
         v15 = 0;
         do
         {
-          if (*v24 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = [TPSContextualEvent identifierFromEventInfoDictionary:*(*(&v23 + 1) + 8 * v15), v23];
+          v16 = [TPSContextualEvent identifierFromEventInfoDictionary:*(*(&v22 + 1) + 8 * v15), v22];
           if ([v16 length])
           {
             [v10 addObject:v16];
@@ -103,7 +101,7 @@
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v13);
@@ -132,7 +130,6 @@ LABEL_18:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -198,7 +195,7 @@ LABEL_18:
 {
   matchedDate = self->_matchedDate;
   self->_matchedDate = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, matchedDate);
 }
 
 - (id)debugDescription

@@ -22,40 +22,38 @@
 
 - (void)applyToObjectModel:(id)model
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   allPages = [model allPages];
-  v5 = [allPages countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [allPages countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allPages);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         navigationItem = [v9 navigationItem];
         [navigationItem setRightBarButtonItem:self->_button];
 
         [v9 setModalInPresentation:1];
       }
 
-      v6 = [allPages countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [allPages countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

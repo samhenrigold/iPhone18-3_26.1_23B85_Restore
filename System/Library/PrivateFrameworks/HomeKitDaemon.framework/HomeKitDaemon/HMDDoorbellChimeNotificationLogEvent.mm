@@ -44,7 +44,7 @@
   [dictionary setObject:v19 forKeyedSubscript:@"numHomePodsWithDoorbellChimeEnabled"];
 
   [dictionary setObject:&unk_283E71BE8 forKeyedSubscript:@"numEventsFromThisDevice"];
-  v20 = [dictionary copy];
+  v20 = objc_msgSend_copy(dictionary);
 
   return v20;
 }

@@ -40,13 +40,13 @@
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     memmove(a2, uTF8String, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
 }
 
 @end

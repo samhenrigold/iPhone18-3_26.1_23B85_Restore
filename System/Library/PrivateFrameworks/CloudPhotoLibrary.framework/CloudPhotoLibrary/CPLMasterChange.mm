@@ -13,6 +13,7 @@
 - (id)resourceForType:(unint64_t)type;
 - (int64_t)dequeueOrder;
 - (unint64_t)dataClassType;
+- (void)_copyDerivatives:(unint64_t *)derivatives count:(int)count ifMatchingResourceType:(unint64_t)type fromRecord:(id)record inResourcePerType:(id)perType;
 - (void)copyDerivativesFromRecordIfPossible:(id)possible;
 - (void)setExpungeableResourceStates:(id)states;
 - (void)setResources:(id)resources;
@@ -67,7 +68,7 @@
 
 - (void)copyDerivativesFromRecordIfPossible:(id)possible
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   possibleCopy = possible;
   if ([possibleCopy supportsResources])
   {
@@ -127,13 +128,13 @@ LABEL_21:
           v25 = v24;
           scopedIdentifier2 = [(CPLRecordChange *)self scopedIdentifier];
           *buf = 138413058;
-          v30 = v21;
-          v31 = 2112;
-          v32 = scopedIdentifier;
-          v33 = 2112;
-          v34 = v24;
-          v35 = 2112;
-          v36 = scopedIdentifier2;
+          v29 = v21;
+          v30 = 2112;
+          v31 = scopedIdentifier;
+          v32 = 2112;
+          v33 = v24;
+          v34 = 2112;
+          v35 = scopedIdentifier2;
           _os_log_impl(&dword_1DC05A000, allValues, OS_LOG_TYPE_DEFAULT, "Found no derivatives to copy from <%@ %@> to <%@ %@>", buf, 0x2Au);
         }
       }
@@ -147,21 +148,21 @@ LABEL_21:
           {
             v14 = [v6 count] - v7;
             v15 = objc_opt_class();
-            v28 = v15;
+            v27 = v15;
             scopedIdentifier3 = [possibleCopy scopedIdentifier];
             v17 = objc_opt_class();
             v18 = v17;
             scopedIdentifier4 = [(CPLRecordChange *)self scopedIdentifier];
             *buf = 134219010;
-            v30 = v14;
-            v31 = 2112;
-            v32 = v15;
-            v33 = 2112;
-            v34 = scopedIdentifier3;
-            v35 = 2112;
-            v36 = v17;
-            v37 = 2112;
-            v38 = scopedIdentifier4;
+            v29 = v14;
+            v30 = 2112;
+            v31 = v15;
+            v32 = 2112;
+            v33 = scopedIdentifier3;
+            v34 = 2112;
+            v35 = v17;
+            v36 = 2112;
+            v37 = scopedIdentifier4;
             _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Automatically copied %lu derivatives from <%@ %@> to <%@ %@>", buf, 0x34u);
           }
         }
@@ -175,8 +176,50 @@ LABEL_21:
   }
 
 LABEL_22:
+}
 
-  v27 = *MEMORY[0x1E69E9840];
+- (void)_copyDerivatives:(unint64_t *)derivatives count:(int)count ifMatchingResourceType:(unint64_t)type fromRecord:(id)record inResourcePerType:(id)perType
+{
+  v9 = *&count;
+  recordCopy = record;
+  perTypeCopy = perType;
+  v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
+  v14 = [perTypeCopy objectForKeyedSubscript:v13];
+
+  if (v14)
+  {
+    sourceResourceType = [v14 sourceResourceType];
+    if (sourceResourceType)
+    {
+      v16 = sourceResourceType;
+      v17 = [recordCopy resourceForType:sourceResourceType];
+      identity = [v14 identity];
+      fingerPrint = [identity fingerPrint];
+
+      identity2 = [v17 identity];
+      fingerPrint2 = [identity2 fingerPrint];
+
+      if (fingerPrint && fingerPrint2)
+      {
+        if (([fingerPrint isEqual:fingerPrint2] & 1) == 0)
+        {
+          goto LABEL_9;
+        }
+      }
+
+      else if (fingerPrint | fingerPrint2)
+      {
+LABEL_9:
+
+        goto LABEL_10;
+      }
+
+      [(CPLRecordChange *)self copyDerivatives:derivatives count:v9 avoidResourceType:v16 fromRecord:recordCopy inResourcePerType:perTypeCopy];
+      goto LABEL_9;
+    }
+  }
+
+LABEL_10:
 }
 
 - (id)resourceForType:(unint64_t)type
@@ -190,7 +233,7 @@ LABEL_22:
 
 - (void)setExpungeableResourceStates:(id)states
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   statesCopy = states;
   v6 = [CPLExpungeableResourceState normalizedExpungeableResourceStatesFromExpungeableResourceStates:statesCopy];
   v7 = [(NSArray *)v6 count];
@@ -205,29 +248,27 @@ LABEL_22:
       v11 = v10;
       scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
       v13 = NSStringFromSelector(a2);
-      v16 = 138412802;
-      v17 = v10;
-      v18 = 2112;
-      v19 = scopedIdentifier;
-      v20 = 2114;
-      v21 = v13;
-      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "<%@ %@> %{public}@ got duplicate or incorrect resource types", &v16, 0x20u);
+      v15 = 138412802;
+      v16 = v10;
+      v17 = 2112;
+      v18 = scopedIdentifier;
+      v19 = 2114;
+      v20 = v13;
+      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "<%@ %@> %{public}@ got duplicate or incorrect resource types", &v15, 0x20u);
     }
   }
 
   expungeableResourceStates = self->_expungeableResourceStates;
   self->_expungeableResourceStates = v6;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setResources:(id)resources
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v20 = 0;
+  v26 = *MEMORY[0x1E69E9840];
+  v19 = 0;
   resourcesCopy = resources;
-  v6 = [CPLResource normalizedResourcesFromResources:resourcesCopy resourcePerResourceType:&v20];
-  v7 = v20;
+  v6 = [CPLResource normalizedResourcesFromResources:resourcesCopy resourcePerResourceType:&v19];
+  v7 = v19;
   v8 = [(NSArray *)v6 count];
   v9 = [resourcesCopy count];
 
@@ -241,11 +282,11 @@ LABEL_22:
       scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
       v14 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v22 = v11;
-      v23 = 2112;
-      v24 = scopedIdentifier;
-      v25 = 2114;
-      v26 = v14;
+      v21 = v11;
+      v22 = 2112;
+      v23 = scopedIdentifier;
+      v24 = 2114;
+      v25 = v14;
       _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "<%@ %@> %{public}@ got duplicate or incorrect resource types", buf, 0x20u);
     }
   }
@@ -257,8 +298,6 @@ LABEL_22:
   resourcePerResourceType = self->_resourcePerResourceType;
   self->_resourcePerResourceType = v7;
   v18 = v7;
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)checkDefaultValueBlockForPropertyWithSelector:(SEL)selector
@@ -501,7 +540,7 @@ uint64_t __43__CPLMasterChange_propertiesForChangeType___block_invoke()
 
 - (id)fingerprintSchemeWithContext:(id)context
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v6 = contextCopy;
   fingerprintScheme = self->_fingerprintScheme;
@@ -511,18 +550,18 @@ uint64_t __43__CPLMasterChange_propertiesForChangeType___block_invoke()
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v15 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v14 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           selfCopy = self;
-          _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Trying to get fingerprint scheme for %@ without a context", buf, 0xCu);
+          _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Trying to get fingerprint scheme for %@ without a context", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLMasterChange.m"];
-      [currentHandler handleFailureInMethod:a2 object:self file:v17 lineNumber:49 description:{@"Trying to get fingerprint scheme for %@ without a context", self}];
+      v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLMasterChange.m"];
+      [currentHandler handleFailureInMethod:a2 object:self file:v16 lineNumber:49 description:{@"Trying to get fingerprint scheme for %@ without a context", self}];
 
       abort();
     }
@@ -538,7 +577,6 @@ uint64_t __43__CPLMasterChange_propertiesForChangeType___block_invoke()
 
   v12 = fingerprintScheme;
 
-  v13 = *MEMORY[0x1E69E9840];
   return fingerprintScheme;
 }
 
@@ -577,11 +615,11 @@ uint64_t __43__CPLMasterChange_propertiesForChangeType___block_invoke()
 
 - (BOOL)validateRecordForTracker:(id)tracker
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   trackerCopy = tracker;
-  v18.receiver = self;
-  v18.super_class = CPLMasterChange;
-  if ([(CPLRecordChange *)&v18 validateRecordForTracker:trackerCopy])
+  v17.receiver = self;
+  v17.super_class = CPLMasterChange;
+  if ([(CPLRecordChange *)&v17 validateRecordForTracker:trackerCopy])
   {
     if (__CPLCheckOriginalResourceInMaster == 1 && [(CPLRecordChange *)self hasChangeType:8])
     {
@@ -641,7 +679,7 @@ LABEL_8:
               fingerPrint2 = [identity2 fingerPrint];
               *buf = 138412546;
               selfCopy = fingerPrint2;
-              v21 = 2112;
+              v20 = 2112;
               selfCopy2 = self;
               _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Client pushed a master with a mismatched original finger print %@: %@", buf, 0x16u);
             }
@@ -669,7 +707,6 @@ LABEL_16:
 
 LABEL_21:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

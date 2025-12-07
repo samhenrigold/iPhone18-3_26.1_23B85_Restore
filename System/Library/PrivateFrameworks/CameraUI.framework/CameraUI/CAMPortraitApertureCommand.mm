@@ -137,7 +137,7 @@
   }
 }
 
-void __49__CAMPortraitApertureCommand_executeWithContext___block_invoke()
+void __49__CAMPortraitApertureCommand_executeWithContext___block_invoke(uint64_t a1)
 {
   if (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector())
   {
@@ -153,11 +153,11 @@ void __49__CAMPortraitApertureCommand_executeWithContext___block_invoke()
     executeWithContext__spiAvailable = 0;
   }
 
-  v0 = os_log_create("com.apple.camera", "Camera");
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = os_log_create("com.apple.camera", "Camera");
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1A3640000, v0, OS_LOG_TYPE_DEFAULT, "AVFoundation SPI for simulatedAperture not available.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1A3640000, v1, OS_LOG_TYPE_DEFAULT, "AVFoundation SPI for simulatedAperture not available.", v2, 2u);
   }
 }
 

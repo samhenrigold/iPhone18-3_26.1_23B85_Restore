@@ -136,65 +136,65 @@ id sub_10B0(uint64_t a1, void *a2)
   return v16;
 }
 
-id sub_138C(uint64_t a1, void *a2)
+id sub_138C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = a2;
+  v4 = a2;
   objc_opt_self();
-  v40 = [v2 UUID];
-  v39 = [v40 UUIDString];
-  v41[0] = v39;
-  v38 = [v2 creationDate];
-  v37 = HKDiagnosticStringFromDate();
-  v41[1] = v37;
-  v3 = [NSString alloc];
-  v36 = [v2 creationDate];
-  [v36 timeIntervalSinceReferenceDate];
-  v35 = [v3 initWithFormat:@"%f", v4];
-  v41[2] = v35;
-  v34 = [v2 modificationDate];
-  v33 = HKDiagnosticStringFromDate();
-  v41[3] = v33;
+  v42 = [v4 UUID];
+  v41 = [v42 UUIDString];
+  v43[0] = v41;
+  v40 = [v4 creationDate];
+  v39 = HKDiagnosticStringFromDate();
+  v43[1] = v39;
   v5 = [NSString alloc];
-  v32 = [v2 modificationDate];
-  [v32 timeIntervalSinceReferenceDate];
-  v31 = [v5 initWithFormat:@"%f", v6];
-  v41[4] = v31;
-  v30 = [v2 codingCollection];
-  v29 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v30 count]);
-  v28 = [v29 stringValue];
-  v41[5] = v28;
-  v27 = [v2 linkCollection];
-  v26 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v27 count]);
-  v25 = [v26 stringValue];
-  v41[6] = v25;
-  v24 = [v2 propertyCollection];
-  v23 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v24 count]);
-  v22 = [v23 stringValue];
-  v41[7] = v22;
-  v21 = [v2 firstOntologyCoding];
-  v20 = HKStringFromBool();
-  v41[8] = v20;
-  v19 = HKStringFromBool();
-  v41[9] = v19;
-  v7 = HKStringFromBool();
-  v41[10] = v7;
-  v8 = [v2 userSpecifiedName];
+  v38 = [v4 creationDate];
+  [v38 timeIntervalSinceReferenceDate];
+  v37 = [v5 initWithFormat:@"%f", v6];
+  v43[2] = v37;
+  v36 = [v4 modificationDate];
+  v35 = HKDiagnosticStringFromDate();
+  v43[3] = v35;
+  v7 = [NSString alloc];
+  v34 = [v4 modificationDate];
+  [v34 timeIntervalSinceReferenceDate];
+  v33 = [v7 initWithFormat:@"%f", v8];
+  v43[4] = v33;
+  v32 = [v4 codingCollection];
+  v31 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v32 count]);
+  v30 = [v31 stringValue];
+  v43[5] = v30;
+  v29 = [v4 linkCollection];
+  v28 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v29 count]);
+  v27 = [v28 stringValue];
+  v43[6] = v27;
+  v26 = [v4 propertyCollection];
+  v25 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v26 count]);
+  v24 = [v25 stringValue];
+  v43[7] = v24;
+  v23 = [v4 firstOntologyCoding];
+  v22 = HKStringFromBool();
+  v43[8] = v22;
+  v21 = HKStringFromBool();
+  v43[9] = v21;
   v9 = HKStringFromBool();
-  v41[11] = v9;
-  v10 = [v2 userSpecifiedNotes];
+  v43[10] = v9;
+  v10 = [v4 userSpecifiedName];
   v11 = HKStringFromBool();
-  v41[12] = v11;
-  v12 = [v2 userVisualizationConfigJSONString];
+  v43[11] = v11;
+  v12 = [v4 userSpecifiedNotes];
   v13 = HKStringFromBool();
-  v41[13] = v13;
-  v14 = [v2 semanticIdentifier];
+  v43[12] = v13;
+  v14 = [v4 userVisualizationConfigJSONString];
+  v15 = HKStringFromBool();
+  v43[13] = v15;
+  v16 = [v4 semanticIdentifier];
 
-  v15 = [v14 stringValue];
-  v16 = [v15 hk_SHA256Hash];
-  v41[14] = v16;
-  v18 = [NSArray arrayWithObjects:v41 count:15];
+  v17 = [v16 stringValue];
+  v18 = [v17 hk_SHA256Hash];
+  v43[14] = v18;
+  v20 = [NSArray arrayWithObjects:v43 count:15];
 
-  return v18;
+  return v20;
 }
 
 id sub_17B0(uint64_t a1, void *a2)
@@ -255,15 +255,15 @@ void sub_1A30(void *a1, void *a2)
   }
 }
 
-void sub_1A98(void *a1)
+void sub_1A98(void *result)
 {
-  if (a1)
+  if (result)
   {
-    sub_1E2C(a1, @"MEDICATIONS");
-    sub_1E90(a1);
-    sub_1E2C(a1, @"SCHEDULES");
+    sub_1E2C(result, @"MEDICATIONS");
+    sub_1E90(result);
+    sub_1E2C(result, @"SCHEDULES");
 
-    sub_2108(a1);
+    sub_2108(result);
   }
 }
 
@@ -554,48 +554,48 @@ void sub_25C8(void *a1, void *a2, uint64_t a3)
     v6 = [HKTableFormatter alloc];
     objc_opt_self();
     v7 = [v6 initWithColumnTitles:&off_48A8];
-    v19 = 0u;
-    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v18 = v5;
+    v23 = 0u;
+    v24 = 0u;
+    v20 = v5;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v22;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v20 != v11)
+          if (*v22 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * i);
+          v13 = *(*(&v21 + 1) + 8 * i);
           v14 = [v13 UUID];
-          sub_27C4(a1, v14);
+          v15 = sub_27C4(a1, v14);
 
-          v15 = [v13 semanticIdentifier];
-          sub_2858(a1, v15);
+          v16 = [v13 semanticIdentifier];
+          v17 = sub_2858(a1, v16);
 
-          v16 = sub_138C(HDMedicationsDiagnosticOperation, v13);
-          [v7 appendRow:v16];
+          v18 = sub_138C(HDMedicationsDiagnosticOperation, v13, v15, v17);
+          [v7 appendRow:v18];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v10);
     }
 
-    v17 = [v7 formattedTable];
-    [a1 appendString:v17];
+    v19 = [v7 formattedTable];
+    [a1 appendString:v19];
 
     [a1 appendNewline];
-    v5 = v18;
+    v5 = v20;
   }
 }
 

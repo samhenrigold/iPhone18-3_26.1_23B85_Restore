@@ -36,17 +36,15 @@
 
 id __78__DESCoreAnalyticsEventManager_sendEventDeleteRecordForBundleID_removedCount___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
-  v7[0] = @"type";
-  v7[1] = @"removedCount";
-  v8[0] = v2;
+  v6[0] = @"type";
+  v6[1] = @"removedCount";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v1];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -67,12 +65,11 @@ id __78__DESCoreAnalyticsEventManager_sendEventDeleteRecordForBundleID_removedCo
 
 id __64__DESCoreAnalyticsEventManager_sendEventWriteRecordForBundleID___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v5 = @"type";
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = @"type";
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -94,21 +91,19 @@ id __64__DESCoreAnalyticsEventManager_sendEventWriteRecordForBundleID___block_in
 
 id __113__DESCoreAnalyticsEventManager_sendEventMaintenanceWithActivityID_intervalSincePostedEvent_shouldSkip_lockState___block_invoke(uint64_t a1)
 {
-  v9[4] = *MEMORY[0x277D85DE8];
-  v9[0] = *(a1 + 32);
-  v8[0] = @"activity";
-  v8[1] = @"dnuskip";
+  v8[4] = *MEMORY[0x277D85DE8];
+  v8[0] = *(a1 + 32);
+  v7[0] = @"activity";
+  v7[1] = @"dnuskip";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 52)];
-  v9[1] = v2;
-  v8[2] = @"intervalSincePostedEvent";
+  v8[1] = v2;
+  v7[2] = @"intervalSincePostedEvent";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
-  v9[2] = v3;
-  v8[3] = @"lockState";
+  v8[2] = v3;
+  v7[3] = @"lockState";
   v4 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-  v9[3] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[3] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
 
   return v5;
 }
@@ -128,17 +123,15 @@ id __113__DESCoreAnalyticsEventManager_sendEventMaintenanceWithActivityID_interv
 
 id __94__DESCoreAnalyticsEventManager_sendEventActivityShouldDeferWithActivityID_connectionDuration___block_invoke(uint64_t a1, double a2)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v7[1] = @"connectionDuration";
-  v8[0] = v2;
-  v7[0] = @"activity";
+  v6[1] = @"connectionDuration";
+  v7[0] = v2;
+  v6[0] = @"activity";
   LODWORD(a2) = *(a1 + 40);
   v3 = [MEMORY[0x277CCABB0] numberWithFloat:a2];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -160,16 +153,14 @@ id __94__DESCoreAnalyticsEventManager_sendEventActivityShouldDeferWithActivityID
 
 id __72__DESCoreAnalyticsEventManager_sendEventFetchPolicyForBundleID_success___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v6[1] = @"success";
-  v7[0] = v1;
-  v6[0] = @"type";
+  v5[1] = @"success";
+  v6[0] = v1;
+  v5[0] = @"type";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
-  v7[1] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[1] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }
@@ -192,24 +183,24 @@ id __72__DESCoreAnalyticsEventManager_sendEventFetchPolicyForBundleID_success___
 
 id __64__DESCoreAnalyticsEventManager_sendEventErrorForBundleID_error___block_invoke(uint64_t a1)
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB38];
   v4 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v22[0] = v4;
-  v21[0] = @"type";
-  v21[1] = @"domain";
+  v21[0] = v4;
+  v20[0] = @"type";
+  v20[1] = @"domain";
   v5 = [v3 domain];
-  v22[1] = v5;
-  v21[2] = @"code";
+  v21[1] = v5;
+  v20[2] = @"code";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 40), "code")}];
-  v22[2] = v6;
-  v21[3] = @"domain_code";
+  v21[2] = v6;
+  v20[3] = @"domain_code";
   v7 = MEMORY[0x277CCACA8];
   v8 = [*(a1 + 40) domain];
   v9 = [v7 stringWithFormat:@"%@_%ld", v8, objc_msgSend(*(a1 + 40), "code")];
-  v22[3] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
+  v21[3] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
   v11 = [v2 dictionaryWithDictionary:v10];
 
   v12 = [*(a1 + 40) userInfo];
@@ -228,8 +219,6 @@ id __64__DESCoreAnalyticsEventManager_sendEventErrorForBundleID_error___block_in
     v18 = [v16 stringWithFormat:@"%@_%ld", v17, objc_msgSend(v13, "code")];
     [v11 setObject:v18 forKeyedSubscript:@"underlying_domain_code"];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -250,12 +239,11 @@ id __64__DESCoreAnalyticsEventManager_sendEventErrorForBundleID_error___block_in
 
 id __75__DESCoreAnalyticsEventManager_sendEventEvaluationSessionStartForBundleID___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v5 = @"type";
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = @"type";
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -277,16 +265,14 @@ id __75__DESCoreAnalyticsEventManager_sendEventEvaluationSessionStartForBundleID
 
 id __84__DESCoreAnalyticsEventManager_sendEventEvaluationSessionFinishForBundleID_success___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v6[1] = @"success";
-  v7[0] = v1;
-  v6[0] = @"type";
+  v5[1] = @"success";
+  v6[0] = v1;
+  v5[0] = @"type";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
-  v7[1] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[1] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }
@@ -306,14 +292,12 @@ id __84__DESCoreAnalyticsEventManager_sendEventEvaluationSessionFinishForBundleI
 
 id __79__DESCoreAnalyticsEventManager_sendEventRecipeExpiredForBundleID_deferralTime___block_invoke(uint64_t a1, double a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"deferralTime";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"deferralTime";
   LODWORD(a2) = *(a1 + 32);
   v2 = [MEMORY[0x277CCABB0] numberWithFloat:a2];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -336,14 +320,13 @@ id __79__DESCoreAnalyticsEventManager_sendEventRecipeExpiredForBundleID_deferral
 
 id __70__DESCoreAnalyticsEventManager_sendEventDeferForBundleID_deadlineStr___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"type";
-  v5[1] = @"deadline";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"type";
+  v4[1] = @"deadline";
   v1 = *(a1 + 40);
-  v6[0] = *(a1 + 32);
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = *(a1 + 32);
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -378,22 +361,22 @@ id __70__DESCoreAnalyticsEventManager_sendEventDeferForBundleID_deadlineStr___bl
 
 id __120__DESCoreAnalyticsEventManager_sendEventEvaluationCompletedForBundleID_duration_deferralTime_wasDeferred_success_error___block_invoke(uint64_t a1, double a2)
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
-  v22[0] = *(a1 + 32);
-  v21[0] = @"type";
-  v21[1] = @"duration";
+  v21[0] = *(a1 + 32);
+  v20[0] = @"type";
+  v20[1] = @"duration";
   LODWORD(a2) = *(a1 + 48);
   v4 = [MEMORY[0x277CCABB0] numberWithFloat:a2];
-  v22[1] = v4;
-  v21[2] = @"deferralTime";
+  v21[1] = v4;
+  v20[2] = @"deferralTime";
   LODWORD(v5) = *(a1 + 52);
   v6 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
-  v22[2] = v6;
-  v21[3] = @"wasDeferred";
+  v21[2] = v6;
+  v20[3] = @"wasDeferred";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 56)];
-  v22[3] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
+  v21[3] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
   v9 = [v3 dictionaryWithDictionary:v8];
 
   if ((*(a1 + 57) & 1) == 0)
@@ -419,8 +402,6 @@ id __120__DESCoreAnalyticsEventManager_sendEventEvaluationCompletedForBundleID_d
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
@@ -440,12 +421,11 @@ id __120__DESCoreAnalyticsEventManager_sendEventEvaluationCompletedForBundleID_d
 
 id __67__DESCoreAnalyticsEventManager_sendEventRecordsMatchedForBundleID___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v5 = @"type";
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = @"type";
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -470,13 +450,13 @@ id __67__DESCoreAnalyticsEventManager_sendEventRecordsMatchedForBundleID___block
 
 id __85__DESCoreAnalyticsEventManager_sendEventRecipeFetchedForBundleID_evaluationID_error___block_invoke(uint64_t a1)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v7[0] = @"type";
-  v7[1] = @"evaluation_id";
+  v7[3] = *MEMORY[0x277D85DE8];
+  v6[0] = @"type";
+  v6[1] = @"evaluation_id";
   v1 = *(a1 + 40);
-  v8[0] = *(a1 + 32);
-  v8[1] = v1;
-  v7[2] = @"error";
+  v7[0] = *(a1 + 32);
+  v7[1] = v1;
+  v6[2] = @"error";
   v2 = *(a1 + 48);
   if (v2)
   {
@@ -488,13 +468,11 @@ id __85__DESCoreAnalyticsEventManager_sendEventRecipeFetchedForBundleID_evaluati
     v3 = @"none";
   }
 
-  v8[2] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
+  v7[2] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
   if (v2)
   {
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -518,22 +496,20 @@ id __85__DESCoreAnalyticsEventManager_sendEventRecipeFetchedForBundleID_evaluati
 
 id __112__DESCoreAnalyticsEventManager_sendEventAttachmentDownloadsBundleID_duration_success_downloadedAttachmentCount___block_invoke(uint64_t a1, double a2)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v10[0] = *(a1 + 32);
-  v9[0] = @"type";
-  v9[1] = @"duration";
+  v9[4] = *MEMORY[0x277D85DE8];
+  v9[0] = *(a1 + 32);
+  v8[0] = @"type";
+  v8[1] = @"duration";
   LODWORD(a2) = *(a1 + 48);
   v3 = [MEMORY[0x277CCABB0] numberWithFloat:a2];
-  v10[1] = v3;
-  v9[2] = @"success";
+  v9[1] = v3;
+  v8[2] = @"success";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 52)];
-  v10[2] = v4;
-  v9[3] = @"downloadedAttachmentCount";
+  v9[2] = v4;
+  v8[3] = @"downloadedAttachmentCount";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 40)];
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
@@ -598,30 +574,30 @@ id __112__DESCoreAnalyticsEventManager_sendEventAttachmentDownloadsBundleID_dura
 
 id __134__DESCoreAnalyticsEventManager_sendEventEvaluationForBundleID_evaluationID_duration_deferred_success_error_downloadedAttachmentCount___block_invoke(uint64_t a1, double a2)
 {
-  v17[7] = *MEMORY[0x277D85DE8];
+  v16[7] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
-  v16[0] = @"type";
-  v16[1] = @"evaluation_id";
+  v15[0] = @"type";
+  v15[1] = @"evaluation_id";
   v4 = *(a1 + 40);
-  v17[0] = *(a1 + 32);
-  v17[1] = v4;
-  v16[2] = @"duration";
+  v16[0] = *(a1 + 32);
+  v16[1] = v4;
+  v15[2] = @"duration";
   LODWORD(a2) = *(a1 + 80);
   v5 = [MEMORY[0x277CCABB0] numberWithFloat:a2];
-  v17[2] = v5;
-  v16[3] = @"deferred";
+  v16[2] = v5;
+  v15[3] = @"deferred";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 84)];
-  v17[3] = v6;
-  v16[4] = @"hour";
+  v16[3] = v6;
+  v15[4] = @"hour";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 64)];
-  v17[4] = v7;
-  v16[5] = @"success";
+  v16[4] = v7;
+  v15[5] = @"success";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 85)];
-  v17[5] = v8;
-  v16[6] = @"downloadedAttachmentCount";
+  v16[5] = v8;
+  v15[6] = @"downloadedAttachmentCount";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 72)];
-  v17[6] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:7];
+  v16[6] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:7];
   v11 = [v3 dictionaryWithDictionary:v10];
 
   v12 = *(a1 + 48);
@@ -635,8 +611,6 @@ id __134__DESCoreAnalyticsEventManager_sendEventEvaluationForBundleID_evaluation
   {
     [v11 setObject:v13 forKeyedSubscript:@"underlying_domain_code"];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

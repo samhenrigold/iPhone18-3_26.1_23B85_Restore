@@ -121,7 +121,7 @@ uint64_t __36__LocationStateRelay_sharedInstance__block_invoke()
 
 void __37__LocationStateRelay_loadCoreRoutine__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 16) = dlopen("/System/Library/PrivateFrameworks/CoreRoutine.framework/CoreRoutine", 6);
   if (*(*(a1 + 32) + 16))
   {
@@ -137,8 +137,8 @@ void __37__LocationStateRelay_loadCoreRoutine__block_invoke(uint64_t a1)
       v6 = netepochsLogHandle;
       if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "CoreRoutine routineManager is null.", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "CoreRoutine routineManager is null.", &v9, 2u);
       }
     }
   }
@@ -149,79 +149,68 @@ void __37__LocationStateRelay_loadCoreRoutine__block_invoke(uint64_t a1)
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
       v8 = v7;
-      v10 = 136315138;
-      v11 = dlerror();
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "CoreRoutine failed to load due to %s\n", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = dlerror();
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "CoreRoutine failed to load due to %s\n", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __38__LocationStateRelay_loadCoreLocation__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 8) = dlopen("/System/Library/Frameworks/CoreLocation.framework/CoreLocation", 6);
-  if (!*(*(a1 + 32) + 8))
+  if (*(*(a1 + 32) + 8))
   {
-    v12 = netepochsLogHandle;
-    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
+    *(*(a1 + 32) + 48) = objc_getClass("CLLocationManager");
+    v2 = [MEMORY[0x277CBEB38] dictionary];
+    v3 = *(a1 + 32);
+    v4 = *(v3 + 56);
+    *(v3 + 56) = v2;
+
+    *(*(a1 + 32) + 72) = dlsym(*(*(a1 + 32) + 8), "CLCopyTechnologiesInUse");
+    v5 = *(a1 + 32);
+    if (*(v5 + 48))
     {
-      v13 = v12;
-      v19 = 136315138;
-      v20 = dlerror();
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "CoreLocation failed to load due to %s\n", &v19, 0xCu);
-    }
-
-    goto LABEL_12;
-  }
-
-  *(*(a1 + 32) + 48) = objc_getClass("CLLocationManager");
-  v2 = [MEMORY[0x277CBEB38] dictionary];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 56);
-  *(v3 + 56) = v2;
-
-  *(*(a1 + 32) + 72) = dlsym(*(*(a1 + 32) + 8), "CLCopyTechnologiesInUse");
-  v5 = *(a1 + 32);
-  if (*(v5 + 48))
-  {
-    v6 = *(v5 + 72);
-    loadCoreLocation_loadedCL = v6 != 0;
-    if (v6)
-    {
-      v7 = netepochsLogHandle;
-      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+      v6 = *(v5 + 72);
+      loadCoreLocation_loadedCL = v6 != 0;
+      if (v6)
       {
-        LOWORD(v19) = 0;
+        v7 = netepochsLogHandle;
+        if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+          return;
+        }
+
+        LOWORD(v18) = 0;
         v8 = "Successfully loaded CoreLocation";
         v9 = v7;
         v10 = OS_LOG_TYPE_DEFAULT;
         v11 = 2;
 LABEL_11:
-        _os_log_impl(&dword_23255B000, v9, v10, v8, &v19, v11);
-        goto LABEL_12;
+        _os_log_impl(&dword_23255B000, v9, v10, v8, &v18, v11);
+        return;
       }
-
-      goto LABEL_12;
     }
-  }
 
-  else
-  {
-    loadCoreLocation_loadedCL = 0;
-  }
+    else
+    {
+      loadCoreLocation_loadedCL = 0;
+    }
 
-  v14 = netepochsLogHandle;
-  if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
-  {
+    v14 = netepochsLogHandle;
+    if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
     v15 = *(a1 + 32);
     v16 = *(v15 + 48);
     v17 = *(v15 + 72);
-    v19 = 134218240;
-    v20 = v16;
-    v21 = 2048;
-    v22 = v17;
+    v18 = 134218240;
+    v19 = v16;
+    v20 = 2048;
+    v21 = v17;
     v8 = "LocationManager (%p) or CopyTechnologiesInUse (%p) is NULL.";
     v9 = v14;
     v10 = OS_LOG_TYPE_ERROR;
@@ -229,8 +218,14 @@ LABEL_11:
     goto LABEL_11;
   }
 
-LABEL_12:
-  v18 = *MEMORY[0x277D85DE8];
+  v12 = netepochsLogHandle;
+  if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    v13 = v12;
+    v18 = 136315138;
+    v19 = dlerror();
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "CoreLocation failed to load due to %s\n", &v18, 0xCu);
+  }
 }
 
 - (id)mobileWiFiLocationManager
@@ -365,17 +360,15 @@ void __41__LocationStateRelay_preflightFrameworks__block_invoke(uint64_t a1)
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   preflightFrameworks = [(LocationStateRelay *)self preflightFrameworks];
   v4 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
-    v7 = preflightFrameworks;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "LOI: locationManagerDidChangeAuthorization err = %ld", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = preflightFrameworks;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "LOI: locationManagerDidChangeAuthorization err = %ld", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchCurrentLocationLOIOnQueue:(id)queue desiredAccuracy:(double)accuracy reply:(id)reply
@@ -398,7 +391,7 @@ void __41__LocationStateRelay_preflightFrameworks__block_invoke(uint64_t a1)
 
 void __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_reply___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) preflightFrameworks];
   if (v2)
   {
@@ -406,10 +399,10 @@ void __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_rep
     block[1] = 3221225472;
     block[2] = __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_reply___block_invoke_2;
     block[3] = &unk_27898C440;
-    v29[1] = v2;
-    v3 = v29;
+    v28[1] = v2;
+    v3 = v28;
     v4 = *(a1 + 40);
-    v29[0] = *(a1 + 48);
+    v28[0] = *(a1 + 48);
     dispatch_async(v4, block);
   }
 
@@ -419,8 +412,8 @@ void __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_rep
     aBlock[1] = 3221225472;
     aBlock[2] = __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_reply___block_invoke_3;
     aBlock[3] = &unk_27898E9F0;
-    v26 = *(a1 + 40);
-    v27 = *(a1 + 48);
+    v25 = *(a1 + 40);
+    v26 = *(a1 + 48);
     v5 = _Block_copy(aBlock);
     v6 = [*(a1 + 32) addPendingLOIBlocks:v5];
     v7 = netepochsLogHandle;
@@ -428,13 +421,13 @@ void __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_rep
     {
       v8 = *(a1 + 56);
       *buf = 134218240;
-      v31 = v6;
-      v32 = 2048;
-      v33 = v8;
+      v30 = v6;
+      v31 = 2048;
+      v32 = v8;
       _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_INFO, "Number of pendingLOIBlocks = %lu, desiredAccuracy = %f", buf, 0x16u);
     }
 
-    v3 = &v26;
+    v3 = &v25;
     v9 = *(*(a1 + 32) + 64);
     v10 = netepochsLogHandle;
     v11 = os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT);
@@ -487,8 +480,6 @@ void __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_rep
     dispatch_source_set_event_handler(v22, handler);
     dispatch_resume(*(*(a1 + 32) + 64));
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_reply___block_invoke_2(uint64_t a1)
@@ -499,7 +490,7 @@ void __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_rep
 
 void __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_reply___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -514,11 +505,11 @@ void __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_rep
       v14 = v13;
       [v7 longitude];
       *buf = 134546177;
-      v28 = v14;
-      v29 = 2053;
-      v30 = v15;
-      v31 = 2053;
-      v32 = [v7 type];
+      v27 = v14;
+      v28 = 2053;
+      v29 = v15;
+      v30 = 2053;
+      v31 = [v7 type];
       _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "LOI: location = <%{sensitive}f, %{sensitive}f>, type (as received from CoreRoutine) = %{sensitive}ld", buf, 0x20u);
     }
   }
@@ -526,37 +517,35 @@ void __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_rep
   else if (v11)
   {
     *buf = 138412290;
-    v28 = v9;
+    v27 = v9;
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "LOI: loi is null with error = %@", buf, 0xCu);
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_reply___block_invoke_16;
-  v22[3] = &unk_27898CA50;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_reply___block_invoke_16;
+  v21[3] = &unk_27898CA50;
   v16 = *(a1 + 32);
   v17 = *(a1 + 40);
-  v23 = v7;
-  v24 = v8;
-  v25 = v9;
-  v26 = v17;
+  v22 = v7;
+  v23 = v8;
+  v24 = v9;
+  v25 = v17;
   v18 = v9;
   v19 = v8;
   v20 = v7;
-  dispatch_async(v16, v22);
-
-  v21 = *MEMORY[0x277D85DE8];
+  dispatch_async(v16, v21);
 }
 
 void __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_reply___block_invoke_18(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109120;
-    v9[1] = 60;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "Did not receive location from MobileWiFiLocationManager after %d seconds, clearing pending block.", v9, 8u);
+    v8[0] = 67109120;
+    v8[1] = 60;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "Did not receive location from MobileWiFiLocationManager after %d seconds, clearing pending block.", v8, 8u);
   }
 
   v3 = *(a1 + 32);
@@ -571,8 +560,6 @@ void __75__LocationStateRelay_fetchCurrentLocationLOIOnQueue_desiredAccuracy_rep
     v7 = *(v6 + 64);
     *(v6 + 64) = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)determineIfLocationOfInterestIsKnownOfType:(int64_t)type queue:(id)queue reply:(id)reply
@@ -623,7 +610,7 @@ void __77__LocationStateRelay_determineIfLocationOfInterestIsKnownOfType_queue_r
 
 uint64_t __77__LocationStateRelay_determineIfLocationOfInterestIsKnownOfType_queue_reply___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
   {
@@ -632,19 +619,17 @@ uint64_t __77__LocationStateRelay_determineIfLocationOfInterestIsKnownOfType_que
     v5 = *(a1 + 40);
     v6 = v2;
     v7 = [v3 errorWithDomain:v4 code:v5 userInfo:0];
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "determineIfLocationOfInterestIsKnownOfType failed with error: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v7;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "determineIfLocationOfInterestIsKnownOfType failed with error: %@", &v9, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 void __77__LocationStateRelay_determineIfLocationOfInterestIsKnownOfType_queue_reply___block_invoke_19(void *a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -671,16 +656,14 @@ void __77__LocationStateRelay_determineIfLocationOfInterestIsKnownOfType_queue_r
       v14 = "known";
     }
 
-    v16 = 138412546;
-    v17 = v12;
-    v18 = 2080;
-    v19 = v14;
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "LOI type %@ is %s", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = v12;
+    v17 = 2080;
+    v18 = v14;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "LOI type %@ is %s", &v15, 0x16u);
   }
 
   (*(a1[5] + 16))();
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)rtLOITypeToString:(int64_t)string
@@ -698,7 +681,7 @@ void __77__LocationStateRelay_determineIfLocationOfInterestIsKnownOfType_queue_r
 
 - (BOOL)authorizedToUseCoreRoutine
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [(objc_class *)self->CLLocationManagerClassRef authorizationStatusForBundle:self->mobileWiFiBundle];
   v3 = netepochsLogHandle;
   v4 = os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT);
@@ -709,46 +692,46 @@ void __77__LocationStateRelay_determineIfLocationOfInterestIsKnownOfType_queue_r
       case 2:
         if (v4)
         {
-          LOWORD(v10[0]) = 0;
+          LOWORD(v9[0]) = 0;
           v5 = "CoreLocation Authorization Status for MobileWiFi is kCLAuthorizationStatusDenied";
           goto LABEL_18;
         }
 
-        goto LABEL_20;
+        return v4;
       case 3:
         if (v4)
         {
-          LOWORD(v10[0]) = 0;
-          _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "CoreLocation Authorization Status for MobileWiFi is kCLAuthorizationStatusAuthorizedAlways", v10, 2u);
+          LOWORD(v9[0]) = 0;
+          _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "CoreLocation Authorization Status for MobileWiFi is kCLAuthorizationStatusAuthorizedAlways", v9, 2u);
         }
 
         LOBYTE(v4) = 1;
-        goto LABEL_20;
+        return v4;
       case 4:
         if (v4)
         {
-          LOWORD(v10[0]) = 0;
+          LOWORD(v9[0]) = 0;
           v5 = "CoreLocation Authorization Status for MobileWiFi is kCLAuthorizationStatusAuthorizedWhenInUse";
 LABEL_18:
           v6 = v3;
           v7 = 2;
 LABEL_19:
-          _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, v5, v10, v7);
+          _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, v5, v9, v7);
           LOBYTE(v4) = 0;
-          goto LABEL_20;
+          return v4;
         }
 
-        goto LABEL_20;
+        return v4;
     }
 
 LABEL_21:
     if (!v4)
     {
-      goto LABEL_20;
+      return v4;
     }
 
-    v10[0] = 67109120;
-    v10[1] = v2;
+    v9[0] = 67109120;
+    v9[1] = v2;
     v5 = "CoreLocation Authorization Status for MobileWiFi is unknown status %d";
     v6 = v3;
     v7 = 8;
@@ -759,12 +742,12 @@ LABEL_21:
   {
     if (v4)
     {
-      LOWORD(v10[0]) = 0;
+      LOWORD(v9[0]) = 0;
       v5 = "CoreLocation Authorization Status for MobileWiFi is kCLAuthorizationStatusNotDetermined";
       goto LABEL_18;
     }
 
-    goto LABEL_20;
+    return v4;
   }
 
   if (v2 != 1)
@@ -774,13 +757,11 @@ LABEL_21:
 
   if (v4)
   {
-    LOWORD(v10[0]) = 0;
+    LOWORD(v9[0]) = 0;
     v5 = "CoreLocation Authorization Status for MobileWiFi is kCLAuthorizationStatusRestricted";
     goto LABEL_18;
   }
 
-LABEL_20:
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -832,7 +813,7 @@ LABEL_20:
 
 void __70__LocationStateRelay_callPendingLOIBlocksWithCLLocation_LOI_andError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -853,15 +834,15 @@ void __70__LocationStateRelay_callPendingLOIBlocksWithCLLocation_LOI_andError___
         v18 = [v16 timestamp];
         v19 = [*(a1 + 32) timestamp];
         [v19 timeIntervalSinceDate:v5];
-        v23 = 138413058;
-        v24 = v5;
-        v25 = 2112;
-        v26 = v18;
-        v27 = 2048;
-        v28 = v20;
-        v29 = 1024;
-        v30 = 60;
-        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Location requested at %@ but the received location was determined at %@ (%.4f > %d limit).", &v23, 0x26u);
+        v22 = 138413058;
+        v23 = v5;
+        v24 = 2112;
+        v25 = v18;
+        v26 = 2048;
+        v27 = v20;
+        v28 = 1024;
+        v29 = 60;
+        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Location requested at %@ but the received location was determined at %@ (%.4f > %d limit).", &v22, 0x26u);
       }
 
       v21 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:60 userInfo:0];
@@ -875,11 +856,11 @@ void __70__LocationStateRelay_callPendingLOIBlocksWithCLLocation_LOI_andError___
         v13 = *(a1 + 32);
         v14 = v11;
         v15 = [v13 timestamp];
-        v23 = 138412546;
-        v24 = v5;
-        v25 = 2112;
-        v26 = v15;
-        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Replying LOI for location requested at %@ (location determined at %@)", &v23, 0x16u);
+        v22 = 138412546;
+        v23 = v5;
+        v24 = 2112;
+        v25 = v15;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Replying LOI for location requested at %@ (location determined at %@)", &v22, 0x16u);
       }
 
       (*(v6 + 2))(v6, *(a1 + 40), *(a1 + 32), *(a1 + 48));
@@ -890,8 +871,6 @@ void __70__LocationStateRelay_callPendingLOIBlocksWithCLLocation_LOI_andError___
   {
     (*(v6 + 2))(v6, 0, 0, *(a1 + 48));
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanUpPendingLOIBlocks
@@ -917,7 +896,7 @@ void __70__LocationStateRelay_callPendingLOIBlocksWithCLLocation_LOI_andError___
 
 void __45__LocationStateRelay_cleanUpPendingLOIBlocks__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) timeIntervalSinceDate:v5];
@@ -927,13 +906,13 @@ void __45__LocationStateRelay_cleanUpPendingLOIBlocks__block_invoke(uint64_t a1,
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v12 = 138412802;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v9;
-      v16 = 1024;
-      v17 = 60;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Location requested at %@ but LocationStateRelay has not received a location at %@ (> %d seconds limit).", &v12, 0x1Cu);
+      v11 = 138412802;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v9;
+      v15 = 1024;
+      v16 = 60;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Location requested at %@ but LocationStateRelay has not received a location at %@ (> %d seconds limit).", &v11, 0x1Cu);
     }
 
     v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:60 userInfo:0];
@@ -941,8 +920,6 @@ void __45__LocationStateRelay_cleanUpPendingLOIBlocks__block_invoke(uint64_t a1,
 
     [*(a1 + 40) addObject:v5];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
@@ -989,15 +966,15 @@ void __45__LocationStateRelay_cleanUpPendingLOIBlocks__block_invoke(uint64_t a1,
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   errorCopy = error;
   v8 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v12 = 138412290;
-    v13 = errorCopy;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Location request failed with error: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = errorCopy;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Location request failed with error: %@", &v11, 0xCu);
   }
 
   locationRequestTimer = self->locationRequestTimer;
@@ -1009,8 +986,6 @@ void __45__LocationStateRelay_cleanUpPendingLOIBlocks__block_invoke(uint64_t a1,
   }
 
   [(LocationStateRelay *)self callPendingLOIBlocksWithCLLocation:0 LOI:0 andError:errorCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getLocationTechnologyStateForInitialState:(BOOL)state
@@ -1042,7 +1017,7 @@ void __45__LocationStateRelay_cleanUpPendingLOIBlocks__block_invoke(uint64_t a1,
 
 void __64__LocationStateRelay_getLocationTechnologyStateForInitialState___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = (*(*(a1 + 32) + 72))();
   if (v2)
   {
@@ -1055,8 +1030,8 @@ void __64__LocationStateRelay_getLocationTechnologyStateForInitialState___block_
     v5 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "Unable to get GPS cfTechnologiesInUse", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "Unable to get GPS cfTechnologiesInUse", &v8, 2u);
     }
 
     v4 = 0;
@@ -1074,18 +1049,16 @@ void __64__LocationStateRelay_getLocationTechnologyStateForInitialState___block_
         v7 = "";
       }
 
-      v9 = 136315138;
-      v10 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "GPS (baseline) is initially%s in use", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "GPS (baseline) is initially%s in use", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setGpsInUse:(BOOL)use
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_gpsInUse != use)
   {
     [(LocationStateRelay *)self willChangeValueForKey:@"gpsInUse"];
@@ -1102,13 +1075,11 @@ void __64__LocationStateRelay_getLocationTechnologyStateForInitialState___block_
         v8 = "";
       }
 
-      v10 = 136315138;
-      v11 = v8;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "GPS is%s in use", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = v8;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "GPS is%s in use", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLOIUseAuthorized:(BOOL)authorized

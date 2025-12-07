@@ -42,7 +42,7 @@
 {
   feedbackCopy = feedback;
   detentFeedback = [(_UIFluidSliderFeedbackConfiguration *)self detentFeedback];
-  if ([feedbackCopy isEqual:detentFeedback])
+  if (objc_msgSend_isEqual_(feedbackCopy))
   {
 
 LABEL_4:
@@ -51,9 +51,9 @@ LABEL_4:
   }
 
   selectionFeedback = [(_UIFluidSliderFeedbackConfiguration *)self selectionFeedback];
-  v11 = [feedbackCopy isEqual:selectionFeedback];
+  isEqual = objc_msgSend_isEqual_(feedbackCopy);
 
-  if (v11)
+  if (isEqual)
   {
     goto LABEL_4;
   }

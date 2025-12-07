@@ -16,38 +16,35 @@
 
 - (id)handleRequestCommandTypeNames
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = +[(CDMBaseCommand *)CDMLVCRequestCommand];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 setWithArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)getCDMServiceAssetConfig
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(CDMServiceAssetConfig);
-  v7 = @"model_bundle_lvc";
-  v8 = @"com.apple.siri.nl.lvc";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = @"model_bundle_lvc";
+  v7 = @"com.apple.siri.nl.lvc";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CDMServiceAssetConfig *)v2 addCDMFactorToFoldersMapping:v4 forAssetSet:0];
 
   [(CDMServiceAssetConfig *)v2 setIsAssetRequiredForSetup:0];
-  v5 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (BOOL)initializeLVCOverrides:(id)overrides
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   overridesCopy = overrides;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   if ([defaultManager fileExistsAtPath:overridesCopy])
@@ -66,11 +63,11 @@
         v10 = "YES";
       }
 
-      v13 = 136315394;
-      v14 = "[CDMLVCService initializeLVCOverrides:]";
-      v15 = 2080;
-      v16 = v10;
-      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s Override proxy returned the following for loading LVC overrides: %s", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[CDMLVCService initializeLVCOverrides:]";
+      v14 = 2080;
+      v15 = v10;
+      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s Override proxy returned the following for loading LVC overrides: %s", &v12, 0x16u);
     }
   }
 
@@ -79,32 +76,31 @@
     v9 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v13 = 136315394;
-      v14 = "[CDMLVCService initializeLVCOverrides:]";
-      v15 = 2112;
-      v16 = overridesCopy;
-      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Unable to initialize LVC override from path %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[CDMLVCService initializeLVCOverrides:]";
+      v14 = 2112;
+      v15 = overridesCopy;
+      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Unable to initialize LVC override from path %@", &v12, 0x16u);
     }
 
     LOBYTE(v8) = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (id)getSNLPLanguageVariantClassifierPath:(id)path error:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315394;
-    v15 = "[CDMLVCService getSNLPLanguageVariantClassifierPath:error:]";
-    v16 = 2112;
-    v17 = pathCopy;
-    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s creating SNLPLanguageVariantClassifier: %@", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[CDMLVCService getSNLPLanguageVariantClassifierPath:error:]";
+    v15 = 2112;
+    v16 = pathCopy;
+    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s creating SNLPLanguageVariantClassifier: %@", &v13, 0x16u);
   }
 
   v8 = [MEMORY[0x1E69D1468] classifierWithPathURL:pathCopy error:error];
@@ -114,48 +110,45 @@
   v10 = self->_lvcOrchestrator;
   v11 = v10;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)doInference:(id)inference error:(id *)error
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   inferenceCopy = inference;
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315138;
-    v13 = "[CDMLVCService doInference:error:]";
-    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s Start LVC", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[CDMLVCService doInference:error:]";
+    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s Start LVC", &v11, 0xCu);
   }
 
   v8 = [(SNLPLanguageVariantClassifier *)self->_lvcOrchestrator responseForRequest:inferenceCopy error:error];
   v9 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315138;
-    v13 = "[CDMLVCService doInference:error:]";
-    _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s LVC finished", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[CDMLVCService doInference:error:]";
+    _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s LVC finished", &v11, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (void)_prewarmModelWithEmbeddingConfigItem:(id)item
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   embeddingModelDimension = [item embeddingModelDimension];
   v5 = [CDMNLServiceUtils buildSetupITFMRequest:embeddingModelDimension];
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
   lvcOrchestrator = selfCopy->_lvcOrchestrator;
-  v13 = 0;
-  v8 = [(SNLPLanguageVariantClassifier *)lvcOrchestrator responseForRequest:v5 error:&v13];
-  v9 = v13;
+  v12 = 0;
+  v8 = [(SNLPLanguageVariantClassifier *)lvcOrchestrator responseForRequest:v5 error:&v12];
+  v9 = v12;
   if (!v8)
   {
     v10 = CDMOSLoggerForCategory(0);
@@ -163,27 +156,26 @@
     {
       localizedDescription = [v9 localizedDescription];
       *buf = 136315394;
-      v15 = "[CDMLVCService _prewarmModelWithEmbeddingConfigItem:]";
-      v16 = 2112;
-      v17 = localizedDescription;
+      v14 = "[CDMLVCService _prewarmModelWithEmbeddingConfigItem:]";
+      v15 = 2112;
+      v16 = localizedDescription;
       _os_log_error_impl(&dword_1DC287000, v10, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to run warm-up inference call: %@", buf, 0x16u);
     }
   }
 
   objc_sync_exit(selfCopy);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)warmup:(id)warmup
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   warmupCopy = warmup;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v15 = 136315138;
-    v16 = "[CDMLVCService warmup:]";
-    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Prewarm LVC model", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "[CDMLVCService warmup:]";
+    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Prewarm LVC model", &v14, 0xCu);
   }
 
   if (+[CDMUserDefaultsUtils prewarmModels])
@@ -200,9 +192,9 @@
     embeddingConfigs = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(embeddingConfigs, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315138;
-      v16 = "[CDMLVCService warmup:]";
-      _os_log_debug_impl(&dword_1DC287000, embeddingConfigs, OS_LOG_TYPE_DEBUG, "%s Model prewarming is turned off. LVC will not prewarm.", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "[CDMLVCService warmup:]";
+      _os_log_debug_impl(&dword_1DC287000, embeddingConfigs, OS_LOG_TYPE_DEBUG, "%s Model prewarming is turned off. LVC will not prewarm.", &v14, 0xCu);
     }
   }
 
@@ -211,20 +203,18 @@
   serviceName = [(CDMBaseService *)self serviceName];
   v12 = [(CDMWarmupResponseCommand *)v9 initWithServiceState:serviceState serviceName:serviceName];
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)setup:(id)setup
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   v6 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v39 = "[CDMLVCService setup:]";
+    v38 = "[CDMLVCService setup:]";
     _os_log_impl(&dword_1DC287000, v6, OS_LOG_TYPE_INFO, "%s LVC model setup", buf, 0xCu);
   }
 
@@ -242,7 +232,7 @@
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v39 = "[CDMLVCService setup:]";
+      v38 = "[CDMLVCService setup:]";
       v23 = "%s Bundle not found for the LVC service";
 LABEL_16:
       _os_log_impl(&dword_1DC287000, v22, OS_LOG_TYPE_INFO, v23, buf, 0xCu);
@@ -263,7 +253,7 @@ LABEL_17:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v39 = "[CDMLVCService setup:]";
+      v38 = "[CDMLVCService setup:]";
       v23 = "%s Language variant classifier asset path not found";
       goto LABEL_16;
     }
@@ -275,17 +265,17 @@ LABEL_17:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v39 = "[CDMLVCService setup:]";
-    v40 = 2112;
-    v41 = v12;
+    v38 = "[CDMLVCService setup:]";
+    v39 = 2112;
+    v40 = v12;
     _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s LVC service passing assets path to SNLPLanguageVariantClassifier: %@", buf, 0x16u);
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v35 = 0;
-  v15 = [(CDMLVCService *)selfCopy getSNLPLanguageVariantClassifierPath:v12 error:&v35];
-  v34 = v35;
+  v34 = 0;
+  v15 = [(CDMLVCService *)selfCopy getSNLPLanguageVariantClassifierPath:v12 error:&v34];
+  v33 = v34;
 
   if (v15)
   {
@@ -302,7 +292,7 @@ LABEL_17:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v39 = "[CDMLVCService setup:]";
+        v38 = "[CDMLVCService setup:]";
         _os_log_impl(&dword_1DC287000, v21, OS_LOG_TYPE_INFO, "%s Trie Overrides: Loaded LVC overrides bundle", buf, 0xCu);
       }
     }
@@ -313,21 +303,21 @@ LABEL_17:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v39 = "[CDMLVCService setup:]";
+        v38 = "[CDMLVCService setup:]";
         _os_log_error_impl(&dword_1DC287000, v27, OS_LOG_TYPE_ERROR, "%s [ERR]: Trie Overrides: Failed to load LVC overrides bundle", buf, 0xCu);
       }
 
       selfCopy->super.super._serviceState = 4;
       createSetupResponseCommand = [(CDMBaseService *)selfCopy createSetupResponseCommand];
       v28 = MEMORY[0x1E696ABC0];
-      v36 = *MEMORY[0x1E696A588];
-      v37 = @"Failed to load LVC overrides bundle";
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v35 = *MEMORY[0x1E696A588];
+      v36 = @"Failed to load LVC overrides bundle";
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
       v29 = [v28 errorWithDomain:*MEMORY[0x1E69D14E0] code:0 userInfo:v21];
       [createSetupResponseCommand setCmdError:v29];
     }
 
-    v26 = v34;
+    v26 = v33;
   }
 
   else
@@ -335,18 +325,18 @@ LABEL_17:
     v25 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      localizedDescription = [v34 localizedDescription];
+      localizedDescription = [v33 localizedDescription];
       *buf = 136315394;
-      v39 = "[CDMLVCService setup:]";
-      v40 = 2112;
-      v41 = localizedDescription;
+      v38 = "[CDMLVCService setup:]";
+      v39 = 2112;
+      v40 = localizedDescription;
       _os_log_error_impl(&dword_1DC287000, v25, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to create LVC Orchestrator: %@", buf, 0x16u);
     }
 
     selfCopy->super.super._serviceState = 3;
     createSetupResponseCommand = [(CDMBaseService *)selfCopy createSetupResponseCommand];
-    v26 = v34;
-    [createSetupResponseCommand setCmdError:v34];
+    v26 = v33;
+    [createSetupResponseCommand setCmdError:v33];
     v20 = 0;
   }
 
@@ -357,7 +347,7 @@ LABEL_17:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v39 = "[CDMLVCService setup:]";
+      v38 = "[CDMLVCService setup:]";
       _os_log_impl(&dword_1DC287000, v30, OS_LOG_TYPE_INFO, "%s LVC model loaded", buf, 0xCu);
     }
 
@@ -368,20 +358,18 @@ LABEL_17:
   v24 = v12;
 LABEL_30:
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return createSetupResponseCommand;
 }
 
 - (id)handle:(id)handle
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v57 = "[CDMLVCService handle:]";
+    v56 = "[CDMLVCService handle:]";
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Running LVC inference...", buf, 0xCu);
   }
 
@@ -396,9 +384,9 @@ LABEL_30:
       if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v57 = "[CDMLVCService handle:]";
-        v58 = 2112;
-        v59 = @"lvc";
+        v56 = "[CDMLVCService handle:]";
+        v57 = 2112;
+        v58 = @"lvc";
         _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s [insights-cdm-%@]:\nLVC override start matching", buf, 0x16u);
         overrideProxy = selfCopy->_overrideProxy;
       }
@@ -427,7 +415,7 @@ LABEL_30:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v57 = "[CDMLVCService handle:]";
+        v56 = "[CDMLVCService handle:]";
         _os_log_error_impl(&dword_1DC287000, v17, OS_LOG_TYPE_ERROR, "%s [ERR]: _lvcOrchestrator not initialized", buf, 0xCu);
       }
     }
@@ -441,9 +429,9 @@ LABEL_30:
       v22 = originalUtterance;
       uTF8String = [originalUtterance UTF8String];
       *buf = 136315394;
-      v57 = "[CDMLVCService handle:]";
-      v58 = 2080;
-      v59 = uTF8String;
+      v56 = "[CDMLVCService handle:]";
+      v57 = 2080;
+      v58 = uTF8String;
       _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_INFO, "%s LVC Request for utterance: %s", buf, 0x16u);
     }
 
@@ -451,47 +439,47 @@ LABEL_30:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v57 = "[CDMLVCService handle:]";
+      v56 = "[CDMLVCService handle:]";
       _os_log_impl(&dword_1DC287000, v24, OS_LOG_TYPE_INFO, "%s Handling LVC Request", buf, 0xCu);
     }
 
     if (+[CDMFeatureFlags isLogNluEnabled])
     {
       parserRequest2 = [handleCopy parserRequest];
-      v55 = 0;
-      v26 = [CDMNluLogUtil writeLVCRequestToDisk:parserRequest2 error:&v55];
+      v54 = 0;
+      v26 = [CDMNluLogUtil writeLVCRequestToDisk:parserRequest2 error:&v54];
     }
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     parserRequest3 = [handleCopy parserRequest];
     tokenisedUtterance2 = [parserRequest3 tokenisedUtterance];
     tokenChain = [tokenisedUtterance2 tokenChain];
     tokens = [tokenChain tokens];
 
-    v31 = [tokens countByEnumeratingWithState:&v51 objects:v62 count:16];
+    v31 = [tokens countByEnumeratingWithState:&v50 objects:v61 count:16];
     if (v31)
     {
-      v32 = *v52;
+      v32 = *v51;
 LABEL_26:
       v33 = 0;
       while (1)
       {
-        if (*v52 != v32)
+        if (*v51 != v32)
         {
           objc_enumerationMutation(tokens);
         }
 
-        if (([*(*(&v51 + 1) + 8 * v33) isWhitespace] & 1) == 0)
+        if (([*(*(&v50 + 1) + 8 * v33) isWhitespace] & 1) == 0)
         {
           break;
         }
 
         if (v31 == ++v33)
         {
-          v31 = [tokens countByEnumeratingWithState:&v51 objects:v62 count:16];
+          v31 = [tokens countByEnumeratingWithState:&v50 objects:v61 count:16];
           if (v31)
           {
             goto LABEL_26;
@@ -504,9 +492,9 @@ LABEL_26:
       v34 = selfCopy;
       objc_sync_enter(v34);
       parserRequest4 = [handleCopy parserRequest];
-      v50 = 0;
-      v36 = [v34 doInference:parserRequest4 error:&v50];
-      v37 = v50;
+      v49 = 0;
+      v36 = [v34 doInference:parserRequest4 error:&v49];
+      v37 = v49;
 
       if (v36)
       {
@@ -521,7 +509,7 @@ LABEL_26:
           if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v57 = "[CDMLVCService handle:]";
+            v56 = "[CDMLVCService handle:]";
             _os_log_debug_impl(&dword_1DC287000, v40, OS_LOG_TYPE_DEBUG, "%s LVC returned no hypotheses", buf, 0xCu);
           }
         }
@@ -530,11 +518,11 @@ LABEL_26:
         if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315650;
-          v57 = "[CDMLVCService handle:]";
-          v58 = 2112;
-          v59 = @"lvc";
-          v60 = 2112;
-          v61 = v36;
+          v56 = "[CDMLVCService handle:]";
+          v57 = 2112;
+          v58 = @"lvc";
+          v59 = 2112;
+          v60 = v36;
           _os_log_debug_impl(&dword_1DC287000, v41, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nLVC Parser Response: %@", buf, 0x20u);
         }
 
@@ -546,9 +534,9 @@ LABEL_26:
       {
         localizedDescription = [v37 localizedDescription];
         *buf = 136315394;
-        v57 = "[CDMLVCService handle:]";
-        v58 = 2112;
-        v59 = localizedDescription;
+        v56 = "[CDMLVCService handle:]";
+        v57 = 2112;
+        v58 = localizedDescription;
         _os_log_error_impl(&dword_1DC287000, v42, OS_LOG_TYPE_ERROR, "%s [ERR]: LVC inference failed with error: %@", buf, 0x16u);
       }
 
@@ -563,7 +551,7 @@ LABEL_32:
       if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v57 = "[CDMLVCService handle:]";
+        v56 = "[CDMLVCService handle:]";
         _os_log_impl(&dword_1DC287000, v34, OS_LOG_TYPE_INFO, "%s No non whitespace tokens found. Skipping call to LVC model inference.", buf, 0xCu);
       }
     }
@@ -572,7 +560,7 @@ LABEL_32:
     if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v57 = "[CDMLVCService handle:]";
+      v56 = "[CDMLVCService handle:]";
       _os_log_impl(&dword_1DC287000, v43, OS_LOG_TYPE_INFO, "%s Given that LVC model call has been incomplete, returning an empty response.", buf, 0xCu);
     }
 
@@ -581,8 +569,8 @@ LABEL_47:
     v44 = [CDMNLServiceUtils buildLVCResponse:v36 lvcRequest:handleCopy];
     if (+[CDMFeatureFlags isLogNluEnabled])
     {
-      v49 = 0;
-      v45 = [CDMNluLogUtil writeLVCResponseToDisk:v36 error:&v49];
+      v48 = 0;
+      v45 = [CDMNluLogUtil writeLVCResponseToDisk:v36 error:&v48];
     }
 
     objc_sync_exit(selfCopy);
@@ -598,9 +586,9 @@ LABEL_47:
     {
       serviceState = self->super.super._serviceState;
       *buf = 136315394;
-      v57 = "[CDMLVCService handle:]";
-      v58 = 2048;
-      v59 = serviceState;
+      v56 = "[CDMLVCService handle:]";
+      v57 = 2048;
+      v58 = serviceState;
       _os_log_impl(&dword_1DC287000, v15, OS_LOG_TYPE_INFO, "%s Not Ready! State: %tu", buf, 0x16u);
     }
 
@@ -611,14 +599,12 @@ LABEL_47:
 
 LABEL_50:
 
-  v46 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (id)buildMultiLingualVariant:(id)variant
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   variantCopy = variant;
   if ([variantCopy hasLvcOverrideValue] && (objc_msgSend(variantCopy, "lvcOverrideValue"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "hasLvcValue"), v4, v5))
   {
@@ -638,13 +624,13 @@ LABEL_50:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       dictionaryRepresentation = [v7 dictionaryRepresentation];
-      v19 = 136315650;
-      v20 = "+[CDMLVCService buildMultiLingualVariant:]";
-      v21 = 2112;
-      v22 = @"lvc";
-      v23 = 2112;
-      v24 = dictionaryRepresentation;
-      _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s [insights-cdm-%@]:\nLVC override found:%@", &v19, 0x20u);
+      v18 = 136315650;
+      v19 = "+[CDMLVCService buildMultiLingualVariant:]";
+      v20 = 2112;
+      v21 = @"lvc";
+      v22 = 2112;
+      v23 = dictionaryRepresentation;
+      _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s [insights-cdm-%@]:\nLVC override found:%@", &v18, 0x20u);
     }
 
     [array addObject:v7];
@@ -661,21 +647,19 @@ LABEL_50:
     v15 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 + (id)assetsPathURLForModelBundle:(id)bundle
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   resourcePath = [bundleCopy resourcePath];
-  v11 = 0;
+  v10 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v6 = [defaultManager fileExistsAtPath:resourcePath isDirectory:&v11];
+  v6 = [defaultManager fileExistsAtPath:resourcePath isDirectory:&v10];
 
-  if (v6 && (v11 & 1) != 0)
+  if (v6 && (v10 & 1) != 0)
   {
     v7 = [MEMORY[0x1E695DFF8] fileURLWithPath:resourcePath isDirectory:1];
   }
@@ -686,16 +670,14 @@ LABEL_50:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v13 = "+[CDMLVCService assetsPathURLForModelBundle:]";
-      v14 = 2112;
-      v15 = resourcePath;
+      v12 = "+[CDMLVCService assetsPathURLForModelBundle:]";
+      v13 = 2112;
+      v14 = resourcePath;
       _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s [WARN]: LVC assets path does not exist or is not a directory: %@", buf, 0x16u);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

@@ -3,6 +3,7 @@
 + (id)objectForKey:(id)key;
 + (id)settingsBundle;
 + (id)settingsDefaults;
++ (void)setBool:(BOOL)bool forKey:(id)key;
 + (void)setObject:(id)object forKey:(id)key;
 @end
 
@@ -28,6 +29,14 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
++ (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  v7 = [NSNumber numberWithBool:boolCopy];
+  [self setObject:v7 forKey:keyCopy];
 }
 
 + (id)objectForKey:(id)key

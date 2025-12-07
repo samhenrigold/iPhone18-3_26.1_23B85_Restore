@@ -10,43 +10,41 @@
 
 - (void)encodeWithCoder:()Accounts
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = a3;
   entity = [self entity];
   attributesByName = [entity attributesByName];
   allKeys = [attributesByName allKeys];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = allKeys;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
-        v14 = [self valueForKey:{v13, v16}];
+        v13 = *(*(&v15 + 1) + 8 * i);
+        v14 = [self valueForKey:{v13, v15}];
         [v4 encodeObject:v14 forKey:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_obsoleteAttributes
@@ -56,14 +54,14 @@
     [NSManagedObject(Accounts) _obsoleteAttributes];
   }
 
-  v1 = __sACDObsoleteAttributes;
+  v2 = __sACDObsoleteAttributes;
 
-  return v1;
+  return v2;
 }
 
 - (id)_removeObsoleteKeysFromDictionary:()Accounts
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = MEMORY[0x1E695DFD8];
   allKeys = [v4 allKeys];
@@ -73,29 +71,29 @@
   if ([_obsoleteAttributes intersectsSet:v7])
   {
     v9 = [v4 mutableCopy];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v10 = _obsoleteAttributes;
-    v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v17;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [v9 removeObjectForKey:{*(*(&v17 + 1) + 8 * i), v17}];
+          [v9 removeObjectForKey:{*(*(&v16 + 1) + 8 * i), v16}];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v12);
@@ -107,14 +105,12 @@
     v9 = v4;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (void)setValuesWithObject:()Accounts
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = a3;
   entity = [self entity];
   attributesByName = [entity attributesByName];
@@ -127,25 +123,25 @@
   if (objc_opt_respondsToSelector())
   {
     dirtyProperties = [v4 dirtyProperties];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v12 = [dirtyProperties countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [dirtyProperties countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(dirtyProperties);
           }
 
-          v16 = *(*(&v20 + 1) + 8 * i);
+          v16 = *(*(&v19 + 1) + 8 * i);
           if ([allKeys containsObject:v16])
           {
             v17 = [v4 valueForKey:v16];
@@ -158,7 +154,7 @@
           }
         }
 
-        v13 = [dirtyProperties countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [dirtyProperties countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v13);
@@ -171,37 +167,35 @@
     v18 = [self _removeObsoleteKeysFromDictionary:dirtyProperties];
     [self setValuesForKeysWithDictionary:v18];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)validateRequiredAttributesForObject:()Accounts error:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = a3;
   entity = [self entity];
   attributesByName = [entity attributesByName];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   allKeys = [attributesByName allKeys];
-  v10 = [allKeys countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v14 = *(*(&v24 + 1) + 8 * i);
+        v14 = *(*(&v23 + 1) + 8 * i);
         v15 = [attributesByName objectForKey:v14];
         isOptional = [v15 isOptional];
 
@@ -225,7 +219,7 @@
         }
       }
 
-      v11 = [allKeys countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v11)
       {
         continue;
@@ -238,7 +232,6 @@
   v18 = 1;
 LABEL_14:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

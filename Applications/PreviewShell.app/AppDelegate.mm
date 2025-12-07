@@ -13,7 +13,7 @@
     swift_once();
   }
 
-  type metadata accessor for PreviewShellService();
+  type metadata accessor for PreviewShellService(0);
   sub_1000374B8();
   PreviewShellServiceProtocol.activateServers()();
   return 1;

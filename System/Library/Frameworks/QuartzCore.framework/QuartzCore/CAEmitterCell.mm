@@ -878,8 +878,8 @@
   CAEmitterCell_getter(self, 0x96u, 0x15, &v6);
   v3 = *(&v6 + 1);
   v2 = *&v6;
-  v5 = v7[1];
   v4 = v7[0];
+  v5 = v7[1];
   result.size.height = v5;
   result.size.width = v4;
   result.origin.y = v3;
@@ -1265,19 +1265,19 @@
 
 - (BOOL)CA_validateValue:(id)value forKey:(id)key
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (value && ([key isEqualToString:@"emitterCells"] || objc_msgSend(key, "isEqualToString:", @"emitterBehaviors")))
   {
-    objc_opt_class();
+    v7 = objc_opt_class();
 
-    return CAObject_validateArrayOfClass(value);
+    return CAObject_validateArrayOfClass(value, v7);
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = CAEmitterCell;
-    return [&v8 CA_validateValue:value forKey:key];
+    v9.receiver = self;
+    v9.super_class = CAEmitterCell;
+    return [&v9 CA_validateValue:value forKey:key];
   }
 }
 
@@ -1487,18 +1487,18 @@
     v4 = CFGetTypeID(contents);
     if (v4 == CGImageGetTypeID())
     {
-      v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 576);
-      if (v6 && (v7 = *(v6 + 40)) != 0)
+      v7 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 576);
+      if (v7 && (v8 = *(v7 + 40)) != 0)
       {
-        v8 = *(v7 + 112);
+        v9 = *(v8 + 112);
       }
 
       else
       {
-        v8 = CAGetColorSpace(36);
+        v9 = CAGetColorSpace(36);
       }
 
-      CA::Render::prepare_image(v3, v8, 0, v5);
+      CA::Render::prepare_image(v3, v9, 0, v5, v6);
     }
   }
 }

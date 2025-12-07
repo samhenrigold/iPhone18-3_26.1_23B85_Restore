@@ -3,7 +3,7 @@
 
 @implementation PAE
 
-uint64_t __26__PAE_HLG_OETF_properties__block_invoke()
+void *__26__PAE_HLG_OETF_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:1];
@@ -19,7 +19,7 @@ uint64_t __26__PAE_HLG_OETF_properties__block_invoke()
   return result;
 }
 
-uint64_t __34__PAE_HLG_Inverse_OETF_properties__block_invoke()
+void *__34__PAE_HLG_Inverse_OETF_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:1];

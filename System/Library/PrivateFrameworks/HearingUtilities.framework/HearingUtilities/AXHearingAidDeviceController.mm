@@ -79,9 +79,11 @@
 
 uint64_t __48__AXHearingAidDeviceController_sharedController__block_invoke()
 {
-  sharedController_HearingAidController = objc_alloc_init(AXHearingAidDeviceController);
+  v0 = objc_alloc_init(AXHearingAidDeviceController);
+  v1 = sharedController_HearingAidController;
+  sharedController_HearingAidController = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)searchForAvailableDevicesWithCompletion:(id)completion
@@ -145,36 +147,36 @@ void __72__AXHearingAidDeviceController_searchForAvailableDevicesWithCompletion_
   return v3;
 }
 
-void __52__AXHearingAidDeviceController_scanningServiceUUIDs__block_invoke()
+void __52__AXHearingAidDeviceController_scanningServiceUUIDs__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = scanningServiceUUIDs_scanningServiceUUIDs;
-  scanningServiceUUIDs_scanningServiceUUIDs = v0;
+  v2 = objc_opt_new();
+  v3 = scanningServiceUUIDs_scanningServiceUUIDs;
+  scanningServiceUUIDs_scanningServiceUUIDs = v2;
 
   if ([MEMORY[0x1E69A4560] isLEAudioEnabled])
   {
-    v2 = HCLogHearingAids();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v4 = HCLogHearingAids();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DA5E2000, v2, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Scanning LEA 3", buf, 2u);
+      _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Scanning LEA 3", buf, 2u);
     }
 
-    v3 = scanningServiceUUIDs_scanningServiceUUIDs;
-    v4 = [MEMORY[0x1E695D2A0] UUIDWithString:@"1854"];
-    [v3 axSafelyAddObject:v4];
+    v5 = scanningServiceUUIDs_scanningServiceUUIDs;
+    v6 = [MEMORY[0x1E695D2A0] UUIDWithString:@"1854"];
+    [v5 axSafelyAddObject:v6];
   }
 
-  v5 = HCLogHearingAids();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v7 = HCLogHearingAids();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Scanning MFi", v8, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Scanning MFi", v10, 2u);
   }
 
-  v6 = scanningServiceUUIDs_scanningServiceUUIDs;
-  v7 = [MEMORY[0x1E695D2A0] UUIDWithString:@"7D74F4BD-C74A-4431-862C-CCE884371592"];
-  [v6 axSafelyAddObject:v7];
+  v8 = scanningServiceUUIDs_scanningServiceUUIDs;
+  v9 = [MEMORY[0x1E695D2A0] UUIDWithString:@"7D74F4BD-C74A-4431-862C-CCE884371592"];
+  [v8 axSafelyAddObject:v9];
 }
 
 - (AXHearingAidDeviceController)init
@@ -328,7 +330,7 @@ void __36__AXHearingAidDeviceController_init__block_invoke_2(uint64_t a1)
 
 void __61__AXHearingAidDeviceController_setupCentralManagerForLEAudio__block_invoke(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -346,11 +348,11 @@ void __61__AXHearingAidDeviceController_setupCentralManagerForLEAudio__block_inv
     {
       v11 = [v9 UUIDString];
       v12 = [MEMORY[0x1E696AD98] numberWithInteger:{-[NSObject sessionState](v5, "sessionState")}];
-      v34 = 138412546;
-      v35 = v11;
-      v36 = 2112;
-      v37 = v12;
-      _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController LEA 3: session update - ID %@, state %@", &v34, 0x16u);
+      v33 = 138412546;
+      v34 = v11;
+      v35 = 2112;
+      v36 = v12;
+      _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController LEA 3: session update - ID %@, state %@", &v33, 0x16u);
     }
 
     v13 = HCLogHearingAids();
@@ -359,13 +361,13 @@ void __61__AXHearingAidDeviceController_setupCentralManagerForLEAudio__block_inv
       v14 = [MEMORY[0x1E696AD98] numberWithInteger:{-[NSObject eventType](v3, "eventType")}];
       v15 = [v5 connectedIdentifiers];
       v16 = [v5 locations];
-      v34 = 138412802;
-      v35 = v14;
-      v36 = 2112;
-      v37 = v15;
-      v38 = 2112;
-      v39 = v16;
-      _os_log_impl(&dword_1DA5E2000, v13, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController LEA 3: session update - eventType %@, connectedIdentifiers %@, locations %@", &v34, 0x20u);
+      v33 = 138412802;
+      v34 = v14;
+      v35 = 2112;
+      v36 = v15;
+      v37 = 2112;
+      v38 = v16;
+      _os_log_impl(&dword_1DA5E2000, v13, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController LEA 3: session update - eventType %@, connectedIdentifiers %@, locations %@", &v33, 0x20u);
     }
 
     if ([v3 eventType]== 1)
@@ -380,11 +382,11 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      v34 = 138412290;
-      v35 = WeakRetained;
+      v33 = 138412290;
+      v34 = WeakRetained;
       v19 = "LEA 3: session update - peripheral ready, connectedIdentifiers %@";
 LABEL_11:
-      _os_log_impl(&dword_1DA5E2000, v18, OS_LOG_TYPE_DEFAULT, v19, &v34, 0xCu);
+      _os_log_impl(&dword_1DA5E2000, v18, OS_LOG_TYPE_DEFAULT, v19, &v33, 0xCu);
       goto LABEL_17;
     }
 
@@ -395,11 +397,11 @@ LABEL_11:
       {
         v21 = [v5 connectedIdentifiers];
         v22 = [v5 locations];
-        v34 = 138412546;
-        v35 = v21;
-        v36 = 2112;
-        v37 = v22;
-        _os_log_impl(&dword_1DA5E2000, v20, OS_LOG_TYPE_DEFAULT, "LEA 3: session update - connected, connectedIdentifiers %@, locations %@", &v34, 0x16u);
+        v33 = 138412546;
+        v34 = v21;
+        v35 = 2112;
+        v36 = v22;
+        _os_log_impl(&dword_1DA5E2000, v20, OS_LOG_TYPE_DEFAULT, "LEA 3: session update - connected, connectedIdentifiers %@, locations %@", &v33, 0x16u);
       }
 
       WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -412,17 +414,17 @@ LABEL_11:
     {
       if ([v3 eventType]== 2)
       {
-        v25 = [v5 sessionState];
+        v24 = [v5 sessionState];
         WeakRetained = HCLogHearingAids();
         if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = [v9 UUIDString];
-          v27 = [MEMORY[0x1E696AD98] numberWithInteger:v25];
-          v34 = 138412546;
-          v35 = v26;
-          v36 = 2112;
-          v37 = v27;
-          _os_log_impl(&dword_1DA5E2000, WeakRetained, OS_LOG_TYPE_DEFAULT, "LEA 3: session update - ID %@, new state %@", &v34, 0x16u);
+          v25 = [v9 UUIDString];
+          v26 = [MEMORY[0x1E696AD98] numberWithInteger:v24];
+          v33 = 138412546;
+          v34 = v25;
+          v35 = 2112;
+          v36 = v26;
+          _os_log_impl(&dword_1DA5E2000, WeakRetained, OS_LOG_TYPE_DEFAULT, "LEA 3: session update - ID %@, new state %@", &v33, 0x16u);
         }
 
         goto LABEL_18;
@@ -431,17 +433,17 @@ LABEL_11:
       if ([v3 eventType]== 2)
       {
         WeakRetained = [v3 updatedValue];
-        v28 = objc_loadWeakRetained((a1 + 40));
-        v18 = [v28 pairedHearingDevice];
+        v27 = objc_loadWeakRetained((a1 + 40));
+        v18 = [v27 pairedHearingDevice];
 
-        v29 = HCLogHearingAids();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v28 = HCLogHearingAids();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          v34 = 138412546;
-          v35 = WeakRetained;
-          v36 = 2112;
-          v37 = v18;
-          _os_log_impl(&dword_1DA5E2000, v29, OS_LOG_TYPE_DEFAULT, "LEA 3: session update - volume %@, paired HearingDevice: %@", &v34, 0x16u);
+          v33 = 138412546;
+          v34 = WeakRetained;
+          v35 = 2112;
+          v36 = v18;
+          _os_log_impl(&dword_1DA5E2000, v28, OS_LOG_TYPE_DEFAULT, "LEA 3: session update - volume %@, paired HearingDevice: %@", &v33, 0x16u);
         }
 
         [v18 sessionDidUpdateValue:WeakRetained forProperty:0x4000000000];
@@ -457,8 +459,8 @@ LABEL_11:
           goto LABEL_17;
         }
 
-        v34 = 138412290;
-        v35 = WeakRetained;
+        v33 = 138412290;
+        v34 = WeakRetained;
         v19 = "LEA 3: session update - volume offset %@";
         goto LABEL_11;
       }
@@ -472,8 +474,8 @@ LABEL_11:
           goto LABEL_17;
         }
 
-        v34 = 138412290;
-        v35 = WeakRetained;
+        v33 = 138412290;
+        v34 = WeakRetained;
         v19 = "LEA 3: session update - volume mute %@";
         goto LABEL_11;
       }
@@ -485,9 +487,9 @@ LABEL_11:
           WeakRetained = HCLogHearingAids();
           if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
           {
-            v34 = 138412290;
-            v35 = v3;
-            _os_log_impl(&dword_1DA5E2000, WeakRetained, OS_LOG_TYPE_DEFAULT, "LEA 3: session update - unknown event %@", &v34, 0xCu);
+            v33 = 138412290;
+            v34 = v3;
+            _os_log_impl(&dword_1DA5E2000, WeakRetained, OS_LOG_TYPE_DEFAULT, "LEA 3: session update - unknown event %@", &v33, 0xCu);
           }
 
           goto LABEL_18;
@@ -500,30 +502,30 @@ LABEL_11:
           goto LABEL_17;
         }
 
-        v34 = 138412290;
-        v35 = WeakRetained;
+        v33 = 138412290;
+        v34 = WeakRetained;
         v19 = "LEA 3: session update - mic mute %@";
         goto LABEL_11;
       }
 
       WeakRetained = [v3 updatedValue];
-      v30 = objc_loadWeakRetained((a1 + 40));
-      v18 = [v30 pairedHearingDevice];
+      v29 = objc_loadWeakRetained((a1 + 40));
+      v18 = [v29 pairedHearingDevice];
 
-      v31 = HCLogHearingAids();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v30 = HCLogHearingAids();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = 138412546;
-        v35 = WeakRetained;
-        v36 = 2112;
-        v37 = v18;
-        _os_log_impl(&dword_1DA5E2000, v31, OS_LOG_TYPE_DEFAULT, "LEA 3: session update - mic gain %@, paired HearingDevice: %@", &v34, 0x16u);
+        v33 = 138412546;
+        v34 = WeakRetained;
+        v35 = 2112;
+        v36 = v18;
+        _os_log_impl(&dword_1DA5E2000, v30, OS_LOG_TYPE_DEFAULT, "LEA 3: session update - mic gain %@, paired HearingDevice: %@", &v33, 0x16u);
       }
 
       [WeakRetained floatValue];
-      v33 = v32 / 255.0;
-      [v18 setLeftMicrophoneVolume:v33];
-      [v18 setRightMicrophoneVolume:v33];
+      v32 = v31 / 255.0;
+      [v18 setLeftMicrophoneVolume:v32];
+      [v18 setRightMicrophoneVolume:v32];
       v23 = +[AXHearingAidDeviceController sharedController];
       [v23 device:v18 didUpdateProperty:64];
     }
@@ -538,8 +540,6 @@ LABEL_11:
   }
 
 LABEL_19:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processConnectedIdentifiers:(id)identifiers andLocations:(id)locations
@@ -573,15 +573,15 @@ LABEL_19:
 
 void __73__AXHearingAidDeviceController_processConnectedIdentifiers_andLocations___block_invoke(uint64_t a1)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 40);
   v3 = [*(*(a1 + 32) + 40) retrievePeripheralsWithIdentifiers:*(a1 + 40)];
   v4 = HCLogHearingAids();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v51 = 138412290;
-    v52 = v3;
-    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "CentralManager LEA 3: session connected peripherals %@", &v51, 0xCu);
+    v50 = 138412290;
+    v51 = v3;
+    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "CentralManager LEA 3: session connected peripherals %@", &v50, 0xCu);
   }
 
   v5 = [v3 count];
@@ -590,7 +590,7 @@ void __73__AXHearingAidDeviceController_processConnectedIdentifiers_andLocations
     v6 = HCLogHearingAids();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __73__AXHearingAidDeviceController_processConnectedIdentifiers_andLocations___block_invoke_cold_1(v2);
+      __73__AXHearingAidDeviceController_processConnectedIdentifiers_andLocations___block_invoke_cold_1();
     }
   }
 
@@ -602,11 +602,11 @@ void __73__AXHearingAidDeviceController_processConnectedIdentifiers_andLocations
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [v7 identifier];
-      v51 = 138412546;
-      v52 = v10;
-      v53 = 2112;
-      v54 = v8;
-      _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "LEA 3: session peripheral1 %@\n found device %@", &v51, 0x16u);
+      v50 = 138412546;
+      v51 = v10;
+      v52 = 2112;
+      v53 = v8;
+      _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "LEA 3: session peripheral1 %@\n found device %@", &v50, 0x16u);
     }
 
     if ([v3 count]< 2)
@@ -617,9 +617,9 @@ LABEL_27:
         v22 = HCLogHearingAids();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v51 = 138412290;
-          v52 = v8;
-          _os_log_impl(&dword_1DA5E2000, v22, OS_LOG_TYPE_DEFAULT, "LEA 3: session device %@", &v51, 0xCu);
+          v50 = 138412290;
+          v51 = v8;
+          _os_log_impl(&dword_1DA5E2000, v22, OS_LOG_TYPE_DEFAULT, "LEA 3: session device %@", &v50, 0xCu);
         }
 
         [v8 sessionDidUpdateLocations:*(a1 + 48)];
@@ -653,11 +653,11 @@ LABEL_27:
         {
           v30 = [v8 leftPeripheral];
           v31 = [v30 identifier];
-          v51 = 138412546;
-          v52 = v31;
-          v53 = 1024;
-          LODWORD(v54) = v24;
-          _os_log_impl(&dword_1DA5E2000, v29, OS_LOG_TYPE_DEFAULT, "LEA 3: session left %@ connection requested %d", &v51, 0x12u);
+          v50 = 138412546;
+          v51 = v31;
+          v52 = 1024;
+          LODWORD(v53) = v24;
+          _os_log_impl(&dword_1DA5E2000, v29, OS_LOG_TYPE_DEFAULT, "LEA 3: session left %@ connection requested %d", &v50, 0x12u);
         }
 
         v32 = HCLogHearingAids();
@@ -665,11 +665,11 @@ LABEL_27:
         {
           v33 = [v8 rightPeripheral];
           v34 = [v33 identifier];
-          v51 = 138412546;
-          v52 = v34;
-          v53 = 1024;
-          LODWORD(v54) = v27;
-          _os_log_impl(&dword_1DA5E2000, v32, OS_LOG_TYPE_DEFAULT, "LEA 3: session right %@ connection requested %d", &v51, 0x12u);
+          v50 = 138412546;
+          v51 = v34;
+          v52 = 1024;
+          LODWORD(v53) = v27;
+          _os_log_impl(&dword_1DA5E2000, v32, OS_LOG_TYPE_DEFAULT, "LEA 3: session right %@ connection requested %d", &v50, 0x12u);
         }
 
         v35 = [v8 leftPeripheral];
@@ -698,9 +698,9 @@ LABEL_27:
         v44 = HCLogHearingAids();
         if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
-          v51 = 138412290;
-          v52 = v43;
-          _os_log_impl(&dword_1DA5E2000, v44, OS_LOG_TYPE_DEFAULT, "LEA 3: session updating persistent representation - %@", &v51, 0xCu);
+          v50 = 138412290;
+          v51 = v43;
+          _os_log_impl(&dword_1DA5E2000, v44, OS_LOG_TYPE_DEFAULT, "LEA 3: session updating persistent representation - %@", &v50, 0xCu);
         }
 
         v45 = +[HUHearingAidSettings sharedInstance];
@@ -710,9 +710,9 @@ LABEL_27:
         if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
           v47 = [v8 deviceUUID];
-          v51 = 138412290;
-          v52 = v47;
-          _os_log_impl(&dword_1DA5E2000, v46, OS_LOG_TYPE_DEFAULT, "LEA 3: session DeviceIdentifier - %@", &v51, 0xCu);
+          v50 = 138412290;
+          v51 = v47;
+          _os_log_impl(&dword_1DA5E2000, v46, OS_LOG_TYPE_DEFAULT, "LEA 3: session DeviceIdentifier - %@", &v50, 0xCu);
         }
 
         v48 = +[AXHearingAidDeviceController sharedController];
@@ -741,11 +741,11 @@ LABEL_51:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v14 = [v12 identifier];
-        v51 = 138412546;
-        v52 = v14;
-        v53 = 2112;
-        v54 = v8;
-        _os_log_impl(&dword_1DA5E2000, v13, OS_LOG_TYPE_DEFAULT, "LEA 3: session peripheral2 %@\n found device %@", &v51, 0x16u);
+        v50 = 138412546;
+        v51 = v14;
+        v52 = 2112;
+        v53 = v8;
+        _os_log_impl(&dword_1DA5E2000, v13, OS_LOG_TYPE_DEFAULT, "LEA 3: session peripheral2 %@\n found device %@", &v50, 0x16u);
       }
 
       if (v8)
@@ -791,17 +791,15 @@ LABEL_21:
   v7 = HCLogHearingAids();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __73__AXHearingAidDeviceController_processConnectedIdentifiers_andLocations___block_invoke_cold_4(v2);
+    __73__AXHearingAidDeviceController_processConnectedIdentifiers_andLocations___block_invoke_cold_4();
   }
 
 LABEL_52:
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (id)addPeripheral:(id)peripheral toDevice:(id)device
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   peripheralCopy = peripheral;
   deviceCopy = device;
   isLEAudioEnabled = [MEMORY[0x1E69A4560] isLEAudioEnabled];
@@ -820,24 +818,22 @@ LABEL_52:
     {
       identifier = [peripheralCopy identifier];
       *buf = 138412546;
-      v21 = identifier;
-      v22 = 2112;
-      v23 = deviceCopy;
+      v20 = identifier;
+      v21 = 2112;
+      v22 = deviceCopy;
       _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController LEA 3: session added the second peripheral %@ to %@", buf, 0x16u);
     }
 
     v14 = self->_availablePeripherals;
     objc_sync_enter(v14);
     availablePeripherals = self->_availablePeripherals;
-    v19 = deviceCopy;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
+    v18 = deviceCopy;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
     [(NSMutableArray *)availablePeripherals setArray:v16];
 
     objc_sync_exit(v14);
     v9 = deviceCopy;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -868,7 +864,7 @@ LABEL_52:
   return v6;
 }
 
-uint64_t __63__AXHearingAidDeviceController_isLEAudioServiceInServiceUUIDs___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__63__AXHearingAidDeviceController_isLEAudioServiceInServiceUUIDs___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isEqual:*(a1 + 32)];
   if (result)
@@ -942,16 +938,16 @@ void __55__AXHearingAidDeviceController_clearMissingHearingAids__block_invoke_2(
 
 void __55__AXHearingAidDeviceController_clearMissingHearingAids__block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (([v3 isConnected] & 1) == 0 && (objc_msgSend(v3, "isPersistent") & 1) == 0)
   {
     v4 = HCLogHearingAids();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: clearMissingHearingAids, Device stopped advertising. Removing %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v3;
+      _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: clearMissingHearingAids, Device stopped advertising. Removing %@", &v7, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -960,8 +956,6 @@ void __55__AXHearingAidDeviceController_clearMissingHearingAids__block_invoke_3(
     v6 = objc_loadWeakRetained((a1 + 32));
     [v6 removeAvailableDevice:v3];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)searchForAvailableDevices
@@ -1073,10 +1067,10 @@ void __57__AXHearingAidDeviceController_searchForAvailableDevices__block_invoke(
 
 uint64_t __57__AXHearingAidDeviceController_searchForAvailableDevices__block_invoke_2(uint64_t a1, int a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (![*(a1 + 32) shouldActiveScan])
   {
-    goto LABEL_17;
+    return [*(a1 + 32) centralManager:*(*(a1 + 32) + 40) didRetrievePeripherals:*(a1 + 56)];
   }
 
   v6 = *(a1 + 40);
@@ -1097,7 +1091,7 @@ LABEL_7:
     {
       if (!a2)
       {
-        goto LABEL_17;
+        return [*(a1 + 32) centralManager:*(*(a1 + 32) + 40) didRetrievePeripherals:*(a1 + 56)];
       }
     }
 
@@ -1106,7 +1100,7 @@ LABEL_7:
 
       if ((a2 & 1) == 0)
       {
-        goto LABEL_17;
+        return [*(a1 + 32) centralManager:*(*(a1 + 32) + 40) didRetrievePeripherals:*(a1 + 56)];
       }
     }
 
@@ -1127,9 +1121,9 @@ LABEL_14:
     v8 = [*(a1 + 32) scanningServiceUUIDs];
     v9 = *(a1 + 48);
     *buf = 138412546;
-    v21 = v8;
-    v22 = 2112;
-    v23 = v9;
+    v20 = v8;
+    v21 = 2112;
+    v22 = v9;
     _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "CentralManager: Starting scan services: %@ persistent uuids: %@", buf, 0x16u);
   }
 
@@ -1145,10 +1139,7 @@ LABEL_14:
   [v11 scanForPeripheralsWithServices:v12 options:v17];
 
   [*(a1 + 32) clearMissingHearingAids];
-LABEL_17:
-  result = [*(a1 + 32) centralManager:*(*(a1 + 32) + 40) didRetrievePeripherals:*(a1 + 56)];
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) centralManager:*(*(a1 + 32) + 40) didRetrievePeripherals:*(a1 + 56)];
 }
 
 - (void)searchForConnectedDevices
@@ -1173,22 +1164,20 @@ void __57__AXHearingAidDeviceController_searchForConnectedDevices__block_invoke(
 
 - (void)resetConnectionToPeripheral:(id)peripheral
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   peripheralCopy = peripheral;
   v5 = HCLogHearingAids();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = peripheralCopy;
-    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Resetting connection to %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = peripheralCopy;
+    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Resetting connection to %@", &v6, 0xCu);
   }
 
   if (peripheralCopy)
   {
     [(AXHearingAidDeviceController *)self disconnectFromPeripheral:peripheralCopy];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectToPeripheral:(id)peripheral
@@ -1220,7 +1209,7 @@ void __57__AXHearingAidDeviceController_searchForConnectedDevices__block_invoke(
 
 void __52__AXHearingAidDeviceController_connectToPeripheral___block_invoke(uint64_t a1)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v2 = HCLogHearingAids();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -1228,9 +1217,9 @@ void __52__AXHearingAidDeviceController_connectToPeripheral___block_invoke(uint6
     v4 = [v3 descriptionForCurrentState];
     v5 = *(a1 + 32);
     *buf = 138412546;
-    v54 = v4;
-    v55 = 2112;
-    v56 = v5;
+    v53 = v4;
+    v54 = 2112;
+    v55 = v5;
     _os_log_impl(&dword_1DA5E2000, v2, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: connectToPeripheral, Requesting connection in state %@ to %@", buf, 0x16u);
   }
 
@@ -1253,7 +1242,7 @@ void __52__AXHearingAidDeviceController_connectToPeripheral___block_invoke(uint6
         {
           v20 = *(a1 + 32);
           *buf = 138412290;
-          v54 = v20;
+          v53 = v20;
           _os_log_impl(&dword_1DA5E2000, v18, OS_LOG_TYPE_DEFAULT, "Enabling streaming to LEFT %@", buf, 0xCu);
         }
 
@@ -1266,7 +1255,7 @@ void __52__AXHearingAidDeviceController_connectToPeripheral___block_invoke(uint6
         {
           v21 = *(a1 + 32);
           *buf = 138412290;
-          v54 = v21;
+          v53 = v21;
           _os_log_impl(&dword_1DA5E2000, v18, OS_LOG_TYPE_DEFAULT, "Disabling streaming to LEFT %@", buf, 0xCu);
         }
 
@@ -1282,7 +1271,7 @@ void __52__AXHearingAidDeviceController_connectToPeripheral___block_invoke(uint6
         {
           v25 = *(a1 + 32);
           *buf = 138412290;
-          v54 = v25;
+          v53 = v25;
           v26 = "Enabling watch support LEFT %@";
 LABEL_28:
           _os_log_impl(&dword_1DA5E2000, v23, OS_LOG_TYPE_DEFAULT, v26, buf, 0xCu);
@@ -1298,7 +1287,7 @@ LABEL_29:
       {
         v27 = *(a1 + 32);
         *buf = 138412290;
-        v54 = v27;
+        v53 = v27;
         v28 = "Disabling watch support LEFT %@";
 LABEL_32:
         _os_log_impl(&dword_1DA5E2000, v23, OS_LOG_TYPE_DEFAULT, v28, buf, 0xCu);
@@ -1328,7 +1317,7 @@ LABEL_34:
         {
           v15 = *(a1 + 32);
           *buf = 138412290;
-          v54 = v15;
+          v53 = v15;
           _os_log_impl(&dword_1DA5E2000, v13, OS_LOG_TYPE_DEFAULT, "Enabling streaming to RIGHT %@", buf, 0xCu);
         }
 
@@ -1341,7 +1330,7 @@ LABEL_34:
         {
           v29 = *(a1 + 32);
           *buf = 138412290;
-          v54 = v29;
+          v53 = v29;
           _os_log_impl(&dword_1DA5E2000, v13, OS_LOG_TYPE_DEFAULT, "Disabling streaming to RIGHT %@", buf, 0xCu);
         }
 
@@ -1357,7 +1346,7 @@ LABEL_34:
         {
           v32 = *(a1 + 32);
           *buf = 138412290;
-          v54 = v32;
+          v53 = v32;
           v26 = "Enabling watch support RIGHT %@";
           goto LABEL_28;
         }
@@ -1369,7 +1358,7 @@ LABEL_34:
       {
         v33 = *(a1 + 32);
         *buf = 138412290;
-        v54 = v33;
+        v53 = v33;
         v28 = "Disabling watch support RIGHT %@";
         goto LABEL_32;
       }
@@ -1388,17 +1377,17 @@ LABEL_35:
 
   if (v37)
   {
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = __52__AXHearingAidDeviceController_connectToPeripheral___block_invoke_35;
-    v49[3] = &unk_1E85CC580;
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __52__AXHearingAidDeviceController_connectToPeripheral___block_invoke_35;
+    v48[3] = &unk_1E85CC580;
     v38 = *(a1 + 32);
-    v52 = v35;
+    v51 = v35;
     v39 = *(a1 + 40);
-    v50 = v38;
-    v51 = v39;
-    [v37 checkPairingStatusWithCompletion:v49];
-    v40 = v50;
+    v49 = v38;
+    v50 = v39;
+    [v37 checkPairingStatusWithCompletion:v48];
+    v40 = v49;
 LABEL_41:
 
     goto LABEL_42;
@@ -1412,9 +1401,9 @@ LABEL_41:
       v42 = [*(a1 + 32) state];
       v43 = [*(a1 + 32) identifier];
       *buf = 134218242;
-      v54 = v42;
-      v55 = 2112;
-      v56 = v43;
+      v53 = v42;
+      v54 = 2112;
+      v55 = v43;
       _os_log_impl(&dword_1DA5E2000, v41, OS_LOG_TYPE_DEFAULT, "CentralManager: connectPeripheral state: %ld, %@", buf, 0x16u);
     }
 
@@ -1429,13 +1418,11 @@ LABEL_41:
   }
 
 LABEL_42:
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 void __52__AXHearingAidDeviceController_connectToPeripheral___block_invoke_35(uint64_t a1, char a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] != 2)
   {
     if ((*(a1 + 48) & 1) != 0 || ([*(a1 + 40) persistentDevices], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "count"), v4, v5 == 1) && (a2 & 1) == 0)
@@ -1445,11 +1432,11 @@ void __52__AXHearingAidDeviceController_connectToPeripheral___block_invoke_35(ui
       {
         v7 = [*(a1 + 32) state];
         v8 = [*(a1 + 32) identifier];
-        v16 = 134218242;
-        v17 = v7;
-        v18 = 2112;
-        v19 = v8;
-        _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "CentralManager: connectPeripheral state: %ld, %@", &v16, 0x16u);
+        v15 = 134218242;
+        v16 = v7;
+        v17 = 2112;
+        v18 = v8;
+        _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "CentralManager: connectPeripheral state: %ld, %@", &v15, 0x16u);
       }
 
       v10 = a1 + 32;
@@ -1461,8 +1448,6 @@ void __52__AXHearingAidDeviceController_connectToPeripheral___block_invoke_35(ui
       [v11 connectPeripheral:v9 options:v14];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disconnectFromPeripheral:(id)peripheral
@@ -1483,13 +1468,13 @@ void __52__AXHearingAidDeviceController_connectToPeripheral___block_invoke_35(ui
 
 void __57__AXHearingAidDeviceController_disconnectFromPeripheral___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = HCLogHearingAids();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v16 = v3;
+    v15 = v3;
     _os_log_impl(&dword_1DA5E2000, v2, OS_LOG_TYPE_DEFAULT, "CentralManager: disconnectFromPeripheral from %@", buf, 0xCu);
   }
 
@@ -1499,9 +1484,9 @@ void __57__AXHearingAidDeviceController_disconnectFromPeripheral___block_invoke(
     v5 = [*(a1 + 32) state];
     v6 = [*(a1 + 32) identifier];
     *buf = 134218242;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v6;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v6;
     _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "CentralManager: disconnectFromPeripheral: state: %ld, %@", buf, 0x16u);
   }
 
@@ -1509,19 +1494,17 @@ void __57__AXHearingAidDeviceController_disconnectFromPeripheral___block_invoke(
   v7 = *(a1 + 32);
   v9 = *(*(v8 + 8) + 40);
   v10 = *MEMORY[0x1E695D200];
-  v13[0] = *MEMORY[0x1E695D208];
-  v13[1] = v10;
-  v14[0] = MEMORY[0x1E695E118];
-  v14[1] = MEMORY[0x1E695E118];
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v12[0] = *MEMORY[0x1E695D208];
+  v12[1] = v10;
+  v13[0] = MEMORY[0x1E695E118];
+  v13[1] = MEMORY[0x1E695E118];
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [v9 cancelPeripheralConnection:v7 options:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disconnectFromHearingAidWithDeviceUUID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = [(AXHearingAidDeviceController *)self hearingAidForDeviceID:dCopy];
   v6 = +[HUNearbyHearingAidController sharedInstance];
@@ -1534,11 +1517,11 @@ void __57__AXHearingAidDeviceController_disconnectFromPeripheral___block_invoke(
     if (v9)
     {
       name = [v5 name];
-      v14 = 138412546;
-      v15 = dCopy;
-      v16 = 2112;
-      v17 = name;
-      _os_log_impl(&dword_1DA5E2000, rightPeripheral, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: disconnectFromHearingAidWithDeviceUUID %@, Disconnection is not allowed from %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = dCopy;
+      v15 = 2112;
+      v16 = name;
+      _os_log_impl(&dword_1DA5E2000, rightPeripheral, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: disconnectFromHearingAidWithDeviceUUID %@, Disconnection is not allowed from %@", &v13, 0x16u);
     }
 
     goto LABEL_8;
@@ -1547,11 +1530,11 @@ void __57__AXHearingAidDeviceController_disconnectFromPeripheral___block_invoke(
   if (v9)
   {
     name2 = [v5 name];
-    v14 = 138412546;
-    v15 = dCopy;
-    v16 = 2112;
-    v17 = name2;
-    _os_log_impl(&dword_1DA5E2000, rightPeripheral, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: disconnectFromHearingAidWithDeviceUUID %@, Disconnection from %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = dCopy;
+    v15 = 2112;
+    v16 = name2;
+    _os_log_impl(&dword_1DA5E2000, rightPeripheral, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: disconnectFromHearingAidWithDeviceUUID %@, Disconnection from %@", &v13, 0x16u);
   }
 
   if (v5)
@@ -1563,8 +1546,6 @@ void __57__AXHearingAidDeviceController_disconnectFromPeripheral___block_invoke(
     [(AXHearingAidDeviceController *)self disconnectFromPeripheral:rightPeripheral];
 LABEL_8:
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelPendingConnections
@@ -1637,7 +1618,7 @@ void __45__AXHearingAidDeviceController_stopSearching__block_invoke(uint64_t a1,
 
 - (BOOL)shouldRelinquishForPartialConnection
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   loadedDevices = [(AXHearingAidDeviceController *)self loadedDevices];
   v4 = [loadedDevices indexesOfObjectsPassingTest:&__block_literal_global_42_0];
 
@@ -1647,9 +1628,9 @@ void __45__AXHearingAidDeviceController_stopSearching__block_invoke(uint64_t a1,
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       loadedDevices2 = [(AXHearingAidDeviceController *)self loadedDevices];
-      v19 = 138412290;
-      *v20 = loadedDevices2;
-      _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: shouldRelinquishForPartialConnection, Wrong number of paired devices %@", &v19, 0xCu);
+      v18 = 138412290;
+      *v19 = loadedDevices2;
+      _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: shouldRelinquishForPartialConnection, Wrong number of paired devices %@", &v18, 0xCu);
     }
 
     goto LABEL_10;
@@ -1666,15 +1647,15 @@ void __45__AXHearingAidDeviceController_stopSearching__block_invoke(uint64_t a1,
     leftPeripheral = [v6 leftPeripheral];
     v11 = [leftPeripheral state] == 2;
     rightPeripheral = [v6 rightPeripheral];
-    v19 = 67109888;
-    *v20 = leftAvailable;
-    *&v20[4] = 1024;
-    *&v20[6] = rightAvailable;
-    v21 = 1024;
-    v22 = v11;
-    v23 = 1024;
-    v24 = [rightPeripheral state] != 2;
-    _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: shouldRelinquishForPartialConnection, Should relinquish %d, %d, %d, %d", &v19, 0x1Au);
+    v18 = 67109888;
+    *v19 = leftAvailable;
+    *&v19[4] = 1024;
+    *&v19[6] = rightAvailable;
+    v20 = 1024;
+    v21 = v11;
+    v22 = 1024;
+    v23 = [rightPeripheral state] != 2;
+    _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: shouldRelinquishForPartialConnection, Should relinquish %d, %d, %d, %d", &v18, 0x1Au);
   }
 
   if (![v6 leftAvailable]|| ![v6 rightAvailable])
@@ -1697,18 +1678,17 @@ LABEL_10:
   }
 
 LABEL_11:
-  v17 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (void)checkPartiallyPairedWithCompletion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   v5 = self->_loadedDevices;
   objc_sync_enter(v5);
   loadedDevices = [(AXHearingAidDeviceController *)self loadedDevices];
@@ -1719,15 +1699,15 @@ LABEL_11:
     loadedDevices2 = [(AXHearingAidDeviceController *)self loadedDevices];
     v9 = [loadedDevices2 objectAtIndex:{objc_msgSend(v7, "firstIndex")}];
 
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __67__AXHearingAidDeviceController_checkPartiallyPairedWithCompletion___block_invoke_2;
-    v15[3] = &unk_1E85CC610;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __67__AXHearingAidDeviceController_checkPartiallyPairedWithCompletion___block_invoke_2;
+    v14[3] = &unk_1E85CC610;
     v10 = v9;
-    v16 = v10;
-    v18 = &v19;
-    v17 = completionCopy;
-    [v10 checkPairingStatusWithCompletion:v15];
+    v15 = v10;
+    v17 = &v18;
+    v16 = completionCopy;
+    [v10 checkPairingStatusWithCompletion:v14];
   }
 
   else
@@ -1738,24 +1718,22 @@ LABEL_11:
       v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v7, "count")}];
       loadedDevices3 = [(AXHearingAidDeviceController *)self loadedDevices];
       *buf = 138412546;
-      v24 = v12;
-      v25 = 2112;
-      v26 = loadedDevices3;
+      v23 = v12;
+      v24 = 2112;
+      v25 = loadedDevices3;
       _os_log_impl(&dword_1DA5E2000, v11, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: checkPartiallyPaired, Paired devices count %@, Loaded devices\n%@", buf, 0x16u);
     }
 
-    (*(completionCopy + 2))(completionCopy, *(v20 + 24));
+    (*(completionCopy + 2))(completionCopy, *(v19 + 24));
   }
 
   objc_sync_exit(v5);
-  _Block_object_dispose(&v19, 8);
-
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v18, 8);
 }
 
 uint64_t __67__AXHearingAidDeviceController_checkPartiallyPairedWithCompletion___block_invoke_2(uint64_t a1, int a2, int a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = [*(a1 + 32) leftUUID];
   if ([v6 length])
   {
@@ -1789,17 +1767,14 @@ uint64_t __67__AXHearingAidDeviceController_checkPartiallyPairedWithCompletion__
   {
     v12 = *(*(*(a1 + 48) + 8) + 24);
     v13 = *(a1 + 32);
-    v17[0] = 67109378;
-    v17[1] = v12;
-    v18 = 2112;
-    v19 = v13;
-    _os_log_impl(&dword_1DA5E2000, v11, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: checkPartiallyPaired, Partial pair %d\n%@", v17, 0x12u);
+    v15[0] = 67109378;
+    v15[1] = v12;
+    v16 = 2112;
+    v17 = v13;
+    _os_log_impl(&dword_1DA5E2000, v11, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: checkPartiallyPaired, Partial pair %d\n%@", v15, 0x12u);
   }
 
-  v14 = *(*(*(a1 + 48) + 8) + 24);
-  result = (*(*(a1 + 40) + 16))();
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (BOOL)isPartiallyConnected
@@ -1890,23 +1865,21 @@ void __40__AXHearingAidDeviceController_isPaired__block_invoke(uint64_t a1, void
 
 void __43__AXHearingAidDeviceController_isConnected__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v6 = a2;
   if ([v6 hasConnection] && objc_msgSend(v6, "isPaired"))
   {
     v7 = HCLogHearingAids();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: isConnected, Found connected device %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: isConnected, Found connected device %@", &v8, 0xCu);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 1;
     *a4 = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isConnecting
@@ -1933,16 +1906,16 @@ void __43__AXHearingAidDeviceController_isConnected__block_invoke(uint64_t a1, v
 
 void __44__AXHearingAidDeviceController_isConnecting__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = a2;
   if ([v6 isAnyPeripheralInConnectingState] && objc_msgSend(v6, "isPaired"))
   {
     v7 = HCLogHearingAids();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v6;
-      _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: isConnecting, Found connecting device %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v6;
+      _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: isConnecting, Found connecting device %@", &v10, 0xCu);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -1960,8 +1933,6 @@ void __44__AXHearingAidDeviceController_isConnecting__block_invoke(uint64_t a1, 
   {
     __44__AXHearingAidDeviceController_isConnecting__block_invoke_cold_2(v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)hearingAidsForUUID:(id)d
@@ -2422,17 +2393,17 @@ void __54__AXHearingAidDeviceController_loadedDevicesDidChange__block_invoke(uin
 
 - (void)replaceDevice:(id)device withDevice:(id)withDevice
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   withDeviceCopy = withDevice;
   v8 = HCLogHearingAids();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412546;
-    v18 = deviceCopy;
-    v19 = 2112;
-    v20 = withDeviceCopy;
-    _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Replacing device %@ with %@", &v17, 0x16u);
+    v16 = 138412546;
+    v17 = deviceCopy;
+    v18 = 2112;
+    v19 = withDeviceCopy;
+    _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Replacing device %@ with %@", &v16, 0x16u);
   }
 
   [(AXHearingAidDeviceController *)self removeLoadedDevice:deviceCopy];
@@ -2464,23 +2435,21 @@ void __54__AXHearingAidDeviceController_loadedDevicesDidChange__block_invoke(uin
   }
 
   [(HUDeviceController *)self device:withDeviceCopy didUpdateProperty:69206024];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mergeDevice:(id)device withDevice:(id)withDevice
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   withDeviceCopy = withDevice;
   v8 = HCLogHearingAids();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 138412546;
-    v25 = deviceCopy;
-    v26 = 2112;
-    v27 = withDeviceCopy;
-    _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Merging device %@ with: %@", &v24, 0x16u);
+    v23 = 138412546;
+    v24 = deviceCopy;
+    v25 = 2112;
+    v26 = withDeviceCopy;
+    _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Merging device %@ with: %@", &v23, 0x16u);
   }
 
   if (deviceCopy && withDeviceCopy)
@@ -2540,13 +2509,11 @@ void __54__AXHearingAidDeviceController_loadedDevicesDidChange__block_invoke(uin
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deviceDidFinishLoading:(id)loading
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   loadingCopy = loading;
   if (loadingCopy)
   {
@@ -2569,9 +2536,9 @@ void __54__AXHearingAidDeviceController_loadedDevicesDidChange__block_invoke(uin
     v11 = HCLogHearingAids();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = loadingCopy;
-      _os_log_impl(&dword_1DA5E2000, v11, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Device finished loading %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = loadingCopy;
+      _os_log_impl(&dword_1DA5E2000, v11, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Device finished loading %@", &v13, 0xCu);
     }
 
     if (([loadingCopy isPaired] & 1) == 0 && objc_msgSend(loadingCopy, "deviceProtocol") == 1)
@@ -2579,9 +2546,9 @@ void __54__AXHearingAidDeviceController_loadedDevicesDidChange__block_invoke(uin
       v12 = HCLogHearingAids();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = loadingCopy;
-        _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Device finished loading, not paired, Disconnecting %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = loadingCopy;
+        _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Device finished loading, not paired, Disconnecting %@", &v13, 0xCu);
       }
 
       [loadingCopy disconnectAndUnpair:0];
@@ -2592,8 +2559,6 @@ void __54__AXHearingAidDeviceController_loadedDevicesDidChange__block_invoke(uin
   {
     [loadingCopy loadRequiredProperties];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forgetDevice:(id)device
@@ -2613,7 +2578,7 @@ void __54__AXHearingAidDeviceController_loadedDevicesDidChange__block_invoke(uin
 
 - (void)sendRequestToCentralManager:(id)manager
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   v5 = managerCopy;
   if (self->_centralIsOn)
@@ -2629,23 +2594,21 @@ void __54__AXHearingAidDeviceController_loadedDevicesDidChange__block_invoke(uin
       state = [(CBCentralManager *)self->_bluetoothManager state];
       centralIsOn = self->_centralIsOn;
       *buf = 134218240;
-      v14 = state;
-      v15 = 1024;
-      v16 = centralIsOn;
+      v13 = state;
+      v14 = 1024;
+      v15 = centralIsOn;
       _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "CentralManager: BT not available. Caching [%ld, %d]", buf, 0x12u);
     }
 
     bluetoothCentralQueue = self->_bluetoothCentralQueue;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __60__AXHearingAidDeviceController_sendRequestToCentralManager___block_invoke;
-    v11[3] = &unk_1E85CA508;
-    v11[4] = self;
-    v12 = v5;
-    dispatch_async(bluetoothCentralQueue, v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __60__AXHearingAidDeviceController_sendRequestToCentralManager___block_invoke;
+    v10[3] = &unk_1E85CA508;
+    v10[4] = self;
+    v11 = v5;
+    dispatch_async(bluetoothCentralQueue, v10);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __60__AXHearingAidDeviceController_sendRequestToCentralManager___block_invoke(uint64_t a1)
@@ -2658,7 +2621,7 @@ void __60__AXHearingAidDeviceController_sendRequestToCentralManager___block_invo
 
 - (void)centralManagerDidUpdateState:(id)state
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   state = [stateCopy state];
   v6 = HCLogHearingAids();
@@ -2668,18 +2631,18 @@ void __60__AXHearingAidDeviceController_sendRequestToCentralManager___block_invo
     centralIsOn = self->_centralIsOn;
     v9 = @"Off";
     *buf = 138413058;
-    v20 = v7;
+    v19 = v7;
     if (state == 5)
     {
       v9 = @"On";
     }
 
-    v21 = 2112;
-    v22 = v9;
-    v23 = 1024;
-    v24 = state == 5;
-    v25 = 1024;
-    v26 = centralIsOn;
+    v20 = 2112;
+    v21 = v9;
+    v22 = 1024;
+    v23 = state == 5;
+    v24 = 1024;
+    v25 = centralIsOn;
     _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "CentralManager: centralManagerDidUpdateState, Central state %@ (%@), new = %d, old = %d", buf, 0x22u);
   }
 
@@ -2715,7 +2678,7 @@ void __60__AXHearingAidDeviceController_sendRequestToCentralManager___block_invo
     {
       v15 = self->_isScanning || self->_stoppedScanningForLEAudio;
       *buf = 67109120;
-      LODWORD(v20) = v15;
+      LODWORD(v19) = v15;
       _os_log_impl(&dword_1DA5E2000, v14, OS_LOG_TYPE_DEFAULT, "CentralManager: OFF, Clearing Devices, restarting scanning %d", buf, 8u);
     }
 
@@ -2734,8 +2697,6 @@ void __60__AXHearingAidDeviceController_sendRequestToCentralManager___block_invo
 
   v16 = +[HUNearbyHearingAidController sharedInstance];
   [v16 sendConnectionUpdateToPeers];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __61__AXHearingAidDeviceController_centralManagerDidUpdateState___block_invoke(uint64_t a1)
@@ -2755,27 +2716,25 @@ void __61__AXHearingAidDeviceController_centralManagerDidUpdateState___block_inv
 
 - (void)centralManager:(id)manager didRetrievePeripherals:(id)peripherals
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   peripheralsCopy = peripherals;
   v6 = HCLogHearingAids();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     persistentDevices = [(AXHearingAidDeviceController *)self persistentDevices];
     *buf = 138412546;
-    v11 = peripheralsCopy;
-    v12 = 2112;
-    v13 = persistentDevices;
+    v10 = peripheralsCopy;
+    v11 = 2112;
+    v12 = persistentDevices;
     _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "CentralManager: didRetrievePeripherals %@, persistentDevices %@", buf, 0x16u);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __70__AXHearingAidDeviceController_centralManager_didRetrievePeripherals___block_invoke;
-  v9[3] = &unk_1E85CB460;
-  v9[4] = self;
-  [peripheralsCopy enumerateObjectsUsingBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __70__AXHearingAidDeviceController_centralManager_didRetrievePeripherals___block_invoke;
+  v8[3] = &unk_1E85CB460;
+  v8[4] = self;
+  [peripheralsCopy enumerateObjectsUsingBlock:v8];
 }
 
 void __70__AXHearingAidDeviceController_centralManager_didRetrievePeripherals___block_invoke(uint64_t a1, void *a2)
@@ -2888,7 +2847,7 @@ void __70__AXHearingAidDeviceController_centralManager_didRetrievePeripherals___
         v10 = *(v9 + 40);
         *(v9 + 40) = v8;
 
-        MEMORY[0x1EEE66BB8]();
+        MEMORY[0x1EEE66BB8](v8, v10);
       }
     }
   }
@@ -2896,54 +2855,55 @@ void __70__AXHearingAidDeviceController_centralManager_didRetrievePeripherals___
 
 uint64_t __70__AXHearingAidDeviceController_centralManager_didRetrievePeripherals___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v10 = a2;
-  if ([v10 addPeripheral:*(a1 + 32)])
+  v12 = a2;
+  v6 = [v12 addPeripheral:*(a1 + 32)];
+  v7 = v12;
+  if (v6)
   {
-    [*(a1 + 40) addLoadedDevice:v10];
-    [*(a1 + 40) addAvailableDevice:v10];
-    [v10 setIsPersistent:1];
-    [v10 setIsPaired:1];
+    [*(a1 + 40) addLoadedDevice:v12];
+    [*(a1 + 40) addAvailableDevice:v12];
+    [v12 setIsPersistent:1];
+    [v12 setIsPaired:1];
     [*(a1 + 40) connectToPeripheral:*(a1 + 32)];
-    v6 = [*(a1 + 40) persistentDevices];
-    v7 = [v6 indexOfObject:v10];
+    v8 = [*(a1 + 40) persistentDevices];
+    v9 = [v8 indexOfObject:v12];
 
-    if (v7 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v9 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v8 = [*(a1 + 40) persistentDevices];
-      [v8 addObject:v10];
+      v10 = [*(a1 + 40) persistentDevices];
+      [v10 addObject:v12];
     }
 
     *a4 = 1;
+    v7 = v12;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6, v7);
 }
 
 - (void)centralManager:(id)manager didRetrieveConnectedPeripherals:(id)peripherals
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   peripheralsCopy = peripherals;
   v6 = HCLogHearingAids();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = peripheralsCopy;
+    v9 = peripheralsCopy;
     _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "CentralManager: didRetrieveConnectedPeripherals %@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __79__AXHearingAidDeviceController_centralManager_didRetrieveConnectedPeripherals___block_invoke;
-  v8[3] = &unk_1E85CB460;
-  v8[4] = self;
-  [peripheralsCopy enumerateObjectsUsingBlock:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __79__AXHearingAidDeviceController_centralManager_didRetrieveConnectedPeripherals___block_invoke;
+  v7[3] = &unk_1E85CB460;
+  v7[4] = self;
+  [peripheralsCopy enumerateObjectsUsingBlock:v7];
 }
 
 void __79__AXHearingAidDeviceController_centralManager_didRetrieveConnectedPeripherals___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) hearingAidForPeripheral:v3];
   [*(a1 + 32) addAvailableDevice:v4];
@@ -2955,18 +2915,17 @@ void __79__AXHearingAidDeviceController_centralManager_didRetrieveConnectedPerip
   v5 = HCLogHearingHandoff();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: didRetrieveConnectedPeripherals, Will reconnect if possible %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: didRetrieveConnectedPeripherals, Will reconnect if possible %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) connectToPeripheral:v3];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)centralManager:(id)manager didDiscoverPeripheral:(id)peripheral advertisementData:(id)data RSSI:(id)i
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   peripheralCopy = peripheral;
   dataCopy = data;
@@ -2989,8 +2948,8 @@ void __79__AXHearingAidDeviceController_centralManager_didRetrieveConnectedPerip
     *&buf[14] = array;
     *&buf[22] = 2112;
     *&buf[24] = v15;
-    LOWORD(v53) = 2112;
-    *(&v53 + 2) = dataCopy;
+    LOWORD(v52) = 2112;
+    *(&v52 + 2) = dataCopy;
     _os_log_impl(&dword_1DA5E2000, v16, OS_LOG_TYPE_DEFAULT, "CentralManager: didDiscoverPeripheral %@\n serviceUUIDs: %@\n existingDevice: %@\n advertisementData: %@", buf, 0x2Au);
   }
 
@@ -3083,8 +3042,8 @@ void __79__AXHearingAidDeviceController_centralManager_didRetrieveConnectedPerip
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
     *&buf[24] = __Block_byref_object_copy__6;
-    *&v53 = __Block_byref_object_dispose__6;
-    *(&v53 + 1) = 0;
+    *&v52 = __Block_byref_object_dispose__6;
+    *(&v52 + 1) = 0;
     v25 = [MEMORY[0x1E695D2A0] UUIDWithString:@"7D74F4BD-C74A-4431-862C-CCE884371592"];
     v26 = [MEMORY[0x1E695D2A0] UUIDWithString:@"1854"];
     if ([MEMORY[0x1E69A4560] isLEAudioEnabled])
@@ -3097,19 +3056,19 @@ void __79__AXHearingAidDeviceController_centralManager_didRetrieveConnectedPerip
       v27 = 1;
     }
 
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __92__AXHearingAidDeviceController_centralManager_didDiscoverPeripheral_advertisementData_RSSI___block_invoke;
-    v45[3] = &unk_1E85CC748;
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __92__AXHearingAidDeviceController_centralManager_didDiscoverPeripheral_advertisementData_RSSI___block_invoke;
+    v44[3] = &unk_1E85CC748;
     v28 = v25;
-    v50 = v27;
-    v46 = v28;
-    v49 = buf;
+    v49 = v27;
+    v45 = v28;
+    v48 = buf;
     v29 = peripheralCopy;
-    v47 = v29;
+    v46 = v29;
     v30 = v26;
-    v48 = v30;
-    [array enumerateObjectsUsingBlock:v45];
+    v47 = v30;
+    [array enumerateObjectsUsingBlock:v44];
     v31 = *(*&buf[8] + 40);
     if (v31)
     {
@@ -3124,7 +3083,7 @@ void __79__AXHearingAidDeviceController_centralManager_didRetrieveConnectedPerip
           if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
           {
             identifier2 = [v29 identifier];
-            [AXHearingAidDeviceController centralManager:identifier2 didDiscoverPeripheral:&buf[8] advertisementData:v51 RSSI:v32];
+            [AXHearingAidDeviceController centralManager:identifier2 didDiscoverPeripheral:&buf[8] advertisementData:v50 RSSI:v32];
           }
 
           [(AXHearingAidDeviceController *)self deviceDidFinishLoading:*(*&buf[8] + 40)];
@@ -3134,13 +3093,11 @@ void __79__AXHearingAidDeviceController_centralManager_didRetrieveConnectedPerip
 
     _Block_object_dispose(buf, 8);
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 void __92__AXHearingAidDeviceController_centralManager_didDiscoverPeripheral_advertisementData_RSSI___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 isEqual:*(a1 + 32)] && *(a1 + 64) == 1)
   {
@@ -3154,13 +3111,13 @@ void __92__AXHearingAidDeviceController_centralManager_didDiscoverPeripheral_adv
     {
       v8 = [*(a1 + 40) identifier];
       v9 = *(*(*(a1 + 56) + 8) + 40);
-      v16 = 138412546;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v9;
+      v15 = 138412546;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v9;
       v10 = "HearingAidDeviceController: didDiscoverPeripheral %@, Created Hearing Aids device %@";
 LABEL_9:
-      _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, v10, &v16, 0x16u);
+      _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, v10, &v15, 0x16u);
 
       goto LABEL_10;
     }
@@ -3180,23 +3137,21 @@ LABEL_9:
     {
       v8 = [*(a1 + 40) identifier];
       v14 = *(*(*(a1 + 56) + 8) + 40);
-      v16 = 138412546;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v14;
+      v15 = 138412546;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v14;
       v10 = "HearingAidDeviceController LEA 3: didDiscoverPeripheral %@, Created Hearing Aids device %@";
       goto LABEL_9;
     }
 
 LABEL_10:
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)centralManager:(id)manager didConnectPeripheral:(id)peripheral
 {
-  *&v38[13] = *MEMORY[0x1E69E9840];
+  *&v37[13] = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   peripheralCopy = peripheral;
   v8 = HCLogHearingHandoff();
@@ -3205,9 +3160,9 @@ LABEL_10:
     state = [peripheralCopy state];
     identifier = [peripheralCopy identifier];
     *buf = 134218242;
-    v36 = state;
-    v37 = 2112;
-    *v38 = identifier;
+    v35 = state;
+    v36 = 2112;
+    *v37 = identifier;
     _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "CentralManager: didConnectPeripheral, state: %ld %@", buf, 0x16u);
   }
 
@@ -3216,9 +3171,9 @@ LABEL_10:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v36 = peripheralCopy;
-    v37 = 2112;
-    *v38 = v11;
+    v35 = peripheralCopy;
+    v36 = 2112;
+    *v37 = v11;
     _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "CentralManager: didConnectPeripheral, %@ in %@", buf, 0x16u);
   }
 
@@ -3232,12 +3187,12 @@ LABEL_10:
     else
     {
       v15 = [v11 indexesOfObjectsPassingTest:&__block_literal_global_76_0];
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __68__AXHearingAidDeviceController_centralManager_didConnectPeripheral___block_invoke_2;
-      v32[3] = &unk_1E85CC5A8;
-      v32[4] = self;
-      [v11 enumerateObjectsAtIndexes:v15 options:0 usingBlock:v32];
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __68__AXHearingAidDeviceController_centralManager_didConnectPeripheral___block_invoke_2;
+      v31[3] = &unk_1E85CC5A8;
+      v31[4] = self;
+      [v11 enumerateObjectsAtIndexes:v15 options:0 usingBlock:v31];
       v16 = [v11 count];
       if (v16 - [v15 count] == 1)
       {
@@ -3251,7 +3206,7 @@ LABEL_10:
         {
           v18 = [(AXHearingAidDeviceController *)self hearingAidsForPeripheral:peripheralCopy];
           *buf = 138412290;
-          v36 = v18;
+          v35 = v18;
           _os_log_impl(&dword_1DA5E2000, v17, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: didConnectPeripheral, More than one valid hearing device %@", buf, 0xCu);
         }
 
@@ -3269,7 +3224,7 @@ LABEL_10:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v36 = peripheralCopy;
+      v35 = peripheralCopy;
       _os_log_impl(&dword_1DA5E2000, v14, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: didConnectPeripheral, No device found, disconnecting peripheral %@", buf, 0xCu);
     }
 
@@ -3285,11 +3240,11 @@ LABEL_10:
     identifier2 = [peripheralCopy identifier];
     isPaired = [firstObject isPaired];
     *buf = 138412802;
-    v36 = identifier2;
-    v37 = 1024;
-    *v38 = isPaired;
-    v38[2] = 2112;
-    *&v38[3] = firstObject;
+    v35 = identifier2;
+    v36 = 1024;
+    *v37 = isPaired;
+    v37[2] = 2112;
+    *&v37[3] = firstObject;
     _os_log_impl(&dword_1DA5E2000, v19, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: didConnectPeripheral %@\n connectedDevice (paired: %d)\n%@", buf, 0x1Cu);
   }
 
@@ -3301,14 +3256,14 @@ LABEL_10:
     v23 = self->_availablePeripherals;
     objc_sync_enter(v23);
     availablePeripherals = self->_availablePeripherals;
-    v34 = firstObject;
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+    v33 = firstObject;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
     [(NSMutableArray *)availablePeripherals setArray:v25];
 
     objc_sync_exit(v23);
     loadedDevices = self->_loadedDevices;
-    v33 = firstObject;
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+    v32 = firstObject;
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
     [(NSMutableArray *)loadedDevices setArray:v27];
 
     persistentDevices = [(AXHearingAidDeviceController *)self persistentDevices];
@@ -3330,8 +3285,6 @@ LABEL_10:
 
   discoveringServiceUUIDs = [firstObject discoveringServiceUUIDs];
   [peripheralCopy discoverServices:discoveringServiceUUIDs];
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __68__AXHearingAidDeviceController_centralManager_didConnectPeripheral___block_invoke(uint64_t a1, void *a2)
@@ -3362,7 +3315,7 @@ BOOL __68__AXHearingAidDeviceController_centralManager_didConnectPeripheral___bl
 
 - (void)centralManager:(id)manager didFailToConnectPeripheral:(id)peripheral error:(id)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   peripheralCopy = peripheral;
   errorCopy = error;
@@ -3370,9 +3323,9 @@ BOOL __68__AXHearingAidDeviceController_centralManager_didConnectPeripheral___bl
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v32 = peripheralCopy;
-    v33 = 2112;
-    v34 = errorCopy;
+    v31 = peripheralCopy;
+    v32 = 2112;
+    v33 = errorCopy;
     _os_log_impl(&dword_1DA5E2000, v11, OS_LOG_TYPE_DEFAULT, "CentralManager: didFailToConnectPeripheral %@ - %@", buf, 0x16u);
   }
 
@@ -3393,7 +3346,7 @@ BOOL __68__AXHearingAidDeviceController_centralManager_didConnectPeripheral___bl
       {
         identifier = [peripheralCopy identifier];
         *buf = 138412290;
-        v32 = identifier;
+        v31 = identifier;
         _os_log_impl(&dword_1DA5E2000, v14, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: didFailToConnectPeripheral, Non fatal error, Will reconnect if possible: %@", buf, 0xCu);
       }
 
@@ -3417,14 +3370,14 @@ BOOL __68__AXHearingAidDeviceController_centralManager_didConnectPeripheral___bl
 
       identifier2 = [peripheralCopy identifier];
       *buf = 138412290;
-      v32 = identifier2;
+      v31 = identifier2;
       v19 = "CentralManager: didFailToConnectPeripheral, Fatal: %@";
     }
 
     else
     {
-      v21 = +[HUHearingAidSettings sharedInstance];
-      clearPartialPairing = [v21 clearPartialPairing];
+      v20 = +[HUHearingAidSettings sharedInstance];
+      clearPartialPairing = [v20 clearPartialPairing];
 
       if (clearPartialPairing)
       {
@@ -3434,16 +3387,16 @@ BOOL __68__AXHearingAidDeviceController_centralManager_didConnectPeripheral___bl
 
       else
       {
-        v24 = MEMORY[0x1E69A4570];
-        v25 = MEMORY[0x1E69A4560];
-        v29 = *MEMORY[0x1E69A4530];
-        v30 = &unk_1F5623EC0;
-        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-        v27 = [v25 messagePayloadFromDictionary:v26 andIdentifier:0x8000000000000000];
-        sharedPairingAgent = [v24 messageWithPayload:v27];
+        v23 = MEMORY[0x1E69A4570];
+        v24 = MEMORY[0x1E69A4560];
+        v28 = *MEMORY[0x1E69A4530];
+        v29 = &unk_1F5623EC0;
+        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+        v26 = [v24 messagePayloadFromDictionary:v25 andIdentifier:0x8000000000000000];
+        sharedPairingAgent = [v23 messageWithPayload:v26];
 
-        v28 = +[AXHeardController sharedServer];
-        [v28 sendUpdateMessage:sharedPairingAgent forIdentifier:0x8000000000000000];
+        v27 = +[AXHeardController sharedServer];
+        [v27 sendUpdateMessage:sharedPairingAgent forIdentifier:0x8000000000000000];
       }
 
       v17 = HCLogHearingHandoff();
@@ -3454,7 +3407,7 @@ BOOL __68__AXHearingAidDeviceController_centralManager_didConnectPeripheral___bl
 
       identifier2 = [peripheralCopy identifier];
       *buf = 138412290;
-      v32 = identifier2;
+      v31 = identifier2;
       v19 = "CentralManager: didFailToConnectPeripheral, Pairing info was removed: %@";
     }
 
@@ -3464,13 +3417,11 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)centralManager:(id)manager didDisconnectPeripheral:(id)peripheral error:(id)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   peripheralCopy = peripheral;
   errorCopy = error;
   v9 = [(AXHearingAidDeviceController *)self hearingAidForPeripheral:peripheralCopy];
@@ -3481,15 +3432,15 @@ LABEL_17:
     state = [peripheralCopy state];
     identifier = [peripheralCopy identifier];
     name = [v9 name];
-    v22 = 134218754;
-    v23 = state;
-    v24 = 2112;
-    v25 = identifier;
-    v26 = 2112;
-    v27 = name;
-    v28 = 2112;
-    v29 = errorCopy;
-    _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, "CentralManager: didDisconnectPeripheral state: %ld %@ %@ error: %@", &v22, 0x2Au);
+    v21 = 134218754;
+    v22 = state;
+    v23 = 2112;
+    v24 = identifier;
+    v25 = 2112;
+    v26 = name;
+    v27 = 2112;
+    v28 = errorCopy;
+    _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, "CentralManager: didDisconnectPeripheral state: %ld %@ %@ error: %@", &v21, 0x2Au);
   }
 
   if (![v9 isPaired])
@@ -3533,20 +3484,18 @@ LABEL_10:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     identifier2 = [peripheralCopy identifier];
-    v22 = 138412290;
-    v23 = identifier2;
-    _os_log_impl(&dword_1DA5E2000, v18, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: didDisconnectPeripheral, Will reconnect if possible: %@", &v22, 0xCu);
+    v21 = 138412290;
+    v22 = identifier2;
+    _os_log_impl(&dword_1DA5E2000, v18, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: didDisconnectPeripheral, Will reconnect if possible: %@", &v21, 0xCu);
   }
 
   [(AXHearingAidDeviceController *)self connectToPeripheral:peripheralCopy];
 LABEL_12:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pairingAgent:(id)agent peerDidCompletePairing:(id)pairing
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   pairingCopy = pairing;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [(AXHearingAidDevice *)pairingCopy hasTag:@"IsHearingAid"])
@@ -3559,9 +3508,9 @@ LABEL_12:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v42 = v6;
-      v43 = 2112;
-      v44 = pairedHearingAids;
+      v41 = v6;
+      v42 = 2112;
+      v43 = pairedHearingAids;
       _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "PairingAgent: peerDidCompletePairing, Pairing completed %@ - %@", buf, 0x16u);
     }
 
@@ -3574,7 +3523,7 @@ LABEL_12:
         dictionary = [v11 objectForKey:@"ax_hearing_device_hiid_key"];
 
         v13 = [pairedHearingAids objectForKey:@"ax_hearing_device_left_peripheral_key"];
-        v40 = [v13 objectForKey:@"ax_hearing_device_hiidother_key"];
+        v39 = [v13 objectForKey:@"ax_hearing_device_hiidother_key"];
 
         v14 = [pairedHearingAids objectForKey:@"ax_hearing_device_right_peripheral_key"];
         v15 = [v14 objectForKey:@"ax_hearing_device_hiid_key"];
@@ -3589,15 +3538,15 @@ LABEL_12:
           dictionary = v18;
         }
 
-        v38 = v17;
+        v37 = v17;
         if (![v15 length])
         {
-          v19 = v40;
+          v19 = v39;
 
           v15 = v19;
         }
 
-        v39 = v15;
+        v38 = v15;
         v20 = [AXHearingAidDevice deviceIDFromLeftID:dictionary andRightID:v15];
         v21 = [v6 hasTag:v20];
         v22 = HCLogHearingAids();
@@ -3607,9 +3556,9 @@ LABEL_12:
           if (v23)
           {
             *buf = 138412546;
-            v42 = v20;
-            v43 = 2112;
-            v44 = v6;
+            v41 = v20;
+            v42 = 2112;
+            v43 = v6;
             _os_log_impl(&dword_1DA5E2000, &v22->super, OS_LOG_TYPE_DEFAULT, "PairingAgent: peerDidCompletePairing, Found easy paired peripheral %@ - %@", buf, 0x16u);
           }
 
@@ -3623,7 +3572,7 @@ LABEL_12:
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v42 = v22;
+              v41 = v22;
               _os_log_impl(&dword_1DA5E2000, v24, OS_LOG_TYPE_DEFAULT, "PairingAgent: peerDidCompletePairing, Creating new easy pairing device %@", buf, 0xCu);
             }
           }
@@ -3637,11 +3586,11 @@ LABEL_12:
         else if (v23)
         {
           *buf = 138412290;
-          v42 = v20;
+          v41 = v20;
           _os_log_impl(&dword_1DA5E2000, &v22->super, OS_LOG_TYPE_DEFAULT, "PairingAgent: peerDidCompletePairing, Peripheral missing tag %@", buf, 0xCu);
         }
 
-        v36 = v40;
+        v36 = v39;
       }
 
       else
@@ -3675,7 +3624,7 @@ LABEL_12:
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v42 = dictionary;
+          v41 = dictionary;
           _os_log_impl(&dword_1DA5E2000, v36, OS_LOG_TYPE_DEFAULT, "PairingAgent: peerDidCompletePairing, Not iCloud paired. Storing UUIDs %@", buf, 0xCu);
         }
       }
@@ -3693,12 +3642,10 @@ LABEL_12:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v42 = pairingCopy;
+      v41 = pairingCopy;
       _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "PairingAgent: peerDidCompletePairing, Skipping pairing because not a hearing device %@", buf, 0xCu);
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __68__AXHearingAidDeviceController_pairingAgent_peerDidCompletePairing___block_invoke(uint64_t a1, int a2, char a3)
@@ -3715,17 +3662,17 @@ void __68__AXHearingAidDeviceController_pairingAgent_peerDidCompletePairing___bl
 
 - (void)pairingAgent:(id)agent peerDidFailToCompletePairing:(id)pairing error:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   pairingCopy = pairing;
   errorCopy = error;
   v9 = HCLogHearingAids();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = pairingCopy;
-    v15 = 2112;
-    v16 = errorCopy;
-    _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "PairingAgent: peerDidFailToCompletePairing, %@ - %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = pairingCopy;
+    v14 = 2112;
+    v15 = errorCopy;
+    _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "PairingAgent: peerDidFailToCompletePairing, %@ - %@", &v12, 0x16u);
   }
 
   objc_opt_class();
@@ -3737,23 +3684,21 @@ void __68__AXHearingAidDeviceController_pairingAgent_peerDidCompletePairing___bl
 
     [(AXHearingAidDeviceController *)self loadedDevicesDidChange];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pairingAgent:(id)agent peerDidUnpair:(id)unpair
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   unpairCopy = unpair;
   v6 = [(AXHearingAidDeviceController *)self hearingAidForPeripheral:unpairCopy];
   v7 = HCLogHearingAids();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = unpairCopy;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "PairingAgent: peerDidUnpair, Did Unpair %@ in device %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = unpairCopy;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "PairingAgent: peerDidUnpair, Did Unpair %@ in device %@", &v9, 0x16u);
   }
 
   if (v6)
@@ -3764,8 +3709,6 @@ void __68__AXHearingAidDeviceController_pairingAgent_peerDidCompletePairing___bl
     v8 = +[HUHearingAidSettings sharedInstance];
     [v8 setPairedHearingAids:0];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkPeripheralPaired:(id)paired withCompletion:(id)completion
@@ -3811,7 +3754,7 @@ uint64_t __69__AXHearingAidDeviceController_checkPeripheralPaired_withCompletion
 
 - (void)unpairPeripheralWithUUID:(id)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = [dCopy length];
   v6 = HCLogHearingAids();
@@ -3821,37 +3764,35 @@ uint64_t __69__AXHearingAidDeviceController_checkPeripheralPaired_withCompletion
     if (v7)
     {
       *buf = 138412290;
-      v13 = dCopy;
+      v12 = dCopy;
       _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Unpairing peripheral %@", buf, 0xCu);
     }
 
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __57__AXHearingAidDeviceController_unpairPeripheralWithUUID___block_invoke;
-    v9[3] = &unk_1E85C9F38;
-    v10 = dCopy;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __57__AXHearingAidDeviceController_unpairPeripheralWithUUID___block_invoke;
+    v8[3] = &unk_1E85C9F38;
+    v9 = dCopy;
     selfCopy = self;
-    [(AXHearingAidDeviceController *)self sendRequestToCentralManager:v9];
-    v6 = v10;
+    [(AXHearingAidDeviceController *)self sendRequestToCentralManager:v8];
+    v6 = v9;
   }
 
   else if (v7)
   {
     *buf = 138412290;
-    v13 = dCopy;
+    v12 = dCopy;
     _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Not Unpairing %@", buf, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __57__AXHearingAidDeviceController_unpairPeripheralWithUUID___block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:*(a1 + 32)];
   v3 = *(*(a1 + 40) + 40);
-  v16[0] = v2;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v15[0] = v2;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   v5 = [v3 retrievePeripheralsWithIdentifiers:v4];
 
   v6 = [v5 firstObject];
@@ -3861,9 +3802,9 @@ void __57__AXHearingAidDeviceController_unpairPeripheralWithUUID___block_invoke(
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 32);
-      v14 = 138412290;
-      v15[0] = v12;
-      _os_log_impl(&dword_1DA5E2000, v11, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Not unpairing, no peripheral for %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14[0] = v12;
+      _os_log_impl(&dword_1DA5E2000, v11, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: Not unpairing, no peripheral for %@", &v13, 0xCu);
     }
 
     goto LABEL_8;
@@ -3876,11 +3817,11 @@ void __57__AXHearingAidDeviceController_unpairPeripheralWithUUID___block_invoke(
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
-    v14 = 67109378;
-    LODWORD(v15[0]) = v8;
-    WORD2(v15[0]) = 2112;
-    *(v15 + 6) = v10;
-    _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "PairingAgent: Unpairing [%d] %@", &v14, 0x12u);
+    v13 = 67109378;
+    LODWORD(v14[0]) = v8;
+    WORD2(v14[0]) = 2112;
+    *(v14 + 6) = v10;
+    _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "PairingAgent: Unpairing [%d] %@", &v13, 0x12u);
   }
 
   if (v8)
@@ -3889,8 +3830,6 @@ void __57__AXHearingAidDeviceController_unpairPeripheralWithUUID___block_invoke(
     [v11 unpairPeer:v6];
 LABEL_8:
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)persistPairedHearingAids
@@ -3908,7 +3847,7 @@ LABEL_8:
 
 - (void)pairedHearingAidsDidChange
 {
-  v59[1] = *MEMORY[0x1E69E9840];
+  v58[1] = *MEMORY[0x1E69E9840];
   v3 = +[HUHearingAidSettings sharedInstance];
   pairedHearingAids = [v3 pairedHearingAids];
 
@@ -3916,7 +3855,7 @@ LABEL_8:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v56 = pairedHearingAids;
+    v55 = pairedHearingAids;
     _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: pairedHearingAidsDidChange, persistent Hearing Aids: %@", buf, 0xCu);
   }
 
@@ -3966,13 +3905,13 @@ LABEL_19:
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v56 = v19;
+              v55 = v19;
               _os_log_impl(&dword_1DA5E2000, v23, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: pairedHearingAidsDidChange, Updating Persistent/Loaded/Available with device\n%@", buf, 0xCu);
             }
 
             persistentDevices = [(AXHearingAidDeviceController *)self persistentDevices];
-            v59[0] = v19;
-            v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:1];
+            v58[0] = v19;
+            v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:1];
             [persistentDevices setArray:v25];
 
             [(AXHearingAidDeviceController *)self addLoadedDevice:v19];
@@ -3995,48 +3934,48 @@ LABEL_29:
               [array addObject:rightPeripheralUUID2];
             }
 
-            v46 = v21;
+            v45 = v21;
             v32 = HCLogHearingAids();
             if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
               [(AXHearingAidDeviceController *)self persistentDevices];
               v34 = v33 = v14;
               *buf = 138412546;
-              v56 = v19;
-              v57 = 2112;
-              v58 = v34;
+              v55 = v19;
+              v56 = 2112;
+              v57 = v34;
               _os_log_impl(&dword_1DA5E2000, v32, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: pairedHearingAidsDidChange, Persistent device %@, %@", buf, 0x16u);
 
               v14 = v33;
             }
 
             connectedDevices = [(AXHearingAidDeviceController *)self connectedDevices];
-            v52[0] = MEMORY[0x1E69E9820];
-            v52[1] = 3221225472;
-            v52[2] = __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke_102;
-            v52[3] = &unk_1E85CC5A8;
+            v51[0] = MEMORY[0x1E69E9820];
+            v51[1] = 3221225472;
+            v51[2] = __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke_102;
+            v51[3] = &unk_1E85CC5A8;
             v36 = array;
-            v53 = v36;
-            [connectedDevices enumerateObjectsUsingBlock:v52];
+            v52 = v36;
+            [connectedDevices enumerateObjectsUsingBlock:v51];
 
             array2 = [*(v14 + 3952) array];
-            v50[0] = MEMORY[0x1E69E9820];
-            v50[1] = 3221225472;
-            v50[2] = __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke_3;
-            v50[3] = &unk_1E85CA8E0;
+            v49[0] = MEMORY[0x1E69E9820];
+            v49[1] = 3221225472;
+            v49[2] = __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke_3;
+            v49[3] = &unk_1E85CA8E0;
             v38 = array2;
-            v51 = v38;
-            [v36 enumerateObjectsUsingBlock:v50];
+            v50 = v38;
+            [v36 enumerateObjectsUsingBlock:v49];
             if ([v38 count])
             {
-              v47[0] = MEMORY[0x1E69E9820];
-              v47[1] = 3221225472;
-              v47[2] = __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke_4;
-              v47[3] = &unk_1E85CA468;
-              v47[4] = self;
-              v48 = v38;
-              v49 = v19;
-              [(AXHearingAidDeviceController *)self sendRequestToCentralManager:v47];
+              v46[0] = MEMORY[0x1E69E9820];
+              v46[1] = 3221225472;
+              v46[2] = __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke_4;
+              v46[3] = &unk_1E85CA468;
+              v46[4] = self;
+              v47 = v38;
+              v48 = v19;
+              [(AXHearingAidDeviceController *)self sendRequestToCentralManager:v46];
             }
 
             else
@@ -4050,9 +3989,9 @@ LABEL_29:
                 if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412546;
-                  v56 = v36;
-                  v57 = 2112;
-                  v58 = pairedHearingAids;
+                  v55 = v36;
+                  v56 = 2112;
+                  v57 = pairedHearingAids;
                   _os_log_impl(&dword_1DA5E2000, v41, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: pairedHearingAidsDidChange, No peripheral identifiers %@, unpairing persistent device\n%@", buf, 0x16u);
                 }
 
@@ -4075,7 +4014,7 @@ LABEL_26:
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v56 = v19;
+            v55 = v19;
             _os_log_impl(&dword_1DA5E2000, v26, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: pairedHearingAidsDidChange, Persistent properties weren't loaded, Disconnecting and Unpairing device\n%@", buf, 0xCu);
           }
 
@@ -4116,12 +4055,12 @@ LABEL_26:
     {
       v6 = +[AXHAController sharedController];
       liveListenController2 = [v6 liveListenController];
-      v54[0] = MEMORY[0x1E69E9820];
-      v54[1] = 3221225472;
-      v54[2] = __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke;
-      v54[3] = &unk_1E85CC790;
-      v54[4] = self;
-      [liveListenController2 stopListeningWithCompletion:v54];
+      v53[0] = MEMORY[0x1E69E9820];
+      v53[1] = 3221225472;
+      v53[2] = __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke;
+      v53[3] = &unk_1E85CC790;
+      v53[4] = self;
+      [liveListenController2 stopListeningWithCompletion:v53];
 
       goto LABEL_42;
     }
@@ -4130,8 +4069,6 @@ LABEL_26:
   }
 
 LABEL_43:
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 void __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke_102(uint64_t a1, void *a2)
@@ -4169,16 +4106,16 @@ void __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke
 
 void __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke_4(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 40) retrievePeripheralsWithIdentifiers:*(a1 + 40)];
   if ([v2 count])
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke_103;
-    v15[3] = &unk_1E85CA8E0;
-    v16 = *(a1 + 48);
-    [v2 enumerateObjectsUsingBlock:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke_103;
+    v14[3] = &unk_1E85CA8E0;
+    v15 = *(a1 + 48);
+    [v2 enumerateObjectsUsingBlock:v14];
     v3 = +[HUHearingAidSettings sharedInstance];
     v4 = [v3 isiCloudPaired];
 
@@ -4189,7 +4126,7 @@ void __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke
       {
         v6 = *(a1 + 48);
         *buf = 138412290;
-        v18 = v6;
+        v17 = v6;
         _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "HearingAidDeviceController: pairedHearingAidsDidChange, Saving iCloud paired device\n%@", buf, 0xCu);
       }
 
@@ -4208,7 +4145,7 @@ void __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke
     {
       v10 = *(a1 + 40);
       *buf = 138412290;
-      v18 = v10;
+      v17 = v10;
       _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "CentralManager: No peripherals with identifiers, unpairing %@", buf, 0xCu);
     }
 
@@ -4221,26 +4158,22 @@ void __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke
 
     [*(a1 + 32) searchForAvailableDevices];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __58__AXHearingAidDeviceController_pairedHearingAidsDidChange__block_invoke_103(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) addPeripheral:v3];
   v5 = HCLogHearingAids();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109378;
-    v7[1] = v4;
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "CentralManager: Retrieved peripheral, Did add %d to device\n%@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = v4;
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "CentralManager: Retrieved peripheral, Did add %d to device\n%@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addFakeHearingAidsWithType:(id)type
@@ -4325,66 +4258,36 @@ uint64_t __54__AXHearingAidDeviceController_clearPairedHearingAids__block_invoke
 
 void __61__AXHearingAidDeviceController_setupCentralManagerForLEAudio__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = [a1 error];
-  v6 = 138412546;
-  v7 = a1;
+  v5 = 138412546;
+  v6 = a1;
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_ERROR, "HearingAidDeviceController LEA 3: session update - event %@ error %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __73__AXHearingAidDeviceController_processConnectedIdentifiers_andLocations___block_invoke_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __73__AXHearingAidDeviceController_processConnectedIdentifiers_andLocations___block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __73__AXHearingAidDeviceController_processConnectedIdentifiers_andLocations___block_invoke_cold_4(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_ERROR, "HearingAidDeviceController LEA 3: session update - event %@ error %@", &v5, 0x16u);
 }
 
 void __44__AXHearingAidDeviceController_isConnecting__block_invoke_cold_1(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v2 = [a1 leftPeripheral];
   v3 = [a1 descriptionForCBPeripheralState:{objc_msgSend(v2, "state")}];
   v4 = [a1 leftPeripheral];
   v5 = [v4 identifier];
+  LODWORD(v12) = 138412546;
+  *(&v12 + 4) = v3;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DA5E2000, v6, v7, "leftPeripheral state: %@ %@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_1DA5E2000, v6, v7, "leftPeripheral state: %@ %@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 void __44__AXHearingAidDeviceController_isConnecting__block_invoke_cold_2(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v2 = [a1 rightPeripheral];
   v3 = [a1 descriptionForCBPeripheralState:{objc_msgSend(v2, "state")}];
   v4 = [a1 rightPeripheral];
   v5 = [v4 identifier];
+  LODWORD(v12) = 138412546;
+  *(&v12 + 4) = v3;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DA5E2000, v6, v7, "rightPeripheral state: %@ %@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_1DA5E2000, v6, v7, "rightPeripheral state: %@ %@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 - (void)centralManager:(void *)a1 didDiscoverPeripheral:(uint64_t)a2 advertisementData:(uint8_t *)buf RSSI:(os_log_t)log .cold.1(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)

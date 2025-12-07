@@ -77,7 +77,7 @@
 {
   labelCopy = label;
   label = [(SKUIGiftTextTableViewCell *)self label];
-  if (label != labelCopy && ([labelCopy isEqualToString:label] & 1) == 0)
+  if (label != labelCopy && (objc_msgSend_isEqualToString_(labelCopy) & 1) == 0)
   {
     label = self->_label;
     if (labelCopy)
@@ -124,7 +124,7 @@
 {
   placeholderCopy = placeholder;
   placeholder = [(SKUIGiftTextTableViewCell *)self placeholder];
-  if (placeholder != placeholderCopy && ([placeholderCopy isEqualToString:placeholder] & 1) == 0)
+  if (placeholder != placeholderCopy && (objc_msgSend_isEqualToString_(placeholderCopy) & 1) == 0)
   {
     placeholderLabel = self->_placeholderLabel;
     if (placeholderCopy)

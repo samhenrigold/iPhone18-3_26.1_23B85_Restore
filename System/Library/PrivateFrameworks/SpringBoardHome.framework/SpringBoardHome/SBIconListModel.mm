@@ -1254,7 +1254,7 @@ uint64_t __52__SBIconListModel_updateHasNonDefaultSizeClassIcons__block_invoke(u
             if (v30 != 0x7FFFFFFFFFFFFFFFLL)
             {
               v31 = v30;
-              v32 = [v19 objectAtIndex:v30];
+              v32 = objc_msgSend_objectAtIndex_(v19);
               v113[0] = v32;
               v113[1] = v26;
               [MEMORY[0x1E695DEC8] arrayWithObjects:v113 count:2];
@@ -2975,8 +2975,9 @@ uint64_t __66__SBIconListModel_bestGridCellIndexForInsertingIcon_gridCellInfo___
   return result;
 }
 
-void __66__SBIconListModel_bestGridCellIndexForInsertingIcon_gridCellInfo___block_invoke_2(uint64_t a1, unint64_t a2, int a3, uint64_t a4)
+void __66__SBIconListModel_bestGridCellIndexForInsertingIcon_gridCellInfo___block_invoke_2(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __66__SBIconListModel_bestGridCellIndexForInsertingIcon_gridCellInfo___block_invoke_3;
@@ -2986,7 +2987,7 @@ void __66__SBIconListModel_bestGridCellIndexForInsertingIcon_gridCellInfo___bloc
   v11 = v8;
   v12 = v9;
   v13 = a4;
-  SBHIconGridRangeEnumerateSubranges(a2, a3, *(a1 + 48), *(a1 + 52), 0, v10);
+  SBHIconGridRangeEnumerateSubranges(a2, v5, *(a1 + 48), *(a1 + 52), 0, v10);
 }
 
 uint64_t __66__SBIconListModel_bestGridCellIndexForInsertingIcon_gridCellInfo___block_invoke_3(void *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
@@ -3444,74 +3445,76 @@ void __140__SBIconListModel_removeIconFromOtherPositionsInHierarchy_forInserting
 
 - (id)insertIcons:(id)icons atIndex:(unint64_t)index options:(unint64_t)options
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   iconsCopy = icons;
+  v9 = iconsCopy;
   if (index == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v9 = SBLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = SBLogCommon(iconsCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [SBIconListModel insertIcons:v9 atIndex:? options:?];
+      [SBIconListModel insertIcons:v10 atIndex:? options:?];
     }
 
-    v10 = iconsCopy;
+    v11 = v9;
   }
 
   else
   {
     optionsCopy = options;
     numberOfIcons = [(SBIconListModel *)self numberOfIcons];
-    v24 = numberOfIcons <= index;
+    v26 = numberOfIcons <= index;
     if (numberOfIcons <= index)
     {
       index = [(SBIconListModel *)self numberOfIcons];
     }
 
     indexCopy = index;
+    v48 = 0u;
+    v49 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v27 = iconsCopy;
-    v10 = iconsCopy;
-    v12 = [v10 countByEnumeratingWithState:&v44 objects:v48 count:16];
-    if (v12)
+    v29 = v9;
+    v11 = v9;
+    v13 = [v11 countByEnumeratingWithState:&v46 objects:v50 count:16];
+    if (v13)
     {
-      v13 = *v45;
-      v14 = 1;
+      v14 = *v47;
+      v15 = 1;
       while (2)
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v45 != v13)
+          if (*v47 != v14)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v44 + 1) + 8 * i);
-          if (![(SBIconListModel *)self isAllowedToContainIcon:v16])
+          v17 = *(*(&v46 + 1) + 8 * i);
+          v18 = [(SBIconListModel *)self isAllowedToContainIcon:v17];
+          if ((v18 & 1) == 0)
           {
-            v20 = SBLogCommon();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v22 = SBLogCommon(v18);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
-              [SBIconListModel insertIcons:atIndex:options:];
+              [SBIconListModel insertIcons:v17 atIndex:? options:?];
             }
 
             goto LABEL_23;
           }
 
-          gridSizeClass = [v16 gridSizeClass];
+          gridSizeClass = [v17 gridSizeClass];
           if (gridSizeClass)
           {
-            gridSizeClass2 = [v16 gridSizeClass];
-            v19 = [gridSizeClass2 isEqualToString:@"SBHIconGridSizeClassDefault"];
+            gridSizeClass2 = [v17 gridSizeClass];
+            v21 = [gridSizeClass2 isEqualToString:@"SBHIconGridSizeClassDefault"];
 
-            v14 &= v19;
+            v15 &= v21;
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v44 objects:v48 count:16];
-        if (v12)
+        v13 = [v11 countByEnumeratingWithState:&v46 objects:v50 count:16];
+        if (v13)
         {
           continue;
         }
@@ -3522,42 +3525,42 @@ void __140__SBIconListModel_removeIconFromOtherPositionsInHierarchy_forInserting
 
     else
     {
-      v14 = 1;
+      v15 = 1;
     }
 
     folder = [(SBIconListModel *)self folder];
-    v22 = [folder startCoalescingContentChangesForReason:@"insertIcons"];
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x3032000000;
-    v41 = __Block_byref_object_copy__14;
-    v42 = __Block_byref_object_dispose__14;
-    v43 = 0;
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __47__SBIconListModel_insertIcons_atIndex_options___block_invoke;
-    v28[3] = &unk_1E808DA50;
-    v32 = indexCopy;
-    v34 = (optionsCopy & 0x10000000) != 0;
-    v29 = v10;
+    v24 = [folder startCoalescingContentChangesForReason:@"insertIcons"];
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x3032000000;
+    v43 = __Block_byref_object_copy__14;
+    v44 = __Block_byref_object_dispose__14;
+    v45 = 0;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __47__SBIconListModel_insertIcons_atIndex_options___block_invoke;
+    v30[3] = &unk_1E808DA50;
+    v34 = indexCopy;
+    v36 = (optionsCopy & 0x10000000) != 0;
+    v31 = v11;
     selfCopy = self;
-    v35 = v14 & 1;
-    v33 = optionsCopy;
-    v31 = &v38;
-    v36 = v24;
-    v37 = (optionsCopy & 0x80000000) == 0;
-    [(SBIconListModel *)self _coalesceChangesWithRequestID:@"insertIcons" changeBlock:v28];
+    v37 = v15 & 1;
+    v35 = optionsCopy;
+    v33 = &v40;
+    v38 = v26;
+    v39 = (optionsCopy & 0x80000000) == 0;
+    [(SBIconListModel *)self _coalesceChangesWithRequestID:@"insertIcons" changeBlock:v30];
     [(SBIconListModel *)self sortByLayoutOrderWithGridCellInfoOptions:0];
-    [v22 invalidate];
+    [v24 invalidate];
     [(SBIconListModel *)self markIconStateDirtyWithOptions:optionsCopy];
-    v10 = v39[5];
+    v11 = v41[5];
 
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v40, 8);
 LABEL_23:
-    iconsCopy = v27;
+    v9 = v29;
   }
 
-  return v10;
+  return v11;
 }
 
 void __47__SBIconListModel_insertIcons_atIndex_options___block_invoke(uint64_t a1)
@@ -3806,58 +3809,59 @@ void __47__SBIconListModel_insertIcons_atIndex_options___block_invoke_3(uint64_t
 
 - (id)insertIconWhilePreservingQuads:(id)quads toGridCellIndex:(unint64_t)index gridCellInfoOptions:(unint64_t)options mutationOptions:(unint64_t)mutationOptions
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   quadsCopy = quads;
   v11 = [(SBIconListModel *)self _targetListForGridCellInfoOptions:options];
   v12 = v11;
   if (v11 == self)
   {
-    if ([(SBIconListModel *)self isAllowedToContainIcon:quadsCopy])
+    v14 = [(SBIconListModel *)self isAllowedToContainIcon:quadsCopy];
+    if (v14)
     {
       gridSizeClass = [quadsCopy gridSizeClass];
-      v20 = [(SBIconListModel *)self gridSizeForGridSizeClass:gridSizeClass gridCellInfoOptions:options];
+      v21 = [(SBIconListModel *)self gridSizeForGridSizeClass:gridSizeClass gridCellInfoOptions:options];
       rotatedLayoutClusterGridSizeClass = [(SBIconListModel *)self rotatedLayoutClusterGridSizeClass];
-      v16 = [(SBIconListModel *)self gridSizeForGridSizeClass:rotatedLayoutClusterGridSizeClass gridCellInfoOptions:options];
+      v17 = [(SBIconListModel *)self gridSizeForGridSizeClass:rotatedLayoutClusterGridSizeClass gridCellInfoOptions:options];
       folder = [(SBIconListModel *)self folder];
-      v17 = [folder startCoalescingContentChangesForReason:@"insertIcons"];
-      v31 = 0;
-      v32 = &v31;
-      v33 = 0x3032000000;
-      v34 = __Block_byref_object_copy__14;
-      v35 = __Block_byref_object_dispose__14;
-      v36 = 0;
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __102__SBIconListModel_insertIconWhilePreservingQuads_toGridCellIndex_gridCellInfoOptions_mutationOptions___block_invoke;
-      v22[3] = &unk_1E808DAF0;
-      v22[4] = self;
+      v18 = [folder startCoalescingContentChangesForReason:@"insertIcons"];
+      v32 = 0;
+      v33 = &v32;
+      v34 = 0x3032000000;
+      v35 = __Block_byref_object_copy__14;
+      v36 = __Block_byref_object_dispose__14;
+      v37 = 0;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __102__SBIconListModel_insertIconWhilePreservingQuads_toGridCellIndex_gridCellInfoOptions_mutationOptions___block_invoke;
+      v23[3] = &unk_1E808DAF0;
+      v23[4] = self;
       mutationOptionsCopy = mutationOptions;
       indexCopy = index;
-      v23 = quadsCopy;
-      v24 = rotatedLayoutClusterGridSizeClass;
-      v29 = v20;
-      v30 = v16;
-      v25 = &v31;
+      v24 = quadsCopy;
+      v25 = rotatedLayoutClusterGridSizeClass;
+      v30 = v21;
+      v31 = v17;
+      v26 = &v32;
       optionsCopy = options;
-      [(SBIconListModel *)self _coalesceChangesWithRequestID:@"insertIcons" changeBlock:v22];
-      [v17 invalidate];
+      [(SBIconListModel *)self _coalesceChangesWithRequestID:@"insertIcons" changeBlock:v23];
+      [v18 invalidate];
       [(SBIconListModel *)self _invalidateLayoutWithGridCellInfoOptions:options mutationOptions:mutationOptions];
       [(SBIconListModel *)self markIconStateDirtyWithOptions:mutationOptions];
-      v13 = v32[5];
+      v13 = v33[5];
 
-      _Block_object_dispose(&v31, 8);
+      _Block_object_dispose(&v32, 8);
     }
 
     else
     {
-      v18 = SBLogCommon();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = SBLogCommon(v14);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [SBIconListModel insertIconWhilePreservingQuads:toGridCellIndex:gridCellInfoOptions:mutationOptions:];
+        [SBIconListModel insertIconWhilePreservingQuads:quadsCopy toGridCellIndex:? gridCellInfoOptions:? mutationOptions:?];
       }
 
-      v37[0] = quadsCopy;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
+      v38[0] = quadsCopy;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
     }
   }
 
@@ -4736,7 +4740,7 @@ uint64_t __151__SBIconListModel_bestGridCellIndexForInsertingIcon_maintainingPos
   return isKindOfClass & 1;
 }
 
-uint64_t __151__SBIconListModel_bestGridCellIndexForInsertingIcon_maintainingPositionRelativeToIcon_before_ignoringPlaceholders_gridCellInfoOptions_mutationOptions___block_invoke_2(uint64_t a1, void *a2, void *a3, int a4)
+unint64_t __151__SBIconListModel_bestGridCellIndexForInsertingIcon_maintainingPositionRelativeToIcon_before_ignoringPlaceholders_gridCellInfoOptions_mutationOptions___block_invoke_2(uint64_t a1, void *a2, void *a3, int a4)
 {
   v7 = *(a1 + 32);
   v8 = a3;
@@ -5540,7 +5544,7 @@ uint64_t __66__SBIconListModel_removeIcon_gridCellInfoOptions_mutationOptions___
   return v6;
 }
 
-uint64_t __66__SBIconListModel_removeIcon_gridCellInfoOptions_mutationOptions___block_invoke_3(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__66__SBIconListModel_removeIcon_gridCellInfoOptions_mutationOptions___block_invoke_3(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   v6 = [*(a1 + 32) gridCellIndexForIconIndex:a2];
   result = [*(a1 + 40) gridCellIndexForIconIndex:a2];
@@ -5577,8 +5581,9 @@ void __66__SBIconListModel_removeIcon_gridCellInfoOptions_mutationOptions___bloc
   }
 }
 
-void __66__SBIconListModel_removeIcon_gridCellInfoOptions_mutationOptions___block_invoke_5(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+void __66__SBIconListModel_removeIcon_gridCellInfoOptions_mutationOptions___block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
   v8 = [*(a1 + 32) gridCellInfoWithOptions:*(a1 + 64)];
   v17[0] = 0;
   v17[1] = v17;
@@ -5595,12 +5600,12 @@ void __66__SBIconListModel_removeIcon_gridCellInfoOptions_mutationOptions___bloc
   v11 = *(a1 + 40);
   v12 = *(a1 + 48);
   v14 = v17;
-  SBHIconGridRangeEnumerateCellIndexes(a2, a3, *(a1 + 80), v10);
+  SBHIconGridRangeEnumerateCellIndexes(a2, v5, *(a1 + 80), v10);
 
   _Block_object_dispose(v17, 8);
 }
 
-void __66__SBIconListModel_removeIcon_gridCellInfoOptions_mutationOptions___block_invoke_6(uint64_t a1, uint64_t a2, _BYTE *a3)
+void __66__SBIconListModel_removeIcon_gridCellInfoOptions_mutationOptions___block_invoke_6(uint64_t a1, const char *a2, _BYTE *a3)
 {
   v4 = *(*(*(a1 + 48) + 8) + 24);
   if (v4 >= *(a1 + 64))
@@ -5611,7 +5616,7 @@ void __66__SBIconListModel_removeIcon_gridCellInfoOptions_mutationOptions___bloc
 
   else
   {
-    v5 = [*(a1 + 32) objectAtIndex:v4];
+    v5 = objc_msgSend_objectAtIndex_(*(a1 + 32), a2, v4);
     [*(*(a1 + 40) + 8) moveNode:v5 toIndex:*(*(*(a1 + 56) + 8) + 24)];
     ++*(*(*(a1 + 48) + 8) + 24);
     ++*(*(*(a1 + 56) + 8) + 24);
@@ -6244,7 +6249,7 @@ LABEL_8:
 
 - (BOOL)_moveContainedIconWithinAffectedQuadsIfNecessary:(id)necessary toGridCellIndex:(unint64_t)index gridCellInfoOptions:(unint64_t)options mutationOptions:(unint64_t)mutationOptions
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   if ((mutationOptions & 0x300000000) == 0)
   {
@@ -6262,12 +6267,12 @@ LABEL_10:
 
     count = v16;
     gridSizeClass = [necessaryCopy gridSizeClass];
-    v69 = [(SBIconListModel *)self gridSizeForGridSizeClass:gridSizeClass gridCellInfoOptions:options];
+    v70 = [(SBIconListModel *)self gridSizeForGridSizeClass:gridSizeClass gridCellInfoOptions:options];
     v17 = [(SBIconListModel *)self gridSizeWithOptions:options];
-    v71 = gridSizeClass;
+    v72 = gridSizeClass;
     if (gridSizeClass)
     {
-      v65 = v17;
+      v66 = v17;
       if (([(SBRotatedIconListModel *)gridSizeClass isEqualToString:@"SBHIconGridSizeClassDefault"]& 1) == 0)
       {
         LOBYTE(gridSizeClass) = 0;
@@ -6283,29 +6288,29 @@ LABEL_10:
         }
 
         LOBYTE(gridSizeClass) = 0;
-        if (v13.columns >= v65.columns)
+        if (v13.columns >= v66.columns)
         {
           goto LABEL_9;
         }
 
         v20 = HIWORD(*&v13);
-        if (HIWORD(*&v65) <= v20)
+        if (HIWORD(*&v66) <= v20)
         {
           goto LABEL_9;
         }
 
-        if (!(v65.columns % v14) && !(HIWORD(*&v65) % WORD1(v14)))
+        if (!(v66.columns % v14) && !(HIWORD(*&v66) % WORD1(v14)))
         {
           LOBYTE(gridSizeClass) = 0;
-          if (columns >= v69.columns && HIWORD(*&v69) <= v20)
+          if (columns >= v70.columns && HIWORD(*&v70) <= v20)
           {
-            v63 = columns;
+            v64 = columns;
             v21 = [(SBIconListModel *)self gridCellInfoWithOptions:options];
-            v59 = [v21 gridCellIndexForIconIndex:{-[SBIconListModel indexForIcon:](self, "indexForIcon:", necessaryCopy)}];
-            v62 = [(SBIconIndexMutableList *)self->_icons copy];
-            v70 = v21;
+            v60 = [v21 gridCellIndexForIconIndex:{-[SBIconListModel indexForIcon:](self, "indexForIcon:", necessaryCopy)}];
+            v63 = [(SBIconIndexMutableList *)self->_icons copy];
+            v71 = v21;
             v22 = [(SBIconListModel *)self iconAtGridCellIndex:index gridCellInfo:v21];
-            v61 = v22;
+            v62 = v22;
             if (v22)
             {
               gridSizeClass2 = [v22 gridSizeClass];
@@ -6319,44 +6324,44 @@ LABEL_10:
             v24 = gridSizeClass2;
             v25 = [(SBIconListModel *)self gridSizeForGridSizeClass:gridSizeClass2 gridCellInfoOptions:options];
             LOBYTE(gridSizeClass) = 0;
-            if (v63 >= v25.columns && HIWORD(*&v25) <= v20)
+            if (v64 >= v25.columns && HIWORD(*&v25) <= v20)
             {
-              v58 = v24;
-              v26 = v65.columns;
-              v66 = SBHIconGridRangeSubrangeIncludingCellIndex(0, v65.columns, v59, v14, v65.columns);
-              v57 = v27;
+              v59 = v24;
+              v26 = v66.columns;
+              v67 = SBHIconGridRangeSubrangeIncludingCellIndex(0, v66.columns, v60, v14, v66.columns);
+              v58 = v27;
               v28 = SBHIconGridRangeSubrangeIncludingCellIndex(0, v26, index, v14, v26);
-              v56 = v29;
-              SBIconCoordinateMakeWithGridCellIndex(v66, v26);
-              v54 = v30;
-              v50 = v26;
+              v57 = v29;
+              SBIconCoordinateMakeWithGridCellIndex(v67, v26);
+              v55 = v30;
+              v51 = v26;
               SBIconCoordinateMakeWithGridCellIndex(v28, v26);
-              v60 = v28;
-              if (v66 == v28)
+              v61 = v28;
+              if (v67 == v28)
               {
-                v32 = v63;
+                v32 = v64;
               }
 
-              else if (v54 == v31)
+              else if (v55 == v31)
               {
-                v32 = 2 * v63;
+                v32 = 2 * v64;
               }
 
               else
               {
                 v20 *= 2;
-                v32 = v63;
+                v32 = v64;
               }
 
-              v24 = v58;
+              v24 = v59;
               LOBYTE(gridSizeClass) = 0;
               if (!(v32 >> 16))
               {
-                v51 = v32;
+                v52 = v32;
                 if (!(v20 >> 16))
                 {
                   [(SBIconListModel *)self gridSizeClassSizesWithOptions:options];
-                  v49 = v47 = v51;
+                  v50 = v48 = v52;
                   gridSizeClass = [SBIconListModel initWithUniqueIdentifier:"initWithUniqueIdentifier:folder:gridSize:gridSizeClassSizes:" folder:@"QuadMovement" gridSize:0 gridSizeClassSizes:?];
                   rotatedLayoutClusterGridSizeClass2 = [(SBIconListModel *)self rotatedLayoutClusterGridSizeClass];
                   [(SBIconListModel *)gridSizeClass setRotatedLayoutClusterGridSizeClass:rotatedLayoutClusterGridSizeClass2];
@@ -6365,11 +6370,11 @@ LABEL_10:
                   gridSizeClassDomain = [(SBIconListModel *)self gridSizeClassDomain];
                   [(SBIconListModel *)gridSizeClass setGridSizeClassDomain:gridSizeClassDomain];
 
-                  v48 = [(SBIconListModel *)self iconsForGridRange:v66 gridCellInfo:v57, v70];
+                  v49 = [(SBIconListModel *)self iconsForGridRange:v67 gridCellInfo:v58, v71];
                   v35 = [(SBIconListModel *)gridSizeClass addIcons:?];
-                  if (v66 != v60)
+                  if (v67 != v61)
                   {
-                    v36 = [(SBIconListModel *)self iconsForGridRange:v60 gridCellInfo:v56, v70];
+                    v36 = [(SBIconListModel *)self iconsForGridRange:v61 gridCellInfo:v57, v71];
                     v37 = [(SBIconListModel *)gridSizeClass addIcons:v36];
                   }
 
@@ -6377,18 +6382,18 @@ LABEL_10:
                   LOBYTE(gridSizeClass) = [(SBIconListModel *)gridSizeClass directlyContainsIcon:necessaryCopy];
                   if (gridSizeClass)
                   {
-                    v55 = [p_isa gridCellInfoWithOptions:0];
-                    if (v51 <= v20)
+                    v56 = [p_isa gridCellInfoWithOptions:0];
+                    if (v52 <= v20)
                     {
                       v38 = count;
                     }
 
                     else
                     {
-                      v38 = v63;
+                      v38 = v64;
                     }
 
-                    if (v66 <= v60)
+                    if (v67 <= v61)
                     {
                       v39 = 0;
                     }
@@ -6398,13 +6403,13 @@ LABEL_10:
                       v39 = v38;
                     }
 
-                    v52 = v39;
-                    if (v66 >= v60)
+                    v53 = v39;
+                    if (v67 >= v61)
                     {
                       v38 = 0;
                     }
 
-                    v64 = v38;
+                    v65 = v38;
                     if (count >= 0x40)
                     {
                       v40 = malloc_type_calloc(count, 8uLL, 0x100004000313F17uLL);
@@ -6414,51 +6419,51 @@ LABEL_10:
                     else
                     {
                       counta = 0;
-                      v40 = &v74;
+                      v40 = &v75;
                     }
 
-                    [v70 getIconIndexes:v40 inGridRange:{v66, v57}];
-                    [v55 setIconIndexes:v40 inGridRange:v52, v14];
-                    if (v66 != v60)
+                    [v71 getIconIndexes:v40 inGridRange:{v67, v58}];
+                    [v56 setIconIndexes:v40 inGridRange:v53, v14];
+                    if (v67 != v61)
                     {
-                      [v70 getIconIndexes:v40 inGridRange:{v60, v56}];
-                      [v55 setIconIndexes:v40 inGridRange:v64, v14];
+                      [v71 getIconIndexes:v40 inGridRange:{v61, v57}];
+                      [v56 setIconIndexes:v40 inGridRange:v65, v14];
                     }
 
-                    [p_isa setIconOrderFromGridCellInfo:v55 referenceIconOrder:v62];
-                    v41 = SBHIconGridRangeRelativeCellIndexForCellIndex(v60, v56, index, v50);
-                    v42 = [p_isa moveContainedIcon:necessaryCopy toGridCellIndex:SBHIconGridRangeCellIndexForRelativeCellIndex(v64 gridCellInfoOptions:v14 mutationOptions:{v41, v47), options, mutationOptions | 0x100000000}];
-                    v43 = [p_isa gridCellInfoWithOptions:0];
-                    v44 = p_isa[1];
-                    v45 = [v70 copy];
-                    [objc_opt_class() applyIconLayoutFromGridCellInfo:v43 inGridRange:v52 iconOrder:v14 toGridCellInfo:v44 inGridRange:v45 iconOrder:{v66, v57, v62}];
-                    if (v66 != v60)
+                    [p_isa setIconOrderFromGridCellInfo:v56 referenceIconOrder:v63];
+                    v42 = SBHIconGridRangeRelativeCellIndexForCellIndex(v61, v57, index, v51);
+                    v43 = [p_isa moveContainedIcon:necessaryCopy toGridCellIndex:SBHIconGridRangeCellIndexForRelativeCellIndex(v65 gridCellInfoOptions:v14 mutationOptions:{v42, v48), options, mutationOptions | 0x100000000}];
+                    v44 = [p_isa gridCellInfoWithOptions:0];
+                    v45 = p_isa[1];
+                    v46 = [v71 copy];
+                    [objc_opt_class() applyIconLayoutFromGridCellInfo:v44 inGridRange:v53 iconOrder:v14 toGridCellInfo:v45 inGridRange:v46 iconOrder:{v67, v58, v63}];
+                    if (v67 != v61)
                     {
-                      [objc_opt_class() applyIconLayoutFromGridCellInfo:v43 inGridRange:v64 iconOrder:v14 toGridCellInfo:v44 inGridRange:v45 iconOrder:{v60, v56, v62}];
+                      [objc_opt_class() applyIconLayoutFromGridCellInfo:v44 inGridRange:v65 iconOrder:v14 toGridCellInfo:v45 inGridRange:v46 iconOrder:{v61, v57, v63}];
                     }
 
-                    v72[0] = MEMORY[0x1E69E9820];
-                    v72[1] = 3221225472;
-                    v72[2] = __120__SBIconListModel__moveContainedIconWithinAffectedQuadsIfNecessary_toGridCellIndex_gridCellInfoOptions_mutationOptions___block_invoke;
-                    v72[3] = &unk_1E8088F18;
-                    v72[4] = self;
-                    v73 = v45;
-                    v46 = v45;
-                    [(SBIconListModel *)self performChangesByPreservingOrderOfDefaultSizedIcons:v72];
+                    v73[0] = MEMORY[0x1E69E9820];
+                    v73[1] = 3221225472;
+                    v73[2] = __120__SBIconListModel__moveContainedIconWithinAffectedQuadsIfNecessary_toGridCellIndex_gridCellInfoOptions_mutationOptions___block_invoke;
+                    v73[3] = &unk_1E8088F18;
+                    v73[4] = self;
+                    v74 = v46;
+                    v47 = v46;
+                    [(SBIconListModel *)self performChangesByPreservingOrderOfDefaultSizedIcons:v73];
                     free(counta);
                   }
 
                   else
                   {
-                    NSLog(&cfstr_CouldnTPutIcon.isa, v71);
-                    v55 = SBLogIcon();
-                    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+                    NSLog(&cfstr_CouldnTPutIcon.isa, v72);
+                    v56 = SBLogIcon(v41);
+                    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
                     {
-                      [SBIconListModel _moveContainedIconWithinAffectedQuadsIfNecessary:v71 toGridCellIndex:v55 gridCellInfoOptions:? mutationOptions:?];
+                      [SBIconListModel _moveContainedIconWithinAffectedQuadsIfNecessary:v72 toGridCellIndex:v56 gridCellInfoOptions:? mutationOptions:?];
                     }
                   }
 
-                  v24 = v58;
+                  v24 = v59;
                 }
               }
             }
@@ -7427,7 +7432,7 @@ LABEL_25:
       }
 
 LABEL_9:
-      v15 = [v7 objectAtIndex:v11];
+      v15 = objc_msgSend_objectAtIndex_(v7);
       v18 = [v27 containsObject:v15];
       if (v15 && (v18 & 1) != 0)
       {
@@ -7683,7 +7688,7 @@ void __87__SBIconListModel_performChangesByPreservingPositionsOfIconsLargerThanS
 
 - (id)_clusterIconsForSizeClass:(id)class behavior:(unint64_t)behavior gridCellInfoProvider:(id)provider
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   classCopy = class;
   providerCopy = provider;
   if (!classCopy || ([classCopy isEqualToString:@"SBHIconGridSizeClassDefault"] & 1) != 0)
@@ -7694,150 +7699,151 @@ void __87__SBIconListModel_performChangesByPreservingPositionsOfIconsLargerThanS
 
   array = [MEMORY[0x1E695DF70] array];
   v13 = providerCopy[2](providerCopy);
-  if ([v13 isLayoutOutOfBounds])
+  isLayoutOutOfBounds = [v13 isLayoutOutOfBounds];
+  if (isLayoutOutOfBounds)
   {
-    v14 = SBLogIcon();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = SBLogIcon(isLayoutOutOfBounds);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [SBIconListModel _clusterIconsForSizeClass:v14 behavior:? gridCellInfoProvider:?];
+      [SBIconListModel _clusterIconsForSizeClass:v15 behavior:? gridCellInfoProvider:?];
     }
   }
 
-  v15 = [(SBIconListModel *)self gridSizeForGridSizeClass:classCopy gridCellInfo:v13];
-  v66 = v15;
-  Area = SBHIconGridSizeGetArea(*&v15);
+  v16 = [(SBIconListModel *)self gridSizeForGridSizeClass:classCopy gridCellInfo:v13];
+  v67 = v16;
+  Area = SBHIconGridSizeGetArea(*&v16);
   if (Area != 1)
   {
-    v17 = Area;
-    v59 = array;
-    v60 = providerCopy;
-    v61 = classCopy;
-    v18 = HIWORD(*&v15);
+    v18 = Area;
+    v60 = array;
+    v61 = providerCopy;
+    v62 = classCopy;
+    v19 = HIWORD(*&v16);
     gridSize = [v13 gridSize];
-    if (HIWORD(*&v15) > HIWORD(gridSize))
+    if (HIWORD(*&v16) > HIWORD(gridSize))
     {
 LABEL_11:
-      array = v59;
-      v11 = v59;
-      providerCopy = v60;
-      classCopy = v61;
+      array = v60;
+      v11 = v60;
+      providerCopy = v61;
+      classCopy = v62;
       goto LABEL_12;
     }
 
-    v21 = 0;
-    v67 = v17;
-    v22 = HIWORD(gridSize) / v15.rows;
-    v23 = gridSize;
-    v24 = v18 * gridSize;
-    v54 = HIWORD(*&v15);
-    v25 = v18 - 1;
-    columns = v15.columns;
-    v57 = v25;
-    if (v25 <= 1)
+    v22 = 0;
+    v68 = v18;
+    v23 = HIWORD(gridSize) / v16.rows;
+    v24 = gridSize;
+    v25 = v19 * gridSize;
+    v55 = HIWORD(*&v16);
+    v26 = v19 - 1;
+    columns = v16.columns;
+    v58 = v26;
+    if (v26 <= 1)
     {
-      v25 = 1;
+      v26 = 1;
     }
 
-    v56 = v25;
-    v62 = gridSize / v15.columns;
+    v57 = v26;
+    v63 = gridSize / v16.columns;
     behaviorCopy = behavior;
-    v64 = v15.columns;
-    v65 = gridSize;
-    v51 = v24;
-    v52 = HIWORD(gridSize) / v15.rows;
-    while (columns > v23)
+    v65 = v16.columns;
+    v66 = gridSize;
+    v52 = v25;
+    v53 = HIWORD(gridSize) / v16.rows;
+    while (columns > v24)
     {
-      ++v21;
+      ++v22;
 LABEL_76:
-      if (v21 >= v22)
+      if (v22 >= v23)
       {
         goto LABEL_11;
       }
     }
 
-    v27 = 0;
-    v28 = v24 * v21;
-    v58 = v21 * v54;
-    v53 = v21 + 1;
-    v55 = (v21 + 1) * v54 - 1;
-    v68 = v24 * v21;
+    v28 = 0;
+    v29 = v25 * v22;
+    v59 = v22 * v55;
+    v54 = v22 + 1;
+    v56 = (v22 + 1) * v55 - 1;
+    v69 = v25 * v22;
     while (1)
     {
-      if ([v13 iconIndexForGridCellIndex:v27 * columns + v28] == 0x7FFFFFFFFFFFFFFFLL)
+      if ([v13 iconIndexForGridCellIndex:v28 * columns + v29] == 0x7FFFFFFFFFFFFFFFLL)
       {
         goto LABEL_11;
       }
 
-      v69 = v27;
-      v70 = v27 * columns;
-      v29 = [(SBIconListModel *)self iconsForGridRange:v27 * columns + v28 gridCellInfo:v66, v13];
-      v71 = [v29 count];
-      v73 = 0u;
+      v70 = v28;
+      v71 = v28 * columns;
+      v30 = [(SBIconListModel *)self iconsForGridRange:v28 * columns + v29 gridCellInfo:v67, v13];
+      v72 = [v30 count];
       v74 = 0u;
       v75 = 0u;
       v76 = 0u;
-      v30 = v29;
-      v31 = [v30 countByEnumeratingWithState:&v73 objects:v77 count:16];
-      if (v31)
+      v77 = 0u;
+      v31 = v30;
+      v32 = [v31 countByEnumeratingWithState:&v74 objects:v78 count:16];
+      if (v32)
       {
-        v32 = v31;
-        v33 = 0;
-        v34 = *v74;
+        v33 = v32;
+        v34 = 0;
+        v35 = *v75;
         do
         {
-          for (i = 0; i != v32; ++i)
+          for (i = 0; i != v33; ++i)
           {
-            if (*v74 != v34)
+            if (*v75 != v35)
             {
-              objc_enumerationMutation(v30);
+              objc_enumerationMutation(v31);
             }
 
-            gridSizeClass = [*(*(&v73 + 1) + 8 * i) gridSizeClass];
-            v37 = [(SBIconListModel *)self gridSizeForGridSizeClass:gridSizeClass gridCellInfo:v13];
+            gridSizeClass = [*(*(&v74 + 1) + 8 * i) gridSizeClass];
+            v38 = [(SBIconListModel *)self gridSizeForGridSizeClass:gridSizeClass gridCellInfo:v13];
 
-            v5 = v5 & 0xFFFFFFFF00000000 | *&v37;
-            v33 += SBHIconGridSizeGetArea(v5);
+            v5 = v5 & 0xFFFFFFFF00000000 | *&v38;
+            v34 += SBHIconGridSizeGetArea(v5);
           }
 
-          v32 = [v30 countByEnumeratingWithState:&v73 objects:v77 count:16];
+          v33 = [v31 countByEnumeratingWithState:&v74 objects:v78 count:16];
         }
 
-        while (v32);
+        while (v33);
       }
 
       else
       {
-        v33 = 0;
+        v34 = 0;
       }
 
-      v39 = behaviorCopy == 1 || v71 > 1;
-      if (v33 != v67)
+      v40 = behaviorCopy == 1 || v72 > 1;
+      if (v34 != v68)
       {
-        v39 = 0;
+        v40 = 0;
       }
 
-      v40 = v33 <= v67 && behaviorCopy == 2;
-      v41 = v39 || v40;
-      if (v71 < 2)
+      v41 = v34 <= v68 && behaviorCopy == 2;
+      v42 = v40 || v41;
+      if (v72 < 2)
       {
-        columns = v64;
-        v23 = v65;
+        columns = v65;
+        v24 = v66;
       }
 
       else
       {
-        columns = v64;
-        v23 = v65;
-        if ((v41 & 1) == 0 && v33 < v67)
+        columns = v65;
+        v24 = v66;
+        if ((v42 & 1) == 0 && v34 < v68)
         {
-          v42 = v58;
-          v43 = v56;
-          if (v57)
+          v43 = v59;
+          v44 = v57;
+          if (v58)
           {
-            while ([v13 numberOfUsedGridCellsInRow:v42 columnRange:{v70, v64}] == v65)
+            while ([v13 numberOfUsedGridCellsInRow:v43 columnRange:{v71, v65}] == v66)
             {
-              ++v42;
-              if (!--v43)
+              ++v43;
+              if (!--v44)
               {
                 goto LABEL_49;
               }
@@ -7847,28 +7853,28 @@ LABEL_76:
           }
 
 LABEL_49:
-          v44 = [v13 numberOfUsedGridCellsInRow:v55 columnRange:{v70, v64}];
-          if (v44)
+          v45 = [v13 numberOfUsedGridCellsInRow:v56 columnRange:{v71, v65}];
+          if (v45)
           {
-            v45 = v44 >= v65;
+            v46 = v45 >= v66;
           }
 
           else
           {
-            v45 = 1;
+            v46 = 1;
           }
 
-          v41 = !v45;
+          v42 = !v46;
         }
       }
 
-      if (behaviorCopy != 1 || !v41 || v71 != 1)
+      if (behaviorCopy != 1 || !v42 || v72 != 1)
       {
         break;
       }
 
-      firstObject = [v30 firstObject];
-      v47 = objc_opt_self();
+      firstObject = [v31 firstObject];
+      v48 = objc_opt_self();
       if ((objc_opt_isKindOfClass() & 1) == 0 || ![firstObject isClusteredIconPlaceholder])
       {
 
@@ -7876,15 +7882,15 @@ LABEL_49:
       }
 
       gridSizeClass2 = [firstObject gridSizeClass];
-      v49 = gridSizeClass2;
-      if (gridSizeClass2 != v61)
+      v50 = gridSizeClass2;
+      if (gridSizeClass2 != v62)
       {
         gridSizeClass3 = [firstObject gridSizeClass];
-        v72 = [gridSizeClass3 isEqualToString:v61];
+        v73 = [gridSizeClass3 isEqualToString:v62];
 
-        columns = v64;
-        v23 = v65;
-        if (v72)
+        columns = v65;
+        v24 = v66;
+        if (v73)
         {
           goto LABEL_72;
         }
@@ -7892,39 +7898,39 @@ LABEL_49:
 LABEL_67:
 
 LABEL_68:
-        firstObject = [SBPlaceholderIcon clusteredIconPlaceholderForIcons:v30];
-        [firstObject setGridSizeClass:v61];
-        [v59 addObject:firstObject];
-        -[SBIconIndexMutableList insertNode:atIndex:](self->_icons, "insertNode:atIndex:", firstObject, [v13 iconIndexForGridCellIndex:v70 + v68]);
-        [(SBIconIndexMutableList *)self->_icons removeNodesInArray:v30];
-        if ([(SBIconListModel *)self isInsertionFixedForIconGridSizeClass:v61 options:0])
+        firstObject = [SBPlaceholderIcon clusteredIconPlaceholderForIcons:v31];
+        [firstObject setGridSizeClass:v62];
+        [v60 addObject:firstObject];
+        -[SBIconIndexMutableList insertNode:atIndex:](self->_icons, "insertNode:atIndex:", firstObject, [v13 iconIndexForGridCellIndex:v71 + v69]);
+        [(SBIconIndexMutableList *)self->_icons removeNodesInArray:v31];
+        if ([(SBIconListModel *)self isInsertionFixedForIconGridSizeClass:v62 options:0])
         {
-          [(SBIconListModel *)self setFixedLocation:v70 + v68 forIcon:firstObject options:0x800000];
+          [(SBIconListModel *)self setFixedLocation:v71 + v69 forIcon:firstObject options:0x800000];
         }
 
-        (v60[2])();
-        v13 = v47 = v13;
+        (v61[2])();
+        v13 = v48 = v13;
         goto LABEL_71;
       }
 
-      v23 = v65;
+      v24 = v66;
 LABEL_71:
 
 LABEL_72:
 LABEL_73:
 
-      v28 = v68;
-      v27 = v69 + 1;
-      if (v69 + 1 >= v62)
+      v29 = v69;
+      v28 = v70 + 1;
+      if (v70 + 1 >= v63)
       {
-        v22 = v52;
-        v21 = v53;
-        v24 = v51;
+        v23 = v53;
+        v22 = v54;
+        v25 = v52;
         goto LABEL_76;
       }
     }
 
-    if ((v41 & 1) == 0)
+    if ((v42 & 1) == 0)
     {
       goto LABEL_73;
     }
@@ -8017,7 +8023,7 @@ LABEL_13:
           while (1)
           {
             v21 = providerCopy[2](providerCopy, options | 0xC);
-            v22 = [referencedIcons objectAtIndex:v20];
+            v22 = objc_msgSend_objectAtIndex_(referencedIcons);
             v23 = [v19 coordinateForGridCellIndex:{objc_msgSend(v19, "gridCellIndexForIconIndex:", v20)}];
             v25 = v24;
             IsNotFound = SBIconCoordinateIsNotFound(v44, v45);
@@ -8323,8 +8329,8 @@ LABEL_36:
     v8 = 0;
     do
     {
-      v9 = [orderCopy objectAtIndex:v8];
-      v10 = [newOrderCopy objectAtIndex:v8];
+      v9 = objc_msgSend_objectAtIndex_(orderCopy);
+      v10 = objc_msgSend_objectAtIndex_(newOrderCopy);
       if (v9 != v10)
       {
         [array addObject:v10];
@@ -8676,7 +8682,7 @@ LABEL_13:
     }
   }
 
-  v12 = [*(a1 + 40) objectAtIndex:*(*(a1 + 72) + 8 * v10)];
+  v12 = objc_msgSend_objectAtIndex_(*(a1 + 40));
   v13 = [v12 gridSizeClass];
   v14 = v13;
   if (v13 && ([v13 isEqualToString:@"SBHIconGridSizeClassDefault"] & 1) == 0)
@@ -8905,7 +8911,7 @@ uint64_t __83__SBIconListModel__rotationReorderingInfoWithClusterSizeClass_gridC
   return array;
 }
 
-uint64_t __105__SBIconListModel__reorderedIconsWithClusterSizeClass_forRotationWithReorderingInfo_gridCellInfoOptions___block_invoke(uint64_t a1, uint64_t a2)
+void *__105__SBIconListModel__reorderedIconsWithClusterSizeClass_forRotationWithReorderingInfo_gridCellInfoOptions___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) iconIndexForGridCellIndex:a2];
   if (result != 0x7FFFFFFFFFFFFFFFLL)
@@ -8919,7 +8925,7 @@ uint64_t __105__SBIconListModel__reorderedIconsWithClusterSizeClass_forRotationW
   return result;
 }
 
-uint64_t __105__SBIconListModel__reorderedIconsWithClusterSizeClass_forRotationWithReorderingInfo_gridCellInfoOptions___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__105__SBIconListModel__reorderedIconsWithClusterSizeClass_forRotationWithReorderingInfo_gridCellInfoOptions___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) iconIndexForGridCellIndex:a2];
   if (result != 0x7FFFFFFFFFFFFFFFLL)
@@ -9066,7 +9072,8 @@ uint64_t __58__SBIconListModel__moveAllNonDefaultSizedIconsToBeginning__block_in
     v9 = v5;
     while (v9)
     {
-      v10 = [icons objectAtIndex:--v9];
+      --v9;
+      v10 = objc_msgSend_objectAtIndex_(icons);
       gridSizeClass = [v10 gridSizeClass];
       v8 = SBHIconGridSizeGetArea([(SBIconListModel *)self gridSizeForGridSizeClass:gridSizeClass]) + v8;
 
@@ -9990,7 +9997,7 @@ void __76__SBIconListModel__invalidateLayoutWithGridCellInfoOptions_mutationOpti
   {
     v10 = [(SBIconListModel *)self gridSizeClassSizesWithOptions:options];
     v11 = [(SBIconListModel *)self gridSizeWithOptions:options];
-    v24 = SBHIconGridSizeRotate(*&v11);
+    v26 = SBHIconGridSizeRotate(*&v11);
     v12 = [(SBIconListModel *)self rotatedGridCellInfoOptions:options];
     v13 = [SBRotatedIconListModel alloc];
     WeakRetained = objc_loadWeakRetained(&self->_folder);
@@ -9998,48 +10005,49 @@ void __76__SBIconListModel__invalidateLayoutWithGridCellInfoOptions_mutationOpti
 
     [(SBIconListModel *)self _configureRotatedIconsListModel:v15];
     v16 = [(SBIconListModel *)v15 setIconsFromIconListModel:listCopy];
-    v35 = 0u;
-    v36 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     if (v15)
     {
-      [(SBIconListModel *)v15 _rotationReorderingInfoWithClusterSizeClass:v8 gridCellInfoOptions:v12];
+      objc_msgSend__rotationReorderingInfoWithClusterSizeClass_gridCellInfoOptions_(v15);
     }
 
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __61__SBIconListModel__rotatedIconsFromList_gridCellInfoOptions___block_invoke;
-    v25[3] = &unk_1E808DF78;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __61__SBIconListModel__rotatedIconsFromList_gridCellInfoOptions___block_invoke;
+    v27[3] = &unk_1E808DF78;
     v17 = v15;
-    v26 = v17;
-    v27 = v8;
+    v28 = v17;
+    v29 = v8;
     selfCopy = self;
     optionsCopy = options;
-    v30 = v35;
-    v31 = v36;
-    v32 = v12;
-    v33 = v11;
-    v34 = v24;
-    [(SBIconListModel *)v17 performChangesByPreservingOrderOfDefaultSizedIcons:v25];
+    v32 = v37;
+    v33 = v38;
+    v34 = v12;
+    v35 = v11;
+    v36 = v26;
+    [(SBIconListModel *)v17 performChangesByPreservingOrderOfDefaultSizedIcons:v27];
     icons = [listCopy icons];
     icons2 = [(SBIconListModel *)v17 icons];
-    if (![(SBIconListModel *)self _validateIconsInArray:icons matchArray:icons2])
+    v19 = [(SBIconListModel *)self _validateIconsInArray:icons matchArray:icons2];
+    if ((v19 & 1) == 0)
     {
-      v19 = SBLogCommon();
-      v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
+      v20 = SBLogCommon(v19);
+      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-      if (v20)
+      if (v21)
       {
         NSLog(&cfstr_RotatedIconsDo.isa);
       }
 
-      v21 = SBLogIcon();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = SBLogIcon(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        [(SBIconListModel *)icons _rotatedIconsFromList:icons2 gridCellInfoOptions:v21];
+        [(SBIconListModel *)icons _rotatedIconsFromList:icons2 gridCellInfoOptions:v23];
       }
 
-      v22 = icons;
-      icons2 = v22;
+      v24 = icons;
+      icons2 = v24;
     }
   }
 
@@ -11713,7 +11721,7 @@ LABEL_12:
   return v18;
 }
 
-uint64_t __66__SBIconListModel_adjustContiguousRegionForBackfill_gridCellInfo___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__66__SBIconListModel_adjustContiguousRegionForBackfill_gridCellInfo___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   [*(a1 + 32) coordinateForGridCellIndex:a2];
   result = [*(a1 + 40) numberOfUsedGridCellsInRow:v10 - 1];
@@ -11733,7 +11741,7 @@ uint64_t __66__SBIconListModel_adjustContiguousRegionForBackfill_gridCellInfo___
   return result;
 }
 
-uint64_t __66__SBIconListModel_adjustContiguousRegionForBackfill_gridCellInfo___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__66__SBIconListModel_adjustContiguousRegionForBackfill_gridCellInfo___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) containsGridCellIndex:a2];
   if (result)
@@ -12401,7 +12409,7 @@ LABEL_7:
               v53 = v52;
               regionCopy = regionCopy & 0xFFFFFFFF00000000 | gridSize;
               v54 = SBHIconGridRangeIntersection(v51, v52, v120, v42, regionCopy);
-              if ((SBHIconGridRangeIsEmpty(v54, v55) & 1) == 0)
+              if (!SBHIconGridRangeIsEmpty(v54, v55))
               {
                 iconCopy = iconCopy & 0xFFFFFFFF00000000 | gridSize;
                 v56 = SBHIconGridRangeRelativeCellIndexForCellIndex(v120, v42, v54, iconCopy);
@@ -12623,20 +12631,20 @@ LABEL_7:
   }
 }
 
-uint64_t __203__SBIconListModel_shiftFixedIconsInContiguousRegion_forInsertingIcon_orRemovingIcon_orResizingIcon_orMovingIcon_atGridCellIndex_replacingIcon_resizingToGridSizeClass_gridCellInfoOptions_mutationOptions___block_invoke(uint64_t result, unint64_t a2)
+id *__203__SBIconListModel_shiftFixedIconsInContiguousRegion_forInsertingIcon_orRemovingIcon_orResizingIcon_orMovingIcon_atGridCellIndex_replacingIcon_resizingToGridSizeClass_gridCellInfoOptions_mutationOptions___block_invoke(id *result, unint64_t a2)
 {
-  if (*(result + 72) <= a2)
+  if (result[9] <= a2)
   {
     v2 = result;
-    result = [*(result + 32) iconIndexForGridCellIndex:a2];
+    result = [result[4] iconIndexForGridCellIndex:a2];
     if (result != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v3 = [*(v2 + 40) iconAtIndex:result];
+      v3 = [v2[5] iconAtIndex:result];
       v4 = v3;
-      if (v3 != *(v2 + 48) && v3 != *(v2 + 56))
+      if (v3 != v2[6] && v3 != v2[7])
       {
         v5 = v3;
-        v3 = [*(v2 + 64) addObject:v3];
+        v3 = [v2[8] addObject:v3];
         v4 = v5;
       }
 
@@ -12882,11 +12890,11 @@ LABEL_28:
 
 - (id)gridCellInfoByUsingBruteForcedTwoDimensionalMovementToInsertIcon:(id)icon atGridCellIndex:(unint64_t)index constrainedToGridRange:(SBHIconGridRange)range gridCellInfo:(id)info gridCellInfoOptions:(unint64_t)options mutationOptions:(unint64_t)mutationOptions
 {
-  size = range.size;
+  v9 = *&range.size.columns;
   cellIndex = range.cellIndex;
   infoCopy = info;
   iconCopy = icon;
-  v16 = SBHIconGridRangeCellIndexes(cellIndex, size, [infoCopy gridSize]);
+  v16 = SBHIconGridRangeCellIndexes(cellIndex, v9, [infoCopy gridSize]);
   v17 = [(SBIconListModel *)self gridCellInfoByUsingBruteForcedTwoDimensionalMovementToInsertIcon:iconCopy atGridCellIndex:index constrainedToGridCellIndexes:v16 gridCellInfo:infoCopy gridCellInfoOptions:options mutationOptions:mutationOptions];
 
   return v17;
@@ -13104,7 +13112,7 @@ LABEL_33:
             v69 = SBIconCoordinateMakeWithGridCellIndex(v68, v46);
             v114 = v114 & 0xFFFFFFFF00000000 | v45;
             v115 = v115 & 0xFFFFFFFF00000000 | v49;
-            if (_SBIconListIsCoordinateValidForGridSize(v69, v70, v49, v45, v110))
+            if (_SBIconListIsCoordinateValidForGridSize(v69, v70, v115, v114, v110))
             {
               v109 = v109 & 0xFFFFFFFF00000000 | v45;
               if ((SBHIconGridRangeIsContainedInIndexSet(v67, v49, v93, v45) & 1) != 0 && ([v106[1] hasUsedGridCellsInGridRange:{v67, v49}] & 1) == 0)
@@ -13648,7 +13656,7 @@ unint64_t __181__SBIconListModel_layOutIconsInGridCellInfo_forInsertingIcon_atGr
   {
     v21 = SBHIconGridRangeIntersection(v30, v28, *(a1 + 72), *(a1 + 80), v19);
     v23 = v22;
-    if ((SBHIconGridRangeIsEmpty(v21, v22) & 1) == 0)
+    if (!SBHIconGridRangeIsEmpty(v21, v22))
     {
       v10 += SBHIconGridSizeGetArea(v23) + 100;
     }
@@ -14301,7 +14309,7 @@ void __131__SBIconListModel_transferPositionsFromGridCellInfo_representingGridRa
     if (([*(a1 + 40) containsIndex:v4] & 1) == 0)
     {
       [*(a1 + 40) addIndex:v6];
-      v8 = [*(a1 + 48) objectAtIndex:v6];
+      v8 = objc_msgSend_objectAtIndex_(*(a1 + 48));
       [*(a1 + 56) removeObject:v8];
       [*(a1 + 64) setLayoutExcludedIcons:*(a1 + 56)];
       [*(a1 + 64) removeFixedIconLocationsForIconsInGridRange:a2 gridCellInfoOptions:{objc_msgSend(*(a1 + 64), "gridSizeForIcon:", v8), *(a1 + 88)}];
@@ -14507,7 +14515,7 @@ LABEL_6:
   return v22;
 }
 
-uint64_t __127__SBIconListModel_firstGridCellIndexOfRangeOfGridSizeClass_withoutIconsNearGridRange_withinGridRange_gridCellInfo_passingTest___block_invoke(uint64_t a1, unint64_t a2, int a3, _BYTE *a4)
+uint64_t __127__SBIconListModel_firstGridCellIndexOfRangeOfGridSizeClass_withoutIconsNearGridRange_withinGridRange_gridCellInfo_passingTest___block_invoke(uint64_t a1, unint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = SBHIconGridRangeContainsIconGridRange(*(a1 + 48), *(a1 + 56), a2, a3, *(a1 + 64));
   if (result)
@@ -14561,7 +14569,7 @@ uint64_t __127__SBIconListModel_firstGridCellIndexOfRangeOfGridSizeClass_without
   return v17;
 }
 
-uint64_t __100__SBIconListModel_bestGridCellIndexOfRangeOfGridSizeClass_withinGridRange_gridCellInfo_passingTest___block_invoke(uint64_t a1, unint64_t a2, int a3)
+uint64_t __100__SBIconListModel_bestGridCellIndexOfRangeOfGridSizeClass_withinGridRange_gridCellInfo_passingTest___block_invoke(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   result = SBHIconGridRangeContainsIconGridRange(*(a1 + 56), *(a1 + 64), a2, a3, *(a1 + 72));
   if (result)
@@ -15209,47 +15217,47 @@ LABEL_7:
   sizesCopy = sizes;
   orderCopy = order;
   locationsCopy2 = locations;
-  v83 = [iconsCopy count];
-  if (v83)
+  v84 = [iconsCopy count];
+  if (v84)
   {
     optionsCopy5 = options;
     rows = size.rows;
     if ((options & 0x10) != 0)
     {
-      v69 = 0;
-      v70 = size.rows - 1;
+      v70 = 0;
+      v71 = size.rows - 1;
     }
 
     else
     {
-      v70 = index / size.columns;
-      v69 = index % size.columns;
+      v71 = index / size.columns;
+      v70 = index % size.columns;
     }
 
     columns = size.columns;
-    v71 = indexesCopy;
+    v72 = indexesCopy;
     sizeCopy = size;
-    v73 = orderCopy;
+    v74 = orderCopy;
     if (!locationsCopy2 || (v22 = [indexesCopy firstIndex], v22 == 0x7FFFFFFFFFFFFFFFLL))
     {
-      v66 = 0;
+      v67 = 0;
 LABEL_35:
       firstIndex = [indexesCopy firstIndex];
-      v39 = v66;
+      v39 = v67;
       if (firstIndex == 0x7FFFFFFFFFFFFFFFLL)
       {
         goto LABEL_91;
       }
 
       v40 = firstIndex;
-      v59 = v86;
-      v60 = optionsCopy5 & 0xC;
-      v68 = v70;
-      v65 = iconsCopy;
+      v60 = v87;
+      v61 = optionsCopy5 & 0xC;
+      v69 = v71;
+      v66 = iconsCopy;
 LABEL_37:
       if (optionsCopy5)
       {
-        v41 = v83 + ~v40;
+        v41 = v84 + ~v40;
       }
 
       else
@@ -15257,188 +15265,190 @@ LABEL_37:
         v41 = v40;
       }
 
-      v42 = [iconsCopy objectAtIndex:{v41, v59}];
+      v42 = objc_msgSend_objectAtIndex_(iconsCopy, v60);
       if ([v39 containsIndex:v40])
       {
         goto LABEL_90;
       }
 
       gridSizeClass = [v42 gridSizeClass];
-      v74 = [sizesCopy gridSizeForGridSizeClass:?];
+      v43 = [sizesCopy gridSizeForGridSizeClass:?];
+      v75 = v43;
       if (orderCopy != iconsCopy)
       {
-        v41 = [orderCopy indexOfObjectIdenticalTo:v42];
+        v43 = [orderCopy indexOfObjectIdenticalTo:v42];
+        v41 = v43;
       }
 
-      v43 = columns;
-      v78 = v42;
+      v44 = columns;
+      v79 = v42;
       if (v41 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v44 = SBLogCommon();
-        v45 = os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG);
+        v45 = SBLogCommon(v43);
+        v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG);
 
-        if (v45)
+        if (v46)
         {
           NSLog(&cfstr_MissingIconInR.isa);
         }
 
-        v42 = v78;
+        v42 = v79;
         goto LABEL_89;
       }
 
-      v67 = v41;
-      v46 = rows;
-      if (v68 >= rows)
+      v68 = v41;
+      v47 = rows;
+      if (v69 >= rows)
       {
 LABEL_72:
         optionsCopy5 = options;
         if ((options & 8) != 0)
         {
-          iconsCopy = v65;
-          indexesCopy = v71;
-          orderCopy = v73;
-          v39 = v66;
+          iconsCopy = v66;
+          indexesCopy = v72;
+          orderCopy = v74;
+          v39 = v67;
         }
 
         else
         {
-          v89 = 0;
-          v90 = &v89;
-          v91 = 0x2020000000;
-          v92 = 0x7FFFFFFFFFFFFFFFLL;
-          v86[0] = __173__SBIconListModel_layOutIcons_atIndexes_inGridCellInfo_startingAtGridCellIndex_gridSize_gridSizeClassSizes_iconLayoutBehavior_referenceIconOrder_fixedIconLocations_options___block_invoke;
-          v86[1] = &unk_1E808E3B0;
-          v87 = sizeCopy;
-          v88 = v74;
-          v86[2] = &v89;
-          v86[3] = behavior;
-          v61 = v61 & 0xFFFFFFFF00000000 | *&sizeCopy;
-          v62 = v62 & 0xFFFFFFFF00000000 | v74;
+          v90 = 0;
+          v91 = &v90;
+          v92 = 0x2020000000;
+          v93 = 0x7FFFFFFFFFFFFFFFLL;
+          v87[0] = __173__SBIconListModel_layOutIcons_atIndexes_inGridCellInfo_startingAtGridCellIndex_gridSize_gridSizeClassSizes_iconLayoutBehavior_referenceIconOrder_fixedIconLocations_options___block_invoke;
+          v87[1] = &unk_1E808E3B0;
+          v88 = sizeCopy;
+          v89 = v75;
+          v87[2] = &v90;
+          v87[3] = behavior;
+          v62 = v62 & 0xFFFFFFFF00000000 | *&sizeCopy;
+          v63 = v63 & 0xFFFFFFFF00000000 | v75;
           [infoCopy enumerateEmptyGridCellRangesOfSize:? inGridRange:? flipped:? usingBlock:?];
-          iconsCopy = v65;
-          indexesCopy = v71;
-          v39 = v66;
-          v56 = v90[3];
-          if (v56 != 0x7FFFFFFFFFFFFFFFLL)
+          iconsCopy = v66;
+          indexesCopy = v72;
+          v39 = v67;
+          v57 = v91[3];
+          if (v57 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            [infoCopy setIconIndex:v67 inGridRange:{v56, v74}];
-            orderCopy = v73;
-            _Block_object_dispose(&v89, 8);
+            [infoCopy setIconIndex:v68 inGridRange:{v57, v75}];
+            orderCopy = v74;
+            _Block_object_dispose(&v90, 8);
             goto LABEL_89;
           }
 
-          _Block_object_dispose(&v89, 8);
-          orderCopy = v73;
+          _Block_object_dispose(&v90, 8);
+          orderCopy = v74;
         }
 
-        [infoCopy markIconIndexAsOutOfBounds:v67];
+        [infoCopy markIconIndexAsOutOfBounds:v68];
         goto LABEL_89;
       }
 
-      v47 = HIWORD(v74) - 1;
+      v48 = HIWORD(v75) - 1;
       if ((options & 0x10) != 0)
       {
-        v48 = v47;
+        v49 = v48;
       }
 
       else
       {
-        v48 = 0;
-      }
-
-      v80 = v48;
-      v49 = v47 * sizeCopy.columns;
-      if ((options & 0x10) == 0)
-      {
         v49 = 0;
       }
 
-      v50 = v68;
-      v51 = columns * v68 - v49;
+      v81 = v49;
+      v50 = v48 * sizeCopy.columns;
+      if ((options & 0x10) == 0)
+      {
+        v50 = 0;
+      }
+
+      v51 = v69;
+      v52 = columns * v69 - v50;
       while (1)
       {
-        if (v50 - v80 + (v74 >> 16) <= v46 && behavior & 1 | (v74 < 0x20000) | (((v50 - v80) & 1) == 0))
+        if (v51 - v81 + (v75 >> 16) <= v47 && behavior & 1 | (v75 < 0x20000) | (((v51 - v81) & 1) == 0))
         {
-          v52 = v50 == v70 ? v69 : 0;
-          if (v52 < v43)
+          v53 = v51 == v71 ? v70 : 0;
+          if (v53 < v44)
           {
             break;
           }
         }
 
 LABEL_71:
-        ++v50;
-        v51 += v43;
-        v46 = rows;
-        if (v50 == rows)
+        ++v51;
+        v52 += v44;
+        v47 = rows;
+        if (v51 == rows)
         {
           goto LABEL_72;
         }
       }
 
-      v53 = 0;
+      v54 = 0;
       while (1)
       {
-        v54 = v74 + v52;
-        if ((v74 & 0xFFFE) != 0 && v54 <= v43)
+        v55 = v75 + v53;
+        if ((v75 & 0xFFFE) != 0 && v55 <= v44)
         {
-          if ((behavior & 2) == 0 && v52 && v74 - columns + v52 && v52 % v74)
+          if ((behavior & 2) == 0 && v53 && v75 - columns + v53 && v53 % v75)
           {
             goto LABEL_70;
           }
         }
 
-        else if (v54 > v43)
+        else if (v55 > v44)
         {
           goto LABEL_70;
         }
 
-        v55 = [infoCopy indexOfFirstUsedGridCellInGridRange:{v51 + v52, v74}];
-        v43 = columns;
-        if (v55 == 0x7FFFFFFFFFFFFFFFLL)
+        v56 = [infoCopy indexOfFirstUsedGridCellInGridRange:{v52 + v53, v75}];
+        v44 = columns;
+        if (v56 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          [infoCopy setIconIndex:v67 inGridRange:{v51 + v52, v74}];
-          [infoCopy setDebuggingIconType:objc_msgSend(self forIconIndex:{"gridCellInfoIconTypeForIcon:", v42), v67}];
-          if (v74 + v52 - 1 >= columns - 1)
+          [infoCopy setIconIndex:v68 inGridRange:{v52 + v53, v75}];
+          [infoCopy setDebuggingIconType:objc_msgSend(self forIconIndex:{"gridCellInfoIconTypeForIcon:", v42), v68}];
+          if (v75 + v53 - 1 >= columns - 1)
           {
-            indexesCopy = v71;
-            orderCopy = v73;
+            indexesCopy = v72;
+            orderCopy = v74;
             optionsCopy5 = options;
-            v39 = v66;
-            if (v60)
+            v39 = v67;
+            if (v61)
             {
-              v58 = v50 + 1;
+              v59 = v51 + 1;
               goto LABEL_87;
             }
 
-            if ((v53 & 1) == 0)
+            if ((v54 & 1) == 0)
             {
-              v58 = v68;
-              if (v50 == v70)
+              v59 = v69;
+              if (v51 == v71)
               {
-                v58 = v68 + 1;
+                v59 = v69 + 1;
               }
 
 LABEL_87:
-              v68 = v58;
+              v69 = v59;
             }
 
-            iconsCopy = v65;
+            iconsCopy = v66;
             goto LABEL_89;
           }
 
-          v57 = v68;
-          if (v60)
+          v58 = v69;
+          if (v61)
           {
-            v57 = v50;
+            v58 = v51;
           }
 
-          v68 = v57;
-          iconsCopy = v65;
-          indexesCopy = v71;
-          orderCopy = v73;
+          v69 = v58;
+          iconsCopy = v66;
+          indexesCopy = v72;
+          orderCopy = v74;
           optionsCopy5 = options;
-          v39 = v66;
+          v39 = v67;
 LABEL_89:
 
 LABEL_90:
@@ -15454,9 +15464,9 @@ LABEL_91:
         }
 
 LABEL_70:
-        ++v52;
-        v53 = 1;
-        if (v52 == columns)
+        ++v53;
+        v54 = 1;
+        if (v53 == columns)
         {
           goto LABEL_71;
         }
@@ -15464,13 +15474,13 @@ LABEL_70:
     }
 
     v23 = v22;
-    v66 = 0;
+    v67 = 0;
     sizeCopy2 = size;
     while (1)
     {
       if (optionsCopy5)
       {
-        v24 = v83 + ~v23;
+        v24 = v84 + ~v23;
       }
 
       else
@@ -15478,7 +15488,7 @@ LABEL_70:
         v24 = v23;
       }
 
-      v25 = [iconsCopy objectAtIndex:v24];
+      v25 = objc_msgSend_objectAtIndex_(iconsCopy);
       gridSizeClass2 = [v25 gridSizeClass];
       v27 = [sizesCopy gridSizeForGridSizeClass:gridSizeClass2];
       if (orderCopy != iconsCopy)
@@ -15494,17 +15504,17 @@ LABEL_70:
         goto LABEL_34;
       }
 
-      v79 = gridSizeClass2;
+      v80 = gridSizeClass2;
       unsignedIntegerValue = [v29 unsignedIntegerValue];
       v32 = SBIconCoordinateMakeWithGridCellIndex(unsignedIntegerValue, sizeCopy2);
-      v77 = v33;
+      v78 = v33;
       if ([infoCopy indexOfFirstUsedGridCellInGridRange:{unsignedIntegerValue, v27}] == 0x7FFFFFFFFFFFFFFFLL)
       {
         v34 = v32 - 1;
         v35 = v32 - 1 + v27;
         if ((v27 & 0xFFFE) == 0 || v35 > columns)
         {
-          indexesCopy = v71;
+          indexesCopy = v72;
           if (v35 <= columns)
           {
             goto LABEL_28;
@@ -15513,21 +15523,21 @@ LABEL_70:
 
         else
         {
-          indexesCopy = v71;
+          indexesCopy = v72;
           if ((behavior & 2) != 0 || !v34 || columns - v27 == v34 || !(v34 % v27))
           {
 LABEL_28:
-            if (v77 - 1 + (v27 >> 16) <= rows && behavior & 1 | (v27 < 0x20000) | (((v77 - 1) & 1) == 0))
+            if (v78 - 1 + (v27 >> 16) <= rows && behavior & 1 | (v27 < 0x20000) | (((v78 - 1) & 1) == 0))
             {
               [infoCopy setIconIndex:v24 inGridRange:{unsignedIntegerValue, v27}];
               [infoCopy setDebuggingIconType:objc_msgSend(self forIconIndex:{"gridCellInfoIconTypeForIcon:", v25) | 1, v24}];
-              v37 = v66;
-              if (!v66)
+              v37 = v67;
+              if (!v67)
               {
                 v37 = objc_alloc_init(MEMORY[0x1E696AD50]);
               }
 
-              v66 = v37;
+              v67 = v37;
               [v37 addIndex:v23];
             }
           }
@@ -15536,15 +15546,15 @@ LABEL_28:
 
       else
       {
-        indexesCopy = v71;
+        indexesCopy = v72;
       }
 
-      gridSizeClass2 = v79;
+      gridSizeClass2 = v80;
       locationsCopy = locationsCopy & 0xFFFFFFFF00000000 | sizeCopy2;
 LABEL_34:
 
       v23 = [indexesCopy indexGreaterThanIndex:v23];
-      orderCopy = v73;
+      orderCopy = v74;
       optionsCopy5 = options;
       if (v23 == 0x7FFFFFFFFFFFFFFFLL)
       {
@@ -15682,24 +15692,23 @@ id __144__SBIconListModel_layOutIconsPrioritizedByGridArea_inGridCellInfo_gridSi
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __144__SBIconListModel_layOutIconsPrioritizedByGridArea_inGridCellInfo_gridSize_referenceIconOrder_referenceGridCellInfo_fixedIconLocations_options___block_invoke_4;
-  v9[3] = &unk_1E808BFD8;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __144__SBIconListModel_layOutIconsPrioritizedByGridArea_inGridCellInfo_gridSize_referenceIconOrder_referenceGridCellInfo_fixedIconLocations_options___block_invoke_4;
+  v8[3] = &unk_1E808BFD8;
   v5 = v3;
-  v10 = v5;
-  v6 = [v4 indexOfObjectPassingTest:v9];
-  if (v6 == 0x7FFFFFFFFFFFFFFFLL)
+  v9 = v5;
+  if ([v4 indexOfObjectPassingTest:v8] == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = [*(a1 + 32) objectAtIndex:v6];
+    v6 = objc_msgSend_objectAtIndex_(*(a1 + 32));
   }
 
-  return v7;
+  return v6;
 }
 
 uint64_t __144__SBIconListModel_layOutIconsPrioritizedByGridArea_inGridCellInfo_gridSize_referenceIconOrder_referenceGridCellInfo_fixedIconLocations_options___block_invoke_4(uint64_t a1, void *a2)
@@ -16076,7 +16085,7 @@ void __50__SBIconListModel_iconsForGridRange_gridCellInfo___block_invoke(id *a1,
   return size.columns;
 }
 
-uint64_t __52__SBIconListModel_hasIconsInGridRange_gridCellInfo___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__52__SBIconListModel_hasIconsInGridRange_gridCellInfo___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) iconIndexForGridCellIndex:a2];
   if (result != 0x7FFFFFFFFFFFFFFFLL)
@@ -16239,9 +16248,9 @@ void __80__SBIconListModel_iconsInContiguousRegion_startingAtGridCellIndex_gridC
   return v17;
 }
 
-unint64_t __55__SBIconListModel_iconsAtGridCellIndexes_gridCellInfo___block_invoke(unint64_t result, unint64_t a2, _BYTE *a3)
+id __55__SBIconListModel_iconsAtGridCellIndexes_gridCellInfo___block_invoke(id result, unint64_t a2, _BYTE *a3)
 {
-  if (*(result + 48) <= a2 || (v4 = result, result = [*(result + 32) iconIndexForGridCellIndex:a2], result != 0x7FFFFFFFFFFFFFFFLL) && (objc_msgSend(*(v4 + 40), "addIndex:", result), result = objc_msgSend(*(v4 + 40), "count"), result >= *(v4 + 56)))
+  if (*(result + 6) <= a2 || (v4 = result, result = [*(result + 4) iconIndexForGridCellIndex:a2], result != 0x7FFFFFFFFFFFFFFFLL) && (objc_msgSend(v4[5], "addIndex:", result), result = objc_msgSend(v4[5], "count"), result >= v4[7]))
   {
     *a3 = 1;
   }
@@ -18100,7 +18109,7 @@ LABEL_23:
         {
 LABEL_15:
           [v32 applyTreatmentsToMiniGridCellView:v34];
-          [v34 bounds];
+          objc_msgSend_bounds(v34);
           x = v56.origin.x;
           y = v56.origin.y;
           v37 = v56.size.width;
@@ -18167,7 +18176,7 @@ LABEL_24:
   providerCopy = provider;
   appearanceCopy = appearance;
   layoutCopy = layout;
-  [layoutCopy iconImageInfo];
+  objc_msgSend_iconImageInfo(layoutCopy);
   v14 = v13;
   v16 = v15;
   v18 = v17;
@@ -18182,12 +18191,13 @@ LABEL_24:
   return v26;
 }
 
-- (void)insertIcons:atIndex:options:.cold.1()
+- (void)insertIcons:(uint64_t)a1 atIndex:options:.cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v9 = 136315650;
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_3(&dword_1BEB18000, v2, v3, "%s ERROR: icon of class %{public}@ cannot be added to this model: %@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_1_3(&dword_1BEB18000, v3, v4, "%s ERROR: icon of class %{public}@ cannot be added to this model: %@", v5, v6, v7, v8, v9);
 }
 
 - (void)insertIcons:(os_log_t)log atIndex:options:.cold.2(os_log_t log)
@@ -18198,12 +18208,13 @@ LABEL_24:
   _os_log_error_impl(&dword_1BEB18000, log, OS_LOG_TYPE_ERROR, "%s ERROR: invalid index for insertion", &v1, 0xCu);
 }
 
-- (void)insertIconWhilePreservingQuads:toGridCellIndex:gridCellInfoOptions:mutationOptions:.cold.1()
+- (void)insertIconWhilePreservingQuads:(uint64_t)a1 toGridCellIndex:gridCellInfoOptions:mutationOptions:.cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v9 = 136315650;
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_3(&dword_1BEB18000, v2, v3, "%s ERROR: icon of class %{public}@ cannot be added to this model: %@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_1_3(&dword_1BEB18000, v3, v4, "%s ERROR: icon of class %{public}@ cannot be added to this model: %@", v5, v6, v7, v8, v9);
 }
 
 - (void)_moveContainedIconWithinAffectedQuadsIfNecessary:(uint64_t)a1 toGridCellIndex:(NSObject *)a2 gridCellInfoOptions:mutationOptions:.cold.1(uint64_t a1, NSObject *a2)

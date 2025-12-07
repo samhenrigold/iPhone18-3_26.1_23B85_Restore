@@ -222,7 +222,7 @@
   playerCopy = player;
   selfCopy = self;
   sub_100241310(playerCopy, v6, v7);
-  sub_100007020(v6);
+  sub_100007020(v6, v7);
 }
 
 - (void)presentFullPlayerWithCompletion:(id)completion
@@ -244,7 +244,7 @@
 
   selfCopy = self;
   sub_100241610(v7, v6);
-  sub_100007020(v7);
+  sub_100007020(v7, v6);
 }
 
 - (void)registerFullPlayer:(id)player
@@ -256,7 +256,7 @@
 
 - (id)coordinatedViewControllersFor:(id)for
 {
-  sub_1001F1160(&qword_100AF7240);
+  sub_1001F1160(&qword_100AF7240, &unk_100813070);
   v3.super.isa = sub_1007A25D4().super.isa;
 
   return v3.super.isa;

@@ -168,7 +168,7 @@
   if (initiative)
   {
     [dictionary setObject:initiative forKey:@"initiative"];
-    if ([(NSString *)self->_initiative isEqualToString:@"merchant_token"])
+    if (objc_msgSend_isEqualToString_(self->_initiative))
     {
       [dictionary setObject:self->_merchantTokenUseCase forKey:@"merchantTokenUseCase"];
     }

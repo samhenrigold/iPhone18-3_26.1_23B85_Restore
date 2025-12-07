@@ -75,26 +75,26 @@
 
 - (id)associatedLogo
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   bundleIdentifier = [(WFAppIcon *)self bundleIdentifier];
 
   if (bundleIdentifier)
   {
-    v11[0] = @"com.apple.freeform";
-    v11[1] = @"com.apple.Music";
-    v12[0] = @"FreeformLogo";
-    v12[1] = @"MusicLogo";
-    v11[2] = @"com.apple.musicrecognition";
-    v11[3] = @"com.apple.podcasts";
-    v12[2] = @"ShazamLogo";
-    v12[3] = @"PodcastsLogo";
-    v11[4] = @"com.apple.mobileslideshow";
-    v11[5] = @"com.apple.Translate";
-    v12[4] = @"PhotosLogo";
-    v12[5] = @"TranslateLogo";
-    v11[6] = @"com.apple.VisualIntelligenceCamera";
-    v12[6] = @"VisualIntelligenceLogo";
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:7];
+    v10[0] = @"com.apple.freeform";
+    v10[1] = @"com.apple.Music";
+    v11[0] = @"FreeformLogo";
+    v11[1] = @"MusicLogo";
+    v10[2] = @"com.apple.musicrecognition";
+    v10[3] = @"com.apple.podcasts";
+    v11[2] = @"ShazamLogo";
+    v11[3] = @"PodcastsLogo";
+    v10[4] = @"com.apple.mobileslideshow";
+    v10[5] = @"com.apple.Translate";
+    v11[4] = @"PhotosLogo";
+    v11[5] = @"TranslateLogo";
+    v10[6] = @"com.apple.VisualIntelligenceCamera";
+    v11[6] = @"VisualIntelligenceLogo";
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:7];
     bundleIdentifier2 = [(WFAppIcon *)self bundleIdentifier];
     v6 = [v4 objectForKeyedSubscript:bundleIdentifier2];
 
@@ -114,8 +114,6 @@
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

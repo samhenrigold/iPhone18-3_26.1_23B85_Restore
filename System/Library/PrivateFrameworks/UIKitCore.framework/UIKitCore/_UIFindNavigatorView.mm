@@ -384,7 +384,7 @@
 - (void)_setNavigatorLayout:(id)layout
 {
   layoutCopy = layout;
-  if (![(_UIFindNavigatorViewLayout *)self->_layout isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_layout) & 1) == 0)
   {
     [(UIView *)self->_layout removeFromSuperview];
     objc_storeStrong(&self->_layout, layout);

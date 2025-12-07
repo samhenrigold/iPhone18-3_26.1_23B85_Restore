@@ -105,7 +105,7 @@
   {
     do
     {
-      std::__tree<HGRef<LoadableInstruction>,LoadableInstructionCompare,std::allocator<HGRef<LoadableInstruction>>>::__emplace_unique_key_args<HGRef<LoadableInstruction>,HGRef<LoadableInstruction> const&>(&self->_previousScheduleToUnload, begin_node + 4);
+      std::__tree<HGRef<LoadableInstruction>,LoadableInstructionCompare,std::allocator<HGRef<LoadableInstruction>>>::__emplace_unique_key_args<HGRef<LoadableInstruction>,HGRef<LoadableInstruction> const&>(&self->_previousScheduleToUnload, begin_node + 4, (begin_node + 4));
       v7 = begin_node[1];
       if (v7)
       {
@@ -163,7 +163,7 @@
         v14 = *(*(&v20 + 1) + 8 * i);
         if (v14)
         {
-          [*(*(&v20 + 1) + 8 * i) timeRange];
+          objc_msgSend_timeRange(*(*(&v20 + 1) + 8 * i));
         }
 
         else
@@ -177,11 +177,11 @@
           v15 = HGObject::operator new(0xB0uLL);
           LoadableInstruction::LoadableInstruction(v15, v14, self->_isExporting);
           v17 = v15;
-          std::__tree<HGRef<LoadableInstruction>,LoadableInstructionCompare,std::allocator<HGRef<LoadableInstruction>>>::__emplace_unique_key_args<HGRef<LoadableInstruction>,HGRef<LoadableInstruction> const&>(&self->_effectSchedule, &v17);
+          std::__tree<HGRef<LoadableInstruction>,LoadableInstructionCompare,std::allocator<HGRef<LoadableInstruction>>>::__emplace_unique_key_args<HGRef<LoadableInstruction>,HGRef<LoadableInstruction> const&>(&self->_effectSchedule, &v17, &v17);
           memset(&time, 0, sizeof(time));
           if (v14)
           {
-            [(PVVideoCompositionInstruction *)v14 timeRange];
+            objc_msgSend_timeRange(v14);
           }
 
           else

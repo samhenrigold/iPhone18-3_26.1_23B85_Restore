@@ -27,7 +27,7 @@
   v4.receiver = self;
   v4.super_class = PUTimedAnimationGroup;
   [(PUAnimationGroup *)&v4 resumeAnimations];
-  [(PUTimedAnimationGroup *)self currentTime];
+  objc_msgSend_currentTime(self);
   self->_beginTime = v3 - self->_pausedElapsedTime;
   [(PUTimedAnimationGroup *)self _update];
 }
@@ -37,7 +37,7 @@
   v6.receiver = self;
   v6.super_class = PUTimedAnimationGroup;
   [(PUAnimationGroup *)&v6 pauseAnimations];
-  [(PUTimedAnimationGroup *)self currentTime];
+  objc_msgSend_currentTime(self);
   v4 = v3;
   [(PUTimedAnimationGroup *)self beginTime];
   self->_pausedElapsedTime = v4 - v5;
@@ -67,7 +67,7 @@
     return self->_pausedElapsedTime;
   }
 
-  [(PUTimedAnimationGroup *)self currentTime];
+  objc_msgSend_currentTime(self);
   v5 = v4;
   [(PUTimedAnimationGroup *)self beginTime];
   return v5 - v6;
@@ -81,7 +81,7 @@
   v3 = v2;
   if (v2)
   {
-    [(PUTimedAnimationGroup *)v2 currentTime];
+    objc_msgSend_currentTime(v2);
     v3->_beginTime = v4;
   }
 

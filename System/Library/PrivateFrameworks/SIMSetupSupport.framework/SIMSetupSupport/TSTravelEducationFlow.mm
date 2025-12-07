@@ -23,7 +23,7 @@
 
 - (id)firstViewController
 {
-  v2 = _TSLogDomain();
+  v2 = _TSLogDomain(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [(TSTravelEducationFlow *)v2 firstViewController];
@@ -34,7 +34,7 @@
 
 - (void)firstViewController:(id)controller
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   if (controllerCopy)
@@ -45,15 +45,15 @@
     if (getSupportedFlowTypes)
     {
       v7 = [[TSTravelEducationIntroViewController alloc] initWithOptions:self->_options];
-      v8 = _TSLogDomain();
+      v8 = _TSLogDomain(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         options = self->_options;
-        v11 = 138412546;
-        v12 = options;
-        v13 = 2080;
-        v14 = "[TSTravelEducationFlow firstViewController:]";
-        _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "options: %@ @%s", &v11, 0x16u);
+        v10 = 138412546;
+        v11 = options;
+        v12 = 2080;
+        v13 = "[TSTravelEducationFlow firstViewController:]";
+        _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "options: %@ @%s", &v10, 0x16u);
       }
 
       [(TSTravelEducationIntroViewController *)v7 setDelegate:self];
@@ -66,13 +66,11 @@
       controllerCopy[2](controllerCopy, 0);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nextViewControllerFrom:(id)from
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   fromCopy = from;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -90,15 +88,15 @@
     if (selectedCarrierItem)
     {
       v11 = [TSSubFlowViewController alloc];
-      v19[0] = &unk_287583E20;
-      v18[0] = @"FlowTypeKey";
-      v18[1] = @"Plan";
+      v18[0] = &unk_287583E20;
+      v17[0] = @"FlowTypeKey";
+      v17[1] = @"Plan";
       selectedCarrierItem2 = [v5 selectedCarrierItem];
       plan = [selectedCarrierItem2 plan];
-      v18[2] = @"HostViewController";
-      v19[1] = plan;
-      v19[2] = v5;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+      v17[2] = @"HostViewController";
+      v18[1] = plan;
+      v18[2] = v5;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
       navigationController = [v5 navigationController];
       v9 = [(TSSubFlowViewController *)v11 initWithOptions:v13 navigationController:navigationController delegate:self];
 
@@ -153,8 +151,6 @@ LABEL_9:
 LABEL_19:
 LABEL_20:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
@@ -178,11 +174,10 @@ LABEL_20:
 
 - (void)firstViewController
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSTravelEducationFlow firstViewController]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E](UIViewController *)firstViewController is deprecated, please use (void)firstViewController:(void (^)(UIViewController *))completion @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSTravelEducationFlow firstViewController]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E](UIViewController *)firstViewController is deprecated, please use (void)firstViewController:(void (^)(UIViewController *))completion @%s", &v1, 0xCu);
 }
 
 @end

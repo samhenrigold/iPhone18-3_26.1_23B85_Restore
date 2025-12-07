@@ -35,7 +35,7 @@
 
 + (id)hd_getNameForSource:()HealthDaemon
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([v4 _isLocalDevice])
   {
@@ -58,9 +58,9 @@ LABEL_5:
   {
     bundleIdentifier2 = v4;
     objc_opt_self();
-    v27 = 0;
-    v10 = [bundleIdentifier2 _fetchBundleWithError:&v27];
-    v11 = v27;
+    v26 = 0;
+    v10 = [bundleIdentifier2 _fetchBundleWithError:&v26];
+    v11 = v26;
     if (!v10)
     {
       _HKInitializeLogging();
@@ -68,9 +68,9 @@ LABEL_5:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v29 = bundleIdentifier2;
-        v30 = 2112;
-        v31 = v11;
+        v28 = bundleIdentifier2;
+        v29 = 2112;
+        v30 = v11;
         _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "Unable to fetch research study bundle for source %@: %@", buf, 0x16u);
       }
     }
@@ -117,7 +117,7 @@ LABEL_5:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v29 = bundleIdentifier2;
+        v28 = bundleIdentifier2;
         _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "Couldn't find application proxy for bundle identifier %@", buf, 0xCu);
       }
 
@@ -151,7 +151,7 @@ LABEL_5:
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v29 = v20;
+          v28 = v20;
           _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_DEFAULT, "Couldn't find application proxy for companion bundle identifier %@", buf, 0xCu);
         }
 
@@ -166,7 +166,6 @@ LABEL_5:
   }
 
 LABEL_34:
-  v25 = *MEMORY[0x277D85DE8];
 
   return localizedName;
 }

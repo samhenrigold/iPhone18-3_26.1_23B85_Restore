@@ -88,7 +88,7 @@
 
 + (id)decodeData:(id)data
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = +[BLPurchaseDAAPParser sharedInstance];
   v5 = [dataCopy length];
@@ -97,12 +97,12 @@
     v6 = BLJaliscoLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v17) = 0;
+      LOWORD(v16) = 0;
       v7 = "DMAPParser processResponse: couldn't get 8-byte message header";
       v8 = v6;
       v9 = 2;
 LABEL_7:
-      _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_ERROR, v7, &v17, v9);
+      _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_ERROR, v7, &v16, v9);
       goto LABEL_8;
     }
 
@@ -118,12 +118,12 @@ LABEL_7:
     v6 = BLJaliscoLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315650;
-      v18 = "+[BLPurchaseDAAPParser decodeData:]";
-      v19 = 2048;
-      v20 = v12;
-      v21 = 2048;
-      v22 = v13;
+      v16 = 136315650;
+      v17 = "+[BLPurchaseDAAPParser decodeData:]";
+      v18 = 2048;
+      v19 = v12;
+      v20 = 2048;
+      v21 = v13;
       v7 = "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld";
       v8 = v6;
       v9 = 32;
@@ -138,8 +138,6 @@ LABEL_8:
 
   v14 = [v4 processResponseCode:bswap32(*bytes) bytes:bytes + 2 count:v12];
 LABEL_10:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -193,7 +191,7 @@ LABEL_10:
 
 - (id)parseXMLContent:(const char *)content count:(int64_t)count
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (count < 1)
   {
     v5 = 0;
@@ -202,9 +200,9 @@ LABEL_10:
   else
   {
     v4 = [MEMORY[0x277CBEA90] dataWithBytes:content length:?];
-    v11 = 0;
-    v5 = [MEMORY[0x277CCAC58] propertyListWithData:v4 options:0 format:0 error:&v11];
-    v6 = v11;
+    v10 = 0;
+    v5 = [MEMORY[0x277CCAC58] propertyListWithData:v4 options:0 format:0 error:&v10];
+    v6 = v10;
     if (v6)
     {
       v7 = BLJaliscoLog();
@@ -212,20 +210,18 @@ LABEL_10:
       {
         v8 = [v6 description];
         *buf = 138412290;
-        v13 = v8;
+        v12 = v8;
         _os_log_impl(&dword_241D1F000, v7, OS_LOG_TYPE_ERROR, "Attempting to process XML response: %@", buf, 0xCu);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)parseFlavorListing:(const char *)listing size:(int64_t)size
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if (size < 1)
   {
@@ -243,11 +239,11 @@ LABEL_12:
         v18 = BLJaliscoLog();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v22 = 136315650;
-          v23 = "[BLPurchaseDAAPParser parseFlavorListing:size:]";
-          v24 = 2048;
-          v25 = 4;
-          v26 = 2048;
+          v21 = 136315650;
+          v22 = "[BLPurchaseDAAPParser parseFlavorListing:size:]";
+          v23 = 2048;
+          v24 = 4;
+          v25 = 2048;
           sizeCopy = v8;
           goto LABEL_20;
         }
@@ -266,14 +262,14 @@ LABEL_21:
         v18 = BLJaliscoLog();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v22 = 136315650;
-          v23 = "[BLPurchaseDAAPParser parseFlavorListing:size:]";
-          v24 = 2048;
-          v25 = v9;
-          v26 = 2048;
+          v21 = 136315650;
+          v22 = "[BLPurchaseDAAPParser parseFlavorListing:size:]";
+          v23 = 2048;
+          v24 = v9;
+          v25 = 2048;
           sizeCopy = v10;
 LABEL_20:
-          _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
+          _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v21, 0x20u);
         }
 
         goto LABEL_21;
@@ -306,27 +302,25 @@ LABEL_20:
     v17 = BLJaliscoLog();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v22 = 136315650;
-      v23 = "[BLPurchaseDAAPParser parseFlavorListing:size:]";
-      v24 = 2048;
-      v25 = 4;
-      v26 = 2048;
+      v21 = 136315650;
+      v22 = "[BLPurchaseDAAPParser parseFlavorListing:size:]";
+      v23 = 2048;
+      v24 = 4;
+      v25 = 2048;
       sizeCopy = size;
-      _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
+      _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v21, 0x20u);
     }
 
 LABEL_22:
     v16 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)parseFlavor:(const char *)flavor size:(int64_t)size
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (size < 1)
   {
@@ -343,11 +337,11 @@ LABEL_32:
       v27 = BLJaliscoLog();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v31 = 136315650;
-        v32 = "[BLPurchaseDAAPParser parseFlavor:size:]";
-        v33 = 2048;
-        v34 = 4;
-        v35 = 2048;
+        v30 = 136315650;
+        v31 = "[BLPurchaseDAAPParser parseFlavor:size:]";
+        v32 = 2048;
+        v33 = 4;
+        v34 = 2048;
         sizeCopy = v8;
         goto LABEL_40;
       }
@@ -366,14 +360,14 @@ LABEL_41:
       v27 = BLJaliscoLog();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v31 = 136315650;
-        v32 = "[BLPurchaseDAAPParser parseFlavor:size:]";
-        v33 = 2048;
-        v34 = v9;
-        v35 = 2048;
+        v30 = 136315650;
+        v31 = "[BLPurchaseDAAPParser parseFlavor:size:]";
+        v32 = 2048;
+        v33 = v9;
+        v34 = 2048;
         sizeCopy = v10;
 LABEL_40:
-        _os_log_impl(&dword_241D1F000, v27, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v31, 0x20u);
+        _os_log_impl(&dword_241D1F000, v27, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v30, 0x20u);
       }
 
       goto LABEL_41;
@@ -489,27 +483,25 @@ LABEL_31:
   v26 = BLJaliscoLog();
   if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    v31 = 136315650;
-    v32 = "[BLPurchaseDAAPParser parseFlavor:size:]";
-    v33 = 2048;
-    v34 = 4;
-    v35 = 2048;
+    v30 = 136315650;
+    v31 = "[BLPurchaseDAAPParser parseFlavor:size:]";
+    v32 = 2048;
+    v33 = 4;
+    v34 = 2048;
     sizeCopy = size;
-    _os_log_impl(&dword_241D1F000, v26, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v31, 0x20u);
+    _os_log_impl(&dword_241D1F000, v26, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v30, 0x20u);
   }
 
 LABEL_42:
   v25 = 0;
 LABEL_43:
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (void)setBool:(const char *)bool size:(int64_t)size inDict:(id)dict forKey:(id)key
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   keyCopy = key;
   if (size > 3)
@@ -552,20 +544,19 @@ LABEL_13:
   v13 = BLJaliscoLog();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    v17 = 134218242;
+    v16 = 134218242;
     sizeCopy = size;
-    v19 = 2112;
-    v20 = keyCopy;
-    _os_log_impl(&dword_241D1F000, v13, OS_LOG_TYPE_ERROR, "setBool being passed a %ld byte value for: <%@>!", &v17, 0x16u);
+    v18 = 2112;
+    v19 = keyCopy;
+    _os_log_impl(&dword_241D1F000, v13, OS_LOG_TYPE_ERROR, "setBool being passed a %ld byte value for: <%@>!", &v16, 0x16u);
   }
 
 LABEL_18:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSInt8:(const char *)int8 size:(int64_t)size inDict:(id)dict forKey:(id)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   keyCopy = key;
   if (size == 1)
@@ -579,20 +570,18 @@ LABEL_18:
     v12 = BLJaliscoLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = 134218242;
+      v13 = 134218242;
       sizeCopy = size;
-      v16 = 2112;
-      v17 = keyCopy;
-      _os_log_impl(&dword_241D1F000, v12, OS_LOG_TYPE_ERROR, "setSInt8 being passed a %ld byte value for: <%@>!", &v14, 0x16u);
+      v15 = 2112;
+      v16 = keyCopy;
+      _os_log_impl(&dword_241D1F000, v12, OS_LOG_TYPE_ERROR, "setSInt8 being passed a %ld byte value for: <%@>!", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUInt8:(const char *)int8 size:(int64_t)size inDict:(id)dict forKey:(id)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   keyCopy = key;
   if (size == 1)
@@ -606,20 +595,18 @@ LABEL_18:
     v12 = BLJaliscoLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = 134218242;
+      v13 = 134218242;
       sizeCopy = size;
-      v16 = 2112;
-      v17 = keyCopy;
-      _os_log_impl(&dword_241D1F000, v12, OS_LOG_TYPE_ERROR, "setUInt8 being passed a %ld byte value for: <%@>!", &v14, 0x16u);
+      v15 = 2112;
+      v16 = keyCopy;
+      _os_log_impl(&dword_241D1F000, v12, OS_LOG_TYPE_ERROR, "setUInt8 being passed a %ld byte value for: <%@>!", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSInt16:(const char *)int16 size:(int64_t)size inDict:(id)dict forKey:(id)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   keyCopy = key;
   if (size == 2)
@@ -633,20 +620,18 @@ LABEL_18:
     v12 = BLJaliscoLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = 134218242;
+      v13 = 134218242;
       sizeCopy = size;
-      v16 = 2112;
-      v17 = keyCopy;
-      _os_log_impl(&dword_241D1F000, v12, OS_LOG_TYPE_ERROR, "setSInt16 being passed a %ld byte value for: <%@>!", &v14, 0x16u);
+      v15 = 2112;
+      v16 = keyCopy;
+      _os_log_impl(&dword_241D1F000, v12, OS_LOG_TYPE_ERROR, "setSInt16 being passed a %ld byte value for: <%@>!", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUInt16:(const char *)int16 size:(int64_t)size inDict:(id)dict forKey:(id)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   keyCopy = key;
   if (size == 2)
@@ -660,15 +645,13 @@ LABEL_18:
     v12 = BLJaliscoLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = 134218242;
+      v13 = 134218242;
       sizeCopy = size;
-      v16 = 2112;
-      v17 = keyCopy;
-      _os_log_impl(&dword_241D1F000, v12, OS_LOG_TYPE_ERROR, "setUInt16 being passed a %ld byte value for: <%@>!", &v14, 0x16u);
+      v15 = 2112;
+      v16 = keyCopy;
+      _os_log_impl(&dword_241D1F000, v12, OS_LOG_TYPE_ERROR, "setUInt16 being passed a %ld byte value for: <%@>!", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDate:(const char *)date size:(int64_t)size inDict:(id)dict forKey:(id)key
@@ -699,7 +682,7 @@ LABEL_18:
 
 - (void)setFloat32:(const char *)float32 size:(int64_t)size inDict:(id)dict forKey:(id)key
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   keyCopy = key;
   if (size == 4)
@@ -716,20 +699,18 @@ LABEL_18:
     v15 = BLJaliscoLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = 134218242;
+      v16 = 134218242;
       sizeCopy = size;
-      v19 = 2112;
-      v20 = keyCopy;
-      _os_log_impl(&dword_241D1F000, v15, OS_LOG_TYPE_ERROR, "setFloat32 being passed a %ld byte value for: <%@>!", &v17, 0x16u);
+      v18 = 2112;
+      v19 = keyCopy;
+      _os_log_impl(&dword_241D1F000, v15, OS_LOG_TYPE_ERROR, "setFloat32 being passed a %ld byte value for: <%@>!", &v16, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUInt64:(const char *)int64 size:(int64_t)size inDict:(id)dict forKey:(id)key
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   keyCopy = key;
   if (size == 8)
@@ -744,15 +725,13 @@ LABEL_18:
     v14 = BLJaliscoLog();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v16 = 134218242;
+      v15 = 134218242;
       sizeCopy = size;
-      v18 = 2112;
-      v19 = keyCopy;
-      _os_log_impl(&dword_241D1F000, v14, OS_LOG_TYPE_ERROR, "setUInt64 being passed a %ld byte value for: <%@>!", &v16, 0x16u);
+      v17 = 2112;
+      v18 = keyCopy;
+      _os_log_impl(&dword_241D1F000, v14, OS_LOG_TYPE_ERROR, "setUInt64 being passed a %ld byte value for: <%@>!", &v15, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setString:(const char *)string size:(int64_t)size inDict:(id)dict forKey:(id)key
@@ -768,7 +747,7 @@ LABEL_18:
 
 - (void)unknownCode:(unsigned int)code bytes:(const char *)bytes size:(int64_t)size context:(const char *)context
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (code != 1634028888)
   {
     if (size <= 1)
@@ -781,17 +760,17 @@ LABEL_18:
           goto LABEL_23;
         }
 
-        v19 = 136316418;
+        v18 = 136316418;
         contextCopy7 = context;
-        v21 = 1024;
-        v22 = code >> 24;
-        v23 = 1024;
-        v24 = (code << 8) >> 24;
-        v25 = 1024;
-        v26 = code >> 8;
-        v27 = 1024;
+        v20 = 1024;
+        v21 = code >> 24;
+        v22 = 1024;
+        v23 = (code << 8) >> 24;
+        v24 = 1024;
+        v25 = code >> 8;
+        v26 = 1024;
         codeCopy6 = code;
-        v29 = 2048;
+        v28 = 2048;
         sizeCopy = 0;
         v8 = "Unknown code at %s: '%c%c%c%c', size=%ld";
         goto LABEL_21;
@@ -801,24 +780,24 @@ LABEL_18:
       {
 LABEL_24:
         v7 = [MEMORY[0x277CBEA90] dataWithBytes:bytes length:size];
-        v18 = BLJaliscoLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v17 = BLJaliscoLog();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v19 = 136316674;
+          v18 = 136316674;
           contextCopy7 = context;
-          v21 = 1024;
-          v22 = code >> 24;
-          v23 = 1024;
-          v24 = (code << 8) >> 24;
-          v25 = 1024;
-          v26 = code >> 8;
-          v27 = 1024;
+          v20 = 1024;
+          v21 = code >> 24;
+          v22 = 1024;
+          v23 = (code << 8) >> 24;
+          v24 = 1024;
+          v25 = code >> 8;
+          v26 = 1024;
           codeCopy6 = code;
-          v29 = 2048;
+          v28 = 2048;
           sizeCopy = size;
-          v31 = 2112;
-          v32 = v7;
-          _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "Unknown code at %s: '%c%c%c%c', size=%ld, value=%@", &v19, 0x38u);
+          v30 = 2112;
+          v31 = v7;
+          _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_ERROR, "Unknown code at %s: '%c%c%c%c', size=%ld, value=%@", &v18, 0x38u);
         }
 
         goto LABEL_23;
@@ -831,20 +810,20 @@ LABEL_24:
       }
 
       v14 = *bytes;
-      v19 = 136316674;
+      v18 = 136316674;
       contextCopy7 = context;
-      v21 = 1024;
-      v22 = code >> 24;
-      v23 = 1024;
-      v24 = (code << 8) >> 24;
-      v25 = 1024;
-      v26 = code >> 8;
-      v27 = 1024;
+      v20 = 1024;
+      v21 = code >> 24;
+      v22 = 1024;
+      v23 = (code << 8) >> 24;
+      v24 = 1024;
+      v25 = code >> 8;
+      v26 = 1024;
       codeCopy6 = code;
-      v29 = 2048;
+      v28 = 2048;
       sizeCopy = 1;
-      v31 = 1024;
-      LODWORD(v32) = v14;
+      v30 = 1024;
+      LODWORD(v31) = v14;
       v8 = "Unknown code at %s: '%c%c%c%c', size=%ld, value=%u";
     }
 
@@ -860,20 +839,20 @@ LABEL_24:
           }
 
           v15 = *bytes;
-          v19 = 136316674;
+          v18 = 136316674;
           contextCopy7 = context;
-          v21 = 1024;
-          v22 = code >> 24;
-          v23 = 1024;
-          v24 = (code << 8) >> 24;
-          v25 = 1024;
-          v26 = code >> 8;
-          v27 = 1024;
+          v20 = 1024;
+          v21 = code >> 24;
+          v22 = 1024;
+          v23 = (code << 8) >> 24;
+          v24 = 1024;
+          v25 = code >> 8;
+          v26 = 1024;
           codeCopy6 = code;
-          v29 = 2048;
+          v28 = 2048;
           sizeCopy = 2;
-          v31 = 1024;
-          LODWORD(v32) = v15;
+          v30 = 1024;
+          LODWORD(v31) = v15;
           v8 = "Unknown code at %s: '%c%c%c%c', size=%ld, value=%u";
           break;
         case 4:
@@ -884,20 +863,20 @@ LABEL_24:
           }
 
           v16 = *bytes;
-          v19 = 136316674;
+          v18 = 136316674;
           contextCopy7 = context;
-          v21 = 1024;
-          v22 = code >> 24;
-          v23 = 1024;
-          v24 = (code << 8) >> 24;
-          v25 = 1024;
-          v26 = code >> 8;
-          v27 = 1024;
+          v20 = 1024;
+          v21 = code >> 24;
+          v22 = 1024;
+          v23 = (code << 8) >> 24;
+          v24 = 1024;
+          v25 = code >> 8;
+          v26 = 1024;
           codeCopy6 = code;
-          v29 = 2048;
+          v28 = 2048;
           sizeCopy = 4;
-          v31 = 1024;
-          LODWORD(v32) = v16;
+          v30 = 1024;
+          LODWORD(v31) = v16;
           v8 = "Unknown code at %s: '%c%c%c%c', size=%ld, value=0x%x";
           break;
         case 8:
@@ -907,17 +886,17 @@ LABEL_24:
             goto LABEL_23;
           }
 
-          v19 = 136316418;
+          v18 = 136316418;
           contextCopy7 = context;
-          v21 = 1024;
-          v22 = code >> 24;
-          v23 = 1024;
-          v24 = (code << 8) >> 24;
-          v25 = 1024;
-          v26 = code >> 8;
-          v27 = 1024;
+          v20 = 1024;
+          v21 = code >> 24;
+          v22 = 1024;
+          v23 = (code << 8) >> 24;
+          v24 = 1024;
+          v25 = code >> 8;
+          v26 = 1024;
           codeCopy6 = code;
-          v29 = 2048;
+          v28 = 2048;
           sizeCopy = 8;
           v8 = "Unknown code at %s: '%c%c%c%c', size=%ld";
 LABEL_21:
@@ -937,23 +916,21 @@ LABEL_21:
   v7 = BLJaliscoLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v19 = 136315138;
+    v18 = 136315138;
     contextCopy7 = context;
     v8 = "Unexpected xmlcode! at %s";
     v9 = v7;
     v10 = 12;
 LABEL_22:
-    _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_ERROR, v8, &v19, v10);
+    _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_ERROR, v8, &v18, v10);
   }
 
 LABEL_23:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)parseMACAddressListing:(const char *)listing count:(int64_t)count
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if (count < 1)
   {
@@ -971,11 +948,11 @@ LABEL_10:
         v19 = BLJaliscoLog();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v23 = 136315650;
-          v24 = "[BLPurchaseDAAPParser parseMACAddressListing:count:]";
-          v25 = 2048;
-          v26 = 4;
-          v27 = 2048;
+          v22 = 136315650;
+          v23 = "[BLPurchaseDAAPParser parseMACAddressListing:count:]";
+          v24 = 2048;
+          v25 = 4;
+          v26 = 2048;
           countCopy = v8;
           goto LABEL_18;
         }
@@ -994,14 +971,14 @@ LABEL_19:
         v19 = BLJaliscoLog();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v23 = 136315650;
-          v24 = "[BLPurchaseDAAPParser parseMACAddressListing:count:]";
-          v25 = 2048;
-          v26 = v9;
-          v27 = 2048;
+          v22 = 136315650;
+          v23 = "[BLPurchaseDAAPParser parseMACAddressListing:count:]";
+          v24 = 2048;
+          v25 = v9;
+          v26 = 2048;
           countCopy = v10;
 LABEL_18:
-          _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v23, 0x20u);
+          _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
         }
 
         goto LABEL_19;
@@ -1032,27 +1009,25 @@ LABEL_18:
     v18 = BLJaliscoLog();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136315650;
-      v24 = "[BLPurchaseDAAPParser parseMACAddressListing:count:]";
-      v25 = 2048;
-      v26 = 4;
-      v27 = 2048;
+      v22 = 136315650;
+      v23 = "[BLPurchaseDAAPParser parseMACAddressListing:count:]";
+      v24 = 2048;
+      v25 = 4;
+      v26 = 2048;
       countCopy = count;
-      _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v23, 0x20u);
+      _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
     }
 
 LABEL_20:
     v17 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)parseServerInfo:(const char *)info count:(int64_t)count
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (count < 1 || !info)
   {
@@ -1069,11 +1044,11 @@ LABEL_111:
       v48 = BLJaliscoLog();
       if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
-        v52 = 136315650;
-        v53 = "[BLPurchaseDAAPParser parseServerInfo:count:]";
-        v54 = 2048;
-        v55 = 4;
-        v56 = 2048;
+        v51 = 136315650;
+        v52 = "[BLPurchaseDAAPParser parseServerInfo:count:]";
+        v53 = 2048;
+        v54 = 4;
+        v55 = 2048;
         countCopy = v8;
         goto LABEL_119;
       }
@@ -1092,14 +1067,14 @@ LABEL_120:
       v48 = BLJaliscoLog();
       if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
-        v52 = 136315650;
-        v53 = "[BLPurchaseDAAPParser parseServerInfo:count:]";
-        v54 = 2048;
-        v55 = v9;
-        v56 = 2048;
+        v51 = 136315650;
+        v52 = "[BLPurchaseDAAPParser parseServerInfo:count:]";
+        v53 = 2048;
+        v54 = v9;
+        v55 = 2048;
         countCopy = v10;
 LABEL_119:
-        _os_log_impl(&dword_241D1F000, v48, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v52, 0x20u);
+        _os_log_impl(&dword_241D1F000, v48, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v51, 0x20u);
       }
 
       goto LABEL_120;
@@ -1620,27 +1595,25 @@ LABEL_108:
   v47 = BLJaliscoLog();
   if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
   {
-    v52 = 136315650;
-    v53 = "[BLPurchaseDAAPParser parseServerInfo:count:]";
-    v54 = 2048;
-    v55 = 4;
-    v56 = 2048;
+    v51 = 136315650;
+    v52 = "[BLPurchaseDAAPParser parseServerInfo:count:]";
+    v53 = 2048;
+    v54 = 4;
+    v55 = 2048;
     countCopy = count;
-    _os_log_impl(&dword_241D1F000, v47, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v52, 0x20u);
+    _os_log_impl(&dword_241D1F000, v47, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v51, 0x20u);
   }
 
 LABEL_121:
   v46 = 0;
 LABEL_122:
 
-  v50 = *MEMORY[0x277D85DE8];
-
   return v46;
 }
 
 - (id)parseContentCodes:(const char *)codes count:(int64_t)count
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (count < 1)
   {
@@ -1658,11 +1631,11 @@ LABEL_9:
         v17 = BLJaliscoLog();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v21 = 136315650;
-          v22 = "[BLPurchaseDAAPParser parseContentCodes:count:]";
-          v23 = 2048;
-          v24 = 4;
-          v25 = 2048;
+          v20 = 136315650;
+          v21 = "[BLPurchaseDAAPParser parseContentCodes:count:]";
+          v22 = 2048;
+          v23 = 4;
+          v24 = 2048;
           countCopy = v8;
           goto LABEL_17;
         }
@@ -1681,14 +1654,14 @@ LABEL_18:
         v17 = BLJaliscoLog();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v21 = 136315650;
-          v22 = "[BLPurchaseDAAPParser parseContentCodes:count:]";
-          v23 = 2048;
-          v24 = v9;
-          v25 = 2048;
+          v20 = 136315650;
+          v21 = "[BLPurchaseDAAPParser parseContentCodes:count:]";
+          v22 = 2048;
+          v23 = v9;
+          v24 = 2048;
           countCopy = v10;
 LABEL_17:
-          _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v21, 0x20u);
+          _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v20, 0x20u);
         }
 
         goto LABEL_18;
@@ -1712,27 +1685,25 @@ LABEL_17:
     v16 = BLJaliscoLog();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136315650;
-      v22 = "[BLPurchaseDAAPParser parseContentCodes:count:]";
-      v23 = 2048;
-      v24 = 4;
-      v25 = 2048;
+      v20 = 136315650;
+      v21 = "[BLPurchaseDAAPParser parseContentCodes:count:]";
+      v22 = 2048;
+      v23 = 4;
+      v24 = 2048;
       countCopy = count;
-      _os_log_impl(&dword_241D1F000, v16, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v21, 0x20u);
+      _os_log_impl(&dword_241D1F000, v16, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v20, 0x20u);
     }
 
 LABEL_19:
     v15 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)parseError:(const char *)error count:(int64_t)count
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (count < 9)
   {
     goto LABEL_23;
@@ -1750,12 +1721,12 @@ LABEL_19:
         goto LABEL_22;
       }
 
-      v23 = 136315650;
-      v24 = "[BLPurchaseDAAPParser parseError:count:]";
-      v25 = 2048;
-      v26 = 4;
-      v27 = 2048;
-      v28 = countCopy;
+      v22 = 136315650;
+      v23 = "[BLPurchaseDAAPParser parseError:count:]";
+      v24 = 2048;
+      v25 = 4;
+      v26 = 2048;
+      v27 = countCopy;
       goto LABEL_21;
     }
 
@@ -1767,12 +1738,12 @@ LABEL_19:
         goto LABEL_22;
       }
 
-      v23 = 136315650;
-      v24 = "[BLPurchaseDAAPParser parseError:count:]";
-      v25 = 2048;
-      v26 = 4;
-      v27 = 2048;
-      v28 = countCopy - 4;
+      v22 = 136315650;
+      v23 = "[BLPurchaseDAAPParser parseError:count:]";
+      v24 = 2048;
+      v25 = 4;
+      v26 = 2048;
+      v27 = countCopy - 4;
       goto LABEL_21;
     }
 
@@ -1824,14 +1795,14 @@ LABEL_13:
   v19 = BLJaliscoLog();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    v23 = 136315650;
-    v24 = "[BLPurchaseDAAPParser parseError:count:]";
-    v25 = 2048;
-    v26 = v8;
-    v27 = 2048;
-    v28 = v9;
+    v22 = 136315650;
+    v23 = "[BLPurchaseDAAPParser parseError:count:]";
+    v24 = 2048;
+    v25 = v8;
+    v26 = 2048;
+    v27 = v9;
 LABEL_21:
-    _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v23, 0x20u);
+    _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
   }
 
 LABEL_22:
@@ -1839,14 +1810,13 @@ LABEL_22:
 LABEL_23:
   v18 = 0;
 LABEL_24:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 - (id)parseLogin:(const char *)login count:(int64_t)count
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (count < 1)
   {
     v6 = 0;
@@ -1867,13 +1837,13 @@ LABEL_12:
         v14 = BLJaliscoLog();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v17 = 136315650;
-          v18 = "[BLPurchaseDAAPParser parseLogin:count:]";
-          v19 = 2048;
-          v20 = 4;
-          v21 = 2048;
-          v22 = v7;
-          _os_log_impl(&dword_241D1F000, v14, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v17, 0x20u);
+          v16 = 136315650;
+          v17 = "[BLPurchaseDAAPParser parseLogin:count:]";
+          v18 = 2048;
+          v19 = 4;
+          v20 = 2048;
+          v21 = v7;
+          _os_log_impl(&dword_241D1F000, v14, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v16, 0x20u);
         }
 
         goto LABEL_19;
@@ -1908,27 +1878,25 @@ LABEL_12:
     v13 = BLJaliscoLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315650;
-      v18 = "[BLPurchaseDAAPParser parseLogin:count:]";
-      v19 = 2048;
-      v20 = 4;
-      v21 = 2048;
-      v22 = countCopy;
-      _os_log_impl(&dword_241D1F000, v13, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v17, 0x20u);
+      v16 = 136315650;
+      v17 = "[BLPurchaseDAAPParser parseLogin:count:]";
+      v18 = 2048;
+      v19 = 4;
+      v20 = 2048;
+      v21 = countCopy;
+      _os_log_impl(&dword_241D1F000, v13, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v16, 0x20u);
     }
 
 LABEL_19:
     v12 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)parseListingItem:(const char *)item count:(int64_t)count
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   v7 = +[BLPurchaseDAAPItem item];
   if (count < 1)
   {
@@ -1938,7 +1906,7 @@ LABEL_414:
     goto LABEL_422;
   }
 
-  v71 = 0;
+  v70 = 0;
   v8 = @"booklets";
   while (count > 3)
   {
@@ -1949,10 +1917,10 @@ LABEL_414:
       if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v75 = "[BLPurchaseDAAPParser parseListingItem:count:]";
-        v76 = 2048;
-        v77 = 4;
-        v78 = 2048;
+        v74 = "[BLPurchaseDAAPParser parseListingItem:count:]";
+        v75 = 2048;
+        v76 = 4;
+        v77 = 2048;
         countCopy = v9;
         _os_log_impl(&dword_241D1F000, v68, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", buf, 0x20u);
       }
@@ -2781,8 +2749,8 @@ LABEL_402:
 
         if (v10 == 0x2000000)
         {
-          v71 = bswap32(*v12) >> 16;
-          v15 = [objc_opt_class() typeForDRCPValueType:v71];
+          v70 = bswap32(*v12) >> 16;
+          v15 = [objc_opt_class() typeForDRCPValueType:v70];
           v44 = v7;
           v45 = v15;
           v46 = @"type";
@@ -2862,9 +2830,9 @@ LABEL_393:
           goto LABEL_391;
         }
 
-        if (v71 <= 3)
+        if (v70 <= 3)
         {
-          switch(v71)
+          switch(v70)
           {
             case 1:
               [(BLPurchaseDAAPParser *)self setBool:v12 size:v14 inDict:v7 forKey:@"value"];
@@ -2878,14 +2846,14 @@ LABEL_393:
               [(BLPurchaseDAAPParser *)self setUInt32:v12 size:v14 inDict:v7 forKey:@"value"];
               v64 = 3;
 LABEL_413:
-              v71 = v64;
+              v70 = v64;
               break;
           }
         }
 
         else
         {
-          if ((v71 - 5) < 3)
+          if ((v70 - 5) < 3)
           {
             selfCopy125 = self;
             v24 = v12;
@@ -2897,7 +2865,7 @@ LABEL_379:
             goto LABEL_407;
           }
 
-          if (v71 == 4)
+          if (v70 == 4)
           {
             [(BLPurchaseDAAPParser *)self setFloat32:v12 size:v14 inDict:v7 forKey:@"value"];
             v64 = 4;
@@ -3769,9 +3737,9 @@ LABEL_400:
             if (v13 == 1634353740)
             {
               v15 = [(BLPurchaseDAAPParser *)self parseBookletListing:v12 count:v14];
-              v72 = v8;
-              v73 = v15;
-              [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+              v71 = v8;
+              v72 = v15;
+              [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
               v17 = v16 = v8;
               [v7 updateItemWithDictionary:v17];
               goto LABEL_332;
@@ -3919,10 +3887,10 @@ LABEL_407:
   if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v75 = "[BLPurchaseDAAPParser parseListingItem:count:]";
-    v76 = 2048;
-    v77 = 4;
-    v78 = 2048;
+    v74 = "[BLPurchaseDAAPParser parseListingItem:count:]";
+    v75 = 2048;
+    v76 = 4;
+    v77 = 2048;
     countCopy = count;
     _os_log_impl(&dword_241D1F000, v67, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", buf, 0x20u);
   }
@@ -3931,14 +3899,12 @@ LABEL_421:
   v66 = 0;
 LABEL_422:
 
-  v69 = *MEMORY[0x277D85DE8];
-
   return v66;
 }
 
 - (id)parseBookletListing:(const char *)listing count:(int64_t)count
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = objc_opt_new();
   if (count < 1)
   {
@@ -3956,11 +3922,11 @@ LABEL_10:
         v18 = BLJaliscoLog();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v22 = 136315650;
-          v23 = "[BLPurchaseDAAPParser parseBookletListing:count:]";
-          v24 = 2048;
-          v25 = 4;
-          v26 = 2048;
+          v21 = 136315650;
+          v22 = "[BLPurchaseDAAPParser parseBookletListing:count:]";
+          v23 = 2048;
+          v24 = 4;
+          v25 = 2048;
           countCopy = v8;
           goto LABEL_18;
         }
@@ -3979,14 +3945,14 @@ LABEL_19:
         v18 = BLJaliscoLog();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v22 = 136315650;
-          v23 = "[BLPurchaseDAAPParser parseBookletListing:count:]";
-          v24 = 2048;
-          v25 = v9;
-          v26 = 2048;
+          v21 = 136315650;
+          v22 = "[BLPurchaseDAAPParser parseBookletListing:count:]";
+          v23 = 2048;
+          v24 = v9;
+          v25 = 2048;
           countCopy = v10;
 LABEL_18:
-          _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
+          _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v21, 0x20u);
         }
 
         goto LABEL_19;
@@ -4016,27 +3982,25 @@ LABEL_18:
     v17 = BLJaliscoLog();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v22 = 136315650;
-      v23 = "[BLPurchaseDAAPParser parseBookletListing:count:]";
-      v24 = 2048;
-      v25 = 4;
-      v26 = 2048;
+      v21 = 136315650;
+      v22 = "[BLPurchaseDAAPParser parseBookletListing:count:]";
+      v23 = 2048;
+      v24 = 4;
+      v25 = 2048;
       countCopy = count;
-      _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
+      _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v21, 0x20u);
     }
 
 LABEL_20:
     v16 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)parseBookletItem:(const char *)item count:(int64_t)count
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v7 = objc_opt_new();
   if (count < 1)
   {
@@ -4053,11 +4017,11 @@ LABEL_19:
       v27 = BLJaliscoLog();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v31 = 136315650;
-        v32 = "[BLPurchaseDAAPParser parseBookletItem:count:]";
-        v33 = 2048;
-        v34 = 4;
-        v35 = 2048;
+        v30 = 136315650;
+        v31 = "[BLPurchaseDAAPParser parseBookletItem:count:]";
+        v32 = 2048;
+        v33 = 4;
+        v34 = 2048;
         countCopy = v8;
         goto LABEL_27;
       }
@@ -4076,14 +4040,14 @@ LABEL_28:
       v27 = BLJaliscoLog();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v31 = 136315650;
-        v32 = "[BLPurchaseDAAPParser parseBookletItem:count:]";
-        v33 = 2048;
-        v34 = v9;
-        v35 = 2048;
+        v30 = 136315650;
+        v31 = "[BLPurchaseDAAPParser parseBookletItem:count:]";
+        v32 = 2048;
+        v33 = v9;
+        v34 = 2048;
         countCopy = v10;
 LABEL_27:
-        _os_log_impl(&dword_241D1F000, v27, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v31, 0x20u);
+        _os_log_impl(&dword_241D1F000, v27, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v30, 0x20u);
       }
 
       goto LABEL_28;
@@ -4156,27 +4120,25 @@ LABEL_18:
   v26 = BLJaliscoLog();
   if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    v31 = 136315650;
-    v32 = "[BLPurchaseDAAPParser parseBookletItem:count:]";
-    v33 = 2048;
-    v34 = 4;
-    v35 = 2048;
+    v30 = 136315650;
+    v31 = "[BLPurchaseDAAPParser parseBookletItem:count:]";
+    v32 = 2048;
+    v33 = 4;
+    v34 = 2048;
     countCopy = count;
-    _os_log_impl(&dword_241D1F000, v26, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v31, 0x20u);
+    _os_log_impl(&dword_241D1F000, v26, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v30, 0x20u);
   }
 
 LABEL_29:
   v25 = 0;
 LABEL_30:
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (id)parseListingCollection:(const char *)collection count:(int64_t)count capacity:(int)capacity
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:capacity];
   if (count < 1)
   {
@@ -4194,11 +4156,11 @@ LABEL_11:
         v19 = BLJaliscoLog();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v23 = 136315650;
-          v24 = "[BLPurchaseDAAPParser parseListingCollection:count:capacity:]";
-          v25 = 2048;
-          v26 = 4;
-          v27 = 2048;
+          v22 = 136315650;
+          v23 = "[BLPurchaseDAAPParser parseListingCollection:count:capacity:]";
+          v24 = 2048;
+          v25 = 4;
+          v26 = 2048;
           countCopy = v9;
           goto LABEL_19;
         }
@@ -4217,14 +4179,14 @@ LABEL_20:
         v19 = BLJaliscoLog();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v23 = 136315650;
-          v24 = "[BLPurchaseDAAPParser parseListingCollection:count:capacity:]";
-          v25 = 2048;
-          v26 = v10;
-          v27 = 2048;
+          v22 = 136315650;
+          v23 = "[BLPurchaseDAAPParser parseListingCollection:count:capacity:]";
+          v24 = 2048;
+          v25 = v10;
+          v26 = 2048;
           countCopy = v11;
 LABEL_19:
-          _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v23, 0x20u);
+          _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
         }
 
         goto LABEL_20;
@@ -4257,27 +4219,25 @@ LABEL_19:
     v18 = BLJaliscoLog();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136315650;
-      v24 = "[BLPurchaseDAAPParser parseListingCollection:count:capacity:]";
-      v25 = 2048;
-      v26 = 4;
-      v27 = 2048;
+      v22 = 136315650;
+      v23 = "[BLPurchaseDAAPParser parseListingCollection:count:capacity:]";
+      v24 = 2048;
+      v25 = 4;
+      v26 = 2048;
       countCopy = count;
-      _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v23, 0x20u);
+      _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
     }
 
 LABEL_21:
     v17 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)parseBrowseResults:(const char *)results count:(int64_t)count
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if (count < 1)
   {
@@ -4295,11 +4255,11 @@ LABEL_10:
         v19 = BLJaliscoLog();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v23 = 136315650;
-          v24 = "[BLPurchaseDAAPParser parseBrowseResults:count:]";
-          v25 = 2048;
-          v26 = 4;
-          v27 = 2048;
+          v22 = 136315650;
+          v23 = "[BLPurchaseDAAPParser parseBrowseResults:count:]";
+          v24 = 2048;
+          v25 = 4;
+          v26 = 2048;
           countCopy = v8;
           goto LABEL_18;
         }
@@ -4318,14 +4278,14 @@ LABEL_19:
         v19 = BLJaliscoLog();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v23 = 136315650;
-          v24 = "[BLPurchaseDAAPParser parseBrowseResults:count:]";
-          v25 = 2048;
-          v26 = v9;
-          v27 = 2048;
+          v22 = 136315650;
+          v23 = "[BLPurchaseDAAPParser parseBrowseResults:count:]";
+          v24 = 2048;
+          v25 = v9;
+          v26 = 2048;
           countCopy = v10;
 LABEL_18:
-          _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v23, 0x20u);
+          _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
         }
 
         goto LABEL_19;
@@ -4358,27 +4318,25 @@ LABEL_18:
     v18 = BLJaliscoLog();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136315650;
-      v24 = "[BLPurchaseDAAPParser parseBrowseResults:count:]";
-      v25 = 2048;
-      v26 = 4;
-      v27 = 2048;
+      v22 = 136315650;
+      v23 = "[BLPurchaseDAAPParser parseBrowseResults:count:]";
+      v24 = 2048;
+      v25 = 4;
+      v26 = 2048;
       countCopy = count;
-      _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v23, 0x20u);
+      _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
     }
 
 LABEL_20:
     v17 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)parseListingHeader:(const char *)header count:(int64_t)count
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v7 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:6];
   if (count < 1)
   {
@@ -4398,11 +4356,11 @@ LABEL_40:
         goto LABEL_48;
       }
 
-      v29 = 136315650;
-      v30 = "[BLPurchaseDAAPParser parseListingHeader:count:]";
-      v31 = 2048;
-      v32 = 4;
-      v33 = 2048;
+      v28 = 136315650;
+      v29 = "[BLPurchaseDAAPParser parseListingHeader:count:]";
+      v30 = 2048;
+      v31 = 4;
+      v32 = 2048;
       countCopy = count;
       goto LABEL_47;
     }
@@ -4415,11 +4373,11 @@ LABEL_40:
         goto LABEL_48;
       }
 
-      v29 = 136315650;
-      v30 = "[BLPurchaseDAAPParser parseListingHeader:count:]";
-      v31 = 2048;
-      v32 = 4;
-      v33 = 2048;
+      v28 = 136315650;
+      v29 = "[BLPurchaseDAAPParser parseListingHeader:count:]";
+      v30 = 2048;
+      v31 = 4;
+      v32 = 2048;
       countCopy = count - 4;
       goto LABEL_47;
     }
@@ -4572,14 +4530,14 @@ LABEL_37:
   v25 = BLJaliscoLog();
   if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    v29 = 136315650;
-    v30 = "[BLPurchaseDAAPParser parseListingHeader:count:]";
-    v31 = 2048;
-    v32 = v9;
-    v33 = 2048;
+    v28 = 136315650;
+    v29 = "[BLPurchaseDAAPParser parseListingHeader:count:]";
+    v30 = 2048;
+    v31 = v9;
+    v32 = 2048;
     countCopy = v10;
 LABEL_47:
-    _os_log_impl(&dword_241D1F000, v25, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v29, 0x20u);
+    _os_log_impl(&dword_241D1F000, v25, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v28, 0x20u);
   }
 
 LABEL_48:
@@ -4587,14 +4545,12 @@ LABEL_48:
   v24 = 0;
 LABEL_49:
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v24;
 }
 
 - (void)parseDict:(const char *)dict size:(int64_t)size intoDict:(id)intoDict
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   intoDictCopy = intoDict;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (size < 1)
@@ -4613,10 +4569,10 @@ LABEL_49:
       }
 
       *buf = 136315650;
-      v27 = "[BLPurchaseDAAPParser parseDict:size:intoDict:]";
-      v28 = 2048;
-      v29 = 4;
-      v30 = 2048;
+      v26 = "[BLPurchaseDAAPParser parseDict:size:intoDict:]";
+      v27 = 2048;
+      v28 = 4;
+      v29 = 2048;
       sizeCopy = size;
       goto LABEL_22;
     }
@@ -4630,10 +4586,10 @@ LABEL_49:
       }
 
       *buf = 136315650;
-      v27 = "[BLPurchaseDAAPParser parseDict:size:intoDict:]";
-      v28 = 2048;
-      v29 = 4;
-      v30 = 2048;
+      v26 = "[BLPurchaseDAAPParser parseDict:size:intoDict:]";
+      v27 = 2048;
+      v28 = 4;
+      v29 = 2048;
       sizeCopy = size - 4;
       goto LABEL_22;
     }
@@ -4694,10 +4650,10 @@ LABEL_11:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v27 = "[BLPurchaseDAAPParser parseDict:size:intoDict:]";
-    v28 = 2048;
-    v29 = v9;
-    v30 = 2048;
+    v26 = "[BLPurchaseDAAPParser parseDict:size:intoDict:]";
+    v27 = 2048;
+    v28 = v9;
+    v29 = 2048;
     sizeCopy = v10;
 LABEL_22:
     _os_log_impl(&dword_241D1F000, v21, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", buf, 0x20u);
@@ -4706,13 +4662,12 @@ LABEL_22:
 LABEL_23:
 
 LABEL_24:
-  v23 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)parseDeletedIDsList:(const char *)list count:(int64_t)count
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   array = [MEMORY[0x277CBEB18] array];
   if (count < 1)
@@ -4731,11 +4686,11 @@ LABEL_12:
         v19 = BLJaliscoLog();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v23 = 136315650;
-          v24 = "[BLPurchaseDAAPParser parseDeletedIDsList:count:]";
-          v25 = 2048;
-          v26 = 4;
-          v27 = 2048;
+          v22 = 136315650;
+          v23 = "[BLPurchaseDAAPParser parseDeletedIDsList:count:]";
+          v24 = 2048;
+          v25 = 4;
+          v26 = 2048;
           countCopy = v9;
           goto LABEL_20;
         }
@@ -4754,14 +4709,14 @@ LABEL_21:
         v19 = BLJaliscoLog();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v23 = 136315650;
-          v24 = "[BLPurchaseDAAPParser parseDeletedIDsList:count:]";
-          v25 = 2048;
-          v26 = v10;
-          v27 = 2048;
+          v22 = 136315650;
+          v23 = "[BLPurchaseDAAPParser parseDeletedIDsList:count:]";
+          v24 = 2048;
+          v25 = v10;
+          v26 = 2048;
           countCopy = v11;
 LABEL_20:
-          _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v23, 0x20u);
+          _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
         }
 
         goto LABEL_21;
@@ -4798,27 +4753,25 @@ LABEL_20:
     v18 = BLJaliscoLog();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136315650;
-      v24 = "[BLPurchaseDAAPParser parseDeletedIDsList:count:]";
-      v25 = 2048;
-      v26 = 4;
-      v27 = 2048;
+      v22 = 136315650;
+      v23 = "[BLPurchaseDAAPParser parseDeletedIDsList:count:]";
+      v24 = 2048;
+      v25 = 4;
+      v26 = 2048;
       countCopy = count;
-      _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v23, 0x20u);
+      _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
     }
 
 LABEL_22:
     v17 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)parseControlPromptCollection:(const char *)collection count:(int64_t)count
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (count < 1)
   {
@@ -4835,11 +4788,11 @@ LABEL_15:
       v21 = BLJaliscoLog();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v25 = 136315650;
-        v26 = "[BLPurchaseDAAPParser parseControlPromptCollection:count:]";
-        v27 = 2048;
-        v28 = 4;
-        v29 = 2048;
+        v24 = 136315650;
+        v25 = "[BLPurchaseDAAPParser parseControlPromptCollection:count:]";
+        v26 = 2048;
+        v27 = 4;
+        v28 = 2048;
         countCopy = v8;
         goto LABEL_23;
       }
@@ -4858,14 +4811,14 @@ LABEL_24:
       v21 = BLJaliscoLog();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v25 = 136315650;
-        v26 = "[BLPurchaseDAAPParser parseControlPromptCollection:count:]";
-        v27 = 2048;
-        v28 = v9;
-        v29 = 2048;
+        v24 = 136315650;
+        v25 = "[BLPurchaseDAAPParser parseControlPromptCollection:count:]";
+        v26 = 2048;
+        v27 = v9;
+        v28 = 2048;
         countCopy = v10;
 LABEL_23:
-        _os_log_impl(&dword_241D1F000, v21, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v25, 0x20u);
+        _os_log_impl(&dword_241D1F000, v21, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v24, 0x20u);
       }
 
       goto LABEL_24;
@@ -4911,27 +4864,25 @@ LABEL_14:
   v20 = BLJaliscoLog();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    v25 = 136315650;
-    v26 = "[BLPurchaseDAAPParser parseControlPromptCollection:count:]";
-    v27 = 2048;
-    v28 = 4;
-    v29 = 2048;
+    v24 = 136315650;
+    v25 = "[BLPurchaseDAAPParser parseControlPromptCollection:count:]";
+    v26 = 2048;
+    v27 = 4;
+    v28 = 2048;
     countCopy = count;
-    _os_log_impl(&dword_241D1F000, v20, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v25, 0x20u);
+    _os_log_impl(&dword_241D1F000, v20, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v24, 0x20u);
   }
 
 LABEL_25:
   v19 = 0;
 LABEL_26:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (id)parseControlPromptResponse:(const char *)response count:(int64_t)count
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (count < 1)
@@ -4955,11 +4906,11 @@ LABEL_15:
         v20 = BLJaliscoLog();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          v24 = 136315650;
-          v25 = "[BLPurchaseDAAPParser parseControlPromptResponse:count:]";
-          v26 = 2048;
-          v27 = 4;
-          v28 = 2048;
+          v23 = 136315650;
+          v24 = "[BLPurchaseDAAPParser parseControlPromptResponse:count:]";
+          v25 = 2048;
+          v26 = 4;
+          v27 = 2048;
           countCopy = v9;
           goto LABEL_25;
         }
@@ -4979,14 +4930,14 @@ LABEL_26:
         v20 = BLJaliscoLog();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          v24 = 136315650;
-          v25 = "[BLPurchaseDAAPParser parseControlPromptResponse:count:]";
-          v26 = 2048;
-          v27 = v11;
-          v28 = 2048;
+          v23 = 136315650;
+          v24 = "[BLPurchaseDAAPParser parseControlPromptResponse:count:]";
+          v25 = 2048;
+          v26 = v11;
+          v27 = 2048;
           countCopy = v12;
 LABEL_25:
-          _os_log_impl(&dword_241D1F000, v20, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v24, 0x20u);
+          _os_log_impl(&dword_241D1F000, v20, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v23, 0x20u);
         }
 
         goto LABEL_26;
@@ -5032,27 +4983,25 @@ LABEL_25:
     v19 = BLJaliscoLog();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v24 = 136315650;
-      v25 = "[BLPurchaseDAAPParser parseControlPromptResponse:count:]";
-      v26 = 2048;
-      v27 = 4;
-      v28 = 2048;
+      v23 = 136315650;
+      v24 = "[BLPurchaseDAAPParser parseControlPromptResponse:count:]";
+      v25 = 2048;
+      v26 = 4;
+      v27 = 2048;
       countCopy = count;
-      _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v24, 0x20u);
+      _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v23, 0x20u);
     }
 
 LABEL_27:
     v18 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)parseGetSpeakersResponse:(const char *)response count:(int64_t)count
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if (count < 1)
   {
@@ -5070,11 +5019,11 @@ LABEL_11:
         v18 = BLJaliscoLog();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v22 = 136315650;
-          v23 = "[BLPurchaseDAAPParser parseGetSpeakersResponse:count:]";
-          v24 = 2048;
-          v25 = 4;
-          v26 = 2048;
+          v21 = 136315650;
+          v22 = "[BLPurchaseDAAPParser parseGetSpeakersResponse:count:]";
+          v23 = 2048;
+          v24 = 4;
+          v25 = 2048;
           countCopy = v8;
           goto LABEL_19;
         }
@@ -5093,14 +5042,14 @@ LABEL_20:
         v18 = BLJaliscoLog();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v22 = 136315650;
-          v23 = "[BLPurchaseDAAPParser parseGetSpeakersResponse:count:]";
-          v24 = 2048;
-          v25 = v9;
-          v26 = 2048;
+          v21 = 136315650;
+          v22 = "[BLPurchaseDAAPParser parseGetSpeakersResponse:count:]";
+          v23 = 2048;
+          v24 = v9;
+          v25 = 2048;
           countCopy = v10;
 LABEL_19:
-          _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
+          _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v21, 0x20u);
         }
 
         goto LABEL_20;
@@ -5133,27 +5082,25 @@ LABEL_19:
     v17 = BLJaliscoLog();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v22 = 136315650;
-      v23 = "[BLPurchaseDAAPParser parseGetSpeakersResponse:count:]";
-      v24 = 2048;
-      v25 = 4;
-      v26 = 2048;
+      v21 = 136315650;
+      v22 = "[BLPurchaseDAAPParser parseGetSpeakersResponse:count:]";
+      v23 = 2048;
+      v24 = 4;
+      v25 = 2048;
       countCopy = count;
-      _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v22, 0x20u);
+      _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v21, 0x20u);
     }
 
 LABEL_21:
     v16 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)parseDACPPropertyResponse:(const char *)response count:(int64_t)count
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v7 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:5];
   if (count < 1)
   {
@@ -5170,11 +5117,11 @@ LABEL_121:
       v51 = BLJaliscoLog();
       if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        v55 = 136315650;
-        v56 = "[BLPurchaseDAAPParser parseDACPPropertyResponse:count:]";
-        v57 = 2048;
-        v58 = 4;
-        v59 = 2048;
+        v54 = 136315650;
+        v55 = "[BLPurchaseDAAPParser parseDACPPropertyResponse:count:]";
+        v56 = 2048;
+        v57 = 4;
+        v58 = 2048;
         countCopy = v8;
         goto LABEL_129;
       }
@@ -5194,14 +5141,14 @@ LABEL_130:
       v51 = BLJaliscoLog();
       if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        v55 = 136315650;
-        v56 = "[BLPurchaseDAAPParser parseDACPPropertyResponse:count:]";
-        v57 = 2048;
-        v58 = v10;
-        v59 = 2048;
+        v54 = 136315650;
+        v55 = "[BLPurchaseDAAPParser parseDACPPropertyResponse:count:]";
+        v56 = 2048;
+        v57 = v10;
+        v58 = 2048;
         countCopy = v11;
 LABEL_129:
-        _os_log_impl(&dword_241D1F000, v51, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v55, 0x20u);
+        _os_log_impl(&dword_241D1F000, v51, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v54, 0x20u);
       }
 
       goto LABEL_130;
@@ -5700,20 +5647,18 @@ LABEL_116:
   v50 = BLJaliscoLog();
   if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
   {
-    v55 = 136315650;
-    v56 = "[BLPurchaseDAAPParser parseDACPPropertyResponse:count:]";
-    v57 = 2048;
-    v58 = 4;
-    v59 = 2048;
+    v54 = 136315650;
+    v55 = "[BLPurchaseDAAPParser parseDACPPropertyResponse:count:]";
+    v56 = 2048;
+    v57 = 4;
+    v58 = 2048;
     countCopy = count;
-    _os_log_impl(&dword_241D1F000, v50, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v55, 0x20u);
+    _os_log_impl(&dword_241D1F000, v50, OS_LOG_TYPE_ERROR, "ERROR: %s, Invalid data in DAAP response: trying to read %ld bytes from a buffer of size %ld", &v54, 0x20u);
   }
 
 LABEL_131:
   v49 = 0;
 LABEL_132:
-
-  v53 = *MEMORY[0x277D85DE8];
 
   return v49;
 }

@@ -38,7 +38,6 @@ void __57__TIAutoshiftRegularExpressionLoader_startBackgroundLoad__block_invoke(
   v4 = [*(a1 + 32) nextSentencePrefixCharacters];
   v5 = createAutoshiftRegularExpression(v2, v3, v4);
 
-  v7 = *(a1 + 32);
   v6 = v5;
   TIDispatchAsync();
 }

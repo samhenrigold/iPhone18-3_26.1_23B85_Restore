@@ -9,9 +9,9 @@
   stackshotCopy = stackshot;
   onlyCopy = only;
   fileCopy = file;
-  v108 = 0;
-  v8 = [SASampleStore canOpenFileAsKTraceFile:file errorOut:&v108];
-  v9 = v108;
+  v126 = 0;
+  v8 = [SASampleStore canOpenFileAsKTraceFile:file errorOut:&v126];
+  v9 = v126;
   v10 = v9;
   if (v8)
   {
@@ -21,93 +21,94 @@
     {
       if (byte_100117E80 == 1)
       {
-        v13 = *__error();
-        v14 = sub_100035B80();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v13 = __error();
+        v14 = *v13;
+        v16 = sub_100035B80(v13, v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Avoiding inspecting live processes for tailspin file due to audio running", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Avoiding inspecting live processes for tailspin file due to audio running", buf, 2u);
         }
 
-        *__error() = v13;
+        *__error() = v14;
       }
 
       if (byte_100117E81 == 1 && dword_100117510 <= 2)
       {
-        v100 = fileCopy;
-        v16 = *__error();
-        v17 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Avoiding inspecting live processes for tailspin file due to audio running");
-        if (v17)
+        v118 = fileCopy;
+        v18 = *__error();
+        v19 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Avoiding inspecting live processes for tailspin file due to audio running");
+        if (v19)
         {
-          v18 = v17;
-          CStringPtr = CFStringGetCStringPtr(v17, 0x8000100u);
+          v21 = v19;
+          CStringPtr = CFStringGetCStringPtr(v19, 0x8000100u);
           if (CStringPtr)
           {
-            v20 = CStringPtr;
-            v21 = 0;
+            v23 = CStringPtr;
+            v24 = 0;
           }
 
           else
           {
-            v20 = malloc_type_calloc(0x400uLL, 1uLL, 0x2DB4CA2BuLL);
-            CFStringGetCString(v18, v20, 1024, 0x8000100u);
-            v21 = v20;
+            v23 = malloc_type_calloc(0x400uLL, 1uLL, 0x2DB4CA2BuLL);
+            CFStringGetCString(v21, v23, 1024, 0x8000100u);
+            v24 = v23;
           }
 
           if (qword_100117E88)
           {
-            v50 = qword_100117E88;
+            v59 = qword_100117E88;
           }
 
           else
           {
-            v50 = __stderrp;
+            v59 = __stderrp;
           }
 
-          fprintf(v50, "%s\n", v20);
-          if (v21)
+          fprintf(v59, "%s\n", v23);
+          if (v24)
           {
-            free(v21);
+            free(v24);
           }
 
-          CFRelease(v18);
+          CFRelease(v21);
         }
 
         else
         {
-          v47 = sub_100035B80();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+          v56 = sub_100035B80(0, v20);
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
           {
-            sub_1000BC230(v47);
+            sub_1000BC230(v56);
           }
 
           if (qword_100117E88)
           {
-            v48 = qword_100117E88;
+            v57 = qword_100117E88;
           }
 
           else
           {
-            v48 = __stderrp;
+            v57 = __stderrp;
           }
 
-          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v48);
+          fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v57);
         }
 
-        *__error() = v16;
-        fileCopy = v100;
+        *__error() = v18;
+        fileCopy = v118;
       }
 
       [initForFileParsing setDataGatheringOptions:{objc_msgSend(initForFileParsing, "dataGatheringOptions") & 0xFFFFFFFFFFFFFFFDLL}];
     }
 
     sub_100077DF8(initForFileParsing, (byte_100117E94 >> 3) & 1, (byte_100117E94 >> 2) & 1, (byte_100117E94 & 0x10) == 0);
-    v98 = initForFileParsing;
+    v116 = initForFileParsing;
     if (onlyCopy)
     {
-      v107 = v10;
-      v51 = &v107;
-      v52 = [initForFileParsing parseStackshotsFromKTraceFile:fileCopy warningsOut:v11 errorOut:&v107];
+      v125 = v10;
+      v60 = &v125;
+      v61 = [initForFileParsing parseStackshotsFromKTraceFile:fileCopy warningsOut:v11 errorOut:&v125];
     }
 
     else
@@ -117,195 +118,197 @@
         [initForFileParsing setKPerfPETParsePastLastStackshot:1];
       }
 
-      v106 = v10;
-      v51 = &v106;
-      v52 = [initForFileParsing parseKTraceFile:fileCopy warningsOut:v11 errorOut:&v106];
+      v124 = v10;
+      v60 = &v124;
+      v61 = [initForFileParsing parseKTraceFile:fileCopy warningsOut:v11 errorOut:&v124];
     }
 
-    v96 = v52;
-    v97 = *v51;
+    v114 = v61;
+    v115 = *v60;
 
-    v104 = 0u;
-    v105 = 0u;
-    v102 = 0u;
-    v103 = 0u;
+    v122 = 0u;
+    v123 = 0u;
+    v120 = 0u;
+    v121 = 0u;
     obj = v11;
-    v53 = [obj countByEnumeratingWithState:&v102 objects:v113 count:16];
-    if (v53)
+    v62 = [obj countByEnumeratingWithState:&v120 objects:v131 count:16];
+    if (v62)
     {
-      v54 = v53;
-      v55 = *v103;
-      v56 = &byte_100117E80;
-      v57 = &byte_100117E81;
-      v58 = &dword_100117510;
+      v63 = v62;
+      v64 = *v121;
+      v65 = &byte_100117E80;
+      v66 = &byte_100117E81;
+      v67 = &dword_100117510;
       do
       {
-        for (i = 0; i != v54; i = i + 1)
+        for (i = 0; i != v63; i = i + 1)
         {
-          if (*v103 != v55)
+          if (*v121 != v64)
           {
             objc_enumerationMutation(obj);
           }
 
-          v60 = *(*(&v102 + 1) + 8 * i);
-          if (*v56 == 1)
+          v69 = *(*(&v120 + 1) + 8 * i);
+          if (*v65 == 1)
           {
-            v61 = *__error();
-            v62 = sub_100035B80();
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+            v70 = __error();
+            v71 = *v70;
+            v73 = sub_100035B80(v70, v72);
+            if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v110 = fileCopy;
-              v111 = 2112;
-              v112 = v60;
-              _os_log_error_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "WARNING creating sample store from %s: %@", buf, 0x16u);
+              v128 = fileCopy;
+              v129 = 2112;
+              v130 = v69;
+              _os_log_error_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "WARNING creating sample store from %s: %@", buf, 0x16u);
             }
 
-            *__error() = v61;
+            *__error() = v71;
           }
 
-          if (*v57 == 1 && *v58 <= 3)
+          if (*v66 == 1 && *v67 <= 3)
           {
-            v64 = *__error();
-            v65 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"WARNING creating sample store from %s: %@", fileCopy, v60);
-            if (v65)
+            v75 = *__error();
+            v76 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"WARNING creating sample store from %s: %@", fileCopy, v69);
+            if (v76)
             {
-              v66 = v65;
-              v101 = v64;
-              v67 = v54;
-              v68 = v55;
-              v69 = v58;
-              v70 = v57;
-              v71 = v56;
-              v72 = fileCopy;
-              v73 = CFStringGetCStringPtr(v65, 0x8000100u);
-              if (v73)
+              v78 = v76;
+              v119 = v75;
+              v79 = v63;
+              v80 = v64;
+              v81 = v67;
+              v82 = v66;
+              v83 = v65;
+              v84 = fileCopy;
+              v85 = CFStringGetCStringPtr(v76, 0x8000100u);
+              if (v85)
               {
-                v74 = v73;
-                v75 = 0;
+                v86 = v85;
+                v87 = 0;
               }
 
               else
               {
-                v74 = malloc_type_calloc(0x400uLL, 1uLL, 0x63DE7472uLL);
-                CFStringGetCString(v66, v74, 1024, 0x8000100u);
-                v75 = v74;
+                v86 = malloc_type_calloc(0x400uLL, 1uLL, 0x63DE7472uLL);
+                CFStringGetCString(v78, v86, 1024, 0x8000100u);
+                v87 = v86;
               }
 
               if (qword_100117E88)
               {
-                v78 = qword_100117E88;
+                v90 = qword_100117E88;
               }
 
               else
               {
-                v78 = __stderrp;
+                v90 = __stderrp;
               }
 
-              fprintf(v78, "%s\n", v74);
-              if (v75)
+              fprintf(v90, "%s\n", v86);
+              if (v87)
               {
-                free(v75);
+                free(v87);
               }
 
-              CFRelease(v66);
-              fileCopy = v72;
-              v56 = v71;
-              v57 = v70;
-              v58 = v69;
-              v55 = v68;
-              v54 = v67;
-              v64 = v101;
+              CFRelease(v78);
+              fileCopy = v84;
+              v65 = v83;
+              v66 = v82;
+              v67 = v81;
+              v64 = v80;
+              v63 = v79;
+              v75 = v119;
             }
 
             else
             {
-              v76 = sub_100035B80();
-              if (os_log_type_enabled(v76, OS_LOG_TYPE_FAULT))
+              v88 = sub_100035B80(0, v77);
+              if (os_log_type_enabled(v88, OS_LOG_TYPE_FAULT))
               {
                 *buf = 136315394;
-                v110 = fileCopy;
-                v111 = 2112;
-                v112 = v60;
-                _os_log_fault_impl(&_mh_execute_header, v76, OS_LOG_TYPE_FAULT, "Unable to format: WARNING creating sample store from %s: %@", buf, 0x16u);
+                v128 = fileCopy;
+                v129 = 2112;
+                v130 = v69;
+                _os_log_fault_impl(&_mh_execute_header, v88, OS_LOG_TYPE_FAULT, "Unable to format: WARNING creating sample store from %s: %@", buf, 0x16u);
               }
 
               if (qword_100117E88)
               {
-                v77 = qword_100117E88;
+                v89 = qword_100117E88;
               }
 
               else
               {
-                v77 = __stderrp;
+                v89 = __stderrp;
               }
 
-              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v77);
+              fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v89);
             }
 
-            *__error() = v64;
+            *__error() = v75;
           }
         }
 
-        v54 = [obj countByEnumeratingWithState:&v102 objects:v113 count:16];
+        v63 = [obj countByEnumeratingWithState:&v120 objects:v131 count:16];
       }
 
-      while (v54);
+      while (v63);
     }
 
-    if (v96)
+    if (v114)
     {
-      v79 = v98;
-      v25 = v98;
-      v29 = v97;
+      v91 = v116;
+      v30 = v116;
+      v36 = v115;
 LABEL_161:
 
       goto LABEL_162;
     }
 
-    v29 = v97;
-    v79 = v98;
-    if (v97)
+    v36 = v115;
+    v91 = v116;
+    if (v115)
     {
       if (byte_100117E80)
       {
-        v80 = *__error();
-        v81 = sub_100035B80();
-        if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+        v92 = __error();
+        v93 = *v92;
+        v95 = sub_100035B80(v92, v94);
+        if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
         {
           sub_1000BC274();
         }
 
-        *__error() = v80;
+        *__error() = v93;
       }
 
-      v25 = 0;
+      v30 = 0;
       if (byte_100117E81 != 1 || dword_100117510 > 3)
       {
         goto LABEL_161;
       }
 
-      v82 = *__error();
-      v83 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"ERROR trying to create sample store from %s: %@", fileCopy, v97);
-      if (v83)
+      v96 = *__error();
+      v97 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"ERROR trying to create sample store from %s: %@", fileCopy, v115);
+      if (v97)
       {
-        v84 = v83;
-        v85 = CFStringGetCStringPtr(v83, 0x8000100u);
-        if (!v85)
+        v99 = v97;
+        v100 = CFStringGetCStringPtr(v97, 0x8000100u);
+        if (!v100)
         {
-          v86 = 1612617813;
+          v101 = 1612617813;
 LABEL_153:
-          v90 = malloc_type_calloc(0x400uLL, 1uLL, v86);
-          CFStringGetCString(v84, v90, 1024, 0x8000100u);
-          v91 = v90;
+          v108 = malloc_type_calloc(0x400uLL, 1uLL, v101);
+          CFStringGetCString(v99, v108, 1024, 0x8000100u);
+          v109 = v108;
           goto LABEL_154;
         }
 
         goto LABEL_143;
       }
 
-      v92 = sub_100035B80();
-      if (os_log_type_enabled(v92, OS_LOG_TYPE_FAULT))
+      v110 = sub_100035B80(0, v98);
+      if (os_log_type_enabled(v110, OS_LOG_TYPE_FAULT))
       {
         sub_1000BC2E8();
       }
@@ -315,60 +318,61 @@ LABEL_153:
     {
       if (byte_100117E80)
       {
-        v87 = *__error();
-        v88 = sub_100035B80();
-        if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+        v102 = __error();
+        v103 = *v102;
+        v105 = sub_100035B80(v102, v104);
+        if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
         {
           sub_1000BC35C();
         }
 
-        *__error() = v87;
+        *__error() = v103;
       }
 
-      v25 = 0;
+      v30 = 0;
       if (byte_100117E81 != 1 || dword_100117510 > 3)
       {
         goto LABEL_161;
       }
 
-      v82 = *__error();
-      v89 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"ERROR trying to create sample store from %s: Unknown error", fileCopy);
-      if (v89)
+      v96 = *__error();
+      v106 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"ERROR trying to create sample store from %s: Unknown error", fileCopy);
+      if (v106)
       {
-        v84 = v89;
-        v85 = CFStringGetCStringPtr(v89, 0x8000100u);
-        if (!v85)
+        v99 = v106;
+        v100 = CFStringGetCStringPtr(v106, 0x8000100u);
+        if (!v100)
         {
-          v86 = 1645703019;
+          v101 = 1645703019;
           goto LABEL_153;
         }
 
 LABEL_143:
-        v90 = v85;
-        v91 = 0;
+        v108 = v100;
+        v109 = 0;
 LABEL_154:
         if (qword_100117E88)
         {
-          v94 = qword_100117E88;
+          v112 = qword_100117E88;
         }
 
         else
         {
-          v94 = __stderrp;
+          v112 = __stderrp;
         }
 
-        fprintf(v94, "%s\n", v90);
-        if (v91)
+        fprintf(v112, "%s\n", v108);
+        if (v109)
         {
-          free(v91);
+          free(v109);
         }
 
-        CFRelease(v84);
+        CFRelease(v99);
         goto LABEL_160;
       }
 
-      v92 = sub_100035B80();
-      if (os_log_type_enabled(v92, OS_LOG_TYPE_FAULT))
+      v110 = sub_100035B80(0, v107);
+      if (os_log_type_enabled(v110, OS_LOG_TYPE_FAULT))
       {
         sub_1000BC3D0();
       }
@@ -376,18 +380,18 @@ LABEL_154:
 
     if (qword_100117E88)
     {
-      v93 = qword_100117E88;
+      v111 = qword_100117E88;
     }
 
     else
     {
-      v93 = __stderrp;
+      v111 = __stderrp;
     }
 
-    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v93);
+    fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v111);
 LABEL_160:
-    v25 = 0;
-    *__error() = v82;
+    v30 = 0;
+    *__error() = v96;
     goto LABEL_161;
   }
 
@@ -395,98 +399,12 @@ LABEL_160:
   {
     if (byte_100117E80)
     {
-      v22 = *__error();
-      v23 = sub_100035B80();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v25 = __error();
+      v26 = *v25;
+      v28 = sub_100035B80(v25, v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         sub_1000BC060();
-      }
-
-      *__error() = v22;
-    }
-
-    if (byte_100117E81 == 1 && dword_100117510 <= 0)
-    {
-      v30 = *__error();
-      v31 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Could not open %s as a ktrace file: %@", fileCopy, v10);
-      if (v31)
-      {
-        v32 = v31;
-        v33 = CFStringGetCStringPtr(v31, 0x8000100u);
-        if (v33)
-        {
-          v34 = v33;
-          v35 = 0;
-        }
-
-        else
-        {
-          v34 = malloc_type_calloc(0x400uLL, 1uLL, 0xE6669814uLL);
-          CFStringGetCString(v32, v34, 1024, 0x8000100u);
-          v35 = v34;
-        }
-
-        if (qword_100117E88)
-        {
-          v44 = qword_100117E88;
-        }
-
-        else
-        {
-          v44 = __stderrp;
-        }
-
-        fprintf(v44, "%s\n", v34);
-        if (v35)
-        {
-          free(v35);
-        }
-
-        CFRelease(v32);
-      }
-
-      else
-      {
-        v42 = sub_100035B80();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
-        {
-          sub_1000BC0D4();
-        }
-
-        if (qword_100117E88)
-        {
-          v43 = qword_100117E88;
-        }
-
-        else
-        {
-          v43 = __stderrp;
-        }
-
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v43);
-      }
-
-      v25 = 0;
-      *__error() = v30;
-    }
-
-    else
-    {
-      v25 = 0;
-    }
-
-    v29 = v10;
-  }
-
-  else
-  {
-    if (byte_100117E80)
-    {
-      v26 = *__error();
-      v27 = sub_100035B80();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-      {
-        sub_1000BC148();
       }
 
       *__error() = v26;
@@ -494,80 +412,168 @@ LABEL_160:
 
     if (byte_100117E81 == 1 && dword_100117510 <= 0)
     {
-      v36 = *__error();
-      v37 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Could not open %s as a ktrace file for unknown reason", fileCopy);
-      if (v37)
+      v37 = *__error();
+      v38 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Could not open %s as a ktrace file: %@", fileCopy, v10);
+      if (v38)
       {
-        v38 = v37;
-        v39 = CFStringGetCStringPtr(v37, 0x8000100u);
-        if (v39)
+        v40 = v38;
+        v41 = CFStringGetCStringPtr(v38, 0x8000100u);
+        if (v41)
         {
-          v40 = v39;
-          v41 = 0;
+          v42 = v41;
+          v43 = 0;
         }
 
         else
         {
-          v40 = malloc_type_calloc(0x400uLL, 1uLL, 0xF70B13DuLL);
-          CFStringGetCString(v38, v40, 1024, 0x8000100u);
-          v41 = v40;
+          v42 = malloc_type_calloc(0x400uLL, 1uLL, 0xE6669814uLL);
+          CFStringGetCString(v40, v42, 1024, 0x8000100u);
+          v43 = v42;
         }
 
         if (qword_100117E88)
         {
-          v49 = qword_100117E88;
+          v53 = qword_100117E88;
         }
 
         else
         {
-          v49 = __stderrp;
+          v53 = __stderrp;
         }
 
-        fprintf(v49, "%s\n", v40);
-        if (v41)
+        fprintf(v53, "%s\n", v42);
+        if (v43)
         {
-          free(v41);
+          free(v43);
         }
 
-        CFRelease(v38);
+        CFRelease(v40);
       }
 
       else
       {
-        v45 = sub_100035B80();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
+        v51 = sub_100035B80(0, v39);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
+        {
+          sub_1000BC0D4();
+        }
+
+        if (qword_100117E88)
+        {
+          v52 = qword_100117E88;
+        }
+
+        else
+        {
+          v52 = __stderrp;
+        }
+
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v52);
+      }
+
+      v30 = 0;
+      *__error() = v37;
+    }
+
+    else
+    {
+      v30 = 0;
+    }
+
+    v36 = v10;
+  }
+
+  else
+  {
+    if (byte_100117E80)
+    {
+      v31 = __error();
+      v32 = *v31;
+      v34 = sub_100035B80(v31, v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+      {
+        sub_1000BC148();
+      }
+
+      *__error() = v32;
+    }
+
+    if (byte_100117E81 == 1 && dword_100117510 <= 0)
+    {
+      v44 = *__error();
+      v45 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Could not open %s as a ktrace file for unknown reason", fileCopy);
+      if (v45)
+      {
+        v47 = v45;
+        v48 = CFStringGetCStringPtr(v45, 0x8000100u);
+        if (v48)
+        {
+          v49 = v48;
+          v50 = 0;
+        }
+
+        else
+        {
+          v49 = malloc_type_calloc(0x400uLL, 1uLL, 0xF70B13DuLL);
+          CFStringGetCString(v47, v49, 1024, 0x8000100u);
+          v50 = v49;
+        }
+
+        if (qword_100117E88)
+        {
+          v58 = qword_100117E88;
+        }
+
+        else
+        {
+          v58 = __stderrp;
+        }
+
+        fprintf(v58, "%s\n", v49);
+        if (v50)
+        {
+          free(v50);
+        }
+
+        CFRelease(v47);
+      }
+
+      else
+      {
+        v54 = sub_100035B80(0, v46);
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
         {
           sub_1000BC1BC();
         }
 
         if (qword_100117E88)
         {
-          v46 = qword_100117E88;
+          v55 = qword_100117E88;
         }
 
         else
         {
-          v46 = __stderrp;
+          v55 = __stderrp;
         }
 
-        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v46);
+        fwrite("UNABLE TO FORMAT STRING\n", 0x18uLL, 1uLL, v55);
       }
 
-      v29 = 0;
-      v25 = 0;
-      *__error() = v36;
+      v36 = 0;
+      v30 = 0;
+      *__error() = v44;
     }
 
     else
     {
-      v29 = 0;
-      v25 = 0;
+      v36 = 0;
+      v30 = 0;
     }
   }
 
 LABEL_162:
 
-  return v25;
+  return v30;
 }
 
 @end

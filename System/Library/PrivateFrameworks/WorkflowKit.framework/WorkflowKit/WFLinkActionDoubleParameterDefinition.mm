@@ -30,7 +30,7 @@
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   value = [value value];
   if (value)
   {
@@ -47,19 +47,17 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       valueType2 = [(WFLinkActionParameterDefinition *)self valueType];
-      v12 = 136315650;
-      v13 = "[WFLinkActionDoubleParameterDefinition parameterStateFromLinkValue:]";
-      v14 = 2114;
-      v15 = value;
-      v16 = 2114;
-      v17 = valueType2;
+      v11 = 136315650;
+      v12 = "[WFLinkActionDoubleParameterDefinition parameterStateFromLinkValue:]";
+      v13 = 2114;
+      v14 = value;
+      v15 = 2114;
+      v16 = valueType2;
     }
   }
 
   v7 = 0;
 LABEL_8:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -229,23 +227,10 @@ LABEL_10:
 
 - (Class)parameterClass
 {
-  v2 = [(WFLinkActionParameterDefinition *)self integerForTypeSpecificMetadataKey:*MEMORY[0x1E69AC5D0] defaultValue:1];
-  v3 = off_1E836F2D0;
-  v4 = off_1E836F340;
-  if (v2)
-  {
-    v4 = off_1E836EC08;
-  }
+  [(WFLinkActionParameterDefinition *)self integerForTypeSpecificMetadataKey:*MEMORY[0x1E69AC5D0] defaultValue:1];
+  v2 = objc_opt_class();
 
-  if (v2 != 2)
-  {
-    v3 = v4;
-  }
-
-  v5 = *v3;
-  v6 = objc_opt_class();
-
-  return v6;
+  return v2;
 }
 
 - (WFLinkActionDoubleParameterDefinition)initWithParameterMetadata:(id)metadata

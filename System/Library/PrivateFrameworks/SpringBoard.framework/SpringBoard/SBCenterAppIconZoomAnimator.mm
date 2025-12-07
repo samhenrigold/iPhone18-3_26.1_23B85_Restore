@@ -29,7 +29,7 @@
       [SBCenterAppIconZoomAnimator initWithFolderController:a2 appView:v11 window:?];
     }
 
-    [viewCopy frame];
+    objc_msgSend_frame(viewCopy);
     v11->_destinationFrame.origin.x = v12;
     v11->_destinationFrame.origin.y = v13;
     v11->_destinationFrame.size.width = v14;
@@ -97,7 +97,7 @@
     v15 = layer2;
     if (layer2)
     {
-      [layer2 sublayerTransform];
+      objc_msgSend_sublayerTransform(layer2);
     }
 
     else
@@ -107,7 +107,7 @@
 
     [layer setSublayerTransform:v27];
 
-    [(UIView *)self->_appZoomView frame];
+    objc_msgSend_frame(self->_appZoomView);
     v17 = v16;
     v19 = v18;
     v21 = v20;
@@ -466,7 +466,7 @@ void __128__SBCenterAppIconZoomAnimator__performAnimationToFraction_withCentralA
   }
 }
 
-uint64_t __128__SBCenterAppIconZoomAnimator__performAnimationToFraction_withCentralAnimationSettings_delay_alreadyAnimating_sharedCompletion___block_invoke_3(uint64_t a1)
+void *__128__SBCenterAppIconZoomAnimator__performAnimationToFraction_withCentralAnimationSettings_delay_alreadyAnimating_sharedCompletion___block_invoke_3(uint64_t a1)
 {
   [*(a1 + 32) _translateAppForZoomFraction:*(a1 + 40)];
   v1 = MEMORY[0x277D76620];

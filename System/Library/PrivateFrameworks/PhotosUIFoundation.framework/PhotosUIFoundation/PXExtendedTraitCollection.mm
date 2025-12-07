@@ -899,19 +899,27 @@ uint64_t __56__PXExtendedTraitCollection_viewControllerViewDidAppear__block_invo
 - (void)_setTraitCollection:(id)collection
 {
   collectionCopy = collection;
-  if (self->_traitCollection != collectionCopy && ([(PXAnonymousTraitCollection *)collectionCopy isEqual:?]& 1) == 0)
+  v6 = collectionCopy;
+  if (self->_traitCollection != collectionCopy)
   {
-    objc_storeStrong(&self->_traitCollection, collection);
-    [(PXObservable *)self signalChange:1];
-    [(PXExtendedTraitCollection *)self invalidateLayoutSizeClass];
-    [(PXExtendedTraitCollection *)self invalidateUserInterfaceIdiom];
-    [(PXExtendedTraitCollection *)self invalidateUserInterfaceStyle];
-    [(PXExtendedTraitCollection *)self invalidateUserInterfaceLevel];
-    [(PXExtendedTraitCollection *)self invalidateContentSizeCategory];
-    [(PXExtendedTraitCollection *)self invalidateDisplayScale];
+    v7 = collectionCopy;
+    collectionCopy = [collectionCopy isEqual:?];
+    v6 = v7;
+    if ((collectionCopy & 1) == 0)
+    {
+      objc_storeStrong(&self->_traitCollection, collection);
+      [(PXObservable *)self signalChange:1];
+      [(PXExtendedTraitCollection *)self invalidateLayoutSizeClass];
+      [(PXExtendedTraitCollection *)self invalidateUserInterfaceIdiom];
+      [(PXExtendedTraitCollection *)self invalidateUserInterfaceStyle];
+      [(PXExtendedTraitCollection *)self invalidateUserInterfaceLevel];
+      [(PXExtendedTraitCollection *)self invalidateContentSizeCategory];
+      collectionCopy = [(PXExtendedTraitCollection *)self invalidateDisplayScale];
+      v6 = v7;
+    }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](collectionCopy, v6);
 }
 
 - (void)_setLayoutSizeSubclass:(int64_t)subclass

@@ -18,7 +18,7 @@
 {
   duplicateActionController = [(PXPhotoKitDuplicateAssetActionPerformer *)self duplicateActionController];
   action = [(PXPhotoKitDuplicateAssetActionPerformer *)self action];
-  [(PXPhotoKitDuplicateAssetActionPerformer *)self stillImageTime];
+  objc_msgSend_stillImageTime(self);
   v6[0] = MEMORY[0x1E69E9820];
   v6[1] = 3221225472;
   v6[2] = __64__PXPhotoKitDuplicateAssetActionPerformer_performBackgroundTask__block_invoke;

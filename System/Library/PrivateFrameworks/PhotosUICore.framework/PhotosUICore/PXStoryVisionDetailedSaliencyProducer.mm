@@ -452,14 +452,14 @@ void __113__PXStoryVisionDetailedSaliencyProducer__requestDetailedSaliencyForDis
   }
 }
 
-void __113__PXStoryVisionDetailedSaliencyProducer__requestDetailedSaliencyForDisplayAssets_options_progress_resultHandler___block_invoke_2(uint64_t a1, void *a2)
+void __113__PXStoryVisionDetailedSaliencyProducer__requestDetailedSaliencyForDisplayAssets_options_progress_resultHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = a2;
-  memset(v3, 0, sizeof(v3));
-  if ([v2 countByEnumeratingWithState:v3 objects:v4 count:16])
+  v6 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  memset(v4, 0, sizeof(v4));
+  if ([v3 countByEnumeratingWithState:v4 objects:v5 count:16])
   {
-    [**(&v3[0] + 1) narrowedBoundingBox];
+    [**(&v4[0] + 1) narrowedBoundingBox];
     PXRectDenormalize();
   }
 }

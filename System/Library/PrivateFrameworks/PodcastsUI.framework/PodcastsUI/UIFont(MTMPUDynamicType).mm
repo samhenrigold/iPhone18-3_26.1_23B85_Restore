@@ -14,20 +14,20 @@
     goto LABEL_12;
   }
 
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
   v6 = getkCTFontDescriptorTextStyleRegularSymbolLoc_ptr;
-  v18 = getkCTFontDescriptorTextStyleRegularSymbolLoc_ptr;
+  v19 = getkCTFontDescriptorTextStyleRegularSymbolLoc_ptr;
   if (!getkCTFontDescriptorTextStyleRegularSymbolLoc_ptr)
   {
     v7 = CoreTextLibrary();
-    v16[3] = dlsym(v7, "kCTFontDescriptorTextStyleRegular");
-    getkCTFontDescriptorTextStyleRegularSymbolLoc_ptr = v16[3];
-    v6 = v16[3];
+    v17[3] = dlsym(v7, "kCTFontDescriptorTextStyleRegular");
+    getkCTFontDescriptorTextStyleRegularSymbolLoc_ptr = v17[3];
+    v6 = v17[3];
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
   if (!v6)
   {
     [UIFont(MTMPUDynamicType) MTMPU_scaledValueForValue:];
@@ -41,26 +41,27 @@
     goto LABEL_12;
   }
 
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
   v9 = getkCTFontDescriptorTextStyleEmphasizedSymbolLoc_ptr;
-  v18 = getkCTFontDescriptorTextStyleEmphasizedSymbolLoc_ptr;
+  v19 = getkCTFontDescriptorTextStyleEmphasizedSymbolLoc_ptr;
   if (!getkCTFontDescriptorTextStyleEmphasizedSymbolLoc_ptr)
   {
     v10 = CoreTextLibrary();
-    v16[3] = dlsym(v10, "kCTFontDescriptorTextStyleEmphasized");
-    getkCTFontDescriptorTextStyleEmphasizedSymbolLoc_ptr = v16[3];
-    v9 = v16[3];
+    v17[3] = dlsym(v10, "kCTFontDescriptorTextStyleEmphasized");
+    getkCTFontDescriptorTextStyleEmphasizedSymbolLoc_ptr = v17[3];
+    v9 = v17[3];
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
   if (!v9)
   {
 LABEL_14:
-    v14 = [UIFont(MTMPUDynamicType) MTMPU_scaledValueForValue:];
-    _Block_object_dispose(&v15, 8);
-    _Unwind_Resume(v14);
+    [UIFont(MTMPUDynamicType) MTMPU_scaledValueForValue:];
+    v15 = v14;
+    _Block_object_dispose(&v16, 8);
+    _Unwind_Resume(v15);
   }
 
   v11 = [v5 isEqualToString:*v9];
@@ -76,11 +77,11 @@ LABEL_12:
   return a2;
 }
 
-- (uint64_t)MTMPU_scaledValueForValue:()MTMPUDynamicType .cold.1()
+- (void)MTMPU_scaledValueForValue:()MTMPUDynamicType .cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return +[(MTMPUFontDescriptorCache *)v0];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  +[MTMPUFontDescriptorCache sharedFontDescriptorCache];
 }
 
 @end

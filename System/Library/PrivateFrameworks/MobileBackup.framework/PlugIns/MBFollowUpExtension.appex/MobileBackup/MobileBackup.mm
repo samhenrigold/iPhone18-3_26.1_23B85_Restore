@@ -10,25 +10,24 @@ void sub_100001A68(uint64_t a1, void *a2)
       v6 = *(a1 + 32);
       v7 = [v3 localizedDescription];
       *buf = 138412546;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v7;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v7;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Error saving the background cellular access to %@: %@", buf, 0x16u);
 
       v8 = *(a1 + 32);
-      v11 = [v3 localizedDescription];
-      _MBLog();
+      v9 = [v3 localizedDescription];
+      _MBLog(@"E ", "Error saving the background cellular access to %@: %@", v8, v9);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 32);
-    *buf = 138412290;
-    v13 = v9;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Successfully saved the background restore cellular access to %@", buf, 0xCu);
     v10 = *(a1 + 32);
-    _MBLog();
+    *buf = 138412290;
+    v12 = v10;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Successfully saved the background restore cellular access to %@", buf, 0xCu);
+    _MBLog(@"Df", "Successfully saved the background restore cellular access to %@", *(a1 + 32));
   }
 
   dispatch_semaphore_signal(*(a1 + 40));

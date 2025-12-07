@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)reasonAsString:(int)string;
 - (int)StringAsReason:(id)reason;
 - (int)reason;
 - (unint64_t)hash;
@@ -40,6 +41,21 @@
   {
     return 0;
   }
+}
+
+- (id)reasonAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E52F88[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsReason:(id)reason
@@ -135,20 +151,18 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    isStart = self->_isStart;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    reason = self->_reason;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -205,7 +219,6 @@
       goto LABEL_9;
     }
 
-    v7 = *(equalCopy + 12);
     if (self->_isStart)
     {
       if ((*(equalCopy + 12) & 1) == 0)

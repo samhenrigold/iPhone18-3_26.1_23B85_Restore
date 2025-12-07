@@ -789,17 +789,7 @@ LABEL_31:
     _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%@: placeName, %@, isAOIGroupingEligible, %@, isSnappable, %@, category, %@, location, %{sensitive}@, mapItem.range, %f, event, %@", buf, 0x52u);
   }
 
-  if (!v10)
-  {
-    goto LABEL_6;
-  }
-
-  routineEvent7 = [eventCopy routineEvent];
-  mapItemLocation3 = [routineEvent7 mapItemLocation];
-  [mapItemLocation3 horizontalUncertainty];
-  v15 = v14;
-
-  if (v15 > 100.0)
+  if (v10 && ([eventCopy routineEvent], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "mapItemLocation"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "horizontalUncertainty"), v15 = v14, v13, v12, v15 > 100.0))
   {
     v16 = 1;
   }

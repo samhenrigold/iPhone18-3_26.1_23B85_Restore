@@ -1,76 +1,3 @@
-uint64_t CMMsl::KappaPeakDetectorMapMagTimestamps::operator=(uint64_t a1, const CMMsl::KappaPeakDetectorMapMagTimestamps *a2)
-{
-  if (a1 != a2)
-  {
-    CMMsl::KappaPeakDetectorMapMagTimestamps::KappaPeakDetectorMapMagTimestamps(&v8, a2);
-    v3 = *(a1 + 44);
-    *(a1 + 44) = v12;
-    v12 = v3;
-    v4 = *(a1 + 8);
-    *(a1 + 8) = v9;
-    v9 = v4;
-    v5 = *(a1 + 40);
-    *(a1 + 40) = v11;
-    v11 = v5;
-    v6 = *(a1 + 24);
-    *(a1 + 24) = v10;
-    v10 = v6;
-    PB::Base::~Base(&v8);
-  }
-
-  return a1;
-}
-
-float CMMsl::swap(CMMsl *this, CMMsl::KappaPeakDetectorMapMagTimestamps *a2, CMMsl::KappaPeakDetectorMapMagTimestamps *a3)
-{
-  v3 = *(this + 11);
-  *(this + 11) = *(a2 + 11);
-  *(a2 + 11) = v3;
-  v4 = *(this + 4);
-  *(this + 4) = *(a2 + 4);
-  *(a2 + 4) = v4;
-  v5 = *(this + 1);
-  *(this + 1) = *(a2 + 1);
-  *(a2 + 1) = v5;
-  v6 = *(this + 2);
-  *(this + 2) = *(a2 + 2);
-  *(a2 + 2) = v6;
-  result = *(this + 10);
-  *(this + 10) = *(a2 + 10);
-  *(a2 + 10) = result;
-  v8 = *(this + 3);
-  *(this + 3) = *(a2 + 3);
-  *(a2 + 3) = v8;
-  return result;
-}
-
-float CMMsl::KappaPeakDetectorMapMagTimestamps::KappaPeakDetectorMapMagTimestamps(uint64_t a1, uint64_t a2)
-{
-  *a1 = &unk_286C21298;
-  *(a1 + 44) = *(a2 + 44);
-  *(a2 + 44) = 0;
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 16) = *(a2 + 16);
-  result = *(a2 + 40);
-  *(a1 + 40) = result;
-  *(a1 + 24) = *(a2 + 24);
-  return result;
-}
-
-{
-  *a1 = &unk_286C21298;
-  *(a1 + 44) = *(a2 + 44);
-  *(a2 + 44) = 0;
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 16) = *(a2 + 16);
-  result = *(a2 + 40);
-  *(a1 + 40) = result;
-  *(a1 + 24) = *(a2 + 24);
-  return result;
-}
-
 uint64_t CMMsl::KappaPeakDetectorMapMagTimestamps::operator=(uint64_t a1, uint64_t a2)
 {
   if (a1 != a2)
@@ -103,7 +30,6 @@ uint64_t CMMsl::KappaPeakDetectorMapMagTimestamps::formatText(CMMsl::KappaPeakDe
   v5 = *(this + 44);
   if (v5)
   {
-    v7 = *(this + 1);
     PB::TextFormatter::format(a2, "epochFirstTimestamp");
     v5 = *(this + 44);
     if ((v5 & 2) == 0)
@@ -123,7 +49,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v8 = *(this + 2);
   PB::TextFormatter::format(a2, "epochLastTimestamp");
   v5 = *(this + 44);
   if ((v5 & 4) == 0)
@@ -138,7 +63,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  v9 = *(this + 3);
   PB::TextFormatter::format(a2, "maxNormTimestamp");
   v5 = *(this + 44);
   if ((v5 & 0x10) == 0)
@@ -157,7 +81,6 @@ LABEL_13:
   if ((*(this + 44) & 8) != 0)
   {
 LABEL_6:
-    v6 = *(this + 4);
     PB::TextFormatter::format(a2, "timestamp");
   }
 
@@ -657,7 +580,6 @@ uint64_t CMMsl::KappaPeakDetectorMapMagTimestamps::writeTo(uint64_t this, PB::Wr
   v4 = *(this + 44);
   if ((v4 & 8) != 0)
   {
-    v5 = *(this + 32);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 44);
     if ((v4 & 1) == 0)
@@ -677,7 +599,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(v3 + 8);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 44);
   if ((v4 & 2) == 0)
@@ -699,7 +620,6 @@ LABEL_10:
   }
 
 LABEL_9:
-  v7 = *(v3 + 16);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 44);
   if ((v4 & 0x10) != 0)
@@ -714,7 +634,6 @@ LABEL_5:
   }
 
 LABEL_11:
-  v8 = *(v3 + 24);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -1233,7 +1152,7 @@ uint64_t CMMsl::KappaPeakDetectorMapResult::KappaPeakDetectorMapResult(uint64_t 
   return a1;
 }
 
-CMMsl *CMMsl::KappaPeakDetectorMapResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaPeakDetectorMapResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -1257,28 +1176,27 @@ uint64_t CMMsl::KappaPeakDetectorMapResult::formatText(CMMsl::KappaPeakDetectorM
   v6 = *(this + 2);
   while (v5 != v6)
   {
-    v7 = *v5++;
+    v5 += 8;
     PB::TextFormatter::format(a2, "allMaxNormTimestamps");
   }
 
-  v8 = *(this + 4);
-  v9 = *(this + 5);
-  while (v8 != v9)
+  v7 = *(this + 4);
+  v8 = *(this + 5);
+  while (v7 != v8)
   {
-    v10 = *v8++;
-    PB::TextFormatter::format(a2, "allMaxNormValues", v10);
+    v9 = *v7++;
+    PB::TextFormatter::format(a2, "allMaxNormValues", v9);
   }
 
-  v11 = *(this + 38);
-  if (v11)
+  v10 = *(this + 38);
+  if (v10)
   {
-    v13 = *(this + 7);
     PB::TextFormatter::format(a2, "epochFirstTimestamp");
-    v11 = *(this + 38);
-    if ((v11 & 2) == 0)
+    v10 = *(this + 38);
+    if ((v10 & 2) == 0)
     {
 LABEL_9:
-      if ((v11 & 0x10000) == 0)
+      if ((v10 & 0x10000) == 0)
       {
         goto LABEL_10;
       }
@@ -1287,18 +1205,17 @@ LABEL_9:
     }
   }
 
-  else if ((v11 & 2) == 0)
+  else if ((v10 & 2) == 0)
   {
     goto LABEL_9;
   }
 
-  v14 = *(this + 8);
   PB::TextFormatter::format(a2, "epochLastTimestamp");
-  v11 = *(this + 38);
-  if ((v11 & 0x10000) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 0x10000) == 0)
   {
 LABEL_10:
-    if ((v11 & 0x100) == 0)
+    if ((v10 & 0x100) == 0)
     {
       goto LABEL_11;
     }
@@ -1307,13 +1224,12 @@ LABEL_10:
   }
 
 LABEL_30:
-  v15 = *(this + 148);
   PB::TextFormatter::format(a2, "isMAPDetected");
-  v11 = *(this + 38);
-  if ((v11 & 0x100) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 0x100) == 0)
   {
 LABEL_11:
-    if ((v11 & 0x200) == 0)
+    if ((v10 & 0x200) == 0)
     {
       goto LABEL_12;
     }
@@ -1323,11 +1239,11 @@ LABEL_11:
 
 LABEL_31:
   PB::TextFormatter::format(a2, "magnitudePercentileThreshold", *(this + 29));
-  v11 = *(this + 38);
-  if ((v11 & 0x200) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 0x200) == 0)
   {
 LABEL_12:
-    if ((v11 & 0x400) == 0)
+    if ((v10 & 0x400) == 0)
     {
       goto LABEL_13;
     }
@@ -1337,11 +1253,11 @@ LABEL_12:
 
 LABEL_32:
   PB::TextFormatter::format(a2, "magnitudePeriodicityLowerPercentile", *(this + 30));
-  v11 = *(this + 38);
-  if ((v11 & 0x400) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 0x400) == 0)
   {
 LABEL_13:
-    if ((v11 & 0x800) == 0)
+    if ((v10 & 0x800) == 0)
     {
       goto LABEL_14;
     }
@@ -1351,11 +1267,11 @@ LABEL_13:
 
 LABEL_33:
   PB::TextFormatter::format(a2, "magnitudePeriodicityUpperPercentile", *(this + 31));
-  v11 = *(this + 38);
-  if ((v11 & 0x800) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 0x800) == 0)
   {
 LABEL_14:
-    if ((v11 & 0x1000) == 0)
+    if ((v10 & 0x1000) == 0)
     {
       goto LABEL_15;
     }
@@ -1364,13 +1280,12 @@ LABEL_14:
   }
 
 LABEL_34:
-  v16 = *(this + 32);
   PB::TextFormatter::format(a2, "minNumPeaks");
-  v11 = *(this + 38);
-  if ((v11 & 0x1000) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 0x1000) == 0)
   {
 LABEL_15:
-    if ((v11 & 0x2000) == 0)
+    if ((v10 & 0x2000) == 0)
     {
       goto LABEL_16;
     }
@@ -1379,13 +1294,12 @@ LABEL_15:
   }
 
 LABEL_35:
-  v17 = *(this + 33);
   PB::TextFormatter::format(a2, "numPeaks");
-  v11 = *(this + 38);
-  if ((v11 & 0x2000) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 0x2000) == 0)
   {
 LABEL_16:
-    if ((v11 & 0x20000) == 0)
+    if ((v10 & 0x20000) == 0)
     {
       goto LABEL_17;
     }
@@ -1395,11 +1309,11 @@ LABEL_16:
 
 LABEL_36:
   PB::TextFormatter::format(a2, "peakMagnitudePercentileDiff", *(this + 34));
-  v11 = *(this + 38);
-  if ((v11 & 0x20000) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 0x20000) == 0)
   {
 LABEL_17:
-    if ((v11 & 4) == 0)
+    if ((v10 & 4) == 0)
     {
       goto LABEL_18;
     }
@@ -1408,13 +1322,12 @@ LABEL_17:
   }
 
 LABEL_37:
-  v18 = *(this + 149);
   PB::TextFormatter::format(a2, "peakSeparation");
-  v11 = *(this + 38);
-  if ((v11 & 4) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 4) == 0)
   {
 LABEL_18:
-    if ((v11 & 8) == 0)
+    if ((v10 & 8) == 0)
     {
       goto LABEL_19;
     }
@@ -1423,13 +1336,12 @@ LABEL_18:
   }
 
 LABEL_38:
-  v19 = *(this + 9);
   PB::TextFormatter::format(a2, "peakTimeDeltaPercentileDiff");
-  v11 = *(this + 38);
-  if ((v11 & 8) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 8) == 0)
   {
 LABEL_19:
-    if ((v11 & 0x10) == 0)
+    if ((v10 & 0x10) == 0)
     {
       goto LABEL_20;
     }
@@ -1438,13 +1350,12 @@ LABEL_19:
   }
 
 LABEL_39:
-  v20 = *(this + 10);
   PB::TextFormatter::format(a2, "peakToPeakMinimumSeparation");
-  v11 = *(this + 38);
-  if ((v11 & 0x10) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 0x10) == 0)
   {
 LABEL_20:
-    if ((v11 & 0x20) == 0)
+    if ((v10 & 0x20) == 0)
     {
       goto LABEL_21;
     }
@@ -1453,13 +1364,12 @@ LABEL_20:
   }
 
 LABEL_40:
-  v21 = *(this + 11);
   PB::TextFormatter::format(a2, "peakToPeakSeparationThreshold");
-  v11 = *(this + 38);
-  if ((v11 & 0x20) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 0x20) == 0)
   {
 LABEL_21:
-    if ((v11 & 0x4000) == 0)
+    if ((v10 & 0x4000) == 0)
     {
       goto LABEL_22;
     }
@@ -1468,13 +1378,12 @@ LABEL_21:
   }
 
 LABEL_41:
-  v22 = *(this + 12);
   PB::TextFormatter::format(a2, "timePercentileDiffThreshold");
-  v11 = *(this + 38);
-  if ((v11 & 0x4000) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 0x4000) == 0)
   {
 LABEL_22:
-    if ((v11 & 0x8000) == 0)
+    if ((v10 & 0x8000) == 0)
     {
       goto LABEL_23;
     }
@@ -1484,11 +1393,11 @@ LABEL_22:
 
 LABEL_42:
   PB::TextFormatter::format(a2, "timePeriodicityLowerPercentile", *(this + 35));
-  v11 = *(this + 38);
-  if ((v11 & 0x8000) == 0)
+  v10 = *(this + 38);
+  if ((v10 & 0x8000) == 0)
   {
 LABEL_23:
-    if ((v11 & 0x40) == 0)
+    if ((v10 & 0x40) == 0)
     {
       goto LABEL_25;
     }
@@ -1501,7 +1410,6 @@ LABEL_43:
   if ((*(this + 38) & 0x40) != 0)
   {
 LABEL_24:
-    v12 = *(this + 13);
     PB::TextFormatter::format(a2, "timestamp");
   }
 
@@ -3029,7 +2937,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v12 = *(v3 + 80);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x800) == 0)
@@ -3044,7 +2951,6 @@ LABEL_4:
   }
 
 LABEL_29:
-  v13 = *(v3 + 128);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x10) == 0)
@@ -3059,7 +2965,6 @@ LABEL_5:
   }
 
 LABEL_30:
-  v14 = *(v3 + 88);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x4000) == 0)
@@ -3130,7 +3035,6 @@ LABEL_10:
   }
 
 LABEL_35:
-  v15 = *(v3 + 96);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x100) == 0)
@@ -3159,7 +3063,6 @@ LABEL_12:
   }
 
 LABEL_37:
-  v16 = *(v3 + 148);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x40) == 0)
@@ -3174,7 +3077,6 @@ LABEL_13:
   }
 
 LABEL_38:
-  v17 = *(v3 + 104);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x1000) == 0)
@@ -3186,7 +3088,6 @@ LABEL_14:
     }
 
 LABEL_40:
-    v19 = *(v3 + 72);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 152) & 0x2000) == 0)
     {
@@ -3197,7 +3098,6 @@ LABEL_40:
   }
 
 LABEL_39:
-  v18 = *(v3 + 132);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 4) != 0)
@@ -3217,28 +3117,27 @@ LABEL_17:
   v6 = *(v3 + 16);
   while (v5 != v6)
   {
-    v7 = *v5++;
+    v5 += 8;
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v8 = *(v3 + 32);
-  v9 = *(v3 + 40);
-  while (v8 != v9)
+  v7 = *(v3 + 32);
+  v8 = *(v3 + 40);
+  while (v7 != v8)
   {
-    v10 = *v8++;
-    this = PB::Writer::write(a2, v10);
+    v9 = *v7++;
+    this = PB::Writer::write(a2, v9);
   }
 
-  v11 = *(v3 + 152);
-  if ((v11 & 1) == 0)
+  v10 = *(v3 + 152);
+  if ((v10 & 1) == 0)
   {
-    if ((v11 & 2) == 0)
+    if ((v10 & 2) == 0)
     {
       goto LABEL_25;
     }
 
 LABEL_43:
-    v21 = *(v3 + 64);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 152) & 0x20000) == 0)
     {
@@ -3248,22 +3147,20 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  v20 = *(v3 + 56);
   this = PB::Writer::writeVarInt(a2);
-  v11 = *(v3 + 152);
-  if ((v11 & 2) != 0)
+  v10 = *(v3 + 152);
+  if ((v10 & 2) != 0)
   {
     goto LABEL_43;
   }
 
 LABEL_25:
-  if ((v11 & 0x20000) == 0)
+  if ((v10 & 0x20000) == 0)
   {
     return this;
   }
 
 LABEL_44:
-  v22 = *(v3 + 149);
 
   return PB::Writer::write(a2);
 }
@@ -3280,11 +3177,11 @@ uint64_t CMMsl::KappaPeakDetectorMapResult::hash_value(CMMsl::KappaPeakDetectorM
       v21 = 0;
     }
 
-    v39 = v21;
+    v35 = v21;
     if ((v2 & 8) != 0)
     {
 LABEL_3:
-      v38 = *(this + 10);
+      v34 = *(this + 10);
       if ((v2 & 0x800) != 0)
       {
         goto LABEL_4;
@@ -3296,18 +3193,18 @@ LABEL_3:
 
   else
   {
-    v39 = 0;
+    v35 = 0;
     if ((v2 & 8) != 0)
     {
       goto LABEL_3;
     }
   }
 
-  v38 = 0;
+  v34 = 0;
   if ((v2 & 0x800) != 0)
   {
 LABEL_4:
-    v37 = *(this + 32);
+    v33 = *(this + 32);
     if ((v2 & 0x10) != 0)
     {
       goto LABEL_5;
@@ -3317,32 +3214,32 @@ LABEL_4:
   }
 
 LABEL_35:
-  v37 = 0;
+  v33 = 0;
   if ((v2 & 0x10) != 0)
   {
 LABEL_5:
-    v36 = *(this + 11);
+    v32 = *(this + 11);
     if ((v2 & 0x4000) != 0)
     {
       goto LABEL_6;
     }
 
 LABEL_37:
-    v35 = 0;
+    v31 = 0;
     if ((v2 & 0x8000) != 0)
     {
       goto LABEL_9;
     }
 
 LABEL_38:
-    v34 = 0;
+    v30 = 0;
     if ((v2 & 0x200) != 0)
     {
       goto LABEL_12;
     }
 
 LABEL_39:
-    v33 = 0;
+    v29 = 0;
     if ((v2 & 0x400) != 0)
     {
       goto LABEL_15;
@@ -3359,7 +3256,7 @@ LABEL_40:
   }
 
 LABEL_36:
-  v36 = 0;
+  v32 = 0;
   if ((v2 & 0x4000) == 0)
   {
     goto LABEL_37;
@@ -3373,7 +3270,7 @@ LABEL_6:
     v4 = 0;
   }
 
-  v35 = v4;
+  v31 = v4;
   if ((v2 & 0x8000) == 0)
   {
     goto LABEL_38;
@@ -3387,7 +3284,7 @@ LABEL_9:
     v6 = 0;
   }
 
-  v34 = v6;
+  v30 = v6;
   if ((v2 & 0x200) == 0)
   {
     goto LABEL_39;
@@ -3401,7 +3298,7 @@ LABEL_12:
     v8 = 0;
   }
 
-  v33 = v8;
+  v29 = v8;
   if ((v2 & 0x400) == 0)
   {
     goto LABEL_40;
@@ -3533,49 +3430,45 @@ LABEL_28:
   }
 
 LABEL_48:
-  v22 = *(this + 1);
-  v23 = *(this + 2);
-  v24 = PBHashBytes();
-  v25 = *(this + 4);
-  v26 = *(this + 5);
-  v27 = PBHashBytes();
-  v28 = *(this + 38);
-  if ((v28 & 1) == 0)
+  v22 = PBHashBytes();
+  v23 = PBHashBytes();
+  v24 = *(this + 38);
+  if ((v24 & 1) == 0)
   {
-    v29 = 0;
-    if ((v28 & 2) != 0)
+    v25 = 0;
+    if ((v24 & 2) != 0)
     {
       goto LABEL_50;
     }
 
 LABEL_53:
-    v30 = 0;
-    if ((v28 & 0x20000) != 0)
+    v26 = 0;
+    if ((v24 & 0x20000) != 0)
     {
       goto LABEL_51;
     }
 
 LABEL_54:
-    v31 = 0;
-    return v38 ^ v39 ^ v37 ^ v36 ^ v35 ^ v34 ^ v33 ^ v10 ^ v11 ^ v13 ^ v14 ^ v15 ^ v16 ^ v17 ^ v19 ^ v24 ^ v27 ^ v29 ^ v30 ^ v31;
+    v27 = 0;
+    return v34 ^ v35 ^ v33 ^ v32 ^ v31 ^ v30 ^ v29 ^ v10 ^ v11 ^ v13 ^ v14 ^ v15 ^ v16 ^ v17 ^ v19 ^ v22 ^ v23 ^ v25 ^ v26 ^ v27;
   }
 
-  v29 = *(this + 7);
-  if ((v28 & 2) == 0)
+  v25 = *(this + 7);
+  if ((v24 & 2) == 0)
   {
     goto LABEL_53;
   }
 
 LABEL_50:
-  v30 = *(this + 8);
-  if ((v28 & 0x20000) == 0)
+  v26 = *(this + 8);
+  if ((v24 & 0x20000) == 0)
   {
     goto LABEL_54;
   }
 
 LABEL_51:
-  v31 = *(this + 149);
-  return v38 ^ v39 ^ v37 ^ v36 ^ v35 ^ v34 ^ v33 ^ v10 ^ v11 ^ v13 ^ v14 ^ v15 ^ v16 ^ v17 ^ v19 ^ v24 ^ v27 ^ v29 ^ v30 ^ v31;
+  v27 = *(this + 149);
+  return v34 ^ v35 ^ v33 ^ v32 ^ v31 ^ v30 ^ v29 ^ v10 ^ v11 ^ v13 ^ v14 ^ v15 ^ v16 ^ v17 ^ v19 ^ v22 ^ v23 ^ v25 ^ v26 ^ v27;
 }
 
 void CMMsl::KappaPulseDeltaV::~KappaPulseDeltaV(CMMsl::KappaPulseDeltaV *this)
@@ -4002,7 +3895,7 @@ float CMMsl::KappaPulseDeltaV::KappaPulseDeltaV(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaPulseDeltaV::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaPulseDeltaV::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -4053,7 +3946,6 @@ LABEL_4:
   }
 
 LABEL_26:
-  v7 = *(this + 1);
   PB::TextFormatter::format(a2, "dimensions");
   v5 = *(this + 28);
   if ((v5 & 2) == 0)
@@ -4068,7 +3960,6 @@ LABEL_5:
   }
 
 LABEL_27:
-  v8 = *(this + 2);
   PB::TextFormatter::format(a2, "epochCounter");
   v5 = *(this + 28);
   if ((v5 & 4) == 0)
@@ -4083,7 +3974,6 @@ LABEL_6:
   }
 
 LABEL_28:
-  v9 = *(this + 3);
   PB::TextFormatter::format(a2, "jHG");
   v5 = *(this + 28);
   if ((v5 & 8) == 0)
@@ -4098,7 +3988,6 @@ LABEL_7:
   }
 
 LABEL_29:
-  v10 = *(this + 4);
   PB::TextFormatter::format(a2, "jImpactStart");
   v5 = *(this + 28);
   if ((v5 & 0x10) == 0)
@@ -4113,7 +4002,6 @@ LABEL_8:
   }
 
 LABEL_30:
-  v11 = *(this + 5);
   PB::TextFormatter::format(a2, "jLG");
   v5 = *(this + 28);
   if ((v5 & 0x20) == 0)
@@ -4128,7 +4016,6 @@ LABEL_9:
   }
 
 LABEL_31:
-  v12 = *(this + 6);
   PB::TextFormatter::format(a2, "nextTimestamp");
   v5 = *(this + 28);
   if ((v5 & 0x40000) == 0)
@@ -4143,7 +4030,6 @@ LABEL_10:
   }
 
 LABEL_32:
-  v13 = *(this + 108);
   PB::TextFormatter::format(a2, "partOfHgPath");
   v5 = *(this + 28);
   if ((v5 & 0x200) == 0)
@@ -4158,7 +4044,6 @@ LABEL_11:
   }
 
 LABEL_33:
-  v14 = *(this + 18);
   PB::TextFormatter::format(a2, "pointType");
   v5 = *(this + 28);
   if ((v5 & 0x400) == 0)
@@ -4275,7 +4160,6 @@ LABEL_41:
   if ((*(this + 28) & 0x40) != 0)
   {
 LABEL_20:
-    v6 = *(this + 7);
     PB::TextFormatter::format(a2, "timestamp");
   }
 
@@ -5205,7 +5089,6 @@ uint64_t CMMsl::KappaPulseDeltaV::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 112);
   if ((v4 & 0x40) != 0)
   {
-    v5 = *(this + 56);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 112);
     if ((v4 & 8) == 0)
@@ -5225,7 +5108,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(v3 + 32);
   this = PB::Writer::writeSInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 1) == 0)
@@ -5240,7 +5122,6 @@ LABEL_4:
   }
 
 LABEL_23:
-  v7 = *(v3 + 8);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x80) == 0)
@@ -5395,7 +5276,6 @@ LABEL_15:
   }
 
 LABEL_34:
-  v8 = *(v3 + 108);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x200) == 0)
@@ -5410,7 +5290,6 @@ LABEL_16:
   }
 
 LABEL_35:
-  v9 = *(v3 + 72);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 2) == 0)
@@ -5425,7 +5304,6 @@ LABEL_17:
   }
 
 LABEL_36:
-  v10 = *(v3 + 16);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x20) == 0)
@@ -5437,7 +5315,6 @@ LABEL_18:
     }
 
 LABEL_38:
-    v12 = *(v3 + 40);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 112) & 4) == 0)
     {
@@ -5448,7 +5325,6 @@ LABEL_38:
   }
 
 LABEL_37:
-  v11 = *(v3 + 48);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x10) != 0)
@@ -5463,7 +5339,6 @@ LABEL_19:
   }
 
 LABEL_39:
-  v13 = *(v3 + 24);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -6059,7 +5934,6 @@ uint64_t CMMsl::KappaPulseInertialAccel::formatText(CMMsl::KappaPulseInertialAcc
   v5 = *(this + 40);
   if (v5)
   {
-    v7 = *(this + 1);
     PB::TextFormatter::format(a2, "epochCounter");
     v5 = *(this + 40);
     if ((v5 & 2) == 0)
@@ -6167,7 +6041,6 @@ LABEL_21:
   if ((*(this + 40) & 0x100) != 0)
   {
 LABEL_10:
-    v6 = *(this + 9);
     PB::TextFormatter::format(a2, "timestamp");
   }
 
@@ -6569,7 +6442,6 @@ uint64_t CMMsl::KappaPulseInertialAccel::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 80);
   if ((v4 & 0x100) != 0)
   {
-    v5 = *(this + 72);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 80);
     if ((v4 & 2) == 0)
@@ -6631,7 +6503,6 @@ LABEL_6:
   }
 
 LABEL_15:
-  v6 = *(v3 + 8);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 80);
   if ((v4 & 0x20) == 0)
@@ -6681,9 +6552,9 @@ LABEL_9:
   }
 
 LABEL_19:
-  v7 = *(v3 + 40);
+  v5 = *(v3 + 40);
 
-  return PB::Writer::write(a2, v7);
+  return PB::Writer::write(a2, v5);
 }
 
 uint64_t CMMsl::KappaPulseInertialAccel::hash_value(CMMsl::KappaPulseInertialAccel *this)
@@ -7121,7 +6992,7 @@ double CMMsl::KappaPulseInertialHgAccel::KappaPulseInertialHgAccel(uint64_t a1, 
   return result;
 }
 
-CMMsl *CMMsl::KappaPulseInertialHgAccel::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaPulseInertialHgAccel::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7186,7 +7057,6 @@ LABEL_5:
   }
 
 LABEL_20:
-  v7 = *(this + 4);
   PB::TextFormatter::format(a2, "epochCounter");
   v5 = *(this + 52);
   if ((v5 & 0x10) == 0)
@@ -7289,7 +7159,6 @@ LABEL_27:
   if ((*(this + 52) & 0x800) != 0)
   {
 LABEL_13:
-    v6 = *(this + 12);
     PB::TextFormatter::format(a2, "timestamp");
   }
 
@@ -7715,7 +7584,6 @@ uint64_t CMMsl::KappaPulseInertialHgAccel::writeTo(uint64_t this, PB::Writer *a2
   v4 = *(this + 104);
   if ((v4 & 0x800) != 0)
   {
-    v5 = *(this + 96);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 104);
     if ((v4 & 0x10) == 0)
@@ -7777,7 +7645,6 @@ LABEL_6:
   }
 
 LABEL_18:
-  v6 = *(v3 + 32);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 104);
   if ((v4 & 0x100) == 0)
@@ -7869,9 +7736,9 @@ LABEL_12:
   }
 
 LABEL_25:
-  v7 = *(v3 + 24);
+  v5 = *(v3 + 24);
 
-  return PB::Writer::write(a2, v7);
+  return PB::Writer::write(a2, v5);
 }
 
 uint64_t CMMsl::KappaPulseInertialHgAccel::hash_value(CMMsl::KappaPulseInertialHgAccel *this)
@@ -9515,7 +9382,7 @@ float CMMsl::KappaPulseResult::KappaPulseResult(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaPulseResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaPulseResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9637,7 +9504,6 @@ LABEL_9:
   }
 
 LABEL_83:
-  v12 = *(this + 1);
   PB::TextFormatter::format(a2, "deltaTriggerTime");
   v6 = *v5;
   if ((*v5 & 0x10000) == 0)
@@ -9820,7 +9686,6 @@ LABEL_22:
   }
 
 LABEL_96:
-  v13 = *(this + 2);
   PB::TextFormatter::format(a2, "epochFirstTimestamp");
   v6 = *v5;
   if ((*v5 & 4) == 0)
@@ -9835,7 +9700,6 @@ LABEL_23:
   }
 
 LABEL_97:
-  v14 = *(this + 3);
   PB::TextFormatter::format(a2, "epochLastTimestamp");
   v6 = *v5;
   if ((*v5 & 8) == 0)
@@ -9850,7 +9714,6 @@ LABEL_24:
   }
 
 LABEL_98:
-  v15 = *(this + 4);
   PB::TextFormatter::format(a2, "faultCounter");
   v6 = *v5;
   if ((*v5 & 0x10) == 0)
@@ -9865,7 +9728,6 @@ LABEL_25:
   }
 
 LABEL_99:
-  v16 = *(this + 5);
   PB::TextFormatter::format(a2, "hgAccelBufferSize");
   v6 = *v5;
   if ((*v5 & 0x10000000) == 0)
@@ -10128,19 +9990,18 @@ LABEL_44:
 LABEL_45:
   if ((*(this + 324) & 8) != 0)
   {
-    v7 = *(this + 312);
     PB::TextFormatter::format(a2, "isPulseDetected");
   }
 
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x800000000000) != 0)
   {
     PB::TextFormatter::format(a2, "lgArclengthXYBiggestImpact", *(this + 58));
-    v8 = *v5;
+    v7 = *v5;
     if ((*v5 & 0x1000000000000) == 0)
     {
 LABEL_49:
-      if ((v8 & 0x2000000000000) == 0)
+      if ((v7 & 0x2000000000000) == 0)
       {
         goto LABEL_50;
       }
@@ -10149,17 +10010,17 @@ LABEL_49:
     }
   }
 
-  else if ((v8 & 0x1000000000000) == 0)
+  else if ((v7 & 0x1000000000000) == 0)
   {
     goto LABEL_49;
   }
 
   PB::TextFormatter::format(a2, "lgArclengthXYOverEpoch", *(this + 59));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x2000000000000) == 0)
   {
 LABEL_50:
-    if ((v8 & 0x4000000000000) == 0)
+    if ((v7 & 0x4000000000000) == 0)
     {
       goto LABEL_51;
     }
@@ -10169,11 +10030,11 @@ LABEL_50:
 
 LABEL_121:
   PB::TextFormatter::format(a2, "lgArclengthXYZBiggestImpact", *(this + 60));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x4000000000000) == 0)
   {
 LABEL_51:
-    if ((v8 & 0x8000000000000) == 0)
+    if ((v7 & 0x8000000000000) == 0)
     {
       goto LABEL_52;
     }
@@ -10183,11 +10044,11 @@ LABEL_51:
 
 LABEL_122:
   PB::TextFormatter::format(a2, "lgArclengthXYZOverEpoch", *(this + 61));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x8000000000000) == 0)
   {
 LABEL_52:
-    if ((v8 & 0x10000000000000) == 0)
+    if ((v7 & 0x10000000000000) == 0)
     {
       goto LABEL_53;
     }
@@ -10197,11 +10058,11 @@ LABEL_52:
 
 LABEL_123:
   PB::TextFormatter::format(a2, "lgArclengthZBiggestImpact", *(this + 62));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x10000000000000) == 0)
   {
 LABEL_53:
-    if ((v8 & 0x20000000000000) == 0)
+    if ((v7 & 0x20000000000000) == 0)
     {
       goto LABEL_54;
     }
@@ -10211,11 +10072,11 @@ LABEL_53:
 
 LABEL_124:
   PB::TextFormatter::format(a2, "lgArclengthZOverEpoch", *(this + 63));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x20000000000000) == 0)
   {
 LABEL_54:
-    if ((v8 & 0x40000000000000) == 0)
+    if ((v7 & 0x40000000000000) == 0)
     {
       goto LABEL_55;
     }
@@ -10225,11 +10086,11 @@ LABEL_54:
 
 LABEL_125:
   PB::TextFormatter::format(a2, "lgDeltaVXYBiggestImpact", *(this + 64));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x40000000000000) == 0)
   {
 LABEL_55:
-    if ((v8 & 0x80000000000000) == 0)
+    if ((v7 & 0x80000000000000) == 0)
     {
       goto LABEL_56;
     }
@@ -10239,11 +10100,11 @@ LABEL_55:
 
 LABEL_126:
   PB::TextFormatter::format(a2, "lgDeltaVXYOverEpoch", *(this + 65));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x80000000000000) == 0)
   {
 LABEL_56:
-    if ((v8 & 0x100000000000000) == 0)
+    if ((v7 & 0x100000000000000) == 0)
     {
       goto LABEL_57;
     }
@@ -10253,11 +10114,11 @@ LABEL_56:
 
 LABEL_127:
   PB::TextFormatter::format(a2, "lgDeltaVXYUnconditional", *(this + 66));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x100000000000000) == 0)
   {
 LABEL_57:
-    if ((v8 & 0x200000000000000) == 0)
+    if ((v7 & 0x200000000000000) == 0)
     {
       goto LABEL_58;
     }
@@ -10267,11 +10128,11 @@ LABEL_57:
 
 LABEL_128:
   PB::TextFormatter::format(a2, "lgDeltaVXYZBiggestImpact", *(this + 67));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x200000000000000) == 0)
   {
 LABEL_58:
-    if ((v8 & 0x400000000000000) == 0)
+    if ((v7 & 0x400000000000000) == 0)
     {
       goto LABEL_59;
     }
@@ -10281,11 +10142,11 @@ LABEL_58:
 
 LABEL_129:
   PB::TextFormatter::format(a2, "lgDeltaVXYZOverEpoch", *(this + 68));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x400000000000000) == 0)
   {
 LABEL_59:
-    if ((v8 & 0x800000000000000) == 0)
+    if ((v7 & 0x800000000000000) == 0)
     {
       goto LABEL_60;
     }
@@ -10295,11 +10156,11 @@ LABEL_59:
 
 LABEL_130:
   PB::TextFormatter::format(a2, "lgDeltaVXYZUnconditional", *(this + 69));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x800000000000000) == 0)
   {
 LABEL_60:
-    if ((v8 & 0x1000000000000000) == 0)
+    if ((v7 & 0x1000000000000000) == 0)
     {
       goto LABEL_61;
     }
@@ -10309,11 +10170,11 @@ LABEL_60:
 
 LABEL_131:
   PB::TextFormatter::format(a2, "lgDeltaVZBiggestImpact", *(this + 70));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x1000000000000000) == 0)
   {
 LABEL_61:
-    if ((v8 & 0x2000000000000000) == 0)
+    if ((v7 & 0x2000000000000000) == 0)
     {
       goto LABEL_62;
     }
@@ -10323,11 +10184,11 @@ LABEL_61:
 
 LABEL_132:
   PB::TextFormatter::format(a2, "lgDeltaVZOverEpoch", *(this + 71));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x2000000000000000) == 0)
   {
 LABEL_62:
-    if ((v8 & 0x4000000000000000) == 0)
+    if ((v7 & 0x4000000000000000) == 0)
     {
       goto LABEL_63;
     }
@@ -10344,14 +10205,14 @@ LABEL_134:
 
 LABEL_133:
   PB::TextFormatter::format(a2, "lgDeltaVZUnconditional", *(this + 72));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x4000000000000000) != 0)
   {
     goto LABEL_134;
   }
 
 LABEL_63:
-  if ((v8 & 0x8000000000000000) == 0)
+  if ((v7 & 0x8000000000000000) == 0)
   {
     goto LABEL_64;
   }
@@ -10359,15 +10220,15 @@ LABEL_63:
 LABEL_135:
   PB::TextFormatter::format(a2, "lgDurationXYZBiggestImpact", *(this + 74));
 LABEL_64:
-  v9 = *(this + 324);
-  if (v9)
+  v8 = *(this + 324);
+  if (v8)
   {
     PB::TextFormatter::format(a2, "lgDurationZBiggestImpact", *(this + 75));
-    v9 = *(this + 324);
-    if ((v9 & 2) == 0)
+    v8 = *(this + 324);
+    if ((v8 & 2) == 0)
     {
 LABEL_66:
-      if ((v9 & 4) == 0)
+      if ((v8 & 4) == 0)
       {
         goto LABEL_68;
       }
@@ -10389,16 +10250,15 @@ LABEL_67:
   }
 
 LABEL_68:
-  v10 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x20) != 0)
   {
-    v17 = *(this + 6);
     PB::TextFormatter::format(a2, "maxPulseStartTime");
-    v10 = *v5;
+    v9 = *v5;
     if ((*v5 & 0x40) == 0)
     {
 LABEL_70:
-      if ((v10 & 0x80) == 0)
+      if ((v9 & 0x80) == 0)
       {
         goto LABEL_71;
       }
@@ -10407,18 +10267,17 @@ LABEL_70:
     }
   }
 
-  else if ((v10 & 0x40) == 0)
+  else if ((v9 & 0x40) == 0)
   {
     goto LABEL_70;
   }
 
-  v18 = *(this + 7);
   PB::TextFormatter::format(a2, "maxPulseTime");
-  v10 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x80) == 0)
   {
 LABEL_71:
-    if ((v10 & 0x100) == 0)
+    if ((v9 & 0x100) == 0)
     {
       goto LABEL_73;
     }
@@ -10427,12 +10286,10 @@ LABEL_71:
   }
 
 LABEL_141:
-  v19 = *(this + 8);
   PB::TextFormatter::format(a2, "timestamp");
   if ((*v5 & 0x100) != 0)
   {
 LABEL_72:
-    v11 = *(this + 9);
     PB::TextFormatter::format(a2, "triggerTimestamp");
   }
 

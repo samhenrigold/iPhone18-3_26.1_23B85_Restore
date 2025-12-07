@@ -16,15 +16,9 @@
     sub_2282329D8();
   }
 
-  else
-  {
-    v4 = *(&selfCopy->super.isa + OBJC_IVAR____TtC19HealthMedicationsUI20MedicationChartPoint_takenCount);
-    v5 = *(&selfCopy->super.isa + OBJC_IVAR____TtC19HealthMedicationsUI20MedicationChartPoint_skippedCount);
-  }
+  v4 = sub_228393480();
 
-  v6 = sub_228393480();
-
-  return v6;
+  return v4;
 }
 
 - (id)allYValues
@@ -40,28 +34,27 @@
 - (id)minYValue
 {
   selfCopy = self;
-  sub_228233054(v11);
+  sub_228233054(v10);
 
-  v3 = v12;
-  if (v12)
+  v3 = v11;
+  if (v11)
   {
-    v4 = __swift_project_boxed_opaque_existential_0(v11, v12);
+    v4 = __swift_project_boxed_opaque_existential_0(v10, v11);
     v5 = *(v3 - 8);
-    v6 = *(v5 + 64);
     MEMORY[0x28223BE20](v4);
-    v8 = v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v5 + 16))(v8);
-    v9 = sub_228393450();
-    (*(v5 + 8))(v8, v3);
-    __swift_destroy_boxed_opaque_existential_0(v11);
+    v7 = v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v5 + 16))(v7);
+    v8 = sub_228393450();
+    (*(v5 + 8))(v7, v3);
+    __swift_destroy_boxed_opaque_existential_0(v10);
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)userInfo

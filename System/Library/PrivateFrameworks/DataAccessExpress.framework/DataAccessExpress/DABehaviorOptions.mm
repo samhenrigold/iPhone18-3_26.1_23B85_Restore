@@ -242,7 +242,7 @@ void __52__DABehaviorOptions__startListeningForNotifications__block_invoke_9(uin
 
 + (BOOL)cookiesEnabled
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (cookiesEnabled___flagChecked != 1 || cookiesEnabled___lastToken != sDABehaviorToken)
   {
     cookiesEnabled___lastToken = sDABehaviorToken;
@@ -260,9 +260,9 @@ void __52__DABehaviorOptions__startListeningForNotifications__block_invoke_9(uin
     }
   }
 
-  v10 = 0;
-  v4 = [DABehaviorOptions _shouldForceCookies:&v10];
-  if (v10 == 1)
+  v9 = 0;
+  v4 = [DABehaviorOptions _shouldForceCookies:&v9];
+  if (v9 == 1)
   {
     v5 = v4;
     v6 = DALoggingwithCategory(0);
@@ -275,7 +275,7 @@ void __52__DABehaviorOptions__startListeningForNotifications__block_invoke_9(uin
       }
 
       *buf = 138412290;
-      v12 = v7;
+      v11 = v7;
       _os_log_impl(&dword_2243BD000, v6, OS_LOG_TYPE_DEFAULT, "Due to a profile setting, we are forcing cookies to be %@abled", buf, 0xCu);
     }
   }
@@ -285,7 +285,6 @@ void __52__DABehaviorOptions__startListeningForNotifications__block_invoke_9(uin
     LOBYTE(v5) = cookiesEnabled___cookiesEnabled ^ 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5 & 1;
 }
 
@@ -770,7 +769,7 @@ void __52__DABehaviorOptions__startListeningForNotifications__block_invoke_9(uin
 
 + (BOOL)isCustomerInstall
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ((isCustomerInstall___haveCheckedIsCustomerInstall & 1) == 0)
   {
     isCustomerInstall___haveCheckedIsCustomerInstall = 1;
@@ -794,15 +793,13 @@ void __52__DABehaviorOptions__startListeningForNotifications__block_invoke_9(uin
         v4 = @"NON";
       }
 
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_2243BD000, v3, OS_LOG_TYPE_INFO, "Device is a %@customer install", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_2243BD000, v3, OS_LOG_TYPE_INFO, "Device is a %@customer install", &v6, 0xCu);
     }
   }
 
-  result = isCustomerInstall___isCustomerInstall;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return isCustomerInstall___isCustomerInstall;
 }
 
 + (BOOL)isAppleInternalInstall
@@ -905,75 +902,72 @@ void __52__DABehaviorOptions__startListeningForNotifications__block_invoke_9(uin
 
 + (BOOL)addDAManagedDefaults:(id)defaults
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   defaultsCopy = defaults;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [defaultsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [defaultsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(defaultsCopy);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         v9 = [defaultsCopy objectForKeyedSubscript:v8];
         CFPreferencesSetAppValue(v8, v9, @"com.apple.DataAccess.BehaviorOptions");
       }
 
-      v5 = [defaultsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [defaultsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 + (void)removeDAManagedDefaults:(id)defaults
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   defaultsCopy = defaults;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [defaultsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [defaultsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(defaultsCopy);
         }
 
-        CFPreferencesSetAppValue(*(*(&v9 + 1) + 8 * v7++), 0, @"com.apple.DataAccess.BehaviorOptions");
+        CFPreferencesSetAppValue(*(*(&v8 + 1) + 8 * v7++), 0, @"com.apple.DataAccess.BehaviorOptions");
       }
 
       while (v5 != v7);
-      v5 = [defaultsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [defaultsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

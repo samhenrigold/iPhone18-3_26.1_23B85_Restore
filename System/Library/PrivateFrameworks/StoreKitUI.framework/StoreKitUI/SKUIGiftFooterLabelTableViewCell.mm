@@ -1,6 +1,7 @@
 @interface SKUIGiftFooterLabelTableViewCell
 - (CGSize)sizeThatFits:(CGSize)fits;
 - (NSString)footerLabel;
+- (void)footerLabel;
 - (void)layoutSubviews;
 - (void)setBackgroundColor:(id)color;
 - (void)setFooterLabel:(id)label;
@@ -43,7 +44,7 @@
   }
 
   footerLabel = [(SKUIGiftFooterLabelTableViewCell *)self footerLabel];
-  if (footerLabel != labelCopy && ([labelCopy isEqualToString:footerLabel] & 1) == 0)
+  if (footerLabel != labelCopy && (objc_msgSend_isEqualToString_(labelCopy) & 1) == 0)
   {
     footerLabel = self->_footerLabel;
     if (labelCopy)
@@ -90,27 +91,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIGiftFooterLabelTableViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v16.receiver = self;
-  v16.super_class = SKUIGiftFooterLabelTableViewCell;
-  [(SKUIGiftFooterLabelTableViewCell *)&v16 layoutSubviews];
-  contentView = [(SKUIGiftFooterLabelTableViewCell *)self contentView];
-  [contentView bounds];
-  v13 = v12;
-  v15 = v14;
-
-  [(UILabel *)self->_footerLabel setFrame:15.0, 6.0, v13 + -30.0, v15 + -6.0];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftFooterLabelTableViewCell layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -154,6 +136,30 @@
   result.height = v15;
   result.width = v13;
   return result;
+}
+
+- (void)footerLabel
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftFooterLabelTableViewCell footerLabel]";
+}
+
+- (void)setFooterLabel:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftFooterLabelTableViewCell setFooterLabel:]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftFooterLabelTableViewCell setBackgroundColor:]";
+}
+
+- (void)sizeThatFits:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftFooterLabelTableViewCell sizeThatFits:]";
 }
 
 @end

@@ -33,7 +33,7 @@
 
 - (BOOL)prepareWithMaxCost:(float)cost retryAfter:(unint64_t *)after
 {
-  v201 = *MEMORY[0x277D85DE8];
+  v200 = *MEMORY[0x277D85DE8];
   clientZone = [(BRCServerZone *)self->_serverZone clientZone];
   if ([clientZone isSyncBlocked])
   {
@@ -51,27 +51,27 @@ LABEL_5:
 
   if (([clientZone isCloudDocsZone] & 1) == 0 && objc_msgSend(clientZone, "isPrivateZone") && !-[BRCServerZone hasFetchedServerZoneState](self->_serverZone, "hasFetchedServerZoneState"))
   {
-    v182 = 0u;
-    v183 = 0u;
-    v180 = 0u;
     v181 = 0u;
+    v182 = 0u;
+    v179 = 0u;
+    v180 = 0u;
     asPrivateClientZone = [clientZone asPrivateClientZone];
     appLibraries = [asPrivateClientZone appLibraries];
 
-    v10 = [appLibraries countByEnumeratingWithState:&v180 objects:v200 count:16];
+    v10 = [appLibraries countByEnumeratingWithState:&v179 objects:v199 count:16];
     if (v10)
     {
-      v11 = *v181;
+      v11 = *v180;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v181 != v11)
+          if (*v180 != v11)
           {
             objc_enumerationMutation(appLibraries);
           }
 
-          if ((~[*(*(&v180 + 1) + 8 * i) state] & 0x140000) != 0)
+          if ((~[*(*(&v179 + 1) + 8 * i) state] & 0x140000) != 0)
           {
             v15 = brc_bread_crumbs();
             v16 = brc_default_log();
@@ -84,7 +84,7 @@ LABEL_5:
           }
         }
 
-        v10 = [appLibraries countByEnumeratingWithState:&v180 objects:v200 count:16];
+        v10 = [appLibraries countByEnumeratingWithState:&v179 objects:v199 count:16];
         if (v10)
         {
           continue;
@@ -113,30 +113,30 @@ LABEL_5:
   }
 
 LABEL_24:
-  v155 = [[BRCSyncUpEnumerator alloc] initWithClientZone:clientZone];
-  batchSize = [(BRCSyncUpEnumerator *)v155 batchSize];
+  v154 = [[BRCSyncUpEnumerator alloc] initWithClientZone:clientZone];
+  batchSize = [(BRCSyncUpEnumerator *)v154 batchSize];
   v18 = [clientZone db];
   [v18 assertOnQueue];
 
-  memset(v179, 0, sizeof(v179));
-  __brc_create_section(0, "[BRCSyncUpOperation prepareWithMaxCost:retryAfter:]", 118, 0, v179);
+  memset(v178, 0, sizeof(v178));
+  __brc_create_section(0, "[BRCSyncUpOperation prepareWithMaxCost:retryAfter:]", 118, 0, v178);
   v19 = brc_bread_crumbs();
   v20 = brc_default_log();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218754;
-    v185 = v179[0];
-    v186 = 2112;
-    v187 = clientZone;
-    v188 = 1024;
-    *v189 = batchSize;
-    *&v189[4] = 2112;
-    *&v189[6] = v19;
+    v184 = v178[0];
+    v185 = 2112;
+    v186 = clientZone;
+    v187 = 1024;
+    *v188 = batchSize;
+    *&v188[4] = 2112;
+    *&v188[6] = v19;
     _os_log_debug_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Sync: syncing up clientZone %@. batch size - %u%@", buf, 0x26u);
   }
 
   v21 = batchSize;
-  v153 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:batchSize];
+  v152 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:batchSize];
   v22 = MEMORY[0x277CCACA8];
   operationID = [(_BRCOperation *)self operationID];
   uUIDString = [operationID UUIDString];
@@ -192,7 +192,7 @@ LABEL_24:
   self->_conflictLosersToResolveByRecordID = v48;
 
   selfCopy3 = self;
-  v156 = [[BRCSyncUpOperationBuilder alloc] initWithSessionContext:self->super._sessionContext syncUpOperation:self];
+  v155 = [[BRCSyncUpOperationBuilder alloc] initWithSessionContext:self->super._sessionContext syncUpOperation:self];
   v51 = 0;
   v52 = 0.0;
   while (1)
@@ -204,7 +204,7 @@ LABEL_24:
       goto LABEL_45;
     }
 
-    nextObject = [(BRCSyncUpEnumerator *)v155 nextObject];
+    nextObject = [(BRCSyncUpEnumerator *)v154 nextObject];
 
     if (!nextObject)
     {
@@ -213,16 +213,16 @@ LABEL_24:
 
     v55 = objc_autoreleasePoolPush();
     v56 = nextObject;
-    [(BRCSyncUpOperationBuilder *)v156 addItem:nextObject];
+    [(BRCSyncUpOperationBuilder *)v155 addItem:nextObject];
     selfCopy3 = self;
     v58 = v57;
     if (v57 <= 0.0)
     {
-      itemNeedingBasehashSalting = [(BRCSyncUpOperationBuilder *)v156 itemNeedingBasehashSalting];
+      itemNeedingBasehashSalting = [(BRCSyncUpOperationBuilder *)v155 itemNeedingBasehashSalting];
       itemNeedingBasehashSalting = self->_itemNeedingBasehashSalting;
       self->_itemNeedingBasehashSalting = itemNeedingBasehashSalting;
 
-      if (itemNeedingBasehashSalting || ([(BRCSyncUpOperationBuilder *)v156 itemNeedingPCSChaining], v62 = objc_claimAutoreleasedReturnValue(), itemNeedingPCSChaining = self->_itemNeedingPCSChaining, self->_itemNeedingPCSChaining = v62, itemNeedingPCSChaining, v62))
+      if (itemNeedingBasehashSalting || ([(BRCSyncUpOperationBuilder *)v155 itemNeedingPCSChaining], v62 = objc_claimAutoreleasedReturnValue(), itemNeedingPCSChaining = self->_itemNeedingPCSChaining, self->_itemNeedingPCSChaining = v62, itemNeedingPCSChaining, v62))
       {
         v59 = 1;
       }
@@ -239,9 +239,9 @@ LABEL_24:
           if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v185 = nextObject;
-            v186 = 2112;
-            v187 = v66;
+            v184 = nextObject;
+            v185 = 2112;
+            v186 = v66;
             _os_log_debug_impl(&dword_223E7A000, v67, OS_LOG_TYPE_DEBUG, "[DEBUG] ignoring item with negative cost for now %@%@", buf, 0x16u);
           }
         }
@@ -255,7 +255,7 @@ LABEL_24:
 
     else
     {
-      [v153 addObject:nextObject];
+      [v152 addObject:nextObject];
       v52 = v52 + v58;
       v59 = v52 >= cost;
     }
@@ -270,28 +270,28 @@ LABEL_24:
 
   v56 = 0;
 LABEL_45:
-  v151 = v56;
-  v177 = 0u;
-  v178 = 0u;
-  v175 = 0u;
+  v150 = v56;
   v176 = 0u;
-  itemsNeedingUnshare = [(BRCSyncUpEnumerator *)v155 itemsNeedingUnshare];
-  v69 = [itemsNeedingUnshare countByEnumeratingWithState:&v175 objects:v199 count:16];
+  v177 = 0u;
+  v174 = 0u;
+  v175 = 0u;
+  itemsNeedingUnshare = [(BRCSyncUpEnumerator *)v154 itemsNeedingUnshare];
+  v69 = [itemsNeedingUnshare countByEnumeratingWithState:&v174 objects:v198 count:16];
   if (v69)
   {
-    v158 = *v176;
+    v157 = *v175;
     obj = itemsNeedingUnshare;
     do
     {
-      v159 = v69;
-      for (j = 0; j != v159; ++j)
+      v158 = v69;
+      for (j = 0; j != v158; ++j)
       {
-        if (*v176 != v158)
+        if (*v175 != v157)
         {
           objc_enumerationMutation(obj);
         }
 
-        v71 = *(*(&v175 + 1) + 8 * j);
+        v71 = *(*(&v174 + 1) + 8 * j);
         v72 = [objc_alloc(MEMORY[0x277CBC5D0]) initShareIDWithShareableItem:v71];
         [(NSMutableOrderedSet *)self->_deletedRecordIDs addObject:v72];
         if ([v71 isDocument])
@@ -311,25 +311,25 @@ LABEL_45:
           [baseRecord serializeSystemFields:currentVersion];
         }
 
-        v173 = 0u;
-        v174 = 0u;
-        v171 = 0u;
         v172 = 0u;
+        v173 = 0u;
+        v170 = 0u;
+        v171 = 0u;
         v77 = self->_recordsToSave;
-        v78 = [(NSMutableArray *)v77 countByEnumeratingWithState:&v171 objects:v198 count:16];
+        v78 = [(NSMutableArray *)v77 countByEnumeratingWithState:&v170 objects:v197 count:16];
         if (v78)
         {
-          v79 = *v172;
+          v79 = *v171;
           while (2)
           {
             for (k = 0; k != v78; ++k)
             {
-              if (*v172 != v79)
+              if (*v171 != v79)
               {
                 objc_enumerationMutation(v77);
               }
 
-              recordID = [*(*(&v171 + 1) + 8 * k) recordID];
+              recordID = [*(*(&v170 + 1) + 8 * k) recordID];
               recordID2 = [baseRecord recordID];
               v83 = [recordID isEqual:recordID2];
 
@@ -340,7 +340,7 @@ LABEL_45:
               }
             }
 
-            v78 = [(NSMutableArray *)v77 countByEnumeratingWithState:&v171 objects:v198 count:16];
+            v78 = [(NSMutableArray *)v77 countByEnumeratingWithState:&v170 objects:v197 count:16];
             if (v78)
             {
               continue;
@@ -355,7 +355,7 @@ LABEL_63:
       }
 
       itemsNeedingUnshare = obj;
-      v69 = [obj countByEnumeratingWithState:&v175 objects:v199 count:16];
+      v69 = [obj countByEnumeratingWithState:&v174 objects:v198 count:16];
     }
 
     while (v69);
@@ -368,26 +368,26 @@ LABEL_63:
     v86 = brc_default_log();
     if (os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG))
     {
-      v145 = self->_itemNeedingBasehashSalting;
-      v146 = @"salting";
-      if (!v145)
+      v144 = self->_itemNeedingBasehashSalting;
+      v145 = @"salting";
+      if (!v144)
       {
-        v146 = @"pcs chaining";
-        v145 = self->_itemNeedingPCSChaining;
+        v145 = @"pcs chaining";
+        v144 = self->_itemNeedingPCSChaining;
       }
 
       *buf = 138412802;
-      v185 = v146;
-      v186 = 2112;
-      v187 = v145;
-      v188 = 2112;
-      *v189 = v85;
+      v184 = v145;
+      v185 = 2112;
+      v186 = v144;
+      v187 = 2112;
+      *v188 = v85;
       _os_log_debug_impl(&dword_223E7A000, v86, OS_LOG_TYPE_DEBUG, "[DEBUG] Dedicating this sync up operation to %@ %@%@", buf, 0x20u);
     }
 
     selfCopy8 = self;
     [(NSMutableArray *)self->_recordsToSave removeAllObjects];
-    v87 = v151;
+    v87 = v150;
     [(NSMutableOrderedSet *)self->_deletedRecordIDs removeAllObjects];
     [(NSMutableArray *)self->_iworkUnsharedShareIDs removeAllObjects];
     [(NSMutableDictionary *)self->_renamedShareIDsToNames removeAllObjects];
@@ -403,10 +403,10 @@ LABEL_63:
   else
   {
     v88 = 0;
-    v87 = v151;
+    v87 = v150;
   }
 
-  [(BRCSyncUpEnumerator *)v155 invalidate];
+  [(BRCSyncUpEnumerator *)v154 invalidate];
   if ([(NSMutableArray *)selfCopy8->_recordsToSave count]== 1)
   {
     firstObject = [(NSMutableArray *)selfCopy8->_recordsToSave firstObject];
@@ -414,7 +414,7 @@ LABEL_63:
     brc_isDocumentsFolderRecordID = [recordID3 brc_isDocumentsFolderRecordID];
 
     selfCopy8 = self;
-    v87 = v151;
+    v87 = v150;
     if (brc_isDocumentsFolderRecordID)
     {
       v92 = brc_bread_crumbs();
@@ -425,7 +425,7 @@ LABEL_63:
       }
 
       [(NSMutableArray *)self->_recordsToSave removeAllObjects];
-      v87 = v151;
+      v87 = v150;
       goto LABEL_75;
     }
   }
@@ -433,27 +433,27 @@ LABEL_63:
   if (v88)
   {
 LABEL_75:
-    v169 = 0u;
-    v170 = 0u;
-    v167 = 0u;
     v168 = 0u;
-    v94 = v153;
-    v95 = [v94 countByEnumeratingWithState:&v167 objects:v197 count:16];
+    v169 = 0u;
+    v166 = 0u;
+    v167 = 0u;
+    v94 = v152;
+    v95 = [v94 countByEnumeratingWithState:&v166 objects:v196 count:16];
     if (v95)
     {
-      v96 = *v168;
+      v96 = *v167;
       do
       {
         v97 = 0;
         v98 = v87;
         do
         {
-          if (*v168 != v96)
+          if (*v167 != v96)
           {
             objc_enumerationMutation(v94);
           }
 
-          v87 = *(*(&v167 + 1) + 8 * v97);
+          v87 = *(*(&v166 + 1) + 8 * v97);
 
           dbRowID = [(BRCServerZone *)self->_serverZone dbRowID];
           [v87 markLatestSyncRequestFailedInZone:dbRowID];
@@ -463,7 +463,7 @@ LABEL_75:
         }
 
         while (v95 != v97);
-        v95 = [v94 countByEnumeratingWithState:&v167 objects:v197 count:16];
+        v95 = [v94 countByEnumeratingWithState:&v166 objects:v196 count:16];
       }
 
       while (v95);
@@ -479,29 +479,29 @@ LABEL_75:
     if (!selfCopy8->_itemNeedingPCSChaining && !selfCopy8->_itemNeedingBasehashSalting)
     {
       selfCopy8->_requestID = [clientZone allocateSyncUpRequestID];
-      v160 = [v153 count];
-      v165 = 0u;
-      v166 = 0u;
-      v163 = 0u;
+      v159 = [v152 count];
       v164 = 0u;
-      v100 = v153;
-      v101 = [v100 countByEnumeratingWithState:&v163 objects:v196 count:16];
+      v165 = 0u;
+      v162 = 0u;
+      v163 = 0u;
+      v100 = v152;
+      v101 = [v100 countByEnumeratingWithState:&v162 objects:v195 count:16];
       v102 = v87;
       if (v101)
       {
-        v103 = *v164;
+        v103 = *v163;
         do
         {
           v104 = 0;
           v105 = v102;
           do
           {
-            if (*v164 != v103)
+            if (*v163 != v103)
             {
               objc_enumerationMutation(v100);
             }
 
-            v102 = *(*(&v163 + 1) + 8 * v104);
+            v102 = *(*(&v162 + 1) + 8 * v104);
 
             v106 = objc_autoreleasePoolPush();
             if ([v102 isDocument])
@@ -509,13 +509,13 @@ LABEL_75:
               asDocument2 = [v102 asDocument];
               analyticsReporter = [(BRCSessionContext *)self->super._sessionContext analyticsReporter];
               itemID2 = [asDocument2 itemID];
-              v162[0] = MEMORY[0x277D85DD0];
-              v162[1] = 3221225472;
-              v162[2] = __52__BRCSyncUpOperation_prepareWithMaxCost_retryAfter___block_invoke;
-              v162[3] = &unk_278502FA8;
-              v162[4] = self;
-              v162[5] = v160;
-              [analyticsReporter lookupFSEventToSyncUpEventByItemID:itemID2 accessor:v162];
+              v161[0] = MEMORY[0x277D85DD0];
+              v161[1] = 3221225472;
+              v161[2] = __52__BRCSyncUpOperation_prepareWithMaxCost_retryAfter___block_invoke;
+              v161[3] = &unk_278502FA8;
+              v161[4] = self;
+              v161[5] = v159;
+              [analyticsReporter lookupFSEventToSyncUpEventByItemID:itemID2 accessor:v161];
             }
 
             [v102 saveToDBAndValidateLocalDiffs];
@@ -525,7 +525,7 @@ LABEL_75:
           }
 
           while (v101 != v104);
-          v101 = [v100 countByEnumeratingWithState:&v163 objects:v196 count:16];
+          v101 = [v100 countByEnumeratingWithState:&v162 objects:v195 count:16];
         }
 
         while (v101);
@@ -576,7 +576,7 @@ LABEL_75:
         zoneID = [(BRCServerZone *)self->_serverZone zoneID];
         v121 = [v119 rootDirectoryRecordForZoneID:zoneID];
 
-        rootChildBasehashSalt = [(BRCSyncUpOperationBuilder *)v156 rootChildBasehashSalt];
+        rootChildBasehashSalt = [(BRCSyncUpOperationBuilder *)v155 rootChildBasehashSalt];
         selfCopy14 = self;
         v124 = rootChildBasehashSalt;
         if (rootChildBasehashSalt)
@@ -618,25 +618,25 @@ LABEL_75:
     if (os_log_type_enabled(v132, OS_LOG_TYPE_DEBUG))
     {
       requestID = selfCopy15->_requestID;
-      v140 = [(NSMutableArray *)selfCopy15->_recordsToSave count];
-      v141 = [(NSMutableOrderedSet *)selfCopy15->_deletedRecordIDs count];
-      v142 = [(NSMutableArray *)selfCopy15->_iworkUnsharedShareIDs count];
-      v143 = [(NSMutableDictionary *)selfCopy15->_renamedShareIDsToNames count];
-      v144 = [v153 count];
+      v139 = [(NSMutableArray *)selfCopy15->_recordsToSave count];
+      v140 = [(NSMutableOrderedSet *)selfCopy15->_deletedRecordIDs count];
+      v141 = [(NSMutableArray *)selfCopy15->_iworkUnsharedShareIDs count];
+      v142 = [(NSMutableDictionary *)selfCopy15->_renamedShareIDsToNames count];
+      v143 = [v152 count];
       *buf = 134219522;
-      v185 = requestID;
-      v186 = 2048;
-      v187 = v140;
-      v188 = 2048;
-      *v189 = v141;
-      *&v189[8] = 2048;
-      *&v189[10] = v142;
-      v190 = 2048;
-      v191 = v143;
-      v192 = 2048;
-      v193 = v144;
-      v194 = 2112;
-      v195 = v131;
+      v184 = requestID;
+      v185 = 2048;
+      v186 = v139;
+      v187 = 2048;
+      *v188 = v140;
+      *&v188[8] = 2048;
+      *&v188[10] = v141;
+      v189 = 2048;
+      v190 = v142;
+      v191 = 2048;
+      v192 = v143;
+      v193 = 2112;
+      v194 = v131;
       _os_log_debug_impl(&dword_223E7A000, v132, OS_LOG_TYPE_DEBUG, "[DEBUG] preparing to send in requestID:%lld: %lu records, delete %lu recordIDs, unshare %lu iwork shares, rename %lu shares, about %lu items%@", buf, 0x48u);
     }
 
@@ -644,14 +644,14 @@ LABEL_75:
     v134 = brc_default_log();
     if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
     {
-      v135 = [v153 count];
+      v135 = [v152 count];
       mangledID2 = [clientZone mangledID];
       *buf = 134218498;
-      v185 = v135;
-      v186 = 2112;
-      v187 = mangledID2;
-      v188 = 2112;
-      *v189 = v133;
+      v184 = v135;
+      v185 = 2112;
+      v186 = mangledID2;
+      v187 = 2112;
+      *v188 = v133;
       _os_log_impl(&dword_223E7A000, v134, OS_LOG_TYPE_DEFAULT, "[NOTICE] sending %lu items to the cloud for %@\n%@", buf, 0x20u);
     }
 
@@ -666,18 +666,18 @@ LABEL_75:
 
   else
   {
-    v147 = brc_bread_crumbs();
-    v148 = brc_default_log();
-    if (os_log_type_enabled(v148, OS_LOG_TYPE_DEBUG))
+    v146 = brc_bread_crumbs();
+    v147 = brc_default_log();
+    if (os_log_type_enabled(v147, OS_LOG_TYPE_DEBUG))
     {
       [BRCSyncUpOperation prepareWithMaxCost:retryAfter:];
     }
 
-    if ([v153 count])
+    if ([v152 count])
     {
-      v149 = brc_bread_crumbs();
-      v150 = brc_default_log();
-      if (os_log_type_enabled(v150, OS_LOG_TYPE_FAULT))
+      v148 = brc_bread_crumbs();
+      v149 = brc_default_log();
+      if (os_log_type_enabled(v149, OS_LOG_TYPE_FAULT))
       {
         [BRCSyncUpOperation prepareWithMaxCost:retryAfter:];
       }
@@ -687,14 +687,13 @@ LABEL_75:
     v7 = 0;
     if (after)
     {
-      *after = [(BRCSyncUpEnumerator *)v155 retryAfter];
+      *after = [(BRCSyncUpEnumerator *)v154 retryAfter];
     }
   }
 
-  __brc_leave_section(v179);
+  __brc_leave_section(v178);
 LABEL_127:
 
-  v137 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -854,23 +853,23 @@ void __80__BRCSyncUpOperation__performMetadataSaltingOperationIfNecessaryWithCom
 
 void __80__BRCSyncUpOperation__performMetadataSaltingOperationIfNecessaryWithCompletion___block_invoke_2(uint64_t a1, int a2, int a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = brc_bread_crumbs();
   v9 = brc_default_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v17 = *(*(a1 + 32) + 616);
+    v16 = *(*(a1 + 32) + 616);
     *buf = 138413314;
-    v23 = v17;
-    v24 = 1024;
-    v25 = a2;
-    v26 = 1024;
-    v27 = a3;
-    v28 = 2112;
-    v29 = v7;
-    v30 = 2112;
-    v31 = v8;
+    v22 = v16;
+    v23 = 1024;
+    v24 = a2;
+    v25 = 1024;
+    v26 = a3;
+    v27 = 2112;
+    v28 = v7;
+    v29 = 2112;
+    v30 = v8;
     _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] Finished metadata salting a batch for item %@ when completed: %d validation: %d error: %@%@", buf, 0x2Cu);
   }
 
@@ -884,13 +883,13 @@ void __80__BRCSyncUpOperation__performMetadataSaltingOperationIfNecessaryWithCom
     block[3] = &unk_278500CE0;
     *&v12 = *(a1 + 40);
     *(&v12 + 1) = *(a1 + 32);
-    v18 = v12;
+    v17 = v12;
     v13 = *(a1 + 48);
     v14 = *(a1 + 56);
     *&v15 = v13;
     *(&v15 + 1) = v14;
-    v20 = v18;
-    v21 = v15;
+    v19 = v17;
+    v20 = v15;
     dispatch_async(v11, block);
   }
 
@@ -898,8 +897,6 @@ void __80__BRCSyncUpOperation__performMetadataSaltingOperationIfNecessaryWithCom
   {
     (*(*(a1 + 56) + 16))();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __80__BRCSyncUpOperation__performMetadataSaltingOperationIfNecessaryWithCompletion___block_invoke_24(uint64_t a1)
@@ -1005,7 +1002,7 @@ void __73__BRCSyncUpOperation__performPCSChainOperationIfNecessaryWithCompletion
 
 void __73__BRCSyncUpOperation__performPCSChainOperationIfNecessaryWithCompletion___block_invoke_2(uint64_t a1, int a2, void *a3, uint64_t a4, void *a5)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a5;
   v10 = brc_bread_crumbs();
@@ -1013,13 +1010,13 @@ void __73__BRCSyncUpOperation__performPCSChainOperationIfNecessaryWithCompletion
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109890;
-    v28 = a2;
-    v29 = 2112;
-    v30 = v8;
-    v31 = 2112;
-    v32 = v9;
-    v33 = 2112;
-    v34 = v10;
+    v27 = a2;
+    v28 = 2112;
+    v29 = v8;
+    v30 = 2112;
+    v31 = v9;
+    v32 = 2112;
+    v33 = v10;
     _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] Finished PCS chaining a batch when completed: %d listOp: %@ error: %@%@", buf, 0x26u);
   }
 
@@ -1033,16 +1030,16 @@ void __73__BRCSyncUpOperation__performPCSChainOperationIfNecessaryWithCompletion
     block[3] = &unk_278502FF8;
     v14 = *(a1 + 32);
     v15 = *(a1 + 40);
-    v20 = *(a1 + 48);
-    v16 = *(&v20 + 1);
+    v19 = *(a1 + 48);
+    v16 = *(&v19 + 1);
     *&v17 = v14;
     *(&v17 + 1) = v15;
-    v25 = v20;
-    v24 = v17;
-    v26 = *(a1 + 64);
+    v24 = v19;
+    v23 = v17;
+    v25 = *(a1 + 64);
     dispatch_async(v13, block);
 
-    v18 = v24;
+    v18 = v23;
   }
 
   else
@@ -1054,17 +1051,16 @@ void __73__BRCSyncUpOperation__performPCSChainOperationIfNecessaryWithCompletion
     }
 
     [v8 beginObservingChangesWithDelegate:0];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __73__BRCSyncUpOperation__performPCSChainOperationIfNecessaryWithCompletion___block_invoke_3;
-    v21[3] = &unk_278501F20;
-    v22 = *(a1 + 64);
-    [v8 addPreFlushDirectoryListCompletionBlock:v21];
-    v18 = v22;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __73__BRCSyncUpOperation__performPCSChainOperationIfNecessaryWithCompletion___block_invoke_3;
+    v20[3] = &unk_278501F20;
+    v21 = *(a1 + 64);
+    [v8 addPreFlushDirectoryListCompletionBlock:v20];
+    v18 = v21;
   }
 
 LABEL_8:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __73__BRCSyncUpOperation__performPCSChainOperationIfNecessaryWithCompletion___block_invoke_29(uint64_t a1)
@@ -1091,7 +1087,7 @@ void __73__BRCSyncUpOperation__performPCSChainOperationIfNecessaryWithCompletion
 
 - (void)_performModifyRecordsOrBatchOperationWithCompletion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   clientZone = [(BRCServerZone *)self->_serverZone clientZone];
   if (![(BRCSyncUpOperation *)self _performMetadataSaltingOperationIfNecessaryWithCompletion:completionCopy]&& ![(BRCSyncUpOperation *)self _performPCSChainOperationIfNecessaryWithCompletion:completionCopy])
@@ -1122,56 +1118,56 @@ void __73__BRCSyncUpOperation__performPCSChainOperationIfNecessaryWithCompletion
       [v7 setAtomic:1];
       v10 = [clientZone db];
       serialQueue = [v10 serialQueue];
-      v22 = v7;
+      v21 = v7;
       [v7 setCallbackQueue:serialQueue];
 
       v12 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{-[NSMutableArray count](self->_recordsToSave, "count")}];
+      v27 = 0u;
       v28 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v31 = 0u;
       v13 = self->_recordsToSave;
-      v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v29;
+        v16 = *v28;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v29 != v16)
+            if (*v28 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v28 + 1) + 8 * i);
+            v18 = *(*(&v27 + 1) + 8 * i);
             recordID = [v18 recordID];
             [v12 setObject:v18 forKeyedSubscript:recordID];
           }
 
-          v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
         while (v15);
       }
 
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __74__BRCSyncUpOperation__performModifyRecordsOrBatchOperationWithCompletion___block_invoke;
-      v25[3] = &unk_278503048;
-      v25[4] = self;
-      v26 = clientZone;
-      v27 = v12;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __74__BRCSyncUpOperation__performModifyRecordsOrBatchOperationWithCompletion___block_invoke;
+      v24[3] = &unk_278503048;
+      v24[4] = self;
+      v25 = clientZone;
+      v26 = v12;
       v20 = v12;
-      [v22 setPerRecordCompletionBlock:v25];
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __74__BRCSyncUpOperation__performModifyRecordsOrBatchOperationWithCompletion___block_invoke_36;
-      v23[3] = &unk_278503070;
-      v24 = completionCopy;
-      [v22 setModifyRecordsCompletionBlock:v23];
-      [(_BRCOperation *)self addSubOperation:v22];
+      [v21 setPerRecordCompletionBlock:v24];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __74__BRCSyncUpOperation__performModifyRecordsOrBatchOperationWithCompletion___block_invoke_36;
+      v22[3] = &unk_278503070;
+      v23 = completionCopy;
+      [v21 setModifyRecordsCompletionBlock:v22];
+      [(_BRCOperation *)self addSubOperation:v21];
     }
 
     else
@@ -1179,40 +1175,38 @@ void __73__BRCSyncUpOperation__performPCSChainOperationIfNecessaryWithCompletion
       (*(completionCopy + 2))(completionCopy, 0, 0);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __74__BRCSyncUpOperation__performModifyRecordsOrBatchOperationWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5 && v6)
   {
-    memset(v21, 0, sizeof(v21));
-    __brc_create_section(0, "[BRCSyncUpOperation _performModifyRecordsOrBatchOperationWithCompletion:]_block_invoke", 489, 0, v21);
+    memset(v20, 0, sizeof(v20));
+    __brc_create_section(0, "[BRCSyncUpOperation _performModifyRecordsOrBatchOperationWithCompletion:]_block_invoke", 489, 0, v20);
     v8 = brc_bread_crumbs();
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v18 = v21[0];
-      v19 = [v5 recordID];
-      v20 = [v19 recordName];
+      v17 = v20[0];
+      v18 = [v5 recordID];
+      v19 = [v18 recordName];
       *buf = 134218754;
-      v23 = v18;
-      v24 = 2112;
-      v25 = v20;
-      v26 = 2112;
-      v27 = v7;
-      v28 = 2112;
-      v29 = v8;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v19;
+      v25 = 2112;
+      v26 = v7;
+      v27 = 2112;
+      v28 = v8;
       _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx sync-up error for record %@: %@%@", buf, 0x2Au);
     }
 
     [*(a1 + 32) _handleSyncUpErrorForRecord:v5 error:v7];
-    __brc_leave_section(v21);
+    __brc_leave_section(v20);
   }
 
   else if (v5)
@@ -1228,8 +1222,6 @@ void __74__BRCSyncUpOperation__performModifyRecordsOrBatchOperationWithCompletio
     v16 = [*(*v12 + 256) bouncingAnalyzer];
     [v16 analyzeServerBouncingOriginalRecord:v15 savedRecord:v5];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithResult:(id)result error:(id)error
@@ -1255,7 +1247,7 @@ void __74__BRCSyncUpOperation__performModifyRecordsOrBatchOperationWithCompletio
 
 - (void)performShareUpdate:(id)update
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if ([(NSMutableArray *)self->_iworkUnsharedShareIDs count]|| [(NSMutableDictionary *)self->_renamedShareIDsToNames count])
   {
@@ -1274,11 +1266,11 @@ void __74__BRCSyncUpOperation__performModifyRecordsOrBatchOperationWithCompletio
       renamedShareIDsToNames = self->_renamedShareIDsToNames;
       iworkUnsharedShareIDs = self->_iworkUnsharedShareIDs;
       *buf = 138412802;
-      v25 = renamedShareIDsToNames;
-      v26 = 2112;
-      v27 = iworkUnsharedShareIDs;
-      v28 = 2112;
-      v29 = v7;
+      v24 = renamedShareIDsToNames;
+      v25 = 2112;
+      v26 = iworkUnsharedShareIDs;
+      v27 = 2112;
+      v28 = v7;
       _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Fetching share IDs shared by us for renames: %@ and unshare: %@%@", buf, 0x20u);
     }
 
@@ -1292,208 +1284,202 @@ void __74__BRCSyncUpOperation__performModifyRecordsOrBatchOperationWithCompletio
     v14 = [v12 initWithRecordIDs:allObjects];
 
     [v14 setShouldFetchAssetContent:0];
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __41__BRCSyncUpOperation_performShareUpdate___block_invoke;
-    v21 = &unk_2785030E8;
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __41__BRCSyncUpOperation_performShareUpdate___block_invoke;
+    v20 = &unk_2785030E8;
     selfCopy = self;
-    v23 = updateCopy;
-    [v14 setFetchRecordsCompletionBlock:&v18];
-    [(_BRCOperation *)self addSubOperation:v14, v18, v19, v20, v21];
+    v22 = updateCopy;
+    [v14 setFetchRecordsCompletionBlock:&v17];
+    [(_BRCOperation *)self addSubOperation:v14, v17, v18, v19, v20];
   }
 
   else
   {
     (*(updateCopy + 2))(updateCopy, self, 0);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __41__BRCSyncUpOperation_performShareUpdate___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v6)
   {
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __41__BRCSyncUpOperation_performShareUpdate___block_invoke_2;
-    v59[3] = &unk_278503098;
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __41__BRCSyncUpOperation_performShareUpdate___block_invoke_2;
+    v56[3] = &unk_278503098;
     v8 = v6;
-    v60 = v8;
-    if ([v8 brc_checkErrorsFromCloudKit:v59])
+    v57 = v8;
+    if ([v8 brc_checkErrorsFromCloudKit:v56])
     {
-      v9 = *(a1 + 32);
       (*(*(a1 + 40) + 16))();
     }
 
     else
     {
-      v10 = brc_bread_crumbs();
-      v11 = brc_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v9 = brc_bread_crumbs();
+      v10 = brc_default_log();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v64 = v8;
-        v65 = 2112;
-        v66 = v10;
-        _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] got an error while fetching the records and shares %@, but ignoring it%@", buf, 0x16u);
+        v61 = v8;
+        v62 = 2112;
+        v63 = v9;
+        _os_log_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] got an error while fetching the records and shares %@, but ignoring it%@", buf, 0x16u);
       }
     }
   }
 
-  v40 = v7;
-  v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v37 = v7;
+  v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v52 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v58 = 0u;
   obj = [v5 allKeys];
-  v48 = [obj countByEnumeratingWithState:&v55 objects:v62 count:16];
-  if (v48)
+  v45 = [obj countByEnumeratingWithState:&v52 objects:v59 count:16];
+  if (v45)
   {
-    v13 = *v56;
-    v14 = *MEMORY[0x277CBC050];
-    v42 = *MEMORY[0x277CBC0A0];
-    v41 = *MEMORY[0x277CFAD00];
-    v43 = v5;
-    v44 = a1;
-    v45 = *MEMORY[0x277CBC050];
-    v46 = *v56;
+    v12 = *v53;
+    v13 = *MEMORY[0x277CBC050];
+    v39 = *MEMORY[0x277CBC0A0];
+    v38 = *MEMORY[0x277CFAD00];
+    v40 = v5;
+    v41 = a1;
+    v42 = *MEMORY[0x277CBC050];
+    v43 = *v53;
     do
     {
-      for (i = 0; i != v48; ++i)
+      for (i = 0; i != v45; ++i)
       {
-        if (*v56 != v13)
+        if (*v53 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v55 + 1) + 8 * i);
-        v17 = [v5 objectForKeyedSubscript:v16];
-        v18 = [v17 recordType];
-        v19 = [v18 isEqualToString:v14];
+        v15 = *(*(&v52 + 1) + 8 * i);
+        v16 = [v5 objectForKeyedSubscript:v15];
+        v17 = [v16 recordType];
+        v18 = [v17 isEqualToString:v13];
 
-        if (v19)
+        if (v18)
         {
-          v20 = v12;
-          v21 = v17;
-          v22 = [*(*(a1 + 32) + 560) containsObject:v16];
-          v23 = [*(*(a1 + 32) + 568) objectForKeyedSubscript:v16];
+          v19 = v11;
+          v20 = v16;
+          v21 = [*(*(a1 + 32) + 560) containsObject:v15];
+          v22 = [*(*(a1 + 32) + 568) objectForKeyedSubscript:v15];
 
-          if (v22)
+          if (v21)
           {
-            [v21 setPublicPermission:1];
-            v24 = [v21 participants];
+            [v20 setPublicPermission:1];
+            v23 = [v20 participants];
+            v48 = 0u;
+            v49 = 0u;
+            v50 = 0u;
             v51 = 0u;
-            v52 = 0u;
-            v53 = 0u;
-            v54 = 0u;
-            v25 = [v24 countByEnumeratingWithState:&v51 objects:v61 count:16];
-            if (v25)
+            v24 = [v23 countByEnumeratingWithState:&v48 objects:v58 count:16];
+            if (v24)
             {
-              v26 = v25;
-              v27 = *v52;
+              v25 = v24;
+              v26 = *v49;
               do
               {
-                for (j = 0; j != v26; ++j)
+                for (j = 0; j != v25; ++j)
                 {
-                  if (*v52 != v27)
+                  if (*v49 != v26)
                   {
-                    objc_enumerationMutation(v24);
+                    objc_enumerationMutation(v23);
                   }
 
-                  v29 = *(*(&v51 + 1) + 8 * j);
-                  if ([v29 role] != 1)
+                  v28 = *(*(&v48 + 1) + 8 * j);
+                  if ([v28 role] != 1)
                   {
-                    [v21 removeParticipant:v29];
+                    [v20 removeParticipant:v28];
                   }
                 }
 
-                v26 = [v24 countByEnumeratingWithState:&v51 objects:v61 count:16];
+                v25 = [v23 countByEnumeratingWithState:&v48 objects:v58 count:16];
               }
 
-              while (v26);
-              v5 = v43;
-              a1 = v44;
+              while (v25);
+              v5 = v40;
+              a1 = v41;
             }
 
-            v12 = v20;
-            v13 = v46;
+            v11 = v19;
+            v12 = v43;
 LABEL_28:
           }
 
           else
           {
-            v12 = v20;
-            v13 = v46;
-            if (v23)
+            v11 = v19;
+            v12 = v43;
+            if (v22)
             {
-              v24 = [*(*(a1 + 32) + 568) objectForKeyedSubscript:v16];
-              v30 = [v21 objectForKeyedSubscript:v42];
-              [v21 brc_updateWithLogicalName:v24 isFolder:{objc_msgSend(v30, "isEqualToString:", v41)}];
+              v23 = [*(*(a1 + 32) + 568) objectForKeyedSubscript:v15];
+              v29 = [v20 objectForKeyedSubscript:v39];
+              [v20 brc_updateWithLogicalName:v23 isFolder:{objc_msgSend(v29, "isEqualToString:", v38)}];
 
               goto LABEL_28;
             }
           }
 
-          [v12 addObject:v21];
+          [v11 addObject:v20];
 
-          v14 = v45;
+          v13 = v42;
         }
       }
 
-      v48 = [obj countByEnumeratingWithState:&v55 objects:v62 count:16];
+      v45 = [obj countByEnumeratingWithState:&v52 objects:v59 count:16];
     }
 
-    while (v48);
+    while (v45);
   }
 
-  if ([v12 count])
+  if ([v11 count])
   {
-    v31 = brc_bread_crumbs();
-    v32 = brc_default_log();
-    v33 = v40;
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+    v30 = brc_bread_crumbs();
+    v31 = brc_default_log();
+    v32 = v37;
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
       __41__BRCSyncUpOperation_performShareUpdate___block_invoke_cold_1();
     }
 
-    v34 = [objc_alloc(MEMORY[0x277CBC4A0]) initWithRecordsToSave:v12 recordIDsToDelete:0];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __41__BRCSyncUpOperation_performShareUpdate___block_invoke_43;
-    v49[3] = &unk_2785030C0;
-    v35 = *(a1 + 40);
-    v49[4] = *(a1 + 32);
-    v50 = v35;
-    [v34 setModifyRecordsCompletionBlock:v49];
-    [*(a1 + 32) addSubOperation:v34];
+    v33 = [objc_alloc(MEMORY[0x277CBC4A0]) initWithRecordsToSave:v11 recordIDsToDelete:0];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __41__BRCSyncUpOperation_performShareUpdate___block_invoke_43;
+    v46[3] = &unk_2785030C0;
+    v34 = *(a1 + 40);
+    v46[4] = *(a1 + 32);
+    v47 = v34;
+    [v33 setModifyRecordsCompletionBlock:v46];
+    [*(a1 + 32) addSubOperation:v33];
   }
 
   else
   {
-    v36 = brc_bread_crumbs();
-    v37 = brc_default_log();
-    v33 = v40;
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    v35 = brc_bread_crumbs();
+    v36 = brc_default_log();
+    v32 = v37;
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
       __41__BRCSyncUpOperation_performShareUpdate___block_invoke_cold_2();
     }
 
-    v38 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __41__BRCSyncUpOperation_performShareUpdate___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 domain];
   if ([v4 isEqualToString:*MEMORY[0x277CBBF50]])
@@ -1523,17 +1509,16 @@ LABEL_9:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v12 = 138412546;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] Got a permanent error %@ when fetching records and shares%@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] Got a permanent error %@ when fetching records and shares%@", &v11, 0x16u);
   }
 
   v8 = 1;
 LABEL_10:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1641,7 +1626,7 @@ void __82__BRCSyncUpOperation__scheduleShareUpdateAndModifyRecordsAndZoneCreatio
 - (void)_setSharingFieldsOnContentRecord:(id)record withProtectionData:(id)data baseToken:(id)token routingKey:(id)key forceOverwrite:(BOOL)overwrite
 {
   overwriteCopy = overwrite;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   dataCopy = data;
   tokenCopy = token;
@@ -1668,13 +1653,13 @@ LABEL_3:
           if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
           {
             mutableEncryptedPublicSharingKeyData3 = [recordCopy mutableEncryptedPublicSharingKeyData];
-            v27 = 138412802;
-            v28 = dataCopy;
-            v29 = 2112;
-            v30 = mutableEncryptedPublicSharingKeyData3;
-            v31 = 2112;
-            v32 = v21;
-            _os_log_fault_impl(&dword_223E7A000, v22, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Protection data mismatch between share and record being shared! (%@ vs %@)%@", &v27, 0x20u);
+            v26 = 138412802;
+            v27 = dataCopy;
+            v28 = 2112;
+            v29 = mutableEncryptedPublicSharingKeyData3;
+            v30 = 2112;
+            v31 = v21;
+            _os_log_fault_impl(&dword_223E7A000, v22, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Protection data mismatch between share and record being shared! (%@ vs %@)%@", &v26, 0x20u);
           }
 
           if (overwriteCopy)
@@ -1719,20 +1704,18 @@ LABEL_11:
   v24 = brc_default_log();
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    v27 = 138413314;
-    v28 = recordCopy;
-    v29 = 2112;
-    v30 = dataCopy;
-    v31 = 2112;
-    v32 = tokenCopy;
-    v33 = 2112;
-    v34 = keyCopy;
-    v35 = 2112;
-    v36 = v23;
-    _os_log_debug_impl(&dword_223E7A000, v24, OS_LOG_TYPE_DEBUG, "[DEBUG] updated content record %@ with protectionData %@ baseToken %@ routingKey %@%@", &v27, 0x34u);
+    v26 = 138413314;
+    v27 = recordCopy;
+    v28 = 2112;
+    v29 = dataCopy;
+    v30 = 2112;
+    v31 = tokenCopy;
+    v32 = 2112;
+    v33 = keyCopy;
+    v34 = 2112;
+    v35 = v23;
+    _os_log_debug_impl(&dword_223E7A000, v24, OS_LOG_TYPE_DEBUG, "[DEBUG] updated content record %@ with protectionData %@ baseToken %@ routingKey %@%@", &v26, 0x34u);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_recordIsIWorkShareable:(id)shareable
@@ -1757,12 +1740,12 @@ LABEL_11:
 
 - (void)_performUpdateSharingProtectionDataIfNecessary:(id)necessary
 {
-  v35[4] = *MEMORY[0x277D85DE8];
+  v34[4] = *MEMORY[0x277D85DE8];
   necessaryCopy = necessary;
   if ([(NSMutableArray *)self->_recordsNeedingUpdatedSharingProtectionInfo count])
   {
-    v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v26 = necessaryCopy;
+    v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v25 = necessaryCopy;
     if ([(NSMutableArray *)self->_recordsNeedingUpdatedSharingProtectionInfo count])
     {
       v5 = 0;
@@ -1773,14 +1756,14 @@ LABEL_11:
         recordID = [v6 recordID];
         v9 = [v7 initShareIDWithRecordID:recordID serverZone:self->_serverZone];
 
-        [v27 addObject:v9];
+        [v26 addObject:v9];
         recordType = [v6 recordType];
         v11 = [recordType isEqualToString:@"content"];
 
         if (v11)
         {
           recordID2 = [v6 recordID];
-          [v27 addObject:recordID2];
+          [v26 addObject:recordID2];
           goto LABEL_6;
         }
 
@@ -1803,7 +1786,7 @@ LABEL_11:
           if (v17)
           {
             v12RecordID = [recordID2 recordID];
-            [v27 addObject:v12RecordID];
+            [v26 addObject:v12RecordID];
           }
 
 LABEL_6:
@@ -1814,57 +1797,55 @@ LABEL_6:
     }
 
     ckContainer = [(BRCSyncContext *)self->super._syncContext ckContainer];
-    v33[0] = 0;
-    v33[1] = v33;
-    v33[2] = 0x3032000000;
-    v33[3] = __Block_byref_object_copy__24;
-    v33[4] = __Block_byref_object_dispose__24;
-    v34 = 0;
-    v20 = [objc_alloc(MEMORY[0x277CBC3E0]) initWithRecordIDs:v27];
+    v32[0] = 0;
+    v32[1] = v32;
+    v32[2] = 0x3032000000;
+    v32[3] = __Block_byref_object_copy__24;
+    v32[4] = __Block_byref_object_dispose__24;
+    v33 = 0;
+    v20 = [objc_alloc(MEMORY[0x277CBC3E0]) initWithRecordIDs:v26];
     [v20 setShouldFetchAssetContent:0];
     v21 = *MEMORY[0x277CBC150];
-    v35[0] = *MEMORY[0x277CBC138];
-    v35[1] = v21;
+    v34[0] = *MEMORY[0x277CBC138];
+    v34[1] = v21;
     v22 = *MEMORY[0x277CBC140];
-    v35[2] = *MEMORY[0x277CBC148];
-    v35[3] = v22;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:4];
+    v34[2] = *MEMORY[0x277CBC148];
+    v34[3] = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:4];
     [v20 setDesiredKeys:v23];
 
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___block_invoke;
-    v32[3] = &unk_278503160;
-    v32[4] = self;
-    v32[5] = v33;
-    [v20 setPerRecordCompletionBlock:v32];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___block_invoke_50;
-    v28[3] = &unk_2785031B0;
-    v31 = v33;
-    v30 = v26;
-    v28[4] = self;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___block_invoke;
+    v31[3] = &unk_278503160;
+    v31[4] = self;
+    v31[5] = v32;
+    [v20 setPerRecordCompletionBlock:v31];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___block_invoke_50;
+    v27[3] = &unk_2785031B0;
+    v30 = v32;
+    v29 = v25;
+    v27[4] = self;
     v24 = ckContainer;
-    v29 = v24;
-    [v20 setFetchRecordsCompletionBlock:v28];
+    v28 = v24;
+    [v20 setFetchRecordsCompletionBlock:v27];
     [(_BRCOperation *)self addSubOperation:v20];
 
-    necessaryCopy = v26;
-    _Block_object_dispose(v33, 8);
+    necessaryCopy = v25;
+    _Block_object_dispose(v32, 8);
   }
 
   else
   {
     (*(necessaryCopy + 2))(necessaryCopy, self, 0);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1888,12 +1869,12 @@ void __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___b
     }
 
     v15 = [v13 publicSharingIdentity];
-    v60 = [v13 routingKey];
+    v59 = [v13 routingKey];
     v16 = [v13 baseToken];
 
-    v67 = [v8 brc_shareItemID];
-    v56 = 0;
-    v63 = 0;
+    v66 = [v8 brc_shareItemID];
+    v55 = 0;
+    v62 = 0;
     v17 = 0;
     if (!v15)
     {
@@ -1901,47 +1882,47 @@ void __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___b
     }
 
 LABEL_28:
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
     v69 = 0u;
+    v70 = 0u;
+    v67 = 0u;
+    v68 = 0u;
     obj = *(*(a1 + 32) + 584);
-    v66 = [obj countByEnumeratingWithState:&v68 objects:v72 count:16];
-    if (!v66)
+    v65 = [obj countByEnumeratingWithState:&v67 objects:v71 count:16];
+    if (!v65)
     {
       goto LABEL_57;
     }
 
-    v61 = v17;
-    v52 = v10;
-    v53 = v8;
-    v54 = v7;
+    v60 = v17;
+    v51 = v10;
+    v52 = v8;
+    v53 = v7;
     LOBYTE(v35) = 0;
-    v65 = *v69;
+    v64 = *v68;
     v36 = *MEMORY[0x277CBC150];
-    v59 = *MEMORY[0x277CBC138];
-    v58 = *MEMORY[0x277CBC148];
-    v57 = *MEMORY[0x277CBC140];
+    v58 = *MEMORY[0x277CBC138];
+    v57 = *MEMORY[0x277CBC148];
+    v56 = *MEMORY[0x277CBC140];
     *&v34 = 138412802;
-    v51 = v34;
-    v64 = *MEMORY[0x277CBC150];
-    v55 = v16;
+    v50 = v34;
+    v63 = *MEMORY[0x277CBC150];
+    v54 = v16;
     while (1)
     {
-      for (i = 0; i != v66; ++i)
+      for (i = 0; i != v65; ++i)
       {
         v38 = v35;
-        if (*v69 != v65)
+        if (*v68 != v64)
         {
           objc_enumerationMutation(obj);
         }
 
-        v39 = *(*(&v68 + 1) + 8 * i);
+        v39 = *(*(&v67 + 1) + 8 * i);
         v40 = [v39 recordID];
         v41 = [*(*(a1 + 32) + 256) zoneAppRetriever];
         v42 = [v40 brc_itemIDWithZoneAppRetriever:v41];
 
-        v35 = [v67 isEqualToItemID:v42];
+        v35 = [v66 isEqualToItemID:v42];
         if (v35)
         {
           if ([*(a1 + 32) _recordIsIWorkShareable:v39])
@@ -1963,12 +1944,12 @@ LABEL_28:
               v47 = brc_default_log();
               if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
               {
-                *buf = v51;
-                v74 = v45;
-                v75 = 2112;
-                v76 = v15;
-                v77 = 2112;
-                v78 = v46;
+                *buf = v50;
+                v73 = v45;
+                v74 = 2112;
+                v75 = v15;
+                v76 = 2112;
+                v77 = v46;
                 _os_log_fault_impl(&dword_223E7A000, v47, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: protection data mismatch! ignoring content records version (%@ to %@)%@", buf, 0x20u);
               }
 
@@ -1976,22 +1957,22 @@ LABEL_43:
             }
 
             a1 = v43;
-            v16 = v55;
+            v16 = v54;
           }
 
           if (v16)
           {
-            [v39 setObject:v16 forKeyedSubscript:v59];
+            [v39 setObject:v16 forKeyedSubscript:v58];
           }
 
-          if (v61)
+          if (v60)
           {
-            [v39 setObject:v61 forKeyedSubscript:v58];
+            [v39 setObject:v60 forKeyedSubscript:v57];
           }
 
-          if (v63)
+          if (v62)
           {
-            [v39 setObject:v63 forKeyedSubscript:v57];
+            [v39 setObject:v62 forKeyedSubscript:v56];
           }
 
           v48 = [v39 recordType];
@@ -1999,7 +1980,7 @@ LABEL_43:
 
           if (v49)
           {
-            [*(a1 + 32) _setSharingFieldsOnContentRecord:v39 withProtectionData:v15 baseToken:v16 routingKey:v60 forceOverwrite:v56];
+            [*(a1 + 32) _setSharingFieldsOnContentRecord:v39 withProtectionData:v15 baseToken:v16 routingKey:v59 forceOverwrite:v55];
           }
 
           goto LABEL_53;
@@ -2008,25 +1989,25 @@ LABEL_43:
         if (v38)
         {
 
-          v8 = v53;
-          v7 = v54;
-          v10 = v52;
-          v17 = v61;
+          v8 = v52;
+          v7 = v53;
+          v10 = v51;
+          v17 = v60;
           goto LABEL_56;
         }
 
 LABEL_53:
 
-        v36 = v64;
+        v36 = v63;
       }
 
-      v66 = [obj countByEnumeratingWithState:&v68 objects:v72 count:16];
-      if (!v66)
+      v65 = [obj countByEnumeratingWithState:&v67 objects:v71 count:16];
+      if (!v65)
       {
-        v8 = v53;
-        v7 = v54;
-        v10 = v52;
-        v17 = v61;
+        v8 = v52;
+        v7 = v53;
+        v10 = v51;
+        v17 = v60;
         goto LABEL_57;
       }
     }
@@ -2054,7 +2035,7 @@ LABEL_53:
     }
 
     v25 = [v7 mutableEncryptedPublicSharingKeyData];
-    v56 = v25 != 0;
+    v55 = v25 != 0;
 
     v26 = [v7 encryptedValues];
     v27 = [v26 objectForKeyedSubscript:v23];
@@ -2072,13 +2053,13 @@ LABEL_53:
       if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
       {
         *buf = 138413058;
-        v74 = v15;
-        v75 = 2112;
-        v76 = v27;
-        v77 = 2112;
-        v78 = v7;
-        v79 = 2112;
-        v80 = v28;
+        v73 = v15;
+        v74 = 2112;
+        v75 = v27;
+        v76 = 2112;
+        v77 = v7;
+        v78 = 2112;
+        v79 = v28;
         _os_log_fault_impl(&dword_223E7A000, v29, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: protection data mismatch between content public sharing identity and web sharing data (%@ vs %@) for %@%@", buf, 0x2Au);
       }
     }
@@ -2099,7 +2080,7 @@ LABEL_53:
     }
 
 LABEL_24:
-    v60 = [v7 routingKey];
+    v59 = [v7 routingKey];
     v30 = [v7 baseToken];
     v31 = v30;
     if (v30)
@@ -2115,10 +2096,10 @@ LABEL_24:
     v16 = v32;
 
     v33 = [*(*(a1 + 32) + 256) zoneAppRetriever];
-    v67 = [v8 brc_itemIDWithZoneAppRetriever:v33];
+    v66 = [v8 brc_itemIDWithZoneAppRetriever:v33];
 
     v17 = [v7 objectForKeyedSubscript:*MEMORY[0x277CBC148]];
-    v63 = [v7 objectForKeyedSubscript:*MEMORY[0x277CBC140]];
+    v62 = [v7 objectForKeyedSubscript:*MEMORY[0x277CBC140]];
 
     if (!v15)
     {
@@ -2140,11 +2121,11 @@ LABEL_58:
     }
 
     v15 = 0;
-    v60 = 0;
+    v59 = 0;
     v16 = 0;
-    v67 = 0;
+    v66 = 0;
     v17 = 0;
-    v63 = 0;
+    v62 = 0;
 LABEL_56:
 
 LABEL_57:
@@ -2152,118 +2133,112 @@ LABEL_57:
   }
 
   v15 = 0;
-  v60 = 0;
+  v59 = 0;
   v16 = 0;
-  v67 = 0;
+  v66 = 0;
   v17 = 0;
 
 LABEL_59:
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___block_invoke_50(uint64_t a1, void *a2, void *a3)
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v32 = a2;
+  v43 = *MEMORY[0x277D85DE8];
+  v28 = a2;
   v5 = a3;
   if (!*(*(*(a1 + 56) + 8) + 40))
   {
-    v7 = dispatch_group_create();
-    v8 = 0;
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2020000000;
-    v42 = 0;
-    v9 = *MEMORY[0x277CBC150];
-    v10 = *MEMORY[0x277CFACB0];
-    *&v11 = 138412290;
-    v31 = v11;
+    v6 = dispatch_group_create();
+    v7 = 0;
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x2020000000;
+    v38 = 0;
+    v8 = *MEMORY[0x277CBC150];
+    v9 = *MEMORY[0x277CFACB0];
+    *&v10 = 138412290;
+    v27 = v10;
     while (1)
     {
-      if (v8 >= [*(*(a1 + 32) + 584) count])
+      if (v7 >= [*(*(a1 + 32) + 584) count])
       {
-        _Block_object_dispose(&v39, 8);
-        v28 = *(a1 + 32);
-        v29 = *(*(*(a1 + 56) + 8) + 40);
+        _Block_object_dispose(&v35, 8);
         (*(*(a1 + 48) + 16))();
 
         goto LABEL_18;
       }
 
-      v12 = [*(*(a1 + 32) + 584) objectAtIndexedSubscript:v40[3]];
-      v13 = [v12 encryptedValues];
-      v14 = [v13 objectForKeyedSubscript:v9];
-      if (v14)
+      v11 = [*(*(a1 + 32) + 584) objectAtIndexedSubscript:v36[3]];
+      v12 = [v11 encryptedValues];
+      v13 = [v12 objectForKeyedSubscript:v8];
+      if (v13)
       {
       }
 
       else
       {
-        v15 = [*(a1 + 32) _recordIsIWorkShareable:v12];
+        v14 = [*(a1 + 32) _recordIsIWorkShareable:v11];
 
-        if (!v15)
+        if (!v14)
         {
           goto LABEL_16;
         }
 
-        v16 = brc_bread_crumbs();
-        v17 = brc_default_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v15 = brc_bread_crumbs();
+        v16 = brc_default_log();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v44 = v12;
-          v45 = 2112;
-          v46 = v16;
-          _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] record %@ still needs web sharing protection data%@", buf, 0x16u);
+          v40 = v11;
+          v41 = 2112;
+          v42 = v15;
+          _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] record %@ still needs web sharing protection data%@", buf, 0x16u);
         }
 
-        dispatch_group_enter(v7);
-        v18 = *(a1 + 40);
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___block_invoke_51;
-        v33[3] = &unk_278503188;
-        v37 = *(a1 + 56);
-        v19 = v12;
-        v20 = *(a1 + 32);
-        v34 = v19;
-        v35 = v20;
-        v38 = &v39;
-        v21 = v7;
-        v36 = v21;
-        [v18 getNewWebSharingIdentityDataWithCompletionHandler:v33];
-        v22 = dispatch_time(0, 10000000000);
-        if (dispatch_group_wait(v21, v22))
+        dispatch_group_enter(v6);
+        v17 = *(a1 + 40);
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___block_invoke_51;
+        v29[3] = &unk_278503188;
+        v33 = *(a1 + 56);
+        v18 = v11;
+        v19 = *(a1 + 32);
+        v30 = v18;
+        v31 = v19;
+        v34 = &v35;
+        v20 = v6;
+        v32 = v20;
+        [v17 getNewWebSharingIdentityDataWithCompletionHandler:v29];
+        v21 = dispatch_time(0, 10000000000);
+        if (dispatch_group_wait(v20, v21))
         {
-          v23 = brc_bread_crumbs();
-          v24 = brc_default_log();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+          v22 = brc_bread_crumbs();
+          v23 = brc_default_log();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
           {
-            *buf = v31;
-            v44 = v23;
-            _os_log_fault_impl(&dword_223E7A000, v24, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Timed out while waiting for new web-sharing identity%@", buf, 0xCu);
+            *buf = v27;
+            v40 = v22;
+            _os_log_fault_impl(&dword_223E7A000, v23, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Timed out while waiting for new web-sharing identity%@", buf, 0xCu);
           }
 
-          v25 = [MEMORY[0x277CCA9B8] br_errorWithDomain:v10 code:15 description:@"unreachable: Timed out while waiting for new web-sharing identity"];
-          v26 = *(*(a1 + 56) + 8);
-          v27 = *(v26 + 40);
-          *(v26 + 40) = v25;
+          v24 = [MEMORY[0x277CCA9B8] br_errorWithDomain:v9 code:15 description:@"unreachable: Timed out while waiting for new web-sharing identity"];
+          v25 = *(*(a1 + 56) + 8);
+          v26 = *(v25 + 40);
+          *(v25 + 40) = v24;
         }
 
-        v13 = v34;
+        v12 = v30;
       }
 
 LABEL_16:
-      v8 = v40[3] + 1;
-      v40[3] = v8;
+      v7 = v36[3] + 1;
+      v36[3] = v7;
     }
   }
 
-  v6 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
 LABEL_18:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___block_invoke_51(uint64_t a1, void *a2, void *a3)
@@ -2411,7 +2386,7 @@ LABEL_16:
 
 void __26__BRCSyncUpOperation_main__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(*(a1 + 32) + 576) objectAtIndexedSubscript:*(a1 + 48)];
@@ -2465,20 +2440,18 @@ LABEL_9:
   v20 = brc_default_log();
   if (os_log_type_enabled(v20, 0x90u))
   {
-    v22 = [v7 recordID];
-    v23 = 138412802;
-    v24 = v22;
-    v25 = 2112;
-    v26 = v6;
-    v27 = 2112;
-    v28 = v19;
-    _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] Failed getting web sharing identity for %@ - %@%@", &v23, 0x20u);
+    v21 = [v7 recordID];
+    v22 = 138412802;
+    v23 = v21;
+    v24 = 2112;
+    v25 = v6;
+    v26 = 2112;
+    v27 = v19;
+    _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] Failed getting web sharing identity for %@ - %@%@", &v22, 0x20u);
   }
 
 LABEL_12:
   dispatch_group_leave(*(a1 + 40));
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __26__BRCSyncUpOperation_main__block_invoke_58(uint64_t a1, uint64_t a2)
@@ -2534,7 +2507,7 @@ uint64_t __26__BRCSyncUpOperation_main__block_invoke_58(uint64_t a1, uint64_t a2
 
 void __56__BRCSyncUpOperation__handleSyncUpErrorForRecord_error___block_invoke(uint64_t a1)
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v2 = a1 + 32;
   v3 = [*(a1 + 32) recordID];
   v4 = [*(*(v2 + 8) + 256) zoneAppRetriever];
@@ -2594,11 +2567,11 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v17 = *(a1 + 56);
-  v71 = 0;
-  v18 = [v17 brc_isCloudKitErrorUnsupportedOSForItemAndGetMinimumSupported:&v71];
-  v15 = v71;
-  if (v18)
+  v16 = *(a1 + 56);
+  v70 = 0;
+  v17 = [v16 brc_isCloudKitErrorUnsupportedOSForItemAndGetMinimumSupported:&v70];
+  v15 = v70;
+  if (v17)
   {
     [*(a1 + 40) _markItemBacklistedFromSyncWithMinimumSupportedOS:v6 minimumSupportedOSName:v15];
     v12 = 0;
@@ -2607,11 +2580,11 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v19 = *(a1 + 56);
-  v70 = 0;
-  v20 = [v19 brc_isCloudKitErrorReparentedToNewParent:&v70];
-  v14 = v70;
-  if (v20)
+  v18 = *(a1 + 56);
+  v69 = 0;
+  v19 = [v18 brc_isCloudKitErrorReparentedToNewParent:&v69];
+  v14 = v69;
+  if (v19)
   {
     [*(a1 + 40) _markRecordNeedingRemapToNewParent:*(a1 + 32) newParentName:v14 inZone:*(a1 + 48) itemIDsAlreadyRemapped:*(a1 + 64)];
     v12 = 0;
@@ -2619,11 +2592,11 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v21 = *(a1 + 56);
-  v69 = 0;
-  v22 = [v21 brc_isCloudKitErrorRemappedToNewRecordName:&v69];
-  v13 = v69;
-  if (v22)
+  v20 = *(a1 + 56);
+  v68 = 0;
+  v21 = [v20 brc_isCloudKitErrorRemappedToNewRecordName:&v68];
+  v13 = v68;
+  if (v21)
   {
     [*(a1 + 40) _markRecordNeedingRemapToNewRecordName:*(a1 + 32) newRecordName:v13 inZone:*(a1 + 48) itemIDsAlreadyRemapped:*(a1 + 64)];
 LABEL_30:
@@ -2633,49 +2606,49 @@ LABEL_30:
 
   if ([*(a1 + 56) brc_isIndividualItemBlacklistError])
   {
-    v23 = brc_bread_crumbs();
-    v24 = brc_default_log();
-    if (os_log_type_enabled(v24, 0x90u))
+    v22 = brc_bread_crumbs();
+    v23 = brc_default_log();
+    if (os_log_type_enabled(v23, 0x90u))
     {
       __56__BRCSyncUpOperation__handleSyncUpErrorForRecord_error___block_invoke_cold_2();
     }
 
-    v25 = *(a1 + 48);
-    v26 = *(*(a1 + 40) + 512);
-    v27 = [v25 dbRowID];
-    [v26 blockSyncUpCallback:v6 inZone:v27];
+    v24 = *(a1 + 48);
+    v25 = *(*(a1 + 40) + 512);
+    v26 = [v24 dbRowID];
+    [v25 blockSyncUpCallback:v6 inZone:v26];
 
     goto LABEL_30;
   }
 
   if ([*(a1 + 56) brc_containsCloudKitErrorCode:15] && objc_msgSend(*(a1 + 56), "brc_containsCloudKitUnderlyingErrorCode:", 2040))
   {
-    v28 = [*v2 recordID];
-    v29 = [v28 brc_isZoneRootRecordID];
+    v27 = [*v2 recordID];
+    v28 = [v27 brc_isZoneRootRecordID];
 
-    if (v29)
+    if (v28)
     {
       if ([*(a1 + 48) isPrivateZone])
       {
-        v30 = [*(a1 + 48) asPrivateClientZone];
-        v31 = [v30 defaultAppLibrary];
-        [v31 setStateBits:2];
+        v29 = [*(a1 + 48) asPrivateClientZone];
+        v30 = [v29 defaultAppLibrary];
+        [v30 setStateBits:2];
       }
     }
 
     else
     {
-      v45 = [*v2 recordID];
-      v46 = [v45 brc_isAppLibraryRootRecordID];
+      v44 = [*v2 recordID];
+      v45 = [v44 brc_isAppLibraryRootRecordID];
 
-      if (v46)
+      if (v45)
       {
-        v47 = [*(*(a1 + 40) + 256) zoneAppRetriever];
-        v48 = [*(a1 + 32) recordID];
-        v49 = [v48 brc_appLibraryRootZoneName];
-        v50 = [v47 appLibraryByID:v49];
+        v46 = [*(*(a1 + 40) + 256) zoneAppRetriever];
+        v47 = [*(a1 + 32) recordID];
+        v48 = [v47 brc_appLibraryRootZoneName];
+        v49 = [v46 appLibraryByID:v48];
 
-        [v50 setStateBits:2];
+        [v49 setStateBits:2];
       }
     }
 
@@ -2684,117 +2657,105 @@ LABEL_30:
 
   if ([*(a1 + 56) brc_isCloudKitPCSChainingError])
   {
-    v32 = [*v2 parent];
+    v31 = [*v2 parent];
 
-    if (!v32)
+    if (!v31)
     {
-      v63 = [*(a1 + 48) serverItemByItemID:v5];
-      if ([v6 isZoneRoot])
+      v62 = [*(a1 + 48) serverItemByItemID:v5];
+      if (([v6 isZoneRoot] & 1) != 0 || (v37 = *(a1 + 48), objc_msgSend(v6, "st"), v60 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v60, "parentID"), v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v37, "serverItemByItemID:", v38), v39 = objc_claimAutoreleasedReturnValue(), v38, v60, (v61 = v39) == 0))
       {
-        goto LABEL_52;
+        v61 = 0;
       }
 
-      v38 = *(a1 + 48);
-      v61 = [v6 st];
-      v39 = [v61 parentID];
-      v40 = [v38 serverItemByItemID:v39];
-
-      v62 = v40;
-      if (!v40)
+      else if (![v39 pcsChainState])
       {
-LABEL_52:
-        v62 = 0;
-      }
-
-      else if (![v40 pcsChainState])
-      {
-        v41 = brc_bread_crumbs();
-        v42 = brc_default_log();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+        v40 = brc_bread_crumbs();
+        v41 = brc_default_log();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v73 = v41;
-          _os_log_impl(&dword_223E7A000, v42, OS_LOG_TYPE_DEFAULT, "[WARNING] Updating parent item to be chained because it is unknown and we encountered a PCS error%@", buf, 0xCu);
+          v72 = v40;
+          _os_log_impl(&dword_223E7A000, v41, OS_LOG_TYPE_DEFAULT, "[WARNING] Updating parent item to be chained because it is unknown and we encountered a PCS error%@", buf, 0xCu);
         }
 
-        v43 = *(*(a1 + 40) + 256);
-        v67[0] = MEMORY[0x277D85DD0];
-        v67[1] = 3221225472;
-        v67[2] = __56__BRCSyncUpOperation__handleSyncUpErrorForRecord_error___block_invoke_59;
-        v67[3] = &unk_2784FFF58;
-        v62 = v62;
-        v68 = v62;
-        [v43 performAsyncOnServerReadWriteDatabaseWorkloop:v67];
-        v44 = v68;
+        v42 = *(*(a1 + 40) + 256);
+        v66[0] = MEMORY[0x277D85DD0];
+        v66[1] = 3221225472;
+        v66[2] = __56__BRCSyncUpOperation__handleSyncUpErrorForRecord_error___block_invoke_59;
+        v66[3] = &unk_2784FFF58;
+        v61 = v61;
+        v67 = v61;
+        [v42 performAsyncOnServerReadWriteDatabaseWorkloop:v66];
+        v43 = v67;
 LABEL_61:
 
         goto LABEL_30;
       }
 
-      if (v63 && ![v63 pcsChainState])
+      if (v62 && ![v62 pcsChainState])
       {
-        v57 = brc_bread_crumbs();
-        v58 = brc_default_log();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+        v56 = brc_bread_crumbs();
+        v57 = brc_default_log();
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v73 = v57;
-          _os_log_impl(&dword_223E7A000, v58, OS_LOG_TYPE_DEFAULT, "[WARNING] Updating local item to be chained because it is unknown and we encountered a PCS error%@", buf, 0xCu);
+          v72 = v56;
+          _os_log_impl(&dword_223E7A000, v57, OS_LOG_TYPE_DEFAULT, "[WARNING] Updating local item to be chained because it is unknown and we encountered a PCS error%@", buf, 0xCu);
         }
 
-        v59 = *(*(a1 + 40) + 256);
-        v65[0] = MEMORY[0x277D85DD0];
-        v65[1] = 3221225472;
-        v65[2] = __56__BRCSyncUpOperation__handleSyncUpErrorForRecord_error___block_invoke_62;
-        v65[3] = &unk_2784FFF58;
-        v66 = v63;
-        [v59 performAsyncOnServerReadWriteDatabaseWorkloop:v65];
-        v44 = v66;
+        v58 = *(*(a1 + 40) + 256);
+        v64[0] = MEMORY[0x277D85DD0];
+        v64[1] = 3221225472;
+        v64[2] = __56__BRCSyncUpOperation__handleSyncUpErrorForRecord_error___block_invoke_62;
+        v64[3] = &unk_2784FFF58;
+        v65 = v62;
+        [v58 performAsyncOnServerReadWriteDatabaseWorkloop:v64];
+        v43 = v65;
       }
 
       else
       {
-        v51 = brc_bread_crumbs();
-        v52 = brc_default_log();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v50 = brc_bread_crumbs();
+        v51 = brc_default_log();
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
-          v53 = *v2;
+          v52 = *v2;
           *buf = 138412546;
-          v73 = v53;
-          v74 = 2112;
-          v75 = v51;
-          _os_log_impl(&dword_223E7A000, v52, OS_LOG_TYPE_DEFAULT, "[WARNING] Encountered an unknown pcs error for %@%@", buf, 0x16u);
+          v72 = v52;
+          v73 = 2112;
+          v74 = v50;
+          _os_log_impl(&dword_223E7A000, v51, OS_LOG_TYPE_DEFAULT, "[WARNING] Encountered an unknown pcs error for %@%@", buf, 0x16u);
         }
 
         *(*(a1 + 40) + 520) = 1;
-        v44 = [*(a1 + 40) serverZone];
-        v54 = [v44 clientZone];
-        v55 = [*(a1 + 32) recordID];
-        v56 = [v54 locateRecordIfNecessaryForRecordID:v55 isUserWaiting:0];
+        v43 = [*(a1 + 40) serverZone];
+        v53 = [v43 clientZone];
+        v54 = [*(a1 + 32) recordID];
+        v55 = [v53 locateRecordIfNecessaryForRecordID:v54 isUserWaiting:0];
       }
 
       goto LABEL_61;
     }
   }
 
-  v33 = *(a1 + 56);
-  v64 = 0;
-  v34 = [v33 brc_isCloudKitShouldBeUsingEnhancedDrivePrivacyWithFieldName:&v64];
-  v12 = v64;
-  if (v34)
+  v32 = *(a1 + 56);
+  v63 = 0;
+  v33 = [v32 brc_isCloudKitShouldBeUsingEnhancedDrivePrivacyWithFieldName:&v63];
+  v12 = v63;
+  if (v33)
   {
-    v35 = brc_bread_crumbs();
-    v36 = brc_default_log();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v34 = brc_bread_crumbs();
+    v35 = brc_default_log();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
-      v60 = *(a1 + 72);
+      v59 = *(a1 + 72);
       *buf = 138412802;
-      v73 = v60;
-      v74 = 2112;
-      v75 = v12;
-      v76 = 2112;
-      v77 = v35;
-      _os_log_debug_impl(&dword_223E7A000, v36, OS_LOG_TYPE_DEBUG, "[DEBUG] Enabling server zone %@ to use enhanced drive privacy (fieldName %@)%@", buf, 0x20u);
+      v72 = v59;
+      v73 = 2112;
+      v74 = v12;
+      v75 = 2112;
+      v76 = v34;
+      _os_log_debug_impl(&dword_223E7A000, v35, OS_LOG_TYPE_DEBUG, "[DEBUG] Enabling server zone %@ to use enhanced drive privacy (fieldName %@)%@", buf, 0x20u);
     }
 
     [*(a1 + 48) setStateBits:0x400000];
@@ -2802,13 +2763,11 @@ LABEL_61:
 
   else if (([*(a1 + 48) handleSaltingErrorIfNeeded:*(a1 + 56) record:*(a1 + 32)] & 1) == 0)
   {
-    v37 = [*(a1 + 32) parent];
-    *(*(a1 + 40) + 520) = v37 != 0;
+    v36 = [*(a1 + 32) parent];
+    *(*(a1 + 40) + 520) = v36 != 0;
   }
 
 LABEL_10:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCSyncUpOperation__handleSyncUpErrorForRecord_error___block_invoke_59(uint64_t a1, void *a2)
@@ -3007,7 +2966,7 @@ LABEL_12:
 
 - (BOOL)_handlePermissionErrorForItem:(id)item inZone:(id)zone
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   zoneCopy = zone;
   mangledID = [zoneCopy mangledID];
@@ -3035,27 +2994,26 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v20 = brc_bread_crumbs();
-  v21 = brc_default_log();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v19 = brc_bread_crumbs();
+  v20 = brc_default_log();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     itemID2 = [itemCopy itemID];
     *buf = 138413058;
-    v24 = brc_shareItemID;
-    v25 = 2112;
-    v26 = v16;
-    v27 = 2112;
-    v28 = itemID2;
-    v29 = 2112;
-    v30 = v20;
-    _os_log_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEFAULT, "[WARNING] We changed share roots from %@ to %@ on %@ and got a permission error so behaving like an unknown item%@", buf, 0x2Au);
+    v23 = brc_shareItemID;
+    v24 = 2112;
+    v25 = v16;
+    v26 = 2112;
+    v27 = itemID2;
+    v28 = 2112;
+    v29 = v19;
+    _os_log_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEFAULT, "[WARNING] We changed share roots from %@ to %@ on %@ and got a permission error so behaving like an unknown item%@", buf, 0x2Au);
   }
 
   [itemCopy handleUnknownItemError];
   saveToDB = [itemCopy saveToDB];
 
 LABEL_7:
-  v18 = *MEMORY[0x277D85DE8];
   return saveToDB;
 }
 
@@ -3155,7 +3113,7 @@ LABEL_7:
 
 uint64_t __86__BRCSyncUpOperation__remapItemIDToNewItemID_newItemID_inZone_itemIDsAlreadyRemapped___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) itemByItemID:*(a1 + 40)];
   if ([v2 isKnownByServer])
   {
@@ -3172,13 +3130,13 @@ uint64_t __86__BRCSyncUpOperation__remapItemIDToNewItemID_newItemID_inZone_itemI
     {
       v7 = *(a1 + 40);
       v8 = *(a1 + 48);
-      v21 = 138412802;
-      v22 = v7;
-      v23 = 2112;
-      v24 = v8;
-      v25 = 2112;
-      v26 = v5;
-      _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] We were told to remap to an item %@ -> %@ which is already in our client truth%@", &v21, 0x20u);
+      v20 = 138412802;
+      v21 = v7;
+      v22 = 2112;
+      v23 = v8;
+      v24 = 2112;
+      v25 = v5;
+      _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] We were told to remap to an item %@ -> %@ which is already in our client truth%@", &v20, 0x20u);
     }
 
     if ([v4 isDirectory] && objc_msgSend(v2, "isDirectory"))
@@ -3196,9 +3154,9 @@ uint64_t __86__BRCSyncUpOperation__remapItemIDToNewItemID_newItemID_inZone_itemI
       v13 = brc_default_log();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412290;
-        v22 = v12;
-        _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] Item is also on disk, marking the item as rejected%@", &v21, 0xCu);
+        v20 = 138412290;
+        v21 = v12;
+        _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] Item is also on disk, marking the item as rejected%@", &v20, 0xCu);
       }
 
       [v4 markForceRejected];
@@ -3227,22 +3185,21 @@ LABEL_13:
   v16 = brc_default_log();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v19 = *(a1 + 40);
-    v20 = *(a1 + 48);
-    v21 = 138412802;
-    v22 = v19;
-    v23 = 2112;
-    v24 = v20;
-    v25 = 2112;
-    v26 = v15;
-    _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] The server wasn't able to remap parentID %@ to pcs chained parent %@ so doing it now%@", &v21, 0x20u);
+    v18 = *(a1 + 40);
+    v19 = *(a1 + 48);
+    v20 = 138412802;
+    v21 = v18;
+    v22 = 2112;
+    v23 = v19;
+    v24 = 2112;
+    v25 = v15;
+    _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] The server wasn't able to remap parentID %@ to pcs chained parent %@ so doing it now%@", &v20, 0x20u);
   }
 
   [v2 learnItemID:*(a1 + 48) serverItem:v3];
   v11 = [v2 saveToDB];
 LABEL_18:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -3353,93 +3310,17 @@ LABEL_18:
   }
 }
 
-- (void)prepareWithMaxCost:retryAfter:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] %@ is not pristine and needs sync%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)prepareWithMaxCost:retryAfter:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Avoid syncing up a pristine zone%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)prepareWithMaxCost:retryAfter:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] We shouldn't sync only the documents record%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)prepareWithMaxCost:retryAfter:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] destroying shares instead of unsharing%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)prepareWithMaxCost:retryAfter:.cold.5()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Because this is our first time syncing up, adding %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)prepareWithMaxCost:retryAfter:.cold.6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] no record needs syncing at the moment.%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)prepareWithMaxCost:retryAfter:.cold.7()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: items.count == 0%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)prepareWithMaxCost:retryAfter:.cold.8()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: Can't prepare sync for a zone that is blocked%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __80__BRCSyncUpOperation__performMetadataSaltingOperationIfNecessaryWithCompletion___block_invoke_24_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Postponing sync up for item %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 void __80__BRCSyncUpOperation__performMetadataSaltingOperationIfNecessaryWithCompletion___block_invoke_24_cold_2()
 {
   OUTLINED_FUNCTION_18();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*v0 defaultClientZone];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performShareUpdate:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3447,40 +3328,19 @@ void __80__BRCSyncUpOperation__performMetadataSaltingOperationIfNecessaryWithCom
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: self.serverZone.isPrivateZone%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: self.serverZone.isPrivateZone%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __41__BRCSyncUpOperation_performShareUpdate___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Saving shares %@ shared by us for unshare and rename%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __41__BRCSyncUpOperation_performShareUpdate___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] No shares need saving%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __82__BRCSyncUpOperation__scheduleShareUpdateAndModifyRecordsAndZoneCreationOperation__block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setSharingFieldsOnContentRecord:withProtectionData:baseToken:routingKey:forceOverwrite:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3488,15 +3348,12 @@ void __82__BRCSyncUpOperation__scheduleShareUpdateAndModifyRecordsAndZoneCreatio
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: [contentRecord.recordType isEqualToString:kBRRecordTypeContent]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: [contentRecord.recordType isEqualToString:kBRRecordTypeContent]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setSharingFieldsOnContentRecord:withProtectionData:baseToken:routingKey:forceOverwrite:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3504,32 +3361,19 @@ void __82__BRCSyncUpOperation__scheduleShareUpdateAndModifyRecordsAndZoneCreatio
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: protectionData%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: protectionData%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: !fetchedRecord%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___block_invoke_cold_3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3537,44 +3381,27 @@ void __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___b
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: share.publicSharingIdentity%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: share.publicSharingIdentity%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __69__BRCSyncUpOperation__performUpdateSharingProtectionDataIfNecessary___block_invoke_51_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __26__BRCSyncUpOperation_main__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: invalid sharing records count%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __26__BRCSyncUpOperation_main__block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(*v0 + 504);
-  v8 = [*(*v0 + 648) clientZone];
+  v6 = [*(*v0 + 648) clientZone];
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
 }
 
 void __26__BRCSyncUpOperation_main__block_invoke_2_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3582,15 +3409,12 @@ void __26__BRCSyncUpOperation_main__block_invoke_2_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: [firstItemID isEqual:secondItemID]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: [firstItemID isEqual:secondItemID]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __26__BRCSyncUpOperation_main__block_invoke_2_cold_2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3598,133 +3422,53 @@ void __26__BRCSyncUpOperation_main__block_invoke_2_cold_2()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: error%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: error%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __26__BRCSyncUpOperation_main__block_invoke_2_cold_3()
 {
   OUTLINED_FUNCTION_18();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 recordID];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSyncUpErrorForRecord:error:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 recordID];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCSyncUpOperation__handleSyncUpErrorForRecord_error___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_18();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*v0 recordID];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCSyncUpOperation__handleSyncUpErrorForRecord_error___block_invoke_cold_2()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleErrorForRecord:inZone:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleErrorForRecord:inZone:error:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] handling error for %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_reuploadItemInContainerWithRecord:inZone:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] item %@ needs to be re-uploaded%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_reuploadItemInContainerWithRecord:inZone:error:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] item %@ doesn't need to be reuploaded%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_rescanItem:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] item %@ needs to be re-scanned%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_rescanItem:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] item %@ doesn't need to be re-scanned%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleStaleRecordUpdate:item:inZone:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Forcing sync up of dead parent %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleStaleRecordUpdate:item:inZone:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Forcing item dead in the server truth to re-upload as a rejected item - %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_remapItemIDToNewItemID:newItemID:inZone:itemIDsAlreadyRemapped:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] We already remapped %@%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __86__BRCSyncUpOperation__remapItemIDToNewItemID_newItemID_inZone_itemIDsAlreadyRemapped___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3732,28 +3476,22 @@ void __86__BRCSyncUpOperation__remapItemIDToNewItemID_newItemID_inZone_itemIDsAl
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: !item.isKnownByServer%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: !item.isKnownByServer%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_markRecordNeedingRemapToNewParent:newParentName:inZone:itemIDsAlreadyRemapped:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkRecordPackageItems:inZone:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

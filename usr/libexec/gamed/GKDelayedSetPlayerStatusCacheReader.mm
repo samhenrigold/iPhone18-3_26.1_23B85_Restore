@@ -41,11 +41,11 @@
 
 - (id)setStatusDescriptorForExecutedStatement:(sqlite3_stmt *)statement
 {
-  statementCopy = statement;
-  v3 = sub_100113250(&statementCopy);
-  v7 = @"player-status";
-  v8 = v3;
-  v4 = [NSDictionary dictionaryWithObjects:&v8 forKeys:&v7 count:1];
+  v6[0] = statement;
+  v3 = sub_100113250(v6);
+  v6[1] = @"player-status";
+  v6[2] = v3;
+  v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   return v4;
 }

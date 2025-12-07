@@ -43,41 +43,39 @@
 
 - (id)allObjects
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   obj = self->_enumerableHAWristTemperature;
-  v3 = [(HAWristTemperatureEnumerator *)obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [(HAWristTemperatureEnumerator *)obj countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         v8 = -[SRWristTemperature initWithTimestamp:temperature:condition:errorEstimate:temperatureT1:temperatureT2:]([SRWristTemperature alloc], "initWithTimestamp:temperature:condition:errorEstimate:temperatureT1:temperatureT2:", [v7 timestamp], objc_msgSend(v7, "computedTemperature"), objc_msgSend(v7, "dataValidity"), objc_msgSend(v7, "computedTemperatureErrorEstimate"), objc_msgSend(v7, "sensor1Temperature"), objc_msgSend(v7, "sensor2Temperature"));
         [array addObject:v8];
       }
 
-      v4 = [(HAWristTemperatureEnumerator *)obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [(HAWristTemperatureEnumerator *)obj countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
 
-  result = [MEMORY[0x1E695DEC8] arrayWithArray:array];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return [MEMORY[0x1E695DEC8] arrayWithArray:array];
 }
 
 - (void)dealloc

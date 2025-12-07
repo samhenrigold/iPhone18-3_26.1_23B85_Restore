@@ -29,7 +29,7 @@
   videoSession = self->_videoSession;
   if (videoSession)
   {
-    [(PXVideoSession *)videoSession preferredTransform];
+    objc_msgSend_preferredTransform(videoSession);
   }
 
   os_unfair_lock_unlock(&self->_ivarLock);
@@ -155,7 +155,7 @@ void __76__PXGridInlineVideoSessionAssetPlaybackRecord_observable_didChange_cont
 
     else
     {
-      [(PXGridInlinePlaybackRecord *)self bestVideoTimeRange];
+      objc_msgSend_bestVideoTimeRange(self);
       v12 = v9;
       v13 = v10;
       v14 = v11;
@@ -188,7 +188,7 @@ void __76__PXGridInlineVideoSessionAssetPlaybackRecord_observable_didChange_cont
     [(PXVideoSessionManagerDisplayAssetOptions *)v8 setShouldStabilizeLivePhotosIfPossible:1];
     [(PXVideoSessionManagerDisplayAssetOptions *)v8 setIsAudioAllowed:playbackStyle != 3];
     [(PXVideoSessionManagerDisplayAssetOptions *)v8 setShouldCrossfadeLivePhotosWhenLooping:1];
-    [(PXGridInlinePlaybackRecord *)self bestVideoTimeRange];
+    objc_msgSend_bestVideoTimeRange(self);
     v14[0] = v14[3];
     v14[1] = v14[4];
     v14[2] = v14[5];

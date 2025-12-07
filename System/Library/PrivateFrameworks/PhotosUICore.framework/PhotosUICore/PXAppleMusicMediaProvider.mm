@@ -27,13 +27,13 @@
   v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:&v60 count:1];
   v15 = [v13 initWithURL:lCopy options:v14];
 
-  [pointCopy time];
+  objc_msgSend_time(pointCopy);
   memset(&v56, 0, sizeof(v56));
   CMTimeMakeWithSeconds(&v56, v16, PXAudioDefaultCMTimeScale);
   memset(&v55, 0, sizeof(v55));
   if (v15)
   {
-    [v15 duration];
+    objc_msgSend_duration(v15);
   }
 
   else
@@ -172,7 +172,7 @@ LABEL_40:
           v30 = *&end.start.timescale;
           if (v24)
           {
-            [v24 duration];
+            objc_msgSend_duration(v24);
           }
 
           else
@@ -187,7 +187,7 @@ LABEL_40:
           v31 = *(v50 + 6);
           if (v24)
           {
-            [v24 duration];
+            objc_msgSend_duration(v24);
           }
 
           else
@@ -316,8 +316,8 @@ double __107__PXAppleMusicMediaProvider__avAssetWithLocalMediaURL_entryPoint_fad
   {
     v38 = *MEMORY[0x1E696AA08];
     v39 = errorCopy;
-    options = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-    entryPoint = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"PXAppleMusicMediaProviderErrorDomain" code:3 userInfo:options];
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    entryPoint = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"PXAppleMusicMediaProviderErrorDomain" code:3 userInfo:v22];
     v36 = @"Error";
     v37 = entryPoint;
     loudnessMainPeak = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
@@ -349,12 +349,12 @@ double __107__PXAppleMusicMediaProvider__avAssetWithLocalMediaURL_entryPoint_fad
       }
     }
 
-    options = [requestCopy options];
-    entryPoint = [options entryPoint];
-    if (options)
+    v22 = objc_msgSend_options(requestCopy);
+    entryPoint = [v22 entryPoint];
+    if (v22)
     {
-      [options fadeOutDuration];
-      [options maximumDuration];
+      objc_msgSend_fadeOutDuration(v22);
+      objc_msgSend_maximumDuration(v22);
     }
 
     else
@@ -503,8 +503,8 @@ void __84__PXAppleMusicMediaProvider__handleDownloadFinishedForAsset_downloadLoc
 
   else
   {
-    options = [requestCopy options];
-    networkAccessAllowed = [options networkAccessAllowed];
+    v10 = objc_msgSend_options(requestCopy);
+    networkAccessAllowed = [v10 networkAccessAllowed];
 
     if (networkAccessAllowed)
     {
@@ -588,8 +588,8 @@ void __68__PXAppleMusicMediaProvider__queue_startDownloadIfNeededForRequest___bl
   v16[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   asset = [requestCopy asset];
-  options = [requestCopy options];
-  intent = [options intent];
+  v6 = objc_msgSend_options(requestCopy);
+  intent = [v6 intent];
 
   if (intent == 2)
   {

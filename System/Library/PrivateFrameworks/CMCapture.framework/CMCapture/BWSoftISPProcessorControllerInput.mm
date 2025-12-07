@@ -59,10 +59,11 @@
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v6.receiver = self;
-  v6.super_class = BWSoftISPProcessorControllerInput;
-  v4 = [(BWStillImageProcessorControllerInput *)&v6 description];
-  return [v3 stringWithFormat:@"%@, processingMode:%@ frame:%@ gdcEnabled:%d", v4, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%d", self->_processingMode), BWStillImageSampleBufferToDisplayString(self->_frame), self->_gdcEnabled];
+  v8.receiver = self;
+  v8.super_class = BWSoftISPProcessorControllerInput;
+  v4 = [(BWStillImageProcessorControllerInput *)&v8 description];
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", self->_processingMode];
+  return [v3 stringWithFormat:@"%@, processingMode:%@ frame:%@ gdcEnabled:%d", v4, v5, BWStillImageSampleBufferToDisplayString(self->_frame, v6), self->_gdcEnabled];
 }
 
 @end

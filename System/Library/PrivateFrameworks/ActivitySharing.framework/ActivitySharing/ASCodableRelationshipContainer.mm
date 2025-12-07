@@ -81,54 +81,53 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_relationship)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteInt64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_systemFieldsOnlyRecord)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_relationshipShareID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_remoteRelationshipShareID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_remoteActivityShareID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_relationshipZoneShareID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_remoteRelationshipZoneShareID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -242,7 +241,6 @@
     }
   }
 
-  v6 = *(equalCopy + 72);
   if (*&self->_has)
   {
     if ((*(equalCopy + 72) & 1) == 0 || self->_version != *(equalCopy + 1))
@@ -254,7 +252,7 @@
   else if (*(equalCopy + 72))
   {
 LABEL_21:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_22;
   }
 
@@ -303,17 +301,17 @@ LABEL_21:
   remoteRelationshipZoneShareID = self->_remoteRelationshipZoneShareID;
   if (remoteRelationshipZoneShareID | *(equalCopy + 7))
   {
-    v13 = [(NSData *)remoteRelationshipZoneShareID isEqual:?];
+    v12 = [(NSData *)remoteRelationshipZoneShareID isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_22:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash

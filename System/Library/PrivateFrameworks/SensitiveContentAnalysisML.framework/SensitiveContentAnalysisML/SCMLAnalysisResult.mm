@@ -1,10 +1,21 @@
 @interface SCMLAnalysisResult
 + (id)obfuscateLabelName:(id)name;
 + (id)obfuscateLabels:(id)labels;
+- (SCMLAnalysisResult)initWithSensitive:(BOOL)sensitive sensitivityScore:(id)score scoresForLabels:(id)labels;
 - (SCMLAnalysisResult)initWithSensitive:(BOOL)sensitive sensitivityScore:(id)score scoresForObfuscatedLabels:(id)labels;
 @end
 
 @implementation SCMLAnalysisResult
+
+- (SCMLAnalysisResult)initWithSensitive:(BOOL)sensitive sensitivityScore:(id)score scoresForLabels:(id)labels
+{
+  sensitiveCopy = sensitive;
+  scoreCopy = score;
+  v9 = [SCMLAnalysisResult obfuscateLabels:labels];
+  v10 = [(SCMLAnalysisResult *)self initWithSensitive:sensitiveCopy sensitivityScore:scoreCopy scoresForObfuscatedLabels:v9];
+
+  return v10;
+}
 
 - (SCMLAnalysisResult)initWithSensitive:(BOOL)sensitive sensitivityScore:(id)score scoresForObfuscatedLabels:(id)labels
 {
@@ -26,7 +37,7 @@
 
 + (id)obfuscateLabels:(id)labels
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   labelsCopy = labels;
   v4 = [labelsCopy objectForKey:@"otgx_fyqmjdju"];
 
@@ -38,32 +49,32 @@
   else
   {
     v6 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(labelsCopy, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v7 = labelsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
-          v13 = [SCMLAnalysisResult obfuscateLabelName:v12, v17];
+          v12 = *(*(&v16 + 1) + 8 * i);
+          v13 = [SCMLAnalysisResult obfuscateLabelName:v12, v16];
           v14 = [v7 objectForKeyedSubscript:v12];
           [v6 setObject:v14 forKey:v13];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -71,8 +82,6 @@
 
     v5 = [v6 copy];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

@@ -81,17 +81,18 @@
   else
   {
     v5 = *MEMORY[0x277D77DD0];
-    if (os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_FAULT))
+    v6 = os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_FAULT);
+    if (v6)
     {
       [(NCNotificationListSupplementaryViewsGroup *)delegate animator];
     }
 
-    animator = NCDefaultAnimator();
+    animator = NCDefaultAnimator(v6);
   }
 
-  v6 = animator;
+  v7 = animator;
 
-  return v6;
+  return v7;
 }
 
 - (NCNotificationListSupplementaryViewsGroup)init
@@ -284,7 +285,7 @@
 
 - (id)clearAllText
 {
-  v2 = NCUserNotificationsUIKitFrameworkBundle();
+  v2 = NCUserNotificationsUIKitFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR_ALL_SUPPLEMENTARY" value:&stru_282FE84F8 table:0];
 
   return v3;
@@ -808,45 +809,45 @@
   {
     v6 = [(NCNotificationListSupplementaryViewsGroup *)self count];
 
-    v7 = v6 > 1;
+    v8 = v6 > 1;
     if (v6 <= 1)
     {
-      v8 = @"NOTIFICATION_LIST_CLEAR";
+      v9 = @"NOTIFICATION_LIST_CLEAR";
     }
 
     else
     {
-      v8 = @"NOTIFICATION_LIST_CLEAR_ALL_CELL";
+      v9 = @"NOTIFICATION_LIST_CLEAR_ALL_CELL";
     }
   }
 
   else
   {
 
-    v7 = 0;
-    v8 = @"NOTIFICATION_LIST_CLEAR";
+    v8 = 0;
+    v9 = @"NOTIFICATION_LIST_CLEAR";
   }
 
-  v9 = NCUserNotificationsUIKitFrameworkBundle();
-  v10 = [v9 localizedStringForKey:v8 value:&stru_282FE84F8 table:0];
+  v10 = NCUserNotificationsUIKitFrameworkBundle(v7);
+  v11 = [v10 localizedStringForKey:v9 value:&stru_282FE84F8 table:0];
 
   objc_initWeak(&location, self);
-  v11 = MEMORY[0x277D750C8];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __65__NCNotificationListSupplementaryViewsGroup__clearActionForCell___block_invoke;
-  v18 = &unk_278370538;
-  objc_copyWeak(&v20, &location);
-  v21 = v7;
-  v12 = cellCopy;
-  v19 = v12;
-  v13 = [v11 actionWithTitle:v10 image:0 identifier:@"tbd" handler:&v15];
-  [v13 setPl_defaultAction:{1, v15, v16, v17, v18}];
+  v12 = MEMORY[0x277D750C8];
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __65__NCNotificationListSupplementaryViewsGroup__clearActionForCell___block_invoke;
+  v19 = &unk_278370538;
+  objc_copyWeak(&v21, &location);
+  v22 = v8;
+  v13 = cellCopy;
+  v20 = v13;
+  v14 = [v12 actionWithTitle:v11 image:0 identifier:@"tbd" handler:&v16];
+  [v14 setPl_defaultAction:{1, v16, v17, v18, v19}];
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
 
-  return v13;
+  return v14;
 }
 
 void __65__NCNotificationListSupplementaryViewsGroup__clearActionForCell___block_invoke(uint64_t a1)

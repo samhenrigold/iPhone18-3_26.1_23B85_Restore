@@ -40,11 +40,11 @@
 
 - (id)initFromStatistics:(id)statistics
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   statisticsCopy = statistics;
-  v22.receiver = self;
-  v22.super_class = HKHeartRateSummaryStatistics;
-  v5 = [(HKHeartRateSummaryStatistics *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = HKHeartRateSummaryStatistics;
+  v5 = [(HKHeartRateSummaryStatistics *)&v21 init];
   v6 = v5;
   if (v5)
   {
@@ -56,35 +56,35 @@
     sortedBuckets = v6->_sortedBuckets;
     v6->_sortedBuckets = array;
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v9 = statisticsCopy[1];
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         v13 = 0;
         do
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
           v14 = v6->_sortedBuckets;
-          v15 = [*(*(&v18 + 1) + 8 * v13) copy];
+          v15 = [*(*(&v17 + 1) + 8 * v13) copy];
           [(NSMutableArray *)v14 addObject:v15];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v11);
@@ -93,7 +93,6 @@
     objc_storeStrong(&v6->_highlightedReadings, statisticsCopy[6]);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -116,39 +115,39 @@
 - (void)addHeartRateInBeatsPerMinute:(double)minute forTime:(double)time
 {
   v31 = *MEMORY[0x1E69E9840];
-  if ([(NSDateInterval *)self->_dateInterval hk_containsTime:time])
+  v7 = [(NSDateInterval *)self->_dateInterval hk_containsTime:time];
+  if (v7)
   {
     startDate = [(NSDateInterval *)self->_dateInterval startDate];
     [startDate timeIntervalSinceReferenceDate];
-    v9 = time - v8;
+    v11 = time - v10;
 
-    v10 = v9 * self->_numberOfBuckets;
+    v12 = v11 * self->_numberOfBuckets;
     [(NSDateInterval *)self->_dateInterval duration];
-    v12 = vcvtmd_s64_f64(v10 / v11);
+    v14 = vcvtmd_s64_f64(v12 / v13);
     numberOfBuckets = self->_numberOfBuckets;
-    if (numberOfBuckets <= v12)
+    if (numberOfBuckets <= v14)
     {
-      v14 = numberOfBuckets - 1;
+      v16 = numberOfBuckets - 1;
     }
 
     else
     {
-      v14 = v12;
+      v16 = v14;
     }
 
-    v24 = [(HKHeartRateSummaryStatistics *)self _bucketAtIndex:v14 createdIfNeeded:1];
+    v24 = [(HKHeartRateSummaryStatistics *)self _bucketAtIndex:v16 createdIfNeeded:1];
     [v24 addHeartRateInBeatsPerMinute:llround(minute)];
     ++self->_numberOfReadings;
-    v15 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v16 = HKLogHeartRate;
+    _HKInitializeLogging(v7, v8);
+    v17 = HKLogHeartRate;
     if (os_log_type_enabled(HKLogHeartRate, OS_LOG_TYPE_ERROR))
     {
-      v18 = v16;
+      v18 = v17;
       v19 = objc_opt_class();
       v20 = MEMORY[0x1E695DF00];
       v21 = v19;
@@ -162,49 +161,45 @@
       v30 = dateInterval;
       _os_log_error_impl(&dword_19197B000, v18, OS_LOG_TYPE_ERROR, "%{public}@: attempting to add heart rate for date %{public}@ outside of date interval %{public}@", buf, 0x20u);
     }
-
-    v17 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)enumerateBucketsWithBlock:(id)block
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (!blockCopy)
   {
     [(HKHeartRateSummaryStatistics *)a2 enumerateBucketsWithBlock:?];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = self->_sortedBuckets;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        blockCopy[2](blockCopy, *(*(&v12 + 1) + 8 * i));
+        blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * i));
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_bucketAtIndex:(int64_t)index createdIfNeeded:(BOOL)needed
@@ -495,10 +490,10 @@ LABEL_22:
 
 void __66__HKHeartRateSummaryStatistics_Testing___dictionaryRepresentation__block_invoke(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 heartRatesInBeatsPerMinute];
-  v5 = v12 - ((8 * [v4 count] + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = v11 - ((8 * [v4 count] + 15) & 0xFFFFFFFFFFFFFFF0);
   [v4 getIndexes:v5 maxCount:objc_msgSend(v4 inIndexRange:{"count"), 0}];
   v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v4, "count")}];
   if ([v4 count])
@@ -521,8 +516,6 @@ void __66__HKHeartRateSummaryStatistics_Testing___dictionaryRepresentation__bloc
     v10 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v3, "bucketIndex")}];
     [v9 setObject:v6 forKey:v10];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_bucketsDescription

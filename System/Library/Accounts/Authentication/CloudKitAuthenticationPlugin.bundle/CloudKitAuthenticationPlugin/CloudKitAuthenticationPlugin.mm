@@ -64,7 +64,7 @@ LABEL_13:
 
 - (id)credentialForAccount:(id)account client:(id)client store:(id)store error:(id *)error
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   clientCopy = client;
   if (([clientCopy hasEntitlement:*MEMORY[0x29EDB83E0]] & 1) == 0 && (objc_msgSend(clientCopy, "hasEntitlement:", *MEMORY[0x29EDB83E8]) & 1) == 0)
@@ -77,9 +77,9 @@ LABEL_13:
     v20 = *MEMORY[0x29EDB8840];
     if (os_log_type_enabled(*MEMORY[0x29EDB8840], OS_LOG_TYPE_INFO))
     {
-      v23 = 138412290;
-      v24 = clientCopy;
-      _os_log_impl(&dword_29C816000, v20, OS_LOG_TYPE_INFO, "Cannot return the CloudKit app token, since %@ is a non-entitled client.", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = clientCopy;
+      _os_log_impl(&dword_29C816000, v20, OS_LOG_TYPE_INFO, "Cannot return the CloudKit app token, since %@ is a non-entitled client.", &v22, 0xCu);
     }
 
     goto LABEL_15;
@@ -107,8 +107,8 @@ LABEL_15:
     v14 = *MEMORY[0x29EDB8840];
     if (os_log_type_enabled(*MEMORY[0x29EDB8840], OS_LOG_TYPE_INFO))
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_29C816000, v14, OS_LOG_TYPE_INFO, "Found stashed cloudKitToken.", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_29C816000, v14, OS_LOG_TYPE_INFO, "Found stashed cloudKitToken.", &v22, 2u);
     }
 
     v15 = objc_alloc_init(MEMORY[0x29EDB83C0]);
@@ -124,7 +124,6 @@ LABEL_15:
   v19 = [MEMORY[0x29EDBDFF8] credentialForAccount:accountCopy clientID:0 error:0];
 
 LABEL_16:
-  v21 = *MEMORY[0x29EDCA608];
 
   return v19;
 }

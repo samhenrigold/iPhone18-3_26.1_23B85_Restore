@@ -234,7 +234,7 @@ LABEL_15:
     if (style != 3)
     {
 LABEL_9:
-      v13 = IFDefaultLog();
+      v13 = IFDefaultLog(nameCopy);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v15 = 134218242;
@@ -273,12 +273,12 @@ LABEL_17:
 
 + (id)fileAssetsExcerptForFilenames:(id)filenames style:(unint64_t)style
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   filenamesCopy = filenames;
   v6 = filenamesCopy;
-  if (!filenamesCopy || ![filenamesCopy count])
+  if (!filenamesCopy || (v7 = [filenamesCopy count]) == 0)
   {
-    v11 = 0;
+    v12 = 0;
     goto LABEL_20;
   }
 
@@ -292,45 +292,45 @@ LABEL_17:
       }
 
 LABEL_11:
-      v23 = @"CFBundleIconFile";
+      v24 = @"CFBundleIconFile";
       firstObject = [v6 firstObject];
-      v24 = firstObject;
-      v8 = MEMORY[0x1E695DF20];
-      v9 = &v24;
-      v10 = &v23;
+      v25 = firstObject;
+      v9 = MEMORY[0x1E695DF20];
+      v10 = &v25;
+      v11 = &v24;
       goto LABEL_12;
     }
 
-    v35 = @"CFBundleIcons";
-    v32 = v6;
-    v33 = @"CFBundlePrimaryIcon";
-    v31 = @"CFBundleIconFiles";
-    firstObject = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-    v34 = firstObject;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-    v36[0] = v12;
-    v13 = MEMORY[0x1E695DF20];
-    v14 = v36;
-    v15 = &v35;
+    v36 = @"CFBundleIcons";
+    v33 = v6;
+    v34 = @"CFBundlePrimaryIcon";
+    v32 = @"CFBundleIconFiles";
+    firstObject = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v35 = firstObject;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v37[0] = v13;
+    v14 = MEMORY[0x1E695DF20];
+    v15 = v37;
+    v16 = &v36;
 LABEL_15:
-    v11 = [v13 dictionaryWithObjects:v14 forKeys:v15 count:1];
+    v12 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:1];
 
     goto LABEL_19;
   }
 
   if (style == 3)
   {
-    v29 = @"CFBundleIcons~ipad";
-    v26 = v6;
-    v27 = @"CFBundlePrimaryIcon";
-    v25 = @"CFBundleIconFiles";
-    firstObject = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    v28 = firstObject;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-    v30 = v12;
-    v13 = MEMORY[0x1E695DF20];
-    v14 = &v30;
-    v15 = &v29;
+    v30 = @"CFBundleIcons~ipad";
+    v27 = v6;
+    v28 = @"CFBundlePrimaryIcon";
+    v26 = @"CFBundleIconFiles";
+    firstObject = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v29 = firstObject;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v31 = v13;
+    v14 = MEMORY[0x1E695DF20];
+    v15 = &v31;
+    v16 = &v30;
     goto LABEL_15;
   }
 
@@ -342,32 +342,32 @@ LABEL_15:
   if (style != 5)
   {
 LABEL_16:
-    firstObject = IFDefaultLog();
+    firstObject = IFDefaultLog(v7);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 134218242;
+      v18 = 134218242;
       styleCopy = style;
-      v19 = 2112;
-      v20 = v6;
+      v20 = 2112;
+      v21 = v6;
     }
 
-    v11 = 0;
+    v12 = 0;
     goto LABEL_19;
   }
 
-  v21 = @"CFBundleIconFile~ipad";
+  v22 = @"CFBundleIconFile~ipad";
   firstObject = [v6 firstObject];
-  v22 = firstObject;
-  v8 = MEMORY[0x1E695DF20];
-  v9 = &v22;
-  v10 = &v21;
+  v23 = firstObject;
+  v9 = MEMORY[0x1E695DF20];
+  v10 = &v23;
+  v11 = &v22;
 LABEL_12:
-  v11 = [v8 dictionaryWithObjects:v9 forKeys:v10 count:1];
+  v12 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:1];
 LABEL_19:
 
 LABEL_20:
 
-  return v11;
+  return v12;
 }
 
 + (id)grahpicIconExcerptForConfigDictionary:(id)dictionary

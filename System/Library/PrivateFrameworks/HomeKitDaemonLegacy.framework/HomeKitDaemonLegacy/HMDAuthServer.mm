@@ -84,7 +84,7 @@ void __57__HMDAuthServer_sendActivationConfirmation_uuid_context___block_invoke_
 
 void __57__HMDAuthServer_sendActivationConfirmation_uuid_context___block_invoke_3(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = objc_autoreleasePoolPush();
@@ -94,11 +94,11 @@ void __57__HMDAuthServer_sendActivationConfirmation_uuid_context___block_invoke_
     {
       v5 = HMFGetLogIdentifier();
       v6 = *(a1 + 32);
-      v16 = 138543618;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_ERROR, "%{public}@Activation confirmation with server failed with error: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_ERROR, "%{public}@Activation confirmation with server failed with error: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -122,9 +122,9 @@ void __57__HMDAuthServer_sendActivationConfirmation_uuid_context___block_invoke_
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = HMFGetLogIdentifier();
-        v16 = 138543362;
-        v17 = v11;
-        _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement didFinishActivation:context:", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = v11;
+        _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement didFinishActivation:context:", &v15, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -134,8 +134,6 @@ void __57__HMDAuthServer_sendActivationConfirmation_uuid_context___block_invoke_
       [v13 _reportFailureWithContext:v12 error:v14];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendActivationRequest:(id)request uuid:(id)uuid context:(id)context
@@ -200,7 +198,7 @@ void __52__HMDAuthServer_sendActivationRequest_uuid_context___block_invoke_2(uin
 
 void __52__HMDAuthServer_sendActivationRequest_uuid_context___block_invoke_3(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32))
   {
     [*(a1 + 40) resetRetryOperation];
@@ -212,7 +210,7 @@ void __52__HMDAuthServer_sendActivationRequest_uuid_context___block_invoke_3(uin
         [v7 handleActivationResponse:*(a1 + 48) context:*(a1 + 56)];
 LABEL_14:
 
-        goto LABEL_15;
+        return;
       }
 
       v8 = objc_autoreleasePoolPush();
@@ -222,10 +220,10 @@ LABEL_14:
       {
         v11 = HMFGetLogIdentifier();
         v15 = *(a1 + 48);
-        v20 = 138543618;
-        v21 = v11;
-        v22 = 2112;
-        v23 = v15;
+        v19 = 138543618;
+        v20 = v11;
+        v21 = 2112;
+        v22 = v15;
         v12 = "%{public}@Invalid tokens in activation response: %@";
         v13 = v10;
         v14 = 22;
@@ -241,13 +239,13 @@ LABEL_14:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = HMFGetLogIdentifier();
-        v20 = 138543362;
-        v21 = v11;
+        v19 = 138543362;
+        v20 = v11;
         v12 = "%{public}@Delegate does not implement handleActivationResponse:context:";
         v13 = v10;
         v14 = 12;
 LABEL_12:
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, v12, &v20, v14);
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, v12, &v19, v14);
       }
     }
 
@@ -267,17 +265,15 @@ LABEL_12:
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 32);
-    v20 = 138543618;
-    v21 = v5;
-    v22 = 2112;
-    v23 = v6;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_ERROR, "%{public}@Activation with server failed with error: %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v5;
+    v21 = 2112;
+    v22 = v6;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_ERROR, "%{public}@Activation with server failed with error: %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 40) retryOrReportFailure:*(a1 + 32) context:*(a1 + 56)];
-LABEL_15:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendPPIDInfoRequest:(id)request model:(id)model token:(id)token authFeatures:(unint64_t)features uuid:(id)uuid context:(id)context
@@ -309,7 +305,7 @@ LABEL_15:
 
 void __75__HMDAuthServer_sendPPIDInfoRequest_model_token_authFeatures_uuid_context___block_invoke(uint64_t a1)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   [*(a1 + 32) saveRetryOperation:1 token:*(a1 + 40) authFeatures:*(a1 + 80) uuid:*(a1 + 48) context:*(a1 + 56) locale:*(a1 + 64) model:*(a1 + 72)];
   objc_initWeak(&location, *v2);
@@ -318,7 +314,7 @@ void __75__HMDAuthServer_sendPPIDInfoRequest_model_token_authFeatures_uuid_conte
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v38 = v3;
+    v37 = v3;
     v6 = HMFGetLogIdentifier();
     v8 = *(a1 + 64);
     v7 = *(a1 + 72);
@@ -327,31 +323,31 @@ void __75__HMDAuthServer_sendPPIDInfoRequest_model_token_authFeatures_uuid_conte
     v11 = [*(a1 + 64) localeIdentifier];
     v12 = HMDSWAuthFeaturesToString(*(a1 + 80));
     *buf = 138544898;
-    v46 = v6;
-    v47 = 2112;
-    v48 = v8;
-    v49 = 2112;
-    v50 = v7;
-    v51 = 2112;
-    v52 = v9;
-    v53 = 2112;
-    v54 = v10;
-    v55 = 2112;
-    v56 = v11;
-    v57 = 2112;
-    v58 = v12;
+    v45 = v6;
+    v46 = 2112;
+    v47 = v8;
+    v48 = 2112;
+    v49 = v7;
+    v50 = 2112;
+    v51 = v9;
+    v52 = 2112;
+    v53 = v10;
+    v54 = 2112;
+    v55 = v11;
+    v56 = 2112;
+    v57 = v12;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Requesting metadata for locale: %@, Model: %@, Language Code: %@, Country Code: %@ Identifier: %@, swAuthFeatures: %@", buf, 0x48u);
 
-    v3 = v38;
+    v3 = v37;
   }
 
   objc_autoreleasePoolPop(v3);
   v13 = *(a1 + 72);
   if (v13)
   {
-    v43 = @"model";
-    v44 = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+    v42 = @"model";
+    v43 = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
   }
 
   else
@@ -378,7 +374,7 @@ void __75__HMDAuthServer_sendPPIDInfoRequest_model_token_authFeatures_uuid_conte
   {
     v20 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v46 = v20;
+    v45 = v20;
     _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Checking token for HomeKit", buf, 0xCu);
   }
 
@@ -394,7 +390,7 @@ LABEL_12:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v24;
+      v45 = v24;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_DEBUG, "%{public}@Checking token for AirPlayAudio", buf, 0xCu);
     }
 
@@ -409,15 +405,15 @@ LABEL_15:
     v26 = *(a1 + 40);
     v27 = [*(a1 + 48) UUIDString];
     v28 = *(a1 + 64);
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __75__HMDAuthServer_sendPPIDInfoRequest_model_token_authFeatures_uuid_context___block_invoke_76;
-    v39[3] = &unk_279728538;
-    objc_copyWeak(&v41, &location);
-    v40 = *(a1 + 56);
-    [v25 requestMetadataForAuthToken:v26 withUUID:v27 requestedLocale:v28 requestInfo:v14 completionHandler:v39];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __75__HMDAuthServer_sendPPIDInfoRequest_model_token_authFeatures_uuid_context___block_invoke_76;
+    v38[3] = &unk_279728538;
+    objc_copyWeak(&v40, &location);
+    v39 = *(a1 + 56);
+    [v25 requestMetadataForAuthToken:v26 withUUID:v27 requestedLocale:v28 requestInfo:v14 completionHandler:v38];
 
-    objc_destroyWeak(&v41);
+    objc_destroyWeak(&v40);
   }
 
   else
@@ -430,9 +426,9 @@ LABEL_15:
       v32 = HMFGetLogIdentifier();
       v33 = HMDSWAuthFeaturesToString(*(a1 + 80));
       *buf = 138543618;
-      v46 = v32;
-      v47 = 2112;
-      v48 = v33;
+      v45 = v32;
+      v46 = 2112;
+      v47 = v33;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Token validation failed for auth features: %@", buf, 0x16u);
     }
 
@@ -444,7 +440,6 @@ LABEL_15:
   }
 
   objc_destroyWeak(&location);
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMDAuthServer_sendPPIDInfoRequest_model_token_authFeatures_uuid_context___block_invoke_76(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -486,7 +481,7 @@ void __75__HMDAuthServer_sendPPIDInfoRequest_model_token_authFeatures_uuid_conte
 
 void __48__HMDAuthServer_getPPIDInfo_model_cert_context___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
   v3 = objc_autoreleasePoolPush();
@@ -501,17 +496,17 @@ void __48__HMDAuthServer_getPPIDInfo_model_cert_context___block_invoke(uint64_t 
     v10 = [*(a1 + 40) countryCode];
     v11 = [*(a1 + 40) localeIdentifier];
     *buf = 138544642;
-    v25 = v6;
-    v26 = 2112;
-    v27 = v7;
-    v28 = 2112;
-    v29 = v8;
-    v30 = 2112;
-    v31 = v9;
-    v32 = 2112;
-    v33 = v10;
-    v34 = 2112;
-    v35 = v11;
+    v24 = v6;
+    v25 = 2112;
+    v26 = v7;
+    v27 = 2112;
+    v28 = v8;
+    v29 = 2112;
+    v30 = v9;
+    v31 = 2112;
+    v32 = v10;
+    v33 = 2112;
+    v34 = v11;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Requesting Cert metadata for locale: %@, Model: %@, Language Code: %@, Country Code: %@ Identifier: %@", buf, 0x3Eu);
   }
 
@@ -519,9 +514,9 @@ void __48__HMDAuthServer_getPPIDInfo_model_cert_context___block_invoke(uint64_t 
   v12 = *(a1 + 48);
   if (v12)
   {
-    v22 = @"model";
-    v23 = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v21 = @"model";
+    v22 = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
   }
 
   else
@@ -532,17 +527,16 @@ void __48__HMDAuthServer_getPPIDInfo_model_cert_context___block_invoke(uint64_t 
   v14 = [MEMORY[0x277D24E20] sharedManager];
   v15 = *(a1 + 56);
   v16 = *(a1 + 40);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __48__HMDAuthServer_getPPIDInfo_model_cert_context___block_invoke_74;
-  v18[3] = &unk_279728538;
-  objc_copyWeak(&v20, &location);
-  v19 = *(a1 + 64);
-  [v14 requestMetadataForCertificate:v15 requestedLocale:v16 requestInfo:v13 completionHandler:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __48__HMDAuthServer_getPPIDInfo_model_cert_context___block_invoke_74;
+  v17[3] = &unk_279728538;
+  objc_copyWeak(&v19, &location);
+  v18 = *(a1 + 64);
+  [v14 requestMetadataForCertificate:v15 requestedLocale:v16 requestInfo:v13 completionHandler:v17];
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMDAuthServer_getPPIDInfo_model_cert_context___block_invoke_74(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -561,7 +555,7 @@ void __48__HMDAuthServer_getPPIDInfo_model_cert_context___block_invoke_74(uint64
 
 - (void)timerDidFire:(id)fire
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -580,11 +574,11 @@ void __48__HMDAuthServer_getPPIDInfo_model_cert_context___block_invoke_74(uint64
       v10 = off_2797285A8[currentOperation];
     }
 
-    v29 = 138543618;
-    v30 = v8;
-    v31 = 2112;
-    v32 = v10;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Retry timer expired for operation: %@", &v29, 0x16u);
+    v28 = 138543618;
+    v29 = v8;
+    v30 = 2112;
+    v31 = v10;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Retry timer expired for operation: %@", &v28, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -616,11 +610,11 @@ void __48__HMDAuthServer_getPPIDInfo_model_cert_context___block_invoke_74(uint64
               v27 = off_2797285A8[currentOperation3];
             }
 
-            v29 = 138543618;
-            v30 = v25;
-            v31 = 2112;
-            v32 = v27;
-            _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Invalid retry operation: %@", &v29, 0x16u);
+            v28 = 138543618;
+            v29 = v25;
+            v30 = 2112;
+            v31 = v27;
+            _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Invalid retry operation: %@", &v28, 0x16u);
           }
 
           objc_autoreleasePoolPop(v22);
@@ -659,8 +653,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)resumeRetryIfPending
@@ -736,7 +728,7 @@ LABEL_21:
 
 - (void)_handleResponseMetadata:(id)metadata ppid:(id)ppid locale:(id)locale context:(id)context error:(id)error
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   ppidCopy = ppid;
   localeCopy = locale;
@@ -749,18 +741,18 @@ LABEL_21:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v53 = v18;
-    v54 = 2112;
-    v55 = metadataCopy;
-    v56 = 2112;
-    v57 = ppidCopy;
-    v58 = 2112;
-    v59 = localeCopy;
+    v52 = v18;
+    v53 = 2112;
+    v54 = metadataCopy;
+    v55 = 2112;
+    v56 = ppidCopy;
+    v57 = 2112;
+    v58 = localeCopy;
     _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Received metadata: %@ for PPID: %@, locale: %@", buf, 0x2Au);
   }
 
-  v37 = ppidCopy;
-  v40 = localeCopy;
+  v36 = ppidCopy;
+  v39 = localeCopy;
 
   objc_autoreleasePoolPop(v15);
   if (metadataCopy)
@@ -788,33 +780,31 @@ LABEL_21:
   block[1] = 3221225472;
   block[2] = __67__HMDAuthServer__handleResponseMetadata_ppid_locale_context_error___block_invoke;
   block[3] = &unk_279728510;
-  v42 = errorCopy;
-  v43 = selfCopy;
-  v44 = v19;
-  v45 = v20;
-  v46 = v21;
-  v47 = v22;
-  v48 = v23;
-  v49 = v24;
-  v50 = v37;
-  v51 = v35;
-  v36 = v35;
-  v26 = v37;
+  v41 = errorCopy;
+  v42 = selfCopy;
+  v43 = v19;
+  v44 = v20;
+  v45 = v21;
+  v46 = v22;
+  v47 = v23;
+  v48 = v24;
+  v49 = v36;
+  v50 = v34;
+  v35 = v34;
+  v26 = v36;
   v27 = v24;
-  v38 = v23;
+  v37 = v23;
   v28 = v22;
   v29 = v21;
   v30 = v20;
   v31 = v19;
   v32 = errorCopy;
   dispatch_async(workQueue, block);
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HMDAuthServer__handleResponseMetadata_ppid_locale_context_error___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = objc_autoreleasePoolPush();
@@ -825,9 +815,9 @@ void __67__HMDAuthServer__handleResponseMetadata_ppid_locale_context_error___blo
       v5 = HMFGetLogIdentifier();
       v6 = *(a1 + 32);
       *buf = 138543618;
-      v18 = v5;
-      v19 = 2112;
-      v20 = v6;
+      v17 = v5;
+      v18 = 2112;
+      v19 = v6;
       _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_ERROR, "%{public}@Failed to get PPID Info from server with error: %@", buf, 0x16u);
     }
 
@@ -854,7 +844,7 @@ void __67__HMDAuthServer__handleResponseMetadata_ppid_locale_context_error___blo
       {
         v12 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v18 = v12;
+        v17 = v12;
         _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement handlePPIDInfoResponse:context:", buf, 0xCu);
       }
 
@@ -865,13 +855,11 @@ void __67__HMDAuthServer__handleResponseMetadata_ppid_locale_context_error___blo
       [v13 _reportFailureWithContext:v14 error:v15];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retryOrReportFailure:(id)failure context:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
   contextCopy = context;
   domain = [failureCopy domain];
@@ -900,9 +888,9 @@ LABEL_11:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     v13 = HMFGetLogIdentifier();
-    v21 = 138543362;
-    v22 = v13;
-    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Network unavailable", &v21, 0xCu);
+    v20 = 138543362;
+    v21 = v13;
+    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Network unavailable", &v20, 0xCu);
   }
 
   objc_autoreleasePoolPop(v10);
@@ -918,20 +906,18 @@ LABEL_11:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     v17 = HMFGetLogIdentifier();
-    v21 = 138543362;
-    v22 = v17;
-    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Waiting to retry", &v21, 0xCu);
+    v20 = 138543362;
+    v21 = v17;
+    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Waiting to retry", &v20, 0xCu);
   }
 
   objc_autoreleasePoolPop(v14);
 LABEL_12:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportFailureWithContext:(id)context error:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   errorCopy = error;
   v8 = objc_autoreleasePoolPush();
@@ -940,9 +926,9 @@ LABEL_12:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v18 = 138543362;
-    v19 = v11;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failing activation", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = v11;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failing activation", &v17, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -960,20 +946,18 @@ LABEL_12:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v16;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement didFinishActivation:context:", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v16;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement didFinishActivation:context:", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAuthServer)initWithDelegate:(id)delegate
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   v5 = delegateCopy;
   if (!delegateCopy)
@@ -985,7 +969,7 @@ LABEL_12:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v16;
+      v21 = v16;
       v17 = "%{public}@A valid delegate is required.";
 LABEL_10:
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, v17, buf, 0xCu);
@@ -1007,7 +991,7 @@ LABEL_11:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v16;
+      v21 = v16;
       v17 = "%{public}@Delegate must confirm to the HMDAuthServerDelegate protocol";
       goto LABEL_10;
     }
@@ -1015,9 +999,9 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v20.receiver = self;
-  v20.super_class = HMDAuthServer;
-  v6 = [(HMDAuthServer *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = HMDAuthServer;
+  v6 = [(HMDAuthServer *)&v19 init];
   if (v6)
   {
     v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -1035,7 +1019,6 @@ LABEL_11:
   v13 = selfCopy2;
 LABEL_12:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1053,12 +1036,11 @@ LABEL_12:
 
 uint64_t __28__HMDAuthServer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v22;
-  logCategory__hmf_once_v22 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v22;
+  logCategory__hmf_once_v22 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

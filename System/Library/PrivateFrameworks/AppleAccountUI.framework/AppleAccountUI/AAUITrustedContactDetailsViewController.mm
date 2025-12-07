@@ -53,7 +53,7 @@
   v3 = *MEMORY[0x1E69C57B8];
   if (!*(&self->super.super.super.super.super.isa + v3))
   {
-    v4 = _AAUILogSystem();
+    v4 = _AAUILogSystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v21) = 0;
@@ -101,7 +101,7 @@
     *(&self->super.super.super.super.super.isa + v3) = v5;
   }
 
-  v17 = _AAUILogSystem();
+  v17 = _AAUILogSystem(self);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     v18 = *(&self->super.super.super.super.super.isa + v3);
@@ -269,12 +269,12 @@
   objc_destroyWeak(&location);
 }
 
-void __65__AAUITrustedContactDetailsViewController__showDestructiveAlert___block_invoke(uint64_t a1)
+void __65__AAUITrustedContactDetailsViewController__showDestructiveAlert___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _AALogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _AALogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __65__AAUITrustedContactDetailsViewController__showDestructiveAlert___block_invoke_cold_1(v2);
+    __65__AAUITrustedContactDetailsViewController__showDestructiveAlert___block_invoke_cold_1(v3);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));

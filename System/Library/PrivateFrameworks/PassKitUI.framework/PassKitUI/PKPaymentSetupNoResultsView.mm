@@ -79,12 +79,12 @@
   v3.super_class = PKPaymentSetupNoResultsView;
   [(PKPaymentSetupNoResultsView *)&v3 layoutSubviews];
   [(PKPaymentSetupNoResultsView *)self bounds];
-  [(PKPaymentSetupNoResultsView *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKPaymentSetupNoResultsView *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -104,32 +104,35 @@
   {
     v13 = 0.0;
 LABEL_5:
-    v16 = 1;
+    v17 = 1;
     goto LABEL_7;
   }
 
-  [(PKPaymentSetupNoResultsView *)self _layoutWithBounds:1 isTemplateLayout:x, y, width, height];
-  if (v14 < height)
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, x, y, width, height);
+  if (v15.n128_f64[0] < height)
   {
-    PKFloatRoundToPixel();
-    v13 = v15;
+    v14.n128_f64[0] = height - v15.n128_f64[0];
+    v15.n128_u64[0] = 0.5;
+    v14.n128_f64[0] = v14.n128_f64[0] * 0.5;
+    PKFloatRoundToPixel(v14, v15);
+    v13 = v16;
     goto LABEL_5;
   }
 
-  v16 = 0;
+  v17 = 0;
   v13 = 15.0;
 LABEL_7:
   image = [(UIImageView *)self->_iconImageView image];
 
   if (image)
   {
-    if (v16)
+    if (v17)
     {
-      v46.origin.x = (width + -50.0) * 0.5;
-      v46.origin.y = v13;
-      v46.size.width = 50.0;
-      v46.size.height = 50.0;
-      v18 = CGRectGetMaxY(v46) + 20.0;
+      v47.origin.x = (width + -50.0) * 0.5;
+      v47.origin.y = v13;
+      v47.size.width = 50.0;
+      v47.size.height = 50.0;
+      v19 = CGRectGetMaxY(v47) + 20.0;
       if (!layout)
       {
         [(UIImageView *)self->_iconImageView setFrame:(width + -50.0) * 0.5, v13, 50.0, 50.0];
@@ -138,91 +141,91 @@ LABEL_7:
 
     else
     {
-      v18 = v13;
+      v19 = v13;
     }
 
-    [(UIImageView *)self->_iconImageView setHidden:v16 ^ 1u];
-    v13 = v18;
+    [(UIImageView *)self->_iconImageView setHidden:v17 ^ 1u];
+    v13 = v19;
   }
 
-  v19 = v12 + -12.0;
+  v20 = v12 + -12.0;
   text = [(UILabel *)self->_titleLabel text];
-  v21 = [text length];
+  v22 = [text length];
 
-  if (v21)
+  if (v22)
   {
-    [(UILabel *)self->_titleLabel sizeThatFits:v19, height];
-    v23 = v22;
-    v25 = v24;
-    v26 = (width - v22) * 0.5;
-    v47.origin.x = v26;
-    v47.origin.y = v13;
-    v47.size.width = v23;
-    v47.size.height = v25;
-    v27 = CGRectGetMaxY(v47) + 15.0;
+    [(UILabel *)self->_titleLabel sizeThatFits:v20, height];
+    v24 = v23;
+    v26 = v25;
+    v27 = (width - v23) * 0.5;
+    v48.origin.x = v27;
+    v48.origin.y = v13;
+    v48.size.width = v24;
+    v48.size.height = v26;
+    v28 = CGRectGetMaxY(v48) + 15.0;
     if (!layout)
     {
-      [(UILabel *)self->_titleLabel setFrame:v26, v13, v23, v25];
+      [(UILabel *)self->_titleLabel setFrame:v27, v13, v24, v26];
     }
   }
 
   else
   {
-    v27 = v13;
+    v28 = v13;
   }
 
   text2 = [(UILabel *)self->_subtitleLabel text];
-  v29 = [text2 length];
+  v30 = [text2 length];
 
-  if (v29)
+  if (v30)
   {
-    [(UILabel *)self->_subtitleLabel sizeThatFits:v19, height];
-    v31 = v30;
-    v33 = v32;
-    v34 = (width - v30) * 0.5;
-    v48.origin.x = v34;
-    v48.origin.y = v27;
-    v48.size.width = v31;
-    v48.size.height = v33;
-    v35 = CGRectGetMaxY(v48) + 15.0;
+    [(UILabel *)self->_subtitleLabel sizeThatFits:v20, height];
+    v32 = v31;
+    v34 = v33;
+    v35 = (width - v31) * 0.5;
+    v49.origin.x = v35;
+    v49.origin.y = v28;
+    v49.size.width = v32;
+    v49.size.height = v34;
+    v36 = CGRectGetMaxY(v49) + 15.0;
     if (!layout)
     {
-      [(UILabel *)self->_subtitleLabel setFrame:v34, v27, v31, v33];
+      [(UILabel *)self->_subtitleLabel setFrame:v35, v28, v32, v34];
     }
   }
 
   else
   {
-    v35 = v27;
+    v36 = v28;
   }
 
   actionButton = self->_actionButton;
   if (actionButton)
   {
-    [(UIButton *)actionButton sizeThatFits:v19, height];
-    v38 = v37;
-    v40 = v39;
-    v41 = (width - v37) * 0.5;
-    v49.origin.x = v41;
-    v49.origin.y = v35;
-    v49.size.width = v38;
-    v49.size.height = v40;
-    MaxY = CGRectGetMaxY(v49);
+    [(UIButton *)actionButton sizeThatFits:v20, height];
+    v39 = v38;
+    v41 = v40;
+    v42 = (width - v38) * 0.5;
+    v50.origin.x = v42;
+    v50.origin.y = v36;
+    v50.size.width = v39;
+    v50.size.height = v41;
+    MaxY = CGRectGetMaxY(v50);
     if (!layout)
     {
-      [(UIButton *)self->_actionButton setFrame:v41, v35, v38, v40];
+      [(UIButton *)self->_actionButton setFrame:v42, v36, v39, v41];
     }
   }
 
   else
   {
-    MaxY = v35;
+    MaxY = v36;
   }
 
-  v43 = width;
-  v44 = MaxY;
-  result.height = v44;
-  result.width = v43;
+  v44 = width;
+  v45 = MaxY;
+  result.height = v45;
+  result.width = v44;
   return result;
 }
 

@@ -45,32 +45,30 @@
 
 - (void)resetSleepAlarmSnoozeState
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] reset sleep alarm snooze state", &v5, 0xCu);
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] reset sleep alarm snooze state", &v4, 0xCu);
   }
 
   [(HDSPSleepAlarmProvider *)self->_sleepAlarmProvider resetSleepAlarmSnoozeState];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepScheduleModelManager:(id)manager didUpdateSleepScheduleModel:(id)model
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating sleep alarms for model change", &v7, 0xCu);
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating sleep alarms for model change", &v6, 0xCu);
   }
 
   [(HDSPSleepAlarmProvider *)self->_sleepAlarmProvider updateSleepAlarms];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)sourceIdentifier

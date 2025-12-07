@@ -269,12 +269,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    priorOrdinality = self->_priorOrdinality;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -293,15 +292,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  priorScore = self->_priorScore;
   PBDataWriterWriteDoubleField();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    matchScore = self->_matchScore;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

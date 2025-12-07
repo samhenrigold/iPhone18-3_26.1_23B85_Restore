@@ -8,7 +8,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_24FF4();
+  sub_24FF4(selfCopy);
 }
 
 - (void)handleTap

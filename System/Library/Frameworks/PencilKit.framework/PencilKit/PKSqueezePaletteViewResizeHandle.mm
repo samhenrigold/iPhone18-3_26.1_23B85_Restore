@@ -67,6 +67,7 @@ void __100__PKSqueezePaletteViewResizeHandle_initWithStrokeStartPresentationValu
 
 - (void)resizeToStrokeStart:(void *)start strokeEnd:(void *)end animated:(double)animated resizeHandler:(double)handler completion:
 {
+  v7 = a2;
   startCopy = start;
   endCopy = end;
   if (self)
@@ -96,7 +97,7 @@ void __100__PKSqueezePaletteViewResizeHandle_initWithStrokeStartPresentationValu
     v17[3] = &unk_1E82D9FE0;
     v16 = v20;
     v18 = v16;
-    [(PKSqueezePaletteViewResizeHandle *)self _performAnimated:a2 animations:v19 completion:v17];
+    [(PKSqueezePaletteViewResizeHandle *)self _performAnimated:v7 animations:v19 completion:v17];
 
     objc_destroyWeak(v21);
     objc_destroyWeak(&location);

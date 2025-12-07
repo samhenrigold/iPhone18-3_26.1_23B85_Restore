@@ -18,7 +18,7 @@
       *buf = 138412290;
       *&buf[4] = pathCopy;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Deleting unneeded domains from %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "Deleting unneeded domains from %@", pathCopy);
     }
 
     *buf = 0;
@@ -48,7 +48,7 @@
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Not restoring iTunesStore KeyValueStore since system files weren't restored", buf, 2u);
-        _MBLog();
+        _MBLog(@"I ", "Not restoring iTunesStore KeyValueStore since system files weren't restored");
       }
 
       goto LABEL_27;
@@ -58,7 +58,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Restoring iTunesStore KeyValueStore", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Restoring iTunesStore KeyValueStore");
     }
 
     persona = [engineCopy persona];
@@ -79,22 +79,22 @@
     v19 = +[NSFileManager defaultManager];
     v20 = [v19 fileExistsAtPath:v18];
 
-    v34 = v16;
-    v35 = v18;
+    v33 = v16;
+    v34 = v18;
     if (v20)
     {
-      v38 = 0;
-      v21 = [MBSQLiteFileHandle copySQLiteFileAtPath:v18 toPath:@"/var/mobile/Library/com.apple.itunesstored/kvs.sqlitedb" timeout:&v38 error:10.0];
-      v10 = v38;
+      v37 = 0;
+      v21 = [MBSQLiteFileHandle copySQLiteFileAtPath:v18 toPath:@"/var/mobile/Library/com.apple.itunesstored/kvs.sqlitedb" timeout:&v37 error:10.0];
+      v10 = v37;
       if ((v21 & 1) == 0)
       {
         v22 = MBGetDefaultLog();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v40 = v10;
+          v39 = v10;
           _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Error copying iTMS KVS db from backup to local path: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "Error copying iTMS KVS db from backup to local path: %@", v10);
         }
 
 LABEL_26:
@@ -125,10 +125,9 @@ LABEL_27:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v40 = @"com.apple.itunesstored";
+        v39 = @"com.apple.itunesstored";
         _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "No keys found in %@ lockdown domain", buf, 0xCu);
-        v33 = @"com.apple.itunesstored";
-        _MBLog();
+        _MBLog(@"I ", "No keys found in %@ lockdown domain", @"com.apple.itunesstored");
       }
     }
 
@@ -137,12 +136,12 @@ LABEL_27:
     allValues = [v27 allValues];
     [v14 setKnownAccounts:allValues];
 
-    v16 = v34;
-    if ([(MBiTunesStorePlugin *)self _mkdir:v34])
+    v16 = v33;
+    if ([(MBiTunesStorePlugin *)self _mkdir:v33])
     {
-      v37 = v10;
-      v29 = [MBSQLiteFileHandle copySQLiteFileAtPath:@"/var/mobile/Library/com.apple.itunesstored/kvs.sqlitedb" toPath:v35 timeout:&v37 error:10.0];
-      v30 = v37;
+      v36 = v10;
+      v29 = [MBSQLiteFileHandle copySQLiteFileAtPath:@"/var/mobile/Library/com.apple.itunesstored/kvs.sqlitedb" toPath:v34 timeout:&v36 error:10.0];
+      v30 = v36;
 
       if ((v29 & 1) == 0)
       {
@@ -150,13 +149,13 @@ LABEL_27:
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v40 = v30;
+          v39 = v30;
           _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Error copying iTMS KVS db from local to backup path: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "Error copying iTMS KVS db from local to backup path: %@", v30);
         }
       }
 
-      v16 = v34;
+      v16 = v33;
     }
 
     else
@@ -204,13 +203,10 @@ LABEL_6:
         v21 = 2112;
         v22 = v6;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Error removing directory: %@: %@", buf, 0x16u);
-        goto LABEL_12;
+        _MBLog(@"Df", "Error removing directory: %@: %@", _mkdirCopy, v6);
       }
 
-LABEL_13:
-
-      v7 = 0;
-      goto LABEL_14;
+      goto LABEL_12;
     }
 
 LABEL_7:
@@ -224,7 +220,7 @@ LABEL_7:
 
     if (v13)
     {
-      goto LABEL_14;
+      goto LABEL_13;
     }
 
     v14 = MBGetDefaultLog();
@@ -235,11 +231,12 @@ LABEL_7:
       v21 = 2112;
       v22 = v6;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Error creating directory: %@: %@", buf, 0x16u);
-LABEL_12:
-      _MBLog();
-      goto LABEL_13;
+      _MBLog(@"Df", "Error creating directory: %@: %@", _mkdirCopy, v6);
     }
 
+LABEL_12:
+
+    v7 = 0;
     goto LABEL_13;
   }
 
@@ -250,7 +247,7 @@ LABEL_12:
 
   v6 = 0;
   v7 = 1;
-LABEL_14:
+LABEL_13:
 
   return v7;
 }

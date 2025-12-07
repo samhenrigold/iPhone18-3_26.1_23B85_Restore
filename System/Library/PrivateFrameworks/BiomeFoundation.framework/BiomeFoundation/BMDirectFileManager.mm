@@ -27,11 +27,9 @@ BMFileHandle *__57___BMDirectFileManager__openTemporaryDirectoryWithError___bloc
 
 void __57___BMDirectFileManager__openTemporaryDirectoryWithError___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_8(&dword_1AC15D000, v1, v2, "Failed to open Biome temporary directory with error: %{darwin.errno}d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_8(&dword_1AC15D000, v0, v1, "Failed to open Biome temporary directory with error: %{darwin.errno}d", v2, v3, v4, v5);
 }
 
 @end

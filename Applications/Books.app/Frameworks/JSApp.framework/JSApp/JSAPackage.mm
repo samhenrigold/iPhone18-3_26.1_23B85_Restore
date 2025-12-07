@@ -14,18 +14,16 @@
 
 - (NSString)nameForJSContext
 {
-  v2 = *(self + OBJC_IVAR___JSAPackage_nameForJSContext);
-  v3 = *(self + OBJC_IVAR___JSAPackage_nameForJSContext + 8);
 
-  v4 = sub_8437C();
+  v2 = sub_8437C();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)version
 {
-  type metadata accessor for BooksJetPackResourceBundle();
-  sub_5CBB4(&qword_CA768, type metadata accessor for BooksJetPackResourceBundle);
+  type metadata accessor for BooksJetPackResourceBundle(0);
+  sub_5CBB4(&qword_CA768, type metadata accessor for BooksJetPackResourceBundle, &protocol conformance descriptor for BooksJetPackResourceBundle);
   selfCopy = self;
   sub_83FCC();
 
@@ -37,42 +35,44 @@
 - (id)dataAtPath:(id)path
 {
   v4 = sub_843AC();
+  v6 = v5;
   selfCopy = self;
-  v6 = Package.data(atPath:)(v4);
-  v8 = v7;
+  v8 = Package.data(atPath:)(v4, v6);
+  v10 = v9;
 
-  if (v8 >> 60 == 15)
+  if (v10 >> 60 == 15)
   {
-    v9 = 0;
+    v11 = 0;
   }
 
   else
   {
     isa = sub_839FC().super.isa;
-    sub_3BB60(v6, v8);
-    v9 = isa;
+    sub_3BB60(v8, v10);
+    v11 = isa;
   }
 
-  return v9;
+  return v11;
 }
 
 - (id)bytesAtPath:(id)path
 {
   v4 = sub_843AC();
+  v6 = v5;
   selfCopy = self;
-  v6 = sub_5AF90(v4);
+  v8 = sub_5AF90(v4, v6);
 
-  if (v6)
+  if (v8)
   {
-    v7.super.isa = sub_8458C().super.isa;
+    v9.super.isa = sub_8458C().super.isa;
   }
 
   else
   {
-    v7.super.isa = 0;
+    v9.super.isa = 0;
   }
 
-  return v7.super.isa;
+  return v9.super.isa;
 }
 
 - (id)stringAtPath:(id)path
@@ -99,13 +99,14 @@
 
 - (id)dirAtPath:(id)path
 {
-  sub_843AC();
+  v4 = sub_843AC();
+  v6 = v5;
   selfCopy = self;
-  Package.dir(atPath:)();
+  Package.dir(atPath:)(v4, v6);
 
-  v5.super.isa = sub_8458C().super.isa;
+  v8.super.isa = sub_8458C().super.isa;
 
-  return v5.super.isa;
+  return v8.super.isa;
 }
 
 - (id)localizationPathForLocale:(id)locale

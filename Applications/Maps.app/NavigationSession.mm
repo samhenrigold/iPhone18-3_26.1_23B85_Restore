@@ -293,8 +293,8 @@ LABEL_23:
   pendingAutomaticSharingContacts = self->_pendingAutomaticSharingContacts;
   if (!pendingAutomaticSharingContacts)
   {
-    configuration = [(NavigationSession *)self configuration];
-    sharedTripPrefetchContext = [configuration sharedTripPrefetchContext];
+    v9 = objc_msgSend_configuration(self);
+    sharedTripPrefetchContext = [v9 sharedTripPrefetchContext];
 
     automaticSharingContacts = [sharedTripPrefetchContext automaticSharingContacts];
     v12 = automaticSharingContacts;
@@ -529,8 +529,8 @@ LABEL_15:
 
   else
   {
-    configuration = [(NavigationSession *)self configuration];
-    sharedTripPrefetchContext = [configuration sharedTripPrefetchContext];
+    v15 = objc_msgSend_configuration(self);
+    sharedTripPrefetchContext = [v15 sharedTripPrefetchContext];
     [SharedTripSuggestionsDataSource prefetchSuggestionsAndCapabilitiesWithContext:sharedTripPrefetchContext];
 
     observers = [(NavigationSession *)self navigationStateProvider];
@@ -616,8 +616,8 @@ LABEL_15:
 
 - (unint64_t)guidanceType
 {
-  configuration = [(NavigationSession *)self configuration];
-  startNavigationDetails = [configuration startNavigationDetails];
+  v2 = objc_msgSend_configuration(self, a2);
+  startNavigationDetails = [v2 startNavigationDetails];
   guidanceType = [startNavigationDetails guidanceType];
 
   return guidanceType;
@@ -625,8 +625,8 @@ LABEL_15:
 
 - (int64_t)navigationType
 {
-  configuration = [(NavigationSession *)self configuration];
-  startNavigationDetails = [configuration startNavigationDetails];
+  v2 = objc_msgSend_configuration(self, a2);
+  startNavigationDetails = [v2 startNavigationDetails];
   navigationType = [startNavigationDetails navigationType];
 
   return navigationType;

@@ -34,14 +34,13 @@ void __31__NSBundle_VG__vg_resourcePath__block_invoke(uint64_t a1)
 
   else
   {
-    v3 = *(a1 + 32);
-    v7 = [objc_opt_class() vg_bundle];
-    v4 = [v7 resourcePath];
-    v5 = [v4 copy];
-    v6 = _s_vg_resourcePath;
-    _s_vg_resourcePath = v5;
+    v6 = [objc_opt_class() vg_bundle];
+    v3 = [v6 resourcePath];
+    v4 = [v3 copy];
+    v5 = _s_vg_resourcePath;
+    _s_vg_resourcePath = v4;
 
-    v2 = v7;
+    v2 = v6;
   }
 }
 

@@ -29,13 +29,12 @@ void __51__NSData_HKUUID__hk_enumerateUUIDsWithError_block___block_invoke(uint64
   }
 }
 
-uint64_t __51__NSData_HKUUID__hk_enumerateUUIDsWithError_block___block_invoke_2(void *a1)
+uint64_t __51__NSData_HKUUID__hk_enumerateUUIDsWithError_block___block_invoke_2(uint64_t a1)
 {
-  v2 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:a1[5]];
-  v3 = a1[6];
-  v4 = (*(a1[4] + 16))();
+  v2 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:*(a1 + 40)];
+  v3 = (*(*(a1 + 32) + 16))();
 
-  return v4;
+  return v3;
 }
 
 @end

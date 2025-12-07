@@ -24,11 +24,11 @@
 
 - (COMTPerformActionRequest)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v25.receiver = self;
-  v25.super_class = COMTPerformActionRequest;
-  v5 = [(COMessageChannelRequest *)&v25 initWithCoder:coderCopy];
+  v23.receiver = self;
+  v23.super_class = COMTPerformActionRequest;
+  v5 = [(COMessageChannelRequest *)&v23 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
@@ -36,32 +36,31 @@
     v8 = [v6 setWithObjects:{v7, objc_opt_class(), 0}];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"PA"];
 
-    v23 = 0u;
-    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v20;
       while (2)
       {
         v14 = 0;
         do
         {
-          if (*v22 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v21 + 1) + 8 * v14);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
 
-            v18 = 0;
+            v17 = 0;
             goto LABEL_13;
           }
 
@@ -69,7 +68,7 @@
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
         if (v12)
         {
           continue;
@@ -79,16 +78,15 @@
       }
     }
 
-    v16 = [v10 copy];
+    v15 = [v10 copy];
     actions = v5->_actions;
-    v5->_actions = v16;
+    v5->_actions = v15;
   }
 
-  v18 = v5;
+  v17 = v5;
 LABEL_13:
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v17;
 }
 
 - (void)encodeWithCoder:(id)coder

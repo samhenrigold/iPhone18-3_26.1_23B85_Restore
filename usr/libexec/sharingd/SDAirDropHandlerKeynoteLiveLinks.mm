@@ -31,53 +31,48 @@
 
   bundleProxy = [(SDAirDropHandler *)self bundleProxy];
 
-  if (bundleProxy)
+  if (!bundleProxy)
   {
-    goto LABEL_4;
+    v4 = [SDAirDropHandlerWebLinks alloc];
+    transfer = [(SDAirDropHandler *)self transfer];
+    v6 = [(SDAirDropHandlerWebLinks *)v4 initWithTransfer:transfer];
+    webLinksHandler = self->_webLinksHandler;
+    self->_webLinksHandler = v6;
+
+    if (![(SDAirDropHandlerWebLinks *)self->_webLinksHandler canHandleTransfer])
+    {
+      return 0;
+    }
   }
 
-  v4 = [SDAirDropHandlerWebLinks alloc];
-  transfer = [(SDAirDropHandler *)self transfer];
-  v6 = [(SDAirDropHandlerWebLinks *)v4 initWithTransfer:transfer];
-  webLinksHandler = self->_webLinksHandler;
-  self->_webLinksHandler = v6;
-
-  if (![(SDAirDropHandlerWebLinks *)self->_webLinksHandler canHandleTransfer])
-  {
-    return 0;
-  }
-
-LABEL_4:
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
-  transfer2 = [(SDAirDropHandler *)self transfer];
-  completedURLs = [transfer2 completedURLs];
+  v19 = 0u;
+  v17 = 0u;
+  v8 = [(SDAirDropHandler *)self transfer:0];
+  completedURLs = [v8 completedURLs];
 
-  v10 = [completedURLs countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [completedURLs countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     while (2)
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(completedURLs);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
         if (!SFIsKeynoteLiveLink())
         {
-          v15 = 0;
+          v14 = 0;
           goto LABEL_15;
         }
       }
 
-      v11 = [completedURLs countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [completedURLs countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v11)
       {
         continue;
@@ -87,10 +82,10 @@ LABEL_4:
     }
   }
 
-  v15 = 1;
+  v14 = 1;
 LABEL_15:
 
-  return v15;
+  return v14;
 }
 
 - (int64_t)transferTypes

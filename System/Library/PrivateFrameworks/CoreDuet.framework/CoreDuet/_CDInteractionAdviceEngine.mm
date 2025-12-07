@@ -43,10 +43,10 @@
 
 - (id)rankCandidateContacts:(id)contacts usingSettings:(id)settings
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   contactsCopy = contacts;
   settingsCopy = settings;
-  v32 = objc_autoreleasePoolPush();
+  v31 = objc_autoreleasePoolPush();
   v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(contactsCopy, "count")}];
   v7 = 0;
   if (![contactsCopy count])
@@ -59,31 +59,31 @@ LABEL_11:
     if ([allObjects count])
     {
       v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSObject count](allObjects, "count")}];
+      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v37 = 0u;
-      v30 = allObjects;
+      v29 = allObjects;
       v16 = allObjects;
-      v17 = [v16 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v35;
+        v19 = *v34;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v35 != v19)
+            if (*v34 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = [[_CDContact alloc] initWithIdentifier:*(*(&v34 + 1) + 8 * i) type:0 customIdentifier:0 displayName:0 displayType:0 personId:0 personIdType:0];
+            v21 = [[_CDContact alloc] initWithIdentifier:*(*(&v33 + 1) + 8 * i) type:0 customIdentifier:0 displayName:0 displayType:0 personId:0 personIdType:0];
             [v15 addObject:v21];
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v33 objects:v37 count:16];
         }
 
         while (v18);
@@ -93,7 +93,7 @@ LABEL_11:
       v13 = settingsCopy;
       v9 = [socialAdvisor rankContacts:v6 withSeedContacts:v15 usingSettings:settingsCopy];
 
-      allObjects = v30;
+      allObjects = v29;
       if (v7)
       {
         goto LABEL_20;
@@ -185,15 +185,14 @@ LABEL_28:
   v13 = settingsCopy;
 LABEL_29:
 
-  objc_autoreleasePoolPop(v32);
-  v28 = *MEMORY[0x1E69E9840];
+  objc_autoreleasePoolPop(v31);
 
   return v25;
 }
 
 - (id)adviseInteractionsUsingSettings:(id)settings
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   v5 = objc_autoreleasePoolPush();
   seedIdentifiers = [settingsCopy seedIdentifiers];
@@ -221,32 +220,32 @@ LABEL_29:
 
   if ([allObjects count])
   {
-    v26 = v5;
+    v25 = v5;
     temporalAdvisor = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(allObjects, "count")}];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v14 = allObjects;
-    v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v28;
+      v17 = *v27;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v28 != v17)
+          if (*v27 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = [[_CDContact alloc] initWithIdentifier:*(*(&v27 + 1) + 8 * i) type:0 customIdentifier:0 displayName:0 displayType:0 personId:0 personIdType:0];
+          v19 = [[_CDContact alloc] initWithIdentifier:*(*(&v26 + 1) + 8 * i) type:0 customIdentifier:0 displayName:0 displayType:0 personId:0 personIdType:0];
           [temporalAdvisor addObject:v19];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v16);
@@ -261,7 +260,7 @@ LABEL_29:
     socialAdvisor = [(_CDInteractionAdviceEngine *)self socialAdvisor];
     v22 = [socialAdvisor adviseInteractionsForDate:v11 andSeedContacts:temporalAdvisor usingSettings:settingsCopy];
 
-    v5 = v26;
+    v5 = v25;
   }
 
   else
@@ -277,7 +276,6 @@ LABEL_29:
   }
 
   objc_autoreleasePoolPop(v5);
-  v24 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -368,19 +366,16 @@ LABEL_29:
 
 - (void)rankCandidateContacts:usingSettings:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_191750000, v0, OS_LOG_TYPE_ERROR, "Cannot rank invalid contact type : %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_191750000, v0, OS_LOG_TYPE_ERROR, "Cannot rank invalid contact type : %@", v1, 0xCu);
 }
 
 - (void)adviseInteractionsUsingSettings:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)adviseInteractionsUsingSettings:.cold.2()

@@ -1,5 +1,6 @@
 @interface MTLDebugHeap
 - (BOOL)detachBacking;
+- (BOOL)replaceBackingWithRanges:(id)ranges readOnly:(BOOL)only;
 - (MTLDebugHeap)initWithHeap:(id)heap device:(id)device;
 - (MTLDebugHeap)initWithHeap:(id)heap device:(id)device maxCompatiblePlacementSparsePageSize:(int64_t)size;
 - (id)_newDebugAccelerationStructure:(id)structure;
@@ -29,7 +30,6 @@
 {
   if (-[MTLToolsHeap type](self, "type") == 2 && ([-[MTLToolsObject baseObject](self->_debugDevice "baseObject")] & 1) == 0)
   {
-    device = self->super.super._device;
     MTLPixelFormatGetInfoForDevice();
   }
 }
@@ -168,7 +168,7 @@ LABEL_11:
 
   if ([(MTLToolsDevice *)self->_debugDevice limits:lengthCopy][256] < length)
   {
-    [MTLDebugHeap newBufferWithLength:? options:?];
+    [MTLDebugHeap newBufferWithLength:v13 options:?];
   }
 
   if ([(MTLToolsHeap *)self type]== 2)
@@ -216,7 +216,7 @@ LABEL_11:
     [(MTLDebugDevice *)self->_debugDevice validateMemorylessResource:descriptor context:v9];
     if ([descriptor textureType] == 9)
     {
-      _validateTextureBufferDescriptor(descriptor, [(MTLToolsObject *)self->_debugDevice baseObject]);
+      _validateTextureBufferDescriptor(descriptor, [(MTLToolsObject *)self->_debugDevice baseObject], v9);
     }
 
     -[MTLDebugHeap validateHeapResourceOptions:isTexture:isIOSurface:context:](self, "validateHeapResourceOptions:isTexture:isIOSurface:context:", [descriptor resourceOptions], 1, 0, v9);
@@ -326,7 +326,7 @@ LABEL_11:
 
   if ([(MTLToolsDevice *)self->_debugDevice limits:lengthCopy][256] < length)
   {
-    [MTLDebugHeap newBufferWithLength:? options:?];
+    [MTLDebugHeap newBufferWithLength:v17 options:?];
   }
 
   if ([(MTLToolsHeap *)self type]!= 1)
@@ -371,7 +371,7 @@ LABEL_11:
     [(MTLDebugDevice *)self->_debugDevice validateMemorylessResource:descriptor context:v13];
     if ([descriptor textureType] == 9)
     {
-      _validateTextureBufferDescriptor(descriptor, [(MTLToolsObject *)self->_debugDevice baseObject]);
+      _validateTextureBufferDescriptor(descriptor, [(MTLToolsObject *)self->_debugDevice baseObject], v13);
     }
 
     -[MTLDebugHeap validateHeapResourceOptions:isTexture:isIOSurface:context:](self, "validateHeapResourceOptions:isTexture:isIOSurface:context:", [descriptor resourceOptions], 1, 0, v13);
@@ -583,6 +583,21 @@ LABEL_3:
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject detachBacking];
+}
+
+- (BOOL)replaceBackingWithRanges:(id)ranges readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  if (([(MTLDevice *)[(MTLToolsObject *)self device] supportsResourceDetachBacking]& 1) == 0)
+  {
+    [MTLDebugHeap replaceBackingWithRanges:readOnly:];
+  }
+
+  [(MTLToolsObject *)self device:0];
+  _MTLMessageContextBegin_();
+  [(MTLDebugDevice *)self->_debugDevice validateAddressRanges:ranges expectedTotalSize:[(MTLToolsHeap *)self size] context:&v8];
+  _MTLMessageContextEnd();
+  return [-[MTLToolsObject baseObject](self "baseObject")];
 }
 
 @end

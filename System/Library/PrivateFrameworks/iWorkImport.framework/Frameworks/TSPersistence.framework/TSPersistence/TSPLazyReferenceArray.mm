@@ -102,9 +102,9 @@
 - (id)objectAtIndex:(unint64_t)index
 {
   v3 = objc_msgSend_objectAtIndexedSubscript_(self->_references, a2, index);
-  v49 = 0;
-  v5 = objc_msgSend_objectAndReturnError_(v3, v4, &v49);
-  v6 = v49;
+  v46 = 0;
+  v5 = objc_msgSend_objectAndReturnError_(v3, v4, &v46);
+  v6 = v46;
 
   if (v5)
   {
@@ -135,20 +135,17 @@
       v24 = &stru_2885C9BB8;
     }
 
-    v47 = v22;
-    v45 = v16;
-    v46 = v24;
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", "[TSPLazyReferenceArray objectAtIndex:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPLazyReferenceArray.mm", 69, v10, v13, v16, v24, v22, v6);
 
     v25 = MEMORY[0x277D81150];
-    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "[TSPLazyReferenceArray objectAtIndex:]", "[TSPLazyReferenceArray objectAtIndex:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPLazyReferenceArray.mm", 69, v10, v13, v45, v46, v47, v6);
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "[TSPLazyReferenceArray objectAtIndex:]");
     v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPLazyReferenceArray.mm");
     v30 = objc_opt_class();
     v31 = NSStringFromClass(v30);
     v34 = objc_msgSend_domain(v6, v32, v33);
     v37 = objc_msgSend_code(v6, v35, v36);
     v40 = objc_msgSend_tsp_isRecoverable(v6, v38, v39);
-    v48 = objc_msgSend_tsp_hintsDescription(v6, v41, v42);
+    v45 = objc_msgSend_tsp_hintsDescription(v6, v41, v42);
     if (v40)
     {
       v44 = @"recoverable=YES, ";
@@ -159,7 +156,7 @@
       v44 = &stru_2885C9BB8;
     }
 
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v43, v27, v29, 69, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v31, v34, v37, v44, v48, v6);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v43, v27, v29, 69, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v31, v34, v37, v44, v45, v6);
 
     TSUCrashBreakpoint();
     abort();
@@ -222,9 +219,9 @@
     do
     {
       v15 = objc_msgSend_objectAtIndexedSubscript_(self->_references, v11, v13);
-      v63 = 0;
-      v17 = objc_msgSend_objectAndReturnError_(v15, v16, &v63);
-      v18 = v63;
+      v60 = 0;
+      v17 = objc_msgSend_objectAndReturnError_(v15, v16, &v60);
+      v18 = v60;
 
       if (v17)
       {
@@ -255,20 +252,17 @@
           v36 = &stru_2885C9BB8;
         }
 
-        v59 = v34;
-        v57 = v28;
-        v58 = v36;
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", "[TSPLazyReferenceArray countByEnumeratingWithState:objects:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPLazyReferenceArray.mm", 102, v22, v25, v28, v36, v34, v18);
 
         v37 = MEMORY[0x277D81150];
-        v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "[TSPLazyReferenceArray countByEnumeratingWithState:objects:count:]", "[TSPLazyReferenceArray countByEnumeratingWithState:objects:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPLazyReferenceArray.mm", 102, v22, v25, v57, v58, v59, v18);
+        v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "[TSPLazyReferenceArray countByEnumeratingWithState:objects:count:]");
         v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPLazyReferenceArray.mm");
         v42 = objc_opt_class();
         v43 = NSStringFromClass(v42);
         v46 = objc_msgSend_domain(v18, v44, v45);
         v49 = objc_msgSend_code(v18, v47, v48);
         v52 = objc_msgSend_tsp_isRecoverable(v18, v50, v51);
-        v62 = objc_msgSend_tsp_hintsDescription(v18, v53, v54);
+        v59 = objc_msgSend_tsp_hintsDescription(v18, v53, v54);
         if (v52)
         {
           v56 = @"recoverable=YES, ";
@@ -279,7 +273,7 @@
           v56 = &stru_2885C9BB8;
         }
 
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v55, v39, v41, 102, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v43, v46, v49, v56, v62, v18);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v55, v39, v41, 102, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v43, v46, v49, v56, v59, v18);
 
         TSUCrashBreakpoint();
         abort();

@@ -166,7 +166,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    subCarrierSpacing = self->_subCarrierSpacing;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -186,7 +185,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  ssbSubCarrierOffset = self->_ssbSubCarrierOffset;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -201,7 +199,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  dmrsTypeAPosition = self->_dmrsTypeAPosition;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -216,12 +213,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  cellBarred = self->_cellBarred;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    intraFreqReselectionAllowed = self->_intraFreqReselectionAllowed;
     PBDataWriterWriteBOOLField();
   }
 
@@ -419,7 +414,6 @@ LABEL_6:
       goto LABEL_25;
     }
 
-    v7 = *(equalCopy + 20);
     if (self->_cellBarred)
     {
       if ((*(equalCopy + 20) & 1) == 0)

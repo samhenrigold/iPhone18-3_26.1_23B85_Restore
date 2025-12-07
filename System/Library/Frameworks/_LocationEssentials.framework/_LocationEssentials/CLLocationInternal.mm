@@ -4,6 +4,7 @@
 - (CLLocationInternal)initWithClientLocation:(id *)location clientLocationPrivate:(id *)private coarseMetaData:(id)data;
 - (CLLocationInternal)initWithClientLocation:(id *)location coarseMetaData:(id)data;
 - (CLLocationInternal)initWithClientLocation:(id *)location matchInfo:(id)info trustedTimestamp:(double)timestamp groundAltitude:(id)altitude;
+- (CLLocationInternal)initWithClientLocation:(id *)location matchInfo:(id)info trustedTimestamp:(double)timestamp groundAltitude:(id)altitude fusionInfo:(id)fusionInfo trackRunInfo:(id)runInfo rawHorizontalAccuracy:(double)accuracy rawAltitude:(double)self0 rawVerticalAccuracy:(double)self1 rawCourseAccuracy:(double)self2 positionContextStateType:(int)self3 probabilityPositionContextStateIndoor:(double)self4 probabilityPositionContextStateOutdoor:(double)self5 gnssOdometerInfo:(id)self6;
 - (CLLocationInternal)initWithClientLocation:(id *)location matchInfo:(id)info trustedTimestamp:(double)timestamp groundAltitude:(id)altitude fusionInfo:(id)fusionInfo trackRunInfo:(id)runInfo rawHorizontalAccuracy:(double)accuracy rawAltitude:(double)self0 rawVerticalAccuracy:(double)self1 rawCourseAccuracy:(double)self2 positionContextStateType:(int)self3 probabilityPositionContextStateIndoor:(double)self4 probabilityPositionContextStateOutdoor:(double)self5 gnssOdometerInfo:(id)self6 coarseMetaData:(id)self7;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)dealloc;
@@ -74,7 +75,7 @@
   v8 = *&location->var1.var1;
   v11[0] = *&location->var0;
   v11[1] = v8;
-  v9 = objc_msgSend_initWithClientLocation_(self, a2, *v11, *&v8, v11);
+  v9 = objc_msgSend_initWithClientLocation_(self, a2, v11);
   if (v9)
   {
     v9->fGroundAltitude = data;
@@ -87,19 +88,19 @@
 {
   var0 = private->var10.var0;
   var1 = private->var10.var1;
-  v11 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], a2, v4, v5, &private->var15, 64);
-  v12 = [CLLocationMatchInfo alloc];
-  v14 = objc_msgSend_initWithMatchQuality_matchCoordinate_matchCourse_matchFormOfWay_matchRoadClass_matchShifted_matchDataArray_(v12, v13, var0, var1, private->var9, private->var12, private->var13, private->var14, v11, private->var11);
+  v9 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], a2, &private->var15, 64);
+  v10 = [CLLocationMatchInfo alloc];
+  v12 = objc_msgSend_initWithMatchQuality_matchCoordinate_matchCourse_matchFormOfWay_matchRoadClass_matchShifted_matchDataArray_(v10, v11, private->var9, private->var12, private->var13, private->var14, v9, var0, var1, private->var11);
   var3 = private->var3;
   if ((private->var18 + 1) >= 2)
   {
-    v17 = [_CLLocationGroundAltitude alloc];
-    v16 = objc_msgSend_initWithEstimate_uncertainty_undulation_undulationModel_(v17, v18, private->var27, private->var28, private->var18, private->var19);
+    v15 = [_CLLocationGroundAltitude alloc];
+    v14 = objc_msgSend_initWithEstimate_uncertainty_undulation_undulationModel_(v15, v16, private->var18, private->var27, private->var28, private->var19);
   }
 
   else
   {
-    v16 = 0;
+    v14 = 0;
   }
 
   if (var3 <= 0.0)
@@ -107,27 +108,27 @@
     var3 = -1.0;
   }
 
-  v19 = [_CLLocationFusionInfo alloc];
-  v21 = objc_msgSend_initWithCoordinateFused_coordinateFusedWithVL_coordinate_horizontalAccuracy_referenceFrame_altitude_verticalAccuracy_course_courseAccuracy_(v19, v20, private->var35.var0, private->var35.var1, private->var33, private->var34, private->var37, private->var36, private->var38, private->var39, private->var40, private->var41);
-  v22 = [CLLocationGnssOdometerInfo alloc];
-  v24 = objc_msgSend_initWithOdometer_deltaDistance_deltaDistanceAccuracy_(v22, v23, private->var0, private->var1, private->var2);
-  v25 = [CLLocationTrackRunInfo alloc];
-  v26 = private->var16.var1;
+  v17 = [_CLLocationFusionInfo alloc];
+  v19 = objc_msgSend_initWithCoordinateFused_coordinateFusedWithVL_coordinate_horizontalAccuracy_referenceFrame_altitude_verticalAccuracy_course_courseAccuracy_(v17, v18, private->var33, private->var34, private->var37, private->var35.var0, private->var35.var1, private->var36, private->var38, private->var39, private->var40, private->var41);
+  v20 = [CLLocationGnssOdometerInfo alloc];
+  v23 = objc_msgSend_initWithOdometer_deltaDistance_deltaDistanceAccuracy_(v20, v21, v22, private->var0, private->var1, private->var2);
+  v24 = [CLLocationTrackRunInfo alloc];
+  v25 = private->var16.var1;
   var4 = private->var16.var4;
-  v28 = objc_alloc(MEMORY[0x1E696AD98]);
-  v32 = objc_msgSend_initWithUnsignedLongLong_(v28, v29, v30, v31, private->var16.var2);
-  v33 = private->var16.var3;
+  v27 = objc_alloc(MEMORY[0x1E696AD98]);
+  v29 = objc_msgSend_initWithUnsignedLongLong_(v27, v28, private->var16.var2);
+  v30 = private->var16.var3;
   var5 = private->var16.var5;
   var6 = private->var16.var6;
-  v36 = *&private->var16.var0.var2;
-  v37 = private->var16.var0.var6;
-  v56 = *&private->var16.var0.var4;
-  v57 = v37;
-  v58 = *&private->var16.var0.var7;
-  v54 = *&private->var16.var0.var0;
-  v55 = v36;
-  v53 = var6;
-  v39 = objc_msgSend_initWithLapInfo_laneNumber_laneCount_trackId_estimatedLaneNumber_estimatedLaneConfidence_trackProximity_(v25, v38, *&v36, *&v54, &v54, v26, var4, v32, v33, var5, v53);
+  v33 = *&private->var16.var0.var2;
+  v34 = private->var16.var0.var6;
+  v53 = *&private->var16.var0.var4;
+  v54 = v34;
+  v55 = *&private->var16.var0.var7;
+  v51 = *&private->var16.var0.var0;
+  v52 = v33;
+  v50 = var6;
+  v36 = objc_msgSend_initWithLapInfo_laneNumber_laneCount_trackId_estimatedLaneNumber_estimatedLaneConfidence_trackProximity_(v24, v35, &v51, v25, var4, v29, v30, var5, v50);
   var29 = private->var29;
   var30 = private->var30;
   var31 = private->var31;
@@ -136,46 +137,46 @@
   var45 = private->var45;
   var46 = private->var46;
   var13 = location->var13;
-  v60 = *&location->var11;
-  v61 = var13;
-  v62[0] = *&location->var14;
-  *(v62 + 12) = *&location->var16;
-  v48 = *&location->var5;
-  v56 = *&location->var3;
-  v57 = v48;
-  v49 = *&location->var9;
-  v58 = *&location->var7;
-  v59 = v49;
-  v50 = *&location->var1.var1;
-  v54 = *&location->var0;
-  v55 = v50;
-  return objc_msgSend_initWithClientLocation_matchInfo_trustedTimestamp_groundAltitude_fusionInfo_trackRunInfo_rawHorizontalAccuracy_rawAltitude_rawVerticalAccuracy_rawCourseAccuracy_positionContextStateType_probabilityPositionContextStateIndoor_probabilityPositionContextStateOutdoor_gnssOdometerInfo_(self, v51, var3, var29, &v54, v14, v16, v21, v39, var44, var30, var31, var32, var45, var46, v24);
+  v57 = *&location->var11;
+  v58 = var13;
+  v59[0] = *&location->var14;
+  *(v59 + 12) = *&location->var16;
+  v45 = *&location->var5;
+  v53 = *&location->var3;
+  v54 = v45;
+  v46 = *&location->var9;
+  v55 = *&location->var7;
+  v56 = v46;
+  v47 = *&location->var1.var1;
+  v51 = *&location->var0;
+  v52 = v47;
+  return objc_msgSend_initWithClientLocation_matchInfo_trustedTimestamp_groundAltitude_fusionInfo_trackRunInfo_rawHorizontalAccuracy_rawAltitude_rawVerticalAccuracy_rawCourseAccuracy_positionContextStateType_probabilityPositionContextStateIndoor_probabilityPositionContextStateOutdoor_gnssOdometerInfo_(self, v48, &v51, v12, v14, v19, v36, var44, var3, var29, var30, var31, var32, var45, var46, v23);
 }
 
 - (CLLocationInternal)initWithClientLocation:(id *)location clientLocationPrivate:(id *)private coarseMetaData:(id)data
 {
   var13 = location->var13;
-  v17[6] = *&location->var11;
-  v17[7] = var13;
-  v18[0] = *&location->var14;
-  *(v18 + 12) = *&location->var16;
+  v15[6] = *&location->var11;
+  v15[7] = var13;
+  v16[0] = *&location->var14;
+  *(v16 + 12) = *&location->var16;
   v8 = *&location->var5;
-  v17[2] = *&location->var3;
-  v17[3] = v8;
+  v15[2] = *&location->var3;
+  v15[3] = v8;
   v9 = *&location->var9;
-  v17[4] = *&location->var7;
-  v17[5] = v9;
+  v15[4] = *&location->var7;
+  v15[5] = v9;
   v10 = *&location->var1.var1;
-  v17[0] = *&location->var0;
-  v17[1] = v10;
-  memcpy(v16, private, sizeof(v16));
-  v14 = objc_msgSend_initWithClientLocation_clientLocationPrivate_(self, v11, v12, v13, v17, v16);
-  if (v14)
+  v15[0] = *&location->var0;
+  v15[1] = v10;
+  memcpy(v14, private, sizeof(v14));
+  v12 = objc_msgSend_initWithClientLocation_clientLocationPrivate_(self, v11, v15, v14);
+  if (v12)
   {
-    v14->fGroundAltitude = data;
+    v12->fGroundAltitude = data;
   }
 
-  return v14;
+  return v12;
 }
 
 - (CLLocationInternal)initWithClientLocation:(id *)location matchInfo:(id)info trustedTimestamp:(double)timestamp groundAltitude:(id)altitude
@@ -200,26 +201,45 @@
   v14 = *&location->var1.var1;
   v16[0] = *&location->var0;
   v16[1] = v14;
-  return objc_msgSend_initWithClientLocation_matchInfo_trustedTimestamp_groundAltitude_fusionInfo_trackRunInfo_rawHorizontalAccuracy_rawAltitude_rawVerticalAccuracy_rawCourseAccuracy_positionContextStateType_probabilityPositionContextStateIndoor_probabilityPositionContextStateOutdoor_gnssOdometerInfo_(self, a2, timestamp, v6, v16, info, altitude, 0, 0, 0, v7, v8, var13.var0, 0.0, 0.0, 0);
+  return objc_msgSend_initWithClientLocation_matchInfo_trustedTimestamp_groundAltitude_fusionInfo_trackRunInfo_rawHorizontalAccuracy_rawAltitude_rawVerticalAccuracy_rawCourseAccuracy_positionContextStateType_probabilityPositionContextStateIndoor_probabilityPositionContextStateOutdoor_gnssOdometerInfo_(self, a2, v16, info, altitude, 0, 0, 0, timestamp, v6, v7, v8, var13.var0, 0.0, 0.0, 0);
+}
+
+- (CLLocationInternal)initWithClientLocation:(id *)location matchInfo:(id)info trustedTimestamp:(double)timestamp groundAltitude:(id)altitude fusionInfo:(id)fusionInfo trackRunInfo:(id)runInfo rawHorizontalAccuracy:(double)accuracy rawAltitude:(double)self0 rawVerticalAccuracy:(double)self1 rawCourseAccuracy:(double)self2 positionContextStateType:(int)self3 probabilityPositionContextStateIndoor:(double)self4 probabilityPositionContextStateOutdoor:(double)self5 gnssOdometerInfo:(id)self6
+{
+  var13 = location->var13;
+  v21[6] = *&location->var11;
+  v21[7] = var13;
+  v22[0] = *&location->var14;
+  *(v22 + 12) = *&location->var16;
+  v17 = *&location->var5;
+  v21[2] = *&location->var3;
+  v21[3] = v17;
+  v18 = *&location->var9;
+  v21[4] = *&location->var7;
+  v21[5] = v18;
+  v19 = *&location->var1.var1;
+  v21[0] = *&location->var0;
+  v21[1] = v19;
+  return objc_msgSend_initWithClientLocation_matchInfo_trustedTimestamp_groundAltitude_fusionInfo_trackRunInfo_rawHorizontalAccuracy_rawAltitude_rawVerticalAccuracy_rawCourseAccuracy_positionContextStateType_probabilityPositionContextStateIndoor_probabilityPositionContextStateOutdoor_gnssOdometerInfo_coarseMetaData_(self, a2, v21, info, altitude, fusionInfo, runInfo, *&type, timestamp, accuracy, rawAltitude, verticalAccuracy, courseAccuracy, indoor, outdoor, odometerInfo, 0);
 }
 
 - (CLLocationInternal)initWithClientLocation:(id *)location matchInfo:(id)info trustedTimestamp:(double)timestamp groundAltitude:(id)altitude fusionInfo:(id)fusionInfo trackRunInfo:(id)runInfo rawHorizontalAccuracy:(double)accuracy rawAltitude:(double)self0 rawVerticalAccuracy:(double)self1 rawCourseAccuracy:(double)self2 positionContextStateType:(int)self3 probabilityPositionContextStateIndoor:(double)self4 probabilityPositionContextStateOutdoor:(double)self5 gnssOdometerInfo:(id)self6 coarseMetaData:(id)self7
 {
   var13 = location->var13;
-  v38[6] = *&location->var11;
-  v38[7] = var13;
-  v39[0] = *&location->var14;
-  *(v39 + 12) = *&location->var16;
+  v37[6] = *&location->var11;
+  v37[7] = var13;
+  v38[0] = *&location->var14;
+  *(v38 + 12) = *&location->var16;
   v30 = *&location->var5;
-  v38[2] = *&location->var3;
-  v38[3] = v30;
+  v37[2] = *&location->var3;
+  v37[3] = v30;
   v31 = *&location->var9;
-  v38[4] = *&location->var7;
-  v38[5] = v31;
+  v37[4] = *&location->var7;
+  v37[5] = v31;
   v32 = *&location->var1.var1;
-  v38[0] = *&location->var0;
-  v38[1] = v32;
-  v33 = objc_msgSend_initWithClientLocation_(self, a2, *v38, *&v32, v38);
+  v37[0] = *&location->var0;
+  v37[1] = v32;
+  v33 = objc_msgSend_initWithClientLocation_(self, a2, v37);
   if (v33)
   {
     *(v33 + 168) = info;
@@ -231,7 +251,7 @@
     *(v33 + 224) = rawAltitude;
     *(v33 + 232) = verticalAccuracy;
     *(v33 + 240) = courseAccuracy;
-    *(v33 + 192) = objc_msgSend_copy(data, v34, v35, v36);
+    *(v33 + 192) = objc_msgSend_copy(data, v34, v35);
     *(v33 + 248) = type;
     *(v33 + 256) = indoor;
     *(v33 + 264) = outdoor;
@@ -244,41 +264,39 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v9 = objc_msgSend_allocWithZone_(v5, v6, v7, v8, zone);
-  v10 = *&self->fLocation.coordinate.longitude;
-  *(v9 + 8) = *&self->fLocation.suitability;
-  *(v9 + 24) = v10;
-  v11 = *&self->fLocation.speed;
-  v12 = *&self->fLocation.course;
-  v13 = *&self->fLocation.timestamp;
-  *(v9 + 40) = *&self->fLocation.altitude;
-  *(v9 + 88) = v13;
-  *(v9 + 72) = v12;
-  *(v9 + 56) = v11;
+  v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
+  v8 = *&self->fLocation.coordinate.longitude;
+  *(v7 + 8) = *&self->fLocation.suitability;
+  *(v7 + 24) = v8;
+  v9 = *&self->fLocation.speed;
+  v10 = *&self->fLocation.course;
+  v11 = *&self->fLocation.timestamp;
+  *(v7 + 40) = *&self->fLocation.altitude;
+  *(v7 + 88) = v11;
+  *(v7 + 72) = v10;
+  *(v7 + 56) = v9;
   rawCoordinate = self->fLocation.rawCoordinate;
-  v15 = *&self->fLocation.rawCourse;
-  v16 = *&self->fLocation.integrity;
-  *(v9 + 104) = *&self->fLocation.lifespan;
-  *(v9 + 148) = v16;
-  *(v9 + 136) = v15;
-  *(v9 + 120) = rawCoordinate;
-  *(v9 + 168) = objc_msgSend_copy(*&self->fLocation.ellipsoidalAltitude, v17, rawCoordinate.latitude, *&v15);
-  *(v9 + 176) = objc_msgSend_copy(*&self->fLocation.fromSimulationController, v18, v19, v20);
-  fMatchInfo = self->fMatchInfo;
-  *(v9 + 184) = fMatchInfo;
-  *(v9 + 192) = objc_msgSend_copy(self->fGroundAltitude, v22, *&fMatchInfo, v23);
-  *(v9 + 200) = objc_msgSend_copy(*&self->fTrustedTimestamp, v24, v25, v26);
-  *(v9 + 208) = objc_msgSend_copy(self->fCoarseMetaData, v27, v28, v29);
-  *(v9 + 216) = self->fFusionInfo;
-  *(v9 + 224) = self->fTrackRunInfo;
-  *(v9 + 232) = self->fRawHorizontalAccuracy;
-  *(v9 + 240) = self->fRawAltitude;
-  *(v9 + 248) = LODWORD(self->fRawVerticalAccuracy);
-  *(v9 + 256) = self->fRawCourseAccuracy;
-  v30 = *&self->fPositionContextState;
-  *(v9 + 264) = v30;
-  *(v9 + 272) = objc_msgSend_copy(*&self->fProbabilityPositionContextStateIndoor, v31, v30, v32);
-  return v9;
+  v13 = *&self->fLocation.rawCourse;
+  v14 = *&self->fLocation.integrity;
+  *(v7 + 104) = *&self->fLocation.lifespan;
+  *(v7 + 148) = v14;
+  *(v7 + 136) = v13;
+  *(v7 + 120) = rawCoordinate;
+  *(v7 + 168) = objc_msgSend_copy(*&self->fLocation.ellipsoidalAltitude, v15, v16);
+  *(v7 + 176) = objc_msgSend_copy(*&self->fLocation.fromSimulationController, v17, v18);
+  *(v7 + 184) = self->fMatchInfo;
+  *(v7 + 192) = objc_msgSend_copy(self->fGroundAltitude, v19, v20);
+  *(v7 + 200) = objc_msgSend_copy(*&self->fTrustedTimestamp, v21, v22);
+  *(v7 + 208) = objc_msgSend_copy(self->fCoarseMetaData, v23, v24);
+  *(v7 + 216) = self->fFusionInfo;
+  *(v7 + 224) = self->fTrackRunInfo;
+  *(v7 + 232) = self->fRawHorizontalAccuracy;
+  *(v7 + 240) = self->fRawAltitude;
+  *(v7 + 248) = LODWORD(self->fRawVerticalAccuracy);
+  *(v7 + 256) = self->fRawCourseAccuracy;
+  *(v7 + 264) = *&self->fPositionContextState;
+  *(v7 + 272) = objc_msgSend_copy(*&self->fProbabilityPositionContextStateIndoor, v25, v26);
+  return v7;
 }
 
 @end

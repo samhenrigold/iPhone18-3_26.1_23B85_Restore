@@ -28,9 +28,9 @@
 - (MILaunchServicesUnregisterOperation)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v20.receiver = self;
-  v20.super_class = MILaunchServicesUnregisterOperation;
-  v5 = [(MILaunchServicesOperation *)&v20 initWithCoder:coderCopy];
+  v17.receiver = self;
+  v17.super_class = MILaunchServicesUnregisterOperation;
+  v5 = [(MILaunchServicesOperation *)&v17 initWithCoder:coderCopy];
   if (!v5)
   {
     goto LABEL_4;
@@ -42,37 +42,34 @@
 
   if (!v5->_bundleID)
   {
-    v12 = MIInstallerErrorDomain;
-    v13 = @"Missing bundle ID when deserializing unregistration";
-    v14 = 42;
+    v11 = MIInstallerErrorDomain;
+    v12 = @"Missing bundle ID when deserializing unregistration";
+    v13 = 42;
 LABEL_7:
-    v16 = sub_100010734("[MILaunchServicesUnregisterOperation initWithCoder:]", v14, v12, 186, 0, 0, v13, v8, v18);
-    [coderCopy failWithError:v16];
+    v14 = sub_100010734("[MILaunchServicesUnregisterOperation initWithCoder:]", v13, v11, 186, 0, 0, v12, v8, v16);
+    [coderCopy failWithError:v14];
 
-    v11 = 0;
+    v10 = 0;
     goto LABEL_8;
   }
 
   v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"domain"];
   v5->_domain = [v9 unsignedIntegerValue];
 
-  domain = v5->_domain;
   if ((MIIsValidInstallationDomain() & 1) == 0)
   {
-    v12 = MIInstallerErrorDomain;
-    v15 = v5->_bundleID;
-    v18 = v15;
-    v19 = v5->_domain;
-    v13 = @"Invalid installation domain value when deserializing unregistration for %@: %lu";
-    v14 = 48;
+    v11 = MIInstallerErrorDomain;
+    v16 = v5->_bundleID;
+    v12 = @"Invalid installation domain value when deserializing unregistration for %@: %lu";
+    v13 = 48;
     goto LABEL_7;
   }
 
 LABEL_4:
-  v11 = v5;
+  v10 = v5;
 LABEL_8:
 
-  return v11;
+  return v10;
 }
 
 - (void)encodeWithCoder:(id)coder

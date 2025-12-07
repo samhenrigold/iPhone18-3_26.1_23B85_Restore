@@ -691,11 +691,11 @@ LABEL_14:
   downloadCopy = download;
   failureCopy = failure;
   cellularCopy = cellular;
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   downloadState = [(VUIDownloadButtonViewModel *)self downloadState];
   if (downloadState == 2)
   {
-    v12 = VUIDefaultLogObject();
+    v12 = VUIDefaultLogObject(2);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -708,35 +708,34 @@ LABEL_14:
     v13 = downloadState;
     assetController = [(VUIDownloadButtonViewModel *)self assetController];
     v12 = assetController;
-    if (v13 == 4 && ![assetController supportsRedownloadingContent])
+    if (v13 == 4 && (v15 = [assetController supportsRedownloadingContent], !v15))
     {
-      v16 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v17 = VUIDefaultLogObject(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_INFO, "The item is already downloaded and does not support redownloading.", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_INFO, "The item is already downloaded and does not support redownloading.", buf, 2u);
       }
     }
 
     else
     {
-      [v12 startDownloadAllowingCellular:cellularCopy quality:quality shouldMarkAsDeletedOnCancellationOrFailure:failureCopy prefer3DOrImmersiveDownload:downloadCopy isAutomatic:0 completion:0];
-      v15 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v16 = VUIDefaultLogObject([v12 startDownloadAllowingCellular:cellularCopy quality:quality shouldMarkAsDeletedOnCancellationOrFailure:failureCopy prefer3DOrImmersiveDownload:downloadCopy isAutomatic:0 completion:0]);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v22 = v12;
-        _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "Asset controller %@ starting download.", buf, 0xCu);
+        v23 = v12;
+        _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_INFO, "Asset controller %@ starting download.", buf, 0xCu);
       }
 
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
-      v18 = __139__VUIDownloadButtonViewModel_startDownloadAllowingCellular_shouldMarkAsDeletedOnCancellationOrFailure_quality_prefer3DOrImmersiveDownload___block_invoke;
-      v19 = &unk_1E872D768;
+      v19 = __139__VUIDownloadButtonViewModel_startDownloadAllowingCellular_shouldMarkAsDeletedOnCancellationOrFailure_quality_prefer3DOrImmersiveDownload___block_invoke;
+      v20 = &unk_1E872D768;
       selfCopy = self;
       if ([MEMORY[0x1E696AF00] isMainThread])
       {
-        v18(block);
+        v19(block);
       }
 
       else
@@ -762,7 +761,8 @@ uint64_t __139__VUIDownloadButtonViewModel_startDownloadAllowingCellular_shouldM
 
 - (void)fetchNewKeysForDownloadedVideo
 {
-  if ([(VUIDownloadButtonViewModel *)self downloadState]== 4)
+  downloadState = [(VUIDownloadButtonViewModel *)self downloadState];
+  if (downloadState == 4)
   {
     assetController = [(VUIDownloadButtonViewModel *)self assetController];
     [assetController fetchNewKeysForDownloadedVideo];
@@ -770,11 +770,11 @@ uint64_t __139__VUIDownloadButtonViewModel_startDownloadAllowingCellular_shouldM
 
   else
   {
-    v3 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = VUIDefaultLogObject(downloadState);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v3, OS_LOG_TYPE_INFO, "Unable to fetch new keys because video is not in state Downloaded.", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_INFO, "Unable to fetch new keys because video is not in state Downloaded.", buf, 2u);
     }
   }
 }
@@ -783,7 +783,7 @@ uint64_t __139__VUIDownloadButtonViewModel_startDownloadAllowingCellular_shouldM
 {
   v6 = *MEMORY[0x1E69E9840];
   assetController = [(VUIDownloadButtonViewModel *)self assetController];
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(assetController);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 138412290;
@@ -798,7 +798,7 @@ uint64_t __139__VUIDownloadButtonViewModel_startDownloadAllowingCellular_shouldM
 {
   v6 = *MEMORY[0x1E69E9840];
   assetController = [(VUIDownloadButtonViewModel *)self assetController];
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(assetController);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 138412290;
@@ -813,7 +813,7 @@ uint64_t __139__VUIDownloadButtonViewModel_startDownloadAllowingCellular_shouldM
 {
   v8 = *MEMORY[0x1E69E9840];
   assetController = [(VUIDownloadButtonViewModel *)self assetController];
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(assetController);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v6 = 138412290;
@@ -839,7 +839,7 @@ uint64_t __139__VUIDownloadButtonViewModel_startDownloadAllowingCellular_shouldM
 {
   v6 = *MEMORY[0x1E69E9840];
   assetController = [(VUIDownloadButtonViewModel *)self assetController];
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(assetController);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 138412290;
@@ -931,22 +931,22 @@ uint64_t __139__VUIDownloadButtonViewModel_startDownloadAllowingCellular_shouldM
 
 - (void)_assetControllerStateDidChange:(id)change
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   object = [changeCopy object];
   userInfo = [changeCopy userInfo];
 
   v7 = [userInfo objectForKey:@"VUIMediaEntityAssetControllerStateKey"];
 
-  v8 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = VUIDefaultLogObject(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = VUIMediaEntityAssetControllerStatusLogString([v7 status]);
-    v10 = 138412546;
-    v11 = object;
-    v12 = 2112;
-    v13 = v9;
-    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "Asset controller %@ state changed to: %@", &v10, 0x16u);
+    v10 = VUIMediaEntityAssetControllerStatusLogString([v7 status]);
+    v11 = 138412546;
+    v12 = object;
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "Asset controller %@ state changed to: %@", &v11, 0x16u);
   }
 
   [(VUIDownloadButtonViewModel *)self _updateDownloadStateFromAssetControllerState:v7];

@@ -10,12 +10,12 @@
   v3 = [components na_firstObjectPassingTest:&__block_literal_global_62];
   mediaProfile = [v3 mediaProfile];
   accessory = [mediaProfile accessory];
-  home = [accessory home];
+  v6 = objc_msgSend_home(accessory);
 
-  if (home)
+  if (v6)
   {
     uniqueIdentifier = [self uniqueIdentifier];
-    mediaSystems = [home mediaSystems];
+    mediaSystems = [v6 mediaSystems];
     v12[0] = MEMORY[0x277D85DD0];
     v12[1] = 3221225472;
     v12[2] = __61__HMMediaSystem_HFHomeKitObjectConformance__hf_isValidObject__block_invoke_2;

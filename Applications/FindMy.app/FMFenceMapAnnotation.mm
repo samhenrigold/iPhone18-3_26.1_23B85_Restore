@@ -72,7 +72,7 @@
 
 - (BOOL)didReverseGeocode
 {
-  v3 = sub_10007EBC0(&qword_1006B0040);
+  v3 = sub_10007EBC0(&qword_1006B0040, &qword_100552AE0);
   __chkstk_darwin(v3 - 8);
   v5 = &v9 - v4;
   v6 = OBJC_IVAR____TtC6FindMy20FMFenceMapAnnotation_fmfPlacemark;

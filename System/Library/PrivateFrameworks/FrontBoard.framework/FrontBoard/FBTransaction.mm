@@ -6,16 +6,17 @@
 
 - (FBTransaction)init
 {
-  v5.receiver = self;
-  v5.super_class = FBTransaction;
-  v2 = [(FBTransaction *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = FBTransaction;
+  v2 = [(FBTransaction *)&v6 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = FBLogTransaction();
-    [(FBTransaction *)v2 _addDebugLogCategory:v3];
+    v4 = FBLogTransaction(v2);
+    [(FBTransaction *)v3 _addDebugLogCategory:v4];
   }
 
-  return v2;
+  return v3;
 }
 
 @end

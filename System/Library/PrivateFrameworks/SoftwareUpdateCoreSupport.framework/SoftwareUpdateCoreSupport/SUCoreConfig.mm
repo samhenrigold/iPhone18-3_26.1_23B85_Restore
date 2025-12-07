@@ -46,7 +46,7 @@
 
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      [SUCoreConfig initWithProjectName:defaultsPath:];
+      [SUCoreConfig initWithProjectName:nameCopy defaultsPath:?];
     }
 
     goto LABEL_10;
@@ -60,7 +60,7 @@
 
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      [SUCoreConfig initWithProjectName:defaultsPath:];
+      [SUCoreConfig initWithProjectName:pathCopy defaultsPath:?];
     }
 
 LABEL_10:
@@ -92,7 +92,7 @@ LABEL_11:
 
 - (void)stateSafeSetConfig:(id)config forKey:(id)key
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   configCopy = config;
   keyCopy = key;
   accessQueue = [(SUCoreConfig *)self accessQueue];
@@ -135,9 +135,9 @@ LABEL_11:
         v16 = MEMORY[0x1E695DFF8];
         defaultsPath2 = [(SUCoreConfig *)self defaultsPath];
         v18 = [v16 fileURLWithPath:defaultsPath2];
-        v27 = 0;
-        v19 = [oslog3 writeToURL:v18 error:&v27];
-        oslog2 = v27;
+        v26 = 0;
+        v19 = [oslog3 writeToURL:v18 error:&v26];
+        oslog2 = v26;
 
         v21 = +[SUCoreLog sharedLogger];
         oslog = [v21 oslog];
@@ -148,9 +148,9 @@ LABEL_11:
           {
             defaultsPath3 = [(SUCoreConfig *)self defaultsPath];
             *buf = 138543618;
-            v29 = defaultsPath3;
-            v30 = 2114;
-            v31 = oslog3;
+            v28 = defaultsPath3;
+            v29 = 2114;
+            v30 = oslog3;
             _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Successfully updated config at path '%{public}@': %{public}@", buf, 0x16u);
           }
         }
@@ -175,12 +175,12 @@ LABEL_11:
 
     else
     {
-      v26 = +[SUCoreLog sharedLogger];
-      oslog3 = [v26 oslog];
+      v25 = +[SUCoreLog sharedLogger];
+      oslog3 = [v25 oslog];
 
       if (os_log_type_enabled(oslog3, OS_LOG_TYPE_ERROR))
       {
-        [SUCoreConfig stateSafeSetConfig:forKey:];
+        [SUCoreConfig stateSafeSetConfig:configCopy forKey:?];
       }
     }
   }
@@ -192,11 +192,9 @@ LABEL_11:
 
     if (os_log_type_enabled(oslog3, OS_LOG_TYPE_ERROR))
     {
-      [SUCoreConfig stateSafeSetConfig:forKey:];
+      [SUCoreConfig stateSafeSetConfig:keyCopy forKey:?];
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)stateSafeGetConfig
@@ -259,10 +257,7 @@ LABEL_11:
 
 uint64_t __25__SUCoreConfig_getConfig__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) stateSafeGetConfig];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) stateSafeGetConfig];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -283,7 +278,7 @@ uint64_t __25__SUCoreConfig_getConfig__block_invoke(uint64_t a1)
 
 void __27__SUCoreConfig_clearConfig__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v4 = *(a1 + 32);
   v3 = (a1 + 32);
@@ -294,9 +289,9 @@ void __27__SUCoreConfig_clearConfig__block_invoke(uint64_t a1)
   {
     v7 = [MEMORY[0x1E696AC08] defaultManager];
     v8 = [*v3 defaultsPath];
-    v16 = 0;
-    [v7 removeItemAtPath:v8 error:&v16];
-    v9 = v16;
+    v15 = 0;
+    [v7 removeItemAtPath:v8 error:&v15];
+    v9 = v15;
 
     v10 = +[SUCoreLog sharedLogger];
     v11 = [v10 oslog];
@@ -315,7 +310,7 @@ void __27__SUCoreConfig_clearConfig__block_invoke(uint64_t a1)
       {
         v14 = [*v3 defaultsPath];
         *buf = 138543362;
-        v18 = v14;
+        v17 = v14;
         _os_log_impl(&dword_1E0F71000, v11, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] ClearConfig: Successfully removed configuration at path: %{public}@", buf, 0xCu);
       }
 
@@ -332,12 +327,10 @@ void __27__SUCoreConfig_clearConfig__block_invoke(uint64_t a1)
     {
       v13 = [*v3 defaultsPath];
       *buf = 138543362;
-      v18 = v13;
+      v17 = v13;
       _os_log_impl(&dword_1E0F71000, v9, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] ClearConfig: Configuration file does not exist at path: %{public}@", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getBoolConfigForKey:(id)key defaultValue:(BOOL)value
@@ -459,71 +452,55 @@ void __38__SUCoreConfig_getNumberConfigForKey___block_invoke(uint64_t a1)
   return v6;
 }
 
-- (void)initWithProjectName:defaultsPath:.cold.1()
+- (void)initWithProjectName:(uint64_t)a1 defaultsPath:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)initWithProjectName:defaultsPath:.cold.2()
+- (void)initWithProjectName:(uint64_t)a1 defaultsPath:.cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)stateSafeSetConfig:forKey:.cold.1()
+- (void)stateSafeSetConfig:(uint64_t)a1 forKey:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)stateSafeSetConfig:forKey:.cold.2()
+- (void)stateSafeSetConfig:(uint64_t)a1 forKey:.cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 - (void)stateSafeSetConfig:forKey:.cold.3()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1E0F71000, v0, OS_LOG_TYPE_ERROR, "[SUCoreConfig] Failed to write config to defaults path with error: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1E0F71000, v0, OS_LOG_TYPE_ERROR, "[SUCoreConfig] Failed to write config to defaults path with error: %{public}@", v1, 0xCu);
 }
 
 void __27__SUCoreConfig_clearConfig__block_invoke_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*a1 defaultsPath];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

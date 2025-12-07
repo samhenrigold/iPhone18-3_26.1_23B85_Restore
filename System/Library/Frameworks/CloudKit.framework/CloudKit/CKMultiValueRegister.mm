@@ -9,6 +9,7 @@
 - (id)siteIdentifier;
 - (unint64_t)hash;
 - (unint64_t)nextClockValue;
+- (unint64_t)replaceVectorStateForPresentOrTombstonedTimestamps:(unsigned __int8)timestamps;
 - (void)CKDescribePropertiesUsing:(id)using;
 - (void)setContents:(id)contents;
 @end
@@ -163,17 +164,15 @@ LABEL_15:
 
 - (id)siteIdentifier
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v12[0] = 0;
-  v12[1] = 0;
+  v11[2] = *MEMORY[0x1E69E9840];
+  v11[0] = 0;
+  v11[1] = 0;
   v3 = objc_msgSend_identifier(self, a2, v2);
-  objc_msgSend_getUUIDBytes_(v3, v4, v12);
+  objc_msgSend_getUUIDBytes_(v3, v4, v11);
 
-  v6 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v5, v12, 16);
+  v6 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v5, v11, 16);
   v7 = [CKDistributedSiteIdentifier alloc];
   v9 = objc_msgSend_initWithIdentifier_modifier_(v7, v8, v6, 0);
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -187,6 +186,29 @@ LABEL_15:
   return v8;
 }
 
+- (unint64_t)replaceVectorStateForPresentOrTombstonedTimestamps:(unsigned __int8)timestamps
+{
+  v5 = objc_msgSend_vector(self, a2, timestamps);
+  v8 = objc_msgSend_copy(v5, v6, v7);
+
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_18851BE00;
+  v12[3] = &unk_1E70BBFF0;
+  timestampsCopy = timestamps;
+  v12[4] = self;
+  v12[5] = &v14;
+  objc_msgSend_enumerateAllClockValuesUsingBlock_(v8, v9, v12);
+  v10 = v15[3];
+  _Block_object_dispose(&v14, 8);
+
+  return v10;
+}
+
 - (NSArray)contents
 {
   v3 = objc_msgSend_timestampToContents(self, a2, v2);
@@ -197,7 +219,7 @@ LABEL_15:
 
 - (void)setContents:(id)contents
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   contentsCopy = contents;
   v7 = objc_msgSend_timestampToContents(self, v5, v6);
   objc_msgSend_removeAllObjects(v7, v8, v9);
@@ -213,29 +235,29 @@ LABEL_15:
       objc_msgSend_addClockValuesInIndexSet_withAtomState_forSiteIdentifier_(v19, v22, v21, 3, v16);
     }
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
-    v49 = contentsCopy;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = contentsCopy;
     obj = contentsCopy;
-    v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, &v51, v55, 16);
+    v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, &v50, v54, 16);
     if (v24)
     {
       v27 = v24;
-      v28 = *v52;
+      v28 = *v51;
       do
       {
         v29 = 0;
         do
         {
-          if (*v52 != v28)
+          if (*v51 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v51 + 1) + 8 * v29);
-          v31 = objc_msgSend_nextClockValue(self, v25, v26, v49);
+          v30 = *(*(&v50 + 1) + 8 * v29);
+          v31 = objc_msgSend_nextClockValue(self, v25, v26, v48);
           v34 = objc_msgSend_siteIdentifier(self, v32, v33);
           v35 = [CKDistributedTimestamp alloc];
           v37 = objc_msgSend_initWithSiteIdentifierObject_clockValue_(v35, v36, v34, v31);
@@ -250,21 +272,19 @@ LABEL_15:
         }
 
         while (v27 != v29);
-        v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v25, &v51, v55, 16);
+        v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v25, &v50, v54, 16);
       }
 
       while (v27);
     }
 
-    contentsCopy = v49;
+    contentsCopy = v48;
   }
 
   else
   {
     objc_msgSend_replaceVectorStateForPresentOrTombstonedTimestamps_(self, v10, 2);
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)merge:(id)merge error:(id *)error
@@ -411,12 +431,11 @@ LABEL_15:
 
 + (id)placeholderIdentifier
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
-  v7[1] = 0;
+  v6[2] = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  v6[1] = 0;
   v2 = objc_alloc(MEMORY[0x1E696AFB0]);
-  v4 = objc_msgSend_initWithUUIDBytes_(v2, v3, v7);
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = objc_msgSend_initWithUUIDBytes_(v2, v3, v6);
 
   return v4;
 }

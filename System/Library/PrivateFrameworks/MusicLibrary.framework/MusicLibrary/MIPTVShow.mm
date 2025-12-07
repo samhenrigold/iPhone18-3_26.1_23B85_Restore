@@ -98,18 +98,28 @@ LABEL_13:
   v10 = *(fromCopy + 4);
   if (genre)
   {
-    if (v10)
+    if (!v10)
     {
-      [(MIPGenre *)genre mergeFrom:?];
+      goto LABEL_29;
     }
+
+    genre = [(MIPGenre *)genre mergeFrom:?];
   }
 
-  else if (v10)
+  else
   {
-    [(MIPTVShow *)self setGenre:?];
+    if (!v10)
+    {
+      goto LABEL_29;
+    }
+
+    genre = [(MIPTVShow *)self setGenre:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v11;
+LABEL_29:
+
+  MEMORY[0x2821F96F8](genre, fromCopy);
 }
 
 - (unint64_t)hash

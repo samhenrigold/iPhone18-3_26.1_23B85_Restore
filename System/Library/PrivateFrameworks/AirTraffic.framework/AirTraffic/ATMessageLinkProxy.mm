@@ -50,40 +50,38 @@
 
 void __55__ATMessageLinkProxy_removeRequestHandlerForDataClass___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.amp.AirTraffic", "Framework");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error removing request handler. failed to connect to remote proxy with error:%{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error removing request handler. failed to connect to remote proxy with error:%{public}@", &v6, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __55__ATMessageLinkProxy_removeRequestHandlerForDataClass___block_invoke_100(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.amp.AirTraffic", "Framework");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error:%{public}@ removing request handler.", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error:%{public}@ removing request handler.", &v6, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addRequestHandler:(id)handler forDataClass:(id)class
@@ -118,40 +116,38 @@ void __55__ATMessageLinkProxy_removeRequestHandlerForDataClass___block_invoke_10
 
 void __53__ATMessageLinkProxy_addRequestHandler_forDataClass___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.amp.AirTraffic", "Framework");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error adding request handler. failed to connect to remote proxy with error:%{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error adding request handler. failed to connect to remote proxy with error:%{public}@", &v6, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __53__ATMessageLinkProxy_addRequestHandler_forDataClass___block_invoke_99(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.amp.AirTraffic", "Framework");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error:%{public}@ adding request handler.", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error:%{public}@ adding request handler.", &v6, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObserver:(id)observer
@@ -195,26 +191,25 @@ void __53__ATMessageLinkProxy_addRequestHandler_forDataClass___block_invoke_99(u
 
 void __34__ATMessageLinkProxy_addObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.amp.AirTraffic", "Framework");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error adding observer. failed to connect to remote proxy with error:%{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error adding observer. failed to connect to remote proxy with error:%{public}@", &v6, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __34__ATMessageLinkProxy_addObserver___block_invoke_98(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -222,17 +217,15 @@ void __34__ATMessageLinkProxy_addObserver___block_invoke_98(uint64_t a1, void *a
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v7 = 138543618;
-      v8 = v5;
-      v9 = 2114;
-      v10 = v3;
-      _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error:%{public}@ adding observer.", &v7, 0x16u);
+      v6 = 138543618;
+      v7 = v5;
+      v8 = 2114;
+      v9 = v3;
+      _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error:%{public}@ adding observer.", &v6, 0x16u);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendResponse:(id)response withCompletion:(id)completion
@@ -351,22 +344,21 @@ uint64_t __49__ATMessageLinkProxy_sendRequest_withCompletion___block_invoke_2(ui
 
 uint64_t __63__ATMessageLinkProxy_messageLink_didReceiveRequest_completion___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 32) messageLink:*(a1 + 40) didReceiveRequest:*(a1 + 48)];
   }
 
-  v3 = [*(a1 + 48) dataStream];
-  if (v3)
+  v2 = [*(a1 + 48) dataStream];
+  if (v2)
   {
-    v4 = [*(a1 + 48) dataStream];
-    [v4 streamStatus];
+    v3 = [*(a1 + 48) dataStream];
+    [v3 streamStatus];
   }
 
-  v5 = *(*(a1 + 56) + 16);
+  v4 = *(*(a1 + 56) + 16);
 
-  return v5();
+  return v4();
 }
 
 - (void)messageLinkWasClosed:(id)closed
@@ -382,42 +374,42 @@ uint64_t __63__ATMessageLinkProxy_messageLink_didReceiveRequest_completion___blo
 
 void __43__ATMessageLinkProxy_messageLinkWasClosed___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 48) == 1)
   {
     v3 = *(v1 + 24);
     objc_sync_enter(v3);
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
     v4 = *(*(a1 + 32) + 24);
-    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         v7 = 0;
         do
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = *(*(&v10 + 1) + 8 * v7);
+          v8 = *(*(&v9 + 1) + 8 * v7);
           if (objc_opt_respondsToSelector())
           {
-            [v8 messageLinkWasClosed:{*(a1 + 32), v10}];
+            [v8 messageLinkWasClosed:{*(a1 + 32), v9}];
           }
 
           ++v7;
         }
 
         while (v5 != v7);
-        v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
@@ -426,8 +418,6 @@ void __43__ATMessageLinkProxy_messageLinkWasClosed___block_invoke(uint64_t a1)
     *(*(a1 + 32) + 48) = 0;
     objc_sync_exit(v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageLinkWasInitialized:(id)initialized
@@ -443,47 +433,46 @@ void __43__ATMessageLinkProxy_messageLinkWasClosed___block_invoke(uint64_t a1)
 
 void __48__ATMessageLinkProxy_messageLinkWasInitialized___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 49) = 1;
   v2 = *(*(a1 + 32) + 24);
   objc_sync_enter(v2);
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(*(a1 + 32) + 24);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 messageLinkWasInitialized:{*(a1 + 32), v9}];
+          [v7 messageLinkWasInitialized:{*(a1 + 32), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
   objc_sync_exit(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageLinkWasOpened:(id)opened
@@ -499,47 +488,46 @@ void __48__ATMessageLinkProxy_messageLinkWasInitialized___block_invoke(uint64_t 
 
 void __43__ATMessageLinkProxy_messageLinkWasOpened___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 48) = 1;
   v2 = *(*(a1 + 32) + 24);
   objc_sync_enter(v2);
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(*(a1 + 32) + 24);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 messageLinkWasOpened:{*(a1 + 32), v9}];
+          [v7 messageLinkWasOpened:{*(a1 + 32), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
   objc_sync_exit(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder

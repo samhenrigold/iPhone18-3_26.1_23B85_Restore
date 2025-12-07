@@ -63,16 +63,16 @@
 
 - (void)stopListeningForMicrophoneActivity:(id)activity
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   v5 = sIsolatedCoreAudioMicActivityLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "MADClientInterface.mm";
-    v10 = 1024;
-    v11 = 112;
-    _os_log_impl(&dword_255576000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d MTDClientInterface stopListeningForMicrophoneActivity", &v8, 0x12u);
+    v7 = 136315394;
+    v8 = "MADClientInterface.mm";
+    v9 = 1024;
+    v10 = 112;
+    _os_log_impl(&dword_255576000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d MTDClientInterface stopListeningForMicrophoneActivity", &v7, 0x12u);
   }
 
   cntrl = self->mClient.__cntrl_;
@@ -84,23 +84,21 @@
   }
 
   activityCopy[2](activityCopy, 0);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listenForMicrophoneActivity:(id)activity reply:(id)reply
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   replyCopy = reply;
   v8 = sIsolatedCoreAudioMicActivityLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v19 = 136315394;
-    *&v19[4] = "MADClientInterface.mm";
-    *&v19[12] = 1024;
-    *&v19[14] = 94;
-    _os_log_impl(&dword_255576000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d MTDClientInterface listenForMicrophoneActivity", v19, 0x12u);
+    *v18 = 136315394;
+    *&v18[4] = "MADClientInterface.mm";
+    *&v18[12] = 1024;
+    *&v18[14] = 94;
+    _os_log_impl(&dword_255576000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d MTDClientInterface listenForMicrophoneActivity", v18, 0x12u);
   }
 
   [(MADClientInterface *)self setupReverseConnection:activityCopy];
@@ -108,39 +106,39 @@
   p_mClient = &selfCopy->mClient;
   ptr = selfCopy->mClient.__ptr_;
   v12 = ptr + 24;
-  *v19 = &unk_286777070;
-  *&v19[8] = selfCopy;
-  v20 = v19;
+  *v18 = &unk_286777070;
+  *&v18[8] = selfCopy;
+  v19 = v18;
   v13 = selfCopy;
-  if (ptr + 24 != v19)
+  if (ptr + 24 != v18)
   {
     if (*(ptr + 6) == v12)
     {
-      std::__function::__func<[MADClientInterface listenForMicrophoneActivity:reply:]::$_1,std::allocator<[MADClientInterface listenForMicrophoneActivity:reply:]::$_1>,void ()(BOOL)>::__clone(v19, v21);
-      (*(*v20 + 32))(v20);
-      v20 = 0;
-      (*(**(ptr + 6) + 24))(*(ptr + 6), v19);
+      std::__function::__func<[MADClientInterface listenForMicrophoneActivity:reply:]::$_1,std::allocator<[MADClientInterface listenForMicrophoneActivity:reply:]::$_1>,void ()(BOOL)>::__clone(v18, v20);
+      (*(*v19 + 32))(v19);
+      v19 = 0;
+      (*(**(ptr + 6) + 24))(*(ptr + 6), v18);
       (*(**(ptr + 6) + 32))(*(ptr + 6));
       *(ptr + 6) = 0;
-      v20 = v19;
-      (*(v21[0] + 24))(v21, ptr + 24);
-      (*(v21[0] + 32))(v21);
+      v19 = v18;
+      (*(v20[0] + 24))(v20, ptr + 24);
+      (*(v20[0] + 32))(v20);
     }
 
     else
     {
-      std::__function::__func<[MADClientInterface listenForMicrophoneActivity:reply:]::$_1,std::allocator<[MADClientInterface listenForMicrophoneActivity:reply:]::$_1>,void ()(BOOL)>::__clone(v19, ptr + 3);
-      (*(*v20 + 32))(v20);
-      v20 = *(ptr + 6);
+      std::__function::__func<[MADClientInterface listenForMicrophoneActivity:reply:]::$_1,std::allocator<[MADClientInterface listenForMicrophoneActivity:reply:]::$_1>,void ()(BOOL)>::__clone(v18, ptr + 3);
+      (*(*v19 + 32))(v19);
+      v19 = *(ptr + 6);
     }
 
     *(ptr + 6) = v12;
   }
 
-  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v19);
+  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v18);
 
-  [(MADClientInterface *)v13 mMADMultiplexer];
-  v14 = *v19;
+  objc_msgSend_mMADMultiplexer(v13);
+  v14 = *v18;
   v15 = p_mClient->__ptr_;
   cntrl = p_mClient->__cntrl_;
   if (cntrl)
@@ -162,14 +160,12 @@
     std::__shared_weak_count::__release_shared[abi:ne200100](cntrl);
   }
 
-  if (*&v19[8])
+  if (*&v18[8])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*&v19[8]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](*&v18[8]);
   }
 
   replyCopy[2](replyCopy, 0);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)listenForMicrophoneActivity:reply:
@@ -201,42 +197,38 @@
 
 - (void)disableMicrophoneActivityDetection:(id)detection
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   detectionCopy = detection;
   v5 = sIsolatedCoreAudioMicActivityLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "MADClientInterface.mm";
-    v9 = 1024;
-    v10 = 87;
-    _os_log_impl(&dword_255576000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d MTDClientInterface disableMicrophoneActivityDetection", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "MADClientInterface.mm";
+    v8 = 1024;
+    v9 = 87;
+    _os_log_impl(&dword_255576000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d MTDClientInterface disableMicrophoneActivityDetection", &v6, 0x12u);
   }
 
   *(self->mClient.__ptr_ + 16) = 0;
   detectionCopy[2](detectionCopy, 0);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableMicrophoneActivityDetection:(id)detection
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   detectionCopy = detection;
   v5 = sIsolatedCoreAudioMicActivityLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "MADClientInterface.mm";
-    v9 = 1024;
-    v10 = 80;
-    _os_log_impl(&dword_255576000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d MTDClientInterface enableMicrophoneActivityDetection", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "MADClientInterface.mm";
+    v8 = 1024;
+    v9 = 80;
+    _os_log_impl(&dword_255576000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d MTDClientInterface enableMicrophoneActivityDetection", &v6, 0x12u);
   }
 
   *(self->mClient.__ptr_ + 16) = 1;
   detectionCopy[2](detectionCopy, 0);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupReverseConnection:(id)connection
@@ -260,71 +252,64 @@
 
 void __45__MADClientInterface_setupReverseConnection___block_invoke_19(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sIsolatedCoreAudioMicActivityLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = [v2 localizedDescription];
     v5 = [v2 localizedFailureReason];
-    v7 = 136316162;
-    v8 = "MADClientInterface.mm";
-    v9 = 1024;
-    v10 = 71;
-    v11 = 2112;
-    v12 = @"Error on remote object proxy";
-    v13 = 2112;
-    v14 = v4;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_255576000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d %@: %@ %@\n", &v7, 0x30u);
+    v6 = 136316162;
+    v7 = "MADClientInterface.mm";
+    v8 = 1024;
+    v9 = 71;
+    v10 = 2112;
+    v11 = @"Error on remote object proxy";
+    v12 = 2112;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_255576000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d %@: %@ %@\n", &v6, 0x30u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __45__MADClientInterface_setupReverseConnection___block_invoke_16()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = sIsolatedCoreAudioMicActivityLog();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v2 = 136315394;
-    v3 = "MADClientInterface.mm";
-    v4 = 1024;
-    v5 = 66;
-    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_ERROR, "%25s:%-5d Reverse connection invalidated", &v2, 0x12u);
+    v1 = 136315394;
+    v2 = "MADClientInterface.mm";
+    v3 = 1024;
+    v4 = 66;
+    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_ERROR, "%25s:%-5d Reverse connection invalidated", &v1, 0x12u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __45__MADClientInterface_setupReverseConnection___block_invoke()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = sIsolatedCoreAudioMicActivityLog();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v2 = 136315394;
-    v3 = "MADClientInterface.mm";
-    v4 = 1024;
-    v5 = 65;
-    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_ERROR, "%25s:%-5d Reverse connection interrupted", &v2, 0x12u);
+    v1 = 136315394;
+    v2 = "MADClientInterface.mm";
+    v3 = 1024;
+    v4 = 65;
+    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_ERROR, "%25s:%-5d Reverse connection interrupted", &v1, 0x12u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createClientReaper
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v5[0] = &unk_286776FE0;
-  v5[3] = v5;
-  std::__function::__value_func<void ()(int)>::__value_func[abi:ne200100](v4, v5);
-  [(IsolatedCoreAudioClientNSXPCListenerDelegate *)self setClientReaper:v4];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_286776FE0;
+  v4[3] = v4;
+  std::__function::__value_func<void ()(int)>::__value_func[abi:ne200100](v3, v4);
+  [(IsolatedCoreAudioClientNSXPCListenerDelegate *)self setClientReaper:v3];
+  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v3);
   std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v4);
-  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)createClientReaper
@@ -362,10 +347,9 @@ void __45__MADClientInterface_setupReverseConnection___block_invoke()
     }
 
     LOBYTE(buf[0]) = 1;
-    std::allocate_shared[abi:ne200100]<MADMultiplexer,std::allocator<MADMultiplexer>,BOOL,0>();
+    std::allocate_shared[abi:ne200100]<MADMultiplexer,std::allocator<MADMultiplexer>,BOOL,0>(&v9, buf);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -390,10 +374,9 @@ void __45__MADClientInterface_setupReverseConnection___block_invoke()
     }
 
     LOBYTE(buf[0]) = 0;
-    std::allocate_shared[abi:ne200100]<MADMultiplexer,std::allocator<MADMultiplexer>,BOOL,0>();
+    std::allocate_shared[abi:ne200100]<MADMultiplexer,std::allocator<MADMultiplexer>,BOOL,0>(&v7, buf);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

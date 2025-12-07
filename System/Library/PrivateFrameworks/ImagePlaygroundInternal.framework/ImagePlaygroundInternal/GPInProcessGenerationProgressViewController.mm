@@ -38,7 +38,7 @@
 {
   v3 = *(&self->super.super.super.isa + OBJC_IVAR___GPInProcessGenerationProgressViewController_viewModel);
   swift_getKeyPath();
-  sub_1D2799258(&qword_1ED8A3F70, type metadata accessor for EffectViewModel);
+  sub_1D2799258(&qword_1ED8A3F70, type metadata accessor for EffectViewModel, &unk_1D28A4108);
   selfCopy = self;
   sub_1D28719E8();
 

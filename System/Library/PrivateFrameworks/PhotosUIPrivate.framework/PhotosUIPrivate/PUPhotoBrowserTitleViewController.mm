@@ -170,23 +170,23 @@ id __58__PUPhotoBrowserTitleViewController__updateLabelsIfNeeded__block_invoke(u
     if ([v3 length])
     {
       v4 = PULocalizedString(@"PUPHOTOBROWSER_TITLE_LONG_DATE_FORMAT");
-      v5 = PUStringWithValidatedFormat();
+      v11 = PUStringWithValidatedFormat(v4, @"%@ %@", v5, v6, v7, v8, v9, v10, *(a1 + 32));
 
       goto LABEL_7;
     }
 
-    v6 = *(a1 + 32);
+    v12 = *(a1 + 32);
   }
 
   else
   {
-    v6 = v3;
+    v12 = v3;
   }
 
-  v5 = v6;
+  v11 = v12;
 LABEL_7:
 
-  return v5;
+  return v11;
 }
 
 uint64_t __58__PUPhotoBrowserTitleViewController__updateLabelsIfNeeded__block_invoke_2(uint64_t a1)

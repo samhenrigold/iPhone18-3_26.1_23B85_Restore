@@ -13,20 +13,19 @@
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4 = [objc_opt_class() description];
   v5 = v4;
-  endowmentNamespace = self->_endowmentNamespace;
   if (self->_encodedEndowment)
   {
-    v7 = @" hasEndowment";
+    v6 = @" hasEndowment";
   }
 
   else
   {
-    v7 = &stru_1F01CD8F0;
+    v6 = &stru_1F01CD8F0;
   }
 
-  v8 = [v3 initWithFormat:@"<%@| namespace:%@%@>", v4, self->_endowmentNamespace, v7];
+  v7 = [v3 initWithFormat:@"<%@| namespace:%@%@>", v4, self->_endowmentNamespace, v6];
 
-  return v8;
+  return v7;
 }
 
 + (id)grantWithNamespace:(id)namespace endowment:(id)endowment

@@ -9,15 +9,15 @@
 - (_OutgoingWideLoadQueue)initWithWideLoadMessage:(id)message maxPartSize:(unint64_t)size
 {
   messageCopy = message;
-  v21.receiver = self;
-  v21.super_class = _OutgoingWideLoadQueue;
-  v7 = [(_OutgoingWideLoadQueue *)&v21 init];
+  v22.receiver = self;
+  v22.super_class = _OutgoingWideLoadQueue;
+  v7 = [(_OutgoingWideLoadQueue *)&v22 init];
   if (v7)
   {
     if (([messageCopy isPartial] & 1) != 0 || !objc_msgSend(messageCopy, "payloadSize"))
     {
-      v19 = _NTKLoggingObjectForDomain();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = _NTKLoggingObjectForDomain();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_10003F824();
       }
@@ -32,10 +32,10 @@
       uUIDString = [(NSUUID *)v7->_wideLoadId UUIDString];
       v11 = [NSString stringWithFormat:@"Outgoing-%@.data", uUIDString];
 
-      v12 = sub_10002F050();
-      v13 = [v12 stringByAppendingPathComponent:v11];
+      v13 = sub_10002F050(v12);
+      v14 = [v13 stringByAppendingPathComponent:v11];
       tempFilePath = v7->_tempFilePath;
-      v7->_tempFilePath = v13;
+      v7->_tempFilePath = v14;
 
       if ([messageCopy getPayloadDataIntoFile:v7->_tempFilePath])
       {
@@ -45,9 +45,9 @@
           size = 4608000;
         }
 
-        v15 = ([messageCopy payloadSize] + size - 1) / size;
-        v7->_partsAdded = v15;
-        v7->_partsRemaining = v15;
+        v16 = ([messageCopy payloadSize] + size - 1) / size;
+        v7->_partsAdded = v16;
+        v7->_partsRemaining = v16;
         copyWithoutPayload = [messageCopy copyWithoutPayload];
         partialMessageTemplate = v7->_partialMessageTemplate;
         v7->_partialMessageTemplate = copyWithoutPayload;
@@ -61,15 +61,15 @@
       }
     }
 
-    v18 = 0;
+    v19 = 0;
     goto LABEL_13;
   }
 
 LABEL_8:
-  v18 = v7;
+  v19 = v7;
 LABEL_13:
 
-  return v18;
+  return v19;
 }
 
 - (void)dealloc
@@ -84,11 +84,10 @@ LABEL_13:
 
 - (id)dequeueNextPart
 {
-  p_partsRemaining = &self->_partsRemaining;
   partsRemaining = self->_partsRemaining;
   if (partsRemaining)
   {
-    v5 = self->_partsAdded - partsRemaining;
+    v4 = self->_partsAdded - partsRemaining;
     if (self->_maxPartSize)
     {
       maxPartSize = self->_maxPartSize;
@@ -101,30 +100,30 @@ LABEL_13:
 
     self->_partsRemaining = partsRemaining - 1;
     copyWithoutPayload = [(NTKDSyncMessage *)self->_partialMessageTemplate copyWithoutPayload];
-    if ([copyWithoutPayload setPayloadDataFromFile:self->_tempFilePath fromOffset:maxPartSize * v5 length:maxPartSize])
+    if ([copyWithoutPayload setPayloadDataFromFile:self->_tempFilePath fromOffset:maxPartSize * v4 length:maxPartSize])
     {
-      [copyWithoutPayload setPartNumber:v5];
-      v8 = copyWithoutPayload;
+      [copyWithoutPayload setPartNumber:v4];
+      v7 = copyWithoutPayload;
     }
 
     else
     {
-      v8 = 0;
+      v7 = 0;
     }
   }
 
   else
   {
-    v9 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10003F8B4(p_partsRemaining, self);
+      sub_10003F8B4();
     }
 
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 @end

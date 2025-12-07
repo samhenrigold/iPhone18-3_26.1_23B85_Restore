@@ -2,11 +2,13 @@
 - (BOOL)subscribeToGroup:(id)group andSubGroup:(id)subGroup withChannelIDs:(id)ds manualChannelOnly:(BOOL)only;
 - (BOOL)updateStatsWithBlock:(id)block;
 - (PLIOReportStats)initWithDriverName:(id)name withGroup:(id)group;
+- (PLIOReportStats)initWithGroup:(id)group andSubGroup:(id)subGroup withChannelIDs:(id)ds manualChannelOnly:(BOOL)only;
 - (double)_convertValue:(int64_t)value toUnityScaleFromUnit:(unint64_t)unit;
 - (double)getSampleDuration;
 - (id)_calculateDeltaFromPreviousStats:(id)stats toCurrentStats:(id)currentStats;
 - (id)_init;
 - (id)_parseIOReportSampleFromStats:(id)stats convertingUnitToUnityScale:(BOOL)scale;
+- (id)calculateDeltaFromPreviousSamplesConvertingUnitToUnityScale:(BOOL)scale;
 - (id)currentValueForSimpleChannel:(id)channel;
 - (id)currentValueForStateChannel:(id)channel atIndex:(int)index;
 - (id)deltaValueForSimpleChannel:(id)channel;
@@ -56,6 +58,27 @@
   return v10;
 }
 
+- (PLIOReportStats)initWithGroup:(id)group andSubGroup:(id)subGroup withChannelIDs:(id)ds manualChannelOnly:(BOOL)only
+{
+  onlyCopy = only;
+  groupCopy = group;
+  subGroupCopy = subGroup;
+  dsCopy = ds;
+  _init = [(PLIOReportStats *)self _init];
+  v14 = _init;
+  if (_init && [_init subscribeToGroup:groupCopy andSubGroup:subGroupCopy withChannelIDs:dsCopy manualChannelOnly:onlyCopy])
+  {
+    v15 = v14;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  return v15;
+}
+
 - (void)dealloc
 {
   if ([(PLIOReportStats *)self subscription])
@@ -71,84 +94,86 @@
 - (BOOL)subscribeToGroup:(id)group andSubGroup:(id)subGroup withChannelIDs:(id)ds manualChannelOnly:(BOOL)only
 {
   onlyCopy = only;
-  v57 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   groupCopy = group;
   subGroupCopy = subGroup;
   dsCopy = ds;
   [(PLIOReportStats *)self clearSubscription];
   v13 = objc_autoreleasePoolPush();
-  v49[0] = 0;
-  v49[1] = 0;
-  v43 = MEMORY[0x1E69E9820];
-  v44 = 3221225472;
-  v45 = __81__PLIOReportStats_subscribeToGroup_andSubGroup_withChannelIDs_manualChannelOnly___block_invoke;
-  v46 = &unk_1E8519C08;
+  v51[0] = 0;
+  v51[1] = 0;
+  v45 = MEMORY[0x1E69E9820];
+  v46 = 3221225472;
+  v47 = __81__PLIOReportStats_subscribeToGroup_andSubGroup_withChannelIDs_manualChannelOnly___block_invoke;
+  v48 = &unk_1E8519C08;
   v14 = groupCopy;
-  v47 = v14;
+  v49 = v14;
   v15 = subGroupCopy;
-  v48 = v15;
+  v50 = v15;
   v16 = IOReportCopyFilteredChannels();
   v17 = v16;
-  if (![v16 count] && !onlyCopy)
+  v19 = [v16 count];
+  if (!v19 && !onlyCopy)
   {
     goto LABEL_5;
   }
 
   if (!v17)
   {
-    v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v17 = v19;
   }
 
-  v21 = PLLogCommon();
+  v21 = PLLogCommon(v19);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v52 = v14;
-    v53 = 2112;
-    v54 = v15;
+    v54 = v14;
     v55 = 2112;
-    v56 = v17;
+    v56 = v15;
+    v57 = 2112;
+    v58 = v17;
     _os_log_debug_impl(&dword_1D8611000, v21, OS_LOG_TYPE_DEBUG, "Retrieved channels from group(%@) subgroup(%@) = %@\n", buf, 0x20u);
   }
 
   if (dsCopy && [dsCopy count])
   {
-    v36 = v15;
-    v37 = v13;
+    v38 = v15;
+    v39 = v13;
     selfCopy = self;
     driverName = [(PLIOReportStats *)self driverName];
     v23 = IOServiceMatching([driverName UTF8String]);
 
+    v43 = 0u;
+    v44 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v38 = dsCopy;
+    v40 = dsCopy;
     v24 = dsCopy;
-    v25 = [v24 countByEnumeratingWithState:&v39 objects:v50 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v41 objects:v52 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v40;
+      v27 = *v42;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v40 != v27)
+          if (*v42 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v39 + 1) + 8 * i);
+          v29 = *(*(&v41 + 1) + 8 * i);
           [v29 unsignedLongLongValue];
           v30 = IOReportCopyChannelsWithID();
           if (v30)
           {
             v31 = v30;
-            v32 = PLLogCommon();
+            v32 = PLLogCommon(v30);
             if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
             {
-              [PLIOReportStats subscribeToGroup:buf andSubGroup:v29 withChannelIDs:&v52 manualChannelOnly:v32];
+              [PLIOReportStats subscribeToGroup:buf andSubGroup:v29 withChannelIDs:&v54 manualChannelOnly:v32];
             }
 
             IOReportMergeChannels();
@@ -156,30 +181,30 @@
           }
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v39 objects:v50 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v41 objects:v52 count:16];
       }
 
       while (v26);
     }
 
     CFRelease(v23);
-    v13 = v37;
-    dsCopy = v38;
-    v15 = v36;
+    v13 = v39;
+    dsCopy = v40;
+    v15 = v38;
     self = selfCopy;
   }
 
-  [(PLIOReportStats *)self setSubscription:IOReportCreateSubscription()];
-  LOBYTE(subGroupCopy) = v49[0] == 0;
-  if (v49[0])
+  v33 = [(PLIOReportStats *)self setSubscription:IOReportCreateSubscription()];
+  LOBYTE(subGroupCopy) = v51[0] == 0;
+  if (v51[0])
   {
-    v33 = PLLogCommon();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v34 = PLLogCommon(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      [PLIOReportStats subscribeToGroup:v49 andSubGroup:v33 withChannelIDs:? manualChannelOnly:?];
+      [PLIOReportStats subscribeToGroup:v51 andSubGroup:v34 withChannelIDs:? manualChannelOnly:?];
     }
 
-    CFRelease(v49[0]);
+    CFRelease(v51[0]);
   }
 
   else
@@ -193,8 +218,8 @@ LABEL_5:
 
     [(PLIOReportStats *)self setSubscribedChannels:0];
 
-    v34 = PLLogCommon();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v36 = PLLogCommon(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
       [PLIOReportStats subscribeToGroup:? andSubGroup:? withChannelIDs:? manualChannelOnly:?];
     }
@@ -204,26 +229,25 @@ LABEL_5:
 LABEL_6:
 
   objc_autoreleasePoolPop(v13);
-  v19 = *MEMORY[0x1E69E9840];
   return v18 & subGroupCopy;
 }
 
-uint64_t __81__PLIOReportStats_subscribeToGroup_andSubGroup_withChannelIDs_manualChannelOnly___block_invoke(uint64_t a1)
+uint64_t __81__PLIOReportStats_subscribeToGroup_andSubGroup_withChannelIDs_manualChannelOnly___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = IOReportChannelGetGroup();
-  v3 = IOReportChannelGetSubGroup();
-  v4 = *(a1 + 32);
-  if (v4 && ([v4 isEqualToString:v2] && *(a1 + 40) && (objc_msgSend(v3, "isEqualToString:") & 1) != 0 || (v5 = *(a1 + 32)) != 0 && objc_msgSend(v5, "isEqualToString:", v2) && !*(a1 + 40)))
+  v3 = IOReportChannelGetGroup();
+  v4 = IOReportChannelGetSubGroup();
+  v5 = *(a1 + 32);
+  if (v5 && ([v5 isEqualToString:v3] && *(a1 + 40) && (objc_msgSend(v4, "isEqualToString:") & 1) != 0 || (v6 = *(a1 + 32)) != 0 && objc_msgSend(v6, "isEqualToString:", v3) && !*(a1 + 40)))
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = 16;
+    v7 = 16;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)clearSubscription
@@ -349,6 +373,27 @@ uint64_t __81__PLIOReportStats_subscribeToGroup_andSubGroup_withChannelIDs_manua
   return v5;
 }
 
+- (id)calculateDeltaFromPreviousSamplesConvertingUnitToUnityScale:(BOOL)scale
+{
+  scaleCopy = scale;
+  ioReportSample = [(PLIOReportStats *)self ioReportSample];
+  if (ioReportSample && (v6 = ioReportSample, [(PLIOReportStats *)self previousIOReportSample], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v7))
+  {
+    previousIOReportSample = [(PLIOReportStats *)self previousIOReportSample];
+    ioReportSample2 = [(PLIOReportStats *)self ioReportSample];
+    v10 = [(PLIOReportStats *)self _calculateDeltaFromPreviousStats:previousIOReportSample toCurrentStats:ioReportSample2];
+
+    v11 = [(PLIOReportStats *)self _parseIOReportSampleFromStats:v10 convertingUnitToUnityScale:scaleCopy];
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
+}
+
 - (id)_calculateDeltaFromPreviousStats:(id)stats toCurrentStats:(id)currentStats
 {
   SamplesDelta = 0;
@@ -372,71 +417,71 @@ uint64_t __81__PLIOReportStats_subscribeToGroup_andSubGroup_withChannelIDs_manua
   return dictionary;
 }
 
-void __76__PLIOReportStats__parseIOReportSampleFromStats_convertingUnitToUnityScale___block_invoke(uint64_t a1)
+void __76__PLIOReportStats__parseIOReportSampleFromStats_convertingUnitToUnityScale___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_autoreleasePoolPush();
+  v3 = objc_autoreleasePoolPush();
   Format = IOReportChannelGetFormat();
   if (Format == 2)
   {
-    context = v2;
+    context = v3;
     Count = IOReportStateGetCount();
-    v10 = IOReportChannelGetChannelName();
+    v11 = IOReportChannelGetChannelName();
     if (Count >= 1)
     {
-      v11 = 0;
-      v12 = 0x1E696A000uLL;
+      v12 = 0;
+      v13 = 0x1E696A000uLL;
       do
       {
-        v13 = IOReportStateGetNameForIndex();
-        if (!v13)
+        v14 = IOReportStateGetNameForIndex();
+        if (!v14)
         {
-          v13 = [*(v12 + 3776) stringWithFormat:@"%d", v11];
+          v14 = [*(v13 + 3776) stringWithFormat:@"%d", v12];
         }
 
-        v14 = [*(v12 + 3776) stringWithFormat:@"%@_%@", v10, v13];
+        v15 = [*(v13 + 3776) stringWithFormat:@"%@_%@", v11, v14];
         IOReportStateGetDutyCycle();
-        v15 = [MEMORY[0x1E696AD98] numberWithDouble:?];
-        v16 = v15;
-        v17 = &unk_1F5405CD0;
-        if (v15)
+        v16 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+        v17 = v16;
+        v18 = &unk_1F5405CD0;
+        if (v16)
         {
-          v17 = v15;
+          v18 = v16;
         }
 
-        v18 = v17;
+        v19 = v18;
 
-        [*(a1 + 40) setObject:v18 forKeyedSubscript:v14];
-        v19 = IOReportStateGetInTransitions();
-        if (v19 != 0x8000000000000000)
+        [*(a1 + 40) setObject:v19 forKeyedSubscript:v15];
+        v20 = IOReportStateGetInTransitions();
+        if (v20 != 0x8000000000000000)
         {
-          v20 = v19;
-          [*(v12 + 3776) stringWithFormat:@"%@_transitions", v14];
-          v21 = v10;
-          v22 = Count;
-          v24 = v23 = v12;
-          v25 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v20];
-          [*(a1 + 40) setObject:v25 forKeyedSubscript:v24];
+          v21 = v20;
+          [*(v13 + 3776) stringWithFormat:@"%@_transitions", v15];
+          v22 = v11;
+          v23 = Count;
+          v25 = v24 = v13;
+          v26 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v21];
+          [*(a1 + 40) setObject:v26 forKeyedSubscript:v25];
 
-          v12 = v23;
-          Count = v22;
-          v10 = v21;
+          v13 = v24;
+          Count = v23;
+          v11 = v22;
         }
 
-        v11 = (v11 + 1);
+        v12 = (v12 + 1);
       }
 
-      while (Count != v11);
+      while (Count != v12);
     }
 
-    v2 = context;
+    v3 = context;
   }
 
   else
   {
-    v4 = Format;
+    v5 = Format;
     if (Format == 1)
     {
-      v5 = IOReportChannelGetChannelName();
+      v6 = IOReportChannelGetChannelName();
       IntegerValue = IOReportSimpleGetIntegerValue();
       Unit = IOReportChannelGetUnit();
       if (*(a1 + 48) == 1)
@@ -449,32 +494,32 @@ void __76__PLIOReportStats__parseIOReportSampleFromStats_convertingUnitToUnitySc
       {
         [MEMORY[0x1E696AD98] numberWithLongLong:IntegerValue];
       }
-      v8 = ;
-      v27 = v8;
-      if (v8)
+      v9 = ;
+      v28 = v9;
+      if (v9)
       {
-        v28 = v8;
+        v29 = v9;
       }
 
       else
       {
-        v28 = &unk_1F5405CD0;
+        v29 = &unk_1F5405CD0;
       }
 
-      [*(a1 + 40) setObject:v28 forKeyedSubscript:v5];
+      [*(a1 + 40) setObject:v29 forKeyedSubscript:v6];
     }
 
     else
     {
-      v26 = PLLogCommon();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v27 = PLLogCommon(Format);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        __76__PLIOReportStats__parseIOReportSampleFromStats_convertingUnitToUnityScale___block_invoke_cold_1(v4, v26);
+        __76__PLIOReportStats__parseIOReportSampleFromStats_convertingUnitToUnityScale___block_invoke_cold_1(v5, v27);
       }
     }
   }
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v3);
 }
 
 - (double)_convertValue:(int64_t)value toUnityScaleFromUnit:(unint64_t)unit
@@ -587,31 +632,31 @@ void __76__PLIOReportStats__parseIOReportSampleFromStats_convertingUnitToUnitySc
   return v7;
 }
 
-void __48__PLIOReportStats_currentValueForSimpleChannel___block_invoke(uint64_t a1)
+void __48__PLIOReportStats_currentValueForSimpleChannel___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_autoreleasePoolPush();
+  v3 = objc_autoreleasePoolPush();
   if (IOReportChannelGetFormat() == 1)
   {
-    v3 = IOReportChannelGetChannelName();
-    if ([v3 isEqualToString:*(a1 + 32)])
+    v4 = IOReportChannelGetChannelName();
+    if ([v4 isEqualToString:*(a1 + 32)])
     {
-      v4 = [MEMORY[0x1E696AD98] numberWithLongLong:IOReportSimpleGetIntegerValue()];
-      v5 = v4;
-      if (v4)
+      v5 = [MEMORY[0x1E696AD98] numberWithLongLong:IOReportSimpleGetIntegerValue()];
+      v6 = v5;
+      if (v5)
       {
-        v6 = v4;
+        v7 = v5;
       }
 
       else
       {
-        v6 = &unk_1F5405CD0;
+        v7 = &unk_1F5405CD0;
       }
 
-      objc_storeStrong((*(*(a1 + 40) + 8) + 40), v6);
+      objc_storeStrong((*(*(a1 + 40) + 8) + 40), v7);
     }
   }
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v3);
 }
 
 - (id)deltaValueForSimpleChannel:(id)channel
@@ -643,31 +688,31 @@ void __48__PLIOReportStats_currentValueForSimpleChannel___block_invoke(uint64_t 
   return v7;
 }
 
-void __46__PLIOReportStats_deltaValueForSimpleChannel___block_invoke(uint64_t a1)
+void __46__PLIOReportStats_deltaValueForSimpleChannel___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_autoreleasePoolPush();
+  v3 = objc_autoreleasePoolPush();
   if (IOReportChannelGetFormat() == 1)
   {
-    v3 = IOReportChannelGetChannelName();
-    if ([v3 isEqualToString:*(a1 + 32)])
+    v4 = IOReportChannelGetChannelName();
+    if ([v4 isEqualToString:*(a1 + 32)])
     {
-      v4 = [MEMORY[0x1E696AD98] numberWithLongLong:IOReportSimpleGetIntegerValue()];
-      v5 = v4;
-      if (v4)
+      v5 = [MEMORY[0x1E696AD98] numberWithLongLong:IOReportSimpleGetIntegerValue()];
+      v6 = v5;
+      if (v5)
       {
-        v6 = v4;
+        v7 = v5;
       }
 
       else
       {
-        v6 = &unk_1F5405CD0;
+        v7 = &unk_1F5405CD0;
       }
 
-      objc_storeStrong((*(*(a1 + 40) + 8) + 40), v6);
+      objc_storeStrong((*(*(a1 + 40) + 8) + 40), v7);
     }
   }
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v3);
 }
 
 - (id)currentValueForStateChannel:(id)channel atIndex:(int)index
@@ -699,18 +744,17 @@ void __46__PLIOReportStats_deltaValueForSimpleChannel___block_invoke(uint64_t a1
   return v8;
 }
 
-void __55__PLIOReportStats_currentValueForStateChannel_atIndex___block_invoke(uint64_t a1)
+void __55__PLIOReportStats_currentValueForStateChannel_atIndex___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_autoreleasePoolPush();
+  v3 = objc_autoreleasePoolPush();
   if (IOReportChannelGetFormat() == 2)
   {
-    v3 = IOReportChannelGetChannelName();
-    if ([v3 isEqualToString:*(a1 + 32)])
+    v4 = IOReportChannelGetChannelName();
+    if ([v4 isEqualToString:*(a1 + 32)])
     {
-      v4 = MEMORY[0x1E696AD98];
-      v5 = *(a1 + 48);
+      v5 = MEMORY[0x1E696AD98];
       IOReportStateGetDutyCycle();
-      v6 = [v4 numberWithDouble:?];
+      v6 = [v5 numberWithDouble:?];
       v7 = v6;
       if (v6)
       {
@@ -726,7 +770,7 @@ void __55__PLIOReportStats_currentValueForStateChannel_atIndex___block_invoke(ui
     }
   }
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v3);
 }
 
 - (id)deltaValueForStateChannel:(id)channel atIndex:(int)index
@@ -758,18 +802,17 @@ void __55__PLIOReportStats_currentValueForStateChannel_atIndex___block_invoke(ui
   return v8;
 }
 
-void __53__PLIOReportStats_deltaValueForStateChannel_atIndex___block_invoke(uint64_t a1)
+void __53__PLIOReportStats_deltaValueForStateChannel_atIndex___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_autoreleasePoolPush();
+  v3 = objc_autoreleasePoolPush();
   if (IOReportChannelGetFormat() == 2)
   {
-    v3 = IOReportChannelGetChannelName();
-    if ([v3 isEqualToString:*(a1 + 32)])
+    v4 = IOReportChannelGetChannelName();
+    if ([v4 isEqualToString:*(a1 + 32)])
     {
-      v4 = MEMORY[0x1E696AD98];
-      v5 = *(a1 + 48);
+      v5 = MEMORY[0x1E696AD98];
       IOReportStateGetDutyCycle();
-      v6 = [v4 numberWithDouble:?];
+      v6 = [v5 numberWithDouble:?];
       v7 = v6;
       if (v6)
       {
@@ -785,17 +828,16 @@ void __53__PLIOReportStats_deltaValueForStateChannel_atIndex___block_invoke(uint
     }
   }
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v3);
 }
 
 - (void)subscribeToGroup:(uint64_t *)a1 andSubGroup:(NSObject *)a2 withChannelIDs:manualChannelOnly:.cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "IOReportCopyFilteredChannels returned error = %@ in PLIOReportStats", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "IOReportCopyFilteredChannels returned error = %@ in PLIOReportStats", &v3, 0xCu);
 }
 
 - (void)subscribeToGroup:(uint8_t *)a1 andSubGroup:(void *)a2 withChannelIDs:(uint64_t *)a3 manualChannelOnly:(NSObject *)a4 .cold.2(uint8_t *a1, void *a2, uint64_t *a3, NSObject *a4)
@@ -808,38 +850,34 @@ void __53__PLIOReportStats_deltaValueForStateChannel_atIndex___block_invoke(uint
 
 - (void)subscribeToGroup:(uint64_t *)a1 andSubGroup:(NSObject *)a2 withChannelIDs:manualChannelOnly:.cold.3(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "IOReportCreateSubscription returned error = %@ in PLIOReportStats", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "IOReportCreateSubscription returned error = %@ in PLIOReportStats", &v3, 0xCu);
 }
 
 - (void)subscribeToGroup:(void *)a1 andSubGroup:withChannelIDs:manualChannelOnly:.cold.4(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 subscribedChannels];
-  OUTLINED_FUNCTION_5(&dword_1D8611000, v2, v3, "Subscribed to channels %@\n", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_5(&dword_1D8611000, v2, v3, "Subscribed to channels %@\n", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)subscribeToGroup:(void *)a1 andSubGroup:withChannelIDs:manualChannelOnly:.cold.5(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  [a1 subscription];
-  OUTLINED_FUNCTION_5(&dword_1D8611000, v1, v2, "IOReportSubscriptionRef returned subscription = %@ in PLIOReportStats", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = [a1 subscription];
+  OUTLINED_FUNCTION_5(&dword_1D8611000, v1, v2, "IOReportSubscriptionRef returned subscription = %@ in PLIOReportStats", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void __76__PLIOReportStats__parseIOReportSampleFromStats_convertingUnitToUnityScale___block_invoke_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "Failed to parse: unsupported IOReport channel format %u", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "Failed to parse: unsupported IOReport channel format %u", v2, 8u);
 }
 
 @end

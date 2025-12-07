@@ -88,46 +88,45 @@
 
 - (void)_snoozeNotifications
 {
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = [(NSMutableDictionary *)self->_notificationsToBeSnoozed allKeys];
-  v3 = [obj countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v3 = [obj countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       v6 = 0;
       do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
         notificationCenter = self->_notificationCenter;
-        v19 = *(*(&v15 + 1) + 8 * v6);
-        v7 = v19;
-        v9 = [NSArray arrayWithObjects:&v19 count:1];
-        [(UNUserNotificationCenter *)notificationCenter removeDeliveredNotificationsWithIdentifiers:v9];
+        v18 = *(*(&v14 + 1) + 8 * v6);
+        v8 = [NSArray arrayWithObjects:&v18 count:1];
+        [(UNUserNotificationCenter *)notificationCenter removeDeliveredNotificationsWithIdentifiers:v8];
 
-        v10 = [(NSMutableDictionary *)self->_notificationsToBeSnoozed objectForKey:v7];
-        v13[0] = _NSConcreteStackBlock;
-        v13[1] = 3221225472;
-        v13[2] = sub_100019D3C;
-        v13[3] = &unk_10051C498;
-        v14 = v10;
-        v11 = v10;
-        [(ADUserNotificationServiceProvider *)self postNotificationRequest:v11 completion:v13];
+        v9 = objc_msgSend_objectForKey_(self->_notificationsToBeSnoozed);
+        v12[0] = _NSConcreteStackBlock;
+        v12[1] = 3221225472;
+        v12[2] = sub_100019D3C;
+        v12[3] = &unk_10051C498;
+        v13 = v9;
+        v10 = v9;
+        [(ADUserNotificationServiceProvider *)self postNotificationRequest:v10 completion:v12];
 
         v6 = v6 + 1;
       }
 
       while (v4 != v6);
-      v4 = [obj countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v4 = [obj countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v4);

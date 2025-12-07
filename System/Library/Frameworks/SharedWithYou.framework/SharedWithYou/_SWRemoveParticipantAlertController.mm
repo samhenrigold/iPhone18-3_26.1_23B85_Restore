@@ -2,6 +2,7 @@
 + (id)alertControllerWithParticipant:(id)participant highlight:(id)highlight preferredStyle:(int64_t)style;
 - (id)_initWithParticipant:(id)participant highlight:(id)highlight preferredStyle:(int64_t)style;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation _SWRemoveParticipantAlertController
@@ -43,6 +44,25 @@
   clearColor = [MEMORY[0x1E69DC888] clearColor];
   view = [(_SWRemoveParticipantAlertController *)self view];
   [view setBackgroundColor:clearColor];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = _SWRemoveParticipantAlertController;
+  [(_SWRemoveParticipantAlertController *)&v8 viewWillAppear:appear];
+  if (!self->_remoteAlertController)
+  {
+    objc_initWeak(&location, self);
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __54___SWRemoveParticipantAlertController_viewWillAppear___block_invoke;
+    v5[3] = &unk_1E7FDE100;
+    objc_copyWeak(&v6, &location);
+    v4 = [_SWRemoveParticipantAlertRemoteController requestViewControllerWithConnectionHandler:v5];
+    objc_destroyWeak(&v6);
+    objc_destroyWeak(&location);
+  }
 }
 
 @end

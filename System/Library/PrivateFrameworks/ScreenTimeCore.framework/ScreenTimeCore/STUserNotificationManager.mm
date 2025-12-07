@@ -90,67 +90,25 @@
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
-    if (isKindOfClass)
+    if (isKindOfClass & 1) != 0 || ([receivedCopy object], v8 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v9 = objc_opt_isKindOfClass(), v8, (v9) || (objc_msgSend(receivedCopy, "object"), v10 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v11 = objc_opt_isKindOfClass(), v10, (v11) || (objc_msgSend(receivedCopy, "object"), v12 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v13 = objc_opt_isKindOfClass(), v12, (v13))
     {
-      v8 = STShareMyLocationUnlockedUserNotificationContext_ptr;
+      v14 = objc_opt_new();
+      [(STUserNotificationManager *)self removeNotificationForContext:v14 completionHandler:0];
     }
 
-    else
-    {
-      object2 = [receivedCopy object];
-      objc_opt_class();
-      v10 = objc_opt_isKindOfClass();
-
-      if (v10)
-      {
-        v8 = STShareMyLocationLockedUserNotificationContext_ptr;
-      }
-
-      else
-      {
-        object3 = [receivedCopy object];
-        objc_opt_class();
-        v12 = objc_opt_isKindOfClass();
-
-        if (v12)
-        {
-          v8 = STLocationServicesUnlockedUserNotificationContext_ptr;
-        }
-
-        else
-        {
-          object4 = [receivedCopy object];
-          objc_opt_class();
-          v14 = objc_opt_isKindOfClass();
-
-          if ((v14 & 1) == 0)
-          {
-LABEL_12:
-            object5 = [receivedCopy object];
-            v18[0] = _NSConcreteStackBlock;
-            v18[1] = 3221225472;
-            v18[2] = sub_10009C000;
-            v18[3] = &unk_1001A4048;
-            v19 = receivedCopy;
-            [(STUserNotificationManager *)self postNotificationForContext:object5 completionHandler:v18];
-
-            goto LABEL_13;
-          }
-
-          v8 = STLocationServicesLockedUserNotificationContext_ptr;
-        }
-      }
-    }
-
-    v15 = *v8;
-    v16 = objc_opt_new();
-    [(STUserNotificationManager *)self removeNotificationForContext:v16 completionHandler:0];
-
-    goto LABEL_12;
+    object2 = [receivedCopy object];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10009C000;
+    v16[3] = &unk_1001A4048;
+    v17 = receivedCopy;
+    [(STUserNotificationManager *)self postNotificationForContext:object2 completionHandler:v16];
   }
 
-  [(STUserNotificationManager *)self performSelectorOnMainThread:a2 withObject:receivedCopy waitUntilDone:0];
-LABEL_13:
+  else
+  {
+    [(STUserNotificationManager *)self performSelectorOnMainThread:a2 withObject:receivedCopy waitUntilDone:0];
+  }
 }
 
 - (void)postNotificationForContext:(id)context completionHandler:(id)handler

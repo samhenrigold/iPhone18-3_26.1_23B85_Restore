@@ -103,40 +103,40 @@ uint64_t __28__AAFSerialization_instance__block_invoke(uint64_t a1)
 
 - (void)addSerializer:(id)serializer
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   serializerCopy = serializer;
   mediaTypes = [serializerCopy mediaTypes];
   if ([mediaTypes aaf_hasObjects])
   {
     v6 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(mediaTypes, "count")}];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v7 = mediaTypes;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          lowercaseString = [*(*(&v16 + 1) + 8 * v11) lowercaseString];
+          lowercaseString = [*(*(&v15 + 1) + 8 * v11) lowercaseString];
           [v6 setValue:serializerCopy forKey:lowercaseString];
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -146,8 +146,6 @@ uint64_t __28__AAFSerialization_instance__block_invoke(uint64_t a1)
     serializersByType = self->_serializersByType;
     self->_serializersByType = v13;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -76,7 +76,7 @@
   v16.super_class = SBIconContinuityAccessoryView;
   [(SBIconContinuityAccessoryView *)&v16 layoutSubviews];
   backgroundView = self->_backgroundView;
-  [(SBIconContinuityAccessoryView *)self bounds];
+  objc_msgSend_bounds(self);
   [(UIView *)backgroundView setFrame:?];
   listLayout = [(SBIconContinuityAccessoryView *)self listLayout];
 
@@ -87,7 +87,7 @@
     v6 = v5;
     BSRectWithSize();
     CGRectInset(v17, 1.0, 1.0);
-    [(UIView *)self->_backgroundView bounds];
+    objc_msgSend_bounds(self->_backgroundView);
     v15 = v6;
     UIRectCenteredIntegralRectScale();
     v8 = v7;
@@ -105,7 +105,7 @@
   if (listLayout)
   {
     listLayout2 = [(SBIconContinuityAccessoryView *)self listLayout];
-    [listLayout2 iconImageInfo];
+    objc_msgSend_iconImageInfo(listLayout2);
     v6 = v5;
   }
 
@@ -182,7 +182,7 @@
   highlightedCopy = highlighted;
   v15 = *MEMORY[0x1E69E9840];
   itemCopy = item;
-  v6 = SBLogContinuity();
+  v6 = SBLogContinuity(itemCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v11 = 138412546;

@@ -5,16 +5,18 @@
 
 uint64_t __58__NSHTTPCookieStorage_VSAdditions__vs_sharedCookieStorage__block_invoke()
 {
-  vs_sharedCookieStorage___vs_lazy_init_variable = __58__NSHTTPCookieStorage_VSAdditions__vs_sharedCookieStorage__block_invoke_2();
+  v0 = __58__NSHTTPCookieStorage_VSAdditions__vs_sharedCookieStorage__block_invoke_2();
+  v1 = vs_sharedCookieStorage___vs_lazy_init_variable;
+  vs_sharedCookieStorage___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __58__NSHTTPCookieStorage_VSAdditions__vs_sharedCookieStorage__block_invoke_2()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAA38] sharedHTTPCookieStorage];
-  v9 = 0;
+  v10 = 0;
   v1 = container_system_group_path_for_identifier();
   if (v1)
   {
@@ -25,28 +27,28 @@ id __58__NSHTTPCookieStorage_VSAdditions__vs_sharedCookieStorage__block_invoke_2
 
     v5 = [v4 stringByAppendingPathComponent:@"VSSharedCookies.binarycookies"];
 
-    v6 = VSDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = VSDefaultLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Using cookie storage %@", buf, 0xCu);
+      v12 = v5;
+      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Using cookie storage %@", buf, 0xCu);
     }
 
     if (v5)
     {
-      v7 = [MEMORY[0x277CCAA38] _csff:v5];
+      v8 = [MEMORY[0x277CCAA38] _csff:v5];
 
-      v0 = v7;
+      v0 = v8;
     }
   }
 
   else
   {
-    v5 = VSErrorLogObject();
+    v5 = VSErrorLogObject(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __58__NSHTTPCookieStorage_VSAdditions__vs_sharedCookieStorage__block_invoke_2_cold_1(&v9, v5);
+      __58__NSHTTPCookieStorage_VSAdditions__vs_sharedCookieStorage__block_invoke_2_cold_1(&v10, v5);
     }
   }
 

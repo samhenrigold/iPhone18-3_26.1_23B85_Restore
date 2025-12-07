@@ -133,7 +133,7 @@ LABEL_8:
 
 + (void)_handleInviteNotification:(id)notification withUid:(id)uid serverURL:(id)l syncKey:(id)key database:(CalDatabase *)database store:(void *)store calendarHomeURL:(id)rL notificationCalendar:(void *)self0 notificationCalendarURL:(id)self1 recordIDMap:(id)self2
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   uidCopy = uid;
   keyCopy = key;
@@ -144,19 +144,19 @@ LABEL_8:
   inviteStatus = [notificationCopy inviteStatus];
   name = [inviteStatus name];
 
-  v62 = name;
+  v61 = name;
   v24 = [self _inviteStatusFromString:name];
   v25 = [lCopy calDAV_leastInfoStringRepresentationRelativeToParentURL:uRLCopy];
 
-  v63 = mapCopy;
+  v62 = mapCopy;
   v26 = [self _copyNotificationWithExternalID:v25 inCalendar:calendar withDatabase:database recordIDMap:mapCopy];
   if (!v26)
   {
     v26 = [self _createNotificationWithInviteStatus:v24 inDatabase:database];
     CalNotificationSetOwner(v26, calendar);
-    CalNotificationSetExternalID(v26);
-    CalNotificationSetExternalModTag(v26);
-    CalNotificationSetUUID(v26);
+    CalNotificationSetExternalID(v26, v25);
+    CalNotificationSetExternalModTag(v26, keyCopy);
+    CalNotificationSetUUID(v26, uidCopy);
     v27 = CalEntityCopyRecordID(v26);
     if (v27)
     {
@@ -185,17 +185,17 @@ LABEL_13:
     {
       Calendar = CalDatabaseCreateCalendar(database);
       CalStoreAddCalendar(store, Calendar);
-      CalCalendarSetExternalID(Calendar);
+      CalCalendarSetExternalID(Calendar, appendSlashIfNeeded);
       CalNotificationSetHostURL(v26, payloadAsFullURL);
-      CalCalendarSetNeedsNotification(Calendar);
+      CalCalendarSetNeedsNotification(Calendar, 1);
     }
 
-    CalCalendarSetIsSharingInvitation(Calendar);
-    CalCalendarSetSharingStatus(Calendar);
-    CalCalendarSetHidden(Calendar);
-    CalCalendarSetImmutable(Calendar);
-    CalCalendarSetAlwaysReadOnly(Calendar);
-    CalCalendarSetSharingInvitationResponse(Calendar);
+    CalCalendarSetIsSharingInvitation(Calendar, 1);
+    CalCalendarSetSharingStatus(Calendar, 3u);
+    CalCalendarSetHidden(Calendar, 1);
+    CalCalendarSetImmutable(Calendar, 1);
+    CalCalendarSetAlwaysReadOnly(Calendar, 1);
+    CalCalendarSetSharingInvitationResponse(Calendar, 0);
     organizer = [notificationCopy organizer];
     commonName = [organizer commonName];
     payloadAsString = [commonName payloadAsString];
@@ -204,17 +204,14 @@ LABEL_13:
     href2 = [organizer2 href];
     payloadAsFullURL2 = [href2 payloadAsFullURL];
 
-    v61 = payloadAsString;
-    CalCalendarSetSharedOwnerName(Calendar);
-    [payloadAsFullURL2 absoluteString];
-    CalCalendarSetSharedOwnerAddress(Calendar);
+    v60 = payloadAsString;
+    CalCalendarSetSharedOwnerName(Calendar, payloadAsString);
+    CalCalendarSetSharedOwnerAddress(Calendar, [payloadAsFullURL2 absoluteString]);
     summary = [notificationCopy summary];
-    [summary payloadAsString];
-    CalCalendarSetTitle(Calendar);
+    CalCalendarSetTitle(Calendar, [summary payloadAsString]);
 
     v47 = [notificationCopy uid];
-    [v47 payloadAsString];
-    CalCalendarSetExternalIdentificationTag(Calendar);
+    CalCalendarSetExternalIdentificationTag(Calendar, [v47 payloadAsString]);
 
     supportedCalendarComponentSet = [notificationCopy supportedCalendarComponentSet];
     componentsAsString = [supportedCalendarComponentSet componentsAsString];
@@ -308,7 +305,7 @@ LABEL_6:
     payloadAsString2 = [summary2 payloadAsString];
 
     CalInviteReplyNotificationSetSummary(v26, payloadAsString2);
-    CalInviteReplyNotificationSetStatus(v26);
+    CalInviteReplyNotificationSetStatus(v26, 3);
     date = [MEMORY[0x1E695DF00] date];
     [date timeIntervalSinceReferenceDate];
     v38 = v37;
@@ -320,9 +317,9 @@ LABEL_6:
   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v67 = v24;
-    v68 = 2112;
-    v69 = payloadAsFullURL;
+    v66 = v24;
+    v67 = 2112;
+    v68 = payloadAsFullURL;
     _os_log_impl(&dword_1DEBB1000, v39, OS_LOG_TYPE_INFO, "Got an invitation response of %d for calendar %@, so we're going to remove it", buf, 0x12u);
   }
 
@@ -338,8 +335,6 @@ LABEL_37:
   {
     CFRelease(v26);
   }
-
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_handleInviteReply:(id)reply withUid:(id)uid serverURL:(id)l syncKey:(id)key owningNotification:(id)notification database:(CalDatabase *)database store:(void *)store calendarHomeURL:(id)self0 notificationCalendar:(void *)self1 notificationCalendarURL:(id)self2 contactsProvider:(id)self3 recordIDMap:(id)self4
@@ -383,10 +378,10 @@ LABEL_37:
     InviteReplyNotification = CalDatabaseCreateInviteReplyNotification(database);
     CalNotificationSetOwner(InviteReplyNotification, calendar);
     v29 = v26;
-    CalNotificationSetExternalID(InviteReplyNotification);
-    CalNotificationSetExternalModTag(InviteReplyNotification);
+    CalNotificationSetExternalID(InviteReplyNotification, v26);
+    CalNotificationSetExternalModTag(InviteReplyNotification, keyCopy);
     v30 = uidCopy;
-    CalNotificationSetUUID(InviteReplyNotification);
+    CalNotificationSetUUID(InviteReplyNotification, uidCopy);
     CalInviteReplyNotificationSetInviteReplyCalendar(InviteReplyNotification, v32);
     v94 = CalCalendarCopyTitle(v32);
     v33 = CalEntityCopyRecordID(InviteReplyNotification);
@@ -424,18 +419,29 @@ LABEL_9:
     if ([name isEqualToString:*MEMORY[0x1E6992088]])
     {
       v46 = v30;
+      v47 = 1;
     }
 
     else
     {
       v46 = v30;
-      if (([name isEqualToString:*MEMORY[0x1E6992090]] & 1) == 0)
+      if ([name isEqualToString:*MEMORY[0x1E6992090]])
       {
-        [name isEqualToString:*MEMORY[0x1E6992098]];
+        v47 = 2;
+      }
+
+      else if ([name isEqualToString:*MEMORY[0x1E6992098]])
+      {
+        v47 = 3;
+      }
+
+      else
+      {
+        v47 = 0;
       }
     }
 
-    CalInviteReplyNotificationSetStatus(InviteReplyNotification);
+    CalInviteReplyNotificationSetStatus(InviteReplyNotification, v47);
     hostURL = [replyCopy hostURL];
     href = [hostURL href];
     payloadAsFullURL = [href payloadAsFullURL];
@@ -444,52 +450,52 @@ LABEL_9:
     inReplyTo = [replyCopy inReplyTo];
     payloadAsString3 = [inReplyTo payloadAsString];
 
-    CalInviteReplyNotificationSetInReplyTo(InviteReplyNotification);
+    CalInviteReplyNotificationSetInReplyTo(InviteReplyNotification, payloadAsString3);
     summary = [replyCopy summary];
     payloadAsString4 = [summary payloadAsString];
-    v54 = payloadAsString4;
-    v55 = v94;
+    v55 = payloadAsString4;
+    v56 = v94;
     if (payloadAsString4)
     {
-      v55 = payloadAsString4;
+      v56 = payloadAsString4;
     }
 
-    v56 = v55;
+    v57 = v56;
 
-    CalInviteReplyNotificationSetSummary(InviteReplyNotification, v56);
+    CalInviteReplyNotificationSetSummary(InviteReplyNotification, v57);
     firstName = [replyCopy firstName];
-    if (firstName && (v58 = firstName, [replyCopy lastName], v59 = objc_claimAutoreleasedReturnValue(), v59, v58, v59))
+    if (firstName && (v59 = firstName, [replyCopy lastName], v60 = objc_claimAutoreleasedReturnValue(), v60, v59, v60))
     {
-      v60 = CDBLogHandle;
+      v61 = CDBLogHandle;
       if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
       {
-        v61 = v60;
+        v62 = v61;
         firstName2 = [replyCopy firstName];
         lastName = [replyCopy lastName];
         *buf = 138412546;
         v96 = firstName2;
         v97 = 2112;
         v98 = lastName;
-        _os_log_impl(&dword_1DEBB1000, v61, OS_LOG_TYPE_INFO, "Invite reply has firstName: %@, lastName: %@", buf, 0x16u);
+        _os_log_impl(&dword_1DEBB1000, v62, OS_LOG_TYPE_INFO, "Invite reply has firstName: %@, lastName: %@", buf, 0x16u);
       }
 
       firstName3 = [replyCopy firstName];
-      CalInviteReplyNotificationSetShareeFirstName(InviteReplyNotification);
+      CalInviteReplyNotificationSetShareeFirstName(InviteReplyNotification, firstName3);
 
       lastName2 = [replyCopy lastName];
-      CalInviteReplyNotificationSetShareeLastName(InviteReplyNotification);
-      v66 = v46;
+      CalInviteReplyNotificationSetShareeLastName(InviteReplyNotification, lastName2);
+      v67 = v46;
     }
 
     else
     {
       acceptedURL = [replyCopy acceptedURL];
 
-      v66 = v46;
+      v67 = v46;
       mapCopy = v88;
       if (acceptedURL)
       {
-LABEL_39:
+LABEL_42:
         acceptedURL2 = [replyCopy acceptedURL];
 
         if (acceptedURL2)
@@ -502,18 +508,18 @@ LABEL_39:
 
         rLCopy = v85;
         lCopy = v86;
-        goto LABEL_42;
+        goto LABEL_45;
       }
 
       href2 = [replyCopy href];
       lastName2 = [href2 payloadAsFullURL];
 
-      v69 = CDBLogHandle;
+      v70 = CDBLogHandle;
       if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
         v96 = lastName2;
-        _os_log_impl(&dword_1DEBB1000, v69, OS_LOG_TYPE_INFO, "Invite reply has no names. Using the provided address of %@", buf, 0xCu);
+        _os_log_impl(&dword_1DEBB1000, v70, OS_LOG_TYPE_INFO, "Invite reply has no names. Using the provided address of %@", buf, 0xCu);
       }
 
       absoluteString = [lastName2 absoluteString];
@@ -523,62 +529,60 @@ LABEL_39:
         if ([absoluteString hasMailto])
         {
           stringRemovingMailto = [absoluteString stringRemovingMailto];
-          v72 = CDBLogHandle;
+          v73 = CDBLogHandle;
           if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
             v96 = stringRemovingMailto;
-            _os_log_impl(&dword_1DEBB1000, v72, OS_LOG_TYPE_INFO, "This looks like a mailto address. Search the addressbook for a contact with the address %@", buf, 0xCu);
+            _os_log_impl(&dword_1DEBB1000, v73, OS_LOG_TYPE_INFO, "This looks like a mailto address. Search the addressbook for a contact with the address %@", buf, 0xCu);
           }
 
-          v73 = [providerCopy fullNameForFirstContactMatchingEmailAddress:stringRemovingMailto];
+          v74 = [providerCopy fullNameForFirstContactMatchingEmailAddress:stringRemovingMailto];
         }
 
         else
         {
           stringRemovingMailto = [absoluteString stringRemovingTel];
-          v80 = CDBLogHandle;
+          v81 = CDBLogHandle;
           if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
             v96 = stringRemovingMailto;
-            _os_log_impl(&dword_1DEBB1000, v80, OS_LOG_TYPE_INFO, "This looks like a telephone number. Search the addressbook for a contact with the phone number %@", buf, 0xCu);
+            _os_log_impl(&dword_1DEBB1000, v81, OS_LOG_TYPE_INFO, "This looks like a telephone number. Search the addressbook for a contact with the phone number %@", buf, 0xCu);
           }
 
-          v73 = [providerCopy fullNameForFirstContactMatchingPhoneNumber:stringRemovingMailto];
+          v74 = [providerCopy fullNameForFirstContactMatchingPhoneNumber:stringRemovingMailto];
         }
 
-        v81 = v73;
+        v82 = v74;
 
-        CalInviteReplyNotificationSetShareeDisplayName(InviteReplyNotification);
-        v66 = uidCopy;
+        CalInviteReplyNotificationSetShareeDisplayName(InviteReplyNotification, v82);
+        v67 = uidCopy;
       }
     }
 
     mapCopy = v88;
-    goto LABEL_39;
+    goto LABEL_42;
   }
 
-  v74 = CDBLogHandle;
+  v75 = CDBLogHandle;
   v29 = v26;
-  v66 = uidCopy;
+  v67 = uidCopy;
   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
   {
-    v75 = v74;
+    v76 = v75;
     [replyCopy hostURL];
-    v77 = v76 = rLCopy;
-    href3 = [v77 href];
+    v78 = v77 = rLCopy;
+    href3 = [v78 href];
     payloadAsOriginalURL = [href3 payloadAsOriginalURL];
     *buf = 138412290;
     v96 = payloadAsOriginalURL;
-    _os_log_impl(&dword_1DEBB1000, v75, OS_LOG_TYPE_INFO, "Ignoring invite reply notification for an unknown calendar: %@", buf, 0xCu);
+    _os_log_impl(&dword_1DEBB1000, v76, OS_LOG_TYPE_INFO, "Ignoring invite reply notification for an unknown calendar: %@", buf, 0xCu);
 
-    rLCopy = v76;
+    rLCopy = v77;
   }
 
-LABEL_42:
-
-  v84 = *MEMORY[0x1E69E9840];
+LABEL_45:
 }
 
 + (void)_copyCalendarForReplyItem:(id)item inDatabase:(CalDatabase *)database store:(void *)store calendarHomeURL:(id)l
@@ -625,9 +629,9 @@ LABEL_42:
   {
     v24 = CalDatabaseCreateResourceChangeNotification(database);
     CalNotificationSetOwner(v24, calendar);
-    CalNotificationSetExternalID(v24);
-    CalNotificationSetExternalModTag(v24);
-    CalNotificationSetUUID(v24);
+    CalNotificationSetExternalID(v24, v22);
+    CalNotificationSetExternalModTag(v24, keyCopy);
+    CalNotificationSetUUID(v24, uidCopy);
     v25 = CalEntityCopyRecordID(v24);
     if (v25)
     {
@@ -714,7 +718,7 @@ LABEL_42:
           v99 = [allKeys countByEnumeratingWithState:&v118 objects:v134 count:16];
           if (!v99)
           {
-            goto LABEL_46;
+            goto LABEL_48;
           }
 
           v96 = *v119;
@@ -743,7 +747,8 @@ LABEL_42:
                 v44 = [v43 countByEnumeratingWithState:&v114 objects:v133 count:16];
                 if (!v44)
                 {
-                  goto LABEL_43;
+                  v46 = 0;
+                  goto LABEL_45;
                 }
 
                 v45 = v44;
@@ -796,8 +801,8 @@ LABEL_38:
                   v45 = [v43 countByEnumeratingWithState:&v114 objects:v133 count:16];
                   if (!v45)
                   {
-LABEL_43:
-                    CalResourceChangeSetChangedProperties(v100);
+LABEL_45:
+                    CalResourceChangeSetChangedProperties(v100, v46);
                     CFRelease(v100);
 
                     database = databaseCopy;
@@ -817,9 +822,9 @@ LABEL_43:
             v99 = [allKeys countByEnumeratingWithState:&v118 objects:v134 count:16];
             if (!v99)
             {
-LABEL_46:
+LABEL_48:
 
-              goto LABEL_49;
+              goto LABEL_51;
             }
           }
         }
@@ -830,7 +835,7 @@ LABEL_46:
           CFRelease(v50);
         }
 
-LABEL_49:
+LABEL_51:
 
         v37 = v90 + 1;
       }
@@ -880,7 +885,7 @@ LABEL_49:
 
           v62 = displayName;
 
-          CalResourceChangeSetDeletedSummary(v58);
+          CalResourceChangeSetDeletedSummary(v58, v62);
           CFRelease(v58);
         }
 
@@ -919,20 +924,17 @@ LABEL_49:
           v70 = v69;
           if ([v68 created])
           {
-            [v68 created];
-            CalResourceChangeSetCreateCount(v70);
+            CalResourceChangeSetCreateCount(v70, [v68 created]);
           }
 
           if ([v68 updated])
           {
-            [v68 updated];
-            CalResourceChangeSetUpdateCount(v70);
+            CalResourceChangeSetUpdateCount(v70, [v68 updated]);
           }
 
           if ([v68 deleted])
           {
-            [v68 deleted];
-            CalResourceChangeSetDeleteCount(v70);
+            CalResourceChangeSetDeleteCount(v70, [v68 deleted]);
           }
 
           CFRelease(v70);
@@ -970,12 +972,17 @@ LABEL_49:
         if (v78)
         {
           v79 = v78;
-          if ([v77 state] != 2)
+          if ([v77 state] == 2)
           {
-            [v77 state];
+            v80 = 2;
           }
 
-          CalResourceChangeSetPublicStatus(v79);
+          else
+          {
+            v80 = [v77 state] == 1;
+          }
+
+          CalResourceChangeSetPublicStatus(v79, v80);
           CFRelease(v79);
         }
 
@@ -989,7 +996,6 @@ LABEL_49:
   }
 
   CFRelease(v73);
-  v80 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_createResourceChange:(id)change withType:(unsigned int)type forNotification:(void *)notification withRecurrenceID:(id)d database:(CalDatabase *)database store:(void *)store calendarHomeURL:(id)l
@@ -997,7 +1003,7 @@ LABEL_49:
   changeCopy = change;
   dCopy = d;
   lCopy = l;
-  v17 = CalDatabaseCreateResourceChangeOfType(database);
+  v17 = CalDatabaseCreateResourceChangeOfType(database, type);
   CalResourceChangeNotificationAddChange(notification, v17);
   href = [changeCopy href];
   payloadAsFullURL = [href payloadAsFullURL];
@@ -1150,16 +1156,16 @@ LABEL_17:
   displayName = [changedBy displayName];
   if (displayName)
   {
-    CalResourceChangeSetChangedByDisplayName(v17);
+    CalResourceChangeSetChangedByDisplayName(v17, displayName);
   }
 
   else
   {
     firstName = [v38 firstName];
-    CalResourceChangeSetChangedByFirstName(v17);
+    CalResourceChangeSetChangedByFirstName(v17, firstName);
 
     lastName = [v38 lastName];
-    CalResourceChangeSetChangedByLastName(v17);
+    CalResourceChangeSetChangedByLastName(v17, lastName);
   }
 
   emailAddress = [v38 emailAddress];
@@ -1206,7 +1212,7 @@ LABEL_27:
 
   v50 = CalDateFromICSDateAsUTC(v49);
   v51 = CFDateCreate(0, v50);
-  CalResourceChangeSetTimestamp(v17);
+  CalResourceChangeSetTimestamp(v17, v51);
   if (v51)
   {
     CFRelease(v51);
@@ -1218,51 +1224,51 @@ LABEL_30:
 
 + (id)_changedAttributesFromCalendarChanges:(id)changes
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   obj = changesCopy;
-  v38 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
-  if (v38)
+  v37 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+  if (v37)
   {
-    v37 = *v55;
+    v36 = *v54;
     do
     {
       v4 = 0;
       do
       {
-        if (*v55 != v37)
+        if (*v54 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v39 = v4;
-        v5 = *(*(&v54 + 1) + 8 * v4);
+        v38 = v4;
+        v5 = *(*(&v53 + 1) + 8 * v4);
+        v49 = 0u;
         v50 = 0u;
         v51 = 0u;
         v52 = 0u;
-        v53 = 0u;
         recurrences = [v5 recurrences];
-        v42 = [recurrences countByEnumeratingWithState:&v50 objects:v59 count:16];
-        if (v42)
+        v41 = [recurrences countByEnumeratingWithState:&v49 objects:v58 count:16];
+        if (v41)
         {
-          v41 = *v51;
+          v40 = *v50;
           do
           {
             v6 = 0;
             do
             {
-              if (*v51 != v41)
+              if (*v50 != v40)
               {
                 objc_enumerationMutation(recurrences);
               }
 
-              v45 = v6;
-              v7 = *(*(&v50 + 1) + 8 * v6);
+              v44 = v6;
+              v7 = *(*(&v49 + 1) + 8 * v6);
               recurrenceID = [v7 recurrenceID];
               if (recurrenceID)
               {
@@ -1282,30 +1288,30 @@ LABEL_30:
                 [dictionary setObject:v11 forKeyedSubscript:payloadAsString];
               }
 
-              v44 = payloadAsString;
-              v48 = 0u;
-              v49 = 0u;
-              v46 = 0u;
+              v43 = payloadAsString;
               v47 = 0u;
+              v48 = 0u;
+              v45 = 0u;
+              v46 = 0u;
               changes = [v7 changes];
               changedProperties = [changes changedProperties];
 
-              v14 = [changedProperties countByEnumeratingWithState:&v46 objects:v58 count:16];
+              v14 = [changedProperties countByEnumeratingWithState:&v45 objects:v57 count:16];
               if (v14)
               {
                 v15 = v14;
-                v16 = *v47;
+                v16 = *v46;
                 do
                 {
                   v17 = 0;
                   do
                   {
-                    if (*v47 != v16)
+                    if (*v46 != v16)
                     {
                       objc_enumerationMutation(changedProperties);
                     }
 
-                    v18 = *(*(&v46 + 1) + 8 * v17);
+                    v18 = *(*(&v45 + 1) + 8 * v17);
                     nameAttribute = [v18 nameAttribute];
 
                     if (nameAttribute)
@@ -1349,34 +1355,32 @@ LABEL_24:
                   }
 
                   while (v15 != v17);
-                  v33 = [changedProperties countByEnumeratingWithState:&v46 objects:v58 count:16];
+                  v33 = [changedProperties countByEnumeratingWithState:&v45 objects:v57 count:16];
                   v15 = v33;
                 }
 
                 while (v33);
               }
 
-              v6 = v45 + 1;
+              v6 = v44 + 1;
             }
 
-            while (v45 + 1 != v42);
-            v42 = [recurrences countByEnumeratingWithState:&v50 objects:v59 count:16];
+            while (v44 + 1 != v41);
+            v41 = [recurrences countByEnumeratingWithState:&v49 objects:v58 count:16];
           }
 
-          while (v42);
+          while (v41);
         }
 
-        v4 = v39 + 1;
+        v4 = v38 + 1;
       }
 
-      while (v39 + 1 != v38);
-      v38 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
+      while (v38 + 1 != v37);
+      v37 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
     }
 
-    while (v38);
+    while (v37);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -1439,7 +1443,7 @@ LABEL_7:
 
 + (void)setURL:(id)l forResourceWithUUID:(id)d withDatabase:(CalDatabase *)database notificationCalendar:(void *)calendar notificationCalendarURL:(id)rL recordIDMap:(id)map
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   lCopy = l;
   dCopy = d;
   rLCopy = rL;
@@ -1451,7 +1455,7 @@ LABEL_7:
     {
       v19 = v18;
       v20 = [lCopy calDAV_leastInfoStringRepresentationRelativeToParentURL:rLCopy];
-      CalNotificationSetExternalID(v19);
+      CalNotificationSetExternalID(v19, v20);
       v21 = CalEntityCopyRecordID(v19);
       if (v21)
       {
@@ -1468,14 +1472,12 @@ LABEL_7:
       v23 = CDBLogHandle;
       if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412290;
-        v26 = dCopy;
-        _os_log_impl(&dword_1DEBB1000, v23, OS_LOG_TYPE_DEFAULT, "Couldn't set url for the event %@ because it doesn't exist in our database", &v25, 0xCu);
+        v24 = 138412290;
+        v25 = dCopy;
+        _os_log_impl(&dword_1DEBB1000, v23, OS_LOG_TYPE_DEFAULT, "Couldn't set url for the event %@ because it doesn't exist in our database", &v24, 0xCu);
       }
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

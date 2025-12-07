@@ -1,6 +1,7 @@
 @interface MFMailDelivery
 + (BOOL)deliverMessage:(id)message;
 + (id)newWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other charsets:(id)charsets;
++ (id)newWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l;
 + (id)newWithMessage:(id)message;
 - (BOOL)shouldEncryptMessage;
 - (BOOL)shouldSignMessage;
@@ -33,6 +34,14 @@
   }
 
   return [v4 newDeliveryWithMessage:message];
+}
+
++ (id)newWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l
+{
+  lCopy = l;
+  v8 = [+[MailAccount accountContainingEmailAddress:](MailAccount accountContainingEmailAddress:{objc_msgSend(headers, "firstSenderAddress")), "deliveryAccount"}];
+
+  return [v8 newDeliveryWithHeaders:headers mixedContent:content textPartsAreHTML:lCopy];
 }
 
 + (id)newWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other charsets:(id)charsets
@@ -115,16 +124,15 @@
 
 - (void)dealloc
 {
-  message = self->_message;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [(MFMessage *)self->_message setMessageBody:0];
   }
 
-  v4.receiver = self;
-  v4.super_class = MFMailDelivery;
-  [(MFMailDelivery *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = MFMailDelivery;
+  [(MFMailDelivery *)&v3 dealloc];
 }
 
 - (id)newMessageWriter
@@ -333,11 +341,10 @@ LABEL_11:
 
 - (void)archive
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 138543362;
-  v5 = [objc_msgSend(self "error")];
-  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "Error %{public}@ occurred while trying to append messages to outgoing store. Ignoring and proceeding with delivery...", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = [objc_msgSend(self "error")];
+  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "Error %{public}@ occurred while trying to append messages to outgoing store. Ignoring and proceeding with delivery...", &v3, 0xCu);
 }
 
 @end

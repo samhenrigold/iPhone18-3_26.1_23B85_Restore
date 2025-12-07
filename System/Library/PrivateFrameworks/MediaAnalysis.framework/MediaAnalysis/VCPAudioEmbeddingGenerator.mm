@@ -123,7 +123,7 @@ void __68__VCPAudioEmbeddingGenerator_addDetectionFromTime_toTime_embedding___bl
       v8 = resultCopy;
       memset(v13, 0, sizeof(v13));
       v12 = 0u;
-      [v8 timeRange];
+      objc_msgSend_timeRange(v8);
       *&v11.value = v12;
       v11.epoch = *&v13[0];
       memset(&v10, 0, sizeof(v10));

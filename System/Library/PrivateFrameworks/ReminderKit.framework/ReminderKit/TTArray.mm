@@ -143,7 +143,7 @@
   return v6;
 }
 
-uint64_t __25__TTArray_indexOfObject___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__25__TTArray_indexOfObject___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 CR_compare:*(a1 + 32)];
   if (!result)
@@ -157,20 +157,18 @@ uint64_t __25__TTArray_indexOfObject___block_invoke(uint64_t a1, void *a2, uint6
 
 - (void)insertObject:(id)object atIndex:(unint64_t)index
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696AEC0];
   objectCopy = object;
   v8 = [[v6 alloc] initWithUTF8String:"\uFFFC"];
   v9 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v8];
-  v13 = @"TTArrayAttachment";
-  v14[0] = objectCopy;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = @"TTArrayAttachment";
+  v13[0] = objectCopy;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
   [v9 setAttributes:v10 range:{0, 1}];
   contents = [(TTArray *)self contents];
   [contents insertAttributedString:v9 atIndex:index];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeLastObject
@@ -441,7 +439,8 @@ void __26__TTArray_addUndoCommand___block_invoke(uint64_t a1, void *a2)
 {
   v4 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:(*(*archive + 72))(archive)];
   mutableBytes = [v4 mutableBytes];
-  v6 = TTBoundedCheckedCastNSUIntegerToUInt32([v4 length]);
+  [v4 length];
+  TTBoundedCheckedCastNSUIntegerToUInt32();
   google::protobuf::MessageLite::SerializeToArray(archive, mutableBytes, v6);
 
   return v4;
@@ -449,7 +448,7 @@ void __26__TTArray_addUndoCommand___block_invoke(uint64_t a1, void *a2)
 
 - (TTArray)initWithArchive:(const void *)archive andReplicaID:(id)d
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (*(archive + 32))
   {
@@ -471,33 +470,27 @@ void __26__TTArray_addUndoCommand___block_invoke(uint64_t a1, void *a2)
       v14 = 8 * v12;
       do
       {
-        CRDT::StringArray_ArrayAttachment::StringArray_ArrayAttachment(v26, *v13);
-        if ((~v27 & 3) == 0)
+        CRDT::StringArray_ArrayAttachment::StringArray_ArrayAttachment(v23, *v13);
+        if ((~v24 & 3) == 0)
         {
-          v15 = *(v29 + 23);
+          v15 = *(v26 + 23);
           if (v15 < 0)
           {
-            v15 = v29[1];
+            v15 = *(v26 + 8);
           }
 
           if (v15 == 16)
           {
-            v16 = objc_alloc(MEMORY[0x1E696AFB0]);
-            if (*(v29 + 23) < 0)
-            {
-              v17 = *v29;
-            }
-
-            v18 = [v16 initWithUUIDBytes:selfCopy];
+            v16 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:selfCopy];
             attributedString = [(TTMergeableString *)v11 attributedString];
-            v30 = @"TTArrayAttachment";
-            v31[0] = v18;
-            v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-            [attributedString setAttributes:v20 range:{v28, 1}];
+            v27 = @"TTArrayAttachment";
+            v28[0] = v16;
+            v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+            [attributedString setAttributes:v18 range:{v25, 1}];
           }
         }
 
-        CRDT::StringArray_ArrayAttachment::~StringArray_ArrayAttachment(v26);
+        CRDT::StringArray_ArrayAttachment::~StringArray_ArrayAttachment(v23);
         ++v13;
         v14 -= 8;
       }
@@ -520,13 +513,12 @@ void __26__TTArray_addUndoCommand___block_invoke(uint64_t a1, void *a2)
 
   selfCopy = [(TTArray *)self initWithContents:v6, selfCopy];
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)saveToArchive:(void *)archive
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   contents = [(TTArray *)self contents];
   *(archive + 8) |= 1u;
   v6 = *(archive + 5);
@@ -551,7 +543,7 @@ void __26__TTArray_addUndoCommand___block_invoke(uint64_t a1, void *a2)
         {
           if (v9 == *(archive + 16))
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 6, v9 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 12, v9 + 1);
           }
 
           google::protobuf::internal::GenericTypeHandler<CRDT::StringArray_ArrayAttachment>::New();
@@ -562,9 +554,9 @@ void __26__TTArray_addUndoCommand___block_invoke(uint64_t a1, void *a2)
         v12 = *(v11 + 8 * v10);
         *(v12 + 32) |= 1u;
         *(v12 + 40) = v7;
-        v14[0] = 0;
-        v14[1] = 0;
-        [v8 getUUIDBytes:v14];
+        v13[0] = 0;
+        v13[1] = 0;
+        [v8 getUUIDBytes:v13];
         *(v12 + 32) |= 2u;
         if (!google::protobuf::internal::empty_string_)
         {
@@ -584,8 +576,6 @@ void __26__TTArray_addUndoCommand___block_invoke(uint64_t a1, void *a2)
 
     while ([(TTArray *)self count]> v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (TTArray)initWithCRCoder:(id)coder
@@ -609,7 +599,7 @@ void __26__TTArray_addUndoCommand___block_invoke(uint64_t a1, void *a2)
 
 - (TTArray)initWithCRCoder:(id)coder stringArray:(const void *)array
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (*(array + 32))
   {
@@ -631,33 +621,27 @@ void __26__TTArray_addUndoCommand___block_invoke(uint64_t a1, void *a2)
       v20 = 8 * v18;
       do
       {
-        CRDT::StringArray_ArrayAttachment::StringArray_ArrayAttachment(v32, *v19);
-        if ((~v33 & 3) == 0)
+        CRDT::StringArray_ArrayAttachment::StringArray_ArrayAttachment(v29, *v19);
+        if ((~v30 & 3) == 0)
         {
-          v21 = *(v35 + 23);
+          v21 = *(v32 + 23);
           if (v21 < 0)
           {
-            v21 = v35[1];
+            v21 = *(v32 + 8);
           }
 
           if (v21 == 16)
           {
-            v22 = objc_alloc(MEMORY[0x1E696AFB0]);
-            if (*(v35 + 23) < 0)
-            {
-              v23 = *v35;
-            }
-
-            v24 = [v22 initWithUUIDBytes:selfCopy];
+            v22 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:selfCopy];
             attributedString = [(TTMergeableString *)v17 attributedString];
-            v36 = @"TTArrayAttachment";
-            v37[0] = v24;
-            v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
-            [attributedString setAttributes:v26 range:{v34, 1}];
+            v33 = @"TTArrayAttachment";
+            v34[0] = v22;
+            v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+            [attributedString setAttributes:v24 range:{v31, 1}];
           }
         }
 
-        CRDT::StringArray_ArrayAttachment::~StringArray_ArrayAttachment(v32);
+        CRDT::StringArray_ArrayAttachment::~StringArray_ArrayAttachment(v29);
         ++v19;
         v20 -= 8;
       }
@@ -692,7 +676,6 @@ void __26__TTArray_addUndoCommand___block_invoke(uint64_t a1, void *a2)
 
   selfCopy = [(TTArray *)self initWithContents:v9, selfCopy];
 
-  v28 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -713,20 +696,18 @@ void __26__TTArray_addUndoCommand___block_invoke(uint64_t a1, void *a2)
 
 - (void)objectAtIndex:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134349056;
-  v4 = a1;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "No object at index %{public}lu", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134349056;
+  v3 = a1;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "No object at index %{public}lu", &v2, 0xCu);
 }
 
 - (void)mergeWith:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Cannot merge with object of type %{public}@.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Cannot merge with object of type %{public}@.", &v2, 0xCu);
 }
 
 @end

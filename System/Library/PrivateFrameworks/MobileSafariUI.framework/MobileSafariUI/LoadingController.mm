@@ -166,31 +166,32 @@ LABEL_15:
   requestCopy = request;
   attributionCopy = attribution;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v14 = WeakRetained;
   if (!self->_webView)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v15 = WBS_LOG_CHANNEL_PREFIXPageLoading(WeakRetained, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      [LoadingController loadRequest:v13 userDriven:? shouldOpenExternalURLs:? eventAttribution:?];
+      [LoadingController loadRequest:v14 userDriven:v15 shouldOpenExternalURLs:? eventAttribution:?];
     }
   }
 
-  v14 = [requestCopy safari_requestBySettingIsUserInitiated:1];
+  v16 = [requestCopy safari_requestBySettingIsUserInitiated:1];
 
-  [WeakRetained loadingController:self willLoadRequest:v14 webView:self->_webView userDriven:drivenCopy];
+  [v14 loadingController:self willLoadRequest:v16 webView:self->_webView userDriven:drivenCopy];
   if (objc_opt_respondsToSelector())
   {
     [(WKWebView *)self->_webView _setUIEventAttribution:attributionCopy];
   }
 
-  v15 = [v14 URL];
-  if ([v15 sf_isOfflineReadingListURL])
+  v17 = [v16 URL];
+  if ([v17 sf_isOfflineReadingListURL])
   {
     webView = self->_webView;
-    v17 = MEMORY[0x277CBEBC0];
+    v19 = MEMORY[0x277CBEBC0];
     readingListArchivesDirectoryPath = [MEMORY[0x277D7B5A8] readingListArchivesDirectoryPath];
-    v19 = [v17 fileURLWithPath:readingListArchivesDirectoryPath isDirectory:1];
-    v20 = [(WKWebView *)webView loadFileURL:v15 allowingReadAccessToURL:v19];
+    v21 = [v19 fileURLWithPath:readingListArchivesDirectoryPath isDirectory:1];
+    v22 = [(WKWebView *)webView loadFileURL:v17 allowingReadAccessToURL:v21];
 
     safari_browserDefaults = [MEMORY[0x277CBEBD0] safari_browserDefaults];
     [safari_browserDefaults setBool:1 forKey:*MEMORY[0x277D29268]];
@@ -198,31 +199,31 @@ LABEL_15:
 
   else
   {
-    sf_isTestWebArchiveURL = [v15 sf_isTestWebArchiveURL];
-    v23 = self->_webView;
+    sf_isTestWebArchiveURL = [v17 sf_isTestWebArchiveURL];
+    v25 = self->_webView;
     if (sf_isTestWebArchiveURL)
     {
-      v24 = [(WKWebView *)v23 loadFileURL:v15 allowingReadAccessToURL:v15];
+      v26 = [(WKWebView *)v25 loadFileURL:v17 allowingReadAccessToURL:v17];
     }
 
     else
     {
       if (lsCopy)
       {
-        [(WKWebView *)v23 _loadRequest:v14 shouldOpenExternalURLs:1];
+        [(WKWebView *)v25 _loadRequest:v16 shouldOpenExternalURLs:1];
       }
 
       else
       {
-        [(WKWebView *)v23 loadRequest:v14];
+        [(WKWebView *)v25 loadRequest:v16];
       }
-      v24 = ;
+      v26 = ;
     }
 
-    v20 = v24;
+    v22 = v26;
   }
 
-  return v20;
+  return v22;
 }
 
 - (void)goBack

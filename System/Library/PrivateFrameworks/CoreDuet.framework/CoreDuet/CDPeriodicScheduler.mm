@@ -14,7 +14,7 @@ uint64_t __38___CDPeriodicScheduler_sharedInstance__block_invoke()
 
 void __36___CDPeriodicScheduler_registerJob___block_invoke(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = *(a1 + 32);
   v4 = (a1 + 32);
@@ -111,14 +111,14 @@ LABEL_29:
       _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Running activity %@", &buf, 0xCu);
     }
 
-    v33 = MEMORY[0x1E69E9820];
-    v34 = 3221225472;
-    v35 = __36___CDPeriodicScheduler_registerJob___block_invoke_61;
-    v36 = &unk_1E73674E0;
-    v37 = *v4;
+    v32 = MEMORY[0x1E69E9820];
+    v33 = 3221225472;
+    v34 = __36___CDPeriodicScheduler_registerJob___block_invoke_61;
+    v35 = &unk_1E73674E0;
+    v36 = *v4;
     v8 = v8;
-    v38 = v8;
-    v20 = MEMORY[0x193B00C50](&v33);
+    v37 = v8;
+    v20 = MEMORY[0x193B00C50](&v32);
     v21 = [*v4 queue];
     v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:_CDPeriodicSchedulerDefaultQueueName];
     v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:dispatch_queue_get_label(v21)];
@@ -131,10 +131,10 @@ LABEL_29:
       v27 = os_transaction_create();
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v40 = __cd_dispatch_async_capture_tx_block_invoke_1;
-      v41 = &unk_1E7367818;
-      v42 = v27;
-      v43 = v25;
+      v39 = __cd_dispatch_async_capture_tx_block_invoke_1;
+      v40 = &unk_1E7367818;
+      v41 = v27;
+      v42 = v25;
       v28 = v25;
       v29 = v27;
       dispatch_async(v26, &buf);
@@ -148,18 +148,16 @@ LABEL_29:
       dispatch_sync(v30, v31);
     }
 
-    v14 = v37;
+    v14 = v36;
     goto LABEL_28;
   }
 
 LABEL_30:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __36___CDPeriodicScheduler_registerJob___block_invoke_61(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   getpid();
   proc_set_cpumon_params();
   v2 = MEMORY[0x1E69E9C10];
@@ -167,9 +165,9 @@ void __36___CDPeriodicScheduler_registerJob___block_invoke_61(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [*(a1 + 32) jobName];
-    v11 = 138412290;
-    v12 = v4;
-    _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "About to run handler for %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v4;
+    _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "About to run handler for %@", &v10, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -177,58 +175,52 @@ void __36___CDPeriodicScheduler_registerJob___block_invoke_61(uint64_t a1)
   proc_set_cpumon_defaults();
   if (([*(a1 + 32) isHandlerAsynchronous] & 1) == 0)
   {
-    v6 = [*(a1 + 32) activity];
-    v7 = xpc_activity_get_state(v6) == 3;
+    v5 = [*(a1 + 32) activity];
+    v6 = xpc_activity_get_state(v5) == 3;
 
-    if (v7)
+    if (v6)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
-        v8 = [*(a1 + 32) jobName];
-        v11 = 138412290;
-        v12 = v8;
-        _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Deferring activity %@", &v11, 0xCu);
+        v7 = [*(a1 + 32) jobName];
+        v10 = 138412290;
+        v11 = v7;
+        _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Deferring activity %@", &v10, 0xCu);
       }
     }
 
     else
     {
-      v9 = [*(a1 + 32) activity];
-      xpc_activity_set_state(v9, 5);
+      v8 = [*(a1 + 32) activity];
+      xpc_activity_set_state(v8, 5);
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [*(a1 + 32) jobName];
-        v11 = 138412290;
-        v12 = v10;
-        _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Done running activity %@", &v11, 0xCu);
+        v9 = [*(a1 + 32) jobName];
+        v10 = 138412290;
+        v11 = v9;
+        _os_log_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Done running activity %@", &v10, 0xCu);
       }
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __36___CDPeriodicScheduler_registerJob___block_invoke_cold_1(id *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = [*a1 jobName];
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_fault_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to set activity '%@' state to continue", &v3, 0xCu);
-
-  v2 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_fault_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to set activity '%@' state to continue", &v2, 0xCu);
 }
 
 void __36___CDPeriodicScheduler_registerJob___block_invoke_cold_2(id *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = [*a1 jobName];
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_error_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Job %@ missing task to execute", &v3, 0xCu);
-
-  v2 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_error_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Job %@ missing task to execute", &v2, 0xCu);
 }
 
 @end

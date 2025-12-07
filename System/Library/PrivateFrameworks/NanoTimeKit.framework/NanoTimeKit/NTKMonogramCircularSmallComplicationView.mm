@@ -45,7 +45,7 @@
   [(CLKUIColoringLabel *)self->_label sizeThatFits:fits.width, fits.height];
   v5 = v4;
   v7 = v6;
-  [(NTKCircularComplicationView *)self _layoutConstants:0];
+  objc_msgSend__layoutConstants(self, 0, 0, 0, 0, 0, 0, 0);
   v8 = 0.0;
   v9 = 0.0;
   if (v5 >= 0.0)

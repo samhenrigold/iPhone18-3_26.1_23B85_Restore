@@ -23,9 +23,10 @@
   section = path->section;
   item = path->item;
   selfCopy = self;
-  v7 = OneUpSharePlayDataSource.object(at:)(dataSourceIdentifier, section, item);
+  OneUpSharePlayDataSource.object(at:)(dataSourceIdentifier, section, item);
+  v8 = v7;
 
-  return v7;
+  return v8;
 }
 
 - (id)assetReferenceAtItemIndexPath:(PXSimpleIndexPath *)path

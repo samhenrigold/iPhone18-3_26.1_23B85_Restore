@@ -4,6 +4,7 @@
 + (BOOL)isCallActive;
 + (BOOL)isHearstConnected;
 - (BOOL)isRecording;
+- (BOOL)startRecording:(int)recording;
 - (RDSoundInputImpl)initWithExpectedFormat:(const AudioStreamBasicDescription *)format deliverSamples:(id)samples;
 - (void)_callStatusChanged:(id)changed;
 - (void)_handleSpeechDetectionVADPresentChange:(id)change;
@@ -21,9 +22,9 @@
 - (RDSoundInputImpl)initWithExpectedFormat:(const AudioStreamBasicDescription *)format deliverSamples:(id)samples
 {
   samplesCopy = samples;
-  v18.receiver = self;
-  v18.super_class = RDSoundInputImpl;
-  v7 = [(RDSoundInputImpl *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = RDSoundInputImpl;
+  v7 = [(RDSoundInputImpl *)&v19 init];
   if (v7)
   {
     v8 = [[AVAudioFormat alloc] initWithStreamDescription:format];
@@ -45,11 +46,11 @@
       {
         v7->_hasIndependentRouteCapability = 1;
         CFPreferencesSetAppValue(@"RXUsingIndependentVAD", kCFBooleanTrue, @"com.apple.SpeechRecognitionCore.speechrecognitiond");
-        v11 = RXOSLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = RXOSLog(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          *v17 = 0;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Device supports independent route", v17, 2u);
+          *v18 = 0;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Device supports independent route", v18, 2u);
         }
       }
     }
@@ -58,13 +59,13 @@
     {
       v7->_hasIndependentRouteCapability = 0;
       CFPreferencesSetAppValue(@"RXUsingIndependentVAD", kCFBooleanFalse, @"com.apple.SpeechRecognitionCore.speechrecognitiond");
-      v12 = [[CSSoundInput alloc] initWithDeliverSamples:samplesCopy];
+      v13 = [[CSSoundInput alloc] initWithDeliverSamples:samplesCopy];
       csSoundInput = v7->_csSoundInput;
-      v7->_csSoundInput = v12;
+      v7->_csSoundInput = v13;
 
-      v14 = [[AVSoundInput alloc] initWithExpectedFormat:v8 deliverSamples:samplesCopy];
+      v15 = [[AVSoundInput alloc] initWithExpectedFormat:v8 deliverSamples:samplesCopy];
       avSoundInput = v7->_avSoundInput;
-      v7->_avSoundInput = v14;
+      v7->_avSoundInput = v15;
 
       [(RDSoundInputImpl *)v7 _startObservingSystemControllerLifecycle];
       [(RDSoundInputImpl *)v7 _startObservingSpeechDetectionVADPresence];
@@ -98,7 +99,7 @@
 
 - (void)_handleSystemControllerDied:(id)died
 {
-  v4 = RXOSLog();
+  v4 = RXOSLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -146,9 +147,143 @@
   [v5 removeObserver:self name:v3 object:v4];
 }
 
+- (BOOL)startRecording:(int)recording
+{
+  v3 = *&recording;
+  v5 = RXIsUseIndependentVADEnabled();
+  if (!v5 || !self->_hasIndependentRouteCapability)
+  {
+    v8 = RXOSLog(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v31[0] = 67109120;
+      v31[1] = v3;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "RDSoundInputImpl_iOS:startingRecording with reason %d", v31, 8u);
+    }
+
+    v9 = +[RDSoundInputImpl_iOS_Shared isSystemSleeping];
+    if (v9)
+    {
+      v10 = RXOSLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v31[0]) = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "System is sleeping, so don't start recording", v31, 2u);
+      }
+
+      return 0;
+    }
+
+    v11 = +[RDSoundInputImpl isCSVADPresent];
+    v12 = +[RDSoundInputImpl isCSVADHidden];
+    if ((v11 & v12) == 1)
+    {
+      _startObservingSpeechClientsActive = [(RDSoundInputImpl *)self _startObservingSpeechClientsActive];
+    }
+
+    else
+    {
+      _startObservingSpeechClientsActive = [(RDSoundInputImpl *)self _stopObservingSpeechClientsActive];
+    }
+
+    v14 = RXOSLog(_startObservingSpeechClientsActive);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    if ((v11 ^ 1 | v12))
+    {
+      if (v15)
+      {
+        LOWORD(v31[0]) = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "RDSoundInputImpl_iOS:CSVAD not present", v31, 2u);
+      }
+
+      csSoundInput = [(RDSoundInputImpl *)self csSoundInput];
+      v17 = [csSoundInput isRecording] == 0;
+
+      if (!v17)
+      {
+        csSoundInput2 = [(RDSoundInputImpl *)self csSoundInput];
+        [csSoundInput2 stopRecording];
+      }
+
+      avSoundInput = [(RDSoundInputImpl *)self avSoundInput];
+      [avSoundInput activateNotifications];
+
+      avSoundInput2 = [(RDSoundInputImpl *)self avSoundInput];
+      v21 = [avSoundInput2 startRecording:v3];
+
+      if ((v21 & 1) == 0)
+      {
+LABEL_31:
+        [AudioNotification sendLiveRecordingOffNotificationWithInterrupt:1];
+        return 0;
+      }
+    }
+
+    else
+    {
+      if (v15)
+      {
+        LOWORD(v31[0]) = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "RDSoundInputImpl_iOS:CSVAD Present", v31, 2u);
+      }
+
+      avSoundInput3 = [(RDSoundInputImpl *)self avSoundInput];
+      isRecording = [avSoundInput3 isRecording];
+
+      if (isRecording)
+      {
+        avSoundInput4 = [(RDSoundInputImpl *)self avSoundInput];
+        [avSoundInput4 stopRecording];
+      }
+
+      avSoundInput5 = [(RDSoundInputImpl *)self avSoundInput];
+      [avSoundInput5 deactivateNotifications];
+
+      v28 = 3;
+      while (1)
+      {
+        csSoundInput3 = [(RDSoundInputImpl *)self csSoundInput];
+        startRecording = [csSoundInput3 startRecording];
+
+        if (startRecording)
+        {
+          break;
+        }
+
+        usleep(0xC350u);
+        if (!--v28)
+        {
+          goto LABEL_31;
+        }
+      }
+    }
+
+    v22 = RXOSLog(+[AudioNotification sendLiveRecordingOnNotification]);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v31[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "RDSoundInputImpl_iOS:startedRecording", v31, 2u);
+    }
+
+    return 1;
+  }
+
+  avIndependenRouteSoundInput = [(RDSoundInputImpl *)self avIndependenRouteSoundInput];
+  v7 = [avIndependenRouteSoundInput startRecording:0];
+
+  if (v7)
+  {
+    +[AudioNotification sendLiveRecordingOnNotification];
+    return 1;
+  }
+
+  [AudioNotification sendLiveRecordingOffNotificationWithInterrupt:1];
+  return 0;
+}
+
 - (void)stopRecording
 {
-  v3 = RXOSLog();
+  v3 = RXOSLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -176,11 +311,11 @@
     [avIndependenRouteSoundInput stopRecording];
   }
 
-  v5 = RXOSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = RXOSLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "RDSoundInputImpl_iOS:stoppedRecording", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "RDSoundInputImpl_iOS:stoppedRecording", v7, 2u);
   }
 
   [AudioNotification sendLiveRecordingOffNotificationWithInterrupt:0];
@@ -206,14 +341,15 @@
 - (void)_handleSpeechDetectionVADPresentChange:(id)change
 {
   changeCopy = change;
-  if (!+[RDSoundInputImpl_iOS_Shared isCarPlayActive]|| self->_hasIndependentRouteCapability)
+  v5 = +[RDSoundInputImpl_iOS_Shared isCarPlayActive];
+  if (!v5 || self->_hasIndependentRouteCapability)
   {
-    v5 = RXOSLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = RXOSLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v8 = changeCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Speech detection VAD status changed = %@", buf, 0xCu);
+      v9 = changeCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Speech detection VAD status changed = %@", buf, 0xCu);
     }
 
     if (!self->_hasIndependentRouteCapability)
@@ -246,7 +382,7 @@
 {
   changedCopy = changed;
   object = [changedCopy object];
-  v6 = RXOSLog();
+  v6 = RXOSLog(object);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -357,26 +493,26 @@ LABEL_8:
   v2 = +[AVSystemController sharedAVSystemController];
   v3 = [v2 attributeForKey:AVSystemController_PickableRoutesAttribute];
 
-  v19 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
+  v19 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v5)
   {
-    v6 = *v18;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v18 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
-        v9 = [v8 objectForKey:{AVSystemController_RouteDescriptionKey_IsPreferredExternalRoute, v17}];
+        v8 = *(*(&v18 + 1) + 8 * i);
+        v9 = [v8 objectForKey:{AVSystemController_RouteDescriptionKey_IsPreferredExternalRoute, v18}];
         if (![v9 BOOLValue])
         {
           goto LABEL_12;
@@ -406,7 +542,7 @@ LABEL_12:
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v5);
@@ -414,12 +550,12 @@ LABEL_12:
 
 LABEL_15:
 
-  v15 = RXOSLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = RXOSLog(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v22 = v5;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Airpods Connected=%d", buf, 8u);
+    v23 = v5;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Airpods Connected=%d", buf, 8u);
   }
 
   return v5;

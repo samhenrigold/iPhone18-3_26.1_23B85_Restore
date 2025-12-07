@@ -68,7 +68,7 @@ void __38__WBSPasswordWarningStore_sharedStore__block_invoke()
 
 - (void)_loadStoreIfNecessary
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!self->_lastWarningDatesByPersistentIdentifier)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -77,33 +77,33 @@ void __38__WBSPasswordWarningStore_sharedStore__block_invoke()
 
     selfCopy = self;
     v5 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:self->_backingStoreURL];
-    v20 = v5;
+    v19 = v5;
     if (v5)
     {
-      v19 = [v5 safari_arrayForKey:@"PasswordAuditWarnings"];
-      if (v19)
+      v18 = [v5 safari_arrayForKey:@"PasswordAuditWarnings"];
+      if (v18)
       {
         date = [MEMORY[0x1E695DF00] date];
-        v24 = 0u;
-        v25 = 0u;
-        v22 = 0u;
         v23 = 0u;
-        v7 = v19;
-        v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
+        v7 = v18;
+        v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v8)
         {
           v9 = 0;
-          v10 = *v23;
+          v10 = *v22;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v23 != v10)
+              if (*v22 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v22 + 1) + 8 * i);
+              v12 = *(*(&v21 + 1) + 8 * i);
               v13 = [v12 safari_dataForKey:@"PersistentIdentifier"];
               v14 = [v12 safari_dateForKey:@"LastWarningDate"];
               v15 = v14;
@@ -128,7 +128,7 @@ void __38__WBSPasswordWarningStore_sharedStore__block_invoke()
               }
             }
 
-            v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+            v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
           }
 
           while (v8);
@@ -144,11 +144,9 @@ void __38__WBSPasswordWarningStore_sharedStore__block_invoke()
         }
       }
 
-      v5 = v20;
+      v5 = v19;
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_saveStoreSoon
@@ -172,17 +170,15 @@ void __38__WBSPasswordWarningStore_sharedStore__block_invoke()
 
 void __40__WBSPasswordWarningStore__saveStoreNow__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v9[0] = @"PersistentIdentifier";
-  v9[1] = @"LastWarningDate";
-  v10[0] = v5;
-  v10[1] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v8[0] = @"PersistentIdentifier";
+  v8[1] = @"LastWarningDate";
+  v9[0] = v5;
+  v9[1] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
   [*(a1 + 32) addObject:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveStoreSynchronously

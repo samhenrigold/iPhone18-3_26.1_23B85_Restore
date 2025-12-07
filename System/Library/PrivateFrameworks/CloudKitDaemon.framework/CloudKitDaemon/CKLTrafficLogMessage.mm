@@ -35,20 +35,19 @@
 - (NSURL)requestURL
 {
   v2 = sub_2250B0DFC(&qword_27D7197B8, &unk_225447A60);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v11 - v4;
-  sub_2250FE08C(&v11 - v4);
-  v6 = type metadata accessor for URL();
-  v8 = 0;
-  if (sub_22507C8E8(v5, 1, v6) != 1)
+  v4 = &v10 - v3;
+  sub_2250FE08C(&v10 - v3);
+  v5 = type metadata accessor for URL();
+  v7 = 0;
+  if (sub_22507C8E8(v4, 1, v5) != 1)
   {
-    URL._bridgeToObjectiveC()(v7);
-    v8 = v9;
-    (*(*(v6 - 8) + 8))(v5, v6);
+    URL._bridgeToObjectiveC()(v6);
+    v7 = v8;
+    (*(*(v5 - 8) + 8))(v4, v5);
   }
 
-  return v8;
+  return v7;
 }
 
 - (CKLTrafficLogMessage)initWithUuid:(id)uuid requestMetadata:(id)metadata requestObjects:(id)objects bodyStreamResetCount:(int64_t)count responseMetadata:(id)responseMetadata responseObjects:(id)responseObjects

@@ -27,7 +27,7 @@
 
 void __43__ATXModeExerciseFeaturizer_beginListening__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -38,34 +38,35 @@ void __43__ATXModeExerciseFeaturizer_beginListening__block_invoke(uint64_t a1, u
     {
       v8 = [v6 value];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v9 = v8;
-        v10 = [MEMORY[0x277CFE338] sessionState];
-        v11 = [v9 objectForKeyedSubscript:v10];
+        v10 = v8;
+        v11 = [MEMORY[0x277CFE338] sessionState];
+        v12 = [v10 objectForKeyedSubscript:v11];
 
-        v12 = __atxlog_handle_modes();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v14 = __atxlog_handle_modes(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = 138412290;
-          v19 = v11;
-          _os_log_impl(&dword_260C9F000, v12, OS_LOG_TYPE_DEFAULT, "Workout state string: %@", &v18, 0xCu);
+          v19 = 138412290;
+          v20 = v12;
+          _os_log_impl(&dword_260C9F000, v14, OS_LOG_TYPE_DEFAULT, "Workout state string: %@", &v19, 0xCu);
         }
 
-        v13 = __HKWorkoutSessionStateName(2);
-        v14 = [v11 isEqualToString:v13];
+        v15 = __HKWorkoutSessionStateName(2);
+        v16 = [v12 isEqualToString:v15];
 
-        [WeakRetained setIsInWorkout:v14];
-        v15 = objc_alloc_init(ATXModeFeatureSet);
-        [(ATXModeFeatureSet *)v15 setValue:v14 forBinaryFeatureOfType:3];
-        v16 = [WeakRetained delegate];
-        [v16 featurizer:WeakRetained didUpdateFeatures:v15];
+        [WeakRetained setIsInWorkout:v16];
+        v17 = objc_alloc_init(ATXModeFeatureSet);
+        [(ATXModeFeatureSet *)v17 setValue:v16 forBinaryFeatureOfType:3];
+        v18 = [WeakRetained delegate];
+        [v18 featurizer:WeakRetained didUpdateFeatures:v17];
       }
 
       else
       {
-        v9 = __atxlog_handle_modes();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = __atxlog_handle_modes(isKindOfClass);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           __43__ATXModeExerciseFeaturizer_beginListening__block_invoke_cold_1();
         }
@@ -74,7 +75,7 @@ void __43__ATXModeExerciseFeaturizer_beginListening__block_invoke(uint64_t a1, u
 
     else
     {
-      v8 = __atxlog_handle_modes();
+      v8 = __atxlog_handle_modes(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __43__ATXModeExerciseFeaturizer_beginListening__block_invoke_cold_2();
@@ -84,14 +85,12 @@ void __43__ATXModeExerciseFeaturizer_beginListening__block_invoke(uint64_t a1, u
 
   else
   {
-    v7 = __atxlog_handle_modes();
+    v7 = __atxlog_handle_modes(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __43__ATXModeExerciseFeaturizer_beginListening__block_invoke_cold_3();
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopListening
@@ -141,7 +140,7 @@ void __43__ATXModeExerciseFeaturizer_beginListening__block_invoke(uint64_t a1, u
 
   else
   {
-    v5 = __atxlog_handle_modes();
+    v5 = __atxlog_handle_modes(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [ATXModeExerciseFeaturizer _createWorkoutPredicate];
@@ -157,9 +156,7 @@ void __43__ATXModeExerciseFeaturizer_beginListening__block_invoke(uint64_t a1, u
 {
   if (!self->_userContext)
   {
-    userContext = [MEMORY[0x277CFE318] userContext];
-    userContext = self->_userContext;
-    self->_userContext = userContext;
+    self->_userContext = [MEMORY[0x277CFE318] userContext];
 
     MEMORY[0x2821F96F8]();
   }
@@ -170,22 +167,6 @@ void __43__ATXModeExerciseFeaturizer_beginListening__block_invoke(uint64_t a1, u
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __43__ATXModeExerciseFeaturizer_beginListening__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __43__ATXModeExerciseFeaturizer_beginListening__block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__ATXModeExerciseFeaturizer_beginListening__block_invoke_cold_3()

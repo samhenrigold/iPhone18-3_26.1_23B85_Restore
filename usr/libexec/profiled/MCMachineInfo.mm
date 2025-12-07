@@ -157,7 +157,7 @@ LABEL_16:
     v28 = v27;
     v29 = MCOTAProfilesErrorDomain;
     v30 = MCErrorArray();
-    mCCopyAsPrimaryError = [NSError MCErrorWithDomain:v29 code:24000 descriptionArray:v30 underlyingError:v28 errorType:MCErrorTypeFatal, 0];
+    v31 = [NSError MCErrorWithDomain:v29 code:24000 descriptionArray:v30 underlyingError:v28 errorType:MCErrorTypeFatal, 0];
     goto LABEL_40;
   }
 
@@ -170,7 +170,7 @@ LABEL_39:
       v33 = MCOTAProfilesErrorDomain;
       v30 = [NSNumber numberWithInteger:v32];
       v28 = MCErrorArray();
-      mCCopyAsPrimaryError = [NSError MCErrorWithDomain:v33 code:24001 descriptionArray:v28 errorType:MCErrorTypeFatal, v30, 0];
+      v31 = [NSError MCErrorWithDomain:v33 code:24001 descriptionArray:v28 errorType:MCErrorTypeFatal, v30, 0];
       goto LABEL_40;
     }
 
@@ -211,9 +211,9 @@ LABEL_53:
   v44 = MCInstallationErrorDomain;
   v30 = MCErrorArrayByDevice();
   v28 = [NSError MCErrorWithDomain:v44 code:4014 descriptionArray:v30 errorType:MCErrorTypeFatal, 0];
-  mCCopyAsPrimaryError = [v28 MCCopyAsPrimaryError];
+  v31 = objc_msgSend_MCCopyAsPrimaryError(v28);
 LABEL_40:
-  v34 = mCCopyAsPrimaryError;
+  v34 = v31;
 
   if (v34)
   {

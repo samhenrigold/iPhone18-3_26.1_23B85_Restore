@@ -48,7 +48,6 @@
     v4 = 0;
   }
 
-  v5 = *(self + OBJC_IVAR____TtC12TelephonyRPC21VoicemailManager_ObjC_allVoicemail);
   *(self + OBJC_IVAR____TtC12TelephonyRPC21VoicemailManager_ObjC_allVoicemail) = v4;
   selfCopy = self;
 

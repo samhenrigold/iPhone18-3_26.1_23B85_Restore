@@ -58,25 +58,13 @@
   bufferCopy = buffer;
   timeCopy = time;
   recorderCopy = recorder;
-  if (![bufferCopy floatChannelData])
-  {
-    goto LABEL_3;
-  }
-
-  v11 = *([bufferCopy audioBufferList] + 3);
-  format = [bufferCopy format];
-  v13 = *([format streamDescription] + 6);
-  v14 = *([bufferCopy audioBufferList] + 2);
-  cblas_sasum_NEWLAPACK();
-  v16 = v15;
-
-  if (v16 <= 1.1755e-38)
+  if ([bufferCopy floatChannelData] && (objc_msgSend(bufferCopy, "audioBufferList"), objc_msgSend(bufferCopy, "format"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "streamDescription"), objc_msgSend(bufferCopy, "audioBufferList"), cblas_sasum_NEWLAPACK(), v13 = v12, v11, v13 <= 1.1755e-38))
   {
     silentRecordersFirstSilentBufferTime = [(SHAudioRecordingBufferValidator *)self silentRecordersFirstSilentBufferTime];
     identifier = [recorderCopy identifier];
-    v24 = [silentRecordersFirstSilentBufferTime objectForKey:identifier];
+    v21 = [silentRecordersFirstSilentBufferTime objectForKey:identifier];
 
-    if (!v24)
+    if (!v21)
     {
       recordersState = [(SHAudioRecordingBufferValidator *)self recordersState];
       identifier2 = [recorderCopy identifier];
@@ -88,27 +76,26 @@
     }
 
     [(SHAudioRecordingBufferValidator *)self accumulatedSilenceDurationForRecorder:recorderCopy latestBuffer:bufferCopy latestBufferTime:timeCopy];
-    v30 = v29;
-    if (v29 >= 3.0)
+    v27 = v26;
+    if (v26 >= 3.0)
     {
-      v31 = sh_log_object();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      v28 = sh_log_object();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
-        v34 = 134217984;
-        v35 = v30;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "Recorder failed to produce valid audio & only produced silence for %f", &v34, 0xCu);
+        v31 = 134217984;
+        v32 = v27;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Recorder failed to produce valid audio & only produced silence for %f", &v31, 0xCu);
       }
 
       delegate = [(SHAudioRecordingBufferValidator *)self delegate];
       [delegate recorderFailedToProduceValidAudio:recorderCopy];
     }
 
-    v21 = 0;
+    v18 = 0;
   }
 
   else
   {
-LABEL_3:
     recordersState2 = [(SHAudioRecordingBufferValidator *)self recordersState];
     identifier4 = [recorderCopy identifier];
     [recordersState2 setObject:&off_100081218 forKey:identifier4];
@@ -117,10 +104,10 @@ LABEL_3:
     identifier5 = [recorderCopy identifier];
     [silentRecordersFirstSilentBufferTime3 removeObjectForKey:identifier5];
 
-    v21 = 1;
+    v18 = 1;
   }
 
-  return v21;
+  return v18;
 }
 
 - (double)accumulatedSilenceDurationForRecorder:(id)recorder latestBuffer:(id)buffer latestBufferTime:(id)time

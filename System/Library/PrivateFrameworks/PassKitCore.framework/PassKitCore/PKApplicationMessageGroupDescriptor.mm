@@ -96,7 +96,7 @@ LABEL_6:
   equalCopy = equal;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v6 = 0;
+  isEqualToString = 0;
   if (equalCopy && (isKindOfClass & 1) != 0)
   {
     v7 = equalCopy;
@@ -109,26 +109,26 @@ LABEL_6:
       v12 = v11;
       if (v10 == v11)
       {
-        v6 = 1;
+        isEqualToString = 1;
       }
 
       else
       {
-        v6 = 0;
+        isEqualToString = 0;
         if (v10 && v11)
         {
-          v6 = [(NSString *)v10 isEqualToString:v11];
+          isEqualToString = objc_msgSend_isEqualToString_(v10);
         }
       }
     }
 
     else
     {
-      v6 = 0;
+      isEqualToString = 0;
     }
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 @end

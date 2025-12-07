@@ -12,28 +12,28 @@
 
 - (id)longestValueString
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allValues = [(NSDictionary *)self->_enumMap allValues];
-  v3 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     v6 = &stru_1F5AB0768;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         v9 = [v8 length];
         if (v9 > [(__CFString *)v6 length])
         {
@@ -43,7 +43,7 @@
         }
       }
 
-      v4 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -53,8 +53,6 @@
   {
     v6 = &stru_1F5AB0768;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

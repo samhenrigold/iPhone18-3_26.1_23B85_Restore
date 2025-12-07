@@ -22,13 +22,13 @@
 
     _session = [(VSRecognitionAction *)self _session];
     v6 = self->_url;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __33__VSRecognitionURLAction_perform__block_invoke;
-    v12[3] = &unk_279E4F1B0;
-    v12[4] = self;
-    [_session _notifyDelegateOpenURL:v6 completion:v12];
-    v7 = 0;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __33__VSRecognitionURLAction_perform__block_invoke;
+    v11[3] = &unk_279E4F1B0;
+    v11[4] = self;
+    [_session _notifyDelegateOpenURL:v6 completion:v11];
+    return 0;
   }
 
   else
@@ -41,7 +41,6 @@
     v9 = v7;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -59,7 +58,7 @@ void __33__VSRecognitionURLAction_perform__block_invoke(uint64_t a1, uint64_t a2
 
 uint64_t __33__VSRecognitionURLAction_perform__block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = VSGetLogDefault();
@@ -67,9 +66,9 @@ uint64_t __33__VSRecognitionURLAction_perform__block_invoke_2(uint64_t a1)
     v4 = *(a1 + 32);
     if (v3)
     {
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_error_impl(&dword_272850000, v2, OS_LOG_TYPE_ERROR, "Open URL failed: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_error_impl(&dword_272850000, v2, OS_LOG_TYPE_ERROR, "Open URL failed: %@", &v6, 0xCu);
       v4 = *(a1 + 32);
     }
   }
@@ -79,9 +78,7 @@ uint64_t __33__VSRecognitionURLAction_perform__block_invoke_2(uint64_t a1)
     v4 = 0;
   }
 
-  result = [*(a1 + 40) completeWithNextAction:0 error:v4];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) completeWithNextAction:0 error:v4];
 }
 
 - (void)setURL:(id)l

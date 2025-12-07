@@ -1,6 +1,6 @@
 @interface NEIKEv2CreateChildPacket
++ (NSObject)createChildSAResponse:(unint64_t)response errorCode:(void *)code errorData:;
 + (NSObject)createRekeyRequestChildSA:(uint64_t)a;
-+ (id)createChildSAResponse:(unint64_t)response errorCode:(void *)code errorData:;
 - (uint64_t)validateRekeyResponseChildSA:(uint64_t)a;
 - (void)filloutPayloads;
 - (void)gatherPayloads;
@@ -10,7 +10,7 @@
 
 + (NSObject)createRekeyRequestChildSA:(uint64_t)a
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
   if (!v2)
@@ -21,8 +21,8 @@
       goto LABEL_34;
     }
 
-    v91 = 136315138;
-    v92 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
+    v90 = 136315138;
+    v91 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
     v87 = "%s called with null childSA";
     goto LABEL_49;
   }
@@ -39,11 +39,11 @@ LABEL_34:
       goto LABEL_59;
     }
 
-    v91 = 136315138;
-    v92 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
+    v90 = 136315138;
+    v91 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
     v87 = "%s called with null childSA.rekeyRequestProposals";
 LABEL_49:
-    _os_log_fault_impl(&dword_1BA83C000, initOutbound, OS_LOG_TYPE_FAULT, v87, &v91, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, initOutbound, OS_LOG_TYPE_FAULT, v87, &v90, 0xCu);
     goto LABEL_34;
   }
 
@@ -53,8 +53,8 @@ LABEL_49:
     p_super = ne_log_obj();
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v91) = 0;
-      _os_log_fault_impl(&dword_1BA83C000, p_super, OS_LOG_TYPE_FAULT, "[[NEIKEv2CreateChildPacket alloc] initOutbound:] failed", &v91, 2u);
+      LOWORD(v90) = 0;
+      _os_log_fault_impl(&dword_1BA83C000, p_super, OS_LOG_TYPE_FAULT, "[[NEIKEv2CreateChildPacket alloc] initOutbound:] failed", &v90, 2u);
     }
 
     goto LABEL_57;
@@ -82,12 +82,12 @@ LABEL_49:
 
   else
   {
-    v90 = ne_log_obj();
-    if (os_log_type_enabled(v90, OS_LOG_TYPE_FAULT))
+    v89 = ne_log_obj();
+    if (os_log_type_enabled(v89, OS_LOG_TYPE_FAULT))
     {
-      v91 = 136315138;
-      v92 = "+[NEIKEv2NotifyPayload createNotifyPayloadType:spi:]";
-      _os_log_fault_impl(&dword_1BA83C000, v90, OS_LOG_TYPE_FAULT, "%s called with null spi", &v91, 0xCu);
+      v90 = 136315138;
+      v91 = "+[NEIKEv2NotifyPayload createNotifyPayloadType:spi:]";
+      _os_log_fault_impl(&dword_1BA83C000, v89, OS_LOG_TYPE_FAULT, "%s called with null spi", &v90, 0xCu);
     }
 
     p_super = 0;
@@ -101,13 +101,13 @@ LABEL_49:
       goto LABEL_56;
     }
 
-    LOWORD(v91) = 0;
+    LOWORD(v90) = 0;
     v84 = "[packet addNotification:NEIKEv2NotifyTypeRekeySA] failed";
 LABEL_39:
     v85 = v83;
     v86 = 2;
 LABEL_55:
-    _os_log_fault_impl(&dword_1BA83C000, v85, OS_LOG_TYPE_FAULT, v84, &v91, v86);
+    _os_log_fault_impl(&dword_1BA83C000, v85, OS_LOG_TYPE_FAULT, v84, &v90, v86);
     goto LABEL_56;
   }
 
@@ -122,7 +122,7 @@ LABEL_55:
       goto LABEL_56;
     }
 
-    LOWORD(v91) = 0;
+    LOWORD(v90) = 0;
     v84 = "[packet addNotification:NEIKEv2NotifyTypeUseTransportMode] failed";
     goto LABEL_39;
   }
@@ -182,8 +182,8 @@ LABEL_55:
         goto LABEL_56;
       }
 
-      v91 = 136315138;
-      v92 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
+      v90 = 136315138;
+      v91 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
       v84 = "%s called with null packet.ke.isValid";
       goto LABEL_54;
     }
@@ -200,8 +200,8 @@ LABEL_55:
       goto LABEL_56;
     }
 
-    v91 = 136315138;
-    v92 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
+    v90 = 136315138;
+    v91 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
     v84 = "%s called with null packet.childSA.isValid";
 LABEL_54:
     v85 = v83;
@@ -231,8 +231,8 @@ LABEL_54:
       goto LABEL_56;
     }
 
-    v91 = 136315138;
-    v92 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
+    v90 = 136315138;
+    v91 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
     v84 = "%s called with null packet.nonce.isValid";
     goto LABEL_54;
   }
@@ -259,8 +259,8 @@ LABEL_54:
       goto LABEL_56;
     }
 
-    v91 = 136315138;
-    v92 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
+    v90 = 136315138;
+    v91 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
     v84 = "%s called with null packet.tsi.isValid";
     goto LABEL_54;
   }
@@ -284,8 +284,8 @@ LABEL_54:
     v83 = ne_log_obj();
     if (os_log_type_enabled(v83, OS_LOG_TYPE_FAULT))
     {
-      v91 = 136315138;
-      v92 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
+      v90 = 136315138;
+      v91 = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyRequestChildSA:]";
       v84 = "%s called with null packet.tsr.isValid";
       goto LABEL_54;
     }
@@ -301,14 +301,13 @@ LABEL_57:
 LABEL_58:
 
 LABEL_59:
-  v88 = *MEMORY[0x1E69E9840];
 
   return v82;
 }
 
 - (uint64_t)validateRekeyResponseChildSA:(uint64_t)a
 {
-  v168 = *MEMORY[0x1E69E9840];
+  v167 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = v3;
   if (a)
@@ -319,7 +318,7 @@ LABEL_59:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v162 = "[NEIKEv2CreateChildPacket(Exchange) validateRekeyResponseChildSA:]";
+        v161 = "[NEIKEv2CreateChildPacket(Exchange) validateRekeyResponseChildSA:]";
         _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, "%s called with null childSA", buf, 0xCu);
       }
 
@@ -332,26 +331,26 @@ LABEL_122:
 
     if ([(NEIKEv2Packet *)a hasErrors])
     {
-      v159 = 0u;
-      v160 = 0u;
-      v157 = 0u;
       v158 = 0u;
+      v159 = 0u;
+      v156 = 0u;
+      v157 = 0u;
       v7 = objc_getProperty(a, v6, 64, 1);
-      v8 = [v7 countByEnumeratingWithState:&v157 objects:v167 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v156 objects:v166 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v158;
+        v10 = *v157;
 LABEL_6:
         v11 = 0;
         while (1)
         {
-          if (*v158 != v10)
+          if (*v157 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v157 + 1) + 8 * v11);
+          v12 = *(*(&v156 + 1) + 8 * v11);
           if (v12)
           {
             if (v12[1].isa - 1 <= 0x3FFE)
@@ -362,7 +361,7 @@ LABEL_6:
 
           if (v9 == ++v11)
           {
-            v9 = [v7 countByEnumeratingWithState:&v157 objects:v167 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v156 objects:v166 count:16];
             if (v9)
             {
               goto LABEL_6;
@@ -378,9 +377,9 @@ LABEL_6:
           copyShortDescription = [(NEIKEv2Packet *)a copyShortDescription];
           copyError = [(NEIKEv2NotifyPayload *)v12 copyError];
           *buf = 138412546;
-          v162 = copyShortDescription;
-          v163 = 2112;
-          v164 = copyError;
+          v161 = copyShortDescription;
+          v162 = 2112;
+          v163 = copyError;
           _os_log_error_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_ERROR, "%@ Rekey child received notify error %@", buf, 0x16u);
         }
 
@@ -418,7 +417,7 @@ LABEL_13:
         {
           copyShortDescription2 = [(NEIKEv2Packet *)a copyShortDescription];
           *buf = 138412290;
-          v162 = copyShortDescription2;
+          v161 = copyShortDescription2;
           _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "%@ Transport mode Child SA was not accepted", buf, 0xCu);
 LABEL_34:
         }
@@ -448,9 +447,9 @@ LABEL_34:
         copyShortDescription3 = [(NEIKEv2Packet *)a copyShortDescription];
         v76 = [v7 count];
         *buf = 138412546;
-        v162 = copyShortDescription3;
-        v163 = 1024;
-        LODWORD(v164) = v76;
+        v161 = copyShortDescription3;
+        v162 = 1024;
+        LODWORD(v163) = v76;
         _os_log_error_impl(&dword_1BA83C000, firstObject, OS_LOG_TYPE_ERROR, "%@ Received %u child SA proposals, require 1", buf, 0x12u);
       }
 
@@ -479,7 +478,7 @@ LABEL_34:
       {
         copyShortDescription4 = [(NEIKEv2Packet *)a copyShortDescription];
         *buf = 138412290;
-        v162 = copyShortDescription4;
+        v161 = copyShortDescription4;
         v29 = "%@ Child SA proposal missing SPI";
         goto LABEL_69;
       }
@@ -502,7 +501,7 @@ LABEL_121:
         {
           copyShortDescription4 = [(NEIKEv2Packet *)a copyShortDescription];
           *buf = 138412290;
-          v162 = copyShortDescription4;
+          v161 = copyShortDescription4;
           v29 = "%@ Child SA proposal out of range";
 LABEL_69:
           _os_log_error_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_ERROR, v29, buf, 0xCu);
@@ -578,9 +577,9 @@ LABEL_69:
                 {
                   copyShortDescription5 = [(NEIKEv2Packet *)a copyShortDescription];
                   *buf = 138412546;
-                  v162 = copyShortDescription5;
-                  v163 = 2048;
-                  v164 = v60;
+                  v161 = copyShortDescription5;
+                  v162 = 2048;
+                  v163 = v60;
                   v64 = "%@ NONCE data length %zu is out of bounds";
                   v65 = v62;
                   v66 = 22;
@@ -629,11 +628,11 @@ LABEL_117:
                   v84 = v83;
                   prfProtocol2 = [(NEIKEv2IKESAProposal *)v84 prfProtocol];
                   *buf = 138412802;
-                  v162 = copyShortDescription5;
-                  v163 = 2048;
-                  v164 = self;
-                  v165 = 2112;
-                  v166 = prfProtocol2;
+                  v161 = copyShortDescription5;
+                  v162 = 2048;
+                  v163 = self;
+                  v164 = 2112;
+                  v165 = prfProtocol2;
                   _os_log_error_impl(&dword_1BA83C000, v62, OS_LOG_TYPE_ERROR, "%@ NONCE data length %zu is shorter than the minimum for PRF protocol %@", buf, 0x20u);
 
                   goto LABEL_113;
@@ -671,7 +670,7 @@ LABEL_117:
 
                 copyShortDescription5 = [(NEIKEv2Packet *)a copyShortDescription];
                 *buf = 138412290;
-                v162 = copyShortDescription5;
+                v161 = copyShortDescription5;
                 v64 = "%@ Did not receive KE payload";
 LABEL_111:
                 v65 = v62;
@@ -698,7 +697,7 @@ LABEL_111:
 
                 copyShortDescription5 = [(NEIKEv2Packet *)a copyShortDescription];
                 *buf = 138412290;
-                v162 = copyShortDescription5;
+                v161 = copyShortDescription5;
                 v64 = "%@ Did not receive method in KE payload";
                 goto LABEL_111;
               }
@@ -722,7 +721,7 @@ LABEL_111:
 
                 copyShortDescription5 = [(NEIKEv2Packet *)a copyShortDescription];
                 *buf = 138412290;
-                v162 = copyShortDescription5;
+                v161 = copyShortDescription5;
                 v64 = "%@ Did not receive data in KE payload";
                 goto LABEL_111;
               }
@@ -734,8 +733,8 @@ LABEL_111:
                 v110 = objc_getProperty(v110, v111, 32, 1);
               }
 
-              v150 = v110;
-              method2 = [v150 method];
+              v149 = v110;
+              method2 = [v149 method];
               v113 = objc_getProperty(v5, v112, 56, 1);
               kemProtocol2 = [(NEIKEv2ChildSAProposal *)v113 kemProtocol];
               method3 = [kemProtocol2 method];
@@ -746,24 +745,24 @@ LABEL_111:
                 if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
                 {
                   copyShortDescription6 = [(NEIKEv2Packet *)a copyShortDescription];
-                  v142 = objc_getProperty(a, v141, 104, 1);
-                  selfb = v142;
-                  if (v142)
+                  v141 = objc_getProperty(a, v140, 104, 1);
+                  selfb = v141;
+                  if (v141)
                   {
-                    v142 = objc_getProperty(v142, v143, 32, 1);
+                    v141 = objc_getProperty(v141, v142, 32, 1);
                   }
 
-                  v151 = v142;
-                  method4 = [v151 method];
-                  v145 = objc_getProperty(v5, v144, 56, 1);
-                  kemProtocol3 = [(NEIKEv2ChildSAProposal *)v145 kemProtocol];
+                  v150 = v141;
+                  method4 = [v150 method];
+                  v144 = objc_getProperty(v5, v143, 56, 1);
+                  kemProtocol3 = [(NEIKEv2ChildSAProposal *)v144 kemProtocol];
                   method5 = [kemProtocol3 method];
                   *buf = 138412802;
-                  v162 = copyShortDescription6;
-                  v163 = 2048;
-                  v164 = method4;
-                  v165 = 2048;
-                  v166 = method5;
+                  v161 = copyShortDescription6;
+                  v162 = 2048;
+                  v163 = method4;
+                  v164 = 2048;
+                  v165 = method5;
                   _os_log_error_impl(&dword_1BA83C000, v62, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu)", buf, 0x20u);
                 }
 
@@ -831,7 +830,7 @@ LABEL_119:
 
               copyShortDescription5 = [(NEIKEv2Packet *)a copyShortDescription];
               *buf = 138412290;
-              v162 = copyShortDescription5;
+              v161 = copyShortDescription5;
               v64 = "%@ Could not set responder traffic selectors";
             }
 
@@ -845,7 +844,7 @@ LABEL_119:
 
               copyShortDescription5 = [(NEIKEv2Packet *)a copyShortDescription];
               *buf = 138412290;
-              v162 = copyShortDescription5;
+              v161 = copyShortDescription5;
               v64 = "%@ Could not set initiator traffic selectors";
             }
 
@@ -857,7 +856,7 @@ LABEL_119:
           {
             copyShortDescription7 = [(NEIKEv2Packet *)a copyShortDescription];
             *buf = 138412290;
-            v162 = copyShortDescription7;
+            v161 = copyShortDescription7;
             v70 = "%@ Did not receive NONCE data";
             goto LABEL_66;
           }
@@ -875,7 +874,7 @@ LABEL_118:
 
         copyShortDescription7 = [(NEIKEv2Packet *)a copyShortDescription];
         *buf = 138412290;
-        v162 = copyShortDescription7;
+        v161 = copyShortDescription7;
         v70 = "%@ Did not receive NONCE payload";
       }
 
@@ -889,7 +888,7 @@ LABEL_118:
 
         copyShortDescription7 = [(NEIKEv2Packet *)a copyShortDescription];
         *buf = 138412290;
-        v162 = copyShortDescription7;
+        v161 = copyShortDescription7;
         v70 = "%@ Could not set chosen proposal values";
       }
 
@@ -918,9 +917,9 @@ LABEL_67:
       }
 
       *buf = 138412546;
-      v162 = copyShortDescription8;
-      v163 = 1024;
-      LODWORD(v164) = v69;
+      v161 = copyShortDescription8;
+      v162 = 1024;
+      LODWORD(v163) = v69;
       v70 = "%@ SA proposal number %u does not match";
       v71 = v52;
       v72 = 18;
@@ -932,11 +931,10 @@ LABEL_67:
 
 LABEL_123:
 
-  v139 = *MEMORY[0x1E69E9840];
   return a;
 }
 
-+ (id)createChildSAResponse:(unint64_t)response errorCode:(void *)code errorData:
++ (NSObject)createChildSAResponse:(unint64_t)response errorCode:(void *)code errorData:
 {
   v6 = a2;
   codeCopy = code;
@@ -980,11 +978,11 @@ LABEL_11:
 
 - (void)filloutPayloads
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
+  v37 = 0u;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
   if (self)
   {
     rawPayloads = self->super._rawPayloads;
@@ -996,27 +994,27 @@ LABEL_11:
   }
 
   v4 = rawPayloads;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v39 objects:v50 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v37 objects:v48 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v40;
+    v8 = *v38;
     v9 = 0x1E7F04000uLL;
     v10 = &OBJC_IVAR___NEFilterFlow__direction;
     v11 = &OBJC_IVAR___NEFilterFlow__direction;
     *&v6 = 138412546;
-    v37 = v6;
-    v38 = v4;
+    v35 = v6;
+    v36 = v4;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v40 != v8)
+        if (*v38 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v13 = *(*(&v39 + 1) + 8 * i);
+        v13 = *(*(&v37 + 1) + 8 * i);
         type = [v13 type];
         if (type > 42)
         {
@@ -1034,24 +1032,24 @@ LABEL_11:
             }
 
             v18 = v13;
-            if (self && objc_getProperty(self, v23, 144, 1))
+            if (self && objc_getProperty(self, v22, 144, 1))
             {
-              v21 = [objc_getProperty(self v24];
+              v21 = [objc_getProperty(self v23];
             }
 
             else
             {
-              v48 = v18;
-              v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
+              v46 = v18;
+              v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
               if (!self)
               {
                 goto LABEL_54;
               }
             }
 
-            v33 = 144;
+            v32 = 144;
             selfCopy3 = self;
-            v35 = v21;
+            v34 = v21;
             goto LABEL_53;
           }
 
@@ -1100,14 +1098,14 @@ LABEL_11:
               goto LABEL_50;
             }
 
-            v49 = v18;
-            v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
+            v47 = v18;
+            v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
             if (self)
             {
 LABEL_50:
               selfCopy3 = self;
-              v35 = v21;
-              v33 = 64;
+              v34 = v21;
+              v32 = 64;
               goto LABEL_53;
             }
 
@@ -1119,7 +1117,6 @@ LABEL_50:
         {
           if (type == 33)
           {
-            v22 = *(v9 + 2600);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -1162,15 +1159,15 @@ LABEL_43:
         if (objc_opt_isKindOfClass())
         {
           v18 = v13;
-          if (self && objc_getProperty(self, v25, 56, 1))
+          if (self && objc_getProperty(self, v24, 56, 1))
           {
-            v21 = [objc_getProperty(self v26];
+            v21 = [objc_getProperty(self v25];
           }
 
           else
           {
-            v47 = v18;
-            v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
+            v45 = v18;
+            v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
             if (!self)
             {
               goto LABEL_54;
@@ -1178,43 +1175,41 @@ LABEL_43:
           }
 
           selfCopy3 = self;
-          v35 = v21;
-          v33 = 56;
+          v34 = v21;
+          v32 = 56;
 LABEL_53:
-          objc_setProperty_atomic(selfCopy3, v20, v35, v33);
+          objc_setProperty_atomic(selfCopy3, v20, v34, v32);
 LABEL_54:
 
           continue;
         }
 
-        v27 = ne_log_obj();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v26 = ne_log_obj();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = v11;
-          v29 = v10;
-          v30 = v9;
+          v27 = v11;
+          v28 = v10;
+          v29 = v9;
           copyShortDescription = [(NEIKEv2Packet *)self copyShortDescription];
           typeDescription = [v13 typeDescription];
-          *buf = v37;
-          v44 = copyShortDescription;
-          v45 = 2112;
-          v46 = typeDescription;
-          _os_log_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_DEFAULT, "%@ ignoring unexpected %@ payload", buf, 0x16u);
+          *buf = v35;
+          v42 = copyShortDescription;
+          v43 = 2112;
+          v44 = typeDescription;
+          _os_log_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_DEFAULT, "%@ ignoring unexpected %@ payload", buf, 0x16u);
 
-          v9 = v30;
-          v10 = v29;
-          v11 = v28;
-          v4 = v38;
+          v9 = v29;
+          v10 = v28;
+          v11 = v27;
+          v4 = v36;
         }
       }
 
-      v7 = [(NSArray *)v4 countByEnumeratingWithState:&v39 objects:v50 count:16];
+      v7 = [(NSArray *)v4 countByEnumeratingWithState:&v37 objects:v48 count:16];
     }
 
     while (v7);
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)gatherPayloads

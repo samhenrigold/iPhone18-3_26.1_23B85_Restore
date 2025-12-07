@@ -262,12 +262,11 @@ LABEL_3:
   v3 = sub_100020BFC();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Update complete", v5, 2u);
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Update complete", v4, 2u);
   }
 
   self->_running = 0;
-  v4 = GeoServicesConfig_MobileAssetUpdateStartedAt[1];
   _GEOConfigRemoveValue();
 }
 
@@ -287,43 +286,42 @@ LABEL_3:
   {
     self->_running = 1;
     GEOGetMonotonicTime();
-    v4 = GeoServicesConfig_MobileAssetUpdateStartedAt[1];
     GEOConfigSetDouble();
-    v5 = sub_100020BFC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v4 = sub_100020BFC();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Fetching MA catalog", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Fetching MA catalog", buf, 2u);
     }
 
     v2 = objc_alloc_init(sub_100023640());
     [v2 setAllowsCellularAccess:0];
     [v2 setAllowsExpensiveAccess:0];
     [v2 setDiscretionary:1];
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2050000000;
-    v6 = qword_100096028;
-    v17 = qword_100096028;
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x2050000000;
+    v5 = qword_100096028;
+    v16 = qword_100096028;
     if (!qword_100096028)
     {
       *buf = _NSConcreteStackBlock;
-      v10 = 3221225472;
-      v11 = sub_100023560;
-      v12 = &unk_1000830D0;
-      v13 = &v14;
+      v9 = 3221225472;
+      v10 = sub_100023560;
+      v11 = &unk_1000830D0;
+      v12 = &v13;
       sub_100023560(buf);
-      v6 = v15[3];
+      v5 = v14[3];
     }
 
-    v7 = v6;
-    _Block_object_dispose(&v14, 8);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10001B06C;
-    v8[3] = &unk_100081CF8;
-    v8[4] = self;
-    [v7 startCatalogDownload:@"com.apple.MobileAsset.GeoPolygonDataAssets" options:v2 then:v8];
+    v6 = v5;
+    _Block_object_dispose(&v13, 8);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_10001B06C;
+    v7[3] = &unk_100081CF8;
+    v7[4] = self;
+    [v6 startCatalogDownload:@"com.apple.MobileAsset.GeoPolygonDataAssets" options:v2 then:v7];
   }
 }
 
@@ -343,28 +341,27 @@ LABEL_3:
 
 - (id)initInternal
 {
-  v12.receiver = self;
-  v12.super_class = GEOMobileAssetResourceUpdater;
-  v2 = [(GEOMobileAssetResourceUpdater *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = GEOMobileAssetResourceUpdater;
+  v2 = [(GEOMobileAssetResourceUpdater *)&v11 init];
   if (v2)
   {
     v3 = geo_dispatch_queue_create_with_workloop_qos();
     updateWorkQueue = v2->_updateWorkQueue;
     v2->_updateWorkQueue = v3;
 
-    v5 = GeoServicesConfig_MobileAssetUpdateStartedAt[1];
     GEOConfigGetDouble();
-    if (v6 > 0.0)
+    if (v5 > 0.0)
     {
-      v7 = v6;
+      v6 = v5;
       GEOGetMonotonicTime();
-      if (v7 < v8)
+      if (v6 < v7)
       {
-        v9 = sub_100020BFC();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v8 = sub_100020BFC();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          *v11 = 0;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Was updating when geod quit, re-starting update", v11, 2u);
+          *v10 = 0;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Was updating when geod quit, re-starting update", v10, 2u);
         }
 
         [(GEOMobileAssetResourceUpdater *)v2 _update:0];
@@ -383,7 +380,7 @@ LABEL_3:
 
 + (void)submitBackgroundTasksNeededDuringDaemonStart
 {
-  if (sub_10001FD1C())
+  if (sub_10001FD1C(0))
   {
     sharedScheduler = [sub_10001FF30() sharedScheduler];
     v3 = GEOMobileAssetResourceUpdaterTaskIdentifier;
@@ -394,7 +391,7 @@ LABEL_3:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v15 = v3;
+        v14 = v3;
         _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "MobileAsset background task is already scheduled (%{public}@)", buf, 0xCu);
       }
     }
@@ -402,42 +399,41 @@ LABEL_3:
     else
     {
       v5 = [objc_alloc(sub_1000201D0()) initWithIdentifier:v3];
-      v6 = GeoServicesConfig_MobileAssetUpdateInterval[1];
       GEOConfigGetDouble();
-      v8 = v7;
-      if (v7 <= 0x3840)
+      v7 = v6;
+      if (v6 <= 0x3840)
       {
-        v8 = 14400;
+        v7 = 14400;
       }
 
-      if (v8 >= 0x278D00)
+      if (v7 >= 0x278D00)
       {
-        v8 = 2592000;
+        v7 = 2592000;
       }
 
-      [v5 setInterval:v8];
+      [v5 setInterval:v7];
       [v5 setPriority:1];
       [v5 setRequiresExternalPower:1];
       [v5 setRequiresNetworkConnectivity:1];
       [v5 setRequiresInexpensiveNetworkConnectivity:1];
       [v5 setNetworkDownloadSize:10485760];
-      v13 = 0;
-      v9 = [sharedScheduler submitTaskRequest:v5 error:&v13];
-      v10 = v13;
-      if ((v9 & 1) == 0)
+      v12 = 0;
+      v8 = [sharedScheduler submitTaskRequest:v5 error:&v12];
+      v9 = v12;
+      if ((v8 & 1) == 0)
       {
-        v11 = sub_100020BFC();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v10 = sub_100020BFC();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v12 = @"Unknown";
-          if (v10)
+          v11 = @"Unknown";
+          if (v9)
           {
-            v12 = v10;
+            v11 = v9;
           }
 
           *buf = 138412290;
-          v15 = v12;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to submit repeating task with error: %@", buf, 0xCu);
+          v14 = v11;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to submit repeating task with error: %@", buf, 0xCu);
         }
       }
     }

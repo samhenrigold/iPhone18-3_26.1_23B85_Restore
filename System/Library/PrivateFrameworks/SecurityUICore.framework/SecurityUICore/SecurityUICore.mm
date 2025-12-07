@@ -1,17 +1,17 @@
 uint64_t one-time initialization function for appleSupport()
 {
-  v0 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20]();
-  v2 = &v7 - v1;
-  v3 = type metadata accessor for URL();
-  __swift_allocate_value_buffer(v3, static SecurityUI.Links.appleSupport);
-  v4 = __swift_project_value_buffer(v3, static SecurityUI.Links.appleSupport);
+  v1 = &v6 - v0;
+  v2 = type metadata accessor for URL();
+  __swift_allocate_value_buffer(v2, static SecurityUI.Links.appleSupport);
+  v3 = __swift_project_value_buffer(v2, static SecurityUI.Links.appleSupport);
   URL.init(string:)();
-  v5 = *(v3 - 8);
-  result = (*(v5 + 48))(v2, 1, v3);
+  v4 = *(v2 - 8);
+  result = (*(v4 + 48))(v1, 1, v2);
   if (result != 1)
   {
-    return (*(v5 + 32))(v4, v2, v3);
+    return (*(v4 + 32))(v3, v1, v2);
   }
 
   __break(1u);
@@ -30,18 +30,18 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
 
 uint64_t one-time initialization function for learnMoreURL_iPad()
 {
-  v0 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20]();
-  v2 = &v7 - v1;
-  v3 = type metadata accessor for URL();
-  __swift_allocate_value_buffer(v3, static SecurityUI.Links.learnMoreURL_iPad);
-  v4 = __swift_project_value_buffer(v3, static SecurityUI.Links.learnMoreURL_iPad);
+  v1 = &v6 - v0;
+  v2 = type metadata accessor for URL();
+  __swift_allocate_value_buffer(v2, static SecurityUI.Links.learnMoreURL_iPad);
+  v3 = __swift_project_value_buffer(v2, static SecurityUI.Links.learnMoreURL_iPad);
   URL.init(string:)();
-  v5 = *(v3 - 8);
-  result = (*(v5 + 48))(v2, 1, v3);
+  v4 = *(v2 - 8);
+  result = (*(v4 + 48))(v1, 1, v2);
   if (result != 1)
   {
-    return (*(v5 + 32))(v4, v2, v3);
+    return (*(v4 + 32))(v3, v1, v2);
   }
 
   __break(1u);
@@ -50,18 +50,18 @@ uint64_t one-time initialization function for learnMoreURL_iPad()
 
 uint64_t one-time initialization function for learnMoreURL_iPhone()
 {
-  v0 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20]();
-  v2 = &v7 - v1;
-  v3 = type metadata accessor for URL();
-  __swift_allocate_value_buffer(v3, static SecurityUI.Links.learnMoreURL_iPhone);
-  v4 = __swift_project_value_buffer(v3, static SecurityUI.Links.learnMoreURL_iPhone);
+  v1 = &v6 - v0;
+  v2 = type metadata accessor for URL();
+  __swift_allocate_value_buffer(v2, static SecurityUI.Links.learnMoreURL_iPhone);
+  v3 = __swift_project_value_buffer(v2, static SecurityUI.Links.learnMoreURL_iPhone);
   URL.init(string:)();
-  v5 = *(v3 - 8);
-  result = (*(v5 + 48))(v2, 1, v3);
+  v4 = *(v2 - 8);
+  result = (*(v4 + 48))(v1, 1, v2);
   if (result != 1)
   {
-    return (*(v5 + 32))(v4, v2, v3);
+    return (*(v4 + 32))(v3, v1, v2);
   }
 
   __break(1u);
@@ -196,7 +196,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -206,14 +205,11 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

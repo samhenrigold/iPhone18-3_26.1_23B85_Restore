@@ -9,20 +9,19 @@
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   v4 = [objc_opt_class() description];
   v5 = v4;
-  name = self->_name;
   if (self->_value)
   {
-    v7 = @"Yes";
+    v6 = @"Yes";
   }
 
   else
   {
-    v7 = @"No";
+    v6 = @"No";
   }
 
-  v8 = [v3 initWithFormat:@"<%@| name:%@ value:%@>", v4, self->_name, v7];
+  v7 = [v3 initWithFormat:@"<%@| name:%@ value:%@>", v4, self->_name, v6];
 
-  return v8;
+  return v7;
 }
 
 @end

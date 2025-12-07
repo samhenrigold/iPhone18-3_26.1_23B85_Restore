@@ -42,31 +42,31 @@
 
 - (id)_nonNilRepeatedAttributes
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] set];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   _objectDescription = [(INCodable *)self _objectDescription];
   attributes = [_objectDescription attributes];
   allValues = [attributes allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         propertyName = [v11 propertyName];
         v13 = [propertyName hasPrefix:@"_"];
 
@@ -81,44 +81,42 @@
         }
       }
 
-      v8 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)_nonNilAttributes
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v18 = [MEMORY[0x1E695DFA8] set];
+  v23 = *MEMORY[0x1E69E9840];
+  v17 = [MEMORY[0x1E695DFA8] set];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   _objectDescription = [(INCodable *)self _objectDescription];
   attributes = [_objectDescription attributes];
   allValues = [attributes allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         propertyName = [v10 propertyName];
         v12 = [propertyName hasPrefix:@"_"];
 
@@ -130,28 +128,26 @@
           if ((INObjectIsConsideredNil(v13, isKindOfClass & 1) & 1) == 0)
           {
             propertyName2 = [v10 propertyName];
-            [v18 addObject:propertyName2];
+            [v17 addObject:propertyName2];
           }
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v17;
 }
 
 - (id)data
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v2 = [(INCodable *)self _dataWithError:&v13];
-  v3 = v13;
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v2 = [(INCodable *)self _dataWithError:&v12];
+  v3 = v12;
   v4 = v3;
   if (v3)
   {
@@ -159,19 +155,19 @@
     v6 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_FAULT))
     {
-      v10 = v6;
-      v11 = [(__CFString *)v5 length];
-      v12 = @"INCodable data writing failed";
-      if (v11)
+      v9 = v6;
+      v10 = [(__CFString *)v5 length];
+      v11 = @"INCodable data writing failed";
+      if (v10)
       {
-        v12 = v5;
+        v11 = v5;
       }
 
       *buf = 136315394;
-      v15 = "[INCodable data]";
-      v16 = 2114;
-      v17 = v12;
-      _os_log_fault_impl(&dword_18E991000, v10, OS_LOG_TYPE_FAULT, "%s INCodable data failed: %{public}@", buf, 0x16u);
+      v14 = "[INCodable data]";
+      v15 = 2114;
+      v16 = v11;
+      _os_log_fault_impl(&dword_18E991000, v9, OS_LOG_TYPE_FAULT, "%s INCodable data failed: %{public}@", buf, 0x16u);
     }
 
     v7 = 0;
@@ -181,8 +177,6 @@
   {
     v7 = v2;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -322,22 +316,22 @@
 
 - (id)_copyWithZone:(_NSZone *)zone error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   _nonNilRepeatedAttributes = [(INCodable *)self _nonNilRepeatedAttributes];
-  v22 = 0;
-  v8 = [(INCodable *)self _dataWithError:&v22];
-  v9 = v22;
+  v21 = 0;
+  v8 = [(INCodable *)self _dataWithError:&v21];
+  v9 = v21;
   if (v9)
   {
     v10 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v24 = "[INCodable _copyWithZone:error:]";
-      v25 = 2112;
+      v23 = "[INCodable _copyWithZone:error:]";
+      v24 = 2112;
       selfCopy2 = self;
-      v27 = 2112;
-      v28 = v9;
+      v26 = 2112;
+      v27 = v9;
       _os_log_error_impl(&dword_18E991000, v10, OS_LOG_TYPE_ERROR, "%s Failed to copy INCodable %@ due to data error: %@", buf, 0x20u);
     }
 
@@ -351,9 +345,9 @@
   {
     v14 = [objc_opt_class() allocWithZone:zone];
     _objectDescription = [(INCodable *)self _objectDescription];
-    v21 = 0;
-    v16 = [v14 _initWithCodableDescription:_objectDescription data:v8 error:&v21];
-    v12 = v21;
+    v20 = 0;
+    v16 = [v14 _initWithCodableDescription:_objectDescription data:v8 error:&v20];
+    v12 = v20;
 
     [v16 _setEmptyArrayForNonNilRepeatedAttributes:_nonNilRepeatedAttributes];
     if (v12)
@@ -362,11 +356,11 @@
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v24 = "[INCodable _copyWithZone:error:]";
-        v25 = 2112;
+        v23 = "[INCodable _copyWithZone:error:]";
+        v24 = 2112;
         selfCopy2 = self;
-        v27 = 2112;
-        v28 = v12;
+        v26 = 2112;
+        v27 = v12;
         _os_log_error_impl(&dword_18E991000, v17, OS_LOG_TYPE_ERROR, "%s Failed to copy INCodable %@ due to initialization error: %@", buf, 0x20u);
       }
 
@@ -381,34 +375,33 @@
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (void)_setEmptyArrayForNonNilRepeatedAttributes:(id)attributes
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v5 = [attributesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [attributesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     v8 = MEMORY[0x1E695E0F0];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(attributesCopy);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if ([(INCodable *)self isValidKey:v10])
         {
           v11 = [(INCodable *)self valueForPropertyNamed:v10];
@@ -430,13 +423,11 @@
         }
       }
 
-      v6 = [attributesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [attributesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_dataWithError:(id *)error
@@ -450,53 +441,53 @@
 
 - (BOOL)_writeTo:(id)to error:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   toCopy = to;
   _objectDescription = [(INCodable *)self _objectDescription];
   attributes = [_objectDescription attributes];
   allKeys = [attributes allKeys];
   v10 = [allKeys sortedArrayUsingComparator:&__block_literal_global_74];
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __28__INCodable__writeTo_error___block_invoke_2;
-  v37[3] = &unk_1E7282A98;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __28__INCodable__writeTo_error___block_invoke_2;
+  v36[3] = &unk_1E7282A98;
   errorCopy = error;
   v11 = toCopy;
-  v38 = v11;
-  v12 = MEMORY[0x193AD7780](v37);
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __28__INCodable__writeTo_error___block_invoke_3;
-  v33[3] = &unk_1E7282AC0;
-  v33[4] = self;
+  v37 = v11;
+  v12 = MEMORY[0x193AD7780](v36);
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __28__INCodable__writeTo_error___block_invoke_3;
+  v32[3] = &unk_1E7282AC0;
+  v32[4] = self;
   v13 = v12;
-  v35 = v13;
+  v34 = v13;
   errorCopy2 = error;
   v14 = v11;
-  v34 = v14;
-  v15 = MEMORY[0x193AD7780](v33);
+  v33 = v14;
+  v15 = MEMORY[0x193AD7780](v32);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = v10;
-  v16 = [obj countByEnumeratingWithState:&v29 objects:v40 count:16];
+  v16 = [obj countByEnumeratingWithState:&v28 objects:v39 count:16];
   if (v16)
   {
     v17 = v16;
-    v27 = v14;
-    v18 = *v30;
+    v26 = v14;
+    v18 = *v29;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v30 != v18)
+        if (*v29 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v29 + 1) + 8 * i);
+        v20 = *(*(&v28 + 1) + 8 * i);
         _objectDescription2 = [(INCodable *)self _objectDescription];
         attributes2 = [_objectDescription2 attributes];
         v23 = [attributes2 objectForKey:v20];
@@ -509,7 +500,7 @@
         }
       }
 
-      v17 = [obj countByEnumeratingWithState:&v29 objects:v40 count:16];
+      v17 = [obj countByEnumeratingWithState:&v28 objects:v39 count:16];
       if (v17)
       {
         continue;
@@ -520,7 +511,7 @@
 
     v24 = 1;
 LABEL_12:
-    v14 = v27;
+    v14 = v26;
   }
 
   else
@@ -528,13 +519,12 @@ LABEL_12:
     v24 = 1;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 uint64_t __28__INCodable__writeTo_error___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -551,30 +541,27 @@ uint64_t __28__INCodable__writeTo_error___block_invoke_2(uint64_t a1, void *a2, 
   isKindOfClass = objc_opt_isKindOfClass();
   if (isKindOfClass)
   {
-    v14 = *(a1 + 32);
     [v9 unsignedIntValue];
     PBDataWriterWriteSubmessage();
   }
 
   else if (*(a1 + 40))
   {
-    v15 = MEMORY[0x1E696ABC0];
-    v22 = *MEMORY[0x1E696A278];
-    v16 = MEMORY[0x1E696AEC0];
-    v17 = [v7 propertyName];
-    v18 = objc_claimAutoreleasedReturnValue();
-    v23[0] = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-    **(a1 + 40) = [v15 errorWithDomain:@"IntentsErrorDomain" code:8001 userInfo:v19];
+    v14 = MEMORY[0x1E696ABC0];
+    v20 = *MEMORY[0x1E696A278];
+    v15 = MEMORY[0x1E696AEC0];
+    v17 = v16 = [v7 propertyName];
+    v21[0] = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    **(a1 + 40) = [v14 errorWithDomain:@"IntentsErrorDomain" code:8001 userInfo:v18];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return isKindOfClass & 1;
 }
 
 uint64_t __28__INCodable__writeTo_error___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -594,26 +581,25 @@ LABEL_5:
 
     else
     {
-      v75 = 0u;
-      v76 = 0u;
       v73 = 0u;
       v74 = 0u;
+      v71 = 0u;
+      v72 = 0u;
       v8 = [*(a1 + 32) _valueForAttribute:v7 ofClass:objc_opt_class()];
-      v15 = [v8 countByEnumeratingWithState:&v73 objects:v85 count:16];
+      v15 = [v8 countByEnumeratingWithState:&v71 objects:v83 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v74;
+        v17 = *v72;
 LABEL_22:
         v18 = 0;
         while (1)
         {
-          if (*v74 != v17)
+          if (*v72 != v17)
           {
             objc_enumerationMutation(v8);
           }
 
-          v19 = *(*(&v73 + 1) + 8 * v18);
           if (!(*(*(a1 + 48) + 16))())
           {
             goto LABEL_5;
@@ -621,7 +607,7 @@ LABEL_22:
 
           if (v16 == ++v18)
           {
-            v16 = [v8 countByEnumeratingWithState:&v73 objects:v85 count:16];
+            v16 = [v8 countByEnumeratingWithState:&v71 objects:v83 count:16];
             if (v16)
             {
               goto LABEL_22;
@@ -650,12 +636,12 @@ LABEL_22:
       goto LABEL_42;
     }
 
-    v25 = MEMORY[0x1E696ABC0];
-    v83 = *MEMORY[0x1E696A278];
+    v24 = MEMORY[0x1E696ABC0];
+    v81 = *MEMORY[0x1E696A278];
     v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Repeated modifier is not supported for enum attributes"];
-    v84 = v9;
-    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
-    **(a1 + 56) = [v25 errorWithDomain:@"IntentsErrorDomain" code:8001 userInfo:v26];
+    v82 = v9;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+    **(a1 + 56) = [v24 errorWithDomain:@"IntentsErrorDomain" code:8001 userInfo:v25];
 
     goto LABEL_41;
   }
@@ -666,19 +652,19 @@ LABEL_22:
     if (!*(a1 + 56))
     {
 LABEL_42:
-      v37 = 0;
+      v36 = 0;
       goto LABEL_79;
     }
 
-    v20 = MEMORY[0x1E696ABC0];
-    v77 = *MEMORY[0x1E696A278];
-    v21 = MEMORY[0x1E696AEC0];
-    v22 = objc_opt_class();
-    v7 = NSStringFromClass(v22);
-    v23 = [v21 stringWithFormat:@"Unsupported attribute type: %@", v7];
-    v78 = v23;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-    **(a1 + 56) = [v20 errorWithDomain:@"IntentsErrorDomain" code:8001 userInfo:v24];
+    v19 = MEMORY[0x1E696ABC0];
+    v75 = *MEMORY[0x1E696A278];
+    v20 = MEMORY[0x1E696AEC0];
+    v21 = objc_opt_class();
+    v7 = NSStringFromClass(v21);
+    v22 = [v20 stringWithFormat:@"Unsupported attribute type: %@", v7];
+    v76 = v22;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+    **(a1 + 56) = [v19 errorWithDomain:@"IntentsErrorDomain" code:8001 userInfo:v23];
 
 LABEL_31:
     goto LABEL_42;
@@ -695,14 +681,14 @@ LABEL_31:
     {
       if (*(a1 + 56))
       {
-        v32 = MEMORY[0x1E696ABC0];
-        v81 = *MEMORY[0x1E696A278];
-        v33 = MEMORY[0x1E696AEC0];
-        v34 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v9, "type")}];
-        v35 = [v33 stringWithFormat:@"Repeated modifier is not supported for scalar attributes with type %@", v34];
-        v82 = v35;
-        v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
-        **(a1 + 56) = [v32 errorWithDomain:@"IntentsErrorDomain" code:8001 userInfo:v36];
+        v31 = MEMORY[0x1E696ABC0];
+        v79 = *MEMORY[0x1E696A278];
+        v32 = MEMORY[0x1E696AEC0];
+        v33 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v9, "type")}];
+        v34 = [v32 stringWithFormat:@"Repeated modifier is not supported for scalar attributes with type %@", v33];
+        v80 = v34;
+        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+        **(a1 + 56) = [v31 errorWithDomain:@"IntentsErrorDomain" code:8001 userInfo:v35];
       }
 
 LABEL_41:
@@ -730,20 +716,20 @@ LABEL_41:
     {
       if (v13 == 1)
       {
-        v27 = *(a1 + 40);
+        v26 = *(a1 + 40);
         [*(a1 + 32) _floatValueForAttribute:v9];
-        v29 = v28;
-        v30 = [v6 unsignedIntValue];
-        LODWORD(v31) = v29;
-        [v27 writeFloat:v30 forTag:v31];
+        v28 = v27;
+        v29 = [v6 unsignedIntValue];
+        LODWORD(v30) = v28;
+        [v26 writeFloat:v29 forTag:v30];
       }
     }
 
     else
     {
-      v38 = *(a1 + 40);
+      v37 = *(a1 + 40);
       [*(a1 + 32) _doubleValueForAttribute:v9];
-      [v38 writeDouble:objc_msgSend(v6 forTag:{"unsignedIntValue"), v39}];
+      [v37 writeDouble:objc_msgSend(v6 forTag:{"unsignedIntValue"), v38}];
     }
   }
 
@@ -771,8 +757,8 @@ LABEL_41:
     {
       if ([v9 modifier])
       {
-        v40 = [*(a1 + 32) _valueForAttribute:v9 ofClass:objc_opt_class()];
-        v14 = [v40 _intents_encodeForProto];
+        v39 = [*(a1 + 32) _valueForAttribute:v9 ofClass:objc_opt_class()];
+        v14 = [v39 _intents_encodeForProto];
 
         if (v14)
         {
@@ -782,57 +768,57 @@ LABEL_41:
 
       else
       {
-        v71 = 0u;
-        v72 = 0u;
         v69 = 0u;
         v70 = 0u;
+        v67 = 0u;
+        v68 = 0u;
         v14 = [*(a1 + 32) _valueForAttribute:v9 ofClass:objc_opt_class()];
-        v46 = [v14 countByEnumeratingWithState:&v69 objects:v80 count:16];
-        if (v46)
+        v45 = [v14 countByEnumeratingWithState:&v67 objects:v78 count:16];
+        if (v45)
         {
-          v47 = v46;
-          v63 = v10;
-          v64 = v9;
-          v48 = *v70;
+          v46 = v45;
+          v61 = v10;
+          v62 = v9;
+          v47 = *v68;
           while (1)
           {
-            for (i = 0; i != v47; ++i)
+            for (i = 0; i != v46; ++i)
             {
-              if (*v70 != v48)
+              if (*v68 != v47)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v50 = *(*(&v69 + 1) + 8 * i);
-              if (v50)
+              v49 = *(*(&v67 + 1) + 8 * i);
+              if (v49)
               {
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  v54 = MEMORY[0x1E695DF30];
-                  v55 = *MEMORY[0x1E695D930];
-                  v56 = MEMORY[0x1E696AEC0];
-                  v57 = [v64 propertyName];
+                  v52 = MEMORY[0x1E695DF30];
+                  v53 = *MEMORY[0x1E695D930];
+                  v54 = MEMORY[0x1E696AEC0];
+                  v55 = [v62 propertyName];
 LABEL_82:
-                  v58 = objc_opt_class();
-                  v59 = NSStringFromClass(v58);
-                  v60 = [v56 stringWithFormat:@"Property '%@' is not a valid NSArray<%@ *> subclass", v57, v59, v63];
-                  v61 = [v54 exceptionWithName:v55 reason:v60 userInfo:0];
-                  v62 = v61;
+                  v56 = objc_opt_class();
+                  v57 = NSStringFromClass(v56);
+                  v58 = [v54 stringWithFormat:@"Property '%@' is not a valid NSArray<%@ *> subclass", v55, v57, v61];
+                  v59 = [v52 exceptionWithName:v53 reason:v58 userInfo:0];
+                  v60 = v59;
 
-                  objc_exception_throw(v61);
+                  objc_exception_throw(v59);
                 }
               }
 
-              v51 = [v50 _intents_encodeForProto];
-              if (v51)
+              v50 = [v49 _intents_encodeForProto];
+              if (v50)
               {
-                [*(a1 + 40) writeString:v51 forTag:{objc_msgSend(v6, "unsignedIntValue")}];
+                [*(a1 + 40) writeString:v50 forTag:{objc_msgSend(v6, "unsignedIntValue")}];
               }
             }
 
-            v47 = [v14 countByEnumeratingWithState:&v69 objects:v80 count:16];
-            if (!v47)
+            v46 = [v14 countByEnumeratingWithState:&v67 objects:v78 count:16];
+            if (!v46)
             {
               goto LABEL_75;
             }
@@ -859,46 +845,46 @@ LABEL_82:
 
       else
       {
-        v67 = 0u;
-        v68 = 0u;
         v65 = 0u;
         v66 = 0u;
+        v63 = 0u;
+        v64 = 0u;
         v14 = [*(a1 + 32) _valueForAttribute:v9 ofClass:objc_opt_class()];
-        v41 = [v14 countByEnumeratingWithState:&v65 objects:v79 count:16];
-        if (v41)
+        v40 = [v14 countByEnumeratingWithState:&v63 objects:v77 count:16];
+        if (v40)
         {
-          v42 = v41;
-          v63 = v10;
-          v64 = v9;
-          v43 = *v66;
+          v41 = v40;
+          v61 = v10;
+          v62 = v9;
+          v42 = *v64;
           while (1)
           {
-            for (j = 0; j != v42; ++j)
+            for (j = 0; j != v41; ++j)
             {
-              if (*v66 != v43)
+              if (*v64 != v42)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v45 = *(*(&v65 + 1) + 8 * j);
-              if (v45)
+              v44 = *(*(&v63 + 1) + 8 * j);
+              if (v44)
               {
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  v54 = MEMORY[0x1E695DF30];
-                  v55 = *MEMORY[0x1E695D930];
-                  v56 = MEMORY[0x1E696AEC0];
-                  v57 = [v9 propertyName];
+                  v52 = MEMORY[0x1E695DF30];
+                  v53 = *MEMORY[0x1E695D930];
+                  v54 = MEMORY[0x1E696AEC0];
+                  v55 = [v9 propertyName];
                   goto LABEL_82;
                 }
               }
 
-              [*(a1 + 40) writeData:v45 forTag:{objc_msgSend(v6, "unsignedIntValue")}];
+              [*(a1 + 40) writeData:v44 forTag:{objc_msgSend(v6, "unsignedIntValue")}];
             }
 
-            v42 = [v14 countByEnumeratingWithState:&v65 objects:v79 count:16];
-            if (!v42)
+            v41 = [v14 countByEnumeratingWithState:&v63 objects:v77 count:16];
+            if (!v41)
             {
 LABEL_75:
 
@@ -913,48 +899,47 @@ LABEL_75:
 LABEL_77:
 
 LABEL_78:
-  v37 = 1;
+  v36 = 1;
 LABEL_79:
 
-  v52 = *MEMORY[0x1E69E9840];
-  return v37;
+  return v36;
 }
 
 - (BOOL)_readFrom:(id)from error:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __29__INCodable__readFrom_error___block_invoke;
-  v39[3] = &unk_1E7282A28;
-  v39[4] = self;
-  v26 = MEMORY[0x193AD7780](v39);
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __29__INCodable__readFrom_error___block_invoke;
+  v38[3] = &unk_1E7282A28;
+  v38[4] = self;
+  v25 = MEMORY[0x193AD7780](v38);
   while ([fromCopy hasMoreData])
   {
-    v38 = 0;
     v37 = 0;
-    [fromCopy readTag:&v38 type:&v37];
-    if (([fromCopy hasError] & 1) != 0 || v37 == 4)
+    v36 = 0;
+    [fromCopy readTag:&v37 type:&v36];
+    if (([fromCopy hasError] & 1) != 0 || v36 == 4)
     {
       break;
     }
 
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __29__INCodable__readFrom_error___block_invoke_2;
-    v31[3] = &unk_1E7282A50;
-    v32 = dictionary;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __29__INCodable__readFrom_error___block_invoke_2;
+    v30[3] = &unk_1E7282A50;
+    v31 = dictionary;
     errorCopy = error;
-    v33 = fromCopy;
-    v8 = v26;
+    v32 = fromCopy;
+    v8 = v25;
     selfCopy = self;
-    v35 = v8;
-    v9 = MEMORY[0x193AD7780](v31);
+    v34 = v8;
+    v9 = MEMORY[0x193AD7780](v30);
     _objectDescription = [(INCodable *)self _objectDescription];
     attributes = [_objectDescription attributes];
-    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v38];
+    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v37];
     v13 = [attributes objectForKey:v12];
 
     if (v13 && !(v9)[2](v9, v13))
@@ -965,26 +950,26 @@ LABEL_79:
     }
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   allKeys = [dictionary allKeys];
-  v15 = [allKeys countByEnumeratingWithState:&v27 objects:v40 count:16];
+  v15 = [allKeys countByEnumeratingWithState:&v26 objects:v39 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v28;
+    v17 = *v27;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v28 != v17)
+        if (*v27 != v17)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v19 = *(*(&v27 + 1) + 8 * i);
+        v19 = *(*(&v26 + 1) + 8 * i);
         v20 = [dictionary objectForKeyedSubscript:v19];
         v21 = v20;
         if (v20)
@@ -994,7 +979,7 @@ LABEL_79:
         }
       }
 
-      v16 = [allKeys countByEnumeratingWithState:&v27 objects:v40 count:16];
+      v16 = [allKeys countByEnumeratingWithState:&v26 objects:v39 count:16];
     }
 
     while (v16);
@@ -1003,13 +988,12 @@ LABEL_79:
   v23 = [fromCopy hasError] ^ 1;
 LABEL_19:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 void __29__INCodable__readFrom_error___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -1026,21 +1010,19 @@ void __29__INCodable__readFrom_error___block_invoke(uint64_t a1, void *a2, void 
   else if (a5)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A278];
+    v17 = *MEMORY[0x1E696A278];
     v13 = MEMORY[0x1E696AEC0];
     v14 = [v10 propertyName];
     v15 = [v13 stringWithFormat:@"Value for property '%@' can't be nil", v14];
-    v19[0] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     *a5 = [v12 errorWithDomain:@"IntentsErrorDomain" code:8001 userInfo:v16];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __29__INCodable__readFrom_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v72[1] = *MEMORY[0x1E69E9840];
+  v68[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [v3 propertyName];
@@ -1108,19 +1090,19 @@ LABEL_36:
         goto LABEL_37;
       }
 
-      v53 = *(a1 + 64);
-      v44 = (a1 + 64);
-      if (v53)
+      v50 = *(a1 + 64);
+      v41 = (a1 + 64);
+      if (v50)
       {
-        v46 = MEMORY[0x1E696ABC0];
-        v71 = *MEMORY[0x1E696A278];
-        v54 = MEMORY[0x1E696AEC0];
-        v48 = [v19 typeName];
-        v49 = [v54 stringWithFormat:@"Unknown codable description for custom type: %@", v48];
-        v72[0] = v49;
-        v50 = MEMORY[0x1E695DF20];
-        v51 = v72;
-        v52 = &v71;
+        v43 = MEMORY[0x1E696ABC0];
+        v67 = *MEMORY[0x1E696A278];
+        v51 = MEMORY[0x1E696AEC0];
+        v45 = [v19 typeName];
+        v46 = [v51 stringWithFormat:@"Unknown codable description for custom type: %@", v45];
+        v68[0] = v46;
+        v47 = MEMORY[0x1E695DF20];
+        v48 = v68;
+        v49 = &v67;
         goto LABEL_51;
       }
     }
@@ -1131,7 +1113,6 @@ LABEL_36:
       {
         v24 = objc_alloc_init([objc_opt_class() reverseTransformedValueClass]);
 LABEL_37:
-        v35 = *(a1 + 40);
         if (!PBReaderPlaceMark() || ![v24 readFrom:*(a1 + 40)])
         {
           goto LABEL_43;
@@ -1139,19 +1120,17 @@ LABEL_37:
 
         if (v17)
         {
-          v36 = [v17 reverseTransformedValue:v24];
+          v35 = [v17 reverseTransformedValue:v24];
 
-          v24 = v36;
+          v24 = v35;
         }
 
-        v37 = *(a1 + 40);
         PBReaderRecallMark();
-        v38 = *(a1 + 64);
         (*(*(a1 + 56) + 16))();
-        v39 = *(a1 + 64);
-        if (v39)
+        v36 = *(a1 + 64);
+        if (v36)
         {
-          if (*v39)
+          if (*v36)
           {
 LABEL_43:
 
@@ -1200,22 +1179,22 @@ LABEL_53:
         }
       }
 
-      v45 = *(a1 + 64);
-      v44 = (a1 + 64);
-      if (v45)
+      v42 = *(a1 + 64);
+      v41 = (a1 + 64);
+      if (v42)
       {
-        v46 = MEMORY[0x1E696ABC0];
-        v69 = *MEMORY[0x1E696A278];
-        v47 = MEMORY[0x1E696AEC0];
-        v48 = [v12 typeName];
-        v49 = [v47 stringWithFormat:@"Unknown type %@", v48];
-        v70 = v49;
-        v50 = MEMORY[0x1E695DF20];
-        v51 = &v70;
-        v52 = &v69;
+        v43 = MEMORY[0x1E696ABC0];
+        v65 = *MEMORY[0x1E696A278];
+        v44 = MEMORY[0x1E696AEC0];
+        v45 = [v12 typeName];
+        v46 = [v44 stringWithFormat:@"Unknown type %@", v45];
+        v66 = v46;
+        v47 = MEMORY[0x1E695DF20];
+        v48 = &v66;
+        v49 = &v65;
 LABEL_51:
-        v55 = [v50 dictionaryWithObjects:v51 forKeys:v52 count:1];
-        **v44 = [v46 errorWithDomain:@"IntentsErrorDomain" code:8001 userInfo:v55];
+        v52 = [v47 dictionaryWithObjects:v48 forKeys:v49 count:1];
+        **v41 = [v43 errorWithDomain:@"IntentsErrorDomain" code:8001 userInfo:v52];
       }
     }
 
@@ -1247,24 +1226,24 @@ LABEL_51:
             goto LABEL_70;
           }
 
-          v57 = MEMORY[0x1E696AD98];
-          v58 = *(a1 + 48);
+          v54 = MEMORY[0x1E696AD98];
+          v55 = *(a1 + 48);
           [*(a1 + 40) readFloat];
-          v59 = [v57 numberWithFloat:?];
+          v56 = [v54 numberWithFloat:?];
         }
 
         else
         {
-          v60 = MEMORY[0x1E696AD98];
-          v58 = *(a1 + 48);
+          v57 = MEMORY[0x1E696AD98];
+          v55 = *(a1 + 48);
           [*(a1 + 40) readDouble];
-          v59 = [v60 numberWithDouble:?];
+          v56 = [v57 numberWithDouble:?];
         }
 
         goto LABEL_69;
       }
 
-      v58 = *(a1 + 48);
+      v55 = *(a1 + 48);
       if (v13 == 2)
       {
         [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(*(a1 + 40), "readInt32")}];
@@ -1284,10 +1263,10 @@ LABEL_51:
         {
           if (v13 == 7)
           {
-            v64 = *(a1 + 56);
+            v60 = *(a1 + 56);
             v15 = [*(a1 + 40) readString];
-            v65 = [v15 _intents_decodeFromProto];
-            (*(v64 + 16))(v64, v65, v12, v6, *(a1 + 64));
+            v61 = [v15 _intents_decodeFromProto];
+            (*(v60 + 16))(v60, v61, v12, v6, *(a1 + 64));
           }
 
           else
@@ -1302,28 +1281,28 @@ LABEL_51:
             (*(v14 + 16))(v14, v15, v12, v6, *(a1 + 64));
           }
 
-          v66 = *(a1 + 64);
-          if (v66 && *v66)
+          v62 = *(a1 + 64);
+          if (v62 && *v62)
           {
             goto LABEL_53;
           }
 
 LABEL_70:
 
-          v56 = [*(a1 + 40) hasError] ^ 1;
+          v53 = [*(a1 + 40) hasError] ^ 1;
           goto LABEL_71;
         }
 
-        v58 = *(a1 + 48);
-        v59 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 40), "readBOOL")}];
+        v55 = *(a1 + 48);
+        v56 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 40), "readBOOL")}];
 LABEL_69:
-        v61 = v59;
-        [v58 _setObject:v59 forAttribute:v12];
+        v58 = v56;
+        [v55 _setObject:v56 forAttribute:v12];
 
         goto LABEL_70;
       }
 
-      v58 = *(a1 + 48);
+      v55 = *(a1 + 48);
       if (v13 == 4)
       {
         [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(*(a1 + 40), "readUint32")}];
@@ -1334,31 +1313,30 @@ LABEL_69:
         [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(*(a1 + 40), "readUint64")}];
       }
     }
-    v59 = ;
+    v56 = ;
     goto LABEL_69;
   }
 
   if (*(a1 + 64))
   {
-    v40 = MEMORY[0x1E696ABC0];
-    v67 = *MEMORY[0x1E696A278];
-    v41 = MEMORY[0x1E696AEC0];
-    v42 = objc_opt_class();
-    v12 = NSStringFromClass(v42);
-    v24 = [v41 stringWithFormat:@"Unsupported attribute type: %@", v12];
-    v68 = v24;
-    v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
-    **(a1 + 64) = [v40 errorWithDomain:@"IntentsErrorDomain" code:8001 userInfo:v43];
+    v37 = MEMORY[0x1E696ABC0];
+    v63 = *MEMORY[0x1E696A278];
+    v38 = MEMORY[0x1E696AEC0];
+    v39 = objc_opt_class();
+    v12 = NSStringFromClass(v39);
+    v24 = [v38 stringWithFormat:@"Unsupported attribute type: %@", v12];
+    v64 = v24;
+    v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+    **(a1 + 64) = [v37 errorWithDomain:@"IntentsErrorDomain" code:8001 userInfo:v40];
 
     goto LABEL_46;
   }
 
 LABEL_54:
-  v56 = 0;
+  v53 = 0;
 LABEL_71:
 
-  v62 = *MEMORY[0x1E69E9840];
-  return v56;
+  return v53;
 }
 
 - (BOOL)_isStringAttribute:(id)attribute equalTo:(id)to
@@ -1654,19 +1632,19 @@ LABEL_8:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v3 = [(INCodable *)self _copyWithZone:zone error:&v9];
-  v4 = v9;
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v3 = [(INCodable *)self _copyWithZone:zone error:&v8];
+  v4 = v8;
   if (v4)
   {
     v5 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "[INCodable copyWithZone:]";
-      v12 = 2112;
-      v13 = v4;
+      v10 = "[INCodable copyWithZone:]";
+      v11 = 2112;
+      v12 = v4;
       _os_log_error_impl(&dword_18E991000, v5, OS_LOG_TYPE_ERROR, "%s Failed to copy due to error %@", buf, 0x16u);
     }
 
@@ -1678,40 +1656,39 @@ LABEL_8:
     v6 = v3;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)_dictionaryRepresentationWithNullValues:(BOOL)values
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   _objectDescription = [(INCodable *)self _objectDescription];
   attributes = [_objectDescription attributes];
   allValues = [attributes allValues];
 
-  v36 = [allValues countByEnumeratingWithState:&v41 objects:v46 count:16];
-  if (v36)
+  v35 = [allValues countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (v35)
   {
-    v35 = *v42;
-    v33 = v5;
+    v34 = *v41;
+    v32 = v5;
     valuesCopy = values;
-    v30 = allValues;
+    v29 = allValues;
     selfCopy = self;
     do
     {
-      for (i = 0; i != v36; ++i)
+      for (i = 0; i != v35; ++i)
       {
-        if (*v42 != v35)
+        if (*v41 != v34)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v41 + 1) + 8 * i);
+        v10 = *(*(&v40 + 1) + 8 * i);
         propertyName = [v10 propertyName];
         v12 = [propertyName hasPrefix:@"_"];
 
@@ -1732,26 +1709,26 @@ LABEL_8:
           {
             v16 = v14;
             v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v16, "count")}];
+            v36 = 0u;
             v37 = 0u;
             v38 = 0u;
             v39 = 0u;
-            v40 = 0u;
             v18 = v16;
-            v19 = [v18 countByEnumeratingWithState:&v37 objects:v45 count:16];
+            v19 = [v18 countByEnumeratingWithState:&v36 objects:v44 count:16];
             if (v19)
             {
               v20 = v19;
-              v21 = *v38;
+              v21 = *v37;
               do
               {
                 for (j = 0; j != v20; ++j)
                 {
-                  if (*v38 != v21)
+                  if (*v37 != v21)
                   {
                     objc_enumerationMutation(v18);
                   }
 
-                  v23 = *(*(&v37 + 1) + 8 * j);
+                  v23 = *(*(&v36 + 1) + 8 * j);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
@@ -1765,16 +1742,16 @@ LABEL_8:
                   }
                 }
 
-                v20 = [v18 countByEnumeratingWithState:&v37 objects:v45 count:16];
+                v20 = [v18 countByEnumeratingWithState:&v36 objects:v44 count:16];
               }
 
               while (v20);
             }
 
             dictionaryRepresentation = [v17 copy];
-            v5 = v33;
+            v5 = v32;
             values = valuesCopy;
-            allValues = v30;
+            allValues = v29;
             self = selfCopy;
 LABEL_21:
 
@@ -1787,7 +1764,7 @@ LABEL_21:
             if (!v14)
             {
               null = [MEMORY[0x1E695DFB0] null];
-              v34 = null;
+              v33 = null;
             }
 
             propertyName3 = [v10 propertyName];
@@ -1802,48 +1779,47 @@ LABEL_21:
         }
       }
 
-      v36 = [allValues countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v35 = [allValues countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
-    while (v36);
+    while (v35);
   }
 
   v27 = [v5 copy];
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
 
 - (unint64_t)hash
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   _objectDescription = [(INCodable *)self _objectDescription];
   attributes = [_objectDescription attributes];
   allValues = [attributes allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v42;
+    v9 = *v41;
     v10.f64[0] = NAN;
     v10.f64[1] = NAN;
-    v40 = vnegq_f64(v10);
+    v39 = vnegq_f64(v10);
     while (1)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v42 != v9)
+        if (*v41 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v12 = *(*(&v41 + 1) + 8 * i);
+        v12 = *(*(&v40 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1892,16 +1868,16 @@ LABEL_21:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v32 = MEMORY[0x1E695DF30];
-          v33 = *MEMORY[0x1E695D930];
-          v34 = MEMORY[0x1E696AEC0];
-          v35 = objc_opt_class();
-          v36 = NSStringFromClass(v35);
-          v37 = [v34 stringWithFormat:@"Unsupported attribute type: %@", v36];
-          v38 = [v32 exceptionWithName:v33 reason:v37 userInfo:0];
-          v39 = v38;
+          v31 = MEMORY[0x1E695DF30];
+          v32 = *MEMORY[0x1E695D930];
+          v33 = MEMORY[0x1E696AEC0];
+          v34 = objc_opt_class();
+          v35 = NSStringFromClass(v34);
+          v36 = [v33 stringWithFormat:@"Unsupported attribute type: %@", v35];
+          v37 = [v31 exceptionWithName:v32 reason:v36 userInfo:0];
+          v38 = v37;
 
-          objc_exception_throw(v38);
+          objc_exception_throw(v37);
         }
 
         v13 = v12;
@@ -1970,7 +1946,7 @@ LABEL_39:
             *v22.i64 = floor(v24 + 0.5);
             v27 = (v24 - *v22.i64) * 1.84467441e19;
             *v23.i64 = *v22.i64 - trunc(*v22.i64 * 5.42101086e-20) * 1.84467441e19;
-            v22.i64[0] = vbslq_s8(v40, v23, v22).i64[0];
+            v22.i64[0] = vbslq_s8(v39, v23, v22).i64[0];
             v28 = 2654435761u * *v22.i64;
             v29 = v28 + v27;
             if (v27 <= 0.0)
@@ -2009,7 +1985,7 @@ LABEL_46:
 LABEL_47:
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v40 objects:v44 count:16];
       if (!v7)
       {
         goto LABEL_52;
@@ -2020,40 +1996,39 @@ LABEL_47:
   v8 = 0;
 LABEL_52:
 
-  v30 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (BOOL)isEqual:(id)equal
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     _objectDescription = [(INCodable *)self _objectDescription];
     attributes = [_objectDescription attributes];
     allValues = [attributes allValues];
 
-    v8 = [allValues countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v8 = [allValues countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v38;
+      v10 = *v37;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v38 != v10)
+        if (*v37 != v10)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v12 = *(*(&v37 + 1) + 8 * v11);
+        v12 = *(*(&v36 + 1) + 8 * v11);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -2080,16 +2055,16 @@ LABEL_4:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v29 = MEMORY[0x1E695DF30];
-          v30 = *MEMORY[0x1E695D930];
-          v31 = MEMORY[0x1E696AEC0];
-          v32 = objc_opt_class();
-          v33 = NSStringFromClass(v32);
-          v34 = [v31 stringWithFormat:@"Unsupported attribute type: %@", v33];
-          v35 = [v29 exceptionWithName:v30 reason:v34 userInfo:0];
-          v36 = v35;
+          v28 = MEMORY[0x1E695DF30];
+          v29 = *MEMORY[0x1E695D930];
+          v30 = MEMORY[0x1E696AEC0];
+          v31 = objc_opt_class();
+          v32 = NSStringFromClass(v31);
+          v33 = [v30 stringWithFormat:@"Unsupported attribute type: %@", v32];
+          v34 = [v28 exceptionWithName:v29 reason:v33 userInfo:0];
+          v35 = v34;
 
-          objc_exception_throw(v35);
+          objc_exception_throw(v34);
         }
 
         v14 = v12;
@@ -2226,7 +2201,7 @@ LABEL_47:
 LABEL_48:
         if (v9 == ++v11)
         {
-          v9 = [allValues countByEnumeratingWithState:&v37 objects:v41 count:16];
+          v9 = [allValues countByEnumeratingWithState:&v36 objects:v40 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -2246,16 +2221,15 @@ LABEL_54:
     v26 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
 - (void)writeTo:(id)to
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  [(INCodable *)self _writeTo:to error:&v11];
-  v3 = v11;
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  [(INCodable *)self _writeTo:to error:&v10];
+  v3 = v10;
   v4 = v3;
   if (v3)
   {
@@ -2263,31 +2237,29 @@ LABEL_54:
     v6 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_FAULT))
     {
-      v8 = v6;
-      v9 = [(__CFString *)v5 length];
-      v10 = @"INCodable data writing failed";
-      if (v9)
+      v7 = v6;
+      v8 = [(__CFString *)v5 length];
+      v9 = @"INCodable data writing failed";
+      if (v8)
       {
-        v10 = v5;
+        v9 = v5;
       }
 
       *buf = 136315394;
-      v13 = "[INCodable writeTo:]";
-      v14 = 2114;
-      v15 = v10;
-      _os_log_fault_impl(&dword_18E991000, v8, OS_LOG_TYPE_FAULT, "%s INCodable writeTo failed: %{public}@", buf, 0x16u);
+      v12 = "[INCodable writeTo:]";
+      v13 = 2114;
+      v14 = v9;
+      _os_log_fault_impl(&dword_18E991000, v7, OS_LOG_TYPE_FAULT, "%s INCodable writeTo failed: %{public}@", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)readFrom:(id)from
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v3 = [(INCodable *)self _readFrom:from error:&v13];
-  v4 = v13;
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v3 = [(INCodable *)self _readFrom:from error:&v12];
+  v4 = v12;
   v5 = v4;
   if (v4)
   {
@@ -2304,16 +2276,15 @@ LABEL_54:
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "[INCodable readFrom:]";
-      v16 = 2112;
-      v17 = v9;
+      v14 = "[INCodable readFrom:]";
+      v15 = 2112;
+      v16 = v9;
       _os_log_error_impl(&dword_18E991000, v10, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
     }
 
     v3 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -2346,57 +2317,55 @@ LABEL_54:
 
 - (void)setNilValueForAllKeys
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   _objectDescription = [(INCodable *)self _objectDescription];
   attributes = [_objectDescription attributes];
   allValues = [attributes allValues];
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __34__INCodable_setNilValueForAllKeys__block_invoke;
-  v21[3] = &unk_1E72829E0;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __34__INCodable_setNilValueForAllKeys__block_invoke;
+  v20[3] = &unk_1E72829E0;
   v7 = array;
-  v22 = v7;
-  [allValues enumerateObjectsUsingBlock:v21];
+  v21 = v7;
+  [allValues enumerateObjectsUsingBlock:v20];
   [(NSMutableDictionary *)self->_customValueForKeyDictionary removeObjectsForKeys:v7];
   v8 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_70475];
   v9 = [allValues filteredArrayUsingPredicate:v8];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        propertyName = [*(*(&v17 + 1) + 8 * v14) propertyName];
+        propertyName = [*(*(&v16 + 1) + 8 * v14) propertyName];
         [(INCodable *)self setValue:0 forPropertyNamed:propertyName];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __34__INCodable_setNilValueForAllKeys__block_invoke(uint64_t a1, void *a2)
@@ -2460,12 +2429,12 @@ uint64_t __34__INCodable_setNilValueForAllKeys__block_invoke_2(uint64_t a1, void
 
 - (INCodable)initWithCodableDescription:(id)description data:(id)data
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   dataCopy = data;
-  v16 = 0;
-  v8 = [(INCodable *)self _initWithCodableDescription:descriptionCopy data:dataCopy error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [(INCodable *)self _initWithCodableDescription:descriptionCopy data:dataCopy error:&v15];
+  v9 = v15;
   v10 = v8;
   v11 = v10;
   if (v9)
@@ -2474,13 +2443,13 @@ uint64_t __34__INCodable_setNilValueForAllKeys__block_invoke_2(uint64_t a1, void
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v18 = "[INCodable initWithCodableDescription:data:]";
-      v19 = 2112;
-      v20 = descriptionCopy;
-      v21 = 2112;
-      v22 = dataCopy;
-      v23 = 2112;
-      v24 = v9;
+      v17 = "[INCodable initWithCodableDescription:data:]";
+      v18 = 2112;
+      v19 = descriptionCopy;
+      v20 = 2112;
+      v21 = dataCopy;
+      v22 = 2112;
+      v23 = v9;
       _os_log_error_impl(&dword_18E991000, v12, OS_LOG_TYPE_ERROR, "%s Failed to init INCodable with description %@ and data %@ due to error: %@", buf, 0x2Au);
     }
 
@@ -2492,7 +2461,6 @@ uint64_t __34__INCodable_setNilValueForAllKeys__block_invoke_2(uint64_t a1, void
     v13 = v10;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -2505,19 +2473,7 @@ uint64_t __34__INCodable_setNilValueForAllKeys__block_invoke_2(uint64_t a1, void
     v7 = [representationCopy intents_safeObjectForKey:@"_nonNilRepeatedAttributes" ofType:objc_opt_class()];
     v8 = [representationCopy intents_intForKey:@"descType"];
     v9 = INCodableDescriptionClassFromType(v8);
-    if (v9)
     {
-      goto LABEL_3;
-    }
-
-    v15 = MEMORY[0x1E696AEC0];
-    v16 = [MEMORY[0x1E696AD98] numberWithInteger:v8];
-    v17 = objc_claimAutoreleasedReturnValue();
-    v12 = INIntentError(8001, v17, 0);
-
-    if (!v12)
-    {
-LABEL_3:
       v25 = 0;
       v10 = [v9 intents_widgetPlistRepresentableInDict:representationCopy key:@"codableDescriptionBytes" error:&v25];
       v11 = v25;

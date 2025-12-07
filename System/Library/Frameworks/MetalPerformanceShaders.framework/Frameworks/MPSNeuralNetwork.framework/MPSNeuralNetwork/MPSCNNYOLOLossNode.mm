@@ -18,18 +18,18 @@
 
 - (MPSCNNYOLOLossNode)initWithSource:(MPSNNImageNode *)source lossDescriptor:(MPSCNNYOLOLossDescriptor *)descriptor
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   if (descriptor)
   {
     v7 = [MPSNNLabelsNode alloc];
     v14 = objc_msgSend_initWithParent_(v7, v8, 0, v9, v10, v11, v12, v13);
-    v33[0] = source;
-    v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v15, v33, 1, v16, v17, v18, v19);
-    v32 = v14;
-    v26 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v21, &v32, 1, v22, v23, v24, v25);
-    v31.receiver = self;
-    v31.super_class = MPSCNNYOLOLossNode;
-    v27 = [(MPSNNFilterNode *)&v31 initWithSourceImages:v20 sourceStates:v26 paddingPolicy:0];
+    v37[0] = source;
+    v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v15, v37, 1, v16, v17, v18, v19);
+    v36 = v14;
+    v26 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v21, &v36, 1, v22, v23, v24, v25);
+    v35.receiver = self;
+    v35.super_class = MPSCNNYOLOLossNode;
+    v27 = [(MPSNNFilterNode *)&v35 initWithSourceImages:v20 sourceStates:v26 paddingPolicy:0];
     v28 = descriptor;
     result = v27;
     v27->_descriptor = v28;
@@ -42,7 +42,7 @@
     {
       v30 = objc_opt_class();
       NSStringFromClass(v30);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSNNLossNode.mm", 0x87, @"[%@ initWithSource:labels:lossDescriptor:] descriptor may not be nil", v31, v32, v33, v34);
     }
 
     return 0;
@@ -57,7 +57,7 @@
   {
     v3 = objc_opt_class();
     NSStringFromClass(v3);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSNNLossNode.mm", 0x99, @"[%@ gradientFilterWithSources:] Error: the MPSNNLoss filter doesn't have a corresponding loss gradient filter.\n\tIt produces the gradient directly as its MPSImage destination and consequently acts as its own gradient filter.", v4, v5, v6, v7);
   }
 
   return 0;
@@ -79,7 +79,7 @@
   {
     if (v11 != gradientCopy && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSNNLossNode.mm", 0xB2, @"Error: loss nodes do not have a separate gradient pass. The gradient image must either be nil or lossNode.resultImage.", v14, v15, v16, v17);
     }
   }
 

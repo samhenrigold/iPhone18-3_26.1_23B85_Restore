@@ -210,7 +210,7 @@ LABEL_27:
         {
           pathForOriginalFile2 = [assetCopy pathForOriginalFile];
           handlerCopy = v51;
-          if (([v33 isEqualToString:pathForOriginalFile2] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(v33) & 1) == 0)
           {
 
             goto LABEL_36;
@@ -464,7 +464,7 @@ LABEL_50:
   _Block_object_dispose(&v75, 8);
 }
 
-uint64_t __172__PLImageLoadingUtilities__assetsdImageForAsset_withFormat_allowPlaceholder_optimalSourcePixelSize_networkAccessAllowed_trackCPLDownload_sync_isCanceledHandler_completion___block_invoke(uint64_t a1)
+void *__172__PLImageLoadingUtilities__assetsdImageForAsset_withFormat_allowPlaceholder_optimalSourcePixelSize_networkAccessAllowed_trackCPLDownload_sync_isCanceledHandler_completion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) objectID];
   v3 = *(*(a1 + 40) + 8);
@@ -641,7 +641,7 @@ void __172__PLImageLoadingUtilities__assetsdImageForAsset_withFormat_allowPlaceh
   return complete & 1;
 }
 
-uint64_t __50__PLImageLoadingUtilities_canAccessImageForAsset___block_invoke(uint64_t a1)
+void *__50__PLImageLoadingUtilities_canAccessImageForAsset___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) complete];
   *(*(*(a1 + 40) + 8) + 24) = result;

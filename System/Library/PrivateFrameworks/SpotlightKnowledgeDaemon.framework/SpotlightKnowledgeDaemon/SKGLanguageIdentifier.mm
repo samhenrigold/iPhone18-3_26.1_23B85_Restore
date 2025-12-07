@@ -26,49 +26,49 @@ void __41__SKGLanguageIdentifier_sharedIdentifier__block_invoke()
 
 - (id)languageFromString:(id)string normalizedChunkBlock:(id)block
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   blockCopy = block;
-  memset(v26, 0, 240);
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = v26;
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x2020000000;
-  v21[3] = 0;
+  memset(v25, 0, 240);
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = v25;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x2020000000;
+  v20[3] = 0;
   v7 = [stringCopy length];
   v8 = v7;
   if (v7 - 16 > 0x53)
   {
     if (v7 >= 0x65)
     {
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __65__SKGLanguageIdentifier_languageFromString_normalizedChunkBlock___block_invoke;
-      v17[3] = &unk_27893EE28;
-      v18 = blockCopy;
-      v19 = &v22;
-      v20 = v21;
-      [stringCopy enumerateSubstringsInRange:0 options:v8 usingBlock:{1, v17}];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __65__SKGLanguageIdentifier_languageFromString_normalizedChunkBlock___block_invoke;
+      v16[3] = &unk_27893EE28;
+      v17 = blockCopy;
+      v18 = &v21;
+      v19 = v20;
+      [stringCopy enumerateSubstringsInRange:0 options:v8 usingBlock:{1, v16}];
     }
   }
 
   else
   {
     v9 = SILanguagesGuessLanguageInString();
-    ++*(v23[3] + 4 * v9);
+    ++*(v22[3] + 4 * v9);
   }
 
   v10 = 0;
   v11 = 1;
   for (i = 2; i != 59; ++i)
   {
-    if (v26[i] > v10)
+    if (v25[i] > v10)
     {
       v11 = i;
-      v10 = v26[i];
+      v10 = v25[i];
     }
   }
 
@@ -83,10 +83,8 @@ void __41__SKGLanguageIdentifier_sharedIdentifier__block_invoke()
   }
 
   v14 = Language;
-  _Block_object_dispose(v21, 8);
-  _Block_object_dispose(&v22, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v20, 8);
+  _Block_object_dispose(&v21, 8);
 
   return v14;
 }

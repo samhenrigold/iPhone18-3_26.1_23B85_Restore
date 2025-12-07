@@ -27,9 +27,9 @@
 - (DTKPCPUCounterAllocator)initWithCPU:(id)u error:(id *)error
 {
   uCopy = u;
-  v32.receiver = self;
-  v32.super_class = DTKPCPUCounterAllocator;
-  v8 = [(DTKPCPUCounterAllocator *)&v32 init];
+  v30.receiver = self;
+  v30.super_class = DTKPCPUCounterAllocator;
+  v8 = [(DTKPCPUCounterAllocator *)&v30 init];
   v9 = v8;
   if (v8)
   {
@@ -56,35 +56,34 @@
 
     else
     {
-      kpepConfig = v9->_kpepConfig;
-      v18 = kpep_config_force_counters();
-      if (v18)
+      v17 = kpep_config_force_counters();
+      if (v17)
       {
-        v19 = v18;
-        v20 = MEMORY[0x277CCACA8];
+        v18 = v17;
+        v19 = MEMORY[0x277CCACA8];
         name2 = [(DTKPCPU *)v9->_cpu name];
-        [v20 stringWithFormat:@"Failed to force on all counters for %@: %d", name2, v19];
+        [v19 stringWithFormat:@"Failed to force on all counters for %@: %d", name2, v18];
       }
 
       else
       {
         v9->_fixedCounterCount = 0;
         [(DTKPCPU *)v9->_cpu kpepDB];
-        v22 = kpep_db_counters_count();
-        if (v22)
+        v21 = kpep_db_counters_count();
+        if (v21)
         {
-          v23 = v22;
-          v24 = MEMORY[0x277CCACA8];
+          v22 = v21;
+          v23 = MEMORY[0x277CCACA8];
           name2 = [(DTKPCPU *)v9->_cpu name];
-          [v24 stringWithFormat:@"Failed to get fixed counter count for %@: %d", name2, v23];
+          [v23 stringWithFormat:@"Failed to get fixed counter count for %@: %d", name2, v22];
         }
 
         else
         {
           v9->_configurableCounterCount = 0;
           [(DTKPCPU *)v9->_cpu kpepDB];
-          v25 = kpep_db_counters_count();
-          if (!v25)
+          v24 = kpep_db_counters_count();
+          if (!v24)
           {
             pmiEvent = v9->_pmiEvent;
             v9->_eventsUniqueIds = 0;
@@ -92,16 +91,15 @@
             goto LABEL_13;
           }
 
-          v26 = v25;
-          v27 = MEMORY[0x277CCACA8];
+          v25 = v24;
+          v26 = MEMORY[0x277CCACA8];
           name2 = [(DTKPCPU *)v9->_cpu name];
-          [v27 stringWithFormat:@"Failed to get configurable counter count for %@: %d", name2, v26];
+          [v26 stringWithFormat:@"Failed to get configurable counter count for %@: %d", name2, v25];
         }
       }
-      v28 = ;
-      DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", error, 4294967289, v28);
+      v27 = ;
+      DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", error, 4294967289, v27);
 
-      v29 = v9->_kpepConfig;
       kpep_config_free();
       v9->_kpepConfig = 0;
     }
@@ -129,24 +127,23 @@ LABEL_13:
 
 - (unsigned)_getCurrentClasses:(id *)classes
 {
-  kpepConfig = self->_kpepConfig;
-  v5 = kpep_config_kpc_classes();
-  if (!v5)
+  v4 = kpep_config_kpc_classes();
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to access kpc_classes: %d", v5];
-  v7 = -1;
-  DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", classes, 0xFFFFFFFFLL, v6);
+  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to access kpc_classes: %d", v4];
+  v6 = -1;
+  DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", classes, 0xFFFFFFFFLL, v5);
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)_counterIndexForEvent:(id)event absolute:(BOOL)absolute error:(id *)error
 {
   absoluteCopy = absolute;
-  v21[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (!eventCopy)
   {
@@ -155,32 +152,31 @@ LABEL_13:
 
   v9 = eventCopy;
   hwIdx = [eventCopy hwIdx];
-  v11 = v21 - ((8 * [(DTKPCPUCounterAllocator *)self _hardwareEventCount]+ 15) & 0xFFFFFFFFFFFFFFF0);
-  kpepConfig = self->_kpepConfig;
-  v13 = kpep_config_kpc_map();
-  if (v13)
+  v11 = v19 - ((8 * [(DTKPCPUCounterAllocator *)self _hardwareEventCount]+ 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = kpep_config_kpc_map();
+  if (v12)
   {
-    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to access kpc_map: %d", v13];
-    DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", error, 0xFFFFFFFFLL, v14);
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to access kpc_map: %d", v12];
+    DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", error, 0xFFFFFFFFLL, v13);
   }
 
   else
   {
-    v15 = *&v11[8 * hwIdx];
+    v14 = *&v11[8 * hwIdx];
     if (!absoluteCopy)
     {
       goto LABEL_6;
     }
 
-    v21[0] = 0;
-    v18 = [(DTKPCPUCounterAllocator *)self _getCurrentClasses:v21];
-    v19 = v21[0];
-    v14 = v19;
-    if (!v19)
+    v19[0] = 0;
+    v16 = [(DTKPCPUCounterAllocator *)self _getCurrentClasses:v19];
+    v17 = v19[0];
+    v13 = v17;
+    if (!v17)
     {
-      if ((v18 & 1) == 0)
+      if ((v16 & 1) == 0)
       {
-        v15 += self->_fixedCounterCount;
+        v14 += self->_fixedCounterCount;
       }
 
       goto LABEL_5;
@@ -188,17 +184,16 @@ LABEL_13:
 
     if (error)
     {
-      v20 = v19;
-      *error = v14;
+      v18 = v17;
+      *error = v13;
     }
   }
 
-  v15 = -1;
+  v14 = -1;
 LABEL_5:
 
 LABEL_6:
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v14;
 }
 
 - (id)_counterNameForEvent:(id)event error:(id *)error
@@ -296,7 +291,7 @@ LABEL_6:
 
 - (int)_setErrorFromKpepError:(int)error eventName:(id)name error:(id *)a5
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v8 = kpep_strerror();
   if (nameCopy)
@@ -313,9 +308,9 @@ LABEL_6:
   if (a5)
   {
     v11 = MEMORY[0x277CCA9B8];
-    v16 = *MEMORY[0x277CCA450];
-    v17[0] = v9;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x277CCA450];
+    v16[0] = v9;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     *a5 = [v11 errorWithDomain:@"DTKPCPUCounterAllocator" code:-1 userInfo:v12];
   }
 
@@ -358,7 +353,6 @@ LABEL_17:
   v13 = -804;
 LABEL_18:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -368,51 +362,49 @@ LABEL_18:
   pmiEvent = self->_pmiEvent;
   if (!pmiEvent)
   {
-    v39 = 0;
-    v14 = [(DTKPCPUCounterAllocator *)self _eventExists:nameCopy eventOut:&v39];
-    v15 = v39;
+    v37 = 0;
+    v14 = [(DTKPCPUCounterAllocator *)self _eventExists:nameCopy eventOut:&v37];
+    v15 = v37;
     v16 = v15;
     if (v14)
     {
-      kpepConfig = self->_kpepConfig;
       [v15 hwIdx];
-      v18 = kpep_config_remove_event();
-      if (v18)
+      v17 = kpep_config_remove_event();
+      if (v17)
       {
-        v13 = [(DTKPCPUCounterAllocator *)self _setErrorFromKpepError:v18 eventName:nameCopy error:error];
+        v13 = [(DTKPCPUCounterAllocator *)self _setErrorFromKpepError:v17 eventName:nameCopy error:error];
 LABEL_17:
 
         goto LABEL_18;
       }
 
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = sub_247FE46C4;
-      v35[3] = &unk_278EF3D08;
-      v36 = v16;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = sub_247FE46C4;
+      v33[3] = &unk_278EF3D08;
+      v34 = v16;
       selfCopy = self;
       errorCopy = error;
-      [(DTKPCPUCounterAllocator *)self enumerateAllocatedPMCs:v35];
+      [(DTKPCPUCounterAllocator *)self enumerateAllocatedPMCs:v33];
       --self->_eventsUniqueIds;
     }
 
-    v19 = [(DTKPCPU *)self->_cpu eventFromNameOrAlias:nameCopy];
-    v20 = v19;
-    if (v19)
+    v18 = [(DTKPCPU *)self->_cpu eventFromNameOrAlias:nameCopy];
+    v19 = v18;
+    if (v18)
     {
-      if (![v19 kpepEvent])
+      if (![v18 kpepEvent])
       {
         sub_24802FDF4();
       }
 
-      kpepEvent = [v20 kpepEvent];
-      v21 = self->_kpepConfig;
-      v22 = kpep_config_add_event_trigger();
-      if (v22)
+      kpepEvent = [v19 kpepEvent];
+      v20 = kpep_config_add_event_trigger();
+      if (v20)
       {
-        v23 = v22;
-        aliasOrName = [v20 aliasOrName];
-        v13 = [(DTKPCPUCounterAllocator *)self _setErrorFromKpepError:v23 eventName:aliasOrName error:error];
+        v21 = v20;
+        aliasOrName = [v19 aliasOrName];
+        v13 = [(DTKPCPUCounterAllocator *)self _setErrorFromKpepError:v21 eventName:aliasOrName error:error];
       }
 
       else
@@ -422,16 +414,16 @@ LABEL_17:
           sub_24802FDC8();
         }
 
-        v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:0];
-        v27 = [DTKPCPUCounterAllocatorRecord alloc];
-        aliasOrName2 = [v20 aliasOrName];
+        v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:0];
+        v25 = [DTKPCPUCounterAllocatorRecord alloc];
+        aliasOrName2 = [v19 aliasOrName];
         ++self->_eventsUniqueIds;
-        v29 = [(DTKPCPUCounterAllocatorRecord *)v27 initWithName:v26 nameOrAlias:aliasOrName2 counterName:@"TBD" kpepEvent:kpepEvent isPMI:1 hwIdx:?];
-        v30 = self->_pmiEvent;
-        self->_pmiEvent = v29;
+        v27 = [(DTKPCPUCounterAllocatorRecord *)v25 initWithName:v24 nameOrAlias:aliasOrName2 counterName:@"TBD" kpepEvent:kpepEvent isPMI:1 hwIdx:?];
+        v28 = self->_pmiEvent;
+        self->_pmiEvent = v27;
 
-        v31 = [(DTKPCPUCounterAllocator *)self _counterNameForEvent:self->_pmiEvent error:error];
-        [(DTKPCPUCounterAllocatorRecord *)self->_pmiEvent setCounterName:v31];
+        v29 = [(DTKPCPUCounterAllocator *)self _counterNameForEvent:self->_pmiEvent error:error];
+        [(DTKPCPUCounterAllocatorRecord *)self->_pmiEvent setCounterName:v29];
 
         self->_pmiThreshold = threshold;
         if (v14)
@@ -499,37 +491,36 @@ LABEL_18:
       }
 
       kpepEvent = [nameCopy kpepEvent];
-      kpepConfig = self->_kpepConfig;
-      v17 = kpep_config_add_event();
-      if (v17)
+      v16 = kpep_config_add_event();
+      if (v16)
       {
-        v18 = v17;
+        v17 = v16;
         name = [nameCopy name];
-        v8 = [(DTKPCPUCounterAllocator *)self _setErrorFromKpepError:v18 eventName:name error:error];
+        v8 = [(DTKPCPUCounterAllocator *)self _setErrorFromKpepError:v17 eventName:name error:error];
       }
 
       else
       {
-        v21 = kpep_event_name();
-        if (v21)
+        v20 = kpep_event_name();
+        if (v20)
         {
-          v22 = v21;
+          v21 = v20;
           name2 = [nameCopy name];
-          v8 = [(DTKPCPUCounterAllocator *)self _setErrorFromKpepError:v22 eventName:name2 error:error];
+          v8 = [(DTKPCPUCounterAllocator *)self _setErrorFromKpepError:v21 eventName:name2 error:error];
         }
 
         else
         {
           name2 = [MEMORY[0x277CCACA8] stringWithUTF8String:0];
-          v24 = [DTKPCPUCounterAllocatorRecord alloc];
+          v23 = [DTKPCPUCounterAllocatorRecord alloc];
           aliasOrName = [nameCopy aliasOrName];
           ++self->_eventsUniqueIds;
-          v26 = [(DTKPCPUCounterAllocatorRecord *)v24 initWithName:name2 nameOrAlias:aliasOrName counterName:@"TBD" kpepEvent:kpepEvent isPMI:0 hwIdx:?];
+          v25 = [(DTKPCPUCounterAllocatorRecord *)v23 initWithName:name2 nameOrAlias:aliasOrName counterName:@"TBD" kpepEvent:kpepEvent isPMI:0 hwIdx:?];
 
-          [(NSMutableArray *)self->_eventRecords addObject:v26];
+          [(NSMutableArray *)self->_eventRecords addObject:v25];
           lastObject = [(NSMutableArray *)self->_eventRecords lastObject];
-          v28 = [(DTKPCPUCounterAllocator *)self _counterNameForEvent:lastObject error:error];
-          [(DTKPCPUCounterAllocatorRecord *)v26 setCounterName:v28];
+          v27 = [(DTKPCPUCounterAllocator *)self _counterNameForEvent:lastObject error:error];
+          [(DTKPCPUCounterAllocatorRecord *)v25 setCounterName:v27];
 
           v8 = 0;
         }
@@ -575,7 +566,6 @@ LABEL_6:
 
 - (unsigned)kpcClasses
 {
-  kpepConfig = self->_kpepConfig;
   if (kpep_config_kpc_classes())
   {
     return 0;
@@ -608,26 +598,24 @@ LABEL_6:
 
 - (int)configureHardwareCounters:(id *)counters
 {
-  kpepConfig = self->_kpepConfig;
   if (!kpep_config_kpc_classes())
   {
     return 0;
   }
 
-  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"configureHardwarePMIPeriods: Failed to get kpc classes: %s.", kpep_strerror()];
-  v6 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", counters, 4294967288, v5);
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"configureHardwarePMIPeriods: Failed to get kpc classes: %s.", kpep_strerror()];
+  v5 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", counters, 4294967288, v4);
 
-  return v6;
+  return v5;
 }
 
 - (int)configureHardwarePMIPeriods:(id *)periods
 {
-  kpepConfig = self->_kpepConfig;
   if (kpep_config_kpc_classes())
   {
     [MEMORY[0x277CCACA8] stringWithFormat:@"configureHardwarePMIPeriods: Failed to get kpc classes: %s.", kpep_strerror()];
-    v6 = LABEL_5:;
-    v7 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", periods, 4294967288, v6);
+    v5 = LABEL_5:;
+    v6 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", periods, 4294967288, v5);
     goto LABEL_6;
   }
 
@@ -638,9 +626,8 @@ LABEL_6:
     goto LABEL_5;
   }
 
-  v6 = [MEMORY[0x277CBEB28] dataWithLength:0];
-  v9 = self->_kpepConfig;
-  [v6 mutableBytes];
+  v5 = [MEMORY[0x277CBEB28] dataWithLength:0];
+  [v5 mutableBytes];
   if (kpep_config_kpc_periods())
   {
     [MEMORY[0x277CCACA8] stringWithFormat:@"configureHardwarePMIPeriods: Failed to get kpc periods: %s.", kpep_strerror()];
@@ -648,32 +635,31 @@ LABEL_6:
 
   else
   {
-    [v6 mutableBytes];
+    [v5 mutableBytes];
     if (!kpc_set_period())
     {
-      v7 = 0;
+      v6 = 0;
       goto LABEL_6;
     }
 
-    v10 = MEMORY[0x277CCACA8];
-    v11 = __error();
-    [v10 stringWithFormat:@"configureHardwarePMIPeriods: Failed to set kpc PMI period: %s.", strerror(*v11)];
+    v8 = MEMORY[0x277CCACA8];
+    v9 = __error();
+    [v8 stringWithFormat:@"configureHardwarePMIPeriods: Failed to set kpc PMI period: %s.", strerror(*v9)];
   }
-  v12 = ;
-  v7 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", periods, 4294967288, v12);
+  v10 = ;
+  v6 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", periods, 4294967288, v10);
 
 LABEL_6:
-  return v7;
+  return v6;
 }
 
 - (int)configurePMIActionID:(unsigned int)d error:(id *)error
 {
-  kpepConfig = self->_kpepConfig;
   if (kpep_config_kpc_classes())
   {
     [MEMORY[0x277CCACA8] stringWithFormat:@"configurePMIActionID: Failed to get kpc classes: %s.", kpep_strerror()];
-    v8 = LABEL_5:;
-    v9 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", error, 4294967288, v8);
+    v7 = LABEL_5:;
+    v8 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", error, 4294967288, v7);
     goto LABEL_6;
   }
 
@@ -690,25 +676,25 @@ LABEL_6:
     sub_24802FED8();
   }
 
-  v8 = allocatedPMIRecord;
-  v12 = [(DTKPCPUCounterAllocator *)self _counterIndexForEvent:allocatedPMIRecord absolute:0 error:error];
-  v13 = [MEMORY[0x277CBEB28] dataWithLength:0];
-  *([v13 mutableBytes] + 4 * v12) = d;
+  v7 = allocatedPMIRecord;
+  v11 = [(DTKPCPUCounterAllocator *)self _counterIndexForEvent:allocatedPMIRecord absolute:0 error:error];
+  v12 = [MEMORY[0x277CBEB28] dataWithLength:0];
+  *([v12 mutableBytes] + 4 * v11) = d;
   if (kpc_set_actionid())
   {
-    v14 = MEMORY[0x277CCACA8];
-    v15 = __error();
-    v16 = [v14 stringWithFormat:@"configurePMIActionID: Failed to set kpc PMI period: %s.", strerror(*v15)];
-    v9 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", error, 4294967288, v16);
+    v13 = MEMORY[0x277CCACA8];
+    v14 = __error();
+    v15 = [v13 stringWithFormat:@"configurePMIActionID: Failed to set kpc PMI period: %s.", strerror(*v14)];
+    v8 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPCPUCounterAllocator", error, 4294967288, v15);
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
 LABEL_6:
-  return v9;
+  return v8;
 }
 
 - (int)forceCounters:(id *)counters

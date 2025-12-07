@@ -8,64 +8,69 @@
 
 - (VCPVideoCaptionEncoder)initWithModelPath:(id)path
 {
-  v57[2] = *MEMORY[0x1E69E9840];
+  v59[2] = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v36.receiver = self;
-  v36.super_class = VCPVideoCaptionEncoder;
-  v5 = [(VCPVideoCaptionEncoder *)&v36 init];
+  v38.receiver = self;
+  v38.super_class = VCPVideoCaptionEncoder;
+  v5 = [(VCPVideoCaptionEncoder *)&v38 init];
   if (v5)
   {
-    if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
+    v6 = MediaAnalysisLogLevel();
+    if (v6 >= 7)
     {
-      *buf = 138412290;
-      *&buf[4] = pathCopy;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VideoCaption] VCPVideoCaptionEncoder: start loading model at: %@", buf, 0xCu);
+      v6 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG);
+      if (v6)
+      {
+        *buf = 138412290;
+        *&buf[4] = pathCopy;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VideoCaption] VCPVideoCaptionEncoder: start loading model at: %@", buf, 0xCu);
+      }
     }
 
     if (pathCopy)
     {
-      v5->_forceNNGraph = !DeviceGeqD5x();
-      v6 = [MEMORY[0x1E695DFF8] URLWithString:@"model_info.json" relativeToURL:pathCopy];
-      v7 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v6];
-      v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:0];
-      v9 = v8;
+      v5->_forceNNGraph = !DeviceGeqD5x(v6, v7);
+      v8 = [MEMORY[0x1E695DFF8] URLWithString:@"model_info.json" relativeToURL:pathCopy];
+      v9 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v8];
+      v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v9 options:0 error:0];
+      v11 = v10;
       if (v5->_forceNNGraph)
       {
-        v10 = [v8 objectForKeyedSubscript:@"net_file"];
-        [v10 objectForKeyedSubscript:@"d4x"];
+        v12 = [v10 objectForKeyedSubscript:@"net_file"];
+        [v12 objectForKeyedSubscript:@"d4x"];
       }
 
       else
       {
-        v10 = [v8 objectForKeyedSubscript:@"net_file"];
-        [v10 objectForKeyedSubscript:@"d5x"];
+        v12 = [v10 objectForKeyedSubscript:@"net_file"];
+        [v12 objectForKeyedSubscript:@"d5x"];
       }
-      v12 = ;
+      v14 = ;
 
-      v13 = [MEMORY[0x1E695DFF8] URLWithString:v12 relativeToURL:pathCopy];
+      v15 = [MEMORY[0x1E695DFF8] URLWithString:v14 relativeToURL:pathCopy];
       if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *&buf[4] = v13;
+        *&buf[4] = v15;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[VideoCaption] VCPVideoCaptionEncoder: model to load %@", buf, 0xCu);
       }
 
-      v56[0] = @"forceNNGraph";
-      v14 = [MEMORY[0x1E696AD98] numberWithBool:v5->_forceNNGraph];
-      v56[1] = @"sharedContext";
-      v57[0] = v14;
-      v15 = [MEMORY[0x1E696AD98] numberWithBool:!v5->_forceNNGraph];
-      v57[1] = v15;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:2];
+      v58[0] = @"forceNNGraph";
+      v16 = [MEMORY[0x1E696AD98] numberWithBool:v5->_forceNNGraph];
+      v58[1] = @"sharedContext";
+      v59[0] = v16;
+      v17 = [MEMORY[0x1E696AD98] numberWithBool:!v5->_forceNNGraph];
+      v59[1] = v17;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:2];
 
-      v17 = [objc_opt_class() sharedModel:v13 properties:v16];
+      v19 = [objc_opt_class() sharedModel:v15 properties:v18];
       modelEspresso = v5->_modelEspresso;
-      v5->_modelEspresso = v17;
+      v5->_modelEspresso = v19;
 
-      v19 = v5->_modelEspresso;
-      if (!v19 || [(VCPCNNModelEspresso *)v19 prepareModelWithConfig:&stru_1F496CB30])
+      v21 = v5->_modelEspresso;
+      if (!v21 || [(VCPCNNModelEspresso *)v21 prepareModelWithConfig:&stru_1F496CB30])
       {
-        v11 = 0;
+        v13 = 0;
 LABEL_16:
 
         goto LABEL_17;
@@ -74,102 +79,102 @@ LABEL_16:
       if (MediaAnalysisLogLevel() < 5)
       {
 LABEL_31:
-        v11 = v5;
+        v13 = v5;
         if (MediaAnalysisLogLevel() >= 5)
         {
-          v11 = v5;
+          v13 = v5;
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[VideoCaption] VCPVideoCaptionEncoder: successfully loaded model", buf, 2u);
-            v11 = v5;
+            v13 = v5;
           }
         }
 
         goto LABEL_16;
       }
 
-      v22 = MEMORY[0x1E69E9C10];
-      v23 = MEMORY[0x1E69E9C10];
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v24 = MEMORY[0x1E69E9C10];
+      v25 = MEMORY[0x1E69E9C10];
+      if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_30:
 
         goto LABEL_31;
       }
 
-      v24 = v5->_modelEspresso;
-      if (v24)
+      v26 = v5->_modelEspresso;
+      if (v26)
       {
-        [(VCPCNNModelEspresso *)v24 inputBlob];
-        v25 = v44;
-        v26 = v5->_modelEspresso;
-        if (v26)
+        objc_msgSend_inputBlob(v26);
+        v27 = v46;
+        v28 = v5->_modelEspresso;
+        if (v28)
         {
-          [(VCPCNNModelEspresso *)v26 inputBlob];
-          v31 = v35;
-          v32 = v25;
-          v27 = v5->_modelEspresso;
-          if (v27)
+          objc_msgSend_inputBlob(v28);
+          v33 = v37;
+          v34 = v27;
+          v29 = v5->_modelEspresso;
+          if (v29)
           {
-            [(VCPCNNModelEspresso *)v27 inputBlob];
-            v28 = v34;
-            v29 = v5->_modelEspresso;
-            if (v29)
+            objc_msgSend_inputBlob(v29);
+            v30 = v36;
+            v31 = v5->_modelEspresso;
+            if (v31)
             {
-              [(VCPCNNModelEspresso *)v29 inputBlob];
-              v30 = v33;
+              objc_msgSend_inputBlob(v31);
+              v32 = v35;
 LABEL_29:
-              *v48 = 67109888;
-              v49 = v32;
-              v50 = 1024;
-              v51 = v31;
+              *v50 = 67109888;
+              v51 = v34;
               v52 = 1024;
-              v53 = v28;
+              v53 = v33;
               v54 = 1024;
               v55 = v30;
-              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[VideoCaption] VCPVideoCaptionEncoder: inputBlob.nframes = %d, inputBlob.height = %d, inputBlob.width = %d, inputBlob.channels = %d", v48, 0x1Au);
+              v56 = 1024;
+              v57 = v32;
+              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[VideoCaption] VCPVideoCaptionEncoder: inputBlob.nframes = %d, inputBlob.height = %d, inputBlob.width = %d, inputBlob.channels = %d", v50, 0x1Au);
               goto LABEL_30;
             }
 
 LABEL_28:
-            v30 = 0;
+            v32 = 0;
             goto LABEL_29;
           }
 
 LABEL_27:
-          v28 = 0;
+          v30 = 0;
           goto LABEL_28;
         }
       }
 
       else
       {
-        v25 = 0;
-        v47 = 0;
+        v27 = 0;
+        v49 = 0;
+        v47 = 0u;
+        v48 = 0u;
         v45 = 0u;
         v46 = 0u;
         v43 = 0u;
         v44 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
         *buf = 0u;
-        v38 = 0u;
+        v40 = 0u;
       }
 
-      v31 = 0;
-      v32 = v25;
+      v33 = 0;
+      v34 = v27;
       goto LABEL_27;
     }
   }
 
-  v11 = 0;
+  v13 = 0;
 LABEL_17:
-  v20 = v11;
+  v22 = v13;
 
-  return v20;
+  return v22;
 }
 
 + (id)sharedModel:(id)model properties:(id)properties
@@ -208,27 +213,27 @@ VCPCNNModelEspresso *__49__VCPVideoCaptionEncoder_sharedModel_properties___block
     modelEspresso = self->_modelEspresso;
     if (modelEspresso)
     {
-      [(VCPCNNModelEspresso *)modelEspresso outputBlob];
+      objc_msgSend_outputBlob(modelEspresso);
       v6 = self->_modelEspresso;
       self->_embeddingHeight = v14;
       if (v6)
       {
-        [(VCPCNNModelEspresso *)v6 outputBlob];
+        objc_msgSend_outputBlob(v6);
         v7 = self->_modelEspresso;
         self->_embeddingWidth = v13;
         if (v7)
         {
-          [(VCPCNNModelEspresso *)v7 outputBlob];
+          objc_msgSend_outputBlob(v7);
           v8 = self->_modelEspresso;
           self->_embeddingChannels = v15;
           if (v8)
           {
-            [(VCPCNNModelEspresso *)v8 outputBlob];
+            objc_msgSend_outputBlob(v8);
             v9 = self->_modelEspresso;
             self->_embeddingSequenceLength = v16;
             if (v9)
             {
-              [(VCPCNNModelEspresso *)v9 outputBlob];
+              objc_msgSend_outputBlob(v9);
               v10 = v12;
             }
 

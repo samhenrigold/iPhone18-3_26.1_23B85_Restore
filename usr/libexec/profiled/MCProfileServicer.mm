@@ -13,10 +13,17 @@
 - (id)remoteProcessBundleID;
 - (id)remoteProcessEntitlementStringArrayForKey:(id)key;
 - (void)_debug_scheduleBackgroundTask:(id)task interval:(double)interval tolerance:(double)tolerance completion:(id)completion;
+- (void)allowedImportFromAppBundleIDs:(id)ds importingAppBundleID:(id)d importingIsManaged:(BOOL)managed completion:(id)completion;
+- (void)allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:(id)ds hostAppBundleID:(id)d accountIsManaged:(BOOL)managed completion:(id)completion;
+- (void)allowedOpenInAppBundleIDs:(id)ds originatingAppBundleID:(id)d originatingIsManaged:(BOOL)managed completion:(id)completion;
+- (void)appleConnect_installMDMAssociatedProfileData:(id)data interactive:(BOOL)interactive options:(id)options completion:(id)completion;
 - (void)applyPairingWatchMDMEnrollmentData:(id)data completion:(id)completion;
 - (void)applyRestrictionDictionary:(id)dictionary toSystem:(BOOL)system overrideRestrictions:(BOOL)restrictions appsAndOptions:(id)options clientType:(id)type clientUUID:(id)d localizedClientDescription:(id)description localizedWarningMessage:(id)self0 completion:(id)self1;
 - (void)areBundlesBlocked:(id)blocked completion:(id)completion;
 - (void)cancelFeaturePromptWithIdentifier:(id)identifier completion:(id)completion;
+- (void)changePasscode:(id)passcode oldPasscode:(id)oldPasscode isRecovery:(BOOL)recovery skipRecovery:(BOOL)skipRecovery completion:(id)completion;
+- (void)changePasscodeWithOldPasscodeContext:(id)context newPasscodeContext:(id)passcodeContext isRecovery:(BOOL)recovery skipRecovery:(BOOL)skipRecovery completion:(id)completion;
+- (void)checkCarrierProfileAndForceReinstallation:(BOOL)reinstallation completion:(id)completion;
 - (void)checkInWithCompletion:(id)completion;
 - (void)clearPasscodeWithEscrowKeybagData:(id)data secret:(id)secret completion:(id)completion;
 - (void)clearPasscodeWithEscrowKeybagData:(id)data secretContext:(id)context completion:(id)completion;
@@ -35,6 +42,7 @@
 - (void)fetchStagedMDMEnrollmentDataForPairingWatchWithCompletion:(id)completion;
 - (void)fetchStagedMDMEnrollmentDataForPairingWatchWithPairingToken:(id)token completion:(id)completion;
 - (void)fetchStagedMDMEnrollmentDeclarationKeysForPairingWatchWithCompletion:(id)completion;
+- (void)hasMailAccountsWithFilteringEnabled:(BOOL)enabled sourceAccountManagement:(int)management completion:(id)completion;
 - (void)installProfileData:(id)data interactive:(BOOL)interactive options:(id)options completion:(id)completion;
 - (void)installProvisioningProfileData:(id)data managingProfileIdentifier:(id)identifier completion:(id)completion;
 - (void)isBundleBlocked:(id)blocked completion:(id)completion;
@@ -44,14 +52,20 @@
 - (void)managedWiFiNetworkNamesWithCompletion:(id)completion;
 - (void)managingOrganizationInformationWithCompletion:(id)completion;
 - (void)markStoredProfileAsInstalledWithCompletion:(id)completion;
+- (void)mayShareToAirDropForOriginatingAppBundleID:(id)d originatingAccountIsManaged:(BOOL)managed completion:(id)completion;
+- (void)mayShareToMessagesForOriginatingAppBundleID:(id)d originatingAccountIsManaged:(BOOL)managed completion:(id)completion;
+- (void)migrateCleanupMigratorWithContext:(int)context completion:(id)completion;
+- (void)migrateWithContext:(int)context passcodeWasSetInBackup:(BOOL)backup completion:(id)completion;
 - (void)monitorEnrollmentStateWithPersonaID:(id)d;
 - (void)notifyDeviceUnlockedAndPasscodeRequiredWithCompletion:(id)completion;
 - (void)notifyDeviceUnlockedWithCompletion:(id)completion;
 - (void)notifyHaveSeenComplianceMessageWithLastLockDate:(id)date completion:(id)completion;
 - (void)notifyStartComplianceTimer:(id)timer completion:(id)completion;
+- (void)openSensitiveURL:(id)l unlock:(BOOL)unlock completion:(id)completion;
 - (void)peekProfileDataFromPurgatoryForDeviceType:(unint64_t)type withCompletion:(id)completion;
 - (void)popProfileDataFromHeadOfInstallationQueueWithCompletion:(id)completion;
 - (void)provisiongProfileUUIDsForSignerIdentity:(id)identity completion:(id)completion;
+- (void)queueProfileDataForInstallation:(id)installation originalFileName:(id)name originatingBundleID:(id)d transitionToUI:(BOOL)i completion:(id)completion;
 - (void)recomputePerClientUserComplianceWithCompletion:(id)completion;
 - (void)recomputeProfileRestrictionsWithCompletionBlock:(id)block;
 - (void)recomputeUserComplianceWarningWithCompletion:(id)completion;
@@ -67,16 +81,25 @@
 - (void)removeUninstalledProfileWithIdentifier:(id)identifier installationType:(int64_t)type targetDeviceType:(unint64_t)deviceType completion:(id)completion;
 - (void)removeValueSetting:(id)setting completion:(id)completion;
 - (void)rereadManagedAppAttributesWithCompletion:(id)completion;
+- (void)resetAllSettingsToDefaultsIsUserInitiated:(BOOL)initiated completion:(id)completion;
 - (void)resetPasscodeMetadataWithCompletion:(id)completion;
 - (void)restoreCloudConfigAndMDMProfileFromSetAsideDataWithCompletion:(id)completion;
 - (void)setAllowedURLStrings:(id)strings completion:(id)completion;
+- (void)setAutoCorrectionAllowed:(BOOL)allowed completion:(id)completion;
+- (void)setContinuousPathKeyboardAllowed:(BOOL)allowed completion:(id)completion;
+- (void)setKeyboardShortcutsAllowed:(BOOL)allowed completion:(id)completion;
 - (void)setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user credentialSet:(id)set completion:(id)completion;
+- (void)setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user passcode:(id)passcode credentialSet:(id)set completion:(id)completion;
+- (void)setPredictiveKeyboardAllowed:(BOOL)allowed completion:(id)completion;
+- (void)setSmartPunctuationAllowed:(BOOL)allowed completion:(id)completion;
+- (void)setSpellCheckAllowed:(BOOL)allowed completion:(id)completion;
 - (void)setUserBookmarks:(id)bookmarks completion:(id)completion;
 - (void)setUserInfo:(id)info forClientUUID:(id)d completion:(id)completion;
 - (void)setupAssistantDidFinishCompletion:(id)completion;
 - (void)showFeaturePromptForSetting:(id)setting configurationUUID:(id)d promptOptions:(id)options promptIdentifier:(id)identifier completion:(id)completion;
 - (void)shutDownWithCompletion:(id)completion;
 - (void)signerIdentityForBundleID:(id)d completion:(id)completion;
+- (void)stageMDMEnrollmentInfoForPairingWatchWithProfileData:(id)data orServiceURL:(id)l anchorCertificates:(id)certificates supervised:(BOOL)supervised declarationKeys:(id)keys declarationConfiguration:(id)configuration completion:(id)completion;
 - (void)storeActivationRecord:(id)record completion:(id)completion;
 - (void)storeCertificateData:(id)data forIPCUIdentifier:(id)identifier completion:(id)completion;
 - (void)storeProfileData:(id)data completion:(id)completion;
@@ -88,6 +111,7 @@
 - (void)updateProfileIdentifier:(id)identifier interactive:(BOOL)interactive completion:(id)completion;
 - (void)validateAppBundleIDs:(id)ds completion:(id)completion;
 - (void)verifiedMDMProfileIdentifierWithCompletion:(id)completion;
+- (void)waitForMigrationIncludingPostRestoreMigration:(BOOL)migration completion:(id)completion;
 @end
 
 @implementation MCProfileServicer
@@ -111,6 +135,22 @@
   [v8 checkInWithCompletion:completionCopy];
 }
 
+- (void)checkCarrierProfileAndForceReinstallation:(BOOL)reinstallation completion:(id)completion
+{
+  reinstallationCopy = reinstallation;
+  completionCopy = completion;
+  v6 = +[MCProfileServiceServer sharedServer];
+  [v6 checkCarrierProfileAndForceReinstallation:reinstallationCopy completion:completionCopy];
+}
+
+- (void)waitForMigrationIncludingPostRestoreMigration:(BOOL)migration completion:(id)completion
+{
+  migrationCopy = migration;
+  completionCopy = completion;
+  v6 = +[MCProfileServiceServer sharedServer];
+  [v6 waitForMigrationIncludingPostRestoreMigration:migrationCopy completion:completionCopy];
+}
+
 - (void)notifyDeviceUnlockedAndPasscodeRequiredWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -125,6 +165,26 @@
   [v4 notifyDeviceUnlockedWithCompletion:completionCopy];
 }
 
+- (void)allowedOpenInAppBundleIDs:(id)ds originatingAppBundleID:(id)d originatingIsManaged:(BOOL)managed completion:(id)completion
+{
+  managedCopy = managed;
+  completionCopy = completion;
+  dCopy = d;
+  dsCopy = ds;
+  v12 = +[MCProfileServiceServer sharedServer];
+  [v12 allowedOpenInAppBundleIDs:dsCopy originatingAppBundleID:dCopy originatingIsManaged:managedCopy completion:completionCopy];
+}
+
+- (void)allowedImportFromAppBundleIDs:(id)ds importingAppBundleID:(id)d importingIsManaged:(BOOL)managed completion:(id)completion
+{
+  managedCopy = managed;
+  completionCopy = completion;
+  dCopy = d;
+  dsCopy = ds;
+  v12 = +[MCProfileServiceServer sharedServer];
+  [v12 allowedImportFromAppBundleIDs:dsCopy importingAppBundleID:dCopy importingIsManaged:managedCopy completion:completionCopy];
+}
+
 - (void)defaultAppBundleIDForCommunicationServiceType:(id)type forAccountWithIdentifier:(id)identifier completion:(id)completion
 {
   completionCopy = completion;
@@ -132,6 +192,78 @@
   typeCopy = type;
   v10 = +[MCProfileServiceServer sharedServer];
   [v10 defaultAppBundleIDForCommunicationServiceType:typeCopy forAccountWithIdentifier:identifierCopy completion:completionCopy];
+}
+
+- (void)setAutoCorrectionAllowed:(BOOL)allowed completion:(id)completion
+{
+  allowedCopy = allowed;
+  completionCopy = completion;
+  xpcConnection = [(MCProfileServicer *)self xpcConnection];
+  processIdentifier = [xpcConnection processIdentifier];
+
+  v10 = +[MCProfileServiceServer sharedServer];
+  remoteProcessBundleID = [(MCProfileServicer *)self remoteProcessBundleID];
+  [v10 setAutoCorrectionAllowed:allowedCopy senderPID:processIdentifier sender:remoteProcessBundleID completion:completionCopy];
+}
+
+- (void)setSmartPunctuationAllowed:(BOOL)allowed completion:(id)completion
+{
+  allowedCopy = allowed;
+  completionCopy = completion;
+  xpcConnection = [(MCProfileServicer *)self xpcConnection];
+  processIdentifier = [xpcConnection processIdentifier];
+
+  v10 = +[MCProfileServiceServer sharedServer];
+  remoteProcessBundleID = [(MCProfileServicer *)self remoteProcessBundleID];
+  [v10 setSmartPunctuationAllowed:allowedCopy senderPID:processIdentifier sender:remoteProcessBundleID completion:completionCopy];
+}
+
+- (void)setPredictiveKeyboardAllowed:(BOOL)allowed completion:(id)completion
+{
+  allowedCopy = allowed;
+  completionCopy = completion;
+  xpcConnection = [(MCProfileServicer *)self xpcConnection];
+  processIdentifier = [xpcConnection processIdentifier];
+
+  v10 = +[MCProfileServiceServer sharedServer];
+  remoteProcessBundleID = [(MCProfileServicer *)self remoteProcessBundleID];
+  [v10 setPredictiveKeyboardAllowed:allowedCopy senderPID:processIdentifier sender:remoteProcessBundleID completion:completionCopy];
+}
+
+- (void)setContinuousPathKeyboardAllowed:(BOOL)allowed completion:(id)completion
+{
+  allowedCopy = allowed;
+  completionCopy = completion;
+  xpcConnection = [(MCProfileServicer *)self xpcConnection];
+  processIdentifier = [xpcConnection processIdentifier];
+
+  v10 = +[MCProfileServiceServer sharedServer];
+  remoteProcessBundleID = [(MCProfileServicer *)self remoteProcessBundleID];
+  [v10 setContinuousPathKeyboardAllowed:allowedCopy senderPID:processIdentifier sender:remoteProcessBundleID completion:completionCopy];
+}
+
+- (void)setKeyboardShortcutsAllowed:(BOOL)allowed completion:(id)completion
+{
+  allowedCopy = allowed;
+  completionCopy = completion;
+  xpcConnection = [(MCProfileServicer *)self xpcConnection];
+  processIdentifier = [xpcConnection processIdentifier];
+
+  v10 = +[MCProfileServiceServer sharedServer];
+  remoteProcessBundleID = [(MCProfileServicer *)self remoteProcessBundleID];
+  [v10 setKeyboardShortcutsAllowed:allowedCopy senderPID:processIdentifier sender:remoteProcessBundleID completion:completionCopy];
+}
+
+- (void)setSpellCheckAllowed:(BOOL)allowed completion:(id)completion
+{
+  allowedCopy = allowed;
+  completionCopy = completion;
+  xpcConnection = [(MCProfileServicer *)self xpcConnection];
+  processIdentifier = [xpcConnection processIdentifier];
+
+  v10 = +[MCProfileServiceServer sharedServer];
+  remoteProcessBundleID = [(MCProfileServicer *)self remoteProcessBundleID];
+  [v10 setSpellCheckAllowed:allowedCopy senderPID:processIdentifier sender:remoteProcessBundleID completion:completionCopy];
 }
 
 - (void)setAllowedURLStrings:(id)strings completion:(id)completion
@@ -178,36 +310,35 @@
 
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       while (2)
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
 
-            v13 = 0;
+            v12 = 0;
             goto LABEL_14;
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v9)
         {
           continue;
@@ -217,16 +348,16 @@
       }
     }
 
-    v13 = v7;
+    v12 = v7;
 LABEL_14:
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  return v13;
+  return v12;
 }
 
 - (BOOL)remoteProcessHasEntitlementArray:(id)array containingString:(id)string
@@ -278,7 +409,7 @@ LABEL_14:
   v3 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
   else
@@ -543,6 +674,92 @@ LABEL_20:
   }
 
 LABEL_21:
+}
+
+- (void)appleConnect_installMDMAssociatedProfileData:(id)data interactive:(BOOL)interactive options:(id)options completion:(id)completion
+{
+  interactiveCopy = interactive;
+  dataCopy = data;
+  optionsCopy = options;
+  completionCopy = completion;
+  v13 = _MCLogObjects[0];
+  if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = v13;
+    remoteProcessBundleID = [(MCProfileServicer *)self remoteProcessBundleID];
+    *buf = 138543362;
+    v24 = remoteProcessBundleID;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "AppleConnect installing MDM associated profile data from process: %{public}@", buf, 0xCu);
+  }
+
+  v22 = 0;
+  v16 = [(MCProfileServicer *)self remoteProcessHasEntitlementArray:@"com.apple.managedconfiguration.profiled.configurationprofiles" containingString:@"AppleConnectMDMInstallation" error:&v22];
+  v17 = v22;
+  if (v16)
+  {
+    v18 = +[DMCPersonaHelper enterprisePersonaIdentifier];
+    v19 = _MCLogObjects[0];
+    if (v18)
+    {
+      if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "AppleConnect adding enterprise persona ID to MDM associated profile data", buf, 2u);
+      }
+
+      v20 = [[NSMutableDictionary alloc] initWithDictionary:optionsCopy];
+      [v20 setObject:v18 forKey:kMCInstallProfileOptionPersonaID];
+      v21 = [v20 copy];
+
+      optionsCopy = v21;
+    }
+
+    else if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "AppleConnect missing enterprise persona ID when installing MDM associated profile data", buf, 2u);
+    }
+
+    [(MCProfileServicer *)self installProfileData:dataCopy interactive:interactiveCopy options:optionsCopy completion:completionCopy];
+  }
+
+  else if (completionCopy)
+  {
+    completionCopy[2](completionCopy, 0, v17);
+  }
+}
+
+- (void)queueProfileDataForInstallation:(id)installation originalFileName:(id)name originatingBundleID:(id)d transitionToUI:(BOOL)i completion:(id)completion
+{
+  iCopy = i;
+  installationCopy = installation;
+  nameCopy = name;
+  dCopy = d;
+  completionCopy = completion;
+  if ([(MCProfileServicer *)self remoteProcessHasBooleanEntitlement:@"com.apple.managedconfiguration.vpn-profile-access"])
+  {
+    v16 = 0;
+LABEL_4:
+    v18 = +[MCProfileServiceServer sharedServer];
+    [v18 queueProfileDataForInstallation:installationCopy originalFileName:nameCopy originatingBundleID:dCopy transitionToUI:iCopy completion:completionCopy];
+
+    goto LABEL_5;
+  }
+
+  v19 = 0;
+  v17 = [(MCProfileServicer *)self remoteProcessHasEntitlementArray:@"com.apple.managedconfiguration.profiled.configurationprofiles" containingString:@"UIInstallation" error:&v19];
+  v16 = v19;
+  if (v17)
+  {
+    goto LABEL_4;
+  }
+
+  if (completionCopy)
+  {
+    completionCopy[2](completionCopy, 0, 99, v16);
+  }
+
+LABEL_5:
 }
 
 - (void)popProfileDataFromHeadOfInstallationQueueWithCompletion:(id)completion
@@ -889,6 +1106,70 @@ LABEL_11:
   }
 }
 
+- (void)changePasscode:(id)passcode oldPasscode:(id)oldPasscode isRecovery:(BOOL)recovery skipRecovery:(BOOL)skipRecovery completion:(id)completion
+{
+  skipRecoveryCopy = skipRecovery;
+  recoveryCopy = recovery;
+  passcodeCopy = passcode;
+  completionCopy = completion;
+  v25 = 0;
+  v14 = [MCExtractablePasscodeContextWrapper contextWrapperForExtractablePasscode:oldPasscode outError:&v25];
+  v15 = v25;
+  if (v15)
+  {
+    v16 = v15;
+    completionCopy[2](completionCopy, 0, v15);
+  }
+
+  else
+  {
+    v24 = 0;
+    v17 = [MCExtractablePasscodeContextWrapper contextWrapperForExtractablePasscode:passcodeCopy outError:&v24];
+    v16 = v24;
+    if (v16)
+    {
+      completionCopy[2](completionCopy, 0, v16);
+    }
+
+    else
+    {
+      externalizedContext = [v14 externalizedContext];
+      externalizedContext2 = [v17 externalizedContext];
+      v20[0] = _NSConcreteStackBlock;
+      v20[1] = 3221225472;
+      v20[2] = sub_100057A8C;
+      v20[3] = &unk_10011C7F0;
+      v23 = completionCopy;
+      v21 = v14;
+      v22 = v17;
+      [(MCProfileServicer *)self changePasscodeWithOldPasscodeContext:externalizedContext newPasscodeContext:externalizedContext2 isRecovery:recoveryCopy skipRecovery:skipRecoveryCopy completion:v20];
+    }
+  }
+}
+
+- (void)changePasscodeWithOldPasscodeContext:(id)context newPasscodeContext:(id)passcodeContext isRecovery:(BOOL)recovery skipRecovery:(BOOL)skipRecovery completion:(id)completion
+{
+  skipRecoveryCopy = skipRecovery;
+  recoveryCopy = recovery;
+  contextCopy = context;
+  passcodeContextCopy = passcodeContext;
+  completionCopy = completion;
+  v19 = 0;
+  v15 = [(MCProfileServicer *)self remoteProcessHasEntitlementArray:@"com.apple.managedconfiguration.profiled.set" containingString:@"Passcode" error:&v19];
+  v16 = v19;
+  if (v15)
+  {
+    v17 = +[MCProfileServiceServer sharedServer];
+    remoteProcessBundleID = [(MCProfileServicer *)self remoteProcessBundleID];
+    [v17 changePasscodeWithOldPasscodeContext:contextCopy newPasscodeContext:passcodeContextCopy isRecovery:recoveryCopy skipRecovery:skipRecoveryCopy senderBundleID:remoteProcessBundleID completion:completionCopy];
+  }
+
+  else if (completionCopy)
+  {
+    completionCopy[2](completionCopy, 0, v16);
+  }
+}
+
 - (void)clearPasscodeWithEscrowKeybagData:(id)data secret:(id)secret completion:(id)completion
 {
   dataCopy = data;
@@ -1023,6 +1304,83 @@ LABEL_11:
   else if (completionCopy)
   {
     completionCopy[2](completionCopy, 0, v6);
+  }
+}
+
+- (void)migrateWithContext:(int)context passcodeWasSetInBackup:(BOOL)backup completion:(id)completion
+{
+  backupCopy = backup;
+  v6 = *&context;
+  completionCopy = completion;
+  v12 = 0;
+  v9 = [(MCProfileServicer *)self remoteProcessHasBooleanEntitlement:@"com.apple.managedconfiguration.profiled.migration" error:&v12];
+  v10 = v12;
+  if (v9)
+  {
+    v11 = +[MCProfileServiceServer sharedServer];
+    [v11 migrateWithContext:v6 passcodeWasSetInBackup:backupCopy completion:completionCopy];
+  }
+
+  else if (completionCopy)
+  {
+    completionCopy[2](completionCopy, v10);
+  }
+}
+
+- (void)migrateCleanupMigratorWithContext:(int)context completion:(id)completion
+{
+  v4 = *&context;
+  completionCopy = completion;
+  v10 = 0;
+  v7 = [(MCProfileServicer *)self remoteProcessHasBooleanEntitlement:@"com.apple.managedconfiguration.profiled.migration" error:&v10];
+  v8 = v10;
+  if (v7)
+  {
+    v9 = +[MCProfileServiceServer sharedServer];
+    [v9 migrateCleanupMigratorWithContext:v4 completion:completionCopy];
+  }
+
+  else if (completionCopy)
+  {
+    completionCopy[2](completionCopy, v8);
+  }
+}
+
+- (void)setParametersForSettingsByType:(id)type configurationUUID:(id)d toSystem:(BOOL)system user:(BOOL)user passcode:(id)passcode credentialSet:(id)set completion:(id)completion
+{
+  userCopy = user;
+  systemCopy = system;
+  typeCopy = type;
+  dCopy = d;
+  passcodeCopy = passcode;
+  setCopy = set;
+  completionCopy = completion;
+  if (setCopy || ![passcodeCopy length])
+  {
+    [(MCProfileServicer *)self setParametersForSettingsByType:typeCopy configurationUUID:dCopy toSystem:systemCopy user:userCopy credentialSet:setCopy completion:completionCopy];
+  }
+
+  else
+  {
+    v26 = 0;
+    v20 = [MCSecurePasscodeContextWrapper credentialSetForPasscode:passcodeCopy outError:&v26];
+    v21 = v26;
+    if (v21)
+    {
+      completionCopy[2](completionCopy, v21);
+    }
+
+    else
+    {
+      externalizedContext = [v20 externalizedContext];
+      v23[0] = _NSConcreteStackBlock;
+      v23[1] = 3221225472;
+      v23[2] = sub_1000584BC;
+      v23[3] = &unk_10011C818;
+      v25 = completionCopy;
+      v24 = v20;
+      [(MCProfileServicer *)self setParametersForSettingsByType:typeCopy configurationUUID:dCopy toSystem:systemCopy user:userCopy credentialSet:externalizedContext completion:v23];
+    }
   }
 }
 
@@ -1313,6 +1671,38 @@ LABEL_40:
   }
 }
 
+- (void)openSensitiveURL:(id)l unlock:(BOOL)unlock completion:(id)completion
+{
+  unlockCopy = unlock;
+  lCopy = l;
+  completionCopy = completion;
+  v14 = 0;
+  v10 = [(MCProfileServicer *)self remoteProcessHasBooleanEntitlement:@"com.apple.managedconfiguration.profiled-access" error:&v14];
+  v11 = v14;
+  if (v10)
+  {
+    if ([(MCProfileServicer *)self remoteProcessHasBooleanEntitlement:@"com.apple.springboard.opensensitiveurl"])
+    {
+      v12 = +[MCProfileServiceServer sharedServer];
+      [v12 openSensitiveURL:lCopy unlock:unlockCopy completion:completionCopy];
+    }
+
+    else
+    {
+      v13 = [(MCProfileServicer *)self lacksBooleanEntitlementError:@"com.apple.springboard.opensensitiveurl"];
+      if (completionCopy)
+      {
+        completionCopy[2](completionCopy, v13);
+      }
+    }
+  }
+
+  else if (completionCopy)
+  {
+    completionCopy[2](completionCopy, v11);
+  }
+}
+
 - (void)storeCertificateData:(id)data forIPCUIdentifier:(id)identifier completion:(id)completion
 {
   dataCopy = data;
@@ -1581,6 +1971,26 @@ LABEL_40:
   else if (completionCopy)
   {
     completionCopy[2](completionCopy, v6);
+  }
+}
+
+- (void)resetAllSettingsToDefaultsIsUserInitiated:(BOOL)initiated completion:(id)completion
+{
+  initiatedCopy = initiated;
+  completionCopy = completion;
+  v11 = 0;
+  v7 = [(MCProfileServicer *)self remoteProcessHasEntitlementArray:@"com.apple.managedconfiguration.profiled.set" containingString:@"UserSettings" error:&v11];
+  v8 = v11;
+  if (v7)
+  {
+    v9 = +[MCProfileServiceServer sharedServer];
+    remoteProcessBundleID = [(MCProfileServicer *)self remoteProcessBundleID];
+    [v9 resetAllSettingsToDefaultsIsUserInitiated:initiatedCopy sender:remoteProcessBundleID completion:completionCopy];
+  }
+
+  else if (completionCopy)
+  {
+    completionCopy[2](completionCopy, v8);
   }
 }
 
@@ -1858,6 +2268,93 @@ LABEL_40:
   {
     completionCopy[2](completionCopy, v9);
   }
+}
+
+- (void)allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:(id)ds hostAppBundleID:(id)d accountIsManaged:(BOOL)managed completion:(id)completion
+{
+  managedCopy = managed;
+  dsCopy = ds;
+  dCopy = d;
+  completionCopy = completion;
+  v22 = 0u;
+  v23 = 0u;
+  xpcConnection = [(MCProfileServicer *)self xpcConnection];
+  v14 = xpcConnection;
+  if (xpcConnection)
+  {
+    objc_msgSend_auditToken(xpcConnection);
+  }
+
+  else
+  {
+    v22 = 0u;
+    v23 = 0u;
+  }
+
+  v15 = MCBundleIDFromAuditToken();
+  if (v15)
+  {
+    v16 = +[MCProfileServiceServer sharedServer];
+    [v16 allowedKeyboardBundleIDsAfterApplyingFilterToBundleIDs:dsCopy messageSendingAppBundleID:v15 hostAppBundleID:dCopy accountIsManaged:managedCopy completion:completionCopy];
+LABEL_10:
+
+    goto LABEL_11;
+  }
+
+  v17 = _MCLogObjects[0];
+  if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Could not retrieve the bundle ID of the calling process. Denying access to all keyboards.", buf, 2u);
+  }
+
+  if (completionCopy)
+  {
+    v18 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10005A65C;
+    block[3] = &unk_10011B800;
+    v20 = completionCopy;
+    dispatch_async(v18, block);
+
+    v16 = v20;
+    goto LABEL_10;
+  }
+
+LABEL_11:
+}
+
+- (void)hasMailAccountsWithFilteringEnabled:(BOOL)enabled sourceAccountManagement:(int)management completion:(id)completion
+{
+  v5 = *&management;
+  enabledCopy = enabled;
+  completionCopy = completion;
+  v16 = 0u;
+  v17 = 0u;
+  xpcConnection = [(MCProfileServicer *)self xpcConnection];
+  v10 = xpcConnection;
+  if (xpcConnection)
+  {
+    objc_msgSend_auditToken(xpcConnection);
+  }
+
+  else
+  {
+    v16 = 0u;
+    v17 = 0u;
+  }
+
+  v11 = +[MCProfileServiceServer sharedServer];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10005A780;
+  v14[3] = &unk_10011C840;
+  v15 = completionCopy;
+  v13[0] = v16;
+  v13[1] = v17;
+  v12 = completionCopy;
+  [v11 loadMailAccountsWithAuditToken:v13 filteringEnabled:enabledCopy sourceAccountManagement:v5 completion:v14];
 }
 
 - (void)setupAssistantDidFinishCompletion:(id)completion
@@ -2147,6 +2644,126 @@ LABEL_6:
   return v4;
 }
 
+- (void)mayShareToMessagesForOriginatingAppBundleID:(id)d originatingAccountIsManaged:(BOOL)managed completion:(id)completion
+{
+  managedCopy = managed;
+  dCopy = d;
+  completionCopy = completion;
+  v19 = 0u;
+  v20 = 0u;
+  xpcConnection = [(MCProfileServicer *)self xpcConnection];
+  v11 = xpcConnection;
+  if (xpcConnection)
+  {
+    objc_msgSend_auditToken(xpcConnection);
+  }
+
+  else
+  {
+    v19 = 0u;
+    v20 = 0u;
+  }
+
+  v12 = MCBundleIDFromAuditToken();
+  if (!dCopy)
+  {
+    v16 = _MCLogObjects[0];
+    if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "No originating app bundle id passed. Using caller's bundle id.", buf, 2u);
+    }
+
+    dCopy = v12;
+    goto LABEL_11;
+  }
+
+  if ([dCopy isEqualToString:v12])
+  {
+LABEL_11:
+    v15 = +[MCProfileServiceServer sharedServer];
+    [v15 mayShareToMessagesForOriginatingAppBundleID:dCopy originatingAccountIsManaged:managedCopy completion:completionCopy];
+    goto LABEL_12;
+  }
+
+  v17 = 0;
+  v13 = [(MCProfileServicer *)self remoteProcessHasBooleanEntitlement:@"com.apple.managedconfiguration.profiled.sharing-access-check-messages" error:&v17];
+  v14 = v17;
+  v15 = v14;
+  if (v13)
+  {
+
+    goto LABEL_11;
+  }
+
+  if (completionCopy)
+  {
+    completionCopy[2](completionCopy, 0, v14);
+  }
+
+LABEL_12:
+}
+
+- (void)mayShareToAirDropForOriginatingAppBundleID:(id)d originatingAccountIsManaged:(BOOL)managed completion:(id)completion
+{
+  managedCopy = managed;
+  dCopy = d;
+  completionCopy = completion;
+  v19 = 0u;
+  v20 = 0u;
+  xpcConnection = [(MCProfileServicer *)self xpcConnection];
+  v11 = xpcConnection;
+  if (xpcConnection)
+  {
+    objc_msgSend_auditToken(xpcConnection);
+  }
+
+  else
+  {
+    v19 = 0u;
+    v20 = 0u;
+  }
+
+  v12 = MCBundleIDFromAuditToken();
+  if (!dCopy)
+  {
+    v16 = _MCLogObjects[0];
+    if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "No originating app bundle id passed. Using caller's bundle id.", buf, 2u);
+    }
+
+    dCopy = v12;
+    goto LABEL_11;
+  }
+
+  if ([dCopy isEqualToString:v12])
+  {
+LABEL_11:
+    v15 = +[MCProfileServiceServer sharedServer];
+    [v15 mayShareToAirDropForOriginatingAppBundleID:dCopy originatingAccountIsManaged:managedCopy completion:completionCopy];
+    goto LABEL_12;
+  }
+
+  v17 = 0;
+  v13 = [(MCProfileServicer *)self remoteProcessHasBooleanEntitlement:@"com.apple.managedconfiguration.profiled.sharing-access-check-air-drop" error:&v17];
+  v14 = v17;
+  v15 = v14;
+  if (v13)
+  {
+
+    goto LABEL_11;
+  }
+
+  if (completionCopy)
+  {
+    completionCopy[2](completionCopy, 0, v14);
+  }
+
+LABEL_12:
+}
+
 - (void)createMDMUnlockTokenIfNeededWithPasscode:(id)passcode completion:(id)completion
 {
   completionCopy = completion;
@@ -2216,6 +2833,31 @@ LABEL_6:
   else if (completionCopy)
   {
     completionCopy[2](completionCopy, 0, v6);
+  }
+}
+
+- (void)stageMDMEnrollmentInfoForPairingWatchWithProfileData:(id)data orServiceURL:(id)l anchorCertificates:(id)certificates supervised:(BOOL)supervised declarationKeys:(id)keys declarationConfiguration:(id)configuration completion:(id)completion
+{
+  supervisedCopy = supervised;
+  dataCopy = data;
+  lCopy = l;
+  certificatesCopy = certificates;
+  keysCopy = keys;
+  configurationCopy = configuration;
+  completionCopy = completion;
+  _missingWatchMDMEnrollmentEntitlementError = [(MCProfileServicer *)self _missingWatchMDMEnrollmentEntitlementError];
+  if (_missingWatchMDMEnrollmentEntitlementError)
+  {
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy, _missingWatchMDMEnrollmentEntitlementError);
+    }
+  }
+
+  else
+  {
+    v21 = +[MCProfileServiceServer sharedServer];
+    [v21 stageMDMEnrollmentInfoForPairingWatchWithProfileData:dataCopy orServiceURL:lCopy anchorCertificates:certificatesCopy supervised:supervisedCopy declarationKeys:keysCopy declarationConfiguration:configurationCopy completion:completionCopy];
   }
 }
 

@@ -1,9 +1,35 @@
 @interface CCSetDiscoveryRequest
++ (id)setDiscoveryRequestFromPeerToPeerMessage:(id)message setUUIDsToDiscover:(id)discover requestOptions:(unsigned __int16)options startAfterSet:(id)set sizeThreshold:(id)threshold;
 - (id)dictionaryRepresentation;
 - (id)initFromDictionary:(id)dictionary;
 @end
 
 @implementation CCSetDiscoveryRequest
+
++ (id)setDiscoveryRequestFromPeerToPeerMessage:(id)message setUUIDsToDiscover:(id)discover requestOptions:(unsigned __int16)options startAfterSet:(id)set sizeThreshold:(id)threshold
+{
+  optionsCopy = options;
+  thresholdCopy = threshold;
+  setCopy = set;
+  discoverCopy = discover;
+  messageCopy = message;
+  v15 = [CCSetDiscoveryRequest alloc];
+  syncReason = [messageCopy syncReason];
+  senderDeviceUUID = [messageCopy senderDeviceUUID];
+  protocolVersion = [messageCopy protocolVersion];
+  [messageCopy walltime];
+  v20 = v19;
+
+  v21 = [(CCPeerToPeerMessage *)v15 initWithSyncReason:syncReason senderDeviceUUID:senderDeviceUUID protocolVersion:protocolVersion wallTime:v20];
+  [(CCSetDiscoveryRequest *)v21 setSetUUIDsToDiscover:discoverCopy];
+
+  [(CCSetDiscoveryRequest *)v21 setRequestOptions:optionsCopy];
+  [(CCSetDiscoveryRequest *)v21 setStartAfterSet:setCopy];
+
+  [(CCSetDiscoveryRequest *)v21 setSizeThreshold:thresholdCopy];
+
+  return v21;
+}
 
 - (id)initFromDictionary:(id)dictionary
 {
@@ -34,11 +60,11 @@
 
 - (id)dictionaryRepresentation
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   setUUIDsToDiscover = self->_setUUIDsToDiscover;
-  v13 = @"setIdentifiersToDiscover";
-  v14[0] = setUUIDsToDiscover;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = @"setIdentifiersToDiscover";
+  v13[0] = setUUIDsToDiscover;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v5 = [v4 mutableCopy];
 
   if (self->_requestOptions)
@@ -59,12 +85,10 @@
     [v5 setObject:sizeThreshold forKey:@"sizeThreshold"];
   }
 
-  v12.receiver = self;
-  v12.super_class = CCSetDiscoveryRequest;
-  dictionaryRepresentation = [(CCPeerToPeerMessage *)&v12 dictionaryRepresentation];
+  v11.receiver = self;
+  v11.super_class = CCSetDiscoveryRequest;
+  dictionaryRepresentation = [(CCPeerToPeerMessage *)&v11 dictionaryRepresentation];
   [v5 addEntriesFromDictionary:dictionaryRepresentation];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

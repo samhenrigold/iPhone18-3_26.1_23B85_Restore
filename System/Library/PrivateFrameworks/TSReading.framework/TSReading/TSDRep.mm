@@ -616,7 +616,7 @@
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -640,7 +640,7 @@
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -669,7 +669,7 @@
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -744,7 +744,7 @@
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
     v4 = v11;
     v5 = v12;
     v6 = v13;
@@ -771,7 +771,7 @@
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -938,7 +938,7 @@
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -966,7 +966,7 @@
 {
   if (self)
   {
-    [(TSDRep *)self transformToConvertNaturalToLayerRelative];
+    objc_msgSend_transformToConvertNaturalToLayerRelative(self, a3);
   }
 
   else
@@ -983,7 +983,7 @@
   {
     y = relative.y;
     x = relative.x;
-    [(TSDRep *)self transformToConvertNaturalToLayerRelative];
+    objc_msgSend_transformToConvertNaturalToLayerRelative(self, a2);
     relative.y = y;
     relative.x = x;
     v4 = v10;
@@ -1011,7 +1011,7 @@
   {
     y = relative.y;
     x = relative.x;
-    [(TSDRep *)self transformToConvertNaturalFromLayerRelative];
+    objc_msgSend_transformToConvertNaturalFromLayerRelative(self, a2);
     relative.y = y;
     relative.x = x;
     v4 = v10;
@@ -1041,7 +1041,7 @@
   x = relative.origin.x;
   if (self)
   {
-    [(TSDRep *)self transformToConvertNaturalToLayerRelative];
+    objc_msgSend_transformToConvertNaturalToLayerRelative(self, a2);
   }
 
   else
@@ -1064,7 +1064,7 @@
   x = relative.origin.x;
   if (self)
   {
-    [(TSDRep *)self transformToConvertNaturalFromLayerRelative];
+    objc_msgSend_transformToConvertNaturalFromLayerRelative(self, a2);
   }
 
   else
@@ -1103,7 +1103,7 @@
 {
   if (self)
   {
-    [(TSDRep *)self transformToConvertNaturalToLayerRelative];
+    objc_msgSend_transformToConvertNaturalToLayerRelative(self, a2);
   }
 
   else
@@ -1253,7 +1253,7 @@
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -1327,7 +1327,7 @@
     v11 = 0uLL;
     if (from)
     {
-      [from transform];
+      objc_msgSend_transform(from, a2, 0.0, 0.0, 0.0);
       v10 = v30;
       v11 = v31;
       v9 = v32;
@@ -1342,7 +1342,7 @@
     v17 = 0uLL;
     if (to)
     {
-      [to transform];
+      objc_msgSend_transform(to, 0.0, 0.0, 0.0);
       v15 = v30;
       v16 = v31;
       v17 = v32;
@@ -1387,7 +1387,7 @@
       layout = [(TSDRep *)self layout];
       if (layout)
       {
-        [(TSDLayout *)layout originalPureTransformInRoot];
+        objc_msgSend_originalPureTransformInRoot(layout);
       }
 
       else
@@ -1399,7 +1399,7 @@
       layout2 = [(TSDRep *)self layout];
       if (layout2)
       {
-        [(TSDLayout *)layout2 pureTransformInRoot];
+        objc_msgSend_pureTransformInRoot(layout2);
       }
 
       else
@@ -1445,7 +1445,7 @@
     parentRep = [(TSDRep *)self parentRep];
     if (parentRep)
     {
-      [(TSDRep *)parentRep layerTransformInRootForZeroAnchor];
+      objc_msgSend_layerTransformInRootForZeroAnchor(parentRep);
     }
 
     else
@@ -1485,7 +1485,7 @@
       v12 = v11;
       v14 = v13;
       memset(&v21, 0, sizeof(v21));
-      [(CGAffineTransform *)selfCopy2 layerTransform];
+      objc_msgSend_layerTransform(selfCopy2);
       t2 = v21;
       TSDTransformConvertForNewOrigin(&t2, &t1, v12 * -0.5, v14 * -0.5);
       v21 = t1;
@@ -1525,7 +1525,7 @@
   v14 = 0u;
   if (self)
   {
-    [(TSDRep *)self layerTransform];
+    objc_msgSend_layerTransform(self);
   }
 
   v13[0] = v14;
@@ -1665,12 +1665,12 @@
     memset(&v49, 0, sizeof(v49));
     if ([(TSDRep *)self isBeingRotated])
     {
-      [v11 originalTransformInRoot];
+      objc_msgSend_originalTransformInRoot(v11);
     }
 
     else
     {
-      [v11 transformInRoot];
+      objc_msgSend_transformInRoot(v11);
     }
 
     v12 = *&onTransform->c;
@@ -1761,7 +1761,7 @@
   geometry = [(TSDAbstractLayout *)[(TSDRep *)self layout] geometry];
   if (geometry)
   {
-    [(TSDLayoutGeometry *)geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -1779,7 +1779,7 @@
 {
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry, a2);
   }
 
   else
@@ -1915,7 +1915,7 @@
     layout = [(TSDRep *)self layout];
     if (layout)
     {
-      [(TSDAbstractLayout *)layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
       goto LABEL_7;
     }
 
@@ -1930,7 +1930,7 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  [(TSDLayout *)layout2 originalTransformInRoot];
+  objc_msgSend_originalTransformInRoot(layout2);
 LABEL_7:
   CGContextConcatCTM(context, &v15);
   if (layer && [layer contentsAreFlipped])
@@ -1978,7 +1978,7 @@ LABEL_7:
   geometry = [(TSDAbstractLayout *)[(TSDRep *)self layout] geometry];
   if (geometry)
   {
-    [(TSDLayoutGeometry *)geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -2256,46 +2256,51 @@ uint64_t __15__TSDRep_knobs__block_invoke(uint64_t a1, void *a2)
     geometryInRoot = [(TSDAbstractLayout *)[(TSDRep *)self layout] geometryInRoot];
     if (geometryInRoot)
     {
-      [geometryInRoot transform];
+      objc_msgSend_transform(geometryInRoot);
     }
 
     else
     {
-      v20 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v21 = 0u;
-      v19 = 0u;
     }
 
-    TSDTransformAngle(&v19);
+    TSDTransformAngle(&v21);
     TSURound();
     v14 = 0;
-    for (i = 1; i != 10; ++i)
+    v15 = 1;
+    v17 = v16 / 1000.0;
+    do
     {
-      if ((TSDMaskForKnob(i) & v12) != 0)
+      if ((TSDMaskForKnob(v15) & v12) != 0)
       {
-        v16 = TSDKnobTagByRotatingKnobByAngle(i);
+        v18 = TSDKnobTagByRotatingKnobByAngle(v15, v17);
         geometry = [(TSDAbstractLayout *)[(TSDRep *)self layout] geometry];
         if (geometry)
         {
-          [(TSDLayoutGeometry *)geometry transform];
+          objc_msgSend_transform(geometry);
         }
 
         else
         {
-          v20 = 0u;
+          v22 = 0u;
+          v23 = 0u;
           v21 = 0u;
-          v19 = 0u;
         }
 
-        if (TSDIsTransformFlipped(&v19))
+        if (TSDIsTransformFlipped(&v21))
         {
-          LOBYTE(v16) = TSDKnobTagWithFlip(v16);
+          LOBYTE(v18) = TSDKnobTagWithFlip(v18);
         }
 
-        v14 |= TSDMaskForKnob(v16);
+        v14 |= TSDMaskForKnob(v18);
       }
+
+      ++v15;
     }
 
+    while (v15 != 10);
     if (v14)
     {
       return v14;
@@ -2492,7 +2497,7 @@ LABEL_8:
           {
             v34 = v30;
             v35 = v29;
-            [(TSDRep *)self transformToConvertNaturalFromLayerRelative];
+            objc_msgSend_transformToConvertNaturalFromLayerRelative(self);
             v30 = v34;
             v29 = v35;
             v32 = v36;
@@ -2536,7 +2541,7 @@ LABEL_8:
 
 - (CGPoint)positionOfHyperlinkKnob
 {
-  [objc_msgSend(MEMORY[0x277D6C2F8] imageNamed:@"TSDKnobHyperlink_N" inBundle:{TSDBundle()), "size"}];
+  [objc_msgSend(MEMORY[0x277D6C2F8] imageNamed:@"TSDKnobHyperlink_N" inBundle:{TSDBundle(self, a2)), "size"}];
   v4 = v3;
   v20 = v5;
   [(TSDRep *)self boundsForStandardKnobs];
@@ -2579,7 +2584,7 @@ LABEL_8:
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  [objc_msgSend(MEMORY[0x277D6C2F8] imageNamed:@"sf-mac_canvas_btn_actionAdd-N" inBundle:{TSDBundle()), "size"}];
+  [objc_msgSend(MEMORY[0x277D6C2F8] imageNamed:@"sf-mac_canvas_btn_actionAdd-N" inBundle:{TSDBundle(self, a2)), "size"}];
   v9 = v8;
   [(TSDCanvas *)[(TSDRep *)self canvas] viewScale];
   v11 = 1.0 / v10;
@@ -2733,7 +2738,7 @@ LABEL_3:
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -3029,7 +3034,7 @@ CGColorRef __33__TSDRep_selectionHighlightColor__block_invoke()
     if (result)
     {
 
-      return [(CGAffineTransform *)result transformInRoot];
+      return objc_msgSend_transformInRoot(result);
     }
 
     else
@@ -3066,7 +3071,7 @@ CGColorRef __33__TSDRep_selectionHighlightColor__block_invoke()
         v13 = v12;
         v15 = v14;
         memset(&v24, 0, sizeof(v24));
-        [(TSDRep *)self transformForHighlightLayer];
+        objc_msgSend_transformForHighlightLayer(self);
         CGAffineTransformMakeScale(&t2, v7, v7);
         v21 = v24;
         CGAffineTransformConcat(&v23, &v21, &t2);
@@ -3074,7 +3079,7 @@ CGColorRef __33__TSDRep_selectionHighlightColor__block_invoke()
         [v5 lineWidth];
         v17 = v16;
         [(TSDCanvas *)[(TSDRep *)self canvas] contentsScale];
-        v19 = TSDCreateAADefeatedRectPath(&v24, v9, v11, v13, v15, v17, v18);
+        v19 = TSDCreateAADefeatedRectPath(&v24.a, v9, v11, v13, v15, v17, v18);
         [v5 setPath:v19];
         CGPathRelease(v19);
       }
@@ -3132,7 +3137,7 @@ CGColorRef __33__TSDRep_selectionHighlightColor__block_invoke()
   return array;
 }
 
-uint64_t __60__TSDRep_p_addLayersForKnobsToArray_withDelegate_isOverlay___block_invoke(uint64_t a1, uint64_t a2)
+void *__60__TSDRep_p_addLayersForKnobsToArray_withDelegate_isOverlay___block_invoke(uint64_t a1, uint64_t a2)
 {
   v20 = *MEMORY[0x277D85DE8];
   v15 = 0u;
@@ -3170,7 +3175,7 @@ uint64_t __60__TSDRep_p_addLayersForKnobsToArray_withDelegate_isOverlay___block_
           }
         }
 
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v6 != v8);
@@ -3207,28 +3212,28 @@ uint64_t __60__TSDRep_p_addLayersForKnobsToArray_withDelegate_isOverlay___block_
   v16 = TSDCenterOfRect(v12, v13, v14, v15);
   v17 = TSDSubtractPoints(v9, v11, v16);
   v19 = v18;
-  [objc_msgSend(a1[5] "canvas")];
-  v21 = TSDRoundedPointForScale(v17, v19, v20);
-  v24 = TSDAddPoints(v21, v22, v16);
-  v25 = v23;
-  if ((*&v24 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && (*&v23 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+  v20 = [objc_msgSend(a1[5] "canvas")];
+  v22 = TSDRoundedPointForScale(v20, v17, v19, v21);
+  v25 = TSDAddPoints(v22, v23, v16);
+  v26 = v24;
+  if ((*&v25 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && (*&v24 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
   {
     [MEMORY[0x277CD9FF0] begin];
     [MEMORY[0x277CD9FF0] setDisableActions:1];
-    [a3 setPosition:{v24, v25}];
+    [a3 setPosition:{v25, v26}];
     [MEMORY[0x277CD9FF0] commit];
-    v31 = a1[7];
+    v32 = a1[7];
 
-    return [v31 addObject:a3];
+    return [v32 addObject:a3];
   }
 
   else
   {
-    v27 = [MEMORY[0x277D6C290] currentHandler];
-    v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDRep p_addLayersForKnobsToArray:withDelegate:isOverlay:]_block_invoke_2"];
-    v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDRep.m"];
+    v28 = [MEMORY[0x277D6C290] currentHandler];
+    v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDRep p_addLayersForKnobsToArray:withDelegate:isOverlay:]_block_invoke_2"];
+    v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDRep.m"];
 
-    return [v27 handleFailureInFunction:v28 file:v29 lineNumber:2044 description:@"Knob layer position must be finite"];
+    return [v28 handleFailureInFunction:v29 file:v30 lineNumber:2044 description:@"Knob layer position must be finite"];
   }
 }
 
@@ -3369,7 +3374,7 @@ uint64_t __60__TSDRep_p_addLayersForKnobsToArray_withDelegate_isOverlay___block_
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -3521,7 +3526,7 @@ uint64_t __60__TSDRep_p_addLayersForKnobsToArray_withDelegate_isOverlay___block_
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -3555,7 +3560,7 @@ uint64_t __60__TSDRep_p_addLayersForKnobsToArray_withDelegate_isOverlay___block_
   if (isMagicMove)
   {
     v61 = v63;
-    [(TSDRep *)self unRotatedTransform:&v61];
+    objc_msgSend_unRotatedTransform_(self);
     v63 = v62;
   }
 
@@ -4138,7 +4143,7 @@ TSDTilingBackgroundQueue *__21__TSDRep_i_tileQueue__block_invoke(uint64_t a1)
           v17 = [objc_msgSend(v16 "layout")];
           if (v17)
           {
-            [v17 transform];
+            objc_msgSend_transform(v17);
           }
 
           else

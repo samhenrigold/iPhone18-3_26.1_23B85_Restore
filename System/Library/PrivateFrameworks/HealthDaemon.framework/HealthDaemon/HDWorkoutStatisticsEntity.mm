@@ -11,24 +11,21 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"workout_activity_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"workout_activity_id";
   v2 = [objc_msgSend(self "ownerEntityClass")];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"workout_activity_id";
-  v5[1] = @"data_type";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"workout_activity_id";
+  v4[1] = @"data_type";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -265,14 +262,13 @@ uint64_t __88__HDWorkoutStatisticsEntity_workoutStatisticsForActivityId_quantity
 
 + (id)_allProperties
 {
-  v5[5] = *MEMORY[0x277D85DE8];
-  v5[0] = @"workout_activity_id";
-  v5[1] = @"data_type";
-  v5[2] = @"quantity";
-  v5[3] = @"min";
-  v5[4] = @"max";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:5];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
+  v4[0] = @"workout_activity_id";
+  v4[1] = @"data_type";
+  v4[2] = @"quantity";
+  v4[3] = @"min";
+  v4[4] = @"max";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:5];
 
   return v2;
 }

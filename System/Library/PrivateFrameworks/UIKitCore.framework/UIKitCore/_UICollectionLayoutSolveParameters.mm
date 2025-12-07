@@ -15,12 +15,12 @@
 + (id)parametersForFullResolve
 {
   objc_opt_self();
-  v0 = [_UICollectionLayoutSolveParameters alloc];
+  v1 = [_UICollectionLayoutSolveParameters alloc];
   indexSet = [MEMORY[0x1E696AD50] indexSet];
-  v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v3 = [(_UICollectionLayoutSolveParameters *)v0 initWithInvalidatedIndexes:indexSet invalidatedAuxillaryDict:v2 isFullResolve:1 scrollOffset:*MEMORY[0x1E695EFF8] visibleBounds:*(MEMORY[0x1E695EFF8] + 8), *MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v4 = [(_UICollectionLayoutSolveParameters *)v1 initWithInvalidatedIndexes:indexSet invalidatedAuxillaryDict:v3 isFullResolve:1 scrollOffset:*MEMORY[0x1E695EFF8] visibleBounds:*(MEMORY[0x1E695EFF8] + 8), *MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
 
-  return v3;
+  return v4;
 }
 
 - (_UICollectionLayoutSolveParameters)init
@@ -37,7 +37,7 @@
   selfCopy = self;
   if (self)
   {
-    if ([self[2] count])
+    if ([(objc_class *)self[1].super.isa count])
     {
       v5 = 0;
       v6 = &v5;

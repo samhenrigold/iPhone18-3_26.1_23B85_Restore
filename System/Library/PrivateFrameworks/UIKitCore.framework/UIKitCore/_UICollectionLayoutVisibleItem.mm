@@ -49,7 +49,7 @@
   result = self->_layoutAttributes;
   if (result)
   {
-    return [(CATransform3D *)result transform3D];
+    return objc_msgSend_transform3D(result, a3);
   }
 
   *&retstr->m41 = 0u;
@@ -86,7 +86,7 @@
   result = self->_layoutAttributes;
   if (result)
   {
-    return [(CGAffineTransform *)result transform];
+    return objc_msgSend_transform(result, a3);
   }
 
   *&retstr->c = 0u;

@@ -49,16 +49,14 @@
 {
   if (**MEMORY[0x1E69A8488])
   {
-    v5 = *(&self->super.super.isa + *MEMORY[0x1E69A8480]);
-    labelTraceID = self->_labelTraceID;
     [label cStringUsingEncoding:1];
     self->_labelTraceID = IOAccelDeviceTraceObjectLabel();
   }
 
-  v7 = [label copy];
+  v5 = [label copy];
   os_unfair_lock_lock(&self->_labelLock);
   label = self->_label;
-  self->_label = v7;
+  self->_label = v5;
   os_unfair_lock_unlock(&self->_labelLock);
 }
 

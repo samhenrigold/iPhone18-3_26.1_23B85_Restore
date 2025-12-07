@@ -8,17 +8,18 @@
 
 - (void)layoutSubviews
 {
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for NowPlayingQueueCell.TextView();
-  v2 = v5.receiver;
-  [(NowPlayingQueueCell.TextView *)&v5 layoutSubviews];
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for NowPlayingQueueCell.TextView();
+  v2 = v6.receiver;
+  [(NowPlayingQueueCell.TextView *)&v6 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtCC5Music19NowPlayingQueueCell8TextView_didLayoutSubviews];
   if (v3)
   {
+    v4 = *&v2[OBJC_IVAR____TtCC5Music19NowPlayingQueueCell8TextView_didLayoutSubviews + 8];
 
-    v3(v4);
+    v3(v5);
 
-    sub_100020438(v3);
+    sub_100020438(v3, v4);
   }
 
   else

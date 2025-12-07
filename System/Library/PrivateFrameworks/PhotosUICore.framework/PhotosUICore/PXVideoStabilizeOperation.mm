@@ -165,7 +165,7 @@
     NUVideoUtilitiesClass = getNUVideoUtilitiesClass();
     if (NUVideoUtilitiesClass)
     {
-      [NUVideoUtilitiesClass cleanApertureOfTrack:v75 oriented:0];
+      objc_msgSend_cleanApertureOfTrack_oriented_(NUVideoUtilitiesClass);
       v76 = *(&v131 + 1);
       v73 = v131;
     }
@@ -295,7 +295,7 @@
       v33 = v127;
       if (v83)
       {
-        [v83 stabCropRect];
+        objc_msgSend_stabCropRect(v83);
         if (NUPixelRectIsEmpty() && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf) = 138543362;
@@ -579,7 +579,7 @@ void __46__PXVideoStabilizeOperation_performProcessing__block_invoke(uint64_t a1
         v7 = *(a1 + 32);
         if (v7)
         {
-          [v7 stabCropRect];
+          objc_msgSend_stabCropRect(v7);
         }
 
         else
@@ -643,7 +643,7 @@ void __46__PXVideoStabilizeOperation_performProcessing__block_invoke(uint64_t a1
   v17 = v16;
   if (v16)
   {
-    [v16 crossfadeDuration];
+    objc_msgSend_crossfadeDuration(v16);
   }
 
   else
@@ -656,7 +656,7 @@ void __46__PXVideoStabilizeOperation_performProcessing__block_invoke(uint64_t a1
   v19 = v18;
   if (v18)
   {
-    [v18 startTime];
+    objc_msgSend_startTime(v18);
   }
 
   else
@@ -671,7 +671,7 @@ void __46__PXVideoStabilizeOperation_performProcessing__block_invoke(uint64_t a1
     v22 = v21;
     if (v21)
     {
-      [v21 timeRange];
+      objc_msgSend_timeRange(v21);
     }
 
     else
@@ -684,7 +684,7 @@ void __46__PXVideoStabilizeOperation_performProcessing__block_invoke(uint64_t a1
       v25 = *(a1 + 56);
       if (v25)
       {
-        [v25 duration];
+        objc_msgSend_duration(v25);
       }
 
       else
@@ -787,7 +787,7 @@ void __46__PXVideoStabilizeOperation_performProcessing__block_invoke_2(uint64_t 
   v5 = *(a1 + 32);
   if (v5)
   {
-    [v5 stabCropRect];
+    objc_msgSend_stabCropRect(v5);
   }
 
   else

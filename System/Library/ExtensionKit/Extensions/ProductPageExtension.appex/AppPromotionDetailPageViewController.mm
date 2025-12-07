@@ -146,7 +146,7 @@
   v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v4 + 104))(v7, enum case for StoreViewControllerLifecycleEvent.didDisappear(_:), v3, v5);
   sub_10075F11C();
-  sub_1003ABBD8(&qword_1009552D0, &type metadata accessor for AppPromotionDetailPagePresenter);
+  sub_1003ABBD8(&qword_1009552D0, &type metadata accessor for AppPromotionDetailPagePresenter, &protocol conformance descriptor for BasePresenter);
   selfCopy = self;
   sub_1007657FC();
   (*(v4 + 8))(v7, v3);

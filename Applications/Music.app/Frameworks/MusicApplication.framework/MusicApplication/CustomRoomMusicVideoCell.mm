@@ -9,7 +9,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CustomRoomMusicVideoCell();
+  v7.super_class = type metadata accessor for CustomRoomMusicVideoCell(0);
   changeCopy = change;
   v5 = v7.receiver;
   [(VerticalLockupCollectionViewCell *)&v7 traitCollectionDidChange:changeCopy];
@@ -34,7 +34,7 @@
   v3 = *(v2 + 104);
 
   v9 = v8[4];
-  sub_12E1C(&v9, &qword_DF1E78);
+  sub_12E1C(&v9, &qword_DF1E78, &unk_B0D170);
   v4 = 0.0;
   v5 = 0.0;
   v6 = 0.0;

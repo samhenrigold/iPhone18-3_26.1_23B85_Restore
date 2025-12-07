@@ -103,24 +103,22 @@
 
 void __42__HMDSettingConstraintModel_hmbProperties__block_invoke()
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  v7[0] = @"type";
+  v7[4] = *MEMORY[0x277D85DE8];
+  v6[0] = @"type";
   v0 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v8[0] = v0;
-  v7[1] = @"numberValue";
+  v7[0] = v0;
+  v6[1] = @"numberValue";
   v1 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v8[1] = v1;
-  v7[2] = @"stringValue";
+  v7[1] = v1;
+  v6[2] = @"stringValue";
   v2 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v8[2] = v2;
-  v7[3] = @"dataValue";
+  v7[2] = v2;
+  v6[3] = @"dataValue";
   v3 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v8[3] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
+  v7[3] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:4];
   v5 = hmbProperties__properties_53688;
   hmbProperties__properties_53688 = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

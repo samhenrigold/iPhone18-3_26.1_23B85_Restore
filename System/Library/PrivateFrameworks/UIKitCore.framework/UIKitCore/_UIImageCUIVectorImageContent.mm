@@ -233,7 +233,7 @@ LABEL_16:
     v8 = v7;
     if (v6 == v7)
     {
-      v10 = 1;
+      isEqual = 1;
     }
 
     else
@@ -250,22 +250,22 @@ LABEL_16:
 
       if (v9)
       {
-        v10 = 0;
+        isEqual = 0;
       }
 
       else
       {
-        v10 = [(CUINamedVectorImage *)v6 isEqual:v7];
+        isEqual = objc_msgSend_isEqual_(v6);
       }
     }
   }
 
   else
   {
-    v10 = 0;
+    isEqual = 0;
   }
 
-  return v10;
+  return isEqual;
 }
 
 - (id)description

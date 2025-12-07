@@ -65,51 +65,51 @@
 
 - (id)_IS_iconDictionaryForTag:()IconServicesAdditions tagClass:
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   selfCopy = self;
   obj = [self claimRecords];
-  v36 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
-  if (v36)
+  v35 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
+  if (v35)
   {
-    v37 = 0;
-    v35 = *v44;
+    v36 = 0;
+    v34 = *v43;
     do
     {
-      for (i = 0; i != v36; ++i)
+      for (i = 0; i != v35; ++i)
       {
-        if (*v44 != v35)
+        if (*v43 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v43 + 1) + 8 * i);
+        v9 = *(*(&v42 + 1) + 8 * i);
+        v38 = 0u;
         v39 = 0u;
         v40 = 0u;
         v41 = 0u;
-        v42 = 0u;
-        v38 = v9;
+        v37 = v9;
         typeIdentifiers = [v9 typeIdentifiers];
-        v11 = [typeIdentifiers countByEnumeratingWithState:&v39 objects:v49 count:16];
+        v11 = [typeIdentifiers countByEnumeratingWithState:&v38 objects:v48 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v40;
+          v13 = *v39;
 LABEL_8:
           v14 = 0;
           while (1)
           {
-            if (*v40 != v13)
+            if (*v39 != v13)
             {
               objc_enumerationMutation(typeIdentifiers);
             }
 
-            v15 = [MEMORY[0x1E69636B0] typeRecordWithIdentifier:*(*(&v39 + 1) + 8 * v14)];
+            v15 = [MEMORY[0x1E69636B0] typeRecordWithIdentifier:*(*(&v38 + 1) + 8 * v14)];
             _ICP_filenameExtensions = [v15 _ICP_filenameExtensions];
             v17 = [_ICP_filenameExtensions containsObject:v6];
 
@@ -120,7 +120,7 @@ LABEL_8:
 
             if (v12 == ++v14)
             {
-              v12 = [typeIdentifiers countByEnumeratingWithState:&v39 objects:v49 count:16];
+              v12 = [typeIdentifiers countByEnumeratingWithState:&v38 objects:v48 count:16];
               if (v12)
               {
                 goto LABEL_8;
@@ -130,14 +130,14 @@ LABEL_8:
             }
           }
 
-          v18 = v38;
+          v18 = v37;
 
           if (v18)
           {
             goto LABEL_22;
           }
 
-          v37 = v15;
+          v36 = v15;
         }
 
         else
@@ -146,12 +146,12 @@ LABEL_14:
         }
       }
 
-      v36 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
+      v35 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
     }
 
-    while (v36);
+    while (v35);
     v18 = 0;
-    v15 = v37;
+    v15 = v36;
   }
 
   else
@@ -198,9 +198,9 @@ LABEL_22:
       {
         iconDictionary3 = [v28 iconDictionary];
 
-        v47 = 0x1F1A4F340;
-        v48 = v6;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+        v46 = 0x1F1A4F340;
+        v47 = v6;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
         iconDictionary = [iconDictionary3 _IF_dictionaryAddingEntriesFromDictionary:v30];
       }
 
@@ -213,14 +213,12 @@ LABEL_22:
     iconDictionary = 0;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return iconDictionary;
 }
 
 - (id)_IS_iconDictionaryForType:()IconServicesAdditions
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69636B0] typeRecordWithIdentifier:?];
   v3 = [self _IS_iconProvidingLineageForRecord:v2];
   lastObject = [v3 lastObject];
@@ -259,16 +257,14 @@ LABEL_22:
     v13 = v12;
     if (v12)
     {
-      v18 = 0x1F1A4F340;
-      v19[0] = v12;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = 0x1F1A4F340;
+      v18[0] = v12;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       v15 = [iconDictionary _IF_dictionaryAddingEntriesFromDictionary:v14];
 
       iconDictionary = v15;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return iconDictionary;
 }

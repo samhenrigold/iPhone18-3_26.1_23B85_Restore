@@ -3,7 +3,7 @@
 
 @implementation AXSDwellControlEnabled
 
-uint64_t ___AXSDwellControlEnabled_block_invoke()
+void *___AXSDwellControlEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

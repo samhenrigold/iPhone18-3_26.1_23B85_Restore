@@ -31,7 +31,7 @@
   if (v9)
   {
     objc_storeWeak(&v9->_sourceView, viewCopy);
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
     v11 = v65 = viewCopy;
     cGColor = [v11 CGColor];
     layer = [(UIView *)v10 layer];
@@ -106,7 +106,7 @@
     glowView = v10->_glowView;
     v10->_glowView = v36;
 
-    v38 = +[UIColor blackColor];
+    v38 = objc_msgSend_blackColor(UIColor);
     [(UIView *)v10->_glowView setBackgroundColor:v38];
 
     v39 = *MEMORY[0x1E6979C38];
@@ -242,7 +242,7 @@
 - (id)_backgroundColorIfNecessary
 {
   v42 = *MEMORY[0x1E69E9840];
-  if (![UIApp _isSpringBoard] || ((v3 = objc_loadWeakRetained(&self->_sourceView), objc_msgSend(v3, "window"), v4 = objc_claimAutoreleasedReturnValue(), v3, objc_msgSend(v4, "screen"), v5 = objc_claimAutoreleasedReturnValue(), +[UIWindow allWindowsIncludingInternalWindows:onlyVisibleWindows:forScreen:](UIWindow, "allWindowsIncludingInternalWindows:onlyVisibleWindows:forScreen:", 1, 1, v5), v6 = objc_claimAutoreleasedReturnValue(), v5, v7 = NSClassFromString(&cfstr_Sbhomescreenwi.isa), v8 = NSClassFromString(&cfstr_Sbisolationtan.isa), *&buf = 0, *(&buf + 1) = &buf, v40 = 0x2020000000, v41 = 0x7FFFFFFFFFFFFFFFLL, v35 = 0, v36 = &v35, v37 = 0x2020000000, v38 = 0x7FFFFFFFFFFFFFFFLL, v29[0] = MEMORY[0x1E69E9820], v29[1] = 3221225472, v29[2] = __52___UITextLightLoupeView__backgroundColorIfNecessary__block_invoke, v29[3] = &unk_1E711FC20, p_buf = &buf, v9 = v4, v30 = v9, v32 = &v35, v33 = v8, v34 = v7, objc_msgSend(v6, "enumerateObjectsUsingBlock:", v29), *(*(&buf + 1) + 24) != 0x7FFFFFFFFFFFFFFFLL) && v36[3] != 0x7FFFFFFFFFFFFFFFLL ? (+[UIColor blackColor](UIColor, "blackColor"), v4 = objc_claimAutoreleasedReturnValue(), v10 = 0) : (v10 = 1), v30, _Block_object_dispose(&v35, 8), _Block_object_dispose(&buf, 8), v6, v9, v10))
+  if (![UIApp _isSpringBoard] || ((v3 = objc_loadWeakRetained(&self->_sourceView), objc_msgSend(v3, "window"), v4 = objc_claimAutoreleasedReturnValue(), v3, objc_msgSend(v4, "screen"), v5 = objc_claimAutoreleasedReturnValue(), +[UIWindow allWindowsIncludingInternalWindows:onlyVisibleWindows:forScreen:](UIWindow, "allWindowsIncludingInternalWindows:onlyVisibleWindows:forScreen:", 1, 1, v5), v6 = objc_claimAutoreleasedReturnValue(), v5, v7 = NSClassFromString(&cfstr_Sbhomescreenwi.isa), v8 = NSClassFromString(&cfstr_Sbisolationtan.isa), *&buf = 0, *(&buf + 1) = &buf, v40 = 0x2020000000, v41 = 0x7FFFFFFFFFFFFFFFLL, v35 = 0, v36 = &v35, v37 = 0x2020000000, v38 = 0x7FFFFFFFFFFFFFFFLL, v29[0] = MEMORY[0x1E69E9820], v29[1] = 3221225472, v29[2] = __52___UITextLightLoupeView__backgroundColorIfNecessary__block_invoke, v29[3] = &unk_1E711FC20, p_buf = &buf, v9 = v4, v30 = v9, v32 = &v35, v33 = v8, v34 = v7, objc_msgSend(v6, "enumerateObjectsUsingBlock:", v29), *(*(&buf + 1) + 24) != 0x7FFFFFFFFFFFFFFFLL) && v36[3] != 0x7FFFFFFFFFFFFFFFLL ? (objc_msgSend_blackColor(UIColor), v4 = objc_claimAutoreleasedReturnValue(), v10 = 0) : (v10 = 1), v30, _Block_object_dispose(&v35, 8), _Block_object_dispose(&buf, 8), v6, v9, v10))
   {
     _window = [(UIView *)self _window];
     if ([_window _isHostedInAnotherProcess])

@@ -1,50 +1,50 @@
-void sub_1CFEB1E5C(uint64_t a1@<X8>)
+void sub_1CFEB1E5C(uint64_t a2@<X8>)
 {
-  *a1 = sub_1CFF0D84C();
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  sub_1CFEB1F64();
-  sub_1CFEB0BE4(v1);
-  v3 = sub_1CFF0DAAC();
+  *a2 = sub_1CFF0D84C();
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  sub_1CFEB1F64(0);
+  sub_1CFEB0BE4(v2);
+  v4 = sub_1CFF0DAAC();
   sub_1CFF0D40C();
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  sub_1CFEB264C(0, &qword_1EC512938, sub_1CFEB26B0);
-  v13 = a1 + *(v12 + 36);
-  *v13 = v3;
-  *(v13 + 8) = v5;
-  *(v13 + 16) = v7;
-  *(v13 + 24) = v9;
-  *(v13 + 32) = v11;
-  *(v13 + 40) = 0;
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  sub_1CFEB264C(0, &qword_1EC512938, sub_1CFEB26B0, MEMORY[0x1E697E5E0]);
+  v14 = a2 + *(v13 + 36);
+  *v14 = v4;
+  *(v14 + 8) = v6;
+  *(v14 + 16) = v8;
+  *(v14 + 24) = v10;
+  *(v14 + 32) = v12;
+  *(v14 + 40) = 0;
 }
 
-void sub_1CFEB1F64()
+void sub_1CFEB1F64(uint64_t a1)
 {
   if (!qword_1EC5128A8)
   {
-    sub_1CFEB1FCC();
-    v0 = sub_1CFF0D58C();
-    if (!v1)
+    sub_1CFEB1FCC(255);
+    v1 = sub_1CFF0D58C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EC5128A8);
+      atomic_store(v1, &qword_1EC5128A8);
     }
   }
 }
 
-void sub_1CFEB1FCC()
+void sub_1CFEB1FCC(uint64_t a1)
 {
   if (!qword_1EC5128B0)
   {
     sub_1CFEB2080();
     sub_1CFEB220C(255, &qword_1EC5128C0, sub_1CFEB20D8);
     sub_1CFEB2578();
-    v0 = sub_1CFF0E07C();
-    if (!v1)
+    v1 = sub_1CFF0E07C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EC5128B0);
+      atomic_store(v1, &qword_1EC5128B0);
     }
   }
 }
@@ -61,35 +61,35 @@ void sub_1CFEB2080()
   }
 }
 
-void sub_1CFEB20D8()
+void sub_1CFEB20D8(uint64_t a1)
 {
   if (!qword_1EC5128C8)
   {
-    sub_1CFEB216C();
+    sub_1CFEB216C(255);
     sub_1CFEB2B70(255, &qword_1EC512928, MEMORY[0x1E6981840], MEMORY[0x1E69E6720]);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &qword_1EC5128C8);
     }
   }
 }
 
-void sub_1CFEB216C()
+void sub_1CFEB216C(uint64_t a1)
 {
   if (!qword_1EC5128D0)
   {
     sub_1CFEB220C(255, &qword_1EC5128D8, sub_1CFEB2260);
     sub_1CFEB27B0(&qword_1EC512920, &qword_1EC5128D8, sub_1CFEB2260);
-    v0 = sub_1CFF0E01C();
-    if (!v1)
+    v1 = sub_1CFF0E01C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EC5128D0);
+      atomic_store(v1, &qword_1EC5128D0);
     }
   }
 }
 
-void sub_1CFEB220C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1CFEB220C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -102,25 +102,25 @@ void sub_1CFEB220C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-void sub_1CFEB2260()
+void sub_1CFEB2260(uint64_t a1)
 {
   if (!qword_1EC5128E0)
   {
     sub_1CFEB2340(255, &qword_1EC5128E8, &qword_1EDEC1FD8, sub_1CFE52EF0, sub_1CFE53340);
     sub_1CFEB2340(255, &qword_1EC5128F0, &qword_1EC5128F8, sub_1CFEB23E0, sub_1CFEB24A4);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &qword_1EC5128E0);
     }
   }
 }
 
-void sub_1CFEB2340(uint64_t a1, unint64_t *a2, unint64_t *a3, void (*a4)(uint64_t), void (*a5)(void))
+void sub_1CFEB2340(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t (*a4)(uint64_t), uint64_t (*a5)(void))
 {
   if (!*a2)
   {
-    sub_1CFEB264C(255, a3, a4);
+    sub_1CFEB264C(255, a3, a4, MEMORY[0x1E697E048]);
     a5();
     OpaqueTypeMetadata2 = swift_getOpaqueTypeMetadata2();
     if (!v8)
@@ -130,16 +130,16 @@ void sub_1CFEB2340(uint64_t a1, unint64_t *a2, unint64_t *a3, void (*a4)(uint64_
   }
 }
 
-void sub_1CFEB23E0()
+void sub_1CFEB23E0(uint64_t a1)
 {
   if (!qword_1EC512900)
   {
     sub_1CFF0E03C();
-    sub_1CFEB2A24(&qword_1EC512908, MEMORY[0x1E6981998]);
-    v0 = sub_1CFF0D95C();
-    if (!v1)
+    sub_1CFEB2A24(&qword_1EC512908, MEMORY[0x1E6981998], MEMORY[0x1E6981970]);
+    v1 = sub_1CFF0D95C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EC512900);
+      atomic_store(v1, &qword_1EC512900);
     }
   }
 }
@@ -149,8 +149,8 @@ unint64_t sub_1CFEB24A4()
   result = qword_1EC512910;
   if (!qword_1EC512910)
   {
-    sub_1CFEB264C(255, &qword_1EC5128F8, sub_1CFEB23E0);
-    sub_1CFEB2A24(&qword_1EC512918, sub_1CFEB23E0);
+    sub_1CFEB264C(255, &qword_1EC5128F8, sub_1CFEB23E0, MEMORY[0x1E697E048]);
+    sub_1CFEB2A24(&qword_1EC512918, sub_1CFEB23E0, MEMORY[0x1E697FCF0]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EC512910);
   }
@@ -184,29 +184,29 @@ unint64_t sub_1CFEB25F8()
   return result;
 }
 
-void sub_1CFEB264C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1CFEB264C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   if (!*a2)
   {
     a3(255);
-    v4 = sub_1CFF0D62C();
-    if (!v5)
+    v5 = sub_1CFF0D62C();
+    if (!v6)
     {
-      atomic_store(v4, a2);
+      atomic_store(v5, a2);
     }
   }
 }
 
-void sub_1CFEB26B0()
+void sub_1CFEB26B0(uint64_t a1)
 {
   if (!qword_1EC512940)
   {
-    sub_1CFEB1FCC();
+    sub_1CFEB1FCC(255);
     sub_1CFEB2714();
-    v0 = sub_1CFF0DFDC();
-    if (!v1)
+    v1 = sub_1CFF0DFDC();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EC512940);
+      atomic_store(v1, &qword_1EC512940);
     }
   }
 }
@@ -216,7 +216,7 @@ unint64_t sub_1CFEB2714()
   result = qword_1EC512948;
   if (!qword_1EC512948)
   {
-    sub_1CFEB1FCC();
+    sub_1CFEB1FCC(255);
     sub_1CFEB27B0(&qword_1EC512950, &qword_1EC5128C0, sub_1CFEB20D8);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EC512948);
@@ -225,7 +225,7 @@ unint64_t sub_1CFEB2714()
   return result;
 }
 
-uint64_t sub_1CFEB27B0(unint64_t *a1, unint64_t *a2, void (*a3)(uint64_t))
+uint64_t sub_1CFEB27B0(unint64_t *a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   result = *a1;
   if (!result)
@@ -238,13 +238,13 @@ uint64_t sub_1CFEB27B0(unint64_t *a1, unint64_t *a2, void (*a3)(uint64_t))
   return result;
 }
 
-void sub_1CFEB2844()
+void sub_1CFEB2844(uint64_t a1)
 {
   sub_1CFF0CA6C();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1CFEB2B70(319, &qword_1EDEC2118, &type metadata for OvernightMetricsChartSpec, MEMORY[0x1E697DCC0]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -299,8 +299,8 @@ unint64_t sub_1CFEB2950()
   result = qword_1EC512968;
   if (!qword_1EC512968)
   {
-    sub_1CFEB264C(255, &qword_1EC512938, sub_1CFEB26B0);
-    sub_1CFEB2A24(&qword_1EC512970, sub_1CFEB26B0);
+    sub_1CFEB264C(255, &qword_1EC512938, sub_1CFEB26B0, MEMORY[0x1E697E5E0]);
+    sub_1CFEB2A24(&qword_1EC512970, sub_1CFEB26B0, MEMORY[0x1E69817F8]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EC512968);
   }
@@ -308,7 +308,7 @@ unint64_t sub_1CFEB2950()
   return result;
 }
 
-uint64_t sub_1CFEB2A24(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1CFEB2A24(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -323,21 +323,21 @@ uint64_t sub_1CFEB2A24(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_1CFEB2A6C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = *(type metadata accessor for WarmupProgressCounter() - 8);
+  v5 = *(type metadata accessor for WarmupProgressCounter(0) - 8);
   v6 = v2 + ((*(v5 + 80) + 16) & ~*(v5 + 80));
 
   return sub_1CFEB0E30(a1, v6, a2);
 }
 
-void sub_1CFEB2AEC()
+void sub_1CFEB2AEC(uint64_t a1)
 {
   if (!qword_1EC512978)
   {
     sub_1CFEB220C(255, &qword_1EC5128D8, sub_1CFEB2260);
-    v0 = sub_1CFF0D58C();
-    if (!v1)
+    v1 = sub_1CFF0D58C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EC512978);
+      atomic_store(v1, &qword_1EC512978);
     }
   }
 }
@@ -363,7 +363,7 @@ uint64_t sub_1CFEB2BC0(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 
 uint64_t sub_1CFEB2C28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v6 = a5(0);
+  v6 = (a5)(0, a2, a3, a4);
   (*(*(v6 - 8) + 8))(a1, v6);
   return a1;
 }
@@ -382,33 +382,33 @@ uint64_t sub_1CFEB2CF0(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_1CFEB2DB8(void *a1, id *a2)
+uint64_t sub_1CFEB2DB8(void *a1, id *a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
-    v4 = a2;
+    v5 = a2;
     swift_once();
-    a2 = v4;
+    a2 = v5;
   }
 
-  v2 = *a2;
+  v3 = *a2;
 
   return sub_1CFF0DE3C();
 }
 
-uint64_t sub_1CFEB2E78(void *a1, uint64_t a2)
+uint64_t sub_1CFEB2E78(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = sub_1CFF0CFFC();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_1CFF0CFFC();
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v8 = __swift_project_value_buffer(v4, a2);
-  (*(v5 + 16))(v7, v8, v4);
+  v9 = __swift_project_value_buffer(v5, a2);
+  (*(v6 + 16))(v8, v9, v5);
   return sub_1CFF0DEFC();
 }
 
@@ -503,20 +503,20 @@ id sub_1CFEB325C(void *a1)
   return [v2 initWithRed:v3 green:v4 blue:v5 alpha:1.0];
 }
 
-id sub_1CFEB330C(void *a1, void **a2)
+id sub_1CFEB330C(void *a1, void **a2, uint64_t a3)
 {
   if (*a1 == -1)
   {
-    v3 = *a2;
+    v4 = *a2;
   }
 
   else
   {
     swift_once();
-    v3 = *a2;
+    v4 = *a2;
   }
 
-  return v3;
+  return v4;
 }
 
 id sub_1CFEB336C(uint64_t a1, void *a2)
@@ -934,7 +934,7 @@ double sub_1CFEB3D00@<D0>(uint64_t a1@<X8>, CGFloat a2@<D0>, CGFloat a3@<D1>, CG
   return result;
 }
 
-void (*sub_1CFEB3D64(uint64_t *a1))(void *a1)
+uint64_t (*sub_1CFEB3D64(uint64_t *a1))()
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -988,7 +988,7 @@ unint64_t sub_1CFEB3EEC()
   result = qword_1EDEC2190;
   if (!qword_1EDEC2190)
   {
-    sub_1CFEB3F44();
+    sub_1CFEB3F44(255);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EDEC2190);
   }
@@ -996,15 +996,15 @@ unint64_t sub_1CFEB3EEC()
   return result;
 }
 
-void sub_1CFEB3F44()
+void sub_1CFEB3F44(uint64_t a1)
 {
   if (!qword_1EDEC2188)
   {
     sub_1CFEB3FC0();
-    v0 = sub_1CFF0D41C();
-    if (!v1)
+    v1 = sub_1CFF0D41C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EDEC2188);
+      atomic_store(v1, &qword_1EDEC2188);
     }
   }
 }
@@ -1289,7 +1289,7 @@ uint64_t sub_1CFEB4650@<X0>(uint64_t a1@<X8>)
 
   (*(v12 + 8))(v14, v11);
   LODWORD(v51) = *(v51 + 48);
-  v28 = type metadata accessor for BalanceWidgetTimelineEntry();
+  v28 = type metadata accessor for BalanceWidgetTimelineEntry(0);
   v29 = v50;
   sub_1CFF0C78C();
   sub_1CFF0C78C();
@@ -1311,7 +1311,7 @@ uint64_t sub_1CFEB4650@<X0>(uint64_t a1@<X8>)
   (*(v55 + 16))(v54, v31, v56);
   (*(v35 + 56))(v36, 0, 1, v37);
   OvernightMetricsViewModel.init(dayRange:chronologicalDaySummaries:featureStatus:)(v33, MEMORY[0x1E69E7CC0], v36, v29);
-  v38 = type metadata accessor for BalanceWidgetViewModel();
+  v38 = type metadata accessor for BalanceWidgetViewModel(0);
   sub_1CFF0C9DC();
   (*(v35 + 8))(v31, v37);
   (*(v32 + 8))(v30, v34);
@@ -1569,7 +1569,7 @@ uint64_t sub_1CFEB5B58(uint64_t a1, void (*a2)(char *), uint64_t a3)
   v21 = a1;
   v3 = sub_1CFF0E3AC();
   MEMORY[0x1EEE9AC00](v3 - 8);
-  sub_1CFEB8A80();
+  sub_1CFEB8A80(0);
   v22 = v4;
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
@@ -1596,13 +1596,13 @@ uint64_t sub_1CFEB5B58(uint64_t a1, void (*a2)(char *), uint64_t a3)
 
   (*(v9 + 8))(v11, v8);
   sub_1CFEB8D88(0, &qword_1EC5129A8, type metadata accessor for BalanceWidgetTimelineEntry, MEMORY[0x1E69E6F90]);
-  v16 = *(type metadata accessor for BalanceWidgetTimelineEntry() - 8);
+  v16 = *(type metadata accessor for BalanceWidgetTimelineEntry(0) - 8);
   v17 = (*(v16 + 80) + 32) & ~*(v16 + 80);
   v18 = swift_allocObject();
   *(v18 + 16) = xmmword_1CFF10480;
   sub_1CFEB87EC(v21, v18 + v17, type metadata accessor for BalanceWidgetTimelineEntry);
   sub_1CFF0E39C();
-  sub_1CFEB9200(&qword_1EDEC4880, type metadata accessor for BalanceWidgetTimelineEntry);
+  sub_1CFEB9200(&qword_1EDEC4880, type metadata accessor for BalanceWidgetTimelineEntry, &unk_1CFF0FB5C);
   sub_1CFF0E3EC();
   v24(v7);
   return (*(v5 + 8))(v7, v22);
@@ -1612,7 +1612,7 @@ uint64_t sub_1CFEB5F1C(uint64_t a1)
 {
   v2[2] = a1;
   v2[3] = v1;
-  v2[4] = type metadata accessor for BalanceWidgetTimelineEntry();
+  v2[4] = type metadata accessor for BalanceWidgetTimelineEntry(0);
   v2[5] = swift_task_alloc();
   v3 = sub_1CFF0D03C();
   v2[6] = v3;
@@ -1622,43 +1622,43 @@ uint64_t sub_1CFEB5F1C(uint64_t a1)
   return MEMORY[0x1EEE6DFA0](sub_1CFEB600C, 0, 0);
 }
 
-uint64_t sub_1CFEB600C()
+uint64_t sub_1CFEB600C(uint64_t a1)
 {
-  v16 = v0;
+  v17 = v1;
   sub_1CFF0D01C();
-  v1 = sub_1CFF0D02C();
-  v2 = sub_1CFF0E7EC();
-  v3 = os_log_type_enabled(v1, v2);
-  v5 = v0[7];
-  v4 = v0[8];
-  v6 = v0[6];
-  if (v3)
+  v2 = sub_1CFF0D02C();
+  v3 = sub_1CFF0E7EC();
+  v4 = os_log_type_enabled(v2, v3);
+  v6 = v1[7];
+  v5 = v1[8];
+  v7 = v1[6];
+  if (v4)
   {
-    v7 = swift_slowAlloc();
     v8 = swift_slowAlloc();
-    v15 = v8;
-    *v7 = 136446210;
-    *(v7 + 4) = sub_1CFE462A4(0xD00000000000001DLL, 0x80000001CFF12960, &v15);
-    _os_log_impl(&dword_1CFE44000, v1, v2, "[%{public}s] returning widget relevance", v7, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v8);
+    v9 = swift_slowAlloc();
+    v16 = v9;
+    *v8 = 136446210;
+    *(v8 + 4) = sub_1CFE462A4(0xD00000000000001DLL, 0x80000001CFF12960, &v16);
+    _os_log_impl(&dword_1CFE44000, v2, v3, "[%{public}s] returning widget relevance", v8, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v9);
+    MEMORY[0x1D387A160](v9, -1, -1);
     MEMORY[0x1D387A160](v8, -1, -1);
-    MEMORY[0x1D387A160](v7, -1, -1);
   }
 
-  (*(v5 + 8))(v4, v6);
-  v9 = v0[3];
-  v10 = swift_task_alloc();
-  v0[9] = v10;
-  *(v10 + 16) = v9;
-  *(v10 + 24) = 1;
+  (*(v6 + 8))(v5, v7);
+  v10 = v1[3];
   v11 = swift_task_alloc();
-  v0[10] = v11;
-  *v11 = v0;
-  v11[1] = sub_1CFEB6210;
-  v13 = v0[4];
-  v12 = v0[5];
+  v1[9] = v11;
+  *(v11 + 16) = v10;
+  *(v11 + 24) = 1;
+  v12 = swift_task_alloc();
+  v1[10] = v12;
+  *v12 = v1;
+  v12[1] = sub_1CFEB6210;
+  v14 = v1[4];
+  v13 = v1[5];
 
-  return MEMORY[0x1EEE6DDE0](v12, 0, 0, 0xD000000000000029, 0x80000001CFF161B0, sub_1CFEB8034, v10, v13);
+  return MEMORY[0x1EEE6DDE0](v13, 0, 0, 0xD000000000000029, 0x80000001CFF161B0, sub_1CFEB8034, v11, v14);
 }
 
 uint64_t sub_1CFEB6210()
@@ -1683,13 +1683,13 @@ uint64_t sub_1CFEB63C4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v4 = sub_1CFF0C89C();
   MEMORY[0x1EEE9AC00](v4 - 8);
   v61 = &v52 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1CFEB89AC();
+  sub_1CFEB89AC(0);
   v60 = v6;
   MEMORY[0x1EEE9AC00](v6);
   v59 = &v52 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
   v58 = &v52 - v9;
-  sub_1CFE5C014();
+  sub_1CFE5C014(0);
   v66 = v10;
   MEMORY[0x1EEE9AC00](v10);
   v12 = &v52 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -1768,7 +1768,7 @@ LABEL_12:
       sub_1CFEB8854(v12, v55);
       sub_1CFF0E27C();
       v39(v41, v13);
-      sub_1CFEB9200(qword_1EDEC4A88, MEMORY[0x1E696B418]);
+      sub_1CFEB9200(qword_1EDEC4A88, MEMORY[0x1E696B418], MEMORY[0x1E696B430]);
       result = sub_1CFF0E49C();
       if (result)
       {
@@ -1806,7 +1806,7 @@ LABEL_12:
 
 uint64_t sub_1CFEB6ADC(uint64_t a1, uint64_t a2, int a3)
 {
-  sub_1CFEB8230();
+  sub_1CFEB8230(0);
   v6 = v5;
   v7 = *(v5 - 8);
   v8 = *(v7 + 64);
@@ -1820,10 +1820,10 @@ uint64_t sub_1CFEB6ADC(uint64_t a1, uint64_t a2, int a3)
 
 uint64_t sub_1CFEB6C20(uint64_t a1)
 {
-  v2 = type metadata accessor for BalanceWidgetTimelineEntry();
+  v2 = type metadata accessor for BalanceWidgetTimelineEntry(0);
   MEMORY[0x1EEE9AC00](v2 - 8);
   sub_1CFEB87EC(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for BalanceWidgetTimelineEntry);
-  sub_1CFEB8230();
+  sub_1CFEB8230(0);
   return sub_1CFF0E69C();
 }
 
@@ -1844,7 +1844,7 @@ uint64_t sub_1CFEB6CC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v8 + 128) = v10;
   *(v8 + 136) = *(v10 - 8);
   *(v8 + 144) = swift_task_alloc();
-  *(v8 + 152) = type metadata accessor for BalanceWidgetTimelineEntry();
+  *(v8 + 152) = type metadata accessor for BalanceWidgetTimelineEntry(0);
   *(v8 + 160) = swift_task_alloc();
   sub_1CFEB8D88(0, &qword_1EDEC5180, MEMORY[0x1E69A2F48], MEMORY[0x1E69E6720]);
   *(v8 + 168) = swift_task_alloc();
@@ -1853,7 +1853,7 @@ uint64_t sub_1CFEB6CC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v8 + 184) = *(v11 - 8);
   *(v8 + 192) = swift_task_alloc();
   *(v8 + 200) = swift_task_alloc();
-  *(v8 + 208) = type metadata accessor for BalanceWidgetViewModel();
+  *(v8 + 208) = type metadata accessor for BalanceWidgetViewModel(0);
   *(v8 + 216) = swift_task_alloc();
   v12 = sub_1CFF0CDFC();
   *(v8 + 224) = v12;
@@ -2057,99 +2057,99 @@ uint64_t sub_1CFEB71B0()
   return v40();
 }
 
-uint64_t sub_1CFEB79C8()
+uint64_t sub_1CFEB79C8(uint64_t a1)
 {
-  v43 = v0;
-  v1 = v0[36];
+  v44 = v1;
+  v2 = v1[36];
   sub_1CFF0D01C();
-  v2 = v1;
-  v3 = sub_1CFF0D02C();
-  v4 = sub_1CFF0E7CC();
+  v3 = v2;
+  v4 = sub_1CFF0D02C();
+  v5 = sub_1CFF0E7CC();
 
-  v41 = v1;
-  if (os_log_type_enabled(v3, v4))
+  v42 = v2;
+  if (os_log_type_enabled(v4, v5))
   {
-    v5 = v0[17];
-    v38 = v0[16];
-    v40 = v0[18];
-    v6 = swift_slowAlloc();
+    v6 = v1[17];
+    v39 = v1[16];
+    v41 = v1[18];
     v7 = swift_slowAlloc();
-    v42 = v7;
-    *v6 = 136446466;
-    *(v6 + 4) = sub_1CFE462A4(0xD00000000000001DLL, 0x80000001CFF12960, &v42);
-    *(v6 + 12) = 2082;
+    v8 = swift_slowAlloc();
+    v43 = v8;
+    *v7 = 136446466;
+    *(v7 + 4) = sub_1CFE462A4(0xD00000000000001DLL, 0x80000001CFF12960, &v43);
+    *(v7 + 12) = 2082;
     swift_getErrorValue();
-    v8 = *(v0[3] - 8);
+    v9 = *(v1[3] - 8);
     swift_task_alloc();
-    (*(v8 + 16))();
-    v9 = sub_1CFF0E5BC();
-    v11 = v10;
+    (*(v9 + 16))();
+    v10 = sub_1CFF0E5BC();
+    v12 = v11;
 
-    v12 = sub_1CFE462A4(v9, v11, &v42);
+    v13 = sub_1CFE462A4(v10, v12, &v43);
 
-    *(v6 + 14) = v12;
-    _os_log_impl(&dword_1CFE44000, v3, v4, "[%{public}s] error while fetching day summaries: %{public}s", v6, 0x16u);
+    *(v7 + 14) = v13;
+    _os_log_impl(&dword_1CFE44000, v4, v5, "[%{public}s] error while fetching day summaries: %{public}s", v7, 0x16u);
     swift_arrayDestroy();
+    MEMORY[0x1D387A160](v8, -1, -1);
     MEMORY[0x1D387A160](v7, -1, -1);
-    MEMORY[0x1D387A160](v6, -1, -1);
 
-    (*(v5 + 8))(v40, v38);
+    (*(v6 + 8))(v41, v39);
   }
 
   else
   {
-    v14 = v0[17];
-    v13 = v0[18];
-    v15 = v0[16];
+    v15 = v1[17];
+    v14 = v1[18];
+    v16 = v1[16];
 
-    (*(v14 + 8))(v13, v15);
+    (*(v15 + 8))(v14, v16);
   }
 
-  v16 = v0[29];
-  v17 = v0[25];
-  v18 = v0[23];
-  v29 = v0[30];
-  v30 = v0[24];
-  v19 = v0[21];
-  v31 = v0[22];
-  v32 = v0[28];
-  v20 = v0[20];
-  v21 = v0[14];
-  v22 = v0[15];
-  v23 = v0[13];
-  v33 = v0[26];
-  v39 = v0[10];
-  v36 = v0[19];
-  v37 = v0[9];
-  v35 = v0[8];
-  v34 = *(v0[6] + 48);
+  v17 = v1[29];
+  v18 = v1[25];
+  v19 = v1[23];
+  v30 = v1[30];
+  v31 = v1[24];
+  v20 = v1[21];
+  v32 = v1[22];
+  v33 = v1[28];
+  v21 = v1[20];
+  v22 = v1[14];
+  v23 = v1[15];
+  v24 = v1[13];
+  v34 = v1[26];
+  v40 = v1[10];
+  v37 = v1[19];
+  v38 = v1[9];
+  v36 = v1[8];
+  v35 = *(v1[6] + 48);
   sub_1CFF0C78C();
   sub_1CFF0CA9C();
-  (*(v21 + 8))(v22, v23);
+  (*(v22 + 8))(v23, v24);
   sub_1CFEB8700(MEMORY[0x1E69E7CC0]);
   sub_1CFF0CDDC();
-  (*(v18 + 16))(v30, v17, v31);
-  (*(v16 + 16))(v19, v29, v32);
-  (*(v16 + 56))(v19, 0, 1, v32);
-  OvernightMetricsViewModel.init(dayRange:chronologicalDaySummaries:featureStatus:)(v30, MEMORY[0x1E69E7CC0], v19, v20);
+  (*(v19 + 16))(v31, v18, v32);
+  (*(v17 + 16))(v20, v30, v33);
+  (*(v17 + 56))(v20, 0, 1, v33);
+  OvernightMetricsViewModel.init(dayRange:chronologicalDaySummaries:featureStatus:)(v31, MEMORY[0x1E69E7CC0], v20, v21);
   sub_1CFF0C9DC();
-  (*(v16 + 8))(v29, v32);
-  (*(v18 + 8))(v17, v31);
-  *(v20 + *(v33 + 24)) = v34;
-  *(v20 + *(v33 + 28)) = 0;
-  v24 = *(v21 + 16);
-  v24(v20 + v36[5], v35, v23);
-  v25 = v36[6];
-  v26 = sub_1CFF0E3CC();
-  (*(*(v26 - 8) + 56))(v20 + v25, 1, 1, v26);
-  v24(v20 + v36[7], v37, v23);
-  v39(v20);
+  (*(v17 + 8))(v30, v33);
+  (*(v19 + 8))(v18, v32);
+  *(v21 + *(v34 + 24)) = v35;
+  *(v21 + *(v34 + 28)) = 0;
+  v25 = *(v22 + 16);
+  v25(v21 + v37[5], v36, v24);
+  v26 = v37[6];
+  v27 = sub_1CFF0E3CC();
+  (*(*(v27 - 8) + 56))(v21 + v26, 1, 1, v27);
+  v25(v21 + v37[7], v38, v24);
+  v40(v21);
 
-  sub_1CFEB8854(v20, type metadata accessor for BalanceWidgetTimelineEntry);
+  sub_1CFEB8854(v21, type metadata accessor for BalanceWidgetTimelineEntry);
 
-  v27 = v0[1];
+  v28 = v1[1];
 
-  return v27();
+  return v28();
 }
 
 uint64_t sub_1CFEB7EE8(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2192,22 +2192,22 @@ uint64_t sub_1CFEB8138()
   return v1();
 }
 
-void sub_1CFEB8230()
+void sub_1CFEB8230(uint64_t a1)
 {
   if (!qword_1EDEC1700)
   {
-    type metadata accessor for BalanceWidgetTimelineEntry();
-    v0 = sub_1CFF0E6AC();
-    if (!v1)
+    type metadata accessor for BalanceWidgetTimelineEntry(255);
+    v1 = sub_1CFF0E6AC();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EDEC1700);
+      atomic_store(v1, &qword_1EDEC1700);
     }
   }
 }
 
 uint64_t sub_1CFEB8298(uint64_t a1)
 {
-  sub_1CFEB8230();
+  sub_1CFEB8230(0);
 
   return sub_1CFEB6C20(a1);
 }
@@ -2263,7 +2263,7 @@ unint64_t sub_1CFEB8700(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    sub_1CFEB88B4();
+    sub_1CFEB88B4(0);
     v3 = sub_1CFF0EA6C();
 
     for (i = (a1 + 40); ; i += 2)
@@ -2323,17 +2323,17 @@ uint64_t sub_1CFEB8854(uint64_t a1, uint64_t (*a2)(void))
   return a1;
 }
 
-void sub_1CFEB88B4()
+void sub_1CFEB88B4(uint64_t a1)
 {
   if (!qword_1EC512990)
   {
     type metadata accessor for HKFeatureIdentifier(255);
     sub_1CFEB8960();
-    sub_1CFEB9200(&qword_1EC512210, type metadata accessor for HKFeatureIdentifier);
-    v0 = sub_1CFF0EA7C();
-    if (!v1)
+    sub_1CFEB9200(&qword_1EC512210, type metadata accessor for HKFeatureIdentifier, &unk_1CFF0F968);
+    v1 = sub_1CFF0EA7C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EC512990);
+      atomic_store(v1, &qword_1EC512990);
     }
   }
 }
@@ -2351,13 +2351,13 @@ unint64_t sub_1CFEB8960()
   return result;
 }
 
-void sub_1CFEB89AC()
+void sub_1CFEB89AC(uint64_t a1)
 {
   if (!qword_1EDEC17E0)
   {
     sub_1CFF0E29C();
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &qword_1EDEC17E0);
     }
@@ -2366,28 +2366,28 @@ void sub_1CFEB89AC()
 
 uint64_t sub_1CFEB8A14(uint64_t a1, uint64_t a2)
 {
-  sub_1CFEB89AC();
+  sub_1CFEB89AC(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-void sub_1CFEB8A80()
+void sub_1CFEB8A80(uint64_t a1)
 {
   if (!qword_1EC5129A0)
   {
-    type metadata accessor for BalanceWidgetTimelineEntry();
-    sub_1CFEB9200(&qword_1EDEC4880, type metadata accessor for BalanceWidgetTimelineEntry);
-    v0 = sub_1CFF0E3FC();
-    if (!v1)
+    type metadata accessor for BalanceWidgetTimelineEntry(255);
+    sub_1CFEB9200(&qword_1EDEC4880, type metadata accessor for BalanceWidgetTimelineEntry, &unk_1CFF0FB5C);
+    v1 = sub_1CFF0E3FC();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EC5129A0);
+      atomic_store(v1, &qword_1EC5129A0);
     }
   }
 }
 
 unint64_t sub_1CFEB8B14(uint64_t a1)
 {
-  sub_1CFEB8CE8();
+  sub_1CFEB8CE8(0);
   v3 = v2;
   v4 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
@@ -2395,7 +2395,7 @@ unint64_t sub_1CFEB8B14(uint64_t a1)
   v7 = *(a1 + 16);
   if (v7)
   {
-    sub_1CFE7A020();
+    sub_1CFE7A020(0);
     v8 = sub_1CFF0EA6C();
     v9 = *(v3 + 48);
     v10 = a1 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
@@ -2446,14 +2446,14 @@ LABEL_10:
   return result;
 }
 
-void sub_1CFEB8CE8()
+void sub_1CFEB8CE8(uint64_t a1)
 {
   if (!qword_1EDEC4950)
   {
     sub_1CFF0CCEC();
     sub_1CFEB8D88(255, &qword_1EDEC1728, sub_1CFE59578, MEMORY[0x1E69E62F8]);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &qword_1EDEC4950);
     }
@@ -2475,7 +2475,7 @@ void sub_1CFEB8D88(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
 
 unint64_t sub_1CFEB8DEC(uint64_t a1)
 {
-  sub_1CFEB90FC();
+  sub_1CFEB90FC(0);
   v3 = v2;
   v4 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
@@ -2483,7 +2483,7 @@ unint64_t sub_1CFEB8DEC(uint64_t a1)
   v7 = *(a1 + 16);
   if (v7)
   {
-    sub_1CFEB9164();
+    sub_1CFEB9164(0);
     v8 = sub_1CFF0EA6C();
     v9 = &v6[*(v3 + 48)];
     v10 = a1 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
@@ -2597,34 +2597,34 @@ void sub_1CFEB90A0()
   }
 }
 
-void sub_1CFEB90FC()
+void sub_1CFEB90FC(uint64_t a1)
 {
   if (!qword_1EDEC4CC8)
   {
     sub_1CFF0CB6C();
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &qword_1EDEC4CC8);
     }
   }
 }
 
-void sub_1CFEB9164()
+void sub_1CFEB9164(uint64_t a1)
 {
   if (!qword_1EDEC4A20)
   {
     sub_1CFF0CB6C();
-    sub_1CFEB9200(&qword_1EDEC5190, MEMORY[0x1E69A2E68]);
-    v0 = sub_1CFF0EA7C();
-    if (!v1)
+    sub_1CFEB9200(&qword_1EDEC5190, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2E78]);
+    v1 = sub_1CFF0EA7C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EDEC4A20);
+      atomic_store(v1, &qword_1EDEC4A20);
     }
   }
 }
 
-uint64_t sub_1CFEB9200(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1CFEB9200(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2640,28 +2640,28 @@ uint64_t sub_1CFEB9200(unint64_t *a1, void (*a2)(uint64_t))
 uint64_t sub_1CFEB9248@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   v67 = a2;
-  sub_1CFE8DBDC();
+  sub_1CFE8DBDC(0);
   v65 = v4;
-  v5 = MEMORY[0x1EEE9AC00](v4);
-  v66 = v55 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v4);
+  v66 = v55 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
   v64 = v55 - v7;
   v8 = sub_1CFF0C88C();
   v9 = *(v8 - 8);
   MEMORY[0x1EEE9AC00](v8);
   v11 = v55 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFEBA420(0, &qword_1EDEC4CF8, MEMORY[0x1E6969530]);
-  v13 = MEMORY[0x1EEE9AC00](v12 - 8);
-  v60 = v55 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v60 = v55 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
   v16 = v55 - v15;
   v17 = sub_1CFF0C7AC();
   v18 = *(v17 - 8);
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v57 = v55 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = MEMORY[0x1EEE9AC00](v19);
-  v68 = v55 - v22;
-  MEMORY[0x1EEE9AC00](v21);
+  MEMORY[0x1EEE9AC00](v17);
+  v57 = v55 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v20);
+  v68 = v55 - v21;
+  MEMORY[0x1EEE9AC00](v22);
   v24 = v55 - v23;
   v63 = a1;
   sub_1CFF0C83C();
@@ -2701,7 +2701,7 @@ LABEL_5:
       v40(v37 + v38, v17);
       sub_1CFEBA590(v35, v37);
       v41 = *(v36 + 48);
-      sub_1CFE69B4C();
+      sub_1CFE69B4C(0);
       v34(&v39[*(v42 + 36)], (v37 + v41), v17);
       return (v40)(v37, v17);
     }
@@ -2753,41 +2753,41 @@ LABEL_11:
   v45((v50 + v51), v17);
   sub_1CFEBA590(v46, v50);
   v53 = *(v49 + 48);
-  sub_1CFE69B4C();
+  sub_1CFE69B4C(0);
   v48(&v52[*(v54 + 36)], (v50 + v53), v17);
   return v45(v50, v17);
 }
 
-uint64_t sub_1CFEB98B0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1CFEB98B0@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   v65 = a2;
-  sub_1CFE8DBDC();
+  sub_1CFE8DBDC(0);
   v57 = v4;
-  v5 = MEMORY[0x1EEE9AC00](v4);
-  v56 = &v50 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v4);
+  v56 = &v50 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
   v55 = &v50 - v7;
   v8 = sub_1CFF0C88C();
   v9 = *(v8 - 8);
   MEMORY[0x1EEE9AC00](v8);
   v11 = &v50 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFEBA420(0, &qword_1EDEC4CF8, MEMORY[0x1E6969530]);
-  v13 = MEMORY[0x1EEE9AC00](v12 - 8);
-  v62 = &v50 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v62 = &v50 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
   v16 = &v50 - v15;
   v66 = sub_1CFF0C7AC();
   v17 = *(v66 - 8);
-  v18 = MEMORY[0x1EEE9AC00](v66);
-  v58 = &v50 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v60 = &v50 - v21;
-  v22 = MEMORY[0x1EEE9AC00](v20);
-  v24 = &v50 - v23;
-  MEMORY[0x1EEE9AC00](v22);
+  MEMORY[0x1EEE9AC00](v66);
+  v58 = &v50 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v60 = &v50 - v20;
+  MEMORY[0x1EEE9AC00](v21);
+  v23 = &v50 - v22;
+  MEMORY[0x1EEE9AC00](v24);
   v26 = &v50 - v25;
   sub_1CFF0C83C();
-  sub_1CFE69B4C();
+  sub_1CFE69B4C(0);
   v54 = v27;
   v64 = a1;
   sub_1CFF0C83C();
@@ -2806,14 +2806,14 @@ uint64_t sub_1CFEB98B0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   if (v32(v16, 1, v66) == 1)
   {
     v33 = *(v67 + 8);
-    v33(v24, v31);
+    v33(v23, v31);
     v33(v26, v31);
 LABEL_5:
     sub_1CFEBA4CC(v16, &qword_1EDEC4CF8, MEMORY[0x1E6969530]);
     return sub_1CFEBA528(v64, v65, sub_1CFE69B4C);
   }
 
-  v52 = v24;
+  v52 = v23;
   v53 = v26;
   v34 = *(v67 + 32);
   v35 = v60;
@@ -2857,7 +2857,7 @@ LABEL_5:
     v45(v65, v47, v39);
     v43((v47 + v48), v39);
     sub_1CFEBA590(v44, v47);
-    v45(v49 + *(v54 + 36), (v47 + *(v46 + 48)), v39);
+    v45(&v49[*(v54 + 36)], (v47 + *(v46 + 48)), v39);
     return (v43)(v47, v39);
   }
 
@@ -2889,7 +2889,7 @@ uint64_t sub_1CFEB9EDC(uint64_t a1, uint64_t a2)
   MEMORY[0x1EEE9AC00](v12);
   v15 = &v31 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v16 = sub_1CFF0C7AC();
-  v17 = (MEMORY[0x1EEE9AC00])(v16);
+  MEMORY[0x1EEE9AC00](v16);
   v20 = &v31 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   v34 = a1;
   if (a1 < 1)
@@ -2942,7 +2942,7 @@ uint64_t sub_1CFEB9EDC(uint64_t a1, uint64_t a2)
   return v26;
 }
 
-void sub_1CFEBA420(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1CFEBA420(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -2968,7 +2968,7 @@ unint64_t sub_1CFEBA474()
   return result;
 }
 
-uint64_t sub_1CFEBA4CC(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+uint64_t sub_1CFEBA4CC(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   sub_1CFEBA420(0, a2, a3);
   (*(*(v4 - 8) + 8))(a1, v4);
@@ -2984,39 +2984,39 @@ uint64_t sub_1CFEBA528(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 
 uint64_t sub_1CFEBA590(uint64_t a1, uint64_t a2)
 {
-  sub_1CFE8DBDC();
+  sub_1CFE8DBDC(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-unint64_t sub_1CFEBA5F4(int8x16_t a1)
+void sub_1CFEBA5F4(int8x16_t a1)
 {
   v2 = v1;
-  v99 = a1;
-  sub_1CFE69B4C();
+  v98 = a1;
+  sub_1CFE69B4C(0);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v98 = &v87 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v97 = &v86 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v5);
-  v7 = &v87 - v6;
-  v95 = COERCE_DOUBLE(sub_1CFF0E09C());
-  v90 = *(*&v95 - 8);
-  MEMORY[0x1EEE9AC00](*&v95);
-  v9 = &v87 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for OvernightMetricsChartAnimationValues.Selection();
+  v7 = &v86 - v6;
+  v94 = COERCE_DOUBLE(sub_1CFF0E09C());
+  v89 = *(*&v94 - 8);
+  MEMORY[0x1EEE9AC00](*&v94);
+  v9 = &v86 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for OvernightMetricsChartAnimationValues.Selection(0);
   MEMORY[0x1EEE9AC00](v10 - 8);
-  v12 = &v87 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v86 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v13);
-  v15 = &v87 - v14;
+  v15 = &v86 - v14;
   v16 = *(v1 + 1);
-  v100 = *v1;
-  v101 = v16;
-  sub_1CFEE371C(&v87 - v14, v12, *v99.i64);
-  *v17.i64 = *v99.i64 - trunc(*v99.i64);
+  v99 = *v1;
+  v100 = v16;
+  sub_1CFEE371C(&v86 - v14, v12, *v98.i64);
+  *v17.i64 = *v98.i64 - trunc(*v98.i64);
   v18.f64[0] = NAN;
   v18.f64[1] = NAN;
-  v99 = vbslq_s8(vnegq_f64(v18), v17, v99);
+  v98 = vbslq_s8(vnegq_f64(v18), v17, v98);
   v19 = sub_1CFEBAECC(v15);
-  v20 = type metadata accessor for OvernightMetricsChartBaselineBandColorValues();
+  v20 = type metadata accessor for OvernightMetricsChartBaselineBandColorValues(0);
   if (v19)
   {
     v21 = 8;
@@ -3042,24 +3042,24 @@ unint64_t sub_1CFEBA5F4(int8x16_t a1)
   v24 = *&v2[v20[8] + v23];
 
   v25 = sub_1CFF0DE4C();
-  v93 = v24;
-  if ((v25 & 1) != 0 || *v99.i64 == 0.0)
+  v92 = v24;
+  if ((v25 & 1) != 0 || *v98.i64 == 0.0)
   {
 
-    v97 = v22;
+    v96 = v22;
   }
 
-  else if (*v99.i64 == 1.0)
+  else if (*v98.i64 == 1.0)
   {
 
-    v97 = v24;
+    v96 = v24;
   }
 
   else
   {
     sub_1CFF0E08C();
-    v97 = sub_1CFF0DE5C();
-    (*(*&v90 + 8))(v9, COERCE_DOUBLE(*&v95));
+    v96 = sub_1CFF0DE5C();
+    (*(*&v89 + 8))(v9, COERCE_DOUBLE(*&v94));
   }
 
   if (sub_1CFEBB4F8(v15))
@@ -3087,26 +3087,26 @@ unint64_t sub_1CFEBA5F4(int8x16_t a1)
   v29 = *&v2[v20[8] + v28];
 
   v30 = sub_1CFF0DE4C();
-  v94 = v22;
-  v91 = v29;
-  v92 = v27;
-  if ((v30 & 1) != 0 || *v99.i64 == 0.0)
+  v93 = v22;
+  v90 = v29;
+  v91 = v27;
+  if ((v30 & 1) != 0 || *v98.i64 == 0.0)
   {
 
-    v96 = v27;
+    v95 = v27;
   }
 
-  else if (*v99.i64 == 1.0)
+  else if (*v98.i64 == 1.0)
   {
 
-    v96 = v29;
+    v95 = v29;
   }
 
   else
   {
     sub_1CFF0E08C();
-    v96 = sub_1CFF0DE5C();
-    (*(*&v90 + 8))(v9, COERCE_DOUBLE(*&v95));
+    v95 = sub_1CFF0DE5C();
+    (*(*&v89 + 8))(v9, COERCE_DOUBLE(*&v94));
   }
 
   if (sub_1CFEBBAD8(v15))
@@ -3133,13 +3133,13 @@ unint64_t sub_1CFEBA5F4(int8x16_t a1)
 
   v34 = *&v2[v20[8] + v33];
 
-  if ((sub_1CFF0DE4C() & 1) != 0 || *v99.i64 == 0.0)
+  if ((sub_1CFF0DE4C() & 1) != 0 || *v98.i64 == 0.0)
   {
 
     v35 = v32;
   }
 
-  else if (*v99.i64 == 1.0)
+  else if (*v98.i64 == 1.0)
   {
 
     v35 = v34;
@@ -3149,7 +3149,7 @@ unint64_t sub_1CFEBA5F4(int8x16_t a1)
   {
     sub_1CFF0E08C();
     v35 = sub_1CFF0DE5C();
-    (*(*&v90 + 8))(v9, COERCE_DOUBLE(*&v95));
+    (*(*&v89 + 8))(v9, COERCE_DOUBLE(*&v94));
   }
 
   v36 = &v2[v20[9]];
@@ -3159,8 +3159,8 @@ unint64_t sub_1CFEBA5F4(int8x16_t a1)
   }
 
   v37 = v36;
-  v38 = v98;
-  sub_1CFEBC1E4(v37, v98, sub_1CFE69B4C);
+  v38 = v97;
+  sub_1CFEBC1E4(v37, v97, sub_1CFE69B4C);
   sub_1CFEBC0B8(v38, v7);
   v39 = &v2[v20[10]];
   v40 = sub_1CFEBB4F8(v15);
@@ -3172,25 +3172,25 @@ unint64_t sub_1CFEBA5F4(int8x16_t a1)
   v46 = type metadata accessor for OvernightMetricsChartLayout.Configuration(0);
   v47 = *(v46 + 24);
   v48 = *(v41 + 1);
-  v98 = *&v39[*(v46 + 28) + 48];
-  v99.i64[0] = v48;
+  v97 = *&v39[*(v46 + 28) + 48];
+  v98.i64[0] = v48;
   v49 = &v39[v47];
   v50 = *&v39[v47];
   sub_1CFEC2950(v50);
   v52 = v51;
   v53 = v49[1];
-  result = sub_1CFEC2950(v53);
-  if (v52 > v55)
+  sub_1CFEC2950(v53);
+  if (v52 > v54)
   {
-    v56 = v52;
+    v55 = v52;
   }
 
   else
   {
-    v56 = v55;
+    v55 = v54;
   }
 
-  if (v52 > v56)
+  if (v52 > v55)
   {
     __break(1u);
 LABEL_62:
@@ -3205,261 +3205,259 @@ LABEL_65:
   }
 
   sub_1CFEC2950(v42);
-  v58 = v57;
+  v57 = v56;
   sub_1CFEC2950(v50);
-  v60 = v59;
-  result = sub_1CFEC2950(v53);
-  if (v60 > v61)
+  v59 = v58;
+  sub_1CFEC2950(v53);
+  if (v59 > v60)
   {
-    v61 = v60;
+    v60 = v59;
   }
 
-  if (v60 > v61)
+  if (v59 > v60)
   {
     goto LABEL_62;
   }
 
-  v95 = v58;
-  v62 = v44;
+  v94 = v57;
+  v61 = v44;
   sub_1CFEC2950(v50);
-  v64 = v63;
-  result = sub_1CFEC2950(v53);
-  if (v64 > v65)
+  v63 = v62;
+  sub_1CFEC2950(v53);
+  if (v63 > v64)
   {
-    v65 = v64;
+    v64 = v63;
   }
 
-  if (v64 > v65)
+  if (v63 > v64)
   {
     goto LABEL_63;
   }
 
-  v90 = v65;
+  v89 = v64;
   sub_1CFEC2950(v43);
-  v67 = v66;
+  v66 = v65;
   sub_1CFEC2950(v50);
-  v69 = v68;
-  result = sub_1CFEC2950(v53);
-  if (v69 > v70)
+  v68 = v67;
+  sub_1CFEC2950(v53);
+  if (v68 > v69)
   {
-    v70 = v69;
+    v69 = v68;
   }
 
-  if (v69 > v70)
+  if (v68 > v69)
   {
     goto LABEL_64;
   }
 
-  v88 = v67;
-  v89 = v40;
-  v71 = (v45 - v62) * *&v98 * 0.5;
-  v72 = *v99.i64 * 0.25;
-  v73 = v71 + v56;
-  v74 = *v99.i64 * 0.25 + v95;
+  v87 = v66;
+  v88 = v40;
+  v70 = (v45 - v61) * *&v97 * 0.5;
+  v71 = *v98.i64 * 0.25;
+  v72 = v70 + v55;
+  v73 = *v98.i64 * 0.25 + v94;
   sub_1CFEBC3B8(0, &qword_1EDEC1618, type metadata accessor for BaselineBand.Configuration, MEMORY[0x1E69E6F90]);
-  v75 = type metadata accessor for BaselineBand.Configuration(0);
-  v76 = *(*(v75 - 1) + 72);
-  v77 = (*(*(v75 - 1) + 80) + 32) & ~*(*(v75 - 1) + 80);
-  result = swift_allocObject();
-  *(result + 16) = xmmword_1CFF0FCA0;
-  if (v73 > v74)
+  v74 = type metadata accessor for BaselineBand.Configuration(0);
+  v75 = *(*(v74 - 1) + 72);
+  v76 = (*(*(v74 - 1) + 80) + 32) & ~*(*(v74 - 1) + 80);
+  v77 = swift_allocObject();
+  *(v77 + 16) = xmmword_1CFF0FCA0;
+  if (v72 > v73)
   {
-    v74 = v73;
+    v73 = v72;
   }
 
-  if (v73 > v74)
+  if (v72 > v73)
   {
     goto LABEL_65;
   }
 
-  v78 = result;
-  v99.i64[0] = v35;
-  v79 = v71 + v60;
-  v80 = v90 - v71;
-  v81 = (result + v77);
-  result = sub_1CFEBC1E4(v7, v81 + v75[5], sub_1CFE69B4C);
-  *v81 = v73;
-  v81[1] = v74;
-  *(v81 + v75[6]) = 6.0;
-  *(v81 + v75[7]) = v97;
-  *(v81 + v75[8]) = 0;
-  if (v79 > v80)
+  v98.i64[0] = v35;
+  v78 = v70 + v59;
+  v79 = v89 - v70;
+  v80 = (v77 + v76);
+  sub_1CFEBC1E4(v7, v80 + v74[5], sub_1CFE69B4C);
+  *v80 = v72;
+  v80[1] = v73;
+  *(v80 + v74[6]) = 6.0;
+  *(v80 + v74[7]) = v96;
+  *(v80 + v74[8]) = 0;
+  if (v78 > v79)
   {
 LABEL_66:
     __break(1u);
     goto LABEL_67;
   }
 
-  v97 = v12;
-  v98 = v15;
-  v82 = v88 - v72;
-  v83 = v69 - v71;
-  v84 = (v81 + v76);
-  result = sub_1CFEBC1E4(v7, v81 + v76 + v75[5], sub_1CFE69B4C);
-  *v84 = v79;
-  v84[1] = v80;
-  *(v84 + v75[6]) = 6.0;
-  *(v84 + v75[7]) = v96;
-  *(v84 + v75[8]) = v89 & 1;
-  if (v69 - v71 >= v82)
+  v96 = v12;
+  v97 = v15;
+  v81 = v87 - v71;
+  v82 = v68 - v70;
+  v83 = (v80 + v75);
+  sub_1CFEBC1E4(v7, v80 + v75 + v74[5], sub_1CFE69B4C);
+  *v83 = v78;
+  v83[1] = v79;
+  *(v83 + v74[6]) = 6.0;
+  *(v83 + v74[7]) = v95;
+  *(v83 + v74[8]) = v88 & 1;
+  if (v68 - v70 >= v81)
   {
-    v85 = v82;
+    v84 = v81;
   }
 
   else
   {
-    v85 = v69 - v71;
+    v84 = v68 - v70;
   }
 
-  if (v85 <= v83)
+  if (v84 <= v82)
   {
-    v86 = (v81 + 2 * v76);
-    sub_1CFEBC1E4(v7, v86 + v75[5], sub_1CFE69B4C);
-    *v86 = v85;
-    v86[1] = v83;
-    *(v86 + v75[6]) = 6.0;
-    *(v86 + v75[7]) = *v99.i64;
-    *(v86 + v75[8]) = 0;
+    v85 = (v80 + 2 * v75);
+    sub_1CFEBC1E4(v7, v85 + v74[5], sub_1CFE69B4C);
+    *v85 = v84;
+    v85[1] = v82;
+    *(v85 + v74[6]) = 6.0;
+    *(v85 + v74[7]) = *v98.i64;
+    *(v85 + v74[8]) = 0;
 
     sub_1CFEBC11C(v7, sub_1CFE69B4C);
+    sub_1CFEBC11C(v96, type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
     sub_1CFEBC11C(v97, type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
-    sub_1CFEBC11C(v98, type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
-    return v78;
+    return;
   }
 
 LABEL_67:
   __break(1u);
-  return result;
 }
 
-unint64_t sub_1CFEBAECC(uint64_t a1)
+uint64_t sub_1CFEBAECC(uint64_t a1)
 {
-  v47 = a1;
-  v51 = sub_1CFF0CCEC();
-  v44 = *(v51 - 8);
-  MEMORY[0x1EEE9AC00](v51);
-  v50 = &v42 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v48 = a1;
+  v52 = sub_1CFF0CCEC();
+  v45 = *(v52 - 8);
+  MEMORY[0x1EEE9AC00](v52);
+  v51 = &v43 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v3 = type metadata accessor for IndividualOvernightMetricChartPoint(0);
-  v48 = *(v3 - 8);
-  v49 = v3;
+  v49 = *(v3 - 8);
+  v50 = v3;
   MEMORY[0x1EEE9AC00](v3);
-  v5 = &v42 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v43 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = sub_1CFF0CB6C();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v45 = &v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for OvernightMetricsChartPoint();
+  v46 = &v43 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for OvernightMetricsChartPoint(0);
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
-  v12 = &v42 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v43 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFEBC3B8(0, qword_1EDEC4FC8, type metadata accessor for OvernightMetricsChartPoint, MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v13 - 8);
-  v15 = &v42 - v14;
-  sub_1CFEBC17C();
-  MEMORY[0x1EEE9AC00](v16 - 8);
-  v18 = &v42 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = *(v19 + 56);
-  *v18 = *v1;
-  sub_1CFEBC1E4(v47, &v18[v20], type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
-  if ((*v18 & 1) == 0)
+  v14 = MEMORY[0x1EEE9AC00](v13 - 8);
+  v16 = &v43 - v15;
+  sub_1CFEBC17C(0, v14);
+  MEMORY[0x1EEE9AC00](v17 - 8);
+  v19 = &v43 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = *(v20 + 56);
+  *v19 = *v1;
+  sub_1CFEBC1E4(v48, &v19[v21], type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
+  if ((*v19 & 1) == 0)
   {
-    v27 = type metadata accessor for OvernightMetricsChartBaselineBandColorValues();
-    sub_1CFE81C0C(&v1[*(v27 + 24)], v15);
-    if ((*(v10 + 48))(v15, 1, v9) == 1)
+    v28 = type metadata accessor for OvernightMetricsChartBaselineBandColorValues(0);
+    sub_1CFE81C0C(&v1[*(v28 + 24)], v16);
+    if ((*(v10 + 48))(v16, 1, v9) == 1)
     {
-      sub_1CFE81C8C(v15);
-      v25 = 0;
+      sub_1CFE81C8C(v16);
+      v26 = 0;
     }
 
     else
     {
-      v25 = v15[*(v9 + 28)];
-      sub_1CFEBC11C(v15, type metadata accessor for OvernightMetricsChartPoint);
+      v26 = v16[*(v9 + 28)];
+      sub_1CFEBC11C(v16, type metadata accessor for OvernightMetricsChartPoint);
     }
 
-    sub_1CFEBC11C(&v18[v20], type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
-    return v25;
+    sub_1CFEBC11C(&v19[v21], type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
+    return v26;
   }
 
-  if ((*(v7 + 48))(&v18[v20], 1, v6) == 1)
+  if ((*(v7 + 48))(&v19[v21], 1, v6) == 1)
   {
-    result = type metadata accessor for OvernightMetricsChartBaselineBandColorValues();
-    v22 = 0;
-    v23 = *&v1[*(result + 28)];
-    v24 = *(v23 + 16);
+    result = type metadata accessor for OvernightMetricsChartBaselineBandColorValues(0);
+    v23 = 0;
+    v24 = *&v1[*(result + 28)];
+    v25 = *(v24 + 16);
     while (1)
     {
-      v25 = v24 != v22;
-      if (v24 == v22)
+      v26 = v25 != v23;
+      if (v25 == v23)
       {
-        return v25;
+        return v26;
       }
 
-      if (v22 >= *(v23 + 16))
+      if (v23 >= *(v24 + 16))
       {
         __break(1u);
         goto LABEL_23;
       }
 
-      sub_1CFEBC1E4(v23 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v22++, v12, type metadata accessor for OvernightMetricsChartPoint);
-      v26 = v12[*(v9 + 28)];
+      sub_1CFEBC1E4(v24 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v23++, v12, type metadata accessor for OvernightMetricsChartPoint);
+      v27 = v12[*(v9 + 28)];
       result = sub_1CFEBC11C(v12, type metadata accessor for OvernightMetricsChartPoint);
-      if (v26)
+      if (v27)
       {
-        return v25;
+        return v26;
       }
     }
   }
 
-  v28 = *(v7 + 32);
-  v29 = &v18[v20];
-  v30 = v45;
-  v43 = v6;
-  v28(v45, v29, v6);
-  v31 = &v1[*(type metadata accessor for OvernightMetricsChartBaselineBandColorValues() + 28)];
-  result = type metadata accessor for OvernightMetricsChartPointCollection();
-  v32 = *&v31[*(result + 24)];
-  v33 = *(v32 + 16);
-  v42 = v7;
-  if (v33 && (result = sub_1CFEC3AB8(v30), (v34 & 1) != 0))
+  v29 = *(v7 + 32);
+  v30 = &v19[v21];
+  v31 = v46;
+  v44 = v6;
+  v29(v46, v30, v6);
+  v32 = &v1[*(type metadata accessor for OvernightMetricsChartBaselineBandColorValues(0) + 28)];
+  result = type metadata accessor for OvernightMetricsChartPointCollection(0);
+  v33 = *&v32[*(result + 24)];
+  v34 = *(v33 + 16);
+  v43 = v7;
+  if (v34 && (result = sub_1CFEC3AB8(v31), (v35 & 1) != 0))
   {
-    v35 = *(*(v32 + 56) + 8 * result);
+    v36 = *(*(v33 + 56) + 8 * result);
   }
 
   else
   {
-    v35 = MEMORY[0x1E69E7CC0];
+    v36 = MEMORY[0x1E69E7CC0];
   }
 
-  v36 = 0;
-  v47 = *(v35 + 16);
-  v46 = *MEMORY[0x1E69A2EE8];
-  v37 = (v44 + 104);
-  v38 = (v44 + 8);
+  v37 = 0;
+  v48 = *(v36 + 16);
+  v47 = *MEMORY[0x1E69A2EE8];
+  v38 = (v45 + 104);
+  v39 = (v45 + 8);
   while (1)
   {
-    v25 = v47 != v36;
-    if (v47 == v36)
+    v26 = v48 != v37;
+    if (v48 == v37)
     {
 LABEL_20:
 
-      (*(v42 + 8))(v45, v43);
-      return v25;
+      (*(v43 + 8))(v46, v44);
+      return v26;
     }
 
-    if (v36 >= *(v35 + 16))
+    if (v37 >= *(v36 + 16))
     {
       break;
     }
 
-    sub_1CFEBC1E4(v35 + ((*(v48 + 80) + 32) & ~*(v48 + 80)) + *(v48 + 72) * v36++, v5, type metadata accessor for IndividualOvernightMetricChartPoint);
-    v39 = v50;
+    sub_1CFEBC1E4(v36 + ((*(v49 + 80) + 32) & ~*(v49 + 80)) + *(v49 + 72) * v37++, v5, type metadata accessor for IndividualOvernightMetricChartPoint);
     v40 = v51;
-    (*v37)(v50, v46, v51);
-    v41 = sub_1CFF0CCDC();
-    (*v38)(v39, v40);
+    v41 = v52;
+    (*v38)(v51, v47, v52);
+    v42 = sub_1CFF0CCDC();
+    (*v39)(v40, v41);
     result = sub_1CFEBC11C(v5, type metadata accessor for IndividualOvernightMetricChartPoint);
-    if (v41)
+    if (v42)
     {
       goto LABEL_20;
     }
@@ -3470,7 +3468,7 @@ LABEL_23:
   return result;
 }
 
-uint64_t type metadata accessor for OvernightMetricsChartBaselineBandColorValues()
+uint64_t type metadata accessor for OvernightMetricsChartBaselineBandColorValues(uint64_t a1)
 {
   result = qword_1EDEC2468;
   if (!qword_1EDEC2468)
@@ -3481,134 +3479,134 @@ uint64_t type metadata accessor for OvernightMetricsChartBaselineBandColorValues
   return result;
 }
 
-unint64_t sub_1CFEBB4F8(uint64_t a1)
+uint64_t sub_1CFEBB4F8(uint64_t a1)
 {
-  v47 = a1;
-  v51 = sub_1CFF0CCEC();
-  v44 = *(v51 - 8);
-  MEMORY[0x1EEE9AC00](v51);
-  v50 = &v42 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v48 = a1;
+  v52 = sub_1CFF0CCEC();
+  v45 = *(v52 - 8);
+  MEMORY[0x1EEE9AC00](v52);
+  v51 = &v43 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v3 = type metadata accessor for IndividualOvernightMetricChartPoint(0);
-  v48 = *(v3 - 8);
-  v49 = v3;
+  v49 = *(v3 - 8);
+  v50 = v3;
   MEMORY[0x1EEE9AC00](v3);
-  v5 = &v42 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v43 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = sub_1CFF0CB6C();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v45 = &v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for OvernightMetricsChartPoint();
+  v46 = &v43 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for OvernightMetricsChartPoint(0);
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
-  v12 = &v42 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v43 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFEBC3B8(0, qword_1EDEC4FC8, type metadata accessor for OvernightMetricsChartPoint, MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v13 - 8);
-  v15 = &v42 - v14;
-  sub_1CFEBC17C();
-  MEMORY[0x1EEE9AC00](v16 - 8);
-  v18 = &v42 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = *(v19 + 56);
-  *v18 = *v1;
-  sub_1CFEBC1E4(v47, &v18[v20], type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
-  if ((*v18 & 1) == 0)
+  v14 = MEMORY[0x1EEE9AC00](v13 - 8);
+  v16 = &v43 - v15;
+  sub_1CFEBC17C(0, v14);
+  MEMORY[0x1EEE9AC00](v17 - 8);
+  v19 = &v43 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = *(v20 + 56);
+  *v19 = *v1;
+  sub_1CFEBC1E4(v48, &v19[v21], type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
+  if ((*v19 & 1) == 0)
   {
-    v27 = type metadata accessor for OvernightMetricsChartBaselineBandColorValues();
-    sub_1CFE81C0C(&v1[*(v27 + 24)], v15);
-    if ((*(v10 + 48))(v15, 1, v9) == 1)
+    v28 = type metadata accessor for OvernightMetricsChartBaselineBandColorValues(0);
+    sub_1CFE81C0C(&v1[*(v28 + 24)], v16);
+    if ((*(v10 + 48))(v16, 1, v9) == 1)
     {
-      sub_1CFE81C8C(v15);
-      v25 = 0;
+      sub_1CFE81C8C(v16);
+      v26 = 0;
     }
 
     else
     {
-      v25 = v15[*(v9 + 32)];
-      sub_1CFEBC11C(v15, type metadata accessor for OvernightMetricsChartPoint);
+      v26 = v16[*(v9 + 32)];
+      sub_1CFEBC11C(v16, type metadata accessor for OvernightMetricsChartPoint);
     }
 
-    sub_1CFEBC11C(&v18[v20], type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
-    return v25;
+    sub_1CFEBC11C(&v19[v21], type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
+    return v26;
   }
 
-  if ((*(v7 + 48))(&v18[v20], 1, v6) == 1)
+  if ((*(v7 + 48))(&v19[v21], 1, v6) == 1)
   {
-    result = type metadata accessor for OvernightMetricsChartBaselineBandColorValues();
-    v22 = 0;
-    v23 = *&v1[*(result + 28)];
-    v24 = *(v23 + 16);
+    result = type metadata accessor for OvernightMetricsChartBaselineBandColorValues(0);
+    v23 = 0;
+    v24 = *&v1[*(result + 28)];
+    v25 = *(v24 + 16);
     while (1)
     {
-      v25 = v24 != v22;
-      if (v24 == v22)
+      v26 = v25 != v23;
+      if (v25 == v23)
       {
-        return v25;
+        return v26;
       }
 
-      if (v22 >= *(v23 + 16))
+      if (v23 >= *(v24 + 16))
       {
         __break(1u);
         goto LABEL_23;
       }
 
-      sub_1CFEBC1E4(v23 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v22++, v12, type metadata accessor for OvernightMetricsChartPoint);
-      v26 = v12[*(v9 + 32)];
+      sub_1CFEBC1E4(v24 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v23++, v12, type metadata accessor for OvernightMetricsChartPoint);
+      v27 = v12[*(v9 + 32)];
       result = sub_1CFEBC11C(v12, type metadata accessor for OvernightMetricsChartPoint);
-      if (v26)
+      if (v27)
       {
-        return v25;
+        return v26;
       }
     }
   }
 
-  v28 = *(v7 + 32);
-  v29 = &v18[v20];
-  v30 = v45;
-  v43 = v6;
-  v28(v45, v29, v6);
-  v31 = &v1[*(type metadata accessor for OvernightMetricsChartBaselineBandColorValues() + 28)];
-  result = type metadata accessor for OvernightMetricsChartPointCollection();
-  v32 = *&v31[*(result + 24)];
-  v33 = *(v32 + 16);
-  v42 = v7;
-  if (v33 && (result = sub_1CFEC3AB8(v30), (v34 & 1) != 0))
+  v29 = *(v7 + 32);
+  v30 = &v19[v21];
+  v31 = v46;
+  v44 = v6;
+  v29(v46, v30, v6);
+  v32 = &v1[*(type metadata accessor for OvernightMetricsChartBaselineBandColorValues(0) + 28)];
+  result = type metadata accessor for OvernightMetricsChartPointCollection(0);
+  v33 = *&v32[*(result + 24)];
+  v34 = *(v33 + 16);
+  v43 = v7;
+  if (v34 && (result = sub_1CFEC3AB8(v31), (v35 & 1) != 0))
   {
-    v35 = *(*(v32 + 56) + 8 * result);
+    v36 = *(*(v33 + 56) + 8 * result);
   }
 
   else
   {
-    v35 = MEMORY[0x1E69E7CC0];
+    v36 = MEMORY[0x1E69E7CC0];
   }
 
-  v36 = 0;
-  v47 = *(v35 + 16);
-  v46 = *MEMORY[0x1E69A2EF0];
-  v37 = (v44 + 104);
-  v38 = (v44 + 8);
+  v37 = 0;
+  v48 = *(v36 + 16);
+  v47 = *MEMORY[0x1E69A2EF0];
+  v38 = (v45 + 104);
+  v39 = (v45 + 8);
   while (1)
   {
-    v25 = v47 != v36;
-    if (v47 == v36)
+    v26 = v48 != v37;
+    if (v48 == v37)
     {
 LABEL_20:
 
-      (*(v42 + 8))(v45, v43);
-      return v25;
+      (*(v43 + 8))(v46, v44);
+      return v26;
     }
 
-    if (v36 >= *(v35 + 16))
+    if (v37 >= *(v36 + 16))
     {
       break;
     }
 
-    sub_1CFEBC1E4(v35 + ((*(v48 + 80) + 32) & ~*(v48 + 80)) + *(v48 + 72) * v36++, v5, type metadata accessor for IndividualOvernightMetricChartPoint);
-    v39 = v50;
+    sub_1CFEBC1E4(v36 + ((*(v49 + 80) + 32) & ~*(v49 + 80)) + *(v49 + 72) * v37++, v5, type metadata accessor for IndividualOvernightMetricChartPoint);
     v40 = v51;
-    (*v37)(v50, v46, v51);
-    v41 = sub_1CFF0CCDC();
-    (*v38)(v39, v40);
+    v41 = v52;
+    (*v38)(v51, v47, v52);
+    v42 = sub_1CFF0CCDC();
+    (*v39)(v40, v41);
     result = sub_1CFEBC11C(v5, type metadata accessor for IndividualOvernightMetricChartPoint);
-    if (v41)
+    if (v42)
     {
       goto LABEL_20;
     }
@@ -3619,134 +3617,134 @@ LABEL_23:
   return result;
 }
 
-unint64_t sub_1CFEBBAD8(uint64_t a1)
+uint64_t sub_1CFEBBAD8(uint64_t a1)
 {
-  v47 = a1;
-  v51 = sub_1CFF0CCEC();
-  v44 = *(v51 - 8);
-  MEMORY[0x1EEE9AC00](v51);
-  v50 = &v42 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v48 = a1;
+  v52 = sub_1CFF0CCEC();
+  v45 = *(v52 - 8);
+  MEMORY[0x1EEE9AC00](v52);
+  v51 = &v43 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v3 = type metadata accessor for IndividualOvernightMetricChartPoint(0);
-  v48 = *(v3 - 8);
-  v49 = v3;
+  v49 = *(v3 - 8);
+  v50 = v3;
   MEMORY[0x1EEE9AC00](v3);
-  v5 = &v42 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v43 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = sub_1CFF0CB6C();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v45 = &v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for OvernightMetricsChartPoint();
+  v46 = &v43 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for OvernightMetricsChartPoint(0);
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
-  v12 = &v42 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v43 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFEBC3B8(0, qword_1EDEC4FC8, type metadata accessor for OvernightMetricsChartPoint, MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v13 - 8);
-  v15 = &v42 - v14;
-  sub_1CFEBC17C();
-  MEMORY[0x1EEE9AC00](v16 - 8);
-  v18 = &v42 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = *(v19 + 56);
-  *v18 = *v1;
-  sub_1CFEBC1E4(v47, &v18[v20], type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
-  if ((*v18 & 1) == 0)
+  v14 = MEMORY[0x1EEE9AC00](v13 - 8);
+  v16 = &v43 - v15;
+  sub_1CFEBC17C(0, v14);
+  MEMORY[0x1EEE9AC00](v17 - 8);
+  v19 = &v43 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = *(v20 + 56);
+  *v19 = *v1;
+  sub_1CFEBC1E4(v48, &v19[v21], type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
+  if ((*v19 & 1) == 0)
   {
-    v27 = type metadata accessor for OvernightMetricsChartBaselineBandColorValues();
-    sub_1CFE81C0C(&v1[*(v27 + 24)], v15);
-    if ((*(v10 + 48))(v15, 1, v9) == 1)
+    v28 = type metadata accessor for OvernightMetricsChartBaselineBandColorValues(0);
+    sub_1CFE81C0C(&v1[*(v28 + 24)], v16);
+    if ((*(v10 + 48))(v16, 1, v9) == 1)
     {
-      sub_1CFE81C8C(v15);
-      v25 = 0;
+      sub_1CFE81C8C(v16);
+      v26 = 0;
     }
 
     else
     {
-      v25 = v15[*(v9 + 36)];
-      sub_1CFEBC11C(v15, type metadata accessor for OvernightMetricsChartPoint);
+      v26 = v16[*(v9 + 36)];
+      sub_1CFEBC11C(v16, type metadata accessor for OvernightMetricsChartPoint);
     }
 
-    sub_1CFEBC11C(&v18[v20], type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
-    return v25;
+    sub_1CFEBC11C(&v19[v21], type metadata accessor for OvernightMetricsChartAnimationValues.Selection);
+    return v26;
   }
 
-  if ((*(v7 + 48))(&v18[v20], 1, v6) == 1)
+  if ((*(v7 + 48))(&v19[v21], 1, v6) == 1)
   {
-    result = type metadata accessor for OvernightMetricsChartBaselineBandColorValues();
-    v22 = 0;
-    v23 = *&v1[*(result + 28)];
-    v24 = *(v23 + 16);
+    result = type metadata accessor for OvernightMetricsChartBaselineBandColorValues(0);
+    v23 = 0;
+    v24 = *&v1[*(result + 28)];
+    v25 = *(v24 + 16);
     while (1)
     {
-      v25 = v24 != v22;
-      if (v24 == v22)
+      v26 = v25 != v23;
+      if (v25 == v23)
       {
-        return v25;
+        return v26;
       }
 
-      if (v22 >= *(v23 + 16))
+      if (v23 >= *(v24 + 16))
       {
         __break(1u);
         goto LABEL_23;
       }
 
-      sub_1CFEBC1E4(v23 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v22++, v12, type metadata accessor for OvernightMetricsChartPoint);
-      v26 = v12[*(v9 + 36)];
+      sub_1CFEBC1E4(v24 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v23++, v12, type metadata accessor for OvernightMetricsChartPoint);
+      v27 = v12[*(v9 + 36)];
       result = sub_1CFEBC11C(v12, type metadata accessor for OvernightMetricsChartPoint);
-      if (v26)
+      if (v27)
       {
-        return v25;
+        return v26;
       }
     }
   }
 
-  v28 = *(v7 + 32);
-  v29 = &v18[v20];
-  v30 = v45;
-  v43 = v6;
-  v28(v45, v29, v6);
-  v31 = &v1[*(type metadata accessor for OvernightMetricsChartBaselineBandColorValues() + 28)];
-  result = type metadata accessor for OvernightMetricsChartPointCollection();
-  v32 = *&v31[*(result + 24)];
-  v33 = *(v32 + 16);
-  v42 = v7;
-  if (v33 && (result = sub_1CFEC3AB8(v30), (v34 & 1) != 0))
+  v29 = *(v7 + 32);
+  v30 = &v19[v21];
+  v31 = v46;
+  v44 = v6;
+  v29(v46, v30, v6);
+  v32 = &v1[*(type metadata accessor for OvernightMetricsChartBaselineBandColorValues(0) + 28)];
+  result = type metadata accessor for OvernightMetricsChartPointCollection(0);
+  v33 = *&v32[*(result + 24)];
+  v34 = *(v33 + 16);
+  v43 = v7;
+  if (v34 && (result = sub_1CFEC3AB8(v31), (v35 & 1) != 0))
   {
-    v35 = *(*(v32 + 56) + 8 * result);
+    v36 = *(*(v33 + 56) + 8 * result);
   }
 
   else
   {
-    v35 = MEMORY[0x1E69E7CC0];
+    v36 = MEMORY[0x1E69E7CC0];
   }
 
-  v36 = 0;
-  v47 = *(v35 + 16);
-  v46 = *MEMORY[0x1E69A2EE0];
-  v37 = (v44 + 104);
-  v38 = (v44 + 8);
+  v37 = 0;
+  v48 = *(v36 + 16);
+  v47 = *MEMORY[0x1E69A2EE0];
+  v38 = (v45 + 104);
+  v39 = (v45 + 8);
   while (1)
   {
-    v25 = v47 != v36;
-    if (v47 == v36)
+    v26 = v48 != v37;
+    if (v48 == v37)
     {
 LABEL_20:
 
-      (*(v42 + 8))(v45, v43);
-      return v25;
+      (*(v43 + 8))(v46, v44);
+      return v26;
     }
 
-    if (v36 >= *(v35 + 16))
+    if (v37 >= *(v36 + 16))
     {
       break;
     }
 
-    sub_1CFEBC1E4(v35 + ((*(v48 + 80) + 32) & ~*(v48 + 80)) + *(v48 + 72) * v36++, v5, type metadata accessor for IndividualOvernightMetricChartPoint);
-    v39 = v50;
+    sub_1CFEBC1E4(v36 + ((*(v49 + 80) + 32) & ~*(v49 + 80)) + *(v49 + 72) * v37++, v5, type metadata accessor for IndividualOvernightMetricChartPoint);
     v40 = v51;
-    (*v37)(v50, v46, v51);
-    v41 = sub_1CFF0CCDC();
-    (*v38)(v39, v40);
+    v41 = v52;
+    (*v38)(v51, v47, v52);
+    v42 = sub_1CFF0CCDC();
+    (*v39)(v40, v41);
     result = sub_1CFEBC11C(v5, type metadata accessor for IndividualOvernightMetricChartPoint);
-    if (v41)
+    if (v42)
     {
       goto LABEL_20;
     }
@@ -3759,7 +3757,7 @@ LABEL_23:
 
 uint64_t sub_1CFEBC0B8(uint64_t a1, uint64_t a2)
 {
-  sub_1CFE69B4C();
+  sub_1CFE69B4C(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -3771,13 +3769,13 @@ uint64_t sub_1CFEBC11C(uint64_t a1, uint64_t (*a2)(void))
   return a1;
 }
 
-void sub_1CFEBC17C()
+void sub_1CFEBC17C(uint64_t a1, double a2)
 {
   if (!qword_1EDEC4888)
   {
-    type metadata accessor for OvernightMetricsChartAnimationValues.Selection();
+    type metadata accessor for OvernightMetricsChartAnimationValues.Selection(255);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v3)
     {
       atomic_store(TupleTypeMetadata2, &qword_1EDEC4888);
     }
@@ -3791,22 +3789,22 @@ uint64_t sub_1CFEBC1E4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-void sub_1CFEBC274()
+void sub_1CFEBC274(uint64_t a1)
 {
   sub_1CFEBC3B8(319, &qword_1EDEC4D58, MEMORY[0x1E69A2E68], MEMORY[0x1E69E62F8]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1CFEBC3B8(319, qword_1EDEC4FC8, type metadata accessor for OvernightMetricsChartPoint, MEMORY[0x1E69E6720]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for OvernightMetricsChartPointCollection();
-      if (v2 <= 0x3F)
+      type metadata accessor for OvernightMetricsChartPointCollection(319);
+      if (v3 <= 0x3F)
       {
         type metadata accessor for OvernightMetricsChart.Derivations(319);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for OvernightMetricsChartLayout(319);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -3829,7 +3827,7 @@ void sub_1CFEBC3B8(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-uint64_t type metadata accessor for OvernightMetricsChartPointShadow()
+uint64_t type metadata accessor for OvernightMetricsChartPointShadow(uint64_t a1)
 {
   result = qword_1EDEC3040;
   if (!qword_1EDEC3040)
@@ -3843,7 +3841,7 @@ uint64_t type metadata accessor for OvernightMetricsChartPointShadow()
 uint64_t sub_1CFEBC4AC@<X0>(uint64_t a1@<X8>)
 {
   v2 = v1;
-  v4 = type metadata accessor for OvernightMetricsChartPointShadow();
+  v4 = type metadata accessor for OvernightMetricsChartPointShadow(0);
   memcpy(__dst, (v1 + v4[8]), 0x118uLL);
   v5 = __dst[8];
   v6 = __dst[9];
@@ -3909,7 +3907,7 @@ uint64_t sub_1CFEBC4AC@<X0>(uint64_t a1@<X8>)
     v19 = qword_1EDEC82D0;
     swift_getKeyPath();
     v33[0] = v19;
-    sub_1CFEBCD2C(&qword_1EDEC27D0, type metadata accessor for GlobalOvernightMetricsChartAnimationState);
+    sub_1CFEBCD2C(&qword_1EDEC27D0, type metadata accessor for GlobalOvernightMetricsChartAnimationState, &unk_1CFF133E8);
     sub_1CFF0C8DC();
 
     v15 = *(v19 + 16);
@@ -3994,7 +3992,7 @@ uint64_t sub_1CFEBC7AC()
 
   v7 = *v6;
   sub_1CFF0DE3C();
-  v8 = type metadata accessor for OvernightMetricsChartPointShadow();
+  v8 = type metadata accessor for OvernightMetricsChartPointShadow(0);
   if (*(v0 + *(v8 + 32) + 56))
   {
     v9 = v0 + *(v8 + 20);
@@ -4021,7 +4019,7 @@ uint64_t sub_1CFEBC7AC()
       v14 = qword_1EDEC82D0;
       swift_getKeyPath();
       v18[0] = v14;
-      sub_1CFEBCD2C(&qword_1EDEC27D0, type metadata accessor for GlobalOvernightMetricsChartAnimationState);
+      sub_1CFEBCD2C(&qword_1EDEC27D0, type metadata accessor for GlobalOvernightMetricsChartAnimationState, &unk_1CFF133E8);
       sub_1CFF0C8DC();
 
       v12 = *(v14 + 16);
@@ -4045,7 +4043,7 @@ unint64_t sub_1CFEBCAEC()
   result = qword_1EDEC1CC0;
   if (!qword_1EDEC1CC0)
   {
-    sub_1CFEBCBF0(255, &qword_1EDEC1CB8, sub_1CFEBCBC8);
+    sub_1CFEBCBF0(255, &qword_1EDEC1CB8, sub_1CFEBCBC8, MEMORY[0x1E697E5C8]);
     sub_1CFEBCCAC(&qword_1EDEC1D40, sub_1CFEBCBC8, sub_1CFE82908);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EDEC1CC0);
@@ -4054,15 +4052,15 @@ unint64_t sub_1CFEBCAEC()
   return result;
 }
 
-void sub_1CFEBCBF0(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1CFEBCBF0(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   if (!*a2)
   {
     a3(255);
-    v4 = sub_1CFF0D62C();
-    if (!v5)
+    v5 = sub_1CFF0D62C();
+    if (!v6)
     {
-      atomic_store(v4, a2);
+      atomic_store(v5, a2);
     }
   }
 }
@@ -4079,7 +4077,7 @@ void sub_1CFEBCC54()
   }
 }
 
-uint64_t sub_1CFEBCCAC(unint64_t *a1, void (*a2)(uint64_t), void (*a3)(void))
+uint64_t sub_1CFEBCCAC(unint64_t *a1, uint64_t (*a2)(uint64_t), void (*a3)(void))
 {
   result = *a1;
   if (!result)
@@ -4093,7 +4091,7 @@ uint64_t sub_1CFEBCCAC(unint64_t *a1, void (*a2)(uint64_t), void (*a3)(void))
   return result;
 }
 
-uint64_t sub_1CFEBCD2C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1CFEBCD2C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4106,7 +4104,7 @@ uint64_t sub_1CFEBCD2C(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-void *sub_1CFEBCD74@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void *sub_1CFEBCD74@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v5[2] = a1;
   result = sub_1CFEDAB5C(sub_1CFEBF9BC, v5, a2);
@@ -4116,15 +4114,15 @@ void *sub_1CFEBCD74@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 
 uint64_t sub_1CFEBCDD0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = a1 + *(type metadata accessor for OvernightMetricsChartPoint() + 20);
-  v4 = type metadata accessor for IndividualOvernightMetricChartPointCollection();
+  v3 = a1 + *(type metadata accessor for OvernightMetricsChartPoint(0) + 20);
+  v4 = type metadata accessor for IndividualOvernightMetricChartPointCollection(0);
   return sub_1CFE6AF58(sub_1CFEBF9D8, *(v3 + *(v4 + 20)), a2);
 }
 
 BOOL sub_1CFEBCE54()
 {
   sub_1CFF0CB6C();
-  sub_1CFEBF9F8(&qword_1EDEC4CD0, MEMORY[0x1E69A2E68]);
+  sub_1CFEBF9F8(&qword_1EDEC4CD0, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2E88]);
   sub_1CFF0E63C();
   sub_1CFF0E63C();
   return v2 == v1;
@@ -4134,7 +4132,7 @@ void static OvernightMetricsChartPointCollection.== infix(_:_:)(uint64_t *a1, ui
 {
   if (sub_1CFE911B0(*a1, *a2))
   {
-    v4 = type metadata accessor for OvernightMetricsChartPointCollection();
+    v4 = type metadata accessor for OvernightMetricsChartPointCollection(0);
     if (MEMORY[0x1D38775A0](a1 + *(v4 + 20), a2 + *(v4 + 20)))
     {
       v5 = *(v4 + 24);
@@ -4146,7 +4144,7 @@ void static OvernightMetricsChartPointCollection.== infix(_:_:)(uint64_t *a1, ui
   }
 }
 
-uint64_t type metadata accessor for OvernightMetricsChartPointCollection()
+uint64_t type metadata accessor for OvernightMetricsChartPointCollection(uint64_t a1)
 {
   result = qword_1EDEC4EB0;
   if (!qword_1EDEC4EB0)
@@ -4198,7 +4196,7 @@ LABEL_16:
       v27 = v46;
       (*(v46 + 16))(v45, *(v42 + 48) + *(v46 + 72) * v20, v51, v11);
       v28 = *(*(v26 + 56) + 8 * v20);
-      sub_1CFEBF8E8();
+      sub_1CFEBF8E8(0);
       v30 = v29;
       v31 = *(v29 + 48);
       v23 = v48;
@@ -4209,7 +4207,7 @@ LABEL_16:
 LABEL_17:
       v32 = v44;
       sub_1CFEBF954(v23, v44, sub_1CFEBF8B4);
-      sub_1CFEBF8E8();
+      sub_1CFEBF8E8(0);
       if ((*(*(v30 - 8) + 48))(v32, 1, v30) == 1)
       {
         return;
@@ -4260,7 +4258,7 @@ LABEL_17:
 
       if (v24 >= v19)
       {
-        sub_1CFEBF8E8();
+        sub_1CFEBF8E8(0);
         v30 = v40;
         (*(*(v40 - 8) + 56))(v23, 1, 1, v40);
         v50 = 0;
@@ -4286,155 +4284,155 @@ LABEL_17:
 void sub_1CFEBD428(uint64_t a1, uint64_t a2)
 {
   v4 = sub_1CFF0CA6C();
-  v81 = *(v4 - 8);
+  v82 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
-  v6 = &v61 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v62 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v79 = &v61 - v8;
-  v80 = sub_1CFF0CB6C();
-  v72 = *(v80 - 8);
-  MEMORY[0x1EEE9AC00](v80);
-  v73 = &v61 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v71 = &v61 - v11;
-  sub_1CFEBF7F8(0);
-  MEMORY[0x1EEE9AC00](v12 - 8);
-  v16.n128_f64[0] = MEMORY[0x1EEE9AC00](v13);
+  v80 = &v62 - v8;
+  v81 = sub_1CFF0CB6C();
+  v73 = *(v81 - 8);
+  MEMORY[0x1EEE9AC00](v81);
+  v74 = &v62 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11.n128_f64[0] = MEMORY[0x1EEE9AC00](v10);
+  v72 = &v62 - v12;
+  sub_1CFEBF7F8(0, v11);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v17.n128_f64[0] = MEMORY[0x1EEE9AC00](v14);
   if (a1 != a2 && *(a1 + 16) == *(a2 + 16))
   {
-    v69 = a2;
-    v70 = &v61 - v14;
-    v74 = v15;
-    v68 = v6;
-    v17 = 0;
-    v65 = a1;
-    v20 = *(a1 + 64);
-    v19 = a1 + 64;
-    v18 = v20;
-    v21 = 1 << *(v19 - 32);
-    v22 = -1;
-    if (v21 < 64)
+    v70 = a2;
+    v71 = &v62 - v15;
+    v75 = v16;
+    v69 = v6;
+    v18 = 0;
+    v66 = a1;
+    v21 = *(a1 + 64);
+    v20 = a1 + 64;
+    v19 = v21;
+    v22 = 1 << *(v20 - 32);
+    v23 = -1;
+    if (v22 < 64)
     {
-      v22 = ~(-1 << v21);
+      v23 = ~(-1 << v22);
     }
 
-    v23 = v22 & v18;
-    v62 = (v21 + 63) >> 6;
-    v63 = v19;
-    v64 = v72 + 16;
-    v78 = (v72 + 32);
-    v76 = v81 + 16;
-    v77 = (v81 + 32);
-    v66 = (v72 + 8);
-    v67 = (v81 + 8);
-    while (v23)
+    v24 = v23 & v19;
+    v63 = (v22 + 63) >> 6;
+    v64 = v20;
+    v65 = v73 + 16;
+    v79 = (v73 + 32);
+    v77 = v82 + 16;
+    v78 = (v82 + 32);
+    v67 = (v73 + 8);
+    v68 = (v82 + 8);
+    while (v24)
     {
-      v75 = (v23 - 1) & v23;
-      v24 = __clz(__rbit64(v23)) | (v17 << 6);
+      v76 = (v24 - 1) & v24;
+      v25 = __clz(__rbit64(v24)) | (v18 << 6);
 LABEL_16:
-      v31 = v65;
-      v33 = v71;
-      v32 = v72;
-      v34 = v80;
-      (*(v72 + 16))(v71, *(v65 + 48) + *(v72 + 72) * v24, v80, v16);
-      v35 = *(v31 + 56);
-      v36 = v81;
-      v37 = v79;
-      (*(v81 + 16))(v79, v35 + *(v81 + 72) * v24, v4);
+      v32 = v66;
+      v34 = v72;
+      v33 = v73;
+      v35 = v81;
+      (*(v73 + 16))(v72, *(v66 + 48) + *(v73 + 72) * v25, v81, v17);
+      v36 = *(v32 + 56);
+      v37 = v82;
+      v38 = v80;
+      (*(v82 + 16))(v80, v36 + *(v82 + 72) * v25, v4);
       sub_1CFEBF834(0, &qword_1EC512A18, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2DC0]);
-      v39 = v38;
-      v40 = v4;
-      v41 = *(v38 + 48);
-      v42 = *(v32 + 32);
-      v28 = v74;
-      v42(v74, v33, v34);
-      v43 = v28 + v41;
-      v44 = v40;
-      (*(v36 + 32))(v43, v37, v40);
-      (*(*(v39 - 8) + 56))(v28, 0, 1, v39);
-      v23 = v75;
+      v40 = v39;
+      v41 = v4;
+      v42 = *(v39 + 48);
+      v43 = *(v33 + 32);
+      v29 = v75;
+      v43(v75, v34, v35);
+      v44 = v29 + v42;
+      v45 = v41;
+      (*(v37 + 32))(v44, v38, v41);
+      (*(*(v40 - 8) + 56))(v29, 0, 1, v40);
+      v24 = v76;
 LABEL_17:
-      v45 = v70;
-      sub_1CFEBF954(v28, v70, sub_1CFEBF7F8);
+      v46 = v71;
+      sub_1CFEBF954(v29, v71, sub_1CFEBF7F8);
       sub_1CFEBF834(0, &qword_1EC512A18, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2DC0]);
-      if ((*(*(v39 - 8) + 48))(v45, 1, v39) == 1)
+      if ((*(*(v40 - 8) + 48))(v46, 1, v40) == 1)
       {
         return;
       }
 
-      v46 = *(v39 + 48);
-      v47 = v44;
-      v48 = v73;
-      v49 = v80;
-      (*v78)(v73, v45, v80);
-      v50 = v68;
-      (*v77)(v68, v45 + v46, v44);
+      v47 = *(v40 + 48);
+      v48 = v45;
+      v49 = v74;
+      v50 = v81;
+      (*v79)(v74, v46, v81);
       v51 = v69;
-      v52 = sub_1CFEC3AB8(v48);
-      v54 = v53;
-      (*v66)(v48, v49);
-      if ((v54 & 1) == 0)
+      (*v78)(v69, v46 + v47, v45);
+      v52 = v70;
+      v53 = sub_1CFEC3AB8(v49);
+      v55 = v54;
+      (*v67)(v49, v50);
+      if ((v55 & 1) == 0)
       {
-        (*v67)(v50, v47);
+        (*v68)(v51, v48);
         return;
       }
 
-      v55 = v81;
-      v56 = *(v51 + 56) + *(v81 + 72) * v52;
-      v57 = v79;
-      (*(v81 + 16))(v79, v56, v47);
-      sub_1CFEBF9F8(&qword_1EC512A20, MEMORY[0x1E69A2DC0]);
-      v58 = sub_1CFF0E4CC();
-      v59 = *(v55 + 8);
-      v59(v57, v47);
-      v59(v50, v47);
-      v4 = v47;
-      if ((v58 & 1) == 0)
+      v56 = v82;
+      v57 = *(v52 + 56) + *(v82 + 72) * v53;
+      v58 = v80;
+      (*(v82 + 16))(v80, v57, v48);
+      sub_1CFEBF9F8(&qword_1EC512A20, MEMORY[0x1E69A2DC0], MEMORY[0x1E69A2DD0]);
+      v59 = sub_1CFF0E4CC();
+      v60 = *(v56 + 8);
+      v60(v58, v48);
+      v60(v51, v48);
+      v4 = v48;
+      if ((v59 & 1) == 0)
       {
         return;
       }
     }
 
-    v25 = v4;
-    if (v62 <= v17 + 1)
+    v26 = v4;
+    if (v63 <= v18 + 1)
     {
-      v26 = v17 + 1;
+      v27 = v18 + 1;
     }
 
     else
     {
-      v26 = v62;
+      v27 = v63;
     }
 
-    v27 = v26 - 1;
-    v28 = v74;
+    v28 = v27 - 1;
+    v29 = v75;
     while (1)
     {
-      v29 = v17 + 1;
-      if (__OFADD__(v17, 1))
+      v30 = v18 + 1;
+      if (__OFADD__(v18, 1))
       {
         break;
       }
 
-      if (v29 >= v62)
+      if (v30 >= v63)
       {
         sub_1CFEBF834(0, &qword_1EC512A18, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2DC0]);
-        v39 = v60;
-        (*(*(v60 - 8) + 56))(v28, 1, 1, v60);
-        v23 = 0;
-        v17 = v27;
-        v44 = v25;
+        v40 = v61;
+        (*(*(v61 - 8) + 56))(v29, 1, 1, v61);
+        v24 = 0;
+        v18 = v28;
+        v45 = v26;
         goto LABEL_17;
       }
 
-      v30 = *(v63 + 8 * v29);
-      ++v17;
-      if (v30)
+      v31 = *(v64 + 8 * v30);
+      ++v18;
+      if (v31)
       {
-        v75 = (v30 - 1) & v30;
-        v24 = __clz(__rbit64(v30)) | (v29 << 6);
-        v17 = v29;
-        v4 = v25;
+        v76 = (v31 - 1) & v31;
+        v25 = __clz(__rbit64(v31)) | (v30 << 6);
+        v18 = v30;
+        v4 = v26;
         goto LABEL_16;
       }
     }
@@ -4511,108 +4509,108 @@ LABEL_13:
 void sub_1CFEBDBE0(uint64_t a1, uint64_t a2)
 {
   v4 = sub_1CFF0CCEC();
-  v59 = *(v4 - 8);
-  v60 = v4;
+  v60 = *(v4 - 8);
+  v61 = v4;
   MEMORY[0x1EEE9AC00](v4);
-  v57 = &v49 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = &v49 - v7;
-  sub_1CFEBF6C0(0);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v11 = &v49 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13.n128_f64[0] = MEMORY[0x1EEE9AC00](v12);
-  v15 = &v49 - v14;
+  v58 = &v50 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7.n128_f64[0] = MEMORY[0x1EEE9AC00](v6);
+  v9 = &v50 - v8;
+  sub_1CFEBF6C0(0, v7);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v50 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14.n128_f64[0] = MEMORY[0x1EEE9AC00](v13);
+  v16 = &v50 - v15;
   if (a1 != a2 && *(a1 + 16) == *(a2 + 16))
   {
-    v16 = 0;
-    v17 = *(a1 + 64);
-    v50 = a1 + 64;
-    v18 = 1 << *(a1 + 32);
-    v19 = -1;
-    if (v18 < 64)
+    v17 = 0;
+    v18 = *(a1 + 64);
+    v51 = a1 + 64;
+    v19 = 1 << *(a1 + 32);
+    v20 = -1;
+    if (v19 < 64)
     {
-      v19 = ~(-1 << v18);
+      v20 = ~(-1 << v19);
     }
 
-    v20 = v19 & v17;
-    v21 = (v18 + 63) >> 6;
-    v52 = a1;
-    v53 = v59 + 16;
-    v58 = (v59 + 32);
-    v54 = a2;
-    v55 = (v59 + 8);
-    v51 = v21;
-    while (v20)
+    v21 = v20 & v18;
+    v22 = (v19 + 63) >> 6;
+    v53 = a1;
+    v54 = v60 + 16;
+    v59 = (v60 + 32);
+    v55 = a2;
+    v56 = (v60 + 8);
+    v52 = v22;
+    while (v21)
     {
-      v22 = v8;
-      v56 = (v20 - 1) & v20;
-      v23 = __clz(__rbit64(v20)) | (v16 << 6);
+      v23 = v9;
+      v57 = (v21 - 1) & v21;
+      v24 = __clz(__rbit64(v21)) | (v17 << 6);
 LABEL_17:
-      v29 = v59;
-      v28 = v60;
-      (*(v59 + 16))(v22, *(a1 + 48) + *(v59 + 72) * v23, v60, v13);
-      v30 = *(*(a1 + 56) + 8 * v23);
+      v30 = v60;
+      v29 = v61;
+      (*(v60 + 16))(v23, *(a1 + 48) + *(v60 + 72) * v24, v61, v14);
+      v31 = *(*(a1 + 56) + 8 * v24);
       sub_1CFEBF834(0, &qword_1EDEC4968, MEMORY[0x1E69A2EF8], sub_1CFE71094);
-      v32 = v31;
-      v33 = *(v31 + 48);
-      v34 = *(v29 + 32);
-      v8 = v22;
-      v34(v11, v22, v28);
-      *&v11[v33] = v30;
-      (*(*(v32 - 8) + 56))(v11, 0, 1, v32);
+      v33 = v32;
+      v34 = *(v32 + 48);
+      v35 = *(v30 + 32);
+      v9 = v23;
+      v35(v12, v23, v29);
+      *&v12[v34] = v31;
+      (*(*(v33 - 8) + 56))(v12, 0, 1, v33);
 
-      a2 = v54;
+      a2 = v55;
 LABEL_18:
-      sub_1CFEBF954(v11, v15, sub_1CFEBF6C0);
+      sub_1CFEBF954(v12, v16, sub_1CFEBF6C0);
       sub_1CFEBF834(0, &qword_1EDEC4968, MEMORY[0x1E69A2EF8], sub_1CFE71094);
-      if ((*(*(v32 - 8) + 48))(v15, 1, v32) == 1)
+      if ((*(*(v33 - 8) + 48))(v16, 1, v33) == 1)
       {
         return;
       }
 
-      v35 = v11;
-      v36 = v8;
-      v37 = *(v32 + 48);
-      v38 = v57;
-      v39 = v60;
-      (*v58)(v57, v15, v60);
-      v40 = *&v15[v37];
-      v41 = sub_1CFEC3BD8(v38);
-      LOBYTE(v37) = v42;
-      (*v55)(v38, v39);
-      if ((v37 & 1) == 0 || (v43 = *(*(a2 + 56) + 8 * v41), v44 = *(v43 + 16), v44 != *(v40 + 16)))
+      v36 = v12;
+      v37 = v9;
+      v38 = *(v33 + 48);
+      v39 = v58;
+      v40 = v61;
+      (*v59)(v58, v16, v61);
+      v41 = *&v16[v38];
+      v42 = sub_1CFEC3BD8(v39);
+      LOBYTE(v38) = v43;
+      (*v56)(v39, v40);
+      if ((v38 & 1) == 0 || (v44 = *(*(a2 + 56) + 8 * v42), v45 = *(v44 + 16), v45 != *(v41 + 16)))
       {
 LABEL_33:
 
         return;
       }
 
-      if (v44)
+      if (v45)
       {
-        v45 = v43 == v40;
+        v46 = v44 == v41;
       }
 
       else
       {
-        v45 = 1;
+        v46 = 1;
       }
 
-      v8 = v36;
-      v11 = v35;
-      if (!v45)
+      v9 = v37;
+      v12 = v36;
+      if (!v46)
       {
-        v46 = (v43 + 40);
-        v47 = (v40 + 40);
-        while (v44)
+        v47 = (v44 + 40);
+        v48 = (v41 + 40);
+        while (v45)
         {
-          if (*(v46 - 1) != *(v47 - 1) || *v46 != *v47)
+          if (*(v47 - 1) != *(v48 - 1) || *v47 != *v48)
           {
             goto LABEL_33;
           }
 
-          v46 += 2;
           v47 += 2;
-          if (!--v44)
+          v48 += 2;
+          if (!--v45)
           {
             goto LABEL_6;
           }
@@ -4623,48 +4621,48 @@ LABEL_33:
 
 LABEL_6:
 
-      v21 = v51;
-      a1 = v52;
-      v20 = v56;
+      v22 = v52;
+      a1 = v53;
+      v21 = v57;
     }
 
-    if (v21 <= v16 + 1)
+    if (v22 <= v17 + 1)
     {
-      v24 = v16 + 1;
+      v25 = v17 + 1;
     }
 
     else
     {
-      v24 = v21;
+      v25 = v22;
     }
 
-    v25 = v24 - 1;
+    v26 = v25 - 1;
     while (1)
     {
-      v26 = v16 + 1;
-      if (__OFADD__(v16, 1))
+      v27 = v17 + 1;
+      if (__OFADD__(v17, 1))
       {
         break;
       }
 
-      if (v26 >= v21)
+      if (v27 >= v22)
       {
         sub_1CFEBF834(0, &qword_1EDEC4968, MEMORY[0x1E69A2EF8], sub_1CFE71094);
-        v32 = v48;
-        (*(*(v48 - 8) + 56))(v11, 1, 1, v48);
-        v56 = 0;
-        v16 = v25;
+        v33 = v49;
+        (*(*(v49 - 8) + 56))(v12, 1, 1, v49);
+        v57 = 0;
+        v17 = v26;
         goto LABEL_18;
       }
 
-      v27 = *(v50 + 8 * v26);
-      ++v16;
-      if (v27)
+      v28 = *(v51 + 8 * v27);
+      ++v17;
+      if (v28)
       {
-        v22 = v8;
-        v56 = (v27 - 1) & v27;
-        v23 = __clz(__rbit64(v27)) | (v26 << 6);
-        v16 = v26;
+        v23 = v9;
+        v57 = (v28 - 1) & v28;
+        v24 = __clz(__rbit64(v28)) | (v27 << 6);
+        v17 = v27;
         goto LABEL_17;
       }
     }
@@ -4677,123 +4675,123 @@ LABEL_36:
 
 void sub_1CFEBE114(uint64_t a1, uint64_t a2)
 {
-  v53 = sub_1CFF0CCEC();
-  v48 = *(v53 - 8);
-  MEMORY[0x1EEE9AC00](v53);
-  v49 = &v40 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v47 = &v40 - v6;
-  sub_1CFEBF7BC(0);
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v11.n128_f64[0] = MEMORY[0x1EEE9AC00](v8);
+  v54 = sub_1CFF0CCEC();
+  v49 = *(v54 - 8);
+  MEMORY[0x1EEE9AC00](v54);
+  v50 = &v41 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6.n128_f64[0] = MEMORY[0x1EEE9AC00](v5);
+  v48 = &v41 - v7;
+  sub_1CFEBF7BC(0, v6);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v12.n128_f64[0] = MEMORY[0x1EEE9AC00](v9);
   if (a1 != a2 && *(a1 + 16) == *(a2 + 16))
   {
-    v46 = &v40 - v9;
-    v12 = 0;
-    v44 = a1;
-    v15 = *(a1 + 64);
-    v14 = a1 + 64;
-    v13 = v15;
-    v16 = 1 << *(v14 - 32);
-    v17 = -1;
-    if (v16 < 64)
+    v47 = &v41 - v10;
+    v13 = 0;
+    v45 = a1;
+    v16 = *(a1 + 64);
+    v15 = a1 + 64;
+    v14 = v16;
+    v17 = 1 << *(v15 - 32);
+    v18 = -1;
+    if (v17 < 64)
     {
-      v17 = ~(-1 << v16);
+      v18 = ~(-1 << v17);
     }
 
-    v18 = v17 & v13;
-    v41 = (v16 + 63) >> 6;
-    v42 = v14;
-    v43 = v48 + 16;
-    v50 = v10;
-    v51 = (v48 + 32);
-    v45 = (v48 + 8);
-    while (v18)
+    v19 = v18 & v14;
+    v42 = (v17 + 63) >> 6;
+    v43 = v15;
+    v44 = v49 + 16;
+    v51 = v11;
+    v52 = (v49 + 32);
+    v46 = (v49 + 8);
+    while (v19)
     {
-      v52 = (v18 - 1) & v18;
-      v19 = __clz(__rbit64(v18)) | (v12 << 6);
+      v53 = (v19 - 1) & v19;
+      v20 = __clz(__rbit64(v19)) | (v13 << 6);
 LABEL_16:
-      v25 = v44;
-      v26 = v48;
-      (*(v48 + 16))(v47, *(v44 + 48) + *(v48 + 72) * v19, v53, v11);
-      v27 = *(*(v25 + 56) + 8 * v19);
+      v26 = v45;
+      v27 = v49;
+      (*(v49 + 16))(v48, *(v45 + 48) + *(v49 + 72) * v20, v54, v12);
+      v28 = *(*(v26 + 56) + 8 * v20);
       sub_1CFEBF834(0, &qword_1EDEC4CA8, MEMORY[0x1E69A2EF8], sub_1CFE709D4);
-      v29 = v28;
-      v30 = *(v28 + 48);
-      v22 = v50;
-      (*(v26 + 32))();
-      *(v22 + v30) = v27;
-      (*(*(v29 - 8) + 56))(v22, 0, 1, v29);
+      v30 = v29;
+      v31 = *(v29 + 48);
+      v23 = v51;
+      (*(v27 + 32))();
+      *(v23 + v31) = v28;
+      (*(*(v30 - 8) + 56))(v23, 0, 1, v30);
 
 LABEL_17:
-      v31 = v46;
-      sub_1CFEBF954(v22, v46, sub_1CFEBF7BC);
+      v32 = v47;
+      sub_1CFEBF954(v23, v47, sub_1CFEBF7BC);
       sub_1CFEBF834(0, &qword_1EDEC4CA8, MEMORY[0x1E69A2EF8], sub_1CFE709D4);
-      if ((*(*(v29 - 8) + 48))(v31, 1, v29) == 1)
+      if ((*(*(v30 - 8) + 48))(v32, 1, v30) == 1)
       {
         return;
       }
 
-      v32 = *(v29 + 48);
-      v33 = v49;
-      v34 = v53;
-      (*v51)(v49, v31, v53);
-      v35 = *(v31 + v32);
-      sub_1CFEC3BD8(v33);
-      LOBYTE(v32) = v36;
-      (*v45)(v33, v34);
-      if ((v32 & 1) == 0)
+      v33 = *(v30 + 48);
+      v34 = v50;
+      v35 = v54;
+      (*v52)(v50, v32, v54);
+      v36 = *(v32 + v33);
+      sub_1CFEC3BD8(v34);
+      LOBYTE(v33) = v37;
+      (*v46)(v34, v35);
+      if ((v33 & 1) == 0)
       {
 
         return;
       }
 
-      v38 = sub_1CFE915EC(v37, v35);
+      v39 = sub_1CFE915EC(v38, v36);
 
-      v18 = v52;
-      if ((v38 & 1) == 0)
+      v19 = v53;
+      if ((v39 & 1) == 0)
       {
         return;
       }
     }
 
-    if (v41 <= v12 + 1)
+    if (v42 <= v13 + 1)
     {
-      v20 = v12 + 1;
+      v21 = v13 + 1;
     }
 
     else
     {
-      v20 = v41;
+      v21 = v42;
     }
 
-    v21 = v20 - 1;
-    v22 = v50;
+    v22 = v21 - 1;
+    v23 = v51;
     while (1)
     {
-      v23 = v12 + 1;
-      if (__OFADD__(v12, 1))
+      v24 = v13 + 1;
+      if (__OFADD__(v13, 1))
       {
         break;
       }
 
-      if (v23 >= v41)
+      if (v24 >= v42)
       {
         sub_1CFEBF834(0, &qword_1EDEC4CA8, MEMORY[0x1E69A2EF8], sub_1CFE709D4);
-        v29 = v39;
-        (*(*(v39 - 8) + 56))(v22, 1, 1, v39);
-        v52 = 0;
-        v12 = v21;
+        v30 = v40;
+        (*(*(v40 - 8) + 56))(v23, 1, 1, v40);
+        v53 = 0;
+        v13 = v22;
         goto LABEL_17;
       }
 
-      v24 = *(v42 + 8 * v23);
-      ++v12;
-      if (v24)
+      v25 = *(v43 + 8 * v24);
+      ++v13;
+      if (v25)
       {
-        v52 = (v24 - 1) & v24;
-        v19 = __clz(__rbit64(v24)) | (v23 << 6);
-        v12 = v23;
+        v53 = (v25 - 1) & v25;
+        v20 = __clz(__rbit64(v25)) | (v24 << 6);
+        v13 = v24;
         goto LABEL_16;
       }
     }
@@ -4802,7 +4800,7 @@ LABEL_17:
   }
 }
 
-uint64_t sub_1CFEBE5F4()
+unint64_t sub_1CFEBE5F4()
 {
   v1 = 0xD000000000000011;
   if (*v0 != 1)
@@ -4821,10 +4819,10 @@ uint64_t sub_1CFEBE5F4()
   }
 }
 
-uint64_t sub_1CFEBE650@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_1CFEBE650@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_1CFEBF5A0(a1, a2);
-  *a3 = result;
+  result = sub_1CFEBF5A0(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -4856,18 +4854,18 @@ uint64_t OvernightMetricsChartPointCollection.encode(to:)(void *a1)
   v13 = *v3;
   HIBYTE(v12) = 0;
   sub_1CFEBF758(0, &qword_1EDEC4D48, type metadata accessor for OvernightMetricsChartPoint, MEMORY[0x1E69E62F8]);
-  sub_1CFEBF058(&qword_1EC5126A8, &qword_1EC512698);
+  sub_1CFEBF058(&qword_1EC5126A8, &qword_1EC512698, &protocol conformance descriptor for OvernightMetricsChartPoint, MEMORY[0x1E69E6300]);
   sub_1CFF0EB7C();
   if (!v2)
   {
-    v10 = type metadata accessor for OvernightMetricsChartPointCollection();
+    v10 = type metadata accessor for OvernightMetricsChartPointCollection(0);
     LOBYTE(v13) = 1;
     sub_1CFF0C89C();
-    sub_1CFEBF9F8(&qword_1EC5129C0, MEMORY[0x1E6969AE8]);
+    sub_1CFEBF9F8(&qword_1EC5129C0, MEMORY[0x1E6969AE8], MEMORY[0x1E6969AF0]);
     sub_1CFF0EB7C();
     v13 = *(v3 + *(v10 + 24));
     HIBYTE(v12) = 2;
-    sub_1CFEBE9F0();
+    sub_1CFEBE9F0(0);
     sub_1CFEBEA8C();
     sub_1CFF0EB7C();
   }
@@ -4887,16 +4885,16 @@ unint64_t sub_1CFEBE99C()
   return result;
 }
 
-void sub_1CFEBE9F0()
+void sub_1CFEBE9F0(uint64_t a1)
 {
   if (!qword_1EDEC4D88[0])
   {
     sub_1CFF0CB6C();
-    sub_1CFEBF9F8(&qword_1EDEC5190, MEMORY[0x1E69A2E68]);
-    v0 = sub_1CFF0E43C();
-    if (!v1)
+    sub_1CFEBF9F8(&qword_1EDEC5190, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2E78]);
+    v1 = sub_1CFF0E43C();
+    if (!v2)
     {
-      atomic_store(v0, qword_1EDEC4D88);
+      atomic_store(v1, qword_1EDEC4D88);
     }
   }
 }
@@ -4906,8 +4904,8 @@ unint64_t sub_1CFEBEA8C()
   result = qword_1EC5129C8;
   if (!qword_1EC5129C8)
   {
-    sub_1CFEBE9F0();
-    sub_1CFEBF9F8(&qword_1EC5126C8, MEMORY[0x1E69A2E68]);
+    sub_1CFEBE9F0(255);
+    sub_1CFEBF9F8(&qword_1EC5126C8, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2E70]);
     sub_1CFEBEB3C();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EC5129C8);
@@ -4940,7 +4938,7 @@ uint64_t OvernightMetricsChartPointCollection.init(from:)@<X0>(void *a1@<X0>, ui
   v22 = v6;
   MEMORY[0x1EEE9AC00](v6);
   v8 = &v18 - v7;
-  v9 = type metadata accessor for OvernightMetricsChartPointCollection();
+  v9 = type metadata accessor for OvernightMetricsChartPointCollection(0);
   MEMORY[0x1EEE9AC00](v9);
   v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
@@ -4959,16 +4957,16 @@ uint64_t OvernightMetricsChartPointCollection.init(from:)@<X0>(void *a1@<X0>, ui
   v15 = v11;
   sub_1CFEBF758(0, &qword_1EDEC4D48, type metadata accessor for OvernightMetricsChartPoint, MEMORY[0x1E69E62F8]);
   v25 = 0;
-  sub_1CFEBF058(&qword_1EC512708, &qword_1EC5126F8);
+  sub_1CFEBF058(&qword_1EC512708, &qword_1EC5126F8, &protocol conformance descriptor for OvernightMetricsChartPoint, MEMORY[0x1E69E6330]);
   v16 = v22;
   sub_1CFF0EB0C();
   v18 = v26;
   *v15 = v26;
   LOBYTE(v26) = 1;
-  sub_1CFEBF9F8(&qword_1EC5129E0, MEMORY[0x1E6969AE8]);
+  sub_1CFEBF9F8(&qword_1EC5129E0, MEMORY[0x1E6969AE8], MEMORY[0x1E6969B08]);
   sub_1CFF0EB0C();
   (*(v20 + 32))(&v15[*(v9 + 20)], v13, v3);
-  sub_1CFEBE9F0();
+  sub_1CFEBE9F0(0);
   v25 = 2;
   sub_1CFEBF11C();
   sub_1CFF0EB0C();
@@ -4992,13 +4990,13 @@ void sub_1CFEBEFF4(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t, ValueMet
   }
 }
 
-uint64_t sub_1CFEBF058(unint64_t *a1, unint64_t *a2)
+uint64_t sub_1CFEBF058(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
     sub_1CFEBF758(255, &qword_1EDEC4D48, type metadata accessor for OvernightMetricsChartPoint, MEMORY[0x1E69E62F8]);
-    sub_1CFEBF9F8(a2, type metadata accessor for OvernightMetricsChartPoint);
+    sub_1CFEBF9F8(a2, type metadata accessor for OvernightMetricsChartPoint, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -5011,8 +5009,8 @@ unint64_t sub_1CFEBF11C()
   result = qword_1EC5129E8;
   if (!qword_1EC5129E8)
   {
-    sub_1CFEBE9F0();
-    sub_1CFEBF9F8(&qword_1EC512728, MEMORY[0x1E69A2E68]);
+    sub_1CFEBE9F0(255);
+    sub_1CFEBF9F8(&qword_1EC512728, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2E90]);
     sub_1CFEBF1CC();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EC5129E8);
@@ -5035,14 +5033,14 @@ unint64_t sub_1CFEBF1CC()
 
 uint64_t sub_1CFEBF220(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for OvernightMetricsChartPointCollection();
+  v4 = type metadata accessor for OvernightMetricsChartPointCollection(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1CFEBF284(uint64_t a1)
 {
-  v2 = type metadata accessor for OvernightMetricsChartPointCollection();
+  v2 = type metadata accessor for OvernightMetricsChartPointCollection(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -5059,16 +5057,16 @@ void sub_1CFEBF2E0(uint64_t *a1, uint64_t *a2, uint64_t a3)
   }
 }
 
-void sub_1CFEBF3BC()
+void sub_1CFEBF3BC(uint64_t a1)
 {
   sub_1CFEBF758(319, &qword_1EDEC4D48, type metadata accessor for OvernightMetricsChartPoint, MEMORY[0x1E69E62F8]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1CFF0C89C();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      sub_1CFEBE9F0();
-      if (v2 <= 0x3F)
+      sub_1CFEBE9F0(319);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -5149,15 +5147,15 @@ uint64_t sub_1CFEBF5A0(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1CFEBF6FC(uint64_t a1, unint64_t *a2, unint64_t *a3, void (*a4)(uint64_t), void (*a5)(uint64_t))
+void sub_1CFEBF6FC(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t (*a4)(uint64_t), uint64_t (*a5)(uint64_t), __n128 a6)
 {
   if (!*a2)
   {
     sub_1CFEBF834(255, a3, a4, a5);
-    v6 = sub_1CFF0E8AC();
-    if (!v7)
+    v7 = sub_1CFF0E8AC();
+    if (!v8)
     {
-      atomic_store(v6, a2);
+      atomic_store(v7, a2);
     }
   }
 }
@@ -5175,7 +5173,7 @@ void sub_1CFEBF758(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1CFEBF834(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t), void (*a4)(uint64_t))
+void sub_1CFEBF834(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(uint64_t))
 {
   if (!*a2)
   {
@@ -5189,13 +5187,13 @@ void sub_1CFEBF834(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t), void (*a4)(
   }
 }
 
-void sub_1CFEBF8E8()
+void sub_1CFEBF8E8(uint64_t a1)
 {
   if (!qword_1EDEC4CE8)
   {
     sub_1CFF0CB6C();
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &qword_1EDEC4CE8);
     }
@@ -5209,7 +5207,7 @@ uint64_t sub_1CFEBF954(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-uint64_t sub_1CFEBF9F8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1CFEBF9F8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5248,7 +5246,7 @@ uint64_t BalanceWidgetViewModel.init(dayRange:chronologicalDaySummaries:timeScop
   (*(v20 + 16))(v13, a4, v19);
   (*(v20 + 56))(v13, 0, 1, v19);
   OvernightMetricsViewModel.init(dayRange:chronologicalDaySummaries:featureStatus:)(v18, a2, v13, a6);
-  v21 = type metadata accessor for BalanceWidgetViewModel();
+  v21 = type metadata accessor for BalanceWidgetViewModel(0);
   sub_1CFF0C9DC();
   (*(v20 + 8))(a4, v19);
   result = (*(v15 + 8))(a1, v14);
@@ -5609,7 +5607,7 @@ uint64_t sub_1CFEC09A8@<X0>(int a1@<W0>, uint64_t a2@<X8>)
   v19 = &v36[-((v18 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v20);
   v22 = &v36[-v21];
-  v23 = type metadata accessor for BalanceWidgetViewModel();
+  v23 = type metadata accessor for BalanceWidgetViewModel(0);
   v24 = *(v17 + 16);
   v25 = v3 + *(v23 + 20);
   if (*(v3 + *(v23 + 24)))
@@ -5669,7 +5667,7 @@ uint64_t sub_1CFEC0DF8()
   sub_1CFEC2528(0, qword_1EDEC3470, type metadata accessor for OvernightMetricsWarmupProgress);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = v26 - v4;
-  v6 = type metadata accessor for OvernightMetricsWarmupProgress();
+  v6 = type metadata accessor for OvernightMetricsWarmupProgress(0);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -5765,7 +5763,7 @@ uint64_t sub_1CFEC12E8()
   v10 = v38 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v11);
   v13 = v38 - v12;
-  v14 = type metadata accessor for OvernightMetricsWarmupProgress();
+  v14 = type metadata accessor for OvernightMetricsWarmupProgress(0);
   v15 = *(v14 - 8);
   MEMORY[0x1EEE9AC00](v14);
   v17 = v38 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -5881,7 +5879,7 @@ uint64_t sub_1CFEC1918()
   sub_1CFEC2528(0, qword_1EDEC3470, type metadata accessor for OvernightMetricsWarmupProgress);
   MEMORY[0x1EEE9AC00](v0 - 8);
   v2 = v11 - v1;
-  v3 = type metadata accessor for OvernightMetricsWarmupProgress();
+  v3 = type metadata accessor for OvernightMetricsWarmupProgress(0);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -5910,7 +5908,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t type metadata accessor for BalanceWidgetViewModel()
+uint64_t type metadata accessor for BalanceWidgetViewModel(uint64_t a1)
 {
   result = qword_1EDEC4C70;
   if (!qword_1EDEC4C70)
@@ -5932,7 +5930,7 @@ uint64_t sub_1CFEC1B18()
   sub_1CFEC2528(0, qword_1EDEC3470, type metadata accessor for OvernightMetricsWarmupProgress);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v14 - v4;
-  v6 = type metadata accessor for OvernightMetricsWarmupProgress();
+  v6 = type metadata accessor for OvernightMetricsWarmupProgress(0);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -5987,7 +5985,7 @@ uint64_t sub_1CFEC1EB4@<X0>(uint64_t a1@<X8>)
   if ((*(v10 + 48))(v8, 1, v9) == 1)
   {
     sub_1CFEC24CC(v8, &qword_1EDEC4CB0, MEMORY[0x1E69A2EB8]);
-    v13 = type metadata accessor for OvernightMetricsWarmupProgress();
+    v13 = type metadata accessor for OvernightMetricsWarmupProgress(0);
     return (*(*(v13 - 8) + 56))(a1, 1, 1, v13);
   }
 
@@ -6001,7 +5999,7 @@ uint64_t sub_1CFEC1EB4@<X0>(uint64_t a1@<X8>)
     v16 = sub_1CFE8AA04(sub_1CFE9C5C8, (&v18 - 4), sub_1CFE8A828, 0, v15);
 
     (*(v3 + 32))(a1, v5, v2);
-    v17 = type metadata accessor for OvernightMetricsWarmupProgress();
+    v17 = type metadata accessor for OvernightMetricsWarmupProgress(0);
     *(a1 + *(v17 + 20)) = v16;
     (*(*(v17 - 8) + 56))(a1, 0, 1, v17);
     return (*(v10 + 8))(v12, v9);
@@ -6070,21 +6068,21 @@ uint64_t sub_1CFEC2248(uint64_t a1)
   return *&v2;
 }
 
-uint64_t sub_1CFEC228C()
+uint64_t sub_1CFEC228C(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_1CFF0CCEC();
-  v1 = *(v0 - 8);
-  MEMORY[0x1EEE9AC00](v0);
-  v3 = &v6 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = sub_1CFF0CCEC();
+  v3 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFF0CCFC();
-  v4 = sub_1CFF0CCDC();
-  (*(v1 + 8))(v3, v0);
-  return v4 & 1;
+  v6 = sub_1CFF0CCDC();
+  (*(v3 + 8))(v5, v2);
+  return v6 & 1;
 }
 
 uint64_t _s15HealthBalanceUI0B15WidgetViewModelV2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
-  if (_s15HealthBalanceUI25OvernightMetricsViewModelV2eeoiySbAC_ACtFZ_0(a1, a2) & 1) != 0 && (v4 = type metadata accessor for BalanceWidgetViewModel(), (sub_1CFF0C99C()) && *(a1 + *(v4 + 24)) == *(a2 + *(v4 + 24)))
+  if (_s15HealthBalanceUI25OvernightMetricsViewModelV2eeoiySbAC_ACtFZ_0(a1, a2) & 1) != 0 && (v4 = type metadata accessor for BalanceWidgetViewModel(0), (sub_1CFF0C99C()) && *(a1 + *(v4 + 24)) == *(a2 + *(v4 + 24)))
   {
     v5 = *(a1 + *(v4 + 28)) ^ *(a2 + *(v4 + 28)) ^ 1;
   }
@@ -6097,13 +6095,13 @@ uint64_t _s15HealthBalanceUI0B15WidgetViewModelV2eeoiySbAC_ACtFZ_0(uint64_t a1, 
   return v5 & 1;
 }
 
-uint64_t sub_1CFEC2430()
+uint64_t sub_1CFEC2430(uint64_t a1)
 {
   result = type metadata accessor for OvernightMetricsViewModel(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = sub_1CFF0C9EC();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -6113,14 +6111,14 @@ uint64_t sub_1CFEC2430()
   return result;
 }
 
-uint64_t sub_1CFEC24CC(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+uint64_t sub_1CFEC24CC(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   sub_1CFEC2528(0, a2, a3);
   (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
-void sub_1CFEC2528(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1CFEC2528(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -6145,10 +6143,10 @@ void sub_1CFEC259C()
   }
 }
 
-uint64_t sub_1CFEC2654()
+uint64_t sub_1CFEC2654(uint64_t a1)
 {
   result = type metadata accessor for OvernightMetricsChartLayout.Configuration(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -6239,16 +6237,16 @@ LABEL_8:
   return result;
 }
 
-void sub_1CFEC27D0()
+void sub_1CFEC27D0(uint64_t a1)
 {
   sub_1CFEC75F8(319, &qword_1EDEC4D48, type metadata accessor for OvernightMetricsChartPoint, MEMORY[0x1E69E62F8]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1CFEC75F8(319, qword_1EDEC4FC8, type metadata accessor for OvernightMetricsChartPoint, MEMORY[0x1E69E6720]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1CFE59578();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -6301,7 +6299,7 @@ uint64_t sub_1CFEC2900(uint64_t result, int a2, int a3)
   return result;
 }
 
-unint64_t sub_1CFEC2950(double a1)
+uint64_t sub_1CFEC2950(double a1)
 {
   if (!*(*(v1 + *(type metadata accessor for OvernightMetricsChartLayout(0) + 20)) + 16) || (result = sub_1CFEC3B8C(a1), (v4 & 1) == 0))
   {
@@ -6411,10 +6409,10 @@ LABEL_11:
   return result;
 }
 
-unint64_t sub_1CFEC2B1C(uint64_t a1)
+uint64_t sub_1CFEC2B1C(uint64_t a1)
 {
   v2 = v1;
-  v4 = type metadata accessor for OvernightMetricsChartPoint();
+  v4 = type metadata accessor for OvernightMetricsChartPoint(0);
   v5 = a1 + *(v4 + 24);
   if (*(v5 + 16))
   {
@@ -6430,7 +6428,7 @@ unint64_t sub_1CFEC2B1C(uint64_t a1)
   v12 = v11[1];
   v14 = *(v2 + *(v10 + 28) + 64);
   v15 = a1 + *(v7 + 20);
-  v16 = *(v15 + *(type metadata accessor for IndividualOvernightMetricChartPointCollection() + 24));
+  v16 = *(v15 + *(type metadata accessor for IndividualOvernightMetricChartPointCollection(0) + 24));
   v17 = *(v16 + 16);
   if (v17)
   {
@@ -6810,7 +6808,7 @@ uint64_t sub_1CFEC32AC()
   return sub_1CFF0EC7C();
 }
 
-uint64_t sub_1CFEC32F0()
+uint64_t sub_1CFEC32F0(uint64_t a1)
 {
   sub_1CFF0EC3C();
   sub_1CFEC318C();
@@ -6850,10 +6848,10 @@ unint64_t sub_1CFEC339C()
   return result;
 }
 
-uint64_t sub_1CFEC33F4(__int128 *a1)
+uint64_t sub_1CFEC33F4(uint64_t a1)
 {
   v2 = v1;
-  v4 = type metadata accessor for OvernightMetricsChartPoint();
+  v4 = type metadata accessor for OvernightMetricsChartPoint(0);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -6910,10 +6908,10 @@ uint64_t sub_1CFEC3648()
   return sub_1CFF0EC7C();
 }
 
-uint64_t sub_1CFEC368C()
+uint64_t sub_1CFEC368C(uint64_t a1)
 {
   sub_1CFF0EC3C();
-  sub_1CFEC33F4(v1);
+  sub_1CFEC33F4(v2);
   return sub_1CFF0EC7C();
 }
 
@@ -6947,48 +6945,24 @@ BOOL sub_1CFEC3710(uint64_t a1, __int128 *a2)
   return sub_1CFEC69E8(v12, v14);
 }
 
-uint64_t sub_1CFEC3794(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1CFEC3794()
 {
   if (sub_1CFEC33F0())
   {
-    v6 = *(a3 + 20);
-    v7 = *(a1 + v6 + 80);
-    v16[4] = *(a1 + v6 + 64);
-    v16[5] = v7;
-    v16[6] = *(a1 + v6 + 96);
-    v17 = *(a1 + v6 + 112);
-    v8 = *(a1 + v6 + 16);
-    v16[0] = *(a1 + v6);
-    v16[1] = v8;
-    v9 = *(a1 + v6 + 48);
-    v16[2] = *(a1 + v6 + 32);
-    v16[3] = v9;
-    v10 = a2 + v6;
-    v11 = *(v10 + 48);
-    v18[2] = *(v10 + 32);
-    v18[3] = v11;
-    v12 = *(v10 + 16);
-    v18[0] = *v10;
-    v18[1] = v12;
-    v19 = *(v10 + 112);
-    v13 = *(v10 + 96);
-    v18[5] = *(v10 + 80);
-    v18[6] = v13;
-    v18[4] = *(v10 + 64);
-    v14 = sub_1CFEC3644(v16, v18);
+    v0 = sub_1CFEC3644();
   }
 
   else
   {
-    v14 = 0;
+    v0 = 0;
   }
 
-  return v14 & 1;
+  return v0 & 1;
 }
 
 void sub_1CFEC3848(uint64_t a1, double a2, double a3, double a4)
 {
-  v8 = type metadata accessor for OvernightMetricsChartPoint();
+  v8 = type metadata accessor for OvernightMetricsChartPoint(0);
   v9 = *(v8 - 8);
   MEMORY[0x1EEE9AC00](v8);
   v11 = &v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -7067,7 +7041,7 @@ unint64_t sub_1CFEC3AB8(uint64_t a1)
 {
   sub_1CFF0CB6C();
   v2 = MEMORY[0x1E69A2E68];
-  sub_1CFEC3E48(&qword_1EDEC5190, MEMORY[0x1E69A2E68]);
+  sub_1CFEC3E48(&qword_1EDEC5190, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2E78]);
   v3 = sub_1CFF0E44C();
   return sub_1CFEC3E90(a1, v3, MEMORY[0x1E69A2E68], &qword_1EDEC4CD8, v2, MEMORY[0x1E69A2E80]);
 }
@@ -7083,7 +7057,7 @@ unint64_t sub_1CFEC3BD8(uint64_t a1)
 {
   sub_1CFF0CCEC();
   v2 = MEMORY[0x1E69A2EF8];
-  sub_1CFEC3E48(&qword_1EDEC5188, MEMORY[0x1E69A2EF8]);
+  sub_1CFEC3E48(&qword_1EDEC5188, MEMORY[0x1E69A2EF8], MEMORY[0x1E69A2F08]);
   v3 = sub_1CFF0E44C();
   return sub_1CFEC3E90(a1, v3, MEMORY[0x1E69A2EF8], &qword_1EDEC4C98, v2, MEMORY[0x1E69A2F10]);
 }
@@ -7121,7 +7095,7 @@ unint64_t sub_1CFEC3DE0(uint64_t a1, double a2)
   return result;
 }
 
-uint64_t sub_1CFEC3E48(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1CFEC3E48(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7134,45 +7108,45 @@ uint64_t sub_1CFEC3E48(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-unint64_t sub_1CFEC3E90(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), unint64_t *a4, void (*a5)(uint64_t), uint64_t a6)
+unint64_t sub_1CFEC3E90(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), unint64_t *a4, uint64_t (*a5)(uint64_t), uint64_t a6)
 {
-  v24 = a5;
-  v25 = a6;
-  v23 = a4;
-  v21[1] = a1;
+  v25 = a5;
+  v26 = a6;
+  v24 = a4;
+  v22[1] = a1;
   v8 = a3(0);
   v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = v21 - v10;
-  v22 = v6;
-  v12 = -1 << *(v6 + 32);
-  v13 = a2 & ~v12;
-  v21[0] = v6 + 64;
-  if ((*(v6 + 64 + ((v13 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v13))
+  v10.n128_f64[0] = MEMORY[0x1EEE9AC00](v8);
+  v12 = v22 - v11;
+  v23 = v6;
+  v13 = -1 << *(v6 + 32);
+  v14 = a2 & ~v13;
+  v22[0] = v6 + 64;
+  if ((*(v6 + 64 + ((v14 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v14))
   {
-    v14 = ~v12;
-    v17 = *(v9 + 16);
-    v16 = v9 + 16;
-    v15 = v17;
-    v18 = *(v16 + 56);
+    v15 = ~v13;
+    v18 = *(v9 + 16);
+    v17 = v9 + 16;
+    v16 = v18;
+    v19 = *(v17 + 56);
     do
     {
-      v15(v11, *(v22 + 48) + v18 * v13, v8);
-      sub_1CFEC3E48(v23, v24);
-      v19 = sub_1CFF0E4CC();
-      (*(v16 - 8))(v11, v8);
-      if (v19)
+      v16(v12, *(v23 + 48) + v19 * v14, v8, v10);
+      sub_1CFEC3E48(v24, v25, v26);
+      v20 = sub_1CFF0E4CC();
+      (*(v17 - 8))(v12, v8);
+      if (v20)
       {
         break;
       }
 
-      v13 = (v13 + 1) & v14;
+      v14 = (v14 + 1) & v15;
     }
 
-    while (((*(v21[0] + ((v13 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v13) & 1) != 0);
+    while (((*(v22[0] + ((v14 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v14) & 1) != 0);
   }
 
-  return v13;
+  return v14;
 }
 
 unint64_t sub_1CFEC4030(uint64_t a1, uint64_t a2)
@@ -7209,43 +7183,44 @@ unint64_t sub_1CFEC4030(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-unint64_t sub_1CFEC4134(uint64_t a1, uint64_t a2, unint64_t *a3)
+unint64_t sub_1CFEC4134(uint64_t a1, uint64_t a2, unint64_t *a3, void *a4)
 {
-  v4 = -1 << *(v3 + 32);
-  v5 = a2 & ~v4;
-  if ((*(v3 + 64 + ((v5 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v5))
+  v5 = -1 << *(v4 + 32);
+  v6 = a2 & ~v5;
+  if ((*(v4 + 64 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6))
   {
-    v6 = ~v4;
-    sub_1CFE62B04(0, a3);
+    v7 = ~v5;
+    sub_1CFE62B04(0, a3, a4);
     do
     {
-      v7 = *(*(v3 + 48) + 8 * v5);
-      v8 = sub_1CFF0E89C();
+      v8 = *(*(v4 + 48) + 8 * v6);
+      v9 = sub_1CFF0E89C();
 
-      if (v8)
+      if (v9)
       {
         break;
       }
 
-      v5 = (v5 + 1) & v6;
+      v6 = (v6 + 1) & v7;
     }
 
-    while (((*(v3 + 64 + ((v5 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v5) & 1) != 0);
+    while (((*(v4 + 64 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
   }
 
-  return v5;
+  return v6;
 }
 
-uint64_t sub_1CFEC4200(uint64_t a1, int a2)
+uint64_t sub_1CFEC4200(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = sub_1CFF0CB6C();
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = *v2;
-  sub_1CFEC747C(0, &qword_1EDEC4A18);
-  v39 = a2;
+  sub_1CFEC747C(0, &qword_1EDEC4A18, &type metadata for SingleMetricChartPointCollection);
+  v39 = v4;
   result = sub_1CFF0EA5C();
   v11 = result;
   if (*(v9 + 16))
@@ -7293,7 +7268,7 @@ LABEL_15:
         v41 = *(*(v9 + 56) + 8 * v23);
       }
 
-      sub_1CFEC3E48(&qword_1EDEC5190, MEMORY[0x1E69A2E68]);
+      sub_1CFEC3E48(&qword_1EDEC5190, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2E78]);
       result = sub_1CFF0E44C();
       v26 = -1 << *(v11 + 32);
       v27 = result & ~v26;
@@ -7385,11 +7360,12 @@ LABEL_34:
   return result;
 }
 
-uint64_t sub_1CFEC463C(uint64_t a1, char a2)
+uint64_t sub_1CFEC463C(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  sub_1CFEC7518();
+  sub_1CFEC7518(0);
   result = sub_1CFF0EA5C();
   v7 = result;
   if (*(v5 + 16))
@@ -7419,7 +7395,7 @@ LABEL_15:
       v19 = v16 | (v8 << 6);
       v20 = *(*(v5 + 48) + 8 * v19);
       v21 = *(*(v5 + 56) + 8 * v19);
-      if ((a2 & 1) == 0)
+      if ((v4 & 1) == 0)
       {
         v22 = v20;
         v23 = v21;
@@ -7488,7 +7464,7 @@ LABEL_7:
       }
     }
 
-    if (a2)
+    if (v4)
     {
       v31 = 1 << *(v5 + 32);
       if (v31 >= 64)
@@ -7515,9 +7491,10 @@ LABEL_7:
   return result;
 }
 
-uint64_t sub_1CFEC48C0(uint64_t a1, int a2, unint64_t *a3, unint64_t *a4, uint64_t (*a5)(uint64_t))
+uint64_t sub_1CFEC48C0(uint64_t a1, uint64_t a2, unint64_t *a3, unint64_t *a4, uint64_t (*a5)(uint64_t))
 {
   v9 = v5;
+  v10 = a2;
   v11 = sub_1CFF0CCEC();
   v12 = *(v11 - 8);
   MEMORY[0x1EEE9AC00](v11);
@@ -7525,7 +7502,7 @@ uint64_t sub_1CFEC48C0(uint64_t a1, int a2, unint64_t *a3, unint64_t *a4, uint64
   v15 = a3;
   v16 = *v5;
   sub_1CFEC73AC(0, v15, a4, a5);
-  v47 = a2;
+  v47 = v10;
   result = sub_1CFF0EA5C();
   v18 = result;
   if (*(v16 + 16))
@@ -7574,7 +7551,7 @@ LABEL_15:
         v33 = *(*(v16 + 56) + 8 * v30);
       }
 
-      sub_1CFEC3E48(&qword_1EDEC5188, MEMORY[0x1E69A2EF8]);
+      sub_1CFEC3E48(&qword_1EDEC5188, MEMORY[0x1E69A2EF8], MEMORY[0x1E69A2F08]);
       result = sub_1CFF0E44C();
       v34 = -1 << *(v18 + 32);
       v35 = result & ~v34;
@@ -7668,9 +7645,10 @@ LABEL_34:
   return result;
 }
 
-uint64_t sub_1CFEC4CD0(uint64_t a1, int a2, uint64_t (*a3)(void), unint64_t *a4, void (*a5)(uint64_t))
+uint64_t sub_1CFEC4CD0(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), unint64_t *a4, uint64_t (*a5)(uint64_t))
 {
   v8 = v5;
+  v9 = a2;
   v56 = a3(0);
   v10 = *(v56 - 8);
   MEMORY[0x1EEE9AC00](v56);
@@ -7681,7 +7659,7 @@ uint64_t sub_1CFEC4CD0(uint64_t a1, int a2, uint64_t (*a3)(void), unint64_t *a4,
   v57 = &v44 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = *v5;
   sub_1CFEC7300(0, a4, a5);
-  v51 = a2;
+  v51 = v9;
   result = sub_1CFF0EA5C();
   v17 = result;
   if (*(v15 + 16))
@@ -7736,7 +7714,7 @@ LABEL_15:
         (*(v50 + 16))(v55, v35 + v34 * v30, v56);
       }
 
-      sub_1CFEC3E48(&qword_1EDEC5190, MEMORY[0x1E69A2E68]);
+      sub_1CFEC3E48(&qword_1EDEC5190, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2E78]);
       result = sub_1CFF0E44C();
       v36 = -1 << *(v17 + 32);
       v37 = result & ~v36;
@@ -7829,16 +7807,17 @@ LABEL_34:
   return result;
 }
 
-uint64_t sub_1CFEC5178(uint64_t a1, int a2)
+uint64_t sub_1CFEC5178(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = sub_1CFF0CB6C();
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = *v2;
-  sub_1CFEC747C(0, &qword_1EDEC4A20);
-  v43 = a2;
+  sub_1CFEC747C(0, &qword_1EDEC4A20, &type metadata for BaselineRelativeValue);
+  v43 = v4;
   result = sub_1CFF0EA5C();
   v11 = result;
   if (*(v9 + 16))
@@ -7887,7 +7866,7 @@ LABEL_15:
       v28 = *(v9 + 56) + 16 * v25;
       v29 = *(v28 + 8);
       v45 = *v28;
-      sub_1CFEC3E48(&qword_1EDEC5190, MEMORY[0x1E69A2E68]);
+      sub_1CFEC3E48(&qword_1EDEC5190, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2E78]);
       result = sub_1CFF0E44C();
       v30 = -1 << *(v11 + 32);
       v31 = result & ~v30;
@@ -7983,9 +7962,10 @@ LABEL_34:
   return result;
 }
 
-uint64_t sub_1CFEC5554(uint64_t a1, char a2)
+uint64_t sub_1CFEC5554(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
   sub_1CFEB90A0();
   result = sub_1CFF0EA5C();
@@ -8079,7 +8059,7 @@ LABEL_7:
       }
     }
 
-    if (a2)
+    if (v4)
     {
       v29 = 1 << *(v5 + 32);
       if (v29 >= 64)
@@ -8107,7 +8087,7 @@ void *sub_1CFEC57A4()
   v33 = *(v31 - 8);
   MEMORY[0x1EEE9AC00](v31);
   v30 = &v25 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1CFEC747C(0, &qword_1EDEC4A18);
+  sub_1CFEC747C(0, &qword_1EDEC4A18, &type metadata for SingleMetricChartPointCollection);
   v3 = *v0;
   v4 = sub_1CFF0EA4C();
   v5 = v4;
@@ -8309,7 +8289,7 @@ LABEL_18:
 id sub_1CFEC5CEC()
 {
   v1 = v0;
-  sub_1CFEC7518();
+  sub_1CFEC7518(0);
   v2 = *v0;
   v3 = sub_1CFF0EA4C();
   v4 = v3;
@@ -8390,7 +8370,7 @@ LABEL_19:
   return result;
 }
 
-char *sub_1CFEC5E74(uint64_t (*a1)(void), unint64_t *a2, void (*a3)(uint64_t))
+char *sub_1CFEC5E74(uint64_t (*a1)(void), unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   v6 = v3;
   v46 = a1(0);
@@ -8513,7 +8493,7 @@ void *sub_1CFEC61D0()
   v36 = *(v34 - 8);
   MEMORY[0x1EEE9AC00](v34);
   v33 = &v28 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1CFEC747C(0, &qword_1EDEC4A20);
+  sub_1CFEC747C(0, &qword_1EDEC4A20, &type metadata for BaselineRelativeValue);
   v3 = *v0;
   v4 = sub_1CFF0EA4C();
   v5 = v4;
@@ -8725,14 +8705,14 @@ BOOL sub_1CFEC65A4(uint64_t a1, uint64_t a2)
 
 BOOL sub_1CFEC6668(uint64_t *a1, uint64_t *a2)
 {
-  v4 = type metadata accessor for OvernightMetricsChartPoint();
+  v4 = type metadata accessor for OvernightMetricsChartPoint(0);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFEC75F8(0, qword_1EDEC4FC8, type metadata accessor for OvernightMetricsChartPoint, MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = v32 - v9;
-  sub_1CFE81B8C();
+  sub_1CFE81B8C(0);
   v12 = v11;
   MEMORY[0x1EEE9AC00](v11);
   v14 = v32 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -8833,14 +8813,14 @@ uint64_t sub_1CFEC6B1C(uint64_t a1, uint64_t (*a2)(void))
 
 uint64_t sub_1CFEC6B7C(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for OvernightMetricsChartPoint();
+  v4 = type metadata accessor for OvernightMetricsChartPoint(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 char *sub_1CFEC6BE0(uint64_t a1, double a2, double a3, double a4, double a5)
 {
-  v10 = type metadata accessor for OvernightMetricsChartPoint();
+  v10 = type metadata accessor for OvernightMetricsChartPoint(0);
   v11 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
   v14 = &v31 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -8862,7 +8842,7 @@ LABEL_19:
   }
 
   v31 = &v14[*(v12 + 20)];
-  v16 = *(type metadata accessor for IndividualOvernightMetricChartPointCollection() + 24);
+  v16 = *(type metadata accessor for IndividualOvernightMetricChartPointCollection(0) + 24);
   v17 = a1 + ((*(v11 + 80) + 32) & ~*(v11 + 80));
   v18 = *(v11 + 72);
   v19 = MEMORY[0x1E69E7CC0];
@@ -9009,7 +8989,7 @@ LABEL_22:
       v43 = v60;
       v44 = v61;
       sub_1CFE81C0C(v61 + v14[5], v60);
-      v45 = type metadata accessor for OvernightMetricsChartPoint();
+      v45 = type metadata accessor for OvernightMetricsChartPoint(0);
       if ((*(*(v45 - 8) + 48))(v43, 1, v45) == 1)
       {
         sub_1CFE81C8C(v43);
@@ -9019,7 +8999,7 @@ LABEL_22:
       else
       {
         v47 = v43 + *(v45 + 20);
-        v46 = *(v47 + *(type metadata accessor for IndividualOvernightMetricChartPointCollection() + 24));
+        v46 = *(v47 + *(type metadata accessor for IndividualOvernightMetricChartPointCollection(0) + 24));
 
         sub_1CFEC6B1C(v43, type metadata accessor for OvernightMetricsChartPoint);
       }
@@ -9132,7 +9112,7 @@ LABEL_30:
 
 uint64_t sub_1CFEC724C(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for OvernightMetricsChartPoint();
+  v4 = type metadata accessor for OvernightMetricsChartPoint(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -9149,13 +9129,13 @@ void sub_1CFEC72B0()
   }
 }
 
-void sub_1CFEC7300(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1CFEC7300(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
     sub_1CFF0CB6C();
     a3(255);
-    sub_1CFEC3E48(&qword_1EDEC5190, MEMORY[0x1E69A2E68]);
+    sub_1CFEC3E48(&qword_1EDEC5190, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2E78]);
     v5 = sub_1CFF0EA7C();
     if (!v6)
     {
@@ -9170,7 +9150,7 @@ void sub_1CFEC73AC(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t (*a4)(uin
   {
     sub_1CFF0CCEC();
     sub_1CFEC75F8(255, a3, a4, MEMORY[0x1E69E62F8]);
-    sub_1CFEC3E48(&qword_1EDEC5188, MEMORY[0x1E69A2EF8]);
+    sub_1CFEC3E48(&qword_1EDEC5188, MEMORY[0x1E69A2EF8], MEMORY[0x1E69A2F08]);
     v7 = sub_1CFF0EA7C();
     if (!v8)
     {
@@ -9179,30 +9159,30 @@ void sub_1CFEC73AC(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t (*a4)(uin
   }
 }
 
-void sub_1CFEC747C(uint64_t a1, unint64_t *a2)
+void sub_1CFEC747C(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     sub_1CFF0CB6C();
-    sub_1CFEC3E48(&qword_1EDEC5190, MEMORY[0x1E69A2E68]);
-    v3 = sub_1CFF0EA7C();
-    if (!v4)
+    sub_1CFEC3E48(&qword_1EDEC5190, MEMORY[0x1E69A2E68], MEMORY[0x1E69A2E78]);
+    v4 = sub_1CFF0EA7C();
+    if (!v5)
     {
-      atomic_store(v3, a2);
+      atomic_store(v4, a2);
     }
   }
 }
 
-void sub_1CFEC7518()
+void sub_1CFEC7518(uint64_t a1)
 {
   if (!qword_1EC512A38)
   {
-    sub_1CFE62B04(255, &qword_1EC512A40);
+    sub_1CFE62B04(255, &qword_1EC512A40, 0x1E696AD98);
     sub_1CFEC7590();
-    v0 = sub_1CFF0EA7C();
-    if (!v1)
+    v1 = sub_1CFF0EA7C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EC512A38);
+      atomic_store(v1, &qword_1EC512A38);
     }
   }
 }
@@ -9212,7 +9192,7 @@ unint64_t sub_1CFEC7590()
   result = qword_1EC512A48;
   if (!qword_1EC512A48)
   {
-    sub_1CFE62B04(255, &qword_1EC512A40);
+    sub_1CFE62B04(255, &qword_1EC512A40, 0x1E696AD98);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EC512A48);
   }
@@ -9233,7 +9213,7 @@ void sub_1CFEC75F8(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-uint64_t type metadata accessor for SmoothedLineTrace()
+uint64_t type metadata accessor for SmoothedLineTrace(uint64_t a1)
 {
   result = qword_1EDEC3F78;
   if (!qword_1EDEC3F78)
@@ -9244,16 +9224,16 @@ uint64_t type metadata accessor for SmoothedLineTrace()
   return result;
 }
 
-void sub_1CFEC76D0()
+void sub_1CFEC76D0(uint64_t a1)
 {
   sub_1CFEC8CF4(319, &qword_1EDEC4D40, type metadata accessor for IndividualOvernightMetricChartPoint, MEMORY[0x1E69E62F8]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1CFEC8CF4(319, &qword_1EDEC4B28, type metadata accessor for IndividualOvernightMetricChartPoint, MEMORY[0x1E69E6720]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for OvernightMetricsChartLayout(319);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -9268,26 +9248,26 @@ uint64_t sub_1CFEC77F8@<X0>(uint64_t a1@<X8>)
   sub_1CFEC8CF4(0, &qword_1EDEC4B28, type metadata accessor for IndividualOvernightMetricChartPoint, MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v50 = &v36 - v4;
-  v41 = type metadata accessor for SmoothedLineTrace();
+  v41 = type metadata accessor for SmoothedLineTrace(0);
   v5 = *(v41 - 8);
   v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v41);
-  sub_1CFEC8BC0();
+  sub_1CFEC8BC0(0);
   v42 = v7;
   v43 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v39 = &v36 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1CFEC8EAC();
+  sub_1CFEC8EAC(0);
   v38 = v9;
   v44 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
   v40 = &v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1CFEC9080();
+  sub_1CFEC9080(0);
   v49 = v11;
   v46 = *(v11 - 8);
   MEMORY[0x1EEE9AC00](v11);
   v13 = &v36 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1CFEC9150();
+  sub_1CFEC9150(0);
   v48 = v14;
   v47 = *(v14 - 8);
   MEMORY[0x1EEE9AC00](v14);
@@ -9303,7 +9283,7 @@ uint64_t sub_1CFEC77F8@<X0>(uint64_t a1@<X8>)
   sub_1CFEC8CF4(0, &qword_1EDEC22D8, sub_1CFEC8D58, v2);
   sub_1CFEC8DDC();
   sub_1CFEC8FA8();
-  sub_1CFEC8E64(qword_1EDEC2B48, type metadata accessor for IndividualOvernightMetricChartPoint);
+  sub_1CFEC8E64(qword_1EDEC2B48, type metadata accessor for IndividualOvernightMetricChartPoint, &unk_1CFF1396C);
   v18 = v38;
 
   v19 = v39;
@@ -9359,165 +9339,164 @@ uint64_t sub_1CFEC77F8@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_1CFEC7FD4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v62 = a1;
-  sub_1CFEC9410(0, &qword_1EC512A50);
+  v63 = a1;
+  sub_1CFEC9410(0, &qword_1EC512A50, MEMORY[0x1E69E6530], MEMORY[0x1E695B470]);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v57 = &v47 - v6;
-  sub_1CFEC9410(0, &qword_1EDEC2220);
+  v58 = &v48 - v6;
+  sub_1CFEC9410(0, &qword_1EDEC2220, MEMORY[0x1E69E63B0], MEMORY[0x1E695B450]);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v56 = &v47 - v8;
-  sub_1CFE55184();
+  v57 = &v48 - v8;
+  sub_1CFE55184(0);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v50 = &v47 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1CFE7B5F4();
+  v51 = &v48 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1CFE7B5F4(0);
   MEMORY[0x1EEE9AC00](v11 - 8);
-  v53 = &v47 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v54 = &v48 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = sub_1CFF0D34C();
-  v54 = *(v13 - 8);
-  v55 = v13;
-  MEMORY[0x1EEE9AC00](v13);
-  v52 = &v47 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1CFEC8D58();
-  v60 = *(v15 - 8);
-  v61 = v15;
-  MEMORY[0x1EEE9AC00](v15);
-  v51 = &v47 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = MEMORY[0x1E69E6720];
+  v55 = *(v13 - 8);
+  v56 = v13;
+  v14 = MEMORY[0x1EEE9AC00](v13);
+  v53 = &v48 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1CFEC8D58(0, v14);
+  v61 = *(v16 - 8);
+  v62 = v16;
+  MEMORY[0x1EEE9AC00](v16);
+  v52 = &v48 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = MEMORY[0x1E69E6720];
   sub_1CFEC8CF4(0, &qword_1EDEC22D8, sub_1CFEC8D58, MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v18 - 8);
-  v59 = &v47 - v19;
-  sub_1CFEC8CF4(0, &qword_1EDEC4B28, type metadata accessor for IndividualOvernightMetricChartPoint, v17);
-  MEMORY[0x1EEE9AC00](v20 - 8);
-  v22 = &v47 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v23);
-  v25 = &v47 - v24;
-  v26 = type metadata accessor for IndividualOvernightMetricChartPoint(0);
-  v27 = *(v26 - 8);
-  MEMORY[0x1EEE9AC00](v26);
-  v29 = &v47 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19 - 8);
+  v60 = &v48 - v20;
+  sub_1CFEC8CF4(0, &qword_1EDEC4B28, type metadata accessor for IndividualOvernightMetricChartPoint, v18);
+  MEMORY[0x1EEE9AC00](v21 - 8);
+  v23 = &v48 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v24);
+  v26 = &v48 - v25;
+  v27 = type metadata accessor for IndividualOvernightMetricChartPoint(0);
+  v28 = *(v27 - 8);
+  MEMORY[0x1EEE9AC00](v27);
+  v30 = &v48 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFF0E6DC();
-  v58 = sub_1CFF0E6CC();
+  v59 = sub_1CFF0E6CC();
   sub_1CFF0E66C();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
     swift_task_reportUnexpectedExecutor();
   }
 
-  v49 = type metadata accessor for SmoothedLineTrace();
-  v30 = *(v49 + 20);
-  v31 = a2;
-  sub_1CFE6BB40(a2 + v30, v25);
-  v32 = *(v27 + 48);
-  if (v32(v25, 1, v26) == 1)
+  v50 = type metadata accessor for SmoothedLineTrace(0);
+  v31 = *(v50 + 20);
+  v32 = a2;
+  sub_1CFE6BB40(a2 + v31, v26);
+  v33 = *(v28 + 48);
+  if (v33(v26, 1, v27) == 1)
   {
-    sub_1CFEC9324(v62, v29, type metadata accessor for IndividualOvernightMetricChartPoint);
-    if (v32(v25, 1, v26) != 1)
+    sub_1CFEC9324(v63, v30, type metadata accessor for IndividualOvernightMetricChartPoint);
+    if (v33(v26, 1, v27) != 1)
     {
-      sub_1CFE6BBD4(v25);
+      sub_1CFE6BBD4(v26);
     }
   }
 
   else
   {
-    sub_1CFEC9460(v25, v29, type metadata accessor for IndividualOvernightMetricChartPoint);
+    sub_1CFEC9460(v26, v30, type metadata accessor for IndividualOvernightMetricChartPoint);
   }
 
-  v33 = &v29[*(v26 + 32)];
-  if (v33[8])
+  v34 = &v30[*(v27 + 32)];
+  if (v34[8])
   {
-    sub_1CFEC93B0(v29, type metadata accessor for IndividualOvernightMetricChartPoint);
-    v34 = 1;
-    v36 = v60;
-    v35 = v61;
-    v37 = v59;
+    sub_1CFEC93B0(v30, type metadata accessor for IndividualOvernightMetricChartPoint);
+    v35 = 1;
+    v37 = v61;
+    v36 = v62;
+    v38 = v60;
   }
 
   else
   {
-    v38 = *v33;
-    v47 = sub_1CFF0D87C();
-    v48 = a3;
-    sub_1CFE6BB40(v31 + v30, v22);
-    v39 = v32(v22, 1, v26);
-    sub_1CFE6BBD4(v22);
-    v40 = 28;
-    if (v39 == 1)
+    v39 = *v34;
+    v48 = sub_1CFF0D87C();
+    v49 = a3;
+    sub_1CFE6BB40(v32 + v31, v23);
+    v40 = v33(v23, 1, v27);
+    sub_1CFE6BBD4(v23);
+    v41 = 28;
+    if (v40 == 1)
     {
-      v40 = 24;
+      v41 = 24;
     }
 
-    v41 = v50;
-    sub_1CFEC9324(&v29[*(v26 + v40)], v50, sub_1CFE55184);
+    v42 = v51;
+    sub_1CFEC9324(&v30[*(v27 + v41)], v51, sub_1CFE55184);
     sub_1CFF0C7AC();
-    sub_1CFEC8E64(&qword_1EDEC5198, MEMORY[0x1E6969530]);
+    sub_1CFEC8E64(&qword_1EDEC5198, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
     sub_1CFF0D1EC();
 
-    sub_1CFEC93B0(v41, sub_1CFE55184);
+    sub_1CFEC93B0(v42, sub_1CFE55184);
     sub_1CFF0D87C();
-    sub_1CFEC2950(v38);
-    v63 = v42;
+    sub_1CFEC2950(v39);
+    v64 = v43;
     sub_1CFF0D1FC();
 
     sub_1CFF0D87C();
-    v63 = sub_1CFF0CB2C();
+    v64 = sub_1CFF0CB2C();
     sub_1CFF0D1FC();
 
-    a3 = v48;
+    a3 = v49;
 
-    v43 = v52;
+    v44 = v53;
     sub_1CFF0D33C();
-    v44 = v51;
-    v45 = v55;
+    v45 = v52;
+    v46 = v56;
     sub_1CFF0D13C();
-    (*(v54 + 8))(v43, v45);
-    sub_1CFEC93B0(v29, type metadata accessor for IndividualOvernightMetricChartPoint);
-    v37 = v59;
-    v36 = v60;
-    v35 = v61;
-    (*(v60 + 32))(v59, v44, v61);
-    v34 = 0;
+    (*(v55 + 8))(v44, v46);
+    sub_1CFEC93B0(v30, type metadata accessor for IndividualOvernightMetricChartPoint);
+    v38 = v60;
+    v37 = v61;
+    v36 = v62;
+    (*(v61 + 32))(v60, v45, v62);
+    v35 = 0;
   }
 
-  (*(v36 + 56))(v37, v34, 1, v35);
-  sub_1CFE4D194(v37, a3);
+  (*(v37 + 56))(v38, v35, 1, v36);
+  sub_1CFE4D194(v38, a3);
 }
 
-uint64_t sub_1CFEC883C()
+void sub_1CFEC883C()
 {
   v1 = v0;
   v2 = type metadata accessor for IndividualOvernightMetricChartPoint(0);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
-  v5 = &v18[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v5 = &v17[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v6);
-  v8 = &v18[-v7];
+  v8 = &v17[-v7];
   v9 = *v1;
   v10 = *(*v1 + 16);
-  if (!v10)
+  if (v10)
   {
-    return MEMORY[0x1E69E7CC0];
-  }
+    v11 = v9 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    sub_1CFEC9324(v11, &v17[-v7], type metadata accessor for IndividualOvernightMetricChartPoint);
+    sub_1CFEC9324(v11 + *(v3 + 72) * (v10 - 1), v5, type metadata accessor for IndividualOvernightMetricChartPoint);
+    sub_1CFF0C65C();
+    v13 = v12;
+    v14 = sub_1CFF0C65C();
+    if (v13 > v15)
+    {
+      __break(1u);
+    }
 
-  v11 = v9 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-  sub_1CFEC9324(v11, &v18[-v7], type metadata accessor for IndividualOvernightMetricChartPoint);
-  sub_1CFEC9324(v11 + *(v3 + 72) * (v10 - 1), v5, type metadata accessor for IndividualOvernightMetricChartPoint);
-  sub_1CFF0C65C();
-  v13 = v12;
-  result = sub_1CFF0C65C();
-  if (v13 <= v15)
-  {
-    v16 = MEMORY[0x1EEE9AC00](result);
-    *&v18[-32] = v1;
-    *&v18[-24] = v13;
-    *&v18[-16] = v16;
-    v17 = sub_1CFEDA5C0(sub_1CFEC938C, &v18[-48], v9);
-    sub_1CFEC93B0(v5, type metadata accessor for IndividualOvernightMetricChartPoint);
-    sub_1CFEC93B0(v8, type metadata accessor for IndividualOvernightMetricChartPoint);
-    return v17;
+    else
+    {
+      v16 = MEMORY[0x1EEE9AC00](v14);
+      *&v17[-32] = v1;
+      *&v17[-24] = v13;
+      *&v17[-16] = v16;
+      sub_1CFEDA5C0(sub_1CFEC938C, &v17[-48], v9);
+      sub_1CFEC93B0(v5, type metadata accessor for IndividualOvernightMetricChartPoint);
+      sub_1CFEC93B0(v8, type metadata accessor for IndividualOvernightMetricChartPoint);
+    }
   }
-
-  __break(1u);
-  return result;
 }
 
 uint64_t sub_1CFEC8A34@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
@@ -9530,8 +9509,8 @@ uint64_t sub_1CFEC8A34@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8
     swift_task_reportUnexpectedExecutor();
   }
 
-  v6 = type metadata accessor for SmoothedLineTrace();
-  memcpy(__dst, (a2 + *(v6 + 32)), sizeof(__dst));
+  v8 = type metadata accessor for SmoothedLineTrace(0);
+  memcpy(__dst, (a2 + *(v8 + 32)), sizeof(__dst));
   if (*(a1 + *(type metadata accessor for IndividualOvernightMetricChartPoint(0) + 32) + 8))
   {
     sub_1CFF0DE6C();
@@ -9539,22 +9518,22 @@ uint64_t sub_1CFEC8A34@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8
 
   else
   {
-    sub_1CFE55370(__dst, &v11);
+    sub_1CFE55370(__dst, &v13);
     sub_1CFF0CCCC();
 
     sub_1CFE583D0(__dst);
   }
 
   sub_1CFF0C65C();
-  v7 = sub_1CFF0E0AC();
-  v9 = v8;
+  v9 = sub_1CFF0E0AC();
+  v11 = v10;
 
-  *a3 = v7;
-  a3[1] = v9;
+  *a3 = v9;
+  a3[1] = v11;
   return result;
 }
 
-void sub_1CFEC8BC0()
+void sub_1CFEC8BC0(uint64_t a1)
 {
   if (!qword_1EDEC18F0)
   {
@@ -9562,11 +9541,11 @@ void sub_1CFEC8BC0()
     type metadata accessor for IndividualOvernightMetricChartPoint.ID(255);
     sub_1CFEC8CF4(255, &qword_1EDEC22D8, sub_1CFEC8D58, MEMORY[0x1E69E6720]);
     sub_1CFEC8DDC();
-    sub_1CFEC8E64(&qword_1EDEC2BE8, type metadata accessor for IndividualOvernightMetricChartPoint.ID);
-    v0 = sub_1CFF0E07C();
-    if (!v1)
+    sub_1CFEC8E64(&qword_1EDEC2BE8, type metadata accessor for IndividualOvernightMetricChartPoint.ID, &unk_1CFF139A4);
+    v1 = sub_1CFF0E07C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EDEC18F0);
+      atomic_store(v1, &qword_1EDEC18F0);
     }
   }
 }
@@ -9584,13 +9563,13 @@ void sub_1CFEC8CF4(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1CFEC8D58()
+void sub_1CFEC8D58(uint64_t a1, double a2)
 {
   if (!qword_1EDEC22E0)
   {
     sub_1CFF0D34C();
     OpaqueTypeMetadata2 = swift_getOpaqueTypeMetadata2();
-    if (!v1)
+    if (!v3)
     {
       atomic_store(OpaqueTypeMetadata2, &qword_1EDEC22E0);
     }
@@ -9610,7 +9589,7 @@ unint64_t sub_1CFEC8DDC()
   return result;
 }
 
-uint64_t sub_1CFEC8E64(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1CFEC8E64(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9623,14 +9602,14 @@ uint64_t sub_1CFEC8E64(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-void sub_1CFEC8EAC()
+void sub_1CFEC8EAC(uint64_t a1)
 {
   if (!qword_1EDEC2250)
   {
-    sub_1CFEC8BC0();
+    sub_1CFEC8BC0(255);
     sub_1CFEC8F30();
     OpaqueTypeMetadata2 = swift_getOpaqueTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(OpaqueTypeMetadata2, &qword_1EDEC2250);
     }
@@ -9642,7 +9621,7 @@ unint64_t sub_1CFEC8F30()
   result = qword_1EDEC18F8;
   if (!qword_1EDEC18F8)
   {
-    sub_1CFEC8BC0();
+    sub_1CFEC8BC0(255);
     sub_1CFEC8FA8();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EDEC18F8);
@@ -9666,34 +9645,34 @@ unint64_t sub_1CFEC8FA8()
   return result;
 }
 
-void sub_1CFEC9080()
+void sub_1CFEC9080(uint64_t a1)
 {
   if (!qword_1EDEC2340)
   {
-    sub_1CFEC8EAC();
-    sub_1CFEC8BC0();
+    sub_1CFEC8EAC(255);
+    sub_1CFEC8BC0(255);
     sub_1CFEC8F30();
     swift_getOpaqueTypeConformance2();
     OpaqueTypeMetadata2 = swift_getOpaqueTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(OpaqueTypeMetadata2, &qword_1EDEC2340);
     }
   }
 }
 
-void sub_1CFEC9150()
+void sub_1CFEC9150(uint64_t a1)
 {
   if (!qword_1EDEC2260)
   {
-    sub_1CFEC9080();
-    sub_1CFEC8EAC();
-    sub_1CFEC8BC0();
+    sub_1CFEC9080(255);
+    sub_1CFEC8EAC(255);
+    sub_1CFEC8BC0(255);
     sub_1CFEC8F30();
     swift_getOpaqueTypeConformance2();
     swift_getOpaqueTypeConformance2();
     OpaqueTypeMetadata2 = swift_getOpaqueTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(OpaqueTypeMetadata2, &qword_1EDEC2260);
     }
@@ -9702,7 +9681,7 @@ void sub_1CFEC9150()
 
 uint64_t sub_1CFEC9250@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = *(type metadata accessor for SmoothedLineTrace() - 8);
+  v5 = *(type metadata accessor for SmoothedLineTrace(0) - 8);
   v6 = v2 + ((*(v5 + 80) + 16) & ~*(v5 + 80));
 
   return sub_1CFEC7FD4(a1, v6, a2);
@@ -9722,14 +9701,14 @@ uint64_t sub_1CFEC93B0(uint64_t a1, uint64_t (*a2)(void))
   return a1;
 }
 
-void sub_1CFEC9410(uint64_t a1, unint64_t *a2)
+void sub_1CFEC9410(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (!*a2)
   {
-    v3 = sub_1CFF0D20C();
-    if (!v4)
+    v5 = sub_1CFF0D20C();
+    if (!v6)
     {
-      atomic_store(v3, a2);
+      atomic_store(v5, a2);
     }
   }
 }
@@ -9741,7 +9720,7 @@ uint64_t sub_1CFEC9460(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-uint64_t type metadata accessor for OvernightMetricsChartContent()
+uint64_t type metadata accessor for OvernightMetricsChartContent(uint64_t a1)
 {
   result = qword_1EDEC3688;
   if (!qword_1EDEC3688)
@@ -9752,25 +9731,25 @@ uint64_t type metadata accessor for OvernightMetricsChartContent()
   return result;
 }
 
-void sub_1CFEC95A4()
+void sub_1CFEC95A4(uint64_t a1)
 {
-  type metadata accessor for OvernightMetricsChartPointCollection();
-  if (v0 <= 0x3F)
+  type metadata accessor for OvernightMetricsChartPointCollection(319);
+  if (v1 <= 0x3F)
   {
     sub_1CFEC94DC(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      sub_1CFECB5C0(319, &qword_1EDEC2B38);
-      if (v2 <= 0x3F)
+      sub_1CFECB5C0(319, &qword_1EDEC2B38, &type metadata for OvernightMetricsChartAnimationValues.IndividualMetricsState);
+      if (v3 <= 0x3F)
       {
         sub_1CFEC96D4(319);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_1CFEC9510(319);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             type metadata accessor for OvernightMetricsChartLayout(319);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -9779,4 +9758,19 @@ void sub_1CFEC95A4()
       }
     }
   }
+}
+
+uint64_t sub_1CFEC978C(uint64_t a1, uint64_t (*a2)(void), unint64_t *a3, uint64_t (*a4)(uint64_t))
+{
+  sub_1CFF0E6DC();
+  sub_1CFF0E6CC();
+  sub_1CFF0E66C();
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
+  {
+    swift_task_reportUnexpectedExecutor();
+  }
+
+  a2(0);
+  sub_1CFECC0B8(a3, a4, MEMORY[0x1E697FEC8]);
+  sub_1CFF0DCFC();
 }

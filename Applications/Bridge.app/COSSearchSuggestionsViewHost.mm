@@ -8,7 +8,7 @@
 + (id)makeSearchSuggestionsViewController
 {
   sub_10000AAEC();
-  v2 = objc_allocWithZone(sub_1001379C4(&qword_1002BC128));
+  v2 = objc_allocWithZone(sub_1001379C4(&qword_1002BC128, &unk_1001C74D0));
   v3 = UIHostingController.init(rootView:)();
 
   return v3;

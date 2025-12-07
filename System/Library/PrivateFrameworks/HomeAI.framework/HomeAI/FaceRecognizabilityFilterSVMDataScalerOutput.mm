@@ -22,11 +22,11 @@
 
 - (id)featureValueForName:(id)name
 {
-  if ([name isEqualToString:@"transformed_features"])
+  if ([name isEqualToString:?])
   {
     v4 = MEMORY[0x277CBFEF8];
     transformed_features = [(FaceRecognizabilityFilterSVMDataScalerOutput *)self transformed_features];
-    v6 = [v4 featureValueWithMultiArray:transformed_features];
+    v6 = [v4 featureValueWithMultiArray:?];
   }
 
   else

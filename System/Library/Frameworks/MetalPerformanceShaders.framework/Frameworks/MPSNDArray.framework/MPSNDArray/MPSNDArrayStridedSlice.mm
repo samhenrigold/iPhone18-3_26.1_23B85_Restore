@@ -20,7 +20,7 @@
 
 - (id)destinationArrayDescriptorForSourceArrays:(id)arrays sourceState:(id)state
 {
-  v12[16] = *MEMORY[0x277D85DE8];
+  v11[16] = *MEMORY[0x277D85DE8];
   v5 = [arrays objectAtIndexedSubscript:{0, state}];
   v6 = *(v5 + *MEMORY[0x277CD73F0]);
   if (v6)
@@ -41,15 +41,13 @@
         v9 = (v9 + *(v5 + *v8 + 4 * (v7 & 0xF)) - 1) / v9;
       }
 
-      v12[v7++] = v9;
+      v11[v7++] = v9;
     }
 
     while (v6 != v7);
   }
 
-  result = [MEMORY[0x277CD7268] descriptorWithDataType:*(v5 + *MEMORY[0x277CD73C8]) dimensionCount:? dimensionSizes:?];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [MEMORY[0x277CD7268] descriptorWithDataType:*(v5 + *MEMORY[0x277CD73C8]) dimensionCount:? dimensionSizes:?];
 }
 
 - (int32x4_t)stridesAtSourceIndex:(uint64_t)index@<X0>

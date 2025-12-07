@@ -154,9 +154,9 @@ PKCreditInstallmentPlanLineItem *__53__PKCreditInstallmentPlanPayment_initWithDi
       goto LABEL_19;
     }
 
-    v10 = [(NSString *)v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_20;
     }
@@ -177,7 +177,7 @@ PKCreditInstallmentPlanLineItem *__53__PKCreditInstallmentPlanPayment_initWithDi
       goto LABEL_19;
     }
 
-    v13 = [(NSString *)v7 isEqualToString:v12];
+    v13 = objc_msgSend_isEqualToString_(v7);
 
     if (!v13)
     {
@@ -193,7 +193,7 @@ PKCreditInstallmentPlanLineItem *__53__PKCreditInstallmentPlanPayment_initWithDi
   {
     if (v7 && v15)
     {
-      v16 = [(NSString *)v7 isEqualToString:v15];
+      v16 = objc_msgSend_isEqualToString_(v7);
 
       if (!v16)
       {

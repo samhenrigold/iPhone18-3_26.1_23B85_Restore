@@ -2,19 +2,18 @@ void *SiriUserSegmentsPlugin.perform(_:)()
 {
   v1 = sub_100001628();
   v2 = *(v1 - 1);
-  v3 = *(v2 + 64);
   __chkstk_darwin();
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100001618();
   sub_100001608();
   if (!v0)
   {
-    (*(v2 + 8))(v5, v1);
+    (*(v2 + 8))(v4, v1);
     sub_1000013FC(&_swiftEmptyArrayStorage);
-    v6 = objc_allocWithZone(MLRTaskResult);
+    v5 = objc_allocWithZone(MLRTaskResult);
     isa = sub_100001638().super.isa;
 
-    v1 = [v6 initWithJSONResult:isa unprivatizedVector:0];
+    v1 = [v5 initWithJSONResult:isa unprivatizedVector:0];
   }
 
   return v1;
@@ -34,21 +33,20 @@ id SiriUserSegmentsPlugin.init()()
   return objc_msgSendSuper2(&v2, "init");
 }
 
-id SiriUserSegmentsPlugin.__deallocating_deinit()
+id SiriUserSegmentsPlugin.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SiriUserSegmentsPlugin();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for SiriUserSegmentsPlugin();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 unint64_t sub_1000012CC(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_100001678();
   sub_100001648();
-  v6 = sub_100001688();
+  v4 = sub_100001688();
 
-  return sub_100001344(a1, a2, v6);
+  return sub_100001344(a1, a2, v4);
 }
 
 unint64_t sub_100001344(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -140,7 +138,6 @@ uint64_t sub_100001530(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

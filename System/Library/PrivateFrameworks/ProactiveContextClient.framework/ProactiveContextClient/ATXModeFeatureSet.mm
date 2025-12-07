@@ -2,10 +2,17 @@
 - (ATXModeFeatureSet)init;
 - (ATXModeFeatureSet)initWithCoder:(id)coder;
 - (ATXModeFeatureSet)initWithDictionary:(id)dictionary;
+- (BOOL)BOOLValueForFeatureType:(int)type;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)stringForFeatureType:(int)type;
+- (id)valueForFeatureType:(int)type;
 - (void)_enumerateFeaturesUsingBlock:(id)block;
 - (void)mergeWithFeatures:(id)features;
+- (void)setNullForFeatureType:(int)type;
+- (void)setString:(id)string forFeatureType:(int)type;
+- (void)setValue:(BOOL)value forBinaryFeatureOfType:(int)type;
+- (void)setValue:(id)value forFeatureType:(int)type;
 @end
 
 @implementation ATXModeFeatureSet
@@ -43,6 +50,94 @@
   }
 
   return v5;
+}
+
+- (void)setValue:(BOOL)value forBinaryFeatureOfType:(int)type
+{
+  v4 = *&type;
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:value];
+  [(ATXModeFeatureSet *)self setValue:v6 forFeatureType:v4];
+}
+
+- (void)setValue:(id)value forFeatureType:(int)type
+{
+  v4 = *&type;
+  v8 = [value copy];
+  features = self->_features;
+  v7 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  [(NSMutableDictionary *)features setObject:v8 forKeyedSubscript:v7];
+}
+
+- (void)setNullForFeatureType:(int)type
+{
+  v3 = *&type;
+  null = [MEMORY[0x277CBEB68] null];
+  features = self->_features;
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  [(NSMutableDictionary *)features setObject:null forKeyedSubscript:v6];
+}
+
+- (void)setString:(id)string forFeatureType:(int)type
+{
+  v4 = *&type;
+  v8 = [string copy];
+  features = self->_features;
+  v7 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  [(NSMutableDictionary *)features setObject:v8 forKeyedSubscript:v7];
+}
+
+- (BOOL)BOOLValueForFeatureType:(int)type
+{
+  v3 = [(ATXModeFeatureSet *)self valueForFeatureType:*&type];
+  bOOLValue = [v3 BOOLValue];
+
+  return bOOLValue;
+}
+
+- (id)valueForFeatureType:(int)type
+{
+  v3 = *&type;
+  features = self->_features;
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:?];
+  v7 = [(NSMutableDictionary *)features objectForKeyedSubscript:v6];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v8 = self->_features;
+    v9 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+    v10 = [(NSMutableDictionary *)v8 objectForKeyedSubscript:v9];
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  return v10;
+}
+
+- (id)stringForFeatureType:(int)type
+{
+  v3 = *&type;
+  features = self->_features;
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:?];
+  v7 = [(NSMutableDictionary *)features objectForKeyedSubscript:v6];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v8 = self->_features;
+    v9 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+    v10 = [(NSMutableDictionary *)v8 objectForKeyedSubscript:v9];
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  return v10;
 }
 
 - (void)_enumerateFeaturesUsingBlock:(id)block
@@ -151,7 +246,7 @@ void __45__ATXModeFeatureSet_dictionaryRepresentation__block_invoke(uint64_t a1,
 
 - (ATXModeFeatureSet)initWithCoder:(id)coder
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
@@ -166,10 +261,10 @@ void __45__ATXModeFeatureSet_dictionaryRepresentation__block_invoke(uint64_t a1,
 
     if (error)
     {
-      v13 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = __atxlog_handle_modes(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(ATXModeFeatureSet *)coderCopy initWithCoder:v13];
+        [(ATXModeFeatureSet *)coderCopy initWithCoder:v14];
       }
 
       goto LABEL_10;
@@ -177,31 +272,30 @@ void __45__ATXModeFeatureSet_dictionaryRepresentation__block_invoke(uint64_t a1,
 
     v22 = [coderCopy containsValueForKey:@"fs"];
     v23 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v24 = *MEMORY[0x277CCA450];
     if (v22)
     {
-      v29 = *MEMORY[0x277CCA450];
-      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"archive contains illegal nil value for key %@", @"fs"];
-      v30[0] = v15;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-      v17 = v23;
-      v18 = -1;
+      v28 = *MEMORY[0x277CCA450];
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"archive contains illegal nil value for key %@", @"fs"];
+      v29[0] = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v18 = v23;
+      v19 = -1;
     }
 
     else
     {
-      v27 = *MEMORY[0x277CCA450];
-      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"key %@ not present", @"fs"];
-      v28 = v15;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-      v17 = v23;
-      v18 = -2;
+      v26 = *MEMORY[0x277CCA450];
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"key %@ not present", @"fs"];
+      v27 = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v18 = v23;
+      v19 = -2;
     }
 
 LABEL_9:
-    v19 = [v17 initWithDomain:@"com.apple.duetexpertd.modes" code:v18 userInfo:v16];
+    v20 = [v18 initWithDomain:@"com.apple.duetexpertd.modes" code:v19 userInfo:v17];
 
-    [coderCopy failWithError:v19];
+    [coderCopy failWithError:v20];
 LABEL_10:
     selfCopy = 0;
     goto LABEL_11;
@@ -210,13 +304,13 @@ LABEL_10:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v14 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v25 = *MEMORY[0x277CCA450];
-    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"key %@ maps to unexpected class", @"fs"];
-    v26 = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    v17 = v14;
-    v18 = -3;
+    v15 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v24 = *MEMORY[0x277CCA450];
+    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"key %@ maps to unexpected class", @"fs"];
+    v25 = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v18 = v15;
+    v19 = -3;
     goto LABEL_9;
   }
 
@@ -224,19 +318,16 @@ LABEL_10:
   selfCopy = self;
 LABEL_11:
 
-  v20 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (void)initWithCoder:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_260C9F000, a2, OS_LOG_TYPE_ERROR, "ATXModeFeatureSet: error initWithCoder: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_260C9F000, a2, OS_LOG_TYPE_ERROR, "ATXModeFeatureSet: error initWithCoder: %@", &v4, 0xCu);
 }
 
 @end

@@ -61,9 +61,9 @@
 - (_TtC12SiriSharedUI32SiriSharedUISmartDialogContainer)initWithDelegate:(id)delegate
 {
   swift_unknownObjectRetain();
-  v3 = sub_21E4693E4();
+  v4 = sub_21E4693E4(delegate);
   swift_unknownObjectRelease();
-  return v3;
+  return v4;
 }
 
 - (void)reloadView
@@ -158,7 +158,7 @@
 
 - (void)updateWithActiveTranscriptItems:(id)items
 {
-  sub_21E43F008(0, &qword_280C14128);
+  sub_21E43F008(0, &qword_280C14128, off_278353790);
   v4 = sub_21E4DD088();
   selfCopy = self;
   sub_21E465EC8(v4);
@@ -321,7 +321,7 @@
   v5 = sub_21E4DB5B8();
   v7 = v6;
 
-  sub_21E468518();
+  sub_21E468518(v5, v7);
   sub_21E424920(v5, v7);
 }
 

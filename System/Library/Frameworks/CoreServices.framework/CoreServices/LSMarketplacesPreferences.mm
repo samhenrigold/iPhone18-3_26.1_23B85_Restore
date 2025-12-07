@@ -45,14 +45,13 @@
 
 - (id)toPlist
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v6[0] = @"version";
-  v6[1] = @"preferredMarketplaces";
+  v6[2] = *MEMORY[0x1E69E9840];
+  v5[0] = @"version";
+  v5[1] = @"preferredMarketplaces";
   preferredMarketplaces = self->_preferredMarketplaces;
-  v7[0] = &unk_1EEF8F008;
-  v7[1] = preferredMarketplaces;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = &unk_1EEF8F008;
+  v6[1] = preferredMarketplaces;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }
@@ -101,7 +100,7 @@ LABEL_8:
 
 + (id)modifyPreferencesWithBlock:(id)block
 {
-  v11[4] = *MEMORY[0x1E69E9840];
+  v10[4] = *MEMORY[0x1E69E9840];
   v4 = marketplacesPreferencesStatePlist(void)::onceToken;
   blockCopy = block;
   if (v4 != -1)
@@ -112,13 +111,12 @@ LABEL_8:
   v6 = marketplacesPreferencesStatePlist(void)::sharedPlist;
   v7 = MEMORY[0x1865D71B0](blockCopy);
 
-  v11[0] = &unk_1EEF637E8;
-  v11[1] = self;
-  v11[2] = v7;
-  v11[3] = v11;
-  v8 = LaunchServices::LSStatePlist::modify(v6, v11);
-  std::__function::__value_func<objc_object * ()(objc_object *,NSError *)>::~__value_func[abi:nn200100](v11);
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = &unk_1EEF637E8;
+  v10[1] = self;
+  v10[2] = v7;
+  v10[3] = v10;
+  v8 = LaunchServices::LSStatePlist::modify(v6, v10);
+  std::__function::__value_func<objc_object * ()(objc_object *,NSError *)>::~__value_func[abi:nn200100](v10);
 
   return v8;
 }

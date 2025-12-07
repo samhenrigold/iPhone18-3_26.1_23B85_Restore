@@ -103,7 +103,7 @@ uint64_t __37__PXMessagesDebugTapbackView__bounce__block_invoke_2(uint64_t a1)
   return [v1 setTransform:v4];
 }
 
-uint64_t __37__PXMessagesDebugTapbackView__bounce__block_invoke_3(uint64_t a1)
+void *__37__PXMessagesDebugTapbackView__bounce__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) reuseCounter];
   if (result == *(a1 + 40))

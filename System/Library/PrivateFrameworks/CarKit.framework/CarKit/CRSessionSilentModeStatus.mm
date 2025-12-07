@@ -17,30 +17,31 @@
 
 - (void)setCarPlaySilentModePreference:(unint64_t)preference
 {
-  v9 = *MEMORY[0x1E69E9840];
-  if ([(CRSessionSilentModeStatus *)self getCarPlaySilentModePreference]!= preference)
+  v10 = *MEMORY[0x1E69E9840];
+  getCarPlaySilentModePreference = [(CRSessionSilentModeStatus *)self getCarPlaySilentModePreference];
+  if (getCarPlaySilentModePreference != preference)
   {
-    v4 = CarSilentModeLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarSilentModeLogging(getCarPlaySilentModePreference);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = @"Unmuted";
+      v6 = @"Unmuted";
       if (preference == 1)
       {
-        v5 = @"Muted";
+        v6 = @"Muted";
       }
 
       if (!preference)
       {
-        v5 = @"Mirror iPhone";
+        v6 = @"Mirror iPhone";
       }
 
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1C81FC000, v4, OS_LOG_TYPE_DEFAULT, "CarPlay Silent Mode Preference changed: %{public}@", &v7, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1C81FC000, v5, OS_LOG_TYPE_DEFAULT, "CarPlay Silent Mode Preference changed: %{public}@", &v8, 0xCu);
     }
 
-    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:preference];
-    CFPreferencesSetAppValue(@"CRCarPlaySilentModePref", v6, @"com.apple.CarPlayApp");
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:preference];
+    CFPreferencesSetAppValue(@"CRCarPlaySilentModePref", v7, @"com.apple.CarPlayApp");
   }
 }
 
@@ -55,49 +56,50 @@
 - (void)setDeviceSilentMode:(BOOL)mode reason:(id)reason
 {
   modeCopy = mode;
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69AED10];
   reasonCopy = reason;
   sharedInstance = [v6 sharedInstance];
   [sharedInstance setSilentMode:modeCopy untilTime:0 reason:reasonCopy clientType:8];
 
   isDeviceSilentModeOn = [(CRSessionSilentModeStatus *)self isDeviceSilentModeOn];
-  v10 = CarSilentModeLogging();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v10 = isDeviceSilentModeOn;
+  v11 = CarSilentModeLogging(isDeviceSilentModeOn);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = @"Unmuted";
+    v12 = @"Unmuted";
     if (modeCopy)
+    {
+      v13 = @"Muted";
+    }
+
+    else
+    {
+      v13 = @"Unmuted";
+    }
+
+    if (v10)
     {
       v12 = @"Muted";
     }
 
-    else
+    v15 = 138543874;
+    v16 = v13;
+    v17 = 2114;
+    v18 = v12;
+    if (v10 != modeCopy)
     {
-      v12 = @"Unmuted";
-    }
-
-    if (isDeviceSilentModeOn)
-    {
-      v11 = @"Muted";
-    }
-
-    v14 = 138543874;
-    v15 = v12;
-    v16 = 2114;
-    v17 = v11;
-    if (isDeviceSilentModeOn != modeCopy)
-    {
-      v13 = @"NO";
+      v14 = @"NO";
     }
 
     else
     {
-      v13 = @"YES";
+      v14 = @"YES";
     }
 
-    v18 = 2114;
-    v19 = v13;
-    _os_log_impl(&dword_1C81FC000, v10, OS_LOG_TYPE_DEFAULT, "Should have %{public}@ device. Device is %{public}@. Success: %{public}@", &v14, 0x20u);
+    v19 = 2114;
+    v20 = v14;
+    _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_DEFAULT, "Should have %{public}@ device. Device is %{public}@. Success: %{public}@", &v15, 0x20u);
   }
 }
 

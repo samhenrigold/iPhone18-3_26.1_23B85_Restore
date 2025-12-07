@@ -100,20 +100,18 @@ LABEL_11:
 
 - (void)initWithLogger:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_error_impl(&dword_24508F000, a2, OS_LOG_TYPE_ERROR, "ADM dlopen() failed: %s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_error_impl(&dword_24508F000, a2, OS_LOG_TYPE_ERROR, "ADM dlopen() failed: %s", &v2, 0xCu);
 }
 
 - (void)createFactory
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136315138;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
   selfCopy = self;
-  _os_log_error_impl(&dword_24508F000, a2, OS_LOG_TYPE_ERROR, "ADM dlsym failed: %s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24508F000, a2, OS_LOG_TYPE_ERROR, "ADM dlsym failed: %s", &v2, 0xCu);
 }
 
 @end

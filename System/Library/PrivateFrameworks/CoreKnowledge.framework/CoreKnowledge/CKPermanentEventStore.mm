@@ -26,32 +26,32 @@
 
 + (id)createEventWithIdentifier:(id)identifier dateInterval:(id)interval metadata:(id)metadata fromEvent:(id)event
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC2ADAB8);
-  MEMORY[0x1EEE9AC00](v8 - 8, v9);
-  v11 = &v21 - v10;
-  v12 = sub_1C86F8EFC();
-  v14 = v13;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC2ADAB8, &qword_1C86FD240);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v20 - v9;
+  v11 = sub_1C86F8EFC();
+  v13 = v12;
   if (interval)
   {
     sub_1C86F8B0C();
-    v15 = sub_1C86F8B5C();
-    v16 = 0;
+    v14 = sub_1C86F8B5C();
+    v15 = 0;
   }
 
   else
   {
-    v15 = sub_1C86F8B5C();
-    v16 = 1;
+    v14 = sub_1C86F8B5C();
+    v15 = 1;
   }
 
-  __swift_storeEnumTagSinglePayload(v11, v16, 1, v15);
-  v17 = sub_1C86F8E9C();
+  __swift_storeEnumTagSinglePayload(v10, v15, 1, v14);
+  v16 = sub_1C86F8E9C();
   eventCopy = event;
-  v19 = static CKPermanentEventStore.createEvent(withIdentifier:dateInterval:metadata:from:)(v12, v14, v11, v17, event);
+  v18 = static CKPermanentEventStore.createEvent(withIdentifier:dateInterval:metadata:from:)(v11, v13, v10, v16, event);
 
-  sub_1C86A5BC8(v11, &qword_1EC2ADAB8);
+  sub_1C86A5BC8(v10, &qword_1EC2ADAB8, &qword_1C86FD240);
 
-  return v19;
+  return v18;
 }
 
 - (BOOL)recordInteraction:(id)interaction bundleId:(id)id error:(id *)error
@@ -195,7 +195,7 @@
   selfCopy = self;
   CKPermanentEventStore.historicEvents()();
 
-  type metadata accessor for CKHistoricEvent();
+  type metadata accessor for CKHistoricEvent(0);
   v4 = sub_1C86F8E8C();
 
   return v4;

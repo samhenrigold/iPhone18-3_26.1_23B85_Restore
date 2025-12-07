@@ -88,8 +88,10 @@ void __56__CARConnectionTimeStore__CARConnectionServiceInterface__block_invoke()
     goto LABEL_7;
   }
 
-  if (xpc_user_sessions_enabled())
+  v6 = xpc_user_sessions_enabled();
+  if (v6)
   {
+    v12 = 0;
     xpc_user_sessions_get_foreground_uid();
     _xpcConnection = [v5 _xpcConnection];
     xpc_connection_set_target_user_session_uid();
@@ -100,20 +102,20 @@ LABEL_7:
 
     [v5 resume];
     [(CARConnectionTimeStore *)self setConnection:v5];
-    v7 = 1;
+    v8 = 1;
     goto LABEL_8;
   }
 
-  v6 = CarConnectionTimeLogging();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+  v7 = CarConnectionTimeLogging(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     [CARConnectionTimeStore _setupConnectionForSystemDaemon:];
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_8:
 
-  return v7;
+  return v8;
 }
 
 - (void)dealloc
@@ -129,21 +131,21 @@ LABEL_8:
   blockCopy = block;
   handlerCopy = handler;
   connection = [(CARConnectionTimeStore *)self connection];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __65__CARConnectionTimeStore__xpcFetchWithServiceBlock_errorHandler___block_invoke;
-  v13[3] = &unk_1E82FBF48;
-  v14 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __65__CARConnectionTimeStore__xpcFetchWithServiceBlock_errorHandler___block_invoke;
+  v14[3] = &unk_1E82FBF48;
+  v15 = handlerCopy;
   v9 = handlerCopy;
-  v10 = [connection remoteObjectProxyWithErrorHandler:v13];
+  v10 = [connection remoteObjectProxyWithErrorHandler:v14];
 
   if (blockCopy)
   {
-    v11 = CarConnectionTimeLogging();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = CarConnectionTimeLogging(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_DEFAULT, "CARConnectionTimeStore: Connecting to CarKit Connection Time service", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1C81FC000, v12, OS_LOG_TYPE_DEFAULT, "CARConnectionTimeStore: Connecting to CarKit Connection Time service", v13, 2u);
     }
 
     blockCopy[2](blockCopy, v10);
@@ -153,7 +155,7 @@ LABEL_8:
 void __65__CARConnectionTimeStore__xpcFetchWithServiceBlock_errorHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarConnectionTimeLogging();
+  v4 = CarConnectionTimeLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __65__CARConnectionTimeStore__xpcFetchWithServiceBlock_errorHandler___block_invoke_cold_1();
@@ -171,21 +173,21 @@ void __65__CARConnectionTimeStore__xpcFetchWithServiceBlock_errorHandler___block
   blockCopy = block;
   handlerCopy = handler;
   connection = [(CARConnectionTimeStore *)self connection];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __76__CARConnectionTimeStore__xpcFetchWithSynchronousServiceBlock_errorHandler___block_invoke;
-  v13[3] = &unk_1E82FBF48;
-  v14 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __76__CARConnectionTimeStore__xpcFetchWithSynchronousServiceBlock_errorHandler___block_invoke;
+  v14[3] = &unk_1E82FBF48;
+  v15 = handlerCopy;
   v9 = handlerCopy;
-  v10 = [connection synchronousRemoteObjectProxyWithErrorHandler:v13];
+  v10 = [connection synchronousRemoteObjectProxyWithErrorHandler:v14];
 
   if (blockCopy)
   {
-    v11 = CarConnectionTimeLogging();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = CarConnectionTimeLogging(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_DEFAULT, "CARConnectionTimeStore: Connecting to CarKit Connection Time service", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1C81FC000, v12, OS_LOG_TYPE_DEFAULT, "CARConnectionTimeStore: Connecting to CarKit Connection Time service", v13, 2u);
     }
 
     blockCopy[2](blockCopy, v10);
@@ -195,7 +197,7 @@ void __65__CARConnectionTimeStore__xpcFetchWithServiceBlock_errorHandler___block
 void __76__CARConnectionTimeStore__xpcFetchWithSynchronousServiceBlock_errorHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarConnectionTimeLogging();
+  v4 = CarConnectionTimeLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __65__CARConnectionTimeStore__xpcFetchWithServiceBlock_errorHandler___block_invoke_cold_1();
@@ -228,10 +230,11 @@ void __76__CARConnectionTimeStore__xpcFetchWithSynchronousServiceBlock_errorHand
 void __46__CARConnectionTimeStore_fetchRecentSessions___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = CarConnectionTimeLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = CarConnectionTimeLogging(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __46__CARConnectionTimeStore_fetchRecentSessions___block_invoke_2_cold_1();
     }
@@ -265,7 +268,7 @@ void __57__CARConnectionTimeStore_sendConnectionEvent_completion___block_invoke(
 {
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = CarConnectionTimeLogging();
+  v4 = CarConnectionTimeLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) eventName];
@@ -280,7 +283,7 @@ void __57__CARConnectionTimeStore_sendConnectionEvent_completion___block_invoke(
 void __57__CARConnectionTimeStore_sendConnectionEvent_completion___block_invoke_265(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarConnectionTimeLogging();
+  v4 = CarConnectionTimeLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __57__CARConnectionTimeStore_sendConnectionEvent_completion___block_invoke_265_cold_1(a1);
@@ -318,7 +321,7 @@ void __61__CARConnectionTimeStore_syncSendConnectionEvent_completion___block_inv
 {
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = CarConnectionTimeLogging();
+  v4 = CarConnectionTimeLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) eventName];
@@ -333,7 +336,7 @@ void __61__CARConnectionTimeStore_syncSendConnectionEvent_completion___block_inv
 void __61__CARConnectionTimeStore_syncSendConnectionEvent_completion___block_invoke_266(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarConnectionTimeLogging();
+  v4 = CarConnectionTimeLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __61__CARConnectionTimeStore_syncSendConnectionEvent_completion___block_invoke_266_cold_1(a1);
@@ -369,7 +372,7 @@ void __61__CARConnectionTimeStore_syncSendConnectionEvent_completion___block_inv
 void __66__CARConnectionTimeStore_removeConnectionEventsBefore_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarConnectionTimeLogging();
+  v4 = CarConnectionTimeLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -382,7 +385,7 @@ void __66__CARConnectionTimeStore_removeConnectionEventsBefore_completion___bloc
 void __66__CARConnectionTimeStore_removeConnectionEventsBefore_completion___block_invoke_267(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarConnectionTimeLogging();
+  v4 = CarConnectionTimeLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __66__CARConnectionTimeStore_removeConnectionEventsBefore_completion___block_invoke_267_cold_1();
@@ -443,10 +446,11 @@ uint64_t __67__CARConnectionTimeStore_clearHistoricalConnectionsWithCompletion__
 void __75__CARConnectionTimeStore_fetchPreviousSessionConnectionDataWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = CarConnectionTimeLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = CarConnectionTimeLogging(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __75__CARConnectionTimeStore_fetchPreviousSessionConnectionDataWithCompletion___block_invoke_2_cold_1();
     }
@@ -455,11 +459,11 @@ void __75__CARConnectionTimeStore_fetchPreviousSessionConnectionDataWithCompleti
   }
 }
 
-- (void)_setupConnectionForSystemDaemon:.cold.2()
+- (void)_setupConnectionForSystemDaemon:(unsigned int *)a1 .cold.2(unsigned int *a1)
 {
   xpc_strerror();
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x12u);
+  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void __65__CARConnectionTimeStore__xpcFetchWithServiceBlock_errorHandler___block_invoke_cold_1()

@@ -68,7 +68,7 @@ LABEL_10:
   }
 
   v7 = v6;
-  v8 = SO_LOG_SOKerberosHeimdalPluginSettings();
+  v8 = SO_LOG_SOKerberosHeimdalPluginSettings(v6);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosHeimdalPluginSettings currentCredential];
@@ -91,7 +91,7 @@ LABEL_11:
 
   else
   {
-    v7 = SO_LOG_SOKerberosHeimdalPluginSettings();
+    v7 = SO_LOG_SOKerberosHeimdalPluginSettings(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosHeimdalPluginSettings setCurrentCredential:?];
@@ -126,7 +126,7 @@ LABEL_10:
   }
 
   v7 = v6;
-  v8 = SO_LOG_SOKerberosHeimdalPluginSettings();
+  v8 = SO_LOG_SOKerberosHeimdalPluginSettings(v6);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosHeimdalPluginSettings siteCode];
@@ -149,7 +149,7 @@ LABEL_11:
 
   else
   {
-    v7 = SO_LOG_SOKerberosHeimdalPluginSettings();
+    v7 = SO_LOG_SOKerberosHeimdalPluginSettings(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosHeimdalPluginSettings setSiteCode:?];
@@ -241,7 +241,7 @@ LABEL_11:
 
   else
   {
-    v7 = SO_LOG_SOKerberosHeimdalPluginSettings();
+    v7 = SO_LOG_SOKerberosHeimdalPluginSettings(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosHeimdalPluginSettings saveWithError:?];
@@ -255,10 +255,10 @@ LABEL_11:
 
 - (BOOL)saveSetting:(id)setting data:(id)data withError:(id *)error
 {
-  v29[6] = *MEMORY[0x277D85DE8];
+  v27[6] = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   dataCopy = data;
-  v9 = SO_LOG_SOKerberosHeimdalPluginSettings();
+  v9 = SO_LOG_SOKerberosHeimdalPluginSettings(dataCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosHeimdalPluginSettings saveSetting:v9 data:? withError:?];
@@ -269,8 +269,7 @@ LABEL_11:
 
   if (v11)
   {
-    v12 = *MEMORY[0x277D130D8];
-    v13 = HeimCredSetAttribute();
+    v12 = HeimCredSetAttribute();
 LABEL_8:
     CFRelease(v11);
     goto LABEL_9;
@@ -278,40 +277,40 @@ LABEL_8:
 
   if (!dataCopy)
   {
-    v13 = 0;
+    v12 = 0;
     goto LABEL_9;
   }
 
-  v14 = +[SOKerberosHeimdalPluginSettings retrieveCacheEntry];
-  if (v14)
+  v13 = +[SOKerberosHeimdalPluginSettings retrieveCacheEntry];
+  if (v13)
   {
-    v15 = v14;
-    v16 = *MEMORY[0x277D13150];
-    v17 = *MEMORY[0x277D13148];
-    v28[0] = *MEMORY[0x277D13160];
-    v28[1] = v17;
-    v18 = *MEMORY[0x277D13168];
-    v29[0] = v16;
-    v29[1] = v18;
-    v19 = *MEMORY[0x277D130D0];
-    v29[2] = settingCopy;
-    v20 = *MEMORY[0x277D13140];
-    v28[2] = v19;
-    v28[3] = v20;
+    v14 = v13;
+    v15 = *MEMORY[0x277D13150];
+    v16 = *MEMORY[0x277D13148];
+    v26[0] = *MEMORY[0x277D13160];
+    v26[1] = v16;
+    v17 = *MEMORY[0x277D13168];
+    v27[0] = v15;
+    v27[1] = v17;
+    v18 = *MEMORY[0x277D130D0];
+    v27[2] = settingCopy;
+    v19 = *MEMORY[0x277D13140];
+    v26[2] = v18;
+    v26[3] = v19;
     realm2 = [(SOKerberosHeimdalPluginSettings *)self realm];
-    v22 = *MEMORY[0x277D130D8];
-    v29[3] = realm2;
-    v29[4] = dataCopy;
-    v23 = *MEMORY[0x277D13138];
-    v28[4] = v22;
-    v28[5] = v23;
-    v29[5] = HeimCredGetUUID();
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:6];
+    v21 = *MEMORY[0x277D130D8];
+    v27[3] = realm2;
+    v27[4] = dataCopy;
+    v22 = *MEMORY[0x277D13138];
+    v26[4] = v21;
+    v26[5] = v22;
+    v27[5] = HeimCredGetUUID();
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:6];
 
     v11 = HeimCredCreate();
-    v13 = v11 != 0;
+    v12 = v11 != 0;
 
-    CFRelease(v15);
+    CFRelease(v14);
     if (v11)
     {
       goto LABEL_8;
@@ -320,31 +319,30 @@ LABEL_8:
 
   else
   {
-    v27 = SO_LOG_SOKerberosHeimdalPluginSettings();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v25 = SO_LOG_SOKerberosHeimdalPluginSettings(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosHeimdalPluginSettings saveSetting:data:withError:];
     }
 
-    v13 = 0;
+    v12 = 0;
   }
 
 LABEL_9:
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v12;
 }
 
 + (BOOL)createSettingCacheEntryIfNeededWithError:(id *)error
 {
-  v4 = SO_LOG_SOKerberosHeimdalPluginSettings();
+  v4 = SO_LOG_SOKerberosHeimdalPluginSettings(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     +[SOKerberosHeimdalPluginSettings createSettingCacheEntryIfNeededWithError:];
   }
 
   v5 = +[SOKerberosHeimdalPluginSettings retrieveCacheEntry];
-  v6 = SO_LOG_SOKerberosHeimdalPluginSettings();
+  v6 = SO_LOG_SOKerberosHeimdalPluginSettings(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -365,7 +363,7 @@ LABEL_11:
   }
 
   v5 = [SOKerberosHeimdalPluginSettings createCacheEntryWithError:error];
-  v6 = SO_LOG_SOKerberosHeimdalPluginSettings();
+  v6 = SO_LOG_SOKerberosHeimdalPluginSettings(v5);
   v8 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -403,10 +401,11 @@ LABEL_11:
   v7 = HeimCredCopyQuery();
   if ([v7 count])
   {
-    if ([v7 count] >= 2)
+    v8 = [v7 count];
+    if (v8 >= 2)
     {
-      v8 = SO_LOG_SOKerberosHeimdalPluginSettings();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = SO_LOG_SOKerberosHeimdalPluginSettings(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         +[SOKerberosHeimdalPluginSettings retrieveCacheEntry];
       }
@@ -420,14 +419,13 @@ LABEL_11:
     firstObject = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return firstObject;
 }
 
 + (HeimCred_s)createCacheEntryWithError:(id *)error
 {
-  v16[4] = *MEMORY[0x277D85DE8];
-  v4 = SO_LOG_SOKerberosHeimdalPluginSettings();
+  v15[4] = *MEMORY[0x277D85DE8];
+  v4 = SO_LOG_SOKerberosHeimdalPluginSettings(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     +[SOKerberosHeimdalPluginSettings createCacheEntryWithError:];
@@ -435,22 +433,21 @@ LABEL_11:
 
   v5 = *MEMORY[0x277D13150];
   v6 = *MEMORY[0x277D13148];
-  v15[0] = *MEMORY[0x277D13160];
-  v15[1] = v6;
+  v14[0] = *MEMORY[0x277D13160];
+  v14[1] = v6;
   v7 = *MEMORY[0x277D13168];
-  v16[0] = v5;
-  v16[1] = v7;
+  v15[0] = v5;
+  v15[1] = v7;
   v8 = *MEMORY[0x277D130C8];
-  v16[2] = &unk_28520B970;
+  v15[2] = &unk_28520B970;
   v9 = *MEMORY[0x277D130D0];
-  v15[2] = v8;
-  v15[3] = v9;
+  v14[2] = v8;
+  v14[3] = v9;
   appSSOKerberosCacheName = [self appSSOKerberosCacheName];
-  v16[3] = appSSOKerberosCacheName;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v15[3] = appSSOKerberosCacheName;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
 
   v12 = HeimCredCreate();
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -481,10 +478,11 @@ LABEL_11:
     v14 = HeimCredCopyQuery();
     if ([v14 count])
     {
-      if ([v14 count] >= 2)
+      v15 = [v14 count];
+      if (v15 >= 2)
       {
-        v15 = SO_LOG_SOKerberosHeimdalPluginSettings();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = SO_LOG_SOKerberosHeimdalPluginSettings(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           +[SOKerberosHeimdalPluginSettings retrieveSetting:forRealm:];
         }
@@ -501,7 +499,7 @@ LABEL_11:
 
   else
   {
-    v13 = SO_LOG_SOKerberosHeimdalPluginSettings();
+    v13 = SO_LOG_SOKerberosHeimdalPluginSettings(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosHeimdalPluginSettings saveSetting:data:withError:];
@@ -510,14 +508,13 @@ LABEL_11:
     firstObject = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return firstObject;
 }
 
 + (id)retrieveCurrentSettingsForRealm:(id)realm error:(id *)error
 {
   realmCopy = realm;
-  v7 = SO_LOG_SOKerberosHeimdalPluginSettings();
+  v7 = SO_LOG_SOKerberosHeimdalPluginSettings(realmCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     +[SOKerberosHeimdalPluginSettings retrieveCurrentSettingsForRealm:error:];
@@ -537,10 +534,11 @@ LABEL_11:
     if (v11)
     {
       v12 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v11 error:error];
+      v13 = v12;
       if (v12)
       {
-        v13 = SO_LOG_SOKerberosHeimdalPluginSettings();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v14 = SO_LOG_SOKerberosHeimdalPluginSettings(v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           +[SOKerberosHeimdalPluginSettings retrieveCurrentSettingsForRealm:error:];
         }
@@ -549,7 +547,7 @@ LABEL_11:
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
     CFRelease(v9);
@@ -557,146 +555,146 @@ LABEL_11:
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 + (id)retrieveAllCurrentSettings
 {
-  v38[4] = *MEMORY[0x277D85DE8];
+  v39[4] = *MEMORY[0x277D85DE8];
   retrieveCacheEntry = [self retrieveCacheEntry];
   if (retrieveCacheEntry)
   {
     v3 = retrieveCacheEntry;
     v4 = *MEMORY[0x277D13150];
     v5 = *MEMORY[0x277D13148];
-    v37[0] = *MEMORY[0x277D13160];
-    v37[1] = v5;
+    v38[0] = *MEMORY[0x277D13160];
+    v38[1] = v5;
     v6 = *MEMORY[0x277D13168];
-    v38[0] = v4;
-    v38[1] = v6;
+    v39[0] = v4;
+    v39[1] = v6;
     v7 = *MEMORY[0x277D130D0];
-    v38[2] = @"com.apple.AppSSO.Kerberos.Configuration";
+    v39[2] = @"com.apple.AppSSO.Kerberos.Configuration";
     v8 = *MEMORY[0x277D13138];
-    v37[2] = v7;
-    v37[3] = v8;
-    v38[3] = HeimCredGetUUID();
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:4];
+    v38[2] = v7;
+    v38[3] = v8;
+    v39[3] = HeimCredGetUUID();
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:4];
     CFRelease(v3);
     v10 = HeimCredCopyQuery();
     if ([v10 count])
     {
-      v29 = v9;
-      v30 = [MEMORY[0x277CBEBF8] mutableCopy];
-      if ([v10 count])
+      v30 = v9;
+      v31 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v11 = [v10 count];
+      if (v11)
       {
-        v12 = 0;
         v13 = 0;
-        v14 = *MEMORY[0x277D130D8];
-        *&v11 = 138412546;
-        v28 = v11;
+        v14 = 0;
+        v15 = *MEMORY[0x277D130D8];
+        *&v12 = 138412546;
+        v29 = v12;
         do
         {
-          v15 = [v10 objectAtIndexedSubscript:{v12, v28}];
+          v16 = [v10 objectAtIndexedSubscript:{v13, v29}];
 
-          v16 = HeimCredCopyAttributes();
-          v17 = CFDictionaryGetValue(v16, v14);
-          if (v16)
-          {
-            CFRelease(v16);
-          }
-
+          v17 = HeimCredCopyAttributes();
+          v18 = CFDictionaryGetValue(v17, v15);
           if (v17)
           {
-            v18 = MEMORY[0x277CCAAC8];
-            v19 = MEMORY[0x277CBEB98];
-            v36[0] = objc_opt_class();
-            v36[1] = objc_opt_class();
-            v36[2] = objc_opt_class();
-            v36[3] = objc_opt_class();
-            v36[4] = objc_opt_class();
-            v36[5] = objc_opt_class();
-            v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:6];
-            v21 = [v19 setWithArray:v20];
-            v31 = v13;
-            v22 = [v18 unarchivedObjectOfClasses:v21 fromData:v17 error:&v31];
-            v23 = v31;
+            CFRelease(v17);
+          }
 
-            if (v22)
+          if (v18)
+          {
+            v19 = MEMORY[0x277CCAAC8];
+            v20 = MEMORY[0x277CBEB98];
+            v37[0] = objc_opt_class();
+            v37[1] = objc_opt_class();
+            v37[2] = objc_opt_class();
+            v37[3] = objc_opt_class();
+            v37[4] = objc_opt_class();
+            v37[5] = objc_opt_class();
+            v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:6];
+            v22 = [v20 setWithArray:v21];
+            v32 = v14;
+            v23 = [v19 unarchivedObjectOfClasses:v22 fromData:v18 error:&v32];
+            v24 = v32;
+
+            if (v23)
             {
-              [v30 addObject:v22];
+              [v31 addObject:v23];
             }
 
-            else if (v23)
+            else if (v24)
             {
-              v24 = SO_LOG_SOKerberosHeimdalPluginSettings();
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+              v26 = SO_LOG_SOKerberosHeimdalPluginSettings(v25);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
               {
-                *buf = v28;
-                v33 = v15;
-                v34 = 2112;
-                v35 = v23;
-                _os_log_error_impl(&dword_24006C000, v24, OS_LOG_TYPE_ERROR, "error with settings: %@, %@", buf, 0x16u);
+                *buf = v29;
+                v34 = v16;
+                v35 = 2112;
+                v36 = v24;
+                _os_log_error_impl(&dword_24006C000, v26, OS_LOG_TYPE_ERROR, "error with settings: %@, %@", buf, 0x16u);
               }
             }
 
-            v13 = v23;
+            v14 = v24;
           }
 
           else
           {
-            v23 = v13;
+            v24 = v14;
           }
 
-          ++v12;
+          ++v13;
+          v11 = [v10 count];
         }
 
-        while ([v10 count] > v12);
+        while (v11 > v13);
       }
 
       else
       {
-        v23 = 0;
+        v24 = 0;
       }
 
-      v25 = SO_LOG_SOKerberosHeimdalPluginSettings();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v27 = SO_LOG_SOKerberosHeimdalPluginSettings(v11);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         +[SOKerberosHeimdalPluginSettings retrieveAllCurrentSettings];
       }
 
-      v9 = v29;
+      v9 = v30;
     }
 
     else
     {
-      v30 = 0;
+      v31 = 0;
     }
   }
 
   else
   {
-    v9 = SO_LOG_SOKerberosHeimdalPluginSettings();
+    v9 = SO_LOG_SOKerberosHeimdalPluginSettings(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosHeimdalPluginSettings saveSetting:data:withError:];
     }
 
-    v30 = 0;
+    v31 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v30;
+  return v31;
 }
 
 + (BOOL)deleteSettingsForRealm:(id)realm error:(id *)error
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   realmCopy = realm;
-  v6 = SO_LOG_SOKerberosHeimdalPluginSettings();
+  v6 = SO_LOG_SOKerberosHeimdalPluginSettings(realmCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     +[SOKerberosHeimdalPluginSettings deleteSettingsForRealm:error:];
@@ -708,25 +706,25 @@ LABEL_11:
     v8 = retrieveCacheEntry;
     v9 = *MEMORY[0x277D13150];
     v10 = *MEMORY[0x277D13148];
-    v19[0] = *MEMORY[0x277D13160];
-    v19[1] = v10;
+    v18[0] = *MEMORY[0x277D13160];
+    v18[1] = v10;
     v11 = *MEMORY[0x277D13168];
-    v20[0] = v9;
-    v20[1] = v11;
+    v19[0] = v9;
+    v19[1] = v11;
     v12 = *MEMORY[0x277D13140];
-    v20[2] = realmCopy;
+    v19[2] = realmCopy;
     v13 = *MEMORY[0x277D13138];
-    v19[2] = v12;
-    v19[3] = v13;
-    v20[3] = HeimCredGetUUID();
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+    v18[2] = v12;
+    v18[3] = v13;
+    v19[3] = HeimCredGetUUID();
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
     v15 = HeimCredDeleteQuery();
     CFRelease(v8);
   }
 
   else
   {
-    v16 = SO_LOG_SOKerberosHeimdalPluginSettings();
+    v16 = SO_LOG_SOKerberosHeimdalPluginSettings(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosHeimdalPluginSettings saveSetting:data:withError:];
@@ -735,7 +733,6 @@ LABEL_11:
     v15 = 1;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -748,7 +745,7 @@ LABEL_11:
 
 - (SOKerberosHeimdalPluginSettings)initWithCoder:(id)coder
 {
-  v49[3] = *MEMORY[0x277D85DE8];
+  v48[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = NSStringFromSelector(sel_realm);
   v6 = [coderCopy containsValueForKey:v5];
@@ -779,10 +776,10 @@ LABEL_11:
         if (v15)
         {
           v16 = MEMORY[0x277CBEB98];
-          v49[0] = objc_opt_class();
-          v49[1] = objc_opt_class();
-          v49[2] = objc_opt_class();
-          v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:3];
+          v48[0] = objc_opt_class();
+          v48[1] = objc_opt_class();
+          v48[2] = objc_opt_class();
+          v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:3];
           v18 = [v16 setWithArray:v17];
           v19 = NSStringFromSelector(sel_domainRealmMapping);
           v20 = [coderCopy decodeObjectOfClasses:v18 forKey:v19];
@@ -796,9 +793,9 @@ LABEL_11:
         if (v23)
         {
           v24 = MEMORY[0x277CBEB98];
-          v48[0] = objc_opt_class();
-          v48[1] = objc_opt_class();
-          v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+          v47[0] = objc_opt_class();
+          v47[1] = objc_opt_class();
+          v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
           v26 = [v24 setWithArray:v25];
           v27 = NSStringFromSelector(sel_hosts);
           v28 = [coderCopy decodeObjectOfClasses:v26 forKey:v27];
@@ -819,10 +816,10 @@ LABEL_11:
         if (v33)
         {
           v34 = MEMORY[0x277CBEB98];
-          v47[0] = objc_opt_class();
-          v47[1] = objc_opt_class();
-          v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
-          v36 = [v34 setWithArray:{v35, v47[0]}];
+          v46[0] = objc_opt_class();
+          v46[1] = objc_opt_class();
+          v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+          v36 = [v34 setWithArray:{v35, v46[0]}];
           v37 = NSStringFromSelector(sel_kdcs);
           v38 = [coderCopy decodeObjectOfClasses:v36 forKey:v37];
           kdcs = v10->_kdcs;
@@ -857,7 +854,6 @@ LABEL_11:
     selfCopy = 0;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -891,63 +887,48 @@ LABEL_11:
 
 - (void)currentCredential
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCurrentCredential:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 realm];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4_0(&dword_24006C000, v2, v3, "error encoding currentCredential for realm: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_24006C000, v2, v3, "error encoding currentCredential for realm: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)siteCode
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSiteCode:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 realm];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4_0(&dword_24006C000, v2, v3, "error encoding siteCode for realm: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_24006C000, v2, v3, "error encoding siteCode for realm: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)saveWithError:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 realm];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4_0(&dword_24006C000, v2, v3, "error encoding settings for realm: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_24006C000, v2, v3, "error encoding settings for realm: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)saveSetting:(void *)a1 data:(NSObject *)a2 withError:.cold.1(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [a1 realm];
-  v6 = 138412546;
-  v7 = a1;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_debug_impl(&dword_24006C000, a2, OS_LOG_TYPE_DEBUG, "createOrSaveSettings: %@, realm: %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = a1;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_debug_impl(&dword_24006C000, a2, OS_LOG_TYPE_DEBUG, "createOrSaveSettings: %@, realm: %@", &v5, 0x16u);
 }
 
 + (void)createSettingCacheEntryIfNeededWithError:.cold.1()
@@ -994,56 +975,46 @@ LABEL_11:
 
 + (void)createCacheEntryWithError:(uint64_t *)a1 .cold.2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_24006C000, a2, OS_LOG_TYPE_ERROR, "Error creating cache entry: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_24006C000, a2, OS_LOG_TYPE_ERROR, "Error creating cache entry: %@", &v3, 0xCu);
 }
 
 + (void)retrieveSetting:forRealm:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_24006C000, v0, OS_LOG_TYPE_ERROR, "More than one entry for: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24006C000, v0, OS_LOG_TYPE_ERROR, "More than one entry for: %{public}@", v1, 0xCu);
 }
 
 + (void)retrieveCurrentSettingsForRealm:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)retrieveCurrentSettingsForRealm:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)retrieveAllCurrentSettings
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)deleteSettingsForRealm:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -438,7 +438,7 @@ LABEL_18:
   geometry = [layout geometry];
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -637,7 +637,7 @@ LABEL_49:
   v52 = 0u;
   if (mResizeInfoGeometry)
   {
-    [(TSDInfoGeometry *)mResizeInfoGeometry transform];
+    objc_msgSend_transform(mResizeInfoGeometry);
     v15 = *(&v52 + 1);
     v16 = *&v52;
     v17 = *(&v53 + 1);
@@ -748,7 +748,7 @@ LABEL_49:
     mConnectedInfoGeometry = self->mConnectedInfoGeometry;
     if (mConnectedInfoGeometry)
     {
-      [(TSDInfoGeometry *)mConnectedInfoGeometry transform];
+      objc_msgSend_transform(mConnectedInfoGeometry);
     }
 
     else
@@ -768,7 +768,7 @@ LABEL_49:
     v49 = self->mConnectedInfoGeometry;
     if (v49)
     {
-      [(TSDInfoGeometry *)v49 transform];
+      objc_msgSend_transform(v49);
     }
 
     else
@@ -958,7 +958,7 @@ LABEL_49:
   pureGeometry = [(TSDLayout *)self pureGeometry];
   if (pureGeometry)
   {
-    [pureGeometry transform];
+    objc_msgSend_transform(pureGeometry);
     v7 = v10;
     v8 = v11;
     v9 = v12;
@@ -1022,7 +1022,7 @@ LABEL_49:
     v10 = 0uLL;
     if (v7)
     {
-      [v7 transform];
+      objc_msgSend_transform(v7, 0.0, 0.0, 0.0);
       v9 = *&v19.a;
       v10 = *&v19.c;
       v8 = *&v19.tx;

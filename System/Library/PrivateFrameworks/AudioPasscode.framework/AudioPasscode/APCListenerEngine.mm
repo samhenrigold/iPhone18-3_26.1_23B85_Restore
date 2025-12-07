@@ -15,46 +15,46 @@
 
 - (id)createAU:(AudioComponentDescription *)u
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__0;
-  v30 = __Block_byref_object_dispose__0;
-  v31 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__0;
-  v24 = __Block_byref_object_dispose__0;
-  v25 = dispatch_semaphore_create(0);
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__0;
-  v18 = __Block_byref_object_dispose__0;
+  v32 = *MEMORY[0x277D85DE8];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__0;
+  v29 = __Block_byref_object_dispose__0;
+  v30 = 0;
   v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__0;
+  v23 = __Block_byref_object_dispose__0;
+  v24 = dispatch_semaphore_create(0);
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__0;
+  v17 = __Block_byref_object_dispose__0;
+  v18 = 0;
   buf = *u;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __30__APCListenerEngine_createAU___block_invoke;
-  v13[3] = &unk_278CE1CE0;
-  v13[4] = &v14;
-  v13[5] = &v26;
-  v13[6] = &v20;
-  [MEMORY[0x277CB8430] instantiateWithComponentDescription:&buf options:0 completionHandler:v13];
-  v4 = v21[5];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __30__APCListenerEngine_createAU___block_invoke;
+  v12[3] = &unk_278CE1CE0;
+  v12[4] = &v13;
+  v12[5] = &v25;
+  v12[6] = &v19;
+  [MEMORY[0x277CB8430] instantiateWithComponentDescription:&buf options:0 completionHandler:v12];
+  v4 = v20[5];
   v5 = dispatch_time(0, 5000000000);
   v6 = dispatch_semaphore_wait(v4, v5);
-  if (v27[5] || v6)
+  if (v26[5] || v6)
   {
-    v8 = APCLogObject();
+    v8 = APCLogObject(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v9 = v27[5];
+      v9 = v26[5];
       if (v9)
       {
-        localizedDescription = [v27[5] localizedDescription];
+        localizedDescription = [v26[5] localizedDescription];
       }
 
       else
@@ -75,15 +75,13 @@
 
   else
   {
-    v7 = v15[5];
+    v7 = v14[5];
   }
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v13, 8);
 
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v26, 8);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
 
   return v7;
 }
@@ -143,7 +141,7 @@ void __30__APCListenerEngine_createAU___block_invoke(void *a1, void *a2, void *a
     {
       objc_storeStrong(&v17->_codecConfig, config);
       +[AUPasscodeDecoder registerAU];
-      +[AUPasscodeDecoder getAUDesc];
+      objc_msgSend_getAUDesc(AUPasscodeDecoder);
       v19 = [p_isa createAU:buf];
       v20 = p_isa[3];
       p_isa[3] = v19;
@@ -153,20 +151,21 @@ void __30__APCListenerEngine_createAU___block_invoke(void *a1, void *a2, void *a
       {
         aUAudioUnit = [v21 AUAudioUnit];
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
           aUAudioUnit2 = [p_isa[3] AUAudioUnit];
-          v24 = p_isa[4];
+          v25 = p_isa[4];
           p_isa[4] = aUAudioUnit2;
 
           [p_isa[4] setCodecConfig:configCopy];
-          v25 = queueCopy;
+          v26 = queueCopy;
           if (!queueCopy)
           {
-            v25 = dispatch_get_global_queue(0, 0);
+            v26 = dispatch_get_global_queue(0, 0);
           }
 
-          [p_isa[4] setDispatchQueue:v25];
+          [p_isa[4] setDispatchQueue:v26];
           if (!queueCopy)
           {
           }
@@ -174,9 +173,9 @@ void __30__APCListenerEngine_createAU___block_invoke(void *a1, void *a2, void *a
           [p_isa[4] setDataHandler:handlerCopy];
           [p_isa[4] setResultData:dataCopy];
           resultData = [p_isa[4] resultData];
-          v27 = resultData == 0;
+          v28 = resultData == 0;
 
-          if (!v27)
+          if (!v28)
           {
             resultData2 = [p_isa[4] resultData];
             [resultData2 reset];
@@ -188,14 +187,14 @@ void __30__APCListenerEngine_createAU___block_invoke(void *a1, void *a2, void *a
           goto LABEL_12;
         }
 
-        v33 = APCLogObject();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v34 = APCLogObject(isKindOfClass);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
-          v34 = objc_opt_class();
-          v35 = NSStringFromClass(v34);
+          v35 = objc_opt_class();
+          v36 = NSStringFromClass(v35);
           *buf = 138412290;
-          v40 = v35;
-          _os_log_impl(&dword_24158E000, v33, OS_LOG_TYPE_ERROR, "Encoder AU is not the expected class, it's a %@", buf, 0xCu);
+          v40 = v36;
+          _os_log_impl(&dword_24158E000, v34, OS_LOG_TYPE_ERROR, "Encoder AU is not the expected class, it's a %@", buf, 0xCu);
         }
 
         if (error)
@@ -204,15 +203,15 @@ void __30__APCListenerEngine_createAU___block_invoke(void *a1, void *a2, void *a
         }
 
 LABEL_27:
-        v29 = 0;
+        v30 = 0;
         goto LABEL_28;
       }
 
-      v32 = APCLogObject();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v33 = APCLogObject(0);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_24158E000, v32, OS_LOG_TYPE_ERROR, "Failed to create the decoder AU", buf, 2u);
+        _os_log_impl(&dword_24158E000, v33, OS_LOG_TYPE_ERROR, "Failed to create the decoder AU", buf, 2u);
       }
 
       if (!error)
@@ -220,16 +219,16 @@ LABEL_27:
         goto LABEL_27;
       }
 
-      v31 = [MEMORY[0x277CCA9B8] errorWithDomain:@"AudioPasscodeDomain" code:0 userInfo:0];
+      v32 = [MEMORY[0x277CCA9B8] errorWithDomain:@"AudioPasscodeDomain" code:0 userInfo:0];
     }
 
     else
     {
-      v30 = APCLogObject();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v31 = APCLogObject(v17);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_24158E000, v30, OS_LOG_TYPE_ERROR, "Bad arguments to APCListenerEngine", buf, 2u);
+        _os_log_impl(&dword_24158E000, v31, OS_LOG_TYPE_ERROR, "Bad arguments to APCListenerEngine", buf, 2u);
       }
 
       if (!error)
@@ -237,25 +236,24 @@ LABEL_27:
         goto LABEL_27;
       }
 
-      v31 = [MEMORY[0x277CCA9B8] errorWithDomain:@"AudioPasscodeDomain" code:1 userInfo:0];
+      v32 = [MEMORY[0x277CCA9B8] errorWithDomain:@"AudioPasscodeDomain" code:1 userInfo:0];
     }
 
-    v29 = 0;
-    *error = v31;
+    v30 = 0;
+    *error = v32;
     goto LABEL_28;
   }
 
 LABEL_12:
-  v29 = p_isa;
+  v30 = p_isa;
 LABEL_28:
 
-  v36 = *MEMORY[0x277D85DE8];
-  return v29;
+  return v30;
 }
 
 - (void)setupAudioSession
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   auxiliarySession = [MEMORY[0x277CB83F8] auxiliarySession];
   session = self->_session;
   self->_session = auxiliarySession;
@@ -263,177 +261,185 @@ LABEL_28:
   [(AVAudioSession *)self->_session setEligibleForBTSmartRoutingConsideration:0 error:0];
   v4 = self->_session;
   v5 = *MEMORY[0x277CB8028];
-  v94 = 0;
-  [(AVAudioSession *)v4 setCategory:v5 withOptions:41 error:&v94];
-  v6 = v94;
+  v104 = 0;
+  [(AVAudioSession *)v4 setCategory:v5 withOptions:41 error:&v104];
+  v6 = v104;
+  v7 = v6;
   if (v6)
   {
-    v7 = APCLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = APCLogObject(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v97 = v6;
-      _os_log_impl(&dword_24158E000, v7, OS_LOG_TYPE_ERROR, "Error setting session category to record: %@", buf, 0xCu);
+      v107 = v7;
+      _os_log_impl(&dword_24158E000, v8, OS_LOG_TYPE_ERROR, "Error setting session category to record: %@", buf, 0xCu);
     }
   }
 
-  v8 = self->_session;
-  v93 = v6;
-  [(AVAudioSession *)v8 preferDecoupledIO:1 error:&v93];
-  v9 = v93;
+  v9 = self->_session;
+  v103 = v7;
+  [(AVAudioSession *)v9 preferDecoupledIO:1 error:&v103];
+  v10 = v103;
 
-  if (v9)
+  if (v10)
   {
-    v10 = APCLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = APCLogObject(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v97 = v9;
-      _os_log_impl(&dword_24158E000, v10, OS_LOG_TYPE_ERROR, "Error setting preferDecoupledIO on session: %@", buf, 0xCu);
+      v107 = v10;
+      _os_log_impl(&dword_24158E000, v12, OS_LOG_TYPE_ERROR, "Error setting preferDecoupledIO on session: %@", buf, 0xCu);
     }
   }
 
   [(AVAudioSession *)self->_session availableInputs];
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
-  obj = v90 = 0u;
-  v11 = [obj countByEnumeratingWithState:&v89 objects:v101 count:16];
-  if (v11)
+  v101 = 0u;
+  v102 = 0u;
+  v99 = 0u;
+  obj = v100 = 0u;
+  v13 = [obj countByEnumeratingWithState:&v99 objects:v111 count:16];
+  if (v13)
   {
-    v12 = *v90;
-    v13 = *MEMORY[0x277CB8190];
+    v14 = *v100;
+    v15 = *MEMORY[0x277CB8190];
     while (2)
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v90 != v12)
+        if (*v100 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v72 = *(*(&v89 + 1) + 8 * i);
-        portType = [v72 portType];
-        v16 = [portType isEqualToString:v13];
+        v82 = *(*(&v99 + 1) + 8 * i);
+        portType = [v82 portType];
+        v18 = [portType isEqualToString:v15];
 
-        if (v16)
+        if (v18)
         {
-          v18 = self->_session;
-          v88 = v9;
-          [(AVAudioSession *)v18 setPreferredInput:v72 error:&v88];
-          v17 = v88;
+          v20 = self->_session;
+          v98 = v10;
+          [(AVAudioSession *)v20 setPreferredInput:v82 error:&v98];
+          v19 = v98;
 
-          if (v17)
+          if (v19)
           {
-            v19 = APCLogObject();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            v22 = APCLogObject(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v97 = v17;
-              _os_log_impl(&dword_24158E000, v19, OS_LOG_TYPE_ERROR, "Failed to set preferred input to built-in mic: %@", buf, 0xCu);
+              v107 = v19;
+              _os_log_impl(&dword_24158E000, v22, OS_LOG_TYPE_ERROR, "Failed to set preferred input to built-in mic: %@", buf, 0xCu);
             }
           }
 
           else
           {
-            v73 = objc_alloc_init(MEMORY[0x277CBEB18]);
-            [v72 dataSources];
-            v86 = 0u;
-            v87 = 0u;
-            v84 = 0u;
-            v74 = v85 = 0u;
-            v20 = [v74 countByEnumeratingWithState:&v84 objects:v100 count:16];
-            if (v20)
+            v83 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            [v82 dataSources];
+            v96 = 0u;
+            v97 = 0u;
+            v94 = 0u;
+            v84 = v95 = 0u;
+            v23 = [v84 countByEnumeratingWithState:&v94 objects:v110 count:16];
+            v24 = v23;
+            if (v23)
             {
-              v21 = *v85;
-              v22 = *MEMORY[0x277CB80F8];
+              v25 = *v95;
+              v26 = *MEMORY[0x277CB80F8];
               do
               {
-                for (j = 0; j != v20; ++j)
+                v27 = 0;
+                do
                 {
-                  if (*v85 != v21)
+                  if (*v95 != v25)
                   {
-                    objc_enumerationMutation(v74);
+                    objc_enumerationMutation(v84);
                   }
 
-                  v24 = *(*(&v84 + 1) + 8 * j);
-                  v25 = APCLogObject();
-                  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+                  v28 = *(*(&v94 + 1) + 8 * v27);
+                  v29 = APCLogObject(v23);
+                  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
                   {
-                    location = [v24 location];
-                    orientation = [v24 orientation];
+                    location = [v28 location];
+                    orientation = [v28 orientation];
                     *buf = 138412546;
-                    v97 = location;
-                    v98 = 2112;
-                    v99 = orientation;
-                    _os_log_impl(&dword_24158E000, v25, OS_LOG_TYPE_INFO, "Mic location/orientation is %@ %@", buf, 0x16u);
+                    v107 = location;
+                    v108 = 2112;
+                    v109 = orientation;
+                    _os_log_impl(&dword_24158E000, v29, OS_LOG_TYPE_INFO, "Mic location/orientation is %@ %@", buf, 0x16u);
                   }
 
-                  orientation2 = [v24 orientation];
-                  v29 = [orientation2 isEqualToString:v22];
+                  orientation2 = [v28 orientation];
+                  v33 = [orientation2 isEqualToString:v26];
 
-                  if (v29)
+                  if (v33)
                   {
-                    [v73 addObject:v24];
+                    v23 = [v83 addObject:v28];
                   }
+
+                  ++v27;
                 }
 
-                v20 = [v74 countByEnumeratingWithState:&v84 objects:v100 count:16];
+                while (v24 != v27);
+                v23 = [v84 countByEnumeratingWithState:&v94 objects:v110 count:16];
+                v24 = v23;
               }
 
-              while (v20);
+              while (v23);
             }
 
-            if ([v73 count])
+            if ([v83 count])
             {
-              v82 = 0u;
-              v83 = 0u;
-              v80 = 0u;
-              v81 = 0u;
-              v30 = v73;
-              v31 = [v30 countByEnumeratingWithState:&v80 objects:v95 count:16];
-              if (v31)
+              v92 = 0u;
+              v93 = 0u;
+              v90 = 0u;
+              v91 = 0u;
+              v34 = v83;
+              v35 = [v34 countByEnumeratingWithState:&v90 objects:v105 count:16];
+              if (v35)
               {
-                v32 = *v81;
-                v33 = *MEMORY[0x277CB8090];
+                v36 = *v91;
+                v37 = *MEMORY[0x277CB8090];
                 while (2)
                 {
-                  for (k = 0; k != v31; ++k)
+                  for (j = 0; j != v35; ++j)
                   {
-                    if (*v81 != v32)
+                    if (*v91 != v36)
                     {
-                      objc_enumerationMutation(v30);
+                      objc_enumerationMutation(v34);
                     }
 
-                    v35 = *(*(&v80 + 1) + 8 * k);
-                    location2 = [v35 location];
-                    v37 = [location2 isEqualToString:v33];
+                    v39 = *(*(&v90 + 1) + 8 * j);
+                    location2 = [v39 location];
+                    v41 = [location2 isEqualToString:v37];
 
-                    if (v37)
+                    if (v41)
                     {
-                      v44 = APCLogObject();
-                      if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+                      v51 = APCLogObject(v42);
+                      if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
                       {
-                        location3 = [v35 location];
-                        orientation3 = [v35 orientation];
+                        location3 = [v39 location];
+                        orientation3 = [v39 orientation];
                         *buf = 138412546;
-                        v97 = location3;
-                        v98 = 2112;
-                        v99 = orientation3;
-                        _os_log_impl(&dword_24158E000, v44, OS_LOG_TYPE_INFO, "Setting preferred microphone as '%@ %@'", buf, 0x16u);
+                        v107 = location3;
+                        v108 = 2112;
+                        v109 = orientation3;
+                        _os_log_impl(&dword_24158E000, v51, OS_LOG_TYPE_INFO, "Setting preferred microphone as '%@ %@'", buf, 0x16u);
                       }
 
-                      v79 = 0;
-                      [v72 setPreferredDataSource:v35 error:&v79];
-                      v17 = v79;
-                      if (v17)
+                      v89 = 0;
+                      [v82 setPreferredDataSource:v39 error:&v89];
+                      v54 = v89;
+                      v19 = v54;
+                      if (v54)
                       {
-                        v47 = APCLogObject();
-                        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+                        v55 = APCLogObject(v54);
+                        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 138412290;
-                          v97 = v17;
-                          _os_log_impl(&dword_24158E000, v47, OS_LOG_TYPE_ERROR, "Failed to set preferred mic source: %@", buf, 0xCu);
+                          v107 = v19;
+                          _os_log_impl(&dword_24158E000, v55, OS_LOG_TYPE_ERROR, "Failed to set preferred mic source: %@", buf, 0xCu);
                         }
                       }
 
@@ -441,8 +447,8 @@ LABEL_28:
                     }
                   }
 
-                  v31 = [v30 countByEnumeratingWithState:&v80 objects:v95 count:16];
-                  if (v31)
+                  v35 = [v34 countByEnumeratingWithState:&v90 objects:v105 count:16];
+                  if (v35)
                   {
                     continue;
                   }
@@ -451,33 +457,33 @@ LABEL_28:
                 }
               }
 
-              v38 = APCLogObject();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+              v44 = APCLogObject(v43);
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
               {
-                v39 = [v30 objectAtIndexedSubscript:0];
-                location4 = [v39 location];
-                v41 = [v30 objectAtIndexedSubscript:0];
-                orientation4 = [v41 orientation];
+                v45 = [v34 objectAtIndexedSubscript:0];
+                location4 = [v45 location];
+                v47 = [v34 objectAtIndexedSubscript:0];
+                orientation4 = [v47 orientation];
                 *buf = 138412546;
-                v97 = location4;
-                v98 = 2112;
-                v99 = orientation4;
-                _os_log_impl(&dword_24158E000, v38, OS_LOG_TYPE_INFO, "Choosing first available back microphone: '%@ %@'", buf, 0x16u);
+                v107 = location4;
+                v108 = 2112;
+                v109 = orientation4;
+                _os_log_impl(&dword_24158E000, v44, OS_LOG_TYPE_INFO, "Choosing first available back microphone: '%@ %@'", buf, 0x16u);
               }
 
-              v43 = [v30 objectAtIndexedSubscript:0];
-              v78 = 0;
-              [v72 setPreferredDataSource:v43 error:&v78];
-              v17 = v78;
+              v49 = [v34 objectAtIndexedSubscript:0];
+              v88 = 0;
+              [v82 setPreferredDataSource:v49 error:&v88];
+              v19 = v88;
 
-              if (v17)
+              if (v19)
               {
-                v30 = APCLogObject();
-                if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+                v34 = APCLogObject(v50);
+                if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v97 = v17;
-                  _os_log_impl(&dword_24158E000, v30, OS_LOG_TYPE_ERROR, "Failed to set preferred mic source: %@", buf, 0xCu);
+                  v107 = v19;
+                  _os_log_impl(&dword_24158E000, v34, OS_LOG_TYPE_ERROR, "Failed to set preferred mic source: %@", buf, 0xCu);
                 }
 
 LABEL_52:
@@ -486,18 +492,18 @@ LABEL_52:
 
             else
             {
-              v17 = 0;
+              v19 = 0;
             }
 
-            v19 = v73;
+            v22 = v83;
           }
 
           goto LABEL_56;
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v89 objects:v101 count:16];
-      if (v11)
+      v13 = [obj countByEnumeratingWithState:&v99 objects:v111 count:16];
+      if (v13)
       {
         continue;
       }
@@ -506,27 +512,27 @@ LABEL_52:
     }
   }
 
-  v17 = v9;
+  v19 = v10;
 LABEL_56:
 
-  v48 = self->_session;
+  v56 = self->_session;
   codecConfig = [(AUPasscodeDecoder *)self->_decoderAU codecConfig];
-  v77 = 0;
-  -[AVAudioSession setPreferredSampleRate:error:](v48, "setPreferredSampleRate:error:", &v77, [codecConfig sampleRate]);
-  v50 = v77;
+  v87 = 0;
+  -[AVAudioSession setPreferredSampleRate:error:](v56, "setPreferredSampleRate:error:", &v87, [codecConfig sampleRate]);
+  v58 = v87;
 
-  if (v50)
+  if (v58)
   {
-    v51 = APCLogObject();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v60 = APCLogObject(v59);
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
       codecConfig2 = [(AUPasscodeDecoder *)self->_decoderAU codecConfig];
       sampleRate = [codecConfig2 sampleRate];
       *buf = 134218242;
-      v97 = llround(sampleRate);
-      v98 = 2112;
-      v99 = v50;
-      _os_log_impl(&dword_24158E000, v51, OS_LOG_TYPE_ERROR, "Error setting preferred sample rate to %ld: %@", buf, 0x16u);
+      v107 = llround(sampleRate);
+      v108 = 2112;
+      v109 = v58;
+      _os_log_impl(&dword_24158E000, v60, OS_LOG_TYPE_ERROR, "Error setting preferred sample rate to %ld: %@", buf, 0x16u);
     }
   }
 
@@ -536,55 +542,53 @@ LABEL_56:
 
   if (inputNumberOfChannels)
   {
-    v56 = v50;
+    v65 = v58;
   }
 
   else
   {
-    v57 = self->_session;
+    v66 = self->_session;
     codecConfig4 = [(AUPasscodeDecoder *)self->_decoderAU codecConfig];
-    v76 = v50;
-    -[AVAudioSession setPreferredInputNumberOfChannels:error:](v57, "setPreferredInputNumberOfChannels:error:", [codecConfig4 numChannels], &v76);
-    v56 = v76;
+    v86 = v58;
+    -[AVAudioSession setPreferredInputNumberOfChannels:error:](v66, "setPreferredInputNumberOfChannels:error:", [codecConfig4 numChannels], &v86);
+    v65 = v86;
 
-    if (v56)
+    if (v65)
     {
-      v59 = APCLogObject();
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+      v69 = APCLogObject(v68);
+      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
       {
         codecConfig5 = [(AUPasscodeDecoder *)self->_decoderAU codecConfig];
         numChannels = [codecConfig5 numChannels];
         *buf = 134218242;
-        v97 = numChannels;
-        v98 = 2112;
-        v99 = v56;
-        _os_log_impl(&dword_24158E000, v59, OS_LOG_TYPE_ERROR, "Couldn't set preferred number of input channels to %ld (AU will handle the mapping): %@", buf, 0x16u);
+        v107 = numChannels;
+        v108 = 2112;
+        v109 = v65;
+        _os_log_impl(&dword_24158E000, v69, OS_LOG_TYPE_ERROR, "Couldn't set preferred number of input channels to %ld (AU will handle the mapping): %@", buf, 0x16u);
       }
     }
   }
 
   [(AVAudioSession *)self->_session sampleRate];
-  v62 = self->_session;
-  v75 = v56;
-  v64 = 256.0 / v63;
-  v65 = [(AVAudioSession *)v62 setPreferredIOBufferDuration:&v75 error:256.0 / v63];
-  v66 = v75;
+  v72 = self->_session;
+  v85 = v65;
+  v74 = 256.0 / v73;
+  v75 = [(AVAudioSession *)v72 setPreferredIOBufferDuration:&v85 error:256.0 / v73];
+  v76 = v85;
 
-  if (!v65)
+  if (!v75)
   {
-    v67 = APCLogObject();
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+    v78 = APCLogObject(v77);
+    if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
     {
-      localizedDescription = [v66 localizedDescription];
+      localizedDescription = [v76 localizedDescription];
       *buf = 134218242;
-      v97 = *&v64;
-      v98 = 2112;
-      v99 = localizedDescription;
-      _os_log_impl(&dword_24158E000, v67, OS_LOG_TYPE_ERROR, "Error setting preferred io buffer duration to %0.3f seconds: %@", buf, 0x16u);
+      v107 = *&v74;
+      v108 = 2112;
+      v109 = localizedDescription;
+      _os_log_impl(&dword_24158E000, v78, OS_LOG_TYPE_ERROR, "Error setting preferred io buffer duration to %0.3f seconds: %@", buf, 0x16u);
     }
   }
-
-  v69 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createEngineAndAttachNodes
@@ -600,18 +604,17 @@ LABEL_56:
   audioUnit = [inputNode audioUnit];
 
   v7 = AudioUnitSetProperty(audioUnit, 0x7E7u, 0, 0, &inData, 4u);
+  v8 = v7;
   if (v7)
   {
-    v8 = APCLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = APCLogObject(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v12 = v7;
-      _os_log_impl(&dword_24158E000, v8, OS_LOG_TYPE_ERROR, "Setting the audio session ID for the listener's input node failed: %d", buf, 8u);
+      v12 = v8;
+      _os_log_impl(&dword_24158E000, v9, OS_LOG_TYPE_ERROR, "Setting the audio session ID for the listener's input node failed: %d", buf, 8u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)validateInputNodeWithFormat:(id)format
@@ -649,26 +652,26 @@ LABEL_56:
 
 - (void)startEngineWithError:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (![(AVAudioEngine *)self->_engine isRunning])
   {
     session = self->_session;
-    v20 = 0;
-    v6 = [(AVAudioSession *)session setActive:1 error:&v20];
-    v7 = v20;
+    v19 = 0;
+    v6 = [(AVAudioSession *)session setActive:1 error:&v19];
+    v7 = v19;
     if (v7 == 0 && v6)
     {
-      v19 = 0;
-      [(APCListenerEngine *)self makeEngineConnectionsWithError:&v19];
-      v8 = v19;
+      v18 = 0;
+      [(APCListenerEngine *)self makeEngineConnectionsWithError:&v18];
+      v8 = v18;
       if (v8)
       {
         v9 = v8;
-        v10 = APCLogObject();
+        v10 = APCLogObject(v8);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v22 = v9;
+          v21 = v9;
           _os_log_impl(&dword_24158E000, v10, OS_LOG_TYPE_ERROR, "Error making engine connection: %@", buf, 0xCu);
         }
       }
@@ -677,24 +680,24 @@ LABEL_56:
       {
         [(AUPasscodeDecoder *)self->_decoderAU startAudioLogCapture];
         engine = self->_engine;
-        v18 = 0;
-        v15 = [(AVAudioEngine *)engine startAndReturnError:&v18];
-        v16 = v18;
-        if (v16 == 0 && v15)
+        v17 = 0;
+        v14 = [(AVAudioEngine *)engine startAndReturnError:&v17];
+        v15 = v17;
+        if (v15 == 0 && v14)
         {
           v9 = 0;
 LABEL_12:
 
-          goto LABEL_13;
+          return;
         }
 
-        v9 = v16;
-        v17 = APCLogObject();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v9 = v15;
+        v16 = APCLogObject(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v22 = v9;
-          _os_log_impl(&dword_24158E000, v17, OS_LOG_TYPE_ERROR, "Error starting engine: %@", buf, 0xCu);
+          v21 = v9;
+          _os_log_impl(&dword_24158E000, v16, OS_LOG_TYPE_ERROR, "Error starting engine: %@", buf, 0xCu);
         }
       }
     }
@@ -702,11 +705,11 @@ LABEL_12:
     else
     {
       v9 = v7;
-      v11 = APCLogObject();
+      v11 = APCLogObject(v7);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v22 = v9;
+        v21 = v9;
         _os_log_impl(&dword_24158E000, v11, OS_LOG_TYPE_ERROR, "Error activating session: %@", buf, 0xCu);
       }
     }
@@ -719,9 +722,6 @@ LABEL_12:
 
     goto LABEL_12;
   }
-
-LABEL_13:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopEngine

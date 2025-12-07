@@ -13,6 +13,7 @@
 - (id)createMapMatcherTestEventInsertStatementAndReturnError:(id *)error;
 - (id)dateFromTimestamp:(double)timestamp;
 - (id)prepareStatement:(id)statement outError:(id *)error;
+- (id)routeAtRowIndex:(int64_t)index;
 - (id)routeBeforeTimestamp:(double)timestamp;
 - (id)routesWithDirectionsResponseID:(id)d selectedRouteIndex:(int64_t *)index;
 - (id)serializableBookmarks;
@@ -27,12 +28,12 @@
 {
   sub_1D31467C4();
   selfCopy = self;
-  v5 = sub_1D3146948(selfCopy);
+  v5 = sub_1D3146948(selfCopy, 0xD00000000000007CLL, 0x80000001D328E620);
 
   [v5 execute];
   [v5 finalize];
   v6 = selfCopy;
-  v7 = sub_1D3146948(v6);
+  v7 = sub_1D3146948(v6, 0xD000000000000050, 0x80000001D328E6A0);
 
   return v7;
 }
@@ -43,6 +44,40 @@
   v3 = MNTrace.initialRoute.getter();
 
   return v3;
+}
+
+- (id)routeAtRowIndex:(int64_t)index
+{
+  selfCopy = self;
+  v10 = MNTrace.routeSet(atRowIndex:)(index);
+  if (v10.value.routes._rawValue)
+  {
+    if ((v10.value.routes._rawValue & 0xC000000000000001) != 0)
+    {
+      v6 = MEMORY[0x1D38B45D0](v10.value.selectedRouteIndex, v10.value.routes._rawValue, *&v10.is_nil);
+    }
+
+    else
+    {
+      if (v10.value.selectedRouteIndex >= *((v10.value.routes._rawValue & 0xFFFFFFFFFFFFFF8) + 0x10))
+      {
+        __break(1u);
+        return v10.value.routes._rawValue;
+      }
+
+      v6 = *(v10.value.routes._rawValue + v10.value.selectedRouteIndex + 4);
+    }
+
+    v7 = v6;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v10.value.routes._rawValue = v7;
+  return v10.value.routes._rawValue;
 }
 
 - (id)routeBeforeTimestamp:(double)timestamp
@@ -60,21 +95,22 @@
   v8 = sub_1D3276C80();
   v10 = v9;
 
-  v11 = MNTrace.objcOnly_routesWithDirectionsResponseID(directionsResponseID:selectedRouteIndex:)(v8, v10, index);
+  MNTrace.objcOnly_routesWithDirectionsResponseID(directionsResponseID:selectedRouteIndex:)(v8, v10, index);
+  v12 = v11;
   sub_1D31422C8(v8, v10);
 
-  if (v11)
+  if (v12)
   {
     sub_1D3126084(0, &unk_1EC75BDC8, 0x1E69A1C68);
-    v12 = sub_1D3277190();
+    v13 = sub_1D3277190();
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (int64_t)locationIndexAfterTimestamp:(double)timestamp
@@ -129,7 +165,7 @@
 
 - (id)_handleOpenErrorWithPath:(id)path
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v5 = [defaultManager attributesOfItemAtPath:pathCopy error:0];
@@ -149,14 +185,14 @@
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v16 = pathCopy;
+        v15 = pathCopy;
         _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      v13 = *MEMORY[0x1E696A578];
-      v14 = pathCopy;
+      v12 = *MEMORY[0x1E696A578];
+      v13 = pathCopy;
       v8 = 1;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
     }
 
     else
@@ -167,8 +203,6 @@
   }
 
   v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MNTraceErrorDomain" code:v8 userInfo:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -262,7 +296,7 @@ void __25__MNTrace_bookmarkImages__block_invoke(uint64_t a1)
 
 void __20__MNTrace_bookmarks__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   ppStmt = 0;
   if (sqlite3_prepare_v2([*(a1 + 32) db], "SELECT timestamp FROM bookmarks", 31, &ppStmt, 0))
   {
@@ -271,7 +305,7 @@ void __20__MNTrace_bookmarks__block_invoke(uint64_t a1)
     {
       v3 = sqlite3_errmsg(*(*(a1 + 32) + 8));
       *buf = 136446210;
-      v11 = v3;
+      v10 = v3;
       _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_ERROR, "Error preparing bookmarks statement: %{public}s", buf, 0xCu);
     }
   }
@@ -291,8 +325,6 @@ void __20__MNTrace_bookmarks__block_invoke(uint64_t a1)
     v7 = *(v6 + 40);
     *(v6 + 40) = v5;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (int)mainTransportType
@@ -334,32 +366,32 @@ void __20__MNTrace_bookmarks__block_invoke(uint64_t a1)
 
 - (BOOL)closeTrace
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (self->_db)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v3 = self->_preparedStatements;
-    v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v18 objects:v24 count:16];
+    v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v17 objects:v23 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v19;
+      v6 = *v18;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v19 != v6)
+          if (*v18 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(*(&v18 + 1) + 8 * i) finalize];
+          [*(*(&v17 + 1) + 8 * i) finalize];
         }
 
-        v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v18 objects:v24 count:16];
+        v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v17 objects:v23 count:16];
       }
 
       while (v5);
@@ -387,7 +419,7 @@ void __20__MNTrace_bookmarks__block_invoke(uint64_t a1)
       if (v14)
       {
         *buf = 67109120;
-        v23 = 5;
+        v22 = 5;
         v15 = "Error closing temp trace: %d sqlite3 is busy";
 LABEL_16:
         _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_ERROR, v15, buf, 8u);
@@ -397,37 +429,34 @@ LABEL_16:
     else if (v14)
     {
       *buf = 67109120;
-      v23 = v12;
+      v22 = v12;
       v15 = "Error closing temp trace: %d";
       goto LABEL_16;
     }
 
 LABEL_18:
     self->_db = 0;
-    goto LABEL_19;
+    return v11;
   }
 
-  v11 = 0;
-LABEL_19:
-  v16 = *MEMORY[0x1E69E9840];
-  return v11;
+  return 0;
 }
 
 - (BOOL)startWritingTraceToPath:(id)path
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (self->_db)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"startWritingTraceToPath: called when sqlite database already exists"];
-    v12 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"startWritingTraceToPath: called when sqlite database already exists"];
+    v11 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "_db == NULL";
-      v15 = 2112;
-      v16 = v11;
-      _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "_db == NULL";
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v12, 0x16u);
     }
   }
 
@@ -438,30 +467,29 @@ LABEL_19:
     v6 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138543618;
-      v14 = pathCopy;
-      v15 = 1024;
-      LODWORD(v16) = v5;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Error opening trace for writing at path: %{public}@, error code: %d", &v13, 0x12u);
+      v12 = 138543618;
+      v13 = pathCopy;
+      v14 = 1024;
+      LODWORD(v15) = v5;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Error opening trace for writing at path: %{public}@, error code: %d", &v12, 0x12u);
     }
   }
 
   else
   {
-    LOBYTE(v13) = -1;
-    setxattr([pathCopy UTF8String], "com.apple.runningboard.can-suspend-locked", &v13, 1uLL, 0, 0);
+    LOBYTE(v12) = -1;
+    setxattr([pathCopy UTF8String], "com.apple.runningboard.can-suspend-locked", &v12, 1uLL, 0, 0);
     v7 = [pathCopy copy];
     tracePath = self->_tracePath;
     self->_tracePath = v7;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5 == 0;
 }
 
 - (BOOL)openTrace:(id)trace outError:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   traceCopy = trace;
   v7 = traceCopy;
   if (!self->_db)
@@ -469,9 +497,9 @@ LABEL_19:
     v8 = sqlite3_open_v2([traceCopy fileSystemRepresentation], &self->_db, 2, 0);
     if (!v8)
     {
-      v15 = [v7 copy];
+      v14 = [v7 copy];
       tracePath = self->_tracePath;
-      self->_tracePath = v15;
+      self->_tracePath = v14;
 
       v12 = 1;
       goto LABEL_9;
@@ -481,11 +509,11 @@ LABEL_19:
     v10 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138543618;
-      v18 = v7;
-      v19 = 1024;
-      v20 = v9;
-      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Error opening trace for path: %{public}@, error code: %d", &v17, 0x12u);
+      v16 = 138543618;
+      v17 = v7;
+      v18 = 1024;
+      v19 = v9;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Error opening trace for path: %{public}@, error code: %d", &v16, 0x12u);
     }
 
     v11 = [(MNTrace *)self _handleOpenErrorWithPath:v7];
@@ -499,7 +527,6 @@ LABEL_19:
   v12 = 0;
 LABEL_9:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -532,13 +559,13 @@ LABEL_9:
 
 - (MNTracePreparedStatement)mapMatcherTestEventInsertStatement
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   mapMatcherTestEventInsertStatement = self->_mapMatcherTestEventInsertStatement;
   if (!mapMatcherTestEventInsertStatement)
   {
-    v10 = 0;
-    v4 = [(MNTrace *)self createMapMatcherTestEventInsertStatementAndReturnError:&v10];
-    v5 = v10;
+    v9 = 0;
+    v4 = [(MNTrace *)self createMapMatcherTestEventInsertStatementAndReturnError:&v9];
+    v5 = v9;
     v6 = self->_mapMatcherTestEventInsertStatement;
     self->_mapMatcherTestEventInsertStatement = v4;
 
@@ -548,15 +575,13 @@ LABEL_9:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v12 = v5;
+        v11 = v5;
         _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "Error creating map matcher test event table: %@", buf, 0xCu);
       }
     }
 
     mapMatcherTestEventInsertStatement = self->_mapMatcherTestEventInsertStatement;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return mapMatcherTestEventInsertStatement;
 }

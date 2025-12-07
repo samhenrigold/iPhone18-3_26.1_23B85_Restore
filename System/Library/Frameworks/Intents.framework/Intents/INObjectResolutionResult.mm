@@ -133,7 +133,7 @@ LABEL_9:
 
 - (id)_intentSlotValueForObject:(id)object slotDescription:(id)description
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   descriptionCopy = description;
   v7 = objc_alloc_init(_INPBIntentSlotValue);
@@ -163,48 +163,48 @@ LABEL_9:
     v10 = v9;
 
     valueTransformer = [v10 valueTransformer];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __70__INObjectResolutionResult__intentSlotValueForObject_slotDescription___block_invoke;
-    v29[3] = &unk_1E7283450;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __70__INObjectResolutionResult__intentSlotValueForObject_slotDescription___block_invoke;
+    v28[3] = &unk_1E7283450;
     v12 = valueTransformer;
-    v30 = v12;
-    v31 = v7;
+    v29 = v12;
+    v30 = v7;
     v13 = v10;
-    v32 = v13;
-    v14 = MEMORY[0x193AD7780](v29);
+    v31 = v13;
+    v14 = MEMORY[0x193AD7780](v28);
     if ([descriptionCopy valueStyle] == 3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_msgSend(objectCopy, "firstObject"), v15 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v15, (isKindOfClass & 1) != 0))
     {
-      v24 = v12;
+      v23 = v12;
       v17 = objectCopy;
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
-      v18 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v26;
+        v20 = *v25;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v26 != v20)
+            if (*v25 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v14[2](v14, *(*(&v25 + 1) + 8 * i));
+            v14[2](v14, *(*(&v24 + 1) + 8 * i));
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
         }
 
         while (v19);
       }
 
-      v12 = v24;
+      v12 = v23;
     }
 
     else
@@ -217,35 +217,32 @@ LABEL_9:
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 void __70__INObjectResolutionResult__intentSlotValueForObject_slotDescription___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = a2;
-  v3 = *(a1 + 32);
-  v4 = [objc_opt_class() transformedValueClass];
-  if (v4 == objc_opt_class())
+  v12 = a2;
+  v3 = [objc_opt_class() transformedValueClass];
+  if (v3 == objc_opt_class())
   {
-    v6 = INIntentSlotValueTransformToCustomObject(v13);
-    [*(a1 + 40) addPayloadCustomObject:v6];
+    v5 = INIntentSlotValueTransformToCustomObject(v12);
+    [*(a1 + 40) addPayloadCustomObject:v5];
   }
 
   else
   {
-    v5 = [*(a1 + 48) valueTransformer];
-    v6 = [v5 transformedValue:v13];
+    v4 = [*(a1 + 48) valueTransformer];
+    v5 = [v4 transformedValue:v12];
 
-    v7 = [INArchivedObject alloc];
-    v8 = [*(a1 + 48) typeName];
-    v9 = [v6 data];
-    v10 = [(INArchivedObject *)v7 initWithTypeName:v8 messageData:v9];
+    v6 = [INArchivedObject alloc];
+    v7 = [*(a1 + 48) typeName];
+    v8 = [v5 data];
+    v9 = [(INArchivedObject *)v6 initWithTypeName:v7 messageData:v8];
 
-    v11 = *(a1 + 40);
-    v12 = INIntentSlotValueTransformToArchivedObject(v10);
-    [v11 addPayloadArchivedObject:v12];
+    v10 = *(a1 + 40);
+    v11 = INIntentSlotValueTransformToArchivedObject(v9);
+    [v10 addPayloadArchivedObject:v11];
   }
 }
 

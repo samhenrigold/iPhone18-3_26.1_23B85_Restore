@@ -2,13 +2,12 @@ uint64_t specialized Range._prespecializeRange(bounds:)(uint64_t a1, uint64_t a2
 {
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
   v7 = *(TupleTypeMetadata2 - 8);
-  v8 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x2A1C7C4A8]();
-  v10 = &v13 - v9;
-  v11 = *(*(a3 - 8) + 16);
-  v11(&v13 - v9, a1, a3);
-  v11(&v10[*(TupleTypeMetadata2 + 48)], a2, a3);
-  return (*(v7 + 8))(v10, TupleTypeMetadata2);
+  v9 = &v12 - v8;
+  v10 = *(*(a3 - 8) + 16);
+  v10(&v12 - v8, a1, a3);
+  v10(&v9[*(TupleTypeMetadata2 + 48)], a2, a3);
+  return (*(v7 + 8))(v9, TupleTypeMetadata2);
 }
 
 char *_ss12_ArrayBufferV13_copyContents8subRange12initializingSpyxGSnySiG_AFtFAG_Tgq5Tf4nng_n_0(uint64_t a1, uint64_t a2, char *__dst, uint64_t a4)
@@ -961,7 +960,7 @@ LABEL_16:
   return 0;
 }
 
-uint64_t _ss15ContiguousArrayV04withA25MutableStorageIfAvailableyqd__Sgqd__SryxGzKXEKlFyp_ytTg5063_sSMsSkRzrlE4sort2byySb7ElementSTQz_ADtKXE_tKFySryADGzKXEfU_s15aB9VyypG_Tg5xq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lyypypIsgnndzo_Tf1cn_nTf4ng_nTm(uint64_t *a1, uint64_t (*a2)(uint64_t *, uint64_t *), uint64_t a3, uint64_t (*a4)(uint64_t), void (*a5)(void, void, void, void))
+uint64_t _ss15ContiguousArrayV04withA25MutableStorageIfAvailableyqd__Sgqd__SryxGzKXEKlFyp_ytTg5063_sSMsSkRzrlE4sort2byySb7ElementSTQz_ADtKXE_tKFySryADGzKXEfU_s15aB9VyypG_Tg5xq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lyypypIsgnndzo_Tf1cn_nTf4ng_nTm(uint64_t *a1, uint64_t (*a2)(_OWORD *, void *), uint64_t a3, uint64_t (*a4)(uint64_t), void (*a5)(void, void, void, void))
 {
   v10 = a1;
   v11 = *a1;
@@ -1255,6 +1254,7 @@ LABEL_15:
   return result;
 }
 
+char *specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(char *result, uint64_t a2, uint64_t a3)
 {
   v4 = a2 - result;
   if (__OFSUB__(a2, result))
@@ -1295,7 +1295,7 @@ LABEL_14:
     goto LABEL_12;
   }
 
-  result = specialized UnsafeMutablePointer.moveInitialize(from:count:)((v7 + 32 + a2), v10, (v7 + 32 + result + a3));
+  result = specialized UnsafeMutablePointer.moveInitialize(from:count:)((v7 + 32 + a2), v10, &result[a3 + 32 + v7]);
   v11 = *(v7 + 16);
   v9 = __OFADD__(v11, v6);
   v12 = v11 + v6;
@@ -1357,7 +1357,6 @@ LABEL_13:
     return result;
   }
 
-  v13 = *v4;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
   *v4 = v6;
   if (!isUniquelyReferenced_nonNull_native || v10 > *(v6 + 24) >> 1)
@@ -1409,7 +1408,6 @@ LABEL_13:
     return result;
   }
 
-  v13 = *v4;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
   *v4 = v6;
   if (!isUniquelyReferenced_nonNull_native || v10 > *(v6 + 24) >> 1)
@@ -1423,9 +1421,9 @@ LABEL_13:
   return result;
 }
 
-uint64_t specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(uint64_t a1, uint64_t a2, uint64_t a3)
+char *specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = a2 - a1;
+  v5 = a2 - a1;
   if (__OFSUB__(a2, a1))
   {
     __break(1u);
@@ -1436,7 +1434,7 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  if (v4 < 0)
+  if (v5 < 0)
   {
 LABEL_14:
     _fatalErrorMessage(_:_:file:line:flags:)();
@@ -1444,39 +1442,39 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v7 = *v3;
-  v8 = v7 + 32 + 16 * a1;
+  v8 = *v4;
+  v9 = v8 + 32 + 16 * a1;
   result = swift_arrayDestroy();
-  v10 = __OFSUB__(a3, v4);
-  v11 = a3 - v4;
-  if (v10)
+  v11 = __OFSUB__(a3, v5);
+  v12 = a3 - v5;
+  if (v11)
   {
     goto LABEL_11;
   }
 
-  if (!v11)
+  if (!v12)
   {
     goto LABEL_8;
   }
 
-  v12 = *(v7 + 16);
-  if (__OFSUB__(v12, a2))
+  v13 = *(v8 + 16);
+  if (__OFSUB__(v13, a2))
   {
     goto LABEL_12;
   }
 
-  result = specialized UnsafeMutablePointer.moveInitialize(from:count:)((v7 + 32 + 16 * a2), v12 - a2, (v8 + 16 * a3));
-  v13 = *(v7 + 16);
-  v10 = __OFADD__(v13, v11);
-  v14 = v13 + v11;
-  if (v10)
+  result = specialized UnsafeMutablePointer.moveInitialize(from:count:)((v8 + 32 + 16 * a2), v13 - a2, (v9 + 16 * a3));
+  v14 = *(v8 + 16);
+  v11 = __OFADD__(v14, v12);
+  v15 = v14 + v12;
+  if (v11)
   {
 LABEL_13:
     __break(1u);
     goto LABEL_14;
   }
 
-  *(v7 + 16) = v14;
+  *(v8 + 16) = v15;
 LABEL_8:
   if (a3 > 0)
   {
@@ -1488,6 +1486,69 @@ LABEL_15:
   return result;
 }
 
+char *specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+{
+  if (a1 < 0)
+  {
+    goto LABEL_16;
+  }
+
+  v7 = *v5;
+  v8 = *(*v5 + 2);
+  if (v8 < a2)
+  {
+    goto LABEL_16;
+  }
+
+  if (__OFSUB__(a2, a1))
+  {
+    __break(1u);
+    goto LABEL_14;
+  }
+
+  v10 = a1 - a2;
+  if (__OFSUB__(0, a2 - a1))
+  {
+LABEL_14:
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  v11 = v8 + v10;
+  if (__OFADD__(v8, v10))
+  {
+LABEL_15:
+    __break(1u);
+LABEL_16:
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    return result;
+  }
+
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  *v5 = v7;
+  if (!isUniquelyReferenced_nonNull_native || v11 > *(v7 + 3) >> 1)
+  {
+    if (v8 <= v11)
+    {
+      v16 = v11;
+    }
+
+    else
+    {
+      v16 = v8;
+    }
+
+    v7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v16, 1, v7, a3, a4, a5);
+    *v5 = v7;
+  }
+
+  result = specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(a1, a2, 0, a5);
+  *v5 = v7;
+  return result;
+}
+
+char *specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = a2 - a1;
   if (__OFSUB__(a2, a1))
@@ -1616,69 +1677,6 @@ LABEL_15:
   return result;
 }
 
-uint64_t specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
-{
-  if (a1 < 0)
-  {
-    goto LABEL_16;
-  }
-
-  v6 = *v4;
-  v7 = *(*v4 + 2);
-  if (v7 < a2)
-  {
-    goto LABEL_16;
-  }
-
-  if (__OFSUB__(a2, a1))
-  {
-    __break(1u);
-    goto LABEL_14;
-  }
-
-  v9 = a1 - a2;
-  if (__OFSUB__(0, a2 - a1))
-  {
-LABEL_14:
-    __break(1u);
-    goto LABEL_15;
-  }
-
-  v10 = v7 + v9;
-  if (__OFADD__(v7, v9))
-  {
-LABEL_15:
-    __break(1u);
-LABEL_16:
-    result = _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-    return result;
-  }
-
-  v13 = *v4;
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *v4 = v6;
-  if (!isUniquelyReferenced_nonNull_native || v10 > *(v6 + 3) >> 1)
-  {
-    if (v7 <= v10)
-    {
-      v15 = v10;
-    }
-
-    else
-    {
-      v15 = v7;
-    }
-
-    v6 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v15, 1, v6, a3, a4);
-    *v4 = v6;
-  }
-
-  result = specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(a1, a2, 0);
-  *v4 = v6;
-  return result;
-}
-
 uint64_t outlined destroy of Any?(uint64_t a1)
 {
   CanonicalSpecializedMetadata = swift_getCanonicalSpecializedMetadata();
@@ -1686,7 +1684,7 @@ uint64_t outlined destroy of Any?(uint64_t a1)
   return a1;
 }
 
-uint64_t lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)

@@ -1,5474 +1,1972 @@
-void *RECoordinateSpaceDefinitionComponentGetComponentType()
+uint64_t RETimelineDefinitionMakeAdditiveFromBaseFloat(_anonymous_namespace_::TimelineDefinition *a1, float a2)
 {
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
+  v16 = *MEMORY[0x1E69E9840];
+  v9 = a2;
+  v3 = v2;
+  v4 = *(v2 + 2);
+  if (v4 == 27)
   {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::CoordinateSpaceDefinitionComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-void *REColliderComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::ColliderComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t REColliderComponentSetShape(uint64_t a1, uint64_t a2)
-{
-  re::ecs2::ComponentImpl<re::ecs2::ColliderComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(a1, a2);
-  re::AssetAPIHelper::assetHandleCreate(a2, &v7);
-  v4 = *(a1 + 32);
-  *(a1 + 32) = v7;
-  v7 = v4;
-  v5 = *(a1 + 48);
-  *(a1 + 48) = v8;
-  v8 = v5;
-  re::AssetHandle::~AssetHandle(&v7);
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t REColliderComponentSetInteractionType(uint64_t a1, uint64_t a2)
-{
-  v2 = a2;
-  v3 = re::ecs2::ComponentImpl<re::ecs2::ColliderComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(a1, a2);
-  *(v3 + 60) = v2;
-
-  return re::ecs2::Component::enqueueMarkDirty(v3);
-}
-
-uint64_t REColliderComponentSetGroup(uint64_t a1, uint64_t a2)
-{
-  v2 = a2;
-  v3 = re::ecs2::ComponentImpl<re::ecs2::ColliderComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(a1, a2);
-  *(v3 + 64) = v2;
-
-  return re::ecs2::Component::enqueueMarkDirty(v3);
-}
-
-uint64_t REColliderComponentSetMask(uint64_t a1, uint64_t a2)
-{
-  v2 = a2;
-  v3 = re::ecs2::ComponentImpl<re::ecs2::ColliderComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(a1, a2);
-  *(v3 + 68) = v2;
-
-  return re::ecs2::Component::enqueueMarkDirty(v3);
-}
-
-uint64_t REColliderComponentGetCollisionObject(uint64_t a1, uint64_t a2)
-{
-  v4 = *(re::ecs2::ComponentImpl<re::ecs2::ColliderComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(a1, a2) + 16);
-  if (v4)
-  {
-    do
+    if (*(v2 + 72) == 1)
     {
-      v5 = v4;
-      v4 = *(v4 + 32);
-    }
-
-    while (v4);
-    v6 = *(v5 + 24);
-    if (v6)
-    {
-      re::ecs2::PhysicsSystem::ensureSimulationUpdatedWithECS(v6, v3);
-    }
-  }
-
-  return *(a1 + 96);
-}
-
-uint64_t REColliderComponentIsTrigger(uint64_t a1, uint64_t a2)
-{
-  v2 = *(re::ecs2::ComponentImpl<re::ecs2::ColliderComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(a1, a2) + 96);
-  result = (*(*v2 + 32))(v2);
-  if (result)
-  {
-    return (v2[88] >> 1) & 1;
-  }
-
-  return result;
-}
-
-uint64_t re::ecs2::ComponentImpl<re::ecs2::ColliderComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    v2 = a1;
-    v3 = &re::ecs2::ComponentImpl<re::ecs2::PrimitiveBoxComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-    if ((*(*a1 + 40))(a1) == re::ecs2::ComponentImpl<re::ecs2::ColliderComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType)
-    {
-      return v2;
-    }
-  }
-
-  else
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) component must not be null.", "component", "safeCast", 97);
-    _os_crash();
-    __break(1u);
-  }
-
-  (*(*v2 + 40))(v2);
-  v5 = *(v3[67] + 4);
-  v6 = (*(*v2 + 40))(v2);
-  re::internal::assertLog(6, v7, "assertion failure: '%s' (%s:line %i) Component is wrong type. Expected type: %s, but got: %s", "&reinterpret_cast<Derived *>(component)->componentType() == &Derived::classComponentType()", "safeCast", 101, v5, *(v6 + 32));
-  result = _os_crash();
-  __break(1u);
-  return result;
-}
-
-void *REForceEffectComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::ForceEffectComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t REForceEffectComponentGetForceEffectCount(uint64_t result)
-{
-  if (result)
-  {
-    return *(result + 48);
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentResizeForceEffects(uint64_t result, unint64_t a2, uint64_t a3)
-{
-  if (result)
-  {
-    v4 = result;
-    v5 = *(result + 48);
-    if (v5)
-    {
-      v7 = 0;
-      v8 = 0;
-      v9 = *(result + 48);
-      do
+      if (CoreRELog::onceToken != -1)
       {
-        if (v9 <= v8)
-        {
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_15:
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_16:
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-        }
-
-        re::EventBus::unsubscribe(a3, *(v4[8] + v7 + 232), *(v4[8] + v7 + 240));
-        v9 = v4[6];
-        if (v9 <= v8)
-        {
-          goto LABEL_15;
-        }
-
-        v10 = *(v4[8] + v7 + 248);
-        if (v10)
-        {
-          CFRelease(v10);
-          v9 = v4[6];
-          if (v9 <= v8)
-          {
-            goto LABEL_16;
-          }
-
-          *(v4[8] + v7 + 248) = 0;
-        }
-
-        ++v8;
-        v7 += 256;
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
       }
 
-      while (v5 != v8);
-    }
-
-    re::DynamicArray<re::ecs2::ForceEffectDesc>::resize(v4 + 4, a2);
-
-    return re::ecs2::Component::enqueueMarkDirty(v4);
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentSetForceEffectPosition(uint64_t result, unint64_t a2, __n128 a3)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(result + 64);
-    if (v3)
-    {
-      *(v3 + (a2 << 8)) = a3;
-
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-__n128 REForceEffectComponentGetForceEffectPosition(uint64_t a1, unint64_t a2)
-{
-  result = 0uLL;
-  if (a1)
-  {
-    if (*(a1 + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(a1 + 64);
-    if (v3)
-    {
-      return *(v3 + (a2 << 8));
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentSetForceEffectOrientation(uint64_t result, unint64_t a2, __n128 a3)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(result + 64);
-    if (v3)
-    {
-      *(v3 + (a2 << 8) + 16) = a3;
-
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-__n128 REForceEffectComponentGetForceEffectOrientation(uint64_t a1, unint64_t a2)
-{
-  result = 0uLL;
-  if (a1)
-  {
-    if (*(a1 + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(a1 + 64);
-    if (v3)
-    {
-      return *(v3 + (a2 << 8) + 16);
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentSetForceEffectStrengthScale(uint64_t result, unint64_t a2, float a3)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(result + 64);
-    if (v3)
-    {
-      *(v3 + (a2 << 8) + 32) = a3;
-
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-float REForceEffectComponentGetForceEffectStrengthScale(uint64_t a1, unint64_t a2)
-{
-  result = 0.0;
-  if (a1)
-  {
-    if (*(a1 + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(a1 + 64);
-    if (v3)
-    {
-      return *(v3 + (a2 << 8) + 32);
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentSetSimulationState(uint64_t result, char a2)
-{
-  if (result)
-  {
-    if ((*(result + 25) & 1) == 0)
-    {
-      *(result + 25) = 1;
-    }
-
-    *(result + 26) = a2;
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentHasSimulationState(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 25);
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  return v1 & 1;
-}
-
-uint64_t REForceEffectComponentGetSimulationState(uint64_t result)
-{
-  if (result)
-  {
-    if (*(result + 25) == 1)
-    {
-      return *(result + 26);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentRemoveSimulationState(uint64_t result)
-{
-  if (result)
-  {
-    if (*(result + 25) == 1)
-    {
-      *(result + 25) = 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentSetForceEffectMask(uint64_t result, unint64_t a2, int a3)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(result + 64);
-    if (v3)
-    {
-      *(v3 + (a2 << 8) + 36) = a3;
-
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentGetForceEffectMask(uint64_t result, unint64_t a2)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v2 = *(result + 64);
-    if (v2)
-    {
-      return *(v2 + (a2 << 8) + 36);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentSetForceEffectInputs(uint64_t result, unint64_t a2, int a3)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(result + 64);
-    if (v3)
-    {
-      *(v3 + (a2 << 8) + 176) = a3;
-
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentSetForceEffectForceMode(uint64_t result, unint64_t a2, char a3)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(result + 64);
-    if (v3)
-    {
-      *(v3 + (a2 << 8) + 40) = a3;
-
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentGetForceEffectForceMode(uint64_t result, unint64_t a2)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v2 = *(result + 64);
-    if (v2)
-    {
-      return *(v2 + (a2 << 8) + 40);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentSetForceEffectEventKey(uint64_t result, unint64_t a2, uint64_t a3)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(result + 64);
-    if (v3)
-    {
-      *(v3 + (a2 << 8) + 184) = a3;
-
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentGetForceEffectEventKey(uint64_t result, unint64_t a2)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v2 = *(result + 64);
-    if (v2)
-    {
-      return *(v2 + (a2 << 8) + 184);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentForceEffectHasTimedFalloff(uint64_t a1, unint64_t a2)
-{
-  if (a1)
-  {
-    if (*(a1 + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v2 = *(a1 + 64);
-    if (v2)
-    {
-      LOBYTE(v2) = *(v2 + (a2 << 8) + 64);
-    }
-  }
-
-  else
-  {
-    LOBYTE(v2) = 0;
-  }
-
-  return v2 & 1;
-}
-
-uint64_t REForceEffectComponentForceEffectRemoveTimedFalloff(uint64_t result, unint64_t a2)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v2 = *(result + 64);
-    if (v2)
-    {
-      v3 = v2 + (a2 << 8);
-      v5 = *(v3 + 64);
-      v4 = (v3 + 64);
-      if (v5 == 1)
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        *v4 = 0;
+        goto LABEL_23;
       }
 
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentSetForceEffectTimedFalloffDuration(uint64_t result, unint64_t a2, float a3)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      memset(v11, 0, sizeof(v11));
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(result + 64);
-    if (v3)
-    {
-      v4 = v3 + (a2 << 8);
-      v7 = *(v4 + 64);
-      v5 = v4 + 64;
-      v6 = v7;
-      LODWORD(v11[0]) = 1065353216;
-      v8 = v11;
-      if (v7)
-      {
-        v8 = (v5 + 16);
-      }
-
-      v9 = *v8;
-      v10 = a3;
-      if (v6)
-      {
-        *(v5 + 16) = v9;
-      }
-
-      else
-      {
-        *v5 = 1;
-        *(v5 + 16) = v9;
-      }
-
-      *(v5 + 8) = v10;
-
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-float REForceEffectComponentGetForceEffectTimedFalloffDuration(uint64_t a1, unint64_t a2)
-{
-  result = 0.0;
-  if (a1)
-  {
-    if (*(a1 + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(a1 + 64);
-    if (v3)
-    {
-      v4 = v3 + (a2 << 8);
-      v6 = *(v4 + 64);
-      v5 = v4 + 64;
-      if (v6 == 1)
-      {
-        return *(v5 + 8);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentSetForceEffectTimedFalloffRate(uint64_t result, unint64_t a2, float a3)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(result + 64);
-    if (v3)
-    {
-      v4 = v3 + (a2 << 8);
-      v6 = *(v4 + 64);
-      v5 = v4 + 64;
-      if (v6)
-      {
-        v7 = *(v5 + 8);
-      }
-
-      else
-      {
-        *v5 = 1;
-        v7 = 1.0;
-      }
-
-      *(v5 + 8) = v7;
-      *(v5 + 16) = a3;
-
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-float REForceEffectComponentGetForceEffectTimedFalloffRate(uint64_t a1, unint64_t a2)
-{
-  result = 0.0;
-  if (a1)
-  {
-    if (*(a1 + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(a1 + 64);
-    if (v3)
-    {
-      v4 = v3 + (a2 << 8);
-      v6 = *(v4 + 64);
-      v5 = v4 + 64;
-      if (v6 == 1)
-      {
-        return *(v5 + 16);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentForceEffectHasSpatialFalloff(uint64_t a1, unint64_t a2)
-{
-  if (a1)
-  {
-    if (*(a1 + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v2 = *(a1 + 64);
-    if (v2)
-    {
-      LOBYTE(v2) = *(v2 + (a2 << 8) + 44);
-    }
-  }
-
-  else
-  {
-    LOBYTE(v2) = 0;
-  }
-
-  return v2 & 1;
-}
-
-uint64_t REForceEffectComponentForceEffectRemoveSpatialFalloff(uint64_t result, unint64_t a2)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v2 = *(result + 64);
-    if (v2)
-    {
-      v3 = v2 + (a2 << 8);
-      v5 = *(v3 + 44);
-      v4 = (v3 + 44);
-      if (v5 == 1)
-      {
-        *v4 = 0;
-      }
-
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentSetForceEffectSpatialFalloffRate(uint64_t result, unint64_t a2, float a3)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      memset(v10, 0, sizeof(v10));
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(result + 64);
-    if (v3)
-    {
-      v4 = v3 + (a2 << 8);
-      v7 = *(v4 + 44);
-      v5 = v4 + 44;
-      v6 = v7;
-      *&v10[0] = 1065353216;
-      v8 = (v5 + 4);
-      if (!v7)
-      {
-        v8 = v10;
-      }
-
-      v9 = *v8;
-      if ((v6 & 1) == 0)
-      {
-        *v5 = 1;
-      }
-
-      *(v5 + 4) = v9;
-      *(v5 + 12) = a3;
-
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-float REForceEffectComponentGetForceEffectSpatialFalloffRate(uint64_t a1, unint64_t a2)
-{
-  result = 0.0;
-  if (a1)
-  {
-    if (*(a1 + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(a1 + 64);
-    if (v3)
-    {
-      v4 = v3 + (a2 << 8);
-      v6 = *(v4 + 44);
-      v5 = v4 + 44;
-      if (v6 == 1)
-      {
-        return *(v5 + 12);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentSetForceEffectSpatialFalloffOffset(uint64_t result, unint64_t a2, float a3)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(result + 64);
-    if (v3)
-    {
-      v4 = v3 + (a2 << 8);
-      v6 = *(v4 + 44);
-      v5 = v4 + 44;
-      if (v6)
-      {
-        v7 = *(v5 + 4);
-        v8 = *(v5 + 12);
-      }
-
-      else
-      {
-        *v5 = 1;
-        v8 = 1.0;
-        v7 = 1.0;
-      }
-
-      *(v5 + 4) = v7;
-      *(v5 + 8) = a3;
-      *(v5 + 12) = v8;
-
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-float REForceEffectComponentGetForceEffectSpatialFalloffOffset(uint64_t a1, unint64_t a2)
-{
-  result = 0.0;
-  if (a1)
-  {
-    if (*(a1 + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(a1 + 64);
-    if (v3)
-    {
-      v4 = v3 + (a2 << 8);
-      v6 = *(v4 + 44);
-      v5 = v4 + 44;
-      if (v6 == 1)
-      {
-        return *(v5 + 8);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentSetForceEffectBoundSphereRadius(uint64_t result, unint64_t a2, float a3)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      memset(v10, 0, sizeof(v10));
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(result + 64);
-    if (v3)
-    {
-      v4 = v3 + (a2 << 8);
-      v7 = *(v4 + 44);
-      v5 = v4 + 44;
-      v6 = v7;
-      *&v10[0] = 0x3F80000000000000;
-      v8 = (v5 + 8);
-      if (!v7)
-      {
-        v8 = v10;
-      }
-
-      v9 = *v8;
-      if ((v6 & 1) == 0)
-      {
-        *v5 = 1;
-      }
-
-      *(v5 + 4) = a3;
-      *(v5 + 8) = v9;
-
-      return re::ecs2::Component::enqueueMarkDirty(result);
-    }
-  }
-
-  return result;
-}
-
-float REForceEffectComponentGetForceEffectBoundSphereRadius(uint64_t a1, unint64_t a2)
-{
-  result = 0.0;
-  if (a1)
-  {
-    if (*(a1 + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v3 = *(a1 + 64);
-    if (v3)
-    {
-      v4 = v3 + (a2 << 8);
-      v6 = *(v4 + 44);
-      v5 = v4 + 44;
-      if (v6 == 1)
-      {
-        return *(v5 + 4);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentGetForceEffectUserData(uint64_t result, unint64_t a2)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v2 = *(result + 64);
-    if (v2)
-    {
-      return *(v2 + (a2 << 8) + 224);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentGetForceEffectUserDataSize(uint64_t result, unint64_t a2)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v2 = *(result + 64);
-    if (v2)
-    {
-      return *(v2 + (a2 << 8) + 208);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentResizeForceEffectUserData(uint64_t result, unint64_t a2, unint64_t a3)
-{
-  if (result)
-  {
-    v3 = result;
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v4 = *(result + 64);
-    if (v4)
-    {
-      re::DynamicArray<BOOL>::resize(v4 + (a2 << 8) + 192, a3);
-
-      return re::ecs2::Component::enqueueMarkDirty(v3);
-    }
-  }
-
-  return result;
-}
-
-uint64_t REForceEffectComponentGetForceEffectUserClass(uint64_t result, unint64_t a2)
-{
-  if (result)
-  {
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v2 = *(result + 64);
-    if (v2)
-    {
-      return *(v2 + (a2 << 8) + 248);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-void *REForceEffectComponentSetAndRetainForceEffectUserClass(void *this, unint64_t a2, void *cf)
-{
-  if (this)
-  {
-    v3 = this;
-    if (this[6] <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v4 = this[8];
-    if (v4)
-    {
-      v6 = v4 + (a2 << 8);
-      v8 = *(v6 + 248);
-      v7 = (v6 + 248);
-      this = v8;
-      if (v8 != cf)
-      {
-        if (this)
-        {
-          CFRelease(this);
-        }
-
-        if (cf)
-        {
-          CFRetain(cf);
-          *v7 = cf;
-        }
-
-        return re::ecs2::Component::enqueueMarkDirty(v3);
-      }
-    }
-  }
-
-  return this;
-}
-
-uint64_t REForceEffectComponentSetForceEffectSubscription(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  if (result)
-  {
-    v5 = result;
-    if (*(result + 48) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v6 = *(result + 64);
-    if (v6)
-    {
-      v9 = v6 + (a2 << 8);
-      re::EventBus::unsubscribe(a3, *(v9 + 232), *(v9 + 240));
-      *(v9 + 232) = a4;
-      *(v9 + 240) = a5;
-
-      return re::ecs2::Component::enqueueMarkDirty(v5);
-    }
-  }
-
-  return result;
-}
-
-void RERegisterCustomSystem(int a1, int a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
-{
-  v11 = a3;
-  v12 = a4;
-  v13 = re::ecs2::CustomSystemRegistry::instance(v12);
-  v24[0] = a1;
-  v24[1] = a2;
-  v25 = _Block_copy(v11);
-  v27 = 0;
-  v28 = 0;
-  v26 = _Block_copy(v12);
-  v29 = 1;
-  os_unfair_lock_lock(v13 + 1);
-  re::DynamicArray<re::Encoder<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>,re::DynamicArrayBufferedOutputStream>::State>::add(&v13[14], v24);
-  os_unfair_lock_unlock(v13 + 1);
-  if (a5 && a6)
-  {
-    v14 = (a5 + 4);
-    do
-    {
-      v15 = *(v14 - 1);
-      if (v15 == 1000000)
-      {
-        {
-          re::introspect<re::ecs2::PhysicsSystem>(BOOL)::info = re::ecs2::introspect_PhysicsSystem(0);
-        }
-
-        v16 = re::introspect<re::ecs2::PhysicsSystem>(BOOL)::info;
-      }
-
-      else
-      {
-        v17 = *v14;
-        if (*v14 == 1000000)
-        {
-          *&v20 = 0;
-          *(&v20 + 1) = 0xFFFFFFFFLL;
-          v21 = v15;
-          {
-            re::introspect<re::ecs2::PhysicsSystem>(BOOL)::info = re::ecs2::introspect_PhysicsSystem(0);
-          }
-
-          v18 = re::introspect<re::ecs2::PhysicsSystem>(BOOL)::info;
-LABEL_11:
-          v22 = v18[2];
-          v23 = -1;
-          goto LABEL_12;
-        }
-
-        if (v15 == 1000001)
-        {
-          {
-            re::introspect<re::ecs2::NetworkSendSystem>(BOOL)::info = re::ecs2::introspect_NetworkSendSystem(0);
-          }
-
-          v16 = re::introspect<re::ecs2::NetworkSendSystem>(BOOL)::info;
-        }
-
-        else
-        {
-          if (v17 == 1000001)
-          {
-            *&v20 = 0;
-            *(&v20 + 1) = 0xFFFFFFFFLL;
-            v21 = v15;
-            {
-              re::introspect<re::ecs2::NetworkSendSystem>(BOOL)::info = re::ecs2::introspect_NetworkSendSystem(0);
-            }
-
-            v18 = re::introspect<re::ecs2::NetworkSendSystem>(BOOL)::info;
-            goto LABEL_11;
-          }
-
-          if (v15 == 1000002)
-          {
-            {
-              re::introspect<re::ecs2::NetworkReceiveSystem>(BOOL)::info = re::ecs2::introspect_NetworkReceiveSystem(0);
-            }
-
-            v16 = re::introspect<re::ecs2::NetworkReceiveSystem>(BOOL)::info;
-          }
-
-          else
-          {
-            if (v17 == 1000002)
-            {
-              *&v20 = 0;
-              *(&v20 + 1) = 0xFFFFFFFFLL;
-              v21 = v15;
-              {
-                re::introspect<re::ecs2::NetworkReceiveSystem>(BOOL)::info = re::ecs2::introspect_NetworkReceiveSystem(0);
-              }
-
-              v18 = re::introspect<re::ecs2::NetworkReceiveSystem>(BOOL)::info;
-              goto LABEL_11;
-            }
-
-            if (v15 == 1000003)
-            {
-              {
-                re::introspect<re::ecs2::AnimationUpdateSystem>(BOOL)::info = re::ecs2::introspect_AnimationUpdateSystem(0);
-              }
-
-              v16 = re::introspect<re::ecs2::AnimationUpdateSystem>(BOOL)::info;
-            }
-
-            else
-            {
-              if (v17 == 1000003)
-              {
-                *&v20 = 0;
-                *(&v20 + 1) = 0xFFFFFFFFLL;
-                v21 = v15;
-                {
-                  re::introspect<re::ecs2::AnimationUpdateSystem>(BOOL)::info = re::ecs2::introspect_AnimationUpdateSystem(0);
-                }
-
-                v18 = re::introspect<re::ecs2::AnimationUpdateSystem>(BOOL)::info;
-                goto LABEL_11;
-              }
-
-              if (v15 != 1000004)
-              {
-                if (v17 == 1000004)
-                {
-                  *&v20 = 0;
-                  *(&v20 + 1) = 0xFFFFFFFFLL;
-                  v21 = v15;
-                  v19 = re::introspect<re::ecs2::SkeletalPoseSystem>();
-                  goto LABEL_38;
-                }
-
-                if (v15 == 1000005)
-                {
-                  v20 = *(re::introspect<re::ecs2::CustomDeformerSystem>() + 32);
-                  v21 = -1;
-                  *&v22 = 0;
-                  *(&v22 + 1) = 0xFFFFFFFFLL;
-                  v23 = *v14;
-                }
-
-                else if (v17 == 1000005)
-                {
-                  *&v20 = 0;
-                  *(&v20 + 1) = 0xFFFFFFFFLL;
-                  v21 = v15;
-                  v19 = re::introspect<re::ecs2::CustomDeformerSystem>();
-LABEL_38:
-                  v22 = *(v19 + 32);
-                  v23 = -1;
-                }
-
-                else
-                {
-                  *&v20 = 0;
-                  *(&v20 + 1) = 0xFFFFFFFFLL;
-                  v21 = v15;
-                  *&v22 = 0;
-                  *(&v22 + 1) = 0xFFFFFFFFLL;
-                  v23 = v17;
-                }
-
-                re::ecs2::CustomSystemRegistry::add(v13, &v20);
-                goto LABEL_13;
-              }
-
-              {
-                re::introspect<re::ecs2::SkeletalPoseSystem>(BOOL)::info = re::ecs2::introspect_SkeletalPoseSystem(0);
-              }
-
-              v16 = re::introspect<re::ecs2::SkeletalPoseSystem>(BOOL)::info;
-            }
-          }
-        }
-      }
-
-      v20 = v16[2];
-      v21 = -1;
-      *&v22 = 0;
-      *(&v22 + 1) = 0xFFFFFFFFLL;
-      v23 = *v14;
-LABEL_12:
-      os_unfair_lock_lock(v13 + 1);
-      re::DynamicArray<re::ecs2::CustomSystemRegistry::SystemDependency>::add(&v13[24], &v20);
-      os_unfair_lock_unlock(v13 + 1);
-LABEL_13:
-      v14 += 2;
-      --a6;
-    }
-
-    while (a6);
-  }
-}
-
-uint64_t re::introspect<re::ecs2::SkeletalPoseSystem>()
-{
-  v0 = &unk_1EE187000;
-  {
-    v0 = &unk_1EE187000;
-    if (v2)
-    {
-      re::introspect<re::ecs2::SkeletalPoseSystem>(BOOL)::info = re::ecs2::introspect_SkeletalPoseSystem(0);
-      v0 = &unk_1EE187000;
-    }
-  }
-
-  return v0[119];
-}
-
-uint64_t re::introspect<re::ecs2::CustomDeformerSystem>()
-{
-  v0 = &unk_1EE187000;
-  {
-    v0 = &unk_1EE187000;
-    if (v2)
-    {
-      re::introspect<re::ecs2::CustomDeformerSystem>(BOOL)::info = re::ecs2::introspect_CustomDeformerSystem(0);
-      v0 = &unk_1EE187000;
-    }
-  }
-
-  return v0[107];
-}
-
-uint64_t REECSManagerVerifyDependency(uint64_t a1, re::DeformerFeatureFlags *a2, int a3, re::DeformerFeatureFlags *a4, int a5)
-{
-  v8 = a2;
-  v56 = *MEMORY[0x1E69E9840];
-  if (a3)
-  {
-    *&v55[0] = 0;
-    result = _REECSManagerGetEngineSystemTypeIDs(a2, v55);
-    if (!result)
-    {
-      return result;
-    }
-
-    v43 = **&v55[0];
-    v37 = *(*&v55[0] + 8);
-    v38 = HIWORD(*(*&v55[0] + 8));
-    v39 = *(*&v55[0] + 12);
-  }
-
-  else
-  {
-    v43 = 0;
-    v38 = 0xFFFF;
-    v39 = 0;
-    v37 = 0xFFFF;
-  }
-
-  if (a5)
-  {
-    *&v55[0] = 0;
-    result = _REECSManagerGetEngineSystemTypeIDs(a4, v55);
-    if (!result)
-    {
-      return result;
-    }
-
-    v11 = **&v55[0];
-    v40 = *(*&v55[0] + 8);
-    v41 = HIWORD(*(*&v55[0] + 8));
-    v42 = *(*&v55[0] + 12);
-  }
-
-  else
-  {
-    v11 = 0;
-    v41 = 0xFFFF;
-    v42 = 0;
-    v40 = 0xFFFF;
-  }
-
-  v12 = a1 + 160;
-  re::DataArray<re::ecs2::SceneGroup>::DataArrayIterator<re::ecs2::SceneGroup,re::ecs2::SceneGroup&>::DataArrayIterator(v55, v12, 0);
-  v13 = *&v55[0];
-  v44 = *&v55[0];
-  v45 = DWORD2(v55[0]);
-  v14 = WORD4(v55[0]);
-  v15 = HIWORD(DWORD2(v55[0]));
-  v36 = v12;
-  if (v12 == *&v55[0] && WORD4(v55[0]) == 0xFFFF && v15 == 0xFFFF)
-  {
-LABEL_51:
-    v35 = 0;
-    v26 = 0;
-    return v35 & v26;
-  }
-
-  v18 = 0;
-  while (1)
-  {
-    v19 = v15;
-    v20 = *(v13 + 16);
-    if (v20 <= v15)
-    {
-      v46 = 0;
-      memset(v55, 0, sizeof(v55));
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v47 = 136315906;
-      v48 = "operator[]";
-      v49 = 1024;
-      v50 = 797;
-      v51 = 2048;
-      v52 = v19;
-      v53 = 2048;
-      v54 = v20;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v21 = *(*(v13 + 32) + 16 * v15) + 240 * v14;
-    v22 = *(v21 + 144);
-    if (v22)
-    {
-      break;
-    }
-
-LABEL_48:
-    re::DataArray<re::ecs2::SceneGroup>::DataArrayIterator<re::ecs2::SceneGroup,re::ecs2::SceneGroup&>::increment(&v44);
-    v13 = v44;
-    v14 = v45;
-    v15 = HIWORD(v45);
-    if (v44 == v36 && v45 == 0xFFFF && HIWORD(v45) == 0xFFFF)
-    {
-      goto LABEL_51;
-    }
-  }
-
-  v23 = *(v21 + 160);
-  v24 = 8 * v22;
-  while (1)
-  {
-    v25 = *v23;
-    v26 = v18 != 0;
-    if (!v18)
-    {
-      if (a3)
-      {
-        v31 = (*(*v25 + 32))(*v23);
-        if (v43 == *(v31 + 32))
-        {
-          v32 = *(v31 + 40);
-          v33 = v37 == v32 && v38 == WORD1(v32);
-          if (v33 && ((v39 ^ HIDWORD(v32)) & 0xFFFFFF) == 0)
-          {
-LABEL_47:
-            v18 = v25;
-            goto LABEL_33;
-          }
-        }
-      }
-
-      else if (v25[7] == v8)
-      {
-        goto LABEL_47;
-      }
-    }
-
-    if (a5)
-    {
-      break;
-    }
-
-    if (v25[7] == a4)
-    {
-      goto LABEL_52;
-    }
-
-LABEL_33:
-    ++v23;
-    v24 -= 8;
-    if (!v24)
-    {
-      goto LABEL_48;
-    }
-  }
-
-  v27 = (*(*v25 + 32))(v25);
-  if (v11 != *(v27 + 32))
-  {
-    goto LABEL_33;
-  }
-
-  v28 = *(v27 + 40);
-  v29 = v40 == v28 && v41 == WORD1(v28);
-  if (!v29 || ((v42 ^ HIDWORD(v28)) & 0xFFFFFF) != 0)
-  {
-    goto LABEL_33;
-  }
-
-LABEL_52:
-  v35 = 1;
-  return v35 & v26;
-}
-
-uint64_t RECustomSystemGetSwiftSystemForScene(uint64_t a1, uint64_t a2)
-{
-  v3 = a2;
-  result = re::HashTable<void *,unsigned int,re::Hash<void *>,re::EqualTo<void *>,true,false>::tryGet(a1 + 272, &v3);
-  if (result)
-  {
-    return *result;
-  }
-
-  return result;
-}
-
-void *REWorldRootComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::WorldRootComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t RECreateWorldRoot(re *a1)
-{
-  re::make::shared::object<re::ecs2::SharedWorldRootToken>(a1, &v2);
-  uuid_generate_random(out);
-  result = v2;
-  *(v2 + 24) = (*&out[8] + (*out << 6) + (*out >> 2) - 0x61C8864680B583E9) ^ *out;
-  return result;
-}
-
-uint64_t RECreateWorldRootDefault(re *a1)
-{
-  re::make::shared::object<re::ecs2::SharedWorldRootToken>(a1, &v2);
-  result = v2;
-  *(v2 + 24) = 0;
-  return result;
-}
-
-uint64_t REWorldRootComponentCopyWorldRoot(re *a1)
-{
-  re::make::shared::object<re::ecs2::SharedWorldRootToken>(a1, &v3);
-  result = v3;
-  *(v3 + 24) = *(a1 + 4);
-  return result;
-}
-
-void *REAudioLibraryComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::AudioLibraryComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-void REAudioLibraryComponentRegisterAsset(uint64_t a1, uint64_t a2, void *a3)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, v13);
-  v5 = [a3 UTF8String];
-  re::AssetHandle::AssetHandle(v9, v13);
-  re::DynamicString::DynamicString(v8, &v10);
-  re::ecs2::AudioLibraryComponent::registerAudioAsset(a1, v9, v8);
-  if (*&v8[0])
-  {
-    if (BYTE8(v8[0]))
-    {
-      (*(**&v8[0] + 40))();
-    }
-
-    memset(v8, 0, sizeof(v8));
-  }
-
-  re::AssetHandle::~AssetHandle(v9);
-  if (v10 && (v11 & 1) != 0)
-  {
-    (*(*v10 + 40))(v10, v12, v6, v7);
-  }
-
-  re::AssetHandle::~AssetHandle(v13);
-}
-
-uint64_t REAudioLibraryComponentUnregisterAsset(uint64_t a1, id a2)
-{
-  v4 = a2;
-  v5 = [a2 UTF8String];
-  re::DynamicString::DynamicString(v9, &v10);
-  re::ecs2::AudioLibraryComponent::unregisterAudioAsset(a1, v9);
-  if (*&v9[0])
-  {
-    if (BYTE8(v9[0]))
-    {
-      (*(**&v9[0] + 40))();
-    }
-
-    memset(v9, 0, sizeof(v9));
-  }
-
-  result = v10;
-  if (v10)
-  {
-    if (v11)
-    {
-      return (*(*v10 + 40))(v10, v12, v6, v7);
-    }
-  }
-
-  return result;
-}
-
-uint64_t REAudioLibraryComponentGetAssetForName(uint64_t a1, id a2)
-{
-  v4 = a2;
-  v5 = [a2 UTF8String];
-  re::ecs2::AudioLibraryComponent::getAsset(a1, v8, v9);
-  if (*&v8[0])
-  {
-    if (BYTE8(v8[0]))
-    {
-      (*(**&v8[0] + 40))();
-    }
-
-    memset(v8, 0, sizeof(v8));
-  }
-
-  if (v10 != 1)
-  {
-    return 0;
-  }
-
-  v6 = v9[0];
-  re::AssetHandle::~AssetHandle(v9);
-  return v6;
-}
-
-uint64_t REAudioLibraryComponentCopyAssetNames(uint64_t a1)
-{
-  v23 = 0;
-  v21 = 0u;
-  v22 = 0u;
-  v24 = 0x7FFFFFFFLL;
-  v1 = *(a1 + 32);
-  if (v1)
-  {
-    v3 = *(a1 + 60) <= 3u ? 3 : *(a1 + 60);
-    re::HashTable<char const*,re::AssetLoadRequest::LoadStatistics::AssetTypeStats,re::Hash<char const*>,re::EqualTo<char const*>,true,false>::init(&v21, v1, v3);
-    v4 = *(a1 + 64);
-    if (v4)
-    {
-      v5 = 0;
-      for (i = 0; i < v4; ++i)
-      {
-        v7 = *(a1 + 48);
-        if ((*(v7 + v5) & 0x80000000) != 0)
-        {
-          v8 = re::HashTable<re::DynamicString,re::AssetHandle,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(&v21, *(v7 + v5 + 64) % DWORD2(v22), *(v7 + v5 + 64));
-          re::DynamicString::DynamicString((v8 + 8), (*(a1 + 48) + v5 + 8));
-          re::AssetHandle::AssetHandle((v8 + 40), (*(a1 + 48) + v5 + 40));
-          v4 = *(a1 + 64);
-        }
-
-        v5 += 72;
-      }
-    }
-  }
-
-  v9 = [MEMORY[0x1E695DF70] array];
-  if (v23)
-  {
-    v10 = 0;
-    v11 = v22;
-    while (1)
-    {
-      v12 = *v11;
-      v11 += 18;
-      if (v12 < 0)
-      {
-        break;
-      }
-
-      if (v23 == ++v10)
-      {
-        v10 = v23;
-        break;
-      }
-    }
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  if (v23 != v10)
-  {
-    v13 = v22;
-    LODWORD(v14) = v10;
-    do
-    {
-      v15 = v13 + 72 * v10;
-      if (*(v15 + 16))
-      {
-        v16 = *(v15 + 24);
-      }
-
-      else
-      {
-        v16 = v15 + 17;
-      }
-
-      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v16];
-      [v9 addObject:v17];
-
-      if (v23 <= v14 + 1)
-      {
-        v18 = (v14 + 1);
-      }
-
-      else
-      {
-        v18 = v23;
-      }
-
-      v13 = v22;
-      while (v18 - 1 != v14)
-      {
-        v14 = (v14 + 1);
-        if ((*(v22 + 72 * v14) & 0x80000000) != 0)
-        {
-          v10 = v14;
-          LODWORD(v18) = v14;
-          goto LABEL_29;
-        }
-      }
-
-      v10 = v18;
-LABEL_29:
-      LODWORD(v14) = v18;
-    }
-
-    while (v23 != v18);
-  }
-
-  v19 = [v9 copy];
-
-  re::HashTable<re::DynamicString,re::AssetHandle,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(&v21);
-  return v19;
-}
-
-char *RENullTerminatedStringSet(_anonymous_namespace_ *a1, char *__s, uint64_t *a3)
-{
-  v3 = a3;
-  if (!a3)
-  {
-  }
-
-  v6 = strlen(__s);
-  v7 = (*(*v3 + 32))(v3, v6, 0);
-  *a1 = v7;
-
-  return strcpy(v7, __s);
-}
-
-uint64_t REDynamicStringGetValue(uint64_t result)
-{
-  if (result)
-  {
-    if (*(result + 8))
-    {
-      return *(result + 16);
-    }
-
-    else
-    {
-      result += 9;
-    }
-  }
-
-  return result;
-}
-
-uint64_t REDynamicStringGet(uint64_t result)
-{
-  if (result)
-  {
-    if (*(result + 8))
-    {
-      return *(result + 16);
-    }
-
-    else
-    {
-      result += 9;
-    }
-  }
-
-  return result;
-}
-
-re::DynamicString *REDynamicStringSet(re::DynamicString *result, char *__s)
-{
-  if (result)
-  {
-    v2 = result;
-    v3[0] = __s;
-    v3[1] = strlen(__s);
-    return re::DynamicString::operator=(v2, v3);
-  }
-
-  return result;
-}
-
-uint64_t REStringIDGet(uint64_t result)
-{
-  if (result)
-  {
-    return *(result + 8);
-  }
-
-  return result;
-}
-
-void REStringIDSet(_anonymous_namespace_ *a1, const char *a2)
-{
-  if (a1)
-  {
-    v5 = 0;
-    v6 = &str_67;
-    v4 = re::StringID::operator=(a1, &v5);
-    if (v5)
-    {
-      if (v5)
-      {
-      }
-    }
-  }
-}
-
-uint64_t REAssetHandleGet(uint64_t result)
-{
-  if (result)
-  {
-    return *result;
-  }
-
-  return result;
-}
-
-void REAssetHandleSet(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    re::AssetAPIHelper::assetHandleCreate(a2, v3);
-    re::AssetHandle::operator=(a1, v3);
-    re::AssetHandle::~AssetHandle(v3);
-  }
-}
-
-re::AssetHandle *REAssetHandleArrayClear(re::AssetHandle *result)
-{
-  if (result)
-  {
-    return re::DynamicArray<re::AssetHandle>::clear(result);
-  }
-
-  return result;
-}
-
-void REAssetHandleArrayAdd(_anonymous_namespace_ *a1, uint64_t a2)
-{
-  if (a1)
-  {
-    re::AssetAPIHelper::assetHandleCreate(a2, v3);
-    re::DynamicArray<re::AssetHandle>::add(a1, v3);
-    re::AssetHandle::~AssetHandle(v3);
-  }
-}
-
-uint64_t REAssetHandleArrayGet(uint64_t result, unint64_t a2)
-{
-  if (result)
-  {
-    if (*(result + 16) <= a2)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    return *(*(result + 32) + 24 * a2);
-  }
-
-  return result;
-}
-
-uint64_t REAssetHandleArrayCount(uint64_t result)
-{
-  if (result)
-  {
-    return *(result + 16);
-  }
-
-  return result;
-}
-
-char *REEntityHandleGet(id *a1)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  WeakRetained = objc_loadWeakRetained(a1);
-  if (!WeakRetained)
-  {
-    return 0;
-  }
-
-  v2 = WeakRetained - 8;
-
-  return v2;
-}
-
-void REEntityHandleSet(id *a1, uint64_t a2)
-{
-  if (a1)
-  {
-    if (a2)
-    {
-      re::ecs2::EntityHandle::EntityHandle(location, a2);
-    }
-
-    else
-    {
-      objc_initWeak(location, 0);
-      location[1] = 0;
-      location[2] = 0;
-      re::ecs2::EntityHandle::reset(location);
-    }
-
-    re::ecs2::EntityHandle::operator=(a1, location);
-    re::ecs2::EntityHandle::reset(location);
-    objc_destroyWeak(location);
-  }
-}
-
-uint64_t re::RENetLeaderElectionConsensus::create(re::RENetLeaderElectionConsensus *this, re::RENetLeaderElectionConsensus **a2)
-{
-  v3 = re::globalAllocators(this);
-  v4 = (*(*v3[2] + 32))(v3[2], 80, 8);
-  *v4 = 0u;
-  v4[1] = 0u;
-  v4[2] = 0u;
-  v4[3] = 0u;
-  v4[4] = 0u;
-  RESyncCustomLeaderElectionCreate();
-  RESyncCustomLeaderElectionDestroy();
-  RESyncCustomLeaderElectionInit();
-  RESyncCustomLeaderElectionDeinit();
-  RESyncCustomLeaderElectionSetSession();
-  RESyncCustomLeaderElectionProcessCapabilities();
-  RESyncCustomLeaderElectionRunLoop();
-  RESyncCustomLeaderElectionIsLeader();
-  RESyncCustomLeaderElectionHandleMigration();
-  RESyncCustomLeaderElectionAddPeer();
-  RESyncCustomLeaderElectionRemovePeer();
-  Custom = RESyncLeaderElectionCreateCustom();
-  RESyncRelease();
-  if (this)
-  {
-    *this = v4;
-  }
-
-  return Custom;
-}
-
-re *___ZN2re28RENetLeaderElectionConsensus6createEPPS0__block_invoke(re *result)
-{
-  v1 = *(result + 4);
-  if (v1)
-  {
-    v2 = re::globalAllocators(result)[2];
-    std::unique_ptr<re::RawNode>::reset[abi:nn200100]((v1 + 56), 0);
-    v3.n128_f64[0] = re::Queue<re::Message>::deinit(v1);
-    v4 = *(*v2 + 40);
-
-    return v4(v2, v1, v3);
-  }
-
-  return result;
-}
-
-void ___ZN2re28RENetLeaderElectionConsensus6createEPPS0__block_invoke_2(uint64_t a1, uint64_t a2)
-{
-  v26[1] = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  *(v3 + 72) = RESyncNetSessionObserverCreate();
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 0x40000000;
-  v16 = ___ZN2re28RENetLeaderElectionConsensus5setupEy_block_invoke;
-  v17 = &__block_descriptor_tmp_16_4;
-  v18 = v3;
-  RESyncNetSessionObserverOnReceiveData();
-  RESyncNetSessionAddObserver();
-  v7 = 0;
-  v8 = a2;
-  v9 = xmmword_1E311F640;
-  v10 = 0;
-  v11 = 0;
-  v12 = xmmword_1E311F650;
-  v13 = 0;
-  v26[0] = a2;
-  re::DynamicArray<re::ecs2::ComponentTypeBase const*>::DynamicArray(buf, v26, 1uLL);
-  v25 = 0;
-  v22 = 0;
-  v23 = 0;
-  *v21 = 0;
-  v24 = 0;
-  re::DynamicArray<char const*>::DynamicArray(v5, buf);
-  re::DynamicArray<char const*>::DynamicArray(v6, v21);
-  if (*v21 && v25)
-  {
-    (*(**v21 + 40))(*v21);
-  }
-
-  if (*buf && v20)
-  {
-    (*(**buf + 40))();
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v4 = CoreRELog::log;
-  if (os_log_type_enabled(CoreRELog::log, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "!! raft.nid = %llu", buf, 0xCu);
-  }
-
-  operator new();
-}
-
-double ___ZN2re28RENetLeaderElectionConsensus6createEPPS0__block_invoke_3(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  RESyncNetSessionRemoveObserver();
-  RESyncRelease();
-  if (*(v1 + 16))
-  {
-    v2 = 0;
-    do
-    {
-      v3 = *(v1 + 40) + 384 * ((v2 + *(v1 + 24)) % *(v1 + 8));
-      re::Snapshot::~Snapshot((v3 + 80));
-      re::DynamicArray<unsigned long>::deinit(v3 + 40);
-      re::DynamicArray<re::Entry>::deinit(v3);
-      ++v2;
-    }
-
-    while (v2 < *(v1 + 16));
-  }
-
-  *(v1 + 16) = 0;
-  ++*(v1 + 32);
-
-  return re::Queue<re::Message>::deinit(v1);
-}
-
-uint64_t ___ZN2re28RENetLeaderElectionConsensus6createEPPS0__block_invoke_6(uint64_t a1)
-{
-  v115 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  while (*(v3 + 16))
-  {
-    v4 = *(v3 + 56);
-    re::Message::Message(v31, *(v3 + 40) + 384 * *(v3 + 24));
-    v5 = *(v3 + 40) + 384 * *(v3 + 24);
-    re::Snapshot::~Snapshot((v5 + 80));
-    re::DynamicArray<unsigned long>::deinit(v5 + 40);
-    re::DynamicArray<re::Entry>::deinit(v5);
-    v6 = *(v3 + 24);
-    if ((v6 + 1) < *(v3 + 8))
-    {
-      v7 = v6 + 1;
-    }
-
-    else
-    {
-      v7 = 0;
-    }
-
-    --*(v3 + 16);
-    *(v3 + 24) = v7;
-    ++*(v3 + 32);
-    re::Raft::step(v4, v31, v38);
-    re::Snapshot::~Snapshot(&v37);
-    if (v32)
-    {
-      if (v36)
-      {
-        (*(*v32 + 40))();
-      }
-
-      v36 = 0;
-      v33 = 0;
-      v34 = 0;
-      v32 = 0;
-      ++v35;
-    }
-
-    re::DynamicArray<re::Entry>::deinit(v31);
-  }
-
-  v8 = *(v3 + 48);
-  if (v8 >= 3)
-  {
-    re::Raft::tick(*(v3 + 56));
-    v8 = 0;
-  }
-
-  *(v3 + 48) = v8 + 1;
-  v9 = *(v3 + 56);
-  LOBYTE(v77) = 0;
-  result = re::RawNode::hasReadySince(v9, &v77);
-  if (!result)
-  {
-    return result;
-  }
-
-  if (!RESyncNetSessionLeader())
-  {
-    if (!*(v9 + 133))
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_15;
-  }
-
-  if (*(v9 + 133) != RESyncParticipantGetPeerID())
-  {
-LABEL_15:
-    RESyncNetSessionSetLeader();
-  }
-
-LABEL_16:
-  RESyncNetSessionSetCapabilitiesIsLeader();
-  LOBYTE(v96[0]) = 0;
-  re::Ready::Ready(&v77, v9, v9 + 1160, v9 + 147, v96);
-  (*(**v9 + 80))((v74 + 2));
-  if ((v74[0] & 0x10000) == 0 && v75)
-  {
-    if (BYTE8(v75))
-    {
-      (*(*v75 + 40))();
-    }
-
-    v76 = 0u;
-    v75 = 0u;
-  }
-
-  v107 = 0u;
-  v108 = 0u;
-  v105 = 0u;
-  v106 = 0u;
-  v103 = 0u;
-  v104 = 0u;
-  v101 = 0u;
-  v102 = 0u;
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
-  v98 = 0u;
-  memset(v96, 0, sizeof(v96));
-  if (v84[2])
-  {
-    re::Snapshot::~Snapshot(v96);
-LABEL_26:
-    (*(**v9 + 96))(v74);
-    goto LABEL_27;
-  }
-
-  v11 = re::SnapshotMetadata::operator==(v85, &v97 + 1);
-  re::Snapshot::~Snapshot(v96);
-  if (!v11)
-  {
-    goto LABEL_26;
-  }
-
-LABEL_27:
-  v70[0] = v77;
-  v70[1] = v78;
-  v12 = v79;
-  v71 = v79;
-  v77 = 0;
-  v78 = 0;
-  v79 = 0;
-  v13 = v81;
-  v73 = v81;
-  v81 = 0;
-  ++v80;
-  v72 = 1;
-  if (v71)
-  {
-    v14 = 384 * v12;
-    do
-    {
-      re::RENetLeaderElectionConsensus::sendMsg(v3, v13);
-      v13 = (v13 + 384);
-      v14 -= 384;
-    }
-
-    while (v14);
-  }
-
-  if ((v86 & 1) == 0)
-  {
-    goto LABEL_102;
-  }
-
-  v66[0] = v87;
-  v66[1] = v88;
-  v15 = v89;
-  v67 = v89;
-  v87 = 0;
-  v88 = 0;
-  v89 = 0;
-  v16 = v91;
-  v69 = v91;
-  v91 = 0;
-  ++v90;
-  v68 = 1;
-  if (!v67)
-  {
-    goto LABEL_101;
-  }
-
-  v30 = v16 + 104 * v15;
-  v17 = (v16 + 80);
-  v18 = 104 * v15;
-  do
-  {
-    if (!*(v17 - 8) || *v17 != 1)
-    {
-      goto LABEL_97;
-    }
-
-    memset(v56, 0, sizeof(v56));
-    v57 = 0;
-    v58 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    memset(v62, 0, 25);
-    v63 = 0;
-    v64 = 0;
-    v62[4] = 0;
-    v65 = 0;
-    v19 = *(v17 - 8);
-    v20 = *(v17 - 6);
-    v39[0] = &unk_1F5D0CA98;
-    v39[1] = v20;
-    v39[2] = v20;
-    v39[3] = v20 + v19;
-    re::OPackReader::OPackReader(v96, v39);
-    v95 = v96;
-    v21 = re::ConsensusReader::read(&v95, v56);
-    v22 = v21;
-    if ((v21 & 1) == 0)
-    {
-      v1 = v94;
-      v2 = v92;
-      LOBYTE(v13) = v93;
-    }
-
-    if (v110)
-    {
-      if (v114)
-      {
-        (*(*v110 + 40))();
-      }
-
-      v114 = 0;
-      v111 = 0;
-      v112 = 0;
-      v110 = 0;
-      ++v113;
-    }
-
-    re::OPackReader::Buffer::~Buffer(&v109);
-    re::zerocopy::BufferedReadStream::~BufferedReadStream((&v98 + 8));
-    if ((v22 & 1) == 0 && v2)
-    {
-      if (v13)
-      {
-        (*(*v2 + 40))(v2, v1);
-      }
-
-      v1 = 0;
-      LOBYTE(v13) = 0;
-      v2 = 0;
-    }
-
-    if (LOBYTE(v62[3]) <= 1u)
-    {
-      if (LOBYTE(v62[3]))
-      {
-        if (LOBYTE(v62[3]) != 1)
-        {
-          goto LABEL_70;
-        }
-
-        re::Raft::removeNode(v9, v63, v50);
-        if ((v50[0] & 1) != 0 || !v51)
-        {
-          goto LABEL_70;
-        }
-
-        if (v52)
-        {
-          (*(*v51 + 40))();
-        }
-
-        v23 = v50;
-      }
-
-      else
-      {
-        re::Raft::addVoterOrLearner(v9, v63, 0, v53);
-        if ((v53[0] & 1) != 0 || !v54)
-        {
-          goto LABEL_70;
-        }
-
-        if (v55)
-        {
-          (*(*v54 + 40))();
-        }
-
-        v23 = v53;
-      }
-
-      goto LABEL_69;
-    }
-
-    if (LOBYTE(v62[3]) != 2)
-    {
-      if (LOBYTE(v62[3]) == 3)
-      {
-        re::Raft::beginMembershipChange(v9, v56, v46);
-      }
-
-      else if (LOBYTE(v62[3]) == 4)
-      {
-        re::Raft::finalizeMembershipChange(v9, v56, &v45);
-      }
-
-      goto LABEL_70;
-    }
-
-    re::Raft::addVoterOrLearner(v9, v63, 1, v47);
-    if ((v47[0] & 1) == 0 && v48)
-    {
-      if (v49)
-      {
-        (*(*v48 + 40))();
-      }
-
-      v23 = v47;
-LABEL_69:
-      *(v23 + 40) = 0u;
-      *(v23 + 24) = 0u;
-    }
-
-LABEL_70:
-    re::ConfState::ConfState(v39, v9 + 744, v9 + 792);
-    if (!v24)
-    {
-      goto LABEL_106;
-    }
-
-    LOBYTE(v96[0]) = 0;
-    MemStorageCore::setConfState(v24 + 8, v39, v96);
-    if (LOBYTE(v96[0]) == 1)
-    {
-      if (v98)
-      {
-        if (v100)
-        {
-          (*(*v98 + 40))();
-        }
-
-        *&v100 = 0;
-        *&v99 = 0;
-        v98 = 0uLL;
-        ++DWORD2(v99);
-      }
-
-      if (v96[1] && *(&v97 + 1))
-      {
-        (*(*v96[1] + 40))();
-      }
-    }
-
-    if (v40)
-    {
-      if (v44)
-      {
-        (*(*v40 + 40))();
-      }
-
-      v44 = 0;
-      v41 = 0;
-      v42 = 0;
-      v40 = 0;
-      ++v43;
-    }
-
-    if (v39[0] && v39[4])
-    {
-      (*(*v39[0] + 40))();
-    }
-
-    if (v61)
-    {
-      if (v62[2])
-      {
-        (*(*v61 + 40))();
-      }
-
-      v62[2] = 0;
-      v62[0] = 0;
-      v61 = 0uLL;
-      ++LODWORD(v62[1]);
-    }
-
-    if (*(&v58 + 1))
-    {
-      if (*(&v60 + 1))
-      {
-        (*(**(&v58 + 1) + 40))();
-      }
-
-      *(&v60 + 1) = 0;
-      v59 = 0uLL;
-      *(&v58 + 1) = 0;
-      LODWORD(v60) = v60 + 1;
-    }
-
-    if (v56[0] && v58)
-    {
-      (*(*v56[0] + 40))();
-    }
-
-LABEL_97:
-    v17 += 104;
-    v18 -= 104;
-  }
-
-  while (v18);
-  v25 = *(v30 - 16);
-  v26 = *v9;
-  {
-LABEL_106:
-    __cxa_bad_cast();
-  }
-
-  v29[14] = v28;
-LABEL_101:
-  re::DynamicArray<re::Entry>::deinit(v66);
-LABEL_102:
-  re::RawNode::advance(v9, &v77);
-  re::DynamicArray<re::Message>::deinit(v70);
-  if (v86 == 1)
-  {
-    re::DynamicArray<re::Entry>::deinit(&v87);
-  }
-
-  re::Snapshot::~Snapshot(v84);
-  re::DynamicArray<re::ReadState>::deinit(&v83);
-  re::DynamicArray<re::Entry>::deinit(&v82);
-  return re::DynamicArray<re::Message>::deinit(&v77);
-}
-
-uint64_t ___ZN2re28RENetLeaderElectionConsensus6createEPPS0__block_invoke_8(uint64_t a1, uint64_t a2)
-{
-  v2 = *(*(*(a1 + 32) + 56) + 1064);
-  if (v2 == a2)
-  {
-    RESyncNetSessionSetCapabilitiesIsLeader();
-  }
-
-  return v2;
-}
-
-void ___ZN2re28RENetLeaderElectionConsensus6createEPPS0__block_invoke_9(uint64_t a1, uint64_t a2)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1 + 32) + 56);
-  if (v2)
-  {
-    re::Raft::addVoterOrLearner(v2, a2, 0, v5);
-    if ((v5[0] & 1) == 0 && v6)
-    {
-      if (BYTE8(v6))
-      {
-        (*(*v6 + 40))();
-      }
-
-      v7 = 0u;
-      v6 = 0u;
-    }
-
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v4 = CoreRELog::log;
-    if (os_log_type_enabled(CoreRELog::log, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 134217984;
-      v9 = a2;
-      _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "REConsensus addNode: %llu", buf, 0xCu);
-    }
-  }
-}
-
-void ___ZN2re28RENetLeaderElectionConsensus6createEPPS0__block_invoke_13(uint64_t a1, uint64_t a2)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1 + 32) + 56);
-  if (v2)
-  {
-    re::Raft::removeNode(v2, a2, v5);
-    if ((v5[0] & 1) == 0 && v6)
-    {
-      if (BYTE8(v6))
-      {
-        (*(*v6 + 40))();
-      }
-
-      v7 = 0u;
-      v6 = 0u;
-    }
-
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v4 = CoreRELog::log;
-    if (os_log_type_enabled(CoreRELog::log, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 134217984;
-      v9 = a2;
-      _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "REConsensus addNode: %llu", buf, 0xCu);
-    }
-  }
-}
-
-uint64_t ___ZN2re28RENetLeaderElectionConsensus5setupEy_block_invoke(uint64_t a1)
-{
-  v36 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  RequiredSize = RESyncBitReaderGetRequiredSize();
-  MEMORY[0x1EEE9AC00](RequiredSize);
-  bzero(&v12[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)], RequiredSize);
-  RESyncBitReaderConstructNoAlloc();
-  v25 = 0;
-  MEMORY[0x1E6904890]();
-  v24 = 0;
-  RESyncBitReaderReadUInt32();
-  v23 = 0;
-  v20 = 0;
-  v21 = 0;
-  v19 = 0;
-  v22 = 0;
-  re::DynamicArray<BOOL>::resize(&v19, v24);
-  RESyncBitReaderReadData();
-  memset(v12, 0, sizeof(v12));
-  v13 = 0;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0;
-  memset(v17, 0, 233);
-  memset(&v17[30], 0, 64);
-  v18 = 0;
-  v27[0] = &unk_1F5D0CA98;
-  v27[1] = v23;
-  v27[2] = v23;
-  v27[3] = v23 + v21;
-  re::OPackReader::OPackReader(v28, v27);
-  v26 = v28;
-  re::ConsensusReader::read(&v26, v12);
-  if (v31)
-  {
-    if (v35)
-    {
-      (*(*v31 + 40))(v31);
-    }
-
-    v35 = 0;
-    v32 = 0;
-    v33 = 0;
-    v31 = 0;
-    ++v34;
-  }
-
-  re::OPackReader::Buffer::~Buffer(&v30);
-  re::zerocopy::BufferedReadStream::~BufferedReadStream(&v29);
-  v21 = 0;
-  v4 = ++v22;
-  v5 = v19;
-  if (v19)
-  {
-    if (v23)
-    {
-      v5 = (*(*v19 + 40))(v19);
-      v4 = v22;
-    }
-
-    v23 = 0;
-    v20 = 0;
-    v21 = 0;
-    v19 = 0;
-    v22 = v4 + 1;
-  }
-
-  v6 = *(v1 + 16);
-  v7 = v6 + 1;
-  v8 = *(v1 + 8);
-  if (v6 + 1 >= v8)
-  {
-    if (v8 < v7)
-    {
-      if (*v1)
-      {
-        v9 = 2 * v8;
-        if (!v8)
-        {
-          v9 = 8;
-        }
-
-        if (v9 <= v7)
-        {
-          v10 = v7;
-        }
-
-        else
-        {
-          v10 = v9;
-        }
-
-        re::Queue<re::Message>::setCapacity(v1, v10);
-        v6 = *(v1 + 16);
-      }
-
-      else
-      {
-        re::Queue<re::Message>::setCapacity(v1, v7);
-        v6 = 0;
-        *(v1 + 16) = 0;
-        *(v1 + 24) = 0;
-        *(v1 + 32) = 0;
-      }
-    }
-
-    v8 = *(v1 + 8);
-  }
-
-  re::Message::Message((*(v1 + 40) + 384 * ((*(v1 + 24) + v6) % v8)), v12);
-  ++*(v1 + 16);
-  ++*(v1 + 32);
-  RESyncBitReaderDestructNoDealloc();
-  re::Snapshot::~Snapshot(&v17[1]);
-  if (*(&v14 + 1))
-  {
-    if (v17[0])
-    {
-      (*(**(&v14 + 1) + 40))(*(&v14 + 1));
-    }
-
-    v17[0] = 0;
-    v15 = 0uLL;
-    *(&v14 + 1) = 0;
-    ++v16;
-  }
-
-  re::DynamicArray<re::Entry>::deinit(v12);
-  result = v19;
-  if (v19)
-  {
-    if (v23)
-    {
-      return (*(*v19 + 40))(v19);
-    }
-  }
-
-  return result;
-}
-
-double re::Queue<re::Message>::deinit(uint64_t *a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    v3 = a1[5];
-    if (v3)
-    {
-      if (a1[2])
-      {
-        v4 = 0;
-        do
-        {
-          v5 = a1[5] + 384 * ((v4 + a1[3]) % a1[1]);
-          re::Snapshot::~Snapshot((v5 + 80));
-          re::DynamicArray<unsigned long>::deinit(v5 + 40);
-          re::DynamicArray<re::Entry>::deinit(v5);
-          ++v4;
-        }
-
-        while (v4 != a1[2]);
-        v2 = *a1;
-        v3 = a1[5];
-      }
-
-      (*(*v2 + 40))(v2, v3);
-    }
-
-    a1[5] = 0;
-    result = 0.0;
-    *a1 = 0u;
-    *(a1 + 1) = 0u;
-    *(a1 + 8) = 0;
-  }
-
-  return result;
-}
-
-void re::RENetLeaderElectionConsensus::sendMsg(re::RENetLeaderElectionConsensus *this, const re::Message *a2)
-{
-  v15[2] = *MEMORY[0x1E69E9840];
-  if (RESyncNetSessionGetParticipantWithPeerID())
-  {
-    v9 = 0;
-    v10 = 0;
-    *buf = 0;
-    v11 = 1;
-    v15[0] = &unk_1F5D0C9F0;
-    v15[1] = buf;
-    v14 = v15;
-    v12 = 0;
-    v13 = &v14;
-    v3 = re::ConsensusWriter::write(&v13, a2);
-    MEMORY[0x1EEE9AC00](v3);
-    RequiredSize = RESyncBitWriterGetRequiredSize();
-    MEMORY[0x1EEE9AC00](RequiredSize);
-    bzero(&buf[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)], RequiredSize);
-    v6 = RESyncBitWriterConstructNoAlloc();
-    RESyncBitWriterWriteUInt64();
-    RESyncBitWriterWriteUInt32();
-    MEMORY[0x1E69049A0](v6, v12, v10);
-    RESyncBitWriterData();
-    RESyncBitWriterSize();
-    RESyncNetSessionSendData();
-    RESyncBitWriterDestructNoDealloc();
-    if (*buf)
-    {
-      if (v12)
-      {
-        (*(**buf + 40))(*buf);
-      }
-    }
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v7 = CoreRELog::log;
-    if (os_log_type_enabled(CoreRELog::log, OS_LOG_TYPE_ERROR))
-    {
       *buf = 0;
-      _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "sendConsensusMessage: missing participant!", buf, 2u);
+      v6 = "Cannot make additive sampled animation from existing additive animation.";
+      goto LABEL_22;
     }
-  }
-}
 
-re::Raft *std::unique_ptr<re::RawNode>::reset[abi:nn200100](re::Raft **a1, re::Raft *a2)
-{
-  result = *a1;
-  *a1 = a2;
-  if (result)
+    v8 = *(v2 + 13);
+    v14 = *(v2 + 15);
+    v15 = v8;
+    *buf = &v9;
+    v13 = 1;
+    result = re::AnimationHelper::makeAdditiveForValues<float>(&v14, buf, v14, v8);
+  }
+
+  else
   {
-    re::Raft::~Raft(result);
+    if (v4 != 11)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
 
-    JUMPOUT(0x1E6906520);
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "Unsupported additive float animation type.";
+      goto LABEL_22;
+    }
+
+    if (*(v2 + 72) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "Cannot make additive animation from existing additive from-to-by animation.";
+LABEL_22:
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, v6, buf, 2u);
+LABEL_23:
+
+      return 0;
+    }
+
+    if (*(v2 + 104) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "From-to-by animation with by value is already an additive animation.";
+      goto LABEL_22;
+    }
+
+    v14 = (v2 + 88);
+    v15 = (v2 + 96);
+    v10[0] = &v14;
+    v10[1] = 2;
+    v11 = &v9;
+    *buf = &v11;
+    v13 = 1;
+    result = re::AnimationHelper::makeAdditiveForOptionalValueReferences<float>(v10, buf, &v14, 2uLL);
   }
 
+  *(v3 + 72) = result;
   return result;
 }
 
-void *re::Queue<re::Message>::setCapacity(void *result, unint64_t a2)
+uint64_t RETimelineDefinitionMakeAdditiveFromBaseDouble(_anonymous_namespace_::TimelineDefinition *a1, double a2)
 {
-  v3 = result[1];
-  if (v3 != a2)
+  v16 = *MEMORY[0x1E69E9840];
+  v9 = a2;
+  v3 = v2;
+  v4 = *(v2 + 2);
+  if (v4 == 28)
   {
-    v5 = result;
-    v6 = result + 2;
-    if (result[2] <= a2)
+    if (*(v2 + 72) == 1)
     {
-      result = *result;
-      if (!*v5)
+      if (CoreRELog::onceToken != -1)
       {
-        result = re::Queue<re::Message>::setCapacity(v5, a2);
-        *v6 = 0;
-        v6[1] = 0;
-        *(v6 + 4) = 0;
-        return result;
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
       }
 
-      if (a2)
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        if (is_mul_ok(a2, 0x180uLL))
-        {
-          v2 = 384 * a2;
-          result = (*(*result + 32))(result, 384 * a2, 8);
-          if (result)
-          {
-            v8 = result;
-            if (!v5[1])
-            {
-              goto LABEL_18;
-            }
-
-            goto LABEL_11;
-          }
-        }
-
-        else
-        {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in Queue<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 440, 384, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        re::internal::assertLog(6, v7, "assertion failure: '%s' (%s:line %i) Queue<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 444, v2, *(*v5 + 8));
-        result = _os_crash();
-        __break(1u);
-        return result;
+        goto LABEL_23;
       }
 
-      v8 = 0;
-      if (!v3)
-      {
-LABEL_18:
-        v5[5] = v8;
-        v5[1] = a2;
-        return result;
-      }
-
-LABEL_11:
-      if (v5[2])
-      {
-        v9 = 0;
-        v10 = v5[3];
-        do
-        {
-          v11 = v5[5] + 384 * ((v9 + v5[3]) % v5[1]);
-          re::Message::Message(&v8[48 * v10], v11);
-          re::Snapshot::~Snapshot((v11 + 80));
-          re::DynamicArray<unsigned long>::deinit(v11 + 40);
-          re::DynamicArray<re::Entry>::deinit(v11);
-          if (v10 + 1 < a2)
-          {
-            ++v10;
-          }
-
-          else
-          {
-            v10 = 0;
-          }
-
-          ++v9;
-        }
-
-        while (v9 != v5[2]);
-      }
-
-      result = (*(**v5 + 40))(*v5, v5[5]);
-      goto LABEL_18;
+      *buf = 0;
+      v6 = "Cannot make additive sampled animation from existing additive animation.";
+      goto LABEL_22;
     }
+
+    v8 = *(v2 + 13);
+    v14 = *(v2 + 15);
+    v15 = v8;
+    *buf = &v9;
+    v13 = 1;
+    result = re::AnimationHelper::makeAdditiveForValues<double>(&v14, buf, v14, v8);
   }
 
+  else
+  {
+    if (v4 != 12)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "Unsupported additive double animation type.";
+      goto LABEL_22;
+    }
+
+    if (*(v2 + 72) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "Cannot make additive animation from existing additive from-to-by animation.";
+LABEL_22:
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, v6, buf, 2u);
+LABEL_23:
+
+      return 0;
+    }
+
+    if (*(v2 + 120) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "From-to-by animation with by value is already an additive animation.";
+      goto LABEL_22;
+    }
+
+    v14 = (v2 + 88);
+    v15 = v2 + 104;
+    v10[0] = &v14;
+    v10[1] = 2;
+    v11 = &v9;
+    *buf = &v11;
+    v13 = 1;
+    result = re::AnimationHelper::makeAdditiveForOptionalValueReferences<double>(v10, buf, &v14, 2uLL);
+  }
+
+  *(v3 + 72) = result;
   return result;
 }
 
-uint64_t REAnimationSceneAssetCreateWithTimeline(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t RETimelineDefinitionMakeAdditiveFromBaseFloat2(_anonymous_namespace_::TimelineDefinition *a1, double a2)
 {
-  re::AssetAPIHelper::assetHandleCreate(a2, &v24);
-  if (!v25 || (v5 = atomic_load((v25 + 896)), v5 != 2))
+  v17 = *MEMORY[0x1E69E9840];
+  v4 = v3;
+  v5 = *(v3 + 2);
+  if (v5 == 29)
   {
-    if (CoreRELog::onceToken != -1)
+    *v11 = a2;
+    if (*(v3 + 72) == 1)
     {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v8 = CoreRELog::log;
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_13;
-    }
-
-    LOWORD(v21) = 0;
-    v9 = "Reference animation scene asset is not loaded.";
-    goto LABEL_17;
-  }
-
-  v6 = re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>::assetType();
-  v7 = v25;
-  if (v25)
-  {
-    v7 = *(v25 + 280);
-  }
-
-  if (v6 == v7)
-  {
-    v12 = re::globalAllocators(v6);
-    v13 = (*(*v12[2] + 32))(v12[2], 112, 8);
-    *(v13 + 32) = 0u;
-    *(v13 + 48) = 0u;
-    *(v13 + 64) = 0u;
-    *v13 = 0u;
-    *(v13 + 16) = 0u;
-    *(v13 + 88) = 0;
-    *(v13 + 80) = 0;
-    *(v13 + 32) = &str_67;
-    *(v13 + 48) = 0;
-    *(v13 + 56) = 0;
-    *(v13 + 64) = 0;
-    *(v13 + 40) = 0;
-    *(v13 + 96) = 0;
-    *(v13 + 104) = 0;
-    v14 = re::AssetHandle::blockUntilLoaded<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>>(&v24);
-    re::AssetHandle::operator=(v13, v14);
-    re::StringID::operator=((v13 + 24), (v14 + 24));
-    re::DynamicArray<re::AnimationSceneEntityData>::operator=(v13 + 40, (v14 + 40));
-    *(v13 + 80) = *(v14 + 80);
-    re::AssetHandle::operator=(v13 + 88, (v14 + 88));
-    re::AssetAPIHelper::assetHandleCreate(a3, &v21);
-    v15 = v21;
-    v16 = *(v13 + 8);
-    v17 = *(v13 + 16);
-    *(v13 + 8) = v22;
-    v22 = v16;
-    v18 = *v13;
-    *v13 = v15;
-    *(v13 + 16) = v23;
-    v21 = v18;
-    v23 = v17;
-    re::AssetHandle::~AssetHandle(&v21);
-    v19 = re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>::assetType();
-    (*(*a1 + 424))(&v21, a1, v13, v19, 0, 0, 0);
-    v10 = v21;
-    v20 = (v21 + 8);
-    re::AssetHandle::~AssetHandle(&v21);
-    goto LABEL_14;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v8 = CoreRELog::log;
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-  {
-    LOWORD(v21) = 0;
-    v9 = "Asset reference is not a valid Animation Scene Asset.";
-LABEL_17:
-    _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, v9, &v21, 2u);
-  }
-
-LABEL_13:
-
-  v10 = 0;
-LABEL_14:
-  re::AssetHandle::~AssetHandle(&v24);
-  return v10;
-}
-
-uint64_t REAnimationSceneAssetGetRootTimeline(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, &v9);
-  if (!v10 || (v1 = atomic_load((v10 + 896)), v1 != 2))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v4 = CoreRELog::log;
-    if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_13;
-    }
-
-    *v8 = 0;
-    v5 = "Animation scene asset is not loaded.";
-    goto LABEL_17;
-  }
-
-  v2 = re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>::assetType();
-  v3 = v10;
-  if (v10)
-  {
-    v3 = *(v10 + 280);
-  }
-
-  if (v2 == v3)
-  {
-    v6 = *re::AssetHandle::blockUntilLoaded<re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>>(&v9);
-    goto LABEL_14;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v4 = CoreRELog::log;
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-  {
-    *v8 = 0;
-    v5 = "Asset reference is not a valid Animation Scene Asset.";
-LABEL_17:
-    _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, v5, v8, 2u);
-  }
-
-LABEL_13:
-
-  v6 = 0;
-LABEL_14:
-  re::AssetHandle::~AssetHandle(&v9);
-  return v6;
-}
-
-uint64_t REAnimationSceneAssetCreateWithTimelineAndEntityDefinition(re *a1, uint64_t a2, unint64_t a3)
-{
-  v3 = 0;
-  if (a1 && a2 && a3)
-  {
-    v26 = 0;
-    memset(v25, 0, sizeof(v25));
-    v27 = 0x7FFFFFFFLL;
-    v7 = re::globalAllocators(a1);
-    v8 = (*(*v7[2] + 32))(v7[2], 112, 8);
-    *(v8 + 32) = 0u;
-    *(v8 + 48) = 0u;
-    *(v8 + 64) = 0u;
-    *v8 = 0u;
-    *(v8 + 16) = 0u;
-    *(v8 + 80) = 0;
-    *(v8 + 88) = 0;
-    *(v8 + 32) = &str_67;
-    *(v8 + 48) = 0;
-    *(v8 + 56) = 0;
-    *(v8 + 64) = 0;
-    *(v8 + 40) = 0;
-    *(v8 + 96) = 0;
-    *(v8 + 104) = 0;
-    re::StringID::operator=((v8 + 24), &v19);
-    re::DynamicArray<re::DataArray<re::RigGraphNode>::ElementBlock>::operator=(v8 + 40, v21);
-    *(v8 + 80) = v22;
-    v9 = *(v8 + 88);
-    *(v8 + 88) = v23;
-    v23 = v9;
-    v10 = *(v8 + 104);
-    *(v8 + 104) = v24;
-    v24 = v10;
-    re::AssetHandle::~AssetHandle(&v23);
-    v11 = re::DynamicArray<re::AnimationSceneEntityData>::deinit(v21);
-    if (v19)
-    {
-      if (v19)
+      if (CoreRELog::onceToken != -1)
       {
-      }
-    }
-
-    re::AssetAPIHelper::assetHandleCreate(a2, &v19);
-    v12 = v19;
-    v13 = *(v8 + 8);
-    v14 = *(v8 + 16);
-    *(v8 + 8) = v20;
-    v20 = v13;
-    v15 = *v8;
-    *v8 = v12;
-    *(v8 + 16) = v21[0];
-    v19 = v15;
-    v21[0] = v14;
-    re::AssetHandle::~AssetHandle(&v19);
-    v16 = re::BasicAsset<re::AnimationScene,&re::kAnimationSceneAssetName,&re::kAnimationSceneAssetExtension>::assetType();
-    (*(*a1 + 424))(&v19, a1, v8, v16, 0, 0, 0);
-    v3 = v19;
-    v17 = (v19 + 8);
-    re::AssetHandle::~AssetHandle(&v19);
-  }
-
-  return v3;
-}
-
-void anonymous namespace::REAnimationSceneEntityDefinitionImpl::makeAnimationSceneEntityData(re::StringID *a1, unint64_t a2, uint64_t a3)
-{
-  re::StringID::StringID(a1, (a2 + 24));
-  *(a1 + 2) = 0;
-  v6 = (a1 + 16);
-  v6[4] = 0;
-  v6[1] = 0;
-  v6[2] = 0;
-  *(v6 + 6) = 0;
-  *(v6 + 40) = *(a2 + 40);
-  re::AssetHandle::AssetHandle((v6 + 6), (a2 + 48));
-  v7 = *(a2 + 88);
-  if (v6[1] < v7)
-  {
-    re::DynamicArray<re::AnimationSceneEntityData>::setCapacity(v6, v7);
-  }
-
-  v23[0] = a2;
-  v8 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) >> 27));
-  v9 = v8 ^ (v8 >> 31);
-  v10 = *(a3 + 24);
-  if (v10)
-  {
-    v11 = v9 % v10;
-    v12 = *(*(a3 + 8) + 4 * (v9 % v10));
-    if (v12 != 0x7FFFFFFF)
-    {
-      v13 = *(a3 + 16);
-      if (*(v13 + 24 * v12 + 16) == a2)
-      {
-        goto LABEL_11;
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
       }
 
+      v6 = CoreRELog::log;
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v7 = "Cannot make additive sampled animation from existing additive animation.";
+      goto LABEL_22;
+    }
+
+    v9 = *(v3 + 13);
+    v15 = *(v3 + 15);
+    v16 = v9;
+    *buf = v11;
+    v14 = 1;
+    result = re::AnimationHelper::makeAdditiveForValues<re::Vector2<float>>(&v15, buf, v15, v9);
+  }
+
+  else
+  {
+    if (v5 != 13)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v6 = CoreRELog::log;
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v7 = "Unsupported additive float2 animation type.";
+      goto LABEL_22;
+    }
+
+    v10 = a2;
+    if (*(v3 + 72) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v6 = CoreRELog::log;
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v7 = "Cannot make additive animation from existing additive from-to-by animation.";
+LABEL_22:
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, v7, buf, 2u);
+LABEL_23:
+
+      return 0;
+    }
+
+    if (*(v3 + 120) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v6 = CoreRELog::log;
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v7 = "From-to-by animation with by value is already an additive animation.";
+      goto LABEL_22;
+    }
+
+    v15 = v3 + 88;
+    v16 = v3 + 104;
+    v11[0] = &v15;
+    v11[1] = 2;
+    v12 = &v10;
+    *buf = &v12;
+    v14 = 1;
+    result = re::AnimationHelper::makeAdditiveForOptionalValueReferences<re::Vector2<float>>(v11, buf, &v15, 2uLL);
+  }
+
+  *(v4 + 72) = result;
+  return result;
+}
+
+uint64_t RETimelineDefinitionMakeAdditiveFromBaseFloat3(_anonymous_namespace_::TimelineDefinition *a1, __n128 a2)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v3 = v2;
+  v4 = *(v2 + 2);
+  if (v4 == 30)
+  {
+    v11 = a2;
+    if (*(v2 + 72) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "Cannot make additive sampled animation from existing additive animation.";
+      goto LABEL_22;
+    }
+
+    v8 = *(v2 + 13);
+    v15 = *(v2 + 15);
+    v16 = v8;
+    *buf = &v11;
+    v14 = 1;
+    result = re::AnimationHelper::makeAdditiveForValues<re::Vector3<float>>(&v15, buf, v15, v8);
+  }
+
+  else
+  {
+    if (v4 != 14)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "Unsupported additive float3 animation type.";
+      goto LABEL_22;
+    }
+
+    v10 = a2;
+    if (*(v2 + 72) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "Cannot make additive animation from existing additive from-to-by animation.";
+LABEL_22:
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, v6, buf, 2u);
+LABEL_23:
+
+      return 0;
+    }
+
+    if (*(v2 + 160) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "From-to-by animation with by value is already an additive animation.";
+      goto LABEL_22;
+    }
+
+    v15 = v2 + 96;
+    v16 = v2 + 128;
+    v11.n128_u64[0] = &v15;
+    v11.n128_u64[1] = 2;
+    v12 = &v10;
+    *buf = &v12;
+    v14 = 1;
+    result = re::AnimationHelper::makeAdditiveForOptionalValueReferences<re::Vector3<float>>(&v11, buf, &v15, 2uLL);
+  }
+
+  *(v3 + 72) = result;
+  return result;
+}
+
+uint64_t RETimelineDefinitionMakeAdditiveFromBaseFloat4(_anonymous_namespace_::TimelineDefinition *a1, __n128 a2)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v3 = v2;
+  v4 = *(v2 + 2);
+  if (v4 == 31)
+  {
+    v11 = a2;
+    if (*(v2 + 72) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "Cannot make additive sampled animation from existing additive animation.";
+      goto LABEL_22;
+    }
+
+    v8 = *(v2 + 13);
+    v15 = *(v2 + 15);
+    v16 = v8;
+    *buf = &v11;
+    v14 = 1;
+    result = re::AnimationHelper::makeAdditiveForValues<re::Vector3<float>>(&v15, buf, v15, v8);
+  }
+
+  else
+  {
+    if (v4 != 15)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "Unsupported additive float4 animation type.";
+      goto LABEL_22;
+    }
+
+    v10 = a2;
+    if (*(v2 + 72) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "Cannot make additive animation from existing additive from-to-by animation.";
+LABEL_22:
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, v6, buf, 2u);
+LABEL_23:
+
+      return 0;
+    }
+
+    if (*(v2 + 160) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "From-to-by animation with by value is already an additive animation.";
+      goto LABEL_22;
+    }
+
+    v15 = v2 + 96;
+    v16 = v2 + 128;
+    v11.n128_u64[0] = &v15;
+    v11.n128_u64[1] = 2;
+    v12 = &v10;
+    *buf = &v12;
+    v14 = 1;
+    result = re::AnimationHelper::makeAdditiveForOptionalValueReferences<re::Vector3<float>>(&v11, buf, &v15, 2uLL);
+  }
+
+  *(v3 + 72) = result;
+  return result;
+}
+
+uint64_t RETimelineDefinitionMakeAdditiveFromBaseQuaternion(_anonymous_namespace_::TimelineDefinition *a1, __n128 a2)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v3 = v2;
+  v4 = *(v2 + 2);
+  if (v4 == 32)
+  {
+    v11 = a2;
+    if (*(v2 + 72) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "Cannot make additive sampled animation from existing additive animation.";
+      goto LABEL_22;
+    }
+
+    v8 = *(v2 + 13);
+    v15 = *(v2 + 15);
+    v16 = v8;
+    *buf = &v11;
+    v14 = 1;
+    result = re::AnimationHelper::makeAdditiveForValues<re::Quaternion<float>>(&v15, buf, v15, v8);
+  }
+
+  else
+  {
+    if (v4 != 16)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "Unsupported additive quaternion animation type.";
+      goto LABEL_22;
+    }
+
+    v10 = a2;
+    if (*(v2 + 72) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "Cannot make additive animation from existing additive from-to-by animation.";
+LABEL_22:
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, v6, buf, 2u);
+LABEL_23:
+
+      return 0;
+    }
+
+    if (*(v2 + 160) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v5 = CoreRELog::log;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v6 = "From-to-by animation with by value is already an additive animation.";
+      goto LABEL_22;
+    }
+
+    v15 = v2 + 96;
+    v16 = v2 + 128;
+    v11.n128_u64[0] = &v15;
+    v11.n128_u64[1] = 2;
+    v12 = &v10;
+    *buf = &v12;
+    v14 = 1;
+    result = re::AnimationHelper::makeAdditiveForOptionalValueReferences<re::Quaternion<float>>(&v11, buf, &v15, 2uLL);
+  }
+
+  *(v3 + 72) = result;
+  return result;
+}
+
+uint64_t RETimelineDefinitionMakeAdditiveFromBaseSRT(_anonymous_namespace_::TimelineDefinition *a1, __n128 a2, __n128 a3, __n128 a4)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v11[0] = a2;
+  v11[1] = a3;
+  v11[2] = a4;
+  v5 = v4;
+  v6 = *(v4 + 2);
+  if (v6 == 33)
+  {
+    if (*(v4 + 72) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v7 = CoreRELog::log;
+      if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v8 = "Cannot make additive sampled animation from existing additive animation.";
+      goto LABEL_22;
+    }
+
+    v10 = *(v4 + 13);
+    v16 = *(v4 + 15);
+    v17 = v10;
+    *buf = v11;
+    v15 = 1;
+    result = re::AnimationHelper::makeAdditiveForValues<re::GenericSRT<float>>(&v16, buf, v16, v10);
+  }
+
+  else
+  {
+    if (v6 != 17)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v7 = CoreRELog::log;
+      if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v8 = "Unsupported additive SRT animation type.";
+      goto LABEL_22;
+    }
+
+    if (*(v4 + 72) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v7 = CoreRELog::log;
+      if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v8 = "Cannot make additive animation from existing additive from-to-by animation.";
+LABEL_22:
+      _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, v8, buf, 2u);
+LABEL_23:
+
+      return 0;
+    }
+
+    if (*(v4 + 224) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v7 = CoreRELog::log;
+      if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *buf = 0;
+      v8 = "From-to-by animation with by value is already an additive animation.";
+      goto LABEL_22;
+    }
+
+    v16 = v4 + 96;
+    v17 = v4 + 160;
+    v12[0] = &v16;
+    v12[1] = 2;
+    v13 = v11;
+    *buf = &v13;
+    v15 = 1;
+    result = re::AnimationHelper::makeAdditiveForOptionalValueReferences<re::GenericSRT<float>>(v12, buf, &v16, 2uLL);
+  }
+
+  *(v5 + 72) = result;
+  return result;
+}
+
+uint64_t RETimelineDefinitionMakeAdditiveFromBaseSkeletalPose(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, uint64_t a3)
+{
+  v31 = *MEMORY[0x1E69E9840];
+  v6 = v5;
+  v7 = *(v5 + 2);
+  if (v7 == 34)
+  {
+    if (*(v5 + 21) != a3)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v16 = CoreRELog::log;
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_50;
+      }
+
+      *buf = 0;
+      v17 = "Cannot make additive animation, number of joints do not match joint count.";
+      goto LABEL_49;
+    }
+
+    v12 = *(v5 + 13);
+    if (v12)
+    {
+      v13 = (*(v5 + 15) + 8);
+      v14 = 24 * v12;
       while (1)
       {
-        LODWORD(v12) = *(v13 + 24 * v12 + 8) & 0x7FFFFFFF;
-        if (v12 == 0x7FFFFFFF)
+        v15 = *v13;
+        v13 += 3;
+        if (v15 != a3)
         {
           break;
         }
 
-        if (*(v13 + 24 * v12 + 16) == a2)
+        v14 -= 24;
+        if (!v14)
         {
-          goto LABEL_11;
+          goto LABEL_23;
         }
       }
+
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v16 = CoreRELog::log;
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_50;
+      }
+
+      *buf = 0;
+      v17 = "Cannot make additive animation, number of joint transforms do not match joint count.";
+      goto LABEL_49;
     }
+
+LABEL_23:
+    *buf = 0;
+    v25 = 0;
+    v26 = 0;
+    *v27 = a2;
+    v28 = a3;
+    re::FixedArray<re::GenericSRT<float>>::operator=(buf, v27);
+    if (*(v6 + 72) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v10 = CoreRELog::log;
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_58;
+      }
+
+      *v27 = 0;
+      v11 = "Cannot make additive sampled animation from existing additive animation.";
+      goto LABEL_57;
+    }
+
+    v18 = *(v6 + 13);
+    v29 = *(v6 + 15);
+    v30 = v18;
+    *v27 = buf;
+    v28 = 1;
+    v19 = re::AnimationHelper::makeAdditiveForValues<re::SkeletalPoseAssetData>(&v29, v27, v29, v18);
+LABEL_60:
+    v20 = v19;
+    *(v6 + 72) = v19;
+    goto LABEL_61;
   }
 
-  else
+  if (v7 != 18)
   {
-    LODWORD(v11) = 0;
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v16 = CoreRELog::log;
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_50;
+    }
+
+    *buf = 0;
+    v17 = "Unsupported additive skeletal pose animation type.";
+    goto LABEL_49;
   }
 
-  ++*(a3 + 40);
-LABEL_11:
-  v14 = *(a2 + 88);
-  if (v14)
+  if (*(v5 + 88) == 1 && *(v5 + 13) != a3)
   {
-    v15 = *(a2 + 104);
-    v16 = &v15[v14];
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v16 = CoreRELog::log;
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_50;
+    }
+
+    *buf = 0;
+    v17 = "Cannot make additive animation, from-to-by animation from joint count does not match.";
+LABEL_49:
+    _os_log_error_impl(&dword_1E1C61000, v16, OS_LOG_TYPE_ERROR, v17, buf, 2u);
+LABEL_50:
+
+    return 0;
+  }
+
+  if (*(v5 + 120) == 1 && *(v5 + 17) != a3)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v16 = CoreRELog::log;
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_50;
+    }
+
+    *buf = 0;
+    v17 = "Cannot make additive animation, from-to-by animation from joint count does not match.";
+    goto LABEL_49;
+  }
+
+  *buf = 0;
+  v25 = 0;
+  v26 = 0;
+  *v27 = a2;
+  v28 = a3;
+  re::FixedArray<re::GenericSRT<float>>::operator=(buf, v27);
+  if (*(v6 + 72) != 1)
+  {
+    if (*(v6 + 152) == 1)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v10 = CoreRELog::log;
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_58;
+      }
+
+      *v27 = 0;
+      v11 = "From-to-by animation with by value is already an additive animation.";
+      goto LABEL_57;
+    }
+
+    v29 = v6 + 88;
+    v30 = (v6 + 120);
+    v22[0] = &v29;
+    v22[1] = 2;
+    v23 = buf;
+    *v27 = &v23;
+    v28 = 1;
+    v19 = re::AnimationHelper::makeAdditiveForOptionalValueReferences<re::SkeletalPoseAssetData>(v22, v27, &v29, 2);
+    goto LABEL_60;
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v10 = CoreRELog::log;
+  if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    goto LABEL_58;
+  }
+
+  *v27 = 0;
+  v11 = "Cannot make additive animation from existing additive from-to-by animation.";
+LABEL_57:
+  _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, v11, v27, 2u);
+LABEL_58:
+
+  v20 = 0;
+LABEL_61:
+  if (*buf && v25)
+  {
+    (*(**buf + 40))();
+  }
+
+  return v20;
+}
+
+uint64_t RETimelineDefinitionMakeAdditiveFromBaseSkeletalPoses(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, unint64_t a3, uint64_t a4)
+{
+  v46 = *MEMORY[0x1E69E9840];
+  if (*(v7 + 2) != 34)
+  {
+    if (CoreRELog::onceToken == -1)
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_43;
+  }
+
+  v8 = v7;
+  if (*(v7 + 72) == 1)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v9 = CoreRELog::log;
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_9;
+    }
+
+    *buf = 0;
+    v10 = "Cannot make additive animation from existing additive from-to-by animation.";
+    goto LABEL_38;
+  }
+
+  if (*(v7 + 21) != a4)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v9 = CoreRELog::log;
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_9;
+    }
+
+    *buf = 0;
+    v10 = "Cannot make additive animation, number of joints do not match joint count.";
+    goto LABEL_38;
+  }
+
+  v13 = *(v7 + 13);
+  if (v13)
+  {
+    v14 = (*(v7 + 15) + 8);
+    v15 = 24 * v13;
+    while (1)
+    {
+      v16 = *v14;
+      v14 += 3;
+      if (v16 != a4)
+      {
+        break;
+      }
+
+      v15 -= 24;
+      if (!v15)
+      {
+        goto LABEL_16;
+      }
+    }
+
+    if (CoreRELog::onceToken == -1)
+    {
+LABEL_30:
+      v9 = CoreRELog::log;
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        v10 = "Cannot make additive animation, number of joint transforms do not match joint count.";
+LABEL_38:
+        _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, v10, buf, 2u);
+        goto LABEL_9;
+      }
+
+      goto LABEL_9;
+    }
+
+LABEL_46:
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    goto LABEL_30;
+  }
+
+LABEL_16:
+  if (a3)
+  {
+    if (a3 >= 0xAAAAAAAAAAAAAABLL)
+    {
+      re::internal::assertLog(6, v17, "assertion failure: '%s' (%s:line %i) Size overflow in FixedArray<T>::init(). Element size = %zu, count = %zu", "!overflow", "init", 324, 24, a3);
+      _os_crash("assertion failure: (!overflow) Size overflow in FixedArray<T>::init(). Element size = %zu, count = %zu", v30, v31);
+      __break(1u);
+    }
+
+    else
+    {
+      if (v18)
+      {
+        v20 = v18;
+        v21 = v18;
+        if (a3 != 1)
+        {
+          bzero(v18, 24 * a3 - 24);
+          v21 = (v20 + 24 * a3 - 24);
+        }
+
+        v22 = 0;
+        *v21 = 0;
+        *(v21 + 1) = 0;
+        v23 = v20;
+        *(v21 + 2) = 0;
+        while (1)
+        {
+          v34[0] = *(a2 + 8 * v22);
+          v34[1] = a4;
+          if (a3 == v22)
+          {
+            break;
+          }
+
+          re::FixedArray<re::GenericSRT<float>>::operator=(v23, v34);
+          ++v22;
+          v23 = (v23 + 24);
+          if (a3 == v22)
+          {
+            goto LABEL_33;
+          }
+        }
+
+        v35 = 0;
+        v44 = 0u;
+        v45 = 0u;
+        v42 = 0u;
+        v43 = 0u;
+        *buf = 0u;
+        v27 = MEMORY[0x1E69E9C10];
+        v28 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        *v36 = 136315906;
+        *&v36[4] = "operator[]";
+        *&v36[12] = 1024;
+        if (v28)
+        {
+          v29 = 3;
+        }
+
+        else
+        {
+          v29 = 2;
+        }
+
+        *&v36[14] = 468;
+        v37 = 2048;
+        v38 = a3;
+        v39 = 2048;
+        v40 = a3;
+        _os_log_send_and_compose_impl(v29, &v35, buf, 80, &dword_1E1C61000, v27, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v36, 38, v32, v33);
+        _os_crash_msg();
+        __break(1u);
+LABEL_43:
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+LABEL_8:
+        v9 = CoreRELog::log;
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          v10 = "Unsupported additive skeletal poses animation type.";
+          goto LABEL_38;
+        }
+
+LABEL_9:
+
+        return 0;
+      }
+    }
+
+    re::internal::assertLog(4, v19, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
+    _os_crash("assertion failure: (m_data) Out of memory.");
+    __break(1u);
+    goto LABEL_46;
+  }
+
+  v20 = 0;
+LABEL_33:
+  v24 = *(v8 + 13);
+  *buf = *(v8 + 15);
+  *&buf[8] = v24;
+  *v36 = v20;
+  *&v36[8] = a3;
+  v11 = re::AnimationHelper::makeAdditiveForValues<re::SkeletalPoseAssetData>(buf, v36, *buf, v24);
+  *(v8 + 72) = v11;
+  if (a3)
+  {
+    v25 = 24 * a3;
+    v26 = v20;
     do
     {
-      v17 = *v15;
-      v18 = *(a3 + 24);
-      if (!v18 || (v19 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v17 ^ (v17 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v17 ^ (v17 >> 30))) >> 27)), v20 = *(*(a3 + 8) + 4 * ((v19 ^ (v19 >> 31)) % v18)), v20 == 0x7FFFFFFF))
+      re::FixedArray<CoreIKTransform>::deinit(v26);
+      v26 += 3;
+      v25 -= 24;
+    }
+
+    while (v25);
+  }
+
+  return v11;
+}
+
+BOOL RETimelineDefinitionMakeAdditiveFromBaseBlendShapeWeights(_anonymous_namespace_::TimelineDefinition *a1, uint64_t *a2, unint64_t a3, unint64_t a4)
+{
+  if (*(v7 + 2) != 59)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v9 = CoreRELog::log;
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_10;
+    }
+
+    *buf = 0;
+    v10 = "Unsupported additive blend shape weights animation type.";
+    goto LABEL_36;
+  }
+
+  v8 = v7;
+  if (*(v7 + 72) != 1)
+  {
+    if (*(v7 + 18) != a4)
+    {
+      if (CoreRELog::onceToken != -1)
       {
-LABEL_18:
-        re::DynamicArray<re::AnimationSceneEntityData>::add(v6, v23);
-        re::AssetHandle::~AssetHandle(&v25);
-        v22 = re::DynamicArray<re::AnimationSceneEntityData>::deinit(&v24);
-        if (v23[0])
-        {
-          if (v23[0])
-          {
-          }
-        }
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
       }
 
-      else
-      {
-        v21 = *(a3 + 16);
-        while (*(v21 + 24 * v20 + 16) != v17)
-        {
-          LODWORD(v20) = *(v21 + 24 * v20 + 8) & 0x7FFFFFFF;
-          if (v20 == 0x7FFFFFFF)
-          {
-            goto LABEL_18;
-          }
-        }
-      }
-
-      ++v15;
-    }
-
-    while (v15 != v16);
-  }
-}
-
-uint64_t REAnimationSceneEntityDefinitionCreate(re *a1)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  v2 = re::globalAllocators(a1);
-  v3 = (*(*v2[2] + 32))(v2[2], 112, 8);
-  *v3 = 0u;
-  *(v3 + 16) = 0u;
-  *(v3 + 32) = 0u;
-  *(v3 + 48) = 0u;
-  *(v3 + 64) = 0u;
-  *(v3 + 80) = 0u;
-  *(v3 + 96) = 0u;
-  ArcSharedObject::ArcSharedObject(v3, 0);
-  *(v3 + 24) = 0;
-  *v3 = &unk_1F5D2EAD8;
-  *(v3 + 32) = &str_67;
-  *(v3 + 40) = 0;
-  *(v3 + 104) = 0;
-  *(v3 + 48) = 0u;
-  *(v3 + 64) = 0u;
-  *(v3 + 80) = 0u;
-  *(v3 + 96) = 0;
-  v7 = 0;
-  v8 = &str_67;
-  v5 = re::StringID::operator=((v3 + 24), &v7);
-  if (v7)
-  {
-    if (v7)
-    {
-    }
-  }
-
-  return v3;
-}
-
-uint64_t REAnimationSceneEntityDefinitionGetEntityName(uint64_t result)
-{
-  if (result)
-  {
-    return *(result + 32);
-  }
-
-  return result;
-}
-
-uint64_t REAnimationSceneEntityDefinitionSetHasTransformAnimations(uint64_t result, char a2)
-{
-  if (result)
-  {
-    *(result + 40) = a2;
-  }
-
-  return result;
-}
-
-uint64_t REAnimationSceneEntityDefinitionGetHasTransformAnimations(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 40);
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  return v1 & 1;
-}
-
-uint64_t REAnimationSceneEntityDefinitionGetChildCount(uint64_t result)
-{
-  if (result)
-  {
-    return *(result + 88);
-  }
-
-  return result;
-}
-
-uint64_t REAnimationSceneEntityDefinitionAddChildDefinition(uint64_t a1, uint64_t a2)
-{
-  result = -1;
-  if (a1 && a2)
-  {
-    v5 = (a2 + 8);
-    v6 = *(a1 + 80);
-    v7 = *(a1 + 88);
-    v8 = v7 + 1;
-    if (v7 >= v6 && v6 < v8)
-    {
-      if (*(a1 + 72))
-      {
-        v10 = 2 * v6;
-        v11 = v6 == 0;
-        v12 = 8;
-        if (!v11)
-        {
-          v12 = v10;
-        }
-
-        if (v12 <= v8)
-        {
-          v13 = v8;
-        }
-
-        else
-        {
-          v13 = v12;
-        }
-
-        re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity((a1 + 72), v13);
-      }
-
-      else
-      {
-        re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity((a1 + 72), v8);
-        ++*(a1 + 96);
-      }
-    }
-
-    result = *(a1 + 88);
-    *(*(a1 + 104) + 8 * result) = a2;
-    *(a1 + 88) = result + 1;
-    ++*(a1 + 96);
-  }
-
-  return result;
-}
-
-uint64_t REAnimationSceneEntityDefinitionGetChildAtIndex(uint64_t result, unint64_t a2)
-{
-  if (result)
-  {
-    if (*(result + 88) <= a2)
-    {
-      return 0;
-    }
-
-    else
-    {
-      return *(*(result + 104) + 8 * a2);
-    }
-  }
-
-  return result;
-}
-
-BOOL REAnimationSceneEntityDefinitionSetSkeletalPoseDefinitionAsset(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    if (a2)
-    {
-      re::AssetAPIHelper::assetHandleCreate(a2, &v7);
-      v3 = *(a1 + 48);
-      *(a1 + 48) = v7;
-      v7 = v3;
-      v4 = *(a1 + 64);
-      *(a1 + 64) = v8;
-    }
-
-    else
-    {
-      v5 = *(a1 + 48);
-      v4 = *(a1 + 64);
-      *(a1 + 56) = 0;
-      *(a1 + 64) = 0;
-      *(a1 + 48) = 0;
-      v7 = v5;
-    }
-
-    v8 = v4;
-    re::AssetHandle::~AssetHandle(&v7);
-  }
-
-  return a1 != 0;
-}
-
-uint64_t REAnimationSceneEntityDefinitionGetSkeletalPoseDefinitionAsset(uint64_t result)
-{
-  if (result)
-  {
-    if (*(result + 56))
-    {
-      return *(result + 48);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-void re::HashSetBase<anonymous namespace::REAnimationSceneEntityDefinitionImpl const*,anonymous namespace::REAnimationSceneEntityDefinitionImpl const*,re::internal::ValueAsKey<anonymous namespace::REAnimationSceneEntityDefinitionImpl const*>,re::Hash<anonymous namespace::REAnimationSceneEntityDefinitionImpl const*>,re::EqualTo<anonymous namespace::REAnimationSceneEntityDefinitionImpl const*>,true,false>::addAsMove(uint64_t a1, unsigned int a2, unint64_t a3, void *a4)
-{
-  v7 = *(a1 + 36);
-  if (v7 == 0x7FFFFFFF)
-  {
-    v7 = *(a1 + 32);
-    v8 = v7;
-    if (v7 == *(a1 + 24))
-    {
-      v9 = *(a1 + 28);
-      v10 = 2 * v9;
-      v11 = *a1;
-      if (*a1)
-      {
-        if (v10)
-        {
-          v12 = v7 == v10;
-        }
-
-        else
-        {
-          v12 = 1;
-        }
-
-        if (!v12 && (v9 & 0x80000000) == 0)
-        {
-          memset(v23, 0, 36);
-          *&v23[36] = 0x7FFFFFFFLL;
-          re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::init(v23, v11, v10);
-          v13 = *v23;
-          *v23 = *a1;
-          *a1 = v13;
-          v14 = *&v23[16];
-          v15 = *(a1 + 16);
-          *&v23[16] = v15;
-          *(a1 + 16) = v14;
-          v17 = *&v23[24];
-          *&v23[24] = *(a1 + 24);
-          v16 = *&v23[32];
-          *(a1 + 24) = v17;
-          v18 = v16;
-          if (v16)
-          {
-            v19 = v15 + 16;
-            do
-            {
-              if ((*(v19 - 8) & 0x80000000) != 0)
-              {
-              }
-
-              v19 += 24;
-              --v18;
-            }
-
-            while (v18);
-          }
-        }
-      }
-
-      else
-      {
-        if (v10)
-        {
-          v22 = v10;
-        }
-
-        else
-        {
-          v22 = 3;
-        }
-      }
-
-      a2 = a3 % *(a1 + 24);
-      v8 = *(a1 + 32);
-    }
-
-    *(a1 + 32) = v8 + 1;
-    v20 = *(a1 + 16);
-    v21 = *(v20 + 24 * v7 + 8);
-  }
-
-  else
-  {
-    v20 = *(a1 + 16);
-    v21 = *(v20 + 24 * v7 + 8);
-    *(a1 + 36) = v21 & 0x7FFFFFFF;
-  }
-
-  *(v20 + 24 * v7 + 8) = v21 | 0x80000000;
-  *(*(a1 + 16) + 24 * v7 + 8) = *(*(a1 + 16) + 24 * v7 + 8) & 0x80000000 | *(*(a1 + 8) + 4 * a2);
-  *(*(a1 + 16) + 24 * v7) = a3;
-  *(*(a1 + 16) + 24 * v7 + 16) = *a4;
-  *(*(a1 + 8) + 4 * a2) = v7;
-  ++*(a1 + 28);
-}
-
-uint64_t *re::HashSetBase<anonymous namespace::REAnimationSceneEntityDefinitionImpl const*,anonymous namespace::REAnimationSceneEntityDefinitionImpl const*,re::internal::ValueAsKey<anonymous namespace::REAnimationSceneEntityDefinitionImpl const*>,re::Hash<anonymous namespace::REAnimationSceneEntityDefinitionImpl const*>,re::EqualTo<anonymous namespace::REAnimationSceneEntityDefinitionImpl const*>,true,false>::~HashSetBase(uint64_t *a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    v3 = *(a1 + 8);
-    if (v3)
-    {
-      v4 = 8;
-      do
-      {
-        v5 = a1[2];
-        v6 = *(v5 + v4);
-        if (v6 < 0)
-        {
-          *(v5 + v4) = v6 & 0x7FFFFFFF;
-        }
-
-        v4 += 24;
-        --v3;
-      }
-
-      while (v3);
-    }
-
-    (*(*v2 + 40))(v2, a1[1]);
-    *(a1 + 8) = 0;
-    *a1 = 0u;
-    *(a1 + 1) = 0u;
-    *(a1 + 36) = 0x7FFFFFFFLL;
-  }
-
-  return a1;
-}
-
-void anonymous namespace::REAnimationSceneEntityDefinitionImpl::~REAnimationSceneEntityDefinitionImpl(_anonymous_namespace_::REAnimationSceneEntityDefinitionImpl *this)
-{
-  *this = &unk_1F5D2EAD8;
-  v3 = (this + 72);
-  v2 = *(this + 9);
-  if (v2)
-  {
-    v4 = *(this + 13);
-    if (v4)
-    {
-      v5 = *(this + 11);
-      if (v5)
-      {
-        v6 = 8 * v5;
-        do
-        {
-          if (*v4)
-          {
-
-            *v4 = 0;
-          }
-
-          v4 += 8;
-          v6 -= 8;
-        }
-
-        while (v6);
-        v2 = *(this + 9);
-        v4 = *(this + 13);
-      }
-
-      (*(*v2 + 40))(v2, v4);
-    }
-
-    *(this + 13) = 0;
-    v3[1] = 0;
-    v3[2] = 0;
-    *v3 = 0;
-    ++*(this + 24);
-  }
-
-  re::AssetHandle::~AssetHandle((this + 48));
-  re::StringID::destroyString((this + 24));
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-{
-  *this = &unk_1F5D2EAD8;
-  v3 = (this + 72);
-  v2 = *(this + 9);
-  if (v2)
-  {
-    v4 = *(this + 13);
-    if (v4)
-    {
-      v5 = *(this + 11);
-      if (v5)
-      {
-        v6 = 8 * v5;
-        do
-        {
-          if (*v4)
-          {
-
-            *v4 = 0;
-          }
-
-          v4 += 8;
-          v6 -= 8;
-        }
-
-        while (v6);
-        v2 = *(this + 9);
-        v4 = *(this + 13);
-      }
-
-      (*(*v2 + 40))(v2, v4);
-    }
-
-    *(this + 13) = 0;
-    v3[1] = 0;
-    v3[2] = 0;
-    *v3 = 0;
-    ++*(this + 24);
-  }
-
-  re::AssetHandle::~AssetHandle((this + 48));
-  re::StringID::destroyString((this + 24));
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *REStatic3DTextComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::Static3DTextComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t REStatic3DTextComponentSetText(float32x4_t *a1, const char *a2)
-{
-  if (!re::DynamicString::operator==(&a1[8], &v6))
-  {
-    re::DynamicString::operator=(&a1[8], &v6);
-    v4.i64[0] = 0x7F0000007FLL;
-    v4.i64[1] = 0x7F0000007FLL;
-    a1[3] = vnegq_f32(v4);
-    a1[4] = v4;
-    a1[2].i8[12] = 1;
-  }
-
-  if (v6 && (v7 & 1) != 0)
-  {
-    (*(*v6 + 40))();
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t REStatic3DTextComponentSetFont(float32x4_t *a1, const char *a2)
-{
-  if (!re::DynamicString::operator==(&a1[6], &v6))
-  {
-    re::DynamicString::operator=(&a1[6], &v6);
-    v4.i64[0] = 0x7F0000007FLL;
-    v4.i64[1] = 0x7F0000007FLL;
-    a1[3] = vnegq_f32(v4);
-    a1[4] = v4;
-    a1[2].i8[12] = 1;
-  }
-
-  if (v6 && (v7 & 1) != 0)
-  {
-    (*(*v6 + 40))();
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t REStatic3DTextComponentSetFontSize(uint64_t this, float a2)
-{
-  if (*(this + 32) != a2)
-  {
-    *(this + 32) = a2;
-    v3.i64[0] = 0x7F0000007FLL;
-    v3.i64[1] = 0x7F0000007FLL;
-    *(this + 48) = vnegq_f32(v3);
-    *(this + 64) = v3;
-    *(this + 44) = 1;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REStatic3DTextComponentSetTextFrameOrigin(uint64_t this, float32x2_t a2)
-{
-  v2 = vceq_f32(*(this + 80), a2);
-  if ((vpmin_u32(v2, v2).u32[0] & 0x80000000) == 0)
-  {
-    *(this + 80) = *&a2;
-    v3.i64[0] = 0x7F0000007FLL;
-    v3.i64[1] = 0x7F0000007FLL;
-    *(this + 48) = vnegq_f32(v3);
-    *(this + 64) = v3;
-    *(this + 44) = 1;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REStatic3DTextComponentSetTextFrameSize(uint64_t this, float32x2_t a2)
-{
-  v2 = vceq_f32(*(this + 88), a2);
-  if ((vpmin_u32(v2, v2).u32[0] & 0x80000000) == 0)
-  {
-    *(this + 88) = *&a2;
-    v3.i64[0] = 0x7F0000007FLL;
-    v3.i64[1] = 0x7F0000007FLL;
-    *(this + 48) = vnegq_f32(v3);
-    *(this + 64) = v3;
-    *(this + 44) = 1;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REStatic3DTextComponentSetTextAlignment(uint64_t this, int a2)
-{
-  if (*(this + 37) != a2)
-  {
-    *(this + 37) = a2;
-    v2.i64[0] = 0x7F0000007FLL;
-    v2.i64[1] = 0x7F0000007FLL;
-    *(this + 48) = vnegq_f32(v2);
-    *(this + 64) = v2;
-    *(this + 44) = 1;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REStatic3DTextComponentSetLineBreakMode(uint64_t this, int a2)
-{
-  if (*(this + 38) != a2)
-  {
-    *(this + 38) = a2;
-    v2.i64[0] = 0x7F0000007FLL;
-    v2.i64[1] = 0x7F0000007FLL;
-    *(this + 48) = vnegq_f32(v2);
-    *(this + 64) = v2;
-    *(this + 44) = 1;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REStatic3DTextComponentSetVerticalTextAlignment(uint64_t this, int a2)
-{
-  if (*(this + 39) != a2)
-  {
-    *(this + 39) = a2;
-    v2.i64[0] = 0x7F0000007FLL;
-    v2.i64[1] = 0x7F0000007FLL;
-    *(this + 48) = vnegq_f32(v2);
-    *(this + 64) = v2;
-    *(this + 44) = 1;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REStatic3DTextComponentSetSegmentDensity(uint64_t this, int a2)
-{
-  if (*(this + 36) != a2)
-  {
-    *(this + 36) = a2;
-    v2.i64[0] = 0x7F0000007FLL;
-    v2.i64[1] = 0x7F0000007FLL;
-    *(this + 48) = vnegq_f32(v2);
-    *(this + 64) = v2;
-    *(this + 44) = 1;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REStatic3DTextComponentSetExtrusionDepth(uint64_t this, float a2)
-{
-  if (*(this + 28) != a2)
-  {
-    *(this + 28) = a2;
-    v3.i64[0] = 0x7F0000007FLL;
-    v3.i64[1] = 0x7F0000007FLL;
-    *(this + 48) = vnegq_f32(v3);
-    *(this + 64) = v3;
-    *(this + 44) = 1;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REStatic3DTextComponentGetText(uint64_t a1)
-{
-  if (*(a1 + 136))
-  {
-    return *(a1 + 144);
-  }
-
-  else
-  {
-    return a1 + 137;
-  }
-}
-
-uint64_t REStatic3DTextComponentGetFont(uint64_t a1)
-{
-  if (*(a1 + 104))
-  {
-    return *(a1 + 112);
-  }
-
-  else
-  {
-    return a1 + 105;
-  }
-}
-
-BOOL REStatic3DTextComponentGetIsLoaded(uint64_t a1)
-{
-  if (*(a1 + 44))
-  {
-    return 0;
-  }
-
-  v1 = *(*(a1 + 16) + 192);
-  if (!v1)
-  {
-    return 0;
-  }
-
-  v2 = *(v1 + 40);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v3 = atomic_load((v2 + 896));
-  return v3 == 2;
-}
-
-uint64_t REStatic3DTextComponentSetGenerateRayTracingMetaData(uint64_t this, int a2)
-{
-  if (*(this + 40) != a2)
-  {
-    *(this + 40) = a2;
-    v2.i64[0] = 0x7F0000007FLL;
-    v2.i64[1] = 0x7F0000007FLL;
-    *(this + 48) = vnegq_f32(v2);
-    *(this + 64) = v2;
-    *(this + 44) = 1;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REStatic3DTextComponentSetGenerateInstancedGlyphs(uint64_t this, int a2)
-{
-  if (*(this + 41) != a2)
-  {
-    *(this + 41) = a2;
-    *(this + 44) = 1;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REStatic3DTextComponentSetGenerateSideStrips(uint64_t this, int a2)
-{
-  if (*(this + 42) != a2)
-  {
-    *(this + 42) = a2;
-    *(this + 44) = 1;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REStatic3DTextComponentSetGenerateBackFace(uint64_t this, int a2)
-{
-  if (*(this + 43) != a2)
-  {
-    *(this + 43) = a2;
-    *(this + 44) = 1;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-double REStatic3DTextDefaultOptions@<D0>(uint64_t a1@<X8>)
-{
-  *a1 = 0x3E8000003F800000;
-  *(a1 + 8) = 5;
-  *(a1 + 38) = 1;
-  *&result = 16778240;
-  *(a1 + 32) = 16778240;
-  *(a1 + 36) = 1;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  return result;
-}
-
-void REShadowManagerSetEntityAsMeshShadowReceiver(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 192);
-  if (v2)
-  {
-    (*(*a1 + 72))(v5);
-    if (*(v2 + 72))
-    {
-      v3 = 0;
-      v4 = 0;
-      do
-      {
-        re::AssetHandle::operator=(*(v2 + 88) + v3, v5);
-        ++v4;
-        v3 += 24;
-      }
-
-      while (v4 < *(v2 + 72));
-    }
-
-    re::ecs2::Component::enqueueMarkDirty(v2);
-    re::AssetHandle::~AssetHandle(v5);
-  }
-}
-
-uint64_t REShadowManagerSetShadowResolution(uint64_t a1, int a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 4) = a2;
-  return result;
-}
-
-uint64_t REShadowManagerSetShadowDecayRateFromReceiver(uint64_t a1, float a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 52) = a2;
-  *(result + 144) = 1;
-  return result;
-}
-
-uint64_t REShadowManagerSetShadowDecayRateWithinBounds(uint64_t a1, float a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 48) = a2;
-  *(result + 144) = 1;
-  return result;
-}
-
-uint64_t REShadowManagerSetShadowDecayRateBelowReceiver(uint64_t a1, float a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 56) = a2;
-  *(result + 144) = 1;
-  return result;
-}
-
-uint64_t REShadowManagerSetShadowIntensityScale(uint64_t a1, float a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 60) = a2;
-  *(result + 144) = 1;
-  return result;
-}
-
-uint64_t REShadowManagerSetShadowOpacityCurveFactor(uint64_t a1, float a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 64) = a2;
-  *(result + 144) = 1;
-  return result;
-}
-
-uint64_t REShadowManagerSetShadowBoundingRatio(uint64_t a1, float a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 24) = a2;
-  return result;
-}
-
-uint64_t REShadowManagerSetShadowNormalThreshold(uint64_t a1, float a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 100) = a2;
-  *(result + 144) = 1;
-  return result;
-}
-
-uint64_t REShadowManagerSetNearFadeStart(uint64_t a1, float a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 72) = a2;
-  *(result + 144) = 1;
-  return result;
-}
-
-uint64_t REShadowManagerSetNearFadeEnd(uint64_t a1, float a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 76) = a2;
-  *(result + 144) = 1;
-  return result;
-}
-
-uint64_t REShadowManagerSetFalloffBias(uint64_t a1, float a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 84) = a2;
-  *(result + 144) = 1;
-  return result;
-}
-
-float32x4_t REShadowManagerSetLightDirection(uint64_t a1, float32x4_t a2)
-{
-  v2 = (*(*a1 + 24))(a1);
-  v3 = vmulq_f32(a2, a2);
-  *&v4 = v3.f32[2] + vaddv_f32(*v3.f32);
-  *v3.f32 = vrsqrte_f32(v4);
-  *v3.f32 = vmul_f32(*v3.f32, vrsqrts_f32(v4, vmul_f32(*v3.f32, *v3.f32)));
-  result = vmulq_n_f32(a2, vmul_f32(*v3.f32, vrsqrts_f32(v4, vmul_f32(*v3.f32, *v3.f32))).f32[0]);
-  v2[8] = result;
-  v2[9].i8[0] = 1;
-  return result;
-}
-
-uint64_t REShadowManagerSetDebugClearShadowTextureArray(uint64_t a1, char a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 41) = a2;
-  return result;
-}
-
-uint64_t REShadowManagerSetShadowIsFadedAgainstReceivers(uint64_t a1, char a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 42) = a2;
-  return result;
-}
-
-uint64_t REShadowManagerGetShadowIsFadedAgainstReceivers(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  (*(*a1 + 16))(v2);
-  return v3;
-}
-
-float *REShadowManagerSetBlurSizeScale(uint64_t a1, float a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *result = a2;
-  return result;
-}
-
-uint64_t REShadowManagerSetMaxMipDistance(uint64_t a1, float a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 92) = a2;
-  return result;
-}
-
-uint64_t REShadowManagerSetNormalThresholdForFlatShadow(uint64_t a1, float a2)
-{
-  result = (*(*a1 + 24))(a1);
-  *(result + 104) = a2;
-  return result;
-}
-
-void REShadowManagerSetShadowClusterRootUpdateHandler(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __REShadowManagerSetShadowClusterRootUpdateHandler_block_invoke;
-  v6[3] = &unk_1E8723138;
-  v7 = v3;
-  v4 = *(*a1 + 88);
-  v5 = v3;
-  v4(a1, v6);
-}
-
-void REShadowManagerSetShadowClusterRootUpdateHandlerWithDirection(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __REShadowManagerSetShadowClusterRootUpdateHandlerWithDirection_block_invoke;
-  v6[3] = &unk_1E8723138;
-  v7 = v3;
-  v4 = *(*a1 + 88);
-  v5 = v3;
-  v4(a1, v6);
-}
-
-uint64_t __REShadowManagerSetShadowClusterRootUpdateHandlerWithDirection_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t a5)
-{
-  v5.n128_u64[0] = a4;
-  v5.n128_u64[1] = a5;
-  return (*(*(a1 + 32) + 16))(v5);
-}
-
-float REShadowCalculateShadowProxyThicknessInLocalCoordinate(float32x2_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, float32x4_t a5)
-{
-  v7 = a1;
-  v6[0] = a2;
-  v6[1] = a3;
-  v6[2] = a4;
-  v6[3] = a5;
-  return re::MeshShadowCasterParams::PlaneProxyParams::calcShadowProxyThicknessInLocalCoord(&v7, v6);
-}
-
-void *REDirectMaterialParametersArrayComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::DirectMaterialParametersArrayComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t REDirectParameterResourcesCreate(re *a1)
-{
-  re::make::shared::object<re::ecs2::DirectParameterResources>(a1, &v4);
-  v1 = v4;
-  if (v4)
-  {
-    v2 = (v4 + 8);
-    if (v4)
-    {
-    }
-  }
-
-  return v1 + 8;
-}
-
-uint64_t REDirectParameterResourcesCopy(char *a1)
-{
-  v1 = a1;
-  if (a1)
-  {
-    v2 = (a1 - 8);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  if (a1)
-  {
-    a1 = a1;
-  }
-
-  re::make::shared::object<re::ecs2::DirectParameterResources>(a1, &v6);
-  re::DynamicArray<re::ecs2::DirectParameterTextureEntry>::operator=(v6 + 24, v2 + 3);
-  re::DynamicArray<re::ecs2::DirectParameterBufferEntry>::operator=(v6 + 64, v2 + 8);
-  v3 = v6;
-  if (v6)
-  {
-    v4 = (v6 + 8);
-    if (v6)
-    {
-    }
-  }
-
-  if (v1)
-  {
-  }
-
-  return v3 + 8;
-}
-
-void REDirectParameterResourcesSetTextureAssetAtOffset(char *a1, uint64_t a2, uint64_t a3)
-{
-  v45 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    v6 = a1 - 8;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (a1)
-  {
-    v7 = a1;
-  }
-
-  v8 = *(v6 + 5);
-  if (v8)
-  {
-    v9 = 0;
-    v10 = 0;
-    while (*(*(v6 + 7) + 24 + v9) != a2)
-    {
-      ++v10;
-      v9 += 32;
-      if (v8 == v10)
+      v9 = CoreRELog::log;
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_10;
       }
+
+      *buf = 0;
+      v10 = "Cannot make additive animation, number of weights do not match weight count.";
+      goto LABEL_36;
     }
 
-    re::AssetAPIHelper::assetHandleCreate(a3, v30);
-    v19 = *(v6 + 5);
-    if (v30[1])
+    v13 = *(v7 + 13);
+    if (v13)
     {
-      if (v19 <= v10)
+      v14 = (*(v7 + 15) + 8);
+      v15 = 24 * v13;
+      while (1)
       {
-        v31 = 0;
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
-        v42 = 0u;
-        v40 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v32 = 136315906;
-        v33 = "operator[]";
-        v34 = 1024;
-        v35 = 789;
-        v36 = 2048;
-        v37 = v10;
-        v38 = 2048;
-        v39 = v19;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        goto LABEL_34;
+        v16 = *v14;
+        v14 += 3;
+        if (v16 != a4)
+        {
+          break;
+        }
+
+        v15 -= 24;
+        if (!v15)
+        {
+          goto LABEL_17;
+        }
       }
 
-      re::AssetHandle::operator=(*(v6 + 7) + v9, v30);
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v9 = CoreRELog::log;
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_10;
+      }
+
+      *buf = 0;
+      v10 = "Cannot make additive animation, number of weights do not match weight count.";
+      goto LABEL_36;
+    }
+
+LABEL_17:
+    re::StackScratchAllocator::StackScratchAllocator(buf);
+    v28 = 0;
+    v25 = 0;
+    v26 = 0;
+    v27 = 0;
+    v24 = buf;
+    re::DynamicArray<re::SkeletalPoseAssetData>::setCapacity(&v24, 0);
+    ++v27;
+    if (v25 >= a3)
+    {
+      if (!a3)
+      {
+LABEL_30:
+        v18 = *(v8 + 13);
+        v21 = *(v8 + 15);
+        v22 = v18;
+        v19 = v28;
+        v20 = v26;
+        v11 = re::AnimationHelper::makeAdditiveForValues<re::BlendShapeWeightsAssetData>(&v21, &v19, v21, v18);
+        *(v8 + 72) = v11;
+        re::DynamicArray<re::EvaluationSkeletalPoseInputHandle>::deinit(&v24);
+        re::StackScratchAllocator::~StackScratchAllocator(buf);
+        return v11;
+      }
     }
 
     else
     {
-      if (v19 <= v10)
-      {
-LABEL_34:
-        v31 = 0;
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
-        v42 = 0u;
-        v40 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v32 = 136315906;
-        v33 = "removeAt";
-        v34 = 1024;
-        v35 = 931;
-        v36 = 2048;
-        v37 = v10;
-        v38 = 2048;
-        v39 = v19;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      if (v19 - 1 > v10)
-      {
-        v20 = *(v6 + 7);
-        v21 = v20 + 32 * v19;
-        v22 = (v20 + v9);
-        v23 = *(v21 - 24);
-        v24 = *v22;
-        *v22 = 0;
-        *(v22 + 1) = v23;
-        *v22 = *(v21 - 32);
-        *(v21 - 32) = v24;
-        v25 = *(v22 + 2);
-        *(v22 + 2) = *(v21 - 16);
-        *(v21 - 16) = v25;
-        *(v22 + 3) = *(v21 - 8);
-      }
-
-      re::AssetHandle::~AssetHandle((*(v6 + 7) + 32 * v19 - 32));
-      --*(v6 + 5);
-      ++*(v6 + 12);
+      re::DynamicArray<re::SkeletalPoseAssetData>::setCapacity(&v24, a3);
     }
 
-    v26 = v30;
-  }
-
-  else
-  {
-LABEL_10:
-    re::AssetAPIHelper::assetHandleCreate(a3, &v40);
-    *(&v41 + 1) = a2;
-    v12 = *(v6 + 4);
-    v13 = *(v6 + 5);
-    if (v13 >= v12)
+    do
     {
-      v14 = v13 + 1;
-      if (v12 < v13 + 1)
+      v21 = 0;
+      v22 = 0;
+      v23 = 0;
+      v19 = *a2;
+      v20 = a4;
+      re::FixedArray<int>::operator=(&v21, &v19);
+      v17 = v26;
+      if (v26 >= v25)
       {
-        if (*(v6 + 3))
-        {
-          v15 = 2 * v12;
-          v16 = v12 == 0;
-          v17 = 8;
-          if (!v16)
-          {
-            v17 = v15;
-          }
-
-          if (v17 <= v14)
-          {
-            v18 = v14;
-          }
-
-          else
-          {
-            v18 = v17;
-          }
-
-          re::DynamicArray<re::ecs2::DirectParameterTextureEntry>::setCapacity(v6 + 3, v18);
-        }
-
-        else
-        {
-          re::DynamicArray<re::ecs2::DirectParameterTextureEntry>::setCapacity(v6 + 3, v14);
-          ++*(v6 + 12);
-        }
+        re::DynamicArray<re::BlendShapeWeightsAssetData>::growCapacity(&v24, v26 + 1);
+        v17 = v26;
       }
 
-      v13 = *(v6 + 5);
+      re::FixedArray<float>::FixedArray((v28 + 24 * v17), &v21);
+      ++v26;
+      ++v27;
+      if (v21 && v22)
+      {
+        (*(*v21 + 40))();
+      }
+
+      ++a2;
+      --a3;
     }
 
-    v27 = (*(v6 + 7) + 32 * v13);
-    *v27 = 0;
-    v27[1] = 0;
-    v27[2] = 0;
-    v27[1] = *(&v40 + 1);
-    *(&v40 + 1) = 0;
-    v28 = *v27;
-    *v27 = 0;
-    *v27 = v40;
-    *&v40 = v28;
-    v29 = v27[2];
-    v27[2] = v41;
-    *&v41 = v29;
-    v27[3] = *(&v41 + 1);
-    ++*(v6 + 5);
-    ++*(v6 + 12);
-    v26 = &v40;
+    while (a3);
+    goto LABEL_30;
   }
 
-  re::AssetHandle::~AssetHandle(v26);
-  if (a1)
+  if (CoreRELog::onceToken != -1)
   {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
   }
+
+  v9 = CoreRELog::log;
+  if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  {
+    goto LABEL_10;
+  }
+
+  *buf = 0;
+  v10 = "Cannot make additive animation from existing additive from-to-by animation.";
+LABEL_36:
+  _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, v10, buf, 2u);
+LABEL_10:
+
+  return 0;
 }
 
-uint64_t REDirectParameterResourcesGetTextureAssetAtOffset(char *a1, uint64_t a2)
+uint64_t RETimelineDefinitionIsAdditive(uint64_t a1)
 {
-  if (a1)
+  v1 = *(a1 + 48);
+  if (!v1)
   {
-    v4 = a1 - 8;
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
   }
 
-  else
-  {
-    v4 = 0;
-  }
-
-  if (a1)
-  {
-    v5 = a1;
-  }
-
-  v6 = *(v4 + 5);
-  if (!v6)
-  {
-LABEL_10:
-    v8 = 0;
-    if (!a1)
-    {
-      return v8;
-    }
-
-LABEL_11:
-
-    return v8;
-  }
-
-  v7 = *(v4 + 7);
-  while (v7[3] != a2)
-  {
-    v7 += 4;
-    if (!--v6)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  v8 = *v7;
-  if (a1)
-  {
-    goto LABEL_11;
-  }
-
-  return v8;
-}
-
-void REDirectParameterResourcesSetBufferAtOffset(char *a1, _anonymous_namespace_ *a2, void *a3)
-{
-  v24 = a3;
-  if (a1)
-  {
-    v6 = a1 - 8;
-  }
-
-  else
+  v2 = *(v1 + 8);
+  if (v2 - 3 >= 0x20 && ((v3 = v2 > 0x3D, v4 = (1 << v2) & 0x38057FA000000000, !v3) ? (v5 = v4 == 0) : (v5 = 1), v5))
   {
     v6 = 0;
   }
 
-  if (a1)
-  {
-    v7 = a1;
-  }
-
-  v8 = *(v6 + 10);
-  if (!v8)
-  {
-LABEL_10:
-    v12 = v24;
-    v13 = v12;
-    v15 = *(v6 + 9);
-    v14 = *(v6 + 10);
-    if (v14 >= v15)
-    {
-      v16 = v14 + 1;
-      if (v15 < v14 + 1)
-      {
-        if (*(v6 + 8))
-        {
-          v17 = 2 * v15;
-          if (!v15)
-          {
-            v17 = 8;
-          }
-
-          if (v17 <= v16)
-          {
-            v18 = v16;
-          }
-
-          else
-          {
-            v18 = v17;
-          }
-
-          re::DynamicArray<re::ecs2::DirectParameterBufferEntry>::setCapacity(v6 + 8, v18);
-        }
-
-        else
-        {
-          re::DynamicArray<re::ecs2::DirectParameterBufferEntry>::setCapacity(v6 + 8, v16);
-          ++*(v6 + 22);
-        }
-      }
-
-      v14 = *(v6 + 10);
-    }
-
-    v23 = (*(v6 + 12) + 16 * v14);
-    *v23 = v13;
-    v23[1] = a2;
-    v22 = v14 + 1;
-    goto LABEL_29;
-  }
-
-  v9 = 0;
-  v10 = *(v6 + 12);
-  v11 = v10;
-  while (*(v11 + 8) != a2)
-  {
-    ++v9;
-    v11 += 16;
-    if (v8 == v9)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  if (!v24)
-  {
-    if (v8 <= v9)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    if (v8 - 1 > v9)
-    {
-      v19 = v10 + 16 * v8;
-      v20 = *(v19 - 16);
-      *(v19 - 16) = 0;
-      v21 = *v11;
-      *v11 = v20;
-
-      *(v11 + 8) = *(v19 - 8);
-      v8 = *(v6 + 10);
-      v10 = *(v6 + 12);
-    }
-
-    v22 = *(v6 + 10) - 1;
-LABEL_29:
-    *(v6 + 10) = v22;
-    ++*(v6 + 22);
-    if (!a1)
-    {
-      goto LABEL_31;
-    }
-
-    goto LABEL_30;
-  }
-
-  objc_storeStrong(v11, a3);
-  if (a1)
-  {
-LABEL_30:
-  }
-
-LABEL_31:
-}
-
-id REDirectParameterResourcesGetBufferAtOffset(char *a1, uint64_t a2)
-{
-  if (a1)
-  {
-    v4 = a1 - 8;
-  }
-
   else
   {
-    v4 = 0;
+    v6 = *(v1 + 72);
   }
 
-  if (a1)
-  {
-    v5 = a1;
-  }
-
-  v6 = *(v4 + 10);
-  if (!v6)
-  {
-LABEL_10:
-    v8 = 0;
-    if (!a1)
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_11;
-  }
-
-  v7 = (*(v4 + 12) + 8);
-  while (*v7 != a2)
-  {
-    v7 += 2;
-    if (!--v6)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  v8 = *(v7 - 1);
-  if (a1)
-  {
-LABEL_11:
-  }
-
-LABEL_12:
-
-  return v8;
+  return v6 & 1;
 }
 
-void REDirectParameterResourcesSetColorAtOffset(char *a1, uint64_t a2, uint64_t a3)
+uint64_t RETimelineDefinitionSetAdditive(_anonymous_namespace_::TimelineDefinition *a1, char a2)
 {
-  v5 = a1;
-  if (a1)
+  v4 = *(v3 + 2);
+  if (v4 - 3 >= 0x20)
   {
-    v6 = a1 - 8;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (a1)
-  {
-    a1 = a1;
-  }
-
-  v7 = *(v6 + 15);
-  if (!v7)
-  {
-LABEL_10:
-    v10 = *(v6 + 14);
-    if (v7 >= v10)
+    v5 = v4 > 0x3D;
+    v6 = (1 << v4) & 0x38057FA000000000;
+    if (v5 || v6 == 0)
     {
-      v11 = v7 + 1;
-      if (v10 < v11)
-      {
-        if (*(v6 + 13))
-        {
-          v12 = 2 * v10;
-          v13 = v10 == 0;
-          v14 = 8;
-          if (!v13)
-          {
-            v14 = v12;
-          }
-
-          if (v14 <= v11)
-          {
-            v15 = v11;
-          }
-
-          else
-          {
-            v15 = v14;
-          }
-
-          re::DynamicArray<re::RigNodeConstraint>::setCapacity(v6 + 13, v15);
-        }
-
-        else
-        {
-          re::DynamicArray<re::RigNodeConstraint>::setCapacity(v6 + 13, v11);
-          ++*(v6 + 32);
-        }
-      }
-
-      v7 = *(v6 + 15);
-    }
-
-    v17 = (*(v6 + 17) + 16 * v7);
-    *v17 = a3;
-    v17[1] = a2;
-    ++*(v6 + 15);
-    goto LABEL_29;
-  }
-
-  v8 = 0;
-  v9 = *(v6 + 17);
-  while (*(v9 + 8) != a2)
-  {
-    ++v8;
-    v9 += 16;
-    if (v7 == v8)
-    {
-      goto LABEL_10;
+      return 0;
     }
   }
 
-  if (!a3)
-  {
-    if (v7 <= v8)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v16 = v7 - 1;
-    if (v7 - 1 > v8)
-    {
-      *v9 = *(*(v6 + 17) + 16 * v7 - 16);
-      v16 = *(v6 + 15) - 1;
-    }
-
-    *(v6 + 15) = v16;
-LABEL_29:
-    ++*(v6 + 32);
-    if (!v5)
-    {
-      return;
-    }
-
-    goto LABEL_30;
-  }
-
-  *v9 = a3;
-  if (!v5)
-  {
-    return;
-  }
-
-LABEL_30:
+  *(v3 + 72) = a2;
+  return 1;
 }
 
-uint64_t REDirectParameterResourcesGetColorAtOffset(char *a1, uint64_t a2)
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateFromToByFloatAnimation(re *a1)
 {
-  if (a1)
-  {
-    v4 = a1 - 8;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (a1)
-  {
-    v5 = a1;
-  }
-
-  v6 = *(v4 + 15);
-  if (!v6)
-  {
-LABEL_10:
-    v8 = 0;
-    if (!a1)
-    {
-      return v8;
-    }
-
-LABEL_11:
-
-    return v8;
-  }
-
-  v7 = (*(v4 + 17) + 8);
-  while (*v7 != a2)
-  {
-    v7 += 2;
-    if (!--v6)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  v8 = *(v7 - 1);
-  if (a1)
-  {
-    goto LABEL_11;
-  }
-
-  return v8;
-}
-
-uint64_t REDirectMaterialParametersArrayComponentGetResources(void *a1, uint64_t a2, unint64_t a3)
-{
-  re::ecs2::DirectMaterialParametersArrayComponent::getParameterResources(a1, a2, a3, &v5);
-  if (!v5)
-  {
-    return 0;
-  }
-
-  v3 = v5 + 8;
-
-  return v3;
-}
-
-void REDirectMaterialParametersArrayComponentSetResources(uint64_t a1, char a2, unint64_t a3, char *a4)
-{
-  if (a4)
-  {
-    v8 = a4 - 8;
-    v9 = a4;
-    v10 = a4;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v11 = v8;
-  re::ecs2::DirectMaterialParametersArrayComponent::setParameterResources(a1, a2, a3, &v11);
-  if (v11)
-  {
-
-    v11 = 0;
-  }
-
-  if (a4)
-  {
-  }
-}
-
-id REDirectMaterialParametersArrayComponentGetBuffer(re::ecs2::DirectMaterialParametersArrayComponent *a1, char a2, unint64_t a3)
-{
-  re::ecs2::DirectMaterialParametersArrayComponent::getParameterBuffer(a1, a2, a3, &v5);
-  v3 = v5;
-  v5 = 0;
-
-  return v3;
-}
-
-void REDirectMaterialParametersArrayComponentEnsureBufferSize(re::ecs2::DirectMaterialParametersArrayComponent *a1, uint64_t a2, char a3, unint64_t a4, void *a5)
-{
-  v9 = re::ServiceLocator::serviceOrNull<re::DirectResourceAssetTracker>(a2);
-
-  re::ecs2::DirectMaterialParametersArrayComponent::ensureParameterBufferSize(a1, v9, a3, a4, a5);
-}
-
-void *REImageBasedReflectionRootComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::ImageBasedReflectionRootComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-re::MaterialParameterBlock *RERenderManagerMaterialParameterBlockCreateWithAsset(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, v8);
-  if (!v8[1])
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "RERenderManagerMaterialParameterBlockCreateWithAsset was called with a NULL material handle. This will crash in the future.", buf, 2u);
-    }
-  }
-
-  *buf = a1;
-  re::make::shared::object<re::MaterialParameterBlock,re::RenderManager *&>(buf, &v6);
-  v4 = v6;
-  re::AssetHandle::~AssetHandle(v8);
-  return v4;
-}
-
-re::MaterialParameterBlock *REMaterialParameterBlockCreate(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, v8);
-  if (!v8[1])
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "REMaterialParameterBlockCreate was called with a NULL material handle. This will crash in the future.", buf, 2u);
-    }
-  }
-
-  *buf = a1;
-  re::make::shared::object<re::MaterialParameterBlock,re::RenderManager *&>(buf, &v6);
-  v4 = v6;
-  re::AssetHandle::~AssetHandle(v8);
-  return v4;
-}
-
-void *REMaterialParameterBlockCopyParams(uint64_t a1, re::Allocator *a2)
-{
-  v3 = *(re::RenderFrameBox::get((*(a1 + 112) + 328), 0xFFFFFFFFFFFFFFFuLL) + 392);
-
-  return re::MaterialParameterBlock::copyCurrentStateAsMaterialParameterTable(a2, v3);
-}
-
-re::MaterialParameterBlock *REMaterialParameterBlockCreateCopy(re *a1)
-{
+  v10[4] = *MEMORY[0x1E69E9840];
   v2 = re::globalAllocators(a1);
-  v3 = (*(*v2[2] + 32))(v2[2], 1008, 8);
-
-  return re::MaterialParameterBlock::MaterialParameterBlock(v3, a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 120, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 11);
+  *(v4 + 72) = 0;
+  *(v4 + 80) = 0x3FF0000000000000;
+  *(v4 + 88) = 0;
+  *(v4 + 96) = 0;
+  *(v4 + 104) = 0;
+  *(v4 + 112) = 0;
+  *v4 = &unk_1F5CC3530;
+  v8[0] = &unk_1F5D29E00;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D29E00;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
 }
 
-void REMaterialParameterBlockClearParameter(re::MaterialParameterBlock *a1, const char *a2)
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateFromToByDoubleAnimation(re *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 144, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 12);
+  *(v4 + 72) = 0;
+  *(v4 + 80) = 0x3FF0000000000000;
+  *(v4 + 88) = 0;
+  *(v4 + 104) = 0;
+  *(v4 + 120) = 0;
+  *(v4 + 136) = 0;
+  *v4 = &unk_1F5CBF140;
+  v8[0] = &unk_1F5D29E80;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D29E80;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
 
-    re::MaterialParameterBlock::removeParameter(a1, a2);
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateFromToByFloat2Animation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 144, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 13);
+  *(v4 + 72) = 0;
+  *(v4 + 80) = 0x3FF0000000000000;
+  *(v4 + 88) = 0;
+  *(v4 + 104) = 0;
+  *(v4 + 120) = 0;
+  *(v4 + 136) = 0;
+  *v4 = &unk_1F5CBF270;
+  v8[0] = &unk_1F5D29F00;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D29F00;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateFromToByFloat3Animation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 208, 16);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 14);
+  *(v4 + 72) = 0;
+  *(v4 + 80) = 0x3FF0000000000000;
+  *(v4 + 96) = 0;
+  *(v4 + 128) = 0;
+  *(v4 + 160) = 0;
+  *(v4 + 192) = 0;
+  *v4 = &unk_1F5CBF3A0;
+  v8[0] = &unk_1F5D29F80;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D29F80;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateFromToByFloat4Animation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 208, 16);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 15);
+  *(v4 + 72) = 0;
+  *(v4 + 80) = 0x3FF0000000000000;
+  *(v4 + 96) = 0;
+  *(v4 + 128) = 0;
+  *(v4 + 160) = 0;
+  *(v4 + 192) = 0;
+  *v4 = &unk_1F5CBF4D0;
+  v8[0] = &unk_1F5D2A000;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A000;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateFromToByQuaternionAnimation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 208, 16);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 16);
+  *(v4 + 72) = 0;
+  *(v4 + 80) = 0x3FF0000000000000;
+  *(v4 + 96) = 0;
+  *(v4 + 128) = 0;
+  *(v4 + 160) = 0;
+  *(v4 + 192) = 0;
+  *v4 = &unk_1F5CBF600;
+  v8[0] = &unk_1F5D2A080;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A080;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateFromToBySRTAnimation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 304, 16);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 17);
+  *(v4 + 72) = 0;
+  *(v4 + 80) = 0x3FF0000000000000;
+  *(v4 + 96) = 0;
+  *(v4 + 160) = 0;
+  *(v4 + 224) = 0;
+  *(v4 + 288) = 0;
+  *v4 = &unk_1F5CBF730;
+  v8[0] = &unk_1F5D2A100;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A100;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateFromToBySkeletalPoseAnimation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 336, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 18);
+  *(v4 + 72) = 0;
+  *(v4 + 80) = 0x3FF0000000000000;
+  *(v4 + 88) = 0;
+  *(v4 + 120) = 0;
+  *(v4 + 152) = 0;
+  *(v4 + 184) = 0;
+  *v4 = &unk_1F5CBF8F8;
+  *(v4 + 328) = 0;
+  *(v4 + 280) = 0;
+  *(v4 + 248) = 0u;
+  *(v4 + 264) = 0u;
+  *(v4 + 288) = 0u;
+  *(v4 + 304) = 0u;
+  *(v4 + 320) = 0;
+  *(v4 + 192) = 0u;
+  *(v4 + 208) = 0u;
+  *(v4 + 224) = 0u;
+  *(v4 + 240) = 0;
+  v8[0] = &unk_1F5D2A180;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A180;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateFromToByBlendShapeWeightsAnimation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 312, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 50);
+  *(v4 + 72) = 0;
+  *(v4 + 80) = 0x3FF0000000000000;
+  *(v4 + 88) = 0;
+  *(v4 + 120) = 0;
+  *(v4 + 152) = 0;
+  *(v4 + 184) = 0;
+  *(v4 + 192) = 0;
+  *v4 = &unk_1F5CBFA28;
+  *(v4 + 200) = 0;
+  *(v4 + 208) = 0;
+  *(v4 + 216) = 0;
+  *(v4 + 304) = 0;
+  *(v4 + 224) = 0u;
+  *(v4 + 240) = 0u;
+  *(v4 + 256) = 0;
+  *(v4 + 264) = 0u;
+  *(v4 + 280) = 0u;
+  *(v4 + 296) = 0;
+  v8[0] = &unk_1F5D2A200;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A200;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+double computeBlendTreeDuration(uint64_t a1)
+{
+  if (!*(a1 + 16))
+  {
+    return 0.0;
   }
 
-  else
+  v2 = 0;
+  v3 = 0;
+  v4 = 0.0;
+  do
   {
-    if (CoreRELog::onceToken != -1)
+    v5 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((*(a1 + 32) + v2));
+    if (v5)
     {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      v6 = *(v5 + 16);
+      if (v6)
+      {
+        v7 = (*(*v6 + 40))(v6);
+        if (v4 < v7)
+        {
+          v4 = v7;
+        }
+      }
     }
 
-    v2 = CoreRELog::log;
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    ++v3;
+    v2 += 24;
+  }
+
+  while (v3 < *(a1 + 16));
+  return v4;
+}
+
+double RETimelineDefinitionGetDuration(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v2 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24));
+    if (v2)
     {
-      v3 = 136315138;
-      v4 = "REMaterialParameterBlockClearParameter";
-      _os_log_error_impl(&dword_1E1C61000, v2, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v3, 0xCu);
+      v1 = *(v2 + 8);
     }
+
+    else
+    {
+      v1 = 0;
+    }
+  }
+
+  switch(*(v1 + 8))
+  {
+    case 1:
+      v13 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((v1 + 72));
+      if (!v13)
+      {
+        return 0.0;
+      }
+
+      v14 = *(v1 + 152);
+      if (v14 == 1)
+      {
+        v4.n128_u64[0] = *(v1 + 160);
+      }
+
+      v15 = 0.0;
+      if (*(v1 + 96) == 1)
+      {
+        v15 = *(v1 + 104);
+      }
+
+      if (*(v1 + 112) == 1)
+      {
+        if ((v14 & 1) == 0)
+        {
+          v16 = *(v1 + 120);
+LABEL_58:
+          v28 = v16 - v15;
+          v24 = v16 < v15;
+          v4.n128_u64[0] = 0;
+          if (!v24)
+          {
+            v4.n128_f64[0] = v28;
+          }
+        }
+      }
+
+      else if ((v14 & 1) == 0)
+      {
+        v27 = *(v13 + 16);
+        if (v27)
+        {
+          (*(*v27 + 40))(v27, v4);
+        }
+
+        else
+        {
+          v16 = 0.0;
+        }
+
+        goto LABEL_58;
+      }
+
+      v25 = *(v1 + 144);
+      v26 = *(v1 + 168);
+      return v25 + v4.n128_f64[0] / v26;
+    case 2:
+      if (!*(v1 + 88))
+      {
+        return 0.0;
+      }
+
+      v17 = 0;
+      v18 = 0;
+      v8 = 0.0;
+      do
+      {
+        v19 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((*(v1 + 104) + v17));
+        if (v19)
+        {
+          v20 = *(v19 + 16);
+          if (v20)
+          {
+            v21 = (*(*v20 + 40))(v20);
+            if (v8 < v21)
+            {
+              v8 = v21;
+            }
+          }
+        }
+
+        ++v18;
+        v17 += 24;
+      }
+
+      while (v18 < *(v1 + 88));
+      return v8;
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 0xA:
+    case 0x3C:
+      v3 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((v1 + 80));
+      if (!v3)
+      {
+        return 0.0;
+      }
+
+      v5 = *(v1 + 160);
+      if (v5 == 1)
+      {
+        v4.n128_u64[0] = *(v1 + 168);
+      }
+
+      v6 = 0.0;
+      if (*(v1 + 104) == 1)
+      {
+        v6 = *(v1 + 112);
+      }
+
+      if (*(v1 + 120) == 1)
+      {
+        if (v5)
+        {
+          goto LABEL_51;
+        }
+
+        v7 = *(v1 + 128);
+      }
+
+      else
+      {
+        if (v5)
+        {
+          goto LABEL_51;
+        }
+
+        v11 = *(v3 + 16);
+        if (v11)
+        {
+          (*(*v11 + 40))(v11, v4);
+        }
+
+        else
+        {
+          v7 = 0.0;
+        }
+      }
+
+      v23 = v7 - v6;
+      v24 = v7 < v6;
+      v4.n128_u64[0] = 0;
+      if (!v24)
+      {
+        v4.n128_f64[0] = v23;
+      }
+
+LABEL_51:
+      v25 = *(v1 + 152);
+      v26 = *(v1 + 176);
+      return v25 + v4.n128_f64[0] / v26;
+    case 0xB:
+    case 0xC:
+    case 0xD:
+    case 0xE:
+    case 0xF:
+    case 0x10:
+    case 0x11:
+    case 0x12:
+    case 0x32:
+      return *(v1 + 80);
+    case 0x1B:
+    case 0x1C:
+    case 0x1D:
+    case 0x1E:
+    case 0x1F:
+    case 0x20:
+    case 0x21:
+    case 0x22:
+    case 0x3B:
+      v9 = *(v1 + 104);
+      if (v9)
+      {
+        return (v9 - 1) * *(v1 + 76);
+      }
+
+      else
+      {
+        return 0.0;
+      }
+
+    case 0x25:
+      return *(v1 + 76);
+    case 0x27:
+    case 0x28:
+    case 0x29:
+    case 0x2A:
+    case 0x2B:
+    case 0x2C:
+    case 0x2D:
+    case 0x2E:
+
+      return computeBlendTreeDuration(v1 + 248);
+    case 0x30:
+      return re::TimelineEventData::totalDuration((v1 + 80));
+    default:
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v22 = CoreRELog::log;
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        *v29 = 0;
+        _os_log_error_impl(&dword_1E1C61000, v22, OS_LOG_TYPE_ERROR, "Unsupported timeline for getting duration property.", v29, 2u);
+      }
+
+      return NAN;
   }
 }
 
-void REMaterialParameterBlockSetBool(re::MaterialParameterBlock *a1, const char *a2, char a3)
+uint64_t RETimelineDefinitionSetDuration(_anonymous_namespace_::TimelineDefinition *a1, double a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v4 = *(v3 + 2);
+  if (v4 > 15)
   {
-    re::MaterialParameterBlock::setBool(a1, a2, a3, &v4);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
+    if (v4 <= 18)
     {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      goto LABEL_10;
     }
 
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (v4 == 37)
     {
-      *buf = 136315138;
-      v6 = "REMaterialParameterBlockSetBool";
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      v6 = a2;
+      *(v3 + 19) = v6;
+      return 1;
+    }
+
+    if (v4 == 50)
+    {
+LABEL_10:
+      *(v3 + 10) = a2;
+      return 1;
     }
   }
+
+  else if (v4 > 12 || v4 == 11 || v4 == 12)
+  {
+    goto LABEL_10;
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v7 = CoreRELog::log;
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    *v8 = 0;
+    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "Unsupported timeline for setting duration property.", v8, 2u);
+  }
+
+  return 0;
 }
 
-void REMaterialParameterBlockSetFloat(re::MaterialParameterBlock *a1, const char *a2, float a3)
+uint64_t RETimelineDefinitionGetFloatFromValue(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v1 = *(a1 + 48);
+  if (!v1)
   {
-    re::MaterialParameterBlock::setFloat(a1, a2, a3, &v4);
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
   }
 
-  else
+  if (*(v1 + 8) == 11)
   {
-    if (CoreRELog::onceToken != -1)
+    v2 = *(v1 + 88);
+    v3 = v1 + 92;
+    if (v2)
     {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      return v3;
     }
 
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    else
     {
-      *buf = 136315138;
-      v6 = "REMaterialParameterBlockSetFloat";
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      return 0;
     }
-  }
-}
-
-void REMaterialParameterBlockSetInt(re::MaterialParameterBlock *a1, const char *a2, int a3)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    re::MaterialParameterBlock::setInt(a1, a2, a3, &v4);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v6 = "REMaterialParameterBlockSetInt";
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
-}
-
-void REMaterialParameterBlockSetUInt(re::MaterialParameterBlock *a1, const char *a2, int a3)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    re::MaterialParameterBlock::setUint(a1, a2, a3, &v4);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v6 = "REMaterialParameterBlockSetUInt";
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
-}
-
-double REMaterialParameterBlockSetFloat2(re::MaterialParameterBlock *a1, char *a2, double result)
-{
-  if (a1)
-  {
-    return re::MaterialParameterBlock::setVector2F(a1, a2, *&result, &v3);
-  }
-
-  return result;
-}
-
-void REMaterialParameterBlockSetInt2(re::MaterialParameterBlock *a1, char *a2, double a3)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    re::MaterialParameterBlock::setInt2(a1, a2, &v4, a3);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v6 = "REMaterialParameterBlockSetInt2";
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
-}
-
-void REMaterialParameterBlockSetUInt2(re::MaterialParameterBlock *a1, char *a2, double a3)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    re::MaterialParameterBlock::setUint2(a1, a2, &v4, a3);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v6 = "REMaterialParameterBlockSetUInt2";
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
-}
-
-void REMaterialParameterBlockSetFloat3(re::MaterialParameterBlock *a1, char *a2, __n128 a3)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    re::MaterialParameterBlock::setVector3F(a1, a2, a3.n128_i64[0], a3.n128_i64[1], &v4);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v6 = "REMaterialParameterBlockSetFloat3";
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
-}
-
-void REMaterialParameterBlockSetColor3(re::MaterialParameterBlock *a1, char *a2, uint64_t a3, __n128 a4)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    re::MaterialParameterBlock::setColorGamut3F(a1, a2, a4.n128_i64[0], a4.n128_u32[2] | (a3 << 32), &v5);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v4 = CoreRELog::log;
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v7 = "REMaterialParameterBlockSetColor3";
-      _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
-}
-
-void REMaterialParameterBlockSetInt3(re::MaterialParameterBlock *a1, char *a2, __n128 a3)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    re::MaterialParameterBlock::setInt3(a1, a2, &v4, a3);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v6 = "REMaterialParameterBlockSetInt3";
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
-}
-
-void REMaterialParameterBlockSetUInt3(re::MaterialParameterBlock *a1, char *a2, __n128 a3)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    re::MaterialParameterBlock::setUint3(a1, a2, &v4, a3);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v6 = "REMaterialParameterBlockSetUInt3";
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
-}
-
-void REMaterialParameterBlockSetFloat4(re::MaterialParameterBlock *a1, char *a2, __n128 a3)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    re::MaterialParameterBlock::setVector4F(a1, a2, a3.n128_i64[0], a3.n128_i64[1], &v4);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v6 = "REMaterialParameterBlockSetFloat4";
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
-}
-
-void REMaterialParameterBlockSetColor4(re::MaterialParameterBlock *a1, char *a2, char a3, __n128 a4)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    *buf = a4;
-    v7 = a3;
-    re::MaterialParameterBlock::setColorGamut4F(a1, a2, buf, &v5);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v4 = CoreRELog::log;
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      *&buf[4] = "REMaterialParameterBlockSetColor4";
-      _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
-}
-
-void REMaterialParameterBlockSetInt4(re::MaterialParameterBlock *a1, char *a2, __n128 a3)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    re::MaterialParameterBlock::setInt4(a1, a2, &v4, a3);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v6 = "REMaterialParameterBlockSetInt4";
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
-}
-
-void REMaterialParameterBlockSetUInt4(re::MaterialParameterBlock *a1, char *a2, __n128 a3)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    re::MaterialParameterBlock::setUint4(a1, a2, &v4, a3);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v6 = "REMaterialParameterBlockSetUInt4";
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
-}
-
-void REMaterialParameterBlockSetFloat2x2(re::MaterialParameterBlock *a1, char *a2, double a3, double a4)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    re::MaterialParameterBlock::setMatrix2x2F(a1, a2, *&a3, *&a4, &v5);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v4 = CoreRELog::log;
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v7 = "REMaterialParameterBlockSetFloat2x2";
-      _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
-}
-
-void REMaterialParameterBlockSetFloat3x3(re::MaterialParameterBlock *a1, char *a2, __n128 a3, __n128 a4, __n128 a5)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    *buf = a3;
-    v8 = a4;
-    v9 = a5;
-    re::MaterialParameterBlock::setMatrix3x3F(a1, a2, buf, &v6);
   }
 
   else
@@ -5481,23 +1979,116 @@ void REMaterialParameterBlockSetFloat3x3(re::MaterialParameterBlock *a1, char *a
     v5 = CoreRELog::log;
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315138;
-      *&buf[4] = "REMaterialParameterBlockSetFloat3x3";
-      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get float 'from' value from non-float from-to-by animation.", v6, 2u);
     }
+
+    return 0;
   }
 }
 
-void REMaterialParameterBlockSetFloat4x4(re::MaterialParameterBlock *a1, char *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
+uint64_t RETimelineDefinitionGetFloatToValue(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v1 = *(a1 + 48);
+  if (!v1)
   {
-    *buf = a3;
-    v9 = a4;
-    v10 = a5;
-    v11 = a6;
-    re::MaterialParameterBlock::setMatrix4x4F(a1, a2, buf, &v7);
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 11)
+  {
+    v2 = *(v1 + 96);
+    v3 = v1 + 100;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get float 'to' value from non-float from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetFloatByValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 11)
+  {
+    v2 = *(v1 + 104);
+    v3 = v1 + 108;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get float 'by' value from non-float from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+BOOL RETimelineDefinitionSetFloatFromValue(_anonymous_namespace_::TimelineDefinition *a1, int *a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 11)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 88) & 1) == 0)
+      {
+        *(v3 + 88) = 1;
+      }
+
+      *(v3 + 23) = v5;
+    }
+
+    else if (*(v3 + 88))
+    {
+      *(v3 + 88) = 0;
+    }
   }
 
   else
@@ -5510,27 +2101,34 @@ void REMaterialParameterBlockSetFloat4x4(re::MaterialParameterBlock *a1, char *a
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315138;
-      *&buf[4] = "REMaterialParameterBlockSetFloat4x4";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set float 'from' value for non-float from-to-by animation.", v8, 2u);
     }
   }
+
+  return v4 == 11;
 }
 
-void REMaterialParameterBlockSetTextureFromAsset(re::MaterialParameterBlock *a1, const char *a2, uint64_t a3)
+BOOL RETimelineDefinitionSetFloatToValue(_anonymous_namespace_::TimelineDefinition *a1, int *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v4 = *(v3 + 2);
+  if (v4 == 11)
   {
-    re::AssetAPIHelper::assetHandleCreate(a3, buf);
-    v5 = re::AssetHandle::blockUntilLoaded<re::TextureAsset>(buf);
-    if (v5)
+    if (a2)
     {
-      re::MaterialParameterBlock::setTextureHandle(a1, a2, (v5 + 8), v7);
-      v7[0] = 0;
+      v5 = *a2;
+      if ((*(v3 + 96) & 1) == 0)
+      {
+        *(v3 + 96) = 1;
+      }
+
+      *(v3 + 25) = v5;
     }
 
-    re::AssetHandle::~AssetHandle(buf);
+    else if (*(v3 + 96))
+    {
+      *(v3 + 96) = 0;
+    }
   }
 
   else
@@ -5543,19 +2141,34 @@ void REMaterialParameterBlockSetTextureFromAsset(re::MaterialParameterBlock *a1,
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315138;
-      v9 = "REMaterialParameterBlockSetTextureFromAsset";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set float 'to' value for non-float from-to-by animation.", v8, 2u);
     }
   }
+
+  return v4 == 11;
 }
 
-void REMaterialParameterBlockSetTextureBinding(_anonymous_namespace_ *a1, const char *a2, char *a3, uint64_t a4)
+BOOL RETimelineDefinitionSetFloatByValue(_anonymous_namespace_::TimelineDefinition *a1, int *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v4 = *(v3 + 2);
+  if (v4 == 11)
   {
-    re::MaterialParameterBlock::setBinding(a1, a2, a3, a4, 2, &v5);
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 104) & 1) == 0)
+      {
+        *(v3 + 104) = 1;
+      }
+
+      *(v3 + 27) = v5;
+    }
+
+    else if (*(v3 + 104))
+    {
+      *(v3 + 104) = 0;
+    }
   }
 
   else
@@ -5565,22 +2178,38 @@ void REMaterialParameterBlockSetTextureBinding(_anonymous_namespace_ *a1, const 
       dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
     }
 
-    v4 = CoreRELog::log;
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315138;
-      v7 = "REMaterialParameterBlockSetTextureBinding";
-      _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set float 'by' value for non-float from-to-by animation.", v8, 2u);
     }
   }
+
+  return v4 == 11;
 }
 
-void REMaterialParameterBlockSetBufferBinding(_anonymous_namespace_ *a1, const char *a2, char *a3, uint64_t a4)
+uint64_t RETimelineDefinitionGetDoubleFromValue(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v1 = *(a1 + 48);
+  if (!v1)
   {
-    re::MaterialParameterBlock::setBinding(a1, a2, a3, a4, 3, &v5);
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 12)
+  {
+    v2 = *(v1 + 88);
+    v3 = v1 + 96;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
   }
 
   else
@@ -5590,22 +2219,38 @@ void REMaterialParameterBlockSetBufferBinding(_anonymous_namespace_ *a1, const c
       dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
     }
 
-    v4 = CoreRELog::log;
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315138;
-      v7 = "REMaterialParameterBlockSetBufferBinding";
-      _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get double 'from' value from non-double from-to-by animation.", v6, 2u);
     }
+
+    return 0;
   }
 }
 
-void REMaterialParameterBlockSetSamplerBinding(_anonymous_namespace_ *a1, const char *a2, char *a3, uint64_t a4)
+uint64_t RETimelineDefinitionGetDoubleToValue(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v1 = *(a1 + 48);
+  if (!v1)
   {
-    re::MaterialParameterBlock::setBinding(a1, a2, a3, a4, 4, &v5);
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 12)
+  {
+    v2 = *(v1 + 104);
+    v3 = v1 + 112;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
   }
 
   else
@@ -5615,20 +2260,81 @@ void REMaterialParameterBlockSetSamplerBinding(_anonymous_namespace_ *a1, const 
       dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
     }
 
-    v4 = CoreRELog::log;
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315138;
-      v7 = "REMaterialParameterBlockSetSamplerBinding";
-      _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get double 'to' value from non-double from-to-by animation.", v6, 2u);
     }
+
+    return 0;
   }
 }
 
-BOOL REMaterialParameterBlockGetBool(re::MaterialParameterBlock *a1, const char *a2, _BYTE *a3)
+uint64_t RETimelineDefinitionGetDoubleByValue(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 12)
+  {
+    v2 = *(v1 + 120);
+    v3 = v1 + 128;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get double 'by' value from non-double from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+BOOL RETimelineDefinitionSetDoubleFromValue(_anonymous_namespace_::TimelineDefinition *a1, uint64_t *a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 12)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 88) & 1) == 0)
+      {
+        *(v3 + 88) = 1;
+      }
+
+      *(v3 + 12) = v5;
+    }
+
+    else if (*(v3 + 88))
+    {
+      *(v3 + 88) = 0;
+    }
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -5638,34 +2344,37 @@ BOOL REMaterialParameterBlockGetBool(re::MaterialParameterBlock *a1, const char 
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "REMaterialParameterBlockGetBool";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v7, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set double 'from' value for non-double from-to-by animation.", v8, 2u);
     }
-
-    return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, &v7);
-  if ((v9 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v7, 2);
-  if (result)
-  {
-    *a3 = *re::ShaderGraphMaterial::getConstant(a1, &v7);
-    return 1;
-  }
-
-  return result;
+  return v4 == 12;
 }
 
-BOOL REMaterialParameterBlockGetFloat(re::MaterialParameterBlock *a1, const char *a2, _DWORD *a3)
+BOOL RETimelineDefinitionSetDoubleToValue(_anonymous_namespace_::TimelineDefinition *a1, uint64_t *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v4 = *(v3 + 2);
+  if (v4 == 12)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 104) & 1) == 0)
+      {
+        *(v3 + 104) = 1;
+      }
+
+      *(v3 + 14) = v5;
+    }
+
+    else if (*(v3 + 104))
+    {
+      *(v3 + 104) = 0;
+    }
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -5675,34 +2384,37 @@ BOOL REMaterialParameterBlockGetFloat(re::MaterialParameterBlock *a1, const char
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "REMaterialParameterBlockGetFloat";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v7, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set double 'to' value for non-double from-to-by animation.", v8, 2u);
     }
-
-    return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, &v7);
-  if ((v9 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v7, 1);
-  if (result)
-  {
-    *a3 = *re::ShaderGraphMaterial::getConstant(a1, &v7);
-    return 1;
-  }
-
-  return result;
+  return v4 == 12;
 }
 
-BOOL REMaterialParameterBlockGetInt(re::MaterialParameterBlock *a1, const char *a2, _DWORD *a3)
+BOOL RETimelineDefinitionSetDoubleByValue(_anonymous_namespace_::TimelineDefinition *a1, uint64_t *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v4 = *(v3 + 2);
+  if (v4 == 12)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 120) & 1) == 0)
+      {
+        *(v3 + 120) = 1;
+      }
+
+      *(v3 + 16) = v5;
+    }
+
+    else if (*(v3 + 120))
+    {
+      *(v3 + 120) = 0;
+    }
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -5712,34 +2424,160 @@ BOOL REMaterialParameterBlockGetInt(re::MaterialParameterBlock *a1, const char *
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "REMaterialParameterBlockGetInt";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v7, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set double 'by' value for non-double from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 12;
+}
+
+uint64_t RETimelineDefinitionGetFloat2FromValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 13)
+  {
+    v2 = *(v1 + 88);
+    v3 = v1 + 96;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get float2 'from' value from non-float2 from-to-by animation.", v6, 2u);
     }
 
     return 0;
   }
-
-  re::MaterialParameterBlock::handle(a1, a2, &v7);
-  if ((v9 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v7, 3);
-  if (result)
-  {
-    *a3 = *re::ShaderGraphMaterial::getConstant(a1, &v7);
-    return 1;
-  }
-
-  return result;
 }
 
-BOOL REMaterialParameterBlockGetUInt(re::MaterialParameterBlock *a1, const char *a2, _DWORD *a3)
+uint64_t RETimelineDefinitionGetFloat2ToValue(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 13)
+  {
+    v2 = *(v1 + 104);
+    v3 = v1 + 112;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get float2 'to' value from non-float2 from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetFloat2ByValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 13)
+  {
+    v2 = *(v1 + 120);
+    v3 = v1 + 128;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get float2 'by' value from non-float2 from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+BOOL RETimelineDefinitionSetFloat2FromValue(_anonymous_namespace_::TimelineDefinition *a1, uint64_t *a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 13)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 88) & 1) == 0)
+      {
+        *(v3 + 88) = 1;
+      }
+
+      *(v3 + 12) = v5;
+    }
+
+    else if (*(v3 + 88))
+    {
+      *(v3 + 88) = 0;
+    }
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -5749,34 +2587,37 @@ BOOL REMaterialParameterBlockGetUInt(re::MaterialParameterBlock *a1, const char 
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "REMaterialParameterBlockGetUInt";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v7, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set float2 'from' value for non-float2 from-to-by animation.", v8, 2u);
     }
-
-    return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, &v7);
-  if ((v9 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v7, 7);
-  if (result)
-  {
-    *a3 = *re::ShaderGraphMaterial::getConstant(a1, &v7);
-    return 1;
-  }
-
-  return result;
+  return v4 == 13;
 }
 
-BOOL REMaterialParameterBlockGetFloat2(re::MaterialParameterBlock *a1, const char *a2, void *a3)
+BOOL RETimelineDefinitionSetFloat2ToValue(_anonymous_namespace_::TimelineDefinition *a1, uint64_t *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v4 = *(v3 + 2);
+  if (v4 == 13)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 104) & 1) == 0)
+      {
+        *(v3 + 104) = 1;
+      }
+
+      *(v3 + 14) = v5;
+    }
+
+    else if (*(v3 + 104))
+    {
+      *(v3 + 104) = 0;
+    }
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -5786,34 +2627,37 @@ BOOL REMaterialParameterBlockGetFloat2(re::MaterialParameterBlock *a1, const cha
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "REMaterialParameterBlockGetFloat2";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v7, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set float2 'to' value for non-float2 from-to-by animation.", v8, 2u);
     }
-
-    return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, &v7);
-  if ((v9 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v7, 32);
-  if (result)
-  {
-    *a3 = *re::ShaderGraphMaterial::getConstant(a1, &v7);
-    return 1;
-  }
-
-  return result;
+  return v4 == 13;
 }
 
-BOOL REMaterialParameterBlockGetInt2(re::MaterialParameterBlock *a1, const char *a2, void *a3)
+BOOL RETimelineDefinitionSetFloat2ByValue(_anonymous_namespace_::TimelineDefinition *a1, uint64_t *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v4 = *(v3 + 2);
+  if (v4 == 13)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 120) & 1) == 0)
+      {
+        *(v3 + 120) = 1;
+      }
+
+      *(v3 + 16) = v5;
+    }
+
+    else if (*(v3 + 120))
+    {
+      *(v3 + 120) = 0;
+    }
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -5823,34 +2667,160 @@ BOOL REMaterialParameterBlockGetInt2(re::MaterialParameterBlock *a1, const char 
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "REMaterialParameterBlockGetInt2";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v7, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set float2 'by' value for non-float2 from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 13;
+}
+
+uint64_t RETimelineDefinitionGetFloat3FromValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 14)
+  {
+    v2 = *(v1 + 96);
+    v3 = v1 + 112;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get float3 'from' value from non-float3 from-to-by animation.", v6, 2u);
     }
 
     return 0;
   }
-
-  re::MaterialParameterBlock::handle(a1, a2, &v7);
-  if ((v9 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v7, 4);
-  if (result)
-  {
-    *a3 = *re::ShaderGraphMaterial::getConstant(a1, &v7);
-    return 1;
-  }
-
-  return result;
 }
 
-BOOL REMaterialParameterBlockGetUInt2(re::MaterialParameterBlock *a1, const char *a2, void *a3)
+uint64_t RETimelineDefinitionGetFloat3ToValue(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 14)
+  {
+    v2 = *(v1 + 128);
+    v3 = v1 + 144;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get float3 'to' value from non-float3 from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetFloat3ByValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 14)
+  {
+    v2 = *(v1 + 160);
+    v3 = v1 + 176;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get float3 'by' value from non-float3 from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+BOOL RETimelineDefinitionSetFloat3FromValue(_anonymous_namespace_::TimelineDefinition *a1, __int128 *a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 14)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 96) & 1) == 0)
+      {
+        *(v3 + 96) = 1;
+      }
+
+      *(v3 + 7) = v5;
+    }
+
+    else if (*(v3 + 96))
+    {
+      *(v3 + 96) = 0;
+    }
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -5860,34 +2830,37 @@ BOOL REMaterialParameterBlockGetUInt2(re::MaterialParameterBlock *a1, const char
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "REMaterialParameterBlockGetUInt2";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v7, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set float3 'from' value for non-float3 from-to-by animation.", v8, 2u);
     }
-
-    return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, &v7);
-  if ((v9 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v7, 8);
-  if (result)
-  {
-    *a3 = *re::ShaderGraphMaterial::getConstant(a1, &v7);
-    return 1;
-  }
-
-  return result;
+  return v4 == 14;
 }
 
-BOOL REMaterialParameterBlockGetFloat3(re::MaterialParameterBlock *a1, const char *a2, _OWORD *a3)
+BOOL RETimelineDefinitionSetFloat3ToValue(_anonymous_namespace_::TimelineDefinition *a1, __int128 *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v4 = *(v3 + 2);
+  if (v4 == 14)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 128) & 1) == 0)
+      {
+        *(v3 + 128) = 1;
+      }
+
+      *(v3 + 9) = v5;
+    }
+
+    else if (*(v3 + 128))
+    {
+      *(v3 + 128) = 0;
+    }
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -5897,148 +2870,701 @@ BOOL REMaterialParameterBlockGetFloat3(re::MaterialParameterBlock *a1, const cha
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "REMaterialParameterBlockGetFloat3";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v7, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set float3 'to' value for non-float3 from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 14;
+}
+
+BOOL RETimelineDefinitionSetFloat3ByValue(_anonymous_namespace_::TimelineDefinition *a1, __int128 *a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 14)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 160) & 1) == 0)
+      {
+        *(v3 + 160) = 1;
+      }
+
+      *(v3 + 11) = v5;
+    }
+
+    else if (*(v3 + 160))
+    {
+      *(v3 + 160) = 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set float3 'by' value for non-float3 from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 14;
+}
+
+uint64_t RETimelineDefinitionGetFloat4FromValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 15)
+  {
+    v2 = *(v1 + 96);
+    v3 = v1 + 112;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get float4 'from' value from non-float4 from-to-by animation.", v6, 2u);
     }
 
     return 0;
   }
-
-  re::MaterialParameterBlock::handle(a1, a2, &v7);
-  if ((v9 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v7, 33);
-  if (result)
-  {
-    *a3 = *re::ShaderGraphMaterial::getConstant(a1, &v7);
-    return 1;
-  }
-
-  return result;
 }
 
-BOOL REMaterialParameterBlockGetColor3(re::MaterialParameterBlock *a1, const char *a2, _OWORD *a3, _BYTE *a4)
+uint64_t RETimelineDefinitionGetFloat4ToValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 15)
+  {
+    v2 = *(v1 + 128);
+    v3 = v1 + 144;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get float4 'to' value from non-float4 from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetFloat4ByValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 15)
+  {
+    v2 = *(v1 + 160);
+    v3 = v1 + 176;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get float4 'by' value from non-float4 from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+BOOL RETimelineDefinitionSetFloat4FromValue(_anonymous_namespace_::TimelineDefinition *a1, __int128 *a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 15)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 96) & 1) == 0)
+      {
+        *(v3 + 96) = 1;
+      }
+
+      *(v3 + 7) = v5;
+    }
+
+    else if (*(v3 + 96))
+    {
+      *(v3 + 96) = 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set float4 'from' value for non-float4 from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 15;
+}
+
+BOOL RETimelineDefinitionSetFloat4ToValue(_anonymous_namespace_::TimelineDefinition *a1, __int128 *a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 15)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 128) & 1) == 0)
+      {
+        *(v3 + 128) = 1;
+      }
+
+      *(v3 + 9) = v5;
+    }
+
+    else if (*(v3 + 128))
+    {
+      *(v3 + 128) = 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set float4 'to' value for non-float4 from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 15;
+}
+
+BOOL RETimelineDefinitionSetFloat4ByValue(_anonymous_namespace_::TimelineDefinition *a1, __int128 *a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 15)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 160) & 1) == 0)
+      {
+        *(v3 + 160) = 1;
+      }
+
+      *(v3 + 11) = v5;
+    }
+
+    else if (*(v3 + 160))
+    {
+      *(v3 + 160) = 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set float4 'by' value for non-float4 from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 15;
+}
+
+uint64_t RETimelineDefinitionGetQuaternionFromValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 16)
+  {
+    v2 = *(v1 + 96);
+    v3 = v1 + 112;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get quaternion 'from' value from non-quaternion from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetQuaternionToValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 16)
+  {
+    v2 = *(v1 + 128);
+    v3 = v1 + 144;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get quaternion 'to' value from non-quaternion from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetQuaternionByValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 16)
+  {
+    v2 = *(v1 + 160);
+    v3 = v1 + 176;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get quaternion 'by' value from non-quaternion from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+BOOL RETimelineDefinitionSetQuaternionFromValue(_anonymous_namespace_::TimelineDefinition *a1, __int128 *a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 16)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 96) & 1) == 0)
+      {
+        *(v3 + 96) = 1;
+      }
+
+      *(v3 + 7) = v5;
+    }
+
+    else if (*(v3 + 96))
+    {
+      *(v3 + 96) = 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set quaternion 'from' value for non-quaternion from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 16;
+}
+
+BOOL RETimelineDefinitionSetQuaternionToValue(_anonymous_namespace_::TimelineDefinition *a1, __int128 *a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 16)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 128) & 1) == 0)
+      {
+        *(v3 + 128) = 1;
+      }
+
+      *(v3 + 9) = v5;
+    }
+
+    else if (*(v3 + 128))
+    {
+      *(v3 + 128) = 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set quaternion 'to' value for non-quaternion from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 16;
+}
+
+BOOL RETimelineDefinitionSetQuaternionByValue(_anonymous_namespace_::TimelineDefinition *a1, __int128 *a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 16)
+  {
+    if (a2)
+    {
+      v5 = *a2;
+      if ((*(v3 + 160) & 1) == 0)
+      {
+        *(v3 + 160) = 1;
+      }
+
+      *(v3 + 11) = v5;
+    }
+
+    else if (*(v3 + 160))
+    {
+      *(v3 + 160) = 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set quaternion 'by' value for non-quaternion from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 16;
+}
+
+uint64_t RETimelineDefinitionGetSRTFromValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 17)
+  {
+    v2 = *(v1 + 96);
+    v3 = v1 + 112;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get RESRT 'from' value from non-RESRT from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetSRTToValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 17)
+  {
+    v2 = *(v1 + 160);
+    v3 = v1 + 176;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get RESRT 'to' value from non-RESRT from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetSRTByValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 17)
+  {
+    v2 = *(v1 + 224);
+    v3 = v1 + 240;
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get RESRT 'by' value from non-RESRT from-to-by animation.", v6, 2u);
+    }
+
+    return 0;
+  }
+}
+
+BOOL RETimelineDefinitionSetSRTFromValue(_anonymous_namespace_::TimelineDefinition *a1, __int128 *a2)
 {
   v15 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v4 = *(v3 + 2);
+  if (v4 == 17)
   {
-    if (CoreRELog::onceToken != -1)
+    if (a2)
     {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      v5 = a2[1];
+      v12 = *a2;
+      v13 = v5;
+      v14 = a2[2];
+      if (*(v3 + 96))
+      {
+        v6 = *a2;
+        v7 = a2[2];
+        *(v3 + 8) = a2[1];
+        *(v3 + 9) = v7;
+        *(v3 + 7) = v6;
+      }
+
+      else
+      {
+        *(v3 + 96) = 1;
+        v9 = v13;
+        *(v3 + 7) = v12;
+        *(v3 + 8) = v9;
+        *(v3 + 9) = v14;
+      }
     }
 
-    v11 = CoreRELog::log;
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    else if (*(v3 + 96))
     {
-      v12 = 136315138;
-      v13 = "REMaterialParameterBlockGetColor3";
-      _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v12, 0xCu);
+      *(v3 + 96) = 0;
     }
-
-    return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, &v12);
-  if ((v14 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v12, 20);
-  if (result)
-  {
-    *&v8 = re::MaterialParameterBlock::colorGamut3FValue(a1, &v12);
-    DWORD2(v8) = v9;
-    *a3 = v8;
-    *a4 = v10;
-    return 1;
-  }
-
-  return result;
-}
-
-BOOL REMaterialParameterBlockGetInt3(re::MaterialParameterBlock *a1, const char *a2, _OWORD *a3)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a1)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v6 = CoreRELog::log;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v7 = 136315138;
-      v8 = "REMaterialParameterBlockGetInt3";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v7, 0xCu);
-    }
-
-    return 0;
-  }
-
-  re::MaterialParameterBlock::handle(a1, a2, &v7);
-  if ((v9 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v7, 5);
-  if (result)
-  {
-    *a3 = *re::ShaderGraphMaterial::getConstant(a1, &v7);
-    return 1;
-  }
-
-  return result;
-}
-
-BOOL REMaterialParameterBlockGetUInt3(re::MaterialParameterBlock *a1, const char *a2, _OWORD *a3)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a1)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v6 = CoreRELog::log;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v7 = 136315138;
-      v8 = "REMaterialParameterBlockGetUInt3";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v7, 0xCu);
-    }
-
-    return 0;
-  }
-
-  re::MaterialParameterBlock::handle(a1, a2, &v7);
-  if ((v9 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v7, 9);
-  if (result)
-  {
-    *a3 = *re::ShaderGraphMaterial::getConstant(a1, &v7);
-    return 1;
-  }
-
-  return result;
-}
-
-BOOL REMaterialParameterBlockGetFloat4(re::MaterialParameterBlock *a1, const char *a2, void *a3)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -6048,37 +3574,52 @@ BOOL REMaterialParameterBlockGetFloat4(re::MaterialParameterBlock *a1, const cha
     v8 = CoreRELog::log;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "REMaterialParameterBlockGetFloat4";
-      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v9, 0xCu);
+      *v11 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "Cannot set RESRT 'from' value for non-RESRT from-to-by animation.", v11, 2u);
     }
-
-    return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, &v9);
-  if ((v11 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v9, 34);
-  if (result)
-  {
-    Constant = re::ShaderGraphMaterial::getConstant(a1, &v9);
-    v7 = Constant[1];
-    *a3 = *Constant;
-    a3[1] = v7;
-    return 1;
-  }
-
-  return result;
+  return v4 == 17;
 }
 
-BOOL REMaterialParameterBlockGetColor4(re::MaterialParameterBlock *a1, const char *a2, _OWORD *a3, _BYTE *a4)
+BOOL RETimelineDefinitionSetSRTToValue(_anonymous_namespace_::TimelineDefinition *a1, __int128 *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v15 = *MEMORY[0x1E69E9840];
+  v4 = *(v3 + 2);
+  if (v4 == 17)
+  {
+    if (a2)
+    {
+      v5 = a2[1];
+      v12 = *a2;
+      v13 = v5;
+      v14 = a2[2];
+      if (*(v3 + 160))
+      {
+        v6 = *a2;
+        v7 = a2[2];
+        *(v3 + 12) = a2[1];
+        *(v3 + 13) = v7;
+        *(v3 + 11) = v6;
+      }
+
+      else
+      {
+        *(v3 + 160) = 1;
+        v9 = v13;
+        *(v3 + 11) = v12;
+        *(v3 + 12) = v9;
+        *(v3 + 13) = v14;
+      }
+    }
+
+    else if (*(v3 + 160))
+    {
+      *(v3 + 160) = 0;
+    }
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -6088,35 +3629,188 @@ BOOL REMaterialParameterBlockGetColor4(re::MaterialParameterBlock *a1, const cha
     v8 = CoreRELog::log;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315138;
-      v12 = "REMaterialParameterBlockGetColor4";
-      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      *v11 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "Cannot set RESRT 'to' value for non-RESRT from-to-by animation.", v11, 2u);
     }
-
-    return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, buf);
-  if ((v13 & 7) == 0)
-  {
-    return 0;
-  }
-
-  if (re::MaterialParameterHandle::isParameterType(buf, 20) || (result = re::MaterialParameterHandle::isParameterType(buf, 21)))
-  {
-    re::MaterialParameterBlock::colorGamut4FValue(a1, buf, &v9);
-    *a3 = v9;
-    *a4 = v10;
-    return 1;
-  }
-
-  return result;
+  return v4 == 17;
 }
 
-BOOL REMaterialParameterBlockGetInt4(re::MaterialParameterBlock *a1, const char *a2, _OWORD *a3)
+BOOL RETimelineDefinitionSetSRTByValue(_anonymous_namespace_::TimelineDefinition *a1, __int128 *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v15 = *MEMORY[0x1E69E9840];
+  v4 = *(v3 + 2);
+  if (v4 == 17)
+  {
+    if (a2)
+    {
+      v5 = a2[1];
+      v12 = *a2;
+      v13 = v5;
+      v14 = a2[2];
+      if (*(v3 + 224))
+      {
+        v6 = *a2;
+        v7 = a2[2];
+        *(v3 + 16) = a2[1];
+        *(v3 + 17) = v7;
+        *(v3 + 15) = v6;
+      }
+
+      else
+      {
+        *(v3 + 224) = 1;
+        v9 = v13;
+        *(v3 + 15) = v12;
+        *(v3 + 16) = v9;
+        *(v3 + 17) = v14;
+      }
+    }
+
+    else if (*(v3 + 224))
+    {
+      *(v3 + 224) = 0;
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v8 = CoreRELog::log;
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      *v11 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "Cannot set RESRT 'by' value for non-RESRT from-to-by animation.", v11, 2u);
+    }
+  }
+
+  return v4 == 17;
+}
+
+uint64_t RETimelineDefinitionGetSkeletalPoseFromJointCount(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 18)
+  {
+    return *(v1 + 232);
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v3 = CoreRELog::log;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    *v4 = 0;
+    _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get Sketetal Pose 'from' joint count for non-SkeletalPose from-to-by animation.", v4, 2u);
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionGetSkeletalPoseToJointCount(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 18)
+  {
+    return *(v1 + 272);
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v3 = CoreRELog::log;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    *v4 = 0;
+    _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get Sketetal Pose 'to' joint count for non-SkeletalPose from-to-by animation.", v4, 2u);
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionGetSkeletalPoseByJointCount(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 18)
+  {
+    return *(v1 + 312);
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v3 = CoreRELog::log;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    *v4 = 0;
+    _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get Sketetal Pose 'by' joint count for non-SkeletalPose from-to-by animation.", v4, 2u);
+  }
+
+  return 0;
+}
+
+BOOL RETimelineDefinitionSetSkeletalPoseFromJointCount(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 18)
+  {
+    v5 = v3;
+    re::DynamicArray<re::StringID>::resize(v3 + 27, a2);
+    if (a2)
+    {
+      if ((*(v5 + 88) & 1) == 0)
+      {
+        v8[0] = 1;
+        v10 = 0;
+        v11 = 0;
+        v9 = 0;
+        re::Optional<re::SkeletalPoseAssetData>::operator=(v5 + 88, v8);
+        if (v8[0] == 1 && v9 && v10)
+        {
+          (*(*v9 + 40))();
+        }
+      }
+    }
+
+    else
+    {
+      v8[0] = 0;
+      re::Optional<re::SkeletalPoseAssetData>::operator=(v5 + 88, v8);
+      if (v8[0] == 1 && v9 && v10)
+      {
+        (*(*v9 + 40))();
+      }
+    }
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -6126,34 +3820,127 @@ BOOL REMaterialParameterBlockGetInt4(re::MaterialParameterBlock *a1, const char 
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "REMaterialParameterBlockGetInt4";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v7, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set Sketetal Pose 'from' joint count for non-SkeletalPose from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 18;
+}
+
+uint64_t *anonymous namespace::resizeFixedArray<re::GenericSRT<float>>(uint64_t *result, unint64_t a2)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  v2 = result[1];
+  if (v2 != a2)
+  {
+    v4 = result;
+    v5 = *result;
+    *result = 0;
+    result[1] = 0;
+    v6 = result[2];
+    result[2] = 0;
+    v7 = re::FixedArray<CoreIKTransform>::deinit(result);
+    if (v2 >= a2)
+    {
+      v8 = a2;
     }
 
-    return 0;
-  }
+    else
+    {
+      v8 = v2;
+    }
 
-  re::MaterialParameterBlock::handle(a1, a2, &v7);
-  if ((v9 & 7) == 0)
-  {
-    return 0;
-  }
+    if (v8)
+    {
+      v9 = 0;
+      for (i = 0; i != v8; ++i)
+      {
+        v11 = v4[1];
+        if (v11 <= i)
+        {
+          v19 = 0;
+          memset(v28, 0, sizeof(v28));
+          v16 = MEMORY[0x1E69E9C10];
+          v20 = 136315906;
+          v21 = "operator[]";
+          v22 = 1024;
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+          {
+            v17 = 3;
+          }
 
-  result = re::MaterialParameterHandle::isParameterType(&v7, 6);
-  if (result)
-  {
-    *a3 = *re::ShaderGraphMaterial::getConstant(a1, &v7);
-    return 1;
+          else
+          {
+            v17 = 2;
+          }
+
+          v23 = 468;
+          v24 = 2048;
+          v25 = i;
+          v26 = 2048;
+          v27 = v11;
+          _os_log_send_and_compose_impl(v17, &v19, v28, 80, &dword_1E1C61000, v16, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v20, 38, v18);
+          _os_crash_msg();
+          __break(1u);
+        }
+
+        v12 = (v4[2] + v9);
+        v13 = *(v6 + v9);
+        v14 = *(v6 + v9 + 32);
+        v12[1] = *(v6 + v9 + 16);
+        v12[2] = v14;
+        *v12 = v13;
+        v9 += 48;
+      }
+    }
+
+    if (v2 && v5)
+    {
+      v15 = *(*v5 + 40);
+
+      return v15(v5, v6);
+    }
   }
 
   return result;
 }
 
-BOOL REMaterialParameterBlockGetUInt4(re::MaterialParameterBlock *a1, const char *a2, _OWORD *a3)
+BOOL RETimelineDefinitionSetSkeletalPoseToJointCount(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v4 = *(v3 + 2);
+  if (v4 == 18)
+  {
+    v5 = v3;
+    re::DynamicArray<re::StringID>::resize(v3 + 32, a2);
+    if (a2)
+    {
+      if ((*(v5 + 120) & 1) == 0)
+      {
+        v8[0] = 1;
+        v10 = 0;
+        v11 = 0;
+        v9 = 0;
+        re::Optional<re::SkeletalPoseAssetData>::operator=(v5 + 120, v8);
+        if (v8[0] == 1 && v9 && v10)
+        {
+          (*(*v9 + 40))();
+        }
+      }
+    }
+
+    else
+    {
+      v8[0] = 0;
+      re::Optional<re::SkeletalPoseAssetData>::operator=(v5 + 120, v8);
+      if (v8[0] == 1 && v9 && v10)
+      {
+        (*(*v9 + 40))();
+      }
+    }
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -6163,34 +3950,49 @@ BOOL REMaterialParameterBlockGetUInt4(re::MaterialParameterBlock *a1, const char
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "REMaterialParameterBlockGetUInt4";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v7, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set Sketetal Pose 'to' joint count for non-SkeletalPose from-to-by animation.", v8, 2u);
     }
-
-    return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, &v7);
-  if ((v9 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v7, 10);
-  if (result)
-  {
-    *a3 = *re::ShaderGraphMaterial::getConstant(a1, &v7);
-    return 1;
-  }
-
-  return result;
+  return v4 == 18;
 }
 
-BOOL REMaterialParameterBlockGetFloat2x2(re::MaterialParameterBlock *a1, const char *a2, _OWORD *a3)
+BOOL RETimelineDefinitionSetSkeletalPoseByJointCount(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v4 = *(v3 + 2);
+  if (v4 == 18)
+  {
+    v5 = v3;
+    re::DynamicArray<re::StringID>::resize(v3 + 37, a2);
+    if (a2)
+    {
+      if ((*(v5 + 152) & 1) == 0)
+      {
+        v8[0] = 1;
+        v10 = 0;
+        v11 = 0;
+        v9 = 0;
+        re::Optional<re::SkeletalPoseAssetData>::operator=(v5 + 152, v8);
+        if (v8[0] == 1 && v9 && v10)
+        {
+          (*(*v9 + 40))();
+        }
+      }
+    }
+
+    else
+    {
+      v8[0] = 0;
+      re::Optional<re::SkeletalPoseAssetData>::operator=(v5 + 152, v8);
+      if (v8[0] == 1 && v9 && v10)
+      {
+        (*(*v9 + 40))();
+      }
+    }
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -6200,82 +4002,357 @@ BOOL REMaterialParameterBlockGetFloat2x2(re::MaterialParameterBlock *a1, const c
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "REMaterialParameterBlockGetFloat2x2";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v7, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set Sketetal Pose 'by' joint count for non-SkeletalPose from-to-by animation.", v8, 2u);
     }
-
-    return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, &v7);
-  if ((v9 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v7, 48);
-  if (result)
-  {
-    *a3 = *re::ShaderGraphMaterial::getConstant(a1, &v7);
-    return 1;
-  }
-
-  return result;
+  return v4 == 18;
 }
 
-BOOL REMaterialParameterBlockGetFloat3x3(re::MaterialParameterBlock *a1, const char *a2, uint64_t a3)
+BOOL RETimelineDefinitionSetSkeletalPoseFromJointNames(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, unint64_t a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v30 = *MEMORY[0x1E69E9840];
+  v6 = RETimelineDefinitionSetSkeletalPoseFromJointCount(a1, a3);
+  if (v6)
+  {
+    if (a3)
+    {
+      v8 = v7;
+      v9 = 0;
+      v10 = 0;
+      do
+      {
+        v11 = *(a2 + 8 * v10);
+        v18 = 0;
+        v19 = &str_67;
+        v12 = *(v8 + 29);
+        if (v12 <= v10)
+        {
+          v20 = 0;
+          memset(v29, 0, sizeof(v29));
+          v14 = MEMORY[0x1E69E9C10];
+          v15 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v21 = 136315906;
+          v22 = "operator[]";
+          v23 = 1024;
+          if (v15)
+          {
+            v16 = 3;
+          }
+
+          else
+          {
+            v16 = 2;
+          }
+
+          v24 = 789;
+          v25 = 2048;
+          v26 = v10;
+          v27 = 2048;
+          v28 = v12;
+          _os_log_send_and_compose_impl(v16, &v20, v29, 80, &dword_1E1C61000, v14, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v21, 38, v17, v18);
+          _os_crash_msg();
+          __break(1u);
+        }
+
+        v7 = re::StringID::operator=((*(v8 + 31) + v9), &v18);
+        if (v18)
+        {
+          if (v18)
+          {
+          }
+        }
+
+        ++v10;
+        v9 += 16;
+      }
+
+      while (a3 != v10);
+    }
+  }
+
+  return v6;
+}
+
+BOOL RETimelineDefinitionSetSkeletalPoseToJointNames(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, unint64_t a3)
+{
+  v30 = *MEMORY[0x1E69E9840];
+  v6 = RETimelineDefinitionSetSkeletalPoseToJointCount(a1, a3);
+  if (v6)
+  {
+    if (a3)
+    {
+      v8 = v7;
+      v9 = 0;
+      v10 = 0;
+      do
+      {
+        v11 = *(a2 + 8 * v10);
+        v18 = 0;
+        v19 = &str_67;
+        v12 = *(v8 + 34);
+        if (v12 <= v10)
+        {
+          v20 = 0;
+          memset(v29, 0, sizeof(v29));
+          v14 = MEMORY[0x1E69E9C10];
+          v15 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v21 = 136315906;
+          v22 = "operator[]";
+          v23 = 1024;
+          if (v15)
+          {
+            v16 = 3;
+          }
+
+          else
+          {
+            v16 = 2;
+          }
+
+          v24 = 789;
+          v25 = 2048;
+          v26 = v10;
+          v27 = 2048;
+          v28 = v12;
+          _os_log_send_and_compose_impl(v16, &v20, v29, 80, &dword_1E1C61000, v14, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v21, 38, v17, v18);
+          _os_crash_msg();
+          __break(1u);
+        }
+
+        v7 = re::StringID::operator=((*(v8 + 36) + v9), &v18);
+        if (v18)
+        {
+          if (v18)
+          {
+          }
+        }
+
+        ++v10;
+        v9 += 16;
+      }
+
+      while (a3 != v10);
+    }
+  }
+
+  return v6;
+}
+
+BOOL RETimelineDefinitionSetSkeletalPoseByJointNames(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, unint64_t a3)
+{
+  v30 = *MEMORY[0x1E69E9840];
+  v6 = RETimelineDefinitionSetSkeletalPoseByJointCount(a1, a3);
+  if (v6)
+  {
+    if (a3)
+    {
+      v8 = v7;
+      v9 = 0;
+      v10 = 0;
+      do
+      {
+        v11 = *(a2 + 8 * v10);
+        v18 = 0;
+        v19 = &str_67;
+        v12 = *(v8 + 39);
+        if (v12 <= v10)
+        {
+          v20 = 0;
+          memset(v29, 0, sizeof(v29));
+          v14 = MEMORY[0x1E69E9C10];
+          v15 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v21 = 136315906;
+          v22 = "operator[]";
+          v23 = 1024;
+          if (v15)
+          {
+            v16 = 3;
+          }
+
+          else
+          {
+            v16 = 2;
+          }
+
+          v24 = 789;
+          v25 = 2048;
+          v26 = v10;
+          v27 = 2048;
+          v28 = v12;
+          _os_log_send_and_compose_impl(v16, &v20, v29, 80, &dword_1E1C61000, v14, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v21, 38, v17, v18);
+          _os_crash_msg();
+          __break(1u);
+        }
+
+        v7 = re::StringID::operator=((*(v8 + 41) + v9), &v18);
+        if (v18)
+        {
+          if (v18)
+          {
+          }
+        }
+
+        ++v10;
+        v9 += 16;
+      }
+
+      while (a3 != v10);
+    }
+  }
+
+  return v6;
+}
+
+uint64_t RETimelineDefinitionGetSkeletalPoseFromJointName(uint64_t a1, unint64_t a2)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 48);
+  if (!v3)
+  {
+    v3 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v3 + 8) == 18)
+  {
+    if (*(v3 + 232) > a2)
+    {
+      return *(*(v3 + 248) + 16 * a2 + 8);
+    }
+
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 134217984;
+      v8 = a2;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot get Sketetal Pose 'from' joint name, invalid joint index: %zu.", &v7, 0xCu);
+    }
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
       dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
     }
 
-    v12 = CoreRELog::log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315138;
-      v14 = "REMaterialParameterBlockGetFloat3x3";
-      _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v13, 0xCu);
+      LOWORD(v7) = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get Sketetal Pose 'from' joint name for non-SkeletalPose from-to-by animation.", &v7, 2u);
     }
-
-    return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, &v13);
-  if ((v15 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v13, 49);
-  if (result)
-  {
-    Constant = re::ShaderGraphMaterial::getConstant(a1, &v13);
-    v7 = *(Constant + 8);
-    v8 = *(Constant + 24);
-    v9 = *(Constant + 16);
-    v10 = *(Constant + 40);
-    v11 = *(Constant + 32);
-    *a3 = *Constant;
-    *(a3 + 8) = v7;
-    *(a3 + 16) = v9;
-    *(a3 + 24) = v8;
-    *(a3 + 32) = v11;
-    *(a3 + 40) = v10;
-    return 1;
-  }
-
-  return result;
+  return 0;
 }
 
-BOOL REMaterialParameterBlockGetFloat4x4(re::MaterialParameterBlock *a1, const char *a2, _OWORD *a3)
+uint64_t RETimelineDefinitionGetSkeletalPoseToJointName(uint64_t a1, unint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 48);
+  if (!v3)
+  {
+    v3 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v3 + 8) == 18)
+  {
+    if (*(v3 + 272) > a2)
+    {
+      return *(*(v3 + 288) + 16 * a2 + 8);
+    }
+
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 134217984;
+      v8 = a2;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot get Sketetal Pose 'to' joint name, invalid joint index: %zu.", &v7, 0xCu);
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v7) = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get Sketetal Pose 'to' joint name for non-SkeletalPose from-to-by animation.", &v7, 2u);
+    }
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionGetSkeletalPoseByJointName(uint64_t a1, unint64_t a2)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 48);
+  if (!v3)
+  {
+    v3 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v3 + 8) == 18)
+  {
+    if (*(v3 + 312) > a2)
+    {
+      return *(*(v3 + 328) + 16 * a2 + 8);
+    }
+
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 134217984;
+      v8 = a2;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot get Sketetal Pose 'by' joint name, invalid joint index: %zu.", &v7, 0xCu);
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v7) = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get Sketetal Pose 'by' joint name for non-SkeletalPose from-to-by animation.", &v7, 2u);
+    }
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionSetSkeletalPoseFromJointName(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, const char *a3)
+{
+  v32 = *MEMORY[0x1E69E9840];
+  if (*(v5 + 2) != 18)
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -6285,54 +4362,277 @@ BOOL REMaterialParameterBlockGetFloat4x4(re::MaterialParameterBlock *a1, const c
     v10 = CoreRELog::log;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "REMaterialParameterBlockGetFloat4x4";
-      _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v11, 0xCu);
+      *buf = 0;
+      _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Cannot set Sketetal Pose 'from' joint name for non-SkeletalPose from-to-by animation.", buf, 2u);
     }
 
     return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, &v11);
-  if ((v13 & 7) == 0)
-  {
-    return 0;
-  }
-
-  result = re::MaterialParameterHandle::isParameterType(&v11, 49);
-  if (result)
-  {
-    Constant = re::ShaderGraphMaterial::getConstant(a1, &v11);
-    v7 = Constant[1];
-    v8 = Constant[2];
-    v9 = Constant[3];
-    *a3 = *Constant;
-    a3[1] = v7;
-    a3[2] = v8;
-    a3[3] = v9;
-    return 1;
-  }
-
-  return result;
-}
-
-void REMaterialParameterBlockSetTexture(re::MaterialParameterBlock *a1, const char *a2, void *a3)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  v5 = a3;
   v6 = v5;
-  if (a1)
+  if (*(v5 + 29) <= a2)
   {
-    v10 = v5;
-    v7 = v5;
-    re::TextureManager::registerTexture(*(*(a1 + 121) + 56), &v10, buf);
-    if (v10)
+    if (CoreRELog::onceToken == -1)
+    {
+LABEL_14:
+      v11 = CoreRELog::log;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 134217984;
+        *&buf[4] = a2;
+        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Cannot set Sketetal Pose 'from' joint name, invalid joint index: %zu.", buf, 0xCu);
+      }
+
+      return 0;
+    }
+
+LABEL_22:
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    goto LABEL_14;
+  }
+
+  v16 = 0;
+  v17 = &str_67;
+  v7 = *(v6 + 29);
+  if (v7 <= a2)
+  {
+    v18 = 0;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    *buf = 0u;
+    v12 = MEMORY[0x1E69E9C10];
+    v13 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v19 = 136315906;
+    v20 = "operator[]";
+    v21 = 1024;
+    if (v13)
+    {
+      v14 = 3;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    v22 = 789;
+    v23 = 2048;
+    v24 = a2;
+    v25 = 2048;
+    v26 = v7;
+    _os_log_send_and_compose_impl(v14, &v18, buf, 80, &dword_1E1C61000, v12, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v19, 38, v15, v16);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_22;
+  }
+
+  v8 = re::StringID::operator=((*(v6 + 31) + 16 * a2), &v16);
+  if (v16)
+  {
+    if (v16)
     {
     }
+  }
 
-    re::MaterialParameterBlock::setTextureHandle(a1, a2, buf, v9);
-    v9[0] = 0;
-    re::TextureHandle::invalidate(buf);
+  return 1;
+}
+
+uint64_t RETimelineDefinitionSetSkeletalPoseToJointName(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, const char *a3)
+{
+  v32 = *MEMORY[0x1E69E9840];
+  if (*(v5 + 2) != 18)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v10 = CoreRELog::log;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Cannot set Sketetal Pose 'to' joint name for non-SkeletalPose from-to-by animation.", buf, 2u);
+    }
+
+    return 0;
+  }
+
+  v6 = v5;
+  if (*(v5 + 34) <= a2)
+  {
+    if (CoreRELog::onceToken == -1)
+    {
+LABEL_14:
+      v11 = CoreRELog::log;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 134217984;
+        *&buf[4] = a2;
+        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Cannot set Sketetal Pose 'to' joint name, invalid joint index: %zu.", buf, 0xCu);
+      }
+
+      return 0;
+    }
+
+LABEL_22:
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    goto LABEL_14;
+  }
+
+  v16 = 0;
+  v17 = &str_67;
+  v7 = *(v6 + 34);
+  if (v7 <= a2)
+  {
+    v18 = 0;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    *buf = 0u;
+    v12 = MEMORY[0x1E69E9C10];
+    v13 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v19 = 136315906;
+    v20 = "operator[]";
+    v21 = 1024;
+    if (v13)
+    {
+      v14 = 3;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    v22 = 789;
+    v23 = 2048;
+    v24 = a2;
+    v25 = 2048;
+    v26 = v7;
+    _os_log_send_and_compose_impl(v14, &v18, buf, 80, &dword_1E1C61000, v12, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v19, 38, v15, v16);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_22;
+  }
+
+  v8 = re::StringID::operator=((*(v6 + 36) + 16 * a2), &v16);
+  if (v16)
+  {
+    if (v16)
+    {
+    }
+  }
+
+  return 1;
+}
+
+uint64_t RETimelineDefinitionSetSkeletalPoseByJointName(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, const char *a3)
+{
+  v32 = *MEMORY[0x1E69E9840];
+  if (*(v5 + 2) != 18)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v10 = CoreRELog::log;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Cannot set Sketetal Pose 'by' joint name for non-SkeletalPose from-to-by animation.", buf, 2u);
+    }
+
+    return 0;
+  }
+
+  v6 = v5;
+  if (*(v5 + 39) <= a2)
+  {
+    if (CoreRELog::onceToken == -1)
+    {
+LABEL_14:
+      v11 = CoreRELog::log;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 134217984;
+        *&buf[4] = a2;
+        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Cannot set Sketetal Pose 'by' joint name, invalid joint index: %zu.", buf, 0xCu);
+      }
+
+      return 0;
+    }
+
+LABEL_22:
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    goto LABEL_14;
+  }
+
+  v16 = 0;
+  v17 = &str_67;
+  v7 = *(v6 + 39);
+  if (v7 <= a2)
+  {
+    v18 = 0;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    *buf = 0u;
+    v12 = MEMORY[0x1E69E9C10];
+    v13 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v19 = 136315906;
+    v20 = "operator[]";
+    v21 = 1024;
+    if (v13)
+    {
+      v14 = 3;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    v22 = 789;
+    v23 = 2048;
+    v24 = a2;
+    v25 = 2048;
+    v26 = v7;
+    _os_log_send_and_compose_impl(v14, &v18, buf, 80, &dword_1E1C61000, v12, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v19, 38, v15, v16);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_22;
+  }
+
+  v8 = re::StringID::operator=((*(v6 + 41) + 16 * a2), &v16);
+  if (v16)
+  {
+    if (v16)
+    {
+    }
+  }
+
+  return 1;
+}
+
+uint64_t RETimelineDefinitionGetSkeletalPoseFromValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 18)
+  {
+    if (*(v1 + 88) == 1)
+    {
+      return *(v1 + 112);
+    }
   }
 
   else
@@ -6342,76 +4642,257 @@ void REMaterialParameterBlockSetTexture(re::MaterialParameterBlock *a1, const ch
       dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
     }
 
-    v8 = CoreRELog::log;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v3 = CoreRELog::log;
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315138;
-      v12 = "REMaterialParameterBlockSetTexture";
-      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      *v4 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get Sketetal Pose 'from' joint values for non-SkeletalPose from-to-by animation.", v4, 2u);
     }
   }
+
+  return 0;
 }
 
-void REMaterialParameterBlockSetBuffer(re::MaterialParameterBlock *a1, char *a2, void *a3)
+uint64_t RETimelineDefinitionGetSkeletalPoseToValue(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v5 = a3;
-  v6 = v5;
-  if (a1)
+  v1 = *(a1 + 48);
+  if (!v1)
   {
-    v7 = v5;
-    v9[0] = v6;
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 18)
+  {
+    if (*(v1 + 120) == 1)
+    {
+      return *(v1 + 144);
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v3 = CoreRELog::log;
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      *v4 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get Sketetal Pose 'to' joint values for non-SkeletalPose from-to-by animation.", v4, 2u);
+    }
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionGetSkeletalPoseByValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 18)
+  {
+    if (*(v1 + 152) == 1)
+    {
+      return *(v1 + 176);
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v3 = CoreRELog::log;
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      *v4 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get Sketetal Pose 'by' joint values for non-SkeletalPose from-to-by animation.", v4, 2u);
+    }
+  }
+
+  return 0;
+}
+
+BOOL RETimelineDefinitionSetSkeletalPoseFromValue(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, unint64_t a3)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  v6 = RETimelineDefinitionSetSkeletalPoseFromJointCount(a1, a3);
+  v7 = v6;
+  if (a3 && v6)
+  {
+    v9 = 0;
     v10 = 0;
-    v11 = 0;
-    v12 = [v6 length];
-    re::MaterialParameterBlock::setBuffer(a1, a2, v9, v13);
-    v13[0] = 0;
-    if (v10 != -1)
+    do
     {
-      (off_1F5D2EB10[v10])(buf, v9);
+      v11 = *(v8 + 13);
+      if (v11 <= v10)
+      {
+        v19 = 0;
+        memset(v28, 0, sizeof(v28));
+        v16 = MEMORY[0x1E69E9C10];
+        v20 = 136315906;
+        v21 = "operator[]";
+        v22 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v17 = 3;
+        }
+
+        else
+        {
+          v17 = 2;
+        }
+
+        v23 = 468;
+        v24 = 2048;
+        v25 = v10;
+        v26 = 2048;
+        v27 = v11;
+        _os_log_send_and_compose_impl(v17, &v19, v28, 80, &dword_1E1C61000, v16, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v20, 38, v18);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      v12 = (*(v8 + 14) + v9);
+      v13 = *(a2 + v9);
+      v14 = *(a2 + v9 + 32);
+      v12[1] = *(a2 + v9 + 16);
+      v12[2] = v14;
+      *v12 = v13;
+      ++v10;
+      v9 += 48;
     }
 
-    v10 = -1;
-    if (v6)
-    {
-    }
+    while (a3 != v10);
   }
 
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v8 = CoreRELog::log;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v15 = "REMaterialParameterBlockSetBuffer";
-      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-  }
+  return v7;
 }
 
-void REMaterialParameterBlockSetBufferOffsetSize(re::MaterialParameterBlock *a1, char *a2, id a3, int a4, int a5)
+BOOL RETimelineDefinitionSetSkeletalPoseToValue(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, unint64_t a3)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  v6 = RETimelineDefinitionSetSkeletalPoseToJointCount(a1, a3);
+  v7 = v6;
+  if (a3 && v6)
+  {
+    v9 = 0;
+    v10 = 0;
+    do
+    {
+      v11 = *(v8 + 17);
+      if (v11 <= v10)
+      {
+        v19 = 0;
+        memset(v28, 0, sizeof(v28));
+        v16 = MEMORY[0x1E69E9C10];
+        v20 = 136315906;
+        v21 = "operator[]";
+        v22 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v17 = 3;
+        }
+
+        else
+        {
+          v17 = 2;
+        }
+
+        v23 = 468;
+        v24 = 2048;
+        v25 = v10;
+        v26 = 2048;
+        v27 = v11;
+        _os_log_send_and_compose_impl(v17, &v19, v28, 80, &dword_1E1C61000, v16, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v20, 38, v18);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      v12 = (*(v8 + 18) + v9);
+      v13 = *(a2 + v9);
+      v14 = *(a2 + v9 + 32);
+      v12[1] = *(a2 + v9 + 16);
+      v12[2] = v14;
+      *v12 = v13;
+      ++v10;
+      v9 += 48;
+    }
+
+    while (a3 != v10);
+  }
+
+  return v7;
+}
+
+BOOL RETimelineDefinitionSetSkeletalPoseByValue(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, unint64_t a3)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  v6 = RETimelineDefinitionSetSkeletalPoseByJointCount(a1, a3);
+  v7 = v6;
+  if (a3 && v6)
+  {
+    v9 = 0;
+    v10 = 0;
+    do
+    {
+      v11 = *(v8 + 21);
+      if (v11 <= v10)
+      {
+        v19 = 0;
+        memset(v28, 0, sizeof(v28));
+        v16 = MEMORY[0x1E69E9C10];
+        v20 = 136315906;
+        v21 = "operator[]";
+        v22 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v17 = 3;
+        }
+
+        else
+        {
+          v17 = 2;
+        }
+
+        v23 = 468;
+        v24 = 2048;
+        v25 = v10;
+        v26 = 2048;
+        v27 = v11;
+        _os_log_send_and_compose_impl(v17, &v19, v28, 80, &dword_1E1C61000, v16, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v20, 38, v18);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      v12 = (*(v8 + 22) + v9);
+      v13 = *(a2 + v9);
+      v14 = *(a2 + v9 + 32);
+      v12[1] = *(a2 + v9 + 16);
+      v12[2] = v14;
+      *v12 = v13;
+      ++v10;
+      v9 += 48;
+    }
+
+    while (a3 != v10);
+  }
+
+  return v7;
+}
+
+uint64_t RETimelineDefinitionSetSkeletalPoseFromJointValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, __n128 a3, __n128 a4, __n128 a5)
 {
   v17 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    v10[0] = a3;
-    v11 = 0;
-    v12 = a4;
-    v13 = a5;
-    re::MaterialParameterBlock::setBuffer(a1, a2, v10, v14);
-    v14[0] = 0;
-    if (v11 != -1)
-    {
-      (off_1F5D2EB10[v11])(buf, v10);
-    }
-  }
-
-  else
+  if (*(v6 + 2) != 18)
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -6419,275 +4900,318 @@ void REMaterialParameterBlockSetBufferOffsetSize(re::MaterialParameterBlock *a1,
     }
 
     v9 = CoreRELog::log;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315138;
-      v16 = "REMaterialParameterBlockSetBufferOffsetSize";
-      _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      goto LABEL_12;
     }
-  }
-}
 
-void REMaterialParameterBlockSetSampler(re::MaterialParameterBlock *a1, char *a2, void *a3)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  v5 = a3;
-  v6 = v5;
-  if (a1)
-  {
-    v9 = v5;
-    v7 = v5;
-    re::MaterialParameterBlock::setSampler(a1, a2, &v9, v10);
-    v10[0] = 0;
-    if (v6)
-    {
-    }
+    *buf = 0;
+    v10 = "Cannot set Sketetal Pose 'from' joint value for non-SkeletalPose from-to-by animation.";
+    goto LABEL_20;
   }
 
-  else
+  if ((*(v6 + 88) & 1) == 0)
   {
     if (CoreRELog::onceToken != -1)
     {
       dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
     }
 
-    v8 = CoreRELog::log;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = CoreRELog::log;
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315138;
-      v12 = "REMaterialParameterBlockSetSampler";
-      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      goto LABEL_12;
     }
+
+    *buf = 0;
+    v10 = "Cannot set Sketetal Pose 'from' joint value for invalid 'from' pose.";
+LABEL_20:
+    _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, v10, buf, 2u);
+LABEL_12:
+
+    return 0;
   }
-}
 
-uint64_t REMaterialParameterBlockSetDepthBiasState(uint64_t a1, float a2, float a3, float a4)
-{
-  v5[0] = 1;
-  v6 = a2;
-  v7 = a3;
-  v8 = a4;
-  return re::MaterialParameterBlock::setDepthBiasState(a1, v5);
-}
-
-uint64_t REMaterialParameterBlockGetDepthBiasState(uint64_t a1, _DWORD *a2, _DWORD *a3, _DWORD *a4)
-{
-  result = *(a1 + 948);
-  if (result == 1)
+  if (*(v6 + 13) > a2)
   {
-    v6 = *(a1 + 956);
-    v7 = *(a1 + 960);
+    v7 = (*(v6 + 14) + 48 * a2);
+    *v7 = a3;
+    v7[1] = a4;
+    v7[2] = a5;
+    return 1;
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v11 = CoreRELog::log;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 134217984;
+    v16 = a2;
+    _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Cannot set Sketetal Pose 'from' joint value, invalid joint index: %zu.", buf, 0xCu);
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionSetSkeletalPoseToJointValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, __n128 a3, __n128 a4, __n128 a5)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  if (*(v6 + 2) != 18)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v9 = CoreRELog::log;
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    *buf = 0;
+    v10 = "Cannot set Sketetal Pose 'to' joint value for non-SkeletalPose from-to-by animation.";
+    goto LABEL_20;
+  }
+
+  if ((*(v6 + 120) & 1) == 0)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v9 = CoreRELog::log;
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    *buf = 0;
+    v10 = "Cannot set Sketetal Pose 'to' joint value for invalid 'to' pose.";
+LABEL_20:
+    _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, v10, buf, 2u);
+LABEL_12:
+
+    return 0;
+  }
+
+  if (*(v6 + 17) > a2)
+  {
+    v7 = (*(v6 + 18) + 48 * a2);
+    *v7 = a3;
+    v7[1] = a4;
+    v7[2] = a5;
+    return 1;
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v11 = CoreRELog::log;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 134217984;
+    v16 = a2;
+    _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Cannot set Sketetal Pose 'to' joint value, invalid joint index: %zu.", buf, 0xCu);
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionSetSkeletalPoseByJointValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, __n128 a3, __n128 a4, __n128 a5)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  if (*(v6 + 2) != 18)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v9 = CoreRELog::log;
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    *buf = 0;
+    v10 = "Cannot set Sketetal Pose 'by' joint value for non-SkeletalPose from-to-by animation.";
+    goto LABEL_20;
+  }
+
+  if ((*(v6 + 152) & 1) == 0)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v9 = CoreRELog::log;
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    *buf = 0;
+    v10 = "Cannot set Sketetal Pose 'by' joint value for invalid 'by' pose.";
+LABEL_20:
+    _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, v10, buf, 2u);
+LABEL_12:
+
+    return 0;
+  }
+
+  if (*(v6 + 21) > a2)
+  {
+    v7 = (*(v6 + 22) + 48 * a2);
+    *v7 = a3;
+    v7[1] = a4;
+    v7[2] = a5;
+    return 1;
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v11 = CoreRELog::log;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 134217984;
+    v16 = a2;
+    _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Cannot set Sketetal Pose 'by' joint value, invalid joint index: %zu.", buf, 0xCu);
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionGetBlendShapeWeightsFromWeightCount(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 50)
+  {
+    return *(v1 + 208);
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v3 = CoreRELog::log;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    *v4 = 0;
+    _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get Blend Shape Weights 'from' weight count for non-BlendShapeWeights from-to-by animation.", v4, 2u);
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionGetBlendShapeWeightsToWeightCount(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 50)
+  {
+    return *(v1 + 248);
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v3 = CoreRELog::log;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    *v4 = 0;
+    _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get Blend Shape Weights 'to' weight count for non-BlendShapeWeights from-to-by animation.", v4, 2u);
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionGetBlendShapeWeightsByWeightCount(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 50)
+  {
+    return *(v1 + 288);
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v3 = CoreRELog::log;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    *v4 = 0;
+    _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get Blend Shape Weights 'by' weight count for non-BlendShapeWeights from-to-by animation.", v4, 2u);
+  }
+
+  return 0;
+}
+
+BOOL RETimelineDefinitionSetBlendShapeWeightsFromWeightCount(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 50)
+  {
+    v5 = v3;
+    re::DynamicArray<re::StringID>::resize(v3 + 24, a2);
     if (a2)
     {
-      *a2 = *(a1 + 952);
-    }
-
-    if (a3)
-    {
-      *a3 = v6;
-    }
-
-    if (a4)
-    {
-      *a4 = v7;
-    }
-  }
-
-  return result;
-}
-
-BOOL REMaterialParameterBlockBindTextureToSamplerWithDefaultArray(void *a1, char *a2, char *a3, void *a4)
-{
-  v7 = a4;
-  v22 = v7;
-  v8 = v7;
-  re::MaterialSamplerData::fromDescriptor(&v22, v23);
-  if (v7)
-  {
-  }
-
-  if (a2)
-  {
-    v9 = *a2;
-    if (*a2)
-    {
-      v10 = a2[1];
-      if (v10)
+      if ((*(v5 + 88) & 1) == 0)
       {
-        v11 = (a2 + 2);
-        do
+        v8[0] = 1;
+        v10 = 0;
+        v11 = 0;
+        v9 = 0;
+        re::Optional<re::SkeletalPoseAssetData>::operator=(v5 + 88, v8);
+        if (v8[0] == 1 && v9 && v10)
         {
-          v9 = 31 * v9 + v10;
-          v12 = *v11++;
-          v10 = v12;
+          (*(*v9 + 40))();
         }
-
-        while (v12);
       }
-
-      v9 &= ~0x8000000000000000;
     }
-  }
 
-  else
-  {
-    v9 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  v21 = v9;
-  if (a3)
-  {
-    v13 = *a3;
-    if (*a3)
+    else
     {
-      v14 = a3[1];
-      if (v14)
+      v8[0] = 0;
+      re::Optional<re::SkeletalPoseAssetData>::operator=(v5 + 88, v8);
+      if (v8[0] == 1 && v9 && v10)
       {
-        v15 = (a3 + 2);
-        do
-        {
-          v13 = 31 * v13 + v14;
-          v16 = *v15++;
-          v14 = v16;
-        }
-
-        while (v16);
+        (*(*v9 + 40))();
       }
-
-      v13 &= ~0x8000000000000000;
     }
   }
 
   else
-  {
-    v13 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  v20 = v13;
-  v17 = re::MaterialSamplerData::hash(v23);
-  v18 = re::MaterialParameterBlock::bindTextureToSampler(a1, &v21, &v20, v17);
-  v20 = 0;
-  v21 = 0;
-
-  return v18;
-}
-
-BOOL REMaterialParameterBlockUnbindTextureFromSamplers(re::MaterialParameterBlock *a1, char *a2)
-{
-  if (a2)
-  {
-    v2 = *a2;
-    if (*a2)
-    {
-      v3 = a2[1];
-      if (v3)
-      {
-        v4 = (a2 + 2);
-        do
-        {
-          v2 = 31 * v2 + v3;
-          v5 = *v4++;
-          v3 = v5;
-        }
-
-        while (v5);
-      }
-
-      v2 &= ~0x8000000000000000;
-    }
-  }
-
-  else
-  {
-    v2 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  v7 = v2;
-  return re::MaterialParameterBlock::unbindTextureFromSamplers(a1, &v7);
-}
-
-id REMaterialParameterBlockGetTexture(re::MaterialParameterBlock *a1, const char *a2)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  if (!a1)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v5 = CoreRELog::log;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v10 = "REMaterialParameterBlockGetTexture";
-      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
-    }
-
-    goto LABEL_12;
-  }
-
-  re::MaterialParameterBlock::handle(a1, a2, buf);
-  if ((v11 & 7) == 0 || !re::MaterialParameterHandle::isParameterType(buf, 64))
-  {
-LABEL_12:
-    v4 = 0;
-    goto LABEL_13;
-  }
-
-  re::MaterialParameterBlock::textureHandleValue(a1, buf, v7);
-  re::TextureHandle::metalTexture(v7, &v8);
-  v3 = v8;
-  v4 = v3;
-  if (v3)
-  {
-  }
-
-  re::TextureHandle::invalidate(v7);
-LABEL_13:
-
-  return v4;
-}
-
-id REMaterialParameterBlockGetBuffer(re::MaterialParameterBlock *a1, const char *a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    re::MaterialParameterBlock::handle(a1, a2, &v6);
-    if ((v8 & 7) != 0 && re::MaterialParameterHandle::isParameterType(&v6, 128))
-    {
-      v3 = *re::MaterialParameterBlock::bufferValue(a1, &v6);
-      goto LABEL_11;
-    }
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v4 = CoreRELog::log;
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      v6 = 136315138;
-      v7 = "REMaterialParameterBlockGetBuffer";
-      _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", &v6, 0xCu);
-    }
-  }
-
-  v3 = 0;
-LABEL_11:
-
-  return v3;
-}
-
-CFStringRef REMaterialParameterBlockCopyTextureBindingStructName(re::MaterialParameterBlock *a1, const char *a2)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  if (!a1)
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -6697,36 +5221,2440 @@ CFStringRef REMaterialParameterBlockCopyTextureBindingStructName(re::MaterialPar
     v6 = CoreRELog::log;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315138;
-      v9 = "REMaterialParameterBlockCopyTextureBindingStructName";
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'from' weight count for non-BlendShapeWeights from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 50;
+}
+
+void anonymous namespace::resizeFixedArray<float>(uint64_t *a1, unint64_t a2)
+{
+  v26 = *MEMORY[0x1E69E9840];
+  v2 = a1[1];
+  if (v2 != a2)
+  {
+    v5 = *a1;
+    *a1 = 0;
+    a1[1] = 0;
+    v6 = a1[2];
+    a1[2] = 0;
+    v7 = re::FixedArray<CoreIKTransform>::deinit(a1);
+    if (v2 >= a2)
+    {
+      v8 = a2;
+    }
+
+    else
+    {
+      v8 = v2;
+    }
+
+    if (v8)
+    {
+      v9 = 0;
+      v11 = a1[1];
+      v10 = a1[2];
+      do
+      {
+        if (v11 == v9)
+        {
+          v16 = 0;
+          memset(v25, 0, sizeof(v25));
+          v13 = MEMORY[0x1E69E9C10];
+          v17 = 136315906;
+          v18 = "operator[]";
+          v19 = 1024;
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+          {
+            v14 = 3;
+          }
+
+          else
+          {
+            v14 = 2;
+          }
+
+          v20 = 468;
+          v21 = 2048;
+          v22 = v11;
+          v23 = 2048;
+          v24 = v11;
+          _os_log_send_and_compose_impl(v14, &v16, v25, 80, &dword_1E1C61000, v13, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v17, 38, v15);
+          _os_crash_msg();
+          __break(1u);
+        }
+
+        *(v10 + 4 * v9) = *(v6 + 4 * v9);
+        ++v9;
+      }
+
+      while (v8 != v9);
+    }
+
+    if (v2 && v5)
+    {
+      v12 = *(*v5 + 40);
+
+      v12(v5, v6);
+    }
+  }
+}
+
+BOOL RETimelineDefinitionSetBlendShapeWeightsToWeightCount(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 50)
+  {
+    v5 = v3;
+    re::DynamicArray<re::StringID>::resize(v3 + 29, a2);
+    if (a2)
+    {
+      if ((*(v5 + 120) & 1) == 0)
+      {
+        v8[0] = 1;
+        v10 = 0;
+        v11 = 0;
+        v9 = 0;
+        re::Optional<re::SkeletalPoseAssetData>::operator=(v5 + 120, v8);
+        if (v8[0] == 1 && v9 && v10)
+        {
+          (*(*v9 + 40))();
+        }
+      }
+    }
+
+    else
+    {
+      v8[0] = 0;
+      re::Optional<re::SkeletalPoseAssetData>::operator=(v5 + 120, v8);
+      if (v8[0] == 1 && v9 && v10)
+      {
+        (*(*v9 + 40))();
+      }
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'to' weight count for non-BlendShapeWeights from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 50;
+}
+
+BOOL RETimelineDefinitionSetBlendShapeWeightsByWeightCount(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 50)
+  {
+    v5 = v3;
+    re::DynamicArray<re::StringID>::resize(v3 + 34, a2);
+    if (a2)
+    {
+      if ((*(v5 + 152) & 1) == 0)
+      {
+        v8[0] = 1;
+        v10 = 0;
+        v11 = 0;
+        v9 = 0;
+        re::Optional<re::SkeletalPoseAssetData>::operator=(v5 + 152, v8);
+        if (v8[0] == 1 && v9 && v10)
+        {
+          (*(*v9 + 40))();
+        }
+      }
+    }
+
+    else
+    {
+      v8[0] = 0;
+      re::Optional<re::SkeletalPoseAssetData>::operator=(v5 + 152, v8);
+      if (v8[0] == 1 && v9 && v10)
+      {
+        (*(*v9 + 40))();
+      }
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *v8 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'by' weight count for non-BlendShapeWeights from-to-by animation.", v8, 2u);
+    }
+  }
+
+  return v4 == 50;
+}
+
+BOOL RETimelineDefinitionSetBlendShapeWeightsFromWeightNames(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, unint64_t a3)
+{
+  v30 = *MEMORY[0x1E69E9840];
+  v6 = RETimelineDefinitionSetBlendShapeWeightsFromWeightCount(a1, a3);
+  if (v6)
+  {
+    if (a3)
+    {
+      v8 = v7;
+      v9 = 0;
+      v10 = 0;
+      do
+      {
+        v11 = *(a2 + 8 * v10);
+        v18 = 0;
+        v19 = &str_67;
+        v12 = *(v8 + 26);
+        if (v12 <= v10)
+        {
+          v20 = 0;
+          memset(v29, 0, sizeof(v29));
+          v14 = MEMORY[0x1E69E9C10];
+          v15 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v21 = 136315906;
+          v22 = "operator[]";
+          v23 = 1024;
+          if (v15)
+          {
+            v16 = 3;
+          }
+
+          else
+          {
+            v16 = 2;
+          }
+
+          v24 = 789;
+          v25 = 2048;
+          v26 = v10;
+          v27 = 2048;
+          v28 = v12;
+          _os_log_send_and_compose_impl(v16, &v20, v29, 80, &dword_1E1C61000, v14, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v21, 38, v17, v18);
+          _os_crash_msg();
+          __break(1u);
+        }
+
+        v7 = re::StringID::operator=((*(v8 + 28) + v9), &v18);
+        if (v18)
+        {
+          if (v18)
+          {
+          }
+        }
+
+        ++v10;
+        v9 += 16;
+      }
+
+      while (a3 != v10);
+    }
+  }
+
+  return v6;
+}
+
+BOOL RETimelineDefinitionSetBlendShapeWeightsToWeightNames(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, unint64_t a3)
+{
+  v30 = *MEMORY[0x1E69E9840];
+  v6 = RETimelineDefinitionSetBlendShapeWeightsToWeightCount(a1, a3);
+  if (v6)
+  {
+    if (a3)
+    {
+      v8 = v7;
+      v9 = 0;
+      v10 = 0;
+      do
+      {
+        v11 = *(a2 + 8 * v10);
+        v18 = 0;
+        v19 = &str_67;
+        v12 = *(v8 + 31);
+        if (v12 <= v10)
+        {
+          v20 = 0;
+          memset(v29, 0, sizeof(v29));
+          v14 = MEMORY[0x1E69E9C10];
+          v15 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v21 = 136315906;
+          v22 = "operator[]";
+          v23 = 1024;
+          if (v15)
+          {
+            v16 = 3;
+          }
+
+          else
+          {
+            v16 = 2;
+          }
+
+          v24 = 789;
+          v25 = 2048;
+          v26 = v10;
+          v27 = 2048;
+          v28 = v12;
+          _os_log_send_and_compose_impl(v16, &v20, v29, 80, &dword_1E1C61000, v14, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v21, 38, v17, v18);
+          _os_crash_msg();
+          __break(1u);
+        }
+
+        v7 = re::StringID::operator=((*(v8 + 33) + v9), &v18);
+        if (v18)
+        {
+          if (v18)
+          {
+          }
+        }
+
+        ++v10;
+        v9 += 16;
+      }
+
+      while (a3 != v10);
+    }
+  }
+
+  return v6;
+}
+
+BOOL RETimelineDefinitionSetBlendShapeWeightsByWeightNames(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, unint64_t a3)
+{
+  v30 = *MEMORY[0x1E69E9840];
+  v6 = RETimelineDefinitionSetBlendShapeWeightsByWeightCount(a1, a3);
+  if (v6)
+  {
+    if (a3)
+    {
+      v8 = v7;
+      v9 = 0;
+      v10 = 0;
+      do
+      {
+        v11 = *(a2 + 8 * v10);
+        v18 = 0;
+        v19 = &str_67;
+        v12 = *(v8 + 36);
+        if (v12 <= v10)
+        {
+          v20 = 0;
+          memset(v29, 0, sizeof(v29));
+          v14 = MEMORY[0x1E69E9C10];
+          v15 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v21 = 136315906;
+          v22 = "operator[]";
+          v23 = 1024;
+          if (v15)
+          {
+            v16 = 3;
+          }
+
+          else
+          {
+            v16 = 2;
+          }
+
+          v24 = 789;
+          v25 = 2048;
+          v26 = v10;
+          v27 = 2048;
+          v28 = v12;
+          _os_log_send_and_compose_impl(v16, &v20, v29, 80, &dword_1E1C61000, v14, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v21, 38, v17, v18);
+          _os_crash_msg();
+          __break(1u);
+        }
+
+        v7 = re::StringID::operator=((*(v8 + 38) + v9), &v18);
+        if (v18)
+        {
+          if (v18)
+          {
+          }
+        }
+
+        ++v10;
+        v9 += 16;
+      }
+
+      while (a3 != v10);
+    }
+  }
+
+  return v6;
+}
+
+uint64_t RETimelineDefinitionGetBlendShapeWeightsFromWeightName(uint64_t a1, unint64_t a2)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 48);
+  if (!v3)
+  {
+    v3 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v3 + 8) == 50)
+  {
+    if (*(v3 + 208) > a2)
+    {
+      return *(*(v3 + 224) + 16 * a2 + 8);
+    }
+
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 134217984;
+      v8 = a2;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot get Blend Shape Weights 'from' weight name, invalid weight index: %zu.", &v7, 0xCu);
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v7) = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get Blend Shape Weights 'from' weight name for non-BlendShapeWeights from-to-by animation.", &v7, 2u);
+    }
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionGetBlendShapeWeightsToWeightName(uint64_t a1, unint64_t a2)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 48);
+  if (!v3)
+  {
+    v3 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v3 + 8) == 50)
+  {
+    if (*(v3 + 248) > a2)
+    {
+      return *(*(v3 + 264) + 16 * a2 + 8);
+    }
+
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 134217984;
+      v8 = a2;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot get Blend Shape Weights 'to' weight name, invalid weight index: %zu.", &v7, 0xCu);
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v7) = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get Blend Shape Weights 'to' weight name for non-BlendShapeWeights from-to-by animation.", &v7, 2u);
+    }
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionGetBlendShapeWeightsByWeightName(uint64_t a1, unint64_t a2)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 48);
+  if (!v3)
+  {
+    v3 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v3 + 8) == 50)
+  {
+    if (*(v3 + 288) > a2)
+    {
+      return *(*(v3 + 304) + 16 * a2 + 8);
+    }
+
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v6 = CoreRELog::log;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 134217984;
+      v8 = a2;
+      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Cannot get Blend Shape Weights 'by' weight name, invalid weight index: %zu.", &v7, 0xCu);
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v7) = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot get Blend Shape Weights 'by' weight name for non-BlendShapeWeights from-to-by animation.", &v7, 2u);
+    }
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionSetBlendShapeWeightsFromWeightName(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, const char *a3)
+{
+  v32 = *MEMORY[0x1E69E9840];
+  if (*(v5 + 2) != 50)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v10 = CoreRELog::log;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'from' weight name for non-BlendShapeWeights from-to-by animation.", buf, 2u);
     }
 
     return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, buf);
-  v3 = v10;
-  if ((v10 & 7) == 0)
+  v6 = v5;
+  if (*(v5 + 26) <= a2)
+  {
+    if (CoreRELog::onceToken == -1)
+    {
+LABEL_14:
+      v11 = CoreRELog::log;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 134217984;
+        *&buf[4] = a2;
+        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'from' weight name, invalid weight index: %zu.", buf, 0xCu);
+      }
+
+      return 0;
+    }
+
+LABEL_22:
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    goto LABEL_14;
+  }
+
+  v16 = 0;
+  v17 = &str_67;
+  v7 = *(v6 + 26);
+  if (v7 <= a2)
+  {
+    v18 = 0;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    *buf = 0u;
+    v12 = MEMORY[0x1E69E9C10];
+    v13 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v19 = 136315906;
+    v20 = "operator[]";
+    v21 = 1024;
+    if (v13)
+    {
+      v14 = 3;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    v22 = 789;
+    v23 = 2048;
+    v24 = a2;
+    v25 = 2048;
+    v26 = v7;
+    _os_log_send_and_compose_impl(v14, &v18, buf, 80, &dword_1E1C61000, v12, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v19, 38, v15, v16);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_22;
+  }
+
+  v8 = re::StringID::operator=((*(v6 + 28) + 16 * a2), &v16);
+  if (v16)
+  {
+    if (v16)
+    {
+    }
+  }
+
+  return 1;
+}
+
+uint64_t RETimelineDefinitionSetBlendShapeWeightsToWeightName(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, const char *a3)
+{
+  v32 = *MEMORY[0x1E69E9840];
+  if (*(v5 + 2) != 50)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v10 = CoreRELog::log;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'to' weight name for non-BlendShapeWeights from-to-by animation.", buf, 2u);
+    }
+
+    return 0;
+  }
+
+  v6 = v5;
+  if (*(v5 + 31) <= a2)
+  {
+    if (CoreRELog::onceToken == -1)
+    {
+LABEL_14:
+      v11 = CoreRELog::log;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 134217984;
+        *&buf[4] = a2;
+        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'to' weight name, invalid weight index: %zu.", buf, 0xCu);
+      }
+
+      return 0;
+    }
+
+LABEL_22:
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    goto LABEL_14;
+  }
+
+  v16 = 0;
+  v17 = &str_67;
+  v7 = *(v6 + 31);
+  if (v7 <= a2)
+  {
+    v18 = 0;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    *buf = 0u;
+    v12 = MEMORY[0x1E69E9C10];
+    v13 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v19 = 136315906;
+    v20 = "operator[]";
+    v21 = 1024;
+    if (v13)
+    {
+      v14 = 3;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    v22 = 789;
+    v23 = 2048;
+    v24 = a2;
+    v25 = 2048;
+    v26 = v7;
+    _os_log_send_and_compose_impl(v14, &v18, buf, 80, &dword_1E1C61000, v12, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v19, 38, v15, v16);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_22;
+  }
+
+  v8 = re::StringID::operator=((*(v6 + 33) + 16 * a2), &v16);
+  if (v16)
+  {
+    if (v16)
+    {
+    }
+  }
+
+  return 1;
+}
+
+uint64_t RETimelineDefinitionSetBlendShapeWeightsByWeightName(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, const char *a3)
+{
+  v32 = *MEMORY[0x1E69E9840];
+  if (*(v5 + 2) != 50)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v10 = CoreRELog::log;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'by' weight name for non-BlendShapeWeights from-to-by animation.", buf, 2u);
+    }
+
+    return 0;
+  }
+
+  v6 = v5;
+  if (*(v5 + 36) <= a2)
+  {
+    if (CoreRELog::onceToken == -1)
+    {
+LABEL_14:
+      v11 = CoreRELog::log;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 134217984;
+        *&buf[4] = a2;
+        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'by' weight name, invalid weight index: %zu.", buf, 0xCu);
+      }
+
+      return 0;
+    }
+
+LABEL_22:
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    goto LABEL_14;
+  }
+
+  v16 = 0;
+  v17 = &str_67;
+  v7 = *(v6 + 36);
+  if (v7 <= a2)
+  {
+    v18 = 0;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    *buf = 0u;
+    v12 = MEMORY[0x1E69E9C10];
+    v13 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v19 = 136315906;
+    v20 = "operator[]";
+    v21 = 1024;
+    if (v13)
+    {
+      v14 = 3;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    v22 = 789;
+    v23 = 2048;
+    v24 = a2;
+    v25 = 2048;
+    v26 = v7;
+    _os_log_send_and_compose_impl(v14, &v18, buf, 80, &dword_1E1C61000, v12, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v19, 38, v15, v16);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_22;
+  }
+
+  v8 = re::StringID::operator=((*(v6 + 38) + 16 * a2), &v16);
+  if (v16)
+  {
+    if (v16)
+    {
+    }
+  }
+
+  return 1;
+}
+
+uint64_t RETimelineDefinitionGetBlendShapeWeightsFromValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 50)
+  {
+    if (*(v1 + 88) == 1)
+    {
+      return *(v1 + 112);
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v3 = CoreRELog::log;
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      *v4 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get Blend Shape Weights 'from' weight values for non-BlendShapeWeights from-to-by animation.", v4, 2u);
+    }
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionGetBlendShapeWeightsToValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 50)
+  {
+    if (*(v1 + 120) == 1)
+    {
+      return *(v1 + 144);
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v3 = CoreRELog::log;
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      *v4 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get Blend Shape Weights 'to' weight values for non-BlendShapeWeights from-to-by animation.", v4, 2u);
+    }
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionGetBlendShapeWeightsByValue(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 50)
+  {
+    if (*(v1 + 152) == 1)
+    {
+      return *(v1 + 176);
+    }
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v3 = CoreRELog::log;
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      *v4 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get Blend Shape Weights 'by' weight values for non-BlendShapeWeights from-to-by animation.", v4, 2u);
+    }
+  }
+
+  return 0;
+}
+
+BOOL RETimelineDefinitionSetBlendShapeWeightsFromValues(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, unint64_t a3)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  v6 = RETimelineDefinitionSetBlendShapeWeightsFromWeightCount(a1, a3);
+  v7 = v6;
+  if (a3 && v6)
+  {
+    v9 = 0;
+    v10 = *(v8 + 13);
+    do
+    {
+      if (v10 == v9)
+      {
+        v15 = 0;
+        memset(v24, 0, sizeof(v24));
+        v12 = MEMORY[0x1E69E9C10];
+        v16 = 136315906;
+        v17 = "operator[]";
+        v18 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v13 = 3;
+        }
+
+        else
+        {
+          v13 = 2;
+        }
+
+        v19 = 468;
+        v20 = 2048;
+        v21 = v10;
+        v22 = 2048;
+        v23 = v10;
+        _os_log_send_and_compose_impl(v13, &v15, v24, 80, &dword_1E1C61000, v12, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v16, 38, v14);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      *(*(v8 + 14) + 4 * v9) = *(a2 + 4 * v9);
+      ++v9;
+    }
+
+    while (a3 != v9);
+  }
+
+  return v7;
+}
+
+BOOL RETimelineDefinitionSetBlendShapeWeightsToValues(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, unint64_t a3)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  v6 = RETimelineDefinitionSetBlendShapeWeightsToWeightCount(a1, a3);
+  v7 = v6;
+  if (a3 && v6)
+  {
+    v9 = 0;
+    v10 = *(v8 + 17);
+    do
+    {
+      if (v10 == v9)
+      {
+        v15 = 0;
+        memset(v24, 0, sizeof(v24));
+        v12 = MEMORY[0x1E69E9C10];
+        v16 = 136315906;
+        v17 = "operator[]";
+        v18 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v13 = 3;
+        }
+
+        else
+        {
+          v13 = 2;
+        }
+
+        v19 = 468;
+        v20 = 2048;
+        v21 = v10;
+        v22 = 2048;
+        v23 = v10;
+        _os_log_send_and_compose_impl(v13, &v15, v24, 80, &dword_1E1C61000, v12, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v16, 38, v14);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      *(*(v8 + 18) + 4 * v9) = *(a2 + 4 * v9);
+      ++v9;
+    }
+
+    while (a3 != v9);
+  }
+
+  return v7;
+}
+
+BOOL RETimelineDefinitionSetBlendShapeWeightsByValues(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, unint64_t a3)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  v6 = RETimelineDefinitionSetBlendShapeWeightsByWeightCount(a1, a3);
+  v7 = v6;
+  if (a3 && v6)
+  {
+    v9 = 0;
+    v10 = *(v8 + 21);
+    do
+    {
+      if (v10 == v9)
+      {
+        v15 = 0;
+        memset(v24, 0, sizeof(v24));
+        v12 = MEMORY[0x1E69E9C10];
+        v16 = 136315906;
+        v17 = "operator[]";
+        v18 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v13 = 3;
+        }
+
+        else
+        {
+          v13 = 2;
+        }
+
+        v19 = 468;
+        v20 = 2048;
+        v21 = v10;
+        v22 = 2048;
+        v23 = v10;
+        _os_log_send_and_compose_impl(v13, &v15, v24, 80, &dword_1E1C61000, v12, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v16, 38, v14);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      *(*(v8 + 22) + 4 * v9) = *(a2 + 4 * v9);
+      ++v9;
+    }
+
+    while (a3 != v9);
+  }
+
+  return v7;
+}
+
+uint64_t RETimelineDefinitionSetBlendShapeWeightsFromValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, float a3)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  if (*(v5 + 2) != 50)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v7 = CoreRELog::log;
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    LOWORD(v10) = 0;
+    v8 = "Cannot set Blend Shape Weights 'from' weight value for non-BlendShapeWeights from-to-by animation.";
+    goto LABEL_20;
+  }
+
+  if ((*(v5 + 88) & 1) == 0)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v7 = CoreRELog::log;
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    LOWORD(v10) = 0;
+    v8 = "Cannot set Blend Shape Weights 'from' weight value for invalid 'from' value.";
+LABEL_20:
+    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, v8, &v10, 2u);
+LABEL_12:
+
+    return 0;
+  }
+
+  if (*(v5 + 13) > a2)
+  {
+    *(*(v5 + 14) + 4 * a2) = a3;
+    return 1;
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v9 = CoreRELog::log;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  {
+    v10 = 134217984;
+    v11 = a2;
+    _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'from' weight value, invalid weight index: %zu.", &v10, 0xCu);
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionSetBlendShapeWeightsToValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, float a3)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  if (*(v5 + 2) != 50)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v7 = CoreRELog::log;
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    LOWORD(v10) = 0;
+    v8 = "Cannot set Blend Shape Weights 'to' weight value for non-BlendShapeWeights from-to-by animation.";
+    goto LABEL_20;
+  }
+
+  if ((*(v5 + 120) & 1) == 0)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v7 = CoreRELog::log;
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    LOWORD(v10) = 0;
+    v8 = "Cannot set Blend Shape Weights 'to' weight value for invalid 'to' value.";
+LABEL_20:
+    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, v8, &v10, 2u);
+LABEL_12:
+
+    return 0;
+  }
+
+  if (*(v5 + 17) > a2)
+  {
+    *(*(v5 + 18) + 4 * a2) = a3;
+    return 1;
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v9 = CoreRELog::log;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  {
+    v10 = 134217984;
+    v11 = a2;
+    _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'to' weight value, invalid weight index: %zu.", &v10, 0xCu);
+  }
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionSetBlendShapeWeightsByValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, float a3)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  if (*(v5 + 2) != 50)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v7 = CoreRELog::log;
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    LOWORD(v10) = 0;
+    v8 = "Cannot set Blend Shape Weights 'by' weight value for non-BlendShapeWeights from-to-by animation.";
+    goto LABEL_20;
+  }
+
+  if ((*(v5 + 152) & 1) == 0)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v7 = CoreRELog::log;
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    LOWORD(v10) = 0;
+    v8 = "Cannot set Blend Shape Weights 'by' weight value for invalid 'by' value.";
+LABEL_20:
+    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, v8, &v10, 2u);
+LABEL_12:
+
+    return 0;
+  }
+
+  if (*(v5 + 21) > a2)
+  {
+    *(*(v5 + 22) + 4 * a2) = a3;
+    return 1;
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v9 = CoreRELog::log;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  {
+    v10 = 134217984;
+    v11 = a2;
+    _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'by' weight value, invalid weight index: %zu.", &v10, 0xCu);
+  }
+
+  return 0;
+}
+
+float RETimelineDefinitionGetBlendShapeWeightsFromWeightValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  if (*(v3 + 2) != 50)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    LOWORD(v8) = 0;
+    v6 = "Cannot set Blend Shape Weights 'from' weight value for non-BlendShapeWeights from-to-by animation.";
+    goto LABEL_20;
+  }
+
+  if ((*(v3 + 88) & 1) == 0)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    LOWORD(v8) = 0;
+    v6 = "Cannot set Blend Shape Weights 'from' weight value for invalid 'from' value.";
+LABEL_20:
+    _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, v6, &v8, 2u);
+LABEL_12:
+
+    return NAN;
+  }
+
+  if (*(v3 + 13) > a2)
+  {
+    return *(*(v3 + 14) + 4 * a2);
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v7 = CoreRELog::log;
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    v8 = 134217984;
+    v9 = a2;
+    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'from' weight value, invalid weight index: %zu.", &v8, 0xCu);
+  }
+
+  return NAN;
+}
+
+float RETimelineDefinitionGetBlendShapeWeightsToWeightValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  if (*(v3 + 2) != 50)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    LOWORD(v8) = 0;
+    v6 = "Cannot set Blend Shape Weights 'to' weight value for non-BlendShapeWeights from-to-by animation.";
+    goto LABEL_20;
+  }
+
+  if ((*(v3 + 120) & 1) == 0)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    LOWORD(v8) = 0;
+    v6 = "Cannot set Blend Shape Weights 'to' weight value for invalid 'to' value.";
+LABEL_20:
+    _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, v6, &v8, 2u);
+LABEL_12:
+
+    return NAN;
+  }
+
+  if (*(v3 + 17) > a2)
+  {
+    return *(*(v3 + 18) + 4 * a2);
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v7 = CoreRELog::log;
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    v8 = 134217984;
+    v9 = a2;
+    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'to' weight value, invalid weight index: %zu.", &v8, 0xCu);
+  }
+
+  return NAN;
+}
+
+float RETimelineDefinitionGetBlendShapeWeightsByWeightValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  if (*(v3 + 2) != 50)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    LOWORD(v8) = 0;
+    v6 = "Cannot set Blend Shape Weights 'by' weight value for non-BlendShapeWeights from-to-by animation.";
+    goto LABEL_20;
+  }
+
+  if ((*(v3 + 152) & 1) == 0)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    LOWORD(v8) = 0;
+    v6 = "Cannot set Blend Shape Weights 'by' weight value for invalid 'by' value.";
+LABEL_20:
+    _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, v6, &v8, 2u);
+LABEL_12:
+
+    return NAN;
+  }
+
+  if (*(v3 + 21) > a2)
+  {
+    return *(*(v3 + 22) + 4 * a2);
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v7 = CoreRELog::log;
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    v8 = 134217984;
+    v9 = a2;
+    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "Cannot set Blend Shape Weights 'by' weight value, invalid weight index: %zu.", &v8, 0xCu);
+  }
+
+  return NAN;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateSampledFloatAnimation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 128, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 27);
+  *(v4 + 72) = 256;
+  *(v4 + 76) = 1023969417;
+  *(v4 + 120) = 0;
+  *(v4 + 80) = 0u;
+  *(v4 + 96) = 0u;
+  *(v4 + 112) = 0;
+  *v4 = &unk_1F5CC0368;
+  v8[0] = &unk_1F5D2A280;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A280;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateSampledDoubleAnimation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 128, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 28);
+  *(v4 + 72) = 256;
+  *(v4 + 76) = 1023969417;
+  *(v4 + 120) = 0;
+  *(v4 + 80) = 0u;
+  *(v4 + 96) = 0u;
+  *(v4 + 112) = 0;
+  *v4 = &unk_1F5CC0418;
+  v8[0] = &unk_1F5D2A300;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A300;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateSampledFloat2Animation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 128, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 29);
+  *(v4 + 72) = 256;
+  *(v4 + 76) = 1023969417;
+  *(v4 + 120) = 0;
+  *(v4 + 80) = 0u;
+  *(v4 + 96) = 0u;
+  *(v4 + 112) = 0;
+  *v4 = &unk_1F5CC04C8;
+  v8[0] = &unk_1F5D2A380;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A380;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateSampledFloat3Animation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 128, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 30);
+  *(v4 + 72) = 256;
+  *(v4 + 76) = 1023969417;
+  *(v4 + 120) = 0;
+  *(v4 + 80) = 0u;
+  *(v4 + 96) = 0u;
+  *(v4 + 112) = 0;
+  *v4 = &unk_1F5CC0578;
+  v8[0] = &unk_1F5D2A400;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A400;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateSampledFloat4Animation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 128, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 31);
+  *(v4 + 72) = 256;
+  *(v4 + 76) = 1023969417;
+  *(v4 + 120) = 0;
+  *(v4 + 80) = 0u;
+  *(v4 + 96) = 0u;
+  *(v4 + 112) = 0;
+  *v4 = &unk_1F5CC0628;
+  v8[0] = &unk_1F5D2A480;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A480;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateSampledQuaternionAnimation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 128, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 32);
+  *(v4 + 72) = 256;
+  *(v4 + 76) = 1023969417;
+  *(v4 + 120) = 0;
+  *(v4 + 80) = 0u;
+  *(v4 + 96) = 0u;
+  *(v4 + 112) = 0;
+  *v4 = &unk_1F5CC06D8;
+  v8[0] = &unk_1F5D2A500;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A500;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateSampledSRTAnimation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 128, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 33);
+  *(v4 + 72) = 256;
+  *(v4 + 76) = 1023969417;
+  *(v4 + 120) = 0;
+  *(v4 + 80) = 0u;
+  *(v4 + 96) = 0u;
+  *(v4 + 112) = 0;
+  *v4 = &unk_1F5CC0788;
+  v8[0] = &unk_1F5D2A580;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A580;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateSampledSkeletalPoseAnimation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 200, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 34);
+  *(v4 + 72) = 256;
+  *(v4 + 76) = 1023969417;
+  *(v4 + 120) = 0;
+  *(v4 + 80) = 0u;
+  *(v4 + 96) = 0u;
+  *(v4 + 112) = 0;
+  *v4 = &unk_1F5CC0838;
+  *(v4 + 184) = 0;
+  *(v4 + 128) = 0u;
+  *(v4 + 144) = 0u;
+  *(v4 + 160) = 0u;
+  *(v4 + 176) = 0;
+  *(v4 + 192) = 257;
+  *(v4 + 194) = 1;
+  v8[0] = &unk_1F5D2A600;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A600;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+_anonymous_namespace_::TimelineDefinition *RETimelineDefinitionCreateSampledBlendShapeWeightsAnimation(re *a1)
+{
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = re::globalAllocators(a1);
+  v3 = (*(*v2[2] + 32))(v2[2], 168, 8);
+  v4 = re::TimelineAssetData::TimelineAssetData(v3, 59);
+  *(v4 + 72) = 256;
+  *(v4 + 76) = 1023969417;
+  *(v4 + 120) = 0;
+  *(v4 + 128) = 0;
+  *(v4 + 80) = 0u;
+  *(v4 + 96) = 0u;
+  *(v4 + 112) = 0;
+  *v4 = &unk_1F5CC08E8;
+  *(v4 + 160) = 0;
+  *(v4 + 136) = 0;
+  *(v4 + 144) = 0;
+  *(v4 + 152) = 0;
+  v8[0] = &unk_1F5D2A680;
+  v8[3] = v8;
+  v9 = v4;
+  v10[3] = v10;
+  v10[0] = &unk_1F5D2A680;
+  std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v9);
+  std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v8);
+  v5 = v7;
+  return v5;
+}
+
+float RETimelineDefinitionGetFrameInterval(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v2 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24));
+    if (v2)
+    {
+      v1 = *(v2 + 8);
+    }
+
+    else
+    {
+      v1 = 0;
+    }
+  }
+
+  v3 = *(v1 + 8);
+  if ((v3 - 27) < 8 || v3 == 59)
+  {
+    return *(v1 + 76);
+  }
+
+  else
+  {
+    return NAN;
+  }
+}
+
+uint64_t RETimelineDefinitionSetFrameInterval(_anonymous_namespace_::TimelineDefinition *a1, float a2)
+{
+  v4 = *(v3 + 2);
+  if ((v4 - 27) >= 8 && v4 != 59)
   {
     return 0;
   }
 
-  isParameterType = re::MaterialParameterHandle::isParameterType(buf, 64);
-  result = 0;
-  if ((v3 & 0x10) != 0 && isParameterType)
+  *(v3 + 19) = a2;
+  return 1;
+}
+
+float RETimelineDefinitionGetStartTime(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
   {
-    re::MaterialParameterBlock::bindingValue(a1, buf, v7);
-    return CFStringCreateWithCString(0, re::s_materialTableIDMappings[v7[16]], 0x8000100u);
+    v2 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24));
+    if (v2)
+    {
+      v1 = *(v2 + 8);
+    }
+
+    else
+    {
+      v1 = 0;
+    }
+  }
+
+  v3 = *(v1 + 8);
+  result = NAN;
+  if (v3 > 31)
+  {
+    if (v3 <= 34 || v3 == 59)
+    {
+      return *(v1 + 80);
+    }
+
+    if (v3 == 38)
+    {
+      return *(v1 + 80);
+    }
+  }
+
+  else if (v3 > 28 || v3 == 27 || v3 == 28)
+  {
+    return *(v1 + 80);
   }
 
   return result;
 }
 
-CFStringRef REMaterialParameterBlockCopyTextureBindingMemberName(re::MaterialParameterBlock *a1, const char *a2)
+uint64_t RETimelineDefinitionSetStartTime(_anonymous_namespace_::TimelineDefinition *a1, float a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  result = 0;
+  v5 = *(v3 + 2);
+  if (v5 > 31)
+  {
+    if (v5 > 34 && v5 != 59)
+    {
+      if (v5 != 38)
+      {
+        return result;
+      }
+
+      *(v3 + 10) = a2;
+      return 1;
+    }
+
+LABEL_10:
+    *(v3 + 20) = a2;
+    return 1;
+  }
+
+  if (v5 > 28 || v5 == 27 || v5 == 28)
+  {
+    goto LABEL_10;
+  }
+
+  return result;
+}
+
+float RETimelineDefinitionGetEndTime(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v2 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24));
+    if (v2)
+    {
+      v1 = *(v2 + 8);
+    }
+
+    else
+    {
+      v1 = 0;
+    }
+  }
+
+  v3 = *(v1 + 8);
+  result = NAN;
+  if (v3 > 31)
+  {
+    if (v3 <= 34 || v3 == 59)
+    {
+      return *(v1 + 84);
+    }
+
+    if (v3 == 38)
+    {
+      return *(v1 + 88);
+    }
+  }
+
+  else if (v3 > 28 || v3 == 27 || v3 == 28)
+  {
+    return *(v1 + 84);
+  }
+
+  return result;
+}
+
+uint64_t RETimelineDefinitionSetEndTime(_anonymous_namespace_::TimelineDefinition *a1, float a2)
+{
+  result = 0;
+  v5 = *(v3 + 2);
+  if (v5 > 31)
+  {
+    if (v5 > 34 && v5 != 59)
+    {
+      if (v5 != 38)
+      {
+        return result;
+      }
+
+      *(v3 + 11) = a2;
+      return 1;
+    }
+
+LABEL_10:
+    *(v3 + 21) = a2;
+    return 1;
+  }
+
+  if (v5 > 28 || v5 == 27 || v5 == 28)
+  {
+    goto LABEL_10;
+  }
+
+  return result;
+}
+
+uint64_t RETimelineDefinitionGetInterpolationEnabled(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v2 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24));
+    if (v2)
+    {
+      v1 = *(v2 + 8);
+    }
+
+    else
+    {
+      v1 = 0;
+    }
+  }
+
+  v3 = *(v1 + 8);
+  if ((v3 - 27) < 8 || v3 == 59)
+  {
+    v4 = *(v1 + 73);
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return v4 & 1;
+}
+
+uint64_t RETimelineDefinitionSetInterpolationEnabled(_anonymous_namespace_::TimelineDefinition *a1, char a2)
+{
+  v4 = *(v3 + 2);
+  if ((v4 - 27) >= 8 && v4 != 59)
+  {
+    return 0;
+  }
+
+  *(v3 + 73) = a2;
+  return 1;
+}
+
+uint64_t RETimelineDefinitionGetValueCount(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v2 = re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24));
+    if (v2)
+    {
+      v1 = *(v2 + 8);
+    }
+
+    else
+    {
+      v1 = 0;
+    }
+  }
+
+  v3 = *(v1 + 8);
+  if ((v3 - 27) < 8 || v3 == 59)
+  {
+    return *(v1 + 104);
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+unint64_t re::DynamicArray<re::SkeletalPoseAssetData>::operator[](uint64_t a1, unint64_t a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 16);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 789;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a1 + 32) + 24 * a2;
+}
+
+uint64_t RETimelineDefinitionSetValueCount(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
+{
+  v30 = *MEMORY[0x1E69E9840];
+  result = 0;
+  v5 = *(v3 + 2);
+  if (v5 <= 30)
+  {
+    if (v5 > 28)
+    {
+      if (v5 == 29)
+      {
+        re::DynamicArray<unsigned long>::resize(v3 + 88, a2);
+      }
+
+      else
+      {
+        re::DynamicArray<re::Vector3<float>>::resize(v3 + 88, a2);
+      }
+    }
+
+    else if (v5 == 27)
+    {
+      re::DynamicArray<float>::resize(v3 + 88, a2);
+    }
+
+    else
+    {
+      if (v5 != 28)
+      {
+        return result;
+      }
+
+      re::DynamicArray<double>::resize(v3 + 88, a2);
+    }
+  }
+
+  else if (v5 <= 32)
+  {
+    if (v5 == 31)
+    {
+      re::DynamicArray<re::Vector4<float>>::resize(v3 + 88, a2);
+    }
+
+    else
+    {
+      re::DynamicArray<re::Quaternion<float>>::resize(v3 + 88, a2);
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case '!':
+        re::DynamicArray<re::GenericSRT<float>>::resize(v3 + 11, a2);
+        break;
+      case '""':
+        v6 = *(v3 + 13);
+        re::DynamicArray<re::SkeletalPoseAssetData>::resize(v3 + 11, a2);
+        if (v6 < a2)
+        {
+          for (i = 24 * v6; ; i += 24)
+          {
+            v8 = *(v3 + 13);
+            if (v8 <= v6)
+            {
+              break;
+            }
+
+            if (a2 == ++v6)
+            {
+              return 1;
+            }
+          }
+
+LABEL_33:
+          v16 = 0;
+          v28 = 0u;
+          v29 = 0u;
+          v26 = 0u;
+          v27 = 0u;
+          v25 = 0u;
+          v12 = MEMORY[0x1E69E9C10];
+          v13 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v17 = 136315906;
+          v18 = "operator[]";
+          v19 = 1024;
+          if (v13)
+          {
+            v14 = 3;
+          }
+
+          else
+          {
+            v14 = 2;
+          }
+
+          v20 = 789;
+          v21 = 2048;
+          v22 = v6;
+          v23 = 2048;
+          v24 = v8;
+          _os_log_send_and_compose_impl(v14, &v16, &v25, 80, &dword_1E1C61000, v12, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v17, 38, v15);
+          _os_crash_msg();
+          __break(1u);
+        }
+
+        break;
+      case ';':
+        v6 = *(v3 + 13);
+        re::DynamicArray<re::SkeletalPoseAssetData>::resize(v3 + 11, a2);
+        if (v6 < a2)
+        {
+          for (j = 24 * v6; ; j += 24)
+          {
+            v8 = *(v3 + 13);
+            if (v8 <= v6)
+            {
+              break;
+            }
+
+            if (a2 == ++v6)
+            {
+              return 1;
+            }
+          }
+
+          v16 = 0;
+          v28 = 0u;
+          v29 = 0u;
+          v26 = 0u;
+          v27 = 0u;
+          v25 = 0u;
+          v10 = MEMORY[0x1E69E9C10];
+          v17 = 136315906;
+          v18 = "operator[]";
+          v19 = 1024;
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+          {
+            v11 = 3;
+          }
+
+          else
+          {
+            v11 = 2;
+          }
+
+          v20 = 789;
+          v21 = 2048;
+          v22 = v6;
+          v23 = 2048;
+          v24 = v8;
+          _os_log_send_and_compose_impl(v11, &v16, &v25, 80, &dword_1E1C61000, v10, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v17, 38, v15);
+          _os_crash_msg();
+          __break(1u);
+          goto LABEL_33;
+        }
+
+        break;
+      default:
+        return result;
+    }
+  }
+
+  return 1;
+}
+
+uint64_t RETimelineDefinitionGetFloatValues(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 27)
+  {
+    return *(v1 + 120);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetDoubleValues(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 28)
+  {
+    return *(v1 + 120);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetFloat2Values(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 29)
+  {
+    return *(v1 + 120);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetFloat3Values(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 30)
+  {
+    return *(v1 + 120);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetFloat4Values(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 31)
+  {
+    return *(v1 + 120);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetQuaternionValues(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 32)
+  {
+    return *(v1 + 120);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionGetSRTValues(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 33)
+  {
+    return *(v1 + 120);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+BOOL RETimelineDefinitionSetFloatValues(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(v5 + 2);
+  if (v6 == 27)
+  {
+    v8[0] = a2;
+    v8[1] = a3;
+    re::DynamicArray<float>::operator=((v5 + 88), v8);
+  }
+
+  return v6 == 27;
+}
+
+BOOL RETimelineDefinitionSetDoubleValues(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(v5 + 2);
+  if (v6 == 28)
+  {
+    v8[0] = a2;
+    v8[1] = a3;
+    re::DynamicArray<double>::operator=((v5 + 88), v8);
+  }
+
+  return v6 == 28;
+}
+
+BOOL RETimelineDefinitionSetFloat2Values(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(v5 + 2);
+  if (v6 == 29)
+  {
+    v8[0] = a2;
+    v8[1] = a3;
+    re::DynamicArray<re::Vector2<float>>::operator=((v5 + 88), v8);
+  }
+
+  return v6 == 29;
+}
+
+BOOL RETimelineDefinitionSetFloat3Values(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(v5 + 2);
+  if (v6 == 30)
+  {
+    v8[0] = a2;
+    v8[1] = a3;
+    re::DynamicArray<re::Vector3<float>>::operator=((v5 + 88), v8);
+  }
+
+  return v6 == 30;
+}
+
+BOOL RETimelineDefinitionSetFloat4Values(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(v5 + 2);
+  if (v6 == 31)
+  {
+    v8[0] = a2;
+    v8[1] = a3;
+    re::DynamicArray<re::Vector4<float>>::operator=((v5 + 88), v8);
+  }
+
+  return v6 == 31;
+}
+
+BOOL RETimelineDefinitionSetQuaternionValues(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(v5 + 2);
+  if (v6 == 32)
+  {
+    v8[0] = a2;
+    v8[1] = a3;
+    re::DynamicArray<re::Quaternion<float>>::operator=((v5 + 88), v8);
+  }
+
+  return v6 == 32;
+}
+
+BOOL RETimelineDefinitionSetSRTValues(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(v5 + 2);
+  if (v6 == 33)
+  {
+    v8[0] = a2;
+    v8[1] = a3;
+    re::DynamicArray<re::GenericSRT<float>>::operator=((v5 + 88), v8);
+  }
+
+  return v6 == 33;
+}
+
+uint64_t RETimelineDefinitionSetFloatIndexValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, float a3)
+{
+  if (*(v5 + 2) != 27 || *(v5 + 13) <= a2)
+  {
+    return 0;
+  }
+
+  *(*(v5 + 15) + 4 * a2) = a3;
+  return 1;
+}
+
+uint64_t RETimelineDefinitionSetDoubleIndexValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, double a3)
+{
+  if (*(v5 + 2) != 28 || *(v5 + 13) <= a2)
+  {
+    return 0;
+  }
+
+  *(*(v5 + 15) + 8 * a2) = a3;
+  return 1;
+}
+
+uint64_t RETimelineDefinitionSetFloat2IndexValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, double a3)
+{
+  if (*(v5 + 2) != 29 || *(v5 + 13) <= a2)
+  {
+    return 0;
+  }
+
+  *(*(v5 + 15) + 8 * a2) = a3;
+  return 1;
+}
+
+uint64_t RETimelineDefinitionSetFloat3IndexValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, __n128 a3)
+{
+  if (*(v4 + 2) != 30 || *(v4 + 13) <= a2)
+  {
+    return 0;
+  }
+
+  *(*(v4 + 15) + 16 * a2) = a3;
+  return 1;
+}
+
+uint64_t RETimelineDefinitionSetFloat4IndexValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, __n128 a3)
+{
+  if (*(v4 + 2) != 31 || *(v4 + 13) <= a2)
+  {
+    return 0;
+  }
+
+  *(*(v4 + 15) + 16 * a2) = a3;
+  return 1;
+}
+
+uint64_t RETimelineDefinitionSetQuaternionIndexValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, __n128 a3)
+{
+  if (*(v4 + 2) != 32 || *(v4 + 13) <= a2)
+  {
+    return 0;
+  }
+
+  *(*(v4 + 15) + 16 * a2) = a3;
+  return 1;
+}
+
+uint64_t RETimelineDefinitionSetSRTIndexValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, __n128 a3, __n128 a4, __n128 a5)
+{
+  if (*(v6 + 2) != 33 || *(v6 + 13) <= a2)
+  {
+    return 0;
+  }
+
+  v7 = (*(v6 + 15) + 48 * a2);
+  *v7 = a3;
+  v7[1] = a4;
+  v7[2] = a5;
+  return 1;
+}
+
+BOOL RETimelineDefinitionSetSkeleton(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 34)
+  {
+    v5 = v3;
+    re::AssetAPIHelper::assetHandleCreate(a2, &v10);
+    v6 = *(v5 + 8);
+    *(v5 + 8) = v10;
+    v10 = v6;
+    v7 = *(v5 + 18);
+    *(v5 + 18) = v11;
+    v11 = v7;
+    re::AssetHandle::~AssetHandle(&v10);
+  }
+
+  else
   {
     if (CoreRELog::onceToken != -1)
     {
@@ -6736,3050 +7664,2154 @@ CFStringRef REMaterialParameterBlockCopyTextureBindingMemberName(re::MaterialPar
     v8 = CoreRELog::log;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315138;
-      v11 = "REMaterialParameterBlockCopyTextureBindingMemberName";
-      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "nil REMaterialParameterBlockRef passed to %s", buf, 0xCu);
+      LOWORD(v10) = 0;
+      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "Cannot set skeleton for any animation type other than SampledSkeletalPoseAnimation.", &v10, 2u);
     }
-
-    return 0;
   }
 
-  re::MaterialParameterBlock::handle(a1, a2, buf);
-  v3 = v12;
-  if ((v12 & 7) == 0)
-  {
-    return 0;
-  }
-
-  isParameterType = re::MaterialParameterHandle::isParameterType(buf, 64);
-  result = 0;
-  if ((v3 & 0x10) != 0 && isParameterType)
-  {
-    re::MaterialParameterBlock::bindingValue(a1, buf, v9);
-    v6 = &off_1E8723160;
-    v7 = 96;
-    while (v9[3] != (*(v6 - 1) & 0x7FFFFFFFFFFFFFFFLL))
-    {
-      v6 += 2;
-      v7 -= 16;
-      if (!v7)
-      {
-        return 0;
-      }
-    }
-
-    return CFStringCreateWithCString(0, *v6, 0x8000100u);
-  }
-
-  return result;
+  return v4 == 34;
 }
 
-void *REMaterialParameterBlockAddPassTechniqueMapping(re::MaterialParameterBlock *a1, char *__s, const char *a3)
+uint64_t RETimelineDefinitionGetSkeletalJointCount(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v6 = strlen(__s);
-  if (v6)
+  v1 = *(a1 + 48);
+  if (!v1)
   {
-    MurmurHash3_x64_128(__s, v6, 0, &v11);
-    v7 = (v12 - 0x61C8864680B583E9 + (v11 << 6) + (v11 >> 2)) ^ v11;
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 34)
+  {
+    return *(v1 + 168);
   }
 
   else
   {
-    v7 = 0;
-  }
-
-  v8 = strlen(a3);
-  if (v8)
-  {
-    MurmurHash3_x64_128(a3, v8, 0, &v11);
-    v9 = (v12 - 0x61C8864680B583E9 + (v11 << 6) + (v11 >> 2)) ^ v11;
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  if (re::MaterialParameterTable::kDefaultNameHash(void)::once != -1)
-  {
-    dispatch_once(&re::MaterialParameterTable::kDefaultNameHash(void)::once, &__block_literal_global_35);
-  }
-
-  return re::MaterialParameterBlock::addPassTechniqueMapping(a1, v7, v9, re::MaterialParameterTable::kDefaultNameHash(void)::_kDefaultNameHash);
-}
-
-BOOL REMaterialParameterBlockGetPassTechniqueMapping(re::MaterialParameterBlock *a1, char *__s, void *a3)
-{
-  v10[2] = *MEMORY[0x1E69E9840];
-  v6 = strlen(__s);
-  if (v6)
-  {
-    MurmurHash3_x64_128(__s, v6, 0, v10);
-    v7 = (v10[1] + (v10[0] << 6) + (v10[0] >> 2) - 0x61C8864680B583E9) ^ v10[0];
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  if (re::MaterialParameterTable::kDefaultNameHash(void)::once != -1)
-  {
-    dispatch_once(&re::MaterialParameterTable::kDefaultNameHash(void)::once, &__block_literal_global_35);
-  }
-
-  PassTechniqueMapping = re::MaterialParameterBlock::tryGetPassTechniqueMapping(a1, v7, re::MaterialParameterTable::kDefaultNameHash(void)::_kDefaultNameHash);
-  if (PassTechniqueMapping)
-  {
-    *a3 = *PassTechniqueMapping;
-  }
-
-  return PassTechniqueMapping != 0;
-}
-
-void *REMaterialParameterBlockRemovePassTechniqueMapping(re::MaterialParameterBlock *a1, char *__s)
-{
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = strlen(__s);
-  if (v4)
-  {
-    MurmurHash3_x64_128(__s, v4, 0, v7);
-    v5 = (v7[1] + (v7[0] << 6) + (v7[0] >> 2) - 0x61C8864680B583E9) ^ v7[0];
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (re::MaterialParameterTable::kDefaultNameHash(void)::once != -1)
-  {
-    dispatch_once(&re::MaterialParameterTable::kDefaultNameHash(void)::once, &__block_literal_global_35);
-  }
-
-  return re::MaterialParameterBlock::removePassTechniqueMapping(a1, v5, re::MaterialParameterTable::kDefaultNameHash(void)::_kDefaultNameHash);
-}
-
-void *REReferenceComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::ReferenceComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t REReferenceComponentGetEntityName(uint64_t a1)
-{
-  if (*(a1 + 40))
-  {
-    return *(a1 + 48);
-  }
-
-  else
-  {
-    return a1 + 41;
+    return -1;
   }
 }
 
-uint64_t REReferenceComponentSetEntityName(_BYTE *a1, const char *a2)
+BOOL RETimelineDefinitionSetSkeletalJointCount(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
 {
-  a1[96] = 0;
-  re::DynamicString::operator=((a1 + 32), &v5);
-  result = v5;
-  if (v5)
+  v4 = *(v3 + 2);
+  if (v4 == 34)
   {
+    v5 = v3;
+    re::DynamicArray<re::StringID>::resize(v3 + 19, a2);
+    v6 = *(v5 + 13);
     if (v6)
     {
-      return (*(*v5 + 40))();
-    }
-  }
-
-  return result;
-}
-
-uint64_t REReferenceComponentSetBundlePath(_BYTE *a1, const char *a2)
-{
-  a1[96] = 0;
-  re::DynamicString::operator=((a1 + 64), &v5);
-  result = v5;
-  if (v5)
-  {
-    if (v6)
-    {
-      return (*(*v5 + 40))();
-    }
-  }
-
-  return result;
-}
-
-uint64_t REReferenceComponentGetBundlePath(uint64_t a1)
-{
-  if (*(a1 + 72))
-  {
-    return *(a1 + 80);
-  }
-
-  else
-  {
-    return a1 + 73;
-  }
-}
-
-void makeRequirements(uint64_t a1, uint64_t a2, char *a3, char a4, const char *a5, const char *a6)
-{
-  v33 = *MEMORY[0x1E69E9840];
-  v12 = re::ServiceLocator::serviceOrNull<re::RenderManager>(a2);
-  v13 = re::ServiceLocator::serviceOrNull<re::DeformationService>(a2);
-  if (!v12 || !v13)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v19 = CoreRELog::log;
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_1E1C61000, v19, OS_LOG_TYPE_ERROR, "Cannot set custom deformation model without a render manager or deformation service", buf, 2u);
-    }
-
-    goto LABEL_32;
-  }
-
-  v14 = (*(*v13 + 32))(v13, 11);
-  if (a3)
-  {
-    v15 = *a3;
-    if (*a3)
-    {
-      v16 = a3[1];
-      if (v16)
+      v7 = *(v5 + 15);
+      v8 = 24 * v6;
+      do
       {
-        v17 = (a3 + 2);
-        do
-        {
-          v15 = 31 * v15 + v16;
-          v18 = *v17++;
-          v16 = v18;
-        }
-
-        while (v18);
-      }
-    }
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  *buf = 2 * v15;
-  *&buf[8] = a3;
-  v20 = re::CustomDeformers::customDeformerID(v14, buf);
-  v21 = v20;
-  if (buf[0])
-  {
-    if (buf[0])
-    {
-    }
-  }
-
-  if (v21 == -1)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v24 = CoreRELog::log;
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      *&buf[4] = a3;
-      _os_log_error_impl(&dword_1E1C61000, v24, OS_LOG_TYPE_ERROR, "Cannot set custom deformation model for an unknown custom deformer: %s", buf, 0xCu);
-    }
-
-LABEL_32:
-    *a1 = 0;
-    return;
-  }
-
-  *&v25.var0 = 0;
-  v25.var1 = &str_67;
-  *&v26.var0 = 0;
-  v26.var1 = &str_67;
-  if (a6)
-  {
-  }
-
-  *buf = a2;
-  *&buf[8] = v12;
-  v28 = v21;
-  v29 = a4;
-  re::StringID::StringID(&v30, &v25);
-  v23 = re::StringID::StringID((&v31 + 8), &v26);
-  *a1 = 1;
-  *(a1 + 8) = *buf;
-  *(a1 + 24) = v28;
-  *(a1 + 32) = v29;
-  *(a1 + 40) = v30;
-  *(a1 + 48) = v31;
-  *(a1 + 64) = v32;
-  if (*&v26.var0)
-  {
-    if (*&v26.var0)
-    {
-    }
-  }
-
-  *&v26.var0 = 0;
-  v26.var1 = &str_67;
-  if (*&v25.var0)
-  {
-    if (*&v25.var0)
-    {
-    }
-  }
-}
-
-void *RECustomDeformerComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::CustomDeformerComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-_anonymous_namespace_ *RECustomDeformerComponentGetDeformationIndex(uint64_t a1, char *a2)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v4 = re::ServiceLocator::serviceOrNull<re::RenderManager>(a1);
-  v5 = re::ServiceLocator::serviceOrNull<re::DeformationService>(a1);
-  if (!v4 || !v5)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v11 = CoreRELog::log;
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_21;
-    }
-
-    LOWORD(v18) = 0;
-    v12 = "Cannot set custom deformation model without a render manager or deformation service";
-    v13 = v11;
-    v14 = 2;
-    goto LABEL_24;
-  }
-
-  v6 = (*(*v5 + 32))(v5, 11);
-  if (a2)
-  {
-    v7 = *a2;
-    if (*a2)
-    {
-      v8 = a2[1];
-      if (v8)
-      {
-        v9 = (a2 + 2);
-        do
-        {
-          v7 = 31 * v7 + v8;
-          v10 = *v9++;
-          v8 = v10;
-        }
-
-        while (v10);
-      }
-    }
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  *&v18 = 2 * v7;
-  *(&v18 + 1) = a2;
-  v15 = re::CustomDeformers::customDeformerID(v6, &v18);
-  v16 = v15;
-  if (v18)
-  {
-    if (v18)
-    {
-    }
-  }
-
-  if (v16 == -1)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v11 = CoreRELog::log;
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_21;
-    }
-
-    LODWORD(v18) = 136315138;
-    *(&v18 + 4) = a2;
-    v12 = "Cannot set custom deformation model for an unknown custom deformer: %s";
-    v13 = v11;
-    v14 = 12;
-LABEL_24:
-    _os_log_error_impl(&dword_1E1C61000, v13, OS_LOG_TYPE_ERROR, v12, &v18, v14);
-LABEL_21:
-
-    return 0;
-  }
-
-  return v16;
-}
-
-unint64_t RECustomDeformerComponentGetDeformationIndexInputMeshID@<X0>(re::ecs2::CustomDeformerComponent *a1@<X0>, unint64_t a2@<X2>, unint64_t a3@<X3>, uint64_t a4@<X8>)
-{
-  result = re::ecs2::CustomDeformerComponent::getInputObjectMeshID(a1, a2, a3);
-  *a4 = *result;
-  v6 = *(result + 16);
-  if (*(result + 8) <= 1uLL && v6 && !*v6)
-  {
-    v6 = 0;
-  }
-
-  *(a4 + 8) = v6;
-  v7 = *(result + 32);
-  if (*(result + 24) <= 1uLL && v7 && !*v7)
-  {
-    v7 = 0;
-  }
-
-  *(a4 + 16) = v7;
-  return result;
-}
-
-uint64_t RECustomDeformerComponentSetCustomDeformationModel(void *a1, uint64_t a2, char *a3, char a4, const char *a5, const char *a6, const void *a7, size_t a8, uint64_t a9, __int128 a10)
-{
-  v41 = *MEMORY[0x1E69E9840];
-  makeRequirements(v28, a2, a3, a4, a5, a6);
-  v13 = v28[0];
-  if (v28[0] == 1)
-  {
-    v21 = *(&v29 + 1);
-    v22 = v30;
-    v23[0] = v31;
-    re::StringID::StringID(&v24, &v32);
-    v14 = re::StringID::StringID(&v26, &v33);
-    if (a7)
-    {
-      v15 = re::globalAllocators(v14);
-      v16 = (*(*v15[2] + 32))(v15[2], a8, a9);
-      v34 = &unk_1F5D2EB30;
-      v35 = a10;
-      v36 = &v34;
-      v40 = &v38;
-      v37 = v16;
-      v38 = &unk_1F5D2EB30;
-      v39 = a10;
-      std::__function::__value_func<void ()(void *)>::~__value_func[abi:nn200100](&v34);
-      memcpy(v37, a7, a8);
-      v17 = v21;
-      v18 = v22;
-    }
-
-    else
-    {
-      v17 = v21;
-      v18 = v22;
-      v37 = 0;
-      v40 = 0;
-    }
-
-    re::ecs2::CustomDeformerComponent::setCustomDeformerDeformationModel(a1, v17, v18, v23, &v37);
-    std::unique_ptr<void,std::function<void ()(void *)>>::~unique_ptr[abi:nn200100](&v37);
-    v19 = re::ecs2::Component::enqueueMarkDirty(a1);
-    if (v26)
-    {
-      if (v26)
-      {
-      }
-    }
-
-    v26 = 0;
-    v27 = &str_67;
-    if (v24)
-    {
-      if (v24)
-      {
-      }
-    }
-
-    if (*&v33.var0)
-    {
-    }
-
-    if (*&v32.var0)
-    {
-    }
-  }
-
-  return v13;
-}
-
-uint64_t RECustomDeformerComponentSetCustomDeformationInput(void *a1, uint64_t a2, char *a3, char a4, const char *a5, const char *a6, const void *a7, size_t a8, uint64_t a9, __int128 a10)
-{
-  v41 = *MEMORY[0x1E69E9840];
-  makeRequirements(v28, a2, a3, a4, a5, a6);
-  v13 = v28[0];
-  if (v28[0] == 1)
-  {
-    v21 = *(&v29 + 1);
-    v22 = v30;
-    v23[0] = v31;
-    re::StringID::StringID(&v24, &v32);
-    v14 = re::StringID::StringID(&v26, &v33);
-    if (a7)
-    {
-      v15 = re::globalAllocators(v14);
-      v16 = (*(*v15[2] + 32))(v15[2], a8, a9);
-      v34 = &unk_1F5D2EBB0;
-      v35 = a10;
-      v36 = &v34;
-      v40 = &v38;
-      v37 = v16;
-      v38 = &unk_1F5D2EBB0;
-      v39 = a10;
-      std::__function::__value_func<void ()(void *)>::~__value_func[abi:nn200100](&v34);
-      memcpy(v37, a7, a8);
-      v17 = v21;
-      v18 = v22;
-    }
-
-    else
-    {
-      v17 = v21;
-      v18 = v22;
-      v37 = 0;
-      v40 = 0;
-    }
-
-    re::ecs2::CustomDeformerComponent::setCustomDeformerDeformationInput(a1, v17, v18, v23, &v37);
-    std::unique_ptr<void,std::function<void ()(void *)>>::~unique_ptr[abi:nn200100](&v37);
-    v19 = re::ecs2::Component::enqueueMarkDirty(a1);
-    if (v26)
-    {
-      if (v26)
-      {
-      }
-    }
-
-    v26 = 0;
-    v27 = &str_67;
-    if (v24)
-    {
-      if (v24)
-      {
-      }
-    }
-
-    if (*&v33.var0)
-    {
-    }
-
-    if (*&v32.var0)
-    {
-    }
-  }
-
-  return v13;
-}
-
-uint64_t RECustomDeformerComponentSetCustomDeformationInputObject(void *a1, uint64_t a2, char *a3, char a4, const char *a5, const char *a6, const void *a7)
-{
-  v29 = *MEMORY[0x1E69E9840];
-  makeRequirements(v19, a2, a3, a4, a5, a6);
-  v9 = v19[0];
-  if (v19[0] == 1)
-  {
-    v12 = *(&v20 + 1);
-    v13 = v21;
-    v14[0] = v22;
-    re::StringID::StringID(&v15, &v23);
-    re::StringID::StringID(&v17, &v24);
-    if (a7)
-    {
-      CFRetain(a7);
-      v25[0] = &unk_1F5D2EC30;
-      v25[1] = RECustomDeformationInputObjectRelease;
-      v25[3] = v25;
-      v26 = a7;
-      v28 = v27;
-      v27[0] = &unk_1F5D2EC30;
-      v27[1] = RECustomDeformationInputObjectRelease;
-      re::ecs2::CustomDeformerComponent::setCustomDeformerDeformationInput(a1, v12, v13, v14, &v26);
-      std::unique_ptr<void,std::function<void ()(void *)>>::~unique_ptr[abi:nn200100](&v26);
-      std::__function::__value_func<void ()(void *)>::~__value_func[abi:nn200100](v25);
-    }
-
-    else
-    {
-      v26 = 0;
-      v28 = 0;
-      re::ecs2::CustomDeformerComponent::setCustomDeformerDeformationInput(a1, v12, v13, v14, &v26);
-      std::unique_ptr<void,std::function<void ()(void *)>>::~unique_ptr[abi:nn200100](&v26);
-    }
-
-    v10 = re::ecs2::Component::enqueueMarkDirty(a1);
-    if (v17)
-    {
-      if (v17)
-      {
-      }
-    }
-
-    v17 = 0;
-    v18 = &str_67;
-    if (v15)
-    {
-      if (v15)
-      {
-      }
-    }
-
-    if (*&v24.var0)
-    {
-    }
-
-    if (*&v23.var0)
-    {
-    }
-  }
-
-  return v9;
-}
-
-uint64_t RECustomDeformerComponentForceContinuousDeformations(void *a1, uint64_t a2, char *a3, char a4, const char *a5, const char *a6, int a7)
-{
-  makeRequirements(v18, a2, a3, a4, a5, a6);
-  v9 = v18[0];
-  if (v18[0] == 1)
-  {
-    v12 = v19;
-    v13[0] = v20;
-    re::StringID::StringID(&v14, &v21);
-    re::StringID::StringID(&v16, &v22);
-    re::ecs2::CustomDeformerComponent::setForceContinuousDeformations(a1, v12, v13, a7);
-    v10 = re::ecs2::Component::enqueueMarkDirty(a1);
-    if (v16)
-    {
-      if (v16)
-      {
-      }
-    }
-
-    v16 = 0;
-    v17 = &str_67;
-    if (v14)
-    {
-      if (v14)
-      {
-      }
-    }
-
-    if (*&v22.var0)
-    {
-    }
-
-    if (*&v21.var0)
-    {
-    }
-  }
-
-  return v9;
-}
-
-__n128 std::__function::__func<RECustomDeformerComponentSetCustomDeformationModel::$_0,std::allocator<RECustomDeformerComponentSetCustomDeformationModel::$_0>,void ()(void *)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5D2EB30;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
-  return result;
-}
-
-re *std::__function::__func<RECustomDeformerComponentSetCustomDeformationModel::$_0,std::allocator<RECustomDeformerComponentSetCustomDeformationModel::$_0>,void ()(void *)>::operator()(re *result, uint64_t *a2)
-{
-  v2 = *a2;
-  v3 = *(result + 1);
-  if (v3)
-  {
-    result = v3(v2, *(result + 2));
-  }
-
-  if (v2)
-  {
-    v4 = *(*re::globalAllocators(result)[2] + 40);
-
-    return v4();
-  }
-
-  return result;
-}
-
-uint64_t std::__function::__func<RECustomDeformerComponentSetCustomDeformationModel::$_0,std::allocator<RECustomDeformerComponentSetCustomDeformationModel::$_0>,void ()(void *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-__n128 std::__function::__func<RECustomDeformerComponentSetCustomDeformationInput::$_0,std::allocator<RECustomDeformerComponentSetCustomDeformationInput::$_0>,void ()(void *)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5D2EBB0;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
-  return result;
-}
-
-re *std::__function::__func<RECustomDeformerComponentSetCustomDeformationInput::$_0,std::allocator<RECustomDeformerComponentSetCustomDeformationInput::$_0>,void ()(void *)>::operator()(re *result, uint64_t *a2)
-{
-  v2 = *a2;
-  v3 = *(result + 1);
-  if (v3)
-  {
-    result = v3(v2, *(result + 2));
-  }
-
-  if (v2)
-  {
-    v4 = *(*re::globalAllocators(result)[2] + 40);
-
-    return v4();
-  }
-
-  return result;
-}
-
-uint64_t std::__function::__func<RECustomDeformerComponentSetCustomDeformationInput::$_0,std::allocator<RECustomDeformerComponentSetCustomDeformationInput::$_0>,void ()(void *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<void (*)(void *),std::allocator<void (*)(void *)>,void ()(void *)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F5D2EC30;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t std::__function::__func<void (*)(void *),std::allocator<void (*)(void *)>,void ()(void *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void *REStateMachineComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::StateMachineComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-void REStateMachineComponentAssignAsset(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, &v5);
-  v3 = *(a1 + 32);
-  *(a1 + 32) = v5;
-  v5 = v3;
-  v4 = *(a1 + 48);
-  *(a1 + 48) = v6;
-  v6 = v4;
-  re::AssetHandle::~AssetHandle(&v5);
-}
-
-void REStateMachineComponentAssignStateParameterBlackboardAsset(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, &v5);
-  v3 = *(a1 + 56);
-  *(a1 + 56) = v5;
-  v5 = v3;
-  v4 = *(a1 + 72);
-  *(a1 + 72) = v6;
-  v6 = v4;
-  re::AssetHandle::~AssetHandle(&v5);
-}
-
-void REStateMachineComponentSetStateParameterInt(_anonymous_namespace_ *a1, const char *a2, uint64_t a3)
-{
-  v9 = 0;
-  v10 = &str_67;
-  v6 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((v9 >> 31) ^ (v9 >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((v9 >> 31) ^ (v9 >> 1))) >> 27));
-  isAlive = re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(a1 + 184, &v9, v6 ^ (v6 >> 31), &v11);
-  if (v12 != 0x7FFFFFFF)
-  {
-    v8 = *(*(a1 + 25) + 32 * v12 + 24);
-    v11 = a3;
-    if (*(v8 + 32))
-    {
-      isAlive = re::BindPoint::isAlive((v8 + 8));
-      if (isAlive)
-      {
-        isAlive = re::BindPoint::setValue<long long>(v8 + 8, &v11);
-      }
-    }
-  }
-
-  if (v9)
-  {
-    if (v9)
-    {
-    }
-  }
-}
-
-void REStateMachineComponentSetStateParameterFloat(_anonymous_namespace_ *a1, const char *a2, float a3)
-{
-  v9 = 0;
-  v10 = &str_67;
-  v6 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((v9 >> 31) ^ (v9 >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((v9 >> 31) ^ (v9 >> 1))) >> 27));
-  isAlive = re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(a1 + 232, &v9, v6 ^ (v6 >> 31), v11);
-  if (v12 != 0x7FFFFFFF)
-  {
-    v8 = *(*(a1 + 31) + 32 * v12 + 24);
-    *v11 = a3;
-    if (*(v8 + 32))
-    {
-      isAlive = re::BindPoint::isAlive((v8 + 8));
-      if (isAlive)
-      {
-        isAlive = re::BindPoint::setValue<float>(v8 + 8, v11);
-      }
-    }
-  }
-
-  if (v9)
-  {
-    if (v9)
-    {
-    }
-  }
-}
-
-void REStateMachineComponentSetStateParameterBool(_anonymous_namespace_ *a1, const char *a2, char a3)
-{
-  v8 = 0;
-  v9 = &str_67;
-  v6 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((v8 >> 31) ^ (v8 >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((v8 >> 31) ^ (v8 >> 1))) >> 27));
-  v7 = re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(a1 + 280, &v8, v6 ^ (v6 >> 31), v10);
-  if (v11 != 0x7FFFFFFF)
-  {
-    v7 = re::StateParameterBool::setValue(*(*(a1 + 37) + 32 * v11 + 24), a3);
-  }
-
-  if (v8)
-  {
-    if (v8)
-    {
-    }
-  }
-}
-
-void REStateMachineComponentSetStateParameterTrigger(uint64_t a1, const char *a2)
-{
-  v5 = 0;
-  v6 = &str_67;
-  v4 = re::StateParameterBlackboard::setStateParameterTriggerValue((a1 + 176), &v5, 1);
-  if (v5)
-  {
-    if (v5)
-    {
-    }
-  }
-}
-
-void REStateMachineComponentResetStateParameterTrigger(uint64_t a1, const char *a2)
-{
-  v5 = 0;
-  v6 = &str_67;
-  v4 = re::StateParameterBlackboard::setStateParameterTriggerValue((a1 + 176), &v5, 0);
-  if (v5)
-  {
-    if (v5)
-    {
-    }
-  }
-}
-
-BOOL REStateMachineComponentGetStateParameterInt(uint64_t a1, const char *a2, uint64_t *a3)
-{
-  v9 = 0;
-  v10 = &str_67;
-  StateParameterIntValue = re::StateParameterBlackboard::getStateParameterIntValue((a1 + 176), &v9, a3);
-  v7 = StateParameterIntValue;
-  if (v9)
-  {
-    if (v9)
-    {
-    }
-  }
-
-  return v7;
-}
-
-BOOL REStateMachineComponentGetStateParameterFloat(uint64_t a1, const char *a2, float *a3)
-{
-  v9 = 0;
-  v10 = &str_67;
-  StateParameterFloatValue = re::StateParameterBlackboard::getStateParameterFloatValue((a1 + 176), &v9, a3);
-  v7 = StateParameterFloatValue;
-  if (v9)
-  {
-    if (v9)
-    {
-    }
-  }
-
-  return v7;
-}
-
-BOOL REStateMachineComponentGetStateParameterBool(uint64_t a1, const char *a2, BOOL *a3)
-{
-  v9 = 0;
-  v10 = &str_67;
-  StateParameterBoolValue = re::StateParameterBlackboard::getStateParameterBoolValue((a1 + 176), &v9, a3);
-  v7 = StateParameterBoolValue;
-  if (v9)
-  {
-    if (v9)
-    {
-    }
-  }
-
-  return v7;
-}
-
-BOOL REStateMachineComponentGetStateParameterTrigger(uint64_t a1, const char *a2, BOOL *a3)
-{
-  v9 = 0;
-  v10 = &str_67;
-  StateParameterTriggerValue = re::StateParameterBlackboard::getStateParameterTriggerValue((a1 + 176), &v9, a3);
-  v7 = StateParameterTriggerValue;
-  if (v9)
-  {
-    if (v9)
-    {
-    }
-  }
-
-  return v7;
-}
-
-uint64_t REStateMachineComponentGetCurrentStateName(_anonymous_namespace_ *a1, const char *a2)
-{
-  v7 = 0;
-  v8 = &str_67;
-  v4 = re::ecs2::StateMachineComponent::currentState(a1, &v7);
-  v5 = v4;
-  if (v7)
-  {
-    if (v7)
-    {
-    }
-  }
-
-  if (v5)
-  {
-    return *(v5 + 12);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t REStateMachineComponentGetPreviousStateName(_anonymous_namespace_ *a1, const char *a2)
-{
-  v7 = 0;
-  v8 = &str_67;
-  v4 = re::ecs2::StateMachineComponent::previousState(a1, &v7);
-  v5 = v4;
-  if (v7)
-  {
-    if (v7)
-    {
-    }
-  }
-
-  if (v5)
-  {
-    return *(v5 + 12);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t REStateMachineComponentGetCurrentTransitionName(_anonymous_namespace_ *a1, const char *a2)
-{
-  v7 = 0;
-  v8 = &str_67;
-  v4 = re::ecs2::StateMachineComponent::currentTransition(a1, &v7);
-  v5 = v4;
-  if (v7)
-  {
-    if (v7)
-    {
-    }
-  }
-
-  if (v5)
-  {
-    return *(v5 + 6);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t REStateMachineComponentHasBoundParameterAtName(uint64_t a1, char *a2, int a3)
-{
-  if (a2)
-  {
-    v3 = *a2;
-    if (*a2)
-    {
-      v4 = a2[1];
-      if (v4)
-      {
-        v5 = (a2 + 2);
-        do
-        {
-          v3 = 31 * v3 + v4;
-          v6 = *v5++;
-          v4 = v6;
-        }
-
-        while (v6);
-      }
-    }
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v9[0] = 2 * v3;
-  v9[1] = a2;
-  v7 = re::StateMachineParameterBinding::indexOf(a1 + 376, v9, a3, v10);
-  if (v9[0])
-  {
-    if (v9[0])
-    {
-    }
-  }
-
-  return v10[0];
-}
-
-uint64_t REStateMachineComponentGetBoundParameterIndexAtName(uint64_t a1, char *a2, int a3)
-{
-  if (a2)
-  {
-    v3 = *a2;
-    if (*a2)
-    {
-      v4 = a2[1];
-      if (v4)
-      {
-        v5 = (a2 + 2);
-        do
-        {
-          v3 = 31 * v3 + v4;
-          v6 = *v5++;
-          v4 = v6;
-        }
-
-        while (v6);
-      }
-    }
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v9[0] = 2 * v3;
-  v9[1] = a2;
-  v7 = re::StateMachineParameterBinding::indexOf(a1 + 376, v9, a3, v10);
-  if (v9[0])
-  {
-    if (v9[0])
-    {
-    }
-  }
-
-  return v11;
-}
-
-uint64_t REStateMachineComponentGetBoundParameterTypeAtIndex(uint64_t a1, unint64_t a2)
-{
-  if (*(a1 + 392) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return *(*(a1 + 408) + 40 * a2 + 16);
-}
-
-uint64_t REStateMachineComponentGetBoundParameterNameAtIndex(uint64_t a1, unint64_t a2)
-{
-  if (*(a1 + 392) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return *(*(a1 + 408) + 40 * a2 + 8);
-}
-
-uint64_t REStateMachineComponentGetBoundParameterBindTargetAtIndex(uint64_t a1, unint64_t a2)
-{
-  if (*(a1 + 392) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return *(*(a1 + 408) + 40 * a2 + 32);
-}
-
-void REStateMachineComponentSetBoundParameterBindTargetAtIndex(uint64_t a1, unint64_t a2, const char *a3)
-{
-  v7 = 0;
-  v8 = &str_67;
-  v6 = re::StateMachineParameterBinding::setBindTarget((a1 + 376), a2, &v7);
-  if (v7)
-  {
-    if (v7)
-    {
-    }
-  }
-}
-
-void REStateMachineComponentRemoveBoundParameterAtName(uint64_t a1, char *a2, int a3)
-{
-  if (a2)
-  {
-    v4 = *a2;
-    if (*a2)
-    {
-      v5 = a2[1];
-      if (v5)
-      {
-        v6 = (a2 + 2);
-        do
-        {
-          v4 = 31 * v4 + v5;
-          v7 = *v6++;
-          v5 = v7;
-        }
-
-        while (v7);
-      }
-    }
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v9[0] = 2 * v4;
-  v9[1] = a2;
-  v8 = re::StateMachineParameterBinding::indexOf(a1 + 376, v9, a3, v10);
-  if (v9[0])
-  {
-    if (v9[0])
-    {
-    }
-  }
-
-  if (v10[0] == 1)
-  {
-    re::DynamicArray<re::StateMachineParameterBindingItem>::removeAt(a1 + 376, v11);
-  }
-}
-
-void REStateMachineComponentAddBoundParameter(_anonymous_namespace_ *a1, const char *a2, char a3, const char *a4)
-{
-  *&v11.var0 = 0;
-  v11.var1 = &str_67;
-  *&v10.var0 = 0;
-  v10.var1 = &str_67;
-  re::StateMachineParameterBinding::add(a1 + 47, &v11, a3, &v10);
-  if (*&v10.var0)
-  {
-    if (*&v10.var0)
-    {
-    }
-  }
-
-  if (*&v11.var0)
-  {
-    if (*&v11.var0)
-    {
-    }
-  }
-}
-
-uint64_t re::StateParameterBlackboard::setStateParameterTriggerValue(re::StateParameterBlackboard *this, const re::StringID *a2, char a3)
-{
-  v5 = 0xBF58476D1CE4E5B9 * ((*a2 >> 31) ^ (*a2 >> 1));
-  result = re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(this + 152, a2, (0x94D049BB133111EBLL * (v5 ^ (v5 >> 27))) ^ ((0x94D049BB133111EBLL * (v5 ^ (v5 >> 27))) >> 31), v7);
-  if (v8 != 0x7FFFFFFF)
-  {
-    return re::StateParameterBool::setValue(*(*(this + 21) + 32 * v8 + 24), a3);
-  }
-
-  return result;
-}
-
-uint64_t RESceneUnderstandingServiceSetDepthFeatheringEnabled(uint64_t a1, uint64_t a2)
-{
-  if ((a2 & 1) != 0 && (((*(*a1 + 72))(a1) & 1) != 0 || (*(*a1 + 56))(a1)))
-  {
-    (*(*a1 + 64))(a1, 0);
-    (*(*a1 + 48))(a1, 0);
-  }
-
-  v4 = *(*a1 + 32);
-
-  return v4(a1, a2);
-}
-
-uint64_t RESceneUnderstandingServiceSetGuidedFilterOcclusionEnabled(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    if ((*(*a1 + 40))(a1))
-    {
-      (*(*a1 + 32))(a1, 0);
-    }
-
-    (*(*a1 + 56))(a1);
-  }
-
-  v4 = *(*a1 + 64);
-
-  return v4(a1, a2);
-}
-
-void RESceneUnderstandingServiceSetGuidedFilterOcclusionCameraFeed(uint64_t a1, void *a2, void *a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, double a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, __n128 a14, __n128 a15, __n128 a16, __n128 a17)
-{
-  v20 = a2;
-  v21 = a3;
-  v29 = v20;
-  v22 = v20;
-  v28 = v21;
-  v23 = v21;
-  (*(*a1 + 88))(a1, &v29, &v28);
-  if (v28)
-  {
-  }
-
-  if (v29)
-  {
-  }
-
-  (*(*a1 + 96))(a1, a4, a5, a6, a7);
-  (*(*a1 + 104))(a1, a14, a15, a16, a17);
-  (*(*a1 + 112))(a1, a8);
-}
-
-uint64_t RECreateLayeredStateGraphs(re *a1)
-{
-  v2 = re::globalAllocators(a1);
-  v3 = (*(*v2[2] + 32))(v2[2], 48, 8);
-  *v3 = 0u;
-  *(v3 + 16) = 0u;
-  *(v3 + 32) = 0u;
-  ArcSharedObject::ArcSharedObject(v3, 0);
-  *v3 = &unk_1F5D2ECA0;
-  *(v3 + 32) = 0;
-  *(v3 + 40) = 0;
-  *(v3 + 24) = 0;
-  return v3;
-}
-
-void *RELayeredStateGraphsAddStateGraph(uint64_t a1, unint64_t a2, uint64_t a3)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 32) <= a2)
-  {
-    memset(v5, 0, sizeof(v5));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v3 = (*(a1 + 40) + 40 * a2);
-  *&v5[0] = a3 + 24;
-  return re::DynamicArray<re::TransitionCondition *>::add(v3, v5);
-}
-
-uint64_t RECreateStateGraph(_anonymous_namespace_ *a1)
-{
-  *&v7.var0 = 0;
-  v7.var1 = &str_67;
-  v3 = re::globalAllocators(v2);
-  v4 = (*(*v3[2] + 32))(v3[2], 96, 8);
-  ArcSharedObject::ArcSharedObject(v4, 0);
-  *v4 = &unk_1F5D2ECE8;
-  *(v4 + 24) = &unk_1F5CC8878;
-  v5 = re::StringID::StringID((v4 + 32), &v7);
-  *(v4 + 48) = 0;
-  *(v4 + 56) = 0;
-  *(v4 + 72) = 0;
-  *(v4 + 64) = 0;
-  *(v4 + 80) = 0;
-  *(v4 + 88) = 0;
-  if (*&v7.var0)
-  {
-    if (*&v7.var0)
-    {
-    }
-  }
-
-  return v4;
-}
-
-void *REStateGraphAddState(re *a1, const char *a2)
-{
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 112, 8);
-  *&v8.var0 = 0;
-  v8.var1 = &str_67;
-  *v5 = &unk_1F5CC88A8;
-  *(v5 + 8) = 0;
-  *(v5 + 16) = 0;
-  *(v5 + 24) = 0;
-  *(v5 + 32) = 0;
-  *(v5 + 80) = 0;
-  *(v5 + 40) = 0u;
-  *(v5 + 56) = 0u;
-  *(v5 + 72) = 0;
-  v6 = re::StringID::StringID((v5 + 88), &v8);
-  *(v5 + 104) = 0;
-  if (*&v8.var0)
-  {
-    if (*&v8.var0)
-    {
-    }
-  }
-
-  *&v8.var0 = v5;
-  return re::DynamicArray<re::TransitionCondition *>::add(a1 + 6, &v8);
-}
-
-void *REStateGraphAddAnyState(re *a1, const char *a2)
-{
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 112, 8);
-  *&v8.var0 = 0;
-  v8.var1 = &str_67;
-  *v5 = &unk_1F5CC88A8;
-  *(v5 + 8) = 0;
-  *(v5 + 16) = 0;
-  *(v5 + 24) = 0;
-  *(v5 + 32) = 0;
-  *(v5 + 80) = 0;
-  *(v5 + 40) = 0u;
-  *(v5 + 56) = 0u;
-  *(v5 + 72) = 0;
-  v6 = re::StringID::StringID((v5 + 88), &v8);
-  *(v5 + 104) = 0;
-  if (*&v8.var0)
-  {
-    if (*&v8.var0)
-    {
-    }
-  }
-
-  return re::StateGraph::addAnyState(a1 + 3, v5);
-}
-
-uint64_t REStateGraphCreateStateTransition(_anonymous_namespace_ *a1, unint64_t a2, const char *a3, const char *a4, const char *a5, const char *a6, const char *a7, char a8, float a9)
-{
-  v37 = *MEMORY[0x1E69E9840];
-  *&v36[0] = 0;
-  *(&v36[0] + 1) = &str_67;
-  GraphByName = re::SharedLayeredStateGraphs::findGraphByName(a1, a2, v36);
-  v19 = GraphByName;
-  if (v36[0])
-  {
-    if (v36[0])
-    {
-    }
-  }
-
-  if (!v19)
-  {
-    return 0;
-  }
-
-  v20 = *(a1 + 4);
-  if (v20 <= a2)
-  {
-    v29 = 0;
-    memset(v36, 0, sizeof(v36));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v31 = 136315906;
-    *&v31[4] = "operator[]";
-    *&v31[12] = 1024;
-    *&v31[14] = 468;
-    v32 = 2048;
-    v33 = a2;
-    v34 = 2048;
-    v35 = v20;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v21 = *(a1 + 5) + 40 * a2;
-  *&v36[0] = 0;
-  *(&v36[0] + 1) = &str_67;
-  *v31 = 0;
-  *&v31[8] = &str_67;
-  v29 = 0;
-  v30 = &str_67;
-  *&v28.var0 = 0;
-  v28.var1 = &str_67;
-  v25 = re::StateGraph::createStateTransition(v19, v21, v36, v31, &v29, &v28, a8, a9);
-  v26 = v25;
-  if (*&v28.var0)
-  {
-    if (*&v28.var0)
-    {
-    }
-  }
-
-  if (v29)
-  {
-    if (v29)
-    {
-    }
-  }
-
-  if (v31[0])
-  {
-    if (v31[0])
-    {
-    }
-  }
-
-  if (v36[0])
-  {
-    if (v36[0])
-    {
-    }
-  }
-
-  return v26;
-}
-
-uint64_t re::SharedLayeredStateGraphs::findGraphByName(re::SharedLayeredStateGraphs *this, unint64_t a2, const re::StringID *a3)
-{
-  if (*(this + 4) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v3 = *(this + 5) + 40 * a2;
-  v4 = *(v3 + 16);
-  if (!v4)
-  {
-    return 0;
-  }
-
-  for (i = *(v3 + 32); ; ++i)
-  {
-    v7 = *i;
-    if (re::StringID::operator==((*i + 8), a3))
-    {
-      break;
-    }
-
-    if (!--v4)
-    {
-      return 0;
-    }
-  }
-
-  return v7;
-}
-
-_anonymous_namespace_ *REStateGraphAddStateTransitionConditionInt(_anonymous_namespace_ *a1, unint64_t a2, const char *a3, const char *a4, const char *a5, const char *a6, char a7, int a8)
-{
-  v26 = 0;
-  v27 = &str_67;
-  GraphByName = re::SharedLayeredStateGraphs::findGraphByName(a1, a2, &v26);
-  v17 = GraphByName;
-  if (v26)
-  {
-    if (v26)
-    {
-    }
-  }
-
-  if (!v17)
-  {
-    return 0;
-  }
-
-  v26 = 0;
-  v27 = &str_67;
-  v24 = 0;
-  v25 = &str_67;
-  *&v23.var0 = 0;
-  v23.var1 = &str_67;
-  v20 = re::StateGraph::addIntTransitionCondition(v17, &v26, &v24, &v23, a7, a8);
-  v21 = v20;
-  if (*&v23.var0)
-  {
-    if (*&v23.var0)
-    {
-    }
-  }
-
-  if (v24)
-  {
-    if (v24)
-    {
-    }
-  }
-
-  if (v26)
-  {
-    if (v26)
-    {
-    }
-  }
-
-  return v21;
-}
-
-_anonymous_namespace_ *REStateGraphAddStateTransitionConditionFloat(_anonymous_namespace_ *a1, unint64_t a2, const char *a3, const char *a4, const char *a5, const char *a6, char a7, float a8)
-{
-  v26 = 0;
-  v27 = &str_67;
-  GraphByName = re::SharedLayeredStateGraphs::findGraphByName(a1, a2, &v26);
-  v17 = GraphByName;
-  if (v26)
-  {
-    if (v26)
-    {
-    }
-  }
-
-  if (!v17)
-  {
-    return 0;
-  }
-
-  v26 = 0;
-  v27 = &str_67;
-  v24 = 0;
-  v25 = &str_67;
-  *&v23.var0 = 0;
-  v23.var1 = &str_67;
-  v20 = re::StateGraph::addFloatTransitionCondition(v17, &v26, &v24, &v23, a7, a8);
-  v21 = v20;
-  if (*&v23.var0)
-  {
-    if (*&v23.var0)
-    {
-    }
-  }
-
-  if (v24)
-  {
-    if (v24)
-    {
-    }
-  }
-
-  if (v26)
-  {
-    if (v26)
-    {
-    }
-  }
-
-  return v21;
-}
-
-_anonymous_namespace_ *REStateGraphAddStateTransitionConditionBool(_anonymous_namespace_ *a1, unint64_t a2, const char *a3, const char *a4, const char *a5, const char *a6, char a7, char a8)
-{
-  v26 = 0;
-  v27 = &str_67;
-  GraphByName = re::SharedLayeredStateGraphs::findGraphByName(a1, a2, &v26);
-  v17 = GraphByName;
-  if (v26)
-  {
-    if (v26)
-    {
-    }
-  }
-
-  if (!v17)
-  {
-    return 0;
-  }
-
-  v26 = 0;
-  v27 = &str_67;
-  v24 = 0;
-  v25 = &str_67;
-  *&v23.var0 = 0;
-  v23.var1 = &str_67;
-  v20 = re::StateGraph::addBoolTransitionCondition(v17, &v26, &v24, &v23, a7, a8);
-  v21 = v20;
-  if (*&v23.var0)
-  {
-    if (*&v23.var0)
-    {
-    }
-  }
-
-  if (v24)
-  {
-    if (v24)
-    {
-    }
-  }
-
-  if (v26)
-  {
-    if (v26)
-    {
-    }
-  }
-
-  return v21;
-}
-
-_anonymous_namespace_ *REStateGraphAddStateTransitionConditionTrigger(_anonymous_namespace_ *a1, unint64_t a2, const char *a3, const char *a4, const char *a5, const char *a6)
-{
-  v22 = 0;
-  v23 = &str_67;
-  GraphByName = re::SharedLayeredStateGraphs::findGraphByName(a1, a2, &v22);
-  v13 = GraphByName;
-  if (v22)
-  {
-    if (v22)
-    {
-    }
-  }
-
-  if (!v13)
-  {
-    return 0;
-  }
-
-  v22 = 0;
-  v23 = &str_67;
-  v20 = 0;
-  v21 = &str_67;
-  *&v19.var0 = 0;
-  v19.var1 = &str_67;
-  v16 = re::StateGraph::addTriggerTransitionCondition(v13, &v22, &v20, &v19);
-  v17 = v16;
-  if (*&v19.var0)
-  {
-    if (*&v19.var0)
-    {
-    }
-  }
-
-  if (v20)
-  {
-    if (v20)
-    {
-    }
-  }
-
-  if (v22)
-  {
-    if (v22)
-    {
-    }
-  }
-
-  return v17;
-}
-
-void *REStateGraphAddStateCommand(uint64_t a1, const char *a2, uint64_t a3)
-{
-  v9 = 0;
-  v10 = &str_67;
-  StateByName = re::StateGraph::findStateByName((a1 + 24), &v9, &v11);
-  v7 = StateByName;
-  if (v9)
-  {
-    if (v9)
-    {
-    }
-  }
-
-  v9 = a3;
-  return re::DynamicArray<re::TransitionCondition *>::add(v7 + 6, &v9);
-}
-
-uint64_t REStateGraphSetStateExitTime(_anonymous_namespace_ *a1, unint64_t a2, const char *a3, const char *a4, float a5)
-{
-  v16 = 0;
-  v17 = &str_67;
-  GraphByName = re::SharedLayeredStateGraphs::findGraphByName(a1, a2, &v16);
-  v11 = GraphByName;
-  if (v16)
-  {
-    if (v16)
-    {
-    }
-  }
-
-  if (!v11)
-  {
-    return 0;
-  }
-
-  v16 = 0;
-  v17 = &str_67;
-  StateByName = re::StateGraph::findStateByName(v11, &v16, &v18);
-  v13 = a5 < 0.0 || StateByName == 0;
-  v14 = !v13;
-  if (!v13)
-  {
-    StateByName[26] = a5;
-  }
-
-  if (v16)
-  {
-    if (v16)
-    {
-    }
-  }
-
-  return v14;
-}
-
-void re::SharedLayeredStateGraphs::~SharedLayeredStateGraphs(re::SharedLayeredStateGraphs *this)
-{
-  *this = &unk_1F5D2ECA0;
-  re::FixedArray<re::DynamicArray<re::RigHierarchyJointDescription>>::deinit(this + 3);
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-{
-  *this = &unk_1F5D2ECA0;
-  re::FixedArray<re::DynamicArray<re::RigHierarchyJointDescription>>::deinit(this + 3);
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void anonymous namespace::SharedStateGraph::~SharedStateGraph(_anonymous_namespace_::SharedStateGraph *this)
-{
-  *this = &unk_1F5D2ECE8;
-  v2 = (this + 32);
-  re::StateGraph::deinit((this + 24));
-  re::DynamicArray<unsigned long>::deinit(this + 48);
-  re::StringID::destroyString(v2);
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-{
-  *this = &unk_1F5D2ECE8;
-  v2 = (this + 32);
-  re::StateGraph::deinit((this + 24));
-  re::DynamicArray<unsigned long>::deinit(this + 48);
-  re::StringID::destroyString(v2);
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *REPhysicsSimulationComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::PhysicsSimulationComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t REPhysicsSimulationComponentSetKinematicFlags(uint64_t a1, uint64_t a2, char a3)
-{
-  v4 = a2;
-  v5 = re::ecs2::ComponentImpl<re::ecs2::PhysicsSimulationComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(a1, a2);
-  *(v5 + 26) = a3;
-  *(v5 + 25) = v4;
-
-  return re::ecs2::Component::enqueueMarkDirty(v5);
-}
-
-uint64_t REPhysicsSimulationComponentSetGravityOverride(uint64_t a1, __int128 *a2)
-{
-  v3 = re::ecs2::ComponentImpl<re::ecs2::PhysicsSimulationComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(a1, a2);
-  if (a2)
-  {
-    v4 = *a2;
-    if ((*(v3 + 32) & 1) == 0)
-    {
-      *(v3 + 32) = 1;
-    }
-
-    *(v3 + 48) = v4;
-  }
-
-  else if (*(v3 + 32))
-  {
-    *(v3 + 32) = 0;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(v3);
-}
-
-uint64_t REPhysicsSimulationComponentGetGravityOverride(uint64_t a1, uint64_t a2)
-{
-  v2 = re::ecs2::ComponentImpl<re::ecs2::PhysicsSimulationComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(a1, a2);
-  if (*(v2 + 32))
-  {
-    return v2 + 48;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t REPhysicsSimulationComponentSetFixedTimeStepOverride(uint64_t a1, int *a2)
-{
-  v3 = re::ecs2::ComponentImpl<re::ecs2::PhysicsSimulationComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(a1, a2);
-  if (a2)
-  {
-    v4 = *a2;
-    if ((*(v3 + 64) & 1) == 0)
-    {
-      *(v3 + 64) = 1;
-    }
-
-    *(v3 + 68) = v4;
-  }
-
-  else if (*(v3 + 64))
-  {
-    *(v3 + 64) = 0;
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(v3);
-}
-
-uint64_t REPhysicsSimulationComponentGetFixedTimeStepOverride(uint64_t a1, uint64_t a2)
-{
-  v2 = re::ecs2::ComponentImpl<re::ecs2::PhysicsSimulationComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(a1, a2);
-  if (*(v2 + 64))
-  {
-    return v2 + 68;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t REPhysicsSimulationComponentSetParentTimebase(uint64_t a1, const void *a2)
-{
-  v4 = re::ecs2::ComponentImpl<re::ecs2::PhysicsSimulationComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(a1, a2);
-  re::ecs2::PhysicsSimulationComponent::setLocallyManagedParentTimebase(v4, a2);
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t REPhysicsSimulationComponentSetSolverIterations(uint64_t a1, uint64_t a2, double a3)
-{
-  v4 = re::ecs2::ComponentImpl<re::ecs2::PhysicsSimulationComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(a1, a2);
-  *(v4 + 72) = a3;
-
-  return re::ecs2::Component::enqueueMarkDirty(v4);
-}
-
-uint64_t re::ecs2::ComponentImpl<re::ecs2::PhysicsSimulationComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::safeCast(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    v2 = a1;
-    v3 = &unk_1EE187000;
-    if ((*(*a1 + 40))(a1) == re::ecs2::ComponentImpl<re::ecs2::PhysicsSimulationComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType)
-    {
-      return v2;
-    }
-  }
-
-  else
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) component must not be null.", "component", "safeCast", 97);
-    _os_crash();
-    __break(1u);
-  }
-
-  (*(*v2 + 40))(v2);
-  v5 = *(v3[453] + 32);
-  v6 = (*(*v2 + 40))(v2);
-  re::internal::assertLog(6, v7, "assertion failure: '%s' (%s:line %i) Component is wrong type. Expected type: %s, but got: %s", "&reinterpret_cast<Derived *>(component)->componentType() == &Derived::classComponentType()", "safeCast", 101, v5, *(v6 + 32));
-  result = _os_crash();
-  __break(1u);
-  return result;
-}
-
-void *REBlendShapeWeightsComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::BlendShapeWeightsComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t REBlendShapeWeightsComponentSetBlendShapeWeightsDefinition(void *a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, &v9);
-  v3 = *(a1 + 2);
-  *(a1 + 2) = v9;
-  v9 = v3;
-  v4 = a1[6];
-  a1[6] = v10;
-  v10 = v4;
-  re::AssetHandle::~AssetHandle(&v9);
-  v5 = a1[5];
-  if (v5)
-  {
-    v6 = atomic_load((v5 + 896));
-    if (v6 == 2)
-    {
-      v7 = re::AssetHandle::blockUntilLoaded<re::BlendShapeWeightsDefinitionAsset>((a1 + 4));
-    }
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t REBlendShapeWeightsComponentSetBlendShapeWeightsCount(uint64_t a1, unint64_t a2)
-{
-  re::DynamicArray<re::BlendShapeWeights>::resize(a1 + 56, a2);
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t REBlendShapeWeightsComponentGetBlendWeightCount(uint64_t a1, unint64_t a2)
-{
-  if (*(a1 + 72) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return *(*(a1 + 88) + 32 * a2 + 8);
-}
-
-uint64_t REBlendShapeWeightsComponentSetBlendWeightCount(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  if (*(a1 + 72) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_7:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v6 = re::FixedArray<CoreIKTransform>::deinit((*(a1 + 88) + 32 * a2));
-  if (*(a1 + 72) <= a2)
-  {
-    goto LABEL_7;
-  }
-
-  v7 = (*(a1 + 88) + 32 * a2);
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-float REBlendShapeWeightsComponentGetBlendWeight(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  if (*(a1 + 72) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_5:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v3 = *(a1 + 88) + 32 * a2;
-  if (*(v3 + 8) <= a3)
-  {
-    goto LABEL_5;
-  }
-
-  return *(*(v3 + 16) + 4 * a3);
-}
-
-uint64_t REBlendShapeWeightsComponentSetBlendWeight(uint64_t a1, unint64_t a2, unint64_t a3, float a4)
-{
-  if (*(a1 + 72) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_7:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v4 = *(a1 + 88) + 32 * a2;
-  if (*(v4 + 8) <= a3)
-  {
-    goto LABEL_7;
-  }
-
-  *(*(v4 + 16) + 4 * a3) = a4;
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t REBlendShapeWeightsComponentGetBlendWeights(uint64_t result, unint64_t a2, uint64_t a3)
-{
-  if (*(result + 72) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v3 = *(result + 88) + 32 * a2;
-  v4 = *(v3 + 8);
-  if (v4)
-  {
-    v5 = 0;
-    v6 = *(v3 + 16);
-    v7 = 4 * v4 - 4;
-    do
-    {
-      *(a3 + 4 * v5) = *(v6 + 4 * v5);
-      if (v5 + 1 >= v4)
-      {
-        break;
+        v7 += 3;
+        v8 -= 24;
       }
 
-      v8 = v7;
-      v7 -= 4;
-      ++v5;
+      while (v8);
     }
-
-    while (v8);
   }
 
-  return result;
+  return v4 == 34;
 }
 
-uint64_t REBlendShapeWeightsComponentSetBlendFactorCount(uint64_t a1, unint64_t a2)
+uint64_t RETimelineDefinitionGetSkeletalJointName(uint64_t a1, unint64_t a2)
 {
-  re::DynamicArray<re::BlendShapeWeights>::resize(a1 + 56, a2);
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t REBlendFactorComponentSetBlendFactorCount(uint64_t a1, unint64_t a2)
-{
-  re::DynamicArray<re::BlendShapeWeights>::resize(a1 + 56, a2);
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t REVertexCacheDefinitionCreateVertexCacheAsset(uint64_t a1)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  v2 = (*(a1 + 96) * *(a1 + 104) * *(a1 + 88));
-  if (*(a1 + 152) == 1)
-  {
-    v3 = *(a1 + 160);
-  }
-
-  else
-  {
-    v4 = *(a1 + 136);
-    if (v4)
-    {
-      v3 = [v4 length];
-    }
-
-    else
-    {
-      v3 = 0;
-    }
-  }
-
-  if (v2 == v3)
-  {
-    v5 = *(a1 + 176);
-    if (!v5 || (v6 = atomic_load((v5 + 896)), v6 != 2) || (v7 = re::AssetHandle::blockUntilLoaded<re::VertexCacheAsset>((a1 + 168)), !re::MeshIdentifierAsset::operator==((a1 + 32), (v7 + 8))) || *(a1 + 72) != *(v7 + 48) || *(a1 + 73) != *(v7 + 49) || *(a1 + 80) != *(v7 + 56) || *(a1 + 88) != *(v7 + 64) || *(a1 + 96) != *(v7 + 72) || *(a1 + 104) != *(v7 + 80) || !re::FixedArray<re::AABB>::operator==(a1 + 112, *(v7 + 96), *(v7 + 104)) || *(a1 + 136) != *(v7 + 112))
-    {
-      v8 = re::ServiceLocator::service<re::AssetService>(*(a1 + 144));
-      v9 = re::globalAllocators(v8);
-      v10 = (*(*v9[2] + 32))(v9[2], 120, 8);
-      *v10 = &unk_1F5CC92D0;
-      *(v10 + 8) = *(a1 + 32);
-      re::StringID::StringID((v10 + 16), (a1 + 40));
-      re::StringID::StringID((v10 + 32), (a1 + 56));
-      v11 = *(a1 + 72);
-      v12 = *(a1 + 88);
-      *(v10 + 80) = *(a1 + 104);
-      *(v10 + 48) = v11;
-      *(v10 + 64) = v12;
-      *(v10 + 88) = 0;
-      *(v10 + 96) = 0;
-      *(v10 + 104) = 0;
-      v13 = *(a1 + 112);
-      if (v13)
-      {
-        re::FixedArray<re::AABB>::init<>(v10 + 88, v13, *(a1 + 120));
-        re::FixedArray<re::AABB>::copy((v10 + 88), *(a1 + 120), *(a1 + 128));
-      }
-
-      v14 = *(a1 + 136);
-      *(v10 + 112) = v14;
-      v15 = re::VertexCacheAsset::assetType(v14);
-      (*(*v8 + 424))(v22, v8, v10, v15, 0, 0, 0);
-      v16 = *(a1 + 168);
-      *(a1 + 168) = *v22;
-      *v22 = v16;
-      v17 = *(a1 + 184);
-      *(a1 + 184) = *&v22[16];
-      *&v22[16] = v17;
-      re::AssetHandle::~AssetHandle(v22);
-    }
-
-    re::AssetHandle::AssetHandle(v22, (a1 + 168));
-    v18 = *v22;
-    if (*v22)
-    {
-      v19 = (*v22 + 8);
-    }
-
-    re::AssetHandle::~AssetHandle(v22);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v20 = CoreRELog::log;
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-    {
-      *v22 = 134218240;
-      *&v22[4] = v2;
-      *&v22[12] = 2048;
-      *&v22[14] = v3;
-      _os_log_error_impl(&dword_1E1C61000, v20, OS_LOG_TYPE_ERROR, "Vertex Cache Definition does not have expected vertex data size: %zu != %zu", v22, 0x16u);
-    }
-
-    return 0;
-  }
-
-  return v18;
-}
-
-double REVertexCacheDefinitionCreate(re *a1)
-{
-  v2 = re::globalAllocators(a1);
-  v3 = (*(*v2[2] + 32))(v2[2], 192, 8);
-  ArcSharedObject::ArcSharedObject(v3, 0);
-  *v3 = &unk_1F5D2ED30;
-  *(v3 + 24) = &unk_1F5CC92D0;
-  *(v3 + 32) = 0;
-  *(v3 + 40) = 0;
-  *(v3 + 48) = &str_67;
-  *(v3 + 56) = 0;
-  *(v3 + 64) = &str_67;
-  *(v3 + 72) = 0;
-  *(v3 + 76) = 1023969417;
-  result = 0.0;
-  *(v3 + 88) = 0u;
-  *(v3 + 104) = 0u;
-  *(v3 + 120) = 0u;
-  *(v3 + 136) = 0;
-  *(v3 + 144) = a1;
-  *(v3 + 152) = 0;
-  *(v3 + 176) = 0;
-  *(v3 + 184) = 0;
-  *(v3 + 168) = 0;
-  return result;
-}
-
-uint64_t REVertexCacheDefinitionCreateFromAsset(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, &v19);
-  if (!v20 || (v4 = atomic_load((v20 + 896)), v4 != 2))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v15 = CoreRELog::log;
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_17;
-    }
-
-    *v18 = 0;
-    v16 = "Cannot create vertex cache definition from unloaded asset.";
-    goto LABEL_20;
-  }
-
-  v5 = *(v20 + 280);
-  v6 = re::VertexCacheAsset::assetType(v3);
-  if (v5 != v6)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v15 = CoreRELog::log;
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_17;
-    }
-
-    *v18 = 0;
-    v16 = "Can only create vertex cache definition from vertex cache asset.";
-LABEL_20:
-    _os_log_error_impl(&dword_1E1C61000, v15, OS_LOG_TYPE_ERROR, v16, v18, 2u);
-LABEL_17:
-
-    v8 = 0;
-    goto LABEL_18;
-  }
-
-  v7 = re::globalAllocators(v6);
-  v8 = (*(*v7[2] + 32))(v7[2], 192, 8);
-  ArcSharedObject::ArcSharedObject(v8, 0);
-  *v8 = &unk_1F5D2ED30;
-  *(v8 + 24) = &unk_1F5CC92D0;
-  *(v8 + 32) = 0;
-  *(v8 + 40) = 0;
-  *(v8 + 48) = &str_67;
-  *(v8 + 56) = 0;
-  *(v8 + 64) = &str_67;
-  *(v8 + 72) = 0;
-  *(v8 + 76) = 1023969417;
-  *(v8 + 88) = 0u;
-  *(v8 + 104) = 0u;
-  *(v8 + 120) = 0u;
-  *(v8 + 136) = 0;
-  *(v8 + 144) = a1;
-  *(v8 + 152) = 0;
-  re::AssetHandle::AssetHandle((v8 + 168), &v19);
-  v9 = *(v8 + 176);
-  if (v9)
-  {
-    v10 = atomic_load((v9 + 896));
-    if (v10 == 2)
-    {
-      v11 = re::AssetHandle::blockUntilLoaded<re::VertexCacheAsset>((v8 + 168));
-      *(v8 + 32) = *(v11 + 8);
-      re::StringID::operator=((v8 + 40), (v11 + 16));
-      re::StringID::operator=((v8 + 56), (v11 + 32));
-      v12 = *(v11 + 48);
-      v13 = *(v11 + 64);
-      *(v8 + 104) = *(v11 + 80);
-      *(v8 + 72) = v12;
-      *(v8 + 88) = v13;
-      if (v8 + 24 != v11)
-      {
-        v14 = *(v11 + 88);
-        if (*(v8 + 112))
-        {
-          if (!v14)
-          {
-            goto LABEL_24;
-          }
-
-          goto LABEL_23;
-        }
-
-        if (v14)
-        {
-          re::FixedArray<re::AABB>::init<>(v8 + 112, v14, *(v11 + 96));
-LABEL_23:
-          re::FixedArray<re::AABB>::copy((v8 + 112), *(v11 + 96), *(v11 + 104));
-        }
-      }
-
-LABEL_24:
-      NS::SharedPtr<MTL::Buffer>::operator=((v8 + 136), (v11 + 112));
-    }
-  }
-
-LABEL_18:
-  re::AssetHandle::~AssetHandle(&v19);
-  return v8;
-}
-
-void REVertexCacheDefinitionSetMeshName(uint64_t a1, const char *a2)
-{
-  v5 = 0;
-  v6 = &str_67;
-  v4 = re::StringID::operator=((a1 + 40), &v5);
-  if (v5)
-  {
-    if (v5)
-    {
-    }
-  }
-}
-
-void REVertexCacheDefinitionSetMeshPartName(uint64_t a1, const char *a2)
-{
-  v5 = 0;
-  v6 = &str_67;
-  v4 = re::StringID::operator=((a1 + 56), &v5);
-  if (v5)
-  {
-    if (v5)
-    {
-    }
-  }
-}
-
-uint64_t REVertexCacheDefinitionSetVertexFormat(uint64_t a1, uint64_t a2)
-{
-  v2 = a2;
-  if (a2 <= 0x19u)
-  {
-    if (a2 != 8 && a2 != 11)
-    {
-      goto LABEL_4;
-    }
-
-    goto LABEL_11;
-  }
-
-  if (a2 == 30)
-  {
-    v6 = 12;
-    goto LABEL_13;
-  }
-
-  if (a2 == 26)
-  {
-LABEL_11:
-    v6 = (re::sizeFromVertexFormat(a2, a2) + 3) & 0x1FC;
-LABEL_13:
-    *(a1 + 73) = v2;
-    *(a1 + 104) = v6;
-    return 1;
-  }
-
-LABEL_4:
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v4 = CoreRELog::log;
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-  {
-    *v7 = 0;
-    _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "Cannot set vertex cache definition with unsupported vertex format.", v7, 2u);
-  }
-
-  return 0;
-}
-
-id REVertexCacheDefinitionGetVertexDataSize(uint64_t a1)
-{
-  if (*(a1 + 152) == 1)
-  {
-    return *(a1 + 160);
-  }
-
-  result = *(a1 + 136);
-  if (result)
-  {
-    return [result length];
-  }
-
-  return result;
-}
-
-id REVertexCacheDefinitionGetVertexData(uint64_t a1)
-{
-  result = *(a1 + 136);
-  if (result)
-  {
-    return [result contents];
-  }
-
-  return result;
-}
-
-void REVertexCacheDefinitionSetVertexData(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = [*(re::ServiceLocator::service<re::RenderManager>(*(a1 + 144)) + 208) newBufferWithBytes:a2 length:a3 options:0];
-  NS::SharedPtr<MTL::Texture>::operator=((a1 + 136), &v4);
-  if (v4)
-  {
-  }
-}
-
-uint64_t re::AssetHandle::blockUntilLoaded<re::VertexCacheAsset>(re::VertexCacheAsset *a1)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = re::VertexCacheAsset::assetType(a1);
-  v3 = re::AssetHandle::assetWithType(a1, v2, 0);
+  v3 = *(a1 + 48);
   if (!v3)
   {
-    v4 = *re::assetsLogObjects(0);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      v6 = v4;
-      v7 = re::AssetHandle::assetInfo(a1);
-      if (v7[17])
-      {
-        v8 = v7[18];
-      }
-
-      else
-      {
-        v8 = v7 + 137;
-      }
-
-      v9 = 136315138;
-      v10 = v8;
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Invalid asset: '%s'", &v9, 0xCu);
-    }
+    v3 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
   }
 
-  return v3;
-}
-
-uint64_t re::FixedArray<re::AABB>::operator==(uint64_t a1, uint64_t a2, float32x4_t *a3)
-{
-  if (*(a1 + 8) == a2)
+  if (*(v3 + 8) == 34 && *(v3 + 168) > a2)
   {
-    if (!a2)
-    {
-      return 1;
-    }
-
-    v3 = *(a1 + 16);
-    v4 = &v3[2 * a2];
-    while (1)
-    {
-      v5 = vceqq_f32(*v3, *a3);
-      v5.i32[3] = v5.i32[2];
-      if ((vminvq_u32(v5) & 0x80000000) == 0)
-      {
-        break;
-      }
-
-      v6 = vceqq_f32(v3[1], a3[1]);
-      v6.i32[3] = v6.i32[2];
-      if ((vminvq_u32(v6) & 0x80000000) == 0)
-      {
-        break;
-      }
-
-      v3 += 2;
-      a3 += 2;
-      if (v3 == v4)
-      {
-        return 1;
-      }
-    }
-  }
-
-  return 0;
-}
-
-void *re::FixedArray<re::AABB>::copy(void *result, uint64_t a2, const void *a3)
-{
-  if (result[1] == a2)
-  {
-    if (a2)
-    {
-      v5 = result[2];
-
-      return memmove(v5, a3, 32 * a2);
-    }
+    return *(*(v3 + 184) + 16 * a2 + 8);
   }
 
   else
   {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Cannot copy from a FixedArray of a different size", "m_size == other.m_size", "copy", 388, v3, v4);
-    result = _os_crash();
+    return 0;
+  }
+}
+
+uint64_t RETimelineDefinitionSetSkeletalJointName(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, const char *a3)
+{
+  v26 = *MEMORY[0x1E69E9840];
+  if (*(v5 + 2) != 34)
+  {
+    return 0;
+  }
+
+  v6 = v5;
+  if (*(v5 + 21) <= a2)
+  {
+    return 0;
+  }
+
+  v14 = 0;
+  v15 = &str_67;
+  v7 = *(v6 + 21);
+  if (v7 <= a2)
+  {
+    v16 = 0;
+    memset(v25, 0, sizeof(v25));
+    v10 = MEMORY[0x1E69E9C10];
+    v11 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v17 = 136315906;
+    v18 = "operator[]";
+    v19 = 1024;
+    if (v11)
+    {
+      v12 = 3;
+    }
+
+    else
+    {
+      v12 = 2;
+    }
+
+    v20 = 789;
+    v21 = 2048;
+    v22 = a2;
+    v23 = 2048;
+    v24 = v7;
+    _os_log_send_and_compose_impl(v12, &v16, v25, 80, &dword_1E1C61000, v10, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v17, 38, v13, v14);
+    _os_crash_msg();
     __break(1u);
   }
 
-  return result;
-}
-
-void REVertexCacheDefinition::~REVertexCacheDefinition(REVertexCacheDefinition *this)
-{
-  re::AssetHandle::~AssetHandle((this + 168));
-  re::VertexCacheAsset::~VertexCacheAsset((this + 24));
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-{
-  re::AssetHandle::~AssetHandle((this + 168));
-  re::VertexCacheAsset::~VertexCacheAsset((this + 24));
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *REMeshDeformationComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
+  v8 = re::StringID::operator=((*(v6 + 23) + 16 * a2), &v14);
+  if (v14)
   {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::MeshDeformationComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-uint64_t REMeshDeformationComponentSetMeshDeformationDefinition(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, &v6);
-  v3 = *(a1 + 32);
-  *(a1 + 32) = v6;
-  v6 = v3;
-  v4 = *(a1 + 48);
-  *(a1 + 48) = v7;
-  v7 = v4;
-  re::AssetHandle::~AssetHandle(&v6);
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t REMeshDeformationComponentSetCustomDeformationModel(uint64_t a1, uint64_t a2, char *a3, char a4, const char *a5, const char *a6, const void *a7, size_t a8, uint64_t a9, __int128 a10)
-{
-  v16 = *(a1 + 16);
-  if (v16 && (*(v16 + 304) & 0x80) != 0)
-  {
-    v16 = 0;
-  }
-
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  v17 = REEntityGetOrAddComponentByClass(v16, re::ecs2::ComponentImpl<re::ecs2::CustomDeformerComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
-
-  return RECustomDeformerComponentSetCustomDeformationModel(v17, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-}
-
-uint64_t REMeshDeformationComponentSetCustomDeformationInput(uint64_t a1, uint64_t a2, char *a3, char a4, const char *a5, const char *a6, const void *a7, size_t a8, uint64_t a9, __int128 a10)
-{
-  v16 = *(a1 + 16);
-  if (v16 && (*(v16 + 304) & 0x80) != 0)
-  {
-    v16 = 0;
-  }
-
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  v17 = REEntityGetOrAddComponentByClass(v16, re::ecs2::ComponentImpl<re::ecs2::CustomDeformerComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
-
-  return RECustomDeformerComponentSetCustomDeformationInput(v17, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-}
-
-void *REClippingPrimitiveComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::ClippingPrimitiveComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t REClippingPrimitiveComponentClipToBox(uint64_t this, __n128 a2, __n128 a3)
-{
-  *(this + 32) = a2;
-  *(this + 48) = a3;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-void REClippingPrimitiveComponentClipToSphere()
-{
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v0 = CoreRELog::log;
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-  {
-    *v1 = 0;
-    _os_log_impl(&dword_1E1C61000, v0, OS_LOG_TYPE_DEFAULT, "REClippingPrimitiveComponentClipToSphere is deprecated. Sphere clipping shapes are no longer supported.                Use REClippingPrimitiveComponentClipToBox.", v1, 2u);
-  }
-}
-
-void REClippingPrimitiveComponentClipToCylinder()
-{
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v0 = CoreRELog::log;
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-  {
-    *v1 = 0;
-    _os_log_impl(&dword_1E1C61000, v0, OS_LOG_TYPE_DEFAULT, "REClippingPrimitiveComponentClipToCylinder is deprecated. Cylinder clipping shapes are no longer supported.                Use REClippingPrimitiveComponentClipToBox.", v1, 2u);
-  }
-}
-
-uint64_t REClippingPrimitiveComponentGetPrimitiveShape()
-{
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v0 = CoreRELog::log;
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-  {
-    *v2 = 0;
-    _os_log_impl(&dword_1E1C61000, v0, OS_LOG_TYPE_DEFAULT, "REClippingPrimitiveComponentGetPrimitiveShape is deprecated. Non-box clipping shapes are no longer supported.", v2, 2u);
-  }
-
-  return 0;
-}
-
-uint64_t REClippingPrimitiveComponentSetFeatherIntervalPercentage(uint64_t this, int32x2_t a2)
-{
-  v2 = vdupq_lane_s32(a2, 0);
-  v2.i32[3] = 0;
-  v3 = vmaxnmq_f32(v2, 0);
-  v3.i32[3] = 0;
-  v4 = vminnmq_f32(v3, xmmword_1E304F3C0);
-  *(this + 64) = v4;
-  *(this + 80) = v4;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REClippingPrimitiveComponentSetFeatherIntervalPercentagePerAxis(uint64_t this, float32x4_t a2)
-{
-  a2.i32[3] = 0;
-  v2 = vmaxnmq_f32(a2, 0);
-  v2.i32[3] = 0;
-  v3 = vminnmq_f32(v2, xmmword_1E304F3C0);
-  *(this + 64) = v3;
-  *(this + 80) = v3;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REClippingPrimitiveComponentSetFeatherIntervalFractionPerEdge(uint64_t this, float32x4_t a2, float32x4_t a3)
-{
-  a2.i32[3] = 0;
-  v3 = vmaxnmq_f32(a2, 0);
-  v3.i32[3] = 0;
-  a3.i32[3] = 0;
-  v4 = vmaxnmq_f32(a3, 0);
-  v4.i32[3] = 0;
-  *(this + 64) = vminnmq_f32(v3, xmmword_1E304F3C0);
-  *(this + 80) = vminnmq_f32(v4, xmmword_1E304F3C0);
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-void REClippingPrimitiveComponentSetPositiveSpace()
-{
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v0 = CoreRELog::log;
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-  {
-    *v1 = 0;
-    _os_log_impl(&dword_1E1C61000, v0, OS_LOG_TYPE_DEFAULT, "REClippingPrimitiveComponentSetPositiveSpace is deprecated. Negative-space clipping is no longer supported.", v1, 2u);
-  }
-}
-
-uint64_t REClippingPrimitiveComponentGetIsPositiveSpace()
-{
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v0 = CoreRELog::log;
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-  {
-    *v2 = 0;
-    _os_log_impl(&dword_1E1C61000, v0, OS_LOG_TYPE_DEFAULT, "REClippingPrimitiveComponentGetIsPositiveSpace is deprecated. Negative-space clipping is no longer supported.", v2, 2u);
+    if (v14)
+    {
+    }
   }
 
   return 1;
 }
 
-uint64_t REClippingPrimitiveComponentSetCornerSmoothness(uint64_t this, float32x2_t a2)
+float32x4_t RETimelineDefinitionGetSkeletalPoseIndexJointValue(uint64_t a1, unint64_t a2, unint64_t a3)
 {
-  __asm { FMOV            V1.2S, #1.0 }
-
-  *(this + 96) = vminnm_f32(vmaxnm_f32(a2, 0), _D1);
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-void *REAudioDebugComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
+  v5 = *(a1 + 48);
+  if (!v5)
   {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
+    v5 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
   }
 
-  return re::ecs2::ComponentImpl<re::ecs2::AudioDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)1>::s_componentType;
-}
-
-re::ecs2::Entity *RESceneAddAudioDebugComponent(re::ecs2::ComponentHelper *a1)
-{
-  result = re::ecs2::ComponentHelper::privateSceneDataEntity(a1, 1);
-  v2 = re::ecs2::ComponentImpl<re::ecs2::AudioDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)1>::s_componentType;
-  v3 = *(result + 49);
-  if (!*(result + 49))
+  v7.i64[0] = 0x3F0000003FLL;
+  v7.i64[1] = 0x3F0000003FLL;
+  result.i64[0] = vnegq_f32(v7).u64[0];
+  if (*(v5 + 8) == 34)
   {
-    goto LABEL_7;
-  }
-
-  v4 = (re::ecs2::ComponentImpl<re::ecs2::AudioDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)1>::s_componentType + 16);
-  v5 = *(result + 13);
-  v6 = vld1q_dup_s16(v4);
-  v7 = 1;
-  while (1)
-  {
-    v8 = vandq_s8(vceqq_s16(v6, *v5), xmmword_1E306AC00);
-    v8.i16[0] = vmaxvq_u16(v8);
-    if (v8.i32[0])
+    result.i64[0] = vnegq_f32(v7).u64[0];
+    if (*(v5 + 104) > a2)
     {
-      break;
-    }
-
-    v7 -= 8;
-    ++v5;
-    if (!--v3)
-    {
-      goto LABEL_7;
+      v8 = *(v5 + 120) + 24 * a2;
+      v9 = 0x3F0000003FLL;
+      result.i64[1] = 0x3F0000003FLL;
+      result.i64[0] = vnegq_f32(result).u64[0];
+      if (*(v8 + 8) > a3)
+      {
+        return *(*(v8 + 16) + 48 * a3);
+      }
     }
   }
 
-  if (v8.u16[0] - v7 >= *(result + 48))
-  {
-LABEL_7:
-    v9 = (result + 48);
-
-    return re::ecs2::EntityComponentCollection::add(v9, v2);
-  }
-
   return result;
 }
 
-void RESceneRemoveAudioDebugComponent(re::ecs2::ComponentHelper *a1)
+BOOL RETimelineDefinitionSetSkeletalPoses(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
 {
-  v1 = re::ecs2::ComponentHelper::privateSceneDataEntity(a1, 0);
-  if (v1)
+  v52 = *MEMORY[0x1E69E9840];
+  LODWORD(v10) = *(v9 + 2);
+  if (v10 == 34)
   {
-    v2 = re::ecs2::ComponentImpl<re::ecs2::AudioDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)1>::s_componentType;
-    v3 = (v1 + 48);
+    v11 = v9;
+    HIDWORD(v35) = 34;
+    re::DynamicArray<re::StringID>::resize(v9 + 19, a5);
+    if (a5)
+    {
+      v13 = 0;
+      v10 = 0;
+      while (1)
+      {
+        v15 = *(a2 + 8 * v10);
+        v36 = 0;
+        v37 = &str_67;
+        v16 = *(v11 + 21);
+        if (v16 <= v10)
+        {
+          break;
+        }
 
-    re::ecs2::EntityComponentCollection::remove(v3, v2);
+        v12 = re::StringID::operator=((*(v11 + 23) + v13), &v36);
+        if (v36)
+        {
+          if (v36)
+          {
+          }
+        }
+
+        ++v10;
+        v13 += 16;
+        if (a5 == v10)
+        {
+          goto LABEL_9;
+        }
+      }
+
+      v38 = 0;
+      v51 = 0u;
+      v49 = 0u;
+      v50 = 0u;
+      *buf = 0u;
+      v48 = 0u;
+      v29 = MEMORY[0x1E69E9C10];
+      v30 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v39 = 136315906;
+      v40 = "operator[]";
+      v41 = 1024;
+      if (v30)
+      {
+        v31 = 3;
+      }
+
+      else
+      {
+        v31 = 2;
+      }
+
+      v42 = 789;
+      v43 = 2048;
+      v44 = v10;
+      v45 = 2048;
+      v46 = v16;
+      _os_log_send_and_compose_impl(v31, &v38, buf, 80, &dword_1E1C61000, v29, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v39, 38, v35, v36);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    else
+    {
+LABEL_9:
+      re::DynamicArray<re::SkeletalPoseAssetData>::resize(v11 + 11, a4);
+      LODWORD(v10) = 34;
+      if (!a4)
+      {
+        return v10 == 34;
+      }
+
+      v14 = 0;
+      while (1)
+      {
+        a2 = *(v11 + 13);
+        if (a2 <= v14)
+        {
+          break;
+        }
+
+        v17 = (*(v11 + 15) + 24 * v14);
+        if (a5)
+        {
+          v18 = 0;
+          v19 = 0;
+          while (1)
+          {
+            v20 = v17[1];
+            if (v20 <= v19)
+            {
+              break;
+            }
+
+            v21 = (*(a3 + 8 * v14) + v18);
+            v22 = (v17[2] + v18);
+            v23 = *v21;
+            v24 = v21[2];
+            v22[1] = v21[1];
+            v22[2] = v24;
+            *v22 = v23;
+            v19 = (v19 + 1);
+            v18 += 48;
+            if (a5 == v19)
+            {
+              goto LABEL_16;
+            }
+          }
+
+          v36 = 0;
+          v51 = 0u;
+          v49 = 0u;
+          v50 = 0u;
+          *buf = 0u;
+          v48 = 0u;
+          v25 = MEMORY[0x1E69E9C10];
+          v27 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v39 = 136315906;
+          v40 = "operator[]";
+          v41 = 1024;
+          if (v27)
+          {
+            v28 = 3;
+          }
+
+          else
+          {
+            v28 = 2;
+          }
+
+          v42 = 468;
+          v43 = 2048;
+          v44 = v19;
+          v45 = 2048;
+          v46 = v20;
+          _os_log_send_and_compose_impl(v28, &v36, buf, 80, &dword_1E1C61000, v25, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v39, 38, v35);
+          _os_crash_msg();
+          __break(1u);
+          goto LABEL_26;
+        }
+
+LABEL_16:
+        v14 = (v14 + 1);
+        if (v14 == a4)
+        {
+          return v10 == 34;
+        }
+      }
+    }
+
+    v36 = 0;
+    v51 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    *buf = 0u;
+    v48 = 0u;
+    v32 = MEMORY[0x1E69E9C10];
+    v33 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v39 = 136315906;
+    v40 = "operator[]";
+    v41 = 1024;
+    if (v33)
+    {
+      v34 = 3;
+    }
+
+    else
+    {
+      v34 = 2;
+    }
+
+    v42 = 789;
+    v43 = 2048;
+    v44 = v14;
+    v45 = 2048;
+    v46 = a2;
+    _os_log_send_and_compose_impl(v34, &v36, buf, 80, &dword_1E1C61000, v32, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v39, 38, v35);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_35;
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+LABEL_35:
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v25 = CoreRELog::log;
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  {
+LABEL_26:
+    *buf = 0;
+    _os_log_error_impl(&dword_1E1C61000, v25, OS_LOG_TYPE_ERROR, "Cannot set skeletal poses for incompatible animation.", buf, 2u);
+  }
+
+  return v10 == 34;
+}
+
+BOOL RETimelineDefinitionSetSkeletalPosePoseCount(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 34)
+  {
+    re::DynamicArray<re::SkeletalPoseAssetData>::resize(v3 + 11, a2);
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v7 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot set skeletal poses for incompatible animation.", v7, 2u);
+    }
+  }
+
+  return v4 == 34;
+}
+
+uint64_t RETimelineDefinitionSetSkeletalPosesValues(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, NSObject *a3, uint64_t a4)
+{
+  v41 = *MEMORY[0x1E69E9840];
+  if (*(v7 + 2) == 34)
+  {
+    v8 = v7;
+    if (*(v7 + 21) == a4)
+    {
+      re::DynamicArray<re::SkeletalPoseAssetData>::resize(v7 + 11, a3);
+      if (!a3)
+      {
+        return 1;
+      }
+
+      v9 = 0;
+      while (1)
+      {
+        v10 = *(v8 + 13);
+        if (v10 <= v9)
+        {
+          v28 = 0;
+          v39 = 0u;
+          v40 = 0u;
+          v38 = 0u;
+          memset(buf, 0, sizeof(buf));
+          v25 = MEMORY[0x1E69E9C10];
+          v29 = 136315906;
+          v30 = "operator[]";
+          v31 = 1024;
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+          {
+            v26 = 3;
+          }
+
+          else
+          {
+            v26 = 2;
+          }
+
+          v32 = 789;
+          v33 = 2048;
+          v34 = v9;
+          v35 = 2048;
+          v36 = v10;
+          _os_log_send_and_compose_impl(v26, &v28, buf, 80, &dword_1E1C61000, v25, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v29, 38, v27);
+          _os_crash_msg();
+          __break(1u);
+          goto LABEL_29;
+        }
+
+        if (a4)
+        {
+          break;
+        }
+
+LABEL_10:
+        if (++v9 == a3)
+        {
+          return 1;
+        }
+      }
+
+      v11 = 0;
+      v12 = 0;
+      v13 = *(v8 + 15) + 24 * v9;
+      while (1)
+      {
+        v14 = *(v13 + 8);
+        if (v14 <= v12)
+        {
+          break;
+        }
+
+        v15 = (*(a2 + 8 * v9) + v11);
+        v16 = (*(v13 + 16) + v11);
+        v17 = *v15;
+        v18 = v15[2];
+        v16[1] = v15[1];
+        v16[2] = v18;
+        *v16 = v17;
+        ++v12;
+        v11 += 48;
+        if (a4 == v12)
+        {
+          goto LABEL_10;
+        }
+      }
+
+      v28 = 0;
+      v39 = 0u;
+      v40 = 0u;
+      v38 = 0u;
+      memset(buf, 0, sizeof(buf));
+      a4 = MEMORY[0x1E69E9C10];
+      v29 = 136315906;
+      v30 = "operator[]";
+      v31 = 1024;
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        v23 = 3;
+      }
+
+      else
+      {
+        v23 = 2;
+      }
+
+      v32 = 468;
+      v33 = 2048;
+      v34 = v12;
+      v35 = 2048;
+      v36 = v14;
+      _os_log_send_and_compose_impl(v23, &v28, buf, 80, &dword_1E1C61000, a4, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v29, 38, v27);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    else
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      a3 = CoreRELog::log;
+      if (!os_log_type_enabled(a3, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_18;
+      }
+    }
+
+    v24 = *(v8 + 21);
+    *buf = 134218240;
+    *&buf[4] = v24;
+    *&buf[12] = 2048;
+    *&buf[14] = a4;
+    v20 = "Skeletal Pose cannot set joint values, joint count does not match: %zu != %zu";
+    v21 = a3;
+    v22 = 22;
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+LABEL_29:
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    a3 = CoreRELog::log;
+    if (!os_log_type_enabled(a3, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_18;
+    }
+
+    *buf = 0;
+    v20 = "Cannot set skeletal pose values for incompatible animation.";
+    v21 = a3;
+    v22 = 2;
+  }
+
+  _os_log_error_impl(&dword_1E1C61000, v21, OS_LOG_TYPE_ERROR, v20, buf, v22);
+LABEL_18:
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionSetSkeletalPoseIndexValues(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, uint64_t a3, unint64_t a4)
+{
+  v35 = *MEMORY[0x1E69E9840];
+  if (*(v7 + 2) == 34)
+  {
+    v8 = v7;
+    if (*(v7 + 21) != a4)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v17 = CoreRELog::log;
+      if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_21;
+      }
+
+      v21 = *(v8 + 21);
+      LODWORD(buf[0]) = 134218240;
+      *(buf + 4) = v21;
+      WORD6(buf[0]) = 2048;
+      *(buf + 14) = a4;
+      v18 = "Skeletal Pose cannot set joint values, joint count does not match: %zu != %zu";
+      v19 = v17;
+      v20 = 22;
+      goto LABEL_20;
+    }
+
+    if (*(v7 + 13) <= a2)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v17 = CoreRELog::log;
+      if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_21;
+      }
+
+      LODWORD(buf[0]) = 134217984;
+      *(buf + 4) = a2;
+      v18 = "Skeletal Pose cannot set joint value for index %zu.";
+      v19 = v17;
+      v20 = 12;
+      goto LABEL_20;
+    }
+
+    v9 = (*(v7 + 15) + 24 * a2);
+    if (!a4)
+    {
+      return 1;
+    }
+
+    v10 = 0;
+    v11 = 0;
+    while (1)
+    {
+      v12 = v9[1];
+      if (v12 <= v11)
+      {
+        break;
+      }
+
+      v13 = (v9[2] + v10);
+      v14 = *(a3 + v10);
+      v15 = *(a3 + v10 + 32);
+      v13[1] = *(a3 + v10 + 16);
+      v13[2] = v15;
+      *v13 = v14;
+      ++v11;
+      v10 += 48;
+      if (a4 == v11)
+      {
+        return 1;
+      }
+    }
+
+    v25 = 0;
+    memset(buf, 0, sizeof(buf));
+    v22 = MEMORY[0x1E69E9C10];
+    v26 = 136315906;
+    v27 = "operator[]";
+    v28 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v23 = 3;
+    }
+
+    else
+    {
+      v23 = 2;
+    }
+
+    v29 = 468;
+    v30 = 2048;
+    v31 = v11;
+    v32 = 2048;
+    v33 = v12;
+    _os_log_send_and_compose_impl(v23, &v25, buf, 80, &dword_1E1C61000, v22, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v26, 38, v24);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  else if (CoreRELog::onceToken == -1)
+  {
+    goto LABEL_10;
+  }
+
+  dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+LABEL_10:
+  v17 = CoreRELog::log;
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  {
+    LOWORD(buf[0]) = 0;
+    v18 = "Cannot set skeletal pose index values for incompatible animation.";
+    v19 = v17;
+    v20 = 2;
+LABEL_20:
+    _os_log_error_impl(&dword_1E1C61000, v19, OS_LOG_TYPE_ERROR, v18, buf, v20);
+  }
+
+LABEL_21:
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionSetSkeletalPoseIndexValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, unint64_t a3, __n128 a4, __n128 a5, __n128 a6)
+{
+  v36 = *MEMORY[0x1E69E9840];
+  if (*(v8 + 2) != 34)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v13 = CoreRELog::log;
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_18;
+    }
+
+    *buf = 0;
+    v14 = "Cannot set skeletal pose index value for incompatible animation.";
+LABEL_14:
+    v15 = v13;
+    v16 = 2;
+    goto LABEL_15;
+  }
+
+  if (*(v8 + 21) <= a3)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v13 = CoreRELog::log;
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_18;
+    }
+
+    *buf = 0;
+    v14 = "Skeletal Pose cannot set joint values, not enough joints.";
+    goto LABEL_14;
+  }
+
+  if (*(v8 + 13) > a2)
+  {
+    v9 = *(v8 + 15) + 24 * a2;
+    v10 = *(v9 + 8);
+    if (v10 > a3)
+    {
+      v11 = (*(v9 + 16) + 48 * a3);
+      *v11 = a4;
+      v11[1] = a5;
+      v11[2] = a6;
+      return 1;
+    }
+
+    v22 = 0;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    *buf = 0u;
+    a2 = MEMORY[0x1E69E9C10];
+    v17 = v10;
+    v23 = 136315906;
+    v24 = "operator[]";
+    v25 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v18 = 3;
+    }
+
+    else
+    {
+      v18 = 2;
+    }
+
+    v26 = 468;
+    v27 = 2048;
+    v28 = a3;
+    v29 = 2048;
+    v30 = v17;
+    _os_log_send_and_compose_impl(v18, &v22, buf, 80, &dword_1E1C61000, a2, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v23, 38, a4.n128_u64[0], a4.n128_u64[1]);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_24;
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+LABEL_24:
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v13 = CoreRELog::log;
+  if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  {
+    goto LABEL_18;
+  }
+
+  *buf = 134217984;
+  *&buf[4] = a2;
+  v14 = "Skeletal Pose cannot set joint value for index %zu.";
+  v15 = v13;
+  v16 = 12;
+LABEL_15:
+  _os_log_error_impl(&dword_1E1C61000, v15, OS_LOG_TYPE_ERROR, v14, buf, v16);
+LABEL_18:
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionGetSkeletalPoseScaleChannelMask(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 34)
+  {
+    v2 = *(v1 + 192);
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v3 = CoreRELog::log;
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      *v5 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get skeletal pose scale channel mask for incompatible animation.", v5, 2u);
+    }
+
+    v2 = 0;
+  }
+
+  return v2 & 1;
+}
+
+BOOL RETimelineDefinitionSetSkeletalPoseScaleChannelMask(_anonymous_namespace_::TimelineDefinition *a1, char a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 34)
+  {
+    *(v3 + 192) = a2;
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v7 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot set skeletal pose scale channel mask for incompatible animation.", v7, 2u);
+    }
+  }
+
+  return v4 == 34;
+}
+
+uint64_t RETimelineDefinitionGetSkeletalPoseRotationChannelMask(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 34)
+  {
+    v2 = *(v1 + 193);
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v3 = CoreRELog::log;
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      *v5 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get skeletal pose rotation channel mask for incompatible animation.", v5, 2u);
+    }
+
+    v2 = 0;
+  }
+
+  return v2 & 1;
+}
+
+BOOL RETimelineDefinitionSetSkeletalPoseRotationChannelMask(_anonymous_namespace_::TimelineDefinition *a1, char a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 34)
+  {
+    *(v3 + 193) = a2;
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v7 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot set skeletal pose rotation channel mask for incompatible animation.", v7, 2u);
+    }
+  }
+
+  return v4 == 34;
+}
+
+uint64_t RETimelineDefinitionGetSkeletalPoseTranslationChannelMask(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 34)
+  {
+    v2 = *(v1 + 194);
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v3 = CoreRELog::log;
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      *v5 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get skeletal pose translation channel mask for incompatible animation.", v5, 2u);
+    }
+
+    v2 = 0;
+  }
+
+  return v2 & 1;
+}
+
+BOOL RETimelineDefinitionSetSkeletalPoseTranslationChannelMask(_anonymous_namespace_::TimelineDefinition *a1, char a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 34)
+  {
+    *(v3 + 194) = a2;
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v7 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot set skeletal pose translation channel mask for incompatible animation.", v7, 2u);
+    }
+  }
+
+  return v4 == 34;
+}
+
+uint64_t RETimelineDefinitionGetBlendShapeWeightsWeightsCount(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (!v1)
+  {
+    v1 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v1 + 8) == 59)
+  {
+    return *(v1 + 144);
+  }
+
+  else
+  {
+    return -1;
   }
 }
 
-uint64_t RESceneSetAudioDebugDrawLevel(re::ecs2::ComponentHelper *a1, char a2)
+BOOL RETimelineDefinitionSetBlendShapeWeightsWeightsCount(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
 {
-  v3 = re::ecs2::ComponentHelper::privateSceneDataEntity(a1, 1);
-  result = re::ecs2::EntityComponentCollection::getOrAdd((v3 + 48), re::ecs2::ComponentImpl<re::ecs2::AudioDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)1>::s_componentType);
-  *(result + 25) = a2;
-  return result;
-}
-
-uint64_t RESceneSetAudioDebugDrawOptions(re::ecs2::ComponentHelper *a1, int a2)
-{
-  v3 = re::ecs2::ComponentHelper::privateSceneDataEntity(a1, 1);
-  result = re::ecs2::EntityComponentCollection::getOrAdd((v3 + 48), re::ecs2::ComponentImpl<re::ecs2::AudioDebugComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)1>::s_componentType);
-  *(result + 32) = a2;
-  return result;
-}
-
-void *REEnvironmentLightingConfigurationComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
+  v4 = *(v3 + 2);
+  if (v4 == 59)
   {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
+    v5 = v3;
+    re::DynamicArray<re::StringID>::resize(v3 + 16, a2);
+    v6 = *(v5 + 13);
+    if (v6)
+    {
+      v7 = *(v5 + 15);
+      v8 = 24 * v6;
+      do
+      {
+        v7 += 3;
+        v8 -= 24;
+      }
+
+      while (v8);
+    }
   }
 
-  return re::ecs2::ComponentImpl<re::ecs2::EnvironmentLightingConfigurationComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
+  return v4 == 59;
 }
 
-uint64_t REEnvironmentLightingConfigurationComponentSetEnvironmentLightingWeight(uint64_t this, float a2)
+uint64_t RETimelineDefinitionGetBlendShapeWeightsWeightName(uint64_t a1, unint64_t a2)
 {
-  if (a2 > 1.0)
+  v3 = *(a1 + 48);
+  if (!v3)
   {
-    a2 = 1.0;
+    v3 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
   }
 
-  if (a2 < 0.0)
+  if (*(v3 + 8) == 59 && *(v3 + 144) > a2)
   {
-    a2 = 0.0;
+    return *(*(v3 + 160) + 16 * a2 + 8);
   }
 
-  *(this + 28) = a2;
-  return re::ecs2::Component::enqueueMarkDirty(this);
+  else
+  {
+    return 0;
+  }
 }
 
-FILE *RECompressionQuery(const char *a1, int *a2, int *a3, int *a4, off_t *a5, off_t *a6)
+uint64_t RETimelineDefinitionSetBlendShapeWeightsWeightName(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, const char *a3)
 {
-  __ptr[1] = *MEMORY[0x1E69E9840];
-  if (stat(a1, &v25) < 0)
+  v26 = *MEMORY[0x1E69E9840];
+  if (*(v5 + 2) != 59)
   {
     return 0;
   }
 
-  result = fopen(a1, "r");
-  if (result)
+  v6 = v5;
+  if (*(v5 + 18) <= a2)
   {
-    v13 = result;
-    __ptr[0] = 0;
-    v14 = fread(__ptr, 1uLL, 8uLL, result);
-    fclose(v13);
-    if (v14 < 8)
-    {
-      return 0;
-    }
-
-    if (LOWORD(__ptr[0]) == 30306 && BYTE2(__ptr[0]) == 120)
-    {
-      v19 = 1;
-      v18 = 4;
-    }
-
-    else if (LOWORD(__ptr[0]) == 30306 && BYTE2(__ptr[0]) == 52)
-    {
-      v18 = 1;
-      v19 = 1;
-    }
-
-    else
-    {
-      if (LOBYTE(__ptr[0]) != 253 || *(__ptr + 1) != 1515747895)
-      {
-        if (LOWORD(__ptr[0]) != 25200 || BYTE2(__ptr[0]) != 122)
-        {
-          goto LABEL_19;
-        }
-
-        switch(BYTE3(__ptr[0]))
-        {
-          case '4':
-            v18 = 1;
-            break;
-          case 'e':
-            v18 = 4;
-            break;
-          case 'x':
-            v18 = 3;
-            break;
-          default:
-LABEL_19:
-            v18 = 0;
-            v19 = 0;
-            goto LABEL_27;
-        }
-
-        v22 = 3;
-        v19 = 1;
-        st_size = v25.st_size;
-        if (!a2)
-        {
-          goto LABEL_35;
-        }
-
-        goto LABEL_34;
-      }
-
-      v19 = 1;
-      v18 = 3;
-    }
-
-LABEL_27:
-    st_size = v25.st_size;
-    if (v25.st_size < 0x100000uLL)
-    {
-      v21 = 1;
-    }
-
-    else
-    {
-      v21 = v19;
-    }
-
-    if (v21)
-    {
-      v22 = 2;
-    }
-
-    else
-    {
-      v22 = 3;
-    }
-
-    if (!a2)
-    {
-      goto LABEL_35;
-    }
-
-LABEL_34:
-    *a2 = v19;
-LABEL_35:
-    if (a3)
-    {
-      *a3 = v18;
-    }
-
-    if (a4)
-    {
-      *a4 = v22;
-    }
-
-    if (a5)
-    {
-      if (v19)
-      {
-        v23 = 0;
-      }
-
-      else
-      {
-        v23 = st_size;
-      }
-
-      *a5 = v23;
-    }
-
-    if (a6)
-    {
-      if (v19)
-      {
-        v24 = st_size;
-      }
-
-      else
-      {
-        v24 = 0;
-      }
-
-      *a6 = v24;
-    }
-
-    return 1;
+    return 0;
   }
 
-  return result;
+  v14 = 0;
+  v15 = &str_67;
+  v7 = *(v6 + 18);
+  if (v7 <= a2)
+  {
+    v16 = 0;
+    memset(v25, 0, sizeof(v25));
+    v10 = MEMORY[0x1E69E9C10];
+    v11 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v17 = 136315906;
+    v18 = "operator[]";
+    v19 = 1024;
+    if (v11)
+    {
+      v12 = 3;
+    }
+
+    else
+    {
+      v12 = 2;
+    }
+
+    v20 = 789;
+    v21 = 2048;
+    v22 = a2;
+    v23 = 2048;
+    v24 = v7;
+    _os_log_send_and_compose_impl(v12, &v16, v25, 80, &dword_1E1C61000, v10, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v17, 38, v13, v14);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  v8 = re::StringID::operator=((*(v6 + 20) + 16 * a2), &v14);
+  if (v14)
+  {
+    if (v14)
+    {
+    }
+  }
+
+  return 1;
+}
+
+float RETimelineDefinitionGetBlendShapeWeightsIndexWeightValue(uint64_t a1, unint64_t a2, unint64_t a3)
+{
+  v5 = *(a1 + 48);
+  if (!v5)
+  {
+    v5 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>((a1 + 24)) + 8);
+  }
+
+  if (*(v5 + 8) == 59 && *(v5 + 104) > a2 && (v6 = *(v5 + 120) + 24 * a2, *(v6 + 8) > a3))
+  {
+    return *(*(v6 + 16) + 4 * a3);
+  }
+
+  else
+  {
+    return NAN;
+  }
+}
+
+BOOL RETimelineDefinitionSetBlendShapeWeightsData(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, uint64_t a3, uint64_t *a4, unint64_t a5)
+{
+  v47 = *MEMORY[0x1E69E9840];
+  LODWORD(v10) = *(v9 + 2);
+  if (v10 == 59)
+  {
+    v11 = v9;
+    HIDWORD(v30) = 59;
+    re::DynamicArray<re::StringID>::resize(v9 + 16, a5);
+    if (a5)
+    {
+      v10 = 0;
+      v13 = 0;
+      while (1)
+      {
+        v15 = *(a2 + 8 * v13);
+        v31 = 0;
+        v32 = &str_67;
+        v16 = *(v11 + 18);
+        if (v16 <= v13)
+        {
+          break;
+        }
+
+        v12 = re::StringID::operator=((*(v11 + 20) + v10), &v31);
+        if (v31)
+        {
+          if (v31)
+          {
+          }
+        }
+
+        ++v13;
+        v10 += 16;
+        if (a5 == v13)
+        {
+          goto LABEL_9;
+        }
+      }
+
+      v33 = 0;
+      v46 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      *buf = 0u;
+      v43 = 0u;
+      v24 = MEMORY[0x1E69E9C10];
+      v25 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v34 = 136315906;
+      v35 = "operator[]";
+      v36 = 1024;
+      if (v25)
+      {
+        v26 = 3;
+      }
+
+      else
+      {
+        v26 = 2;
+      }
+
+      v37 = 789;
+      v38 = 2048;
+      v39 = v13;
+      v40 = 2048;
+      v41 = v16;
+      _os_log_send_and_compose_impl(v26, &v33, buf, 80, &dword_1E1C61000, v24, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v34, 38, v30, v31);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    else
+    {
+LABEL_9:
+      re::DynamicArray<re::SkeletalPoseAssetData>::resize(v11 + 11, a4);
+      LODWORD(v10) = 59;
+      if (!a4)
+      {
+        return v10 == 59;
+      }
+
+      v14 = 0;
+      while (1)
+      {
+        a2 = *(v11 + 13);
+        if (a2 <= v14)
+        {
+          break;
+        }
+
+        v17 = (*(v11 + 15) + 24 * v14);
+        if (a5)
+        {
+          v18 = 0;
+          v19 = v17[1];
+          while (v19 != v18)
+          {
+            *(v17[2] + 4 * v18) = *(*(a3 + 8 * v14) + 4 * v18);
+            if (a5 == ++v18)
+            {
+              goto LABEL_16;
+            }
+          }
+
+          v31 = 0;
+          v46 = 0u;
+          v44 = 0u;
+          v45 = 0u;
+          *buf = 0u;
+          v43 = 0u;
+          v20 = MEMORY[0x1E69E9C10];
+          v22 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v34 = 136315906;
+          v35 = "operator[]";
+          v36 = 1024;
+          if (v22)
+          {
+            v23 = 3;
+          }
+
+          else
+          {
+            v23 = 2;
+          }
+
+          v37 = 468;
+          v38 = 2048;
+          v39 = v19;
+          v40 = 2048;
+          v41 = v19;
+          _os_log_send_and_compose_impl(v23, &v31, buf, 80, &dword_1E1C61000, v20, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v34, 38, v30);
+          _os_crash_msg();
+          __break(1u);
+          goto LABEL_26;
+        }
+
+LABEL_16:
+        v14 = (v14 + 1);
+        if (v14 == a4)
+        {
+          return v10 == 59;
+        }
+      }
+    }
+
+    v31 = 0;
+    v46 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    *buf = 0u;
+    v43 = 0u;
+    v27 = MEMORY[0x1E69E9C10];
+    v28 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v34 = 136315906;
+    v35 = "operator[]";
+    v36 = 1024;
+    if (v28)
+    {
+      v29 = 3;
+    }
+
+    else
+    {
+      v29 = 2;
+    }
+
+    v37 = 789;
+    v38 = 2048;
+    v39 = v14;
+    v40 = 2048;
+    v41 = a2;
+    _os_log_send_and_compose_impl(v29, &v31, buf, 80, &dword_1E1C61000, v27, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v34, 38, v30);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_35;
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+LABEL_35:
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v20 = CoreRELog::log;
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  {
+LABEL_26:
+    *buf = 0;
+    _os_log_error_impl(&dword_1E1C61000, v20, OS_LOG_TYPE_ERROR, "Cannot set blend shape weights for incompatible animation.", buf, 2u);
+  }
+
+  return v10 == 59;
+}
+
+uint64_t RETimelineDefinitionGetBlendShapeWeightsSampleCount(_anonymous_namespace_::TimelineDefinition *a1)
+{
+  if (*(v1 + 2) == 59)
+  {
+    return *(v1 + 13);
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v3 = CoreRELog::log;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    *v4 = 0;
+    _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Cannot get blend shape weights sample count for incompatible animation.", v4, 2u);
+  }
+
+  return 0;
+}
+
+BOOL RETimelineDefinitionSetBlendShapeWeightsSampleCount(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2)
+{
+  v4 = *(v3 + 2);
+  if (v4 == 59)
+  {
+    re::DynamicArray<re::SkeletalPoseAssetData>::resize(v3 + 11, a2);
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v5 = CoreRELog::log;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v7 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Cannot set blend shape weights sample count for incompatible animation.", v7, 2u);
+    }
+  }
+
+  return v4 == 59;
+}
+
+uint64_t RETimelineDefinitionSetBlendShapeWeightsSampleValues(_anonymous_namespace_::TimelineDefinition *a1, uint64_t a2, NSObject *a3, uint64_t a4)
+{
+  v36 = *MEMORY[0x1E69E9840];
+  if (*(v7 + 2) == 59)
+  {
+    v8 = v7;
+    if (*(v7 + 18) == a4)
+    {
+      re::DynamicArray<re::SkeletalPoseAssetData>::resize(v7 + 11, a3);
+      if (!a3)
+      {
+        return 1;
+      }
+
+      v9 = 0;
+      v10 = *(v8 + 13);
+      while (1)
+      {
+        if (v9 == v10)
+        {
+          v23 = 0;
+          v34 = 0u;
+          v35 = 0u;
+          v33 = 0u;
+          memset(buf, 0, sizeof(buf));
+          v20 = MEMORY[0x1E69E9C10];
+          v24 = 136315906;
+          v25 = "operator[]";
+          v26 = 1024;
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+          {
+            v21 = 3;
+          }
+
+          else
+          {
+            v21 = 2;
+          }
+
+          v27 = 789;
+          v28 = 2048;
+          v29 = v10;
+          v30 = 2048;
+          v31 = v10;
+          _os_log_send_and_compose_impl(v21, &v23, buf, 80, &dword_1E1C61000, v20, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v24, 38, v22);
+          _os_crash_msg();
+          __break(1u);
+          goto LABEL_29;
+        }
+
+        if (a4)
+        {
+          break;
+        }
+
+LABEL_10:
+        if (++v9 == a3)
+        {
+          return 1;
+        }
+      }
+
+      v11 = 0;
+      v12 = *(v8 + 15) + 24 * v9;
+      v13 = *(v12 + 8);
+      while (v13 != v11)
+      {
+        *(*(v12 + 16) + 4 * v11) = *(*(a2 + 8 * v9) + 4 * v11);
+        if (a4 == ++v11)
+        {
+          goto LABEL_10;
+        }
+      }
+
+      v23 = 0;
+      v34 = 0u;
+      v35 = 0u;
+      v33 = 0u;
+      memset(buf, 0, sizeof(buf));
+      a4 = MEMORY[0x1E69E9C10];
+      v24 = 136315906;
+      v25 = "operator[]";
+      v26 = 1024;
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        v18 = 3;
+      }
+
+      else
+      {
+        v18 = 2;
+      }
+
+      v27 = 468;
+      v28 = 2048;
+      v29 = v13;
+      v30 = 2048;
+      v31 = v13;
+      _os_log_send_and_compose_impl(v18, &v23, buf, 80, &dword_1E1C61000, a4, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v24, 38, v22);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    else
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      a3 = CoreRELog::log;
+      if (!os_log_type_enabled(a3, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_18;
+      }
+    }
+
+    v19 = *(v8 + 18);
+    *buf = 134218240;
+    *&buf[4] = v19;
+    *&buf[12] = 2048;
+    *&buf[14] = a4;
+    v15 = "Blend Shape Weights animation sample cannot set weight values, weight count does not match: %zu != %zu";
+    v16 = a3;
+    v17 = 22;
+  }
+
+  else
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+LABEL_29:
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    a3 = CoreRELog::log;
+    if (!os_log_type_enabled(a3, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_18;
+    }
+
+    *buf = 0;
+    v15 = "Cannot set blend shape weights sample values for incompatible animation.";
+    v16 = a3;
+    v17 = 2;
+  }
+
+  _os_log_error_impl(&dword_1E1C61000, v16, OS_LOG_TYPE_ERROR, v15, buf, v17);
+LABEL_18:
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionSetBlendShapeWeightsIndexValues(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, uint64_t a3, unint64_t a4)
+{
+  v31 = *MEMORY[0x1E69E9840];
+  if (*(v7 + 2) == 59)
+  {
+    v8 = v7;
+    if (*(v7 + 18) != a4)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v13 = CoreRELog::log;
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_21;
+      }
+
+      v17 = *(v8 + 18);
+      LODWORD(buf[0]) = 134218240;
+      *(buf + 4) = v17;
+      WORD6(buf[0]) = 2048;
+      *(buf + 14) = a4;
+      v14 = "Blend Shape Weights cannot set weight values, weight count does not match: %zu != %zu";
+      v15 = v13;
+      v16 = 22;
+      goto LABEL_20;
+    }
+
+    if (*(v7 + 13) <= a2)
+    {
+      if (CoreRELog::onceToken != -1)
+      {
+        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      }
+
+      v13 = CoreRELog::log;
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_21;
+      }
+
+      LODWORD(buf[0]) = 134217984;
+      *(buf + 4) = a2;
+      v14 = "Blend Shape Weights cannot set weight value for index %zu.";
+      v15 = v13;
+      v16 = 12;
+      goto LABEL_20;
+    }
+
+    v9 = (*(v7 + 15) + 24 * a2);
+    if (!a4)
+    {
+      return 1;
+    }
+
+    v10 = 0;
+    v11 = v9[1];
+    while (v11 != v10)
+    {
+      *(v9[2] + 4 * v10) = *(a3 + 4 * v10);
+      if (a4 == ++v10)
+      {
+        return 1;
+      }
+    }
+
+    v21 = 0;
+    memset(buf, 0, sizeof(buf));
+    v18 = MEMORY[0x1E69E9C10];
+    v22 = 136315906;
+    v23 = "operator[]";
+    v24 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v19 = 3;
+    }
+
+    else
+    {
+      v19 = 2;
+    }
+
+    v25 = 468;
+    v26 = 2048;
+    v27 = v11;
+    v28 = 2048;
+    v29 = v11;
+    _os_log_send_and_compose_impl(v19, &v21, buf, 80, &dword_1E1C61000, v18, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v22, 38, v20);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  else if (CoreRELog::onceToken == -1)
+  {
+    goto LABEL_10;
+  }
+
+  dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+LABEL_10:
+  v13 = CoreRELog::log;
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  {
+    LOWORD(buf[0]) = 0;
+    v14 = "Cannot set blend shape weights index values for incompatible animation.";
+    v15 = v13;
+    v16 = 2;
+LABEL_20:
+    _os_log_error_impl(&dword_1E1C61000, v15, OS_LOG_TYPE_ERROR, v14, buf, v16);
+  }
+
+LABEL_21:
+
+  return 0;
+}
+
+uint64_t RETimelineDefinitionSetBlendShapeWeightsIndexValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, unint64_t a3, float a4)
+{
+  v32 = *MEMORY[0x1E69E9840];
+  if (*(v7 + 2) != 59)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v11 = CoreRELog::log;
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_18;
+    }
+
+    *buf = 0;
+    v12 = "Cannot set blend shape weights index value for incompatible animation.";
+LABEL_14:
+    v13 = v11;
+    v14 = 2;
+    goto LABEL_15;
+  }
+
+  if (*(v7 + 18) <= a3)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v11 = CoreRELog::log;
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_18;
+    }
+
+    *buf = 0;
+    v12 = "Blend Shape Weights cannot set weight value, not enough weights.";
+    goto LABEL_14;
+  }
+
+  if (*(v7 + 13) > a2)
+  {
+    v8 = *(v7 + 15) + 24 * a2;
+    v9 = *(v8 + 8);
+    if (v9 > a3)
+    {
+      *(*(v8 + 16) + 4 * a3) = a4;
+      return 1;
+    }
+
+    v18 = 0;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    *buf = 0u;
+    a2 = MEMORY[0x1E69E9C10];
+    v15 = v9;
+    v19 = 136315906;
+    v20 = "operator[]";
+    v21 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v16 = 3;
+    }
+
+    else
+    {
+      v16 = 2;
+    }
+
+    v22 = 468;
+    v23 = 2048;
+    v24 = a3;
+    v25 = 2048;
+    v26 = v15;
+    _os_log_send_and_compose_impl(v16, &v18, buf, 80, &dword_1E1C61000, a2, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v19, 38, v17);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_24;
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+LABEL_24:
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v11 = CoreRELog::log;
+  if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    goto LABEL_18;
+  }
+
+  *buf = 134217984;
+  *&buf[4] = a2;
+  v12 = "Blend Shape Weights cannot set weight value for index %zu.";
+  v13 = v11;
+  v14 = 12;
+LABEL_15:
+  _os_log_error_impl(&dword_1E1C61000, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
+LABEL_18:
+
+  return 0;
+}
+
+float RETimelineDefinitionGetBlendShapeWeightsIndexValue(_anonymous_namespace_::TimelineDefinition *a1, unint64_t a2, unint64_t a3)
+{
+  v30 = *MEMORY[0x1E69E9840];
+  if (*(v5 + 2) != 59)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v9 = CoreRELog::log;
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_18;
+    }
+
+    *buf = 0;
+    v10 = "Cannot get blend shape weights index value for incompatible animation.";
+LABEL_14:
+    v11 = v9;
+    v12 = 2;
+    goto LABEL_15;
+  }
+
+  if (*(v5 + 18) <= a3)
+  {
+    if (CoreRELog::onceToken != -1)
+    {
+      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    }
+
+    v9 = CoreRELog::log;
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_18;
+    }
+
+    *buf = 0;
+    v10 = "Blend Shape Weights cannot get weight value, not enough weights.";
+    goto LABEL_14;
+  }
+
+  if (*(v5 + 13) > a2)
+  {
+    v6 = *(v5 + 15) + 24 * a2;
+    v7 = *(v6 + 8);
+    if (v7 > a3)
+    {
+      return *(*(v6 + 16) + 4 * a3);
+    }
+
+    v16 = 0;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    *buf = 0u;
+    a2 = MEMORY[0x1E69E9C10];
+    v13 = v7;
+    v17 = 136315906;
+    v18 = "operator[]";
+    v19 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v14 = 3;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    v20 = 468;
+    v21 = 2048;
+    v22 = a3;
+    v23 = 2048;
+    v24 = v13;
+    _os_log_send_and_compose_impl(v14, &v16, buf, 80, &dword_1E1C61000, a2, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v17, 38, v15);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_24;
+  }
+
+  if (CoreRELog::onceToken != -1)
+  {
+LABEL_24:
+    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+  }
+
+  v9 = CoreRELog::log;
+  if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  {
+    goto LABEL_18;
+  }
+
+  *buf = 134217984;
+  *&buf[4] = a2;
+  v10 = "Blend Shape Weights cannot get weight value for index %zu.";
+  v11 = v9;
+  v12 = 12;
+LABEL_15:
+  _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
+LABEL_18:
+
+  return NAN;
+}
+
+void createClipAssetData(uint64_t *a1, uint64_t a2, AssetService *a3)
+{
+  v50 = *MEMORY[0x1E69E9840];
+  var0 = a3[6].var0;
+  if (!var0)
+  {
+    var0 = *(re::AssetHandle::blockUntilLoaded<re::TimelineAsset>(&a3[3]) + 8);
+  }
+
+  *a1 = 0;
+  a1[4] = 0;
+  v7 = *(var0 + 2);
+  if (v7 == 48)
+  {
+    v7 = re::TimelineEventData::instancedTimelineType((var0 + 10));
+  }
+
+  switch(v7)
+  {
+    case 3:
+    case 11:
+    case 19:
+    case 27:
+    case 39:
+    case 51:
+      v18 = re::globalAllocators(v7);
+      v19 = (*(*v18[2] + 32))(v18[2], 184, 8);
+      v20 = re::TimelineAssetData::TimelineAssetData(v19, 3);
+      *(v20 + 72) = 0;
+      *(v20 + 120) = 0;
+      *(v20 + 136) = 0;
+      *(v20 + 144) = 0;
+      *(v20 + 152) = 0;
+      *(v20 + 160) = 0;
+      *(v20 + 88) = 0;
+      *(v20 + 96) = 0;
+      *(v20 + 80) = 0;
+      *(v20 + 104) = 0;
+      *(v20 + 176) = 1065353216;
+      *(v20 + 180) = 0;
+      *v20 = &unk_1F5CBE790;
+      v45[0] = &unk_1F5D2A700;
+      v46 = v45;
+      *&v47 = v20;
+      v49 = &v47 + 8;
+      v11 = &unk_1F5D2A700;
+      goto LABEL_15;
+    case 4:
+    case 12:
+    case 20:
+    case 28:
+    case 40:
+    case 52:
+      v24 = re::globalAllocators(v7);
+      v25 = (*(*v24[2] + 32))(v24[2], 184, 8);
+      v26 = re::TimelineAssetData::TimelineAssetData(v25, 4);
+      *(v26 + 72) = 0;
+      *(v26 + 120) = 0;
+      *(v26 + 136) = 0;
+      *(v26 + 144) = 0;
+      *(v26 + 152) = 0;
+      *(v26 + 160) = 0;
+      *(v26 + 88) = 0;
+      *(v26 + 96) = 0;
+      *(v26 + 80) = 0;
+      *(v26 + 104) = 0;
+      *(v26 + 176) = 1065353216;
+      *(v26 + 180) = 0;
+      *v26 = &unk_1F5CBE880;
+      v45[0] = &unk_1F5D2A780;
+      v46 = v45;
+      *&v47 = v26;
+      v49 = &v47 + 8;
+      v11 = &unk_1F5D2A780;
+      goto LABEL_15;
+    case 5:
+    case 13:
+    case 21:
+    case 29:
+    case 41:
+    case 53:
+      v21 = re::globalAllocators(v7);
+      v22 = (*(*v21[2] + 32))(v21[2], 184, 8);
+      v23 = re::TimelineAssetData::TimelineAssetData(v22, 5);
+      *(v23 + 72) = 0;
+      *(v23 + 120) = 0;
+      *(v23 + 136) = 0;
+      *(v23 + 144) = 0;
+      *(v23 + 152) = 0;
+      *(v23 + 160) = 0;
+      *(v23 + 88) = 0;
+      *(v23 + 96) = 0;
+      *(v23 + 80) = 0;
+      *(v23 + 104) = 0;
+      *(v23 + 176) = 1065353216;
+      *(v23 + 180) = 0;
+      *v23 = &unk_1F5CBE988;
+      v45[0] = &unk_1F5D2A800;
+      v46 = v45;
+      *&v47 = v23;
+      v49 = &v47 + 8;
+      v11 = &unk_1F5D2A800;
+      goto LABEL_15;
+    case 6:
+    case 14:
+    case 22:
+    case 30:
+    case 42:
+    case 54:
+      v15 = re::globalAllocators(v7);
+      v16 = (*(*v15[2] + 32))(v15[2], 184, 8);
+      v17 = re::TimelineAssetData::TimelineAssetData(v16, 6);
+      *(v17 + 72) = 0;
+      *(v17 + 120) = 0;
+      *(v17 + 136) = 0;
+      *(v17 + 144) = 0;
+      *(v17 + 152) = 0;
+      *(v17 + 160) = 0;
+      *(v17 + 88) = 0;
+      *(v17 + 96) = 0;
+      *(v17 + 80) = 0;
+      *(v17 + 104) = 0;
+      *(v17 + 176) = 1065353216;
+      *(v17 + 180) = 0;
+      *v17 = &unk_1F5CBEA90;
+      v45[0] = &unk_1F5D2A880;
+      v46 = v45;
+      *&v47 = v17;
+      v49 = &v47 + 8;
+      v11 = &unk_1F5D2A880;
+      goto LABEL_15;
+    case 7:
+    case 15:
+    case 23:
+    case 31:
+    case 43:
+    case 55:
+      v30 = re::globalAllocators(v7);
+      v31 = (*(*v30[2] + 32))(v30[2], 184, 8);
+      v32 = re::TimelineAssetData::TimelineAssetData(v31, 7);
+      *(v32 + 72) = 0;
+      *(v32 + 120) = 0;
+      *(v32 + 136) = 0;
+      *(v32 + 144) = 0;
+      *(v32 + 152) = 0;
+      *(v32 + 160) = 0;
+      *(v32 + 88) = 0;
+      *(v32 + 96) = 0;
+      *(v32 + 80) = 0;
+      *(v32 + 104) = 0;
+      *(v32 + 176) = 1065353216;
+      *(v32 + 180) = 0;
+      *v32 = &unk_1F5CBEB98;
+      v45[0] = &unk_1F5D2A900;
+      v46 = v45;
+      *&v47 = v32;
+      v49 = &v47 + 8;
+      v11 = &unk_1F5D2A900;
+      goto LABEL_15;
+    case 8:
+    case 16:
+    case 24:
+    case 32:
+    case 44:
+    case 57:
+      v12 = re::globalAllocators(v7);
+      v13 = (*(*v12[2] + 32))(v12[2], 184, 8);
+      v14 = re::TimelineAssetData::TimelineAssetData(v13, 8);
+      *(v14 + 72) = 0;
+      *(v14 + 120) = 0;
+      *(v14 + 136) = 0;
+      *(v14 + 144) = 0;
+      *(v14 + 152) = 0;
+      *(v14 + 160) = 0;
+      *(v14 + 88) = 0;
+      *(v14 + 96) = 0;
+      *(v14 + 80) = 0;
+      *(v14 + 104) = 0;
+      *(v14 + 176) = 1065353216;
+      *(v14 + 180) = 0;
+      *v14 = &unk_1F5CBECA0;
+      v45[0] = &unk_1F5D2A980;
+      v46 = v45;
+      *&v47 = v14;
+      v49 = &v47 + 8;
+      v11 = &unk_1F5D2A980;
+      goto LABEL_15;
+    case 9:
+    case 17:
+    case 25:
+    case 33:
+    case 37:
+    case 45:
+    case 56:
+      v8 = re::globalAllocators(v7);
+      v9 = (*(*v8[2] + 32))(v8[2], 184, 8);
+      v10 = re::TimelineAssetData::TimelineAssetData(v9, 9);
+      *(v10 + 72) = 0;
+      *(v10 + 120) = 0;
+      *(v10 + 136) = 0;
+      *(v10 + 144) = 0;
+      *(v10 + 152) = 0;
+      *(v10 + 160) = 0;
+      *(v10 + 88) = 0;
+      *(v10 + 96) = 0;
+      *(v10 + 80) = 0;
+      *(v10 + 104) = 0;
+      *(v10 + 176) = 1065353216;
+      *(v10 + 180) = 0;
+      *v10 = &unk_1F5CBEDA8;
+      v45[0] = &unk_1F5D2AA00;
+      v46 = v45;
+      *&v47 = v10;
+      v49 = &v47 + 8;
+      v11 = &unk_1F5D2AA00;
+      goto LABEL_15;
+    case 10:
+    case 18:
+    case 26:
+    case 34:
+    case 46:
+    case 58:
+      v27 = re::globalAllocators(v7);
+      v28 = (*(*v27[2] + 32))(v27[2], 184, 8);
+      v29 = re::TimelineAssetData::TimelineAssetData(v28, 10);
+      *(v29 + 72) = 0;
+      *(v29 + 120) = 0;
+      *(v29 + 136) = 0;
+      *(v29 + 144) = 0;
+      *(v29 + 152) = 0;
+      *(v29 + 160) = 0;
+      *(v29 + 88) = 0;
+      *(v29 + 96) = 0;
+      *(v29 + 80) = 0;
+      *(v29 + 104) = 0;
+      *(v29 + 176) = 1065353216;
+      *(v29 + 180) = 0;
+      *v29 = &unk_1F5CBEEB0;
+      v45[0] = &unk_1F5D2AA80;
+      v46 = v45;
+      *&v47 = v29;
+      v49 = &v47 + 8;
+      v11 = &unk_1F5D2AA80;
+      goto LABEL_15;
+    case 50:
+    case 59:
+    case 60:
+    case 61:
+      v33 = re::globalAllocators(v7);
+      v34 = (*(*v33[2] + 32))(v33[2], 184, 8);
+      v35 = re::TimelineAssetData::TimelineAssetData(v34, 60);
+      *(v35 + 72) = 0;
+      *(v35 + 120) = 0;
+      *(v35 + 136) = 0;
+      *(v35 + 144) = 0;
+      *(v35 + 152) = 0;
+      *(v35 + 160) = 0;
+      *(v35 + 88) = 0;
+      *(v35 + 96) = 0;
+      *(v35 + 80) = 0;
+      *(v35 + 104) = 0;
+      *(v35 + 176) = 1065353216;
+      *(v35 + 180) = 0;
+      *v35 = &unk_1F5CBEFB8;
+      v45[0] = &unk_1F5D2AB00;
+      v46 = v45;
+      *&v47 = v35;
+      v49 = &v47 + 8;
+      v11 = &unk_1F5D2AB00;
+LABEL_15:
+      *(&v47 + 1) = v11;
+      std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::operator=[abi:nn200100](a1, &v47);
+      std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v47);
+      std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v45);
+      v36 = *a1;
+      v37 = *(&v47 + 1);
+      v38 = *(*a1 + 80);
+      v36[10] = v47;
+      v36[11] = v37;
+      v47 = v38;
+      v39 = v36[12];
+      v36[12] = v48;
+      break;
+    default:
+      v40 = re::globalAllocators(v7);
+      v41 = (*(*v40[2] + 32))(v40[2], 176, 8);
+      v45[0] = &unk_1F5D2AB80;
+      v46 = v45;
+      *&v47 = re::TimelineClipAssetData::TimelineClipAssetData(v41);
+      v49 = &v47 + 8;
+      *(&v47 + 1) = &unk_1F5D2AB80;
+      std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::operator=[abi:nn200100](a1, &v47);
+      std::unique_ptr<re::TimelineAssetData,std::function<void ()(re::TimelineAssetData*)>>::~unique_ptr[abi:nn200100](&v47);
+      std::__function::__value_func<void ()(re::TimelineAssetData *)>::~__value_func[abi:nn200100](v45);
+      v42 = *a1;
+      v43 = *(&v47 + 1);
+      v44 = *(*a1 + 72);
+      v42[9] = v47;
+      v42[10] = v43;
+      v47 = v44;
+      v39 = v42[11];
+      v42[11] = v48;
+      break;
+  }
+
+  v48 = v39;
+  re::AssetHandle::~AssetHandle(&v47);
 }

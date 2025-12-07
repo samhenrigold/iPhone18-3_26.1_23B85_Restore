@@ -35,7 +35,7 @@
 {
   _objc_retain(header);
   _objc_retain(self);
-  sub_10042C4B8();
+  sub_10042C4B8(header);
   _objc_release(self);
   _objc_release(header);
 }

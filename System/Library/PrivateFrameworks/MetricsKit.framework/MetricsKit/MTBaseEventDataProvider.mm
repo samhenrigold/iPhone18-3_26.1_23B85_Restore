@@ -541,7 +541,7 @@ id __35__MTBaseEventDataProvider_cookies___block_invoke(uint64_t a1, void *a2)
 
 id __35__MTBaseEventDataProvider_cookies___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) metricsKit];
   v5 = [v4 config];
@@ -549,26 +549,26 @@ id __35__MTBaseEventDataProvider_cookies___block_invoke_2(uint64_t a1, void *a2)
   v7 = [MTReflectUtil objectAsArray:v6];
 
   v8 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [MTReflectUtil objectAsString:*(*(&v19 + 1) + 8 * i), v19];
+        v14 = [MTReflectUtil objectAsString:*(*(&v18 + 1) + 8 * i), v18];
         if ([v14 length])
         {
           v15 = [*(a1 + 40) objectForKeyedSubscript:v14];
@@ -576,7 +576,7 @@ id __35__MTBaseEventDataProvider_cookies___block_invoke_2(uint64_t a1, void *a2)
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
@@ -591,8 +591,6 @@ id __35__MTBaseEventDataProvider_cookies___block_invoke_2(uint64_t a1, void *a2)
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -1697,13 +1695,12 @@ LABEL_6:
 
 void __47__MTBaseEventDataProvider_xpVersionMetricsKit___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v2 infoDictionary];
+  v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v1 infoDictionary];
 
-  v3 = [v5 valueForKey:@"CFBundleShortVersionString"];
-  v4 = xpVersionMetricsKit__bundleVersion;
-  xpVersionMetricsKit__bundleVersion = v3;
+  v2 = [v4 valueForKey:@"CFBundleShortVersionString"];
+  v3 = xpVersionMetricsKit__bundleVersion;
+  xpVersionMetricsKit__bundleVersion = v2;
 }
 
 @end

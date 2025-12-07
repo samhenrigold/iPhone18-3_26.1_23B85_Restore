@@ -65,7 +65,7 @@
 
   v6 = sub_2245693D4(v8);
 
-  sub_2245098A0(v8, &qword_27D0CA3B0);
+  sub_2245098A0(v8, &qword_27D0CA3B0, &qword_22462F1B0);
   return v6 & 1;
 }
 
@@ -117,11 +117,11 @@
 {
   v5 = sub_224627CD8();
   v7 = v6;
-  swift_getObjCClassMetadata();
+  ObjCClassMetadata = swift_getObjCClassMetadata();
   selfCopy = self;
-  v9 = sub_224569ED0(v5, v7);
+  LOBYTE(ObjCClassMetadata) = sub_224569ED0(v5, v7, ObjCClassMetadata);
 
-  return v9;
+  return ObjCClassMetadata & 1;
 }
 
 - (int64_t)getActuatorIndexWithName:(id)name system:(id)system
@@ -159,7 +159,7 @@
   if (v8)
   {
     v9 = v8;
-    type metadata accessor for ActuationController();
+    type metadata accessor for ActuationController(0);
     if (swift_dynamicCastClass())
     {
       v10 = sub_2245BB488(v4, v6);
@@ -188,13 +188,14 @@ LABEL_7:
 
 - (void)actuatorFeedbackWithInfo:(id)info system:(id)system actuators:(id)actuators positions:(id)positions velocities:(id)velocities timestamp:(double)timestamp
 {
-  sub_224627CD8();
-  sub_224627ED8();
-  sub_224627ED8();
-  sub_224627ED8();
+  v11 = sub_224627CD8();
+  v13 = v12;
+  v14 = sub_224627ED8();
+  v15 = sub_224627ED8();
+  v16 = sub_224627ED8();
   infoCopy = info;
   selfCopy = self;
-  sub_2245705BC(infoCopy, timestamp);
+  sub_2245705BC(infoCopy, v11, v13, v14, v15, v16, timestamp);
 }
 
 - (void)trajectoryProgressFeedbackWithInfo:(id)info system:(id)system progress:(id)progress
@@ -249,13 +250,14 @@ LABEL_7:
 
 - (void)sensorDataWithInfo:(id)info system:(id)system sensors:(id)sensors data:(id)data
 {
-  sub_224627CD8();
-  sub_224627ED8();
+  v8 = sub_224627CD8();
+  v10 = v9;
+  v11 = sub_224627ED8();
   type metadata accessor for SensorData();
-  sub_224627ED8();
+  v12 = sub_224627ED8();
   infoCopy = info;
   selfCopy = self;
-  sub_224579E94(infoCopy);
+  sub_224579E94(infoCopy, v8, v10, v11, v12);
 }
 
 - (_TtC11DockKitCore17DockCoreAccessory)init

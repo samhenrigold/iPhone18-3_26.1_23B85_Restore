@@ -36,7 +36,7 @@
   serviceName = self->_serviceName;
   v9 = (self->_interfaceFactory)();
   requestHandler = self->_requestHandler;
-  v11 = __atxlog_handle_context_user_education_suggestions();
+  v11 = __atxlog_handle_context_user_education_suggestions(v9);
   LOBYTE(requestHandler) = [v7 shouldAcceptConnection:connectionCopy serviceName:serviceName whitelistedServerInterface:v9 whitelistedClientInterface:0 requestHandler:requestHandler validateConnection:v6 setupClientProxy:0 interruptionHandler:&__block_literal_global_31_0 invalidationHandler:&__block_literal_global_33_0 logHandle:v11];
 
   return requestHandler;
@@ -47,7 +47,7 @@ uint64_t __90__ATXUserEducationSuggestionConnectorListenerDelegate_listener_shou
   v2 = MEMORY[0x1E69C5DB0];
   v3 = *(*(a1 + 32) + 8);
   v4 = a2;
-  v5 = __atxlog_handle_context_user_education_suggestions();
+  v5 = __atxlog_handle_context_user_education_suggestions(v4);
   v6 = [v2 checkForAndLogTrueBooleanEntitlement:v3 connection:v4 serviceName:v3 logHandle:v5];
 
   return v6;

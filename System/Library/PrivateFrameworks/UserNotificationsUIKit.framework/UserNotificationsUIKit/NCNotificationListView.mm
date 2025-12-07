@@ -624,7 +624,7 @@
     [(NCNotificationListView *)self groupedTranslation];
     CGAffineTransformMakeTranslation(&v9, v5, 0.0);
     memset(&v8, 0, sizeof(v8));
-    [(NCNotificationListView *)self transform];
+    objc_msgSend_transform(self);
     v6 = v9;
     CGAffineTransformConcat(&v8, &t1, &v6);
     t1 = v8;
@@ -1302,17 +1302,18 @@ LABEL_7:
   else
   {
     v5 = *MEMORY[0x277D77DD0];
-    if (os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_FAULT))
+    v6 = os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_FAULT);
+    if (v6)
     {
       [(NCNotificationListView *)dataSource _currentAnimator];
     }
 
-    animator = NCDefaultAnimator();
+    animator = NCDefaultAnimator(v6);
   }
 
-  v6 = animator;
+  v7 = animator;
 
-  return v6;
+  return v7;
 }
 
 - (CGAffineTransform)overrideTopViewDimmingTransform
@@ -2268,7 +2269,7 @@ uint64_t __62__NCNotificationListView_debugDescriptionWithMultilinePrefix___bloc
   v10 = [builderCopy appendBool:-[NCNotificationListView isHidden](self withName:{"isHidden"), @"IsHidden"}];
   [(NCNotificationListView *)self alpha];
   v11 = [builderCopy appendFloat:@"Alpha" withName:?];
-  [(NCNotificationListView *)self transform];
+  objc_msgSend_transform(self);
   v12 = NSStringFromCGAffineTransform(&v13);
   [builderCopy appendString:v12 withName:@"Transform"];
 }
@@ -2433,7 +2434,7 @@ void __55__NCNotificationListView__layoutOverlayViewIfNecessary__block_invoke(ui
   [v3 setFrame:{*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72)}];
 }
 
-uint64_t __55__NCNotificationListView__layoutOverlayViewIfNecessary__block_invoke_2(uint64_t a1)
+void *__55__NCNotificationListView__layoutOverlayViewIfNecessary__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isGrouped];
   if (result)
@@ -2553,7 +2554,7 @@ LABEL_11:
           [(NCNotificationListView *)self _alphaForRollUnderForView:v10 withHeight:v6 layoutOffset:offset];
           v24 = v24 * v37;
           memset(&v55, 0, sizeof(v55));
-          [(NCNotificationListView *)self _transformForRollUnderForView:v30 withHeight:v33 layoutOffset:v35];
+          objc_msgSend__transformForRollUnderForView_withHeight_layoutOffset_(self, v33, v35);
           CGAffineTransformMakeTranslation(&v56, 0.0, fmin(v35 + 0.0 - (v6 + offset), 0.0));
         }
 
@@ -2561,7 +2562,7 @@ LABEL_11:
         {
           [(NCNotificationListView *)self _alphaForRollUnderForView:v10 withHeight:v6 layoutOffset:offset];
           v24 = v24 * v38;
-          [(NCNotificationListView *)self _transformForRollUnderForView:v10 withHeight:v6 layoutOffset:offset];
+          objc_msgSend__transformForRollUnderForView_withHeight_layoutOffset_(self, v6, offset);
         }
 
         _currentAnimator = [(NCNotificationListView *)self _currentAnimator];
@@ -2579,7 +2580,7 @@ LABEL_11:
       {
         [(NCNotificationListView *)self _alphaForRollUnderForView:v10 withHeight:v6 layoutOffset:offset];
         v24 = v24 * v40;
-        [(NCNotificationListView *)self _transformForRollUnderForView:v10 withHeight:v6 layoutOffset:offset];
+        objc_msgSend__transformForRollUnderForView_withHeight_layoutOffset_(self, v6, offset);
       }
 
       v55 = v56;
@@ -2757,7 +2758,7 @@ uint64_t __69__NCNotificationListView__layoutHeaderViewIfNecessaryAtLayoutOffset
       v36 = 0u;
       v37 = 0u;
       v35 = 0u;
-      [(NCNotificationListView *)self _transformForRollUnderForView:v9 withHeight:v6 layoutOffset:offset];
+      objc_msgSend__transformForRollUnderForView_withHeight_layoutOffset_(self, v6, offset);
     }
 
     else
@@ -3002,7 +3003,7 @@ uint64_t __69__NCNotificationListView__layoutFooterViewIfNecessaryAtLayoutOffset
         if (!_isAnimationStyleDissolve)
         {
           [v123 notificationListView:self heightForItemAtIndex:0 withWidth:-[NCNotificationListView _isCurrentlyInDisplayListAsStackMode](self inDisplayListAsStackMode:"_isCurrentlyInDisplayListAsStackMode") ignoreExpandedGroupStack:{0, v12}];
-          [(NCNotificationListView *)self _scaleTransformForGroupingAnimationForViewAtIndex:index leadingViewHeight:?];
+          objc_msgSend__scaleTransformForGroupingAnimationForViewAtIndex_leadingViewHeight_(self);
           v56 = 0.0;
           layoutOffsetCopy = layoutOffset;
         }
@@ -3052,7 +3053,7 @@ uint64_t __69__NCNotificationListView__layoutFooterViewIfNecessaryAtLayoutOffset
             v56 = 0.0;
             if (v122 && ([(NCNotificationListView *)self _isAnimatingForParentNotificationListView]|| [(NCNotificationListView *)self isPerformingRevealAnimation]|| [(NCNotificationListView *)self isPerformingRevealTransitionAnimation]))
             {
-              [(NCNotificationListView *)self _transformForRollUnderForView:v18 withHeight:v15 layoutOffset:v36, v117, v119];
+              objc_msgSend__transformForRollUnderForView_withHeight_layoutOffset_(self, v15, v36, v117, v119);
               v154 = v153;
             }
 
@@ -3390,7 +3391,7 @@ LABEL_114:
   return offset;
 }
 
-uint64_t __90__NCNotificationListView__layoutViewIfNecessaryAtIndex_layoutOffset_startingLayoutOffset___block_invoke_2(uint64_t a1)
+void *__90__NCNotificationListView__layoutViewIfNecessaryAtIndex_layoutOffset_startingLayoutOffset___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
@@ -3496,7 +3497,7 @@ LABEL_15:
   v20 = *alpha;
   [(NCNotificationListView *)self _alphaForRollUnderForView:viewCopy withHeight:heightCopy2 layoutOffset:MinY];
   *alpha = v20 * v21;
-  [(NCNotificationListView *)self _transformForRollUnderForView:viewCopy withHeight:heightCopy2 layoutOffset:MinY];
+  objc_msgSend__transformForRollUnderForView_withHeight_layoutOffset_(self, heightCopy2, MinY);
   *&transform->a = v32;
   *&transform->c = v33;
   *&transform->tx = v34;
@@ -4410,7 +4411,7 @@ LABEL_30:
 
       if (v33)
       {
-        [v33 transform];
+        objc_msgSend_transform(v33);
         v39 = v44;
       }
 
@@ -4502,7 +4503,7 @@ uint64_t __109__NCNotificationListView__layoutGroupedViewForGroupingLayout_atInd
 
   if (v8 == viewCopy)
   {
-    [(NCNotificationListView *)self overrideTopViewDimmingTransform];
+    objc_msgSend_overrideTopViewDimmingTransform(self);
     v9 = v18;
     *&transform->a = v17;
     *&transform->c = v9;
@@ -4594,55 +4595,55 @@ void __94__NCNotificationListView__layoutHiddenViewsForGroupingLayoutIfNecessary
     v15 = v14;
     if (([*(a1 + 32) _isAnimationStyleDissolve] & 1) == 0)
     {
-      v28.origin.x = v15;
-      v28.origin.y = v9;
-      v28.size.width = v11;
-      v28.size.height = v13;
-      v9 = fmax(*(a1 + 48) - CGRectGetHeight(v28), 0.0);
+      v27.origin.x = v15;
+      v27.origin.y = v9;
+      v27.size.width = v11;
+      v27.size.height = v13;
+      v9 = fmax(*(a1 + 48) - CGRectGetHeight(v27), 0.0);
     }
 
     [*(a1 + 32) sendSubviewToBack:v7];
     v16 = [*(a1 + 32) nonCoplanarViewIndices];
     [v16 addIndex:v5];
 
-    v26 = 0u;
-    v27 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v24 = 0u;
     if ([*(a1 + 32) _isAnimationStyleDissolve])
     {
       v17 = *(MEMORY[0x277CBF2C0] + 16);
-      v25 = *MEMORY[0x277CBF2C0];
-      v26 = v17;
-      v27 = *(MEMORY[0x277CBF2C0] + 32);
+      v24 = *MEMORY[0x277CBF2C0];
+      v25 = v17;
+      v26 = *(MEMORY[0x277CBF2C0] + 32);
     }
 
     else
     {
       v18 = *(a1 + 32);
-      v19 = [v3 unsignedIntegerValue];
+      [v3 unsignedIntegerValue];
       if (v18)
       {
-        [v18 _scaleTransformForGroupingAnimationForViewAtIndex:v19 leadingViewHeight:*(a1 + 48)];
+        objc_msgSend__scaleTransformForGroupingAnimationForViewAtIndex_leadingViewHeight_(v18, *(a1 + 48));
       }
 
       else
       {
-        v26 = 0u;
-        v27 = 0u;
         v25 = 0u;
+        v26 = 0u;
+        v24 = 0u;
       }
     }
 
+    v19 = *(a1 + 32);
+    v21 = v24;
+    v22 = v25;
+    v23 = v26;
+    [v19 _updateTransformedView:v7 toFrame:&v21 withTransform:{v15, v9, v11, v13}];
     v20 = *(a1 + 32);
+    v21 = v24;
     v22 = v25;
     v23 = v26;
-    v24 = v27;
-    [v20 _updateTransformedView:v7 toFrame:&v22 withTransform:{v15, v9, v11, v13}];
-    v21 = *(a1 + 32);
-    v22 = v25;
-    v23 = v26;
-    v24 = v27;
-    [v21 _configureStackDimmingForGroupedView:v7 transform:&v22];
+    [v20 _configureStackDimmingForGroupedView:v7 transform:&v21];
     [*(a1 + 32) _removeStoredVisibleViewAtIndex:{objc_msgSend(v3, "unsignedIntegerValue")}];
   }
 }
@@ -6812,7 +6813,7 @@ void __90__NCNotificationListView__setupVisibleRectHeightFloatAnimatableProperty
   [(NCNotificationListView *)self _updateTransformedView:viewCopy toFrame:x, y, width, height];
   if (viewCopy)
   {
-    [viewCopy transform];
+    objc_msgSend_transform(viewCopy);
   }
 
   else
@@ -6861,7 +6862,7 @@ void __90__NCNotificationListView__setupVisibleRectHeightFloatAnimatableProperty
       {
         if (viewCopy)
         {
-          [viewCopy transform];
+          objc_msgSend_transform(viewCopy);
         }
 
         else

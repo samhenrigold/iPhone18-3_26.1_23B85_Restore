@@ -9,14 +9,14 @@
 
 - (void)dealloc
 {
-  v3 = *sub_10000BB24((&self->super.isa + OBJC_IVAR____TtC46AddDevicesToAutomatedDeviceEnrollmentExtension11AXMEnroller_requestPerformingProvider), *&self->requestPerformingProvider[OBJC_IVAR____TtC46AddDevicesToAutomatedDeviceEnrollmentExtension11AXMEnroller_requestPerformingProvider + 16]);
+  sub_10000BB24((&self->super.isa + OBJC_IVAR____TtC46AddDevicesToAutomatedDeviceEnrollmentExtension11AXMEnroller_requestPerformingProvider), *&self->requestPerformingProvider[OBJC_IVAR____TtC46AddDevicesToAutomatedDeviceEnrollmentExtension11AXMEnroller_requestPerformingProvider + 16]);
   selfCopy = self;
-  v5 = sub_100034A20();
-  [v5 invalidate];
+  v4 = sub_100034A20();
+  [v4 invalidate];
 
-  v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for AXMEnroller();
-  [(AXMEnroller *)&v6 dealloc];
+  v5.receiver = selfCopy;
+  v5.super_class = type metadata accessor for AXMEnroller(0);
+  [(AXMEnroller *)&v5 dealloc];
 }
 
 - (void)fetchADEPrerequisitesOperationDidFinish:(id)finish

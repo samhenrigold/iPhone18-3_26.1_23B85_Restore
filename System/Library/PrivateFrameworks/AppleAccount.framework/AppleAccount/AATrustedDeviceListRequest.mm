@@ -48,30 +48,31 @@
 
 - (id)urlRequest
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = AATrustedDeviceListRequest;
-  urlRequest = [(AARequest *)&v13 urlRequest];
+  v17 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = AATrustedDeviceListRequest;
+  urlRequest = [(AARequest *)&v14 urlRequest];
   v4 = [urlRequest mutableCopy];
 
-  v5 = _AALogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _AALogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [v4 URL];
+    v7 = [v4 URL];
     *buf = 138412290;
-    v15 = v6;
-    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "Sending GET to %@", buf, 0xCu);
+    v16 = v7;
+    _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Sending GET to %@", buf, 0xCu);
   }
 
   [v4 setHTTPMethod:@"GET"];
   [(AAGrandSlamSigner *)self->_grandSlamSigner setUseAltDSID:1];
-  if (![(AAGrandSlamSigner *)self->_grandSlamSigner signURLRequest:v4 isUserInitiated:0])
+  v8 = [(AAGrandSlamSigner *)self->_grandSlamSigner signURLRequest:v4 isUserInitiated:0];
+  if ((v8 & 1) == 0)
   {
-    v7 = _AALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = _AALogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "AAGrandSlamSigner failed!", buf, 2u);
+      _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "AAGrandSlamSigner failed!", buf, 2u);
     }
   }
 
@@ -80,11 +81,10 @@
   [v4 aa_addGrandslamAuthorizationheaderWithAltDSID:aida_alternateDSID heartbeatToken:self->_heartbeatToken];
 
   [v4 aa_addDeviceIDHeader];
-  v10 = +[AADeviceInfo serialNumber];
-  [v4 setValue:v10 forHTTPHeaderField:@"X-Apple-I-SRL-NO"];
+  v12 = +[AADeviceInfo serialNumber];
+  [v4 setValue:v12 forHTTPHeaderField:@"X-Apple-I-SRL-NO"];
 
   [v4 aa_addContentTypeHeaders:@"application/json"];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

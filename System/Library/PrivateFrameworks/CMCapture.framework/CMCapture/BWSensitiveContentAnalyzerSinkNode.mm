@@ -8,7 +8,7 @@
 
 - (BWSensitiveContentAnalyzerSinkNode)initWithAnalyzer:(id)analyzer sinkID:(id)d interruptionDelegate:(id)delegate
 {
-  if (SensitiveContentAnalysisLibraryCore())
+  if (SensitiveContentAnalysisLibraryCore(0))
   {
     if (getSCVideoStreamAnalyzerClass())
     {
@@ -83,43 +83,45 @@ void __83__BWSensitiveContentAnalyzerSinkNode_initWithAnalyzer_sinkID_interrupti
 {
   if (a3)
   {
-    if (![objc_msgSend(a3 "domain")] || objc_msgSend(a3, "code") != 20)
+    v4 = [a3 domain];
+    getSCAErrorDomain();
+    if (!objc_msgSend_isEqualToString_(v4) || [a3 code] != 20)
     {
       FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      v13 = _os_log_send_and_compose_impl();
-      FigCapturePleaseFileRadar(FrameworkRadarComponent, v13, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWSensitiveContentAnalyzerSinkNode.m", 104, @"LastShownDate:BWSensitiveContentAnalyzerSinkNode.m:104", @"LastShownBuild:BWSensitiveContentAnalyzerSinkNode.m:104", 0);
-      free(v13);
+      v14 = _os_log_send_and_compose_impl();
+      FigCapturePleaseFileRadar(FrameworkRadarComponent, v14, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWSensitiveContentAnalyzerSinkNode.m", 104, @"LastShownDate:BWSensitiveContentAnalyzerSinkNode.m:104", @"LastShownBuild:BWSensitiveContentAnalyzerSinkNode.m:104", 0);
+      free(v14);
     }
   }
 
   else
   {
     Weak = objc_loadWeak((*(*(a1 + 32) + 8) + 40));
-    v9 = [a2 shouldInterruptVideo];
+    v10 = [a2 shouldInterruptVideo];
     os_variant_has_internal_diagnostics();
-    if (((v9 ^ (Weak == 0)) & 1) == 0)
+    if (((v10 ^ (Weak == 0)) & 1) == 0)
     {
-      if (v9)
+      if (v10)
       {
-        v10 = objc_loadWeak((a1 + 40));
-        v11 = objc_loadWeak((a1 + 48));
-        if (v10 && v11)
+        v11 = objc_loadWeak((a1 + 40));
+        v12 = objc_loadWeak((a1 + 48));
+        if (v11 && v12)
         {
-          objc_storeWeak((*(*(a1 + 32) + 8) + 40), [[FigCaptureInterruptionStatus alloc] initWithReason:7 systemWide:0 delegate:v10 context:v11[26]]);
-          [v10 interruptionTriggered:objc_loadWeak((*(*(a1 + 32) + 8) + 40))];
-          v12 = objc_loadWeak((*(*(a1 + 32) + 8) + 40));
+          objc_storeWeak((*(*(a1 + 32) + 8) + 40), [[FigCaptureInterruptionStatus alloc] initWithReason:7 systemWide:0 delegate:v11 context:v12[26]]);
+          [v11 interruptionTriggered:objc_loadWeak((*(*(a1 + 32) + 8) + 40))];
+          v13 = objc_loadWeak((*(*(a1 + 32) + 8) + 40));
         }
       }
 
       else
       {
         [Weak resolve];
-        v14 = (*(*(a1 + 32) + 8) + 40);
+        v15 = (*(*(a1 + 32) + 8) + 40);
 
-        objc_storeWeak(v14, 0);
+        objc_storeWeak(v15, 0);
       }
     }
   }

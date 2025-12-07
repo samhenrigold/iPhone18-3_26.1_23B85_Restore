@@ -9,17 +9,17 @@
   keyCopy = key;
   v7.receiver = self;
   v7.super_class = _UIReflectingGradientView;
-  if (-[UIView _shouldAnimatePropertyWithKey:](&v7, sel__shouldAnimatePropertyWithKey_, keyCopy) || ([keyCopy isEqualToString:@"startPoint"] & 1) != 0)
+  if ([(UIView *)&v7 _shouldAnimatePropertyWithKey:keyCopy]|| (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0)
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v5 = [keyCopy isEqualToString:@"colors"];
+    isEqualToString = objc_msgSend_isEqualToString_(keyCopy);
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 @end

@@ -1,28 +1,19 @@
 @interface MCMXPCMessageWithConcreteContainersArrayBase
 - (MCMXPCMessageWithConcreteContainersArrayBase)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error;
-- (NSArray)concreteContainerIdentities;
 @end
 
 @implementation MCMXPCMessageWithConcreteContainersArrayBase
 
-- (NSArray)concreteContainerIdentities
-{
-  result = self->_concreteContainerIdentities;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (MCMXPCMessageWithConcreteContainersArrayBase)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
-  v30 = 0;
-  v31[0] = 1;
-  v29.receiver = self;
-  v29.super_class = MCMXPCMessageWithConcreteContainersArrayBase;
-  v10 = [(MCMXPCMessageBase *)&v29 initWithXPCObject:objectCopy context:contextCopy error:error];
+  v29 = 0;
+  v30[0] = 1;
+  v28.receiver = self;
+  v28.super_class = MCMXPCMessageWithConcreteContainersArrayBase;
+  v10 = [(MCMXPCMessageBase *)&v28 initWithXPCObject:objectCopy context:contextCopy error:error];
   if (v10)
   {
     v11 = xpc_dictionary_get_array(objectCopy, "ContainersArray");
@@ -30,11 +21,11 @@
     if (container_object_array)
     {
       v13 = container_object_array;
-      v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:v30];
-      if (v30)
+      v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:v29];
+      if (v29)
       {
-        v26 = v11;
-        v27 = objectCopy;
+        v25 = v11;
+        v26 = objectCopy;
         errorCopy = error;
         v15 = 0;
         while (1)
@@ -44,7 +35,7 @@
           clientIdentity = [contextCopy clientIdentity];
           userIdentity = [clientIdentity userIdentity];
           userIdentityCache = [contextCopy userIdentityCache];
-          v21 = [(MCMConcreteContainerIdentityForLibsystem *)v16 initWithLibsystemContainer:v17 defaultUserIdentity:userIdentity userIdentityCache:userIdentityCache error:v31];
+          v21 = [(MCMConcreteContainerIdentityForLibsystem *)v16 initWithLibsystemContainer:v17 defaultUserIdentity:userIdentity userIdentityCache:userIdentityCache error:v30];
 
           if (!v21)
           {
@@ -53,24 +44,24 @@
 
           [v14 addObject:v21];
 
-          if (++v15 >= v30)
+          if (++v15 >= v29)
           {
-            objectCopy = v27;
+            objectCopy = v26;
             error = errorCopy;
             goto LABEL_10;
           }
         }
 
-        v31[0] = 38;
+        v30[0] = 38;
 
         v10 = 0;
-        objectCopy = v27;
+        objectCopy = v26;
         error = errorCopy;
 LABEL_10:
-        v11 = v26;
+        v11 = v25;
       }
 
-      if (v31[0] == 1)
+      if (v30[0] == 1)
       {
         v22 = [v14 copy];
         concreteContainerIdentities = v10->_concreteContainerIdentities;
@@ -87,12 +78,11 @@ LABEL_10:
     }
   }
 
-  if (error && v31[0] != 1)
+  if (error && v30[0] != 1)
   {
-    *error = v31[0];
+    *error = v30[0];
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -45,29 +45,29 @@ void __44__WBSFifoTestResults_initWithFifoURL_error___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   v1 = (a1 + 40);
-  v9 = 0;
-  v3 = [MEMORY[0x1E696AC00] fileHandleForWritingToURL:v2 error:&v9];
-  v4 = v9;
+  v11 = 0;
+  v3 = [MEMORY[0x1E696AC00] fileHandleForWritingToURL:v2 error:&v11];
+  v4 = v11;
   v5 = *(v1 - 1);
   v6 = *(v5 + 24);
   *(v5 + 24) = v3;
 
   if (*(*(v1 - 1) + 24))
   {
-    v7 = v4 == 0;
+    v9 = v4 == 0;
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  if (!v7)
+  if (!v9)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXTest();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXTest(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __44__WBSFifoTestResults_initWithFifoURL_error___block_invoke_cold_1(v1, v4, v8);
+      __44__WBSFifoTestResults_initWithFifoURL_error___block_invoke_cold_1(v1, v4, v10);
     }
   }
 }
@@ -180,24 +180,24 @@ LABEL_9:
   {
     v4 = MEMORY[0x1E696AE40];
     dictionaryRepresentation = [fifo dictionaryRepresentation];
-    v12 = 0;
-    v6 = [v4 dataWithPropertyList:dictionaryRepresentation format:200 options:0 error:&v12];
-    v7 = v12;
+    v14 = 0;
+    v6 = [v4 dataWithPropertyList:dictionaryRepresentation format:200 options:0 error:&v14];
+    v7 = v14;
 
     if (v6)
     {
-      v8 = v7 == 0;
+      v10 = v7 == 0;
     }
 
     else
     {
-      v8 = 0;
+      v10 = 0;
     }
 
-    if (v8)
+    if (v10)
     {
       [(NSFileHandle *)self->_fifoHandle fileDescriptor];
-      v11 = [v6 length];
+      v13 = [v6 length];
       WBSWriteExactAmountOfBytesToFileDescriptor();
       [v6 bytes];
       WBSWriteExactAmountOfBytesToFileDescriptor();
@@ -205,20 +205,20 @@ LABEL_9:
 
     else
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXTest();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXTest(v8, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [WBSFifoTestResults _writeReportToFifo:v9];
+        [WBSFifoTestResults _writeReportToFifo:v11];
       }
     }
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXTest();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXTest(self, a2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [WBSFifoTestResults _writeReportToFifo:v10];
+      [WBSFifoTestResults _writeReportToFifo:v12];
     }
   }
 }

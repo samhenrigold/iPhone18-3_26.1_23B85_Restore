@@ -23,7 +23,7 @@
 
 + (id)aeaStreamFormatsWithRangedDictionary:(id)dictionary
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   array = [MEMORY[0x277CBEB18] array];
   v4 = [dictionaryCopy objectForKeyedSubscript:@"min sample rate"];
@@ -42,25 +42,25 @@
 
   else
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    v9 = [&unk_28535DEC0 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v9 = [&unk_28535DEC0 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v26;
+      v11 = *v25;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v26 != v11)
+          if (*v25 != v11)
           {
             objc_enumerationMutation(&unk_28535DEC0);
           }
 
-          v13 = *(*(&v25 + 1) + 8 * i);
+          v13 = *(*(&v24 + 1) + 8 * i);
           [v13 doubleValue];
           v15 = v14;
           [v4 doubleValue];
@@ -82,14 +82,12 @@
           }
         }
 
-        v10 = [&unk_28535DEC0 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v10 = [&unk_28535DEC0 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v10);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return array;
 }

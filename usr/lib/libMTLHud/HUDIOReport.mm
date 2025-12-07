@@ -4,6 +4,7 @@
 - (BOOL)_createTimer:(unint64_t)timer;
 - (BOOL)_loadIOReportChannels:(id)channels subGroup:(id)group channels:(__CFDictionary *)a5;
 - (BOOL)_parseCPUChannel:(id)channel sampleIndex:(unsigned int)index;
+- (BOOL)_parseChannel:(__CFDictionary *)channel sampleIndex:(unsigned int)index;
 - (HUDIOReport)init;
 - (id).cxx_construct;
 - (void)_addSamplesToRecords:(double *)records numSample:(unsigned int)sample totalPackge:(double)packge;
@@ -29,16 +30,19 @@
 
 void __23__HUDIOReport_instance__block_invoke(id a1)
 {
-  +[HUDIOReport instance]::report = objc_alloc_init(HUDIOReport);
+  v1 = objc_alloc_init(HUDIOReport);
+  v2 = +[HUDIOReport instance]::report;
+  +[HUDIOReport instance]::report = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 - (HUDIOReport)init
 {
-  if (MTLHudIsInternalInstall())
+  selfCopy = self;
+  if (MTLHudIsInternalInstall(self, a2))
   {
-    v12.receiver = self;
+    v12.receiver = selfCopy;
     v12.super_class = HUDIOReport;
     v3 = [(HUDIOReport *)&v12 init];
     v4 = v3;
@@ -46,8 +50,8 @@ void __23__HUDIOReport_instance__block_invoke(id a1)
     {
       if (![(HUDIOReport *)v3 _createIOReportSubscription])
       {
-        selfCopy = 0;
-        self = v4;
+        v10 = 0;
+        selfCopy = v4;
         goto LABEL_12;
       }
 
@@ -79,18 +83,18 @@ void __23__HUDIOReport_instance__block_invoke(id a1)
       v4->_previousSample.time = 0;
     }
 
-    self = v4;
-    selfCopy = self;
+    selfCopy = v4;
+    v10 = selfCopy;
   }
 
   else
   {
-    selfCopy = 0;
+    v10 = 0;
   }
 
 LABEL_12:
 
-  return selfCopy;
+  return v10;
 }
 
 - (BOOL)_loadIOReportChannels:(id)channels subGroup:(id)group channels:(__CFDictionary *)a5
@@ -125,6 +129,29 @@ LABEL_12:
   *__p = 0u;
   memset(v8, 0, sizeof(v8));
   std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](v6, "(DIE_([0-9]+)_|)([EP])ACC([0-9]*)_(CPU|CPM)([0-9]*)", 0);
+}
+
+- (BOOL)_parseChannel:(__CFDictionary *)channel sampleIndex:(unsigned int)index
+{
+  v4 = *&index;
+  v6 = IOReportChannelGetChannelName();
+  IOReportChannelGetChannelID();
+  if (![(HUDIOReport *)self _parseCPUChannel:v6 sampleIndex:v4])
+  {
+    v11 = 0;
+    v12 = 0;
+    v13 = 0;
+    v14 = 0;
+    v15 = 0;
+    v16 = 0;
+    v17 = 0;
+    v18 = 0;
+    *__p = 0u;
+    memset(v10, 0, sizeof(v10));
+    std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](v8, "(GPUPH|PWRCTRL|GPU_CLTM|BSTGPUPH|GPU Energy|ANE|ISP|AVE|MSR|DCS|DRAM|AMCC)[0-9]*(_([0-9]+)|)", 0);
+  }
+
+  return 1;
 }
 
 - (BOOL)_createIOReportSubscription
@@ -443,137 +470,137 @@ LABEL_42:
 
 - (void)sample
 {
-  v24 = 0;
-  energySubscription = self->_energySubscription;
-  energyChannels = self->_energyChannels;
+  v23 = 0;
   Samples = IOReportCreateSamples();
   if (Samples)
   {
-    v6 = Samples;
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x4812000000;
-    v20 = __Block_byref_object_copy__1;
-    v21 = __Block_byref_object_dispose__1;
-    v22 = &unk_5D621;
-    std::vector<double>::vector[abi:ne200100](v23, self->_energySampleCount);
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
+    v4 = Samples;
     v16 = 0;
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2020000000;
+    v17 = &v16;
+    v18 = 0x4812000000;
+    v19 = __Block_byref_object_copy__1;
+    v20 = __Block_byref_object_dispose__1;
+    v21 = &unk_5D621;
+    energySampleCount = self->_energySampleCount;
     v12 = 0;
-    v7[0] = 0;
-    v7[1] = v7;
-    v7[2] = 0x2020000000;
+    std::vector<double>::vector[abi:ne200100](v22, energySampleCount, &v12);
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x2020000000;
+    v15 = 0;
     v8 = 0;
+    v9 = &v8;
+    v10 = 0x2020000000;
+    v11 = 0;
+    v6[0] = 0;
+    v6[1] = v6;
+    v6[2] = 0x2020000000;
+    v7 = 0;
     IOReportIterate();
-    CFRelease(v6);
-    [(HUDIOReport *)self _addSamplesToRecords:v18[6] numSample:*(v14 + 6) totalPackge:v10[3]];
-    _Block_object_dispose(v7, 8);
-    _Block_object_dispose(&v9, 8);
-    _Block_object_dispose(&v13, 8);
-    _Block_object_dispose(&v17, 8);
-    if (v23[0])
+    CFRelease(v4);
+    [(HUDIOReport *)self _addSamplesToRecords:v17[6] numSample:*(v13 + 6) totalPackge:v9[3]];
+    _Block_object_dispose(v6, 8);
+    _Block_object_dispose(&v8, 8);
+    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v16, 8);
+    if (v22[0])
     {
-      v23[1] = v23[0];
-      operator delete(v23[0]);
+      v22[1] = v22[0];
+      operator delete(v22[0]);
     }
   }
 
   else
   {
-    CFRelease(v24);
+    CFRelease(v23);
   }
 }
 
-uint64_t __21__HUDIOReport_sample__block_invoke(void *a1)
+uint64_t __21__HUDIOReport_sample__block_invoke(void *a1, uint64_t a2)
 {
   IntegerValue = IOReportSimpleGetIntegerValue();
-  v3 = a1[4];
-  v4 = *(*(a1[5] + 8) + 24);
-  if (*(v3 + 88) == v4)
+  v4 = a1[4];
+  v5 = *(*(a1[5] + 8) + 24);
+  if (*(v4 + 88) == v5)
   {
     *(*(a1[6] + 8) + 24) = IntegerValue / 1000000000.0;
     *(*(a1[7] + 8) + 24) = 1;
-    v5 = a1[5];
-    v6 = *(*(a1[6] + 8) + 24);
-    v7 = *(a1[8] + 8);
+    v6 = a1[5];
+    v7 = *(*(a1[6] + 8) + 24);
+    v8 = *(a1[8] + 8);
 LABEL_20:
-    *(*(v7 + 48) + 8 * *(*(v5 + 8) + 24)) = v6;
+    *(*(v8 + 48) + 8 * *(*(v6 + 8) + 24)) = v7;
     goto LABEL_21;
   }
 
-  if (*(v3 + 96) != v4)
+  if (*(v4 + 96) != v5)
   {
     IOReportScaleValue();
-    v7 = *(a1[8] + 8);
-    v5 = a1[5];
+    v8 = *(a1[8] + 8);
+    v6 = a1[5];
     goto LABEL_20;
   }
 
   Count = IOReportStateGetCount();
-  memset(v31, 0, sizeof(v31));
+  memset(v32, 0, sizeof(v32));
   if (Count >= 1)
   {
     for (i = 0; i != Count; ++i)
     {
-      v10 = IOReportStateGetNameForIndex();
-      v11 = [v10 substringFromIndex:1];
-      v12 = [v11 intValue];
+      v11 = IOReportStateGetNameForIndex();
+      v12 = [v11 substringFromIndex:1];
+      v13 = [v12 intValue];
 
-      if (v12 <= 0x13)
+      if (v13 <= 0x13)
       {
-        *(v31 + v12) = IOReportStateGetResidency();
+        *(v32 + v13) = IOReportStateGetResidency();
       }
     }
   }
 
-  v13 = a1[4];
-  if (*(v13 + 176))
+  v14 = a1[4];
+  if (*(v14 + 176))
   {
-    v14 = 0;
-    v15 = v13 + 184;
-    v16 = 0uLL;
+    v15 = 0;
+    v16 = v14 + 184;
     v17 = 0uLL;
+    v18 = 0uLL;
     do
     {
-      v16 = vaddq_s64(*(v15 + v14 * 16), v16);
-      v17 = vaddq_s64(v31[v14++], v17);
+      v17 = vaddq_s64(*(v16 + v15 * 16), v17);
+      v18 = vaddq_s64(v32[v15++], v18);
     }
 
-    while (v14 != 10);
-    v18 = vaddvq_s64(v16);
+    while (v15 != 10);
     v19 = vaddvq_s64(v17);
-    v20 = v19 >= v18;
-    v21 = v19 - v18;
-    if (v21 != 0 && v20)
+    v20 = vaddvq_s64(v18);
+    v21 = v20 >= v19;
+    v22 = v20 - v19;
+    if (v22 != 0 && v21)
     {
-      v22 = v21;
-      v23 = v31;
-      v24 = 23;
-      v25 = 9368;
+      v23 = v22;
+      v24 = v32;
+      v25 = 23;
+      v26 = 9368;
       do
       {
-        v26 = a1[4];
-        v27 = *(v26 + 8 * v24);
-        v28 = *v23;
-        v20 = *v23 >= v27;
-        v29 = *v23 - v27;
-        if (!v20)
+        v27 = a1[4];
+        v28 = *(v27 + 8 * v25);
+        v29 = *v24;
+        v21 = *v24 >= v28;
+        v30 = *v24 - v28;
+        if (!v21)
         {
-          v29 = 0;
+          v30 = 0;
         }
 
-        HUDValueHistoryRecordAddValue(v26 + v25, v29 / v22 * 100.0);
-        *(a1[4] + 8 * v24++) = v28;
-        v25 += 1128;
-        ++v23;
+        HUDValueHistoryRecordAddValue(v27 + v26, v30 / v23 * 100.0);
+        *(a1[4] + 8 * v25++) = v29;
+        v26 += 1128;
+        ++v24;
       }
 
-      while (v24 != 43);
+      while (v25 != 43);
     }
   }
 

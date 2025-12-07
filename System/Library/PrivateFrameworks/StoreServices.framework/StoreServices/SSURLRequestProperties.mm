@@ -586,7 +586,7 @@ void __46__SSURLRequestProperties_mutableCopyWithZone___block_invoke(void *a1)
   return v6;
 }
 
-uint64_t __41__SSURLRequestProperties_copyXPCEncoding__block_invoke(uint64_t a1)
+void __41__SSURLRequestProperties_copyXPCEncoding__block_invoke(uint64_t a1)
 {
   SSXPCDictionarySetObject(*(a1 + 32), "33", *(*(a1 + 40) + 8));
   xpc_dictionary_set_int64(*(a1 + 32), "0", *(*(a1 + 40) + 16));
@@ -624,7 +624,7 @@ uint64_t __41__SSURLRequestProperties_copyXPCEncoding__block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   v3 = *(*(a1 + 40) + 208);
 
-  return SSXPCDictionarySetObject(v2, "21", v3);
+  SSXPCDictionarySetObject(v2, "21", v3);
 }
 
 - (SSURLRequestProperties)initWithXPCEncoding:(id)encoding
@@ -769,15 +769,15 @@ LABEL_5:
   return v3;
 }
 
-uint64_t __43__SSURLRequestProperties_allowedRetryCount__block_invoke(uint64_t result)
+void *__43__SSURLRequestProperties_allowedRetryCount__block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = result[4];
   v3 = *(v2 + 16);
   if (v3 == -1)
   {
     result = [*(v2 + 104) caseInsensitiveCompare:@"post"];
-    v4 = *(*(v1 + 40) + 8);
+    v4 = *(v1[5] + 8);
     if (result)
     {
       *(v4 + 24) = 6;
@@ -791,7 +791,7 @@ uint64_t __43__SSURLRequestProperties_allowedRetryCount__block_invoke(uint64_t r
 
   else
   {
-    *(*(*(result + 40) + 8) + 24) = v3;
+    *(*(result[5] + 8) + 24) = v3;
   }
 
   return result;
@@ -1390,10 +1390,10 @@ void __29__SSURLRequestProperties_URL__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __39__SSURLRequestProperties_canBeResolved__block_invoke(uint64_t result)
+void *__39__SSURLRequestProperties_canBeResolved__block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = result[4];
   if (*(v2 + 184) || *(v2 + 200))
   {
     v3 = 1;
@@ -1405,7 +1405,7 @@ uint64_t __39__SSURLRequestProperties_canBeResolved__block_invoke(uint64_t resul
     v3 = result != 0;
   }
 
-  *(*(*(v1 + 40) + 8) + 24) = v3;
+  *(*(v1[5] + 8) + 24) = v3;
   return result;
 }
 

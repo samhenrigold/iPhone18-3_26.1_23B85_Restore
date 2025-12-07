@@ -51,63 +51,7 @@
   }
 
   objc_storeStrong(&v9->_interfaceName, name);
-  if (!addressCopy)
-  {
-    goto LABEL_15;
-  }
-
-  objc_storeStrong(&v10->_hardwareMACAddress, address);
-  v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v12 = dispatch_queue_create("com.apple.corewifi.private-mac.target", v11);
-  targetQueue = v10->_targetQueue;
-  v10->_targetQueue = v12;
-
-  if (!v10->_targetQueue)
-  {
-    goto LABEL_15;
-  }
-
-  v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  privateMACAddressCache = v10->_privateMACAddressCache;
-  v10->_privateMACAddressCache = v14;
-
-  if (!v10->_privateMACAddressCache)
-  {
-    goto LABEL_15;
-  }
-
-  v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  privateMACAddressCacheIDList = v10->_privateMACAddressCacheIDList;
-  v10->_privateMACAddressCacheIDList = v16;
-
-  if (!v10->_privateMACAddressCacheIDList)
-  {
-    goto LABEL_15;
-  }
-
-  v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  userJoinFailureTimestampMap = v10->_userJoinFailureTimestampMap;
-  v10->_userJoinFailureTimestampMap = v18;
-
-  if (!v10->_userJoinFailureTimestampMap)
-  {
-    goto LABEL_15;
-  }
-
-  v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  userJoinFailureCountMap = v10->_userJoinFailureCountMap;
-  v10->_userJoinFailureCountMap = v20;
-
-  if (!v10->_userJoinFailureCountMap)
-  {
-    goto LABEL_15;
-  }
-
-  v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  tempUserSettingMap = v10->_tempUserSettingMap;
-  v10->_tempUserSettingMap = v22;
-
-  if (v10->_tempUserSettingMap)
+  if (addressCopy && (objc_storeStrong(&v10->_hardwareMACAddress, address), dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v11 = objc_claimAutoreleasedReturnValue(), v12 = dispatch_queue_create("com.apple.corewifi.private-mac.target", v11), targetQueue = v10->_targetQueue, v10->_targetQueue = v12, targetQueue, v11, v10->_targetQueue) && (v14 = objc_alloc_init(MEMORY[0x1E695DF90]), privateMACAddressCache = v10->_privateMACAddressCache, v10->_privateMACAddressCache = v14, privateMACAddressCache, v10->_privateMACAddressCache) && (v16 = objc_alloc_init(MEMORY[0x1E695DF70]), privateMACAddressCacheIDList = v10->_privateMACAddressCacheIDList, v10->_privateMACAddressCacheIDList = v16, privateMACAddressCacheIDList, v10->_privateMACAddressCacheIDList) && (v18 = objc_alloc_init(MEMORY[0x1E695DF90]), userJoinFailureTimestampMap = v10->_userJoinFailureTimestampMap, v10->_userJoinFailureTimestampMap = v18, userJoinFailureTimestampMap, v10->_userJoinFailureTimestampMap) && (v20 = objc_alloc_init(MEMORY[0x1E695DF90]), userJoinFailureCountMap = v10->_userJoinFailureCountMap, v10->_userJoinFailureCountMap = v20, userJoinFailureCountMap, v10->_userJoinFailureCountMap) && (v22 = objc_alloc_init(MEMORY[0x1E695DF90]), tempUserSettingMap = v10->_tempUserSettingMap, v10->_tempUserSettingMap = v22, tempUserSettingMap, v10->_tempUserSettingMap))
   {
     v10->_rotationInterval = 86400;
     if (os_variant_has_internal_content() && _os_feature_enabled_impl())
@@ -161,7 +105,7 @@ LABEL_14:
 
 - (void)setRotationKey:(id)key
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -195,11 +139,11 @@ LABEL_14:
       v11 = CWFHexadecimalStringFromData(keyCopy);
       redactedForWiFi = [v11 redactedForWiFi];
       rotationInterval = selfCopy->_rotationInterval;
-      v17 = 138543618;
-      v18 = redactedForWiFi;
-      v19 = 2048;
-      v20 = rotationInterval;
-      _os_log_send_and_compose_impl();
+      v16 = 138543618;
+      v17 = redactedForWiFi;
+      v18 = 2048;
+      v19 = rotationInterval;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 0, "[corewifi] PRIVATE MAC: Did update rotation key (%{public}@) (interval=%lus)", &v16, 22);
     }
 
     targetQueue = [(CWFPrivateMACManager *)selfCopy targetQueue];
@@ -210,8 +154,6 @@ LABEL_14:
     block[4] = selfCopy;
     dispatch_async(targetQueue, block);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDate)rotationKeyUpdatedAt
@@ -226,7 +168,7 @@ LABEL_14:
 
 - (void)setRotationKeyUpdatedAt:(id)at
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   atCopy = at;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -258,9 +200,9 @@ LABEL_14:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       rotationInterval = selfCopy->_rotationInterval;
-      v15 = 134217984;
-      v16 = rotationInterval;
-      _os_log_send_and_compose_impl();
+      v14 = 134217984;
+      v15 = rotationInterval;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 0, "[corewifi] PRIVATE MAC: Did update rotation key timestamp (interval=%lus)", &v14);
     }
 
     targetQueue = [(CWFPrivateMACManager *)selfCopy targetQueue];
@@ -271,8 +213,6 @@ LABEL_14:
     block[4] = selfCopy;
     dispatch_async(targetQueue, block);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (NSData)deviceKey
@@ -319,9 +259,10 @@ LABEL_14:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = CWFHexadecimalStringFromData(keyCopy);
-      [v11 redactedForWiFi];
-      v16 = v15 = 138543362;
-      _os_log_send_and_compose_impl();
+      redactedForWiFi = [v11 redactedForWiFi];
+      v15 = 138543362;
+      v16 = redactedForWiFi;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 0, "[corewifi] PRIVATE MAC: Did update device key (%{public}@)", &v15, 12);
     }
 
     targetQueue = [(CWFPrivateMACManager *)selfCopy targetQueue];
@@ -332,8 +273,6 @@ LABEL_14:
     block[4] = selfCopy;
     dispatch_async(targetQueue, block);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)systemSetting
@@ -348,13 +287,12 @@ LABEL_14:
 
 - (void)setSystemSetting:(int64_t)setting
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   obj = self;
   objc_sync_enter(obj);
   if (obj->_systemSetting == setting)
   {
     objc_sync_exit(obj);
-    v4 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -364,23 +302,24 @@ LABEL_14:
     [(NSMutableArray *)obj->_privateMACAddressCacheIDList removeAllObjects];
     objc_sync_exit(obj);
 
-    v5 = CWFGetOSLog();
-    if (v5)
+    v4 = CWFGetOSLog();
+    if (v4)
     {
-      v6 = CWFGetOSLog();
+      v5 = CWFGetOSLog();
     }
 
     else
     {
+      v5 = MEMORY[0x1E69E9C10];
       v6 = MEMORY[0x1E69E9C10];
-      v7 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      sub_1E0BEF2F4(setting);
-      v13 = v12 = 138543362;
-      _os_log_send_and_compose_impl();
+      v7 = sub_1E0BEF2F4(setting);
+      v11 = 138543362;
+      v12 = v7;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 0, "[corewifi] PRIVATE MAC: Did update sytem setting (%{public}@)", &v11, 12);
     }
 
     targetQueue = [(CWFPrivateMACManager *)obj targetQueue];
@@ -390,8 +329,6 @@ LABEL_14:
     block[3] = &unk_1E86E6010;
     block[4] = obj;
     dispatch_async(targetQueue, block);
-
-    v9 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -428,17 +365,17 @@ LABEL_14:
 
 - (id)privateMACAddressForNetworkProfile:(id)profile
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   identifier = [profileCopy identifier];
 
   if (!identifier)
   {
-    v62 = *MEMORY[0x1E696A798];
-    v63 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
-    v64 = CWFErrorWithDescription(v62, 22, v63);
+    v61 = *MEMORY[0x1E696A798];
+    v62 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
+    v63 = CWFErrorWithDescription(v61, 22, v62);
 LABEL_49:
-    v26 = v64;
+    v26 = v63;
 
     rotationKey = 0;
     deviceKey = 0;
@@ -449,9 +386,9 @@ LABEL_51:
 
   if ([(CWFPrivateMACManager *)self privateMACAddressModeForNetworkProfile:profileCopy]== 1)
   {
-    v65 = *MEMORY[0x1E696A798];
-    v63 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
-    v64 = CWFErrorWithDescription(v65, 45, v63);
+    v64 = *MEMORY[0x1E696A798];
+    v62 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
+    v63 = CWFErrorWithDescription(v64, 45, v62);
     goto LABEL_49;
   }
 
@@ -478,18 +415,18 @@ LABEL_51:
   deviceKey = [(CWFPrivateMACManager *)self deviceKey];
   if (!deviceKey)
   {
-    v66 = *MEMORY[0x1E696A798];
-    v63 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
-    v64 = CWFErrorWithDescription(v66, 6, v63);
+    v65 = *MEMORY[0x1E696A798];
+    v62 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
+    v63 = CWFErrorWithDescription(v65, 6, v62);
     goto LABEL_49;
   }
 
   rotationKey = [(CWFPrivateMACManager *)self rotationKey];
   if (!rotationKey)
   {
-    v67 = *MEMORY[0x1E696A798];
-    v68 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
-    v26 = CWFErrorWithDescription(v67, 6, v68);
+    v66 = *MEMORY[0x1E696A798];
+    v67 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
+    v26 = CWFErrorWithDescription(v66, 6, v67);
 
     rotationKey = 0;
     goto LABEL_51;
@@ -498,27 +435,14 @@ LABEL_51:
   if ([profileCopy isPublicAirPlayNetwork])
   {
     cachedPrivateMACAddress = [profileCopy cachedPrivateMACAddress];
-    if (!cachedPrivateMACAddress)
+    if (!cachedPrivateMACAddress || ([profileCopy lastJoinedAt], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "timeIntervalSinceReferenceDate"), v18 = v17, objc_msgSend(profileCopy, "lastDisconnectTimestamp"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "timeIntervalSinceReferenceDate"), v21 = v20, v19, v16, cachedPrivateMACAddress, v18 <= v21))
     {
-      goto LABEL_17;
-    }
-
-    lastJoinedAt = [profileCopy lastJoinedAt];
-    [lastJoinedAt timeIntervalSinceReferenceDate];
-    v18 = v17;
-    lastDisconnectTimestamp = [profileCopy lastDisconnectTimestamp];
-    [lastDisconnectTimestamp timeIntervalSinceReferenceDate];
-    v21 = v20;
-
-    if (v18 <= v21)
-    {
-LABEL_17:
       v23 = sub_1E0BEF1AC(0x100uLL);
 
       hardwareMACAddress = [(CWFPrivateMACManager *)self hardwareMACAddress];
-      v70 = 0;
-      cachedPrivateMACAddress3 = sub_1E0BEF394(profileCopy, hardwareMACAddress, deviceKey, v23, &v70);
-      v26 = v70;
+      v69 = 0;
+      cachedPrivateMACAddress3 = sub_1E0BEF394(profileCopy, hardwareMACAddress, deviceKey, v23, &v69);
+      v26 = v69;
 
       rotationKey = v23;
       goto LABEL_34;
@@ -561,11 +485,11 @@ LABEL_33:
       goto LABEL_34;
     }
 
-    lastJoinedAt2 = [profileCopy lastJoinedAt];
-    [lastJoinedAt2 timeIntervalSinceReferenceDate];
+    lastJoinedAt = [profileCopy lastJoinedAt];
+    [lastJoinedAt timeIntervalSinceReferenceDate];
     v49 = v48;
-    lastDisconnectTimestamp2 = [profileCopy lastDisconnectTimestamp];
-    [lastDisconnectTimestamp2 timeIntervalSinceReferenceDate];
+    lastDisconnectTimestamp = [profileCopy lastDisconnectTimestamp];
+    [lastDisconnectTimestamp timeIntervalSinceReferenceDate];
     v52 = v51;
 
     if (v49 > v52)
@@ -604,9 +528,9 @@ LABEL_33:
   else
   {
     hardwareMACAddress2 = [(CWFPrivateMACManager *)selfCopy2 hardwareMACAddress];
-    v69 = 0;
-    cachedPrivateMACAddress3 = sub_1E0BEF394(profileCopy, hardwareMACAddress2, deviceKey, rotationKey, &v69);
-    v26 = v69;
+    v68 = 0;
+    cachedPrivateMACAddress3 = sub_1E0BEF394(profileCopy, hardwareMACAddress2, deviceKey, rotationKey, &v68);
+    v26 = v68;
 
     if (cachedPrivateMACAddress3)
     {
@@ -660,15 +584,15 @@ LABEL_34:
     }
 
     redactedForWiFi = [cachedPrivateMACAddress3 redactedForWiFi];
-    v71 = 136446978;
-    v72 = v56;
-    v73 = 2114;
-    v74 = redactedForWiFi;
-    v75 = 2114;
-    v76 = profileCopy;
-    v77 = 2114;
-    v78 = v26;
-    _os_log_send_and_compose_impl();
+    v70 = 136446978;
+    v71 = v56;
+    v72 = 2114;
+    v73 = redactedForWiFi;
+    v74 = 2114;
+    v75 = profileCopy;
+    v76 = 2114;
+    v77 = v26;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v54, 0, "[corewifi] PRIVATE MAC: %{public}s private MAC (%{public}@) for network (%{public}@), returned error (%{public}@)", &v70, 42);
   }
 
   if (v26)
@@ -683,7 +607,6 @@ LABEL_34:
 
   v59 = v58;
 
-  v60 = *MEMORY[0x1E69E9840];
   return v58;
 }
 
@@ -741,7 +664,7 @@ LABEL_34:
 
 - (void)submitPrivateMACStatsMetricWithEventType:(id)type networkProfile:(id)profile
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   profileCopy = profile;
   if (!objc_opt_class())
@@ -916,21 +839,22 @@ LABEL_29:
 
   if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
-    _os_log_send_and_compose_impl();
+    v37 = 138543362;
+    v38 = @"com.apple.wifi.PrivateMacStats";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v33, 2, "[corewifi] PRIVATE MAC: Sending '%{public}@' CoreAnalytics metric", &v37, 12);
   }
 
-  v37 = dictionary;
+  v36 = dictionary;
   v35 = dictionary;
   AnalyticsSendEventLazy();
 
 LABEL_55:
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUserJoinFailureUIState:(BOOL)state networkProfile:(id)profile
 {
   stateCopy = state;
-  v35 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   identifier = [profileCopy identifier];
 
@@ -978,6 +902,7 @@ LABEL_55:
     v29 = selfCopy->_userJoinFailureTimestampMap;
     identifier5 = [profileCopy identifier];
     [(NSMutableDictionary *)v29 setObject:v18 forKeyedSubscript:identifier5];
+    unsignedIntegerValue = 0;
     v11 = v18;
     goto LABEL_9;
   }
@@ -987,7 +912,7 @@ LABEL_55:
   [v11 timeIntervalSinceReferenceDate];
   if (v20 >= v21)
   {
-    identifier5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedIntegerValue + 1];
+    identifier5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:++unsignedIntegerValue];
     v23 = selfCopy->_userJoinFailureCountMap;
     identifier6 = [profileCopy identifier];
     [(NSMutableDictionary *)v23 setObject:identifier5 forKeyedSubscript:identifier6];
@@ -1009,14 +934,20 @@ LABEL_9:
 
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = sub_1E0BCC248(v11);
-    _os_log_send_and_compose_impl();
+    v33 = sub_1E0BCC248(v11);
+    v34 = 134218754;
+    v35 = unsignedIntegerValue;
+    v36 = 1024;
+    v37 = 2;
+    v38 = 2114;
+    v39 = v33;
+    v40 = 2114;
+    v41 = profileCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v31, 0, "[corewifi] PRIVATE MAC: Setting user join failure UI state for network (count=%lu/%d, timestamp=%{public}@, network=%{public}@)", &v34, 38);
   }
 
   objc_sync_exit(selfCopy);
 LABEL_16:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)allowUserJoinFailureUIForNetworkProfile:(id)profile
@@ -1085,7 +1016,7 @@ LABEL_16:
 
 - (void)setTemporaryUserSetting:(int64_t)setting networkProfile:(id)profile
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1114,8 +1045,12 @@ LABEL_16:
 
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = sub_1E0BEF2F4(setting);
-        _os_log_send_and_compose_impl();
+        v18 = sub_1E0BEF2F4(setting);
+        v20 = 138543618;
+        v21 = v18;
+        v22 = 2114;
+        v23 = profileCopy;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 0, "[corewifi] PRIVATE MAC: Set temporary user setting (%{public}@) for network (%{public}@)", &v20, 22);
       }
     }
 
@@ -1134,19 +1069,19 @@ LABEL_16:
       else
       {
         v13 = MEMORY[0x1E69E9C10];
-        v18 = MEMORY[0x1E69E9C10];
+        v19 = MEMORY[0x1E69E9C10];
       }
 
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        _os_log_send_and_compose_impl();
+        v20 = 138543362;
+        v21 = profileCopy;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 0, "[corewifi] PRIVATE MAC: Clearing temporary user setting for network (%{public}@)", &v20, 12);
       }
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearTemporaryUserSettings
@@ -1168,7 +1103,8 @@ LABEL_16:
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v6[0] = 0;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 0, "[corewifi] PRIVATE MAC: Cleared all temporary user settings", v6, 2);
   }
 
   objc_sync_exit(selfCopy);
@@ -1241,12 +1177,39 @@ LABEL_14:
       goto LABEL_15;
     }
 
-    v36 = *MEMORY[0x1E696A798];
-    v37 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
-    v38 = CWFErrorWithDescription(v36, 22, v37);
+    v37 = *MEMORY[0x1E696A798];
+    v38 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
+    v39 = CWFErrorWithDescription(v37, 22, v38);
 
-    v39 = CWFGetOSLog();
-    if (v39)
+    v40 = CWFGetOSLog();
+    if (v40)
+    {
+      interfaceName = CWFGetOSLog();
+    }
+
+    else
+    {
+      interfaceName = MEMORY[0x1E69E9C10];
+      v42 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(interfaceName, OS_LOG_TYPE_ERROR))
+    {
+      v48 = 138412546;
+      v49 = v39;
+      v50 = 2114;
+      v51 = profileCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, interfaceName, 16, "[corewifi] PRIVATE MAC: Invalid 'profile':  (error=%@, network=%{public}@)", &v48, 22);
+    }
+
+    v20 = 0;
+    v10 = v39;
+  }
+
+  else
+  {
+    v36 = CWFGetOSLog();
+    if (v36)
     {
       interfaceName = CWFGetOSLog();
     }
@@ -1260,41 +1223,10 @@ LABEL_14:
     if (os_log_type_enabled(interfaceName, OS_LOG_TYPE_ERROR))
     {
       v48 = 138412546;
-      v49 = v38;
-      v50 = 2114;
-      v51 = profileCopy;
-      LODWORD(v43) = 22;
-      v42 = &v48;
-      _os_log_send_and_compose_impl();
-    }
-
-    v20 = 0;
-    v10 = v38;
-  }
-
-  else
-  {
-    v35 = CWFGetOSLog();
-    if (v35)
-    {
-      interfaceName = CWFGetOSLog();
-    }
-
-    else
-    {
-      interfaceName = MEMORY[0x1E69E9C10];
-      v40 = MEMORY[0x1E69E9C10];
-    }
-
-    if (os_log_type_enabled(interfaceName, OS_LOG_TYPE_ERROR))
-    {
-      v48 = 138412546;
       v49 = v10;
       v50 = 2114;
       v51 = profileCopy;
-      LODWORD(v43) = 22;
-      v42 = &v48;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, interfaceName, 16, "[corewifi] PRIVATE MAC: FAILED to create network ID for association (error=%@, network=%{public}@)", &v48, 22);
     }
 
     v20 = 0;
@@ -1314,53 +1246,55 @@ LABEL_15:
     v23 = MEMORY[0x1E69E9C10];
   }
 
-  if (os_log_type_enabled(v22, (16 * (v10 != 0))))
+  v24 = v10 != 0;
+  v25 = (16 * v24);
+  if (os_log_type_enabled(v22, (16 * v24)))
   {
-    v24 = profileCopy;
-    v25 = v20;
-    v26 = addressCopy;
+    v26 = profileCopy;
+    v27 = v20;
+    v28 = addressCopy;
     if (v10)
     {
-      v27 = "FAILED to";
+      v29 = "FAILED to";
     }
 
     else
     {
-      v27 = "Successfully";
+      v29 = "Successfully";
     }
 
-    v28 = [v9 subdataWithRange:{0, 32, v42, v43}];
-    v29 = CWFHexadecimalStringFromData(v28);
-    [v29 redactedForWiFi];
-    v30 = v44 = v9;
+    v30 = [v9 subdataWithRange:{0, 32}];
+    v31 = CWFHexadecimalStringFromData(v30);
+    [v31 redactedForWiFi];
+    v32 = v44 = v9;
     v48 = 136446722;
-    v49 = v27;
-    addressCopy = v26;
-    v20 = v25;
-    profileCopy = v24;
+    v49 = v29;
+    addressCopy = v28;
+    v20 = v27;
+    profileCopy = v26;
     v50 = 2114;
-    v51 = v30;
+    v51 = v32;
     v52 = 2114;
-    v53 = v24;
-    _os_log_send_and_compose_impl();
+    v53 = v26;
+    LODWORD(v43) = 32;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, v25, "[corewifi] PRIVATE MAC: %{public}s set networkID (%{public}@) for association (%{public}@)", &v48, v43);
 
     v9 = v44;
   }
 
   if (v20)
   {
-    v31 = v9;
+    v33 = v9;
   }
 
   else
   {
-    v31 = 0;
+    v33 = 0;
   }
 
-  v32 = v31;
+  v34 = v33;
 
-  v33 = *MEMORY[0x1E69E9840];
-  return v31;
+  return v33;
 }
 
 @end

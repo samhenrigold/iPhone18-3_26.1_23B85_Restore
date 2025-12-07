@@ -326,7 +326,6 @@ void __69__NLSessionActivitySwimStrokeAccumulator__startQueriesWithStartDate___b
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAddedStrokeSamples:(id)samples
@@ -354,7 +353,6 @@ void __69__NLSessionActivitySwimStrokeAccumulator__startQueriesWithStartDate___b
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_addDistancePerStrokeStyleIfPossible
@@ -425,7 +423,6 @@ void __69__NLSessionActivitySwimStrokeAccumulator__startQueriesWithStartDate___b
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(&v28, 0);
   objc_storeStrong(v29, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 BOOL __78__NLSessionActivitySwimStrokeAccumulator__addDistancePerStrokeStyleIfPossible__block_invoke(id *a1, void *a2, void *a3)
@@ -545,7 +542,6 @@ BOOL __78__NLSessionActivitySwimStrokeAccumulator__addDistancePerStrokeStyleIfPo
   objc_storeStrong(&v30, 0);
   objc_storeStrong(&v31, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)startAccumulatingWithStartDate:(id)date updateHandler:(id)handler

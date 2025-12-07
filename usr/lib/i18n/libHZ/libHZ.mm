@@ -11,7 +11,7 @@ uint64_t _citrus_HZ_stdenc_init(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   *(v6 + 2) = 0u;
   *(v6 + 1) = 0u;
   v6[1] = v6;
-  v6[3] = (v6 + 2);
+  v6[3] = v6 + 2;
   v8 = _citrus_prop_parse_variable();
   if (v8)
   {
@@ -122,7 +122,7 @@ LABEL_9:
   return _citrus_HZ_wcrtomb_priv(*(a1 + 8), a2, a3, a5, a6, a7);
 }
 
-uint64_t _citrus_HZ_stdenc_mbtowc(uint64_t a1, int *a2, unsigned __int8 **a3, uint64_t a4, void *a5, uint64_t *a6, uint64_t a7)
+uint64_t _citrus_HZ_stdenc_mbtowc(uint64_t a1, unsigned int *a2, unsigned __int8 **a3, uint64_t a4, void *a5, uint64_t *a6, uint64_t a7)
 {
   v9 = _citrus_HZ_mbrtowc_priv(*(a1 + 8), a2, a3, a4, a5, a6);
   v10 = v9;
@@ -235,7 +235,7 @@ uint64_t _citrus_HZ_stdenc_getops(uint64_t a1)
   return 0;
 }
 
-void _citrus_HZ_encoding_module_uninit(uint64_t **a1)
+void _citrus_HZ_encoding_module_uninit(void **a1)
 {
   for (i = *a1; *a1; i = *a1)
   {
@@ -265,7 +265,7 @@ void _citrus_HZ_encoding_module_uninit(uint64_t **a1)
     v9 = (*j + 8);
     if (!*j)
     {
-      v9 = a1 + 3;
+      v9 = (a1 + 3);
     }
 
     *v9 = v8;
@@ -278,60 +278,51 @@ void _citrus_HZ_encoding_module_uninit(uint64_t **a1)
 
 uint64_t _citrus_HZ_parse_escape(uint64_t a1, unsigned __int8 *a2, const char *a3)
 {
-  v13 = *MEMORY[0x29EDCA608];
   v6 = malloc_type_calloc(1uLL, 0x30uLL, 0x10A00405CC47A3DuLL);
   if (!v6)
   {
-    goto LABEL_8;
+    return 22;
   }
 
   v7 = *a2;
-  if (v7 == 48)
+  if (v7 != 48)
   {
-    if (!a2[1])
+    if (v7 == 49)
     {
-      v8 = 8;
-      v9 = a1;
-LABEL_11:
-      v6[2] = v9;
-      *v6 = 0;
-      v11 = *(a1 + v8);
-      v6[1] = v11;
-      *v11 = v6;
-      *(a1 + v8) = v6;
-      strlen(a3);
-      result = _citrus_prop_parse_variable();
-      goto LABEL_12;
+      if (a2[1])
+      {
+        goto LABEL_7;
+      }
     }
 
-    goto LABEL_7;
-  }
-
-  if (v7 != 49)
-  {
-    if (49 != v7)
+    else if (49 != v7)
     {
       goto LABEL_7;
     }
 
-LABEL_10:
     v9 = a1 + 16;
     v8 = 24;
     goto LABEL_11;
   }
 
-  if (!a2[1])
+  if (a2[1])
   {
-    goto LABEL_10;
+LABEL_7:
+    free(v6);
+    return 22;
   }
 
-LABEL_7:
-  free(v6);
-LABEL_8:
-  result = 22;
-LABEL_12:
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  v8 = 8;
+  v9 = a1;
+LABEL_11:
+  v6[2] = v9;
+  *v6 = 0;
+  v11 = *(a1 + v8);
+  v6[1] = v11;
+  *v11 = v6;
+  *(a1 + v8) = v6;
+  strlen(a3);
+  return _citrus_prop_parse_variable();
 }
 
 uint64_t _citrus_HZ_parse_char(uint64_t a1, uint64_t a2, char *a3)

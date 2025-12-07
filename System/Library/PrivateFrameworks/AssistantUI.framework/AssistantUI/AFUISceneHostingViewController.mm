@@ -554,7 +554,7 @@ void __82__AFUISceneHostingViewController__updateSceneUIApplicationSceneSettings
     v4 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      __82__AFUISceneHostingViewController__updateSceneUIApplicationSceneSettingsWithBlock___block_invoke_cold_1(v4);
+      __82__AFUISceneHostingViewController__updateSceneUIApplicationSceneSettingsWithBlock___block_invoke_cold_1(v4, v3);
     }
   }
 }

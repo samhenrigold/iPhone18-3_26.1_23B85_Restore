@@ -50,17 +50,17 @@
     if (v15 < v16 + v15)
     {
       v17 = (values + 8 * v15);
-      v18 = (keys + 8 * v15);
+      v18 = keys + 8 * v15;
       do
       {
-        v19 = [row valueForKey:*v18];
+        v19 = objc_msgSend_valueForKey_(row);
         if (v19)
         {
           *v17 = v19;
         }
 
         ++v17;
-        ++v18;
+        v18 += 8;
         --v16;
       }
 
@@ -72,10 +72,10 @@
     if (v20 < v21 + v20)
     {
       v22 = (values + 8 * v20);
-      v23 = (v13 + 8 * v20);
+      v23 = v13 + 8 * v20;
       do
       {
-        v24 = [row valueForKey:*v23];
+        v24 = objc_msgSend_valueForKey_(row);
         if (v24)
         {
           v25 = v24;
@@ -87,7 +87,7 @@
         }
 
         *v22++ = v25;
-        ++v23;
+        v23 += 8;
         --v21;
       }
 
@@ -102,10 +102,10 @@
 
 - (NSIncrementalStoreNode)initWithObjectID:(NSManagedObjectID *)objectID withValues:(NSDictionary *)values version:(uint64_t)version
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v40.receiver = self;
-  v40.super_class = NSIncrementalStoreNode;
-  v8 = [(NSIncrementalStoreNode *)&v40 init];
+  v40 = *MEMORY[0x1E69E9840];
+  v39.receiver = self;
+  v39.super_class = NSIncrementalStoreNode;
+  v8 = [(NSIncrementalStoreNode *)&v39 init];
   if (v8)
   {
     v9 = objectID;
@@ -127,9 +127,9 @@
     v13 = [[NSKnownKeysDictionary alloc] initWithSearchStrategy:propertyMapping];
     v14 = [(NSDictionary *)values count];
     values = [(NSKnownKeysDictionary *)v13 values];
-    v39 = &v37;
+    v38 = &v36;
     MEMORY[0x1EEE9AC00](values);
-    v18 = &v37 - v17;
+    v18 = &v36 - v17;
     v19 = 8 * v16;
     if (v14 > 0x200)
     {
@@ -139,9 +139,9 @@
 
     else
     {
-      bzero(&v37 - v17, 8 * v16);
+      bzero(&v36 - v17, 8 * v16);
       MEMORY[0x1EEE9AC00](v20);
-      v21 = &v37 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v21 = &v36 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v21, v19);
     }
 
@@ -176,11 +176,11 @@
 
     if (v14)
     {
-      v37 = v13;
-      v38 = v8;
+      v36 = v13;
+      v37 = v8;
       for (i = 0; i != v14; ++i)
       {
-        v31 = [propertyMapping indexForKey:{*&v21[8 * i], v37, v38, v39}];
+        v31 = [propertyMapping indexForKey:{*&v21[8 * i], v36, v37, v38}];
         if (v31 != 0x7FFFFFFFFFFFFFFFLL)
         {
           v32 = *&v18[8 * i];
@@ -193,8 +193,8 @@
         }
       }
 
-      v13 = v37;
-      v8 = v38;
+      v13 = v36;
+      v8 = v37;
       if (v14 >= 0x201)
       {
         NSZoneFree(0, v21);
@@ -205,13 +205,12 @@
     v8->_propertyCache = v13;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)updateWithValues:(NSDictionary *)values version:(uint64_t)version
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   entity = [(NSManagedObjectID *)self->_objectID entity];
   v8 = entity;
   if (entity)
@@ -227,10 +226,10 @@
   propertyCache = self->_propertyCache;
   v11 = [(NSDictionary *)values count];
   v12 = MEMORY[0x1EEE9AC00](v11);
-  v15 = &v30 - v14;
+  v15 = &v29 - v14;
   v16 = 8 * v13;
   selfCopy = self;
-  v32 = version;
+  v31 = version;
   if (v12 > 0x200)
   {
     v15 = NSAllocateScannedUncollectable();
@@ -239,9 +238,9 @@
 
   else
   {
-    bzero(&v30 - v14, 8 * v13);
+    bzero(&v29 - v14, 8 * v13);
     MEMORY[0x1EEE9AC00](v17);
-    v18 = &v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v18 = &v29 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v18, v16);
   }
 
@@ -291,8 +290,7 @@
     }
   }
 
-  selfCopy->_versionNumber = v32;
-  v29 = *MEMORY[0x1E69E9840];
+  selfCopy->_versionNumber = v31;
 }
 
 - (id)valueForPropertyDescription:(NSPropertyDescription *)prop

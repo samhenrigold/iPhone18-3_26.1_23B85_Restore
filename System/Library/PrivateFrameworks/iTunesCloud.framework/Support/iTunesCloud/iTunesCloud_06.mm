@@ -1,92 +1,13 @@
-void sub_100127178(uint64_t a1)
+void sub_100127AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  v3 = [*(a1 + 32) localDatabaseUpdateCompletionHandler];
-  v2 = [*(a1 + 32) error];
-  v3[2](v3, v2);
-}
-
-id sub_100127614(uint64_t a1)
-{
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 32);
-  *(v3 + 32) = v2;
-
-  v5 = [*(a1 + 40) finalState];
-  v6 = [v5 copy];
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 24);
-  *(v7 + 24) = v6;
-
-  v9 = *(*(a1 + 32) + 24);
-
-  return [v9 save];
-}
-
-void sub_100127890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_1001278BC(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1001278D4(void *a1)
-{
-  v2 = +[ICUserIdentityStore defaultIdentityStore];
-  v3 = [v2 _unsafeBackend];
-
-  v4 = *(a1[5] + 8);
-  obj = *(v4 + 40);
-  v5 = [v3 allStoreAccountsWithError:&obj];
-  objc_storeStrong((v4 + 40), obj);
-  if (!*(*(a1[5] + 8) + 40))
-  {
-    v6 = [*(a1[4] + 24) activeConfiguration];
-    v7 = [ICDAccountManagerState stateForAccounts:v5 baseConfiguration:v6];
-
-    v8 = a1[4];
-    if (*(v8 + 40) == 2)
-    {
-      v9 = 3;
-    }
-
-    else
-    {
-      v9 = 1;
-    }
-
-    v10 = [ICDAccountManagerStateChange stateChangeFromState:*(v8 + 24) toState:v7 computation:v9];
-    v11 = *(a1[6] + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
-  }
-}
-
-void sub_100127AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100127BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100127BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -101,9 +22,9 @@ uint64_t sub_100127BFC(uint64_t a1)
   return _objc_release_x1(v2, v4);
 }
 
-void sub_100127D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100127D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -118,9 +39,9 @@ uint64_t sub_100127D64(uint64_t a1)
   return _objc_release_x1(v2, v4);
 }
 
-void sub_100127EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100127EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -134,9 +55,9 @@ void sub_100127ECC(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100128F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100128F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -207,7 +128,6 @@ LABEL_7:
 
 uint64_t sub_1001291A8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100213E60 = result;
   return result;
@@ -702,88 +622,84 @@ void sub_10012B680(uint64_t a1, void *a2, void *a3)
     {
       v8 = [*(a1 + 32) count];
       *buf = 134218242;
-      v85 = v8;
-      v86 = 2112;
-      v87 = *&v6;
+      v81 = v8;
+      v82 = 2112;
+      v83 = *&v6;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Error importing %lu tracks to the library. %@", buf, 0x16u);
     }
 
     v9 = *(a1 + 96);
     if (v9)
     {
-      v10 = *(a1 + 40);
-      v11 = *(a1 + 48);
-      v12 = *(a1 + 56);
-      v13 = *(a1 + 64);
-      v14 = *(v9 + 16);
+      v10 = *(v9 + 16);
 LABEL_11:
-      v14();
+      v10();
       goto LABEL_64;
     }
 
     goto LABEL_64;
   }
 
-  v15 = [*(a1 + 72) isCancelled];
-  v16 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-  if ((v15 & 1) == 0)
+  v11 = [*(a1 + 72) isCancelled];
+  v12 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  if ((v11 & 1) == 0)
   {
-    v62 = 0;
-    if (v17)
+    v58 = 0;
+    if (v13)
     {
-      v20 = [v5 count];
-      v21 = [*(a1 + 32) count];
+      v16 = [v5 count];
+      v17 = [*(a1 + 32) count];
       *buf = 134218240;
-      v85 = v20;
-      v86 = 2048;
-      v87 = *&v21;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Imported %lu mediaItems for %lu storeAdamIds", buf, 0x16u);
+      v81 = v16;
+      v82 = 2048;
+      v83 = *&v17;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Imported %lu mediaItems for %lu storeAdamIds", buf, 0x16u);
     }
 
-    v22 = +[NSMutableArray array];
-    v80 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    v63 = v5;
-    v23 = v5;
-    v24 = [v23 countByEnumeratingWithState:&v80 objects:v91 count:16];
-    if (v24)
-    {
-      v25 = v24;
-      v26 = *v81;
-      do
-      {
-        for (i = 0; i != v25; i = i + 1)
-        {
-          if (*v81 != v26)
-          {
-            objc_enumerationMutation(v23);
-          }
-
-          v28 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*(*(&v80 + 1) + 8 * i) persistentID]);
-          [v22 addObject:v28];
-        }
-
-        v25 = [v23 countByEnumeratingWithState:&v80 objects:v91 count:16];
-      }
-
-      while (v25);
-    }
-
-    v65 = +[NSMutableSet set];
+    v18 = +[NSMutableArray array];
     v76 = 0u;
     v77 = 0u;
     v78 = 0u;
     v79 = 0u;
-    v29 = v22;
-    v75 = [v29 countByEnumeratingWithState:&v76 objects:v90 count:16];
-    if (!v75)
+    v59 = v5;
+    v19 = v5;
+    v20 = [v19 countByEnumeratingWithState:&v76 objects:v87 count:16];
+    if (v20)
+    {
+      v21 = v20;
+      v22 = *v77;
+      do
+      {
+        for (i = 0; i != v21; i = i + 1)
+        {
+          if (*v77 != v22)
+          {
+            objc_enumerationMutation(v19);
+          }
+
+          v24 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*(*(&v76 + 1) + 8 * i) persistentID]);
+          [v18 addObject:v24];
+        }
+
+        v21 = [v19 countByEnumeratingWithState:&v76 objects:v87 count:16];
+      }
+
+      while (v21);
+    }
+
+    v61 = +[NSMutableSet set];
+    v72 = 0u;
+    v73 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    v25 = v18;
+    v71 = [v25 countByEnumeratingWithState:&v72 objects:v86 count:16];
+    if (!v71)
     {
 LABEL_55:
 
-      v6 = v62;
+      v6 = v58;
       if ([*(a1 + 32) count])
       {
         if ([*(*(*(a1 + 104) + 8) + 40) count])
@@ -791,168 +707,168 @@ LABEL_55:
           [*(a1 + 32) addObjectsFromArray:*(*(*(a1 + 104) + 8) + 40)];
         }
 
-        v54 = [*(a1 + 32) componentsJoinedByString:{@"$", v62}];
-        v55 = *(*(a1 + 112) + 8);
-        v56 = *(v55 + 40);
-        *(v55 + 40) = v54;
+        v50 = [*(a1 + 32) componentsJoinedByString:{@"$", v58}];
+        v51 = *(*(a1 + 112) + 8);
+        v52 = *(v51 + 40);
+        *(v51 + 40) = v50;
       }
 
-      v57 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+      v53 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
-        v58 = [*(a1 + 32) count];
+        v54 = [*(a1 + 32) count];
         +[NSDate timeIntervalSinceReferenceDate];
-        v60 = v59 - *(a1 + 120);
+        v56 = v55 - *(a1 + 120);
         *buf = 134218240;
-        v85 = v58;
-        v86 = 2048;
-        v87 = v60;
-        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Finished loading content taste for %lu items/albums in %3f seconds", buf, 0x16u);
+        v81 = v54;
+        v82 = 2048;
+        v83 = v56;
+        _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "Finished loading content taste for %lu items/albums in %3f seconds", buf, 0x16u);
       }
 
-      v61 = *(a1 + 96);
-      v5 = v63;
-      if (v61)
+      v57 = *(a1 + 96);
+      v5 = v59;
+      if (v57)
       {
-        (*(v61 + 16))(v61, *(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64), *(*(*(a1 + 112) + 8) + 40), 0);
+        (*(v57 + 16))(v57, *(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64), *(*(*(a1 + 112) + 8) + 40), 0);
       }
 
       goto LABEL_64;
     }
 
-    v30 = *v77;
-    v74 = ML3TrackPropertyStoreItemID;
-    v72 = ML3TrackPropertySubscriptionStoreItemID;
-    v73 = ML3TrackPropertyStoreSagaID;
-    v70 = ML3TrackPropertyAlbumPersistentID;
-    v68 = ML3AlbumPropertyStoreAlbumID;
-    v67 = ML3AlbumPropertyStoreCloudID;
-    v66 = ML3TrackPropertyStorePlaylistID;
-    v71 = *v77;
-    v69 = v29;
+    v26 = *v73;
+    v70 = ML3TrackPropertyStoreItemID;
+    v68 = ML3TrackPropertySubscriptionStoreItemID;
+    v69 = ML3TrackPropertyStoreSagaID;
+    v66 = ML3TrackPropertyAlbumPersistentID;
+    v64 = ML3AlbumPropertyStoreAlbumID;
+    v63 = ML3AlbumPropertyStoreCloudID;
+    v62 = ML3TrackPropertyStorePlaylistID;
+    v67 = *v73;
+    v65 = v25;
 LABEL_23:
-    v31 = 0;
+    v27 = 0;
     while (1)
     {
-      if (*v77 != v30)
+      if (*v73 != v26)
       {
-        objc_enumerationMutation(v29);
+        objc_enumerationMutation(v25);
       }
 
-      v32 = *(*(&v76 + 1) + 8 * v31);
-      v33 = +[ML3Track newWithPersistentID:inLibrary:](ML3Track, "newWithPersistentID:inLibrary:", [v32 longLongValue], *(a1 + 80));
-      v34 = [v33 valueForProperty:v74];
-      v35 = v34;
-      if (!v34 || ![v34 longLongValue])
+      v28 = *(*(&v72 + 1) + 8 * v27);
+      v29 = +[ML3Track newWithPersistentID:inLibrary:](ML3Track, "newWithPersistentID:inLibrary:", [v28 longLongValue], *(a1 + 80));
+      v30 = [v29 valueForProperty:v70];
+      v31 = v30;
+      if (!v30 || ![v30 longLongValue])
       {
-        v36 = [v33 valueForProperty:v72];
+        v32 = [v29 valueForProperty:v68];
 
-        v35 = v36;
+        v31 = v32;
       }
 
-      v37 = [*(a1 + 88) objectForKey:v35];
-      if (v37)
+      v33 = [*(a1 + 88) objectForKey:v31];
+      if (v33)
       {
-        v38 = v37;
-        v39 = [v33 valueForProperty:v73];
-        if ([v39 longLongValue] < 1)
+        v34 = v33;
+        v35 = [v29 valueForProperty:v69];
+        if ([v35 longLongValue] < 1)
         {
-          [*(a1 + 40) addObject:v38];
-          [*(a1 + 48) addObject:v32];
+          [*(a1 + 40) addObject:v34];
+          [*(a1 + 48) addObject:v28];
         }
 
         else
         {
-          v40 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v36 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
           {
-            v41 = [v32 longLongValue];
-            v42 = [v35 longLongValue];
-            v43 = [v39 longLongValue];
+            v37 = [v28 longLongValue];
+            v38 = [v31 longLongValue];
+            v39 = [v35 longLongValue];
             *buf = 134218496;
-            v85 = v41;
-            v86 = 2048;
-            v87 = *&v42;
-            v30 = v71;
-            v88 = 2048;
-            v89 = v43;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Not updating liked_state for track with persistentID: %lld, storeAdamID: %lld as it has a valid storeSagaID: %lld", buf, 0x20u);
+            v81 = v37;
+            v82 = 2048;
+            v83 = *&v38;
+            v26 = v67;
+            v84 = 2048;
+            v85 = v39;
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Not updating liked_state for track with persistentID: %lld, storeAdamID: %lld as it has a valid storeSagaID: %lld", buf, 0x20u);
           }
         }
 
-        [*(a1 + 32) removeObject:v35];
+        [*(a1 + 32) removeObject:v31];
         goto LABEL_46;
       }
 
-      v39 = [v33 valueForProperty:v70];
-      v44 = [v39 longLongValue];
-      if (!v44)
+      v35 = [v29 valueForProperty:v66];
+      v40 = [v35 longLongValue];
+      if (!v40)
       {
-        v38 = 0;
+        v34 = 0;
         goto LABEL_46;
       }
 
-      v45 = v44;
-      v46 = [ML3Album newWithPersistentID:v44 inLibrary:*(a1 + 80)];
-      v47 = [v46 valueForProperty:v68];
-      v48 = [v46 valueForProperty:v67];
-      if (!v47 || ![v47 longLongValue])
+      v41 = v40;
+      v42 = [ML3Album newWithPersistentID:v40 inLibrary:*(a1 + 80)];
+      v43 = [v42 valueForProperty:v64];
+      v44 = [v42 valueForProperty:v63];
+      if (!v43 || ![v43 longLongValue])
       {
-        v49 = [v33 valueForProperty:v66];
+        v45 = [v29 valueForProperty:v62];
 
-        v47 = v49;
+        v43 = v45;
       }
 
-      if ([v48 length])
+      if ([v44 length])
       {
-        v50 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+        v46 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
-          v51 = [v47 longLongValue];
+          v47 = [v43 longLongValue];
           *buf = 134218242;
-          v85 = v51;
-          v86 = 2114;
-          v87 = *&v48;
-          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Skipping content taste for album with storeID=%lld, cloudUniversalLibraryID=%{public}@", buf, 0x16u);
+          v81 = v47;
+          v82 = 2114;
+          v83 = *&v44;
+          _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Skipping content taste for album with storeID=%lld, cloudUniversalLibraryID=%{public}@", buf, 0x16u);
         }
 
-        v38 = 0;
+        v34 = 0;
       }
 
       else
       {
-        if (![v47 longLongValue])
+        if (![v43 longLongValue])
         {
-          v38 = 0;
+          v34 = 0;
           goto LABEL_43;
         }
 
-        v38 = [*(a1 + 88) objectForKey:v47];
-        if (!v38 || ([v65 containsObject:v47] & 1) != 0)
+        v34 = [*(a1 + 88) objectForKey:v43];
+        if (!v34 || ([v61 containsObject:v43] & 1) != 0)
         {
           goto LABEL_43;
         }
 
-        [*(a1 + 56) addObject:v38];
-        v64 = *(a1 + 64);
-        v52 = [NSNumber numberWithLongLong:v45];
-        [v64 addObject:v52];
+        [*(a1 + 56) addObject:v34];
+        v60 = *(a1 + 64);
+        v48 = [NSNumber numberWithLongLong:v41];
+        [v60 addObject:v48];
 
-        [v65 addObject:v47];
+        [v61 addObject:v43];
       }
 
-      [*(a1 + 32) removeObject:v47];
+      [*(a1 + 32) removeObject:v43];
 LABEL_43:
 
-      v29 = v69;
-      v30 = v71;
+      v25 = v65;
+      v26 = v67;
 LABEL_46:
 
-      if (v75 == ++v31)
+      if (v71 == ++v27)
       {
-        v53 = [v29 countByEnumeratingWithState:&v76 objects:v90 count:16];
-        v75 = v53;
-        if (!v53)
+        v49 = [v25 countByEnumeratingWithState:&v72 objects:v86 count:16];
+        v71 = v49;
+        if (!v49)
         {
           goto LABEL_55;
         }
@@ -962,18 +878,18 @@ LABEL_46:
     }
   }
 
-  if (v17)
+  if (v13)
   {
-    v18 = *(a1 + 72);
+    v14 = *(a1 + 72);
     *buf = 138543362;
-    v85 = v18;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ is cancelled", buf, 0xCu);
+    v81 = v14;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ is cancelled", buf, 0xCu);
   }
 
-  v19 = *(a1 + 96);
-  if (v19)
+  v15 = *(a1 + 96);
+  if (v15)
   {
-    v14 = *(v19 + 16);
+    v10 = *(v15 + 16);
     goto LABEL_11;
   }
 
@@ -1124,9 +1040,9 @@ void sub_10012CD5C(uint64_t a1, void *a2)
   [*(a1 + 32) addObject:v6];
 }
 
-void sub_10012CE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10012CE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1161,9 +1077,9 @@ void sub_10012CF40(uint64_t a1, void *a2, void *a3)
     {
       v8 = [*(a1 + 32) count];
       *buf = 134218242;
-      v34 = v8;
-      v35 = 2114;
-      v36 = *&v6;
+      v33 = v8;
+      v34 = 2114;
+      v35 = *&v6;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Could not import %ld album artists, error=%{public}@", buf, 0x16u);
     }
 
@@ -1183,7 +1099,7 @@ LABEL_11:
     {
       v12 = *(a1 + 40);
       *buf = 138543362;
-      v34 = v12;
+      v33 = v12;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ is cancelled", buf, 0xCu);
     }
 
@@ -1197,10 +1113,10 @@ LABEL_11:
 
   else
   {
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_10012D298;
-    v29[3] = &unk_1001DF228;
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_10012D298;
+    v28[3] = &unk_1001DF228;
     v14 = *(a1 + 48);
     v15 = *(a1 + 56);
     v16 = *(a1 + 64);
@@ -1209,10 +1125,10 @@ LABEL_11:
     *(&v18 + 1) = v17;
     *&v19 = v14;
     *(&v19 + 1) = v15;
-    v30 = v19;
-    v31 = v18;
-    v32 = *(a1 + 80);
-    [v5 enumerateObjectsUsingBlock:v29];
+    v29 = v19;
+    v30 = v18;
+    v31 = *(a1 + 80);
+    [v5 enumerateObjectsUsingBlock:v28];
     v20 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
@@ -1220,26 +1136,25 @@ LABEL_11:
       +[NSDate timeIntervalSinceReferenceDate];
       v23 = v22 - *(a1 + 112);
       *buf = 134218240;
-      v34 = v21;
-      v35 = 2048;
-      v36 = v23;
+      v33 = v21;
+      v34 = 2048;
+      v35 = v23;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Finished loading content taste for %lu album artists in %3f seconds", buf, 0x16u);
     }
 
     [*(a1 + 80) addObjectsFromArray:*(a1 + 88)];
     if ([*(a1 + 80) count])
     {
-      v24 = *(a1 + 80);
-      v25 = MSVArchivedDataWithRootObject();
-      v26 = *(*(a1 + 104) + 8);
-      v27 = *(v26 + 40);
-      *(v26 + 40) = v25;
+      v24 = MSVArchivedDataWithRootObject();
+      v25 = *(*(a1 + 104) + 8);
+      v26 = *(v25 + 40);
+      *(v25 + 40) = v24;
     }
 
-    v28 = *(a1 + 96);
-    if (v28)
+    v27 = *(a1 + 96);
+    if (v27)
     {
-      (*(v28 + 16))(v28, *(a1 + 64), *(a1 + 72), *(*(*(a1 + 104) + 8) + 40), 0);
+      (*(v27 + 16))(v27, *(a1 + 64), *(a1 + 72), *(*(*(a1 + 104) + 8) + 40), 0);
     }
   }
 }
@@ -1324,7 +1239,6 @@ LABEL_7:
 
 uint64_t sub_10012D5DC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100213E78 = result;
   return result;
@@ -1643,12 +1557,13 @@ LABEL_39:
 LABEL_40:
 }
 
-void sub_10012F5C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_10012F5C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v39 - 176), 8);
-  _Block_object_dispose(&a39, 8);
+  _Block_object_dispose((v38 - 176), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1960,9 +1875,9 @@ LABEL_32:
 
 void sub_100130330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose((v70 - 256), 8);
+  _Block_object_dispose((v65 - 256), 8);
   _Block_object_dispose(&a64, 8);
-  _Block_object_dispose(&a70, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x218], 8);
   _Block_object_dispose(&STACK[0x248], 8);
   _Block_object_dispose(&STACK[0x278], 8);
@@ -1970,7 +1885,7 @@ void sub_100130330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Block_object_dispose(&STACK[0x2D8], 8);
   _Block_object_dispose(&STACK[0x308], 8);
   _Block_object_dispose(&STACK[0x338], 8);
-  _Block_object_dispose((v70 - 224), 8);
+  _Block_object_dispose((v65 - 224), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2593,43 +2508,40 @@ void sub_100133568(uint64_t a1, void *a2)
 
   [v3 writeUInt32:v6 withCode:1836282979];
   [v3 writeUInt32:*(a1 + 40) withCode:1836413810];
-  v8 = *(a1 + 32);
-  v9 = v3;
+  v8 = v3;
   v7 = v3;
   ICDAAPUtilitiesWriteContainer();
 }
 
-void sub_100133658(uint64_t a1)
+void sub_100133658(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   ICDAAPUtilitiesWriteContainer();
 }
 
 void sub_1001336F0(uint64_t a1, void *a2)
 {
-  v3 = *(*(a1 + 32) + 128);
-  v6 = a2;
+  v5 = a2;
   [*(a1 + 40) writeUInt8:DAAPPinTypeFromICLibraryPinEntityType() withCode:1835625316];
-  v4 = *(a1 + 32);
-  if (v4[13] < 1)
+  v3 = *(a1 + 32);
+  if (v3[13] < 1)
   {
-    if (v4[16] == 4)
+    if (v3[16] == 4)
     {
-      v5 = 1634353513;
+      v4 = 1634353513;
     }
 
     else
     {
-      v5 = 1634888036;
+      v4 = 1634888036;
     }
 
-    [v6 writeString:v4[14] withCode:v5];
+    [v5 writeString:v3[14] withCode:v4];
   }
 
   else
   {
-    [v6 writeUInt32:? withCode:?];
+    [v5 writeUInt32:? withCode:?];
   }
 }
 
@@ -3095,17 +3007,17 @@ void sub_1001389FC(uint64_t a1, void *a2, void *a3)
       v8 = v7;
       if (*(a1 + 80) == 2 || !*(a1 + 88))
       {
-        v41 = *(a1 + 32);
-        v42 = *(v41 + 16);
-        v63[0] = _NSConcreteStackBlock;
-        v63[1] = 3221225472;
-        v63[2] = sub_10013931C;
-        v63[3] = &unk_1001DF730;
-        v63[4] = v41;
-        v64 = v7;
-        v65 = *(a1 + 48);
-        v66 = *(a1 + 64);
-        dispatch_async(v42, v63);
+        v40 = *(a1 + 32);
+        v41 = *(v40 + 16);
+        v62[0] = _NSConcreteStackBlock;
+        v62[1] = 3221225472;
+        v62[2] = sub_10013931C;
+        v62[3] = &unk_1001DF730;
+        v62[4] = v40;
+        v63 = v7;
+        v64 = *(a1 + 48);
+        v65 = *(a1 + 64);
+        dispatch_async(v41, v62);
 
         v15 = 0;
 LABEL_31:
@@ -3115,9 +3027,9 @@ LABEL_31:
 
       v9 = +[ICUserIdentityStore defaultIdentityStore];
       v10 = *(a1 + 40);
-      v62 = 0;
-      v11 = [v9 getPropertiesForUserIdentity:v10 error:&v62];
-      v12 = v62;
+      v61 = 0;
+      v11 = [v9 getPropertiesForUserIdentity:v10 error:&v61];
+      v12 = v61;
 
       if (v11)
       {
@@ -3125,90 +3037,89 @@ LABEL_31:
         {
           v13 = +[ICDServer server];
           v14 = *(a1 + 48);
-          v61 = v12;
-          v51 = [v13 handlerWithType:0 configuration:v14 error:&v61];
-          v15 = v61;
+          v60 = v12;
+          v50 = [v13 handlerWithType:0 configuration:v14 error:&v60];
+          v15 = v60;
 
-          if (v51)
+          if (v50)
           {
             v16 = sub_1001028AC();
             if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
             {
               v17 = *(a1 + 32);
-              v18 = *(a1 + 80);
-              v19 = ICNSStringForICMediaContentTaste();
-              v20 = *(a1 + 72);
+              v18 = ICNSStringForICMediaContentTaste();
+              v19 = *(a1 + 72);
               *buf = 138543874;
               *&buf[4] = v17;
               *&buf[12] = 2114;
-              *&buf[14] = v19;
+              *&buf[14] = v18;
               *&buf[22] = 2048;
-              v74 = v20;
+              v73 = v19;
               _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "%{public}@ Got request to %{public}@ item with storeID=%lld and the locker bit is set for the account", buf, 0x20u);
             }
 
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x3032000000;
-            v74 = sub_100139330;
-            v75 = sub_100139340;
-            v76 = 0;
-            v21 = [*(a1 + 48) userIdentity];
-            v50 = [ML3MusicLibrary musicLibraryForUserAccount:v21];
+            v73 = sub_100139330;
+            v74 = sub_100139340;
+            v75 = 0;
+            v20 = [*(a1 + 48) userIdentity];
+            v49 = [ML3MusicLibrary musicLibraryForUserAccount:v20];
 
-            v60[0] = _NSConcreteStackBlock;
-            v60[1] = 3221225472;
-            v60[2] = sub_100139348;
-            v60[3] = &unk_1001DF640;
-            v22 = *(a1 + 88);
-            v60[4] = buf;
-            v60[5] = v22;
-            [v50 performReadOnlyDatabaseTransactionWithBlock:v60];
+            v59[0] = _NSConcreteStackBlock;
+            v59[1] = 3221225472;
+            v59[2] = sub_100139348;
+            v59[3] = &unk_1001DF640;
+            v21 = *(a1 + 88);
+            v59[4] = buf;
+            v59[5] = v21;
+            [v49 performReadOnlyDatabaseTransactionWithBlock:v59];
             if ([*(*&buf[8] + 40) length])
             {
-              v71[0] = @"liked_state";
-              v23 = [*(a1 + 32) _adjustedContentTasteForLibraryEndpoint:*(a1 + 80)];
-              v72[0] = v23;
-              v71[1] = @"liked_state_changed_date";
-              v24 = *(a1 + 56);
-              v25 = v24;
-              if (!v24)
+              v70[0] = @"liked_state";
+              v22 = [*(a1 + 32) _adjustedContentTasteForLibraryEndpoint:*(a1 + 80)];
+              v71[0] = v22;
+              v70[1] = @"liked_state_changed_date";
+              v23 = *(a1 + 56);
+              v24 = v23;
+              if (!v23)
               {
-                v25 = +[NSDate date];
+                v24 = +[NSDate date];
               }
 
-              v71[2] = @"cloud_universal_library_id";
-              v26 = *(*&buf[8] + 40);
-              v72[1] = v25;
-              v72[2] = v26;
-              v27 = [NSDictionary dictionaryWithObjects:v72 forKeys:v71 count:3, v50];
-              if (!v24)
+              v70[2] = @"cloud_universal_library_id";
+              v25 = *(*&buf[8] + 40);
+              v71[1] = v24;
+              v71[2] = v25;
+              v26 = [NSDictionary dictionaryWithObjects:v71 forKeys:v70 count:3, v49];
+              if (!v23)
               {
               }
 
-              v28 = *(a1 + 88);
-              v29 = [*(a1 + 48) clientIdentity];
-              [v51 setAlbumArtistProperties:v27 withArtistPersistentID:v28 clientIdentity:v29 completionHandler:*(a1 + 64)];
+              v27 = *(a1 + 88);
+              v28 = [*(a1 + 48) clientIdentity];
+              [v50 setAlbumArtistProperties:v26 withArtistPersistentID:v27 clientIdentity:v28 completionHandler:*(a1 + 64)];
             }
 
             else if (*(a1 + 80) == 1)
             {
-              [v51 favoriteEntityWithPersistentID:*(a1 + 88) storeID:*(a1 + 72) entityType:2 time:*(a1 + 56) completionHandler:*(a1 + 64)];
+              [v50 favoriteEntityWithPersistentID:*(a1 + 88) storeID:*(a1 + 72) entityType:2 time:*(a1 + 56) completionHandler:*(a1 + 64)];
             }
 
             else
             {
-              v48 = *(a1 + 32);
-              v49 = *(v48 + 16);
-              v56[0] = _NSConcreteStackBlock;
-              v56[1] = 3221225472;
-              v56[2] = sub_100139444;
-              v56[3] = &unk_1001DF730;
-              v56[4] = v48;
-              v57 = v8;
-              v58 = *(a1 + 48);
-              v59 = *(a1 + 64);
-              dispatch_async(v49, v56);
+              v47 = *(a1 + 32);
+              v48 = *(v47 + 16);
+              v55[0] = _NSConcreteStackBlock;
+              v55[1] = 3221225472;
+              v55[2] = sub_100139444;
+              v55[3] = &unk_1001DF730;
+              v55[4] = v47;
+              v56 = v8;
+              v57 = *(a1 + 48);
+              v58 = *(a1 + 64);
+              dispatch_async(v48, v55);
             }
 
             _Block_object_dispose(buf, 8);
@@ -3221,32 +3132,32 @@ LABEL_31:
 
       else
       {
-        v43 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+        v42 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
-          v44 = *(a1 + 32);
-          v45 = *(a1 + 40);
+          v43 = *(a1 + 32);
+          v44 = *(a1 + 40);
           *buf = 138543874;
-          *&buf[4] = v44;
+          *&buf[4] = v43;
           *&buf[12] = 2114;
-          *&buf[14] = v45;
+          *&buf[14] = v44;
           *&buf[22] = 2114;
-          v74 = v12;
-          _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "%{public}@ Could not get properties for %{public}@, error=%{public}@", buf, 0x20u);
+          v73 = v12;
+          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "%{public}@ Could not get properties for %{public}@, error=%{public}@", buf, 0x20u);
         }
       }
 
-      v46 = *(a1 + 32);
-      v47 = *(v46 + 16);
-      v52[0] = _NSConcreteStackBlock;
-      v52[1] = 3221225472;
-      v52[2] = sub_100139458;
-      v52[3] = &unk_1001DF730;
-      v52[4] = v46;
-      v53 = v8;
-      v54 = *(a1 + 48);
-      v55 = *(a1 + 64);
-      dispatch_async(v47, v52);
+      v45 = *(a1 + 32);
+      v46 = *(v45 + 16);
+      v51[0] = _NSConcreteStackBlock;
+      v51[1] = 3221225472;
+      v51[2] = sub_100139458;
+      v51[3] = &unk_1001DF730;
+      v51[4] = v45;
+      v52 = v8;
+      v53 = *(a1 + 48);
+      v54 = *(a1 + 64);
+      dispatch_async(v46, v51);
 
       v15 = v12;
 LABEL_30:
@@ -3254,63 +3165,63 @@ LABEL_30:
       goto LABEL_31;
     }
 
-    v35 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v34 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = *(a1 + 32);
-      v37 = *(a1 + 40);
-      v38 = *(a1 + 72);
+      v35 = *(a1 + 32);
+      v36 = *(a1 + 40);
+      v37 = *(a1 + 72);
       *buf = 138543874;
-      *&buf[4] = v36;
+      *&buf[4] = v35;
       *&buf[12] = 2114;
-      *&buf[14] = v37;
+      *&buf[14] = v36;
       *&buf[22] = 2048;
-      v74 = v38;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@ is not subscribed to Cloud Music Library. Not running content taste operation for artist with storeID %lld ", buf, 0x20u);
+      v73 = v37;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@ is not subscribed to Cloud Music Library. Not running content taste operation for artist with storeID %lld ", buf, 0x20u);
     }
 
-    v39 = *(a1 + 64);
-    if (v39)
+    v38 = *(a1 + 64);
+    if (v38)
     {
-      v40 = *(*(a1 + 32) + 24);
-      v67[0] = _NSConcreteStackBlock;
-      v67[1] = 3221225472;
-      v67[2] = sub_1001392A4;
-      v67[3] = &unk_1001DF5C8;
-      v68 = v39;
-      dispatch_async(v40, v67);
-      v15 = v68;
+      v39 = *(*(a1 + 32) + 24);
+      v66[0] = _NSConcreteStackBlock;
+      v66[1] = 3221225472;
+      v66[2] = sub_1001392A4;
+      v66[3] = &unk_1001DF5C8;
+      v67 = v38;
+      dispatch_async(v39, v66);
+      v15 = v67;
       goto LABEL_32;
     }
   }
 
   else
   {
-    v30 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v29 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = *(a1 + 32);
-      v32 = *(a1 + 40);
+      v30 = *(a1 + 32);
+      v31 = *(a1 + 40);
       *buf = 138543874;
-      *&buf[4] = v31;
+      *&buf[4] = v30;
       *&buf[12] = 2114;
-      *&buf[14] = v32;
+      *&buf[14] = v31;
       *&buf[22] = 2114;
-      v74 = v6;
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%{public}@ Could not get subscription status for %{public}@, error=%{public}@. Not running request", buf, 0x20u);
+      v73 = v6;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ Could not get subscription status for %{public}@, error=%{public}@. Not running request", buf, 0x20u);
     }
 
-    v33 = *(a1 + 64);
-    if (v33)
+    v32 = *(a1 + 64);
+    if (v32)
     {
-      v34 = *(*(a1 + 32) + 24);
+      v33 = *(*(a1 + 32) + 24);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10013922C;
       block[3] = &unk_1001DF5C8;
-      v70 = v33;
-      dispatch_async(v34, block);
-      v15 = v70;
+      v69 = v32;
+      dispatch_async(v33, block);
+      v15 = v69;
 LABEL_32:
     }
   }
@@ -3365,9 +3276,9 @@ void sub_100139620(uint64_t a1)
       {
         v3 = [*(a1 + 40) userIdentity];
         v4 = +[ICUserIdentityStore defaultIdentityStore];
-        v43 = 0;
-        v5 = [v4 getPropertiesForUserIdentity:v3 error:&v43];
-        v6 = v43;
+        v42 = 0;
+        v5 = [v4 getPropertiesForUserIdentity:v3 error:&v42];
+        v6 = v42;
 
         if (v5)
         {
@@ -3375,9 +3286,9 @@ void sub_100139620(uint64_t a1)
           {
             v7 = +[ICDServer server];
             v8 = *(a1 + 40);
-            v42 = v6;
-            v9 = [v7 handlerWithType:0 configuration:v8 error:&v42];
-            v10 = v42;
+            v41 = v6;
+            v9 = [v7 handlerWithType:0 configuration:v8 error:&v41];
+            v10 = v41;
 
             if (v9)
             {
@@ -3385,66 +3296,65 @@ void sub_100139620(uint64_t a1)
               if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
               {
                 v12 = *(a1 + 32);
-                v13 = *(a1 + 72);
-                v14 = ICNSStringForICMediaContentTaste();
-                v15 = *(a1 + 80);
-                v16 = *(a1 + 64);
+                v13 = ICNSStringForICMediaContentTaste();
+                v14 = *(a1 + 80);
+                v15 = *(a1 + 64);
                 *buf = 138544130;
                 *&buf[4] = v12;
                 *&buf[12] = 2114;
-                *&buf[14] = v14;
+                *&buf[14] = v13;
                 *&buf[22] = 2048;
-                v51 = v15;
-                LOWORD(v52) = 2048;
-                *(&v52 + 2) = v16;
+                v50 = v14;
+                LOWORD(v51) = 2048;
+                *(&v51 + 2) = v15;
                 _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "%{public}@ Got request to %{public}@ album with persistentID=%lld, storeID=%lld and the locker bit is set for the account", buf, 0x2Au);
               }
 
               *buf = 0;
               *&buf[8] = buf;
               *&buf[16] = 0x3032000000;
-              v51 = sub_100139330;
-              *&v52 = sub_100139340;
-              *(&v52 + 1) = 0;
-              v17 = [*(a1 + 40) userIdentity];
-              v18 = [ML3MusicLibrary musicLibraryForUserAccount:v17];
+              v50 = sub_100139330;
+              *&v51 = sub_100139340;
+              *(&v51 + 1) = 0;
+              v16 = [*(a1 + 40) userIdentity];
+              v17 = [ML3MusicLibrary musicLibraryForUserAccount:v16];
 
-              v41[0] = _NSConcreteStackBlock;
-              v41[1] = 3221225472;
-              v41[2] = sub_100139DC0;
-              v41[3] = &unk_1001DF640;
-              v19 = *(a1 + 80);
-              v41[4] = buf;
-              v41[5] = v19;
-              [v18 performReadOnlyDatabaseTransactionWithBlock:v41];
+              v40[0] = _NSConcreteStackBlock;
+              v40[1] = 3221225472;
+              v40[2] = sub_100139DC0;
+              v40[3] = &unk_1001DF640;
+              v18 = *(a1 + 80);
+              v40[4] = buf;
+              v40[5] = v18;
+              [v17 performReadOnlyDatabaseTransactionWithBlock:v40];
               if ([*(*&buf[8] + 40) length])
               {
-                v40 = v18;
-                v48[0] = @"liked_state";
-                v20 = [*(a1 + 32) _adjustedContentTasteForLibraryEndpoint:*(a1 + 72)];
-                v49[0] = v20;
-                v48[1] = @"liked_state_changed_date";
-                v21 = *(a1 + 48);
-                v22 = v21;
-                if (!v21)
+                v39 = v17;
+                v47[0] = @"liked_state";
+                v19 = [*(a1 + 32) _adjustedContentTasteForLibraryEndpoint:*(a1 + 72)];
+                v48[0] = v19;
+                v47[1] = @"liked_state_changed_date";
+                v20 = *(a1 + 48);
+                v21 = v20;
+                if (!v20)
                 {
-                  v22 = +[NSDate date];
+                  v21 = +[NSDate date];
                 }
 
-                v48[2] = @"cloud_library_id";
-                v23 = *(*&buf[8] + 40);
-                v49[1] = v22;
-                v49[2] = v23;
-                v24 = [NSDictionary dictionaryWithObjects:v49 forKeys:v48 count:3];
-                if (!v21)
+                v47[2] = @"cloud_library_id";
+                v22 = *(*&buf[8] + 40);
+                v48[1] = v21;
+                v48[2] = v22;
+                v23 = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:3];
+                if (!v20)
                 {
                 }
 
-                v25 = *(a1 + 80);
-                v26 = [*(a1 + 40) clientIdentity];
-                [v9 setAlbumEntityProperties:v24 withAlbumPersistentID:v25 clientIdentity:v26 completionHandler:*(a1 + 56)];
+                v24 = *(a1 + 80);
+                v25 = [*(a1 + 40) clientIdentity];
+                [v9 setAlbumEntityProperties:v23 withAlbumPersistentID:v24 clientIdentity:v25 completionHandler:*(a1 + 56)];
 
-                v18 = v40;
+                v17 = v39;
               }
 
               else if (*(a1 + 72) == 1)
@@ -3467,17 +3377,17 @@ void sub_100139620(uint64_t a1)
 
         else
         {
-          v38 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v37 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
-            v39 = *(a1 + 32);
+            v38 = *(a1 + 32);
             *buf = 138543874;
-            *&buf[4] = v39;
+            *&buf[4] = v38;
             *&buf[12] = 2114;
             *&buf[14] = v3;
             *&buf[22] = 2114;
-            v51 = v6;
-            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "%{public}@ Could not get properties for %{public}@, error=%{public}@", buf, 0x20u);
+            v50 = v6;
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%{public}@ Could not get properties for %{public}@, error=%{public}@", buf, 0x20u);
           }
         }
 
@@ -3494,61 +3404,61 @@ LABEL_32:
       return;
     }
 
-    v32 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v31 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v33 = *(a1 + 64);
-      v34 = *(a1 + 32);
-      v35 = *(a1 + 40);
+      v32 = *(a1 + 64);
+      v33 = *(a1 + 32);
+      v34 = *(a1 + 40);
       *buf = 138543874;
-      *&buf[4] = v34;
+      *&buf[4] = v33;
       *&buf[12] = 2048;
-      *&buf[14] = v33;
+      *&buf[14] = v32;
       *&buf[22] = 2114;
-      v51 = v35;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "%{public}@ Cannot update content taste for album with storeID %lld@, configuration=%{public}@", buf, 0x20u);
+      v50 = v34;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "%{public}@ Cannot update content taste for album with storeID %lld@, configuration=%{public}@", buf, 0x20u);
     }
 
-    v36 = *(a1 + 56);
-    if (v36)
+    v35 = *(a1 + 56);
+    if (v35)
     {
-      v37 = *(*(a1 + 32) + 24);
-      v44[0] = _NSConcreteStackBlock;
-      v44[1] = 3221225472;
-      v44[2] = sub_100139D48;
-      v44[3] = &unk_1001DF5C8;
-      v45 = v36;
-      dispatch_async(v37, v44);
-      v2 = v45;
+      v36 = *(*(a1 + 32) + 24);
+      v43[0] = _NSConcreteStackBlock;
+      v43[1] = 3221225472;
+      v43[2] = sub_100139D48;
+      v43[3] = &unk_1001DF5C8;
+      v44 = v35;
+      dispatch_async(v36, v43);
+      v2 = v44;
       goto LABEL_32;
     }
   }
 
   else
   {
-    v27 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v26 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = *(a1 + 32);
-      v29 = *(a1 + 64);
+      v27 = *(a1 + 32);
+      v28 = *(a1 + 64);
       *buf = 138543618;
-      *&buf[4] = v28;
+      *&buf[4] = v27;
       *&buf[12] = 2048;
-      *&buf[14] = v29;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ Music app is not installed - not running content taste update operation for album with storeID %lld", buf, 0x16u);
+      *&buf[14] = v28;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}@ Music app is not installed - not running content taste update operation for album with storeID %lld", buf, 0x16u);
     }
 
-    v30 = *(a1 + 56);
-    if (v30)
+    v29 = *(a1 + 56);
+    if (v29)
     {
-      v31 = *(*(a1 + 32) + 24);
+      v30 = *(*(a1 + 32) + 24);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100139CD0;
       block[3] = &unk_1001DF5C8;
-      v47 = v30;
-      dispatch_async(v31, block);
-      v2 = v47;
+      v46 = v29;
+      dispatch_async(v30, block);
+      v2 = v46;
       goto LABEL_32;
     }
   }
@@ -3594,15 +3504,15 @@ void sub_10013A08C(uint64_t a1)
       v2 = [[ICCloudContentTasteUpdateItem alloc] initWithGlobalPlaylistID:*(a1 + 40) contentTaste:*(a1 + 72) configuration:*(a1 + 48)];
       if (*(a1 + 72) == 2 || !*(a1 + 80))
       {
-        v30 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v29 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = *(a1 + 32);
+          v30 = *(a1 + 32);
           *buf = 138543618;
-          *&buf[4] = v31;
+          *&buf[4] = v30;
           *&buf[12] = 2114;
           *&buf[14] = v2;
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%{public}@ Posting content taste for item=%{public}@", buf, 0x16u);
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ Posting content taste for item=%{public}@", buf, 0x16u);
         }
 
         [*(a1 + 32) _updateContentTasteForItem:v2 invalidatingLocalCache:0 configuration:*(a1 + 48) withCompletionHandler:*(a1 + 64)];
@@ -3611,9 +3521,9 @@ void sub_10013A08C(uint64_t a1)
 
       v3 = [*(a1 + 48) userIdentity];
       v4 = +[ICUserIdentityStore defaultIdentityStore];
-      v46 = 0;
-      v5 = [v4 getPropertiesForUserIdentity:v3 error:&v46];
-      v6 = v46;
+      v45 = 0;
+      v5 = [v4 getPropertiesForUserIdentity:v3 error:&v45];
+      v6 = v45;
 
       if (v5)
       {
@@ -3621,67 +3531,66 @@ void sub_10013A08C(uint64_t a1)
         {
           v7 = +[ICDServer server];
           v8 = *(a1 + 48);
-          v45 = v6;
-          v41 = [v7 handlerWithType:0 configuration:v8 error:&v45];
-          v9 = v45;
+          v44 = v6;
+          v40 = [v7 handlerWithType:0 configuration:v8 error:&v44];
+          v9 = v44;
 
-          if (v41)
+          if (v40)
           {
             v10 = sub_1001028AC();
             if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
             {
               v11 = *(a1 + 32);
-              v12 = *(a1 + 72);
-              v13 = ICNSStringForICMediaContentTaste();
-              v14 = *(a1 + 40);
+              v12 = ICNSStringForICMediaContentTaste();
+              v13 = *(a1 + 40);
               *buf = 138543874;
               *&buf[4] = v11;
               *&buf[12] = 2114;
-              *&buf[14] = v13;
+              *&buf[14] = v12;
               *&buf[22] = 2114;
-              v54 = v14;
+              v53 = v13;
               _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_FAULT, "%{public}@ Got request to %{public}@ playlist with globalID=%{public}@ and the locker bit is set for the account", buf, 0x20u);
             }
 
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x2020000000;
-            v54 = 0;
-            v15 = [*(a1 + 48) userIdentity];
-            v40 = [ML3MusicLibrary musicLibraryForUserAccount:v15];
+            v53 = 0;
+            v14 = [*(a1 + 48) userIdentity];
+            v39 = [ML3MusicLibrary musicLibraryForUserAccount:v14];
 
-            v42[0] = _NSConcreteStackBlock;
-            v42[1] = 3221225472;
-            v42[2] = sub_10013A880;
-            v42[3] = &unk_1001DF6B8;
-            v43 = *(a1 + 40);
-            v44 = buf;
-            [v40 performReadOnlyDatabaseTransactionWithBlock:v42];
+            v41[0] = _NSConcreteStackBlock;
+            v41[1] = 3221225472;
+            v41[2] = sub_10013A880;
+            v41[3] = &unk_1001DF6B8;
+            v42 = *(a1 + 40);
+            v43 = buf;
+            [v39 performReadOnlyDatabaseTransactionWithBlock:v41];
             if (*(*&buf[8] + 24))
             {
-              v51[0] = @"liked_state";
-              v16 = [*(a1 + 32) _adjustedContentTasteForLibraryEndpoint:*(a1 + 72)];
-              v52[0] = v16;
-              v51[1] = @"liked_state_changed_date";
-              v17 = *(a1 + 56);
-              if (v17)
+              v50[0] = @"liked_state";
+              v15 = [*(a1 + 32) _adjustedContentTasteForLibraryEndpoint:*(a1 + 72)];
+              v51[0] = v15;
+              v50[1] = @"liked_state_changed_date";
+              v16 = *(a1 + 56);
+              if (v16)
               {
-                v18 = *(a1 + 56);
+                v17 = *(a1 + 56);
               }
 
               else
               {
-                v18 = +[NSDate date];
+                v17 = +[NSDate date];
               }
 
-              v39 = v18;
-              v52[1] = v18;
-              v36 = [NSDictionary dictionaryWithObjects:v52 forKeys:v51 count:2];
-              v37 = *(a1 + 80);
-              v38 = [*(a1 + 48) clientIdentity];
-              [v41 setPlaylistProperties:v36 trackList:0 forPlaylistPersistentID:v37 clientIdentity:v38 completionHandler:*(a1 + 64)];
+              v38 = v17;
+              v51[1] = v17;
+              v35 = [NSDictionary dictionaryWithObjects:v51 forKeys:v50 count:2];
+              v36 = *(a1 + 80);
+              v37 = [*(a1 + 48) clientIdentity];
+              [v40 setPlaylistProperties:v35 trackList:0 forPlaylistPersistentID:v36 clientIdentity:v37 completionHandler:*(a1 + 64)];
 
-              if (!v17)
+              if (!v16)
               {
               }
             }
@@ -3694,10 +3603,10 @@ void sub_10013A08C(uint64_t a1)
                 goto LABEL_39;
               }
 
-              v34 = *(a1 + 80);
-              v35 = *(a1 + 40);
-              v16 = +[NSDate date];
-              [v41 favoritePlaylistWithPersistentID:v34 globalID:v35 time:v16 completionHandler:*(a1 + 64)];
+              v33 = *(a1 + 80);
+              v34 = *(a1 + 40);
+              v15 = +[NSDate date];
+              [v40 favoritePlaylistWithPersistentID:v33 globalID:v34 time:v15 completionHandler:*(a1 + 64)];
             }
 
 LABEL_39:
@@ -3712,17 +3621,17 @@ LABEL_39:
 
       else
       {
-        v32 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v31 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
-          v33 = *(a1 + 32);
+          v32 = *(a1 + 32);
           *buf = 138543874;
-          *&buf[4] = v33;
+          *&buf[4] = v32;
           *&buf[12] = 2114;
           *&buf[14] = v3;
           *&buf[22] = 2114;
-          v54 = v6;
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ Could not get properties for %{public}@, error=%{public}@", buf, 0x20u);
+          v53 = v6;
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%{public}@ Could not get properties for %{public}@, error=%{public}@", buf, 0x20u);
         }
       }
 
@@ -3733,61 +3642,61 @@ LABEL_30:
       goto LABEL_31;
     }
 
-    v24 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v23 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v25 = *(a1 + 32);
-      v26 = *(a1 + 40);
-      v27 = *(a1 + 48);
+      v24 = *(a1 + 32);
+      v25 = *(a1 + 40);
+      v26 = *(a1 + 48);
       *buf = 138543874;
-      *&buf[4] = v25;
+      *&buf[4] = v24;
       *&buf[12] = 2114;
-      *&buf[14] = v26;
+      *&buf[14] = v25;
       *&buf[22] = 2114;
-      v54 = v27;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%{public}@ Cannot update content taste for item with globalPlaylistID=%{public}@, configuration=%{public}@", buf, 0x20u);
+      v53 = v26;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%{public}@ Cannot update content taste for item with globalPlaylistID=%{public}@, configuration=%{public}@", buf, 0x20u);
     }
 
-    v28 = *(a1 + 64);
-    if (v28)
+    v27 = *(a1 + 64);
+    if (v27)
     {
-      v29 = *(*(a1 + 32) + 24);
-      v47[0] = _NSConcreteStackBlock;
-      v47[1] = 3221225472;
-      v47[2] = sub_10013A808;
-      v47[3] = &unk_1001DF5C8;
-      v48 = v28;
-      dispatch_async(v29, v47);
-      v2 = v48;
+      v28 = *(*(a1 + 32) + 24);
+      v46[0] = _NSConcreteStackBlock;
+      v46[1] = 3221225472;
+      v46[2] = sub_10013A808;
+      v46[3] = &unk_1001DF5C8;
+      v47 = v27;
+      dispatch_async(v28, v46);
+      v2 = v47;
       goto LABEL_31;
     }
   }
 
   else
   {
-    v19 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v18 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = *(a1 + 32);
-      v21 = *(a1 + 40);
+      v19 = *(a1 + 32);
+      v20 = *(a1 + 40);
       *buf = 138543618;
-      *&buf[4] = v20;
+      *&buf[4] = v19;
       *&buf[12] = 2114;
-      *&buf[14] = v21;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ Music app is not installed - not running content taste update operation for playlist %{public}@", buf, 0x16u);
+      *&buf[14] = v20;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ Music app is not installed - not running content taste update operation for playlist %{public}@", buf, 0x16u);
     }
 
-    v22 = *(a1 + 64);
-    if (v22)
+    v21 = *(a1 + 64);
+    if (v21)
     {
-      v23 = *(*(a1 + 32) + 24);
+      v22 = *(*(a1 + 32) + 24);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10013A790;
       block[3] = &unk_1001DF5C8;
-      v50 = v22;
-      dispatch_async(v23, block);
-      v2 = v50;
+      v49 = v21;
+      dispatch_async(v22, block);
+      v2 = v49;
 LABEL_31:
     }
   }
@@ -3829,15 +3738,15 @@ void sub_10013AB28(uint64_t a1)
       v2 = [[ICCloudContentTasteUpdateItem alloc] initWithStoreItemID:*(a1 + 72) mediaContentTasteItem:*(a1 + 64) contentTaste:*(a1 + 80) configuration:*(a1 + 40) timeStamp:*(a1 + 48)];
       if (*(a1 + 80) == 2 || !*(a1 + 88))
       {
-        v32 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v31 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
-          v33 = *(a1 + 32);
+          v32 = *(a1 + 32);
           *buf = 138543618;
-          *&buf[4] = v33;
+          *&buf[4] = v32;
           *&buf[12] = 2114;
           *&buf[14] = v2;
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ Posting content taste for item=%{public}@", buf, 0x16u);
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%{public}@ Posting content taste for item=%{public}@", buf, 0x16u);
         }
 
         [*(a1 + 32) _updateContentTasteForItem:v2 invalidatingLocalCache:0 configuration:*(a1 + 40) withCompletionHandler:*(a1 + 56)];
@@ -3846,9 +3755,9 @@ void sub_10013AB28(uint64_t a1)
 
       v3 = [*(a1 + 40) userIdentity];
       v4 = +[ICUserIdentityStore defaultIdentityStore];
-      v46 = 0;
-      v5 = [v4 getPropertiesForUserIdentity:v3 error:&v46];
-      v6 = v46;
+      v45 = 0;
+      v5 = [v4 getPropertiesForUserIdentity:v3 error:&v45];
+      v6 = v45;
 
       if (v5)
       {
@@ -3856,25 +3765,24 @@ void sub_10013AB28(uint64_t a1)
         {
           v7 = +[ICDServer server];
           v8 = *(a1 + 40);
-          v45 = v6;
-          v42 = [v7 handlerWithType:0 configuration:v8 error:&v45];
-          v9 = v45;
+          v44 = v6;
+          v41 = [v7 handlerWithType:0 configuration:v8 error:&v44];
+          v9 = v44;
 
-          if (v42)
+          if (v41)
           {
             v10 = sub_1001028AC();
             if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
             {
               v11 = *(a1 + 32);
-              v12 = *(a1 + 80);
-              v13 = ICNSStringForICMediaContentTaste();
-              v14 = *(a1 + 72);
+              v12 = ICNSStringForICMediaContentTaste();
+              v13 = *(a1 + 72);
               *buf = 138543874;
               *&buf[4] = v11;
               *&buf[12] = 2114;
-              *&buf[14] = v13;
+              *&buf[14] = v12;
               *&buf[22] = 2048;
-              *&buf[24] = v14;
+              *&buf[24] = v13;
               _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_FAULT, "%{public}@ Got request to %{public}@ item with storeID=%lld and the locker bit is set for the account", buf, 0x20u);
             }
 
@@ -3882,48 +3790,48 @@ void sub_10013AB28(uint64_t a1)
             *&buf[8] = buf;
             *&buf[16] = 0x2020000000;
             *&buf[24] = 0;
-            v15 = [*(a1 + 40) userIdentity];
-            v41 = [ML3MusicLibrary musicLibraryForUserAccount:v15];
+            v14 = [*(a1 + 40) userIdentity];
+            v40 = [ML3MusicLibrary musicLibraryForUserAccount:v14];
 
-            v44[0] = _NSConcreteStackBlock;
-            v44[1] = 3221225472;
-            v44[2] = sub_10013B380;
-            v44[3] = &unk_1001DF640;
-            v16 = *(a1 + 88);
-            v44[4] = buf;
-            v44[5] = v16;
-            [v41 performReadOnlyDatabaseTransactionWithBlock:v44];
+            v43[0] = _NSConcreteStackBlock;
+            v43[1] = 3221225472;
+            v43[2] = sub_10013B380;
+            v43[3] = &unk_1001DF640;
+            v15 = *(a1 + 88);
+            v43[4] = buf;
+            v43[5] = v15;
+            [v40 performReadOnlyDatabaseTransactionWithBlock:v43];
             if (*(*&buf[8] + 24))
             {
-              v51[0] = @"item_stats.liked_state";
-              v39 = [*(a1 + 32) _adjustedContentTasteForLibraryEndpoint:*(a1 + 80)];
-              v51[1] = @"item_stats.liked_state_changed_date";
-              v52[0] = v39;
-              v17 = *(a1 + 48);
-              if (v17)
+              v50[0] = @"item_stats.liked_state";
+              v38 = [*(a1 + 32) _adjustedContentTasteForLibraryEndpoint:*(a1 + 80)];
+              v50[1] = @"item_stats.liked_state_changed_date";
+              v51[0] = v38;
+              v16 = *(a1 + 48);
+              if (v16)
               {
-                v18 = *(a1 + 48);
+                v17 = *(a1 + 48);
               }
 
               else
               {
-                v18 = +[NSDate date];
+                v17 = +[NSDate date];
               }
 
-              v52[1] = v18;
-              v36 = [NSDictionary dictionaryWithObjects:v52 forKeys:v51 count:2, v39];
-              v37 = *(*&buf[8] + 24);
-              v38 = [*(a1 + 40) clientIdentity];
-              [v42 setItemProperties:v36 forSagaID:v37 clientIdentity:v38 completionHandler:*(a1 + 56)];
+              v51[1] = v17;
+              v35 = [NSDictionary dictionaryWithObjects:v51 forKeys:v50 count:2, v38];
+              v36 = *(*&buf[8] + 24);
+              v37 = [*(a1 + 40) clientIdentity];
+              [v41 setItemProperties:v35 forSagaID:v36 clientIdentity:v37 completionHandler:*(a1 + 56)];
 
-              if (!v17)
+              if (!v16)
               {
               }
             }
 
             else if (*(a1 + 80) == 1)
             {
-              [v42 favoriteEntityWithPersistentID:*(a1 + 88) storeID:*(a1 + 72) entityType:0 time:*(a1 + 48) completionHandler:*(a1 + 56)];
+              [v41 favoriteEntityWithPersistentID:*(a1 + 88) storeID:*(a1 + 72) entityType:0 time:*(a1 + 48) completionHandler:*(a1 + 56)];
             }
 
             else
@@ -3933,14 +3841,14 @@ void sub_10013AB28(uint64_t a1)
 
             if (*(a1 + 80) == 1)
             {
-              v43[0] = _NSConcreteStackBlock;
-              v43[1] = 3221225472;
-              v43[2] = sub_10013B480;
-              v43[3] = &unk_1001DF668;
-              v43[4] = buf;
-              v43[5] = 1;
-              v43[6] = *(a1 + 88);
-              [v41 performDatabaseTransactionWithBlock:v43];
+              v42[0] = _NSConcreteStackBlock;
+              v42[1] = 3221225472;
+              v42[2] = sub_10013B480;
+              v42[3] = &unk_1001DF668;
+              v42[4] = buf;
+              v42[5] = 1;
+              v42[6] = *(a1 + 88);
+              [v40 performDatabaseTransactionWithBlock:v42];
             }
 
             _Block_object_dispose(buf, 8);
@@ -3953,17 +3861,17 @@ void sub_10013AB28(uint64_t a1)
 
       else
       {
-        v34 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v33 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          v35 = *(a1 + 32);
+          v34 = *(a1 + 32);
           *buf = 138543874;
-          *&buf[4] = v35;
+          *&buf[4] = v34;
           *&buf[12] = 2114;
           *&buf[14] = v3;
           *&buf[22] = 2114;
           *&buf[24] = v6;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ Could not get properties for %{public}@, error=%{public}@", buf, 0x20u);
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}@ Could not get properties for %{public}@, error=%{public}@", buf, 0x20u);
         }
       }
 
@@ -3974,67 +3882,67 @@ LABEL_30:
       goto LABEL_31;
     }
 
-    v25 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v24 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v26 = *(a1 + 64);
-      v27 = *(a1 + 72);
-      v28 = *(a1 + 32);
-      v29 = *(a1 + 40);
+      v25 = *(a1 + 64);
+      v26 = *(a1 + 72);
+      v27 = *(a1 + 32);
+      v28 = *(a1 + 40);
       *buf = 138544130;
-      *&buf[4] = v28;
+      *&buf[4] = v27;
       *&buf[12] = 1024;
-      *&buf[14] = v26;
+      *&buf[14] = v25;
       *&buf[18] = 2048;
-      *&buf[20] = v27;
+      *&buf[20] = v26;
       *&buf[28] = 2114;
-      *&buf[30] = v29;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%{public}@ Cannot update content taste for item type %d with storeId=%lld, configuration=%{public}@", buf, 0x26u);
+      *&buf[30] = v28;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%{public}@ Cannot update content taste for item type %d with storeId=%lld, configuration=%{public}@", buf, 0x26u);
     }
 
-    v30 = *(a1 + 56);
-    if (v30)
+    v29 = *(a1 + 56);
+    if (v29)
     {
-      v31 = *(*(a1 + 32) + 24);
-      v47[0] = _NSConcreteStackBlock;
-      v47[1] = 3221225472;
-      v47[2] = sub_10013B308;
-      v47[3] = &unk_1001DF5C8;
-      v48 = v30;
-      dispatch_async(v31, v47);
-      v2 = v48;
+      v30 = *(*(a1 + 32) + 24);
+      v46[0] = _NSConcreteStackBlock;
+      v46[1] = 3221225472;
+      v46[2] = sub_10013B308;
+      v46[3] = &unk_1001DF5C8;
+      v47 = v29;
+      dispatch_async(v30, v46);
+      v2 = v47;
       goto LABEL_31;
     }
   }
 
   else
   {
-    v19 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v18 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = *(a1 + 32);
-      v21 = *(a1 + 64);
-      v22 = *(a1 + 72);
+      v19 = *(a1 + 32);
+      v20 = *(a1 + 64);
+      v21 = *(a1 + 72);
       *buf = 138543874;
-      *&buf[4] = v20;
+      *&buf[4] = v19;
       *&buf[12] = 1024;
-      *&buf[14] = v21;
+      *&buf[14] = v20;
       *&buf[18] = 2048;
-      *&buf[20] = v22;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ Music app is not installed - not running content taste update operation for item %d, id %lld", buf, 0x1Cu);
+      *&buf[20] = v21;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ Music app is not installed - not running content taste update operation for item %d, id %lld", buf, 0x1Cu);
     }
 
-    v23 = *(a1 + 56);
-    if (v23)
+    v22 = *(a1 + 56);
+    if (v22)
     {
-      v24 = *(*(a1 + 32) + 24);
+      v23 = *(*(a1 + 32) + 24);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10013B290;
       block[3] = &unk_1001DF5C8;
-      v50 = v23;
-      dispatch_async(v24, block);
-      v2 = v50;
+      v49 = v22;
+      dispatch_async(v23, block);
+      v2 = v49;
 LABEL_31:
     }
   }
@@ -4390,10 +4298,11 @@ void sub_10013D514(uint64_t a1, void *a2)
   [v4 writeUInt32:*(a1 + 40) withCode:1634353999];
 }
 
-void sub_10013E370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_10013E370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 176), 8);
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4724,6 +4633,13 @@ uint64_t sub_1001400F8(uint64_t a1, void *a2)
   return 1;
 }
 
+void sub_10014068C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_1001406C0(uint64_t a1, uint64_t a2, id *a3)
 {
   v4 = *a3;
@@ -4796,9 +4712,9 @@ void sub_1001408BC(uint64_t a1, uint64_t a2, id *a3)
   }
 }
 
-void sub_100141044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100141044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4817,86 +4733,85 @@ void sub_100141080(uint64_t a1, void *a2, void *a3)
   v7 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    NSStringFromClass(v9);
-    v10 = v25 = v6;
-    v11 = *(a1 + 32);
-    if ([v11 method])
+    v8 = objc_opt_class();
+    NSStringFromClass(v8);
+    v9 = v24 = v6;
+    v10 = *(a1 + 32);
+    if ([v10 method])
     {
-      v12 = @"POST";
+      v11 = @"POST";
     }
 
     else
     {
-      v12 = @"GET";
+      v11 = @"GET";
     }
 
-    v13 = [*(a1 + 32) action];
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
-    v16 = [v5 responseCode];
-    v17 = [v5 responseData];
+    v12 = [*(a1 + 32) action];
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    v15 = [v5 responseCode];
+    v16 = [v5 responseData];
     *buf = 138545154;
-    v27 = v10;
-    v28 = 2048;
-    v29 = v11;
-    v30 = 2114;
-    v31 = v12;
-    v32 = 2114;
-    v33 = v13;
-    v34 = 2114;
-    v35 = v15;
-    v36 = 2048;
-    v37 = v5;
-    v38 = 2048;
-    v39 = v16;
-    v40 = 2048;
-    v41 = [v17 length];
+    v26 = v9;
+    v27 = 2048;
+    v28 = v10;
+    v29 = 2114;
+    v30 = v11;
+    v31 = 2114;
+    v32 = v12;
+    v33 = 2114;
+    v34 = v14;
+    v35 = 2048;
+    v36 = v5;
+    v37 = 2048;
+    v38 = v15;
+    v39 = 2048;
+    v40 = [v16 length];
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p method=%{public}@ action=%{public}@> received response: <%{public}@: %p code=%ld, length=%{bytes}lu>", buf, 0x52u);
 
-    v6 = v25;
+    v6 = v24;
   }
 
   if (v6)
   {
-    v18 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v27 = v6;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "SagaRemoveItemOperation failed with error: %{public}@", buf, 0xCu);
+      v26 = v6;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "SagaRemoveItemOperation failed with error: %{public}@", buf, 0xCu);
     }
   }
 
-  v19 = *(*(a1 + 56) + 8);
-  v20 = *(v19 + 40);
-  *(v19 + 40) = v5;
-  v21 = v5;
+  v18 = *(*(a1 + 56) + 8);
+  v19 = *(v18 + 40);
+  *(v18 + 40) = v5;
+  v20 = v5;
 
-  v22 = *(a1 + 40);
-  v23 = [v21 responseCode];
-  if (v23 > 399)
+  v21 = *(a1 + 40);
+  v22 = [v20 responseCode];
+  if (v22 > 399)
   {
-    if (v23 != 404 && v23 != 400)
+    if (v22 != 404 && v22 != 400)
     {
       goto LABEL_17;
     }
 
-    v24 = 3;
+    v23 = 3;
   }
 
   else
   {
-    v24 = 1;
-    if (v23 != 200 && v23 != 204)
+    v23 = 1;
+    if (v22 != 200 && v22 != 204)
     {
 LABEL_17:
-      v24 = 2;
+      v23 = 2;
     }
   }
 
-  [v22 setStatus:v24];
+  [v21 setStatus:v23];
   dispatch_semaphore_signal(*(a1 + 48));
 }
 
@@ -4909,7 +4824,6 @@ void sub_100141898(uint64_t a1, void *a2)
 
   [v3 writeUInt32:v6 withCode:1836282979];
   [v3 writeUInt32:*(a1 + 72) withCode:1836413810];
-  v15 = *(a1 + 64);
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
   v9 = *(a1 + 48);
@@ -4923,19 +4837,18 @@ void sub_100141898(uint64_t a1, void *a2)
   ICDAAPUtilitiesWriteContainer();
 }
 
-void sub_1001419EC(uint64_t a1)
+void sub_1001419EC(id *a1, uint64_t a2)
 {
-  v10 = *(a1 + 64);
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 56);
-  *&v6 = v4;
-  *(&v6 + 1) = v5;
-  *&v7 = v2;
-  *(&v7 + 1) = v3;
-  v8 = v7;
-  v9 = v6;
+  v3 = a1[4];
+  v4 = a1[5];
+  v5 = a1[6];
+  v6 = a1[7];
+  *&v7 = v5;
+  *(&v7 + 1) = v6;
+  *&v8 = v3;
+  *(&v8 + 1) = v4;
+  v9 = v8;
+  v10 = v7;
   ICDAAPUtilitiesWriteContainer();
 }
 
@@ -4997,20 +4910,12 @@ void sub_1001429BC(uint64_t a1, void *a2)
 {
   v3 = a2;
   [v3 writeUInt32:*(a1 + 72) withCode:1836413810];
-  v6 = *(a1 + 32);
-  v8 = *(a1 + 56);
-  v7 = *(a1 + 40);
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 40);
   ICDAAPUtilitiesWriteContainer();
-  if (*(a1 + 64))
+  if (*(a1 + 64) || [*(a1 + 48) length])
   {
-    goto LABEL_4;
-  }
-
-  if ([*(a1 + 48) length])
-  {
-    v4 = *(a1 + 64);
-LABEL_4:
-    v5 = *(a1 + 48);
+    v4 = *(a1 + 48);
     ICDAAPUtilitiesWriteContainer();
   }
 }
@@ -5349,45 +5254,43 @@ void sub_100148030(uint64_t a1, void *a2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v6 = *(a1 + 40);
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v10 = *(a1 + 40);
-      v19 = 134218754;
-      v20 = v7;
-      v21 = 2112;
+      v6 = *(a1 + 32);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 40);
+      v17 = 134218754;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v8;
+      v21 = 2048;
       v22 = v9;
-      v23 = 2048;
-      v24 = v10;
-      v25 = 2114;
-      v26 = v3;
-      v11 = "ICDBackgroundTaskManager %p - periodicPolling - Failed to update %@ %p [error] - error=%{public}@";
-      v12 = v5;
-      v13 = OS_LOG_TYPE_ERROR;
-      v14 = 42;
+      v23 = 2114;
+      v24 = v3;
+      v10 = "ICDBackgroundTaskManager %p - periodicPolling - Failed to update %@ %p [error] - error=%{public}@";
+      v11 = v5;
+      v12 = OS_LOG_TYPE_ERROR;
+      v13 = 42;
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v12, v13, v11, &v19, v14);
+      _os_log_impl(&_mh_execute_header, v11, v12, v10, &v17, v13);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(a1 + 32);
-    v15 = *(a1 + 40);
-    v17 = objc_opt_class();
-    v9 = NSStringFromClass(v17);
-    v18 = *(a1 + 40);
-    v19 = 134218498;
-    v20 = v16;
-    v21 = 2112;
-    v22 = v9;
-    v23 = 2048;
-    v24 = v18;
-    v11 = "ICDBackgroundTaskManager %p - periodicPolling - Updated %@ %p [no error]";
-    v12 = v5;
-    v13 = OS_LOG_TYPE_DEFAULT;
-    v14 = 32;
+    v14 = *(a1 + 32);
+    v15 = objc_opt_class();
+    v8 = NSStringFromClass(v15);
+    v16 = *(a1 + 40);
+    v17 = 134218498;
+    v18 = v14;
+    v19 = 2112;
+    v20 = v8;
+    v21 = 2048;
+    v22 = v16;
+    v10 = "ICDBackgroundTaskManager %p - periodicPolling - Updated %@ %p [no error]";
+    v11 = v5;
+    v12 = OS_LOG_TYPE_DEFAULT;
+    v13 = 32;
     goto LABEL_6;
   }
 }

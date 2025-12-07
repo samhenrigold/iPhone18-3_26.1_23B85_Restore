@@ -378,55 +378,54 @@ LABEL_18:
     _requiredRootKeys = [self _requiredRootKeys];
     if ([allKeys hk_containsObjectsInArray:_requiredRootKeys])
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v11 = allKeys;
-      v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v25;
-        v22 = allKeys;
-        v23 = definitionCopy;
-        v21 = _requiredRootKeys;
+        v14 = *v24;
+        v21 = allKeys;
+        v22 = definitionCopy;
+        v20 = _requiredRootKeys;
         while (2)
         {
-          for (i = 0; i != v13; i = i + 1)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v25 != v14)
+            if (*v24 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v24 + 1) + 8 * i);
             objc_opt_class();
-            v17 = HKSafeObject();
-            if (!v17)
+            v16 = HKSafeObject();
+            if (!v16)
             {
               goto LABEL_17;
             }
 
-            v18 = [v8 objectForKeyedSubscript:v17];
-            v19 = [self _validateRootKey:v17 value:v18 error:error];
+            v17 = [v8 objectForKeyedSubscript:v16];
+            v18 = [self _validateRootKey:v16 value:v17 error:error];
 
-            if (!v19)
+            if (!v18)
             {
-              LOBYTE(v17) = 0;
+              LOBYTE(v16) = 0;
 LABEL_17:
-              allKeys = v22;
-              definitionCopy = v23;
-              _requiredRootKeys = v21;
+              allKeys = v21;
+              definitionCopy = v22;
+              _requiredRootKeys = v20;
               goto LABEL_18;
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
-          LOBYTE(v17) = 1;
-          allKeys = v22;
-          definitionCopy = v23;
-          _requiredRootKeys = v21;
+          v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          LOBYTE(v16) = 1;
+          allKeys = v21;
+          definitionCopy = v22;
+          _requiredRootKeys = v20;
           if (v13)
           {
             continue;
@@ -438,7 +437,7 @@ LABEL_17:
 
       else
       {
-        LOBYTE(v17) = 1;
+        LOBYTE(v16) = 1;
       }
 
 LABEL_18:
@@ -447,16 +446,16 @@ LABEL_18:
     else
     {
       [NSError hk_assignError:error code:3 format:@"Endpoint schema definition missing required key in %@. Got: %@", _requiredRootKeys, allKeys];
-      LOBYTE(v17) = 0;
+      LOBYTE(v16) = 0;
     }
   }
 
   else
   {
-    LOBYTE(v17) = 0;
+    LOBYTE(v16) = 0;
   }
 
-  return v17;
+  return v16;
 }
 
 + (BOOL)_validateRootKey:(id)key value:(id)value error:(id *)error
@@ -744,37 +743,36 @@ LABEL_16:
   v6 = v5;
   if (v5)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       while (2)
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * i);
           objc_opt_class();
-          v13 = HKSafeObject();
+          v12 = HKSafeObject();
 
-          if (!v13)
+          if (!v12)
           {
-            v14 = 0;
+            v13 = 0;
             goto LABEL_12;
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v9)
         {
           continue;
@@ -784,16 +782,16 @@ LABEL_16:
       }
     }
 
-    v14 = 1;
+    v13 = 1;
 LABEL_12:
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 + (BOOL)_validateURLValue:(id)value error:(id *)error

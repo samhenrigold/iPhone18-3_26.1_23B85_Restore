@@ -7,19 +7,17 @@
 
 - (id)attributeDescriptions
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   center = [(HMDLocationClusterGroup *)self center];
   v5 = locationAsString(center);
   v6 = [v3 initWithName:@"Center" value:v5];
-  v13[0] = v6;
+  v12[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   locations = [(HMDLocationClusterGroup *)self locations];
   v9 = [v7 initWithName:@"Locations" value:locations];
-  v13[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
 
   return v10;
 }

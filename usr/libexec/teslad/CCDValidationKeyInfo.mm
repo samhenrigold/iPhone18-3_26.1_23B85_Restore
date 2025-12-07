@@ -439,35 +439,34 @@ LABEL_13:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       while (2)
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v13 = 0;
+            v12 = 0;
             goto LABEL_13;
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v9)
         {
           continue;
@@ -477,16 +476,16 @@ LABEL_13:
       }
     }
 
-    v13 = 1;
+    v12 = 1;
 LABEL_13:
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  return v13;
+  return v12;
 }
 
 - (BOOL)_validateCredentialTokenInDictionary:(id)dictionary
@@ -527,26 +526,25 @@ LABEL_13:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     allKeys = [v9 allKeys];
-    v11 = [allKeys countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v11 = [allKeys countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v27;
+      v13 = *v26;
 LABEL_4:
       v14 = 0;
       while (1)
       {
-        if (*v27 != v13)
+        if (*v26 != v13)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v15 = *(*(&v26 + 1) + 8 * v14);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -555,7 +553,7 @@ LABEL_4:
 
         if (v12 == ++v14)
         {
-          v12 = [allKeys countByEnumeratingWithState:&v26 objects:v31 count:16];
+          v12 = [allKeys countByEnumeratingWithState:&v25 objects:v30 count:16];
           if (v12)
           {
             goto LABEL_4;
@@ -570,39 +568,39 @@ LABEL_4:
     {
 LABEL_10:
 
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       allKeys = [(CCDValidationKeyInfo *)self subKeys];
-      v16 = [allKeys countByEnumeratingWithState:&v22 objects:v30 count:16];
-      if (!v16)
+      v15 = [allKeys countByEnumeratingWithState:&v21 objects:v29 count:16];
+      if (!v15)
       {
-        v20 = 1;
+        v19 = 1;
         goto LABEL_21;
       }
 
-      v17 = v16;
-      v18 = *v23;
+      v16 = v15;
+      v17 = *v22;
 LABEL_12:
-      v19 = 0;
+      v18 = 0;
       while (1)
       {
-        if (*v23 != v18)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        if (![*(*(&v22 + 1) + 8 * v19) validateSelfWithDictionary:v9 resultsDictionary:resultsDictionaryCopy])
+        if (![*(*(&v21 + 1) + 8 * v18) validateSelfWithDictionary:v9 resultsDictionary:resultsDictionaryCopy])
         {
           break;
         }
 
-        if (v17 == ++v19)
+        if (v16 == ++v18)
         {
-          v17 = [allKeys countByEnumeratingWithState:&v22 objects:v30 count:16];
-          v20 = 1;
-          if (v17)
+          v16 = [allKeys countByEnumeratingWithState:&v21 objects:v29 count:16];
+          v19 = 1;
+          if (v16)
           {
             goto LABEL_12;
           }
@@ -612,16 +610,16 @@ LABEL_12:
       }
     }
 
-    v20 = 0;
+    v19 = 0;
 LABEL_21:
 
     goto LABEL_22;
   }
 
-  v20 = 0;
+  v19 = 0;
 LABEL_22:
 
-  return v20;
+  return v19;
 }
 
 - (BOOL)_validateUnstructureddDictionaryInDictionary:(id)dictionary

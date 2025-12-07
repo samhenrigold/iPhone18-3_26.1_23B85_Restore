@@ -29,7 +29,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_100029C54();
+  sub_100029C54(delegate);
 }
 
 - (void)startMonitoring
@@ -41,7 +41,7 @@
 - (void)refreshDelegateWithState
 {
   selfCopy = self;
-  sub_10002AEA4();
+  sub_10002AEA4(selfCopy, v2);
 }
 
 - (void)statusChanged:(int64_t)changed
@@ -68,21 +68,21 @@
 - (BOOL)isAvailable
 {
   selfCopy = self;
-  v3 = sub_10002B048();
+  v4 = sub_10002B048(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (void)stopMonitoring
 {
   selfCopy = self;
-  sub_100252C40();
+  sub_100252C40(v2);
 }
 
 - (void)invokeAlertWithRequestUnlock:(BOOL)unlock automaticallyInvoked:(BOOL)invoked
 {
   selfCopy = self;
-  sub_100252D18(unlock, invoked);
+  sub_100252D18(unlock, invoked, v6);
 }
 
 - (BOOL)isBackgroundCountdownRunning
@@ -101,8 +101,10 @@
 
 - (void)performAlertRequestWithRequestUnlock:(BOOL)unlock automaticallyInvoked:(BOOL)invoked
 {
+  invokedCopy = invoked;
+  unlockCopy = unlock;
   selfCopy = self;
-  sub_100252F30(unlock, invoked);
+  sub_100252F30(unlockCopy, invokedCopy);
 }
 
 - (void)stateChanged:(id)changed

@@ -244,32 +244,32 @@
   return v8;
 }
 
-void __65__SBRootFolderViewAccessibility__accessibilityHitTest_withEvent___block_invoke(uint64_t a1)
+void __65__SBRootFolderViewAccessibility__accessibilityHitTest_withEvent___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v3 = *(*(*(a1 + 48) + 8) + 40);
-  if ((isKindOfClass & 1) != 0 || !v3)
+  v4 = *(*(*(a1 + 48) + 8) + 40);
+  if ((isKindOfClass & 1) != 0 || !v4)
   {
-    v9 = v3;
-    v4 = [*(a1 + 32) safeUIViewForKey:@"_scrollView"];
+    v10 = v4;
+    v5 = [*(a1 + 32) safeUIViewForKey:@"_scrollView"];
     [*(a1 + 32) safeCGFloatForKey:@"todayViewVisibilityProgress"];
-    if (v5 > 0.0 && ([v9 isDescendantOfView:v4] & 1) == 0)
+    if (v6 > 0.0 && ([v10 isDescendantOfView:v5] & 1) == 0)
     {
-      v6 = [*(a1 + 32) safeUIViewForKey:@"_searchableLeadingCustomWrapperView"];
-      [*(a1 + 32) convertPoint:v6 toView:{*(a1 + 56), *(a1 + 64)}];
-      v7 = [v6 _accessibilityHitTest:*(a1 + 40) withEvent:?];
-      if (v7)
+      v7 = [*(a1 + 32) safeUIViewForKey:@"_searchableLeadingCustomWrapperView"];
+      [*(a1 + 32) convertPoint:v7 toView:{*(a1 + 56), *(a1 + 64)}];
+      v8 = [v7 _accessibilityHitTest:*(a1 + 40) withEvent:?];
+      if (v8)
       {
-        v8 = v7;
+        v9 = v8;
       }
 
       else
       {
-        v8 = v9;
+        v9 = v10;
       }
 
-      objc_storeStrong((*(*(a1 + 48) + 8) + 40), v8);
+      objc_storeStrong((*(*(a1 + 48) + 8) + 40), v9);
     }
   }
 }

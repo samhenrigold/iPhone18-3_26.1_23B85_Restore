@@ -41,14 +41,14 @@
 - (uint64_t)mf_betterStringByResolvingSymlinksInPath
 {
   _MFLockGlobalLock();
-  v2 = mf_betterStringByResolvingSymlinksInPath_resolvedPaths;
+  v3 = mf_betterStringByResolvingSymlinksInPath_resolvedPaths;
   if (!mf_betterStringByResolvingSymlinksInPath_resolvedPaths)
   {
-    v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    mf_betterStringByResolvingSymlinksInPath_resolvedPaths = v2;
+    v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    mf_betterStringByResolvingSymlinksInPath_resolvedPaths = v3;
   }
 
-  stringByResolvingSymlinksInPath = [v2 objectForKey:self];
+  stringByResolvingSymlinksInPath = [v3 objectForKey:self];
   _MFUnlockGlobalLock();
   if (!stringByResolvingSymlinksInPath)
   {
@@ -150,16 +150,16 @@ LABEL_17:
 - (void)mf_stringByAbbreviatingSharedResourcesDirectoryWithTildeInPath
 {
   selfCopy = self;
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v2 = [self length];
   if (v2 < 1)
   {
-    goto LABEL_30;
+    return selfCopy;
   }
 
   v3 = v2;
   v4 = MEMORY[0x28223BE20]();
-  v6 = (v22 - v5);
+  v6 = (v21 - v5);
   if (v4 >= 0x101)
   {
     v6 = malloc_type_malloc(2 * v4, 0x1000040BDFB0063uLL);
@@ -196,7 +196,7 @@ LABEL_11:
     {
       v12 = v10;
       v13 = MEMORY[0x28223BE20]();
-      v15 = v22 - v14;
+      v15 = v21 - v14;
       v17 = 2 * v16;
       if (v13 > 0x100)
       {
@@ -205,7 +205,7 @@ LABEL_11:
 
       else
       {
-        bzero(v22 - v14, v17);
+        bzero(v21 - v14, v17);
       }
 
       [v9 getCharacters:v15 range:{0, v12}];
@@ -257,8 +257,6 @@ LABEL_11:
     free(v6);
   }
 
-LABEL_30:
-  v20 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

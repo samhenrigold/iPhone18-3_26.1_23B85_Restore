@@ -76,7 +76,7 @@
   }
 
   v10 = v9;
-  sub_100016C60(0, &qword_100922300);
+  sub_100016C60(0, &qword_100922300, UIView_ptr);
   v11 = v7;
   v7 = v10;
   LOBYTE(v10) = sub_100753FC4();

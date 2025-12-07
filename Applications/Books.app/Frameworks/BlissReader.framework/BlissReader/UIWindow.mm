@@ -195,7 +195,7 @@
     v36 = 0u;
     if (v3)
     {
-      [v3 transform];
+      objc_msgSend_transform(v3);
     }
 
     v11 = [[UIView alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
@@ -206,7 +206,7 @@
     [v11 setCenter:?];
     if (v3)
     {
-      [v3 transform];
+      objc_msgSend_transform(v3);
     }
 
     else

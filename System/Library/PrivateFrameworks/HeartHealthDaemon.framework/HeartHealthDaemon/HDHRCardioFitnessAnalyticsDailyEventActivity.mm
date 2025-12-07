@@ -73,7 +73,7 @@
 
 - (void)performPeriodicActivity:(id)activity completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v6 = HKLogHeartRateCategory();
@@ -116,63 +116,58 @@
 
   v14 = MEMORY[0x277D10748];
   selfCopy2 = self;
-  v26 = MEMORY[0x277D85DD0];
-  v27 = 3221225472;
-  v28 = __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_completion___block_invoke_311;
-  v29 = &unk_278660DC0;
+  v25 = MEMORY[0x277D85DD0];
+  v26 = 3221225472;
+  v27 = __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_completion___block_invoke_311;
+  v28 = &unk_278660DC0;
   selfCopy3 = self;
-  v31 = completionCopy;
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_completion___block_invoke_315;
-  v24 = &unk_278660738;
+  v30 = completionCopy;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_completion___block_invoke_315;
+  v23 = &unk_278660738;
   v15 = completionCopy;
-  v16 = [v14 maintenanceOperationWithName:@"HDHRCardioFitnessAnalyticsDailyEventActivity" asynchronousBlock:&v26 canceledBlock:&v21];
+  v16 = [v14 maintenanceOperationWithName:@"HDHRCardioFitnessAnalyticsDailyEventActivity" asynchronousBlock:&v25 canceledBlock:&v20];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   daemon = [WeakRetained daemon];
   maintenanceWorkCoordinator = [daemon maintenanceWorkCoordinator];
   [maintenanceWorkCoordinator enqueueMaintenanceOperation:v16];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_completion___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 8) invalidate];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
   v3 = [WeakRetained database];
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  v14 = 0;
-  v7 = [v3 takeAccessibilityAssertionWithOwnerIdentifier:v6 timeout:&v14 error:300.0];
-  v8 = v14;
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 8);
-  *(v9 + 8) = v7;
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v12 = 0;
+  v6 = [v3 takeAccessibilityAssertionWithOwnerIdentifier:v5 timeout:&v12 error:300.0];
+  v7 = v12;
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 8);
+  *(v8 + 8) = v6;
 
   if (!*(*(a1 + 32) + 8))
   {
     _HKInitializeLogging();
-    v11 = HKLogHeartRateCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = HKLogHeartRateCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 32);
+      v11 = *(a1 + 32);
       *buf = 138543618;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v8;
-      _os_log_impl(&dword_229486000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] unable to get accessibilityAssertion before enqueing maintenance operation: %{public}@", buf, 0x16u);
+      v14 = v11;
+      v15 = 2114;
+      v16 = v7;
+      _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] unable to get accessibilityAssertion before enqueing maintenance operation: %{public}@", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_completion___block_invoke_311(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = HKLogHeartRateCategory();
@@ -185,7 +180,7 @@ void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_
     {
       v7 = *(a1 + 32);
       *buf = 138543362;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_INFO, "[%{public}@] maintenance operation running", buf, 0xCu);
     }
   }
@@ -198,12 +193,10 @@ void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_
   block[2] = __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_completion___block_invoke_312;
   block[3] = &unk_278660D98;
   block[4] = v9;
-  v14 = v3;
-  v15 = v8;
+  v13 = v3;
+  v14 = v8;
   v11 = v3;
   dispatch_sync(v10, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_completion___block_invoke_312(uint64_t a1)
@@ -222,7 +215,7 @@ void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_
 
 void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_completion___block_invoke_2(void *a1, double a2, uint64_t a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = a1[5];
   v7 = *(v6 + 16);
   v8 = a4;
@@ -237,9 +230,9 @@ void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = a1[4];
-      v16 = 138543362;
-      v17 = v12;
-      _os_log_impl(&dword_229486000, v11, OS_LOG_TYPE_INFO, "[%{public}@] maintenance operation finished", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v12;
+      _os_log_impl(&dword_229486000, v11, OS_LOG_TYPE_INFO, "[%{public}@] maintenance operation finished", &v15, 0xCu);
     }
   }
 
@@ -249,7 +242,6 @@ void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_
   *(v13 + 8) = 0;
 
   (*(a1[6] + 16))(a2);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_completion___block_invoke_315(uint64_t a1, void *a2)
@@ -262,7 +254,7 @@ void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_
 
 - (void)_queue_submitAnalyticsWithActivityCompletion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v5 = HKLogHeartRateCategory();
@@ -274,17 +266,17 @@ void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v36 = objc_opt_class();
-      v8 = v36;
+      v35 = objc_opt_class();
+      v8 = v35;
       _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_INFO, "[%{public}@] Attempting to send daily event.", buf, 0xCu);
     }
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   deviceContextManager = [WeakRetained deviceContextManager];
-  v34 = 0;
-  v11 = [deviceContextManager numberOfDeviceContextsPerDeviceType:&v34];
-  v12 = v34;
+  v33 = 0;
+  v11 = [deviceContextManager numberOfDeviceContextsPerDeviceType:&v33];
+  v12 = v33;
 
   if (v12)
   {
@@ -294,9 +286,9 @@ void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_
     {
       v14 = objc_opt_class();
       *buf = 138543618;
-      v36 = v14;
-      v37 = 2112;
-      v38 = v12;
+      v35 = v14;
+      v36 = 2112;
+      v37 = v12;
       v15 = v14;
       _os_log_impl(&dword_229486000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Device contexts found with error %@", buf, 0x16u);
     }
@@ -320,7 +312,7 @@ void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_
       {
         v29 = objc_opt_class();
         *buf = 138543362;
-        v36 = v29;
+        v35 = v29;
         v30 = v29;
         _os_log_impl(&dword_229486000, v28, OS_LOG_TYPE_DEFAULT, "[%{public}@] Should not send daily event, will ignore.", buf, 0xCu);
       }
@@ -337,7 +329,7 @@ void __83__HDHRCardioFitnessAnalyticsDailyEventActivity_performPeriodicActivity_
       {
         v23 = objc_opt_class();
         *buf = 138543362;
-        v36 = v23;
+        v35 = v23;
         v24 = v23;
         _os_log_impl(&dword_229486000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unsuccessfully sent daily event will request retry.", buf, 0xCu);
       }
@@ -356,7 +348,7 @@ LABEL_22:
       {
         v20 = objc_opt_class();
         *buf = 138543362;
-        v36 = v20;
+        v35 = v20;
         v21 = v20;
         _os_log_impl(&dword_229486000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully sent daily event.", buf, 0xCu);
       }
@@ -365,8 +357,6 @@ LABEL_22:
       (completionCopy[2])(completionCopy, 0, 0);
       break;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (HDProfile)profile

@@ -23,7 +23,7 @@
 + (id)agif_animatedImageWithImageInfo:()animatedGIF
 {
   v3 = a3;
-  [v3 duration];
+  objc_msgSend_duration(v3);
   v5 = v4;
   v6 = MEMORY[0x277D755B8];
   frames = [v3 frames];

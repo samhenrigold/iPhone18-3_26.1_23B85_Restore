@@ -77,20 +77,20 @@
 
     *(d + 10) = v10;
     currentDocument = [(CRCoderArchiver *)self currentDocument];
-    v12 = *(currentDocument + 17);
-    v13 = *(currentDocument + 16);
+    v12 = currentDocument[17];
+    v13 = currentDocument[16];
     if (v13 >= v12)
     {
-      if (v12 == *(currentDocument + 18))
+      if (v12 == currentDocument[18])
       {
-        google::protobuf::internal::RepeatedPtrFieldBase::Reserve(currentDocument + 7, v12 + 1);
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve(currentDocument + 14, v12 + 1);
       }
 
       google::protobuf::internal::GenericTypeHandler<CRDT::Document_DocObject>::New();
     }
 
-    v14 = currentDocument[7];
-    *(currentDocument + 16) = v13 + 1;
+    v14 = *(currentDocument + 7);
+    currentDocument[16] = v13 + 1;
     v17 = *(v14 + 8 * v13);
     std::vector<CRDT::Document_DocObject *>::push_back[abi:ne200100](&self->currentDocObjectEncodingStack, &v17);
     encodedObjects2 = [(CRCoderArchiver *)self encodedObjects];
@@ -232,20 +232,20 @@
 {
   keyCopy = key;
   currentCustomObjectForEncoding = [(CRCoderArchiver *)self currentCustomObjectForEncoding];
-  v6 = *(currentCustomObjectForEncoding + 13);
-  v7 = *(currentCustomObjectForEncoding + 12);
+  v6 = currentCustomObjectForEncoding[13];
+  v7 = currentCustomObjectForEncoding[12];
   if (v7 >= v6)
   {
-    if (v6 == *(currentCustomObjectForEncoding + 14))
+    if (v6 == currentCustomObjectForEncoding[14])
     {
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(currentCustomObjectForEncoding + 5, v6 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(currentCustomObjectForEncoding + 10, v6 + 1);
     }
 
     google::protobuf::internal::GenericTypeHandler<CRDT::Document_CustomObject_MapEntry>::New();
   }
 
-  v8 = currentCustomObjectForEncoding[5];
-  *(currentCustomObjectForEncoding + 12) = v7 + 1;
+  v8 = *(currentCustomObjectForEncoding + 5);
+  currentCustomObjectForEncoding[12] = v7 + 1;
   v9 = *(v8 + 8 * v7);
   v10 = [(CRCoderArchiver *)self indexForKey:keyCopy];
   v11 = *(v9 + 32);

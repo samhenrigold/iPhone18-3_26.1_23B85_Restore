@@ -15,22 +15,23 @@
 {
   v4 = type metadata accessor for IndexPath();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   isa = IndexPath._bridgeToObjectiveC()().super.isa;
   v10 = type metadata accessor for ContainerDetailCompositionalLayout();
-  v14.receiver = selfCopy;
-  v14.super_class = v10;
-  v11 = [(ContainerDetailCompositionalLayout *)&v14 layoutAttributesForItemAtIndexPath:isa];
+  v15.receiver = selfCopy;
+  v15.super_class = v10;
+  v11 = [(ContainerDetailCompositionalLayout *)&v15 layoutAttributesForItemAtIndexPath:isa];
 
   v12 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC5Music34ContainerDetailCompositionalLayout_willLayoutAttributes);
   if (v12)
   {
+    v13 = *&selfCopy->willLayoutAttributes[OBJC_IVAR____TtC5Music34ContainerDetailCompositionalLayout_willLayoutAttributes];
 
     v12(v11, v7);
-    sub_100020438(v12);
+    sub_100020438(v12, v13);
   }
 
   (*(v5 + 8))(v7, v4);
@@ -49,7 +50,7 @@
 
   if (v8)
   {
-    sub_100009F78(0, &qword_10119E3E0);
+    sub_100009F78(0, &qword_10119E3E0, UICollectionViewLayoutAttributes_ptr);
     v9.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

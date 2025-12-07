@@ -31,19 +31,20 @@
   if (parametersCopy)
   {
     v9 = objc_msgSend_setTuningParameters_(self, v4, parametersCopy, v5, v6, v7);
+    v10 = v9;
     if (v9)
     {
-      sub_2957363C0();
+      sub_2957363C0(v9);
     }
   }
 
   else
   {
-    sub_295736438(&v11);
-    v9 = v11;
+    sub_295736438(&v12);
+    v10 = v12;
   }
 
-  return v9;
+  return v10;
 }
 
 - (int)initSubmodules
@@ -196,43 +197,44 @@
   {
     if ((sub_29572C214(parametersCopy, &self->_configuration, self->_height, self->_width) & 1) == 0)
     {
-      sub_295736A44(v18);
-      inited = v18[0];
+      sub_295736A44(v19);
+      v11 = v19[0];
       goto LABEL_7;
     }
   }
 
   else
   {
-    sub_29571779C(self->_width, self->_height, v18);
-    v12 = v18[9];
-    *&self->_configuration.setFarDistance.furthestDisparity = v18[8];
+    sub_29571779C(self->_width, self->_height, v19);
+    v12 = v19[9];
+    *&self->_configuration.setFarDistance.furthestDisparity = v19[8];
     *&self->_configuration.confidenceFalloffMaxDist = v12;
-    *&self->_configuration.bilateralSolverSigmaChromaRange = v18[10];
-    v13 = v18[5];
-    *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.useInstanceLayer[3] = v18[4];
+    *&self->_configuration.bilateralSolverSigmaChromaRange = v19[10];
+    v13 = v19[5];
+    *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.useInstanceLayer[3] = v19[4];
     *&self->_configuration.superPixelHoleFillParameters.holeFill.fractionValidThreshold = v13;
-    v14 = v18[7];
-    *&self->_configuration.superPixelHoleFillParameters.confidence.sigmaDepth = v18[6];
+    v14 = v19[7];
+    *&self->_configuration.superPixelHoleFillParameters.confidence.sigmaDepth = v19[6];
     *&self->_configuration.slicSuperPixelsSize = v14;
-    v15 = v18[1];
-    self->_configuration.distanceTransformParameters = v18[0];
+    v15 = v19[1];
+    self->_configuration.distanceTransformParameters = v19[0];
     self->_configuration.superPixelHoleFillParameters.holeFill.brightnessCorrectionParams = v15;
-    v16 = v18[3];
-    *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.colorSigma = v18[2];
-    *&self->_configuration.disparityQualityThreshold = v19;
+    v16 = v19[3];
+    *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.colorSigma = v19[2];
+    *&self->_configuration.disparityQualityThreshold = v20;
     *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.maxNumberOfInstanceLayers = v16;
   }
 
   inited = objc_msgSend_initSubmodules(self, v6, v7, v8, v9, v10);
+  v11 = inited;
   if (inited)
   {
-    sub_295736AF0();
+    sub_295736AF0(inited);
   }
 
 LABEL_7:
 
-  return inited;
+  return v11;
 }
 
 - (FigStillDepthProcessorGPU)init
@@ -366,110 +368,108 @@ LABEL_9:
 
             if (self->_distanceTransformMapTexture)
             {
-              v27 = self->_width;
-              v28 = self->_height;
-              v29 = CreatePixelBuffer();
-              self->_confidenceMap = v29;
-              if (v29)
+              v27 = CreatePixelBuffer();
+              self->_confidenceMap = v27;
+              if (v27)
               {
-                v31 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v30, v29, 25, 23, 0);
+                v29 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v28, v27, 25, 23, 0);
                 confidenceMapTexture = self->_confidenceMapTexture;
-                self->_confidenceMapTexture = v31;
+                self->_confidenceMapTexture = v29;
 
                 if (self->_confidenceMapTexture)
                 {
-                  v37 = objc_msgSend_createTextureOfSize_withFormat_(self, v33, 25, v34, v35, v36, width, height);
+                  v35 = objc_msgSend_createTextureOfSize_withFormat_(self, v31, 25, v32, v33, v34, width, height);
                   invalidConfidenceMaskTexture = self->_invalidConfidenceMaskTexture;
-                  self->_invalidConfidenceMaskTexture = v37;
+                  self->_invalidConfidenceMaskTexture = v35;
 
                   if (self->_invalidConfidenceMaskTexture)
                   {
-                    v43 = objc_msgSend_createTextureOfSize_withFormat_(self, v39, 55, v40, v41, v42, width, height);
+                    v41 = objc_msgSend_createTextureOfSize_withFormat_(self, v37, 55, v38, v39, v40, width, height);
                     bilateralInvZBufferInTexture = self->_bilateralInvZBufferInTexture;
-                    self->_bilateralInvZBufferInTexture = v43;
+                    self->_bilateralInvZBufferInTexture = v41;
 
                     if (self->_bilateralInvZBufferInTexture)
                     {
-                      v49 = objc_msgSend_createTextureOfSize_withFormat_(self, v45, 55, v46, v47, v48, width, height);
+                      v47 = objc_msgSend_createTextureOfSize_withFormat_(self, v43, 55, v44, v45, v46, width, height);
                       bilateralConfMapFloat32Texture = self->_bilateralConfMapFloat32Texture;
-                      self->_bilateralConfMapFloat32Texture = v49;
+                      self->_bilateralConfMapFloat32Texture = v47;
 
                       if (self->_bilateralConfMapFloat32Texture)
                       {
-                        v55 = objc_msgSend_createTextureOfSize_withFormat_(self, v51, 55, v52, v53, v54, width, height);
+                        v53 = objc_msgSend_createTextureOfSize_withFormat_(self, v49, 55, v50, v51, v52, width, height);
                         bilateralInvZBufferOutTexture = self->_bilateralInvZBufferOutTexture;
-                        self->_bilateralInvZBufferOutTexture = v55;
+                        self->_bilateralInvZBufferOutTexture = v53;
 
                         if (self->_bilateralInvZBufferOutTexture)
                         {
-                          v61 = objc_msgSend_createTextureOfSize_withFormat_(self, v57, 25, v58, v59, v60, width, height);
+                          v59 = objc_msgSend_createTextureOfSize_withFormat_(self, v55, 25, v56, v57, v58, width, height);
                           bilateralDisparityTexture = self->_bilateralDisparityTexture;
-                          self->_bilateralDisparityTexture = v61;
+                          self->_bilateralDisparityTexture = v59;
 
                           if (self->_bilateralDisparityTexture)
                           {
-                            v67 = objc_msgSend_createTextureOfSize_withFormat_(self, v63, 25, v64, v65, v66, width, height);
+                            v65 = objc_msgSend_createTextureOfSize_withFormat_(self, v61, 25, v62, v63, v64, width, height);
                             superPixelHoleFillDisparityTexture = self->_superPixelHoleFillDisparityTexture;
-                            self->_superPixelHoleFillDisparityTexture = v67;
+                            self->_superPixelHoleFillDisparityTexture = v65;
 
                             if (self->_superPixelHoleFillDisparityTexture)
                             {
-                              v73 = objc_msgSend_createTextureOfSize_withFormat_(self, v69, 25, v70, v71, v72, width, height);
+                              v71 = objc_msgSend_createTextureOfSize_withFormat_(self, v67, 25, v68, v69, v70, width, height);
                               superPixelHoleFillConfidenceTexture = self->_superPixelHoleFillConfidenceTexture;
-                              self->_superPixelHoleFillConfidenceTexture = v73;
+                              self->_superPixelHoleFillConfidenceTexture = v71;
 
                               if (self->_superPixelHoleFillConfidenceTexture)
                               {
-                                v79 = objc_msgSend_createTextureOfSize_withFormat_(self, v75, 25, v76, v77, v78, width, height);
+                                v77 = objc_msgSend_createTextureOfSize_withFormat_(self, v73, 25, v74, v75, v76, width, height);
                                 imerodeConfidenceMapTexture = self->_imerodeConfidenceMapTexture;
-                                self->_imerodeConfidenceMapTexture = v79;
+                                self->_imerodeConfidenceMapTexture = v77;
 
                                 if (self->_imerodeConfidenceMapTexture)
                                 {
-                                  objc_msgSend_inputImageSize(self->_slicMetalParameters, v81, v82, v83, v84, v85);
-                                  v90 = objc_msgSend_createTextureOfSize_withFormat_(self, v86, 70, v87, v88, v89);
+                                  objc_msgSend_inputImageSize(self->_slicMetalParameters, v79, v80, v81, v82, v83);
+                                  v88 = objc_msgSend_createTextureOfSize_withFormat_(self, v84, 70, v85, v86, v87);
                                   slicRgbaTexture = self->_slicRgbaTexture;
-                                  self->_slicRgbaTexture = v90;
+                                  self->_slicRgbaTexture = v88;
 
                                   if (self->_slicRgbaTexture)
                                   {
-                                    objc_msgSend_mapSize(self->_slicMetalParameters, v92, v93, v94, v95, v96);
-                                    v101 = objc_msgSend_createTextureOfSize_withFormat_(self, v97, 125, v98, v99, v100);
+                                    objc_msgSend_mapSize(self->_slicMetalParameters, v90, v91, v92, v93, v94);
+                                    v99 = objc_msgSend_createTextureOfSize_withFormat_(self, v95, 125, v96, v97, v98);
                                     slicSpixelCentersIdAndNPixelsTexture = self->_slicSpixelCentersIdAndNPixelsTexture;
-                                    self->_slicSpixelCentersIdAndNPixelsTexture = v101;
+                                    self->_slicSpixelCentersIdAndNPixelsTexture = v99;
 
                                     if (self->_slicSpixelCentersIdAndNPixelsTexture)
                                     {
-                                      objc_msgSend_mapSize(self->_slicMetalParameters, v103, v104, v105, v106, v107);
-                                      v112 = objc_msgSend_createTextureOfSize_withFormat_(self, v108, 70, v109, v110, v111);
+                                      objc_msgSend_mapSize(self->_slicMetalParameters, v101, v102, v103, v104, v105);
+                                      v110 = objc_msgSend_createTextureOfSize_withFormat_(self, v106, 70, v107, v108, v109);
                                       slicSpixelColorTexture = self->_slicSpixelColorTexture;
-                                      self->_slicSpixelColorTexture = v112;
+                                      self->_slicSpixelColorTexture = v110;
 
                                       if (self->_slicSpixelColorTexture)
                                       {
-                                        objc_msgSend_inputImageSize(self->_slicMetalParameters, v114, v115, v116, v117, v118);
-                                        v123 = objc_msgSend_createTextureOfSize_withFormat_(self, v119, 23, v120, v121, v122);
+                                        objc_msgSend_inputImageSize(self->_slicMetalParameters, v112, v113, v114, v115, v116);
+                                        v121 = objc_msgSend_createTextureOfSize_withFormat_(self, v117, 23, v118, v119, v120);
                                         slicIdxImgTexture = self->_slicIdxImgTexture;
-                                        self->_slicIdxImgTexture = v123;
+                                        self->_slicIdxImgTexture = v121;
 
                                         if (self->_slicIdxImgTexture)
                                         {
-                                          if (objc_msgSend_allocateResources(self->_distanceTransformProcessing, v125, v126, v127, v128, v129))
+                                          if (objc_msgSend_allocateResources(self->_distanceTransformProcessing, v123, v124, v125, v126, v127))
                                           {
                                             sub_295736E14();
                                           }
 
-                                          else if (objc_msgSend_allocateResources(self->_slicMetal, v130, v131, v132, v133, v134))
+                                          else if (objc_msgSend_allocateResources(self->_slicMetal, v128, v129, v130, v131, v132))
                                           {
                                             sub_295736E90();
                                           }
 
-                                          else if (objc_msgSend_allocateResources_(self->_superPixelHoleFillMetal, v135, self->_slicMaxNumSuperPixels, v136, v137, v138))
+                                          else if (objc_msgSend_allocateResources_(self->_superPixelHoleFillMetal, v133, self->_slicMaxNumSuperPixels, v134, v135, v136))
                                           {
                                             sub_295736F0C();
                                           }
 
-                                          else if (objc_msgSend_allocateResources(self->_DepthProcUtilMetal, v139, v140, v141, v142, v143))
+                                          else if (objc_msgSend_allocateResources(self->_DepthProcUtilMetal, v137, v138, v139, v140, v141))
                                           {
                                             sub_295736F88();
                                           }
@@ -601,7 +601,7 @@ LABEL_9:
 
   if (!self->_resourcesAllocated)
   {
-    objc_msgSend_releaseResources(self, v144, v145, v146, v147, v148);
+    objc_msgSend_releaseResources(self, v142, v143, v144, v145, v146);
     return self->_resourcesAllocated;
   }
 
@@ -736,15 +736,15 @@ LABEL_30:
   self->_disparityQualityIsHigh = 0;
   if (!self->_submodulesInitialized)
   {
-    sub_295738444(&v78);
+    sub_295738444(&v79);
 LABEL_28:
-    v76 = v78;
+    v77 = v79;
     goto LABEL_21;
   }
 
   if (!self->_resourcesAllocated)
   {
-    sub_2957384F0(&v78);
+    sub_2957384F0(&v79);
     goto LABEL_28;
   }
 
@@ -753,85 +753,86 @@ LABEL_28:
   self->_disparityInputBuffer = buffer;
   self->_personSegmentationMaskInputBuffer = maskBuffer;
   self->_disparityOutputBuffer = disparityBuffer;
-  if (objc_msgSend_sanityCheckParameters(self, v19, v20, v21, v22, v23))
+  v24 = objc_msgSend_sanityCheckParameters(self, v19, v20, v21, v22, v23);
+  if (v24)
   {
-    sub_29573859C();
+    sub_29573859C(v24);
 LABEL_24:
-    v76 = 4;
+    v77 = 4;
     goto LABEL_21;
   }
 
   if (!confidencesCopy)
   {
-    sub_295738C30(&v78);
+    sub_295738C30(&v79);
     goto LABEL_23;
   }
 
-  if (objc_msgSend_count(confidencesCopy, v24, v25, v26, v27, v28) < 4)
+  if (objc_msgSend_count(confidencesCopy, v25, v26, v27, v28, v29) < 4)
   {
-    sub_295738B84(&v78);
+    sub_295738B84(&v79);
     goto LABEL_23;
   }
 
   for (i = 0; i != 4; ++i)
   {
-    v34 = objc_msgSend_objectAtIndexedSubscript_(confidencesCopy, v29, i, v30, v31, v32);
+    v35 = objc_msgSend_objectAtIndexedSubscript_(confidencesCopy, v30, i, v31, v32, v33);
 
-    if (!v34)
+    if (!v35)
     {
-      sub_295738AD8(&v78);
+      sub_295738AD8(&v79);
       goto LABEL_23;
     }
   }
 
-  v35 = 280;
-  v36 = 86;
+  v36 = 280;
+  v37 = 86;
   do
   {
-    v37 = objc_msgSend_objectAtIndexedSubscript_(self->_instanceSegmentationInputBufferArray, v29, v36 - 86, v30, v31, v32);
-    *(&self->super.isa + v35) = v37;
+    v38 = objc_msgSend_objectAtIndexedSubscript_(self->_instanceSegmentationInputBufferArray, v30, v37 - 86, v31, v32, v33);
+    *(&self->super.isa + v36) = v38;
 
-    v39 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v38, *(&self->super.isa + v35), 25, 17, 0);
-    v40 = *(&self->_configuration.superPixelHoleFillParameters.holeFill.brightnessCorrectionParams.k + v35);
-    *(&self->_configuration.superPixelHoleFillParameters.holeFill.brightnessCorrectionParams.k + v35) = v39;
+    v40 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v39, *(&self->super.isa + v36), 25, 17, 0);
+    v41 = *(&self->_configuration.superPixelHoleFillParameters.holeFill.brightnessCorrectionParams.k + v36);
+    *(&self->_configuration.superPixelHoleFillParameters.holeFill.brightnessCorrectionParams.k + v36) = v40;
 
-    v45 = objc_msgSend_objectAtIndexedSubscript_(confidencesCopy, v41, v36 - 86, v42, v43, v44);
-    objc_msgSend_floatValue(v45, v46, v47, v48, v49, v50);
-    *(&self->super.isa + v36) = v51;
+    v46 = objc_msgSend_objectAtIndexedSubscript_(confidencesCopy, v42, v37 - 86, v43, v44, v45);
+    objc_msgSend_floatValue(v46, v47, v48, v49, v50, v51);
+    *(&self->super.isa + v37) = v52;
 
-    v35 += 8;
-    ++v36;
+    v36 += 8;
+    ++v37;
   }
 
-  while (v35 != 312);
-  objc_msgSend_setInstanceLayerUsage(self, v29, v52, v30, v31, v32);
+  while (v36 != 312);
+  objc_msgSend_setInstanceLayerUsage(self, v30, v53, v31, v32, v33);
   metalContext = self->_metalContext;
   if (self->_configuration.setFarDistance.useBestInstanceForPersonSegmentation)
   {
-    v55 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(metalContext, v53, self->_instanceSegmentationInputBuffer[self->_sortedInstanceLayerIndex[3]], 25, 17, 0);
+    v56 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(metalContext, v54, self->_instanceSegmentationInputBuffer[self->_sortedInstanceLayerIndex[3]], 25, 17, 0);
     personSegmentationMaskInputTexture = self->_personSegmentationMaskInputTexture;
-    self->_personSegmentationMaskInputTexture = v55;
+    self->_personSegmentationMaskInputTexture = v56;
 
     if (!self->_personSegmentationMaskInputTexture)
     {
-      sub_295738654(&v78);
+      sub_295738654(&v79);
       goto LABEL_23;
     }
   }
 
   else
   {
-    v58 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(metalContext, v53, self->_personSegmentationMaskInputBuffer, 25, 17, 0);
-    v59 = self->_personSegmentationMaskInputTexture;
-    self->_personSegmentationMaskInputTexture = v58;
+    v59 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(metalContext, v54, self->_personSegmentationMaskInputBuffer, 25, 17, 0);
+    v60 = self->_personSegmentationMaskInputTexture;
+    self->_personSegmentationMaskInputTexture = v59;
 
     if (!self->_personSegmentationMaskInputTexture)
     {
-      sub_295738A2C(&v78);
+      sub_295738A2C(&v79);
 LABEL_23:
-      if (!v78)
+      if (!v79)
       {
-        v76 = 0;
+        v77 = 0;
         goto LABEL_21;
       }
 
@@ -839,56 +840,56 @@ LABEL_23:
     }
   }
 
-  v60 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v57, self->_yuvInputBuffer, 10, 17, 0);
+  v61 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v58, self->_yuvInputBuffer, 10, 17, 0);
   yuvInputLumaTexture = self->_yuvInputLumaTexture;
-  self->_yuvInputLumaTexture = v60;
+  self->_yuvInputLumaTexture = v61;
 
   if (!self->_yuvInputLumaTexture)
   {
-    sub_295738980(&v78);
+    sub_295738980(&v79);
     goto LABEL_23;
   }
 
-  v63 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v62, self->_yuvInputBuffer, 30, 17, 1);
+  v64 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v63, self->_yuvInputBuffer, 30, 17, 1);
   yuvInputChromaTexture = self->_yuvInputChromaTexture;
-  self->_yuvInputChromaTexture = v63;
+  self->_yuvInputChromaTexture = v64;
 
   if (!self->_yuvInputChromaTexture)
   {
-    sub_2957388D4(&v78);
+    sub_2957388D4(&v79);
     goto LABEL_23;
   }
 
   objc_storeStrong(&self->_metadataDictionary, dictionary);
-  v66 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v65, self->_disparityOutputBuffer, 25, 22, 0);
+  v67 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v66, self->_disparityOutputBuffer, 25, 22, 0);
   disparityOutputTexture = self->_disparityOutputTexture;
-  self->_disparityOutputTexture = v66;
+  self->_disparityOutputTexture = v67;
 
   if (!self->_disparityOutputTexture)
   {
-    sub_295738828(&v78);
+    sub_295738828(&v79);
     goto LABEL_23;
   }
 
-  v69 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v68, self->_disparityInputBuffer, 25, 17, 0);
+  v70 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v69, self->_disparityInputBuffer, 25, 17, 0);
   disparityInputTexture = self->_disparityInputTexture;
-  self->_disparityInputTexture = v69;
+  self->_disparityInputTexture = v70;
 
   if (!self->_disparityInputTexture)
   {
-    sub_29573877C(&v78);
+    sub_29573877C(&v79);
     goto LABEL_23;
   }
 
-  v76 = objc_msgSend_processDisparityPipeline(self, v71, v72, v73, v74, v75);
-  if (v76)
+  v77 = objc_msgSend_processDisparityPipeline(self, v72, v73, v74, v75, v76);
+  if (v77)
   {
     sub_295738700();
   }
 
 LABEL_21:
 
-  return v76;
+  return v77;
 }
 
 - (void)releaseResources
@@ -1021,16 +1022,18 @@ LABEL_21:
 - (int)processDisparityPipeline
 {
   *&v3 = self->_configuration.confidenceSeedValue;
-  if (objc_msgSend_preprocessData_inputDisparity_outputDisparity_outputConfidence_(self->_DepthProcUtilMetal, a2, self->_disparityInputTexture, self->_preprocessedDisparityTexture, self->_confidenceMapTexture, v2, v3))
+  v5 = objc_msgSend_preprocessData_inputDisparity_outputDisparity_outputConfidence_(self->_DepthProcUtilMetal, a2, self->_disparityInputTexture, self->_preprocessedDisparityTexture, self->_confidenceMapTexture, v2, v3);
+  if (v5)
   {
-    sub_295738CDC();
+    sub_295738CDC(v5, &brightnessCorrectionParams);
     return brightnessCorrectionParams.doBrightnessCorrection;
   }
 
-  objc_msgSend_waitForSchedule(self->_metalContext, v5, v6, v7, v8, v9);
-  if (objc_msgSend_estimateDisparityQualityScore(self, v10, v11, v12, v13, v14))
+  objc_msgSend_waitForSchedule(self->_metalContext, v6, v7, v8, v9, v10);
+  v16 = objc_msgSend_estimateDisparityQualityScore(self, v11, v12, v13, v14, v15);
+  if (v16)
   {
-    sub_295738D88();
+    sub_295738D88(v16, &brightnessCorrectionParams);
     return brightnessCorrectionParams.doBrightnessCorrection;
   }
 
@@ -1040,9 +1043,10 @@ LABEL_21:
     return brightnessCorrectionParams.doBrightnessCorrection;
   }
 
-  if (objc_msgSend_erosionOnGpu(self, v15, v16, v17, v18, v19))
+  v22 = objc_msgSend_erosionOnGpu(self, v17, v18, v19, v20, v21);
+  if (v22)
   {
-    sub_295738E34();
+    sub_295738E34(v22, &brightnessCorrectionParams);
     return brightnessCorrectionParams.doBrightnessCorrection;
   }
 
@@ -1050,116 +1054,125 @@ LABEL_21:
   yuvInputLumaTexture = self->_yuvInputLumaTexture;
   yuvInputChromaTexture = self->_yuvInputChromaTexture;
   slicRgbaTexture = self->_slicRgbaTexture;
-  v25 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.useInstanceLayer[3];
-  v112 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.maxNumberOfInstanceLayers;
-  v113 = v25;
-  v26 = *&self->_configuration.superPixelHoleFillParameters.confidence.sigmaDepth;
-  v114 = *&self->_configuration.superPixelHoleFillParameters.holeFill.fractionValidThreshold;
-  v115 = v26;
-  v27 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.colorSigma;
+  v28 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.useInstanceLayer[3];
+  v124 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.maxNumberOfInstanceLayers;
+  v125 = v28;
+  v29 = *&self->_configuration.superPixelHoleFillParameters.confidence.sigmaDepth;
+  v126 = *&self->_configuration.superPixelHoleFillParameters.holeFill.fractionValidThreshold;
+  v127 = v29;
+  v30 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.colorSigma;
   brightnessCorrectionParams = self->_configuration.superPixelHoleFillParameters.holeFill.brightnessCorrectionParams;
-  v111 = v27;
-  if (objc_msgSend_convertFrom420fPixelBuffer_lumaTexture_chromaTexture_toSlicRgbaTexture_(superPixelHoleFillMetal, v20, &brightnessCorrectionParams, yuvInputLumaTexture, yuvInputChromaTexture, slicRgbaTexture))
+  v123 = v30;
+  v31 = objc_msgSend_convertFrom420fPixelBuffer_lumaTexture_chromaTexture_toSlicRgbaTexture_(superPixelHoleFillMetal, v23, &brightnessCorrectionParams, yuvInputLumaTexture, yuvInputChromaTexture, slicRgbaTexture);
+  if (v31)
   {
-    sub_295738EE0();
+    sub_295738EE0(v31);
     return 0;
   }
 
-  objc_msgSend_defaultsSlicoSpatialBias(self->_slicMetalParameters, v28, v29, v30, v31, v32);
-  brightnessCorrectionParams.doBrightnessCorrection = v33;
-  if (objc_msgSend_processSLICToOutputSPixelCentersIdsAndCounts_outputSPixelColor_outputIndexes_inputImage_parameters_(self->_slicMetal, v34, self->_slicSpixelCentersIdAndNPixelsTexture, self->_slicSpixelColorTexture, self->_slicIdxImgTexture, self->_slicRgbaTexture, &brightnessCorrectionParams))
+  objc_msgSend_defaultsSlicoSpatialBias(self->_slicMetalParameters, v32, v33, v34, v35, v36);
+  brightnessCorrectionParams.doBrightnessCorrection = v37;
+  v39 = objc_msgSend_processSLICToOutputSPixelCentersIdsAndCounts_outputSPixelColor_outputIndexes_inputImage_parameters_(self->_slicMetal, v38, self->_slicSpixelCentersIdAndNPixelsTexture, self->_slicSpixelColorTexture, self->_slicIdxImgTexture, self->_slicRgbaTexture, &brightnessCorrectionParams);
+  if (v39)
   {
-    sub_295738F8C();
+    sub_295738F8C(v39);
     return 0;
   }
 
-  objc_msgSend_fastBilateralSolver_PrepareHashTable(self, v35, v36, v37, v38, v39);
-  objc_msgSend_waitForSchedule(self->_metalContext, v40, v41, v42, v43, v44);
-  v45 = self->_superPixelHoleFillMetal;
-  v46 = self->_slicRgbaTexture;
+  objc_msgSend_fastBilateralSolver_PrepareHashTable(self, v40, v41, v42, v43, v44);
+  objc_msgSend_waitForSchedule(self->_metalContext, v45, v46, v47, v48, v49);
+  v50 = self->_superPixelHoleFillMetal;
+  v51 = self->_slicRgbaTexture;
   slicIdxImgTexture = self->_slicIdxImgTexture;
   personSegmentationMaskInputTexture = self->_personSegmentationMaskInputTexture;
-  v49 = self->_instanceSegmentationInputTexture[0];
-  v50 = self->_instanceSegmentationInputTexture[1];
-  v51 = self->_instanceSegmentationInputTexture[2];
-  v52 = self->_instanceSegmentationInputTexture[3];
-  v53 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.useInstanceLayer[3];
-  v112 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.maxNumberOfInstanceLayers;
-  v113 = v53;
-  v54 = *&self->_configuration.superPixelHoleFillParameters.confidence.sigmaDepth;
-  v114 = *&self->_configuration.superPixelHoleFillParameters.holeFill.fractionValidThreshold;
-  v115 = v54;
-  v55 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.colorSigma;
+  v54 = self->_instanceSegmentationInputTexture[0];
+  v55 = self->_instanceSegmentationInputTexture[1];
+  v56 = self->_instanceSegmentationInputTexture[2];
+  v57 = self->_instanceSegmentationInputTexture[3];
+  v58 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.useInstanceLayer[3];
+  v124 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.maxNumberOfInstanceLayers;
+  v125 = v58;
+  v59 = *&self->_configuration.superPixelHoleFillParameters.confidence.sigmaDepth;
+  v126 = *&self->_configuration.superPixelHoleFillParameters.holeFill.fractionValidThreshold;
+  v127 = v59;
+  v60 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.colorSigma;
   brightnessCorrectionParams = self->_configuration.superPixelHoleFillParameters.holeFill.brightnessCorrectionParams;
-  v111 = v55;
-  if (objc_msgSend_computeStage0_inImageTexture_inLabelTexture_inPersonMaskTexture_inInstanceSegmentationLayer0Texture_inInstanceSegmentationLayer1Texture_inInstanceSegmentationLayer2Texture_inInstanceSegmentationLayer3Texture_(v45, v56, &brightnessCorrectionParams, v46, slicIdxImgTexture, personSegmentationMaskInputTexture, v49, v50, v51, v52))
+  v123 = v60;
+  v62 = objc_msgSend_computeStage0_inImageTexture_inLabelTexture_inPersonMaskTexture_inInstanceSegmentationLayer0Texture_inInstanceSegmentationLayer1Texture_inInstanceSegmentationLayer2Texture_inInstanceSegmentationLayer3Texture_(v50, v61, &brightnessCorrectionParams, v51, slicIdxImgTexture, personSegmentationMaskInputTexture, v54, v55, v56, v57);
+  if (v62)
   {
-    sub_295739038();
+    sub_295739038(v62, &brightnessCorrectionParams);
     return brightnessCorrectionParams.doBrightnessCorrection;
   }
 
-  v62 = MEMORY[0x29EDB9270];
+  v68 = MEMORY[0x29EDB9270];
   if (*MEMORY[0x29EDB9270] == 1)
   {
     kdebug_trace();
   }
 
-  objc_msgSend_computeCoordIndices(self->_bilateralGridProcessing, v57, v58, v59, v60, v61);
-  if (*v62 == 1)
+  objc_msgSend_computeCoordIndices(self->_bilateralGridProcessing, v63, v64, v65, v66, v67);
+  if (*v68 == 1)
   {
     kdebug_trace();
-    if (*v62 == 1)
+    if (*v68 == 1)
     {
       kdebug_trace();
     }
   }
 
-  objc_msgSend_computeInterpIndices(self->_bilateralGridProcessing, v63, v64, v65, v66, v67);
-  if (*v62 == 1)
+  objc_msgSend_computeInterpIndices(self->_bilateralGridProcessing, v69, v70, v71, v72, v73);
+  if (*v68 == 1)
   {
     kdebug_trace();
   }
 
-  objc_msgSend_waitForSchedule(self->_metalContext, v68, v69, v70, v71, v72);
-  *&v73 = self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.minPersonSegmentation;
-  if (objc_msgSend_makeForegroundMask_personSegmentationMap_validForegroundMask_minSegmentationThreshold_(self->_DepthProcUtilMetal, v74, self->_confidenceMapTexture, self->_personSegmentationMaskInputTexture, self->_validForegroundMaskTexture, v75, v73))
+  objc_msgSend_waitForSchedule(self->_metalContext, v74, v75, v76, v77, v78);
+  *&v79 = self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.minPersonSegmentation;
+  ForegroundMask_personSegmentationMap_validForegroundMask_minSegmentationThreshold = objc_msgSend_makeForegroundMask_personSegmentationMap_validForegroundMask_minSegmentationThreshold_(self->_DepthProcUtilMetal, v80, self->_confidenceMapTexture, self->_personSegmentationMaskInputTexture, self->_validForegroundMaskTexture, v81, v79);
+  if (ForegroundMask_personSegmentationMap_validForegroundMask_minSegmentationThreshold)
   {
-    sub_2957390E4();
+    sub_2957390E4(ForegroundMask_personSegmentationMap_validForegroundMask_minSegmentationThreshold, &brightnessCorrectionParams);
     return brightnessCorrectionParams.doBrightnessCorrection;
   }
 
-  if (objc_msgSend_setFarDistanceOnGpu(self, v76, v77, v78, v79, v80))
+  v88 = objc_msgSend_setFarDistanceOnGpu(self, v83, v84, v85, v86, v87);
+  if (v88)
   {
-    sub_295739190();
+    sub_295739190(v88, &brightnessCorrectionParams);
     return brightnessCorrectionParams.doBrightnessCorrection;
   }
 
-  objc_msgSend_waitForSchedule(self->_metalContext, v81, v82, v83, v84, v85);
-  if (objc_msgSend_confidenceFalloff(self, v86, v87, v88, v89, v90))
+  objc_msgSend_waitForSchedule(self->_metalContext, v89, v90, v91, v92, v93);
+  v99 = objc_msgSend_confidenceFalloff(self, v94, v95, v96, v97, v98);
+  if (v99)
   {
-    sub_29573923C();
+    sub_29573923C(v99, &brightnessCorrectionParams);
     return brightnessCorrectionParams.doBrightnessCorrection;
   }
 
-  if (objc_msgSend_superPixelHoleFilling(self, v91, v92, v93, v94, v95))
+  v105 = objc_msgSend_superPixelHoleFilling(self, v100, v101, v102, v103, v104);
+  if (v105)
   {
-    sub_2957392E8();
+    sub_2957392E8(v105, &brightnessCorrectionParams);
     return brightnessCorrectionParams.doBrightnessCorrection;
   }
 
-  if (objc_msgSend_fastBilateralSolver(self, v96, v97, v98, v99, v100))
+  v111 = objc_msgSend_fastBilateralSolver(self, v106, v107, v108, v109, v110);
+  if (v111)
   {
-    sub_295739394();
+    sub_295739394(v111, &brightnessCorrectionParams);
     return brightnessCorrectionParams.doBrightnessCorrection;
   }
 
-  if (objc_msgSend_boxFilterFrom_To_(self->_FFCFilters, v101, self->_bilateralDisparityTexture, self->_disparityOutputTexture, v102, v103))
+  v115 = objc_msgSend_boxFilterFrom_To_(self->_FFCFilters, v112, self->_bilateralDisparityTexture, self->_disparityOutputTexture, v113, v114);
+  if (v115)
   {
-    sub_295739440();
+    sub_295739440(v115, &brightnessCorrectionParams);
     return brightnessCorrectionParams.doBrightnessCorrection;
   }
 
-  objc_msgSend_waitForSchedule(self->_metalContext, v104, v105, v106, v107, v108);
+  objc_msgSend_waitForSchedule(self->_metalContext, v116, v117, v118, v119, v120);
   return 0;
 }
 
@@ -1168,40 +1181,43 @@ LABEL_21:
   v5 = objc_msgSend_erosionFilterFrom_To_(self->_FFCFilters, a2, self->_confidenceMapTexture, self->_imerodeConfidenceMapTexture, v2, v3);
   if (v5)
   {
-    v8 = v5;
+    v9 = v5;
     sub_295739598();
   }
 
   else
   {
     v8 = objc_msgSend_postErosion_outputConfidence_outputDisparity_(self->_DepthProcUtilMetal, v6, self->_imerodeConfidenceMapTexture, self->_confidenceMapTexture, self->_preprocessedDisparityTexture, v7);
+    v9 = v8;
     if (v8)
     {
-      sub_295739614();
+      sub_295739614(v8);
     }
   }
 
-  return v8;
+  return v9;
 }
 
 - (int)setFarDistanceOnGpu
 {
-  if (objc_msgSend_computeDistanceWithTexture_distance_waitForScheduled_(self->_distanceTransformProcessing, a2, self->_validForegroundMaskTexture, self->_distanceTransformMapTexture, 0, v2))
+  v4 = objc_msgSend_computeDistanceWithTexture_distance_waitForScheduled_(self->_distanceTransformProcessing, a2, self->_validForegroundMaskTexture, self->_distanceTransformMapTexture, 0, v2);
+  if (v4)
   {
-    sub_295739690();
-    return v7;
+    sub_295739690(v4, &v9);
+    return v9;
   }
 
   else
   {
-    v5 = objc_msgSend_setFarWithDistance_inputDistanceTransformMap_inputDisparity_inoutConfidenceMap_outputDistanceTransformDisparity_(self->_DepthProcUtilMetal, v4, *&self->_configuration.setFarDistance.maxDistance, *&self->_configuration.setFarDistance.confidence, self->_distanceTransformMapTexture, self->_preprocessedDisparityTexture, self->_confidenceMapTexture, self->_distanceTransformDisparityTexture);
-    if (v5)
+    v6 = objc_msgSend_setFarWithDistance_inputDistanceTransformMap_inputDisparity_inoutConfidenceMap_outputDistanceTransformDisparity_(self->_DepthProcUtilMetal, v5, *&self->_configuration.setFarDistance.maxDistance, *&self->_configuration.setFarDistance.confidence, self->_distanceTransformMapTexture, self->_preprocessedDisparityTexture, self->_confidenceMapTexture, self->_distanceTransformDisparityTexture);
+    v7 = v6;
+    if (v6)
     {
-      sub_29573973C();
+      sub_29573973C(v6);
     }
   }
 
-  return v5;
+  return v7;
 }
 
 - (int)confidenceFalloff
@@ -1213,19 +1229,20 @@ LABEL_21:
   }
 
   Mask_value_outputBuffer = objc_msgSend_buildFindMask_value_outputBuffer_(self->_DepthProcUtilMetal, a2, self->_confidenceMapTexture, self->_invalidConfidenceMaskTexture, v2, v3, 0.0);
+  v9 = Mask_value_outputBuffer;
   if (Mask_value_outputBuffer)
   {
-    sub_2957397B8();
+    sub_2957397B8(Mask_value_outputBuffer);
   }
 
   else
   {
-    v9 = objc_msgSend_computeDistanceWithTexture_distance_waitForScheduled_(self->_distanceTransformProcessing, v6, self->_invalidConfidenceMaskTexture, self->_distanceTransformMapTexture, 0, v7);
-    if (v9)
+    v10 = objc_msgSend_computeDistanceWithTexture_distance_waitForScheduled_(self->_distanceTransformProcessing, v7, self->_invalidConfidenceMaskTexture, self->_distanceTransformMapTexture, 0, v8);
+    if (v10)
     {
-      v11 = v9;
+      v12 = v10;
       sub_295739834();
-      Mask_value_outputBuffer = v11;
+      v9 = v12;
     }
   }
 
@@ -1234,7 +1251,7 @@ LABEL_21:
     kdebug_trace();
   }
 
-  return Mask_value_outputBuffer;
+  return v9;
 }
 
 - (void)setInstanceLayerUsage
@@ -1311,18 +1328,18 @@ LABEL_21:
   distanceTransformDisparityTexture = self->_distanceTransformDisparityTexture;
   distanceTransformMapTexture = self->_distanceTransformMapTexture;
   v10 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.useInstanceLayer[3];
-  v43 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.maxNumberOfInstanceLayers;
-  v44 = v10;
+  v44 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.maxNumberOfInstanceLayers;
+  v45 = v10;
   v11 = *&self->_configuration.superPixelHoleFillParameters.confidence.sigmaDepth;
-  v45 = *&self->_configuration.superPixelHoleFillParameters.holeFill.fractionValidThreshold;
-  v46 = v11;
+  v46 = *&self->_configuration.superPixelHoleFillParameters.holeFill.fractionValidThreshold;
+  v47 = v11;
   v12 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.colorSigma;
   brightnessCorrectionParams = self->_configuration.superPixelHoleFillParameters.holeFill.brightnessCorrectionParams;
-  v42 = v12;
+  v43 = v12;
   v13 = objc_msgSend_computeStage4_inLabelTexture_inDepthTex_inConfTex_inDistanceTransformMapTex_maxDist_sigma_den_(superPixelHoleFillMetal, a2, &brightnessCorrectionParams, slicIdxImgTexture, distanceTransformDisparityTexture, confidenceMapTexture, distanceTransformMapTexture, v2, v3);
   if (v13)
   {
-    v39 = v13;
+    v40 = v13;
     sub_2957398B0();
   }
 
@@ -1348,27 +1365,28 @@ LABEL_21:
     superPixelHoleFillDisparityTexture = self->_superPixelHoleFillDisparityTexture;
     superPixelHoleFillConfidenceTexture = self->_superPixelHoleFillConfidenceTexture;
     v31 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.useInstanceLayer[3];
-    v43 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.maxNumberOfInstanceLayers;
-    v44 = v31;
+    v44 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.maxNumberOfInstanceLayers;
+    v45 = v31;
     v32 = *&self->_configuration.superPixelHoleFillParameters.confidence.sigmaDepth;
-    v45 = *&self->_configuration.superPixelHoleFillParameters.holeFill.fractionValidThreshold;
-    v46 = v32;
+    v46 = *&self->_configuration.superPixelHoleFillParameters.holeFill.fractionValidThreshold;
+    v47 = v32;
     v33 = *&self->_configuration.superPixelHoleFillParameters.holeFill.similarityParams.colorSigma;
     brightnessCorrectionParams = self->_configuration.superPixelHoleFillParameters.holeFill.brightnessCorrectionParams;
-    v42 = v33;
+    v43 = v33;
     v35 = objc_msgSend_computeStageSolver_inLabelTexture_inConfTex_inImageTex_outDepthTex_outConfTex_(v25, v34, &brightnessCorrectionParams, v26, imerodeConfidenceMapTexture, slicRgbaTexture, superPixelHoleFillDisparityTexture, superPixelHoleFillConfidenceTexture);
     if (v35)
     {
-      v39 = v35;
+      v40 = v35;
       sub_29573992C();
     }
 
     else if (self->_disparityQualityIsHigh)
     {
       v39 = objc_msgSend_disparityDataOverrideOnGpu_To_(self->_DepthProcUtilMetal, v36, self->_disparityInputTexture, self->_superPixelHoleFillDisparityTexture, v37, v38);
+      v40 = v39;
       if (v39)
       {
-        sub_2957399A8();
+        sub_2957399A8(v39);
       }
     }
 
@@ -1378,7 +1396,7 @@ LABEL_21:
     }
   }
 
-  return v39;
+  return v40;
 }
 
 - (int)fastBilateralSolver_PrepareHashTable
@@ -1389,15 +1407,15 @@ LABEL_21:
     kdebug_trace();
   }
 
-  if (objc_msgSend_create_sigma_s_sigma_r_luma_sigma_r_chroma_(self->_bilateralGridProcessing, a2, self->_yuvInputBuffer, self->_configuration.bilateralSolverSigmaSpace, self->_configuration.bilateralSolverSigmaLumaRange, self->_configuration.bilateralSolverSigmaChromaRange) && objc_msgSend_create_sigma_s_sigma_r_luma_sigma_r_chroma_(self->_bilateralGridProcessing, v4, self->_yuvInputBuffer, self->_configuration.bilateralSolverSigmaSpace, self->_configuration.bilateralSolverSigmaLumaRange, 255))
+  if (objc_msgSend_create_sigma_s_sigma_r_luma_sigma_r_chroma_(self->_bilateralGridProcessing, a2, self->_yuvInputBuffer, self->_configuration.bilateralSolverSigmaSpace, self->_configuration.bilateralSolverSigmaLumaRange, self->_configuration.bilateralSolverSigmaChromaRange) && (sigma_s_sigma_r_luma_sigma_r_chroma = objc_msgSend_create_sigma_s_sigma_r_luma_sigma_r_chroma_(self->_bilateralGridProcessing, v4, self->_yuvInputBuffer, self->_configuration.bilateralSolverSigmaSpace, self->_configuration.bilateralSolverSigmaLumaRange, 255), sigma_s_sigma_r_luma_sigma_r_chroma))
   {
-    sub_295739A24();
-    v5 = v7;
+    sub_295739A24(sigma_s_sigma_r_luma_sigma_r_chroma, &v8);
+    v6 = v8;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   if (*v3 == 1)
@@ -1405,7 +1423,7 @@ LABEL_21:
     kdebug_trace();
   }
 
-  return v5;
+  return v6;
 }
 
 - (int)fastBilateralSolver
@@ -1414,31 +1432,36 @@ LABEL_21:
   if (v4)
   {
     *&v5 = self->_configuration.bilateralSolverLambda;
-    if (objc_msgSend_doSolveWithBilateralGridhash_reference_input_confidence_output_lambda_maxIterations_(self->_bilateralSolverGPUProcessing, v3, self->_bilateralGridProcessing, self->_yuvInputLumaTexture, self->_bilateralInvZBufferInTexture, self->_bilateralConfMapFloat32Texture, self->_bilateralInvZBufferOutTexture, self->_configuration.bilateralSolverPCGMaxIters, v5))
+    v6 = objc_msgSend_doSolveWithBilateralGridhash_reference_input_confidence_output_lambda_maxIterations_(self->_bilateralSolverGPUProcessing, v3, self->_bilateralGridProcessing, self->_yuvInputLumaTexture, self->_bilateralInvZBufferInTexture, self->_bilateralConfMapFloat32Texture, self->_bilateralInvZBufferOutTexture, self->_configuration.bilateralSolverPCGMaxIters, v5);
+    if (v6)
     {
-      sub_295739AD0();
-      v8 = v10;
-    }
-
-    else if (objc_msgSend_postFbs_toF16_prepareBuffer_(self->_DepthProcUtilMetal, v6, self->_bilateralInvZBufferOutTexture, self->_bilateralDisparityTexture, v4, v7))
-    {
-      sub_295739B7C();
-      v8 = v11;
+      sub_295739AD0(v6, &v12);
+      v10 = v12;
     }
 
     else
     {
-      v8 = 0;
+      v9 = objc_msgSend_postFbs_toF16_prepareBuffer_(self->_DepthProcUtilMetal, v7, self->_bilateralInvZBufferOutTexture, self->_bilateralDisparityTexture, v4, v8);
+      if (v9)
+      {
+        sub_295739B7C(v9, &v13);
+        v10 = v13;
+      }
+
+      else
+      {
+        v10 = 0;
+      }
     }
   }
 
   else
   {
-    sub_295739C28(&v12);
-    v8 = v12;
+    sub_295739C28(&v14);
+    v10 = v14;
   }
 
-  return v8;
+  return v10;
 }
 
 - (int)sanityCheckParameters
@@ -1718,28 +1741,28 @@ LABEL_25:
   disparityQualityThreshold = self->_configuration.disparityQualityThreshold;
   if (disparityQualityThreshold < 0.0 || disparityQualityThreshold > 1.0)
   {
-    sub_29573AB9C(&v26);
-    return v26;
+    sub_29573AB9C(&v25);
+    return v25;
   }
 
   preprocessedDisparity = self->_preprocessedDisparity;
   if (!preprocessedDisparity)
   {
-    sub_29573AAF0(&v26);
-    return v26;
+    sub_29573AAF0(&v25);
+    return v25;
   }
 
   if (CVPixelBufferGetPixelFormatType(preprocessedDisparity) != 1751411059)
   {
-    sub_29573A998(&v26);
-    return v26;
+    sub_29573A998(&v25);
+    return v25;
   }
 
   v6 = sub_29571B778(self->_preprocessedDisparity, 1uLL);
   if (!v6)
   {
-    sub_29573AA44(&v26);
-    return v26;
+    sub_29573AA44(&v25);
+    return v25;
   }
 
   v7 = v6;
@@ -1759,7 +1782,6 @@ LABEL_25:
         v15 = 0;
         do
         {
-          v16 = *(v7 + v15);
           __asm { FCMP            H1, #0 }
 
           if (!(_NF ^ _VF | _ZF))
@@ -1778,21 +1800,21 @@ LABEL_25:
     }
 
     while (v12 != height);
-    v22 = v13;
-    v23 = v14 == 0;
+    v21 = v13;
+    v22 = v14 == 0;
   }
 
   else
   {
-    v23 = 0;
-    v22 = 0.0;
+    v22 = 0;
+    v21 = 0.0;
   }
 
-  v24 = v22 / v11;
-  self->_disparityQualityScore = v24;
-  self->_disparityQualityIsHigh = v24 >= disparityQualityThreshold;
-  self->_figDepthQuality = v24 >= 0.3;
-  if (!v23)
+  v23 = v21 / v11;
+  self->_disparityQualityScore = v23;
+  self->_disparityQualityIsHigh = v23 >= disparityQualityThreshold;
+  self->_figDepthQuality = v23 >= 0.3;
+  if (!v22)
   {
     CVPixelBufferUnlockBaseAddress(self->_preprocessedDisparity, 1uLL);
   }

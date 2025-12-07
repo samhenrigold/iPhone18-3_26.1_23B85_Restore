@@ -16,9 +16,7 @@
 
 - (void)setConsumers:(id)consumers
 {
-  v4 = [consumers copy];
-  consumers = self->super._consumers;
-  self->super._consumers = v4;
+  self->super._consumers = [consumers copy];
 
   MEMORY[0x2821F96F8]();
 }

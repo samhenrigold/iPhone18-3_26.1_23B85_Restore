@@ -213,8 +213,7 @@
 {
   if (![(BKPictureBookContentViewController *)self alreadyRevealed])
   {
-    [(BKPictureBookContentViewController *)self setAlreadyRevealed:1];
-    v3 = _AEWKPictureBookLog();
+    v3 = _AEWKPictureBookLog([(BKPictureBookContentViewController *)self setAlreadyRevealed:1]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *v4 = 0;

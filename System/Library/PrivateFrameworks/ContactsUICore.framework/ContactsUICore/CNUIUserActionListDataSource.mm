@@ -728,20 +728,20 @@ LABEL_11:
   return emptyObservable;
 }
 
-id __60__CNUIUserActionListDataSource_modelsForContact_actionType___block_invoke(uint64_t a1)
+id __60__CNUIUserActionListDataSource_modelsForContact_actionType___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __60__CNUIUserActionListDataSource_modelsForContact_actionType___block_invoke_cold_1(a1);
   }
 
   *(*(*(a1 + 56) + 8) + 24) = 1;
-  v3 = objc_alloc(MEMORY[0x1E6996620]);
-  v4 = [*(a1 + 32) schedulerProvider];
-  v5 = [v3 initWithSchedulerProvider:v4];
+  v4 = objc_alloc(MEMORY[0x1E6996620]);
+  v5 = [*(a1 + 32) schedulerProvider];
+  v6 = [v4 initWithSchedulerProvider:v5];
 
-  return v5;
+  return v6;
 }
 
 - (void)performFirstResolutionForEntry:(id)entry contact:(id)contact actionType:(id)type
@@ -1147,7 +1147,7 @@ id __71__CNUIUserActionListDataSource_registerDelegate_withContactIdentifier___b
 {
   v1 = [a1 shortDebugDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "New Request for %@ (data source: %@)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "New Request for %@ (data source: %@)", v4, v5, v6, v7);
 }
 
 - (void)modelsForContact:(os_log_t)log actionType:.cold.3(void *a1, uint8_t *buf, os_log_t log)
@@ -1159,8 +1159,13 @@ id __71__CNUIUserActionListDataSource_registerDelegate_withContactIdentifier___b
 
 void __60__CNUIUserActionListDataSource_modelsForContact_actionType___block_invoke_cold_1(uint64_t a1)
 {
-  v7 = [*(a1 + 48) shortDebugDescription];
-  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v1, v2, "Cache miss for %@ (%@)", v3, v4, v5, v6, 2u);
+  v1 = *(a1 + 40);
+  v2 = [*(a1 + 48) shortDebugDescription];
+  *v9 = 138412546;
+  *&v9[4] = v1;
+  *&v9[12] = 2112;
+  *&v9[14] = v2;
+  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v3, v4, "Cache miss for %@ (%@)", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 @end

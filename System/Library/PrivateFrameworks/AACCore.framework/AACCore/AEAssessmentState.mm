@@ -567,69 +567,8 @@ LABEL_15:
   }
 
   [state allowsAutoCorrection];
-  if (v4 != [OUTLINED_FUNCTION_0_0() allowsAutoCorrection])
+  if (v4 != [OUTLINED_FUNCTION_0_0() allowsAutoCorrection] || (objc_msgSend(state, "allowsSmartPunctuation"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsSmartPunctuation")) || (objc_msgSend(state, "allowsSpellCheck"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsSpellCheck")) || (objc_msgSend(state, "allowsPredictiveKeyboard"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsPredictiveKeyboard")) || (objc_msgSend(state, "allowsActivityContinuation"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsActivityContinuation")) || (objc_msgSend(state, "allowsDictation"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsDictation")) || (objc_msgSend(state, "allowsAccessibilityKeyboard"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsAccessibilityKeyboard")) || (objc_msgSend(state, "allowsAccessibilityLiveCaptions"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsAccessibilityLiveCaptions")) || (objc_msgSend(state, "allowsAccessibilityReader"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsAccessibilityReader")) || (objc_msgSend(state, "allowsAccessibilitySpeech"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsAccessibilitySpeech")) || (objc_msgSend(state, "allowsAccessibilityTypingFeedback"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsAccessibilityTypingFeedback")) || (objc_msgSend(state, "allowsPasswordAutoFill"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsPasswordAutoFill")) || (objc_msgSend(state, "allowsContinuousPathKeyboard"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsContinuousPathKeyboard")) || (objc_msgSend(state, "allowsKeyboardShortcuts"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsKeyboardShortcuts")) || (objc_msgSend(state, "allowsKeyboardMathSolving"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsKeyboardMathSolving")) || (objc_msgSend(state, "allowsMathPaperSolving"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsMathPaperSolving")) || (objc_msgSend(state, "allowsScreenshots"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsScreenshots")) || (objc_msgSend(state, "_allowsNetworkAccess"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "_allowsNetworkAccess")))
   {
-    goto LABEL_36;
-  }
-
-  [state allowsSmartPunctuation];
-  if (v4 != [OUTLINED_FUNCTION_0_0() allowsSmartPunctuation])
-  {
-    goto LABEL_36;
-  }
-
-  [state allowsSpellCheck];
-  if (v4 != [OUTLINED_FUNCTION_0_0() allowsSpellCheck])
-  {
-    goto LABEL_36;
-  }
-
-  [state allowsPredictiveKeyboard];
-  if (v4 != [OUTLINED_FUNCTION_0_0() allowsPredictiveKeyboard])
-  {
-    goto LABEL_36;
-  }
-
-  [state allowsActivityContinuation];
-  if (v4 != [OUTLINED_FUNCTION_0_0() allowsActivityContinuation])
-  {
-    goto LABEL_36;
-  }
-
-  [state allowsDictation];
-  if (v4 != [OUTLINED_FUNCTION_0_0() allowsDictation])
-  {
-    goto LABEL_36;
-  }
-
-  [state allowsAccessibilityKeyboard];
-  if (v4 != [OUTLINED_FUNCTION_0_0() allowsAccessibilityKeyboard])
-  {
-    goto LABEL_36;
-  }
-
-  [state allowsAccessibilityLiveCaptions];
-  if (v4 != [OUTLINED_FUNCTION_0_0() allowsAccessibilityLiveCaptions])
-  {
-    goto LABEL_36;
-  }
-
-  [state allowsAccessibilityReader];
-  if (v4 != [OUTLINED_FUNCTION_0_0() allowsAccessibilityReader])
-  {
-    goto LABEL_36;
-  }
-
-  [state allowsAccessibilitySpeech];
-  if (v4 != [OUTLINED_FUNCTION_0_0() allowsAccessibilitySpeech])
-  {
-    goto LABEL_36;
-  }
-
-  [state allowsAccessibilityTypingFeedback];
-  if (v4 != [OUTLINED_FUNCTION_0_0() allowsAccessibilityTypingFeedback] || (objc_msgSend(state, "allowsPasswordAutoFill"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsPasswordAutoFill")) || (objc_msgSend(state, "allowsContinuousPathKeyboard"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsContinuousPathKeyboard")) || (objc_msgSend(state, "allowsKeyboardShortcuts"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsKeyboardShortcuts")) || (objc_msgSend(state, "allowsKeyboardMathSolving"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsKeyboardMathSolving")) || (objc_msgSend(state, "allowsMathPaperSolving"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsMathPaperSolving")) || (objc_msgSend(state, "allowsScreenshots"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "allowsScreenshots")) || (objc_msgSend(state, "_allowsNetworkAccess"), v4 != objc_msgSend(OUTLINED_FUNCTION_0_0(), "_allowsNetworkAccess")))
-  {
-LABEL_36:
     state = 0;
     if (!v16)
     {

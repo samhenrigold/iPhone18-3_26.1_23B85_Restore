@@ -2,7 +2,10 @@
 + (OS_dispatch_queue)workerQueue;
 - (BOOL)invalidateInDuration:(double)duration;
 - (BOOL)isValid;
+- (MRDTaskAssertion)initWithType:(int64_t)type pid:(int)pid bundleID:(id)d name:(id)name invalidationHandler:(id)handler;
 - (double)remainingDuration;
+- (id)_assertionForType:(int64_t)type pid:(int)pid bundleID:(id)d name:(id)name;
+- (id)_hostAssertionForType:(int64_t)type pid:(int)pid bundleID:(id)d name:(id)name;
 - (id)description;
 - (id)invalidationHandler;
 - (void)_acquire;
@@ -147,6 +150,122 @@
   v4.receiver = self;
   v4.super_class = MRDTaskAssertion;
   [(MRDTaskAssertion *)&v4 dealloc];
+}
+
+- (MRDTaskAssertion)initWithType:(int64_t)type pid:(int)pid bundleID:(id)d name:(id)name invalidationHandler:(id)handler
+{
+  v9 = *&pid;
+  dCopy = d;
+  nameCopy = name;
+  handlerCopy = handler;
+  v30.receiver = self;
+  v30.super_class = MRDTaskAssertion;
+  v15 = [(MRDTaskAssertion *)&v30 init];
+  if (v15)
+  {
+    if (!dCopy)
+    {
+      dCopy = sub_10000B294(v9);
+    }
+
+    v15->_pid = v9;
+    objc_storeStrong(&v15->_bundleID, dCopy);
+    v15->_type = type;
+    objc_storeStrong(&v15->_name, name);
+    v16 = [handlerCopy copy];
+    invalidationHandler = v15->_invalidationHandler;
+    v15->_invalidationHandler = v16;
+
+    v18 = [(MRDTaskAssertion *)v15 _assertionForType:type pid:v9 bundleID:dCopy name:nameCopy];
+    assertion = v15->_assertion;
+    v15->_assertion = v18;
+
+    v20 = [(MRDTaskAssertion *)v15 _hostAssertionForType:type pid:v9 bundleID:dCopy name:nameCopy];
+    hostAssertion = v15->_hostAssertion;
+    v15->_hostAssertion = v20;
+
+    objc_initWeak(&location, v15);
+    v22 = v15->_assertion;
+    v24 = _NSConcreteStackBlock;
+    v25 = 3221225472;
+    v26 = sub_1001391CC;
+    v27 = &unk_1004BE4A0;
+    objc_copyWeak(&v28, &location);
+    [(RBSAssertion *)v22 setInvalidationHandler:&v24];
+    [(MRDTaskAssertion *)v15 _acquire:v24];
+    objc_destroyWeak(&v28);
+    objc_destroyWeak(&location);
+  }
+
+  return v15;
+}
+
+- (id)_hostAssertionForType:(int64_t)type pid:(int)pid bundleID:(id)d name:(id)name
+{
+  v6 = *&pid;
+  nameCopy = name;
+  v9 = [RBSProcessIdentifier identifierWithPid:v6];
+  v21 = 0;
+  v10 = [RBSProcessHandle handleForIdentifier:v9 error:&v21];
+  hostProcess = [v10 hostProcess];
+  v12 = hostProcess;
+  if (!hostProcess || [hostProcess pid] == -1)
+  {
+    v19 = 0;
+  }
+
+  else
+  {
+    bundle = [v12 bundle];
+    identifier = [bundle identifier];
+    v15 = identifier;
+    v16 = @"none";
+    if (identifier)
+    {
+      v16 = identifier;
+    }
+
+    v17 = v16;
+
+    v18 = [nameCopy stringByAppendingFormat:@" host process: %@(%d)", v17, objc_msgSend(v12, "pid")];
+    v19 = -[MRDTaskAssertion _assertionForType:pid:bundleID:name:](self, "_assertionForType:pid:bundleID:name:", self->_type, [v12 pid], v17, v18);
+  }
+
+  return v19;
+}
+
+- (id)_assertionForType:(int64_t)type pid:(int)pid bundleID:(id)d name:(id)name
+{
+  v7 = *&pid;
+  dCopy = d;
+  nameCopy = name;
+  if (type > 8)
+  {
+    v11 = 0;
+  }
+
+  else
+  {
+    v11 = [RBSDomainAttribute attributeWithDomain:@"com.apple.mediaremote" name:off_1004BE548[type]];
+  }
+
+  if (v7 < 1)
+  {
+    v13 = [RBSProcessIdentity identityForApplicationJobLabel:dCopy];
+    v12 = [RBSTarget targetWithProcessIdentity:v13];
+  }
+
+  else
+  {
+    v12 = [RBSTarget targetWithPid:v7];
+  }
+
+  v14 = [RBSAssertion alloc];
+  v18 = v11;
+  v15 = [NSArray arrayWithObjects:&v18 count:1];
+  v16 = [v14 initWithExplanation:nameCopy target:v12 attributes:v15];
+
+  return v16;
 }
 
 - (void)invalidateWithReason:(id)reason

@@ -2,9 +2,17 @@
 - (CGSize)intrinsicContentSize;
 - (_TtC9DashBoard16DBMulticastLabel)initWithCoder:(id)coder;
 - (_TtC9DashBoard16DBMulticastLabel)initWithFrame:(CGRect)frame;
+- (_TtC9DashBoard16DBMulticastLabel)initWithMulticast:(id)multicast signalLocked:(BOOL)locked;
 @end
 
 @implementation DBMulticastLabel
+
+- (_TtC9DashBoard16DBMulticastLabel)initWithMulticast:(id)multicast signalLocked:(BOOL)locked
+{
+  lockedCopy = locked;
+  v5 = sub_248383960();
+  return DBMulticastLabel.init(multicast:signalLocked:)(v5, v6, lockedCopy);
+}
 
 - (_TtC9DashBoard16DBMulticastLabel)initWithCoder:(id)coder
 {

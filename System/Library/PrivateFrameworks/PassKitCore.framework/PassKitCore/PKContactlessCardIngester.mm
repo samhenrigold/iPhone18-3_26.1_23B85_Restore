@@ -129,18 +129,18 @@ uint64_t __75__PKContactlessCardIngester_ingestCardWithCardSessionToken_successH
   dispatch_async(contactlessCardIngesterQueue, block);
 }
 
-void __49__PKContactlessCardIngester__cancelCardIngestion__block_invoke(uint64_t a1)
+void __49__PKContactlessCardIngester__cancelCardIngestion__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = [PKGetClassNFRemoteAdminManager() sharedRemoteAdminManager];
-  [v2 cancelCardIngestion];
+  v3 = [PKGetClassNFRemoteAdminManager() sharedRemoteAdminManager];
+  [v3 cancelCardIngestion];
 
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 56);
-  *(v3 + 56) = 0;
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 56);
+  *(v4 + 56) = 0;
 
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 64);
-  *(v5 + 64) = 0;
+  v6 = *(a1 + 32);
+  v7 = *(v6 + 64);
+  *(v6 + 64) = 0;
 }
 
 + (id)debugDescriptionForStatus:(unint64_t)status

@@ -21,15 +21,7 @@
     goto LABEL_9;
   }
 
-  if (!contextCopy)
-  {
-    goto LABEL_9;
-  }
-
-  serviceContexts = [contextCopy serviceContexts];
-  v7 = [serviceContexts count];
-
-  if (!v7 || (v18.receiver = self, v18.super_class = PCSCKKSEnsurePCSFieldsOperation, v8 = [(PCSCKKSEnsurePCSFieldsOperation *)&v18 init], (self = v8) == 0))
+  if (!contextCopy || ([contextCopy serviceContexts], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "count"), v6, !v7) || (v18.receiver = self, v18.super_class = PCSCKKSEnsurePCSFieldsOperation, v8 = -[PCSCKKSEnsurePCSFieldsOperation init](&v18, sel_init), (self = v8) == 0))
   {
 LABEL_9:
     selfCopy = 0;
@@ -37,14 +29,14 @@ LABEL_9:
   }
 
   objc_storeStrong(&v8->_context, context);
-  serviceContexts2 = [contextCopy serviceContexts];
-  v10 = [serviceContexts2 count];
+  serviceContexts = [contextCopy serviceContexts];
+  v10 = [serviceContexts count];
 
   v11 = MEMORY[0x1E696AEC0];
   if (v10 == 1)
   {
-    serviceContexts3 = [(PCSCKKSItemModifyContext *)self->_context serviceContexts];
-    allKeys = [serviceContexts3 allKeys];
+    serviceContexts2 = [(PCSCKKSItemModifyContext *)self->_context serviceContexts];
+    allKeys = [serviceContexts2 allKeys];
     v14 = [allKeys objectAtIndexedSubscript:0];
     v15 = [v11 stringWithFormat:@"EnsurePCSFields service: %@", v14];
     [(PCSCKKSEnsurePCSFieldsOperation *)self setName:v15];
@@ -52,8 +44,8 @@ LABEL_9:
 
   else
   {
-    serviceContexts3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"EnsurePCSFields service: %@", @"bulk-service-identity-creation-identifier"];
-    [(PCSCKKSEnsurePCSFieldsOperation *)self setName:serviceContexts3];
+    serviceContexts2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"EnsurePCSFields service: %@", @"bulk-service-identity-creation-identifier"];
+    [(PCSCKKSEnsurePCSFieldsOperation *)self setName:serviceContexts2];
   }
 
   self = self;
@@ -123,7 +115,7 @@ void __64__PCSCKKSEnsurePCSFieldsOperation_haveCKKSPlaintextEntitlements__block_
 
 - (void)start
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v3 = 272;
   PCSMigrationLog([(PCSCKKSItemModifyContext *)self->_context log], @"Starting: %s", "[PCSCKKSEnsurePCSFieldsOperation start]");
   if ([(PCSCKKSOperation *)self startOperation])
@@ -133,32 +125,32 @@ void __64__PCSCKKSEnsurePCSFieldsOperation_haveCKKSPlaintextEntitlements__block_
 
     if (v5)
     {
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       context2 = [(PCSCKKSEnsurePCSFieldsOperation *)self context];
       serviceContexts = [context2 serviceContexts];
       allKeys = [serviceContexts allKeys];
 
-      v9 = [allKeys countByEnumeratingWithState:&v35 objects:v42 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v34 objects:v41 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v36;
-        v33 = *MEMORY[0x1E697B3C8];
-        v34 = allKeys;
+        v11 = *v35;
+        v32 = *MEMORY[0x1E697B3C8];
+        v33 = allKeys;
         do
         {
           v12 = 0;
           do
           {
-            if (*v36 != v11)
+            if (*v35 != v11)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v13 = *(*(&v35 + 1) + 8 * v12);
+            v13 = *(*(&v34 + 1) + 8 * v12);
             context3 = [(PCSCKKSEnsurePCSFieldsOperation *)self context];
             serviceContexts2 = [context3 serviceContexts];
             v16 = [serviceContexts2 objectForKeyedSubscript:v13];
@@ -180,21 +172,21 @@ void __64__PCSCKKSEnsurePCSFieldsOperation_haveCKKSPlaintextEntitlements__block_
                   if ((_PCSIdentityHavePCSCKKSAttributes([v16 currentIdentity]) & 1) == 0)
                   {
                     dictionary = [MEMORY[0x1E695DF90] dictionary];
-                    v40 = v33;
+                    v39 = v32;
                     currentItemReference2 = [v16 currentItemReference];
-                    v41 = currentItemReference2;
-                    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+                    v40 = currentItemReference2;
+                    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
 
                     if (_PCSKeychainAmendCKKSEntry([v16 currentIdentity], dictionary))
                     {
                       v26 = [(PCSCKKSEnsurePCSFieldsOperation *)self updateKeychain:v25 withAttributes:dictionary];
-                      v32 = v25;
+                      v31 = v25;
                       v27 = v3;
                       v28 = [*(&self->super.super.super.isa + v3) log];
                       currentIdentity = [v16 currentIdentity];
                       v29 = v28;
                       v3 = v27;
-                      v25 = v32;
+                      v25 = v31;
                       PCSMigrationLog(v29, @"Updated identity %@ with CKKS attributes: status: %d", currentIdentity, v26);
                       if (!v26)
                       {
@@ -209,7 +201,7 @@ void __64__PCSCKKSEnsurePCSFieldsOperation_haveCKKSPlaintextEntitlements__block_
 
                     [v22 complete:1];
 
-                    allKeys = v34;
+                    allKeys = v33;
                   }
                 }
               }
@@ -219,7 +211,7 @@ void __64__PCSCKKSEnsurePCSFieldsOperation_haveCKKSPlaintextEntitlements__block_
           }
 
           while (v10 != v12);
-          v10 = [allKeys countByEnumeratingWithState:&v35 objects:v42 count:16];
+          v10 = [allKeys countByEnumeratingWithState:&v34 objects:v41 count:16];
         }
 
         while (v10);
@@ -234,8 +226,6 @@ void __64__PCSCKKSEnsurePCSFieldsOperation_haveCKKSPlaintextEntitlements__block_
 
     [(PCSCKKSOperation *)self completeOperation];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (int)updateKeychain:(id)keychain withAttributes:(id)attributes

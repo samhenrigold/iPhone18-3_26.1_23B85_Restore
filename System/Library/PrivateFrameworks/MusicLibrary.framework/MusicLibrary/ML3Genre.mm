@@ -141,9 +141,11 @@ LABEL_12:
 
 uint64_t __36__ML3Genre_propertiesForGroupingKey__block_invoke()
 {
-  propertiesForGroupingKey_propertiesForGroupingKey_7658 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{@"genre", 0}];
+  v0 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{@"genre", 0}];
+  v1 = propertiesForGroupingKey_propertiesForGroupingKey_7658;
+  propertiesForGroupingKey_propertiesForGroupingKey_7658 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)countingQueryForBaseQuery:(id)query countProperty:(id)property forIdentifier:(int64_t)identifier

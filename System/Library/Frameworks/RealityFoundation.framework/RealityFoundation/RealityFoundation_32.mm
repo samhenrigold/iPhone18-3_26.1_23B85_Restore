@@ -1,5495 +1,12 @@
-uint64_t MeshDeformationBuilder.deinit()
-{
-  v1 = *(v0 + 24);
-
-  return v0;
-}
-
-uint64_t MeshDeformationBuilder.__deallocating_deinit()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocClassInstance();
-}
-
-unint64_t lazy protocol witness table accessor for type _Proto_MeshDeformation_v1.ResourceError and conformance _Proto_MeshDeformation_v1.ResourceError()
-{
-  result = lazy protocol witness table cache variable for type _Proto_MeshDeformation_v1.ResourceError and conformance _Proto_MeshDeformation_v1.ResourceError;
-  if (!lazy protocol witness table cache variable for type _Proto_MeshDeformation_v1.ResourceError and conformance _Proto_MeshDeformation_v1.ResourceError)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type _Proto_MeshDeformation_v1.ResourceError and conformance _Proto_MeshDeformation_v1.ResourceError);
-  }
-
-  return result;
-}
-
-uint64_t *assignWithTake for MeshDeformationAssetBuilder(uint64_t *a1, uint64_t *a2)
-{
-  v4 = *a1;
-  *a1 = *a2;
-
-  *(a1 + 1) = *(a2 + 1);
-  a1[3] = a2[3];
-  *(a1 + 32) = *(a2 + 32);
-  v5 = a2[6];
-  v6 = a1[6];
-  a1[5] = a2[5];
-  a1[6] = v5;
-
-  return a1;
-}
-
-uint64_t getEnumTagSinglePayload for MeshDeformationAssetBuilder(uint64_t *a1, int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0 && *(a1 + 56))
-  {
-    return *a1 + 0x80000000;
-  }
-
-  v2 = *a1;
-  if (*a1 >= 0xFFFFFFFF)
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for MeshDeformationAssetBuilder(uint64_t result, int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *result = a2 & 0x7FFFFFFF;
-    if (a3 < 0)
-    {
-      *(result + 56) = 1;
-    }
-  }
-
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_8:
-      *result = (a2 - 1);
-      return result;
-    }
-
-    *(result + 56) = 0;
-    if (a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  return result;
-}
-
-uint64_t dispatch thunk of MeshDeformationBuilder.__allocating_init(_:)()
-{
-  return (*(v0 + 104))();
-}
-
-{
-  return (*(v0 + 112))();
-}
-
-uint64_t outlined consume of _Proto_MeshScope_v1?(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 a4)
-{
-  if (a4 != 0xFF)
-  {
-    return outlined consume of _Proto_MeshScope_v1(a1, a2, a3, a4);
-  }
-
-  return a1;
-}
-
-unint64_t lazy protocol witness table accessor for type _Proto_MeshDeformation_v1.CustomDeformer and conformance _Proto_MeshDeformation_v1.CustomDeformer()
-{
-  result = lazy protocol witness table cache variable for type _Proto_MeshDeformation_v1.CustomDeformer and conformance _Proto_MeshDeformation_v1.CustomDeformer;
-  if (!lazy protocol witness table cache variable for type _Proto_MeshDeformation_v1.CustomDeformer and conformance _Proto_MeshDeformation_v1.CustomDeformer)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type _Proto_MeshDeformation_v1.CustomDeformer and conformance _Proto_MeshDeformation_v1.CustomDeformer);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type _Proto_MeshDeformation_v1.CustomDeformer and conformance _Proto_MeshDeformation_v1.CustomDeformer;
-  if (!lazy protocol witness table cache variable for type _Proto_MeshDeformation_v1.CustomDeformer and conformance _Proto_MeshDeformation_v1.CustomDeformer)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type _Proto_MeshDeformation_v1.CustomDeformer and conformance _Proto_MeshDeformation_v1.CustomDeformer);
-  }
-
-  return result;
-}
-
-uint64_t partial apply for closure #1 in Sequence.count(where:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v5 = *(v3 + 32);
-  v6 = *(v3 + 40);
-  v7 = *a1;
-  result = v5(a2);
-  if ((result & 1) != 0 && (v9 = __OFADD__(v7, 1), ++v7, v9))
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *a3 = v7;
-  }
-
-  return result;
-}
-
-__n128 ProjectiveTransformCameraComponent.transform.getter()
-{
-  result = *v0;
-  v2 = *(v0 + 16);
-  v3 = *(v0 + 32);
-  v4 = *(v0 + 48);
-  return result;
-}
-
-void ProjectiveTransformCameraComponent.transform.setter(__n128 a1, __n128 a2, __n128 a3, __n128 a4)
-{
-  *v4 = a1;
-  v4[1] = a2;
-  v4[2] = a3;
-  v4[3] = a4;
-}
-
-__n128 ProjectiveTransformCameraComponent.cullingTransform.getter@<Q0>(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 112);
-  *(a1 + 32) = *(v1 + 96);
-  *(a1 + 48) = v2;
-  *(a1 + 64) = *(v1 + 128);
-  result = *(v1 + 80);
-  *a1 = *(v1 + 64);
-  *(a1 + 16) = result;
-  return result;
-}
-
-__n128 ProjectiveTransformCameraComponent.cullingTransform.setter(uint64_t a1)
-{
-  v2 = *(a1 + 48);
-  *(v1 + 96) = *(a1 + 32);
-  *(v1 + 112) = v2;
-  *(v1 + 128) = *(a1 + 64);
-  result = *(a1 + 16);
-  *(v1 + 64) = *a1;
-  *(v1 + 80) = result;
-  return result;
-}
-
-void __swiftcall ProjectiveTransformCameraComponent.init(projectionMatrix:)(RealityFoundation::ProjectiveTransformCameraComponent *__return_ptr retstr, simd_float4x4 *projectionMatrix)
-{
-  retstr->transform.columns[0] = v2;
-  retstr->transform.columns[1] = v3;
-  retstr->transform.columns[2] = v4;
-  retstr->transform.columns[3] = v5;
-  retstr->cullingTransform.value.columns[0] = 0u;
-  retstr->cullingTransform.value.columns[1] = 0u;
-  retstr->cullingTransform.value.columns[2] = 0u;
-  retstr->cullingTransform.value.columns[3] = 0u;
-  *&retstr->cullingTransform.is_nil = 257;
-}
-
-void __swiftcall ProjectiveTransformCameraComponent.init(projectionMatrix:cullingMatrix:)(RealityFoundation::ProjectiveTransformCameraComponent *__return_ptr retstr, simd_float4x4 *projectionMatrix, simd_float4x4_optional *cullingMatrix)
-{
-  retstr->transform.columns[0] = v3;
-  retstr->transform.columns[1] = v4;
-  retstr->transform.columns[2] = v5;
-  retstr->transform.columns[3] = v6;
-  v7 = projectionMatrix->columns[3];
-  retstr->cullingTransform.value.columns[2] = projectionMatrix->columns[2];
-  retstr->cullingTransform.value.columns[3] = v7;
-  retstr->cullingTransform.is_nil = projectionMatrix[1].columns[0].i8[0];
-  v8 = projectionMatrix->columns[1];
-  retstr->cullingTransform.value.columns[0] = projectionMatrix->columns[0];
-  retstr->cullingTransform.value.columns[1] = v8;
-  retstr->autoFitFullscreenAspect = 1;
-}
-
-uint64_t static ProjectiveTransformCameraComponent.__fromCore(_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  v3 = *a1;
-  RECustomMatrixCameraComponentGetProjectionMatrix();
-  v18 = v5;
-  v19 = v4;
-  v16 = v7;
-  v17 = v6;
-  v8 = 1;
-  AutoFitFullScreenAspect = RECustomMatrixCameraComponentGetAutoFitFullScreenAspect();
-  result = RECustomMatrixCameraComponentGetCullingTransformMatrix();
-  if (result)
-  {
-    v8 = 0;
-    v11 = *zmmword_1C1887630;
-    v12 = *&zmmword_1C1887630[16];
-    v13 = *&zmmword_1C1887630[32];
-    v14 = *&zmmword_1C1887630[48];
-  }
-
-  else
-  {
-    v11 = 0uLL;
-    v12 = 0uLL;
-    v13 = 0uLL;
-    v14 = 0uLL;
-  }
-
-  *a2 = v19;
-  *(a2 + 16) = v18;
-  *(a2 + 32) = v17;
-  *(a2 + 48) = v16;
-  *(a2 + 64) = v11;
-  *(a2 + 80) = v12;
-  *(a2 + 96) = v13;
-  *(a2 + 112) = v14;
-  *(a2 + 128) = v8;
-  *(a2 + 129) = AutoFitFullScreenAspect;
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t ProjectiveTransformCameraComponent.__toCore(_:)(uint64_t *a1)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = *(v1 + 9);
-  v17 = *(v1 + 8);
-  v4 = *(v1 + 10);
-  v5 = *(v1 + 11);
-  v6 = *(v1 + 12);
-  v7 = *(v1 + 13);
-  v9 = *(v1 + 14);
-  v8 = *(v1 + 15);
-  v10 = *(v1 + 128);
-  v18 = *(v1 + 129);
-  v11 = v1[2];
-  v12 = v1[3];
-  v13 = *v1;
-  v14 = v1[1];
-  RECustomMatrixCameraComponentSetRenderProjectionMatrix();
-  RECustomMatrixCameraComponentSetCullingTransformMatrix();
-  RECustomMatrixCameraComponentSetAutoFitFullScreenAspect();
-  RECustomMatrixCameraComponentSetEyeCount();
-  result = RENetworkMarkComponentDirty();
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t specialized static ProjectiveTransformCameraComponent.== infix(_:_:)(float32x4_t *a1, float32x4_t *a2)
-{
-  if ((vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(a1[1], a2[1]), vceqq_f32(*a1, *a2)), vandq_s8(vceqq_f32(a1[2], a2[2]), vceqq_f32(a1[3], a2[3])))) & 0x80000000) == 0)
-  {
-    return 0;
-  }
-
-  v3 = a2[8].i8[0];
-  if (a1[8].i8[0])
-  {
-    if ((a2[8].i8[0] & 1) == 0)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (a2[8].i8[0])
-    {
-      return 0;
-    }
-
-    if ((vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(a1[5], a2[5]), vceqq_f32(a1[4], a2[4])), vandq_s8(vceqq_f32(a1[6], a2[6]), vceqq_f32(a1[7], a2[7])))) & 0x80000000) == 0)
-    {
-      return 0;
-    }
-  }
-
-  return a1[8].u8[1] ^ a2[8].u8[1] ^ 1u;
-}
-
-__n128 __swift_memcpy130_16(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-  v2 = *(a2 + 16);
-  v3 = *(a2 + 32);
-  v4 = *(a2 + 64);
-  *(a1 + 48) = *(a2 + 48);
-  *(a1 + 64) = v4;
-  *(a1 + 16) = v2;
-  *(a1 + 32) = v3;
-  result = *(a2 + 80);
-  v6 = *(a2 + 96);
-  v7 = *(a2 + 112);
-  *(a1 + 128) = *(a2 + 128);
-  *(a1 + 96) = v6;
-  *(a1 + 112) = v7;
-  *(a1 + 80) = result;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for ProjectiveTransformCameraComponent(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFF && *(a1 + 130))
-  {
-    return (*a1 + 255);
-  }
-
-  v3 = *(a1 + 129);
-  v4 = v3 >= 2;
-  v5 = (v3 + 2147483646) & 0x7FFFFFFF;
-  if (!v4)
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for ProjectiveTransformCameraComponent(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *(result + 120) = 0;
-    *(result + 104) = 0u;
-    *(result + 88) = 0u;
-    *(result + 72) = 0u;
-    *(result + 56) = 0u;
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *(result + 128) = 0;
-    *result = a2 - 255;
-    if (a3 >= 0xFF)
-    {
-      *(result + 130) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 130) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 129) = a2 + 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t Entity.ConfigurationCatalog.RealityFileConfigurationReaderError.errorDescription.getter()
-{
-  v2 = *v0;
-  v1 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = *(v0 + 32);
-  if (v5 <= 1)
-  {
-    if (!*(v0 + 32))
-    {
-      v11 = 0;
-      _StringGuts.grow(_:)(108);
-      MEMORY[0x1C68F3410](0xD00000000000004ALL, 0x80000001C18E7150);
-      MEMORY[0x1C68F3410](v2, v1);
-      MEMORY[0x1C68F3410](0x6E69207461202C27, 0xEC00000020786564);
-      v8 = dispatch thunk of CustomStringConvertible.description.getter();
-      MEMORY[0x1C68F3410](v8);
-
-      v6 = "es for configuration set '";
-      v7 = 0xD000000000000012;
-      goto LABEL_7;
-    }
-
-    v11 = 0;
-    _StringGuts.grow(_:)(119);
-    MEMORY[0x1C68F3410](0xD00000000000004DLL, 0x80000001C18E70D0);
-    MEMORY[0x1C68F3410](v3, v4);
-    MEMORY[0x1C68F3410](0xD000000000000024, 0x80000001C18E7120);
-    MEMORY[0x1C68F3410](v2, v1);
-    v7 = 11869;
-LABEL_11:
-    v9 = 0xE200000000000000;
-    goto LABEL_12;
-  }
-
-  if (v5 == 2)
-  {
-    _StringGuts.grow(_:)(30);
-
-    v11 = 0x6573736120656854;
-    MEMORY[0x1C68F3410](v2, v1);
-    v9 = 0x80000001C18E70B0;
-    v7 = 0xD000000000000011;
-    goto LABEL_12;
-  }
-
-  if (v5 != 3)
-  {
-    v11 = 0;
-    _StringGuts.grow(_:)(93);
-    MEMORY[0x1C68F3410](0xD000000000000026, 0x80000001C18E7020);
-    MEMORY[0x1C68F3410](v3, v4);
-    MEMORY[0x1C68F3410](0xD000000000000031, 0x80000001C18E7050);
-    MEMORY[0x1C68F3410](v2, v1);
-    v7 = 11815;
-    goto LABEL_11;
-  }
-
-  _StringGuts.grow(_:)(42);
-
-  v11 = 0x6573736120656854;
-  MEMORY[0x1C68F3410](v2, v1);
-  v6 = "n with the name '";
-  v7 = 0xD00000000000001DLL;
-LABEL_7:
-  v9 = v6 | 0x8000000000000000;
-LABEL_12:
-  MEMORY[0x1C68F3410](v7, v9);
-  return v11;
-}
-
-unint64_t lazy protocol witness table accessor for type Entity.ConfigurationCatalog.RealityFileConfigurationReaderError and conformance Entity.ConfigurationCatalog.RealityFileConfigurationReaderError()
-{
-  result = lazy protocol witness table cache variable for type Entity.ConfigurationCatalog.RealityFileConfigurationReaderError and conformance Entity.ConfigurationCatalog.RealityFileConfigurationReaderError;
-  if (!lazy protocol witness table cache variable for type Entity.ConfigurationCatalog.RealityFileConfigurationReaderError and conformance Entity.ConfigurationCatalog.RealityFileConfigurationReaderError)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Entity.ConfigurationCatalog.RealityFileConfigurationReaderError and conformance Entity.ConfigurationCatalog.RealityFileConfigurationReaderError);
-  }
-
-  return result;
-}
-
-uint64_t Entity.ConfigurationCatalog.RealityFileConfigurationReader.init(contentsOf:options:)(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v3[5] = a2;
-  v3[6] = v2;
-  v3[4] = a1;
-  v4 = *MEMORY[0x1E69E9840];
-
-  return MEMORY[0x1EEE6DFA0](Entity.ConfigurationCatalog.RealityFileConfigurationReader.init(contentsOf:options:), 0, 0);
-}
-
-uint64_t Entity.ConfigurationCatalog.RealityFileConfigurationReader.init(contentsOf:options:)()
-{
-  v29 = v0;
-  v28 = *MEMORY[0x1E69E9840];
-  v1 = v0[6];
-  v2 = v0[4];
-  swift_defaultActor_initialize();
-  v0[2] = 0;
-  v3 = v0 + 2;
-  URL._bridgeToObjectiveC()(v4);
-  v6 = v5;
-  v7 = RERealityFileCreateByOpeningFileAtURL();
-
-  if (v7)
-  {
-    RERealityFileCopyConfigurationSetNames();
-    objc_opt_self();
-    swift_dynamicCastObjCClassUnconditional();
-    v27 = 0;
-    v8 = static Array._forceBridgeFromObjectiveC(_:result:)();
-    __break(1u);
-    __break(1u);
-    return MEMORY[0x1EEE6DFA0](v8, v24, v25);
-  }
-
-  else
-  {
-    v9 = *v3;
-    if (*v3)
-    {
-      type metadata accessor for CFErrorRef(0);
-      _sSo10CFErrorRefaABs5Error10FoundationWlTm_2(&lazy protocol witness table cache variable for type CFErrorRef and conformance CFErrorRef, type metadata accessor for CFErrorRef);
-      swift_allocError();
-      *v10 = v9;
-    }
-
-    else
-    {
-      v11 = v0[4];
-      type metadata accessor for URL();
-      _sSo10CFErrorRefaABs5Error10FoundationWlTm_2(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x1E6968FB0]);
-      v12 = dispatch thunk of CustomStringConvertible.description.getter();
-      v14 = v13;
-      lazy protocol witness table accessor for type __REAsset.LoadError and conformance __REAsset.LoadError();
-      swift_allocError();
-      *v15 = v12;
-      *(v15 + 8) = v14;
-      *(v15 + 16) = 0;
-      *(v15 + 24) = 0;
-      *(v15 + 32) = 2;
-    }
-
-    swift_willThrow();
-    v17 = v0[5];
-    v16 = v0[6];
-    v18 = v0[4];
-    type metadata accessor for Entity.ConfigurationCatalog.RealityFileConfigurationReader();
-    swift_defaultActor_destroy();
-    outlined destroy of BodyTrackingComponent?(v17, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMd, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMR);
-    v19 = type metadata accessor for URL();
-    (*(*(v19 - 8) + 8))(v18, v19);
-    v20 = *(*v16 + 48);
-    v21 = *(*v16 + 52);
-    swift_deallocPartialClassInstance();
-    v22 = v0[1];
-    v23 = *MEMORY[0x1E69E9840];
-
-    return v22();
-  }
-}
-
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = v0[8];
-  v1 = v0[9];
-  v3 = v0[7];
-  v5 = v0[4];
-  v4 = v0[5];
-
-  outlined destroy of BodyTrackingComponent?(v4, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMd, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMR);
-  (*(v2 + 8))(v5, v3);
-  v6 = v0[1];
-  v7 = v0[6];
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v6(v7);
-}
-
-uint64_t Entity.ConfigurationCatalog.RealityFileConfigurationReader.__deallocating_deinit()
-{
-  v1 = *(v0 + 224);
-  RERelease();
-  outlined destroy of BodyTrackingComponent?(v0 + 112, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMd, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMR);
-  v2 = *(v0 + 232);
-
-  v3 = OBJC_IVAR____TtCVE17RealityFoundationC10RealityKit6Entity20ConfigurationCatalog30RealityFileConfigurationReader_loadingUrl;
-  v4 = type metadata accessor for URL();
-  (*(*(v4 - 8) + 8))(v0 + v3, v4);
-  swift_defaultActor_destroy();
-
-  return MEMORY[0x1EEE6DEF0](v0);
-}
-
-uint64_t type metadata accessor for Entity.ConfigurationCatalog.RealityFileConfigurationReader()
-{
-  result = type metadata singleton initialization cache for Entity.ConfigurationCatalog.RealityFileConfigurationReader;
-  if (!type metadata singleton initialization cache for Entity.ConfigurationCatalog.RealityFileConfigurationReader)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-uint64_t type metadata completion function for Entity.ConfigurationCatalog.RealityFileConfigurationReader()
-{
-  result = type metadata accessor for URL();
-  if (v1 <= 0x3F)
-  {
-    v2 = *(result - 8) + 64;
-    result = swift_updateClassMetadata2();
-    if (!result)
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t Entity.ConfigurationCatalog.RealityFileConfigurationReader.initEntity(url:options:requestAnchor:)(uint64_t a1, uint64_t a2, char a3)
-{
-  *(v4 + 200) = a2;
-  *(v4 + 208) = v3;
-  *(v4 + 280) = a3;
-  *(v4 + 192) = a1;
-  v5 = type metadata accessor for URL();
-  *(v4 + 216) = v5;
-  v6 = *(v5 - 8);
-  *(v4 + 224) = v6;
-  v7 = *(v6 + 64) + 15;
-  *(v4 + 232) = swift_task_alloc();
-  *(v4 + 240) = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](Entity.ConfigurationCatalog.RealityFileConfigurationReader.initEntity(url:options:requestAnchor:), v3, 0);
-}
-
-uint64_t Entity.ConfigurationCatalog.RealityFileConfigurationReader.initEntity(url:options:requestAnchor:)()
-{
-  v1 = *(v0 + 216);
-  v2 = (*(v0 + 224) + 16);
-  v4 = *(v0 + 192);
-  v3 = *(v0 + 200);
-  if (*(v0 + 280) == 1)
-  {
-    v5 = *(v0 + 240);
-    type metadata accessor for AnchorEntity();
-    (*v2)(v5, v4, v1);
-    outlined init with copy of Entity.__LoadOptions(v3, v0 + 104);
-    v6 = swift_task_alloc();
-    *(v0 + 248) = v6;
-    *v6 = v0;
-    v6[1] = Entity.ConfigurationCatalog.RealityFileConfigurationReader.initEntity(url:options:requestAnchor:);
-    v7 = *(v0 + 240);
-    v8 = v0 + 104;
-  }
-
-  else
-  {
-    v9 = *(v0 + 232);
-    type metadata accessor for Entity();
-    (*v2)(v9, v4, v1);
-    outlined init with copy of Entity.__LoadOptions(v3, v0 + 16);
-    v10 = swift_task_alloc();
-    *(v0 + 264) = v10;
-    *v10 = v0;
-    v10[1] = Entity.ConfigurationCatalog.RealityFileConfigurationReader.initEntity(url:options:requestAnchor:);
-    v7 = *(v0 + 232);
-    v8 = v0 + 16;
-  }
-
-  return Entity.init(contentsOf:withName:options:)(v7, 0, 0, v8);
-}
-
-{
-  v1 = v0[32];
-  v3 = v0[29];
-  v2 = v0[30];
-
-  v4 = v0[1];
-
-  return v4();
-}
-
-{
-  v1 = v0[34];
-  v3 = v0[29];
-  v2 = v0[30];
-
-  v4 = v0[1];
-
-  return v4();
-}
-
-uint64_t Entity.ConfigurationCatalog.RealityFileConfigurationReader.initEntity(url:options:requestAnchor:)(uint64_t a1)
-{
-  v4 = *v2;
-  v5 = *(*v2 + 248);
-  v6 = *v2;
-  *(*v2 + 256) = v1;
-
-  if (v1)
-  {
-    v7 = v4[26];
-
-    return MEMORY[0x1EEE6DFA0](Entity.ConfigurationCatalog.RealityFileConfigurationReader.initEntity(url:options:requestAnchor:), v7, 0);
-  }
-
-  else
-  {
-    v9 = v4[29];
-    v8 = v4[30];
-
-    v10 = *(v6 + 8);
-
-    return v10(a1);
-  }
-}
-
-{
-  v4 = *v2;
-  v5 = *(*v2 + 264);
-  v6 = *v2;
-  *(*v2 + 272) = v1;
-
-  if (v1)
-  {
-    v7 = v4[26];
-
-    return MEMORY[0x1EEE6DFA0](Entity.ConfigurationCatalog.RealityFileConfigurationReader.initEntity(url:options:requestAnchor:), v7, 0);
-  }
-
-  else
-  {
-    v9 = v4[29];
-    v8 = v4[30];
-
-    v10 = *(v6 + 8);
-
-    return v10(a1);
-  }
-}
-
-uint64_t Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4[106] = v3;
-  v4[105] = a3;
-  v4[104] = a2;
-  v4[103] = a1;
-  v5 = type metadata accessor for URL.DirectoryHint();
-  v4[107] = v5;
-  v6 = *(v5 - 8);
-  v4[108] = v6;
-  v7 = *(v6 + 64) + 15;
-  v4[109] = swift_task_alloc();
-  v8 = type metadata accessor for URL();
-  v4[110] = v8;
-  v9 = *(v8 - 8);
-  v4[111] = v9;
-  v10 = *(v9 + 64) + 15;
-  v4[112] = swift_task_alloc();
-  v11 = *(*(type metadata accessor for String.Encoding() - 8) + 64) + 15;
-  v4[113] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:), v3, 0);
-}
-
-char *Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:)()
-{
-  v1 = v0 + 58;
-  v2 = v0 + 69;
-  outlined init with copy of [String : String](v0[105], (v0 + 2), &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMd, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMR);
-  if (v0[2] == 1)
-  {
-    outlined destroy of BodyTrackingComponent?((v0 + 2), &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMd, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMR);
-    v0[70] = 0;
-    v0[71] = 0;
-    *v2 = 0;
-    v0[72] = 1;
-    *(v0 + 73) = 0u;
-    *(v0 + 75) = 0u;
-    *(v0 + 77) = 0u;
-    v0[79] = 0;
-  }
-
-  else
-  {
-    outlined init with copy of [String : String]((v0 + 5), (v0 + 69), &_s10RealityKit6EntityC13__LoadOptionsVSgMd, &_s10RealityKit6EntityC13__LoadOptionsVSgMR);
-    outlined destroy of Entity.ConfigurationCatalog.LoadOptions((v0 + 2));
-    if (v0[72] != 1)
-    {
-      v4 = *(v0 + 75);
-      *(v0 + 31) = *(v0 + 73);
-      *(v0 + 32) = v4;
-      *(v0 + 33) = *(v0 + 77);
-      v0[68] = v0[79];
-      v5 = *(v0 + 71);
-      *v1 = *v2;
-      *(v0 + 30) = v5;
-      goto LABEL_13;
-    }
-  }
-
-  v3 = v0 + 80;
-  outlined init with copy of [String : String](v0[106] + 112, (v0 + 16), &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMd, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMR);
-  if (v0[16] == 1)
-  {
-    outlined destroy of BodyTrackingComponent?((v0 + 16), &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMd, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMR);
-    v0[81] = 0;
-    v0[82] = 0;
-    *v3 = 0;
-    v0[83] = 1;
-    *(v0 + 42) = 0u;
-    *(v0 + 43) = 0u;
-    *(v0 + 44) = 0u;
-    v0[90] = 0;
-    goto LABEL_7;
-  }
-
-  outlined init with copy of [String : String]((v0 + 19), (v0 + 80), &_s10RealityKit6EntityC13__LoadOptionsVSgMd, &_s10RealityKit6EntityC13__LoadOptionsVSgMR);
-  outlined destroy of Entity.ConfigurationCatalog.LoadOptions((v0 + 16));
-  if (v0[83] == 1)
-  {
-LABEL_7:
-    v0[95] = 0;
-    *(v0 + 91) = 0u;
-    *(v0 + 93) = 0u;
-    *(v0 + 513) = 0;
-    v0[65] = 0;
-    *v1 = 0u;
-    *(v0 + 30) = 0u;
-    v0[62] = 0;
-    *(v0 + 528) = 1;
-    *(v0 + 133) = 0;
-    *(v0 + 536) = 2;
-    v0[68] = 0;
-    outlined assign with take of __DownsamplingStrategy?((v0 + 91), (v0 + 58));
-    v0[63] = 0;
-    swift_beginAccess();
-    *(v0 + 512) = static RKARSystemCore.generateDecimatedMeshes;
-    if (v0[83] != 1)
-    {
-      outlined destroy of BodyTrackingComponent?((v0 + 80), &_s10RealityKit6EntityC13__LoadOptionsVSgMd, &_s10RealityKit6EntityC13__LoadOptionsVSgMR);
-    }
-
-    goto LABEL_11;
-  }
-
-  v6 = *(v0 + 43);
-  *(v0 + 31) = *(v0 + 42);
-  *(v0 + 32) = v6;
-  *(v0 + 33) = *(v0 + 44);
-  v0[68] = v0[90];
-  v7 = *(v0 + 41);
-  *v1 = *v3;
-  *(v0 + 30) = v7;
-LABEL_11:
-  if (v0[72] != 1)
-  {
-    outlined destroy of BodyTrackingComponent?((v0 + 69), &_s10RealityKit6EntityC13__LoadOptionsVSgMd, &_s10RealityKit6EntityC13__LoadOptionsVSgMR);
-  }
-
-LABEL_13:
-  outlined init with copy of [String : String](v0[105], (v0 + 30), &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMd, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMR);
-  if (v0[30] != 1)
-  {
-    v9 = *(v0 + 256);
-    v11 = (v0 + 30);
-    goto LABEL_19;
-  }
-
-  v8 = v0[106];
-  outlined destroy of BodyTrackingComponent?((v0 + 30), &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMd, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMR);
-  outlined init with copy of [String : String](v8 + 112, (v0 + 44), &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMd, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMR);
-  if (v0[44] != 1)
-  {
-    v9 = *(v0 + 368);
-    v11 = (v0 + 44);
-LABEL_19:
-    outlined destroy of Entity.ConfigurationCatalog.LoadOptions(v11);
-    v10 = v0[104];
-    if (!v10)
-    {
-      goto LABEL_23;
-    }
-
-    goto LABEL_20;
-  }
-
-  outlined destroy of BodyTrackingComponent?((v0 + 44), &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMd, &_s10RealityKit6EntityC0A10FoundationE20ConfigurationCatalogV11LoadOptionsVSgMR);
-  v9 = 0;
-  v10 = v0[104];
-  if (!v10)
-  {
-    goto LABEL_23;
-  }
-
-LABEL_20:
-  if (*(v10 + 16))
-  {
-    v12 = specialized __RawDictionaryStorage.find<A>(_:)(47, 0xE100000000000000);
-    if (v13)
-    {
-      v101 = *(*(v10 + 56) + 8 * v12);
-
-      goto LABEL_24;
-    }
-  }
-
-LABEL_23:
-  v101 = MEMORY[0x1E69E7CC8];
-LABEL_24:
-  v14 = *(*(v0[106] + 232) + 24);
-  if (!*(v14 + 16))
-  {
-LABEL_39:
-
-    lazy protocol witness table accessor for type Entity.ConfigurationCatalog.ConfigurableEntityError and conformance Entity.ConfigurationCatalog.ConfigurableEntityError();
-    swift_allocError();
-    *v35 = xmmword_1C18B1D60;
-    *(v35 + 24) = 0;
-    *(v35 + 32) = 0;
-    *(v35 + 16) = 0;
-    *(v35 + 40) = 0;
-    swift_willThrow();
-    goto LABEL_75;
-  }
-
-  v15 = *(*(v0[106] + 232) + 24);
-
-  v16 = specialized __RawDictionaryStorage.find<A>(_:)(47, 0xE100000000000000);
-  if ((v17 & 1) == 0)
-  {
-
-    goto LABEL_39;
-  }
-
-  v98 = v9;
-  v18 = *(*(v14 + 56) + 8 * v16);
-  v0[114] = v18;
-
-  v19 = *(v18 + 32);
-  if (v19 >> 62)
-  {
-    goto LABEL_88;
-  }
-
-  for (i = *((v19 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = v97)
-  {
-    v21 = MEMORY[0x1E69E7CC0];
-    v99 = v1;
-    v100 = v0;
-    if (!i)
-    {
-      break;
-    }
-
-    v22 = v19;
-    v103 = MEMORY[0x1E69E7CC0];
-    result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, i & ~(i >> 63), 0);
-    v0 = v101;
-    if (i < 0)
-    {
-      __break(1u);
-      return result;
-    }
-
-    v24 = 0;
-    v25 = v103;
-    v26 = v22;
-    v102 = v22 & 0xC000000000000001;
-    v27 = v22;
-    v28 = i;
-    do
-    {
-      if (v102)
-      {
-        v29 = MEMORY[0x1C68F41F0](v24, v26);
-      }
-
-      else
-      {
-        v29 = *(v26 + 8 * v24 + 32);
-      }
-
-      v31 = *(v29 + 32);
-      v30 = *(v29 + 40);
-
-      v33 = *(v103 + 16);
-      v32 = *(v103 + 24);
-      v1 = (v33 + 1);
-      if (v33 >= v32 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1);
-      }
-
-      ++v24;
-      *(v103 + 16) = v1;
-      v34 = v103 + 16 * v33;
-      *(v34 + 32) = v31;
-      *(v34 + 40) = v30;
-      v26 = v27;
-    }
-
-    while (v28 != v24);
-    v21 = MEMORY[0x1E69E7CC0];
-LABEL_42:
-    v104 = v21;
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
-    v36 = 0;
-    v37 = v104;
-    v38 = (v25 + 40);
-    while (v36 < *(v25 + 16))
-    {
-      v40 = *(v38 - 1);
-      v39 = *v38;
-      v41 = v0[2];
-
-      if (!v41 || (v42 = specialized __RawDictionaryStorage.find<A>(_:)(v40, v39), (v43 & 1) == 0))
-      {
-
-        lazy protocol witness table accessor for type Entity.ConfigurationCatalog.ConfigurableEntityError and conformance Entity.ConfigurationCatalog.ConfigurableEntityError();
-        swift_allocError();
-        *v50 = v40;
-        *(v50 + 8) = v39;
-        *(v50 + 24) = 0;
-        *(v50 + 32) = 0;
-        *(v50 + 16) = 0;
-        *(v50 + 40) = 4;
-        swift_willThrow();
-
-        v0 = v100;
-        goto LABEL_74;
-      }
-
-      v44 = (v0[7] + 16 * v42);
-      v46 = *v44;
-      v45 = v44[1];
-
-      v48 = *(v104 + 16);
-      v47 = *(v104 + 24);
-      if (v48 >= v47 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v47 > 1), v48 + 1, 1);
-      }
-
-      v36 = (v36 + 1);
-      *(v104 + 16) = v48 + 1;
-      v49 = v104 + 16 * v48;
-      *(v49 + 32) = v46;
-      *(v49 + 40) = v45;
-      v38 += 2;
-      v0 = v101;
-      if (v1 == v36)
-      {
-
-        goto LABEL_52;
-      }
-    }
-
-    __break(1u);
-LABEL_88:
-    v96 = v19;
-    v97 = __CocoaSet.count.getter();
-    v19 = v96;
-  }
-
-  v1 = *(MEMORY[0x1E69E7CC0] + 16);
-  v0 = v101;
-  if (v1)
-  {
-    v25 = MEMORY[0x1E69E7CC0];
-    goto LABEL_42;
-  }
-
-  v25 = MEMORY[0x1E69E7CC0];
-  v37 = MEMORY[0x1E69E7CC0];
-LABEL_52:
-  v0 = v100;
-  v51 = v100[106];
-  if (!*(v37 + 16))
-  {
-
-    v70 = OBJC_IVAR____TtCVE17RealityFoundationC10RealityKit6Entity20ConfigurationCatalog30RealityFileConfigurationReader_loadingUrl;
-    v71 = swift_task_alloc();
-    v100[115] = v71;
-    *v71 = v100;
-    v71[1] = Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:);
-    v72 = v100[106];
-    v68 = v51 + v70;
-    v69 = v99;
-LABEL_62:
-
-    return Entity.ConfigurationCatalog.RealityFileConfigurationReader.initEntity(url:options:requestAnchor:)(v68, v69, v98);
-  }
-
-  v52 = *(v51 + 224);
-  isa = Array._bridgeToObjectiveC()().super.isa;
-  RealityFileAssetDescriptorWithConfigurationSpecifications = RERealityFileGetRealityFileAssetDescriptorWithConfigurationSpecifications();
-
-  if (!RealityFileAssetDescriptorWithConfigurationSpecifications)
-  {
-    v100[101] = v25;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-    lazy protocol witness table accessor for type [String] and conformance [A]();
-    v73 = BidirectionalCollection<>.joined(separator:)();
-    v75 = v74;
-
-    v100[102] = v37;
-    v76 = BidirectionalCollection<>.joined(separator:)();
-    v78 = v77;
-
-    lazy protocol witness table accessor for type Entity.ConfigurationCatalog.RealityFileConfigurationReaderError and conformance Entity.ConfigurationCatalog.RealityFileConfigurationReaderError();
-    swift_allocError();
-    *v79 = v73;
-    *(v79 + 8) = v75;
-    v0 = v100;
-    *(v79 + 16) = v76;
-    *(v79 + 24) = v78;
-    v80 = 1;
-    goto LABEL_73;
-  }
-
-  if (!RERealityFileAssetDescriptorAsSceneDescriptor())
-  {
-    v81 = v100[113];
-    RERealityFileAssetDescriptorGetFilename();
-    static String.Encoding.utf8.getter();
-    v82 = String.init(cString:encoding:)();
-    if (v83)
-    {
-      v84 = v82;
-    }
-
-    else
-    {
-      v84 = 0xD000000000000010;
-    }
-
-    if (v83)
-    {
-      v85 = v83;
-    }
-
-    else
-    {
-      v85 = 0x80000001C18E72A0;
-    }
-
-    lazy protocol witness table accessor for type Entity.ConfigurationCatalog.RealityFileConfigurationReaderError and conformance Entity.ConfigurationCatalog.RealityFileConfigurationReaderError();
-    swift_allocError();
-    *v79 = v84;
-    *(v79 + 8) = v85;
-    *(v79 + 16) = 0;
-    *(v79 + 24) = 0;
-    v80 = 2;
-LABEL_73:
-    *(v79 + 32) = v80;
-    swift_willThrow();
-
-LABEL_74:
-    v1 = v99;
-    goto LABEL_75;
-  }
-
-  SceneName = RESceneDescriptorGetSceneName();
-  v56 = v100[113];
-  v1 = v99;
-  if (SceneName)
-  {
-    v57 = v100[113];
-    static String.Encoding.utf8.getter();
-    v58 = String.init(cString:encoding:)();
-    if (v59)
-    {
-      v60 = HIBYTE(v59) & 0xF;
-      if ((v59 & 0x2000000000000000) == 0)
-      {
-        v60 = v58 & 0xFFFFFFFFFFFFLL;
-      }
-
-      if (v60)
-      {
-        v61 = v100[112];
-        v62 = v100[109];
-        v63 = v100[108];
-        v64 = v100[107];
-        v65 = v100[106];
-        v100[99] = v58;
-        v100[100] = v59;
-        (*(v63 + 104))(v62, *MEMORY[0x1E6968F70], v64);
-        lazy protocol witness table accessor for type String and conformance String();
-        URL.appending<A>(component:directoryHint:)();
-        (*(v63 + 8))(v62, v64);
-
-        v66 = swift_task_alloc();
-        v100[119] = v66;
-        *v66 = v100;
-        v66[1] = Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:);
-        v67 = v100[106];
-        v68 = v100[112];
-        v69 = v99;
-        goto LABEL_62;
-      }
-    }
-
-    v90 = v100[113];
-  }
-
-  RERealityFileAssetDescriptorGetFilename();
-  static String.Encoding.utf8.getter();
-  v91 = String.init(cString:encoding:)();
-  if (v92)
-  {
-    v93 = v91;
-  }
-
-  else
-  {
-    v93 = 0xD000000000000010;
-  }
-
-  if (v92)
-  {
-    v94 = v92;
-  }
-
-  else
-  {
-    v94 = 0x80000001C18E72A0;
-  }
-
-  lazy protocol witness table accessor for type Entity.ConfigurationCatalog.RealityFileConfigurationReaderError and conformance Entity.ConfigurationCatalog.RealityFileConfigurationReaderError();
-  swift_allocError();
-  *v95 = v93;
-  *(v95 + 8) = v94;
-  *(v95 + 16) = 0;
-  *(v95 + 24) = 0;
-  *(v95 + 32) = 3;
-  swift_willThrow();
-
-LABEL_75:
-  v86 = v0[113];
-  v87 = v0[112];
-  v88 = v0[109];
-  outlined destroy of Entity.__LoadOptions(v1);
-
-  v89 = v0[1];
-
-  return v89();
-}
-
-uint64_t Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:)(uint64_t a1)
-{
-  v4 = *v2;
-  v5 = *(*v2 + 920);
-  v6 = *v2;
-  v4[116] = v1;
-
-  v7 = v4[106];
-  if (v1)
-  {
-    v8 = Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:);
-  }
-
-  else
-  {
-    v4[117] = a1;
-    v8 = Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:);
-  }
-
-  return MEMORY[0x1EEE6DFA0](v8, v7, 0);
-}
-
-{
-  v4 = *v2;
-  v5 = *(*v2 + 952);
-  v6 = *v2;
-  v4[120] = v1;
-
-  v7 = v4[106];
-  if (v1)
-  {
-    v8 = Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:);
-  }
-
-  else
-  {
-    v4[121] = a1;
-    v8 = Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:);
-  }
-
-  return MEMORY[0x1EEE6DFA0](v8, v7, 0);
-}
-
-uint64_t Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:)()
-{
-  type metadata accessor for MainActor();
-  *(v0 + 944) = static MainActor.shared.getter();
-  v2 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return MEMORY[0x1EEE6DFA0](Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:), v2, v1);
-}
-
-{
-  v1 = v0[118];
-  v2 = v0[117];
-  v3 = v0[106];
-  v4 = v0[103];
-
-  Entity.copy(to:recursive:)(v4, 1);
-
-  return MEMORY[0x1EEE6DFA0](Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:), v3, 0);
-}
-
-{
-  v1 = v0[117];
-  v2 = v0[114];
-
-  v3 = v0[113];
-  v4 = v0[112];
-  v5 = v0[109];
-  outlined destroy of Entity.__LoadOptions((v0 + 58));
-
-  v6 = v0[1];
-
-  return v6();
-}
-
-{
-  type metadata accessor for MainActor();
-  *(v0 + 976) = static MainActor.shared.getter();
-  v2 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return MEMORY[0x1EEE6DFA0](Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:), v2, v1);
-}
-
-{
-  v1 = v0[122];
-  v2 = v0[121];
-  v3 = v0[106];
-  v4 = v0[103];
-
-  Entity.copy(to:recursive:)(v4, 1);
-
-  return MEMORY[0x1EEE6DFA0](Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:), v3, 0);
-}
-
-{
-  v1 = v0[121];
-  v2 = v0[114];
-  v3 = v0[112];
-  v4 = v0[111];
-  v5 = v0[110];
-
-  (*(v4 + 8))(v3, v5);
-  v6 = v0[113];
-  v7 = v0[112];
-  v8 = v0[109];
-  outlined destroy of Entity.__LoadOptions((v0 + 58));
-
-  v9 = v0[1];
-
-  return v9();
-}
-
-{
-  v1 = v0[114];
-
-  v2 = v0[116];
-  v3 = v0[113];
-  v4 = v0[112];
-  v5 = v0[109];
-  outlined destroy of Entity.__LoadOptions((v0 + 58));
-
-  v6 = v0[1];
-
-  return v6();
-}
-
-{
-  v1 = v0[114];
-  v2 = v0[112];
-  v3 = v0[111];
-  v4 = v0[110];
-
-  (*(v3 + 8))(v2, v4);
-  v5 = v0[120];
-  v6 = v0[113];
-  v7 = v0[112];
-  v8 = v0[109];
-  outlined destroy of Entity.__LoadOptions((v0 + 58));
-
-  v9 = v0[1];
-
-  return v9();
-}
-
-uint64_t protocol witness for Entity.ConfigurationCatalog.FormatReader.loadEntity(into:withConfigurations:loadOptions:) in conformance Entity.ConfigurationCatalog.RealityFileConfigurationReader(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v7 = swift_task_alloc();
-  *(v3 + 16) = v7;
-  *v7 = v3;
-  v7[1] = partial apply for closure #1 in TextureResource.PartialContents.init(source:mipmaps:);
-
-  return Entity.ConfigurationCatalog.RealityFileConfigurationReader.loadEntity(into:withConfigurations:loadOptions:)(a1, a2, a3);
-}
-
-uint64_t outlined assign with take of __DownsamplingStrategy?(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit22__DownsamplingStrategy_pSgMd, &_s10RealityKit22__DownsamplingStrategy_pSgMR);
-  (*(*(v4 - 8) + 40))(a2, a1, v4);
-  return a2;
-}
-
-unint64_t lazy protocol witness table accessor for type Entity.ConfigurationCatalog.ConfigurableEntityError and conformance Entity.ConfigurationCatalog.ConfigurableEntityError()
-{
-  result = lazy protocol witness table cache variable for type Entity.ConfigurationCatalog.ConfigurableEntityError and conformance Entity.ConfigurationCatalog.ConfigurableEntityError;
-  if (!lazy protocol witness table cache variable for type Entity.ConfigurationCatalog.ConfigurableEntityError and conformance Entity.ConfigurationCatalog.ConfigurableEntityError)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Entity.ConfigurationCatalog.ConfigurableEntityError and conformance Entity.ConfigurationCatalog.ConfigurableEntityError);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type [String] and conformance [A]()
-{
-  result = lazy protocol witness table cache variable for type [String] and conformance [A];
-  if (!lazy protocol witness table cache variable for type [String] and conformance [A])
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySSGMd, &_sSaySSGMR);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type [String] and conformance [A]);
-  }
-
-  return result;
-}
-
-uint64_t _sSo10CFErrorRefaABs5Error10FoundationWlTm_2(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-RealityKit::__Downsampling::Factor __swiftcall __Downsampling.Factor.init(mipmapOffset:)(RealityKit::__Downsampling::Factor mipmapOffset)
-{
-  v2 = 1 << SLOBYTE(mipmapOffset.value);
-  if (mipmapOffset.value >= 0x40)
-  {
-    v2 = 0;
-  }
-
-  if (mipmapOffset.value > 0x40)
-  {
-    v2 = 0;
-  }
-
-  *v1 = v2;
-  return mipmapOffset;
-}
-
-uint64_t __DownsamplingStrategyClosure.resolve(_:)()
-{
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  return v1();
-}
-
-uint64_t protocol witness for __DownsamplingStrategy.resolve(_:) in conformance __DownsamplingStrategyClosure()
-{
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  return v1();
-}
-
-void __Downsampling.Minimal.resolve(_:)(unint64_t a1@<X0>, void *a2@<X8>)
-{
-  if (a1 >> 62)
-  {
-    goto LABEL_22;
-  }
-
-  for (i = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = __CocoaSet.count.getter())
-  {
-    v5 = MEMORY[0x1E69E7CC0];
-    if (!i)
-    {
-LABEL_20:
-      *a2 = v5;
-      return;
-    }
-
-    v16 = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, i & ~(i >> 63), 0);
-    if (i < 0)
-    {
-      break;
-    }
-
-    v15 = a2;
-    a2 = 0;
-    v5 = v16;
-    while (1)
-    {
-      v6 = (a1 & 0xC000000000000001) != 0 ? MEMORY[0x1C68F41F0](a2, a1) : *(a1 + 8 * a2 + 32);
-      v7 = v6;
-      v8 = [v6 mipmapLevelCount];
-
-      v9 = v8 - 1;
-      if (__OFSUB__(v8, 1))
-      {
-        break;
-      }
-
-      v10 = v9 > 0x40;
-      if (v9 >= 0x40)
-      {
-        v11 = 0;
-      }
-
-      else
-      {
-        v11 = 1 << v9;
-      }
-
-      if (v10)
-      {
-        v12 = 0;
-      }
-
-      else
-      {
-        v12 = v11;
-      }
-
-      v14 = *(v16 + 16);
-      v13 = *(v16 + 24);
-      if (v14 >= v13 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v14 + 1, 1);
-      }
-
-      a2 = (a2 + 1);
-      *(v16 + 16) = v14 + 1;
-      *(v16 + 8 * v14 + 32) = v12;
-      if (i == a2)
-      {
-        a2 = v15;
-        goto LABEL_20;
-      }
-    }
-
-    __break(1u);
-LABEL_22:
-    ;
-  }
-
-  __break(1u);
-}
-
-void __Downsampling.SkipHighResolution.resolve(_:)(unint64_t a1@<X0>, unint64_t a2@<X8>)
-{
-  v20 = a1;
-  v4 = *v2;
-  if (a1 >> 62)
-  {
-    goto LABEL_24;
-  }
-
-  v5 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  while (1)
-  {
-    v6 = MEMORY[0x1E69E7CC0];
-    if (!v5)
-    {
-LABEL_22:
-      *a2 = v6;
-      return;
-    }
-
-    v7 = a1;
-    v21 = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v5 & ~(v5 >> 63), 0);
-    if (v5 < 0)
-    {
-      break;
-    }
-
-    v19 = a2;
-    v8 = 0;
-    v6 = v21;
-    v9 = v7;
-    v10 = v7 & 0xC000000000000001;
-    while (1)
-    {
-      v11 = v10 ? MEMORY[0x1C68F41F0](v8, v9) : *(v9 + 8 * v8 + 32);
-      v12 = v11;
-      v13 = [v11 mipmapLevelCount];
-
-      v14 = v13 - 1;
-      if (__OFSUB__(v13, 1))
-      {
-        break;
-      }
-
-      if (v4 < v14)
-      {
-        v14 = v4;
-      }
-
-      v15 = v14 > 0x40;
-      if (v14 >= 0x40)
-      {
-        v16 = 0;
-      }
-
-      else
-      {
-        v16 = 1 << v14;
-      }
-
-      if (v15)
-      {
-        v17 = 0;
-      }
-
-      else
-      {
-        v17 = v16;
-      }
-
-      a2 = *(v21 + 16);
-      v18 = *(v21 + 24);
-      if (a2 >= v18 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v18 > 1), a2 + 1, 1);
-      }
-
-      ++v8;
-      *(v21 + 16) = a2 + 1;
-      *(v21 + 8 * a2 + 32) = v17;
-      v9 = v20;
-      if (v5 == v8)
-      {
-        a2 = v19;
-        goto LABEL_22;
-      }
-    }
-
-    __break(1u);
-LABEL_24:
-    v5 = __CocoaSet.count.getter();
-    a1 = v20;
-  }
-
-  __break(1u);
-}
-
-unint64_t __Downsampling.Error.debugDescription.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  _StringGuts.grow(_:)(58);
-  MEMORY[0x1C68F3410](0x6764756220656874, 0xEE0020666F207465);
-  v3 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x1C68F3410](v3);
-
-  MEMORY[0x1C68F3410](0xD00000000000002ALL, 0x80000001C18E7300);
-  MEMORY[0x1C68F3410](0, 0xE000000000000000);
-
-  v6 = dispatch thunk of CustomStringConvertible.description.getter();
-  v7 = v4;
-  MEMORY[0x1C68F3410](0x2E736574796220, 0xE700000000000000);
-
-  MEMORY[0x1C68F3410](v6, v7);
-
-  return 0xD000000000000037;
-}
-
-uint64_t __Downsampling.Budgeted.init(availableBytes:device:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  *a3 = result;
-  a3[1] = a2;
-  return result;
-}
-
-uint64_t __Downsampling.Budgeted.resolve(_:)@<X0>(unint64_t a1@<X0>, void *a2@<X8>)
-{
-  v3 = a1;
-  v123 = *v2;
-  v138 = v2[1];
-  if (a1 >> 62)
-  {
-    goto LABEL_175;
-  }
-
-  for (i = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = __CocoaSet.count.getter())
-  {
-    v5 = MEMORY[0x1E69E7CC0];
-    if (!i)
-    {
-      break;
-    }
-
-    v151 = MEMORY[0x1E69E7CC0];
-    result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, i & ~(i >> 63), 0);
-    if (i < 0)
-    {
-LABEL_177:
-      __break(1u);
-LABEL_178:
-      __break(1u);
-      return result;
-    }
-
-    v7 = 0;
-    v127 = v3 & 0xC000000000000001;
-    v129 = i;
-    v8 = v151;
-    v125 = v3 & 0xFFFFFFFFFFFFFF8;
-    v126 = v3;
-    v124 = (v3 + 32);
-    v5 = MEMORY[0x1E69E7CC0];
-    while (1)
-    {
-      v3 = (v7 + 1);
-      if (__OFADD__(v7, 1))
-      {
-        goto LABEL_168;
-      }
-
-      if (v127)
-      {
-        v9 = MEMORY[0x1C68F41F0]();
-      }
-
-      else
-      {
-        if (v7 >= *(v125 + 16))
-        {
-          __break(1u);
-LABEL_172:
-          __break(1u);
-LABEL_173:
-          __break(1u);
-          goto LABEL_174;
-        }
-
-        v9 = *&v124[8 * v7];
-      }
-
-      v10 = v9;
-      v11 = [v9 mipmapLevelCount];
-      if (v11 < 0)
-      {
-        goto LABEL_169;
-      }
-
-      v12 = v11;
-      v135 = v3;
-      if (v11)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11, 0);
-        v13 = 0;
-        v14 = v5;
-        do
-        {
-          [v10 pixelFormat];
-          [v10 width];
-          [v10 height];
-          [v10 depth];
-          [v10 sampleCount];
-          MTLGetTextureLevelInfoForDeviceWithOptions();
-          v16 = *(v5 + 16);
-          v15 = *(v5 + 24);
-          if (v16 >= v15 >> 1)
-          {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1);
-          }
-
-          ++v13;
-          *(v5 + 16) = v16 + 1;
-          v17 = v5 + 104 * v16;
-          *(v17 + 48) = v145;
-          *(v17 + 64) = v146;
-          *(v17 + 32) = v141;
-          *(v17 + 128) = v150;
-          *(v17 + 96) = v148;
-          *(v17 + 112) = v149;
-          *(v17 + 80) = v147;
-        }
-
-        while (v12 != v13);
-        v5 = MEMORY[0x1E69E7CC0];
-      }
-
-      else
-      {
-        v14 = v5;
-      }
-
-      v18 = [v10 textureType];
-      v19 = 6;
-      if (v18 != 5)
-      {
-        v19 = 1;
-      }
-
-      v20 = *(v14 + 16);
-      if (v20)
-      {
-        break;
-      }
-
-      v22 = v5;
-LABEL_30:
-      v28 = *(v8 + 16);
-      v27 = *(v8 + 24);
-      v29 = v28 + 1;
-      if (v28 >= v27 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v27 > 1), v28 + 1, 1);
-        v5 = MEMORY[0x1E69E7CC0];
-      }
-
-      *(v8 + 16) = v29;
-      *(v8 + 8 * v28 + 32) = v22;
-      v7 = v135;
-      if (v135 == v129)
-      {
-        goto LABEL_36;
-      }
-    }
-
-    v131 = v19;
-    v134 = v8;
-    *&v141 = v5;
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v20, 0);
-    v21 = v131;
-    v22 = v5;
-    v23 = 128;
-    while (1)
-    {
-      v24 = *(v14 + v23);
-      v8 = v21 * v24;
-      if ((v21 * v24) >> 64 != (v21 * v24) >> 63)
-      {
-        break;
-      }
-
-      if (v8 < 0)
-      {
-        goto LABEL_82;
-      }
-
-      *&v141 = v5;
-      v26 = *(v5 + 16);
-      v25 = *(v5 + 24);
-      if (v26 >= v25 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1);
-        v21 = v131;
-      }
-
-      *(v5 + 16) = v26 + 1;
-      *(v5 + 8 * v26 + 32) = v8;
-      v23 += 104;
-      if (!--v20)
-      {
-
-        v8 = v134;
-        v5 = MEMORY[0x1E69E7CC0];
-        goto LABEL_30;
-      }
-    }
-
-    __break(1u);
-LABEL_82:
-    __break(1u);
-LABEL_83:
-    v137 = v10;
-    if (!v129)
-    {
-      v63 = MEMORY[0x1E69E7CC0];
-      v69 = *(MEMORY[0x1E69E7CC0] + 16);
-      if (v69)
-      {
-        goto LABEL_94;
-      }
-
-      goto LABEL_146;
-    }
-
-    v143 = MEMORY[0x1E69E7CC0];
-    result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v129 & ~(v129 >> 63), 0);
-    if (v129 < 0)
-    {
-      goto LABEL_178;
-    }
-
-    v62 = 0;
-    v63 = v143;
-    do
-    {
-      if ((v126 & 0xC000000000000001) != 0)
-      {
-        v64 = MEMORY[0x1C68F41F0](v62, v126);
-      }
-
-      else
-      {
-        v64 = *(v126 + 8 * v62 + 32);
-      }
-
-      v65 = v64;
-      v66 = [v64 mipmapLevelCount];
-
-      *&v141 = v63;
-      v68 = v63[1].u64[0];
-      v67 = v63[1].u64[1];
-      v69 = v68 + 1;
-      if (v68 >= v67 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v67 > 1), v68 + 1, 1);
-      }
-
-      ++v62;
-      v63[1].i64[0] = v69;
-      v63[2].i64[v68] = v66;
-    }
-
-    while (v129 != v62);
-LABEL_94:
-    if (v69 > 3)
-    {
-      v70 = v69 & 0xFFFFFFFFFFFFFFFCLL;
-      v72 = v63 + 3;
-      v73 = 0uLL;
-      v74 = v69 & 0xFFFFFFFFFFFFFFFCLL;
-      v75 = 0uLL;
-      do
-      {
-        v73 = vbslq_s8(vcgtq_s64(v72[-1], v73), v72[-1], v73);
-        v75 = vbslq_s8(vcgtq_s64(*v72, v75), *v72, v75);
-        v72 += 2;
-        v74 -= 4;
-      }
-
-      while (v74);
-      v76 = vbslq_s8(vcgtq_s64(v73, v75), v73, v75);
-      v77 = vextq_s8(v76, v76, 8uLL).u64[0];
-      v71 = vbsl_s8(vcgtd_s64(v76.i64[0], v77), *v76.i8, v77);
-      if (v69 != v70)
-      {
-        goto LABEL_99;
-      }
-    }
-
-    else
-    {
-      v70 = 0;
-      v71 = 0;
-LABEL_99:
-      v78 = v69 - v70;
-      v79 = &v63[2] + v70;
-      do
-      {
-        v81 = *v79++;
-        v80 = v81;
-        if (*&v81 > *&v71)
-        {
-          v71 = v80;
-        }
-
-        --v78;
-      }
-
-      while (v78);
-    }
-
-    v82 = MEMORY[0x1E69E7CC0];
-    if (v71)
-    {
-      v83 = 0;
-      v84 = v10[2];
-      v130 = v71;
-      v133 = v137[2];
-      while (1)
-      {
-        v85 = v83 + 1;
-        if (__OFADD__(v83, 1))
-        {
-          __break(1u);
-          goto LABEL_177;
-        }
-
-        if (v84)
-        {
-          v140 = v83 + 1;
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v84, 0);
-          v39 = v82;
-          v86 = v137 + 4;
-          while (1)
-          {
-            v87 = *(*v86 + 16) - 1 >= v83 ? v83 : *(*v86 + 16) - 1;
-            if (v87 < 0)
-            {
-              goto LABEL_167;
-            }
-
-            v88 = *(*v86 + 8 * v87 + 32);
-            v90 = *(v82 + 16);
-            v89 = *(v82 + 24);
-            v47 = v90 + 1;
-            if (v90 >= v89 >> 1)
-            {
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v89 > 1), v90 + 1, 1);
-            }
-
-            *(v82 + 16) = v47;
-            v91 = v82 + 16 * v90;
-            *(v91 + 32) = v88;
-            *(v91 + 40) = v87;
-            ++v86;
-            if (!--v84)
-            {
-              v82 = MEMORY[0x1E69E7CC0];
-              goto LABEL_118;
-            }
-          }
-        }
-
-        v47 = *(v82 + 16);
-        if (v47)
-        {
-          break;
-        }
-
-        if (v123)
-        {
-          goto LABEL_170;
-        }
-
-LABEL_127:
-        v83 = v85;
-        if (v85 == *&v71)
-        {
-          goto LABEL_146;
-        }
-      }
-
-      v140 = v83 + 1;
-      v39 = v82;
-LABEL_118:
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v47, 0);
-      v92 = v82;
-      v93 = *(v82 + 16);
-      v94 = 32;
-      v95 = v47;
-      do
-      {
-        v96 = v93;
-        v97 = *(v39 + v94);
-        *&v141 = v92;
-        v98 = *(v92 + 24);
-        ++v93;
-        if (v96 >= v98 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v98 > 1), v93, 1);
-          v92 = v141;
-        }
-
-        *(v92 + 16) = v93;
-        *(v92 + 8 * v96 + 32) = v97;
-        v94 += 16;
-        --v95;
-      }
-
-      while (v95);
-      v99 = 0;
-      v100 = 0;
-      v84 = v133;
-      v8 = v134;
-      while (1)
-      {
-        v101 = *(v92 + 8 * v99 + 32);
-        v37 = __CFADD__(v100, v101);
-        v100 += v101;
-        if (v37)
-        {
-          goto LABEL_164;
-        }
-
-        if (v96 + 1 == ++v99)
-        {
-
-          if (v100 < v123)
-          {
-            goto LABEL_134;
-          }
-
-          v82 = MEMORY[0x1E69E7CC0];
-          v71 = v130;
-          v85 = v140;
-          goto LABEL_127;
-        }
-      }
-    }
-
-LABEL_146:
-
-    v109 = 0;
-    v110 = *(v8 + 16);
-    v3 = MEMORY[0x1E69E7CC0];
-    while (v110 != v109)
-    {
-      if (v109 >= *(v8 + 16))
-      {
-        goto LABEL_173;
-      }
-
-      v111 = *(v8 + 8 * v109++ + 32);
-      v112 = *(v111 + 16);
-      if (v112)
-      {
-        v113 = *(v111 + 8 * v112 + 24);
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v3 + 16) + 1, 1, v3);
-        }
-
-        v115 = *(v3 + 16);
-        v114 = *(v3 + 24);
-        if (v115 >= v114 >> 1)
-        {
-          v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v114 > 1), v115 + 1, 1, v3);
-        }
-
-        *(v3 + 16) = v115 + 1;
-        *(v3 + 8 * v115 + 32) = v113;
-      }
-    }
-
-    v116 = *(v3 + 16);
-    if (!v116)
-    {
-      v117 = 0;
-LABEL_161:
-
-      lazy protocol witness table accessor for type __Downsampling.Error and conformance __Downsampling.Error();
-      swift_allocError();
-      *v120 = v123;
-      v120[1] = v117;
-      return swift_willThrow();
-    }
-
-    v117 = 0;
-    v118 = (v3 + 32);
-    while (1)
-    {
-      v119 = *v118++;
-      v37 = __CFADD__(v117, v119);
-      v117 += v119;
-      if (v37)
-      {
-        break;
-      }
-
-      if (!--v116)
-      {
-        goto LABEL_161;
-      }
-    }
-
-LABEL_174:
-    __break(1u);
-LABEL_175:
-    ;
-  }
-
-  v29 = *(MEMORY[0x1E69E7CC0] + 16);
-  if (!v29)
-  {
-    goto LABEL_79;
-  }
-
-  v129 = 0;
-  v126 = v3;
-  v8 = MEMORY[0x1E69E7CC0];
-LABEL_36:
-  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v29, 0);
-  v30 = 0;
-  v31 = v5;
-  do
-  {
-    if (v30 >= *(v8 + 16))
-    {
-      goto LABEL_165;
-    }
-
-    v32 = *(v8 + 32 + 8 * v30);
-    v33 = *(v32 + 16);
-    if (v33)
-    {
-      v34 = 0;
-      v35 = (v32 + 32);
-      while (1)
-      {
-        v36 = *v35++;
-        v37 = __CFADD__(v34, v36);
-        v34 += v36;
-        if (v37)
-        {
-          break;
-        }
-
-        if (!--v33)
-        {
-          goto LABEL_44;
-        }
-      }
-
-      __break(1u);
-LABEL_79:
-      result = swift_bridgeObjectRelease_n();
-      goto LABEL_80;
-    }
-
-    v34 = 0;
-LABEL_44:
-    v142 = v31;
-    v39 = *(v31 + 16);
-    v38 = *(v31 + 24);
-    if (v39 >= v38 >> 1)
-    {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v38 > 1), v39 + 1, 1);
-      v31 = v142;
-    }
-
-    ++v30;
-    *(v31 + 16) = v39 + 1;
-    *(v31 + 8 * v39 + 32) = v34;
-  }
-
-  while (v30 != v29);
-  v3 = 0;
-  v40 = v39 + 1;
-  v41 = 32;
-  v42 = MEMORY[0x1E69E7CC0];
-  do
-  {
-    v43 = *(v31 + v41);
-    v37 = __CFADD__(v3, v43);
-    v3 += v43;
-    if (v37)
-    {
-      goto LABEL_166;
-    }
-
-    v41 += 8;
-    --v40;
-  }
-
-  while (v40);
-
-  if (v123 >= v3)
-  {
-
-LABEL_80:
-    *a2 = 0;
-    return result;
-  }
-
-  *&v141 = v42;
-  v128 = v29;
-  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v29, 0);
-  v44 = 0;
-  v10 = v42;
-  v132 = v8 + 32;
-  v134 = v8;
-  while (2)
-  {
-    if (v44 >= *(v8 + 16))
-    {
-      goto LABEL_172;
-    }
-
-    v139 = v44;
-    v45 = *(v132 + 8 * v44);
-    v46 = *(v45 + 16);
-    if (!v46)
-    {
-      v54 = *(v132 + 8 * v44);
-
-      v49 = MEMORY[0x1E69E7CC0];
-      v39 = *(MEMORY[0x1E69E7CC0] + 16);
-      if (v39 >= 2)
-      {
-        goto LABEL_64;
-      }
-
-LABEL_62:
-
-      v8 = v134;
-LABEL_73:
-      *&v141 = v10;
-      v61 = v10[2];
-      v60 = v10[3];
-      v3 = v61 + 1;
-      if (v61 >= v60 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v60 > 1), v61 + 1, 1);
-      }
-
-      v44 = v139 + 1;
-      v10[2] = v3;
-      v10[v61 + 4] = v49;
-      if (v139 + 1 == v128)
-      {
-        goto LABEL_83;
-      }
-
-      continue;
-    }
-
-    break;
-  }
-
-  v136 = v10;
-  v152 = MEMORY[0x1E69E7CC0];
-
-  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v46, 0);
-  v47 = 0;
-  v48 = *(v45 + 16);
-  v49 = v152;
-  do
-  {
-    if (!v48)
-    {
-      __break(1u);
-LABEL_132:
-      __break(1u);
-LABEL_133:
-      __break(1u);
-LABEL_134:
-
-      v144 = MEMORY[0x1E69E7CC0];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v47, 0);
-      v102 = 40;
-      do
-      {
-        v103 = *(v39 + v102);
-        v104 = v103 > 0x40;
-        if (v103 >= 0x40)
-        {
-          v105 = 0;
-        }
-
-        else
-        {
-          v105 = 1 << v103;
-        }
-
-        if (v104)
-        {
-          v106 = 0;
-        }
-
-        else
-        {
-          v106 = v105;
-        }
-
-        v108 = *(v144 + 16);
-        v107 = *(v144 + 24);
-        if (v108 >= v107 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v107 > 1), v108 + 1, 1);
-        }
-
-        *(v144 + 16) = v108 + 1;
-        *(v144 + 8 * v108 + 32) = v106;
-        v102 += 16;
-        --v47;
-      }
-
-      while (v47);
-
-      *a2 = v144;
-      return result;
-    }
-
-    v50 = v48 - 1;
-    if ((v48 - 1) >= *(v45 + 16))
-    {
-      goto LABEL_132;
-    }
-
-    v51 = *(v45 + 24 + 8 * v48);
-    v37 = __CFADD__(v47, v51);
-    v47 += v51;
-    if (v37)
-    {
-      goto LABEL_133;
-    }
-
-    v53 = *(v152 + 16);
-    v52 = *(v152 + 24);
-    v39 = v53 + 1;
-    if (v53 >= v52 >> 1)
-    {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v52 > 1), v53 + 1, 1);
-    }
-
-    *(v152 + 16) = v39;
-    *(v152 + 8 * v53 + 32) = v47;
-    v48 = v50;
-    --v46;
-  }
-
-  while (v46);
-  v10 = v136;
-  if (v39 < 2)
-  {
-    goto LABEL_62;
-  }
-
-LABEL_64:
-  v55 = v39 >> 1;
-  v56 = v39 + 3;
-  v39 = 4;
-  v8 = v134;
-  while (2)
-  {
-    if (v39 == v56)
-    {
-LABEL_66:
-      --v56;
-      ++v39;
-      if (!--v55)
-      {
-
-        goto LABEL_73;
-      }
-
-      continue;
-    }
-
-    break;
-  }
-
-  v57 = *(v49 + 2);
-  if (v39 - 4 < v57)
-  {
-    if (v56 - 4 >= v57)
-    {
-      goto LABEL_163;
-    }
-
-    v58 = *&v49[8 * v39];
-    v59 = *&v49[8 * v56];
-    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-    {
-      v49 = specialized _ArrayBuffer._consumeAndCreateNew()(v49);
-    }
-
-    *&v49[8 * v39] = v59;
-    *&v49[8 * v56] = v58;
-    goto LABEL_66;
-  }
-
-  __break(1u);
-LABEL_163:
-  __break(1u);
-LABEL_164:
-  __break(1u);
-LABEL_165:
-  __break(1u);
-LABEL_166:
-  __break(1u);
-LABEL_167:
-  __break(1u);
-LABEL_168:
-  __break(1u);
-LABEL_169:
-  __break(1u);
-LABEL_170:
-
-  v121 = MEMORY[0x1E69E7CC0];
-
-  *a2 = v121;
-  return result;
-}
-
-int64_t static __Downsampling.getMipmapByteSizes(_:device:)(void *a1)
-{
-  result = [a1 mipmapLevelCount];
-  if ((result & 0x8000000000000000) == 0)
-  {
-    v3 = result;
-    v4 = MEMORY[0x1E69E7CC0];
-    if (result)
-    {
-      v24 = MEMORY[0x1E69E7CC0];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, result, 0);
-      v5 = 0;
-      v6 = v24;
-      do
-      {
-        [a1 pixelFormat];
-        [a1 width];
-        [a1 height];
-        [a1 depth];
-        [a1 sampleCount];
-        MTLGetTextureLevelInfoForDeviceWithOptions();
-        v8 = *(v24 + 16);
-        v7 = *(v24 + 24);
-        if (v8 >= v7 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v7 > 1), v8 + 1, 1);
-        }
-
-        ++v5;
-        *(v24 + 16) = v8 + 1;
-        v9 = v24 + 104 * v8;
-        *(v9 + 48) = v18;
-        *(v9 + 64) = v19;
-        *(v9 + 32) = v17;
-        *(v9 + 128) = v23;
-        *(v9 + 96) = v21;
-        *(v9 + 112) = v22;
-        *(v9 + 80) = v20;
-      }
-
-      while (v3 != v5);
-      v4 = MEMORY[0x1E69E7CC0];
-    }
-
-    else
-    {
-      v6 = MEMORY[0x1E69E7CC0];
-    }
-
-    if ([a1 textureType] == 5)
-    {
-      v10 = 6;
-    }
-
-    else
-    {
-      v10 = 1;
-    }
-
-    v11 = *(v6 + 16);
-    if (!v11)
-    {
-LABEL_19:
-
-      return v4;
-    }
-
-    result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11, 0);
-    v12 = 128;
-    while (1)
-    {
-      v13 = *(v6 + v12);
-      v14 = v10 * v13;
-      if ((v10 * v13) >> 64 != (v10 * v13) >> 63)
-      {
-        break;
-      }
-
-      if (v14 < 0)
-      {
-        goto LABEL_21;
-      }
-
-      v16 = *(v4 + 16);
-      v15 = *(v4 + 24);
-      if (v16 >= v15 >> 1)
-      {
-        result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1);
-      }
-
-      *(v4 + 16) = v16 + 1;
-      *(v4 + 8 * v16 + 32) = v14;
-      v12 += 104;
-      if (!--v11)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    __break(1u);
-LABEL_21:
-    __break(1u);
-  }
-
-  __break(1u);
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type __Downsampling.Error and conformance __Downsampling.Error()
-{
-  result = lazy protocol witness table cache variable for type __Downsampling.Error and conformance __Downsampling.Error;
-  if (!lazy protocol witness table cache variable for type __Downsampling.Error and conformance __Downsampling.Error)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type __Downsampling.Error and conformance __Downsampling.Error);
-  }
-
-  return result;
-}
-
-uint64_t VideoPlaybackController.audioInputMode.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = *(v1 + 24);
-  return result;
-}
-
-uint64_t VideoPlaybackController.audioInputMode.setter(char *a1)
-{
-  v2 = *a1;
-  swift_beginAccess();
-  *(v1 + 24) = v2;
-  v3 = *(*(v1 + 16) + 16);
-  return REVideoAssetSetAudioInputMode();
-}
-
-uint64_t (*VideoPlaybackController.audioInputMode.modify(uint64_t a1))(uint64_t a1, char a2)
-{
-  *(a1 + 24) = v1;
-  swift_beginAccess();
-  return VideoPlaybackController.audioInputMode.modify;
-}
-
-uint64_t VideoPlaybackController.audioInputMode.modify(uint64_t a1, char a2)
-{
-  result = swift_endAccess();
-  if ((a2 & 1) == 0)
-  {
-    v5 = *(a1 + 24);
-    v6 = *(*(v5 + 16) + 16);
-    v7 = (0x20001u >> (8 * *(v5 + 24))) & 3;
-
-    return REVideoAssetSetAudioInputMode();
-  }
-
-  return result;
-}
-
-uint64_t VideoPlaybackController._currentViewingMode.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + 16);
-
-  __VideoResource.removeNilEntries()();
-  swift_beginAccess();
-  v4 = *(v3 + 24);
-  if (v4 >> 62)
-  {
-    goto LABEL_27;
-  }
-
-  for (i = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = __CocoaSet.count.getter())
-  {
-    v20 = a1;
-    v6 = v4 & 0xC000000000000001;
-    a1 = v4 & 0xFFFFFFFFFFFFFF8;
-
-    v7 = 0;
-    while (v6)
-    {
-      MEMORY[0x1C68F41F0](v7, v4);
-      v8 = v7 + 1;
-      if (__OFADD__(v7, 1))
-      {
-        goto LABEL_25;
-      }
-
-LABEL_13:
-      Strong = swift_weakLoadStrong();
-      if (Strong)
-      {
-        v11 = *(Strong + 16);
-        REVideoComponentGetComponentType();
-        if (REEntityGetComponentByClass() && (v12 = swift_weakLoadStrong()) != 0)
-        {
-          v13 = *(v12 + 16);
-          SceneNullable = REEntityGetSceneNullable();
-          if (SceneNullable)
-          {
-            v15 = SceneNullable;
-            if (RESceneGetSwiftObject())
-            {
-              swift_unknownObjectRelease();
-            }
-
-            else
-            {
-              type metadata accessor for Scene();
-              v16 = swift_allocObject();
-              *(v16 + 24) = 0u;
-              *(v16 + 40) = 0u;
-              *(v16 + 56) = 0;
-              swift_unknownObjectWeakInit();
-              *(v16 + 104) = 0;
-              *(v16 + 88) = 0u;
-              *(v16 + 72) = 0u;
-              swift_weakInit();
-              *(v16 + 232) = 0;
-              *(v16 + 216) = 0u;
-              *(v16 + 200) = 0u;
-              *(v16 + 184) = 0u;
-              *(v16 + 168) = 0u;
-              *(v16 + 152) = 0u;
-              *(v16 + 136) = 0u;
-              *(v16 + 120) = 0u;
-              RERetain();
-              *(v16 + 16) = v15;
-              RESceneSetSwiftObject();
-              v6 = v4 & 0xC000000000000001;
-            }
-
-            a1 = v4 & 0xFFFFFFFFFFFFFF8;
-
-            CurrentViewingMode = REVideoComponentGetCurrentViewingMode();
-
-            if (CurrentViewingMode == 1)
-            {
-
-              v19 = 0;
-              a1 = v20;
-              goto LABEL_29;
-            }
-
-            goto LABEL_6;
-          }
-        }
-
-        else
-        {
-        }
-      }
-
-LABEL_6:
-      ++v7;
-      if (v8 == i)
-      {
-
-        v19 = 2;
-        a1 = v20;
-        goto LABEL_29;
-      }
-    }
-
-    if (v7 >= *(a1 + 16))
-    {
-      goto LABEL_26;
-    }
-
-    v9 = *(v4 + 8 * v7 + 32);
-
-    v8 = v7 + 1;
-    if (!__OFADD__(v7, 1))
-    {
-      goto LABEL_13;
-    }
-
-LABEL_25:
-    __break(1u);
-LABEL_26:
-    __break(1u);
-LABEL_27:
-    ;
-  }
-
-  v19 = 2;
-LABEL_29:
-  *a1 = v19;
-  return result;
-}
-
-double VideoPlaybackController._currentImageSize.getter()
-{
-  v1 = *(v0 + 16);
-
-  __VideoResource.removeNilEntries()();
-  swift_beginAccess();
-  v2 = *(v1 + 24);
-  if (v2 >> 62)
-  {
-    goto LABEL_21;
-  }
-
-  for (i = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = __CocoaSet.count.getter())
-  {
-
-    v4 = 0;
-    while ((v2 & 0xC000000000000001) != 0)
-    {
-      MEMORY[0x1C68F41F0](v4, v2);
-      v5 = v4 + 1;
-      if (__OFADD__(v4, 1))
-      {
-        goto LABEL_19;
-      }
-
-LABEL_13:
-      Strong = swift_weakLoadStrong();
-      if (Strong)
-      {
-        v8 = *(Strong + 16);
-        REVideoComponentGetComponentType();
-        if (REEntityGetComponentByClass())
-        {
-          REVideoComponentGetCurrentImageSize();
-          v11 = v9;
-
-          if (v11.f32[0] != 0.0 || v11.f32[1] != 0.0)
-          {
-
-            *&result = *&vcvtq_f64_f32(v11);
-            return result;
-          }
-
-          goto LABEL_6;
-        }
-      }
-
-LABEL_6:
-      ++v4;
-      if (v5 == i)
-      {
-
-        return 0.0;
-      }
-    }
-
-    if (v4 >= *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      goto LABEL_20;
-    }
-
-    v6 = *(v2 + 8 * v4 + 32);
-
-    v5 = v4 + 1;
-    if (!__OFADD__(v4, 1))
-    {
-      goto LABEL_13;
-    }
-
-LABEL_19:
-    __break(1u);
-LABEL_20:
-    __break(1u);
-LABEL_21:
-    ;
-  }
-
-  return 0.0;
-}
-
-uint64_t VideoPlaybackController.deinit()
-{
-  v1 = *(v0 + 16);
-
-  return v0;
-}
-
-uint64_t VideoPlaybackController.__deallocating_deinit()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t static VideoPlaybackController.ViewingMode.== infix(_:_:)(_BYTE *a1, _BYTE *a2)
-{
-  if ((*a1 & 1) == 0 && (*a2 & 1) == 0)
-  {
-    return 1;
-  }
-
-  result = _diagnoseUnavailableCodeReached()();
-  __break(1u);
-  return result;
-}
-
-uint64_t VideoPlaybackController.ViewingMode.hash(into:)()
-{
-  if ((*v0 & 1) == 0)
-  {
-    return MEMORY[0x1C68F4C10](0);
-  }
-
-  result = _diagnoseUnavailableCodeReached()();
-  __break(1u);
-  return result;
-}
-
-Swift::Int VideoPlaybackController.ViewingMode.hashValue.getter()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  if (v1)
-  {
-    result = _diagnoseUnavailableCodeReached()();
-    __break(1u);
-  }
-
-  else
-  {
-    MEMORY[0x1C68F4C10](0);
-    return Hasher._finalize()();
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance VideoPlaybackController.ViewingMode(_BYTE *a1, _BYTE *a2)
-{
-  if ((*a1 & 1) == 0 && (*a2 & 1) == 0)
-  {
-    return 1;
-  }
-
-  result = _diagnoseUnavailableCodeReached()();
-  __break(1u);
-  return result;
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance VideoPlaybackController.ViewingMode()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  if (v1)
-  {
-    result = _diagnoseUnavailableCodeReached()();
-    __break(1u);
-  }
-
-  else
-  {
-    MEMORY[0x1C68F4C10](0);
-    return Hasher._finalize()();
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance VideoPlaybackController.ViewingMode()
-{
-  if ((*v0 & 1) == 0)
-  {
-    return MEMORY[0x1C68F4C10](0);
-  }
-
-  result = _diagnoseUnavailableCodeReached()();
-  __break(1u);
-  return result;
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance VideoPlaybackController.ViewingMode()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  if (v1)
-  {
-    result = _diagnoseUnavailableCodeReached()();
-    __break(1u);
-  }
-
-  else
-  {
-    MEMORY[0x1C68F4C10](0);
-    return Hasher._finalize()();
-  }
-
-  return result;
-}
-
-uint64_t (*VideoPlaybackController.preferredViewingMode.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  *(a1 + 8) = *(v1 + 40);
-  return VideoPlaybackController.preferredViewingMode.modify;
-}
-
-uint64_t key path setter for VideoPlaybackController.preferredViewingMode : VideoPlaybackController(unsigned __int8 *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  *(v3 + 40) = *a1;
-  v4 = *(v3 + 16);
-  v6 = v2;
-
-  __VideoResource.preferredViewingMode.setter(&v6);
-}
-
-uint64_t VideoPlaybackController.preferredViewingMode.setter(unsigned __int8 *a1)
-{
-  v2 = *a1;
-  *(v1 + 40) = *a1;
-  v3 = *(v1 + 16);
-  v5 = v2;
-
-  __VideoResource.preferredViewingMode.setter(&v5);
-}
-
-uint64_t (*VideoPlaybackController.desiredViewingMode.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  *(a1 + 8) = *(v1 + 40);
-  return VideoPlaybackController.desiredViewingMode.modify;
-}
-
-uint64_t VideoPlaybackController.preferredViewingMode.modify(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(a1 + 8);
-  *(v2 + 40) = v3;
-  v4 = *(v2 + 16);
-  if (a2)
-  {
-    v7 = v3;
-
-    v5 = &v7;
-  }
-
-  else
-  {
-    v8 = v3;
-
-    v5 = &v8;
-  }
-
-  __VideoResource.preferredViewingMode.setter(v5);
-}
-
-uint64_t VideoPlaybackController.reverbSendLevel.setter(double a1)
-{
-  *(v1 + 32) = a1;
-  v2 = *(*(v1 + 16) + 16);
-  return REVideoAssetSetReverbSendLevelDecibels();
-}
-
-uint64_t (*VideoPlaybackController.reverbSendLevel.modify(void *a1))(void *a1)
-{
-  a1[1] = v1;
-  *a1 = *(v1 + 32);
-  return VideoPlaybackController.reverbSendLevel.modify;
-}
-
-uint64_t VideoPlaybackController.reverbSendLevel.modify(void *a1)
-{
-  v1 = a1[1];
-  *(v1 + 32) = *a1;
-  v2 = *(*(v1 + 16) + 16);
-  return REVideoAssetSetReverbSendLevelDecibels();
-}
-
-unint64_t lazy protocol witness table accessor for type VideoPlaybackController.ViewingMode and conformance VideoPlaybackController.ViewingMode()
-{
-  result = lazy protocol witness table cache variable for type VideoPlaybackController.ViewingMode and conformance VideoPlaybackController.ViewingMode;
-  if (!lazy protocol witness table cache variable for type VideoPlaybackController.ViewingMode and conformance VideoPlaybackController.ViewingMode)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type VideoPlaybackController.ViewingMode and conformance VideoPlaybackController.ViewingMode);
-  }
-
-  return result;
-}
-
-uint64_t specialized VideoPlaybackController.init(videoResource:)(uint64_t a1)
-{
-  v2 = v1;
-  *(v2 + 24) = 1;
-  *(v2 + 32) = 0;
-  *(v2 + 40) = 0;
-  *(v2 + 16) = a1;
-  swift_beginAccess();
-  v4 = 0x20001u >> (8 * *(v2 + 24));
-  v5 = *(a1 + 16);
-
-  REVideoAssetSetAudioInputMode();
-  v6 = *(v2 + 32);
-  v7 = *(*(v2 + 16) + 16);
-  REVideoAssetSetReverbSendLevelDecibels();
-  v8 = *(v2 + 16);
-  v10 = *(v2 + 40);
-
-  __VideoResource.preferredViewingMode.setter(&v10);
-
-  return v2;
-}
-
-uint64_t ManipulationComponent.init()@<X0>(uint64_t a1@<X8>)
-{
-  *a1 = 0;
-  *(a1 + 1) = 16843009;
-  *(a1 + 5) = 0;
-  swift_weakInit();
-
-  return _s17RealityFoundation6SystemPAAE08registerC0yyFZAA020TransformInteractionC033_3A341D50D446846BB88CBE2E5246020ELLC_Ttg5();
-}
-
-uint64_t ManipulationComponent.init(contentEntity:)@<X0>(uint64_t a1@<X8>)
-{
-  *a1 = 0;
-  *(a1 + 1) = 16843009;
-  *(a1 + 5) = 0;
-  swift_weakInit();
-  _s17RealityFoundation6SystemPAAE08registerC0yyFZAA020TransformInteractionC033_3A341D50D446846BB88CBE2E5246020ELLC_Ttg5();
-  swift_weakAssign();
-}
-
-uint64_t ManipulationComponent.init(_:)@<X0>(uint64_t a1@<X8>)
-{
-  *a1 = 0;
-  *(a1 + 1) = 16843009;
-  *(a1 + 5) = 0;
-  swift_weakInit();
-  _s17RealityFoundation6SystemPAAE08registerC0yyFZAA020TransformInteractionC033_3A341D50D446846BB88CBE2E5246020ELLC_Ttg5();
-  *(a1 + 2) = RETransformInteractionComponentGetAllowsTwoHandedRotation();
-  *(a1 + 1) = RETransformInteractionComponentGetAllowsTwoHandedScale();
-  *(a1 + 3) = RETransformInteractionComponentGetAllowsSingleHandedRotation();
-  *(a1 + 4) = RETransformInteractionComponentGetAllowsTranslation();
-  Inertia = RETransformInteractionComponentGetInertia();
-  if (Inertia >= 4)
-  {
-    v3 = 0;
-  }
-
-  else
-  {
-    v3 = Inertia;
-  }
-
-  *a1 = v3;
-  *(a1 + 6) = RETransformInteractionComponentGetUsesDefaultAudio() ^ 1;
-  result = RETransformInteractionComponentGetResetsOnRelease();
-  *(a1 + 5) = result ^ 1;
-  return result;
-}
-
-uint64_t _s17RealityFoundation6SystemPAAE08registerC0yyFZAA020TransformInteractionC033_3A341D50D446846BB88CBE2E5246020ELLC_Ttg5()
-{
-  v0 = type metadata accessor for TransformInteractionSystem();
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v1 = static SystemRegistry.shared;
-  result = swift_beginAccess();
-  v3 = *(v1 + 3);
-  v4 = (v3 + 32);
-  v5 = *(v3 + 16) + 1;
-  while (--v5)
-  {
-    v6 = *v4;
-    v4 += 2;
-    if (v6 == v0)
-    {
-      return result;
-    }
-  }
-
-  v24 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation26TransformInteractionSystem33_3A341D50D446846BB88CBE2E5246020ELLCmMd, &_s17RealityFoundation26TransformInteractionSystem33_3A341D50D446846BB88CBE2E5246020ELLCmMR);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation25_SystemUpdateRateProtocol_pMd, &_s17RealityFoundation25_SystemUpdateRateProtocol_pMR);
-  v7 = swift_dynamicCast();
-  if (v7)
-  {
-    __swift_destroy_boxed_opaque_existential_1(&v18);
-  }
-
-  v8 = *(v1 + 3);
-  v9 = *(v8 + 2);
-  if (v9 >> 31)
-  {
-    __break(1u);
-    goto LABEL_15;
-  }
-
-  swift_beginAccess();
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *(v1 + 3) = v8;
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-LABEL_15:
-    v8 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v9 + 1, 1, v8);
-    *(v1 + 3) = v8;
-  }
-
-  v12 = *(v8 + 2);
-  v11 = *(v8 + 3);
-  if (v12 >= v11 >> 1)
-  {
-    v8 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v11 > 1), v12 + 1, 1, v8);
-  }
-
-  *(v8 + 2) = v12 + 1;
-  v13 = &v8[16 * v12];
-  *(v13 + 4) = v0;
-  *(v13 + 5) = &protocol witness table for TransformInteractionSystem;
-  *(v1 + 3) = v8;
-  swift_endAccess();
-  SystemRegistry.getOrAddId(of:)(v0, &protocol witness table for TransformInteractionSystem);
-  v14 = swift_allocObject();
-  *(v14 + 16) = v0 != 0;
-  v15 = swift_allocObject();
-  *(v15 + 16) = v0 != 0;
-  *(v15 + 17) = v7;
-  v22 = partial apply for specialized closure #2 in static System.registerSystem();
-  v23 = v14;
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 1107296256;
-  v20 = thunk for @escaping @callee_guaranteed (@unowned OpaquePointer, @unowned OpaquePointer) -> (@unowned UnsafeMutableRawPointer);
-  v21 = &block_descriptor_19;
-  v16 = _Block_copy(&v18);
-
-  v22 = partial apply for specialized closure #3 in static System.registerSystem();
-  v23 = v15;
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 1107296256;
-  v20 = thunk for @escaping @callee_guaranteed (@unowned UnsafeMutableRawPointer, @unowned OpaquePointer?, @unowned OpaquePointer) -> ();
-  v21 = &block_descriptor_133_0;
-  v17 = _Block_copy(&v18);
-
-  RERegisterCustomSystem();
-  _Block_release(v17);
-  _Block_release(v16);
-}
-
-uint64_t ManipulationComponent.__toCore(_:)(uint64_t *a1)
-{
-  v2 = *a1;
-  v3 = v1[2];
-  RETransformInteractionComponentSetAllowsTwoHandedRotation();
-  v4 = v1[1];
-  RETransformInteractionComponentSetAllowsTwoHandedScale();
-  v5 = v1[3];
-  RETransformInteractionComponentSetAllowsSingleHandedRotation();
-  v6 = v1[4];
-  RETransformInteractionComponentSetAllowsTranslation();
-  if (*v1 <= 3u)
-  {
-    RETransformInteractionComponentSetInertia();
-  }
-
-  v7 = v1[6];
-  RETransformInteractionComponentSetUsesDefaultAudio();
-  v8 = v1[5];
-  RETransformInteractionComponentSetResetsOnRelease();
-
-  return RENetworkMarkComponentDirty();
-}
-
-RealityFoundation::ManipulationComponent::Dynamics __swiftcall ManipulationComponent.Dynamics.init()()
-{
-  *v0 = 0;
-  *(v0 + 1) = 16843009;
-  return result;
-}
-
-void ManipulationComponent.dynamics.getter(_BYTE *a1@<X8>)
-{
-  v2 = v1[1];
-  v3 = v1[2];
-  v4 = v1[3];
-  v5 = v1[4];
-  *a1 = *v1;
-  a1[1] = v2;
-  a1[2] = v3;
-  a1[3] = v4;
-  a1[4] = v5;
-}
-
-_BYTE *ManipulationComponent.dynamics.setter(_BYTE *result)
-{
-  v2 = result[1];
-  v3 = result[2];
-  v4 = result[3];
-  v5 = result[4];
-  *v1 = *result;
-  v1[1] = v2;
-  v1[2] = v3;
-  v1[3] = v4;
-  v1[4] = v5;
-  return result;
-}
-
-uint64_t ManipulationComponent.contentEntity.setter()
-{
-  swift_weakAssign();
-}
-
-uint64_t (*ManipulationComponent.contentEntity.modify(uint64_t *a1))(uint64_t *a1)
-{
-  a1[1] = v1;
-  *a1 = swift_weakLoadStrong();
-  return ManipulationComponent.contentEntity.modify;
-}
-
-uint64_t ManipulationComponent.contentEntity.modify(uint64_t *a1)
-{
-  v2 = *a1;
-  v1 = a1[1];
-  swift_weakAssign();
-}
-
-uint64_t ManipulationComponent.HitTarget.redirectedEntity.setter(uint64_t result)
-{
-  v2 = result;
-  if (*v1)
-  {
-    if (result && *(*v1 + 16) == *(result + 16))
-    {
-    }
-  }
-
-  else if (!result)
-  {
-    return result;
-  }
-
-  *v1 = result;
-
-  if (v2)
-  {
-    v3 = *(v2 + 16);
-    LocalId = REEntityGetLocalId();
-  }
-
-  else
-  {
-    LocalId = 0;
-  }
-
-  *(v1 + 8) = LocalId;
-  *(v1 + 16) = v2 == 0;
-  return result;
-}
-
-uint64_t *(*ManipulationComponent.HitTarget.redirectedEntity.modify(void *a1))(uint64_t *result, char a2)
-{
-  v3 = *v1;
-  a1[1] = v1;
-  a1[2] = v3;
-  *a1 = v3;
-
-  return ManipulationComponent.HitTarget.redirectedEntity.modify;
-}
-
-uint64_t *ManipulationComponent.HitTarget.redirectedEntity.modify(uint64_t *result, char a2)
-{
-  v2 = *result;
-  if (a2)
-  {
-    v3 = result[1];
-    v4 = *result;
-
-    ManipulationComponent.HitTarget.redirectedEntity.setter(v5);
-    goto LABEL_3;
-  }
-
-  v6 = result[2];
-  if (v6)
-  {
-    if (v2 && *(v6 + 16) == *(v2 + 16))
-    {
-LABEL_3:
-    }
-  }
-
-  else if (!v2)
-  {
-    return result;
-  }
-
-  v7 = result[1];
-  *v7 = v2;
-
-  if (v2)
-  {
-    v8 = *(v2 + 16);
-    LocalId = REEntityGetLocalId();
-  }
-
-  else
-  {
-    LocalId = 0;
-  }
-
-  *(v7 + 8) = LocalId;
-  *(v7 + 16) = v2 == 0;
-  return result;
-}
-
-uint64_t ManipulationComponent.HitTarget.init(redirectedEntity:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  v2 = result;
-  if (result)
-  {
-    v4 = *(result + 16);
-    result = REEntityGetLocalId();
-  }
-
-  *a2 = v2;
-  *(a2 + 8) = result;
-  *(a2 + 16) = v2 == 0;
-  return result;
-}
-
-uint64_t static ManipulationComponent.HitTarget.__fromCore(_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *a1;
-  REComponentGetEntity();
-  RedirectedEntity = REManipulationHitTargetComponentGetRedirectedEntity();
-  RedirectedEntityID = REManipulationHitTargetComponentGetRedirectedEntityID();
-  result = 0;
-  if (!RedirectedEntity)
-  {
-    goto LABEL_8;
-  }
-
-  type metadata accessor for Entity();
-  if (REEntityGetSwiftObject())
-  {
-    result = swift_dynamicCastClassUnconditional();
-LABEL_8:
-    *a2 = result;
-    *(a2 + 8) = RedirectedEntityID;
-    *(a2 + 16) = 0;
-    return result;
-  }
-
-  result = REEntityIsBeingDestroyed();
-  if ((result & 1) == 0)
-  {
-    v7 = static Entity.entityInfoType(_:)(RedirectedEntity);
-    if (v7)
-    {
-      v8 = (*(v7 + 232))();
-      v9 = *(v8 + 16);
-
-      MEMORY[0x1C68F9740](v9, 0);
-      *(v8 + 16) = RedirectedEntity;
-      MEMORY[0x1C68F9740](RedirectedEntity, v8);
-
-      result = v8;
-    }
-
-    else
-    {
-      result = makeEntity(for:)(RedirectedEntity);
-    }
-
-    goto LABEL_8;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t ManipulationComponent.HitTarget.__toCore(_:)(uint64_t *a1)
-{
-  v2 = *a1;
-  v3 = *v1;
-  if (v1[2])
-  {
-    if (v3)
-    {
-      v4 = *(v3 + 16);
-    }
-
-    v7 = *a1;
-    REManipulationHitTargetComponentSetRedirectedEntity();
-  }
-
-  else
-  {
-    v5 = v1[1];
-    if (v3)
-    {
-      v6 = *(v3 + 16);
-    }
-
-    v8 = *a1;
-    REManipulationHitTargetComponentSetRedirectedEntityAndID();
-  }
-
-  return RENetworkMarkComponentDirty();
-}
-
-uint64_t static ManipulationComponent.__coreComponentType.getter@<X0>(int a1@<W0>, _DWORD *a2@<X8>)
-{
-  type metadata accessor for REComponentType(0);
-  v8[3] = v4;
-  LODWORD(v8[0]) = a1;
-  outlined init with copy of Any(v8, v7);
-  swift_dynamicCast();
-  *a2 = v6;
-  return __swift_destroy_boxed_opaque_existential_1(v8);
-}
-
-RealityFoundation::ManipulationComponent::InputDevice::Kind_optional __swiftcall ManipulationComponent.InputDevice.Kind.init(rawValue:)(Swift::Int rawValue)
-{
-  v2 = 3;
-  if (rawValue < 3)
-  {
-    v2 = rawValue;
-  }
-
-  *v1 = v2;
-  return rawValue;
-}
-
-__n128 ManipulationComponent.InputDevice.pose.getter@<Q0>(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 48);
-  result = *(v1 + 16);
-  v4 = *(v1 + 32);
-  *a1 = result;
-  *(a1 + 16) = v4;
-  *(a1 + 32) = v2;
-  return result;
-}
-
-__n128 ManipulationComponent.InputDevice.init(chirality:kind:pose:)@<Q0>(_BYTE *a1@<X0>, char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v4 = *a2;
-  v5 = *(a3 + 32);
-  *a4 = *a1;
-  *(a4 + 1) = v4;
-  result = *a3;
-  v7 = *(a3 + 16);
-  *(a4 + 16) = *a3;
-  *(a4 + 32) = v7;
-  *(a4 + 48) = v5 & 1;
-  return result;
-}
-
-void ManipulationComponent.InputDevice.hash(into:)()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 2);
-  v4 = *(v0 + 3);
-  v5 = *(v0 + 4);
-  v6 = *(v0 + 5);
-  v7 = v0[48];
-  if (v1 == 2)
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  else
-  {
-    Hasher._combine(_:)(1u);
-    MEMORY[0x1C68F4C10](v1 & 1);
-  }
-
-  MEMORY[0x1C68F4C10](v2);
-  if (v7)
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  else
-  {
-    Hasher._combine(_:)(1u);
-    SPPose3DFloat.hash(into:)();
-  }
-}
-
-Swift::Int ManipulationComponent.InputDevice.hashValue.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 2);
-  v4 = *(v0 + 3);
-  v5 = *(v0 + 4);
-  v6 = *(v0 + 5);
-  v7 = v0[48];
-  Hasher.init(_seed:)();
-  if (v1 == 2)
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  else
-  {
-    Hasher._combine(_:)(1u);
-    MEMORY[0x1C68F4C10](v1 & 1);
-  }
-
-  MEMORY[0x1C68F4C10](v2);
-  if (v7)
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  else
-  {
-    Hasher._combine(_:)(1u);
-    SPPose3DFloat.hash(into:)();
-  }
-
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ManipulationComponent.InputDevice()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 2);
-  v4 = *(v0 + 3);
-  v5 = *(v0 + 4);
-  v6 = *(v0 + 5);
-  v7 = v0[48];
-  Hasher.init(_seed:)();
-  if (v1 == 2)
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  else
-  {
-    Hasher._combine(_:)(1u);
-    MEMORY[0x1C68F4C10](v1 & 1);
-  }
-
-  MEMORY[0x1C68F4C10](v2);
-  if (v7)
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  else
-  {
-    Hasher._combine(_:)(1u);
-    SPPose3DFloat.hash(into:)();
-  }
-
-  return Hasher._finalize()();
-}
-
-Swift::Int ManipulationComponent.Dynamics.Inertia.hashValue.getter()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  MEMORY[0x1C68F4C10](v1);
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for static Component.__coreComponentType.getter in conformance ManipulationComponent.HitTarget@<X0>(int a1@<W2>, _DWORD *a2@<X8>)
-{
-  type metadata accessor for REComponentType(0);
-  v8[3] = v4;
-  LODWORD(v8[0]) = a1;
-  outlined init with copy of Any(v8, v7);
-  swift_dynamicCast();
-  *a2 = v6;
-  return __swift_destroy_boxed_opaque_existential_1(v8);
-}
-
-uint64_t ManipulationComponent.customMirror.getter()
-{
-  v1 = v0;
-  v2 = type metadata accessor for Mirror.AncestorRepresentation();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](v2);
-  v6 = v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = v13 - v9;
-  outlined init with copy of ManipulationComponent(v1, v14);
-  v13[1] = MEMORY[0x1E69E7CC0];
-  v11 = type metadata accessor for Mirror.DisplayStyle();
-  (*(*(v11 - 8) + 56))(v10, 1, 1, v11);
-  (*(v3 + 104))(v6, *MEMORY[0x1E69E75D8], v2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSSg5label_yp5valuetGMd, &_sSaySSSg5label_yp5valuetGMR);
-  lazy protocol witness table accessor for type [(label: String?, value: Any)] and conformance [A]();
-  return Mirror.init<A, B>(_:children:displayStyle:ancestorRepresentation:)();
-}
-
-uint64_t protocol witness for CustomReflectable.customMirror.getter in conformance ManipulationComponent()
-{
-  v1 = type metadata accessor for Mirror.AncestorRepresentation();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  MEMORY[0x1EEE9AC00](v1);
-  v5 = v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = v12 - v8;
-  outlined init with copy of ManipulationComponent(v0, v13);
-  v12[1] = MEMORY[0x1E69E7CC0];
-  v10 = type metadata accessor for Mirror.DisplayStyle();
-  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
-  (*(v2 + 104))(v5, *MEMORY[0x1E69E75D8], v1);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSSg5label_yp5valuetGMd, &_sSaySSSg5label_yp5valuetGMR);
-  lazy protocol witness table accessor for type [(label: String?, value: Any)] and conformance [A]();
-  return Mirror.init<A, B>(_:children:displayStyle:ancestorRepresentation:)();
-}
-
-uint64_t ManipulationComponent.HitTarget.customMirror.getter()
-{
-  v1 = type metadata accessor for Mirror.AncestorRepresentation();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  MEMORY[0x1EEE9AC00](v1);
-  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v18 - v8;
-  v10 = *v0;
-  v11 = v0[1];
-  v12 = *(v0 + 16);
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
-  if (v10)
-  {
-    v13 = *(v10 + 16);
-    REEntityGetName();
-    *&v21 = String.init(cString:)();
-    *(&v21 + 1) = v14;
-  }
-
-  else
-  {
-    v21 = 0uLL;
-    if ((v12 & 1) == 0)
-    {
-      v20 = MEMORY[0x1E69E6158];
-      *&v18 = 0x756F6620746F6E3CLL;
-      *(&v18 + 1) = 0xEB000000003E646ELL;
-      __swift_destroy_boxed_opaque_existential_1(&v21);
-      outlined init with take of Any(&v18, &v21);
-    }
-  }
-
-  *&v18 = v10;
-  *(&v18 + 1) = v11;
-  v19 = v12;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
-  v15 = swift_allocObject();
-  *(v15 + 16) = xmmword_1C1887600;
-  *(v15 + 32) = 0xD000000000000010;
-  *(v15 + 40) = 0x80000001C18E73C0;
-  outlined init with copy of Any(&v21, v15 + 48);
-  v16 = type metadata accessor for Mirror.DisplayStyle();
-  (*(*(v16 - 8) + 56))(v9, 1, 1, v16);
-  (*(v2 + 104))(v5, *MEMORY[0x1E69E75D8], v1);
-
-  Mirror.init<A>(_:children:displayStyle:ancestorRepresentation:)();
-  return __swift_destroy_boxed_opaque_existential_1(&v21);
-}
-
-uint64_t static ManipulationComponent.configureEntity(_:hoverEffect:allowedInputTypes:collisionShapes:)(uint64_t a1, uint64_t *a2, unsigned int *a3, uint64_t a4)
-{
-  v6 = *a2;
-  v7 = a2[1];
-  v8 = a2[2];
-  v9 = a2[3];
-  v10 = a2[4];
-  v11 = *(a3 + 4);
-  v12 = *a3;
-  v13 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC17RealityFoundation20InputTargetComponentV06DirectD4TypeV0gD6OptionO_SayAJGTt0g5Tf4g_n(&outlined read-only object #0 of static ManipulationComponent.configureEntity(_:hoverEffect:allowedInputTypes:collisionShapes:));
-  if (v11)
-  {
-    v14 = 0x300000001;
-  }
-
-  else
-  {
-    v14 = (v12 << 32) + 1;
-  }
-
-  _s10RealityKit6EntityC12ComponentSetV02doE0_8newValue21returnStrongReferenceyxm_xSgSbtAA0D0RzlF0A10Foundation011InputTargetD0V_TtB5(v14, v13, 0, a1);
-
-  v15 = *(a1 + 16);
-  REInputTargetComponentGetComponentType();
-  if (REEntityGetComponentByClass())
-  {
-    REInputTargetComponentSetAllowsDirectTouchInput();
-  }
-
-  Entity.deleteCollisionComponents()();
-  if (a4)
-  {
-    v16 = one-time initialization token for default;
-
-    if (v16 != -1)
-    {
-      swift_once();
-    }
-
-    _s10RealityKit6EntityC12ComponentSetV02doE0_8newValue21returnStrongReferenceyxm_xSgSbtAA0D0RzlFAA09CollisionD0V_TtB5(a4, 0, static CollisionFilter.default, 0, a1);
-  }
-
-  else
-  {
-    Entity.generateCollisionShapes(recursive:static:)(1, 0);
-  }
-
-  GenericRGB = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
-  LOBYTE(v59) = 1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation20HoverEffectComponentV0fG0VGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation20HoverEffectComponentV0fG0VGMR);
-  v18 = swift_allocObject();
-  *(v18 + 16) = xmmword_1C1887600;
-  if (one-time initialization token for default != -1)
-  {
-    swift_once();
-  }
-
-  v19 = static HoverEffectComponent.SpotlightHoverEffectStyle.default;
-  v20 = dword_1EBEAC2C8 | (byte_1EBEAC2CC << 32);
-  *(v18 + 32) = static HoverEffectComponent.SpotlightHoverEffectStyle.default;
-  *(v18 + 40) = v20;
-  *(v18 + 48) = 0;
-  *(v18 + 56) = 0;
-  *(v18 + 64) = 1;
-  *(v18 + 65) = 1;
-  *(v18 + 68) = 3;
-  v21 = *(v18 + 48);
-  v62[0] = *(v18 + 32);
-  v62[1] = v21;
-  v63 = *(v18 + 64);
-  *(v18 + 32) = GenericRGB;
-  *(v18 + 40) = 1065353216;
-  *(v18 + 48) = 0;
-  *(v18 + 56) = 0;
-  *(v18 + 64) = 1;
-  *(v18 + 65) = 1;
-  *(v18 + 68) = 3;
-  v22 = v19;
-  outlined destroy of HoverEffectComponent.HoverEffect(v62);
-  if ((v10 & 0xFF00) == 0x200)
-  {
-    v23 = *(v18 + 48);
-    v35[0] = *(v18 + 32);
-    v35[1] = v23;
-    v36 = *(v18 + 64);
-    v39 = v35[0];
-    v40 = v23;
-    v41 = *(v18 + 64);
-    v37 = *(v18 + 66);
-    v38 = *(v18 + 70);
-    outlined init with copy of HoverEffectComponent.HoverEffect(v35, &v59);
-    v24 = *(v18 + 48);
-    v42[0] = *(v18 + 32);
-    v42[1] = v24;
-    v43 = *(v18 + 64);
-    v25 = v40;
-    *(v18 + 32) = v39;
-    *(v18 + 48) = v25;
-    *(v18 + 64) = v41;
-    *(v18 + 65) = 0;
-    *(v18 + 66) = v37;
-    *(v18 + 70) = v38;
-    outlined destroy of HoverEffectComponent.HoverEffect(v42);
-    v26 = *(v18 + 48);
-    v44[0] = *(v18 + 32);
-    v44[1] = v26;
-    v45 = *(v18 + 64);
-    v48 = v44[0];
-    v49 = v26;
-    v50 = *(v18 + 64);
-    v46 = *(v18 + 67);
-    v47 = *(v18 + 71);
-    outlined init with copy of HoverEffectComponent.HoverEffect(v44, &v59);
-    v27 = *(v18 + 48);
-    v51[0] = *(v18 + 32);
-    v51[1] = v27;
-    v52 = *(v18 + 64);
-    v28 = v49;
-    *(v18 + 32) = v48;
-    *(v18 + 48) = v28;
-    *(v18 + 64) = v50;
-    *(v18 + 66) = 1;
-    *(v18 + 67) = v46;
-    *(v18 + 71) = v47;
-    outlined destroy of HoverEffectComponent.HoverEffect(v51);
-    v29 = *(v18 + 48);
-    v53 = *(v18 + 32);
-    v54 = v29;
-    v55 = *(v18 + 64);
-    v56 = v53;
-    v57 = v29;
-    v58 = *(v18 + 64);
-    outlined init with copy of HoverEffectComponent.HoverEffect(&v53, &v59);
-    v30 = *(v18 + 48);
-    v59 = *(v18 + 32);
-    v60 = v30;
-    v61 = *(v18 + 64);
-    v31 = v57;
-    *(v18 + 32) = v56;
-    *(v18 + 48) = v31;
-    *(v18 + 64) = v58;
-    *(v18 + 68) = 1;
-  }
-
-  else
-  {
-    LOBYTE(v51[0]) = v10 & 1;
-    *&v53 = v6;
-    *(&v53 + 1) = v7;
-    *&v54 = v8;
-    *(&v54 + 1) = v9;
-    v55 = v10;
-    outlined init with copy of HoverEffectComponent.HoverEffect(&v53, &v59);
-    v32 = *(v18 + 48);
-    v59 = *(v18 + 32);
-    v60 = v32;
-    v61 = *(v18 + 64);
-    *(v18 + 32) = v6;
-    *(v18 + 40) = v7;
-    *(v18 + 48) = v8;
-    *(v18 + 56) = v9;
-    *(v18 + 64) = v51[0];
-    *(v18 + 65) = BYTE1(v10) & 1;
-    *(v18 + 66) = BYTE2(v10) & 1;
-    *(v18 + 68) = HIDWORD(v10);
-  }
-
-  outlined destroy of HoverEffectComponent.HoverEffect(&v59);
-
-  _s10RealityKit6EntityC12ComponentSetV02doE0_8newValue21returnStrongReferenceyxm_xSgSbtAA0D0RzlF0A10Foundation011HoverEffectD0V_TtB5(v33, 1, 0, a1);
-
-  LOBYTE(v59) = 0;
-  *(&v59 + 1) = 16843009;
-  *(&v59 + 5) = 0;
-  swift_weakInit();
-  _s17RealityFoundation6SystemPAAE08registerC0yyFZAA020TransformInteractionC033_3A341D50D446846BB88CBE2E5246020ELLC_Ttg5();
-  outlined init with copy of ManipulationComponent(&v59, &v53);
-  _s10RealityKit6EntityC12ComponentSetV02doE0_8newValue21returnStrongReferenceyxm_xSgSbtAA0D0RzlF0A10Foundation012ManipulationD0V_TtB5(&v53, 0, a1);
-  outlined destroy of BodyTrackingComponent?(&v53, &_s17RealityFoundation21ManipulationComponentVSgMd, &_s17RealityFoundation21ManipulationComponentVSgMR);
-  outlined destroy of ManipulationComponent(&v59);
-}
-
-uint64_t TransformInteractionSystem.__deallocating_deinit()
-{
-  outlined destroy of BodyTrackingComponent?(v0 + 16, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
-  outlined destroy of BodyTrackingComponent?(v0 + 56, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
-  outlined destroy of BodyTrackingComponent?(v0 + 96, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
-  outlined destroy of BodyTrackingComponent?(v0 + 136, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
-  outlined destroy of BodyTrackingComponent?(v0 + 176, &_s7Combine11Cancellable_pSgMd, &_s7Combine11Cancellable_pSgMR);
-
-  return swift_deallocClassInstance();
-}
-
-double protocol witness for System.init(scene:) in conformance TransformInteractionSystem@<D0>(uint64_t *a1@<X8>)
-{
-
-  type metadata accessor for TransformInteractionSystem();
-  v2 = swift_allocObject();
-  result = 0.0;
-  *(v2 + 16) = 0u;
-  *(v2 + 32) = 0u;
-  *(v2 + 48) = 0u;
-  *(v2 + 64) = 0u;
-  *(v2 + 80) = 0u;
-  *(v2 + 96) = 0u;
-  *(v2 + 112) = 0u;
-  *(v2 + 128) = 0u;
-  *(v2 + 144) = 0u;
-  *(v2 + 160) = 0u;
-  *(v2 + 176) = 0u;
-  *(v2 + 192) = 0u;
-  *(v2 + 208) = 0;
-  *a1 = v2;
-  return result;
-}
-
-uint64_t specialized closure #2 in static System.registerSystem()(uint64_t a1, uint64_t a2, char a3)
-{
-  v17 = MEMORY[0x1E69E6B70];
-  v16[0] = a1;
-  outlined init with copy of Any(v16, v14);
-  swift_dynamicCast();
-  __swift_destroy_boxed_opaque_existential_1(v16);
-  v6 = RESceneGetSwiftObject();
-  type metadata accessor for Scene();
-  if (v6)
-  {
-    swift_dynamicCastClassUnconditional();
-  }
-
-  else
-  {
-    swift_allocObject();
-    Scene.init(coreScene:)(v12);
-  }
-
-  type metadata accessor for TransformInteractionSystem();
-  v7 = swift_allocObject();
-  *(v7 + 16) = 0u;
-  *(v7 + 32) = 0u;
-  *(v7 + 48) = 0u;
-  *(v7 + 64) = 0u;
-  *(v7 + 80) = 0u;
-  *(v7 + 96) = 0u;
-  *(v7 + 112) = 0u;
-  *(v7 + 128) = 0u;
-  *(v7 + 144) = 0u;
-  *(v7 + 160) = 0u;
-  *(v7 + 176) = 0u;
-  *(v7 + 192) = 0u;
-  v8 = v7;
-  *(v7 + 208) = 0;
-  if ((a3 & 1) == 0)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation9SystemBox33_4D011D01EC1453F13E5F3D96598DE15ELLCyAA020TransformInteractionC033_3A341D50D446846BB88CBE2E5246020ELLCGMd, &_s17RealityFoundation9SystemBox33_4D011D01EC1453F13E5F3D96598DE15ELLCyAA020TransformInteractionC033_3A341D50D446846BB88CBE2E5246020ELLCGMR);
-    v8 = swift_allocObject();
-    *(v8 + 16) = v7;
-  }
-
-  v12 = v7;
-  swift_retain_n();
-  swift_unknownObjectRetain();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation25_SystemUpdateRateProtocol_pMd, &_s17RealityFoundation25_SystemUpdateRateProtocol_pMR);
-  if (swift_dynamicCast())
-  {
-    outlined init with take of ForceEffectBase(v14, v16);
-    v9 = v17;
-    v10 = v18;
-    __swift_project_boxed_opaque_existential_1(v16, v17);
-    (*(v10 + 16))(v14, v9, v10);
-    v12 = *&v14[0];
-    v13 = BYTE8(v14[0]);
-    specialized _SystemUpdateRateProtocol.setUpdateRate(coreCustomSystem:coreScene:updateRate:)(a2, a1, &v12);
-
-    swift_unknownObjectRelease();
-
-    __swift_destroy_boxed_opaque_existential_1(v16);
-  }
-
-  else
-  {
-    v15 = 0;
-    memset(v14, 0, sizeof(v14));
-    outlined destroy of BodyTrackingComponent?(v14, &_s17RealityFoundation25_SystemUpdateRateProtocol_pSgMd, &_s17RealityFoundation25_SystemUpdateRateProtocol_pSgMR);
-    RECustomSystemSetScheduleTypeForScene();
-
-    swift_unknownObjectRelease();
-  }
-
-  return v8;
-}
-
-uint64_t specialized closure #3 in static System.registerSystem()(uint64_t a1, uint64_t a2, uint64_t a3, char a4, char a5)
-{
-  if (a4)
-  {
-    v20[0] = a1;
-    type metadata accessor for TransformInteractionSystem();
-    swift_unknownObjectRetain();
-    swift_dynamicCast();
-  }
-
-  else
-  {
-    swift_unknownObjectRetain();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation9SystemBox33_4D011D01EC1453F13E5F3D96598DE15ELLCyAA020TransformInteractionC033_3A341D50D446846BB88CBE2E5246020ELLCGMd, &_s17RealityFoundation9SystemBox33_4D011D01EC1453F13E5F3D96598DE15ELLCyAA020TransformInteractionC033_3A341D50D446846BB88CBE2E5246020ELLCGMR);
-    v8 = swift_dynamicCastClassUnconditional();
-    swift_beginAccess();
-    v21 = *(v8 + 16);
-  }
-
-  if (!a2)
-  {
-    result = RECustomSystemUpdateContextGetDeltaTime();
-LABEL_22:
-    __break(1u);
-    return result;
-  }
-
-  v20[3] = MEMORY[0x1E69E6B70];
-  v20[0] = a2;
-  outlined init with copy of Any(v20, v19);
-  swift_dynamicCast();
-  __swift_destroy_boxed_opaque_existential_1(v20);
-  v9 = RESceneGetSwiftObject();
-  type metadata accessor for Scene();
-  if (v9)
-  {
-    v10 = swift_dynamicCastClassUnconditional();
-  }
-
-  else
-  {
-    swift_allocObject();
-    v10 = Scene.init(coreScene:)(v18);
-  }
-
-  v11 = v10;
-  result = RECustomSystemUpdateContextGetDeltaTime();
-  if (!v11)
-  {
-    goto LABEL_22;
-  }
-
-  RECustomSystemUpdateContextGetSystemsArePausedInEditor();
-  type metadata accessor for SceneUpdateContext.Stats();
-  inited = swift_initStackObject();
-  *(inited + 16) = 0;
-  *(inited + 24) = 0;
-  if (one-time initialization token for queryBasedUpdateRate != -1)
-  {
-    swift_once();
-  }
-
-  if (static SceneUpdateContext.queryBasedUpdateRate == 1 && (a5 & 1) == 0)
-  {
-    v14 = *(v11 + 16);
-    if (RESceneGetECSManagerNullable())
-    {
-      if (one-time initialization token for shared != -1)
-      {
-        swift_once();
-      }
-
-      v15 = type metadata accessor for TransformInteractionSystem();
-      if ((SystemRegistry.getId(of:)(v15) & 0x100000000) == 0)
-      {
-        REECSManagerGetCustomSystemAtID();
-      }
-    }
-  }
-
-  if ((a4 & 1) == 0)
-  {
-    swift_unknownObjectRetain();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation9SystemBox33_4D011D01EC1453F13E5F3D96598DE15ELLCyAA020TransformInteractionC033_3A341D50D446846BB88CBE2E5246020ELLCGMd, &_s17RealityFoundation9SystemBox33_4D011D01EC1453F13E5F3D96598DE15ELLCyAA020TransformInteractionC033_3A341D50D446846BB88CBE2E5246020ELLCGMR);
-    v16 = swift_dynamicCastClassUnconditional();
-    swift_beginAccess();
-    v17 = *(v16 + 16);
-    *(v16 + 16) = v21;
-  }
-}
-
-uint64_t specialized static ManipulationComponent.InputDevice.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
-{
-  v4 = *a1;
-  v5 = a1[1];
-  v6 = *(a1 + 2);
-  v7 = *(a1 + 3);
-  v8 = *(a1 + 4);
-  v9 = *(a1 + 5);
-  v10 = a1[48];
-  v11 = *a2;
-  v12 = *(a2 + 2);
-  v13 = *(a2 + 3);
-  v14 = *(a2 + 4);
-  v15 = *(a2 + 5);
-  v16 = a2[48];
-  if (v4 == 2)
-  {
-    result = 0;
-    if (v11 != 2)
-    {
-      return result;
-    }
-
-LABEL_6:
-    if (v5 == a2[1])
-    {
-      if (v10)
-      {
-        if (a2[48])
-        {
-          return 1;
-        }
-      }
-
-      else if ((a2[48] & 1) == 0)
-      {
-        v24 = v2;
-        v25 = v3;
-        v21.i64[0] = v6;
-        v21.i64[1] = v7;
-        v22 = v8;
-        v23 = v9;
-        v18.i64[0] = v12;
-        v18.i64[1] = v13;
-        v19 = v14;
-        v20 = v15;
-        if (SPPose3DFloatEqualToPose(&v21, &v18))
-        {
-          return 1;
-        }
-      }
-
-      return 0;
-    }
-
-    return result;
-  }
-
-  if (v11 == 2)
-  {
-    return 0;
-  }
-
-  result = 0;
-  if (((v11 ^ v4) & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.InputDevice.Chirality and conformance ManipulationComponent.InputDevice.Chirality()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Chirality and conformance ManipulationComponent.InputDevice.Chirality;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Chirality and conformance ManipulationComponent.InputDevice.Chirality)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Chirality and conformance ManipulationComponent.InputDevice.Chirality);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.InputDevice.Kind.Set and conformance ManipulationComponent.InputDevice.Kind.Set()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind.Set and conformance ManipulationComponent.InputDevice.Kind.Set;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind.Set and conformance ManipulationComponent.InputDevice.Kind.Set)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind.Set and conformance ManipulationComponent.InputDevice.Kind.Set);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind.Set and conformance ManipulationComponent.InputDevice.Kind.Set;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind.Set and conformance ManipulationComponent.InputDevice.Kind.Set)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind.Set and conformance ManipulationComponent.InputDevice.Kind.Set);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind.Set and conformance ManipulationComponent.InputDevice.Kind.Set;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind.Set and conformance ManipulationComponent.InputDevice.Kind.Set)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind.Set and conformance ManipulationComponent.InputDevice.Kind.Set);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind.Set and conformance ManipulationComponent.InputDevice.Kind.Set;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind.Set and conformance ManipulationComponent.InputDevice.Kind.Set)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind.Set and conformance ManipulationComponent.InputDevice.Kind.Set);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.InputDevice.Kind and conformance ManipulationComponent.InputDevice.Kind()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind and conformance ManipulationComponent.InputDevice.Kind;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind and conformance ManipulationComponent.InputDevice.Kind)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.InputDevice.Kind and conformance ManipulationComponent.InputDevice.Kind);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.InputDevice and conformance ManipulationComponent.InputDevice()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.InputDevice and conformance ManipulationComponent.InputDevice;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.InputDevice and conformance ManipulationComponent.InputDevice)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.InputDevice and conformance ManipulationComponent.InputDevice);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.Dynamics.TranslationBehavior and conformance ManipulationComponent.Dynamics.TranslationBehavior()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.TranslationBehavior and conformance ManipulationComponent.Dynamics.TranslationBehavior;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.TranslationBehavior and conformance ManipulationComponent.Dynamics.TranslationBehavior)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.TranslationBehavior and conformance ManipulationComponent.Dynamics.TranslationBehavior);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.Dynamics.RotationBehavior and conformance ManipulationComponent.Dynamics.RotationBehavior()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.RotationBehavior and conformance ManipulationComponent.Dynamics.RotationBehavior;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.RotationBehavior and conformance ManipulationComponent.Dynamics.RotationBehavior)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.RotationBehavior and conformance ManipulationComponent.Dynamics.RotationBehavior);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.Dynamics.ScalingBehavior and conformance ManipulationComponent.Dynamics.ScalingBehavior()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.ScalingBehavior and conformance ManipulationComponent.Dynamics.ScalingBehavior;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.ScalingBehavior and conformance ManipulationComponent.Dynamics.ScalingBehavior)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.ScalingBehavior and conformance ManipulationComponent.Dynamics.ScalingBehavior);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.Dynamics.Inertia and conformance ManipulationComponent.Dynamics.Inertia()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.Inertia and conformance ManipulationComponent.Dynamics.Inertia;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.Inertia and conformance ManipulationComponent.Dynamics.Inertia)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.Inertia and conformance ManipulationComponent.Dynamics.Inertia);
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for ManipulationComponent(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFF && *(a1 + 16))
-  {
-    return (*a1 + 255);
-  }
-
-  v3 = *(a1 + 1);
-  v4 = v3 >= 2;
-  v5 = v3 - 2;
-  if (!v4)
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for ManipulationComponent(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *result = a2 - 255;
-    *(result + 8) = 0;
-    if (a3 >= 0xFF)
-    {
-      *(result + 16) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 16) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 1) = a2 + 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for ManipulationComponent.HitTarget(uint64_t *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0x7FFFFFFF && *(a1 + 17))
-  {
-    return (*a1 + 0x7FFFFFFF);
-  }
-
-  v3 = *a1;
-  if (*a1 >= 0xFFFFFFFF)
-  {
-    LODWORD(v3) = -1;
-  }
-
-  v4 = v3 - 1;
-  if (v4 < 0)
-  {
-    v4 = -1;
-  }
-
-  return (v4 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for ManipulationComponent.HitTarget(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0x7FFFFFFE)
-  {
-    *(result + 16) = 0;
-    *result = a2 - 0x7FFFFFFF;
-    *(result + 8) = 0;
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(result + 17) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(result + 17) = 0;
-    }
-
-    if (a2)
-    {
-      *result = a2;
-    }
-  }
-
-  return result;
-}
-
-__n128 __swift_memcpy49_16(uint64_t a1, uint64_t a2)
-{
-  result = *a2;
-  v3 = *(a2 + 16);
-  v4 = *(a2 + 32);
-  *(a1 + 48) = *(a2 + 48);
-  *(a1 + 16) = v3;
-  *(a1 + 32) = v4;
-  *a1 = result;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for ManipulationComponent.InputDevice(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFE && a1[49])
-  {
-    return (*a1 + 254);
-  }
-
-  v3 = *a1;
-  if (v3 <= 2)
-  {
-    v4 = 2;
-  }
-
-  else
-  {
-    v4 = *a1;
-  }
-
-  v5 = v4 - 3;
-  if (v3 < 2)
-  {
-    v6 = -1;
-  }
-
-  else
-  {
-    v6 = v5;
-  }
-
-  return (v6 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for ManipulationComponent.InputDevice(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFD)
-  {
-    *(result + 40) = 0;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *(result + 48) = 0;
-    *result = a2 - 254;
-    if (a3 >= 0xFE)
-    {
-      *(result + 49) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFE)
-    {
-      *(result + 49) = 0;
-    }
-
-    if (a2)
-    {
-      *result = a2 + 2;
-    }
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for ManipulationComponent.Dynamics(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFF && *(a1 + 5))
-  {
-    return (*a1 + 255);
-  }
-
-  v3 = *(a1 + 1);
-  v4 = v3 >= 2;
-  v5 = v3 - 2;
-  if (!v4)
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for ManipulationComponent.Dynamics(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *(result + 4) = 0;
-    *result = a2 - 255;
-    if (a3 >= 0xFF)
-    {
-      *(result + 5) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 5) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 1) = a2 + 1;
-    }
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.ReleaseBehavior.Storage and conformance ManipulationComponent.ReleaseBehavior.Storage()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.ReleaseBehavior.Storage and conformance ManipulationComponent.ReleaseBehavior.Storage;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.ReleaseBehavior.Storage and conformance ManipulationComponent.ReleaseBehavior.Storage)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.ReleaseBehavior.Storage and conformance ManipulationComponent.ReleaseBehavior.Storage);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.AudioConfiguration.Storage and conformance ManipulationComponent.AudioConfiguration.Storage()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.AudioConfiguration.Storage and conformance ManipulationComponent.AudioConfiguration.Storage;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.AudioConfiguration.Storage and conformance ManipulationComponent.AudioConfiguration.Storage)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.AudioConfiguration.Storage and conformance ManipulationComponent.AudioConfiguration.Storage);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.Dynamics.TranslationBehavior.Storage and conformance ManipulationComponent.Dynamics.TranslationBehavior.Storage()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.TranslationBehavior.Storage and conformance ManipulationComponent.Dynamics.TranslationBehavior.Storage;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.TranslationBehavior.Storage and conformance ManipulationComponent.Dynamics.TranslationBehavior.Storage)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.TranslationBehavior.Storage and conformance ManipulationComponent.Dynamics.TranslationBehavior.Storage);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.Dynamics.RotationBehavior.Storage and conformance ManipulationComponent.Dynamics.RotationBehavior.Storage()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.RotationBehavior.Storage and conformance ManipulationComponent.Dynamics.RotationBehavior.Storage;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.RotationBehavior.Storage and conformance ManipulationComponent.Dynamics.RotationBehavior.Storage)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.RotationBehavior.Storage and conformance ManipulationComponent.Dynamics.RotationBehavior.Storage);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.Dynamics.ScalingBehavior.Storage and conformance ManipulationComponent.Dynamics.ScalingBehavior.Storage()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.ScalingBehavior.Storage and conformance ManipulationComponent.Dynamics.ScalingBehavior.Storage;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.ScalingBehavior.Storage and conformance ManipulationComponent.Dynamics.ScalingBehavior.Storage)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.ScalingBehavior.Storage and conformance ManipulationComponent.Dynamics.ScalingBehavior.Storage);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ManipulationComponent.Dynamics.Inertia.Storage and conformance ManipulationComponent.Dynamics.Inertia.Storage()
-{
-  result = lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.Inertia.Storage and conformance ManipulationComponent.Dynamics.Inertia.Storage;
-  if (!lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.Inertia.Storage and conformance ManipulationComponent.Dynamics.Inertia.Storage)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ManipulationComponent.Dynamics.Inertia.Storage and conformance ManipulationComponent.Dynamics.Inertia.Storage);
-  }
-
-  return result;
-}
-
-uint64_t SPPose3DFloatEqualToPose(float32x4_t *a1, float32x4_t *a2)
-{
-  v2 = vceqq_f32(*a1, *a2);
-  v2.i32[3] = v2.i32[2];
-  if ((vminvq_u32(v2) & 0x80000000) == 0)
-  {
-    return 0;
-  }
-
-  v4 = a1[1];
-  v5 = a2[1];
-  if ((vminvq_u32(vceqq_f32(v4, v5)) & 0x80000000) != 0)
-  {
-    return 1;
-  }
-
-  else
-  {
-    return vminvq_u32(vceqq_f32(v4, vnegq_f32(v5))) >> 31;
-  }
-}
-
-uint64_t block_copy_helper_19(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 40);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = v2;
-}
-
-RealityKit::__RKEntityProximityTrigger::ExitType_optional __swiftcall __RKEntityProximityTrigger.ExitType.init(rawValue:)(Swift::Int rawValue)
-{
-  v2 = 3;
-  if (rawValue < 3)
-  {
-    v2 = rawValue;
-  }
-
-  *v1 = v2;
-  return rawValue;
-}
-
-uint64_t __RKEntityProximityTrigger.distance.setter(float a1)
-{
-  result = swift_beginAccess();
-  *(v1 + 32) = a1;
-  return result;
-}
-
-uint64_t __RKEntityProximityTrigger.type.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = swift_beginAccess();
-  *a1 = *(v1 + 36);
-  return result;
-}
-
-uint64_t __RKEntityProximityTrigger.type.setter(char *a1)
-{
-  v2 = *a1;
-  result = swift_beginAccess();
-  *(v1 + 36) = v2;
-  return result;
-}
-
-uint64_t __RKEntityProximityTrigger.__allocating_init(targetEntity:distance:type:)(uint64_t a1, char *a2, float a3)
-{
-  v6 = swift_allocObject();
-  v7 = *a2;
-  *(v6 + 24) = 0;
-  *(v6 + 37) = 0;
-  swift_beginAccess();
-  *(v6 + 24) = a1;
-  *(v6 + 32) = a3;
-  *(v6 + 36) = v7;
-  *(v6 + 16) = 0;
-  *(v6 + 18) = 0;
-  return v6;
-}
-
-uint64_t __RKEntityProximityTrigger.init(targetEntity:distance:type:)(uint64_t a1, char *a2, float a3)
-{
-  v6 = *a2;
-  *(v3 + 24) = 0;
-  *(v3 + 37) = 0;
-  swift_beginAccess();
-  *(v3 + 24) = a1;
-  *(v3 + 32) = a3;
-  *(v3 + 36) = v6;
-  *(v3 + 16) = 0;
-  *(v3 + 18) = 0;
-  return v3;
-}
-
-uint64_t __RKEntityProximityTrigger.matches(with:)(uint64_t a1)
-{
-  v2 = v1;
-  v4 = type metadata accessor for UUID();
-  *&v49 = *(v4 - 8);
-  v5 = *(v49 + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  v47 = &v44[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = &v44[-v9];
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v48 = &v44[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v44[-v15];
-  MEMORY[0x1EEE9AC00](v17);
-  v19 = &v44[-v18];
-  type metadata accessor for __RKEntityProximityTrigger();
-  v20 = swift_dynamicCastClass();
-  if (!v20 || (v21 = v20, swift_beginAccess(), v22 = *(v1 + 36), swift_beginAccess(), v22 != *(v21 + 36)))
-  {
-LABEL_16:
-    type metadata accessor for __RKEntityTriggerGroup();
-    v27 = swift_dynamicCastClass();
-    if (v27)
-    {
-      v28 = v27;
-      swift_beginAccess();
-      v29 = *(v28 + 24);
-      if (v29 >> 62)
-      {
-LABEL_54:
-        v30 = __CocoaSet.count.getter();
-      }
-
-      else
-      {
-        v30 = *((v29 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      }
-
-      for (i = 0; v30 != i; ++i)
-      {
-        if ((v29 & 0xC000000000000001) != 0)
-        {
-          v32 = MEMORY[0x1C68F41F0](i, v29);
-          if (__OFADD__(i, 1))
-          {
-LABEL_28:
-            __break(1u);
-            break;
-          }
-        }
-
-        else
-        {
-          if (i >= *((v29 & 0xFFFFFFFFFFFFFF8) + 0x10))
-          {
-            __break(1u);
-            goto LABEL_54;
-          }
-
-          v32 = *(v29 + 8 * i + 32);
-
-          if (__OFADD__(i, 1))
-          {
-            goto LABEL_28;
-          }
-        }
-
-        v33 = __RKEntityProximityTrigger.matches(with:)(v32);
-
-        if (v33)
-        {
-
-          return 1;
-        }
-      }
-    }
-
-    return 0;
-  }
-
-  swift_beginAccess();
-  if (*(v2 + 24))
-  {
-
-    Entity.__interactionIdentifier.getter(v19);
-  }
-
-  else
-  {
-    (*(v49 + 56))(v19, 1, 1, v4);
-  }
-
-  swift_beginAccess();
-  v23 = *(v21 + 24);
-  v46 = a1;
-  if (v23)
-  {
-
-    Entity.__interactionIdentifier.getter(v16);
-
-    v24 = v49;
-  }
-
-  else
-  {
-    v24 = v49;
-    (*(v49 + 56))(v16, 1, 1, v4);
-  }
-
-  v25 = *(v7 + 48);
-  outlined init with copy of UUID?(v19, v10);
-  outlined init with copy of UUID?(v16, &v10[v25]);
-  v26 = *(v24 + 48);
-  if (v26(v10, 1, v4) != 1)
-  {
-    outlined init with copy of UUID?(v10, v48);
-    if (v26(&v10[v25], 1, v4) != 1)
-    {
-      v36 = v49;
-      v37 = v47;
-      (*(v49 + 32))(v47, &v10[v25], v4);
-      lazy protocol witness table accessor for type UUID and conformance UUID();
-      v45 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v38 = *(v36 + 8);
-      v38(v37, v4);
-      outlined destroy of BodyTrackingComponent?(v16, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-      outlined destroy of BodyTrackingComponent?(v19, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-      v38(v48, v4);
-      outlined destroy of BodyTrackingComponent?(v10, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-      if (v45)
-      {
-        goto LABEL_33;
-      }
-
-      goto LABEL_15;
-    }
-
-    outlined destroy of BodyTrackingComponent?(v16, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    outlined destroy of BodyTrackingComponent?(v19, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    (*(v49 + 8))(v48, v4);
-LABEL_14:
-    outlined destroy of BodyTrackingComponent?(v10, &_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
-LABEL_15:
-
-    goto LABEL_16;
-  }
-
-  outlined destroy of BodyTrackingComponent?(v16, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  outlined destroy of BodyTrackingComponent?(v19, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  if (v26(&v10[v25], 1, v4) != 1)
-  {
-    goto LABEL_14;
-  }
-
-  outlined destroy of BodyTrackingComponent?(v10, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-LABEL_33:
-  swift_beginAccess();
-  v39 = *(v2 + 32);
-  if (*(v2 + 24))
-  {
-    v40 = *(v2 + 24);
-
-    v41 = Entity.rcSceneEntity.getter();
-
-    if (v41)
-    {
-      _s10RealityKit6EntityC12ComponentSetV5doGet_21borrowStrongReferencexSgxm_SbtAA0D0RzlFAA9TransformV_Tt0B5Tf4dn_n(v41, v50);
-      if (v51)
-      {
-        if (one-time initialization token for identity != -1)
-        {
-          swift_once();
-        }
-
-        v42 = static Transform.identity;
-      }
-
-      else
-      {
-        v42 = v50[0];
-      }
-
-      v49 = v42;
-
-      v39 = v39 * fmaxf(fmaxf(*&v49, *(&v49 + 2)), *(&v49 + 1));
-    }
-  }
-
-  swift_beginAccess();
-  v43 = *(v21 + 32);
-
-  if (!*(v2 + 36))
-  {
-    swift_beginAccess();
-    *(v2 + 38) = 0;
-    if (v43 <= v39)
-    {
-      v34 = 1;
-      swift_beginAccess();
-      if ((*(v2 + 37) & 1) == 0)
-      {
-        *(v2 + 37) = 1;
-        return v34;
-      }
-    }
-
-    if (v39 < v43)
-    {
-      swift_beginAccess();
-      if (*(v2 + 37) == 1)
-      {
-        v34 = 0;
-        *(v2 + 37) = 0;
-        return v34;
-      }
-    }
-
-    return 0;
-  }
-
-  if (v43 > v39)
-  {
-    v34 = 1;
-    swift_beginAccess();
-    *(v2 + 37) = 0;
-    swift_beginAccess();
-    if ((*(v2 + 38) & 1) == 0)
-    {
-      *(v2 + 38) = 1;
-      return v34;
-    }
-
-    goto LABEL_16;
-  }
-
-  v34 = 1;
-  swift_beginAccess();
-  *(v2 + 38) = 0;
-  swift_beginAccess();
-  if ((*(v2 + 37) & 1) == 0)
-  {
-    *(v2 + 37) = 1;
-    return v34;
-  }
-
-  return 0;
-}
-
-uint64_t __RKEntityProximityTrigger.copy(with:)@<X0>(uint64_t *a1@<X8>)
-{
-  swift_beginAccess();
-  v3 = *(v1 + 24);
-  swift_beginAccess();
-  v4 = *(v1 + 32);
-  swift_beginAccess();
-  v5 = *(v1 + 36);
-  v6 = type metadata accessor for __RKEntityProximityTrigger();
-  v7 = swift_allocObject();
-  *(v7 + 24) = 0;
-  *(v7 + 37) = 0;
-  swift_beginAccess();
-  *(v7 + 24) = v3;
-  *(v7 + 32) = v4;
-  *(v7 + 36) = v5;
-  *(v7 + 16) = 0;
-  *(v7 + 18) = 0;
-  a1[3] = v6;
-  *a1 = v7;
-}
-
-uint64_t __RKEntityProximityTrigger.clone(matching:newEntity:)(uint64_t a1, uint64_t a2)
-{
-  swift_beginAccess();
-  v5 = *(v2 + 24);
-  if (!v5 || *(v5 + 16) != *(a1 + 16))
-  {
-    return 0;
-  }
-
-  swift_beginAccess();
-  v7 = *(v2 + 32);
-  swift_beginAccess();
-  v8 = *(v2 + 36);
-  type metadata accessor for __RKEntityProximityTrigger();
-  v9 = swift_allocObject();
-  *(v9 + 24) = 0;
-  *(v9 + 37) = 0;
-  swift_beginAccess();
-  *(v9 + 24) = a2;
-  *(v9 + 32) = v7;
-  *(v9 + 36) = v8;
-  *(v9 + 16) = 0;
-  *(v9 + 18) = 0;
-
-  return v9;
-}
-
-uint64_t __RKEntityProximityTrigger.deinit()
-{
-  v1 = *(v0 + 24);
-
-  return v0;
-}
-
-uint64_t __RKEntityProximityTrigger.__deallocating_deinit()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t getEnumTagSinglePayload for SpatialPhotoMetadataError(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0xF0)
-  {
-    goto LABEL_17;
-  }
-
-  if (a2 + 16 >= 0xFFFF00)
-  {
-    v2 = 4;
-  }
-
-  else
-  {
-    v2 = 2;
-  }
-
-  if ((a2 + 16) >> 8 < 0xFF)
-  {
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = v2;
-  }
-
-  if (v3 == 4)
-  {
-    v4 = *(a1 + 1);
-    if (v4)
-    {
-      return (*a1 | (v4 << 8)) - 16;
-    }
-  }
-
-  else
-  {
-    if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-
-      return (*a1 | (v4 << 8)) - 16;
-    }
-
-    v4 = a1[1];
-    if (a1[1])
-    {
-      return (*a1 | (v4 << 8)) - 16;
-    }
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 0x11;
-  v8 = v6 - 17;
-  if (!v7)
-  {
-    v8 = -1;
-  }
-
-  return (v8 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for SpatialPhotoMetadataError(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 16 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 16) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 < 0xF0)
-  {
-    v4 = 0;
-  }
-
-  if (a2 > 0xEF)
-  {
-    v5 = ((a2 - 240) >> 8) + 1;
-    *result = a2 + 16;
-    if (v4 > 1)
-    {
-      if (v4 == 2)
-      {
-        *(result + 1) = v5;
-      }
-
-      else
-      {
-        *(result + 1) = v5;
-      }
-    }
-
-    else if (v4)
-    {
-      *(result + 1) = v5;
-    }
-
-    return result;
-  }
-
-  if (v4 > 1)
-  {
-    if (v4 != 2)
-    {
-      *(result + 1) = 0;
-      if (a2)
-      {
-        goto LABEL_20;
-      }
-
-      return result;
-    }
-
-    *(result + 1) = 0;
-  }
-
-  else if (v4)
-  {
-    *(result + 1) = 0;
-    if (!a2)
-    {
-      return result;
-    }
-
-LABEL_20:
-    *result = a2 + 16;
-    return result;
-  }
-
-  if (a2)
-  {
-    goto LABEL_20;
-  }
-
-  return result;
-}
-
-unint64_t SpatialPhotoMetadataError.description.getter(char a1)
-{
-  result = 0xD000000000000020;
-  switch(a1)
-  {
-    case 1:
-      result = 0xD000000000000010;
-      break;
-    case 2:
-    case 14:
-      result = 0xD000000000000018;
-      break;
-    case 3:
-    case 8:
-      result = 0xD00000000000001ELL;
-      break;
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-      result = 0xD00000000000001CLL;
-      break;
-    case 9:
-      result = 0xD000000000000023;
-      break;
-    case 10:
-    case 11:
-      result = 0xD000000000000020;
-      break;
-    case 12:
-      result = 0xD00000000000001ALL;
-      break;
-    case 13:
-      result = 0xD000000000000013;
-      break;
-    case 15:
-      result = 0xD00000000000001FLL;
-      break;
-    case 16:
-      result = 0xD00000000000002BLL;
-      break;
-    default:
-      return result;
-  }
-
-  return result;
-}
-
-double protocol witness for static Component.__load(from:) in conformance DirectionalLightComponent.Shadow@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 12);
-  v4 = *(a1 + 20);
-  v5 = *(a1 + 24);
-  result = *a1;
-  *a2 = *a1;
-  *(a2 + 8) = v2;
-  *(a2 + 12) = v3;
-  *(a2 + 20) = v4;
-  *(a2 + 24) = v5;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance DirectionalLightComponent.Shadow(uint64_t a1, uint64_t a2)
-{
-  outlined init with copy of __REAssetService(a1, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = v4;
-  *a2 = v4;
-  *(a2 + 8) = v5;
-  *(a2 + 12) = v6;
-  *(a2 + 20) = v7;
-  *(a2 + 24) = v8;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance DirectionalLightComponent.Shadow(uint64_t a1, uint64_t a2)
-{
-  outlined init with copy of __REAssetService(a1, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = v4;
-  *a2 = v4;
-  *(a2 + 8) = v5;
-  *(a2 + 12) = v6;
-  *(a2 + 20) = v7;
-  *(a2 + 24) = v8;
-  return result;
-}
-
-double protocol witness for static Component.__load(from:offset:) in conformance DirectionalLightComponent.Shadow@<D0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
-{
-  a4[3] = a2;
-  a4[4] = a3;
-  v6 = swift_allocObject();
-  *a4 = v6;
-  v7 = *(a1 + 8);
-  v8 = *(a1 + 12);
-  v9 = *(a1 + 20);
-  v10 = *(a1 + 24);
-  result = *a1;
-  *(v6 + 16) = *a1;
-  *(v6 + 24) = v7;
-  *(v6 + 28) = v8;
-  *(v6 + 36) = v9;
-  *(v6 + 40) = v10;
-  return result;
-}
-
-uint64_t static Component.__load(from:offset:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
-{
-  v7 = *(a3 + 32);
-  a4[3] = a2;
-  a4[4] = a3;
-  __swift_allocate_boxed_opaque_existential_1(a4);
-  return v7(a1, a2, a3);
-}
-
-id protocol witness for static Component.__load(from:) in conformance DirectionalLightComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v2 = *a1;
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 12);
-  *a2 = *a1;
-  *(a2 + 8) = v3;
-  *(a2 + 12) = v4;
-  return v2;
-}
-
-float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance DirectionalLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
-{
-  if (a4)
-  {
-    v5 = a1;
-    outlined destroy of DirectionalLightComponent(a2);
-    a1 = v5;
-  }
-
-  outlined init with copy of __REAssetService(a1, v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = v8;
-  *a2 = v7;
-  *(a2 + 8) = v8;
-  *(a2 + 12) = v9;
-  return result;
-}
-
-float protocol witness for static Component.__store(attribute:to:offset:) in conformance DirectionalLightComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of DirectionalLightComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = v6;
-  *a2 = v5;
-  *(a2 + 8) = v6;
-  *(a2 + 12) = v7;
-  return result;
-}
-
-void protocol witness for static Component.__free(to:offset:) in conformance DirectionalLightComponent(uint64_t a1)
-{
-  outlined destroy of DirectionalLightComponent(a1);
-
-  JUMPOUT(0x1C6902A30);
-}
-
-id protocol witness for static Component.__load(from:offset:) in conformance DirectionalLightComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
-{
-  *(a4 + 24) = a2;
-  *(a4 + 32) = a3;
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  v6 = *(a1 + 12);
-  *a4 = *a1;
-  *(a4 + 8) = v5;
-  *(a4 + 12) = v6;
-  return v4;
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance EnvironmentBlendingComponent(uint64_t a1, _BYTE *a2)
-{
-  outlined init with copy of __REAssetService(a1, v5);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  result = swift_dynamicCast();
-  *a2 = v4;
-  return result;
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance EnvironmentBlendingComponent(uint64_t a1, _BYTE *a2)
-{
-  outlined init with copy of __REAssetService(a1, v5);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  result = swift_dynamicCast();
-  *a2 = v4;
-  return result;
-}
-
-id protocol witness for static Component.__load(from:) in conformance __AmbientLightComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v2 = *a1;
-  v3 = *(a1 + 8);
-  *a2 = *a1;
-  *(a2 + 8) = v3;
-  return v2;
-}
-
-float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance __AmbientLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
-{
-  if (a4)
-  {
-    v5 = a1;
-    outlined destroy of __AmbientLightComponent(a2);
-    a1 = v5;
-  }
-
-  outlined init with copy of __REAssetService(a1, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = v8;
-  *a2 = v7;
-  *(a2 + 8) = v8;
-  return result;
-}
-
-float protocol witness for static Component.__store(attribute:to:offset:) in conformance __AmbientLightComponent(uint64_t a1, uint64_t a2)
+float protocol witness for static Component.__store(attribute:to:offset:) in conformance __AmbientLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   outlined destroy of __AmbientLightComponent(a2);
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = v6;
-  *a2 = v5;
-  *(a2 + 8) = v6;
+  result = v8;
+  *a2 = v7;
+  *(a2 + 8) = v8;
   return result;
 }
 
@@ -5518,7 +35,7 @@ void protocol witness for static Component.__free(to:offset:) in conformance Aud
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:) in conformance ImageBasedLightComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double protocol witness for static Component.__load(from:) in conformance ImageBasedLightComponent@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *a1;
   v2 = *(a1 + 8);
@@ -5535,15 +52,30 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Imag
   return outlined copy of ImageBasedLightComponent.Source(v3, v2);
 }
 
-float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ImageBasedLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ImageBasedLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of ImageBasedLightComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v13);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = v11;
+  *a2 = v8;
+  *(a2 + 16) = v9;
+  *(a2 + 20) = v10;
+  *(a2 + 24) = v11;
+  *(a2 + 28) = v12;
+  return result;
+}
+
+float protocol witness for static Component.__store(attribute:to:offset:) in conformance ImageBasedLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of ImageBasedLightComponent(a2);
   outlined init with copy of __REAssetService(a1, v12);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -5556,21 +88,6 @@ float protocol witness for static Component.__store(attribute:to:offset:deinitia
   return result;
 }
 
-float protocol witness for static Component.__store(attribute:to:offset:) in conformance ImageBasedLightComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of ImageBasedLightComponent(a2);
-  outlined init with copy of __REAssetService(a1, v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = v8;
-  *a2 = v5;
-  *(a2 + 16) = v6;
-  *(a2 + 20) = v7;
-  *(a2 + 24) = v8;
-  *(a2 + 28) = v9;
-  return result;
-}
-
 void protocol witness for static Component.__free(to:offset:) in conformance ImageBasedLightComponent(uint64_t a1)
 {
   outlined destroy of ImageBasedLightComponent(a1);
@@ -5578,7 +95,7 @@ void protocol witness for static Component.__free(to:offset:) in conformance Ima
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance ImageBasedLightComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
+double protocol witness for static Component.__load(from:offset:) in conformance ImageBasedLightComponent@<D0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
 {
   a4[3] = a2;
   a4[4] = a3;
@@ -5607,40 +124,42 @@ void protocol witness for static Component.__free(to:offset:) in conformance Ima
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:) in conformance __ImageBasedLightComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double protocol witness for static Component.__load(from:) in conformance __ImageBasedLightComponent@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v2 = *(a1 + 8);
   *a2 = *a1;
   *(a2 + 8) = v2;
+
+  return result;
 }
 
-float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance __ImageBasedLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance __ImageBasedLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of __ImageBasedLightComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = v9;
+  *a2 = v8;
+  *(a2 + 8) = v9;
+  return result;
+}
+
+float protocol witness for static Component.__store(attribute:to:offset:) in conformance __ImageBasedLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of __ImageBasedLightComponent(a2);
   outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   result = v8;
   *a2 = v7;
   *(a2 + 8) = v8;
-  return result;
-}
-
-float protocol witness for static Component.__store(attribute:to:offset:) in conformance __ImageBasedLightComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of __ImageBasedLightComponent(a2);
-  outlined init with copy of __REAssetService(a1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = v6;
-  *a2 = v5;
-  *(a2 + 8) = v6;
   return result;
 }
 
@@ -5651,13 +170,15 @@ void protocol witness for static Component.__free(to:offset:) in conformance __I
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance __ImageBasedLightComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+double protocol witness for static Component.__load(from:offset:) in conformance __ImageBasedLightComponent@<D0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
   *(a4 + 24) = a2;
   *(a4 + 32) = a3;
   v4 = *(a1 + 8);
   *a4 = *a1;
   *(a4 + 8) = v4;
+
+  return result;
 }
 
 uint64_t protocol witness for static Component.__load(from:) in conformance SceneUnderstandingComponent@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
@@ -5668,23 +189,23 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Scen
   return result;
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SceneUnderstandingComponent(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SceneUnderstandingComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v6);
+  outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   result = swift_dynamicCast();
-  *a2 = v4;
-  *(a2 + 8) = v5;
+  *a2 = v7;
+  *(a2 + 8) = v8;
   return result;
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance SceneUnderstandingComponent(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance SceneUnderstandingComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v6);
+  outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   result = swift_dynamicCast();
-  *a2 = v4;
-  *(a2 + 8) = v5;
+  *a2 = v6;
+  *(a2 + 8) = v7;
   return result;
 }
 
@@ -5739,15 +260,40 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Phys
   return outlined init with copy of PhysicsBodyComponent(v18, &v17);
 }
 
-__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PhysicsBodyComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PhysicsBodyComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of PhysicsBodyComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v12);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  v7 = v22[0];
+  *(a2 + 128) = v21;
+  *(a2 + 144) = v7;
+  *(a2 + 156) = *(v22 + 12);
+  v8 = v18;
+  *(a2 + 64) = v17;
+  *(a2 + 80) = v8;
+  v9 = v20;
+  *(a2 + 96) = v19;
+  *(a2 + 112) = v9;
+  v10 = v14;
+  *a2 = v13;
+  *(a2 + 16) = v10;
+  result = v16;
+  *(a2 + 32) = v15;
+  *(a2 + 48) = result;
+  return result;
+}
+
+__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance PhysicsBodyComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of PhysicsBodyComponent(a2);
   outlined init with copy of __REAssetService(a1, v11);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -5766,31 +312,6 @@ __n128 protocol witness for static Component.__store(attribute:to:offset:deiniti
   *(a2 + 16) = v9;
   result = v15;
   *(a2 + 32) = v14;
-  *(a2 + 48) = result;
-  return result;
-}
-
-__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance PhysicsBodyComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of PhysicsBodyComponent(a2);
-  outlined init with copy of __REAssetService(a1, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  v4 = v19[0];
-  *(a2 + 128) = v18;
-  *(a2 + 144) = v4;
-  *(a2 + 156) = *(v19 + 12);
-  v5 = v15;
-  *(a2 + 64) = v14;
-  *(a2 + 80) = v5;
-  v6 = v17;
-  *(a2 + 96) = v16;
-  *(a2 + 112) = v6;
-  v7 = v11;
-  *a2 = v10;
-  *(a2 + 16) = v7;
-  result = v13;
-  *(a2 + 32) = v12;
   *(a2 + 48) = result;
   return result;
 }
@@ -5873,21 +394,21 @@ void static Component.__coreComponentType.getter(_DWORD *a1@<X8>)
   static Component.__coreComponentType.getter(a1);
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SelectableSceneContentIdentifierComponent(uint64_t a1, _DWORD *a2)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SelectableSceneContentIdentifierComponent(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v5);
+  outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   result = swift_dynamicCast();
-  *a2 = v4;
+  *a2 = v7;
   return result;
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance SelectableSceneContentIdentifierComponent(uint64_t a1, _DWORD *a2)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance SelectableSceneContentIdentifierComponent(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v5);
+  outlined init with copy of __REAssetService(a1, v7);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   result = swift_dynamicCast();
-  *a2 = v4;
+  *a2 = v6;
   return result;
 }
 
@@ -5914,18 +435,34 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Sync
   *(a2 + 16) = v6;
   *(a2 + 24) = v5;
   *(a2 + 32) = v7;
-  return outlined copy of (Double, (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?)?(v6, v5);
+  return outlined copy of (Double, (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?)?(v6, v5, v7);
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SynchronizationComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SynchronizationComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of SynchronizationComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v14);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  *a2 = v8;
+  *(a2 + 8) = v9;
+  *(a2 + 9) = v10;
+  *(a2 + 10) = v11;
+  result = *&v12;
+  *(a2 + 16) = v12;
+  *(a2 + 32) = v13;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance SynchronizationComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of SynchronizationComponent(a2);
   outlined init with copy of __REAssetService(a1, v13);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -5936,22 +473,6 @@ double protocol witness for static Component.__store(attribute:to:offset:deiniti
   result = *&v11;
   *(a2 + 16) = v11;
   *(a2 + 32) = v12;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance SynchronizationComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of SynchronizationComponent(a2);
-  outlined init with copy of __REAssetService(a1, v11);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  *a2 = v5;
-  *(a2 + 8) = v6;
-  *(a2 + 9) = v7;
-  *(a2 + 10) = v8;
-  result = *&v9;
-  *(a2 + 16) = v9;
-  *(a2 + 32) = v10;
   return result;
 }
 
@@ -5982,7 +503,7 @@ uint64_t protocol witness for static Component.__load(from:offset:) in conforman
   *(v6 + 40) = v10;
   *(v6 + 48) = v12;
 
-  return outlined copy of (Double, (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?)?(v11, v10);
+  return outlined copy of (Double, (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?)?(v11, v10, v12);
 }
 
 uint64_t protocol witness for static Component.__load(from:) in conformance GestureComponent@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
@@ -5996,31 +517,31 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Gest
   return swift_unknownObjectRetain();
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance GestureComponent(uint64_t a1, void *a2, uint64_t a3, char a4)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance GestureComponent(uint64_t a1, void *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of GestureComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  result = swift_dynamicCast();
+  *a2 = v8;
+  a2[1] = v9;
+  return result;
+}
+
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance GestureComponent(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of GestureComponent(a2);
   outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   result = swift_dynamicCast();
   *a2 = v7;
   a2[1] = v8;
-  return result;
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance GestureComponent(uint64_t a1, void *a2)
-{
-  outlined destroy of GestureComponent(a2);
-  outlined init with copy of __REAssetService(a1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  result = swift_dynamicCast();
-  *a2 = v5;
-  a2[1] = v6;
   return result;
 }
 
@@ -6077,15 +598,34 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Port
   return outlined init with copy of PortalComponent(v10, &v9);
 }
 
-__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PortalComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PortalComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of PortalComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  v7 = v16;
+  *(a2 + 64) = v15;
+  *(a2 + 80) = v7;
+  *(a2 + 96) = v17;
+  v8 = v12;
+  *a2 = v11;
+  *(a2 + 16) = v8;
+  result = v14;
+  *(a2 + 32) = v13;
+  *(a2 + 48) = result;
+  return result;
+}
+
+__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance PortalComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of PortalComponent(a2);
   outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -6098,25 +638,6 @@ __n128 protocol witness for static Component.__store(attribute:to:offset:deiniti
   *(a2 + 16) = v7;
   result = v13;
   *(a2 + 32) = v12;
-  *(a2 + 48) = result;
-  return result;
-}
-
-__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance PortalComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of PortalComponent(a2);
-  outlined init with copy of __REAssetService(a1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  v4 = v13;
-  *(a2 + 64) = v12;
-  *(a2 + 80) = v4;
-  *(a2 + 96) = v14;
-  v5 = v9;
-  *a2 = v8;
-  *(a2 + 16) = v5;
-  result = v11;
-  *(a2 + 32) = v10;
   *(a2 + 48) = result;
   return result;
 }
@@ -6181,33 +702,33 @@ float protocol witness for static Component.__load(from:) in conformance SpotLig
   return result;
 }
 
-float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SpotLightComponent.Shadow(uint64_t a1, uint64_t a2)
+float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SpotLightComponent.Shadow(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v10);
+  outlined init with copy of __REAssetService(a1, v13);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = v4;
-  *a2 = v4;
-  *(a2 + 4) = v5;
-  *(a2 + 8) = v6;
-  *(a2 + 12) = v7;
-  *(a2 + 16) = v8;
-  *(a2 + 20) = v9;
+  result = v7;
+  *a2 = v7;
+  *(a2 + 4) = v8;
+  *(a2 + 8) = v9;
+  *(a2 + 12) = v10;
+  *(a2 + 16) = v11;
+  *(a2 + 20) = v12;
   return result;
 }
 
-float protocol witness for static Component.__store(attribute:to:offset:) in conformance SpotLightComponent.Shadow(uint64_t a1, uint64_t a2)
+float protocol witness for static Component.__store(attribute:to:offset:) in conformance SpotLightComponent.Shadow(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v10);
+  outlined init with copy of __REAssetService(a1, v12);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = v4;
-  *a2 = v4;
-  *(a2 + 4) = v5;
-  *(a2 + 8) = v6;
-  *(a2 + 12) = v7;
-  *(a2 + 16) = v8;
-  *(a2 + 20) = v9;
+  result = v6;
+  *a2 = v6;
+  *(a2 + 4) = v7;
+  *(a2 + 8) = v8;
+  *(a2 + 12) = v9;
+  *(a2 + 16) = v10;
+  *(a2 + 20) = v11;
   return result;
 }
 
@@ -6240,15 +761,28 @@ id protocol witness for static Component.__load(from:) in conformance SpotLightC
   return v2;
 }
 
-float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SpotLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SpotLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of SpotLightComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = v10;
+  *a2 = v8;
+  *(a2 + 8) = v9;
+  *(a2 + 24) = v10;
+  return result;
+}
+
+float protocol witness for static Component.__store(attribute:to:offset:) in conformance SpotLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of SpotLightComponent(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -6256,19 +790,6 @@ float protocol witness for static Component.__store(attribute:to:offset:deinitia
   *a2 = v7;
   *(a2 + 8) = v8;
   *(a2 + 24) = v9;
-  return result;
-}
-
-float protocol witness for static Component.__store(attribute:to:offset:) in conformance SpotLightComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of SpotLightComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = v7;
-  *a2 = v5;
-  *(a2 + 8) = v6;
-  *(a2 + 24) = v7;
   return result;
 }
 
@@ -6318,33 +839,33 @@ uint64_t protocol witness for static Component.__load(from:) in conformance RKAR
   return swift_unknownObjectRetain();
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance RKARSegmentationComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance RKARSegmentationComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of RKARSegmentationComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = *&v8;
+  *a2 = v8;
+  a2[1] = v9;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance RKARSegmentationComponent(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of RKARSegmentationComponent(a2);
   outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   result = *&v7;
   *a2 = v7;
   a2[1] = v8;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance RKARSegmentationComponent(uint64_t a1, _OWORD *a2)
-{
-  outlined destroy of RKARSegmentationComponent(a2);
-  outlined init with copy of __REAssetService(a1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = *&v5;
-  *a2 = v5;
-  a2[1] = v6;
   return result;
 }
 
@@ -6355,7 +876,7 @@ void protocol witness for static Component.__free(to:offset:) in conformance RKA
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance RKARSegmentationComponent@<X0>(void *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
+uint64_t protocol witness for static Component.__load(from:offset:) in conformance RKARSegmentationComponent@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
 {
   a4[3] = a2;
   a4[4] = a3;
@@ -6410,15 +931,31 @@ uint64_t protocol witness for static Component.__load(from:) in conformance VFXC
   return outlined init with copy of VFXComponent(v8, v7);
 }
 
-__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance VFXComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance VFXComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of VFXComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v9);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  v7 = v12;
+  *(a2 + 32) = v11;
+  *(a2 + 48) = v7;
+  *(a2 + 64) = v13;
+  result = v10;
+  *a2 = *&v9[40];
+  *(a2 + 16) = result;
+  return result;
+}
+
+__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance VFXComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of VFXComponent(a2);
   outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -6428,22 +965,6 @@ __n128 protocol witness for static Component.__store(attribute:to:offset:deiniti
   *(a2 + 64) = v12;
   result = v9;
   *a2 = *&v8[40];
-  *(a2 + 16) = result;
-  return result;
-}
-
-__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance VFXComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of VFXComponent(a2);
-  outlined init with copy of __REAssetService(a1, v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  v4 = v9;
-  *(a2 + 32) = v8;
-  *(a2 + 48) = v4;
-  *(a2 + 64) = v10;
-  result = v7;
-  *a2 = *&v6[40];
   *(a2 + 16) = result;
   return result;
 }
@@ -6478,42 +999,42 @@ uint64_t protocol witness for static Component.__load(from:offset:) in conforman
   return outlined init with copy of VFXComponent(v13, v12);
 }
 
-uint64_t protocol witness for static Component.__load(from:) in conformance HoverEffectComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for static Component.__load(from:) in conformance HoverEffectComponent@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v2 = *(a1 + 8);
+  v2 = *(a1 + 2);
   v3 = *(a1 + 12);
   *a2 = *a1;
   *(a2 + 8) = v2;
   *(a2 + 12) = v3;
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance HoverEffectComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance HoverEffectComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of HoverEffectComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  result = swift_dynamicCast();
+  *a2 = v8;
+  *(a2 + 8) = v9;
+  *(a2 + 12) = v10;
+  return result;
+}
+
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance HoverEffectComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of HoverEffectComponent(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   result = swift_dynamicCast();
   *a2 = v7;
   *(a2 + 8) = v8;
   *(a2 + 12) = v9;
-  return result;
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance HoverEffectComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of HoverEffectComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  result = swift_dynamicCast();
-  *a2 = v5;
-  *(a2 + 8) = v6;
-  *(a2 + 12) = v7;
   return result;
 }
 
@@ -6524,49 +1045,49 @@ void protocol witness for static Component.__free(to:offset:) in conformance Hov
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance HoverEffectComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+uint64_t protocol witness for static Component.__load(from:offset:) in conformance HoverEffectComponent@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
   *(a4 + 24) = a2;
   *(a4 + 32) = a3;
-  v4 = *(a1 + 8);
+  v4 = *(a1 + 2);
   v5 = *(a1 + 12);
   *a4 = *a1;
   *(a4 + 8) = v4;
   *(a4 + 12) = v5;
 }
 
-uint64_t protocol witness for static Component.__load(from:) in conformance SkeletalPosesComponent@<X0>(void *a1@<X0>, void *a2@<X8>)
+uint64_t protocol witness for static Component.__load(from:) in conformance SkeletalPosesComponent@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = a1[1];
   *a2 = *a1;
   a2[1] = v2;
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SkeletalPosesComponent(uint64_t a1, void *a2, uint64_t a3, char a4)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SkeletalPosesComponent(uint64_t a1, void *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of SkeletalPosesComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  result = swift_dynamicCast();
+  *a2 = v8;
+  a2[1] = v9;
+  return result;
+}
+
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance SkeletalPosesComponent(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of SkeletalPosesComponent(a2);
   outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   result = swift_dynamicCast();
   *a2 = v7;
   a2[1] = v8;
-  return result;
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance SkeletalPosesComponent(uint64_t a1, void *a2)
-{
-  outlined destroy of SkeletalPosesComponent(a2);
-  outlined init with copy of __REAssetService(a1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  result = swift_dynamicCast();
-  *a2 = v5;
-  a2[1] = v6;
   return result;
 }
 
@@ -6577,7 +1098,7 @@ void protocol witness for static Component.__free(to:offset:) in conformance Ske
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance SkeletalPosesComponent@<X0>(void *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
+uint64_t protocol witness for static Component.__load(from:offset:) in conformance SkeletalPosesComponent@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
 {
   a4[3] = a2;
   a4[4] = a3;
@@ -6596,15 +1117,28 @@ id protocol witness for static Component.__load(from:) in conformance PointLight
   return v2;
 }
 
-float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PointLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PointLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of PointLightComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = v10;
+  *a2 = v8;
+  *(a2 + 8) = v9;
+  *(a2 + 16) = v10;
+  return result;
+}
+
+float protocol witness for static Component.__store(attribute:to:offset:) in conformance PointLightComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of PointLightComponent(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -6612,19 +1146,6 @@ float protocol witness for static Component.__store(attribute:to:offset:deinitia
   *a2 = v7;
   *(a2 + 8) = v8;
   *(a2 + 16) = v9;
-  return result;
-}
-
-float protocol witness for static Component.__store(attribute:to:offset:) in conformance PointLightComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of PointLightComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = v7;
-  *a2 = v5;
-  *(a2 + 8) = v6;
-  *(a2 + 16) = v7;
   return result;
 }
 
@@ -6664,33 +1185,33 @@ double protocol witness for static Component.__load(from:) in conformance PointL
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PointLightComponent.Shadow(uint64_t a1, uint64_t a2)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PointLightComponent.Shadow(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v10);
+  outlined init with copy of __REAssetService(a1, v13);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = v4;
-  *a2 = v4;
-  *(a2 + 8) = v5;
-  *(a2 + 12) = v6;
-  *(a2 + 16) = v7;
-  *(a2 + 20) = v8;
-  *(a2 + 24) = v9;
+  result = v7;
+  *a2 = v7;
+  *(a2 + 8) = v8;
+  *(a2 + 12) = v9;
+  *(a2 + 16) = v10;
+  *(a2 + 20) = v11;
+  *(a2 + 24) = v12;
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance PointLightComponent.Shadow(uint64_t a1, uint64_t a2)
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance PointLightComponent.Shadow(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v10);
+  outlined init with copy of __REAssetService(a1, v12);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = v4;
-  *a2 = v4;
-  *(a2 + 8) = v5;
-  *(a2 + 12) = v6;
-  *(a2 + 16) = v7;
-  *(a2 + 20) = v8;
-  *(a2 + 24) = v9;
+  result = v6;
+  *a2 = v6;
+  *(a2 + 8) = v7;
+  *(a2 + 12) = v8;
+  *(a2 + 16) = v9;
+  *(a2 + 20) = v10;
+  *(a2 + 24) = v11;
   return result;
 }
 
@@ -6720,7 +1241,7 @@ uint64_t protocol witness for static Component.__store(attribute:to:offset:deini
   if (a4)
   {
     v8 = a1;
-    a7(a2);
+    (a7)(a2, a2, a3);
     a1 = v8;
   }
 
@@ -6759,27 +1280,27 @@ __n128 protocol witness for static Component.__load(from:) in conformance Dockin
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance DockingRegionComponent(uint64_t a1, uint64_t a2)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance DockingRegionComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = *&v4;
-  *a2 = v4;
-  *(a2 + 16) = v5;
-  *(a2 + 32) = v6;
+  result = *&v7;
+  *a2 = v7;
+  *(a2 + 16) = v8;
+  *(a2 + 32) = v9;
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance DockingRegionComponent(uint64_t a1, uint64_t a2)
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance DockingRegionComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = *&v4;
-  *a2 = v4;
-  *(a2 + 16) = v5;
-  *(a2 + 32) = v6;
+  result = *&v6;
+  *a2 = v6;
+  *(a2 + 16) = v7;
+  *(a2 + 32) = v8;
   return result;
 }
 
@@ -6815,43 +1336,43 @@ __n128 protocol witness for static Component.__load(from:) in conformance Spatia
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SpatialAudioComponent(uint64_t a1, _OWORD *a2)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SpatialAudioComponent(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  v3 = v13;
-  a2[4] = v12;
-  a2[5] = v3;
-  a2[6] = v14[0];
-  *(a2 + 105) = *(v14 + 9);
-  v4 = v9;
-  *a2 = v8;
-  a2[1] = v4;
-  result = *&v10;
-  v6 = v11;
-  a2[2] = v10;
-  a2[3] = v6;
+  v6 = v16;
+  a2[4] = v15;
+  a2[5] = v6;
+  a2[6] = v17[0];
+  *(a2 + 105) = *(v17 + 9);
+  v7 = v12;
+  *a2 = v11;
+  a2[1] = v7;
+  result = *&v13;
+  v9 = v14;
+  a2[2] = v13;
+  a2[3] = v9;
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance SpatialAudioComponent(uint64_t a1, _OWORD *a2)
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance SpatialAudioComponent(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  v3 = v13;
-  a2[4] = v12;
-  a2[5] = v3;
-  a2[6] = v14[0];
-  *(a2 + 105) = *(v14 + 9);
-  v4 = v9;
-  *a2 = v8;
-  a2[1] = v4;
-  result = *&v10;
+  v5 = v15;
+  a2[4] = v14;
+  a2[5] = v5;
+  a2[6] = v16[0];
+  *(a2 + 105) = *(v16 + 9);
   v6 = v11;
-  a2[2] = v10;
-  a2[3] = v6;
+  *a2 = v10;
+  a2[1] = v6;
+  result = *&v12;
+  v8 = v13;
+  a2[2] = v12;
+  a2[3] = v8;
   return result;
 }
 
@@ -6894,44 +1415,44 @@ __n128 protocol witness for static Component.__load(from:) in conformance Projec
   return result;
 }
 
-__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ProjectiveTransformCameraComponent(uint64_t a1, uint64_t a2)
+__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ProjectiveTransformCameraComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  v3 = v15;
-  *(a2 + 96) = v14;
-  *(a2 + 112) = v3;
-  *(a2 + 128) = v16;
-  v4 = v11;
-  *(a2 + 32) = v10;
-  *(a2 + 48) = v4;
-  v5 = v13;
-  *(a2 + 64) = v12;
-  *(a2 + 80) = v5;
-  result = v9;
-  *a2 = v8;
+  v6 = v18;
+  *(a2 + 96) = v17;
+  *(a2 + 112) = v6;
+  *(a2 + 128) = v19;
+  v7 = v14;
+  *(a2 + 32) = v13;
+  *(a2 + 48) = v7;
+  v8 = v16;
+  *(a2 + 64) = v15;
+  *(a2 + 80) = v8;
+  result = v12;
+  *a2 = v11;
   *(a2 + 16) = result;
   return result;
 }
 
-__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance ProjectiveTransformCameraComponent(uint64_t a1, uint64_t a2)
+__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance ProjectiveTransformCameraComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  v3 = v15;
-  *(a2 + 96) = v14;
-  *(a2 + 112) = v3;
-  *(a2 + 128) = v16;
-  v4 = v11;
-  *(a2 + 32) = v10;
-  *(a2 + 48) = v4;
-  v5 = v13;
-  *(a2 + 64) = v12;
-  *(a2 + 80) = v5;
-  result = v9;
-  *a2 = v8;
+  v5 = v17;
+  *(a2 + 96) = v16;
+  *(a2 + 112) = v5;
+  *(a2 + 128) = v18;
+  v6 = v13;
+  *(a2 + 32) = v12;
+  *(a2 + 48) = v6;
+  v7 = v15;
+  *(a2 + 64) = v14;
+  *(a2 + 80) = v7;
+  result = v11;
+  *a2 = v10;
   *(a2 + 16) = result;
   return result;
 }
@@ -6958,40 +1479,42 @@ __n128 protocol witness for static Component.__load(from:offset:) in conformance
   return result;
 }
 
-uint64_t protocol witness for static Component.__load(from:) in conformance ManipulationComponent.HitTarget@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double protocol witness for static Component.__load(from:) in conformance ManipulationComponent.HitTarget@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v2 = *(a1 + 16);
   *a2 = *a1;
   *(a2 + 16) = v2;
+
+  return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ManipulationComponent.HitTarget(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ManipulationComponent.HitTarget(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of ManipulationComponent.HitTarget(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = *&v8;
+  *a2 = v8;
+  *(a2 + 16) = v9;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance ManipulationComponent.HitTarget(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of ManipulationComponent.HitTarget(a2);
   outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   result = *&v7;
   *a2 = v7;
   *(a2 + 16) = v8;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance ManipulationComponent.HitTarget(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of ManipulationComponent.HitTarget(a2);
-  outlined init with copy of __REAssetService(a1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = *&v5;
-  *a2 = v5;
-  *(a2 + 16) = v6;
   return result;
 }
 
@@ -7002,37 +1525,39 @@ void protocol witness for static Component.__free(to:offset:) in conformance Man
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance ManipulationComponent.HitTarget@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+double protocol witness for static Component.__load(from:offset:) in conformance ManipulationComponent.HitTarget@<D0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
   *(a4 + 24) = a2;
   *(a4 + 32) = a3;
   v4 = *(a1 + 16);
   *a4 = *a1;
   *(a4 + 16) = v4;
+
+  return result;
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ManipulationComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ManipulationComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of ManipulationComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v9);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  return outlined init with take of ManipulationComponent(v8, a2);
+}
+
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance ManipulationComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of ManipulationComponent(a2);
   outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   return outlined init with take of ManipulationComponent(v7, a2);
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance ManipulationComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of ManipulationComponent(a2);
-  outlined init with copy of __REAssetService(a1, v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  return outlined init with take of ManipulationComponent(v5, a2);
 }
 
 void protocol witness for static Component.__free(to:offset:) in conformance ManipulationComponent(uint64_t a1)
@@ -7056,51 +1581,46 @@ uint64_t static Component.registerComponentProxy(componentName:)(uint64_t a1, ui
   }
 }
 
-uint64_t one-time initialization function for traitSetups()
-{
-  result = specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of one-time initialization function for traitSetups);
-  traitSetups._rawValue = &outlined read-only object #0 of one-time initialization function for baseTraitSetups;
-  return result;
-}
-
-uint64_t protocol witness for static Component.__load(from:) in conformance AREnvironmentProbeComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double protocol witness for static Component.__load(from:) in conformance AREnvironmentProbeComponent@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v2 = *(a1 + 16);
   v3 = *(a1 + 32);
   *a2 = *a1;
   *(a2 + 16) = v2;
   *(a2 + 32) = v3;
+
+  return result;
 }
 
-__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance AREnvironmentProbeComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance AREnvironmentProbeComponent(uint64_t a1, __n128 *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of AREnvironmentProbeComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = v9;
+  a2->n128_u64[0] = v8;
+  a2[1] = v9;
+  a2[2].n128_u8[0] = v10;
+  return result;
+}
+
+__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance AREnvironmentProbeComponent(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of AREnvironmentProbeComponent(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   result = v8;
-  *a2 = v7;
-  *(a2 + 16) = v8;
-  *(a2 + 32) = v9;
-  return result;
-}
-
-__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance AREnvironmentProbeComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of AREnvironmentProbeComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = v6;
-  *a2 = v5;
-  *(a2 + 16) = v6;
-  *(a2 + 32) = v7;
+  a2->n128_u64[0] = v7;
+  a2[1] = v8;
+  a2[2].n128_u8[0] = v9;
   return result;
 }
 
@@ -7111,7 +1631,7 @@ void protocol witness for static Component.__free(to:offset:) in conformance ARE
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance AREnvironmentProbeComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
+double protocol witness for static Component.__load(from:offset:) in conformance AREnvironmentProbeComponent@<D0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
 {
   a4[3] = a2;
   a4[4] = a3;
@@ -7122,6 +1642,8 @@ uint64_t protocol witness for static Component.__load(from:offset:) in conforman
   *(v6 + 16) = *a1;
   *(v6 + 32) = v7;
   *(v6 + 48) = v8;
+
+  return result;
 }
 
 uint64_t protocol witness for static Component.__load(from:) in conformance StateMachineComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -7133,33 +1655,33 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Stat
   *(a2 + 16) = v3;
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance StateMachineComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance StateMachineComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of StateMachineComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  result = swift_dynamicCast();
+  *a2 = v8;
+  *(a2 + 8) = v9;
+  *(a2 + 16) = v10;
+  return result;
+}
+
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance StateMachineComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of StateMachineComponent(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   result = swift_dynamicCast();
   *a2 = v7;
   *(a2 + 8) = v8;
   *(a2 + 16) = v9;
-  return result;
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance StateMachineComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of StateMachineComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  result = swift_dynamicCast();
-  *a2 = v5;
-  *(a2 + 8) = v6;
-  *(a2 + 16) = v7;
   return result;
 }
 
@@ -7181,29 +1703,29 @@ uint64_t protocol witness for static Component.__load(from:offset:) in conforman
   *(a4 + 16) = v5;
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance __SkyboxComponent(uint64_t a1, void *a2, uint64_t a3, char a4)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance __SkyboxComponent(uint64_t a1, void *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of __SkyboxComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v9);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  result = swift_dynamicCast();
+  *a2 = v8;
+  return result;
+}
+
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance __SkyboxComponent(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of __SkyboxComponent(a2);
   outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   result = swift_dynamicCast();
   *a2 = v7;
-  return result;
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance __SkyboxComponent(uint64_t a1, void *a2)
-{
-  outlined destroy of __SkyboxComponent(a2);
-  outlined init with copy of __REAssetService(a1, v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  result = swift_dynamicCast();
-  *a2 = v5;
   return result;
 }
 
@@ -7233,33 +1755,33 @@ __n128 protocol witness for static Component.__load(from:) in conformance Spatia
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SpatialMediaComponent(uint64_t a1, _OWORD *a2)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance SpatialMediaComponent(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v6);
+  outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  v3 = v8;
-  *a2 = v7;
-  a2[1] = v3;
-  result = *&v9;
-  v5 = v10;
-  a2[2] = v9;
-  a2[3] = v5;
+  v6 = v11;
+  *a2 = v10;
+  a2[1] = v6;
+  result = *&v12;
+  v8 = v13;
+  a2[2] = v12;
+  a2[3] = v8;
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance SpatialMediaComponent(uint64_t a1, _OWORD *a2)
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance SpatialMediaComponent(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v6);
+  outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  v3 = v8;
-  *a2 = v7;
-  a2[1] = v3;
-  result = *&v9;
   v5 = v10;
-  a2[2] = v9;
-  a2[3] = v5;
+  *a2 = v9;
+  a2[1] = v5;
+  result = *&v11;
+  v7 = v12;
+  a2[2] = v11;
+  a2[3] = v7;
   return result;
 }
 
@@ -7279,7 +1801,7 @@ __n128 protocol witness for static Component.__load(from:offset:) in conformance
   return result;
 }
 
-uint64_t protocol witness for static Component.__load(from:) in conformance ModelComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double protocol witness for static Component.__load(from:) in conformance ModelComponent@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v2 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -7288,17 +1810,32 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Mode
   *(a2 + 8) = v2;
   *(a2 + 16) = v3;
   *(a2 + 24) = v4;
+
+  return result;
 }
 
-float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ModelComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ModelComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of ModelComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = v9;
+  *a2 = v8;
+  *(a2 + 16) = v9;
+  *(a2 + 24) = v10;
+  return result;
+}
+
+float protocol witness for static Component.__store(attribute:to:offset:) in conformance ModelComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of ModelComponent(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -7309,19 +1846,6 @@ float protocol witness for static Component.__store(attribute:to:offset:deinitia
   return result;
 }
 
-float protocol witness for static Component.__store(attribute:to:offset:) in conformance ModelComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of ModelComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = v6;
-  *a2 = v5;
-  *(a2 + 16) = v6;
-  *(a2 + 24) = v7;
-  return result;
-}
-
 void protocol witness for static Component.__free(to:offset:) in conformance ModelComponent(uint64_t a1)
 {
   outlined destroy of ModelComponent(a1);
@@ -7329,7 +1853,7 @@ void protocol witness for static Component.__free(to:offset:) in conformance Mod
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance ModelComponent@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
+double protocol witness for static Component.__load(from:offset:) in conformance ModelComponent@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
 {
   a4[3] = a2;
   a4[4] = a3;
@@ -7343,6 +1867,8 @@ uint64_t protocol witness for static Component.__load(from:offset:) in conforman
   *(v6 + 24) = v8;
   *(v6 + 32) = v9;
   *(v6 + 40) = v10;
+
+  return result;
 }
 
 uint64_t protocol witness for static Component.__load(from:) in conformance IKComponent@<X0>(void *a1@<X0>, void *a2@<X8>)
@@ -7354,33 +1880,33 @@ uint64_t protocol witness for static Component.__load(from:) in conformance IKCo
   a2[2] = v3;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance IKComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance IKComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of IKComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  *a2 = v8;
+  result = *&v9;
+  *(a2 + 8) = v9;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance IKComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of IKComponent(a2);
   outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   *a2 = v7;
   result = *&v8;
   *(a2 + 8) = v8;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance IKComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of IKComponent(a2);
-  outlined init with copy of __REAssetService(a1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  *a2 = v5;
-  result = *&v6;
-  *(a2 + 8) = v6;
   return result;
 }
 
@@ -7402,15 +1928,28 @@ uint64_t protocol witness for static Component.__load(from:offset:) in conforman
   a4[2] = v5;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance GroundingShadowComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance GroundingShadowComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of GroundingShadowComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  *a2 = v8;
+  a2[1] = v9;
+  result = *&v10;
+  a2[2] = v10;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance GroundingShadowComponent(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of GroundingShadowComponent(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -7418,19 +1957,6 @@ double protocol witness for static Component.__store(attribute:to:offset:deiniti
   a2[1] = v8;
   result = *&v9;
   a2[2] = v9;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance GroundingShadowComponent(uint64_t a1, _OWORD *a2)
-{
-  outlined destroy of GroundingShadowComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  *a2 = v5;
-  a2[1] = v6;
-  result = *&v7;
-  a2[2] = v7;
   return result;
 }
 
@@ -7452,15 +1978,28 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Acou
   a2[3] = v4;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance AcousticModelComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance AcousticModelComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of AcousticModelComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  *a2 = v8;
+  result = *&v9;
+  *(a2 + 8) = v9;
+  *(a2 + 24) = v10;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance AcousticModelComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of AcousticModelComponent(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -7468,19 +2007,6 @@ double protocol witness for static Component.__store(attribute:to:offset:deiniti
   result = *&v8;
   *(a2 + 8) = v8;
   *(a2 + 24) = v9;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance AcousticModelComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of AcousticModelComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  *a2 = v5;
-  result = *&v6;
-  *(a2 + 8) = v6;
-  *(a2 + 24) = v7;
   return result;
 }
 
@@ -7517,33 +2043,33 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Inpu
   *(a2 + 8) = v4;
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance InputTargetComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance InputTargetComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of InputTargetComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  result = swift_dynamicCast();
+  *a2 = v8;
+  *(a2 + 4) = v9;
+  *(a2 + 8) = v10;
+  return result;
+}
+
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance InputTargetComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of InputTargetComponent(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   result = swift_dynamicCast();
   *a2 = v7;
   *(a2 + 4) = v8;
   *(a2 + 8) = v9;
-  return result;
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance InputTargetComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of InputTargetComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  result = swift_dynamicCast();
-  *a2 = v5;
-  *(a2 + 4) = v6;
-  *(a2 + 8) = v7;
   return result;
 }
 
@@ -7566,7 +2092,7 @@ uint64_t protocol witness for static Component.__load(from:offset:) in conforman
   *(a4 + 8) = v6;
 }
 
-uint64_t protocol witness for static Component.__load(from:) in conformance ModelSortGroupComponent@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+double protocol witness for static Component.__load(from:) in conformance ModelSortGroupComponent@<D0>(int *a1@<X0>, uint64_t a2@<X8>)
 {
   v2 = *a1;
   v3 = *(a1 + 4);
@@ -7574,35 +2100,37 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Mode
   *a2 = v2;
   *(a2 + 8) = v3;
   *(a2 + 16) = v4;
+
+  return result;
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ModelSortGroupComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ModelSortGroupComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of ModelSortGroupComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  result = swift_dynamicCast();
+  *a2 = v8;
+  *(a2 + 8) = v9;
+  *(a2 + 16) = v10;
+  return result;
+}
+
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance ModelSortGroupComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of ModelSortGroupComponent(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   result = swift_dynamicCast();
   *a2 = v7;
   *(a2 + 8) = v8;
   *(a2 + 16) = v9;
-  return result;
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance ModelSortGroupComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of ModelSortGroupComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  result = swift_dynamicCast();
-  *a2 = v5;
-  *(a2 + 8) = v6;
-  *(a2 + 16) = v7;
   return result;
 }
 
@@ -7613,7 +2141,7 @@ void protocol witness for static Component.__free(to:offset:) in conformance Mod
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance ModelSortGroupComponent@<X0>(int *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+double protocol witness for static Component.__load(from:offset:) in conformance ModelSortGroupComponent@<D0>(int *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
   *(a4 + 24) = a2;
   *(a4 + 32) = a3;
@@ -7623,6 +2151,8 @@ uint64_t protocol witness for static Component.__load(from:offset:) in conforman
   *a4 = v4;
   *(a4 + 8) = v5;
   *(a4 + 16) = v6;
+
+  return result;
 }
 
 __n128 protocol witness for static Component.__load(from:) in conformance CharacterControllerStateComponent@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
@@ -7634,29 +2164,29 @@ __n128 protocol witness for static Component.__load(from:) in conformance Charac
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance CharacterControllerStateComponent(uint64_t a1, uint64_t a2)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance CharacterControllerStateComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v6);
+  outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = *&v4;
-  *a2 = v4;
-  *(a2 + 16) = v5;
+  result = *&v7;
+  *a2 = v7;
+  *(a2 + 16) = v8;
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance CharacterControllerStateComponent(uint64_t a1, uint64_t a2)
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance CharacterControllerStateComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v6);
+  outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = *&v4;
-  *a2 = v4;
-  *(a2 + 16) = v5;
+  result = *&v6;
+  *a2 = v6;
+  *(a2 + 16) = v7;
   return result;
 }
 
-__n128 protocol witness for static Component.__load(from:offset:) in conformance CharacterControllerStateComponent@<Q0>(__n128 *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
+__n128 protocol witness for static Component.__load(from:offset:) in conformance CharacterControllerStateComponent@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X2>, __n128 *a3@<X3>, __n128 **a4@<X8>)
 {
   a4[3] = a2;
   a4[4] = a3;
@@ -7664,8 +2194,8 @@ __n128 protocol witness for static Component.__load(from:offset:) in conformance
   *a4 = v6;
   result = *a1;
   v8 = a1[1].n128_u8[0];
-  *(v6 + 16) = *a1;
-  *(v6 + 32) = v8;
+  v6[1] = *a1;
+  v6[2].n128_u8[0] = v8;
   return result;
 }
 
@@ -7678,25 +2208,25 @@ __n128 protocol witness for static Component.__load(from:) in conformance Physic
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PhysicsMotionComponent(uint64_t a1, _OWORD *a2)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PhysicsMotionComponent(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v6);
+  outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = *&v4;
-  *a2 = v4;
-  a2[1] = v5;
+  result = *&v7;
+  *a2 = v7;
+  a2[1] = v8;
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance PhysicsMotionComponent(uint64_t a1, _OWORD *a2)
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance PhysicsMotionComponent(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v6);
+  outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = *&v4;
-  *a2 = v4;
-  a2[1] = v5;
+  result = *&v6;
+  *a2 = v6;
+  a2[1] = v7;
   return result;
 }
 
@@ -7728,15 +2258,28 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Anim
   outlined copy of String??(v3, v4);
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance AnimationLibraryComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance AnimationLibraryComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of AnimationLibraryComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = *&v8;
+  *a2 = v8;
+  *(a2 + 16) = v9;
+  *(a2 + 32) = v10;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance AnimationLibraryComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of AnimationLibraryComponent(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -7744,19 +2287,6 @@ double protocol witness for static Component.__store(attribute:to:offset:deiniti
   *a2 = v7;
   *(a2 + 16) = v8;
   *(a2 + 32) = v9;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance AnimationLibraryComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of AnimationLibraryComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = *&v5;
-  *a2 = v5;
-  *(a2 + 16) = v6;
-  *(a2 + 32) = v7;
   return result;
 }
 
@@ -7767,39 +2297,28 @@ void protocol witness for static Component.__free(to:offset:) in conformance Ani
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance AnimationLibraryComponent@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
-{
-  return protocol witness for static Component.__load(from:offset:) in conformance AnimationLibraryComponent(a1, a2, a3, a4);
-}
-
-{
-  a4[3] = a2;
-  a4[4] = a3;
-  v6 = swift_allocObject();
-  *a4 = v6;
-  v8 = *a1;
-  v7 = a1[1];
-  v9 = a1[2];
-  v10 = a1[3];
-  v11 = a1[4];
-  v6[2] = v8;
-  v6[3] = v7;
-  v6[4] = v9;
-  v6[5] = v10;
-  v6[6] = v11;
-
-  outlined copy of String??(v9, v10);
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance _Proto_AnimationLibraryComponent_v1(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance _Proto_AnimationLibraryComponent_v1(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of _Proto_AnimationLibraryComponent_v1(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = *&v8;
+  *a2 = v8;
+  *(a2 + 16) = v9;
+  *(a2 + 32) = v10;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance _Proto_AnimationLibraryComponent_v1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of _Proto_AnimationLibraryComponent_v1(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -7810,19 +2329,6 @@ double protocol witness for static Component.__store(attribute:to:offset:deiniti
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance _Proto_AnimationLibraryComponent_v1(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of _Proto_AnimationLibraryComponent_v1(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = *&v5;
-  *a2 = v5;
-  *(a2 + 16) = v6;
-  *(a2 + 32) = v7;
-  return result;
-}
-
 void protocol witness for static Component.__free(to:offset:) in conformance _Proto_AnimationLibraryComponent_v1(uint64_t a1)
 {
   outlined destroy of _Proto_AnimationLibraryComponent_v1(a1);
@@ -7830,15 +2336,49 @@ void protocol witness for static Component.__free(to:offset:) in conformance _Pr
   JUMPOUT(0x1C6902A30);
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance VideoComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t protocol witness for static Component.__load(from:offset:) in conformance AnimationLibraryComponent@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a5@<X8>)
+{
+  a5[3] = a2;
+  a5[4] = a3;
+  v7 = swift_allocObject();
+  *a5 = v7;
+  v9 = *a1;
+  v8 = a1[1];
+  v10 = a1[2];
+  v11 = a1[3];
+  v12 = a1[4];
+  v7[2] = v9;
+  v7[3] = v8;
+  v7[4] = v10;
+  v7[5] = v11;
+  v7[6] = v12;
+
+  outlined copy of String??(v10, v11);
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance VideoComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of VideoComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v12);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  *a2 = v8;
+  *(a2 + 16) = v9;
+  result = *&v10;
+  *(a2 + 32) = v10;
+  *(a2 + 48) = v11;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance VideoComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of VideoComponent(a2);
   outlined init with copy of __REAssetService(a1, v11);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -7850,20 +2390,6 @@ double protocol witness for static Component.__store(attribute:to:offset:deiniti
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance VideoComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of VideoComponent(a2);
-  outlined init with copy of __REAssetService(a1, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  *a2 = v5;
-  *(a2 + 16) = v6;
-  result = *&v7;
-  *(a2 + 32) = v7;
-  *(a2 + 48) = v8;
-  return result;
-}
-
 void protocol witness for static Component.__free(to:offset:) in conformance VideoComponent(uint64_t a1)
 {
   outlined destroy of VideoComponent(a1);
@@ -7871,7 +2397,7 @@ void protocol witness for static Component.__free(to:offset:) in conformance Vid
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:) in conformance VirtualEnvironmentProbeComponent@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+double protocol witness for static Component.__load(from:) in conformance VirtualEnvironmentProbeComponent@<D0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = *a1;
   v2 = a1[1];
@@ -7884,33 +2410,33 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Virt
   return outlined copy of VirtualEnvironmentProbeComponent.Source(v3, v2, v4);
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance VirtualEnvironmentProbeComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance VirtualEnvironmentProbeComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of VirtualEnvironmentProbeComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = *&v8;
+  *a2 = v8;
+  a2[1] = v9;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance VirtualEnvironmentProbeComponent(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of VirtualEnvironmentProbeComponent(a2);
   outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   result = *&v7;
   *a2 = v7;
   a2[1] = v8;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance VirtualEnvironmentProbeComponent(uint64_t a1, _OWORD *a2)
-{
-  outlined destroy of VirtualEnvironmentProbeComponent(a2);
-  outlined init with copy of __REAssetService(a1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = *&v5;
-  *a2 = v5;
-  a2[1] = v6;
   return result;
 }
 
@@ -7921,7 +2447,7 @@ void protocol witness for static Component.__free(to:offset:) in conformance Vir
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance VirtualEnvironmentProbeComponent@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
+double protocol witness for static Component.__load(from:offset:) in conformance VirtualEnvironmentProbeComponent@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
 {
   a4[3] = a2;
   a4[4] = a3;
@@ -7939,28 +2465,28 @@ uint64_t protocol witness for static Component.__load(from:offset:) in conforman
   return outlined copy of VirtualEnvironmentProbeComponent.Source(v8, v7, v9);
 }
 
-void *protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance MXIComponent(uint64_t a1, void *a2, uint64_t a3, char a4)
+void *protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance MXIComponent(uint64_t a1, void *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of MXIComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v9);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  return memcpy(a2, v8, 0x105uLL);
+}
+
+void *protocol witness for static Component.__store(attribute:to:offset:) in conformance MXIComponent(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of MXIComponent(a2);
   outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   return memcpy(a2, v7, 0x105uLL);
-}
-
-void *protocol witness for static Component.__store(attribute:to:offset:) in conformance MXIComponent(uint64_t a1, void *a2)
-{
-  outlined destroy of MXIComponent(a2);
-  outlined init with copy of __REAssetService(a1, v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  return memcpy(a2, v5, 0x105uLL);
 }
 
 void protocol witness for static Component.__free(to:offset:) in conformance MXIComponent(uint64_t a1)
@@ -7970,27 +2496,27 @@ void protocol witness for static Component.__free(to:offset:) in conformance MXI
   JUMPOUT(0x1C6902A30);
 }
 
-float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance EnvironmentLightingConfigurationComponent(uint64_t a1, float *a2)
+float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance EnvironmentLightingConfigurationComponent(uint64_t a1, float *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v5);
+  outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = v4;
-  *a2 = v4;
+  result = v7;
+  *a2 = v7;
   return result;
 }
 
-float protocol witness for static Component.__store(attribute:to:offset:) in conformance EnvironmentLightingConfigurationComponent(uint64_t a1, float *a2)
+float protocol witness for static Component.__store(attribute:to:offset:) in conformance EnvironmentLightingConfigurationComponent(uint64_t a1, float *a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v5);
+  outlined init with copy of __REAssetService(a1, v7);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = v4;
-  *a2 = v4;
+  result = v6;
+  *a2 = v6;
   return result;
 }
 
-uint64_t protocol witness for static Component.__load(from:) in conformance _proto_StereoProjectiveTransformCameraComponent_v1@<X0>(void *a1@<X0>, void *a2@<X8>)
+uint64_t protocol witness for static Component.__load(from:) in conformance _proto_StereoProjectiveTransformCameraComponent_v1@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = a1[1];
   v3 = a1[2];
@@ -7999,33 +2525,33 @@ uint64_t protocol witness for static Component.__load(from:) in conformance _pro
   a2[2] = v3;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance _proto_StereoProjectiveTransformCameraComponent_v1(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance _proto_StereoProjectiveTransformCameraComponent_v1(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of _proto_StereoProjectiveTransformCameraComponent_v1(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = *&v8;
+  *a2 = v8;
+  *(a2 + 16) = v9;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance _proto_StereoProjectiveTransformCameraComponent_v1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of _proto_StereoProjectiveTransformCameraComponent_v1(a2);
   outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   result = *&v7;
   *a2 = v7;
   *(a2 + 16) = v8;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance _proto_StereoProjectiveTransformCameraComponent_v1(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of _proto_StereoProjectiveTransformCameraComponent_v1(a2);
-  outlined init with copy of __REAssetService(a1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = *&v5;
-  *a2 = v5;
-  *(a2 + 16) = v6;
   return result;
 }
 
@@ -8036,7 +2562,7 @@ void protocol witness for static Component.__free(to:offset:) in conformance _pr
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance _proto_StereoProjectiveTransformCameraComponent_v1@<X0>(void *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
+uint64_t protocol witness for static Component.__load(from:offset:) in conformance _proto_StereoProjectiveTransformCameraComponent_v1@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
 {
   a4[3] = a2;
   a4[4] = a3;
@@ -8054,25 +2580,25 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Part
   return outlined init with copy of ParticleEmitterComponent(__dst, &v5);
 }
 
-void *protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ParticleEmitterComponent(uint64_t a1, void *a2, uint64_t a3, char a4)
+void *protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ParticleEmitterComponent(uint64_t a1, void *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of ParticleEmitterComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   return memcpy(a2, __src, 0x382uLL);
 }
 
-void *protocol witness for static Component.__store(attribute:to:offset:) in conformance ParticleEmitterComponent(uint64_t a1, void *a2)
+void *protocol witness for static Component.__store(attribute:to:offset:) in conformance ParticleEmitterComponent(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   outlined destroy of ParticleEmitterComponent(a2);
-  outlined init with copy of __REAssetService(a1, v5);
+  outlined init with copy of __REAssetService(a1, v7);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   return memcpy(a2, __src, 0x382uLL);
@@ -8110,38 +2636,38 @@ void protocol witness for static Component.__free(to:offset:) in conformance _pr
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:) in conformance ForceEffectComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for static Component.__load(from:) in conformance ForceEffectComponent@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v2 = *(a1 + 8);
   *a2 = *a1;
   *(a2 + 8) = v2;
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ForceEffectComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ForceEffectComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of ForceEffectComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  result = swift_dynamicCast();
+  *a2 = v8;
+  *(a2 + 8) = v9;
+  return result;
+}
+
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance ForceEffectComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of ForceEffectComponent(a2);
   outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   result = swift_dynamicCast();
   *a2 = v7;
   *(a2 + 8) = v8;
-  return result;
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance ForceEffectComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of ForceEffectComponent(a2);
-  outlined init with copy of __REAssetService(a1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  result = swift_dynamicCast();
-  *a2 = v5;
-  *(a2 + 8) = v6;
   return result;
 }
 
@@ -8152,7 +2678,7 @@ void protocol witness for static Component.__free(to:offset:) in conformance For
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance ForceEffectComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+uint64_t protocol witness for static Component.__load(from:offset:) in conformance ForceEffectComponent@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
   *(a4 + 24) = a2;
   *(a4 + 32) = a3;
@@ -8166,7 +2692,7 @@ uint64_t protocol witness for static Component.__store(attribute:to:offset:deini
   if (a4)
   {
     v8 = a1;
-    a7(a2);
+    (a7)(a2, a2, a3);
     a1 = v8;
   }
 
@@ -8213,35 +2739,35 @@ __n128 protocol witness for static Component.__load(from:) in conformance Clippi
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ClippingPrimitiveComponent(uint64_t a1, uint64_t a2)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ClippingPrimitiveComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v11);
+  outlined init with copy of __REAssetService(a1, v14);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = *&v4;
-  *a2 = v4;
-  *(a2 + 16) = v5;
-  *(a2 + 32) = v6;
-  *(a2 + 48) = v7;
-  *(a2 + 64) = v8;
-  *(a2 + 80) = v9;
-  *(a2 + 81) = v10;
+  result = *&v7;
+  *a2 = v7;
+  *(a2 + 16) = v8;
+  *(a2 + 32) = v9;
+  *(a2 + 48) = v10;
+  *(a2 + 64) = v11;
+  *(a2 + 80) = v12;
+  *(a2 + 81) = v13;
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance ClippingPrimitiveComponent(uint64_t a1, uint64_t a2)
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance ClippingPrimitiveComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v11);
+  outlined init with copy of __REAssetService(a1, v13);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = *&v4;
-  *a2 = v4;
-  *(a2 + 16) = v5;
-  *(a2 + 32) = v6;
-  *(a2 + 48) = v7;
-  *(a2 + 64) = v8;
-  *(a2 + 80) = v9;
-  *(a2 + 81) = v10;
+  result = *&v6;
+  *a2 = v6;
+  *(a2 + 16) = v7;
+  *(a2 + 32) = v8;
+  *(a2 + 48) = v9;
+  *(a2 + 64) = v10;
+  *(a2 + 80) = v11;
+  *(a2 + 81) = v12;
   return result;
 }
 
@@ -8302,15 +2828,37 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Vide
   return outlined init with copy of VideoPlayerComponent(v15, &v14);
 }
 
-__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance VideoPlayerComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance VideoPlayerComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of VideoPlayerComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  v7 = v19[0];
+  *(a2 + 96) = v18;
+  *(a2 + 112) = v7;
+  *(a2 + 125) = *(v19 + 13);
+  v8 = v15;
+  *(a2 + 32) = v14;
+  *(a2 + 48) = v8;
+  v9 = v17;
+  *(a2 + 64) = v16;
+  *(a2 + 80) = v9;
+  result = v13;
+  *a2 = v12;
+  *(a2 + 16) = result;
+  return result;
+}
+
+__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance VideoPlayerComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of VideoPlayerComponent(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -8326,28 +2874,6 @@ __n128 protocol witness for static Component.__store(attribute:to:offset:deiniti
   *(a2 + 80) = v8;
   result = v12;
   *a2 = v11;
-  *(a2 + 16) = result;
-  return result;
-}
-
-__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance VideoPlayerComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of VideoPlayerComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  v4 = v16[0];
-  *(a2 + 96) = v15;
-  *(a2 + 112) = v4;
-  *(a2 + 125) = *(v16 + 13);
-  v5 = v12;
-  *(a2 + 32) = v11;
-  *(a2 + 48) = v5;
-  v6 = v14;
-  *(a2 + 64) = v13;
-  *(a2 + 80) = v6;
-  result = v10;
-  *a2 = v9;
   *(a2 + 16) = result;
   return result;
 }
@@ -8413,15 +2939,31 @@ uint64_t protocol witness for static Component.__load(from:) in conformance __Ac
   return outlined init with copy of __AccessibilityComponent(v7, &v6);
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance __AccessibilityComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance __AccessibilityComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of __AccessibilityComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  v7 = v12;
+  *a2 = v11;
+  a2[1] = v7;
+  result = *&v13;
+  v9 = v14;
+  a2[2] = v13;
+  a2[3] = v9;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance __AccessibilityComponent(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of __AccessibilityComponent(a2);
   outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -8432,22 +2974,6 @@ double protocol witness for static Component.__store(attribute:to:offset:deiniti
   v8 = v13;
   a2[2] = v12;
   a2[3] = v8;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance __AccessibilityComponent(uint64_t a1, _OWORD *a2)
-{
-  outlined destroy of __AccessibilityComponent(a2);
-  outlined init with copy of __REAssetService(a1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  v4 = v9;
-  *a2 = v8;
-  a2[1] = v4;
-  result = *&v10;
-  v6 = v11;
-  a2[2] = v10;
-  a2[3] = v6;
   return result;
 }
 
@@ -8480,32 +3006,30 @@ uint64_t protocol witness for static Component.__load(from:offset:) in conforman
 
 uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance TextComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t (*a7)(void))
 {
-  v9 = *(*(a5 - 8) + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v12 = &v17[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  if (v13)
+  v11 = &v16[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  if (v12)
   {
-    v14 = v10;
+    v13 = v9;
     _s10RealityKit21BodyTrackingComponentVWOhTm_0(a2, a7);
-    v10 = v14;
+    v9 = v13;
   }
 
-  outlined init with copy of __REAssetService(v10, v17);
+  outlined init with copy of __REAssetService(v9, v16);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  return _s10RealityKit21BodyTrackingComponentVWObTm_0(v12, a2, a7);
+  return _s10RealityKit21BodyTrackingComponentVWObTm_0(v11, a2, a7);
 }
 
 uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance TextComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(void))
 {
-  v9 = *(*(a4 - 8) + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v11 = &v16[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  _s10RealityKit21BodyTrackingComponentVWOhTm_0(v12, v13);
-  outlined init with copy of __REAssetService(a1, v16);
+  v10 = &v15[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  _s10RealityKit21BodyTrackingComponentVWOhTm_0(v11, v12);
+  outlined init with copy of __REAssetService(a1, v15);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  return _s10RealityKit21BodyTrackingComponentVWObTm_0(v11, a2, a6);
+  return _s10RealityKit21BodyTrackingComponentVWObTm_0(v10, a2, a6);
 }
 
 void protocol witness for static Component.__free(to:offset:) in conformance AccessibilityComponent(uint64_t a1)
@@ -8542,15 +3066,31 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Imag
   return outlined init with copy of ImagePresentationComponent(v8, &v7);
 }
 
-__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ImagePresentationComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ImagePresentationComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of ImagePresentationComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v9);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  v7 = v13;
+  *(a2 + 32) = v12;
+  *(a2 + 48) = v7;
+  *(a2 + 64) = v14;
+  result = v11;
+  *a2 = v10;
+  *(a2 + 16) = result;
+  return result;
+}
+
+__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance ImagePresentationComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of ImagePresentationComponent(a2);
   outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -8560,22 +3100,6 @@ __n128 protocol witness for static Component.__store(attribute:to:offset:deiniti
   *(a2 + 64) = v13;
   result = v10;
   *a2 = v9;
-  *(a2 + 16) = result;
-  return result;
-}
-
-__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance ImagePresentationComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of ImagePresentationComponent(a2);
-  outlined init with copy of __REAssetService(a1, v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  v4 = v10;
-  *(a2 + 32) = v9;
-  *(a2 + 48) = v4;
-  *(a2 + 64) = v11;
-  result = v8;
-  *a2 = v7;
   *(a2 + 16) = result;
   return result;
 }
@@ -8610,27 +3134,27 @@ uint64_t protocol witness for static Component.__load(from:offset:) in conforman
   return outlined init with copy of ImagePresentationComponent(v13, &v12);
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ChannelAudioComponent(uint64_t a1, uint64_t a2)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ChannelAudioComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = v5;
-  *a2 = v4;
-  *(a2 + 16) = v5;
-  *(a2 + 24) = v6;
+  result = v8;
+  *a2 = v7;
+  *(a2 + 16) = v8;
+  *(a2 + 24) = v9;
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance ChannelAudioComponent(uint64_t a1, uint64_t a2)
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance ChannelAudioComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = v5;
-  *a2 = v4;
-  *(a2 + 16) = v5;
-  *(a2 + 24) = v6;
+  result = v7;
+  *a2 = v6;
+  *(a2 + 16) = v7;
+  *(a2 + 24) = v8;
   return result;
 }
 
@@ -8648,27 +3172,27 @@ double protocol witness for static Component.__load(from:offset:) in conformance
   return result;
 }
 
-float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance OrthographicCameraComponent(uint64_t a1, uint64_t a2)
+float protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance OrthographicCameraComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = v5;
-  *a2 = v4;
-  *(a2 + 8) = v5;
-  *(a2 + 12) = v6;
+  result = v8;
+  *a2 = v7;
+  *(a2 + 8) = v8;
+  *(a2 + 12) = v9;
   return result;
 }
 
-float protocol witness for static Component.__store(attribute:to:offset:) in conformance OrthographicCameraComponent(uint64_t a1, uint64_t a2)
+float protocol witness for static Component.__store(attribute:to:offset:) in conformance OrthographicCameraComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = v5;
-  *a2 = v4;
-  *(a2 + 8) = v5;
-  *(a2 + 12) = v6;
+  result = v7;
+  *a2 = v6;
+  *(a2 + 8) = v7;
+  *(a2 + 12) = v8;
   return result;
 }
 
@@ -8684,15 +3208,26 @@ float protocol witness for static Component.__load(from:offset:) in conformance 
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance __EntityInfoComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance __EntityInfoComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of __EntityInfoComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v9);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = *&v8;
+  *a2 = v8;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance __EntityInfoComponent(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of __EntityInfoComponent(a2);
   outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -8701,39 +3236,28 @@ double protocol witness for static Component.__store(attribute:to:offset:deiniti
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance __EntityInfoComponent(uint64_t a1, _OWORD *a2)
-{
-  outlined destroy of __EntityInfoComponent(a2);
-  outlined init with copy of __REAssetService(a1, v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = *&v5;
-  *a2 = v5;
-  return result;
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance AttachedTransformComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance AttachedTransformComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of AttachedTransformComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v9);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  return outlined init with take of AttachedTransformComponent(&v8, a2);
+}
+
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance AttachedTransformComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of AttachedTransformComponent(a2);
   outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   return outlined init with take of AttachedTransformComponent(&v7, a2);
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance AttachedTransformComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of AttachedTransformComponent(a2);
-  outlined init with copy of __REAssetService(a1, v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  return outlined init with take of AttachedTransformComponent(&v5, a2);
 }
 
 void protocol witness for static Component.__free(to:offset:) in conformance AttachedTransformComponent(uint64_t a1)
@@ -8761,15 +3285,31 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Refe
   *(a2 + 40) = v8;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ReferenceComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ReferenceComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of ReferenceComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v14);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = *&v8;
+  *a2 = v8;
+  *(a2 + 16) = v9;
+  *(a2 + 24) = v10;
+  *(a2 + 32) = v11;
+  *(a2 + 33) = v12;
+  *(a2 + 40) = v13;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance ReferenceComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of ReferenceComponent(a2);
   outlined init with copy of __REAssetService(a1, v13);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -8780,22 +3320,6 @@ double protocol witness for static Component.__store(attribute:to:offset:deiniti
   *(a2 + 32) = v10;
   *(a2 + 33) = v11;
   *(a2 + 40) = v12;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance ReferenceComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of ReferenceComponent(a2);
-  outlined init with copy of __REAssetService(a1, v11);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = *&v5;
-  *a2 = v5;
-  *(a2 + 16) = v6;
-  *(a2 + 24) = v7;
-  *(a2 + 32) = v8;
-  *(a2 + 33) = v9;
-  *(a2 + 40) = v10;
   return result;
 }
 
@@ -8839,15 +3363,29 @@ id protocol witness for static Component.__load(from:) in conformance PhysicsSim
   return v3;
 }
 
-__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PhysicsSimulationComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+__n128 protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PhysicsSimulationComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of PhysicsSimulationComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v12);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = v9;
+  *a2 = v8;
+  *(a2 + 16) = v9;
+  *(a2 + 32) = v10;
+  *(a2 + 40) = v11;
+  return result;
+}
+
+__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance PhysicsSimulationComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of PhysicsSimulationComponent(a2);
   outlined init with copy of __REAssetService(a1, v11);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -8856,20 +3394,6 @@ __n128 protocol witness for static Component.__store(attribute:to:offset:deiniti
   *(a2 + 16) = v8;
   *(a2 + 32) = v9;
   *(a2 + 40) = v10;
-  return result;
-}
-
-__n128 protocol witness for static Component.__store(attribute:to:offset:) in conformance PhysicsSimulationComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of PhysicsSimulationComponent(a2);
-  outlined init with copy of __REAssetService(a1, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = v6;
-  *a2 = v5;
-  *(a2 + 16) = v6;
-  *(a2 + 32) = v7;
-  *(a2 + 40) = v8;
   return result;
 }
 
@@ -8897,25 +3421,39 @@ id protocol witness for static Component.__load(from:offset:) in conformance Phy
   return v8;
 }
 
-uint64_t protocol witness for static Component.__load(from:) in conformance CollisionComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for static Component.__load(from:) in conformance CollisionComponent@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v2 = *(a1 + 8);
-  v3 = *(a1 + 20);
+  v3 = *(a1 + 5);
   *a2 = *a1;
   *(a2 + 8) = v2;
   *(a2 + 12) = *(a1 + 12);
   *(a2 + 20) = v3;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance CollisionComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance CollisionComponent(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of CollisionComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v12);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  *a2 = v8;
+  *(a2 + 8) = v9;
+  result = v10;
+  *(a2 + 12) = v10;
+  *(a2 + 20) = v11;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance CollisionComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of CollisionComponent(a2);
   outlined init with copy of __REAssetService(a1, v11);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -8927,20 +3465,6 @@ double protocol witness for static Component.__store(attribute:to:offset:deiniti
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance CollisionComponent(uint64_t a1, uint64_t a2)
-{
-  outlined destroy of CollisionComponent(a2);
-  outlined init with copy of __REAssetService(a1, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  *a2 = v5;
-  *(a2 + 8) = v6;
-  result = v7;
-  *(a2 + 12) = v7;
-  *(a2 + 20) = v8;
-  return result;
-}
-
 void protocol witness for static Component.__free(to:offset:) in conformance CollisionComponent(uint64_t a1)
 {
   outlined destroy of CollisionComponent(a1);
@@ -8948,12 +3472,12 @@ void protocol witness for static Component.__free(to:offset:) in conformance Col
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance CollisionComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+uint64_t protocol witness for static Component.__load(from:offset:) in conformance CollisionComponent@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
   *(a4 + 24) = a2;
   *(a4 + 32) = a3;
   v4 = *(a1 + 8);
-  v5 = *(a1 + 20);
+  v5 = *(a1 + 5);
   *a4 = *a1;
   *(a4 + 8) = v4;
   *(a4 + 12) = *(a1 + 12);
@@ -8978,31 +3502,31 @@ __n128 protocol witness for static Component.__load(from:) in conformance Charac
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance CharacterControllerComponent(uint64_t a1, uint64_t a2)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance CharacterControllerComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v5);
+  outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  v3 = v7;
-  *a2 = v6;
-  *(a2 + 16) = v3;
-  result = *&v8;
-  *(a2 + 32) = v8;
-  *(a2 + 48) = v9;
+  v6 = v10;
+  *a2 = v9;
+  *(a2 + 16) = v6;
+  result = *&v11;
+  *(a2 + 32) = v11;
+  *(a2 + 48) = v12;
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance CharacterControllerComponent(uint64_t a1, uint64_t a2)
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance CharacterControllerComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v5);
+  outlined init with copy of __REAssetService(a1, v7);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  v3 = v7;
-  *a2 = v6;
-  *(a2 + 16) = v3;
-  result = *&v8;
-  *(a2 + 32) = v8;
-  *(a2 + 48) = v9;
+  v5 = v9;
+  *a2 = v8;
+  *(a2 + 16) = v5;
+  result = *&v10;
+  *(a2 + 32) = v10;
+  *(a2 + 48) = v11;
   return result;
 }
 
@@ -9028,15 +3552,28 @@ void protocol witness for static Component.__free(to:offset:) in conformance Bod
   JUMPOUT(0x1C6902A30);
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance EventSubscriptionComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance EventSubscriptionComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of EventSubscriptionComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  *a2 = v8;
+  a2[1] = v9;
+  result = *&v10;
+  a2[2] = v10;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance EventSubscriptionComponent(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of EventSubscriptionComponent(a2);
   outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
@@ -9047,19 +3584,6 @@ double protocol witness for static Component.__store(attribute:to:offset:deiniti
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance EventSubscriptionComponent(uint64_t a1, _OWORD *a2)
-{
-  outlined destroy of EventSubscriptionComponent(a2);
-  outlined init with copy of __REAssetService(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  *a2 = v5;
-  a2[1] = v6;
-  result = *&v7;
-  a2[2] = v7;
-  return result;
-}
-
 void protocol witness for static Component.__free(to:offset:) in conformance EventSubscriptionComponent(uint64_t a1)
 {
   outlined destroy of EventSubscriptionComponent(a1);
@@ -9067,48 +3591,50 @@ void protocol witness for static Component.__free(to:offset:) in conformance Eve
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance ManipulationComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t (*a4)(uint64_t, uint64_t)@<X7>, uint64_t *a5@<X8>)
+uint64_t protocol witness for static Component.__load(from:offset:) in conformance ManipulationComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t (*a7)(uint64_t, uint64_t)@<X7>, uint64_t *a8@<X8>)
 {
-  a5[3] = a2;
-  a5[4] = a3;
-  v7 = swift_allocObject();
-  *a5 = v7;
+  a8[3] = a2;
+  a8[4] = a3;
+  v10 = swift_allocObject();
+  *a8 = v10;
 
-  return a4(a1, v7 + 16);
+  return a7(a1, v10 + 16);
 }
 
-uint64_t protocol witness for static Component.__load(from:) in conformance _Proto_BlendShapeWeightsComponent_v1@<X0>(void *a1@<X0>, void *a2@<X8>)
+double protocol witness for static Component.__load(from:) in conformance _Proto_BlendShapeWeightsComponent_v1@<D0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = a1[1];
   *a2 = *a1;
   a2[1] = v2;
+
+  return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance _Proto_BlendShapeWeightsComponent_v1(uint64_t a1, _OWORD *a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance _Proto_BlendShapeWeightsComponent_v1(uint64_t a1, _OWORD *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of _Proto_BlendShapeWeightsComponent_v1(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v9);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = *&v8;
+  *a2 = v8;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance _Proto_BlendShapeWeightsComponent_v1(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of _Proto_BlendShapeWeightsComponent_v1(a2);
   outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   result = *&v7;
   *a2 = v7;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance _Proto_BlendShapeWeightsComponent_v1(uint64_t a1, _OWORD *a2)
-{
-  outlined destroy of _Proto_BlendShapeWeightsComponent_v1(a2);
-  outlined init with copy of __REAssetService(a1, v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = *&v5;
-  *a2 = v5;
   return result;
 }
 
@@ -9119,13 +3645,15 @@ void protocol witness for static Component.__free(to:offset:) in conformance _Pr
   JUMPOUT(0x1C6902A30);
 }
 
-uint64_t protocol witness for static Component.__load(from:offset:) in conformance _Proto_BlendShapeWeightsComponent_v1@<X0>(void *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
+double protocol witness for static Component.__load(from:offset:) in conformance _Proto_BlendShapeWeightsComponent_v1@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
 {
   a4[3] = a2;
   a4[4] = a3;
   v4 = a1[1];
   *a4 = *a1;
   a4[1] = v4;
+
+  return result;
 }
 
 uint64_t protocol witness for static Component.__load(from:) in conformance BlendShapeWeightsComponent@<X0>(void *a1@<X0>, void *a2@<X8>)
@@ -9135,31 +3663,31 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Blen
   a2[1] = v2;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance BlendShapeWeightsComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance BlendShapeWeightsComponent(uint64_t a1, _OWORD *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of BlendShapeWeightsComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v9);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  swift_dynamicCast();
+  result = *&v8;
+  *a2 = v8;
+  return result;
+}
+
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance BlendShapeWeightsComponent(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of BlendShapeWeightsComponent(a2);
   outlined init with copy of __REAssetService(a1, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
   result = *&v7;
   *a2 = v7;
-  return result;
-}
-
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance BlendShapeWeightsComponent(uint64_t a1, _OWORD *a2)
-{
-  outlined destroy of BlendShapeWeightsComponent(a2);
-  outlined init with copy of __REAssetService(a1, v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  swift_dynamicCast();
-  result = *&v5;
-  *a2 = v5;
   return result;
 }
 
@@ -9190,27 +3718,27 @@ __n128 protocol witness for static Component.__load(from:) in conformance Transf
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance Transform(uint64_t a1, _OWORD *a2)
+double protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance Transform(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v10);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = *&v4;
-  *a2 = v4;
-  a2[1] = v5;
-  a2[2] = v6;
+  result = *&v7;
+  *a2 = v7;
+  a2[1] = v8;
+  a2[2] = v9;
   return result;
 }
 
-double protocol witness for static Component.__store(attribute:to:offset:) in conformance Transform(uint64_t a1, _OWORD *a2)
+double protocol witness for static Component.__store(attribute:to:offset:) in conformance Transform(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v7);
+  outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  result = *&v4;
-  *a2 = v4;
-  a2[1] = v5;
-  a2[2] = v6;
+  result = *&v6;
+  *a2 = v6;
+  a2[1] = v7;
+  a2[2] = v8;
   return result;
 }
 
@@ -9229,16 +3757,16 @@ __n128 protocol witness for static Component.__load(from:offset:) in conformance
   return result;
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ClippingExceptionComponent(uint64_t a1)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance ClippingExceptionComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  outlined init with copy of __REAssetService(a1, v2);
+  outlined init with copy of __REAssetService(a1, v6);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   return swift_dynamicCast();
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance ClippingExceptionComponent(uint64_t a1)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance ClippingExceptionComponent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  outlined init with copy of __REAssetService(a1, v2);
+  outlined init with copy of __REAssetService(a1, v5);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   return swift_dynamicCast();
 }
@@ -9251,31 +3779,31 @@ uint64_t protocol witness for static Component.__load(from:) in conformance Phys
   a2[1] = v3;
 }
 
-uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PhysicsJointsComponent(uint64_t a1, void *a2, uint64_t a3, char a4)
+uint64_t protocol witness for static Component.__store(attribute:to:offset:deinitialize:) in conformance PhysicsJointsComponent(uint64_t a1, void *a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
-    v5 = a1;
+    v6 = a1;
     outlined destroy of PhysicsJointsComponent(a2);
-    a1 = v5;
+    a1 = v6;
   }
 
+  outlined init with copy of __REAssetService(a1, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
+  result = swift_dynamicCast();
+  *a2 = v8;
+  a2[1] = v9;
+  return result;
+}
+
+uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance PhysicsJointsComponent(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+{
+  outlined destroy of PhysicsJointsComponent(a2);
   outlined init with copy of __REAssetService(a1, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   result = swift_dynamicCast();
   *a2 = v7;
   a2[1] = v8;
-  return result;
-}
-
-uint64_t protocol witness for static Component.__store(attribute:to:offset:) in conformance PhysicsJointsComponent(uint64_t a1, void *a2)
-{
-  outlined destroy of PhysicsJointsComponent(a2);
-  outlined init with copy of __REAssetService(a1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
-  result = swift_dynamicCast();
-  *a2 = v5;
-  a2[1] = v6;
   return result;
 }
 
@@ -9299,62 +3827,60 @@ uint64_t protocol witness for static Component.__load(from:offset:) in conforman
 uint64_t specialized static Component.__store(attribute:to:offset:deinitialize:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = *(a4 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](a1);
-  v10 = &v15[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  if (v11)
+  MEMORY[0x1EEE9AC00](a1);
+  v9 = &v14[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  if (v10)
   {
-    v12 = v8;
+    v11 = v7;
     UnsafeMutablePointer.deinitialize(count:)();
-    v8 = v12;
+    v7 = v11;
   }
 
-  outlined init with copy of __REAssetService(v8, v15);
+  outlined init with copy of __REAssetService(v7, v14);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  return (*(v6 + 32))(a2, v10, a4);
+  return (*(v6 + 32))(a2, v9, a4);
 }
 
 uint64_t specialized static Component.__store(attribute:to:offset:)(uint64_t a1, uint64_t *a2)
 {
   v4 = type metadata accessor for Data.Deallocator();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v17[-1] - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of __REAssetService(a1, v17);
+  v7 = &v16[-1] - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of __REAssetService(a1, v16);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9Component_pMd, &_s10RealityKit9Component_pMR);
   swift_dynamicCast();
-  v9 = v16;
-  if (v16)
+  v8 = v15;
+  if (v15)
   {
-    v10 = strlen(v16);
-    (*(v5 + 104))(v8, *MEMORY[0x1E6969010], v4);
-    v11 = specialized Data.init(bytesNoCopy:count:deallocator:)(v9, v10, v8);
-    v13 = v12;
+    v9 = strlen(v15);
+    (*(v5 + 104))(v7, *MEMORY[0x1E6969010], v4);
+    v10 = specialized Data.init(bytesNoCopy:count:deallocator:)(v8, v9, v7);
+    v12 = v11;
   }
 
   else
   {
-    v11 = 0;
-    v13 = 0xF000000000000000;
+    v10 = 0;
+    v12 = 0xF000000000000000;
   }
 
-  v17[0] = 0;
-  CustomComponentProxy.updateJSON(with:)(v11, v13);
-  outlined consume of Data?(v11, v13);
-  v14 = v17[0];
+  v16[0] = 0;
+  CustomComponentProxy.updateJSON(with:)(v10, v12);
+  outlined consume of Data?(v10, v12);
+  v13 = v16[0];
   result = *a2;
   if (*a2)
   {
     result = RECIntrospectionFree();
   }
 
-  *a2 = v14;
+  *a2 = v13;
   return result;
 }
 
-void specialized static Component.__free(to:offset:)()
+void specialized static Component.__free(to:offset:)(uint64_t a1, uint64_t a2, __n128 a3)
 {
   UnsafeMutablePointer.deinitialize(count:)();
 
@@ -9392,7 +3918,7 @@ uint64_t outlined consume of VirtualEnvironmentProbeComponent.Source(uint64_t a1
   }
 }
 
-uint64_t outlined copy of VirtualEnvironmentProbeComponent.Source(uint64_t a1, uint64_t a2, unint64_t a3)
+double outlined copy of VirtualEnvironmentProbeComponent.Source(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   if (a3 >> 62)
   {
@@ -9401,19 +3927,16 @@ uint64_t outlined copy of VirtualEnvironmentProbeComponent.Source(uint64_t a1, u
       return result;
     }
   }
+
+  return result;
 }
 
 uint64_t objectdestroy_45Tm()
 {
-  v1 = v0[2];
 
-  v2 = v0[3];
-
-  if (v0[5] != 1)
+  if (*(v0 + 40) != 1)
   {
   }
-
-  v3 = v0[6];
 
   return MEMORY[0x1EEE6BDD0](v0, 56, 7);
 }
@@ -9451,93 +3974,88 @@ uint64_t objectdestroy_55Tm(void (*a1)(void), void (*a2)(void))
 
 uint64_t dispatch thunk of ARKitRunnable.runARKitSession(withSupportedCapabilities:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *(a4 + 24);
-  v13 = (v9 + *v9);
-  v10 = v9[1];
-  v11 = swift_task_alloc();
-  *(v4 + 16) = v11;
-  *v11 = v4;
-  v11[1] = partial apply for closure #1 in TextureResource.PartialContents.init(source:mipmaps:);
+  v11 = (*(a4 + 24) + **(a4 + 24));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = partial apply for closure #1 in TextureResource.PartialContents.init(source:mipmaps:);
 
-  return v13(a1, a2, a3, a4);
+  return v11(a1, a2, a3, a4);
 }
 
 uint64_t dispatch thunk of ARKitRunnable.stop()(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a2 + 40);
-  v9 = (v5 + *v5);
-  v6 = v5[1];
-  v7 = swift_task_alloc();
-  *(v2 + 16) = v7;
-  *v7 = v2;
-  v7[1] = partial apply for specialized closure #1 in ShaderCacheLoader.loadResource(forKey:);
+  v7 = (*(a2 + 40) + **(a2 + 40));
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = partial apply for specialized closure #1 in ShaderCacheLoader.loadResource(forKey:);
 
-  return v9(a1, a2);
+  return v7(a1, a2);
 }
 
 uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSD6ValuesVySS10RealityKit6EntityC0E10FoundationE20ConfigurationCatalogV0I3SetV_G_AM0iK5CacheCs5NeverOTg504_s10e4Kit6g5C0A10h3E20ij63V06CachedC6ReaderC17configurationSets12combinationsAHSDySSAF0E3k36VG_SayAF0E11CombinationVGtKcfcAF0eL5L9CALXEfU0_Tf1cn_n(uint64_t a1)
 {
   v1 = *(a1 + 16);
   result = MEMORY[0x1E69E7CC0];
-  v29 = v1;
+  v27 = v1;
   if (v1)
   {
-    v35 = MEMORY[0x1E69E7CC0];
+    v33 = MEMORY[0x1E69E7CC0];
     specialized ContiguousArray.reserveCapacity(_:)();
     v3 = a1 + 64;
-    v4 = -1 << *(a1 + 32);
     result = _HashTable.startBucket.getter();
-    v5 = result;
-    v6 = 0;
-    v7 = *(a1 + 36);
-    v28 = v7;
-    while ((v5 & 0x8000000000000000) == 0 && v5 < 1 << *(a1 + 32))
+    v4 = result;
+    v5 = 0;
+    v6 = *(a1 + 36);
+    v26 = v6;
+    while ((v4 & 0x8000000000000000) == 0 && v4 < 1 << *(a1 + 32))
     {
-      if ((*(v3 + 8 * (v5 >> 6)) & (1 << v5)) == 0)
+      if ((*(v3 + 8 * (v4 >> 6)) & (1 << v4)) == 0)
       {
         goto LABEL_27;
       }
 
-      if (v7 != *(a1 + 36))
+      if (v6 != *(a1 + 36))
       {
         goto LABEL_28;
       }
 
-      v32 = v5 >> 6;
-      v31 = v6;
-      v9 = (*(a1 + 56) + 40 * v5);
-      v10 = *v9;
-      v11 = v9[1];
-      v12 = v9[2];
-      v13 = v9[3];
-      v14 = v9[4];
+      v30 = v4 >> 6;
+      v29 = v5;
+      v8 = (*(a1 + 56) + 40 * v4);
+      v9 = *v8;
+      v10 = v8[1];
+      v11 = v8[2];
+      v12 = v8[3];
+      v13 = v8[4];
       type metadata accessor for Entity.ConfigurationCatalog.ConfigurationSetCache();
-      v15 = swift_allocObject();
-      v15[2] = v10;
-      v15[3] = v11;
-      v15[4] = v12;
-      v15[5] = v13;
-      v15[6] = v14;
-      v16 = *(v14 + 16);
-      if (v16)
+      v14 = swift_allocObject();
+      v14[2] = v9;
+      v14[3] = v10;
+      v14[4] = v11;
+      v14[5] = v12;
+      v14[6] = v13;
+      v15 = *(v13 + 16);
+      if (v15)
       {
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10RealityKit6EntityC0D10FoundationE20ConfigurationCatalogV0H0VGMd, &_ss23_ContiguousArrayStorageCy10RealityKit6EntityC0D10FoundationE20ConfigurationCatalogV0H0VGMR);
-        v17 = swift_allocObject();
-        v18 = _swift_stdlib_malloc_size(v17);
-        v19 = v18 - 32;
-        if (v18 < 32)
+        v16 = swift_allocObject();
+        v17 = _swift_stdlib_malloc_size(v16);
+        v18 = v17 - 32;
+        if (v17 < 32)
         {
-          v19 = v18 - 17;
+          v18 = v17 - 17;
         }
 
-        v17[2] = v16;
-        v17[3] = 2 * (v19 >> 4);
-        v30 = specialized Sequence._copySequenceContents(initializing:)(&v34, v17 + 4, v16, v14);
+        v16[2] = v15;
+        v16[3] = 2 * (v18 >> 4);
+        v28 = specialized Sequence._copySequenceContents(initializing:)(&v32, v16 + 4, v15, v13);
         swift_bridgeObjectRetain_n();
         swift_bridgeObjectRetain_n();
         swift_bridgeObjectRetain_n();
         result = outlined consume of [String : AnimationResource].Iterator._Variant();
-        if (v30 != v16)
+        if (v28 != v15)
         {
           goto LABEL_32;
         }
@@ -9548,70 +4066,69 @@ uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSD6Va
         swift_bridgeObjectRetain_n();
         swift_bridgeObjectRetain_n();
         swift_bridgeObjectRetain_n();
-        v17 = MEMORY[0x1E69E7CC0];
+        v16 = MEMORY[0x1E69E7CC0];
       }
 
-      v15[7] = v17;
-      v15[8] = v14;
+      v14[7] = v16;
+      v14[8] = v13;
 
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v20 = *(v35 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       result = specialized ContiguousArray._endMutation()();
-      v8 = 1 << *(a1 + 32);
-      if (v5 >= v8)
+      v7 = 1 << *(a1 + 32);
+      if (v4 >= v7)
       {
         goto LABEL_29;
       }
 
       v3 = a1 + 64;
-      v21 = *(a1 + 64 + 8 * v32);
-      if ((v21 & (1 << v5)) == 0)
+      v19 = *(a1 + 64 + 8 * v30);
+      if ((v19 & (1 << v4)) == 0)
       {
         goto LABEL_30;
       }
 
-      v7 = v28;
-      if (v28 != *(a1 + 36))
+      v6 = v26;
+      if (v26 != *(a1 + 36))
       {
         goto LABEL_31;
       }
 
-      v22 = v21 & (-2 << (v5 & 0x3F));
-      if (v22)
+      v20 = v19 & (-2 << (v4 & 0x3F));
+      if (v20)
       {
-        v8 = __clz(__rbit64(v22)) | v5 & 0x7FFFFFFFFFFFFFC0;
+        v7 = __clz(__rbit64(v20)) | v4 & 0x7FFFFFFFFFFFFFC0;
       }
 
       else
       {
-        v23 = v32 << 6;
-        v24 = v32 + 1;
-        v25 = (a1 + 72 + 8 * v32);
-        while (v24 < (v8 + 63) >> 6)
+        v21 = v30 << 6;
+        v22 = v30 + 1;
+        v23 = (a1 + 72 + 8 * v30);
+        while (v22 < (v7 + 63) >> 6)
         {
-          v27 = *v25++;
-          v26 = v27;
-          v23 += 64;
-          ++v24;
-          if (v27)
+          v25 = *v23++;
+          v24 = v25;
+          v21 += 64;
+          ++v22;
+          if (v25)
           {
-            result = outlined consume of [String : AudioResource].Index._Variant(v5, v28, 0);
-            v8 = __clz(__rbit64(v26)) + v23;
+            result = outlined consume of [String : AudioResource].Index._Variant(v4, v26, 0);
+            v7 = __clz(__rbit64(v24)) + v21;
             goto LABEL_4;
           }
         }
 
-        result = outlined consume of [String : AudioResource].Index._Variant(v5, v28, 0);
+        result = outlined consume of [String : AudioResource].Index._Variant(v4, v26, 0);
       }
 
 LABEL_4:
-      v6 = v31 + 1;
-      v5 = v8;
-      if (v31 + 1 == v29)
+      v5 = v29 + 1;
+      v4 = v7;
+      if (v29 + 1 == v27)
       {
-        return v35;
+        return v33;
       }
     }
 
@@ -9722,7 +4239,7 @@ unint64_t lazy protocol witness table accessor for type Entity.ConfigurationCata
   result = lazy protocol witness table cache variable for type Entity.ConfigurationCatalog.CachedEntityError and conformance Entity.ConfigurationCatalog.CachedEntityError;
   if (!lazy protocol witness table cache variable for type Entity.ConfigurationCatalog.CachedEntityError and conformance Entity.ConfigurationCatalog.CachedEntityError)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for Entity.ConfigurationCatalog.CachedEntityError, &type metadata for Entity.ConfigurationCatalog.CachedEntityError, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type Entity.ConfigurationCatalog.CachedEntityError and conformance Entity.ConfigurationCatalog.CachedEntityError);
   }
 
@@ -9834,9 +4351,9 @@ uint64_t Entity.ConfigurationCatalog.CachedEntityReader.init(configurationSets:c
   v9 = v7;
   if (v8 <= v7)
   {
-    v66 = *(a2 + 16);
-    v67 = a2;
-    v68 = v4;
+    v63 = *(a2 + 16);
+    v64 = a2;
+    v65 = v4;
     v11 = a1 + 64;
     v12 = 1 << *(a1 + 32);
     v13 = -1;
@@ -9860,37 +4377,33 @@ LABEL_11:
       v22 = *v21;
       v4 = v21[1];
       v23 = *(a1 + 56) + 40 * v20;
-      if (*v21 != *(v23 + 16) || v4 != *(v23 + 24))
+      v24 = *v21 == *(v23 + 16) && v4 == *(v23 + 24);
+      if (!v24 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
-        v25 = *v21;
-        v26 = v21[1];
-        if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v17 + 2) + 1, 1, v17);
-          }
-
-          v28 = *(v17 + 2);
-          v27 = *(v17 + 3);
-          v29 = v28 + 1;
-          if (v28 >= v27 >> 1)
-          {
-            v65 = v28 + 1;
-            v31 = v17;
-            v32 = *(v17 + 2);
-            v33 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v27 > 1), v28 + 1, 1, v31);
-            v29 = v65;
-            v28 = v32;
-            v17 = v33;
-          }
-
-          *(v17 + 2) = v29;
-          v30 = &v17[16 * v28];
-          *(v30 + 4) = v22;
-          *(v30 + 5) = v4;
+          v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v17 + 2) + 1, 1, v17);
         }
+
+        v26 = *(v17 + 2);
+        v25 = *(v17 + 3);
+        v27 = v26 + 1;
+        if (v26 >= v25 >> 1)
+        {
+          v62 = v26 + 1;
+          v29 = v17;
+          v30 = *(v17 + 2);
+          v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1, v29);
+          v27 = v62;
+          v26 = v30;
+          v17 = v31;
+        }
+
+        *(v17 + 2) = v27;
+        v28 = &v17[16 * v26];
+        *(v28 + 4) = v22;
+        *(v28 + 5) = v4;
       }
     }
 
@@ -9905,33 +4418,33 @@ LABEL_11:
       if (v18 >= v15)
       {
 
-        v34 = *(v17 + 2);
-        if (v34)
+        v32 = *(v17 + 2);
+        if (v32)
         {
           if (*(a1 + 16))
           {
-            v35 = *(v17 + 4);
-            v36 = *(v17 + 5);
+            v33 = *(v17 + 4);
+            v34 = *(v17 + 5);
 
-            v37 = specialized __RawDictionaryStorage.find<A>(_:)(v35, v36);
-            v39 = v38;
+            v35 = specialized __RawDictionaryStorage.find<A>(_:)(v33, v34);
+            v37 = v36;
 
-            if (v39)
+            if (v37)
             {
-              v40 = *(a1 + 56) + 40 * v37;
-              v42 = *(v40 + 16);
-              v41 = *(v40 + 24);
+              v38 = *(a1 + 56) + 40 * v35;
+              v40 = *(v38 + 16);
+              v39 = *(v38 + 24);
 
               lazy protocol witness table accessor for type Entity.ConfigurationCatalog.ConfigurableEntityError and conformance Entity.ConfigurationCatalog.ConfigurableEntityError();
               swift_allocError();
-              *v43 = v34;
-              *(v43 + 8) = v35;
-              *(v43 + 16) = v36;
-              *(v43 + 24) = v42;
-              *(v43 + 32) = v41;
-              *(v43 + 40) = 8;
+              *v41 = v32;
+              *(v41 + 8) = v33;
+              *(v41 + 16) = v34;
+              *(v41 + 24) = v40;
+              *(v41 + 32) = v39;
+              *(v41 + 40) = 8;
               swift_willThrow();
-              v4 = v68;
+              v4 = v65;
               goto LABEL_27;
             }
           }
@@ -9946,58 +4459,58 @@ LABEL_53:
           goto LABEL_55;
         }
 
-        v45 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSD6ValuesVySS10RealityKit6EntityC0E10FoundationE20ConfigurationCatalogV0I3SetV_G_AM0iK5CacheCs5NeverOTg504_s10e4Kit6g5C0A10h3E20ij63V06CachedC6ReaderC17configurationSets12combinationsAHSDySSAF0E3k36VG_SayAF0E11CombinationVGtKcfcAF0eL5L9CALXEfU0_Tf1cn_n(v44);
-        v4 = v68;
+        v43 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSD6ValuesVySS10RealityKit6EntityC0E10FoundationE20ConfigurationCatalogV0I3SetV_G_AM0iK5CacheCs5NeverOTg504_s10e4Kit6g5C0A10h3E20ij63V06CachedC6ReaderC17configurationSets12combinationsAHSDySSAF0E3k36VG_SayAF0E11CombinationVGtKcfcAF0eL5L9CALXEfU0_Tf1cn_n(v42);
+        v4 = v65;
         if (!v3)
         {
-          v46 = v45;
+          v44 = v43;
 
           type metadata accessor for Entity.ConfigurationCatalog.ConfigurationCollectionCache();
           swift_allocObject();
-          v47 = Entity.ConfigurationCatalog.ConfigurationCollectionCache.init(sourcePath:configurationSetCaches:)(47, 0xE100000000000000, v46);
+          v45 = Entity.ConfigurationCatalog.ConfigurationCollectionCache.init(sourcePath:configurationSetCaches:)(0x2FuLL, 0xE100000000000000, v44);
           __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-          v48 = swift_allocObject();
-          *(v48 + 16) = xmmword_1C1898160;
-          *(v48 + 32) = v47;
+          v46 = swift_allocObject();
+          *(v46 + 16) = xmmword_1C1898160;
+          *(v46 + 32) = v45;
           type metadata accessor for Entity.ConfigurationCatalog.ConfigurationMapCache();
           swift_allocObject();
 
-          *(v68 + 16) = Entity.ConfigurationCatalog.ConfigurationMapCache.init(configurationCollectionCaches:)(v48);
+          *(v65 + 16) = Entity.ConfigurationCatalog.ConfigurationMapCache.init(configurationCollectionCaches:)(v46);
           if (*(a1 + 16))
           {
-            v50 = 0;
-            v51 = 1;
-            v52 = 1 << *(a1 + 32);
-            v53 = -1;
-            if (v52 < 64)
+            v48 = 0;
+            v49 = 1;
+            v50 = 1 << *(a1 + 32);
+            v51 = -1;
+            if (v50 < 64)
             {
-              v53 = ~(-1 << v52);
+              v51 = ~(-1 << v50);
             }
 
-            v54 = v53 & *(a1 + 64);
-            v55 = (v52 + 63) >> 6;
+            v52 = v51 & *(a1 + 64);
+            v53 = (v50 + 63) >> 6;
             do
             {
-              if (!v54)
+              if (!v52)
               {
                 while (1)
                 {
-                  v56 = v50 + 1;
-                  if (__OFADD__(v50, 1))
+                  v54 = v48 + 1;
+                  if (__OFADD__(v48, 1))
                   {
                     break;
                   }
 
-                  if (v56 >= v55)
+                  if (v54 >= v53)
                   {
                     goto LABEL_41;
                   }
 
-                  v54 = *(v11 + 8 * v56);
-                  ++v50;
-                  if (v54)
+                  v52 = *(v11 + 8 * v54);
+                  ++v48;
+                  if (v52)
                   {
-                    v50 = v56;
+                    v48 = v54;
                     goto LABEL_39;
                   }
                 }
@@ -10006,29 +4519,29 @@ LABEL_53:
                 goto LABEL_53;
               }
 
-              v56 = v50;
+              v54 = v48;
 LABEL_39:
-              v57 = __clz(__rbit64(v54));
-              v54 &= v54 - 1;
-              v58 = *(*(*(a1 + 56) + 40 * (v57 | (v56 << 6)) + 32) + 16);
-              v59 = (v51 * v58) >> 64;
-              v51 *= v58;
+              v55 = __clz(__rbit64(v52));
+              v52 &= v52 - 1;
+              v56 = *(*(*(a1 + 56) + 40 * (v55 | (v54 << 6)) + 32) + 16);
+              v57 = (v49 * v56) >> 64;
+              v49 *= v56;
             }
 
-            while (v59 == v51 >> 63);
+            while (v57 == v49 >> 63);
             __break(1u);
 LABEL_41:
 
-            if (v66 < v51)
+            if (v63 < v49)
             {
 
               lazy protocol witness table accessor for type Entity.ConfigurationCatalog.CachedEntityError and conformance Entity.ConfigurationCatalog.CachedEntityError();
               swift_allocError();
-              *v60 = v66;
-              *(v60 + 8) = v51;
-              *(v60 + 16) = 0u;
-              *(v60 + 32) = 0u;
-              *(v60 + 48) = 4;
+              *v58 = v63;
+              *(v58 + 8) = v49;
+              *(v58 + 16) = 0u;
+              *(v58 + 32) = 0u;
+              *(v58 + 48) = 4;
               swift_willThrow();
 
               goto LABEL_51;
@@ -10039,28 +4552,28 @@ LABEL_41:
           {
           }
 
-          v61 = MEMORY[0x1E69E7CC8];
-          v70 = MEMORY[0x1E69E7CC8];
-          v62 = *(v67 + 16);
-          if (!v62)
+          v59 = MEMORY[0x1E69E7CC8];
+          v67 = MEMORY[0x1E69E7CC8];
+          v60 = *(v64 + 16);
+          if (!v60)
           {
 LABEL_49:
 
-            *(v68 + 24) = v61;
+            *(v65 + 24) = v59;
             return v4;
           }
 
-          v63 = 0;
-          while (v63 < *(v67 + 16))
+          v61 = 0;
+          while (v61 < *(v64 + 16))
           {
-            v69 = *(v67 + 16 * v63 + 32);
+            v66 = *(v64 + 16 * v61 + 32);
 
-            closure #3 in Entity.ConfigurationCatalog.CachedEntityReader.init(configurationSets:combinations:)(&v70, &v69, v47);
-            ++v63;
+            closure #3 in Entity.ConfigurationCatalog.CachedEntityReader.init(configurationSets:combinations:)(&v67, &v66, v45);
+            ++v61;
 
-            if (v62 == v63)
+            if (v60 == v61)
             {
-              v61 = v70;
+              v59 = v67;
               goto LABEL_49;
             }
           }
@@ -10087,7 +4600,6 @@ LABEL_55:
     __break(1u);
 
 LABEL_51:
-    v64 = *(v4 + 16);
   }
 
   else
@@ -10108,4 +4620,5227 @@ LABEL_27:
   type metadata accessor for Entity.ConfigurationCatalog.CachedEntityReader();
   swift_deallocPartialClassInstance();
   return v4;
+}
+
+unint64_t closure #3 in Entity.ConfigurationCatalog.CachedEntityReader.init(configurationSets:combinations:)(uint64_t *a1, uint64_t *a2, unint64_t a3)
+{
+  v5 = a2[1];
+  v61 = *a2;
+  v6 = v5 + 64;
+  v7 = 1 << *(v5 + 32);
+  v8 = -1;
+  if (v7 < 64)
+  {
+    v8 = ~(-1 << v7);
+  }
+
+  v9 = v8 & *(v5 + 64);
+  v10 = (v7 + 63) >> 6;
+  v64 = a2[1];
+
+  v11 = 0;
+  if (v9)
+  {
+    while (1)
+    {
+      v12 = v11;
+LABEL_8:
+      v13 = (*(v64 + 48) + ((v12 << 10) | (16 * __clz(__rbit64(v9)))));
+      v3 = *v13;
+      v14 = v13[1];
+      v15 = *(*(a3 + 40) + 16);
+
+      if (!v15)
+      {
+        break;
+      }
+
+      specialized __RawDictionaryStorage.find<A>(_:)(v3, v14);
+      if ((v16 & 1) == 0)
+      {
+        break;
+      }
+
+      v9 &= v9 - 1;
+
+      v11 = v12;
+      if (!v9)
+      {
+        goto LABEL_5;
+      }
+    }
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSD4KeysVySS10RealityKit6EntityC0B10FoundationE20ConfigurationCatalogV0F8SetCacheC_GMd, &_sSD4KeysVySS10RealityKit6EntityC0B10FoundationE20ConfigurationCatalogV0F8SetCacheC_GMR);
+    lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type [String : Entity.ConfigurationCatalog.ConfigurationSetCache].Keys and conformance [A : B].Keys, &_sSD4KeysVySS10RealityKit6EntityC0B10FoundationE20ConfigurationCatalogV0F8SetCacheC_GMd, &_sSD4KeysVySS10RealityKit6EntityC0B10FoundationE20ConfigurationCatalogV0F8SetCacheC_GMR, MEMORY[0x1E69E5D90]);
+    lazy protocol witness table accessor for type String and conformance String();
+    v34 = Sequence<>.joined(separator:)();
+    v36 = v35;
+
+    lazy protocol witness table accessor for type Entity.ConfigurationCatalog.CachedEntityError and conformance Entity.ConfigurationCatalog.CachedEntityError();
+    swift_allocError();
+    *v37 = v3;
+    *(v37 + 8) = v14;
+    *(v37 + 16) = v34;
+    *(v37 + 24) = v36;
+    *(v37 + 32) = 0;
+    *(v37 + 40) = 0;
+    *(v37 + 48) = 0;
+    swift_willThrow();
+  }
+
+  else
+  {
+    while (1)
+    {
+LABEL_5:
+      v12 = v11 + 1;
+      if (__OFADD__(v11, 1))
+      {
+        __break(1u);
+        goto LABEL_43;
+      }
+
+      if (v12 >= v10)
+      {
+        break;
+      }
+
+      v9 = *(v6 + 8 * v12);
+      ++v11;
+      if (v9)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    v3 = v64;
+
+    Hasher.init()();
+    a3 = *(a3 + 32);
+    if (a3 >> 62)
+    {
+      goto LABEL_45;
+    }
+
+    for (i = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = __CocoaSet.count.getter())
+    {
+      if ((a3 & 0xC000000000000001) != 0)
+      {
+        v18 = 0;
+        while (1)
+        {
+          v19 = i;
+          v20 = MEMORY[0x1C68F41F0](v18, a3);
+          v21 = v18 + 1;
+          if (__OFADD__(v18, 1))
+          {
+            break;
+          }
+
+          v22 = v20;
+          v23 = *(v20 + 32);
+          v24 = *(v20 + 40);
+          v25 = *(v3 + 16);
+
+          v63 = v23;
+          if (v25 && (v26 = specialized __RawDictionaryStorage.find<A>(_:)(v23, v24), (v27 & 1) != 0))
+          {
+            v28 = (*(v3 + 56) + 16 * v26);
+            v29 = v28 + 1;
+          }
+
+          else
+          {
+            v28 = v22 + 2;
+            v29 = v22 + 3;
+          }
+
+          v30 = *v28;
+          v31 = *v29;
+
+          if (!*(v22[8] + 16))
+          {
+            goto LABEL_39;
+          }
+
+          specialized __RawDictionaryStorage.find<A>(_:)(v30, v31);
+          if ((v32 & 1) == 0)
+          {
+            goto LABEL_39;
+          }
+
+          String.hash(into:)();
+
+          swift_unknownObjectRelease();
+          ++v18;
+          v33 = v21 == v19;
+          i = v19;
+          v3 = v64;
+          if (v33)
+          {
+            goto LABEL_36;
+          }
+        }
+
+LABEL_43:
+        __break(1u);
+      }
+
+      else
+      {
+        v38 = 0;
+        v39 = a3 & 0xFFFFFFFFFFFFFF8;
+        a3 += 32;
+        while (v38 < *(v39 + 16))
+        {
+          v40 = *(a3 + 8 * v38);
+          v41 = v40[4];
+          v24 = v40[5];
+          v42 = *(v3 + 16);
+
+          v63 = v41;
+          if (v42 && (v43 = specialized __RawDictionaryStorage.find<A>(_:)(v41, v24), (v44 & 1) != 0))
+          {
+            v45 = (*(v3 + 56) + 16 * v43);
+            v46 = v45 + 1;
+          }
+
+          else
+          {
+            v45 = v40 + 2;
+            v46 = v40 + 3;
+          }
+
+          v30 = *v45;
+          v31 = *v46;
+
+          if (!*(v40[8] + 16) || (specialized __RawDictionaryStorage.find<A>(_:)(v30, v31), (v47 & 1) == 0))
+          {
+LABEL_39:
+
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSD4KeysVySS10RealityKit6EntityC0B10FoundationE20ConfigurationCatalogV0F0V_GMd, &_sSD4KeysVySS10RealityKit6EntityC0B10FoundationE20ConfigurationCatalogV0F0V_GMR);
+            lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type [String : Entity.ConfigurationCatalog.Configuration].Keys and conformance [A : B].Keys, &_sSD4KeysVySS10RealityKit6EntityC0B10FoundationE20ConfigurationCatalogV0F0V_GMd, &_sSD4KeysVySS10RealityKit6EntityC0B10FoundationE20ConfigurationCatalogV0F0V_GMR, MEMORY[0x1E69E5D90]);
+            lazy protocol witness table accessor for type String and conformance String();
+            v56 = Sequence<>.joined(separator:)();
+            v58 = v57;
+
+            lazy protocol witness table accessor for type Entity.ConfigurationCatalog.CachedEntityError and conformance Entity.ConfigurationCatalog.CachedEntityError();
+            swift_allocError();
+            *v59 = v30;
+            *(v59 + 8) = v31;
+            *(v59 + 16) = v63;
+            *(v59 + 24) = v24;
+            *(v59 + 32) = v56;
+            *(v59 + 40) = v58;
+            *(v59 + 48) = 1;
+            swift_willThrow();
+          }
+
+          ++v38;
+
+          String.hash(into:)();
+
+          v3 = v64;
+          if (i == v38)
+          {
+            goto LABEL_36;
+          }
+        }
+      }
+
+      __break(1u);
+LABEL_45:
+      ;
+    }
+
+LABEL_36:
+    v48 = Hasher.finalize()();
+    v49 = v48;
+    if (*(*a1 + 16) && (specialized __RawDictionaryStorage.find<A>(_:)(v48), (v50 & 1) != 0))
+    {
+
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSD6ValuesVyS2S_GMd, &_sSD6ValuesVyS2S_GMR);
+      lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type [String : String].Values and conformance [A : B].Values, &_sSD6ValuesVyS2S_GMd, &_sSD6ValuesVyS2S_GMR, MEMORY[0x1E69E5DE8]);
+      lazy protocol witness table accessor for type String and conformance String();
+      v51 = Sequence<>.joined(separator:)();
+      v53 = v52;
+
+      lazy protocol witness table accessor for type Entity.ConfigurationCatalog.CachedEntityError and conformance Entity.ConfigurationCatalog.CachedEntityError();
+      swift_allocError();
+      *v54 = v51;
+      *(v54 + 8) = v53;
+      *(v54 + 16) = 0u;
+      *(v54 + 32) = 0u;
+      *(v54 + 48) = 2;
+      return swift_willThrow();
+    }
+
+    else
+    {
+
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      v65 = *a1;
+      result = specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v61, v49, isUniquelyReferenced_nonNull_native);
+      *a1 = v65;
+    }
+  }
+
+  return result;
+}
+
+uint64_t Entity.ConfigurationCatalog.CachedEntityReader.loadEntity(into:withConfigurations:loadOptions:)(uint64_t a1, uint64_t a2)
+{
+  v3[22] = a2;
+  v3[23] = v2;
+  v3[21] = a1;
+  return MEMORY[0x1EEE6DFA0](Entity.ConfigurationCatalog.CachedEntityReader.loadEntity(into:withConfigurations:loadOptions:), 0, 0);
+}
+
+uint64_t Entity.ConfigurationCatalog.CachedEntityReader.loadEntity(into:withConfigurations:loadOptions:)()
+{
+  v1 = *(v0 + 176);
+  if (!v1)
+  {
+    lazy protocol witness table accessor for type Entity.ConfigurationCatalog.CachedEntityError and conformance Entity.ConfigurationCatalog.CachedEntityError();
+    swift_allocError();
+    *v19 = 0u;
+    *(v19 + 16) = 0u;
+    *(v19 + 32) = 0u;
+    *(v19 + 48) = 5;
+    goto LABEL_24;
+  }
+
+  if (!*(v1 + 16) || (v2 = specialized __RawDictionaryStorage.find<A>(_:)(47, 0xE100000000000000), (v3 & 1) == 0))
+  {
+LABEL_20:
+    lazy protocol witness table accessor for type Entity.ConfigurationCatalog.ConfigurableEntityError and conformance Entity.ConfigurationCatalog.ConfigurableEntityError();
+    swift_allocError();
+    *v18 = xmmword_1C18B1D60;
+    *(v18 + 24) = 0;
+    *(v18 + 32) = 0;
+    *(v18 + 16) = 0;
+    *(v18 + 40) = 1;
+LABEL_24:
+    swift_willThrow();
+    goto LABEL_25;
+  }
+
+  v4 = *(*(*(v0 + 184) + 16) + 24);
+  if (!*(v4 + 16))
+  {
+LABEL_23:
+    lazy protocol witness table accessor for type Entity.ConfigurationCatalog.ConfigurableEntityError and conformance Entity.ConfigurationCatalog.ConfigurableEntityError();
+    swift_allocError();
+    *v20 = xmmword_1C18B1D60;
+    *(v20 + 24) = 0;
+    *(v20 + 32) = 0;
+    *(v20 + 16) = 0;
+    *(v20 + 40) = 0;
+    goto LABEL_24;
+  }
+
+  v5 = *(*(v1 + 56) + 8 * v2);
+
+  v6 = specialized __RawDictionaryStorage.find<A>(_:)(47, 0xE100000000000000);
+  if ((v7 & 1) == 0)
+  {
+
+    goto LABEL_23;
+  }
+
+  v8 = *(*(v4 + 56) + 8 * v6);
+  *(v0 + 192) = v8;
+
+  Hasher.init()();
+  v9 = *(v8 + 32);
+  if (v9 >> 62)
+  {
+    goto LABEL_37;
+  }
+
+  v10 = *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10);
+LABEL_8:
+
+  if (v10)
+  {
+    v11 = 0;
+    do
+    {
+      if ((v9 & 0xC000000000000001) != 0)
+      {
+        v12 = MEMORY[0x1C68F41F0](v11, v9);
+        v13 = v11 + 1;
+        if (__OFADD__(v11, 1))
+        {
+LABEL_19:
+          __break(1u);
+          goto LABEL_20;
+        }
+      }
+
+      else
+      {
+        if (v11 >= *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        {
+          __break(1u);
+LABEL_37:
+          v10 = __CocoaSet.count.getter();
+          goto LABEL_8;
+        }
+
+        v12 = *(v9 + 8 * v11 + 32);
+
+        v13 = v11 + 1;
+        if (__OFADD__(v11, 1))
+        {
+          goto LABEL_19;
+        }
+      }
+
+      if (!*(v5 + 16) || (v14 = *(v12 + 32), v15 = *(v12 + 40), , specialized __RawDictionaryStorage.find<A>(_:)(v14, v15), v17 = v16, , (v17 & 1) == 0))
+      {
+
+        v33 = *(v12 + 32);
+        v34 = *(v12 + 40);
+        lazy protocol witness table accessor for type Entity.ConfigurationCatalog.ConfigurableEntityError and conformance Entity.ConfigurationCatalog.ConfigurableEntityError();
+        swift_allocError();
+        *v35 = v33;
+        *(v35 + 8) = v34;
+        *(v35 + 24) = 0;
+        *(v35 + 32) = 0;
+        *(v35 + 16) = 0;
+        *(v35 + 40) = 4;
+        swift_willThrow();
+
+        goto LABEL_35;
+      }
+
+      String.hash(into:)();
+
+      ++v11;
+    }
+
+    while (v13 != v10);
+  }
+
+  v23 = *(v0 + 184);
+
+  v24 = *(v0 + 104);
+  v25 = *(v0 + 136);
+  *(v0 + 48) = *(v0 + 120);
+  *(v0 + 64) = v25;
+  *(v0 + 80) = *(v0 + 152);
+  *(v0 + 16) = *(v0 + 88);
+  *(v0 + 32) = v24;
+  v26 = Hasher.finalize()();
+  v27 = *(v23 + 24);
+  if (*(v27 + 16))
+  {
+    v28 = specialized __RawDictionaryStorage.find<A>(_:)(v26);
+    if (v29)
+    {
+      v30 = v28;
+
+      *(v0 + 200) = *(*(v27 + 56) + 8 * v30);
+      type metadata accessor for MainActor();
+
+      *(v0 + 208) = static MainActor.shared.getter();
+      v32 = dispatch thunk of Actor.unownedExecutor.getter();
+
+      return MEMORY[0x1EEE6DFA0](Entity.ConfigurationCatalog.CachedEntityReader.loadEntity(into:withConfigurations:loadOptions:), v32, v31);
+    }
+  }
+
+  *(v0 + 160) = v5;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSD6ValuesVyS2S_GMd, &_sSD6ValuesVyS2S_GMR);
+  lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type [String : String].Values and conformance [A : B].Values, &_sSD6ValuesVyS2S_GMd, &_sSD6ValuesVyS2S_GMR, MEMORY[0x1E69E5DE8]);
+  lazy protocol witness table accessor for type String and conformance String();
+  v36 = Sequence<>.joined(separator:)();
+  v38 = v37;
+
+  lazy protocol witness table accessor for type Entity.ConfigurationCatalog.CachedEntityError and conformance Entity.ConfigurationCatalog.CachedEntityError();
+  swift_allocError();
+  *v39 = v36;
+  *(v39 + 8) = v38;
+  *(v39 + 16) = 0u;
+  *(v39 + 32) = 0u;
+  *(v39 + 48) = 3;
+  swift_willThrow();
+LABEL_35:
+
+LABEL_25:
+  v21 = *(v0 + 8);
+
+  return v21();
+}
+
+{
+  v1 = *(v0 + 168);
+
+  Entity.copy(to:recursive:)(v1, 1);
+
+  return MEMORY[0x1EEE6DFA0](Entity.ConfigurationCatalog.CachedEntityReader.loadEntity(into:withConfigurations:loadOptions:), 0, 0);
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t protocol witness for Entity.ConfigurationCatalog.FormatReader.loadEntity(into:withConfigurations:loadOptions:) in conformance Entity.ConfigurationCatalog.CachedEntityReader(uint64_t a1, uint64_t a2)
+{
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = partial apply for closure #1 in TextureResource.PartialContents.init(source:mipmaps:);
+
+  return Entity.ConfigurationCatalog.CachedEntityReader.loadEntity(into:withConfigurations:loadOptions:)(a1, a2);
+}
+
+uint64_t QueryType.init(_:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  *a3 = result;
+  a3[1] = a2;
+  return result;
+}
+
+uint64_t type metadata instantiation function for QueryType(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
+  swift_cvw_instantiateLayoutString();
+  return GenericValueMetadataWithLayoutString;
+}
+
+uint64_t one-time initialization function for ImageLogger()
+{
+  v0 = type metadata accessor for Logger();
+  __swift_allocate_value_buffer(v0, ImageLogger);
+  __swift_project_value_buffer(v0, ImageLogger);
+  if (one-time initialization token for ImageLog != -1)
+  {
+    swift_once();
+  }
+
+  v1 = ImageLog;
+  return Logger.init(_:)();
+}
+
+uint64_t one-time initialization function for ImageLog()
+{
+  type metadata accessor for OS_os_log();
+  result = OS_os_log.init(subsystem:category:)();
+  ImageLog = result;
+  return result;
+}
+
+uint64_t AREnvironmentProbeComponent.texture.setter(uint64_t a1)
+{
+
+  *v1 = a1;
+  return result;
+}
+
+unint64_t AREnvironmentProbeComponent.init(texture:extent:useAsBackground:)@<X0>(unint64_t result@<X0>, unsigned __int8 a2@<W1>, __n128 *a3@<X8>, __n128 a4@<Q0>)
+{
+  a3->n128_u64[0] = result;
+  a3[1] = a4;
+  a3[2].n128_u8[0] = a2;
+  return result;
+}
+
+__n128 static AREnvironmentProbeComponent.__fromCore(_:)@<Q0>(__n128 *a2@<X8>)
+{
+  Texture = REAREnvironmentProbeComponentGetTexture();
+  if (Texture)
+  {
+    v4 = Texture;
+    type metadata accessor for TextureResource();
+    v5 = swift_allocObject();
+    *(v5 + 16) = v4;
+    *(v5 + 24) = 0;
+    RERetain();
+    REAssetSetSwiftObject();
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  REAREnvironmentProbeComponentGetExtents();
+  v9 = v6;
+  UseAsBackground = REAREnvironmentProbeComponentGetUseAsBackground();
+
+  a2->n128_u64[0] = v5;
+  result = v9;
+  a2[1] = v9;
+  a2[2].n128_u8[0] = UseAsBackground;
+  return result;
+}
+
+uint64_t AREnvironmentProbeComponent.__toCore(_:)(uint64_t *a1)
+{
+  REAREnvironmentProbeComponentSetTexture();
+  REAREnvironmentProbeComponentSetExtents();
+  REAREnvironmentProbeComponentSetUseAsBackground();
+
+  return RENetworkMarkComponentDirty();
+}
+
+uint64_t protocol witness for Component.__toCore(_:) in conformance AREnvironmentProbeComponent(uint64_t *a1)
+{
+  REAREnvironmentProbeComponentSetTexture();
+  REAREnvironmentProbeComponentSetExtents();
+  REAREnvironmentProbeComponentSetUseAsBackground();
+
+  return RENetworkMarkComponentDirty();
+}
+
+uint64_t getEnumTagSinglePayload for AREnvironmentProbeComponent(uint64_t *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0x7FFFFFFF && *(a1 + 33))
+  {
+    return (*a1 + 0x7FFFFFFF);
+  }
+
+  v3 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v3) = -1;
+  }
+
+  v4 = v3 - 1;
+  if (v4 < 0)
+  {
+    v4 = -1;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for AREnvironmentProbeComponent(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0x7FFFFFFE)
+  {
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+    *(result + 32) = 0;
+    *result = a2 - 0x7FFFFFFF;
+    *(result + 8) = 0;
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 33) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 33) = 0;
+    }
+
+    if (a2)
+    {
+      *result = a2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t __RKActiveSceneManager.__allocating_init()()
+{
+  result = swift_allocObject();
+  v1 = MEMORY[0x1E69E7CC0];
+  *(result + 16) = 0;
+  *(result + 24) = v1;
+  return result;
+}
+
+double static __RKActiveSceneManager.shared.getter()
+{
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  return result;
+}
+
+uint64_t __RKActiveSceneManager.init()()
+{
+  result = v0;
+  v2 = MEMORY[0x1E69E7CC0];
+  *(v0 + 16) = 0;
+  *(v0 + 24) = v2;
+  return result;
+}
+
+uint64_t __RKActiveSceneManager.activeScene.setter(uint64_t a1)
+{
+  specialized __RKActiveSceneManager.activeScene.setter(a1);
+}
+
+double (*__RKActiveSceneManager.activeScene.modify(uint64_t a1))(uint64_t a1, char a2)
+{
+  *(a1 + 24) = v1;
+  swift_beginAccess();
+  return __RKActiveSceneManager.activeScene.modify;
+}
+
+double __RKActiveSceneManager.activeScene.modify(uint64_t a1, char a2)
+{
+  swift_endAccess();
+  if ((a2 & 1) == 0)
+  {
+    v5 = *(a1 + 24);
+    swift_beginAccess();
+    v6 = *(*(v5 + 24) + 16);
+    if (v6)
+    {
+      v7 = ( + 40);
+      do
+      {
+        v8 = *(a1 + 24);
+        v9 = *v7;
+        ObjectType = swift_getObjectType();
+        v11 = *(v8 + 16);
+        v12 = *(v9 + 8);
+
+        swift_unknownObjectRetain();
+        v12(v8, v11, ObjectType, v9);
+
+        swift_unknownObjectRelease();
+        v7 += 2;
+        --v6;
+      }
+
+      while (v6);
+    }
+  }
+
+  return result;
+}
+
+uint64_t __RKActiveSceneManager.addObserver(observer:)(uint64_t a1, uint64_t a2)
+{
+  result = swift_beginAccess();
+  v6 = *(v2 + 24);
+  v7 = v6[2];
+  v8 = v7 + 1;
+  v9 = 4;
+  while (--v8)
+  {
+    v10 = v6[v9];
+    v9 += 2;
+    if (v10 == a1)
+    {
+      return result;
+    }
+  }
+
+  swift_beginAccess();
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  *(v2 + 24) = v6;
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v6 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v7 + 1, 1, v6);
+    *(v2 + 24) = v6;
+  }
+
+  v13 = v6[2];
+  v12 = v6[3];
+  if (v13 >= v12 >> 1)
+  {
+    v6 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1, v6);
+  }
+
+  v6[2] = v13 + 1;
+  v14 = &v6[2 * v13];
+  v14[4] = a1;
+  v14[5] = a2;
+  *(v2 + 24) = v6;
+  swift_endAccess();
+  return swift_unknownObjectRetain();
+}
+
+uint64_t __RKActiveSceneManager.removeObserver(observer:)(uint64_t a1)
+{
+  result = swift_beginAccess();
+  v4 = *(v1 + 24);
+  v5 = *(v4 + 16);
+  if (v5)
+  {
+    v6 = 0;
+    for (i = (v4 + 32); *i != a1; i += 2)
+    {
+      if (v5 == ++v6)
+      {
+        return result;
+      }
+    }
+
+    swift_beginAccess();
+    specialized Array.remove(at:)(v6);
+    swift_endAccess();
+    return swift_unknownObjectRelease();
+  }
+
+  return result;
+}
+
+uint64_t __RKActiveSceneManager.deinit()
+{
+
+  return v0;
+}
+
+uint64_t __RKActiveSceneManager.__deallocating_deinit()
+{
+
+  return swift_deallocClassInstance();
+}
+
+double specialized __RKActiveSceneManager.activeScene.setter(uint64_t a1)
+{
+  v2 = v1;
+  swift_beginAccess();
+  *(v2 + 16) = a1;
+
+  swift_beginAccess();
+  v5 = *(v2 + 24);
+  v6 = *(v5 + 16);
+  if (v6)
+  {
+
+    v7 = (v5 + 40);
+    do
+    {
+      v8 = *v7;
+      ObjectType = swift_getObjectType();
+      v10 = *(v2 + 16);
+      v11 = *(v8 + 8);
+
+      swift_unknownObjectRetain();
+      v11(v2, v10, ObjectType, v8);
+      swift_unknownObjectRelease();
+
+      v7 += 2;
+      --v6;
+    }
+
+    while (v6);
+  }
+
+  return result;
+}
+
+uint64_t HasModel.blendWeights.getter()
+{
+  REBlendShapeWeightsComponentGetComponentType();
+  if (REEntityGetComponentByClass() && (BlendShapeWeightsCount = REBlendShapeWeightsComponentGetBlendShapeWeightsCount()) != 0)
+  {
+    v1 = BlendShapeWeightsCount;
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, BlendShapeWeightsCount & ~(BlendShapeWeightsCount >> 63), 0, MEMORY[0x1E69E7CC0]);
+    if ((v1 & 0x8000000000000000) == 0)
+    {
+      v3 = result;
+      v4 = 0;
+      v5 = MEMORY[0x1E69E7CC0];
+      while (1)
+      {
+        result = REBlendShapeWeightsComponentGetBlendWeightCount();
+        if (result < 0)
+        {
+          break;
+        }
+
+        v6 = result;
+        if (result)
+        {
+          v7 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+          *(v7 + 16) = v6;
+        }
+
+        else
+        {
+          v7 = v5;
+        }
+
+        REBlendShapeWeightsComponentGetBlendWeights();
+        *(v7 + 16) = v6;
+        v9 = v3[2];
+        v8 = v3[3];
+        if (v9 >= v8 >> 1)
+        {
+          v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v8 > 1), v9 + 1, 1, v3);
+        }
+
+        ++v4;
+        v3[2] = v9 + 1;
+        v3[v9 + 4] = v7;
+        if (v1 == v4)
+        {
+          return v3;
+        }
+      }
+
+      __break(1u);
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySfGGMd, &_ss23_ContiguousArrayStorageCySaySfGGMR);
+    v3 = swift_allocObject();
+    *(v3 + 1) = xmmword_1C1887600;
+    v3[4] = MEMORY[0x1E69E7CC0];
+    return v3;
+  }
+
+  return result;
+}
+
+void HasModel.blendWeights.setter(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2 && (REBlendShapeWeightsComponentGetComponentType(), REEntityGetComponentByClass()) && (BlendShapeWeightsCount = REBlendShapeWeightsComponentGetBlendShapeWeightsCount()) != 0 && BlendShapeWeightsCount == v2)
+  {
+    v4 = 0;
+    v5 = a1 + 32;
+    while (v2 != v4)
+    {
+      BlendWeightCount = REBlendShapeWeightsComponentGetBlendWeightCount();
+      if (v4 >= *(a1 + 16))
+      {
+LABEL_25:
+        __break(1u);
+        goto LABEL_26;
+      }
+
+      v7 = a1 + 8 * v4++;
+      if (BlendWeightCount != *(*(v7 + 32) + 16))
+      {
+        goto LABEL_9;
+      }
+    }
+
+    specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2, 0, MEMORY[0x1E69E7CC0]);
+
+    v8 = 0;
+    while (v8 != v2)
+    {
+      if (v8 >= *(a1 + 16))
+      {
+        goto LABEL_27;
+      }
+
+      v9 = *(*(v5 + 8 * v8) + 16);
+      if (v9)
+      {
+        v10 = 0;
+        while (v10 < *(*(v5 + 8 * v8) + 16))
+        {
+          v11 = v10 + 1;
+          REBlendShapeWeightsComponentSetBlendWeight();
+          v10 = v11;
+          if (v9 == v11)
+          {
+            goto LABEL_13;
+          }
+        }
+
+        __break(1u);
+        goto LABEL_25;
+      }
+
+LABEL_13:
+      if (++v8 == v2)
+      {
+
+        RENetworkMarkComponentDirty();
+        return;
+      }
+    }
+
+LABEL_26:
+    __break(1u);
+LABEL_27:
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_9:
+  }
+}
+
+void (*HasModel.blendWeights.modify(uint64_t *a1, uint64_t a2, uint64_t a3))(uint64_t *a1, char a2)
+{
+  a1[2] = a3;
+  a1[3] = v3;
+  a1[1] = a2;
+  *a1 = HasModel.blendWeights.getter();
+  return HasModel.blendWeights.modify;
+}
+
+void HasModel.blendWeights.modify(uint64_t *a1, char a2)
+{
+  if (a2)
+  {
+
+    HasModel.blendWeights.setter(v2);
+  }
+
+  else
+  {
+    HasModel.blendWeights.setter(*a1);
+  }
+}
+
+void *HasModel.blendWeightNames.getter()
+{
+  REBlendShapeWeightsComponentGetComponentType();
+  if (REEntityGetComponentByClass() && REBlendShapeWeightsComponentGetBlendShapeWeightsDefinition() && (BlendShapeWeightsCount = REBlendShapeWeightsDefinitionAssetGetBlendShapeWeightsCount()) != 0)
+  {
+    v1 = BlendShapeWeightsCount;
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, BlendShapeWeightsCount & ~(BlendShapeWeightsCount >> 63), 0, MEMORY[0x1E69E7CC0]);
+    if ((v1 & 0x8000000000000000) == 0)
+    {
+      v3 = result;
+      for (i = 0; ; ++i)
+      {
+        v5 = i + 1;
+        if (__OFADD__(i, 1))
+        {
+          break;
+        }
+
+        BlendWeightCount = REBlendShapeWeightsDefinitionAssetGetBlendWeightCount();
+        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, BlendWeightCount & ~(BlendWeightCount >> 63), 0, MEMORY[0x1E69E7CC0]);
+        if (BlendWeightCount < 0)
+        {
+          goto LABEL_20;
+        }
+
+        v7 = result;
+        if (BlendWeightCount)
+        {
+          v8 = 0;
+          do
+          {
+            REBlendShapeWeightsDefinitionAssetGetBlendWeightName();
+            result = String.init(cString:)();
+            v11 = *(v7 + 2);
+            v10 = *(v7 + 3);
+            if (v11 >= v10 >> 1)
+            {
+              v15 = v9;
+              v16 = result;
+              v7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v10 > 1), v11 + 1, 1, v7);
+              v9 = v15;
+              result = v16;
+            }
+
+            ++v8;
+            *(v7 + 2) = v11 + 1;
+            v12 = &v7[16 * v11];
+            *(v12 + 4) = result;
+            *(v12 + 5) = v9;
+          }
+
+          while (BlendWeightCount != v8);
+        }
+
+        v14 = v3[2];
+        v13 = v3[3];
+        if (v14 >= v13 >> 1)
+        {
+          result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v14 + 1, 1, v3);
+          v3 = result;
+        }
+
+        v3[2] = v14 + 1;
+        v3[v14 + 4] = v7;
+        if (v5 == v1)
+        {
+          return v3;
+        }
+      }
+
+      __break(1u);
+LABEL_20:
+      __break(1u);
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySSGGMd, &_ss23_ContiguousArrayStorageCySaySSGGMR);
+    v3 = swift_allocObject();
+    *(v3 + 1) = xmmword_1C1887600;
+    v3[4] = MEMORY[0x1E69E7CC0];
+    return v3;
+  }
+
+  return result;
+}
+
+void StateMachineComponent.init()(uint64_t a1@<X8>)
+{
+  v1 = MEMORY[0x1E69E7CC0];
+  *a1 = 0;
+  *(a1 + 8) = v1;
+  *(a1 + 16) = 0;
+}
+
+uint64_t StateMachineComponent.init(stateMachine:explicitParameterBindings:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  *(a3 + 16) = 0;
+  *a3 = result;
+  *(a3 + 8) = a2;
+  return result;
+}
+
+uint64_t StateMachineComponent.stateMachineResource.setter(uint64_t a1)
+{
+
+  *v1 = a1;
+  *(v1 + 16) = 0;
+  return result;
+}
+
+uint64_t StateMachineComponent.stateMachineResource.modify(uint64_t result, char a2)
+{
+  if ((a2 & 1) == 0)
+  {
+    *(*result + 16) = 0;
+  }
+
+  return result;
+}
+
+void StateMachineComponent.parameters.getter()
+{
+  if ((*(v0 + 16) & 1) == 0)
+  {
+    v1 = *v0;
+    if (*v0)
+    {
+      v2 = v1[3];
+      if (!v2)
+      {
+        static StateMachineGraphCreator.createGraph(from:)(&v8);
+        v3 = *&v9[16];
+        v4 = v1[2];
+        v5 = v1[3];
+        v6 = v1[4];
+        v7 = v1[5];
+        v1[2] = v8;
+        *(v1 + 3) = *v9;
+        v1[5] = v3;
+        outlined consume of StateMachineGraph?(v4, v5, v6, v7);
+        v2 = v1[3];
+        if (!v2)
+        {
+          __break(1u);
+          return;
+        }
+      }
+
+      v8 = v1[2];
+      *v9 = v2;
+      *&v9[8] = *(v1 + 2);
+      specialized static StateMachineParametersCreator.syncUp(parameters:with:)((v0 + 8), &v8);
+      *(v0 + 16) = 1;
+    }
+  }
+}
+
+void StateMachineComponent.parameters.setter(uint64_t a1)
+{
+
+  *(v1 + 8) = a1;
+  *(v1 + 16) = 0;
+}
+
+void StateMachineComponent.parameters.modify(void *a1)
+{
+  a1[1] = v1;
+  if (*(v1 + 16))
+  {
+    goto LABEL_6;
+  }
+
+  v3 = *v1;
+  if (!*v1)
+  {
+    goto LABEL_6;
+  }
+
+  v4 = v3[3];
+  if (v4 || (static StateMachineGraphCreator.createGraph(from:)(&v11), v5 = *&v12[16], v6 = v3[2], v7 = v3[3], v8 = v3[4], v9 = v3[5], v3[2] = v11, *(v3 + 3) = *v12, v3[5] = v5, outlined consume of StateMachineGraph?(v6, v7, v8, v9), (v4 = v3[3]) != 0))
+  {
+    v11 = v3[2];
+    *v12 = v4;
+    *&v12[8] = *(v3 + 2);
+    specialized static StateMachineParametersCreator.syncUp(parameters:with:)((v1 + 8), &v11);
+    *(v1 + 16) = 1;
+LABEL_6:
+    v10 = *(v1 + 8);
+    a1[2] = v10;
+    *a1 = v10;
+
+    return;
+  }
+
+  __break(1u);
+}
+
+void StateMachineComponent.parameters.modify(void *a1, char a2)
+{
+  v2 = a1[1];
+  v3 = *a1;
+  if (a2)
+  {
+
+    *(v2 + 8) = v3;
+    *(v2 + 16) = 0;
+  }
+
+  else
+  {
+
+    *(v2 + 8) = v3;
+    *(v2 + 16) = 0;
+  }
+}
+
+uint64_t static StateMachineComponent.__fromCore(_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *a1;
+  StateMachineAsset = REStateMachineComponentGetStateMachineAsset();
+  if (!REAssetGetSwiftObject())
+  {
+    goto LABEL_4;
+  }
+
+  type metadata accessor for StateMachineResource();
+  v5 = swift_dynamicCastClass();
+  if (!v5)
+  {
+    swift_unknownObjectRelease();
+LABEL_4:
+    type metadata accessor for StateMachineResource();
+    v5 = swift_allocObject();
+    *(v5 + 48) = StateMachineAsset;
+    *(v5 + 16) = 0u;
+    *(v5 + 32) = 0u;
+    outlined consume of StateMachineGraph?(0, 0, 0, 0);
+    RERetain();
+    REAssetSetSwiftObject();
+  }
+
+  result = specialized static StateMachineParametersCreator.createBoundParameters(from:)(v3);
+  *(a2 + 16) = 0;
+  *a2 = v5;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t protocol witness for Component.__toCore(_:) in conformance StateMachineComponent(uint64_t *a1)
+{
+  if (*v1)
+  {
+    v2 = v1[1];
+    v3 = *a1;
+    REStateMachineComponentAssignAsset();
+
+    return specialized static StateMachineParametersCreator.updateInCoreComponent(coreComponent:from:)(v3, v2);
+  }
+
+  else
+  {
+
+    return specialized static StateMachineUtils.logError(_:)(0xD000000000000025, 0x80000001C18E7CB0);
+  }
+}
+
+uint64_t StateMachineComponent.__toCore(_:)(uint64_t *a1)
+{
+  if (*v1)
+  {
+    v2 = v1[1];
+    v3 = *a1;
+    REStateMachineComponentAssignAsset();
+
+    return specialized static StateMachineParametersCreator.updateInCoreComponent(coreComponent:from:)(v3, v2);
+  }
+
+  else
+  {
+
+    return specialized static StateMachineUtils.logError(_:)(0xD000000000000025, 0x80000001C18E7CB0);
+  }
+}
+
+uint64_t getEnumTagSinglePayload for StateMachineComponent(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 17))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 8);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for StateMachineComponent(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 16) = 0;
+    *result = a2 & 0x7FFFFFFF;
+    *(result + 8) = 0;
+    if (a3 < 0)
+    {
+      *(result + 17) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 8) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 17) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t __SkyboxComponent.environment.setter(uint64_t a1)
+{
+
+  *v1 = a1;
+  return result;
+}
+
+BOOL static __SkyboxComponent.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
+{
+  v2 = *a1;
+  v3 = *a2;
+  if (*a1)
+  {
+    if (v3)
+    {
+      v4 = *(v2 + 16);
+      v5 = *(v3 + 16);
+      if (v4)
+      {
+        if (v4 == v5)
+        {
+          goto LABEL_5;
+        }
+      }
+
+      else if (!v5)
+      {
+LABEL_5:
+        swift_beginAccess();
+        v6 = *(v2 + 24);
+        swift_beginAccess();
+        v7 = *(v3 + 24);
+        if (v6)
+        {
+          return v7 && v6 == v7;
+        }
+
+        else
+        {
+          return v7 == 0;
+        }
+      }
+    }
+
+    return 0;
+  }
+
+  return v3 == 0;
+}
+
+uint64_t static __SkyboxComponent.__fromCore(_:)@<X0>(uint64_t *a2@<X8>)
+{
+  result = RESkyboxComponentGetMaterial();
+  if (result)
+  {
+    type metadata accessor for EnvironmentResource();
+    v4 = swift_allocObject();
+    *(v4 + 16) = 0;
+    *(v4 + 24) = 0;
+    result = swift_beginAccess();
+    *(v4 + 24) = 0;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  *a2 = v4;
+  return result;
+}
+
+uint64_t __SkyboxComponent.__toCore(_:)(uint64_t *a1, __n128 a2)
+{
+  v2 = REMaterialParameterBlockValueCreate();
+  _s17RealityFoundation16LoadableResourcePAAE010loadEngineD09assetPathxSS_tFZ0A3Kit010__MaterialD0C_Tt1g5(0xD000000000000018, 0x80000001C18E7CE0, v3);
+
+  swift_beginAccess();
+  RESkyboxComponentSetMaterial();
+  RENetworkMarkComponentDirty();
+}
+
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance __SkyboxComponent(uint64_t *a1, uint64_t *a2)
+{
+  v2 = *a1;
+  v3 = *a2;
+  if (v2)
+  {
+    v4 = v3 == 0;
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  if (v4)
+  {
+    return (v2 | v3) == 0;
+  }
+
+  else
+  {
+    return specialized static EnvironmentResource.areEqual(_:_:)(v2, v3);
+  }
+}
+
+Swift::Int StateMachineCommandExecutionTiming.hashValue.getter()
+{
+  Hasher.init(_seed:)();
+  MEMORY[0x1C68F4C10](0);
+  return Hasher._finalize()();
+}
+
+uint64_t StateMachineCommand.parameters.getter()
+{
+  return MEMORY[0x1E69E7CC0];
+}
+
+{
+  return MEMORY[0x1E69E7CC0];
+}
+
+uint64_t StateMachineAnimationPlayCommand.init(targetEntity:animationName:playToCompletion:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X8>)
+{
+  v9 = *a1;
+  v10 = a1[1];
+  v11 = *(a1 + 16);
+  result = outlined consume of BindTarget?(0, 0, 0xFFu);
+  *a5 = v9;
+  *(a5 + 8) = v10;
+  *(a5 + 16) = v11;
+  *(a5 + 24) = a2;
+  *(a5 + 32) = a3;
+  *(a5 + 40) = a4;
+  return result;
+}
+
+uint64_t StateMachineAnimationPlayCommand.parameters.getter()
+{
+  v1 = *v0;
+  v2 = *(v0 + 8);
+  v3 = *(v0 + 16);
+  v5 = *(v0 + 24);
+  v4 = *(v0 + 32);
+  v6 = *(v0 + 40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation36StateMachineCommandParameterProtocol_pGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation36StateMachineCommandParameterProtocol_pGMR);
+  v7 = swift_allocObject();
+  *(v7 + 16) = xmmword_1C1897FC0;
+  *(v7 + 56) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation28StateMachineCommandParameterVySSGMd, &_s17RealityFoundation28StateMachineCommandParameterVySSGMR);
+  *(v7 + 64) = &protocol witness table for StateMachineCommandParameter<A>;
+  v8 = swift_allocObject();
+  *(v7 + 32) = v8;
+  *(v8 + 32) = v5;
+  *(v8 + 40) = v4;
+  strcpy((v8 + 16), "AnimationName");
+  *(v8 + 30) = -4864;
+  *(v7 + 96) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation28StateMachineCommandParameterVySbGMd, &_s17RealityFoundation28StateMachineCommandParameterVySbGMR);
+  *(v7 + 104) = &protocol witness table for StateMachineCommandParameter<A>;
+  *(v7 + 88) = v6;
+  *(v7 + 72) = 0xD000000000000018;
+  *(v7 + 80) = 0x80000001C18E7D00;
+
+  if (v3 != 255)
+  {
+    outlined copy of BindTarget?(v1, v2, v3);
+    v7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(1, 3, 1, v7);
+    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation28StateMachineCommandParameterVyAA10BindTargetOGMd, &_s17RealityFoundation28StateMachineCommandParameterVyAA10BindTargetOGMR);
+    v13 = &protocol witness table for StateMachineCommandParameter<A>;
+    v9 = swift_allocObject();
+    *&v11 = v9;
+    strcpy((v9 + 16), "TargetEntity");
+    *(v9 + 29) = 0;
+    *(v9 + 30) = -5120;
+    *(v9 + 32) = v1;
+    *(v9 + 40) = v2;
+    *(v9 + 48) = v3;
+    *(v7 + 16) = 3;
+    outlined init with take of ForceEffectBase(&v11, v7 + 112);
+
+    outlined copy of BindTarget(v1, v2, v3);
+
+    outlined consume of BindTarget(v1, v2, v3);
+  }
+
+  return v7;
+}
+
+uint64_t StateMachineAnimationPlayCommand.targetEntity.getter@<X0>(uint64_t a1@<X8>)
+{
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  *a1 = *v1;
+  *(a1 + 8) = v3;
+  v4 = *(v1 + 16);
+  *(a1 + 16) = v4;
+  return outlined copy of BindTarget?(v2, v3, v4);
+}
+
+uint64_t StateMachineAnimationPlayCommand.targetEntity.setter(uint64_t *a1)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = *(a1 + 16);
+  result = outlined consume of BindTarget?(*v1, *(v1 + 8), *(v1 + 16));
+  *v1 = v2;
+  *(v1 + 8) = v3;
+  *(v1 + 16) = v4;
+  return result;
+}
+
+uint64_t StateMachineAnimationPlayCommand.animationName.getter()
+{
+  v1 = *(v0 + 24);
+
+  return v1;
+}
+
+void StateMachineAnimationPlayCommand.animationName.setter(uint64_t a1, uint64_t a2)
+{
+
+  *(v2 + 24) = a1;
+  *(v2 + 32) = a2;
+}
+
+uint64_t StateMachineAnimationStopCommand.init(targetEntity:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *a1;
+  v4 = a1[1];
+  v5 = *(a1 + 16);
+  result = outlined consume of BindTarget?(0, 0, 0xFFu);
+  *a2 = v3;
+  *(a2 + 8) = v4;
+  *(a2 + 16) = v5;
+  return result;
+}
+
+uint64_t StateMachineAnimationStopCommand.targetEntity.setter(uint64_t *a1)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = *(a1 + 16);
+  result = outlined consume of BindTarget?(*v1, *(v1 + 8), *(v1 + 16));
+  *v1 = v2;
+  *(v1 + 8) = v3;
+  *(v1 + 16) = v4;
+  return result;
+}
+
+__n128 StateMachineAnimationStopAllCommand.init(targetEntity:)@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
+{
+  v2 = a1[1].n128_u8[0];
+  result = *a1;
+  *a2 = *a1;
+  a2[1].n128_u8[0] = v2;
+  return result;
+}
+
+uint64_t StateMachineAnimationStopCommand.parameters.getter()
+{
+  v2 = *v0;
+  v1 = *(v0 + 8);
+  v3 = *(v0 + 16);
+  if (v3 == 255)
+  {
+    v4 = MEMORY[0x1E69E7CC0];
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation36StateMachineCommandParameterProtocol_pGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation36StateMachineCommandParameterProtocol_pGMR);
+    v4 = swift_allocObject();
+    *(v4 + 16) = xmmword_1C1887600;
+    *(v4 + 56) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation28StateMachineCommandParameterVyAA10BindTargetOGMd, &_s17RealityFoundation28StateMachineCommandParameterVyAA10BindTargetOGMR);
+    *(v4 + 64) = &protocol witness table for StateMachineCommandParameter<A>;
+    v5 = swift_allocObject();
+    *(v4 + 32) = v5;
+    *(v5 + 32) = v2;
+    *(v5 + 40) = v1;
+    *(v5 + 48) = v3;
+    strcpy((v5 + 16), "TargetEntity");
+    *(v5 + 29) = 0;
+    *(v5 + 30) = -5120;
+  }
+
+  outlined copy of BindTarget?(v2, v1, v3);
+  return v4;
+}
+
+uint64_t StateMachineAnimationStopCommand.targetEntity.getter@<X0>(uint64_t a1@<X8>)
+{
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  *a1 = *v1;
+  *(a1 + 8) = v3;
+  v4 = *(v1 + 16);
+  *(a1 + 16) = v4;
+  return outlined copy of BindTarget?(v2, v3, v4);
+}
+
+uint64_t StateMachineAnimationSetPlaybackTimeCommand.init(targetEntity:playbackTime:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>, double a3@<D0>)
+{
+  v5 = *a1;
+  v6 = a1[1];
+  v7 = *(a1 + 16);
+  result = outlined consume of BindTarget?(0, 0, 0xFFu);
+  *a2 = v5;
+  *(a2 + 8) = v6;
+  *(a2 + 16) = v7;
+  *(a2 + 24) = a3;
+  return result;
+}
+
+uint64_t StateMachineAnimationSetPlaybackTimeCommand.parameters.getter()
+{
+  v1 = *v0;
+  v2 = *(v0 + 8);
+  v3 = *(v0 + 16);
+  v4 = *(v0 + 24);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation36StateMachineCommandParameterProtocol_pGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation36StateMachineCommandParameterProtocol_pGMR);
+  v5 = swift_allocObject();
+  *(v5 + 16) = xmmword_1C1887600;
+  *(v5 + 56) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation28StateMachineCommandParameterVySdGMd, &_s17RealityFoundation28StateMachineCommandParameterVySdGMR);
+  *(v5 + 64) = &protocol witness table for StateMachineCommandParameter<A>;
+  *(v5 + 48) = v4;
+  strcpy((v5 + 32), "PlaybackTime");
+  *(v5 + 45) = 0;
+  *(v5 + 46) = -5120;
+  if (v3 != 255)
+  {
+    outlined copy of BindTarget(v1, v2, v3);
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(1, 2, 1, v5);
+    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation28StateMachineCommandParameterVyAA10BindTargetOGMd, &_s17RealityFoundation28StateMachineCommandParameterVyAA10BindTargetOGMR);
+    v10 = &protocol witness table for StateMachineCommandParameter<A>;
+    v6 = swift_allocObject();
+    *&v8 = v6;
+    strcpy((v6 + 16), "TargetEntity");
+    *(v6 + 29) = 0;
+    *(v6 + 30) = -5120;
+    *(v6 + 32) = v1;
+    *(v6 + 40) = v2;
+    *(v6 + 48) = v3;
+    *(v5 + 16) = 2;
+    outlined init with take of ForceEffectBase(&v8, v5 + 72);
+
+    outlined copy of BindTarget(v1, v2, v3);
+
+    outlined consume of BindTarget(v1, v2, v3);
+  }
+
+  return v5;
+}
+
+uint64_t StateMachineAnimationSetPlaybackTimeCommand.targetEntity.getter@<X0>(uint64_t a1@<X8>)
+{
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  *a1 = *v1;
+  *(a1 + 8) = v3;
+  v4 = *(v1 + 16);
+  *(a1 + 16) = v4;
+  return outlined copy of BindTarget?(v2, v3, v4);
+}
+
+uint64_t StateMachineAnimationSetPlaybackTimeCommand.targetEntity.setter(uint64_t *a1)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = *(a1 + 16);
+  result = outlined consume of BindTarget?(*v1, *(v1 + 8), *(v1 + 16));
+  *v1 = v2;
+  *(v1 + 8) = v3;
+  *(v1 + 16) = v4;
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type StateMachineCommandExecutionTiming and conformance StateMachineCommandExecutionTiming()
+{
+  result = lazy protocol witness table cache variable for type StateMachineCommandExecutionTiming and conformance StateMachineCommandExecutionTiming;
+  if (!lazy protocol witness table cache variable for type StateMachineCommandExecutionTiming and conformance StateMachineCommandExecutionTiming)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for StateMachineCommandExecutionTiming, &type metadata for StateMachineCommandExecutionTiming, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type StateMachineCommandExecutionTiming and conformance StateMachineCommandExecutionTiming);
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for StateMachineAnimationPlayCommand(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 41))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 32);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for StateMachineAnimationPlayCommand(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 40) = 0;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 41) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 32) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 41) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for StateMachineAnimationStopCommand(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0xF9 && *(a1 + 17))
+  {
+    return (*a1 + 249);
+  }
+
+  v3 = *(a1 + 16);
+  if (v3 <= 6)
+  {
+    v4 = -1;
+  }
+
+  else
+  {
+    v4 = (v3 ^ 0xFF) - 1;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for StateMachineAnimationStopCommand(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xF8)
+  {
+    *(result + 16) = 0;
+    *result = a2 - 249;
+    *(result + 8) = 0;
+    if (a3 >= 0xF9)
+    {
+      *(result + 17) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xF9)
+    {
+      *(result + 17) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 16) = ~a2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for StateMachineAnimationSetPlaybackTimeCommand(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0xF9 && *(a1 + 32))
+  {
+    return (*a1 + 249);
+  }
+
+  v3 = *(a1 + 16);
+  if (v3 <= 6)
+  {
+    v4 = -1;
+  }
+
+  else
+  {
+    v4 = (v3 ^ 0xFF) - 1;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for StateMachineAnimationSetPlaybackTimeCommand(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xF8)
+  {
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+    *result = a2 - 249;
+    *(result + 8) = 0;
+    if (a3 >= 0xF9)
+    {
+      *(result + 32) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xF9)
+    {
+      *(result + 32) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 16) = ~a2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t BlendShapeWeightsMapping.__allocating_init(meshResource:)(uint64_t a1)
+{
+  v2 = swift_allocObject();
+  v3 = *(a1 + 16);
+  specialized static __ServiceLocator.shared.getter();
+  swift_beginAccess();
+  swift_unownedRetainStrong();
+
+  ServiceLocator = REEngineGetServiceLocator();
+  result = MEMORY[0x1C68FE1F0](ServiceLocator);
+  if (result)
+  {
+    if (v3)
+    {
+      *(v2 + 16) = REBlendShapeWeightsDefinitionAssetCreateAssetForMesh();
+      RERetain();
+      REAssetSetSwiftObject();
+
+      return v2;
+    }
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t BlendShapeWeightsMapping.init(meshResource:)(uint64_t a1)
+{
+  v1 = specialized BlendShapeWeightsMapping.init(meshResource:)(a1);
+
+  return v1;
+}
+
+uint64_t BlendShapeWeightsMapping.__allocating_init(blendShapeName:weightNames:)(char *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = swift_allocObject();
+  BlendShapeWeightsMapping.init(blendShapeName:weightNames:)(a1, a2, a3);
+  return v6;
+}
+
+uint64_t BlendShapeWeightsMapping.init(blendShapeName:weightNames:)(char *a1, uint64_t a2, uint64_t a3)
+{
+  v42 = *MEMORY[0x1E69E9840];
+  specialized static __ServiceLocator.shared.getter();
+  swift_beginAccess();
+  v6 = *(swift_unownedRetainStrong() + 24);
+
+  ServiceLocator = REEngineGetServiceLocator();
+  if (!MEMORY[0x1C68FE1F0](ServiceLocator))
+  {
+    __break(1u);
+LABEL_43:
+    __break(1u);
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySPys4Int8VGGGMd, &_ss23_ContiguousArrayStorageCySaySPys4Int8VGGGMR);
+  inited = swift_initStackObject();
+  v9 = 0;
+  *(inited + 16) = xmmword_1C1887600;
+  v10 = MEMORY[0x1E69E7CC0];
+  *(inited + 32) = MEMORY[0x1E69E7CC0];
+  v11 = *(a3 + 16);
+  v12 = (a3 + 40);
+LABEL_3:
+  v13 = &v12[2 * v9];
+  while (1)
+  {
+    if (v11 == v9)
+    {
+      v12 = *(v10 + 2);
+      v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x1E69E7CC0]);
+      v9 = *(v3 + 2);
+      v13 = *(v3 + 3);
+      v6 = v9 + 1;
+      if (v9 >= v13 >> 1)
+      {
+        goto LABEL_41;
+      }
+
+      goto LABEL_13;
+    }
+
+    if (v9 >= *(a3 + 16))
+    {
+      break;
+    }
+
+    ++v9;
+    v14 = v13 + 16;
+    v6 = String.utf8CString.getter();
+    v3 = strdup((v6 + 32));
+
+    v13 = v14;
+    if (v3)
+    {
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v10 + 2) + 1, 1, v10);
+      }
+
+      v16 = *(v10 + 2);
+      v15 = *(v10 + 3);
+      v6 = v16 + 1;
+      if (v16 >= v15 >> 1)
+      {
+        v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1, v10);
+      }
+
+      *(v10 + 2) = v6;
+      *&v10[8 * v16 + 32] = v3;
+      goto LABEL_3;
+    }
+  }
+
+LABEL_39:
+  __break(1u);
+  while (1)
+  {
+    __break(1u);
+LABEL_41:
+    v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v6, 1, v3);
+LABEL_13:
+    *(v3 + 2) = v6;
+    v17 = &v3[16 * v9 + 32];
+    *v17 = v12;
+    *(v17 + 1) = v10 + 32;
+
+    v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(1, 2, 1, inited);
+    *(v9 + 16) = 2;
+    *(v9 + 40) = v10;
+    type metadata accessor for NSString();
+    v18 = NSString.init(stringLiteral:)();
+    v19 = [v18 UTF8String];
+    v20 = v18;
+    if (!v19)
+    {
+      goto LABEL_43;
+    }
+
+    v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x1E69E7CC0]);
+    v23 = *(v21 + 2);
+    v22 = *(v21 + 3);
+    if (v23 >= v22 >> 1)
+    {
+      v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v23 + 1, 1, v21);
+    }
+
+    *(v21 + 2) = v23 + 1;
+    v24 = &v21[32 * v23 + 32];
+    *v24 = 3;
+    *(v24 + 8) = v19;
+    *(v24 + 16) = 0;
+    *(v24 + 24) = 0;
+    v41[0] = a1;
+    v41[1] = a2;
+    v25 = String.utf8CString.getter();
+    v26 = strdup((v25 + 32));
+
+    v27 = MEMORY[0x1E69E7CC0];
+    if (v26)
+    {
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        v27 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v27 + 2) + 1, 1, v27);
+      }
+
+      v29 = *(v27 + 2);
+      v28 = *(v27 + 3);
+      if (v29 >= v28 >> 1)
+      {
+        v27 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v28 > 1), v29 + 1, 1, v27);
+      }
+
+      *(v27 + 2) = v29 + 1;
+      *&v27[8 * v29 + 32] = v26;
+    }
+
+    outlined destroy of String(v41);
+    a1 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x1E69E7CC0]);
+    v31 = *(a1 + 2);
+    v30 = *(a1 + 3);
+    if (v31 >= v30 >> 1)
+    {
+      a1 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v30 > 1), v31 + 1, 1, a1);
+    }
+
+    v32 = (v27 + 32);
+    *(a1 + 2) = v31 + 1;
+    *&a1[8 * v31 + 32] = v27 + 32;
+    v10 = *(a1 + 4);
+
+    AssetWithDefinitionsAndWeightNames = REBlendShapeWeightsDefinitionAssetCreateAssetWithDefinitionsAndWeightNames();
+
+    *(v40 + 16) = AssetWithDefinitionsAndWeightNames;
+    for (i = *(v27 + 2); i; --i)
+    {
+      v35 = *v32++;
+      free(v35);
+    }
+
+    v6 = *(v9 + 16);
+    if (!v6)
+    {
+      break;
+    }
+
+    inited = 0;
+    v12 = (v9 + 32);
+    while (1)
+    {
+      v13 = *(v9 + 16);
+      if (inited >= v13)
+      {
+        break;
+      }
+
+      v36 = *(v12[inited] + 16);
+      if (v36)
+      {
+        v13 = 0;
+        while (inited < *(v9 + 16))
+        {
+          v37 = v12[inited];
+          if (v13 >= *(v37 + 16))
+          {
+            goto LABEL_38;
+          }
+
+          a1 = (v13 + 1);
+          free(*(v37 + 8 * v13 + 32));
+          v13 = a1;
+          if (v36 == a1)
+          {
+            goto LABEL_28;
+          }
+        }
+
+        __break(1u);
+LABEL_38:
+        __break(1u);
+        goto LABEL_39;
+      }
+
+LABEL_28:
+      if (++inited == v6)
+      {
+        goto LABEL_36;
+      }
+    }
+  }
+
+LABEL_36:
+
+  return v40;
+}
+
+uint64_t BlendShapeWeightsMapping.init(_:)(uint64_t a1)
+{
+  *(v1 + 16) = a1;
+  RERetain();
+  REAssetSetSwiftObject();
+  return v1;
+}
+
+uint64_t BlendShapeWeightsMapping.deinit()
+{
+  REAssetSetSwiftObject();
+  RERelease();
+  return v0;
+}
+
+uint64_t BlendShapeWeightsMapping.__allocating_init(_:)(uint64_t a1)
+{
+  v2 = swift_allocObject();
+  *(v2 + 16) = a1;
+  RERetain();
+  REAssetSetSwiftObject();
+  return v2;
+}
+
+uint64_t BlendShapeWeightsMapping.__deallocating_deinit()
+{
+  REAssetSetSwiftObject();
+  RERelease();
+
+  return swift_deallocClassInstance();
+}
+
+void _Proto_BlendShapeWeightsMappingResource_v1.definition.getter(char **a1@<X8>)
+{
+
+  _Proto_BlendShapeWeightsMappingDefinition_v1.init(_:)(a1);
+}
+
+uint64_t specialized BlendShapeWeightsMapping.init(meshResource:)(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  specialized static __ServiceLocator.shared.getter();
+  swift_beginAccess();
+  swift_unownedRetainStrong();
+
+  ServiceLocator = REEngineGetServiceLocator();
+  result = MEMORY[0x1C68FE1F0](ServiceLocator);
+  if (result)
+  {
+    if (v2)
+    {
+      *(v1 + 16) = REBlendShapeWeightsDefinitionAssetCreateAssetForMesh();
+      RERetain();
+      REAssetSetSwiftObject();
+      return v1;
+    }
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  __break(1u);
+  return result;
+}
+
+unint64_t type metadata accessor for NSString()
+{
+  result = lazy cache variable for type metadata for NSString;
+  if (!lazy cache variable for type metadata for NSString)
+  {
+    objc_opt_self();
+    result = swift_getObjCClassMetadata();
+    atomic_store(result, &lazy cache variable for type metadata for NSString);
+  }
+
+  return result;
+}
+
+uint64_t one-time initialization function for ecsCoreLogger()
+{
+  v0 = type metadata accessor for Logger();
+  __swift_allocate_value_buffer(v0, ecsCoreLogger);
+  __swift_project_value_buffer(v0, ecsCoreLogger);
+  return Logger.init(subsystem:category:)();
+}
+
+uint64_t static AnalyticsManager.shared.getter()
+{
+  v0 = type metadata accessor for AnalyticsManager();
+
+  return MEMORY[0x1EEE6C000](v0, &unk_1EBEA72B8);
+}
+
+uint64_t AnalyticsManager.ObjectCaptureSessionInitEvent.init(sessionID:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = type metadata accessor for UUID();
+  v5 = *(*(v4 - 8) + 32);
+
+  return v5(a2, a1, v4);
+}
+
+uint64_t AnalyticsManager.ObjectCaptureSessionImageStatsEvent.init(sessionID:numImages:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v6 = type metadata accessor for UUID();
+  (*(*(v6 - 8) + 32))(a3, a1, v6);
+  result = type metadata accessor for AnalyticsManager.ObjectCaptureSessionImageStatsEvent(0);
+  *(a3 + *(result + 20)) = a2;
+  return result;
+}
+
+RealityFoundation::AnalyticsManager::ObjectCaptureSessionCaptureModeEvent::CaptureMode_optional __swiftcall AnalyticsManager.ObjectCaptureSessionCaptureModeEvent.CaptureMode.init(rawValue:)(Swift::Int rawValue)
+{
+  v2 = 3;
+  if (rawValue < 3)
+  {
+    v2 = rawValue;
+  }
+
+  *v1 = v2;
+  return rawValue;
+}
+
+uint64_t AnalyticsManager.ObjectCaptureSessionCaptureModeEvent.init(sessionID:captureMode:)@<X0>(uint64_t a1@<X0>, char *a2@<X1>, uint64_t (*a3)(void)@<X2>, uint64_t a4@<X8>)
+{
+  v7 = *a2;
+  v8 = type metadata accessor for UUID();
+  (*(*(v8 - 8) + 32))(a4, a1, v8);
+  result = a3(0);
+  *(a4 + *(result + 20)) = v7;
+  return result;
+}
+
+uint64_t AnalyticsManager.ObjectCaptureSessionBundleIdentifierEvent.init(sessionID:bundleID:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v8 = type metadata accessor for UUID();
+  (*(*(v8 - 8) + 32))(a4, a1, v8);
+  result = type metadata accessor for AnalyticsManager.ObjectCaptureSessionBundleIdentifierEvent(0);
+  v10 = (a4 + *(result + 20));
+  *v10 = a2;
+  v10[1] = a3;
+  return result;
+}
+
+void AnalyticsManager.sendObjectCaptureSessionInitEvent(event:)(uint64_t a1)
+{
+  inited = type metadata accessor for AnalyticsManager.ObjectCaptureSessionInitEvent(0);
+  v3 = *(inited - 8);
+  v4 = *(v3 + 64);
+  MEMORY[0x1EEE9AC00](inited);
+  v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = v23 - v7;
+  if (one-time initialization token for logger != -1)
+  {
+    swift_once();
+  }
+
+  v9 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v9, logger);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionInitEvent);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
+  {
+    v12 = swift_slowAlloc();
+    v13 = swift_slowAlloc();
+    aBlock[0] = v13;
+    *v12 = 136315138;
+    v23[0] = v3;
+    outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, v5, type metadata accessor for AnalyticsManager.ObjectCaptureSessionInitEvent);
+    v14 = String.init<A>(describing:)();
+    v23[1] = v4;
+    v15 = a1;
+    v17 = v16;
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionInitEvent);
+    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v17, aBlock);
+    a1 = v15;
+    v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+
+    *(v12 + 4) = v18;
+    v3 = v23[0];
+    _os_log_impl(&dword_1C1358000, v10, v11, "Sending %s...", v12, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v13);
+    MEMORY[0x1C6902A30](v13, -1, -1);
+    MEMORY[0x1C6902A30](v12, -1, -1);
+  }
+
+  else
+  {
+
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionInitEvent);
+  }
+
+  v19 = MEMORY[0x1C68F3280](0xD000000000000030, 0x80000001C18E7DB0);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v5, type metadata accessor for AnalyticsManager.ObjectCaptureSessionInitEvent);
+  v20 = (*(v3 + 80) + 16) & ~*(v3 + 80);
+  v21 = swift_allocObject();
+  outlined init with take of AnalyticsManager.ObjectCaptureSessionInitEvent(v5, v21 + v20, type metadata accessor for AnalyticsManager.ObjectCaptureSessionInitEvent);
+  aBlock[4] = partial apply for closure #1 in AnalyticsManager.sendObjectCaptureSessionInitEvent(event:);
+  aBlock[5] = v21;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 1107296256;
+  aBlock[2] = thunk for @escaping @callee_guaranteed () -> (@owned [String : NSObject]?);
+  aBlock[3] = &block_descriptor_20;
+  v22 = _Block_copy(aBlock);
+
+  AnalyticsSendEventLazy();
+  _Block_release(v22);
+}
+
+uint64_t closure #1 in AnalyticsManager.sendObjectCaptureSessionInitEvent(event:)()
+{
+  v0 = UUID.uuidString.getter();
+  v1 = MEMORY[0x1C68F3280](v0);
+
+  v2 = MEMORY[0x1E69E7CC8];
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v1, 0x496E6F6973736573, 0xE900000000000044, isUniquelyReferenced_nonNull_native);
+  return v2;
+}
+
+void AnalyticsManager.sendObjectCaptureSessionImageStatsEvent(event:)(uint64_t a1)
+{
+  v2 = type metadata accessor for AnalyticsManager.ObjectCaptureSessionImageStatsEvent(0);
+  v3 = *(v2 - 8);
+  v4 = *(v3 + 64);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = v23 - v7;
+  if (one-time initialization token for logger != -1)
+  {
+    swift_once();
+  }
+
+  v9 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v9, logger);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionImageStatsEvent);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
+  {
+    v12 = swift_slowAlloc();
+    v13 = swift_slowAlloc();
+    aBlock[0] = v13;
+    *v12 = 136315138;
+    v23[0] = v3;
+    outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, v5, type metadata accessor for AnalyticsManager.ObjectCaptureSessionImageStatsEvent);
+    v14 = String.init<A>(describing:)();
+    v23[1] = v4;
+    v15 = a1;
+    v17 = v16;
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionImageStatsEvent);
+    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v17, aBlock);
+    a1 = v15;
+    v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+
+    *(v12 + 4) = v18;
+    v3 = v23[0];
+    _os_log_impl(&dword_1C1358000, v10, v11, "Sending %s...", v12, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v13);
+    MEMORY[0x1C6902A30](v13, -1, -1);
+    MEMORY[0x1C6902A30](v12, -1, -1);
+  }
+
+  else
+  {
+
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionImageStatsEvent);
+  }
+
+  v19 = MEMORY[0x1C68F3280](0xD000000000000036, 0x80000001C18E7DF0);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v5, type metadata accessor for AnalyticsManager.ObjectCaptureSessionImageStatsEvent);
+  v20 = (*(v3 + 80) + 16) & ~*(v3 + 80);
+  v21 = swift_allocObject();
+  outlined init with take of AnalyticsManager.ObjectCaptureSessionInitEvent(v5, v21 + v20, type metadata accessor for AnalyticsManager.ObjectCaptureSessionImageStatsEvent);
+  aBlock[4] = partial apply for closure #1 in AnalyticsManager.sendObjectCaptureSessionImageStatsEvent(event:);
+  aBlock[5] = v21;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 1107296256;
+  aBlock[2] = thunk for @escaping @callee_guaranteed () -> (@owned [String : NSObject]?);
+  aBlock[3] = &block_descriptor_6;
+  v22 = _Block_copy(aBlock);
+
+  AnalyticsSendEventLazy();
+  _Block_release(v22);
+}
+
+uint64_t closure #1 in AnalyticsManager.sendObjectCaptureSessionImageStatsEvent(event:)()
+{
+  v0 = UUID.uuidString.getter();
+  v1 = MEMORY[0x1C68F3280](v0);
+
+  v2 = MEMORY[0x1E69E7CC8];
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v1, 0x496E6F6973736573, 0xE900000000000044, isUniquelyReferenced_nonNull_native);
+  type metadata accessor for AnalyticsManager.ObjectCaptureSessionImageStatsEvent(0);
+  isa = Int._bridgeToObjectiveC()().super.super.isa;
+  v5 = swift_isUniquelyReferenced_nonNull_native();
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(isa, 0x6567616D496D756ELL, 0xE900000000000073, v5);
+  return v2;
+}
+
+void AnalyticsManager.sendObjectCaptureSessionCaptureModeEvent(event:)(uint64_t a1)
+{
+  v2 = type metadata accessor for AnalyticsManager.ObjectCaptureSessionCaptureModeEvent(0);
+  v3 = *(v2 - 8);
+  v4 = *(v3 + 64);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = v23 - v7;
+  if (one-time initialization token for logger != -1)
+  {
+    swift_once();
+  }
+
+  v9 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v9, logger);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionCaptureModeEvent);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
+  {
+    v12 = swift_slowAlloc();
+    v13 = swift_slowAlloc();
+    aBlock[0] = v13;
+    *v12 = 136315138;
+    v23[0] = v3;
+    outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, v5, type metadata accessor for AnalyticsManager.ObjectCaptureSessionCaptureModeEvent);
+    v14 = String.init<A>(describing:)();
+    v23[1] = v4;
+    v15 = a1;
+    v17 = v16;
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionCaptureModeEvent);
+    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v17, aBlock);
+    a1 = v15;
+    v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+
+    *(v12 + 4) = v18;
+    v3 = v23[0];
+    _os_log_impl(&dword_1C1358000, v10, v11, "Sending %s...", v12, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v13);
+    MEMORY[0x1C6902A30](v13, -1, -1);
+    MEMORY[0x1C6902A30](v12, -1, -1);
+  }
+
+  else
+  {
+
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionCaptureModeEvent);
+  }
+
+  v19 = MEMORY[0x1C68F3280](0xD000000000000037, 0x80000001C18E7E30);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v5, type metadata accessor for AnalyticsManager.ObjectCaptureSessionCaptureModeEvent);
+  v20 = (*(v3 + 80) + 16) & ~*(v3 + 80);
+  v21 = swift_allocObject();
+  outlined init with take of AnalyticsManager.ObjectCaptureSessionInitEvent(v5, v21 + v20, type metadata accessor for AnalyticsManager.ObjectCaptureSessionCaptureModeEvent);
+  aBlock[4] = partial apply for closure #1 in AnalyticsManager.sendObjectCaptureSessionCaptureModeEvent(event:);
+  aBlock[5] = v21;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 1107296256;
+  aBlock[2] = thunk for @escaping @callee_guaranteed () -> (@owned [String : NSObject]?);
+  aBlock[3] = &block_descriptor_12;
+  v22 = _Block_copy(aBlock);
+
+  AnalyticsSendEventLazy();
+  _Block_release(v22);
+}
+
+void AnalyticsManager.sendObjectCaptureSessionStatusEvent(event:)(uint64_t a1)
+{
+  v2 = type metadata accessor for AnalyticsManager.ObjectCaptureSessionStatusEvent(0);
+  v3 = *(v2 - 8);
+  v4 = *(v3 + 64);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = v23 - v7;
+  if (one-time initialization token for logger != -1)
+  {
+    swift_once();
+  }
+
+  v9 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v9, logger);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionStatusEvent);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
+  {
+    v12 = swift_slowAlloc();
+    v13 = swift_slowAlloc();
+    aBlock[0] = v13;
+    *v12 = 136315138;
+    v23[0] = v3;
+    outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, v5, type metadata accessor for AnalyticsManager.ObjectCaptureSessionStatusEvent);
+    v14 = String.init<A>(describing:)();
+    v23[1] = v4;
+    v15 = a1;
+    v17 = v16;
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionStatusEvent);
+    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v17, aBlock);
+    a1 = v15;
+    v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+
+    *(v12 + 4) = v18;
+    v3 = v23[0];
+    _os_log_impl(&dword_1C1358000, v10, v11, "Sending %s...", v12, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v13);
+    MEMORY[0x1C6902A30](v13, -1, -1);
+    MEMORY[0x1C6902A30](v12, -1, -1);
+  }
+
+  else
+  {
+
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionStatusEvent);
+  }
+
+  v19 = MEMORY[0x1C68F3280](0xD000000000000032, 0x80000001C18E7E70);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v5, type metadata accessor for AnalyticsManager.ObjectCaptureSessionStatusEvent);
+  v20 = (*(v3 + 80) + 16) & ~*(v3 + 80);
+  v21 = swift_allocObject();
+  outlined init with take of AnalyticsManager.ObjectCaptureSessionInitEvent(v5, v21 + v20, type metadata accessor for AnalyticsManager.ObjectCaptureSessionStatusEvent);
+  aBlock[4] = partial apply for closure #1 in AnalyticsManager.sendObjectCaptureSessionStatusEvent(event:);
+  aBlock[5] = v21;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 1107296256;
+  aBlock[2] = thunk for @escaping @callee_guaranteed () -> (@owned [String : NSObject]?);
+  aBlock[3] = &block_descriptor_18_1;
+  v22 = _Block_copy(aBlock);
+
+  AnalyticsSendEventLazy();
+  _Block_release(v22);
+}
+
+uint64_t closure #1 in AnalyticsManager.sendObjectCaptureSessionCaptureModeEvent(event:)(uint64_t a1, void (*a2)(void), uint64_t a3, uint64_t a4)
+{
+  v7 = UUID.uuidString.getter();
+  v8 = MEMORY[0x1C68F3280](v7);
+
+  v9 = MEMORY[0x1E69E7CC8];
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v8, 0x496E6F6973736573, 0xE900000000000044, isUniquelyReferenced_nonNull_native);
+  a2(0);
+  isa = Int._bridgeToObjectiveC()().super.super.isa;
+  v12 = swift_isUniquelyReferenced_nonNull_native();
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(isa, a3, a4, v12);
+  return v9;
+}
+
+void AnalyticsManager.sendObjectCaptureSessionBundleIdentifierEvent(event:)(uint64_t a1)
+{
+  v2 = type metadata accessor for AnalyticsManager.ObjectCaptureSessionBundleIdentifierEvent(0);
+  v3 = *(v2 - 8);
+  v4 = *(v3 + 64);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = v23 - v7;
+  if (one-time initialization token for logger != -1)
+  {
+    swift_once();
+  }
+
+  v9 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v9, logger);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionBundleIdentifierEvent);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
+  {
+    v12 = swift_slowAlloc();
+    v13 = swift_slowAlloc();
+    aBlock[0] = v13;
+    *v12 = 136315138;
+    v23[0] = v3;
+    outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, v5, type metadata accessor for AnalyticsManager.ObjectCaptureSessionBundleIdentifierEvent);
+    v14 = String.init<A>(describing:)();
+    v23[1] = v4;
+    v15 = a1;
+    v17 = v16;
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionBundleIdentifierEvent);
+    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v17, aBlock);
+    a1 = v15;
+    v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+
+    *(v12 + 4) = v18;
+    v3 = v23[0];
+    _os_log_impl(&dword_1C1358000, v10, v11, "Sending %s...", v12, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v13);
+    MEMORY[0x1C6902A30](v13, -1, -1);
+    MEMORY[0x1C6902A30](v12, -1, -1);
+  }
+
+  else
+  {
+
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, type metadata accessor for AnalyticsManager.ObjectCaptureSessionBundleIdentifierEvent);
+  }
+
+  v19 = MEMORY[0x1C68F3280](0xD00000000000003CLL, 0x80000001C18E7EB0);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v5, type metadata accessor for AnalyticsManager.ObjectCaptureSessionBundleIdentifierEvent);
+  v20 = (*(v3 + 80) + 16) & ~*(v3 + 80);
+  v21 = swift_allocObject();
+  outlined init with take of AnalyticsManager.ObjectCaptureSessionInitEvent(v5, v21 + v20, type metadata accessor for AnalyticsManager.ObjectCaptureSessionBundleIdentifierEvent);
+  aBlock[4] = partial apply for closure #1 in AnalyticsManager.sendObjectCaptureSessionBundleIdentifierEvent(event:);
+  aBlock[5] = v21;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 1107296256;
+  aBlock[2] = thunk for @escaping @callee_guaranteed () -> (@owned [String : NSObject]?);
+  aBlock[3] = &block_descriptor_24;
+  v22 = _Block_copy(aBlock);
+
+  AnalyticsSendEventLazy();
+  _Block_release(v22);
+}
+
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType(_BYTE *a1, _BYTE *a2)
+{
+  v2 = *a1 == 0;
+  if (*a1)
+  {
+    v3 = 0x65636E6575716573;
+  }
+
+  else
+  {
+    v3 = 0x7265646C6F66;
+  }
+
+  if (v2)
+  {
+    v4 = 0xE600000000000000;
+  }
+
+  else
+  {
+    v4 = 0xE800000000000000;
+  }
+
+  if (*a2)
+  {
+    v5 = 0x65636E6575716573;
+  }
+
+  else
+  {
+    v5 = 0x7265646C6F66;
+  }
+
+  if (*a2)
+  {
+    v6 = 0xE800000000000000;
+  }
+
+  else
+  {
+    v6 = 0xE600000000000000;
+  }
+
+  if (v3 == v5 && v4 == v6)
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  }
+
+  return v8 & 1;
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType()
+{
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+
+  return Hasher._finalize()();
+}
+
+double protocol witness for Hashable.hash(into:) in conformance AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType(uint64_t a1)
+{
+  String.hash(into:)();
+
+  return result;
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType()
+{
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+
+  return Hasher._finalize()();
+}
+
+void protocol witness for RawRepresentable.init(rawValue:) in conformance AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType(Swift::String *a1@<X0>, char *a2@<X8>)
+{
+  v3 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType.init(rawValue:), *a1);
+
+  if (v3 == 1)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = 2;
+  }
+
+  if (!v3)
+  {
+    v4 = 0;
+  }
+
+  *a2 = v4;
+}
+
+void protocol witness for RawRepresentable.rawValue.getter in conformance AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType(uint64_t *a1@<X8>)
+{
+  v2 = 0x7265646C6F66;
+  if (*v1)
+  {
+    v2 = 0x65636E6575716573;
+  }
+
+  v3 = 0xE600000000000000;
+  if (*v1)
+  {
+    v3 = 0xE800000000000000;
+  }
+
+  *a1 = v2;
+  a1[1] = v3;
+}
+
+uint64_t closure #1 in AnalyticsManager.sendPhotogrammetrySessionInitEvent(event:)(uint64_t a1)
+{
+  v2 = UUID.uuidString.getter();
+  v3 = MEMORY[0x1C68F3280](v2);
+
+  v4 = MEMORY[0x1E69E7CC8];
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v3, 0x496E6F6973736573, 0xE900000000000044, isUniquelyReferenced_nonNull_native);
+  inited = type metadata accessor for AnalyticsManager.PhotogrammetrySessionInitEvent(0);
+  v7 = *(a1 + *(inited + 20)) == 0;
+  if (*(a1 + *(inited + 20)))
+  {
+    v8 = 0x65636E6575716573;
+  }
+
+  else
+  {
+    v8 = 0x7265646C6F66;
+  }
+
+  if (v7)
+  {
+    v9 = 0xE600000000000000;
+  }
+
+  else
+  {
+    v9 = 0xE800000000000000;
+  }
+
+  v10 = MEMORY[0x1C68F3280](v8, v9);
+
+  v11 = swift_isUniquelyReferenced_nonNull_native();
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v10, 0x7954656372756F73, 0xEA00000000006570, v11);
+  return v4;
+}
+
+uint64_t closure #1 in AnalyticsManager.sendPhotogrammetrySessionReconstructionResultEvent(event:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = type metadata accessor for PhotogrammetrySession.Request(0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = UUID.uuidString.getter();
+  v10 = MEMORY[0x1C68F3280](v9);
+
+  v11 = MEMORY[0x1E69E7CC8];
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v38 = v11;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v10, 0x496E6F6973736573, 0xE900000000000044, isUniquelyReferenced_nonNull_native);
+  v13 = v38;
+  v14 = type metadata accessor for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent(0);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1 + v14[5], v8, type metadata accessor for PhotogrammetrySession.Request);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload <= 1)
+  {
+    if (EnumCaseMultiPayload)
+    {
+      v16 = 0xEB00000000797469;
+      v17 = 0x746E456C65646F6DLL;
+    }
+
+    else
+    {
+      v18 = type metadata accessor for URL();
+      (*(*(v18 - 8) + 8))(v8, v18);
+      v17 = 0x6C69466C65646F6DLL;
+      v16 = 0xE900000000000065;
+    }
+  }
+
+  else if (EnumCaseMultiPayload == 2)
+  {
+    v16 = 0xE600000000000000;
+    v17 = 0x73646E756F62;
+  }
+
+  else if (EnumCaseMultiPayload == 3)
+  {
+    v16 = 0xEA00000000006475;
+    v17 = 0x6F6C43746E696F70;
+  }
+
+  else
+  {
+    v16 = 0xE500000000000000;
+    v17 = 0x7365736F70;
+  }
+
+  v19 = MEMORY[0x1C68F3280](v17, v16);
+
+  v20 = swift_isUniquelyReferenced_nonNull_native();
+  v38 = v13;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v19, 0x5474736575716572, 0xEB00000000657079, v20);
+  v21 = v38;
+  v22 = String.init<A>(describing:)();
+  v23 = MEMORY[0x1C68F3280](v22);
+
+  v24 = swift_isUniquelyReferenced_nonNull_native();
+  v38 = v21;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v23, 0x6C6961746564, 0xE600000000000000, v24);
+  v25 = v38;
+  v26 = *(a1 + v14[7]);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
+  isa = NSNumber.init(integerLiteral:)(v26).super.super.isa;
+  v28 = swift_isUniquelyReferenced_nonNull_native();
+  v38 = v25;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(isa, 0x73736563637573, 0xE700000000000000, v28);
+  v29 = v38;
+  v30 = MEMORY[0x1C68F3280](a2, a3);
+  v31 = swift_isUniquelyReferenced_nonNull_native();
+  v38 = v29;
+  v32 = specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v30, 0x707954726F727265, 0xE900000000000065, v31);
+  v33 = v38;
+  v34 = MEMORY[0x1C68F3940](v32, *(a1 + v14[9]));
+  v35 = swift_isUniquelyReferenced_nonNull_native();
+  v38 = v33;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v34, 0xD000000000000019, 0x80000001C18E7F60, v35);
+  return v38;
+}
+
+uint64_t closure #1 in AnalyticsManager.sendObjectCaptureSessionBundleIdentifierEvent(event:)(uint64_t a1, uint64_t (*a2)(void), __n128 a3)
+{
+  v5 = UUID.uuidString.getter();
+  v6 = MEMORY[0x1C68F3280](v5);
+
+  v7 = MEMORY[0x1E69E7CC8];
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v6, 0x496E6F6973736573, 0xE900000000000044, isUniquelyReferenced_nonNull_native);
+  v9 = a2(0);
+  v10 = MEMORY[0x1C68F3280](*(a1 + *(v9 + 20)), *(a1 + *(v9 + 20) + 8));
+  v11 = swift_isUniquelyReferenced_nonNull_native();
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v10, 0x4449656C646E7562, 0xE800000000000000, v11);
+  return v7;
+}
+
+double block_copy_helper_20(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v2;
+
+  return result;
+}
+
+uint64_t outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(uint64_t a1, uint64_t (*a2)(void))
+{
+  v3 = a2(0);
+  (*(*(v3 - 8) + 8))(a1, v3);
+  return a1;
+}
+
+uint64_t objectdestroyTm_2(uint64_t (*a1)(void))
+{
+  v2 = *(a1(0) - 8);
+  v3 = *(v2 + 80);
+  v4 = (v3 + 16) & ~v3;
+  v5 = *(v2 + 64);
+  v6 = type metadata accessor for UUID();
+  (*(*(v6 - 8) + 8))(v1 + v4, v6);
+
+  return MEMORY[0x1EEE6BDD0](v1, v4 + v5, v3 | 7);
+}
+
+uint64_t outlined init with take of AnalyticsManager.ObjectCaptureSessionInitEvent(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t partial apply for closure #1 in AnalyticsManager.sendObjectCaptureSessionInitEvent(event:)(uint64_t (*a1)(void), uint64_t (*a2)(uint64_t))
+{
+  v3 = *(a1(0) - 8);
+  v4 = v2 + ((*(v3 + 80) + 16) & ~*(v3 + 80));
+
+  return a2(v4);
+}
+
+unint64_t lazy protocol witness table accessor for type AnalyticsManager.ObjectCaptureSessionCaptureModeEvent.CaptureMode and conformance AnalyticsManager.ObjectCaptureSessionCaptureModeEvent.CaptureMode()
+{
+  result = lazy protocol witness table cache variable for type AnalyticsManager.ObjectCaptureSessionCaptureModeEvent.CaptureMode and conformance AnalyticsManager.ObjectCaptureSessionCaptureModeEvent.CaptureMode;
+  if (!lazy protocol witness table cache variable for type AnalyticsManager.ObjectCaptureSessionCaptureModeEvent.CaptureMode and conformance AnalyticsManager.ObjectCaptureSessionCaptureModeEvent.CaptureMode)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for AnalyticsManager.ObjectCaptureSessionCaptureModeEvent.CaptureMode, &type metadata for AnalyticsManager.ObjectCaptureSessionCaptureModeEvent.CaptureMode, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type AnalyticsManager.ObjectCaptureSessionCaptureModeEvent.CaptureMode and conformance AnalyticsManager.ObjectCaptureSessionCaptureModeEvent.CaptureMode);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type AnalyticsManager.ObjectCaptureSessionStatusEvent.Status and conformance AnalyticsManager.ObjectCaptureSessionStatusEvent.Status()
+{
+  result = lazy protocol witness table cache variable for type AnalyticsManager.ObjectCaptureSessionStatusEvent.Status and conformance AnalyticsManager.ObjectCaptureSessionStatusEvent.Status;
+  if (!lazy protocol witness table cache variable for type AnalyticsManager.ObjectCaptureSessionStatusEvent.Status and conformance AnalyticsManager.ObjectCaptureSessionStatusEvent.Status)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for AnalyticsManager.ObjectCaptureSessionStatusEvent.Status, &type metadata for AnalyticsManager.ObjectCaptureSessionStatusEvent.Status, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type AnalyticsManager.ObjectCaptureSessionStatusEvent.Status and conformance AnalyticsManager.ObjectCaptureSessionStatusEvent.Status);
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_47Tm(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = type metadata accessor for UUID();
+  v7 = *(v6 - 8);
+  if (*(v7 + 84) == a2)
+  {
+    v8 = *(v7 + 48);
+
+    return v8(a1, a2, v6);
+  }
+
+  else
+  {
+    v10 = *(a1 + *(a3 + 20));
+    if (v10 >= 3)
+    {
+      return v10 - 2;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_48Tm(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+{
+  result = type metadata accessor for UUID();
+  v9 = *(result - 8);
+  if (*(v9 + 84) == a3)
+  {
+    v10 = *(v9 + 56);
+
+    return v10(a1, a2, a2, result);
+  }
+
+  else
+  {
+    *(a1 + *(a4 + 20)) = a2 + 2;
+  }
+
+  return result;
+}
+
+void specialized AnalyticsManager.sendPhotogrammetrySessionReconstructionResultEvent(event:)(uint64_t a1)
+{
+  v69 = type metadata accessor for PhotogrammetrySession.Request(0);
+  MEMORY[0x1EEE9AC00](v69);
+  v3 = &v62 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent(0);
+  v65 = *(v4 - 8);
+  v5 = *(v65 + 64);
+  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v62 - v7;
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v62 - v10;
+  if (one-time initialization token for logger != -1)
+  {
+    swift_once();
+  }
+
+  v12 = type metadata accessor for Logger();
+  v13 = __swift_project_value_buffer(v12, logger);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v11, type metadata accessor for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent);
+  v14 = Logger.logObject.getter();
+  v15 = static os_log_type_t.default.getter();
+  v16 = os_log_type_enabled(v14, v15);
+  v66 = v8;
+  v67 = &v62 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (v16)
+  {
+    v17 = swift_slowAlloc();
+    v18 = swift_slowAlloc();
+    v64 = a1;
+    v19 = v18;
+    aBlock[0] = v18;
+    *v17 = 136315138;
+    v68 = v13;
+    v63 = v5;
+    outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(v11, v8, type metadata accessor for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent);
+    v20 = v3;
+    v21 = String.init<A>(describing:)();
+    v22 = v4;
+    v24 = v23;
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v11, type metadata accessor for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent);
+    v25 = v21;
+    v3 = v20;
+    v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v24, aBlock);
+    v4 = v22;
+
+    *(v17 + 4) = v26;
+    v5 = v63;
+    v13 = v68;
+    _os_log_impl(&dword_1C1358000, v14, v15, "Sending PhotogrammetrySessionReconstructionResultEvent: %s...", v17, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v19);
+    v27 = v19;
+    a1 = v64;
+    MEMORY[0x1C6902A30](v27, -1, -1);
+    MEMORY[0x1C6902A30](v17, -1, -1);
+  }
+
+  else
+  {
+
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v11, type metadata accessor for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent);
+  }
+
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1 + *(v4 + 20), v3, type metadata accessor for PhotogrammetrySession.Request);
+  if (swift_getEnumCaseMultiPayload())
+  {
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v3, type metadata accessor for PhotogrammetrySession.Request);
+    v28 = Logger.logObject.getter();
+    v29 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v28, v29))
+    {
+      v30 = swift_slowAlloc();
+      *v30 = 0;
+      _os_log_impl(&dword_1C1358000, v28, v29, "sendPhotogrammetrySessionReconstructionResultEvent got non .modelFile request! Punting...", v30, 2u);
+      MEMORY[0x1C6902A30](v30, -1, -1);
+    }
+  }
+
+  else
+  {
+    v31 = type metadata accessor for URL();
+    (*(*(v31 - 8) + 8))(v3, v31);
+    v32 = *(a1 + *(v4 + 32));
+    v62 = v4;
+    if (v32)
+    {
+      aBlock[0] = v32;
+      v33 = v32;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+      v34 = String.init<A>(describing:)();
+      v36 = v35;
+    }
+
+    else
+    {
+      v34 = 0;
+      v36 = 0xE000000000000000;
+    }
+
+    v37 = Logger.logObject.getter();
+    v38 = static os_log_type_t.default.getter();
+    v39 = os_log_type_enabled(v37, v38);
+    v68 = v13;
+    if (v39)
+    {
+      v40 = swift_slowAlloc();
+      v41 = a1;
+      v42 = swift_slowAlloc();
+      aBlock[0] = v42;
+      *v40 = 136315138;
+      *(v40 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000033, 0x80000001C18E7F20, aBlock);
+      _os_log_impl(&dword_1C1358000, v37, v38, "AnalyticsManaLogging eventName: %s...", v40, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1(v42);
+      v43 = v42;
+      a1 = v41;
+      MEMORY[0x1C6902A30](v43, -1, -1);
+      MEMORY[0x1C6902A30](v40, -1, -1);
+    }
+
+    v44 = MEMORY[0x1C68F3280](0xD000000000000033, 0x80000001C18E7F20);
+    v45 = v66;
+    outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v66, type metadata accessor for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent);
+    v46 = (*(v65 + 80) + 16) & ~*(v65 + 80);
+    v47 = v5 + v46 + 7;
+    v48 = a1;
+    v49 = v47 & 0xFFFFFFFFFFFFFFF8;
+    v50 = swift_allocObject();
+    outlined init with take of AnalyticsManager.ObjectCaptureSessionInitEvent(v45, v50 + v46, type metadata accessor for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent);
+    v51 = (v50 + v49);
+    *v51 = v34;
+    v51[1] = v36;
+    aBlock[4] = partial apply for closure #1 in AnalyticsManager.sendPhotogrammetrySessionReconstructionResultEvent(event:);
+    aBlock[5] = v50;
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 1107296256;
+    aBlock[2] = thunk for @escaping @callee_guaranteed () -> (@owned [String : NSObject]?);
+    aBlock[3] = &block_descriptor_83_0;
+    v52 = _Block_copy(aBlock);
+
+    AnalyticsSendEventLazy();
+    _Block_release(v52);
+
+    v53 = v67;
+    outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(v48, v67, type metadata accessor for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent);
+    v54 = Logger.logObject.getter();
+    v55 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v54, v55))
+    {
+      v56 = swift_slowAlloc();
+      v57 = swift_slowAlloc();
+      aBlock[0] = v57;
+      *v56 = 136315138;
+      outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(v53, v45, type metadata accessor for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent);
+      v58 = String.init<A>(describing:)();
+      v60 = v59;
+      outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v53, type metadata accessor for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent);
+      v61 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v58, v60, aBlock);
+
+      *(v56 + 4) = v61;
+      _os_log_impl(&dword_1C1358000, v54, v55, "... event sent! PhotogrammetrySessionReconstructionResultEvent: %s.", v56, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1(v57);
+      MEMORY[0x1C6902A30](v57, -1, -1);
+      MEMORY[0x1C6902A30](v56, -1, -1);
+    }
+
+    else
+    {
+
+      outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v53, type metadata accessor for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent);
+    }
+  }
+}
+
+uint64_t partial apply for closure #1 in AnalyticsManager.sendPhotogrammetrySessionReconstructionResultEvent(event:)()
+{
+  v1 = *(type metadata accessor for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent(0) - 8);
+  v2 = (*(v1 + 80) + 16) & ~*(v1 + 80);
+  v3 = (v0 + ((*(v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8));
+  v4 = *v3;
+  v5 = v3[1];
+
+  return closure #1 in AnalyticsManager.sendPhotogrammetrySessionReconstructionResultEvent(event:)(v0 + v2, v4, v5);
+}
+
+void specialized AnalyticsManager.sendPhotogrammetrySessionBundleIdentifierEvent(event:)(uint64_t a1)
+{
+  v2 = type metadata accessor for AnalyticsManager.PhotogrammetrySessionBundleIdentifierEvent(0);
+  v3 = *(v2 - 8);
+  v4 = *(v3 + 64);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = v23 - v7;
+  if (one-time initialization token for logger != -1)
+  {
+    swift_once();
+  }
+
+  v9 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v9, logger);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v8, type metadata accessor for AnalyticsManager.PhotogrammetrySessionBundleIdentifierEvent);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
+  {
+    v12 = swift_slowAlloc();
+    v13 = swift_slowAlloc();
+    aBlock[0] = v13;
+    *v12 = 136315138;
+    v23[0] = v3;
+    outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, v5, type metadata accessor for AnalyticsManager.PhotogrammetrySessionBundleIdentifierEvent);
+    v14 = String.init<A>(describing:)();
+    v23[1] = v4;
+    v15 = a1;
+    v17 = v16;
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, type metadata accessor for AnalyticsManager.PhotogrammetrySessionBundleIdentifierEvent);
+    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v17, aBlock);
+    a1 = v15;
+    v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+
+    *(v12 + 4) = v18;
+    v3 = v23[0];
+    _os_log_impl(&dword_1C1358000, v10, v11, "Sending %s...", v12, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v13);
+    MEMORY[0x1C6902A30](v13, -1, -1);
+    MEMORY[0x1C6902A30](v12, -1, -1);
+  }
+
+  else
+  {
+
+    outlined destroy of AnalyticsManager.ObjectCaptureSessionInitEvent(v8, type metadata accessor for AnalyticsManager.PhotogrammetrySessionBundleIdentifierEvent);
+  }
+
+  v19 = MEMORY[0x1C68F3280](0xD00000000000003DLL, 0x80000001C18E7F80);
+  outlined init with copy of AnalyticsManager.ObjectCaptureSessionInitEvent(a1, v5, type metadata accessor for AnalyticsManager.PhotogrammetrySessionBundleIdentifierEvent);
+  v20 = (*(v3 + 80) + 16) & ~*(v3 + 80);
+  v21 = swift_allocObject();
+  outlined init with take of AnalyticsManager.ObjectCaptureSessionInitEvent(v5, v21 + v20, type metadata accessor for AnalyticsManager.PhotogrammetrySessionBundleIdentifierEvent);
+  aBlock[4] = partial apply for closure #1 in AnalyticsManager.sendPhotogrammetrySessionBundleIdentifierEvent(event:);
+  aBlock[5] = v21;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 1107296256;
+  aBlock[2] = thunk for @escaping @callee_guaranteed () -> (@owned [String : NSObject]?);
+  aBlock[3] = &block_descriptor_89;
+  v22 = _Block_copy(aBlock);
+
+  AnalyticsSendEventLazy();
+  _Block_release(v22);
+}
+
+uint64_t objectdestroy_20Tm_0(uint64_t (*a1)(void))
+{
+  v2 = *(a1(0) - 8);
+  v3 = *(v2 + 80);
+  v4 = (v3 + 16) & ~v3;
+  v5 = *(v2 + 64);
+  v6 = type metadata accessor for UUID();
+  (*(*(v6 - 8) + 8))(v1 + v4, v6);
+
+  return MEMORY[0x1EEE6BDD0](v1, v4 + v5, v3 | 7);
+}
+
+uint64_t type metadata completion function for AnalyticsManager.ObjectCaptureSessionImageStatsEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for UUID();
+  if (v5 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+void type metadata completion function for AnalyticsManager.PhotogrammetrySessionReconstructionResultEvent(uint64_t a1)
+{
+  type metadata accessor for UUID();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for PhotogrammetrySession.Request(319);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for Error?(319);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata accessor for Error?(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for Error?)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    v1 = type metadata accessor for Optional();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for Error?);
+    }
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType and conformance AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType()
+{
+  result = lazy protocol witness table cache variable for type AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType and conformance AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType;
+  if (!lazy protocol witness table cache variable for type AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType and conformance AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType, &type metadata for AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType and conformance AnalyticsManager.PhotogrammetrySessionInitEvent.SourceType);
+  }
+
+  return result;
+}
+
+__n128 Transform.init(_:)(__n128 *a1, double a2, double a3, double a4, __n128 a5, double a6, __n128 a7)
+{
+  v7 = a1[5];
+  v14[4] = a1[4];
+  v14[5] = v7;
+  v8 = a1[7];
+  v14[6] = a1[6];
+  v14[7] = v8;
+  v9 = a1[1];
+  v14[0] = *a1;
+  v14[1] = v9;
+  v10 = a1[3];
+  v14[2] = a1[2];
+  v14[3] = v10;
+  SPAffineTransform3DGet4x4Matrix(v14, &v13, v10, a5, a7);
+  REMakeSRTFromMatrix();
+  if (one-time initialization token for identity != -1)
+  {
+    v12 = result;
+    swift_once();
+    return v12;
+  }
+
+  return result;
+}
+
+__n128 SPAffineTransform3DGet4x4Matrix@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>, __n128 a3@<Q1>, __n128 a4@<Q3>, __n128 a5@<Q5>)
+{
+  result = *a1;
+  a3.n128_u64[0] = *(a1 + 16);
+  v6 = *(a1 + 32);
+  a4.n128_u64[0] = *(a1 + 48);
+  v7 = *(a1 + 64);
+  a5.n128_u64[0] = *(a1 + 80);
+  v8 = *(a1 + 96);
+  __asm { FMOV            V7.2D, #1.0 }
+
+  *&_Q7 = *(a1 + 112);
+  *a2 = *a1;
+  *(a2 + 16) = a3;
+  *(a2 + 32) = v6;
+  *(a2 + 48) = a4;
+  *(a2 + 64) = v7;
+  *(a2 + 80) = a5;
+  *(a2 + 96) = v8;
+  *(a2 + 112) = _Q7;
+  return result;
+}
+
+float64_t SPAffineTransform3D.init(_:)@<D0>(float64x2_t *a1@<X8>, __n128 a2@<Q0>, __n128 a3@<Q2>)
+{
+  v22 = vcvtq_f64_f32(a2.n128_u64[0]);
+  v23 = COERCE_UNSIGNED_INT64(a2.n128_f32[2]);
+  SPSize3DMakeWithVector(&v22, &v21);
+  SPRotation3D.init(_:)(v5, v4);
+  v16 = v7;
+  v17 = v6;
+  v22 = vcvtq_f64_f32(a3.n128_u64[0]);
+  v23 = COERCE_UNSIGNED_INT64(a3.n128_f32[2]);
+  SPSize3DMakeWithVector(&v22, v19);
+  *v30.vector.f64 = v16;
+  *&v20.x = v17;
+  *&v20.vector.f64[2] = v16;
+  SPAffineTransform3DMake(&v22, &v21, v30, &v20, v19, v8, v9, v10);
+  v11 = v27;
+  a1[4] = v26;
+  a1[5] = v11;
+  v12 = v29;
+  a1[6] = v28;
+  a1[7] = v12;
+  v13 = v23;
+  *a1 = v22;
+  a1[1] = v13;
+  result = v24.f64[0];
+  v15 = v25;
+  a1[2] = v24;
+  a1[3] = v15;
+  return result;
+}
+
+__n128 SPSize3DMakeWithVector@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
+{
+  result = *a1;
+  v3 = a1[1].n128_u64[0];
+  *a2 = *a1;
+  a2[1].n128_u64[0] = v3;
+  return result;
+}
+
+uint64_t *SPAffineTransform3DMake@<X0>(uint64_t *__return_ptr a1@<X8>, SPSize3D *a2@<X0>, SPRotation3D a3@<0:Q0, 16:Q1>, SPVector3D *a4@<X1>, float64x2_t *a5@<X2>, float64x2_t a6@<Q3>, float64x2_t _Q5@<Q5>, float64x2_t a8@<Q7>)
+{
+  a8.f64[0] = a2->depth;
+  v10 = *&a2->width;
+  result = &a2->height;
+  v11.f64[0] = 0.0;
+  *&v11.f64[1] = *result;
+  _Q1 = *&a4->x;
+  _Q0 = *&a4->vector.f64[2];
+  _D18 = a4->y;
+  _Q17.f64[0] = _Q0.f64[1];
+  __asm { FMLA            D2, D17, V0.D[1] }
+
+  v17 = vmuld_lane_f64(_Q0.f64[0], _Q0, 1);
+  v18.f64[0] = vmuld_lane_f64(_D18, _Q0, 1);
+  a6.f64[0] = -(v18.f64[0] - a4->x * _Q0.f64[0]) - (v18.f64[0] - a4->x * _Q0.f64[0]);
+  _Q2.f64[1] = v17 + a4->x * _D18 + v17 + a4->x * _D18;
+  v21.f64[0] = -(v17 - a4->x * _D18) - (v17 - a4->x * _D18);
+  __asm
+  {
+    FMLA            D5, D18, V1.D[1]
+    FMLA            D5, D17, V0.D[1]
+  }
+
+  v20 = _Q5.f64[0] - *&_Q1 * *&_Q1;
+  _Q5.f64[0] = vmuld_lane_f64(a4->x, _Q0, 1);
+  _Q5.f64[0] = _Q5.f64[0] + _D18 * _Q0.f64[0] + _Q5.f64[0] + _D18 * _Q0.f64[0];
+  v21.f64[1] = v20;
+  v18.f64[1] = -(a4->x * _Q0.f64[1]);
+  v22 = vmlaq_n_f64(v18, *&a4->x, _Q0.f64[0]);
+  v23 = vaddq_f64(v22, v22);
+  __asm { FMLS            D17, D18, V1.D[1] }
+
+  v25 = *a5;
+  _Q0.f64[0] = a5[1].f64[0];
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 4) = 0u;
+  *(a1 + 5) = 0u;
+  *(a1 + 6) = 0u;
+  *(a1 + 7) = 0u;
+  v28 = *MEMORY[0x1E69E9B00];
+  v27 = *(MEMORY[0x1E69E9B00] + 16);
+  v30 = *(MEMORY[0x1E69E9B00] + 32);
+  v29 = *(MEMORY[0x1E69E9B00] + 48);
+  v32 = *(MEMORY[0x1E69E9B00] + 64);
+  v31 = *(MEMORY[0x1E69E9B00] + 80);
+  v33 = vandq_s8(vandq_s8(vceqq_f64(v32, v23), vceqq_f64(v30, v21)), vceqq_f64(*MEMORY[0x1E69E9B00], _Q2));
+  if (((v33.i64[0] & v33.i64[1] & vandq_s8(vceqq_f64(v31, _Q17), vandq_s8(vceqq_f64(v29, _Q5), vceqq_f64(v27, a6))).u64[0] & 0x8000000000000000) != 0) == _VF || (v34 = vandq_s8(vceqq_f64(v30, v11), vandq_s8(vceqq_f64(v28, v10), vceqq_f64(v32, 0))), ((v34.i64[0] & v34.i64[1] & vandq_s8(vandq_s8(vceqq_f64(v29, 0), vceqq_f64(v27, 0)), vceqq_f64(v31, a8)).u64[0] & 0x8000000000000000) != 0) == _VF))
+  {
+    v35 = 0;
+    v58 = v10;
+    v59 = 0uLL;
+    v60 = v11;
+    v61 = 0uLL;
+    v62 = 0uLL;
+    v63 = a8;
+    v67 = 0uLL;
+    v68 = 0uLL;
+    v69 = 0uLL;
+    v70 = 0uLL;
+    v71 = 0uLL;
+    v72 = 0uLL;
+    do
+    {
+      v37 = *(&v58 + v35);
+      v36 = *(&v58 + v35 + 16);
+      v38 = (&v67 + v35);
+      *v38 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(_Q2, v37.f64[0]), v21, v37, 1), v23, *&v36);
+      v38[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(a6, v37.f64[0]), _Q5, v37, 1), _Q17, *&v36);
+      v35 += 32;
+    }
+
+    while (v35 != 96);
+    _Q2 = v67;
+    a6 = v68;
+    v21 = v69;
+    _Q5 = v70;
+    v23 = v71;
+    _Q17 = v72;
+    *a1 = v67;
+    *(a1 + 1) = a6;
+  }
+
+  v39 = xmmword_1C18B41F0;
+  v40 = xmmword_1C18B1340;
+  __asm { FMOV            V21.2D, #1.0 }
+
+  v43 = vandq_s8(vandq_s8(vceqq_f64(v30, xmmword_1C18B1340), vceqq_f64(v28, xmmword_1C18B41F0)), vceqzq_f64(v32));
+  if (((v43.i64[0] & v43.i64[1] & vandq_s8(vandq_s8(vceqzq_f64(v29), vceqzq_f64(v27)), vceqq_f64(v31, _Q21)).u64[0] & 0x8000000000000000) != 0) != _VF && (v44 = vandq_s8(vandq_s8(vceqq_f64(v29, _Q5), vceqq_f64(v27, a6)), vceqq_f64(v31, _Q17)).u64[0], v45 = vandq_s8(vandq_s8(vceqq_f64(v30, v21), vceqq_f64(v28, _Q2)), vceqq_f64(v32, v23)), ((v45.i64[0] & v45.i64[1] & v44 & 0x8000000000000000) != 0) ^ _VF))
+  {
+    v53 = 0uLL;
+    v25 = vaddq_f64(v25, 0);
+    _Q0 = vaddq_f64(_Q0, 0);
+    v52 = 0uLL;
+    v51 = 0uLL;
+  }
+
+  else
+  {
+    v46 = vceqzq_f64(v25);
+    if (((v46.i64[0] & v46.i64[1] & vceqzq_f64(_Q0).u64[0] & 0x8000000000000000) != 0) != _VF)
+    {
+      v54 = 0;
+      v58 = _Q2;
+      v59 = a6;
+      v60 = v21;
+      v61 = _Q5;
+      v62 = v23;
+      v63 = _Q17;
+      v67 = 0u;
+      v68 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v71 = 0u;
+      v72 = 0u;
+      do
+      {
+        v56 = *(&v58 + v54);
+        v55 = *(&v58 + v54 + 16);
+        v57 = (&v67 + v54);
+        *v57 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(xmmword_1C18B41F0, v56.f64[0]), xmmword_1C18B1340, v56, 1), 0, v55.f64[0]);
+        v57[1] = vmlaq_f64(vmlaq_laneq_f64(vmulq_f64(v56, 0), 0, v56, 1), _Q21, v55);
+        v54 += 32;
+      }
+
+      while (v54 != 96);
+      v39 = v67;
+      v51 = v68;
+      v40 = v69;
+      v52 = v70;
+      v53 = v71;
+      _Q21 = v72;
+    }
+
+    else
+    {
+      v47 = 0;
+      _Q0.f64[1] = 1.0;
+      v58 = _Q2;
+      v59 = *&a6.f64[0];
+      v60 = v21;
+      v61 = *&_Q5.f64[0];
+      v62 = v23;
+      v63 = *&_Q17.f64[0];
+      v64 = 0;
+      v65 = 0;
+      v66 = xmmword_1C18B1340;
+      v67 = 0u;
+      v68 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v71 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      do
+      {
+        v49 = *(&v58 + v47);
+        v48 = *(&v58 + v47 + 16);
+        v50 = (&v67 + v47);
+        *v50 = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(xmmword_1C18B41F0, v49.f64[0]), xmmword_1C18B1340, v49, 1), 0, v48.f64[0]), v25, v48, 1);
+        v50[1] = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(0, v49.f64[0]), 0, v49, 1), xmmword_1C18B41F0, v48.f64[0]), _Q0, v48, 1);
+        v47 += 32;
+      }
+
+      while (v47 != 128);
+      v39 = v67;
+      v51 = v68;
+      v40 = v69;
+      v52 = v70;
+      v53 = v71;
+      _Q21 = v72;
+      v25 = v73;
+      _Q0 = v74;
+    }
+  }
+
+  *a1 = v39;
+  *(a1 + 1) = v51;
+  *(a1 + 2) = v40;
+  *(a1 + 3) = v52;
+  *(a1 + 4) = v53;
+  *(a1 + 5) = _Q21;
+  *(a1 + 6) = v25;
+  *(a1 + 7) = _Q0;
+  return result;
+}
+
+uint64_t specialized Sequence.first(where:)@<X0>(uint64_t (*a1)(char *)@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+{
+  v7 = type metadata accessor for PhotogrammetrySessionImpl.RequestMap.Entry(0);
+  v8 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = *(a2 + 16);
+  if (v11)
+  {
+    v18 = a3;
+    v12 = a2 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
+    v13 = *(v8 + 72);
+    while (1)
+    {
+      outlined init with copy of PhotogrammetrySession.Request(v12, v10, type metadata accessor for PhotogrammetrySessionImpl.RequestMap.Entry);
+      v14 = a1(v10);
+      if (v3)
+      {
+        return outlined destroy of PhotogrammetrySession.Request(v10, type metadata accessor for PhotogrammetrySessionImpl.RequestMap.Entry);
+      }
+
+      if (v14)
+      {
+        break;
+      }
+
+      outlined destroy of PhotogrammetrySession.Request(v10, type metadata accessor for PhotogrammetrySessionImpl.RequestMap.Entry);
+      v12 += v13;
+      if (!--v11)
+      {
+        v15 = 1;
+        a3 = v18;
+        return (*(v8 + 56))(a3, v15, 1, v7);
+      }
+    }
+
+    a3 = v18;
+    outlined init with take of PhotogrammetrySession.Request(v10, v18, type metadata accessor for PhotogrammetrySessionImpl.RequestMap.Entry);
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = 1;
+  }
+
+  return (*(v8 + 56))(a3, v15, 1, v7);
+}
+
+unint64_t specialized Collection.firstIndex(where:)(unint64_t result, uint64_t a2, unint64_t a3, uint64_t a4)
+{
+  v5 = a3;
+  v6 = result;
+  v7 = *(a4 + 16);
+  for (i = a4 + 40 * a3 + 32; ; i += 40)
+  {
+    if (v7 == v5)
+    {
+      return 0;
+    }
+
+    if (v5 >= v7)
+    {
+      break;
+    }
+
+    result = v6(i, a2);
+    if (v4)
+    {
+      return result;
+    }
+
+    if (result)
+    {
+      return v5;
+    }
+
+    if (__OFADD__(v5++, 1))
+    {
+      __break(1u);
+      return 0;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t specialized Collection.firstIndex(where:)(uint64_t (*a1)(uint64_t), uint64_t a2, uint64_t a3)
+{
+  v4 = *(a3 + 16);
+  if (!v4)
+  {
+    return 0;
+  }
+
+  v7 = 0;
+  v8 = *(type metadata accessor for PhotogrammetrySessionImpl.RequestMap.Entry(0) - 8);
+  v9 = a3 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
+  v10 = *(v8 + 72);
+  while (1)
+  {
+    v11 = a1(v9);
+    if (v3 || (v11 & 1) != 0)
+    {
+      break;
+    }
+
+    ++v7;
+    v9 += v10;
+    if (v4 == v7)
+    {
+      return 0;
+    }
+  }
+
+  return v7;
+}
+
+uint64_t PhotogrammetrySample.init(_:)(id *a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6CoreOC20PhotogrammetrySampleVSgMd, &_s6CoreOC20PhotogrammetrySampleVSgMR);
+  MEMORY[0x1EEE9AC00](v2 - 8);
+  v4 = &v13[-v3];
+  outlined init with copy of [String : String]((a1 + 9), v13, &_sypSgMd, &_sypSgMR);
+  if (!v14)
+  {
+    goto LABEL_4;
+  }
+
+  v5 = type metadata accessor for PhotogrammetrySample();
+  v6 = swift_dynamicCast();
+  v7 = *(v5 - 8);
+  (*(v7 + 56))(v4, v6 ^ 1u, 1, v5);
+  if ((*(v7 + 48))(v4, 1, v5) != 1)
+  {
+    outlined destroy of BodyTrackingComponent?(v4, &_s6CoreOC20PhotogrammetrySampleVSgMd, &_s6CoreOC20PhotogrammetrySampleVSgMR);
+    __break(1u);
+LABEL_4:
+    outlined destroy of BodyTrackingComponent?(v13, &_sypSgMd, &_sypSgMR);
+    v8 = type metadata accessor for PhotogrammetrySample();
+    (*(*(v8 - 8) + 56))(v4, 1, 1, v8);
+  }
+
+  outlined destroy of BodyTrackingComponent?(v4, &_s6CoreOC20PhotogrammetrySampleVSgMd, &_s6CoreOC20PhotogrammetrySampleVSgMR);
+  v9 = a1[1];
+  PhotogrammetrySample.init(id:image:)();
+
+  PhotogrammetrySample.metadata.setter();
+  v10 = a1[3];
+  PhotogrammetrySample.depthDataMap.setter();
+  PhotogrammetrySample.gravity.setter();
+  v11 = a1[8];
+  PhotogrammetrySample.objectMask.setter();
+  return outlined destroy of PhotogrammetrySample(a1);
+}
+
+uint64_t PhotogrammetrySessionImpl.init(id:using:configuration:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = v3;
+  v67 = a3;
+  v53 = a2;
+  v59 = a1;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy17RealityFoundation21PhotogrammetrySessionC6OutputOGSgMd, &_sScSy17RealityFoundation21PhotogrammetrySessionC6OutputOGSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v50 = &v46[-v6];
+  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy17RealityFoundation21PhotogrammetrySessionC6OutputO_GMd, &_sScS8IteratorVy17RealityFoundation21PhotogrammetrySessionC6OutputO_GMR);
+  v48 = *(v49 - 8);
+  MEMORY[0x1EEE9AC00](v49);
+  v47 = &v46[-v7];
+  v8 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v57 = *(v8 - 8);
+  v58 = v8;
+  MEMORY[0x1EEE9AC00](v8);
+  v56 = &v46[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v10 = type metadata accessor for OS_dispatch_queue.Attributes();
+  MEMORY[0x1EEE9AC00](v10);
+  v11 = type metadata accessor for DispatchQoS();
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v12 = MEMORY[0x1E69E7CC0];
+  *(v3 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_activeRequests) = MEMORY[0x1E69E7CC0];
+  *(v3 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_isProcessing) = 0;
+  v52 = OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_outputMonitor;
+  *(v3 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_outputMonitor) = 0;
+  v51 = OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_photogrammetrySession;
+  *(v3 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_photogrammetrySession) = 0;
+  v13 = OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_requestMap;
+  type metadata accessor for PhotogrammetrySessionImpl.RequestMap();
+  v14 = swift_allocObject();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCySay17RealityFoundation25PhotogrammetrySessionImplC10RequestMapC5Entry33_372E864D6FBFC56F64A9656CCD500B7CLLVGSo16os_unfair_lock_sVGMd, &_ss13ManagedBufferCySay17RealityFoundation25PhotogrammetrySessionImplC10RequestMapC5Entry33_372E864D6FBFC56F64A9656CCD500B7CLLVGSo16os_unfair_lock_sVGMR);
+  v15 = swift_allocObject();
+  *(v15 + 24) = 0;
+  *(v15 + 16) = v12;
+  *(v14 + 16) = v15;
+  *(v3 + v13) = v14;
+  *(v3 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_timerToLogResourceUsage) = 0;
+  *(v3 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_sortedImageFiles) = v12;
+  *(v3 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_invalidSamples) = v12;
+  *(v3 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_skippedSamples) = v12;
+  *(v3 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_state) = 0;
+  v55 = OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_serialExecutor;
+  v54 = type metadata accessor for OS_dispatch_queue();
+  static DispatchQoS.userInitiated.getter();
+  *&aBlock = v12;
+  lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x1E69E8030], MEMORY[0x1E69E8040]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
+  v16 = v59;
+  lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR, MEMORY[0x1E69E6328]);
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  (*(v57 + 104))(v56, *MEMORY[0x1E69E8090], v58);
+  *(v3 + v55) = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  v17 = OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_sessionID;
+  v18 = type metadata accessor for UUID();
+  v19 = *(v18 - 8);
+  (*(v19 + 16))(v4 + v17, v16, v18);
+  type metadata accessor for PhotogrammetrySession();
+  result = static PhotogrammetrySession.isSupported.getter();
+  if ((result & 1) == 0)
+  {
+    __break(1u);
+    goto LABEL_9;
+  }
+
+  *(v4 + v51) = v53;
+  swift_retain_n();
+
+  outlined init with copy of PhotogrammetrySession.Request(v67, v4 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_configuration, type metadata accessor for PhotogrammetrySession.Configuration);
+  v21 = dispatch thunk of PhotogrammetrySession.outputPublisher.getter();
+
+  type metadata accessor for OutputPublisherMonitor(0);
+  v22 = swift_allocObject();
+  OutputPublisherMonitor.init(publisher:)(v21);
+  v23 = v52;
+  *(v4 + v52) = v22;
+
+  v24 = *(v4 + v23);
+  if (!v24)
+  {
+LABEL_9:
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  v25 = OBJC_IVAR____TtC17RealityFoundation22OutputPublisherMonitor_outputs;
+  swift_beginAccess();
+  v26 = v24 + v25;
+  v27 = v50;
+  outlined init with copy of [String : String](v26, v50, &_sScSy17RealityFoundation21PhotogrammetrySessionC6OutputOGSgMd, &_sScSy17RealityFoundation21PhotogrammetrySessionC6OutputOGSgMR);
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy17RealityFoundation21PhotogrammetrySessionC6OutputOGMd, &_sScSy17RealityFoundation21PhotogrammetrySessionC6OutputOGMR);
+  v29 = *(v28 - 8);
+  result = (*(v29 + 48))(v27, 1, v28);
+  if (result == 1)
+  {
+LABEL_10:
+    __break(1u);
+    goto LABEL_11;
+  }
+
+  v30 = v47;
+  AsyncStream.makeAsyncIterator()();
+  (*(v29 + 8))(v27, v28);
+  v65 = type metadata accessor for AsyncOutputIterator(0);
+  v66 = &protocol witness table for AsyncOutputIterator;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v64);
+  (*(v48 + 32))(boxed_opaque_existential_1, v30, v49);
+  result = outlined init with take of ForceEffectBase(&v64, &aBlock);
+  v32 = v61;
+  *(v4 + 16) = aBlock;
+  *(v4 + 32) = v32;
+  *(v4 + 48) = v62;
+  v33 = OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_outputMonitor;
+  v34 = *(v4 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_outputMonitor);
+  if (!v34)
+  {
+LABEL_11:
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  v35 = swift_allocObject();
+  swift_weakInit();
+  v36 = *(v34 + 24);
+  v37 = *(v34 + 32);
+  *(v34 + 24) = partial apply for closure #1 in PhotogrammetrySessionImpl.init(id:using:configuration:);
+  *(v34 + 32) = v35;
+
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v36, v37);
+
+  v38 = *(v4 + v33);
+  if (!v38)
+  {
+LABEL_12:
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  v39 = swift_allocObject();
+  swift_weakInit();
+
+  v40 = *(v38 + 40);
+  v41 = *(v38 + 48);
+  *(v38 + 40) = partial apply for closure #2 in PhotogrammetrySessionImpl.init(id:using:configuration:);
+  *(v38 + 48) = v39;
+
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v40, v41);
+
+  if (*(v4 + v33))
+  {
+    swift_weakAssign();
+    v42 = objc_opt_self();
+    v62 = closure #3 in PhotogrammetrySessionImpl.init(id:using:configuration:);
+    v63 = 0;
+    *&aBlock = MEMORY[0x1E69E9820];
+    *(&aBlock + 1) = 1107296256;
+    *&v61 = thunk for @escaping @callee_guaranteed (@guaranteed RECancellationTokenRef) -> ();
+    *(&v61 + 1) = &block_descriptor_161;
+    v43 = _Block_copy(&aBlock);
+    v44 = [v42 scheduledTimerWithTimeInterval:1 repeats:v43 block:5.0];
+    _Block_release(v43);
+
+    outlined destroy of PhotogrammetrySession.Request(v67, type metadata accessor for PhotogrammetrySession.Configuration);
+    (*(v19 + 8))(v16, v18);
+    v45 = *(v4 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_timerToLogResourceUsage);
+    *(v4 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_timerToLogResourceUsage) = v44;
+
+    return v4;
+  }
+
+LABEL_13:
+  __break(1u);
+  return result;
+}
+
+uint64_t closure #1 in PhotogrammetrySessionImpl.init(id:using:configuration:)(uint64_t a1)
+{
+  swift_beginAccess();
+  result = swift_weakLoadStrong();
+  if (result)
+  {
+    v2 = *(result + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_serialExecutor);
+    v3 = result;
+    v4 = swift_allocObject();
+    *(v4 + 16) = partial apply for closure #1 in PhotogrammetrySessionImpl.onProcessingComplete();
+    *(v4 + 24) = v3;
+    aBlock[4] = thunk for @callee_guaranteed () -> ()partial apply;
+    aBlock[5] = v4;
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 1107296256;
+    aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
+    aBlock[3] = &block_descriptor_175;
+    v5 = _Block_copy(aBlock);
+
+    dispatch_sync(v2, v5);
+    _Block_release(v5);
+    LOBYTE(v2) = swift_isEscapingClosureAtFileLocation();
+
+    if (v2)
+    {
+      __break(1u);
+    }
+  }
+
+  return result;
+}
+
+uint64_t closure #2 in PhotogrammetrySessionImpl.init(id:using:configuration:)(uint64_t a1)
+{
+  swift_beginAccess();
+  result = swift_weakLoadStrong();
+  if (result)
+  {
+    v2 = *(result + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_serialExecutor);
+    v3 = result;
+    v4 = swift_allocObject();
+    *(v4 + 16) = partial apply for closure #1 in PhotogrammetrySessionImpl.onProcessingCancelled();
+    *(v4 + 24) = v3;
+    aBlock[4] = _sIg_Ieg_TRTA_0;
+    aBlock[5] = v4;
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 1107296256;
+    aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
+    aBlock[3] = &block_descriptor_167;
+    v5 = _Block_copy(aBlock);
+
+    dispatch_sync(v2, v5);
+    _Block_release(v5);
+    LOBYTE(v2) = swift_isEscapingClosureAtFileLocation();
+
+    if (v2)
+    {
+      __break(1u);
+    }
+  }
+
+  return result;
+}
+
+void closure #3 in PhotogrammetrySessionImpl.init(id:using:configuration:)()
+{
+  act_list[1] = *MEMORY[0x1E69E9840];
+  if (one-time initialization token for logger != -1)
+  {
+    swift_once();
+  }
+
+  v0 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v0, logger);
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v1, v2))
+  {
+    v3 = swift_slowAlloc();
+    *v3 = 134349056;
+    *(v3 + 4) = specialized static ResourceUsageHelper.memoryUsage(in:)(2);
+    _os_log_impl(&dword_1C1358000, v1, v2, "Memory usage: %{public}llu MB", v3, 0xCu);
+    MEMORY[0x1C6902A30](v3, -1, -1);
+  }
+
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v4, v5))
+  {
+    v6 = swift_slowAlloc();
+    *v6 = 134349056;
+    act_list[0] = 0;
+    act_listCnt[0] = 0;
+    v7 = task_threads(*MEMORY[0x1E69E9A60], act_list, act_listCnt);
+    if (act_list[0])
+    {
+      v8 = v7 == 0;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    v9 = act_listCnt[0];
+    if (!v8)
+    {
+      v9 = -1;
+    }
+
+    *(v6 + 4) = v9;
+    _os_log_impl(&dword_1C1358000, v4, v5, "Thread count: %{public}ld", v6, 0xCu);
+    MEMORY[0x1C6902A30](v6, -1, -1);
+  }
+
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
+  {
+    v12 = swift_slowAlloc();
+    v13 = swift_slowAlloc();
+    act_list[0] = v13;
+    *v12 = 136446210;
+    v14 = [objc_opt_self() processInfo];
+    v15 = [v14 thermalState];
+
+    *act_listCnt = v15;
+    type metadata accessor for NSProcessInfoThermalState(0);
+    v16 = String.init<A>(describing:)();
+    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v17, act_list);
+
+    *(v12 + 4) = v18;
+    _os_log_impl(&dword_1C1358000, v10, v11, "Thermal state: %{public}s", v12, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v13);
+    MEMORY[0x1C6902A30](v13, -1, -1);
+    MEMORY[0x1C6902A30](v12, -1, -1);
+  }
+}
+
+uint64_t PhotogrammetrySession.Configuration.init(_:)(unsigned __int8 *a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x1EEE9AC00](v2 - 8);
+  v4 = &v23 - v3;
+  PhotogrammetrySession.Configuration.init()();
+  PhotogrammetrySession.Configuration.isObjectMaskingEnabled.setter();
+  v5 = a1[1];
+  v6 = type metadata accessor for PhotogrammetrySession.Configuration.SampleOrdering();
+  v9 = MEMORY[0x1EEE9AC00](v6);
+  if (v5 == 1)
+  {
+    v10 = MEMORY[0x1E69982B8];
+  }
+
+  else
+  {
+    v10 = MEMORY[0x1E69982C0];
+  }
+
+  (*(v8 + 104))(&v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), *v10, v9);
+  PhotogrammetrySession.Configuration.sampleOrdering.setter();
+  v11 = a1[2];
+  v12 = type metadata accessor for PhotogrammetrySession.Configuration.FeatureSensitivity();
+  v15 = MEMORY[0x1EEE9AC00](v12);
+  if (v11 == 1)
+  {
+    v16 = MEMORY[0x1E69982C8];
+  }
+
+  else
+  {
+    v16 = MEMORY[0x1E69982D0];
+  }
+
+  (*(v14 + 104))(&v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), *v16, v15);
+  PhotogrammetrySession.Configuration.featureSensitivity.setter();
+  v17 = type metadata accessor for PhotogrammetrySession.Configuration(0);
+  outlined init with copy of [String : String](&a1[*(v17 + 28)], v4, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  PhotogrammetrySession.Configuration.snapshotURL.setter();
+  PhotogrammetrySession.Configuration.ignoreBoundingBox.setter();
+  if (PhotogrammetrySession.Configuration.ignoreBoundingBox.getter())
+  {
+    if (one-time initialization token for logger != -1)
+    {
+      swift_once();
+    }
+
+    v18 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v18, logger);
+    v19 = Logger.logObject.getter();
+    v20 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v19, v20))
+    {
+      v21 = swift_slowAlloc();
+      *v21 = 0;
+      _os_log_impl(&dword_1C1358000, v19, v20, "Setting PhotogrammetrySession.Configuration to ignore bounding box!", v21, 2u);
+      MEMORY[0x1C6902A30](v21, -1, -1);
+    }
+  }
+
+  return outlined destroy of PhotogrammetrySession.Request(a1, type metadata accessor for PhotogrammetrySession.Configuration);
+}
+
+uint64_t closure #1 in PhotogrammetrySessionImpl.init<A>(id:input:configuration:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6CoreOC20PhotogrammetrySampleVSgMd, &_s6CoreOC20PhotogrammetrySampleVSgMR);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = &v13[-1] - v5;
+  outlined init with copy of [String : String](a1 + 72, v13, &_sypSgMd, &_sypSgMR);
+  if (v13[3])
+  {
+    v7 = type metadata accessor for PhotogrammetrySample();
+    v8 = swift_dynamicCast();
+    v9 = *(v7 - 8);
+    (*(v9 + 56))(v6, v8 ^ 1u, 1, v7);
+    if ((*(v9 + 48))(v6, 1, v7) != 1)
+    {
+      return (*(v9 + 32))(a2, v6, v7);
+    }
+  }
+
+  else
+  {
+    outlined destroy of BodyTrackingComponent?(v13, &_sypSgMd, &_sypSgMR);
+    v11 = type metadata accessor for PhotogrammetrySample();
+    (*(*(v11 - 8) + 56))(v6, 1, 1, v11);
+  }
+
+  outlined destroy of BodyTrackingComponent?(v6, &_s6CoreOC20PhotogrammetrySampleVSgMd, &_s6CoreOC20PhotogrammetrySampleVSgMR);
+  outlined init with copy of PhotogrammetrySample(a1, v13);
+  return PhotogrammetrySample.init(_:)(v13);
+}
+
+void PhotogrammetrySessionImpl.deinit()
+{
+  v1 = v0;
+  if (one-time initialization token for logger != -1)
+  {
+    swift_once();
+  }
+
+  v2 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v2, logger);
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v3, v4))
+  {
+    v5 = swift_slowAlloc();
+    *v5 = 0;
+    _os_log_impl(&dword_1C1358000, v3, v4, "~~~ PhotogrammetrySession deinit was called! ~~~", v5, 2u);
+    MEMORY[0x1C6902A30](v5, -1, -1);
+  }
+
+  v6 = *(v1 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_outputMonitor);
+  if (v6)
+  {
+    v7 = *(v6 + 56);
+    if (v7)
+    {
+      v8 = *(v6 + 64);
+
+      v7(v9);
+      outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v7, v8);
+    }
+
+    v10 = OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_timerToLogResourceUsage;
+    v11 = *(v1 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_timerToLogResourceUsage);
+    if (v11)
+    {
+      [v11 invalidate];
+      v12 = *(v1 + v10);
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    *(v1 + v10) = 0;
+
+    v13 = *(v1 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_requestMap);
+    v14 = swift_beginAccess();
+    v15 = *(v13 + 16);
+    MEMORY[0x1EEE9AC00](v14);
+
+    os_unfair_lock_lock((v15 + 24));
+    closure #1 in Atomic.store(_:)specialized partial apply((v15 + 16));
+    os_unfair_lock_unlock((v15 + 24));
+    swift_endAccess();
+
+    if (*(v1 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_photogrammetrySession))
+    {
+
+      dispatch thunk of PhotogrammetrySession.close()();
+
+      outlined destroy of PhotogrammetrySession.Outputs(v1 + 16);
+      outlined destroy of PhotogrammetrySession.Request(v1 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_configuration, type metadata accessor for PhotogrammetrySession.Configuration);
+
+      v16 = OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_sessionID;
+      v17 = type metadata accessor for UUID();
+      (*(*(v17 - 8) + 8))(v1 + v16, v17);
+
+      return;
+    }
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  __break(1u);
+}
+
+uint64_t PhotogrammetrySessionImpl.__deallocating_deinit()
+{
+  PhotogrammetrySessionImpl.deinit();
+
+  return swift_deallocClassInstance();
+}
+
+uint64_t type metadata completion function for PhotogrammetrySessionImpl(uint64_t a1)
+{
+  result = type metadata accessor for PhotogrammetrySession.Configuration(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for UUID();
+    if (v3 <= 0x3F)
+    {
+      return swift_updateClassMetadata2();
+    }
+  }
+
+  return result;
+}
+
+void closure #1 in PhotogrammetrySessionImpl.process(requests:)(uint64_t a1, Swift::OpaquePointer a2)
+{
+  v5 = type metadata accessor for PhotogrammetrySession.Request(0);
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v33 = &rawValue - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &rawValue - v9;
+  v11 = OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_state;
+  if (*(a1 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_state) == 2)
+  {
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  specialized PhotogrammetrySessionImpl.throwIfInvalidRequests(_:)(a2._rawValue);
+  if (v2)
+  {
+    return;
+  }
+
+  v12 = *(a2._rawValue + 2);
+  v13._rawValue = MEMORY[0x1E69E7CC0];
+  if (v12)
+  {
+    v26 = v11;
+    v27 = a1;
+    v34 = MEMORY[0x1E69E7CC0];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v12, 0);
+    v13._rawValue = v34;
+    v14 = (*(v6 + 80) + 32) & ~*(v6 + 80);
+    rawValue = a2._rawValue;
+    v15 = v6;
+    v16 = a2._rawValue + v14;
+    v17 = type metadata accessor for PhotogrammetrySession.Request();
+    v31 = v17;
+    v18 = *(v17 - 8);
+    v32 = *(v18 + 64);
+    v29 = *(v15 + 72);
+    v30 = v18;
+    v28 = v18 + 32;
+    do
+    {
+      MEMORY[0x1EEE9AC00](v17);
+      v20 = &rawValue - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+      outlined init with copy of PhotogrammetrySession.Request(v16, v10, type metadata accessor for PhotogrammetrySession.Request);
+      v21 = v33;
+      outlined init with copy of PhotogrammetrySession.Request(v10, v33, type metadata accessor for PhotogrammetrySession.Request);
+      PhotogrammetrySession.Request.init(_:)(v21, v20);
+      v22 = v10;
+      outlined destroy of PhotogrammetrySession.Request(v10, type metadata accessor for PhotogrammetrySession.Request);
+      v34 = v13._rawValue;
+      v24 = *(v13._rawValue + 2);
+      v23 = *(v13._rawValue + 3);
+      if (v24 >= v23 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1);
+        v13._rawValue = v34;
+      }
+
+      *(v13._rawValue + 2) = v24 + 1;
+      v17 = (*(v30 + 32))(v13._rawValue + ((*(v30 + 80) + 32) & ~*(v30 + 80)) + *(v30 + 72) * v24, v20, v31);
+      v16 += v29;
+      --v12;
+      v10 = v22;
+    }
+
+    while (v12);
+    v11 = v26;
+    a1 = v27;
+    a2._rawValue = rawValue;
+  }
+
+  PhotogrammetrySessionImpl.RequestMap.addRequests(apiRequests:internalRequests:)(a2, v13);
+
+  if (!*(a1 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_photogrammetrySession))
+  {
+LABEL_13:
+    __break(1u);
+    return;
+  }
+
+  dispatch thunk of PhotogrammetrySession.process(requests:)();
+
+  *(a1 + v11) = 1;
+  *(a1 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_isProcessing) = 1;
+}
+
+uint64_t PhotogrammetrySession.Request.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v131 = a2;
+  v132[3] = *MEMORY[0x1E69E9840];
+  v3 = type metadata accessor for UUID();
+  v128 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = &v111 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for URL();
+  v129.i64[0] = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v111 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v111 - v10;
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v111 - v13;
+  v15 = type metadata accessor for PhotogrammetrySession.Request(0);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v111 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v130 = a1;
+  outlined init with copy of PhotogrammetrySession.Request(a1, v17, type metadata accessor for PhotogrammetrySession.Request);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload <= 1)
+  {
+    v124.i64[0] = v5;
+    v125.i64[0] = v3;
+    *&v126 = v11;
+    v21 = v129.i64[0];
+    v127.i64[0] = v6;
+    if (EnumCaseMultiPayload)
+    {
+      v50 = *(v17 + 1);
+      v111 = *v17;
+      v113 = v50;
+      v51 = *(v17 + 3);
+      v112 = *(v17 + 2);
+      v115 = v51;
+      v52 = *(v17 + 5);
+      v114 = *(v17 + 4);
+      v117.i64[0] = v52;
+      v53 = *(v17 + 7);
+      v116 = *(v17 + 6);
+      v119.i64[0] = v53;
+      v54 = *(v17 + 9);
+      v118 = *(v17 + 8);
+      v121.i64[0] = v54;
+      v55 = *(v17 + 11);
+      *&v120 = *(v17 + 10);
+      *&v122 = v55;
+      v123.i32[0] = v17[96];
+      v56 = objc_opt_self();
+      v57 = [v56 defaultManager];
+      v58 = [v57 temporaryDirectory];
+
+      static URL._unconditionallyBridgeFromObjectiveC(_:)();
+      v59 = v124.i64[0];
+      UUID.init()();
+      UUID.uuidString.getter();
+      v60 = v8;
+      (*(v128 + 8))(v59, v125.i64[0]);
+      v61 = v126;
+      URL.appendingPathComponent(_:isDirectory:)();
+
+      v62 = v21;
+      v63 = v21 + 8;
+      v64 = *(v21 + 8);
+      v65 = v127.i64[0];
+      v64(v60, v127.i64[0]);
+      v66 = [v56 defaultManager];
+      v67 = URL.path.getter();
+      v68 = MEMORY[0x1C68F3280](v67);
+
+      v132[0] = 0;
+      LODWORD(v57) = [v66 createDirectoryAtPath:v68 withIntermediateDirectories:1 attributes:0 error:v132];
+
+      if (v57)
+      {
+        v125.i64[0] = v64;
+        v128 = v63;
+        v69 = v132[0];
+        URL.appendingPathComponent(_:)();
+        (*(v62 + 40))(v61, v60, v65);
+        if (one-time initialization token for logger != -1)
+        {
+          swift_once();
+        }
+
+        v70 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v70, logger);
+        v71 = Logger.logObject.getter();
+        v72 = static os_log_type_t.debug.getter();
+        v73 = os_log_type_enabled(v71, v72);
+        v74 = v131;
+        if (v73)
+        {
+          v75 = swift_slowAlloc();
+          v76 = swift_slowAlloc();
+          v132[0] = v76;
+          *v75 = 141558274;
+          *(v75 + 4) = 1752392040;
+          *(v75 + 12) = 2080;
+          swift_beginAccess();
+          lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x1E6968FB0], MEMORY[0x1E6968FE0]);
+          v77 = dispatch thunk of CustomStringConvertible.description.getter();
+          v79 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v77, v78, v132);
+
+          *(v75 + 14) = v79;
+          _os_log_impl(&dword_1C1358000, v71, v72, "outputURL for modelEntity: %{mask.hash}s", v75, 0x16u);
+          __swift_destroy_boxed_opaque_existential_1(v76);
+          MEMORY[0x1C6902A30](v76, -1, -1);
+          v80 = v75;
+          v65 = v127.i64[0];
+          MEMORY[0x1C6902A30](v80, -1, -1);
+        }
+
+        v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLV3url_6CoreOC21PhotogrammetrySessionC7RequestO6DetailO6detailAI8GeometryVSg8geometrytMd, &_s10Foundation3URLV3url_6CoreOC21PhotogrammetrySessionC7RequestO6DetailO6detailAI8GeometryVSg8geometrytMR);
+        v82 = *(v81 + 48);
+        v83 = *(v81 + 64);
+        swift_beginAccess();
+        (*(v62 + 16))(v74, v61, v65);
+        v84 = *MEMORY[0x1E6998398];
+        v85 = type metadata accessor for PhotogrammetrySession.Request.Detail();
+        (*(*(v85 - 8) + 104))(v74 + v82, v84, v85);
+        v86 = v125.i64[0];
+        if (v123.i8[0])
+        {
+          v87 = 1;
+        }
+
+        else
+        {
+          v100.i64[0] = v111;
+          v100.i64[1] = v113;
+          v129 = v100;
+          v100.i64[0] = v112;
+          v100.i64[1] = v115;
+          v127 = v100;
+          v100.i64[0] = v114;
+          v100.i64[1] = v117.i64[0];
+          v124 = v100;
+          v100.i64[0] = v116;
+          v100.i64[1] = v119.i64[0];
+          v123 = v100;
+          v100.i64[0] = v118;
+          v100.i64[1] = v121.i64[0];
+          v121 = v100;
+          *&v101 = v120;
+          *(&v101 + 1) = v122;
+          v120 = v101;
+          REAABBExtents();
+          v122 = v102;
+          REAABBCenter();
+          if (one-time initialization token for identity != -1)
+          {
+            v121 = v103;
+            swift_once();
+            v103.i64[0] = v121.i64[0];
+          }
+
+          *v104.i64 = specialized simd_float4x4.init(translation:rotation:scale:)(*v103.i64, v123, *&v122);
+          v123 = v104;
+          v122 = v105;
+          v121 = v106;
+          v120 = v107;
+          specialized simd_float4x4.init(translation:rotation:scale:)(*v124.i64, v127, v129.f32[0]);
+          PhotogrammetrySession.Request.Geometry.init(orientedBoundsTransform:rootTransform:)();
+          v87 = 0;
+        }
+
+        outlined destroy of PhotogrammetrySession.Request(v130, type metadata accessor for PhotogrammetrySession.Request);
+        v108 = type metadata accessor for PhotogrammetrySession.Request.Geometry();
+        (*(*(v108 - 8) + 56))(v74 + v83, v87, 1, v108);
+        v109 = *MEMORY[0x1E69983A8];
+        v110 = type metadata accessor for PhotogrammetrySession.Request();
+        (*(*(v110 - 8) + 104))(v74, v109, v110);
+        return v86(v61, v65);
+      }
+
+      else
+      {
+        v99 = v132[0];
+        _convertNSErrorToError(_:)();
+
+        swift_willThrow();
+        outlined destroy of PhotogrammetrySession.Request(v130, type metadata accessor for PhotogrammetrySession.Request);
+        return (v64)(v61, v65);
+      }
+    }
+
+    else
+    {
+      v22 = v14;
+      v23 = &v17[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLV3url_07RealityA021PhotogrammetrySessionC7RequestO6DetailO6detailAI8GeometryVSg8geometrytMd, &_s10Foundation3URLV3url_07RealityA021PhotogrammetrySessionC7RequestO6DetailO6detailAI8GeometryVSg8geometrytMR) + 64)];
+      v24 = *v23;
+      v25 = *(v23 + 1);
+      v26 = *(v23 + 2);
+      v119.i64[0] = *(v23 + 3);
+      v27 = *(v23 + 5);
+      v118 = *(v23 + 4);
+      v121.i64[0] = v27;
+      v28 = *(v23 + 7);
+      *&v120 = *(v23 + 6);
+      v123.i64[0] = v28;
+      v29 = *(v23 + 9);
+      *&v122 = *(v23 + 8);
+      v125.i64[0] = v29;
+      v30 = *(v23 + 11);
+      v124.i64[0] = *(v23 + 10);
+      *&v126 = v30;
+      v31 = v23[96];
+      v32 = v21;
+      v33 = v17;
+      v34 = v127.i64[0];
+      (*(v21 + 32))(v22, v33, v127.i64[0]);
+      v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLV3url_6CoreOC21PhotogrammetrySessionC7RequestO6DetailO6detailAI8GeometryVSg8geometrytMd, &_s10Foundation3URLV3url_6CoreOC21PhotogrammetrySessionC7RequestO6DetailO6detailAI8GeometryVSg8geometrytMR);
+      v36 = *(v35 + 48);
+      v128 = *(v35 + 64);
+      v37 = *(v21 + 16);
+      v38 = v131;
+      v37(v131, v22, v34);
+      v39 = *MEMORY[0x1E6998398];
+      v40 = type metadata accessor for PhotogrammetrySession.Request.Detail();
+      (*(*(v40 - 8) + 104))(v38 + v36, v39, v40);
+      if (v31)
+      {
+        v41 = 1;
+        v42 = v131;
+        v43 = v127.i64[0];
+        v44 = v128;
+      }
+
+      else
+      {
+        v88.i64[0] = v24;
+        v88.i64[1] = v25;
+        v117 = v88;
+        v88.i64[0] = v26;
+        v88.i64[1] = v119.i64[0];
+        v119 = v88;
+        v88.i64[0] = v118;
+        v88.i64[1] = v121.i64[0];
+        v121 = v88;
+        v88.i64[0] = v120;
+        v88.i64[1] = v123.i64[0];
+        v123 = v88;
+        v88.i64[0] = v122;
+        v88.i64[1] = v125.i64[0];
+        v125 = v88;
+        v89.i64[0] = v124.i64[0];
+        v89.i64[1] = v126;
+        v124 = v89;
+        REAABBExtents();
+        v126 = v90;
+        REAABBCenter();
+        if (one-time initialization token for identity != -1)
+        {
+          v125 = v91;
+          swift_once();
+          v91.i64[0] = v125.i64[0];
+        }
+
+        *&v92 = specialized simd_float4x4.init(translation:rotation:scale:)(*v91.i64, v123, *&v126);
+        v125 = v93;
+        v126 = v92;
+        v124 = v94;
+        v123 = v95;
+        specialized simd_float4x4.init(translation:rotation:scale:)(*v121.i64, v119, v117.f32[0]);
+        v42 = v131;
+        v44 = v128;
+        PhotogrammetrySession.Request.Geometry.init(orientedBoundsTransform:rootTransform:)();
+        v41 = 0;
+        v43 = v127.i64[0];
+      }
+
+      outlined destroy of PhotogrammetrySession.Request(v130, type metadata accessor for PhotogrammetrySession.Request);
+      (*(v32 + 8))(v22, v43);
+      v96 = type metadata accessor for PhotogrammetrySession.Request.Geometry();
+      (*(*(v96 - 8) + 56))(v42 + v44, v41, 1, v96);
+      v97 = *MEMORY[0x1E69983A8];
+      v98 = type metadata accessor for PhotogrammetrySession.Request();
+      return (*(*(v98 - 8) + 104))(v42, v97, v98);
+    }
+  }
+
+  else if (EnumCaseMultiPayload == 2)
+  {
+    outlined destroy of PhotogrammetrySession.Request(v130, type metadata accessor for PhotogrammetrySession.Request);
+    v45 = *MEMORY[0x1E69983A0];
+    v46 = type metadata accessor for PhotogrammetrySession.Request();
+    return (*(*(v46 - 8) + 104))(v131, v45, v46);
+  }
+
+  else
+  {
+    v19 = v131;
+    if (EnumCaseMultiPayload == 3)
+    {
+      outlined destroy of PhotogrammetrySession.Request(v130, type metadata accessor for PhotogrammetrySession.Request);
+      v20 = MEMORY[0x1E6998388];
+    }
+
+    else
+    {
+      outlined destroy of PhotogrammetrySession.Request(v130, type metadata accessor for PhotogrammetrySession.Request);
+      v20 = MEMORY[0x1E6998390];
+    }
+
+    v48 = *v20;
+    v49 = type metadata accessor for PhotogrammetrySession.Request();
+    return (*(*(v49 - 8) + 104))(v19, v48, v49);
+  }
+}
+
+uint64_t closure #1 in PhotogrammetrySessionImpl.cancel()(uint64_t result)
+{
+  *(result + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_state) = 2;
+  if (*(result + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_photogrammetrySession))
+  {
+
+    dispatch thunk of PhotogrammetrySession.cancel()();
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+void PhotogrammetrySessionImpl.addImageMappingDictionary(into:)(uint64_t a1)
+{
+  v2 = v1;
+  v4 = type metadata accessor for URL();
+  v63 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v67 = (&v57 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v6);
+  v66 = &v57 - v8;
+  v65 = OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_sortedImageFiles;
+  if (!*(*(v1 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_sortedImageFiles) + 16))
+  {
+    if (one-time initialization token for logger == -1)
+    {
+LABEL_9:
+      v18 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v18, logger);
+      v67 = Logger.logObject.getter();
+      v19 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v67, v19))
+      {
+        v20 = swift_slowAlloc();
+        *v20 = 0;
+        _os_log_impl(&dword_1C1358000, v67, v19, "There were no image files associated with this session -- not adding mapping.", v20, 2u);
+        MEMORY[0x1C6902A30](v20, -1, -1);
+      }
+
+      v21 = v67;
+
+      return;
+    }
+
+LABEL_47:
+    swift_once();
+    goto LABEL_9;
+  }
+
+  v64 = v7;
+
+  v10 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSi_SD4KeysVySiSo13simd_float4x4aSg_GTt0g5(v9);
+  v69 = v10;
+  v11 = *(v1 + OBJC_IVAR____TtC17RealityFoundation25PhotogrammetrySessionImpl_invalidSamples);
+  v12 = *(v11 + 16);
+  if (v12)
+  {
+
+    v13 = 32;
+    do
+    {
+      specialized Set._Variant.insert(_:)(v68, *(v11 + v13));
+      v13 += 8;
+      --v12;
+    }
+
+    while (v12);
+
+    v14 = v69;
+    v15 = *(v69 + 16);
+    if (v15)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v14 = v10;
+    v15 = *(v10 + 16);
+    if (v15)
+    {
+LABEL_6:
+      v16 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSi_Tt1g5(v15, 0);
+      v17 = specialized Sequence._copySequenceContents(initializing:)(v68, v16 + 4, v15, v14);
+      v62 = v68[4];
+
+      outlined consume of [String : AnimationResource].Iterator._Variant();
+      if (v17 == v15)
+      {
+        goto LABEL_16;
+      }
+
+LABEL_46:
+      __break(1u);
+      goto LABEL_47;
+    }
+  }
+
+  v16 = MEMORY[0x1E69E7CC0];
+LABEL_16:
+  v68[0] = v16;
+  specialized MutableCollection<>.sort(by:)(v68);
+
+  v22 = v68[0];
+  v23 = v64;
+  v24 = *(*(v2 + v65) + 16);
+  v62 = *(v68[0] + 2);
+  if (v62 != v24)
+  {
+    if (one-time initialization token for logger != -1)
+    {
+      swift_once();
+    }
+
+    v25 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v25, logger);
+
+    v26 = Logger.logObject.getter();
+    v27 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v26, v27))
+    {
+      v28 = swift_slowAlloc();
+      *v28 = 134218240;
+      *(v28 + 4) = *(v22 + 2);
+
+      *(v28 + 12) = 2048;
+      *(v28 + 14) = *(*(v2 + v65) + 16);
+
+      _os_log_impl(&dword_1C1358000, v26, v27, "sortedSampleID count=%ld  sortedImageFiles count=%ld", v28, 0x16u);
+      v29 = v28;
+      v23 = v64;
+      MEMORY[0x1C6902A30](v29, -1, -1);
+    }
+
+    else
+    {
+    }
+
+    v30 = Logger.logObject.getter();
+    v31 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v30, v31))
+    {
+      v32 = swift_slowAlloc();
+      *v32 = 0;
+      _os_log_impl(&dword_1C1358000, v30, v31, "SampleID and sorted URL counts do not match!  The sampleID to URL mapping may be incorrect!", v32, 2u);
+      v33 = v32;
+      v23 = v64;
+      MEMORY[0x1C6902A30](v33, -1, -1);
+    }
+  }
+
+  if (v62)
+  {
+    v34 = 0;
+    v58 = (v63 + 40);
+    v59 = (v63 + 32);
+    v60 = (v63 + 8);
+    v61 = v63 + 16;
+    while (1)
+    {
+      v35 = *(v2 + v65);
+      if (v34 >= *(v35 + 16))
+      {
+        __break(1u);
+LABEL_44:
+        __break(1u);
+LABEL_45:
+        __break(1u);
+        goto LABEL_46;
+      }
+
+      v36 = v2;
+      v37 = v22;
+      v38 = *&v22[8 * v34 + 32];
+      v39 = *(v63 + 72);
+      v40 = *(v63 + 16);
+      v41 = v66;
+      v40(v66, v35 + ((*(v63 + 80) + 32) & ~*(v63 + 80)) + v39 * v34, v23);
+      v40(v67, v41, v23);
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      v43 = a1;
+      v68[0] = *(a1 + 8);
+      v44 = v68[0];
+      v46 = specialized __RawDictionaryStorage.find<A>(_:)(v38);
+      v47 = *(v44 + 2);
+      v48 = (v45 & 1) == 0;
+      v49 = v47 + v48;
+      if (__OFADD__(v47, v48))
+      {
+        goto LABEL_44;
+      }
+
+      v50 = v45;
+      if (*(v44 + 3) >= v49)
+      {
+        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+        {
+          specialized _NativeDictionary.copy()();
+        }
+      }
+
+      else
+      {
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v49, isUniquelyReferenced_nonNull_native);
+        v51 = specialized __RawDictionaryStorage.find<A>(_:)(v38);
+        if ((v50 & 1) != (v52 & 1))
+        {
+          KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+          __break(1u);
+
+          __break(1u);
+          return;
+        }
+
+        v46 = v51;
+      }
+
+      v23 = v64;
+      v53 = v68[0];
+      if (v50)
+      {
+        (*v58)(*(v68[0] + 7) + v46 * v39, v67, v64);
+      }
+
+      else
+      {
+        *&v68[0][8 * (v46 >> 6) + 64] |= 1 << v46;
+        *(*(v53 + 6) + 8 * v46) = v38;
+        (*v59)(*(v53 + 7) + v46 * v39, v67, v23);
+        v54 = *(v53 + 2);
+        v55 = __OFADD__(v54, 1);
+        v56 = v54 + 1;
+        if (v55)
+        {
+          goto LABEL_45;
+        }
+
+        *(v53 + 2) = v56;
+      }
+
+      ++v34;
+      a1 = v43;
+      *(v43 + 8) = v53;
+      (*v60)(v66, v23);
+      v2 = v36;
+      v22 = v37;
+      if (v62 == v34)
+      {
+        goto LABEL_42;
+      }
+    }
+  }
+
+LABEL_42:
+}
+
+Swift::Void __swiftcall PhotogrammetrySessionImpl.RequestMap.addRequests(apiRequests:internalRequests:)(Swift::OpaquePointer apiRequests, Swift::OpaquePointer internalRequests)
+{
+  v4 = type metadata accessor for PhotogrammetrySessionImpl.RequestMap.Entry(0);
+  v41 = *(v4 - 8);
+  v42 = v4;
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = &v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for PhotogrammetrySession.Request(0);
+  v8 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v44 = &v37 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation21PhotogrammetrySessionC7RequestO_6CoreOCABCADOtMd, &_s17RealityFoundation21PhotogrammetrySessionC7RequestO_6CoreOCABCADOtMR);
+  MEMORY[0x1EEE9AC00](v40);
+  v11 = &v37 - v10;
+  v39 = *(apiRequests._rawValue + 2);
+  if (v39)
+  {
+    v12 = 0;
+    v13 = apiRequests._rawValue + ((*(v8 + 80) + 32) & ~*(v8 + 80));
+    v37 = *(v8 + 72);
+    rawValue = internalRequests._rawValue;
+    while (1)
+    {
+      outlined init with copy of PhotogrammetrySession.Request(v13, v44, type metadata accessor for PhotogrammetrySession.Request);
+      v14 = *(internalRequests._rawValue + 2);
+      if (v12 == v14)
+      {
+        outlined destroy of PhotogrammetrySession.Request(v44, type metadata accessor for PhotogrammetrySession.Request);
+        goto LABEL_12;
+      }
+
+      if (v12 >= v14)
+      {
+        break;
+      }
+
+      v15 = type metadata accessor for PhotogrammetrySession.Request();
+      v16 = *(v15 - 8);
+      v17 = internalRequests._rawValue + ((*(v16 + 80) + 32) & ~*(v16 + 80)) + *(v16 + 72) * v12;
+      v18 = *(v40 + 48);
+      outlined init with take of PhotogrammetrySession.Request(v44, v11, type metadata accessor for PhotogrammetrySession.Request);
+      (*(v16 + 16))(&v11[v18], v17, v15);
+      outlined init with take of PhotogrammetrySession.Request(v11, v6, type metadata accessor for PhotogrammetrySession.Request);
+      (*(v16 + 32))(&v6[*(v42 + 20)], &v11[v18], v15);
+      Date.init()();
+      v19 = v43;
+      swift_beginAccess();
+      v20 = *(v19 + 16);
+      os_unfair_lock_lock((v20 + 24));
+      v21 = *(v20 + 16);
+
+      os_unfair_lock_unlock((v20 + 24));
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v21[2] + 1, 1, v21);
+      }
+
+      v23 = v21[2];
+      v22 = v21[3];
+      if (v23 >= v22 >> 1)
+      {
+        v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v23 + 1, 1, v21);
+      }
+
+      ++v12;
+      v21[2] = v23 + 1;
+      v24 = outlined init with take of PhotogrammetrySession.Request(v6, v21 + ((*(v41 + 80) + 32) & ~*(v41 + 80)) + *(v41 + 72) * v23, type metadata accessor for PhotogrammetrySessionImpl.RequestMap.Entry);
+      v46 = v21;
+      MEMORY[0x1EEE9AC00](v24);
+      *(&v37 - 2) = &v46;
+      os_unfair_lock_lock((v20 + 24));
+      closure #1 in Atomic.store(_:)specialized partial apply((v20 + 16));
+      os_unfair_lock_unlock((v20 + 24));
+
+      swift_endAccess();
+      internalRequests._rawValue = rawValue;
+      v13 += v37;
+      if (v39 == v12)
+      {
+        goto LABEL_12;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_12:
+    if (one-time initialization token for logger == -1)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  swift_once();
+LABEL_13:
+  v25 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v25, logger);
+  v26 = v43;
+
+  v27 = Logger.logObject.getter();
+  v28 = static os_log_type_t.debug.getter();
+
+  if (os_log_type_enabled(v27, v28))
+  {
+    v29 = swift_slowAlloc();
+    v30 = swift_slowAlloc();
+    v46 = v30;
+    *v29 = 136446210;
+    swift_beginAccess();
+    v31 = *(v26 + 16);
+
+    os_unfair_lock_lock((v31 + 24));
+    v32 = *(v31 + 16);
+
+    os_unfair_lock_unlock((v31 + 24));
+
+    v33 = *(v32 + 16);
+
+    v45 = v33;
+    v34 = dispatch thunk of CustomStringConvertible.description.getter();
+    v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v35, &v46);
+
+    *(v29 + 4) = v36;
+    _os_log_impl(&dword_1C1358000, v27, v28, "Number of requests in the map: %{public}s", v29, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v30);
+    MEMORY[0x1C6902A30](v30, -1, -1);
+    MEMORY[0x1C6902A30](v29, -1, -1);
+  }
+}
+
+uint64_t PhotogrammetrySessionImpl.RequestMap.findRequest(for:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v22 = a2;
+  v4 = type metadata accessor for PhotogrammetrySessionImpl.RequestMap.Entry(0);
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation25PhotogrammetrySessionImplC10RequestMapC5Entry33_372E864D6FBFC56F64A9656CCD500B7CLLVSgMd, &_s17RealityFoundation25PhotogrammetrySessionImplC10RequestMapC5Entry33_372E864D6FBFC56F64A9656CCD500B7CLLVSgMR);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v21 - v12;
+  swift_beginAccess();
+  v14 = *(v2 + 16);
+
+  os_unfair_lock_lock((v14 + 24));
+  v15 = *(v14 + 16);
+
+  os_unfair_lock_unlock((v14 + 24));
+
+  v23 = a1;
+  specialized Sequence.first(where:)(partial apply for closure #1 in PhotogrammetrySessionImpl.RequestMap.findRequest(for:), v15, v13);
+
+  outlined init with take of AnySubscriber<EngineRenderEvent, Never>(v13, v10, &_s17RealityFoundation25PhotogrammetrySessionImplC10RequestMapC5Entry33_372E864D6FBFC56F64A9656CCD500B7CLLVSgMd, &_s17RealityFoundation25PhotogrammetrySessionImplC10RequestMapC5Entry33_372E864D6FBFC56F64A9656CCD500B7CLLVSgMR);
+  v16 = 1;
+  v17 = (*(v5 + 48))(v10, 1, v4);
+  v18 = v22;
+  if (v17 != 1)
+  {
+    outlined init with take of PhotogrammetrySession.Request(v10, v7, type metadata accessor for PhotogrammetrySessionImpl.RequestMap.Entry);
+    outlined init with copy of PhotogrammetrySession.Request(v7, v18, type metadata accessor for PhotogrammetrySession.Request);
+    outlined destroy of PhotogrammetrySession.Request(v7, type metadata accessor for PhotogrammetrySessionImpl.RequestMap.Entry);
+    v16 = 0;
+  }
+
+  v19 = type metadata accessor for PhotogrammetrySession.Request(0);
+  return (*(*(v19 - 8) + 56))(v18, v16, 1, v19);
+}
+
+void PhotogrammetrySessionImpl.RequestMap.removeRequest(internalRequest:)(uint64_t a1)
+{
+  v2 = v1;
+  v4 = type metadata accessor for PhotogrammetrySessionImpl.RequestMap.Entry(0);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = &v25[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  swift_beginAccess();
+  v7 = *(v2 + 16);
+
+  os_unfair_lock_lock((v7 + 24));
+  v8 = *(v7 + 16);
+
+  os_unfair_lock_unlock((v7 + 24));
+
+  v26 = a1;
+  v9 = specialized Collection.firstIndex(where:)(partial apply for closure #1 in PhotogrammetrySessionImpl.RequestMap.getStartTimestamp(for:), v25, v8);
+  LOBYTE(a1) = v10;
+
+  if ((a1 & 1) == 0)
+  {
+    swift_beginAccess();
+    v11 = *(v2 + 16);
+    os_unfair_lock_lock((v11 + 24));
+    v12 = *(v11 + 16);
+
+    os_unfair_lock_unlock((v11 + 24));
+    v29 = v12;
+    specialized Array.remove(at:)(v9, v6);
+    v13 = outlined destroy of PhotogrammetrySession.Request(v6, type metadata accessor for PhotogrammetrySessionImpl.RequestMap.Entry);
+    v27 = v29;
+    MEMORY[0x1EEE9AC00](v13);
+    *&v25[-16] = &v27;
+    os_unfair_lock_lock((v11 + 24));
+    partial apply for specialized closure #1 in Atomic.store(_:)((v11 + 16));
+    os_unfair_lock_unlock((v11 + 24));
+
+    swift_endAccess();
+  }
+
+  if (one-time initialization token for logger != -1)
+  {
+    swift_once();
+  }
+
+  v14 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v14, logger);
+
+  v15 = Logger.logObject.getter();
+  v16 = static os_log_type_t.debug.getter();
+
+  if (os_log_type_enabled(v15, v16))
+  {
+    v17 = swift_slowAlloc();
+    v18 = swift_slowAlloc();
+    v28[0] = v18;
+    *v17 = 136446210;
+    v19 = *(v2 + 16);
+
+    os_unfair_lock_lock((v19 + 24));
+    v20 = *(v19 + 16);
+
+    os_unfair_lock_unlock((v19 + 24));
+
+    v21 = *(v20 + 16);
+
+    v29 = v21;
+    v22 = dispatch thunk of CustomStringConvertible.description.getter();
+    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, v28);
+
+    *(v17 + 4) = v24;
+    _os_log_impl(&dword_1C1358000, v15, v16, "Number of requests left: %{public}s", v17, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v18);
+    MEMORY[0x1C6902A30](v18, -1, -1);
+    MEMORY[0x1C6902A30](v17, -1, -1);
+  }
 }

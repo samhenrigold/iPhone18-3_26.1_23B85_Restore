@@ -4,7 +4,6 @@
 - (int64_t)receiveInput:(id)input;
 - (void)_resetWithPublisher:(id)publisher;
 - (void)advance;
-- (void)close;
 - (void)receivedEvent:(id)event;
 - (void)requestNextEvents;
 - (void)resetWithOptions:(id)options;
@@ -24,13 +23,6 @@
     [(BMPublisherVirtualTableCursor *)self receivedEvent:nextEvent];
     v4 = nextEvent;
   }
-}
-
-- (void)close
-{
-  subscription = self->_subscription;
-  self->_subscription = 0;
-  MEMORY[0x1EEE66BB8]();
 }
 
 - (BMPublisherVirtualTableCursor)initWithVirtualTable:(id)table
@@ -81,7 +73,6 @@
   rowObject = self->_rowObject;
   self->_rowObject = 0;
 
-  publisher = self->_publisher;
   if (BPSPipelineSupportsPullBasedPublishers())
   {
 
@@ -90,10 +81,10 @@
 
   else
   {
-    v5 = objc_autoreleasePoolPush();
+    v4 = objc_autoreleasePoolPush();
     [(BPSSubscription *)self->_subscription requestDemand:1];
 
-    objc_autoreleasePoolPop(v5);
+    objc_autoreleasePoolPop(v4);
   }
 }
 
@@ -147,7 +138,6 @@
   }
 
   self->_rowID = rowObject;
-  v6 = self->_rowObject;
   self->_rowObject = eventCopy;
 
   MEMORY[0x1EEE66BB8]();

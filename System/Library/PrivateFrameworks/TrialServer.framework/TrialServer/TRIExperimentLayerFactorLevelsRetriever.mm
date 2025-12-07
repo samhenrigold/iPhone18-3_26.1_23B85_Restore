@@ -6,7 +6,7 @@
 
 - (id)factorLevelsForNamespaceName:(id)name
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = MEMORY[0x277D73760];
   mEMORY[0x277D737E0] = [MEMORY[0x277D737E0] sharedPaths];
@@ -41,15 +41,13 @@
     v11 = TRILogCategory_Server();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
-      v18 = nameCopy;
-      _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "[RADAR SEARCH] Missing FPE layer for an experiment in namespace %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = nameCopy;
+      _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "[RADAR SEARCH] Missing FPE layer for an experiment in namespace %@", &v16, 0xCu);
     }
 
     factorLevels = MEMORY[0x277CBEBF8];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return factorLevels;
 }

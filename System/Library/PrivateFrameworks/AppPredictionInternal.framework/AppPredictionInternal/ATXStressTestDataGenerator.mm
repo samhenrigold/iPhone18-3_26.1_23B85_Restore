@@ -17,40 +17,34 @@
 
 - (void)clearAllDataForStressCycler
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   sel_getName(a2);
   v3 = os_transaction_create();
-  [(ATXStressTestDataGenerator *)self clearDataForBehavioralActionPredictions];
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default([(ATXStressTestDataGenerator *)self clearDataForBehavioralActionPredictions]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - clearAllDataForStressCycler finished", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - clearAllDataForStressCycler finished", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)seedAllDataForStressCycler
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   sel_getName(a2);
   v3 = os_transaction_create();
-  [(ATXStressTestDataGenerator *)self generateDataForBehavioralActionPredictions];
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default([(ATXStressTestDataGenerator *)self generateDataForBehavioralActionPredictions]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - seedAllDataForStressCycler finished", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - seedAllDataForStressCycler finished", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupForStressCyclerWithCompletion:(id)completion
@@ -79,24 +73,21 @@
 
 - (void)clearDataForBehavioralActionPredictions
 {
-  v8 = *MEMORY[0x277D85DE8];
-  +[_ATXActionUtils resetActionPredictions];
-  v2 = __atxlog_handle_default();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = __atxlog_handle_default(+[_ATXActionUtils resetActionPredictions]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = objc_opt_class();
     v4 = NSStringFromClass(v3);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "%@ - BehavioralActionPredictions: cleared all action prediction data", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "%@ - BehavioralActionPredictions: cleared all action prediction data", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateDonationPipelineWithIntentsAndNSUAs
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = [ATXAppIntentMonitor alloc];
   v4 = +[_ATXAppLaunchHistogramManager sharedInstance];
   v5 = +[_ATXAppInfoManager sharedInstance];
@@ -104,33 +95,31 @@
   v7 = +[_ATXDataStore sharedInstance];
   v8 = [(ATXAppIntentMonitor *)v3 initWithAppLaunchHistogramManager:v4 appInfoManager:v5 appActionLaunchSequenceManager:v6 dataStore:v7];
 
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __101__ATXStressTestDataGenerator_BehavioralActionPredictions___updateDonationPipelineWithIntentsAndNSUAs__block_invoke;
-  v15[3] = &unk_27859B838;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __101__ATXStressTestDataGenerator_BehavioralActionPredictions___updateDonationPipelineWithIntentsAndNSUAs__block_invoke;
+  v14[3] = &unk_27859B838;
   v9 = v8;
-  v16 = v9;
-  v17 = &v18;
-  [(ATXStressTestDataGenerator *)self enumerateSampleIntentAndUserActivityEventsWithBlock:v15];
-  v10 = __atxlog_handle_default();
+  v15 = v9;
+  v16 = &v17;
+  v10 = __atxlog_handle_default([(ATXStressTestDataGenerator *)self enumerateSampleIntentAndUserActivityEventsWithBlock:v14]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = objc_opt_class();
     v12 = NSStringFromClass(v11);
-    v13 = v19[3];
+    v13 = v18[3];
     *buf = 138412546;
-    v23 = v12;
-    v24 = 2048;
-    v25 = v13;
+    v22 = v12;
+    v23 = 2048;
+    v24 = v13;
     _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "%@ - BehavioralActionPredictions: finished updating donation pipeline with: %lu actions", buf, 0x16u);
   }
 
-  _Block_object_dispose(&v18, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
 }
 
 void __101__ATXStressTestDataGenerator_BehavioralActionPredictions___updateDonationPipelineWithIntentsAndNSUAs__block_invoke(uint64_t a1, void *a2)
@@ -147,115 +136,108 @@ void __101__ATXStressTestDataGenerator_BehavioralActionPredictions___updateDonat
 
 - (void)_updateActionFeedbackWithConfirmsAndRejects
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = +[_ATXDataStore sharedInstance];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __102__ATXStressTestDataGenerator_BehavioralActionPredictions___updateActionFeedbackWithConfirmsAndRejects__block_invoke;
-  v10[3] = &unk_27859B860;
-  v11 = &unk_283A57E90;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __102__ATXStressTestDataGenerator_BehavioralActionPredictions___updateActionFeedbackWithConfirmsAndRejects__block_invoke;
+  v9[3] = &unk_27859B860;
+  v10 = &unk_283A57E90;
   v4 = v3;
-  v12 = v4;
-  v13 = &v14;
-  [(ATXStressTestDataGenerator *)self enumerateSampleIntentAndUserActivityATXActionsWithBlock:v10];
-  v5 = __atxlog_handle_default();
+  v11 = v4;
+  v12 = &v13;
+  v5 = __atxlog_handle_default([(ATXStressTestDataGenerator *)self enumerateSampleIntentAndUserActivityATXActionsWithBlock:v9]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
-    v8 = v15[3];
+    v8 = v14[3];
     *buf = 138412546;
-    v19 = v7;
-    v20 = 2048;
-    v21 = v8;
+    v18 = v7;
+    v19 = 2048;
+    v20 = v8;
     _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%@ - BehavioralActionPredictions: finished updating action feedback %lu times", buf, 0x16u);
   }
 
-  _Block_object_dispose(&v14, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 }
 
 void __102__ATXStressTestDataGenerator_BehavioralActionPredictions___updateActionFeedbackWithConfirmsAndRejects__block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
   obj = *(a1 + 32);
-  v31 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
-  if (v31)
+  v28 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  if (v28)
   {
-    v30 = *v39;
+    v27 = *v36;
     v4 = off_278594000;
-    v5 = 0x277CBE000uLL;
-    v37 = a1;
+    v34 = a1;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v39 != v30)
+        if (*v36 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = v6;
-        v33 = [*(*(&v38 + 1) + 8 * v6) unsignedIntValue];
-        v7 = 3;
+        v29 = v5;
+        v30 = [*(*(&v35 + 1) + 8 * v5) unsignedIntValue];
+        v6 = 3;
         do
         {
-          v36 = v7;
+          v33 = v6;
+          v7 = arc4random_uniform(0xFFFFFFFF) == -1;
           v8 = arc4random_uniform(0xFFFFFFFF) == -1;
-          v9 = arc4random_uniform(0xFFFFFFFF) == -1;
-          v34 = *(a1 + 40);
-          v35 = v9;
-          v10 = v4[204];
-          v11 = [v3 actionKey];
-          v12 = [(__objc2_class *)v10 getActionTypeFromActionKey:v11];
-          v13 = [v3 bundleId];
-          v14 = [v3 slotSet];
-          v15 = [v3 actionUUID];
-          v16 = *(v5 + 2728);
-          v17 = objc_opt_new();
-          LOBYTE(v27) = v33;
-          [v34 recordConfirms:2 rejects:v12 forFeedbackType:v13 forActionType:v3 bundleId:v14 action:v15 slotSet:1.0 actionUUID:0.0 date:v17 consumerSubType:v27 geohash:v8 coarseGeohash:v9];
+          v31 = *(a1 + 40);
+          v32 = v8;
+          v9 = v4[204];
+          v10 = [v3 actionKey];
+          v11 = [(__objc2_class *)v9 getActionTypeFromActionKey:v10];
+          v12 = [v3 bundleId];
+          v13 = [v3 slotSet];
+          v14 = [v3 actionUUID];
+          v15 = objc_opt_new();
+          LOBYTE(v24) = v30;
+          [v31 recordConfirms:2 rejects:v11 forFeedbackType:v12 forActionType:v3 bundleId:v13 action:v14 slotSet:1.0 actionUUID:0.0 date:v15 consumerSubType:v24 geohash:v7 coarseGeohash:v8];
 
-          v18 = *(v37 + 40);
-          v19 = [v3 actionKey];
-          v20 = [_ATXActionUtils getActionTypeFromActionKey:v19];
-          v21 = [v3 bundleId];
-          v22 = [v3 slotSet];
-          v23 = [v3 actionUUID];
-          v24 = objc_opt_new();
-          LOBYTE(v28) = v33;
-          v25 = v18;
-          a1 = v37;
+          v16 = *(v34 + 40);
+          v17 = [v3 actionKey];
+          v18 = [_ATXActionUtils getActionTypeFromActionKey:v17];
+          v19 = [v3 bundleId];
+          v20 = [v3 slotSet];
+          v21 = [v3 actionUUID];
+          v22 = objc_opt_new();
+          LOBYTE(v25) = v30;
+          v23 = v16;
+          a1 = v34;
           v4 = off_278594000;
-          [v25 recordConfirms:2 rejects:v20 forFeedbackType:v21 forActionType:v3 bundleId:v22 action:v23 slotSet:0.0 actionUUID:1.0 date:v24 consumerSubType:v28 geohash:v8 coarseGeohash:v35];
+          [v23 recordConfirms:2 rejects:v18 forFeedbackType:v19 forActionType:v3 bundleId:v20 action:v21 slotSet:0.0 actionUUID:1.0 date:v22 consumerSubType:v25 geohash:v7 coarseGeohash:v32];
 
-          v5 = 0x277CBE000;
-          *(*(*(v37 + 48) + 8) + 24) += 2;
-          v7 = v36 - 1;
+          *(*(*(v34 + 48) + 8) + 24) += 2;
+          v6 = v33 - 1;
         }
 
-        while (v36 != 1);
-        v6 = v32 + 1;
+        while (v33 != 1);
+        v5 = v29 + 1;
       }
 
-      while (v32 + 1 != v31);
-      v31 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+      while (v29 + 1 != v28);
+      v28 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
-    while (v31);
+    while (v28);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_visitWebpageNSUAForURLString:(id)string
@@ -277,7 +259,7 @@ void __102__ATXStressTestDataGenerator_BehavioralActionPredictions___updateActio
 
 - (id)_startCallIntentWithRecipientName:(id)name
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CD3E98];
   nameCopy = name;
   v5 = [[v3 alloc] initWithValue:nameCopy type:0];
@@ -286,32 +268,30 @@ void __102__ATXStressTestDataGenerator_BehavioralActionPredictions___updateActio
 
   v8 = [v6 initWithPersonHandle:v5 nameComponents:0 displayName:nameCopy image:0 contactIdentifier:0 customIdentifier:0];
   v9 = objc_alloc(MEMORY[0x277CD41A8]);
-  v14[0] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v11 = [v9 initWithCallRecordFilter:0 callRecordToCallBack:0 audioRoute:1 destinationType:1 contacts:v10 callCapability:1];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (void)enumerateSampleIntentAndUserActivityATXActionsWithBlock:(id)block
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v38 = +[_ATXAppIconState sharedInstance];
-  allAppsKnownToSpringBoard = [v38 allAppsKnownToSpringBoard];
+  v37 = +[_ATXAppIconState sharedInstance];
+  allAppsKnownToSpringBoard = [v37 allAppsKnownToSpringBoard];
   v6 = [allAppsKnownToSpringBoard subarrayWithRange:{0, 30}];
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = v6;
-  v41 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
-  if (v41)
+  v40 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+  if (v40)
   {
-    v40 = *v46;
+    v39 = *v45;
     v7 = 0x277CCA000uLL;
     v8 = 0x277CCA000uLL;
     v9 = 0x277CEB000uLL;
@@ -320,13 +300,13 @@ void __102__ATXStressTestDataGenerator_BehavioralActionPredictions___updateActio
       v10 = 0;
       do
       {
-        if (*v46 != v40)
+        if (*v45 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v43 = v10;
-        v44 = *(*(&v45 + 1) + 8 * v10);
+        v42 = v10;
+        v43 = *(*(&v44 + 1) + 8 * v10);
         context = objc_autoreleasePoolPush();
         for (i = 0; i != 5; ++i)
         {
@@ -341,8 +321,8 @@ void __102__ATXStressTestDataGenerator_BehavioralActionPredictions___updateActio
           v19 = objc_alloc(*(v9 + 712));
           v20 = v9;
           v21 = objc_opt_new();
-          LOBYTE(v37) = 0;
-          v22 = [v19 initWithNSUserActivity:v17 actionUUID:v21 bundleId:v44 contentAttributeSet:0 itemIdentifier:0 heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v37 title:v16 subtitle:v16];
+          LOBYTE(v36) = 0;
+          v22 = [v19 initWithNSUserActivity:v17 actionUUID:v21 bundleId:v43 contentAttributeSet:0 itemIdentifier:0 heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v36 title:v16 subtitle:v16];
 
           v23 = objc_autoreleasePoolPush();
           blockCopy[2](blockCopy, v22);
@@ -365,8 +345,8 @@ void __102__ATXStressTestDataGenerator_BehavioralActionPredictions___updateActio
           v29 = [(ATXStressTestDataGenerator *)self _startCallIntentWithRecipientName:v28];
           v30 = objc_alloc(*(v9 + 712));
           v31 = objc_opt_new();
-          LOBYTE(v36) = 0;
-          v32 = [v30 initWithIntent:v29 actionUUID:v31 bundleId:v44 heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v36 title:v28 subtitle:v28];
+          LOBYTE(v35) = 0;
+          v32 = [v30 initWithIntent:v29 actionUUID:v31 bundleId:v43 heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v35 title:v28 subtitle:v28];
 
           v33 = objc_autoreleasePoolPush();
           blockCopy[2](blockCopy, v32);
@@ -381,17 +361,15 @@ void __102__ATXStressTestDataGenerator_BehavioralActionPredictions___updateActio
         }
 
         objc_autoreleasePoolPop(context);
-        v10 = v43 + 1;
+        v10 = v42 + 1;
       }
 
-      while (v43 + 1 != v41);
-      v41 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+      while (v42 + 1 != v40);
+      v40 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
     }
 
-    while (v41);
+    while (v40);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateSampleIntentAndUserActivityEventsWithBlock:(id)block

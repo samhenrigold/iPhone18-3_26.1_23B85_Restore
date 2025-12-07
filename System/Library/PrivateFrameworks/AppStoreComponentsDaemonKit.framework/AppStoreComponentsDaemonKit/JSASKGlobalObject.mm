@@ -8,19 +8,17 @@
 
 - (JSExport)loc
 {
-  v2 = *(self + OBJC_IVAR____TtC27AppStoreComponentsDaemonKit17JSASKGlobalObject_loc);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (NSDictionary)props
 {
-  v2 = *(self + OBJC_IVAR____TtC27AppStoreComponentsDaemonKit17JSASKGlobalObject_props);
 
-  v3 = sub_2227390FC();
+  v2 = sub_2227390FC();
 
-  return v3;
+  return v2;
 }
 
 - (_TtC27AppStoreComponentsDaemonKit17JSASKGlobalObject)init

@@ -57,7 +57,6 @@
   *(v5 + 16) = v4;
   v6 = (self + OBJC_IVAR___PFAnalyticsEvent_payloadGenerator);
   swift_beginAccess();
-  v7 = v6[1];
   *v6 = sub_1D914DAA4;
   v6[1] = v5;
 }
@@ -157,16 +156,24 @@
 
 + (id)downloadedFileHasiPodLibraryURLWithDiscoveryPoint:(id)point path:(id)path source:(id)source
 {
-  sub_1D917820C();
-  sub_1D917820C();
+  v6 = sub_1D917820C();
+  v8 = v7;
+  v9 = sub_1D917820C();
+  v11 = v10;
   if (source)
   {
-    sub_1D917820C();
+    v12 = sub_1D917820C();
+    source = v13;
   }
 
-  v6 = _s18PodcastsFoundation14AnalyticsEventC31downloadedFileHasiPodLibraryURL14discoveryPoint4path6sourceACSS_S2SSgtFZ_0();
+  else
+  {
+    v12 = 0;
+  }
 
-  return v6;
+  v14 = _s18PodcastsFoundation14AnalyticsEventC31downloadedFileHasiPodLibraryURL14discoveryPoint4path6sourceACSS_S2SSgtFZ_0(v6, v8, v9, v11, v12, source);
+
+  return v14;
 }
 
 + (id)episodeDurationComparisonWithEpisodeAdamId:(int64_t)id duration:(double)duration
@@ -187,14 +194,13 @@
 {
   v9 = sub_1D9176E3C();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x1EEE9AC00](v9);
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D9176DFC();
-  v14 = _s18PodcastsFoundation14AnalyticsEventC19darkDownloadsChange7wasDark02isI06reason12previousExitACSb_SbSo06PFDarkG6ReasonV0B04DateVtFZ_0(dark, isDark, reason);
-  (*(v10 + 8))(v13, v9);
+  v13 = _s18PodcastsFoundation14AnalyticsEventC19darkDownloadsChange7wasDark02isI06reason12previousExitACSb_SbSo06PFDarkG6ReasonV0B04DateVtFZ_0(dark, isDark, reason);
+  (*(v10 + 8))(v12, v9);
 
-  return v14;
+  return v13;
 }
 
 + (id)transcriptAlignmentFailedWithReason:(id)reason

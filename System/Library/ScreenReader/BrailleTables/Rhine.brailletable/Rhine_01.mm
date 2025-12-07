@@ -305,7 +305,7 @@ LABEL_82:
   return 1;
 }
 
-BOOL bwd_fetch_ueb_char(_BYTE *a1, char *__s1)
+uint64_t bwd_fetch_ueb_char(_BYTE *a1, char *__s1)
 {
   v4 = *(&stru_20.cmd + pLangGlb);
   v5 = 33;
@@ -439,7 +439,7 @@ uint64_t bwd_char(uint64_t result)
   return result;
 }
 
-uint64_t bwd_string(_BYTE *a1)
+uint64_t bwd_string(char *a1)
 {
   v2 = a1 + 1;
   v1 = *a1;
@@ -480,13 +480,12 @@ BOOL bwd_is_number(_BYTE *a1)
     v3 = 0;
     if (v2 == 39)
     {
-      v6 = 1;
+      v5 = 1;
       goto LABEL_15;
     }
 
     if (v2 == 30)
     {
-      v4 = a1[2] - 107;
       v3 = 1;
       result = 1;
       if (a1[2] - 107 > 0xFFFFFFF5)
@@ -503,12 +502,12 @@ BOOL bwd_is_number(_BYTE *a1)
 
   if (v2 == stru_B8.segname[pLangGlb + 1])
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
     if (v2 != stru_B8.segname[pLangGlb + 2])
     {
       goto LABEL_16;
@@ -522,7 +521,7 @@ LABEL_15:
   }
 
 LABEL_16:
-  v7 = nLangIDGlb;
+  v6 = nLangIDGlb;
   if (nLangIDGlb != 9)
   {
     if (!v3)
@@ -541,31 +540,31 @@ LABEL_16:
   if (v3)
   {
 LABEL_24:
-    v8 = a1[2];
-    if ((v8 == 39 || v8 == stru_B8.segname[pLangGlb + 1] || v8 == stru_B8.segname[pLangGlb + 2]) && a1[3] - 107 > 0xFFFFFFF5)
+    v7 = a1[2];
+    if ((v7 == 39 || v7 == stru_B8.segname[pLangGlb + 1] || v7 == stru_B8.segname[pLangGlb + 2]) && a1[3] - 107 > 0xFFFFFFF5)
     {
       return 1;
     }
 
-    v9 = v3 ^ 1;
-    if (v7 != 9)
+    v8 = v3 ^ 1;
+    if (v6 != 9)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
-    if ((v9 & 1) == 0 && v8 <= 0x2D && ((1 << v8) & 0x209000000000) != 0 && a1[3] && memchr(",;:/?+=(*)", a1[3], 0xBuLL))
+    if ((v8 & 1) == 0 && v7 <= 0x2D && ((1 << v7) & 0x209000000000) != 0 && a1[3] && memchr(",;:/?+=(*)", a1[3], 0xBuLL))
     {
       return 1;
     }
   }
 
 LABEL_35:
-  if (((v6 & 1) != 0 || v2 == stru_B8.segname[pLangGlb + 1] || v2 == stru_B8.segname[pLangGlb + 2]) && a1[2] == 30 && a1[3] - 107 > 0xFFFFFFF5)
+  if (((v5 & 1) != 0 || v2 == stru_B8.segname[pLangGlb + 1] || v2 == stru_B8.segname[pLangGlb + 2]) && a1[2] == 30 && a1[3] - 107 > 0xFFFFFFF5)
   {
     return 1;
   }
 
-  if (v7 == 9)
+  if (v6 == 9)
   {
     if (v2 > 0x2D || ((1 << v2) & 0x209000000000) == 0 || a1[2] != 30 || !a1[3] || !memchr(",;:/?+=(*)", a1[3], 0xBuLL))
     {
@@ -575,7 +574,7 @@ LABEL_35:
     return 1;
   }
 
-  if (v7 != 7)
+  if (v6 != 7)
   {
     goto LABEL_64;
   }
@@ -590,8 +589,8 @@ LABEL_35:
     goto LABEL_64;
   }
 
-  v10 = a1[2];
-  if (v10 == 46 || v10 == 44)
+  v9 = a1[2];
+  if (v9 == 46 || v9 == 44)
   {
     if (a1[3] == 30 && a1[4] - 107 > 0xFFFFFFF5)
     {
@@ -599,14 +598,14 @@ LABEL_35:
     }
   }
 
-  else if (v10 == 30 && (a1[3] | 2) == 0x2E && a1[4] - 107 >= 0xFFFFFFF6)
+  else if (v9 == 30 && (a1[3] | 2) == 0x2E && a1[4] - 107 >= 0xFFFFFFF6)
   {
     return 1;
   }
 
 LABEL_64:
   result = 0;
-  if (v7 == 12 || (lFlags & 0x40000000) != 0)
+  if (v6 == 12 || (lFlags & 0x40000000) != 0)
   {
     return result;
   }
@@ -627,20 +626,20 @@ LABEL_75:
     return 0;
   }
 
-  v11 = memchr(",;:/?+=(*)", v2, 0xBuLL);
-  v12 = v11 == 0;
-  result = v11 != 0;
-  if (v12)
+  v10 = memchr(",;:/?+=(*)", v2, 0xBuLL);
+  v11 = v10 == 0;
+  result = v10 != 0;
+  if (v11)
   {
-    v13 = v3;
+    v12 = v3;
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  if (v13)
+  if (v12)
   {
     goto LABEL_75;
   }
@@ -763,7 +762,7 @@ void bwd_add_space()
   qword_9D7B0 = v0 + 1;
 }
 
-uint64_t bwd_keep_contraction()
+BOOL bwd_keep_contraction()
 {
   v0 = qword_9D7D0;
   if (qword_9D7B0 - qword_9D7D0 < 2)
@@ -802,15 +801,7 @@ uint64_t bwd_keep_contraction()
       }
     }
 
-    if (nLangIDGlb == 12)
-    {
-      return no_exception(1, "\tq.\x01[82cklmntvx])\x01[bdlms]=\x01[9aekx]+\x01", (qword_9D7B0 - 2));
-    }
-
-    else
-    {
-      return 0;
-    }
+    return nLangIDGlb == 12 && no_exception(1, "\tq.\x01[82cklmntvx])\x01[bdlms]=\x01[9aekx]+\x01", (qword_9D7B0 - 2));
   }
 }
 
@@ -1744,17 +1735,7 @@ LABEL_246:
       }
 
 LABEL_247:
-      if (no_exception(1, *(&stru_20.vmsize + v103), v101))
-      {
-        v105 = v139 - v101 < 2;
-      }
-
-      else
-      {
-        v105 = 1;
-      }
-
-      if (v105)
+      if (!no_exception(1, *(&stru_20.vmsize + v103), v101) || v139 - v101 < 2)
       {
         v106 = &unk_9D000;
       }
@@ -1954,7 +1935,7 @@ LABEL_17:
   }
 }
 
-uint64_t bwd_add_rightchars()
+BOOL bwd_add_rightchars()
 {
   v0 = pBwdLangGlb;
   v1 = qword_9D7E8;
@@ -2022,16 +2003,13 @@ uint64_t bwd_add_rightchars()
     if (nLangIDGlb == 9 && nSubLangIDGlb == 3 && *qword_9D7E8 == 39)
     {
       v12 = (qword_9D7E8 + 1);
-      if (no_exception(1, *(&stru_20.vmsize + pBwdLangGlb), (qword_9D7E8 + 1)))
+      if (no_exception(1, *(&stru_20.vmsize + pBwdLangGlb), (qword_9D7E8 + 1)) && v1[2] >= 0x21u)
       {
-        if (v1[2] >= 0x21u)
-        {
-          qword_9D7E8 = v12;
-          *(v5 + 1) = *v12;
-          v7 = (v5 + 2);
-          qword_9D7B0 = v5 + 2;
-          v1 = qword_9D7E8;
-        }
+        qword_9D7E8 = v12;
+        *(v5 + 1) = *v12;
+        v7 = (v5 + 2);
+        qword_9D7B0 = v5 + 2;
+        v1 = qword_9D7E8;
       }
     }
 
@@ -2391,7 +2369,7 @@ unint64_t bwd_generic_abbrev(_BYTE *a1)
   }
 }
 
-uint64_t bwd_terminate_abbrev()
+BOOL bwd_terminate_abbrev()
 {
   v0 = qword_9D7B0;
   v1 = qword_9D7B0;
@@ -9526,16 +9504,16 @@ LABEL_2097:
   }
 }
 
-id sub_1B834()
+id sub_1B834(uint64_t a1)
 {
   if (qword_9D968 != -1)
   {
     sub_1C220();
   }
 
-  v1 = qword_9D960;
+  v2 = qword_9D960;
 
-  return v1;
+  return v2;
 }
 
 void sub_1C0B0(id a1)

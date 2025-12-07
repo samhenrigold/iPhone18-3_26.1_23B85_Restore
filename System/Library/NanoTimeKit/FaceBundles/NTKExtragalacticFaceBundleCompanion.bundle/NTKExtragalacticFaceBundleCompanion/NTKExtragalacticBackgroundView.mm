@@ -6,10 +6,10 @@
 
 - (NTKExtragalacticBackgroundView)initWithFrame:(CGRect)frame
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v33.receiver = self;
-  v33.super_class = NTKExtragalacticBackgroundView;
-  v3 = [(NTKExtragalacticBackgroundView *)&v33 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v34 = *MEMORY[0x277D85DE8];
+  v32.receiver = self;
+  v32.super_class = NTKExtragalacticBackgroundView;
+  v3 = [(NTKExtragalacticBackgroundView *)&v32 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     blackColor = [MEMORY[0x277D75348] blackColor];
@@ -23,27 +23,27 @@
     backgroundLayers = v3->_backgroundLayers;
     v3->_backgroundLayers = v7;
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     obj = +[NTKExtragalacticLayoutHelper allCorners];
-    v9 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v9 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v30;
+      v11 = *v29;
       do
       {
         v12 = 0;
         do
         {
-          if (*v30 != v11)
+          if (*v29 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v29 + 1) + 8 * v12);
+          v13 = *(*(&v28 + 1) + 8 * v12);
           unsignedIntegerValue = [v13 unsignedIntegerValue];
           v15 = [NTKExtragalacticColors identityColorForCorner:unsignedIntegerValue];
           [(NSMutableArray *)v3->_backgroundColors setObject:v15 atIndexedSubscript:unsignedIntegerValue];
@@ -70,14 +70,13 @@
         }
 
         while (v10 != v12);
-        v10 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v10 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v10);
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

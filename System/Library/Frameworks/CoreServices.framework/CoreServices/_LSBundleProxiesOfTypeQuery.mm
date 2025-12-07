@@ -43,17 +43,16 @@ LABEL_4:
   v5 = 0;
   if (requirements && data && context)
   {
-    exactIdentifier = data->base.exactIdentifier;
     [(_LSDatabase *)context->db store];
-    v10 = _CSStringCopyCFString();
-    if (!v10)
+    v9 = _CSStringCopyCFString();
+    if (!v9)
     {
       goto LABEL_11;
     }
 
     if ([(_LSBundleProxiesOfTypeQuery *)self type]== 5)
     {
-      v11 = data->_clas == 13;
+      v10 = data->_clas == 13;
       goto LABEL_7;
     }
 
@@ -66,7 +65,7 @@ LABEL_4:
     clas = data->_clas;
     if (type == 7)
     {
-      v11 = clas == 14;
+      v10 = clas == 14;
       goto LABEL_7;
     }
 
@@ -83,10 +82,10 @@ LABEL_4:
             goto LABEL_11;
           }
 
-          v16 = +[LSApplicationRestrictionsManager sharedInstance];
-          v17 = [(LSApplicationRestrictionsManager *)v16 isApplicationRestricted:v10 checkFeatureRestrictions:1];
+          v15 = +[LSApplicationRestrictionsManager sharedInstance];
+          v16 = [(LSApplicationRestrictionsManager *)v15 isApplicationRestricted:v9 checkFeatureRestrictions:1];
 
-          if (v17)
+          if (v16)
           {
             goto LABEL_11;
           }
@@ -119,15 +118,13 @@ LABEL_4:
         }
       }
 
-      vendorName = data->vendorName;
-      v19 = _LSDatabaseGetNSStringFromString(context->db);
-      v20 = v19;
-      if (!v19 || (v21 = [v19 isEqualToString:@"Hidden"], v20, (v21 & 1) == 0))
+      v17 = _LSDatabaseGetNSStringFromString(context->db, data->vendorName);
+      v18 = v17;
+      if (!v17 || (v19 = [v17 isEqualToString:@"Hidden"], v18, (v19 & 1) == 0))
       {
-        v22 = data->vendorName;
-        v23 = _LSDatabaseGetNSStringFromString(context->db);
-        v24 = v23;
-        if (!v23 || (v25 = [v23 isEqualToString:@"SystemAppPlaceholder"], v24, (v25 & 1) == 0))
+        v20 = _LSDatabaseGetNSStringFromString(context->db, data->vendorName);
+        v21 = v20;
+        if (!v20 || (v22 = [v20 isEqualToString:@"SystemAppPlaceholder"], v21, (v22 & 1) == 0))
         {
           if (![(_LSBundleProxiesOfTypeQuery *)self type])
           {
@@ -135,9 +132,9 @@ LABEL_4:
             goto LABEL_12;
           }
 
-          v11 = (data->_bundleFlags & 0x200) == 0;
+          v10 = (data->_bundleFlags & 0x200) == 0;
 LABEL_7:
-          v5 = v11;
+          v5 = v10;
           goto LABEL_12;
         }
       }

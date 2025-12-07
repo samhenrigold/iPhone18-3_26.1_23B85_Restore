@@ -68,7 +68,6 @@
   objc_storeStrong(&v7, 0);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)syncAnisetteForContext:(id)context withSIMData:(id)data completion:(id)completion
@@ -109,7 +108,6 @@
   objc_storeStrong(&v12, 0);
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)eraseAnisetteForContext:(id)context withCompletion:(id)completion
@@ -147,7 +145,6 @@
   objc_storeStrong(&v7, 0);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAnisetteDataForContext:(id)context provisionIfNecessary:(BOOL)necessary withCompletion:(id)completion
@@ -186,7 +183,6 @@
   objc_storeStrong(&v9, 0);
   objc_storeStrong(&v12, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)legacyAnisetteDataForContext:(id)context DSID:(id)d withCompletion:(id)completion
@@ -227,7 +223,6 @@
   objc_storeStrong(&v12, 0);
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPeerAttestationDataForContext:(id)context withRequest:(id)request completion:(id)completion
@@ -299,7 +294,6 @@
   objc_storeStrong(&v18, 0);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -7,29 +7,29 @@
 
 + (int)clipsLocationUsage
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(PUILocationServicesClipsListController);
   [(PUILocationServicesClipsListController *)v2 specifiers];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v3 = v17 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = v16 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        identifier = [*(*(&v14 + 1) + 8 * i) identifier];
+        identifier = [*(*(&v13 + 1) + 8 * i) identifier];
         v10 = [(PUILocationServicesListController *)v2 locationUsageForEntity:identifier];
 
         if (v10 == 4)
@@ -52,7 +52,7 @@
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -69,13 +69,12 @@
 
 LABEL_20:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)specifiers
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.super.isa + v3);
   if (!v4)
@@ -86,23 +85,23 @@ LABEL_20:
     [v6 setObject:v7 forKeyedSubscript:*MEMORY[0x277D3FF88]];
 
     [v5 addObject:v6];
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2020000000;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
     v8 = getCLCopyAppsUsingLocationSymbolLoc_ptr;
-    v24 = getCLCopyAppsUsingLocationSymbolLoc_ptr;
+    v23 = getCLCopyAppsUsingLocationSymbolLoc_ptr;
     if (!getCLCopyAppsUsingLocationSymbolLoc_ptr)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v26 = __getCLCopyAppsUsingLocationSymbolLoc_block_invoke;
-      v27 = &unk_279BA0D08;
-      v28 = &v21;
+      v25 = __getCLCopyAppsUsingLocationSymbolLoc_block_invoke;
+      v26 = &unk_279BA0D08;
+      v27 = &v20;
       __getCLCopyAppsUsingLocationSymbolLoc_block_invoke(&buf);
-      v8 = v22[3];
+      v8 = v21[3];
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
     if (!v8)
     {
       [PUILockdownModeController getEligibleDevicesWithCompletion:];
@@ -110,7 +109,7 @@ LABEL_20:
     }
 
     v9 = v8();
-    v10 = _PUILoggingFacility();
+    v10 = _PUILoggingFacility(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
@@ -140,8 +139,6 @@ LABEL_20:
     [(PUILocationServicesListController *)self updateSpecifiersForImposedSettingsWithReload:0];
     v4 = *(&self->super.super.super.super.super.super.isa + v3);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

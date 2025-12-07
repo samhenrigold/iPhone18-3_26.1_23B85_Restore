@@ -167,7 +167,7 @@
 
 + (void)_updateCondition:(void *)condition usingPredicate:
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v4 = a2;
   conditionCopy = condition;
   v6 = objc_opt_self();
@@ -230,12 +230,12 @@ LABEL_36:
     }
 
     v12 = v11;
-    v31 = objc_opt_self();
+    v30 = objc_opt_self();
     subpredicates = [v12 subpredicates];
 
     if ([subpredicates count] == 2)
     {
-      v30 = v11;
+      v29 = v11;
       v14 = [subpredicates objectAtIndexedSubscript:0];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -264,12 +264,12 @@ LABEL_36:
 
       v19 = v18;
 
-      v20 = [(HMCameraBulletinBoardNotificationCondition *)v31 isDateComponentsComparisonPredicate:v16];
+      v20 = [(HMCameraBulletinBoardNotificationCondition *)v30 isDateComponentsComparisonPredicate:v16];
       if (v20)
       {
-        v21 = [(HMCameraBulletinBoardNotificationCondition *)v31 isDateComponentsComparisonPredicate:v19];
+        v21 = [(HMCameraBulletinBoardNotificationCondition *)v30 isDateComponentsComparisonPredicate:v19];
 
-        v11 = v30;
+        v11 = v29;
         if (v21)
         {
           [v4 setDateComponentsPredicate:v12];
@@ -281,33 +281,33 @@ LABEL_35:
         goto LABEL_27;
       }
 
-      v11 = v30;
+      v11 = v29;
     }
 
 LABEL_27:
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     subpredicates2 = [v12 subpredicates];
-    v25 = [subpredicates2 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v25 = [subpredicates2 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v33;
+      v27 = *v32;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v33 != v27)
+          if (*v32 != v27)
           {
             objc_enumerationMutation(subpredicates2);
           }
 
-          [(HMCameraBulletinBoardNotificationCondition *)v6 _updateCondition:v4 usingPredicate:*(*(&v32 + 1) + 8 * i)];
+          [(HMCameraBulletinBoardNotificationCondition *)v6 _updateCondition:v4 usingPredicate:*(*(&v31 + 1) + 8 * i)];
         }
 
-        v26 = [subpredicates2 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v26 = [subpredicates2 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v26);
@@ -320,8 +320,6 @@ LABEL_34:
 
   [v4 setSignificantEventReasonCondition:v7];
 LABEL_37:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 + (uint64_t)isDateComponentsComparisonPredicate:(uint64_t)predicate
